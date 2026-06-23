@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug ASM (breaks at DS.EXE entry point)",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "${workspaceFolder}/debug_asm.sh",
+            "console": "externalTerminal",
+            "preLaunchTask": "Build ASM",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+}

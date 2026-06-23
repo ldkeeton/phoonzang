@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build ASM",
+            "type": "shell",
+            "command": "make",
+            "args": ["-C", "decompiled_asm_3", "build"],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Debug ASM (external window)",
+            "type": "shell",
+            "command": "bash debug_asm.sh",
+            "dependsOn": ["Build ASM"],
+            "group": "none",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}
