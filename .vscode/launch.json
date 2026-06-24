@@ -2,10 +2,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug ASM (breaks at DS.EXE entry point)",
+            "name": "Run ASM (dosemu2)",
             "type": "node",
             "request": "launch",
-            "runtimeExecutable": "${workspaceFolder}/debug_asm.sh",
+            "runtimeExecutable": "dosemu",
+            "runtimeArgs": [
+                "-K", "${workspaceFolder}/decompiled_asm_3/build_out",
+                "-E", "DS.EXE",
+                "-S", "-q"
+            ],
             "console": "externalTerminal",
             "preLaunchTask": "Build ASM",
             "internalConsoleOptions": "neverOpen"
