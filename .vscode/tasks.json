@@ -8,6 +8,31 @@
             "args": ["-C", "decompiled_asm_3", "build"],
             "group": "build",
             "problemMatcher": []
+        },
+        {
+            "label": "Build GDBSRV",
+            "type": "shell",
+            "command": "make",
+            "args": ["-C", "debugger"],
+            "group": "build",
+            "problemMatcher": [],
+            "dependsOn": ["Build ASM"]
+        },
+        {
+            "label": "Start dosemu + GDBSRV",
+            "type": "shell",
+            "command": "${workspaceFolder}/debugger/start-dosemu.sh",
+            "problemMatcher": [],
+            "dependsOn": ["Build GDBSRV"],
+            "group": "test"
+        },
+        {
+            "label": "Start dosbox-x + GDBSRV",
+            "type": "shell",
+            "command": "${workspaceFolder}/debugger/start-dosbox-x.sh",
+            "problemMatcher": [],
+            "dependsOn": ["Build GDBSRV"],
+            "group": "test"
         }
     ]
 }

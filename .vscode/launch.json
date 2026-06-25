@@ -11,8 +11,27 @@
                 "-E", "DS.EXE",
                 "-X", "-q",
                 "-f", "${workspaceFolder}/.vscode/dosemurc"
-            ], 
-            "preLaunchTask": "Build ASM", 
+            ],
+            "preLaunchTask": "Build ASM",
+        },
+        {
+            "name": "Debug GDBSRV (dosbox-x)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/debugger/build/dummy.elf",
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerServerAddress": "localhost:1234",
+            "stopAtEntry": false,
+            "setupCommands": [
+                { "text": "set architecture i8086", "ignoreFailures": true },
+                { "text": "set disassembly-flavor intel", "ignoreFailures": true },
+                { "text": "set confirm off", "ignoreFailures": true },
+                { "text": "handle SIGALRM nopass", "ignoreFailures": true }
+            ],
+            "preLaunchTask": "Start dosbox-x + GDBSRV",
+            "externalConsole": false
         }
     ]
 }

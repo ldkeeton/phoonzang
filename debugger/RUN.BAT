@@ -1,0 +1,11 @@
+@ECHO OFF
+CLS
+ECHO Loading GDBSRV...
+GDBSRV.COM
+IF ERRORLEVEL 1 GOTO ERR
+ECHO Starting Wizardry 7...
+DS.EXE
+GOTO END
+:ERR
+ECHO Failed to load GDBSRV
+:END
