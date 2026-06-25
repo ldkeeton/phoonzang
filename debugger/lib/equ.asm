@@ -30,4 +30,4 @@ KBF_S equ 0x0040
 KBF_O equ 0x0017
 CTRL  equ 0x04
 DEFHT equ 0x58
-RING_SZ equ 32
+

@@ -54,15 +54,8 @@ ser_putc:
     ret
 
 ser_getc:
-    push ds
     push dx
-    mov dx, cs
-    mov ds, dx
-.g1:
-    mov cl, [ser_ring_r]
-    cmp cl, [ser_ring_w]
-    jne .rr
-    cmp byte [brk_req], 0
+.g1:cmp byte [cs:brk_req], 0
     jne .g_brk
     mov dx, [com]
     add dx, 5
@@ -72,7 +65,6 @@ ser_getc:
     jz .g1
     mov dx, [com]
     in al, dx
-.got:
     push es
     push ax
     mov ax, 0xB800
@@ -81,20 +73,10 @@ ser_getc:
     pop ax
     pop es
     pop dx
-    pop ds
     clc
     ret
-.rr:
-    xor ch, ch
-    mov di, ser_ring
-    add di, cx
-    mov al, [di]
-    inc byte [ser_ring_r]
-    and byte [ser_ring_r], RING_SZ-1
-    jmp .got
 .g_brk:
     pop dx
-    pop ds
     stc
     ret
 

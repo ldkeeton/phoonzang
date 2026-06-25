@@ -190,66 +190,7 @@ int1:
     popa
     iret
 
-; ─── INT 8 (timer tick — background serial poll) ──
-int8:
-    pushf
-    call far [cs:ov8]
 
-    push ax
-    push dx
-    push ds
-    push bp
-    mov bp, sp
-    mov ax, cs
-    mov ds, ax
-
-    mov dx, [com]
-    add dx, 5
-    in al, dx
-    test al, 1
-    jz .clr
-
-    mov dx, [com]
-    in al, dx
-
-    mov di, ser_ring
-    xor ch, ch
-    mov cl, [ser_ring_w]
-    add di, cx
-    mov [di], al
-    inc byte [ser_ring_w]
-    and byte [ser_ring_w], RING_SZ-1
-
-    cmp al, '$'
-    jne .clr
-    cmp byte [in_dbg], 0
-    jne .clr
-
-    mov ax, [bp+8]
-    mov [hk_ip], ax
-    mov ax, [bp+10]
-    mov [hk_cs], ax
-    mov ax, [bp+12]
-    mov [hk_fl], ax
-    mov ax, cs
-    mov [bp+10], ax
-    mov word [bp+8], gdb_en
-    and word [bp+12], ~0x100
-    or word [bp+12], 0x200
-
-.clr:
-    push es
-    mov ax, 0xB800
-    mov es, ax
-    mov byte [es:156], 0xB0
-    mov byte [es:158], 0xB0
-    pop es
-
-    pop bp
-    pop ds
-    pop dx
-    pop ax
-    iret
 
 ; ─── INT 9 (keyboard hotkey) ────────────────────────
 int9:

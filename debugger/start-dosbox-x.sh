@@ -6,29 +6,7 @@ DIR="$(dirname "$0")"
 BUILD="$DIR/build"
 DOSBOX=$(command -v dosbox-x 2>/dev/null || echo "/usr/bin/dosbox-x")
 
-# Try graceful shutdown of old TSR via serial
-if ss -tlnp 2>/dev/null | grep -q :1234; then
-    echo "Sending shutdown to old TSR..."
-    python3 -c "
-import socket, time
-try:
-    s = socket.socket()
-    s.settimeout(2)
-    s.connect(('localhost', 1234))
-    time.sleep(0.3)
-    try: s.recv(1024)
-    except: pass
-    s.send(b'\$k#6b')  # GDB kill packet
-    time.sleep(0.5)
-    try: s.recv(1024)
-    except: pass
-    s.close()
-except: pass
-" 2>/dev/null || true
-    sleep 1
-fi
-
-# Force-kill stale process by port
+# Kill any old process holding port 1234
 fuser -k -KILL 1234/tcp 2>/dev/null || true
 for i in $(seq 1 10); do
     if ! ss -tlnp 2>/dev/null | grep -q :1234; then

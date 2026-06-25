@@ -364,10 +364,6 @@ restore_vecs:
     mov dx, [ov9]
     mov ax, 0x2509
     int 0x21
-    mov ds, [ov8+2]
-    mov dx, [ov8]
-    mov ax, 0x2508
-    int 0x21
     mov ds, [ov2f+2]
     mov dx, [ov2f]
     mov ax, 0x252F
