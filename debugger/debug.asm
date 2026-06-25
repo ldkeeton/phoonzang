@@ -1,11 +1,13 @@
 ; debug.asm — direct-entry GDB stub (no TSR, no hotkey)
 ;
 ; Build:   nasm -O0 -f bin -o debug.com debug.asm
-; Usage:   dosemu -E DEBUG
+; Usage:   dosbox-x / dosemu
 ; GDB:     target remote :1234
 
 BITS 16
+%ifidn __OUTPUT_FORMAT__, bin
 ORG 0x100
+%endif
 
     jmp entry
 
@@ -21,22 +23,52 @@ ORG 0x100
 entry:
     call ser_init
 
-    mov [sreg+R_CS], cs
-    mov [sreg+R_SS], ss
-    mov [sreg+R_SP], sp
-    mov word [sreg+R_IP], entry
+    ; save original int3/int1 vectors
+    mov ax, 0x3503
+    int 0x21
+    mov [ov3], bx
+    mov [ov3+2], es
+    mov ax, 0x3501
+    int 0x21
+    mov [ov1], bx
+    mov [ov1+2], es
 
+    ; install our vectors
+    push ds
+    mov ax, cs
+    mov ds, ax
+    mov dx, int3
+    mov ax, 0x2503
+    int 0x21
+    mov dx, int1
+    mov ax, 0x2501
+    int 0x21
+    pop ds
+
+    ; set up initial state
     mov [hk_ss], ss
     mov [hk_sp], sp
     mov word [bp_cur], -1
 
-    cli
-    mov ax, cs
-    mov ss, ax
-    mov sp, stk_t
+    ; print status
+    mov ah, 9
+    mov dx, msg
+    int 0x21
 
-    sti
-    call gdb_loop
+    ; enter target code
+    call target
 
+    ; restore vectors
+    call restore_vecs
     mov ax, 0x4C00
     int 0x21
+
+target:
+    nop
+    nop
+    int3
+    nop
+    nop
+    ret
+
+msg: db "debug.com running", 0x0D, 0x0A, "$"

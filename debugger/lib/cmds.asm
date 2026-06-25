@@ -3,12 +3,8 @@
 ; ─── GDB command loop ───────────────────────────────
 ; Called from interrupt handlers; returns when continue/step/detach
 gdb_loop:
-    cmp byte [brk_req], 0
-    je .nb
-    mov byte [brk_req], 0
-    call pkt_send_brk
-.nb:call pkt_read
-    jc .exit                ; break requested — exit debug loop
+    call clr_ind
+    call pkt_read
 
     mov al, [rbuf]
     cmp al, '?'
@@ -42,8 +38,6 @@ gdb_loop:
     mov si, s_emp
     call pkt_send
     jmp gdb_loop
-
-.exit:ret
 
 .c_h:  jmp cmd_halt
 .c_H:  jmp cmd_H
@@ -221,12 +215,14 @@ cmd_cont:
     call bp_rest
     mov word [bp_cur], -1
     call bp_patch
+    call clr_ind
     or word [sreg+R_FL], 0x100
     pop ax
     ret
 .cn2:call bp_patch
     mov byte [st_usr], 0
     and word [sreg+R_FL], ~0x100
+    call clr_ind
     pop ax
     ret
 
@@ -247,12 +243,14 @@ cmd_step:
     call bp_rest
     mov word [bp_cur], -1
     call bp_patch
+    call clr_ind
     or word [sreg+R_FL], 0x100
     pop ax
     ret
 .sn2:call bp_patch
     mov byte [st_usr], 1
     mov byte [st_cont], 0
+    call clr_ind
     or word [sreg+R_FL], 0x100
     pop ax
     ret
@@ -294,6 +292,7 @@ cmd_kill:
 cmd_det:
     mov si, s_ok
     call pkt_send
+    call clr_ind
     pop ax
     ret
 
@@ -351,19 +350,21 @@ restore_vecs:
     push ds
     mov ax, [ov3+2]
     or ax, [ov3]
-    jz .done
+    jz .r1
     mov ds, [ov3+2]
     mov dx, [ov3]
     mov ax, 0x2503
     int 0x21
+.r1:mov ax, [ov1+2]
+    or ax, [ov1]
+    jz .r2
     mov ds, [ov1+2]
     mov dx, [ov1]
     mov ax, 0x2501
     int 0x21
-    mov ds, [ov9+2]
-    mov dx, [ov9]
-    mov ax, 0x2509
-    int 0x21
+.r2:mov ax, [ov2f+2]
+    or ax, [ov2f]
+    jz .done
     mov ds, [ov2f+2]
     mov dx, [ov2f]
     mov ax, 0x252F

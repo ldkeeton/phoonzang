@@ -1,30 +1,9 @@
 ; init.asm — transient initialization (freed after TSR)
 
-msg_ok: db "GDBSRV loaded — Ctrl+F12 to break", 0x0D, 0x0A, "$"
+msg_ok: db "GDBSRV loaded", 0x0D, 0x0A, "$"
 msg_al: db "GDBSRV already installed", 0x0D, 0x0A, "$"
 
 init:
-    ; command line: byte 80h = length, 81h+ = ascii hex scancode
-    mov si, 0x80
-    lodsb
-    cmp al, 0
-    je .noarg
-    xor cx, cx
-    mov cl, al
-.sk:lodsb
-    cmp al, ' '
-    jne .gk
-    loop .sk
-    jmp .noarg
-.gk:dec si
-    xor dx, dx
-.pk:lodsb
-    call gnib
-    shl dx, 4
-    or dl, al
-    loop .pk
-    mov [hkey], dl
-.noarg:
     ; check already installed
     mov ax, 0x3503
     int 0x21
@@ -44,11 +23,6 @@ init:
     int 0x21
     mov [ov1], bx
     mov [ov1+2], es
-
-    mov ax, 0x3509
-    int 0x21
-    mov [ov9], bx
-    mov [ov9+2], es
     mov ax, 0x352F
     int 0x21
     mov [ov2f], bx
@@ -62,9 +36,6 @@ init:
     int 0x21
     mov dx, int1
     mov ax, 0x2501
-    int 0x21
-    mov dx, int9
-    mov ax, 0x2509
     int 0x21
     mov dx, int2f
     mov ax, 0x252F

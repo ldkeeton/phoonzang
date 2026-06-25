@@ -55,9 +55,7 @@ ser_putc:
 
 ser_getc:
     push dx
-.g1:cmp byte [cs:brk_req], 0
-    jne .g_brk
-    mov dx, [com]
+.g1:mov dx, [com]
     add dx, 5
     sti
     in al, dx
@@ -75,23 +73,14 @@ ser_getc:
     pop dx
     clc
     ret
-.g_brk:
-    pop dx
-    stc
-    ret
 
-ser_poll:
-    push dx
-    mov dx, [com]
-    add dx, 5
-    in al, dx
-    test al, 1
-    jz .np
-    mov dx, [com]
-    in al, dx
-    pop dx
-    clc
-    ret
-.np:pop dx
-    stc
+clr_ind:
+    push es
+    push ax
+    mov ax, 0xB800
+    mov es, ax
+    mov byte [es:156], 0xB0
+    mov byte [es:158], 0xB0
+    pop ax
+    pop es
     ret

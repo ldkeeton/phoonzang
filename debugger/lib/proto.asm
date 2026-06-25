@@ -42,27 +42,17 @@ pkt_send_trap:
     mov si, s_trap
     jmp pkt_send
 
-pkt_send_brk:
-    mov si, s_brk
-    jmp pkt_send
-
 ; ─── GDB packet read ────────────────────────────────
-; Returns CX=length, SI=rbuf. Carry if break requested.
+; Returns CX=length, SI=rbuf.
 pkt_read:
     push di
     push ax
     push bx
     mov di, rbuf
-.wd:cmp byte [brk_req], 0
-    jne .bk
-    call ser_getc
-    jc .bk
+.wd:call ser_getc
     cmp al, '$'
     jne .wd
     jmp .go
-.bk:mov byte [brk_req], 0
-    stc
-    jmp .px
 .go:xor cx, cx
 .rl:call ser_getc
     cmp al, '#'

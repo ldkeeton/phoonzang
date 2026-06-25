@@ -25,9 +25,4 @@ STK_SZ equ 256
 %define R_GS 60
 SAVE_L equ 64
 
-; keyboard
-KBF_S equ 0x0040
-KBF_O equ 0x0017
-CTRL  equ 0x04
-DEFHT equ 0x58
 

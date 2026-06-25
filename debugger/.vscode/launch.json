@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "GDB test.com (TSR + test)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/debugger/build/test.elf",
+            "miDebuggerServerAddress": "localhost:1234",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "cwd": "${workspaceFolder}/debugger",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "text": "set architecture i8086",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "GDB debug.com (direct stub)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/debugger/build/debug.elf",
+            "miDebuggerServerAddress": "localhost:1234",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "cwd": "${workspaceFolder}/debugger",
+            "stopAtEntry": false,
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "text": "set architecture i8086",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
