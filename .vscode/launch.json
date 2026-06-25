@@ -9,11 +9,10 @@
             "runtimeArgs": [
                 "-K", "${workspaceFolder}/decompiled_asm_3/build_out",
                 "-E", "DS.EXE",
-                "-S", "-q"
-            ],
-            "console": "externalTerminal",
-            "preLaunchTask": "Build ASM",
-            "internalConsoleOptions": "neverOpen"
+                "-X", "-q",
+                "-f", "${workspaceFolder}/.vscode/dosemurc"
+            ], 
+            "preLaunchTask": "Build ASM", 
         }
     ]
 }
