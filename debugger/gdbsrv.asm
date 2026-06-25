@@ -14,17 +14,17 @@ ORG 0x100
     jmp init
 
 ; ─── Resident modules (stay in memory after TSR) ────
-%include "equ.asm"
-%include "data.asm"
-%include "serial.asm"
-%include "hex.asm"
-%include "proto.asm"
-%include "bp.asm"
-%include "cmds.asm"
-%include "int.asm"
+%include "lib/equ.asm"
+%include "lib/data.asm"
+%include "lib/serial.asm"
+%include "lib/hex.asm"
+%include "lib/proto.asm"
+%include "lib/bp.asm"
+%include "lib/cmds.asm"
+%include "lib/int.asm"
 
 ; ─── End of resident portion ────────────────────────
 resident_end:
 
 ; ─── Transient init (freed after TSR) ──────────────
-%include "init.asm"
+%include "lib/init.asm"

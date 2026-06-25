@@ -75,7 +75,8 @@ pkt_read:
     inc di
     inc cx
     jmp .rl
-.gc:call ser_getc        ; al = high hex char (first after '#')
+.gc:mov byte [di], 0
+    call ser_getc        ; al = high hex char (first after '#')
     push ax              ; save high char
     call ser_getc        ; al = low hex char
     mov bx, ax           ; bl = low char

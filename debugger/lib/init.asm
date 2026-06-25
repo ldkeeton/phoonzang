@@ -44,6 +44,10 @@ init:
     int 0x21
     mov [ov1], bx
     mov [ov1+2], es
+    mov ax, 0x3508
+    int 0x21
+    mov [ov8], bx
+    mov [ov8+2], es
     mov ax, 0x3509
     int 0x21
     mov [ov9], bx
@@ -61,6 +65,9 @@ init:
     int 0x21
     mov dx, int1
     mov ax, 0x2501
+    int 0x21
+    mov dx, int8
+    mov ax, 0x2508
     int 0x21
     mov dx, int9
     mov ax, 0x2509

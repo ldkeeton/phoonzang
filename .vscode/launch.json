@@ -15,7 +15,7 @@
             "preLaunchTask": "Build ASM",
         },
         {
-            "name": "Debug GDBSRV (dosbox-x)",
+            "name": "GDBSRV stub (dosbox-x)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/debugger/build/dummy.elf",
@@ -23,7 +23,7 @@
             "MIMode": "gdb",
             "miDebuggerPath": "/usr/bin/gdb",
             "miDebuggerServerAddress": "localhost:1234",
-            "stopAtEntry": false,
+            "stopAtEntry": true,
             "setupCommands": [
                 { "text": "set architecture i8086", "ignoreFailures": true },
                 { "text": "set disassembly-flavor intel", "ignoreFailures": true },

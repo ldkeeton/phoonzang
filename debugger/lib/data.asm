@@ -2,6 +2,7 @@
 
 ov3:  dd 0
 ov1:  dd 0
+ov8:  dd 0
 ov9:  dd 0
 ov2f: dd 0
 com:  dw COM1
@@ -22,6 +23,10 @@ hk_cs: dw 0
 hk_fl: dw 0
 hk_ss: dw 0
 hk_sp: dw 0
+
+ser_ring:   times RING_SZ db 0
+ser_ring_r: db 0
+ser_ring_w: db 0
 
 sreg: times SAVE_L db 0
 rbuf: times BUF_SZ db 0

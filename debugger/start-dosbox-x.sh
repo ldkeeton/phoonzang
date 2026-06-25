@@ -1,16 +1,41 @@
 #!/bin/bash
-# Start dosbox-x with debug.com (GDB stub) and serial bridge to TCP :1234.
+# Start dosbox-x with gdbsrv TSR + test.com, serial bridge to TCP :1234.
 set -e
 
 DIR="$(dirname "$0")"
-BUILD_OUT="$DIR/../decompiled_asm_3/build_out"
+BUILD="$DIR/build"
+DOSBOX=$(command -v dosbox-x 2>/dev/null || echo "/usr/bin/dosbox-x")
 
-echo "Killing old processes..."
-pkill -9 dosbox-x 2>/dev/null || true
-sleep 1
+# Try graceful shutdown of old TSR via serial
+if ss -tlnp 2>/dev/null | grep -q :1234; then
+    echo "Sending shutdown to old TSR..."
+    python3 -c "
+import socket, time
+try:
+    s = socket.socket()
+    s.settimeout(2)
+    s.connect(('localhost', 1234))
+    time.sleep(0.3)
+    try: s.recv(1024)
+    except: pass
+    s.send(b'\$k#6b')  # GDB kill packet
+    time.sleep(0.5)
+    try: s.recv(1024)
+    except: pass
+    s.close()
+except: pass
+" 2>/dev/null || true
+    sleep 1
+fi
 
-cp "$DIR/build/debug.com" "$BUILD_OUT/"
-cp "$DIR/RUNTEST.BAT"     "$BUILD_OUT/"
+# Force-kill stale process by port
+fuser -k -KILL 1234/tcp 2>/dev/null || true
+for i in $(seq 1 10); do
+    if ! ss -tlnp 2>/dev/null | grep -q :1234; then
+        break
+    fi
+    sleep 0.5
+done
 
 CONFIG=$(mktemp)
 cat > "$CONFIG" << CFG
@@ -26,13 +51,14 @@ windowresolution = 640x400
 output = opengl
 
 [autoexec]
-mount C "$BUILD_OUT"
+mount C "$BUILD"
 C:
-RUNTEST.BAT
+debug.com
+exit
 CFG
 
 echo "Starting dosbox-x..."
-dosbox-x -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1 &
+"$DOSBOX" -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1 &
 DOSBOX_PID=$!
 
 for i in $(seq 1 30); do

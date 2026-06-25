@@ -1,2 +1,0 @@
-$_cpu_vm = "emulated"
-$_cpu_vm_dpmi = "emulated"

@@ -127,11 +127,11 @@ cmd_rmem:
     and bx, 0xF
     mov es, ax
     mov al, [es:bx]
+    mov [di], al
+    inc di
     pop ax
     pop dx
     pop bx
-    mov [di], al
-    inc di
     inc ax
     adc dx, 0
     dec bx
@@ -363,6 +363,10 @@ restore_vecs:
     mov ds, [ov9+2]
     mov dx, [ov9]
     mov ax, 0x2509
+    int 0x21
+    mov ds, [ov8+2]
+    mov dx, [ov8]
+    mov ax, 0x2508
     int 0x21
     mov ds, [ov2f+2]
     mov dx, [ov2f]

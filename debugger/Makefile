@@ -1,11 +1,11 @@
 NASM   := nasm -w-number-overflow
 BUILD  := build
 
-MODULES := equ.asm data.asm serial.asm hex.asm proto.asm bp.asm cmds.asm int.asm init.asm
+MODULES := lib/equ.asm lib/data.asm lib/serial.asm lib/hex.asm lib/proto.asm lib/bp.asm lib/cmds.asm lib/int.asm lib/init.asm
 
 .PHONY: all clean
 
-all: $(BUILD)/gdbsrv.com $(BUILD)/debug.com $(BUILD)/test.com $(BUILD)/dummy.elf
+all: $(BUILD)/gdbsrv.com $(BUILD)/test.com $(BUILD)/dummy.elf $(BUILD)/RUNTEST.BAT
 
 $(BUILD):
 	mkdir -p $@
@@ -21,6 +21,9 @@ $(BUILD)/test.com: test.asm | $(BUILD)
 
 $(BUILD)/dummy.elf: dummy.asm | $(BUILD)
 	$(NASM) -O0 -f elf32 -o $@ $<
+
+$(BUILD)/RUNTEST.BAT: RUNTEST.BAT | $(BUILD)
+	cp $< $@
 
 clean:
 	rm -rf $(BUILD)
