@@ -2,6 +2,31 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "GDB: Launch dosbox-x",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/debugger/build/debug.elf",
+            "miDebuggerServerAddress": "localhost:1234",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "cwd": "${workspaceFolder}/debugger",
+            "preLaunchTask": "Start dosbox-x + GDBSRV",
+            "setupCommands": [
+                {"text": "set architecture i8086", "ignoreFailures": true}
+            ]
+        },
+        {
+            "name": "GDB: Attach (manual dosbox-x)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/debugger/build/debug.elf",
+            "miDebuggerServerAddress": "localhost:1234",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "cwd": "${workspaceFolder}/debugger",
+            "setupCommands": [
+                {"text": "set architecture i8086", "ignoreFailures": true}
+            ]
+        },
+        {
             "name": "Run ASM (dosemu2)",
             "type": "node",
             "request": "launch",
@@ -13,25 +38,6 @@
                 "-f", "${workspaceFolder}/.vscode/dosemurc"
             ],
             "preLaunchTask": "Build ASM",
-        },
-        {
-            "name": "GDBSRV stub (dosbox-x)",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/debugger/build/dummy.elf",
-            "cwd": "${workspaceFolder}",
-            "MIMode": "gdb",
-            "miDebuggerPath": "/usr/bin/gdb",
-            "miDebuggerServerAddress": "localhost:1234",
-            "stopAtEntry": true,
-            "setupCommands": [
-                { "text": "set architecture i8086", "ignoreFailures": true },
-                { "text": "set disassembly-flavor intel", "ignoreFailures": true },
-                { "text": "set confirm off", "ignoreFailures": true },
-                { "text": "handle SIGALRM nopass", "ignoreFailures": true }
-            ],
-            "preLaunchTask": "Start dosbox-x + GDBSRV",
-            "externalConsole": false
         }
     ]
 }

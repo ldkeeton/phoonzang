@@ -1,19 +1,18 @@
 #!/bin/bash
-# Start dosbox-x with gdbsrv TSR + test.com, serial bridge to TCP :1234.
-set -e
+# Start dosbox-x in foreground, emit ready marker immediately.
+# Stays alive until dosbox-x exits (so VSCode background task keeps it alive).
+# The marker is caught by the problemMatcher to signal "task ready".
 
 DIR="$(dirname "$0")"
 BUILD="$DIR/build"
 DOSBOX=$(command -v dosbox-x 2>/dev/null || echo "/usr/bin/dosbox-x")
 
-# Kill any old process holding port 1234
+if ! command -v "$DOSBOX" &>/dev/null; then
+    echo "Error: dosbox-x not found" >&2
+    exit 1
+fi
+
 fuser -k -KILL 1234/tcp 2>/dev/null || true
-for i in $(seq 1 10); do
-    if ! ss -tlnp 2>/dev/null | grep -q :1234; then
-        break
-    fi
-    sleep 0.5
-done
 
 CONFIG=$(mktemp)
 cat > "$CONFIG" << CFG
@@ -25,29 +24,19 @@ serial4 = disabled
 
 [sdl]
 fullscreen = false
-windowresolution = 640x400
+windowresolution = 960x600
 output = opengl
+
+[cpu]
+cputype = 386
 
 [autoexec]
 mount C "$BUILD"
 C:
-RUNTEST
+DEBUG.COM
 CFG
 
 echo "Starting dosbox-x..."
-"$DOSBOX" -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1 &
-DOSBOX_PID=$!
+echo "__READY__"
 
-for i in $(seq 1 30); do
-    if ss -tlnp 2>/dev/null | grep -q :1234; then
-        echo "Serial port 1234 ready (dosbox-x PID $DOSBOX_PID)"
-        sleep 1
-        rm -f "$CONFIG"
-        exit 0
-    fi
-    sleep 0.5
-done
-
-echo "Timeout waiting for port 1234" >&2
-rm -f "$CONFIG"
-exit 1
+exec "$DOSBOX" -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1

@@ -7,7 +7,7 @@ DBG_MODULES := lib/equ.asm lib/data.asm lib/serial.asm lib/hex.asm lib/proto.asm
 
 .PHONY: all clean
 
-all: $(BUILD)/gdbsrv.com $(BUILD)/test.com $(BUILD)/debug.com $(BUILD)/test.elf $(BUILD)/debug.elf $(BUILD)/dummy.elf $(BUILD)/RUNTEST.BAT
+all: $(BUILD)/gdbsrv.com $(BUILD)/test.com $(BUILD)/debug.com $(BUILD)/test.elf $(BUILD)/debug.elf $(BUILD)/dummy.elf  
 
 $(BUILD):
 	mkdir -p $@
@@ -24,16 +24,17 @@ $(BUILD)/test.com: test.asm | $(BUILD)
 
 # elf (symbols for GDB)
 $(BUILD)/test.elf: test.asm | $(BUILD)
-	$(ELFASM) -O0 -f elf32 -F dwarf -o $@ $<
+	$(ELFASM) -O0 -f elf32 -F dwarf -o $@.tmp $<
+	objcopy --adjust-vma=0x100 $@.tmp $@
+	rm -f $@.tmp
 
 $(BUILD)/debug.elf: debug.asm $(DBG_MODULES) | $(BUILD)
-	$(ELFASM) -O0 -f elf32 -F dwarf -o $@ $<
+	$(ELFASM) -O0 -f elf32 -F dwarf -o $@.tmp $<
+	objcopy --adjust-vma=0x100 $@.tmp $@
+	rm -f $@.tmp
 
 $(BUILD)/dummy.elf: dummy.asm | $(BUILD)
 	$(ELFASM) -O0 -f elf32 -o $@ $<
-
-$(BUILD)/RUNTEST.BAT: RUNTEST.BAT | $(BUILD)
-	cp $< $@
-
+ 
 clean:
 	rm -rf $(BUILD)

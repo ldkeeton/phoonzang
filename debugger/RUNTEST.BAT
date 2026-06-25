@@ -1,3 +1,0 @@
-
-GDBSRV.COM
-TEST.COM

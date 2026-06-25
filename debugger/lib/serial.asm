@@ -46,9 +46,16 @@ ser_putc:
     pop ax
     out dx, al
     push es
+    push ax
     mov ax, 0xB800
     mov es, ax
-    mov byte [es:158], 0xDB
+    test byte [ind_act], 1
+    jnz .tx_sh
+    mov ax, [es:158]
+    mov [ind_tx_orig], ax
+    or byte [ind_act], 1
+.tx_sh:mov byte [es:158], 0x18     ; ↑ up arrow = TX
+    pop ax
     pop es
     pop dx
     ret
@@ -67,7 +74,12 @@ ser_getc:
     push ax
     mov ax, 0xB800
     mov es, ax
-    mov byte [es:156], 0xDB
+    test byte [ind_act], 2
+    jnz .rx_sh
+    mov ax, [es:156]
+    mov [ind_rx_orig], ax
+    or byte [ind_act], 2
+.rx_sh:mov byte [es:156], 0x19     ; ↓ down arrow = RX
     pop ax
     pop es
     pop dx
@@ -79,8 +91,15 @@ clr_ind:
     push ax
     mov ax, 0xB800
     mov es, ax
-    mov byte [es:156], 0xB0
-    mov byte [es:158], 0xB0
+    test byte [ind_act], 1
+    jz .tx_s
+    mov ax, [ind_tx_orig]
+    mov [es:158], ax
+.tx_s:test byte [ind_act], 2
+    jz .rx_s
+    mov ax, [ind_rx_orig]
+    mov [es:156], ax
+.rx_s:mov byte [ind_act], 0
     pop ax
     pop es
     ret

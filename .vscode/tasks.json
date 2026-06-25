@@ -2,14 +2,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build ASM",
-            "type": "shell",
-            "command": "make",
-            "args": ["-C", "decompiled_asm_3", "build"],
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
             "label": "Build GDBSRV",
             "type": "shell",
             "command": "make",
@@ -17,15 +9,33 @@
             "group": "build",
             "problemMatcher": []
         },
-
-        
         {
             "label": "Start dosbox-x + GDBSRV",
             "type": "shell",
+            "isBackground": true,
             "command": "${workspaceFolder}/debugger/start-dosbox-x.sh",
-            "problemMatcher": [],
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": "^(__READY__)$",
+                        "file": 1,
+                        "line": 1,
+                        "message": 1
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Starting dosbox-x",
+                    "endsPattern": "__READY__"
+                }
+            },
             "dependsOn": ["Build GDBSRV"],
-            "group": "test"
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "dedicated"
+            }
         }
     ]
 }

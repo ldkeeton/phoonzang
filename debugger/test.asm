@@ -8,8 +8,13 @@ start:
     mov ah, 9
     mov dx, msg
     int 0x21
-    int3
-    mov ax, 0x4C00
-    int 0x21
 
-msg: db "test.com running", 0x0D, 0x0A, "$"
+.loop:
+    nop
+    nop
+    int3
+    nop
+    nop
+    jmp .loop
+
+msg: db "test.com running (looping)", 0x0D, 0x0A, "$"

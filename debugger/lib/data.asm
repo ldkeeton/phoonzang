@@ -14,6 +14,10 @@ st_cont: db 0
 st_usr:  db 0
 in_dbg:  db 0
 
+ind_rx_orig: dw 0
+ind_tx_orig: dw 0
+ind_act: db 0
+
 hk_ss: dw 0
 hk_sp: dw 0
 
