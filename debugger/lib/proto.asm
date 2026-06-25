@@ -106,8 +106,19 @@ pkt_read:
     jmp .cl
 .cd:cmp al, dl           ; compare low byte of sum with expected
     je .ack
+    push ax
+    push dx
     mov al, '-'
     call ser_putc
+    mov al, 'e'
+    call ser_putc
+    pop dx
+    mov al, dl
+    call phex8
+    mov al, ':'
+    call ser_putc
+    pop ax
+    call phex8
     jmp .wd
 .ack:mov al, '+'
     call ser_putc

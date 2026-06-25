@@ -53,8 +53,7 @@ output = opengl
 [autoexec]
 mount C "$BUILD"
 C:
-debug.com
-exit
+RUNTEST
 CFG
 
 echo "Starting dosbox-x..."
