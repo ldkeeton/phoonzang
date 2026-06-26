@@ -75,8 +75,9 @@ int3:
     mov sp, stk_t
     sti
 
+    push .rt
     call gdb_loop
-
+.rt:
     cli
     mov ss, [hk_ss]
     mov sp, [hk_sp]
@@ -176,7 +177,10 @@ int1:
     iret
 
 .eg:
+    call pkt_send_trap
+    push .r1
     call gdb_loop
+.r1:
     mov byte [in_dbg], 0
     call bp_patch
 

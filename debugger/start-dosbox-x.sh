@@ -27,6 +27,9 @@ fullscreen = false
 windowresolution = 960x600
 output = opengl
 
+[dosbox]
+quit warning = false
+
 [cpu]
 cputype = 386
 
