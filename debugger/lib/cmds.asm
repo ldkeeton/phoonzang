@@ -33,8 +33,12 @@ gdb_loop:
     je .c_H
     cmp al, 'q'
     je .c_q
+    cmp al, 'Q'
+    je .c_Q
     cmp al, 'v'
     je .c_v
+    cmp al, 'p'
+    je .c_pr
     mov si, s_emp
     call pkt_send
     jmp gdb_loop
@@ -52,7 +56,9 @@ gdb_loop:
 .c_k:  jmp cmd_kill
 .c_d:  jmp cmd_det
 .c_q:  jmp cmd_qry
+.c_Q:  jmp cmd_set
 .c_v:  jmp cmd_v
+.c_pr: jmp cmd_preg
 
 ; ─── Command handlers ───────────────────────────────
 
@@ -67,9 +73,20 @@ cmd_H:
     jmp gdb_loop
 
 cmd_rreg:
+    push es
+    push ds
+    pop es
     mov si, sreg
+    mov di, stk
     mov cx, SAVE_L
+    rep movsb
+    mov cx, 192
+    xor al, al
+    rep stosb
+    mov si, stk
+    mov cx, SAVE_L + 192
     call bytes_pkt
+    pop es
     jmp gdb_loop
 
 cmd_wreg:
@@ -84,6 +101,10 @@ cmd_wreg:
 cmd_rmem:
     mov si, rbuf+1
     call ph32                ; DX:AX = address
+    cmp byte [st_phys], 0
+    je .rm_np
+    call phys_addr
+.rm_np:
     inc si                   ; skip comma
     xor bx, bx               ; parse length as hex into BX
 .rl:lodsb
@@ -140,6 +161,10 @@ cmd_rmem:
 cmd_wmem:
     mov si, rbuf+1
     call ph32                ; DX:AX = address
+    cmp byte [st_phys], 0
+    je .wm_np
+    call phys_addr
+.wm_np:
     inc si                   ; skip comma
     xor bx, bx               ; parse length as hex into BX
 .wl:lodsb
@@ -203,6 +228,10 @@ cmd_cont:
     je .cn
     mov si, rbuf+1
     call ph32
+    cmp byte [st_phys], 0
+    je .cc_np
+    call phys_addr
+.cc_np:
     mov [sreg+R_IP], ax
     mov [sreg+R_IP+2], dx
 .cn:mov ax, [bp_cur]
@@ -231,6 +260,10 @@ cmd_step:
     je .sn
     mov si, rbuf+1
     call ph32
+    cmp byte [st_phys], 0
+    je .cs_np
+    call phys_addr
+.cs_np:
     mov [sreg+R_IP], ax
     mov [sreg+R_IP+2], dx
 .sn:mov ax, [bp_cur]
@@ -258,6 +291,10 @@ cmd_step:
 cmd_bins:
     mov si, rbuf+2
     call ph32
+    cmp byte [st_phys], 0
+    je .bi_np
+    call phys_addr
+.bi_np:
     push dx
     push ax
     call bp_add
@@ -274,6 +311,10 @@ cmd_bins:
 cmd_brem:
     mov si, rbuf+2
     call ph32
+    cmp byte [st_phys], 0
+    je .br_np
+    call phys_addr
+.br_np:
     push dx
     push ax
     call bp_rem
@@ -343,6 +384,71 @@ cmd_v:
     jmp gdb_loop
 .vC:mov si, s_vC
     call pkt_send
+    jmp gdb_loop
+
+; ─── Physical address mode ──────────────────────────
+; When st_phys != 0, translate offset addresses to physical
+; by adding CS*16. Enabled via GDB: maint packet QPhys:1
+
+; Convert offset in DX:AX to physical (add CS*16)
+phys_addr:
+    push bx
+    push cx
+    xor cx, cx
+    mov bx, [sreg+R_CS]
+    shl bx, 1
+    rcl cx, 1
+    shl bx, 1
+    rcl cx, 1
+    shl bx, 1
+    rcl cx, 1
+    shl bx, 1
+    rcl cx, 1
+    add ax, bx
+    adc dx, cx
+    pop cx
+    pop bx
+    ret
+
+cmd_set:
+    mov si, rbuf+1
+    cmp word [si], 'Ph'
+    jne .us
+    add si, 5
+    lodsb
+    sub al, '0'
+    mov [st_phys], al
+    mov si, s_ok
+    call pkt_send
+    jmp gdb_loop
+.us:mov si, s_emp
+    call pkt_send
+    jmp gdb_loop
+
+cmd_preg:
+    mov si, rbuf+1
+    call ph32
+    cmp ax, 15
+    ja .preg_unk
+    mov bx, ax
+    shl bx, 2
+    mov si, sreg
+    add si, bx
+    mov cx, 4
+    call bytes_pkt
+    jmp gdb_loop
+.preg_unk:
+    push di
+    push cx
+    mov di, stk
+    mov cx, 64
+    xor al, al
+    rep stosb
+    pop cx
+    pop di
+    mov si, stk
+    mov cx, 64
+    call bytes_pkt
     jmp gdb_loop
 
 ; ─── Restore interrupt vectors ──────────────────────

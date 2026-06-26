@@ -18,8 +18,8 @@
             },
             "setupCommands": [
                 {
-                    "text": "set architecture i8086",
-                    "description": "16-bit real-mode",
+                    "text": "set architecture i386",
+                    "description": "32-bit for cppdbg compat",
                     "ignoreFailures": false
                 },
                 {
@@ -28,8 +28,8 @@
                     "ignoreFailures": true
                 },
                 {
-                    "text": "source ${workspaceFolder}/debugger/build/gdb_compat.py",
-                    "description": "Register compat layer",
+                    "text": "source ${workspaceFolder}/debugger/gdb_enable_phys.py",
+                    "description": "Physical EIP mode",
                     "ignoreFailures": true
                 }
             ],
