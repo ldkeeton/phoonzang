@@ -64,6 +64,9 @@ def show_regs(sock):
         print(f"  short reply ({len(data)} bytes)")
         return None
     regs = [int.from_bytes(data[o:o+4], 'little') for o in range(0, RSZ, 4)]
+    if len(data) > RSZ:
+        extra = len(data) - RSZ
+        print(f"  [g packet padded: {len(data)} bytes total, {extra} trailing zeros]")
     for i, name in enumerate(NAME):
         if name in ("DS","ES","SS","FS","GS"):
             print(f"  {name:3s} = {regs[i]:04X}")
