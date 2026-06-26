@@ -38,6 +38,37 @@
             }
         },
         {
+            "name": "GDB: Launch (i8086 native)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/debugger/build/debug.elf",
+            "miDebuggerServerAddress": "localhost:1234",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "MIMode": "gdb",
+            "targetArchitecture": "x86",
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}/debugger",
+            "preLaunchTask": "Start dosbox-x + GDBSRV",
+            "sourceFileMap": {
+                "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
+            },
+            "setupCommands": [
+                {
+                    "text": "set architecture i8086",
+                    "description": "Native 16-bit real-mode",
+                    "ignoreFailures": false
+                },
+                {
+                    "text": "set confirm off",
+                    "description": "No prompts",
+                    "ignoreFailures": true
+                }
+            ],
+            "logging": {
+                "engineLogging": true
+            }
+        },
+        {
             "name": "GDB: Attach (manual dosbox-x)",
             "type": "cppdbg",
             "request": "launch",

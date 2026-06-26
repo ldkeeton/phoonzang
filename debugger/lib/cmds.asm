@@ -77,14 +77,14 @@ cmd_rreg:
     push ds
     pop es
     mov si, sreg
-    mov di, stk
+    mov di, rbuf + 256
     mov cx, SAVE_L
     rep movsb
-    mov cx, 192
+    mov cx, 128
     xor al, al
     rep stosb
-    mov si, stk
-    mov cx, SAVE_L + 192
+    mov si, rbuf + 256
+    mov cx, SAVE_L + 128
     call bytes_pkt
     pop es
     jmp gdb_loop

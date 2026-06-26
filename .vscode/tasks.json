@@ -5,7 +5,7 @@
             "label": "Build GDBSRV",
             "type": "shell",
             "command": "make",
-            "args": ["-C", "debugger"],
+            "args": ["-C", "debugger", "clean", "all"],
             "group": "build",
             "problemMatcher": []
         },
