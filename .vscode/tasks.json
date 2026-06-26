@@ -15,14 +15,11 @@
             "isBackground": true,
             "command": "${workspaceFolder}/debugger/start-dosbox-x.sh",
             "problemMatcher": {
-                "pattern": [
-                    {
-                        "regexp": "^(__READY__)$",
-                        "file": 1,
-                        "line": 1,
-                        "message": 1
-                    }
-                ],
+                "pattern": {
+                    "regexp": "^$",
+                    "file": 1,
+                    "message": 1
+                },
                 "background": {
                     "activeOnStart": true,
                     "beginsPattern": "Starting dosbox-x",
@@ -30,7 +27,7 @@
                 }
             },
             "dependsOn": ["Build GDBSRV"],
-            "group": "test",
+            "dependsOrder": "sequence",
             "presentation": {
                 "echo": true,
                 "reveal": "always",

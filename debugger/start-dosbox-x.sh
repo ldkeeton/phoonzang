@@ -1,7 +1,6 @@
 #!/bin/bash
-# Start dosbox-x in foreground, emit ready marker immediately.
-# Stays alive until dosbox-x exits (so VSCode background task keeps it alive).
-# The marker is caught by the problemMatcher to signal "task ready".
+# Start dosbox-x in foreground, emit __READY__ only when port 1234 is open.
+# VSCode background task problemMatcher uses __READY__ to signal "task ready".
 
 DIR="$(dirname "$0")"
 BUILD="$DIR/build"
@@ -40,6 +39,17 @@ DEBUG.COM
 CFG
 
 echo "Starting dosbox-x..."
-echo "__READY__"
+"$DOSBOX" -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1 &
+DOSBOX_PID=$!
+trap "kill $DOSBOX_PID 2>/dev/null; rm -f '$CONFIG'" EXIT
 
-exec "$DOSBOX" -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1
+# Poll until port is open or 10s timeout
+for i in $(seq 1 40); do
+    if (echo >/dev/tcp/localhost/1234) 2>/dev/null; then
+        break
+    fi
+    sleep 0.25
+done
+
+echo "__READY__"
+wait $DOSBOX_PID
