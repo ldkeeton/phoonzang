@@ -8,7 +8,9 @@
 ; GDB:      target remote :1234
 
 BITS 16
+%ifidn __OUTPUT_FORMAT__, bin
 ORG 0x100
+%endif
 
 ; ─── Entry point (must be at 0x100) ─────────────────
     jmp init

@@ -26,6 +26,11 @@
                     "text": "set confirm off",
                     "description": "No prompts",
                     "ignoreFailures": true
+                },
+                {
+                    "text": "source ${workspaceFolder}/debugger/build/gdb_compat.py",
+                    "description": "Register compat layer",
+                    "ignoreFailures": true
                 }
             ],
             "logging": {
