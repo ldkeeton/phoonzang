@@ -439,9 +439,55 @@ def _prune_dead_zones(data, bitmap, md):
             i += 1
 
 
+# ── cascade code recovery ────────────────────────────────────────────────
+
+def _cascade_code_recovery(data, bitmap, md):
+    """Promote IS_DATA blocks that fully decode as valid x86 instructions.
+
+    A data block is promoted to code when every byte in it decodes as a
+    valid instruction (no illegal opcode / operand combinations).  This
+    catches functions that were missed by recursive descent (e.g. called
+    only through pointer tables or indirect jumps).
+    """
+    n = len(data)
+    i = 0
+    promoted = 0
+    while i < n:
+        if bitmap[i] != IS_DATA:
+            i += 1
+            continue
+
+        start = i
+        while i < n and bitmap[i] == IS_DATA:
+            i += 1
+
+        block = data[start:i]
+        try:
+            insns = list(md.disasm(block, start))
+        except Exception:
+            continue
+
+        if not insns:
+            continue
+
+        decoded = sum(insn.size for insn in insns)
+
+        if decoded == len(block):
+            for j in range(start, i):
+                bitmap[j] = IS_CODE
+            promoted += 1
+        elif decoded >= len(block) - 3:
+            for j in range(start, start + decoded):
+                bitmap[j] = IS_CODE
+            promoted += 1
+
+    return promoted
+
+
 # ── main classification ───────────────────────────────────────────────────
 
-def classify(data, start_offset=0, entry_points=None, sidecar_entry=None):
+def classify(data, start_offset=0, entry_points=None, sidecar_entry=None,
+             cascade_search=False):
     """Classify every byte as IS_CODE or IS_DATA.
 
     Returns (bitmap, info) where *info* is a dict with:
@@ -616,6 +662,10 @@ def classify(data, start_offset=0, entry_points=None, sidecar_entry=None):
 
     # ---- Pass 3: final (short) string carving ----------------------
     _carve_strings(data, bitmap, min_body=4)
+
+    # ---- Pass 3.5: cascade code recovery ---------------------------
+    if cascade_search:
+        _cascade_code_recovery(data, bitmap, md)
 
     # ---- Final: remaining IS_UNKNOWN -> IS_DATA --------------------
     for i in range(n):

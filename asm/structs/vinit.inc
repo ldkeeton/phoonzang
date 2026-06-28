@@ -51,3 +51,13 @@ struc s_bx_fcf4
     .f_01: resb 1
     .f_02: resb 1
 endstruc
+
+; @struct s_di_0041 size=9 reg=di disp=0x0041
+; @field offset=0 size=1 name=f_00
+; @field offset=1 size=7 name=f_01
+; @field offset=8 size=1 name=f_08
+struc s_di_0041
+    .f_00: resb 1
+    .gap_1: resb 7
+    .f_08: resb 1
+endstruc

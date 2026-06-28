@@ -5920,9 +5920,7 @@ loc_5091:
     shl bx, 1
     jmp [cs:bx - 0x5dfd]
     jmp near 0x4f8c
-
-    db 0xc3
-
+    ret
 api_idx_004c:
     mov ax, 0xffb4
     call 0xf40b
@@ -7286,9 +7284,7 @@ api_idx_0004_8:
     mov bx, word [bp - 0x0004]
     mov word [bx + 0x4], ax
     jmp short 0x5fee
-
     db 0xc6, 0xaf, 0xe9, 0xaf, 0xe9, 0xaf, 0xe9, 0xaf, 0xe9, 0xaf, 0xf4, 0xaf, 0x06, 0xb0
-
     cmp ax, strict word 7
     jae short 0x5fee
     xchg bx, ax
@@ -13267,9 +13263,12 @@ loc_8c8d:
     call 0xe8da
     add sp, byte 8
     jmp short 0x9981
-
-    db 0x8e, 0xe2, 0xb5, 0xe3, 0xb5, 0xe3, 0xec, 0xe4, 0x99, 0xe5
-
+    mov fs, dx
+    mov ch, 0xe3
+    mov ch, 0xe3
+    in al, dx
+    in al, 0x99
+    db 0xe5
     cmp ax, strict word 5
     jae short 0x997e
     xchg bx, ax
@@ -13352,7 +13351,11 @@ loc_8c8d:
     push si
     xor ch, byte [0x2424]
     and al, 0
-    times 10 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
     add byte [di], ch
     sub ax, 0x2d2d
     sub ax, 0x2d2d
@@ -13393,4 +13396,8 @@ loc_8c8d:
     push si
     cs and al, 0x24
     and al, 0
-    times 10 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al

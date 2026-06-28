@@ -2439,4 +2439,9 @@ api_idx_0008:
     cs push si
     inc di
     inc cx
-    times 11 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    db 0x00

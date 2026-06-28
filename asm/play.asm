@@ -61,9 +61,11 @@ io_loc_0098:
     mov ax, 0
     call [cs:bx + 0x1aa]
     ret
-
-    db 0x84, 0x12, 0xc4, 0x01, 0x84, 0x12, 0x84, 0x12, 0xc4, 0x01
-
+    test byte [bp + si], dl
+    les ax, word [bx + di]
+    test byte [bp + si], dl
+    test byte [bp + si], dl
+    les ax, word [bx + di]
 io_loc_00b4:
     mov dh, 1
     push cx
@@ -129,11 +131,18 @@ io_loc_00b4:
     pop es
     pop bp
     ret
-
-    db 0x00, 0x00, 0x00, 0x50, 0x42, 0x41
-    times 6 db 0
-    db 'PBAPBL'
-
+    add byte [bx + si], al
+    add byte [bx + si + 0x42], dl
+    inc cx
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    push ax
+    inc dx
+    inc cx
+    push ax
+    inc dx
+    dec sp
     push bp
     mov bp, sp
     mov ax, word [bp + 0x8]
@@ -326,9 +335,7 @@ io_loc_02ba:
     pop es
     pop di
     ret
-
     db 0x00
-
     mov ah, 0
     int 0x13
     cmp byte [bp + 0x15], 4
@@ -618,7 +625,7 @@ io_loc_0610:
     out 0x21, al
     sti
     jmp near 0x592
-    db 0x00, 0x00
+    add byte [bx + si], al
     push di
     push si
     mov di, 0x1a3a
@@ -750,10 +757,10 @@ fpu_loc_077b:
     jb short 0x7a2
     sub al, 0x49
     shr al, 1
-    mov ah, al
+    db 0x8a, 0xe0 ; mov ah, al
     mov byte [cs:0x0b93], ah
     mov bx, 0x1a3a
-    xor cl, cl
+    db 0x32, 0xc9 ; xor cl, cl
     mov al, byte [bp + 0x12]
     mov byte [cs:0x0b92], al
     mov al, byte [bp + 0x12]
@@ -772,12 +779,12 @@ fpu_loc_077b:
     jne short 0x7b3
     ret
     mov bx, 0x1a3a
-    xor cl, cl
+    db 0x32, 0xc9 ; xor cl, cl
     mov al, byte [bp + 0x12]
-    mov dl, al
+    db 0x8a, 0xd0 ; mov dl, al
     shr al, 1
     shr al, 1
-    mov al, dl
+    db 0x8a, 0xc2 ; mov al, dl
     mul cl
     mov byte [cs:bx], ah
     inc bx
@@ -854,7 +861,7 @@ io_loc_0831:
     out 0x20, al
     iret
     jmp near 0x121d
-    db 0x00, 0x00
+    add byte [bx + si], al
     cli
     push ax
     push ds
@@ -1107,7 +1114,7 @@ io_loc_0a6d:
     out 0x61, al
     mov byte [cs:0x0b94], 0xff
     ret
-    db 0x00, 0x00
+    add byte [bx + si], al
     add word [bx + si], ax
     add byte [bx + di], al
     db 0x00, 0x64, 0x00 ; add byte ptr [si], ah
@@ -1117,11 +1124,22 @@ io_loc_0a6d:
     add ah, byte [bx + di]
     add ah, byte [bp + si]
     add al, byte [bx + si]
-    times 4 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
     inc word [bx + si]
-    times 16 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
     add byte [fs:bx + si + 0x80], al
-    times 8 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
     add byte [bx + si + 0x53], dl
     push ds
     call string_loc_0af6
@@ -1143,7 +1161,7 @@ io_loc_0a6d:
     pop bx
     pop ax
     iret
-    db 0x00, 0x00
+    add byte [bx + si], al
     mov byte [cs:0x0b7e], 0
     cmp byte [cs:0x0b7d], 1
     jne short 0xaed
@@ -1417,9 +1435,8 @@ string_loc_0d50:
     jmp near 0xb44
     lodsw
     jmp near 0xb44
-
-    db 0x00, 0x00, 0x00
-
+    add byte [bx + si], al
+    db 0x00
     call string_loc_0d50
     cmp byte [cs:0x0e3d], 0xff
     jne short 0xe32

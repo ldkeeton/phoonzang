@@ -5716,9 +5716,7 @@ api_idx_0004_6:
     jb short 0x3734
     lea ax, word [bx - 0x7858]
     ret
-
     db 0x87
-
     cmp ax, strict word 0xe
     jae short 0x37c0
     xchg bx, ax
@@ -7389,7 +7387,7 @@ api_idx_00ac:
     push ax
     mov ax, 0x248
     imul word [bp + 0x4]
-    mov bx, ax
+    db 0x8b, 0xd8 ; mov bx, ax
     push word [bx + 0x5c0e]
     push word [bx + 0x5c0c]
     mov ax, 0x5d
@@ -8213,9 +8211,7 @@ api_idx_0046:
     mov ax, 0
     ret
     jmp near 0x4ff7
-
-    db 0xc3
-
+    ret
 api_idx_000e:
     mov ax, 0xfff2
     call 0xf40b
@@ -9115,7 +9111,8 @@ api_idx_000c_3:
     and ax, 0x2820
     add byte [bx + di], ch
     add byte [bx], ch
-    times 4 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
     push ax
     inc bx
     push si
@@ -9127,4 +9124,9 @@ api_idx_000c_3:
     cs push si
     inc di
     inc cx
-    times 12 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al

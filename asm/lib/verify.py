@@ -362,7 +362,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
             consumed = sum(i.size for i in insns)
             gap = len(raw) - consumed
             if all_decoded or (0 < gap <= 3):
-                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, exact_bytes)
+                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, exact_bytes=True)
                 if inline:
                     new_records.extend(inline)
                     if gap > 0:
@@ -847,14 +847,21 @@ def _build_source(records, start_offset, binary_data):
             out.append(f'{rec["text"]}')
 
         elif rec['type'] == 'data_block':
-            out.append('')
+            blk_size = rec['end'] - rec['start']
             fmt = rec.get('format_hint', '')
+            # Suppress blank-line separators for tiny blocks (< 16 bytes)
+            # sandwiched between code (mnem/label) — cascade code recovery
+            # often leaves tiny data remnants that don't need visual gaps.
+            is_tiny = blk_size < 16
+            if not is_tiny:
+                out.append('')
             if fmt:
                 out.append(f'; {"=" * 42}')
                 out.append(f'; {fmt} (offsets 0x{rec["start"]:04x} - 0x{rec["end"] - 1:04x})')
                 out.append(f'; {"=" * 42}')
             out.extend(_render_data_block(binary_data[rec['start']:rec['end']]))
-            out.append('')
+            if not is_tiny:
+                out.append('')
 
         elif rec['type'] == 'mnem':
             out.append(f'    {rec["text"]}')

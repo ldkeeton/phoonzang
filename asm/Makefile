@@ -22,7 +22,7 @@ all:
 asm: $(addprefix $(ASM_DIR)/, $(addsuffix .asm, $(ALL_BINS)))
 
 $(ASM_DIR)/%.asm:
-	python3 main.py $* $(EXACT_FLAG)
+	python3 main.py $* $(EXACT_FLAG) $(CASCADE_FLAG)
 
 # ── Exact-byte mode: generate + build with strict byte verification ────────
 exact-bytes:

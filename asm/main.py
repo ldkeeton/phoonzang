@@ -379,6 +379,7 @@ BINARIES = _discover_binaries()
 
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
+FEAT_CASCADE_SEARCH = '--feat-cascade-code-recovery' in sys.argv or '-ccr' in sys.argv
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
     if a.startswith('--max-func-size='):
@@ -405,6 +406,7 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     bitmap, info = classify(
         data, start_offset,
         entry_points=entry_points,
+        cascade_search=FEAT_CASCADE_SEARCH,
     )
 
     # Only call targets and jump-table entries get labels
@@ -724,9 +726,12 @@ def main():
         print('Cleaned.')
         return
 
+    if '-ccr' in sys.argv:
+        FEAT_CASCADE_SEARCH = True
+
     target = None
     for arg in sys.argv[1:]:
-        if not arg.startswith('--'):
+        if not arg.startswith('--') and arg != '-ccr':
             target = arg
             break
 

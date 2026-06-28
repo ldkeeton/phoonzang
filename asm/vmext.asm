@@ -270,9 +270,11 @@ api_idx_0002_2:
     db 0xdc, 0x52, 0xba ; fcom qword ptr [bp + si - 0x46]
     push dx
     iret
-
-    db 0x52, 0xdc, 0x52, 0xba, 0x52, 0xba, 0x52, 0xc8, 0x52
-
+    push dx
+    db 0xdc, 0x52, 0xba ; fcom qword ptr [bp + si - 0x46]
+    push dx
+    mov dx, 0xc852
+    push dx
     cmp ax, strict word 0x20
     jae short 0x2f0
     xchg bx, ax
@@ -8417,4 +8419,9 @@ loc_51fb:
     cs push si
     inc di
     inc cx
-    times 12 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al

@@ -2694,7 +2694,7 @@ math_loc_18e9:
     ret
     mov ax, 0x5f
     ret
-    push 0x69
+    db 0x65, 0x6a, 0x69 ; push 0x69
     db 0x6a, 0x6d ; push 0x6d
     db 0x6a, 0x71 ; push 0x71
     db 0x6a, 0x75 ; push 0x75
@@ -7039,9 +7039,7 @@ api_idx_0052:
     call 0xb2e7
     add sp, byte 6
     jmp short 0x46b7
-
     db 0x88, 0x93, 0xbf
-
 fpu_loc_468b:
     xchg bx, ax
     db 0xdc, 0x93, 0xfb, 0x93 ; fcom qword ptr [bp + di - 0x6c05]
@@ -7054,9 +7052,7 @@ fpu_loc_468b:
     inc si
     xchg bp, ax
     jge short 0x4635
-
     db 0xb4, 0x95, 0xfe, 0x95, 0x1d, 0x96, 0x4f, 0x96, 0x4f, 0x96
-
     cmp ax, strict word 0x11
     jae short 0x46b7
     xchg bx, ax
@@ -10694,9 +10690,7 @@ api_idx_004a_2:
     mov word [0x830a], 3
     jmp short 0x6c1a
     lds di, word [bp + di - 0x4477]
-
     db 0x8f, 0xbb, 0xa9, 0xbb, 0xd1, 0xbb, 0xfe, 0xbb, 0x08, 0xbc, 0x2a, 0xbc, 0x34, 0xbc
-
     cmp ax, strict word 9
     jae short 0x6c1a
     xchg bx, ax
@@ -14800,4 +14794,9 @@ loc_92eb:
     cs push si
     inc di
     inc cx
-    times 12 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al

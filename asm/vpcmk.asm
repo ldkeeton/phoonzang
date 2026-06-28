@@ -12433,4 +12433,9 @@ api_idx_002c:
     cs push si
     inc di
     inc cx
-    times 12 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al

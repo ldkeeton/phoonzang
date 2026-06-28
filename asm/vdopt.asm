@@ -4731,9 +4731,14 @@ api_idx_0038:
     call 0xe8da
     add sp, byte 8
     jmp short 0x415c
-
-    db 0xe6, 0x8d, 0x0c, 0x8f, 0x0c, 0x8f, 0x43, 0x90, 0x94, 0x90, 0xe5, 0x90
-
+    out 0x8d, al
+    or al, 0x8f
+    or al, 0x8f
+    inc bx
+    nop
+    xchg sp, ax
+    nop
+    in ax, 0x90
     cmp ax, strict word 6
     jae short 0x415a
     xchg bx, ax
@@ -5325,9 +5330,18 @@ leaf_loc_4717:
     pop es
     pop di
     jmp cx
-
-    db 0x00, 0x00, 0x2a, 0x2a, 0x2a, 0x00
-    db 'V.$$$', 0
-    db 'V.$$$', 0
-    times 12 db 0
-
+    add byte [bx + si], al
+    sub ch, byte [bp + si]
+    sub al, byte [bx + si]
+    push si
+    cs and al, 0x24
+    and al, 0
+    push si
+    cs and al, 0x24
+    and al, 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al

@@ -5345,9 +5345,19 @@ string_loc_374e:
     pop si
     pop bp
     ret
-
-    db 'MON00.PIC', 0
-    db 0x20, 0x00
-    db 'VM1.$$$', 0
-    times 10 db 0
-
+    dec bp
+    dec di
+    dec si
+    xor byte [bx + si], dh
+    cs push ax
+    dec cx
+    inc bx
+    add byte [bx + si], ah
+    add byte [bp + 0x4d], dl
+    xor word [0x2424], bp
+    and al, 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al

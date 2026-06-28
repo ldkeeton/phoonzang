@@ -7582,4 +7582,9 @@ api_idx_0004_3:
     push si
     cs and al, 0x24
     and al, 0
-    times 11 db 0
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    add byte [bx + si], al
+    db 0x00
