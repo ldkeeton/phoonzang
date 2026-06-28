@@ -2246,10 +2246,10 @@ api_idx_0008:
     cld
     mov di, 0x91b8
     mov cx, 0x91ba
-    sub cx, di
+    db 0x2b, 0xcf ; sub cx, di
     shr cx, 1
     je short 0x15ff
-    sub ax, ax
+    db 0x2b, 0xc0 ; sub ax, ax
     rep stosw
     call 0xe
     mov bp, word [0x91b4]
@@ -2439,9 +2439,4 @@ api_idx_0008:
     cs push si
     inc di
     inc cx
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    db 0x00
+    times 11 db 0

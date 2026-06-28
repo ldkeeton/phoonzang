@@ -61,11 +61,7 @@ io_loc_0098:
     mov ax, 0
     call [cs:bx + 0x1aa]
     ret
-    test byte [bp + si], dl
-    les ax, word [bx + di]
-    test byte [bp + si], dl
-    test byte [bp + si], dl
-    les ax, word [bx + di]
+    db 0x84, 0x12, 0xc4, 0x01, 0x84, 0x12, 0x84, 0x12, 0xc4, 0x01
 io_loc_00b4:
     mov dh, 1
     push cx
@@ -131,18 +127,11 @@ io_loc_00b4:
     pop es
     pop bp
     ret
-    add byte [bx + si], al
-    add byte [bx + si + 0x42], dl
-    inc cx
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    push ax
-    inc dx
-    inc cx
-    push ax
-    inc dx
-    dec sp
+
+    db 0x00, 0x00, 0x00, 0x50, 0x42, 0x41
+    times 6 db 0
+    db 'PBAPBL'
+
     push bp
     mov bp, sp
     mov ax, word [bp + 0x8]
@@ -208,9 +197,9 @@ io_loc_01b0:
     cmp byte [cs:0x0b7d], 4
     je short 0x1ff
     dec ah
-    add ah, cl
-    mov bl, ah
-    xor bh, bh
+    db 0x02, 0xe1 ; add ah, cl
+    db 0x8a, 0xdc ; mov bl, ah
+    db 0x32, 0xff ; xor bh, bh
     mov al, byte [cs:bx + 0x1529]
     and al, 0xdf
     call io_loc_07f6
@@ -226,7 +215,7 @@ io_loc_01b0:
     ret
     push bx
     mov bl, 1
-    mov al, bl
+    db 0x8a, 0xc3 ; mov al, bl
     or al, 0xb0
     call io_loc_11fb
     mov al, 0x7b
@@ -460,7 +449,7 @@ io_loc_02ba:
     in al, 0x19
     scasw
     or word [bx - 0x60f6], bx
-    or ah, ah
+    db 0x0a, 0xe4 ; or ah, ah
     sbb word [bx - 0x60f7], bp
     or bl, byte [bx + 0x410a]
     or ax, word [bx + di + 0x9]
@@ -625,19 +614,19 @@ io_loc_0610:
     out 0x21, al
     sti
     jmp near 0x592
-    add byte [bx + si], al
+    db 0x00, 0x00
     push di
     push si
     mov di, 0x1a3a
     mov si, 0x1b3a
-    xor bh, bh
+    db 0x32, 0xff ; xor bh, bh
     mov bl, byte [bp + 0x12]
-    mov cx, bx
-    add cx, bx
+    db 0x8b, 0xcb ; mov cx, bx
+    db 0x03, 0xcb ; add cx, bx
     mov ax, 0x80
     mul cx
-    mov al, ah
-    mov ah, dl
+    db 0x8a, 0xc4 ; mov al, ah
+    db 0x8a, 0xe2 ; mov ah, dl
     cmp ax, 0x80
     jb short 0x67c
     mov ax, 0x80
@@ -682,7 +671,7 @@ io_loc_0610:
     ret
     add byte [si - 0x4f06], bl
     ss out 0x43, al
-    xor ax, ax
+    db 0x33, 0xc0 ; xor ax, ax
     out 0x40, al
     out 0x40, al
     mov ax, 0x2021
@@ -703,26 +692,26 @@ io_loc_0610:
     call io_loc_07f6
     mov bx, 0x28f
     mov ah, 0xa0
-    mov al, bl
+    db 0x8a, 0xc3 ; mov al, bl
     call io_loc_07f6
     mov ax, 0xb02c
-    add al, bh
+    db 0x02, 0xc7 ; add al, bh
     call io_loc_07f6
     cli
     mov al, 0
     out 0x43, al
     in al, 0x40
-    mov bl, al
+    db 0x8a, 0xd8 ; mov bl, al
     in al, 0x40
-    mov bh, al
+    db 0x8a, 0xf8 ; mov bh, al
     mov al, 0
     out 0x43, al
     in al, 0x40
-    mov cl, al
+    db 0x8a, 0xc8 ; mov cl, al
     in al, 0x40
-    mov ch, al
+    db 0x8a, 0xe8 ; mov ch, al
     neg cx
-    add cx, bx
+    db 0x03, 0xcb ; add cx, bx
     db 0x81, 0xf9, 0x52
 io_loc_075a:
     or word [bp + si - 0x0016], si
@@ -861,7 +850,7 @@ io_loc_0831:
     out 0x20, al
     iret
     jmp near 0x121d
-    add byte [bx + si], al
+    db 0x00, 0x00
     cli
     push ax
     push ds
@@ -1046,7 +1035,7 @@ io_loc_08db:
     mov ax, word [cs:0x0ba6]
     mov bl, 0x48
     mul bl
-    mov bx, ax
+    db 0x8b, 0xd8 ; mov bx, ax
     mov ax, cs
     mov ds, ax
     mov dx, 0xbb4
@@ -1062,10 +1051,10 @@ io_loc_08db:
     mov al, 0x36
     out 0x43, al
     call io_loc_0610
-    mov ax, bx
+    db 0x8b, 0xc3 ; mov ax, bx
     out 0x40, al
     call io_loc_0610
-    mov al, ah
+    db 0x8a, 0xc4 ; mov al, ah
     out 0x40, al
     pop dx
     ret
@@ -1089,12 +1078,12 @@ io_loc_0a2a:
     add dl, bh
     mov al, byte [di]
     cs xlatb
-    mov cl, al
+    db 0x8a, 0xc8 ; mov cl, al
     mov al, 0xb0
     out 0x43, al
-    mov al, cl
+    db 0x8a, 0xc1 ; mov al, cl
     out dx, al
-    xor al, al
+    db 0x32, 0xc0 ; xor al, al
     out dx, al
     add ah, 0x80
     adc di, byte 0
@@ -1114,7 +1103,7 @@ io_loc_0a6d:
     out 0x61, al
     mov byte [cs:0x0b94], 0xff
     ret
-    add byte [bx + si], al
+    db 0x00, 0x00
     add word [bx + si], ax
     add byte [bx + di], al
     db 0x00, 0x64, 0x00 ; add byte ptr [si], ah
@@ -1124,22 +1113,11 @@ io_loc_0a6d:
     add ah, byte [bx + di]
     add ah, byte [bp + si]
     add al, byte [bx + si]
-    add byte [bx + si], al
-    add byte [bx + si], al
+    times 4 db 0
     inc word [bx + si]
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
+    times 16 db 0
     add byte [fs:bx + si + 0x80], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
+    times 8 db 0
     add byte [bx + si + 0x53], dl
     push ds
     call string_loc_0af6
@@ -1161,7 +1139,7 @@ io_loc_0a6d:
     pop bx
     pop ax
     iret
-    add byte [bx + si], al
+    db 0x00, 0x00
     mov byte [cs:0x0b7e], 0
     cmp byte [cs:0x0b7d], 1
     jne short 0xaed
@@ -1435,8 +1413,7 @@ string_loc_0d50:
     jmp near 0xb44
     lodsw
     jmp near 0xb44
-    add byte [bx + si], al
-    db 0x00
+    db 0x00, 0x00, 0x00
     call string_loc_0d50
     cmp byte [cs:0x0e3d], 0xff
     jne short 0xe32
@@ -1450,13 +1427,13 @@ string_loc_0d50:
     cmp byte [cs:0x0b7c], 1
     jmp near 0xf28
     mov al, byte [cs:0x0e3f]
-    xor ah, ah
+    db 0x32, 0xe4 ; xor ah, ah
     mov bx, 0x1b3a
     mov cl, byte [cs:0x0ba8]
     mul cl
-    mov al, ah
+    db 0x8a, 0xc4 ; mov al, ah
     mov cl, 0x3f
-    sub cl, al
+    db 0x2a, 0xc8 ; sub cl, al
     mov ah, byte [cs:0x0e46]
     mov al, byte [cs:0x15e6]
     cmp ah, 6
@@ -1516,11 +1493,11 @@ string_loc_0d50:
     push ax
     push bx
     add ah, 0x40
-    mov al, ch
+    db 0x8a, 0xc5 ; mov al, ch
     mov bx, 0x1529
     cs xlatb
     and al, 0xc0
-    or al, cl
+    db 0x0a, 0xc1 ; or al, cl
     call io_loc_07f6
     pop bx
     pop ax
@@ -1699,7 +1676,7 @@ string_loc_0d50:
     jmp near 0xb44
     push bx
     mov bl, byte [cs:0x0b7c]
-    xor bh, bh
+    db 0x32, 0xff ; xor bh, bh
     shl bx, 1
     call [cs:bx + 0x125b]
     pop bx

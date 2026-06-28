@@ -10,20 +10,16 @@ struc s_bx_0001
     .f_03: resb 1
 endstruc
 
-; @struct s_bx_0005 size=2 reg=bx disp=0x0005
+; @struct s_bx_0005 size=4 reg=bx disp=0x0005
 ; @field offset=0 size=1 name=f_00
 ; @field offset=1 size=1 name=f_01
+; @field offset=2 size=1 name=f_02
+; @field offset=3 size=1 name=f_03
 struc s_bx_0005
     .f_00: resb 1
     .f_01: resb 1
-endstruc
-
-; @struct s_bx_0007 size=2 reg=bx disp=0x0007
-; @field offset=0 size=1 name=f_00
-; @field offset=1 size=1 name=f_01
-struc s_bx_0007
-    .f_00: resb 1
-    .f_01: resb 1
+    .f_02: resb 1
+    .f_03: resb 1
 endstruc
 
 ; @struct s_bx_0009 size=3 reg=bx disp=0x0009
@@ -42,14 +38,6 @@ endstruc
 struc s_bx_0034
     .f_00: resb 1
     .f_01: resb 1
-endstruc
-
-; @struct s_bx_018c size=4 reg=bx disp=0x018c
-; @field offset=0 size=2 name=f_00
-; @field offset=2 size=2 name=f_02
-struc s_bx_018c
-    .f_00: resb 2
-    .f_02: resb 2
 endstruc
 
 ; @struct s_bx_0620 size=3 reg=bx disp=0x0620

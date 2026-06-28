@@ -513,6 +513,7 @@ def process(name, rel_path, start_offset, exact_bytes=False):
         exact_bytes=exact_bytes,
         structs=structs,
         asm_dir=ASM_DIR,
+        cascade_promoted=info.get('cascade_promoted'),
     )
 
     asm_path = os.path.join(ASM_DIR, f'{name}.asm')

@@ -448,10 +448,12 @@ def _cascade_code_recovery(data, bitmap, md):
     valid instruction (no illegal opcode / operand combinations).  This
     catches functions that were missed by recursive descent (e.g. called
     only through pointer tables or indirect jumps).
+
+    Returns a set of byte offsets that were promoted.
     """
     n = len(data)
     i = 0
-    promoted = 0
+    promoted_set = set()
     while i < n:
         if bitmap[i] != IS_DATA:
             i += 1
@@ -462,6 +464,17 @@ def _cascade_code_recovery(data, bitmap, md):
             i += 1
 
         block = data[start:i]
+
+        # Heuristic: skip blocks that look like data tables (e.g. jump tables
+        # with 16-bit zero-extended entries).  If ≥50% of 16-bit words have
+        # high byte == 0x00, this is probably not real code.
+        if len(block) >= 6:
+            n_words = len(block) // 2
+            zero_high = sum(1 for j in range(0, len(block) - 1, 2)
+                            if block[j + 1] == 0x00)
+            if zero_high >= 3 and zero_high * 100 // n_words >= 50:
+                continue
+
         try:
             insns = list(md.disasm(block, start))
         except Exception:
@@ -475,13 +488,13 @@ def _cascade_code_recovery(data, bitmap, md):
         if decoded == len(block):
             for j in range(start, i):
                 bitmap[j] = IS_CODE
-            promoted += 1
+                promoted_set.add(j)
         elif decoded >= len(block) - 3:
             for j in range(start, start + decoded):
                 bitmap[j] = IS_CODE
-            promoted += 1
+                promoted_set.add(j)
 
-    return promoted
+    return promoted_set
 
 
 # ── main classification ───────────────────────────────────────────────────
@@ -664,8 +677,9 @@ def classify(data, start_offset=0, entry_points=None, sidecar_entry=None,
     _carve_strings(data, bitmap, min_body=4)
 
     # ---- Pass 3.5: cascade code recovery ---------------------------
+    cascade_promoted = set()
     if cascade_search:
-        _cascade_code_recovery(data, bitmap, md)
+        cascade_promoted = _cascade_code_recovery(data, bitmap, md)
 
     # ---- Final: remaining IS_UNKNOWN -> IS_DATA --------------------
     for i in range(n):
@@ -676,4 +690,5 @@ def classify(data, start_offset=0, entry_points=None, sidecar_entry=None,
         'discovered': discovered,
         'call_targets': call_targets,
         'jt_targets': jt_targets,
+        'cascade_promoted': cascade_promoted,
     }

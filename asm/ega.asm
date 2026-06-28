@@ -114,223 +114,18 @@ bits 16
     retf
     call 0x5148
     retf
-    db 0x80, 0x41, 0x00, 0x00 ; add byte ptr [bx + di], 0
-    add byte [bx + si], dl
-    add byte [bx + si], al
-    inc ax
-    add word [bx + si], ax
-    db 0x00, 0x40, 0x00 ; add byte ptr [bx + si], al
-    add byte [bx + si], al
-    xor byte [di], al
-    add byte [bx + si], al
-    rol byte [bx + di], 1
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bp + di], al
-    add word [bx + si], ax
-    add byte [bx], al
-    add word [bx + si], ax
-    add byte [bp + di], cl
-    add word [bx + si], ax
-    add byte [bx], cl
-    add word [bx + si], ax
-    add byte [bp + di], dl
-    add word [bx + si], ax
-    add byte [bx], dl
-    add word [bx + si], ax
-    add byte [bp + di], bl
-    add word [bx + si], ax
-    add byte [bx], bl
-    add word [bx + si], ax
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add al, 0
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add word [bx + si], ax
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
+
+    db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00
+    db 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01
+    times 17 db 0
+    db 0x03, 0x01, 0x00, 0x00, 0x07, 0x01, 0x00, 0x00, 0x0b, 0x01, 0x00, 0x00, 0x0f, 0x01, 0x00, 0x00
+    db 0x13, 0x01, 0x00, 0x00, 0x17, 0x01, 0x00, 0x00, 0x1b, 0x01, 0x00, 0x00, 0x1f, 0x01
+    times 87 db 0
+    db 0x04
+    times 23 db 0
+    db 0x01
+    times 255 db 0
+
     push bp
     mov bp, sp
     sub sp, byte 0x0c
@@ -1478,7 +1273,7 @@ math_loc_0b91:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     push bx
     inc cx
     push si
@@ -1494,7 +1289,9 @@ math_loc_0b91:
     insw
     outsw
     jb short 0xdc0
-    db 0x2e, 0x00, 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2
+    add byte [cs:bp + si], cl
+    and al, 0x33
+    db 0xd2, 0x8b, 0xc2
     pop si
     pop di
     pop ds
@@ -1549,7 +1346,7 @@ math_loc_0b91:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     push dx
     inc bp
     push bx
@@ -1571,7 +1368,8 @@ math_loc_0b91:
     dec sp
     and byte [bx + si + 0x6f], dh
     imul bp, word [bp + 0x74], 0x7265
-    db 0x2e, 0x00, 0x0a, 0x24
+    add byte [cs:bp + si], cl
+    db 0x24
     pop si
     pop di
     pop ds
@@ -1747,7 +1545,7 @@ math_loc_0b91:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     push bx
     inc cx
     push si
@@ -1771,7 +1569,8 @@ math_loc_0b91:
     outsb
     jne short 0x1014
     bound sp, dword [di + 0x72]
-    db 0x2e, 0x00, 0x0a, 0x24
+    add byte [cs:bp + si], cl
+    db 0x24
     mov ax, cs
     mov ds, ax
     mov dx, 0x10be
@@ -1779,7 +1578,7 @@ math_loc_0b91:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     push bx
     inc cx
     push si
@@ -1801,10 +1600,9 @@ math_loc_0b91:
     and byte [bp + 0x75], ah
     insb
     insb
-
-    db 0x2e, 0x00, 0x0a, 0x24
-    times 232 db 0
-
+    add byte [cs:bp + si], cl
+    and al, 0
+    times 231 db 0
     push bp
     mov bp, sp
     sub sp, byte 0x14
@@ -1953,7 +1751,7 @@ math_loc_0b91:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     dec sp
     dec di
     inc cx
@@ -1975,7 +1773,9 @@ math_loc_0b91:
     outsb
     jne short 0x12c3
     bound sp, dword [di + 0x72]
-    db 0x2e, 0x00, 0x0a, 0x24, 0x0d, 0x0a, 0x07
+    add byte [cs:bp + si], cl
+    and al, 0xd
+    or al, byte [bx]
     dec sp
     dec di
     inc cx
@@ -1999,7 +1799,9 @@ math_loc_0b91:
     outsb
     jne short 0x12f2
     bound sp, dword [di + 0x72]
-    db 0x2e, 0x00, 0x0a, 0x24, 0x0d, 0x0a, 0x07
+    add byte [cs:bp + si], cl
+    and al, 0xd
+    or al, byte [bx]
     outsw
     outsw
     jo short 0x1306
@@ -2022,7 +1824,8 @@ math_loc_0b91:
     jb short 0x132b
     and byte [bx + di + 0x72], ah
     db 0x65, 0x61 ; popaw 
-    db 0x2e, 0x00, 0x0a, 0x24
+    add byte [cs:bp + si], cl
+    db 0x24
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov si, 0x2c3
@@ -2105,8 +1908,7 @@ leaf_loc_1355:
     loop 0x1380
     pop ax
     ret
-    add byte [bx + si], al
-    add byte [bx + si], al
+    times 4 db 0
 loc_1392:
     dec ax
     mov cl, 2
@@ -2256,18 +2058,11 @@ loc_145c:
     int 0x21
     mov ax, 0x4c01
     int 0x21
+
     db 0x0d, 0x0a, 0x07
-    dec bp
-    inc cx
-    pop dx
-    inc bp
-    and byte [bp + di + 0x45], dl
-    push sp
-    and byte [di + 0x52], al
-    push dx
-    dec di
-    push dx
-    db 0x2e, 0x00, 0x0a, 0x24
+    db 'MAZE SET ERROR.', 0
+    db 0x0a, 0x24
+
     dec bx
     mov cl, 2
     shl bx, cl
@@ -3673,7 +3468,7 @@ io_loc_2f70:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     dec bp
     db 0x65, 0x6d ; insw word ptr es:[di], dx
     outsw
@@ -3686,18 +3481,13 @@ io_loc_2f70:
     popaw
     imul bp, word [fs:bp + 0x67], 0x7020
     imul sp, word [bp + di + 0x74], 0x7275
-    db 0x65, 0x2e, 0x00, 0x0a, 0x24
+    db 0x65, 0x2e, 0x00, 0x0a ; add byte ptr cs:[bp + si], cl
+    db 0x24
     jmp near 0x4b1
-    add ax, 0x800
-    or cl, byte [bp + si]
-    stosb
-    adc word [bp + si], bp
-    adc sp, word [bp + si]
-    push ss
-    das
-    sbb di, di
-    sbb bh, byte [bx + 0x1c]
-    db 0x77
+
+    db 0x05, 0x00, 0x08, 0x0a, 0x0a, 0xaa, 0x11, 0x2a, 0x13, 0x22, 0x16, 0x2f, 0x19, 0xff, 0x1a, 0x7f
+    db 0x1c, 0x77
+
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -4061,39 +3851,9 @@ leaf_loc_3252:
     mov sp, bp
     pop bp
     ret
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    db 0x00
+
+    times 65 db 0
+
     push bp
     mov bp, sp
     sub sp, byte 0x40
@@ -4517,7 +4277,7 @@ dos_con_loc_39e3:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc si
     jb short 0x3a7f
     insw
@@ -4531,7 +4291,8 @@ dos_con_loc_39e3:
     outsw
     je short 0x3a54
     xor byte [bx + si], dh
-    db 0x2e, 0x00, 0x0a, 0x24
+    add byte [cs:bp + si], cl
+    db 0x24
     mov cl, 2
     shl al, cl
     mov bx, 2
@@ -5131,7 +4892,7 @@ math_loc_3c12:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bp
     jb short 0x4155
     outsw
@@ -5154,7 +4915,8 @@ math_loc_3c12:
     inc bp
     inc cx
     sub byte [bx + di], ch
-    db 0x2e, 0x00, 0x0a, 0x24
+    add byte [cs:bp + si], cl
+    db 0x24
     push bp
     mov bp, sp
     sub sp, byte 0x0e
@@ -5390,7 +5152,7 @@ math_loc_3c12:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bx
     inc cx
     inc bx
@@ -5405,7 +5167,9 @@ math_loc_3c12:
     outsw
     db 0x66, 0x20, 0x45, 0x4d ; and byte ptr [di + 0x4d], al
     push bx
-    db 0x2e, 0x00, 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2
+    add byte [cs:bp + si], cl
+    and al, 0x33
+    db 0xd2, 0x8b, 0xc2
     pop si
     pop di
     pop ds
@@ -5420,7 +5184,7 @@ math_loc_3c12:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bx
     inc cx
     inc bx
@@ -5438,7 +5202,8 @@ math_loc_3c12:
     and byte [bp + di + 0x6c], dh
     outsw
     je short 0x4440
-    db 0x2e, 0x00, 0x0a, 0x24
+    add byte [cs:bp + si], cl
+    db 0x24
     mov ax, cs
     mov ds, ax
     mov dx, 0x44e1
@@ -5446,7 +5211,7 @@ math_loc_3c12:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bx
     inc cx
     inc bx
@@ -5470,7 +5235,10 @@ math_loc_3c12:
     insw
     outsw
     jb short 0x447d
-    db 0x2e, 0x00, 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a
+    add byte [cs:bp + si], cl
+    and al, 0x33
+    ror byte [bp + di - 0x143e], cl
+    db 0x8a
     mov ax, cs
     mov ds, ax
     mov dx, 0x451e
@@ -5478,7 +5246,7 @@ math_loc_3c12:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bx
     inc cx
     inc bx
@@ -5497,7 +5265,9 @@ math_loc_3c12:
     and byte [bp + di + 0x6c], dh
     outsw
     je short 0x44af
-    db 0x2e, 0x00, 0x0a, 0x24, 0x00, 0x00
+    add byte [cs:bp + si], cl
+    and al, 0
+    db 0x00
 dos_file_loc_4442:
     push ax
     mov ah, 0x44
@@ -5683,7 +5453,7 @@ dos_file_loc_45bd:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bp
     jb short 0x4673
     outsw
@@ -5696,7 +5466,8 @@ dos_file_loc_45bd:
     and byte [si + 0x6f], dh
     and byte [si + 0x69], ah
     jae short 0x4687
-    db 0x00, 0x0a, 0x24
+    add byte [bp + si], cl
+    db 0x24
     pop di
     pop si
     pop es
@@ -5859,7 +5630,7 @@ dos_file_loc_45bd:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bx
     inc cx
     inc bx
@@ -5883,7 +5654,10 @@ dos_file_loc_45bd:
     popaw
     db 0x64, 0x79, 0x20 ; jns 0x4800
     imul bp, word [bp + 0x20], 0x7375
-    db 0x65, 0x2e, 0x00, 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xb0
+    db 0x65, 0x2e, 0x00, 0x0a ; add byte ptr cs:[bp + si], cl
+    and al, 0x33
+    ror byte [bp + di - 0x143e], cl
+    db 0xb0
     mov ax, cs
     mov ds, ax
     mov dx, 0x4900
@@ -5891,7 +5665,7 @@ dos_file_loc_45bd:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bx
     inc cx
     inc bx
@@ -5910,7 +5684,8 @@ dos_file_loc_45bd:
     inc bp
     dec bp
     push bx
-    db 0x2e, 0x00, 0x0a, 0x24
+    add byte [cs:bp + si], cl
+    db 0x24
     push bp
     mov bp, sp
     sub sp, byte 0x14
@@ -6021,7 +5796,7 @@ dos_file_loc_45bd:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bx
     inc cx
     inc bx
@@ -6047,7 +5822,10 @@ dos_file_loc_45bd:
     popaw
     db 0x64, 0x79, 0x20 ; jns 0x498d
     imul bp, word [bp + 0x20], 0x7375
-    db 0x65, 0x2e, 0x00, 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
+    db 0x65, 0x2e, 0x00, 0x0a ; add byte ptr cs:[bp + si], cl
+    and al, 0x33
+    ror byte [bp + di - 0x143e], cl
+    scasb
     mov ax, cs
     mov ds, ax
     mov dx, 0x4a8d
@@ -6055,7 +5833,7 @@ dos_file_loc_45bd:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     inc bx
     inc cx
     inc bx
@@ -6076,10 +5854,9 @@ dos_file_loc_45bd:
     inc bp
     dec bp
     push bx
-
-    db 0x2e, 0x00, 0x0a, 0x24
-    times 84 db 0
-
+    add byte [cs:bp + si], cl
+    and al, 0
+    times 83 db 0
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -6206,7 +5983,7 @@ dos_file_loc_45bd:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     dec cx
     outsb
     and byte [si + 0x4f], cl
@@ -6229,7 +6006,8 @@ dos_file_loc_45bd:
     db 0x65, 0x6d ; insw word ptr es:[di], dx
     outsw
     jb short 0x4bc7
-    db 0x2e, 0x00, 0x0a, 0x24
+    add byte [cs:bp + si], cl
+    db 0x24
     mov cx, ax
     mov ax, word [cs:0x01e9]
     mov ds, ax
@@ -6622,23 +6400,9 @@ leaf_loc_4d55:
     mov sp, bp
     pop bp
     ret
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
+
+    times 34 db 0
+
     push bp
     mov bp, sp
     sub sp, byte 0x0e
@@ -6791,7 +6555,7 @@ leaf_loc_4d55:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-    db 0x0d, 0x0a, 0x07
+    or ax, 0x70a
     dec cx
     outsb
     and byte [si + 0x4f], cl
@@ -6814,7 +6578,8 @@ leaf_loc_4d55:
     db 0x65, 0x6d ; insw word ptr es:[di], dx
     outsw
     jb short 0x50b1
-    db 0x2e, 0x00, 0x0a, 0x24
+    add byte [cs:bp + si], cl
+    db 0x24
     push bp
     mov bp, sp
     sub sp, byte 0x0a

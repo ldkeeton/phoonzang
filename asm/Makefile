@@ -10,7 +10,7 @@ ALL_BINS := ds $(OVRS) $(DRVS)
 # Auto-detect CPU cores for parallel builds
 MAKEFLAGS += --jobs=$(shell nproc 2>/dev/null || echo 4)
 
-.PHONY: all asm build verify run clean exact-bytes rebuild
+.PHONY: all asm build verify run clean exact-bytes rebuild check
 
 # ── Default: two-phase workflow ────────────────────────────────────────────
 all: 
@@ -61,6 +61,20 @@ else
 rebuild:
 	@echo "Usage: make rebuild MODULE=<name> or NOT_MODULE=<name>"; exit 1
 endif
+
+check: build
+	@echo "Smoke test: launching game (5s timeout)..."
+	@timeout 5 dosbox -c "mount c $(BUILD)" -c "c:" -c "DS.EXE" -c "EXIT" >/dev/null 2>&1; \
+	rc=$$?; \
+	if [ $$rc -eq 124 ]; then \
+		echo "PASS: game loaded"; \
+	elif [ $$rc -eq 0 ]; then \
+		echo "FAIL: game exited silently or crashed"; \
+		exit 1; \
+	else \
+		echo "FAIL: dosbox error (exit code $$rc)"; \
+		exit 1; \
+	fi
 
 verify:
 	python3 main.py --verify

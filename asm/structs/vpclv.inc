@@ -241,7 +241,7 @@ struc s_bx_5e2b
     .gap_9: resb 3
     .f_0c: resb 1
     .f_0d: resb 1
-    .f_0e: resb 1
+    .gap_e: resb 1
     .f_0f: resb 1
     .f_10: resb 1
 endstruc
@@ -292,24 +292,4 @@ struc s_bx_ffc8
     .f_12: resb 2
     .gap_14: resb 4
     .f_18: resb 2
-endstruc
-
-; @struct s_bx_ffe1 size=21 reg=bx disp=0xffe1
-; @field offset=0 size=1 name=f_00
-; @field offset=1 size=2 name=f_01
-; @field offset=3 size=2 name=f_03
-; @field offset=5 size=2 name=f_05
-; @field offset=7 size=4 name=f_07
-; @field offset=11 size=2 name=f_0b
-; @field offset=13 size=6 name=f_0d
-; @field offset=19 size=2 name=f_13
-struc s_bx_ffe1
-    .f_00: resb 1
-    .gap_1: resb 2
-    .f_03: resb 2
-    .f_05: resb 2
-    .gap_7: resb 4
-    .f_0b: resb 2
-    .gap_d: resb 6
-    .f_13: resb 2
 endstruc

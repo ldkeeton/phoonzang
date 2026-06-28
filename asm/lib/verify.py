@@ -584,7 +584,7 @@ def _emit_label_record(records, off, label_map, local_labels=None):
 
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False,
-           structs=None, asm_dir=None):
+           structs=None, asm_dir=None, cascade_promoted=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -722,8 +722,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
             if nasm_text:
                 built = _micro_assemble(nasm_text, off, label_map, local_labels)
+                exact_here = exact_bytes
                 ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
-                if not ok and not exact_bytes and built:
+                if not ok and not exact_here and built:
                     ok = _is_semantically_equivalent(bts, built[:len(bts)], off)
                 if ok:
                     records.append({

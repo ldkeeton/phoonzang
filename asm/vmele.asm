@@ -5311,10 +5311,10 @@ api_idx_0002_2:
     cld
     mov di, 0x90b6
     mov cx, 0x90d0
-    sub cx, di
+    db 0x2b, 0xcf ; sub cx, di
     shr cx, 1
     je short 0x3736
-    sub ax, ax
+    db 0x2b, 0xc0 ; sub ax, ax
     rep stosw
     call 0xe
     mov bp, word [0x90b2]
@@ -5345,19 +5345,9 @@ string_loc_374e:
     pop si
     pop bp
     ret
-    dec bp
-    dec di
-    dec si
-    xor byte [bx + si], dh
-    cs push ax
-    dec cx
-    inc bx
-    add byte [bx + si], ah
-    add byte [bp + 0x4d], dl
-    xor word [0x2424], bp
-    and al, 0
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
-    add byte [bx + si], al
+
+    db 'MON00.PIC', 0
+    db 0x20, 0x00
+    db 'VM1.$$$', 0
+    times 10 db 0
+
