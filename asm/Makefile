@@ -15,6 +15,7 @@ MAKEFLAGS += --jobs=$(shell nproc 2>/dev/null || echo 4)
 # ── Default: two-phase workflow ────────────────────────────────────────────
 all: 
 	rm -rf $(BUILD) *.asm
+	if [ -d structs ]; then find structs -maxdepth 1 -name '*.inc' -delete; fi
 	$(MAKE) asm build
 
 # ── Phase 1: Generate .asm from originals ──────────────────────────────────
@@ -26,6 +27,7 @@ $(ASM_DIR)/%.asm:
 # ── Exact-byte mode: generate + build with strict byte verification ────────
 exact-bytes:
 	rm -rf $(BUILD) *.asm
+	if [ -d structs ]; then find structs -maxdepth 1 -name '*.inc' -delete; fi
 	$(MAKE) EXACT_FLAG="--exact-bytes" asm build
 
 # ── Phase 2: Assemble .asm → build_out ─────────────────────────────────────
@@ -62,3 +64,4 @@ run-dosemu: build
 clean:
 	rm -rf $(BUILD)
 	rm -rf *.asm
+	if [ -d structs ]; then find structs -maxdepth 1 -name '*.inc' -delete; fi

@@ -510,6 +510,7 @@ def process(name, rel_path, start_offset, exact_bytes=False):
         bitmap=bitmap, code_targets=code_targets,
         exact_bytes=exact_bytes,
         structs=structs,
+        asm_dir=ASM_DIR,
     )
 
     asm_path = os.path.join(ASM_DIR, f'{name}.asm')

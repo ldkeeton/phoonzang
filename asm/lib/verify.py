@@ -584,7 +584,7 @@ def _emit_label_record(records, off, label_map, local_labels=None):
 
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False,
-           structs=None):
+           structs=None, asm_dir=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -781,10 +781,13 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     struct_count = 0
     if structs:
-        from lib.struct_analysis import format_nasm_structs
-        struct_text = format_nasm_structs(structs)
-        if struct_text.strip():
-            src_lines = struct_text + '\n' + src_lines
+        from lib.struct_analysis import write_struct_inc_files
+        if asm_dir is None:
+            asm_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        structs_dir = os.path.join(asm_dir, 'structs')
+        inc_line = write_struct_inc_files(structs, name, structs_dir)
+        if inc_line:
+            src_lines = '%include "structs/structs.inc"\n' + inc_line + '\n' + src_lines
             struct_count = len(structs)
 
     return src_lines, {

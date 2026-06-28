@@ -8,6 +8,7 @@ No game-specific knowledge — everything is derived from the code itself.
 """
 
 import json
+import os
 from collections import defaultdict
 from capstone import CS_OP_MEM
 from capstone.x86 import X86_REG_BP, X86_REG_SP, X86_REG_BX, X86_REG_SI
@@ -274,6 +275,65 @@ def format_types_json(structs, binary_path, overlay_name):
         'structs': entries,
     }
     return json.dumps(doc, indent=2)
+
+
+def write_struct_inc_files(structs, name, structs_dir):
+    """Write auto-discovered struct definitions to asm/structs/<name>.inc
+    and asm/structs/structs.inc (shared primitives).
+
+    Returns the %include directive string, or None if no structs.
+    """
+    os.makedirs(structs_dir, exist_ok=True)
+
+    # Write shared primitives
+    prim_path = os.path.join(structs_dir, 'structs.inc')
+    primitives = '\n'.join([
+        '; ── shared data layout primitives ───────────────────────────────',
+        '',
+        'struc BytePair',
+        '    .a: resb 1',
+        '    .b: resb 1',
+        'endstruc',
+        '',
+        'struc Tag_Hdr',
+        '    .tag: resb 1',
+        '    .id:  resb 2',
+        'endstruc',
+        '',
+        'struc DblW',
+        '    .lo: resb 2',
+        '    .hi: resb 2',
+        'endstruc',
+        '',
+        'struc QuadW',
+        '    .w0: resb 2',
+        '    .w1: resb 2',
+        '    .w2: resb 2',
+        '    .w3: resb 2',
+        'endstruc',
+        '',
+        'struc SparsePair',
+        '    .a:   resb 1',
+        '    .gap: resb 3',
+        '    .b:   resb 1',
+        'endstruc',
+        '',
+    ])
+    with open(prim_path, 'w') as f:
+        f.write(primitives)
+
+    if not structs:
+        return None
+
+    inc_path = os.path.join(structs_dir, f'{name}.inc')
+    struct_text = format_nasm_structs(structs)
+
+    with open(inc_path, 'w') as f:
+        f.write(struct_text)
+        if not struct_text.endswith('\n'):
+            f.write('\n')
+
+    return f'%include "structs/{name}.inc"'
 
 
 def format_nasm_structs(structs):
