@@ -261,7 +261,7 @@ loc_0203:
     call 0x4652
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call 0x45d7
+    call dos_alloc_mem
     add sp, byte 4
     ret
 
@@ -287,7 +287,7 @@ loc_022f:
     push word [bp + 0x6]
 loc_0238:
     push word [bp + 0x4]
-    call 0x460d
+    call dos_free_mem
     add sp, byte 4
     ret
 loc_0242:
@@ -425,7 +425,7 @@ loc_03da:
     call 0x4652
     mov word [bp - 0x0004], 0
     push word [bp + 0x4]
-    call 0x4cd7
+    call strlen_3
     pop cx
     dec ax
     mov word [bp - 0x0006], ax
@@ -533,7 +533,7 @@ loc_04b9:
     add sp, byte 6
     lea ax, word [bp - 0x00ff]
     push ax
-    call 0x4cd7
+    call strlen_3
     pop cx
     sub ax, word [bp + 0x8]
     jge short 0x511
@@ -549,7 +549,7 @@ loc_0505:
     push word [bp + 0xa]
     lea ax, word [bp - 0x00ff]
     push ax
-    call 0x4cd7
+    call strlen_3
     pop cx
     sub ax, word [bp + 0x8]
     lea cx, word [bp - 0x00ff]
@@ -618,7 +618,7 @@ loc_0572:
     lea ax, word [bp - 0x0105]
     push ax
     push word [bp + 0x4]
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     ret
     mov ax, 0xffac
@@ -634,7 +634,7 @@ loc_0572:
     mov word [bp - 0x0002], 0
     lea ax, word [bp - 0x0054]
     push ax
-    call 0x4cd7
+    call strlen_3
     pop cx
     add ax, strict word 0xfffc
     mov word [bp - 0x0004], ax
@@ -1312,7 +1312,7 @@ loc_0c70:
     mov word [bp - 0x0002], 0
     lea ax, word [bp - 0x0054]
     push ax
-    call 0x4cd7
+    call strlen_3
     pop cx
     add ax, strict word 0xfffc
     mov word [bp - 0x0004], ax
@@ -1746,7 +1746,7 @@ loc_100d:
     inc ax
     push ax
     push word [bp + 0xc]
-    call 0x4cd7
+    call strlen_3
     pop cx
     db 0x8b, 0xc8 ; mov cx, ax
     mov ax, word [bp + 0x8]
@@ -2041,7 +2041,7 @@ loc_1308:
     inc ax
     push ax
     push word [bp + 0xe]
-    call 0x4cd7
+    call strlen_3
     pop cx
     mov cx, ax
     mov ax, word [bp + 0x8]
@@ -2342,7 +2342,7 @@ loc_1511:
     imul word [bp - 0x0004]
     add ax, 0x5b7c
     push ax
-    call 0x4574
+    call strlen
     add sp, byte 4
     mov ax, word [bp - 0x0004]
     shl ax, 1
@@ -3730,7 +3730,7 @@ loc_23a8:
     push word [bp + 0x4]
     mov ax, 0x69ca
     push ax
-    call 0x4574
+    call strlen
     add sp, byte 4
     mov ax, 0x69ca
     ret
@@ -3766,7 +3766,7 @@ loc_2423:
     push word [bp + 0x4]
     lea ax, word [bp - 0x0078]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     cmp word [bp + 0x8], byte 0
     je short 0x2465
@@ -3784,7 +3784,7 @@ loc_2423:
     push ax
     lea ax, word [bp - 0x0050]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     jmp short 0x24b7
     mov ax, word [bp + 0x6]
@@ -3795,7 +3795,7 @@ loc_2423:
     push ax
     lea ax, word [bp - 0x0050]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     mov ax, 0x5e
     push ax
@@ -3822,7 +3822,7 @@ loc_2423:
     push ax
     lea ax, word [bp - 0x0050]
     push ax
-    call 0x4cd7
+    call strlen_3
     pop cx
     mov cx, 6
     imul cx
@@ -3849,7 +3849,7 @@ loc_2423:
 loc_2520:
     lea ax, word [bp - 0x0050]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     mov ax, 0x5e
     push ax
@@ -3864,7 +3864,7 @@ loc_2520:
     push ax
     lea ax, word [bp - 0x0050]
     push ax
-    call 0x4cd7
+    call strlen_3
     pop cx
     mov cx, 6
     imul cx
@@ -4010,13 +4010,13 @@ loc_261e:
     push ax
     lea ax, word [bp - 0x00a0]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     mov ax, 0xbaf
     push ax
     lea ax, word [bp - 0x00a0]
     push ax
-    call 0x4574
+    call strlen
     add sp, byte 4
     mov ax, 0
     push ax
@@ -4077,7 +4077,7 @@ loc_26ff:
     push ax
     lea ax, word [bp - 0x0078]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     cmp word [bp + 0x6], byte 0xfe
     je short 0x2774
@@ -4208,7 +4208,7 @@ loc_27e9:
     push ax
     lea ax, word [bp - 0x0018]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     mov ax, word [bp + 0x4]
     mov cx, 0xa
@@ -4298,7 +4298,7 @@ loc_295e:
     push ax
     lea ax, word [bp - 0x0018]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     mov ax, word [bp + 0x4]
     mov cx, 0xa
@@ -4378,7 +4378,7 @@ loc_295e:
     push ax
     lea ax, word [bp - 0x00a4]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     mov ax, word [bp + 0x4]
     mov cx, 0xa
@@ -4393,13 +4393,13 @@ loc_295e:
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     mov ax, 0xbeb
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    call 0x4574
+    call strlen
     add sp, byte 4
     mov ax, 0
     push ax
@@ -4423,7 +4423,7 @@ loc_295e:
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     cmp word [bp - 0x00a8], byte 5
     jne short 0x2adc
@@ -4431,14 +4431,14 @@ loc_295e:
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    call 0x4574
+    call strlen
     add sp, byte 4
     jmp short 0x2aea
     mov ax, 0xbf5
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    call 0x4574
+    call strlen
     add sp, byte 4
     mov ax, 0
     push ax
@@ -7341,13 +7341,13 @@ loc_4386:
     push word [0x0cfa]
     lea ax, word [bp - 0x0052]
     push ax
-    call 0x45ab
+    call strlen_2
     add sp, byte 4
     mov ax, 0xc48
     push ax
     lea ax, word [bp - 0x0052]
     push ax
-    call 0x4574
+    call strlen
     add sp, byte 4
     mov ax, 0
     push ax
@@ -7401,7 +7401,7 @@ loc_4386:
     push word [bp - 0x000e]
     push word [bp - 0x0010]
     push word [bp - 0x0002]
-    call 0x44b4
+    call dos_read_file
 loc_442e:
     add sp, byte 6
     cmp ax, word [bp - 0x000e]
@@ -7469,7 +7469,7 @@ loc_4497:
     and ax, 0xff
     pop bp
     ret
-loc_44b4:
+dos_read_file:
     push bp
     mov bp, sp
     mov bx, word [bp + 0x4]
@@ -7578,14 +7578,14 @@ loc_4555:
     popf
     pop bp
     ret
-loc_4574:
+strlen:
     push bp
     mov bp, sp
     mov dx, 0x7fff
     jmp short 0x4582
-
-    db 0x55, 0x8b, 0xec, 0x8b, 0x56, 0x08
-
+    push bp
+    mov bp, sp
+    mov dx, word [bp + 0x8]
     cld
     push si
     push di
@@ -7610,7 +7610,7 @@ loc_4574:
     mov ax, word [bp + 0x4]
     pop bp
     ret
-loc_45ab:
+strlen_2:
     push bp
     mov bp, sp
     cld
@@ -7635,7 +7635,7 @@ loc_45ab:
     mov ax, word [bp + 0x4]
     pop bp
     ret
-loc_45d7:
+dos_alloc_mem:
     push bp
     mov bp, sp
     mov ax, word [bp + 0x4]
@@ -7661,7 +7661,7 @@ loc_45d7:
     mov dx, ax
     pop bp
     ret
-loc_460d:
+dos_free_mem:
     push bp
     mov bp, sp
     push es
@@ -8449,7 +8449,7 @@ loc_4c42:
     pop si
     pop di
     ret
-loc_4cd7:
+strlen_3:
     push bp
     mov bp, sp
     cld

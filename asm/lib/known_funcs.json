@@ -1,245 +1,110 @@
 {
-  "version": 1,
+  "version": 3,
+  "api_dispatch": {
+    "0x0001": { "name": "api_special_ffff", "notes": "dispatch param 0xFFFF (-1) — odd index, likely special-case" }
+  },
   "signatures": [
     {
       "name": "dos_resize_mem",
       "notes": "INT 21h AH=0x4A resize memory block",
-      "entries": [
-        {
-          "crc": 91,
-          "size": 37
-        },
-        {
-          "crc": 195,
-          "size": 130
-        },
-        {
-          "crc": 127,
-          "size": 55
-        }
-      ],
-      "patterns": [
-        "B4 4A CD 21"
-      ]
+      "entries": [],
+      "patterns": ["B4 4A CD 21"]
     },
     {
       "name": "dos_alloc_mem",
       "notes": "INT 21h AH=0x48 allocate memory block",
-      "entries": [
-        {
-          "crc": 116,
-          "size": 598
-        },
-        {
-          "crc": 4,
-          "size": 161
-        },
-        {
-          "crc": 195,
-          "size": 49
-        }
-      ],
-      "patterns": [
-        "B4 48 CD 21"
-      ]
+      "entries": [],
+      "patterns": ["B4 48 CD 21"]
     },
     {
       "name": "dos_free_mem",
       "notes": "INT 21h AH=0x49 free memory block",
-      "entries": [
-        {
-          "crc": 10,
-          "size": 33
-        },
-        {
-          "crc": 28,
-          "size": 30
-        },
-        {
-          "crc": 255,
-          "size": 29
-        }
-      ],
-      "patterns": [
-        "B4 49 CD 21"
-      ]
+      "entries": [],
+      "patterns": ["B4 49 CD 21"]
     },
     {
       "name": "dos_open_file",
       "notes": "INT 21h AH=0x3D open file",
-      "entries": [
-        {
-          "crc": 111,
-          "size": 209
-        },
-        {
-          "crc": 10,
-          "size": 153
-        }
-      ],
-      "patterns": [
-        "B4 3D CD 21"
-      ]
+      "entries": [],
+      "patterns": ["B4 3D CD 21"]
     },
     {
       "name": "dos_close_file",
       "notes": "INT 21h AH=0x3E close file",
-      "entries": [
-        {
-          "crc": 6,
-          "size": 333
-        }
-      ],
-      "patterns": [
-        "B4 3E CD 21"
-      ]
+      "entries": [],
+      "patterns": ["B4 3E CD 21"]
     },
     {
       "name": "dos_read_file",
       "notes": "INT 21h AH=0x3F read file",
-      "entries": [
-        {
-          "crc": 211,
-          "size": 476
-        }
-      ],
-      "patterns": [
-        "B4 3F CD 21"
-      ]
+      "entries": [],
+      "patterns": ["B4 3F CD 21"]
     },
     {
       "name": "dos_write_file",
       "notes": "INT 21h AH=0x40 write file",
       "entries": [],
-      "patterns": [
-        "B4 40 CD 21"
-      ]
+      "patterns": ["B4 40 CD 21"]
     },
     {
       "name": "dos_seek_file",
       "notes": "INT 21h AH=0x42 seek file",
-      "entries": [
-        {
-          "crc": 210,
-          "size": 86
-        }
-      ],
-      "patterns": [
-        "B4 42 CD 21"
-      ]
+      "entries": [],
+      "patterns": ["B4 42 CD 21"]
     },
     {
       "name": "dos_get_intvec",
       "notes": "INT 21h AH=0x35 get interrupt vector",
-      "entries": [
-        {
-          "crc": 103,
-          "size": 50
-        }
-      ],
-      "patterns": [
-        "B4 35 CD 21"
-      ]
+      "entries": [],
+      "patterns": ["B4 35 CD 21"]
     },
     {
       "name": "dos_set_intvec",
       "notes": "INT 21h AH=0x25 set interrupt vector",
       "entries": [],
-      "patterns": [
-        "B4 25 CD 21"
-      ]
+      "patterns": ["B4 25 CD 21"]
     },
     {
       "name": "dos_print_str",
       "notes": "INT 21h AH=0x09 print string",
-      "entries": [
-        {
-          "crc": 158,
-          "size": 179
-        }
-      ],
-      "patterns": [
-        "B4 09 CD 21"
-      ]
+      "entries": [],
+      "patterns": ["B4 09 CD 21"]
     },
     {
       "name": "strlen",
       "notes": "16-bit near strlen (repne scasb)",
-      "entries": [
-        {
-          "crc": 139,
-          "size": 23
-        },
-        {
-          "crc": 43,
-          "size": 217
-        }
-      ],
-      "patterns": [
-        "F2 AE"
-      ]
+      "entries": [],
+      "patterns": ["F2 AE"]
     },
     {
       "name": "strcmp",
       "notes": "16-bit strcmp (repe cmpsb)",
       "entries": [],
-      "patterns": [
-        "F3 A6"
-      ]
+      "patterns": ["F3 A6"]
     },
     {
       "name": "memcpy",
       "notes": "16-bit memcpy (rep movsb, cld)",
-      "entries": [
-        {
-          "crc": 195,
-          "size": 156
-        },
-        {
-          "crc": 60,
-          "size": 249
-        },
-        {
-          "crc": 4,
-          "size": 149
-        },
-        {
-          "crc": 4,
-          "size": 160
-        }
-      ],
-      "patterns": [
-        "FC F3 A4"
-      ]
+      "entries": [],
+      "patterns": ["FC F3 A4"]
     },
     {
       "name": "memset",
       "notes": "16-bit memset (rep stosb, cld)",
       "entries": [],
-      "patterns": [
-        "FC F3 AA"
-      ]
+      "patterns": ["FC F3 AA"]
     },
     {
       "name": "abs",
       "notes": "16-bit abs (cwd, xor, sub)",
       "entries": [],
-      "patterns": [
-        "99 31 D0 29 D0"
-      ]
+      "patterns": ["99 31 D0 29 D0"]
     },
     {
       "name": "stack_alloc_check",
       "notes": "Stack allocation guard (add sp, ax; cmp sp, bp)",
-      "entries": [
-        {
-          "crc": 131,
-          "size": 44
-        }
-      ],
-      "patterns": [
-        "03 E0 3B E5"
-      ]
+      "entries": [],
+      "patterns": ["03 E0 3B E5"]
     }
   ]
 }

@@ -26,11 +26,11 @@ bits 16
     mov di, 0xb8
     add al, ch
     div bx
-    call 0x6a3f
+    call api_idx_002c
     mov word [0x830a], 4
     mov ax, 0
     ret
-loc_0021:
+api_idx_0002:
     mov ax, 0xfffe
     call 0xf40b
     mov ax, 0
@@ -10671,7 +10671,7 @@ loc_0445:
     call 0xfda5
     pop cx
     ret
-loc_65fc:
+api_idx_0002_2:
     mov ax, 0xfffe
     call 0xf40b
     mov word [bp - 0x0002], 0
@@ -11105,7 +11105,7 @@ loc_65fc:
     ret
     mov ax, 0xffff
     ret
-loc_6a3f:
+api_idx_002c:
     mov ax, 0xffd4
     call 0xf40b
     mov ax, 1
@@ -11139,7 +11139,7 @@ loc_6a3f:
     push ax
     mov ax, 0x950c
     push ax
-    call 0x21
+    call api_idx_0002
     add sp, byte 4
     mov word [0x95aa], 0x14
     mov word [0x95ac], 0
@@ -11388,7 +11388,7 @@ loc_6a3f:
     jl short 0x6cf5
     mov word [bp - 0x0022], 1
     mov word [bp - 0x0020], 0xffff
-    call 0x65fc
+    call api_idx_0002_2
     mov word [bp - 0x000a], ax
     cmp ax, strict word 0xffff
     je short 0x6d28

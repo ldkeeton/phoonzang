@@ -66,11 +66,11 @@ bits 16
     jmp short 0x2d
     call 0x3a8
     jmp short 0x41
-    call 0xac7
+    call api_idx_0068
     jmp short 0x41
-    call 0x133d
+    call api_idx_0002_7
     jmp short 0x41
-    call 0x1409
+    call api_idx_0008
     jmp short 0x41
     cmp ax, strict word 0
     je short 0x19
@@ -82,7 +82,7 @@ bits 16
     je short 0x23
     mov ax, 0
     ret
-loc_0045:
+api_idx_0002:
     mov ax, 0xfffe
     call 0xf40b
     mov ax, 0
@@ -109,7 +109,7 @@ loc_0045:
     call 0xfda5
     pop cx
     ret
-loc_0084:
+api_idx_0002_2:
     mov ax, 0xfffe
     call 0xf40b
     mov ax, 0
@@ -139,7 +139,7 @@ loc_0084:
     call 0xfda5
     pop cx
     ret
-loc_00ca:
+api_idx_0002_3:
     mov ax, 0xfffe
     call 0xf40b
     mov ax, 0
@@ -167,7 +167,7 @@ loc_00ca:
     call 0xfda5
     pop cx
     ret
-loc_010c:
+api_idx_0002_4:
     mov ax, 0xfffe
     call 0xf40b
     mov ax, 0
@@ -193,7 +193,7 @@ loc_010c:
     call 0xfda5
     pop cx
     ret
-loc_0146:
+api_idx_000c:
     mov ax, 0xfff4
     call 0xf40b
     mov ax, 0
@@ -563,66 +563,66 @@ loc_03a8:
     push ax
     mov ax, 0x90a5
     push ax
-    call 0x45
+    call api_idx_0002
     add sp, byte 4
     mov ax, 1
     push ax
     mov ax, 0x90b1
     push ax
-    call 0x45
+    call api_idx_0002
     add sp, byte 4
     mov ax, 2
     push ax
     mov ax, 0x90bd
     push ax
-    call 0x45
+    call api_idx_0002
     add sp, byte 4
     mov ax, 3
     push ax
     mov ax, 0x90c9
     push ax
-    call 0x45
+    call api_idx_0002
     add sp, byte 4
     mov ax, 4
     push ax
     mov ax, 0x90d5
     push ax
-    call 0x45
+    call api_idx_0002
     add sp, byte 4
     mov ax, 5
     push ax
     mov ax, 0x90e1
     push ax
-    call 0x45
+    call api_idx_0002
     add sp, byte 4
     mov ax, 6
     push ax
     mov ax, 0x90ed
     push ax
-    call 0x45
+    call api_idx_0002
     add sp, byte 4
     mov ax, 7
     push ax
     mov ax, 0x90f9
     push ax
-    call 0x45
+    call api_idx_0002
     add sp, byte 4
     call 0xca6a
     mov ax, 0x9105
     push ax
-    call 0x146
+    call api_idx_000c
     pop cx
     mov word [0x0e30], dx
     mov word [0x0e2e], ax
     mov ax, 0x9111
     push ax
-    call 0x146
+    call api_idx_000c
     pop cx
     mov word [0x0e2c], dx
     mov word [0x0e2a], ax
     mov ax, 0x911d
     push ax
-    call 0x146
+    call api_idx_000c
     pop cx
     mov word [0x0e28], dx
     mov word [0x0e26], ax
@@ -630,7 +630,7 @@ loc_03a8:
     push ax
     mov ax, 0x9129
     push ax
-    call 0x84
+    call api_idx_0002_2
     add sp, byte 4
     mov word [0x1008], 0x905c
     mov ax, 0x52
@@ -639,7 +639,7 @@ loc_03a8:
     push ax
     mov ax, 0x9136
     push ax
-    call 0xca
+    call api_idx_0002_3
     add sp, byte 6
     mov ax, 0x30c
     push ax
@@ -647,7 +647,7 @@ loc_03a8:
     push ax
     mov ax, 0x9141
     push ax
-    call 0xca
+    call api_idx_0002_3
     add sp, byte 6
     mov ax, 0x2dfe
     push ax
@@ -655,7 +655,7 @@ loc_03a8:
     push ax
     mov ax, 0x914a
     push ax
-    call 0xca
+    call api_idx_0002_3
     add sp, byte 6
     mov ax, 0x18
     push ax
@@ -663,11 +663,11 @@ loc_03a8:
     push ax
     mov ax, 0x9152
     push ax
-    call 0xca
+    call api_idx_0002_3
     add sp, byte 6
     mov ax, 0x915d
     push ax
-    call 0x10c
+    call api_idx_0002_4
     pop cx
     mov ax, 0
     push ax
@@ -925,7 +925,7 @@ loc_03a8:
     add sp, byte 6
     mov word [0x830a], 1
     ret
-loc_08b7:
+api_idx_0002_5:
     mov ax, 0xfffe
     call 0xf40b
     mov ax, 0
@@ -991,7 +991,7 @@ loc_08b7:
     call 0xf0bd
     pop cx
     ret
-loc_094a:
+api_idx_0002_6:
     mov ax, 0xfffe
     call 0xf40b
     cmp word [0x91b8], byte 0xff
@@ -1017,7 +1017,7 @@ loc_094a:
     or word [0x91b8], ax
     mov ax, word [0x91b8]
     ret
-loc_0988:
+api_idx_0004:
     mov ax, 0xfffc
     call 0xf40b
     mov ax, word [bp + 0x4]
@@ -1038,7 +1038,7 @@ loc_0988:
     cmp ax, word [bp - 0x0004]
     jb short 0x9c0
     jmp short 0x9d2
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     je short 0x9c8
     ret
@@ -1048,7 +1048,7 @@ loc_0988:
     pop cx
     jmp short 0x9a7
     ret
-loc_09d3:
+api_idx_000e:
     mov ax, 0xfff2
     call 0xf40b
     mov al, byte [bp + 0x4]
@@ -1118,21 +1118,21 @@ loc_0a56:
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
     cmp word [bp + 0x6], byte 0
     je short 0xa93
     mov ax, 0
     push ax
     push word [bp + 0x6]
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
     cmp word [bp + 0x8], byte 0
     je short 0xaa6
     mov ax, 0
     push ax
     push word [bp + 0x8]
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
     mov ax, 0xc7
     push ax
@@ -1146,10 +1146,10 @@ loc_0a56:
     cmp word [bp + 0xa], byte 0
     je short 0xac6
     push word [bp + 0xa]
-    call 0x988
+    call api_idx_0004
     pop cx
     ret
-loc_0ac7:
+api_idx_0068:
     mov ax, 0xff98
     call 0xf40b
     call 0xd9a6
@@ -1192,7 +1192,7 @@ loc_0ac7:
     push ax
     mov ax, 1
     push ax
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
     mov ax, 0
     push ax
@@ -1214,7 +1214,7 @@ loc_0ac7:
     call 0xf0bd
     pop cx
     mov word [0x91b8], 0
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xb8d
     cmp word [0x8450], byte 0
@@ -1228,9 +1228,9 @@ loc_0ac7:
     mov word [0x844c], ax
     mov ax, 0xb4
     push ax
-    call 0x988
+    call api_idx_0004
     pop cx
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xbaa
     mov ax, 0xa
@@ -1243,7 +1243,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xbc7
     mov ax, 0xa
@@ -1256,7 +1256,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xbe4
     mov ax, 0xa
@@ -1269,7 +1269,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xbfe
     mov ax, 0xa
@@ -1281,7 +1281,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xc1b
     mov ax, 0xa
@@ -1294,7 +1294,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xc38
     mov ax, 0xa
@@ -1307,7 +1307,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xc52
     mov ax, 0
@@ -1323,7 +1323,7 @@ loc_0ac7:
     push ax
     call 0xc12a
     pop cx
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     je short 0xc64
     jmp near 0xd3d
@@ -1335,9 +1335,9 @@ loc_0ac7:
     add sp, byte 4
     mov ax, 0x98
     push ax
-    call 0x988
+    call api_idx_0004
     pop cx
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xc97
     mov ax, 0xa
@@ -1350,7 +1350,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xcb4
     mov ax, 0xa
@@ -1363,7 +1363,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xcce
     mov ax, 0
@@ -1377,9 +1377,9 @@ loc_0ac7:
     add sp, byte 8
     mov ax, 0x90
     push ax
-    call 0x988
+    call api_idx_0004
     pop cx
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xcf3
     mov ax, 0xa
@@ -1392,7 +1392,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xd10
     mov ax, 0xa
@@ -1405,7 +1405,7 @@ loc_0ac7:
     push ax
     call 0xa56
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xd2d
     mov ax, 0
@@ -1420,13 +1420,13 @@ loc_0ac7:
     add sp, byte 8
     mov ax, 5
     push ax
-    call 0x988
+    call api_idx_0004
     pop cx
     mov ax, 0xf
     push ax
     call 0xc12a
     pop cx
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     je short 0xd47
     jmp near 0xdf1
@@ -1436,7 +1436,7 @@ loc_0ac7:
     push ax
     call 0xd61c
     add sp, byte 4
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xd73
     mov ax, 0
@@ -1450,43 +1450,43 @@ loc_0ac7:
     push ax
     call 0xe901
     add sp, byte 0x0a
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xd88
     mov ax, 0
     push ax
     mov ax, 1
     push ax
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xd9d
     mov ax, 0
     push ax
     mov ax, 2
     push ax
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xdb2
     mov ax, 0
     push ax
     mov ax, 3
     push ax
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xdc7
     mov ax, 0
     push ax
     mov ax, 4
     push ax
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xde1
     mov ax, 0xc7
@@ -1500,30 +1500,30 @@ loc_0ac7:
     add sp, byte 8
     mov ax, 5
     push ax
-    call 0x988
+    call api_idx_0004
     pop cx
     mov ax, 0xf
     push ax
     call 0xc12a
     pop cx
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     jne short 0xe0e
     mov ax, 1
     push ax
     mov ax, 0x9187
     push ax
-    call 0x8b7
+    call api_idx_0002_5
     add sp, byte 4
     mov ax, 5
     push ax
-    call 0x988
+    call api_idx_0004
     pop cx
     mov ax, 0
     push ax
     mov ax, 0x9194
     push ax
-    call 0x8b7
+    call api_idx_0002_5
     add sp, byte 4
     mov ax, 0xf
     push ax
@@ -1531,7 +1531,7 @@ loc_0ac7:
     push ax
     call 0xd61c
     add sp, byte 4
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     je short 0xe34
     jmp near 0xecc
@@ -1546,7 +1546,7 @@ loc_0ac7:
     add sp, byte 8
     mov ax, 0xc
     push ax
-    call 0x988
+    call api_idx_0004
     pop cx
     mov ax, 0
     push ax
@@ -1575,7 +1575,7 @@ loc_0ac7:
     push word [bp - 0x0002]
     mov ax, 1
     push ax
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
     mov ax, 0x62
     push ax
@@ -1603,7 +1603,7 @@ loc_0ac7:
     push ax
     mov ax, 1
     push ax
-    call 0x9d3
+    call api_idx_000e
     add sp, byte 4
     mov ax, 0xc7
     push ax
@@ -1634,7 +1634,7 @@ loc_0ac7:
     add sp, byte 0x0c
     mov word [bp - 0x000a], dx
     mov word [bp - 0x000c], ax
-    call 0x94a
+    call api_idx_0002_6
     mov ax, 0xb54
     cmp word [0x91b8], byte 0
     je short 0xf29
@@ -1938,7 +1938,7 @@ loc_0ac7:
     add sp, byte 0x0a
     mov ax, 0x10
     push ax
-    call 0x988
+    call api_idx_0004
     pop cx
     mov ax, 0
     push ax
@@ -1947,7 +1947,7 @@ loc_0ac7:
     push word [bp - 0x000c]
     call 0xe942
     add sp, byte 8
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     je short 0x1263
     cmp word [bp - 0x0060], strict word 0xb69
@@ -1963,13 +1963,13 @@ loc_0ac7:
     cmp word [0x5216], byte 0
     jne short 0x126d
     jmp near 0xf44
-    call 0x94a
+    call api_idx_0002_6
     test ax, ax
     je short 0x127a
     mov word [0x91b8], 0xffff
     mov ax, 0x32
     push ax
-    call 0x988
+    call api_idx_0004
     pop cx
     mov ax, 0
     push ax
@@ -2043,7 +2043,7 @@ loc_0ac7:
     mov word [0x5b3e], 0
     mov word [0x830a], 2
     ret
-loc_133d:
+api_idx_0002_7:
     mov ax, 0xfffe
     call 0xf40b
     cmp word [0x906a], byte 0
@@ -2119,7 +2119,7 @@ loc_133d:
     mov word [0x830a], 2
     call 0xec17
     ret
-loc_1409:
+api_idx_0008:
     mov ax, 0xfff8
     call 0xf40b
     mov ax, 0
@@ -2192,7 +2192,7 @@ loc_1409:
     push ax
     mov ax, 0x91a1
     push ax
-    call 0x8b7
+    call api_idx_0002_5
     add sp, byte 4
     mov word [bp - 0x0002], 0
     mov ax, word [bp - 0x0002]

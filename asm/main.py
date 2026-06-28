@@ -57,6 +57,137 @@ def _load_known_funcs():
     with open(KNOWN_FUNCS_PATH) as f:
         return json.load(f)
 
+
+def _match_patterns(data, call_targets, known_db, max_func_size=256):
+    """Pattern-match known wrapper functions → {offset: name} labels.
+
+    For each signature's byte pattern, scan the binary.  Walk backward up
+    to 256 bytes for a push-bp prologue that is a call_target, verify the
+    function body (≤ max_func_size bytes to ret/retf), and confirm the
+    pattern falls within the function body — not in a later function that
+    happens to have the same prologue in the back-walk window.
+
+    Returns a dict of {func_start: label_name} with automatic _N dedup.
+    """
+    if not known_db:
+        return {}
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    md.detail = False
+    _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
+
+    label_map = {}
+    name_count = {}
+
+    for sig in known_db.get('signatures', []):
+        name = sig['name']
+        for pat_str in sig.get('patterns', []):
+            try:
+                pat_bytes = bytes.fromhex(pat_str.replace(' ', ''))
+            except (ValueError, KeyError):
+                continue
+            idx = 0
+            while True:
+                idx = data.find(pat_bytes, idx)
+                if idx == -1:
+                    break
+
+                matched = False
+                for i in range(min(256, idx), 0, -1):
+                    p = idx - i
+                    if data[p] != 0x55:
+                        continue
+                    try:
+                        prev_insns = list(md.disasm(data[p:idx], p))
+                    except Exception:
+                        prev_insns = []
+                    if not (prev_insns and prev_insns[-1].address + prev_insns[-1].size == idx):
+                        continue
+
+                    func_start = p
+                    if func_start not in call_targets:
+                        continue
+
+                    max_end = min(func_start + max_func_size, len(data))
+                    try:
+                        insns = list(md.disasm(data[func_start:max_end], func_start))
+                    except Exception:
+                        insns = []
+                    func_end = max_end
+                    for insn in insns:
+                        if insn.mnemonic in _TERMINATORS:
+                            func_end = insn.address + insn.size
+                            break
+
+                    if func_start <= idx < func_end and func_end <= func_start + max_func_size:
+                        matched = True
+                        break
+
+                if matched:
+                    if func_start not in label_map:
+                        n = name_count.get(name, 0) + 1
+                        name_count[name] = n
+                        label_map[func_start] = f'{name}_{n}' if n > 1 else name
+
+                idx += len(pat_bytes)
+
+    return label_map
+
+def _match_trampolines(data, call_targets, known_db=None):
+    """Detect trampoline-dispatch stubs: call_targets starting with
+    ``mov ax, 0xFFXX; call EXTERNAL`` where EXTERNAL is beyond the file.
+
+    Uses ``known_db[api_dispatch]`` map (key = hex neg(ax) like ``0x0004``)
+    to name known APIs.  Falls back to ``api_idx_N``.
+
+    Returns a dict of {offset: label_name} with automatic _N dedup.
+    """
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    md.detail = True
+    n = len(data)
+
+    # Build dispatch-name map from known_db
+    dispatch_names = {}
+    if known_db:
+        for key, entry in known_db.get('api_dispatch', {}).items():
+            try:
+                idx = int(key, 16) if isinstance(key, str) else int(key)
+                dispatch_names[idx] = entry['name']
+            except (ValueError, KeyError):
+                pass
+
+    label_map = {}
+    name_count = {}
+
+    for off in sorted(call_targets):
+        if off + 6 > n:
+            continue
+        if data[off] != 0xB8 or data[off + 2] != 0xFF:
+            continue
+        val = data[off + 1] | (data[off + 2] << 8)
+        for j in range(off + 3, min(off + 8, n - 2)):
+            if data[j] == 0xE8:
+                try:
+                    insn = next(md.disasm(data[j:j + 5], j))
+                    target = insn.operands[0].imm if insn.operands else None
+                except Exception:
+                    break
+                if target is not None and (target & 0xFFFF) >= n:
+                    idx = (-val) & 0xFFFF
+                    name = dispatch_names.get(idx)
+                    if name is None:
+                        name = f'api_idx_{idx:04x}'
+                    n_ = name_count.get(name, 0) + 1
+                    name_count[name] = n_
+                    label_map[off] = name if n_ == 1 else f'{name}_{n_}'
+                break
+            elif data[j] in (0xC3, 0xCB, 0xCF, 0xEB, 0xE9):
+                break
+
+    return label_map
+
+
 def _discover_binaries():
     """Scan ORIG_DIR for known binary types → {name: (rel_path, start_offset)}."""
     bins = {}
@@ -77,6 +208,13 @@ BINARIES = _discover_binaries()
 
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
+_MAX_FUNC_SIZE = None
+for a in sys.argv:
+    if a.startswith('--max-func-size='):
+        try:
+            _MAX_FUNC_SIZE = int(a.split('=', 1)[1])
+        except ValueError:
+            pass
 
 
 def process(name, rel_path, start_offset, exact_bytes=False):
@@ -87,20 +225,6 @@ def process(name, rel_path, start_offset, exact_bytes=False):
 
     with open(path, 'rb') as f:
         data = f.read()
-
-    # Build label map from known_funcs.json CRC matching (dynamic, no cache)
-    label_map = {}
-
-    # Dedup: ensure unique labels (same name at different offsets → _1, _2, ...)
-    name_count = {}
-    deduped = {}
-    for off in sorted(label_map.keys()):
-        base = label_map[off]
-        n = name_count.get(base, 0) + 1
-        name_count[base] = n
-        deduped[off] = f'{base}_{n}' if n > 1 else base
-    label_map.clear()
-    label_map.update(deduped)
 
     # Build classification bitmap
     from lib.verify import clear_assemble_cache
@@ -116,28 +240,21 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     # (intra-function branch targets are excluded to reduce noise)
     code_targets = info['call_targets']
 
-    # CRC-match call targets against known_funcs.json (dynamic, no cache)
+    # Pattern-match known functions via byte signatures (dynamic, no cache)
     known_db = _load_known_funcs()
-    for off in sorted(info.get('call_targets', set())):
-        if off in label_map:
-            continue
-        found = None
-        for s in known_db.get('signatures', []):
-            for entry in s.get('entries', []):
-                esize = entry['size']
-                if off + esize > len(data):
-                    continue
-                crc = _crc16(data[off:off + esize])
-                if entry['crc'] == crc:
-                    found = s['name']
-                    break
-            if found:
-                break
-        if found:
-            base = found
-            n = name_count.get(base, 0) + 1
-            name_count[base] = n
-            label_map[off] = f'{base}_{n}' if n > 1 else base
+    max_func_size = _MAX_FUNC_SIZE if _MAX_FUNC_SIZE is not None else 256
+    label_map = _match_patterns(data, info.get('call_targets', set()), known_db, max_func_size)
+
+    # Detect trampoline-dispatch stubs (fallback — never override pattern matches)
+    trampoline_map = _match_trampolines(data, info.get('call_targets', set()), known_db)
+    for off, lbl in trampoline_map.items():
+        if off not in label_map:
+            label_map[off] = lbl
+
+    # CRC matching disabled — no verified CRCs in known_funcs.json yet.
+    # To reactivate: add verified {crc, size, addr_off} to entries[], then
+    # uncomment the CRC loop below and remove the _match_patterns call above
+    # (or run both — pattern-first, CRC for fallback).
 
     # Count classification stats
     code_bytes = sum(1 for b in bitmap if b == 1)  # IS_CODE = 1
