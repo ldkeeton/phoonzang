@@ -1,0 +1,46 @@
+                                BOOT DISK INSTRUCTIONS
+                                        
+                          For Crusaders of the Dark Savant
+------------------------------------------------------------------------------------
+
+Exit to MSDOS if you're in Windows & follow this procedure...  
+1.   Place a blank disk in drive A.  
+2.   At a dos prompt, type FORMAT A:/S It is very important to do this from a dos   
+     prompt and to include the '/S' option.  Follow directions on screen  until you  
+     are back at a DOS prompt.  
+3.   At the dos prompt, type EDIT and press enter.  
+4.   In the big blue blank screen, type the following...  
+             
+     DEVICE=C:\WINDOWS\HIMEM.SYS  
+     DEVICE=C:\WINDOWS\EMM386.EXE NOEMS  
+     DOS=HIGH,UMB  
+     FILES=20  
+     BUFFERS=20,0  
+     FCBS=4,0  
+     STACKS=9,256  
+     LASTDRIVE=E  
+     <insert cdrom driver - load high using the DEVICEHIGH command>  
+             
+5.   Save the above file by selecting FILE, SAVE AS, and then type   
+     A:\CONFIG.SYS when prompted for a filename.  
+6.   Start a new file by selecting FILE, and then NEW.  
+7.   In the big blue blank screen, type the following...  
+             
+     PATH C:\WINDOWS;C:\WINDOWS\COMMAND  
+     <insert sound driver(s) - load high using the LH command>  
+     <insert mouse driver - load high using the LH command>  
+     <insert cdrom driver - load high using the LH command>   
+             
+8.   Save the above file by selecting FILE, SAVE AS, and then type   
+     A:\AUTOEXEC.BAT when prompted for a filename.  
+9.   Exit dos's editor by selecting FILE and then EXIT.  
+10.  Re-boot your machine with the new disk in the drive.  
+             
+Then run the game as instructed in the manual or post-install instructions.  If you
+have problems identifying the drivers to be inserted, contact our technicians while
+sitting in front of your computer or while looking at a print out of your
+C:\CONFIG.SYS, C:\AUTOEXEC.BAT, and C:\WINDOWS\DOSSTART.BAT files.  
+             
+
+                                        
+                          Copyright © 1998 Sir-tech Software, Inc.

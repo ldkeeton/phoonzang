@@ -31,12 +31,9 @@ exact-bytes:
 	$(MAKE) EXACT_FLAG="--exact-bytes" asm build
 
 # ── Phase 2: Assemble .asm → build_out ─────────────────────────────────────
-build: $(BUILD)/game-ready
-
-$(BUILD)/game-ready: $(addprefix $(BUILD)/, $(addsuffix .ovr, $(OVRS))) \
-                     $(BUILD)/DS.EXE $(addprefix $(BUILD)/, $(addsuffix .DRV, $(DRVS)))
+build: $(addprefix $(BUILD)/, $(addsuffix .ovr, $(OVRS))) \
+        $(BUILD)/DS.EXE $(addprefix $(BUILD)/, $(addsuffix .DRV, $(DRVS)))
 	tar -cf - --exclude='*.OVR' --exclude='*.DRV' --exclude='DS.EXE' -C $(ORIG) . | tar -xf - -C $(BUILD)/
-	@touch $@
 
 $(BUILD)/%.ovr: $(ASM_DIR)/%.asm | $(BUILD)
 	$(NASM) -O0 -f bin -o $@ $<
