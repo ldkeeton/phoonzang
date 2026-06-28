@@ -14,10 +14,9 @@ import os, struct, sys
 
 ASM_DIR = os.path.dirname(os.path.abspath(__file__))
 ORIG_DIR = os.path.join(os.path.dirname(ASM_DIR), 'DSAVANT')
-SIDECAR_PATH = os.path.join(ASM_DIR, 'sidecar.json')
 
 sys.path.insert(0, ASM_DIR)
-from lib.classify import classify, _load_sidecar
+from lib.classify import classify
 from lib.verify import _try_decode_block, _detect_jump_table, _detect_file_format
 
 BINARIES = {
@@ -77,11 +76,8 @@ def main():
         with open(path, 'rb') as f:
             data = f.read()
 
-        sidecar_data = _load_sidecar(SIDECAR_PATH)
-        sidecar_entry = sidecar_data.get(name, {})
-
         entry_points = set()
-        bitmap, info = classify(data, start_offset, entry_points=entry_points, sidecar_entry=sidecar_entry)
+        bitmap, info = classify(data, start_offset, entry_points=entry_points)
         known_addrs = info['discovered']
 
         code_bytes = sum(1 for b in bitmap if b == 1)

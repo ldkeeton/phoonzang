@@ -51,7 +51,7 @@ def _is_semantically_equivalent(orig_bytes, nasm_bytes, address):
     return result
 
 
-def _micro_assemble(nasm_text, offset, label_map=None):
+def _micro_assemble(nasm_text, offset, label_map=None, local_labels=None):
     key = (nasm_text, offset)
     if key in _assemble_cache:
         return _assemble_cache[key]
@@ -59,6 +59,9 @@ def _micro_assemble(nasm_text, offset, label_map=None):
     prelude = f'org {offset}\nbits 16\n'
     if label_map:
         for lbl_off, lbl_name in label_map.items():
+            prelude += f'{lbl_name} equ 0x{lbl_off:04x}\n'
+    if local_labels:
+        for lbl_off, lbl_name in local_labels.items():
             prelude += f'{lbl_name} equ 0x{lbl_off:04x}\n'
     asm = prelude + f'{nasm_text}\n'
     with tempfile.TemporaryDirectory() as td:
@@ -433,6 +436,66 @@ def _emit_label(name):
     return f'{name}:'
 
 
+def _compute_func_boundaries(label_map, binary_data):
+    """Return {start: (end, name)} for each named function.
+    
+    Walks backward to find push_bp prologue, then forward until a
+    terminator (ret/retf/iret/hlt) to determine the byte range.
+    """
+    if not label_map:
+        return {}
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
+    boundaries = {}
+    # Keep a name lookup keyed by both the named offset and the func_start
+    for off in sorted(label_map.keys()):
+        name = label_map[off]
+        # Walk backward up to 16 bytes to find 0x55 (push bp)
+        func_start = off
+        for i in range(min(16, off), 0, -1):
+            p = off - i
+            if binary_data[p] == 0x55:
+                try:
+                    prev = list(md.disasm(binary_data[p:off], p))
+                except Exception:
+                    prev = []
+                if prev and prev[-1].address + prev[-1].size == off:
+                    func_start = p
+                    break
+        # Walk forward from func_start until a terminator
+        end = min(func_start + 512, len(binary_data))
+        for insn in md.disasm(binary_data[func_start:end], func_start):
+            if insn.mnemonic in _TERMINATORS:
+                end = insn.address + insn.size
+                break
+            end = insn.address + insn.size
+        if func_start not in boundaries:
+            boundaries[func_start] = (end, name)
+    return boundaries
+
+
+def _compute_local_labels(func_boundaries, code_targets, label_map):
+    """Return {offset: '@..name.l{N}'} for code targets within named functions.
+
+    Uses the ``..`` prefix (NASM special-label convention) so these don't
+    interact with local-label scoping.  The ``.l{N}`` suffix is visually
+    distinct from any dedup suffix on the function name.
+
+    Only targets strictly inside a function boundary (not the function's
+    own entry) get local labels.  Skip offsets already in *label_map*.
+    """
+    if not func_boundaries or not code_targets:
+        return {}
+    local_labels = {}
+    for fn_start, (fn_end, fn_name) in sorted(func_boundaries.items()):
+        n = 0
+        for off in sorted(t for t in code_targets if fn_start < t < fn_end):
+            if off not in label_map:
+                n += 1
+                local_labels[off] = f'@..{fn_name}.l{n}'
+    return local_labels
+
+
 def _flush_data_block(records, pending_data, data_block_start, end_off):
     """Append a data_block record if *pending_data* is non-empty, then clear."""
     if not pending_data:
@@ -446,11 +509,17 @@ def _flush_data_block(records, pending_data, data_block_start, end_off):
     return None, []  # new (data_block_start, pending_data)
 
 
-def _emit_label_record(records, off, label_map):
+def _emit_label_record(records, off, label_map, local_labels=None):
     if label_map and off in label_map:
         records.append({
             'type': 'label',
             'text': f'{_emit_label(label_map[off])}',
+            'offset': off,
+        })
+    elif local_labels and off in local_labels:
+        records.append({
+            'type': 'label',
+            'text': _emit_label(local_labels[off]),
             'offset': off,
         })
     else:
@@ -503,6 +572,34 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     if code_targets:
         known_addrs |= code_targets
 
+    # Compute function boundaries and local labels for internal jump targets
+    func_boundaries = _compute_func_boundaries(label_map, binary_data)
+    local_labels = _compute_local_labels(func_boundaries, code_targets, label_map)
+
+    # Filter out any auto-detected labels that land inside a decoded
+    # instruction — the offset is almost certainly misaligned (the byte
+    # belongs to a different code path's mnemonic, not a real entry point).
+    # Emitting such a label would split the containing instruction into db.
+    # Named entries that overlap are still used for function-body decoding
+    # (force-code patch) but are pruned from the output namespace here.
+    if label_map:
+        bad = set()
+        for off in label_map:
+            for addr, insn in insn_by_addr.items():
+                if addr < off < addr + insn.size:
+                    bad.add(off)
+                    break
+        for off in bad:
+            del label_map[off]
+        known_addrs = set(label_map.keys())
+        if code_targets:
+            known_addrs |= code_targets
+    if local_labels:
+        local_labels = {
+            off: name for off, name in local_labels.items()
+            if off in insn_by_addr
+        }
+
     records = []
     pending_data = []
     data_block_start = None
@@ -513,13 +610,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         # Only emit labels for real instruction starts or named labels.
         # Orphan targets (in discovered but not actual code) are skipped
         # to prevent per-byte data-block fragmentation.
-        if off in known_addrs and (off in insn_by_addr or (label_map and off in label_map)):
+        if off in known_addrs and (off in insn_by_addr or (label_map and off in label_map) or (local_labels and off in local_labels)):
             data_block_start, pending_data = _flush_data_block(
                 records, pending_data, data_block_start, off,
             )
-            _emit_label_record(records, off, label_map)
-
-        # --- code instruction or data byte? ---
+            _emit_label_record(records, off, label_map, local_labels)
         insn = insn_by_addr.get(off)
 
         if insn is not None:
@@ -534,7 +629,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             # classifier (misaligned code paths) are spurious.
             inner_labels = sorted(
                 a for a in known_addrs
-                if off < a < insn_end and (a in insn_by_addr or (label_map and a in label_map))
+                if off < a < insn_end and (a in insn_by_addr or (label_map and a in label_map) or (local_labels and a in local_labels))
             )
 
             if inner_labels:
@@ -553,7 +648,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                             'offset': b_off,
                             'size': 1,
                         })
-                    _emit_label_record(records, lab, label_map)
+                    _emit_label_record(records, lab, label_map, local_labels)
                     chunk_start = lab
                 for b_off in range(chunk_start, insn_end):
                     records.append({
@@ -571,10 +666,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             )
 
             bts = binary_data[off:insn_end]
-            nasm_text = format_instruction(insn, label_map)
+            nasm_text = format_instruction(insn, label_map, local_labels)
 
             if nasm_text:
-                built = _micro_assemble(nasm_text, off, label_map)
+                built = _micro_assemble(nasm_text, off, label_map, local_labels)
                 ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
                 if not ok and not exact_bytes and built:
                     ok = _is_semantically_equivalent(bts, built[:len(bts)], off)

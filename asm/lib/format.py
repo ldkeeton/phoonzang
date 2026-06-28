@@ -113,7 +113,7 @@ def _label_comment(insn, label_map):
     return ''
 
 
-def format_instruction(insn, label_map=None):
+def format_instruction(insn, label_map=None, local_labels=None):
     """Return valid NASM line text for *insn*, or None if the instruction
     should stay as raw db bytes."""
     b = insn.bytes
@@ -167,7 +167,9 @@ def format_instruction(insn, label_map=None):
             parts.append(insn.reg_name(op.reg))
         elif op.type == CS_OP_IMM:
             target = op.imm & 0xFFFF
-            if is_flow and label_map and target in label_map:
+            if is_flow and local_labels and target in local_labels:
+                parts.append(local_labels[target])
+            elif is_flow and label_map and target in label_map:
                 parts.append(label_map[target])
             else:
                 parts.append(_fmt_imm(op.imm))
@@ -199,7 +201,9 @@ def format_instruction(insn, label_map=None):
         imm1 = insn.operands[1].imm
         if ops.startswith('far '):
             offset16 = imm1 & 0xFFFF
-            if label_map and offset16 in label_map:
+            if local_labels and offset16 in local_labels:
+                ops = f'far {_fmt_imm(imm0)}:{local_labels[offset16]}'
+            elif label_map and offset16 in label_map:
                 ops = f'far {_fmt_imm(imm0)}:{label_map[offset16]}'
             else:
                 ops = f'far {_fmt_imm(imm0)}:{_fmt_imm(imm1)}'

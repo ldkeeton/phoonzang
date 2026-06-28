@@ -8121,7 +8121,7 @@ loc_4955:
     jge short 0x4cc4
     jmp near 0x4b8e
     ret
-loc_4cc5:
+strlen:
     mov ax, 0xff4c
     call 0xf40b
     mov word [bp - 0x0002], 0
@@ -8349,7 +8349,7 @@ loc_4e9e:
     call 0x3288
     add sp, byte 4
     push word [bp + 0x4]
-    call 0x4cc5
+    call strlen
     pop cx
     push word [bp + 0x4]
     call 0x45e0

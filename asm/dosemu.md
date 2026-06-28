@@ -88,7 +88,7 @@ which nasm-segelf
 ## Running the game
 
 ```bash
-make -C decompiled_asm_3 run
+make -C asm run
 ```
 
 This mounts `build_out/` as a DOS drive and launches `DS.EXE` under dosemu2.

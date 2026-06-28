@@ -27,12 +27,11 @@ import tempfile
 
 ASM_DIR = os.path.dirname(os.path.abspath(__file__))
 ORIG_DIR = os.path.join(os.path.dirname(ASM_DIR), 'DSAVANT')
-SIDECAR_PATH = os.path.join(ASM_DIR, 'sidecar.json')
-KNOWN_FUNCS_PATH = os.path.join(os.path.dirname(ASM_DIR), 'decompiled2', 'lib', 'known_funcs.json')
+KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 
 from lib.decode import disassemble
 from lib.verify import verify
-from lib.classify import classify, _load_sidecar
+from lib.classify import classify
 from lib.struct_analysis import build_structs
 
 
@@ -48,31 +47,6 @@ def _crc16(data):
         crc &= 0xFFFF
     return crc
 
-
-def _identify_func(data):
-    """Simple pattern matching for common library functions."""
-    if data.find(b'\xf2\xae') >= 0 and data.find(b'\xf7\xd1') >= 0:
-        if 0 < data.find(b'\xf7\xd1') - data.find(b'\xf2\xae') < 20:
-            return 'strlen'
-    if data.find(b'\xf3\xa4') >= 0 or data.find(b'\xf3\xa5') >= 0:
-        if data.find(b'\xfc') >= 0:
-            return 'memcpy'
-    if data.find(b'\xf3\xaa') >= 0 or data.find(b'\xf3\xab') >= 0:
-        if data.find(b'\xfc') >= 0:
-            return 'memset'
-    if data.find(b'\x99') >= 0:
-        if data.find(b'\x31\xd0') >= 0 or data.find(b'\x29\xd0') >= 0:
-            return 'abs'
-    for ah, name in [(0x4A, 'dos_resize_mem'), (0x48, 'dos_alloc_mem'),
-                     (0x49, 'dos_free_mem'), (0x3D, 'dos_open_file'),
-                     (0x3E, 'dos_close_file'), (0x3F, 'dos_read_file'),
-                     (0x40, 'dos_write_file'), (0x42, 'dos_seek_file'),
-                     (0x35, 'dos_get_intvec'), (0x09, 'dos_print_str')]:
-        if data.find(bytes([0xB4, ah])) >= 0 and data.find(b'\xcd\x21') >= 0:
-            return name
-    if data.find(b'\xf3\xa6') >= 0 or data.find(b'\xf3\xa7') >= 0:
-        return 'strcmp'
-    return None
 
 
 def _load_known_funcs():
@@ -114,27 +88,8 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     with open(path, 'rb') as f:
         data = f.read()
 
-    # Build label map — loaded from .names.json sidecar, then heuristics
+    # Build label map from known_funcs.json CRC matching (dynamic, no cache)
     label_map = {}
-
-    # Load sidecar overrides
-    sidecar_data = _load_sidecar(SIDECAR_PATH)
-    sidecar_entry = sidecar_data.get(name, {})
-
-    # Also load .names.json sidecar for this overlay (if it exists)
-    names_path = os.path.join(ASM_DIR, f'{name}.names.json')
-    if os.path.exists(names_path):
-        import json
-        with open(names_path) as f:
-            names_data = json.load(f)
-        for key, func_name in sorted(names_data.get('names', {}).items(),
-                                     key=lambda x: int(x[0])):
-            try:
-                off = int(key)
-                if off not in label_map:
-                    label_map[off] = func_name
-            except ValueError:
-                pass
 
     # Dedup: ensure unique labels (same name at different offsets → _1, _2, ...)
     name_count = {}
@@ -155,27 +110,25 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     bitmap, info = classify(
         data, start_offset,
         entry_points=entry_points,
-        sidecar_entry=sidecar_entry,
     )
 
     # Only call targets and jump-table entries get labels
     # (intra-function branch targets are excluded to reduce noise)
     code_targets = info['call_targets']
 
-    # Pattern-match call targets against known_funcs db + runtime patterns
+    # CRC-match call targets against known_funcs.json (dynamic, no cache)
     known_db = _load_known_funcs()
     for off in sorted(info.get('call_targets', set())):
         if off in label_map:
             continue
-        sz = min(256, len(data) - off)
-        if sz < 4:
-            continue
-        chunk = data[off:off + sz]
-        crc = _crc16(chunk)
         found = None
         for s in known_db.get('signatures', []):
             for entry in s.get('entries', []):
-                if entry['crc'] == crc and entry['size'] == sz:
+                esize = entry['size']
+                if off + esize > len(data):
+                    continue
+                crc = _crc16(data[off:off + esize])
+                if entry['crc'] == crc:
                     found = s['name']
                     break
             if found:
@@ -198,19 +151,41 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     md_code = Cs(CS_ARCH_X86, CS_MODE_16)
     md_code.detail = True
     for off in sorted(label_map.keys()):
-        if bitmap[off] != 2:  # not IS_DATA → already handled
-            continue
-        # Decode from this offset until a terminator, mark as IS_CODE
-        end = min(off + 512, len(data))
+        # Walk backward up to 16 bytes to find 0x55 (push bp = function entry)
+        func_start = off
+        for i in range(min(16, off), 0, -1):
+            p = off - i
+            if data[p] == 0x55:
+                try:
+                    prev = list(md_code.disasm(data[p:off], p))
+                except Exception:
+                    prev = []
+                if prev and prev[-1].address + prev[-1].size == off:
+                    func_start = p
+                    break
+
+        # Mark preceding prologue bytes as IS_CODE (if any were found)
+        for i in range(func_start, off):
+            if bitmap[i] != 1:
+                bitmap[i] = 1
+
+        # Forward-decode from func_start to find the function boundary
+        # and mark the entire body as IS_CODE.  This is needed even when
+        # bitmap[off] is already 1 (code), because classify may have only
+        # marked the named offset itself (via call-target discovery) while
+        # the tail of the function (after ret/jmp) remains data, causing
+        # instructions that belong to the same code path to land in a data
+        # block and emit as db instead of their mnemonic.
+        end = min(func_start + 512, len(data))
         try:
-            for insn in md_code.disasm(data[off:end], off):
+            for insn in md_code.disasm(data[func_start:end], func_start):
                 if insn.mnemonic in _TERMINATORS:
                     end = insn.address + insn.size
                     break
                 end = insn.address + insn.size
         except Exception:
             pass
-        for i in range(off, min(end, len(data))):
+        for i in range(func_start, min(end, len(data))):
             bitmap[i] = 1
 
     code_bytes = sum(1 for b in bitmap if b == 1)

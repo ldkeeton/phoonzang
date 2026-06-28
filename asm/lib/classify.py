@@ -26,15 +26,6 @@ _COND_JUMP_MNEMS = {
 }
 
 
-def _load_sidecar(path):
-    import json
-    import os
-    if not os.path.exists(path):
-        return {}
-    with open(path) as f:
-        return json.load(f)
-
-
 def _apply_sidecar(bitmap, sidecar_entry):
     """Apply *sidecar_entry* overrides directly to *bitmap*.
 
@@ -476,7 +467,6 @@ def classify(data, start_offset=0, entry_points=None, sidecar_entry=None):
 
     # ---- Pass 0.6: trampoline-table discovery (drivers only) ---------
     # DOS drivers use call/retf trampolines as export tables.
-    # Overlays have their own seed lists from names.py.
     trampoline_targets = set()
     if start_offset == 0:
         trampoline_targets, _, _ = _discover_trampoline_table(data, bitmap, md)
