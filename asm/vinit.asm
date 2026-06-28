@@ -916,10 +916,10 @@ loc_03a8:
     lea ax, word [bp - 0x031a]
     push ax
     mov al, byte [0x5979]
-    db 0x98 ; cwde 
+    cbw
     push ax
     mov al, byte [0x5978]
-    db 0x98 ; cwde 
+    cbw
     push ax
     call 0x211
     add sp, byte 6
@@ -2298,11 +2298,11 @@ api_idx_0008:
     cld
     mov di, 0x91b8
     mov cx, 0x91ba
-    db 0x2b, 0xcf ; sub cx, di
+    sub cx, di
     shr cx, 1
     je short 0x15ff
-    db 0x2b, 0xc0 ; sub ax, ax
-    db 0xf3, 0xab ; rep stosw word ptr es:[di], ax
+    sub ax, ax
+    rep stosw
     call 0xe
     mov bp, word [0x91b4]
     mov sp, word [0x91b2]

@@ -29,11 +29,33 @@ def _get_sem_eq_md():
     global _sem_eq_md
     if _sem_eq_md is None:
         _sem_eq_md = Cs(CS_ARCH_X86, CS_MODE_16)
+        _sem_eq_md.detail = True
     return _sem_eq_md
 
 
+_COMMUTATIVE = {
+    'xchg', 'add', 'or', 'and', 'xor', 'adc',
+    'mul', 'imul', 'fadd', 'fmul',
+}
+
+
+def _reg_ids(insn):
+    """Return a sorted tuple of register IDs referenced by *insn*."""
+    from capstone import CS_OP_REG
+    regs = []
+    for op in insn.operands:
+        if op.type == CS_OP_REG:
+            regs.append(op.reg)
+    return tuple(sorted(regs))
+
+
 def _is_semantically_equivalent(orig_bytes, nasm_bytes, address):
-    """True if both decode to the same mnemonic + operands (same size)."""
+    """True if both decode to semantically equivalent instructions.
+
+    Handles encoding variants: different ModR/M for reg-reg moves,
+    different opcode forms (89 vs 8B for mov), commutative operand
+    order, and Capstone naming quirks (cwde vs cbw).
+    """
     if len(orig_bytes) != len(nasm_bytes):
         return False
     key = (bytes(orig_bytes), bytes(nasm_bytes), address)
@@ -46,9 +68,32 @@ def _is_semantically_equivalent(orig_bytes, nasm_bytes, address):
     except StopIteration:
         _sem_eq_cache[key] = False
         return False
-    result = (o.mnemonic == n.mnemonic and o.op_str == n.op_str)
-    _sem_eq_cache[key] = result
-    return result
+
+    # — exact match (fast path) -----------------------------------------------
+    if o.mnemonic == n.mnemonic and o.op_str == n.op_str:
+        _sem_eq_cache[key] = True
+        return True
+
+    # — different mnemonics → no match ---------------------------------------
+    if o.mnemonic != n.mnemonic:
+        _sem_eq_cache[key] = False
+        return False
+
+    # — commutative: compare operand register sets, but ONLY for pure
+    #    register-register operations.  If any operand is memory or
+    #    immediate the displacement/value must match exactly, which the
+    #    fast-path already checked (and failed since op_str differs).
+    if o.mnemonic in _COMMUTATIVE:
+        from capstone import CS_OP_REG
+        o_ops = [op for op in o.operands if op.type == CS_OP_REG]
+        n_ops = [n for n in n.operands if n.type == CS_OP_REG]
+        if len(o_ops) == len(o.operands) == len(n_ops) == len(n.operands):
+            result = (_reg_ids(o) == _reg_ids(n))
+            _sem_eq_cache[key] = result
+            return result
+
+    _sem_eq_cache[key] = False
+    return False
 
 
 def _micro_assemble(nasm_text, offset, label_map=None, local_labels=None):
@@ -267,7 +312,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
 
         built = _micro_assemble(nasm_text, insn.address, label_map)
         ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
-        if not ok and not exact_bytes and built:
+        if not ok and built:
             ok = _is_semantically_equivalent(bts, built[:len(bts)], insn.address)
         if ok:
             records.append({

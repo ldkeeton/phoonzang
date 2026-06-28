@@ -717,7 +717,7 @@ api_idx_00a8:
     mov ax, 0xffff
     ret
     mov al, byte [bx + 0xe5]
-    db 0x98 ; cwde 
+    cbw
     mov word [bp - 0x000a], ax
     mov word [bp - 0x0002], 0
     mov word [bp - 0x0004], 0
@@ -1638,7 +1638,7 @@ api_idx_0004_4:
     mov bx, ax
     mov bx, word [bx - 0x7b7e]
     mov al, byte [bx + si + 0x28]
-    db 0x98 ; cwde 
+    cbw
     push ax
     mov ax, 0x248
     imul word [bp - 0x0002]
@@ -1671,7 +1671,7 @@ api_idx_0004_4:
     mov bx, ax
     mov bx, word [bx - 0x7b7e]
     mov al, byte [bx + si + 0x26]
-    db 0x98 ; cwde 
+    cbw
     push ax
     mov ax, 0x248
     imul word [bp - 0x0002]
@@ -1705,7 +1705,7 @@ api_idx_0004_4:
     mov bx, ax
     mov bx, word [bx - 0x7b7e]
     mov al, byte [bx + si + 0x27]
-    db 0x98 ; cwde 
+    cbw
     push ax
     mov ax, 0x248
     imul word [bp - 0x0002]
@@ -1739,7 +1739,7 @@ api_idx_0004_4:
     mov bx, ax
     mov bx, word [bx - 0x7b7e]
     mov al, byte [bx + si + 0x29]
-    db 0x98 ; cwde 
+    cbw
     push ax
     mov ax, 0x248
     imul word [bp - 0x0002]
@@ -1776,7 +1776,7 @@ api_idx_000a_2:
     jne short 0xfae
     ret
     mov al, byte [bx + 0x19f]
-    db 0x98 ; cwde 
+    cbw
     mov word [bp - 0x0002], ax
     mov word [bp - 0x000a], 0
     cmp word [bp + 0xa], byte 0xff
@@ -1982,7 +1982,7 @@ api_idx_000c_2:
     mov bx, ax
     mov bx, word [bx - 0x7b7e]
     mov al, byte [bx + si + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     mov word [bp - 0x0004], ax
     cmp ax, strict word 0xffff
     jne short 0x11e0
@@ -2159,13 +2159,13 @@ api_idx_000e:
     cmp byte [bx + 0x2a], 0xff
     je short 0x13e6
     mov al, byte [bx + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     mov cx, 0xa
     cwd
     idiv cx
     mov word [bp - 0x000c], ax
     mov al, byte [bx + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     cwd
     idiv cx
     mov word [bp - 0x000e], dx
@@ -2215,7 +2215,7 @@ api_idx_000e:
     mov byte [bx + 0x23], 0
     mov bx, word [bp - 0x0004]
     mov al, byte [bx + 0x29]
-    db 0x98 ; cwde 
+    cbw
     mov word [bp - 0x0008], ax
     cmp ax, strict word 0
     jge short 0x1459
@@ -2245,7 +2245,7 @@ api_idx_000e:
     mov word [bp - 0x0008], ax
     mov bx, word [bp - 0x0004]
     mov al, byte [bx + 0x29]
-    db 0x98 ; cwde 
+    cbw
     mov cx, ax
     mov ax, word [bp - 0x0008]
     cmp cx, ax
@@ -2328,7 +2328,7 @@ api_idx_005c:
     mov cx, ds
     mov es, cx
     mov cx, 0x16
-    db 0xf3, 0xa5 ; rep movsw word ptr es:[di], word ptr [si]
+    rep movsw
     mov ax, 0x2c
     imul word [bp - 0x0002]
     mov si, ax
@@ -2339,13 +2339,13 @@ api_idx_005c:
     cmp byte [bx + si + 0x2a], 0xff
     je short 0x15cd
     mov al, byte [bx + si + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     mov cx, 0xa
     cwd
     idiv cx
     mov word [bp - 0x0006], ax
     mov al, byte [bx + si + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     cwd
     idiv cx
     mov word [bp - 0x0008], dx
@@ -2632,7 +2632,7 @@ api_idx_0014:
     mov cx, ds
     mov es, cx
     mov cx, 0xd2
-    db 0xf3, 0xa5 ; rep movsw word ptr es:[di], word ptr [si]
+    rep movsw
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
@@ -2644,7 +2644,7 @@ api_idx_0014:
     mov cx, ds
     mov es, cx
     mov cx, 0x74
-    db 0xf3, 0xa5 ; rep movsw word ptr es:[di], word ptr [si]
+    rep movsw
     mov word [bp - 0x0012], 0
     jmp short 0x18d9
     mov ax, 0x2c
@@ -2680,7 +2680,7 @@ api_idx_0014:
     mov bx, ax
     mov bx, word [bx - 0x7b7e]
     mov al, byte [bx + si + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     mov word [bp - 0x0008], ax
     cmp ax, strict word 0xffff
     jne short 0x1926
@@ -2966,7 +2966,7 @@ loc_1a16:
     cmp byte [bx + 0x19f], 0xff
     je short 0x1c23
     mov al, byte [bx + 0x19f]
-    db 0x98 ; cwde 
+    cbw
     mov cx, 0x15e
     imul cx
     mov bx, ax
@@ -3087,13 +3087,13 @@ loc_1a16:
     cmp byte [bx + si + 0x2a], 0xff
     je short 0x1d5a
     mov al, byte [bx + si + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     mov cx, 0xa
     cwd
     idiv cx
     mov word [bp - 0x0006], ax
     mov al, byte [bx + si + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     cwd
     idiv cx
     mov word [bp - 0x0008], dx
@@ -3129,13 +3129,13 @@ loc_1a16:
     cmp byte [bx + si + 0x2a], 0xff
     je short 0x1dd6
     mov al, byte [bx + si + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     mov cx, 0xa
     cwd
     idiv cx
     mov word [bp - 0x0006], ax
     mov al, byte [bx + si + 0x2a]
-    db 0x98 ; cwde 
+    cbw
     cwd
     idiv cx
     mov word [bp - 0x0008], dx
@@ -3481,7 +3481,7 @@ api_idx_000e_2:
     jne short 0x2157
     ret
     mov al, byte [bx + 0x19f]
-    db 0x98 ; cwde 
+    cbw
     mov word [bp - 0x0002], ax
     mov word [bp - 0x000e], 0
     mov cx, 0x15e
@@ -3810,7 +3810,7 @@ api_idx_0004_6:
     mov cx, ds
     mov es, cx
     mov cx, 0xc
-    db 0xf3, 0xa5 ; rep movsw word ptr es:[di], word ptr [si]
+    rep movsw
     dec word [bp - 0x0004]
     mov ax, word [bp - 0x0004]
     cmp ax, word [bp - 0x0002]
@@ -3913,7 +3913,7 @@ api_idx_001c:
     jne short 0x25b5
     ret
     mov al, byte [bx + 0x19f]
-    db 0x98 ; cwde 
+    cbw
     mov word [bp - 0x0006], ax
     lea ax, word [bp - 0x001c]
     push ax
@@ -4008,7 +4008,7 @@ api_idx_001c:
     add ax, cx
     mov bx, ax
     mov al, byte [bx + 0x6b60]
-    db 0x98 ; cwde 
+    cbw
     mov cx, ax
     pop ax
     add ax, cx
@@ -4030,7 +4030,7 @@ api_idx_001c:
     add ax, cx
     mov bx, ax
     mov al, byte [bx + 0x6b61]
-    db 0x98 ; cwde 
+    cbw
     mov cx, ax
     pop ax
     add ax, cx
@@ -5599,11 +5599,11 @@ api_idx_0002_2:
     cld
     mov di, 0x90b6
     mov cx, 0x90d0
-    db 0x2b, 0xcf ; sub cx, di
+    sub cx, di
     shr cx, 1
     je short 0x3736
-    db 0x2b, 0xc0 ; sub ax, ax
-    db 0xf3, 0xab ; rep stosw word ptr es:[di], ax
+    sub ax, ax
+    rep stosw
     call 0xe
     mov bp, word [0x90b2]
     mov sp, word [0x90b0]

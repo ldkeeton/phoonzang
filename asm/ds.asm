@@ -433,7 +433,7 @@ loc_03da:
     mov bx, word [bp + 0x4]
     mov si, word [bp - 0x0004]
     mov al, byte [bx + si]
-    db 0x98 ; cwde 
+    cbw
     mov word [bp - 0x0002], ax
     mov si, word [bp - 0x0006]
 loc_0401:
@@ -582,7 +582,7 @@ loc_0547:
     sub ah, ah
     push ax
     mov al, byte [bp + 0x8]
-    db 0x98 ; cwde 
+    cbw
     mov cx, ax
     pop ax
     cmp ax, cx
@@ -626,7 +626,7 @@ loc_0572:
     lea ax, word [bp - 0x0054]
     push ax
     mov al, byte [0x0fd5]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     add ax, 0x9c4
     push ax
     call 0x782
@@ -917,17 +917,17 @@ loc_0875:
     jmp short 0x8e2
     mov bx, word [bp + 0x8]
     mov al, byte [bx + 0x5244]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     mov word [bp + 0x8], ax
     jmp short 0x8f2
     mov bx, word [bp + 0x8]
     mov al, byte [bx + 0x5264]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     mov word [bp + 0x8], ax
     jmp short 0x8f2
     mov bx, word [bp + 0x8]
     mov al, byte [bx + 0x52c4]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     mov word [bp + 0x8], ax
     jmp short 0x8f2
 loc_08b8:
@@ -938,7 +938,7 @@ loc_08b8:
     jmp short 0x8f2
     mov bx, word [bp + 0x8]
     mov al, byte [bx + 0x54c4]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     mov word [bp + 0x8], ax
     jmp short 0x8f2
     mov es, word [0x068e]
@@ -1027,8 +1027,8 @@ loc_0903:
     les bx, word [0x0002]
     mov cx, word [es:bx]
     mov bx, word [es:bx + 0x2]
-    db 0x03, 0xc1 ; add ax, cx
-    db 0x13, 0xd3 ; adc dx, bx
+    add ax, cx
+    adc dx, bx
     mov word [bp - 0x0002], dx
     mov word [bp - 0x0004], ax
     les bx, word [0x0002]
@@ -1081,9 +1081,9 @@ loc_0a09:
     call 0x4652
     mov ax, 0xc
     imul word [bp + 0x4]
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     mov al, byte [bx + 0x5580]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     mov word [bp - 0x0004], ax
     db 0x8b
 loc_0a3f:
@@ -1143,7 +1143,7 @@ loc_0a3f:
     mov ax, 0
     call 0x4652
     mov al, byte [0x5990]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     cmp ax, word [0x59f4]
     jne short 0xaf5
     cmp word [0x59f6], byte 0
@@ -1291,7 +1291,7 @@ loc_0c02:
     lea ax, word [bp - 0x0054]
     push ax
     mov al, byte [0x5990]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     add ax, 0x9c4
     push ax
     call 0x782
@@ -1748,9 +1748,9 @@ loc_100d:
     push word [bp + 0xc]
     call strlen_3
     pop cx
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     mov ax, word [bp + 0x8]
-    db 0x2b, 0xc1 ; sub ax, cx
+    sub ax, cx
     mov cx, 6
     imul cx
     mov cx, 2
@@ -2223,7 +2223,7 @@ loc_1308:
     mov word [bp - 0x0002], 0
     mov ax, word [bp - 0x0002]
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     cmp word [bx + 0x5b72], byte 0xff
     jne short 0x14ee
     mov ax, word [bp - 0x0002]
@@ -2240,7 +2240,7 @@ loc_1308:
     pop cx
     mov ax, word [bp - 0x0004]
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     db 0xc7, 0x87, 0x72
 loc_1511:
     pop bx
@@ -2397,7 +2397,7 @@ loc_1511:
     call 0x4652
     mov ax, word [bp + 0x4]
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     cmp word [bx + 0x5b72], byte 3
     jne short 0x16da
     mov ax, 0
@@ -2422,14 +2422,14 @@ loc_1511:
     mov ax, word [bp + 0x4]
     shl ax, 1
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     push word [bx + 0x5be2]
     push word [bx + 0x5be0]
     call 0x3b89
     add sp, byte 8
     mov ax, word [bp + 0x4]
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     cmp word [bx + 0x5b72], byte 3
     jne short 0x1711
     push word [bp - 0x0002]
@@ -2439,7 +2439,7 @@ loc_1511:
     je short 0x1740
     mov ax, word [bp + 0x4]
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     cmp word [bx + 0x5b72], byte 3
     jne short 0x1733
     mov ax, 0x14
@@ -2450,7 +2450,7 @@ loc_1511:
     pop cx
     mov ax, word [bp + 0x4]
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     mov word [bx + 0x5b72], 0xffff
     ret
 loc_1741:
@@ -2573,9 +2573,9 @@ loc_17e8:
     push ax
     mov ax, 0x12
     imul word [bp + 0x6]
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     pop ax
-    db 0x03, 0xc1 ; add ax, cx
+    add ax, cx
     add ax, 0x5d24
     push ax
     db 0xe8, 0xd7
@@ -2692,7 +2692,7 @@ loc_1928:
     add bx, cx
     add word [bx + 0x5d24], ax
     mov al, byte [bx + 0x5d32]
-    db 0x98 ; cwde 
+    cbw
     push ax
     mov ax, 0x248
     imul word [bp + 0x4]
@@ -2711,7 +2711,7 @@ loc_1928:
     add bx, ax
     pop ax
     mov byte [bx + 0x5d32], al
-    db 0x98 ; cwde 
+    cbw
     push ax
     mov ax, 0x248
     imul word [bp + 0x4]
@@ -2735,7 +2735,7 @@ loc_1928:
     imul word [bp + 0x4]
     mov bx, ax
     mov al, byte [bx + 0x5d44]
-    db 0x98 ; cwde 
+    cbw
     mov cx, 0
     cmp byte [bx + 0x5d68], 0x11
     jbe short 0x1a0d
@@ -2805,26 +2805,26 @@ loc_1a26:
     push ax
     mov ax, 0xc
     imul word [bp + 0x6]
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     pop ax
-    db 0x03, 0xc1 ; add ax, cx
-    db 0x8b, 0xd8 ; mov bx, ax
+    add ax, cx
+    mov bx, ax
     mov al, byte [bx + 0x5c3f]
     push ax
     mov ax, 0x248
     imul word [bp + 0x4]
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     pop ax
     add byte [bx + 0x5dab], al
     jmp short 0x1b1c
     mov ax, 0x248
     imul word [bp + 0x4]
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     mov byte [bx + 0x5dac], 0
     jmp short 0x1b1c
     mov ax, 0x248
     imul word [bp + 0x4]
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     mov al, byte [bx + 0x5daa]
     add bx, word [bp - 0x0002]
     mov byte [bx + 0x5daa], al
@@ -2963,16 +2963,16 @@ loc_1c2b:
     push ax
     mov ax, 0x78
     imul word [bp + 0x6]
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     pop ax
-    db 0x03, 0xc1 ; add ax, cx
+    add ax, cx
     push ax
     mov ax, 0xc
     imul word [bp + 0x8]
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     pop ax
-    db 0x03, 0xc1 ; add ax, cx
-    db 0x8b, 0xd8 ; mov bx, ax
+    add ax, cx
+    mov bx, ax
     mov word [bx + 0x5c34], 0
     ret
     mov ax, 0
@@ -2982,16 +2982,16 @@ loc_1c2b:
     push ax
     mov ax, 0x78
     imul word [bp + 0x6]
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     pop ax
-    db 0x03, 0xc1 ; add ax, cx
+    add ax, cx
     push ax
     mov ax, 0xc
     imul word [bp + 0x8]
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     pop ax
-    db 0x03, 0xc1 ; add ax, cx
-    db 0x8b, 0xd8 ; mov bx, ax
+    add ax, cx
+    mov bx, ax
     cmp byte [bx + 0x5c3a], 0
     jbe short 0x1cb0
     dec byte [bx + 0x5c3a]
@@ -3017,7 +3017,7 @@ loc_1c2b:
     call 0x4652
     mov ax, 0x248
     imul word [bp + 0x4]
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     cmp byte [bx + 0x5e2f], 0
     jne short 0x1cef
     cmp byte [bx + 0x5d5c], 0
@@ -3094,7 +3094,7 @@ loc_1cf8:
     mov ax, word [bp + 0x4]
     shl ax, 1
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     push word [bx + 0x69a6]
     push word [bx + 0x69a4]
     call 0x3b96
@@ -3103,7 +3103,7 @@ loc_1cf8:
     mov cx, 2
     cwd
     idiv cx
-    db 0x8b, 0xc2 ; mov ax, dx
+    mov ax, dx
     mov cx, 0xfc
     imul cx
     add ax, strict word 5
@@ -3124,9 +3124,9 @@ loc_1cf8:
     push ax
     mov ax, word [bp + 0x4]
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     mov al, byte [bx + 0x69bc]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     push ax
     call 0x3a77
     add sp, byte 4
@@ -3562,7 +3562,7 @@ loc_2067:
     push ax
     mov ax, word [bp - 0x0002]
     add ax, strict word 0x31
-    db 0x98 ; cwde 
+    cbw
     push ax
     mov ax, word [bp - 0x000c]
     add ax, strict word 0x2b
@@ -3652,7 +3652,7 @@ loc_2067:
     cmp byte [bp + 0x6], 0
     jbe short 0x232d
     mov al, byte [bp + 0x7]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     push ax
     call 0x9f0
     pop cx
@@ -4189,7 +4189,7 @@ loc_27e9:
     pop cx
     mov bx, word [bp + 0x6]
     mov al, byte [bx + 0x5b48]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     cmp ax, word [bp + 0x4]
     jne short 0x2882
     jmp near 0x290c
@@ -4217,7 +4217,7 @@ loc_27e9:
     add ax, strict word 0x30
     mov byte [bp - 0x0015], al
     add dx, byte 0x30
-    db 0x8b, 0xc2 ; mov ax, dx
+    mov ax, dx
     mov byte [bp - 0x0014], al
     mov ax, 0
     push ax
@@ -4279,7 +4279,7 @@ loc_27e9:
     mov word [bp - 0x0002], 1
     mov ax, 0xc
     imul word [bp + 0x6]
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     cmp word [bx + 0x557c], byte 0
 loc_295e:
     jne short 0x2965
@@ -4369,7 +4369,7 @@ loc_295e:
     mov ax, 0xff58
     call 0x4652
     mov al, byte [0x5985]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     mov word [bp - 0x00a8], ax
     cmp ax, strict word 6
     jne short 0x2a48
@@ -4387,7 +4387,7 @@ loc_295e:
     add ax, strict word 0x30
     mov byte [bp - 0x009f], al
     add dx, byte 0x30
-    db 0x8b, 0xc2 ; mov ax, dx
+    mov ax, dx
     mov byte [bp - 0x009e], al
     lea ax, word [bp - 0x00a4]
     push ax
@@ -4524,10 +4524,10 @@ loc_2b7f:
     mov ax, 0xa
     push ax
     mov al, byte [0x597f]
-    db 0x2a, 0xe4 ; sub ah, ah
-    db 0x8b, 0xc8 ; mov cx, ax
+    sub ah, ah
+    mov cx, ax
     pop ax
-    db 0x2b, 0xc1 ; sub ax, cx
+    sub ax, cx
     mov word [bp - 0x0002], ax
     db 0xf7
 loc_2bc3:
@@ -4535,7 +4535,7 @@ loc_2bc3:
     add bh, dh
     jmp near 0xf456
     mov ax, 0x639c
-    db 0x2b, 0xc1 ; sub ax, cx
+    sub ax, cx
     mov cx, 0x64
     cwd
     idiv cx
@@ -4567,27 +4567,27 @@ loc_2c0a:
     jmp short 0x2c5c
     mov bx, word [bp - 0x0002]
     mov al, byte [bx - 0x7d48]
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah
     mov cx, 0x25
     imul cx
     push ax
     mov ax, 0x11
     imul bx
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     pop ax
-    db 0x03, 0xc1 ; add ax, cx
+    add ax, cx
     mov cx, 0xff
     cwd
     idiv cx
-    db 0x8b, 0xc2 ; mov ax, dx
+    mov ax, dx
     mov cl, byte [bx + 0xff0]
-    db 0x3a, 0xc1 ; cmp al, cl
+    cmp al, cl
     jmp short 0x2c4b
     mov ax, 0
     ret
     mov ax, word [0x59f6]
     dec ax
-    db 0x3b, 0xc3 ; cmp ax, bx
+    cmp ax, bx
     jne short 0x2c59
     mov ax, word [0x59f8]
     mov word [0x1008], ax
@@ -4605,7 +4605,7 @@ loc_2c0a:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     push word [bx - 0x7d2e]
     push word [bx - 0x7d30]
     call 0x3b96
@@ -4619,9 +4619,9 @@ loc_2c0a:
     push ax
     mov ax, 0x19
     imul word [bp - 0x0002]
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     pop ax
-    db 0x03, 0xc1 ; add ax, cx
+    add ax, cx
     add ax, strict word 0x45
     mov word [bp - 0x0008], ax
     mov word [bp - 0x000a], 7
@@ -4684,10 +4684,10 @@ loc_2c0a:
     mov word [bp - 0x0004], ax
     jmp short 0x2d69
     mov dx, 0xc42a
-    db 0x2a, 0xd0 ; sub dl, al
-    db 0x2a, 0xdc ; sub bl, ah
-    db 0x2a, 0xf8 ; sub bh, al
-    db 0x2a, 0xec ; sub ch, ah
+    sub dl, al
+    sub bl, ah
+    sub bh, al
+    sub ch, ah
     sub bh, byte [di]
     push es
     add byte [bp + di + 0x8], dh
@@ -4697,7 +4697,7 @@ loc_2c0a:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     cmp word [bx - 0x7d0e], byte 0
     jle short 0x2db0
     mov al, byte [bp - 0x0004]
@@ -4855,9 +4855,9 @@ loc_2e47:
     pop cx
     jmp short 0x2f29
     cmc
-    db 0x2b, 0xf5 ; sub si, bp
-    db 0x2b, 0xf5 ; sub si, bp
-    db 0x2b, 0xca ; sub cx, dx
+    sub si, bp
+    sub si, bp
+    sub cx, dx
     sub al, 0x11
     sub al, 0x5d
     sub al, 0x5d
@@ -5097,9 +5097,9 @@ loc_30c3:
     mov bx, 0x487
     mov al, byte [bx]
     pop ds
-    db 0x0a, 0xc0 ; or al, al
+    or al, al
     je short 0x3138
-    db 0x33, 0xdb ; xor bx, bx
+    xor bx, bx
     mov ax, 0x1a00
     int 0x10
     cmp bl, 7
@@ -5449,7 +5449,7 @@ loc_30c3:
     sub word [bp + si], bx
     adc word [si], sp
     pop ss
-    db 0x0f, 0x20, 0x14 ; mov esp, cr2
+    mov esp, cr2
     or ax, 0x111b
     or dx, word [0x090e]
     adc byte [bp + si], cl
@@ -5501,7 +5501,7 @@ loc_30c3:
     mov ax, cs
     mov es, ax
     mov dx, 0x2f3e
-    db 0x33, 0xdb ; xor bx, bx
+    xor bx, bx
     mov cx, 0x100
     mov ax, 0x1012
     int 0x10
@@ -5515,7 +5515,7 @@ loc_30c3:
     mov bx, 0x487
     mov al, byte [bx]
     pop ds
-    db 0x0a, 0xc0 ; or al, al
+    or al, al
     je short 0x34a3
     jmp near 0x34a9
     mov word [bp - 0x0002], 0
@@ -5525,7 +5525,7 @@ loc_30c3:
     mov byte [cs:0x2d38], 1
     mov byte [cs:0x2d39], 0
     push es
-    db 0x2b, 0xc0 ; sub ax, ax
+    sub ax, ax
     mov es, ax
     mov dl, byte [es:0x0410]
     mov byte [cs:0x2d37], dl
@@ -5605,22 +5605,22 @@ loc_3534:
     mov si, 0x2d40
     mov cx, 0x2d58
     sub cx, si
-    db 0xf3, 0xa4 ; rep movsb byte ptr es:[di], byte ptr [si]
+    rep movsb
     add si, byte 4
     mov cx, 2
     push cx
     mov cx, 2
-    db 0xf3, 0xa4 ; rep movsb byte ptr es:[di], byte ptr [si]
+    rep movsb
     mov ax, cs
     stosw
     pop cx
     loop 0x3598
     mov cx, 7
-    db 0xf3, 0xa4 ; rep movsb byte ptr es:[di], byte ptr [si]
+    rep movsb
     mov cx, 8
     shl cx, 1
     shl cx, 1
-    db 0xf3, 0xa4 ; rep movsb byte ptr es:[di], byte ptr [si]
+    rep movsb
     pop es
     pop ds
     ret
@@ -5717,7 +5717,7 @@ loc_35f5:
     mov cx, 0
     mov ds, cx
     mov bx, 0x46c
-    db 0x8b, 0xf1 ; mov si, cx
+    mov si, cx
     mov dx, word [bx]
     cmp dx, word [bx]
     db 0x74
@@ -5751,12 +5751,12 @@ loc_3689:
     pop ds
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push word [bp + 0x6]
     call 0x36d0
     add sp, byte 2
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     retf
     ret
@@ -5788,7 +5788,7 @@ loc_36d0:
     jmp near 0x372d
     lea si, word [0x2d40]
     mov bx, word [cs:si]
-    db 0x0b, 0xdb ; or bx, bx
+    or bx, bx
     je short 0x372d
     mov ah, 0x48
     push si
@@ -5899,7 +5899,7 @@ loc_37d9:
     mov ds, ax
     mov si, 0x35d1
     mov cx, 8
-    db 0xf3, 0xa6 ; repe cmpsb byte ptr [si], byte ptr es:[di]
+    repe cmpsb
     or cx, cx
     jne short 0x3829
     mov ah, 0x42
@@ -6001,7 +6001,7 @@ loc_382c:
     je short 0x3995
     or ah, byte [si]
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     sub sp, byte 8
     push si
@@ -6015,47 +6015,47 @@ loc_382c:
     mov ax, word [bp + 0x6]
     mov bx, 0x364a
     shl ax, 1
-    db 0x03, 0xd8 ; add bx, ax
+    add bx, ax
     mov ax, word [bx]
     mov ds, ax
-    db 0x33, 0xdb ; xor bx, bx
-    db 0x32, 0xe4 ; xor ah, ah
+    xor bx, bx
+    xor ah, ah
     mov al, byte [bp + 0x8]
     mov cx, word [bx + 0xa]
     mul cx
-    db 0x8b, 0xca ; mov cx, dx
-    db 0x8b, 0xd0 ; mov dx, ax
+    mov cx, dx
+    mov dx, ax
     mov ah, 0x42
     mov al, 0
     mov bx, word [bp + 0x4]
     int 0x21
-    db 0x33, 0xdb ; xor bx, bx
-    db 0x32, 0xe4 ; xor ah, ah
+    xor bx, bx
+    xor ah, ah
     mov al, byte [bp + 0xa]
     shl al, 1
     add bx, byte 0x10
-    db 0x03, 0xd8 ; add bx, ax
-    db 0x32, 0xe4 ; xor ah, ah
+    add bx, ax
+    xor ah, ah
     mov al, byte [bx]
-    db 0x33, 0xdb ; xor bx, bx
+    xor bx, bx
     mov cx, word [bx + 0xa]
     mul cx
     add ax, 0x110
-    db 0x8b, 0xd0 ; mov dx, ax
+    mov dx, ax
     mov cx, word [bx + 0xa]
     mov bx, word [bp + 0x4]
     mov ah, 0x3f
     int 0x21
-    db 0x33, 0xdb ; xor bx, bx
+    xor bx, bx
     pop es
     pop ds
     pop di
     pop si
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     sub sp, byte 8
     push si
@@ -6069,25 +6069,25 @@ loc_382c:
     mov ax, word [bp + 0x4]
     mov bx, 0x364a
     shl ax, 1
-    db 0x03, 0xd8 ; add bx, ax
+    add bx, ax
     mov ax, word [bx]
     mov ds, ax
-    db 0x33, 0xdb ; xor bx, bx
+    xor bx, bx
     mov di, word [bp + 0x8]
-    db 0x33, 0xc0 ; xor ax, ax
+    xor ax, ax
     mov al, byte [bx]
     mov word [es:di], ax
     mov di, word [bp + 0xa]
     mov al, byte [bx + 0x1]
     mov word [es:di], ax
-    db 0x32, 0xe4 ; xor ah, ah
+    xor ah, ah
     mov al, byte [bp + 0x6]
     shl al, 1
     add bx, byte 0x10
-    db 0x03, 0xd8 ; add bx, ax
-    db 0x32, 0xe4 ; xor ah, ah
+    add bx, ax
+    xor ah, ah
     mov al, byte [bx]
-    db 0x33, 0xdb ; xor bx, bx
+    xor bx, bx
     mov cx, word [bx + 0xa]
     mul cx
     add ax, 0x110
@@ -6096,7 +6096,7 @@ loc_382c:
     pop ds
     pop di
     pop si
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
 loc_3a50:
@@ -6108,10 +6108,10 @@ loc_3a50:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0xbf, 0x2d ; lcall cs:[0x2dbf]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
 loc_3a6a:
@@ -6167,7 +6167,7 @@ loc_3a95:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     sub sp, byte 2
     push es
@@ -6178,16 +6178,16 @@ loc_3a95:
     mov ax, word [bp + 0x6]
     mov bx, 0x364a
     shl ax, 1
-    db 0x03, 0xd8 ; add bx, ax
+    add bx, ax
     mov ax, word [cs:bx]
-    db 0x0b, 0xc0 ; or ax, ax
+    or ax, ax
     je short 0x3b19
     mov es, ax
-    db 0x33, 0xdb ; xor bx, bx
+    xor bx, bx
     mov al, byte [es:bx + 0x7]
-    db 0x98 ; cwde 
+    cbw
     mov word [bp - 0x0002], ax
-    db 0x33, 0xc9 ; xor cx, cx
+    xor cx, cx
     mov si, word [bp + 0x4]
     mov bx, 0x10
     xor ah, ah
@@ -6274,10 +6274,10 @@ loc_3b7c:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x2b, 0x2e ; lcall cs:[0x2e2b]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
 loc_3b96:
@@ -6289,7 +6289,7 @@ loc_3b96:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push di
     push si
@@ -6298,7 +6298,7 @@ loc_3b96:
     mov es, ax
     call 0x3c0d
     mov ax, word [cs:0x2edc]
-    db 0x33, 0xd2 ; xor dx, dx
+    xor dx, dx
     mov bx, 0x763d
     div bx
     mov ax, 0x2710
@@ -6306,7 +6306,7 @@ loc_3b96:
     mov bx, 0x763d
     div bx
     and ax, 0x7fff
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
 loc_3bcb:
     mov ax, word [cs:0x2ede]
     xor dx, dx
@@ -6458,7 +6458,7 @@ loc_3c97:
     mov di, si
     dec di
     mov cx, 0x14
-    db 0xf3, 0xa4 ; rep movsb byte ptr es:[di], byte ptr [si]
+    rep movsb
     pop di
     pop si
     jmp short 0x3cac
@@ -6567,7 +6567,7 @@ loc_3d79:
     mov di, si
     dec di
     mov cx, 0x14
-    db 0xf3, 0xa4 ; rep movsb byte ptr es:[di], byte ptr [si]
+    rep movsb
     pop di
     pop si
     jmp short 0x3d8b
@@ -6635,7 +6635,7 @@ loc_3e5e:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push es
     push si
@@ -6643,14 +6643,14 @@ loc_3e5e:
     mov es, ax
     mov si, word [bp + 0x4]
     mov bx, word [bp + 0x6]
-    db 0x8b, 0xd3 ; mov dx, bx
+    mov dx, bx
     mov cl, 3
     shr bx, cl
     mov cx, 7
-    db 0x23, 0xca ; and cx, dx
+    and cx, dx
     mov al, 1
     shl al, cl
-    db 0x8a, 0xe0 ; mov ah, al
+    mov ah, al
     not ah
     and byte [bx + si], ah
     cmp word [bp + 0x8], byte 0
@@ -6658,11 +6658,11 @@ loc_3e5e:
     or byte [bx + si], al
     pop si
     pop es
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push es
     push si
@@ -6670,25 +6670,25 @@ loc_3e5e:
     mov es, ax
     mov si, word [bp + 0x4]
     mov bx, word [bp + 0x6]
-    db 0x8b, 0xd3 ; mov dx, bx
+    mov dx, bx
     mov cl, 3
     shr bx, cl
     mov cx, 7
-    db 0x23, 0xca ; and cx, dx
+    and cx, dx
     mov al, 1
     shl al, cl
     test byte [bx + si], al
     je short 0x3ee3
     mov ax, 1
     jmp short 0x3ee5
-    db 0x33, 0xc0 ; xor ax, ax
+    xor ax, ax
     pop si
     pop es
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     sub sp, byte 2
     push ds
@@ -6698,9 +6698,9 @@ loc_3e5e:
     mov es, ax
     mov ax, 0xffff
     mov cx, word [bp + 0x8]
-    db 0x8a, 0xe9 ; mov ch, cl
+    mov ch, cl
     mov cl, 0x10
-    db 0x2a, 0xcd ; sub cl, ch
+    sub cl, ch
     shr ax, cl
     mov word [bp - 0x0002], ax
     and word [bp + 0xa], ax
@@ -6708,12 +6708,12 @@ loc_3e5e:
     mov bx, word [bp + 0x6]
     mov ax, word [bp + 0x8]
     mul bx
-    db 0x8b, 0xd0 ; mov dx, ax
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov dx, ax
+    mov bx, ax
     mov cl, 3
     shr bx, cl
     mov cx, 7
-    db 0x23, 0xca ; and cx, dx
+    and cx, dx
     mov ax, word [bp - 0x0002]
     shl ax, cl
     shl word [bp + 0xa], cl
@@ -6724,11 +6724,11 @@ loc_3e5e:
     pop es
     pop si
     pop ds
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push ds
     push di
@@ -6738,34 +6738,34 @@ loc_3e5e:
     mov es, ax
     mov ax, 0xffff
     mov cx, word [bp + 0x8]
-    db 0x8a, 0xe9 ; mov ch, cl
+    mov ch, cl
     mov cl, 0x10
-    db 0x2a, 0xcd ; sub cl, ch
+    sub cl, ch
     shr ax, cl
-    db 0x8b, 0xf8 ; mov di, ax
+    mov di, ax
     mov si, word [bp + 0x4]
     mov bx, word [bp + 0x6]
     mov ax, word [bp + 0x8]
     mul bx
-    db 0x8b, 0xd0 ; mov dx, ax
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov dx, ax
+    mov bx, ax
     mov cl, 3
     shr bx, cl
     mov cx, 7
-    db 0x23, 0xca ; and cx, dx
-    db 0x8b, 0xc7 ; mov ax, di
+    and cx, dx
+    mov ax, di
     mov dx, word [bx + si]
     shr dx, cl
-    db 0x23, 0xc2 ; and ax, dx
+    and ax, dx
     pop es
     pop si
     pop di
     pop ds
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push es
     push si
@@ -6775,19 +6775,19 @@ loc_3e5e:
     mov cx, word [bp + 0x6]
     shr bx, cl
     mov cx, word [bp + 0x8]
-    db 0x8a, 0xe9 ; mov ch, cl
+    mov ch, cl
     mov cl, 0x10
-    db 0x2a, 0xcd ; sub cl, ch
+    sub cl, ch
     mov ax, 0xffff
     shr ax, cl
-    db 0x23, 0xc3 ; and ax, bx
+    and ax, bx
     pop si
     pop es
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push ds
     push es
@@ -6796,14 +6796,14 @@ loc_3e5e:
     mov cx, 0x400
     mov bx, word [cs:0x2d4e]
     mov ds, bx
-    db 0x33, 0xd2 ; xor dx, dx
+    xor dx, dx
     mov bx, word [bp + 0x4]
     mov ah, 0x3f
     int 0x21
     jb short 0x3fce
     pop es
     pop ds
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     mov ax, cs
@@ -6896,7 +6896,7 @@ loc_4046:
     mov word [bp - 0x0002], cx
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push es
     push di
@@ -6904,30 +6904,30 @@ loc_4046:
     mov es, ax
     cld
     mov di, word [bp + 0x4]
-    db 0x8b, 0xdf ; mov bx, di
+    mov bx, di
     mov al, 0
     mov cx, 0xffff
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
-    db 0x8b, 0xcf ; mov cx, di
-    db 0x2b, 0xcb ; sub cx, bx
+    repne scasb
+    mov cx, di
+    sub cx, bx
     dec cx
-    db 0x8b, 0xfb ; mov di, bx
+    mov di, bx
     mov al, byte [bp + 0x6]
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
+    repne scasb
     dec di
     cmp al, byte [es:di]
     jne short 0x40c1
-    db 0x8b, 0xc7 ; mov ax, di
-    db 0x2b, 0xc3 ; sub ax, bx
+    mov ax, di
+    sub ax, bx
     jmp near 0x40c4
     mov ax, 0xffff
     pop di
     pop es
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     sub sp, byte 6
     push ds
@@ -6939,22 +6939,22 @@ loc_4046:
     cld
     mov di, word [bp + 0x4]
     mov si, word [bp + 0x6]
-    db 0x8b, 0xdf ; mov bx, di
+    mov bx, di
     mov al, 0
     mov cx, 0xffff
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
-    db 0x8b, 0xcf ; mov cx, di
-    db 0x2b, 0xcb ; sub cx, bx
+    repne scasb
+    mov cx, di
+    sub cx, bx
     dec cx
     mov word [bp - 0x0002], cx
-    db 0x8b, 0xfb ; mov di, bx
+    mov di, bx
     mov al, byte [si]
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
+    repne scasb
     dec di
     cmp al, byte [es:di]
     jne short 0x4129
-    db 0x8b, 0xd7 ; mov dx, di
-    db 0x2b, 0xd3 ; sub dx, bx
+    mov dx, di
+    sub dx, bx
     push si
     push di
     inc si
@@ -6970,27 +6970,27 @@ loc_4046:
     pop si
     inc di
     mov cx, word [bp - 0x0002]
-    db 0x2b, 0xca ; sub cx, dx
+    sub cx, dx
     dec cx
     je short 0x4129
     jmp short 0x40f3
     pop si
     pop di
-    db 0x8b, 0xc2 ; mov ax, dx
+    mov ax, dx
     jmp short 0x412c
     mov ax, 0xffff
     pop di
     pop si
     pop es
     pop ds
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x3b, 0x2e ; lcall cs:[0x2e3b]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
 loc_4141:
@@ -7026,7 +7026,7 @@ loc_4168:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push ds
     push es
@@ -7035,11 +7035,11 @@ loc_4168:
     mov ax, ds
     mov es, ax
     mov ax, word [bp + 0x6]
-    db 0x8a, 0xe0 ; mov ah, al
+    mov ah, al
     mov al, 0xff
     push ax
     push word [bp + 0x4]
-    db 0x33, 0xc0 ; xor ax, ax
+    xor ax, ax
     push ax
     push ax
     push ax
@@ -7051,7 +7051,7 @@ loc_4168:
     pop si
     pop es
     pop ds
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
 loc_41a3:
@@ -7104,49 +7104,49 @@ loc_41e4:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x9b, 0x2d ; lcall cs:[0x2d9b]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0xdf, 0x2d ; lcall cs:[0x2ddf]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x13, 0x2e ; lcall cs:[0x2e13]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x9f, 0x2d ; lcall cs:[0x2d9f]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0xa3, 0x2d ; lcall cs:[0x2da3]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x17, 0x2e ; lcall cs:[0x2e17]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e
 loc_4244:
@@ -7163,24 +7163,24 @@ loc_4250:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0xa7, 0x2d ; lcall cs:[0x2da7]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0xab, 0x2d ; lcall cs:[0x2dab]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x87, 0x2d ; lcall cs:[0x2d87]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
 loc_4280:
@@ -7216,7 +7216,7 @@ loc_42a7:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     push ds
     push es
@@ -7235,67 +7235,67 @@ loc_42a7:
     pop si
     pop es
     pop ds
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0xeb, 0x2d ; lcall cs:[0x2deb]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0xf7, 0x2d ; lcall cs:[0x2df7]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0xfb, 0x2d ; lcall cs:[0x2dfb]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0xff, 0x2d ; lcall cs:[0x2dff]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x03, 0x2e ; lcall cs:[0x2e03]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x07, 0x2e ; lcall cs:[0x2e07]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x0b, 0x2e ; lcall cs:[0x2e0b]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x0f, 0x2e ; lcall cs:[0x2e0f]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
 loc_4349:
     db 0x2e, 0xff, 0x1e, 0x1b, 0x2e ; lcall cs:[0x2e1b]
@@ -7313,17 +7313,17 @@ loc_4353:
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x2f, 0x2e ; lcall cs:[0x2e2f]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     cld
     db 0x2e, 0xff, 0x1e, 0x33, 0x2e ; lcall cs:[0x2e33]
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
 loc_4379:
@@ -7460,7 +7460,7 @@ loc_4497:
     mov ax, word [bp + 0x4]
     test ah, ah
     jne short 0x44a4
-    db 0x86, 0xe0 ; xchg al, ah
+    xchg al, ah
     mov dx, word [bp + 0x6]
     mov cx, word [bp + 0x8]
     int 0x21
@@ -7516,7 +7516,7 @@ loc_4500:
     mov bx, word [0x0cfc]
     inc word [0x0cfc]
     mov byte [bx], al
-    db 0x98 ; cwde 
+    cbw
     and ax, 0xff
     mov sp, bp
     pop bp
@@ -7543,7 +7543,7 @@ loc_4517:
     mov dx, cx
     shr cx, 1
     je short 0x4540
-    db 0xf3, 0xa5 ; rep movsw word ptr es:[di], word ptr [si]
+    rep movsw
     test dl, 1
     je short 0x4546
     movsb
@@ -7570,7 +7570,7 @@ loc_4555:
     mov dx, cx
     shr cx, 1
     je short 0x456a
-    db 0xf3, 0xab ; rep stosw word ptr es:[di], ax
+    rep stosw
     test dl, 1
     je short 0x4570
     stosb
@@ -7594,7 +7594,7 @@ strlen:
     mov di, word [bp + 0x4]
     sub ax, ax
     mov cx, 0x7fff
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
+    repne scasb
     dec di
     mov si, word [bp + 0x6]
     mov cx, dx
@@ -7621,13 +7621,13 @@ strlen_2:
     mov di, word [bp + 0x6]
     mov cx, 0xffff
     mov al, 0
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
+    repne scasb
     not cx
     mov di, word [bp + 0x4]
     mov si, word [bp + 0x6]
     shr cx, 1
     jcxz 0x45cd
-    db 0xf3, 0xa5 ; rep movsw word ptr es:[di], word ptr [si]
+    rep movsw
     jae short 0x45d0
     movsb
     pop di
@@ -7921,7 +7921,7 @@ loc_47e8:
     dec ax
     inc sp
     dec ax
-    db 0x82, 0x46, 0x30, 0x31 ; add byte ptr [bp + 0x30], 0x31
+    add byte [bp + 0x30], 0x31
     xor dh, byte [bp + di]
     xor al, 0x35
     ss aaa
@@ -7999,7 +7999,7 @@ loc_4867:
     mov es, di
     mov di, 0x460d
     mov cx, 0x15
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
+    repne scasb
     sub di, strict word 0x460e
     shl di, 1
     jmp [cs:di + 0x4622]
@@ -8075,7 +8075,7 @@ loc_4956:
     div cx
     jmp short 0x49a9
     div cx
-    db 0x87, 0xd3 ; xchg bx, dx
+    xchg bx, dx
     mov bl, byte [cs:bx + 0x464c]
     dec di
     mov byte [es:di], bl
@@ -8145,7 +8145,7 @@ loc_4956:
     push di
     mov al, 0
     mov cx, 0xffff
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
+    repne scasb
     not cx
     dec cx
     cmp cx, word [bp - 0x0006]
@@ -8242,14 +8242,14 @@ loc_4b07:
     jmp short 0x4b1f
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     push word [bp + 0x6]
     mov ax, 0x301
     push ax
     push word [bp + 0x4]
     call 0x4b50
     add sp, byte 6
-    db 0x8b, 0xe5 ; mov sp, bp
+    mov sp, bp
     pop bp
     ret
 loc_4b50:
@@ -8360,8 +8360,8 @@ loc_4c14:
     mov dx, bx
     jmp short 0x4c07
     call 0x4c40
-    db 0x8b, 0xc1 ; mov ax, cx
-    db 0x8b, 0xd3 ; mov dx, bx
+    mov ax, cx
+    mov dx, bx
     ret
 loc_4c40:
     test bx, bx
@@ -8460,7 +8460,7 @@ strlen_3:
     mov bx, di
     sub ax, ax
     mov cx, 0x7fff
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
+    repne scasb
     mov ax, di
     sub ax, bx
     dec ax
@@ -8473,7 +8473,7 @@ loc_4cf4:
     mov ax, word [bp + 0x4]
     test ah, ah
     jne short 0x4d00
-    db 0x86, 0xe0 ; xchg al, ah
+    xchg al, ah
 loc_4d00:
     cmp ah, 0xa
     jb short 0x4d2c
@@ -8574,7 +8574,7 @@ loc_4d43:
     shr cx, 1
     jcxz 0x4df1
     sub ax, ax
-    db 0xf3, 0xab ; rep stosw word ptr es:[di], ax
+    rep stosw
     mov es, word [0x002c]
     sub di, di
     mov cx, 0x7fff
@@ -8583,7 +8583,7 @@ loc_4d43:
     je short 0x4e18
     test ah, ah
     je short 0x4e0a
-    db 0xf2, 0xae ; repne scasb al, byte ptr es:[di]
+    repne scasb
     je short 0x4dfa
     mov cl, byte [0x0080]
     sub ch, ch
@@ -8775,12 +8775,12 @@ loc_4f85:
     pop cx
     ret
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     mov ah, 0x3f
     mov bx, word [bp + 0x4]
     jmp short 0x4fda
     push bp
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp
     mov ah, 0x40
     mov bx, word [bp + 0x4]
     jmp short 0x4fda

@@ -132,6 +132,8 @@ def format_instruction(insn, label_map=None, local_labels=None):
         mnem = 'call'
     elif mnem == 'cdq':
         mnem = 'cwd'
+    elif mnem == 'cwde':
+        mnem = 'cbw'       # 16-bit: 0x98 is cbw, not cwde
     elif mnem == 'xlat':
         mnem = 'xlatb'
 
@@ -149,13 +151,22 @@ def format_instruction(insn, label_map=None, local_labels=None):
             seg_prefix = seg_names.get(b0, 'cs') + ' '
 
     # — String ops: NASM takes no operands ---------------------------------
-    if mnem in _STR_OPS:
-        prefix = ''
-        for pfx, name in [(0xF3, 'rep'), (0xF2, 'repne'), (0xF0, 'lock')]:
-            if _has_prefix(insn, pfx):
-                prefix = name + ' '
-                break
-        return f'{prefix}{mnem}'
+    # Capstone may include the rep prefix in the mnemonic (e.g. "repne scasb")
+    # rather than leaving it as a separate prefix.  Strip it for matching.
+    str_prefix = ''
+    str_mnem = mnem
+    for spfx, sname in [('repne ', 'repne'), ('repe ', 'repe'), ('rep ', 'rep')]:
+        if str_mnem.startswith(spfx):
+            str_mnem = str_mnem[len(spfx):]
+            str_prefix = sname + ' '
+            break
+    if str_mnem in _STR_OPS:
+        if not str_prefix:
+            for pfx, name in [(0xF3, 'rep'), (0xF2, 'repne'), (0xF0, 'lock')]:
+                if _has_prefix(insn, pfx):
+                    str_prefix = name + ' '
+                    break
+        return f'{str_prefix}{str_mnem}'
 
     # — Build operand list --------------------------------------------------
     parts = []

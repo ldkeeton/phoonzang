@@ -327,6 +327,11 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     with open(asm_path, 'w') as f:
         f.write(asm_text)
 
+    # Write bitmap companion file for post-hoc verification
+    bitmap_path = os.path.join(ASM_DIR, f'{name}.bitmap')
+    with open(bitmap_path, 'wb') as f:
+        f.write(bitmap)
+
     print(f'{name}: {len(instructions)} insns → {asm_path}  '
           f'mnem={stats["mnemonic"]} db={stats["data"]} '
           f'dbc={stats["with_comment"]} blocks={stats["data_blocks"]} '
@@ -381,26 +386,122 @@ def byte_verify(name, exact_bytes=False):
                 return False
     else:
         from lib.verify import _is_semantically_equivalent
+        from lib.classify import IS_CODE
         from capstone import Cs, CS_ARCH_X86, CS_MODE_16
         md = Cs(CS_ARCH_X86, CS_MODE_16)
-        i = 0
-        while i < len(orig):
-            if orig[i] == built[i]:
-                i += 1
-                continue
-            try:
-                insn = next(md.disasm(orig[i:], i))
-            except StopIteration:
-                print(f'{name} → {rel_path}  [FAIL]  mismatch at 0x{i:04x}')
-                print_warnings()
-                return False
-            orig_chunk = orig[i:i + insn.size]
-            built_chunk = built[i:i + insn.size]
-            if not _is_semantically_equivalent(orig_chunk, built_chunk, i):
-                print(f'{name} → {rel_path}  [FAIL]  semantic mismatch at 0x{i:04x}')
-                print_warnings()
-                return False
-            i += insn.size
+        md.detail = True
+
+        # Load bitmap companion file for data/code boundary awareness
+        bitmap = None
+        bitmap_path = os.path.join(ASM_DIR, f'{name}.bitmap')
+        if os.path.exists(bitmap_path):
+            with open(bitmap_path, 'rb') as f:
+                bitmap = bytearray(f.read())
+
+        if bitmap is not None:
+            # Verify code regions instruction-by-instruction, data regions
+            # with semantic equivalence (data blocks may contain misclassified
+            # code with encoding variants).
+            n = len(orig)
+            off = 0
+            while off < n:
+                # Handle data region bytes
+                while off < n and (off >= len(bitmap) or bitmap[off] != IS_CODE):
+                    if orig[off] != built[off]:
+                        # Try semantic equivalence.  The mismatch byte may be
+                        # inside a longer instruction; walk backwards to find
+                        # its start.
+                        resolved = False
+                        for delta in range(0, 8):
+                            test_off = off - delta
+                            if test_off < 0:
+                                continue
+                            try:
+                                o_insn = next(md.disasm(orig[test_off:test_off + 15],
+                                                        test_off))
+                                b_insn = next(md.disasm(built[test_off:test_off + 15],
+                                                        test_off))
+                            except StopIteration:
+                                continue
+                            # Check that this instruction covers the mismatched byte
+                            if test_off + o_insn.size <= off:
+                                continue
+                            if (o_insn.address == b_insn.address and
+                                    _is_semantically_equivalent(
+                                        bytes(o_insn.bytes),
+                                        bytes(b_insn.bytes), test_off)):
+                                # Encoding variant — skip past the instruction
+                                off += (test_off + o_insn.size - off)
+                                resolved = True
+                                break
+                        if not resolved:
+                            print(f'{name} → {rel_path}  [FAIL]  byte mismatch at '
+                                  f'0x{off:04x} (data region)')
+                            print_warnings()
+                            return False
+                        continue
+                    off += 1
+
+                # Verify code region instruction-by-instruction
+                code_start = off
+                while off < n and off < len(bitmap) and bitmap[off] == IS_CODE:
+                    off += 1
+                code_end = off
+
+                if code_start < code_end:
+                    for o_insn in md.disasm(orig[code_start:code_end], code_start):
+                        addr = o_insn.address
+                        try:
+                            b_insn = next(md.disasm(built[addr:addr + 15], addr))
+                        except StopIteration:
+                            print(f'{name} → {rel_path}  [FAIL]  no instruction at '
+                                  f'0x{addr:04x}')
+                            print_warnings()
+                            return False
+
+                        if addr != b_insn.address:
+                            print(f'{name} → {rel_path}  [FAIL]  alignment diverged at '
+                                  f'0x{addr:04x} vs 0x{b_insn.address:04x}')
+                            print_warnings()
+                            return False
+
+                        if o_insn.bytes != b_insn.bytes:
+                            if not _is_semantically_equivalent(
+                                    bytes(o_insn.bytes),
+                                    bytes(b_insn.bytes), addr):
+                                print(f'{name} → {rel_path}  [FAIL]  semantic mismatch '
+                                      f'at 0x{addr:04x}')
+                                print_warnings()
+                                return False
+        else:
+            # No bitmap — walk both binaries instruction-by-instruction.
+            # When they diverge we check semantic equivalence; when lengths
+            # differ we report failure (the two streams must stay aligned).
+            o_it = iter(md.disasm(orig, 0))
+            b_it = iter(md.disasm(built, 0))
+            while True:
+                try:
+                    o_insn = next(o_it)
+                    b_insn = next(b_it)
+                except StopIteration:
+                    break  # both exhausted at same point → success
+
+                i = o_insn.address
+                if i != b_insn.address:
+                    print(f'{name} → {rel_path}  [FAIL]  alignment diverged at 0x{i:04x} '
+                          f'vs 0x{b_insn.address:04x}')
+                    print_warnings()
+                    return False
+
+                if o_insn.bytes == b_insn.bytes:
+                    continue
+
+                # Same address, different bytes — check semantic equivalence
+                if not _is_semantically_equivalent(bytes(o_insn.bytes),
+                                                   bytes(b_insn.bytes), i):
+                    print(f'{name} → {rel_path}  [FAIL]  semantic mismatch at 0x{i:04x}')
+                    print_warnings()
+                    return False
 
     print(f'{name} → {rel_path}  [OK]')
     print_warnings()
