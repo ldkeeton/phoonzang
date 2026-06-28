@@ -468,7 +468,7 @@ loc_03ca:
     call 0xe901
     add sp, byte 0x0a
     ret
-loc_0445:
+math_loc_0445:
     mov ax, 0xfe56
     call 0xf40b
     mov ax, word [bp + 0x14]
@@ -767,7 +767,7 @@ loc_0445:
     mov ax, word [bp + 0x8]
     add ax, word [bp - 0x000a]
     push ax
-    call 0x3ca
+    call loc_03ca
     add sp, byte 0x0a
     mov ax, word [bp - 0x0008]
     inc ax
@@ -800,7 +800,7 @@ loc_0445:
     mov ax, word [bp + 0x8]
     add ax, word [bp - 0x000a]
     push ax
-    call 0x3ca
+    call loc_03ca
     add sp, byte 0x0a
     mov ax, 1
     push ax
@@ -4382,7 +4382,7 @@ loc_0445:
     mov ax, 0xbc
     push ax
     push word [bp - 0x0006]
-    call 0x3ca
+    call loc_03ca
     add sp, byte 0x0a
     inc word [bp - 0x000e]
     inc word [bp - 0x0002]
@@ -4442,7 +4442,7 @@ loc_0445:
     mov ax, 0xbc
     push ax
     push word [bp - 0x0006]
-    call 0x3ca
+    call loc_03ca
     add sp, byte 0x0a
     mov ax, 0xc7
     push ax
@@ -4464,7 +4464,7 @@ loc_0445:
     mov ax, 0xbc
     push ax
     push word [bp - 0x0006]
-    call 0x3ca
+    call loc_03ca
     add sp, byte 0x0a
     mov ax, 1
     push ax
@@ -7074,7 +7074,7 @@ loc_0445:
     push ax
     mov ax, 0x64
     push ax
-    call 0x445
+    call math_loc_0445
     add sp, byte 0x1a
     push ax
     mov ax, 0x248
@@ -7165,7 +7165,7 @@ loc_0445:
     push ax
     mov ax, 0x8c
     push ax
-    call 0x445
+    call math_loc_0445
     add sp, byte 0x1a
     push ax
     mov ax, 0x248
@@ -7285,7 +7285,7 @@ loc_0445:
     push ax
     mov ax, 0x78
     push ax
-    call 0x445
+    call math_loc_0445
     add sp, byte 0x1a
     push ax
     mov ax, 0x248
@@ -10628,7 +10628,7 @@ loc_0445:
     push ax
     mov ax, 0x468
     push ax
-    call 0x445
+    call math_loc_0445
     add sp, byte 0x1a
     mov word [bp - 0x0004], ax
     cmp word [bp - 0x0004], byte 0
@@ -10832,7 +10832,7 @@ api_idx_0002_2:
     push ax
     mov ax, 0x465
     push ax
-    call 0x445
+    call math_loc_0445
     add sp, byte 0x1a
     mov word [bp - 0x0002], ax
     cmp word [bp - 0x0002], byte 0
@@ -11432,7 +11432,7 @@ api_idx_002c:
     push ax
     mov ax, 0x46a
     push ax
-    call 0x445
+    call math_loc_0445
     add sp, byte 0x1a
     mov word [bp - 0x0006], ax
     jmp near 0x6e69

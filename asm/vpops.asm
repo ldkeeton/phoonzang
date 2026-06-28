@@ -431,7 +431,7 @@ api_idx_000a:
     call 0xe8da
     add sp, byte 8
     ret
-loc_0149:
+math_loc_0149:
     mov ax, 0
     call 0xf40b
     mov ax, 0
@@ -1907,7 +1907,7 @@ api_idx_0006_2:
     jl short 0xfa6
     mov word [0x8468], 0
     jmp near 0x1063
-    call 0xec8
+    call loc_0ec8
     mov word [bp - 0x0006], ax
     mov word [bp - 0x0002], 0
     mov word [bp - 0x0004], 0
@@ -1952,7 +1952,7 @@ api_idx_0006_2:
     call 0xda22
     jmp short 0x1063
     push word [0x845e]
-    call 0xe6c
+    call loc_0e6c
     pop cx
     jmp short 0x1063
     cmp ax, strict word 0xfffd
@@ -2049,7 +2049,7 @@ loc_10a0:
     call 0xe901
     add sp, byte 0x0a
     ret
-loc_111b:
+math_loc_111b:
     mov ax, 0xfe32
     call 0xf40b
     mov word [0x9052], 0xffff
@@ -2258,7 +2258,7 @@ loc_111b:
     call 0xbaa6
     add sp, byte 0x0e
     push word [bp + 0x6]
-    call 0x2af
+    call loc_02af
     pop cx
     cmp word [0x0e32], byte 0
     je short 0x1346
@@ -2322,10 +2322,10 @@ loc_111b:
     mov ax, word [bp - 0x0006]
     add ax, word [bp - 0x000a]
     push ax
-    call 0x10a0
+    call loc_10a0
     add sp, byte 0x0a
     push word [bp + 0x6]
-    call 0x2af
+    call loc_02af
     pop cx
     mov ax, 0
     push ax
@@ -2344,7 +2344,7 @@ loc_111b:
     mov ax, word [bp - 0x0006]
     add ax, word [bp - 0x000a]
     push ax
-    call 0x10a0
+    call loc_10a0
     add sp, byte 0x0a
     mov ax, 1
     push ax
@@ -2579,7 +2579,7 @@ loc_111b:
     jmp near 0x1365
     inc word [bp - 0x0004]
     push word [bp + 0x6]
-    call 0x2af
+    call loc_02af
     pop cx
     dec word [bp - 0x0004]
     mov ax, word [bp - 0x0004]
@@ -6373,7 +6373,7 @@ api_idx_00d4:
     imul word [bp - 0x0006]
     add ax, 0x5bf4
     push ax
-    call 0x149
+    call math_loc_0149
     add sp, byte 8
     mov ax, 0x16
     push ax
@@ -6383,7 +6383,7 @@ api_idx_00d4:
     push ax
     lea ax, word [bp - 0x00d4]
     push ax
-    call 0x149
+    call math_loc_0149
     add sp, byte 8
     mov word [bp - 0x009e], 0
     mov word [bp - 0x00a0], 0
@@ -6410,7 +6410,7 @@ api_idx_00d4:
     push ax
     mov ax, 0xbb8
     push ax
-    call 0x111b
+    call math_loc_111b
     add sp, byte 0x18
     mov word [bp - 0x0008], ax
     cmp ax, strict word 0
@@ -6522,11 +6522,11 @@ api_idx_00d4:
     push ax
     lea ax, word [bp - 0x00d4]
     push ax
-    call 0x149
+    call math_loc_0149
     add sp, byte 8
     mov ax, 0
     push ax
-    call 0x2af
+    call loc_02af
     pop cx
     mov ax, 0x32
     push ax
@@ -6727,11 +6727,11 @@ api_idx_00d4:
     push ax
     lea ax, word [bp - 0x0096]
     push ax
-    call 0x149
+    call math_loc_0149
     add sp, byte 8
     mov ax, 3
     push ax
-    call 0x2af
+    call loc_02af
     pop cx
     mov word [bp - 0x0002], 0
     mov ax, word [bp - 0x0002]
@@ -6771,7 +6771,7 @@ api_idx_00d4:
     push ax
     mov ax, 0xdb3
     push ax
-    call 0x111b
+    call math_loc_111b
     add sp, byte 0x18
     mov word [bp - 0x0002], ax
     cmp ax, strict word 2
@@ -7817,7 +7817,7 @@ api_idx_0004_3:
     pop cx
     mov ax, 3
     push ax
-    call 0x2af
+    call loc_02af
     pop cx
     call api_idx_00d4
     mov word [bp - 0x0004], ax
@@ -7827,7 +7827,7 @@ api_idx_0004_3:
     pop cx
     mov ax, 3
     push ax
-    call 0x2af
+    call loc_02af
     pop cx
     cmp word [bp - 0x0004], byte 0
     je short 0x4e93

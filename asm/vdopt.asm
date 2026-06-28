@@ -396,7 +396,7 @@ api_idx_0004:
     test ax, ax
     je short 0x306
     ret
-    call 0x2b4
+    call loc_02b4
     jmp short 0x2e5
     ret
 api_idx_0006:
@@ -1738,7 +1738,7 @@ api_idx_0008:
     pop cx
     jmp short 0x238c
     mov cx, 0x1a
-    call 0x4717
+    call leaf_loc_4717
 
     db 0x0c, 0x00, 0x11, 0x00, 0x13, 0x00, 0x19, 0x00, 0x21, 0x00, 0x25, 0x00, 0x2e, 0x00, 0x2f, 0x00
     db 0x31, 0x00, 0x38, 0x00, 0x3d, 0x00, 0x3f, 0x00, 0x42, 0x00, 0x45, 0x00, 0x48, 0x00, 0x4b, 0x00
@@ -1804,7 +1804,7 @@ api_idx_000c:
     jmp near 0x24fa
     mov ax, 8
     push ax
-@..api_idx_000c.l1:
+loc_2424:
     mov ax, 0
     push ax
     push word [bx + si + 0x3c0]
@@ -1946,7 +1946,7 @@ api_idx_000c:
     cmp cx, ax
     jne short 0x259e
     push word [bp - 0x0008]
-    call 0x4b7
+    call loc_04b7
     pop cx
     mov word [0x90b6], 0x841
     mov word [0x90b8], 0
@@ -2112,7 +2112,7 @@ api_idx_000a:
     call 0xefd1
     add sp, byte 0x16
     ret
-loc_2731:
+math_loc_2731:
     mov ax, 0
     call 0xf40b
     push word [bp + 0x6]
@@ -2415,7 +2415,7 @@ api_idx_0044:
     mov ax, 0x73
     push ax
     mov ax, 0x32
-@..api_idx_0044.l1:
+loc_2a2a:
     push ax
     call api_idx_000c_2
     add sp, byte 6
@@ -2498,7 +2498,7 @@ api_idx_0044:
     mov ax, word [bp - 0x000c]
     add ax, strict word 0xc
     push ax
-    call 0x2731
+    call math_loc_2731
     add sp, byte 8
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]
@@ -2515,7 +2515,7 @@ api_idx_0044:
     mov ax, word [bp - 0x000c]
     add ax, strict word 0x5e
     push ax
-    call 0x27bd
+    call loc_27bd
     add sp, byte 0x0a
     push word [bp - 0x0042]
     push word [bp + 0x4]
@@ -2856,7 +2856,7 @@ api_idx_0044:
     mov word [bp - 0x001c], 1
     push word [bp - 0x0042]
     push word [bp + 0x4]
-    call 0x28f7
+    call loc_28f7
     add sp, byte 4
     mov ax, 0x59fe
     push ax
@@ -3258,7 +3258,7 @@ api_idx_0044:
     mov ax, word [bp - 0x000c]
     add ax, strict word 0xc
     push ax
-    call 0x2731
+    call math_loc_2731
     add sp, byte 8
     mov ax, word [bp - 0x001a]
     add ax, strict word 0xfffb
@@ -3272,7 +3272,7 @@ api_idx_0044:
     mov ax, word [bp - 0x000c]
     add ax, strict word 0xc
     push ax
-    call 0x2731
+    call math_loc_2731
     add sp, byte 8
     cmp word [bp - 0x003c], byte 0
     jge short 0x3261
@@ -3340,7 +3340,7 @@ api_idx_0044:
     mov ax, word [bp - 0x000c]
     add ax, strict word 0x5e
     push ax
-    call 0x27bd
+    call loc_27bd
     add sp, byte 0x0a
     jmp short 0x331f
     mov ax, 0
@@ -3353,7 +3353,7 @@ api_idx_0044:
     mov ax, word [bp - 0x000c]
     add ax, strict word 0x5e
     push ax
-    call 0x27bd
+    call loc_27bd
     add sp, byte 0x0a
     mov ax, word [bp - 0x0006]
     add ax, strict word 0x1c
@@ -3471,7 +3471,7 @@ api_idx_0044:
     mov ax, word [bp - 0x000c]
     add ax, strict word 0x5e
     push ax
-    call 0x27bd
+    call loc_27bd
     add sp, byte 0x0a
     mov ax, word [bp - 0x0006]
     add ax, strict word 0x4c
@@ -3596,7 +3596,7 @@ api_idx_0044:
     mov ax, word [bp - 0x000c]
     add ax, strict word 0x5e
     push ax
-    call 0x27bd
+    call loc_27bd
     add sp, byte 0x0a
     mov ax, word [bp - 0x0006]
     add ax, strict word 0x4c
@@ -4051,7 +4051,7 @@ api_idx_0004_5:
     jge short 0x39ea
     jmp near 0x3897
     ret
-loc_39eb:
+math_loc_39eb:
     mov ax, 0
     call 0xf40b
     mov ax, 6
@@ -4202,7 +4202,7 @@ api_idx_0038:
     mov ax, word [bp - 0x0004]
     add ax, strict word 0x5d
     push ax
-    call 0x39eb
+    call math_loc_39eb
     add sp, byte 0x0e
     mov word [bp - 0x0010], 0
     push word [bp - 0x0010]
@@ -4508,7 +4508,7 @@ api_idx_0038:
     mov ax, word [bp - 0x0004]
     add ax, strict word 0x5d
     push ax
-    call 0x39eb
+    call math_loc_39eb
     add sp, byte 0x0e
     push word [bp - 0x0010]
     mov ax, 7
@@ -4642,7 +4642,7 @@ api_idx_0038:
     mov ax, word [bp - 0x0004]
     add ax, strict word 0x5d
     push ax
-    call 0x39eb
+    call math_loc_39eb
     add sp, byte 0x0e
     push word [bp - 0x0010]
     mov ax, 7
@@ -4806,7 +4806,7 @@ api_idx_0038:
     mov ax, word [bp - 0x0004]
     add ax, strict word 0x5d
     push ax
-    call 0x39eb
+    call math_loc_39eb
     add sp, byte 0x0e
     mov ax, word [bp - 0x0006]
     add ax, strict word 0x30
@@ -5402,7 +5402,7 @@ api_idx_0004_6:
     mov di, word [0x90ae]
     push cx
     jmp [0x90b4]
-loc_4717:
+leaf_loc_4717:
     pop bx
     push di
     push es

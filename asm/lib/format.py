@@ -190,6 +190,10 @@ def format_instruction(insn, label_map=None, local_labels=None):
 
     ops = ', '.join(parts)
 
+    # — jmp/call indirect: strip size tag from memory operand ---------------
+    if mnem in ('jmp','call'):
+        ops = ops.replace('dword ', '').replace('word ', '').replace('byte ', '')
+
     # — Jump / call distance keywords ---------------------------------------
     if mnem == 'jmp':
         if b0 == 0xEB:
@@ -269,10 +273,6 @@ def format_instruction(insn, label_map=None, local_labels=None):
             # Already has implicit 1 — ensure it's present in text
             if ', 1' not in ops and ',1' not in ops:
                 ops += ', 1'
-
-    # — jmp/call indirect: strip size tag from memory operand ---------------
-    if mnem in ('jmp','call'):
-        ops = ops.replace('word ','').replace('byte ','').replace('dword ','')
 
     # — Remove 'ptr' that capstone text may inject --------------------------
     ops = ops.replace(' ptr ',' ').replace(' ptr,',',')

@@ -188,6 +188,177 @@ def _match_trampolines(data, call_targets, known_db=None):
     return label_map
 
 
+# ── Tier 3: heuristic function categorization ───────────────────────────
+
+# DOS AH→sub-category map for int 0x21
+_DOS_AH_FILES = {0x3c, 0x3d, 0x3e, 0x3f, 0x40, 0x41, 0x42, 0x43, 0x56, 0x57,
+                 0x5b, 0x5c, 0x6c}
+_DOS_AH_MEM   = {0x48, 0x49, 0x4a}
+_DOS_AH_CON   = {0x01, 0x02, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c}
+_DOS_AH_PROC  = {0x00, 0x31, 0x4c, 0x4d}
+_DOS_AH_TIME  = {0x2a, 0x2b, 0x2c, 0x2d}
+_DOS_AH_INTV  = {0x25, 0x35}
+_DOS_AH_DPB   = {0x1f, 0x32}
+_DOS_AH_DTA   = {0x1a, 0x2f, 0x4e, 0x4f}
+_DOS_AH_PSP   = {0x51, 0x52, 0x62}
+
+_BIOS_CATEGORIES = {
+    0x10: 'bios_video', 0x13: 'bios_disk',
+    0x16: 'bios_kbd',   0x1a: 'bios_timer',
+    0x33: 'bios_mouse',
+}
+
+_MATH_MNEMONICS = {'mul', 'imul', 'div', 'idiv'}
+_IO_MNEMONICS   = {'in', 'out'}
+_STRING_MNEMONICS = {
+    'movsb', 'movsw', 'stosb', 'stosw', 'lodsb', 'lodsw',
+    'scasb', 'scasw', 'cmpsb', 'cmpsw',
+}
+_CALL_MNEMONICS = {'call', 'lcall'}
+
+
+def _find_mov_ah(insns, int_idx):
+    """Scan backward from int_idx-1 to find the nearest ``mov ah, N``."""
+    from capstone import CS_OP_REG, CS_OP_IMM
+    from capstone.x86 import X86_REG_AH
+    for i in range(int_idx - 1, -1, -1):
+        if insns[i].mnemonic == 'mov':
+            ops = insns[i].operands
+            if len(ops) == 2 and ops[0].type == CS_OP_REG:
+                if ops[0].reg == X86_REG_AH and ops[1].type == CS_OP_IMM:
+                    return ops[1].imm
+        # stop at any int, call, or jmp (can't track flow across them)
+        if insns[i].mnemonic in ('int', 'call', 'lcall', 'jmp', 'ljmp', 'ret', 'retf', 'iret', 'hlt'):
+            break
+    return None
+
+
+def _detect_category(insns, off, body_size):
+    """Return a category prefix string, or None if no signal found.
+    
+    Priority-ordered: BIOS → DOS → I/O → string → FPU → math → leaf/thunk.
+    """
+    from capstone import CS_OP_IMM
+    
+    has_call = False
+    call_count = 0
+    total_insn_bytes = 0
+    dos_ah = set()
+    bios_ints = set()
+    has_io = False
+    has_string = False
+    has_math = False
+    has_fpu = False
+    
+    for idx, insn in enumerate(insns):
+        mn = insn.mnemonic
+        total_insn_bytes += insn.size
+        
+        if mn in _CALL_MNEMONICS:
+            has_call = True
+            call_count += 1
+        
+        if mn in _IO_MNEMONICS:
+            has_io = True
+        
+        if mn in _STRING_MNEMONICS:
+            has_string = True
+        
+        if mn in _MATH_MNEMONICS:
+            has_math = True
+        
+        if mn.startswith('f'):
+            has_fpu = True
+        
+        if mn == 'int':
+            for op in insn.operands:
+                if op.type == CS_OP_IMM:
+                    if op.imm == 0x21:
+                        ah = _find_mov_ah(insns, idx)
+                        if ah is not None:
+                            dos_ah.add(ah)
+                    elif op.imm in _BIOS_CATEGORIES:
+                        bios_ints.add(op.imm)
+    
+    # Priority-ordered categorisation
+    if bios_ints:
+        for ival in _BIOS_CATEGORIES:
+            if ival in bios_ints:
+                return _BIOS_CATEGORIES[ival]
+        return 'bios'
+    
+    if dos_ah:
+        ah = next(iter(dos_ah))
+        if ah in _DOS_AH_FILES: return 'dos_file'
+        if ah in _DOS_AH_MEM:   return 'dos_mem'
+        if ah in _DOS_AH_CON:   return 'dos_con'
+        if ah in _DOS_AH_PROC:  return 'dos_proc'
+        if ah in _DOS_AH_TIME:  return 'dos_time'
+        if ah in _DOS_AH_INTV:  return 'dos_intvec'
+        if ah in _DOS_AH_DPB:   return 'dos_dpb'
+        if ah in _DOS_AH_DTA:   return 'dos_dta'
+        if ah in _DOS_AH_PSP:   return 'dos_psp'
+        return 'dos'
+    
+    if has_io:
+        return 'io'
+    
+    if has_string:
+        return 'string'
+    
+    if has_fpu:
+        return 'fpu'
+    
+    if has_math:
+        return 'math'
+    
+    if not has_call:
+        return 'leaf'
+    
+    if call_count == 1 and total_insn_bytes <= 12:
+        last_mn = insns[-1].mnemonic if insns else ''
+        if last_mn in ('ret', 'retf'):
+            return 'thunk'
+    
+    return None
+
+
+def _categorize_call_targets(data, call_targets, label_map):
+    """Analyse function bodies and upgrade loc_XXXX to categorized names.
+    
+    Returns a new label_map dict with categorized entries for unnamed
+    call targets.  Already-named entries from pattern/trampoline matching
+    are preserved as-is.
+    """
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+    
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    md.detail = True
+    
+    result = dict(label_map)
+    
+    for off in sorted(call_targets):
+        if off in label_map:
+            continue
+        if off + 3 > len(data):
+            continue
+        
+        body = data[off:min(off + 128, len(data))]
+        try:
+            insns = list(md.disasm(body, off))
+        except Exception:
+            continue
+        
+        if not insns:
+            continue
+        
+        category = _detect_category(insns, off, len(body))
+        if category:
+            result[off] = f'{category}_loc_{off:04x}'
+    
+    return result
+
+
 def _discover_binaries():
     """Scan ORIG_DIR for known binary types → {name: (rel_path, start_offset)}."""
     bins = {}
@@ -251,6 +422,15 @@ def process(name, rel_path, start_offset, exact_bytes=False):
         if off not in label_map:
             label_map[off] = lbl
 
+    # Default labels for all unnamed call targets (tier 3: heuristic
+    # categorisation — e.g. dos_file_loc_XXXX; tier 4: plain loc_XXXX
+    # fallback so call 0xNNNN resolves to call loc_NNNN (clickable).
+    call_targets_set = info.get('call_targets', set())
+    label_map = _categorize_call_targets(data, call_targets_set, label_map)
+    for off in call_targets_set:
+        if off not in label_map:
+            label_map[off] = f'loc_{off:04x}'
+
     # CRC matching disabled — no verified CRCs in known_funcs.json yet.
     # To reactivate: add verified {crc, size, addr_off} to entries[], then
     # uncomment the CRC loop below and remove the _match_patterns call above
@@ -268,6 +448,15 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     md_code = Cs(CS_ARCH_X86, CS_MODE_16)
     md_code.detail = True
     for off in sorted(label_map.keys()):
+        lbl = label_map[off]
+        # Skip auto-generated default names (loc_XXXX, *_loc_XXXX) —
+        # they're injected for every call target and don't need force-coding.
+        # Only pattern-matched semantic names and trampoline stubs benefit
+        # from the full-body force-code recovery.
+        expected = f'loc_{off:04x}'
+        if lbl == expected or lbl.endswith(f'_{expected}'):
+            continue
+
         # Walk backward up to 16 bytes to find 0x55 (push bp = function entry)
         func_start = off
         for i in range(min(16, off), 0, -1):
@@ -327,21 +516,16 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     with open(asm_path, 'w') as f:
         f.write(asm_text)
 
-    # Write bitmap companion file for post-hoc verification
-    bitmap_path = os.path.join(ASM_DIR, f'{name}.bitmap')
-    with open(bitmap_path, 'wb') as f:
-        f.write(bitmap)
-
     print(f'{name}: {len(instructions)} insns → {asm_path}  '
           f'mnem={stats["mnemonic"]} db={stats["data"]} '
           f'dbc={stats["with_comment"]} blocks={stats["data_blocks"]} '
           f'lbl={stats["labels"]}  structs={stats["structs"]}  '
           f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
           f'[{stats["status"]}]')
-    return asm_path
+    return bitmap
 
 
-def byte_verify(name, exact_bytes=False):
+def byte_verify(name, exact_bytes=False, bitmap=None):
     if name not in BINARIES:
         print(f'{name}: SKIP (unknown target)')
         return False
@@ -385,18 +569,18 @@ def byte_verify(name, exact_bytes=False):
                 print(f'{name} → {rel_path}  [FAIL]  mismatch at 0x{i:04x}')
                 return False
     else:
+        # Load classification bitmap (from caller or compute inline)
         from lib.verify import _is_semantically_equivalent
-        from lib.classify import IS_CODE
+        from lib.classify import classify, IS_CODE
         from capstone import Cs, CS_ARCH_X86, CS_MODE_16
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
 
-        # Load bitmap companion file for data/code boundary awareness
-        bitmap = None
-        bitmap_path = os.path.join(ASM_DIR, f'{name}.bitmap')
-        if os.path.exists(bitmap_path):
-            with open(bitmap_path, 'rb') as f:
-                bitmap = bytearray(f.read())
+        if bitmap is None:
+            with open(orig_path, 'rb') as f:
+                data = f.read()
+            start_offset = BINARIES[name][1]
+            bitmap, _ = classify(data, start_offset, entry_points=set())
 
         if bitmap is not None:
             # Verify code regions instruction-by-instruction, data regions
@@ -547,8 +731,8 @@ def main():
 
     if target:
         if target in BINARIES:
-            process(target, *BINARIES[target], exact_bytes=EXACT_BYTES)
-            byte_verify(target, exact_bytes=EXACT_BYTES)
+            bitmap = process(target, *BINARIES[target], exact_bytes=EXACT_BYTES)
+            byte_verify(target, exact_bytes=EXACT_BYTES, bitmap=bitmap)
         else:
             print(f'Unknown target: {target}')
             print(f'Known: {", ".join(BINARIES)}')

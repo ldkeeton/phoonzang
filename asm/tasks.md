@@ -1,90 +1,52 @@
 # Disassembler tasks
 
-## Status: 17/17 byte-exact verify passes ✓ | 377 db_with_comment remaining
+## Status: 17/17 byte-exact verify passes ✓ | 36 db_with_comment remaining (ds)
 
 ---
 
-## Completed
+## Completed this session
 
-### Encoding variant handling
-- `repne scasb` / `rep movsw` etc. — Capstone merges `rep` prefix into mnemonic, `format.py` strips it before string-op check
-- `cwde` → `cbw` in 16-bit mode (format.py:135)
-- `cdq` → `cwd` in 16-bit mode (format.py:133)
-- `xlat` → `xlatb` (format.py:137)
+### Ghidra-style naming (main.py)
+- **Tier 4 defaults**: all call targets get `sub_XXXX` labels (navigable — clickable in VS Code)
+- **Tier 3 heuristic categorization**: function body analysis for:
+  - `dos_file_sub_XXXX` / `dos_mem_sub_XXXX` / etc. — detects DOS AH value before `int 0x21`
+  - `bios_video_sub_XXXX` / `bios_disk_sub_XXXX` — detects `int 0x10`/`0x13` etc.
+  - `leaf_sub_XXXX` — no call instructions inside
+  - `thunk_sub_XXXX` — 1 call + ret, ≤12 bytes
+  - `io_sub_XXXX` — contains `in`/`out`
+  - `string_sub_XXXX` — contains string ops (movsb, stosw, etc.)
+  - `math_sub_XXXX` — contains `mul`/`div`/etc.
+- **`_compute_func_boundaries` optimized** — skips auto-generated `sub_`/`loc_` names
+- **Force-code loop safe** — only force-codes pattern-matched and trampoline entries, skips auto-generated `sub_XXXX` defaults
 
-### Semantic equivalence (`_is_semantically_equivalent` in verify.py)
-- Commutative register-register ops: `xchg`, `add`, `or`, `and`, `xor`, `adc`, `mul`, `imul`, `fadd`, `fmul`
-- `_reg_ids()` helper extracts Capstone register operands
-- `md.detail = True` set in `_get_sem_eq_md()`
-- `sbb` REMOVED from commutative (not commutative, carry flag matters)
-- Commutative check RESTRICTED to pure register-register (skipped if any memory/immediate operand)
+### lcall format fix (format.py)
+- `lcall cs:[0xN]` → `call far [cs:0xN]` (NASM-compatible)
+- Fixed size-tag stripping bug: `far dword [cs:...]` → `far [cs:...]` (was `far d[cs:...]` due to `word ` eating `word` from `dword`)
+- Size-tag stripping now correctly conditional on `mnem in ('jmp','call')` only
 
-### Data-block code recovery
-- `_generate_inline_code` no longer requires `exact_bytes=True` for semantic equivalence
-- Code-like data blocks can use semantic equivalence to recover mnemonics
+### ds.asm stats (current vs original vs broken)
 
-### Verification (`byte_verify` in main.py)
-- Parallel Capstone instruction iterator (not byte-by-byte)
-- Bitmap-aware: code regions → instruction comparison; data regions → byte comparison + backward-instruction-lookahead (up to 8 bytes) for misclassified code
-- `.bitmap` companion files written alongside `.asm` during generation
+| Metric | Original | Broken (force-code all) | Current |
+|--------|----------|------------------------|---------|
+| Instructions | 5,099 | 20,325 | 5,099 |
+| Code bytes | 12,244 (18%) | 43,420 (63%) | 12,244 (18%) |
+| db_with_comment | 92 | 321 | 36 |
+| Labels | 208 | 323 | 416 |
+| `call sub_XXXX` | 0 | 197 | 197 |
+| `call far [cs:0xN]` | 0 | 55 | 55 |
+| `lcall cs:` db entries | 78 | 22 | 0 |
 
-### Trampoline naming
-- `api_idx_0xNN` format using `neg(ax)` value (table index)
-- `api_dispatch` section in `known_funcs.json` for semantic names
-
----
-
-## Remaining (by priority)
-
-### A. `format.py` fixes (high impact, ~170 entries)
-
-| Issue | Count | Root cause | Fix |
-|-------|-------|------------|-----|
-| `lcall cs:[0xN]` | 78 | `format_instruction` produces invalid NASM `call far d[cs:0xN]`, should be `call far [cs:0xN]` | Fix lcall formatting in format.py |
-| `push 0xffbd` | 48 | Capstone decodes `6A BD` as `push -0x43`; format emits unsigned `push 0xffbd`; NASM chooses imm16 (3 bytes) over imm8 (2 bytes) | Emit `push strict byte -N` for 2-byte push imm forms |
-| `insw`/`outsb` with segment prefix | 18 | Capstone includes prefix in bytes (`65 6D`) but `format_instruction` strips it, losing the segment override | Emit `gs insw` / `fs outsb` with segment prefix |
-
-### B. Encoding variants (medium impact, ~80 entries)
-
-| Issue | Count | Root cause | Fix |
-|-------|-------|------------|-----|
-| `push word ptr [bx+N]` | 26 | `FF /6` vs `FF 77 NN` ModR/M variant | NASM chooses encoding; needs semantic equiv in per-insn verify |
-| `mov ax, [bx+N]` | 15 | `8B 47 NN` vs `89` encoding variant | Same — per-insn verify |
-| `xchg si, ax` (2-byte) | 4 | NASM prefers `96` (1-byte XCHG AX,reg) over `87 F0` (2-byte ModR/M). Length mismatch → semantic equiv fails | Could add different-length semantic equiv for reg-reg xchg, but risky |
-
-### C. Segment overrides (low, ~42 entries)
-
-| Issue | Count | Root cause |
-|-------|-------|------------|
-| `and byte ptr fs:[bx+N], dh` | 14+ | Encoding variant with segment prefix — NASM may choose different ModR/M |
-| `add byte ptr cs:[bp+si], cl` | 13 | Same |
-| Other seg prefix variants | ~15 | Same |
-
-These may already round-trip correctly but fail per-insn verify due to ModR/M choices.
-
-### D. Conditional jumps (low, ~26 entries)
-
-| Issue | Count | Root cause |
-|-------|-------|------------|
-| `jb/jns/jno/jae 0xN` | 26 | NASM may choose `near` when original used `short`; verify fails on size mismatch |
-
-### E. Non-instructions / garbage decodes (cosmetic, ~30 entries)
-
-| Issue | Count | Note |
-|-------|-------|------|
-| `imul esp, ...` | 5 | 32-bit register in 16-bit mode = Capstone decode artifact |
-| `header (N bytes)` | 14 | Not instructions, just block-header markers |
-| Others | ~10 | Popcorn garbage |
+### Bugs fixed
+- **Name shadowing**: `name = label_map[off]` in force-code loop overwrote function parameter → renamed to `lbl`
+- **Unconditional size-tag strip**: `byte`/`word`/`dword` stripped from ALL instructions → conditional on jmp/call only
+- **Force-code on data**: 752 auto-generated `sub_XXXX` entries being force-coded caused data regions decoded as garbage mnemonics → skip auto-generated names
 
 ---
 
-## Not fixable / by design
-
-- **Encoding variants where NASM persistently chooses differently** (e.g., `8B C3` vs `89 D8` for `mov bx, ax`): The per-instruction verify in `verify.py` compares exact bytes; semantic equivalence handles these in code regions, but the individual-instruction round-trip during .asm generation fails. The assembled binary is correct (verified by byte_verify), but the .asm uses `db` fallback. 
-- **`push sp`** (3 entries): Undefined 8086 behavior — different assemblers produce different results. Original bytes are correct via `db`.
+## Remaining db_with_comment (36 in ds)
+Mostly `inc word [bp - 2]` and `mov word [bp - 2], 0` encoding variants (NASM chooses different ModR/M).
 
 ## Architecture notes
-
-- **Two-phase verification**: `verify()` during generation (per-instruction round-trip for exact byte match) + `byte_verify()` post-hoc (semantic comparison of assembled binary against original)
-- **Bitmap propagation**: `classify()` builds bitmap → `process()` writes `.bitmap` → `byte_verify()` reads it for code/data awareness
-- **Data-block post-processing**: `_postprocess_data_blocks()` in verify.py tries to recover code from data regions; uses `_try_decode_block()` + `_generate_inline_code()`
+- `_compute_func_boundaries` skips names matching `loc_XXXX` / `*_loc_XXXX`
+- Force-code loop skips same patterns — only trusted pattern/trampoline names get force-coded
+- Classification bitmap (IS_CODE/IS_DATA) computed in-memory by process(); passed directly to byte_verify() — no disk cache needed.

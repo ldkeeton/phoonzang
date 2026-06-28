@@ -80,9 +80,9 @@ bits 16
     retf
     call 0x190f
     retf
-    call 0x1900
+    call bios_mouse_loc_1900
     retf
-    call 0x18c1
+    call bios_mouse_loc_18c1
     retf
     call 0x3085
     retf
@@ -436,8 +436,8 @@ bits 16
     mov word [bp - 0x0036], ax
     mov ax, ds
     mov es, ax
-    call 0x1900
-    call 0x949
+    call bios_mouse_loc_1900
+    call leaf_loc_0949
     mov ax, word [cs:0x01e5]
     mov ds, ax
     mov ax, 0xa000
@@ -566,8 +566,8 @@ bits 16
     inc dx
     mov al, 0
     out dx, al
-    call 0xb91
-    call 0x18c1
+    call math_loc_0b91
+    call bios_mouse_loc_18c1
     pop si
     pop di
     pop es
@@ -944,8 +944,8 @@ bits 16
     inc dx
     mov al, 0xf
     out dx, al
-    call 0xb91
-    call 0x18c1
+    call math_loc_0b91
+    call bios_mouse_loc_18c1
     pop si
     pop di
     pop es
@@ -956,7 +956,7 @@ bits 16
 
     db 0x00
 
-loc_0949:
+leaf_loc_0949:
     cmp byte [cs:0x0228], 1
     jne short 0x98e
     mov cx, word [cs:0x1bd9]
@@ -1064,7 +1064,7 @@ loc_0949:
     mov bx, 0x33b3
     mov ah, byte [bp - 0x001c]
     lodsb
-    call 0x3252
+    call leaf_loc_3252
     mov bl, byte [bp - 0x001e]
     and byte [es:di], bl
     or byte [es:di], dl
@@ -1163,7 +1163,7 @@ loc_0949:
     pop cx
     loop 0xb6d
     ret
-loc_0b91:
+math_loc_0b91:
     cmp byte [cs:0x0a48], 0
     je short 0xbce
     mov ax, word [cs:0x01e5]
@@ -1499,7 +1499,7 @@ loc_0b91:
     mov cl, 0xa
     shr ax, cl
     mov word [cs:0x4540], ax
-    call 0x4442
+    call dos_file_loc_4442
     and si, strict word 0x3ff
     mov cl, 4
     shl si, cl
@@ -1515,7 +1515,7 @@ loc_0b91:
     and si, strict word 0x3fff
     inc word [cs:0x4540]
     mov ax, word [cs:0x4540]
-    call 0x4442
+    call dos_file_loc_4442
     pop cx
     loop 0xe83
     mov cx, 0x3a00
@@ -1923,7 +1923,7 @@ loc_0b91:
     mov cl, 0xa
     shr ax, cl
     mov word [cs:0x4540], ax
-    call 0x4442
+    call dos_file_loc_4442
     and si, strict word 0x3ff
     mov cl, 4
     shl si, cl
@@ -1931,7 +1931,7 @@ loc_0b91:
     je short 0x1325
     inc word [cs:0x4540]
     mov ax, word [cs:0x4540]
-    call 0x4442
+    call dos_file_loc_4442
     sub si, strict word 0x4000
     xor di, di
     mov cx, 0x10
@@ -1952,7 +1952,7 @@ loc_0b91:
     add bx, strict word 0x27d
     mov word [cs:bx], ax
     jmp near 0x1209
-loc_1355:
+leaf_loc_1355:
     push ax
     mov bx, 0x29b
     mov cx, 0x14
@@ -2019,7 +2019,7 @@ loc_1392:
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
-    call 0x145c
+    call loc_145c
     pop cx
     push cx
     mov cx, 0x10
@@ -2037,7 +2037,7 @@ loc_1392:
     inc dx
     or dx, dx
     je short 0x1424
-    call 0x145c
+    call loc_145c
     pop cx
     loop 0x13f7
     mov bx, word [bp - 0x0004]
@@ -2099,7 +2099,7 @@ loc_145c:
     mov cx, word [cs:0x11cb]
     dec cx
     mov word [cs:0x11cb], cx
-    call 0x4c93
+    call loc_4c93
     pop si
     pop di
     pop es
@@ -2377,7 +2377,7 @@ loc_145c:
     mov si, 0x259e
     mov ax, cs
     mov ds, ax
-    call 0x17a1
+    call string_loc_17a1
     pop si
     pop ds
     mov ax, 0
@@ -2407,7 +2407,7 @@ loc_145c:
     push ax
     mov ax, 0xffff
     mov word [cs:0x1bdb], ax
-    call 0x2a6a
+    call math_loc_2a6a
     pop si
     pop di
     pop es
@@ -2425,7 +2425,7 @@ loc_145c:
     mov sp, bp
     pop bp
     ret
-loc_17a1:
+string_loc_17a1:
     push es
     push di
     mov ax, cs
@@ -2448,7 +2448,7 @@ loc_17a1:
     mov byte [bp - 0x0004], al
     lodsb
     mov ah, byte [bp - 0x0004]
-    call 0x3245
+    call leaf_loc_3245
     or byte [cs:di + 0x2a02], ch
     or byte [cs:di + 0x2602], dl
     or byte [cs:di + 0x2702], dh
@@ -2493,7 +2493,7 @@ loc_17a1:
     inc dx
     mov al, 1
     out dx, al
-    call 0x189f
+    call bios_mouse_loc_189f
     mov si, word [cs:0x1bd5]
     add si, strict word 0x120
     mov dx, 0x3c4
@@ -2502,7 +2502,7 @@ loc_17a1:
     inc dx
     mov al, 2
     out dx, al
-    call 0x189f
+    call bios_mouse_loc_189f
     mov si, word [cs:0x1bd5]
     add si, strict word 0x240
     mov dx, 0x3c4
@@ -2511,7 +2511,7 @@ loc_17a1:
     inc dx
     mov al, 4
     out dx, al
-    call 0x189f
+    call bios_mouse_loc_189f
     mov si, word [cs:0x1bd5]
     add si, strict word 0x360
     mov dx, 0x3c4
@@ -2520,7 +2520,7 @@ loc_17a1:
     inc dx
     mov al, 8
     out dx, al
-    call 0x189f
+    call bios_mouse_loc_189f
     mov dx, 0x3c4
     mov al, 2
     out dx, al
@@ -2535,7 +2535,7 @@ loc_17a1:
     mov sp, bp
     pop bp
     ret
-loc_189f:
+bios_mouse_loc_189f:
     mov di, word [cs:0x1be5]
     mov cx, word [cs:0x1be3]
     push cx
@@ -2550,7 +2550,7 @@ loc_189f:
     pop cx
     loop 0x18a9
     ret
-loc_18c1:
+bios_mouse_loc_18c1:
     push ds
     push es
     push si
@@ -2570,14 +2570,14 @@ loc_18c1:
     shl cx, 1
     mov ax, cs
     push ax
-    call 0x2a4f
+    call math_loc_2a4f
     mov byte [cs:0x0227], 0
     pop di
     pop si
     pop es
     pop ds
     ret
-loc_1900:
+bios_mouse_loc_1900:
     cmp byte [cs:0x0228], 1
     jne short 0x190e
     mov byte [cs:0x0227], 1
@@ -2675,7 +2675,7 @@ loc_1900:
     jne short 0x19d7
     cmp ax, 0x401
     jae short 0x19d7
-    call 0x1900
+    call bios_mouse_loc_1900
     mov ax, word [bp + 0xc]
     mov word [cs:0x2599], ax
     mov ax, word [bp + 0xe]
@@ -2699,7 +2699,7 @@ loc_1900:
     mov si, 0x259e
     mov ax, cs
     mov ds, ax
-    call 0x17a1
+    call string_loc_17a1
     pop si
     pop ds
     jmp short 0x1a51
@@ -2713,7 +2713,7 @@ loc_1900:
     mov si, word [bp + 0xc]
     mov ax, word [bp + 0xe]
     mov ds, ax
-    call 0x17a1
+    call string_loc_17a1
     pop si
     pop ds
     cmp byte [cs:0x0228], 0
@@ -2737,7 +2737,7 @@ loc_1900:
     mov dx, word [cs:0x1bdb]
     mov ax, cs
     push ax
-    call 0x2a4f
+    call math_loc_2a4f
     mov byte [cs:0x0227], 0
     pop di
     pop si
@@ -2773,7 +2773,7 @@ loc_1900:
     db 0x2e, 0x3b, 0x16, 0xdb, 0x1b, 0x75, 0x01, 0xcb, 0xd1, 0xe1, 0x2e, 0xa0, 0x27, 0x02, 0x2e, 0x0a
     db 0x06, 0x26, 0x02, 0x74, 0x01, 0xcb
 
-loc_2a4f:
+math_loc_2a4f:
     cmp byte [cs:0x2b08], 0
     je short 0x2a58
     retf
@@ -2782,7 +2782,7 @@ loc_2a4f:
     shr cx, 1
     mov word [cs:0x1beb], cx
     mov word [cs:0x1bed], dx
-loc_2a6a:
+math_loc_2a6a:
     push bp
     mov bp, sp
     sub sp, byte 0x10
@@ -2837,16 +2837,16 @@ loc_2a6a:
     out dx, al
     mov ah, 0
     xor di, di
-    call 0x2f46
+    call io_loc_2f46
     mov ah, 1
     mov di, 0x120
-    call 0x2f46
+    call io_loc_2f46
     mov di, 0x240
     mov ah, 2
-    call 0x2f46
+    call io_loc_2f46
     mov di, 0x360
     mov ah, 3
-    call 0x2f46
+    call io_loc_2f46
     mov ax, word [cs:0x1bdb]
     cmp ax, strict word 0xffff
     jne short 0x2b37
@@ -2988,16 +2988,16 @@ loc_2a6a:
     mov ds, ax
     xor si, si
     mov ah, 1
-    call 0x2f70
+    call io_loc_2f70
     mov si, 0x100
     mov ah, 2
-    call 0x2f70
+    call io_loc_2f70
     mov si, 0x200
     mov ah, 4
-    call 0x2f70
+    call io_loc_2f70
     mov si, 0x300
     mov ah, 8
-    call 0x2f70
+    call io_loc_2f70
     mov dx, 0x3ce
     mov al, 8
     out dx, al
@@ -3016,16 +3016,16 @@ loc_2a6a:
     jmp near 0x2e08
     mov ah, 1
     xor si, si
-    call 0x2e7d
+    call io_loc_2e7d
     mov ah, 2
     mov si, 0x120
-    call 0x2e7d
+    call io_loc_2e7d
     mov ah, 4
     mov si, 0x240
-    call 0x2e7d
+    call io_loc_2e7d
     mov ah, 8
     mov si, 0x360
-    call 0x2e7d
+    call io_loc_2e7d
     mov dx, 0x3ce
     mov al, 8
     out dx, al
@@ -3108,19 +3108,19 @@ loc_2a6a:
     mov es, ax
     mov si, word [cs:0x1bd5]
     mov ah, 1
-    call 0x2e35
+    call io_loc_2e35
     mov si, word [cs:0x1bd5]
     add si, strict word 0x120
     mov ah, 2
-    call 0x2e35
+    call io_loc_2e35
     mov si, word [cs:0x1bd5]
     add si, strict word 0x240
     mov ah, 4
-    call 0x2e35
+    call io_loc_2e35
     mov si, word [cs:0x1bd5]
     add si, strict word 0x360
     mov ah, 8
-    call 0x2e35
+    call io_loc_2e35
     mov dx, 0x3c4
     mov al, 2
     out dx, al
@@ -3143,7 +3143,7 @@ loc_2a6a:
     xor al, al
     mov byte [cs:0x2b08], al
     retf
-loc_2e35:
+io_loc_2e35:
     mov dx, 0x3c4
     mov al, 2
     out dx, al
@@ -3179,7 +3179,7 @@ loc_2e35:
     pop cx
     loop 0x2e4c
     ret
-loc_2e7d:
+io_loc_2e7d:
     mov dx, 0x3c4
     mov al, 2
     out dx, al
@@ -3273,7 +3273,7 @@ loc_2e7d:
     pop cx
     loop 0x2eda
     ret
-loc_2f46:
+io_loc_2f46:
     mov si, word [cs:0x1bf7]
     add di, word [cs:0x1bd7]
     mov cx, word [cs:0x1bf5]
@@ -3292,7 +3292,7 @@ loc_2f46:
     pop cx
     loop 0x2f5f
     ret
-loc_2f70:
+io_loc_2f70:
     mov dx, 0x3c4
     mov al, 2
     out dx, al
@@ -3412,7 +3412,7 @@ loc_2f70:
     mov cx, word [cs:0x11cb]
     dec cx
     mov word [cs:0x11cb], cx
-    call 0x4c93
+    call loc_4c93
     pop si
     pop di
     pop es
@@ -3602,7 +3602,7 @@ loc_2f70:
     ret
     ret
     ret
-loc_3245:
+leaf_loc_3245:
     push bx
     cmp al, 0xff
     jne short 0x3253
@@ -3611,7 +3611,7 @@ loc_3245:
     xor dx, dx
     pop bx
     ret
-loc_3252:
+leaf_loc_3252:
     push bx
     push ax
     cs xlatb
@@ -3782,7 +3782,7 @@ loc_3252:
     mov ax, cs
     push ax
     mov ax, 0
-    call 0x2a4f
+    call math_loc_2a4f
     mov cx, word [bp - 0x0006]
     mov dx, word [bp - 0x0008]
     mov ax, 4
@@ -3791,7 +3791,7 @@ loc_3252:
     or ax, ax
     je short 0x345a
     push ax
-    db 0x2e, 0xff, 0x1e, 0xfb, 0x01 ; lcall cs:[0x1fb]
+    call far [cs:0x01fb]
     pop ax
     jmp short 0x345a
     pop di
@@ -3847,7 +3847,7 @@ loc_3252:
     mov ax, cs
     push ax
     mov ax, 0
-    call 0x2a4f
+    call math_loc_2a4f
     mov cx, word [bp - 0x0006]
     mov dx, word [bp - 0x0008]
     mov ax, 4
@@ -3856,7 +3856,7 @@ loc_3252:
     or ax, ax
     je short 0x34f9
     push ax
-    db 0x2e, 0xff, 0x1e, 0xfb, 0x01 ; lcall cs:[0x1fb]
+    call far [cs:0x01fb]
     pop ax
     jmp short 0x34f9
     mov cx, word [bp - 0x0002]
@@ -3897,7 +3897,7 @@ loc_3252:
     mov cx, word [cs:0x11cb]
     dec cx
     mov word [cs:0x11cb], cx
-    call 0x4c93
+    call loc_4c93
     pop si
     pop di
     pop es
@@ -3972,7 +3972,7 @@ loc_3252:
     mov al, byte [ss:si]
     or al, al
     je short 0x369d
-    call 0x39e3
+    call dos_con_loc_39e3
     xor ah, ah
     mov al, byte [bx + 0x2]
     mov word [bp - 0x0002], ax
@@ -4026,7 +4026,7 @@ loc_3252:
     dec si
     mov word [bp - 0x0030], ax
     mov word [bp - 0x0032], cx
-    call 0x3a51
+    call leaf_loc_3a51
     mov ax, word [bp - 0x0004]
     mov cl, 3
     shl ax, cl
@@ -4053,7 +4053,7 @@ loc_3252:
     dec si
     mov word [bp - 0x0030], ax
     mov word [bp - 0x0032], cx
-    call 0x3a51
+    call leaf_loc_3a51
     mov bx, word [bp - 0x003a]
     mov ax, word [bp - 0x0038]
     mov es, ax
@@ -4320,8 +4320,8 @@ loc_3252:
     mov al, byte [ss:si]
     or al, al
     je short 0x39db
-    call 0x39e3
-    call 0x3a8b
+    call dos_con_loc_39e3
+    call math_loc_3a8b
     inc word [bp + 0x1c]
     jmp short 0x39bf
     pop di
@@ -4331,7 +4331,7 @@ loc_3252:
     mov sp, bp
     pop bp
     ret
-loc_39e3:
+dos_con_loc_39e3:
     dec ax
     cmp ax, word [bp - 0x0012]
     jb short 0x3a3a
@@ -4378,7 +4378,7 @@ loc_39e3:
     mov ds, bx
     mov bx, ax
     ret
-loc_3a51:
+leaf_loc_3a51:
     jmp short 0x3a56
     add si, word [bp - 0x0030]
     add word [bp - 0x003c], dx
@@ -4404,7 +4404,7 @@ loc_3a51:
     shr al, cl
     or byte [cs:bx + di], al
     jmp short 0x3a53
-loc_3a8b:
+math_loc_3a8b:
     push es
     mov ax, word [cs:0x01e5]
     mov es, ax
@@ -4445,12 +4445,12 @@ loc_3a8b:
     jb short 0x3af5
     jmp near 0x3bea
     push cx
-    call 0x3bf2
+    call math_loc_3bf2
     mov ax, 0x36dd
     mov word [bp - 0x0034], ax
     mov cx, word [bp - 0x0002]
     push cx
-    call 0x3c12
+    call math_loc_3c12
     mov bx, word [bp - 0x000c]
     mov al, byte [bx]
     and al, byte [bp - 0x000a]
@@ -4548,7 +4548,7 @@ loc_3a8b:
     ret
     jmp near 0x3b02
     jmp near 0x3ae8
-loc_3bf2:
+math_loc_3bf2:
     mov al, 0x80
     mov dl, al
     xor ax, ax
@@ -4562,7 +4562,7 @@ loc_3bf2:
     ror dl, 1
     loop 0x3c01
     ret
-loc_3c12:
+math_loc_3c12:
     xor ax, ax
     mov word [bp - 0x003c], ax
     mov dl, 0x80
@@ -4588,12 +4588,12 @@ loc_3c12:
     jb short 0x3c4f
     jmp near 0x3d42
     push cx
-    call 0x3bf2
+    call math_loc_3bf2
     mov ax, 0x36dd
     mov word [bp - 0x0034], ax
     mov cx, word [bp - 0x0002]
     push cx
-    call 0x3c12
+    call math_loc_3c12
     mov bx, word [bp - 0x000c]
     mov al, byte [bx]
     and al, byte [bp - 0x000a]
@@ -4715,12 +4715,12 @@ loc_3c12:
     jbe short 0x3d8f
     jmp near 0x3e82
     push cx
-    call 0x3bf2
+    call math_loc_3bf2
     mov ax, 0x36dd
     mov word [bp - 0x0034], ax
     mov cx, word [bp - 0x0002]
     push cx
-    call 0x3c12
+    call math_loc_3c12
     mov bx, word [bp - 0x000c]
     mov al, byte [bx]
     and al, byte [bp - 0x000a]
@@ -4843,12 +4843,12 @@ loc_3c12:
     jb short 0x3ed2
     jmp near 0x3fc5
     push cx
-    call 0x3bf2
+    call math_loc_3bf2
     mov ax, 0x36dd
     mov word [bp - 0x0034], ax
     mov cx, word [bp - 0x0002]
     push cx
-    call 0x3c12
+    call math_loc_3c12
     mov bx, word [bp - 0x000c]
     mov al, byte [bx]
     and al, byte [bp - 0x000a]
@@ -5185,7 +5185,7 @@ loc_3c12:
     mov cl, 0xa
     shr ax, cl
     mov word [cs:0x4540], ax
-    call 0x4442
+    call dos_file_loc_4442
     mov ax, word [cs:0x01e5]
     mov ds, ax
     mov ax, word [bp + 0xe]
@@ -5212,7 +5212,7 @@ loc_3c12:
     je short 0x435b
     inc word [cs:0x4540]
     mov ax, word [cs:0x4540]
-    call 0x4442
+    call dos_file_loc_4442
     and di, strict word 0x3fff
     dec word [bp - 0x0004]
     jne short 0x4338
@@ -5342,7 +5342,7 @@ loc_3c12:
     add byte [cs:bp + si], cl
     and al, 0
     db 0x00
-loc_4442:
+dos_file_loc_4442:
     push ax
     mov ah, 0x44
     mov al, 0
@@ -5429,7 +5429,7 @@ loc_4442:
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
     dec word [cs:0x11cb]
-    call 0x4c93
+    call loc_4c93
     jmp near 0x45b5
     mov ax, word [bp + 0xc]
     shl ax, 1
@@ -5446,7 +5446,7 @@ loc_4442:
     mov cl, 0xa
     shr ax, cl
     mov word [cs:0x4540], ax
-    call 0x4442
+    call dos_file_loc_4442
     mov si, word [bp - 0x0002]
     and si, strict word 0x3ff
     mov cl, 4
@@ -5472,7 +5472,7 @@ loc_4442:
     je short 0x4587
     inc word [cs:0x4540]
     mov ax, word [cs:0x4540]
-    call 0x4442
+    call dos_file_loc_4442
     and si, strict word 0x3fff
     dec word [bp - 0x0004]
     jne short 0x4564
@@ -5487,8 +5487,8 @@ loc_4442:
     add bx, ax
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
-    call 0x1355
-    call 0x1392
+    call leaf_loc_1355
+    call loc_1392
     pop si
     pop di
     pop ds
@@ -5496,7 +5496,7 @@ loc_4442:
     mov sp, bp
     pop bp
     ret
-loc_45bd:
+dos_file_loc_45bd:
     push ds
     push es
     push si
@@ -5566,8 +5566,8 @@ loc_45bd:
     add bx, ax
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
-    call 0x1355
-    call 0x1392
+    call leaf_loc_1355
+    call loc_1392
     jmp near 0x47a0
     mov word [bp - 0x0002], ax
     mov ax, word [bp + 0x10]
@@ -5575,7 +5575,7 @@ loc_45bd:
     je short 0x4670
     mov ax, word [bp + 0xe]
     mov word [bp - 0x0004], ax
-    call 0x45bd
+    call dos_file_loc_45bd
     jmp near 0x47a0
     mov ax, word [bp + 0xe]
     shl ax, 1
@@ -5642,7 +5642,7 @@ loc_45bd:
     mov cl, 0xa
     shr ax, cl
     mov word [cs:0x4540], ax
-    call 0x4442
+    call dos_file_loc_4442
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
@@ -5665,7 +5665,7 @@ loc_45bd:
     sub di, strict word 0x4000
     inc word [cs:0x4540]
     mov ax, word [cs:0x4540]
-    call 0x4442
+    call dos_file_loc_4442
     mov ax, word [bp - 0x0006]
     mov dx, word [bp - 0x0008]
     or ax, dx
@@ -5779,8 +5779,8 @@ loc_45bd:
     add bx, ax
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
-    call 0x1355
-    call 0x1392
+    call leaf_loc_1355
+    call loc_1392
     jmp near 0x492b
     mov word [bp - 0x0002], ax
     mov ax, word [bp + 0x10]
@@ -5788,7 +5788,7 @@ loc_45bd:
     je short 0x4871
     mov ax, word [bp + 0xe]
     mov word [bp - 0x0004], ax
-    call 0x45bd
+    call dos_file_loc_45bd
     jmp near 0x492b
     mov ax, word [bp + 0xe]
     shl ax, 1
@@ -5823,7 +5823,7 @@ loc_45bd:
     mov cl, 0xa
     shr ax, cl
     mov word [cs:0x4540], ax
-    call 0x4442
+    call dos_file_loc_4442
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
@@ -5833,7 +5833,7 @@ loc_45bd:
     sub di, strict word 0x4000
     inc word [cs:0x4540]
     mov ax, word [cs:0x4540]
-    call 0x4442
+    call dos_file_loc_4442
     mov ax, word [bp - 0x0006]
     or ax, ax
     je short 0x492b
@@ -6113,21 +6113,21 @@ loc_45bd:
     mov ax, word [cs:bx]
     add ax, word [cs:0x01e1]
     mov es, ax
-    call 0x4bb2
+    call dos_file_loc_4bb2
     xor ax, ax
     jmp near 0x4ad2
-loc_4bb2:
+dos_file_loc_4bb2:
     mov word [bp - 0x0002], 8
     lodsb
     cmp word [bp - 0x0004], byte 0
     je short 0x4bca
-    call 0x4bcb
+    call dos_file_loc_4bcb
     mov byte [es:di], bl
     inc di
     dec word [bp - 0x0004]
     jmp short 0x4bb8
     ret
-loc_4bcb:
+dos_file_loc_4bcb:
     mov cx, word [bp - 0x0002]
     xor bx, bx
     shl al, 1
@@ -6216,7 +6216,7 @@ loc_4bcb:
     mov cx, word [cs:0x11cb]
     dec cx
     mov word [cs:0x11cb], cx
-    call 0x4c93
+    call loc_4c93
     pop di
     pop si
     pop es
@@ -6225,15 +6225,15 @@ loc_4bcb:
     pop bp
     ret
 loc_4c93:
-    call 0x4ca9
-    call 0x4cbe
-    call 0x4ce8
-    call 0x4cd3
-    call 0x4cfd
-    call 0x4d13
-    call 0x4d55
+    call leaf_loc_4ca9
+    call dos_con_loc_4cbe
+    call dos_con_loc_4ce8
+    call dos_con_loc_4cd3
+    call dos_con_loc_4cfd
+    call dos_con_loc_4d13
+    call leaf_loc_4d55
     ret
-loc_4ca9:
+leaf_loc_4ca9:
     push ax
     mov bx, 0x10e7
     mov cx, 0xa
@@ -6245,7 +6245,7 @@ loc_4ca9:
     loop 0x4cb0
     pop ax
     ret
-loc_4cbe:
+dos_con_loc_4cbe:
     push ax
     mov bx, 0x229
     mov cx, 0x14
@@ -6257,7 +6257,7 @@ loc_4cbe:
     loop 0x4cc5
     pop ax
     ret
-loc_4cd3:
+dos_con_loc_4cd3:
     push ax
     mov bx, 0x25b
     mov cx, 0x10
@@ -6269,7 +6269,7 @@ loc_4cd3:
     loop 0x4cda
     pop ax
     ret
-loc_4ce8:
+dos_con_loc_4ce8:
     push ax
     mov bx, 0x251
     mov cx, 5
@@ -6281,7 +6281,7 @@ loc_4ce8:
     loop 0x4cef
     pop ax
     ret
-loc_4cfd:
+dos_con_loc_4cfd:
     push ax
     mov bx, 0x4ab4
     mov cx, 0x14
@@ -6292,7 +6292,7 @@ loc_4cfd:
     loop 0x4d04
     pop ax
     ret
-loc_4d13:
+dos_con_loc_4d13:
     push ax
     mov bx, 0x4f8b
     mov cx, 5
@@ -6329,7 +6329,7 @@ loc_4d13:
     jbe short 0x4db5
     db 0x64, 0x2e, 0x00, 0x0a ; add byte ptr cs:[bp + si], cl
     db 0x24
-loc_4d55:
+leaf_loc_4d55:
     dec ax
     mov cl, 2
     shl ax, cl
@@ -6421,7 +6421,7 @@ loc_4d55:
     push ax
     xor ax, ax
     push ax
-    db 0x2e, 0xff, 0x1e, 0x1a, 0x02 ; lcall cs:[0x21a]
+    call far [cs:0x021a]
     add sp, byte 0x0e
     pop di
     pop si
@@ -6439,7 +6439,7 @@ loc_4d55:
     mov ax, ds
     mov es, ax
     push word [bp + 0xc]
-    db 0x2e, 0xff, 0x1e, 0x22, 0x02 ; lcall cs:[0x222]
+    call far [cs:0x0222]
     pop cx
     pop di
     pop si
@@ -6465,7 +6465,7 @@ loc_4d55:
     push ax
     push ax
     push ax
-    db 0x2e, 0xff, 0x1e, 0x1a, 0x02 ; lcall cs:[0x21a]
+    call far [cs:0x021a]
     add sp, byte 0x0e
     pop di
     pop si
@@ -6693,11 +6693,11 @@ loc_4d55:
     push ax
     xor ax, ax
     push ax
-    db 0x2e, 0xff, 0x1e, 0x0e, 0x02 ; lcall cs:[0x20e]
+    call far [cs:0x020e]
     add sp, byte 6
     push word [bp + 0x10]
     push word [bp + 0xe]
-    db 0x2e, 0xff, 0x1e, 0x16, 0x02 ; lcall cs:[0x216]
+    call far [cs:0x0216]
     add sp, byte 4
     push word [bp + 0x12]
     mov bx, word [bp - 0x0004]
@@ -6705,7 +6705,7 @@ loc_4d55:
     add ax, word [cs:0x01e1]
     push ax
     push word [bp - 0x0006]
-    db 0x2e, 0xff, 0x1e, 0x06, 0x02 ; lcall cs:[0x206]
+    call far [cs:0x0206]
     add sp, byte 6
     pop di
     pop si
@@ -6739,7 +6739,7 @@ loc_4d55:
     mov cx, word [cs:0x11cb]
     dec cx
     mov word [cs:0x11cb], cx
-    call 0x4c93
+    call loc_4c93
     pop di
     pop si
     pop es
@@ -6755,7 +6755,7 @@ loc_4d55:
     push di
     mov ax, ds
     mov es, ax
-    db 0x2e, 0xff, 0x1e, 0x1e, 0x02 ; lcall cs:[0x21e]
+    call far [cs:0x021e]
     pop di
     pop si
     pop es
@@ -6771,7 +6771,7 @@ loc_4d55:
     push di
     mov ax, ds
     mov es, ax
-    db 0x2e, 0xff, 0x1e, 0x12, 0x02 ; lcall cs:[0x212]
+    call far [cs:0x0212]
     pop di
     pop si
     pop es
@@ -6789,7 +6789,7 @@ loc_4d55:
     mov es, ax
     push word [bp + 0xe]
     push word [bp + 0xc]
-    db 0x2e, 0xff, 0x1e, 0x16, 0x02 ; lcall cs:[0x216]
+    call far [cs:0x0216]
     add sp, byte 4
     pop di
     pop si

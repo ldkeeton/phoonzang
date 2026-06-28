@@ -486,15 +486,22 @@ def _compute_func_boundaries(label_map, binary_data):
     
     Walks backward to find push_bp prologue, then forward until a
     terminator (ret/retf/iret/hlt) to determine the byte range.
+    
+    Skips auto-generated names (loc_XXXX, *_loc_XXXX) to avoid expensive
+    prologue scanning for hundreds of default labels.
     """
     if not label_map:
         return {}
     md = Cs(CS_ARCH_X86, CS_MODE_16)
     _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
     boundaries = {}
-    # Keep a name lookup keyed by both the named offset and the func_start
     for off in sorted(label_map.keys()):
         name = label_map[off]
+        # Skip auto-generated labels (loc_XXXX, *_loc_XXXX) — only compute
+        # boundaries for semantically-named functions (pattern-matched or
+        # trampoline stubs).
+        if name == f'loc_{off:04x}' or name.endswith(f'_loc_{off:04x}'):
+            continue
         # Walk backward up to 16 bytes to find 0x55 (push bp)
         func_start = off
         for i in range(min(16, off), 0, -1):

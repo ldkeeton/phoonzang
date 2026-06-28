@@ -64,7 +64,7 @@ bits 16
     call 0xf40b
     mov ax, word [0x830a]
     jmp short 0x2d
-    call 0x3a8
+    call loc_03a8
     jmp short 0x41
     call api_idx_0068
     jmp short 0x41
@@ -275,7 +275,7 @@ api_idx_000c:
     mov ax, word [bp - 0x000a]
     mov dx, word [bp - 0x0008]
     ret
-loc_0211:
+math_loc_0211:
     mov ax, 0xfaf4
     call 0xf40b
     mov word [bp - 0x0002], 0
@@ -921,7 +921,7 @@ loc_03a8:
     mov al, byte [0x5978]
     cbw
     push ax
-    call 0x211
+    call math_loc_0211
     add sp, byte 6
     mov word [0x830a], 1
     ret
@@ -1241,7 +1241,7 @@ api_idx_0068:
     push ax
     mov ax, 2
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1254,7 +1254,7 @@ api_idx_0068:
     push ax
     mov ax, 4
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1267,7 +1267,7 @@ api_idx_0068:
     push ax
     mov ax, 6
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1279,7 +1279,7 @@ api_idx_0068:
     push ax
     mov ax, 8
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1292,7 +1292,7 @@ api_idx_0068:
     push ax
     mov ax, 0xb
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1305,7 +1305,7 @@ api_idx_0068:
     push ax
     mov ax, 0xe
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1317,7 +1317,7 @@ api_idx_0068:
     push ax
     mov ax, 0x10
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     mov ax, 0xf
     push ax
@@ -1348,7 +1348,7 @@ api_idx_0068:
     push ax
     mov ax, 1
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1361,7 +1361,7 @@ api_idx_0068:
     push ax
     mov ax, 4
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1373,7 +1373,7 @@ api_idx_0068:
     push ax
     mov ax, 7
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     mov ax, 0x90
     push ax
@@ -1390,7 +1390,7 @@ api_idx_0068:
     push ax
     mov ax, 9
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1403,7 +1403,7 @@ api_idx_0068:
     push ax
     mov ax, 0xc
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     call api_idx_0002_6
     test ax, ax
@@ -1416,7 +1416,7 @@ api_idx_0068:
     push ax
     mov ax, 0xf
     push ax
-    call 0xa56
+    call loc_0a56
     add sp, byte 8
     mov ax, 5
     push ax
