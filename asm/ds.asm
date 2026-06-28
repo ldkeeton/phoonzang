@@ -5,10 +5,10 @@ bits 16
 
     ; DOS MZ executable header
     db "MZ"         ; e_magic
-    dw 0x0056  ; e_cblp  — bytes on last page
-    dw 0x0088    ; e_cp    — pages in file
-    dw 0x0001  ; e_crlc  — relocation count
-    dw 0x0020 ; e_cparhdr — header paragraphs
+    dw 0x0056  ; e_cblp
+    dw 0x0088    ; e_cp
+    dw 0x0001  ; e_crlc
+    dw 0x0020 ; e_cparhdr
     dw 0x0e4b ; e_minalloc
     dw 0xffff ; e_maxalloc
     dw 0x0ff6   ; e_ss
@@ -16,7 +16,7 @@ bits 16
     dw 0x0000 ; e_csum
     dw 0x4b3a   ; e_ip
     dw 0x0000   ; e_cs
-    dw 0x0020 ; e_lfarlc — reloc table offset
+    dw 0x0020 ; e_lfarlc
     dw 0x0000 ; e_ovno
 
     times 4 db 0

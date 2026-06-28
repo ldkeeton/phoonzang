@@ -28,7 +28,7 @@ def disassemble(data, start=0, bitmap=None):
         return
 
     # Classification-aware path
-    from lib.classify import IS_CODE
+    from lib.model import IS_CODE
     n = len(data)
     off = start
     while off < n:

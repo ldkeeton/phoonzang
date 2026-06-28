@@ -16,8 +16,8 @@ ASM_DIR = os.path.dirname(os.path.abspath(__file__))
 ORIG_DIR = os.path.join(os.path.dirname(ASM_DIR), 'DSAVANT')
 
 sys.path.insert(0, ASM_DIR)
-from lib.classify import classify
-from lib.verify import _try_decode_block, _detect_jump_table, _detect_file_format
+from lib.bitmap import classify
+from lib.verify.compare import _try_decode_block, _detect_jump_table, _detect_file_format
 
 BINARIES = {
     'ds':     ('DS.EXE',    0x200),

@@ -30,9 +30,13 @@ ORIG_DIR = os.path.join(os.path.dirname(ASM_DIR), 'DSAVANT')
 KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 
 from lib.decode import disassemble
-from lib.verify import verify
-from lib.classify import classify
+from lib.bitmap import classify
+from lib.verify.compare import verify, clear_assemble_cache
 from lib.struct_analysis import build_structs
+from lib.match import match_patterns, match_trampolines, categorize_call_targets
+from lib.analyze import ConflictDetectPhase, ForceCodePhase
+from lib.model import PhaseContext, IS_CODE, IS_DATA
+from lib.pipeline import run_linear, run_iterative
 
 
 def _crc16(data):
@@ -58,305 +62,58 @@ def _load_known_funcs():
         return json.load(f)
 
 
-def _match_patterns(data, call_targets, known_db, max_func_size=256):
-    """Pattern-match known wrapper functions → {offset: name} labels.
-
-    For each signature's byte pattern, scan the binary.  Walk backward up
-    to 256 bytes for a push-bp prologue that is a call_target, verify the
-    function body (≤ max_func_size bytes to ret/retf), and confirm the
-    pattern falls within the function body — not in a later function that
-    happens to have the same prologue in the back-walk window.
-
-    Returns a dict of {func_start: label_name} with automatic _N dedup.
-    """
-    if not known_db:
-        return {}
-    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
-    md = Cs(CS_ARCH_X86, CS_MODE_16)
-    md.detail = False
-    _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
-
-    label_map = {}
-    name_count = {}
-
-    for sig in known_db.get('signatures', []):
-        name = sig['name']
-        for pat_str in sig.get('patterns', []):
-            try:
-                pat_bytes = bytes.fromhex(pat_str.replace(' ', ''))
-            except (ValueError, KeyError):
-                continue
-            idx = 0
-            while True:
-                idx = data.find(pat_bytes, idx)
-                if idx == -1:
-                    break
-
-                matched = False
-                for i in range(min(256, idx), 0, -1):
-                    p = idx - i
-                    if data[p] != 0x55:
-                        continue
-                    try:
-                        prev_insns = list(md.disasm(data[p:idx], p))
-                    except Exception:
-                        prev_insns = []
-                    if not (prev_insns and prev_insns[-1].address + prev_insns[-1].size == idx):
-                        continue
-
-                    func_start = p
-                    if func_start not in call_targets:
-                        continue
-
-                    max_end = min(func_start + max_func_size, len(data))
-                    try:
-                        insns = list(md.disasm(data[func_start:max_end], func_start))
-                    except Exception:
-                        insns = []
-                    func_end = max_end
-                    for insn in insns:
-                        if insn.mnemonic in _TERMINATORS:
-                            func_end = insn.address + insn.size
-                            break
-
-                    if func_start <= idx < func_end and func_end <= func_start + max_func_size:
-                        matched = True
-                        break
-
-                if matched:
-                    if func_start not in label_map:
-                        n = name_count.get(name, 0) + 1
-                        name_count[name] = n
-                        label_map[func_start] = f'{name}_{n}' if n > 1 else name
-
-                idx += len(pat_bytes)
-
-    return label_map
-
-def _match_trampolines(data, call_targets, known_db=None):
-    """Detect trampoline-dispatch stubs: call_targets starting with
-    ``mov ax, 0xFFXX; call EXTERNAL`` where EXTERNAL is beyond the file.
-
-    Uses ``known_db[api_dispatch]`` map (key = hex neg(ax) like ``0x0004``)
-    to name known APIs.  Falls back to ``api_idx_N``.
-
-    Returns a dict of {offset: label_name} with automatic _N dedup.
-    """
-    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
-    md = Cs(CS_ARCH_X86, CS_MODE_16)
-    md.detail = True
-    n = len(data)
-
-    # Build dispatch-name map from known_db
-    dispatch_names = {}
-    if known_db:
-        for key, entry in known_db.get('api_dispatch', {}).items():
-            try:
-                idx = int(key, 16) if isinstance(key, str) else int(key)
-                dispatch_names[idx] = entry['name']
-            except (ValueError, KeyError):
-                pass
-
-    label_map = {}
-    name_count = {}
-
-    for off in sorted(call_targets):
-        if off + 6 > n:
-            continue
-        if data[off] != 0xB8 or data[off + 2] != 0xFF:
-            continue
-        val = data[off + 1] | (data[off + 2] << 8)
-        for j in range(off + 3, min(off + 8, n - 2)):
-            if data[j] == 0xE8:
-                try:
-                    insn = next(md.disasm(data[j:j + 5], j))
-                    target = insn.operands[0].imm if insn.operands else None
-                except Exception:
-                    break
-                if target is not None and (target & 0xFFFF) >= n:
-                    idx = (-val) & 0xFFFF
-                    name = dispatch_names.get(idx)
-                    if name is None:
-                        name = f'api_idx_{idx:04x}'
-                    n_ = name_count.get(name, 0) + 1
-                    name_count[name] = n_
-                    label_map[off] = name if n_ == 1 else f'{name}_{n_}'
-                break
-            elif data[j] in (0xC3, 0xCB, 0xCF, 0xEB, 0xE9):
-                break
-
-    return label_map
-
-
-# ── Tier 3: heuristic function categorization ───────────────────────────
-
-# DOS AH→sub-category map for int 0x21
-_DOS_AH_FILES = {0x3c, 0x3d, 0x3e, 0x3f, 0x40, 0x41, 0x42, 0x43, 0x56, 0x57,
-                 0x5b, 0x5c, 0x6c}
-_DOS_AH_MEM   = {0x48, 0x49, 0x4a}
-_DOS_AH_CON   = {0x01, 0x02, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c}
-_DOS_AH_PROC  = {0x00, 0x31, 0x4c, 0x4d}
-_DOS_AH_TIME  = {0x2a, 0x2b, 0x2c, 0x2d}
-_DOS_AH_INTV  = {0x25, 0x35}
-_DOS_AH_DPB   = {0x1f, 0x32}
-_DOS_AH_DTA   = {0x1a, 0x2f, 0x4e, 0x4f}
-_DOS_AH_PSP   = {0x51, 0x52, 0x62}
-
-_BIOS_CATEGORIES = {
-    0x10: 'bios_video', 0x13: 'bios_disk',
-    0x16: 'bios_kbd',   0x1a: 'bios_timer',
-    0x33: 'bios_mouse',
-}
-
-_MATH_MNEMONICS = {'mul', 'imul', 'div', 'idiv'}
-_IO_MNEMONICS   = {'in', 'out'}
-_STRING_MNEMONICS = {
-    'movsb', 'movsw', 'stosb', 'stosw', 'lodsb', 'lodsw',
-    'scasb', 'scasw', 'cmpsb', 'cmpsw',
-}
-_CALL_MNEMONICS = {'call', 'lcall'}
-
-
-def _find_mov_ah(insns, int_idx):
-    """Scan backward from int_idx-1 to find the nearest ``mov ah, N``."""
-    from capstone import CS_OP_REG, CS_OP_IMM
-    from capstone.x86 import X86_REG_AH
-    for i in range(int_idx - 1, -1, -1):
-        if insns[i].mnemonic == 'mov':
-            ops = insns[i].operands
-            if len(ops) == 2 and ops[0].type == CS_OP_REG:
-                if ops[0].reg == X86_REG_AH and ops[1].type == CS_OP_IMM:
-                    return ops[1].imm
-        # stop at any int, call, or jmp (can't track flow across them)
-        if insns[i].mnemonic in ('int', 'call', 'lcall', 'jmp', 'ljmp', 'ret', 'retf', 'iret', 'hlt'):
-            break
-    return None
-
-
-def _detect_category(insns, off, body_size):
-    """Return a category prefix string, or None if no signal found.
+def _build_linear_phases():
+    """Build the standard linear phase list (matches original behavior)."""
+    from lib.pipeline.phase import Phase
     
-    Priority-ordered: BIOS → DOS → I/O → string → FPU → math → leaf/thunk.
-    """
-    from capstone import CS_OP_IMM
+    class ForceCodeWrapper(Phase):
+        def run(self, ctx):
+            ForceCodePhase().run(ctx)
     
-    has_call = False
-    call_count = 0
-    total_insn_bytes = 0
-    dos_ah = set()
-    bios_ints = set()
-    has_io = False
-    has_string = False
-    has_math = False
-    has_fpu = False
-    
-    for idx, insn in enumerate(insns):
-        mn = insn.mnemonic
-        total_insn_bytes += insn.size
-        
-        if mn in _CALL_MNEMONICS:
-            has_call = True
-            call_count += 1
-        
-        if mn in _IO_MNEMONICS:
-            has_io = True
-        
-        if mn in _STRING_MNEMONICS:
-            has_string = True
-        
-        if mn in _MATH_MNEMONICS:
-            has_math = True
-        
-        if mn.startswith('f'):
-            has_fpu = True
-        
-        if mn == 'int':
-            for op in insn.operands:
-                if op.type == CS_OP_IMM:
-                    if op.imm == 0x21:
-                        ah = _find_mov_ah(insns, idx)
-                        if ah is not None:
-                            dos_ah.add(ah)
-                    elif op.imm in _BIOS_CATEGORIES:
-                        bios_ints.add(op.imm)
-    
-    # Priority-ordered categorisation
-    if bios_ints:
-        for ival in _BIOS_CATEGORIES:
-            if ival in bios_ints:
-                return _BIOS_CATEGORIES[ival]
-        return 'bios'
-    
-    if dos_ah:
-        ah = next(iter(dos_ah))
-        if ah in _DOS_AH_FILES: return 'dos_file'
-        if ah in _DOS_AH_MEM:   return 'dos_mem'
-        if ah in _DOS_AH_CON:   return 'dos_con'
-        if ah in _DOS_AH_PROC:  return 'dos_proc'
-        if ah in _DOS_AH_TIME:  return 'dos_time'
-        if ah in _DOS_AH_INTV:  return 'dos_intvec'
-        if ah in _DOS_AH_DPB:   return 'dos_dpb'
-        if ah in _DOS_AH_DTA:   return 'dos_dta'
-        if ah in _DOS_AH_PSP:   return 'dos_psp'
-        return 'dos'
-    
-    if has_io:
-        return 'io'
-    
-    if has_string:
-        return 'string'
-    
-    if has_fpu:
-        return 'fpu'
-    
-    if has_math:
-        return 'math'
-    
-    if not has_call:
-        return 'leaf'
-    
-    if call_count == 1 and total_insn_bytes <= 12:
-        last_mn = insns[-1].mnemonic if insns else ''
-        if last_mn in ('ret', 'retf'):
-            return 'thunk'
-    
-    return None
+    return [
+        ForceCodeWrapper(),
+    ]
 
 
-def _categorize_call_targets(data, call_targets, label_map):
-    """Analyse function bodies and upgrade loc_XXXX to categorized names.
+def _build_iterative_phases():
+    """Build the iterative phase list with conflict detection feedback."""
+    from lib.pipeline.phase import Phase
     
-    Returns a new label_map dict with categorized entries for unnamed
-    call targets.  Already-named entries from pattern/trampoline matching
-    are preserved as-is.
-    """
-    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+    class ForceCodeWrapper(Phase):
+        def run(self, ctx):
+            ForceCodePhase().run(ctx)
     
-    md = Cs(CS_ARCH_X86, CS_MODE_16)
-    md.detail = True
+    class ConflictWrapper(Phase):
+        def run(self, ctx):
+            from lib.verify.compare import verify as _verify
+            from lib.verify.assemble import micro_assemble
+            import tempfile, subprocess
+            asm_text, _ = _verify(
+                ctx.binary_data, ctx.start_offset, ctx.instructions,
+                ctx.name, ctx.label_map,
+                bitmap=ctx.bitmap, code_targets=ctx.code_targets,
+                exact_bytes=False, structs=None,
+            )
+            with tempfile.NamedTemporaryFile(suffix='.asm', mode='w', delete=False) as f:
+                f.write(asm_text)
+                asm_path = f.name
+            bin_path = asm_path.replace('.asm', '.bin')
+            r = subprocess.run(
+                ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-o', bin_path, asm_path],
+                capture_output=True, text=True,
+            )
+            if r.returncode == 0 and os.path.exists(bin_path):
+                with open(bin_path, 'rb') as f:
+                    assembled = f.read()
+                ConflictDetectPhase(assembled, ctx.binary_data).run(ctx)
+            for p in (asm_path, bin_path):
+                if os.path.exists(p):
+                    os.remove(p)
     
-    result = dict(label_map)
-    
-    for off in sorted(call_targets):
-        if off in label_map:
-            continue
-        if off + 3 > len(data):
-            continue
-        
-        body = data[off:min(off + 128, len(data))]
-        try:
-            insns = list(md.disasm(body, off))
-        except Exception:
-            continue
-        
-        if not insns:
-            continue
-        
-        category = _detect_category(insns, off, len(body))
-        if category:
-            result[off] = f'{category}_loc_{off:04x}'
-    
-    return result
+    return [
+        ForceCodeWrapper(),
+        ConflictWrapper(),
+    ]
 
 
 def _discover_binaries():
@@ -380,6 +137,7 @@ BINARIES = _discover_binaries()
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
 FEAT_CASCADE_SEARCH = '--feat-cascade-code-recovery' in sys.argv or '-ccr' in sys.argv
+FEAT_ITERATIVE = '--feat-iterative' in sys.argv
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
     if a.startswith('--max-func-size='):
@@ -398,127 +156,81 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     with open(path, 'rb') as f:
         data = f.read()
 
-    # Build classification bitmap
-    from lib.verify import clear_assemble_cache
     clear_assemble_cache()
 
-    entry_points = set()
+    # Build classification bitmap
     bitmap, info = classify(
         data, start_offset,
-        entry_points=entry_points,
+        entry_points=set(),
         cascade_search=FEAT_CASCADE_SEARCH,
     )
 
-    # Only call targets and jump-table entries get labels
-    # (intra-function branch targets are excluded to reduce noise)
     code_targets = info['call_targets']
 
-    # Pattern-match known functions via byte signatures (dynamic, no cache)
+    # Pattern-match known functions
     known_db = _load_known_funcs()
     max_func_size = _MAX_FUNC_SIZE if _MAX_FUNC_SIZE is not None else 256
-    label_map = _match_patterns(data, info.get('call_targets', set()), known_db, max_func_size)
+    label_map = match_patterns(data, info.get('call_targets', set()), known_db, max_func_size)
 
-    # Detect trampoline-dispatch stubs (fallback — never override pattern matches)
-    trampoline_map = _match_trampolines(data, info.get('call_targets', set()), known_db)
+    # Detect trampoline-dispatch stubs
+    trampoline_map = match_trampolines(data, info.get('call_targets', set()), known_db)
     for off, lbl in trampoline_map.items():
         if off not in label_map:
             label_map[off] = lbl
 
-    # Default labels for all unnamed call targets (tier 3: heuristic
-    # categorisation — e.g. dos_file_loc_XXXX; tier 4: plain loc_XXXX
-    # fallback so call 0xNNNN resolves to call loc_NNNN (clickable).
+    # Default labels for unnamed call targets
     call_targets_set = info.get('call_targets', set())
-    label_map = _categorize_call_targets(data, call_targets_set, label_map)
+    label_map = categorize_call_targets(data, call_targets_set, label_map)
     for off in call_targets_set:
         if off not in label_map:
             label_map[off] = f'loc_{off:04x}'
 
-    # CRC matching disabled — no verified CRCs in known_funcs.json yet.
-    # To reactivate: add verified {crc, size, addr_off} to entries[], then
-    # uncomment the CRC loop below and remove the _match_patterns call above
-    # (or run both — pattern-first, CRC for fallback).
-
-    # Count classification stats
-    code_bytes = sum(1 for b in bitmap if b == 1)  # IS_CODE = 1
-    data_bytes = sum(1 for b in bitmap if b == 2)  # IS_DATA = 2
+    # Count initial classification stats
+    code_bytes = sum(1 for b in bitmap if b == IS_CODE)
+    data_bytes = sum(1 for b in bitmap if b == IS_DATA)
     total_cls = code_bytes + data_bytes
     pct = code_bytes / max(total_cls, 1) * 100
 
-    # Force-code known function offsets that classify missed (in data regions)
-    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
-    _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
-    md_code = Cs(CS_ARCH_X86, CS_MODE_16)
-    md_code.detail = True
-    for off in sorted(label_map.keys()):
-        lbl = label_map[off]
-        # Skip auto-generated default names (loc_XXXX, *_loc_XXXX) —
-        # they're injected for every call target and don't need force-coding.
-        # Only pattern-matched semantic names and trampoline stubs benefit
-        # from the full-body force-code recovery.
-        expected = f'loc_{off:04x}'
-        if lbl == expected or lbl.endswith(f'_{expected}'):
-            continue
+    # Build PhaseContext for the pipeline
+    ctx = PhaseContext(
+        binary_data=data,
+        bitmap=bitmap,
+        label_map=label_map,
+        code_targets=code_targets,
+        start_offset=start_offset,
+        name=name,
+        cascade_promoted=info.get('cascade_promoted', set()),
+    )
 
-        # Walk backward up to 16 bytes to find 0x55 (push bp = function entry)
-        func_start = off
-        for i in range(min(16, off), 0, -1):
-            p = off - i
-            if data[p] == 0x55:
-                try:
-                    prev = list(md_code.disasm(data[p:off], p))
-                except Exception:
-                    prev = []
-                if prev and prev[-1].address + prev[-1].size == off:
-                    func_start = p
-                    break
+    # Run the pipeline
+    if FEAT_ITERATIVE:
+        run_iterative(ctx, _build_iterative_phases())
+    else:
+        run_linear(ctx, _build_linear_phases())
 
-        # Mark preceding prologue bytes as IS_CODE (if any were found)
-        for i in range(func_start, off):
-            if bitmap[i] != 1:
-                bitmap[i] = 1
+    # Disassemble using final bitmap
+    instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
 
-        # Forward-decode from func_start to find the function boundary
-        # and mark the entire body as IS_CODE.  This is needed even when
-        # bitmap[off] is already 1 (code), because classify may have only
-        # marked the named offset itself (via call-target discovery) while
-        # the tail of the function (after ret/jmp) remains data, causing
-        # instructions that belong to the same code path to land in a data
-        # block and emit as db instead of their mnemonic.
-        end = min(func_start + 512, len(data))
-        try:
-            for insn in md_code.disasm(data[func_start:end], func_start):
-                if insn.mnemonic in _TERMINATORS:
-                    end = insn.address + insn.size
-                    break
-                end = insn.address + insn.size
-        except Exception:
-            pass
-        for i in range(func_start, min(end, len(data))):
-            bitmap[i] = 1
-
-    code_bytes = sum(1 for b in bitmap if b == 1)
-    data_bytes = sum(1 for b in bitmap if b == 2)
-    pct = code_bytes / max(total_cls, 1) * 100
-
-    # Disassemble only IS_CODE regions
-    instructions = list(disassemble(data, start_offset, bitmap=bitmap))
-
-    # Struct analysis (heuristic, no sidecars)
+    # Struct analysis
     structs = build_structs(instructions)
 
-    # Emit .asm with block headers and labels
+    # Emit .asm
     asm_text, stats = verify(
-        data, start_offset, instructions, name, label_map,
-        bitmap=bitmap, code_targets=code_targets,
+        data, start_offset, instructions, name, ctx.label_map,
+        bitmap=ctx.bitmap, code_targets=ctx.code_targets,
         exact_bytes=exact_bytes,
         structs=structs,
         asm_dir=ASM_DIR,
-        cascade_promoted=info.get('cascade_promoted'),
+        cascade_promoted=ctx.cascade_promoted,
     )
 
     asm_path = os.path.join(ASM_DIR, f'{name}.asm')
     with open(asm_path, 'w') as f:
         f.write(asm_text)
+
+    code_bytes = sum(1 for b in ctx.bitmap if b == IS_CODE)
+    data_bytes = sum(1 for b in ctx.bitmap if b == IS_DATA)
+    pct = code_bytes / max(total_cls, 1) * 100
 
     print(f'{name}: {len(instructions)} insns → {asm_path}  '
           f'mnem={stats["mnemonic"]} db={stats["data"]} '
@@ -526,7 +238,7 @@ def process(name, rel_path, start_offset, exact_bytes=False):
           f'lbl={stats["labels"]}  structs={stats["structs"]}  '
           f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
           f'[{stats["status"]}]')
-    return bitmap
+    return ctx.bitmap
 
 
 def byte_verify(name, exact_bytes=False, bitmap=None):
@@ -573,9 +285,8 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                 print(f'{name} → {rel_path}  [FAIL]  mismatch at 0x{i:04x}')
                 return False
     else:
-        # Load classification bitmap (from caller or compute inline)
-        from lib.verify import _is_semantically_equivalent
-        from lib.classify import classify, IS_CODE
+        from lib.verify.assemble import is_semantically_equivalent
+        from lib.model import IS_CODE
         from capstone import Cs, CS_ARCH_X86, CS_MODE_16
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
@@ -587,18 +298,11 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
             bitmap, _ = classify(data, start_offset, entry_points=set())
 
         if bitmap is not None:
-            # Verify code regions instruction-by-instruction, data regions
-            # with semantic equivalence (data blocks may contain misclassified
-            # code with encoding variants).
             n = len(orig)
             off = 0
             while off < n:
-                # Handle data region bytes
                 while off < n and (off >= len(bitmap) or bitmap[off] != IS_CODE):
                     if orig[off] != built[off]:
-                        # Try semantic equivalence.  The mismatch byte may be
-                        # inside a longer instruction; walk backwards to find
-                        # its start.
                         resolved = False
                         for delta in range(0, 8):
                             test_off = off - delta
@@ -611,14 +315,12 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                                                         test_off))
                             except StopIteration:
                                 continue
-                            # Check that this instruction covers the mismatched byte
                             if test_off + o_insn.size <= off:
                                 continue
                             if (o_insn.address == b_insn.address and
-                                    _is_semantically_equivalent(
+                                    is_semantically_equivalent(
                                         bytes(o_insn.bytes),
                                         bytes(b_insn.bytes), test_off)):
-                                # Encoding variant — skip past the instruction
                                 off += (test_off + o_insn.size - off)
                                 resolved = True
                                 break
@@ -630,7 +332,6 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                         continue
                     off += 1
 
-                # Verify code region instruction-by-instruction
                 code_start = off
                 while off < n and off < len(bitmap) and bitmap[off] == IS_CODE:
                     off += 1
@@ -654,7 +355,7 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                             return False
 
                         if o_insn.bytes != b_insn.bytes:
-                            if not _is_semantically_equivalent(
+                            if not is_semantically_equivalent(
                                     bytes(o_insn.bytes),
                                     bytes(b_insn.bytes), addr):
                                 print(f'{name} → {rel_path}  [FAIL]  semantic mismatch '
@@ -662,9 +363,6 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                                 print_warnings()
                                 return False
         else:
-            # No bitmap — walk both binaries instruction-by-instruction.
-            # When they diverge we check semantic equivalence; when lengths
-            # differ we report failure (the two streams must stay aligned).
             o_it = iter(md.disasm(orig, 0))
             b_it = iter(md.disasm(built, 0))
             while True:
@@ -672,7 +370,7 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                     o_insn = next(o_it)
                     b_insn = next(b_it)
                 except StopIteration:
-                    break  # both exhausted at same point → success
+                    break
 
                 i = o_insn.address
                 if i != b_insn.address:
@@ -684,8 +382,7 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                 if o_insn.bytes == b_insn.bytes:
                     continue
 
-                # Same address, different bytes — check semantic equivalence
-                if not _is_semantically_equivalent(bytes(o_insn.bytes),
+                if not is_semantically_equivalent(bytes(o_insn.bytes),
                                                    bytes(b_insn.bytes), i):
                     print(f'{name} → {rel_path}  [FAIL]  semantic mismatch at 0x{i:04x}')
                     print_warnings()
