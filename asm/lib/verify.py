@@ -312,7 +312,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
 
         built = _micro_assemble(nasm_text, insn.address, label_map)
         ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
-        if not ok and built:
+        if not ok and not exact_bytes and built:
             ok = _is_semantically_equivalent(bts, built[:len(bts)], insn.address)
         if ok:
             records.append({
@@ -362,7 +362,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
             consumed = sum(i.size for i in insns)
             gap = len(raw) - consumed
             if all_decoded or (0 < gap <= 3):
-                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, exact_bytes=True)
+                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, exact_bytes)
                 if inline:
                     new_records.extend(inline)
                     if gap > 0:
@@ -808,7 +808,32 @@ def _build_source(records, start_offset, binary_data):
     out.append('bits 16')
     out.append('')
 
-    if start_offset > 0:
+    if start_offset == 0x200:
+        # Decompose MZ executable header into named fields
+        hdr = binary_data[:start_offset]
+        magic, cblp, cp, crlc, cparhdr, minalloc, maxalloc, ss, sp, \
+            csum, ip, cs, lfarlc, ovno = struct.unpack_from('<2s13H', hdr, 0)
+        out.append('    ; DOS MZ executable header')
+        out.append(f'    db "MZ"         ; e_magic')
+        out.append(f'    dw 0x{cblp:04x}  ; e_cblp  — bytes on last page')
+        out.append(f'    dw 0x{cp:04x}    ; e_cp    — pages in file')
+        out.append(f'    dw 0x{crlc:04x}  ; e_crlc  — relocation count')
+        out.append(f'    dw 0x{cparhdr:04x} ; e_cparhdr — header paragraphs')
+        out.append(f'    dw 0x{minalloc:04x} ; e_minalloc')
+        out.append(f'    dw 0x{maxalloc:04x} ; e_maxalloc')
+        out.append(f'    dw 0x{ss:04x}   ; e_ss')
+        out.append(f'    dw 0x{sp:04x}   ; e_sp')
+        out.append(f'    dw 0x{csum:04x} ; e_csum')
+        out.append(f'    dw 0x{ip:04x}   ; e_ip')
+        out.append(f'    dw 0x{cs:04x}   ; e_cs')
+        out.append(f'    dw 0x{lfarlc:04x} ; e_lfarlc — reloc table offset')
+        out.append(f'    dw 0x{ovno:04x} ; e_ovno')
+        out.append('')
+        # Remaining header bytes (preserves any non-zero data)
+        out.extend(_render_data_block(hdr[28:]))
+        out.append('')
+
+    elif start_offset > 0:
         hdr = binary_data[:start_offset]
         hdr_hex = ', '.join(f'0x{b:02x}' for b in hdr)
         out.append(f'    db {hdr_hex} ; header ({start_offset} bytes)')
