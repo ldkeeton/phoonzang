@@ -10,7 +10,7 @@ ALL_BINS := ds $(OVRS) $(DRVS)
 # Auto-detect CPU cores for parallel builds
 MAKEFLAGS += --jobs=$(shell nproc 2>/dev/null || echo 4)
 
-.PHONY: all asm build verify run clean exact-bytes
+.PHONY: all asm build verify run clean exact-bytes rebuild
 
 # ── Default: two-phase workflow ────────────────────────────────────────────
 all: 
@@ -46,6 +46,21 @@ $(BUILD)/DS.EXE: $(ASM_DIR)/ds.asm | $(BUILD)
 
 $(BUILD):
 	mkdir -p $@
+
+rebuild-%:
+	python3 main.py $(CASCADE_FLAG) $*; \
+	case $* in ds) out=DS.EXE ;; vga|ega|play) out=$*.DRV ;; *) out=$*.ovr ;; esac; \
+	nasm -w-number-overflow -O0 -f bin -o $(BUILD)/$$out $*.asm
+
+ifdef NOT_MODULE
+rebuild:
+	$(MAKE) $(addprefix rebuild-, $(filter-out $(NOT_MODULE),$(ALL_BINS)))
+else ifdef MODULE
+rebuild: rebuild-$(MODULE)
+else
+rebuild:
+	@echo "Usage: make rebuild MODULE=<name> or NOT_MODULE=<name>"; exit 1
+endif
 
 verify:
 	python3 main.py --verify
