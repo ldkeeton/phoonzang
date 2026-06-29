@@ -4,7 +4,7 @@ from lib.format import format_instruction
 from lib.phases import (
     SeedPhase, SidecarPhase, CarvePhase,
     TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
-    PruneDeadPhase, PruneZeroPhase, CascadePhase,
+    PruneDeadPhase, PruneZeroPhase,
     SettlePhase, ArbiterPhase, ForceCodePhase,
 )
 from lib.verify.compare import verify, clear_assemble_cache

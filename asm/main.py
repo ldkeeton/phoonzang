@@ -37,7 +37,7 @@ from lib.match import match_patterns, match_trampolines, categorize_call_targets
 from lib.phases import (
     SeedPhase, SidecarPhase, CarvePhase,
     TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
-    PruneDeadPhase, PruneZeroPhase, CascadePhase,
+    PruneDeadPhase, PruneZeroPhase,
     SettlePhase, ArbiterPhase, ForceCodePhase,
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
@@ -67,13 +67,13 @@ def _load_known_funcs():
         return json.load(f)
 
 
-def _build_classify_phases(ccr=False):
+def _build_classify_phases():
     """Build classification phases (run before pattern matching).
 
     These phases discover code/data boundaries and populate
     ``ctx.code_targets`` for pattern matching.
     """
-    phases = [
+    return [
         SeedPhase(),
         SidecarPhase(),
         CarvePhase(min_body=6, input_slot='sidecar', output_slot='carve_1'),
@@ -84,9 +84,6 @@ def _build_classify_phases(ccr=False):
         PruneZeroPhase(),
         CarvePhase(min_body=4, input_slot='prune_zero', output_slot='carve_2'),
     ]
-    if ccr:
-        phases.append(CascadePhase(input_slot='carve_2'))
-    return phases
 
 
 def _build_refine_phases(last_classify_slot):
@@ -121,7 +118,6 @@ def _discover_binaries():
 BINARIES = _discover_binaries()
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
-FEAT_CASCADE_SEARCH = '--feat-cascade-code-recovery' in sys.argv or '-ccr' in sys.argv
 FEAT_REPORT = '--report' in sys.argv
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
@@ -152,8 +148,7 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     )
 
     # --- Phase 2: Classification pipeline (discovers call_targets) ---
-    ccr = FEAT_CASCADE_SEARCH
-    classify_phases = _build_classify_phases(ccr=ccr)
+    classify_phases = _build_classify_phases()
     run_functional(ctx, classify_phases)
     t_classify = time.perf_counter()
     classify_timing = report_timings()
@@ -450,7 +445,7 @@ def main():
 
     target = None
     for arg in sys.argv[1:]:
-        if not arg.startswith('--') and arg != '-ccr':
+        if not arg.startswith('--'):
             target = arg
             break
 

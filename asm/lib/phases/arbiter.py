@@ -16,7 +16,6 @@ _PHASE_WEIGHTS = {
     'carve_1': 3,        # string carving, conservative
     'carve_2': 2,        # string carving, aggressive
     'error_handler': 2,  # heuristic pattern match
-    'cascade': 1,        # experimental -ccr promotion
     'settled': 1,        # default assumption, weakest
 }
 

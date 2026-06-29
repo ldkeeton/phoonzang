@@ -5289,20 +5289,16 @@ leaf_loc_3330:
     outsb
     db 0x64, 0x79, 0x2e ; jns 0x355c
     db 0x64, 0x72, 0x76 ; jb 0x35a7
-    db 0x00
-dos_file_loc_3532:
-    add byte [bx + si], al
-    push ds
-    push es
-    mov ah, 0x3d
-    mov al, 0
+    db 0x00, 0x00
+    add byte [0xb406], bl
+    cmp ax, 0xb0
     mov bx, cs
     mov ds, bx
     mov dx, word [bp - 0x0004]
     int 0x21
     jb short 0x35b5
     mov word [cs:0x3332], ax
-    mov bx, ax
+    db 0x8b, 0xd8 ; mov bx, ax
     mov ah, 0x3f
     mov cx, 0x5300
     mov dx, word [cs:0x2d52]
@@ -5327,7 +5323,7 @@ dos_file_loc_3532:
     mov ds, ax
     mov si, 0x2d40
     mov cx, 0x2d58
-    sub cx, si
+    db 0x2b, 0xce ; sub cx, si
     rep movsb
     add si, byte 4
     mov cx, 2

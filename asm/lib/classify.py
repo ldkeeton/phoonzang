@@ -4,14 +4,14 @@ from lib.model import PhaseContext, IS_UNKNOWN, IS_CODE, IS_DATA
 from lib.phases import (
     SeedPhase, SidecarPhase, CarvePhase,
     TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
-    PruneDeadPhase, PruneZeroPhase, CascadePhase,
+    PruneDeadPhase, PruneZeroPhase,
     SettlePhase, ArbiterPhase,
 )
 from lib.pipeline import run_functional
 
 
-def _build_phases(ccr=False):
-    phases = [
+def _build_phases():
+    return [
         SeedPhase(),
         SidecarPhase(),
         CarvePhase(min_body=6, input_slot='sidecar', output_slot='carve_1'),
@@ -22,12 +22,9 @@ def _build_phases(ccr=False):
         PruneZeroPhase(),
         CarvePhase(min_body=4, input_slot='prune_zero', output_slot='carve_2'),
     ]
-    if ccr:
-        phases.append(CascadePhase(input_slot='carve_2'))
-    return phases
 
 
-def classify(data, start_offset=0, entry_points=None, cascade_search=False):
+def classify(data, start_offset=0, entry_points=None):
     """Run the functional classification pipeline; return old-style (bitmap, info).
 
     This is a compatibility shim for code that hasn't been migrated yet
@@ -38,7 +35,7 @@ def classify(data, start_offset=0, entry_points=None, cascade_search=False):
         start_offset=start_offset,
     )
 
-    phases = _build_phases(ccr=cascade_search)
+    phases = _build_phases()
     run_functional(ctx, phases)
 
     last_slot = phases[-1].output_slot
@@ -52,7 +49,6 @@ def classify(data, start_offset=0, entry_points=None, cascade_search=False):
         'discovered': set(ctx.code_targets),
         'call_targets': set(ctx.code_targets),
         'jt_targets': set(),
-        'cascade_promoted': set(),
     }
 
     return bitmap, info

@@ -23,10 +23,23 @@ _SOFT_DATA = -0.3
 _SOFT_CODE = 0.3
 
 
-def _find_jump_table_bounds(data, jmp_addr, jt_addr, md):
-    # Try raw byte search for CMP AX, imm16 / JNB pattern.
-    # The guard is between the table and the jmp (or just before the jmp
-    # for inline guards).  Search from before the table to past the jmp.
+def _find_jump_table_bounds(data, jmp_addr, md, jt_addr=None):
+    """Find jump-table index bounds near the jump instruction.
+
+    Searches for generic x86 patterns that limit the table index:
+
+      1. ``CMP AX, imm16`` followed by ``JAE/JA/JBE/JB`` (raw byte search
+         at any alignment — the pattern is often embedded in unaligned
+         data bytes near the table).
+      2. ``MOV CX, imm16`` (loop‑counter bound for DI‑indexed tables
+         using ``repne scasb``).
+      3. Capstone‑based fallback for aligned ``CMP reg, imm / Jcc``.
+
+    Returns the maximum table index (0‑based) or *None* when no bound is
+    found.
+    """
+    # Pass 1: raw byte search for CMP AX, imm16 / Jcc
+    # (generic x86 bounds-check pattern, works at any alignment)
     if jt_addr is not None:
         lo = max(0, min(jt_addr, jmp_addr) - 64)
         hi = min(len(data) - 4, max(jmp_addr, jt_addr) + 5)
@@ -37,7 +50,17 @@ def _find_jump_table_bounds(data, jmp_addr, jt_addr, md):
                     return imm
                 return max(imm - 1, 0)             # JAE / JBE
 
-    # Fallback: capstone-based search near jmp_addr.
+    # Pass 2: raw byte search for MOV CX, imm16
+    # (loop‑counter bound for DI‑indexed tables)
+    lo = max(0, jmp_addr - 64)
+    hi = jmp_addr
+    for i in range(lo, hi):
+        if data[i] == 0xB9:
+            imm = struct.unpack_from('<H', data, i + 1)[0]
+            if 0 < imm <= 256:
+                return imm
+
+    # Pass 3: capstone‑based CMP+Jcc fallback for aligned instructions
     search_start = max(0, jmp_addr - 30)
     insns = []
     md.skipdata = True
@@ -51,22 +74,15 @@ def _find_jump_table_bounds(data, jmp_addr, jt_addr, md):
     for i in range(len(insns) - 1):
         insn = insns[i]
         nxt = insns[i + 1]
-
         if insn.mnemonic != 'cmp':
             continue
         ops = insn.operands
-        if len(ops) < 2:
-            continue
-        if ops[0].type != CS_OP_REG:
-            continue
-        if ops[1].type != CS_OP_IMM:
-            continue
-        imm = ops[1].imm & 0xFFFF
-
-        if nxt.mnemonic == 'ja':
-            return imm
-        if nxt.mnemonic in ('jae', 'jb', 'jbe'):
-            return max(imm - 1, 0)
+        if len(ops) >= 2 and ops[0].type == CS_OP_REG and ops[1].type == CS_OP_IMM:
+            imm = ops[1].imm & 0xFFFF
+            if nxt.mnemonic in ('ja', 'jb'):
+                return imm
+            if nxt.mnemonic in ('jae', 'jbe', 'je', 'jne'):
+                return max(imm - 1, 0)
 
     return None
 
@@ -145,7 +161,7 @@ class RecursiveDescentPhase(Phase):
             tgt = ctx.start_offset + disp
             if not (0 <= tgt < n):
                 continue
-            max_idx = _find_jump_table_bounds(data, scan_idx, tgt, md)
+            max_idx = _find_jump_table_bounds(data, scan_idx, md, jt_addr=tgt)
             tbl_end, jt_tgts = _scan_jump_table(
                 data, tgt, data_boundary,
                 max_index=max_idx, start_offset=ctx.start_offset,
@@ -226,7 +242,7 @@ class RecursiveDescentPhase(Phase):
                             new_start = ctx.start_offset + mem_disp
                             if not (0 <= new_start < n):
                                 break
-                            max_idx = _find_jump_table_bounds(data, off, new_start, md)
+                            max_idx = _find_jump_table_bounds(data, off, md, jt_addr=new_start)
                             tbl_end, jt_tgts = _scan_jump_table(
                                 data, new_start, data_boundary,
                                 max_index=max_idx, start_offset=ctx.start_offset,
