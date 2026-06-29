@@ -38,8 +38,16 @@ def run_functional(ctx: PhaseContext, phases: list[Phase]):
 
         ctx.add_layer(phase.output_slot, result)
         arr = result.to_numpy()
-        _timings.append((phase.output_slot, dt, int((arr != 0).sum()),
-                         int((arr > 0.3).sum())))
+        nz = int((arr != 0).sum())
+        pos = int((arr > 0.3).sum())
+        neg = int((arr < -0.3).sum())
+        _timings.append((phase.output_slot, dt, nz, pos))
+        ctx.report['phases'][phase.output_slot] = {
+            'time_s': round(dt, 3),
+            'nz': nz,
+            'pos': pos,
+            'neg': neg,
+        }
 
 
 def report_timings():

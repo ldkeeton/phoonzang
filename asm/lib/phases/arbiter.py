@@ -75,4 +75,21 @@ class ArbiterPhase(Phase):
         result[undecided & (last_arr > 0.0)] = IS_CODE
         result[undecided & (last_arr < 0.0)] = IS_DATA
 
+        # Log vote breakdown
+        vote_log = {}
+        for name in phase_cols:
+            w = _PHASE_WEIGHTS.get(name, 1)
+            col = ctx.layers[name].to_numpy()
+            cw = int((col > _CONF_CODE).sum())
+            dw = int((col < _CONF_DATA).sum())
+            vote_log[name] = {'weight': w, 'code_votes': cw, 'data_votes': dw}
+        vote_log['_stats'] = {
+            'code_wins': int(code_wins.sum()),
+            'data_wins': int(data_wins.sum()),
+            'fallback_code': int((undecided & (last_arr > 0.0)).sum()),
+            'fallback_data': int((undecided & (last_arr < 0.0)).sum()),
+            'undecided_final': int((result == IS_UNKNOWN).sum()),
+        }
+        ctx.report['arbiter'] = vote_log
+
         return pl.Series('squashed', result, dtype=pl.UInt8)

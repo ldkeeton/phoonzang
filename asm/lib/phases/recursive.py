@@ -10,6 +10,7 @@ from lib.x86util import (
     is_cond_jump, get_imm_target, is_indirect,
     disasm_one, _TERMINATORS, _UNCOND_JUMPS, _CALLS,
 )
+from capstone import CS_OP_MEM
 
 
 _CONF_SEED_CODE = 1.0
@@ -153,20 +154,41 @@ class RecursiveDescentPhase(Phase):
                     fork_ranges.append((spec_start, insn_end))
 
                     if is_indirect(insn):
+                        mem_disp = None
+                        for op in insn.operands:
+                            if op.type == CS_OP_MEM:
+                                mem_disp = op.mem.disp
+                                break
                         max_idx = _find_jump_table_bounds(data, off, md)
+                        old_start = off + insn.size
+                        new_start = (ctx.start_offset + mem_disp) if mem_disp is not None else old_start
                         tbl_end, jt_tgts = _scan_jump_table(
-                            data, off + insn.size, data_boundary, max_index=max_idx,
+                            data, old_start, data_boundary, max_index=max_idx,
                         )
+                        jt_info = {
+                            'jmp_addr': off,
+                            'jmp_seg': off - ctx.start_offset,
+                            'size': insn.size,
+                            'mnemonic': f'{insn.mnemonic} {insn.op_str}',
+                            'mem_disp': mem_disp,
+                            'old_table_start': old_start,
+                            'new_table_start': new_start,
+                            'max_index': max_idx,
+                            'bound_source': 'cmp_found' if max_idx is not None else 'none',
+                            'old_targets_found': len(jt_tgts),
+                            'old_targets': sorted(jt_tgts)[:20],
+                            'old_tbl_end': tbl_end,
+                        }
                         if jt_tgts:
                             for t in jt_tgts:
                                 if 0 <= t < n:
                                     worklist.add(t)
                                     ctx.code_targets.add(t)
-                            # Mark table entries in both result and data_boundary
-                            for j in range(off + insn.size, min(tbl_end, n)):
+                            for j in range(old_start, min(tbl_end, n)):
                                 if result[j] == 0.0:
                                     result[j] = _CONF_JT_DATA
                                     data_boundary[j] = _CONF_JT_DATA
+                        ctx.report.setdefault('jump_tables', []).append(jt_info)
                     else:
                         target = get_imm_target(insn)
                         if target is not None and 0 <= target < n:

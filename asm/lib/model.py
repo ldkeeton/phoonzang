@@ -44,6 +44,14 @@ class PhaseContext:
         self.name = name
         self.seeds = set()
         self.sidecar_entry = sidecar_entry
+        self.report = {
+            'binary': {'name': name, 'size': n, 'start_offset': start_offset},
+            'phases': {},
+            'jump_tables': [],
+            'arbiter': {},
+            'classification': {},
+            'verify': {},
+        }
 
     @property
     def bitmap(self):

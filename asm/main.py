@@ -42,6 +42,7 @@ from lib.phases import (
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.pipeline import run_functional, report_timings
+from lib.report import write_report, print_short_report, print_compare
 
 
 def _crc16(data):
@@ -121,6 +122,7 @@ BINARIES = _discover_binaries()
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
 FEAT_CASCADE_SEARCH = '--feat-cascade-code-recovery' in sys.argv or '-ccr' in sys.argv
+FEAT_REPORT = '--report' in sys.argv
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
     if a.startswith('--max-func-size='):
@@ -172,6 +174,11 @@ def process(name, rel_path, start_offset, exact_bytes=False):
             label_map[off] = f'loc_{off:04x}'
 
     ctx.label_map = label_map
+    ctx.report['code_targets'] = {
+        'total': len(ctx.code_targets),
+        'by_seed': len(ctx.seeds & ctx.code_targets),
+        'by_call': len(ctx.code_targets - ctx.seeds),
+    }
 
     # --- Phase 4: Refinement pipeline (uses label_map) ---
     last_classify_slot = classify_phases[-1].output_slot
@@ -186,9 +193,15 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     data_bytes = int((squashed == IS_DATA).sum())
     total_cls = code_bytes + data_bytes
     pct = code_bytes / max(total_cls, 1) * 100
+    ctx.report['classification'] = {
+        'code_bytes': code_bytes,
+        'data_bytes': data_bytes,
+        'code_pct': round(pct, 1),
+    }
 
     # --- Phase 6: Disassemble ---
     instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
+    ctx.report['classification']['instructions'] = len(instructions)
     t_disasm = time.perf_counter()
 
     # --- Phase 7: Struct analysis ---
@@ -221,6 +234,21 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     print(classify_timing)
     print(f'  refine phases:')
     print(refine_timing)
+
+    # Write report JSON if requested
+    if FEAT_REPORT:
+        ctx.report['verify'] = {
+            'status': stats['status'],
+            'mnemonic': stats['mnemonic'],
+            'data': stats['data'],
+            'data_blocks': stats['data_blocks'],
+            'labels': stats['labels'],
+            'structs': stats['structs'],
+        }
+        report_path = write_report(ctx)
+        print_short_report(ctx)
+        print(f'  report: {report_path}')
+
     return ctx.bitmap
 
 
@@ -405,6 +433,19 @@ def main():
                 if os.path.exists(fp):
                     os.remove(fp)
         print('Cleaned.')
+        return
+    if '--compare' in sys.argv:
+        idx = sys.argv.index('--compare')
+        if idx + 2 < len(sys.argv):
+            print_compare(sys.argv[idx + 1], sys.argv[idx + 2])
+        else:
+            print('Usage: --compare <report_a.json> <report_b.json>')
+        return
+
+    if '--report-all' in sys.argv or ('--report' in sys.argv and 'all' in sys.argv):
+        for name, (rel_path, start_offset) in BINARIES.items():
+            process(name, rel_path, start_offset, exact_bytes=EXACT_BYTES)
+            byte_verify(name, exact_bytes=EXACT_BYTES)
         return
 
     target = None
