@@ -23,7 +23,21 @@ _SOFT_DATA = -0.3
 _SOFT_CODE = 0.3
 
 
-def _find_jump_table_bounds(data, jmp_addr, md):
+def _find_jump_table_bounds(data, jmp_addr, jt_addr, md):
+    # Try raw byte search for CMP AX, imm16 / JNB pattern.
+    # The guard is between the table and the jmp (or just before the jmp
+    # for inline guards).  Search from before the table to past the jmp.
+    if jt_addr is not None:
+        lo = max(0, min(jt_addr, jmp_addr) - 64)
+        hi = min(len(data) - 4, max(jmp_addr, jt_addr) + 5)
+        for i in range(lo, hi):
+            if data[i] == 0x3D and data[i + 3] in (0x73, 0x77, 0x72, 0x76):
+                imm = struct.unpack_from('<H', data, i + 1)[0]
+                if data[i + 3] in (0x77, 0x72):   # JA / JB
+                    return imm
+                return max(imm - 1, 0)             # JAE / JBE
+
+    # Fallback: capstone-based search near jmp_addr.
     search_start = max(0, jmp_addr - 30)
     insns = []
     md.skipdata = True
@@ -57,21 +71,22 @@ def _find_jump_table_bounds(data, jmp_addr, md):
     return None
 
 
-def _scan_jump_table(data, start, conf_arr, max_index=None):
+def _scan_jump_table(data, start, conf_arr, max_index=None, start_offset=0):
     n = len(conf_arr)
     targets = set()
     tbl = start
-    max_entries = (max_index + 1) if max_index is not None else None
-    while tbl + 2 <= n:
-        if max_entries is not None and len(targets) >= max_entries:
-            break
+    max_entries = (max_index + 1) if max_index is not None else 256
+    entries_read = 0
+    while tbl + 2 <= n and entries_read < max_entries:
         val = struct.unpack_from('<H', data, tbl)[0]
-        if not (0 <= val < n):
+        buf_val = val + start_offset
+        if not (0 <= buf_val < n):
             break
-        if conf_arr[val] < -0.3:
+        if conf_arr[buf_val] < -0.3:
             break
-        targets.add(val)
+        targets.add(buf_val)
         tbl += 2
+        entries_read += 1
     if len(targets) >= 3:
         return tbl, targets
     return start, set()
@@ -117,6 +132,48 @@ class RecursiveDescentPhase(Phase):
         visited_starts = set()
         worklist = set(seeds)
 
+        # Pre-scan binary for all jmp [cs:bx+disp] and jmp [cs:di+disp]
+        # patterns, so tables are found even when the walker cannot reach
+        # their addresses through static control-flow reconstruction.
+        for scan_idx in range(ctx.start_offset, n - 5):
+            if (data[scan_idx] != 0x2E or data[scan_idx + 1] != 0xFF
+                    or data[scan_idx + 2] not in (0xA7, 0xA5)):
+                continue
+            if data_boundary[scan_idx] < _HARD_DATA:
+                continue
+            disp = struct.unpack_from('<h', data, scan_idx + 3)[0]
+            tgt = ctx.start_offset + disp
+            if not (0 <= tgt < n):
+                continue
+            max_idx = _find_jump_table_bounds(data, scan_idx, tgt, md)
+            tbl_end, jt_tgts = _scan_jump_table(
+                data, tgt, data_boundary,
+                max_index=max_idx, start_offset=ctx.start_offset,
+            )
+            jt_info = {
+                'jmp_addr': scan_idx,
+                'jmp_seg': scan_idx - ctx.start_offset,
+                'size': 5,
+                'mnemonic': 'jmp [cs:bx+disp]' if data[scan_idx+2] == 0xA7 else 'jmp [cs:di+disp]',
+                'mem_disp': disp,
+                'table_start': tgt,
+                'max_index': max_idx,
+                'bound_source': 'cmp_found' if max_idx is not None else 'none',
+                'targets_found': len(jt_tgts),
+                'targets': sorted(jt_tgts)[:20],
+                'tbl_end': tbl_end,
+            }
+            if jt_tgts:
+                for t in jt_tgts:
+                    if 0 <= t < n:
+                        worklist.add(t)
+                        ctx.code_targets.add(t)
+                for j in range(tgt, min(tbl_end, n)):
+                    if result[j] == 0.0:
+                        result[j] = _CONF_JT_DATA
+                        data_boundary[j] = _CONF_JT_DATA
+            ctx.report.setdefault('jump_tables', []).append(jt_info)
+
         while worklist:
             off = worklist.pop()
             if off in visited_starts or off < 0 or off >= n:
@@ -155,40 +212,57 @@ class RecursiveDescentPhase(Phase):
 
                     if is_indirect(insn):
                         mem_disp = None
+                        has_base = False
                         for op in insn.operands:
                             if op.type == CS_OP_MEM:
                                 mem_disp = op.mem.disp
+                                has_base = op.mem.base != 0
                                 break
-                        max_idx = _find_jump_table_bounds(data, off, md)
-                        old_start = off + insn.size
-                        new_start = (ctx.start_offset + mem_disp) if mem_disp is not None else old_start
-                        tbl_end, jt_tgts = _scan_jump_table(
-                            data, old_start, data_boundary, max_index=max_idx,
-                        )
-                        jt_info = {
-                            'jmp_addr': off,
-                            'jmp_seg': off - ctx.start_offset,
-                            'size': insn.size,
-                            'mnemonic': f'{insn.mnemonic} {insn.op_str}',
-                            'mem_disp': mem_disp,
-                            'old_table_start': old_start,
-                            'new_table_start': new_start,
-                            'max_index': max_idx,
-                            'bound_source': 'cmp_found' if max_idx is not None else 'none',
-                            'old_targets_found': len(jt_tgts),
-                            'old_targets': sorted(jt_tgts)[:20],
-                            'old_tbl_end': tbl_end,
-                        }
-                        if jt_tgts:
-                            for t in jt_tgts:
-                                if 0 <= t < n:
-                                    worklist.add(t)
-                                    ctx.code_targets.add(t)
-                            for j in range(old_start, min(tbl_end, n)):
-                                if result[j] == 0.0:
-                                    result[j] = _CONF_JT_DATA
-                                    data_boundary[j] = _CONF_JT_DATA
-                        ctx.report.setdefault('jump_tables', []).append(jt_info)
+                        # Only treat as a jump table when a register indexes
+                        # into a displacement ([bx+disp], [di+disp], etc.).
+                        # Direct [disp] or register-only jmps are not tables.
+                        use_jt = has_base and mem_disp is not None
+                        if use_jt:
+                            new_start = ctx.start_offset + mem_disp
+                            if not (0 <= new_start < n):
+                                break
+                            max_idx = _find_jump_table_bounds(data, off, new_start, md)
+                            tbl_end, jt_tgts = _scan_jump_table(
+                                data, new_start, data_boundary,
+                                max_index=max_idx, start_offset=ctx.start_offset,
+                            )
+                            jt_info = {
+                                'jmp_addr': off,
+                                'jmp_seg': off - ctx.start_offset,
+                                'size': insn.size,
+                                'mnemonic': f'{insn.mnemonic} {insn.op_str}',
+                                'mem_disp': mem_disp,
+                                'table_start': new_start,
+                                'max_index': max_idx,
+                                'bound_source': 'cmp_found' if max_idx is not None else 'none',
+                                'targets_found': len(jt_tgts),
+                                'targets': sorted(jt_tgts)[:20],
+                                'tbl_end': tbl_end,
+                            }
+                            if jt_tgts:
+                                for t in jt_tgts:
+                                    if 0 <= t < n:
+                                        worklist.add(t)
+                                        ctx.code_targets.add(t)
+                                for j in range(new_start, min(tbl_end, n)):
+                                    if result[j] == 0.0:
+                                        result[j] = _CONF_JT_DATA
+                                        data_boundary[j] = _CONF_JT_DATA
+                            ctx.report.setdefault('jump_tables', []).append(jt_info)
+                        elif mem_disp is not None:
+                            # Direct memory JMP: follow the single pointer.
+                            ptr_addr = ctx.start_offset + mem_disp
+                            if 0 <= ptr_addr < n - 2:
+                                ptr = struct.unpack_from('<H', data, ptr_addr)[0]
+                                target = ptr + ctx.start_offset
+                                if 0 <= target < n:
+                                    worklist.add(target)
+                                    ctx.code_targets.add(target)
                     else:
                         target = get_imm_target(insn)
                         if target is not None and 0 <= target < n:

@@ -1071,7 +1071,6 @@ api_idx_008a:
     mov cx, 4
     cwd
     idiv cx
-math_loc_0ca1:
     mov word [bp - 0x0002], dx
     mov ax, word [0x82ee]
     inc ax
@@ -2709,7 +2708,7 @@ api_idx_0008_3:
     mov ax, 5
     imul word [0x91aa]
     add ax, word [bp + 0xe]
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     mov byte [bx - 0x6d8a], 3
     mov ax, word [bp - 0x0004]
     ret
@@ -3726,9 +3725,7 @@ api_idx_0010:
     push ax
     push ax
     push ax
-    db 0xff, 0x76
-loc_2806:
-    push cs
+    push word [bp + 0xe]
     push word [bp + 0x4]
     mov ax, word [bp + 0x3e]
     add ax, word [bp + 0x4]
@@ -6354,8 +6351,10 @@ api_idx_0030:
     push ax
     mov ax, 0
     push ax
+loc_414b:
     mov ax, 0x1f
     push ax
+loc_414f:
     push ax
     call loc_194f
     add sp, byte 4
@@ -6691,6 +6690,7 @@ api_idx_0030:
     mov ax, 4
     push ax
     push ax
+math_loc_445e:
     call loc_194f
     add sp, byte 4
     push ax
@@ -7927,6 +7927,7 @@ api_idx_0030:
     idiv cx
     mov ax, dx
     test ax, ax
+loc_4f08:
     jne short 0x4f14
     cmp word [0x8456], byte 1
     jg short 0x4f14

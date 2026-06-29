@@ -1712,7 +1712,6 @@ api_idx_000c:
     jmp near 0x24fa
     mov ax, 8
     push ax
-loc_2424:
     mov ax, 0
     push ax
     push word [bx + si + 0x3c0]
@@ -2323,7 +2322,6 @@ api_idx_0044:
     mov ax, 0x73
     push ax
     mov ax, 0x32
-loc_2a2a:
     push ax
     call api_idx_000c_2
     add sp, byte 6

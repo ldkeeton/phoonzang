@@ -132,6 +132,16 @@ struc s_bx_91de
     .f_07: resb 1
 endstruc
 
+; @struct s_bx_9274 size=3 reg=bx disp=0x9274
+; @field offset=0 size=1 name=f_00
+; @field offset=1 size=1 name=f_01
+; @field offset=2 size=1 name=f_02
+struc s_bx_9274
+    .f_00: resb 1
+    .gap_1: resb 1
+    .f_02: resb 1
+endstruc
+
 ; @struct s_bx_92f4 size=17 reg=bx disp=0x92f4
 ; @field offset=0 size=2 name=f_00
 ; @field offset=2 size=2 name=f_02

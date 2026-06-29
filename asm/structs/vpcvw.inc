@@ -18,22 +18,18 @@ struc s_bx_0005
     .f_01: resb 1
 endstruc
 
-; @struct s_bx_0007 size=2 reg=bx disp=0x0007
-; @field offset=0 size=1 name=f_00
-; @field offset=1 size=1 name=f_01
-struc s_bx_0007
-    .f_00: resb 1
-    .f_01: resb 1
-endstruc
-
-; @struct s_bx_0009 size=3 reg=bx disp=0x0009
+; @struct s_bx_0007 size=5 reg=bx disp=0x0007
 ; @field offset=0 size=1 name=f_00
 ; @field offset=1 size=1 name=f_01
 ; @field offset=2 size=1 name=f_02
-struc s_bx_0009
+; @field offset=3 size=1 name=f_03
+; @field offset=4 size=1 name=f_04
+struc s_bx_0007
     .f_00: resb 1
     .f_01: resb 1
     .f_02: resb 1
+    .f_03: resb 1
+    .f_04: resb 1
 endstruc
 
 ; @struct s_bx_0037 size=21 reg=bx disp=0x0037
@@ -72,22 +68,16 @@ struc s_bx_015c
     .f_02: resb 2
 endstruc
 
-; @struct s_bx_018c size=4 reg=bx disp=0x018c
-; @field offset=0 size=2 name=f_00
-; @field offset=2 size=2 name=f_02
-struc s_bx_018c
-    .f_00: resb 2
-    .f_02: resb 2
-endstruc
-
-; @struct s_bx_0620 size=3 reg=bx disp=0x0620
+; @struct s_bx_0620 size=5 reg=bx disp=0x0620
 ; @field offset=0 size=1 name=f_00
 ; @field offset=1 size=1 name=f_01
-; @field offset=2 size=1 name=f_02
+; @field offset=2 size=2 name=f_02
+; @field offset=4 size=1 name=f_04
 struc s_bx_0620
     .f_00: resb 1
     .f_01: resb 1
-    .f_02: resb 1
+    .gap_2: resb 2
+    .f_04: resb 1
 endstruc
 
 ; @struct s_bx_0b1a size=6 reg=bx disp=0x0b1a
@@ -244,6 +234,14 @@ struc s_bx_5e2b
     .f_0d: resb 1
 endstruc
 
+; @struct s_bx_ff0d size=2 reg=bx disp=0xff0d
+; @field offset=0 size=1 name=f_00
+; @field offset=1 size=1 name=f_01
+struc s_bx_ff0d
+    .f_00: resb 1
+    .f_01: resb 1
+endstruc
+
 ; @struct s_bx_ff7c size=6 reg=bx disp=0xff7c
 ; @field offset=0 size=2 name=f_00
 ; @field offset=2 size=2 name=f_02
@@ -276,4 +274,14 @@ struc s_bx_ffae
     .f_00: resb 1
     .gap_1: resb 1
     .f_02: resb 1
+endstruc
+
+; @struct s_bx_ffe1 size=6 reg=bx disp=0xffe1
+; @field offset=0 size=1 name=f_00
+; @field offset=1 size=4 name=f_01
+; @field offset=5 size=1 name=f_05
+struc s_bx_ffe1
+    .f_00: resb 1
+    .gap_1: resb 4
+    .f_05: resb 1
 endstruc

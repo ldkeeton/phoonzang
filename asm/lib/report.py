@@ -57,8 +57,8 @@ def print_short_report(ctx):
     jts = ctx.report.get('jump_tables', [])
     if not jts:
         return
-    found = sum(1 for jt in jts if jt.get('old_targets_found', 0) >= 3)
-    total_targets = sum(jt.get('old_targets_found', 0) for jt in jts)
+    found = sum(1 for jt in jts if jt.get('targets_found', 0) >= 3)
+    total_targets = sum(jt.get('targets_found', 0) for jt in jts)
     print(f'  jt_scans={len(jts)} jt_found={found} jt_targets={total_targets}')
 
 

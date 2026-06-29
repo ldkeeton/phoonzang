@@ -7387,7 +7387,7 @@ api_idx_00ac:
     push ax
     mov ax, 0x248
     imul word [bp + 0x4]
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     push word [bx + 0x5c0e]
     push word [bx + 0x5c0c]
     mov ax, 0x5d
