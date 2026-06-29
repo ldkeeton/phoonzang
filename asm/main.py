@@ -24,6 +24,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import time
 
 ASM_DIR = os.path.dirname(os.path.abspath(__file__))
 ORIG_DIR = os.path.join(os.path.dirname(ASM_DIR), 'DSAVANT')
@@ -40,7 +41,7 @@ from lib.phases import (
     SettlePhase, ArbiterPhase, ForceCodePhase,
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
-from lib.pipeline import run_functional
+from lib.pipeline import run_functional, report_timings
 
 
 def _crc16(data):
@@ -138,6 +139,7 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     with open(path, 'rb') as f:
         data = f.read()
 
+    t_total = time.perf_counter()
     clear_assemble_cache()
 
     # --- Phase 1: Build context with initial seed layer ---
@@ -151,6 +153,8 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     ccr = FEAT_CASCADE_SEARCH
     classify_phases = _build_classify_phases(ccr=ccr)
     run_functional(ctx, classify_phases)
+    t_classify = time.perf_counter()
+    classify_timing = report_timings()
 
     # --- Phase 3: Pattern matching ---
     known_db = _load_known_funcs()
@@ -173,6 +177,8 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     last_classify_slot = classify_phases[-1].output_slot
     refine_phases = _build_refine_phases(last_classify_slot)
     run_functional(ctx, refine_phases)
+    refine_timing = report_timings()
+    t_classify_end = time.perf_counter()
 
     # --- Phase 5: Stats from final squashed column ---
     squashed = ctx.layers['squashed'].to_numpy()
@@ -183,6 +189,7 @@ def process(name, rel_path, start_offset, exact_bytes=False):
 
     # --- Phase 6: Disassemble ---
     instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
+    t_disasm = time.perf_counter()
 
     # --- Phase 7: Struct analysis ---
     structs = build_structs(instructions)
@@ -199,6 +206,7 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     asm_path = os.path.join(ASM_DIR, f'{name}.asm')
     with open(asm_path, 'w') as f:
         f.write(asm_text)
+    t_end = time.perf_counter()
 
     print(f'{name}: {len(instructions)} insns -> {asm_path}  '
           f'mnem={stats["mnemonic"]} db={stats["data"]} '
@@ -206,6 +214,13 @@ def process(name, rel_path, start_offset, exact_bytes=False):
           f'lbl={stats["labels"]}  structs={stats["structs"]}  '
           f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
           f'[{stats["status"]}]')
+    print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
+          f'disasm: {t_disasm-t_classify_end:.1f}s  '
+          f'verify+emit: {t_end-t_disasm:.1f}s  total: {t_end-t_total:.1f}s')
+    print(f'  classify phases:')
+    print(classify_timing)
+    print(f'  refine phases:')
+    print(refine_timing)
     return ctx.bitmap
 
 

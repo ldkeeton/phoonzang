@@ -4,128 +4,149 @@ org 0
 bits 16
 
     jmp near 3
-    call 0x11f8
+    call bios_mouse_loc_11f8
     retf
-    call 0x126c
+    call bios_mouse_loc_126c
     retf
-    call 0x1317
+    call bios_mouse_loc_1317
     retf
     call bios_mouse_loc_1308
     retf
     call bios_mouse_loc_12c9
     retf
-    call 0x21cd
+    call dos_read_file_3
     retf
-    call 0x2d6c
+    call math_loc_2d6c
     retf
-    call 0x8d2
+    call dos_read_file
     retf
-    call 0xbae
+    call dos_read_file_2
     retf
-    call 0xfb7
+    call dos_print_str
     retf
-    call 0x217d
+    call loc_217d
     retf
-    call 0x293
+    call math_loc_0293
     retf
-    call 0x447
+    call loc_0447
     retf
-    call 0x45c
+    call math_loc_045c
     retf
-    call 0x477
+    call math_loc_0477
     retf
-    call 0x496
+    call math_loc_0496
     retf
-    call 0x4b5
+    call math_loc_04b5
     retf
-    call 0x6b2
+    call math_loc_06b2
     retf
-    call 0x6d9
+    call math_loc_06d9
     retf
-    call 0x728
+    call string_loc_0728
     retf
-    call 0x77a
+    call dos_alloc_mem
     retf
-    call 0x836
+    call dos_free_mem
     retf
-    call 0x2185
+    call loc_2185
     retf
-    call 0x139a
+    call bios_mouse_loc_139a
     retf
-    call 0x13c9
+    call bios_mouse_loc_13c9
     retf
-    call 0x439
+    call leaf_loc_0439
     retf
-    call 0x99c
+    call dos_write_file
     retf
-    call 0x2528
+    call math_loc_2528
     retf
-    call 0x277f
+    call bios_video_loc_277f
     retf
-    call 0x27d0
+    call bios_video_loc_27d0
     retf
-    call 0x2802
+    call dos_free_mem_2
     retf
-    call 0x28f0
+    call dos_free_mem_3
     retf
-    call 0x29f6
+    call dos_free_mem_4
     retf
-    call 0x2b6c
+    call bios_mouse_loc_2b6c
     retf
-    call 0x2c0e
+    call loc_2c0e
     retf
-    call 0xf6f
+    call dos_con_loc_0f6f
     retf
-    call 0x2cbe
+    call loc_2cbe
     retf
-    call 0x2d08
+    call io_loc_2d08
     retf
-    call 0x2acf
+    call dos_mem_loc_2acf
     retf
-    call 0x385f
+    call dos_write_file_2
     retf
-    call 0x2b01
+    call dos_mem_loc_2b01
     retf
-    call 0x3ba5
+    call dos_read_file_4
     retf
-    call 0x3d72
+    call dos_read_file_5
     retf
-    call 0x3f73
+    call loc_3f73
     retf
-    call 0x4156
+    call dos_read_file_6
     retf
-    call 0x439a
+    call loc_439a
     retf
-    call 0x4527
+    call loc_4527
     retf
-    call 0x4596
+    call loc_4596
     retf
-    call 0x45b2
+    call loc_45b2
     retf
-    call 0x45fb
+    call dos_read_file_7
     retf
-    call 0x478a
+    call loc_478a
     retf
-    call 0x481f
+    call loc_481f
     retf
-    call 0x4866
+    call loc_4866
     retf
-    call 0x487e
+    call loc_487e
     retf
-    call 0x4896
+    call loc_4896
     retf
-
-    db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00
-    db 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01
-    times 17 db 0
-    db 0x03, 0x01, 0x00, 0x00, 0x07, 0x01, 0x00, 0x00, 0x0b, 0x01, 0x00, 0x00, 0x0f, 0x01, 0x00, 0x00
-    db 0x13, 0x01, 0x00, 0x00, 0x17, 0x01, 0x00, 0x00, 0x1b, 0x01, 0x00, 0x00, 0x1f, 0x01
-    times 87 db 0
-    db 0x04
-    times 23 db 0
-    db 0x01
-    times 255 db 0
-
+    db 0x80, 0x41, 0x00, 0x00 ; add byte ptr [bx + di], 0
+    add byte [bx + si], dl
+    db 0x00, 0x00
+    inc ax
+    add word [bx + si], ax
+    db 0x00, 0x40, 0x00 ; add byte ptr [bx + si], al
+    db 0x00, 0x00
+    xor byte [di], al
+    db 0x00, 0x00
+    rol byte [bx + di], 1
+    times 16 db 0
+    add byte [bp + di], al
+    add word [bx + si], ax
+    add byte [bx], al
+    add word [bx + si], ax
+    add byte [bp + di], cl
+    add word [bx + si], ax
+    add byte [bx], cl
+    add word [bx + si], ax
+    add byte [bp + di], dl
+    add word [bx + si], ax
+    add byte [bx], dl
+    add word [bx + si], ax
+    add byte [bp + di], bl
+    add word [bx + si], ax
+    add byte [bx], bl
+    add word [bx + si], ax
+    times 86 db 0
+    add al, 0
+    times 22 db 0
+    add word [bx + si], ax
+    times 254 db 0
+math_loc_0293:
     push bp
     mov bp, sp
     sub sp, byte 0x0c
@@ -294,6 +315,7 @@ bits 16
     mov sp, bp
     pop bp
     ret
+leaf_loc_0439:
     push bp
     mov bp, sp
     mov ax, word [bp + 0xc]
@@ -301,6 +323,7 @@ bits 16
     mov sp, bp
     pop bp
     ret
+loc_0447:
     push bp
     mov bp, sp
     mov ax, word [bp + 0xc]
@@ -310,6 +333,7 @@ bits 16
     mov sp, bp
     pop bp
     ret
+math_loc_045c:
     push bp
     mov bp, sp
     push es
@@ -323,6 +347,7 @@ bits 16
     mov sp, bp
     pop bp
     ret
+math_loc_0477:
     push bp
     mov bp, sp
     push es
@@ -338,6 +363,7 @@ bits 16
     mov sp, bp
     pop bp
     ret
+math_loc_0496:
     push bp
     mov bp, sp
     push es
@@ -355,6 +381,7 @@ bits 16
     mov sp, bp
     pop bp
     ret
+math_loc_04b5:
     push bp
     mov bp, sp
     sub sp, byte 0x10
@@ -552,6 +579,7 @@ math_loc_067f:
     pop cx
     loop 0x6a0
     ret
+math_loc_06b2:
     push bp
     mov bp, sp
     push ds
@@ -572,6 +600,7 @@ math_loc_067f:
     mov sp, bp
     pop bp
     ret
+math_loc_06d9:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -606,6 +635,7 @@ math_loc_067f:
     mov sp, bp
     pop bp
     ret
+string_loc_0728:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -644,6 +674,7 @@ math_loc_067f:
     mov sp, bp
     pop bp
     ret
+dos_alloc_mem:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -725,9 +756,11 @@ math_loc_067f:
     insw
     outsw
     jb short 0x89f
-    add byte [cs:bp + si], cl
-    and al, 0x33
-    db 0xd2, 0x8b, 0xc2
+    db 0x2e
+    db 0x00
+    or ah, byte [si]
+    xor dx, dx
+    mov ax, dx
     pop si
     pop di
     pop ds
@@ -735,6 +768,7 @@ math_loc_067f:
     mov sp, bp
     pop bp
     ret
+dos_free_mem:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -804,8 +838,9 @@ math_loc_067f:
     dec sp
     and byte [bx + si + 0x6f], dh
     imul bp, word [bp + 0x74], 0x7265
-    add byte [cs:bp + si], cl
-    db 0x24
+    db 0x2e
+    db 0x00
+    or ah, byte [si]
     pop si
     pop di
     pop ds
@@ -813,6 +848,7 @@ math_loc_067f:
     mov sp, bp
     pop bp
     ret
+dos_read_file:
     push bp
     mov bp, sp
     push ds
@@ -899,6 +935,7 @@ math_loc_067f:
     mov sp, bp
     pop bp
     ret
+dos_write_file:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -1006,13 +1043,11 @@ math_loc_067f:
     jne short 0xaf3
     bound sp, dword [di + 0x72]
     add byte [cs:bp + si], cl
-    db 0x24
-    mov ax, cs
-    mov ds, ax
-    mov dx, 0xb9d
-    mov ah, 9
-    int 0x21
-    mov ax, 0x4c01
+    and al, 0x8c
+    enter 0xd88e, 0xffba
+    popf
+    or si, word [si - 0x32f7]
+    and word [bx + si + 0x4c01], di
     int 0x21
     or ax, 0x70a
     push bx
@@ -1039,6 +1074,7 @@ math_loc_067f:
     add byte [cs:bp + si], cl
     and al, 0
     times 231 db 0
+dos_read_file_2:
     push bp
     mov bp, sp
     sub sp, byte 0x14
@@ -1436,6 +1472,7 @@ loc_0f3b:
     mov dx, word [cs:0x0201]
     int 0x67
     ret
+dos_con_loc_0f6f:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -1469,6 +1506,7 @@ loc_0f3b:
     mov sp, bp
     pop bp
     ret
+dos_print_str:
     push bp
     mov bp, sp
     sub sp, byte 0x0e
@@ -1494,12 +1532,19 @@ loc_0f3b:
     int 0x21
     mov ax, 0x4c01
     int 0x21
-
-    db 0x0d, 0x0a, 0x07
-    db 'MAZE SET ERROR.', 0
-    db 0x0a, 0x24
-
-    dec bx
+    or ax, 0x70a
+    dec bp
+    inc cx
+    pop dx
+    inc bp
+    and byte [bp + di + 0x45], dl
+    push sp
+    and byte [di + 0x52], al
+    push dx
+    dec di
+    push dx
+    add byte [cs:bp + si], cl
+    and al, 0x4b
     mov cl, 2
     shl bx, cl
     add bx, strict word 0xbda
@@ -1725,6 +1770,7 @@ loc_0f3b:
     mov sp, bp
     pop bp
     ret
+bios_mouse_loc_11f8:
     push bp
     mov bp, sp
     push es
@@ -1777,6 +1823,7 @@ loc_0f3b:
     mov sp, bp
     pop bp
     ret
+bios_mouse_loc_126c:
     push bp
     mov bp, sp
     push es
@@ -1850,6 +1897,7 @@ bios_mouse_loc_1308:
     jne short 0x1316
     mov byte [cs:0x0227], 1
     ret
+bios_mouse_loc_1317:
     push bp
     mov bp, sp
     sub sp, byte 4
@@ -1903,6 +1951,7 @@ bios_mouse_loc_1308:
     mov sp, bp
     pop bp
     ret
+bios_mouse_loc_139a:
     push bp
     mov bp, sp
     sub sp, byte 6
@@ -1924,6 +1973,7 @@ bios_mouse_loc_1308:
     mov sp, bp
     pop bp
     ret
+bios_mouse_loc_13c9:
     push bp
     mov bp, sp
     push ds
@@ -2337,8 +2387,10 @@ math_loc_1e35:
     xor al, al
     mov byte [cs:0x1ed3], al
     retf
+loc_217d:
     mov word [cs:0x1ecd], 0
     ret
+loc_2185:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -2372,6 +2424,7 @@ math_loc_1e35:
     mov sp, bp
     pop bp
     ret
+dos_read_file_3:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -2531,6 +2584,7 @@ math_loc_1e35:
     db 0x94, 0xa7, 0x56, 0xb5, 0xb2, 0xff, 0xe3, 0xd7, 0x11, 0xff, 0x55, 0xff, 0xb1, 0xb0, 0xff, 0x52
     db 0x50, 0x10, 0x00
 
+math_loc_2528:
     push bp
     mov bp, sp
     sub sp, byte 0x24
@@ -2770,6 +2824,7 @@ math_loc_1e35:
     mov sp, bp
     pop bp
     ret
+bios_video_loc_277f:
     push bp
     mov bp, sp
     push ds
@@ -2808,6 +2863,7 @@ math_loc_1e35:
     mov sp, bp
     pop bp
     ret
+bios_video_loc_27d0:
     push bp
     mov bp, sp
     push ds
@@ -2836,6 +2892,7 @@ math_loc_1e35:
     mov sp, bp
     pop bp
     ret
+dos_free_mem_2:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -2944,6 +3001,7 @@ math_loc_1e35:
     imul bp, word [bp + 0x28], 0x2e29
     add byte [bp + si], cl
     db 0x24
+dos_free_mem_3:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -3063,6 +3121,7 @@ math_loc_1e35:
     sub byte [bx + di], ch
     add byte [cs:bp + si], cl
     db 0x24
+dos_free_mem_4:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -3168,6 +3227,7 @@ math_loc_1e35:
     sub byte [bx + di], ch
     add byte [cs:bp + si], cl
     db 0x24
+dos_mem_loc_2acf:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -3194,6 +3254,7 @@ math_loc_1e35:
     mov sp, bp
     pop bp
     ret
+dos_mem_loc_2b01:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -3242,6 +3303,7 @@ math_loc_1e35:
     mov sp, bp
     pop bp
     ret
+bios_mouse_loc_2b6c:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -3308,6 +3370,7 @@ math_loc_1e35:
     mov sp, bp
     pop bp
     ret
+loc_2c0e:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -3378,6 +3441,7 @@ math_loc_1e35:
     mov sp, bp
     pop bp
     ret
+loc_2cbe:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -3412,6 +3476,7 @@ math_loc_1e35:
     mov sp, bp
     pop bp
     ret
+io_loc_2d08:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -3435,6 +3500,7 @@ math_loc_1e35:
 
     times 65 db 0
 
+math_loc_2d6c:
     push bp
     mov bp, sp
     sub sp, byte 0x40
@@ -4498,6 +4564,7 @@ math_loc_3360:
     sub byte [bx + di], ch
     add byte [cs:bp + si], cl
     db 0x24
+dos_write_file_2:
     push bp
     mov bp, sp
     sub sp, byte 0x0e
@@ -4784,13 +4851,12 @@ math_loc_3360:
     outsw
     je short 0x3b8e
     add byte [cs:bp + si], cl
-    db 0x24
-    mov ax, cs
-    mov ds, ax
-    mov dx, 0x3c2f
-    mov ah, 9
-    int 0x21
-    mov ax, 0x4c01
+    and al, 0x8c
+    enter 0xd88e, 0xffba
+    das
+    cmp al, 0xb4
+    or bp, cx
+    and word [bx + si + 0x4c01], di
     int 0x21
     or ax, 0x70a
     inc bx
@@ -4819,10 +4885,8 @@ math_loc_3360:
     add byte [cs:bp + si], cl
     and al, 0x33
     ror byte [bp + di - 0x143e], cl
-    db 0x8a
-    mov ax, cs
-    mov ds, ax
-    mov dx, 0x3c6c
+    mov cl, byte [si - 0x7138]
+    fdivr dword [bp + si + 0x3c6c]
     mov ah, 9
     int 0x21
     mov ax, 0x4c01
@@ -4861,6 +4925,7 @@ dos_file_loc_3b90:
     mov al, 1
     int 0x67
     ret
+dos_read_file_4:
     push bp
     mov bp, sp
     sub sp, byte 0x0e
@@ -5054,6 +5119,7 @@ dos_file_loc_3d0b:
     pop es
     pop ds
     ret
+dos_read_file_5:
     push bp
     mov bp, sp
     sub sp, byte 0x14
@@ -5267,6 +5333,7 @@ dos_file_loc_3d0b:
     push bx
     add byte [cs:bp + si], cl
     db 0x24
+loc_3f73:
     push bp
     mov bp, sp
     sub sp, byte 0x14
@@ -5438,6 +5505,7 @@ dos_file_loc_3d0b:
     add byte [cs:bp + si], cl
     and al, 0
     times 83 db 0
+dos_read_file_6:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -5698,6 +5766,7 @@ dos_file_loc_4319:
     pop ax
     mov word [bp - 0x0002], cx
     ret
+loc_439a:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -5886,6 +5955,7 @@ leaf_loc_44a3:
     mov word [cs:bx], ax
     mov word [cs:bx + 0x2], ax
     ret
+loc_4527:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -5937,6 +6007,7 @@ leaf_loc_44a3:
     mov sp, bp
     pop bp
     ret
+loc_4596:
     push bp
     mov bp, sp
     push ds
@@ -5955,6 +6026,7 @@ leaf_loc_44a3:
     mov sp, bp
     pop bp
     ret
+loc_45b2:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -5984,6 +6056,7 @@ leaf_loc_44a3:
 
     times 34 db 0
 
+dos_read_file_7:
     push bp
     mov bp, sp
     sub sp, byte 0x0e
@@ -6161,6 +6234,7 @@ leaf_loc_44a3:
     jb short 0x47ff
     add byte [cs:bp + si], cl
     db 0x24
+loc_478a:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -6221,6 +6295,7 @@ leaf_loc_44a3:
     mov sp, bp
     pop bp
     ret
+loc_481f:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -6254,6 +6329,7 @@ leaf_loc_44a3:
     mov sp, bp
     pop bp
     ret
+loc_4866:
     push bp
     mov bp, sp
     push ds
@@ -6270,6 +6346,7 @@ leaf_loc_44a3:
     mov sp, bp
     pop bp
     ret
+loc_487e:
     push bp
     mov bp, sp
     push ds
@@ -6286,6 +6363,7 @@ leaf_loc_44a3:
     mov sp, bp
     pop bp
     ret
+loc_4896:
     push bp
     mov bp, sp
     push ds

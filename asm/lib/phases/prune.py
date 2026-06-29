@@ -7,8 +7,15 @@ from lib.pipeline.phase import Phase
 from lib.x86util import _TERMINATORS, _UNCOND_JUMPS, is_indirect
 
 
+_CONF_DEAD_DATA = -1.0
+
+
 class PruneDeadPhase(Phase):
-    """After terminators, mark trailing unknown bytes as DATA."""
+    """Independent opinion: mark bytes after terminator-ended CODE blocks as DATA.
+
+    Reads the RecursiveDescent column to locate CODE blocks.  Writes
+    DATA=-1.0 for undecided bytes that follow a terminator-ended block.
+    """
 
     input_slot = 'recursive'
     output_slot = 'prune_dead'
@@ -17,7 +24,8 @@ class PruneDeadPhase(Phase):
     def run(self, input_col, ctx):
         data = ctx.binary_data
         n = len(data)
-        result = input_col.to_numpy().copy()
+        result = np.zeros(n, dtype=np.float32)
+        recursive_col = input_col.to_numpy()
 
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
@@ -43,9 +51,9 @@ class PruneDeadPhase(Phase):
 
         i = 0
         while i < n:
-            if result[i] > 0.3:
+            if recursive_col[i] > 0.3:
                 j = i
-                while j < n and result[j] > 0.3:
+                while j < n and recursive_col[j] > 0.3:
                     j += 1
                 code_end = j
 
@@ -60,8 +68,8 @@ class PruneDeadPhase(Phase):
 
                 if ends_trace:
                     k = code_end
-                    while k < n and result[k] <= 0.3:
-                        result[k] = CONF_DATA
+                    while k < n and recursive_col[k] <= 0.3:
+                        result[k] = _CONF_DEAD_DATA
                         k += 1
 
                 i = j
@@ -72,9 +80,13 @@ class PruneDeadPhase(Phase):
 
 
 class PruneZeroPhase(Phase):
-    """Reclassify large zero runs misidentified as code."""
+    """Independent opinion: reclassify large zero runs as DATA.
 
-    input_slot = 'prune_dead'
+    Reads the RecursiveDescent column to find CODE blocks containing
+    zero runs.  Writes graduated DATA confidence by run length.
+    """
+
+    input_slot = 'recursive'
     output_slot = 'prune_zero'
     requires_binary = True
 
@@ -84,19 +96,21 @@ class PruneZeroPhase(Phase):
     def run(self, input_col, ctx):
         data = ctx.binary_data
         n = len(data)
-        result = input_col.to_numpy().copy()
+        result = np.zeros(n, dtype=np.float32)
+        recursive_col = input_col.to_numpy()
         min_run = self.min_run
 
         i = 0
         while i < n:
-            if result[i] > 0.3 and data[i] == 0:
+            if recursive_col[i] > 0.3 and data[i] == 0:
                 start = i
-                while i < n and result[i] > 0.3 and data[i] == 0:
+                while i < n and recursive_col[i] > 0.3 and data[i] == 0:
                     i += 1
                 run = i - start
                 if run >= min_run:
+                    conf = _CONF_DEAD_DATA if run >= 256 else -0.9
                     for j in range(start, i):
-                        result[j] = CONF_DATA
+                        result[j] = conf
             else:
                 i += 1
 

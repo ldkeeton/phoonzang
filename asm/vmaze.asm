@@ -406,59 +406,9 @@ api_idx_0002_4:
     jmp short 0x478
     mov word [bp - 0x0002], 6
     jmp short 0x478
-    dec cx
-    push sp
-    dec cx
-    push sp
-    dec cx
-    push sp
-    dec cx
-    push sp
-    dec cx
-    push sp
-    dec cx
-    push sp
-    dec cx
-    push sp
-    pop bp
-    push sp
-    db 0x6b, 0x54, 0x6b, 0x54 ; imul dx, word ptr [si + 0x6b], 0x54
-    db 0x6b, 0x54, 0x6b, 0x54 ; imul dx, word ptr [si + 0x6b], 0x54
-    db 0x6b, 0x54, 0x49, 0x54 ; imul dx, word ptr [si + 0x49], 0x54
-    push ax
-    push sp
-    inc dx
-    push sp
-    push ax
-    push sp
-    inc dx
-    push sp
-    push ax
-    push sp
-    push ax
-    push sp
-    push ax
-    push sp
-    push ax
-    push sp
-    db 0x64, 0x54 ; push sp
-    inc dx
-    push sp
-    inc dx
-    push sp
-    db 0x64, 0x54 ; push sp
-    inc dx
-    push sp
-    push di
-    push sp
-    db 0x64, 0x54 ; push sp
-    inc dx
-    push sp
-    inc dx
-    push sp
-    push ax
-    push sp
-    cmp ax, strict word 0x20
+
+    db 'ITITITITITITIT]TkTkTkTkTkTITPTBTPTBTPTPTPTPTdTBTBTdTBTWTdTBTBTPT= ', 0
+
     jae short 0x478
     xchg bx, ax
     shl bx, 1

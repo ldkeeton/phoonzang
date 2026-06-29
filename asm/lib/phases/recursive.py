@@ -12,6 +12,16 @@ from lib.x86util import (
 )
 
 
+_CONF_SEED_CODE = 1.0
+_CONF_CALL_CODE = 0.9
+_CONF_JT_CODE = 0.7
+_CONF_JT_DATA = -1.0
+
+_HARD_DATA = -0.8
+_SOFT_DATA = -0.3
+_SOFT_CODE = 0.3
+
+
 def _find_jump_table_bounds(data, jmp_addr, md):
     search_start = max(0, jmp_addr - 30)
     insns = []
@@ -67,11 +77,11 @@ def _scan_jump_table(data, start, conf_arr, max_index=None):
 
 
 class RecursiveDescentPhase(Phase):
-    """Recursive-descent disassembly with speculative-code discipline.
+    """Recursive-descent disassembly with confidence propagation.
 
-    Reads seeds from ``ctx.seeds`` and ``ctx.start_offset``, follows
-    control-flow edges to discover reachable code.  Stores discovered
-    call targets in ``ctx.code_targets``.
+    Independent opinion: writes graduated CODE confidence based on how
+    code is reached (seed-proximal → 1.0, call-target → 0.9,
+    jump-table → 0.7).  Reads prior columns for DATA/CODE boundaries.
     """
 
     input_slot = 'error_handler'
@@ -81,7 +91,20 @@ class RecursiveDescentPhase(Phase):
     def run(self, input_col, ctx):
         data = ctx.binary_data
         n = len(data)
-        result = input_col.to_numpy().copy()
+        result = np.zeros(n, dtype=np.float32)
+
+        # Build prior-consensus masks for boundary detection.
+        # data_boundary is updated in-place as the current phase marks
+        # jump-table entries as DATA — the inner loop reads this to
+        # stop decoding when it hits a byte we have classified as data.
+        data_boundary = np.full(n, np.inf, dtype=np.float32)
+        prior_code = np.zeros(n, dtype=np.float32)
+        for name in ctx.layers.columns:
+            if name in ('raw_byte', 'seed', 'squashed', self.output_slot):
+                continue
+            col = ctx.layers[name].to_numpy()
+            data_boundary = np.where(col < _SOFT_DATA, col, data_boundary)
+            prior_code = np.where(col > _SOFT_CODE, col, prior_code)
 
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
@@ -97,9 +120,9 @@ class RecursiveDescentPhase(Phase):
             off = worklist.pop()
             if off in visited_starts or off < 0 or off >= n:
                 continue
-            if result[off] < -0.3:
+            if data_boundary[off] < _HARD_DATA:
                 continue
-            if input_col[off] > 0.3:
+            if prior_code[off] > _SOFT_CODE:
                 continue
             visited_starts.add(off)
 
@@ -108,10 +131,9 @@ class RecursiveDescentPhase(Phase):
             gen = md.disasm(data[off:], off)
 
             while off < n:
-                if result[off] < -0.3:
+                if data_boundary[off] < _HARD_DATA:
                     break
-
-                if input_col[off] > 0.3:
+                if prior_code[off] > _SOFT_CODE:
                     fork_ranges.append((spec_start, off))
                     break
 
@@ -133,16 +155,18 @@ class RecursiveDescentPhase(Phase):
                     if is_indirect(insn):
                         max_idx = _find_jump_table_bounds(data, off, md)
                         tbl_end, jt_tgts = _scan_jump_table(
-                            data, off + insn.size, result, max_index=max_idx,
+                            data, off + insn.size, data_boundary, max_index=max_idx,
                         )
                         if jt_tgts:
                             for t in jt_tgts:
                                 if 0 <= t < n:
                                     worklist.add(t)
                                     ctx.code_targets.add(t)
+                            # Mark table entries in both result and data_boundary
                             for j in range(off + insn.size, min(tbl_end, n)):
                                 if result[j] == 0.0:
-                                    result[j] = CONF_DATA
+                                    result[j] = _CONF_JT_DATA
+                                    data_boundary[j] = _CONF_JT_DATA
                     else:
                         target = get_imm_target(insn)
                         if target is not None and 0 <= target < n:
@@ -171,9 +195,18 @@ class RecursiveDescentPhase(Phase):
 
                 off = insn_end
 
+            # Confidence propagation: seed→1.0, call-target→0.9, jt→0.7
+            is_seed = off in seeds
+            is_call = off in ctx.code_targets
+            conf = _CONF_SEED_CODE
+            if is_call and not is_seed:
+                conf = _CONF_CALL_CODE
+            if not is_call and not is_seed:
+                conf = _CONF_JT_CODE
+
             for r_start, r_end in fork_ranges:
                 for i in range(r_start, r_end):
                     if i < n:
-                        result[i] = CONF_CODE
+                        result[i] = max(result[i], conf)
 
         return pl.Series('recursive', result, dtype=pl.Float32)

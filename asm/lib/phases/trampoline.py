@@ -10,8 +10,9 @@ from lib.x86util import disasm_one, is_indirect, get_imm_target
 class TrampolinePhase(Phase):
     """Discover trampoline-dispatch stubs (call X; retf chains).
 
-    DOS drivers often have flat arrays of 4-byte trampolines near the
-    file start.  Each is marked CODE and its target is added to seeds.
+    DOS drivers often have flat arrays of 4-byte trampolines.
+    Writes independent opinion: confidence scales with run density.
+    Stores discovered trampoline→target mappings in ctx.annotations.
     """
 
     requires_binary = True
@@ -20,19 +21,42 @@ class TrampolinePhase(Phase):
         self.input_slot = input_slot
         self.output_slot = output_slot
 
+    def _undecided_mask(self, ctx):
+        n = len(ctx.binary_data)
+        opin = np.zeros(n, dtype=bool)
+        for name in ctx.layers.columns:
+            if name in ('raw_byte', 'seed', 'squashed', self.output_slot):
+                continue
+            opin |= (ctx.layers[name].to_numpy() != 0.0)
+        return ~opin
+
     def run(self, input_col, ctx):
         data = ctx.binary_data
         n = len(data)
-        result = input_col.to_numpy().copy()
+        result = np.zeros(n, dtype=np.float32)
+        undecided = self._undecided_mask(ctx)
 
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
 
+        # Performance: trampoline tables live near the file start (drivers).
+        # Further optimization: pre-filter with raw byte checks before
+        # calling slow capstone disasm.  Near call is 0xE8 (3 bytes),
+        # far call is 0x9A (5 bytes).  A retf (0xCB) must follow.
         limit = min(n, 4096)
         candidates = []
         off = 0
         while off < limit:
-            if result[off] != 0.0:
+            if not undecided[off]:
+                off += 1
+                continue
+
+            # Quick byte-level pre-filter
+            if data[off] == 0xE8 and off + 3 < n and data[off + 3] == 0xCB:
+                pass  # plausible near-call trampoline
+            elif data[off] == 0x9A and off + 5 < n and data[off + 5] == 0xCB:
+                pass  # plausible far-call trampoline
+            else:
                 off += 1
                 continue
 
@@ -69,10 +93,14 @@ class TrampolinePhase(Phase):
                 runs.append((run_start, len(candidates)))
 
             for r_start, r_end in runs:
+                run_len = r_end - r_start
+                conf = 1.0 if run_len >= 20 else (0.7 if run_len >= 10 else 0.5)
                 for i in range(r_start, r_end):
                     off, target = candidates[i]
                     ctx.seeds.add(target)
+                    ctx.code_targets.add(target)
+                    ctx.annotations.append((off, target, 'trampoline'))
                     for j in range(off, min(off + 4, n)):
-                        result[j] = CONF_CODE
+                        result[j] = conf
 
         return pl.Series(self.output_slot, result, dtype=pl.Float32)

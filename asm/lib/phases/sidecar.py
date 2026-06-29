@@ -8,8 +8,10 @@ from lib.pipeline.phase import Phase
 class SidecarPhase(Phase):
     """Apply sidecar_entry overrides (force_data / force_code).
 
-    Adds seed offsets to ctx.seeds for any force_code range start.
-    If no sidecar is configured, acts as pass-through.
+    Writes independent opinion: CONF_CODE=0.6 for force_code ranges,
+    CONF_DATA=-1.0 for force_data ranges.  Adds force_code range starts
+    to ctx.seeds for recursive descent.  If no sidecar is configured,
+    outputs all zeros (nothing to contribute).
     """
 
     input_slot = 'seed'
@@ -19,7 +21,7 @@ class SidecarPhase(Phase):
     def run(self, input_col, ctx):
         data = ctx.binary_data
         n = len(data)
-        result = input_col.to_numpy().copy()
+        result = np.zeros(n, dtype=np.float32)
 
         if ctx.sidecar_entry is None:
             return pl.Series('sidecar', result, dtype=pl.Float32)
@@ -40,7 +42,7 @@ class SidecarPhase(Phase):
             e = int(e_raw, 16) + 1
             s = max(0, s)
             e = min(n, e)
-            result[s:e] = CONF_CODE
+            result[s:e] = 0.6  # CONF_CODE_SIDECAR — manual override, not CFG-proven
             ctx.seeds.add(s)
 
         return pl.Series('sidecar', result, dtype=pl.Float32)

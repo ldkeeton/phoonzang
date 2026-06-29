@@ -5,22 +5,23 @@ bits 16
 
 loc_0000:
     jmp near 3
-    call 0x23
+    call loc_0023
     retf
-    call 0xfe
+    call strlen
     retf
-    call 0x154
+    call loc_0154
     retf
     call io_loc_01b0
     retf
-    call 0x23f
+    call io_loc_023f
     retf
-    call 0x294
+    call io_loc_0294
     retf
-    call 0x16e
+    call io_loc_016e
     retf
-    call 0x183
+    call io_loc_0183
     retf
+loc_0023:
     push bp
     mov bp, sp
     push bx
@@ -94,6 +95,7 @@ io_loc_00b4:
     pop dx
     mov ax, 0
     ret
+strlen:
     push bp
     mov bp, sp
     push es
@@ -132,6 +134,7 @@ io_loc_00b4:
     times 6 db 0
     db 'PBAPBL'
 
+loc_0154:
     push bp
     mov bp, sp
     mov ax, word [bp + 0x8]
@@ -142,6 +145,7 @@ io_loc_00b4:
     mov byte [cs:0x0b7c], al
     pop bp
     ret
+io_loc_016e:
     mov al, byte [cs:0x0b9a]
     cmp al, 0
     je short 0x180
@@ -151,6 +155,7 @@ io_loc_00b4:
     mov al, 1
     xor ah, ah
     ret
+io_loc_0183:
     push bp
     mov bp, sp
     cmp word [bp + 0x8], byte 0
@@ -227,6 +232,7 @@ io_loc_01b0:
     jb short 0x225
     pop bx
     ret
+io_loc_023f:
     push bp
     mov bp, sp
     push bx
@@ -260,6 +266,7 @@ io_loc_01b0:
     pop bx
     pop bp
     ret
+io_loc_0294:
     push bp
     mov bp, sp
     push di

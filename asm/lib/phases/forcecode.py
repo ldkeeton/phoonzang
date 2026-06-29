@@ -7,14 +7,16 @@ from lib.pipeline.phase import Phase
 
 
 _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
+_CONF_FORCE_CODE = 0.8
 
 
 class ForceCodePhase(Phase):
-    """Force-code function bodies that the classifier missed.
+    """Independent opinion: force-code named function bodies.
 
     Reads ``ctx.label_map`` to find named function offsets, backtracks
-    for ``push bp`` prologues, and marks the entire function body as
-    CODE.
+    for function prologues, and marks the body as CODE=0.8.
+    Cross-checks prior DATA opinions: if 3+ prior columns strongly
+    believe a byte is DATA, skips that byte.
     """
 
     input_slot = 'settled'
@@ -25,10 +27,18 @@ class ForceCodePhase(Phase):
     def run(self, input_col, ctx):
         data = ctx.binary_data
         n = len(data)
-        result = input_col.to_numpy().copy()
+        result = np.zeros(n, dtype=np.float32)
 
         if not ctx.label_map:
             return pl.Series('force_code', result, dtype=pl.Float32)
+
+        # Build a consensus map: how many prior columns say DATA at each byte
+        prior_names = [c for c in ctx.layers.columns
+                        if c not in ('raw_byte', 'seed', 'squashed', self.output_slot)]
+        strong_data_count = np.zeros(n, dtype=np.int32)
+        for name in prior_names:
+            col = ctx.layers[name].to_numpy()
+            strong_data_count += (col < -0.8).astype(np.int32)
 
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
@@ -38,6 +48,10 @@ class ForceCodePhase(Phase):
 
             expected = f'loc_{off:04x}'
             if lbl == expected or lbl.endswith(f'_{expected}'):
+                continue
+
+            # Skip if 3+ prior phases strongly say DATA here
+            if strong_data_count[off] >= 3:
                 continue
 
             func_start = off
@@ -53,8 +67,8 @@ class ForceCodePhase(Phase):
                         break
 
             for i in range(func_start, off):
-                if i < n:
-                    result[i] = CONF_CODE
+                if i < n and strong_data_count[i] < 3:
+                    result[i] = _CONF_FORCE_CODE
 
             end = min(func_start + 512, n)
             try:
@@ -66,6 +80,7 @@ class ForceCodePhase(Phase):
             except Exception:
                 pass
             for i in range(func_start, min(end, n)):
-                result[i] = CONF_CODE
+                if strong_data_count[i] < 3:
+                    result[i] = _CONF_FORCE_CODE
 
         return pl.Series('force_code', result, dtype=pl.Float32)

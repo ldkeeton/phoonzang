@@ -6,11 +6,19 @@ from lib.model import PhaseContext, CONF_CODE
 from lib.pipeline.phase import Phase
 
 
-class CascadePhase(Phase):
-    """Cascade code recovery: promote DATA blocks that fully decode as x86.
+_CONF_CASCADE_CODE = 0.6
 
-    A data block is promoted to CODE when every byte decodes as a valid
-    instruction (no illegal opcodes).  Used via ``-ccr`` flag.
+
+class CascadePhase(Phase):
+    """Cascade code recovery: promote DATA blocks that contain known code
+    targets AND fully decode as x86.
+
+    Only promotes when the block contains at least one offset from
+    ``ctx.code_targets`` (offsets referenced by ``call`` or jump table
+    instructions discovered during recursive descent).  The zero-high-
+    byte heuristic is retained as a pre-filter.
+
+    Used via ``-ccr`` flag.  Writes independent CODE=0.6 opinion.
     """
 
     requires_binary = True
@@ -22,23 +30,34 @@ class CascadePhase(Phase):
     def run(self, input_col, ctx):
         data = ctx.binary_data
         n = len(data)
-        result = input_col.to_numpy().copy()
+        result = np.zeros(n, dtype=np.float32)
+
+        if not ctx.code_targets:
+            return pl.Series(self.output_slot, result, dtype=pl.Float32)
+
+        # Read the input column to find DATA blocks (whoever set CONF_DATA)
+        prior = input_col.to_numpy()
 
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
 
         i = 0
         while i < n:
-            if result[i] >= -0.3:
+            if prior[i] >= -0.3:
                 i += 1
                 continue
 
             start = i
-            while i < n and result[i] < -0.3:
+            while i < n and prior[i] < -0.3:
                 i += 1
+
+            # Entry-point filter: block must contain at least one code target
+            if not any(addr in ctx.code_targets for addr in range(start, i)):
+                continue
 
             block = data[start:i]
 
+            # Zero-high-byte heuristic (data-table pre-filter)
             if len(block) >= 6:
                 n_words = len(block) // 2
                 zero_high = sum(1 for j in range(0, len(block) - 1, 2)
@@ -56,11 +75,17 @@ class CascadePhase(Phase):
 
             decoded = sum(insn.size for insn in insns)
 
-            if decoded == len(block):
-                for j in range(start, i):
-                    result[j] = CONF_CODE
-            elif decoded >= len(block) - 3:
-                for j in range(start, start + decoded):
-                    result[j] = CONF_CODE
+            # Verify block is fully decodable AND at least one call target
+            # aligns with an instruction start
+            if decoded >= len(block) - 3:
+                insn_starts = {insn.address for insn in insns}
+                has_aligned_entry = any(
+                    addr in insn_starts for addr in range(start, i)
+                    if addr in ctx.code_targets
+                )
+                if has_aligned_entry:
+                    end = start + decoded if decoded < len(block) else i
+                    for j in range(start, end):
+                        result[j] = _CONF_CASCADE_CODE
 
         return pl.Series(self.output_slot, result, dtype=pl.Float32)
