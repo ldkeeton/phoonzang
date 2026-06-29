@@ -2709,7 +2709,7 @@ api_idx_0008_3:
     mov ax, 5
     imul word [0x91aa]
     add ax, word [bp + 0xe]
-    mov bx, ax
+    db 0x8b, 0xd8 ; mov bx, ax
     mov byte [bx - 0x6d8a], 3
     mov ax, word [bp - 0x0004]
     ret

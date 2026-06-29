@@ -11878,6 +11878,7 @@ loc_8b53:
     call 0xe84e
     add sp, byte 4
     ret
+api_idx_000c_2:
     mov ax, 0xfff4
     call 0xf40b
     mov word [bp - 0x0002], 0
@@ -11888,8 +11889,8 @@ loc_8b53:
     mov cx, word [bp - 0x0002]
     shl cx, 1
     shl cx, 1
-    db 0x03, 0xc1 ; add ax, cx
-    db 0x8b, 0xd8 ; mov bx, ax
+    add ax, cx
+    mov bx, ax
     push word [bx + 0x5c1c]
     call 0xb27d
     add sp, byte 4
@@ -11898,14 +11899,14 @@ loc_8b53:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     db 0xff, 0xb7, 0x06, 0x00 ; push word ptr [bx + 6]
     call 0xe823
     add sp, byte 4
     mov ax, word [bp - 0x0002]
     shl ax, 1
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     push word [bx + 0x18e]
     lea ax, word [bp - 0x000c]
     push ax
@@ -11916,14 +11917,14 @@ loc_8b53:
     mov cx, 2
     cwd
     idiv cx
-    db 0x8b, 0xc8 ; mov cx, ax
+    mov cx, ax
     mov ax, word [bp - 0x0002]
     shl ax, 1
     shl ax, 1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax
     mov ax, word [bx + 0x18c]
     add ax, strict word 9
-    db 0x2b, 0xc1 ; sub ax, cx
+    sub ax, cx
     push ax
     call 0xe809
     add sp, byte 4
@@ -11971,7 +11972,7 @@ loc_8c8d:
     mov word [0x908a], ax
     call api_idx_000a_3
     push word [bp + 0x4]
-    call 0x8bf4
+    call api_idx_000c_2
     pop cx
     push word [bp + 0x6]
     call api_idx_0002_6
@@ -12045,7 +12046,7 @@ loc_8c8d:
     add sp, byte 8
     call api_idx_000a_3
     push word [bp + 0x4]
-    call 0x8bf4
+    call api_idx_000c_2
     pop cx
     mov ax, 1
     push ax

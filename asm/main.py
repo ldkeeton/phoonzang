@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Disassemble Wizardry 7 (DSAVANT) binaries → byte-exact NASM assembly (.asm).
+"""Disassemble Wizardry 7 (DSAVANT) binaries -> byte-exact NASM assembly (.asm).
 
 This script generates .asm files in this directory from original
-binaries.  The .asm files are NOT built here — use the Makefile.
+binaries.  The .asm files are NOT built here -- use the Makefile.
 
 Standard workflow from a clean checkout:
 
     make            # Phase 1: generate .asm from originals
-                    # Phase 2: assemble .asm → build_out/
+                    # Phase 2: assemble .asm -> build_out/
     make run        # play the game under dosbox
     make clean      # remove build_out/
 
@@ -17,7 +17,7 @@ For individual targets you can also call this script directly:
     python3 main.py --verify     # Verify .asm assembles byte-exact
     python3 main.py --clean      # Remove generated .asm files
 
-Never use this script in a loop — that's what ``make all`` is for.
+Never use this script in a loop -- that's what ``make all`` is for.
 """
 
 import os
@@ -30,13 +30,17 @@ ORIG_DIR = os.path.join(os.path.dirname(ASM_DIR), 'DSAVANT')
 KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 
 from lib.decode import disassemble
-from lib.bitmap import classify
 from lib.verify.compare import verify, clear_assemble_cache
 from lib.struct_analysis import build_structs
 from lib.match import match_patterns, match_trampolines, categorize_call_targets
-from lib.analyze import ForceCodePhase
-from lib.model import PhaseContext, IS_CODE, IS_DATA
-from lib.pipeline import run_linear
+from lib.phases import (
+    SeedPhase, SidecarPhase, CarvePhase,
+    TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
+    PruneDeadPhase, PruneZeroPhase, CascadePhase,
+    SettlePhase, ArbiterPhase, ForceCodePhase,
+)
+from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
+from lib.pipeline import run_functional
 
 
 def _crc16(data):
@@ -52,7 +56,6 @@ def _crc16(data):
     return crc
 
 
-
 def _load_known_funcs():
     """Load known_funcs.json if it exists."""
     if not os.path.exists(KNOWN_FUNCS_PATH):
@@ -62,22 +65,43 @@ def _load_known_funcs():
         return json.load(f)
 
 
-def _build_linear_phases():
-    """Build the standard linear phase list (matches original behavior)."""
-    from lib.pipeline.phase import Phase
-    
-    class ForceCodeWrapper(Phase):
-        def run(self, ctx):
-            ForceCodePhase().run(ctx)
-    
+def _build_classify_phases(ccr=False):
+    """Build classification phases (run before pattern matching).
+
+    These phases discover code/data boundaries and populate
+    ``ctx.code_targets`` for pattern matching.
+    """
+    phases = [
+        SeedPhase(),
+        SidecarPhase(),
+        CarvePhase(min_body=6, input_slot='sidecar', output_slot='carve_1'),
+        TrampolinePhase(input_slot='carve_1'),
+        ErrorHandlerPhase(),
+        RecursiveDescentPhase(),
+        PruneDeadPhase(),
+        PruneZeroPhase(),
+        CarvePhase(min_body=4, input_slot='prune_zero', output_slot='carve_2'),
+    ]
+    if ccr:
+        phases.append(CascadePhase(input_slot='carve_2'))
+    return phases
+
+
+def _build_refine_phases(last_classify_slot):
+    """Build refinement phases (post-pattern-matching).
+
+    These phases use ``ctx.label_map`` to force-code missed functions
+    and produce the final squashed column.
+    """
     return [
-        ForceCodeWrapper(),
+        SettlePhase(input_slot=last_classify_slot, output_slot='settled'),
+        ForceCodePhase(),
+        ArbiterPhase(),
     ]
 
 
-
 def _discover_binaries():
-    """Scan ORIG_DIR for known binary types → {name: (rel_path, start_offset)}."""
+    """Scan ORIG_DIR for known binary types -> {name: (rel_path, start_offset)}."""
     bins = {}
     if not os.path.isdir(ORIG_DIR):
         return bins
@@ -93,7 +117,6 @@ def _discover_binaries():
 
 
 BINARIES = _discover_binaries()
-
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
 FEAT_CASCADE_SEARCH = '--feat-cascade-code-recovery' in sys.argv or '-ccr' in sys.argv
@@ -117,78 +140,67 @@ def process(name, rel_path, start_offset, exact_bytes=False):
 
     clear_assemble_cache()
 
-    # Build classification bitmap
-    bitmap, info = classify(
-        data, start_offset,
-        entry_points=set(),
-        cascade_search=FEAT_CASCADE_SEARCH,
+    # --- Phase 1: Build context with initial seed layer ---
+    ctx = PhaseContext(
+        binary_data=data,
+        start_offset=start_offset,
+        name=name,
     )
 
-    code_targets = info['call_targets']
+    # --- Phase 2: Classification pipeline (discovers call_targets) ---
+    ccr = FEAT_CASCADE_SEARCH
+    classify_phases = _build_classify_phases(ccr=ccr)
+    run_functional(ctx, classify_phases)
 
-    # Pattern-match known functions
+    # --- Phase 3: Pattern matching ---
     known_db = _load_known_funcs()
     max_func_size = _MAX_FUNC_SIZE if _MAX_FUNC_SIZE is not None else 256
-    label_map = match_patterns(data, info.get('call_targets', set()), known_db, max_func_size)
+    label_map = match_patterns(data, ctx.code_targets, known_db, max_func_size)
 
-    # Detect trampoline-dispatch stubs
-    trampoline_map = match_trampolines(data, info.get('call_targets', set()), known_db)
+    trampoline_map = match_trampolines(data, ctx.code_targets, known_db)
     for off, lbl in trampoline_map.items():
         if off not in label_map:
             label_map[off] = lbl
 
-    # Default labels for unnamed call targets
-    call_targets_set = info.get('call_targets', set())
-    label_map = categorize_call_targets(data, call_targets_set, label_map)
-    for off in call_targets_set:
+    label_map = categorize_call_targets(data, ctx.code_targets, label_map)
+    for off in ctx.code_targets:
         if off not in label_map:
             label_map[off] = f'loc_{off:04x}'
 
-    # Count initial classification stats
-    code_bytes = sum(1 for b in bitmap if b == IS_CODE)
-    data_bytes = sum(1 for b in bitmap if b == IS_DATA)
+    ctx.label_map = label_map
+
+    # --- Phase 4: Refinement pipeline (uses label_map) ---
+    last_classify_slot = classify_phases[-1].output_slot
+    refine_phases = _build_refine_phases(last_classify_slot)
+    run_functional(ctx, refine_phases)
+
+    # --- Phase 5: Stats from final squashed column ---
+    squashed = ctx.layers['squashed'].to_numpy()
+    code_bytes = int((squashed == IS_CODE).sum())
+    data_bytes = int((squashed == IS_DATA).sum())
     total_cls = code_bytes + data_bytes
     pct = code_bytes / max(total_cls, 1) * 100
 
-    # Build PhaseContext for the pipeline
-    ctx = PhaseContext(
-        binary_data=data,
-        bitmap=bitmap,
-        label_map=label_map,
-        code_targets=code_targets,
-        start_offset=start_offset,
-        name=name,
-        cascade_promoted=info.get('cascade_promoted', set()),
-    )
-
-    # Run the pipeline
-    run_linear(ctx, _build_linear_phases())
-
-    # Disassemble using final bitmap
+    # --- Phase 6: Disassemble ---
     instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
 
-    # Struct analysis
+    # --- Phase 7: Struct analysis ---
     structs = build_structs(instructions)
 
-    # Emit .asm
+    # --- Phase 8: Verify and emit .asm ---
     asm_text, stats = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_targets,
         exact_bytes=exact_bytes,
         structs=structs,
         asm_dir=ASM_DIR,
-        cascade_promoted=ctx.cascade_promoted,
     )
 
     asm_path = os.path.join(ASM_DIR, f'{name}.asm')
     with open(asm_path, 'w') as f:
         f.write(asm_text)
 
-    code_bytes = sum(1 for b in ctx.bitmap if b == IS_CODE)
-    data_bytes = sum(1 for b in ctx.bitmap if b == IS_DATA)
-    pct = code_bytes / max(total_cls, 1) * 100
-
-    print(f'{name}: {len(instructions)} insns → {asm_path}  '
+    print(f'{name}: {len(instructions)} insns -> {asm_path}  '
           f'mnem={stats["mnemonic"]} db={stats["data"]} '
           f'dbc={stats["with_comment"]} blocks={stats["data_blocks"]} '
           f'lbl={stats["labels"]}  structs={stats["structs"]}  '
@@ -222,7 +234,7 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                     print(line.replace(asm_path, f'{name}.asm'))
 
         if r.returncode != 0:
-            print(f'{name} → {rel_path}  [FAIL]')
+            print(f'{name} -> {rel_path}  [FAIL]')
             print_warnings()
             return False
 
@@ -232,17 +244,16 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
             built = f.read()
 
     if len(orig) != len(built):
-        print(f'{name} → {rel_path}  [FAIL]  size {len(orig)} ≠ {len(built)}')
+        print(f'{name} -> {rel_path}  [FAIL]  size {len(orig)} != {len(built)}')
         return False
 
     if exact_bytes:
         for i in range(len(orig)):
             if orig[i] != built[i]:
-                print(f'{name} → {rel_path}  [FAIL]  mismatch at 0x{i:04x}')
+                print(f'{name} -> {rel_path}  [FAIL]  mismatch at 0x{i:04x}')
                 return False
     else:
         from lib.verify.assemble import is_semantically_equivalent
-        from lib.model import IS_CODE
         from capstone import Cs, CS_ARCH_X86, CS_MODE_16
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
@@ -251,6 +262,7 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
             with open(orig_path, 'rb') as f:
                 data = f.read()
             start_offset = BINARIES[name][1]
+            from lib.classify import classify
             bitmap, _ = classify(data, start_offset, entry_points=set())
 
         if bitmap is not None:
@@ -281,7 +293,7 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                                 resolved = True
                                 break
                         if not resolved:
-                            print(f'{name} → {rel_path}  [FAIL]  byte mismatch at '
+                            print(f'{name} -> {rel_path}  [FAIL]  byte mismatch at '
                                   f'0x{off:04x} (data region)')
                             print_warnings()
                             return False
@@ -299,13 +311,13 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                         try:
                             b_insn = next(md.disasm(built[addr:addr + 15], addr))
                         except StopIteration:
-                            print(f'{name} → {rel_path}  [FAIL]  no instruction at '
+                            print(f'{name} -> {rel_path}  [FAIL]  no instruction at '
                                   f'0x{addr:04x}')
                             print_warnings()
                             return False
 
                         if addr != b_insn.address:
-                            print(f'{name} → {rel_path}  [FAIL]  alignment diverged at '
+                            print(f'{name} -> {rel_path}  [FAIL]  alignment diverged at '
                                   f'0x{addr:04x} vs 0x{b_insn.address:04x}')
                             print_warnings()
                             return False
@@ -314,7 +326,7 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                             if not is_semantically_equivalent(
                                     bytes(o_insn.bytes),
                                     bytes(b_insn.bytes), addr):
-                                print(f'{name} → {rel_path}  [FAIL]  semantic mismatch '
+                                print(f'{name} -> {rel_path}  [FAIL]  semantic mismatch '
                                       f'at 0x{addr:04x}')
                                 print_warnings()
                                 return False
@@ -330,7 +342,7 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
 
                 i = o_insn.address
                 if i != b_insn.address:
-                    print(f'{name} → {rel_path}  [FAIL]  alignment diverged at 0x{i:04x} '
+                    print(f'{name} -> {rel_path}  [FAIL]  alignment diverged at 0x{i:04x} '
                           f'vs 0x{b_insn.address:04x}')
                     print_warnings()
                     return False
@@ -340,11 +352,11 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
 
                 if not is_semantically_equivalent(bytes(o_insn.bytes),
                                                    bytes(b_insn.bytes), i):
-                    print(f'{name} → {rel_path}  [FAIL]  semantic mismatch at 0x{i:04x}')
+                    print(f'{name} -> {rel_path}  [FAIL]  semantic mismatch at 0x{i:04x}')
                     print_warnings()
                     return False
 
-    print(f'{name} → {rel_path}  [OK]')
+    print(f'{name} -> {rel_path}  [OK]')
     print_warnings()
     return True
 
@@ -379,9 +391,6 @@ def main():
                     os.remove(fp)
         print('Cleaned.')
         return
-
-    if '-ccr' in sys.argv:
-        FEAT_CASCADE_SEARCH = True
 
     target = None
     for arg in sys.argv[1:]:

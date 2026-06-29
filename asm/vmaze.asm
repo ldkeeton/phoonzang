@@ -1015,8 +1015,7 @@ api_idx_0014:
     xchg bx, ax
     shl bx, 1
     jmp [cs:bx + 0x59e5]
-    add word [bp - 0x0004], byte 6
-    inc word [bp - 0x0002]
+    db 0x83, 0x46, 0xfc, 0x06, 0xff, 0x46, 0xfe
     mov ax, word [bp - 0x0002]
     cmp ax, word [0x590e]
     jge short 0x9ca

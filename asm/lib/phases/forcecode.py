@@ -1,16 +1,8 @@
-"""Force-code phase.
-
-After recursive descent, known function offsets (from pattern matching,
-trampoline discovery) that the classifier missed are forcibly marked as
-IS_CODE, along with their prologue and body up to the first terminator.
-
-This is the extracted logic that was previously inline in main.py's
-``process()`` function (the label_map force-code loop).
-"""
-
+import polars as pl
+import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
-from lib.model import PhaseContext, IS_CODE
+from lib.model import PhaseContext, CONF_CODE
 from lib.pipeline.phase import Phase
 
 
@@ -18,15 +10,25 @@ _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
 
 
 class ForceCodePhase(Phase):
-    """Force-code function bodies that the classifier missed."""
+    """Force-code function bodies that the classifier missed.
 
-    def run(self, ctx: PhaseContext):
-        if not ctx.label_map:
-            return
+    Reads ``ctx.label_map`` to find named function offsets, backtracks
+    for ``push bp`` prologues, and marks the entire function body as
+    CODE.
+    """
 
+    input_slot = 'settled'
+    output_slot = 'force_code'
+    requires_binary = True
+    requires_label_map = True
+
+    def run(self, input_col, ctx):
         data = ctx.binary_data
-        bitmap = ctx.bitmap
         n = len(data)
+        result = input_col.to_numpy().copy()
+
+        if not ctx.label_map:
+            return pl.Series('force_code', result, dtype=pl.Float32)
 
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
@@ -51,9 +53,8 @@ class ForceCodePhase(Phase):
                         break
 
             for i in range(func_start, off):
-                if i < n and bitmap[i] != IS_CODE:
-                    bitmap[i] = IS_CODE
-                    ctx.mark_changed()
+                if i < n:
+                    result[i] = CONF_CODE
 
             end = min(func_start + 512, n)
             try:
@@ -65,6 +66,6 @@ class ForceCodePhase(Phase):
             except Exception:
                 pass
             for i in range(func_start, min(end, n)):
-                if bitmap[i] != IS_CODE:
-                    bitmap[i] = IS_CODE
-                    ctx.mark_changed()
+                result[i] = CONF_CODE
+
+        return pl.Series('force_code', result, dtype=pl.Float32)

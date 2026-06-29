@@ -1,3 +1,58 @@
-"""Backward-compatibility shim — delegates to lib.bitmap.classify."""
-from lib.model import IS_UNKNOWN, IS_CODE, IS_DATA
-from lib.bitmap.classify import classify
+"""Backward-compatibility shim — wraps the new functional pipeline."""
+
+from lib.model import PhaseContext, IS_UNKNOWN, IS_CODE, IS_DATA
+from lib.phases import (
+    SeedPhase, SidecarPhase, CarvePhase,
+    TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
+    PruneDeadPhase, PruneZeroPhase, CascadePhase,
+    SettlePhase, ArbiterPhase,
+)
+from lib.pipeline import run_functional
+
+
+def _build_phases(ccr=False):
+    phases = [
+        SeedPhase(),
+        SidecarPhase(),
+        CarvePhase(min_body=6, input_slot='sidecar', output_slot='carve_1'),
+        TrampolinePhase(input_slot='carve_1'),
+        ErrorHandlerPhase(),
+        RecursiveDescentPhase(),
+        PruneDeadPhase(),
+        PruneZeroPhase(),
+        CarvePhase(min_body=4, input_slot='prune_zero', output_slot='carve_2'),
+    ]
+    if ccr:
+        phases.append(CascadePhase(input_slot='carve_2'))
+    return phases
+
+
+def classify(data, start_offset=0, entry_points=None, cascade_search=False):
+    """Run the functional classification pipeline; return old-style (bitmap, info).
+
+    This is a compatibility shim for code that hasn't been migrated yet
+    (e.g. ``inventory.py``, ``byte_verify`` fallback).
+    """
+    ctx = PhaseContext(
+        binary_data=data,
+        start_offset=start_offset,
+    )
+
+    phases = _build_phases(ccr=cascade_search)
+    run_functional(ctx, phases)
+
+    last_slot = phases[-1].output_slot
+    settle = SettlePhase(input_slot=last_slot, output_slot='settled')
+    arbiter = ArbiterPhase()
+    run_functional(ctx, [settle, arbiter])
+
+    bitmap = ctx.bitmap
+
+    info = {
+        'discovered': set(ctx.code_targets),
+        'call_targets': set(ctx.code_targets),
+        'jt_targets': set(),
+        'cascade_promoted': set(),
+    }
+
+    return bitmap, info
