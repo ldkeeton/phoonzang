@@ -34,9 +34,9 @@ from lib.bitmap import classify
 from lib.verify.compare import verify, clear_assemble_cache
 from lib.struct_analysis import build_structs
 from lib.match import match_patterns, match_trampolines, categorize_call_targets
-from lib.analyze import ConflictDetectPhase, ForceCodePhase
+from lib.analyze import ForceCodePhase
 from lib.model import PhaseContext, IS_CODE, IS_DATA
-from lib.pipeline import run_linear, run_iterative
+from lib.pipeline import run_linear
 
 
 def _crc16(data):
@@ -75,46 +75,6 @@ def _build_linear_phases():
     ]
 
 
-def _build_iterative_phases():
-    """Build the iterative phase list with conflict detection feedback."""
-    from lib.pipeline.phase import Phase
-    
-    class ForceCodeWrapper(Phase):
-        def run(self, ctx):
-            ForceCodePhase().run(ctx)
-    
-    class ConflictWrapper(Phase):
-        def run(self, ctx):
-            from lib.verify.compare import verify as _verify
-            from lib.verify.assemble import micro_assemble
-            import tempfile, subprocess
-            asm_text, _ = _verify(
-                ctx.binary_data, ctx.start_offset, ctx.instructions,
-                ctx.name, ctx.label_map,
-                bitmap=ctx.bitmap, code_targets=ctx.code_targets,
-                exact_bytes=False, structs=None,
-            )
-            with tempfile.NamedTemporaryFile(suffix='.asm', mode='w', delete=False) as f:
-                f.write(asm_text)
-                asm_path = f.name
-            bin_path = asm_path.replace('.asm', '.bin')
-            r = subprocess.run(
-                ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-o', bin_path, asm_path],
-                capture_output=True, text=True,
-            )
-            if r.returncode == 0 and os.path.exists(bin_path):
-                with open(bin_path, 'rb') as f:
-                    assembled = f.read()
-                ConflictDetectPhase(assembled, ctx.binary_data).run(ctx)
-            for p in (asm_path, bin_path):
-                if os.path.exists(p):
-                    os.remove(p)
-    
-    return [
-        ForceCodeWrapper(),
-        ConflictWrapper(),
-    ]
-
 
 def _discover_binaries():
     """Scan ORIG_DIR for known binary types → {name: (rel_path, start_offset)}."""
@@ -137,7 +97,6 @@ BINARIES = _discover_binaries()
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
 FEAT_CASCADE_SEARCH = '--feat-cascade-code-recovery' in sys.argv or '-ccr' in sys.argv
-FEAT_ITERATIVE = '--feat-iterative' in sys.argv
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
     if a.startswith('--max-func-size='):
@@ -203,10 +162,7 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     )
 
     # Run the pipeline
-    if FEAT_ITERATIVE:
-        run_iterative(ctx, _build_iterative_phases())
-    else:
-        run_linear(ctx, _build_linear_phases())
+    run_linear(ctx, _build_linear_phases())
 
     # Disassemble using final bitmap
     instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
