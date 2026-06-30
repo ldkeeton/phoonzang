@@ -11,6 +11,7 @@ import struct
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
+from lib.model import IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent, clear_assemble_cache
 
 
@@ -543,6 +544,23 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes)
 
+    emit_class = bytearray(total)
+    for rec in records:
+        if rec['type'] == 'label':
+            continue
+        if rec['type'] == 'mnem':
+            off, sz = rec['offset'], rec['size']
+            for i in range(off, off + sz):
+                emit_class[i] = IS_CODE
+        elif rec['type'] in ('data_block', 'db', 'db_with_comment'):
+            if rec['type'] == 'data_block':
+                for i in range(rec['start'], rec['end']):
+                    emit_class[i] = IS_DATA
+            else:
+                off, sz = rec['offset'], rec.get('size', 1)
+                for i in range(off, off + sz):
+                    emit_class[i] = IS_DATA
+
     src_lines = _build_source(records, start_offset, binary_data)
 
     mnem_count = sum(1 for r in records if r['type'] == 'mnem')
@@ -570,7 +588,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'labels': label_count,
         'structs': struct_count,
         'status': 'OK',
-    }
+    }, emit_class
 
 
 def _build_source(records, start_offset, binary_data):

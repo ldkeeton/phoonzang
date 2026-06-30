@@ -28,6 +28,7 @@ JOBS = os.cpu_count() or 4
 
 sys.path.insert(0, ASM)
 from main import discover_binaries, verify_all, clean_all, verify_game
+from lib.report import STATS_DIR, BASELINE_DIR, clear_stats, list_game_dirs
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -92,6 +93,7 @@ def _main_exe(out_dir, bins):
 # ── public commands ─────────────────────────────────────────────────────────
 
 def asm_game(game):
+    clear_stats()
     game_dir = os.path.join(APPS, game)
     out_dir = os.path.join(PROJECT, f'asm_{game}')
     os.makedirs(out_dir, exist_ok=True)
@@ -126,6 +128,8 @@ def asm_game(game):
         for f in as_completed(futures):
             if f.result() != 0:
                 print(f'  BUILD FAIL: {futures[f]}')
+
+    _charts(game)
 
 
 def cmd_clean(games):
@@ -236,10 +240,46 @@ Commands (space-separated):
   make verify [GAME...]     verify one or all games
   make clean [GAME...]      clean one or all games
   make rebuild GAME BIN     nasm-only rebuild of one binary
+  make baseline-set         pin current stats as baseline (git-committable)
+  make charts               regenerate all PNGs + CSVs from existing stats
 
 Env:
   EXACT_FLAG=--exact-bytes  strict byte-accurate asm mode
 '''
+
+
+def cmd_baseline_set():
+    shutil.copytree(STATS_DIR, BASELINE_DIR, dirs_exist_ok=True)
+    count = 0
+    for root, dirs, files in os.walk(BASELINE_DIR):
+        count += sum(1 for f in files if f.endswith('.json'))
+    print(f'Baseline set: {count} binaries in {BASELINE_DIR}')
+    _charts_all()
+
+
+def _charts(game):
+    try:
+        from lib.sparkline import charts
+        charts(game)
+    except Exception as e:
+        print(f'  charts: {e}')
+
+
+def _charts_all():
+    try:
+        from lib.sparkline import charts_all
+        charts_all()
+    except Exception as e:
+        print(f'  all charts: {e}')
+
+
+def cmd_charts():
+    games = list_game_dirs()
+    for g in games:
+        print(f'Charts: {g}')
+        _charts(g)
+    _charts_all()
+    print('Done')
 
 
 def main():
@@ -292,6 +332,14 @@ def main():
             cmd_run(g, dosemu=True)
         return
 
+    if '--charts' in flags:
+        cmd_charts()
+        return
+
+    if '--baseline-set' in flags:
+        cmd_baseline_set()
+        return
+
     if '--rebuild' in flags:
         if len(args) < 2:
             print('Usage: make rebuild GAME BINARY')
@@ -311,6 +359,8 @@ def main():
             print(f'Known: {", ".join(all_games)}')
             sys.exit(1)
         asm_game(game)
+    if len(targets) > 1 or targets == all_games:
+        _charts_all()
 
 
 if __name__ == '__main__':

@@ -1,11 +1,17 @@
 PY := python3
-CMD := check clean run verify rebuild run-dosemu help all
+CMD := check clean run verify rebuild run-dosemu baseline-set charts help all
 
 help:
 	@$(PY) make.py --help
 
 all:
 	@$(PY) make.py
+
+charts:
+	@$(PY) make.py --charts
+
+baseline-set:
+	@$(PY) make.py --baseline-set
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
 check clean run verify rebuild run-dosemu:

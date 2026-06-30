@@ -1,27 +1,94 @@
-"""Structured pipeline reporting: per-binary JSON reports, compare, summary."""
+"""Structured pipeline reporting: per-binary JSON + layers, compare, chart data."""
 
+import hashlib
 import json
 import os
+import shutil
 
-from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
+import polars as pl
+
+from lib.model import PhaseContext
 
 
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATS_DIR = os.path.join(ASM_DIR, 'stats')
+BASELINE_DIR = os.path.join(ASM_DIR, 'stats_baseline')
 
 
-def _ensure_stats_dir():
-    os.makedirs(STATS_DIR, exist_ok=True)
+def _ensure(dirpath):
+    os.makedirs(dirpath, exist_ok=True)
+
+
+def report_path(game, binary):
+    return os.path.join(STATS_DIR, game, f'{game}_{binary}.json')
+
+
+def layers_path(game, binary):
+    return os.path.join(STATS_DIR, game, f'{game}_{binary}.layers.parquet')
+
+
+def baseline_report_path(game, binary):
+    return os.path.join(BASELINE_DIR, game, f'{game}_{binary}.json')
+
+
+def baseline_layers_path(game, binary):
+    return os.path.join(BASELINE_DIR, game, f'{game}_{binary}.layers.parquet')
+
+
+def clear_stats():
+    if os.path.exists(STATS_DIR):
+        shutil.rmtree(STATS_DIR)
+    os.makedirs(STATS_DIR)
+
+
+def list_game_dirs():
+    dirs = []
+    if not os.path.isdir(STATS_DIR):
+        return dirs
+    for name in os.listdir(STATS_DIR):
+        p = os.path.join(STATS_DIR, name)
+        if os.path.isdir(p) and not name.startswith('image'):
+            dirs.append(name)
+    return sorted(dirs)
+
+
+# ── chart / image layout ──────────────────────────────────────────────────────
+
+def images_dir():
+    p = os.path.join(STATS_DIR, 'images')
+    os.makedirs(p, exist_ok=True)
+    return p
+
+
+def images_csv_dir():
+    p = os.path.join(images_dir(), 'csv')
+    os.makedirs(p, exist_ok=True)
+    return p
+
+
+def layers_images_dir():
+    p = os.path.join(STATS_DIR, 'images_layers')
+    os.makedirs(p, exist_ok=True)
+    return p
+
+
+def layers_images_csv_dir():
+    p = os.path.join(layers_images_dir(), 'csv')
+    os.makedirs(p, exist_ok=True)
+    return p
+
+
+def asm_hash(asm_text):
+    return hashlib.sha256(asm_text.encode('utf-8')).hexdigest()[:12]
 
 
 def _final_classification(ctx):
-    """Return classification stats from the squashed column."""
     if 'squashed' not in ctx.layers.columns:
         return {'code_bytes': 0, 'data_bytes': 0, 'unknown_bytes': len(ctx.binary_data)}
     squashed = ctx.layers['squashed'].to_numpy()
-    cb = int((squashed == IS_CODE).sum())
-    db = int((squashed == IS_DATA).sum())
-    ub = int((squashed == IS_UNKNOWN).sum())
+    cb = int((squashed == 1).sum())
+    db = int((squashed == 2).sum())
+    ub = int((squashed == 0).sum())
     total = cb + db + ub
     return {
         'code_bytes': cb,
@@ -32,28 +99,33 @@ def _final_classification(ctx):
 
 
 def generate_report(ctx):
-    """Build the full report dict from ctx.report and live ctx data."""
     report = dict(ctx.report)
     live_cls = _final_classification(ctx)
-    # Merge live stats into existing classification, don't overwrite
     existing = report.get('classification', {})
     existing.update(live_cls)
     report['classification'] = existing
     return report
 
 
-def write_report(ctx):
-    """Write JSON report to stats/<name>.json."""
-    _ensure_stats_dir()
+def write_report(ctx, asm_text=''):
+    _ensure(os.path.join(STATS_DIR, ctx.report.get('game', 'unknown')))
     report = generate_report(ctx)
-    path = os.path.join(STATS_DIR, f"{ctx.name}.json")
+    report['asm_hash'] = asm_hash(asm_text) if asm_text else ''
+    path = report_path(ctx.report.get('game', 'unknown'), ctx.name)
     with open(path, 'w') as f:
         json.dump(report, f, indent=2, default=str)
     return path
 
 
+def write_layers(ctx):
+    game = ctx.report.get('game', 'unknown')
+    _ensure(os.path.join(STATS_DIR, game))
+    path = layers_path(game, ctx.name)
+    ctx.layers.write_parquet(path, compression='zstd')
+    return path
+
+
 def print_short_report(ctx):
-    """Print a human-friendly one-line extension to the existing summary."""
     jts = ctx.report.get('jump_tables', [])
     if not jts:
         return
@@ -63,15 +135,12 @@ def print_short_report(ctx):
 
 
 def compare_reports(path_a, path_b):
-    """Compare two JSON reports and return a delta dict."""
     with open(path_a) as f:
         a = json.load(f)
     with open(path_b) as f:
         b = json.load(f)
-
     name = a.get('binary', {}).get('name', '?')
     deltas = []
-
     cls_a = a.get('classification', {})
     cls_b = b.get('classification', {})
     for key in ('code_bytes', 'data_bytes', 'unknown_bytes', 'code_pct'):
@@ -79,7 +148,6 @@ def compare_reports(path_a, path_b):
         vb = cls_b.get(key, 0)
         if va != vb:
             deltas.append({'key': f'classification.{key}', 'before': va, 'after': vb})
-
     phases_a = a.get('phases', {})
     phases_b = b.get('phases', {})
     for pname in set(list(phases_a.keys()) + list(phases_b.keys())):
@@ -90,7 +158,6 @@ def compare_reports(path_a, path_b):
             vb = pb.get(key, 0)
             if abs(va - vb) > 0.01 if isinstance(va, float) else va != vb:
                 deltas.append({'key': f'phases.{pname}.{key}', 'before': va, 'after': vb})
-
     jts_a = {jt.get('jmp_addr'): jt for jt in a.get('jump_tables', [])}
     jts_b = {jt.get('jmp_addr'): jt for jt in b.get('jump_tables', [])}
     for addr in set(list(jts_a.keys()) + list(jts_b.keys())):
@@ -103,7 +170,6 @@ def compare_reports(path_a, path_b):
                 'key': f'jump_table.0x{addr:x}.targets_found',
                 'before': va, 'after': vb,
             })
-
     return {
         'name': name,
         'deltas': deltas,
@@ -112,11 +178,10 @@ def compare_reports(path_a, path_b):
 
 
 def print_compare(path_a, path_b):
-    """Human-friendly compare output."""
     result = compare_reports(path_a, path_b)
     print(f"Compare: {result['name']}")
     if not result['changed']:
-        print("  No differences.")
+        print('  No differences.')
         return
     for d in result['deltas']:
         print(f"  {d['key']}: {d['before']} -> {d['after']}")

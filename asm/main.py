@@ -9,6 +9,7 @@ Scans ``apps/`` for game directories.  For each game:
 """
 
 import os
+import polars as pl
 import shutil
 import subprocess
 import sys
@@ -32,7 +33,7 @@ from lib.phases import (
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.pipeline import run_functional, report_timings
-from lib.report import write_report, print_short_report, print_compare
+from lib.report import write_report, write_layers, print_short_report, print_compare
 
 
 def _load_known_funcs():
@@ -86,7 +87,6 @@ def discover_binaries(directory):
 
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
-FEAT_REPORT = '--report' in sys.argv
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
     if a.startswith('--max-func-size='):
@@ -96,7 +96,7 @@ for a in sys.argv:
             pass
 
 
-def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None):
+def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None, game_name=None):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -113,6 +113,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
         start_offset=start_offset,
         name=name,
     )
+    if game_name:
+        ctx.report['game'] = game_name
 
     classify_phases = _build_classify_phases()
     run_functional(ctx, classify_phases)
@@ -165,13 +167,14 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
 
     out_dir = output_dir or ASM_DIR
 
-    asm_text, stats = verify(
+    asm_text, stats, emit_bytes = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_targets,
         exact_bytes=exact_bytes,
         structs=structs,
         asm_dir=out_dir,
     )
+    ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     os.makedirs(out_dir, exist_ok=True)
     asm_path = os.path.join(out_dir, f'{name}.asm')
     with open(asm_path, 'w') as f:
@@ -192,18 +195,17 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
     print(f'  refine phases:')
     print(refine_timing)
 
-    if FEAT_REPORT:
-        ctx.report['verify'] = {
-            'status': stats['status'],
-            'mnemonic': stats['mnemonic'],
-            'data': stats['data'],
-            'data_blocks': stats['data_blocks'],
-            'labels': stats['labels'],
-            'structs': stats['structs'],
-        }
-        report_path = write_report(ctx)
-        print_short_report(ctx)
-        print(f'  report: {report_path}')
+    ctx.report['verify'] = {
+        'status': stats['status'],
+        'mnemonic': stats['mnemonic'],
+        'data': stats['data'],
+        'data_blocks': stats['data_blocks'],
+        'labels': stats['labels'],
+        'structs': stats['structs'],
+    }
+    report_path = write_report(ctx, asm_text)
+    write_layers(ctx)
+    print_short_report(ctx)
 
     return ctx.bitmap
 
@@ -257,7 +259,8 @@ def process_game(game_name):
         print(f'\n=== {game_name} ({len(bins)} binaries) ===')
         for name, (rel_path, start_offset) in sorted(bins.items()):
             process(name, game_dir, rel_path, start_offset,
-                    exact_bytes=EXACT_BYTES, output_dir=out_dir)
+                    exact_bytes=EXACT_BYTES, output_dir=out_dir,
+                    game_name=game_name)
 
     processed = set(bins.keys())
     copy_assets(game_dir, out_dir, processed)
@@ -497,7 +500,8 @@ def main():
             sys.exit(1)
         rel_path, start_offset = bins[binary]
         process(binary, game_dir, rel_path, start_offset,
-                exact_bytes=EXACT_BYTES, output_dir=out_dir)
+                exact_bytes=EXACT_BYTES, output_dir=out_dir,
+                game_name=game)
         return
 
     target = args[0] if args else None
