@@ -1,33 +1,23 @@
 #!/usr/bin/env python3
-"""Disassemble Wizardry 7 (DSAVANT) binaries -> byte-exact NASM assembly (.asm).
+"""Disassemble DOS binaries -> byte-exact NASM assembly (.asm).
 
-This script generates .asm files in this directory from original
-binaries.  The .asm files are NOT built here -- use the Makefile.
-
-Standard workflow from a clean checkout:
-
-    make            # Phase 1: generate .asm from originals
-                    # Phase 2: assemble .asm -> build_out/
-    make run        # play the game under dosbox
-    make clean      # remove build_out/
-
-For individual targets you can also call this script directly:
-
-    python3 main.py vbase        # Single overlay only
-    python3 main.py --verify     # Verify .asm assembles byte-exact
-    python3 main.py --clean      # Remove generated .asm files
-
-Never use this script in a loop -- that's what ``make all`` is for.
+Scans ``apps/`` for game directories.  For each game:
+  - Discovers binary files (.exe/.ovr/.drv)
+  - Disassembles each to ``asm_<game>/<name>.asm``
+  - Copies non-binary assets to ``asm_<game>/``
+  - Creates ``asm_<game>/build_out/``
 """
 
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
 import time
 
 ASM_DIR = os.path.dirname(os.path.abspath(__file__))
-ORIG_DIR = os.path.join(os.path.dirname(ASM_DIR), 'DSAVANT')
+PROJECT_ROOT = os.path.dirname(ASM_DIR)
+APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
 KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 
 from lib.decode import disassemble
@@ -45,21 +35,7 @@ from lib.pipeline import run_functional, report_timings
 from lib.report import write_report, print_short_report, print_compare
 
 
-def _crc16(data):
-    crc = 0xFFFF
-    for byte in data:
-        crc ^= byte << 8
-        for _ in range(8):
-            if crc & 0x8000:
-                crc = (crc << 1) ^ 0x1021
-            else:
-                crc <<= 1
-        crc &= 0xFFFF
-    return crc
-
-
 def _load_known_funcs():
-    """Load known_funcs.json if it exists."""
     if not os.path.exists(KNOWN_FUNCS_PATH):
         return {'signatures': []}
     import json
@@ -68,11 +44,6 @@ def _load_known_funcs():
 
 
 def _build_classify_phases():
-    """Build classification phases (run before pattern matching).
-
-    These phases discover code/data boundaries and populate
-    ``ctx.code_targets`` for pattern matching.
-    """
     return [
         SeedPhase(),
         SidecarPhase(),
@@ -87,11 +58,6 @@ def _build_classify_phases():
 
 
 def _build_refine_phases(last_classify_slot):
-    """Build refinement phases (post-pattern-matching).
-
-    These phases use ``ctx.label_map`` to force-code missed functions
-    and produce the final squashed column.
-    """
     return [
         SettlePhase(input_slot=last_classify_slot, output_slot='settled'),
         ForceCodePhase(),
@@ -99,23 +65,25 @@ def _build_refine_phases(last_classify_slot):
     ]
 
 
-def _discover_binaries():
-    """Scan ORIG_DIR for known binary types -> {name: (rel_path, start_offset)}."""
+def discover_binaries(directory):
     bins = {}
-    if not os.path.isdir(ORIG_DIR):
+    if not os.path.isdir(directory):
         return bins
-    for entry in os.listdir(ORIG_DIR):
+    for entry in os.listdir(directory):
         lower = entry.lower()
         if lower.endswith('.ovr'):
             bins[lower[:-4]] = (entry, 8)
         elif lower.endswith('.drv'):
             bins[lower[:-4]] = (entry, 0)
         elif lower.endswith('.exe'):
+            path = os.path.join(directory, entry)
+            with open(path, 'rb') as f:
+                sig = f.read(2)
+            if sig != b'MZ':
+                continue
             bins[lower[:-4]] = (entry, 0x200)
     return bins
 
-
-BINARIES = _discover_binaries()
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
 FEAT_REPORT = '--report' in sys.argv
@@ -128,8 +96,8 @@ for a in sys.argv:
             pass
 
 
-def process(name, rel_path, start_offset, exact_bytes=False):
-    path = os.path.join(ORIG_DIR, rel_path)
+def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None):
+    path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
         return None
@@ -140,20 +108,17 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     t_total = time.perf_counter()
     clear_assemble_cache()
 
-    # --- Phase 1: Build context with initial seed layer ---
     ctx = PhaseContext(
         binary_data=data,
         start_offset=start_offset,
         name=name,
     )
 
-    # --- Phase 2: Classification pipeline (discovers call_targets) ---
     classify_phases = _build_classify_phases()
     run_functional(ctx, classify_phases)
     t_classify = time.perf_counter()
     classify_timing = report_timings()
 
-    # --- Phase 3: Pattern matching ---
     known_db = _load_known_funcs()
     max_func_size = _MAX_FUNC_SIZE if _MAX_FUNC_SIZE is not None else 256
     label_map = match_patterns(data, ctx.code_targets, known_db, max_func_size)
@@ -175,14 +140,12 @@ def process(name, rel_path, start_offset, exact_bytes=False):
         'by_call': len(ctx.code_targets - ctx.seeds),
     }
 
-    # --- Phase 4: Refinement pipeline (uses label_map) ---
     last_classify_slot = classify_phases[-1].output_slot
     refine_phases = _build_refine_phases(last_classify_slot)
     run_functional(ctx, refine_phases)
     refine_timing = report_timings()
     t_classify_end = time.perf_counter()
 
-    # --- Phase 5: Stats from final squashed column ---
     squashed = ctx.layers['squashed'].to_numpy()
     code_bytes = int((squashed == IS_CODE).sum())
     data_bytes = int((squashed == IS_DATA).sum())
@@ -194,24 +157,23 @@ def process(name, rel_path, start_offset, exact_bytes=False):
         'code_pct': round(pct, 1),
     }
 
-    # --- Phase 6: Disassemble ---
     instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
     ctx.report['classification']['instructions'] = len(instructions)
     t_disasm = time.perf_counter()
 
-    # --- Phase 7: Struct analysis ---
     structs = build_structs(instructions)
 
-    # --- Phase 8: Verify and emit .asm ---
+    out_dir = output_dir or ASM_DIR
+
     asm_text, stats = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_targets,
         exact_bytes=exact_bytes,
         structs=structs,
-        asm_dir=ASM_DIR,
+        asm_dir=out_dir,
     )
-
-    asm_path = os.path.join(ASM_DIR, f'{name}.asm')
+    os.makedirs(out_dir, exist_ok=True)
+    asm_path = os.path.join(out_dir, f'{name}.asm')
     with open(asm_path, 'w') as f:
         f.write(asm_text)
     t_end = time.perf_counter()
@@ -230,7 +192,6 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     print(f'  refine phases:')
     print(refine_timing)
 
-    # Write report JSON if requested
     if FEAT_REPORT:
         ctx.report['verify'] = {
             'status': stats['status'],
@@ -247,14 +208,78 @@ def process(name, rel_path, start_offset, exact_bytes=False):
     return ctx.bitmap
 
 
-def byte_verify(name, exact_bytes=False, bitmap=None):
-    if name not in BINARIES:
-        print(f'{name}: SKIP (unknown target)')
-        return False
+def copy_assets(orig_dir, output_dir, processed_names):
+    os.makedirs(output_dir, exist_ok=True)
+    for entry in os.listdir(orig_dir):
+        src = os.path.join(orig_dir, entry)
+        dst = os.path.join(output_dir, entry)
+        name_only, _ = os.path.splitext(entry.lower())
+        if name_only in processed_names:
+            continue
+        if os.path.isfile(src):
+            shutil.copy2(src, dst)
+        elif os.path.isdir(src):
+            shutil.copytree(src, dst, dirs_exist_ok=True)
 
-    rel_path = BINARIES[name][0]
-    asm_path = os.path.join(ASM_DIR, f'{name}.asm')
-    orig_path = os.path.join(ORIG_DIR, rel_path)
+
+def build_binaries(asm_dir, bins, out_dir):
+    """Assemble each .asm with NASM into *out_dir* using the original binary filename."""
+    os.makedirs(out_dir, exist_ok=True)
+    all_ok = True
+    for name, (rel_path, _start_offset) in sorted(bins.items()):
+        asm_path = os.path.join(asm_dir, f'{name}.asm')
+        bin_path = os.path.join(out_dir, rel_path)
+        r = subprocess.run(
+            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-o', bin_path, asm_path],
+            capture_output=True, text=True,
+        )
+        if r.returncode != 0:
+            print(f'  BUILD FAIL: {name}.asm -> {rel_path}')
+            for line in r.stderr.strip().split('\n'):
+                print(f'    {line}')
+            all_ok = False
+    return all_ok
+
+
+def process_game(game_name):
+    game_dir = os.path.join(APPS_DIR, game_name)
+    if not os.path.isdir(game_dir):
+        print(f'{game_name}: SKIP (not found in apps/)')
+        return
+
+    out_dir = os.path.join(PROJECT_ROOT, f'asm_{game_name}')
+    os.makedirs(out_dir, exist_ok=True)
+
+    bins = discover_binaries(game_dir)
+    if not bins:
+        print(f'{game_name}: no binaries found')
+    else:
+        print(f'\n=== {game_name} ({len(bins)} binaries) ===')
+        for name, (rel_path, start_offset) in sorted(bins.items()):
+            process(name, game_dir, rel_path, start_offset,
+                    exact_bytes=EXACT_BYTES, output_dir=out_dir)
+
+    processed = set(bins.keys())
+    copy_assets(game_dir, out_dir, processed)
+
+    build_out = os.path.join(out_dir, 'build_out')
+    copy_assets(game_dir, build_out, set())
+    build_binaries(out_dir, bins, build_out)
+
+
+def get_games():
+    if not os.path.isdir(APPS_DIR):
+        return []
+    return sorted([
+        d for d in os.listdir(APPS_DIR)
+        if os.path.isdir(os.path.join(APPS_DIR, d))
+    ])
+
+
+def byte_verify(name, orig_dir, rel_path, asm_dir, start_offset,
+                exact_bytes=False, bitmap=None):
+    asm_path = os.path.join(asm_dir, f'{name}.asm')
+    orig_path = os.path.join(orig_dir, rel_path)
 
     if not os.path.exists(asm_path):
         print(f'{name}: SKIP (no .asm)')
@@ -299,7 +324,6 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
         if bitmap is None:
             with open(orig_path, 'rb') as f:
                 data = f.read()
-            start_offset = BINARIES[name][1]
             from lib.classify import classify
             bitmap, _ = classify(data, start_offset, entry_points=set())
 
@@ -315,10 +339,10 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                             if test_off < 0:
                                 continue
                             try:
-                                o_insn = next(md.disasm(orig[test_off:test_off + 15],
-                                                        test_off))
-                                b_insn = next(md.disasm(built[test_off:test_off + 15],
-                                                        test_off))
+                                o_insn = next(md.disasm(
+                                    orig[test_off:test_off + 15], test_off))
+                                b_insn = next(md.disasm(
+                                    built[test_off:test_off + 15], test_off))
                             except StopIteration:
                                 continue
                             if test_off + o_insn.size <= off:
@@ -364,8 +388,8 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
                             if not is_semantically_equivalent(
                                     bytes(o_insn.bytes),
                                     bytes(b_insn.bytes), addr):
-                                print(f'{name} -> {rel_path}  [FAIL]  semantic mismatch '
-                                      f'at 0x{addr:04x}')
+                                print(f'{name} -> {rel_path}  [FAIL]  semantic '
+                                      f'mismatch at 0x{addr:04x}')
                                 print_warnings()
                                 return False
         else:
@@ -380,8 +404,8 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
 
                 i = o_insn.address
                 if i != b_insn.address:
-                    print(f'{name} -> {rel_path}  [FAIL]  alignment diverged at 0x{i:04x} '
-                          f'vs 0x{b_insn.address:04x}')
+                    print(f'{name} -> {rel_path}  [FAIL]  alignment diverged at '
+                          f'0x{i:04x} vs 0x{b_insn.address:04x}')
                     print_warnings()
                     return False
 
@@ -390,7 +414,8 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
 
                 if not is_semantically_equivalent(bytes(o_insn.bytes),
                                                    bytes(b_insn.bytes), i):
-                    print(f'{name} -> {rel_path}  [FAIL]  semantic mismatch at 0x{i:04x}')
+                    print(f'{name} -> {rel_path}  [FAIL]  semantic mismatch '
+                          f'at 0x{i:04x}')
                     print_warnings()
                     return False
 
@@ -399,21 +424,44 @@ def byte_verify(name, exact_bytes=False, bitmap=None):
     return True
 
 
-def verify_all():
+def verify_game(game_name):
+    game_dir = os.path.join(APPS_DIR, game_name)
+    if not os.path.isdir(game_dir):
+        return 0, []
+
+    out_dir = os.path.join(PROJECT_ROOT, f'asm_{game_name}')
+    bins = discover_binaries(game_dir)
     ok = 0
     fail = []
-    for name, (rel_path, start_offset) in BINARIES.items():
-        asm_path = os.path.join(ASM_DIR, f'{name}.asm')
-        if not os.path.exists(asm_path):
-            print(f'{name}: SKIP (no .asm)')
-            continue
-        if byte_verify(name, exact_bytes=EXACT_BYTES):
+    for name, (rel_path, start_offset) in sorted(bins.items()):
+        if byte_verify(name, game_dir, rel_path, out_dir, start_offset,
+                       exact_bytes=EXACT_BYTES):
             ok += 1
         else:
             fail.append(name)
-    print(f'\n{ok}/{ok + len(fail)} passed')
-    if fail:
+    return ok, fail
+
+
+def verify_all():
+    total_ok = 0
+    total_fail = []
+    for game in get_games():
+        ok, fail = verify_game(game)
+        total_ok += ok
+        total_fail.extend(f'{game}/{f}' for f in fail)
+    print(f'\n{total_ok}/{total_ok + len(total_fail)} passed')
+    if total_fail:
         sys.exit(1)
+
+
+def clean_all():
+    for game in get_games():
+        out_dir = os.path.join(PROJECT_ROOT, f'asm_{game}')
+        if os.path.isdir(out_dir):
+            shutil.rmtree(out_dir)
+            print(f'Removed {out_dir}')
+    if not get_games():
+        print('Cleaned.')
 
 
 def main():
@@ -421,13 +469,7 @@ def main():
         verify_all()
         return
     if '--clean' in sys.argv:
-        for name in BINARIES:
-            p = os.path.join(ASM_DIR, f'{name}.asm')
-            bp = os.path.join(ASM_DIR, f'{name}.built')
-            for fp in (p, bp):
-                if os.path.exists(fp):
-                    os.remove(fp)
-        print('Cleaned.')
+        clean_all()
         return
     if '--compare' in sys.argv:
         idx = sys.argv.index('--compare')
@@ -437,30 +479,44 @@ def main():
             print('Usage: --compare <report_a.json> <report_b.json>')
         return
 
-    if '--report-all' in sys.argv or ('--report' in sys.argv and 'all' in sys.argv):
-        for name, (rel_path, start_offset) in BINARIES.items():
-            process(name, rel_path, start_offset, exact_bytes=EXACT_BYTES)
-            byte_verify(name, exact_bytes=EXACT_BYTES)
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    games = get_games()
+
+    if len(args) >= 2:
+        game = args[0]
+        binary = args[1]
+        if game not in games:
+            print(f'Unknown game: {game}')
+            sys.exit(1)
+        game_dir = os.path.join(APPS_DIR, game)
+        out_dir = os.path.join(PROJECT_ROOT, f'asm_{game}')
+        bins = discover_binaries(game_dir)
+        if binary not in bins:
+            print(f'Unknown binary "{binary}" in {game}')
+            print(f'Known: {", ".join(sorted(bins))}')
+            sys.exit(1)
+        rel_path, start_offset = bins[binary]
+        process(binary, game_dir, rel_path, start_offset,
+                exact_bytes=EXACT_BYTES, output_dir=out_dir)
         return
 
-    target = None
-    for arg in sys.argv[1:]:
-        if not arg.startswith('--'):
-            target = arg
-            break
+    target = args[0] if args else None
 
     if target:
-        if target in BINARIES:
-            bitmap = process(target, *BINARIES[target], exact_bytes=EXACT_BYTES)
-            byte_verify(target, exact_bytes=EXACT_BYTES, bitmap=bitmap)
+        if target in games:
+            process_game(target)
         else:
             print(f'Unknown target: {target}')
-            print(f'Known: {", ".join(BINARIES)}')
+            print(f'Known games: {", ".join(games)}')
             sys.exit(1)
     else:
-        print(f'Usage: python3 main.py <{"|".join(BINARIES)}>')
-        print('       Use `make all` to process every target.')
-        sys.exit(1)
+        if games:
+            for game in games:
+                process_game(game)
+        else:
+            print(f'Usage: python3 main.py <{"|".join(games)}>')
+            print('       No args processes all games in apps/')
+            sys.exit(1)
 
 
 if __name__ == '__main__':
