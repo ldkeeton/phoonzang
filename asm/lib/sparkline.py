@@ -25,10 +25,17 @@ PHASE_COLS = [
 ]
 METRICS = ['code_pct', 'data_pct', 'unknown_pct',
            'label_density', 'data_block_density', 'code_loss_density']
+OF_FILE_METRICS = ('code_pct_of_file', 'data_pct_of_file', 'unknown_pct_of_file')
+OF_FILE_MAP = {'code_pct': 'code_pct_of_file',
+               'data_pct': 'data_pct_of_file',
+               'unknown_pct': 'unknown_pct_of_file'}
 METRIC_LABELS = {
     'code_pct': 'Code %',
     'data_pct': 'Data %',
     'unknown_pct': 'Unknown %',
+    'code_pct_of_file': 'Code % (of file)',
+    'data_pct_of_file': 'Data % (of file)',
+    'unknown_pct_of_file': 'Unknown % (of file)',
     'label_density': 'Label density',
     'data_block_density': 'Data block density',
     'code_loss_density': 'Code loss density',
@@ -46,16 +53,23 @@ def _bucket_boundaries(n):
     return [int(n * i // N_BUCKETS) for i in range(N_BUCKETS + 1)]
 
 
-def _bucket_metrics_for_column(col, n):
-    """Return dict of 6 per-bucket metric arrays for a single classification column.
+def _bucket_metrics_for_column(col, n, label_col=None):
+    """Return dict of per-bucket metric arrays for a single classification column.
 
     col: numpy array of ints (0=unknown, 1=code, 2=data)
     n: total byte count of the binary
+    label_col: optional numpy array of uint8 (1=has label, 0=no label)
     """
     edges = _bucket_boundaries(n)
     result = {}
-    for m in METRICS:
+    _ALL_METRICS = METRICS + list(OF_FILE_METRICS)
+    for m in _ALL_METRICS:
         result[m] = np.zeros(N_BUCKETS, dtype=float)
+    result['_data_block_count'] = np.zeros(N_BUCKETS, dtype=float)
+
+    total_code = (col == IS_CODE).sum()
+    total_data = (col == IS_DATA).sum()
+    total_unknown = (col == IS_UNKNOWN).sum()
 
     for d in range(N_BUCKETS):
         start = edges[d]
@@ -65,44 +79,46 @@ def _bucket_metrics_for_column(col, n):
         result['code_pct'][d] = (chunk == IS_CODE).sum() / max(sz, 1)
         result['data_pct'][d] = (chunk == IS_DATA).sum() / max(sz, 1)
         result['unknown_pct'][d] = (chunk == IS_UNKNOWN).sum() / max(sz, 1)
+        result['code_pct_of_file'][d] = (chunk == IS_CODE).sum() / max(total_code, 1)
+        result['data_pct_of_file'][d] = (chunk == IS_DATA).sum() / max(total_data, 1)
+        result['unknown_pct_of_file'][d] = (chunk == IS_UNKNOWN).sum() / max(total_unknown, 1)
 
-    # label_density: transitions from !=CODE to ==CODE
-    code_starts = np.where((col[1:] == IS_CODE) & (col[:-1] != IS_CODE))[0] + 1
-    n_cs = len(code_starts)
-    if n_cs > 0:
-        for d in range(N_BUCKETS):
-            start = edges[d]
-            end = min(edges[d + 1], n)
-            result['label_density'][d] = ((code_starts >= start) & (code_starts < end)).sum() / n_cs
+    # label_density: use label_col if available, else fall back to code-start transitions
+    if label_col is not None:
+        label_positions = np.where(label_col == 1)[0]
+        total_labels = len(label_positions)
+        if total_labels > 0:
+            for d in range(N_BUCKETS):
+                start = edges[d]
+                end = min(edges[d + 1], n)
+                result['label_density'][d] = ((label_positions >= start) & (label_positions < end)).sum() / total_labels
+    else:
+        code_starts = np.where((col[1:] == IS_CODE) & (col[:-1] != IS_CODE))[0] + 1
+        n_cs = len(code_starts)
+        if n_cs > 0:
+            for d in range(N_BUCKETS):
+                start = edges[d]
+                end = min(edges[d + 1], n)
+                result['label_density'][d] = ((code_starts >= start) & (code_starts < end)).sum() / n_cs
 
-    # data_block_density: transitions from !=DATA to ==DATA
+    # data_block_density + raw count: transitions from !=DATA to ==DATA
     data_starts = np.where((col[1:] == IS_DATA) & (col[:-1] != IS_DATA))[0] + 1
     n_ds = len(data_starts)
     if n_ds > 0:
         for d in range(N_BUCKETS):
             start = edges[d]
             end = min(edges[d + 1], n)
-            result['data_block_density'][d] = ((data_starts >= start) & (data_starts < end)).sum() / n_ds
+            count = ((data_starts >= start) & (data_starts < end)).sum()
+            result['data_block_density'][d] = count / n_ds
+            result['_data_block_count'][d] = count
 
-    # code_loss_density: small contiguous DATA runs (<=12 bytes)
-    data_mask = (col == IS_DATA).astype(np.int8)
-    padded = np.concatenate([[0], data_mask, [0]])
-    diff = np.diff(padded)
-    run_starts = np.where(diff == 1)[0]
-    run_ends = np.where(diff == -1)[0]
-    run_lens = run_ends - run_starts
-    small_mask = run_lens <= CODE_FRAGMENT_MAX
-    total_small = small_mask.sum()
-    if total_small > 0:
-        small_starts = run_starts[small_mask]
-        for d in range(N_BUCKETS):
-            start = edges[d]
-            end = min(edges[d + 1], n)
-            result['code_loss_density'][d] = ((small_starts >= start) & (small_starts < end)).sum() / total_small
+    # code_loss_density: placeholder (computed as gain in generate_scope)
+    # stays at zero here; overwritten later when both current and baseline are known
 
     # Zero out anything that's 0/0
-    for m in METRICS:
+    for m in _ALL_METRICS:
         result[m] = np.nan_to_num(result[m], nan=0.0)
+    result['_data_block_count'] = np.nan_to_num(result['_data_block_count'], nan=0.0)
 
     return result
 
@@ -121,7 +137,10 @@ def _load_binary(game, binary, lp_fn):
         return None
     col_name = 'emit' if 'emit' in df.columns else 'squashed'
     col = df[col_name].to_numpy().astype(np.int8)
-    return _bucket_metrics_for_column(col, n)
+    label_col = None
+    if 'label_positions' in df.columns:
+        label_col = df['label_positions'].to_numpy().astype(np.uint8)
+    return _bucket_metrics_for_column(col, n, label_col=label_col)
 
 
 def _load_all_phases(game, binary, lp_fn):
@@ -197,9 +216,10 @@ def _baseline_binary_keys(game=None):
 
 def _write_flat_csv(path, scope, current_metrics, baseline_metrics):
     """Write a wide-format CSV, one row per 5% bucket."""
+    csv_metrics = METRICS + list(OF_FILE_METRICS)
     with open(path, 'w', newline='') as f:
         cols = ['bucket']
-        for m in METRICS:
+        for m in csv_metrics:
             cols.append(m)
             cols.append(f'{m}_baseline')
             cols.append(f'{m}_delta')
@@ -207,7 +227,7 @@ def _write_flat_csv(path, scope, current_metrics, baseline_metrics):
         w.writerow(cols)
         for d in range(N_BUCKETS):
             row = [BUCKET_PCTS[d]]
-            for m in METRICS:
+            for m in csv_metrics:
                 cur = float(current_metrics[m][d]) if current_metrics else 0
                 base = float(baseline_metrics[m][d]) if baseline_metrics else ''
                 delta = cur - base if isinstance(base, (int, float)) else ''
@@ -242,10 +262,15 @@ WARN_THRESHOLDS = {
     'code_pct': 0.10,
     'data_pct': 0.10,
     'unknown_pct': 0.05,
+    'code_pct_of_file': 0.10,
+    'data_pct_of_file': 0.10,
+    'unknown_pct_of_file': 0.05,
     'label_density': 0.15,
     'data_block_density': 0.15,
     'code_loss_density': 0.15,
 }
+
+_WARN_METRICS = METRICS + list(OF_FILE_METRICS)
 
 
 def _override_thresholds():
@@ -253,7 +278,7 @@ def _override_thresholds():
     if env:
         try:
             val = float(env)
-            return {m: val for m in METRICS}
+            return {m: val for m in _WARN_METRICS}
         except ValueError:
             pass
     return dict(WARN_THRESHOLDS)
@@ -263,7 +288,7 @@ def _check_and_print_warnings(scope, current, baseline):
     if baseline is None:
         return
     thresholds = _override_thresholds()
-    for m in METRICS:
+    for m in _WARN_METRICS:
         max_delta = max(abs(float(current[m][d]) - float(baseline[m][d]))
                         for d in range(N_BUCKETS))
         th = thresholds.get(m, 0.10)
@@ -287,22 +312,40 @@ def _ensure_matplotlib():
         return None
 
 
-def _plot_image_subplot(ax, cur, base, has_base, metric):
-    """One subplot for images/ — red solid vs blue dashed baseline."""
+def _plot_image_subplot(ax, cur, base, has_base, metric, cur_of=None, base_of=None):
+    """One subplot for images/.
+
+    Baseline = solid red, current = dashed blue.
+    Of-file variants rendered as very light (alpha=0.2) lines, no legend entry.
+    """
     from matplotlib.ticker import PercentFormatter
     x = list(range(N_BUCKETS))
     label = METRIC_LABELS.get(metric, metric)
-    ax.plot(x, [v * 100 for v in cur], 'r-', linewidth=1.5,
-            label=f'{label} (current)')
+    def _y(v):
+        """Render value at 99.9 if it's ≥100 so the line stays visible at the top edge."""
+        p = v * 100
+        return 99.9 if p >= 100 else p
+    # Baseline (solid red)
     if has_base:
-        ax.plot(x, [v * 100 for v in base], 'b--', linewidth=1.2,
-                label=f'{label} (baseline)', alpha=0.7)
+        ax.plot(x, [_y(v) for v in base], 'r-', linewidth=1.5,
+                label='baseline')
+    # Current (dashed blue)
+    ax.plot(x, [_y(v) for v in cur], 'b--', linewidth=1.5,
+            label='current')
+    # Baseline of-file (solid very light red, no legend)
+    if base_of is not None and has_base:
+        ax.plot(x, [_y(v) for v in base_of], 'r-', linewidth=1.5, alpha=0.2)
+    # Current of-file (dashed very light blue, no legend)
+    if cur_of is not None:
+        ax.plot(x, [_y(v) for v in cur_of], 'b--', linewidth=1.5, alpha=0.2)
     ax.set_ylabel(label, fontsize=8)
     ax.yaxis.set_major_formatter(PercentFormatter(xmax=100))
-    ax.set_ylim(bottom=0)
-    ax.tick_params(axis='both', labelsize=6)
-    ax.set_xticks(range(N_BUCKETS))
-    ax.set_xticklabels([f'{p}%' for p in BUCKET_PCTS], rotation=45, ha='right', fontsize=5)
+    ax.set_ylim(0, 100)
+    ax.tick_params(axis='both', labelsize=7)
+    ax.set_xlim(0, N_BUCKETS - 1)
+    step = 2
+    ax.set_xticks(range(1, N_BUCKETS, step))
+    ax.set_xticklabels([f'{BUCKET_PCTS[i]}%' for i in range(1, N_BUCKETS, step)], fontsize=7)
 
 
 def _plot_layers_subplot(ax, all_phases, baseline_all_phases, metric):
@@ -311,22 +354,27 @@ def _plot_layers_subplot(ax, all_phases, baseline_all_phases, metric):
     label = METRIC_LABELS.get(metric, metric)
     x = list(range(N_BUCKETS))
     has_base = baseline_all_phases is not None
+    def _y(v):
+        p = v * 100
+        return 99.9 if p >= 100 else p
     for i, phase in enumerate(PHASE_COLS):
         if phase not in all_phases:
             continue
         cur = all_phases[phase][metric]
         color = PHASE_COLORS[i % len(PHASE_COLORS)]
-        ax.plot(x, [v * 100 for v in cur], color=color, linewidth=1.2, label=phase)
+        ax.plot(x, [_y(v) for v in cur], color=color, linewidth=1.2, label=phase)
         if has_base and phase in baseline_all_phases:
             base = baseline_all_phases[phase][metric]
-            ax.plot(x, [v * 100 for v in base], color=color, linewidth=0.8,
+            ax.plot(x, [_y(v) for v in base], color=color, linewidth=0.8,
                     linestyle='--', alpha=0.4)
     ax.set_ylabel(label, fontsize=8)
     ax.yaxis.set_major_formatter(PercentFormatter(xmax=100))
-    ax.set_ylim(bottom=0)
-    ax.tick_params(axis='both', labelsize=6)
-    ax.set_xticks(range(N_BUCKETS))
-    ax.set_xticklabels([f'{p}%' for p in BUCKET_PCTS], rotation=45, ha='right', fontsize=5)
+    ax.set_ylim(0, 100)
+    ax.tick_params(axis='both', labelsize=7)
+    ax.set_xlim(0, N_BUCKETS - 1)
+    step = 2
+    ax.set_xticks(range(1, N_BUCKETS, step))
+    ax.set_xticklabels([f'{BUCKET_PCTS[i]}%' for i in range(1, N_BUCKETS, step)], fontsize=7)
 
 
 def _legend_outside(fig, ax_list):
@@ -359,6 +407,17 @@ def generate_scope(scope, binaries):
 
     has_base = baseline_metrics is not None
 
+    # code_loss_density: gain in data block count over baseline
+    cur_dbc = current_metrics.get('_data_block_count')
+    base_dbc = baseline_metrics.get('_data_block_count') if has_base else None
+    if cur_dbc is not None:
+        if base_dbc is not None:
+            gain = np.maximum(0, cur_dbc - base_dbc)
+            total_gain = max(gain.sum(), 1)
+            current_metrics['code_loss_density'] = gain / total_gain
+        else:
+            current_metrics['code_loss_density'] = np.zeros(N_BUCKETS, dtype=float)
+
     # Warnings
     _check_and_print_warnings(scope, current_metrics, baseline_metrics)
 
@@ -382,7 +441,10 @@ def generate_scope(scope, binaries):
         ax = axes[i]
         cur = current_metrics[metric]
         base = baseline_metrics[metric] if has_base else None
-        _plot_image_subplot(ax, cur, base, has_base, metric)
+        of_metric = OF_FILE_MAP.get(metric)
+        cur_of = current_metrics.get(of_metric) if of_metric else None
+        base_of = baseline_metrics.get(of_metric) if of_metric and has_base else None
+        _plot_image_subplot(ax, cur, base, has_base, metric, cur_of, base_of)
         if i == 0:
             ax.legend(fontsize=6, loc='upper right')
 

@@ -167,7 +167,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
 
     out_dir = output_dir or ASM_DIR
 
-    asm_text, stats, emit_bytes = verify(
+    asm_text, stats, emit_bytes, label_positions = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_targets,
         exact_bytes=exact_bytes,
@@ -175,6 +175,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
         asm_dir=out_dir,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
+    ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
     os.makedirs(out_dir, exist_ok=True)
     asm_path = os.path.join(out_dir, f'{name}.asm')
     with open(asm_path, 'w') as f:

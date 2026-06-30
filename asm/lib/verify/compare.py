@@ -545,8 +545,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes)
 
     emit_class = bytearray(total)
+    label_positions = bytearray(total)
     for rec in records:
         if rec['type'] == 'label':
+            off = rec['offset']
+            if off < total:
+                label_positions[off] = 1
             continue
         if rec['type'] == 'mnem':
             off, sz = rec['offset'], rec['size']
@@ -588,7 +592,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'labels': label_count,
         'structs': struct_count,
         'status': 'OK',
-    }, emit_class
+    }, emit_class, label_positions
 
 
 def _build_source(records, start_offset, binary_data):
