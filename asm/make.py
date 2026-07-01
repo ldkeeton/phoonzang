@@ -32,16 +32,17 @@ APPS = os.path.join(PROJECT, 'apps')
 JOBS = os.cpu_count() or 4
 
 sys.path.insert(0, ASM)
-from main import discover_binaries, verify_all, clean_all, verify_game
+from main import discover_binaries, load_whitelist, verify_all, clean_all, verify_game
 from lib.report import STATS_DIR, BASELINE_DIR, clear_stats, clear_game_stats, list_game_dirs
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
 
 def _games():
+    whitelist = load_whitelist()
     for d in sorted(os.listdir(APPS)):
         p = os.path.join(APPS, d)
-        if os.path.isdir(p):
+        if os.path.isdir(p) and (whitelist is None or d in whitelist):
             yield d
 
 

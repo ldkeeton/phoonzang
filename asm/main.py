@@ -8,6 +8,7 @@ Scans ``apps/`` for game directories.  For each game:
   - Creates ``asm_<game>/build_out/``
 """
 
+import json
 import os
 import polars as pl
 import shutil
@@ -39,7 +40,6 @@ from lib.report import write_report, write_layers, print_compare
 def _load_known_funcs():
     if not os.path.exists(KNOWN_FUNCS_PATH):
         return {'signatures': []}
-    import json
     with open(KNOWN_FUNCS_PATH) as f:
         return json.load(f)
 
@@ -281,13 +281,25 @@ def process_game(game_name):
     build_binaries(out_dir, bins, build_out)
 
 
+def load_whitelist():
+    path = os.path.join(APPS_DIR, 'apps.json')
+    if not os.path.exists(path):
+        return None
+    with open(path) as f:
+        return json.load(f)
+
+
 def get_games():
     if not os.path.isdir(APPS_DIR):
         return []
-    return sorted([
+    all_dirs = sorted([
         d for d in os.listdir(APPS_DIR)
         if os.path.isdir(os.path.join(APPS_DIR, d))
     ])
+    whitelist = load_whitelist()
+    if whitelist is not None:
+        return [d for d in all_dirs if d in whitelist]
+    return all_dirs
 
 
 def byte_verify(name, orig_dir, rel_path, asm_dir, start_offset,
