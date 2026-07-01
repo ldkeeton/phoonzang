@@ -2237,206 +2237,34 @@ api_idx_0008:
     mov word [0x0e36], 0
     mov word [0x830a], 4
     ret
-    pop word [0x91b6]
-    pop cx
-    mov word [0x91b2], sp
-    mov word [0x91b4], bp
-    mov word [0x91ae], si
-    mov word [0x91b0], di
-    cld
-    mov di, 0x91b8
-    mov cx, 0x91ba
-    db 0x2b, 0xcf ; sub cx, di
-    shr cx, 1
-    je short 0x15ff
-    db 0x2b, 0xc0 ; sub ax, ax
-    rep stosw
-    call 0xe
-    mov bp, word [0x91b4]
-    mov sp, word [0x91b2]
-    mov si, word [0x91ae]
-    mov di, word [0x91b0]
-    push cx
-    jmp [0x91b6]
-    push bx
-    inc bx
-    inc bp
-    dec si
-    inc cx
-    push dx
-    dec cx
-    dec di
-    cs dec ax
-    inc sp
-    push dx
-    add byte [bp + 0x42], dl
-    inc si
-    dec di
-    dec si
-    push sp
-    xor byte [0x4756], ch
-    inc cx
-    add byte [bp + 0x42], dl
-    inc si
-    dec di
-    dec si
-    push sp
-    xor word [0x4756], bp
-    inc cx
-    add byte [bp + 0x42], dl
-    inc si
-    dec di
-    dec si
-    push sp
-    xor ch, byte [0x4756]
-    inc cx
-    add byte [bp + 0x42], dl
-    inc si
-    dec di
-    dec si
-    push sp
-    xor bp, word [0x4756]
-    inc cx
-    add byte [bp + 0x43], dl
-    inc si
-    dec di
-    dec si
-    push sp
-    xor word [0x4756], bp
-    inc cx
-    add byte [bp + 0x43], dl
-    push ax
-    dec di
-    push dx
-    push sp
-    xor byte [0x4756], ch
-    inc cx
-    add byte [bp + 0x43], dl
-    inc si
-    dec di
-    dec si
-    push sp
-    xor ch, byte [0x4756]
-    inc cx
-    add byte [bp + 0x43], dl
-    inc si
-    dec di
-    dec si
-    push sp
-    xor bp, word [0x4756]
-    inc cx
-    add byte [bp + 0x4d], dl
-    push ax
-    dec si
-    push sp
-    push dx
-    xor byte [0x4756], ch
-    inc cx
-    add byte [bp + 0x4d], dl
-    push ax
-    dec si
-    push sp
-    push dx
-    xor word [0x4756], bp
-    inc cx
-    add byte [bp + 0x4d], dl
-    push ax
-    dec si
-    push sp
-    push dx
-    xor ch, byte [0x4756]
-    inc cx
-    add byte [bp + si + 0x41], al
-    push bx
-    inc bp
-    inc sp
-    inc cx
-    push sp
-    inc cx
-    cs push si
-    inc di
-    inc cx
-    add byte [di + 0x41], cl
-    push bx
-    push sp
-    inc bp
-    push dx
-    cs dec ax
-    inc sp
-    push dx
-    add byte [si + 0x49], al
-    push bx
-    dec bx
-    cs dec ax
-    inc sp
-    push dx
-    add byte [di + 0x53], cl
-    inc di
-    cs dec ax
-    inc sp
-    push dx
-    add byte [bx + si + 0x43], dl
-    inc si
-    dec cx
-    dec sp
-    inc bp
-    cs inc sp
-    inc dx
-    push bx
-    add byte [di + 0x49], cl
-    push bx
-    inc bx
-    cs dec ax
-    inc sp
-    push dx
-    add byte [di + 0x53], cl
-    inc di
-    cs inc sp
-    inc dx
-    push bx
-    add byte [bp + di + 0x43], dl
-    inc bp
-    dec si
-    inc cx
-    push dx
-    dec cx
-    dec di
-    cs inc sp
-    inc dx
-    push bx
-    add byte [bx + si + 0x41], dl
-    dec sp
-    inc bp
-    push sp
-    push sp
-    inc bp
-    cs inc sp
-    inc bp
-    inc si
-    add byte [si + 0x49], dl
-    push sp
-    xor word [bp + di + 0x43], dx
-    push dx
-    dec si
-    cs push si
-    inc di
-    inc cx
-    add byte [si + 0x49], dl
-    push sp
-    xor dl, byte [bp + di + 0x43]
-    push dx
-    dec si
-    cs push si
-    inc di
-    inc cx
-    add byte [di + 0x41], cl
-    dec cx
-    dec si
-    push bx
-    inc bx
-    push dx
-    dec si
-    cs push si
-    inc di
-    inc cx
-    times 11 db 0
+
+    db 0x8f, 0x06, 0xb6, 0x91, 0x59, 0x89, 0x26, 0xb2, 0x91, 0x89, 0x2e, 0xb4, 0x91, 0x89, 0x36, 0xae
+    db 0x91, 0x89, 0x3e, 0xb0, 0x91, 0xfc, 0xbf, 0xb8, 0x91, 0xb9, 0xba, 0x91, 0x2b, 0xcf, 0xd1, 0xe9
+    db 0x74, 0x04, 0x2b, 0xc0, 0xf3, 0xab, 0xe8, 0x0c, 0xea, 0x8b, 0x2e, 0xb4, 0x91, 0x8b, 0x26, 0xb2
+    db 0x91, 0x8b, 0x36, 0xae, 0x91, 0x8b, 0x3e, 0xb0, 0x91, 0x51, 0xff, 0x26, 0xb6, 0x91
+    db 'SCENARIO.HDR', 0
+    db 'VBFONT0.VGA', 0
+    db 'VBFONT1.VGA', 0
+    db 'VBFONT2.VGA', 0
+    db 'VBFONT3.VGA', 0
+    db 'VCFONT1.VGA', 0
+    db 'VCPORT0.VGA', 0
+    db 'VCFONT2.VGA', 0
+    db 'VCFONT3.VGA', 0
+    db 'VMPNTR0.VGA', 0
+    db 'VMPNTR1.VGA', 0
+    db 'VMPNTR2.VGA', 0
+    db 'BASEDATA.VGA', 0
+    db 'MASTER.HDR', 0
+    db 'DISK.HDR', 0
+    db 'MSG.HDR', 0
+    db 'PCFILE.DBS', 0
+    db 'MISC.HDR', 0
+    db 'MSG.DBS', 0
+    db 'SCENARIO.DBS', 0
+    db 'PALETTE.DEF', 0
+    db 'TIT1SCRN.VGA', 0
+    db 'TIT2SCRN.VGA', 0
+    db 'MAINSCRN.VGA', 0
+    times 10 db 0
+

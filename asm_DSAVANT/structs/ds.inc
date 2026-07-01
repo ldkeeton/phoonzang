@@ -1,11 +1,31 @@
 ; ── auto-discovered structs ─────────────────────────────────────
 
-; @struct s_bx_0000 size=4 reg=bx disp=0x0000
+; @struct s_bx_0000 size=3 reg=bx disp=0x0000
 ; @field offset=0 size=2 name=f_00
-; @field offset=2 size=2 name=f_02
+; @field offset=2 size=1 name=f_02
 struc s_bx_0000
     .f_00: resb 2
-    .f_02: resb 2
+    .f_02: resb 1
+endstruc
+
+; @struct s_bx_0002 size=14 reg=bx disp=0x0002
+; @field offset=0 size=2 name=f_00
+; @field offset=2 size=1 name=f_02
+; @field offset=3 size=1 name=f_03
+; @field offset=4 size=1 name=f_04
+; @field offset=5 size=3 name=f_05
+; @field offset=8 size=2 name=f_08
+; @field offset=10 size=2 name=f_0a
+; @field offset=12 size=2 name=f_0c
+struc s_bx_0002
+    .f_00: resb 2
+    .gap_2: resb 1
+    .f_03: resb 1
+    .f_04: resb 1
+    .gap_5: resb 3
+    .f_08: resb 2
+    .f_0a: resb 2
+    .f_0c: resb 2
 endstruc
 
 ; @struct s_bx_521c size=4 reg=bx disp=0x521c

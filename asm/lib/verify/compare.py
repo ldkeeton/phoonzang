@@ -187,7 +187,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
     return records
 
 
-def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False):
+def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None):
     """Replace code-like data_block records with inline records;
     annotate jump tables and known file formats on the rest."""
     new_records = []
@@ -205,6 +205,14 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
         if len(raw) < 2:
             new_records.append(rec)
             continue
+
+        # If bitmap marks this whole block as DATA, skip code promotion
+        # (the pipeline arbiter already decided it's data).
+        if bitmap is not None:
+            block_bitmap = bitmap[start:end]
+            if all(b == 2 for b in block_bitmap):
+                new_records.append(rec)
+                continue
 
         insns, all_decoded, has_ctrl = _try_decode_block(raw, start)
         if insns and has_ctrl:
@@ -542,7 +550,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             'bytes': list(pending_data),
         })
 
-    records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes)
+    records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap)
 
     emit_class = bytearray(total)
     label_positions = bytearray(total)

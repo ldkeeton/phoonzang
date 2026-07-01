@@ -2,20 +2,19 @@ import polars as pl
 import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
-from lib.model import PhaseContext, CONF_CODE
-from lib.pipeline.phase import Phase
+from lib.model import PhaseContext, CONF_CODE, SeedInfo, TargetInfo
+from lib.pipeline.phase import Phase, PhaseContract
 from lib.x86util import disasm_one, is_indirect, get_imm_target
 
 
 class TrampolinePhase(Phase):
-    """Discover trampoline-dispatch stubs (call X; retf chains).
-
-    DOS drivers often have flat arrays of 4-byte trampolines.
-    Writes independent opinion: confidence scales with run density.
-    Stores discovered trampoline→target mappings in ctx.annotations.
-    """
-
-    requires_binary = True
+    contract = PhaseContract(
+        output_slot='trampoline',
+        reads_columns=['ALL'],  # undecided_mask checks EVERY column with col < -0.3
+        reads_ctx=['binary_data', 'seeds', 'code_targets'],
+        writes_ctx=['seeds', 'code_targets', 'annotations'],
+        requires_binary=True,
+    )
 
     def __init__(self, input_slot='', output_slot='trampoline'):
         self.input_slot = input_slot
@@ -27,7 +26,10 @@ class TrampolinePhase(Phase):
         for name in ctx.layers.columns:
             if name in ('raw_byte', 'seed', 'squashed', self.output_slot):
                 continue
-            opin |= (ctx.layers[name].to_numpy() != 0.0)
+            if name.startswith('squashed_iter_'):
+                continue
+            col = ctx.layers[name].to_numpy()
+            opin |= (col < -0.3)
         return ~opin
 
     def run(self, input_col, ctx):
@@ -39,10 +41,6 @@ class TrampolinePhase(Phase):
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
 
-        # Performance: trampoline tables live near the file start (drivers).
-        # Further optimization: pre-filter with raw byte checks before
-        # calling slow capstone disasm.  Near call is 0xE8 (3 bytes),
-        # far call is 0x9A (5 bytes).  A retf (0xCB) must follow.
         limit = min(n, 4096)
         candidates = []
         off = 0
@@ -51,11 +49,10 @@ class TrampolinePhase(Phase):
                 off += 1
                 continue
 
-            # Quick byte-level pre-filter
             if data[off] == 0xE8 and off + 3 < n and data[off + 3] == 0xCB:
-                pass  # plausible near-call trampoline
+                pass
             elif data[off] == 0x9A and off + 5 < n and data[off + 5] == 0xCB:
-                pass  # plausible far-call trampoline
+                pass
             else:
                 off += 1
                 continue
@@ -97,8 +94,15 @@ class TrampolinePhase(Phase):
                 conf = 1.0 if run_len >= 20 else (0.7 if run_len >= 10 else 0.5)
                 for i in range(r_start, r_end):
                     off, target = candidates[i]
-                    ctx.seeds.add(target)
-                    ctx.code_targets.add(target)
+                    ctx.seeds.append(SeedInfo(
+                        address=target, source_phase='trampoline',
+                        confidence=conf, reason='trampoline dispatch stub',
+                    ))
+                    if target not in ctx.code_targets:
+                        ctx.code_targets[target] = TargetInfo(
+                            address=target, reason='trampoline',
+                            confidence=conf, source_offset=off,
+                        )
                     ctx.annotations.append((off, target, 'trampoline'))
                     for j in range(off, min(off + 4, n)):
                         result[j] = conf

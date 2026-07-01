@@ -2,8 +2,8 @@ import polars as pl
 import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
-from lib.model import PhaseContext, CONF_CODE
-from lib.pipeline.phase import Phase
+from lib.model import PhaseContext, CONF_CODE, SeedInfo, TargetInfo
+from lib.pipeline.phase import Phase, PhaseContract
 
 
 _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
@@ -11,18 +11,16 @@ _CONF_FORCE_CODE = 0.8
 
 
 class ForceCodePhase(Phase):
-    """Independent opinion: force-code named function bodies.
-
-    Reads ``ctx.label_map`` to find named function offsets, backtracks
-    for function prologues, and marks the body as CODE=0.8.
-    Cross-checks prior DATA opinions: if 3+ prior columns strongly
-    believe a byte is DATA, skips that byte.
-    """
-
-    input_slot = 'settled'
-    output_slot = 'force_code'
-    requires_binary = True
-    requires_label_map = True
+    contract = PhaseContract(
+        input_slot='settled',
+        output_slot='force_code',
+        writes_columns=['force_code'],
+        reads_columns=['ALL'],  # counts strong-data votes via col < -0.8
+        reads_ctx=['binary_data', 'label_map', 'code_targets', 'seeds'],
+        writes_ctx=['code_targets', 'seeds'],
+        requires_binary=True,
+        requires_label_map=True,
+    )
 
     def run(self, input_col, ctx):
         data = ctx.binary_data
@@ -32,9 +30,9 @@ class ForceCodePhase(Phase):
         if not ctx.label_map:
             return pl.Series('force_code', result, dtype=pl.Float32)
 
-        # Build a consensus map: how many prior columns say DATA at each byte
         prior_names = [c for c in ctx.layers.columns
-                        if c not in ('raw_byte', 'seed', 'squashed', self.output_slot)]
+                        if c not in ('raw_byte', 'seed', 'squashed', self.output_slot)
+                        and not c.startswith('squashed_iter_')]
         strong_data_count = np.zeros(n, dtype=np.int32)
         for name in prior_names:
             col = ctx.layers[name].to_numpy()
@@ -50,7 +48,6 @@ class ForceCodePhase(Phase):
             if lbl == expected or lbl.endswith(f'_{expected}'):
                 continue
 
-            # Skip if 3+ prior phases strongly say DATA here
             if strong_data_count[off] >= 3:
                 continue
 
@@ -82,5 +79,15 @@ class ForceCodePhase(Phase):
             for i in range(func_start, min(end, n)):
                 if strong_data_count[i] < 3:
                     result[i] = _CONF_FORCE_CODE
+
+            if func_start not in ctx.code_targets:
+                ctx.code_targets[func_start] = TargetInfo(
+                    address=func_start, reason='force_code',
+                    confidence=_CONF_FORCE_CODE, source_offset=-1,
+                )
+            ctx.seeds.append(SeedInfo(
+                address=func_start, source_phase='force_code',
+                confidence=_CONF_FORCE_CODE, reason=f'known func: {lbl}',
+            ))
 
         return pl.Series('force_code', result, dtype=pl.Float32)

@@ -10,6 +10,36 @@ _COND_JUMP_MNEMS = {
     'jcxz', 'jecxz', 'loop', 'loope', 'loopne',
 }
 
+_DOS_TERMINATOR_VECTORS = {0x20}
+_DOS_EXIT_AH = {0x00, 0x4C, 0x31}
+
+_DOS_EXIT_PREFIXES = frozenset({
+    bytes((0xB4, ah)) for ah in _DOS_EXIT_AH
+} | {
+    bytes((0xB8, 0x00, ah)) for ah in _DOS_EXIT_AH
+} | {
+    bytes((0xB8, 0x01, ah)) for ah in _DOS_EXIT_AH
+})
+
+
+def is_dos_terminator(data, insn):
+    if insn.mnemonic != 'int':
+        return False
+    for op in insn.operands:
+        if op.type == CS_OP_IMM:
+            vec = op.imm & 0xFF
+            if vec in _DOS_TERMINATOR_VECTORS:
+                return True
+            if vec == 0x21 and insn.address >= 2:
+                prefix = bytes(data[insn.address - 2:insn.address])
+                if prefix in _DOS_EXIT_PREFIXES:
+                    return True
+                if insn.address >= 3:
+                    prefix3 = bytes(data[insn.address - 3:insn.address])
+                    if prefix3 in _DOS_EXIT_PREFIXES:
+                        return True
+    return False
+
 
 def is_cond_jump(mnem):
     if mnem in _COND_JUMP_MNEMS:

@@ -31,8 +31,29 @@ def baseline_report_path(game, binary):
     return os.path.join(BASELINE_DIR, game, f'{game}_{binary}.json')
 
 
-def baseline_layers_path(game, binary):
-    return os.path.join(BASELINE_DIR, game, f'{game}_{binary}.layers.parquet')
+def hex_dump_path(game, binary):
+    return os.path.join(STATS_DIR, game, f'{game}_{binary}.hex.txt')
+
+
+def write_hex_dump(ctx):
+    """Write a text hex dump of the binary to stats/game/binary.hex.txt.
+
+    Format: one line per 16 bytes:
+        OFFSET:  HH HH HH HH HH HH HH HH HH HH HH HH HH HH HH HH  ASCII
+    where OFFSET is the byte offset into the binary (matching disassembler
+    addresses).
+    """
+    path = hex_dump_path(ctx.report.get('game', 'unknown'), ctx.name)
+    data = ctx.binary_data
+    lines = []
+    for off in range(0, len(data), 16):
+        chunk = data[off:off+16]
+        hex_part = ' '.join(f'{b:02X}' for b in chunk)
+        ascii_part = ''.join(chr(b) if 32 <= b < 127 else '.' for b in chunk)
+        lines.append(f'{off:04X}: {hex_part:<47}  {ascii_part}')
+    with open(path, 'w') as f:
+        f.write('\n'.join(lines))
+    return path
 
 
 def clear_stats():
@@ -121,6 +142,7 @@ def write_report(ctx, asm_text=''):
     path = report_path(ctx.report.get('game', 'unknown'), ctx.name)
     with open(path, 'w') as f:
         json.dump(report, f, indent=2, default=str)
+    write_hex_dump(ctx)
     return path
 
 

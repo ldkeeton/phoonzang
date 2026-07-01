@@ -2,8 +2,8 @@ import polars as pl
 import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
-from lib.model import PhaseContext, CONF_CODE
-from lib.pipeline.phase import Phase
+from lib.model import PhaseContext, CONF_CODE, SeedInfo
+from lib.pipeline.phase import Phase, PhaseContract
 from lib.x86util import disasm_one
 
 
@@ -20,12 +20,6 @@ def _find_print_exit(data, off):
 
 
 def _find_handler_start(data, sig_offset, md):
-    """Backtrack from the print-exit signature to find handler entry.
-
-    Walks backward instruction-by-instruction looking for a ``mov ...``
-    or ``push ...`` that starts the handler.  Falls back to the
-    signature offset if no instruction boundary is found.
-    """
     end = sig_offset
     for _ in range(20):
         found = None
@@ -37,29 +31,26 @@ def _find_handler_start(data, sig_offset, md):
                 break
         if found is None:
             break
-        # Common handler-start patterns: push reg, mov reg, ..., xor reg, reg
         first_byte = data[found]
-        if first_byte in (0x50, 0x51, 0x52, 0x53,  # push ax..bx
-                          0x55,                    # push bp
-                          0x56, 0x57,              # push si, push di
-                          0x8c,                    # mov segreg, reg
-                          0x1e, 0x06, 0x0e, 0x16): # push seg
+        if first_byte in (0x50, 0x51, 0x52, 0x53,
+                          0x55,
+                          0x56, 0x57,
+                          0x8c,
+                          0x1e, 0x06, 0x0e, 0x16):
             return found
         end = found
     return sig_offset
 
 
 class ErrorHandlerPhase(Phase):
-    """Discover DOS error-handler blocks in undecided regions.
-
-    Finds ``mov ah, 9 / int 21h / mov ax, 4c01 / int 21h`` sequences,
-    backtracks for the handler prologue, writes CODE=0.9 as independent
-    opinion, and seeds entry points for recursive descent.
-    """
-
-    input_slot = 'trampoline'
-    output_slot = 'error_handler'
-    requires_binary = True
+    contract = PhaseContract(
+        input_slot='trampoline',
+        output_slot='error_handler',
+        reads_columns=['ALL'],  # undecided_mask checks EVERY column with col < -0.3
+        reads_ctx=['binary_data', 'seeds'],
+        writes_ctx=['seeds'],
+        requires_binary=True,
+    )
 
     def _undecided_mask(self, ctx):
         n = len(ctx.binary_data)
@@ -67,7 +58,10 @@ class ErrorHandlerPhase(Phase):
         for name in ctx.layers.columns:
             if name in ('raw_byte', 'seed', 'squashed', self.output_slot):
                 continue
-            opin |= (ctx.layers[name].to_numpy() != 0.0)
+            if name.startswith('squashed_iter_'):
+                continue
+            col = ctx.layers[name].to_numpy()
+            opin |= (col < -0.3)
         return ~opin
 
     def run(self, input_col, ctx):
@@ -91,7 +85,10 @@ class ErrorHandlerPhase(Phase):
             handler_start = _find_handler_start(data, off, md)
             for i in range(handler_start, end_after_exit):
                 result[i] = _CONF_ERROR_CODE
-            ctx.seeds.add(handler_start)
+            ctx.seeds.append(SeedInfo(
+                address=handler_start, source_phase='error_handler',
+                confidence=0.9, reason='DOS error handler',
+            ))
             off = end_after_exit
 
         return pl.Series('error_handler', result, dtype=pl.Float32)

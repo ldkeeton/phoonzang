@@ -1,22 +1,19 @@
 import polars as pl
 import numpy as np
 
-from lib.model import PhaseContext, CONF_CODE, CONF_DATA
-from lib.pipeline.phase import Phase
+from lib.model import PhaseContext, CONF_CODE, CONF_DATA, SeedInfo
+from lib.pipeline.phase import Phase, PhaseContract
 
 
 class SidecarPhase(Phase):
-    """Apply sidecar_entry overrides (force_data / force_code).
-
-    Writes independent opinion: CONF_CODE=0.6 for force_code ranges,
-    CONF_DATA=-1.0 for force_data ranges.  Adds force_code range starts
-    to ctx.seeds for recursive descent.  If no sidecar is configured,
-    outputs all zeros (nothing to contribute).
-    """
-
-    input_slot = 'seed'
-    output_slot = 'sidecar'
-    requires_binary = True
+    contract = PhaseContract(
+        input_slot='seed',
+        output_slot='sidecar',
+        writes_columns=['sidecar'],
+        reads_ctx=['sidecar_entry', 'seeds'],
+        writes_ctx=['seeds'],
+        requires_binary=True,
+    )
 
     def run(self, input_col, ctx):
         data = ctx.binary_data
@@ -42,7 +39,10 @@ class SidecarPhase(Phase):
             e = int(e_raw, 16) + 1
             s = max(0, s)
             e = min(n, e)
-            result[s:e] = 0.6  # CONF_CODE_SIDECAR — manual override, not CFG-proven
-            ctx.seeds.add(s)
+            result[s:e] = 0.6
+            ctx.seeds.append(SeedInfo(
+                address=s, source_phase='sidecar', confidence=0.6,
+                reason='manual override',
+            ))
 
         return pl.Series('sidecar', result, dtype=pl.Float32)

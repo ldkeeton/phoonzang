@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import Optional
+
 import polars as pl
 import numpy as np
 
@@ -12,23 +15,47 @@ CONF_DATA = -1.0
 ARBITER_THRESHOLD = 0.3
 
 
+@dataclass(order=True)
+class SeedInfo:
+    address: int
+    source_phase: str
+    confidence: float
+    reason: str = ''
+
+
+@dataclass
+class TargetInfo:
+    address: int
+    reason: str
+    confidence: float
+    source_offset: int = -1
+
+
+@dataclass
+class BasicBlock:
+    start: int
+    end: int
+    exit_type: str
+    exit_targets: list[int] = field(default_factory=list)
+    confidence: float = 0.0
+    provenance: str = ''
+
+
+@dataclass
+class JumpTableInfo:
+    table_addr: int
+    jmp_addr: int
+    targets: list[int] = field(default_factory=list)
+    max_index: Optional[int] = None
+    validated: bool = False
+    validation_ok: bool = False
+    table_end: int = 0
+
+
 class PhaseContext:
-    """Mutable context threaded through every phase in the pipeline.
-
-    *binary_data* is read-only.  *layers* is a Polars DataFrame where
-    each column is a named phase output (f32 confidence values).
-    The ``raw_byte`` column is always present.
-
-    Phases read their input slot via ``ctx.layers[input_slot]`` and
-    write their output via ``ctx.layers.with_columns(result.alias(name))``.
-
-    *seeds* is an accumulator for entry-point offsets discovered by
-    earlier phases (sidecar, trampoline, error-handler).  The
-    ``RecursiveDescentPhase`` reads it.
-    """
-
     def __init__(self, binary_data, start_offset=0, name='',
-                 sidecar_entry=None, detailed_timings=False):
+                 sidecar_entry=None, detailed_timings=False,
+                 trace=None):
         n = len(binary_data)
         self.binary_data = binary_data
         self.layers = pl.DataFrame({
@@ -38,13 +65,18 @@ class PhaseContext:
                               dtype=pl.Float32),
         })
         self.label_map = {}
-        self.code_targets = set()
+        self.code_targets: dict[int, TargetInfo] = {}
         self.annotations = []
         self.start_offset = start_offset
         self.name = name
-        self.seeds = set()
+        self.seeds: list[SeedInfo] = []
         self.sidecar_entry = sidecar_entry
         self.detailed_timings = detailed_timings
+        self.trace = trace
+        self.iteration: int | None = None
+        self.blocks: list[BasicBlock] = []
+        self.jump_tables: list[JumpTableInfo] = []
+        self.carve_strings_1: list[tuple[int, int]] = []
         self.report = {
             'binary': {'name': name, 'size': n, 'start_offset': start_offset},
             'phases': {},
@@ -55,15 +87,18 @@ class PhaseContext:
         }
 
     @property
-    def bitmap(self):
-        """Legacy property: returns squashed classification as bytearray.
+    def code_target_set(self):
+        return set(self.code_targets.keys())
 
-        Used by ``disassemble()`` and ``verify()`` which expect a
-        u8 array where 1=CODE, 2=DATA, 0=UNKNOWN.
-        """
+    @property
+    def bitmap(self):
         if 'squashed' not in self.layers.columns:
             return bytearray(len(self.binary_data))
         return bytearray(self.layers['squashed'].to_numpy())
 
     def add_layer(self, name, series):
         self.layers = self.layers.with_columns(series.alias(name))
+
+
+def is_iteration_column(name):
+    return name.startswith('squashed_iter_')

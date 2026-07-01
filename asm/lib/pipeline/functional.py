@@ -17,10 +17,12 @@ from lib.pipeline.phase import Phase
 _timings: list[tuple[str, float, int, int]] = []
 
 
-def run_functional(ctx: PhaseContext, phases: list[Phase]):
+def run_functional(ctx: PhaseContext, phases: list[Phase],
+                   iteration: int | None = None):
     """Run each phase in order.  Each phase adds one column to ctx.layers."""
     global _timings
     _timings = []
+    ctx.iteration = iteration
     for phase in phases:
         if phase.input_slot:
             input_col = ctx.layers[phase.input_slot]

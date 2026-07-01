@@ -25,11 +25,6 @@ def _build_phases():
 
 
 def classify(data, start_offset=0, entry_points=None):
-    """Run the functional classification pipeline; return old-style (bitmap, info).
-
-    This is a compatibility shim for code that hasn't been migrated yet
-    (e.g. ``inventory.py``, ``byte_verify`` fallback).
-    """
     ctx = PhaseContext(
         binary_data=data,
         start_offset=start_offset,
@@ -46,8 +41,8 @@ def classify(data, start_offset=0, entry_points=None):
     bitmap = ctx.bitmap
 
     info = {
-        'discovered': set(ctx.code_targets),
-        'call_targets': set(ctx.code_targets),
+        'discovered': set(ctx.code_targets.keys()),
+        'call_targets': set(ctx.code_targets.keys()),
         'jt_targets': set(),
     }
 

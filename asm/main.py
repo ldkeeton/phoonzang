@@ -22,6 +22,8 @@ PROJECT_ROOT = os.path.dirname(ASM_DIR)
 APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
 KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 
+from lib.trace import TraceWriter
+
 from lib.decode import disassemble
 from lib.verify.compare import verify, clear_assemble_cache
 from lib.struct_analysis import build_structs
@@ -29,33 +31,46 @@ from lib.match import match_patterns, match_trampolines, categorize_call_targets
 from lib.phases import (
     SeedPhase, SidecarPhase, CarvePhase,
     TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
-    PruneDeadPhase, PruneZeroPhase,
-    SettlePhase, ArbiterPhase, ForceCodePhase,
+    PruneDeadPhase, PruneDeadBeforePhase, PruneZeroPhase,
+    SettlePhase, ArbiterPhase, ForceCodePhase, PatternSeedPhase,
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
-from lib.pipeline import run_functional, report_timings
-from lib.report import write_report, write_layers, print_compare
+from lib.pipeline import run_functional, run_iterative, report_timings
+from lib.pipeline.definition import PipelineDef, Stage
+from lib.report import write_report, write_layers, print_short_report, print_compare
 
 
 def _load_known_funcs():
     if not os.path.exists(KNOWN_FUNCS_PATH):
         return {'signatures': []}
+    import json
     with open(KNOWN_FUNCS_PATH) as f:
         return json.load(f)
 
 
-def _build_classify_phases():
-    return [
+def _build_classify_phases(known_db=None):
+    phases = [
         SeedPhase(),
         SidecarPhase(),
-        CarvePhase(min_body=6, input_slot='sidecar', output_slot='carve_1'),
+    ]
+    if known_db and known_db.get('signatures'):
+        phases.append(PatternSeedPhase(
+            known_db=known_db,
+            input_slot='sidecar',
+            output_slot='pattern_seed',
+        ))
+    phases.extend([
+        CarvePhase(min_body=6, input_slot='pattern_seed' if known_db and known_db.get('signatures') else 'sidecar',
+                    output_slot='carve_1'),
         TrampolinePhase(input_slot='carve_1'),
         ErrorHandlerPhase(),
-        RecursiveDescentPhase(),
+        RecursiveDescentPhase(input_slot='error_handler', output_slot='recursive'),
         PruneDeadPhase(),
+        PruneDeadBeforePhase(),
         PruneZeroPhase(),
         CarvePhase(min_body=4, input_slot='prune_zero', output_slot='carve_2'),
-    ]
+    ])
+    return phases
 
 
 def _build_refine_phases(last_classify_slot):
@@ -87,7 +102,6 @@ def discover_binaries(directory):
 
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
-DETAILED_TIMINGS = '--detailed-timings' in sys.argv
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
     if a.startswith('--max-func-size='):
@@ -96,8 +110,11 @@ for a in sys.argv:
         except ValueError:
             pass
 
+_ITERATIVE = '--no-iterate' not in sys.argv
+_TRACE = '--trace' in sys.argv
 
-def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None, game_name=None, detailed_timings=False):
+
+def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None, game_name=None):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -109,45 +126,76 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
     t_total = time.perf_counter()
     clear_assemble_cache()
 
+    trace_writer = TraceWriter(game_name, name) if _TRACE else None
+
     ctx = PhaseContext(
         binary_data=data,
         start_offset=start_offset,
         name=name,
-        detailed_timings=detailed_timings,
+        trace=trace_writer,
     )
     if game_name:
         ctx.report['game'] = game_name
 
-    classify_phases = _build_classify_phases()
-    run_functional(ctx, classify_phases)
-    t_classify = time.perf_counter()
-    classify_timing = report_timings()
-
     known_db = _load_known_funcs()
     max_func_size = _MAX_FUNC_SIZE if _MAX_FUNC_SIZE is not None else 256
-    label_map = match_patterns(data, ctx.code_targets, known_db, max_func_size)
 
-    trampoline_map = match_trampolines(data, ctx.code_targets, known_db)
+    classify_phases = _build_classify_phases(known_db)
+    last_classify_slot = classify_phases[-1].output_slot
+    refine_phases = _build_refine_phases(last_classify_slot)
+
+    if '--pipeline-report' in sys.argv:
+        stages = [Stage('classify', phases=classify_phases, is_iterative=_ITERATIVE, max_iterations=3)]
+        if not _ITERATIVE:
+            stages.append(Stage('refine', phases=refine_phases))
+        pipeline = PipelineDef(name=name, stages=stages)
+        print(pipeline.print_report())
+
+    if _ITERATIVE:
+        all_iter_phases = classify_phases + [SettlePhase(input_slot=last_classify_slot, output_slot='settled')]
+        run_iterative(ctx, all_iter_phases, arbiter_phase=ArbiterPhase(), max_iter=3)
+    else:
+        run_functional(ctx, classify_phases)
+        run_functional(ctx, refine_phases)
+
+    label_map = match_patterns(data, ctx.code_target_set, known_db, max_func_size)
+
+    trampoline_map = match_trampolines(data, ctx.code_target_set, known_db)
     for off, lbl in trampoline_map.items():
         if off not in label_map:
             label_map[off] = lbl
 
-    label_map = categorize_call_targets(data, ctx.code_targets, label_map)
+    label_map = categorize_call_targets(data, ctx.code_target_set, label_map)
     for off in ctx.code_targets:
         if off not in label_map:
             label_map[off] = f'loc_{off:04x}'
 
     ctx.label_map = label_map
+
+    if _ITERATIVE:
+        last_slot = [c for c in ctx.layers.columns
+                      if c not in ('raw_byte', 'seed')
+                      and not c.startswith('squashed_iter_')][-1]
+        post_phases = [
+            SettlePhase(input_slot=last_slot, output_slot='settled'),
+            ForceCodePhase(),
+            ArbiterPhase(),
+        ]
+        run_functional(ctx, post_phases)
+
+    t_classify = time.perf_counter()
+    classify_timing = report_timings()
+
+    seed_addrs = {s.address for s in ctx.seeds}
+    total_ct = len(ctx.code_targets)
+    by_seed = len(seed_addrs & set(ctx.code_targets.keys()))
+    by_call = total_ct - by_seed
     ctx.report['code_targets'] = {
-        'total': len(ctx.code_targets),
-        'by_seed': len(ctx.seeds & ctx.code_targets),
-        'by_call': len(ctx.code_targets - ctx.seeds),
+        'total': total_ct,
+        'by_seed': by_seed,
+        'by_call': by_call,
     }
 
-    last_classify_slot = classify_phases[-1].output_slot
-    refine_phases = _build_refine_phases(last_classify_slot)
-    run_functional(ctx, refine_phases)
-    refine_timing = report_timings()
     t_classify_end = time.perf_counter()
 
     squashed = ctx.layers['squashed'].to_numpy()
@@ -171,7 +219,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
 
     asm_text, stats, emit_bytes, label_positions = verify(
         data, start_offset, instructions, name, ctx.label_map,
-        bitmap=ctx.bitmap, code_targets=ctx.code_targets,
+        bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
         exact_bytes=exact_bytes,
         structs=structs,
         asm_dir=out_dir,
@@ -184,27 +232,20 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
         f.write(asm_text)
     t_end = time.perf_counter()
 
-    jts = ctx.report.get('jump_tables', [])
-    jt_str = ''
-    if jts:
-        found = sum(1 for jt in jts if jt.get('targets_found', 0) >= 3)
-        total = sum(jt.get('targets_found', 0) for jt in jts)
-        jt_str = f'  jt_scans={len(jts)} jt_found={found} jt_targets={total}'
-
     print(f'{name}: {len(instructions)} insns -> {asm_path}  '
           f'mnem={stats["mnemonic"]} db={stats["data"]} '
           f'dbc={stats["with_comment"]} blocks={stats["data_blocks"]} '
           f'lbl={stats["labels"]}  structs={stats["structs"]}  '
-          f'code={code_bytes}({pct:.0f}%) data={data_bytes}'
-          f'{jt_str}  [{stats["status"]}]')
-    if detailed_timings:
-        print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
-              f'disasm: {t_disasm-t_classify_end:.1f}s  '
-              f'verify+emit: {t_end-t_disasm:.1f}s  total: {t_end-t_total:.1f}s')
-        print(f'  classify phases:')
-        print(classify_timing)
-        print(f'  refine phases:')
-        print(refine_timing)
+          f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
+          f'[{stats["status"]}]')
+    print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
+          f'disasm: {t_disasm-t_classify_end:.1f}s  '
+          f'verify+emit: {t_end-t_disasm:.1f}s  total: {t_end-t_total:.1f}s')
+    print(f'  classify phases:')
+    print(classify_timing)
+    if ctx.report.get('iterative'):
+        it = ctx.report['iterative']
+        print(f'  iterative: {it["iterations"]} iters, converged={it["converged"]}')
 
     ctx.report['verify'] = {
         'status': stats['status'],
@@ -216,6 +257,10 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
     }
     report_path = write_report(ctx, asm_text)
     write_layers(ctx)
+    print_short_report(ctx)
+
+    if trace_writer:
+        trace_writer.close()
 
     return ctx.bitmap
 
@@ -235,7 +280,6 @@ def copy_assets(orig_dir, output_dir, processed_names):
 
 
 def build_binaries(asm_dir, bins, out_dir):
-    """Assemble each .asm with NASM into *out_dir* using the original binary filename."""
     os.makedirs(out_dir, exist_ok=True)
     all_ok = True
     for name, (rel_path, _start_offset) in sorted(bins.items()):
@@ -270,8 +314,7 @@ def process_game(game_name):
         for name, (rel_path, start_offset) in sorted(bins.items()):
             process(name, game_dir, rel_path, start_offset,
                     exact_bytes=EXACT_BYTES, output_dir=out_dir,
-                    game_name=game_name,
-                    detailed_timings=DETAILED_TIMINGS)
+                    game_name=game_name)
 
     processed = set(bins.keys())
     copy_assets(game_dir, out_dir, processed)
@@ -292,14 +335,10 @@ def load_whitelist():
 def get_games():
     if not os.path.isdir(APPS_DIR):
         return []
-    all_dirs = sorted([
+    return sorted([
         d for d in os.listdir(APPS_DIR)
         if os.path.isdir(os.path.join(APPS_DIR, d))
     ])
-    whitelist = load_whitelist()
-    if whitelist is not None:
-        return [d for d in all_dirs if d in whitelist]
-    return all_dirs
 
 
 def byte_verify(name, orig_dir, rel_path, asm_dir, start_offset,
@@ -524,8 +563,7 @@ def main():
         rel_path, start_offset = bins[binary]
         process(binary, game_dir, rel_path, start_offset,
                 exact_bytes=EXACT_BYTES, output_dir=out_dir,
-                game_name=game,
-                detailed_timings=DETAILED_TIMINGS)
+                game_name=game)
         return
 
     target = args[0] if args else None

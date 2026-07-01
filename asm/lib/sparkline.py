@@ -10,7 +10,7 @@ import polars as pl
 from lib.model import IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.report import (
     STATS_DIR, BASELINE_DIR,
-    layers_path, baseline_layers_path, list_game_dirs,
+    layers_path, list_game_dirs,
     images_dir, images_csv_dir,
     layers_images_dir, layers_images_csv_dir,
 )
@@ -25,7 +25,7 @@ PHASE_COLS = [
     'settled', 'force_code', 'squashed',
 ]
 METRICS = ['code_pct', 'data_pct', 'unknown_pct',
-           'label_density', 'data_block_density', 'code_loss_density']
+           'label_density', 'data_block_density', 'instruction_loss']
 OF_FILE_METRICS = ('code_pct_of_file', 'data_pct_of_file', 'unknown_pct_of_file')
 OF_FILE_MAP = {'code_pct': 'code_pct_of_file',
                'data_pct': 'data_pct_of_file',
@@ -39,7 +39,7 @@ METRIC_LABELS = {
     'unknown_pct_of_file': 'Unknown % (of file)',
     'label_density': 'Label density',
     'data_block_density': 'Data block density',
-    'code_loss_density': 'Code loss density',
+    'instruction_loss': 'Instructions lost to data (vs baseline)',
 }
 PHASE_COLORS = [
     '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd',
@@ -113,7 +113,7 @@ def _bucket_metrics_for_column(col, n, label_col=None):
             result['data_block_density'][d] = count / n_ds
             result['_data_block_count'][d] = count
 
-    # code_loss_density: placeholder (computed as gain in generate_scope)
+    # instruction_loss: placeholder (computed in generate_scope from baseline diff)
     # stays at zero here; overwritten later when both current and baseline are known
 
     # Zero out anything that's 0/0
@@ -308,7 +308,7 @@ WARN_THRESHOLDS = {
     'unknown_pct_of_file': 0.05,
     'label_density': 0.15,
     'data_block_density': 0.15,
-    'code_loss_density': 0.15,
+    'instruction_loss': 0.15,
 }
 
 _WARN_METRICS = METRICS + list(OF_FILE_METRICS)
@@ -552,7 +552,7 @@ def generate_scope(scope, binaries, byte_sources=None):
     baseline_metrics = None
     base_vals = []
     for game, binary, _ in binaries:
-        bm = _load_binary(game, binary, baseline_layers_path)
+        bm = _load_binary(game, binary, layers_path)
         if bm is not None:
             base_vals.append(bm)
     if base_vals:
@@ -560,16 +560,34 @@ def generate_scope(scope, binaries, byte_sources=None):
 
     has_base = baseline_metrics is not None
 
-    # code_loss_density: gain in data block count over baseline
-    cur_dbc = current_metrics.get('_data_block_count')
-    base_dbc = baseline_metrics.get('_data_block_count') if has_base else None
-    if cur_dbc is not None:
-        if base_dbc is not None:
-            gain = np.maximum(0, cur_dbc - base_dbc)
-            total_gain = max(gain.sum(), 1)
-            current_metrics['code_loss_density'] = gain / total_gain
-        else:
-            current_metrics['code_loss_density'] = np.zeros(N_BUCKETS, dtype=float)
+    # instruction_loss: bytes flipped from CODE in baseline to DATA in current
+    cur_ins_loss = np.zeros(N_BUCKETS, dtype=float)
+    total_ins_lost = 0
+    if has_base:
+        for game, binary, _ in binaries:
+            bp = layers_path(game, binary)
+            if not os.path.exists(bp):
+                continue
+            try:
+                base_df = pl.read_parquet(bp)
+                base_col = base_df['squashed'].to_numpy().astype(np.int8)
+            except Exception:
+                continue
+            try:
+                cur_df = pl.read_parquet(layers_path(game, binary))
+                cur_col = cur_df['squashed'].to_numpy().astype(np.int8)
+            except Exception:
+                continue
+            n = len(base_col)
+            edges = _bucket_boundaries(n)
+            for d in range(N_BUCKETS):
+                start = edges[d]
+                end = min(edges[d + 1], n)
+                mask = (base_col[start:end] == IS_CODE) & (cur_col[start:end] == IS_DATA)
+                cur_ins_loss[d] += mask.sum()
+            total_ins_lost += ((base_col == IS_CODE) & (cur_col == IS_DATA)).sum()
+    total_div = max(total_ins_lost, 1)
+    current_metrics['instruction_loss'] = cur_ins_loss / total_div
 
     # Warnings
     _check_and_print_warnings(scope, current_metrics, baseline_metrics)
@@ -584,7 +602,7 @@ def generate_scope(scope, binaries, byte_sources=None):
         col_name = 'emit' if 'emit' in df.columns else 'squashed'
         col = df[col_name].to_numpy().astype(np.int8)
         base_col = None
-        bp = baseline_layers_path(g, b)
+        bp = layers_path(g, b)
         if os.path.exists(bp):
             try:
                 bdf = pl.read_parquet(bp)
@@ -669,7 +687,7 @@ def generate_layers_scope(scope, binaries):
     # Baseline
     baseline_avg = {}
     for game, binary, _ in binaries:
-        bp = _load_all_phases(game, binary, baseline_layers_path)
+        bp = _load_all_phases(game, binary, layers_path)
         if bp is not None:
             for phase in PHASE_COLS:
                 if phase in bp:
