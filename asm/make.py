@@ -3,15 +3,20 @@
 
 Usage (from asm/):
   make                     show help
-  make DSAVANT             asm + nasm + assets for one game
   make all                 all games serially
+  make build GAME          asm + nasm + assets for one game
   make check GAME          build + dosemu smoke test (3s timeout)
   make run GAME            build + dosbox
   make run-dosemu GAME     build + dosemu
   make verify [GAME...]    verify one or all games
   make clean [GAME...]     clean one or all games
   make rebuild GAME BIN    nasm-only rebuild of one binary
-  EXACT_FLAG=--exact-bytes make GAME   strict byte-accurate mode
+
+Env:
+  EXTRA_FLAGS              space-separated flags forwarded to main.py:
+                             --exact-bytes     strict byte-accurate mode
+                             --detailed-timings full-precision phase timings
+  EXACT_FLAG (deprecated)  same as EXTRA_FLAGS=--exact-bytes
 """
 
 import os
@@ -47,8 +52,12 @@ def _run(*args):
 def _extra_flags():
     """Return list of extra CLI flags to forward to main.py based on env."""
     flags = []
-    val = os.environ.get('EXACT_FLAG', '')
-    if val == '--exact-bytes':
+    val = os.environ.get('EXTRA_FLAGS', '')
+    if val:
+        flags.extend(val.split())
+    # backward compat: EXACT_FLAG
+    old = os.environ.get('EXACT_FLAG', '')
+    if old == '--exact-bytes' and '--exact-bytes' not in flags:
         flags.append('--exact-bytes')
     return flags
 
@@ -232,28 +241,31 @@ def cmd_rebuild(game, binary):
 HELP = '''Usage: make [command] [game...]
 
 Commands (space-separated):
-  make DSAVANT              asm + nasm + assets for one game
   make all                  all games serially
+  make build GAME           asm + nasm + assets for one game
   make check GAME           build + dosemu smoke test (3s timeout)
   make run GAME             build + dosbox
   make run-dosemu GAME      build + dosemu
   make verify [GAME...]     verify one or all games
   make clean [GAME...]      clean one or all games
   make rebuild GAME BIN     nasm-only rebuild of one binary
-  make baseline-set         pin current stats as baseline (git-committable)
+  make set-baseline         pin current stats as baseline (git-committable)
   make charts               regenerate all PNGs + CSVs from existing stats
 
 Env:
-  EXACT_FLAG=--exact-bytes  strict byte-accurate asm mode
+  EXTRA_FLAGS               space-separated flags forwarded to main.py:
+                              --exact-bytes       strict byte-accurate mode
+                              --detailed-timings  full-precision phase timings
+  EXACT_FLAG (deprecated)   same as EXTRA_FLAGS=--exact-bytes
 '''
 
 
-def cmd_baseline_set():
-    shutil.copytree(STATS_DIR, BASELINE_DIR, dirs_exist_ok=True)
+def cmd_set_baseline():
     count = 0
-    for root, dirs, files in os.walk(BASELINE_DIR):
+    for root, dirs, files in os.walk(STATS_DIR):
         count += sum(1 for f in files if f.endswith('.json'))
-    print(f'Baseline set: {count} binaries in {BASELINE_DIR}')
+    print(f'Found {count} binaries in stats')
+    shutil.copytree(STATS_DIR, BASELINE_DIR, dirs_exist_ok=True)
     _charts_all()
 
 
@@ -336,8 +348,8 @@ def main():
         cmd_charts()
         return
 
-    if '--baseline-set' in flags:
-        cmd_baseline_set()
+    if '--set-baseline' in flags:
+        cmd_set_baseline()
         return
 
     if '--rebuild' in flags:
@@ -351,8 +363,18 @@ def main():
         cmd_rebuild(game, binary)
         return
 
-    # No command flag — treat args as game name(s)
-    targets = args or all_games
+    if '--build' in flags:
+        targets = args or all_games
+        _build_games(targets, all_games)
+        return
+
+    # No known flag — error
+    print(f'Unknown command: {" ".join(args)}')
+    print(HELP)
+    sys.exit(1)
+
+
+def _build_games(targets, all_games):
     for game in targets:
         if game not in all_games:
             print(f'Unknown game: {game}')

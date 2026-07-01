@@ -28,7 +28,7 @@ class PhaseContext:
     """
 
     def __init__(self, binary_data, start_offset=0, name='',
-                 sidecar_entry=None):
+                 sidecar_entry=None, detailed_timings=False):
         n = len(binary_data)
         self.binary_data = binary_data
         self.layers = pl.DataFrame({
@@ -44,6 +44,7 @@ class PhaseContext:
         self.name = name
         self.seeds = set()
         self.sidecar_entry = sidecar_entry
+        self.detailed_timings = detailed_timings
         self.report = {
             'binary': {'name': name, 'size': n, 'start_offset': start_offset},
             'phases': {},

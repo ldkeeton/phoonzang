@@ -42,8 +42,9 @@ def run_functional(ctx: PhaseContext, phases: list[Phase]):
         pos = int((arr > 0.3).sum())
         neg = int((arr < -0.3).sum())
         _timings.append((phase.output_slot, dt, nz, pos))
+        precision = 3 if ctx.detailed_timings else 1
         ctx.report['phases'][phase.output_slot] = {
-            'time_s': round(dt, 3),
+            'time_s': round(dt, precision),
             'nz': nz,
             'pos': pos,
             'neg': neg,

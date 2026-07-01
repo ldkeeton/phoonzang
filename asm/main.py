@@ -33,7 +33,7 @@ from lib.phases import (
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.pipeline import run_functional, report_timings
-from lib.report import write_report, write_layers, print_short_report, print_compare
+from lib.report import write_report, write_layers, print_compare
 
 
 def _load_known_funcs():
@@ -87,6 +87,7 @@ def discover_binaries(directory):
 
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
+DETAILED_TIMINGS = '--detailed-timings' in sys.argv
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
     if a.startswith('--max-func-size='):
@@ -96,7 +97,7 @@ for a in sys.argv:
             pass
 
 
-def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None, game_name=None):
+def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None, game_name=None, detailed_timings=False):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -112,6 +113,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
         binary_data=data,
         start_offset=start_offset,
         name=name,
+        detailed_timings=detailed_timings,
     )
     if game_name:
         ctx.report['game'] = game_name
@@ -182,19 +184,27 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
         f.write(asm_text)
     t_end = time.perf_counter()
 
+    jts = ctx.report.get('jump_tables', [])
+    jt_str = ''
+    if jts:
+        found = sum(1 for jt in jts if jt.get('targets_found', 0) >= 3)
+        total = sum(jt.get('targets_found', 0) for jt in jts)
+        jt_str = f'  jt_scans={len(jts)} jt_found={found} jt_targets={total}'
+
     print(f'{name}: {len(instructions)} insns -> {asm_path}  '
           f'mnem={stats["mnemonic"]} db={stats["data"]} '
           f'dbc={stats["with_comment"]} blocks={stats["data_blocks"]} '
           f'lbl={stats["labels"]}  structs={stats["structs"]}  '
-          f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
-          f'[{stats["status"]}]')
-    print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
-          f'disasm: {t_disasm-t_classify_end:.1f}s  '
-          f'verify+emit: {t_end-t_disasm:.1f}s  total: {t_end-t_total:.1f}s')
-    print(f'  classify phases:')
-    print(classify_timing)
-    print(f'  refine phases:')
-    print(refine_timing)
+          f'code={code_bytes}({pct:.0f}%) data={data_bytes}'
+          f'{jt_str}  [{stats["status"]}]')
+    if detailed_timings:
+        print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
+              f'disasm: {t_disasm-t_classify_end:.1f}s  '
+              f'verify+emit: {t_end-t_disasm:.1f}s  total: {t_end-t_total:.1f}s')
+        print(f'  classify phases:')
+        print(classify_timing)
+        print(f'  refine phases:')
+        print(refine_timing)
 
     ctx.report['verify'] = {
         'status': stats['status'],
@@ -206,7 +216,6 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
     }
     report_path = write_report(ctx, asm_text)
     write_layers(ctx)
-    print_short_report(ctx)
 
     return ctx.bitmap
 
@@ -261,7 +270,8 @@ def process_game(game_name):
         for name, (rel_path, start_offset) in sorted(bins.items()):
             process(name, game_dir, rel_path, start_offset,
                     exact_bytes=EXACT_BYTES, output_dir=out_dir,
-                    game_name=game_name)
+                    game_name=game_name,
+                    detailed_timings=DETAILED_TIMINGS)
 
     processed = set(bins.keys())
     copy_assets(game_dir, out_dir, processed)
@@ -502,7 +512,8 @@ def main():
         rel_path, start_offset = bins[binary]
         process(binary, game_dir, rel_path, start_offset,
                 exact_bytes=EXACT_BYTES, output_dir=out_dir,
-                game_name=game)
+                game_name=game,
+                detailed_timings=DETAILED_TIMINGS)
         return
 
     target = args[0] if args else None
