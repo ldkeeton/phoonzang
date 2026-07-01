@@ -5,9 +5,8 @@ Usage (from asm/):
   make                     show help
   make all                 all games serially
   make build GAME          asm + nasm + assets for one game
-  make check GAME          build + dosemu smoke test (3s timeout)
-  make run GAME            build + dosbox
-  make run-dosemu GAME     build + dosemu
+  make check GAME          smoke-test game (5s timeout, requires build first)
+  make run GAME            run game in dosbox
   make verify [GAME...]    verify one or all games
   make clean [GAME...]     clean one or all games
   make rebuild GAME BIN    nasm-only rebuild of one binary
@@ -169,7 +168,6 @@ def cmd_verify(games):
 
 
 def cmd_check(game):
-    asm_game(game)
     game_dir = os.path.join(APPS, game)
     out_dir = os.path.join(PROJECT, f'asm_{game}')
     bins = discover_binaries(game_dir)
@@ -183,26 +181,25 @@ def cmd_check(game):
         print(f'{game}: {rel} not built')
         sys.exit(1)
 
-    print(f'Smoke test: launching {rel} via dosemu (3s timeout)...')
+    build_dir = os.path.join(out_dir, 'build_out')
+    print(f'Smoke test: launching {rel} via dosbox (5s timeout)...')
     rc = subprocess.run(
-        ['timeout', '3', 'dosemu', '-K', os.path.join(out_dir, 'build_out'),
-         '-E', rel, '-S', '-q'],
+        ['timeout', '5', 'dosbox', '-c', f'mount c {build_dir}',
+         '-c', 'c:', '-c', rel],
         capture_output=True, text=True,
     ).returncode
 
     if rc == 124:
-        print(f'{game}: PASS (game loaded, killed after 3s)')
+        print(f'{game}: PASS (game loaded, killed after 5s)')
     elif rc == 0:
         print(f'{game}: FAIL (game exited silently)')
         sys.exit(1)
     else:
-        stderr = rc.stderr if hasattr(rc, 'stderr') else ''
-        print(f'{game}: FAIL (dosemu error {rc})')
+        print(f'{game}: FAIL (dosbox error {rc})')
         sys.exit(1)
 
 
-def cmd_run(game, dosemu=False):
-    asm_game(game)
+def cmd_run(game):
     game_dir = os.path.join(APPS, game)
     out_dir = os.path.join(PROJECT, f'asm_{game}')
     bins = discover_binaries(game_dir)
@@ -216,12 +213,8 @@ def cmd_run(game, dosemu=False):
         print(f'{game}: {rel} not built')
         sys.exit(1)
 
-    if dosemu:
-        subprocess.run(['dosemu', '-K', os.path.join(out_dir, 'build_out'),
-                        '-E', rel, '-S', '-q'])
-    else:
-        subprocess.run(['dosbox', '-c', f'mount c {os.path.join(out_dir, "build_out")}',
-                        '-c', 'c:', '-c', rel])
+    subprocess.run(['dosbox', '-c', f'mount c {os.path.join(out_dir, "build_out")}',
+                    '-c', 'c:', '-c', rel])
 
 
 def cmd_rebuild(game, binary):
@@ -244,9 +237,8 @@ HELP = '''Usage: make [command] [game...]
 Commands (space-separated):
   make all                  all games serially
   make build GAME           asm + nasm + assets for one game
-  make check GAME           build + dosemu smoke test (3s timeout)
-  make run GAME             build + dosbox
-  make run-dosemu GAME      build + dosemu
+  make check GAME           smoke-test game (5s timeout, requires build first)
+  make run GAME             run game in dosbox
   make verify [GAME...]     verify one or all games
   make clean [GAME...]      clean one or all games
   make rebuild GAME BIN     nasm-only rebuild of one binary
@@ -331,18 +323,7 @@ def main():
             if g not in all_games:
                 print(f'Unknown game: {g}')
                 sys.exit(1)
-            cmd_run(g, dosemu=False)
-        return
-
-    if '--run-dosemu' in flags:
-        if not args:
-            print('Usage: make run-dosemu GAME')
-            sys.exit(1)
-        for g in args:
-            if g not in all_games:
-                print(f'Unknown game: {g}')
-                sys.exit(1)
-            cmd_run(g, dosemu=True)
+            cmd_run(g)
         return
 
     if '--charts' in flags:
