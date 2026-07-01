@@ -18,6 +18,7 @@ from lib.report import (
 N_BUCKETS = 20
 BUCKET_PCTS = [(i + 1) * 5 for i in range(N_BUCKETS)]  # 5, 10, ..., 100
 CODE_FRAGMENT_MAX = 12
+BYTE_MAP_W = 600
 PHASE_COLS = [
     'seed', 'sidecar', 'carve_1', 'trampoline', 'error_handler',
     'recursive', 'prune_dead', 'prune_zero', 'carve_2',
@@ -235,6 +236,46 @@ def _write_flat_csv(path, scope, current_metrics, baseline_metrics):
             w.writerow(row)
 
 
+def _write_byte_csv(path, col, base_col, n):
+    """Write per-chunk byte-map data so charts render from CSV, not parquet."""
+    n_chunks = min(BYTE_MAP_W, n)
+    chunk_size = max(n // n_chunks, 1)
+    n_chunks = n // chunk_size
+    has_base = base_col is not None
+
+    with open(path, 'w', newline='') as f:
+        w = csv.writer(f)
+        if has_base:
+            w.writerow(['chunk', 'base_code_wt', 'base_unknown',
+                        'curr_code_wt', 'curr_unknown', 'diff_frac'])
+        else:
+            w.writerow(['chunk', 'curr_code_wt', 'curr_unknown'])
+
+        for i in range(n_chunks):
+            s = i * chunk_size
+            e = min(s + chunk_size, n)
+            cc = col[s:e]
+            n_code = (cc == 1).sum()
+            n_data = (cc == 2).sum()
+            n_unknown = (e - s) - n_code - n_data
+            curr_unk = 1 if n_unknown > 0 else 0
+            total = n_code + n_data
+            curr_wt = n_code / total if total > 0 else 0.0
+
+            if has_base:
+                bc = base_col[s:e]
+                n_code = (bc == 1).sum()
+                n_data = (bc == 2).sum()
+                n_unknown = (e - s) - n_code - n_data
+                base_unk = 1 if n_unknown > 0 else 0
+                total = n_code + n_data
+                base_wt = n_code / total if total > 0 else 0.0
+                diff = (cc != bc).sum() / max(e - s, 1)
+                w.writerow([i, base_wt, base_unk, curr_wt, curr_unk, diff])
+            else:
+                w.writerow([i, curr_wt, curr_unk])
+
+
 def _write_long_csv(path, scope, current_all_phases, baseline_all_phases):
     """Write a long-format CSV for per-phase data.
 
@@ -377,6 +418,94 @@ def _plot_layers_subplot(ax, all_phases, baseline_all_phases, metric):
     ax.set_xticklabels([f'{BUCKET_PCTS[i]}%' for i in range(1, N_BUCKETS, step)], fontsize=7)
 
 
+def _render_byte_map(ax, byte_csv_path):
+    """6-row byte map from companion CSV, not from parquet directly.
+
+    Row 0 (half-height pink-on-red):  baseline colors where same, pink where diff.
+    Row 1-2 (double-height red):      baseline code fraction (dark→light = code→data).
+    Row 3-4 (double-height blue):     current code fraction.
+    Row 5 (half-height pink-on-blue): current colors where same, pink where diff.
+    """
+    with open(byte_csv_path, 'r') as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+    n_chunks = len(rows)
+    has_base = 'base_code_wt' in rows[0] if rows else False
+
+    if has_base:
+        base_code_wt = np.array([float(r['base_code_wt']) for r in rows])
+        base_unknown = np.array([int(r['base_unknown']) for r in rows], dtype=bool)
+        curr_code_wt = np.array([float(r['curr_code_wt']) for r in rows])
+        curr_unknown = np.array([int(r['curr_unknown']) for r in rows], dtype=bool)
+        diff_frac = np.array([float(r['diff_frac']) for r in rows])
+    else:
+        curr_code_wt = np.array([float(r['curr_code_wt']) for r in rows])
+        curr_unknown = np.array([int(r['curr_unknown']) for r in rows], dtype=bool)
+
+    DARK_RED = [0.65, 0.15, 0.15]
+    LIGHT_RED = [0.95, 0.55, 0.55]
+    DARK_BLUE = [0.15, 0.35, 0.70]
+    LIGHT_BLUE = [0.55, 0.75, 0.95]
+    GRAY = [0.9, 0.9, 0.9]
+    PINK = [1.0, 0.41, 0.71]
+
+    def _chunk_rgb(code_wt, unknown, dark, light):
+        rgb = np.empty((n_chunks, 3), dtype=float)
+        for i in range(n_chunks):
+            if unknown[i]:
+                rgb[i] = GRAY
+            else:
+                w = code_wt[i]
+                for k in range(3):
+                    rgb[i, k] = w * dark[k] + (1 - w) * light[k]
+        return rgb
+
+    curr_rgb = _chunk_rgb(curr_code_wt, curr_unknown, DARK_BLUE, LIGHT_BLUE)
+
+    stack = []
+    if has_base:
+        base_rgb = _chunk_rgb(base_code_wt, base_unknown, DARK_RED, LIGHT_RED)
+        SCALE = 8.0
+        pi = np.minimum(diff_frac * SCALE, 1.0)
+
+        top_hl = base_rgb.copy()
+        for k in range(3):
+            top_hl[:, k] = (1 - pi) * top_hl[:, k] + pi * PINK[k]
+        stack.append(top_hl)
+        stack.append(base_rgb)
+        stack.append(base_rgb)
+        stack.append(curr_rgb)
+        stack.append(curr_rgb)
+        bot_hl = curr_rgb.copy()
+        for k in range(3):
+            bot_hl[:, k] = (1 - pi) * bot_hl[:, k] + pi * PINK[k]
+        stack.append(bot_hl)
+    else:
+        stack.append(curr_rgb)
+
+    img = np.stack(stack, axis=0)
+    ax.imshow(img, aspect='auto', interpolation='nearest')
+
+    if has_base:
+        ax.text(-0.025, 0.75, 'CODE', fontsize=5, va='center', ha='right', color='#650f0f',
+                transform=ax.transAxes)
+        ax.text(-0.025, 0.58, 'DATA', fontsize=5, va='center', ha='right', color='#f28c8c',
+                transform=ax.transAxes)
+        ax.text(-0.025, 0.42, 'CODE', fontsize=5, va='center', ha='right', color='#0f3f7f',
+                transform=ax.transAxes)
+        ax.text(-0.025, 0.25, 'DATA', fontsize=5, va='center', ha='right', color='#8cbff2',
+                transform=ax.transAxes)
+    else:
+        ax.text(-0.025, 0.25, 'CODE', fontsize=5, va='center', ha='right', color='#0f3f7f',
+                transform=ax.transAxes)
+        ax.text(-0.025, 0.12, 'DATA', fontsize=5, va='center', ha='right', color='#8cbff2',
+                transform=ax.transAxes)
+
+    ax.set_yticks([])
+    ax.set_xticks([])
+    ax.set_xlim(-0.55, n_chunks - 0.5)
+
+
 def _legend_outside(fig, ax_list):
     """Place legend below the last subplot."""
     handles, labels = ax_list[0].get_legend_handles_labels()
@@ -386,10 +515,43 @@ def _legend_outside(fig, ax_list):
                    bbox_to_anchor=(0.5, -0.02))
 
 
-def generate_scope(scope, binaries):
+def _load_flat_csv(path):
+    """Read back {scope}.png.csv into (current_metrics, baseline_metrics) dicts."""
+    with open(path, 'r') as f:
+        reader = csv.DictReader(f)
+        rows = list(reader)
+    if not rows:
+        return None, None
+    csv_metrics = METRICS + list(OF_FILE_METRICS)
+    current_metrics = {}
+    baseline_metrics = {}
+    has_any_base = False
+    for m in csv_metrics:
+        current_metrics[m] = np.zeros(N_BUCKETS, dtype=float)
+        baseline_metrics[m] = np.zeros(N_BUCKETS, dtype=float)
+    for row in rows:
+        pct = int(row['bucket'])
+        d = pct // 5 - 1
+        if d < 0 or d >= N_BUCKETS:
+            continue
+        for m in csv_metrics:
+            v = row.get(m, '')
+            if v != '':
+                current_metrics[m][d] = float(v)
+            bv = row.get(f'{m}_baseline', '')
+            if bv != '':
+                baseline_metrics[m][d] = float(bv)
+                has_any_base = True
+    if not has_any_base:
+        baseline_metrics = None
+    return current_metrics, baseline_metrics
+
+
+def generate_scope(scope, binaries, byte_sources=None):
     """Generate images/{scope}.png + images/csv/{scope}.png.csv.
 
     binaries: list of (game, binary, {metric: [N_BUCKETS]}) tuples for current
+    byte_sources: optional list of (game, binary) to render a byte-map row
     """
     if not binaries:
         return
@@ -421,9 +583,33 @@ def generate_scope(scope, binaries):
     # Warnings
     _check_and_print_warnings(scope, current_metrics, baseline_metrics)
 
-    # CSV
+    # ── CSV-first: write all data to CSVs before rendering ──
     csv_path = os.path.join(images_csv_dir(), f'{scope}.png.csv')
+
+    byte_csv_path = None
+    if byte_sources is not None and len(byte_sources) > 0:
+        g, b = byte_sources[0]
+        df = pl.read_parquet(layers_path(g, b))
+        col_name = 'emit' if 'emit' in df.columns else 'squashed'
+        col = df[col_name].to_numpy().astype(np.int8)
+        base_col = None
+        bp = baseline_layers_path(g, b)
+        if os.path.exists(bp):
+            try:
+                bdf = pl.read_parquet(bp)
+                bcn = 'emit' if 'emit' in bdf.columns else 'squashed'
+                base_col = bdf[bcn].to_numpy().astype(np.int8)
+            except Exception:
+                pass
+        byte_csv_path = os.path.join(images_csv_dir(), f'{scope}.png.bytes.csv')
+        _write_byte_csv(byte_csv_path, col, base_col, len(df))
+
+    # Write bucket CSV
     _write_flat_csv(csv_path, scope, current_metrics, baseline_metrics)
+
+    # Reload from CSV so all charts read the same canonical data
+    current_metrics, baseline_metrics = _load_flat_csv(csv_path)
+    has_base = baseline_metrics is not None
 
     # PNG
     plt = _ensure_matplotlib()
@@ -431,10 +617,24 @@ def generate_scope(scope, binaries):
         return
 
     n_metrics = len(METRICS)
-    cols = 2
-    rows = (n_metrics + cols - 1) // cols
-    fig, axes = plt.subplots(rows, cols, figsize=(cols * 4, rows * 2.5))
-    axes = axes.flatten()
+    has_byte = byte_csv_path is not None
+
+    if has_byte:
+        from matplotlib.gridspec import GridSpec
+        fig = plt.figure(figsize=(8, 9.5))
+        gs = GridSpec(3, 2, figure=fig)
+        axes = [fig.add_subplot(gs[i // 2, i % 2]) for i in range(6)]
+        fig.tight_layout(rect=[0, 0.10, 1, 1])
+        ax_byte = fig.add_axes([0.125, 0.04, 0.775, 0.035])
+        _render_byte_map(ax_byte, byte_csv_path)
+        axes.append(ax_byte)
+    else:
+        cols = 2
+        rows = (n_metrics + cols - 1) // cols
+        fig, axes = plt.subplots(rows, cols, figsize=(cols * 4, rows * 2.5))
+        axes = axes.flatten()
+        fig.tight_layout()
+
     fig.suptitle(scope, fontsize=12, y=1.01)
 
     for i, metric in enumerate(METRICS):
@@ -448,12 +648,12 @@ def generate_scope(scope, binaries):
         if i == 0:
             ax.legend(fontsize=6, loc='upper right')
 
-    for i in range(n_metrics, len(axes)):
-        axes[i].set_visible(False)
+    if not has_byte:
+        for i in range(n_metrics, len(axes)):
+            axes[i].set_visible(False)
 
-    plt.tight_layout()
     out = os.path.join(images_dir(), f'{scope}.png')
-    plt.savefig(out, dpi=150, bbox_inches='tight')
+    plt.savefig(out, dpi=150, bbox_inches='tight', pad_inches=0)
     plt.close(fig)
 
 
@@ -536,7 +736,8 @@ def charts(game):
             continue
         scope = f'{g}_{binary}'
         binaries = [(g, binary, cm)]
-        generate_scope(scope, binaries)
+        byte_sources = [(g, binary)]
+        generate_scope(scope, binaries, byte_sources=byte_sources)
 
         la = _load_all_phases(g, binary, layers_path)
         if la is not None:
