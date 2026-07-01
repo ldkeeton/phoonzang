@@ -1,5 +1,5 @@
 PY := python3
-CMD := check clean run verify rebuild run-dosemu baseline-set charts help all
+CMD := check clean run verify rebuild run-dosemu baseline-set charts concat-code help all
 
 help:
 	@$(PY) make.py --help
@@ -12,6 +12,9 @@ charts:
 
 baseline-set:
 	@$(PY) make.py --baseline-set
+
+concat-code:
+	@bash concat-code.sh
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
 check clean run verify rebuild run-dosemu:
