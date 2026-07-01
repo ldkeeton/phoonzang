@@ -41,6 +41,13 @@ def clear_stats():
     os.makedirs(STATS_DIR)
 
 
+def clear_game_stats(game):
+    p = os.path.join(STATS_DIR, game)
+    if os.path.exists(p):
+        shutil.rmtree(p)
+    os.makedirs(p, exist_ok=True)
+
+
 def list_game_dirs():
     dirs = []
     if not os.path.isdir(STATS_DIR):

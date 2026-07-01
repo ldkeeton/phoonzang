@@ -353,40 +353,31 @@ def _ensure_matplotlib():
         return None
 
 
-def _plot_image_subplot(ax, cur, base, has_base, metric, cur_of=None, base_of=None):
-    """One subplot for images/.
-
-    Baseline = solid red, current = dashed blue.
-    Of-file variants rendered as very light (alpha=0.2) lines, no legend entry.
-    """
-    from matplotlib.ticker import PercentFormatter
+def _plot_sparkline(ax, cur, base, has_base, metric, cur_of=None, base_of=None):
+    """One sparkline — minimal decorations, just the line shape."""
     x = list(range(N_BUCKETS))
     label = METRIC_LABELS.get(metric, metric)
     def _y(v):
-        """Render value at 99.9 if it's ≥100 so the line stays visible at the top edge."""
         p = v * 100
         return 99.9 if p >= 100 else p
-    # Baseline (solid red)
     if has_base:
-        ax.plot(x, [_y(v) for v in base], 'r-', linewidth=1.5,
+        ax.plot(x, [_y(v) for v in base], 'r-', linewidth=0.8,
                 label='baseline')
-    # Current (dashed blue)
-    ax.plot(x, [_y(v) for v in cur], 'b--', linewidth=1.5,
+    ax.plot(x, [_y(v) for v in cur], 'b--', linewidth=0.8,
             label='current')
-    # Baseline of-file (solid very light red, no legend)
     if base_of is not None and has_base:
-        ax.plot(x, [_y(v) for v in base_of], 'r-', linewidth=1.5, alpha=0.2)
-    # Current of-file (dashed very light blue, no legend)
+        ax.plot(x, [_y(v) for v in base_of], 'r-', linewidth=0.5, alpha=0.12)
     if cur_of is not None:
-        ax.plot(x, [_y(v) for v in cur_of], 'b--', linewidth=1.5, alpha=0.2)
-    ax.set_ylabel(label, fontsize=8)
-    ax.yaxis.set_major_formatter(PercentFormatter(xmax=100))
+        ax.plot(x, [_y(v) for v in cur_of], 'b--', linewidth=0.5, alpha=0.12)
+    ax.text(-0.03, 0.5, label, fontsize=5, va='center', ha='right',
+            transform=ax.transAxes, color='#666666')
     ax.set_ylim(0, 100)
-    ax.tick_params(axis='both', labelsize=7)
     ax.set_xlim(0, N_BUCKETS - 1)
-    step = 2
-    ax.set_xticks(range(1, N_BUCKETS, step))
-    ax.set_xticklabels([f'{BUCKET_PCTS[i]}%' for i in range(1, N_BUCKETS, step)], fontsize=7)
+    ax.set_yticks([])
+    ax.set_xticks([])
+    for spine in ax.spines.values():
+        spine.set_color('#cccccc')
+        spine.set_linewidth(0.3)
 
 
 def _plot_layers_subplot(ax, all_phases, baseline_all_phases, metric):
@@ -487,18 +478,18 @@ def _render_byte_map(ax, byte_csv_path):
     ax.imshow(img, aspect='auto', interpolation='nearest')
 
     if has_base:
-        ax.text(-0.025, 0.75, 'CODE', fontsize=5, va='center', ha='right', color='#650f0f',
+        ax.text(-0.03, 0.75, 'CODE', fontsize=3.5, va='center', ha='right', color='#650f0f',
                 transform=ax.transAxes)
-        ax.text(-0.025, 0.58, 'DATA', fontsize=5, va='center', ha='right', color='#f28c8c',
+        ax.text(-0.03, 0.58, 'DATA', fontsize=3.5, va='center', ha='right', color='#f28c8c',
                 transform=ax.transAxes)
-        ax.text(-0.025, 0.42, 'CODE', fontsize=5, va='center', ha='right', color='#0f3f7f',
+        ax.text(-0.03, 0.42, 'CODE', fontsize=3.5, va='center', ha='right', color='#0f3f7f',
                 transform=ax.transAxes)
-        ax.text(-0.025, 0.25, 'DATA', fontsize=5, va='center', ha='right', color='#8cbff2',
+        ax.text(-0.03, 0.25, 'DATA', fontsize=3.5, va='center', ha='right', color='#8cbff2',
                 transform=ax.transAxes)
     else:
-        ax.text(-0.025, 0.25, 'CODE', fontsize=5, va='center', ha='right', color='#0f3f7f',
+        ax.text(-0.03, 0.25, 'CODE', fontsize=3.5, va='center', ha='right', color='#0f3f7f',
                 transform=ax.transAxes)
-        ax.text(-0.025, 0.12, 'DATA', fontsize=5, va='center', ha='right', color='#8cbff2',
+        ax.text(-0.03, 0.12, 'DATA', fontsize=3.5, va='center', ha='right', color='#8cbff2',
                 transform=ax.transAxes)
 
     ax.set_yticks([])
@@ -619,23 +610,22 @@ def generate_scope(scope, binaries, byte_sources=None):
     n_metrics = len(METRICS)
     has_byte = byte_csv_path is not None
 
-    if has_byte:
-        from matplotlib.gridspec import GridSpec
-        fig = plt.figure(figsize=(8, 9.5))
-        gs = GridSpec(3, 2, figure=fig)
-        axes = [fig.add_subplot(gs[i // 2, i % 2]) for i in range(6)]
-        fig.tight_layout(rect=[0, 0.10, 1, 1])
-        ax_byte = fig.add_axes([0.125, 0.04, 0.775, 0.035])
-        _render_byte_map(ax_byte, byte_csv_path)
-        axes.append(ax_byte)
-    else:
-        cols = 2
-        rows = (n_metrics + cols - 1) // cols
-        fig, axes = plt.subplots(rows, cols, figsize=(cols * 4, rows * 2.5))
-        axes = axes.flatten()
-        fig.tight_layout()
+    # Single-column vertical sparkline list
+    SPARK_W = 3.5
+    SPARK_H = 0.50
+    n_rows = n_metrics + (1 if has_byte else 0)
+    fig, axes = plt.subplots(n_rows, 1, figsize=(SPARK_W, 0.3 + n_rows * SPARK_H))
+    if n_rows == 1:
+        axes = [axes]
 
-    fig.suptitle(scope, fontsize=12, y=1.01)
+    if '_' in scope:
+        app, bin = scope.split('_', 1)
+        fig.text(0.02, 0.96, app, fontsize=6, ha='left', va='center',
+                 color='#555555', style='italic')
+        fig.text(0.5, 0.96, f'{bin}.exe', fontsize=7, ha='center', va='center', color='#555555')
+    else:
+        fig.text(0.5, 0.96, scope, fontsize=7, ha='center', va='center', color='#555555')
+    fig.text(0.5, 0.89, 'File Position', fontsize=5, ha='center', color='#888888')
 
     for i, metric in enumerate(METRICS):
         ax = axes[i]
@@ -644,16 +634,17 @@ def generate_scope(scope, binaries, byte_sources=None):
         of_metric = OF_FILE_MAP.get(metric)
         cur_of = current_metrics.get(of_metric) if of_metric else None
         base_of = baseline_metrics.get(of_metric) if of_metric and has_base else None
-        _plot_image_subplot(ax, cur, base, has_base, metric, cur_of, base_of)
+        _plot_sparkline(ax, cur, base, has_base, metric, cur_of, base_of)
         if i == 0:
-            ax.legend(fontsize=6, loc='upper right')
+            ax.legend(fontsize=3.5, loc='upper right', handlelength=1.5,
+                      handletextpad=0.3)
 
-    if not has_byte:
-        for i in range(n_metrics, len(axes)):
-            axes[i].set_visible(False)
+    if has_byte:
+        _render_byte_map(axes[-1], byte_csv_path)
 
+    plt.subplots_adjust(hspace=0.25)
     out = os.path.join(images_dir(), f'{scope}.png')
-    plt.savefig(out, dpi=150, bbox_inches='tight', pad_inches=0)
+    plt.savefig(out, dpi=150, bbox_inches='tight', pad_inches=0.08)
     plt.close(fig)
 
 

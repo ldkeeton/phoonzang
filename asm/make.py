@@ -28,7 +28,7 @@ JOBS = os.cpu_count() or 4
 
 sys.path.insert(0, ASM)
 from main import discover_binaries, verify_all, clean_all, verify_game
-from lib.report import STATS_DIR, BASELINE_DIR, clear_stats, list_game_dirs
+from lib.report import STATS_DIR, BASELINE_DIR, clear_stats, clear_game_stats, list_game_dirs
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -93,7 +93,7 @@ def _main_exe(out_dir, bins):
 # ── public commands ─────────────────────────────────────────────────────────
 
 def asm_game(game):
-    clear_stats()
+    clear_game_stats(game)
     game_dir = os.path.join(APPS, game)
     out_dir = os.path.join(PROJECT, f'asm_{game}')
     os.makedirs(out_dir, exist_ok=True)
