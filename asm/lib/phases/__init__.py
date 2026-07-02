@@ -9,3 +9,4 @@ from lib.phases.settle import SettlePhase
 from lib.phases.arbiter import ArbiterPhase
 from lib.phases.forcecode import ForceCodePhase
 from lib.phases.pattern_seed import PatternSeedPhase
+from lib.phases.borland_overlay import BorlandOverlayPhase

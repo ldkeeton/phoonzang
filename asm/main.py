@@ -33,6 +33,7 @@ from lib.phases import (
     TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
     PruneDeadPhase, PruneDeadBeforePhase, PruneZeroPhase,
     SettlePhase, ArbiterPhase, ForceCodePhase, PatternSeedPhase,
+    BorlandOverlayPhase,
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.pipeline import run_functional, run_iterative, report_timings
@@ -52,6 +53,7 @@ def _build_classify_phases(known_db=None):
     phases = [
         SeedPhase(),
         SidecarPhase(),
+        BorlandOverlayPhase(),
     ]
     if known_db and known_db.get('signatures'):
         phases.append(PatternSeedPhase(

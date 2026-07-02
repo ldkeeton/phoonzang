@@ -80,14 +80,34 @@ struc s_bx_5c34
     .f_07: resb 1
 endstruc
 
-; @struct s_bx_5d5c size=4 reg=bx disp=0x5d5c
+; @struct s_bx_5d5c size=13 reg=bx disp=0x5d5c
 ; @field offset=0 size=1 name=f_00
 ; @field offset=1 size=1 name=f_01
 ; @field offset=2 size=1 name=f_02
 ; @field offset=3 size=1 name=f_03
+; @field offset=4 size=7 name=f_04
+; @field offset=11 size=2 name=f_0b
 struc s_bx_5d5c
     .f_00: resb 1
     .f_01: resb 1
     .gap_2: resb 1
     .f_03: resb 1
+    .gap_4: resb 7
+    .f_0b: resb 2
+endstruc
+
+; @struct s_bx_84ec size=2 reg=bx disp=0x84ec
+; @field offset=0 size=1 name=f_00
+; @field offset=1 size=1 name=f_01
+struc s_bx_84ec
+    .f_00: resb 1
+    .f_01: resb 1
+endstruc
+
+; @struct s_bx_9346 size=4 reg=bx disp=0x9346
+; @field offset=0 size=2 name=f_00
+; @field offset=2 size=2 name=f_02
+struc s_bx_9346
+    .f_00: resb 2
+    .f_02: resb 2
 endstruc
