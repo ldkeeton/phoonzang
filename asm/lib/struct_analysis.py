@@ -4,7 +4,7 @@ Scans capstone instructions for ``[reg + offset]`` memory access patterns,
 clusters adjacent offsets to infer struct field layouts, and emits both
 NASM ``struc`` directives and a machine-readable ``.types.json`` for Ghidra.
 
-No game-specific knowledge — everything is derived from the code itself.
+No project-specific knowledge — everything is derived from the code itself.
 """
 
 import json

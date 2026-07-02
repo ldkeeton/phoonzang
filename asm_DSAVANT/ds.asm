@@ -1870,7 +1870,7 @@ loc_23ef:
     push ax
     lea ax, word [bp - 0x00a0]
     push ax
-    call loc_4b50
+    call dos_mem_alloc
     add sp, byte 4
     mov word [bp - 0x00a2], ax
     cmp word [bp + 0x6], byte 0
@@ -1946,7 +1946,7 @@ loc_23ef:
     call math_loc_23a8
     add sp, byte 4
     push ax
-    call loc_4b50
+    call dos_mem_alloc
     add sp, byte 4
     mov word [0x0e24], ax
     cmp ax, strict word 0xffff
@@ -1967,7 +1967,7 @@ loc_23ef:
     call math_loc_23a8
     add sp, byte 4
     push ax
-    call loc_4b50
+    call dos_mem_alloc
     add sp, byte 4
     mov word [0x0e22], ax
     cmp ax, strict word 0xffff
@@ -3781,7 +3781,7 @@ loc_4386:
     push ax
     lea ax, word [bp - 0x0052]
     push ax
-    call loc_4b50
+    call dos_mem_alloc
     add sp, byte 4
     mov word [bp - 0x0002], ax
     cmp ax, strict word 0xffff
@@ -4459,12 +4459,12 @@ string_loc_4b07:
     mov ax, 0x301
     push ax
     push word [bp + 0x4]
-    call loc_4b50
+    call dos_mem_alloc
     add sp, byte 6
     db 0x8b, 0xe5 ; mov sp, bp
     pop bp
     ret
-loc_4b50:
+dos_mem_alloc:
     push bp
     mov bp, sp
     push di

@@ -3,13 +3,13 @@
 
 Usage (from asm/):
   make                     show help
-  make all                 all games serially
-  make build GAME          asm + nasm + assets for one game
-  make check GAME          smoke-test game (5s timeout, requires build first)
-  make run GAME            run game in dosbox
-  make verify [GAME...]    verify one or all games
-  make clean [GAME...]     clean one or all games
-  make rebuild GAME BIN    nasm-only rebuild of one binary
+  make all                 all projects serially
+  make build PROJECT       asm + nasm + assets for one project
+  make check PROJECT       smoke-test game (5s timeout, requires build first)
+  make run PROJECT         run game in dosbox
+  make verify [PROJECT...] verify one or all projects
+  make clean [PROJECT...]  clean one or all projects
+  make rebuild PROJECT BIN nasm-only rebuild of one binary
 
 Env:
   EXTRA_FLAGS              space-separated flags forwarded to main.py:
@@ -31,13 +31,13 @@ APPS = os.path.join(PROJECT, 'apps')
 JOBS = os.cpu_count() or 4
 
 sys.path.insert(0, ASM)
-from main import discover_binaries, load_whitelist, verify_all, clean_all, verify_game
-from lib.report import STATS_DIR, BASELINE_DIR, clear_stats, clear_game_stats, list_game_dirs
+from main import discover_binaries, load_whitelist, verify_all, clean_all, verify_project
+from lib.report import STATS_DIR, BASELINE_DIR, clear_stats, clear_project_stats, list_project_dirs
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
 
-def _games():
+def _apps():
     whitelist = load_whitelist()
     for d in sorted(os.listdir(APPS)):
         p = os.path.join(APPS, d)
@@ -62,8 +62,8 @@ def _extra_flags():
     return flags
 
 
-def _asm_one(game, binary):
-    cmd = [sys.executable, os.path.join(ASM, 'main.py'), game, binary]
+def _asm_one(app, binary):
+    cmd = [sys.executable, os.path.join(ASM, 'main.py'), app, binary]
     cmd[3:3] = _extra_flags()
     r = _run(*cmd)
     for line in r.stdout.strip().split('\n'):
@@ -88,7 +88,7 @@ def _nasm_build(out_dir, name, rel_path):
 
 
 def _main_exe(out_dir, bins):
-    """Return (binary_name, rel_path) of the main executable for a game."""
+    """Return (binary_name, rel_path) of the main executable for a project."""
     for name in sorted(bins):
         rel_path = bins[name][0]
         if rel_path.upper().endswith('.EXE'):
@@ -101,21 +101,21 @@ def _main_exe(out_dir, bins):
 
 # ── public commands ─────────────────────────────────────────────────────────
 
-def asm_game(game):
-    clear_game_stats(game)
-    game_dir = os.path.join(APPS, game)
-    out_dir = os.path.join(PROJECT, f'asm_{game}')
+def asm_app(app):
+    clear_project_stats(app)
+    app_dir = os.path.join(APPS, app)
+    out_dir = os.path.join(PROJECT, f'asm_{app}')
     os.makedirs(out_dir, exist_ok=True)
 
-    bins = discover_binaries(game_dir)
+    bins = discover_binaries(app_dir)
     if not bins:
-        print(f'{game}: no binaries found')
+        print(f'{app}: no binaries found')
         return
 
-    print(f'\n=== {game} ({len(bins)} binaries) ===')
+    print(f'\n=== {app} ({len(bins)} binaries) ===')
 
     with ThreadPoolExecutor(max_workers=JOBS) as ex:
-        futures = {ex.submit(_asm_one, game, name): name
+        futures = {ex.submit(_asm_one, app, name): name
                    for name in sorted(bins)}
         for f in as_completed(futures):
             if f.result() != 0:
@@ -123,8 +123,8 @@ def asm_game(game):
 
     build_out = os.path.join(out_dir, 'build_out')
     os.makedirs(build_out, exist_ok=True)
-    for entry in os.listdir(game_dir):
-        src = os.path.join(game_dir, entry)
+    for entry in os.listdir(app_dir):
+        src = os.path.join(app_dir, entry)
         dst = os.path.join(build_out, entry)
         if os.path.isfile(src):
             shutil.copy2(src, dst)
@@ -138,47 +138,47 @@ def asm_game(game):
             if f.result() != 0:
                 print(f'  BUILD FAIL: {futures[f]}')
 
-    _charts(game)
+    _charts(app)
 
 
-def cmd_clean(games):
-    if not games:
+def cmd_clean(apps):
+    if not apps:
         clean_all()
         return
-    for game in games:
-        out = os.path.join(PROJECT, f'asm_{game}')
+    for app in apps:
+        out = os.path.join(PROJECT, f'asm_{app}')
         if os.path.isdir(out):
             shutil.rmtree(out)
             print(f'Removed {out}')
         else:
-            print(f'Nothing to clean for {game}')
+            print(f'Nothing to clean for {app}')
 
 
-def cmd_verify(games):
-    if not games:
+def cmd_verify(apps):
+    if not apps:
         verify_all()
         return
-    for game in games:
-        ok, fail = verify_game(game)
-        print(f'{game}: {ok}/{ok + len(fail)} passed')
+    for app in apps:
+        ok, fail = verify_project(app)
+        print(f'{app}: {ok}/{ok + len(fail)} passed')
         for f in fail:
             print(f'  FAIL: {f}')
         if fail:
             sys.exit(1)
 
 
-def cmd_check(game):
-    game_dir = os.path.join(APPS, game)
-    out_dir = os.path.join(PROJECT, f'asm_{game}')
-    bins = discover_binaries(game_dir)
+def cmd_check(app):
+    app_dir = os.path.join(APPS, app)
+    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    bins = discover_binaries(app_dir)
     name, rel = _main_exe(out_dir, bins)
     if name is None:
-        print(f'{game}: no binaries found')
+        print(f'{app}: no binaries found')
         sys.exit(1)
 
     bin_path = os.path.join(out_dir, 'build_out', rel)
     if not os.path.exists(bin_path):
-        print(f'{game}: {rel} not built')
+        print(f'{app}: {rel} not built')
         sys.exit(1)
 
     build_dir = os.path.join(out_dir, 'build_out')
@@ -190,58 +190,58 @@ def cmd_check(game):
     ).returncode
 
     if rc == 124:
-        print(f'{game}: PASS (game loaded, killed after 5s)')
+        print(f'{app}: PASS (game loaded, killed after 5s)')
     elif rc == 0:
-        print(f'{game}: FAIL (game exited silently)')
+        print(f'{app}: FAIL (game exited silently)')
         sys.exit(1)
     else:
-        print(f'{game}: FAIL (dosbox error {rc})')
+        print(f'{app}: FAIL (dosbox error {rc})')
         sys.exit(1)
 
 
-def cmd_run(game):
-    game_dir = os.path.join(APPS, game)
-    out_dir = os.path.join(PROJECT, f'asm_{game}')
-    bins = discover_binaries(game_dir)
+def cmd_run(app):
+    app_dir = os.path.join(APPS, app)
+    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    bins = discover_binaries(app_dir)
     name, rel = _main_exe(out_dir, bins)
     if name is None:
-        print(f'{game}: no binaries found')
+        print(f'{app}: no binaries found')
         sys.exit(1)
 
     bin_path = os.path.join(out_dir, 'build_out', rel)
     if not os.path.exists(bin_path):
-        print(f'{game}: {rel} not built')
+        print(f'{app}: {rel} not built')
         sys.exit(1)
 
     subprocess.run(['dosbox', '-c', f'mount c {os.path.join(out_dir, "build_out")}',
                     '-c', 'c:', '-c', rel])
 
 
-def cmd_rebuild(game, binary):
-    game_dir = os.path.join(APPS, game)
-    out_dir = os.path.join(PROJECT, f'asm_{game}')
-    bins = discover_binaries(game_dir)
+def cmd_rebuild(app, binary):
+    app_dir = os.path.join(APPS, app)
+    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    bins = discover_binaries(app_dir)
     if binary not in bins:
-        print(f'Unknown binary "{binary}" in {game}')
+        print(f'Unknown binary "{binary}" in {app}')
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
     rel_path = bins[binary][0]
     r = _nasm_build(out_dir, binary, rel_path)
     if r != 0:
         sys.exit(1)
-    print(f'rebuild {game}/{binary} -> {rel_path}  [OK]')
+    print(f'rebuild {app}/{binary} -> {rel_path}  [OK]')
 
 
-HELP = '''Usage: make [command] [game...]
+HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
-  make all                  all games serially
-  make build GAME           asm + nasm + assets for one game
-  make check GAME           smoke-test game (5s timeout, requires build first)
-  make run GAME             run game in dosbox
-  make verify [GAME...]     verify one or all games
-  make clean [GAME...]      clean one or all games
-  make rebuild GAME BIN     nasm-only rebuild of one binary
+  make all                  all projects serially
+  make build PROJECT        asm + nasm + assets for one project
+  make check PROJECT        smoke-test game (5s timeout, requires build first)
+  make run PROJECT          run game in dosbox
+  make verify [PROJECT...]  verify one or all projects
+  make clean [PROJECT...]   clean one or all projects
+  make rebuild PROJECT BIN  nasm-only rebuild of one binary
   make set-baseline         pin current stats as baseline (git-committable)
   make charts               regenerate all PNGs + CSVs from existing stats
 
@@ -262,10 +262,10 @@ def cmd_set_baseline():
     _charts_all()
 
 
-def _charts(game):
+def _charts(app):
     try:
         from lib.sparkline import charts
-        charts(game)
+        charts(app)
     except Exception as e:
         print(f'  charts: {e}')
 
@@ -279,10 +279,10 @@ def _charts_all():
 
 
 def cmd_charts():
-    games = list_game_dirs()
-    for g in games:
-        print(f'Charts: {g}')
-        _charts(g)
+    projects = list_project_dirs()
+    for p in projects:
+        print(f'Charts: {p}')
+        _charts(p)
     _charts_all()
     print('Done')
 
@@ -290,7 +290,7 @@ def cmd_charts():
 def main():
     flags = [a for a in sys.argv[1:] if a.startswith('--')]
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
-    all_games = list(_games())
+    all_projects = list(_apps())
 
     if '--help' in flags:
         print(HELP)
@@ -306,22 +306,22 @@ def main():
 
     if '--check' in flags:
         if not args:
-            print('Usage: make check GAME')
+            print('Usage: make check PROJECT')
             sys.exit(1)
         for g in args:
-            if g not in all_games:
-                print(f'Unknown game: {g}')
+            if g not in all_projects:
+                print(f'Unknown project: {g}')
                 sys.exit(1)
             cmd_check(g)
         return
 
     if '--run' in flags:
         if not args:
-            print('Usage: make run GAME')
+            print('Usage: make run PROJECT')
             sys.exit(1)
         for g in args:
-            if g not in all_games:
-                print(f'Unknown game: {g}')
+            if g not in all_projects:
+                print(f'Unknown project: {g}')
                 sys.exit(1)
             cmd_run(g)
         return
@@ -336,18 +336,18 @@ def main():
 
     if '--rebuild' in flags:
         if len(args) < 2:
-            print('Usage: make rebuild GAME BINARY')
+            print('Usage: make rebuild PROJECT BINARY')
             sys.exit(1)
-        game, binary = args[0], args[1]
-        if game not in all_games:
-            print(f'Unknown game: {game}')
+        project, binary = args[0], args[1]
+        if project not in all_projects:
+            print(f'Unknown project: {project}')
             sys.exit(1)
-        cmd_rebuild(game, binary)
+        cmd_rebuild(project, binary)
         return
 
     if '--build' in flags:
-        targets = args or all_games
-        _build_games(targets, all_games)
+        targets = args or all_projects
+        _build_projects(targets, all_projects)
         return
 
     # No known flag — error
@@ -356,14 +356,14 @@ def main():
     sys.exit(1)
 
 
-def _build_games(targets, all_games):
-    for game in targets:
-        if game not in all_games:
-            print(f'Unknown game: {game}')
-            print(f'Known: {", ".join(all_games)}')
+def _build_projects(targets, all_projects):
+    for project in targets:
+        if project not in all_projects:
+            print(f'Unknown project: {project}')
+            print(f'Known: {", ".join(all_projects)}')
             sys.exit(1)
-        asm_game(game)
-    if len(targets) > 1 or targets == all_games:
+        asm_app(project)
+    if len(targets) > 1 or targets == all_projects:
         _charts_all()
 
 

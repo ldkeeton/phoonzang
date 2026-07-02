@@ -13,7 +13,7 @@ Produces two kinds of graphs:
 
 Usage (from asm/):
   python3 -m flow.generate                                  # both
-  python3 -m flow.generate DSAVANT                          # trace for one game
+  python3 -m flow.generate DSAVANT                          # trace for one project
   python3 -m flow.generate DSAVANT ds                       # trace for one binary
   python3 -m flow.generate --arch                           # architecture only
   python3 -m flow.generate --trace                          # trace only
@@ -41,18 +41,18 @@ def process_arch():
     print(f'  architecture diagram in {out_dir}')
 
 
-def process_trace(game, binary_name):
+def process_trace(project, binary_name):
     """Generate pipeline trace flow from JSONL."""
-    jsonl_path = base.find_detailed_jsonl(game, binary_name)
+    jsonl_path = base.find_detailed_jsonl(project, binary_name)
     if not jsonl_path:
-        print(f'  [trace] no JSONL trace for {game}/{binary_name} (run main.py --trace)')
+        print(f'  [trace] no JSONL trace for {project}/{binary_name} (run main.py --trace)')
         return
 
     out_dir = os.path.join(BUILD_OUT, 'trace')
     os.makedirs(out_dir, exist_ok=True)
 
     from flow.graph_trace import generate_trace_flow, generate_trace_per_phase_cfgs
-    label = f'{game}_{binary_name}'
+    label = f'{project}_{binary_name}'
     generate_trace_flow(jsonl_path, label, out_dir)
     generate_trace_per_phase_cfgs(jsonl_path, label, out_dir)
 
@@ -71,31 +71,31 @@ def main():
 
     traced_bins = 0
     if do_trace or do_all:
-        games = base.get_games()
-        if not games:
-            print('No games found in apps/')
+        projects = base.get_projects()
+        if not projects:
+            print('No projects found in apps/')
             sys.exit(1)
 
         if len(args) >= 2:
-            game = args[0]
+            project = args[0]
             binary = args[1]
-            if game not in games:
-                print(f'Unknown game: {game}')
+            if project not in projects:
+                print(f'Unknown project: {project}')
                 sys.exit(1)
-            bins = base.discover_binaries(game)
+            bins = base.discover_binaries(project)
             if binary not in bins:
-                print(f'Unknown binary "{binary}" in {game}: {", ".join(sorted(bins))}')
+                print(f'Unknown binary "{binary}" in {project}: {", ".join(sorted(bins))}')
                 sys.exit(1)
-            print(f'\n=== Pipeline trace: {game}/{binary} ===')
-            process_trace(game, binary)
-            if base.find_detailed_jsonl(game, binary):
+            print(f'\n=== Pipeline trace: {project}/{binary} ===')
+            process_trace(project, binary)
+            if base.find_detailed_jsonl(project, binary):
                 traced_bins += 1
             return
 
         target = args[0] if args else None
 
         if target:
-            if target in games:
+            if target in projects:
                 bins = base.discover_binaries(target)
                 for name, (_entry, _so) in sorted(bins.items()):
                     j = base.find_detailed_jsonl(target, name)
@@ -107,13 +107,13 @@ def main():
                 print(f'Unknown target: {target}')
                 sys.exit(1)
         else:
-            for game in games:
-                bins = base.discover_binaries(game)
+            for project in projects:
+                bins = base.discover_binaries(project)
                 for name, (_entry, _so) in sorted(bins.items()):
-                    j = base.find_detailed_jsonl(game, name)
+                    j = base.find_detailed_jsonl(project, name)
                     if j:
-                        print(f'\n=== Pipeline trace: {game}/{name} ===')
-                        process_trace(game, name)
+                        print(f'\n=== Pipeline trace: {project}/{name} ===')
+                        process_trace(project, name)
                         traced_bins += 1
         if not traced_bins:
             print('  (no JSONL traces found — run main.py --trace first)')

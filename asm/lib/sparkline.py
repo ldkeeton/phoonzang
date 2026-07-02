@@ -10,7 +10,7 @@ import polars as pl
 from lib.model import IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.report import (
     STATS_DIR, BASELINE_DIR,
-    layers_path, list_game_dirs,
+    layers_path, list_project_dirs,
     images_dir, images_csv_dir,
     layers_images_dir, layers_images_csv_dir,
 )
@@ -124,9 +124,9 @@ def _bucket_metrics_for_column(col, n, label_col=None):
     return result
 
 
-def _load_binary(game, binary, lp_fn):
+def _load_binary(project, binary, lp_fn):
     """Return per-bucket metrics dict for one binary from layers, or None."""
-    path = lp_fn(game, binary)
+    path = lp_fn(project, binary)
     if not os.path.exists(path):
         return None
     try:
@@ -144,9 +144,9 @@ def _load_binary(game, binary, lp_fn):
     return _bucket_metrics_for_column(col, n, label_col=label_col)
 
 
-def _load_all_phases(game, binary, lp_fn):
+def _load_all_phases(project, binary, lp_fn):
     """Return {phase: {metric: [N_BUCKETS]}} for all 12 phases."""
-    path = lp_fn(game, binary)
+    path = lp_fn(project, binary)
     if not os.path.exists(path):
         return None
     try:
@@ -177,12 +177,12 @@ def _average_metrics(metrics_list):
     return result
 
 
-def _binary_keys(game=None):
-    """Yield (game, binary) tuples for all binaries with layers parquet."""
-    if game:
-        dirs = [game]
+def _binary_keys(project=None):
+    """Yield (project, binary) tuples for all binaries with layers parquet."""
+    if project:
+        dirs = [project]
     else:
-        dirs = list_game_dirs()
+        dirs = list_project_dirs()
     for g in dirs:
         stats_g = os.path.join(STATS_DIR, g)
         if not os.path.isdir(stats_g):
@@ -194,12 +194,12 @@ def _binary_keys(game=None):
                 yield g, binary
 
 
-def _baseline_binary_keys(game=None):
-    """Yield (game, binary) for binaries present in baseline."""
+def _baseline_binary_keys(project=None):
+    """Yield (project, binary) for binaries present in baseline."""
     if not os.path.isdir(BASELINE_DIR):
         return
-    if game:
-        dirs = [game]
+    if project:
+        dirs = [project]
     else:
         dirs = os.listdir(BASELINE_DIR)
     for g in dirs:
@@ -541,8 +541,8 @@ def _load_flat_csv(path):
 def generate_scope(scope, binaries, byte_sources=None):
     """Generate images/{scope}.png + images/csv/{scope}.png.csv.
 
-    binaries: list of (game, binary, {metric: [N_BUCKETS]}) tuples for current
-    byte_sources: optional list of (game, binary) to render a byte-map row
+        binaries: list of (project, binary, {metric: [N_BUCKETS]}) tuples for current
+        byte_sources: optional list of (project, binary) to render a byte-map row
     """
     if not binaries:
         return
@@ -551,8 +551,8 @@ def generate_scope(scope, binaries, byte_sources=None):
     # Load baseline
     baseline_metrics = None
     base_vals = []
-    for game, binary, _ in binaries:
-        bm = _load_binary(game, binary, layers_path)
+    for project, binary, _ in binaries:
+        bm = _load_binary(project, binary, layers_path)
         if bm is not None:
             base_vals.append(bm)
     if base_vals:
@@ -564,8 +564,8 @@ def generate_scope(scope, binaries, byte_sources=None):
     cur_ins_loss = np.zeros(N_BUCKETS, dtype=float)
     total_ins_lost = 0
     if has_base:
-        for game, binary, _ in binaries:
-            bp = layers_path(game, binary)
+        for project, binary, _ in binaries:
+            bp = layers_path(project, binary)
             if not os.path.exists(bp):
                 continue
             try:
@@ -574,7 +574,7 @@ def generate_scope(scope, binaries, byte_sources=None):
             except Exception:
                 continue
             try:
-                cur_df = pl.read_parquet(layers_path(game, binary))
+                cur_df = pl.read_parquet(layers_path(project, binary))
                 cur_col = cur_df['squashed'].to_numpy().astype(np.int8)
             except Exception:
                 continue
@@ -669,7 +669,7 @@ def generate_scope(scope, binaries, byte_sources=None):
 def generate_layers_scope(scope, binaries):
     """Generate images_layers/{scope}.png + images_layers/csv/{scope}.png.csv
 
-    binaries: list of (game, binary, {phase: {metric: [N_BUCKETS]}}) tuples for current
+    binaries: list of (project, binary, {phase: {metric: [N_BUCKETS]}}) tuples for current
     """
     if not binaries:
         return
@@ -686,8 +686,8 @@ def generate_layers_scope(scope, binaries):
 
     # Baseline
     baseline_avg = {}
-    for game, binary, _ in binaries:
-        bp = _load_all_phases(game, binary, layers_path)
+    for project, binary, _ in binaries:
+        bp = _load_all_phases(project, binary, layers_path)
         if bp is not None:
             for phase in PHASE_COLS:
                 if phase in bp:
@@ -736,10 +736,10 @@ def generate_layers_scope(scope, binaries):
 
 # ── entry points ──────────────────────────────────────────────────────────────
 
-def charts(game):
-    """Generate per-module + per-game charts for one game from existing stats."""
+def charts(project):
+    """Generate per-module + per-project charts for one project from existing stats."""
     # Per-module charts
-    for g, binary in _binary_keys(game):
+    for g, binary in _binary_keys(project):
         cm = _load_binary(g, binary, layers_path)
         if cm is None:
             continue
@@ -753,10 +753,10 @@ def charts(game):
             l_binaries = [(g, binary, la)]
             generate_layers_scope(scope, l_binaries)
 
-    # Game-level aggregate
+    # Project-level aggregate
     all_c = []
     all_l = []
-    for g, binary in _binary_keys(game):
+    for g, binary in _binary_keys(project):
         cm = _load_binary(g, binary, layers_path)
         if cm is not None:
             all_c.append((g, binary, cm))
@@ -764,18 +764,18 @@ def charts(game):
         if la is not None:
             all_l.append((g, binary, la))
     if all_c:
-        generate_scope(game, all_c)
+        generate_scope(project, all_c)
     if all_l:
-        generate_layers_scope(game, all_l)
+        generate_layers_scope(project, all_l)
 
 
 def charts_all():
-    """Generate all.png + per-game charts for every game with stats."""
+    """Generate all.png + per-project charts for every project with stats."""
     all_c = []
     all_l = []
-    for game in list_game_dirs():
-        charts(game)
-        for g, binary in _binary_keys(game):
+    for project in list_project_dirs():
+        charts(project)
+        for g, binary in _binary_keys(project):
             cm = _load_binary(g, binary, layers_path)
             if cm is not None:
                 all_c.append((g, binary, cm))

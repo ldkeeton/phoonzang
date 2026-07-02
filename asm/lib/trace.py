@@ -8,9 +8,9 @@ TRACE_DIR = os.path.join(STATS_DIR, 'detailed')
 
 
 class TraceWriter:
-    def __init__(self, game, binary):
+    def __init__(self, project, binary):
         os.makedirs(TRACE_DIR, exist_ok=True)
-        self.path = os.path.join(TRACE_DIR, f'{game}_{binary}.jsonl')
+        self.path = os.path.join(TRACE_DIR, f'{project}_{binary}.jsonl')
         self.f = open(self.path, 'w')
         self._start = time.perf_counter()
 

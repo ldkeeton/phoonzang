@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Disassemble DOS binaries -> byte-exact NASM assembly (.asm).
 
-Scans ``apps/`` for game directories.  For each game:
+Scans ``apps/`` for app directories.  For each app:
   - Discovers binary files (.exe/.ovr/.drv)
-  - Disassembles each to ``asm_<game>/<name>.asm``
-  - Copies non-binary assets to ``asm_<game>/``
-  - Creates ``asm_<game>/build_out/``
+  - Disassembles each to ``asm_<project>/<name>.asm``
+  - Copies non-binary assets to ``asm_<project>/``
+  - Creates ``asm_<project>/build_out/``
 """
 
 import json
@@ -38,6 +38,7 @@ from lib.phases import (
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.pipeline import run_functional, run_iterative, report_timings
 from lib.pipeline.definition import PipelineDef, Stage
+from lib.sidecar import load as load_sidecar, per_binary as sidecar_per_binary
 from lib.report import write_report, write_layers, print_short_report, print_compare
 
 
@@ -116,7 +117,7 @@ _ITERATIVE = '--no-iterate' not in sys.argv
 _TRACE = '--trace' in sys.argv
 
 
-def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None, game_name=None):
+def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None, project=None, sidecar_entry=None):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -128,18 +129,22 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
     t_total = time.perf_counter()
     clear_assemble_cache()
 
-    trace_writer = TraceWriter(game_name, name) if _TRACE else None
+    trace_writer = TraceWriter(project, name) if _TRACE else None
 
     ctx = PhaseContext(
         binary_data=data,
         start_offset=start_offset,
         name=name,
         trace=trace_writer,
+        sidecar_entry=sidecar_entry,
     )
-    if game_name:
-        ctx.report['game'] = game_name
+    if project:
+        ctx.report['project'] = project
 
     known_db = _load_known_funcs()
+    if sidecar_entry and sidecar_entry.get('api_dispatch'):
+        known_db = dict(known_db)
+        known_db.setdefault('api_dispatch', {}).update(sidecar_entry['api_dispatch'])
     max_func_size = _MAX_FUNC_SIZE if _MAX_FUNC_SIZE is not None else 256
 
     classify_phases = _build_classify_phases(known_db)
@@ -166,6 +171,18 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
     for off, lbl in trampoline_map.items():
         if off not in label_map:
             label_map[off] = lbl
+
+    # Sidecar function names: offsets are Ghidra-relative. Convert to file
+    # offsets via (ghidra_base_offset + start_offset) for MZ executables.
+    if sidecar_entry:
+        fn_offset = sidecar_entry.get('ghidra_base_offset', 0)
+        for hex_off, info in sidecar_entry.get('function_names', {}).items():
+            try:
+                off = int(hex_off, 16) + start_offset + fn_offset
+            except ValueError:
+                continue
+            if off in ctx.code_targets and off not in label_map:
+                label_map[off] = info.get('name', f'fn_{hex_off}')
 
     label_map = categorize_call_targets(data, ctx.code_target_set, label_map)
     for off in ctx.code_targets:
@@ -303,30 +320,33 @@ def build_binaries(asm_dir, bins, out_dir):
     return all_ok
 
 
-def process_game(game_name):
-    game_dir = os.path.join(APPS_DIR, game_name)
-    if not os.path.isdir(game_dir):
-        print(f'{game_name}: SKIP (not found in apps/)')
+def process_project(project_name):
+    project_dir = os.path.join(APPS_DIR, project_name)
+    if not os.path.isdir(project_dir):
+        print(f'{project_name}: SKIP (not found in apps/)')
         return
 
-    out_dir = os.path.join(PROJECT_ROOT, f'asm_{game_name}')
+    sidecar = load_sidecar(project_name)
+
+    out_dir = os.path.join(PROJECT_ROOT, f'asm_{project_name}')
     os.makedirs(out_dir, exist_ok=True)
 
-    bins = discover_binaries(game_dir)
+    bins = discover_binaries(project_dir)
     if not bins:
-        print(f'{game_name}: no binaries found')
+        print(f'{project_name}: no binaries found')
     else:
-        print(f'\n=== {game_name} ({len(bins)} binaries) ===')
+        print(f'\n=== {project_name} ({len(bins)} binaries) ===')
         for name, (rel_path, start_offset) in sorted(bins.items()):
-            process(name, game_dir, rel_path, start_offset,
+            sc_entry = sidecar_per_binary(sidecar, name) if sidecar else None
+            process(name, project_dir, rel_path, start_offset,
                     exact_bytes=EXACT_BYTES, output_dir=out_dir,
-                    game_name=game_name)
+                    project=project_name, sidecar_entry=sc_entry)
 
     processed = set(bins.keys())
-    copy_assets(game_dir, out_dir, processed)
+    copy_assets(app_dir, out_dir, processed)
 
     build_out = os.path.join(out_dir, 'build_out')
-    copy_assets(game_dir, build_out, set())
+    copy_assets(app_dir, build_out, set())
     build_binaries(out_dir, bins, build_out)
 
 
@@ -338,7 +358,7 @@ def load_whitelist():
         return json.load(f)
 
 
-def get_games():
+def get_projects():
     if not os.path.isdir(APPS_DIR):
         return []
     return sorted([
@@ -495,17 +515,17 @@ def byte_verify(name, orig_dir, rel_path, asm_dir, start_offset,
     return True
 
 
-def verify_game(game_name):
-    game_dir = os.path.join(APPS_DIR, game_name)
-    if not os.path.isdir(game_dir):
+def verify_project(project_name):
+    project_dir = os.path.join(APPS_DIR, project_name)
+    if not os.path.isdir(project_dir):
         return 0, []
 
-    out_dir = os.path.join(PROJECT_ROOT, f'asm_{game_name}')
-    bins = discover_binaries(game_dir)
+    out_dir = os.path.join(PROJECT_ROOT, f'asm_{project_name}')
+    bins = discover_binaries(project_dir)
     ok = 0
     fail = []
     for name, (rel_path, start_offset) in sorted(bins.items()):
-        if byte_verify(name, game_dir, rel_path, out_dir, start_offset,
+        if byte_verify(name, app_dir, rel_path, out_dir, start_offset,
                        exact_bytes=EXACT_BYTES):
             ok += 1
         else:
@@ -516,22 +536,22 @@ def verify_game(game_name):
 def verify_all():
     total_ok = 0
     total_fail = []
-    for game in get_games():
-        ok, fail = verify_game(game)
+    for pname in get_projects():
+        ok, fail = verify_project(pname)
         total_ok += ok
-        total_fail.extend(f'{game}/{f}' for f in fail)
+        total_fail.extend(f'{pname}/{f}' for f in fail)
     print(f'\n{total_ok}/{total_ok + len(total_fail)} passed')
     if total_fail:
         sys.exit(1)
 
 
 def clean_all():
-    for game in get_games():
-        out_dir = os.path.join(PROJECT_ROOT, f'asm_{game}')
+    for p in get_projects():
+        out_dir = os.path.join(PROJECT_ROOT, f'asm_{p}')
         if os.path.isdir(out_dir):
             shutil.rmtree(out_dir)
             print(f'Removed {out_dir}')
-    if not get_games():
+    if not get_projects():
         print('Cleaned.')
 
 
@@ -551,43 +571,45 @@ def main():
         return
 
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
-    games = get_games()
+    projects = get_projects()
 
     if len(args) >= 2:
-        game = args[0]
+        p = args[0]
         binary = args[1]
-        if game not in games:
-            print(f'Unknown game: {game}')
+        if p not in projects:
+            print(f'Unknown project: {p}')
             sys.exit(1)
-        game_dir = os.path.join(APPS_DIR, game)
-        out_dir = os.path.join(PROJECT_ROOT, f'asm_{game}')
-        bins = discover_binaries(game_dir)
+        project_dir = os.path.join(APPS_DIR, p)
+        sidecar = load_sidecar(p)
+        out_dir = os.path.join(PROJECT_ROOT, f'asm_{p}')
+        bins = discover_binaries(project_dir)
         if binary not in bins:
-            print(f'Unknown binary "{binary}" in {game}')
+            print(f'Unknown binary "{binary}" in {p}')
             print(f'Known: {", ".join(sorted(bins))}')
             sys.exit(1)
         rel_path, start_offset = bins[binary]
-        process(binary, game_dir, rel_path, start_offset,
+        sc_entry = sidecar_per_binary(sidecar, binary) if sidecar else None
+        process(binary, project_dir, rel_path, start_offset,
                 exact_bytes=EXACT_BYTES, output_dir=out_dir,
-                game_name=game)
+                project=p, sidecar_entry=sc_entry)
         return
 
     target = args[0] if args else None
 
     if target:
-        if target in games:
-            process_game(target)
+        if target in projects:
+            process_project(target)
         else:
             print(f'Unknown target: {target}')
-            print(f'Known games: {", ".join(games)}')
+            print(f'Known projects: {", ".join(projects)}')
             sys.exit(1)
     else:
-        if games:
-            for game in games:
-                process_game(game)
+        if projects:
+            for p in projects:
+                process_project(p)
         else:
-            print(f'Usage: python3 main.py <{"|".join(games)}>')
-            print('       No args processes all games in apps/')
+            print(f'Usage: python3 main.py <{"|".join(projects)}>')
+            print('       No args processes all projects in apps/')
             sys.exit(1)
 
 

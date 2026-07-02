@@ -14,19 +14,19 @@ FLOW_DIR = os.path.dirname(os.path.abspath(__file__))
 BUILD_OUT = os.path.join(FLOW_DIR, 'build_out')
 
 
-def discover_binaries(game):
-    game_dir = os.path.join(APPS_DIR, game)
+def discover_binaries(project):
+    project_dir = os.path.join(APPS_DIR, project)
     bins = {}
-    if not os.path.isdir(game_dir):
+    if not os.path.isdir(project_dir):
         return bins
-    for entry in os.listdir(game_dir):
+    for entry in os.listdir(project_dir):
         lower = entry.lower()
         if lower.endswith('.ovr'):
             bins[lower[:-4]] = (entry, 8)
         elif lower.endswith('.drv'):
             bins[lower[:-4]] = (entry, 0)
         elif lower.endswith('.exe'):
-            path = os.path.join(game_dir, entry)
+            path = os.path.join(project_dir, entry)
             with open(path, 'rb') as f:
                 sig = f.read(2)
             if sig != b'MZ':
@@ -35,7 +35,7 @@ def discover_binaries(game):
     return bins
 
 
-def get_games():
+def get_projects():
     if not os.path.isdir(APPS_DIR):
         return []
     return sorted([
@@ -44,34 +44,34 @@ def get_games():
     ])
 
 
-def load_binary(game, binary_name, start_offset):
-    game_dir = os.path.join(APPS_DIR, game)
-    for entry in os.listdir(game_dir):
+def load_binary(project, binary_name, start_offset):
+    project_dir = os.path.join(APPS_DIR, project)
+    for entry in os.listdir(project_dir):
         lower = entry.lower()
         base = lower.replace('.exe', '').replace('.ovr', '').replace('.drv', '')
         if base == binary_name.lower():
-            path = os.path.join(game_dir, entry)
+            path = os.path.join(project_dir, entry)
             with open(path, 'rb') as f:
                 return f.read()
     return None
 
 
-def find_detailed_jsonl(game, binary_name):
-    path = os.path.join(DETAILED_DIR, f'{game}_{binary_name}.jsonl')
+def find_detailed_jsonl(project, binary_name):
+    path = os.path.join(DETAILED_DIR, f'{project}_{binary_name}.jsonl')
     if os.path.exists(path):
         return path
     return None
 
 
-def find_json_report(game, binary_name):
-    path = os.path.join(STATS_DIR, game, f'{game}_{binary_name}.json')
+def find_json_report(project, binary_name):
+    path = os.path.join(STATS_DIR, project, f'{project}_{binary_name}.json')
     if os.path.exists(path):
         return path
     return None
 
 
-def find_asm_file(game, binary_name):
-    asm_dir = os.path.join(PROJECT_ROOT, f'asm_{game}')
+def find_asm_file(project, binary_name):
+    asm_dir = os.path.join(PROJECT_ROOT, f'asm_{project}')
     path = os.path.join(asm_dir, f'{binary_name}.asm')
     if os.path.exists(path):
         return path

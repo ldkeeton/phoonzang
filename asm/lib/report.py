@@ -19,31 +19,31 @@ def _ensure(dirpath):
     os.makedirs(dirpath, exist_ok=True)
 
 
-def report_path(game, binary):
-    return os.path.join(STATS_DIR, game, f'{game}_{binary}.json')
+def report_path(project, binary):
+    return os.path.join(STATS_DIR, project, f'{project}_{binary}.json')
 
 
-def layers_path(game, binary):
-    return os.path.join(STATS_DIR, game, f'{game}_{binary}.layers.parquet')
+def layers_path(project, binary):
+    return os.path.join(STATS_DIR, project, f'{project}_{binary}.layers.parquet')
 
 
-def baseline_report_path(game, binary):
-    return os.path.join(BASELINE_DIR, game, f'{game}_{binary}.json')
+def baseline_report_path(project, binary):
+    return os.path.join(BASELINE_DIR, project, f'{project}_{binary}.json')
 
 
-def hex_dump_path(game, binary):
-    return os.path.join(STATS_DIR, game, f'{game}_{binary}.hex.txt')
+def hex_dump_path(project, binary):
+    return os.path.join(STATS_DIR, project, f'{project}_{binary}.hex.txt')
 
 
 def write_hex_dump(ctx):
-    """Write a text hex dump of the binary to stats/game/binary.hex.txt.
+    """Write a text hex dump of the binary to stats/<project>/<binary>.hex.txt.
 
     Format: one line per 16 bytes:
         OFFSET:  HH HH HH HH HH HH HH HH HH HH HH HH HH HH HH HH  ASCII
     where OFFSET is the byte offset into the binary (matching disassembler
     addresses).
     """
-    path = hex_dump_path(ctx.report.get('game', 'unknown'), ctx.name)
+    path = hex_dump_path(ctx.report.get('project', 'unknown'), ctx.name)
     data = ctx.binary_data
     lines = []
     for off in range(0, len(data), 16):
@@ -62,14 +62,14 @@ def clear_stats():
     os.makedirs(STATS_DIR)
 
 
-def clear_game_stats(game):
-    p = os.path.join(STATS_DIR, game)
+def clear_project_stats(project):
+    p = os.path.join(STATS_DIR, project)
     if os.path.exists(p):
         shutil.rmtree(p)
     os.makedirs(p, exist_ok=True)
 
 
-def list_game_dirs():
+def list_project_dirs():
     dirs = []
     if not os.path.isdir(STATS_DIR):
         return dirs
@@ -136,10 +136,10 @@ def generate_report(ctx):
 
 
 def write_report(ctx, asm_text=''):
-    _ensure(os.path.join(STATS_DIR, ctx.report.get('game', 'unknown')))
+    _ensure(os.path.join(STATS_DIR, ctx.report.get('project', 'unknown')))
     report = generate_report(ctx)
     report['asm_hash'] = asm_hash(asm_text) if asm_text else ''
-    path = report_path(ctx.report.get('game', 'unknown'), ctx.name)
+    path = report_path(ctx.report.get('project', 'unknown'), ctx.name)
     with open(path, 'w') as f:
         json.dump(report, f, indent=2, default=str)
     write_hex_dump(ctx)
@@ -147,9 +147,9 @@ def write_report(ctx, asm_text=''):
 
 
 def write_layers(ctx):
-    game = ctx.report.get('game', 'unknown')
-    _ensure(os.path.join(STATS_DIR, game))
-    path = layers_path(game, ctx.name)
+    project = ctx.report.get('project', 'unknown')
+    _ensure(os.path.join(STATS_DIR, project))
+    path = layers_path(project, ctx.name)
     ctx.layers.write_parquet(path, compression='zstd')
     return path
 
