@@ -1514,7 +1514,7 @@ dos_con_loc_0fda:
     mov sp, bp
     pop bp
     ret
-bios_mouse_loc_11f8:
+mouse_init:
     push bp
     mov bp, sp
     push es
@@ -1567,7 +1567,7 @@ bios_mouse_loc_11f8:
     mov sp, bp
     pop bp
     ret
-bios_mouse_loc_126c:
+mouse_init_2:
     push bp
     mov bp, sp
     push es
@@ -1717,7 +1717,7 @@ bios_mouse_loc_139a:
     mov sp, bp
     pop bp
     ret
-bios_mouse_loc_13c9:
+mouse_set_pos:
     push bp
     mov bp, sp
     push ds
@@ -3002,7 +3002,7 @@ dos_mem_loc_2b01:
     mov sp, bp
     pop bp
     ret
-bios_mouse_loc_2b6c:
+mouse_set_pos_2:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -3069,7 +3069,7 @@ bios_mouse_loc_2b6c:
     mov sp, bp
     pop bp
     ret
-loc_2c0e:
+mouse_set_pos_3:
     push bp
     mov bp, sp
     sub sp, byte 0x0a

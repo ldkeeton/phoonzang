@@ -105,6 +105,108 @@
       "notes": "Stack allocation guard (add sp, ax; cmp sp, bp)",
       "entries": [],
       "patterns": ["03 E0 3B E5"]
+    },
+    {
+      "name": "dos_delete_file",
+      "notes": "INT 21h AH=0x41 delete file",
+      "entries": [],
+      "patterns": ["B4 41 CD 21"]
+    },
+    {
+      "name": "dos_rename_file",
+      "notes": "INT 21h AH=0x56 rename file",
+      "entries": [],
+      "patterns": ["B4 56 CD 21"]
+    },
+    {
+      "name": "dos_con_in",
+      "notes": "INT 21h AH=0x01 console input with echo",
+      "entries": [],
+      "patterns": ["B4 01 CD 21"]
+    },
+    {
+      "name": "dos_con_in_noecho",
+      "notes": "INT 21h AH=0x07 console input without echo",
+      "entries": [],
+      "patterns": ["B4 07 CD 21"]
+    },
+    {
+      "name": "bios_get_video_mode",
+      "notes": "INT 10h AH=0x0F get current video mode",
+      "entries": [],
+      "patterns": ["B4 0F CD 10"]
+    },
+    {
+      "name": "bios_kbd_check",
+      "notes": "INT 16h AH=0x01 check keyboard buffer",
+      "entries": [],
+      "patterns": ["B4 01 CD 16"]
+    },
+    {
+      "name": "ems_get_handle_pages",
+      "notes": "INT 67h AH=0x41 get EMS handle page count",
+      "entries": [],
+      "patterns": ["B4 41 CD 67"]
+    },
+    {
+      "name": "ems_map_memory",
+      "notes": "INT 67h AH=0x42 map EMS memory page",
+      "entries": [],
+      "patterns": ["B4 42 CD 67"]
+    },
+    {
+      "name": "ems_get_page_frame",
+      "notes": "INT 67h AH=0x45 get EMS page frame segment",
+      "entries": [],
+      "patterns": ["B4 45 CD 67"]
+    },
+    {
+      "name": "bios_kbd_read",
+      "notes": "INT 16h AH=0x00 read keyboard character",
+      "entries": [],
+      "patterns": ["B4 00 CD 16"]
+    },
+    {
+      "name": "ems_get_handle_name",
+      "notes": "INT 67h AH=0x43 get EMS handle name",
+      "entries": [],
+      "patterns": ["B4 43 CD 67"]
+    },
+    {
+      "name": "dos_exit",
+      "notes": "INT 21h AH=0x4C exit with return code",
+      "entries": [],
+      "patterns": ["B8 01 4C CD 21"]
+    },
+    {
+      "name": "dos_ioctl",
+      "notes": "INT 21h AH=0x44 IOCTL",
+      "entries": [],
+      "patterns": ["B8 00 44 CD 21"]
+    },
+    {
+      "name": "bios_set_video_mode",
+      "notes": "INT 10h AH=0x00 set video mode (any AL)",
+      "entries": [],
+      "patterns": ["B8 13 00 CD 10", "B8 0E 00 CD 10"]
+    },
+    {
+      "name": "bios_set_palette",
+      "notes": "INT 10h AH=0x10 set palette register",
+      "entries": [],
+      "patterns": ["B8 02 10 CD 10"]
+    },
+    {
+      "name": "mouse_init",
+      "notes": "INT 33h AX=0x0000 mouse init/reset",
+      "entries": [],
+      "patterns": ["B8 00 00 CD 33"]
+    },
+    {
+      "name": "mouse_set_pos",
+      "notes": "INT 33h AX=0x0004 set mouse cursor position",
+      "entries": [],
+      "patterns": ["B8 04 00 CD 33"]
     }
   ]
 }

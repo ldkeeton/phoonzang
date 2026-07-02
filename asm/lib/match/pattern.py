@@ -68,6 +68,23 @@ def match_patterns(data, call_targets, known_db, max_func_size=256):
                         matched = True
                         break
 
+                if not matched and (idx == 0 or data[idx - 1] in (0xC3, 0xCB, 0xCF, 0xF4, 0xC2, 0xCA)):
+                    # Fallback: pattern starts right after a terminator
+                    # (ret/retf/iret/hlt). No push_bp prologue needed.
+                    max_end = min(idx + max_func_size, len(data))
+                    try:
+                        insns = list(md.disasm(data[idx:max_end], idx))
+                    except Exception:
+                        insns = []
+                    func_end = max_end
+                    for insn in insns:
+                        if insn.mnemonic in _TERMINATORS:
+                            func_end = insn.address + insn.size
+                            break
+                    if idx < func_end and func_end <= idx + max_func_size:
+                        matched = True
+                        func_start = idx
+
                 if matched:
                     if func_start not in label_map:
                         n = name_count.get(name, 0) + 1

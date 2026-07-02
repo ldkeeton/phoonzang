@@ -2077,7 +2077,7 @@ dos_print_str:
     mov sp, bp
     pop bp
     ret
-bios_mouse_loc_1719:
+mouse_init:
     push bp
     mov bp, sp
     sub sp, byte 4
@@ -2183,7 +2183,7 @@ string_loc_17a1:
     pop di
     pop es
     ret
-bios_mouse_loc_1810:
+mouse_init_2:
     push bp
     mov bp, sp
     push es
@@ -2374,7 +2374,7 @@ bios_mouse_loc_1992:
     mov sp, bp
     pop bp
     ret
-math_loc_19c1:
+mouse_set_pos:
     push bp
     mov bp, sp
     sub sp, byte 4
@@ -3451,7 +3451,7 @@ dos_mem_loc_33b3:
     mov sp, bp
     pop bp
     ret
-bios_mouse_loc_341e:
+mouse_set_pos_2:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -3518,7 +3518,7 @@ bios_mouse_loc_341e:
     mov sp, bp
     pop bp
     ret
-loc_34c0:
+mouse_set_pos_3:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
