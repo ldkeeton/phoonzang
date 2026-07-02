@@ -195,7 +195,7 @@ class RecursiveDescentPhase(Phase):
         else:
             seeds = set()
 
-        if 0 <= ctx.start_offset < n:
+        if 0 <= ctx.start_offset < n and data_boundary[ctx.start_offset] >= _HARD_DATA:
             seeds.add(ctx.start_offset)
 
         visited_starts = set()
@@ -203,13 +203,13 @@ class RecursiveDescentPhase(Phase):
 
         # Ensure start_offset and seeds are known as code targets so they
         # receive labels in the final output.
-        if 0 <= ctx.start_offset < n and ctx.start_offset not in ctx.code_targets:
+        if 0 <= ctx.start_offset < n and data_boundary[ctx.start_offset] >= _HARD_DATA and ctx.start_offset not in ctx.code_targets:
             _add_target(ctx, ctx.start_offset, 'seed', _CONF_SEED_CODE)
         for si in (ctx.seeds or []):
             if si.address not in ctx.code_targets:
                 _add_target(ctx, si.address, 'seed', si.confidence)
 
-        if 0 <= ctx.start_offset < n and ctx.start_offset not in visited_starts and ctx.start_offset not in worklist:
+        if 0 <= ctx.start_offset < n and data_boundary[ctx.start_offset] >= _HARD_DATA and ctx.start_offset not in visited_starts and ctx.start_offset not in worklist:
             worklist.append(ctx.start_offset)
         for addr in ctx.code_targets:
             if addr not in visited_starts and 0 <= addr < n:
