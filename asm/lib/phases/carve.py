@@ -32,6 +32,10 @@ class CarvePhase(Phase):
                 continue
             if name.startswith('squashed_iter_'):
                 continue
+            if name.startswith('prune_'):
+                # prune columns are weak heuristics — don't let them
+                # block string detection.
+                continue
             opin |= (ctx.layers[name].to_numpy() != 0.0)
         return ~opin
 

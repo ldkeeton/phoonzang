@@ -5,6 +5,7 @@ bits 16
 
     db 0xf2, 0x00, 0x55, 0x50, 0x09, 0x16, 0x98, 0x90 ; header (8 bytes)
 
+loc_0008:
     and byte [bx + di], al
     add al, byte [bx + si]
     and byte [bp - 0x0048], ah

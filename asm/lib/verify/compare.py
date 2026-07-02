@@ -187,7 +187,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
     return records
 
 
-def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None):
+def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None):
     """Replace code-like data_block records with inline records;
     annotate jump tables and known file formats on the rest."""
     new_records = []
@@ -206,21 +206,97 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
             new_records.append(rec)
             continue
 
-        # If bitmap marks this whole block as DATA, skip code promotion
-        # (the pipeline arbiter already decided it's data).
+        promoted = False
+        reason = None
+
+        # 1. If bitmap marks the whole block as DATA, skip promotion
+        #    UNLESS preceded by CODE (e.g., dead code after ret)
+        #    AND the block is small (≤ 32 bytes).
         if bitmap is not None:
             block_bitmap = bitmap[start:end]
             if all(b == 2 for b in block_bitmap):
-                new_records.append(rec)
-                continue
+                preceded_by_code = start > 0 and bitmap[start - 1] == 1
+                small_block = (end - start) <= 32
+                if not (preceded_by_code and small_block):
+                    reason = 'all DATA in bitmap' + (', not preceded by code' if not preceded_by_code else ', too large')
+                    new_records.append(rec)
+                    if trace is not None:
+                        trace.event('cascade', 'skipped', addr=start,
+                                    end=end, size=end - start, reason=reason)
+                    continue
+                else:
+                    if trace is not None:
+                        trace.event('cascade', 'override_allowed', addr=start,
+                                    end=end, size=end - start,
+                                    reason='preceded by CODE, small')
 
         insns, all_decoded, has_ctrl = _try_decode_block(raw, start)
         if insns and has_ctrl:
             consumed = sum(i.size for i in insns)
             gap = len(raw) - consumed
+
+            # If carve_1 is available, check each decoded instruction
+            # against carve DATA signal. Stop promotion at the first
+            # instruction that ends at or past the first strong carve
+            # byte — keep the safe prefix as code and the tail as a
+            # new data block.
+            if carve_1 is not None:
+                # Locate the first byte with strong carve DATA signal
+                carve_frontier = None
+                for offset in range(len(raw)):
+                    if carve_1[start + offset] < -0.5:
+                        carve_frontier = offset
+                        break
+                if carve_frontier is not None:
+                    safe_end_offset = 0
+                    for insn in insns:
+                        insn_end = safe_end_offset + insn.size
+                        if insn_end >= carve_frontier:
+                            break
+                        safe_end_offset = insn_end
+                    if safe_end_offset == 0:
+                        # No safe instruction — keep entire block as data
+                        new_records.append(rec)
+                        if trace is not None:
+                            trace.event('cascade', 'carve_blocked',
+                                        addr=start, end=end, size=end - start,
+                                        reason='first instruction reaches carve frontier')
+                        continue
+                    if safe_end_offset < len(raw):
+                        # Partial promotion: safe prefix → code, tail → data
+                        safe_insns = [i for i in insns
+                                      if i.address - start < safe_end_offset]
+                        inline = _generate_inline_code(
+                            safe_insns, raw[:safe_end_offset], start,
+                            binary_data, label_map, exact_bytes=True)
+                        if inline:
+                            if trace is not None:
+                                trace.event('cascade', 'partial_promote',
+                                            addr=start,
+                                            end=start + safe_end_offset,
+                                            size=safe_end_offset,
+                                            tail=len(raw) - safe_end_offset)
+                            new_records.extend(inline)
+                            tail_start = start + safe_end_offset
+                            tail_hex = [f'0x{b:02x}'
+                                        for b in raw[safe_end_offset:]]
+                            new_records.append({
+                                'type': 'data_block',
+                                'start': tail_start,
+                                'end': end,
+                                'bytes': tail_hex,
+                            })
+                            continue
+                    # safe_end_offset == len(raw) or inline failed —
+                    # fall through to normal promotion
+
             if all_decoded or (0 < gap <= 3):
                 inline = _generate_inline_code(insns, raw, start, binary_data, label_map, exact_bytes=True)
                 if inline:
+                    if trace is not None:
+                        trace.event('cascade', 'promoted', addr=start,
+                                    end=start + consumed, size=consumed,
+                                    gap=gap, all_decoded=all_decoded)
                     new_records.extend(inline)
                     if gap > 0:
                         for g_off in range(consumed, len(raw)):
@@ -235,15 +311,27 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
         jt_count = _detect_jump_table(raw, start, binary_len, known_addrs)
         if jt_count is not None:
             rec['format_hint'] = f'Jump table: {jt_count} entries'
+            if trace is not None:
+                trace.event('cascade', 'jump_table', addr=start,
+                            end=end, size=end - start)
             new_records.append(rec)
             continue
 
         fmt = _detect_file_format(raw)
         if fmt is not None:
             rec['format_hint'] = fmt
+            if trace is not None:
+                trace.event('cascade', 'file_format', addr=start,
+                            end=end, size=end - start)
             new_records.append(rec)
             continue
 
+        if trace is not None:
+            trace.event('cascade', 'kept_as_data', addr=start,
+                        end=end, size=end - start,
+                        decoded=insns is not None,
+                        all_decoded=all_decoded if insns else False,
+                        has_ctrl=has_ctrl if insns else False)
         new_records.append(rec)
 
     return new_records
@@ -400,7 +488,8 @@ def _emit_label_record(records, off, label_map, local_labels=None):
 
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False,
-           structs=None, asm_dir=None, cascade_promoted=None):
+           structs=None, asm_dir=None, cascade_promoted=None,
+           carve_1=None, trace=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -550,7 +639,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             'bytes': list(pending_data),
         })
 
-    records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap)
+    records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace)
 
     emit_class = bytearray(total)
     label_positions = bytearray(total)

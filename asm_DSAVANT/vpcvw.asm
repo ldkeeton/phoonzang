@@ -5,6 +5,7 @@ bits 16
 
     db 0xf2, 0x00, 0x55, 0x50, 0x36, 0x98, 0x98, 0x90 ; header (8 bytes)
 
+math_loc_0008:
     dec ax
     add dx, word [bx + si]
     add si, word [di]

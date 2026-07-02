@@ -5,6 +5,7 @@ bits 16
 
     db 0xf2, 0x00, 0x55, 0x50, 0xdf, 0x93, 0x98, 0x90 ; header (8 bytes)
 
+math_loc_0008:
     add word [cs:si], di
     adc al, 0x77
     jcxz 0xffc7
@@ -922,7 +923,16 @@ loc_08cc:
     call 0xe8da
     add sp, byte 8
     jmp short 0xd1f
-    db 0xa8, 0x59, 0xcf, 0x5a, 0xcf, 0x5a, 0x06, 0x5c, 0x57, 0x5c, 0xa8, 0x5c
+    test al, 0x59
+    iret
+    pop dx
+    iret
+    pop dx
+    push es
+    pop sp
+    push di
+    pop sp
+    test al, 0x5c
     cmp ax, strict word 6
     jae short 0xd1d
     xchg bx, ax

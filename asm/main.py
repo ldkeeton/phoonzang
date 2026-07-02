@@ -217,12 +217,16 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
 
     out_dir = output_dir or ASM_DIR
 
+    carve_1 = ctx.layers['carve_1'].to_numpy() if 'carve_1' in ctx.layers.columns else None
+
     asm_text, stats, emit_bytes, label_positions = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
         exact_bytes=exact_bytes,
         structs=structs,
         asm_dir=out_dir,
+        carve_1=carve_1,
+        trace=ctx.trace,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))

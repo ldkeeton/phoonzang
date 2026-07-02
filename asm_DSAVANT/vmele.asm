@@ -5,6 +5,7 @@ bits 16
 
     db 0xf2, 0x00, 0x55, 0x50, 0x65, 0x37, 0x98, 0x90 ; header (8 bytes)
 
+math_loc_0008:
     push ds
     add byte [bp + si], bl
     add byte [bx - 0x0079], dl
