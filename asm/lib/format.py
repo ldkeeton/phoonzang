@@ -171,7 +171,9 @@ def format_instruction(insn, label_map=None, local_labels=None):
     # — Build operand list --------------------------------------------------
     parts = []
     has_mem = False
-    is_flow = mnem in ('jmp', 'call', 'jcxz', 'jecxz', 'loop', 'loope', 'loopne')
+    is_flow = mnem in ('jmp', 'call', 'jcxz', 'jecxz', 'loop', 'loope', 'loopne',
+                       'je', 'jne', 'jb', 'jae', 'jbe', 'ja', 'jl', 'jge', 'jle', 'jg',
+                       'js', 'jns', 'jp', 'jnp', 'jo', 'jno')
 
     for op in insn.operands:
         if op.type == CS_OP_REG:

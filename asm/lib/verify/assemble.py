@@ -6,6 +6,7 @@ the original bytes.
 """
 
 import os
+import re
 import subprocess
 import tempfile
 
@@ -16,6 +17,10 @@ NASM = 'nasm'
 _assemble_cache = {}
 _sem_eq_cache = {}
 _sem_eq_md = None
+_equ_prelude = ''
+_equ_hash = 0
+_label_re = None
+_label_re_key = 0
 
 _COMMUTATIVE = {
     'xchg', 'add', 'or', 'and', 'xor', 'adc',
@@ -82,40 +87,83 @@ def is_semantically_equivalent(orig_bytes, nasm_bytes, address):
     return False
 
 
+def _build_equ_prelude(label_map, local_labels):
+    """Build and cache the EQU preamble string for a label_map+local_labels pair."""
+    global _equ_prelude, _equ_hash
+    h = id(label_map) ^ id(local_labels)
+    if h == _equ_hash and _equ_prelude:
+        return _equ_prelude
+    lines = []
+    if label_map:
+        for lbl_off, lbl_name in label_map.items():
+            lines.append(f'{lbl_name} equ 0x{lbl_off:04x}')
+    if local_labels:
+        for lbl_off, lbl_name in local_labels.items():
+            lines.append(f'{lbl_name} equ 0x{lbl_off:04x}')
+    _equ_prelude = '\n'.join(lines)
+    if _equ_prelude:
+        _equ_prelude += '\n'
+    _equ_hash = h
+    return _equ_prelude
+
+
+def _get_label_re(label_map, local_labels):
+    """Build and cache a combined regex for all label names."""
+    global _label_re, _label_re_key
+    names = []
+    if label_map:
+        names.extend(label_map.values())
+    if local_labels:
+        names.extend(local_labels.values())
+    h = id(label_map) ^ id(local_labels)
+    if h == _label_re_key and _label_re is not None:
+        return _label_re
+    if not names:
+        _label_re = None
+        _label_re_key = h
+        return None
+    pat = '|'.join(re.escape(n) for n in names)
+    _label_re = re.compile(pat)
+    _label_re_key = h
+    return _label_re
+
+
 def micro_assemble(nasm_text, offset, label_map=None, local_labels=None):
-    key = (nasm_text, offset)
+    label_re = _get_label_re(label_map, local_labels)
+    uses_label = label_re is not None and bool(label_re.search(nasm_text))
+    key = (nasm_text, offset) if uses_label else (nasm_text,)
     if key in _assemble_cache:
         return _assemble_cache[key]
 
-    prelude = f'org {offset}\nbits 16\n'
-    if label_map:
-        for lbl_off, lbl_name in label_map.items():
-            prelude += f'{lbl_name} equ 0x{lbl_off:04x}\n'
-    if local_labels:
-        for lbl_off, lbl_name in local_labels.items():
-            prelude += f'{lbl_name} equ 0x{lbl_off:04x}\n'
-    asm = prelude + f'{nasm_text}\n'
-    with tempfile.TemporaryDirectory() as td:
-        asm_path = os.path.join(td, 't.asm')
-        bin_path = os.path.join(td, 't.bin')
-        with open(asm_path, 'w') as f:
+    asm = f'org {offset}\nbits 16\n{_build_equ_prelude(label_map, local_labels)}{nasm_text}\n'
+
+    fd, asm_path = tempfile.mkstemp(suffix='.asm', text=True)
+    try:
+        with os.fdopen(fd, 'w') as f:
             f.write(asm)
         r = subprocess.run(
-            [NASM, '-O0', '-f', 'bin', '-w-number-overflow', '-o', bin_path, asm_path],
-            capture_output=True, text=True,
+            [NASM, '-O0', '-f', 'bin', '-w-number-overflow', '-o', '/dev/stdout', asm_path],
+            capture_output=True, timeout=30,
         )
-        if r.returncode != 0:
-            _assemble_cache[key] = None
-            return None
-        if not os.path.exists(bin_path):
-            _assemble_cache[key] = None
-            return None
-        with open(bin_path, 'rb') as f:
-            built = f.read()
-        _assemble_cache[key] = built
-        return built
+    finally:
+        try:
+            os.unlink(asm_path)
+        except OSError:
+            pass
+
+    if r.returncode != 0:
+        _assemble_cache[key] = None
+        return None
+
+    _assemble_cache[key] = r.stdout
+    return r.stdout
 
 
 def clear_assemble_cache():
+    global _equ_prelude, _equ_hash, _label_re, _label_re_key
     _assemble_cache.clear()
     _sem_eq_cache.clear()
+    _equ_prelude = ''
+    _equ_hash = 0
+    _label_re = None
+    _label_re_key = 0

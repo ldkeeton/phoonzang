@@ -7,7 +7,9 @@ when a classification bitmap is provided.
 """
 
 import os
+import re
 import struct
+import time
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
@@ -46,6 +48,286 @@ _FILE_FORMATS = [
     (0, b'IWAD', 'Doom IWAD'),
     (0, b'PWAD', 'Doom PWAD'),
 ]
+
+
+_INT_RE = re.compile(r'int\s+0x([0-9a-fA-F]+)')
+_MOV_AH_RE = re.compile(r'mov\s+ah,\s+(?:0x([0-9a-fA-F]+)|(\d+))')
+
+# ── Interrupt descriptions ──────────────────────────────────────
+
+_INT_DESCRIPTIONS = {
+    0x00: 'BIOS: divide by zero',
+    0x04: 'BIOS: overflow',
+    0x05: 'BIOS: print screen',
+    0x08: 'BIOS: IRQ0 - system timer',
+    0x09: 'BIOS: IRQ1 - keyboard',
+    0x0b: 'BIOS: IRQ3 - COM2',
+    0x0c: 'BIOS: IRQ4 - COM1',
+    0x0e: 'BIOS: IRQ6 - floppy disk',
+    0x10: 'BIOS video',
+    0x11: 'BIOS: equipment check',
+    0x12: 'BIOS: memory size',
+    0x13: 'BIOS disk',
+    0x14: 'BIOS serial',
+    0x15: 'BIOS system',
+    0x16: 'BIOS keyboard',
+    0x17: 'BIOS printer',
+    0x19: 'BIOS: boot load',
+    0x1a: 'BIOS timer',
+    0x1b: 'BIOS: Ctrl-Break handler',
+    0x1c: 'BIOS: user timer tick',
+    0x21: 'DOS function dispatcher',
+    0x23: 'DOS: Ctrl-C handler',
+    0x24: 'DOS: critical error handler',
+    0x25: 'DOS: set interrupt vector',
+    0x27: 'DOS: terminate and stay resident (FCB)',
+    0x28: 'DOS: idle (wait)',
+    0x29: 'DOS: parse filename',
+    0x2f: 'DOS: multiplex (MUX)',
+    0x33: 'BIOS mouse',
+    0x67: 'EMS (Expanded Memory)',
+}
+
+_DOS_FUNCTIONS = {
+    0x00: 'terminate program',
+    0x01: 'keyboard input (echo)',
+    0x02: 'character output',
+    0x06: 'direct console I/O',
+    0x07: 'keyboard input (no echo)',
+    0x08: 'keyboard input (no echo, no Ctrl-C)',
+    0x09: 'string output',
+    0x0a: 'buffered keyboard input',
+    0x0b: 'check input status',
+    0x0c: 'clear buffer & input',
+    0x0d: 'reset disk',
+    0x0e: 'select default drive',
+    0x19: 'get default drive',
+    0x1a: 'set DTA address',
+    0x1b: 'get FAT info (current drive)',
+    0x1c: 'get FAT info (any drive)',
+    0x1f: 'get DPB (current drive)',
+    0x21: 'read file (FCB)',
+    0x23: 'get file size (FCB)',
+    0x25: 'set interrupt vector',
+    0x27: 'read random (FCB)',
+    0x28: 'write random (FCB)',
+    0x29: 'parse filename (FCB)',
+    0x2a: 'get system date',
+    0x2b: 'set system date',
+    0x2c: 'get system time',
+    0x2d: 'set system time',
+    0x2e: 'set verify flag',
+    0x2f: 'get DTA address',
+    0x30: 'get DOS version',
+    0x31: 'terminate and stay resident',
+    0x32: 'get DPB (any drive)',
+    0x33: 'Ctrl-Break check',
+    0x34: 'get InDos flag',
+    0x35: 'get interrupt vector',
+    0x36: 'get disk free space',
+    0x38: 'get/set country info',
+    0x39: 'create directory',
+    0x3a: 'remove directory',
+    0x3b: 'set current directory',
+    0x3c: 'create file handle',
+    0x3d: 'open file handle',
+    0x3e: 'close file handle',
+    0x3f: 'read file (handle)',
+    0x40: 'write file (handle)',
+    0x41: 'delete file (handle)',
+    0x42: 'seek file (lseek)',
+    0x43: 'get/set file attributes',
+    0x44: 'IOCTL',
+    0x45: 'duplicate handle',
+    0x46: 'force duplicate handle',
+    0x47: 'get current directory',
+    0x48: 'allocate memory',
+    0x49: 'free memory',
+    0x4a: 'resize memory block',
+    0x4b: 'exec (load/run program)',
+    0x4c: 'exit with return code',
+    0x4d: 'get return code',
+    0x4e: 'find first file (DTA)',
+    0x4f: 'find next file (DTA)',
+    0x50: 'set PSP',
+    0x51: 'get PSP',
+    0x52: 'get DOS list of lists',
+    0x54: 'get verify flag',
+    0x56: 'rename file',
+    0x57: 'get/set file date/time',
+    0x58: 'get/set allocation strategy',
+    0x59: 'get extended error',
+    0x5a: 'create temp file',
+    0x5b: 'create new file',
+    0x5c: 'lock/unlock file region',
+    0x5e: 'get/set network params',
+    0x5f: 'get/set redirection',
+    0x62: 'get PSP',
+}
+
+_BIOS_VIDEO_FUNCTIONS = {
+    0x00: 'set video mode',
+    0x01: 'set cursor shape',
+    0x02: 'set cursor position',
+    0x03: 'get cursor position',
+    0x05: 'select active page',
+    0x06: 'scroll up',
+    0x07: 'scroll down',
+    0x08: 'read char/attribute',
+    0x09: 'write char/attribute',
+    0x0a: 'write char',
+    0x0b: 'set border/background',
+    0x0c: 'write pixel',
+    0x0d: 'read pixel',
+    0x0e: 'teletype output',
+    0x0f: 'get video mode',
+    0x10: 'set palette registers',
+    0x11: 'character generator',
+    0x12: 'alternate select',
+    0x13: 'write string',
+}
+
+_BIOS_DISK_FUNCTIONS = {
+    0x00: 'reset disk system',
+    0x01: 'get disk status',
+    0x02: 'read sectors',
+    0x03: 'write sectors',
+    0x04: 'verify sectors',
+    0x05: 'format track',
+    0x08: 'get drive parameters',
+    0x0c: 'seek to cylinder',
+    0x10: 'get drive status',
+    0x11: 'recalibrate drive',
+    0x15: 'get disk type',
+    0x16: 'get floppy change status',
+    0x17: 'set disk type',
+    0x18: 'set floppy type',
+}
+
+_BIOS_KBD_FUNCTIONS = {
+    0x00: 'read keystroke',
+    0x01: 'check keystroke',
+    0x02: 'get shift status',
+    0x03: 'set typematic rate',
+    0x10: 'extended read keystroke',
+    0x11: 'extended check keystroke',
+    0x12: 'extended shift status',
+}
+
+_BIOS_TIMER_FUNCTIONS = {
+    0x00: 'get system tick count',
+    0x01: 'set system tick count',
+    0x02: 'get CMOS time',
+    0x03: 'set CMOS time',
+}
+
+_BIOS_MOUSE_FUNCTIONS = {
+    0x00: 'reset mouse',
+    0x01: 'show mouse cursor',
+    0x02: 'hide mouse cursor',
+    0x03: 'get mouse position',
+    0x04: 'set mouse position',
+    0x05: 'get button press info',
+    0x06: 'get button release info',
+    0x07: 'set horizontal limits',
+    0x08: 'set vertical limits',
+    0x09: 'set graphics cursor',
+    0x0a: 'set text cursor',
+    0x0b: 'read motion counters',
+    0x0c: 'set event handler',
+    0x0f: 'set mouse speed',
+    0x10: 'set mouse page',
+}
+
+_BIOS_SYSTEM_FUNCTIONS = {
+    0x41: 'read system info word',
+    0x84: 'joystick support',
+    0x85: 'SysRq key',
+    0x86: 'wait (microseconds)',
+    0x87: 'move extended memory block',
+    0x88: 'get extended memory size',
+    0x89: 'enter protected mode',
+    0xc0: 'get system configuration',
+    0xc1: 'get extended BIOS data area',
+}
+
+_INT_FUNCTION_TABLES = {
+    0x10: _BIOS_VIDEO_FUNCTIONS,
+    0x13: _BIOS_DISK_FUNCTIONS,
+    0x15: _BIOS_SYSTEM_FUNCTIONS,
+    0x16: _BIOS_KBD_FUNCTIONS,
+    0x1a: _BIOS_TIMER_FUNCTIONS,
+    0x33: _BIOS_MOUSE_FUNCTIONS,
+}
+
+# Instructions at which the backward scan for `mov ah, N` should stop
+_CFLOW_PREFIXES = ('int ', 'call ', 'jmp ', 'ret', 'iret', 'hlt')
+
+
+def _annotate_interrupts(records):
+    """Post-process records to annotate `int` instructions with DOS/BIOS function names."""
+    for i, rec in enumerate(records):
+        rtype = rec['type']
+        if rtype not in ('mnem', 'db_with_comment'):
+            continue
+
+        m = _INT_RE.match(rec['text'])
+        if not m:
+            continue
+        vec = int(m.group(1), 16)
+
+        if vec == 0x21:
+            found = False
+            for j in range(i - 1, -1, -1):
+                prev = records[j]
+                if prev['type'] not in ('mnem', 'db_with_comment'):
+                    continue
+                pt = prev['text']
+                am = _MOV_AH_RE.match(pt)
+                if am:
+                    hex_val = am.group(1)
+                    dec_val = am.group(2)
+                    ah = int(hex_val, 16) if hex_val else int(dec_val)
+                    desc = _DOS_FUNCTIONS.get(ah)
+                    if desc:
+                        rec['annotation'] = f'DOS {desc}'
+                        found = True
+                    break
+                if pt.startswith(_CFLOW_PREFIXES):
+                    break
+            if not found:
+                rec['annotation'] = 'DOS function dispatcher'
+
+        elif vec in _INT_FUNCTION_TABLES:
+            func_table = _INT_FUNCTION_TABLES[vec]
+            base = _INT_DESCRIPTIONS.get(vec, f'INT 0x{vec:02x}')
+            found = False
+            for j in range(i - 1, -1, -1):
+                prev = records[j]
+                if prev['type'] not in ('mnem', 'db_with_comment'):
+                    continue
+                pt = prev['text']
+                am = _MOV_AH_RE.match(pt)
+                if am:
+                    hex_val = am.group(1)
+                    dec_val = am.group(2)
+                    ah = int(hex_val, 16) if hex_val else int(dec_val)
+                    fdesc = func_table.get(ah)
+                    if fdesc:
+                        rec['annotation'] = f'{base}: {fdesc}'
+                        found = True
+                    break
+                if pt.startswith(_CFLOW_PREFIXES):
+                    break
+            if not found:
+                desc = _INT_DESCRIPTIONS.get(vec)
+                if desc:
+                    rec['annotation'] = desc
+
+        else:
+            desc = _INT_DESCRIPTIONS.get(vec)
+            if desc:
+                rec['annotation'] = desc
 
 
 def _try_decode_block(raw_bytes, start_offset):
@@ -128,7 +410,7 @@ def _detect_file_format(raw_bytes):
     return None
 
 
-def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, exact_bytes=False):
+def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, local_labels=None, exact_bytes=False):
     """Build mnem/db_with_comment/db records for a code-like block."""
     from lib.format import format_instruction
 
@@ -151,7 +433,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                 })
             continue
 
-        nasm_text = format_instruction(insn, label_map)
+        nasm_text = format_instruction(insn, label_map, local_labels)
 
         if nasm_text is None:
             for b in bts:
@@ -163,7 +445,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                 })
             continue
 
-        built = micro_assemble(nasm_text, insn.address, label_map)
+        built = micro_assemble(nasm_text, insn.address, label_map, local_labels)
         ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
         if not ok and not exact_bytes and built:
             ok = is_semantically_equivalent(bts, built[:len(bts)], insn.address)
@@ -187,7 +469,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
     return records
 
 
-def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None):
+def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None):
     """Replace code-like data_block records with inline records;
     annotate jump tables and known file formats on the rest."""
     new_records = []
@@ -268,7 +550,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                                       if i.address - start < safe_end_offset]
                         inline = _generate_inline_code(
                             safe_insns, raw[:safe_end_offset], start,
-                            binary_data, label_map, exact_bytes=True)
+                            binary_data, label_map, local_labels, exact_bytes=True)
                         if inline:
                             if trace is not None:
                                 trace.event('cascade', 'partial_promote',
@@ -291,7 +573,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                     # fall through to normal promotion
 
             if all_decoded or (0 < gap <= 3):
-                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, exact_bytes=True)
+                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, local_labels, exact_bytes=True)
                 if inline:
                     if trace is not None:
                         trace.event('cascade', 'promoted', addr=start,
@@ -414,7 +696,7 @@ def _compute_func_boundaries(label_map, binary_data):
     boundaries = {}
     for off in sorted(label_map.keys()):
         name = label_map[off]
-        if name == f'loc_{off:04x}' or name.endswith(f'_loc_{off:04x}'):
+        if name == f'loc_{off:04x}':
             continue
         func_start = off
         for i in range(min(16, off), 0, -1):
@@ -438,17 +720,40 @@ def _compute_func_boundaries(label_map, binary_data):
     return boundaries
 
 
-def _compute_local_labels(func_boundaries, code_targets, label_map):
+def _compute_local_labels(func_boundaries, code_targets, label_map, insn_by_addr=None):
     """Return {offset: '@..name.l{N}'} for code targets within named functions."""
-    if not func_boundaries or not code_targets:
-        return {}
+    targets = set(code_targets) if code_targets else set()
+
+    if insn_by_addr:
+        flow_ops = frozenset((
+            'jmp', 'call', 'je', 'jne', 'jl', 'jle', 'jg', 'jge',
+            'ja', 'jb', 'jae', 'jbe', 'jz', 'jnz', 'js', 'jns',
+            'jo', 'jno', 'jp', 'jnp', 'jcxz', 'jecxz',
+            'loop', 'loope', 'loopne',
+        ))
+        for insn in insn_by_addr.values():
+            if insn.mnemonic in flow_ops:
+                for op in insn.operands:
+                    if op.type == 2:
+                        targets.add(op.imm & 0xFFFF)
+
     local_labels = {}
-    for fn_start, (fn_end, fn_name) in sorted(func_boundaries.items()):
-        n = 0
-        for off in sorted(t for t in code_targets if fn_start < t < fn_end):
-            if off not in label_map:
-                n += 1
-                local_labels[off] = f'@..{fn_name}.l{n}'
+    assigned = set()
+
+    if func_boundaries:
+        for fn_start, (fn_end, fn_name) in sorted(func_boundaries.items()):
+            n = 0
+            for off in sorted(t for t in targets if fn_start < t < fn_end):
+                if off not in label_map and off not in assigned:
+                    n += 1
+                    local_labels[off] = f'@..{fn_name}.l{n}'
+                    assigned.add(off)
+
+    flat_n = 0
+    for off in sorted(t for t in targets if t not in label_map and t not in assigned):
+        flat_n += 1
+        local_labels[off] = f'@..local.l{flat_n}'
+
     return local_labels
 
 
@@ -487,7 +792,7 @@ def _emit_label_record(records, off, label_map, local_labels=None):
 
 
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
-           bitmap=None, code_targets=None, exact_bytes=False,
+           bitmap=None, code_targets=None, exact_bytes=False, show_offsets=False,
            structs=None, asm_dir=None, cascade_promoted=None,
            carve_1=None, trace=None):
     """Produce NASM source text from *binary_data* and *instructions*.
@@ -519,8 +824,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     if code_targets:
         known_addrs |= code_targets
 
+    t0 = time.perf_counter()
     func_boundaries = _compute_func_boundaries(label_map, binary_data)
-    local_labels = _compute_local_labels(func_boundaries, code_targets, label_map)
+    t1 = time.perf_counter()
+    local_labels = _compute_local_labels(func_boundaries, code_targets, label_map, insn_by_addr)
+    t2 = time.perf_counter()
 
     if label_map:
         bad = set()
@@ -539,6 +847,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             off: name for off, name in local_labels.items()
             if off in insn_by_addr
         }
+        known_addrs |= local_labels.keys()
 
     records = []
     pending_data = []
@@ -639,7 +948,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             'bytes': list(pending_data),
         })
 
-    records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace)
+    t3 = time.perf_counter()
+    records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace, local_labels)
+    _annotate_interrupts(records)
+    t4 = time.perf_counter()
 
     emit_class = bytearray(total)
     label_positions = bytearray(total)
@@ -662,7 +974,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 for i in range(off, off + sz):
                     emit_class[i] = IS_DATA
 
-    src_lines = _build_source(records, start_offset, binary_data)
+    t5 = time.perf_counter()
+    src_lines = _build_source(records, start_offset, binary_data, show_offsets=show_offsets)
+    t6 = time.perf_counter()
 
     mnem_count = sum(1 for r in records if r['type'] == 'mnem')
     db_count = sum(1 for r in records if r['type'] == 'db')
@@ -689,10 +1003,16 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'labels': label_count,
         'structs': struct_count,
         'status': 'OK',
+        'timing_func_boundaries': t1 - t0,
+        'timing_local_labels': t2 - t1,
+        'timing_main_loop': t3 - t2,
+        'timing_postprocess': t4 - t3,
+        'timing_emit_class': t5 - t4,
+        'timing_build_source': t6 - t5,
     }, emit_class, label_positions
 
 
-def _build_source(records, start_offset, binary_data):
+def _build_source(records, start_offset, binary_data, show_offsets=False):
     """Render the record list to final NASM text."""
     out = []
     out.append('org 0')
@@ -750,10 +1070,20 @@ def _build_source(records, start_offset, binary_data):
                 out.append('')
 
         elif rec['type'] == 'mnem':
-            out.append(f'    {rec["text"]}')
+            annotation = rec.get('annotation')
+            if annotation:
+                out.append(f'    {rec["text"]} ; {annotation}')
+            elif show_offsets:
+                out.append(f'    {rec["text"]:<32s} ; 0x{rec["offset"]:04x}')
+            else:
+                out.append(f'    {rec["text"]}')
 
         elif rec['type'] == 'db_with_comment':
-            out.append(f'    db {rec["db_hex"]} ; {rec["text"]}')
+            annotation = rec.get('annotation')
+            if annotation:
+                out.append(f'    db {rec["db_hex"]} ; {rec["text"]}  ; {annotation}')
+            else:
+                out.append(f'    db {rec["db_hex"]} ; {rec["text"]}')
 
         elif rec['type'] == 'db':
             hexes = []

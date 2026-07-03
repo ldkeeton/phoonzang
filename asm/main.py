@@ -115,9 +115,10 @@ for a in sys.argv:
 
 _ITERATIVE = '--no-iterate' not in sys.argv
 _TRACE = '--trace' in sys.argv
+_SHOW_OFFSETS = '--show-offsets' in sys.argv
 
 
-def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_dir=None, project=None, sidecar_entry=None):
+def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=False, output_dir=None, project=None, sidecar_entry=None):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -241,7 +242,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
     asm_text, stats, emit_bytes, label_positions = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
-        exact_bytes=exact_bytes,
+        exact_bytes=exact_bytes, show_offsets=show_offsets,
         structs=structs,
         asm_dir=out_dir,
         carve_1=carve_1,
@@ -263,7 +264,14 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, output_di
           f'[{stats["status"]}]')
     print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
           f'disasm: {t_disasm-t_classify_end:.1f}s  '
-          f'verify+emit: {t_end-t_disasm:.1f}s  total: {t_end-t_total:.1f}s')
+          f'verify+emit: {t_end-t_disasm:.1f}s  '
+          f'(func_bounds={stats.get("timing_func_boundaries",0):.3f}s '
+          f'local_lbl={stats.get("timing_local_labels",0):.3f}s '
+          f'main_loop={stats.get("timing_main_loop",0):.3f}s '
+          f'postproc={stats.get("timing_postprocess",0):.3f}s '
+          f'emit_class={stats.get("timing_emit_class",0):.3f}s '
+          f'build_src={stats.get("timing_build_source",0):.3f}s) '
+          f'total: {t_end-t_total:.1f}s')
     print(f'  classify phases:')
     print(classify_timing)
     if ctx.report.get('iterative'):
@@ -339,7 +347,8 @@ def process_project(project_name):
         for name, (rel_path, start_offset) in sorted(bins.items()):
             sc_entry = sidecar_per_binary(sidecar, name) if sidecar else None
             process(name, project_dir, rel_path, start_offset,
-                    exact_bytes=EXACT_BYTES, output_dir=out_dir,
+                    exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
+                    output_dir=out_dir,
                     project=project_name, sidecar_entry=sc_entry)
 
     processed = set(bins.keys())
@@ -590,7 +599,8 @@ def main():
         rel_path, start_offset = bins[binary]
         sc_entry = sidecar_per_binary(sidecar, binary) if sidecar else None
         process(binary, project_dir, rel_path, start_offset,
-                exact_bytes=EXACT_BYTES, output_dir=out_dir,
+                exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
+                output_dir=out_dir,
                 project=p, sidecar_entry=sc_entry)
         return
 
