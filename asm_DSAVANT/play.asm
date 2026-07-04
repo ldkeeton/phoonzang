@@ -2,6 +2,13 @@
 %include "structs/play.inc"
 org 0
 bits 16
+data_00fe equ 0x00fe
+data_01b0 equ 0x01b0
+data_0322 equ 0x0322
+data_0330 equ 0x0330
+data_058a equ 0x058a
+data_0b8b equ 0x0b8b
+data_89a3 equ 0x89a3
 
 loc_0000:
     jmp near 3
@@ -314,9 +321,9 @@ io_loc_02ba:
     add al, 0xca
     add al, 0x8b
     inc si
-    adc byte [0x89a3], ch
+    adc byte [data_89a3], ch
     or ax, word [bx + si + 0x2e]
-    mov word [0x0b8b], ax
+    mov word [data_0b8b], ax
     inc ax
     cmp byte [bp + 0x15], 2
     je short 0x381

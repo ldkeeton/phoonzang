@@ -2,6 +2,17 @@
 %include "structs/ega.inc"
 org 0
 bits 16
+data_0300 equ 0x0300
+data_03bb equ 0x03bb
+data_0d24 equ 0x0d24
+data_1bf9 equ 0x1bf9
+data_1bfb equ 0x1bfb
+data_2e2e equ 0x2e2e
+data_36dd equ 0x36dd
+data_3705 equ 0x3705
+data_3a3a equ 0x3a3a
+data_4907 equ 0x4907
+data_4c4c equ 0x4c4c
 
 loc_0000:
     jmp near 3
@@ -2713,9 +2724,9 @@ math_loc_2a6a:
     mov cl, 2
     shr ax, cl
     mov word [cs:0x1bf1], ax
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word ptr cs:[0x1bfb], 0
+    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word ptr cs:[data_1bfb], 0
     jne short @..math_loc_2a6a.l4
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word ptr cs:[0x1bf9], 0
+    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word ptr cs:[data_1bf9], 0
     je short @..math_loc_2a6a.l4
     inc ax
 @..math_loc_2a6a.l4:
@@ -3113,7 +3124,7 @@ io_loc_2e7d:
     mov al, 8
     out dx, al
     inc dx
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word ptr cs:[0x1bf9], 0
+    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word ptr cs:[data_1bf9], 0
     je short @..io_loc_2e7d.l1
     jmp short @..local.l55
 @..io_loc_2e7d.l1:
@@ -3178,7 +3189,7 @@ io_loc_2e7d:
     dec ax
     jne short @..local.l56
 @..local.l57:
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word ptr cs:[0x1bfb], 0
+    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word ptr cs:[data_1bfb], 0
     jne short @..local.l58
     mov ah, byte [bx]
     xor al, al
@@ -3233,7 +3244,7 @@ io_loc_2f70:
     mov al, 8
     out dx, al
     inc dx
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word ptr cs:[0x1bf9], 0
+    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word ptr cs:[data_1bf9], 0
     je short @..io_loc_2f70.l1
     jmp short @..local.l59
 @..io_loc_2f70.l1:
@@ -3296,7 +3307,7 @@ io_loc_2f70:
     dec ax
     jne short @..local.l60
 @..local.l61:
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word ptr cs:[0x1bfb], 0
+    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word ptr cs:[data_1bfb], 0
     jne short @..local.l62
     mov ah, byte [bx]
     xor al, al
@@ -3963,11 +3974,11 @@ math_loc_361e:
     mov word [bp - 0x0038], ax
     mov ax, cs
     mov es, ax
-    lea di, word [0x36dd]
+    lea di, word [data_36dd]
     xor ax, ax
     mov cx, 0x14
     rep stosw
-    lea di, word [0x3705]
+    lea di, word [data_3705]
     mov cx, 0x19
     rep stosb
     mov bx, word [bp + 0x20]
@@ -6055,7 +6066,7 @@ dos_read_file_7:
     dec si
     inc sp
     sub byte [bx + di], ch
-    and byte [0x2e2e], ch
+    and byte [data_2e2e], ch
     and byte [bp + di + 0x6c], dh
     outsw
     je short @..dos_con_loc_4ae1.l2
@@ -6089,7 +6100,7 @@ dos_con_loc_4b1d:
     dec si
     inc sp
     sub byte [bx + di], ch
-    and byte [0x2e2e], ch
+    and byte [data_2e2e], ch
     and byte [bp + 0x6f], ch
     je short @..dos_con_loc_4ae1.l5
     db 0x65, 0x6e ; outsb dx, byte ptr gs:[si]

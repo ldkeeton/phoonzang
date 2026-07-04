@@ -264,6 +264,95 @@ _INT_FUNCTION_TABLES = {
 _CFLOW_PREFIXES = ('int ', 'call ', 'jmp ', 'ret', 'iret', 'hlt')
 
 
+def _parse_mz_relocs(binary_data, start_offset):
+    """Parse MZ EXE relocation table.
+
+    Returns a set of absolute target addresses (near offsets within
+    the program's load image) that the relocation table references.
+    These are added to known_addrs so data/code discovery picks them up.
+    """
+    if start_offset != 0x200:
+        return set()
+    hdr = binary_data[:0x200]
+    if hdr[:2] != b'MZ':
+        return set()
+
+    _, _, _, crlc, cparhdr, _, _, _, _, _, _, _, lfarlc, _ = \
+        struct.unpack_from('<2s13H', hdr, 0)
+
+    load_start = cparhdr * 16
+    targets = set()
+
+    for i in range(crlc):
+        entry_off = lfarlc + i * 4
+        if entry_off + 4 > len(binary_data):
+            break
+        # Each entry: offset (2 bytes), segment (2 bytes)
+        reloc_offset = struct.unpack_from('<H', binary_data, entry_off)[0]
+        reloc_segment = struct.unpack_from('<H', binary_data, entry_off + 2)[0]
+        ref_file_off = load_start + reloc_segment * 16 + reloc_offset
+        if ref_file_off + 2 <= len(binary_data):
+            word_val = struct.unpack_from('<H', binary_data, ref_file_off)[0]
+            targets.add(word_val)
+
+    return targets
+
+
+def _collect_data_labels(records, binary_data, start_offset, reloc_targets=None, known_addrs=None):
+    """Scan records for all absolute memory references like [0xNNNN].
+
+    Returns a dict: {address: label_name} for every unique absolute
+    address referenced in instruction operands, MZ relocation entries,
+    or data blocks (words that point to known code/data positions).
+    """
+    addrs = set()
+
+    if reloc_targets:
+        addrs.update(reloc_targets)
+
+    ref_re = re.compile(r'\[0x([0-9a-fA-F]{4})\]')
+    for rec in records:
+        if rec['type'] in ('mnem', 'db_with_comment'):
+            for m in ref_re.finditer(rec['text']):
+                addrs.add(int(m.group(1), 16))
+
+    # Scan data blocks for word values that point to known code/data
+    if known_addrs:
+        for rec in records:
+            if rec['type'] != 'data_block':
+                continue
+            raw = binary_data[rec['start']:rec['end']]
+            for off in range(0, len(raw) - 1, 2):
+                val = struct.unpack_from('<H', raw, off)[0]
+                if val in known_addrs:
+                    addrs.add(val)
+
+    labels = {}
+    for addr in sorted(addrs):
+        if addr == 0:
+            continue
+        labels[addr] = f'data_{addr:04x}'
+
+    return labels
+
+
+def _substitute_data_labels(records, data_labels):
+    """Replace [0xNNNN] with [label_name] in record texts."""
+    if not data_labels:
+        return
+    def replacer(m):
+        addr = int(m.group(1), 16)
+        name = data_labels.get(addr)
+        if name:
+            return f'[{name}]'
+        return m.group(0)
+
+    pat = re.compile(r'\[0x([0-9a-fA-F]{4})\]')
+    for rec in records:
+        if rec['type'] in ('mnem', 'db_with_comment'):
+            rec['text'] = pat.sub(replacer, rec['text'])
+
+
 def _annotate_interrupts(records):
     """Post-process records to annotate `int` instructions with DOS/BIOS function names."""
     for i, rec in enumerate(records):
@@ -825,6 +914,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         known_addrs |= code_targets
 
     t0 = time.perf_counter()
+
+    # Discover hidden address references from MZ relocation table
+    reloc_targets = _parse_mz_relocs(binary_data, start_offset)
+    if reloc_targets and code_targets is not None:
+        code_targets |= reloc_targets
+
     func_boundaries = _compute_func_boundaries(label_map, binary_data)
     t1 = time.perf_counter()
     local_labels = _compute_local_labels(func_boundaries, code_targets, label_map, insn_by_addr)
@@ -975,7 +1070,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                     emit_class[i] = IS_DATA
 
     t5 = time.perf_counter()
-    src_lines = _build_source(records, start_offset, binary_data, show_offsets=show_offsets)
+
+    # Collect data labels and substitute [0xNNNN] -> [label_name]
+    data_labels = _collect_data_labels(records, binary_data, start_offset, reloc_targets, known_addrs)
+    _substitute_data_labels(records, data_labels)
+
+    src_lines = _build_source(records, start_offset, binary_data, show_offsets=show_offsets, data_labels=data_labels)
     t6 = time.perf_counter()
 
     mnem_count = sum(1 for r in records if r['type'] == 'mnem')
@@ -1012,12 +1112,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     }, emit_class, label_positions
 
 
-def _build_source(records, start_offset, binary_data, show_offsets=False):
+def _build_source(records, start_offset, binary_data, show_offsets=False, data_labels=None):
     """Render the record list to final NASM text."""
     out = []
     out.append('org 0')
     out.append('bits 16')
-    out.append('')
 
     if start_offset == 0x200:
         hdr = binary_data[:start_offset]
@@ -1046,6 +1145,11 @@ def _build_source(records, start_offset, binary_data, show_offsets=False):
         hdr = binary_data[:start_offset]
         hdr_hex = ', '.join(f'0x{b:02x}' for b in hdr)
         out.append(f'    db {hdr_hex} ; header ({start_offset} bytes)')
+        out.append('')
+
+    if data_labels:
+        for addr in sorted(data_labels):
+            out.append(f'{data_labels[addr]} equ 0x{addr:04x}')
         out.append('')
 
     i = 0

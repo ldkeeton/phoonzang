@@ -2,6 +2,16 @@
 %include "structs/vga.inc"
 org 0
 bits 16
+data_0300 equ 0x0300
+data_082e equ 0x082e
+data_0e3b equ 0x0e3b
+data_10ba equ 0x10ba
+data_2041 equ 0x2041
+data_21cd equ 0x21cd
+data_2e2b equ 0x2e2b
+data_2e2e equ 0x2e2e
+data_2e53 equ 0x2e53
+data_455a equ 0x455a
 
 loc_0000:
     jmp near 3
@@ -3521,11 +3531,11 @@ math_loc_2d6c:
     mov word [bp - 0x0038], ax
     mov ax, cs
     mov es, ax
-    lea di, word [0x2e2b]
+    lea di, word [data_2e2b]
     xor ax, ax
     mov cx, 0x14
     rep stosw
-    lea di, word [0x2e53]
+    lea di, word [data_2e53]
     mov cx, 0x19
     rep stosb
     mov bx, word [bp + 0x20]
@@ -5601,7 +5611,7 @@ dos_read_file_7:
     dec si
     inc sp
     sub byte [bx + di], ch
-    and byte [0x2e2e], ch
+    and byte [data_2e2e], ch
     and byte [bp + di + 0x6c], dh
     outsw
     je short @..dos_con_loc_422f.l2
@@ -5635,7 +5645,7 @@ dos_con_loc_426b:
     dec si
     inc sp
     sub byte [bx + di], ch
-    and byte [0x2e2e], ch
+    and byte [data_2e2e], ch
     and byte [bp + 0x6f], ch
     je short @..dos_con_loc_422f.l6
     db 0x65, 0x6e ; outsb dx, byte ptr gs:[si]

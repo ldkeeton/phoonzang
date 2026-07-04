@@ -2,26 +2,85 @@
 %include "structs/vmele.inc"
 org 0
 bits 16
-
     db 0xf2, 0x00, 0x55, 0x50, 0x65, 0x37, 0x98, 0x90 ; header (8 bytes)
+
+data_0002 equ 0x0002
+data_0e36 equ 0x0e36
+data_5962 equ 0x5962
+data_5963 equ 0x5963
+data_5964 equ 0x5964
+data_5988 equ 0x5988
+data_598e equ 0x598e
+data_5b6e equ 0x5b6e
+data_69c8 equ 0x69c8
+data_7abc equ 0x7abc
+data_7b04 equ 0x7b04
+data_82b6 equ 0x82b6
+data_82e8 equ 0x82e8
+data_82ee equ 0x82ee
+data_82fa equ 0x82fa
+data_82fc equ 0x82fc
+data_830a equ 0x830a
+data_830c equ 0x830c
+data_8452 equ 0x8452
+data_8454 equ 0x8454
+data_8456 equ 0x8456
+data_8458 equ 0x8458
+data_845a equ 0x845a
+data_845c equ 0x845c
+data_845e equ 0x845e
+data_8460 equ 0x8460
+data_8466 equ 0x8466
+data_8468 equ 0x8468
+data_8482 equ 0x8482
+data_8484 equ 0x8484
+data_8492 equ 0x8492
+data_849e equ 0x849e
+data_84a0 equ 0x84a0
+data_84a2 equ 0x84a2
+data_84a4 equ 0x84a4
+data_8d0a equ 0x8d0a
+data_8d0c equ 0x8d0c
+data_8d0e equ 0x8d0e
+data_8d10 equ 0x8d10
+data_8f20 equ 0x8f20
+data_905a equ 0x905a
+data_905e equ 0x905e
+data_9060 equ 0x9060
+data_9062 equ 0x9062
+data_9064 equ 0x9064
+data_9066 equ 0x9066
+data_9068 equ 0x9068
+data_906a equ 0x906a
+data_906c equ 0x906c
+data_908a equ 0x908a
+data_908c equ 0x908c
+data_908e equ 0x908e
+data_9090 equ 0x9090
+data_9092 equ 0x9092
+data_9094 equ 0x9094
+data_90b6 equ 0x90b6
+data_90b8 equ 0x90b8
+data_90ba equ 0x90ba
+data_90bc equ 0x90bc
 
     db 0x1e, 0x00, 0x1a, 0x00, 0x57, 0x87
 math_loc_000e:
     mov ax, 0
     call 0xf40b
-    mov word [0x90b6], 5
-    mov word [0x90b8], 0
-    mov word [0x90ba], 0
-    mov word [0x90bc], 0
-    cmp word [0x830a], byte 0x0a
+    mov word [data_90b6], 5
+    mov word [data_90b8], 0
+    mov word [data_90ba], 0
+    mov word [data_90bc], 0
+    cmp word [data_830a], byte 0x0a
     jne short @..math_loc_000e.l1
     call loc_33df
 @..math_loc_000e.l1:
-    cmp word [0x830a], byte 0x0e
+    cmp word [data_830a], byte 0x0e
     jne short @..math_loc_000e.l2
     call api_idx_0056
 @..math_loc_000e.l2:
-    cmp word [0x830a], byte 0x0b
+    cmp word [data_830a], byte 0x0b
     jne short @..math_loc_000e.l3
     call api_idx_0002_2
 @..math_loc_000e.l3:
@@ -40,7 +99,7 @@ api_idx_0008:
     mov ax, 0x2c
     imul word [bp + 0x4]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     cmp byte [bx + si + 0x2b], 1
     je short @..api_idx_0008.l2
     cmp byte [bx + si + 0x2b], 3
@@ -109,7 +168,7 @@ api_idx_0004:
     call 0xec17
     mov ax, word [bp + 0x4]
     cwd
-    les bx, word [0x0002]
+    les bx, word [data_0002]
     mov cx, word [es:bx]
     mov bx, word [es:bx + 0x2]
     add ax, cx
@@ -117,7 +176,7 @@ api_idx_0004:
     mov word [bp - 0x0002], dx
     mov word [bp - 0x0004], ax
 @..api_idx_0004.l1:
-    les bx, word [0x0002]
+    les bx, word [data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     cmp dx, word [bp - 0x0002]
@@ -246,14 +305,14 @@ api_idx_000a:
     db 0xe8, 0xc1, 0xf1 ; call 0xfffff40b
     mov ax, 0
     push ax
-    push word [0x8d10]
-    push word [0x8d0e]
+    push word [data_8d10]
+    push word [data_8d0e]
     db 0xe8, 0xf6, 0xe6 ; call 0xffffe94f
     add sp, byte 6
     mov ax, 0
     push ax
-    push word [0x8d0c]
-    push word [0x8d0a]
+    push word [data_8d0c]
+    push word [data_8d0a]
     db 0xe8, 0xe4, 0xe6 ; call 0xffffe94f
     add sp, byte 6
     mov byte [bp - 0x000a], 1
@@ -364,7 +423,7 @@ api_idx_000c:
     push word [bp + 0x4]
     db 0xe8, 0xea, 0xe4 ; call 0xffffe84e
     add sp, byte 4
-    mov ax, word [0x598e]
+    mov ax, word [data_598e]
     mov word [bp - 0x000c], ax
     push word [bp + 0x6]
     call 0xd7aa
@@ -392,7 +451,7 @@ api_idx_000c:
     push ax
     call 0xd6c6
     pop cx
-    mov word [0x598e], 0xffff
+    mov word [data_598e], 0xffff
 @..api_idx_000c.l2:
     mov ax, 0
     push ax
@@ -518,7 +577,7 @@ api_idx_00a8:
     mov word [bp - 0x0042], 0x5b
     mov word [bp - 0x0040], 0x5c
     mov word [bp - 0x003e], 0x69
-    mov ax, word [0x5b6e]
+    mov ax, word [data_5b6e]
     mov cx, 2
     cwd
     idiv cx
@@ -700,7 +759,7 @@ api_idx_005e:
     mov ax, 0
     ret
 @..local.l22:
-    cmp byte [0x5962], 1
+    cmp byte [data_5962], 1
     jne short @..local.l25
     mov ax, 0
     push ax
@@ -720,9 +779,9 @@ api_idx_005e:
     mov word [bp - 0x000c], 0
     jmp short @..local.l28
 @..local.l25:
-    cmp byte [0x5963], 1
+    cmp byte [data_5963], 1
     jne short @..local.l28
-    mov al, byte [0x5964]
+    mov al, byte [data_5964]
     sub ah, ah
     add ax, strict word 0xffc0
     mov word [bp - 0x000e], ax
@@ -798,7 +857,7 @@ api_idx_0008_3:
     jne short @..local.l32
     ret
 @..local.l32:
-    inc word [0x8466]
+    inc word [data_8466]
     mov al, byte [bp + 0x4]
     mov cx, word [bp + 0x6]
     shl cx, 1
@@ -841,7 +900,7 @@ api_idx_0008_3:
     sub ah, ah
     test ax, 1
     jne short @..local.l38
-    mov al, byte [0x5988]
+    mov al, byte [data_5988]
     sub ah, ah
     jmp short @..local.l37
 @..local.l34:
@@ -932,7 +991,7 @@ api_idx_0008_3:
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 6
     jl short @..local.l42
-    cmp byte [0x5988], 2
+    cmp byte [data_5988], 2
     jne short @..local.l43
     mov ax, word [bp + 0x6]
     shl ax, 1
@@ -1035,7 +1094,7 @@ api_idx_0008_3:
     mov bx, ax
     mov bx, word [bx - 0x7b7e]
     mov byte [bx + si + 0x2a], 0xff
-    mov al, byte [0x5988]
+    mov al, byte [data_5988]
     sub ah, ah
     jmp near @..local.l47
 @..local.l45:
@@ -1122,17 +1181,17 @@ api_idx_0008_3:
     inc word [bp - 0x0002]
 @..local.l53:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jl short @..local.l52
     mov ax, word [bp - 0x0006]
     cwd
-    idiv word [0x69c8]
+    idiv word [data_69c8]
     inc ax
     mov cx, 3
     cwd
     idiv cx
     mov word [bp - 0x0006], ax
-    cmp word [0x8452], byte 0
+    cmp word [data_8452], byte 0
     jle short @..local.l54
     inc word [bp - 0x0006]
 @..local.l54:
@@ -1145,10 +1204,10 @@ api_idx_0008_3:
     add sp, byte 6
     mov word [bp - 0x0006], ax
     mov ax, 0x96
-    cmp byte [0x5988], 1
+    cmp byte [data_5988], 1
     je short @..local.l55
     mov ax, 0x64
-    cmp byte [0x5988], 2
+    cmp byte [data_5988], 2
     jne short @..local.l55
     mov ax, 0x4b
 @..local.l55:
@@ -1247,7 +1306,7 @@ api_idx_0004_4:
     mov ax, 0xfffc
     db 0xe8, 0x9e, 0xe7 ; call 0xfffff40b
     mov word [bp - 0x0004], 0
-    mov al, byte [0x69c8]
+    mov al, byte [data_69c8]
     mov cx, word [bp - 0x0004]
     shl cx, 1
     mov bx, cx
@@ -1265,9 +1324,9 @@ api_idx_0004_4:
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 6
     jl short @..api_idx_0004_4.l1
-    cmp word [0x82fa], byte 0
+    cmp word [data_82fa], byte 0
     jle short @..api_idx_0004_4.l2
-    mov al, byte [0x82fc]
+    mov al, byte [data_82fc]
     mov cx, word [bp - 0x0004]
     shl cx, 1
     mov bx, cx
@@ -1562,7 +1621,7 @@ api_idx_0004_4:
     inc word [bp - 0x0002]
 @..local.l67:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jge short @..local.l68
     jmp near @..api_idx_0004_4.l4
 @..local.l68:
@@ -1636,9 +1695,9 @@ api_idx_000a_2:
     mov bx, word [bx - 0x7b70]
     cmp byte [bx + 0xd7], 0x47
     jne short @..local.l75
-    cmp word [0x90ba], byte 1
+    cmp word [data_90ba], byte 1
     jne short @..local.l74
-    mov ax, word [0x8460]
+    mov ax, word [data_8460]
     mov cx, 0x100
     cwd
     idiv cx
@@ -1976,8 +2035,8 @@ api_idx_000e:
     mov bx, word [bx - 0x7b70]
     mov ax, word [bx + 0x40]
     mov dx, word [bx + 0x42]
-    add word [0x84a2], ax
-    adc word [0x84a4], dx
+    add word [data_84a2], ax
+    adc word [data_84a4], dx
 @..api_idx_000e.l6:
     mov bx, word [bp - 0x0004]
     cmp byte [bx + 0x2a], 0xff
@@ -2301,7 +2360,7 @@ api_idx_005c:
     push ax
     call api_idx_000c
     add sp, byte 4
-    push word [0x905a]
+    push word [data_905a]
     call api_idx_0004
     pop cx
 @..api_idx_005c.l11:
@@ -2367,7 +2426,7 @@ api_idx_0006:
     sub ah, ah
     push ax
     mov ax, 3
-    imul word [0x830c]
+    imul word [data_830c]
     mov cx, ax
     pop ax
     sub ax, cx
@@ -2394,12 +2453,12 @@ api_idx_0006:
     inc word [bp - 0x0004]
 @..api_idx_0006.l5:
     mov ax, word [bp - 0x0004]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jl short @..api_idx_0006.l2
     inc word [bp - 0x0002]
 @..api_idx_0006.l6:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x8466]
+    cmp ax, word [data_8466]
     jg short @..api_idx_0006.l7
     jmp near @..api_idx_0006.l1
 @..api_idx_0006.l7:
@@ -2435,7 +2494,7 @@ api_idx_0004_5:
     inc word [bp - 0x0002]
 @..api_idx_0004_5.l3:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x8466]
+    cmp ax, word [data_8466]
     jle short @..api_idx_0004_5.l2
     mov word [bp - 0x0004], 0xf
 @..api_idx_0004_5.l4:
@@ -2454,7 +2513,7 @@ api_idx_0004_5:
     mov ax, word [bp - 0x0004]
     cmp ax, strict word 0x12
     jl short @..api_idx_0004_5.l4
-    mov bx, word [0x8492]
+    mov bx, word [data_8492]
     cmp byte [bx + 0xd8], 0
     jbe short @..api_idx_0004_5.l6
     mov al, byte [bx + 0xd8]
@@ -2514,7 +2573,7 @@ api_idx_0014:
     mov ax, 0x2c
     imul word [bp - 0x0012]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov al, byte [bx + si + 0x1f]
     sub ah, ah
     cmp ax, word [bp - 0x0002]
@@ -2525,7 +2584,7 @@ api_idx_0014:
     inc word [bp - 0x0012]
 @..api_idx_0014.l6:
     mov ax, word [bp - 0x0012]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jl short @..api_idx_0014.l4
     push word [bp - 0x0006]
     call api_idx_000c_2
@@ -2630,19 +2689,19 @@ api_idx_0014:
     inc word [bp - 0x0002]
 @..api_idx_0014.l13:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x8466]
+    cmp ax, word [data_8466]
     jg short @..api_idx_0014.l14
     jmp near @..api_idx_0014.l1
 @..api_idx_0014.l14:
     mov ax, word [bp - 0x0006]
-    mov word [0x8466], ax
-    cmp word [0x8466], byte 0
+    mov word [data_8466], ax
+    cmp word [data_8466], byte 0
     jne short @..api_idx_0014.l16
-    cmp word [0x905e], byte 8
+    cmp word [data_905e], byte 8
     je short @..api_idx_0014.l15
-    mov word [0x905e], 0xf
+    mov word [data_905e], 0xf
 @..api_idx_0014.l15:
-    mov word [0x845c], 1
+    mov word [data_845c], 1
 @..api_idx_0014.l16:
     call api_idx_0004_5
     call api_idx_0006
@@ -2869,11 +2928,11 @@ math_loc_1a16:
     inc word [bp - 0x0002]
 @..local.l84:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x8466]
+    cmp ax, word [data_8466]
     jg short @..local.l85
     jmp near @..math_loc_1a16.l1
 @..local.l85:
-    mov ax, word [0x8466]
+    mov ax, word [data_8466]
     mov word [bp - 0x0002], ax
     jmp near @..local.l103
 @..local.l86:
@@ -3098,7 +3157,7 @@ math_loc_1a16:
     mov ax, 0x2c
     imul word [bp - 0x000e]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov al, byte [bx + si + 0x1f]
     sub ah, ah
     cmp ax, word [bp - 0x0002]
@@ -3111,7 +3170,7 @@ math_loc_1a16:
     mov ax, 0x2c
     imul word [bp - 0x000e]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov al, byte [bx + si + 0x1f]
     sub ah, ah
     mov cx, word [bp - 0x0002]
@@ -3124,7 +3183,7 @@ math_loc_1a16:
     inc word [bp - 0x000e]
 @..local.l101:
     mov ax, word [bp - 0x000e]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jl short @..local.l98
     call api_idx_0004_5
     mov ax, word [bp - 0x0002]
@@ -3151,7 +3210,7 @@ math_loc_1eb4:
     mov ax, 0x2c
     imul word [bp + 0x4]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov ax, word [bx + si + 0x2]
     push ax
     mov ax, 0x248
@@ -3159,7 +3218,7 @@ math_loc_1eb4:
     mov bx, ax
     pop ax
     mov word [bx + 0x5c0c], ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov ax, word [bx + si + 0x6]
     push ax
     mov ax, 0x248
@@ -3167,7 +3226,7 @@ math_loc_1eb4:
     mov bx, ax
     pop ax
     mov word [bx + 0x5c10], ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov al, byte [bx + si + 0x22]
     push ax
     mov ax, 0x248
@@ -3180,7 +3239,7 @@ math_loc_1eb4:
     add bx, strict word 0x5d5a
     mov ax, bx
     push ax
-    mov ax, word [0x8482]
+    mov ax, word [data_8482]
     add ax, si
     add ax, strict word 0xe
     push ax
@@ -3189,7 +3248,7 @@ math_loc_1eb4:
     mov ax, 0x2c
     imul word [bp + 0x4]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov al, byte [bx + si + 0x23]
     push ax
     mov ax, 0x248
@@ -3207,7 +3266,7 @@ math_loc_1f39:
     mov ax, 0x2c
     imul word [bp - 0x0002]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     cmp byte [bx + si + 0x22], 3
     jae short @..math_loc_1f39.l2
     mov ax, 0x248
@@ -3247,7 +3306,7 @@ math_loc_1f39:
     inc word [bp - 0x0002]
 @..math_loc_1f39.l3:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jl short @..math_loc_1f39.l1
     mov word [bp - 0x0002], 0
     jmp short @..math_loc_1f39.l5
@@ -3258,7 +3317,7 @@ math_loc_1f39:
     inc word [bp - 0x0002]
 @..math_loc_1f39.l5:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jl short @..math_loc_1f39.l4
     mov word [bp - 0x0002], 0
     jmp near @..math_loc_1f39.l12
@@ -3298,13 +3357,13 @@ math_loc_1f39:
     mov ax, 0x2c
     imul word [bp - 0x0004]
     mov cx, ax
-    mov ax, word [0x8482]
+    mov ax, word [data_8482]
     add ax, cx
     push ax
     mov ax, 0x2c
     imul word [bp - 0x0002]
     mov cx, ax
-    mov ax, word [0x8482]
+    mov ax, word [data_8482]
     add ax, cx
     push ax
     call string_loc_374e
@@ -3347,13 +3406,13 @@ math_loc_1f39:
     inc word [bp - 0x0004]
 @..math_loc_1f39.l10:
     mov ax, word [bp - 0x0004]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jge short @..math_loc_1f39.l11
     jmp near @..math_loc_1f39.l7
 @..math_loc_1f39.l11:
     inc word [bp - 0x0002]
 @..math_loc_1f39.l12:
-    mov ax, word [0x69c8]
+    mov ax, word [data_69c8]
     dec ax
     cmp ax, word [bp - 0x0002]
     jle short @..math_loc_1f39.l13
@@ -3374,7 +3433,7 @@ math_loc_1f39:
     mov ax, 0x2c
     imul word [bp - 0x0002]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     cmp byte [bx + si + 0x2b], 2
     jne short @..math_loc_1f39.l16
     mov word [bp - 0x027c], 1
@@ -3382,19 +3441,19 @@ math_loc_1f39:
     inc word [bp - 0x0002]
 @..math_loc_1f39.l17:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jl short @..math_loc_1f39.l14
     mov ax, word [bp - 0x0004]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jne short @..math_loc_1f39.l18
-    mov word [0x905e], 8
-    mov word [0x845c], 1
+    mov word [data_905e], 8
+    mov word [data_845c], 1
     jmp short @..math_loc_1f39.l19
 @..math_loc_1f39.l18:
     cmp word [bp - 0x027c], byte 0
     jle short @..math_loc_1f39.l19
-    mov word [0x905e], 0x17
-    mov word [0x845c], 1
+    mov word [data_905e], 0x17
+    mov word [data_845c], 1
 @..math_loc_1f39.l19:
     ret
 api_idx_000e_2:
@@ -3734,7 +3793,7 @@ api_idx_0004_6:
     mov word [bp - 0x0002], 0
 @..api_idx_0004_6.l1:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x8468]
+    cmp ax, word [data_8468]
     jge short @..api_idx_0004_6.l2
     shl ax, 1
     mov bx, ax
@@ -3746,7 +3805,7 @@ api_idx_0004_6:
     inc word [bp - 0x0002]
     jmp short @..api_idx_0004_6.l1
 @..api_idx_0004_6.l2:
-    mov ax, word [0x8468]
+    mov ax, word [data_8468]
     mov word [bp - 0x0004], ax
     jmp short @..api_idx_0004_6.l4
 @..api_idx_0004_6.l3:
@@ -3830,7 +3889,7 @@ api_idx_0004_6:
     push ax
     db 0xe8, 0x07, 0xce ; call 0xfffff364
     add sp, byte 4
-    inc word [0x8468]
+    inc word [data_8468]
     ret
 api_idx_001c:
     mov ax, 0xffe4
@@ -3853,7 +3912,7 @@ api_idx_001c:
     cmp ax, strict word 3
     jg short @..api_idx_001c.l1
     mov ax, word [bp + 0x4]
-    cmp ax, word [0x8454]
+    cmp ax, word [data_8454]
     jle short @..local.l121
 @..api_idx_001c.l1:
     ret
@@ -3994,9 +4053,9 @@ api_idx_001c:
     pop ax
     add ax, cx
     mov word [bp - 0x0010], ax
-    cmp word [0x8466], byte 1
+    cmp word [data_8466], byte 1
     jne short @..local.l128
-    mov bx, word [0x8484]
+    mov bx, word [data_8484]
     cmp byte [bx + 0x1a1], 1
     jne short @..local.l128
     cmp word [bp + 0x4], byte 0
@@ -4077,12 +4136,12 @@ api_idx_001c:
 api_idx_000e_3:
     mov ax, 0xfff2
     db 0xe8, 0x5a, 0xcc ; call 0xfffff40b
-    cmp word [0x8f20], byte 0
+    cmp word [data_8f20], byte 0
     jg short @..api_idx_000e_3.l1
     jmp near @..api_idx_000e_3.l8
 @..api_idx_000e_3.l1:
-    mov ax, word [0x82ee]
-    mov cx, word [0x8f20]
+    mov ax, word [data_82ee]
+    mov cx, word [data_8f20]
     dec cx
     sub ax, cx
     add ax, strict word 6
@@ -4155,7 +4214,7 @@ api_idx_000e_3:
     call api_idx_0004_6
     add sp, byte 0x12
 @..api_idx_000e_3.l8:
-    cmp word [0x8f20], byte 0xff
+    cmp word [data_8f20], byte 0xff
     jne short @..api_idx_000e_3.l9
     mov byte [bp - 0x000e], 1
     mov byte [bp - 0x000d], 0
@@ -4168,10 +4227,10 @@ api_idx_000e_3:
     push ax
     mov ax, 0x48
     push ax
-    mov al, byte [0x7b04]
+    mov al, byte [data_7b04]
     sub ah, ah
     push ax
-    mov al, byte [0x7abc]
+    mov al, byte [data_7abc]
     sub ah, ah
     push ax
     mov ax, 0xc
@@ -4227,7 +4286,7 @@ api_idx_0002:
     mov ax, 0xfffe
     db 0xe8, 0x09, 0xcb ; call 0xfffff40b
     mov ax, word [bp + 0x4]
-    cmp ax, word [0x8466]
+    cmp ax, word [data_8466]
     jle short @..local.l130
     mov ax, 0xffff
     ret
@@ -4343,7 +4402,7 @@ api_idx_000c_3:
     je short @..api_idx_000c_3.l3
     cmp word [bp - 0x000c], byte 0
     jne short @..api_idx_000c_3.l5
-    cmp word [0x90ba], byte 1
+    cmp word [data_90ba], byte 1
     je short @..api_idx_000c_3.l4
     cmp word [bp - 0x0002], byte 0
     jne short @..api_idx_000c_3.l5
@@ -4377,7 +4436,7 @@ api_idx_000c_3:
     add sp, byte 6
     jmp near @..api_idx_000c_3.l17
 @..api_idx_000c_3.l8:
-    cmp word [0x8466], byte 1
+    cmp word [data_8466], byte 1
     jne short @..api_idx_000c_3.l9
     push word [bp - 0x0004]
     push word [bp - 0x0002]
@@ -4396,7 +4455,7 @@ api_idx_000c_3:
 @..api_idx_000c_3.l10:
     jmp short @..api_idx_000c_3.l17
 @..api_idx_000c_3.l11:
-    cmp word [0x8466], byte 1
+    cmp word [data_8466], byte 1
     jne short @..api_idx_000c_3.l12
     push word [bp - 0x0004]
     push word [bp - 0x0002]
@@ -4406,7 +4465,7 @@ api_idx_000c_3:
     add sp, byte 6
     jmp short @..api_idx_000c_3.l14
 @..api_idx_000c_3.l12:
-    cmp word [0x8466], byte 2
+    cmp word [data_8466], byte 2
     jne short @..api_idx_000c_3.l13
     push word [bp - 0x0004]
     push word [bp - 0x0002]
@@ -4443,7 +4502,7 @@ api_idx_000c_3:
     inc word [bp - 0x0002]
 @..api_idx_000c_3.l19:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x8454]
+    cmp ax, word [data_8454]
     jg short @..api_idx_000c_3.l20
     jmp near @..api_idx_000c_3.l1
 @..api_idx_000c_3.l20:
@@ -4451,23 +4510,23 @@ api_idx_000c_3:
 loc_2b19:
     mov ax, 0
     db 0xe8, 0xec, 0xc8 ; call 0xfffff40b
-    les bx, word [0x0002]
+    les bx, word [data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
-    mov word [0x9090], dx
-    mov word [0x908e], ax
-    mov ax, word [0x908e]
-    mov dx, word [0x9090]
-    sub ax, word [0x908a]
-    sbb dx, word [0x908c]
-    mov word [0x9094], dx
-    mov word [0x9092], ax
-    mov ax, word [0x90b6]
+    mov word [data_9090], dx
+    mov word [data_908e], ax
+    mov ax, word [data_908e]
+    mov dx, word [data_9090]
+    sub ax, word [data_908a]
+    sbb dx, word [data_908c]
+    mov word [data_9094], dx
+    mov word [data_9092], ax
+    mov ax, word [data_90b6]
     cwd
     mov cx, ax
     mov bx, dx
-    mov ax, word [0x9092]
-    mov dx, word [0x9094]
+    mov ax, word [data_9092]
+    mov dx, word [data_9094]
     cmp bx, dx
     jg short @..local.l137
     jne short @..local.l138
@@ -4476,10 +4535,10 @@ loc_2b19:
 @..local.l137:
     jmp short @..local.l139
 @..local.l138:
-    mov ax, word [0x908e]
-    mov dx, word [0x9090]
-    mov word [0x908c], dx
-    mov word [0x908a], ax
+    mov ax, word [data_908e]
+    mov dx, word [data_9090]
+    mov word [data_908c], dx
+    mov word [data_908a], ax
     mov ax, 1
     ret
 @..local.l139:
@@ -4488,7 +4547,7 @@ loc_2b19:
 api_idx_0006_2:
     mov ax, 0xfffa
     db 0xe8, 0x8d, 0xc8 ; call 0xfffff40b
-    mov ax, word [0x845e]
+    mov ax, word [data_845e]
     jmp near @..api_idx_0006_2.l12
 @..api_idx_0006_2.l1:
     mov ax, 0x8f
@@ -4503,14 +4562,14 @@ api_idx_0006_2:
     add sp, byte 8
     jmp near @..api_idx_0006_2.l16
 @..api_idx_0006_2.l2:
-    les bx, word [0x0002]
+    les bx, word [data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
-    sub ax, word [0x908a]
-    sbb dx, word [0x908c]
+    sub ax, word [data_908a]
+    sbb dx, word [data_908c]
     push ax
     push dx
-    mov ax, word [0x90b6]
+    mov ax, word [data_90b6]
     cwd
     mov cx, ax
     mov bx, dx
@@ -4524,17 +4583,17 @@ api_idx_0006_2:
 @..api_idx_0006_2.l3:
     jmp short @..api_idx_0006_2.l5
 @..api_idx_0006_2.l4:
-    mov ax, word [0x906c]
+    mov ax, word [data_906c]
     inc ax
     mov cx, 2
     cwd
     idiv cx
-    mov word [0x906c], dx
+    mov word [data_906c], dx
 @..api_idx_0006_2.l5:
     mov ax, 0
     push ax
     push ax
-    mov ax, word [0x906c]
+    mov ax, word [data_906c]
     shl ax, 1
     shl ax, 1
     mov bx, ax
@@ -4553,7 +4612,7 @@ api_idx_0006_2:
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 0xc
     jl short @..api_idx_0006_2.l6
-    mov word [0x8468], 0
+    mov word [data_8468], 0
     jmp near @..api_idx_0006_2.l16
 @..api_idx_0006_2.l7:
     call loc_2b19
@@ -4594,17 +4653,17 @@ api_idx_0006_2:
     call api_idx_000e_3
     cmp word [bp - 0x0006], byte 0
     je short @..api_idx_0006_2.l10
-    mov ax, word [0x82e8]
+    mov ax, word [data_82e8]
     inc ax
     mov cx, 2
     cwd
     idiv cx
-    mov word [0x82e8], dx
+    mov word [data_82e8], dx
 @..api_idx_0006_2.l10:
     call 0xda22
     jmp short @..api_idx_0006_2.l16
 @..api_idx_0006_2.l11:
-    push word [0x845e]
+    push word [data_845e]
     call math_loc_28a0
     pop cx
     jmp short @..api_idx_0006_2.l16
@@ -4623,26 +4682,26 @@ api_idx_0006_2:
 @..api_idx_0006_2.l15:
     jmp short @..api_idx_0006_2.l11
 @..api_idx_0006_2.l16:
-    inc word [0x845e]
-    mov ax, word [0x845e]
+    inc word [data_845e]
+    mov ax, word [data_845e]
     cmp ax, strict word 0xc
     jne short @..api_idx_0006_2.l17
-    mov word [0x845e], 0xfffd
+    mov word [data_845e], 0xfffd
 @..api_idx_0006_2.l17:
     ret
 loc_2cc7:
     mov ax, 0
     db 0xe8, 0x3e, 0xc7 ; call 0xfffff40b
-    mov word [0x845e], 0xfffe
+    mov word [data_845e], 0xfffe
 @..local.l140:
     call api_idx_0006_2
-    cmp word [0x845e], byte 0xfe
+    cmp word [data_845e], byte 0xfe
     jne short @..local.l140
     ret
 api_idx_005a:
     mov ax, 0xffa6
     db 0xe8, 0x27, 0xc7 ; call 0xfffff40b
-    cmp word [0x90b8], byte 0
+    cmp word [data_90b8], byte 0
     je short @..api_idx_005a.l1
     lea ax, word [bp - 0x005a]
     push ax
@@ -4658,18 +4717,18 @@ api_idx_005a:
     add sp, byte 4
 @..api_idx_005a.l1:
     mov word [bp - 0x000a], 0
-    les bx, word [0x0002]
+    les bx, word [data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
-    mov word [0x908c], dx
-    mov word [0x908a], ax
+    mov word [data_908c], dx
+    mov word [data_908a], ax
     mov word [bp - 0x0002], 0
 @..api_idx_005a.l2:
     cmp word [bp + 0x4], byte 0
     jne short @..api_idx_005a.l3
     cmp word [bp - 0x0002], byte 1
     jne short @..api_idx_005a.l3
-    mov bx, word [0x8492]
+    mov bx, word [data_8492]
     cmp byte [bx + 0xd8], 0
     jbe short @..api_idx_005a.l3
     mov ax, 0x10
@@ -4677,7 +4736,7 @@ api_idx_005a:
     db 0xe8, 0x9f, 0x8a ; call 0xffffb7e0
     pop cx
 @..api_idx_005a.l3:
-    mov word [0x845e], 0xfffe
+    mov word [data_845e], 0xfffe
     call api_idx_0006_2
     mov word [bp - 0x0004], 0
 @..api_idx_005a.l4:
@@ -4721,7 +4780,7 @@ api_idx_005a:
     jne short @..api_idx_005a.l9
     cmp word [bp - 0x0006], byte 0
     jne short @..api_idx_005a.l9
-    cmp word [0x90ba], byte 1
+    cmp word [data_90ba], byte 1
     jne short @..api_idx_005a.l9
     mov word [bp - 0x0008], 0
 @..api_idx_005a.l9:
@@ -4764,26 +4823,26 @@ api_idx_005a:
 @..api_idx_005a.l12:
     call api_idx_000e_3
     db 0xe8, 0x09, 0xac ; call 0xffffda22
-    mov word [0x845e], 0
+    mov word [data_845e], 0
 @..api_idx_005a.l13:
     call api_idx_0006_2
-    cmp word [0x845e], byte 0xfe
+    cmp word [data_845e], byte 0xfe
     jne short @..api_idx_005a.l13
     call loc_2b19
     mov word [bp - 0x000a], ax
     cmp word [bp - 0x000a], byte 0
     je short @..api_idx_005a.l14
-    mov ax, word [0x906c]
+    mov ax, word [data_906c]
     inc ax
     mov cx, 2
     cwd
     idiv cx
-    mov word [0x906c], dx
-    mov ax, word [0x82e8]
+    mov word [data_906c], dx
+    mov ax, word [data_82e8]
     inc ax
     cwd
     idiv cx
-    mov word [0x82e8], dx
+    mov word [data_82e8], dx
 @..api_idx_005a.l14:
     cmp word [bp - 0x000a], byte 0
     jne short @..api_idx_005a.l15
@@ -4814,8 +4873,8 @@ api_idx_005a:
     mov ax, word [bp - 0x0004]
     cmp ax, strict word 3
     jl short @..api_idx_005a.l17
-    mov word [0x90ba], 0
-    cmp word [0x90b8], byte 0
+    mov word [data_90ba], 0
+    cmp word [data_90b8], byte 0
     je short @..api_idx_005a.l19
     mov ax, 0xc6
     push ax
@@ -4827,7 +4886,7 @@ api_idx_005a:
     push ax
     db 0xe8, 0x20, 0xba ; call 0xffffe8da
     add sp, byte 8
-    mov word [0x90b8], 0
+    mov word [data_90b8], 0
 @..api_idx_005a.l19:
     ret
 api_idx_0004_7:
@@ -4841,8 +4900,8 @@ api_idx_0004_7:
     push ax
     mov ax, 1
     push ax
-    push word [0x9066]
-    push word [0x9064]
+    push word [data_9066]
+    push word [data_9064]
     db 0xe8, 0x5d, 0xba ; call 0xffffe942
     add sp, byte 8
     mov ax, 0x90a4
@@ -4857,14 +4916,14 @@ api_idx_0004_7:
     push ax
     call 0xc283
     add sp, byte 0x0a
-    mov word [0x9068], ax
-    mov word [0x906a], 1
+    mov word [data_9068], ax
+    mov word [data_906a], 1
     mov ax, 0
     push ax
     mov ax, 1
     push ax
-    push word [0x9062]
-    push word [0x9060]
+    push word [data_9062]
+    push word [data_9060]
     db 0xe8, 0x24, 0xba ; call 0xffffe942
     add sp, byte 8
     mov ax, 0xc
@@ -4899,13 +4958,13 @@ api_idx_0004_7:
     push ax
     db 0xe8, 0x66, 0xa7 ; call 0xffffd6c6
     pop cx
-    cmp word [0x598e], byte 0xff
+    cmp word [data_598e], byte 0xff
     je short @..api_idx_0004_7.l1
     mov ax, 0x10
     push ax
     db 0xe8, 0x57, 0xa7 ; call 0xffffd6c6
     pop cx
-    mov word [0x598e], 0xffff
+    mov word [data_598e], 0xffff
 @..api_idx_0004_7.l1:
     mov ax, 0
     push ax
@@ -4921,17 +4980,17 @@ api_idx_0004_7:
     pop cx
     mov ax, 1
     push ax
-    push word [0x8d0c]
-    push word [0x8d0a]
+    push word [data_8d0c]
+    push word [data_8d0a]
     db 0xe8, 0xb2, 0xb9 ; call 0xffffe94f
     add sp, byte 6
     mov ax, 1
     push ax
-    push word [0x8d10]
-    push word [0x8d0e]
+    push word [data_8d10]
+    push word [data_8d0e]
     db 0xe8, 0xa0, 0xb9 ; call 0xffffe94f
     add sp, byte 6
-    cmp word [0x905e], byte 0x17
+    cmp word [data_905e], byte 0x17
     jne short @..api_idx_0004_7.l2
     mov ax, 0xc6
     push ax
@@ -5116,17 +5175,17 @@ api_idx_0008_4:
     jge short @..api_idx_0008_4.l12
     jmp near @..api_idx_0008_4.l1
 @..api_idx_0008_4.l12:
-    cmp word [0x82fa], byte 0
+    cmp word [data_82fa], byte 0
     jle short @..api_idx_0008_4.l13
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov al, byte [bx + 0x190]
     sub ah, ah
-    mov word [0x82fc], ax
+    mov word [data_82fc], ax
 @..api_idx_0008_4.l13:
-    cmp word [0x82fc], byte 0
+    cmp word [data_82fc], byte 0
     jg short @..api_idx_0008_4.l14
-    mov word [0x82fa], 0
-    mov word [0x82fc], 0
+    mov word [data_82fa], 0
+    mov word [data_82fc], 0
 @..api_idx_0008_4.l14:
     ret
 api_idx_0056:
@@ -5145,12 +5204,12 @@ api_idx_0056:
     mov ax, 0x2c
     imul word [bp - 0x0002]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     cmp byte [bx + si + 0x1f], 1
     jb short @..api_idx_0056.l2
     mov al, byte [bx + si + 0x1f]
     sub ah, ah
-    cmp ax, word [0x8466]
+    cmp ax, word [data_8466]
     jle short @..api_idx_0056.l3
 @..api_idx_0056.l2:
     mov byte [bx + si + 0x1f], 1
@@ -5158,46 +5217,46 @@ api_idx_0056:
     inc word [bp - 0x0002]
 @..api_idx_0056.l4:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jl short @..api_idx_0056.l1
     mov ax, 1
     push ax
     call api_idx_000a
     pop cx
-    cmp word [0x845c], byte 1
+    cmp word [data_845c], byte 1
     je short @..api_idx_0056.l5
     jmp near @..api_idx_0056.l15
 @..api_idx_0056.l5:
     mov word [bp - 0x0002], 0
     jmp near @..api_idx_0056.l13
 @..api_idx_0056.l6:
-    cmp word [0x905e], byte 0x0f
+    cmp word [data_905e], byte 0x0f
     je short @..api_idx_0056.l7
     jmp near @..api_idx_0056.l11
 @..api_idx_0056.l7:
-    cmp word [0x8458], byte 1
+    cmp word [data_8458], byte 1
     je short @..api_idx_0056.l8
     jmp near @..api_idx_0056.l11
 @..api_idx_0056.l8:
-    cmp word [0x0e36], strict word 0xe1
+    cmp word [data_0e36], strict word 0xe1
     je short @..api_idx_0056.l9
     jmp near @..api_idx_0056.l11
 @..api_idx_0056.l9:
     mov ax, 0x2c
     imul word [bp - 0x0002]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov byte [bx + si + 0x22], 0
     mov ax, 0x2c
     imul word [bp - 0x0002]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov ax, word [bx + si + 0x8]
     mov word [bx + si + 0x6], ax
     mov ax, 0x2c
     imul word [bp - 0x0002]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov ax, word [bx + si + 0x4]
     mov word [bx + si + 0x2], ax
     mov word [bp - 0x0004], 0
@@ -5206,7 +5265,7 @@ api_idx_0056:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0004]
     mov si, ax
-    mov bx, word [0x8482]
+    mov bx, word [data_8482]
     mov byte [bx + si + 0xe], 0
     inc word [bp - 0x0004]
     mov ax, word [bp - 0x0004]
@@ -5253,7 +5312,7 @@ api_idx_0056:
     push ax
     call api_idx_000c
     add sp, byte 4
-    push word [0x905a]
+    push word [data_905a]
     call api_idx_0004
     pop cx
     jmp short @..api_idx_0056.l12
@@ -5270,16 +5329,16 @@ api_idx_0056:
     inc word [bp - 0x0002]
 @..api_idx_0056.l13:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jge short @..api_idx_0056.l14
     jmp near @..api_idx_0056.l6
 @..api_idx_0056.l14:
     call api_idx_0004_7
-    mov ax, word [0x905e]
-    mov word [0x830a], ax
+    mov ax, word [data_905e]
+    mov word [data_830a], ax
     jmp short @..api_idx_0056.l16
 @..api_idx_0056.l15:
-    mov word [0x830a], 0xb
+    mov word [data_830a], 0xb
 @..api_idx_0056.l16:
     ret
 loc_331c:
@@ -5320,48 +5379,48 @@ loc_331c:
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 7
     jl short @..local.l142
-    mov word [0x8466], 0
-    mov word [0x845c], 0
-    mov word [0x845e], 0xfffe
+    mov word [data_8466], 0
+    mov word [data_845c], 0
+    mov word [data_845e], 0xfffe
     ret
 api_idx_0004_8:
     mov ax, 0xfffc
     db 0xe8, 0x75, 0xc0 ; call 0xfffff40b
-    mov word [0x84a4], 0
-    mov word [0x84a2], 0
-    cmp word [0x0e36], strict word 0xe1
+    mov word [data_84a4], 0
+    mov word [data_84a2], 0
+    cmp word [data_0e36], strict word 0xe1
     jne short @..api_idx_0004_8.l1
-    mov word [0x845a], 1
+    mov word [data_845a], 1
 @..api_idx_0004_8.l1:
     call loc_331c
     mov ax, 1
     push ax
-    push word [0x0e36]
+    push word [data_0e36]
     call api_idx_0008_3
     add sp, byte 4
-    mov bx, word [0x8492]
-    mov si, word [0x8452]
+    mov bx, word [data_8492]
+    mov si, word [data_8452]
     mov al, byte [bx + si + 0xa8]
     sub ah, ah
-    mov word [0x84a0], ax
-    mov word [0x849e], 0xffff
+    mov word [data_84a0], ax
+    mov word [data_849e], 0xffff
     call api_idx_0006
     call api_idx_0004_4
     ret
 loc_33df:
     mov ax, 0xfd06
     db 0xe8, 0x26, 0xc0 ; call 0xfffff40b
-    mov word [0x90bc], 1
+    mov word [data_90bc], 1
     mov ax, 2
     push ax
     mov ax, 0
     push ax
-    push word [0x8456]
+    push word [data_8456]
     db 0xe8, 0xc8, 0x83 ; call 0xffffb7c2
     add sp, byte 6
-    mov word [0x8454], ax
-    mov word [0x8458], 0
-    cmp word [0x82b6], byte 0xff
+    mov word [data_8454], ax
+    mov word [data_8458], 0
+    cmp word [data_82b6], byte 0xff
     je short @..local.l145
 @..local.l143:
     call 0xef83
@@ -5455,16 +5514,16 @@ loc_33df:
     push ax
     call 0xe935
     add sp, byte 0x0c
-    mov word [0x9062], dx
-    mov word [0x9060], ax
-    cmp word [0x906a], byte 0
+    mov word [data_9062], dx
+    mov word [data_9060], ax
+    cmp word [data_906a], byte 0
     je short @..local.l146
     mov ax, 1
     push ax
-    push word [0x9068]
+    push word [data_9068]
     call 0xc459
     add sp, byte 4
-    mov word [0x906a], 0
+    mov word [data_906a], 0
 @..local.l146:
     mov ax, 0
     push ax
@@ -5480,8 +5539,8 @@ loc_33df:
     push ax
     db 0xe8, 0x2b, 0xb4 ; call 0xffffe935
     add sp, byte 0x0c
-    mov word [0x9066], dx
-    mov word [0x9064], ax
+    mov word [data_9066], dx
+    mov word [data_9064], ax
     mov word [bp - 0x0002], 0
 @..local.l147:
     mov ax, 0xe8
@@ -5559,8 +5618,8 @@ loc_33df:
     push ax
     db 0xe8, 0x57, 0xb3 ; call 0xffffe928
     add sp, byte 8
-    mov word [0x8d10], dx
-    mov word [0x8d0e], ax
+    mov word [data_8d10], dx
+    mov word [data_8d0e], ax
     mov ax, 0xa4
     push ax
     mov ax, 0xff
@@ -5571,8 +5630,8 @@ loc_33df:
     push ax
     db 0xe8, 0x3a, 0xb3 ; call 0xffffe928
     add sp, byte 8
-    mov word [0x8d0c], dx
-    mov word [0x8d0a], ax
+    mov word [data_8d0c], dx
+    mov word [data_8d0a], ax
     mov ax, 1
     push ax
     mov ax, 2
@@ -5591,20 +5650,20 @@ loc_33df:
     pop cx
     call api_idx_0004_8
     mov ax, 1
-    cmp word [0x905e], byte 0x12
+    cmp word [data_905e], byte 0x12
     jne short @..local.l153
     mov ax, 0
 @..local.l153:
-    mov word [0x90b8], ax
+    mov word [data_90b8], ax
     mov ax, 0
-    cmp word [0x905e], byte 0x12
+    cmp word [data_905e], byte 0x12
     jne short @..local.l154
     mov ax, 1
 @..local.l154:
-    mov word [0x90ba], ax
-    cmp word [0x905e], byte 0x12
+    mov word [data_90ba], ax
+    cmp word [data_905e], byte 0x12
     jne short @..local.l155
-    cmp word [0x8466], byte 1
+    cmp word [data_8466], byte 1
     jle short @..local.l155
     mov ax, 1
     push ax
@@ -5614,7 +5673,7 @@ loc_33df:
     push ax
     call 0xb75e
     pop cx
-    push word [0x8492]
+    push word [data_8492]
     lea ax, word [bp - 0x0056]
     push ax
     db 0xe8, 0xfc, 0xbc ; call 0xfffff364
@@ -5643,17 +5702,17 @@ loc_33df:
     add sp, byte 4
 @..local.l155:
     call math_loc_1f39
-    les bx, word [0x0002]
+    les bx, word [data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
-    mov word [0x908c], dx
-    mov word [0x908a], ax
-    mov word [0x830a], 0xb
+    mov word [data_908c], dx
+    mov word [data_908a], ax
+    mov word [data_830a], 0xb
     ret
 api_idx_0002_2:
     mov ax, 0xfffe
     db 0xe8, 0x4d, 0xbd ; call 0xfffff40b
-    mov word [0x90b6], 5
+    mov word [data_90b6], 5
     mov word [bp - 0x0002], 0
     jmp short @..api_idx_0002_2.l2
 @..api_idx_0002_2.l1:
@@ -5668,7 +5727,7 @@ api_idx_0002_2:
     inc word [bp - 0x0002]
 @..api_idx_0002_2.l2:
     mov ax, word [bp - 0x0002]
-    cmp ax, word [0x69c8]
+    cmp ax, word [data_69c8]
     jl short @..api_idx_0002_2.l1
     call api_idx_000c_3
     mov ax, 0
@@ -5676,12 +5735,12 @@ api_idx_0002_2:
     call api_idx_005a
     pop cx
     call loc_2cc7
-    cmp word [0x90bc], byte 0
+    cmp word [data_90bc], byte 0
     jne short @..api_idx_0002_2.l3
     call math_loc_1a16
 @..api_idx_0002_2.l3:
-    mov word [0x90bc], 0
-    mov word [0x830a], 0xc
+    mov word [data_90bc], 0
+    mov word [data_830a], 0xc
     ret
 
     db 0x8f, 0x06, 0xb4, 0x90, 0x59, 0x89, 0x26, 0xb0, 0x90, 0x89, 0x2e, 0xb2, 0x90, 0x89, 0x36, 0xac
