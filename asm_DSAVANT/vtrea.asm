@@ -1,20 +1,17 @@
 %include "structs/structs.inc"
-%include "structs/vtrea.inc"
+%include "structs/data_95e4.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0x0d, 0x9a, 0x98, 0x90 ; header (8 bytes)
 
 data_0002 equ 0x0002
-data_000e equ 0x000e
 data_0050 equ 0x0050
 data_0086 equ 0x0086
-data_0090 equ 0x0090
 data_00a6 equ 0x00a6
 data_0110 equ 0x0110
 data_0112 equ 0x0112
 data_06b9 equ 0x06b9
 data_06c7 equ 0x06c7
-data_08eb equ 0x08eb
 data_0a7f equ 0x0a7f
 data_0e0e equ 0x0e0e
 data_0e10 equ 0x0e10
@@ -26,6 +23,7 @@ data_1205 equ 0x1205
 data_148c equ 0x148c
 data_22e8 equ 0x22e8
 data_2b2a equ 0x2b2a
+data_357f equ 0x357f
 data_3f00 equ 0x3f00
 data_5216 equ 0x5216
 data_590e equ 0x590e
@@ -33,9 +31,11 @@ data_5910 equ 0x5910
 data_598c equ 0x598c
 data_598e equ 0x598e
 data_599d equ 0x599d
+data_59fa equ 0x59fa
 data_59fc equ 0x59fc
 data_5b3e equ 0x5b3e
 data_5b6e equ 0x5b6e
+data_5c38 equ 0x5c38
 data_5da7 equ 0x5da7
 data_69c8 equ 0x69c8
 data_7ae9 equ 0x7ae9
@@ -60,6 +60,7 @@ data_849e equ 0x849e
 data_84a0 equ 0x84a0
 data_84a2 equ 0x84a2
 data_84a4 equ 0x84a4
+data_86b8 equ 0x86b8
 data_8d06 equ 0x8d06
 data_8d08 equ 0x8d08
 data_8d0a equ 0x8d0a
@@ -110,7 +111,6 @@ data_9200 equ 0x9200
 data_9250 equ 0x9250
 data_95de equ 0x95de
 data_95e0 equ 0x95e0
-data_95e2 equ 0x95e2
 data_95e4 equ 0x95e4
 
     db 0x7c, 0x00, 0xa6, 0x05, 0x0c, 0xea
@@ -5784,7 +5784,7 @@ api_idx_0092:
     cmp byte [bx + 0x624], 1
     jne short 0x4e35
     db 0xe8, 0x89, 0x80 ; call 0xffffceb1
-    mov word [data_95e2], ax
+    mov word [0x95e2], ax
     cmp ax, strict word 0xffff
     db 0x75, 0x05 ; jne 0x4e35
     mov word [bp - 0x0052], 0xffff
@@ -5805,7 +5805,7 @@ api_idx_0092:
     push word [bp + 0x4]
     call 0xca27
     add sp, byte 6
-    push word [data_95e2]
+    push word [0x95e2]
     push word [bp - 0x0054]
     push word [bp - 0x0052]
     push word [bp + 0x4]

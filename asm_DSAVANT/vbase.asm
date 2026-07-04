@@ -1,17 +1,14 @@
 %include "structs/structs.inc"
-%include "structs/vbase.inc"
+%include "structs/data_a600.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0xdf, 0x93, 0x98, 0x90 ; header (8 bytes)
 
 data_0002 equ 0x0002
-data_000e equ 0x000e
 data_0028 equ 0x0028
 data_0032 equ 0x0032
-data_0036 equ 0x0036
 data_0114 equ 0x0114
 data_0116 equ 0x0116
-data_0559 equ 0x0559
 data_08fc equ 0x08fc
 data_0e0e equ 0x0e0e
 data_0e10 equ 0x0e10
@@ -24,7 +21,7 @@ data_0e38 equ 0x0e38
 data_1a05 equ 0x1a05
 data_24e8 equ 0x24e8
 data_3401 equ 0x3401
-data_46b8 equ 0x46b8
+data_3800 equ 0x3800
 data_5216 equ 0x5216
 data_5218 equ 0x5218
 data_56b8 equ 0x56b8
@@ -2168,7 +2165,7 @@ loc_1683:
     mov cx, 0x26
     call string_loc_936e
     sbb al, 0
-    add byte [es:0x3800], dh
+    add byte [es:data_3800], dh
     add byte [bx + di], bh
     add byte [di], bh
     db 0x00, 0x42, 0x00 ; add byte ptr [bp + si], al

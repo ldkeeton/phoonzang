@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/ds.inc"
+%include "structs/data_c02b.inc"
 org 0
 bits 16
     ; DOS MZ executable header
@@ -23,16 +23,11 @@ bits 16
     times 478 db 0
 
 data_0009 equ 0x0009
-data_0200 equ 0x0200
 data_021d equ 0x021d
-data_022d equ 0x022d
 data_02c7 equ 0x02c7
-data_03b8 equ 0x03b8
 data_0403 equ 0x0403
-data_0547 equ 0x0547
-data_068e equ 0x068e
+data_0410 equ 0x0410
 data_06c6 equ 0x06c6
-data_0876 equ 0x0876
 data_090e equ 0x090e
 data_0c72 equ 0x0c72
 data_0c78 equ 0x0c78
@@ -63,35 +58,52 @@ data_0e2c equ 0x0e2c
 data_0e2e equ 0x0e2e
 data_0e30 equ 0x0e30
 data_0e32 equ 0x0e32
-data_0ff6 equ 0x0ff6
 data_131e equ 0x131e
 data_161c equ 0x161c
-data_1626 equ 0x1626
-data_1926 equ 0x1926
+data_1928 equ 0x1928
 data_1a9d equ 0x1a9d
 data_1c1c equ 0x1c1c
-data_2000 equ 0x2000
 data_220e equ 0x220e
-data_221b equ 0x221b
-data_2600 equ 0x2600
 data_260c equ 0x260c
 data_2633 equ 0x2633
 data_2c12 equ 0x2c12
 data_2d25 equ 0x2d25
+data_2d36 equ 0x2d36
+data_2d37 equ 0x2d37
+data_2d4a equ 0x2d4a
+data_2d4e equ 0x2d4e
 data_2d58 equ 0x2d58
-data_3300 equ 0x3300
+data_2d62 equ 0x2d62
+data_2d66 equ 0x2d66
+data_2d83 equ 0x2d83
+data_2d8b equ 0x2d8b
+data_2d8f equ 0x2d8f
+data_2d9f equ 0x2d9f
+data_2daf equ 0x2daf
+data_2db3 equ 0x2db3
+data_2db7 equ 0x2db7
+data_2dbb equ 0x2dbb
+data_2dc7 equ 0x2dc7
+data_2dcb equ 0x2dcb
+data_2dcf equ 0x2dcf
+data_2dd3 equ 0x2dd3
+data_2dd7 equ 0x2dd7
+data_2ddb equ 0x2ddb
+data_2ddf equ 0x2ddf
+data_2de7 equ 0x2de7
+data_2e13 equ 0x2e13
+data_2e43 equ 0x2e43
+data_2e47 equ 0x2e47
+data_2edc equ 0x2edc
+data_2ede equ 0x2ede
+data_2ee0 equ 0x2ee0
+data_3472 equ 0x3472
 data_3887 equ 0x3887
 data_3a7f equ 0x3a7f
 data_3dfe equ 0x3dfe
-data_454d equ 0x454d
-data_4652 equ 0x4652
-data_4653 equ 0x4653
-data_4800 equ 0x4800
-data_4953 equ 0x4953
 data_4b38 equ 0x4b38
 data_4d00 equ 0x4d00
 data_5000 equ 0x5000
-data_5004 equ 0x5004
 data_5218 equ 0x5218
 data_5987 equ 0x5987
 data_59fa equ 0x59fa
@@ -105,7 +117,6 @@ data_82f0 equ 0x82f0
 data_830a equ 0x830a
 data_830c equ 0x830c
 data_c02b equ 0xc02b
-data_ff00 equ 0xff00
 
 loc_0200:
     mov ax, 0
@@ -437,13 +448,13 @@ string_loc_08c6:
     sub ah, ah
     mov word [bp + 0x8], ax
     jmp short math_loc_08f2
-    mov es, word [data_068e]
+    mov es, word [0x068e]
     mov ax, 0x9c06
     push es
     db 0xf2, 0x06 ; push es
     stosb
     push es
-    mov byte [data_022d], 0
+    mov byte [0x022d], 0
     cmp ax, strict word 7
     jae short math_loc_08f2
     xchg bx, ax
@@ -2622,10 +2633,10 @@ bios_video_loc_30c3:
     push es
     sub ax, ax
     mov es, ax
-    mov dl, byte [cs:0x2d37]
-    mov byte [es:0x0410], dl
+    mov dl, byte [cs:data_2d37]
+    mov byte [es:data_0410], dl
     pop es
-    mov al, byte [cs:0x2d36]
+    mov al, byte [cs:data_2d36]
     xor ah, ah
     int 0x10 ; BIOS video
     ret
@@ -2638,12 +2649,12 @@ bios_video_loc_30c3:
     mov ax, word [es:bx]
     pop es
     add ax, strict word 2
-    mov word [cs:0x2ede], ax
+    mov word [cs:data_2ede], ax
     ret
 bios_get_video_mode:
     mov ah, 0xf
     int 0x10 ; BIOS video: get video mode
-    mov byte [cs:0x2d36], al
+    mov byte [cs:data_2d36], al
     mov ax, word [bp + 0x4]
     and ax, strict word 1
     jne short @..bios_get_video_mode.l1
@@ -2847,10 +2858,10 @@ leaf_loc_3330:
     cmp word [di], bp
     add word [data_c02b], ax
     mov es, ax
-    mov dl, byte [es:0x0410]
-    mov byte [cs:0x2d37], dl
+    mov dl, byte [es:data_0410]
+    mov byte [cs:data_2d37], dl
     and dl, 0xcf
-    mov byte [es:0x0410], dl
+    mov byte [es:data_0410], dl
     pop es
     mov ax, 0x13
     int 0x10 ; BIOS video
@@ -2941,7 +2952,7 @@ dos_mem_loc_36d0:
     pop ds
     mov bx, 0x34ce
 @..dos_mem_loc_36d0.l1:
-    mov cx, word [cs:0x3472]
+    mov cx, word [cs:data_3472]
 @..dos_mem_loc_36d0.l2:
     sub cx, byte 1
     jne short @..dos_mem_loc_36d0.l3
@@ -3033,7 +3044,7 @@ bios_mouse_loc_3796:
 leaf_loc_382c:
     push ds
     push es
-    mov dx, word [cs:0x2d62]
+    mov dx, word [cs:data_2d62]
     or dx, dx
     je short @..leaf_loc_382c.l1
     mov ah, 0x45
@@ -3058,7 +3069,7 @@ dos_alloc_mem:
     push es
     mov ax, ds
     mov es, ax
-    mov bx, word [cs:0x2d4a]
+    mov bx, word [cs:data_2d4a]
     mov ds, bx
     xor dx, dx
     mov bx, word [bp + 0x4]
@@ -3240,7 +3251,7 @@ string_loc_3a50:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2dbb]
+    call far [cs:data_2dbb]
     mov sp, bp
     pop bp
     ret
@@ -3255,7 +3266,7 @@ string_loc_3a6a:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2db7]
+    call far [cs:data_2db7]
     mov sp, bp
     pop bp
     ret
@@ -3270,7 +3281,7 @@ string_loc_3a77:
     mov ax, word [cs:bx]
     or ax, ax
     je short @..local.l71
-    call far [cs:0x2db3]
+    call far [cs:data_2db3]
 @..local.l71:
     mov sp, bp
     pop bp
@@ -3318,7 +3329,7 @@ loc_3b21:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2dc7]
+    call far [cs:data_2dc7]
     mov sp, bp
     pop bp
     ret
@@ -3333,7 +3344,7 @@ loc_3b3b:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2dcb]
+    call far [cs:data_2dcb]
     mov sp, bp
     pop bp
     ret
@@ -3341,7 +3352,7 @@ math_loc_3b48:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2dcf]
+    call far [cs:data_2dcf]
     mov sp, bp
     pop bp
     ret
@@ -3349,7 +3360,7 @@ math_loc_3b55:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2dd3]
+    call far [cs:data_2dd3]
     mov sp, bp
     pop bp
     ret
@@ -3364,7 +3375,7 @@ math_loc_3b6f:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2dd7]
+    call far [cs:data_2dd7]
     mov sp, bp
     pop bp
     ret
@@ -3386,7 +3397,7 @@ math_loc_3b96:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2ddb]
+    call far [cs:data_2ddb]
     mov sp, bp
     pop bp
     ret
@@ -3404,7 +3415,7 @@ math_loc_3c0d:
     push bx
     push cx
     push dx
-    mov ax, word [cs:0x2edc]
+    mov ax, word [cs:data_2edc]
     cwd
     mov bx, 0xb1
     idiv bx
@@ -3418,8 +3429,8 @@ math_loc_3c0d:
     jns short @..math_loc_3c0d.l1
     add ax, 0x763d
 @..math_loc_3c0d.l1:
-    mov word [cs:0x2edc], ax
-    mov ax, word [cs:0x2ede]
+    mov word [cs:data_2edc], ax
+    mov ax, word [cs:data_2ede]
     cwd
     mov bx, 0xb0
     idiv bx
@@ -3433,8 +3444,8 @@ math_loc_3c0d:
     jns short @..math_loc_3c0d.l2
     add ax, 0x7663
 @..math_loc_3c0d.l2:
-    mov word [cs:0x2ede], ax
-    mov ax, word [cs:0x2ee0]
+    mov word [cs:data_2ede], ax
+    mov ax, word [cs:data_2ee0]
     cwd
     mov bx, 0xb2
     idiv bx
@@ -3448,7 +3459,7 @@ math_loc_3c0d:
     jns short @..math_loc_3c0d.l3
     add ax, 0x7673
 @..math_loc_3c0d.l3:
-    mov word [cs:0x2ee0], ax
+    mov word [cs:data_2ee0], ax
     pop dx
     pop cx
     pop bx
@@ -3653,7 +3664,7 @@ leaf_loc_3d79:
 @..local.l81:
     xor ax, ax
     push ax
-    call far [cs:0x2d83]
+    call far [cs:data_2d83]
     pop ax
     mov ah, 7
     int 0x21 ; DOS keyboard input (no echo)
@@ -3702,7 +3713,7 @@ bios_kbd_check:
     mov ax, ds
     mov es, ax
     mov ax, 0
-    mov word [cs:0x3a7f], ax
+    mov word [cs:data_3a7f], ax
 @..bios_kbd_check.l1:
     mov ah, 1
     int 0x16 ; BIOS keyboard: check keystroke
@@ -3711,7 +3722,7 @@ bios_kbd_check:
     int 0x16 ; BIOS keyboard: read keystroke
     jmp short @..bios_kbd_check.l1
 @..bios_kbd_check.l2:
-    call far [cs:0x2daf]
+    call far [cs:data_2daf]
     pop es
     pop si
     pop di
@@ -3748,7 +3759,7 @@ dos_read_file_2:
     mov ax, ds
     mov es, ax
     mov cx, 0x400
-    mov bx, word [cs:0x2d4e]
+    mov bx, word [cs:data_2d4e]
     mov ds, bx
     xor dx, dx
     mov bx, word [bp + 0x4]
@@ -3788,7 +3799,7 @@ string_loc_4002:
     mov es, ax
     mov si, word [bp + 0x4]
     mov di, word [bp + 0x6]
-    mov ax, word [cs:0x2d4e]
+    mov ax, word [cs:data_2d4e]
     mov es, ax
     lodsb
     xor ah, ah
@@ -3961,7 +3972,7 @@ loc_415b:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2e43]
+    call far [cs:data_2e43]
     mov sp, bp
     pop bp
     ret
@@ -3969,7 +3980,7 @@ loc_4168:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2e47]
+    call far [cs:data_2e47]
     mov sp, bp
     pop bp
     ret
@@ -3989,7 +4000,7 @@ loc_41fe:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2ddf]
+    call far [cs:data_2ddf]
     mov sp, bp
     pop bp
     ret
@@ -3997,7 +4008,7 @@ loc_420b:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2e13]
+    call far [cs:data_2e13]
     mov sp, bp
     pop bp
     ret
@@ -4005,7 +4016,7 @@ loc_4218:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2d9f]
+    call far [cs:data_2d9f]
     mov sp, bp
     pop bp
     ret
@@ -4021,7 +4032,7 @@ bios_mouse_loc_4280:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2d8b]
+    call far [cs:data_2d8b]
     mov sp, bp
     pop bp
     ret
@@ -4029,7 +4040,7 @@ bios_mouse_loc_428d:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2d8f]
+    call far [cs:data_2d8f]
     mov sp, bp
     pop bp
     ret
@@ -4044,7 +4055,7 @@ bios_mouse_loc_428d:
     push bp
     mov bp, sp
     cld
-    call far [cs:0x2de7]
+    call far [cs:data_2de7]
     mov sp, bp
     pop bp
     ret
@@ -4058,7 +4069,7 @@ mouse_set_pos:
     push di
     mov ax, ds
     mov es, ax
-    cmp byte [cs:0x2d66], 0
+    cmp byte [cs:data_2d66], 0
     je short @..local.l86
     mov cx, word [bp + 0x4]
     shl cx, 1
@@ -5307,10 +5318,10 @@ leaf_loc_10108:
     or byte [bx + si], cl
     or cl, byte [di]
     adc word [di], dx
-    sbb dx, word [data_221b]
+    sbb dx, word [0x221b]
     push ss
     sbb sp, word [bp + si]
-    sbb word [data_1926], bx
+    sbb word [0x1926], bx
     push ds
     sbb ah, byte [es:bx + si]
     sub byte [bp + si], bl
@@ -5321,7 +5332,7 @@ leaf_loc_10108:
     sbb al, 0x22
     sub bx, word [bp + si]
     and byte [bx + si], ch
-    sbb word [data_1626], bx
+    sbb word [0x1626], bx
     sbb sp, word [bp + si]
     adc bx, word [bx + si]
     pop ds
@@ -5332,8 +5343,8 @@ leaf_loc_10108:
     add ax, 0x806
     and word [bx + si], ax
     daa
-    add byte [data_2000], ah
-    add byte [data_2600], ah
+    add byte [0x2000], ah
+    add byte [0x2600], ah
     add byte [bx + si], ah
     add byte [bx + si], ah
     add byte [bx + si], ah
@@ -5393,13 +5404,13 @@ leaf_loc_10108:
     add byte [di], bl
     add byte [bp + si], dh
     add byte [si], al
-    add byte [data_3300], bl
+    add byte [0x3300], bl
     add byte [bx + di], al
     add byte [bp + si], al
     add byte [bp + di], al
     add byte [si], al
     add byte [di], al
-    add byte [data_ff00], al
+    add byte [0xff00], al
 
     db 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0a, 0x00, 0x0b
     db 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x0c, 0x00, 0x0d, 0x00, 0x0e

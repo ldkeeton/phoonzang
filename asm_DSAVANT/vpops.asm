@@ -1,12 +1,10 @@
 %include "structs/structs.inc"
-%include "structs/vpops.inc"
+%include "structs/data_938c.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0xcd, 0x4e, 0x98, 0x90 ; header (8 bytes)
 
 data_0002 equ 0x0002
-data_000e equ 0x000e
-data_0022 equ 0x0022
 data_0375 equ 0x0375
 data_03b8 equ 0x03b8
 data_083d equ 0x083d

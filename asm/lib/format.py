@@ -55,7 +55,7 @@ def _fmt_imm(val, bits=16):
     return f'0x{uval:04x}'
 
 
-def _fmt_mem(op, insn):
+def _fmt_mem(op, insn, label_map=None):
     seg = insn.reg_name(op.mem.segment) if op.mem.segment else ''
     base = insn.reg_name(op.mem.base) if op.mem.base else ''
     idx = insn.reg_name(op.mem.index) if op.mem.index else ''
@@ -71,8 +71,15 @@ def _fmt_mem(op, insn):
 
     # displacement
     if not inner:
-        # No base/index — direct memory address, always use unsigned
-        ea = f'0x{(disp & 0xFFFF):04x}'
+        addr = disp & 0xFFFF
+        if label_map and addr in label_map:
+            name = label_map[addr]
+            if name.startswith('data_'):
+                ea = name
+            else:
+                ea = f'0x{addr:04x}'
+        else:
+            ea = f'0x{addr:04x}'
     elif disp < 0:
         ea = f'{inner} - 0x{(-disp & 0xFFFF):04x}'
     elif disp > 0:
@@ -187,7 +194,7 @@ def format_instruction(insn, label_map=None, local_labels=None):
             else:
                 parts.append(_fmt_imm(op.imm))
         elif op.type == CS_OP_MEM:
-            parts.append(_fmt_mem(op, insn))
+            parts.append(_fmt_mem(op, insn, label_map))
             has_mem = True
 
     ops = ', '.join(parts)

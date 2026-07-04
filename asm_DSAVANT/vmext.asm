@@ -1,11 +1,9 @@
 %include "structs/structs.inc"
-%include "structs/vmext.inc"
+%include "structs/data_9b1a.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0x4b, 0x52, 0x98, 0x90 ; header (8 bytes)
 
-data_0002 equ 0x0002
-data_000e equ 0x000e
 data_008e equ 0x008e
 data_0136 equ 0x0136
 data_03ae equ 0x03ae
@@ -87,7 +85,7 @@ api_idx_0002:
     call 0xf40b
     mov word [data_8f22], 0
     mov word [data_9180], 5
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     mov word [data_908c], dx
@@ -431,7 +429,7 @@ api_idx_0002_4:
 math_loc_054f:
     mov ax, 0
     db 0xe8, 0xb6, 0xee ; call 0xfffff40b
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     sub ax, word [data_908a]
@@ -452,7 +450,7 @@ math_loc_054f:
 @..local.l17:
     jmp short @..local.l19
 @..local.l18:
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     mov word [data_908c], dx
@@ -507,7 +505,7 @@ api_idx_0004_2:
     call 0xec17
     mov ax, word [bp + 0x4]
     cwd
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov cx, word [es:bx]
     mov bx, word [es:bx + 0x2]
     add ax, cx
@@ -515,7 +513,7 @@ api_idx_0004_2:
     mov word [bp - 0x0002], dx
     mov word [bp - 0x0004], ax
 @..api_idx_0004_2.l1:
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     cmp dx, word [bp - 0x0002]

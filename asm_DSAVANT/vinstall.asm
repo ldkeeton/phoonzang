@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/vinstall.inc"
+%include "structs/data_3ab8.inc"
 org 0
 bits 16
     ; DOS MZ executable header
@@ -27,12 +27,9 @@ data_0006 equ 0x0006
 data_002e equ 0x002e
 data_0030 equ 0x0030
 data_0302 equ 0x0302
-data_038e equ 0x038e
-data_03e1 equ 0x03e1
 data_060e equ 0x060e
 data_06c6 equ 0x06c6
 data_09cd equ 0x09cd
-data_0a0f equ 0x0a0f
 data_0a80 equ 0x0a80
 data_0b34 equ 0x0b34
 data_0e18 equ 0x0e18
@@ -70,6 +67,8 @@ data_2644 equ 0x2644
 data_2645 equ 0x2645
 data_2648 equ 0x2648
 data_2698 equ 0x2698
+data_2823 equ 0x2823
+data_2825 equ 0x2825
 data_29ba equ 0x29ba
 data_29bb equ 0x29bb
 data_29d0 equ 0x29d0
@@ -93,13 +92,9 @@ data_29ea equ 0x29ea
 data_29ec equ 0x29ec
 data_29ee equ 0x29ee
 data_2bc4 equ 0x2bc4
-data_2e63 equ 0x2e63
 data_3031 equ 0x3031
 data_312d equ 0x312d
-data_3140 equ 0x3140
-data_314e equ 0x314e
 data_32e8 equ 0x32e8
-data_3330 equ 0x3330
 data_33d0 equ 0x33d0
 data_33eb equ 0x33eb
 data_380c equ 0x380c
@@ -322,7 +317,7 @@ loc_0429:
     mov sp, bp
     pop bp
     ret
-    call 0x252e
+    call data_252e
     mov ax, 0
     push ax
     push ax
@@ -3415,8 +3410,8 @@ dos_proc_loc_2a27:
     push word [data_002e]
     push ds
     push es
-    mov word [cs:0x2823], ss
-    mov word [cs:0x2825], sp
+    mov word [cs:data_2823], ss
+    mov word [cs:data_2825], sp
     mov ax, word [bp + 0x6]
     mov word [data_230e], ax
     mov ax, ds
@@ -3436,8 +3431,8 @@ dos_proc_loc_2a27:
     mov dx, word [bp + 0x4]
     mov ax, 0x4b00
     int 0x21 ; DOS function dispatcher
-    mov ss, word [cs:0x2823]
-    mov sp, word [cs:0x2825]
+    mov ss, word [cs:data_2823]
+    mov sp, word [cs:data_2825]
     pop es
     pop ds
     jae short @..leaf_loc_2a1c.l1
@@ -5167,7 +5162,7 @@ leaf_loc_3f00:
     fmul dword [data_0006]
     fimul dword [data_0ee4]
     out 0xe, ax
-    jmp far 0xec00:0x60e
+    jmp far 0xec00:data_060e
 
     db 0x0e, 0xf6, 0x0e, 0xf8, 0x0e, 0xfa, 0x0e, 0x06, 0x00, 0xfc, 0x0e, 0x06, 0x0f, 0x08, 0x0f, 0x0a
     db 0x0f, 0x06, 0x00, 0x0c, 0x0f, 0x16, 0x0f, 0x18, 0x0f, 0x1a, 0x0f, 0x06, 0x00, 0x1c, 0x0f, 0x26

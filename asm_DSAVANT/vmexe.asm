@@ -1,17 +1,14 @@
 %include "structs/structs.inc"
-%include "structs/vmexe.inc"
+%include "structs/data_91da.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0x37, 0xa5, 0x98, 0x90 ; header (8 bytes)
 
-data_0002 equ 0x0002
-data_000e equ 0x000e
 data_0014 equ 0x0014
 data_0087 equ 0x0087
 data_00c1 equ 0x00c1
 data_00ce equ 0x00ce
 data_00da equ 0x00da
-data_00db equ 0x00db
 data_0158 equ 0x0158
 data_030a equ 0x030a
 data_0984 equ 0x0984
@@ -21,18 +18,17 @@ data_0e36 equ 0x0e36
 data_0f00 equ 0x0f00
 data_108a equ 0x108a
 data_10d8 equ 0x10d8
-data_1c5e equ 0x1c5e
 data_3300 equ 0x3300
 data_35e8 equ 0x35e8
 data_3700 equ 0x3700
 data_3ed1 equ 0x3ed1
+data_46d1 equ 0x46d1
 data_56d1 equ 0x56d1
 data_5962 equ 0x5962
 data_5963 equ 0x5963
 data_5964 equ 0x5964
 data_5988 equ 0x5988
 data_598e equ 0x598e
-data_5fa1 equ 0x5fa1
 data_69c8 equ 0x69c8
 data_7abc equ 0x7abc
 data_7b04 equ 0x7b04
@@ -93,7 +89,6 @@ data_9186 equ 0x9186
 data_91d6 equ 0x91d6
 data_91d8 equ 0x91d8
 data_91da equ 0x91da
-data_b0cb equ 0xb0cb
 
     and al, 0
     and byte [bx + di], al
@@ -2021,7 +2016,7 @@ math_loc_0f67:
     mov word [bp - 0x0002], ax
     jmp near @..local.l83
 @..local.l78:
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     mov word [bp - 0x0116], dx
@@ -2139,7 +2134,7 @@ math_loc_0f67:
     mov ax, word [bp - 0x0104]
     mov word [bp - 0x0102], ax
 @..local.l80:
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     cmp dx, word [bp - 0x0116]
@@ -2506,7 +2501,7 @@ loc_182b:
 loc_1849:
     mov ax, 0
     db 0xe8, 0xbc, 0xdb ; call 0xfffff40b
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     mov word [data_9090], dx
@@ -2578,7 +2573,7 @@ api_idx_0006:
     mov word [data_8320], dx
     jmp near @..api_idx_0006.l17
 @..api_idx_0006.l3:
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     sub ax, word [data_908a]
@@ -2735,7 +2730,7 @@ api_idx_0004_5:
     call 0xec17
     mov ax, word [bp + 0x4]
     cwd
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov cx, word [es:bx]
     mov bx, word [es:bx + 0x2]
     add ax, cx
@@ -2743,7 +2738,7 @@ api_idx_0004_5:
     mov word [bp - 0x0002], dx
     mov word [bp - 0x0004], ax
 @..api_idx_0004_5.l1:
-    les bx, word [data_0002]
+    les bx, word [0x0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     cmp dx, word [bp - 0x0002]
@@ -9236,7 +9231,7 @@ api_idx_00ac:
     test al, 0xcb
     mov ax, 0xc0cb
     retf
-    mov al, byte [data_b0cb]
+    mov al, byte [0xb0cb]
     retf
     mov ax, 0xb0cb
     retf
@@ -9604,7 +9599,7 @@ api_idx_00ac:
     add byte [bp], ch
     jb short @..local.l345
 @..local.l345:
-    sar word [ss:0x46d1], 1
+    sar word [ss:data_46d1], 1
     rol word [bp - 0x002f], 1
     dec si
     ror word [bp - 0x002f], 1
@@ -9616,7 +9611,7 @@ api_idx_00ac:
     rcr word [bp - 0x002f], 1
     pop si
     shl word [bp - 0x002f], 1
-    sar word [ds:0x3ed1], 1
+    sar word [ds:data_3ed1], 1
     rcl word [bp - 0x002f], 1
     rcl word [ss:bp - 0x002f], 1
     inc si
@@ -9628,7 +9623,7 @@ api_idx_00ac:
     ror word [ds:bp - 0x002f], 1
     push si
     sar word [data_3ed1], 1
-    db 0xd1, 0x36, 0xd1, 0x56 ; sal word ptr [data_56d1], 1
+    db 0xd1, 0x36, 0xd1, 0x56 ; sal word ptr [0x56d1], 1
     db 0xd1, 0x76, 0xd1 ; sal word ptr [bp - 0x2f], 1
     push si
     rcl word [bp - 0x002f], 1

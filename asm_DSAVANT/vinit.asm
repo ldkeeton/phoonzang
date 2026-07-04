@@ -1,12 +1,11 @@
 %include "structs/structs.inc"
-%include "structs/vinit.inc"
+%include "structs/data_91b8.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0x09, 0x16, 0x98, 0x90 ; header (8 bytes)
 
 data_0002 equ 0x0002
 data_0041 equ 0x0041
-data_010c equ 0x010c
 data_0e0e equ 0x0e0e
 data_0e10 equ 0x0e10
 data_0e12 equ 0x0e12
@@ -1236,7 +1235,7 @@ api_idx_0068:
     push ax
     call 0xd7e7
     add sp, byte 4
-    mov ax, word [data_010c]
+    mov ax, word [0x010c]
     mov word [data_844e], ax
 @..api_idx_0068.l1:
     mov word [bp - 0x0008], 0

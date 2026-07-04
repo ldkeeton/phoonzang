@@ -7,11 +7,10 @@ when a classification bitmap is provided.
 """
 
 import os
-import re
 import struct
 import time
 
-from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_IMM, CS_OP_MEM, CS_OP_REG
 
 from lib.model import IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent, clear_assemble_cache
@@ -49,9 +48,6 @@ _FILE_FORMATS = [
     (0, b'PWAD', 'Doom PWAD'),
 ]
 
-
-_INT_RE = re.compile(r'int\s+0x([0-9a-fA-F]+)')
-_MOV_AH_RE = re.compile(r'mov\s+ah,\s+(?:0x([0-9a-fA-F]+)|(\d+))')
 
 # ── Interrupt descriptions ──────────────────────────────────────
 
@@ -260,8 +256,7 @@ _INT_FUNCTION_TABLES = {
     0x33: _BIOS_MOUSE_FUNCTIONS,
 }
 
-# Instructions at which the backward scan for `mov ah, N` should stop
-_CFLOW_PREFIXES = ('int ', 'call ', 'jmp ', 'ret', 'iret', 'hlt')
+_CFLOW_INSTS = frozenset({'int', 'call', 'jmp', 'ret', 'iret', 'hlt', 'retf', 'retn', 'ljmp', 'lcall'})
 
 
 def _parse_mz_relocs(binary_data, start_offset):
@@ -298,59 +293,19 @@ def _parse_mz_relocs(binary_data, start_offset):
     return targets
 
 
-def _collect_data_labels(records, binary_data, start_offset, reloc_targets=None, known_addrs=None):
-    """Scan records for all absolute memory references like [0xNNNN].
-
-    Returns a dict: {address: label_name} for every unique absolute
-    address referenced in instruction operands, MZ relocation entries,
-    or data blocks (words that point to known code/data positions).
-    """
-    addrs = set()
-
-    if reloc_targets:
-        addrs.update(reloc_targets)
-
-    ref_re = re.compile(r'\[0x([0-9a-fA-F]{4})\]')
-    for rec in records:
-        if rec['type'] in ('mnem', 'db_with_comment'):
-            for m in ref_re.finditer(rec['text']):
-                addrs.add(int(m.group(1), 16))
-
-    # Scan data blocks for word values that point to known code/data
-    if known_addrs:
-        for rec in records:
-            if rec['type'] != 'data_block':
-                continue
-            raw = binary_data[rec['start']:rec['end']]
-            for off in range(0, len(raw) - 1, 2):
-                val = struct.unpack_from('<H', raw, off)[0]
-                if val in known_addrs:
-                    addrs.add(val)
-
-    labels = {}
-    for addr in sorted(addrs):
-        if addr == 0:
-            continue
-        labels[addr] = f'data_{addr:04x}'
-
-    return labels
-
-
-def _substitute_data_labels(records, data_labels):
-    """Replace [0xNNNN] with [label_name] in record texts."""
-    if not data_labels:
+def _set_insn_fields(rec, insn):
+    """Set structured fields on *rec* from a capstone instruction object."""
+    if insn is None:
         return
-    def replacer(m):
-        addr = int(m.group(1), 16)
-        name = data_labels.get(addr)
-        if name:
-            return f'[{name}]'
-        return m.group(0)
-
-    pat = re.compile(r'\[0x([0-9a-fA-F]{4})\]')
-    for rec in records:
-        if rec['type'] in ('mnem', 'db_with_comment'):
-            rec['text'] = pat.sub(replacer, rec['text'])
+    if insn.mnemonic == 'int' and len(insn.operands) > 0:
+        rec['int_num'] = insn.operands[0].imm & 0xFF
+    if (insn.mnemonic == 'mov' and len(insn.operands) == 2
+        and insn.operands[0].type == CS_OP_REG
+        and insn.reg_name(insn.operands[0].reg) == 'ah'
+        and insn.operands[1].type == CS_OP_IMM):
+        rec['ah_value'] = insn.operands[1].imm & 0xFF
+    if insn.mnemonic in _CFLOW_INSTS:
+        rec['cflow'] = True
 
 
 def _annotate_interrupts(records):
@@ -360,10 +315,9 @@ def _annotate_interrupts(records):
         if rtype not in ('mnem', 'db_with_comment'):
             continue
 
-        m = _INT_RE.match(rec['text'])
-        if not m:
+        vec = rec.get('int_num')
+        if vec is None:
             continue
-        vec = int(m.group(1), 16)
 
         if vec == 0x21:
             found = False
@@ -371,18 +325,14 @@ def _annotate_interrupts(records):
                 prev = records[j]
                 if prev['type'] not in ('mnem', 'db_with_comment'):
                     continue
-                pt = prev['text']
-                am = _MOV_AH_RE.match(pt)
-                if am:
-                    hex_val = am.group(1)
-                    dec_val = am.group(2)
-                    ah = int(hex_val, 16) if hex_val else int(dec_val)
+                if prev.get('cflow'):
+                    break
+                ah = prev.get('ah_value')
+                if ah is not None:
                     desc = _DOS_FUNCTIONS.get(ah)
                     if desc:
                         rec['annotation'] = f'DOS {desc}'
                         found = True
-                    break
-                if pt.startswith(_CFLOW_PREFIXES):
                     break
             if not found:
                 rec['annotation'] = 'DOS function dispatcher'
@@ -395,18 +345,14 @@ def _annotate_interrupts(records):
                 prev = records[j]
                 if prev['type'] not in ('mnem', 'db_with_comment'):
                     continue
-                pt = prev['text']
-                am = _MOV_AH_RE.match(pt)
-                if am:
-                    hex_val = am.group(1)
-                    dec_val = am.group(2)
-                    ah = int(hex_val, 16) if hex_val else int(dec_val)
+                if prev.get('cflow'):
+                    break
+                ah = prev.get('ah_value')
+                if ah is not None:
                     fdesc = func_table.get(ah)
                     if fdesc:
                         rec['annotation'] = f'{base}: {fdesc}'
                         found = True
-                    break
-                if pt.startswith(_CFLOW_PREFIXES):
                     break
             if not found:
                 desc = _INT_DESCRIPTIONS.get(vec)
@@ -539,21 +485,25 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
         if not ok and not exact_bytes and built:
             ok = is_semantically_equivalent(bts, built[:len(bts)], insn.address)
         if ok:
-            records.append({
+            rec = {
                 'type': 'mnem',
                 'text': nasm_text,
                 'offset': insn.address,
                 'size': insn.size,
-            })
+            }
+            _set_insn_fields(rec, insn)
+            records.append(rec)
         else:
             db_hex = ', '.join(f'0x{b:02x}' for b in bts)
-            records.append({
+            rec = {
                 'type': 'db_with_comment',
                 'text': f'{insn.mnemonic} {insn.op_str}',
                 'db_hex': db_hex,
                 'offset': insn.address,
                 'size': insn.size,
-            })
+            }
+            _set_insn_fields(rec, insn)
+            records.append(rec)
 
     return records
 
@@ -859,11 +809,20 @@ def _flush_data_block(records, pending_data, data_block_start, end_off):
     return None, []
 
 
-def _emit_label_record(records, off, label_map, local_labels=None):
+def _emit_label_record(records, off, label_map, local_labels=None, insn_by_addr=None):
     if label_map and off in label_map:
+        name = label_map[off]
+        if name.startswith('data_'):
+            if local_labels and off in local_labels:
+                records.append({
+                    'type': 'label',
+                    'text': _emit_label(local_labels[off]),
+                    'offset': off,
+                })
+            return
         records.append({
             'type': 'label',
-            'text': f'{_emit_label(label_map[off])}',
+            'text': f'{_emit_label(name)}',
             'offset': off,
         })
     elif local_labels and off in local_labels:
@@ -944,6 +903,45 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         }
         known_addrs |= local_labels.keys()
 
+    # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
+    data_refs = set()
+    if reloc_targets:
+        data_refs.update(reloc_targets)
+    for insn in insns:
+        for op in insn.operands:
+            if op.type == CS_OP_MEM and op.mem.base == 0 and op.mem.index == 0:
+                addr = op.mem.disp & 0xFFFF
+                if addr != 0:
+                    data_refs.add(addr)
+    covered = bytearray(total)
+    for addr, insn in insn_by_addr.items():
+        for i in range(addr, addr + insn.size):
+            if i < total:
+                covered[i] = 1
+    i = start_offset
+    while i < total:
+        if not covered[i]:
+            s = i
+            while i < total and not covered[i]:
+                i += 1
+            raw = binary_data[s:i]
+            for off in range(0, len(raw) - 1, 2):
+                val = struct.unpack_from('<H', raw, off)[0]
+                if val in known_addrs and val != 0:
+                    data_refs.add(val)
+        else:
+            i += 1
+    data_labels = {}
+    for addr in sorted(data_refs):
+        if addr == 0:
+            continue
+        name = f'data_{addr:04x}'
+        data_labels[addr] = name
+        if label_map is not None and addr not in label_map:
+            if code_targets is not None and addr in code_targets:
+                continue
+            label_map[addr] = name
+
     records = []
     pending_data = []
     data_block_start = None
@@ -954,7 +952,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             data_block_start, pending_data = _flush_data_block(
                 records, pending_data, data_block_start, off,
             )
-            _emit_label_record(records, off, label_map, local_labels)
+            _emit_label_record(records, off, label_map, local_labels, insn_by_addr)
         insn = insn_by_addr.get(off)
 
         if insn is not None:
@@ -978,7 +976,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                             'offset': b_off,
                             'size': 1,
                         })
-                    _emit_label_record(records, lab, label_map, local_labels)
+                    _emit_label_record(records, lab, label_map, local_labels, insn_by_addr)
                     chunk_start = lab
                 for b_off in range(chunk_start, insn_end):
                     records.append({
@@ -1004,21 +1002,25 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 if not ok and not exact_here and built:
                     ok = is_semantically_equivalent(bts, built[:len(bts)], off)
                 if ok:
-                    records.append({
+                    rec = {
                         'type': 'mnem',
                         'text': nasm_text,
                         'offset': off,
                         'size': insn.size,
-                    })
+                    }
+                    _set_insn_fields(rec, insn)
+                    records.append(rec)
                 else:
                     db_hex = ', '.join(f'0x{b:02x}' for b in bts)
-                    records.append({
+                    rec = {
                         'type': 'db_with_comment',
                         'text': f'{insn.mnemonic} {insn.op_str}',
                         'db_hex': db_hex,
                         'offset': off,
                         'size': insn.size,
-                    })
+                    }
+                    _set_insn_fields(rec, insn)
+                    records.append(rec)
             else:
                 db_hex = ', '.join(f'0x{b:02x}' for b in bts)
                 records.append({
@@ -1071,11 +1073,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     t5 = time.perf_counter()
 
-    # Collect data labels and substitute [0xNNNN] -> [label_name]
-    data_labels = _collect_data_labels(records, binary_data, start_offset, reloc_targets, known_addrs)
-    _substitute_data_labels(records, data_labels)
-
-    src_lines = _build_source(records, start_offset, binary_data, show_offsets=show_offsets, data_labels=data_labels)
+    src_lines = _build_source(records, start_offset, binary_data, label_map, show_offsets=show_offsets)
     t6 = time.perf_counter()
 
     mnem_count = sum(1 for r in records if r['type'] == 'mnem')
@@ -1112,7 +1110,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     }, emit_class, label_positions
 
 
-def _build_source(records, start_offset, binary_data, show_offsets=False, data_labels=None):
+def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=False):
     """Render the record list to final NASM text."""
     out = []
     out.append('org 0')
@@ -1147,9 +1145,11 @@ def _build_source(records, start_offset, binary_data, show_offsets=False, data_l
         out.append(f'    db {hdr_hex} ; header ({start_offset} bytes)')
         out.append('')
 
-    if data_labels:
-        for addr in sorted(data_labels):
-            out.append(f'{data_labels[addr]} equ 0x{addr:04x}')
+    if label_map:
+        for addr in sorted(label_map):
+            name = label_map[addr]
+            if name.startswith('data_'):
+                out.append(f'{name} equ 0x{addr:04x}')
         out.append('')
 
     i = 0

@@ -1,12 +1,10 @@
 %include "structs/structs.inc"
-%include "structs/vmnpc.inc"
+%include "structs/data_b054.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0xcf, 0xae, 0x98, 0x90 ; header (8 bytes)
 
 data_0002 equ 0x0002
-data_000e equ 0x000e
-data_00c0 equ 0x00c0
 data_01d1 equ 0x01d1
 data_0290 equ 0x0290
 data_0601 equ 0x0601
@@ -24,7 +22,6 @@ data_237d equ 0x237d
 data_3dc7 equ 0x3dc7
 data_40c8 equ 0x40c8
 data_417f equ 0x417f
-data_4775 equ 0x4775
 data_5000 equ 0x5000
 data_5216 equ 0x5216
 data_55e9 equ 0x55e9
@@ -39,7 +36,6 @@ data_5d6a equ 0x5d6a
 data_68e8 equ 0x68e8
 data_69c8 equ 0x69c8
 data_6c2a equ 0x6c2a
-data_7400 equ 0x7400
 data_77e8 equ 0x77e8
 data_7abc equ 0x7abc
 data_7b04 equ 0x7b04
@@ -55,7 +51,6 @@ data_845e equ 0x845e
 data_8460 equ 0x8460
 data_8468 equ 0x8468
 data_8783 equ 0x8783
-data_8bb0 equ 0x8bb0
 data_8be4 equ 0x8be4
 data_8d0a equ 0x8d0a
 data_8d0c equ 0x8d0c

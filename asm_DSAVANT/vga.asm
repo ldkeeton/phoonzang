@@ -1,16 +1,66 @@
 %include "structs/structs.inc"
-%include "structs/vga.inc"
+%include "structs/data_455a.inc"
 org 0
 bits 16
+data_01e1 equ 0x01e1
+data_01e5 equ 0x01e5
+data_01e9 equ 0x01e9
+data_01f7 equ 0x01f7
+data_01fb equ 0x01fb
+data_01ff equ 0x01ff
+data_0201 equ 0x0201
+data_0203 equ 0x0203
+data_0205 equ 0x0205
+data_0206 equ 0x0206
+data_020e equ 0x020e
+data_0212 equ 0x0212
+data_0216 equ 0x0216
+data_021a equ 0x021a
+data_021e equ 0x021e
+data_0222 equ 0x0222
+data_0226 equ 0x0226
+data_0227 equ 0x0227
+data_0228 equ 0x0228
+data_027b equ 0x027b
+data_0291 equ 0x0291
+data_0295 equ 0x0295
+data_0297 equ 0x0297
+data_0299 equ 0x0299
 data_0300 equ 0x0300
+data_038f equ 0x038f
+data_0391 equ 0x0391
+data_0615 equ 0x0615
 data_082e equ 0x082e
-data_0e3b equ 0x0e3b
+data_0caa equ 0x0caa
+data_0cac equ 0x0cac
+data_0f6d equ 0x0f6d
 data_10ba equ 0x10ba
+data_15ac equ 0x15ac
+data_15ae equ 0x15ae
+data_15b0 equ 0x15b0
+data_15b2 equ 0x15b2
+data_15b4 equ 0x15b4
+data_15b6 equ 0x15b6
+data_15b8 equ 0x15b8
+data_15ba equ 0x15ba
+data_15bc equ 0x15bc
+data_15be equ 0x15be
+data_15c0 equ 0x15c0
+data_15c2 equ 0x15c2
+data_1e5c equ 0x1e5c
+data_1e5e equ 0x1e5e
+data_1e64 equ 0x1e64
+data_1e66 equ 0x1e66
+data_1e68 equ 0x1e68
+data_1ecd equ 0x1ecd
+data_1ecf equ 0x1ecf
+data_1ed1 equ 0x1ed1
+data_1ed3 equ 0x1ed3
 data_2041 equ 0x2041
-data_21cd equ 0x21cd
 data_2e2b equ 0x2e2b
 data_2e2e equ 0x2e2e
 data_2e53 equ 0x2e53
+data_3c8e equ 0x3c8e
 data_455a equ 0x455a
 
 loc_0000:
@@ -52,10 +102,10 @@ math_loc_0293:
     mov es, ax
     mov ds, ax
     xor bx, bx
-    mov ax, word [cs:0x0297]
+    mov ax, word [cs:data_0297]
     mov cx, 0x140
     mul cx
-    add ax, word [cs:0x0295]
+    add ax, word [cs:data_0295]
     mov di, ax
     mov word [bp - 0x0006], ax
     xor ax, ax
@@ -76,18 +126,18 @@ math_loc_0293:
     mov si, ax
     xor ah, ah
     mov al, byte [bx + 0x1]
-    add word [cs:0x0295], ax
+    add word [cs:data_0295], ax
     mov word [bp - 0x000c], ax
     xor bx, bx
     mov al, byte [bx + 0x7]
     cbw
-    add word [cs:0x0295], ax
+    add word [cs:data_0295], ax
     mov al, byte [bx + 0x2]
     test al, 1
     je short @..math_loc_0293.l1
     jmp near @..math_loc_0293.l17
 @..math_loc_0293.l1:
-    mov ax, word [cs:0x0299]
+    mov ax, word [cs:data_0299]
     or ax, ax
     jne short @..math_loc_0293.l2
     mov al, byte [bx + 0x6]
@@ -102,10 +152,10 @@ math_loc_0293:
     shr bx, cl
     sub ax, bx
     mov word [bp - 0x000a], ax
-    mov bx, word [cs:0x0291]
+    mov bx, word [cs:data_0291]
     mov dx, word [cs:0x0293]
     mov dh, bl
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
 @..math_loc_0293.l3:
     mov cx, word [bp - 0x000c]
@@ -143,10 +193,10 @@ math_loc_0293:
     mul cx
     add ax, word [bx + 0xc]
     mov bx, ax
-    mov ax, word [cs:0x0291]
+    mov ax, word [cs:data_0291]
     mov dx, word [cs:0x0293]
     mov dh, al
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
 @..math_loc_0293.l10:
     mov cx, word [bp - 0x0002]
@@ -192,7 +242,7 @@ math_loc_0293:
     mov ax, word [bp - 0x0002]
     sub ax, word [bp - 0x000c]
     mov word [bp - 0x000a], ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
 @..math_loc_0293.l18:
     mov cx, word [bp - 0x000c]
@@ -207,7 +257,7 @@ math_loc_0293:
     mov ax, word [bp - 0x0002]
     sub ax, word [bp - 0x000c]
     mov word [bp - 0x000a], ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
 @..math_loc_0293.l20:
     mov cx, word [bp - 0x000c]
@@ -237,7 +287,7 @@ leaf_loc_0439:
     push bp
     mov bp, sp
     mov ax, word [bp + 0xc]
-    mov word [cs:0x0299], ax
+    mov word [cs:data_0299], ax
     mov sp, bp
     pop bp
     ret
@@ -247,7 +297,7 @@ loc_0447:
     mov ax, word [bp + 0xc]
     mov word [cs:0x0293], ax
     mov ax, word [bp + 0xe]
-    mov word [cs:0x0291], ax
+    mov word [cs:data_0291], ax
     mov sp, bp
     pop bp
     ret
@@ -258,9 +308,9 @@ math_loc_045c:
     mov ax, ds
     mov es, ax
     mov ax, word [bp + 0xc]
-    mov word [cs:0x0295], ax
+    mov word [cs:data_0295], ax
     mov ax, word [bp + 0xe]
-    mov word [cs:0x0297], ax
+    mov word [cs:data_0297], ax
     pop es
     mov sp, bp
     pop bp
@@ -271,10 +321,10 @@ math_loc_0477:
     push es
     mov ax, ds
     mov es, ax
-    mov ax, word [cs:0x0295]
+    mov ax, word [cs:data_0295]
     mov bx, word [bp + 0xc]
     mov word [bx], ax
-    mov ax, word [cs:0x0297]
+    mov ax, word [cs:data_0297]
     mov bx, word [bp + 0xe]
     mov word [bx], ax
     pop es
@@ -288,7 +338,7 @@ math_loc_0496:
     push di
     mov ax, ds
     mov es, ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
     xor di, di
     mov ax, word [bp + 0xc]
@@ -311,7 +361,7 @@ math_loc_04b5:
     mov es, ax
     call bios_mouse_loc_1308
     call leaf_loc_0516
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     mov ax, 0xa000
     mov es, ax
@@ -347,35 +397,35 @@ math_loc_04b5:
     ret
     db 0x00
 leaf_loc_0516:
-    cmp byte [cs:0x0228], 1
+    cmp byte [cs:data_0228], 1
     jne short @..leaf_loc_0516.l1
-    mov cx, word [cs:0x15ac]
-    mov dx, word [cs:0x15ae]
+    mov cx, word [cs:data_15ac]
+    mov dx, word [cs:data_15ae]
     cmp word [bp + 0x10], cx
     jb short @..leaf_loc_0516.l1
     cmp word [bp + 0x12], dx
     jb short @..leaf_loc_0516.l1
-    add cx, word [cs:0x15b8]
+    add cx, word [cs:data_15b8]
     dec cx
-    add dx, word [cs:0x15ba]
+    add dx, word [cs:data_15ba]
     dec dx
     cmp cx, word [bp + 0xc]
     jb short @..leaf_loc_0516.l1
     cmp dx, word [bp + 0xe]
     jae short @..leaf_loc_0516.l2
 @..leaf_loc_0516.l1:
-    mov byte [cs:0x0615], 0
+    mov byte [cs:data_0615], 0
     jmp near @..leaf_loc_0516.l12
 @..leaf_loc_0516.l2:
-    mov byte [cs:0x0615], 1
-    mov cx, word [cs:0x15ac]
+    mov byte [cs:data_0615], 1
+    mov cx, word [cs:data_15ac]
     mov ax, cx
     cmp word [bp + 0xc], cx
     jb short @..leaf_loc_0516.l3
     mov ax, word [bp + 0xc]
 @..leaf_loc_0516.l3:
     mov word [bp - 0x0006], ax
-    mov dx, word [cs:0x15ae]
+    mov dx, word [cs:data_15ae]
     mov bx, dx
     cmp word [bp + 0xe], dx
     jb short @..leaf_loc_0516.l4
@@ -386,8 +436,8 @@ leaf_loc_0516:
     sub bx, dx
     mov word [bp - 0x000a], ax
     mov word [bp - 0x000c], bx
-    mov cx, word [cs:0x15b8]
-    mov dx, word [cs:0x15ba]
+    mov cx, word [cs:data_15b8]
+    mov dx, word [cs:data_15ba]
     sub cx, ax
     mov word [bp - 0x000e], cx
     sub dx, bx
@@ -418,12 +468,12 @@ leaf_loc_0516:
     add ax, word [bp - 0x0006]
     mov si, ax
     mov ax, word [bp - 0x000c]
-    mov bx, word [cs:0x15b8]
+    mov bx, word [cs:data_15b8]
     mul bx
     add ax, word [bp - 0x000a]
-    add ax, word [cs:0x15b4]
+    add ax, word [cs:data_15b4]
     mov di, ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     mov ax, cs
     mov es, ax
@@ -435,34 +485,34 @@ leaf_loc_0516:
     mov cx, word [bp - 0x000e]
     rep movsb
     pop di
-    add di, word [cs:0x15b8]
+    add di, word [cs:data_15b8]
     pop si
     add si, strict word 0x140
     pop cx
     loop @..leaf_loc_0516.l7
     mov ax, cs
     mov es, ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
-    mov si, word [cs:0x15bc]
-    mov di, word [cs:0x15b6]
-    mov cx, word [cs:0x15ba]
+    mov si, word [cs:data_15bc]
+    mov di, word [cs:data_15b6]
+    mov cx, word [cs:data_15ba]
 @..leaf_loc_0516.l8:
     push cx
     push si
-    mov cx, word [cs:0x15b8]
+    mov cx, word [cs:data_15b8]
     rep movsb
     pop si
     add si, strict word 0x140
     pop cx
     loop @..leaf_loc_0516.l8
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
-    mov di, word [cs:0x15bc]
-    mov ax, word [cs:0x1e66]
+    mov di, word [cs:data_15bc]
+    mov ax, word [cs:data_1e66]
     mov ds, ax
-    mov si, word [cs:0x1e64]
-    mov cx, word [cs:0x15ba]
+    mov si, word [cs:data_1e64]
+    mov cx, word [cs:data_15ba]
     mov ax, ds
     or ax, si
     jne short @..leaf_loc_0516.l9
@@ -473,7 +523,7 @@ leaf_loc_0516:
     push cx
     push di
     push si
-    mov cx, word [cs:0x15b8]
+    mov cx, word [cs:data_15b8]
 @..leaf_loc_0516.l10:
     mov al, byte [si]
     cmp al, 0xff
@@ -484,7 +534,7 @@ leaf_loc_0516:
     inc di
     loop @..leaf_loc_0516.l10
     pop si
-    add si, word [cs:0x1e5c]
+    add si, word [cs:data_1e5c]
     pop di
     add di, strict word 0x140
     pop cx
@@ -492,19 +542,19 @@ leaf_loc_0516:
 @..leaf_loc_0516.l12:
     ret
 math_loc_067f:
-    cmp byte [cs:0x0615], 0
+    cmp byte [cs:data_0615], 0
     je short @..math_loc_067f.l2
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
     mov ax, cs
     mov ds, ax
-    mov di, word [cs:0x15bc]
-    mov si, word [cs:0x15b6]
-    mov cx, word [cs:0x15ba]
+    mov di, word [cs:data_15bc]
+    mov si, word [cs:data_15b6]
+    mov cx, word [cs:data_15ba]
 @..math_loc_067f.l1:
     push cx
     push di
-    mov cx, word [cs:0x15b8]
+    mov cx, word [cs:data_15b8]
     rep movsb
     pop di
     add di, strict word 0x140
@@ -519,7 +569,7 @@ math_loc_06b2:
     push es
     mov ax, ds
     mov es, ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     mov ax, word [bp + 0xe]
     mov bx, 0x140
@@ -541,7 +591,7 @@ math_loc_06d9:
     push di
     mov ax, ds
     mov es, ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
     mov ax, word [bp + 0xe]
     mov bx, 0x140
@@ -576,7 +626,7 @@ string_loc_0728:
     push es
     push ds
     push di
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
     mov ds, ax
     mov ax, word [bp + 0xe]
@@ -643,7 +693,7 @@ dos_alloc_mem:
 @..dos_alloc_mem.l1:
     mov es, ax
     xor di, di
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     mov ax, word [bp + 0xe]
     mov bx, 0x140
@@ -709,7 +759,7 @@ dos_free_mem:
     mov si, word [bp + 0xc]
     or ax, si
     je short dos_con_loc_088f
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
     lodsw
     mov word [bp - 0x0002], ax
@@ -784,10 +834,10 @@ dos_read_file:
     mov bx, 0xbda
     add bx, ax
     mov ax, word [cs:bx]
-    mov bx, word [cs:0x01e1]
+    mov bx, word [cs:data_01e1]
     add bx, ax
     mov ds, bx
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
     xor di, di
     xor si, si
@@ -809,14 +859,14 @@ dos_read_file:
     mov ax, si
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:0x3c8e], ax
+    mov word [cs:data_3c8e], ax
     call dos_file_loc_3b90
     and si, strict word 0x3ff
     mov cl, 4
     shl si, cl
-    mov bx, word [cs:0x0203]
+    mov bx, word [cs:data_0203]
     mov ds, bx
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
     xor di, di
     mov cx, 3
@@ -825,8 +875,8 @@ dos_read_file:
     mov cx, 0x4000
     rep movsb
     and si, strict word 0x3fff
-    inc word [cs:0x3c8e]
-    mov ax, word [cs:0x3c8e]
+    inc word [cs:data_3c8e]
+    mov ax, word [cs:data_3c8e]
     call dos_file_loc_3b90
     pop cx
     loop @..dos_read_file.l3
@@ -834,7 +884,7 @@ dos_read_file:
     rep movsb
     jmp short @..dos_read_file.l5
 @..dos_read_file.l4:
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     xor dx, dx
     mov bx, word [bp + 0xc]
@@ -873,22 +923,22 @@ dos_write_file:
     je short @..dos_write_file.l2
     jmp near dos_con_loc_0a4f
 @..dos_write_file.l2:
-    mov ax, word [cs:0x0caa]
+    mov ax, word [cs:data_0caa]
     inc ax
-    mov word [cs:0x0caa], ax
+    mov word [cs:data_0caa], ax
     mov word [cs:bx], ax
     mov cl, 2
     dec ax
     shl ax, cl
     mov bx, 0xbda
     add bx, ax
-    mov ax, word [cs:0x0cac]
+    mov ax, word [cs:data_0cac]
     mov word [cs:bx], ax
     mov cx, 0xfa0
     mov word [cs:bx + 0x2], cx
-    mov dx, word [cs:0x0cac]
+    mov dx, word [cs:data_0cac]
     add dx, cx
-    mov word [cs:0x0cac], dx
+    mov word [cs:data_0cac], dx
     cmp dx, strict word 0x4180
     jb short @..dos_write_file.l3
     jmp near dos_con_loc_0a8d
@@ -905,9 +955,9 @@ dos_write_file:
     mov bx, 0xbda
     add bx, ax
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     mov es, ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     xor di, di
     xor si, si
@@ -915,7 +965,7 @@ dos_write_file:
     rep movsb
     jmp short @..dos_write_file.l5
 @..dos_write_file.l4:
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     xor dx, dx
     mov bx, word [bp + 0xc]
@@ -985,9 +1035,9 @@ dos_read_file_2:
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
 @..dos_con_loc_0a4f.l3:
-    mov ax, word [cs:0x0caa]
+    mov ax, word [cs:data_0caa]
     inc ax
-    mov word [cs:0x0caa], ax
+    mov word [cs:data_0caa], ax
     mov bx, word [bp - 0x0002]
     mov word [cs:bx], ax
     dec ax
@@ -996,7 +1046,7 @@ dos_read_file_2:
     mov bx, 0xbda
     add bx, ax
     mov word [bp - 0x0002], bx
-    mov ax, word [cs:0x0cac]
+    mov ax, word [cs:data_0cac]
     mov word [cs:bx], ax
     mov ax, word [bp + 0x10]
     or ax, ax
@@ -1005,8 +1055,8 @@ dos_read_file_2:
 @..dos_con_loc_0a4f.l4:
     cld
     mov cx, 0x1000
-    mov bx, word [cs:0x01e1]
-    add bx, word [cs:0x0cac]
+    mov bx, word [cs:data_01e1]
+    add bx, word [cs:data_0cac]
     mov ds, bx
     xor dx, dx
     mov bx, word [bp + 0xc]
@@ -1051,8 +1101,8 @@ dos_read_file_2:
     div bx
     mov bx, word [bp - 0x0002]
     mov word [cs:bx + 0x2], ax
-    add word [cs:0x0cac], ax
-    mov ax, word [cs:0x0cac]
+    add word [cs:data_0cac], ax
+    mov ax, word [cs:data_0cac]
     cmp ax, 0x4180
     jae short 0xd00
     mov ax, ds
@@ -1129,17 +1179,17 @@ dos_con_loc_0d06:
     mov ax, word [cs:di + 0x2]
     mov word [cs:bx + 0x2], ax
     mov word [bp - 0x0004], ax
-    mov dx, word [cs:0x01e1]
-    add dx, word [cs:0x0cac]
+    mov dx, word [cs:data_01e1]
+    add dx, word [cs:data_0cac]
     mov word [bp - 0x000a], dx
     mov es, dx
-    add word [cs:0x0cac], ax
-    mov ax, word [cs:0x0203]
+    add word [cs:data_0cac], ax
+    mov ax, word [cs:data_0203]
     mov ds, ax
     mov ax, si
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:0x3c8e], ax
+    mov word [cs:data_3c8e], ax
     call dos_file_loc_3b90
     and si, strict word 0x3ff
     mov cl, 4
@@ -1147,8 +1197,8 @@ dos_con_loc_0d06:
 @..local.l3:
     test si, 0xc000
     je short @..local.l4
-    inc word [cs:0x3c8e]
-    mov ax, word [cs:0x3c8e]
+    inc word [cs:data_3c8e]
+    mov ax, word [cs:data_3c8e]
     call dos_file_loc_3b90
     sub si, strict word 0x4000
 @..local.l4:
@@ -1214,16 +1264,16 @@ loc_0e71:
     add bx, ax
     mov word [bp - 0x0004], bx
     mov ax, word [cs:bx + 0x2]
-    sub word [cs:0x0391], ax
+    sub word [cs:data_0391], ax
     mov word [bp - 0x0006], ax
 @..local.l5:
     mov bx, word [bp - 0x0004]
     mov di, word [cs:bx]
-    mov dx, word [cs:0x0203]
+    mov dx, word [cs:data_0203]
     mov es, dx
     mov ds, dx
     mov si, word [cs:bx + 0x4]
-    add dx, word [cs:0x01e1]
+    add dx, word [cs:data_01e1]
     mov cx, word [cs:bx + 0x6]
     or cx, cx
     jne short @..local.l6
@@ -1233,7 +1283,7 @@ loc_0e71:
     mov ax, si
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:0x0f6d], ax
+    mov word [cs:data_0f6d], ax
     and si, strict word 0x3ff
     mov cl, 4
     shl si, cl
@@ -1261,7 +1311,7 @@ loc_0e71:
     cmp si, strict word 0x8000
     jne short @..local.l10
 @..local.l9:
-    inc word [cs:0x0f6d]
+    inc word [cs:data_0f6d]
     inc dx
 @..local.l10:
     or dx, dx
@@ -1294,15 +1344,15 @@ loc_0f3b:
     mov ah, 0x44
     mov al, 0
     mov bx, word [cs:0x0f6f]
-    mov dx, word [cs:0x0201]
+    mov dx, word [cs:data_0201]
     int 0x67 ; EMS (Expanded Memory)
-    cmp bx, word [cs:0x0f6d]
+    cmp bx, word [cs:data_0f6d]
     je short @..local.l13
     or si, strict word 0x4000
     mov ah, 0x44
     mov al, 1
-    mov bx, word [cs:0x0f6d]
-    mov dx, word [cs:0x0201]
+    mov bx, word [cs:data_0f6d]
+    mov dx, word [cs:data_0201]
     int 0x67 ; EMS (Expanded Memory)
 @..local.l13:
     ret
@@ -1331,9 +1381,9 @@ dos_con_loc_0f6f:
     jmp near @..dos_con_loc_0f6f.l3
 @..dos_con_loc_0f6f.l2:
     mov word [cs:bx], 0
-    mov cx, word [cs:0x0caa]
+    mov cx, word [cs:data_0caa]
     dec cx
-    mov word [cs:0x0caa], cx
+    mov word [cs:data_0caa], cx
     call loc_43e1
 @..dos_con_loc_0f6f.l3:
     pop si
@@ -1400,9 +1450,9 @@ dos_con_loc_0fda:
     add bx, strict word 0x27d
     add ax, word [cs:bx]
     mov si, ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
-    mov ax, word [cs:0x01e1]
+    mov ax, word [cs:data_01e1]
     add ax, word [bp - 0x0002]
     mov ds, ax
     xor ah, ah
@@ -1429,7 +1479,7 @@ dos_con_loc_0fda:
     mov al, byte [si]
     mov bl, 6
     mul bl
-    add ax, word [cs:0x027b]
+    add ax, word [cs:data_027b]
     mov bx, ax
     xor ax, ax
     mov al, byte [bx + 0x4]
@@ -1506,15 +1556,15 @@ dos_con_loc_0fda:
     add bx, strict word 0x27d
     add ax, word [cs:bx]
     mov si, ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
-    mov ax, word [cs:0x01e1]
+    mov ax, word [cs:data_01e1]
     add ax, word [bp - 0x0002]
     mov ds, ax
     mov al, byte [si]
     mov bl, 6
     mul bl
-    add ax, word [cs:0x027b]
+    add ax, word [cs:data_027b]
     mov word [bp - 0x0002], ax
     mov ax, word [bp + 0x12]
     mov bx, 5
@@ -1635,7 +1685,7 @@ mouse_init:
     push es
     mov ax, ds
     mov es, ax
-    cmp byte [cs:0x0205], 0
+    cmp byte [cs:data_0205], 0
     je short @..mouse_init.l1
     mov ax, 0
     int 0x33 ; BIOS mouse
@@ -1658,18 +1708,18 @@ mouse_init:
     mov ax, 3
     int 0x33 ; BIOS mouse
     shr cx, 1
-    mov word [cs:0x15b0], cx
-    mov word [cs:0x15b2], dx
+    mov word [cs:data_15b0], cx
+    mov word [cs:data_15b2], dx
     mov ax, cs
     push ax
     mov ax, 0xffff
-    mov word [cs:0x15ae], ax
+    mov word [cs:data_15ae], ax
     call math_loc_1e35
     pop si
     pop di
     pop es
     pop ds
-    mov byte [cs:0x0228], 1
+    mov byte [cs:data_0228], 1
     push es
     mov ax, 0x14
     mov bx, cs
@@ -1689,33 +1739,33 @@ mouse_init_2:
     push es
     mov ax, ds
     mov es, ax
-    cmp byte [cs:0x0228], 0
+    cmp byte [cs:data_0228], 0
     je short @..mouse_init_2.l2
-    mov byte [cs:0x0228], 0
+    mov byte [cs:data_0228], 0
     mov ax, 0
     int 0x33 ; BIOS mouse
     push ds
     push es
     push di
     push si
-    mov si, word [cs:0x15b4]
+    mov si, word [cs:data_15b4]
     mov ax, cs
     mov ds, ax
     mov ax, 0xa000
     mov es, ax
-    mov di, word [cs:0x15bc]
-    mov si, word [cs:0x15b4]
-    mov cx, word [cs:0x15ba]
+    mov di, word [cs:data_15bc]
+    mov si, word [cs:data_15b4]
+    mov cx, word [cs:data_15ba]
 @..mouse_init_2.l1:
     push cx
     push si
     push di
-    mov cx, word [cs:0x15b8]
+    mov cx, word [cs:data_15b8]
     rep movsb
     pop di
     add di, strict word 0x140
     pop si
-    add si, word [cs:0x1e5c]
+    add si, word [cs:data_1e5c]
     pop cx
     loop @..mouse_init_2.l1
     pop si
@@ -1732,9 +1782,9 @@ bios_mouse_loc_12c9:
     push es
     push si
     push di
-    cmp byte [cs:0x0226], 1
+    cmp byte [cs:data_0226], 1
     je short @..bios_mouse_loc_12c9.l1
-    cmp byte [cs:0x0228], 1
+    cmp byte [cs:data_0228], 1
     je short @..bios_mouse_loc_12c9.l2
 @..bios_mouse_loc_12c9.l1:
     jmp near @..bios_mouse_loc_12c9.l4
@@ -1742,9 +1792,9 @@ bios_mouse_loc_12c9:
     mov ax, 3
     int 0x33 ; BIOS mouse
     shr cx, 1
-    cmp word [cs:0x15ac], cx
+    cmp word [cs:data_15ac], cx
     jne short @..bios_mouse_loc_12c9.l3
-    cmp word [cs:0x15ae], dx
+    cmp word [cs:data_15ae], dx
     je short @..bios_mouse_loc_12c9.l4
 @..bios_mouse_loc_12c9.l3:
     shl cx, 1
@@ -1752,16 +1802,16 @@ bios_mouse_loc_12c9:
     push ax
     call math_loc_1e1a
 @..bios_mouse_loc_12c9.l4:
-    mov byte [cs:0x0227], 0
+    mov byte [cs:data_0227], 0
     pop di
     pop si
     pop es
     pop ds
     ret
 bios_mouse_loc_1308:
-    cmp byte [cs:0x0228], 1
+    cmp byte [cs:data_0228], 1
     jne short @..bios_mouse_loc_1308.l1
-    mov byte [cs:0x0227], 1
+    mov byte [cs:data_0227], 1
 @..bios_mouse_loc_1308.l1:
     ret
 bios_mouse_loc_1317:
@@ -1775,15 +1825,15 @@ bios_mouse_loc_1317:
     mov es, ax
     mov word [bp - 0x0004], 1
     xor ax, ax
-    cmp byte [cs:0x0228], 0
+    cmp byte [cs:data_0228], 0
     je short @..bios_mouse_loc_1317.l6
-    mov bx, word [cs:0x1ecd]
+    mov bx, word [cs:data_1ecd]
     or bx, bx
     je short @..bios_mouse_loc_1317.l1
-    mov word [cs:0x1ecd], 0
+    mov word [cs:data_1ecd], 0
     mov word [bp - 0x0002], bx
-    mov cx, word [cs:0x1ecf]
-    mov dx, word [cs:0x1ed1]
+    mov cx, word [cs:data_1ecf]
+    mov dx, word [cs:data_1ed1]
     jmp short @..bios_mouse_loc_1317.l2
 @..bios_mouse_loc_1317.l1:
     mov ax, 3
@@ -1831,7 +1881,7 @@ bios_mouse_loc_139a:
     push es
     mov ax, ds
     mov es, ax
-    cmp byte [cs:0x0228], 0
+    cmp byte [cs:data_0228], 0
     je short @..bios_mouse_loc_139a.l1
     mov ax, 3
     int 0x33 ; BIOS mouse
@@ -1870,15 +1920,15 @@ mouse_set_pos:
     jae short @..mouse_set_pos.l1
     call bios_mouse_loc_1308
     mov ax, word [bp + 0xc]
-    mov word [cs:0x1e64], ax
+    mov word [cs:data_1e64], ax
     mov ax, word [bp + 0xe]
-    mov word [cs:0x1e66], ax
+    mov word [cs:data_1e66], ax
     mov ax, word [bp + 0x10]
-    mov word [cs:0x1e5c], ax
+    mov word [cs:data_1e5c], ax
     mov ax, word [bp + 0x12]
-    mov word [cs:0x1e5e], ax
-    mov ax, word [cs:0x1e64]
-    or ax, word [cs:0x1e66]
+    mov word [cs:data_1e5e], ax
+    mov ax, word [cs:data_1e64]
+    or ax, word [cs:data_1e66]
     jne short @..mouse_set_pos.l3
     mov ax, cs
     mov ds, ax
@@ -1888,7 +1938,7 @@ mouse_set_pos:
     mov cx, 4
     rep movsb
 @..mouse_set_pos.l3:
-    cmp byte [cs:0x0228], 0
+    cmp byte [cs:data_0228], 0
     je short @..mouse_set_pos.l7
     mov cx, word [bp + 0x14]
     cmp cx, byte 0xff
@@ -1904,16 +1954,16 @@ mouse_set_pos:
     int 0x33 ; BIOS mouse
     jmp short @..mouse_set_pos.l6
 @..mouse_set_pos.l5:
-    cmp byte [cs:0x0226], 0
+    cmp byte [cs:data_0226], 0
     je short @..mouse_set_pos.l4
-    mov cx, word [cs:0x15ac]
+    mov cx, word [cs:data_15ac]
     shl cx, 1
-    mov dx, word [cs:0x15ae]
+    mov dx, word [cs:data_15ae]
 @..mouse_set_pos.l6:
     mov ax, cs
     push ax
     call math_loc_1e1a
-    mov byte [cs:0x0227], 0
+    mov byte [cs:data_0227], 0
 @..mouse_set_pos.l7:
     pop di
     pop si
@@ -1954,106 +2004,106 @@ dos_con_loc_147d:
     db 0x06, 0x26, 0x02, 0x74, 0x01, 0xcb
 
 math_loc_1e1a:
-    cmp byte [cs:0x1ed3], 0
+    cmp byte [cs:data_1ed3], 0
     je short @..local.l18
     retf
 @..local.l18:
     mov al, 0xff
-    mov byte [cs:0x1ed3], al
+    mov byte [cs:data_1ed3], al
     shr cx, 1
-    mov word [cs:0x15b0], cx
-    mov word [cs:0x15b2], dx
+    mov word [cs:data_15b0], cx
+    mov word [cs:data_15b2], dx
 math_loc_1e35:
     push bp
     mov bp, sp
     sub sp, byte 0x10
-    mov ax, word [cs:0x15b2]
+    mov ax, word [cs:data_15b2]
     mov bx, 0xc8
     sub bx, ax
-    cmp bx, word [cs:0x1e5e]
+    cmp bx, word [cs:data_1e5e]
     jb short @..math_loc_1e35.l1
-    mov bx, word [cs:0x1e5e]
+    mov bx, word [cs:data_1e5e]
 @..math_loc_1e35.l1:
-    mov word [cs:0x15c0], bx
+    mov word [cs:data_15c0], bx
     mov bx, 0x140
     mul bx
-    mov bx, word [cs:0x15b0]
+    mov bx, word [cs:data_15b0]
     add ax, bx
     mov si, ax
-    mov word [cs:0x15c2], ax
+    mov word [cs:data_15c2], ax
     mov cx, 0x140
     sub cx, bx
-    cmp cx, word [cs:0x1e5c]
+    cmp cx, word [cs:data_1e5c]
     jb short @..math_loc_1e35.l2
-    mov cx, word [cs:0x1e5c]
+    mov cx, word [cs:data_1e5c]
 @..math_loc_1e35.l2:
-    mov word [cs:0x15be], cx
-    mov di, word [cs:0x15b6]
+    mov word [cs:data_15be], cx
+    mov di, word [cs:data_15b6]
     mov ax, cs
     mov es, ax
     mov ax, 0xa000
     mov ds, ax
-    mov cx, word [cs:0x15c0]
+    mov cx, word [cs:data_15c0]
 @..math_loc_1e35.l3:
     push cx
     push si
-    mov cx, word [cs:0x15be]
+    mov cx, word [cs:data_15be]
     rep movsb
     pop si
     add si, strict word 0x140
     pop cx
     loop @..math_loc_1e35.l3
-    mov ax, word [cs:0x15ae]
+    mov ax, word [cs:data_15ae]
     cmp ax, strict word 0xffff
     jne short @..math_loc_1e35.l4
     jmp near @..math_loc_1e35.l12
 @..math_loc_1e35.l4:
-    add ax, word [cs:0x15ba]
+    add ax, word [cs:data_15ba]
     dec ax
     mov word [bp - 0x0002], ax
-    mov ax, word [cs:0x15ac]
-    add ax, word [cs:0x15b8]
+    mov ax, word [cs:data_15ac]
+    add ax, word [cs:data_15b8]
     dec ax
     mov word [bp - 0x0004], ax
-    mov cx, word [cs:0x15b0]
-    mov dx, word [cs:0x15b2]
+    mov cx, word [cs:data_15b0]
+    mov dx, word [cs:data_15b2]
     cmp word [bp - 0x0004], cx
     jb short @..math_loc_1e35.l5
     cmp word [bp - 0x0002], dx
     jb short @..math_loc_1e35.l5
-    add cx, word [cs:0x15be]
+    add cx, word [cs:data_15be]
     dec cx
-    add dx, word [cs:0x15c0]
+    add dx, word [cs:data_15c0]
     dec dx
-    cmp cx, word [cs:0x15ac]
+    cmp cx, word [cs:data_15ac]
     jb short @..math_loc_1e35.l5
-    cmp dx, word [cs:0x15ae]
+    cmp dx, word [cs:data_15ae]
     jae short @..math_loc_1e35.l6
 @..math_loc_1e35.l5:
-    mov byte [cs:0x1e68], 0
+    mov byte [cs:data_1e68], 0
     jmp near @..math_loc_1e35.l12
 @..math_loc_1e35.l6:
-    mov byte [cs:0x1e68], 1
-    mov cx, word [cs:0x15b0]
+    mov byte [cs:data_1e68], 1
+    mov cx, word [cs:data_15b0]
     mov ax, cx
-    cmp word [cs:0x15ac], cx
+    cmp word [cs:data_15ac], cx
     jb short @..math_loc_1e35.l7
-    mov ax, word [cs:0x15ac]
+    mov ax, word [cs:data_15ac]
 @..math_loc_1e35.l7:
     mov word [bp - 0x0006], ax
-    mov dx, word [cs:0x15b2]
+    mov dx, word [cs:data_15b2]
     mov bx, dx
-    cmp word [cs:0x15ae], dx
+    cmp word [cs:data_15ae], dx
     jb short @..math_loc_1e35.l8
-    mov bx, word [cs:0x15ae]
+    mov bx, word [cs:data_15ae]
 @..math_loc_1e35.l8:
     mov word [bp - 0x0008], bx
     sub ax, cx
     sub bx, dx
     mov word [bp - 0x000a], ax
     mov word [bp - 0x000c], bx
-    mov cx, word [cs:0x15be]
-    mov dx, word [cs:0x15c0]
+    mov cx, word [cs:data_15be]
+    mov dx, word [cs:data_15c0]
     sub cx, ax
     mov word [bp - 0x000e], cx
     sub dx, bx
@@ -2079,18 +2129,18 @@ math_loc_1e35:
     mov word [bp - 0x0010], ax
 @..math_loc_1e35.l10:
     mov ax, word [bp - 0x0008]
-    sub ax, word [cs:0x15ae]
-    mov bx, word [cs:0x15b8]
+    sub ax, word [cs:data_15ae]
+    mov bx, word [cs:data_15b8]
     mul bx
     add ax, word [bp - 0x0006]
-    sub ax, word [cs:0x15ac]
-    add ax, word [cs:0x15b4]
+    sub ax, word [cs:data_15ac]
+    add ax, word [cs:data_15b4]
     mov si, ax
     mov ax, word [bp - 0x000c]
-    mov bx, word [cs:0x15be]
+    mov bx, word [cs:data_15be]
     mul bx
     add ax, word [bp - 0x000a]
-    add ax, word [cs:0x15b6]
+    add ax, word [cs:data_15b6]
     mov di, ax
     mov ax, cs
     mov ds, ax
@@ -2103,19 +2153,19 @@ math_loc_1e35:
     mov cx, word [bp - 0x000e]
     rep movsb
     pop di
-    add di, word [cs:0x15be]
+    add di, word [cs:data_15be]
     pop si
-    add si, word [cs:0x15b8]
+    add si, word [cs:data_15b8]
     pop cx
     loop @..math_loc_1e35.l11
 @..math_loc_1e35.l12:
     mov ax, 0xa000
     mov es, ax
-    mov di, word [cs:0x15c2]
-    mov ax, word [cs:0x1e66]
+    mov di, word [cs:data_15c2]
+    mov ax, word [cs:data_1e66]
     mov ds, ax
-    mov si, word [cs:0x1e64]
-    mov cx, word [cs:0x15c0]
+    mov si, word [cs:data_1e64]
+    mov cx, word [cs:data_15c0]
     mov ax, ds
     or ax, si
     jne short @..math_loc_1e35.l13
@@ -2129,7 +2179,7 @@ math_loc_1e35:
     push cx
     push di
     push si
-    mov cx, word [cs:0x15be]
+    mov cx, word [cs:data_15be]
 @..math_loc_1e35.l15:
     mov al, byte [si]
     cmp al, 0xff
@@ -2140,26 +2190,26 @@ math_loc_1e35:
     inc di
     loop @..math_loc_1e35.l15
     pop si
-    add si, word [cs:0x1e5c]
+    add si, word [cs:data_1e5c]
     pop di
     add di, strict word 0x140
     pop cx
     loop @..math_loc_1e35.l14
     pop bx
     pop di
-    mov ax, word [cs:0x15ae]
+    mov ax, word [cs:data_15ae]
     cmp ax, strict word 0xffff
     jne short @..math_loc_1e35.l17
     jmp near @..local.l32
 @..math_loc_1e35.l17:
-    mov si, word [cs:0x15b6]
-    mov cx, word [cs:0x15c0]
+    mov si, word [cs:data_15b6]
+    mov cx, word [cs:data_15c0]
 @..math_loc_1e35.l18:
     push cx
     push di
     push si
     push bx
-    mov cx, word [cs:0x15be]
+    mov cx, word [cs:data_15be]
 @..local.l19:
     mov al, byte [bx]
     inc bx
@@ -2172,9 +2222,9 @@ math_loc_1e35:
     inc di
     loop @..local.l19
     pop bx
-    add bx, word [cs:0x1e5c]
+    add bx, word [cs:data_1e5c]
     pop si
-    add si, word [cs:0x15be]
+    add si, word [cs:data_15be]
     pop di
     add di, strict word 0x140
     pop cx
@@ -2186,21 +2236,21 @@ math_loc_1e35:
     mov cx, 0x88
     mov al, 0xff
     rep stosb
-    mov ax, word [cs:0x15b8]
+    mov ax, word [cs:data_15b8]
     add ax, strict word 7
     mov cl, 3
     shr ax, cl
     mov word [bp - 0x0002], ax
-    cmp byte [cs:0x1e68], 0
+    cmp byte [cs:data_1e68], 0
     je short @..local.l27
     mov ax, word [bp - 0x0008]
-    sub ax, word [cs:0x15ae]
+    sub ax, word [cs:data_15ae]
     mov bx, word [bp - 0x0002]
     mul bx
     mov di, ax
     add di, strict word 0x1dc4
     mov ax, word [bp - 0x0006]
-    sub ax, word [cs:0x15ac]
+    sub ax, word [cs:data_15ac]
     mov bx, 0x1e4c
 @..local.l21:
     cmp ax, strict word 8
@@ -2249,17 +2299,17 @@ math_loc_1e35:
     loop @..local.l26
 @..local.l27:
     mov bx, 0x1dc4
-    mov si, word [cs:0x15b4]
-    mov di, word [cs:0x15bc]
+    mov si, word [cs:data_15b4]
+    mov di, word [cs:data_15bc]
     mov ax, 0xa000
     mov es, ax
-    mov cx, word [cs:0x15ba]
+    mov cx, word [cs:data_15ba]
 @..local.l28:
     push cx
     push si
     push bx
     push di
-    mov cx, word [cs:0x15b8]
+    mov cx, word [cs:data_15b8]
 @..local.l29:
     mov ah, byte [bx]
     inc bx
@@ -2280,31 +2330,31 @@ math_loc_1e35:
     pop bx
     add bx, word [bp - 0x0002]
     pop si
-    add si, word [cs:0x15b8]
+    add si, word [cs:data_15b8]
     pop cx
     loop @..local.l28
 @..local.l32:
-    mov ax, word [cs:0x15b4]
-    mov bx, word [cs:0x15b6]
-    mov word [cs:0x15b6], ax
-    mov word [cs:0x15b4], bx
-    mov ax, word [cs:0x15b0]
-    mov word [cs:0x15ac], ax
-    mov ax, word [cs:0x15b2]
-    mov word [cs:0x15ae], ax
-    mov ax, word [cs:0x15c0]
-    mov word [cs:0x15ba], ax
-    mov ax, word [cs:0x15be]
-    mov word [cs:0x15b8], ax
-    mov ax, word [cs:0x15c2]
-    mov word [cs:0x15bc], ax
+    mov ax, word [cs:data_15b4]
+    mov bx, word [cs:data_15b6]
+    mov word [cs:data_15b6], ax
+    mov word [cs:data_15b4], bx
+    mov ax, word [cs:data_15b0]
+    mov word [cs:data_15ac], ax
+    mov ax, word [cs:data_15b2]
+    mov word [cs:data_15ae], ax
+    mov ax, word [cs:data_15c0]
+    mov word [cs:data_15ba], ax
+    mov ax, word [cs:data_15be]
+    mov word [cs:data_15b8], ax
+    mov ax, word [cs:data_15c2]
+    mov word [cs:data_15bc], ax
     mov sp, bp
     pop bp
     xor al, al
-    mov byte [cs:0x1ed3], al
+    mov byte [cs:data_1ed3], al
     retf
 loc_217d:
-    mov word [cs:0x1ecd], 0
+    mov word [cs:data_1ecd], 0
     ret
 loc_2185:
     push bp
@@ -2331,9 +2381,9 @@ loc_2185:
     jmp near @..local.l35
 @..local.l34:
     mov word [cs:bx], 0
-    mov cx, word [cs:0x0caa]
+    mov cx, word [cs:data_0caa]
     dec cx
-    mov word [cs:0x0caa], cx
+    mov word [cs:data_0caa], cx
     call loc_43e1
 @..local.l35:
     pop si
@@ -2363,9 +2413,9 @@ dos_read_file_3:
     je short @..dos_read_file_3.l1
     jmp near 0x22ac
 @..dos_read_file_3.l1:
-    mov ax, word [cs:0x0caa]
+    mov ax, word [cs:data_0caa]
     inc ax
-    mov word [cs:0x0caa], ax
+    mov word [cs:data_0caa], ax
     mov bx, word [bp - 0x0002]
     mov word [cs:bx], ax
     dec ax
@@ -2374,9 +2424,9 @@ dos_read_file_3:
     mov bx, 0xbda
     add bx, ax
     mov word [bp - 0x0002], bx
-    mov ax, word [cs:0x0cac]
+    mov ax, word [cs:data_0cac]
     mov word [cs:bx], ax
-    mov ax, word [cs:0x01e9]
+    mov ax, word [cs:data_01e9]
     mov ds, ax
     xor dx, dx
     mov cx, 4
@@ -2394,17 +2444,17 @@ dos_read_file_3:
     shr ax, cl
     shl dl, cl
     or ah, dl
-    add word [cs:0x0cac], ax
+    add word [cs:data_0cac], ax
     mov bx, word [bp - 0x0002]
     mov word [cs:bx + 0x2], ax
-    mov ax, word [cs:0x0cac]
+    mov ax, word [cs:data_0cac]
     cmp ax, 0x4180
     jb short @..dos_read_file_3.l2
     jmp near dos_con_loc_22ee
 @..dos_read_file_3.l2:
     mov bx, word [bp - 0x0002]
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     mov ds, ax
 @..dos_read_file_3.l3:
     mov cx, word [bp - 0x0004]
@@ -2531,9 +2581,9 @@ math_loc_2528:
     mov cx, word [bp - 0x0004]
 @..math_loc_2528.l3:
     push cx
-    les di, word [cs:0x01f7]
+    les di, word [cs:data_01f7]
     mov cl, 3
-    mov dx, word [cs:0x01e5]
+    mov dx, word [cs:data_01e5]
     mov ds, dx
     xor ax, ax
     mov al, byte [si]
@@ -2760,7 +2810,7 @@ math_loc_2528:
     or ax, ax
     je short @..local.l41
     push word [bp + 0x14]
-    call far [cs:0x01fb]
+    call far [cs:data_01fb]
     pop ax
 @..local.l41:
     jmp near @..math_loc_2528.l1
@@ -2786,7 +2836,7 @@ bios_video_loc_277f:
     mov ax, word [bp + 0xe]
     cmp ax, strict word 0xffff
     jne short @..bios_video_loc_277f.l1
-    les di, word [cs:0x01f7]
+    les di, word [cs:data_01f7]
     mov ax, word [bp + 0xc]
     mov bx, ax
     shl ax, 1
@@ -2875,7 +2925,7 @@ dos_free_mem_2:
     mov ax, word [bp - 0x0002]
     mov ds, ax
     xor si, si
-    les di, word [cs:0x01f7]
+    les di, word [cs:data_01f7]
     mov cx, 0x100
 @..dos_free_mem_2.l3:
     push cx
@@ -2925,7 +2975,7 @@ dos_free_mem_2:
     or ax, ax
     je short @..dos_free_mem_2.l9
     push ax
-    call far [cs:0x01fb]
+    call far [cs:data_01fb]
     pop ax
 @..dos_free_mem_2.l9:
     jmp short @..dos_free_mem_2.l2
@@ -3044,7 +3094,7 @@ dos_free_mem_3:
     or ax, ax
     je short @..bios_video_loc_28ba.l2
     push ax
-    call far [cs:0x01fb]
+    call far [cs:data_01fb]
     pop ax
     jmp short @..bios_video_loc_28ba.l2
 @..bios_video_loc_28ba.l9:
@@ -3085,7 +3135,7 @@ dos_free_mem_4:
     mov ax, word [bp + 0xc]
     cmp ax, strict word 0xffff
     jne short @..dos_mem_loc_29bf.l3
-    lds si, word [cs:0x01f7]
+    lds si, word [cs:data_01f7]
     mov cx, 0x300
     mov dx, 0x3c8
     mov al, 0
@@ -3181,7 +3231,7 @@ dos_mem_loc_2acf:
     push si
     mov ax, ds
     mov es, ax
-    les di, word [cs:0x01f7]
+    les di, word [cs:data_01f7]
     mov si, word [bp + 0xc]
     mov cx, 0x300
     rep movsb
@@ -3215,7 +3265,7 @@ dos_mem_loc_2b01:
     cmp word [bp + 0xc], byte 3
     je short @..dos_mem_loc_2b01.l1
     mov ax, 0x4180
-    sub ax, word [cs:0x0cac]
+    sub ax, word [cs:data_0cac]
     mov bx, 0x10
     mul bx
     jmp short @..dos_mem_loc_2b01.l5
@@ -3240,8 +3290,8 @@ dos_mem_loc_2b01:
     mul bx
     jmp short @..dos_mem_loc_2b01.l5
 @..dos_mem_loc_2b01.l4:
-    mov ax, word [cs:0x01ff]
-    sub ax, word [cs:0x0391]
+    mov ax, word [cs:data_01ff]
+    sub ax, word [cs:data_0391]
     mov bx, 0x10
     mul bx
 @..dos_mem_loc_2b01.l5:
@@ -3262,11 +3312,11 @@ mouse_set_pos_2:
     push di
     mov ax, ds
     mov es, ax
-    cmp byte [cs:0x0228], 1
+    cmp byte [cs:data_0228], 1
     je short @..mouse_set_pos_2.l1
     jmp near @..mouse_set_pos_2.l8
 @..mouse_set_pos_2.l1:
-    mov byte [cs:0x0226], 1
+    mov byte [cs:data_0226], 1
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov word [bp - 0x0002], ax
@@ -3316,7 +3366,7 @@ mouse_set_pos_2:
     or ax, ax
     je short @..mouse_set_pos_2.l2
     push ax
-    call far [cs:0x01fb]
+    call far [cs:data_01fb]
     pop ax
     jmp short @..mouse_set_pos_2.l2
 @..mouse_set_pos_2.l8:
@@ -3337,7 +3387,7 @@ mouse_set_pos_3:
     push di
     mov ax, ds
     mov es, ax
-    cmp byte [cs:0x0228], 1
+    cmp byte [cs:data_0228], 1
     je short @..mouse_set_pos_3.l1
     jmp near @..mouse_set_pos_3.l9
 @..mouse_set_pos_3.l1:
@@ -3346,9 +3396,9 @@ mouse_set_pos_3:
     mov word [bp - 0x0002], ax
     mov ax, word [bp + 0xe]
     mov word [bp - 0x0004], ax
-    mov cx, word [cs:0x15ac]
+    mov cx, word [cs:data_15ac]
     shl cx, 1
-    mov dx, word [cs:0x15ae]
+    mov dx, word [cs:data_15ae]
     mov word [bp - 0x0006], cx
     mov word [bp - 0x0008], dx
 @..mouse_set_pos_3.l2:
@@ -3390,7 +3440,7 @@ mouse_set_pos_3:
     or ax, ax
     je short @..mouse_set_pos_3.l2
     push ax
-    call far [cs:0x01fb]
+    call far [cs:data_01fb]
     pop ax
     jmp short @..mouse_set_pos_3.l2
 @..mouse_set_pos_3.l8:
@@ -3398,7 +3448,7 @@ mouse_set_pos_3:
     mov dx, word [bp - 0x0004]
     mov ax, 4
     int 0x33 ; BIOS mouse
-    mov byte [cs:0x0226], 0
+    mov byte [cs:data_0226], 0
 @..mouse_set_pos_3.l9:
     pop di
     pop si
@@ -3433,9 +3483,9 @@ loc_2cbe:
     jmp near @..local.l45
 @..local.l44:
     mov word [cs:bx], 0
-    mov cx, word [cs:0x0caa]
+    mov cx, word [cs:data_0caa]
     dec cx
-    mov word [cs:0x0caa], cx
+    mov word [cs:data_0caa], cx
     call loc_43e1
 @..local.l45:
     pop si
@@ -3455,7 +3505,7 @@ io_loc_2d08:
     push si
     mov ax, ds
     mov es, ax
-    lds si, word [cs:0x01f7]
+    lds si, word [cs:data_01f7]
     mov di, word [bp + 0xc]
     mov cx, 0x300
     rep movsb
@@ -3501,7 +3551,7 @@ math_loc_2d6c:
     mov bx, 0xbda
     add bx, ax
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     mov word [bp - 0x0008], ax
     mov ds, ax
     xor bx, bx
@@ -3997,7 +4047,7 @@ leaf_loc_319f:
     jmp short @..leaf_loc_319f.l1
 math_loc_31d9:
     push es
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
     mov ax, 0x2e53
     mov word [bp - 0x0036], ax
@@ -4709,7 +4759,7 @@ dos_write_file_2:
     jae short @..dos_con_loc_3822.l1
     jmp near @..local.l161
 @..dos_con_loc_3822.l1:
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     mov cx, word [bp - 0x0004]
 @..dos_con_loc_3822.l2:
@@ -4753,14 +4803,14 @@ dos_write_file_2:
     mov cl, 4
     shr ax, cl
     mov word [bp - 0x0002], ax
-    add ax, word [cs:0x0cac]
+    add ax, word [cs:data_0cac]
     cmp ax, 0x4180
     jbe short @..dos_con_loc_3822.l7
     jmp near dos_con_loc_3b1f
 @..dos_con_loc_3822.l7:
-    mov bx, word [cs:0x0cac]
+    mov bx, word [cs:data_0cac]
     mov word [bp - 0x000e], bx
-    mov word [cs:0x0cac], ax
+    mov word [cs:data_0cac], ax
     mov bx, 0x25b
     mov cx, 0x10
     xor dx, dx
@@ -4774,9 +4824,9 @@ dos_write_file_2:
     jmp near dos_con_loc_3b5c
 @..dos_con_loc_3822.l9:
     mov word [bp - 0x000c], dx
-    mov ax, word [cs:0x0caa]
+    mov ax, word [cs:data_0caa]
     inc ax
-    mov word [cs:0x0caa], ax
+    mov word [cs:data_0caa], ax
     mov word [cs:bx], ax
     dec ax
     mov cl, 2
@@ -4785,11 +4835,11 @@ dos_write_file_2:
     add bx, ax
     mov ax, word [bp - 0x000e]
     mov word [cs:bx], ax
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     mov es, ax
     mov ax, word [bp - 0x0002]
     mov word [cs:bx + 0x2], ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     mov ax, word [bp + 0xe]
     mov bx, 0x140
@@ -4835,14 +4885,14 @@ dos_write_file_2:
     mov cl, 4
     shr ax, cl
     mov word [bp - 0x0002], ax
-    add ax, word [cs:0x0391]
-    cmp ax, word [cs:0x01ff]
+    add ax, word [cs:data_0391]
+    cmp ax, word [cs:data_01ff]
     jbe short @..dos_con_loc_3822.l12
     jmp near dos_con_loc_3ab7
 @..dos_con_loc_3822.l12:
-    mov bx, word [cs:0x0391]
+    mov bx, word [cs:data_0391]
     mov word [bp - 0x000e], bx
-    mov word [cs:0x0391], ax
+    mov word [cs:data_0391], ax
     mov bx, 0x29b
     mov cx, 0x14
     xor dx, dx
@@ -4856,9 +4906,9 @@ dos_write_file_2:
     jmp near dos_con_loc_3aee
 @..dos_con_loc_3822.l14:
     mov word [bp - 0x000c], dx
-    mov ax, word [cs:0x038f]
+    mov ax, word [cs:data_038f]
     inc ax
-    mov word [cs:0x038f], ax
+    mov word [cs:data_038f], ax
     mov word [cs:bx], ax
     dec ax
     mov cl, 2
@@ -4869,7 +4919,7 @@ dos_write_file_2:
     mov word [cs:bx], ax
     mov ax, word [bp - 0x0002]
     mov word [cs:bx + 0x2], ax
-    mov ax, word [cs:0x0203]
+    mov ax, word [cs:data_0203]
     mov es, ax
     mov ax, word [bp - 0x000e]
     mov di, ax
@@ -4878,9 +4928,9 @@ dos_write_file_2:
     shl di, cl
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:0x3c8e], ax
+    mov word [cs:data_3c8e], ax
     call dos_file_loc_3b90
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     mov ax, word [bp + 0xe]
     mov bx, 0x140
@@ -4905,8 +4955,8 @@ dos_write_file_2:
     rep movsb
     test di, 0xc000
     je short @..local.l163
-    inc word [cs:0x3c8e]
-    mov ax, word [cs:0x3c8e]
+    inc word [cs:data_3c8e]
+    mov ax, word [cs:data_3c8e]
     call dos_file_loc_3b90
     and di, strict word 0x3fff
 @..local.l163:
@@ -4975,7 +5025,7 @@ dos_file_loc_3b90:
     mov ah, 0x44
     mov al, 0
     pop bx
-    mov dx, word [cs:0x0201]
+    mov dx, word [cs:data_0201]
     int 0x67 ; EMS (Expanded Memory)
     inc bx
     mov ah, 0x44
@@ -5002,7 +5052,7 @@ dos_read_file_4:
     mov bx, word [bp + 0x12]
     mov ah, 0x3f
     int 0x21 ; DOS read file (handle)
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov ds, ax
     mov cx, word [bp - 0x0004]
 @..dos_read_file_4.l1:
@@ -5032,9 +5082,9 @@ dos_read_file_4:
     mov bx, 0xbda
     add bx, ax
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     mov ds, ax
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
     xor si, si
     lodsw
@@ -5061,7 +5111,7 @@ dos_read_file_4:
     add bx, ax
     mov ax, word [cs:bx]
     mov word [cs:bx], 0
-    dec word [cs:0x0caa]
+    dec word [cs:data_0caa]
     call loc_43e1
 @..dos_read_file_4.l5:
     jmp near @..dos_read_file_4.l9
@@ -5080,15 +5130,15 @@ dos_read_file_4:
     mov word [bp - 0x0002], ax
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:0x3c8e], ax
+    mov word [cs:data_3c8e], ax
     call dos_file_loc_3b90
     mov si, word [bp - 0x0002]
     and si, strict word 0x3ff
     mov cl, 4
     shl si, cl
-    mov ax, word [cs:0x01e5]
+    mov ax, word [cs:data_01e5]
     mov es, ax
-    mov ax, word [cs:0x0203]
+    mov ax, word [cs:data_0203]
     mov ds, ax
     lodsw
     mov word [bp - 0x0002], ax
@@ -5106,8 +5156,8 @@ dos_read_file_4:
     rep movsb
     test si, 0xc000
     je short @..dos_read_file_4.l8
-    inc word [cs:0x3c8e]
-    mov ax, word [cs:0x3c8e]
+    inc word [cs:data_3c8e]
+    mov ax, word [cs:data_3c8e]
     call dos_file_loc_3b90
     and si, strict word 0x3fff
 @..dos_read_file_4.l8:
@@ -5115,9 +5165,9 @@ dos_read_file_4:
     jne short @..dos_read_file_4.l7
     cmp word [bp + 0x10], byte 0
     je short @..dos_read_file_4.l9
-    mov cx, word [cs:0x038f]
+    mov cx, word [cs:data_038f]
     dec cx
-    mov word [cs:0x038f], cx
+    mov word [cs:data_038f], cx
     mov ax, word [bp + 0xc]
     shl ax, 1
     mov bx, 0x29b
@@ -5139,7 +5189,7 @@ dos_file_loc_3d0b:
     push es
     push si
     push di
-    mov dx, word [cs:0x01e9]
+    mov dx, word [cs:data_01e9]
     mov ds, dx
 @..dos_file_loc_3d0b.l1:
     xor dx, dx
@@ -5191,7 +5241,7 @@ dos_read_file_5:
     mov ax, word [bp + 0xc]
     test ah, 0x80
     je short @..dos_read_file_5.l1
-    dec word [cs:0x038f]
+    dec word [cs:data_038f]
     mov ax, word [bp + 0xe]
     shl ax, 1
     mov bx, 0x2c3
@@ -5220,8 +5270,8 @@ dos_read_file_5:
     je short @..dos_read_file_5.l3
     jmp near 0x3ef6
 @..dos_read_file_5.l3:
-    inc word [cs:0x038f]
-    mov ax, word [cs:0x038f]
+    inc word [cs:data_038f]
+    mov ax, word [cs:data_038f]
     mov word [cs:bx], ax
     dec ax
     mov cl, 2
@@ -5229,9 +5279,9 @@ dos_read_file_5:
     mov bx, 0x2eb
     add bx, ax
     mov word [bp - 0x0002], bx
-    mov ax, word [cs:0x0391]
+    mov ax, word [cs:data_0391]
     mov word [cs:bx], ax
-    mov ax, word [cs:0x01e9]
+    mov ax, word [cs:data_01e9]
     mov ds, ax
     xor dx, dx
     mov cx, 0x1000
@@ -5265,27 +5315,27 @@ dos_read_file_5:
     mov word [bp - 0x0008], dx
     mov cx, 0x10
     div cx
-    mov di, word [cs:0x0391]
+    mov di, word [cs:data_0391]
     mov bx, word [bp - 0x0002]
     mov word [cs:bx + 0x2], ax
-    add word [cs:0x0391], ax
-    mov ax, word [cs:0x0391]
-    cmp ax, word [cs:0x01ff]
+    add word [cs:data_0391], ax
+    mov ax, word [cs:data_0391]
+    cmp ax, word [cs:data_01ff]
     jbe short @..dos_read_file_5.l4
     jmp near @..dos_con_loc_3efb.l1
 @..dos_read_file_5.l4:
     mov ax, di
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:0x3c8e], ax
+    mov word [cs:data_3c8e], ax
     call dos_file_loc_3b90
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
     xor si, si
-    mov ax, word [cs:0x01e9]
+    mov ax, word [cs:data_01e9]
     mov ds, ax
-    mov ax, word [cs:0x0203]
+    mov ax, word [cs:data_0203]
     mov es, ax
     mov cx, 0x1000
     rep movsb
@@ -5300,8 +5350,8 @@ dos_read_file_5:
     test dx, 0xc000
     je short @..dos_read_file_5.l6
     sub di, strict word 0x4000
-    inc word [cs:0x3c8e]
-    mov ax, word [cs:0x3c8e]
+    inc word [cs:data_3c8e]
+    mov ax, word [cs:data_3c8e]
     call dos_file_loc_3b90
 @..dos_read_file_5.l6:
     mov ax, word [bp - 0x0006]
@@ -5377,7 +5427,7 @@ loc_3f73:
     mov ax, word [bp + 0xc]
     test ah, 0x80
     je short @..dos_con_loc_3efb.l2
-    dec word [cs:0x038f]
+    dec word [cs:data_038f]
     mov ax, word [bp + 0xe]
     shl ax, 1
     mov bx, 0x2d7
@@ -5406,8 +5456,8 @@ loc_3f73:
     je short @..dos_con_loc_3efb.l4
     jmp near @..local.l165
 @..dos_con_loc_3efb.l4:
-    inc word [cs:0x038f]
-    mov ax, word [cs:0x038f]
+    inc word [cs:data_038f]
+    mov ax, word [cs:data_038f]
     mov word [cs:bx], ax
     dec ax
     mov cl, 2
@@ -5415,14 +5465,14 @@ loc_3f73:
     mov bx, 0x2eb
     add bx, ax
     mov word [bp - 0x0002], bx
-    mov ax, word [cs:0x0391]
+    mov ax, word [cs:data_0391]
     mov word [cs:bx], ax
     mov ax, 0xfa0
     mov word [cs:bx + 0x2], ax
-    mov di, word [cs:0x0391]
-    add word [cs:0x0391], ax
-    mov ax, word [cs:0x0391]
-    cmp ax, word [cs:0x01ff]
+    mov di, word [cs:data_0391]
+    add word [cs:data_0391], ax
+    mov ax, word [cs:data_0391]
+    cmp ax, word [cs:data_01ff]
     jbe short @..dos_con_loc_3efb.l5
     jmp near @..dos_con_loc_4088.l1
 @..dos_con_loc_3efb.l5:
@@ -5431,7 +5481,7 @@ loc_3f73:
     mov ax, di
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:0x3c8e], ax
+    mov word [cs:data_3c8e], ax
     call dos_file_loc_3b90
     and di, strict word 0x3ff
     mov cl, 4
@@ -5441,8 +5491,8 @@ loc_3f73:
     test dx, 0xc000
     je short @..dos_con_loc_3efb.l7
     sub di, strict word 0x4000
-    inc word [cs:0x3c8e]
-    mov ax, word [cs:0x3c8e]
+    inc word [cs:data_3c8e]
+    mov ax, word [cs:data_3c8e]
     call dos_file_loc_3b90
 @..dos_con_loc_3efb.l7:
     mov ax, word [bp - 0x0006]
@@ -5455,9 +5505,9 @@ loc_3f73:
 @..dos_con_loc_3efb.l8:
     sub ax, cx
     mov word [bp - 0x0006], ax
-    mov ax, word [cs:0x0203]
+    mov ax, word [cs:data_0203]
     mov es, ax
-    mov ax, word [cs:0x01e9]
+    mov ax, word [cs:data_01e9]
     mov ds, ax
     mov dx, 0
     mov bx, word [bp + 0xc]
@@ -5525,9 +5575,9 @@ dos_read_file_6:
     je short @..dos_con_loc_4088.l2
     jmp near @..local.l166
 @..dos_con_loc_4088.l2:
-    mov ax, word [cs:0x0caa]
+    mov ax, word [cs:data_0caa]
     inc ax
-    mov word [cs:0x0caa], ax
+    mov word [cs:data_0caa], ax
     mov bx, word [bp - 0x0002]
     mov word [cs:bx], ax
     dec ax
@@ -5536,7 +5586,7 @@ dos_read_file_6:
     mov bx, 0xbda
     add bx, ax
     mov word [bp - 0x000a], bx
-    mov ax, word [cs:0x0cac]
+    mov ax, word [cs:data_0cac]
     mov word [cs:bx], ax
     mov ah, 0x42
     mov al, 2
@@ -5552,7 +5602,7 @@ dos_read_file_6:
     xor cx, cx
     mov dx, cx
     int 0x21 ; DOS seek file (lseek)
-    mov ax, word [cs:0x01e9]
+    mov ax, word [cs:data_01e9]
     mov ds, ax
     xor dx, dx
     mov bx, word [bp + 0xc]
@@ -5574,12 +5624,12 @@ dos_read_file_6:
     shr ax, cl
     mov bx, word [bp - 0x000a]
     mov word [cs:bx + 0x2], ax
-    add ax, word [cs:0x0cac]
+    add ax, word [cs:data_0cac]
     cmp ax, 0x4180
     jae short 0x4264
-    mov word [cs:0x0cac], ax
+    mov word [cs:data_0cac], ax
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     mov ds, ax
     xor dx, dx
     mov bx, word [bp + 0xc]
@@ -5679,14 +5729,14 @@ dos_con_loc_426b:
     shr ax, cl
     mov bx, word [bp - 0x000a]
     mov word [cs:bx + 0x2], ax
-    add ax, word [cs:0x0cac]
+    add ax, word [cs:data_0cac]
     cmp ax, 0x4180
     jb short @..dos_con_loc_422f.l9
     jmp near 0x4264
 @..dos_con_loc_422f.l9:
-    mov word [cs:0x0cac], ax
+    mov word [cs:data_0cac], ax
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     mov es, ax
     call dos_file_loc_4300
 @..dos_con_loc_422f.l10:
@@ -5801,9 +5851,9 @@ loc_439a:
     jmp near @..local.l169
 @..local.l168:
     mov word [cs:bx], 0
-    mov cx, word [cs:0x0caa]
+    mov cx, word [cs:data_0caa]
     dec cx
-    mov word [cs:0x0caa], cx
+    mov word [cs:data_0caa], cx
     call loc_43e1
 @..local.l169:
     pop di
@@ -5932,15 +5982,15 @@ leaf_loc_44a3:
     add bx, ax
     mov word [bp - 0x0004], bx
     mov ax, word [cs:bx + 0x2]
-    sub word [cs:0x0cac], ax
+    sub word [cs:data_0cac], ax
     mov word [bp - 0x0006], ax
 @..leaf_loc_44a3.l1:
     mov bx, word [bp - 0x0004]
     mov dx, word [cs:bx]
-    add dx, word [cs:0x01e1]
+    add dx, word [cs:data_01e1]
     mov es, dx
     mov dx, word [cs:bx + 0x4]
-    add dx, word [cs:0x01e1]
+    add dx, word [cs:data_01e1]
     mov ds, dx
     mov cx, word [cs:bx + 0x6]
     or cx, cx
@@ -6018,11 +6068,11 @@ loc_4527:
     shl ax, 1
     add bx, ax
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     push ax
     xor ax, ax
     push ax
-    call far [cs:0x021a]
+    call far [cs:data_021a]
     add sp, byte 0x0e
 @..local.l172:
     pop di
@@ -6042,7 +6092,7 @@ loc_4596:
     mov ax, ds
     mov es, ax
     push word [bp + 0xc]
-    call far [cs:0x0222]
+    call far [cs:data_0222]
     pop cx
     pop di
     pop si
@@ -6069,7 +6119,7 @@ loc_45b2:
     push ax
     push ax
     push ax
-    call far [cs:0x021a]
+    call far [cs:data_021a]
     add sp, byte 0x0e
     pop di
     pop si
@@ -6106,9 +6156,9 @@ dos_read_file_8:
     add bx, strict word 0x46f1
     mov ax, word [bp + 0x10]
     mov word [cs:bx], ax
-    mov ax, word [cs:0x0caa]
+    mov ax, word [cs:data_0caa]
     inc ax
-    mov word [cs:0x0caa], ax
+    mov word [cs:data_0caa], ax
     mov bx, word [bp - 0x0002]
     mov word [cs:bx], ax
     dec ax
@@ -6117,7 +6167,7 @@ dos_read_file_8:
     mov bx, 0xbda
     add bx, ax
     mov word [bp - 0x000a], bx
-    mov ax, word [cs:0x0cac]
+    mov ax, word [cs:data_0cac]
     mov word [cs:bx], ax
     xor ax, ax
     mov word [bp - 0x000c], ax
@@ -6167,14 +6217,14 @@ dos_read_file_8:
     mov bx, word [bp - 0x000a]
     add ax, word [bp - 0x000e]
     mov word [cs:bx + 0x2], ax
-    add ax, word [cs:0x0cac]
+    add ax, word [cs:data_0cac]
     cmp ax, 0x4180
     jb short @..dos_read_file_8.l3
     jmp near @..dos_con_loc_4719.l1
 @..dos_read_file_8.l3:
-    mov word [cs:0x0cac], ax
+    mov word [cs:data_0cac], ax
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     mov ds, ax
     mov bx, word [bp + 0xe]
     cmp bx, byte 0xff
@@ -6263,24 +6313,24 @@ loc_478a:
     cmp word [bp - 0x0006], byte 0
     je short @..dos_con_loc_4719.l2
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
 @..dos_con_loc_4719.l2:
     push ax
     xor ax, ax
     push ax
-    call far [cs:0x020e]
+    call far [cs:data_020e]
     add sp, byte 6
     push word [bp + 0x10]
     push word [bp + 0xe]
-    call far [cs:0x0216]
+    call far [cs:data_0216]
     add sp, byte 4
     push word [bp + 0x12]
     mov bx, word [bp - 0x0004]
     mov ax, word [cs:bx]
-    add ax, word [cs:0x01e1]
+    add ax, word [cs:data_01e1]
     push ax
     push word [bp - 0x0006]
-    call far [cs:0x0206]
+    call far [cs:data_0206]
     add sp, byte 6
 @..dos_con_loc_4719.l3:
     pop di
@@ -6315,9 +6365,9 @@ loc_481f:
     jmp near @..local.l176
 @..local.l175:
     mov word [cs:bx], 0
-    mov cx, word [cs:0x0caa]
+    mov cx, word [cs:data_0caa]
     dec cx
-    mov word [cs:0x0caa], cx
+    mov word [cs:data_0caa], cx
     call loc_43e1
 @..local.l176:
     pop di
@@ -6336,7 +6386,7 @@ loc_4866:
     push di
     mov ax, ds
     mov es, ax
-    call far [cs:0x021e]
+    call far [cs:data_021e]
     pop di
     pop si
     pop es
@@ -6353,7 +6403,7 @@ loc_487e:
     push di
     mov ax, ds
     mov es, ax
-    call far [cs:0x0212]
+    call far [cs:data_0212]
     pop di
     pop si
     pop es
@@ -6372,7 +6422,7 @@ loc_4896:
     mov es, ax
     push word [bp + 0xe]
     push word [bp + 0xc]
-    call far [cs:0x0216]
+    call far [cs:data_0216]
     add sp, byte 4
     pop di
     pop si

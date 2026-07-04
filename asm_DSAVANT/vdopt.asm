@@ -1,14 +1,11 @@
 %include "structs/structs.inc"
-%include "structs/vdopt.inc"
+%include "structs/data_9d90.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0x21, 0x47, 0x98, 0x90 ; header (8 bytes)
 
 data_0002 equ 0x0002
-data_000e equ 0x000e
 data_002f equ 0x002f
-data_02b4 equ 0x02b4
-data_030c equ 0x030c
 data_0375 equ 0x0375
 data_08c4 equ 0x08c4
 data_0e0e equ 0x0e0e

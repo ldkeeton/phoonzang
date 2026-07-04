@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/vpcmk.inc"
+%include "structs/data_a195.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0x23, 0x70, 0x98, 0x90 ; header (8 bytes)
