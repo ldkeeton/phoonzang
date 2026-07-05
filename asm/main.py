@@ -105,9 +105,16 @@ def discover_binaries(directory):
 
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
+EXPORT_LABELS = '--export-labels' in sys.argv
+FOREIGN_LABELS_PATH = None
+FOREIGN_PREFIX = None
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
-    if a.startswith('--max-func-size='):
+    if a.startswith('--foreign-labels='):
+        FOREIGN_LABELS_PATH = a.split('=', 1)[1]
+    elif a.startswith('--foreign-prefix='):
+        FOREIGN_PREFIX = a.split('=', 1)[1]
+    elif a.startswith('--max-func-size='):
         try:
             _MAX_FUNC_SIZE = int(a.split('=', 1)[1])
         except ValueError:
@@ -118,7 +125,8 @@ _TRACE = '--trace' in sys.argv
 _SHOW_OFFSETS = '--show-offsets' in sys.argv
 
 
-def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=False, output_dir=None, project=None, sidecar_entry=None):
+def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=False, output_dir=None, project=None, sidecar_entry=None,
+            foreign_label_map=None, export_labels=False):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -247,6 +255,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         asm_dir=out_dir,
         carve_1=carve_1,
         trace=ctx.trace,
+        foreign_label_map=foreign_label_map,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
@@ -261,6 +270,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
           f'dbc={stats["with_comment"]} blocks={stats["data_blocks"]} '
           f'lbl={stats["labels"]}  structs={stats["structs"]}  '
           f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
+          f'bare=[mem:{stats["bare_mem"]} call:{stats["bare_call"]} dbc:{stats["bare_dbc"]}]  '
           f'[{stats["status"]}]')
     print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
           f'disasm: {t_disasm-t_classify_end:.1f}s  '
@@ -290,10 +300,19 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     write_layers(ctx)
     print_short_report(ctx)
 
+    if export_labels and label_map:
+        from lib.cross_ref import write_label_json, write_label_inc
+        json_path = os.path.join(out_dir, f'{name}_labels.json')
+        labels_dir = os.path.join(out_dir, 'labels')
+        os.makedirs(labels_dir, exist_ok=True)
+        inc_path = os.path.join(labels_dir, f'{name}_labels.inc')
+        write_label_json(label_map, json_path)
+        write_label_inc(label_map, inc_path, prefix=name)
+
     if trace_writer:
         trace_writer.close()
 
-    return ctx.bitmap
+    return ctx.bitmap, label_map
 
 
 def copy_assets(orig_dir, output_dir, processed_names):
@@ -342,20 +361,49 @@ def process_project(project_name):
     bins = discover_binaries(project_dir)
     if not bins:
         print(f'{project_name}: no binaries found')
-    else:
-        print(f'\n=== {project_name} ({len(bins)} binaries) ===')
-        for name, (rel_path, start_offset) in sorted(bins.items()):
-            sc_entry = sidecar_per_binary(sidecar, name) if sidecar else None
-            process(name, project_dir, rel_path, start_offset,
-                    exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
-                    output_dir=out_dir,
-                    project=project_name, sidecar_entry=sc_entry)
+        return
+
+    print(f'\n=== {project_name} ({len(bins)} binaries) ===')
+
+    from lib.cross_ref import detect as detect_cross_refs
+    cross_refs = detect_cross_refs(project_dir, bins)
+
+    source_names = {src for refs in cross_refs.values() for _, src in refs}
+    source_label_maps = {}
+
+    for name in sorted(source_names & set(bins.keys())):
+        sc_entry = sidecar_per_binary(sidecar, name) if sidecar else None
+        _, lm = process(name, project_dir, bins[name][0], bins[name][1],
+                        exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
+                        output_dir=out_dir,
+                        project=project_name, sidecar_entry=sc_entry,
+                        export_labels=True)
+        source_label_maps[name] = lm
+
+    for name, (rel_path, start_offset) in sorted(bins.items()):
+        if name in source_names:
+            continue
+        sc_entry = sidecar_per_binary(sidecar, name) if sidecar else None
+
+        foreign_label_map = None
+        if name in cross_refs:
+            foreign_label_map = {}
+            for _, src_name in cross_refs[name]:
+                if src_name in source_label_maps:
+                    for addr, lbl in source_label_maps[src_name].items():
+                        foreign_label_map[addr] = f'{src_name}_{lbl}'
+
+        process(name, project_dir, rel_path, start_offset,
+                exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
+                output_dir=out_dir,
+                project=project_name, sidecar_entry=sc_entry,
+                foreign_label_map=foreign_label_map)
 
     processed = set(bins.keys())
-    copy_assets(app_dir, out_dir, processed)
+    copy_assets(project_dir, out_dir, processed)
 
     build_out = os.path.join(out_dir, 'build_out')
-    copy_assets(app_dir, build_out, set())
+    copy_assets(project_dir, build_out, set())
     build_binaries(out_dir, bins, build_out)
 
 
@@ -598,10 +646,21 @@ def main():
             sys.exit(1)
         rel_path, start_offset = bins[binary]
         sc_entry = sidecar_per_binary(sidecar, binary) if sidecar else None
+        foreign_label_map = None
+        if FOREIGN_LABELS_PATH:
+            from lib.cross_ref import read_label_json
+            raw = read_label_json(FOREIGN_LABELS_PATH)
+            prefix = FOREIGN_PREFIX or ''
+            foreign_label_map = {
+                addr: f'{prefix}_{name}' if prefix else name
+                for addr, name in raw.items()
+            }
         process(binary, project_dir, rel_path, start_offset,
                 exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
                 output_dir=out_dir,
-                project=p, sidecar_entry=sc_entry)
+                project=p, sidecar_entry=sc_entry,
+                foreign_label_map=foreign_label_map,
+                export_labels=EXPORT_LABELS)
         return
 
     target = args[0] if args else None

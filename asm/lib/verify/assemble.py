@@ -87,10 +87,10 @@ def is_semantically_equivalent(orig_bytes, nasm_bytes, address):
     return False
 
 
-def _build_equ_prelude(label_map, local_labels):
+def _build_equ_prelude(label_map, local_labels, foreign_label_map=None):
     """Build and cache the EQU preamble string for a label_map+local_labels pair."""
     global _equ_prelude, _equ_hash
-    h = id(label_map) ^ id(local_labels)
+    h = id(label_map) ^ id(local_labels) ^ id(foreign_label_map)
     if h == _equ_hash and _equ_prelude:
         return _equ_prelude
     lines = []
@@ -100,6 +100,9 @@ def _build_equ_prelude(label_map, local_labels):
     if local_labels:
         for lbl_off, lbl_name in local_labels.items():
             lines.append(f'{lbl_name} equ 0x{lbl_off:04x}')
+    if foreign_label_map:
+        for lbl_off, lbl_name in foreign_label_map.items():
+            lines.append(f'{lbl_name} equ 0x{lbl_off:04x}')
     _equ_prelude = '\n'.join(lines)
     if _equ_prelude:
         _equ_prelude += '\n'
@@ -107,7 +110,7 @@ def _build_equ_prelude(label_map, local_labels):
     return _equ_prelude
 
 
-def _get_label_re(label_map, local_labels):
+def _get_label_re(label_map, local_labels, foreign_label_map=None):
     """Build and cache a combined regex for all label names."""
     global _label_re, _label_re_key
     names = []
@@ -115,7 +118,9 @@ def _get_label_re(label_map, local_labels):
         names.extend(label_map.values())
     if local_labels:
         names.extend(local_labels.values())
-    h = id(label_map) ^ id(local_labels)
+    if foreign_label_map:
+        names.extend(foreign_label_map.values())
+    h = id(label_map) ^ id(local_labels) ^ id(foreign_label_map)
     if h == _label_re_key and _label_re is not None:
         return _label_re
     if not names:
@@ -128,14 +133,14 @@ def _get_label_re(label_map, local_labels):
     return _label_re
 
 
-def micro_assemble(nasm_text, offset, label_map=None, local_labels=None):
-    label_re = _get_label_re(label_map, local_labels)
+def micro_assemble(nasm_text, offset, label_map=None, local_labels=None, foreign_label_map=None):
+    label_re = _get_label_re(label_map, local_labels, foreign_label_map)
     uses_label = label_re is not None and bool(label_re.search(nasm_text))
     key = (nasm_text, offset) if uses_label else (nasm_text,)
     if key in _assemble_cache:
         return _assemble_cache[key]
 
-    asm = f'org {offset}\nbits 16\n{_build_equ_prelude(label_map, local_labels)}{nasm_text}\n'
+    asm = f'org {offset}\nbits 16\n{_build_equ_prelude(label_map, local_labels, foreign_label_map)}{nasm_text}\n'
 
     fd, asm_path = tempfile.mkstemp(suffix='.asm', text=True)
     try:

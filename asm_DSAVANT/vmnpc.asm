@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_b054.inc"
+%include "structs/vmnpc.inc"
 org 0
 bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0xcf, 0xae, 0x98, 0x90 ; header (8 bytes)
@@ -249,7 +249,7 @@ api_idx_0008:
     mov al, byte [bx + 0x6a4a]
     sub ah, ah
     push ax
-    db 0xe8, 0xcf, 0xb6 ; call 0xffffb7a9
+    db 0xe8, 0xcf, 0xb6 ; call 0xb7a9
     pop cx
     add word [bp - 0x0006], ax
 @..api_idx_0008.l6:
@@ -318,7 +318,7 @@ api_idx_0008:
     mov al, byte [bx + 0x6ac2]
     sub ah, ah
     push ax
-    db 0xe8, 0x28, 0xb6 ; call 0xffffb7a9
+    db 0xe8, 0x28, 0xb6 ; call 0xb7a9
     pop cx
     pop cx
     add ax, cx
@@ -358,7 +358,7 @@ api_idx_0008:
     ret
 api_idx_000c:
     mov ax, 0xfff4
-    db 0xe8, 0x33, 0xf2 ; call 0xfffff40b
+    db 0xe8, 0x33, 0xf2 ; call 0xf40b
     mov word [bp - 0x000c], 0
     mov ax, 0x15e
     imul word [bp + 0x4]
@@ -492,7 +492,7 @@ api_idx_000c:
     mov al, byte [bx + 0x6a2c]
     sub ah, ah
     push ax
-    db 0xe8, 0x84, 0xb4 ; call 0xffffb7a9
+    db 0xe8, 0x84, 0xb4 ; call 0xb7a9
     pop cx
     push ax
     mov ax, 0x15e
@@ -555,7 +555,7 @@ api_idx_000c:
     mov al, byte [bx + 0x6ac2]
     sub ah, ah
     push ax
-    db 0xe8, 0xec, 0xb3 ; call 0xffffb7a9
+    db 0xe8, 0xec, 0xb3 ; call 0xb7a9
     pop cx
     push ax
     mov ax, 0x15e
@@ -816,7 +816,7 @@ api_idx_000c:
     ret
 api_idx_0004:
     mov ax, 0xfffc
-    db 0xe8, 0xd8, 0xed ; call 0xfffff40b
+    db 0xe8, 0xd8, 0xed ; call 0xf40b
     mov word [bp - 0x0002], 0
 @..api_idx_0004.l1:
     mov ax, word [bp - 0x0002]
@@ -911,7 +911,7 @@ api_idx_0004:
     ret
 api_idx_0018:
     mov ax, 0xffe8
-    db 0xe8, 0xde, 0xec ; call 0xfffff40b
+    db 0xe8, 0xde, 0xec ; call 0xf40b
     mov byte [bp - 0x0018], 0
     mov ax, 6
     imul word [bp + 0x4]
@@ -1035,7 +1035,7 @@ api_idx_0018:
     pop ax
     add ax, cx
     push ax
-    db 0xe8, 0x70, 0xaf ; call 0xffffb7c2
+    db 0xe8, 0x70, 0xaf ; call 0xb7c2
     add sp, byte 6
     mov word [bp - 0x000a], ax
     mov ax, 0x15e
@@ -1066,14 +1066,14 @@ api_idx_0018:
     jne short @..local.l20
     mov ax, 3
     push ax
-    db 0xe8, 0x05, 0xaf ; call 0xffffb7a9
+    db 0xe8, 0x05, 0xaf ; call 0xb7a9
     pop cx
     add ax, word [bp - 0x000a]
     dec ax
     mov word [bp - 0x000a], ax
     mov ax, 2
     push ax
-    db 0xe8, 0xf6, 0xae ; call 0xffffb7a9
+    db 0xe8, 0xf6, 0xae ; call 0xb7a9
     pop cx
     add word [bp - 0x000c], ax
 @..local.l20:
@@ -1125,7 +1125,7 @@ api_idx_0018:
     mov ax, word [bp - 0x000a]
     add ax, word [bp + 0x8]
     push ax
-    db 0xe8, 0x9c, 0xae ; call 0xffffb7c2
+    db 0xe8, 0x9c, 0xae ; call 0xb7c2
     add sp, byte 6
     mov word [bp - 0x000a], ax
     mov ax, 0x3d
@@ -1150,7 +1150,7 @@ api_idx_0018:
     ret
 api_idx_000e:
     mov ax, 0xfff2
-    db 0xe8, 0xa4, 0xea ; call 0xfffff40b
+    db 0xe8, 0xa4, 0xea ; call 0xf40b
     cmp word [data_8f20], byte 0
     jg short @..api_idx_000e.l1
     jmp near @..api_idx_000e.l8
@@ -1258,7 +1258,7 @@ api_idx_000e:
     ret
 loc_0a56:
     mov ax, 0
-    db 0xe8, 0xaf, 0xe9 ; call 0xfffff40b
+    db 0xe8, 0xaf, 0xe9 ; call 0xf40b
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
@@ -1299,7 +1299,7 @@ loc_0a56:
     ret
 api_idx_000a:
     mov ax, 0xfff6
-    db 0xe8, 0x53, 0xe9 ; call 0xfffff40b
+    db 0xe8, 0x53, 0xe9 ; call 0xf40b
     mov ax, 0
     push ax
     push word [data_8d10]
@@ -1310,7 +1310,7 @@ api_idx_000a:
     push ax
     push word [data_8d0c]
     push word [data_8d0a]
-    db 0xe8, 0x76, 0xde ; call 0xffffe94f
+    db 0xe8, 0x76, 0xde ; call 0xe94f
     add sp, byte 6
     mov byte [bp - 0x000a], 1
     mov byte [bp - 0x0009], 0
@@ -1335,7 +1335,7 @@ api_idx_000a:
     push ax
     mov ax, 0xe
     push ax
-    db 0xe8, 0xc1, 0xe4 ; call 0xffffefd1
+    db 0xe8, 0xc1, 0xe4 ; call 0xefd1
     add sp, byte 0x16
     cmp word [bp + 0x4], byte 0
     je short @..api_idx_000a.l1
@@ -1353,7 +1353,7 @@ api_idx_000a:
     ret
 math_loc_0b30:
     mov ax, 0
-    db 0xe8, 0xd5, 0xe8 ; call 0xfffff40b
+    db 0xe8, 0xd5, 0xe8 ; call 0xf40b
     mov ax, 0
     push ax
     push word [bp + 0xa]
@@ -1382,7 +1382,7 @@ math_loc_0b30:
     ret
 api_idx_0006:
     mov ax, 0xfffa
-    db 0xe8, 0x91, 0xe8 ; call 0xfffff40b
+    db 0xe8, 0x91, 0xe8 ; call 0xf40b
     mov ax, word [bp + 0x4]
     jmp near @..api_idx_0006.l5
 @..api_idx_0006.l1:
@@ -1420,7 +1420,7 @@ api_idx_0006:
     push ax
     mov ax, 8
     push ax
-    db 0xe8, 0xb7, 0xb6 ; call 0xffffc283
+    db 0xe8, 0xb7, 0xb6 ; call 0xc283
     add sp, byte 0x0a
     mov word [bp - 0x0002], ax
     mov ax, 0x90a6
@@ -1433,7 +1433,7 @@ api_idx_0006:
     push ax
     mov ax, 0xe7
     push ax
-    db 0xe8, 0x9a, 0xb6 ; call 0xffffc283
+    db 0xe8, 0x9a, 0xb6 ; call 0xc283
     add sp, byte 0x0a
     mov word [bp - 0x0004], ax
     mov ax, 0x90ad
@@ -1446,7 +1446,7 @@ api_idx_0006:
     push ax
     mov ax, 0x73
     push ax
-    db 0xe8, 0x7d, 0xb6 ; call 0xffffc283
+    db 0xe8, 0x7d, 0xb6 ; call 0xc283
     add sp, byte 0x0a
     mov word [bp - 0x0006], ax
     mov ax, 0
@@ -1456,17 +1456,17 @@ api_idx_0006:
     mov ax, 1
     push ax
     push word [bp - 0x0006]
-    db 0xe8, 0x3b, 0xb8 ; call 0xffffc459
+    db 0xe8, 0x3b, 0xb8 ; call 0xc459
     add sp, byte 4
     mov ax, 1
     push ax
     push word [bp - 0x0004]
-    db 0xe8, 0x2e, 0xb8 ; call 0xffffc459
+    db 0xe8, 0x2e, 0xb8 ; call 0xc459
     add sp, byte 4
     mov ax, 1
     push ax
     push word [bp - 0x0002]
-    db 0xe8, 0x21, 0xb8 ; call 0xffffc459
+    db 0xe8, 0x21, 0xb8 ; call 0xc459
     add sp, byte 4
     jmp short @..api_idx_0006.l8
 @..api_idx_0006.l3:
@@ -1480,7 +1480,7 @@ api_idx_0006:
     push ax
     mov ax, 8
     push ax
-    db 0xe8, 0x2f, 0xb6 ; call 0xffffc283
+    db 0xe8, 0x2f, 0xb6 ; call 0xc283
     add sp, byte 0x0a
     mov word [bp - 0x0002], ax
     mov ax, 0
@@ -1490,7 +1490,7 @@ api_idx_0006:
     mov ax, 1
     push ax
     push word [bp - 0x0002]
-    db 0xe8, 0xed, 0xb7 ; call 0xffffc459
+    db 0xe8, 0xed, 0xb7 ; call 0xc459
     add sp, byte 4
     jmp short @..api_idx_0006.l8
 @..api_idx_0006.l4:
@@ -1516,7 +1516,7 @@ api_idx_0006:
     ret
 loc_0c96:
     mov ax, 0
-    db 0xe8, 0x6f, 0xe7 ; call 0xfffff40b
+    db 0xe8, 0x6f, 0xe7 ; call 0xf40b
     mov ax, word [bp + 0x4]
     jmp near @..local.l27
 @..local.l23:
@@ -1528,7 +1528,7 @@ loc_0c96:
     push ax
     mov ax, 0x73
     push ax
-    db 0xe8, 0x25, 0xdc ; call 0xffffe8da
+    db 0xe8, 0x25, 0xdc ; call 0xe8da
     add sp, byte 8
     mov ax, 0xc2
     push ax
@@ -1538,7 +1538,7 @@ loc_0c96:
     push ax
     mov ax, 8
     push ax
-    db 0xe8, 0x0f, 0xdc ; call 0xffffe8da
+    db 0xe8, 0x0f, 0xdc ; call 0xe8da
     add sp, byte 8
     mov ax, 0xc2
     push ax
@@ -1548,7 +1548,7 @@ loc_0c96:
     push ax
     mov ax, 0xe7
     push ax
-    db 0xe8, 0xf9, 0xdb ; call 0xffffe8da
+    db 0xe8, 0xf9, 0xdb ; call 0xe8da
     add sp, byte 8
     jmp short @..local.l29
 @..local.l24:
@@ -1560,7 +1560,7 @@ loc_0c96:
     push ax
     mov ax, 0x62
     push ax
-    db 0xe8, 0xe1, 0xdb ; call 0xffffe8da
+    db 0xe8, 0xe1, 0xdb ; call 0xe8da
     add sp, byte 8
     jmp short @..local.l29
 @..local.l25:
@@ -1572,7 +1572,7 @@ loc_0c96:
     push ax
     mov ax, 0x73
     push ax
-    db 0xe8, 0xc9, 0xdb ; call 0xffffe8da
+    db 0xe8, 0xc9, 0xdb ; call 0xe8da
     add sp, byte 8
     jmp short @..local.l29
 @..local.l26:
@@ -1584,7 +1584,7 @@ loc_0c96:
     push ax
     mov ax, 8
     push ax
-    db 0xe8, 0xb1, 0xdb ; call 0xffffe8da
+    db 0xe8, 0xb1, 0xdb ; call 0xe8da
     add sp, byte 8
     jmp short @..local.l29
 @..local.l27:
@@ -1602,7 +1602,7 @@ loc_0c96:
     ret
 api_idx_0054:
     mov ax, 0xffac
-    db 0xe8, 0xbf, 0xe6 ; call 0xfffff40b
+    db 0xe8, 0xbf, 0xe6 ; call 0xf40b
     mov ax, 1
     push ax
     call api_idx_0006
@@ -1623,42 +1623,42 @@ api_idx_0054:
     push ax
     mov ax, 1
     push ax
-    db 0xe8, 0xaa, 0xda ; call 0xffffe823
+    db 0xe8, 0xaa, 0xda ; call 0xe823
     add sp, byte 4
     mov ax, 0xa4
     push ax
     mov ax, 0x63
     push ax
-    db 0xe8, 0x82, 0xda ; call 0xffffe809
+    db 0xe8, 0x82, 0xda ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0x90bb
     push ax
-    db 0xe8, 0xb9, 0xda ; call 0xffffe84e
+    db 0xe8, 0xb9, 0xda ; call 0xe84e
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0x9138
     push ax
-    db 0xe8, 0xab, 0xda ; call 0xffffe84e
+    db 0xe8, 0xab, 0xda ; call 0xe84e
     add sp, byte 4
     mov ax, 0xa4
     push ax
     mov ax, 0xce
     push ax
-    db 0xe8, 0x58, 0xda ; call 0xffffe809
+    db 0xe8, 0x58, 0xda ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0x90be
     push ax
-    db 0xe8, 0x8f, 0xda ; call 0xffffe84e
+    db 0xe8, 0x8f, 0xda ; call 0xe84e
     add sp, byte 4
     ret
 api_idx_0002:
     mov ax, 0xfffe
-    db 0xe8, 0x42, 0xe6 ; call 0xfffff40b
+    db 0xe8, 0x42, 0xe6 ; call 0xf40b
     mov word [bp - 0x0002], 0
 @..api_idx_0002.l1:
     mov ax, word [bp - 0x0002]
@@ -1670,7 +1670,7 @@ api_idx_0002:
     shl ax, cl
     add ax, 0x91cc
     push ax
-    db 0xe8, 0x7e, 0xe5 ; call 0xfffff364
+    db 0xe8, 0x7e, 0xe5 ; call 0xf364
     add sp, byte 4
     mov ax, word [bp - 0x0002]
     shl ax, 1
@@ -1687,7 +1687,7 @@ api_idx_0002:
     ret
 api_idx_0004_2:
     mov ax, 0xfffc
-    db 0xe8, 0xf0, 0xe5 ; call 0xfffff40b
+    db 0xe8, 0xf0, 0xe5 ; call 0xf40b
     cmp word [data_93d4], byte 2
     jle short @..api_idx_0004_2.l1
     call api_idx_0002
@@ -1742,7 +1742,7 @@ api_idx_0004_2:
     add ax, cx
     push ax
     push word [bp - 0x0002]
-    db 0xe8, 0x70, 0xd9 ; call 0xffffe809
+    db 0xe8, 0x70, 0xd9 ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
@@ -1757,7 +1757,7 @@ api_idx_0004_2:
     mov ax, 1
 @..api_idx_0004_2.l9:
     push ax
-    db 0xe8, 0x69, 0xd9 ; call 0xffffe823
+    db 0xe8, 0x69, 0xd9 ; call 0xe823
     add sp, byte 4
     mov ax, word [bp - 0x0004]
     shl ax, 1
@@ -1768,7 +1768,7 @@ api_idx_0004_2:
     shl ax, cl
     add ax, 0x91cc
     push ax
-    db 0xe8, 0x77, 0xd9 ; call 0xffffe84e
+    db 0xe8, 0x77, 0xd9 ; call 0xe84e
     add sp, byte 4
     inc word [bp - 0x0004]
     mov ax, word [bp - 0x0004]
@@ -1783,7 +1783,7 @@ api_idx_0004_2:
     ret
 loc_0ef1:
     mov ax, 0
-    db 0xe8, 0x14, 0xe5 ; call 0xfffff40b
+    db 0xe8, 0x14, 0xe5 ; call 0xf40b
     les bx, word [data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
@@ -1820,7 +1820,7 @@ loc_0ef1:
     ret
 api_idx_0006_2:
     mov ax, 0xfffa
-    db 0xe8, 0xb5, 0xe4 ; call 0xfffff40b
+    db 0xe8, 0xb5, 0xe4 ; call 0xf40b
     mov ax, word [data_845e]
     jmp near @..api_idx_0006_2.l12
 @..api_idx_0006_2.l1:
@@ -1831,7 +1831,7 @@ api_idx_0006_2:
     push ax
     mov ax, 0x48
     push ax
-    db 0xe8, 0x6b, 0xd9 ; call 0xffffe8da
+    db 0xe8, 0x6b, 0xd9 ; call 0xe8da
     add sp, byte 8
     jmp near @..api_idx_0006_2.l16
 @..api_idx_0006_2.l2:
@@ -1964,7 +1964,7 @@ api_idx_0006_2:
     ret
 loc_109f:
     mov ax, 0
-    db 0xe8, 0x66, 0xe3 ; call 0xfffff40b
+    db 0xe8, 0x66, 0xe3 ; call 0xf40b
     mov word [data_845e], 0xfffe
 @..local.l33:
     call api_idx_0006_2
@@ -1973,7 +1973,7 @@ loc_109f:
     ret
 loc_10b6:
     mov ax, 0
-    db 0xe8, 0x4f, 0xe3 ; call 0xfffff40b
+    db 0xe8, 0x4f, 0xe3 ; call 0xf40b
 @..local.l34:
     cmp word [data_845e], byte 0xfe
     je short @..local.l35
@@ -1983,7 +1983,7 @@ loc_10b6:
     ret
 api_idx_0004_3:
     mov ax, 0xfffc
-    db 0xe8, 0x3c, 0xe3 ; call 0xfffff40b
+    db 0xe8, 0x3c, 0xe3 ; call 0xf40b
     push word [bp + 0xa]
     push word [bp + 0x8]
     push word [bp + 0x6]
@@ -1999,39 +1999,39 @@ api_idx_0004_3:
     push word [bp + 0x8]
     push word [bp + 0x6]
     push word [bp + 0x4]
-    db 0xe8, 0x02, 0xd8 ; call 0xffffe901
+    db 0xe8, 0x02, 0xd8 ; call 0xe901
     add sp, byte 0x0a
 @..api_idx_0004_3.l1:
     push word [bp + 0x12]
     push word [bp + 0x10]
-    db 0xe8, 0x18, 0xd7 ; call 0xffffe823
+    db 0xe8, 0x18, 0xd7 ; call 0xe823
     add sp, byte 4
     push word [bp + 0xe]
     push word [bp + 0xc]
-    db 0xe8, 0xf2, 0xd6 ; call 0xffffe809
+    db 0xe8, 0xf2, 0xd6 ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
     push word [bp + 0x16]
-    db 0xe8, 0x2a, 0xd7 ; call 0xffffe84e
+    db 0xe8, 0x2a, 0xd7 ; call 0xe84e
     add sp, byte 4
     push word [bp + 0xa]
     push word [bp + 0x8]
     push word [bp + 0x6]
     push word [bp + 0x4]
-    db 0xe8, 0xa4, 0xd7 ; call 0xffffe8da
+    db 0xe8, 0xa4, 0xd7 ; call 0xe8da
     add sp, byte 8
     mov ax, 1
     push ax
     push word [bp - 0x0002]
     push word [bp - 0x0004]
-    db 0xe8, 0x09, 0xd8 ; call 0xffffe94f
+    db 0xe8, 0x09, 0xd8 ; call 0xe94f
     add sp, byte 6
     call 0xec17
     ret
 api_idx_0004_4:
     mov ax, 0xfffc
-    db 0xe8, 0xb8, 0xe2 ; call 0xfffff40b
+    db 0xe8, 0xb8, 0xe2 ; call 0xf40b
     mov ax, 0x90c2
     push ax
     mov ax, 1
@@ -2067,13 +2067,13 @@ api_idx_0004_4:
     push ax
     mov ax, 1
     push ax
-    db 0xe8, 0x40, 0xd7 ; call 0xffffe8da
+    db 0xe8, 0x40, 0xd7 ; call 0xe8da
     add sp, byte 8
     ret
 api_idx_0004_5:
     mov ax, 0xfffc
-    db 0xe8, 0x67, 0xe2 ; call 0xfffff40b
-    db 0xe8, 0x70, 0xda ; call 0xffffec17
+    db 0xe8, 0x67, 0xe2 ; call 0xf40b
+    db 0xe8, 0x70, 0xda ; call 0xec17
     mov ax, word [bp + 0x4]
     cwd
     les bx, word [data_0002]
@@ -2095,7 +2095,7 @@ api_idx_0004_5:
 @..api_idx_0004_5.l2:
     jmp short @..local.l38
 @..api_idx_0004_5.l3:
-    db 0xe8, 0x13, 0xa9 ; call 0xffffbaef
+    db 0xe8, 0x13, 0xa9 ; call 0xbaef
     test ax, ax
     je short @..local.l36
     ret
@@ -2113,7 +2113,7 @@ api_idx_0004_5:
     ret
 api_idx_0004_6:
     mov ax, 0xfffc
-    db 0xe8, 0x0d, 0xe2 ; call 0xfffff40b
+    db 0xe8, 0x0d, 0xe2 ; call 0xf40b
     mov ax, word [bp + 0x6]
     add ax, 0x98
     push ax
@@ -2124,10 +2124,10 @@ api_idx_0004_6:
     push ax
     mov ax, 0
     push ax
-    db 0xe8, 0xc3, 0xd6 ; call 0xffffe8da
+    db 0xe8, 0xc3, 0xd6 ; call 0xe8da
     add sp, byte 8
     push word [bp + 0x4]
-    db 0xe8, 0x70, 0xe8 ; call 0xfffffa90
+    db 0xe8, 0x70, 0xe8 ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -2139,7 +2139,7 @@ api_idx_0004_6:
     sub ax, cx
     mov word [bp - 0x0002], ax
     push word [bp + 0x4]
-    db 0xe8, 0x54, 0xe8 ; call 0xfffffa90
+    db 0xe8, 0x54, 0xe8 ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -2178,7 +2178,7 @@ api_idx_0004_6:
     ret
 api_idx_0054_2:
     mov ax, 0xffac
-    db 0xe8, 0x79, 0xe1 ; call 0xfffff40b
+    db 0xe8, 0x79, 0xe1 ; call 0xf40b
     lea ax, word [bp - 0x0054]
     push ax
     push word [bp + 0x4]
@@ -2186,7 +2186,7 @@ api_idx_0054_2:
     add sp, byte 4
     lea ax, word [bp - 0x0054]
     push ax
-    db 0xe8, 0xea, 0xe7 ; call 0xfffffa90
+    db 0xe8, 0xea, 0xe7 ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -2199,7 +2199,7 @@ api_idx_0054_2:
     mov word [bp - 0x0002], ax
     lea ax, word [bp - 0x0054]
     push ax
-    db 0xe8, 0xcd, 0xe7 ; call 0xfffffa90
+    db 0xe8, 0xcd, 0xe7 ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -2226,7 +2226,7 @@ api_idx_0054_2:
     add sp, byte 0x14
     mov ax, 0
     push ax
-    db 0xe8, 0xdf, 0xa4 ; call 0xffffb7e0
+    db 0xe8, 0xdf, 0xa4 ; call 0xb7e0
     pop cx
     push word [data_905a]
     call 0xb75e
@@ -2234,7 +2234,7 @@ api_idx_0054_2:
     ret
 math_loc_130b:
     mov ax, 0
-    db 0xe8, 0xfa, 0xe0 ; call 0xfffff40b
+    db 0xe8, 0xfa, 0xe0 ; call 0xf40b
     mov ax, 3
     push ax
     call api_idx_0006
@@ -2246,14 +2246,14 @@ math_loc_130b:
     mov ax, 0
     push ax
     push word [bp + 0xa]
-    db 0xe8, 0xf8, 0xd4 ; call 0xffffe823
+    db 0xe8, 0xf8, 0xd4 ; call 0xe823
     add sp, byte 4
     mov ax, 7
     imul word [bp + 0x6]
     add ax, 0x9c
     push ax
     push word [bp + 0x4]
-    db 0xe8, 0x52, 0xe7 ; call 0xfffffa90
+    db 0xe8, 0x52, 0xe7 ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -2264,12 +2264,12 @@ math_loc_130b:
     mov ax, 0xa0
     sub ax, cx
     push ax
-    db 0xe8, 0xb4, 0xd4 ; call 0xffffe809
+    db 0xe8, 0xb4, 0xd4 ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    db 0xe8, 0xec, 0xd4 ; call 0xffffe84e
+    db 0xe8, 0xec, 0xd4 ; call 0xe84e
     add sp, byte 4
     mov ax, 7
     imul word [bp + 0x6]
@@ -2283,13 +2283,13 @@ math_loc_130b:
     push ax
     mov ax, 0x19
     push ax
-    db 0xe8, 0x56, 0xd5 ; call 0xffffe8da
+    db 0xe8, 0x56, 0xd5 ; call 0xe8da
     add sp, byte 8
     cmp word [bp + 0x8], byte 0
     je short @..local.l39
     mov ax, 0
     push ax
-    db 0xe8, 0x4c, 0xa4 ; call 0xffffb7e0
+    db 0xe8, 0x4c, 0xa4 ; call 0xb7e0
     pop cx
 @..local.l39:
     mov ax, 0
@@ -2308,11 +2308,11 @@ math_loc_130b:
     ret
 api_idx_0050:
     mov ax, 0xffb0
-    db 0xe8, 0x51, 0xe0 ; call 0xfffff40b
+    db 0xe8, 0x51, 0xe0 ; call 0xf40b
     lea ax, word [bp - 0x0050]
     push ax
     push word [bp + 0x4]
-    db 0xe8, 0x77, 0xa1 ; call 0xffffb53b
+    db 0xe8, 0x77, 0xa1 ; call 0xb53b
     add sp, byte 4
     mov ax, 0x5e
     push ax
@@ -2332,7 +2332,7 @@ api_idx_0050:
     ret
 api_idx_005e:
     mov ax, 0xffa2
-    db 0xe8, 0x18, 0xe0 ; call 0xfffff40b
+    db 0xe8, 0x18, 0xe0 ; call 0xf40b
     mov word [bp - 0x000e], 0
     mov word [bp - 0x0004], 0
 @..api_idx_005e.l1:
@@ -2368,7 +2368,7 @@ api_idx_005e:
     push ax
     mov ax, 0x37
     push ax
-    db 0xe8, 0x88, 0xd4 ; call 0xffffe8da
+    db 0xe8, 0x88, 0xd4 ; call 0xe8da
     add sp, byte 8
 @..api_idx_005e.l4:
     call loc_109f
@@ -2380,7 +2380,7 @@ api_idx_005e:
     push ax
     mov ax, 0x7e9
     push ax
-    db 0xe8, 0xd1, 0xa0 ; call 0xffffb53b
+    db 0xe8, 0xd1, 0xa0 ; call 0xb53b
     add sp, byte 4
     mov ax, 0
     push ax
@@ -2397,7 +2397,7 @@ api_idx_005e:
     je short @..local.l42
     mov ax, 2
     push ax
-    db 0xe8, 0x13, 0xa3 ; call 0xffffb7a9
+    db 0xe8, 0x13, 0xa3 ; call 0xb7a9
     pop cx
 @..local.l42:
     mov word [bp - 0x000a], ax
@@ -2416,7 +2416,7 @@ api_idx_005e:
     cmp word [data_93da], byte 0
     jle short @..local.l44
     push word [data_93da]
-    db 0xe8, 0x10, 0xa3 ; call 0xffffb7e0
+    db 0xe8, 0x10, 0xa3 ; call 0xb7e0
     pop cx
 @..local.l44:
     mov word [data_845e], 0xfffe
@@ -2528,7 +2528,7 @@ api_idx_005e:
     jmp near @..local.l45
 @..local.l55:
     call api_idx_000e
-    db 0xe8, 0x4a, 0xc4 ; call 0xffffda22
+    db 0xe8, 0x4a, 0xc4 ; call 0xda22
     mov word [data_845e], 0
 @..local.l56:
     call api_idx_0006_2
@@ -2589,13 +2589,13 @@ api_idx_005e:
     push ax
     mov ax, 0x37
     push ax
-    db 0xe8, 0x68, 0xd2 ; call 0xffffe8da
+    db 0xe8, 0x68, 0xd2 ; call 0xe8da
     add sp, byte 8
 @..local.l62:
     ret
 api_idx_000c_2:
     mov ax, 0xfff4
-    db 0xe8, 0x8f, 0xdd ; call 0xfffff40b
+    db 0xe8, 0x8f, 0xdd ; call 0xf40b
     mov ax, word [bp + 0x14]
     shl ax, 1
     mov word [bp - 0x0008], ax
@@ -2641,7 +2641,7 @@ api_idx_000c_2:
     add ax, word [bp - 0x0002]
     dec ax
     push ax
-    db 0xe8, 0x42, 0xd2 ; call 0xffffe928
+    db 0xe8, 0x42, 0xd2 ; call 0xe928
     add sp, byte 8
     mov word [bp - 0x000a], dx
     mov word [bp - 0x000c], ax
@@ -2667,14 +2667,14 @@ api_idx_000c_2:
     mov ax, 0xc0
     push ax
     push word [bp + 0x16]
-    db 0xe8, 0xfb, 0xd0 ; call 0xffffe823
+    db 0xe8, 0xfb, 0xd0 ; call 0xe823
     add sp, byte 4
     mov ax, word [bp + 0xc]
     add ax, word [bp - 0x0004]
     inc ax
     push ax
     push word [bp + 0x4]
-    db 0xe8, 0x57, 0xe3 ; call 0xfffffa90
+    db 0xe8, 0x57, 0xe3 ; call 0xfa90
     pop cx
     mov cx, ax
     mov ax, word [bp + 0xe]
@@ -2688,12 +2688,12 @@ api_idx_000c_2:
     add ax, word [bp - 0x0002]
     inc ax
     push ax
-    db 0xe8, 0xb2, 0xd0 ; call 0xffffe809
+    db 0xe8, 0xb2, 0xd0 ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    db 0xe8, 0xea, 0xd0 ; call 0xffffe84e
+    db 0xe8, 0xea, 0xd0 ; call 0xe84e
     add sp, byte 4
     mov ax, word [bp + 0xc]
     add ax, word [bp - 0x0004]
@@ -2713,18 +2713,18 @@ api_idx_000c_2:
     add ax, word [bp - 0x0002]
     dec ax
     push ax
-    db 0xe8, 0x48, 0xd1 ; call 0xffffe8da
+    db 0xe8, 0x48, 0xd1 ; call 0xe8da
     add sp, byte 8
     mov ax, 1
     push ax
     push word [bp - 0x000a]
     push word [bp - 0x000c]
-    db 0xe8, 0xad, 0xd1 ; call 0xffffe94f
+    db 0xe8, 0xad, 0xd1 ; call 0xe94f
     add sp, byte 6
     ret
 loc_17a6:
     mov ax, 0
-    db 0xe8, 0x5f, 0xdc ; call 0xfffff40b
+    db 0xe8, 0x5f, 0xdc ; call 0xf40b
     push word [bp + 0xc]
     mov ax, word [bp + 0x6]
     dec ax
@@ -2738,7 +2738,7 @@ loc_17a6:
     mov ax, word [bp + 0x4]
     dec ax
     push ax
-    db 0xe8, 0x3b, 0xd1 ; call 0xffffe901
+    db 0xe8, 0x3b, 0xd1 ; call 0xe901
     add sp, byte 0x0a
     push word [bp + 0xc]
     mov ax, word [bp + 0xa]
@@ -2753,7 +2753,7 @@ loc_17a6:
     mov ax, word [bp + 0x8]
     inc ax
     push ax
-    db 0xe8, 0x1e, 0xd1 ; call 0xffffe901
+    db 0xe8, 0x1e, 0xd1 ; call 0xe901
     add sp, byte 0x0a
     push word [bp + 0xc]
     mov ax, word [bp + 0xa]
@@ -2768,7 +2768,7 @@ loc_17a6:
     mov ax, word [bp + 0x4]
     dec ax
     push ax
-    db 0xe8, 0x01, 0xd1 ; call 0xffffe901
+    db 0xe8, 0x01, 0xd1 ; call 0xe901
     add sp, byte 0x0a
     push word [bp + 0xc]
     mov ax, word [bp + 0xa]
@@ -2783,12 +2783,12 @@ loc_17a6:
     mov ax, word [bp + 0x4]
     dec ax
     push ax
-    db 0xe8, 0xe4, 0xd0 ; call 0xffffe901
+    db 0xe8, 0xe4, 0xd0 ; call 0xe901
     add sp, byte 0x0a
     ret
 math_loc_1821:
     mov ax, 0xfe30
-    db 0xe8, 0xe4, 0xdb ; call 0xfffff40b
+    db 0xe8, 0xe4, 0xdb ; call 0xf40b
     mov word [data_9052], 0xffff
     mov ax, word [bp + 0x14]
     shl ax, 1
@@ -2829,7 +2829,7 @@ math_loc_1821:
     mov ax, word [bp + 0x4]
     add ax, word [bp - 0x0004]
     push ax
-    db 0xe8, 0xab, 0x9c ; call 0xffffb53b
+    db 0xe8, 0xab, 0x9c ; call 0xb53b
     add sp, byte 4
     mov ax, word [bp - 0x0008]
     cwd
@@ -2865,12 +2865,12 @@ math_loc_1821:
     mov ax, word [bp - 0x0006]
     add ax, word [bp - 0x000a]
     push ax
-    db 0xe8, 0xfc, 0xa3 ; call 0xffffbce3
+    db 0xe8, 0xfc, 0xa3 ; call 0xbce3
     add sp, byte 0x0a
     mov ax, 0
     push ax
     push word [bp + 0x18]
-    db 0xe8, 0x2f, 0xcf ; call 0xffffe823
+    db 0xe8, 0x2f, 0xcf ; call 0xe823
     add sp, byte 4
     mov ax, word [bp + 0xc]
     add ax, word [bp - 0x000c]
@@ -2881,7 +2881,7 @@ math_loc_1821:
     lea cx, word [bp - 0x015a]
     add ax, cx
     push ax
-    db 0xe8, 0x81, 0xe1 ; call 0xfffffa90
+    db 0xe8, 0x81, 0xe1 ; call 0xfa90
     pop cx
     mov cx, ax
     mov ax, word [bp + 0xe]
@@ -2895,7 +2895,7 @@ math_loc_1821:
     add ax, word [bp - 0x000a]
     inc ax
     push ax
-    db 0xe8, 0xdc, 0xce ; call 0xffffe809
+    db 0xe8, 0xdc, 0xce ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
@@ -2904,7 +2904,7 @@ math_loc_1821:
     lea cx, word [bp - 0x015a]
     add ax, cx
     push ax
-    db 0xe8, 0x0a, 0xcf ; call 0xffffe84e
+    db 0xe8, 0x0a, 0xcf ; call 0xe84e
     add sp, byte 4
     mov ax, 0
     push ax
@@ -2955,7 +2955,7 @@ math_loc_1821:
     mov ax, 0xffff
     push ax
     push word [bp - 0x0002]
-    db 0xe8, 0xeb, 0xa0 ; call 0xffffbaa6
+    db 0xe8, 0xeb, 0xa0 ; call 0xbaa6
     add sp, byte 0x0e
     push word [bp + 0x6]
     call loc_0c96
@@ -3287,7 +3287,7 @@ math_loc_1821:
     mov ax, word [bp - 0x0006]
     add ax, word [bp - 0x000a]
     push ax
-    db 0xe8, 0x12, 0xcc ; call 0xffffe8da
+    db 0xe8, 0x12, 0xcc ; call 0xe8da
     add sp, byte 8
     mov ax, 0x19
     push ax
@@ -3308,7 +3308,7 @@ math_loc_1821:
     mov ax, word [bp - 0x0006]
     add ax, word [bp - 0x000a]
     push ax
-    db 0xe8, 0x13, 0xcc ; call 0xffffe90e
+    db 0xe8, 0x13, 0xcc ; call 0xe90e
     add sp, byte 8
     mov ax, word [bp + 0xc]
     add ax, word [bp - 0x000c]
@@ -3325,7 +3325,7 @@ math_loc_1821:
     mov ax, word [bp - 0x0006]
     add ax, word [bp - 0x000a]
     push ax
-    db 0xe8, 0xb4, 0xcb ; call 0xffffe8da
+    db 0xe8, 0xb4, 0xcb ; call 0xe8da
     add sp, byte 8
     mov ax, word [bp - 0x0004]
     mov word [data_9052], ax
@@ -3336,7 +3336,7 @@ math_loc_1821:
     ret
 math_loc_1d39:
     mov ax, 0xfea6
-    db 0xe8, 0xcc, 0xd6 ; call 0xfffff40b
+    db 0xe8, 0xcc, 0xd6 ; call 0xf40b
     mov ax, word [bp + 0x16]
     dec ax
     cwd
@@ -3379,7 +3379,7 @@ math_loc_1d39:
     mov ax, word [bp + 0xa]
     add ax, strict word 0xfffa
     push ax
-    db 0xe8, 0xdf, 0xa4 ; call 0xffffc283
+    db 0xe8, 0xdf, 0xa4 ; call 0xc283
     add sp, byte 0x0a
     mov word [bp - 0x0158], ax
     mov ax, word [bp - 0x0008]
@@ -3400,13 +3400,13 @@ math_loc_1d39:
     push ax
     mov ax, 1
     push ax
-    db 0xe8, 0x4b, 0xca ; call 0xffffe823
+    db 0xe8, 0x4b, 0xca ; call 0xe823
     add sp, byte 4
     mov ax, word [bp + 0xc]
     add ax, strict word 0xfff0
     push ax
     push word [bp + 0x4]
-    db 0xe8, 0xa8, 0xdc ; call 0xfffffa90
+    db 0xe8, 0xa8, 0xdc ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -3417,18 +3417,18 @@ math_loc_1d39:
     mov ax, 0xa0
     sub ax, cx
     push ax
-    db 0xe8, 0x0a, 0xca ; call 0xffffe809
+    db 0xe8, 0x0a, 0xca ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
     push word [bp + 0x4]
-    db 0xe8, 0x42, 0xca ; call 0xffffe84e
+    db 0xe8, 0x42, 0xca ; call 0xe84e
     add sp, byte 4
     mov ax, word [bp + 0xc]
     add ax, strict word 0xfff6
     push ax
     push word [bp + 0x6]
-    db 0xe8, 0x74, 0xdc ; call 0xfffffa90
+    db 0xe8, 0x74, 0xdc ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -3439,12 +3439,12 @@ math_loc_1d39:
     mov ax, 0xa0
     sub ax, cx
     push ax
-    db 0xe8, 0xd6, 0xc9 ; call 0xffffe809
+    db 0xe8, 0xd6, 0xc9 ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
     push word [bp + 0x6]
-    db 0xe8, 0x0e, 0xca ; call 0xffffe84e
+    db 0xe8, 0x0e, 0xca ; call 0xe84e
     add sp, byte 4
     jmp short @..math_loc_1d39.l3
 @..math_loc_1d39.l2:
@@ -3462,7 +3462,7 @@ math_loc_1d39:
     mov ax, word [bp + 0xa]
     dec ax
     push ax
-    db 0xe8, 0x23, 0xa4 ; call 0xffffc283
+    db 0xe8, 0x23, 0xa4 ; call 0xc283
     add sp, byte 0x0a
     mov word [bp - 0x0158], ax
 @..math_loc_1d39.l3:
@@ -3489,7 +3489,7 @@ math_loc_1d39:
     mov ax, word [bp + 0x8]
     add ax, word [bp - 0x0004]
     push ax
-    db 0xe8, 0x99, 0x96 ; call 0xffffb53b
+    db 0xe8, 0x99, 0x96 ; call 0xb53b
     add sp, byte 4
     mov ax, word [bp - 0x0002]
     cwd
@@ -3519,7 +3519,7 @@ math_loc_1d39:
     mov ax, word [bp + 0xa]
     add ax, word [bp - 0x000a]
     push ax
-    db 0xe8, 0xf6, 0x9d ; call 0xffffbce3
+    db 0xe8, 0xf6, 0x9d ; call 0xbce3
     add sp, byte 0x0a
     mov ax, 0xc0
     push ax
@@ -3530,7 +3530,7 @@ math_loc_1d39:
     mov ax, 0x1a
 @..math_loc_1d39.l7:
     push ax
-    db 0xe8, 0x1d, 0xc9 ; call 0xffffe823
+    db 0xe8, 0x1d, 0xc9 ; call 0xe823
     add sp, byte 4
     mov ax, word [bp + 0xc]
     add ax, word [bp - 0x000c]
@@ -3542,7 +3542,7 @@ math_loc_1d39:
     lea cx, word [bp - 0x0156]
     add ax, cx
     push ax
-    db 0xe8, 0x6e, 0xdb ; call 0xfffffa90
+    db 0xe8, 0x6e, 0xdb ; call 0xfa90
     pop cx
     mov cx, ax
     mov ax, word [bp + 0xe]
@@ -3556,7 +3556,7 @@ math_loc_1d39:
     add ax, word [bp - 0x000a]
     inc ax
     push ax
-    db 0xe8, 0xc9, 0xc8 ; call 0xffffe809
+    db 0xe8, 0xc9, 0xc8 ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
@@ -3565,7 +3565,7 @@ math_loc_1d39:
     lea cx, word [bp - 0x0156]
     add ax, cx
     push ax
-    db 0xe8, 0xf7, 0xc8 ; call 0xffffe84e
+    db 0xe8, 0xf7, 0xc8 ; call 0xe84e
     add sp, byte 4
     mov ax, 0
     push ax
@@ -3586,7 +3586,7 @@ math_loc_1d39:
     add ax, word [bp - 0x000a]
     push ax
     push word [bp - 0x0002]
-    db 0xe8, 0x1c, 0x9b ; call 0xffffbaa6
+    db 0xe8, 0x1c, 0x9b ; call 0xbaa6
     add sp, byte 0x0e
     mov ax, word [bp - 0x0004]
     mov cx, word [bp - 0x0002]
@@ -3608,7 +3608,7 @@ math_loc_1d39:
     mov ax, 0xffff
     push ax
     push word [bp - 0x0002]
-    db 0xe8, 0xef, 0x9a ; call 0xffffbaa6
+    db 0xe8, 0xef, 0x9a ; call 0xbaa6
     add sp, byte 0x0e
     mov ax, 0xc6
     push ax
@@ -3618,14 +3618,14 @@ math_loc_1d39:
     push ax
     mov ax, 0x36
     push ax
-    db 0xe8, 0x0d, 0xc9 ; call 0xffffe8da
+    db 0xe8, 0x0d, 0xc9 ; call 0xe8da
     add sp, byte 8
     cmp word [data_0e32], byte 0
     je short @..local.l91
 @..local.l90:
     mov ax, 0x59fe
     push ax
-    db 0xe8, 0x2f, 0x99 ; call 0xffffb90d
+    db 0xe8, 0x2f, 0x99 ; call 0xb90d
     pop cx
     mov word [bp - 0x0004], ax
     cmp word [data_5b3e], byte 0
@@ -3676,7 +3676,7 @@ math_loc_1d39:
     mov ax, word [bp + 0xa]
     dec ax
     push ax
-    db 0xe8, 0x87, 0xc8 ; call 0xffffe8da
+    db 0xe8, 0x87, 0xc8 ; call 0xe8da
     add sp, byte 8
     mov ax, 0
     push ax
@@ -3700,7 +3700,7 @@ math_loc_1d39:
 @..local.l93:
     mov ax, 1
     push ax
-    db 0xe8, 0xc4, 0xc9 ; call 0xffffea50
+    db 0xe8, 0xc4, 0xc9 ; call 0xea50
     pop cx
     test ax, ax
     jne short @..local.l94
@@ -3708,7 +3708,7 @@ math_loc_1d39:
 @..local.l94:
     mov ax, 1
     push ax
-    db 0xe8, 0x98, 0xca ; call 0xffffeb32
+    db 0xe8, 0x98, 0xca ; call 0xeb32
     pop cx
     sub ah, ah
     mov word [bp - 0x015a], ax
@@ -3755,7 +3755,7 @@ math_loc_1d39:
     mov ax, word [bp + 0xa]
     dec ax
     push ax
-    db 0xe8, 0xe2, 0xc7 ; call 0xffffe8da
+    db 0xe8, 0xe2, 0xc7 ; call 0xe8da
     add sp, byte 8
 @..local.l100:
     dec word [bp - 0x0004]
@@ -3793,12 +3793,12 @@ math_loc_1d39:
     mov ax, word [bp + 0xa]
     add ax, word [bp - 0x000a]
     push ax
-    db 0xe8, 0x0d, 0x9d ; call 0xffffbe5f
+    db 0xe8, 0x0d, 0x9d ; call 0xbe5f
     add sp, byte 0x0a
     mov ax, 1
     push ax
     push word [bp - 0x0158]
-    db 0xe8, 0xf9, 0xa2 ; call 0xffffc459
+    db 0xe8, 0xf9, 0xa2 ; call 0xc459
     add sp, byte 4
     cmp word [bp + 0x1c], byte 0
     je short @..local.l102
@@ -3817,7 +3817,7 @@ math_loc_1d39:
     mov ax, word [bp + 0xa]
     add ax, strict word 0xfffa
     push ax
-    db 0xe8, 0x4a, 0xc7 ; call 0xffffe8da
+    db 0xe8, 0x4a, 0xc7 ; call 0xe8da
     add sp, byte 8
     jmp short @..local.l102
 @..local.l101:
@@ -3833,7 +3833,7 @@ math_loc_1d39:
     mov ax, word [bp + 0xa]
     dec ax
     push ax
-    db 0xe8, 0x2e, 0xc7 ; call 0xffffe8da
+    db 0xe8, 0x2e, 0xc7 ; call 0xe8da
     add sp, byte 8
 @..local.l102:
     mov ax, word [bp - 0x0004]
@@ -3845,7 +3845,7 @@ math_loc_1d39:
     ret
 math_loc_21bf:
     mov ax, 0
-    db 0xe8, 0x46, 0xd2 ; call 0xfffff40b
+    db 0xe8, 0x46, 0xd2 ; call 0xf40b
     mov ax, word [data_0e36]
     mov word [data_9136], ax
     call math_loc_7400
@@ -3853,7 +3853,7 @@ math_loc_21bf:
     ret
 api_idx_004c:
     mov ax, 0xffb4
-    db 0xe8, 0x33, 0xd2 ; call 0xfffff40b
+    db 0xe8, 0x33, 0xd2 ; call 0xf40b
     mov ax, 0
     push ax
     push word [bp + 0x6]
@@ -3964,7 +3964,7 @@ api_idx_004c:
     ret
 api_idx_0004_7:
     mov ax, 0xfffc
-    db 0xe8, 0x1e, 0xd1 ; call 0xfffff40b
+    db 0xe8, 0x1e, 0xd1 ; call 0xf40b
     mov word [bp - 0x0002], 0
 @..api_idx_0004_7.l1:
     mov word [bp - 0x0004], 0
@@ -4026,7 +4026,7 @@ api_idx_0004_7:
     ret
 api_idx_0004_8:
     mov ax, 0xfffc
-    db 0xe8, 0x93, 0xd0 ; call 0xfffff40b
+    db 0xe8, 0x93, 0xd0 ; call 0xf40b
     mov word [bp - 0x0004], 0
 @..api_idx_0004_8.l1:
     mov word [bp - 0x0002], 0
@@ -4067,7 +4067,7 @@ api_idx_0004_8:
     ret
 loc_23d0:
     mov ax, 0
-    db 0xe8, 0x35, 0xd0 ; call 0xfffff40b
+    db 0xe8, 0x35, 0xd0 ; call 0xf40b
     mov word [data_93d4], 0
 @..local.l108:
     mov ax, word [data_93d4]
@@ -4107,7 +4107,7 @@ loc_23d0:
     ret
 loc_243b:
     mov ax, 0
-    db 0xe8, 0xca, 0xcf ; call 0xfffff40b
+    db 0xe8, 0xca, 0xcf ; call 0xf40b
     mov ax, 3
     push ax
     call api_idx_0006
@@ -4128,12 +4128,12 @@ loc_243b:
     mov dx, 0
     push dx
     push ax
-    db 0xe8, 0x41, 0x94 ; call 0xffffb8af
+    db 0xe8, 0x41, 0x94 ; call 0xb8af
     add sp, byte 4
     ret
 math_loc_2472:
     mov ax, 0
-    db 0xe8, 0x93, 0xcf ; call 0xfffff40b
+    db 0xe8, 0x93, 0xcf ; call 0xf40b
     cmp word [data_93ee], byte 0
     je short @..math_loc_2472.l1
     call loc_23d0
@@ -4159,7 +4159,7 @@ math_loc_2472:
     ret
 api_idx_0038:
     mov ax, 0xffc8
-    db 0xe8, 0x57, 0xcf ; call 0xfffff40b
+    db 0xe8, 0x57, 0xcf ; call 0xf40b
     mov ax, 0
     push ax
     mov ax, 0x2c
@@ -4221,7 +4221,7 @@ api_idx_0038:
 @..api_idx_0038.l6:
     mov ax, 0x16
     push ax
-    db 0xe8, 0x55, 0x92 ; call 0xffffb7a9
+    db 0xe8, 0x55, 0x92 ; call 0xb7a9
     pop cx
     mov word [bp - 0x0002], ax
     mov ax, word [bp - 0x0002]
@@ -4238,7 +4238,7 @@ api_idx_0038:
     dec word [bp - 0x0004]
     mov ax, 5
     push ax
-    db 0xe8, 0x2a, 0x92 ; call 0xffffb7a9
+    db 0xe8, 0x2a, 0x92 ; call 0xb7a9
     pop cx
     mov word [bp - 0x0006], ax
     mov word [bp - 0x0008], 0
@@ -4304,7 +4304,7 @@ api_idx_0038:
     cbw
     add ax, 0x73a
     push ax
-    db 0xe8, 0x1c, 0x8f ; call 0xffffb53b
+    db 0xe8, 0x1c, 0x8f ; call 0xb53b
     add sp, byte 4
     mov ax, 0x955e
     push ax
@@ -4319,7 +4319,7 @@ api_idx_0038:
     add ax, 0x6a4
 @..api_idx_0038.l13:
     push ax
-    db 0xe8, 0xfd, 0x8e ; call 0xffffb53b
+    db 0xe8, 0xfd, 0x8e ; call 0xb53b
     add sp, byte 4
     mov ax, 0xf
     imul word [bp - 0x0002]
@@ -4380,7 +4380,7 @@ api_idx_0038:
     cbw
     add ax, word [bp - 0x000a]
     push ax
-    db 0xe8, 0x66, 0x8e ; call 0xffffb53b
+    db 0xe8, 0x66, 0x8e ; call 0xb53b
     add sp, byte 4
     mov ax, 0x958e
     push ax
@@ -4398,7 +4398,7 @@ api_idx_0038:
     cbw
     add ax, word [bp - 0x000c]
     push ax
-    db 0xe8, 0x3f, 0x8e ; call 0xffffb53b
+    db 0xe8, 0x3f, 0x8e ; call 0xb53b
     add sp, byte 4
     mov ax, 0x5e
     push ax
@@ -4406,7 +4406,7 @@ api_idx_0038:
     push ax
     mov ax, 0x93f0
     push ax
-    db 0xe8, 0xf2, 0x8b ; call 0xffffb300
+    db 0xe8, 0xf2, 0x8b ; call 0xb300
     add sp, byte 6
     mov ax, 0x23
     push ax
@@ -4414,7 +4414,7 @@ api_idx_0038:
     push ax
     mov ax, 0x93f0
     push ax
-    db 0xe8, 0xe0, 0x8b ; call 0xffffb300
+    db 0xe8, 0xe0, 0x8b ; call 0xb300
     add sp, byte 6
     mov ax, 0x24
     push ax
@@ -4422,7 +4422,7 @@ api_idx_0038:
     push ax
     mov ax, 0x93f0
     push ax
-    db 0xe8, 0xce, 0x8b ; call 0xffffb300
+    db 0xe8, 0xce, 0x8b ; call 0xb300
     add sp, byte 6
 @..local.l111:
     jmp near @..api_idx_0038.l4
@@ -4438,7 +4438,7 @@ api_idx_0038:
     push ax
     mov ax, 0x669
     push ax
-    db 0xe8, 0xe7, 0x8d ; call 0xffffb53b
+    db 0xe8, 0xe7, 0x8d ; call 0xb53b
     add sp, byte 4
 @..local.l114:
     push word [bp + 0x6]
@@ -4450,13 +4450,13 @@ api_idx_0038:
     ret
 api_idx_0002_2:
     mov ax, 0xfffe
-    db 0xe8, 0x9d, 0xcc ; call 0xfffff40b
+    db 0xe8, 0x9d, 0xcc ; call 0xf40b
     mov ax, 0x9576
     push ax
     mov ax, word [bp + 0x4]
     add ax, 0x708
     push ax
-    db 0xe8, 0xbf, 0x8d ; call 0xffffb53b
+    db 0xe8, 0xbf, 0x8d ; call 0xb53b
     add sp, byte 4
     mov ax, 6
     imul word [bp + 0x4]
@@ -4502,7 +4502,7 @@ api_idx_0002_2:
     mov ax, 0x75a
 @..api_idx_0002_2.l5:
     push ax
-    db 0xe8, 0x55, 0x8d ; call 0xffffb53b
+    db 0xe8, 0x55, 0x8d ; call 0xb53b
     add sp, byte 4
     mov ax, 0x958e
     push ax
@@ -4541,7 +4541,7 @@ api_idx_0002_2:
     add ax, 0x6a4
 @..api_idx_0002_2.l8:
     push ax
-    db 0xe8, 0xfc, 0x8c ; call 0xffffb53b
+    db 0xe8, 0xfc, 0x8c ; call 0xb53b
     add sp, byte 4
     jmp short @..api_idx_0002_2.l10
 @..api_idx_0002_2.l9:
@@ -4549,7 +4549,7 @@ api_idx_0002_2:
     push ax
     mov ax, 0x75b
     push ax
-    db 0xe8, 0xec, 0x8c ; call 0xffffb53b
+    db 0xe8, 0xec, 0x8c ; call 0xb53b
     add sp, byte 4
     mov ax, 0x958e
     push ax
@@ -4560,7 +4560,7 @@ api_idx_0002_2:
     sub ah, ah
     add ax, 0x6ea
     push ax
-    db 0xe8, 0xd0, 0x8c ; call 0xffffb53b
+    db 0xe8, 0xd0, 0x8c ; call 0xb53b
     add sp, byte 4
 @..api_idx_0002_2.l10:
     mov ax, 0x23
@@ -4569,7 +4569,7 @@ api_idx_0002_2:
     push ax
     mov ax, 0x93f0
     push ax
-    db 0xe8, 0x83, 0x8a ; call 0xffffb300
+    db 0xe8, 0x83, 0x8a ; call 0xb300
     add sp, byte 6
     mov ax, 0x24
     push ax
@@ -4577,7 +4577,7 @@ api_idx_0002_2:
     push ax
     mov ax, 0x93f0
     push ax
-    db 0xe8, 0x71, 0x8a ; call 0xffffb300
+    db 0xe8, 0x71, 0x8a ; call 0xb300
     add sp, byte 6
     mov ax, 1
     push ax
@@ -4588,7 +4588,7 @@ api_idx_0002_2:
     ret
 api_idx_0004_9:
     mov ax, 0xfffc
-    db 0xe8, 0x64, 0xcb ; call 0xfffff40b
+    db 0xe8, 0x64, 0xcb ; call 0xf40b
     mov word [bp - 0x0004], 0
     mov word [bp - 0x0002], 0
 @..api_idx_0004_9.l1:
@@ -4618,7 +4618,7 @@ api_idx_0004_9:
     imul cx
     add ax, 0x8504
     push ax
-    db 0xe8, 0x85, 0xc3 ; call 0xffffec74
+    db 0xe8, 0x85, 0xc3 ; call 0xec74
     add sp, byte 4
     test ax, ax
     je short @..api_idx_0004_9.l3
@@ -4627,7 +4627,7 @@ api_idx_0004_9:
     push word [bp - 0x0002]
     mov ax, 0x8822
     push ax
-    db 0xe8, 0x3d, 0xc3 ; call 0xffffec41
+    db 0xe8, 0x3d, 0xc3 ; call 0xec41
     add sp, byte 6
 @..api_idx_0004_9.l3:
     push word [bp - 0x0002]
@@ -4637,7 +4637,7 @@ api_idx_0004_9:
     imul cx
     add ax, 0x8504
     push ax
-    db 0xe8, 0x5a, 0xc3 ; call 0xffffec74
+    db 0xe8, 0x5a, 0xc3 ; call 0xec74
     add sp, byte 4
     test ax, ax
     je short @..api_idx_0004_9.l4
@@ -4648,7 +4648,7 @@ api_idx_0004_9:
 @..api_idx_0004_9.l4:
     mov ax, 3
     push ax
-    db 0xe8, 0x75, 0x8e ; call 0xffffb7a9
+    db 0xe8, 0x75, 0x8e ; call 0xb7a9
     pop cx
     test ax, ax
     jne short @..api_idx_0004_9.l5
@@ -4673,7 +4673,7 @@ api_idx_0004_9:
     ret
 loc_2963:
     mov ax, 0
-    db 0xe8, 0xa2, 0xca ; call 0xfffff40b
+    db 0xe8, 0xa2, 0xca ; call 0xf40b
     mov ax, 1
     push ax
     call 0xef14
@@ -4701,7 +4701,7 @@ loc_2963:
     ret
 api_idx_0008_2:
     mov ax, 0xfff8
-    db 0xe8, 0x54, 0xca ; call 0xfffff40b
+    db 0xe8, 0x54, 0xca ; call 0xf40b
     mov ax, 0
     push ax
     push word [bp + 0x4]
@@ -4829,7 +4829,7 @@ api_idx_0008_2:
     push ax
     mov ax, 0x60b
     push ax
-    db 0xe8, 0x4f, 0x8a ; call 0xffffb53b
+    db 0xe8, 0x4f, 0x8a ; call 0xb53b
     add sp, byte 4
     mov ax, 0x5e
     push ax
@@ -4839,7 +4839,7 @@ api_idx_0008_2:
     push ax
     mov ax, 0x95a8
     push ax
-    db 0xe8, 0xfc, 0x87 ; call 0xffffb300
+    db 0xe8, 0xfc, 0x87 ; call 0xb300
     add sp, byte 6
     cmp word [bp + 0x8], byte 1
     jne short @..api_idx_0008_2.l11
@@ -4862,11 +4862,11 @@ api_idx_0008_2:
     push ax
     mov ax, 0x5e5
     push ax
-    db 0xe8, 0x03, 0x8a ; call 0xffffb53b
+    db 0xe8, 0x03, 0x8a ; call 0xb53b
     add sp, byte 4
     mov ax, 0x95a8
     push ax
-    db 0xe8, 0x4e, 0xcf ; call 0xfffffa90
+    db 0xe8, 0x4e, 0xcf ; call 0xfa90
     pop cx
     mov cx, ax
     mov ax, 0x1e
@@ -4895,13 +4895,13 @@ api_idx_0008_2:
     call api_idx_0004_2
     mov ax, 0
     push ax
-    db 0xe8, 0x54, 0x8c ; call 0xffffb7e0
+    db 0xe8, 0x54, 0x8c ; call 0xb7e0
     pop cx
 @..api_idx_0008_2.l12:
     ret
 api_idx_0040:
     mov ax, 0xffc0
-    db 0xe8, 0x77, 0xc8 ; call 0xfffff40b
+    db 0xe8, 0x77, 0xc8 ; call 0xf40b
     mov ax, word [bp + 0x6]
     shl ax, 1
     mov bx, ax
@@ -4914,7 +4914,7 @@ api_idx_0040:
     push ax
     mov ax, 6
     push ax
-    db 0xe8, 0x88, 0x8a ; call 0xffffb63c
+    db 0xe8, 0x88, 0x8a ; call 0xb63c
     add sp, byte 8
     mov word [bp - 0x0002], 0
 @..api_idx_0040.l1:
@@ -5139,7 +5139,7 @@ api_idx_0040:
     ret
 api_idx_0006_3:
     mov ax, 0xfffa
-    db 0xe8, 0x92, 0xbc ; call 0xfffff40b
+    db 0xe8, 0x92, 0xbc ; call 0xf40b
     cmp byte [bp + 0x6], 2
     jne short @..api_idx_0006_3.l2
     mov ax, word [bp + 0x8]
@@ -5282,7 +5282,7 @@ api_idx_0006_3:
     ret
 api_idx_0002_3:
     mov ax, 0xfffe
-    db 0xe8, 0x44, 0xbb ; call 0xfffff40b
+    db 0xe8, 0x44, 0xbb ; call 0xf40b
     mov ax, 0x248
     imul word [bp + 0x4]
     add ax, word [bp + 0x6]
@@ -5309,7 +5309,7 @@ api_idx_0002_3:
     ret
 api_idx_0008_3:
     mov ax, 0xfff8
-    db 0xe8, 0x05, 0xbb ; call 0xfffff40b
+    db 0xe8, 0x05, 0xbb ; call 0xf40b
     mov ax, word [bp + 0x6]
     jmp near @..local.l130
 @..api_idx_0008_3.l1:
@@ -5387,7 +5387,7 @@ api_idx_0008_3:
     mov di, ax
     movsw
     movsw
-    db 0xe8, 0x12, 0x97 ; call 0xffffd0be
+    db 0xe8, 0x12, 0x97 ; call 0xd0be
     add sp, byte 4
     add word [data_964e], ax
 @..api_idx_0008_3.l4:
@@ -5501,7 +5501,7 @@ api_idx_0008_3:
     ret
 api_idx_0004_10:
     mov ax, 0xfffc
-    db 0xe8, 0x6f, 0xb9 ; call 0xfffff40b
+    db 0xe8, 0x6f, 0xb9 ; call 0xf40b
     mov ax, 0
     push ax
     call api_idx_0006
@@ -5603,13 +5603,13 @@ api_idx_0004_10:
     mov ax, 1
     push ax
     push word [bp + 0x4]
-    db 0xe8, 0xa4, 0x8f ; call 0xffffcb3a
+    db 0xe8, 0xa4, 0x8f ; call 0xcb3a
     add sp, byte 4
 @..api_idx_0004_10.l5:
     ret
 api_idx_0018_2:
     mov ax, 0xffe8
-    db 0xe8, 0x6b, 0xb8 ; call 0xfffff40b
+    db 0xe8, 0x6b, 0xb8 ; call 0xf40b
     mov ax, word [bp + 0x6]
     imul word [bp + 0xe]
     add ax, word [bp + 0xa]
@@ -5628,7 +5628,7 @@ api_idx_0018_2:
     mov ax, word [bp + 0x8]
     dec ax
     push ax
-    db 0xe8, 0x5d, 0xad ; call 0xffffe928
+    db 0xe8, 0x5d, 0xad ; call 0xe928
     add sp, byte 8
     mov word [bp - 0x0016], dx
     mov word [bp - 0x0018], ax
@@ -5653,7 +5653,7 @@ api_idx_0018_2:
     add ax, word [bp + 0xa]
     push ax
     push word [bp + 0x8]
-    db 0xe8, 0xd7, 0x80 ; call 0xffffbce3
+    db 0xe8, 0xd7, 0x80 ; call 0xbce3
     add sp, byte 0x0a
     mov ax, word [bp + 0x6]
     imul word [bp + 0xe]
@@ -5663,7 +5663,7 @@ api_idx_0018_2:
     push ax
     lea ax, word [bp - 0x0014]
     push ax
-    db 0xe8, 0x6e, 0xbe ; call 0xfffffa90
+    db 0xe8, 0x6e, 0xbe ; call 0xfa90
     pop cx
     mov cx, ax
     mov ax, word [bp + 0xc]
@@ -5676,19 +5676,19 @@ api_idx_0018_2:
     add ax, word [bp + 0x8]
     inc ax
     push ax
-    db 0xe8, 0xcc, 0xab ; call 0xffffe809
+    db 0xe8, 0xcc, 0xab ; call 0xe809
     add sp, byte 4
     mov ax, 0xc0
     push ax
     mov ax, 0x1a
     push ax
-    db 0xe8, 0xd8, 0xab ; call 0xffffe823
+    db 0xe8, 0xd8, 0xab ; call 0xe823
     add sp, byte 4
     mov ax, 0
     push ax
     lea ax, word [bp - 0x0014]
     push ax
-    db 0xe8, 0xf5, 0xab ; call 0xffffe84e
+    db 0xe8, 0xf5, 0xab ; call 0xe84e
     add sp, byte 4
     mov ax, word [bp + 0x6]
     imul word [bp + 0xe]
@@ -5704,18 +5704,18 @@ api_idx_0018_2:
     add ax, word [bp + 0xa]
     push ax
     push word [bp + 0x8]
-    db 0xe8, 0x57, 0xac ; call 0xffffe8da
+    db 0xe8, 0x57, 0xac ; call 0xe8da
     add sp, byte 8
     mov ax, 1
     push ax
     push word [bp - 0x0016]
     push word [bp - 0x0018]
-    db 0xe8, 0xbc, 0xac ; call 0xffffe94f
+    db 0xe8, 0xbc, 0xac ; call 0xe94f
     add sp, byte 6
     ret
 api_idx_0004_11:
     mov ax, 0xfffc
-    db 0xe8, 0x6e, 0xb7 ; call 0xfffff40b
+    db 0xe8, 0x6e, 0xb7 ; call 0xf40b
     mov word [bp - 0x0002], 0
     jmp near @..api_idx_0004_11.l8
 @..api_idx_0004_11.l1:
@@ -5744,7 +5744,7 @@ api_idx_0004_11:
     mov ax, word [bp + 0x4]
     add ax, strict word 0x1c
     push ax
-    db 0xe8, 0x1f, 0xac ; call 0xffffe901
+    db 0xe8, 0x1f, 0xac ; call 0xe901
     add sp, byte 0x0a
     mov word [bp - 0x0004], 0
     jmp short @..api_idx_0004_11.l3
@@ -5760,7 +5760,7 @@ api_idx_0004_11:
     inc ax
     inc ax
     push ax
-    db 0xe8, 0x04, 0xab ; call 0xffffe809
+    db 0xe8, 0x04, 0xab ; call 0xe809
     add sp, byte 4
     mov ax, word [bp + 0xc]
     add ax, word [bp - 0x0002]
@@ -5783,7 +5783,7 @@ api_idx_0004_11:
     mov ax, word [bp + 0x4]
     add ax, strict word 0xf
     push ax
-    db 0xe8, 0xcd, 0xaa ; call 0xffffe809
+    db 0xe8, 0xcd, 0xaa ; call 0xe809
     add sp, byte 4
     mov ax, 4
     push ax
@@ -5794,7 +5794,7 @@ api_idx_0004_11:
     mov al, byte [bx - 0x6986]
     sub ah, ah
     push ax
-    db 0xe8, 0xd9, 0xaa ; call 0xffffe830
+    db 0xe8, 0xd9, 0xaa ; call 0xe830
     add sp, byte 4
     push word [bp - 0x0004]
     mov ax, 0xe
@@ -5828,7 +5828,7 @@ api_idx_0004_11:
     mov ax, word [bp + 0x4]
     add ax, strict word 0x47
     push ax
-    db 0xe8, 0x5c, 0xaa ; call 0xffffe809
+    db 0xe8, 0x5c, 0xaa ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
@@ -5842,7 +5842,7 @@ api_idx_0004_11:
     mov ax, 2
 @..api_idx_0004_11.l6:
     push ax
-    db 0xe8, 0x58, 0xaa ; call 0xffffe823
+    db 0xe8, 0x58, 0xaa ; call 0xe823
     add sp, byte 4
     mov ax, 0
     push ax
@@ -5866,7 +5866,7 @@ api_idx_0004_11:
     ret
 math_loc_3df9:
     mov ax, 0
-    db 0xe8, 0x0c, 0xb6 ; call 0xfffff40b
+    db 0xe8, 0x0c, 0xb6 ; call 0xf40b
     mov ax, 6
     imul word [bp + 0xa]
     add ax, word [bp + 0x6]
@@ -5892,7 +5892,7 @@ math_loc_3df9:
     ret
 api_idx_0038_2:
     mov ax, 0xffc8
-    db 0xe8, 0xcb, 0xb5 ; call 0xfffff40b
+    db 0xe8, 0xcb, 0xb5 ; call 0xf40b
     mov word [data_904e], 0xffff
     mov word [bp - 0x0004], 0x37
     mov word [bp - 0x0006], 0x8f
@@ -5919,7 +5919,7 @@ api_idx_0038_2:
     mov ax, word [bp - 0x0004]
     dec ax
     push ax
-    db 0xe8, 0xfa, 0x83 ; call 0xffffc283
+    db 0xe8, 0xfa, 0x83 ; call 0xc283
     add sp, byte 0x0a
     mov word [bp - 0x0038], ax
     push word [bp - 0x000a]
@@ -5940,7 +5940,7 @@ api_idx_0038_2:
     push word [bp + 0xe]
     lea ax, word [bp - 0x0036]
     push ax
-    db 0xe8, 0xa4, 0xb4 ; call 0xfffff364
+    db 0xe8, 0xa4, 0xb4 ; call 0xf364
     add sp, byte 4
 @..api_idx_0038_2.l3:
     lea ax, word [bp - 0x0036]
@@ -5978,7 +5978,7 @@ api_idx_0038_2:
     mov ax, word [bp - 0x0004]
     add ax, strict word 8
     push ax
-    db 0xe8, 0xac, 0x81 ; call 0xffffc0c1
+    db 0xe8, 0xac, 0x81 ; call 0xc0c1
     add sp, byte 0x0c
     lea ax, word [bp - 0x0036]
     push ax
@@ -6001,7 +6001,7 @@ api_idx_0038_2:
     mov ax, word [bp - 0x0004]
     add ax, strict word 8
     push ax
-    db 0xe8, 0x79, 0x81 ; call 0xffffc0c1
+    db 0xe8, 0x79, 0x81 ; call 0xc0c1
     add sp, byte 0x0c
     mov word [bp - 0x0016], 0
     mov word [bp - 0x0020], 0xffff
@@ -6213,7 +6213,7 @@ api_idx_0038_2:
     push ax
     mov ax, 9
     push ax
-    db 0xe8, 0xa1, 0xa7 ; call 0xffffe8da
+    db 0xe8, 0xa1, 0xa7 ; call 0xe8da
     add sp, byte 8
     mov word [bp - 0x001a], 1
 @..local.l136:
@@ -6326,7 +6326,7 @@ api_idx_0038_2:
     mov ax, word [bp - 0x0004]
     add ax, strict word 0x5d
     push ax
-    db 0xe8, 0x06, 0xa4 ; call 0xffffe8da
+    db 0xe8, 0x06, 0xa4 ; call 0xe8da
     add sp, byte 8
     jmp short @..local.l142
     int3
@@ -6359,7 +6359,7 @@ api_idx_0038_2:
     ret
 api_idx_0054_3:
     mov ax, 0xffac
-    db 0xe8, 0xf1, 0xae ; call 0xfffff40b
+    db 0xe8, 0xf1, 0xae ; call 0xf40b
     mov word [bp - 0x0002], 0
     jmp near @..local.l147
 @..api_idx_0054_3.l1:
@@ -6372,13 +6372,13 @@ api_idx_0054_3:
     inc ax
     inc ax
     push ax
-    db 0xe8, 0xd3, 0xa2 ; call 0xffffe809
+    db 0xe8, 0xd3, 0xa2 ; call 0xe809
     add sp, byte 4
     mov ax, 0xc3
     push ax
     mov ax, 0x9b
     push ax
-    db 0xe8, 0xdf, 0xa2 ; call 0xffffe823
+    db 0xe8, 0xdf, 0xa2 ; call 0xe823
     add sp, byte 4
     mov ax, 0x248
     imul word [bp + 0x4]
@@ -6391,7 +6391,7 @@ api_idx_0054_3:
     shl ax, 1
     add ax, 0x9882
     push ax
-    db 0xe8, 0x0f, 0xa7 ; call 0xffffec74
+    db 0xe8, 0x0f, 0xa7 ; call 0xec74
     add sp, byte 4
     test ax, ax
     je short @..api_idx_0054_3.l2
@@ -6406,7 +6406,7 @@ api_idx_0054_3:
     shl ax, 1
     add ax, 0x98be
     push ax
-    db 0xe8, 0xea, 0xa6 ; call 0xffffec74
+    db 0xe8, 0xea, 0xa6 ; call 0xec74
     add sp, byte 4
     test ax, ax
     je short @..api_idx_0054_3.l2
@@ -6420,7 +6420,7 @@ api_idx_0054_3:
     add ax, word [bp - 0x0002]
     add ax, 0x98fa
     push ax
-    db 0xe8, 0xc7, 0xa6 ; call 0xffffec74
+    db 0xe8, 0xc7, 0xa6 ; call 0xec74
     add sp, byte 4
     test ax, ax
     jne short @..api_idx_0054_3.l3
@@ -6449,7 +6449,7 @@ api_idx_0054_3:
     push ax
     lea ax, word [bp - 0x0054]
     push ax
-    db 0xe8, 0x63, 0xa2 ; call 0xffffe84e
+    db 0xe8, 0x63, 0xa2 ; call 0xe84e
     add sp, byte 4
     mov ax, 0xe
     imul word [bp - 0x0002]
@@ -6460,13 +6460,13 @@ api_idx_0054_3:
     inc ax
     inc ax
     push ax
-    db 0xe8, 0x05, 0xa2 ; call 0xffffe809
+    db 0xe8, 0x05, 0xa2 ; call 0xe809
     add sp, byte 4
     mov ax, 0xc3
     push ax
     mov ax, 1
     push ax
-    db 0xe8, 0x11, 0xa2 ; call 0xffffe823
+    db 0xe8, 0x11, 0xa2 ; call 0xe823
     add sp, byte 4
     mov ax, 0
     push ax
@@ -6485,13 +6485,13 @@ api_idx_0054_3:
     push ax
     mov ax, 0x1b
     push ax
-    db 0xe8, 0xe1, 0xa1 ; call 0xffffe823
+    db 0xe8, 0xe1, 0xa1 ; call 0xe823
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0x99ae
     push ax
-    db 0xe8, 0xfe, 0xa1 ; call 0xffffe84e
+    db 0xe8, 0xfe, 0xa1 ; call 0xe84e
     add sp, byte 4
     mov ax, word [bp + 0xe]
     add ax, word [bp - 0x0002]
@@ -6518,7 +6518,7 @@ api_idx_0054_3:
     mov ax, word [bp + 0x6]
     add ax, strict word 0x53
     push ax
-    db 0xe8, 0x71, 0xa2 ; call 0xffffe901
+    db 0xe8, 0x71, 0xa2 ; call 0xe901
     add sp, byte 0x0a
     mov word [bp - 0x0004], 0
     jmp short @..api_idx_0054_3.l6
@@ -6533,7 +6533,7 @@ api_idx_0054_3:
     mov ax, word [bp + 0x6]
     add ax, strict word 0x46
     push ax
-    db 0xe8, 0x55, 0xa1 ; call 0xffffe809
+    db 0xe8, 0x55, 0xa1 ; call 0xe809
     add sp, byte 4
     mov ax, 4
     push ax
@@ -6543,7 +6543,7 @@ api_idx_0054_3:
     mov al, byte [bx - 0x6648]
     sub ah, ah
     push ax
-    db 0xe8, 0x63, 0xa1 ; call 0xffffe830
+    db 0xe8, 0x63, 0xa1 ; call 0xe830
     add sp, byte 4
     push word [bp - 0x0004]
     mov ax, 0xe
@@ -6579,7 +6579,7 @@ api_idx_0054_3:
     mov ax, word [bp + 0x6]
     add ax, strict word 0x7e
     push ax
-    db 0xe8, 0xe0, 0xa0 ; call 0xffffe809
+    db 0xe8, 0xe0, 0xa0 ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
@@ -6593,7 +6593,7 @@ api_idx_0054_3:
     mov ax, 2
 @..local.l145:
     push ax
-    db 0xe8, 0xdc, 0xa0 ; call 0xffffe823
+    db 0xe8, 0xdc, 0xa0 ; call 0xe823
     add sp, byte 4
     mov ax, 0
     push ax
@@ -6617,7 +6617,7 @@ api_idx_0054_3:
     ret
 math_loc_4775:
     mov ax, 0
-    db 0xe8, 0x90, 0xac ; call 0xfffff40b
+    db 0xe8, 0x90, 0xac ; call 0xf40b
     mov ax, 6
     imul word [bp + 0xc]
     add ax, word [bp + 0x8]
@@ -6644,7 +6644,7 @@ math_loc_4775:
     ret
 loc_47b9:
     mov ax, 0
-    db 0xe8, 0x4c, 0xac ; call 0xfffff40b
+    db 0xe8, 0x4c, 0xac ; call 0xf40b
     call loc_109f
     mov ax, 0xc6
     push ax
@@ -6654,12 +6654,12 @@ loc_47b9:
     push ax
     mov ax, 0x22
     push ax
-    db 0xe8, 0x05, 0xa1 ; call 0xffffe8da
+    db 0xe8, 0x05, 0xa1 ; call 0xe8da
     add sp, byte 8
     ret
 api_idx_0038_3:
     mov ax, 0xffc8
-    db 0xe8, 0x2c, 0xac ; call 0xfffff40b
+    db 0xe8, 0x2c, 0xac ; call 0xf40b
     mov ax, 0x99ae
     push ax
     mov ax, 0x5e4
@@ -6706,7 +6706,7 @@ api_idx_0038_3:
     push ax
     mov ax, 1
     push ax
-    db 0xe8, 0xc4, 0x9f ; call 0xffffe823
+    db 0xe8, 0xc4, 0x9f ; call 0xe823
     add sp, byte 4
     mov ax, word [bp - 0x0006]
     add ax, strict word 6
@@ -6715,7 +6715,7 @@ api_idx_0038_3:
     imul word [bp + 0x4]
     add ax, 0x5bf4
     push ax
-    db 0xe8, 0x1a, 0xb2 ; call 0xfffffa90
+    db 0xe8, 0x1a, 0xb2 ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -6727,7 +6727,7 @@ api_idx_0038_3:
     add ax, strict word 0x26
     sub ax, cx
     push ax
-    db 0xe8, 0x79, 0x9f ; call 0xffffe809
+    db 0xe8, 0x79, 0x9f ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
@@ -6735,13 +6735,13 @@ api_idx_0038_3:
     imul word [bp + 0x4]
     add ax, 0x5bf4
     push ax
-    db 0xe8, 0xaa, 0x9f ; call 0xffffe84e
+    db 0xe8, 0xaa, 0x9f ; call 0xe84e
     add sp, byte 4
     mov ax, 0xc2
     push ax
     mov ax, 0xb3
     push ax
-    db 0xe8, 0x71, 0x9f ; call 0xffffe823
+    db 0xe8, 0x71, 0x9f ; call 0xe823
     add sp, byte 4
     lea ax, word [bp - 0x0036]
     push ax
@@ -6757,7 +6757,7 @@ api_idx_0038_3:
     push ax
     lea ax, word [bp - 0x0036]
     push ax
-    db 0xe8, 0xb3, 0xb1 ; call 0xfffffa90
+    db 0xe8, 0xb3, 0xb1 ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -6770,13 +6770,13 @@ api_idx_0038_3:
     add ax, strict word 0x26
     sub ax, cx
     push ax
-    db 0xe8, 0x0f, 0x9f ; call 0xffffe809
+    db 0xe8, 0x0f, 0x9f ; call 0xe809
     add sp, byte 4
     mov ax, 0
     push ax
     lea ax, word [bp - 0x0036]
     push ax
-    db 0xe8, 0x46, 0x9f ; call 0xffffe84e
+    db 0xe8, 0x46, 0x9f ; call 0xe84e
     add sp, byte 4
     lea ax, word [bp - 0x0036]
     push ax
@@ -6787,13 +6787,13 @@ api_idx_0038_3:
     push ax
     mov ax, 0x1a
     push ax
-    db 0xe8, 0x00, 0x9f ; call 0xffffe823
+    db 0xe8, 0x00, 0x9f ; call 0xe823
     add sp, byte 4
     mov ax, 0
     push ax
     lea ax, word [bp - 0x0036]
     push ax
-    db 0xe8, 0x1d, 0x9f ; call 0xffffe84e
+    db 0xe8, 0x1d, 0x9f ; call 0xe84e
     add sp, byte 4
     lea ax, word [bp - 0x0036]
     push ax
@@ -7093,7 +7093,7 @@ api_idx_0038_3:
     push ax
     mov ax, 9
     push ax
-    db 0xe8, 0xfb, 0x9c ; call 0xffffe8da
+    db 0xe8, 0xfb, 0x9c ; call 0xe8da
     add sp, byte 8
     mov word [bp - 0x001a], 1
 @..local.l153:
@@ -7212,7 +7212,7 @@ api_idx_0038_3:
     mov ax, word [bp - 0x0004]
     add ax, strict word 0x4e
     push ax
-    db 0xe8, 0x36, 0x99 ; call 0xffffe8da
+    db 0xe8, 0x36, 0x99 ; call 0xe8da
     add sp, byte 8
     jmp short @..local.l159
     jne short 0x4f47
@@ -7250,7 +7250,7 @@ api_idx_0038_3:
     ret
 api_idx_004c_2:
     mov ax, 0xffb4
-    db 0xe8, 0x1b, 0xa4 ; call 0xfffff40b
+    db 0xe8, 0x1b, 0xa4 ; call 0xf40b
     mov word [data_9ca8], 0
     mov word [bp - 0x0002], 0
 @..api_idx_004c_2.l1:
@@ -7309,7 +7309,7 @@ api_idx_004c_2:
     imul word [data_9ca8]
     add ax, 0x96a2
     push ax
-    db 0xe8, 0xe7, 0xa2 ; call 0xfffff364
+    db 0xe8, 0xe7, 0xa2 ; call 0xf364
     add sp, byte 4
     jmp short @..api_idx_004c_2.l5
 @..api_idx_004c_2.l4:
@@ -7405,7 +7405,7 @@ api_idx_004c_2:
     ret
 api_idx_0002_4:
     mov ax, 0xfffe
-    db 0xe8, 0xaa, 0xa2 ; call 0xfffff40b
+    db 0xe8, 0xaa, 0xa2 ; call 0xf40b
     dec word [data_9ca8]
     mov ax, word [bp + 0x4]
     mov word [bp - 0x0002], ax
@@ -7419,7 +7419,7 @@ api_idx_0002_4:
     imul word [bp - 0x0002]
     add ax, 0x96a2
     push ax
-    db 0xe8, 0xe0, 0xa1 ; call 0xfffff364
+    db 0xe8, 0xe0, 0xa1 ; call 0xf364
     add sp, byte 4
     mov ax, word [bp - 0x0002]
     shl ax, 1
@@ -7440,7 +7440,7 @@ api_idx_0002_4:
     ret
 api_idx_0068:
     mov ax, 0xff98
-    db 0xe8, 0x4a, 0xa2 ; call 0xfffff40b
+    db 0xe8, 0x4a, 0xa2 ; call 0xf40b
     push word [bp + 0x4]
     call api_idx_004c_2
     pop cx
@@ -7483,7 +7483,7 @@ api_idx_0068:
     push ax
     mov ax, 0x36
     push ax
-    db 0xe8, 0xb7, 0x96 ; call 0xffffe8da
+    db 0xe8, 0xb7, 0x96 ; call 0xe8da
     add sp, byte 8
     ret
 @..local.l163:
@@ -7568,7 +7568,7 @@ api_idx_0068:
     push ax
     mov ax, 0x36
     push ax
-    db 0xe8, 0xee, 0x95 ; call 0xffffe8da
+    db 0xe8, 0xee, 0x95 ; call 0xe8da
     add sp, byte 8
     push word [bp - 0x0050]
     push word [bp - 0x004e]
@@ -7590,7 +7590,7 @@ api_idx_0068:
     push ax
     mov ax, 0x36
     push ax
-    db 0xe8, 0xb6, 0x95 ; call 0xffffe8da
+    db 0xe8, 0xb6, 0x95 ; call 0xe8da
     add sp, byte 8
     mov ax, 1
     push ax
@@ -7627,7 +7627,7 @@ api_idx_0068:
     ret
 api_idx_0004_12:
     mov ax, 0xfffc
-    db 0xe8, 0x94, 0xa0 ; call 0xfffff40b
+    db 0xe8, 0x94, 0xa0 ; call 0xf40b
     mov word [data_9cd2], 0
     mov word [bp - 0x0002], 0
 @..api_idx_0004_12.l1:
@@ -7651,7 +7651,7 @@ api_idx_0004_12:
     imul word [data_9cd2]
     add ax, 0x99d6
     push ax
-    db 0xe8, 0xa9, 0x9f ; call 0xfffff364
+    db 0xe8, 0xa9, 0x9f ; call 0xf364
     add sp, byte 4
     mov ax, word [bp - 0x0002]
     shl ax, 1
@@ -7731,7 +7731,7 @@ api_idx_0004_12:
     ret
 math_loc_5497:
     mov ax, 0
-    db 0xe8, 0x6e, 0x9f ; call 0xfffff40b
+    db 0xe8, 0x6e, 0x9f ; call 0xf40b
     cmp word [bp + 0x4], strict word 0x190
     jl short @..math_loc_5497.l1
     cmp word [bp + 0x4], strict word 0x19b
@@ -7744,7 +7744,7 @@ math_loc_5497:
     ret
 api_idx_0002_5:
     mov ax, 0xfffe
-    db 0xe8, 0x51, 0x9f ; call 0xfffff40b
+    db 0xe8, 0x51, 0x9f ; call 0xf40b
     mov al, byte [bp + 0x4]
     push ax
     mov ax, 6
@@ -7760,7 +7760,7 @@ api_idx_0002_5:
     imul word [bp + 0x4]
     add ax, 0x8502
     push ax
-    db 0xe8, 0x5d, 0x97 ; call 0xffffec41
+    db 0xe8, 0x5d, 0x97 ; call 0xec41
     add sp, byte 6
     mov ax, 1
     push ax
@@ -7769,7 +7769,7 @@ api_idx_0002_5:
     imul word [bp + 0x4]
     add ax, 0x850a
     push ax
-    db 0xe8, 0x46, 0x97 ; call 0xffffec41
+    db 0xe8, 0x46, 0x97 ; call 0xec41
     add sp, byte 6
     mov word [bp - 0x0002], 0
 @..api_idx_0002_5.l1:
@@ -7780,7 +7780,7 @@ api_idx_0002_5:
     imul word [bp - 0x0002]
     add ax, 0x8504
     push ax
-    db 0xe8, 0x2a, 0x97 ; call 0xffffec41
+    db 0xe8, 0x2a, 0x97 ; call 0xec41
     add sp, byte 6
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]
@@ -7793,7 +7793,7 @@ api_idx_0002_5:
     imul word [bp + 0x4]
     add ax, 0x8504
     push ax
-    db 0xe8, 0x08, 0x97 ; call 0xffffec41
+    db 0xe8, 0x08, 0x97 ; call 0xec41
     add sp, byte 6
     cmp word [bp + 0x6], byte 0xff
     je short @..api_idx_0002_5.l2
@@ -7804,7 +7804,7 @@ api_idx_0002_5:
     imul word [bp + 0x6]
     add ax, 0x8502
     push ax
-    db 0xe8, 0xeb, 0x96 ; call 0xffffec41
+    db 0xe8, 0xeb, 0x96 ; call 0xec41
     add sp, byte 6
     mov ax, 1
     push ax
@@ -7813,13 +7813,13 @@ api_idx_0002_5:
     imul word [bp + 0x6]
     add ax, 0x8504
     push ax
-    db 0xe8, 0xd4, 0x96 ; call 0xffffec41
+    db 0xe8, 0xd4, 0x96 ; call 0xec41
     add sp, byte 6
 @..api_idx_0002_5.l2:
     ret
 api_idx_0008_4:
     mov ax, 0xfff8
-    db 0xe8, 0x94, 0x9e ; call 0xfffff40b
+    db 0xe8, 0x94, 0x9e ; call 0xf40b
     mov ax, word [bp + 0x6]
     shl ax, 1
     mov bx, ax
@@ -7835,7 +7835,7 @@ api_idx_0008_4:
     shl ax, 1
     add ax, 0x9882
     push ax
-    db 0xe8, 0xd4, 0x96 ; call 0xffffec74
+    db 0xe8, 0xd4, 0x96 ; call 0xec74
     add sp, byte 4
     test ax, ax
     je short @..api_idx_0008_4.l1
@@ -7849,7 +7849,7 @@ api_idx_0008_4:
     shl ax, 1
     add ax, 0x98be
     push ax
-    db 0xe8, 0xb2, 0x96 ; call 0xffffec74
+    db 0xe8, 0xb2, 0x96 ; call 0xec74
     add sp, byte 4
     test ax, ax
     je short @..api_idx_0008_4.l1
@@ -7862,7 +7862,7 @@ api_idx_0008_4:
     mov ax, word [bp + 0x6]
     add ax, 0x98fa
     push ax
-    db 0xe8, 0x92, 0x96 ; call 0xffffec74
+    db 0xe8, 0x92, 0x96 ; call 0xec74
     add sp, byte 4
     test ax, ax
     jne short @..local.l168
@@ -8018,7 +8018,7 @@ api_idx_0008_4:
     ret
 api_idx_0006_4:
     mov ax, 0xfffa
-    db 0xe8, 0xc7, 0x9c ; call 0xfffff40b
+    db 0xe8, 0xc7, 0x9c ; call 0xf40b
     call loc_10b6
     mov word [bp - 0x0006], 0
 @..api_idx_0006_4.l1:
@@ -8066,7 +8066,7 @@ api_idx_0006_4:
     ret
 api_idx_0002_6:
     mov ax, 0xfffe
-    db 0xe8, 0x4a, 0x9c ; call 0xfffff40b
+    db 0xe8, 0x4a, 0x9c ; call 0xf40b
 @..api_idx_0002_6.l1:
     mov ax, 0x2f
     push ax
@@ -8084,7 +8084,7 @@ api_idx_0002_6:
     ret
 api_idx_005e_2:
     mov ax, 0xffa2
-    db 0xe8, 0x24, 0x9c ; call 0xfffff40b
+    db 0xe8, 0x24, 0x9c ; call 0xf40b
     mov ax, word [bp + 0x6]
     shl ax, 1
     mov bx, ax
@@ -8216,7 +8216,7 @@ api_idx_005e_2:
     add dx, bx
     mov cx, 0x64
     mov bx, 0
-    db 0xe8, 0x9d, 0xa0 ; call 0xfffff99f
+    db 0xe8, 0x9d, 0xa0 ; call 0xf99f
     mov word [bp - 0x003c], dx
     mov word [bp - 0x003e], ax
 @..api_idx_005e_2.l4:
@@ -8243,7 +8243,7 @@ api_idx_005e_2:
     add dx, cx
     mov cx, 0x64
     mov bx, 0
-    db 0xe8, 0x64, 0xa0 ; call 0xfffff99f
+    db 0xe8, 0x64, 0xa0 ; call 0xf99f
 @..api_idx_005e_2.l6:
     mov word [bp - 0x003c], dx
     mov word [bp - 0x003e], ax
@@ -8367,7 +8367,7 @@ api_idx_005e_2:
     push ax
     mov ax, 0x9d10
     push ax
-    db 0xe8, 0x17, 0x99 ; call 0xfffff364
+    db 0xe8, 0x17, 0x99 ; call 0xf364
     add sp, byte 4
     mov ax, 0x9d10
     push ax
@@ -8500,7 +8500,7 @@ api_idx_005e_2:
     ret
 api_idx_004e:
     mov ax, 0xffb2
-    db 0xe8, 0x91, 0x98 ; call 0xfffff40b
+    db 0xe8, 0x91, 0x98 ; call 0xf40b
     mov ax, word [bp + 0x6]
     shl ax, 1
     mov bx, ax
@@ -8608,7 +8608,7 @@ api_idx_004e:
     mov dx, word [bp - 0x0036]
     mov cx, 0xa
     mov bx, 0
-    db 0xe8, 0x30, 0x9d ; call 0xfffff99f
+    db 0xe8, 0x30, 0x9d ; call 0xf99f
     push ax
     push dx
     mov al, byte [data_91c5]
@@ -8619,7 +8619,7 @@ api_idx_004e:
     mov bx, dx
     pop dx
     pop ax
-    db 0xe8, 0x1e, 0x9d ; call 0xfffff99f
+    db 0xe8, 0x1e, 0x9d ; call 0xf99f
     push dx
     push ax
     push word [bp + 0x4]
@@ -8665,7 +8665,7 @@ api_idx_004e:
     push ax
     mov ax, 0x36
     push ax
-    db 0xe8, 0xf2, 0x8b ; call 0xffffe8da
+    db 0xe8, 0xf2, 0x8b ; call 0xe8da
     add sp, byte 8
     mov ax, 1
     push ax
@@ -8684,7 +8684,7 @@ api_idx_004e:
     ret
 api_idx_0006_5:
     mov ax, 0xfffa
-    db 0xe8, 0xf7, 0x96 ; call 0xfffff40b
+    db 0xe8, 0xf7, 0x96 ; call 0xf40b
     call loc_10b6
     mov ax, 0x248
     imul word [bp + 0x4]
@@ -8731,13 +8731,13 @@ api_idx_0006_5:
     push ax
     mov ax, 0x36
     push ax
-    db 0xe8, 0x4e, 0x8b ; call 0xffffe8da
+    db 0xe8, 0x4e, 0x8b ; call 0xe8da
     add sp, byte 8
     mov ax, word [bp - 0x0004]
     ret
 api_idx_0054_4:
     mov ax, 0xffac
-    db 0xe8, 0x72, 0x96 ; call 0xfffff40b
+    db 0xe8, 0x72, 0x96 ; call 0xf40b
     mov ax, 3
     push ax
     call api_idx_0006
@@ -8764,7 +8764,7 @@ api_idx_0054_4:
     push word [bp + 0xa]
     lea ax, word [bp - 0x0054]
     push ax
-    db 0xe8, 0x50, 0x95 ; call 0xfffff32d
+    db 0xe8, 0x50, 0x95 ; call 0xf32d
     add sp, byte 4
     mov ax, 0xb3
     push ax
@@ -8849,7 +8849,7 @@ api_idx_0054_4:
     ret
 api_idx_0072:
     mov ax, 0xff8e
-    db 0xe8, 0x6f, 0x95 ; call 0xfffff40b
+    db 0xe8, 0x6f, 0x95 ; call 0xf40b
     mov word [bp - 0x0004], 0
 @..api_idx_0072.l1:
     mov ax, word [bp - 0x0004]
@@ -8875,7 +8875,7 @@ api_idx_0072:
     push ax
     lea ax, word [bp - 0x0068]
     push ax
-    db 0xe8, 0x80, 0x94 ; call 0xfffff364
+    db 0xe8, 0x80, 0x94 ; call 0xf364
     add sp, byte 4
     lea ax, word [bp - 0x0072]
     push ax
@@ -8985,7 +8985,7 @@ api_idx_0072:
     ret
 api_idx_005e_3:
     mov ax, 0xffa2
-    db 0xe8, 0x35, 0x94 ; call 0xfffff40b
+    db 0xe8, 0x35, 0x94 ; call 0xf40b
     mov ax, 0x248
     imul word [bp + 0x4]
     mov bx, ax
@@ -9356,14 +9356,14 @@ api_idx_005e_3:
     ret
 api_idx_00d2:
     mov ax, 0xff2e
-    db 0xe8, 0xe7, 0x90 ; call 0xfffff40b
+    db 0xe8, 0xe7, 0x90 ; call 0xf40b
     mov ax, 0x248
     imul word [bp + 0x4]
     add ax, 0x5bf4
     push ax
     lea ax, word [bp - 0x00c4]
     push ax
-    db 0xe8, 0x2e, 0x90 ; call 0xfffff364
+    db 0xe8, 0x2e, 0x90 ; call 0xf364
     add sp, byte 4
     lea ax, word [bp - 0x00ce]
     push ax
@@ -9548,7 +9548,7 @@ api_idx_00d2:
     sbb word [bx + 0x5c0a], dx
     mov cx, 0xa
     mov bx, 0
-    db 0xe8, 0x8f, 0x94 ; call 0xfffff99f
+    db 0xe8, 0x8f, 0x94 ; call 0xf99f
     push ax
     push dx
     mov al, byte [data_91c5]
@@ -9770,7 +9770,7 @@ api_idx_00d2:
     ret
 api_idx_009c:
     mov ax, 0xff64
-    db 0xe8, 0x8b, 0x8c ; call 0xfffff40b
+    db 0xe8, 0x8b, 0x8c ; call 0xf40b
     mov word [data_95a6], 0
     mov word [data_9d60], 0
     mov word [data_9d64], 0
@@ -10195,7 +10195,7 @@ api_idx_009c:
     ret
 loc_6d9d:
     mov ax, 0
-    db 0xe8, 0x68, 0x86 ; call 0xfffff40b
+    db 0xe8, 0x68, 0x86 ; call 0xf40b
     mov word [data_93da], 0
     cmp byte [data_91ca], 0
     jle short @..local.l233
@@ -10240,7 +10240,7 @@ loc_6d9d:
     ret
 api_idx_0086:
     mov ax, 0xff7a
-    db 0xe8, 0xf6, 0x85 ; call 0xfffff40b
+    db 0xe8, 0xf6, 0x85 ; call 0xf40b
     mov word [data_9cd2], 0
     mov ax, 0
     push ax
@@ -10248,7 +10248,7 @@ api_idx_0086:
     push ax
     mov ax, 0x9cd4
     push ax
-    db 0xe8, 0xdc, 0x84 ; call 0xfffff306
+    db 0xe8, 0xdc, 0x84 ; call 0xf306
     add sp, byte 6
     cmp byte [data_91c6], 0xff
     je short @..api_idx_0086.l3
@@ -10315,7 +10315,7 @@ api_idx_0086:
     mov dx, word [data_8f1e]
     mov cx, 0x5a0
     mov bx, 0
-    db 0xe8, 0xcc, 0x8a ; call 0xfffff99f
+    db 0xe8, 0xcc, 0x8a ; call 0xf99f
     push ax
     mov ax, 6
     imul word [bp - 0x0002]
@@ -10409,7 +10409,7 @@ api_idx_0086:
     imul word [bp - 0x0002]
     add ax, 0x99d6
     push ax
-    db 0xe8, 0xaa, 0x83 ; call 0xfffff364
+    db 0xe8, 0xaa, 0x83 ; call 0xf364
     add sp, byte 4
     mov al, byte [bp - 0x004e]
     mov bx, word [bp - 0x0002]
@@ -10474,7 +10474,7 @@ api_idx_0086:
     add dx, cx
     mov cx, 0x64
     mov bx, 0
-    db 0xe8, 0x51, 0x89 ; call 0xfffff99f
+    db 0xe8, 0x51, 0x89 ; call 0xf99f
 @..local.l238:
     mov cx, word [bp - 0x0002]
     shl cx, 1
@@ -10517,7 +10517,7 @@ api_idx_0086:
     ret
 api_idx_001e:
     mov ax, 0xffe2
-    db 0xe8, 0x4e, 0x83 ; call 0xfffff40b
+    db 0xe8, 0x4e, 0x83 ; call 0xf40b
     mov word [data_830a], 5
     cmp word [data_82b6], byte 0xff
     je short @..api_idx_001e.l3
@@ -10608,7 +10608,7 @@ api_idx_001e:
     push ax
     mov ax, 0x843a
     push ax
-    db 0xe8, 0x67, 0x81 ; call 0xfffff306
+    db 0xe8, 0x67, 0x81 ; call 0xf306
     add sp, byte 6
     mov ax, 0
     push ax
@@ -10616,7 +10616,7 @@ api_idx_001e:
     push ax
     mov ax, 0x93dc
     push ax
-    db 0xe8, 0x55, 0x81 ; call 0xfffff306
+    db 0xe8, 0x55, 0x81 ; call 0xf306
     add sp, byte 6
     mov word [bp - 0x0002], 0xf
 @..api_idx_001e.l7:
@@ -10711,12 +10711,12 @@ api_idx_001e:
     push ax
     mov ax, 0x94f0
     push ax
-    db 0xe8, 0x4b, 0x80 ; call 0xfffff306
+    db 0xe8, 0x4b, 0x80 ; call 0xf306
     add sp, byte 6
     ret
 api_idx_0006_6:
     mov ax, 0xfffa
-    db 0xe8, 0x46, 0x81 ; call 0xfffff40b
+    db 0xe8, 0x46, 0x81 ; call 0xf40b
     mov ax, 3
     push ax
     call api_idx_0006
@@ -10849,7 +10849,7 @@ api_idx_0006_6:
     ret
 math_loc_7400:
     mov ax, 0
-    db 0xe8, 0x05, 0x80 ; call 0xfffff40b
+    db 0xe8, 0x05, 0x80 ; call 0xf40b
     mov word [data_9d6c], 3
     mov word [data_93d8], 0x8f
     mov word [data_9d62], 3
@@ -11117,7 +11117,7 @@ loc_7667:
     shl ax, 1
     shl ax, 1
     mov bx, ax
-    db 0xff, 0xb7, 0x08, 0x00 ; push word ptr [bx + 8]
+    db 0xff, 0xb7, 0x08, 0x00 ; push word [bx + 0x8]
     mov ax, word [bp + 0x6]
     add ax, strict word 6
     push ax
@@ -11193,7 +11193,7 @@ api_idx_000c_4:
     shl ax, 1
     shl ax, 1
     mov bx, ax
-    db 0xff, 0xb7, 0x06, 0x00 ; push word ptr [bx + 6]
+    db 0xff, 0xb7, 0x06, 0x00 ; push word [bx + 0x6]
     db 0xe8, 0xdd, 0x70 ; call 0xe823
     add sp, byte 4
     mov ax, word [bp - 0x0002]
@@ -11203,7 +11203,7 @@ api_idx_000c_4:
     push word [bx + 0x18e]
     lea ax, word [bp - 0x000c]
     push ax
-    db 0xe8, 0x33, 0x83 ; call 0xfffffa90
+    db 0xe8, 0x33, 0x83 ; call 0xfa90
     pop cx
     mov cx, 6
     imul cx
@@ -12996,7 +12996,7 @@ api_idx_0054_5:
     add sp, byte 4
     jmp short @..local.l289
     popf
-    db 0xdb, 0xe0 ; feni8087_nop 
+    db 0xdb, 0xe0 ; feni8087_nop
 
     db 0xda, 0xf7, 0xda, 0x0e, 0xdb, 0x24, 0xdb, 0x9d, 0xdb, 0x9d, 0xdb, 0x3a, 0xdb, 0x50, 0xdb, 0x66
     db 0xdb

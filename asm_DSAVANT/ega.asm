@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_4c4c.inc"
+%include "structs/ega.inc"
 org 0
 bits 16
 data_01e1 equ 0x01e1
@@ -164,7 +164,7 @@ math_loc_0293:
     sub ax, bx
     mov word [bp - 0x000a], ax
     mov bx, word [cs:data_0291]
-    mov dx, word [cs:0x0293]
+    mov dx, word [cs:math_loc_0293]
     mov dh, bl
     mov ax, word [cs:data_01e5]
     mov es, ax
@@ -205,7 +205,7 @@ math_loc_0293:
     add ax, word [bx + 0xc]
     mov bx, ax
     mov ax, word [cs:data_0291]
-    mov dx, word [cs:0x0293]
+    mov dx, word [cs:math_loc_0293]
     mov dh, al
     mov ax, word [cs:data_01e5]
     mov es, ax
@@ -309,7 +309,7 @@ leaf_loc_0447:
     mov ax, ds
     mov es, ax
     mov ax, word [bp + 0xc]
-    mov word [cs:0x0293], ax
+    mov word [cs:math_loc_0293], ax
     mov ax, word [bp + 0xe]
     mov word [cs:data_0291], ax
     pop es
@@ -1903,7 +1903,7 @@ loc_1392:
     mov ax, di
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:0x1490], ax
+    mov word [cs:dos_con_loc_1490], ax
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
@@ -1916,7 +1916,7 @@ loc_1392:
     xor dx, dx
     cmp di, strict word 0x4000
     jne short @..local.l35
-    inc word [cs:0x1490]
+    inc word [cs:dos_con_loc_1490]
     inc dx
 @..local.l35:
     cmp si, strict word 0x4000
@@ -1956,7 +1956,7 @@ loc_145c:
     and si, strict word 0x3fff
     mov ah, 0x44
     mov al, 0
-    mov bx, word [cs:0x1490]
+    mov bx, word [cs:dos_con_loc_1490]
     mov dx, word [cs:data_0201]
     int 0x67 ; EMS (Expanded Memory)
     cmp bx, word [cs:data_148e]
@@ -2784,9 +2784,9 @@ math_loc_2a6a:
     mov cl, 2
     shr ax, cl
     mov word [cs:data_1bf1], ax
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word ptr cs:[0x1bfb], 0
+    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:data_1bfb], 0
     jne short @..math_loc_2a6a.l4
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word ptr cs:[0x1bf9], 0
+    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word [cs:data_1bf9], 0
     je short @..math_loc_2a6a.l4
     inc ax
 @..math_loc_2a6a.l4:
@@ -3184,7 +3184,7 @@ io_loc_2e7d:
     mov al, 8
     out dx, al
     inc dx
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word ptr cs:[0x1bf9], 0
+    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word [cs:data_1bf9], 0
     je short @..io_loc_2e7d.l1
     jmp short @..local.l55
 @..io_loc_2e7d.l1:
@@ -3249,7 +3249,7 @@ io_loc_2e7d:
     dec ax
     jne short @..local.l56
 @..local.l57:
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word ptr cs:[0x1bfb], 0
+    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:data_1bfb], 0
     jne short @..local.l58
     mov ah, byte [bx]
     xor al, al
@@ -3304,7 +3304,7 @@ io_loc_2f70:
     mov al, 8
     out dx, al
     inc dx
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word ptr cs:[0x1bf9], 0
+    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word [cs:data_1bf9], 0
     je short @..io_loc_2f70.l1
     jmp short @..local.l59
 @..io_loc_2f70.l1:
@@ -3367,7 +3367,7 @@ io_loc_2f70:
     dec ax
     jne short @..local.l60
 @..local.l61:
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word ptr cs:[0x1bfb], 0
+    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:data_1bfb], 0
     jne short @..local.l62
     mov ah, byte [bx]
     xor al, al
@@ -6134,9 +6134,9 @@ dos_read_file_7:
     insb
     jb short 0x4b6f
     popaw
-    db 0x64, 0x79, 0x20 ; jns 0x4b2e
+    db 0x64, 0x79, 0x20 ; jns @..dos_con_loc_4ae1.l3
     jne short 0x4b83
-    db 0x65, 0x64, 0x2e, 0x00, 0x0a ; add byte ptr cs:[bp + si], cl
+    db 0x65, 0x64, 0x2e, 0x00, 0x0a ; add byte [cs:bp + si], cl
     and al, 0x8c
     enter 0xd88e, 0xffba
     es dec sp
@@ -6163,11 +6163,11 @@ dos_con_loc_4b1d:
     and byte [data_2e2e], ch
     and byte [bp + 0x6f], ch
     je short @..dos_con_loc_4ae1.l5
-    db 0x65, 0x6e ; outsb dx, byte ptr gs:[si]
+    db 0x65, 0x6e ; outsb
     outsw
     jne short @..dos_con_loc_4ae1.l9
     push 0x6d20
-    db 0x65, 0x6d ; insw word ptr es:[di], dx
+    db 0x65, 0x6d ; insw
     outsw
     jb short 0x4bc7
     add byte [cs:bp + si], cl

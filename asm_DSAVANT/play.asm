@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_1a04.inc"
+%include "structs/play.inc"
 org 0
 bits 16
 data_0322 equ 0x0322
@@ -353,7 +353,7 @@ io_loc_02ba:
     jmp [cs:bx + 0x45e]
     xchg dx, ax
     push es
-    db 0xdc, 0x04 ; fadd qword ptr [si]
+    db 0xdc, 0x04 ; fadd [si]
     push 0x6804
     add al, 0xca
     add al, 0x8b
@@ -825,16 +825,16 @@ fpu_loc_077b:
     jne short 0x91f
     mov ax, 0
     mov ds, ax
-    mov al, byte [0x0000]
+    mov al, byte [loc_0000]
     mov dx, 0x389
     mov bx, 0x1a3a
     cs xlatb
     out dx, al
     add byte [cs:0x0b95], 0x80
-    db 0x2e, 0x83, 0x16, 0xc4, 0x09, 0x00 ; adc word ptr cs:[0x9c4], 0
+    db 0x2e, 0x83, 0x16, 0xc4, 0x09, 0x00 ; adc word [cs:data_09c4], 0
     jb short 0x8ff
     dec word [cs:data_0b81]
-    db 0x74, 0x09 ; je 0x8ed
+    db 0x74, 0x09 ; je short 0x8ed
     mov al, 0x20
     out 0x20, al
     pop bx
@@ -879,7 +879,7 @@ fpu_loc_077b:
     cs xlatb
     out dx, al
     dec word [cs:data_0b81]
-    db 0x74, 0xb1 ; je 0x8ed
+    db 0x74, 0xb1 ; je short 0x8ed
     mov al, 0x20
     out 0x20, al
     pop bx
@@ -941,13 +941,13 @@ fpu_loc_077b:
     push bx
     mov ax, 0
     mov ds, ax
-    mov al, byte [0x0000]
+    mov al, byte [loc_0000]
     mov dx, word [cs:data_0b8d]
     mov bx, 0x1a3a
     cs xlatb
     out dx, al
     add byte [cs:0x0b95], 0x80
-    db 0x2e, 0x83, 0x16, 0xa9, 0x0a, 0x00 ; adc word ptr cs:[0xaa9], 0
+    db 0x2e, 0x83, 0x16, 0xa9, 0x0a, 0x00 ; adc word [cs:data_0aa9], 0
     jb short 0x969
     dec word [cs:data_0b81]
     je short 0x95d

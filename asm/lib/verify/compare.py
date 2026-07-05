@@ -7,6 +7,7 @@ when a classification bitmap is provided.
 """
 
 import os
+import re
 import struct
 import time
 
@@ -445,7 +446,7 @@ def _detect_file_format(raw_bytes):
     return None
 
 
-def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, local_labels=None, exact_bytes=False):
+def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, local_labels=None, exact_bytes=False, foreign_label_map=None):
     """Build mnem/db_with_comment/db records for a code-like block."""
     from lib.format import format_instruction
 
@@ -468,7 +469,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                 })
             continue
 
-        nasm_text = format_instruction(insn, label_map, local_labels)
+        nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map)
 
         if nasm_text is None:
             for b in bts:
@@ -497,7 +498,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
             db_hex = ', '.join(f'0x{b:02x}' for b in bts)
             rec = {
                 'type': 'db_with_comment',
-                'text': f'{insn.mnemonic} {insn.op_str}',
+                'text': nasm_text,
                 'db_hex': db_hex,
                 'offset': insn.address,
                 'size': insn.size,
@@ -508,7 +509,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
     return records
 
 
-def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None):
+def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None):
     """Replace code-like data_block records with inline records;
     annotate jump tables and known file formats on the rest."""
     new_records = []
@@ -589,7 +590,8 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                                       if i.address - start < safe_end_offset]
                         inline = _generate_inline_code(
                             safe_insns, raw[:safe_end_offset], start,
-                            binary_data, label_map, local_labels, exact_bytes=True)
+                            binary_data, label_map, local_labels, exact_bytes=True,
+                            foreign_label_map=foreign_label_map)
                         if inline:
                             if trace is not None:
                                 trace.event('cascade', 'partial_promote',
@@ -612,7 +614,8 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                     # fall through to normal promotion
 
             if all_decoded or (0 < gap <= 3):
-                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, local_labels, exact_bytes=True)
+                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, local_labels, exact_bytes=True,
+                                               foreign_label_map=foreign_label_map)
                 if inline:
                     if trace is not None:
                         trace.event('cascade', 'promoted', addr=start,
@@ -839,10 +842,33 @@ def _emit_label_record(records, off, label_map, local_labels=None, insn_by_addr=
         })
 
 
+_BARE_MEM_RE = re.compile(r'\[(?:[a-z]+:)?0x[0-9a-f]{4}\]')
+_BARE_FLOW_RE = re.compile(r'\b(?:call|jmp|retf)\s+0x[0-9a-f]{4}\b')
+
+def _count_bare_addrs(records):
+    bare_mem = 0
+    bare_call = 0
+    bare_dbc = 0
+    for r in records:
+        t = r.get('text')
+        if not t:
+            continue
+        if r['type'] == 'mnem':
+            if _BARE_MEM_RE.search(t):
+                bare_mem += 1
+            if _BARE_FLOW_RE.search(t):
+                bare_call += 1
+        elif r['type'] == 'db_with_comment':
+            if _BARE_FLOW_RE.search(t) or _BARE_MEM_RE.search(t):
+                bare_dbc += 1
+    return bare_mem, bare_call, bare_dbc
+
+
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False, show_offsets=False,
            structs=None, asm_dir=None, cascade_promoted=None,
-           carve_1=None, trace=None):
+           carve_1=None, trace=None,
+           foreign_label_map=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -935,12 +961,21 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     for addr in sorted(data_refs):
         if addr == 0:
             continue
-        name = f'data_{addr:04x}'
-        data_labels[addr] = name
+        dname = f'data_{addr:04x}'
+        data_labels[addr] = dname
         if label_map is not None and addr not in label_map:
             if code_targets is not None and addr in code_targets:
                 continue
-            label_map[addr] = name
+            label_map[addr] = dname
+
+    consumer_inc = None
+    if foreign_label_map and asm_dir and name:
+        from lib.cross_ref import write_label_inc
+        labels_dir = os.path.join(asm_dir, 'labels')
+        os.makedirs(labels_dir, exist_ok=True)
+        inc_name = f'{name}_foreign_labels.inc'
+        write_label_inc(foreign_label_map, os.path.join(labels_dir, inc_name))
+        consumer_inc = f'labels/{inc_name}'
 
     records = []
     pending_data = []
@@ -993,10 +1028,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             )
 
             bts = binary_data[off:insn_end]
-            nasm_text = format_instruction(insn, label_map, local_labels)
+            nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map)
 
             if nasm_text:
-                built = micro_assemble(nasm_text, off, label_map, local_labels)
+                built = micro_assemble(nasm_text, off, label_map, local_labels, foreign_label_map=foreign_label_map)
                 exact_here = exact_bytes
                 ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
                 if not ok and not exact_here and built:
@@ -1014,7 +1049,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                     db_hex = ', '.join(f'0x{b:02x}' for b in bts)
                     rec = {
                         'type': 'db_with_comment',
-                        'text': f'{insn.mnemonic} {insn.op_str}',
+                        'text': nasm_text,
                         'db_hex': db_hex,
                         'offset': off,
                         'size': insn.size,
@@ -1046,7 +1081,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         })
 
     t3 = time.perf_counter()
-    records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace, local_labels)
+    records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace, local_labels,
+                                       foreign_label_map=foreign_label_map)
     _annotate_interrupts(records)
     t4 = time.perf_counter()
 
@@ -1073,7 +1109,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     t5 = time.perf_counter()
 
-    src_lines = _build_source(records, start_offset, binary_data, label_map, show_offsets=show_offsets)
+    bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
+
+    src_lines = _build_source(records, start_offset, binary_data, label_map, show_offsets=show_offsets,
+                              consumer_inc=consumer_inc)
     t6 = time.perf_counter()
 
     mnem_count = sum(1 for r in records if r['type'] == 'mnem')
@@ -1100,6 +1139,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'data_blocks': data_blocks,
         'labels': label_count,
         'structs': struct_count,
+        'bare_mem': bare_mem,
+        'bare_call': bare_call,
+        'bare_dbc': bare_dbc,
         'status': 'OK',
         'timing_func_boundaries': t1 - t0,
         'timing_local_labels': t2 - t1,
@@ -1110,11 +1152,15 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     }, emit_class, label_positions
 
 
-def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=False):
+def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=False,
+                  consumer_inc=None):
     """Render the record list to final NASM text."""
     out = []
     out.append('org 0')
     out.append('bits 16')
+    if consumer_inc:
+        out.append(f'%include "{consumer_inc}"')
+        out.append('')
 
     if start_offset == 0x200:
         hdr = binary_data[:start_offset]

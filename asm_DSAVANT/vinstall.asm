@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_3ab8.inc"
+%include "structs/vinstall.inc"
 org 0
 bits 16
     ; DOS MZ executable header
@@ -978,7 +978,7 @@ math_loc_0c21:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    db 0xff, 0xb7, 0x02, 0x00 ; push word ptr [bx + 2]
+    db 0xff, 0xb7, 0x02, 0x00 ; push word [bx + 0x2]
     mov ax, 0x10
     push ax
     mov ax, 0xd
@@ -1753,7 +1753,7 @@ loc_11ba:
     mov ax, word [bp - 0x0196]
     shl ax, 1
     mov bx, ax
-    db 0xff, 0xb7, 0x02, 0x00 ; push word ptr [bx + 2]
+    db 0xff, 0xb7, 0x02, 0x00 ; push word [bx + 0x2]
     mov ax, 0x10
     push ax
     mov ax, 0xd
@@ -1934,7 +1934,7 @@ loc_11ba:
     mov ax, word [bp - 0x0196]
     shl ax, 1
     mov bx, ax
-    db 0xff, 0xb7, 0x02, 0x00 ; push word ptr [bx + 2]
+    db 0xff, 0xb7, 0x02, 0x00 ; push word [bx + 0x2]
     mov ax, 0x10
     push ax
     mov ax, 0xd

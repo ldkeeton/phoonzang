@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_455a.inc"
+%include "structs/vga.inc"
 org 0
 bits 16
 data_01e1 equ 0x01e1
@@ -153,7 +153,7 @@ math_loc_0293:
     sub ax, bx
     mov word [bp - 0x000a], ax
     mov bx, word [cs:data_0291]
-    mov dx, word [cs:0x0293]
+    mov dx, word [cs:math_loc_0293]
     mov dh, bl
     mov ax, word [cs:data_01e5]
     mov es, ax
@@ -194,7 +194,7 @@ math_loc_0293:
     add ax, word [bx + 0xc]
     mov bx, ax
     mov ax, word [cs:data_0291]
-    mov dx, word [cs:0x0293]
+    mov dx, word [cs:math_loc_0293]
     mov dh, al
     mov ax, word [cs:data_01e5]
     mov es, ax
@@ -295,7 +295,7 @@ loc_0447:
     push bp
     mov bp, sp
     mov ax, word [bp + 0xc]
-    mov word [cs:0x0293], ax
+    mov word [cs:math_loc_0293], ax
     mov ax, word [bp + 0xe]
     mov word [cs:data_0291], ax
     mov sp, bp
@@ -1290,7 +1290,7 @@ loc_0e71:
     mov ax, di
     mov cl, 0xa
     shr ax, cl
-    mov word [cs:0x0f6f], ax
+    mov word [cs:dos_con_loc_0f6f], ax
     and di, strict word 0x3ff
     mov cl, 4
     shl di, cl
@@ -1303,7 +1303,7 @@ loc_0e71:
     xor dx, dx
     cmp di, strict word 0x4000
     jne short @..local.l8
-    inc word [cs:0x0f6f]
+    inc word [cs:dos_con_loc_0f6f]
     inc dx
 @..local.l8:
     cmp si, strict word 0x4000
@@ -1343,7 +1343,7 @@ loc_0f3b:
     and si, strict word 0x3fff
     mov ah, 0x44
     mov al, 0
-    mov bx, word [cs:0x0f6f]
+    mov bx, word [cs:dos_con_loc_0f6f]
     mov dx, word [cs:data_0201]
     int 0x67 ; EMS (Expanded Memory)
     cmp bx, word [cs:data_0f6d]
@@ -5669,9 +5669,9 @@ dos_read_file_7:
     insb
     jb short 0x42bd
     popaw
-    db 0x64, 0x79, 0x20 ; jns 0x427c
+    db 0x64, 0x79, 0x20 ; jns @..dos_con_loc_422f.l3
     jne short 0x42d1
-    db 0x65, 0x64, 0x2e, 0x00, 0x0a ; add byte ptr cs:[bp + si], cl
+    db 0x65, 0x64, 0x2e, 0x00, 0x0a ; add byte [cs:bp + si], cl
     and al, 0x8c
     enter 0xd88e, 0xffba
     je short 0x42ae
@@ -5698,11 +5698,11 @@ dos_con_loc_426b:
     and byte [data_2e2e], ch
     and byte [bp + 0x6f], ch
     je short @..dos_con_loc_422f.l6
-    db 0x65, 0x6e ; outsb dx, byte ptr gs:[si]
+    db 0x65, 0x6e ; outsb
     outsw
     jne short @..dos_con_loc_422f.l10
     push 0x6d20
-    db 0x65, 0x6d ; insw word ptr es:[di], dx
+    db 0x65, 0x6d ; insw
     outsw
     jb short 0x4315
     add byte [cs:bp + si], cl

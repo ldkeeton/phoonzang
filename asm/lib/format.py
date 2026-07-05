@@ -55,7 +55,7 @@ def _fmt_imm(val, bits=16):
     return f'0x{uval:04x}'
 
 
-def _fmt_mem(op, insn, label_map=None):
+def _fmt_mem(op, insn, label_map=None, foreign_label_map=None, local_labels=None):
     seg = insn.reg_name(op.mem.segment) if op.mem.segment else ''
     base = insn.reg_name(op.mem.base) if op.mem.base else ''
     idx = insn.reg_name(op.mem.index) if op.mem.index else ''
@@ -73,11 +73,11 @@ def _fmt_mem(op, insn, label_map=None):
     if not inner:
         addr = disp & 0xFFFF
         if label_map and addr in label_map:
-            name = label_map[addr]
-            if name.startswith('data_'):
-                ea = name
-            else:
-                ea = f'0x{addr:04x}'
+            ea = label_map[addr]
+        elif local_labels and addr in local_labels:
+            ea = local_labels[addr]
+        elif foreign_label_map and addr in foreign_label_map:
+            ea = foreign_label_map[addr]
         else:
             ea = f'0x{addr:04x}'
     elif disp < 0:
@@ -120,7 +120,7 @@ def _label_comment(insn, label_map):
     return ''
 
 
-def format_instruction(insn, label_map=None, local_labels=None):
+def format_instruction(insn, label_map=None, local_labels=None, foreign_label_map=None):
     """Return valid NASM line text for *insn*, or None if the instruction
     should stay as raw db bytes."""
     b = insn.bytes
@@ -191,10 +191,12 @@ def format_instruction(insn, label_map=None, local_labels=None):
                 parts.append(local_labels[target])
             elif is_flow and label_map and target in label_map:
                 parts.append(label_map[target])
+            elif is_flow and foreign_label_map and target in foreign_label_map:
+                parts.append(foreign_label_map[target])
             else:
                 parts.append(_fmt_imm(op.imm))
         elif op.type == CS_OP_MEM:
-            parts.append(_fmt_mem(op, insn, label_map))
+            parts.append(_fmt_mem(op, insn, label_map, foreign_label_map, local_labels))
             has_mem = True
 
     ops = ', '.join(parts)
@@ -229,6 +231,8 @@ def format_instruction(insn, label_map=None, local_labels=None):
                 ops = f'far {_fmt_imm(imm0)}:{local_labels[offset16]}'
             elif label_map and offset16 in label_map:
                 ops = f'far {_fmt_imm(imm0)}:{label_map[offset16]}'
+            elif foreign_label_map and offset16 in foreign_label_map:
+                ops = f'far {_fmt_imm(imm0)}:{foreign_label_map[offset16]}'
             else:
                 ops = f'far {_fmt_imm(imm0)}:{_fmt_imm(imm1)}'
 

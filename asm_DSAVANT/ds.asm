@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_c02b.inc"
+%include "structs/ds.inc"
 org 0
 bits 16
     ; DOS MZ executable header
@@ -5232,7 +5232,7 @@ leaf_loc_10108:
     add al, bh
     add byte [bp + si], dh
     add byte [si], dh
-    db 0x00, 0x4b, 0x00 ; add byte ptr [bp + di], cl
+    db 0x00, 0x4b, 0x00 ; add byte [bp + di], cl
     dec sp
     add byte [bp + di - 0x4900], dh
     add byte [di], dh
@@ -5243,9 +5243,9 @@ leaf_loc_10108:
     add byte [bp], bl
     pop si
     add byte [bx + di], cl
-    db 0x00, 0x5f, 0x00 ; add byte ptr [bx], bl
+    db 0x00, 0x5f, 0x00 ; add byte [bx], bl
     xor ax, 0x1c00
-    db 0x00, 0xab, 0x00, 0x00 ; add byte ptr [bp + di], ch
+    db 0x00, 0xab, 0x00, 0x00 ; add byte [bp + di], ch
     add byte [bx + di], cl
     add byte [bp + si], cl
     add byte [bx + di], dl
@@ -5266,15 +5266,15 @@ leaf_loc_10108:
     add byte [bp + si], bh
     add byte [bp + di], bh
     add byte [bx], bh
-    db 0x00, 0x40, 0x00 ; add byte ptr [bx + si], al
+    db 0x00, 0x40, 0x00 ; add byte [bx + si], al
     dec dx
-    db 0x00, 0x4b, 0x00 ; add byte ptr [bp + di], cl
+    db 0x00, 0x4b, 0x00 ; add byte [bp + di], cl
     dec di
-    db 0x00, 0x50, 0x00 ; add byte ptr [bx + si], dl
+    db 0x00, 0x50, 0x00 ; add byte [bx + si], dl
     pop bp
     add byte [bp], bl
     pop di
-    db 0x00, 0x60, 0x00 ; add byte ptr [bx + si], ah
+    db 0x00, 0x60, 0x00 ; add byte [bx + si], ah
     ja short 0x1d8
     js short 0x1da
     jg short 0x1dc
@@ -5394,7 +5394,7 @@ leaf_loc_10108:
     db 0x00, 0x00
     add byte [bx + di], dl
     add byte [bp + si], bh
-    db 0x00, 0x4d, 0x00 ; add byte ptr [di], cl
+    db 0x00, 0x4d, 0x00 ; add byte [di], cl
     aas
     add byte [bp], bh
     xchg bp, ax

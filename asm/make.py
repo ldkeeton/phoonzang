@@ -33,6 +33,7 @@ JOBS = os.cpu_count() or 4
 sys.path.insert(0, ASM)
 from main import discover_binaries, load_whitelist, verify_all, clean_all, verify_project
 from lib.report import STATS_DIR, BASELINE_DIR, clear_stats, clear_project_stats, list_project_dirs
+from lib.cross_ref import detect as detect_cross_refs, read_label_json, write_label_json
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -62,9 +63,11 @@ def _extra_flags():
     return flags
 
 
-def _asm_one(app, binary):
+def _asm_one(app, binary, extra_args=None):
     cmd = [sys.executable, os.path.join(ASM, 'main.py'), app, binary]
     cmd[3:3] = _extra_flags()
+    if extra_args:
+        cmd.extend(extra_args)
     r = _run(*cmd)
     for line in r.stdout.strip().split('\n'):
         print(line)
@@ -114,16 +117,45 @@ def asm_app(app):
 
     print(f'\n=== {app} ({len(bins)} binaries) ===')
 
+    cross_refs = detect_cross_refs(app_dir, bins)
+    source_names = {src for refs in cross_refs.values() for _, src in refs}
+
+    if cross_refs:
+        print(f'  Cross-binary references detected: {len(cross_refs)} consumers')
+        for name in sorted(source_names):
+            print(f'  Source binary: {name}')
+
+    for src_name in sorted(source_names & set(bins.keys())):
+        print(f'  Processing source: {src_name}')
+        if _asm_one(app, src_name, ['--export-labels']) != 0:
+            print(f'  FAILED: {src_name}')
+
+    consumers = [n for n in sorted(bins) if n not in source_names]
+
+    def _foreign_args(name):
+        if name not in cross_refs:
+            return None
+        prefix = next(iter(set(src for _, src in cross_refs[name])), '')
+        json_path = os.path.join(out_dir, f'{prefix}_labels.json')
+        if not os.path.exists(json_path):
+            return None
+        return [
+            f'--foreign-labels={json_path}',
+            f'--foreign-prefix={prefix}',
+        ]
+
     with ThreadPoolExecutor(max_workers=JOBS) as ex:
-        futures = {ex.submit(_asm_one, app, name): name
-                   for name in sorted(bins)}
+        futures = {}
+        for name in consumers:
+            extra = _foreign_args(name)
+            futures[ex.submit(_asm_one, app, name, extra)] = name
         for f in as_completed(futures):
             if f.result() != 0:
                 print(f'  FAILED: {futures[f]}')
 
     build_out = os.path.join(out_dir, 'build_out')
     os.makedirs(build_out, exist_ok=True)
-    for entry in os.listdir(app_dir):
+    for entry in sorted(os.listdir(app_dir)):
         src = os.path.join(app_dir, entry)
         dst = os.path.join(build_out, entry)
         if os.path.isfile(src):
