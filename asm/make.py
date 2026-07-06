@@ -18,6 +18,7 @@ Env:
   EXACT_FLAG (deprecated)  same as EXTRA_FLAGS=--exact-bytes
 """
 
+import json
 import os
 import shutil
 import subprocess
@@ -129,6 +130,36 @@ def asm_app(app):
         print(f'  Processing source: {src_name}')
         if _asm_one(app, src_name, ['--export-labels']) != 0:
             print(f'  FAILED: {src_name}')
+
+    # inject synthetic dispatch labels for cross-binary targets at zero bytes
+    if cross_refs:
+        for src_name in source_names & set(bins.keys()):
+            json_path = os.path.join(out_dir, f'{src_name}_labels.json')
+            if not os.path.exists(json_path):
+                continue
+            src_rel_path = bins[src_name][0]
+            src_path = os.path.join(app_dir, src_rel_path)
+            if not os.path.exists(src_path):
+                continue
+            try:
+                with open(json_path) as f:
+                    labels = json.load(f)
+                with open(src_path, 'rb') as f:
+                    src_data = f.read()
+            except (OSError, json.JSONDecodeError):
+                continue
+            labels = {int(k): v for k, v in labels.items()}
+            changed = False
+            for consumer_name, refs in cross_refs.items():
+                consumer_start = bins[consumer_name][1] if consumer_name in bins else 0
+                for t, src in refs:
+                    if src == src_name:
+                        abs_t = t + consumer_start
+                        if abs_t not in labels and abs_t < len(src_data) and src_data[abs_t] == 0:
+                            labels[abs_t] = f'dispatch_{abs_t:04x}'
+                            changed = True
+            if changed:
+                write_label_json(labels, json_path)
 
     consumers = [n for n in sorted(bins) if n not in source_names]
 

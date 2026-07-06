@@ -24,9 +24,11 @@ bits 16
 
 data_0009 equ 0x0009
 data_021d equ 0x021d
+data_022d equ 0x022d
 data_02c7 equ 0x02c7
 data_0403 equ 0x0403
 data_0410 equ 0x0410
+data_068e equ 0x068e
 data_06c6 equ 0x06c6
 data_090e equ 0x090e
 data_0c72 equ 0x0c72
@@ -60,10 +62,15 @@ data_0e30 equ 0x0e30
 data_0e32 equ 0x0e32
 data_131e equ 0x131e
 data_161c equ 0x161c
+data_1626 equ 0x1626
+data_1926 equ 0x1926
 data_1928 equ 0x1928
 data_1a9d equ 0x1a9d
 data_1c1c equ 0x1c1c
+data_2000 equ 0x2000
 data_220e equ 0x220e
+data_221b equ 0x221b
+data_2600 equ 0x2600
 data_260c equ 0x260c
 data_2633 equ 0x2633
 data_2c12 equ 0x2c12
@@ -83,6 +90,8 @@ data_2daf equ 0x2daf
 data_2db3 equ 0x2db3
 data_2db7 equ 0x2db7
 data_2dbb equ 0x2dbb
+data_2dbf equ 0x2dbf
+data_2dc3 equ 0x2dc3
 data_2dc7 equ 0x2dc7
 data_2dcb equ 0x2dcb
 data_2dcf equ 0x2dcf
@@ -90,13 +99,18 @@ data_2dd3 equ 0x2dd3
 data_2dd7 equ 0x2dd7
 data_2ddb equ 0x2ddb
 data_2ddf equ 0x2ddf
+data_2de3 equ 0x2de3
 data_2de7 equ 0x2de7
 data_2e13 equ 0x2e13
+data_2e23 equ 0x2e23
+data_2e27 equ 0x2e27
+data_2e2b equ 0x2e2b
 data_2e43 equ 0x2e43
 data_2e47 equ 0x2e47
 data_2edc equ 0x2edc
 data_2ede equ 0x2ede
 data_2ee0 equ 0x2ee0
+data_3300 equ 0x3300
 data_3472 equ 0x3472
 data_3887 equ 0x3887
 data_3a7f equ 0x3a7f
@@ -117,6 +131,7 @@ data_82f0 equ 0x82f0
 data_830a equ 0x830a
 data_830c equ 0x830c
 data_c02b equ 0xc02b
+data_ff00 equ 0xff00
 
 loc_0200:
     mov ax, 0
@@ -448,13 +463,13 @@ string_loc_08c6:
     sub ah, ah
     mov word [bp + 0x8], ax
     jmp short math_loc_08f2
-    mov es, word [0x068e]
+    mov es, word [data_068e]
     mov ax, 0x9c06
     push es
     db 0xf2, 0x06 ; push es
     stosb
     push es
-    mov byte [0x022d], 0
+    mov byte [data_022d], 0
     cmp ax, strict word 7
     jae short math_loc_08f2
     xchg bx, ax
@@ -3258,7 +3273,7 @@ string_loc_3a50:
     push bp
     db 0x8b, 0xec ; mov bp, sp
     cld
-    call far [cs:0x2dbf]
+    call far [cs:data_2dbf]
     db 0x8b, 0xe5 ; mov sp, bp
     pop bp
     ret
@@ -3336,7 +3351,7 @@ loc_3b21:
     push bp
     db 0x8b, 0xec ; mov bp, sp
     cld
-    call far [cs:0x2dc3]
+    call far [cs:data_2dc3]
     db 0x8b, 0xe5 ; mov sp, bp
     pop bp
     ret
@@ -3367,7 +3382,7 @@ math_loc_3b55:
     push bp
     db 0x8b, 0xec ; mov bp, sp
     cld
-    call far [cs:0x2e27]
+    call far [cs:data_2e27]
     db 0x8b, 0xe5 ; mov sp, bp
     pop bp
     ret
@@ -3382,14 +3397,14 @@ math_loc_3b6f:
     push bp
     db 0x8b, 0xec ; mov bp, sp
     cld
-    call far [cs:0x2e23]
+    call far [cs:data_2e23]
     db 0x8b, 0xe5 ; mov sp, bp
     pop bp
     ret
     push bp
     db 0x8b, 0xec ; mov bp, sp
     cld
-    call far [cs:0x2e2b]
+    call far [cs:data_2e2b]
     db 0x8b, 0xe5 ; mov sp, bp
     pop bp
     ret
@@ -4047,7 +4062,7 @@ bios_mouse_loc_428d:
     push bp
     db 0x8b, 0xec ; mov bp, sp
     cld
-    call far [cs:0x2de3]
+    call far [cs:data_2de3]
     db 0x8b, 0xe5 ; mov sp, bp
     pop bp
     ret
@@ -5318,10 +5333,10 @@ leaf_loc_10108:
     or byte [bx + si], cl
     or cl, byte [di]
     adc word [di], dx
-    sbb dx, word [0x221b]
+    sbb dx, word [data_221b]
     push ss
     sbb sp, word [bp + si]
-    sbb word [0x1926], bx
+    sbb word [data_1926], bx
     push ds
     sbb ah, byte [es:bx + si]
     sub byte [bp + si], bl
@@ -5332,7 +5347,7 @@ leaf_loc_10108:
     sbb al, 0x22
     sub bx, word [bp + si]
     and byte [bx + si], ch
-    sbb word [0x1626], bx
+    sbb word [data_1626], bx
     sbb sp, word [bp + si]
     adc bx, word [bx + si]
     pop ds
@@ -5343,8 +5358,8 @@ leaf_loc_10108:
     add ax, 0x806
     and word [bx + si], ax
     daa
-    add byte [0x2000], ah
-    add byte [0x2600], ah
+    add byte [data_2000], ah
+    add byte [data_2600], ah
     add byte [bx + si], ah
     add byte [bx + si], ah
     add byte [bx + si], ah
@@ -5404,13 +5419,13 @@ leaf_loc_10108:
     add byte [di], bl
     add byte [bp + si], dh
     add byte [si], al
-    add byte [0x3300], bl
+    add byte [data_3300], bl
     add byte [bx + di], al
     add byte [bp + si], al
     add byte [bp + di], al
     add byte [si], al
     add byte [di], al
-    add byte [0xff00], al
+    add byte [data_ff00], al
 
     db 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0a, 0x00, 0x0b
     db 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x0c, 0x00, 0x0d, 0x00, 0x0e

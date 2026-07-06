@@ -292,9 +292,13 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         'status': stats['status'],
         'mnemonic': stats['mnemonic'],
         'data': stats['data'],
+        'with_comment': stats.get('with_comment', 0),
         'data_blocks': stats['data_blocks'],
         'labels': stats['labels'],
         'structs': stats['structs'],
+        'bare_mem': stats.get('bare_mem', 0),
+        'bare_call': stats.get('bare_call', 0),
+        'bare_dbc': stats.get('bare_dbc', 0),
     }
     report_path = write_report(ctx, asm_text)
     write_layers(ctx)
@@ -380,6 +384,26 @@ def process_project(project_name):
                         export_labels=True)
         source_label_maps[name] = lm
 
+    # inject synthetic dispatch labels for cross-binary targets at zero bytes
+    if cross_refs:
+        for src_name in source_names & set(bins.keys()):
+            if src_name not in source_label_maps:
+                continue
+            src_path = os.path.join(project_dir, bins[src_name][0])
+            try:
+                with open(src_path, 'rb') as f:
+                    src_data = f.read()
+            except OSError:
+                continue
+            lm = source_label_maps[src_name]
+            for consumer_name, refs in cross_refs.items():
+                consumer_start = bins[consumer_name][1] if consumer_name in bins else 0
+                for t, src in refs:
+                    if src == src_name:
+                        abs_t = t + consumer_start
+                        if abs_t not in lm and abs_t < len(src_data) and src_data[abs_t] == 0:
+                            lm[abs_t] = f'dispatch_{abs_t:04x}'
+
     for name, (rel_path, start_offset) in sorted(bins.items()):
         if name in source_names:
             continue
@@ -435,7 +459,7 @@ def byte_verify(name, orig_dir, rel_path, asm_dir, start_offset,
 
     with tempfile.NamedTemporaryFile(suffix='.bin') as tmp:
         r = subprocess.run(
-            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-o', tmp.name, asm_path],
+            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', f'-I{asm_dir}/', '-o', tmp.name, asm_path],
             capture_output=True, text=True,
         )
 
@@ -582,7 +606,7 @@ def verify_project(project_name):
     ok = 0
     fail = []
     for name, (rel_path, start_offset) in sorted(bins.items()):
-        if byte_verify(name, app_dir, rel_path, out_dir, start_offset,
+        if byte_verify(name, project_dir, rel_path, out_dir, start_offset,
                        exact_bytes=EXACT_BYTES):
             ok += 1
         else:

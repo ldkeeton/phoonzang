@@ -486,6 +486,19 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
         if not ok and not exact_bytes and built:
             ok = is_semantically_equivalent(bts, built[:len(bts)], insn.address)
         if ok:
+            new_text = None
+            if label_map is not None:
+                for op in insn.operands:
+                    if op.type == CS_OP_MEM and op.mem.base == 0 and op.mem.index == 0:
+                        addr = op.mem.disp & 0xFFFF
+                        if addr != 0 and addr not in label_map:
+                            label_map[addr] = f'data_{addr:04x}'
+                            clear_assemble_cache()
+                            new_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map)
+                            if new_text:
+                                rebuilt = micro_assemble(new_text, insn.address, label_map, local_labels)
+                                if rebuilt and len(built) >= len(bts) and rebuilt[:len(bts)] == bts:
+                                    nasm_text = new_text
             rec = {
                 'type': 'mnem',
                 'text': nasm_text,
