@@ -23,24 +23,33 @@ bits 16
     times 478 db 0
 
 data_0009 equ 0x0009
+loc_0200 equ 0x0200
 data_021d equ 0x021d
 data_022d equ 0x022d
+loc_022f equ 0x022f
+loc_0242 equ 0x0242
 data_02c7 equ 0x02c7
+loc_03b8 equ 0x03b8
 data_0403 equ 0x0403
 data_0410 equ 0x0410
+loc_0547 equ 0x0547
 data_068e equ 0x068e
 data_06c6 equ 0x06c6
+loc_08e2 equ 0x08e2
 data_090e equ 0x090e
+loc_0b54 equ 0x0b54
 data_0c72 equ 0x0c72
 data_0c78 equ 0x0c78
 data_0c7a equ 0x0c7a
 data_0c7e equ 0x0c7e
 data_0c9c equ 0x0c9c
+loc_0ced equ 0x0ced
 data_0cf0 equ 0x0cf0
 data_0cf2 equ 0x0cf2
 data_0cfa equ 0x0cfa
 data_0cfc equ 0x0cfc
 data_0d00 equ 0x0d00
+loc_0e03 equ 0x0e03
 data_0e0e equ 0x0e0e
 data_0e10 equ 0x0e10
 data_0e12 equ 0x0e12
@@ -60,7 +69,11 @@ data_0e2c equ 0x0e2c
 data_0e2e equ 0x0e2e
 data_0e30 equ 0x0e30
 data_0e32 equ 0x0e32
+loc_0e82 equ 0x0e82
+loc_0ee1 equ 0x0ee1
+loc_0f2a equ 0x0f2a
 data_131e equ 0x131e
+loc_1371 equ 0x1371
 data_161c equ 0x161c
 data_1626 equ 0x1626
 data_1926 equ 0x1926
@@ -70,9 +83,11 @@ data_1c1c equ 0x1c1c
 data_2000 equ 0x2000
 data_220e equ 0x220e
 data_221b equ 0x221b
+loc_23ef equ 0x23ef
 data_2600 equ 0x2600
 data_260c equ 0x260c
 data_2633 equ 0x2633
+loc_27e9 equ 0x27e9
 data_2c12 equ 0x2c12
 data_2d25 equ 0x2d25
 data_2d36 equ 0x2d36
@@ -110,13 +125,34 @@ data_2e47 equ 0x2e47
 data_2edc equ 0x2edc
 data_2ede equ 0x2ede
 data_2ee0 equ 0x2ee0
+loc_30e9 equ 0x30e9
 data_3300 equ 0x3300
+loc_343e equ 0x343e
 data_3472 equ 0x3472
+loc_3490 equ 0x3490
 data_3887 equ 0x3887
 data_3a7f equ 0x3a7f
+loc_3b21 equ 0x3b21
+loc_3b3b equ 0x3b3b
+loc_3c97 equ 0x3c97
 data_3dfe equ 0x3dfe
+loc_415b equ 0x415b
+loc_4168 equ 0x4168
+loc_41fe equ 0x41fe
+loc_420b equ 0x420b
+loc_4218 equ 0x4218
+loc_4379 equ 0x4379
+loc_4386 equ 0x4386
+loc_4517 equ 0x4517
+loc_4652 equ 0x4652
+loc_4a44 equ 0x4a44
+loc_4a4a equ 0x4a4a
+loc_4a5b equ 0x4a5b
+loc_4a7a equ 0x4a7a
 data_4b38 equ 0x4b38
 data_4d00 equ 0x4d00
+loc_4f73 equ 0x4f73
+loc_4fda equ 0x4fda
 data_5000 equ 0x5000
 data_5218 equ 0x5218
 data_5987 equ 0x5987
@@ -133,7 +169,6 @@ data_830c equ 0x830c
 data_c02b equ 0xc02b
 data_ff00 equ 0xff00
 
-loc_0200:
     mov ax, 0
     call loc_4652
     push word [bp + 0x6]
@@ -148,10 +183,9 @@ loc_0200:
     push word [bp + 0x8]
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call 0x4517
+    call loc_4517
     add sp, byte 0x0a
     ret
-loc_022f:
     mov ax, 0
     call loc_4652
     push word [bp + 0x6]
@@ -159,7 +193,6 @@ loc_022f:
     call dos_free_mem
     add sp, byte 4
     ret
-loc_0242:
     mov ax, 0xfffe
     call loc_4652
     mov word [bp - 0x0002], 0
@@ -284,7 +317,6 @@ loc_0242:
     call bios_video_loc_30a3
 @..local.l20:
     ret
-loc_03b8:
     mov ax, 0
     call loc_4652
     push word [bp + 0x4]
@@ -320,7 +352,6 @@ loc_03b8:
     db 0xc3, 0xb8, 0x00, 0x00, 0xe8, 0x1e, 0x41, 0xff, 0x76, 0x08, 0xff, 0x76, 0x06, 0x8b, 0x46, 0x04
     db 0x99, 0x52, 0x50, 0xe8, 0x97, 0xff, 0x83, 0xc4, 0x08, 0xc3
 
-loc_0547:
     mov ax, 0xfefa
     call loc_4652
     mov word [bp - 0x0002], 0
@@ -432,7 +463,7 @@ string_loc_0876:
     mov ax, 0xff00
     call loc_4652
     mov ax, word [bp + 0x4]
-    jmp short 0x8e2
+    jmp short loc_08e2
 string_loc_088e:
     mov bx, word [bp + 0x8]
     mov al, byte [bx + 0x5244]
@@ -592,7 +623,6 @@ math_loc_0a09:
     db 0x18, 0xb8, 0xff, 0xff, 0x50, 0x50, 0xb8, 0x00, 0x00, 0x50, 0x50, 0xb8, 0x00, 0x00, 0xba, 0x00
     db 0x00, 0x52, 0x50, 0xe8, 0x5a, 0x37, 0x83, 0xc4, 0x0c, 0xe8, 0x0b, 0x33, 0xc3
 
-loc_0b54:
     mov ax, 0xfffc
     call loc_4652
     mov word [data_59fa], 0
@@ -685,7 +715,6 @@ loc_0b54:
     db 0x03, 0x46, 0xfe, 0x99, 0xf7, 0xf9, 0x89, 0x56, 0xfe, 0xeb, 0xb6, 0x8a, 0x46, 0xfe, 0xa2, 0xd6
     db 0x0f, 0xc3
 
-loc_0ced:
     mov ax, 0
     call loc_4652
     mov al, byte [bp + 0xe]
@@ -728,7 +757,6 @@ loc_0ced:
     db 0xff, 0x76, 0x08, 0xff, 0x76, 0x06, 0xff, 0x76, 0x04, 0xe8, 0x25, 0x2d, 0x83, 0xc4, 0x08, 0xe8
     db 0x5c, 0x30, 0xc3
 
-loc_0e03:
     mov ax, 0
     call loc_4652
     mov ax, 0
@@ -796,7 +824,6 @@ loc_0e03:
     call math_loc_3b48
     add sp, byte 0x0a
     ret
-loc_0e82:
     mov ax, 0
     call loc_4652
     push word [bp + 0xc]
@@ -832,7 +859,6 @@ loc_0e82:
     call math_loc_3b48
     add sp, byte 0x0a
     ret
-loc_0ee1:
     mov ax, 0
     call loc_4652
     mov ax, 0xc2
@@ -860,7 +886,6 @@ loc_0ee1:
     call loc_0e82
     add sp, byte 0x0c
     ret
-loc_0f2a:
     mov ax, 0
     call loc_4652
     mov ax, 0xc0
@@ -1117,7 +1142,6 @@ math_loc_1308:
     add sp, byte 4
 @..math_loc_1308.l2:
     ret
-loc_1371:
     mov ax, 0
     call loc_4652
     push word [bp + 0x4]
@@ -1774,7 +1798,6 @@ math_loc_23a8:
     add sp, byte 4
     mov ax, 0x69ca
     ret
-loc_23ef:
     mov ax, 0xff46
     call loc_4652
     mov word [bp - 0x00b0], 0x37
@@ -2186,7 +2209,6 @@ loc_23ef:
     pop cx
 @..local.l58:
     ret
-loc_27e9:
     mov ax, 0xffe8
     call loc_4652
     mov word [bp - 0x0016], 0
@@ -2657,7 +2679,7 @@ bios_video_loc_30c3:
     ret
     mov ax, 0x10b
     add byte [bx], ch
-    jne short 0x30e9
+    jne short loc_30e9
     mov ax, 0
     mov es, ax
     mov bx, 0x46c
@@ -2673,7 +2695,7 @@ bios_get_video_mode:
     mov ax, word [bp + 0x4]
     and ax, strict word 1
     jne short @..bios_get_video_mode.l1
-    jmp near 0x3490
+    jmp near loc_3490
 @..bios_get_video_mode.l1:
     mov ax, 0
     push ds
@@ -2695,7 +2717,7 @@ bios_get_video_mode:
     cmp bh, 8
     jne short @..bios_get_video_mode.l3
 @..bios_get_video_mode.l2:
-    jmp near 0x343e
+    jmp near loc_343e
 @..bios_get_video_mode.l3:
     mov word [bp - 0x0002], 0
     ret
@@ -2863,7 +2885,7 @@ leaf_loc_3330:
     sbb byte [bx + si], cl
     add byte [bx + si], dl
     sbb byte [bx + si], bl
-    and byte [data_06c6], ch
+    db 0x20, 0x2e, 0xc6, 0x06
     cmp ch, byte [di]
     add byte [data_06c6], ch
     cmp bp, word [di]
@@ -3340,7 +3362,6 @@ string_loc_3a95:
     db 0xd8, 0x33, 0xc0, 0x26, 0x8a, 0x47, 0x01, 0x03, 0xc8, 0x03, 0x4e, 0xfe, 0x46, 0xeb, 0xe3, 0x8b
     db 0xc1, 0x5e, 0x07, 0x8b, 0xe5, 0x5d, 0xc3
 
-loc_3b21:
     push bp
     mov bp, sp
     cld
@@ -3355,7 +3376,6 @@ loc_3b21:
     db 0x8b, 0xe5 ; mov sp, bp
     pop bp
     ret
-loc_3b3b:
     push bp
     mov bp, sp
     cld
@@ -3483,7 +3503,6 @@ math_loc_3c0d:
 
     times 24 db 0
 
-loc_3c97:
     push bp
     mov bp, sp
     cld
@@ -3983,7 +4002,6 @@ strlen_2:
     db 0xfc, 0x2e, 0xff, 0x1e, 0x37, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff
     db 0x1e, 0x3f, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3
 
-loc_415b:
     push bp
     mov bp, sp
     cld
@@ -3991,7 +4009,6 @@ loc_415b:
     mov sp, bp
     pop bp
     ret
-loc_4168:
     push bp
     mov bp, sp
     cld
@@ -4011,7 +4028,6 @@ loc_4168:
     db 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x5f, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec
     db 0xfc, 0x2e, 0xff, 0x1e, 0x9b, 0x2d, 0x8b, 0xe5, 0x5d, 0xc3
 
-loc_41fe:
     push bp
     mov bp, sp
     cld
@@ -4019,7 +4035,6 @@ loc_41fe:
     mov sp, bp
     pop bp
     ret
-loc_420b:
     push bp
     mov bp, sp
     cld
@@ -4027,7 +4042,6 @@ loc_420b:
     mov sp, bp
     pop bp
     ret
-loc_4218:
     push bp
     mov bp, sp
     cld
@@ -4111,13 +4125,11 @@ mouse_set_pos:
     db 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x2f, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55
     db 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x33, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3
 
-loc_4379:
     mov bx, sp
     mov ax, word [bx + 0x2]
     mov word [data_0cfa], ax
     call loc_4386
     jmp ax
-loc_4386:
     push bp
     mov bp, sp
     add sp, byte 0xae
@@ -4443,7 +4455,6 @@ dos_free_mem:
     db 0xe2, 0xfa, 0x8b, 0xd8, 0xb4, 0x4a, 0x8e, 0x46, 0x06, 0xcd, 0x21, 0x72, 0x08, 0x8b, 0x46, 0x04
     db 0x8b, 0x56, 0x06, 0x5d, 0xc3, 0x33, 0xc0, 0x33, 0xd2, 0xeb, 0xf8, 0x3a, 0x4b
 
-loc_4652:
     pop bx
 stack_alloc_check:
     push bp
@@ -4756,17 +4767,14 @@ math_loc_4937:
     jmp short @..string_loc_490f.l20
 @..string_loc_490f.l21:
     jmp near @..string_loc_4867.l1
-loc_4a44:
     or byte [bp - 0x000b], 0x20
     add al, 0x20
-loc_4a4a:
     add word [bp + 0x8], byte 8
     mov ax, cs
     mov es, ax
     mov di, 0x465c
     sub word [bp - 0x0004], byte 0x0a
     jmp short @..string_loc_490f.l19
-loc_4a5b:
     call string_loc_4aed
     push di
     mov al, 0
@@ -4781,7 +4789,6 @@ loc_4a5b:
     pop di
     mov word [bp - 0x0006], 0
     jmp near @..string_loc_490f.l13
-loc_4a7a:
     push ds
     pop es
     mov di, word [bp + 0x8]
@@ -5083,7 +5090,6 @@ dos_proc_loc_4e7e:
     db 0x04, 0x0d, 0xe8, 0x73, 0xde, 0x83, 0xc4, 0x04, 0xb8, 0x00, 0x00, 0x50, 0xe8, 0x07, 0x00, 0x59
     db 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3
 
-loc_4f73:
     push bp
     mov bp, sp
     call [data_0c9c]

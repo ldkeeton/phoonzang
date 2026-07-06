@@ -488,17 +488,29 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
         if ok:
             new_text = None
             if label_map is not None:
+                is_flow = insn.mnemonic in ('jmp', 'call', 'jcxz', 'jecxz', 'loop', 'loope', 'loopne',
+                                            'je', 'jne', 'jb', 'jae', 'jbe', 'ja', 'jl', 'jge', 'jle', 'jg',
+                                            'js', 'jns', 'jp', 'jnp', 'jo', 'jno')
+                if is_flow:
+                    for op in insn.operands:
+                        if op.type == CS_OP_IMM:
+                            target = op.imm & 0xFFFF
+                            if (start_offset <= target < len(binary_data)
+                                    and target not in label_map):
+                                label_map[target] = f'loc_{target:04x}'
+                                clear_assemble_cache()
                 for op in insn.operands:
                     if op.type == CS_OP_MEM and op.mem.base == 0 and op.mem.index == 0:
                         addr = op.mem.disp & 0xFFFF
                         if addr != 0 and addr not in label_map:
                             label_map[addr] = f'data_{addr:04x}'
                             clear_assemble_cache()
-                            new_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map)
-                            if new_text:
-                                rebuilt = micro_assemble(new_text, insn.address, label_map, local_labels)
-                                if rebuilt and len(built) >= len(bts) and rebuilt[:len(bts)] == bts:
-                                    nasm_text = new_text
+            if new_text is None:
+                re_check = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map)
+                if re_check and re_check != nasm_text:
+                    rebuilt = micro_assemble(re_check, insn.address, label_map, local_labels)
+                    if rebuilt and len(built) >= len(bts) and rebuilt[:len(bts)] == bts:
+                        nasm_text = re_check
             rec = {
                 'type': 'mnem',
                 'text': nasm_text,
@@ -828,7 +840,7 @@ def _flush_data_block(records, pending_data, data_block_start, end_off):
 def _emit_label_record(records, off, label_map, local_labels=None, insn_by_addr=None):
     if label_map and off in label_map:
         name = label_map[off]
-        if name.startswith('data_'):
+        if name.startswith('data_') or name.startswith('loc_'):
             if local_labels and off in local_labels:
                 records.append({
                     'type': 'label',
@@ -980,6 +992,28 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             if code_targets is not None and addr in code_targets:
                 continue
             label_map[addr] = dname
+
+    # ── Pre-collect code targets from call/jmp instruction operands ──
+    is_flow = {'jmp', 'call', 'jcxz', 'jecxz', 'loop', 'loope', 'loopne',
+               'je', 'jne', 'jb', 'jae', 'jbe', 'ja', 'jl', 'jge', 'jle', 'jg',
+               'js', 'jns', 'jp', 'jnp', 'jo', 'jno'}
+    if label_map is not None:
+        for insn in insns:
+            if insn.mnemonic not in is_flow:
+                continue
+            for op in insn.operands:
+                if op.type != CS_OP_IMM:
+                    continue
+                target = op.imm & 0xFFFF
+                if target < start_offset or target >= total:
+                    continue
+                if target in local_labels:
+                    continue
+                if foreign_label_map and target in foreign_label_map:
+                    continue
+                if target not in label_map:
+                    label_map[target] = f'loc_{target:04x}'
+                    known_addrs.add(target)
 
     consumer_inc = None
     if foreign_label_map and asm_dir and name:
@@ -1207,7 +1241,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     if label_map:
         for addr in sorted(label_map):
             name = label_map[addr]
-            if name.startswith('data_'):
+            if name.startswith('data_') or name.startswith('loc_'):
                 out.append(f'{name} equ 0x{addr:04x}')
         out.append('')
 

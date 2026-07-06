@@ -17,6 +17,7 @@ ds_string_loc_089c equ 0x089c
 ds_string_loc_08aa equ 0x08aa
 ds_string_loc_08b8 equ 0x08b8
 ds_string_loc_08c6 equ 0x08c6
+ds_loc_08e2 equ 0x08e2
 ds_math_loc_08f2 equ 0x08f2
 ds_data_090e equ 0x090e
 ds_math_loc_0a09 equ 0x0a09
@@ -125,10 +126,13 @@ ds_data_2ede equ 0x2ede
 ds_data_2ee0 equ 0x2ee0
 ds_bios_video_loc_30a3 equ 0x30a3
 ds_bios_video_loc_30c3 equ 0x30c3
+ds_loc_30e9 equ 0x30e9
 ds_bios_get_video_mode equ 0x30f7
 ds_data_3300 equ 0x3300
 ds_leaf_loc_3330 equ 0x3330
+ds_loc_343e equ 0x343e
 ds_data_3472 equ 0x3472
+ds_loc_3490 equ 0x3490
 ds_dos_con_loc_35b8 equ 0x35b8
 ds_dos_con_loc_3640 equ 0x3640
 ds_dos_mem_loc_36d0 equ 0x36d0
@@ -178,6 +182,7 @@ ds_dos_file_loc_4462 equ 0x4462
 ds_dos_file_loc_4497 equ 0x4497
 ds_dos_read_file_3 equ 0x44b4
 ds_string_loc_44d4 equ 0x44d4
+ds_loc_4517 equ 0x4517
 ds_string_loc_454d equ 0x454d
 ds_strlen_3 equ 0x4574
 ds_strlen_4 equ 0x45ab
@@ -216,6 +221,7 @@ ds_dos_proc_loc_4e7e equ 0x4e7e
 ds_loc_4f73 equ 0x4f73
 ds_dos_file_loc_4fb6 equ 0x4fb6
 ds_dos_file_loc_4fbd equ 0x4fbd
+ds_loc_4fda equ 0x4fda
 ds_dos_file_loc_4fec equ 0x4fec
 ds_data_5000 equ 0x5000
 ds_dos_file_loc_5004 equ 0x5004

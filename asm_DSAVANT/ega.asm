@@ -2,6 +2,8 @@
 %include "structs/ega.inc"
 org 0
 bits 16
+loc_0000 equ 0x0000
+loc_0003 equ 0x0003
 data_01e1 equ 0x01e1
 data_01e5 equ 0x01e5
 data_01e9 equ 0x01e9
@@ -30,10 +32,15 @@ data_0300 equ 0x0300
 data_038f equ 0x038f
 data_0391 equ 0x0391
 data_03bb equ 0x03bb
+loc_0462 equ 0x0462
 data_0a48 equ 0x0a48
 data_11cb equ 0x11cb
 data_11cd equ 0x11cd
+loc_1221 equ 0x1221
+loc_1392 equ 0x1392
+loc_145c equ 0x145c
 data_148e equ 0x148e
+loc_1520 equ 0x1520
 data_1bd5 equ 0x1bd5
 data_1bd7 equ 0x1bd7
 data_1bd9 equ 0x1bd9
@@ -62,8 +69,11 @@ data_2b04 equ 0x2b04
 data_2b06 equ 0x2b06
 data_2b08 equ 0x2b08
 data_2e2e equ 0x2e2e
+loc_3035 equ 0x3035
+loc_303d equ 0x303d
 data_3296 equ 0x3296
 data_3297 equ 0x3297
+loc_3570 equ 0x3570
 data_36dd equ 0x36dd
 data_3705 equ 0x3705
 data_3a3a equ 0x3a3a
@@ -71,11 +81,29 @@ data_3b21 equ 0x3b21
 data_3b22 equ 0x3b22
 data_3b34 equ 0x3b34
 data_3b35 equ 0x3b35
+loc_440e equ 0x440e
 data_4540 equ 0x4540
+loc_4825 equ 0x4825
 data_4907 equ 0x4907
+loc_4b16 equ 0x4b16
+loc_4b52 equ 0x4b52
+loc_4b6f equ 0x4b6f
+loc_4b83 equ 0x4b83
+loc_4bc7 equ 0x4bc7
+loc_4c4c equ 0x4c4c
+loc_4c93 equ 0x4c93
+loc_4dd9 equ 0x4dd9
+loc_4e48 equ 0x4e48
+loc_4e64 equ 0x4e64
+loc_4fc4 equ 0x4fc4
+loc_5000 equ 0x5000
+loc_503c equ 0x503c
+loc_50d1 equ 0x50d1
+loc_5118 equ 0x5118
+loc_5130 equ 0x5130
+loc_5148 equ 0x5148
 
-loc_0000:
-    jmp near 3
+    jmp near loc_0003
 
     db 0xe8, 0x13, 0x17, 0xcb, 0xe8, 0x06, 0x18, 0xcb, 0xe8, 0x01, 0x19, 0xcb, 0xe8, 0xee, 0x18, 0xcb
     db 0xe8, 0xab, 0x18, 0xcb, 0xe8, 0x6b, 0x30, 0xcb, 0xe8, 0x00, 0x36, 0xcb, 0xe8, 0xd1, 0x0d, 0xcb
@@ -316,7 +344,6 @@ leaf_loc_0447:
     mov sp, bp
     pop bp
     ret
-loc_0462:
     push bp
     mov bp, sp
     push es
@@ -1715,7 +1742,7 @@ dos_con_loc_10ff:
     add word [cs:data_11cd], ax
     mov ax, word [cs:data_11cd]
     cmp ax, 0x4180
-    jae short 0x1221
+    jae short loc_1221
     mov ax, ds
     add ax, 0x100
     mov ds, ax
@@ -1761,7 +1788,8 @@ dos_con_loc_10ff:
     mov dx, 0x1331
 dos_con_loc_1218:
     mov ah, 9
-    db 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21, 0x8c, 0xc8, 0x8e, 0xd8, 0xba
+    db 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21
+    db 0x8c, 0xc8, 0x8e, 0xd8, 0xba
 dos_con_loc_1226:
     mov word [bp + di], ss
     mov ah, 9
@@ -1869,7 +1897,6 @@ leaf_loc_1355:
     pop ax
     ret
     times 4 db 0
-loc_1392:
     dec ax
     mov cl, 2
     shl ax, cl
@@ -1951,7 +1978,6 @@ loc_1392:
     mov word [cs:bx], ax
     mov word [cs:bx + 0x2], ax
     ret
-loc_145c:
     and di, strict word 0x3fff
     and si, strict word 0x3fff
     mov ah, 0x44
@@ -2024,7 +2050,7 @@ dos_print_str:
     add bx, ax
     mov bx, word [cs:bx]
     or bx, bx
-    jne short 0x1520
+    jne short loc_1520
     mov ax, cs
     mov ds, ax
     mov dx, 0x160b
@@ -2044,7 +2070,7 @@ dos_print_str:
     dec di
     push dx
     add byte [cs:bp + si], cl
-    and al, 0x4b
+    db 0x24, 0x4b
     mov cl, 2
     shl bx, cl
     add bx, strict word 0x10fb
@@ -3388,10 +3414,8 @@ io_loc_2f70:
     pop cx
     loop @..local.l59
     ret
-loc_3035:
     mov word [cs:data_2b02], 0
     ret
-loc_303d:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -3910,7 +3934,6 @@ mouse_set_pos_3:
     mov sp, bp
     pop bp
     ret
-loc_3570:
     push bp
     mov bp, sp
     sub sp, byte 8
@@ -5277,7 +5300,7 @@ dos_write_file_2:
     inc dx
     add bx, byte 2
     loop @..dos_con_loc_40d4.l8
-    jmp near 0x440e
+    jmp near loc_440e
 @..dos_con_loc_40d4.l9:
     mov word [bp - 0x000c], dx
     mov ax, word [cs:data_11cb]
@@ -5469,8 +5492,9 @@ dos_con_loc_43d8:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of MAZE/PIC memory.', 0
-    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a, 0x8c, 0xc8, 0x8e, 0xd8, 0xba
+    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a
 
+    db 0x8c, 0xc8, 0x8e, 0xd8, 0xba
 dos_con_loc_4413:
     push ds
     inc bp
@@ -5879,7 +5903,6 @@ dos_con_loc_47f7:
     db 'CACHEMAZE().  Insufficient EMS.', 0
     db 0x0a, 0x24
 
-loc_4825:
     push bp
     mov bp, sp
     sub sp, byte 0x14
@@ -6078,7 +6101,7 @@ dos_read_file_6:
     mov ax, word [bx]
     or ax, ax
     je short @..dos_con_loc_493a.l3
-    jmp near 0x4b52
+    jmp near loc_4b52
 @..dos_con_loc_493a.l3:
     mov bx, word [bp - 0x0002]
     mov ax, word [bp - 0x0004]
@@ -6091,7 +6114,7 @@ dos_read_file_6:
     mov word [cs:bx + 0x2], ax
     add ax, word [cs:data_11cd]
     cmp ax, 0x4180
-    jae short 0x4b16
+    jae short loc_4b16
     mov word [cs:data_11cd], ax
     mov ax, word [cs:bx]
     add ax, word [cs:data_01e1]
@@ -6132,12 +6155,12 @@ dos_read_file_7:
     je short @..dos_con_loc_4ae1.l2
     popaw
     insb
-    jb short 0x4b6f
+    jb short loc_4b6f
     popaw
     db 0x64, 0x79, 0x20 ; jns @..dos_con_loc_4ae1.l3
-    jne short 0x4b83
+    jne short loc_4b83
     db 0x65, 0x64, 0x2e, 0x00, 0x0a ; add byte [cs:bp + si], cl
-    and al, 0x8c
+    db 0x24, 0x8c
     enter 0xd88e, 0xffba
     es dec sp
 dos_con_loc_4b1d:
@@ -6169,9 +6192,9 @@ dos_con_loc_4b1d:
     push 0x6d20
     db 0x65, 0x6d ; insw
     outsw
-    jb short 0x4bc7
+    jb short loc_4bc7
     add byte [cs:bp + si], cl
-    and al, 0x8b
+    db 0x24, 0x8b
     enter 0xa12e, 0xffe9
     add word [bp + 0x33d8], cx
     ror byte [bp + di + 0xc5e], cl
@@ -6182,14 +6205,15 @@ dos_con_loc_4b1d:
     mov bx, word [bp + 0xc]
     mov cx, 0x1000
     mov ah, 0x3f
-    int 0x21 ; DOS read file (handle)
+    db 0xcd, 0x21
     mov si, 0x400
     mov di, 0
     lodsw
     mov word [bp - 0x0004], ax
     mov bx, word [bp - 0x0002]
     mov word [cs:bx + 0x2], ax
-    add ax, strict word 0xf
+    db 0x05, 0x0f
+    db 0x00
     mov cl, 4
     shr ax, cl
     mov bx, word [bp - 0x000a]
@@ -6197,7 +6221,7 @@ dos_con_loc_4b1d:
     add ax, word [cs:data_11cd]
     cmp ax, 0x4180
     jb short @..dos_con_loc_4ae1.l8
-    jmp near 0x4b16
+    jmp near loc_4b16
 @..dos_con_loc_4ae1.l8:
     mov word [cs:data_11cd], ax
     mov ax, word [cs:bx]
@@ -6216,7 +6240,7 @@ dos_file_loc_4bb2:
     call dos_file_loc_4bcb
     mov byte [es:di], bl
     inc di
-    dec word [bp - 0x0004]
+    db 0xff, 0x4e, 0xfc
     jmp short @..dos_con_loc_4ae1.l10
 @..dos_con_loc_4ae1.l12:
     ret
@@ -6291,7 +6315,6 @@ dos_file_loc_4bcb:
 @..dos_file_loc_4bcb.l7:
     mov word [bp - 0x0002], cx
     ret
-loc_4c4c:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -6328,7 +6351,6 @@ loc_4c4c:
     mov sp, bp
     pop bp
     ret
-loc_4c93:
     call leaf_loc_4ca9
     call dos_con_loc_4cbe
     call dos_con_loc_4ce8
@@ -6492,7 +6514,6 @@ leaf_loc_4d55:
     mov word [cs:bx], ax
     mov word [cs:bx + 0x2], ax
     ret
-loc_4dd9:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -6547,7 +6568,6 @@ loc_4dd9:
     mov sp, bp
     pop bp
     ret
-loc_4e48:
     push bp
     mov bp, sp
     push ds
@@ -6566,7 +6586,6 @@ loc_4e48:
     mov sp, bp
     pop bp
     ret
-loc_4e64:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -6614,7 +6633,7 @@ dos_read_file_8:
     mov ax, word [cs:bx]
     or ax, ax
     je short @..dos_read_file_8.l1
-    jmp near 0x4fc4
+    jmp near loc_4fc4
 @..dos_read_file_8.l1:
     mov bx, word [bp + 0x12]
     shl bx, 1
@@ -6685,7 +6704,7 @@ dos_read_file_8:
     add ax, word [cs:data_11cd]
     cmp ax, 0x4180
     jb short @..dos_read_file_8.l3
-    jmp near 0x5000
+    jmp near loc_5000
 @..dos_read_file_8.l3:
     mov word [cs:data_11cd], ax
     mov ax, word [cs:bx]
@@ -6724,8 +6743,9 @@ dos_con_loc_4fca:
 
     db 0x0d, 0x0a, 0x07
     db 'In LOAD_SCORE() ... slot already used.', 0
-    db 0x0a, 0x24, 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x10
+    db 0x0a, 0x24
 
+    db 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x10
 dos_con_loc_5006:
     push cx
     mov ah, 9
@@ -6737,7 +6757,6 @@ dos_con_loc_5006:
     db 'In LOAD_SCORE() ... not enough memory.', 0
     db 0x0a, 0x24
 
-loc_503c:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -6800,7 +6819,6 @@ loc_503c:
     mov sp, bp
     pop bp
     ret
-loc_50d1:
     push bp
     mov bp, sp
     sub sp, byte 0x0a
@@ -6837,7 +6855,6 @@ loc_50d1:
     mov sp, bp
     pop bp
     ret
-loc_5118:
     push bp
     mov bp, sp
     push ds
@@ -6854,7 +6871,6 @@ loc_5118:
     mov sp, bp
     pop bp
     ret
-loc_5130:
     push bp
     mov bp, sp
     push ds
@@ -6871,7 +6887,6 @@ loc_5130:
     mov sp, bp
     pop bp
     ret
-loc_5148:
     push bp
     mov bp, sp
     push ds

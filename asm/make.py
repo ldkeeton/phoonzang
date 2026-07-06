@@ -131,7 +131,7 @@ def asm_app(app):
         if _asm_one(app, src_name, ['--export-labels']) != 0:
             print(f'  FAILED: {src_name}')
 
-    # inject synthetic dispatch labels for cross-binary targets at zero bytes
+    # inject synthetic dispatch labels for cross-binary targets
     if cross_refs:
         for src_name in source_names & set(bins.keys()):
             json_path = os.path.join(out_dir, f'{src_name}_labels.json')
@@ -155,7 +155,7 @@ def asm_app(app):
                 for t, src in refs:
                     if src == src_name:
                         abs_t = t + consumer_start
-                        if abs_t not in labels and abs_t < len(src_data) and src_data[abs_t] == 0:
+                        if abs_t not in labels and abs_t < len(src_data):
                             labels[abs_t] = f'dispatch_{abs_t:04x}'
                             changed = True
             if changed:

@@ -7,7 +7,10 @@ bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0x09, 0x16, 0x98, 0x90 ; header (8 bytes)
 
 data_0002 equ 0x0002
+loc_000e equ 0x000e
 data_0041 equ 0x0041
+loc_03a8 equ 0x03a8
+loc_0a56 equ 0x0a56
 data_0e0e equ 0x0e0e
 data_0e10 equ 0x0e10
 data_0e12 equ 0x0e12
@@ -68,7 +71,6 @@ data_9088 equ 0x9088
 data_91b8 equ 0x91b8
 
     db 0x20, 0x01, 0x02, 0x00, 0x20, 0x66
-loc_000e:
     mov ax, 0
     call ds_dispatch_f40b
     mov ax, word [data_830a]
@@ -469,7 +471,6 @@ math_loc_0211:
     call ds_dispatch_f0d7
     add sp, byte 6
     ret
-loc_03a8:
     mov ax, 0xfce6
     call ds_dispatch_f40b
     mov word [data_905c], 0
@@ -1174,7 +1175,6 @@ api_idx_000e:
     call ds_dispatch_efd1
     add sp, byte 0x16
     ret
-loc_0a56:
     mov ax, 0
     call ds_dispatch_f40b
     mov ax, 0
