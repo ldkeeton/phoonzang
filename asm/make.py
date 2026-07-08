@@ -305,6 +305,7 @@ Commands (space-separated):
   make verify [PROJECT...]  verify one or all projects
   make clean [PROJECT...]   clean one or all projects
   make rebuild PROJECT BIN  nasm-only rebuild of one binary
+  make decompile PROJECT BIN  disassemble + decompile binary to .c
   make set-baseline         pin current stats as baseline (git-committable)
   make charts               regenerate all PNGs + CSVs from existing stats
 
@@ -406,6 +407,17 @@ def main():
             print(f'Unknown project: {project}')
             sys.exit(1)
         cmd_rebuild(project, binary)
+        return
+
+    if '--decompile' in flags:
+        if len(args) < 2:
+            print('Usage: make decompile PROJECT BINARY')
+            sys.exit(1)
+        project, binary = args[0], args[1]
+        if project not in all_projects:
+            print(f'Unknown project: {project}')
+            sys.exit(1)
+        _asm_one(project, binary, ['--decompile'])
         return
 
     if '--build' in flags:

@@ -126,6 +126,7 @@ _ITERATIVE = '--no-iterate' not in sys.argv
 _TRACE = '--trace' in sys.argv
 _DIAG = '--diag' in sys.argv
 _SHOW_OFFSETS = '--show-offsets' in sys.argv
+_DECOMPILE = '--decompile' in sys.argv
 
 
 def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=False, output_dir=None, project=None, sidecar_entry=None,
@@ -354,6 +355,16 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         inc_path = os.path.join(labels_dir, f'{name}_labels.inc')
         write_label_json(label_map, json_path)
         write_label_inc(label_map, inc_path, prefix=name)
+
+    if _DECOMPILE:
+        from lib.decompile import decompile
+        bin_data = ctx.binary_data
+        c_text = decompile(bin_data, start_offset, instructions, label_map,
+                          ctx.code_target_set, structs, name)
+        c_path = os.path.join(out_dir, f'{name}.c')
+        with open(c_path, 'w') as f:
+            f.write(c_text)
+        print(f'  decompile: {len(instructions)} insns -> {c_path}')
 
     if trace_writer:
         trace_writer.close()
