@@ -1,13 +1,13 @@
 %include "structs/structs.inc"
-%include "structs/vpclv.inc"
+%include "structs/data_9704.inc"
 org 0
 bits 16
 %include "labels/vpclv_foreign_labels.inc"
 
-    db 0xf2, 0x00, 0x55, 0x50, 0xa2, 0x54, 0x98, 0x90 ; header (8 bytes)
+    ; header (8 bytes)
+    db 0xf2, 0x00, 0x55, 0x50, 0xa2, 0x54, 0x98, 0x90
 
 data_0002 equ 0x0002
-loc_000e equ 0x000e
 data_001e equ 0x001e
 data_0038 equ 0x0038
 data_003c equ 0x003c
@@ -16,28 +16,9 @@ data_0042 equ 0x0042
 data_0044 equ 0x0044
 data_010c equ 0x010c
 data_07b8 equ 0x07b8
-loc_0dc0 equ 0x0dc0
 data_0e32 equ 0x0e32
-loc_0f76 equ 0x0f76
-loc_10b0 equ 0x10b0
 data_1fe9 equ 0x1fe9
-loc_2c8d equ 0x2c8d
-loc_2ca3 equ 0x2ca3
-loc_2cbf equ 0x2cbf
-loc_2cdf equ 0x2cdf
-loc_2d02 equ 0x2d02
-loc_2d06 equ 0x2d06
-loc_2d0d equ 0x2d0d
-loc_2d6d equ 0x2d6d
-loc_2d75 equ 0x2d75
-loc_3734 equ 0x3734
 data_3a87 equ 0x3a87
-loc_3d08 equ 0x3d08
-loc_4615 equ 0x4615
-loc_4ad9 equ 0x4ad9
-loc_4def equ 0x4def
-loc_4df1 equ 0x4df1
-loc_4e57 equ 0x4e57
 data_59fc equ 0x59fc
 data_5b3e equ 0x5b3e
 data_69c8 equ 0x69c8
@@ -85,6 +66,7 @@ data_95f4 equ 0x95f4
 data_9704 equ 0x9704
 
     db 0x70, 0x03, 0xa4, 0x03, 0xb9, 0xa4
+loc_000e:
     mov ax, 0
     call ds_dispatch_f40b
     cmp word [data_830a], byte 0x16
@@ -1527,6 +1509,7 @@ api_idx_007c:
     jmp near @..local.l12
 @..local.l14:
     ret
+loc_0dc0:
     mov ax, 0
     call ds_dispatch_f40b
     push word [bp + 0xc]
@@ -1724,6 +1707,7 @@ math_loc_0eea:
     add sp, byte 0x0a
 @..math_loc_0eea.l2:
     ret
+loc_0f76:
     mov ax, 0
     call ds_dispatch_f40b
     mov ax, word [bp + 0x6]
@@ -1857,6 +1841,7 @@ api_idx_000c_2:
     jmp near @..api_idx_000c_2.l1
 @..api_idx_000c_2.l2:
     ret
+loc_10b0:
     mov ax, 0
     call ds_dispatch_f40b
     les bx, word [data_0002]
@@ -2933,7 +2918,7 @@ api_idx_0050:
 @..local.l49:
     jmp short @..local.l52
     shl word [bp - 0x0018], 0x67
-    call loc_3d08
+    call 0x3d08
     db 0x69, 0xcc, 0x69
 @..local.l50:
     cmp ax, strict word 5
@@ -4473,7 +4458,7 @@ api_idx_0052:
     mov bx, ax
     mov al, byte [bx + 0x5e2d]
     sub ah, ah
-    jmp near loc_2d02
+    jmp near 0x2d02
     mov ax, 0x90b4
     push ax
     mov ax, 0x90a5
@@ -4516,7 +4501,7 @@ api_idx_0052:
     jmp near @..api_idx_0052.l12
     mov ax, 0x914a
     push ax
-    db 0xb8, 0x3b, 0x91
+    mov ax, 0x913b
     push ax
     push word [bp + 0x4]
     call api_idx_0006
@@ -4526,7 +4511,7 @@ api_idx_0052:
     push ax
     mov ax, 0x9159
     push ax
-    db 0xff, 0x76, 0x04
+    push word [bp + 0x4]
     call api_idx_0006
     add sp, byte 6
     jmp short @..api_idx_0052.l12
@@ -4538,7 +4523,7 @@ api_idx_0052:
     call api_idx_0006
 @..api_idx_0052.l3:
     add sp, byte 6
-    db 0xeb, 0x4f
+    jmp short @..api_idx_0052.l12
     mov ax, 0x91a4
     push ax
     mov ax, 0x9195
@@ -4553,31 +4538,31 @@ api_idx_0052:
     mov ax, 0x91b3
     push ax
     push word [bp + 0x4]
-    db 0xe8, 0xa4, 0xfd
+    call api_idx_0006
     add sp, byte 6
     jmp short @..api_idx_0052.l12
     db 0x6a, 0x7c ; push 0x7c
     into
-    jl short loc_2cdf
+    jl short 0x2cdf
     jl short @..api_idx_0052.l10
 @..api_idx_0052.l7:
-    jge short loc_2d6d
-    jl short loc_2cbf
-    jl short loc_2d0d
+    jge short 0x2d6d
+    jl short 0x2cbf
+    jl short 0x2d0d
     jge short @..api_idx_0052.l5
-    jl short loc_2d75
+    jl short 0x2d75
     jl short @..api_idx_0052.l7
-    jl short loc_2c8d
-    jl short loc_2ca3
-    jl short loc_2d06
+    jl short 0x2c8d
+    jl short 0x2ca3
+    jl short 0x2d06
     jge short @..api_idx_0052.l3
-    db 0x7c, 0x3d
+    jl short @..api_idx_0052.l13
     push cs
-    db 0x00, 0x73, 0x08
+    add byte [bp + di + 0x8], dh
 @..api_idx_0052.l10:
     xchg bx, ax
     shl bx, 1
-    db 0x2e, 0xff, 0xa7, 0x2d, 0x7d
+    jmp [cs:bx + 0x7d2d]
 @..api_idx_0052.l12:
     mov ax, 0x248
     imul word [bp + 0x4]
@@ -4617,11 +4602,11 @@ api_idx_0052:
     imul word [bp + 0x4]
     mov bx, ax
     mov al, byte [bx + 0x5d67]
-    db 0x2a, 0xe4
+    sub ah, ah
     mov cx, 5
     cwd
     idiv cx
-    db 0xf7, 0xe9
+    imul cx
     push ax
     mov ax, 0xc
     push ax
@@ -5558,7 +5543,7 @@ api_idx_0004_7:
     push ax
     mov ax, 0x9361
     push ax
-    db 0xb8, 0x58, 0x93
+    mov ax, 0x9358
     push ax
     mov ax, 0x934d
     push ax
@@ -5610,7 +5595,7 @@ api_idx_0004_7:
     xchg byte [bp + si], al
     xchg word [data_3a87], bx
     xchg word [bp - 0x0079], dx
-    jb short loc_3734
+    jb short 0x3734
     lea ax, word [bx - 0x7858]
     ret
     db 0x87
@@ -6911,7 +6896,7 @@ api_idx_00ac:
     call ds_dispatch_b7a9
     pop cx
     add ax, strict word 6
-    db 0x89, 0x46, 0xfe
+    mov word [bp - 0x0002], ax
     jmp near @..api_idx_00ac.l3
     mov ax, 3
     push ax
@@ -6964,7 +6949,7 @@ api_idx_00ac:
     xchg si, ax
     popaw
     xchg si, ax
-    jo short loc_4615
+    jo short 0x4615
     adc byte [bp - 0x69b0], 0x70
     xchg si, ax
     nop
@@ -7371,7 +7356,7 @@ api_idx_0018:
     mov word [bp - 0x0018], 3
     jmp near @..local.l134
     mov ax, word [bp - 0x0004]
-    db 0x03, 0x46, 0xfa
+    add ax, word [bp - 0x0006]
     mov cx, 2
     cwd
 @..api_idx_0018.l3:
@@ -7404,7 +7389,7 @@ api_idx_0018:
 @..api_idx_0018.l4:
     mov word [bp - 0x0018], 0
     jmp short @..local.l134
-    jl short loc_4ad9
+    jl short 0x4ad9
     xlatb
     cwd
     clc
@@ -7693,7 +7678,8 @@ api_idx_00b4:
     mov ax, 6
     push ax
     push ax
-    db 0xe8, 0xea, 0x9a, 0x83, 0xc4, 0x08
+    call ds_dispatch_e8da
+    add sp, byte 8
 @..api_idx_00b4.l10:
     mov ax, 2
     push ax
@@ -7711,7 +7697,7 @@ api_idx_0006_2:
     mov word [bp - 0x0002], 0
 @..api_idx_0006_2.l1:
     mov ax, word [bp - 0x0002]
-    jmp short loc_4e57
+    jmp short 0x4e57
     mov word [bp - 0x0006], 2
     jmp short @..api_idx_0006_2.l3
     mov word [bp - 0x0006], 4
@@ -7731,9 +7717,9 @@ api_idx_0006_2:
     db 0x66, 0x9e ; sahf
     insw
     sahf
-    je short loc_4def
-    jnp short loc_4df1
-    db 0x82, 0x9e, 0x89, 0x9e, 0x3d
+    je short 0x4def
+    jnp short 0x4df1
+    sbb byte [bp - 0x6177], 0x3d
     pop es
     add byte [bp + di + 0x8], dh
     xchg bx, ax

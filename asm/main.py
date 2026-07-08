@@ -23,6 +23,8 @@ APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
 KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 
 from lib.trace import TraceWriter
+from lib.diagnostics import begin as diag_begin, flush as diag_flush
+from lib.diagnostics import phase as diag_phase, emit as diag_emit, enabled as diag_enabled
 
 from lib.decode import disassemble
 from lib.verify.compare import verify, clear_assemble_cache
@@ -122,6 +124,7 @@ for a in sys.argv:
 
 _ITERATIVE = '--no-iterate' not in sys.argv
 _TRACE = '--trace' in sys.argv
+_DIAG = '--diag' in sys.argv
 _SHOW_OFFSETS = '--show-offsets' in sys.argv
 
 
@@ -137,6 +140,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
 
     t_total = time.perf_counter()
     clear_assemble_cache()
+
+    if _DIAG and project:
+        diag_begin(project, name)
 
     trace_writer = TraceWriter(project, name) if _TRACE else None
 
@@ -174,6 +180,14 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         run_functional(ctx, classify_phases)
         run_functional(ctx, refine_phases)
 
+    if diag_enabled():
+        squashed_arr = ctx.layers['squashed'].to_numpy()
+        diag_phase('pipeline')
+        diag_emit('code_targets', len(ctx.code_targets))
+        diag_emit('code_bytes', int((squashed_arr == IS_CODE).sum()))
+        diag_emit('data_bytes', int((squashed_arr == IS_DATA).sum()))
+
+    # ── Build label map ──
     label_map = match_patterns(data, ctx.code_target_set, known_db, max_func_size)
 
     trampoline_map = match_trampolines(data, ctx.code_target_set, known_db)
@@ -181,8 +195,6 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         if off not in label_map:
             label_map[off] = lbl
 
-    # Sidecar function names: offsets are Ghidra-relative. Convert to file
-    # offsets via (ghidra_base_offset + start_offset) for MZ executables.
     if sidecar_entry:
         fn_offset = sidecar_entry.get('ghidra_base_offset', 0)
         for hex_off, info in sidecar_entry.get('function_names', {}).items():
@@ -210,6 +222,21 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
             ArbiterPhase(),
         ]
         run_functional(ctx, post_phases)
+
+    if diag_enabled() and _ITERATIVE:
+        squashed_arr = ctx.layers['squashed'].to_numpy()
+        diag_phase('post_refine')
+        diag_emit('code_bytes', int((squashed_arr == IS_CODE).sum()))
+
+    if diag_enabled():
+        loc_count = sum(1 for v in label_map.values() if v.startswith('loc_'))
+        data_count = sum(1 for v in label_map.values() if v.startswith('data_'))
+        named = len(label_map) - loc_count - data_count
+        diag_phase('label_map')
+        diag_emit('total', len(label_map))
+        diag_emit('loc', loc_count)
+        diag_emit('data', data_count)
+        diag_emit('named', named)
 
     t_classify = time.perf_counter()
     classify_timing = report_timings()
@@ -241,6 +268,10 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     ctx.report['classification']['instructions'] = len(instructions)
     t_disasm = time.perf_counter()
 
+    if diag_enabled():
+        diag_phase('disasm')
+        diag_emit('insns', len(instructions))
+
     structs = build_structs(instructions)
 
     out_dir = output_dir or ASM_DIR
@@ -259,6 +290,16 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
+
+    if diag_enabled():
+        diag_phase('verify')
+        diag_emit('mnemonic', stats['mnemonic'])
+        diag_emit('data_blocks', stats['data_blocks'])
+        diag_emit('code_loss', stats.get('code_loss', 0))
+        diag_emit('bare_mem', stats.get('bare_mem', 0))
+        diag_emit('bare_call', stats.get('bare_call', 0))
+        diag_flush()
+
     os.makedirs(out_dir, exist_ok=True)
     asm_path = os.path.join(out_dir, f'{name}.asm')
     with open(asm_path, 'w') as f:
@@ -271,6 +312,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
           f'lbl={stats["labels"]}  structs={stats["structs"]}  '
           f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
           f'bare=[mem:{stats["bare_mem"]} call:{stats["bare_call"]} dbc:{stats["bare_dbc"]}]  '
+          f'loss={stats.get("code_loss", 0)}  '
           f'[{stats["status"]}]')
     print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
           f'disasm: {t_disasm-t_classify_end:.1f}s  '
@@ -340,7 +382,7 @@ def build_binaries(asm_dir, bins, out_dir):
         asm_path = os.path.join(asm_dir, f'{name}.asm')
         bin_path = os.path.join(out_dir, rel_path)
         r = subprocess.run(
-            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-o', bin_path, asm_path],
+            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', f'-I{asm_dir}/', '-o', bin_path, asm_path],
             capture_output=True, text=True,
         )
         if r.returncode != 0:
@@ -424,7 +466,6 @@ def process_project(project_name):
                 foreign_label_map=foreign_label_map)
 
     processed = set(bins.keys())
-    copy_assets(project_dir, out_dir, processed)
 
     build_out = os.path.join(out_dir, 'build_out')
     copy_assets(project_dir, build_out, set())

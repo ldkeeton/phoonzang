@@ -1,18 +1,14 @@
 %include "structs/structs.inc"
-%include "structs/vmele.inc"
+%include "structs/data_90bc.inc"
 org 0
 bits 16
 %include "labels/vmele_foreign_labels.inc"
 
-    db 0xf2, 0x00, 0x55, 0x50, 0x65, 0x37, 0x98, 0x90 ; header (8 bytes)
+    ; header (8 bytes)
+    db 0xf2, 0x00, 0x55, 0x50, 0x65, 0x37, 0x98, 0x90
 
 data_0002 equ 0x0002
 data_0e36 equ 0x0e36
-loc_2b19 equ 0x2b19
-loc_2cc7 equ 0x2cc7
-loc_30f6 equ 0x30f6
-loc_331c equ 0x331c
-loc_33df equ 0x33df
 data_5962 equ 0x5962
 data_5963 equ 0x5963
 data_5964 equ 0x5964
@@ -4514,6 +4510,7 @@ api_idx_000c_3:
     jmp near @..api_idx_000c_3.l1
 @..api_idx_000c_3.l20:
     ret
+loc_2b19:
     mov ax, 0
     call ds_dispatch_f40b
     les bx, word [data_0002]
@@ -4695,6 +4692,7 @@ api_idx_0006_2:
     mov word [data_845e], 0xfffd
 @..api_idx_0006_2.l17:
     ret
+loc_2cc7:
     mov ax, 0
     call ds_dispatch_f40b
     mov word [data_845e], 0xfffe
@@ -5092,7 +5090,7 @@ api_idx_0008_4:
     jmp near @..api_idx_0008_4.l8
 @..api_idx_0008_4.l3:
     mov ax, si
-    jmp short loc_30f6
+    jmp short 0x30f6
     mov ax, word [bp - 0x0008]
     mov cx, 0xa
     cwd
@@ -5129,8 +5127,7 @@ api_idx_0008_4:
     db 0xf2, 0x80, 0x00, 0x81 ; add byte [bx + si], 0x81
     push cs
     sbb word [si], strict word 0x2a81
-    db 0x81, 0x3d, 0x06
-    db 0x00
+    cmp word [di], 6
     jae short @..api_idx_0008_4.l5
     xchg bx, ax
     shl bx, 1
@@ -5347,6 +5344,7 @@ api_idx_0056:
     mov word [data_830a], 0xb
 @..api_idx_0056.l16:
     ret
+loc_331c:
     mov ax, 0xfe5a
     call ds_dispatch_f40b
     mov ax, 0
@@ -5412,6 +5410,7 @@ api_idx_0004_8:
     call api_idx_0006
     call api_idx_0004_4
     ret
+loc_33df:
     mov ax, 0xfd06
     call ds_dispatch_f40b
     mov word [data_90bc], 1

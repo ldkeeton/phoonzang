@@ -1,56 +1,23 @@
 %include "structs/structs.inc"
-%include "structs/play.inc"
+%include "structs/data_0b95.inc"
 org 0
 bits 16
-loc_0000 equ 0x0000
-loc_0003 equ 0x0003
-loc_0023 equ 0x0023
-loc_0154 equ 0x0154
 data_0322 equ 0x0322
 data_0330 equ 0x0330
-loc_0381 equ 0x0381
 data_0421 equ 0x0421
-loc_04b5 equ 0x04b5
-loc_04b7 equ 0x04b7
-loc_04bd equ 0x04bd
-loc_04bf equ 0x04bf
 data_04dc equ 0x04dc
 data_058a equ 0x058a
-loc_0592 equ 0x0592
-loc_07a2 equ 0x07a2
-loc_07b3 equ 0x07b3
-loc_07ce equ 0x07ce
-loc_07d0 equ 0x07d0
-loc_07e9 equ 0x07e9
-loc_0821 equ 0x0821
-loc_082a equ 0x082a
-loc_0831 equ 0x0831
-loc_083a equ 0x083a
-loc_0856 equ 0x0856
-loc_0863 equ 0x0863
-loc_0875 equ 0x0875
-loc_089e equ 0x089e
-loc_08ed equ 0x08ed
-loc_08ff equ 0x08ff
-loc_091f equ 0x091f
-loc_0945 equ 0x0945
 data_0948 equ 0x0948
-loc_095d equ 0x095d
-loc_0969 equ 0x0969
 data_096e equ 0x096e
 data_096f equ 0x096f
-loc_098a equ 0x098a
-loc_0997 equ 0x0997
 data_09ae equ 0x09ae
 data_09bf equ 0x09bf
 data_09c4 equ 0x09c4
 data_09d4 equ 0x09d4
-loc_0a13 equ 0x0a13
 data_0a7c equ 0x0a7c
 data_0aa4 equ 0x0aa4
 data_0aa9 equ 0x0aa9
 data_0abb equ 0x0abb
-loc_0af6 equ 0x0af6
 data_0b54 equ 0x0b54
 data_0b7c equ 0x0b7c
 data_0b7d equ 0x0b7d
@@ -81,13 +48,13 @@ data_0bac equ 0x0bac
 data_0bae equ 0x0bae
 data_0c10 equ 0x0c10
 data_0c12 equ 0x0c12
-loc_121d equ 0x121d
 data_19e8 equ 0x19e8
 data_19f2 equ 0x19f2
 data_1a04 equ 0x1a04
 data_89a3 equ 0x89a3
 
-    jmp near loc_0003
+loc_0000:
+    jmp near 3
     call loc_0023
     retf
     call strlen
@@ -104,6 +71,7 @@ data_89a3 equ 0x89a3
     retf
     call io_loc_0183
     retf
+loc_0023:
     push bp
     mov bp, sp
     push bx
@@ -193,6 +161,7 @@ strlen:
     times 6 db 0
     db 'PBAPBL'
 
+loc_0154:
     push bp
     mov bp, sp
     mov ax, word [bp + 0x8]
@@ -400,7 +369,7 @@ io_loc_02ba:
     mov word [data_0b8b], ax
     inc ax
     cmp byte [bp + 0x15], 2
-    je short loc_0381
+    je short 0x381
     add ax, strict word 0xd
     dec byte [bp + 0x15]
     mov word [cs:data_0b8d], ax
@@ -505,11 +474,11 @@ io_loc_02ba:
     or bl, byte [bx + 0x410a]
     or ax, word [bx + di + 0x9]
     jne short @..local.l17
-    jne short loc_04b7
+    jne short 0x4b7
     inc cx
     or ax, word [bx + di + 0x9]
-    jne short loc_04bd
-    jne short loc_04bf
+    jne short 0x4bd
+    jne short 0x4bf
 @..local.l17:
     cld
     xor ax, ax
@@ -716,7 +685,7 @@ fpu_loc_077b:
     mov ah, 0
     mov al, byte [bp + 0x12]
     cmp al, 0x49
-    jb short loc_07a2
+    jb short 0x7a2
     sub al, 0x49
     shr al, 1
     db 0x8a, 0xe0 ; mov ah, al
@@ -728,17 +697,17 @@ fpu_loc_077b:
     mov al, byte [bp + 0x12]
     mul cl
     sub ah, byte [cs:data_0b93]
-    js short loc_07ce
+    js short 0x7ce
     cmp ah, byte [cs:data_0b92]
-    jb short loc_07d0
+    jb short 0x7d0
     mov ah, byte [cs:data_0b92]
-    jmp near loc_07d0
+    jmp near 0x7d0
     mov ah, 0
     inc ah
     mov byte [cs:bx], ah
     inc bx
     inc cl
-    jne short loc_07b3
+    jne short 0x7b3
     ret
     mov bx, 0x1a3a
     db 0x32, 0xc9 ; xor cl, cl
@@ -751,7 +720,7 @@ fpu_loc_077b:
     mov byte [cs:bx], ah
     inc bx
     inc cl
-    jne short loc_07e9
+    jne short 0x7e9
     ret
     push bx
     push dx
@@ -762,17 +731,17 @@ fpu_loc_077b:
     db 0x86, 0xc4 ; xchg ah, al
     pushf
     cli
-    call loc_0821
+    call 0x821
     out dx, al
-    call loc_0831
+    call 0x831
     inc dx
     db 0x86, 0xc4 ; xchg ah, al
     out dx, al
-    call loc_0821
+    db 0xe8, 0x0b, 0x00 ; call 0x821
     dec dx
     mov al, 0x40
     out dx, al
-    call loc_0821
+    db 0xe8, 0x04, 0x00 ; call 0x821
     popf
     pop dx
     pop bx
@@ -783,7 +752,7 @@ fpu_loc_077b:
     mov dx, 0x388
     mov cx, 0x17
     in al, dx
-    loop loc_082a
+    loop 0x82a
     pop dx
     pop cx
     pop ax
@@ -794,7 +763,7 @@ fpu_loc_077b:
     mov dx, 0x388
     mov cx, 4
     in al, dx
-    loop loc_083a
+    loop 0x83a
     pop dx
     pop cx
     pop ax
@@ -804,13 +773,13 @@ fpu_loc_077b:
     out dx, al
     add ah, 0x80
     adc di, byte 0
-    jb short loc_0863
+    jb short 0x863
     dec si
-    je short loc_0856
+    je short 0x856
     mov al, 0x20
     out 0x20, al
     iret
-    call loc_0af6
+    call 0xaf6
     mov si, word [cs:data_0b81]
     mov al, 0x20
     out 0x20, al
@@ -819,7 +788,7 @@ fpu_loc_077b:
     mov al, 0x20
     out 0x20, al
     iret
-    jmp near loc_121d
+    jmp near 0x121d
     db 0x00, 0x00
     cli
     push ax
@@ -828,14 +797,14 @@ fpu_loc_077b:
     push bx
     mov al, byte [cs:data_096e]
     cmp al, byte [cs:data_096f]
-    je short loc_089e
+    je short 0x89e
     inc byte [cs:data_096e]
     mov dx, 0x389
     mov bx, 0x1a3a
     cs xlatb
     out dx, al
     dec word [cs:data_0b81]
-    je short loc_08ed
+    je short 0x8ed
     mov al, 0x20
     out 0x20, al
     pop bx
@@ -858,8 +827,8 @@ fpu_loc_077b:
     push dx
     push bx
     cmp byte [cs:data_09ae], 0
-    js short loc_0875
-    jne short loc_091f
+    js short 0x875
+    jne short 0x91f
     mov ax, 0
     mov ds, ax
     mov al, byte [loc_0000]
@@ -869,9 +838,9 @@ fpu_loc_077b:
     out dx, al
     add byte [cs:data_0b95], 0x80
     db 0x2e, 0x83, 0x16, 0xc4, 0x09, 0x00 ; adc word [cs:data_09c4], 0
-    jb short loc_08ff
+    jb short 0x8ff
     dec word [cs:data_0b81]
-    je short loc_08ed
+    je short 0x8ed
     mov al, 0x20
     out 0x20, al
     pop bx
@@ -879,7 +848,7 @@ fpu_loc_077b:
     pop ds
     pop ax
     iret
-    call loc_0af6
+    call 0xaf6
     mov dx, 0x388
     mov al, 0x40
     out dx, al
@@ -909,14 +878,14 @@ fpu_loc_077b:
     push bx
     mov al, byte [cs:data_096e]
     cmp al, 0
-    je short loc_0945
+    je short 0x945
     dec byte [cs:data_096e]
     mov dx, 0x389
     mov bx, 0x1a3a
     cs xlatb
     out dx, al
     dec word [cs:data_0b81]
-    je short loc_08ed
+    db 0x74, 0xb1 ; je short 0x8ed
     mov al, 0x20
     out 0x20, al
     pop bx
@@ -936,7 +905,7 @@ fpu_loc_077b:
     pop ds
     pop ax
     iret
-    call loc_0af6
+    db 0xe8, 0x96, 0x01 ; call 0xaf6
     mov al, 0x20
     out 0x20, al
     pop bx
@@ -957,13 +926,13 @@ fpu_loc_077b:
     out dx, al
     add ah, 0x80
     adc di, byte 0
-    jb short loc_0997
+    jb short 0x997
     dec si
-    je short loc_098a
+    je short 0x98a
     mov al, 0x20
     out 0x20, al
     iret
-    call loc_0af6
+    db 0xe8, 0x69, 0x01 ; call 0xaf6
     mov si, word [cs:data_0b81]
     mov al, 0x20
     out 0x20, al
@@ -985,9 +954,9 @@ fpu_loc_077b:
     out dx, al
     add byte [cs:data_0b95], 0x80
     db 0x2e, 0x83, 0x16, 0xa9, 0x0a, 0x00 ; adc word [cs:data_0aa9], 0
-    jb short loc_0969
+    jb short 0x969
     dec word [cs:data_0b81]
-    je short loc_095d
+    je short 0x95d
     mov al, 0x20
     out 0x20, al
     pop bx
@@ -1008,7 +977,7 @@ fpu_loc_077b:
     mov ds, ax
     mov dx, 0xbb4
     cmp byte [cs:data_0b9a], 0
-    jne short loc_0a13
+    jne short 0xa13
     mov al, byte [cs:data_0b8f]
     out 0x21, al
     mov bx, 0

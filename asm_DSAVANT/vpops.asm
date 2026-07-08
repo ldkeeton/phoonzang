@@ -1,29 +1,18 @@
 %include "structs/structs.inc"
-%include "structs/vpops.inc"
+%include "structs/data_938c.inc"
 org 0
 bits 16
 %include "labels/vpops_foreign_labels.inc"
 
-    db 0xf2, 0x00, 0x55, 0x50, 0xcd, 0x4e, 0x98, 0x90 ; header (8 bytes)
+    ; header (8 bytes)
+    db 0xf2, 0x00, 0x55, 0x50, 0xcd, 0x4e, 0x98, 0x90
 
 data_0002 equ 0x0002
-loc_000e equ 0x000e
-loc_02af equ 0x02af
 data_0375 equ 0x0375
 data_03b8 equ 0x03b8
 data_083d equ 0x083d
 data_0e32 equ 0x0e32
 data_0e36 equ 0x0e36
-loc_0e6c equ 0x0e6c
-loc_0ec8 equ 0x0ec8
-loc_1076 equ 0x1076
-loc_108d equ 0x108d
-loc_10a0 equ 0x10a0
-loc_1ad7 equ 0x1ad7
-loc_1c11 equ 0x1c11
-loc_290d equ 0x290d
-loc_2925 equ 0x2925
-loc_295e equ 0x295e
 data_3b93 equ 0x3b93
 data_48eb equ 0x48eb
 data_59fc equ 0x59fc
@@ -63,6 +52,7 @@ data_938a equ 0x938a
 data_938c equ 0x938c
 
     db 0x3e, 0x00, 0xb8, 0x02, 0xe4, 0x9e
+loc_000e:
     mov ax, 0
     call ds_dispatch_f40b
     cmp word [data_830a], byte 0x0c
@@ -357,6 +347,7 @@ api_idx_0006:
     je short @..api_idx_0006.l4
 @..api_idx_0006.l8:
     ret
+loc_02af:
     mov ax, 0
     call ds_dispatch_f40b
     mov ax, word [bp + 0x4]
@@ -1606,6 +1597,7 @@ api_idx_000e_2:
     add sp, byte 0x12
 @..api_idx_000e_2.l9:
     ret
+loc_0e6c:
     mov ax, 0
     call ds_dispatch_f40b
     mov ax, word [bp + 0x4]
@@ -1646,6 +1638,7 @@ api_idx_000e_2:
     add sp, byte 0x16
 @..local.l43:
     ret
+loc_0ec8:
     mov ax, 0
     call ds_dispatch_f40b
     les bx, word [data_0002]
@@ -1827,6 +1820,7 @@ api_idx_0006_2:
     mov word [data_845e], 0xfffd
 @..api_idx_0006_2.l17:
     ret
+loc_1076:
     mov ax, 0
     call ds_dispatch_f40b
     mov word [data_845e], 0xfffe
@@ -1835,6 +1829,7 @@ api_idx_0006_2:
     cmp word [data_845e], byte 0xfe
     jne short @..local.l47
     ret
+loc_108d:
     mov ax, 0
     call ds_dispatch_f40b
 @..local.l48:
@@ -1844,6 +1839,7 @@ api_idx_0006_2:
     jmp short @..local.l48
 @..local.l49:
     ret
+loc_10a0:
     mov ax, 0
     call ds_dispatch_f40b
     push word [bp + 0xc]
@@ -2957,6 +2953,7 @@ math_loc_1a4b:
     add sp, byte 0x0a
 @..math_loc_1a4b.l2:
     ret
+loc_1ad7:
     mov ax, 0
     call ds_dispatch_f40b
     mov ax, word [bp + 0x6]
@@ -3090,6 +3087,7 @@ api_idx_000c_3:
     jmp near @..api_idx_000c_3.l1
 @..api_idx_000c_3.l2:
     ret
+loc_1c11:
     mov ax, 0
     call ds_dispatch_f40b
     les bx, word [data_0002]
@@ -4158,9 +4156,9 @@ api_idx_0044:
 @..local.l135:
     jmp short @..local.l138
     adc byte [bp + si + 0x37], dh
-    jae short loc_2925
-    jae short loc_295e
-    je short loc_290d
+    jae short 0x2925
+    jae short 0x295e
+    je short 0x290d
     db 0x75
 @..local.l136:
     cmp ax, strict word 5

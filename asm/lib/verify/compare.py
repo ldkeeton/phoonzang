@@ -15,6 +15,8 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_IMM, CS_OP_MEM, CS_OP_RE
 
 from lib.model import IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent, clear_assemble_cache
+from lib.diagnostics import enabled as diag_enabled, emit as diag_emit, phase as diag_phase
+from lib.mz import parse_relocs as _parse_mz_relocs
 
 
 _FILE_FORMATS = [
@@ -260,40 +262,6 @@ _INT_FUNCTION_TABLES = {
 _CFLOW_INSTS = frozenset({'int', 'call', 'jmp', 'ret', 'iret', 'hlt', 'retf', 'retn', 'ljmp', 'lcall'})
 
 
-def _parse_mz_relocs(binary_data, start_offset):
-    """Parse MZ EXE relocation table.
-
-    Returns a set of absolute target addresses (near offsets within
-    the program's load image) that the relocation table references.
-    These are added to known_addrs so data/code discovery picks them up.
-    """
-    if start_offset != 0x200:
-        return set()
-    hdr = binary_data[:0x200]
-    if hdr[:2] != b'MZ':
-        return set()
-
-    _, _, _, crlc, cparhdr, _, _, _, _, _, _, _, lfarlc, _ = \
-        struct.unpack_from('<2s13H', hdr, 0)
-
-    load_start = cparhdr * 16
-    targets = set()
-
-    for i in range(crlc):
-        entry_off = lfarlc + i * 4
-        if entry_off + 4 > len(binary_data):
-            break
-        # Each entry: offset (2 bytes), segment (2 bytes)
-        reloc_offset = struct.unpack_from('<H', binary_data, entry_off)[0]
-        reloc_segment = struct.unpack_from('<H', binary_data, entry_off + 2)[0]
-        ref_file_off = load_start + reloc_segment * 16 + reloc_offset
-        if ref_file_off + 2 <= len(binary_data):
-            word_val = struct.unpack_from('<H', binary_data, ref_file_off)[0]
-            targets.add(word_val)
-
-    return targets
-
-
 def _set_insn_fields(rec, insn):
     """Set structured fields on *rec* from a capstone instruction object."""
     if insn is None:
@@ -385,13 +353,13 @@ def _try_decode_block(raw_bytes, start_offset):
     consumed = sum(insn.size for insn in insns)
     all_decoded = consumed >= len(raw_bytes)
 
-    ctrl_flow = {'ret', 'retf', 'iret', 'retn', 'call', 'lcall', 'jmp', 'ljmp'}
+    ctrl_flow = frozenset({'ret', 'retf', 'iret', 'retn', 'call', 'lcall', 'jmp', 'ljmp',
+                            'jcxz', 'jecxz', 'loop', 'loope', 'loopne'})
     has_ctrl = any(
         insn.mnemonic in ctrl_flow
         or (insn.mnemonic.startswith('j')
             and insn.mnemonic not in ('jmp', 'ljmp')
             and len(insn.mnemonic) > 1)
-        or insn.mnemonic in ('jcxz', 'jecxz', 'loop', 'loope', 'loopne')
         for insn in insns
     )
     return insns, all_decoded, has_ctrl
@@ -451,6 +419,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
     from lib.format import format_instruction
 
     records = []
+    data_added = 0
 
     for insn in insns:
         rel_off = insn.address - start_offset
@@ -488,29 +457,18 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
         if ok:
             new_text = None
             if label_map is not None:
-                is_flow = insn.mnemonic in ('jmp', 'call', 'jcxz', 'jecxz', 'loop', 'loope', 'loopne',
-                                            'je', 'jne', 'jb', 'jae', 'jbe', 'ja', 'jl', 'jge', 'jle', 'jg',
-                                            'js', 'jns', 'jp', 'jnp', 'jo', 'jno')
-                if is_flow:
-                    for op in insn.operands:
-                        if op.type == CS_OP_IMM:
-                            target = op.imm & 0xFFFF
-                            if (start_offset <= target < len(binary_data)
-                                    and target not in label_map):
-                                label_map[target] = f'loc_{target:04x}'
-                                clear_assemble_cache()
                 for op in insn.operands:
                     if op.type == CS_OP_MEM and op.mem.base == 0 and op.mem.index == 0:
                         addr = op.mem.disp & 0xFFFF
                         if addr != 0 and addr not in label_map:
                             label_map[addr] = f'data_{addr:04x}'
+                            data_added += 1
                             clear_assemble_cache()
-            if new_text is None:
-                re_check = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map)
-                if re_check and re_check != nasm_text:
-                    rebuilt = micro_assemble(re_check, insn.address, label_map, local_labels)
-                    if rebuilt and len(built) >= len(bts) and rebuilt[:len(bts)] == bts:
-                        nasm_text = re_check
+                            new_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map)
+                            if new_text:
+                                rebuilt = micro_assemble(new_text, insn.address, label_map, local_labels)
+                                if rebuilt and len(built) >= len(bts) and rebuilt[:len(bts)] == bts:
+                                    nasm_text = new_text
             rec = {
                 'type': 'mnem',
                 'text': nasm_text,
@@ -531,6 +489,10 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
             _set_insn_fields(rec, insn)
             records.append(rec)
 
+    if diag_enabled() and data_added > 0:
+        diag_phase('gen_inline')
+        diag_emit('data_added', data_added)
+
     return records
 
 
@@ -539,6 +501,13 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
     annotate jump tables and known file formats on the rest."""
     new_records = []
     binary_len = len(binary_data)
+
+    promoted_blocks = 0
+    promoted_mnemonics = 0
+    skipped_all_data = 0
+    skipped_carve = 0
+    skipped_no_ctrl = 0
+    partial_blocks = 0
 
     for rec in records:
         if rec['type'] != 'data_block':
@@ -556,9 +525,9 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
         promoted = False
         reason = None
 
-        # 1. If bitmap marks the whole block as DATA, skip promotion
-        #    UNLESS preceded by CODE (e.g., dead code after ret)
-        #    AND the block is small (≤ 32 bytes).
+        # If bitmap marks the whole block as DATA, skip promotion
+        # UNLESS preceded by CODE (e.g., dead code after ret)
+        # AND the block is small (≤ 32 bytes).
         if bitmap is not None:
             block_bitmap = bitmap[start:end]
             if all(b == 2 for b in block_bitmap):
@@ -566,6 +535,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                 small_block = (end - start) <= 32
                 if not (preceded_by_code and small_block):
                     reason = 'all DATA in bitmap' + (', not preceded by code' if not preceded_by_code else ', too large')
+                    skipped_all_data += 1
                     new_records.append(rec)
                     if trace is not None:
                         trace.event('cascade', 'skipped', addr=start,
@@ -603,6 +573,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                         safe_end_offset = insn_end
                     if safe_end_offset == 0:
                         # No safe instruction — keep entire block as data
+                        skipped_carve += 1
                         new_records.append(rec)
                         if trace is not None:
                             trace.event('cascade', 'carve_blocked',
@@ -618,6 +589,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                             binary_data, label_map, local_labels, exact_bytes=True,
                             foreign_label_map=foreign_label_map)
                         if inline:
+                            partial_blocks += 1
                             if trace is not None:
                                 trace.event('cascade', 'partial_promote',
                                             addr=start,
@@ -642,6 +614,8 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                 inline = _generate_inline_code(insns, raw, start, binary_data, label_map, local_labels, exact_bytes=True,
                                                foreign_label_map=foreign_label_map)
                 if inline:
+                    promoted_blocks += 1
+                    promoted_mnemonics += sum(1 for r in inline if r['type'] == 'mnem')
                     if trace is not None:
                         trace.event('cascade', 'promoted', addr=start,
                                     end=start + consumed, size=consumed,
@@ -660,6 +634,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
         jt_count = _detect_jump_table(raw, start, binary_len, known_addrs)
         if jt_count is not None:
             rec['format_hint'] = f'Jump table: {jt_count} entries'
+            skipped_no_ctrl += 1
             if trace is not None:
                 trace.event('cascade', 'jump_table', addr=start,
                             end=end, size=end - start)
@@ -669,6 +644,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
         fmt = _detect_file_format(raw)
         if fmt is not None:
             rec['format_hint'] = fmt
+            skipped_no_ctrl += 1
             if trace is not None:
                 trace.event('cascade', 'file_format', addr=start,
                             end=end, size=end - start)
@@ -681,7 +657,17 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                         decoded=insns is not None,
                         all_decoded=all_decoded if insns else False,
                         has_ctrl=has_ctrl if insns else False)
+        skipped_no_ctrl += 1
         new_records.append(rec)
+
+    if diag_enabled():
+        diag_phase('postproc')
+        diag_emit('promoted_blocks', promoted_blocks)
+        diag_emit('promoted_mnemonics', promoted_mnemonics)
+        diag_emit('skipped_all_data', skipped_all_data)
+        diag_emit('skipped_carve', skipped_carve)
+        diag_emit('skipped_no_ctrl', skipped_no_ctrl)
+        diag_emit('partial', partial_blocks)
 
     return new_records
 
@@ -840,13 +826,20 @@ def _flush_data_block(records, pending_data, data_block_start, end_off):
 def _emit_label_record(records, off, label_map, local_labels=None, insn_by_addr=None):
     if label_map and off in label_map:
         name = label_map[off]
-        if name.startswith('data_') or name.startswith('loc_'):
+        if name.startswith('data_'):
             if local_labels and off in local_labels:
                 records.append({
                     'type': 'label',
                     'text': _emit_label(local_labels[off]),
                     'offset': off,
                 })
+            return
+        if name.startswith('loc_') and local_labels and off in local_labels:
+            records.append({
+                'type': 'label',
+                'text': _emit_label(local_labels[off]),
+                'offset': off,
+            })
             return
         records.append({
             'type': 'label',
@@ -993,28 +986,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 continue
             label_map[addr] = dname
 
-    # ── Pre-collect code targets from call/jmp instruction operands ──
-    is_flow = {'jmp', 'call', 'jcxz', 'jecxz', 'loop', 'loope', 'loopne',
-               'je', 'jne', 'jb', 'jae', 'jbe', 'ja', 'jl', 'jge', 'jle', 'jg',
-               'js', 'jns', 'jp', 'jnp', 'jo', 'jno'}
-    if label_map is not None:
-        for insn in insns:
-            if insn.mnemonic not in is_flow:
-                continue
-            for op in insn.operands:
-                if op.type != CS_OP_IMM:
-                    continue
-                target = op.imm & 0xFFFF
-                if target < start_offset or target >= total:
-                    continue
-                if target in local_labels:
-                    continue
-                if foreign_label_map and target in foreign_label_map:
-                    continue
-                if target not in label_map:
-                    label_map[target] = f'loc_{target:04x}'
-                    known_addrs.add(target)
-
+    # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
     consumer_inc = None
     if foreign_label_map and asm_dir and name:
         from lib.cross_ref import write_label_inc
@@ -1030,7 +1002,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     off = start_offset
     while off < total:
-        if off in known_addrs and (off in insn_by_addr or (label_map and off in label_map) or (local_labels and off in local_labels)):
+        if off in known_addrs and (off in insn_by_addr or (label_map and off in label_map and label_map[off].startswith('data_')) or (local_labels and off in local_labels)):
             data_block_start, pending_data = _flush_data_block(
                 records, pending_data, data_block_start, off,
             )
@@ -1042,7 +1014,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
             inner_labels = sorted(
                 a for a in known_addrs
-                if off < a < insn_end and (a in insn_by_addr or (label_map and a in label_map) or (local_labels and a in local_labels))
+                if off < a < insn_end and (a in insn_by_addr or (label_map and a in label_map and label_map[a].startswith('data_')) or (local_labels and a in local_labels))
             )
 
             if inner_labels:
@@ -1168,6 +1140,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     data_blocks = sum(1 for r in records if r['type'] == 'data_block')
     label_count = sum(1 for r in records if r['type'] == 'label')
 
+    code_loss = 0
+    if label_map:
+        for off, name in label_map.items():
+            if name.startswith('loc_') and off < total and emit_class[off] == IS_DATA:
+                code_loss += 1
+
     struct_count = 0
     if structs:
         from lib.struct_analysis import write_struct_inc_files
@@ -1189,6 +1167,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'bare_mem': bare_mem,
         'bare_call': bare_call,
         'bare_dbc': bare_dbc,
+        'code_loss': code_loss,
         'status': 'OK',
         'timing_func_boundaries': t1 - t0,
         'timing_local_labels': t2 - t1,
@@ -1209,39 +1188,19 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append(f'%include "{consumer_inc}"')
         out.append('')
 
-    if start_offset == 0x200:
+    if start_offset > 0:
         hdr = binary_data[:start_offset]
-        magic, cblp, cp, crlc, cparhdr, minalloc, maxalloc, ss, sp, \
-            csum, ip, cs, lfarlc, ovno = struct.unpack_from('<2s13H', hdr, 0)
-        out.append('    ; DOS MZ executable header')
-        out.append(f'    db "MZ"         ; e_magic')
-        out.append(f'    dw 0x{cblp:04x}  ; e_cblp')
-        out.append(f'    dw 0x{cp:04x}    ; e_cp')
-        out.append(f'    dw 0x{crlc:04x}  ; e_crlc')
-        out.append(f'    dw 0x{cparhdr:04x} ; e_cparhdr')
-        out.append(f'    dw 0x{minalloc:04x} ; e_minalloc')
-        out.append(f'    dw 0x{maxalloc:04x} ; e_maxalloc')
-        out.append(f'    dw 0x{ss:04x}   ; e_ss')
-        out.append(f'    dw 0x{sp:04x}   ; e_sp')
-        out.append(f'    dw 0x{csum:04x} ; e_csum')
-        out.append(f'    dw 0x{ip:04x}   ; e_ip')
-        out.append(f'    dw 0x{cs:04x}   ; e_cs')
-        out.append(f'    dw 0x{lfarlc:04x} ; e_lfarlc')
-        out.append(f'    dw 0x{ovno:04x} ; e_ovno')
-        out.append('')
-        out.extend(_render_data_block(hdr[28:]))
-        out.append('')
-
-    elif start_offset > 0:
-        hdr = binary_data[:start_offset]
-        hdr_hex = ', '.join(f'0x{b:02x}' for b in hdr)
-        out.append(f'    db {hdr_hex} ; header ({start_offset} bytes)')
+        out.append(f'    ; header ({start_offset} bytes)')
+        out.extend(_render_data_block(hdr))
         out.append('')
 
     if label_map:
+        label_offsets = {r['offset'] for r in records if r['type'] == 'label'}
         for addr in sorted(label_map):
             name = label_map[addr]
-            if name.startswith('data_') or name.startswith('loc_'):
+            if name.startswith('data_'):
+                out.append(f'{name} equ 0x{addr:04x}')
+            elif addr not in label_offsets:
                 out.append(f'{name} equ 0x{addr:04x}')
         out.append('')
 
