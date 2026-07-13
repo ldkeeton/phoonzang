@@ -128,10 +128,12 @@ def per_binary(sidecar, short_name):
     Missing optional fields default to ``None`` / empty dict.
     """
     result = {
-        'force_data': sidecar.get('force_data', []),
-        'force_code': sidecar.get('force_code', []),
+        'force_data': [],
+        'force_code': [],
         'api_dispatch': sidecar.get('api_dispatch', {}),
         'function_names': {},
+        'dispatch_table': None,
+        'immediate_labels': {},
         'ghidra_base_offset': 0,
         'fingerprint-start': None,
         'fingerprint-end': None,
@@ -144,8 +146,12 @@ def per_binary(sidecar, short_name):
             result['type'] = b.get('type')
             result['start_offset'] = b.get('start_offset')
             result['function_names'] = b.get('function_names', {})
+            result['dispatch_table'] = b.get('dispatch_table')
+            result['immediate_labels'] = b.get('immediate_labels', {})
             result['ghidra_base_offset'] = b.get('ghidra_base_offset', 0)
             result['fingerprint-start'] = b.get('fingerprint-start')
             result['fingerprint-end'] = b.get('fingerprint-end')
+            result['force_data'] = b.get('force_data', sidecar.get('force_data', []))
+            result['force_code'] = b.get('force_code', sidecar.get('force_code', []))
 
     return result

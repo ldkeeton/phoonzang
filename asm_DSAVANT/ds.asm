@@ -2091,7 +2091,7 @@ loc_23ef:
     je short @..local.l53
     mov ax, 0x30c
     push ax
-    mov ax, 0x5218
+    mov ax, data_5218
     push ax
     push word [bp - 0x00a2]
     call dos_file_loc_4fb6
@@ -2821,7 +2821,7 @@ leaf_loc_3330:
     push cs
     adc al, 0x10
     or dx, word [bx + si]
-    or al, 9
+    or al, data_0009
     cmp dh, byte [bx + di]
     xor ch, byte [es:bx + di]
     push ds
@@ -3015,7 +3015,7 @@ dos_mem_loc_36d0:
     mov ax, cs
     mov ds, ax
     mov dx, 0x352e
-    mov ah, 9
+    mov ah, data_0009
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
@@ -3198,7 +3198,7 @@ dos_alloc_mem:
     mov ds, ax
     mov dx, 0x373f
 dos_con_loc_3936:
-    mov ah, 9
+    mov ah, data_0009
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
@@ -3213,7 +3213,7 @@ dos_con_loc_3936:
     mov ds, ax
     mov dx, 0x376b
 dos_con_loc_3962:
-    mov ah, 9
+    mov ah, data_0009
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
@@ -3532,7 +3532,7 @@ loc_3c97:
     mov al, byte [si + 0x2]
     cmp al, 8
     je short @..local.l75
-    cmp al, 9
+    cmp al, data_0009
     je short @..local.l75
     cmp al, 0xa
     je short @..local.l75
@@ -3611,7 +3611,7 @@ loc_3c97:
     mov byte [bx + si + 0x1], 8
     cmp al, 0x4b
     je short @..local.l74
-    mov byte [bx + si + 0x1], 9
+    mov byte [bx + si + 0x1], data_0009
     cmp al, 0x48
     je short @..local.l74
     mov byte [bx + si + 0x1], 0xa
@@ -3647,7 +3647,7 @@ leaf_loc_3d79:
     mov al, byte [si + 0x2]
     cmp al, 8
     je short @..leaf_loc_3d79.l4
-    cmp al, 9
+    cmp al, data_0009
     je short @..leaf_loc_3d79.l4
     cmp al, 0xa
     je short @..leaf_loc_3d79.l4
@@ -3728,7 +3728,7 @@ leaf_loc_3d79:
     mov byte [bx + si + 0x1], 8
     cmp al, 0x4b
     je short @..local.l83
-    mov byte [bx + si + 0x1], 9
+    mov byte [bx + si + 0x1], data_0009
     cmp al, 0x48
     je short @..local.l83
     mov byte [bx + si + 0x1], 0xa
@@ -3815,7 +3815,7 @@ dos_read_file_2:
     mov ds, ax
     mov dx, 0x3dde
 dos_con_loc_3fd5:
-    mov ah, 9
+    mov ah, data_0009
     int 0x21 ; DOS string output
     mov ax, 0x4c01
     int 0x21 ; DOS function dispatcher
@@ -4256,7 +4256,7 @@ dos_file_loc_4462:
     add sp, byte 8
     lea ax, word [bp - 0x0050]
     push ax
-    mov ax, 9
+    mov ax, data_0009
     push ax
     call dos_file_loc_4497
     add sp, byte 4
@@ -4621,7 +4621,7 @@ string_loc_4882:
     mov di, cs
     mov es, di
 @..local.l106:
-    mov di, 0x460d
+    mov di, dos_free_mem
     mov cx, 0x15
     repne scasb
     sub di, strict word 0x460e

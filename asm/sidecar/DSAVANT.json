@@ -113,7 +113,35 @@
       "type": "raw_drv",
       "start_offset": 0,
       "fingerprint-start": "381676dbe2fa0c4eaf5c3374b3feb45ad5c6c6f37a6514e368cff54c75be30bc",
-      "fingerprint-end": "02918342cdb921ea77d85460636c572f2183005b8ef9312909494f20f5036a09"
+      "fingerprint-end": "02918342cdb921ea77d85460636c572f2183005b8ef9312909494f20f5036a09",
+      "dispatch_table": {
+        "base_offset": 3,
+        "entry_size": 4,
+        "count": 48,
+        "format": "e8_rel16_cb"
+      },
+      "force_data": [
+        {"start": "0003", "end": "00c2", "note": "VGA API dispatch table (48 × E8 rel16 CB)"}
+      ],
+      "immediate_labels": {
+        "0xbda": "data_0bda",
+        "0xbc6": "data_0bc6",
+        "0x229": "data_0229",
+        "0x251": "data_0251",
+        "0x25b": "data_025b",
+        "0x29b": "data_029b",
+        "0x2d7": "data_02d7",
+        "0x2e2b": "data_2e2b",
+        "0x2e53": "data_2e53",
+        "0x381b": "data_381b",
+        "0x1dc4": "data_1dc4",
+        "0x1e4c": "data_1e4c",
+        "0x4202": "data_4202",
+        "0x46d9": "data_46d9",
+        "0x46f1": "data_46f1",
+        "0x1e5c": "data_1e5c",
+        "0x1e64": "data_1e64"
+      }
     },
     "ega": {
       "file": "EGA.DRV",

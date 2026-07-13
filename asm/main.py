@@ -35,7 +35,7 @@ from lib.phases import (
     TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
     PruneDeadPhase, PruneDeadBeforePhase, PruneZeroPhase,
     SettlePhase, ArbiterPhase, ForceCodePhase, PatternSeedPhase,
-    BorlandOverlayPhase,
+    BorlandOverlayPhase, DispatchTablePhase,
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.pipeline import run_functional, run_iterative, report_timings
@@ -57,6 +57,7 @@ def _build_classify_phases(known_db=None):
         SeedPhase(),
         SidecarPhase(),
         BorlandOverlayPhase(),
+        DispatchTablePhase(),
     ]
     if known_db and known_db.get('signatures'):
         phases.append(PatternSeedPhase(
@@ -279,6 +280,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
 
     carve_1 = ctx.layers['carve_1'].to_numpy() if 'carve_1' in ctx.layers.columns else None
 
+    raw_imm = (ctx.sidecar_entry or {}).get('immediate_labels', {})
+    immediate_labels = {int(k, 16): v for k, v in raw_imm.items()}
     asm_text, stats, emit_bytes, label_positions = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
@@ -288,6 +291,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         carve_1=carve_1,
         trace=ctx.trace,
         foreign_label_map=foreign_label_map,
+        immediate_labels=immediate_labels,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
@@ -307,9 +311,23 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         f.write(asm_text)
     t_end = time.perf_counter()
 
+    if immediate_labels:
+        imm_fail = 0
+        for line in asm_text.split('\n'):
+            if line.startswith('    db ') and ';' in line:
+                for lbl in immediate_labels.values():
+                    if lbl in line:
+                        imm_fail += 1
+                        break
+    else:
+        imm_fail = 0
+    dbc = stats['with_comment']
+    if imm_fail:
+        dbc = f'{stats["with_comment"]}[immfail={imm_fail}]'
+
     print(f'{name}: {len(instructions)} insns -> {asm_path}  '
           f'mnem={stats["mnemonic"]} db={stats["data"]} '
-          f'dbc={stats["with_comment"]} blocks={stats["data_blocks"]} '
+          f'dbc={dbc} blocks={stats["data_blocks"]} '
           f'lbl={stats["labels"]}  structs={stats["structs"]}  '
           f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
           f'bare=[mem:{stats["bare_mem"]} call:{stats["bare_call"]} dbc:{stats["bare_dbc"]}]  '

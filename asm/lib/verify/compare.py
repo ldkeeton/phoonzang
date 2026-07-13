@@ -414,7 +414,7 @@ def _detect_file_format(raw_bytes):
     return None
 
 
-def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, local_labels=None, exact_bytes=False, foreign_label_map=None):
+def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, local_labels=None, exact_bytes=False, foreign_label_map=None, immediate_labels=None):
     """Build mnem/db_with_comment/db records for a code-like block."""
     from lib.format import format_instruction
 
@@ -438,7 +438,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                 })
             continue
 
-        nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map)
+        nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels)
 
         if nasm_text is None:
             for b in bts:
@@ -450,7 +450,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                 })
             continue
 
-        built = micro_assemble(nasm_text, insn.address, label_map, local_labels)
+        built = micro_assemble(nasm_text, insn.address, label_map, local_labels, immediate_labels=immediate_labels)
         ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
         if not ok and not exact_bytes and built:
             ok = is_semantically_equivalent(bts, built[:len(bts)], insn.address)
@@ -464,9 +464,9 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                             label_map[addr] = f'data_{addr:04x}'
                             data_added += 1
                             clear_assemble_cache()
-                            new_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map)
+                            new_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels)
                             if new_text:
-                                rebuilt = micro_assemble(new_text, insn.address, label_map, local_labels)
+                                rebuilt = micro_assemble(new_text, insn.address, label_map, local_labels, immediate_labels=immediate_labels)
                                 if rebuilt and len(built) >= len(bts) and rebuilt[:len(bts)] == bts:
                                     nasm_text = new_text
             rec = {
@@ -496,7 +496,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
     return records
 
 
-def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None):
+def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None, immediate_labels=None):
     """Replace code-like data_block records with inline records;
     annotate jump tables and known file formats on the rest."""
     new_records = []
@@ -587,7 +587,8 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                         inline = _generate_inline_code(
                             safe_insns, raw[:safe_end_offset], start,
                             binary_data, label_map, local_labels, exact_bytes=True,
-                            foreign_label_map=foreign_label_map)
+                            foreign_label_map=foreign_label_map,
+                            immediate_labels=immediate_labels)
                         if inline:
                             partial_blocks += 1
                             if trace is not None:
@@ -612,7 +613,8 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
 
             if all_decoded or (0 < gap <= 3):
                 inline = _generate_inline_code(insns, raw, start, binary_data, label_map, local_labels, exact_bytes=True,
-                                               foreign_label_map=foreign_label_map)
+                                               foreign_label_map=foreign_label_map,
+                                               immediate_labels=immediate_labels)
                 if inline:
                     promoted_blocks += 1
                     promoted_mnemonics += sum(1 for r in inline if r['type'] == 'mnem')
@@ -886,7 +888,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False, show_offsets=False,
            structs=None, asm_dir=None, cascade_promoted=None,
            carve_1=None, trace=None,
-           foreign_label_map=None):
+           foreign_label_map=None,
+           immediate_labels=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -1047,10 +1050,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             )
 
             bts = binary_data[off:insn_end]
-            nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map)
+            nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map, immediate_labels=immediate_labels)
 
             if nasm_text:
-                built = micro_assemble(nasm_text, off, label_map, local_labels, foreign_label_map=foreign_label_map)
+                built = micro_assemble(nasm_text, off, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels)
                 exact_here = exact_bytes
                 ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
                 if not ok and not exact_here and built:
@@ -1101,7 +1104,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     t3 = time.perf_counter()
     records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace, local_labels,
-                                       foreign_label_map=foreign_label_map)
+                                       foreign_label_map=foreign_label_map,
+                                       immediate_labels=immediate_labels)
     _annotate_interrupts(records)
     t4 = time.perf_counter()
 
@@ -1131,7 +1135,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
     src_lines = _build_source(records, start_offset, binary_data, label_map, show_offsets=show_offsets,
-                              consumer_inc=consumer_inc)
+                              consumer_inc=consumer_inc, immediate_labels=immediate_labels)
     t6 = time.perf_counter()
 
     mnem_count = sum(1 for r in records if r['type'] == 'mnem')
@@ -1179,7 +1183,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
 
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=False,
-                  consumer_inc=None):
+                  consumer_inc=None, immediate_labels=None):
     """Render the record list to final NASM text."""
     out = []
     out.append('org 0')
@@ -1202,6 +1206,12 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                 out.append(f'{name} equ 0x{addr:04x}')
             elif addr not in label_offsets:
                 out.append(f'{name} equ 0x{addr:04x}')
+    if immediate_labels:
+        for addr in sorted(immediate_labels):
+            name = immediate_labels[addr]
+            if not label_map or addr not in label_map or label_map[addr] != name:
+                out.append(f'{name} equ 0x{addr:04x}')
+    if label_map or immediate_labels:
         out.append('')
 
     i = 0

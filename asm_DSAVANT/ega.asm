@@ -481,7 +481,7 @@ math_loc_04b1:
 @..math_loc_04b1.l7:
     mov di, word [bp - 0x0002]
     mov si, word [bp - 0x0012]
-    mov bx, 0x33b3
+    mov bx, dos_mem_loc_33b3
     mov cl, 4
     test byte [bp - 0x0014], 0xaa
     jne short @..math_loc_04b1.l8
@@ -725,7 +725,7 @@ math_loc_04b1:
     add bx, word [bp - 0x0024]
     mov dh, byte [es:bx + di]
 @..local.l16:
-    mov bx, 0x33b3
+    mov bx, dos_mem_loc_33b3
     lodsb
     cs xlatb
     rcl al, 1
@@ -764,7 +764,7 @@ math_loc_04b1:
     xor dx, dx
     mov byte [bp - 0x0030], 4
 @..local.l19:
-    mov bx, 0x33b3
+    mov bx, dos_mem_loc_33b3
     lodsb
     cs xlatb
     rcl al, 1
@@ -812,7 +812,7 @@ math_loc_04b1:
     add bx, word [bp - 0x0024]
     mov dh, byte [es:bx + di]
 @..local.l21:
-    mov bx, 0x33b3
+    mov bx, dos_mem_loc_33b3
     mov al, byte [si]
     dec si
     cs xlatb
@@ -1042,7 +1042,7 @@ leaf_loc_0949:
     mov cx, word [bp - 0x000e]
 @..leaf_loc_0949.l8:
     push cx
-    mov bx, 0x33b3
+    mov bx, dos_mem_loc_33b3
     mov ah, byte [bp - 0x001c]
     lodsb
     call leaf_loc_3252
@@ -2378,7 +2378,7 @@ string_loc_17a1:
     xor al, al
     rep stosb
     xor di, di
-    mov bx, 0x33b3
+    mov bx, dos_mem_loc_33b3
     mov cx, word [cs:data_2591]
 @..string_loc_17a1.l1:
     push cx
@@ -2654,7 +2654,7 @@ mouse_set_pos:
     mov ds, ax
     mov es, ax
     mov si, 0x2593
-    mov di, 0x258d
+    mov di, data_258d
     mov cx, 6
     rep movsb
     push ds
@@ -2978,7 +2978,7 @@ math_loc_2a6a:
     mov si, 0x200
     mov ah, 4
     call io_loc_2f70
-    mov si, 0x300
+    mov si, data_0300
     mov ah, 8
     call io_loc_2f70
     mov dx, 0x3ce
@@ -3127,8 +3127,8 @@ math_loc_2a6a:
     mov ax, cs
     mov ds, ax
     mov es, ax
-    mov si, 0x1beb
-    mov di, 0x1bd9
+    mov si, data_1beb
+    mov di, data_1bd9
     mov cx, 9
     rep movsw
     mov sp, bp
@@ -3582,7 +3582,7 @@ leaf_loc_31f4:
     push di
     mov ax, ds
     mov es, ax
-    mov bx, 0x33b3
+    mov bx, dos_mem_loc_33b3
     add bx, word [bp + 0xc]
     mov ax, word [bp + 0xe]
     cmp ax, strict word 0xffff
@@ -3967,7 +3967,7 @@ io_loc_35ba:
     mov es, ax
     lds si, word [cs:data_01f7]
     mov di, word [bp + 0xc]
-    mov cx, 0x300
+    mov cx, data_0300
     rep movsb
     pop si
     pop di
@@ -4074,7 +4074,7 @@ math_loc_361e:
     mov word [bp - 0x0034], ax
     mov ax, cx
     div bx
-    mov di, 0x36dd
+    mov di, data_36dd
     mov bx, word [bp - 0x0034]
     shr bx, 1
     mov word [bp - 0x003c], bx
@@ -4103,7 +4103,7 @@ math_loc_361e:
     mov word [bp - 0x0034], ax
     mov ax, cx
     div bx
-    mov di, 0x3705
+    mov di, data_3705
     mov bx, word [bp - 0x0034]
     shr bx, 1
     mov word [bp - 0x003c], bx
@@ -4182,7 +4182,7 @@ math_loc_361e:
     mov bx, word [bp - 0x001e]
     inc bx
     mov word [bp - 0x003e], bx
-    mov bx, 0x36dd
+    mov bx, data_36dd
     mov dl, 0x80
     xor ax, ax
     mov word [bp - 0x0030], ax
@@ -4264,7 +4264,7 @@ math_loc_361e:
     mov bx, word [bp - 0x001e]
     inc bx
     mov word [bp - 0x003e], bx
-    mov bx, 0x36dd
+    mov bx, data_36dd
     mov dl, 0x80
     xor ax, ax
     mov word [bp - 0x0030], ax
@@ -4344,7 +4344,7 @@ math_loc_361e:
     mov ax, word [bp + 0x1a]
     and al, 2
     jne short @..local.l98
-    mov bx, 0x3705
+    mov bx, data_3705
     mov dl, 0x80
     xor ax, ax
     mov word [bp - 0x0030], ax
@@ -4381,7 +4381,7 @@ math_loc_361e:
 @..local.l97:
     jmp short @..local.l104
 @..local.l98:
-    mov bx, 0x3705
+    mov bx, data_3705
     mov dl, 0x80
     xor ax, ax
     mov word [bp - 0x0030], ax
@@ -4512,7 +4512,7 @@ math_loc_3a8b:
     push es
     mov ax, word [cs:data_01e5]
     mov es, ax
-    mov ax, 0x3705
+    mov ax, data_3705
     mov word [bp - 0x0036], ax
     xor ax, ax
     mov word [bp - 0x003c], ax
@@ -4555,7 +4555,7 @@ math_loc_3a8b:
 @..math_loc_3a8b.l5:
     push cx
     call math_loc_3bf2
-    mov ax, 0x36dd
+    mov ax, data_36dd
     mov word [bp - 0x0034], ax
     mov cx, word [bp - 0x0002]
 @..math_loc_3a8b.l6:
@@ -4727,7 +4727,7 @@ math_loc_3c12:
 @..local.l112:
     push cx
     call math_loc_3bf2
-    mov ax, 0x36dd
+    mov ax, data_36dd
     mov word [bp - 0x0034], ax
     mov cx, word [bp - 0x0002]
 @..local.l113:
@@ -4879,7 +4879,7 @@ math_loc_3c12:
 @..local.l137:
     push cx
     call math_loc_3bf2
-    mov ax, 0x36dd
+    mov ax, data_36dd
     mov word [bp - 0x0034], ax
     mov cx, word [bp - 0x0002]
 @..local.l138:
@@ -5032,7 +5032,7 @@ math_loc_3c12:
 @..local.l162:
     push cx
     call math_loc_3bf2
-    mov ax, 0x36dd
+    mov ax, data_36dd
     mov word [bp - 0x0034], ax
     mov cx, word [bp - 0x0002]
 @..local.l163:

@@ -288,7 +288,7 @@ api_idx_0002_2:
 @..local.l6:
     inc word [bp - 0x0002]
 @..local.l7:
-    cmp word [bp - 0x0002], strict word 0xf0
+    cmp word [bp - 0x0002], api_idx_0004
     jl short @..api_idx_0002_2.l1
     mov ax, 0xffff
     ret
@@ -770,11 +770,11 @@ loc_0836:
     mov word [data_8f44], ax
     push ax
     push word [data_8f46]
-    mov ax, 0x8f3e
+    mov ax, data_8f3e
     push ax
-    mov ax, 0x8f40
+    mov ax, data_8f40
     push ax
-    mov ax, 0x8f42
+    mov ax, data_8f42
     push ax
     call api_idx_0004
     add sp, byte 0x0a
@@ -982,11 +982,11 @@ api_idx_000c:
     add sp, byte 4
     push word [data_8f44]
     push word [data_8f46]
-    mov ax, 0x8f3e
+    mov ax, data_8f3e
     push ax
-    mov ax, 0x8f40
+    mov ax, data_8f40
     push ax
-    mov ax, 0x8f42
+    mov ax, data_8f42
     push ax
     call api_idx_0004
     add sp, byte 0x0a
@@ -5142,7 +5142,7 @@ api_idx_0024:
 @..local.l193:
     cmp word [bp - 0x000a], strict word 0xa2
     jl short @..local.l194
-    cmp word [bp - 0x000a], strict word 0xf0
+    cmp word [bp - 0x000a], api_idx_0004
     jg short @..local.l194
     mov ax, word [bp - 0x000a]
     add ax, 0xff4e
@@ -5157,7 +5157,7 @@ api_idx_0024:
     ret
 @..local.l195:
     mov ax, word [bp - 0x0008]
-    mov cx, 0xf0
+    mov cx, api_idx_0004
     cwd
     idiv cx
     mov ax, dx
@@ -5166,7 +5166,7 @@ api_idx_0024:
     idiv cx
     mov word [bp - 0x000c], ax
     mov ax, word [bp - 0x0008]
-    mov cx, 0xf0
+    mov cx, api_idx_0004
     cwd
     idiv cx
     test ax, ax
@@ -5443,7 +5443,7 @@ api_idx_0030:
 @..api_idx_0030.l2:
     mov ax, 0x63
     push ax
-    mov ax, 0x8e
+    mov ax, data_008e
     push ax
     mov ax, 0xf7
     push ax
@@ -5519,7 +5519,7 @@ api_idx_0030:
     je short @..local.l214
     mov ax, 0xff
     push ax
-    mov ax, 0x8e
+    mov ax, data_008e
     push ax
     mov ax, 0xf7
     push ax
@@ -6513,7 +6513,7 @@ api_idx_0030:
     push ax
     mov ax, 0xce
     push ax
-    mov ax, 0xb6
+    mov ax, math_loc_00b6
     push ax
     push ax
     mov ax, 0x14

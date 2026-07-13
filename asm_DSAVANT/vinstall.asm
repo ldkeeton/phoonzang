@@ -676,7 +676,7 @@ math_loc_0992:
     push ax
     call loc_040f
     add sp, byte 6
-    mov ax, 0x2648
+    mov ax, data_2648
     push ax
     push ax
     call strlen_3
@@ -984,13 +984,13 @@ math_loc_0cd6:
 @..math_loc_0cd6.l1:
     mov ax, word [bp + 0x6]
     inc ax
-    mov cx, 5
+    mov cx, data_0005
     cwd
     idiv cx
     mov word [bp + 0x6], dx
     mov bx, word [bp + 0x8]
     mov si, word [bp + 0x6]
-    cmp byte [bx + si], 0x30
+    cmp byte [bx + si], data_0030
     je short @..math_loc_0cd6.l1
     mov ax, word [bp + 0x6]
     shl ax, 1
@@ -1643,7 +1643,7 @@ loc_11ba:
 @..local.l52:
     mov ax, 0x1e28
     push ax
-    mov ax, 0x2648
+    mov ax, data_2648
     push ax
     call strlen_2
     add sp, byte 4
@@ -1662,7 +1662,7 @@ loc_11ba:
     jmp near @..local.l54
     lea ax, word [bp - 0x001c]
     push ax
-    mov ax, 0x2e
+    mov ax, data_002e
     push ax
     mov ax, 8
     push ax
@@ -1691,7 +1691,7 @@ loc_11ba:
     jmp near @..local.l54
     lea ax, word [bp - 0x003e]
     push ax
-    mov ax, 0x2e
+    mov ax, data_002e
     push ax
     mov ax, 9
     push ax
@@ -1807,7 +1807,7 @@ loc_11ba:
     jmp short @..local.l54
     mov ax, 0x1e69
     push ax
-    mov ax, 0x30
+    mov ax, data_0030
     push ax
     mov ax, 0x14
     push ax
@@ -1843,7 +1843,7 @@ loc_11ba:
     jmp near @..local.l56
     lea ax, word [bp - 0x001c]
     push ax
-    mov ax, 0x2e
+    mov ax, data_002e
     push ax
     mov ax, 8
     push ax
@@ -1872,7 +1872,7 @@ loc_11ba:
     jmp near @..local.l56
     lea ax, word [bp - 0x003e]
     push ax
-    mov ax, 0x2e
+    mov ax, data_002e
     push ax
     mov ax, 9
     push ax
@@ -1988,7 +1988,7 @@ loc_11ba:
     jmp short @..local.l56
     mov ax, 0x1e90
     push ax
-    mov ax, 0x30
+    mov ax, data_0030
     push ax
     mov ax, 0x14
     push ax
@@ -2063,7 +2063,7 @@ loc_1bd5:
     push ax
     lea ax, word [bp - 0x001c]
     push ax
-    mov ax, 0x2e
+    mov ax, data_002e
     push ax
     mov ax, 8
     push ax
@@ -2114,7 +2114,7 @@ loc_1bd5:
     add sp, byte 6
     mov ax, 0x1efc
     push ax
-    mov ax, 0x2e
+    mov ax, data_002e
     push ax
     mov ax, 9
     push ax
@@ -2122,7 +2122,7 @@ loc_1bd5:
     add sp, byte 6
     lea ax, word [bp - 0x003e]
     push ax
-    mov ax, 0x2e
+    mov ax, data_002e
     push ax
     mov ax, 9
     push ax
@@ -2142,7 +2142,7 @@ loc_1bd5:
     push ax
     lea ax, word [bp - 0x003e]
     push ax
-    mov ax, 0x2e
+    mov ax, data_002e
     push ax
     mov ax, 9
     push ax
@@ -2391,7 +2391,7 @@ loc_1bd5:
 @..local.l86:
     mov ax, 0x20a8
     push ax
-    mov ax, 0x2648
+    mov ax, data_2648
     push ax
     call strlen_2
     add sp, byte 4
@@ -2478,7 +2478,7 @@ loc_1fce:
     add sp, byte 4
     mov ax, 0x2113
     push ax
-    mov ax, 0x2648
+    mov ax, data_2648
     push ax
     call strlen_2
     add sp, byte 4
@@ -2872,7 +2872,7 @@ loc_1fce:
     mov ax, word [bp - 0x0010]
     jmp short @..local.l104
 loc_2394:
-    mov word [bp - 0x022c], 5
+    mov word [bp - 0x022c], data_0005
     jmp short @..local.l105
 loc_239c:
     mov word [bp - 0x022c], 2
@@ -3415,7 +3415,7 @@ dos_proc_loc_2a27:
     mov word [data_231a], es
     mov ax, ds
     mov es, ax
-    mov bx, 0x230e
+    mov bx, data_230e
     mov dx, word [bp + 0x4]
     mov ax, 0x4b00
     int 0x21 ; DOS function dispatcher
@@ -3834,7 +3834,7 @@ loc_2d86:
     cmp byte [si + 0x6], 0
     je short 0x2e5f
     add si, byte 0x0d
-    cmp si, strict word 0x244e
+    cmp si, data_244e
     jb short 0x2e5d
     mov ax, 0
     pop si
@@ -3903,9 +3903,9 @@ loc_2f1b:
     mov word [bp + 0x4], ax
     cmp word [data_2536], byte 0
     jne short @..local.l136
-    mov word [data_2538], 0x2538
+    mov word [data_2538], data_2538
     or word [data_2538], 1
-    mov word [data_2536], 0x2538
+    mov word [data_2536], data_2538
 @..local.l136:
     mov word [bp - 0x0006], 0
     mov si, word [data_2536]
@@ -3946,7 +3946,7 @@ loc_2f1b:
     mov di, si
     add di, word [bp - 0x0004]
     mov word [si], di
-    mov word [di], 0x2538
+    mov word [di], data_2538
     or word [di], 1
     mov word [data_244e], di
     mov bx, word [bp - 0x0002]
@@ -4078,9 +4078,9 @@ string_loc_30b3:
     or byte [bp - 0x000b], 0x10
     jmp short @..local.l148
 @..local.l152:
-    cmp al, 0x30
+    cmp al, data_0030
     jne short @..local.l153
-    mov byte [bp - 0x000c], 0x30
+    mov byte [bp - 0x000c], data_0030
     lodsb
 @..local.l153:
     call string_loc_3338
@@ -4090,7 +4090,7 @@ string_loc_30b3:
     or byte [bp - 0x000b], 8
 @..local.l154:
     mov word [bp - 0x0004], dx
-    cmp al, 0x2e
+    cmp al, data_002e
     jne short @..local.l155
     lodsb
     call string_loc_3338
@@ -4204,7 +4204,7 @@ math_loc_3168:
     jmp short @..string_loc_3140.l12
 @..string_loc_3140.l11:
     dec di
-    mov byte [es:di], 0x30
+    mov byte [es:di], data_0030
 @..string_loc_3140.l12:
     lea cx, word [bp - 0x0140]
     sub cx, di
@@ -4227,7 +4227,7 @@ math_loc_3168:
     jle short @..string_loc_3140.l17
     test byte [bp - 0x000b], 8
     jne short @..string_loc_3140.l17
-    cmp byte [bp - 0x000c], 0x30
+    cmp byte [bp - 0x000c], data_0030
     jne short @..string_loc_3140.l16
     call string_loc_32eb
 @..string_loc_3140.l16:
@@ -4240,7 +4240,7 @@ math_loc_3168:
 @..string_loc_3140.l18:
     dec word [bp - 0x0006]
     js short @..string_loc_3140.l19
-    mov al, 0x30
+    mov al, data_0030
     call string_loc_3301
     jmp short @..string_loc_3140.l18
 @..string_loc_3140.l19:
@@ -4314,7 +4314,7 @@ string_loc_32eb:
     je short @..string_loc_3140.l26
     cmp al, 0x78
     jne short @..string_loc_3140.l24
-    mov al, 0x30
+    mov al, data_0030
     call string_loc_3301
     mov al, 0x78
 @..string_loc_3140.l24:
@@ -4365,11 +4365,11 @@ string_loc_3338:
     sub dx, dx
     mov ah, 0
 @..local.l158:
-    cmp al, 0x30
+    cmp al, data_0030
     jb short @..local.l159
     cmp al, 0x39
     ja short @..local.l159
-    sub al, 0x30
+    sub al, data_0030
     shl dx, 1
     mov cx, dx
     shl dx, 1
@@ -4963,7 +4963,7 @@ leaf_loc_3f00:
     add bh, dh
     or ax, word [bx + di]
     or al, 3
-    or al, 5
+    or al, data_0005
     or al, 4
     add byte [bx], al
     or al, 0x11
@@ -5048,7 +5048,7 @@ leaf_loc_3f00:
     pop bp
     or ax, 0xd5f
     add ax, 0x6100
-    or ax, 0xd6a
+    or ax, math_loc_0d6a
     insb
     or ax, 0xd6e
     add ax, 0x7000

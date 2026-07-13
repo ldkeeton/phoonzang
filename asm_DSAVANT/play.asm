@@ -506,7 +506,7 @@ io_loc_02ba:
     out 0x61, al
 @..local.l21:
     call fpu_loc_077b
-    mov al, 0xfe
+    mov al, strlen
     out 0x21, al
     mov ax, word [bp + 0x8]
     add ax, word [bp + 0xe]
@@ -522,7 +522,7 @@ io_loc_02ba:
     mov ax, word [bp + 0xe]
     sub ax, word [bp + 0xc]
     neg ax
-    and al, 0xfe
+    and al, strlen
     add ax, strict word 0x10
     mov di, ax
     mov bx, ax
@@ -553,7 +553,7 @@ io_loc_02ba:
     cmp byte [cs:data_0b90], 0
     jne short @..local.l26
     mov al, byte [cs:data_0b8f]
-    and al, 0xfe
+    and al, strlen
     out 0x21, al
     sti
     test byte [bp + 0x14], 1
@@ -579,7 +579,7 @@ io_loc_02ba:
     call io_loc_0610
     mov al, ah
     out 0x40, al
-    mov al, 0xfe
+    mov al, strlen
     out 0x21, al
     mov ax, es
     mov ds, ax
@@ -966,7 +966,7 @@ fpu_loc_077b:
     iret
     push dx
     in al, 0x61
-    and al, 0xfe
+    and al, strlen
     out 0x61, al
     mov byte [cs:data_0b94], 0xff
     mov ax, word [cs:data_0ba6]
@@ -1019,7 +1019,7 @@ io_loc_0a2a:
 
 io_loc_0a6d:
     in al, 0x61
-    and al, 0xfe
+    and al, strlen
     out 0x61, al
     mov byte [cs:data_0b94], 0xff
     ret

@@ -9,6 +9,7 @@ _PHASE_WEIGHTS = {
     'sidecar': 5,
     'recursive': 5,
     'force_code': 5,
+    'dispatch_table': 3,
     'borland_overlay': 4,
     'trampoline': 3,
     'prune_dead': 3,
