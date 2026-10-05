@@ -1,9 +1,9 @@
 ; testcom.com — interactive COM target for the TSR GDB stub
-; Prints a counter and loops; TESTDBG.COM gets a debugger-injected entry trap.
+; Prints a counter and loops; GDBEXEC plants the entry trap in loaded memory.
 ;
 ; Build: nasm -O0 -f bin -o testcom.com testcom.asm
 ; Usage: Run after gdbsrv.com TSR is installed.
-;         GDB connects at the debugger-injected COM entry gate.
+;         GDB connects at the in-memory entry trap.
 
 BITS 16
 %ifidn __OUTPUT_FORMAT__, bin

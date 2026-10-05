@@ -11,7 +11,7 @@
             "MIMode": "gdb",
             "targetArchitecture": "x86",
             "cwd": "${workspaceFolder}/debugger",
-            "preLaunchTask": "Start dosbox-x + GDBSRV",
+            "preLaunchTask": "Start DOSBox-X (COM)",
             "sourceFileMap": {
                 "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
             },
@@ -37,7 +37,7 @@
             }
         },
         {
-            "name": "GDB: Launch (i8086 native)",
+            "name": "GDB: Launch COM (16-bit code)",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/debugger/build/testcom.elf",
@@ -47,19 +47,24 @@
             "targetArchitecture": "x86",
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}/debugger",
-            "preLaunchTask": "Start dosbox-x + GDBSRV",
+            "preLaunchTask": "Start DOSBox-X (COM)",
             "sourceFileMap": {
                 "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
             },
             "setupCommands": [
                 {
-                    "text": "set architecture i8086",
-                    "description": "Native 16-bit real-mode",
+                    "text": "set architecture i386",
+                    "description": "GDBSRV i386 register packet; target code is 16-bit",
                     "ignoreFailures": false
                 },
                 {
                     "text": "set confirm off",
                     "description": "No prompts",
+                    "ignoreFailures": true
+                },
+                {
+                    "text": "source ${workspaceFolder}/debugger/gdb_enable_phys.py",
+                    "description": "Real-mode address translation",
                     "ignoreFailures": true
                 }
             ],
@@ -81,11 +86,52 @@
             },
             "setupCommands": [
                 {
-                    "text": "set architecture i8086",
-                    "description": "16-bit real-mode",
+                    "text": "set architecture i386",
+                    "description": "GDBSRV i386 register packet; target code is 16-bit",
                     "ignoreFailures": false
+                },
+                {
+                    "text": "source ${workspaceFolder}/debugger/gdb_enable_phys.py",
+                    "description": "Real-mode address translation",
+                    "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "GDB: Launch MZ EXE",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/debugger/build/testexe.elf",
+            "miDebuggerServerAddress": "localhost:1234",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "MIMode": "gdb",
+            "targetArchitecture": "x86",
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}/debugger",
+            "preLaunchTask": "Start DOSBox-X (MZ EXE)",
+            "sourceFileMap": {
+                "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
+            },
+            "setupCommands": [
+                {
+                    "text": "set architecture i386",
+                    "description": "GDBSRV i386 register packet; target code is 16-bit",
+                    "ignoreFailures": false
+                },
+                {
+                    "text": "set confirm off",
+                    "description": "No prompts",
+                    "ignoreFailures": true
+                },
+                {
+                    "text": "source ${workspaceFolder}/debugger/gdb_enable_phys.py",
+                    "description": "Real-mode address translation",
+                    "ignoreFailures": true
+                }
+            ],
+            "logging": {
+                "engineLogging": true
+            }
         }
     ]
 }

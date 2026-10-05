@@ -4,9 +4,9 @@
 Run with:
     python3 debugger/test_breakpoints.py
 
-The test builds the DOS images, starts its own DOSBox-X session, then checks
-the GDB entry breakpoint and source-level step, then checks the first newline
-source row, asynchronous breakpoint insertion, and free-running Ctrl-C over RSP.
+The test builds the DOS images, starts DOSBox-X sessions, and checks GDB entry
+breakpoints for both COM and MZ EXE targets. It also checks source stepping,
+runtime breakpoints, and Ctrl-C over RSP.
 """
 import os
 import pathlib
@@ -22,8 +22,9 @@ DEBUGGER = ROOT / "debugger"
 BUILD = DEBUGGER / "build"
 LAUNCHER = DEBUGGER / "start-dosbox-x.sh"
 TEST_COM = BUILD / "testcom.com"
+TEST_EXE = BUILD / "testexe.exe"
 ENTRY = 0x100
-NEWLINE = 0x129  # test.asm:44, mov dl, 0x0D
+NEWLINE = 0x129  # test/testcom.asm:44, mov dl, 0x0D
 PRINT_CHAR = 0x10D
 PORT = 1234
 
@@ -108,14 +109,14 @@ def wait_for_ready(proc, timeout):
             output.extend(chunk)
     if b"__READY__" not in output:
         raise RuntimeError(
-            "DOSBox-X did not reach the debugger entry gate:\n"
+            "DOSBox-X did not reach the target entry stop:\n"
             + output.decode(errors="replace")
         )
 
 
-def launch_server(timeout):
+def launch_server(timeout, target="testcom"):
     proc = subprocess.Popen(
-        ["bash", str(LAUNCHER)],
+        ["bash", str(LAUNCHER), target],
         cwd=ROOT,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -142,7 +143,16 @@ def stop_server(proc):
         proc.wait(timeout=4)
 
 
-def run_gdb_mi_test(timeout):
+def run_gdb_mi_test(timeout, target="testcom"):
+    if target == "testcom":
+        elf = BUILD / "testcom.elf"
+        entry = 0x100
+        entry_line = 21
+    else:
+        elf = BUILD / "testexe.elf"
+        entry = 0
+        entry_line = 40
+
     gdb = subprocess.Popen(
         ["gdb", "--quiet", "--interpreter=mi2"],
         stdin=subprocess.PIPE,
@@ -171,8 +181,19 @@ def run_gdb_mi_test(timeout):
                 + output.decode(errors="replace")
             )
         end = output.index(token) + len(token)
-        result = bytes(output[:end])
-        del output[:end]
+        line_end = output.find(b"\n", end)
+        while line_end < 0 and time.monotonic() < deadline:
+            ready, _, _ = select.select([gdb.stdout], [], [], 0.1)
+            if ready:
+                chunk = os.read(gdb.stdout.fileno(), 16384)
+                if not chunk:
+                    break
+                output.extend(chunk)
+                line_end = output.find(b"\n", end)
+        if line_end < 0:
+            line_end = end
+        result = bytes(output[: line_end + 1])
+        del output[: line_end + 1]
         return result.decode(errors="replace")
 
     def wait_record(token, wait=timeout):
@@ -211,39 +232,41 @@ def run_gdb_mi_test(timeout):
         send(
             "1-gdb-set mi-async on\n"
             "2-gdb-set architecture i386\n"
-            f"3-file-exec-and-symbols {BUILD / 'testcom.elf'}\n"
+            f"3-file-exec-and-symbols {elf}\n"
             f'4-interpreter-exec console "source {DEBUGGER / "gdb_enable_phys.py"}"\n'
             f"5-target-select remote localhost:{PORT}\n"
         )
         wait_for("5^connected")
-
-        send("6-break-insert *0x100\n")
-        wait_for("6^done")
-        send("7-exec-continue\n")
-        wait_for("7^running")
+        send(f"7-break-insert *0x{entry:x}\n")
+        wait_for("7^done")
+        send("8-exec-continue\n")
+        wait_for("8^running")
         stopped = wait_record('reason="breakpoint-hit"')
-        if 'addr="0x00000100"' not in stopped or 'line="21"' not in stopped:
+        address_text = f'addr="0x{entry:08x}"'
+        line_text = f'line="{entry_line}"'
+        if address_text not in stopped or line_text not in stopped:
             raise AssertionError(f"entry breakpoint stopped at the wrong row:\n{stopped}")
-        print("GDB entry breakpoint stops at line 21 before its instruction")
+        print(f"GDB {target} entry breakpoint stops at source line {entry_line}")
 
-        send("8-break-delete 1\n")
-        wait_for("8^done")
-        send("9-break-insert test.asm:44\n")
+        send("9-break-delete 1\n")
         wait_for("9^done")
-        send("10-exec-continue\n")
-        wait_for("10^running")
-        stopped = wait_record('reason="breakpoint-hit"')
-        if 'addr="0x00000129"' not in stopped or 'line="44"' not in stopped:
-            raise AssertionError(f"line 44 breakpoint stopped at the wrong row:\n{stopped}")
+        if target == "testcom":
+            send("10-break-insert test/testcom.asm:44\n")
+            wait_for("10^done")
+            send("11-exec-continue\n")
+            wait_for("11^running")
+            stopped = wait_record('reason="breakpoint-hit"')
+            if 'addr="0x00000129"' not in stopped or 'line="44"' not in stopped:
+                raise AssertionError(f"line 44 breakpoint stopped at the wrong row:\n{stopped}")
 
-        send("11-exec-next\n")
-        wait_for("11^running")
-        stepped = wait_record('reason="end-stepping-range"')
-        if 'addr="0x0000012b"' not in stepped or 'line="45"' not in stepped:
-            raise AssertionError(f"source step did not advance to line 45:\n{stepped}")
-        print("GDB source step advances from line 44 to line 45")
-        send("12-gdb-exit\n")
-        wait_for("12^exit", 5)
+            send("12-exec-next\n")
+            wait_for("12^running")
+            stepped = wait_record('reason="end-stepping-range"')
+            if 'addr="0x0000012b"' not in stepped or 'line="45"' not in stepped:
+                raise AssertionError(f"line 44 source step did not advance:\n{stepped}")
+            print("GDB source step advances from line 44 to line 45")
+        send("13-gdb-exit\n")
+        wait_for("13^exit", 5)
     finally:
         if gdb.poll() is None:
             gdb.terminate()
@@ -263,18 +286,17 @@ def run_test(timeout):
     sock = socket.create_connection(("127.0.0.1", PORT), timeout=timeout)
     sock.settimeout(timeout)
     try:
-        expect(sock, "?", "S02")
+        expect(sock, "?", "S05")
         expect(sock, "QPhys:1", "OK")
         regs = registers(sock)
-        if code_offset(regs) != 0xFF:
+        if code_offset(regs) != (ENTRY - 1):
             raise AssertionError(
-                f"entry gate should report the pre-entry RSP PC 0xff, got "
+                f"entry stop should report the pre-entry PC {ENTRY - 1:#x}, got "
                 f"{code_offset(regs):#x}"
             )
-        expect(sock, f"M{ENTRY:x},1:{original_entry:02x}", "OK")
         if read_memory(sock, ENTRY) != bytes([original_entry]):
-            raise AssertionError("debugger-injected entry byte was not restored")
-        print("Entry gate is stopped and original COM opcode is restored")
+            raise AssertionError("in-memory entry trap did not restore the COM opcode")
+        print("COM entry stop reports the first instruction with its byte restored")
 
         # Line 44 is reached after the first nine has printed and the counter
         # wraps to zero. This verifies the first newline path, not a later loop.
@@ -357,12 +379,63 @@ def run_test(timeout):
         if not stop.startswith("S02"):
             raise AssertionError(f"Ctrl-C while free-running returned {stop!r}")
         regs = registers(sock)
-        if code_offset(regs) in (0xFF, ENTRY):
+        if code_offset(regs) in (ENTRY - 1, ENTRY):
             raise AssertionError("free-running target did not advance past its entry")
         print("No-breakpoint continue runs freely and responds to Ctrl-C")
         print("Breakpoint integration checks passed")
     finally:
         sock.close()
+        if TEST_COM.read_bytes() != original:
+            raise AssertionError("debugging modified testcom.com on disk")
+
+
+def run_exe_test(timeout):
+    image = TEST_EXE.read_bytes()
+    entry = 0
+    original_entry = image[0x200 + entry]
+    symbols = subprocess.check_output(["nm", "-n", str(BUILD / "testexe.elf")], text=True)
+    loop = next(
+        int(line.split()[0], 16)
+        for line in symbols.splitlines()
+        if line.endswith(" T loop")
+    )
+    original_loop = image[0x200 + loop]
+
+    sock = socket.create_connection(("127.0.0.1", PORT), timeout=timeout)
+    sock.settimeout(timeout)
+    try:
+        expect(sock, "?", "S05")
+        expect(sock, "QPhys:1", "OK")
+        regs = registers(sock)
+        if code_offset(regs) != 0xFFFF:
+            raise AssertionError(
+                f"MZ entry stop should report pre-entry IP 0xffff, got {code_offset(regs):#x}"
+            )
+        if int.from_bytes(regs[40:42], "little") == 0:
+            raise AssertionError("MZ entry stop has a zero CS load segment")
+        if read_memory(sock, entry) != bytes([original_entry]):
+            raise AssertionError("in-memory entry trap did not restore the MZ opcode")
+        print("MZ entry stop reports relocated CS and restores the entry opcode")
+
+        expect(sock, f"Z0,{loop:x},1", "OK")
+        if read_memory(sock, loop) != b"\xcc":
+            raise AssertionError("MZ loop breakpoint did not patch target memory")
+        send_packet(sock, "c")
+        stop = recv_packet(sock)
+        if not stop.startswith("S05"):
+            raise AssertionError(f"MZ loop breakpoint returned {stop!r}")
+        regs = registers(sock)
+        if code_offset(regs) != loop:
+            raise AssertionError(
+                f"MZ loop breakpoint stopped at {code_offset(regs):#x}, expected {loop:#x}"
+            )
+        if read_memory(sock, loop) != bytes([original_loop]):
+            raise AssertionError("MZ breakpoint handler did not restore the loop opcode")
+        print("MZ software breakpoint hits at the relocated loop and restores its opcode")
+    finally:
+        sock.close()
+        if TEST_EXE.read_bytes() != image:
+            raise AssertionError("debugging modified testexe.exe on disk")
 
 
 def main():
@@ -375,7 +448,19 @@ def main():
     subprocess.run(["make", "-C", str(DEBUGGER), "all"], check=True)
     proc = launch_server(args.timeout)
     try:
-        run_gdb_mi_test(args.timeout)
+        run_gdb_mi_test(args.timeout, "testcom")
+    finally:
+        stop_server(proc)
+
+    proc = launch_server(args.timeout, "testexe")
+    try:
+        run_gdb_mi_test(args.timeout, "testexe")
+    finally:
+        stop_server(proc)
+
+    proc = launch_server(args.timeout, "testexe")
+    try:
+        run_exe_test(args.timeout)
     finally:
         stop_server(proc)
 

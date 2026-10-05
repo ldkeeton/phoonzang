@@ -71,18 +71,28 @@ int3:
     dec word [sreg+R_IP]
     cmp ax, -1
     jne .swbp
-    ; TESTDBG.COM has a debugger-injected INT3 at COM entry. Rewind the real
-    ; IRET frame so restoring the original first byte resumes at entry.
+    ; GDBEXEC's DOS EXEC/01 handoff installed an in-memory entry INT3. Match
+    ; its segment:offset, restore the saved instruction, and stop at entry.
     cmp byte [st_gate], 0
     je .nb
-    cmp word [sreg+R_IP], 0x100
+    mov ax, [sreg+R_CS]
+    cmp ax, [gate_cs]
+    jne .nb
+    mov ax, [sreg+R_IP]
+    cmp ax, [gate_ip]
     jne .nb
     dec word [bp+20]
-    ; Present the gate stop just before the COM entry to GDB. If GDB sees
-    ; EIP equal to a breakpoint being installed at 0x100, it single-steps the
-    ; entry instruction before planting Z0, which misses a pre-launch BP.
-    ; The real IRET frame remains at 0x100; this is only the initial RSP view.
-    mov word [sreg+R_IP], 0x00FF
+    push es
+    mov ax, [gate_cs]
+    mov es, ax
+    mov bx, [gate_ip]
+    mov al, [gate_opcode]
+    mov [es:bx], al
+    pop es
+    ; Present the stop immediately before entry so GDB installs an entry
+    ; breakpoint before it performs the first-instruction step-over. The real
+    ; IRET frame remains at the DOS-provided entry CS:IP.
+    dec word [sreg+R_IP]
     mov byte [st_gate], 0
     mov byte [st_entry_stop], 1
     call mark_entry_ready
@@ -135,7 +145,7 @@ int3:
     popa
     iret
 
-; Signal the host launcher only after TESTDBG.COM has reached its entry gate.
+; Signal the host launcher only after the target has reached its entry gate.
 ; The marker prevents GDB from interrupting COMMAND.COM during DOS startup.
 mark_entry_ready:
     push ax
@@ -393,10 +403,35 @@ int4:
 
 
 
-; ─── INT 2Fh (multiplex — detect resident) ─────────
+; ─── INT 2Fh (multiplex — detect resident / arm entry trap) ─
 int2f:
     cmp ax, 0xCF00
-    jne .c2
+    je .resident
+    cmp ax, 0xCF02
+    je .entry
+    jmp far [cs:ov2f]
+.resident:
     mov ax, 0xCF01
     iret
-.c2:jmp far [cs:ov2f]
+.entry:
+    ; GDBEXEC supplies CX:DX = target CS:IP after DOS loaded it with EXEC/01.
+    push ax
+    push bx
+    push es
+    push ds
+    mov ax, cs
+    mov ds, ax
+    mov [gate_cs], cx
+    mov [gate_ip], dx
+    mov es, cx
+    mov bx, dx
+    mov al, [es:bx]
+    mov [gate_opcode], al
+    mov byte [es:bx], 0xCC
+    mov byte [st_gate], 1
+    pop ds
+    pop es
+    pop bx
+    pop ax
+    mov ax, 0xCF03
+    iret

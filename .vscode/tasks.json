@@ -10,10 +10,37 @@
             "problemMatcher": []
         },
         {
-            "label": "Start dosbox-x + GDBSRV",
+            "label": "Start DOSBox-X (COM)",
             "type": "shell",
             "isBackground": true,
             "command": "${workspaceFolder}/debugger/start-dosbox-x.sh",
+            "args": ["testcom"],
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^$",
+                    "file": 1,
+                    "message": 1
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Starting dosbox-x",
+                    "endsPattern": "__READY__"
+                }
+            },
+            "dependsOn": ["Build GDBSRV"],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Start DOSBox-X (MZ EXE)",
+            "type": "shell",
+            "isBackground": true,
+            "command": "${workspaceFolder}/debugger/start-dosbox-x.sh",
+            "args": ["testexe"],
             "problemMatcher": {
                 "pattern": {
                     "regexp": "^$",

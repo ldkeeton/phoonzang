@@ -65,7 +65,7 @@ gdb_loop:
 cmd_halt:
     cmp byte [st_entry_stop], 0
     je .trap
-    mov si, s_intr
+    mov si, s_trap
     call pkt_send
     jmp gdb_loop
 .trap:

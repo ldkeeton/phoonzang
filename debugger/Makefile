@@ -6,7 +6,7 @@ MODULES := lib/equ.asm lib/data.asm lib/serial.asm lib/hex.asm lib/proto.asm lib
 
 .PHONY: all clean
 
-all: $(BUILD)/gdbsrv.com $(BUILD)/testcom.com $(BUILD)/testdbg.com $(BUILD)/testexe.exe $(BUILD)/testcom.elf $(BUILD)/testexe.elf $(BUILD)/gdbsrv.elf
+all: $(BUILD)/gdbsrv.com $(BUILD)/gdbexec.com $(BUILD)/testcom.com $(BUILD)/testexe.exe $(BUILD)/testcom.elf $(BUILD)/testexe.elf $(BUILD)/gdbsrv.elf
 
 $(BUILD):
 	mkdir -p $@
@@ -18,10 +18,8 @@ $(BUILD)/gdbsrv.com: gdbsrv.asm $(MODULES) | $(BUILD)
 $(BUILD)/testcom.com: test/testcom.asm | $(BUILD)
 	$(NASM) -O0 -f bin -o $@ $<
 
-# The source stays free of INT3. Inject a temporary first-instruction gate into
-# the DOSBox debug image so GDB can install even entry-point breakpoints.
-$(BUILD)/testdbg.com: $(BUILD)/testcom.com inject_entry_trap.py
-	python3 inject_entry_trap.py $(BUILD)/testcom.com $@
+$(BUILD)/gdbexec.com: gdbexec.asm | $(BUILD)
+	$(NASM) -O0 -f bin -o $@ $<
 
 # elf (symbols for GDB)
 $(BUILD)/testcom.elf: test/testcom.asm | $(BUILD)

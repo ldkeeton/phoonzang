@@ -61,7 +61,6 @@ init:
     mov dx, msg_ok
     int 0x21
 
-    mov byte [cs:st_gate], 1
     call ser_irq_enable
 
     ; TSR: keep from PSP to resident_end in paragraphs
