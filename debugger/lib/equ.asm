@@ -7,6 +7,7 @@ BUF_SZ equ 1024
 STK_SZ equ 256
 ; GDB's i386 register packet: core registers, FPU/SSE slots, and orig_eax.
 RSP_REG_SIZE equ 312
+IRQ4_VECTOR  equ 0x0C
 
 ; register save offsets
 %define R_AX 0

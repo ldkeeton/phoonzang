@@ -63,6 +63,12 @@ gdb_loop:
 ; ─── Command handlers ───────────────────────────────
 
 cmd_halt:
+    cmp byte [st_entry_stop], 0
+    je .trap
+    mov si, s_intr
+    call pkt_send
+    jmp gdb_loop
+.trap:
     mov si, s_trap
     call pkt_send
     jmp gdb_loop
@@ -81,7 +87,7 @@ cmd_rreg:
 cmd_wreg:
     mov si, rbuf+1
     mov di, sreg
-    mov cx, SAVE_L
+    mov cx, SAVE_L*2           ; hex_mem consumes two chars per register byte
     call hex_mem
     mov si, s_ok
     call pkt_send
@@ -160,7 +166,14 @@ cmd_wmem:
     je .wm_np
     call phys_addr
 .wm_np:
-    mov di, ax                ; length parsing uses AL; preserve the address
+    mov bx, ax
+    shr ax, 4
+    mov cx, dx
+    shl cx, 12
+    or ax, cx
+    and bx, 0x000F
+    mov es, ax
+    mov di, bx
     inc si                   ; skip comma
     xor bx, bx               ; parse length as hex into BX
 .wl:lodsb
@@ -182,45 +195,15 @@ cmd_wmem:
     shl bx, 1
     or bl, al
     jmp .wl
-.wd:inc si                   ; skip ':'
-    mov ax, di
-    push bx
-.wlp:test bx, bx
-    jz .wld
-    lodsb
-    call gnib
-    mov ah, al
-    lodsb
-    call gnib
-    shl ah, 4
-    or al, ah
-    push ax
-    push bx
-    push dx
-    push ax
-    mov bx, ax
-    mov ax, bx
-    shr ax, 4
-    mov cx, dx
-    shl cx, 12
-    or ax, cx
-    and bx, 0xF
-    mov es, ax
-    pop ax
-    mov [es:bx], al
-    pop dx
-    pop bx
-    pop ax
-    inc ax
-    adc dx, 0
-    dec bx
-    jmp .wlp
-.wld:pop bx
+.wd:mov cx, bx
+    shl cx, 1                  ; hex_mem counts input hex characters
+    call hex_mem
     mov si, s_ok
     call pkt_send
     jmp gdb_loop
 
 cmd_cont:
+    mov byte [st_entry_stop], 0
     cmp byte [rbuf+1], 0
     je .cn
     mov si, rbuf+1
@@ -255,6 +238,7 @@ cmd_cont:
     ret
 
 cmd_step:
+    mov byte [st_entry_stop], 0
     cmp byte [rbuf+1], 0
     je .sn
     mov si, rbuf+1
@@ -306,10 +290,22 @@ cmd_bins:
     je .bf
     mov si, s_ok
     call pkt_send
+    cmp byte [st_async], 0
+    jne .async
     jmp gdb_loop
+.async:
+    mov byte [st_async], 0
+    pop ax
+    ret
 .bf:mov si, s_err
     call pkt_send
+    cmp byte [st_async], 0
+    jne .asyncf
     jmp gdb_loop
+.asyncf:
+    mov byte [st_async], 0
+    pop ax
+    ret
 .unsupported:
     mov si, s_emp
     call pkt_send
@@ -332,11 +328,23 @@ cmd_brem:
     je .missing
     mov si, s_ok
     call pkt_send
+    cmp byte [st_async], 0
+    jne .async
     jmp gdb_loop
+.async:
+    mov byte [st_async], 0
+    pop ax
+    ret
 .missing:
     mov si, s_err
     call pkt_send
+    cmp byte [st_async], 0
+    jne .asyncf
     jmp gdb_loop
+.asyncf:
+    mov byte [st_async], 0
+    pop ax
+    ret
 .unsupported:
     mov si, s_emp
     call pkt_send
@@ -472,6 +480,7 @@ cmd_preg:
 
 ; ─── Restore interrupt vectors ──────────────────────
 restore_vecs:
+    call ser_irq_disable
     push ds
     mov ax, [ov3+2]
     or ax, [ov3]
@@ -489,10 +498,20 @@ restore_vecs:
     int 0x21
 .r2:mov ax, [ov2f+2]
     or ax, [ov2f]
-    jz .done
+    jz .r4
     mov ds, [ov2f+2]
     mov dx, [ov2f]
     mov ax, 0x252F
     int 0x21
+.r4:mov ax, [ov4+2]
+    or ax, [ov4]
+    jz .mask
+    mov ds, [ov4+2]
+    mov dx, [ov4]
+    mov ax, 0x250C
+    int 0x21
+.mask:
+    mov al, [cs:pic_mask]
+    out 0x21, al
 .done:pop ds
     ret

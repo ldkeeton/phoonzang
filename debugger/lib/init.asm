@@ -27,6 +27,10 @@ init:
     int 0x21
     mov [ov2f], bx
     mov [ov2f+2], es
+    mov ax, 0x350C
+    int 0x21
+    mov [ov4], bx
+    mov [ov4+2], es
     ; install our vectors
     push ds
     mov ax, cs
@@ -40,13 +44,25 @@ init:
     mov dx, int2f
     mov ax, 0x252F
     int 0x21
+    mov dx, int4
+    mov ax, 0x250C
+    int 0x21
     pop ds
+
+    ; Unmask COM1's IRQ4, preserving the prior PIC mask for detach.
+    in al, 0x21
+    mov [cs:pic_mask], al
+    and al, 0xEF
+    out 0x21, al
 
     call ser_init
 
     mov ah, 9
     mov dx, msg_ok
     int 0x21
+
+    mov byte [cs:st_gate], 1
+    call ser_irq_enable
 
     ; TSR: keep from PSP to resident_end in paragraphs
     mov dx, resident_end

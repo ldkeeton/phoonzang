@@ -3,6 +3,7 @@
 ov3:  dd 0
 ov1:  dd 0
 ov2f: dd 0
+ov4:  dd 0
 com:  dw COM1
 
 bp_n: db 0
@@ -15,6 +16,12 @@ st_run:  db 0
 st_usr:  db 0
 in_dbg:  db 0
 st_phys: db 0
+st_async: db 0
+st_gate: db 0
+st_entry_stop: db 0
+rx_pending: db 0
+rx_byte: db 0
+pic_mask: db 0
 
 ind_rx_orig: dw 0
 ind_tx_orig: dw 0
@@ -29,6 +36,7 @@ stk:  times STK_SZ db 0
 stk_t:
 
 s_trap: db "S05",0
+s_intr: db "S02",0
 s_ok:   db "OK",0
 s_emp:  db 0
 s_err:  db "E22",0
@@ -37,3 +45,5 @@ s_qc:   db "QC-1",0
 s_qa:   db "0",0
 s_tln:  db "l",0
 s_vC:   db "vCont;",0
+entry_ready_file: db "C:\GDBENTRY.OK",0
+entry_ready_data: db "1"

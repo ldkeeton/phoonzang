@@ -1,9 +1,9 @@
 ; test.asm — interactive target for TSR GDB stub
-; Prints a counter and loops, with an int3 entry point for breaking in.
+; Prints a counter and loops; TESTDBG.COM gets a debugger-injected entry trap.
 ;
 ; Build: nasm -O0 -f bin -o test.com test.asm
 ; Usage: Run after gdbsrv.com TSR is installed.
-;         GDB connects after the int3 fires.
+;         GDB connects at the debugger-injected COM entry gate.
 
 BITS 16
 %ifidn __OUTPUT_FORMAT__, bin
@@ -49,7 +49,7 @@ print_char:
     pop ax
 
 break_here:
-    nop                ; <-- GDB/TSR breaks in here each iteration
+    nop
 
 loop:
     nop

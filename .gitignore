@@ -3,3 +3,4 @@ trash
 trash_*
 code_out.txt
 build_out
+__pycache__

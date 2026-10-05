@@ -17,8 +17,12 @@ ser_init:
     mov al, 0x03
     out dx, al
     mov dx, [com]
+    inc dx
+    xor al, al
+    out dx, al
+    mov dx, [com]
     add dx, 4
-    mov al, 0x03
+    mov al, 0x0B                 ; DTR, RTS, and OUT2 (route UART IRQ)
     out dx, al
     mov dx, [com]
     add dx, 5
@@ -30,7 +34,31 @@ ser_init:
     mov dx, [com]
     add dx, 5
     jmp .f1
+
 .f2:pop dx
+    pop ax
+    ret
+
+; Enable receive-data IRQs after the TSR's IRQ4 vector is installed.
+ser_irq_enable:
+    push ax
+    push dx
+    mov dx, [com]
+    inc dx
+    mov al, 1
+    out dx, al
+    pop dx
+    pop ax
+    ret
+
+ser_irq_disable:
+    push ax
+    push dx
+    mov dx, [com]
+    inc dx
+    xor al, al
+    out dx, al
+    pop dx
     pop ax
     ret
 
@@ -62,6 +90,14 @@ ser_putc:
 
 ser_getc:
     push dx
+    cmp byte [rx_pending], 0
+    je .poll
+    mov byte [rx_pending], 0
+    mov al, [rx_byte]
+    pop dx
+    clc
+    ret
+.poll:
 .g1:mov dx, [com]
     add dx, 5
     sti
