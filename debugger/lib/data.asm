@@ -11,6 +11,7 @@ bp_o: times MAX_BP db 0
 bp_cur: dw -1
 st_pi: dw -1
 st_cont: db 0
+st_run:  db 0
 st_usr:  db 0
 in_dbg:  db 0
 st_phys: db 0

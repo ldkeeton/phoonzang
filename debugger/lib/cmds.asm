@@ -105,6 +105,8 @@ cmd_rmem:
     je .rm_np
     call phys_addr
 .rm_np:
+    push dx
+    push ax
     inc si                   ; skip comma
     xor bx, bx               ; parse length as hex into BX
 .rl:lodsb
@@ -126,7 +128,11 @@ cmd_rmem:
     shl bx, 1
     or bl, al
     jmp .rl
-.rd:push bx                ; save length on stack
+.rd:mov si, bx               ; preserve parsed length while restoring address
+    pop ax
+    pop dx
+    mov bx, si
+    push bx                   ; save length on stack
     mov di, stk             ; store raw bytes in stk (no overlap with bytes_pkt output)
 .rrp:test bx, bx
     jz .rrd
@@ -165,6 +171,7 @@ cmd_wmem:
     je .wm_np
     call phys_addr
 .wm_np:
+    mov di, ax                ; length parsing uses AL; preserve the address
     inc si                   ; skip comma
     xor bx, bx               ; parse length as hex into BX
 .wl:lodsb
@@ -187,6 +194,7 @@ cmd_wmem:
     or bl, al
     jmp .wl
 .wd:inc si                   ; skip ':'
+    mov ax, di
     push bx
 .wlp:test bx, bx
     jz .wld
@@ -246,12 +254,14 @@ cmd_cont:
     call bp_patch
     call clr_ind
     or word [sreg+R_FL], 0x100
+    mov byte [st_run], 1
     pop ax
     ret
 .cn2:call bp_patch
     mov byte [st_usr], 0
     and word [sreg+R_FL], ~0x100
     call clr_ind
+    mov byte [st_run], 1
     pop ax
     ret
 
@@ -278,6 +288,7 @@ cmd_step:
     call bp_patch
     call clr_ind
     or word [sreg+R_FL], 0x100
+    mov byte [st_run], 1
     pop ax
     ret
 .sn2:call bp_patch
@@ -285,11 +296,14 @@ cmd_step:
     mov byte [st_cont], 0
     call clr_ind
     or word [sreg+R_FL], 0x100
+    mov byte [st_run], 1
     pop ax
     ret
 
 cmd_bins:
-    mov si, rbuf+2
+    cmp byte [rbuf+1], '0'
+    jne .unsupported
+    mov si, rbuf+3                 ; skip "Z0,"
     call ph32
     cmp byte [st_phys], 0
     je .bi_np
@@ -307,9 +321,15 @@ cmd_bins:
 .bf:mov si, s_err
     call pkt_send
     jmp gdb_loop
+.unsupported:
+    mov si, s_emp
+    call pkt_send
+    jmp gdb_loop
 
 cmd_brem:
-    mov si, rbuf+2
+    cmp byte [rbuf+1], '0'
+    jne .unsupported
+    mov si, rbuf+3                 ; skip "z0,"
     call ph32
     cmp byte [st_phys], 0
     je .br_np
@@ -319,7 +339,17 @@ cmd_brem:
     push ax
     call bp_rem
     add sp, 4
+    cmp ax, -1
+    je .missing
     mov si, s_ok
+    call pkt_send
+    jmp gdb_loop
+.missing:
+    mov si, s_err
+    call pkt_send
+    jmp gdb_loop
+.unsupported:
+    mov si, s_emp
     call pkt_send
     jmp gdb_loop
 

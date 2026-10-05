@@ -1,24 +1,26 @@
 ; bp.asm — breakpoint management
 
-; Find breakpoint by linear address DX:AX → AX=index or -1
+; Find breakpoint by linear address DX:AX → AX=index or -1.
+; The table is sparse; indices remain stable until an entry is removed.
 bp_find:
     push cx
     push di
-    xor ch, ch
-    mov cl, [bp_n]
-    jcxz .nf
+    push si
+    mov cx, MAX_BP
     mov di, bp_a
+    xor si, si
 .fl:cmp [di], ax
     jne .nx
     cmp [di+2], dx
     jne .nx
-    mov ax, MAX_BP
-    sub ax, cx
+    mov ax, si
     jmp .fd
 .nx:add di, 4
+    inc si
     loop .fl
 .nf:mov ax, -1
-.fd:pop di
+.fd:pop si
+    pop di
     pop cx
     ret
 
@@ -28,25 +30,31 @@ bp_add:
     push dx
     push es
     push bx
+    push di
     push si
     mov bx, ax              ; save low addr in BX (bp_find preserves BX)
     call bp_find
     cmp ax, -1
     jne .ad
-    mov cl, [bp_n]
-    cmp cl, MAX_BP
+    cmp byte [bp_n], MAX_BP
     jae .fl
-    xor ch, ch
-    push cx
-    pop si                  ; SI = bp_n (new index)
-    push si
-    shl si, 2               ; SI = index * 4
+    ; Allocate the first free slot rather than assuming active entries are
+    ; packed; GDB may remove breakpoints in any order.
+    xor si, si
+    mov di, bp_a
+    mov cx, MAX_BP
+.slot:
+    cmp word [di], -1
+    je .free
+    add di, 4
+    inc si
+    loop .slot
+    jmp .fl
+.free:
     mov ax, bx              ; AX = saved low addr
-    mov [bp_a+si], ax
-    mov [bp_a+si+2], dx
-    pop si                  ; SI = index (unshifted)
+    mov [di], ax
+    mov [di+2], dx
     ; save original byte at breakpoint address
-    push si
     mov ax, bx
     shr ax, 4
     mov cx, dx
@@ -55,7 +63,6 @@ bp_add:
     and bx, 0xF
     mov es, ax
     mov al, [es:bx]
-    pop si
     mov [bp_o+si], al
     mov byte [es:bx], 0xCC
     inc byte [bp_n]
@@ -63,6 +70,7 @@ bp_add:
     jmp .ad
 .fl:mov ax, -1
 .ad:pop si
+    pop di
     pop bx
     pop es
     pop dx
@@ -71,11 +79,11 @@ bp_add:
 
 ; Remove breakpoint at linear address DX:AX
 bp_rem:
-    push ax
     push es
     push bx
     push cx
     push dx
+    push di
     push si
     call bp_find
     cmp ax, -1
@@ -98,15 +106,29 @@ bp_rem:
     pop cx
     mov [es:bx], cl
     pop si
-    shl si, 2
-    mov word [bp_a+si], -1
+    push si
+    mov di, si
+    shl di, 2
+    mov word [bp_a+di], -1
+    mov word [bp_a+di+2], -1
+    mov byte [bp_o+si], 0
     dec byte [bp_n]
+    cmp [bp_cur], si
+    jne .not_cur
+    mov word [bp_cur], -1
+.not_cur:
+    cmp [st_pi], si
+    jne .removed
+    mov word [st_pi], -1
+.removed:
+    mov ax, si
+    pop si
 .rd:pop si
+    pop di
     pop dx
     pop cx
     pop bx
     pop es
-    pop ax
     ret
 
 ; Restore original byte at breakpoint index AX
@@ -141,7 +163,7 @@ bp_rest:
     pop bx
     ret
 
-; Patch 0xCC at all breakpoints except st_pi
+; Patch 0xCC at every active breakpoint except st_pi.
 bp_patch:
     push ax
     push cx
@@ -149,11 +171,10 @@ bp_patch:
     push es
     push bx
     push si
-    xor ch, ch
-    mov cl, [bp_n]
-    jcxz .pd
     xor bx, bx
-.pl:cmp bx, [st_pi]
+.pl:cmp bx, MAX_BP
+    jae .pd
+    cmp bx, [st_pi]
     je .ps
     mov si, bx
     shl si, 2
@@ -165,15 +186,17 @@ bp_patch:
     mov bx, ax
     mov ax, bx
     shr ax, 4
+    push cx
     mov cx, dx
     shl cx, 12
     or ax, cx
     and bx, 0xF
     mov es, ax
     mov byte [es:bx], 0xCC
+    pop cx
     pop bx
 .ps:inc bx
-    loop .pl
+    jmp .pl
 .pd:pop si
     pop bx
     pop es

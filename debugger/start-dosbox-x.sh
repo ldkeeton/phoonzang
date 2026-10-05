@@ -35,7 +35,8 @@ cputype = 386
 [autoexec]
 mount C "$BUILD"
 C:
-DEBUG.COM
+GDBSRV.COM
+TEST.COM
 CFG
 
 echo "Starting dosbox-x..."

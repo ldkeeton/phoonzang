@@ -28,10 +28,10 @@ int3:
     push [bp+4]
     pop word [sreg+R_DI]
 
-    ; IP points to next instruction after 0xCC; decrement to original
-    mov ax, [bp+20]
-    dec ax
-    mov [sreg+R_IP], ax
+    ; Keep the post-INT3 IP until we know this was one of our breakpoints.
+    ; A program-authored INT3 must resume after the INT3 instruction.
+    push [bp+20]
+    pop word [sreg+R_IP]
     push [bp+22]
     pop word [sreg+R_CS]
     push [bp+24]
@@ -58,6 +58,7 @@ int3:
     mov dx, 16
     mul dx
     mov cx, [sreg+R_IP]
+    dec cx                          ; candidate address for a patched 0xCC
     add ax, cx
     adc dx, 0
     push dx
@@ -67,6 +68,7 @@ int3:
     mov [bp_cur], ax
     cmp ax, -1
     je .nb
+    dec word [sreg+R_IP]            ; only debugger breakpoints rewind IP
     call bp_rest
 .nb:
     cli
@@ -75,6 +77,13 @@ int3:
     mov sp, stk_t
     sti
 
+    ; On the first stop GDB queries '?' after connecting. Once execution has
+    ; resumed, report each subsequent INT3 as an asynchronous stop reply.
+    cmp byte [st_run], 0
+    je .wait
+    mov byte [st_run], 0
+    call pkt_send_trap
+.wait:
     push .rt
     call gdb_loop
 .rt:
@@ -167,8 +176,13 @@ int1:
     je .eg
     ; stepping past breakpoint: continue silently
     mov byte [st_cont], 0
-    mov byte [in_dbg], 0
     call bp_patch
+    cli
+    mov ss, [hk_ss]
+    mov sp, [hk_sp]
+    sti
+    mov byte [in_dbg], 0
+    mov bp, sp
     and word [bp+24], ~0x100        ; clear TF before returning
     call clr_ind
     pop es
@@ -177,14 +191,20 @@ int1:
     iret
 
 .eg:
+    mov byte [st_run], 0
     call pkt_send_trap
     push .r1
     call gdb_loop
 .r1:
-    mov byte [in_dbg], 0
     call bp_patch
+    cli
+    mov ss, [hk_ss]
+    mov sp, [hk_sp]
+    sti
+    mov byte [in_dbg], 0
 
     mov bp, sp
+    and word [bp+24], ~0x100
     cmp byte [st_usr], 0
     je .nf
     or word [bp+24], 0x100

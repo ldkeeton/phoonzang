@@ -33,8 +33,10 @@ gnib:
 
 ; Parse hex string at DS:SI into DX:AX, advance SI past hex chars
 ph32:
+    push bx
+    push cx
     xor dx, dx
-    xor ax, ax
+    xor cx, cx
 .ph:lodsb
     cmp al, '0'
     jb .pd
@@ -48,18 +50,19 @@ ph32:
     cmp al, 'F'
     ja .pd
     sub al, 'A' - 10
-.sv:push bx
-    mov bl, al
-    shl ax, 1
+.sv:mov bl, al
+    shl cx, 1
     rcl dx, 1
-    shl ax, 1
+    shl cx, 1
     rcl dx, 1
-    shl ax, 1
+    shl cx, 1
     rcl dx, 1
-    shl ax, 1
+    shl cx, 1
     rcl dx, 1
-    or al, bl
-    pop bx
+    or cl, bl
     jmp .ph
 .pd:dec si
+    mov ax, cx
+    pop cx
+    pop bx
     ret
