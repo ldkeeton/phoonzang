@@ -1,7 +1,7 @@
-; test.asm — interactive target for TSR GDB stub
+; testcom.com — interactive COM target for the TSR GDB stub
 ; Prints a counter and loops; TESTDBG.COM gets a debugger-injected entry trap.
 ;
-; Build: nasm -O0 -f bin -o test.com test.asm
+; Build: nasm -O0 -f bin -o testcom.com testcom.asm
 ; Usage: Run after gdbsrv.com TSR is installed.
 ;         GDB connects at the debugger-injected COM entry gate.
 
@@ -59,4 +59,4 @@ loop:
 
 section .data
 counter: dw 0x30
-banner:  db "test.com running - press F5 in VSCode or Ctrl+F12 in DOSBox-X", 0x0D, 0x0A, "$"
+banner:  db "testcom.com running - press F5 in VSCode or Ctrl+F12 in DOSBox-X", 0x0D, 0x0A, "$"

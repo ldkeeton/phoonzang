@@ -3,11 +3,10 @@ BUILD  := build
 ELFASM := nasm -w-number-overflow
 
 MODULES := lib/equ.asm lib/data.asm lib/serial.asm lib/hex.asm lib/proto.asm lib/bp.asm lib/cmds.asm lib/int.asm lib/init.asm
-DBG_MODULES := lib/equ.asm lib/data.asm lib/serial.asm lib/hex.asm lib/proto.asm lib/bp.asm lib/cmds.asm lib/int.asm
 
 .PHONY: all clean
 
-all: $(BUILD)/gdbsrv.com $(BUILD)/test.com $(BUILD)/debug.com $(BUILD)/test.elf $(BUILD)/debug.elf $(BUILD)/gdbsrv.elf $(BUILD)/dummy.elf  
+all: $(BUILD)/gdbsrv.com $(BUILD)/testcom.com $(BUILD)/testdbg.com $(BUILD)/testexe.exe $(BUILD)/testcom.elf $(BUILD)/testexe.elf $(BUILD)/gdbsrv.elf
 
 $(BUILD):
 	mkdir -p $@
@@ -16,21 +15,29 @@ $(BUILD):
 $(BUILD)/gdbsrv.com: gdbsrv.asm $(MODULES) | $(BUILD)
 	$(NASM) -O0 -f bin -o $@ $<
 
-$(BUILD)/debug.com: debug.asm $(DBG_MODULES) | $(BUILD)
+$(BUILD)/testcom.com: test/testcom.asm | $(BUILD)
 	$(NASM) -O0 -f bin -o $@ $<
 
-$(BUILD)/test.com: test.asm | $(BUILD)
-	$(NASM) -O0 -f bin -o $@ $<
+# The source stays free of INT3. Inject a temporary first-instruction gate into
+# the DOSBox debug image so GDB can install even entry-point breakpoints.
+$(BUILD)/testdbg.com: $(BUILD)/testcom.com inject_entry_trap.py
+	python3 inject_entry_trap.py $(BUILD)/testcom.com $@
 
 # elf (symbols for GDB)
-$(BUILD)/test.elf: test.asm | $(BUILD)
+$(BUILD)/testcom.elf: test/testcom.asm | $(BUILD)
 	$(ELFASM) -O0 -f elf32 -F dwarf -o $@.tmp $<
 	objcopy --adjust-vma=0x100 $@.tmp $@
 	rm -f $@.tmp
 
-$(BUILD)/debug.elf: debug.asm $(DBG_MODULES) | $(BUILD)
+# Small MZ executable with a relocation entry, matching the DOS EXE format used
+# by the apps this debugger will target. The ELF contains load-image symbols;
+# its addresses exclude the on-disk MZ header.
+$(BUILD)/testexe.exe: test/testexe.asm | $(BUILD)
+	$(NASM) -O0 -f bin -o $@ $<
+
+$(BUILD)/testexe.elf: test/testexe.asm | $(BUILD)
 	$(ELFASM) -O0 -f elf32 -F dwarf -o $@.tmp $<
-	objcopy --adjust-vma=0x100 $@.tmp $@
+	objcopy --adjust-vma=0x0 $@.tmp $@
 	rm -f $@.tmp
 
 $(BUILD)/gdbsrv.elf: gdbsrv.asm $(MODULES) | $(BUILD)
@@ -38,8 +45,5 @@ $(BUILD)/gdbsrv.elf: gdbsrv.asm $(MODULES) | $(BUILD)
 	objcopy --adjust-vma=0x100 $@.tmp $@
 	rm -f $@.tmp
 
-$(BUILD)/dummy.elf: dummy.asm | $(BUILD)
-	$(ELFASM) -O0 -f elf32 -o $@ $<
- 
 clean:
 	rm -rf $(BUILD)

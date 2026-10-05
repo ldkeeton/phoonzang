@@ -25,6 +25,10 @@ ser_init:
     mov al, 0x0B                 ; DTR, RTS, and OUT2 (route UART IRQ)
     out dx, al
     mov dx, [com]
+    add dx, 2
+    mov al, 0x07                 ; enable/reset FIFOs; trigger RX IRQ on 1 byte
+    out dx, al
+    mov dx, [com]
     add dx, 5
 .f1:in al, dx
     test al, 1
