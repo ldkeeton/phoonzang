@@ -12,6 +12,8 @@
             "targetArchitecture": "x86",
             "cwd": "${workspaceFolder}/debugger",
             "preLaunchTask": "Start DOSBox-X (COM)",
+            "stopAtEntry": true,
+            "stopAtConnect": true,
             "sourceFileMap": {
                 "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
             },
@@ -46,6 +48,7 @@
             "MIMode": "gdb",
             "targetArchitecture": "x86",
             "stopAtEntry": true,
+            "stopAtConnect": true,
             "cwd": "${workspaceFolder}/debugger",
             "preLaunchTask": "Start DOSBox-X (COM)",
             "sourceFileMap": {
@@ -80,6 +83,7 @@
             "miDebuggerServerAddress": "localhost:1234",
             "miDebuggerPath": "/usr/bin/gdb",
             "MIMode": "gdb",
+            "stopAtConnect": true,
             "cwd": "${workspaceFolder}/debugger",
             "sourceFileMap": {
                 "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
@@ -107,6 +111,7 @@
             "MIMode": "gdb",
             "targetArchitecture": "x86",
             "stopAtEntry": true,
+            "stopAtConnect": true,
             "cwd": "${workspaceFolder}/debugger",
             "preLaunchTask": "Start DOSBox-X (MZ EXE)",
             "sourceFileMap": {

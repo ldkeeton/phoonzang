@@ -89,10 +89,9 @@ int3:
     mov al, [gate_opcode]
     mov [es:bx], al
     pop es
-    ; Present the stop immediately before entry so GDB installs an entry
-    ; breakpoint before it performs the first-instruction step-over. The real
-    ; IRET frame remains at the DOS-provided entry CS:IP.
-    dec word [sreg+R_IP]
+    ; Report the DOS-provided entry PC directly. The IRET frame already points
+    ; there; reporting entry-1 made remote connect stops appear outside the
+    ; target's first source instruction.
     mov byte [st_gate], 0
     mov byte [st_entry_stop], 1
     call mark_entry_ready

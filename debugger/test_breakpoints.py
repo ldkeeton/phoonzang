@@ -237,36 +237,33 @@ def run_gdb_mi_test(timeout, target="testcom"):
             f"5-target-select remote localhost:{PORT}\n"
         )
         wait_for("5^connected")
-        send(f"7-break-insert *0x{entry:x}\n")
-        wait_for("7^done")
-        send("8-exec-continue\n")
-        wait_for("8^running")
-        stopped = wait_record('reason="breakpoint-hit"')
+        send("6-stack-list-frames 0 0\n")
+        entry_frame = wait_for("6^done")
         address_text = f'addr="0x{entry:08x}"'
         line_text = f'line="{entry_line}"'
-        if address_text not in stopped or line_text not in stopped:
-            raise AssertionError(f"entry breakpoint stopped at the wrong row:\n{stopped}")
-        print(f"GDB {target} entry breakpoint stops at source line {entry_line}")
+        if address_text not in entry_frame or 'func="_start"' not in entry_frame:
+            raise AssertionError(f"GDB {target} did not connect at _start:\n{entry_frame}")
+        if line_text not in entry_frame:
+            raise AssertionError(f"GDB {target} entry frame has the wrong source row:\n{entry_frame}")
+        print(f"GDB {target} connects stopped at _start, source line {entry_line}")
 
-        send("9-break-delete 1\n")
-        wait_for("9^done")
         if target == "testcom":
-            send("10-break-insert test/testcom.asm:44\n")
-            wait_for("10^done")
-            send("11-exec-continue\n")
-            wait_for("11^running")
+            send("7-break-insert test/testcom.asm:44\n")
+            wait_for("7^done")
+            send("8-exec-continue\n")
+            wait_for("8^running")
             stopped = wait_record('reason="breakpoint-hit"')
             if 'addr="0x00000129"' not in stopped or 'line="44"' not in stopped:
                 raise AssertionError(f"line 44 breakpoint stopped at the wrong row:\n{stopped}")
 
-            send("12-exec-next\n")
-            wait_for("12^running")
+            send("9-exec-next\n")
+            wait_for("9^running")
             stepped = wait_record('reason="end-stepping-range"')
             if 'addr="0x0000012b"' not in stepped or 'line="45"' not in stepped:
                 raise AssertionError(f"line 44 source step did not advance:\n{stepped}")
             print("GDB source step advances from line 44 to line 45")
-        send("13-gdb-exit\n")
-        wait_for("13^exit", 5)
+        send("10-gdb-exit\n")
+        wait_for("10^exit", 5)
     finally:
         if gdb.poll() is None:
             gdb.terminate()
@@ -289,9 +286,9 @@ def run_test(timeout):
         expect(sock, "?", "S05")
         expect(sock, "QPhys:1", "OK")
         regs = registers(sock)
-        if code_offset(regs) != (ENTRY - 1):
+        if code_offset(regs) != ENTRY:
             raise AssertionError(
-                f"entry stop should report the pre-entry PC {ENTRY - 1:#x}, got "
+                f"entry stop should report the first instruction {ENTRY:#x}, got "
                 f"{code_offset(regs):#x}"
             )
         if read_memory(sock, ENTRY) != bytes([original_entry]):
@@ -379,7 +376,7 @@ def run_test(timeout):
         if not stop.startswith("S02"):
             raise AssertionError(f"Ctrl-C while free-running returned {stop!r}")
         regs = registers(sock)
-        if code_offset(regs) in (ENTRY - 1, ENTRY):
+        if code_offset(regs) == ENTRY:
             raise AssertionError("free-running target did not advance past its entry")
         print("No-breakpoint continue runs freely and responds to Ctrl-C")
         print("Breakpoint integration checks passed")
@@ -407,9 +404,10 @@ def run_exe_test(timeout):
         expect(sock, "?", "S05")
         expect(sock, "QPhys:1", "OK")
         regs = registers(sock)
-        if code_offset(regs) != 0xFFFF:
+        if code_offset(regs) != entry:
             raise AssertionError(
-                f"MZ entry stop should report pre-entry IP 0xffff, got {code_offset(regs):#x}"
+                f"MZ entry stop should report the first instruction {entry:#x}, "
+                f"got {code_offset(regs):#x}"
             )
         if int.from_bytes(regs[40:42], "little") == 0:
             raise AssertionError("MZ entry stop has a zero CS load segment")

@@ -25,8 +25,9 @@ symbols to the loaded image, excluding the on-disk MZ header.
 `GDBEXEC.COM` uses DOS EXEC function `4B01h` to load the selected target without
 running it, then asks the resident stub to plant an INT3 at its runtime entry
 point. The original opcode is restored by the stub when the entry trap fires;
-the target files on disk are not modified. VS Code has COM and MZ launch
-configurations that use the corresponding ELF/DWARF symbols.
+the initial register PC is the actual first instruction, and the target files
+on disk are not modified. VS Code's remote launch configurations preserve this
+entry stop on connection and use the corresponding ELF/DWARF symbols.
 
 `make -C debugger all` builds the stub, launcher, and both fixtures;
 `make -C debugger clean` removes generated output. Run
