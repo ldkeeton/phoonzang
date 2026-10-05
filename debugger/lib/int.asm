@@ -69,6 +69,39 @@ int3:
     mov [bp_cur], ax
     ; Report the INT3 instruction's address to GDB.
     dec word [sreg+R_IP]
+    ; A software-INT step uses a temporary breakpoint at the post-INT address.
+    ; Remove our slot on arrival, but leave a pre-existing user breakpoint in
+    ; place and process it through the ordinary breakpoint path.
+    cmp byte [st_int_mode], 0
+    je .not_int_step
+    mov ax, [sreg+R_CS]
+    mov dx, 16
+    mul dx
+    mov cx, [sreg+R_IP]
+    add ax, cx
+    adc dx, 0
+    cmp ax, [st_int_addr]
+    jne .not_int_step
+    cmp dx, [st_int_addr+2]
+    jne .not_int_step
+    mov byte [st_int_mode], 0
+    mov word [st_pi], -1
+    mov byte [st_usr], 0
+    mov ax, [st_int_bp]
+    cmp ax, -1
+    je .int_step_user_bp
+    cmp ax, [bp_cur]
+    jne .int_step_user_bp
+    mov ax, [st_int_addr]
+    mov dx, [st_int_addr+2]
+    call bp_rem
+    mov word [st_int_bp], -1
+    dec word [bp+20]
+    jmp .nb
+.int_step_user_bp:
+    mov word [st_int_bp], -1
+.not_int_step:
+    mov ax, [bp_cur]
     cmp ax, -1
     jne .swbp
     ; GDBEXEC's DOS EXEC/01 handoff installed an in-memory entry INT3. Match
@@ -408,9 +441,38 @@ int2f:
     je .resident
     cmp ax, 0xCF02
     je .entry
+    cmp ax, 0xCF04
+    je .exit
     jmp far [cs:ov2f]
 .resident:
     mov ax, 0xCF01
+    iret
+.exit:
+    pusha
+    push ds
+    push es
+    mov ax, cs
+    mov ds, ax
+    call ser_irq_disable
+    mov byte [in_dbg], 1
+    mov [hk_ss], ss
+    mov [hk_sp], sp
+    cli
+    mov ax, cs
+    mov ss, ax
+    mov sp, stk_t
+    sti
+    mov si, s_exit
+    call pkt_send
+    cli
+    mov ss, [hk_ss]
+    mov sp, [hk_sp]
+    call ser_irq_enable
+    mov byte [in_dbg], 0
+    pop es
+    pop ds
+    popa
+    mov ax, 0xCF05
     iret
 .entry:
     ; GDBEXEC supplies CX:DX = target CS:IP after DOS loaded it with EXEC/01.

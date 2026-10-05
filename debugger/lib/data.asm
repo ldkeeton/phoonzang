@@ -14,6 +14,9 @@ st_pi: dw -1
 st_cont: db 0
 st_run:  db 0
 st_usr:  db 0
+st_int_mode: db 0
+st_int_bp: dw -1
+st_int_addr: dd 0
 in_dbg:  db 0
 st_phys: db 0
 st_async: db 0
@@ -40,6 +43,7 @@ stk_t:
 
 s_trap: db "S05",0
 s_intr: db "S02",0
+s_exit: db "W00",0
 s_ok:   db "OK",0
 s_emp:  db 0
 s_err:  db "E22",0

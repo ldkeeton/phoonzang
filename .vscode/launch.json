@@ -132,6 +132,11 @@
                     "text": "source ${workspaceFolder}/debugger/gdb_enable_phys.py",
                     "description": "Real-mode address translation",
                     "ignoreFailures": true
+                },
+                {
+                    "text": " set debug remote 1",
+                    "description": "set debug remote 1",
+                    "ignoreFailures": true
                 }
             ],
             "logging": {

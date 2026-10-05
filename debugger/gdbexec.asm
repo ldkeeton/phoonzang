@@ -51,6 +51,15 @@ start:
     int 0x21
     mov [cs:child_psp], bx
 
+    ; EXEC/01 returns after loading, not after running. Route child termination
+    ; through this launcher so DOS cannot resume the post-load handoff and
+    ; enter the target again after Ctrl-C.
+    mov ax, [cs:child_psp]
+    mov es, ax
+    mov word [es:0x0A], child_exit
+    mov ax, cs
+    mov [es:0x0C], ax
+
     ; Ask GDBSRV to save the original entry byte and arm an in-memory INT3.
     mov dx, [cs:exec_params+18]    ; initial IP
     mov cx, [cs:exec_params+20]    ; initial CS
@@ -89,6 +98,12 @@ start:
     push word 0x0202                 ; reserved bit and DOS's enabled IF
     popf
     jmp far [cs:exec_params+18]    ; initial CS:IP
+
+child_exit:
+    mov ax, 0xCF04
+    int 0x2F
+    mov ax, 0x4C00
+    int 0x21
 
 parse_command_line:
     mov si, 0x81

@@ -259,17 +259,85 @@ cmd_step:
     call bp_rest
     mov word [bp_cur], -1
     call bp_patch
+    call step_int_prepare
+    jc .int_step
     call clr_ind
     or word [sreg+R_FL], 0x100
     mov byte [st_run], 1
     pop ax
     ret
 .sn2:call bp_patch
+    call step_int_prepare
+    jc .int_step
     mov byte [st_usr], 1
     mov byte [st_cont], 0
     call clr_ind
     or word [sreg+R_FL], 0x100
     mov byte [st_run], 1
+    pop ax
+    ret
+.int_step:
+    mov byte [st_usr], 0
+    mov byte [st_cont], 0
+    call clr_ind
+    and word [sreg+R_FL], ~0x100
+    mov byte [st_run], 1
+    pop ax
+    ret
+
+; For INT 21h, TF is not observed until after the first instruction following
+; the DOS interrupt returns. Plant a breakpoint at the fall-through address
+; instead, so the step stops before that instruction executes.
+step_int_prepare:
+    push ax
+    push bx
+    push cx
+    push dx
+    push es
+    mov ax, [sreg+R_CS]
+    mov es, ax
+    mov bx, [sreg+R_IP]
+    cmp byte [es:bx], 0xCD
+    jne .no
+    cmp byte [es:bx+1], 0x21
+    jne .no
+
+    ; Save the fall-through linear address (CS*16 + wrapped IP+2).
+    mov cx, bx
+    add cx, 2
+    mov ax, [sreg+R_CS]
+    mov dx, 16
+    mul dx
+    add ax, cx
+    adc dx, 0
+    mov [st_int_addr], ax
+    mov [st_int_addr+2], dx
+
+    ; Reuse an existing breakpoint at the destination, otherwise install an
+    ; internal one and remember its slot so the INT3 handler can remove it.
+    call bp_find
+    cmp ax, -1
+    jne .existing
+    mov ax, [st_int_addr]
+    mov dx, [st_int_addr+2]
+    call bp_add
+    cmp ax, -1
+    je .no
+    mov [st_int_bp], ax
+    jmp .armed
+.existing:
+    mov word [st_int_bp], -1
+.armed:
+    mov byte [st_int_mode], 1
+    stc
+    jmp .done
+.no:
+    clc
+.done:
+    pop es
+    pop dx
+    pop cx
+    pop bx
     pop ax
     ret
 
@@ -288,6 +356,14 @@ cmd_bins:
     add sp, 4
     cmp ax, -1
     je .bf
+    ; If GDB asks for a breakpoint at the internal step destination while the
+    ; target is running, promote that slot to a user breakpoint.
+    cmp byte [st_int_mode], 0
+    je .bp_added
+    cmp ax, [st_int_bp]
+    jne .bp_added
+    mov word [st_int_bp], -1
+.bp_added:
     mov si, s_ok
     call pkt_send
     cmp byte [st_async], 0
