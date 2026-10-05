@@ -49,7 +49,7 @@ print_char:
     pop ax
 
 break_here:
-    int3                ; <-- GDB/TSR breaks in here each iteration
+    nop                ; <-- GDB/TSR breaks in here each iteration
 
 loop:
     nop

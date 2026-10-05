@@ -66,9 +66,11 @@ int3:
     call bp_find
     add sp, 4
     mov [bp_cur], ax
+    ; Report the INT3 instruction's address to GDB. The untouched IRET frame
+    ; still contains the post-INT3 resume IP, so continuing skips this trap.
+    dec word [sreg+R_IP]
     cmp ax, -1
     je .nb
-    dec word [sreg+R_IP]            ; only debugger breakpoints rewind IP
     call bp_rest
 .nb:
     cli

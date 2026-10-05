@@ -23,7 +23,7 @@ ind_act: db 0
 hk_ss: dw 0
 hk_sp: dw 0
 
-sreg: times SAVE_L db 0
+sreg: times RSP_REG_SIZE db 0
 rbuf: times BUF_SZ db 0
 stk:  times STK_SZ db 0
 stk_t:

@@ -3,8 +3,10 @@
 COM1   equ 0x3F8
 BDIV   equ 1
 MAX_BP equ 16
-BUF_SZ equ 512
+BUF_SZ equ 1024
 STK_SZ equ 256
+; GDB's i386 register packet: core registers, FPU/SSE slots, and orig_eax.
+RSP_REG_SIZE equ 312
 
 ; register save offsets
 %define R_AX 0
@@ -24,5 +26,3 @@ STK_SZ equ 256
 %define R_FS 56
 %define R_GS 60
 SAVE_L equ 64
-
-

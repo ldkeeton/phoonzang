@@ -73,20 +73,9 @@ cmd_H:
     jmp gdb_loop
 
 cmd_rreg:
-    push es
-    push ds
-    pop es
     mov si, sreg
-    mov di, rbuf + 256
-    mov cx, SAVE_L
-    rep movsb
-    mov cx, 128
-    xor al, al
-    rep stosb
-    mov si, rbuf + 256
-    mov cx, SAVE_L + 128
+    mov cx, RSP_REG_SIZE
     call bytes_pkt
-    pop es
     jmp gdb_loop
 
 cmd_wreg:
