@@ -34,7 +34,7 @@ global _start
 global loop
 global relocation_segment
 global counter
-global dos_version_int
+; Preserve fixture source line numbers without exporting a marker symbol.
 global date_int
 global time_int
 global bios_int
@@ -52,12 +52,12 @@ _start:
     jne relocation_error
 
     mov dx, banner
-banner_setup: mov ah, 9
-banner_int: int 0x21
+    mov ah, 9
+    int 0x21
 
     ; Query the DOS version, date, and time without waiting for user input.
-dos_version_setup: mov ah, 0x30
-dos_version_int:
+    mov ah, 0x30
+    ; Retain line numbering without a marker GDB treats as a nested function.
     int 0x21
     mov [dos_version_major], al
     mov [dos_version_minor], ah

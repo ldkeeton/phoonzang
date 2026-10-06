@@ -80,7 +80,7 @@ def expect(sock, payload, expected):
 
 def registers(sock):
     data = bytes.fromhex(request(sock, "g"))
-    if len(data) != 312:
+    if len(data) != 308:
         raise AssertionError(f"unexpected register packet size: {len(data)} bytes")
     return data
 
@@ -153,7 +153,7 @@ def wait_for_ready(proc, timeout):
 
 def launch_server(timeout, target="testcom"):
     proc = subprocess.Popen(
-        ["bash", str(LAUNCHER), target],
+        ["bash", str(LAUNCHER), target, "--headless"],
         cwd=ROOT,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -198,6 +198,7 @@ def run_gdb_mi_test(timeout, target="testcom"):
         bufsize=0,
     )
     output = bytearray()
+    transcript = bytearray()
 
     def send(command):
         gdb.stdin.write(command.encode("ascii"))
@@ -212,6 +213,7 @@ def run_gdb_mi_test(timeout, target="testcom"):
                 if not chunk:
                     break
                 output.extend(chunk)
+                transcript.extend(chunk)
         if token not in output:
             raise AssertionError(
                 f"GDB MI timed out waiting for {token.decode()}:\n"
@@ -226,6 +228,7 @@ def run_gdb_mi_test(timeout, target="testcom"):
                 if not chunk:
                     break
                 output.extend(chunk)
+                transcript.extend(chunk)
                 line_end = output.find(b"\n", end)
         if line_end < 0:
             line_end = end
@@ -243,6 +246,7 @@ def run_gdb_mi_test(timeout, target="testcom"):
                 if not chunk:
                     break
                 output.extend(chunk)
+                transcript.extend(chunk)
         if token not in output:
             raise AssertionError(
                 f"GDB MI timed out waiting for {token.decode()}:\n"
@@ -258,6 +262,7 @@ def run_gdb_mi_test(timeout, target="testcom"):
                 if not chunk:
                     break
                 output.extend(chunk)
+                transcript.extend(chunk)
                 end = output.find(b"\n", marker)
         if end < 0:
             raise AssertionError(f"unterminated GDB MI record for {token.decode()}")
@@ -268,7 +273,7 @@ def run_gdb_mi_test(timeout, target="testcom"):
     try:
         send(
             "1-gdb-set mi-async on\n"
-            "2-gdb-set architecture i386\n"
+            "2-gdb-set architecture i8086\n"
             f"3-file-exec-and-symbols {elf}\n"
             f'4-interpreter-exec console "source {DEBUGGER / "gdb_enable_phys.py"}"\n'
         )
@@ -341,33 +346,60 @@ def run_gdb_mi_test(timeout, target="testcom"):
             exit_token = "14"
         else:
             elf = BUILD / "testexe.elf"
-            banner_setup = symbol_address(elf, "banner_setup")
-            banner_int = symbol_address(elf, "banner_int")
-            dos_version_setup = symbol_address(elf, "dos_version_setup")
-            dos_version_int = symbol_address(elf, "dos_version_int")
             bios_int = symbol_address(elf, "bios_int")
             bios_dos_int = symbol_address(elf, "bios_dos_int")
             loop_int = symbol_address(elf, "loop_int")
             loop_next = symbol_address(elf, "loop_next")
 
-            send("6-break-insert test/testexe.asm:55\n")
-            wait_for("6^done")
-            send("7-exec-continue\n")
-            wait_for("7^running")
-            stopped = wait_record('reason="breakpoint-hit"')
+            # Keep a known later stop in place so a broken F10 cannot leave the
+            # integration test running forever. This is also the fallback the
+            # reported failure reaches in the editor.
+            send("21-break-insert loop_next\n")
+            wait_for("21^done")
+
+            # Exercise the initial source rows from the connected entry stop;
+            # Earlier coverage started at a breakpoint on line 55 and missed
+            # the line 54 -> 55 transition.
+            for token, expected_line in zip(range(22, 27), (49, 50, 51, 52, 54)):
+                send(f"{token}-exec-next\n")
+                wait_for(f"{token}^running")
+                stepped = wait_record('*stopped,')
+                if (
+                    'reason="end-stepping-range"' not in stepped
+                    or f'line="{expected_line}"' not in stepped
+                ):
+                    raise AssertionError(
+                        f"EXE F10 to line {expected_line} stopped incorrectly:\n{stepped}"
+                    )
+
+            # Capture the remote packets for the reported failing transition.
+            send('27-interpreter-exec console "set debug remote 1"\n')
+            wait_for("27^done")
+            trace_start = len(transcript)
+            send("28-exec-next\n")
+            wait_for("28^running")
+            stepped = wait_record('*stopped,')
             if (
-                f'addr="0x{banner_setup:08x}"' not in stopped
-                or 'line="55"' not in stopped
+                'reason="end-stepping-range"' not in stepped
+                or 'line="55"' not in stepped
             ):
-                raise AssertionError(f"EXE did not stop at banner setup line 55:\n{stopped}")
+                remote_trace = transcript[trace_start:].decode(errors="replace")
+                raise AssertionError(
+                    "EXE F10 from line 54 did not stop at line 55:\n"
+                    f"{stepped}\n"
+                    f"GDB remote trace:\n{remote_trace}"
+                )
+            print("GDB F10 from EXE line 54 stops at line 55")
+
+            send('29-interpreter-exec console "set debug remote 0"\n')
+            wait_for("29^done")
+            send("30-break-delete 2\n")
+            wait_for("30^done")
 
             send("8-exec-next\n")
             wait_for("8^running")
             stepped = wait_record('reason="end-stepping-range"')
-            if (
-                f'addr="0x{banner_int:08x}"' not in stepped
-                or 'line="56"' not in stepped
-            ):
+            if 'line="56"' not in stepped:
                 raise AssertionError(
                     f"Step Next from EXE line 55 did not stop at banner INT 21h line 56:\n{stepped}"
                 )
@@ -376,10 +408,7 @@ def run_gdb_mi_test(timeout, target="testcom"):
             send("9-exec-next\n")
             wait_for("9^running")
             stepped = wait_record('reason="end-stepping-range"')
-            if (
-                f'addr="0x{dos_version_setup:08x}"' not in stepped
-                or 'line="59"' not in stepped
-            ):
+            if 'line="59"' not in stepped:
                 raise AssertionError(
                     f"Step Next from EXE banner INT 21h did not stop at line 59:\n{stepped}"
                 )
@@ -388,10 +417,7 @@ def run_gdb_mi_test(timeout, target="testcom"):
             send("10-exec-next\n")
             wait_for("10^running")
             stepped = wait_record('reason="end-stepping-range"')
-            if (
-                f'addr="0x{dos_version_int:08x}"' not in stepped
-                or 'line="61"' not in stepped
-            ):
+            if 'line="61"' not in stepped:
                 raise AssertionError(
                     f"Step Next from EXE line 59 did not stop at INT 21h line 61:\n{stepped}"
                 )

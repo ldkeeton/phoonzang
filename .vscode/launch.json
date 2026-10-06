@@ -19,8 +19,8 @@
             },
             "setupCommands": [
                 {
-                    "text": "set architecture i386",
-                    "description": "32-bit for cppdbg compat",
+                    "text": "set architecture i8086",
+                    "description": "16-bit real-mode target with i386-compatible core registers",
                     "ignoreFailures": false
                 },
                 {
@@ -56,8 +56,8 @@
             },
             "setupCommands": [
                 {
-                    "text": "set architecture i386",
-                    "description": "GDBSRV i386 register packet; target code is 16-bit",
+                    "text": "set architecture i8086",
+                    "description": "GDBSRV 16-bit real-mode target",
                     "ignoreFailures": false
                 },
                 {
@@ -90,8 +90,8 @@
             },
             "setupCommands": [
                 {
-                    "text": "set architecture i386",
-                    "description": "GDBSRV i386 register packet; target code is 16-bit",
+                    "text": "set architecture i8086",
+                    "description": "GDBSRV 16-bit real-mode target",
                     "ignoreFailures": false
                 },
                 {
@@ -119,8 +119,8 @@
             },
             "setupCommands": [
                 {
-                    "text": "set architecture i386",
-                    "description": "GDBSRV i386 register packet; target code is 16-bit",
+                    "text": "set architecture i8086",
+                    "description": "GDBSRV 16-bit real-mode target",
                     "ignoreFailures": false
                 },
                 {

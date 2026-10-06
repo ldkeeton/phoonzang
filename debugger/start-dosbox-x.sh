@@ -8,8 +8,23 @@ DOSBOX=$(command -v dosbox-x 2>/dev/null || echo "/usr/bin/dosbox-x")
 case "${1:-testcom}" in
     testcom|com) TARGET=TESTCOM.COM ;;
     testexe|exe) TARGET=TESTEXE.EXE ;;
-    *) echo "Usage: $0 [testcom|testexe]" >&2; exit 2 ;;
+    *) echo "Usage: $0 [testcom|testexe] [--headless]" >&2; exit 2 ;;
 esac
+HEADLESS=0
+if [ "${2:-}" = "--headless" ]; then
+    HEADLESS=1
+elif [ -n "${2:-}" ]; then
+    echo "Usage: $0 [testcom|testexe] [--headless]" >&2
+    exit 2
+fi
+SDL_OUTPUT=opengl
+SDL_ENV=()
+DOSBOX_ARGS=()
+if [ "$HEADLESS" -eq 1 ]; then
+    SDL_OUTPUT=surface
+    SDL_ENV=(env SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy)
+    DOSBOX_ARGS+=(-nogui)
+fi
 
 if ! command -v "$DOSBOX" &>/dev/null; then
     echo "Error: dosbox-x not found" >&2
@@ -30,7 +45,7 @@ serial4 = disabled
 [sdl]
 fullscreen = false
 windowresolution = 960x600
-output = opengl
+output = $SDL_OUTPUT
 
 [dosbox]
 quit warning = false
@@ -46,7 +61,7 @@ GDBEXEC.COM $TARGET
 CFG
 
 echo "Starting dosbox-x..."
-"$DOSBOX" -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1 &
+"${SDL_ENV[@]}" "$DOSBOX" "${DOSBOX_ARGS[@]}" -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1 &
 DOSBOX_PID=$!
 trap "kill $DOSBOX_PID 2>/dev/null; rm -f '$CONFIG'" EXIT
 
