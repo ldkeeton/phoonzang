@@ -165,7 +165,7 @@ api_idx_0002:
     call ds_dispatch_f40b
     mov word [data_8f22], 0
     mov word [data_9192], 5
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     mov word [data_908c], dx
@@ -1277,7 +1277,7 @@ api_idx_000c:
     mov ax, 0xfff4
     call ds_dispatch_f40b
     call loc_0140
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     add ax, strict word 0x24
@@ -1475,7 +1475,7 @@ api_idx_0002_8:
 loc_0ea6:
     mov ax, 0
     call ds_dispatch_f40b
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     cmp dx, word [data_919c]
@@ -1511,7 +1511,7 @@ loc_0ea6:
     pop ax
     add ax, cx
     adc dx, bx
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov cx, word [es:bx]
     mov bx, word [es:bx + 0x2]
     add ax, cx
@@ -1531,7 +1531,7 @@ loc_0ea6:
 math_loc_0f1d:
     mov ax, 0
     call ds_dispatch_f40b
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     sub ax, word [data_908a]
@@ -1552,7 +1552,7 @@ math_loc_0f1d:
 @..math_loc_0f1d.l1:
     jmp short @..local.l53
 @..math_loc_0f1d.l2:
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     mov word [data_908c], dx
@@ -1586,7 +1586,7 @@ api_idx_0006_2:
     call ds_dispatch_ec17
     mov ax, word [bp + 0x4]
     cwd
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov cx, word [es:bx]
     mov bx, word [es:bx + 0x2]
     add ax, cx
@@ -1594,7 +1594,7 @@ api_idx_0006_2:
     mov word [bp - 0x0002], dx
     mov word [bp - 0x0004], ax
 @..api_idx_0006_2.l1:
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     cmp dx, word [bp - 0x0002]
@@ -4393,7 +4393,7 @@ api_idx_0022:
     mov ax, 1
 @..local.l177:
     mov word [bp - 0x001a], ax
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     add ax, strict word 0x24
@@ -4422,7 +4422,7 @@ api_idx_0022:
 @..local.l179:
     cmp word [data_5b3e], byte 0
     jne short @..local.l182
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov ax, word [es:bx]
     mov dx, word [es:bx + 0x2]
     cmp dx, word [data_919c]
@@ -10292,7 +10292,7 @@ math_loc_6b5a:
     call ds_dispatch_b7a9
     pop cx
     cwd
-    les bx, word [0x0002]
+    les bx, word [ds_data_0002]
     mov cx, word [es:bx]
     mov bx, word [es:bx + 0x2]
     add ax, cx

@@ -3,6 +3,31 @@
 import struct
 
 
+def parse_entrypoint(binary_data):
+    """Return the MZ executable entry point as a file offset.
+
+    MZ stores the initial ``CS:IP`` relative to the load module, which begins
+    after the header.  The returned offset is therefore suitable for indexing
+    *binary_data* and for use by the disassembler's file-offset addresses.
+    Invalid, truncated, or out-of-file entry points return ``None``.
+    """
+    if len(binary_data) < 0x1c or binary_data[:2] != b'MZ':
+        return None
+
+    header_paragraphs = struct.unpack_from('<H', binary_data, 0x08)[0]
+    ip = struct.unpack_from('<H', binary_data, 0x14)[0]
+    cs = struct.unpack_from('<H', binary_data, 0x16)[0]
+    header_size = header_paragraphs * 16
+
+    if header_size < 0x1c or header_size > len(binary_data):
+        return None
+
+    entry_offset = header_size + cs * 16 + ip
+    if entry_offset >= len(binary_data):
+        return None
+    return entry_offset
+
+
 def parse_relocs(binary_data, start_offset):
     """Parse MZ EXE relocation table.
 

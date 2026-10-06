@@ -4,6 +4,8 @@ from typing import Optional
 import polars as pl
 import numpy as np
 
+from lib.mz import parse_entrypoint as parse_mz_entrypoint
+
 IS_UNKNOWN = 0
 IS_CODE = 1
 IS_DATA = 2
@@ -55,7 +57,7 @@ class JumpTableInfo:
 class PhaseContext:
     def __init__(self, binary_data, start_offset=0, name='',
                  sidecar_entry=None, detailed_timings=False,
-                 trace=None):
+                 trace=None, entry_points=None):
         n = len(binary_data)
         self.binary_data = binary_data
         self.layers = pl.DataFrame({
@@ -70,6 +72,22 @@ class PhaseContext:
         self.start_offset = start_offset
         self.name = name
         self.seeds: list[SeedInfo] = []
+        seed_addresses = set()
+        mz_entry = parse_mz_entrypoint(binary_data)
+        if mz_entry is not None:
+            self.seeds.append(SeedInfo(
+                address=mz_entry, source_phase='mz_entry', confidence=1.0,
+                reason='MZ header CS:IP',
+            ))
+            seed_addresses.add(mz_entry)
+        for address in entry_points or ():
+            address = int(address)
+            if 0 <= address < n and address not in seed_addresses:
+                self.seeds.append(SeedInfo(
+                    address=address, source_phase='explicit_entry',
+                    confidence=1.0, reason='explicit entry point',
+                ))
+                seed_addresses.add(address)
         self.sidecar_entry = sidecar_entry
         self.detailed_timings = detailed_timings
         self.trace = trace
