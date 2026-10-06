@@ -35,6 +35,8 @@ int3:
     pop word [sreg+R_IP]
     push [bp+22]
     pop word [sreg+R_CS]
+    mov ax, [sreg+R_CS]
+    mov [target_cs], ax
     push [bp+24]
     pop word [sreg+R_FL]
     mov ax, ss
@@ -239,6 +241,8 @@ int1:
     pop word [sreg+R_IP]
     push [bp+22]
     pop word [sreg+R_CS]
+    mov ax, [sreg+R_CS]
+    mov [target_cs], ax
     push [bp+24]
     pop word [sreg+R_FL]
     and word [sreg+R_FL], ~0x100
@@ -483,6 +487,7 @@ int2f:
     mov ax, cs
     mov ds, ax
     mov [gate_cs], cx
+    mov [target_cs], cx
     mov [gate_ip], dx
     mov es, cx
     mov bx, dx

@@ -3,6 +3,10 @@ BUILD  := build
 ELFASM := nasm -w-number-overflow
 
 MODULES := lib/equ.asm lib/data.asm lib/serial.asm lib/hex.asm lib/proto.asm lib/bp.asm lib/cmds.asm lib/int.asm lib/init.asm
+GDB_HIDDEN_MARKERS := date_int time_int bios_int bios_dos_int loop loop_int loop_next
+GDB_MARKER_RENAMES := $(foreach sym,$(GDB_HIDDEN_MARKERS),--redefine-sym=$(sym)=.L$(sym))
+GDB_MARKER_LOCALIZATIONS := $(foreach sym,$(GDB_HIDDEN_MARKERS),--localize-symbol=.L$(sym))
+GDB_FUNCTION_EXPORTS := --globalize-symbol=format_2 --globalize-symbol=format_year
 
 .PHONY: all clean
 
@@ -33,10 +37,14 @@ $(BUILD)/testcom.elf: test/testcom.asm | $(BUILD)
 $(BUILD)/testexe.exe: test/testexe.asm | $(BUILD)
 	$(NASM) -O0 -f bin -o $@ $<
 
-$(BUILD)/testexe.elf: test/testexe.asm | $(BUILD)
-	$(ELFASM) -O0 -f elf32 -F dwarf -o $@.tmp $<
-	objcopy --adjust-vma=0x0 $@.tmp $@
-	rm -f $@.tmp
+# NASM prefixes local symbols, then actual helper routines are exported while
+# instruction-marker labels become local .L symbols that GDB ignores as
+# function boundaries. This is the sole GDB ELF for the EXE fixture.
+$(BUILD)/testexe.elf: test/testexe.asm Makefile | $(BUILD)
+	$(ELFASM) -O0 --lprefix .L -f elf32 -F dwarf -o $@.raw $<
+	objcopy $(GDB_MARKER_RENAMES) --redefine-sym=.Lformat_2=format_2 --redefine-sym=.Lformat_year=format_year $@.raw $@.renamed
+	objcopy $(GDB_MARKER_LOCALIZATIONS) $(GDB_FUNCTION_EXPORTS) --adjust-vma=0x0 $@.renamed $@
+	rm -f $@.raw $@.renamed
 
 $(BUILD)/gdbsrv.elf: gdbsrv.asm $(MODULES) | $(BUILD)
 	$(ELFASM) -O0 -f elf32 -F dwarf -o $@.tmp $<

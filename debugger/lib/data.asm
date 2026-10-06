@@ -23,6 +23,7 @@ st_async: db 0
 st_gate: db 0
 gate_ip: dw 0
 gate_cs: dw 0
+target_cs: dw 0
 gate_opcode: db 0
 st_entry_stop: db 0
 rx_pending: db 0

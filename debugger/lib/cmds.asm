@@ -285,9 +285,9 @@ cmd_step:
     pop ax
     ret
 
-; For INT 21h, TF is not observed until after the first instruction following
-; the DOS interrupt returns. Plant a breakpoint at the fall-through address
-; instead, so the step stops before that instruction executes.
+; For software INT instructions, TF may not be observed until after the first
+; instruction following the interrupt returns. Plant a breakpoint at the
+; fall-through address instead, so the step stops before that instruction runs.
 step_int_prepare:
     push ax
     push bx
@@ -299,10 +299,8 @@ step_int_prepare:
     mov bx, [sreg+R_IP]
     cmp byte [es:bx], 0xCD
     jne .no
-    cmp byte [es:bx+1], 0x21
-    jne .no
 
-    ; Save the fall-through linear address (CS*16 + wrapped IP+2).
+    ; Save the fall-through address after the INT opcode and vector number.
     mov cx, bx
     add cx, 2
     mov ax, [sreg+R_CS]
@@ -493,12 +491,14 @@ cmd_v:
 ; When st_phys != 0, translate offset addresses to physical
 ; by adding CS*16. Enabled via GDB: maint packet QPhys:1
 
-; Convert offset in DX:AX to physical (add CS*16)
+; Convert offset in DX:AX to physical using the debugged program's CS. GDB can
+; ask for a breakpoint while the saved registers point into a DOS interrupt
+; handler, so sreg CS is not always the segment used by the program's ELF.
 phys_addr:
     push bx
     push cx
     xor cx, cx
-    mov bx, [sreg+R_CS]
+    mov bx, [target_cs]
     shl bx, 1
     rcl cx, 1
     shl bx, 1

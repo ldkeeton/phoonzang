@@ -17,7 +17,10 @@ debugger (not to build it).
 builds that stub, the `gdbexec.com` DOS load-only launcher, and two targets:
 
 - `test/testcom.asm` builds `build/testcom.com` and `build/testcom.elf`.
-- `test/testexe.asm` builds `build/testexe.exe` and `build/testexe.elf`.
+- `test/testexe.asm` builds `build/testexe.exe` and its GDB symbol file,
+  `build/testexe.elf`. The ELF prefixes local NASM symbols with `.L`, hides
+  instruction and loop labels from GDB's function-boundary lookup, and retains
+  named entries for `_start`, `format_2`, and `format_year`.
 
 The EXE fixture is a small relocatable MZ image. Its ELF/DWARF companion maps
 symbols to the loaded image, excluding the on-disk MZ header.
@@ -29,7 +32,8 @@ the initial register PC is the actual first instruction, and the target files
 on disk are not modified. VS Code's remote launch configurations preserve this
 entry stop on connection and use the corresponding ELF/DWARF symbols.
 
-`make -C debugger all` builds the stub, launcher, and both fixtures;
+`make -C debugger all` builds the stub, launcher, both fixtures, and their GDB
+symbol files;
 `make -C debugger clean` removes generated output. Run
 `python3 debugger/test_breakpoints.py` to exercise COM and MZ entry stops and
 breakpoint handling in DOSBox-X. The test runner uses DOSBox-X's headless SDL
