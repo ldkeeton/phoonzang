@@ -366,6 +366,7 @@ def _nasm_elf_build(out_dir, name, entry_ip):
     source_path = os.path.join(elf_dir, f'{name}.asm')
     elf_path = os.path.join(build_out, f'{name.upper()}.elf')
     tmp_elf = elf_path + '.tmp'
+    build_succeeded = False
 
     try:
         cmd = [
@@ -408,9 +409,15 @@ def _nasm_elf_build(out_dir, name, entry_ip):
                     print(f'    {line}')
                 return result.returncode
         os.replace(tmp_elf, elf_path)
+        build_succeeded = True
         return 0
     finally:
-        for path in (source_path, tmp_elf):
+        # GDB resolves source breakpoints by opening the path recorded in
+        # DW_AT_comp_dir. Keep the generated, line-aligned source at that path
+        # so absolute break-insert requests can resolve instead of staying
+        # pending. The VS Code sourceFileMap still presents the original file.
+        cleanup_paths = (tmp_elf,) if build_succeeded else (source_path, tmp_elf)
+        for path in cleanup_paths:
             try:
                 os.unlink(path)
             except FileNotFoundError:
