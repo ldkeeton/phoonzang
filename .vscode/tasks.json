@@ -60,6 +60,40 @@
                 "reveal": "always",
                 "panel": "dedicated"
             }
+        },
+        {
+            "label": "Build DSAVANT ELF",
+            "type": "shell",
+            "command": "make",
+            "args": ["-C", "asm", "elf-rebuild", "DSAVANT", "ds"],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Start DOSBox-X (DSAVANT)",
+            "type": "shell",
+            "isBackground": true,
+            "command": "${workspaceFolder}/debugger/start-dosbox-x.sh",
+            "args": ["dsavant"],
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^$",
+                    "file": 1,
+                    "message": 1
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Starting dosbox-x",
+                    "endsPattern": "__READY__"
+                }
+            },
+            "dependsOn": ["Build GDBSRV", "Build DSAVANT ELF"],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "panel": "dedicated"
+            }
         }
     ]
 }

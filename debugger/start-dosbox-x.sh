@@ -6,16 +6,24 @@ DIR="$(dirname "$0")"
 BUILD="$DIR/build"
 PID_FILE="$BUILD/dosbox-x.pid"
 DOSBOX=$(command -v dosbox-x 2>/dev/null || echo "/usr/bin/dosbox-x")
+APP_BUILD="$BUILD"
+MOUNT_DEBUGGER=0
 case "${1:-testcom}" in
     testcom|com) TARGET=TESTCOM.COM ;;
     testexe|exe) TARGET=TESTEXE.EXE ;;
-    *) echo "Usage: $0 [testcom|testexe] [--headless]" >&2; exit 2 ;;
+    dsavant)
+        TARGET='C:\DS.EXE'
+        APP_BUILD="$DIR/../asm_DSAVANT/build_out"
+        MOUNT_DEBUGGER=1
+        ;;
+    *) echo "Usage: $0 [testcom|testexe|dsavant] [--headless]" >&2; exit 2 ;;
 esac
+ENTRY_FILE="$APP_BUILD/GDBENTRY.OK"
 HEADLESS=0
 if [ "${2:-}" = "--headless" ]; then
     HEADLESS=1
 elif [ -n "${2:-}" ]; then
-    echo "Usage: $0 [testcom|testexe] [--headless]" >&2
+    echo "Usage: $0 [testcom|testexe|dsavant] [--headless]" >&2
     exit 2
 fi
 SDL_OUTPUT=opengl
@@ -34,7 +42,7 @@ fi
 
 fuser -k -KILL 1234/tcp 2>/dev/null || true
 rm -f "$PID_FILE"
-rm -f "$BUILD/GDBENTRY.OK"
+rm -f "$ENTRY_FILE"
 
 CONFIG=$(mktemp)
 cat > "$CONFIG" << CFG
@@ -56,11 +64,24 @@ quit warning = false
 cputype = 386
 
 [autoexec]
-mount C "$BUILD"
+mount C "$APP_BUILD"
 C:
+CFG
+
+if [ "$MOUNT_DEBUGGER" -eq 1 ]; then
+    cat >> "$CONFIG" << CFG
+mount D "$BUILD"
+D:
+GDBSRV.COM
+C:
+D:\GDBEXEC.COM $TARGET
+CFG
+else
+    cat >> "$CONFIG" << CFG
 GDBSRV.COM
 GDBEXEC.COM $TARGET
 CFG
+fi
 
 echo "Starting dosbox-x..."
 "${SDL_ENV[@]}" "$DOSBOX" "${DOSBOX_ARGS[@]}" -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1 &
@@ -71,6 +92,7 @@ cleanup() {
     if [ "$(cat "$PID_FILE" 2>/dev/null)" = "$DOSBOX_PID" ]; then
         rm -f "$PID_FILE"
     fi
+    rm -f "$ENTRY_FILE"
     rm -f "$CONFIG"
 }
 trap cleanup EXIT
@@ -78,13 +100,13 @@ trap cleanup EXIT
 # Wait until the target itself reaches its entry trap. The TCP port
 # opens before DOS autoexec completes, so port readiness alone is too early.
 for i in $(seq 1 120); do
-    if [ -f "$BUILD/GDBENTRY.OK" ]; then
+    if [ -f "$ENTRY_FILE" ]; then
         break
     fi
     sleep 0.25
 done
 
-if [ ! -f "$BUILD/GDBENTRY.OK" ]; then
+if [ ! -f "$ENTRY_FILE" ]; then
     echo "Error: $TARGET did not reach its entry trap" >&2
     exit 1
 fi
