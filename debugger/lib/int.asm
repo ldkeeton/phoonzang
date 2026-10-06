@@ -148,6 +148,12 @@ int3:                                     ; CPU breakpoint/trap handler entry
     cmp byte [st_run], 0                  ; did target run since last GDB stop?
     je .wait                              ; no -> initial stop is queried by GDB itself
     mov byte [st_run], 0                  ; consume resumed-state marker
+    cmp word [bp_cur], -1                 ; did a managed software breakpoint cause this INT3?
+    je .plain_trap                        ; no -> report a normal trap or step completion
+    mov si, s_swbr                        ; identify the stop as a software breakpoint
+    call pkt_send                         ; give GDB the cause needed for a breakpoint stop event
+    jmp .wait                             ; continue servicing the stopped target
+.plain_trap:
     call pkt_send_trap                    ; send asynchronous S05 stop notification
 .wait:
     push .rt                              ; push return point for command-loop's RET

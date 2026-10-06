@@ -127,6 +127,7 @@ loop_next:                                 ; GDB marker at first instruction aft
     jb .again                              ; if not, retain the incremented digit
     mov byte [counter], '0'                ; wrap back to '0' after the last digit
 .again:                                    ; loop continuation point
+    call bios_delay                        ; pause between counter output iterations
     jmp loop                               ; print the next counter digit
 
 relocation_error:
@@ -166,6 +167,20 @@ format_year:
     mov [date_time_text+8], al             ; store third year digit
     mov [date_time_text+9], dl             ; store final year digit
     ret                                    ; return with YYYY written
+
+; BIOS interval wait: pause 100 ms between output iterations.
+bios_delay:
+    push ax                                ; preserve caller's registers
+    push cx
+    push dx
+    mov ah, 0x86                           ; BIOS wait service
+    mov cx, 0x0001                         ; high word of 100,000 microseconds
+    mov dx, 0x86A0                         ; low word: CX:DX = 100,000 (100 ms)
+    int 0x15                               ; wait for the requested interval
+    pop dx
+    pop cx
+    pop ax
+    ret
 
 relocation_segment: dw 0                  ; DOS patches this word with load segment
 counter:            db '0'                ; current digit displayed by loop

@@ -127,6 +127,7 @@ loop:                                      ; harmless instructions make stepping
     nop                                    ; do nothing; source-level step target
     nop                                    ; do nothing; source-level step target
     nop                                    ; do nothing; source-level step target
+    call bios_delay                        ; pause between counter output iterations
     jmp print_char                         ; return to digit output
 
 ; AL is a value from 0 through 99; DI points to two output characters.
@@ -159,6 +160,20 @@ format_year:
     mov [date_time_text+8], al             ; store third year digit
     mov [date_time_text+9], dl             ; store final year digit
     ret                                    ; return with YYYY written
+
+; BIOS interval wait: pause 100 ms between output iterations.
+bios_delay:
+    push ax                                ; preserve caller's registers
+    push cx
+    push dx
+    mov ah, 0x86                           ; BIOS wait service
+    mov cx, 0x0001                         ; high word of 100,000 microseconds
+    mov dx, 0x86A0                         ; low word: CX:DX = 100,000 (100 ms)
+    int 0x15                               ; wait for the requested interval
+    pop dx
+    pop cx
+    pop ax
+    ret
 
 ; Keep data in the same section so the ELF debug symbols match the flat COM
 ; image offsets after objcopy adjusts the load origin.

@@ -36,8 +36,9 @@ entry stop on connection and use the corresponding ELF/DWARF symbols.
 symbol files;
 `make -C debugger clean` removes generated output. Run
 `python3 debugger/test_breakpoints.py` to exercise COM and MZ entry stops and
-breakpoint handling in DOSBox-X. The test runner uses DOSBox-X's headless SDL
-driver so automated runs do not open a window or take desktop focus. EXEC/01 was
+breakpoint handling in DOSBox-X, including GDB Step Out from an MZ assembly
+routine back to its caller. The test runner uses DOSBox-X's headless SDL driver
+so automated runs do not open a window or take desktop focus. EXEC/01 was
 undocumented before DOS 5.0; this launcher is verified against DOSBox-X.
 
 The DOSBox-X launcher is `start-dosbox-x.sh`. The separate `dosemu/` directory

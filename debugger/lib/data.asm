@@ -48,10 +48,12 @@ s_exit: db "W00",0                      ; RSP process-exit reply with status zer
 s_ok:   db "OK",0                       ; RSP acknowledgement for successful requests
 s_emp:  db 0                             ; empty RSP response for unsupported queries
 s_err:  db "E22",0                      ; RSP error response for failed breakpoint request
-s_qsp:  db "PacketSize=400",0            ; qSupported reply advertising packet capacity
-s_qc:   db "QC-1",0                      ; report the single synthetic thread as current
+s_qsp:  db "PacketSize=400;swbreak+",0    ; packet capacity and software-breakpoint stop reports
+s_qc:   db "QC1",0                       ; report synthetic thread 1 as the current thread
 s_qa:   db "0",0                         ; qAttached reply: target is not newly attached
 s_tln:  db "l",0                         ; qfThreadInfo reply: no more thread IDs
+s_tids: db "m1",0                        ; qfThreadInfo reply: the one synthetic thread
 s_vC:   db "vCont;",0                    ; advertise continue action in vCont query
+s_swbr: db "T05thread:1;swbreak:;",0      ; managed INT3 stop with thread and breakpoint cause
 entry_ready_file: db "C:\GDBENTRY.OK",0   ; DOS marker polled by host launch automation
 entry_ready_data: db "1"                  ; marker content signals that entry stop was reached

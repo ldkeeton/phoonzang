@@ -63,6 +63,10 @@ def send_packet(sock, payload):
     sock.sendall(packet(payload))
 
 
+def is_software_breakpoint_stop(stop):
+    return stop.startswith("T05thread:1;swbreak:;")
+
+
 def request(sock, payload):
     send_packet(sock, payload)
     reply = recv_packet(sock)
@@ -208,8 +212,15 @@ def run_gdb_mi_test(timeout, target="testcom"):
         entry = 0
         entry_line = 48
 
+    gdb_command = ["gdb", "--quiet", "--interpreter=mi"]
+    if target == "testexe":
+        gdb_command = [
+            str(DEBUGGER / "gdb_mi_proxy.py"),
+            "--quiet",
+            "--interpreter=mi",
+        ]
     gdb = subprocess.Popen(
-        ["gdb", "--quiet", "--interpreter=mi"],
+        gdb_command,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -482,25 +493,46 @@ def run_gdb_mi_test(timeout, target="testcom"):
 
             # The filtered ELF should retain a usable function entry despite
             # prefixing other local code symbols with .L.
-            format_2 = symbol_address(elf, "format_2")
-            send("38-break-insert format_2\n")
+            format_year = symbol_address(elf, "format_year")
+            send("38-break-insert format_year\n")
             function_breakpoint = wait_for("38^done")
-            if f'addr="0x{format_2:08x}"' not in function_breakpoint:
+            if f'addr="0x{format_year:08x}"' not in function_breakpoint:
                 raise AssertionError(
-                    f"GDB did not resolve format_2 to its routine entry:\n"
+                    f"GDB did not resolve format_year to its routine entry:\n"
                     f"{function_breakpoint}"
                 )
             send("39-exec-continue\n")
             wait_for("39^running")
             stopped = wait_record('reason="breakpoint-hit"')
             if (
-                f'addr="0x{format_2:08x}"' not in stopped
-                or 'func="format_2"' not in stopped
+                f'addr="0x{format_year:08x}"' not in stopped
+                or 'func="format_year"' not in stopped
+                or 'line="150"' not in stopped
             ):
                 raise AssertionError(
-                    f"GDB did not hit the format_2 routine breakpoint:\n{stopped}"
+                    f"GDB did not hit the format_year routine breakpoint:\n{stopped}"
                 )
-            print("GDB function breakpoint hits the exported format_2 routine entry")
+            print("GDB function breakpoint hits format_year at line 150")
+
+            # Step Out should stop at the caller's instruction after CALL, not
+            # continue through the caller and into the fixture's output loop.
+            send("392-stack-list-frames 0 1\n")
+            wait_for("392^done")
+            send("393-exec-finish\n")
+            wait_for("393^running")
+            finished = wait_record('*stopped,')
+            return_address = source_line_address(elf, "testexe.asm", 88)
+            if (
+                'reason="function-finished"' not in finished
+                or f'addr="0x{return_address:08x}"' not in finished
+                or 'func="_start"' not in finished
+                or 'line="88"' not in finished
+            ):
+                raise AssertionError(
+                    "GDB Step Out from format_year did not return to "
+                    f"_start line 88:\n{finished}"
+                )
+            print("GDB Step Out from format_year returns to its caller at line 88")
             send("391-break-delete 3\n")
             wait_for("391^done")
 
@@ -701,7 +733,7 @@ def run_test(timeout):
             raise AssertionError("newline breakpoint did not patch its instruction")
         send_packet(sock, "c")
         stop = recv_packet(sock)
-        if not stop.startswith("S05"):
+        if not is_software_breakpoint_stop(stop):
             raise AssertionError(f"newline breakpoint returned {stop!r}")
         regs = registers(sock)
         if code_offset(regs) != newline_cr:
@@ -753,7 +785,7 @@ def run_test(timeout):
                 raise AssertionError(
                     "asynchronous breakpoint timed out, and Ctrl-C also failed"
                 ) from error
-        if not stop.startswith("S05"):
+        if not is_software_breakpoint_stop(stop):
             raise AssertionError(f"asynchronous breakpoint returned {stop!r}")
         regs = registers(sock)
         if code_offset(regs) != print_char:
@@ -814,7 +846,7 @@ def run_exe_test(timeout):
             raise AssertionError("MZ loop breakpoint did not patch target memory")
         send_packet(sock, "c")
         stop = recv_packet(sock)
-        if not stop.startswith("S05"):
+        if not is_software_breakpoint_stop(stop):
             raise AssertionError(f"MZ loop breakpoint returned {stop!r}")
         regs = registers(sock)
         if code_offset(regs) != loop:
@@ -926,7 +958,7 @@ def run_exe_async_breakpoint_test(timeout):
                         "MZ line-125 breakpoint was not hit, and Ctrl-C failed"
                     ) from error
 
-            if not stop.startswith("S05"):
+            if not is_software_breakpoint_stop(stop):
                 raise AssertionError(f"MZ line-125 breakpoint returned {stop!r}")
             regs = registers(sock)
             if code_offset(regs) != line_125:

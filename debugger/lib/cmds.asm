@@ -449,9 +449,9 @@ cmd_qry:
     cmp word [si], 'TS'                   ; is this thread-alive query?
     je .qT                                ; no explicit thread liveness support
     cmp word [si], 'fT'                   ; is this qfThreadInfo?
-    je .qTh                               ; report end of thread list
+    je .qfTh                              ; report the single synthetic thread
     cmp word [si], 'sT'                   ; is this qsThreadInfo?
-    je .qTh                               ; report end of thread list
+    je .qsTh                              ; terminate thread-list enumeration
     cmp word [si], 'Xf'                   ; is this qXfer feature query?
     je .qX                                ; target XML transfer is unsupported
     mov si, s_emp                         ; unknown query -> empty response
@@ -469,9 +469,12 @@ cmd_qry:
 .qT:mov si, s_emp                         ; thread-alive query is not implemented
     call pkt_send                         ; return empty/unsupported response
     jmp gdb_loop                          ; continue handling commands
-.qTh:mov si, s_tln                        ; no more thread IDs are available
-    call pkt_send                         ; terminate GDB's thread-list enumeration
-    jmp gdb_loop                          ; continue handling commands
+.qfTh:mov si, s_tids                      ; report thread 1 in the first list response
+     call pkt_send                         ; return the one synthetic thread ID
+     jmp gdb_loop                          ; continue processing commands
+.qsTh:mov si, s_tln                       ; no more thread IDs are available
+     call pkt_send                         ; terminate GDB's thread-list enumeration
+     jmp gdb_loop                          ; continue handling commands
 .qX:mov si, s_emp                         ; target-description transfer is unsupported
     call pkt_send                         ; return an empty response
     jmp gdb_loop                          ; continue handling commands
