@@ -2,49 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "GDB: Launch dosbox-x",
+            "name": "GDB: Launch TESTCOM",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/debugger/build/testcom.elf",
             "miDebuggerServerAddress": "localhost:1234",
-            "miDebuggerPath": "/usr/bin/gdb",
-            "MIMode": "gdb",
-            "targetArchitecture": "x86",
-            "cwd": "${workspaceFolder}/debugger",
-            "preLaunchTask": "Start DOSBox-X (COM)",
-            "stopAtEntry": true,
-            "stopAtConnect": true,
-            "sourceFileMap": {
-                "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
-            },
-            "setupCommands": [
-                {
-                    "text": "set architecture i8086",
-                    "description": "16-bit real-mode target with i386-compatible core registers",
-                    "ignoreFailures": false
-                },
-                {
-                    "text": "set confirm off",
-                    "description": "No prompts",
-                    "ignoreFailures": true
-                },
-                {
-                    "text": "source ${workspaceFolder}/debugger/gdb_enable_phys.py",
-                    "description": "Physical EIP mode",
-                    "ignoreFailures": true
-                }
-            ],
-            "logging": {
-                "engineLogging": true
-            }
-        },
-        {
-            "name": "GDB: Launch COM (16-bit code)",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/debugger/build/testcom.elf",
-            "miDebuggerServerAddress": "localhost:1234",
-            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerPath": "${workspaceFolder}/debugger/gdb_mi_proxy.py",
             "MIMode": "gdb",
             "targetArchitecture": "x86",
             "stopAtEntry": true,
@@ -76,33 +39,7 @@
             }
         },
         {
-            "name": "GDB: Attach (manual dosbox-x)",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/debugger/build/testcom.elf",
-            "miDebuggerServerAddress": "localhost:1234",
-            "miDebuggerPath": "/usr/bin/gdb",
-            "MIMode": "gdb",
-            "stopAtConnect": true,
-            "cwd": "${workspaceFolder}/debugger",
-            "sourceFileMap": {
-                "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
-            },
-            "setupCommands": [
-                {
-                    "text": "set architecture i8086",
-                    "description": "GDBSRV 16-bit real-mode target",
-                    "ignoreFailures": false
-                },
-                {
-                    "text": "source ${workspaceFolder}/debugger/gdb_enable_phys.py",
-                    "description": "Real-mode address translation",
-                    "ignoreFailures": true
-                }
-            ]
-        },
-        {
-            "name": "GDB: Launch MZ EXE",
+            "name": "GDB: Launch TESTEXE",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/debugger/build/testexe.elf",
@@ -142,6 +79,32 @@
             "logging": {
                 "engineLogging": true
             }
-        }
+        },
+        {
+            "name": "GDB: Attach (manual dosbox-x)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/debugger/build/testcom.elf",
+            "miDebuggerServerAddress": "localhost:1234",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "MIMode": "gdb",
+            "stopAtConnect": true,
+            "cwd": "${workspaceFolder}/debugger",
+            "sourceFileMap": {
+                "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
+            },
+            "setupCommands": [
+                {
+                    "text": "set architecture i8086",
+                    "description": "GDBSRV 16-bit real-mode target",
+                    "ignoreFailures": false
+                },
+                {
+                    "text": "source ${workspaceFolder}/debugger/gdb_enable_phys.py",
+                    "description": "Real-mode address translation",
+                    "ignoreFailures": true
+                }
+            ]
+        },
     ]
 }

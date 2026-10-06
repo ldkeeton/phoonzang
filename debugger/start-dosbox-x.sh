@@ -4,6 +4,7 @@
 
 DIR="$(dirname "$0")"
 BUILD="$DIR/build"
+PID_FILE="$BUILD/dosbox-x.pid"
 DOSBOX=$(command -v dosbox-x 2>/dev/null || echo "/usr/bin/dosbox-x")
 case "${1:-testcom}" in
     testcom|com) TARGET=TESTCOM.COM ;;
@@ -32,6 +33,7 @@ if ! command -v "$DOSBOX" &>/dev/null; then
 fi
 
 fuser -k -KILL 1234/tcp 2>/dev/null || true
+rm -f "$PID_FILE"
 rm -f "$BUILD/GDBENTRY.OK"
 
 CONFIG=$(mktemp)
@@ -63,7 +65,15 @@ CFG
 echo "Starting dosbox-x..."
 "${SDL_ENV[@]}" "$DOSBOX" "${DOSBOX_ARGS[@]}" -conf "$CONFIG" > /tmp/dosboxx-stub.log 2>&1 &
 DOSBOX_PID=$!
-trap "kill $DOSBOX_PID 2>/dev/null; rm -f '$CONFIG'" EXIT
+printf '%s\n' "$DOSBOX_PID" > "$PID_FILE"
+cleanup() {
+    kill "$DOSBOX_PID" 2>/dev/null || true
+    if [ "$(cat "$PID_FILE" 2>/dev/null)" = "$DOSBOX_PID" ]; then
+        rm -f "$PID_FILE"
+    fi
+    rm -f "$CONFIG"
+}
+trap cleanup EXIT
 
 # Wait until the target itself reaches its entry trap. The TCP port
 # opens before DOS autoexec completes, so port readiness alone is too early.
