@@ -302,6 +302,35 @@ def _elf_source_text(asm_path, entry_line=None):
     with open(asm_path) as f:
         lines = f.read().splitlines()
 
+    asm_root = os.path.dirname(os.path.abspath(asm_path))
+    include_re = re.compile(r'^\s*%include\s+["\']([^"\']+)["\']')
+    symbol_sources = []
+    visited_sources = set()
+
+    def collect_symbols(source_path):
+        source_path = os.path.abspath(source_path)
+        if source_path in visited_sources or not os.path.isfile(source_path):
+            return
+        visited_sources.add(source_path)
+        with open(source_path) as f:
+            source_lines = f.read().splitlines()
+        symbol_sources.extend(source_lines)
+        for source_line in source_lines:
+            match = include_re.match(source_line)
+            if not match:
+                continue
+            include_name = match.group(1)
+            candidates = (
+                os.path.join(asm_root, include_name),
+                os.path.join(os.path.dirname(source_path), include_name),
+            )
+            for include_path in candidates:
+                if os.path.isfile(include_path):
+                    collect_symbols(include_path)
+                    break
+
+    collect_symbols(asm_path)
+
     org_line = next(
         (i for i, line in enumerate(lines) if line.strip().lower() == 'org 0'),
         None,
@@ -324,7 +353,7 @@ def _elf_source_text(asm_path, entry_line=None):
         raise ValueError(f'{asm_path}: could not locate code following MZ header')
 
     symbols = []
-    for line in lines:
+    for line in symbol_sources:
         match = re.match(r'\s*([A-Za-z_][A-Za-z0-9_]*)\s*:', line)
         if not match:
             match = re.match(r'\s*([A-Za-z_][A-Za-z0-9_]*)\s+equ\b', line)

@@ -96,7 +96,8 @@ data_46d9 equ 0x46d9
 data_46f1 equ 0x46f1
 
 loc_0000:
-    jmp near 3
+    jmp near @..local.l1
+@..local.l1:
 
     db 0xe8, 0xf2, 0x11, 0xcb, 0xe8, 0x62, 0x12, 0xcb, 0xe8, 0x09, 0x13, 0xcb, 0xe8, 0xf6, 0x12, 0xcb
     db 0xe8, 0xb3, 0x12, 0xcb, 0xe8, 0xb3, 0x21, 0xcb, 0xe8, 0x4e, 0x2d, 0xcb, 0xe8, 0xb0, 0x08, 0xcb
@@ -1046,7 +1047,7 @@ dos_read_file_2:
     mov ax, word [bp + 0xe]
     cmp ax, strict word 0xa
     jb short @..dos_con_loc_0a4f.l1
-    jmp near 0xcf0
+    jmp near @..local.l2
 @..dos_con_loc_0a4f.l1:
     shl ax, 1
     mov word [bp - 0x0008], ax
@@ -1135,7 +1136,7 @@ dos_read_file_2:
     add word [cs:data_0cac], ax
     mov ax, word [cs:data_0cac]
     cmp ax, 0x4180
-    jae short 0xd00
+    jae short @..dos_con_loc_0cf6.l1
     mov ax, ds
     add ax, 0x100
     mov ds, ax
@@ -1175,13 +1176,11 @@ dos_read_file_2:
     mov sp, bp
     pop bp
     ret
-    mov ax, cs
-    mov ds, ax
-    mov dx, 0xe10
-    mov ah, 9
-    int 0x21 ; DOS string output
-    mov ax, 0x4c01
-    int 0x21 ; DOS function dispatcher
+@..local.l2:
+
+    db 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x10, 0x0e, 0xb4, 0x09, 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21
+
+@..dos_con_loc_0cf6.l1:
     mov ax, cs
     mov ds, ax
     mov dx, 0xe6b
@@ -1445,7 +1444,7 @@ dos_print_str:
     add bx, ax
     mov bx, word [cs:bx]
     or bx, bx
-    jne short 0xfff
+    jne short @..dos_print_str.l1
 dos_con_loc_0fda:
     mov ax, cs
     mov ds, ax
@@ -1466,7 +1465,9 @@ dos_con_loc_0fda:
     dec di
     push dx
     add byte [cs:bp + si], cl
-    and al, 0x4b
+    db 0x24
+@..dos_print_str.l1:
+    db 0x4b
     mov cl, 2
     shl bx, cl
     add bx, data_0bda
@@ -2445,7 +2446,7 @@ dos_read_file_3:
     mov ax, word [cs:bx]
     or ax, ax
     je short @..dos_read_file_3.l1
-    jmp near 0x22ac
+    jmp near @..local.l36
 @..dos_read_file_3.l1:
     mov ax, word [cs:data_0caa]
     inc ax
@@ -2525,6 +2526,7 @@ dos_read_file_3:
     mov sp, bp
     pop bp
     ret
+@..local.l36:
     mov ax, word [bp + 0xe]
     mov bx, 0xa
     div bx
@@ -5293,7 +5295,7 @@ dos_read_file_5:
     mov ax, word [cs:bx]
     or ax, ax
     je short @..dos_read_file_5.l3
-    jmp near 0x3ef6
+    jmp near @..local.l164
 @..dos_read_file_5.l3:
     inc word [cs:data_038f]
     mov ax, word [cs:data_038f]
@@ -5412,6 +5414,7 @@ dos_read_file_5:
     mov sp, bp
     pop bp
     ret
+@..local.l164:
     mov ax, cs
     mov ds, ax
     mov dx, 0x4006
@@ -5637,7 +5640,7 @@ dos_read_file_6:
     mov ax, word [bx]
     or ax, ax
     je short @..dos_con_loc_4088.l3
-    jmp near 0x42a0
+    jmp near @..dos_con_loc_422f.l4
 @..dos_con_loc_4088.l3:
     mov bx, word [bp - 0x0002]
     mov ax, word [bp - 0x0004]
@@ -5650,7 +5653,7 @@ dos_read_file_6:
     mov word [cs:bx + 0x2], ax
     add ax, word [cs:data_0cac]
     cmp ax, 0x4180
-    jae short 0x4264
+    jae short @..dos_con_loc_422f.l1
     mov word [cs:data_0cac], ax
     mov ax, word [cs:bx]
     add ax, word [cs:data_01e1]
@@ -5691,14 +5694,16 @@ dos_read_file_7:
     je short @..dos_con_loc_422f.l2
     popaw
     insb
-    jb short 0x42bd
+    jb short @..dos_con_loc_422f.l7
     popaw
     db 0x64, 0x79, 0x20 ; jns @..dos_con_loc_422f.l3
-    jne short 0x42d1
+    jne short @..dos_con_loc_422f.l8
     db 0x65, 0x64, 0x2e, 0x00, 0x0a ; add byte [cs:bp + si], cl
-    and al, 0x8c
+    db 0x24
+@..dos_con_loc_422f.l1:
+    db 0x8c
     enter 0xd88e, 0xffba
-    je short 0x42ae
+    je short @..dos_con_loc_422f.l5
 dos_con_loc_426b:
     mov ah, 9
     int 0x21 ; DOS string output
@@ -5728,27 +5733,35 @@ dos_con_loc_426b:
     push 0x6d20
     db 0x65, 0x6d ; insw
     outsw
-    jb short 0x4315
+    jb short @..dos_con_loc_422f.l12
     add byte [cs:bp + si], cl
-    and al, 0x8b
+    db 0x24
+@..dos_con_loc_422f.l4:
+    db 0x8b
     enter 0xa12e, 0xffe9
     add word [bp + 0x33d8], cx
     ror byte [bp + di + 0xc5e], cl
-    mov ah, 0x3f
+    db 0xb4
+@..dos_con_loc_422f.l5:
+    db 0x3f
 @..dos_con_loc_422f.l6:
-    int 0x21 ; DOS read file (handle)
+    int 0x21 ; DOS function dispatcher
     mov dx, 0x400
     mov bx, word [bp + 0xc]
     mov cx, 0x1000
     mov ah, 0x3f
-    int 0x21 ; DOS read file (handle)
+    db 0xcd
+@..dos_con_loc_422f.l7:
+    db 0x21
     mov si, 0x400
     mov di, 0
     lodsw
     mov word [bp - 0x0004], ax
     mov bx, word [bp - 0x0002]
     mov word [cs:bx + 0x2], ax
-    add ax, strict word 0xf
+    db 0x05, 0x0f
+@..dos_con_loc_422f.l8:
+    db 0x00
     mov cl, 4
     shr ax, cl
     mov bx, word [bp - 0x000a]
@@ -5756,7 +5769,7 @@ dos_con_loc_426b:
     add ax, word [cs:data_0cac]
     cmp ax, 0x4180
     jb short @..dos_con_loc_422f.l9
-    jmp near 0x4264
+    jmp near @..dos_con_loc_422f.l1
 @..dos_con_loc_422f.l9:
     mov word [cs:data_0cac], ax
     mov ax, word [cs:bx]
@@ -5775,7 +5788,9 @@ dos_file_loc_4300:
     call dos_file_loc_4319
     mov byte [es:di], bl
     inc di
-    dec word [bp - 0x0004]
+    db 0xff, 0x4e
+@..dos_con_loc_422f.l12:
+    db 0xfc
     jmp short @..dos_con_loc_422f.l11
 @..dos_con_loc_422f.l13:
     ret

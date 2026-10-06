@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_a195.inc"
+%include "structs/loc_4d4a.inc"
 org 0
 bits 16
 %include "labels/vpcmk_foreign_labels.inc"
@@ -23,6 +23,7 @@ data_2429 equ 0x2429
 data_3231 equ 0x3231
 data_487f equ 0x487f
 data_4c4b equ 0x4c4b
+loc_4d4a equ 0x4d4a
 data_59fc equ 0x59fc
 data_5b3e equ 0x5b3e
 data_5e2a equ 0x5e2a
@@ -3551,7 +3552,7 @@ api_idx_0004_4:
     mov bx, ax
     mov al, byte [bx + 0x5e2d]
     sub ah, ah
-    jmp near 0x242a
+    jmp near @..api_idx_0004_4.l7
     mov ax, 0x90d9
     push ax
     mov ax, 0x90d2
@@ -3725,20 +3726,24 @@ api_idx_0004_4:
 @..api_idx_0004_4.l4:
     jmp short @..api_idx_0004_4.l8
     db 0xd1, 0x72, 0xed ; sal word [bp + si - 0x0013], 1
-    jb short 0x241c
+    jb short @..api_idx_0004_4.l5
     jae short @..api_idx_0004_4.l9
     jae short @..api_idx_0004_4.l12
     jae short @..local.l62
-    jae short 0x2494
-    jae short @..api_idx_0004_4.l1
+    jae short @..local.l63
+    db 0x73
+@..api_idx_0004_4.l5:
+    db 0x95
     jae short @..api_idx_0004_4.l2
     jae short @..api_idx_0004_4.l3
     jae short @..api_idx_0004_4.l4
     jae short @..api_idx_0004_4.l6
     je short @..api_idx_0004_4.l10
-    je short 0x2463
+    je short @..api_idx_0004_4.l13
 @..api_idx_0004_4.l6:
-    je short @..api_idx_0004_4.l14
+    db 0x74
+@..api_idx_0004_4.l7:
+    db 0x3d
     push cs
     add byte [bp + di + 0x8], dh
     xchg bx, ax
@@ -3762,7 +3767,10 @@ api_idx_0004_4:
     shl ax, 1
     shl ax, 1
     mov bx, ax
-    db 0x8b, 0x87, 0x38, 0x00 ; mov ax, word [bx + 0x38]
+    db 0x8b, 0x87
+@..api_idx_0004_4.l13:
+    db 0x38
+    db 0x00
     mov word [bp - 0x0002], ax
 @..api_idx_0004_4.l14:
     jmp short @..local.l65
@@ -3783,7 +3791,9 @@ api_idx_0004_4:
     call ds_dispatch_b53b
     add sp, byte 4
     mov ax, word [bp - 0x0002]
-    mov cx, word [bp - 0x0004]
+    db 0x8b, 0x4e
+@..local.l63:
+    db 0xfc
     shl cx, 1
     mov si, cx
     mov bx, word [bp + 0x8]
@@ -6082,7 +6092,7 @@ api_idx_0050:
     add sp, byte 8
 @..local.l127:
     jmp short @..local.l130
-    jmp near 0x4d4a
+    jmp near loc_4d4a
     xchg word [bx + si], dx
     xchg word [bx - 0x0078], ax
     hlt
@@ -7885,7 +7895,7 @@ api_idx_0004_6:
     mov bx, ax
     mov al, byte [bx + 0x5e2d]
     sub ah, ah
-    jmp near 0x517d
+    jmp near @..api_idx_0004_6.l1
     mov ax, 0x93cc
     push ax
     mov ax, 0x93bd
@@ -7978,7 +7988,9 @@ api_idx_0004_6:
     outsw
     mov ax, word [data_a10d]
     and word [bx + di - 0x5e7e], sp
-    xor ax, 0x3da1
+    db 0x35, 0xa1
+@..api_idx_0004_6.l1:
+    db 0x3d
     push cs
     add byte [bp + di + 0x8], dh
     xchg bx, ax

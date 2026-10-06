@@ -5090,7 +5090,7 @@ api_idx_0008_4:
     jmp near @..api_idx_0008_4.l8
 @..api_idx_0008_4.l3:
     mov ax, si
-    jmp short 0x30f6
+    jmp short @..api_idx_0008_4.l4
     mov ax, word [bp - 0x0008]
     mov cx, 0xa
     cwd
@@ -5127,7 +5127,10 @@ api_idx_0008_4:
     db 0xf2, 0x80, 0x00, 0x81 ; add byte [bx + si], 0x81
     push cs
     sbb word [si], strict word 0x2a81
-    cmp word [di], 6
+    db 0x81
+@..api_idx_0008_4.l4:
+    db 0x3d, 0x06
+    db 0x00
     jae short @..api_idx_0008_4.l5
     xchg bx, ax
     shl bx, 1

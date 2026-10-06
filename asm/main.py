@@ -129,6 +129,12 @@ _DIAG = '--diag' in sys.argv
 _SHOW_OFFSETS = '--show-offsets' in sys.argv
 _DECOMPILE = '--decompile' in sys.argv
 
+# Generated routine includes are keyed by (project, binary) and function label.
+# This begins with one well-named, signature-matched DSAVANT routine.
+SPLIT_FUNCTIONS = {
+    ('DSAVANT', 'ds'): ('bios_get_video_mode',),
+}
+
 
 def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=False, output_dir=None, project=None, sidecar_entry=None,
             foreign_label_map=None, export_labels=False):
@@ -282,7 +288,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
 
     raw_imm = (ctx.sidecar_entry or {}).get('immediate_labels', {})
     immediate_labels = {int(k, 16): v for k, v in raw_imm.items()}
-    asm_text, stats, emit_bytes, label_positions = verify(
+    asm_text, stats, emit_bytes, label_positions, split_sources = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
         exact_bytes=exact_bytes, show_offsets=show_offsets,
@@ -292,6 +298,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         trace=ctx.trace,
         foreign_label_map=foreign_label_map,
         immediate_labels=immediate_labels,
+        split_functions=SPLIT_FUNCTIONS.get((project, name), ()),
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
@@ -306,6 +313,11 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         diag_flush()
 
     os.makedirs(out_dir, exist_ok=True)
+    for include_path, include_text in split_sources.items():
+        path = os.path.join(out_dir, include_path)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'w') as f:
+            f.write(include_text)
     asm_path = os.path.join(out_dir, f'{name}.asm')
     with open(asm_path, 'w') as f:
         f.write(asm_text)

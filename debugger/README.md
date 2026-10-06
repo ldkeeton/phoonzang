@@ -41,5 +41,8 @@ routine back to its caller. The test runner uses DOSBox-X's headless SDL driver
 so automated runs do not open a window or take desktop focus. EXEC/01 was
 undocumented before DOS 5.0; this launcher is verified against DOSBox-X.
 
+Run `python3 debugger/test_ds_asm.py` to verify GDB resolves source breakpoints
+in both the generated `ds.asm` master and the `bios_get_video_mode` include.
+
 The DOSBox-X launcher is `start-dosbox-x.sh`. The separate `dosemu/` directory
 contains the optional DOSEMU serial bridge.

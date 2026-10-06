@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_938c.inc"
+%include "structs/loc_290d.inc"
 org 0
 bits 16
 %include "labels/vpops_foreign_labels.inc"
@@ -13,6 +13,9 @@ data_03b8 equ 0x03b8
 data_083d equ 0x083d
 data_0e32 equ 0x0e32
 data_0e36 equ 0x0e36
+loc_290d equ 0x290d
+loc_2925 equ 0x2925
+loc_295e equ 0x295e
 data_3b93 equ 0x3b93
 data_48eb equ 0x48eb
 data_59fc equ 0x59fc
@@ -4156,9 +4159,9 @@ api_idx_0044:
 @..local.l135:
     jmp short @..local.l138
     adc byte [bp + si + 0x37], dh
-    jae short 0x2925
-    jae short 0x295e
-    je short 0x290d
+    jae short loc_2925
+    jae short loc_295e
+    je short loc_290d
     db 0x75
 @..local.l136:
     cmp ax, strict word 5

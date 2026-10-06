@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_9d90.inc"
+%include "structs/loc_35f3.inc"
 org 0
 bits 16
 %include "labels/vdopt_foreign_labels.inc"
@@ -17,6 +17,7 @@ data_0e12 equ 0x0e12
 data_0e14 equ 0x0e14
 data_15b9 equ 0x15b9
 data_35eb equ 0x35eb
+loc_35f3 equ 0x35f3
 data_590e equ 0x590e
 data_5910 equ 0x5910
 data_598c equ 0x598c
@@ -512,7 +513,7 @@ api_idx_0004_3:
     mov bx, word [bp - 0x0004]
     mov word [bx + 0x2], ax
     mov ax, word [bp + 0x6]
-    jmp short 0x465
+    jmp short @..api_idx_0004_3.l3
     mov ax, word [bp + 0xe]
     mov cx, 4
     shl ax, cl
@@ -556,7 +557,9 @@ api_idx_0004_3:
     insw
     push sp
     js short loc_04b7
-    mov dl, byte [si + 0x3d]
+    db 0x8a, 0x54
+@..api_idx_0004_3.l3:
+    db 0x3d
     pop es
     add byte [bp + di + 0x8], dh
     xchg bx, ax
@@ -2614,7 +2617,7 @@ api_idx_00fa:
     mov word [bp - 0x0006], 0
     mov word [bp - 0x0008], 0
     mov ax, word [bp + 0x4]
-    jmp short 0x1ab5
+    jmp short @..api_idx_00fa.l1
     add word [bp - 0x0008], byte 0x19
     add word [bp - 0x0008], byte 0x19
     add word [bp - 0x0006], byte 0x19
@@ -2634,7 +2637,9 @@ api_idx_00fa:
     db 0x6a, 0xc6 ; push 0xffc6
     db 0x6a, 0xc2 ; push 0xffc2
     db 0x6a, 0xbe ; push 0xffbe
-    db 0x6a, 0x3d ; push 0x3d
+    db 0x6a
+@..api_idx_00fa.l1:
+    db 0x3d
     or byte [bx + si], al
     jae short @..api_idx_00fa.l2
     xchg bx, ax
@@ -2880,7 +2885,7 @@ api_idx_0008:
     call math_loc_1c7f
     add sp, byte 6
     mov word [data_8300], ax
-    jmp near 0x238c
+    jmp near @..local.l120
     mov ax, 0x23
     imul word [bp + 0x8]
     add word [data_82f2], ax
@@ -2897,7 +2902,7 @@ api_idx_0008:
     call math_loc_1c7f
     add sp, byte 6
     mov word [data_82f4], ax
-    db 0xe9, 0x5f, 0x06 ; jmp near 0x238c
+    jmp near @..local.l120
     mov ax, 0x32
     imul word [bp + 0x8]
     add word [data_82f6], ax
@@ -2914,15 +2919,15 @@ api_idx_0008:
     call math_loc_1c7f
     add sp, byte 6
     mov word [data_82f8], ax
-    db 0xe9, 0x35, 0x06 ; jmp near 0x238c
+    jmp near @..local.l120
     mov ax, 5
     imul word [bp + 0x8]
     add word [data_8306], ax
-    db 0xe9, 0x28, 0x06 ; jmp near 0x238c
+    jmp near @..local.l120
     mov ax, 0x64
     imul word [bp + 0x8]
     add word [data_8302], ax
-    db 0xe9, 0x1b, 0x06 ; jmp near 0x238c
+    jmp near @..local.l120
     mov ax, 0x32
     imul word [bp + 0x8]
     add word [data_82fa], ax
@@ -2935,7 +2940,7 @@ api_idx_0008:
     call math_loc_1c7f
     add sp, byte 6
     mov word [data_82fc], ax
-    db 0xe9, 0xf6, 0x05 ; jmp near 0x238c
+    jmp near @..local.l120
     mov ax, 0
     cmp word [bp + 0x6], byte 0x13
     je short @..api_idx_0008.l1
@@ -3006,7 +3011,7 @@ api_idx_0008:
     mov ax, word [bp - 0x0002]
     cmp ax, word [bp - 0x0004]
     jl short @..api_idx_0008.l5
-    db 0xe9, 0x50, 0x05 ; jmp near 0x238c
+    jmp near @..local.l120
     mov ax, 0x248
     imul word [bp + 0xa]
     mov bx, ax
@@ -3025,7 +3030,7 @@ api_idx_0008:
 @..api_idx_0008.l7:
     mov al, byte [bp - 0x0002]
     mov byte [bx + 0x5d5d], al
-    db 0xe9, 0x1f, 0x05 ; jmp near 0x238c
+    jmp near @..local.l120
     mov ax, 0x248
     imul word [bp + 0xa]
     mov bx, ax
@@ -3056,7 +3061,7 @@ api_idx_0008:
 @..api_idx_0008.l9:
     mov al, byte [bp - 0x0002]
     mov byte [bx + 0x5d5f], al
-    db 0xe9, 0xc7, 0x04 ; jmp near 0x238c
+    jmp near @..local.l120
     mov ax, 0x248
     imul word [bp + 0xa]
     mov bx, ax
@@ -3143,8 +3148,10 @@ api_idx_0008:
     db 0xdb, 0x71, 0x74, 0x6d, 0x0c
     db 'o3p"m'
     db 0xeb, 0x6f, 0x91, 0x6f, 0xea, 0x71, 0xfb, 0x71, 0x5e, 0x73, 0x9b, 0x70, 0x4a, 0x6d, 0xb8, 0x6d
-    db 0x9b, 0x70, 0x4b, 0x71, 0x0f, 0x72, 0xa7, 0x72, 0x10, 0x73, 0xd3, 0x73, 0xc3
+    db 0x9b, 0x70, 0x4b, 0x71, 0x0f, 0x72, 0xa7, 0x72, 0x10, 0x73, 0xd3, 0x73
 
+@..local.l120:
+    db 0xc3
 api_idx_000c:
     mov ax, 0xfff4
     call ds_dispatch_f40b
@@ -4794,7 +4801,7 @@ api_idx_0044:
 @..local.l160:
     jmp short @..local.l163
     clc
-    jle short 0x35f3
+    jle short loc_35f3
     sbb byte [bx], 0x80
     push si
     db 0x81, 0x03, 0x82

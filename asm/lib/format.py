@@ -74,8 +74,6 @@ def _fmt_mem(op, insn, label_map=None, foreign_label_map=None, local_labels=None
         addr = disp & 0xFFFF
         if label_map and addr in label_map:
             ea = label_map[addr]
-        elif local_labels and addr in local_labels:
-            ea = local_labels[addr]
         elif foreign_label_map and addr in foreign_label_map:
             ea = foreign_label_map[addr]
         else:

@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_ff00.inc"
+%include "structs/loc_01dc.inc"
 org 0
 bits 16
     ; header (512 bytes)
@@ -13,6 +13,9 @@ data_0002 equ 0x0002
 data_0009 equ 0x0009
 data_002c equ 0x002c
 data_0080 equ 0x0080
+loc_01d8 equ 0x01d8
+loc_01da equ 0x01da
+loc_01dc equ 0x01dc
 data_021d equ 0x021d
 data_022d equ 0x022d
 data_02c7 equ 0x02c7
@@ -20,6 +23,7 @@ data_0403 equ 0x0403
 data_0410 equ 0x0410
 data_068e equ 0x068e
 data_06c6 equ 0x06c6
+loc_08e2 equ 0x08e2
 data_090e equ 0x090e
 data_0c70 equ 0x0c70
 data_0c72 equ 0x0c72
@@ -118,14 +122,22 @@ data_2e47 equ 0x2e47
 data_2edc equ 0x2edc
 data_2ede equ 0x2ede
 data_2ee0 equ 0x2ee0
+loc_30e9 equ 0x30e9
 data_3300 equ 0x3300
 data_3472 equ 0x3472
+loc_34a3 equ 0x34a3
+loc_34a9 equ 0x34a9
 dos_con_loc_35b8 equ 0x35b8
 dos_con_loc_3640 equ 0x3640
+loc_36fe equ 0x36fe
+loc_3702 equ 0x3702
+loc_371a equ 0x371a
 dos_mem_loc_371d equ 0x371d
+loc_372d equ 0x372d
 data_3887 equ 0x3887
 data_3a7f equ 0x3a7f
 data_3dfe equ 0x3dfe
+loc_4517 equ 0x4517
 data_4b38 equ 0x4b38
 data_4d00 equ 0x4d00
 data_4d43 equ 0x4d43
@@ -162,7 +174,7 @@ loc_0200:
     push word [bp + 0x8]
     push word [bp + 0x6]
     push word [bp + 0x4]
-    call 0x4517
+    call loc_4517
     add sp, byte 0x0a
     ret
 loc_022f:
@@ -443,10 +455,10 @@ string_loc_0876:
     call string_loc_3a95
     add sp, byte 4
     ret
-    mov ax, 0xff00
+    mov ax, data_ff00
     call loc_4652
     mov ax, word [bp + 0x4]
-    jmp short 0x8e2
+    jmp short loc_08e2
 string_loc_088e:
     mov bx, word [bp + 0x8]
     mov al, byte [bx + 0x5244]
@@ -951,13 +963,21 @@ loc_0f2a:
     call loc_3b3b
     add sp, byte 6
     ret
+    mov ax, 0
+    call loc_4652
+    mov ax, 0xc3
+    push ax
+    push word [bp + 0xa]
+    push word [bp + 0x8]
+    push word [bp + 0x6]
+    push word [bp + 0x4]
+    db 0xe8
+@..local.l37:
 
-    db 0xb8, 0x00, 0x00, 0xe8, 0x6d, 0x36, 0xb8, 0xc3, 0x00, 0x50, 0xff, 0x76, 0x0a, 0xff, 0x76, 0x08
-    db 0xff, 0x76, 0x06, 0xff, 0x76, 0x04, 0xe8, 0x50, 0x2b, 0x83, 0xc4, 0x0a, 0xff, 0x76, 0x0a, 0xff
-    db 0x76, 0x08, 0xff, 0x76, 0x06, 0xff, 0x76, 0x04, 0xe8, 0xf9, 0xfd, 0x83, 0xc4, 0x08, 0xb8, 0xb4
-    db 0x00, 0x50, 0xb8, 0xc5, 0x00, 0x50, 0x8b, 0x46, 0x0a, 0x40, 0x40, 0x50, 0x8b, 0x46, 0x08, 0x40
-    db 0x40, 0x50, 0x8b, 0x46, 0x06, 0x48, 0x48, 0x50, 0x8b, 0x46, 0x04, 0x48, 0x48, 0x50, 0xe8, 0x52
-    db 0xfe, 0x83, 0xc4, 0x0c, 0xc3
+    db 0x50, 0x2b, 0x83, 0xc4, 0x0a, 0xff, 0x76, 0x0a, 0xff, 0x76, 0x08, 0xff, 0x76, 0x06, 0xff, 0x76
+    db 0x04, 0xe8, 0xf9, 0xfd, 0x83, 0xc4, 0x08, 0xb8, 0xb4, 0x00, 0x50, 0xb8, 0xc5, 0x00, 0x50, 0x8b
+    db 0x46, 0x0a, 0x40, 0x40, 0x50, 0x8b, 0x46, 0x08, 0x40, 0x40, 0x50, 0x8b, 0x46, 0x06, 0x48, 0x48
+    db 0x50, 0x8b, 0x46, 0x04, 0x48, 0x48, 0x50, 0xe8, 0x52, 0xfe, 0x83, 0xc4, 0x0c, 0xc3
 
 math_loc_1034:
     mov ax, 0
@@ -2672,7 +2692,7 @@ bios_video_loc_30c3:
     ret
     mov ax, 0x10b
     add byte [bx], ch
-    jne short 0x30e9
+    jne short loc_30e9
     mov ax, 0
     mov es, ax
     mov bx, 0x46c
@@ -2681,39 +2701,8 @@ bios_video_loc_30c3:
     add ax, strict word 2
     mov word [cs:data_2ede], ax
     ret
-bios_get_video_mode:
-    mov ah, 0xf
-    int 0x10 ; BIOS video: get video mode
-    mov byte [cs:data_2d36], al
-    mov ax, word [bp + 0x4]
-    and ax, strict word 1
-    jne short @..bios_get_video_mode.l1
-    jmp near 0x3490
-@..bios_get_video_mode.l1:
-    mov ax, 0
-    push ds
-    mov ds, ax
-    mov bx, 0x487
-    mov al, byte [bx]
-    pop ds
-    or al, al
-    je short @..bios_get_video_mode.l3
-    xor bx, bx
-    mov ax, 0x1a00
-    int 0x10 ; BIOS video
-    cmp bl, 7
-    je short @..bios_get_video_mode.l2
-    cmp bh, 7
-    je short @..bios_get_video_mode.l2
-    cmp bl, 8
-    je short @..bios_get_video_mode.l2
-    cmp bh, 8
-    jne short @..bios_get_video_mode.l3
-@..bios_get_video_mode.l2:
-    jmp near 0x343e
-@..bios_get_video_mode.l3:
-    mov word [bp - 0x0002], 0
-    ret
+%include "ds/bios_get_video_mode.asm"
+
 
     db 0x00, 0x00, 0x00
     db '???888333...)))$$$   '
@@ -2878,7 +2867,9 @@ leaf_loc_3330:
     sbb byte [bx + si], cl
     add byte [bx + si], dl
     sbb byte [bx + si], bl
-    and byte [data_06c6], ch
+    db 0x20
+@..leaf_loc_3330.l1:
+    db 0x2e, 0xc6, 0x06
     cmp ch, byte [di]
     add byte [data_06c6], ch
     cmp bp, word [di]
@@ -2906,6 +2897,7 @@ leaf_loc_3330:
     mov bx, 0x3307
     mov word [bp - 0x0004], bx
     ret
+@..local.l69:
     mov ax, 0
     push ds
     mov ds, ax
@@ -2913,8 +2905,8 @@ leaf_loc_3330:
     mov al, byte [bx]
     pop ds
     db 0x0a, 0xc0 ; or al, al
-    je short 0x34a3
-    jmp near 0x34a9
+    je short loc_34a3
+    jmp near loc_34a9
     mov word [bp - 0x0002], 0
     ret
     mov byte [cs:data_2d3a], 0
@@ -3011,20 +3003,20 @@ dos_mem_loc_36d0:
     pop bp
     ret
     cmp word [bp - 0x0002], byte 0
-    jne short 0x36fe
-    jmp near 0x372d
+    jne short loc_36fe
+    jmp near loc_372d
     lea si, word [data_2d40]
     mov bx, word [cs:si]
     db 0x0b, 0xdb ; or bx, bx
-    je short 0x372d
+    je short loc_372d
     mov ah, 0x48
     push si
     int 0x21 ; DOS allocate memory
     pop si
-    jb short 0x371a
+    jb short loc_371a
     mov word [cs:si + 0x2], ax
     add si, byte 4
-    jmp short 0x3702
+    jmp short loc_3702
     call bios_mouse_loc_3760
     mov ax, cs
     mov ds, ax
@@ -5621,9 +5613,9 @@ dos_mem_loc_51bc:
     add byte [bp], bl
     pop di
     db 0x00, 0x60, 0x00 ; add byte [bx + si], ah
-    ja short 0x1d8
-    js short 0x1da
-    jg short 0x1dc
+    ja short loc_01d8
+    js short loc_01da
+    jg short loc_01dc
     add byte [bx + si], 0x8f
     add byte [bx + si - 0x6d00], dl
     add byte [si - 0x6a00], dl

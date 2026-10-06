@@ -2,6 +2,7 @@
 %include "structs/data_4907.inc"
 org 0
 bits 16
+data_0003 equ 0x0003
 data_01e1 equ 0x01e1
 data_01e5 equ 0x01e5
 data_01e9 equ 0x01e9
@@ -81,7 +82,8 @@ dos_con_loc_4fca equ 0x4fca
 dos_con_loc_5006 equ 0x5006
 
 loc_0000:
-    jmp near 3
+    jmp near @..local.l1
+@..local.l1:
 
     db 0xe8, 0x13, 0x17, 0xcb, 0xe8, 0x06, 0x18, 0xcb, 0xe8, 0x01, 0x19, 0xcb, 0xe8, 0xee, 0x18, 0xcb
     db 0xe8, 0xab, 0x18, 0xcb, 0xe8, 0x6b, 0x30, 0xcb, 0xe8, 0x00, 0x36, 0xcb, 0xe8, 0xd1, 0x0d, 0xcb
@@ -165,7 +167,7 @@ math_loc_0293:
     mov al, byte [bx + 0x3]
     mov bx, word [bp - 0x000c]
     add bx, byte 7
-    mov cl, 3
+    mov cl, data_0003
     shr bx, cl
     sub ax, bx
     mov word [bp - 0x000a], ax
@@ -393,7 +395,7 @@ math_loc_04b1:
     add ax, bx
     mov word [bp - 0x0002], ax
     mov cx, word [bp + 0xc]
-    and cl, 3
+    and cl, data_0003
     shl cl, 1
     mov al, 0x80
     shr al, cl
@@ -418,13 +420,13 @@ math_loc_04b1:
     mov dx, bx
     sub ax, bx
     inc ax
-    and dx, 3
+    and dx, data_0003
     je short @..math_loc_04b1.l1
     inc word [bp - 0x0026]
 @..math_loc_04b1.l1:
     mov bx, 4
     sub bx, dx
-    and bl, 3
+    and bl, data_0003
     mov dx, bx
     mov word [bp - 0x0028], dx
     sub ax, dx
@@ -439,7 +441,7 @@ math_loc_04b1:
     shr ax, 1
     add word [bp - 0x0026], ax
     mov word [bp - 0x002e], ax
-    and dx, 3
+    and dx, data_0003
     je short @..math_loc_04b1.l3
     inc word [bp - 0x0026]
 @..math_loc_04b1.l3:
@@ -604,7 +606,7 @@ math_loc_04b1:
     mov al, 4
     out dx, al
     inc dx
-    mov al, 3
+    mov al, data_0003
     out dx, al
     mov di, word [bp - 0x0034]
     mov si, word [bp - 0x0002]
@@ -689,7 +691,7 @@ math_loc_04b1:
     mov al, 4
     out dx, al
     inc dx
-    mov al, 3
+    mov al, data_0003
     out dx, al
     mov di, word [bp - 0x0026]
     dec di
@@ -1017,12 +1019,12 @@ leaf_loc_0949:
     add ax, word [cs:data_1bd5]
     mov di, ax
     mov bx, word [bp - 0x000a]
-    and bx, 3
+    and bx, data_0003
     shl bx, 1
     mov cx, 6
     sub cx, bx
     mov word [bp - 0x0020], cx
-    mov dx, 3
+    mov dx, data_0003
     shl dx, cl
     not dl
     mov byte [bp - 0x0022], dl
@@ -1486,7 +1488,7 @@ dos_read_file:
     mov ax, word [cs:data_01e5]
     mov es, ax
     xor di, di
-    mov cx, 3
+    mov cx, data_0003
 @..dos_read_file.l3:
     push cx
     mov cx, 0x4000
@@ -1691,7 +1693,7 @@ dos_con_loc_10ff:
     mov cl, byte [bx + 0x5]
     mov al, byte [bx + 0x4]
     mul cl
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov cx, word [bx + 0x2]
     add ax, cx
@@ -1720,7 +1722,7 @@ dos_con_loc_10ff:
     add word [cs:data_11cd], ax
     mov ax, word [cs:data_11cd]
     cmp ax, 0x4180
-    jae short 0x1221
+    jae short @..dos_con_loc_1218.l1
     mov ax, ds
     add ax, 0x100
     mov ds, ax
@@ -1766,9 +1768,8 @@ dos_con_loc_10ff:
     mov dx, 0x1331
 dos_con_loc_1218:
     mov ah, 9
-    int 0x21 ; DOS string output
-    mov ax, 0x4c01
-    int 0x21 ; DOS function dispatcher
+    db 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21
+@..dos_con_loc_1218.l1:
     mov ax, cs
     mov ds, ax
     mov dx, 0x138c
@@ -2032,7 +2033,7 @@ dos_print_str:
     add bx, ax
     mov bx, word [cs:bx]
     or bx, bx
-    jne short 0x1520
+    jne short @..dos_print_str.l1
     mov ax, cs
     mov ds, ax
     mov dx, 0x160b
@@ -2052,7 +2053,9 @@ dos_print_str:
     dec di
     push dx
     add byte [cs:bp + si], cl
-    and al, 0x4b
+    db 0x24
+@..dos_print_str.l1:
+    db 0x4b
     mov cl, 2
     shl bx, cl
     add bx, strict word 0x10fb
@@ -2081,7 +2084,7 @@ dos_print_str:
     jne short @..dos_print_str.l3
     jmp near @..local.l42
 @..dos_print_str.l3:
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov word [bp - 0x0004], ax
     mov al, byte [si + 0x1]
@@ -2089,7 +2092,7 @@ dos_print_str:
     mov bl, byte [si + 0x3]
     xor bh, bh
     add ax, bx
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov di, ax
     mov al, byte [si + 0x2]
@@ -2103,7 +2106,7 @@ dos_print_str:
     mov bx, ax
     xor ax, ax
     mov al, byte [bx + 0x4]
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov word [bp - 0x0006], ax
     mov ax, word [bx + 0x2]
@@ -2199,7 +2202,7 @@ dos_print_str:
     jne short @..dos_print_str.l13
     jmp near @..local.l42
 @..dos_print_str.l13:
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov word [bp - 0x0004], ax
     mov al, byte [si + 0x1]
@@ -2207,7 +2210,7 @@ dos_print_str:
     mov bl, byte [si + 0x3]
     xor bh, bh
     add ax, bx
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov di, ax
     mov al, byte [si + 0x2]
@@ -2217,10 +2220,10 @@ dos_print_str:
     mov bx, word [bp - 0x0002]
     xor ax, ax
     mov al, byte [bx + 0x4]
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov word [bp - 0x0006], ax
-    mov cl, 3
+    mov cl, data_0003
     mov ax, word [bx + 0x2]
     xor dh, dh
     mov dl, byte [bx + 0x4]
@@ -2332,7 +2335,7 @@ mouse_init:
     xor cx, cx
     xor dx, dx
     int 0x33 ; BIOS mouse
-    mov ax, 3
+    mov ax, data_0003
     int 0x33 ; BIOS mouse
     shr cx, 1
     mov word [cs:data_1beb], cx
@@ -2508,7 +2511,7 @@ bios_mouse_loc_18c1:
 @..bios_mouse_loc_18c1.l1:
     jmp near @..bios_mouse_loc_18c1.l4
 @..bios_mouse_loc_18c1.l2:
-    mov ax, 3
+    mov ax, data_0003
     int 0x33 ; BIOS mouse
     shr cx, 1
     cmp word [cs:data_1bd9], cx
@@ -2555,7 +2558,7 @@ bios_mouse_loc_190f:
     mov dx, word [cs:data_2b06]
     jmp short @..bios_mouse_loc_190f.l2
 @..bios_mouse_loc_190f.l1:
-    mov ax, 3
+    mov ax, data_0003
     int 0x33 ; BIOS mouse
     xor bx, bx
     mov word [bp - 0x0002], bx
@@ -2602,7 +2605,7 @@ bios_mouse_loc_1992:
     mov es, ax
     cmp byte [cs:data_0228], 0
     je short @..bios_mouse_loc_1992.l1
-    mov ax, 3
+    mov ax, data_0003
     int 0x33 ; BIOS mouse
     mov word [bp - 0x0002], bx
     mov bx, word [bp + 0xc]
@@ -2693,7 +2696,7 @@ mouse_set_pos:
     mov ax, 4
     int 0x33 ; BIOS mouse
 @..mouse_set_pos.l5:
-    mov ax, 3
+    mov ax, data_0003
     int 0x33 ; BIOS mouse
     jmp short @..mouse_set_pos.l7
 @..mouse_set_pos.l6:
@@ -2819,7 +2822,7 @@ math_loc_2a6a:
     mov ah, 2
     call io_loc_2f46
     mov di, 0x360
-    mov ah, 3
+    mov ah, data_0003
     call io_loc_2f46
     mov ax, word [cs:data_1bdb]
     cmp ax, strict word 0xffff
@@ -3031,7 +3034,7 @@ math_loc_2a6a:
     rep stosb
     mov ax, word [cs:data_1be1]
     add ax, strict word 7
-    mov cl, 3
+    mov cl, data_0003
     shr ax, cl
     mov word [bp - 0x0002], ax
     cmp byte [cs:data_259d], 0
@@ -3650,12 +3653,12 @@ leaf_loc_3252:
     mov bl, al
     mov al, ah
     and al, 8
-    mov cl, 3
+    mov cl, data_0003
     shr al, cl
     mov bh, al
     mov al, ah
     and al, 0x10
-    mov cl, 3
+    mov cl, data_0003
     shr al, cl
     or dl, al
     mov al, ah
@@ -3675,7 +3678,7 @@ leaf_loc_3252:
     or bh, al
     pop ax
     mov cl, ah
-    mov ch, 3
+    mov ch, data_0003
     shl ch, cl
     shl dl, cl
     shl dh, cl
@@ -3782,7 +3785,7 @@ mouse_set_pos_2:
     mov word [bp - 0x0002], ax
     mov ax, word [bp + 0xe]
     mov word [bp - 0x0004], ax
-    mov ax, 3
+    mov ax, data_0003
     int 0x33 ; BIOS mouse
     and cx, strict word 0xfffe
     mov word [bp - 0x0006], cx
@@ -4056,7 +4059,7 @@ math_loc_361e:
     cmp bx, byte 0x64
     jae short @..math_loc_361e.l1
     mov ax, word [bp - 0x0002]
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov cx, ax
     mov bx, word [bp + 0x20]
@@ -4085,7 +4088,7 @@ math_loc_361e:
     call leaf_loc_3a51
 @..math_loc_361e.l5:
     mov ax, word [bp - 0x0004]
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov cx, ax
     mov bx, word [bp + 0x20]
@@ -4124,7 +4127,7 @@ math_loc_361e:
     mov word [bp - 0x0028], ax
     mov ax, word [bp + 0xe]
     mov bx, word [bp - 0x0002]
-    mov cl, 3
+    mov cl, data_0003
     shl bx, cl
     mov cx, bx
     dec bx
@@ -4150,7 +4153,7 @@ math_loc_361e:
     mov word [bp - 0x0024], ax
     mov ax, word [bp + 0x10]
     mov bx, word [bp - 0x0004]
-    mov cl, 3
+    mov cl, data_0003
     shl bx, cl
     mov cx, bx
     dec bx
@@ -4373,7 +4376,7 @@ math_loc_361e:
     mov word [bp - 0x0040], ax
     add ax, word [bp - 0x0024]
     mov bx, word [bp - 0x0004]
-    mov cl, 3
+    mov cl, data_0003
     shl bx, cl
     cmp bx, ax
     ja short @..local.l97
@@ -4409,7 +4412,7 @@ math_loc_361e:
     mov ax, word [bp - 0x0030]
     add ax, word [bp - 0x002c]
     mov bx, word [bp - 0x0004]
-    mov cl, 3
+    mov cl, data_0003
     shl bx, cl
     cmp bx, ax
     jbe short @..local.l106
@@ -4497,7 +4500,7 @@ leaf_loc_3a51:
 @..local.l107:
     test si, 0x8000
     jne short @..leaf_loc_3a51.l4
-    mov cl, 3
+    mov cl, data_0003
     mov ax, si
     shr ax, cl
     mov bx, ax
@@ -4522,7 +4525,7 @@ math_loc_3a8b:
     jne short @..math_loc_3a8b.l1
     jmp near @..local.l135
 @..math_loc_3a8b.l1:
-    cmp al, 3
+    cmp al, data_0003
     jne short @..math_loc_3a8b.l2
     jmp near @..local.l160
 @..math_loc_3a8b.l2:
@@ -5284,7 +5287,7 @@ dos_write_file_2:
     inc dx
     add bx, byte 2
     loop @..dos_con_loc_40d4.l8
-    jmp near 0x440e
+    jmp near @..dos_con_loc_43a7.l2
 @..dos_con_loc_40d4.l9:
     mov word [bp - 0x000c], dx
     mov ax, word [cs:data_11cb]
@@ -5476,8 +5479,18 @@ dos_con_loc_43d8:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of MAZE/PIC memory.', 0
-    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a, 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x1e, 0x45, 0xb4
-    db 0x09, 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21, 0x0d, 0x0a, 0x07
+    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a
+
+@..dos_con_loc_43a7.l2:
+    mov ax, cs
+    mov ds, ax
+    mov dx, 0x451e
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+
+    db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of MAZE slots.', 0
     db 0x0a, 0x24, 0x00, 0x00
 
@@ -5760,7 +5773,7 @@ dos_read_file_5:
     mov cl, byte [bx + 0x5]
     mov al, byte [bx + 0x4]
     mul cl
-    mov cl, 3
+    mov cl, data_0003
     shl ax, cl
     mov cx, word [bx + 0x2]
     add ax, cx
@@ -6076,7 +6089,7 @@ dos_read_file_6:
     mov ax, word [bx]
     or ax, ax
     je short @..dos_con_loc_493a.l3
-    jmp near 0x4b52
+    jmp near @..dos_con_loc_4ae1.l4
 @..dos_con_loc_493a.l3:
     mov bx, word [bp - 0x0002]
     mov ax, word [bp - 0x0004]
@@ -6089,7 +6102,7 @@ dos_read_file_6:
     mov word [cs:bx + 0x2], ax
     add ax, word [cs:data_11cd]
     cmp ax, 0x4180
-    jae short 0x4b16
+    jae short @..dos_con_loc_4ae1.l1
     mov word [cs:data_11cd], ax
     mov ax, word [cs:bx]
     add ax, word [cs:data_01e1]
@@ -6130,12 +6143,14 @@ dos_read_file_7:
     je short @..dos_con_loc_4ae1.l2
     popaw
     insb
-    jb short 0x4b6f
+    jb short @..dos_con_loc_4ae1.l6
     popaw
     db 0x64, 0x79, 0x20 ; jns @..dos_con_loc_4ae1.l3
-    jne short 0x4b83
+    jne short @..dos_con_loc_4ae1.l7
     db 0x65, 0x64, 0x2e, 0x00, 0x0a ; add byte [cs:bp + si], cl
-    and al, 0x8c
+    db 0x24
+@..dos_con_loc_4ae1.l1:
+    db 0x8c
     enter 0xd88e, 0xffba
     es dec sp
 dos_con_loc_4b1d:
@@ -6167,9 +6182,11 @@ dos_con_loc_4b1d:
     push 0x6d20
     db 0x65, 0x6d ; insw
     outsw
-    jb short 0x4bc7
+    jb short @..dos_con_loc_4ae1.l11
     add byte [cs:bp + si], cl
-    and al, 0x8b
+    db 0x24
+@..dos_con_loc_4ae1.l4:
+    db 0x8b
     enter 0xa12e, 0xffe9
     add word [bp + 0x33d8], cx
     ror byte [bp + di + 0xc5e], cl
@@ -6180,14 +6197,18 @@ dos_con_loc_4b1d:
     mov bx, word [bp + 0xc]
     mov cx, 0x1000
     mov ah, 0x3f
-    int 0x21 ; DOS read file (handle)
+    db 0xcd
+@..dos_con_loc_4ae1.l6:
+    db 0x21
     mov si, 0x400
     mov di, 0
     lodsw
     mov word [bp - 0x0004], ax
     mov bx, word [bp - 0x0002]
     mov word [cs:bx + 0x2], ax
-    add ax, strict word 0xf
+    db 0x05, 0x0f
+@..dos_con_loc_4ae1.l7:
+    db 0x00
     mov cl, 4
     shr ax, cl
     mov bx, word [bp - 0x000a]
@@ -6195,7 +6216,7 @@ dos_con_loc_4b1d:
     add ax, word [cs:data_11cd]
     cmp ax, 0x4180
     jb short @..dos_con_loc_4ae1.l8
-    jmp near 0x4b16
+    jmp near @..dos_con_loc_4ae1.l1
 @..dos_con_loc_4ae1.l8:
     mov word [cs:data_11cd], ax
     mov ax, word [cs:bx]
@@ -6214,7 +6235,9 @@ dos_file_loc_4bb2:
     call dos_file_loc_4bcb
     mov byte [es:di], bl
     inc di
-    dec word [bp - 0x0004]
+    db 0xff, 0x4e
+@..dos_con_loc_4ae1.l11:
+    db 0xfc
     jmp short @..dos_con_loc_4ae1.l10
 @..dos_con_loc_4ae1.l12:
     ret
@@ -6612,7 +6635,7 @@ dos_read_file_8:
     mov ax, word [cs:bx]
     or ax, ax
     je short @..dos_read_file_8.l1
-    jmp near 0x4fc4
+    jmp near @..local.l199
 @..dos_read_file_8.l1:
     mov bx, word [bp + 0x12]
     shl bx, 1
@@ -6683,7 +6706,7 @@ dos_read_file_8:
     add ax, word [cs:data_11cd]
     cmp ax, 0x4180
     jb short @..dos_read_file_8.l3
-    jmp near 0x5000
+    jmp near @..dos_con_loc_4fca.l1
 @..dos_read_file_8.l3:
     mov word [cs:data_11cd], ax
     mov ax, word [cs:bx]
@@ -6712,6 +6735,7 @@ dos_read_file_8:
     mov sp, bp
     pop bp
     ret
+@..local.l199:
     mov ax, cs
     mov ds, ax
     mov dx, 0x50d4
@@ -6722,8 +6746,18 @@ dos_read_file_8:
 
     db 0x0d, 0x0a, 0x07
     db 'In LOAD_SCORE() ... slot already used.', 0
-    db 0x0a, 0x24, 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x10, 0x51, 0xb4, 0x09, 0xcd, 0x21, 0xb8, 0x01, 0x4c
-    db 0xcd, 0x21, 0x0d, 0x0a, 0x07
+    db 0x0a, 0x24
+
+@..dos_con_loc_4fca.l1:
+    mov ax, cs
+    mov ds, ax
+    mov dx, 0x5110
+    mov ah, 9
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01
+    int 0x21 ; DOS function dispatcher
+
+    db 0x0d, 0x0a, 0x07
     db 'In LOAD_SCORE() ... not enough memory.', 0
     db 0x0a, 0x24
 

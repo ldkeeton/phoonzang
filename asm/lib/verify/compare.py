@@ -266,6 +266,7 @@ def _set_insn_fields(rec, insn):
     """Set structured fields on *rec* from a capstone instruction object."""
     if insn is None:
         return
+    rec['_insn'] = insn
     if insn.mnemonic == 'int' and len(insn.operands) > 0:
         rec['int_num'] = insn.operands[0].imm & 0xFF
     if (insn.mnemonic == 'mov' and len(insn.operands) == 2
@@ -775,22 +776,40 @@ def _compute_func_boundaries(label_map, binary_data):
     return boundaries
 
 
-def _compute_local_labels(func_boundaries, code_targets, label_map, insn_by_addr=None):
+def _direct_flow_targets(insn, binary_size, start_offset=0):
+    """Return in-binary targets of direct control-flow instructions."""
+    mnemonic = insn.mnemonic
+    if not (mnemonic.startswith('j') or mnemonic in (
+            'call', 'lcall', 'loop', 'loope', 'loopne')):
+        return ()
+    immediates = [op for op in insn.operands if op.type == CS_OP_IMM]
+    if mnemonic in ('ljmp', 'lcall') and len(immediates) >= 2:
+        # Far transfers have segment and offset immediates; only the offset
+        # denotes a location in this flat binary image.
+        immediates = immediates[-1:]
+    return tuple(
+        target for op in immediates
+        if start_offset <= (target := (op.imm & 0xFFFF)) < binary_size
+    )
+
+
+def _compute_local_labels(func_boundaries, code_targets, label_map,
+                          insn_by_addr=None, binary_size=None, start_offset=0):
     """Return {offset: '@..name.l{N}'} for code targets within named functions."""
     targets = set(code_targets) if code_targets else set()
 
     if insn_by_addr:
-        flow_ops = frozenset((
-            'jmp', 'call', 'je', 'jne', 'jl', 'jle', 'jg', 'jge',
-            'ja', 'jb', 'jae', 'jbe', 'jz', 'jnz', 'js', 'jns',
-            'jo', 'jno', 'jp', 'jnp', 'jcxz', 'jecxz',
-            'loop', 'loope', 'loopne',
-        ))
         for insn in insn_by_addr.values():
-            if insn.mnemonic in flow_ops:
-                for op in insn.operands:
-                    if op.type == 2:
-                        targets.add(op.imm & 0xFFFF)
+            targets.update(_direct_flow_targets(
+                insn, binary_size if binary_size is not None else 0x10000,
+                start_offset,
+            ))
+
+    if binary_size is not None:
+        targets = {
+            off for off in targets
+            if start_offset <= off < binary_size
+        }
 
     local_labels = {}
     assigned = set()
@@ -863,7 +882,10 @@ def _emit_label_record(records, off, label_map, local_labels=None, insn_by_addr=
 
 
 _BARE_MEM_RE = re.compile(r'\[(?:[a-z]+:)?0x[0-9a-f]{4}\]')
-_BARE_FLOW_RE = re.compile(r'\b(?:call|jmp|retf)\s+0x[0-9a-f]{4}\b')
+_BARE_FLOW_RE = re.compile(
+    r'\b(?:call|jmp|j[a-z]+|loop(?:e|ne)?)\s+'
+    r'(?:(?:short|near|far)\s+)?(?:0x[0-9a-f]{1,4}:)?0x[0-9a-f]{1,4}\b'
+)
 
 def _count_bare_addrs(records):
     bare_mem = 0
@@ -889,7 +911,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            structs=None, asm_dir=None, cascade_promoted=None,
            carve_1=None, trace=None,
            foreign_label_map=None,
-           immediate_labels=None):
+           immediate_labels=None, split_functions=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -906,12 +928,14 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     asm_dir : str | None
     cascade_promoted : set | None
 
-    Returns (asm_text, stats).
+    Returns (asm_text, stats, emit_bytes, label_positions, split_sources).
     """
     from lib.format import format_instruction
 
     insns = list(instructions)
     total = len(binary_data)
+    if label_map is None:
+        label_map = {}
 
     insn_by_addr = {insn.address: insn for insn in insns}
 
@@ -928,7 +952,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     func_boundaries = _compute_func_boundaries(label_map, binary_data)
     t1 = time.perf_counter()
-    local_labels = _compute_local_labels(func_boundaries, code_targets, label_map, insn_by_addr)
+    local_labels = _compute_local_labels(
+        func_boundaries, code_targets, label_map, insn_by_addr,
+        binary_size=total, start_offset=start_offset,
+    )
     t2 = time.perf_counter()
 
     if label_map:
@@ -944,10 +971,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if code_targets:
             known_addrs |= code_targets
     if local_labels:
-        local_labels = {
-            off: name for off, name in local_labels.items()
-            if off in insn_by_addr
-        }
+        # Keep in-binary destinations even when current code/data classification
+        # did not decode them as instruction starts. The emitted label still
+        # resolves the reference; the byte-exact renderer can place it between
+        # raw-data bytes or at an alternate instruction boundary.
         known_addrs |= local_labels.keys()
 
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
@@ -1106,6 +1133,31 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace, local_labels,
                                        foreign_label_map=foreign_label_map,
                                        immediate_labels=immediate_labels)
+
+    # Data-block promotion can reveal instructions after the first local-label
+    # pass. Give their in-binary direct-flow destinations symbols too, then
+    # reformat those promoted instructions against the completed label map.
+    for rec in records:
+        if rec['type'] not in ('mnem', 'db_with_comment'):
+            continue
+        insn = rec.get('_insn')
+        if insn is None:
+            continue
+        for target in _direct_flow_targets(insn, total):
+            if target < start_offset and target not in label_map:
+                # Header destinations cannot be emitted as body labels, but a
+                # global equ keeps direct-flow references symbolic without
+                # making them local code labels.
+                label_map[target] = f'loc_{target:04x}'
+            elif target not in local_labels and target not in label_map:
+                label_map[target] = f'loc_{target:04x}'
+        formatted = format_instruction(
+            insn, label_map, local_labels, foreign_label_map,
+            immediate_labels=immediate_labels,
+        )
+        if formatted is not None:
+            rec['text'] = formatted
+
     _annotate_interrupts(records)
     t4 = time.perf_counter()
 
@@ -1134,8 +1186,27 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
-    src_lines = _build_source(records, start_offset, binary_data, label_map, show_offsets=show_offsets,
-                              consumer_inc=consumer_inc, immediate_labels=immediate_labels)
+    split_ranges = []
+    requested_splits = set(split_functions or ())
+    if requested_splits:
+        found_splits = set()
+        for fn_start, (fn_end, fn_name) in func_boundaries.items():
+            if fn_name in requested_splits:
+                split_ranges.append((fn_start, fn_end, fn_name))
+                found_splits.add(fn_name)
+        missing = requested_splits - found_splits
+        if missing:
+            raise ValueError(
+                f'{name}: requested function split(s) not found: '
+                f'{", ".join(sorted(missing))}'
+            )
+
+    src_lines, split_sources = _build_source(
+        records, start_offset, binary_data, label_map,
+        show_offsets=show_offsets, consumer_inc=consumer_inc,
+        immediate_labels=immediate_labels, split_ranges=split_ranges,
+        split_dir=name,
+    )
     t6 = time.perf_counter()
 
     mnem_count = sum(1 for r in records if r['type'] == 'mnem')
@@ -1179,46 +1250,100 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'timing_postprocess': t4 - t3,
         'timing_emit_class': t5 - t4,
         'timing_build_source': t6 - t5,
-    }, emit_class, label_positions
+    }, emit_class, label_positions, split_sources
 
 
-def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=False,
-                  consumer_inc=None, immediate_labels=None):
-    """Render the record list to final NASM text."""
+def _record_span(rec):
+    """Return the half-open byte span emitted by a record, or its label offset."""
+    if rec['type'] == 'label':
+        return rec['offset'], rec['offset']
+    if rec['type'] == 'data_block':
+        return rec['start'], rec['end']
+    start = rec.get('offset', 0)
+    return start, start + rec.get('size', 1)
+
+
+def _partition_function_records(records, split_ranges, split_dir):
+    """Replace selected contiguous function spans with include records."""
+    if not split_ranges:
+        return records, {}
+
+    ranges = sorted(split_ranges, key=lambda item: item[0])
+    for i, (start, end, name) in enumerate(ranges):
+        if start >= end:
+            raise ValueError(f'{name}: invalid function split range 0x{start:x}-0x{end:x}')
+        if i and start < ranges[i - 1][1]:
+            prev = ranges[i - 1]
+            raise ValueError(f'overlapping function split ranges: {prev[2]} and {name}')
+
+    main_records = []
+    split_records = {name: [] for _, _, name in ranges}
+    split_bytes = {name: 0 for _, _, name in ranges}
+    include_inserted = set()
+
+    for rec in records:
+        rec_start, rec_end = _record_span(rec)
+        owner = None
+        for start, end, name in ranges:
+            if rec['type'] == 'label':
+                if start <= rec_start < end:
+                    owner = (start, end, name)
+                    break
+            elif rec_start < end and rec_end > start:
+                if rec_start < start or rec_end > end:
+                    raise ValueError(
+                        f'{name}: function boundary 0x{start:x}-0x{end:x} '
+                        f'splits emitted record at 0x{rec_start:x}-0x{rec_end:x}'
+                    )
+                owner = (start, end, name)
+                break
+
+        if owner is None:
+            main_records.append(rec)
+            continue
+
+        start, end, name = owner
+        if name not in include_inserted:
+            filename = re.sub(r'[^A-Za-z0-9_.-]+', '_', name).strip('._')
+            if not filename:
+                raise ValueError(f'cannot make include filename for function {name!r}')
+            main_records.append({
+                'type': 'include',
+                'text': f'%include "{split_dir}/{filename}.asm"',
+            })
+            include_inserted.add(name)
+        split_records[name].append(rec)
+        if rec['type'] != 'label':
+            split_bytes[name] += rec_end - rec_start
+
+    for start, end, name in ranges:
+        if name not in include_inserted:
+            raise ValueError(f'{name}: no emitted records in split range 0x{start:x}-0x{end:x}')
+        if split_bytes[name] != end - start:
+            raise ValueError(
+                f'{name}: split records cover {split_bytes[name]} bytes, '
+                f'expected {end - start} for 0x{start:x}-0x{end:x}'
+            )
+
+    split_sources = {}
+    for _, _, name in ranges:
+        filename = re.sub(r'[^A-Za-z0-9_.-]+', '_', name).strip('._')
+        split_sources[f'{split_dir}/{filename}.asm'] = split_records[name]
+    return main_records, split_sources
+
+
+def _render_records(records, binary_data, show_offsets=False):
+    """Render ordered body records, including textual NASM include directives."""
     out = []
-    out.append('org 0')
-    out.append('bits 16')
-    if consumer_inc:
-        out.append(f'%include "{consumer_inc}"')
-        out.append('')
-
-    if start_offset > 0:
-        hdr = binary_data[:start_offset]
-        out.append(f'    ; header ({start_offset} bytes)')
-        out.extend(_render_data_block(hdr))
-        out.append('')
-
-    if label_map:
-        label_offsets = {r['offset'] for r in records if r['type'] == 'label'}
-        for addr in sorted(label_map):
-            name = label_map[addr]
-            if name.startswith('data_'):
-                out.append(f'{name} equ 0x{addr:04x}')
-            elif addr not in label_offsets:
-                out.append(f'{name} equ 0x{addr:04x}')
-    if immediate_labels:
-        for addr in sorted(immediate_labels):
-            name = immediate_labels[addr]
-            if not label_map or addr not in label_map or label_map[addr] != name:
-                out.append(f'{name} equ 0x{addr:04x}')
-    if label_map or immediate_labels:
-        out.append('')
-
     i = 0
     while i < len(records):
         rec = records[i]
 
-        if rec['type'] == 'label':
+        if rec['type'] == 'include':
+            out.append(rec['text'])
+            out.append('')
+
+        elif rec['type'] == 'label':
             out.append(f'{rec["text"]}')
 
         elif rec['type'] == 'data_block':
@@ -1282,5 +1407,48 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
 
         i += 1
 
+    return out
+
+
+def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=False,
+                  consumer_inc=None, immediate_labels=None, split_ranges=None,
+                  split_dir='ds'):
+    """Render the master NASM source and any generated function includes."""
+    out = ['org 0', 'bits 16']
+    if consumer_inc:
+        out.append(f'%include "{consumer_inc}"')
+        out.append('')
+
+    if start_offset > 0:
+        hdr = binary_data[:start_offset]
+        out.append(f'    ; header ({start_offset} bytes)')
+        out.extend(_render_data_block(hdr))
+        out.append('')
+
+    if label_map:
+        label_offsets = {r['offset'] for r in records if r['type'] == 'label'}
+        for addr in sorted(label_map):
+            name = label_map[addr]
+            if name.startswith('data_'):
+                out.append(f'{name} equ 0x{addr:04x}')
+            elif addr not in label_offsets:
+                out.append(f'{name} equ 0x{addr:04x}')
+    if immediate_labels:
+        for addr in sorted(immediate_labels):
+            name = immediate_labels[addr]
+            if not label_map or addr not in label_map or label_map[addr] != name:
+                out.append(f'{name} equ 0x{addr:04x}')
+    if label_map or immediate_labels:
+        out.append('')
+
+    main_records, split_records = _partition_function_records(
+        records, split_ranges, split_dir,
+    )
+    out.extend(_render_records(main_records, binary_data, show_offsets))
+
+    split_sources = {
+        path: '\n'.join(_render_records(fragment, binary_data, show_offsets)) + '\n'
+        for path, fragment in split_records.items()
+    }
     out.append('')
-    return '\n'.join(out)
+    return '\n'.join(out), split_sources
