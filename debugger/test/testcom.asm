@@ -25,12 +25,24 @@ global newline_cr                         ; keep newline markers available to DW
 global newline_int                        ; keep newline markers available to DWARF
 global newline_lf                         ; keep newline markers available to DWARF
 global date_time_text                     ; expose formatted date/time output buffer
+global rep_stosw                          ; expose the repeated string instruction for stepping tests
+global rep_stosw_done                     ; expose the instruction after REP STOSW
+global rep_buffer                         ; expose the REP STOSW destination for inspection
 
 section .text
 _start:                                   ; COM entry point at offset 0x100
     mov ah, 9                              ; DOS print-$-terminated-string service
     mov dx, banner                         ; DS:DX = startup banner
     int 0x21                               ; print banner through DOS console
+
+    ; A short REP fixture verifies that one debugger step covers every iteration.
+    mov ax, 0x1234                          ; word value written by STOSW
+    mov cx, 3                               ; perform three repeated stores
+    mov di, rep_buffer                      ; ES:DI points at the test destination
+    cld                                     ; make STOSW advance DI
+rep_stosw:
+    rep stosw                               ; repeat as one debugger-visible instruction
+rep_stosw_done:
 
     ; Query the DOS version, date, and time without waiting for user input.
     mov ah, 0x30                           ; DOS get-version service
@@ -192,3 +204,4 @@ date_day: db 0                            ; saved day returned by DOS
 time_hour: db 0                           ; saved hour returned by DOS
 time_minute: db 0                         ; saved minute returned by DOS
 time_second: db 0                         ; saved second returned by DOS
+rep_buffer: times 6 db 0                   ; three words written by the REP stepping fixture

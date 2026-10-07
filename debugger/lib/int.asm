@@ -269,7 +269,39 @@ int1:                                     ; CPU trap handler raised by TF single
 
     mov [hk_ss], ss                       ; save target stack segment for eventual return
     mov [hk_sp], sp                       ; save target stack pointer for eventual return
-    mov word [st_pi], -1                  ; no breakpoint slot is currently being skipped
+
+    ; REP string instructions can raise INT1 after each iteration while IP
+    ; remains at the REP prefix. Keep the breakpoint omitted until IP advances.
+    cmp byte [st_rep], 0                  ; is a repeated instruction being stepped?
+    je .rep_done                          ; no -> process this as an ordinary INT1
+    mov ax, [sreg+R_CS]                   ; AX = current target CS
+    cmp ax, [st_rep_cs]                   ; are we still in the original code segment?
+    jne .rep_done                         ; no -> the REP instruction has completed
+    mov ax, [sreg+R_IP]                   ; AX = current target IP
+    cmp ax, [st_rep_ip]                   ; is IP still at the repeated instruction?
+    jne .rep_done                         ; no -> the REP instruction has completed
+
+    cli                                   ; protect switch to resident debugger stack
+    mov ax, cs                            ; AX = TSR segment
+    mov ss, ax                            ; SS = debugger stack segment
+    mov sp, stk_t                         ; SP = debugger's resident stack top
+    sti                                   ; allow serial IRQs while preparing resume
+    cli                                   ; protect restore of target stack
+    mov ss, [hk_ss]                       ; restore target's stack segment
+    mov sp, [hk_sp]                       ; restore target's stack pointer
+    call ser_irq_enable                   ; accept asynchronous debugger requests
+    mov byte [in_dbg], 0                  ; mark debugger inactive while REP continues
+    mov bp, sp                            ; BP = target's saved FLAGS location
+    or word [bp+24], 0x100                ; trap again after the next REP iteration
+    call clr_ind                          ; restore screen cells used for serial markers
+    pop es                                ; restore target ES
+    pop ds                                ; restore target DS
+    popa                                  ; restore target general-purpose registers
+    iret                                  ; resume REP without reporting an intermediate stop
+
+.rep_done:
+    mov byte [st_rep], 0                  ; the repeated instruction has completed
+    mov word [st_pi], -1                  ; no breakpoint slot remains temporarily skipped
 
     cli                                   ; protect switch to resident debugger stack
     mov ax, cs                            ; AX = TSR segment

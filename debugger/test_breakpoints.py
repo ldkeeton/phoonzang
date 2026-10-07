@@ -206,7 +206,7 @@ def run_gdb_mi_test(timeout, target="testcom"):
     if target == "testcom":
         elf = BUILD / "testcom.elf"
         entry = 0x100
-        entry_line = 31
+        entry_line = 34
     else:
         elf = BUILD / "testexe.elf"
         entry = 0
@@ -725,6 +725,43 @@ def run_test(timeout):
         if read_memory(sock, ENTRY) != bytes([original_entry]):
             raise AssertionError("in-memory entry trap did not restore the COM opcode")
         print("COM entry stop reports the first instruction with its byte restored")
+
+        rep_stosw = symbol_address(BUILD / "testcom.elf", "rep_stosw")
+        rep_stosw_done = symbol_address(BUILD / "testcom.elf", "rep_stosw_done")
+        rep_buffer = symbol_address(BUILD / "testcom.elf", "rep_buffer")
+        expect(sock, f"Z0,{rep_stosw:x},1", "OK")
+        send_packet(sock, "c")
+        stop = recv_packet(sock)
+        if not is_software_breakpoint_stop(stop):
+            raise AssertionError(f"REP STOSW breakpoint returned {stop!r}")
+        regs = registers(sock)
+        if code_offset(regs) != rep_stosw:
+            raise AssertionError(
+                f"REP STOSW breakpoint stopped at {code_offset(regs):#x}, "
+                f"expected {rep_stosw:#x}"
+            )
+
+        send_packet(sock, "s")
+        stop = recv_packet(sock)
+        if not stop.startswith("S05"):
+            raise AssertionError(f"single-step over REP STOSW returned {stop!r}")
+        regs = registers(sock)
+        if code_offset(regs) != rep_stosw_done:
+            raise AssertionError(
+                f"single-step over REP STOSW stopped at {code_offset(regs):#x}, "
+                f"expected the following instruction at {rep_stosw_done:#x}"
+            )
+        rep_cx = int.from_bytes(regs[4:6], "little")
+        rep_di = int.from_bytes(regs[28:30], "little")
+        if rep_cx != 0 or rep_di != rep_buffer + 6:
+            raise AssertionError(
+                "single-step over REP STOSW did not finish all iterations: "
+                f"CX={rep_cx:#x}, DI={rep_di:#x}, expected DI={rep_buffer + 6:#x}"
+            )
+        if read_memory(sock, rep_buffer, 6) != b"\x34\x12" * 3:
+            raise AssertionError("REP STOSW did not write all three expected words")
+        expect(sock, f"z0,{rep_stosw:x},1", "OK")
+        print("One single-step executes every iteration of REP STOSW")
 
         # The newline path is reached after the first nine has printed and the
         # counter wraps to zero. This verifies the first path, not a later loop.

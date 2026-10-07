@@ -214,7 +214,8 @@ cmd_cont:
 .cc_np:
     mov [sreg+R_IP], ax                   ; replace saved PC low word
     mov [sreg+R_IP+2], dx                 ; replace saved PC high word
-.cn:mov ax, [bp_cur]                      ; AX = slot just hit, or -1 if not at a breakpoint
+.cn:mov byte [st_rep], 0                  ; discard stale repeated-instruction step state
+    mov ax, [bp_cur]                      ; AX = slot just hit, or -1 if not at a breakpoint
     cmp ax, -1                             ; is execution stopped on a managed INT 3?
     je .cn2                                ; no -> simple continue path
     mov [st_pi], ax                       ; temporarily omit hit slot while executing original byte
@@ -222,6 +223,7 @@ cmd_cont:
     mov byte [st_usr], 0                  ; this is not a user-requested single-step
     mov ax, [bp_cur]                      ; AX = hit breakpoint slot
     call bp_rest                          ; restore original instruction before resuming
+    call step_rep_prepare                 ; keep REP breakpoints omitted until all iterations finish
     mov word [bp_cur], -1                 ; clear current-hit marker
     call bp_patch                         ; keep all other breakpoints armed
     call clr_ind                          ; restore screen indicators before target runs
@@ -249,7 +251,8 @@ cmd_step:
 .cs_np:
     mov [sreg+R_IP], ax                   ; update saved PC low word
     mov [sreg+R_IP+2], dx                 ; update saved PC high word
-.sn:mov ax, [bp_cur]                      ; AX = breakpoint slot just hit, or -1
+.sn:mov byte [st_rep], 0                  ; discard stale repeated-instruction step state
+    mov ax, [bp_cur]                      ; AX = breakpoint slot just hit, or -1
     cmp ax, -1                             ; are we stepping from a software breakpoint?
     je .sn2                                ; no -> ordinary single-step setup
     mov [st_pi], ax                       ; leave hit breakpoint unpatched for one instruction
@@ -257,6 +260,7 @@ cmd_step:
     mov byte [st_usr], 1                  ; mark next INT1 as user's requested step
     mov ax, [bp_cur]                      ; AX = hit breakpoint slot
     call bp_rest                          ; restore original instruction before stepping
+    call step_rep_prepare                 ; recognize REP as one debugger-visible step
     mov word [bp_cur], -1                 ; clear current breakpoint hit
     call bp_patch                         ; re-arm remaining software breakpoints
     call step_int_prepare                 ; if instruction is INT, use fall-through trap
@@ -266,7 +270,8 @@ cmd_step:
     mov byte [st_run], 1                  ; next stop should notify GDB asynchronously
     pop ax                                ; discard saved AX from interrupt handler
     ret                                   ; return through IRET to execute one instruction
-.sn2:call bp_patch                        ; keep all active breakpoints installed
+.sn2:call step_rep_prepare                ; recognize REP even when stepping without a BP
+    call bp_patch                         ; keep all active breakpoints installed
     call step_int_prepare                 ; detect software INT needing special step logic
     jc .int_step                          ; temporary destination trap is ready
     mov byte [st_usr], 1                  ; request an ordinary single-step stop reply
@@ -284,6 +289,53 @@ cmd_step:
     mov byte [st_run], 1                  ; next breakpoint event must notify GDB
     pop ax                                ; discard saved AX from interrupt handler
     ret                                   ; resume target until INT-step destination trap
+
+; Record REP prefixes so repeated INT1 traps remain internal to one GDB step.
+step_rep_prepare:
+    push ax                               ; preserve caller's AX
+    push bx                               ; preserve caller's BX
+    push cx                               ; preserve caller's CX
+    push es                               ; preserve caller's ES
+    mov ax, [sreg+R_CS]                   ; AX = target code segment
+    mov es, ax                            ; ES:BX addresses the current instruction
+    mov bx, [sreg+R_IP]                   ; BX = current target instruction offset
+    mov cx, 15                            ; cap scan at the maximum x86 instruction length
+.prefix:
+    mov al, [es:bx]                       ; inspect this leading instruction byte
+    cmp al, 0xF2                          ; REPNE/REPNZ prefix?
+    je .rep                                ; yes -> track the repeated instruction
+    cmp al, 0xF3                          ; REP/REPE/REPZ prefix?
+    je .rep                                ; yes -> track the repeated instruction
+    cmp al, 0x26                          ; ES segment override?
+    je .next
+    cmp al, 0x2E                          ; CS segment override?
+    je .next
+    cmp al, 0x36                          ; SS segment override?
+    je .next
+    cmp al, 0x3E                          ; DS segment override?
+    je .next
+    cmp al, 0xF0                          ; LOCK prefix?
+    je .next
+    cmp al, 0x66                          ; operand-size prefix on 386+?
+    je .next
+    cmp al, 0x67                          ; address-size prefix on 386+?
+    jne .done                             ; first non-prefix byte: ordinary instruction
+.next:
+    inc bx                                ; inspect the next possible prefix
+    loop .prefix                          ; continue through the bounded prefix sequence
+    jmp .done                             ; prefix-only sequence: do not track it
+.rep:
+    mov ax, [sreg+R_IP]                   ; AX = beginning of the repeated instruction
+    mov [st_rep_ip], ax                   ; remember IP reported by in-progress INT1 traps
+    mov ax, [sreg+R_CS]                   ; AX = code segment containing REP
+    mov [st_rep_cs], ax                   ; remember CS to avoid false same-IP matches
+    mov byte [st_rep], 1                  ; matching INT1 traps are internal iterations
+.done:
+    pop es                                ; restore caller's ES
+    pop cx                                ; restore caller's CX
+    pop bx                                ; restore caller's BX
+    pop ax                                ; restore caller's AX
+    ret                                   ; return with REP state set only for a prefix
 
 ; For software INT instructions, TF may not be observed until after the first
 ; instruction following the interrupt returns. Plant a breakpoint at the

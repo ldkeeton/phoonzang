@@ -14,6 +14,9 @@ st_pi: dw -1                             ; breakpoint slot temporarily omitted d
 st_cont: db 0                            ; continue silently after stepping over a breakpoint
 st_run:  db 0                            ; target has resumed; next stop is asynchronous
 st_usr:  db 0                            ; next INT1 is a user-requested single-step stop
+st_rep: db 0                             ; single-step is still inside a REP instruction
+st_rep_ip: dw 0                          ; starting IP of the in-progress REP instruction
+st_rep_cs: dw 0                          ; starting CS of the in-progress REP instruction
 st_int_mode: db 0                        ; stepping over a software INT via fall-through trap
 st_int_bp: dw -1                         ; internal breakpoint slot used for INT-step
 st_int_addr: dd 0                        ; linear instruction address after software INT
