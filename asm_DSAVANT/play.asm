@@ -152,40 +152,8 @@ io_loc_0098:
     db 0x07, 0xb8, 0x06, 0x04, 0xe8, 0x05, 0x07, 0x9d, 0x52, 0xba, 0x88, 0x03, 0xb0, 0x40, 0xee, 0x5a
     db 0xb8, 0x00, 0x00, 0xc3
 
-strlen:
-    push bp
-    mov bp, sp
-    push es
-    push di
-    push bx
-    push cx
-    cld
-    mov di, word [bp + 0x8]
-    mov es, word [bp + 0xa]
-    xor al, al
-    mov cx, 8
-    repne scasb
-    mov word [es:di - 0x0001], 0x2e
-    mov al, byte [bp + 0xc]
-    call io_loc_02b3
-    mov bl, al
-    mov byte [cs:data_0b7c], al
-    mov bh, bl
-    shl bl, 1
-    add bl, bh
-    xor bh, bh
-    add bx, strict word 0x242
-    mov ax, word [cs:bx]
-    stosw
-    mov al, byte [cs:bx + 0x2]
-    mov ah, 0
-    stosw
-    pop cx
-    pop bx
-    pop di
-    pop es
-    pop bp
-    ret
+%include "play/strlen.asm"
+
 
     db 0x00, 0x00, 0x00, 0x50, 0x42, 0x41
     times 6 db 0

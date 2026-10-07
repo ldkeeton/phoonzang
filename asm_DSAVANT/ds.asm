@@ -3103,102 +3103,8 @@ leaf_loc_382c:
     times 20 db 0
     db 0xff, 0xff
 
-dos_alloc_mem:
-    push bp
-    mov bp, sp
-    cld
-    sub sp, byte 8
-    push si
-    push di
-    push ds
-    push es
-    mov ax, ds
-    mov es, ax
-    mov bx, word [cs:data_2d4a]
-    mov ds, bx
-    xor dx, dx
-    mov bx, word [bp + 0x4]
-    mov cx, 0x10
-    mov ah, 0x3f
-    int 0x21 ; DOS read file (handle)
-    jae short @..dos_alloc_mem.l1
-    jmp near @..local.l70
-@..dos_alloc_mem.l1:
-    xor bx, bx
-    mov ax, word [bx + 0xa]
-    xor cx, cx
-    mov cl, byte [bx + 0x5]
-    mul cx
-    mov word [bp - 0x0008], ax
-    add ax, 0x110
-    mov word [bp - 0x0002], ax
-    mov word [bp - 0x0004], ax
-    mov al, byte [bx + 0x2]
-    or al, al
-    jne short @..dos_alloc_mem.l2
-    mov dl, byte [bx + 0x6]
-    test dl, data_0002
-    je short @..dos_alloc_mem.l2
-    mov ax, word [bx + 0xe]
-    xor ch, ch
-    mov cl, byte [bx + 0x5]
-    mul cx
-    add word [bp - 0x0004], ax
-    mov dl, byte [bx + 0x6]
-    test dl, 4
-    je short @..dos_alloc_mem.l2
-    add word [bp - 0x0002], ax
-@..dos_alloc_mem.l2:
-    mov dx, word [bp - 0x0004]
-    add dx, byte 0x0f
-    mov cl, 4
-    shr dx, cl
-    mov bx, dx
-    mov ah, 0x48
-    int 0x21 ; DOS allocate memory
-    jae short @..dos_alloc_mem.l3
-    jmp near @..dos_con_loc_3936.l1
-@..dos_alloc_mem.l3:
-    mov bx, 0x364a
-    mov cx, word [bp + 0x6]
-    shl cx, 1
-    add bx, cx
-    mov word [cs:bx], ax
-    mov es, ax
-    xor di, di
-    xor si, si
-    mov cx, 0x10
-    rep movsb
-    mov ds, ax
-    mov dx, 0x10
-    mov bx, word [bp + 0x4]
-    mov cx, word [bp - 0x0002]
-    sub cx, dx
-    mov ah, 0x3f
-    int 0x21 ; DOS read file (handle)
-    jb short @..local.l70
-    xor bx, bx
-    mov al, byte [bx + 0x6]
-    and al, 6
-    cmp al, data_0002
-    jne short @..dos_alloc_mem.l4
-    mov al, byte [bx + 0x2]
-    or al, al
-    jne short @..dos_alloc_mem.l4
-    mov ax, ds
-    mov es, ax
-    mov di, word [bx + 0xc]
-    mov si, 0x110
-    mov cx, word [bp - 0x0008]
-    rep movsb
-@..dos_alloc_mem.l4:
-    pop es
-    pop ds
-    pop di
-    pop si
-    mov sp, bp
-    pop bp
-    ret
+%include "ds/dos_alloc_mem.asm"
+
 @..local.l70:
     mov ax, cs
     mov ds, ax
@@ -3229,61 +3135,8 @@ dos_con_loc_3962:
     db 'Memory error loading font'
     db 0x0d, 0x0a, 0x24
 
-dos_read_file:
-    push bp
-    mov bp, sp
-    cld
-    sub sp, byte 8
-    push si
-    push di
-    push ds
-    push es
-    mov ax, ds
-    mov es, ax
-    mov ax, cs
-    mov ds, ax
-    mov ax, word [bp + 0x6]
-    mov bx, 0x364a
-    shl ax, 1
-    add bx, ax
-    mov ax, word [bx]
-    mov ds, ax
-    xor bx, bx
-    xor ah, ah
-    mov al, byte [bp + 0x8]
-    mov cx, word [bx + 0xa]
-    mul cx
-    mov cx, dx
-    mov dx, ax
-    mov ah, 0x42
-    mov al, 0
-    mov bx, word [bp + 0x4]
-    int 0x21 ; DOS seek file (lseek)
-    xor bx, bx
-    xor ah, ah
-    mov al, byte [bp + 0xa]
-    shl al, 1
-    add bx, byte 0x10
-    add bx, ax
-    xor ah, ah
-    mov al, byte [bx]
-    xor bx, bx
-    mov cx, word [bx + 0xa]
-    mul cx
-    add ax, 0x110
-    mov dx, ax
-    mov cx, word [bx + 0xa]
-    mov bx, word [bp + 0x4]
-    mov ah, 0x3f
-    int 0x21 ; DOS read file (handle)
-    xor bx, bx
-    pop es
-    pop ds
-    pop di
-    pop si
-    mov sp, bp
-    pop bp
-    ret
+%include "ds/dos_read_file.asm"
+
 
     db 0x55, 0x8b, 0xec, 0xfc, 0x83, 0xec, 0x08, 0x56, 0x57, 0x1e, 0x06, 0x8c, 0xd8, 0x8e, 0xc0, 0x8c
     db 0xc8, 0x8e, 0xd8, 0x8b, 0x46, 0x04, 0xbb, 0x4a, 0x36, 0xd1, 0xe0, 0x03, 0xd8, 0x8b, 0x07, 0x8e
@@ -3748,32 +3601,8 @@ leaf_loc_3d79:
     jmp short @..local.l81
 @..local.l83:
     jmp near @..leaf_loc_3d79.l1
-bios_kbd_check:
-    push bp
-    mov bp, sp
-    cld
-    push di
-    push si
-    push es
-    mov ax, ds
-    mov es, ax
-    mov ax, 0
-    mov word [cs:data_3a7f], ax
-@..bios_kbd_check.l1:
-    mov ah, 1
-    int 0x16 ; BIOS keyboard: check keystroke
-    je short @..bios_kbd_check.l2
-    mov ah, 0
-    int 0x16 ; BIOS keyboard: read keystroke
-    jmp short @..bios_kbd_check.l1
-@..bios_kbd_check.l2:
-    call far [cs:data_2daf]
-    pop es
-    pop si
-    pop di
-    mov sp, bp
-    pop bp
-    ret
+%include "ds/bios_kbd_check.asm"
+
 
     db 0x55, 0x8b, 0xec, 0xfc, 0x06, 0x56, 0x8c, 0xd8, 0x8e, 0xc0, 0x8b, 0x76, 0x04, 0x8b, 0x5e, 0x06
     db 0x8b, 0xd3, 0xb1, 0x03, 0xd3, 0xeb, 0xb9, 0x07, 0x00, 0x23, 0xca, 0xb0, 0x01, 0xd2, 0xe0, 0x8a
@@ -3907,40 +3736,8 @@ string_loc_4046:
 @..string_loc_4046.l7:
     mov word [bp - 0x0002], cx
     ret
-strlen:
-    push bp
-    mov bp, sp
-    cld
-    push es
-    push di
-    mov ax, ds
-    mov es, ax
-    cld
-    mov di, word [bp + 0x4]
-    mov bx, di
-    mov al, 0
-    mov cx, 0xffff
-    repne scasb
-    mov cx, di
-    sub cx, bx
-    dec cx
-    mov di, bx
-    mov al, byte [bp + 0x6]
-    repne scasb
-    dec di
-    cmp al, byte [es:di]
-    jne short @..strlen.l1
-    mov ax, di
-    sub ax, bx
-    jmp near @..strlen.l2
-@..strlen.l1:
-    mov ax, 0xffff
-@..strlen.l2:
-    pop di
-    pop es
-    mov sp, bp
-    pop bp
-    ret
+%include "ds/strlen.asm"
+
 strlen_2:
     push bp
     mov bp, sp
@@ -4096,14 +3893,8 @@ bios_mouse_loc_428d:
     db 0x8b, 0xe5 ; mov sp, bp
     pop bp
     ret
-@..local.l85:
-    push bp
-    mov bp, sp
-    cld
-    call far [cs:data_2de7]
-    mov sp, bp
-    pop bp
-    ret
+%include "ds/mouse_set_pos.asm"
+
 mouse_set_pos:
     push bp
     mov bp, sp
@@ -4452,22 +4243,8 @@ dos_alloc_mem_2:
 @..dos_alloc_mem_2.l3:
     pop bp
     ret
-dos_free_mem:
-    push bp
-    mov bp, sp
-    push es
-    mov es, word [bp + 0x6]
-    mov ah, 0x49
-    int 0x21 ; DOS free memory
-    jae short @..dos_free_mem.l1
-    mov ax, 0xffff
-    jmp near @..dos_free_mem.l2
-@..dos_free_mem.l1:
-    xor ax, ax
-@..dos_free_mem.l2:
-    pop es
-    pop bp
-    ret
+%include "ds/dos_free_mem.asm"
+
 
     db 0x55, 0x8b, 0xec, 0x8b, 0x46, 0x08, 0x8b, 0x56, 0x0a, 0xb9, 0x04, 0x00, 0xd1, 0xea, 0xd1, 0xd8
     db 0xe2, 0xfa, 0x8b, 0xd8, 0xb4, 0x4a, 0x8e, 0x46, 0x06, 0xcd, 0x21, 0x72, 0x08, 0x8b, 0x46, 0x04
@@ -4475,26 +4252,8 @@ dos_free_mem:
 
 loc_4652:
     pop bx
-stack_alloc_check:
-    push bp
-    mov bp, sp
-    add sp, ax
-    cmp sp, bp
-    ja short @..local.l95
-    cmp sp, word [data_0c7a]
-    jb short @..local.l95
-    cmp sp, word [data_0c7e]
-    ja short @..stack_alloc_check.l1
-    mov word [data_0c7e], sp
-@..stack_alloc_check.l1:
-    push di
-    push si
-    call bx
-    pop si
-    pop di
-    mov sp, bp
-    pop bp
-    ret
+%include "ds/stack_alloc_check.asm"
+
 @..local.l95:
     mov sp, bp
     jmp near @..local.l123
@@ -5443,20 +5202,8 @@ dos_file_loc_5004:
     db 0x4e, 0xeb, 0x06, 0xf6, 0xc1, 0x01, 0x74, 0x01, 0xa4, 0xd1, 0xe9, 0x74, 0x02, 0xf3, 0xa5, 0xfc
     db 0x5f, 0x5e, 0x9d, 0x5d, 0xc3
 
-dos_ioctl:
-    push bp
-    mov bp, sp
-    mov bx, word [bp + 0x4]
-    mov ax, 0x4400
-    int 0x21 ; DOS function dispatcher
-    jb short @..local.l125
-    test dl, data_0080
-    je short @..local.l125
-    test dl, 3
-    je short @..local.l125
-    mov ax, 1
-    pop bp
-    ret
+%include "ds/dos_ioctl.asm"
+
 @..local.l125:
     sub ax, ax
     pop bp

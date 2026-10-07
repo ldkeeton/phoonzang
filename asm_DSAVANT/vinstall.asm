@@ -3540,15 +3540,8 @@ bios_video_loc_2501:
     or word [bp - 0x0002], strict word 0x1000
 @..bios_video_loc_2501.l1:
     ret
-dos_con_in_noecho:
-    push bp
-    mov bp, sp
-    mov ah, 7
-    int 0x21 ; DOS keyboard input (no echo)
-    mov ah, 0
-    mov sp, bp
-    pop bp
-    ret
+%include "vinstall/dos_con_in_noecho.asm"
+
 bios_video_loc_252e:
     push bp
     mov bp, sp
@@ -3701,22 +3694,8 @@ bios_video_loc_2621:
     db 0xdb, 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x57, 0x56, 0x8b, 0x46, 0x04, 0xba
     db 0x01, 0x00, 0xcd, 0x17, 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3
 
-bios_kbd_check:
-    push bp
-    mov bp, sp
-    push di
-    push si
-    mov ah, 1
-    int 0x16 ; BIOS keyboard: check keystroke
-    mov ax, 0
-    je short @..bios_kbd_check.l1
-    mov ax, 1
-@..bios_kbd_check.l1:
-    pop si
-    pop di
-    mov sp, bp
-    pop bp
-    ret
+%include "vinstall/bios_kbd_check.asm"
+
 bios_video_loc_2720:
     push bp
     mov bp, sp
@@ -4031,41 +4010,8 @@ dos_proc_loc_2a9d:
     neg ax
 @..dos_proc_loc_2a9d.l1:
     ret
-strlen:
-    push bp
-    mov bp, sp
-    mov dx, 0x7fff
-    jmp short @..strlen.l1
-    push bp
-    mov bp, sp
-    mov dx, word [bp + 0x8]
-@..strlen.l1:
-    cld
-    push si
-    push di
-    mov di, ds
-    mov es, di
-    mov di, word [bp + 0x4]
-    sub ax, ax
-    mov cx, 0x7fff
-    repne scasb
-    dec di
-    mov si, word [bp + 0x6]
-    mov cx, dx
-@..strlen.l2:
-    lodsb
-    stosb
-    test al, al
-    loopne @..strlen.l2
-    je short @..strlen.l3
-    sub al, al
-    stosb
-@..strlen.l3:
-    pop di
-    pop si
-    mov ax, word [bp + 0x4]
-    pop bp
-    ret
+%include "vinstall/strlen.asm"
+
 strlen_2:
     push bp
     mov bp, sp
@@ -5547,20 +5493,8 @@ dos_file_loc_38a0:
     db 0x03, 0xf1, 0x4f, 0x4e, 0xf6, 0xc1, 0x01, 0x74, 0x01, 0xa4, 0x4f, 0x4e, 0xeb, 0x06, 0xf6, 0xc1
     db 0x01, 0x74, 0x01, 0xa4, 0xd1, 0xe9, 0x74, 0x02, 0xf3, 0xa5, 0xfc, 0x5f, 0x5e, 0x9d, 0x5d, 0xc3
 
-dos_ioctl:
-    push bp
-    mov bp, sp
-    mov bx, word [bp + 0x4]
-    mov ax, 0x4400
-    int 0x21 ; DOS function dispatcher
-    jb short @..local.l193
-    test dl, data_0080
-    je short @..local.l193
-    test dl, 3
-    je short @..local.l193
-    mov ax, 1
-    pop bp
-    ret
+%include "vinstall/dos_ioctl.asm"
+
 @..local.l193:
     sub ax, ax
     pop bp

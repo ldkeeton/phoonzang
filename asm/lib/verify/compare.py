@@ -1186,20 +1186,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
-    split_ranges = []
-    requested_splits = set(split_functions or ())
-    if requested_splits:
-        found_splits = set()
-        for fn_start, (fn_end, fn_name) in func_boundaries.items():
-            if fn_name in requested_splits:
-                split_ranges.append((fn_start, fn_end, fn_name))
-                found_splits.add(fn_name)
-        missing = requested_splits - found_splits
-        if missing:
-            raise ValueError(
-                f'{name}: requested function split(s) not found: '
-                f'{", ".join(sorted(missing))}'
-            )
+    split_ranges = _select_split_ranges(func_boundaries, split_functions)
 
     src_lines, split_sources = _build_source(
         records, start_offset, binary_data, label_map,
@@ -1261,6 +1248,16 @@ def _record_span(rec):
         return rec['start'], rec['end']
     start = rec.get('offset', 0)
     return start, start + rec.get('size', 1)
+
+
+def _select_split_ranges(func_boundaries, split_functions):
+    """Select discovered function boundaries whose names are in the known DB."""
+    requested = set(split_functions or ())
+    return [
+        (start, end, name)
+        for start, (end, name) in func_boundaries.items()
+        if name in requested
+    ]
 
 
 def _partition_function_records(records, split_ranges, split_dir):

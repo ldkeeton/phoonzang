@@ -5,7 +5,7 @@ Usage (from asm/):
   make                     show help
   make all                 all projects serially
   make build PROJECT       asm + nasm + assets for one project
-  make check PROJECT       smoke-test game (5s timeout, requires build first)
+  make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT         run game in dosbox
   make verify [PROJECT...] verify one or all projects
   make clean [PROJECT...]  clean one or all projects
@@ -232,7 +232,26 @@ def cmd_verify(apps):
             sys.exit(1)
 
 
-def cmd_check(app):
+DEFAULT_CHECK_SECONDS = 5
+
+
+def _parse_check_args(args):
+    """Return project names and an optional trailing smoke-test timeout."""
+    args = list(args)
+    timeout_seconds = DEFAULT_CHECK_SECONDS
+    if len(args) > 1:
+        try:
+            timeout_seconds = int(args[-1], 10)
+        except ValueError:
+            pass
+        else:
+            args.pop()
+            if timeout_seconds <= 0:
+                raise ValueError('seconds must be a positive integer')
+    return args, timeout_seconds
+
+
+def cmd_check(app, timeout_seconds=DEFAULT_CHECK_SECONDS):
     app_dir = os.path.join(APPS, app)
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     bins = discover_binaries(app_dir)
@@ -247,15 +266,15 @@ def cmd_check(app):
         sys.exit(1)
 
     build_dir = os.path.join(out_dir, 'build_out')
-    print(f'Smoke test: launching {rel} via dosbox (5s timeout)...')
+    print(f'Smoke test: launching {rel} via dosbox ({timeout_seconds}s timeout)...')
     rc = subprocess.run(
-        ['timeout', '5', 'dosbox', '-c', f'mount c {build_dir}',
+        ['timeout', str(timeout_seconds), 'dosbox', '-c', f'mount c {build_dir}',
          '-c', 'c:', '-c', rel],
         capture_output=True, text=True,
     ).returncode
 
     if rc == 124:
-        print(f'{app}: PASS (game loaded, killed after 5s)')
+        print(f'{app}: PASS (game loaded, killed after {timeout_seconds}s)')
     elif rc == 0:
         print(f'{app}: FAIL (game exited silently)')
         sys.exit(1)
@@ -494,7 +513,7 @@ HELP = '''Usage: make [command] [project...]
 Commands (space-separated):
   make all                  all projects serially
   make build PROJECT        asm + nasm + assets for one project
-  make check PROJECT        smoke-test game (5s timeout, requires build first)
+  make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox
   make verify [PROJECT...]  verify one or all projects
   make clean [PROJECT...]   clean one or all projects
@@ -565,13 +584,22 @@ def main():
 
     if '--check' in flags:
         if not args:
-            print('Usage: make check PROJECT')
+            print('Usage: make check PROJECT [SECONDS]')
             sys.exit(1)
-        for g in args:
+        try:
+            projects, timeout_seconds = _parse_check_args(args)
+        except ValueError as e:
+            print(f'Invalid check timeout: {e}')
+            print('Usage: make check PROJECT [SECONDS]')
+            sys.exit(1)
+        if not projects:
+            print('Usage: make check PROJECT [SECONDS]')
+            sys.exit(1)
+        for g in projects:
             if g not in all_projects:
                 print(f'Unknown project: {g}')
                 sys.exit(1)
-            cmd_check(g)
+            cmd_check(g, timeout_seconds)
         return
 
     if '--run' in flags:
