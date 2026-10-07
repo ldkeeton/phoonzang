@@ -59,7 +59,7 @@ ds_loc_2d5c equ 0x2d5c
 ds_loc_2d69 equ 0x2d69
 ds_loc_2db0 equ 0x2db0
 ds_loc_2dbe equ 0x2dbe
-ds_loc_2dd5 equ 0x2dd5
+ds_main equ 0x2dd5
 ds_bios_video_loc_3067 equ 0x3067
 ds_bios_video_loc_30a3 equ 0x30a3
 ds_bios_video_loc_30c3 equ 0x30c3
@@ -198,7 +198,7 @@ ds_loc_4b39 equ 0x4b39
 ds_dos_mem_alloc equ 0x4b50
 ds_strlen_5 equ 0x4cd7
 ds_dos_mem_loc_4cf4 equ 0x4cf4
-ds_dos_mem_loc_4d3a equ 0x4d3a
+ds_entry_point equ 0x4d3a
 ds_dos_proc_loc_4e7e equ 0x4e7e
 ds_loc_4e80 equ 0x4e80
 ds_loc_4ea7 equ 0x4ea7

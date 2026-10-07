@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/loc_1fcd.inc"
+%include "structs/loc_3738.inc"
 org 0
 bits 16
     ; header (512 bytes)
@@ -90,6 +90,10 @@ data_2af4 equ 0x2af4
 data_2af6 equ 0x2af6
 data_2af8 equ 0x2af8
 data_2afa equ 0x2afa
+data_33ce equ 0x33ce
+data_3521 equ 0x3521
+data_3523 equ 0x3523
+loc_3738 equ 0x3738
 data_380c equ 0x380c
 leaf_loc_5fe5 equ 0x5fe5
 
@@ -5172,60 +5176,60 @@ dos_mem_loc_358c:
     pop bp                           ; 0x35cc
     ret                              ; 0x35cd
     times 4 db 0
-dos_mem_loc_35d2:
+entry_point:
     mov bp, 0x38e                    ; 0x35d2
     test bp, bp                      ; 0x35d5
-    jne short @..dos_mem_loc_35d2.l1 ; 0x35d7
+    jne short @..entry_point.l1      ; 0x35d7
     mov bp, ds                       ; 0x35d9
-@..dos_mem_loc_35d2.l1:
+@..entry_point.l1:
     mov word [cs:0x33d0], ds         ; 0x35db
     mov bx, word [data_0002]         ; 0x35e0
     sub bx, bp                       ; 0x35e4
     cmp bx, strict word 0x1000       ; 0x35e6
-    jbe short @..dos_mem_loc_35d2.l2 ; 0x35ea
+    jbe short @..entry_point.l2      ; 0x35ea
     lea bx, word [bp + 0x1000]       ; 0x35ec
     mov ax, es                       ; 0x35f0
     sub bx, ax                       ; 0x35f2
     mov ah, 0x4a                     ; 0x35f4
     int 0x21 ; DOS resize memory block
     mov bx, 0x1000                   ; 0x35f8
-@..dos_mem_loc_35d2.l2:
+@..entry_point.l2:
     mov es, bp                       ; 0x35fb
     mov word [es:data_24e4], ds      ; 0x35fd
     mov cl, data_0004                ; 0x3602
     shl bx, cl                       ; 0x3604
     db 0x26, 0x83, 0x3e, 0x18, 0x25, 0x00 ; cmp word [es:data_2518], 0
-    je short @..dos_mem_loc_35d2.l4  ; 0x360c
+    je short @..entry_point.l4       ; 0x360c
     mov ax, word [es:data_2514]      ; 0x360e
     shl ax, 1                        ; 0x3612
     mov bx, word [es:data_2512]      ; 0x3614
     shl bx, cl                       ; 0x3619
     cmp bx, ax                       ; 0x361b
-    ja short @..dos_mem_loc_35d2.l3  ; 0x361d
+    ja short @..entry_point.l3       ; 0x361d
     mov bx, ax                       ; 0x361f
-@..dos_mem_loc_35d2.l3:
+@..entry_point.l3:
     add bx, strict word 0x2afe       ; 0x3621
-@..dos_mem_loc_35d2.l4:
+@..entry_point.l4:
     cli                              ; 0x3625
     mov ss, bp                       ; 0x3626
     mov sp, bx                       ; 0x3628
     sti                              ; 0x362a
     test bx, bx                      ; 0x362b
-    jne short @..dos_mem_loc_35d2.l5 ; 0x362d
+    jne short @..entry_point.l5      ; 0x362d
     mov bx, 0xffff                   ; 0x362f
-@..dos_mem_loc_35d2.l5:
+@..entry_point.l5:
     mov word [es:data_24e0], bx      ; 0x3632
     db 0x26, 0x83, 0x3e, 0x18, 0x25, 0x00 ; cmp word [es:data_2518], 0
-    je short @..dos_mem_loc_35d2.l7  ; 0x363d
+    je short @..entry_point.l7       ; 0x363d
     mov si, word [es:data_2516]      ; 0x363f
     mov ax, bx                       ; 0x3644
     inc ax                           ; 0x3646
     mov word [es:data_24d4], ax      ; 0x3647
     shl si, cl                       ; 0x364b
     add bx, si                       ; 0x364d
-    jae short @..dos_mem_loc_35d2.l6 ; 0x364f
+    jae short @..entry_point.l6      ; 0x364f
     mov bx, 0xffff                   ; 0x3651
-@..dos_mem_loc_35d2.l6:
+@..entry_point.l6:
     mov word [es:data_24e0], bx      ; 0x3654
     add bx, byte 0x0f                ; 0x3659
     shr bx, cl                       ; 0x365c
@@ -5237,10 +5241,10 @@ dos_mem_loc_35d2:
     mov es, ax                       ; 0x3668
     mov ah, 0x4a                     ; 0x366a
     int 0x21 ; DOS resize memory block
-    jae short @..dos_mem_loc_35d2.l7 ; 0x366e
+    jae short @..entry_point.l7      ; 0x366e
     mov al, 0xfe                     ; 0x3670
     jmp near loc_3718                ; 0x3672
-@..dos_mem_loc_35d2.l7:
+@..entry_point.l7:
     mov es, bp                       ; 0x3675
     cld                              ; 0x3677
     mov di, data_2534                ; 0x3678
@@ -5248,46 +5252,46 @@ dos_mem_loc_35d2:
     sub cx, di                       ; 0x367e
     inc cx                           ; 0x3680
     shr cx, 1                        ; 0x3681
-    jcxz @..dos_mem_loc_35d2.l8      ; 0x3683
+    jcxz @..entry_point.l8           ; 0x3683
     sub ax, ax                       ; 0x3685
     rep stosw                        ; 0x3687
-@..dos_mem_loc_35d2.l8:
+@..entry_point.l8:
     mov es, word [data_002c]         ; 0x3689
     sub di, di                       ; 0x368d
     mov cx, 0x7fff                   ; 0x368f
-@..dos_mem_loc_35d2.l9:
+@..entry_point.l9:
     mov ah, byte [es:di]             ; 0x3692
     cmp ah, 0x3d                     ; 0x3695
-    je short @..dos_mem_loc_35d2.l11 ; 0x3698
+    je short @..entry_point.l11      ; 0x3698
     test ah, ah                      ; 0x369a
-    je short @..dos_mem_loc_35d2.l10 ; 0x369c
+    je short @..entry_point.l10      ; 0x369c
     repne scasb                      ; 0x369e
-    je short @..dos_mem_loc_35d2.l9  ; 0x36a0
-@..dos_mem_loc_35d2.l10:
+    je short @..entry_point.l9       ; 0x36a0
+@..entry_point.l10:
     mov cl, byte [data_0080]         ; 0x36a2
     sub ch, ch                       ; 0x36a6
     mov si, 0x81                     ; 0x36a8
     mov ax, 1                        ; 0x36ab
-    jmp short @..dos_mem_loc_35d2.l12 ; 0x36ae
-@..dos_mem_loc_35d2.l11:
+    jmp short @..entry_point.l12     ; 0x36ae
+@..entry_point.l11:
     sub ax, ax                       ; 0x36b0
     stosb                            ; 0x36b2
     mov si, di                       ; 0x36b3
     mov di, es                       ; 0x36b5
     mov ds, di                       ; 0x36b7
-@..dos_mem_loc_35d2.l12:
+@..entry_point.l12:
     push ax                          ; 0x36b9
     mov es, bp                       ; 0x36ba
     mov di, word [es:data_24d4]      ; 0x36bc
     push di                          ; 0x36c1
-    jcxz @..dos_mem_loc_35d2.l14     ; 0x36c2
-@..dos_mem_loc_35d2.l13:
+    jcxz @..entry_point.l14          ; 0x36c2
+@..entry_point.l13:
     lodsb                            ; 0x36c4
     test al, al                      ; 0x36c5
-    je short @..dos_mem_loc_35d2.l14 ; 0x36c7
+    je short @..entry_point.l14      ; 0x36c7
     stosb                            ; 0x36c9
-    loop @..dos_mem_loc_35d2.l13     ; 0x36ca
-@..dos_mem_loc_35d2.l14:
+    loop @..entry_point.l13          ; 0x36ca
+@..entry_point.l14:
     sub al, al                       ; 0x36cc
     stosb                            ; 0x36ce
     mov ds, bp                       ; 0x36cf
@@ -5297,19 +5301,19 @@ dos_mem_loc_35d2:
     mov word [data_24dc], di         ; 0x36da
     mov word [data_24de], 0x2afe     ; 0x36de
     cmp word [data_2518], byte 0     ; 0x36e4
-    jne short @..dos_mem_loc_35d2.l15 ; 0x36e9
+    jne short @..entry_point.l15     ; 0x36e9
     mov word [data_24de], di         ; 0x36eb
-@..dos_mem_loc_35d2.l15:
+@..entry_point.l15:
     mov ax, word [data_24de]         ; 0x36ef
     add ax, word [data_2514]         ; 0x36f2
     mov word [data_24de], ax         ; 0x36f6
     mov word [data_24d8], ds         ; 0x36f9
     mov word [data_24da], cs         ; 0x36fd
     call dos_file_loc_381d           ; 0x3701
-    jb short @..dos_mem_loc_35d2.l16 ; 0x3704
+    jb short @..entry_point.l16      ; 0x3704
     call loc_373f                    ; 0x3706
     jmp short loc_3718               ; 0x3709
-@..dos_mem_loc_35d2.l16:
+@..entry_point.l16:
     mov ah, 9                        ; 0x370b
     mov dx, 0x24e6                   ; 0x370d
     int 0x21 ; DOS string output
@@ -5321,13 +5325,18 @@ dos_proc_loc_3716:
 loc_3718:
     mov ah, 0x4c                     ; 0x3718
     int 0x21 ; DOS exit with return code
-
-    db 0x2e, 0xff, 0x2e, 0xce, 0x33
+    jmp far [cs:data_33ce]           ; 0x371c
     times 4 db 0
-    db 0x2e, 0x8f, 0x06, 0x21, 0x35, 0x2e, 0x8f, 0x06, 0x23, 0x35, 0x1f, 0xe8, 0x05, 0x00, 0x2e, 0xff
-    db '.!5WV'
-    db 0xcb, 0xb8, 0x00, 0x00, 0xc3
-
+    pop word [cs:data_3521]          ; 0x3725
+    pop word [cs:data_3523]          ; 0x372a
+    pop ds                           ; 0x372f
+    call loc_3738                    ; 0x3730
+    jmp far [cs:data_3521]           ; 0x3733
+    push di                          ; 0x3738
+    push si                          ; 0x3739
+    retf                             ; 0x373a
+    mov ax, 0                        ; 0x373b
+    ret                              ; 0x373e
 loc_373f:
     push bp                          ; 0x373f
     mov bp, sp                       ; 0x3740

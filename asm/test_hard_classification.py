@@ -14,6 +14,7 @@ from lib.verify.compare import (
     verify,
     _compute_branch_ownership,
     _local_branch_targets,
+    _postprocess_data_blocks,
 )
 
 
@@ -220,6 +221,78 @@ class HardClassificationTests(unittest.TestCase):
 
         self.assertNotIn(f'loc_{target:04x}', asm_text)
         self.assertTrue(all(emitted[target + i] == IS_DATA for i in range(5)))
+
+    def test_verify_respects_final_data_bitmap_for_stale_instructions(self):
+        target = 16
+        data = _branch_binary('call', target)
+        decoded_as_code = bytearray([IS_CODE] * len(data))
+        stale_instructions = list(disassemble(data, 0, decoded_as_code))
+        final_bitmap = bytearray([IS_CODE] * target +
+                                 [IS_DATA] * (len(data) - target))
+
+        asm_text, _, emitted, _, _ = verify(
+            data,
+            0,
+            stale_instructions,
+            'stale_instruction_case',
+            label_map={target: f'loc_{target:04x}'},
+            bitmap=final_bitmap,
+            code_targets={target},
+        )
+
+        self.assertNotIn(f'loc_{target:04x}:', asm_text)
+        self.assertTrue(all(value == IS_DATA
+                            for value in emitted[target:]))
+
+    def test_emission_does_not_promote_fragments_of_large_data_run(self):
+        data = bytearray([0x90] * 65)
+        data[16] = 0xc3
+        bitmap = bytearray([IS_CODE] + [IS_DATA] * 64)
+        blocks = [
+            {'type': 'data_block', 'start': 1, 'end': 17,
+             'bytes': [f'0x{b:02x}' for b in data[1:17]]},
+            {'type': 'data_block', 'start': 17, 'end': 33,
+             'bytes': [f'0x{b:02x}' for b in data[17:33]]},
+            {'type': 'data_block', 'start': 33, 'end': 65,
+             'bytes': [f'0x{b:02x}' for b in data[33:65]]},
+        ]
+
+        emitted = _postprocess_data_blocks(
+            blocks, bytes(data), set(), {}, bitmap=bitmap,
+        )
+
+        self.assertEqual([record['type'] for record in emitted],
+                         ['data_block'] * 3)
+
+    def test_emission_does_not_promote_long_data_tail_after_code_prefix(self):
+        data = bytearray([0xc3] + [0x90] * 64)
+        bitmap = bytearray([IS_CODE] + [IS_DATA] * 64)
+        blocks = [{
+            'type': 'data_block', 'start': 0, 'end': len(data),
+            'bytes': [f'0x{b:02x}' for b in data],
+        }]
+
+        emitted = _postprocess_data_blocks(
+            blocks, bytes(data), set(), {}, bitmap=bitmap,
+        )
+
+        self.assertEqual([record['type'] for record in emitted],
+                         ['data_block'])
+
+    def test_emission_still_promotes_short_dead_code_after_code(self):
+        data = bytearray([0xc3] + [0x90] * 16)
+        data[-1] = 0xc3
+        bitmap = bytearray([IS_CODE] + [IS_DATA] * 16)
+        blocks = [{
+            'type': 'data_block', 'start': 1, 'end': len(data),
+            'bytes': [f'0x{b:02x}' for b in data[1:]],
+        }]
+
+        emitted = _postprocess_data_blocks(
+            blocks, bytes(data), set(), {}, bitmap=bitmap,
+        )
+
+        self.assertIn('mnem', [record['type'] for record in emitted])
 
 
     def test_overlapping_sidecar_ranges_fail_validation(self):

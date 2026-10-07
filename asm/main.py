@@ -179,6 +179,11 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         trace=trace_writer,
         sidecar_entry=sidecar_entry,
     )
+    mz_entry_point = next(
+        (seed.address for seed in ctx.seeds
+         if seed.source_phase == 'mz_entry'),
+        None,
+    )
     if project:
         ctx.report['project'] = project
 
@@ -234,8 +239,14 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
                 off = int(hex_off, 16) + start_offset + fn_offset
             except ValueError:
                 continue
-            if off in ctx.code_targets and off not in label_map:
+            if off in ctx.code_targets:
                 label_map[off] = info.get('name', f'fn_{hex_off}')
+
+    # The MZ header determines the executable entry point. Keep its public
+    # label stable even when pattern matching or sidecar names identify it.
+    if mz_entry_point is not None and mz_entry_point in ctx.code_targets:
+        label_targets.add(mz_entry_point)
+        label_map[mz_entry_point] = 'entry_point'
 
     label_map = categorize_call_targets(data, label_targets, label_map)
     function_roots = _function_roots(

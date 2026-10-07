@@ -530,19 +530,58 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                             size=end - start, reason='explicit force_data')
             continue
 
+        # A verifier data block can begin with one decoded code byte (often a
+        # return) followed by a much larger classifier-DATA run. Treat a
+        # small prefix as part of the boundary, not as evidence that the whole
+        # block is dead code after a return.
+        if bitmap is not None:
+            data_start = start
+            while data_start < end and bitmap[data_start] != IS_DATA:
+                data_start += 1
+            long_data_tail = (
+                0 <= data_start - start <= 3
+                and end - data_start > 32
+                and all(b == IS_DATA for b in bitmap[data_start:end])
+            )
+            if long_data_tail:
+                new_records.append(rec)
+                if trace is not None:
+                    trace.event('cascade', 'skipped', addr=start, end=end,
+                                size=end - start,
+                                reason='long classifier-DATA tail')
+                continue
+
         promoted = False
         reason = None
 
         # If bitmap marks the whole block as DATA, skip promotion
-        # UNLESS preceded by CODE (e.g., dead code after ret)
-        # AND the block is small (≤ 32 bytes).
+        # UNLESS preceded by CODE (e.g., dead code after ret) AND the
+        # entire contiguous DATA run is small (≤ 32 bytes). Looking at the
+        # full run prevents labels or record boundaries from fragmenting a
+        # large table into individually promotable small blocks.
         if bitmap is not None:
             block_bitmap = bitmap[start:end]
-            if all(b == 2 for b in block_bitmap):
-                preceded_by_code = start > 0 and bitmap[start - 1] == 1
-                small_block = (end - start) <= 32
-                if not (preceded_by_code and small_block):
-                    reason = 'all DATA in bitmap' + (', not preceded by code' if not preceded_by_code else ', too large')
+            if all(b == IS_DATA for b in block_bitmap):
+                data_run_start = start
+                while (data_run_start > 0
+                       and bitmap[data_run_start - 1] == IS_DATA):
+                    data_run_start -= 1
+                data_run_end = end
+                while (data_run_end < len(bitmap)
+                       and bitmap[data_run_end] == IS_DATA):
+                    data_run_end += 1
+
+                preceded_by_code = (
+                    data_run_start > 0
+                    and bitmap[data_run_start - 1] == IS_CODE
+                )
+                small_data_run = (data_run_end - data_run_start) <= 32
+                if not (preceded_by_code and small_data_run):
+                    reason = (
+                        'all DATA in bitmap'
+                        + (', not preceded by code' if not preceded_by_code
+                           else ', contiguous data run too large')
+                    )
                     skipped_all_data += 1
                     new_records.append(rec)
                     if trace is not None:
@@ -553,7 +592,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                     if trace is not None:
                         trace.event('cascade', 'override_allowed', addr=start,
                                     end=end, size=end - start,
-                                    reason='preceded by CODE, small')
+                                    reason='preceded by CODE, short data run')
 
         insns, all_decoded, has_ctrl = _try_decode_block(raw, start)
         if insns and has_ctrl:
@@ -1102,10 +1141,19 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     else:
         hard_data = bytearray(hard_data[:total])
         hard_data.extend([0] * (total - len(hard_data)))
-    insns = [
-        insn for insn in instructions
-        if not any(hard_data[insn.address:insn.address + insn.size])
-    ]
+    # Classification may be refined after the instruction list was decoded.
+    # The final bitmap is authoritative for emission: stale instructions over
+    # bytes now classified as DATA must be rendered as data, not mnemonics.
+    insns = []
+    for insn in instructions:
+        start = insn.address
+        end = start + insn.size
+        if start < 0 or end > total or any(hard_data[start:end]):
+            continue
+        if bitmap is not None and any(
+                bitmap[off] != IS_CODE for off in range(start, end)):
+            continue
+        insns.append(insn)
     if label_map is None:
         label_map = {}
     else:

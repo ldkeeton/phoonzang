@@ -10,6 +10,9 @@
       "fingerprint-start": "9e68e13368a5e977af6f4921d01938b5d8932faa7c4a526c5a2dc1c7082dd9fa",
       "fingerprint-end": "b94811b8e00674347f4917bc5eda18025b74473bed7ed5aadc3638184285f0de",
       "function_names": {
+        "2dd5": {
+          "name": "main"
+        },
         "4b50": {
           "name": "dos_mem_alloc",
           "sig": "uint16_t dos_mem_alloc(uint16_t flags, uint16_t param)"

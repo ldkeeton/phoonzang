@@ -4,7 +4,7 @@
 Usage (from asm/):
   make                     show help
   make all                 all projects serially
-  make build PROJECT       asm + nasm + assets for one project
+  make build PROJECT [BIN] asm + nasm + assets for one project or binary
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT         run game in dosbox
   make verify [PROJECT...] verify one or all projects
@@ -106,35 +106,34 @@ def _main_exe(out_dir, bins):
     return None, None
 
 
-# ── public commands ─────────────────────────────────────────────────────────
+def _copy_assets(app_dir, build_out):
+    os.makedirs(build_out, exist_ok=True)
+    for entry in sorted(os.listdir(app_dir)):
+        src = os.path.join(app_dir, entry)
+        dst = os.path.join(build_out, entry)
+        if os.path.isfile(src):
+            shutil.copy2(src, dst)
+        elif os.path.isdir(src):
+            shutil.copytree(src, dst, dirs_exist_ok=True)
 
-def asm_app(app):
-    clear_project_stats(app)
-    app_dir = os.path.join(APPS, app)
-    out_dir = os.path.join(PROJECT, f'asm_{app}')
-    os.makedirs(out_dir, exist_ok=True)
 
-    bins = discover_binaries(app_dir)
-    if not bins:
-        print(f'{app}: no binaries found')
-        return
-
-    print(f'\n=== {app} ({len(bins)} binaries) ===')
-
-    cross_refs = detect_cross_refs(app_dir, bins)
+def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
+                               process_sources=None):
     source_names = {src for refs in cross_refs.values() for _, src in refs}
+    if process_sources is None:
+        process_sources = source_names
 
     if cross_refs:
         print(f'  Cross-binary references detected: {len(cross_refs)} consumers')
         for name in sorted(source_names):
             print(f'  Source binary: {name}')
 
-    for src_name in sorted(source_names & set(bins.keys())):
+    for src_name in sorted(source_names & set(bins.keys()) & process_sources):
         print(f'  Processing source: {src_name}')
         if _asm_one(app, src_name, ['--export-labels']) != 0:
             print(f'  FAILED: {src_name}')
 
-    # inject synthetic dispatch labels for cross-binary targets
+    # Inject synthetic dispatch labels for cross-binary targets.
     if cross_refs:
         for src_name in source_names & set(bins.keys()):
             json_path = os.path.join(out_dir, f'{src_name}_labels.json')
@@ -155,47 +154,61 @@ def asm_app(app):
             changed = False
             for consumer_name, refs in cross_refs.items():
                 consumer_start = bins[consumer_name][1] if consumer_name in bins else 0
-                for t, src in refs:
+                for target, src in refs:
                     if src == src_name:
-                        abs_t = t + consumer_start
-                        if abs_t not in labels and abs_t < len(src_data):
-                            labels[abs_t] = f'dispatch_{abs_t:04x}'
+                        abs_target = target + consumer_start
+                        if abs_target not in labels and abs_target < len(src_data):
+                            labels[abs_target] = f'dispatch_{abs_target:04x}'
                             changed = True
             if changed:
                 write_label_json(labels, json_path)
 
-    consumers = [n for n in sorted(bins) if n not in source_names]
 
-    def _foreign_args(name):
-        if name not in cross_refs:
-            return None
-        prefix = next(iter(set(src for _, src in cross_refs[name])), '')
-        json_path = os.path.join(out_dir, f'{prefix}_labels.json')
-        if not os.path.exists(json_path):
-            return None
-        return [
-            f'--foreign-labels={json_path}',
-            f'--foreign-prefix={prefix}',
-        ]
+def _foreign_args(out_dir, name, cross_refs):
+    if name not in cross_refs:
+        return None
+    prefix = next(iter(set(src for _, src in cross_refs[name])), '')
+    json_path = os.path.join(out_dir, f'{prefix}_labels.json')
+    if not os.path.exists(json_path):
+        return None
+    return [
+        f'--foreign-labels={json_path}',
+        f'--foreign-prefix={prefix}',
+    ]
+
+
+# ── public commands ─────────────────────────────────────────────────────────
+
+def asm_app(app):
+    clear_project_stats(app)
+    app_dir = os.path.join(APPS, app)
+    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    os.makedirs(out_dir, exist_ok=True)
+
+    bins = discover_binaries(app_dir)
+    if not bins:
+        print(f'{app}: no binaries found')
+        return
+
+    print(f'\n=== {app} ({len(bins)} binaries) ===')
+
+    cross_refs = detect_cross_refs(app_dir, bins)
+    _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs)
+    source_names = {src for refs in cross_refs.values() for _, src in refs}
+
+    consumers = [n for n in sorted(bins) if n not in source_names]
 
     with ThreadPoolExecutor(max_workers=JOBS) as ex:
         futures = {}
         for name in consumers:
-            extra = _foreign_args(name)
+            extra = _foreign_args(out_dir, name, cross_refs)
             futures[ex.submit(_asm_one, app, name, extra)] = name
         for f in as_completed(futures):
             if f.result() != 0:
                 print(f'  FAILED: {futures[f]}')
 
     build_out = os.path.join(out_dir, 'build_out')
-    os.makedirs(build_out, exist_ok=True)
-    for entry in sorted(os.listdir(app_dir)):
-        src = os.path.join(app_dir, entry)
-        dst = os.path.join(build_out, entry)
-        if os.path.isfile(src):
-            shutil.copy2(src, dst)
-        elif os.path.isdir(src):
-            shutil.copytree(src, dst, dirs_exist_ok=True)
+    _copy_assets(app_dir, build_out)
 
     with ThreadPoolExecutor(max_workers=JOBS) as ex:
         futures = {ex.submit(_nasm_build, out_dir, name, rel_path): name
@@ -204,6 +217,41 @@ def asm_app(app):
             if f.result() != 0:
                 print(f'  BUILD FAIL: {futures[f]}')
 
+    _charts(app)
+
+
+def cmd_build_binary(app, binary):
+    app_dir = os.path.join(APPS, app)
+    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    bins = discover_binaries(app_dir)
+    if binary not in bins:
+        print(f'Unknown binary "{binary}" in {app}')
+        print(f'Known: {", ".join(sorted(bins))}')
+        sys.exit(1)
+
+    clear_project_stats(app)
+    os.makedirs(out_dir, exist_ok=True)
+    cross_refs = detect_cross_refs(app_dir, bins)
+    source_names = {src for refs in cross_refs.values() for _, src in refs}
+    required_sources = {src for _, src in cross_refs.get(binary, [])}
+    if binary in source_names:
+        required_sources.add(binary)
+    _prepare_cross_ref_sources(
+        app, app_dir, out_dir, bins, cross_refs, required_sources,
+    )
+
+    if binary in source_names:
+        result = 0
+    else:
+        result = _asm_one(app, binary, _foreign_args(out_dir, binary, cross_refs))
+    if result != 0:
+        sys.exit(result)
+
+    rel_path = bins[binary][0]
+    _copy_assets(app_dir, os.path.join(out_dir, 'build_out'))
+    if _nasm_build(out_dir, binary, rel_path) != 0:
+        sys.exit(1)
+    print(f'build {app}/{binary} -> {rel_path}  [OK]')
     _charts(app)
 
 
@@ -513,7 +561,7 @@ HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
   make all                  all projects serially
-  make build PROJECT        asm + nasm + assets for one project
+  make build PROJECT [BIN]  asm + nasm + assets for one project or binary
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox
   make verify [PROJECT...]  verify one or all projects
@@ -657,8 +705,19 @@ def main():
         return
 
     if '--build' in flags:
-        targets = args or all_projects
-        _build_projects(targets, all_projects)
+        if len(args) == 2:
+            project, binary = args
+            if project not in all_projects:
+                print(f'Unknown project: {project}')
+                print(f'Known: {", ".join(all_projects)}')
+                sys.exit(1)
+            cmd_build_binary(project, binary)
+        elif len(args) <= 1:
+            targets = args or all_projects
+            _build_projects(targets, all_projects)
+        else:
+            print('Usage: make build PROJECT [BIN]')
+            sys.exit(1)
         return
 
     # No known flag — error

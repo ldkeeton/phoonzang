@@ -122,6 +122,23 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
                         for value in self.bitmap[start:end + 1]),
                 )
 
+    def test_long_data_after_main_return_is_emitted_as_data(self):
+        self.assertEqual(self.bitmap[0x2f34], main.IS_CODE)
+        self.assertTrue(all(value == main.IS_DATA
+                            for value in self.bitmap[0x2f35:0x3067]))
+
+        asm_text = (pathlib.Path(self._output.name) / 'ds.asm').read_text()
+        emitted_instruction_offsets = {
+            int(match.group(1), 16)
+            for line in asm_text.splitlines()
+            if (match := re.search(r';\s*0x([0-9a-fA-F]+)\s*$', line))
+        }
+        self.assertFalse(
+            any(0x2f35 <= offset <= 0x3066
+                for offset in emitted_instruction_offsets),
+            'the data region after main should not emit instruction records',
+        )
+
     def test_sidecar_code_anchors_decode_as_code(self):
         code_starts = (0x0fdf, 0x3067, 0x30f7, 0x343e, 0x3490, 0x457c)
         for address in code_starts:
@@ -133,7 +150,6 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertEqual(self.bitmap[0x30a2], main.IS_CODE)
         self.assertEqual(self.bitmap[0x348f], main.IS_CODE)
         self.assertEqual(self.bitmap[0x45aa], main.IS_CODE)
-        self.assertNotEqual(self.bitmap[0x2f34], main.IS_CODE)
 
     def test_shared_exit_helper_remains_global(self):
         asm_text = (pathlib.Path(self._output.name) / 'ds.asm').read_text()
