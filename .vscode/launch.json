@@ -115,7 +115,7 @@
             "miDebuggerPath": "${workspaceFolder}/debugger/gdb_mi_proxy.py",
             "MIMode": "gdb",
             "targetArchitecture": "x86",
-            "stopAtEntry": true,
+            "stopAtEntry": false,
              
             "cwd": "${workspaceFolder}/asm_DSAVANT/build_out",
             "preLaunchTask": "Start DOSBox-X (DSAVANT)",

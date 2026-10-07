@@ -1,0 +1,29 @@
+dos_alloc_mem_2:
+    push bp                          ; 0x45d7
+    mov bp, sp                       ; 0x45d8
+    mov ax, word [bp + 0x4]          ; 0x45da
+    mov dx, word [bp + 0x6]          ; 0x45dd
+    test dx, dx                      ; 0x45e0
+    js short @..dos_alloc_mem_2.l2   ; 0x45e2
+    add ax, strict word 0xf          ; 0x45e4
+    adc dx, byte 0                   ; 0x45e7
+    mov cx, 4                        ; 0x45ea
+@..dos_alloc_mem_2.l1:
+    shr dx, 1                        ; 0x45ed
+    rcr ax, 1                        ; 0x45ef
+    loop @..dos_alloc_mem_2.l1       ; 0x45f1
+    test dx, dx                      ; 0x45f3
+    jne short @..dos_alloc_mem_2.l2  ; 0x45f5
+    mov bx, ax                       ; 0x45f7
+    mov ah, 0x48                     ; 0x45f9
+    int 0x21 ; DOS allocate memory
+    jb short @..dos_alloc_mem_2.l2   ; 0x45fd
+    mov dx, ax                       ; 0x45ff
+    mov ax, 0                        ; 0x4601
+    jmp short @..dos_alloc_mem_2.l3  ; 0x4604
+@..dos_alloc_mem_2.l2:
+    mov ax, 0                        ; 0x4606
+    mov dx, ax                       ; 0x4609
+@..dos_alloc_mem_2.l3:
+    pop bp                           ; 0x460b
+    ret                              ; 0x460c

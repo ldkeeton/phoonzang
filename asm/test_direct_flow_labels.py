@@ -8,6 +8,7 @@ from lib.verify.compare import (
     _compute_branch_ownership,
     _compute_local_labels,
     _local_branch_targets,
+    _select_split_ranges,
 )
 
 
@@ -93,6 +94,24 @@ class DirectFlowLabelTests(unittest.TestCase):
 
 
 class FunctionIncludeTests(unittest.TestCase):
+    def test_selects_named_roots_and_clips_ranges_before_next_root(self):
+        boundaries = {
+            0x100: (0x130, 'main'),
+            0x110: (0x125, 'bios_video_loc_3067'),
+            0x120: (0x128, 'loc_23ef'),
+        }
+
+        self.assertEqual(
+            _select_split_ranges(
+                boundaries,
+                {'main', 'bios_video_loc_3067', 'loc_23ef'},
+            ),
+            [
+                (0x100, 0x110, 'main'),
+                (0x110, 0x125, 'bios_video_loc_3067'),
+            ],
+        )
+
     def test_include_replaces_contiguous_function_records_in_place(self):
         records = [
             {'type': 'label', 'text': 'example_fn:', 'offset': 0x100},

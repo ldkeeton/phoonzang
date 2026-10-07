@@ -1602,12 +1602,24 @@ def _record_span(rec):
 
 
 def _select_split_ranges(func_boundaries, split_functions):
-    """Select discovered function boundaries whose names are in the known DB."""
+    """Select named function boundaries, ending each at the next split root."""
     requested = set(split_functions or ())
-    return [
+    selected = [
         (start, end, name)
         for start, (end, name) in func_boundaries.items()
         if name in requested
+        and not name.startswith('data_')
+        and not re.fullmatch(r'loc_[0-9a-fA-F]+', name)
+    ]
+    selected.sort(key=lambda item: item[0])
+
+    # Some named entry blocks tail-jump or fall through without a RET, so the
+    # heuristic boundary can extend into the next named root. Keep each split
+    # contiguous and non-overlapping by ending it at that next root.
+    return [
+        (start, min(end, selected[index + 1][0])
+         if index + 1 < len(selected) else end, name)
+        for index, (start, end, name) in enumerate(selected)
     ]
 
 
@@ -1623,6 +1635,26 @@ def _partition_function_records(records, split_ranges, split_dir):
         if i and start < ranges[i - 1][1]:
             prev = ranges[i - 1]
             raise ValueError(f'overlapping function split ranges: {prev[2]} and {name}')
+
+    # Data blocks can span a function's final byte and following data (or a
+    # split boundary between adjacent named roots). Divide those aggregate
+    # records at split boundaries so each byte is routed to the right source.
+    boundaries = sorted({point for start, end, _ in ranges
+                         for point in (start, end)})
+    partitioned_records = []
+    for rec in records:
+        if rec['type'] != 'data_block':
+            partitioned_records.append(rec)
+            continue
+        cuts = [rec['start']]
+        cuts.extend(point for point in boundaries
+                    if rec['start'] < point < rec['end'])
+        cuts.append(rec['end'])
+        partitioned_records.extend(
+            {**rec, 'start': start, 'end': end}
+            for start, end in zip(cuts, cuts[1:])
+        )
+    records = partitioned_records
 
     main_records = []
     split_records = {name: [] for _, _, name in ranges}

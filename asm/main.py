@@ -364,6 +364,12 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         for signature in known_db.get('signatures', [])
         if isinstance(signature, dict) and isinstance(signature.get('name'), str)
     }
+    split_functions.update(
+        root_name
+        for root_name in function_roots.values()
+        if isinstance(root_name, str)
+        and not root_name.startswith(('loc_', 'data_'))
+    )
     asm_text, stats, emit_bytes, label_positions, split_sources = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,

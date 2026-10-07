@@ -139,6 +139,17 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
             'the data region after main should not emit instruction records',
         )
 
+    def test_named_function_roots_are_split_but_generic_loc_labels_are_not(self):
+        output = pathlib.Path(self._output.name)
+        master = (output / 'ds.asm').read_text()
+
+        for function_name in ('main', 'bios_video_loc_3067'):
+            with self.subTest(function=function_name):
+                self.assertTrue((output / 'ds' / f'{function_name}.asm').is_file())
+                self.assertIn(f'%include "ds/{function_name}.asm"', master)
+
+        self.assertFalse((output / 'ds' / 'loc_23ef.asm').exists())
+
     def test_sidecar_code_anchors_decode_as_code(self):
         code_starts = (0x0fdf, 0x3067, 0x30f7, 0x343e, 0x3490, 0x457c)
         for address in code_starts:
@@ -152,7 +163,10 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertEqual(self.bitmap[0x45aa], main.IS_CODE)
 
     def test_shared_exit_helper_remains_global(self):
-        asm_text = (pathlib.Path(self._output.name) / 'ds.asm').read_text()
+        asm_text = '\n'.join(
+            path.read_text()
+            for path in pathlib.Path(self._output.name).rglob('*.asm')
+        )
         self.assertIn('dos_proc_loc_4e7e:', asm_text)
         self.assertEqual(asm_text.count('call dos_proc_loc_4e7e'), 3)
 

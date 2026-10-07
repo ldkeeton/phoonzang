@@ -1,0 +1,8 @@
+bios_mouse_loc_428d:
+    push bp                          ; 0x428d
+    mov bp, sp                       ; 0x428e
+    cld                              ; 0x4290
+    call far [cs:data_2d8f]          ; 0x4291
+    mov sp, bp                       ; 0x4296
+    pop bp                           ; 0x4298
+    ret                              ; 0x4299
