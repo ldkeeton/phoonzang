@@ -1,6 +1,6 @@
 math_loc_10a6:
     mov ax, 0                        ; 0x10a6
-    call loc_4652                    ; 0x10a9
+    call leaf_loc_4652               ; 0x10a9
     mov ax, 6                        ; 0x10ac
     imul word [bp + 0xa]             ; 0x10af
     add ax, word [bp + 0x6]          ; 0x10b2
@@ -13,7 +13,7 @@ math_loc_10a6:
     push ax                          ; 0x10c1
     push word [bp + 0x6]             ; 0x10c2
     push word [bp + 0x4]             ; 0x10c5
-    call math_loc_3b55               ; 0x10c8
+    call loc_3b55                    ; 0x10c8
     add sp, byte 8                   ; 0x10cb
     mov ax, 6                        ; 0x10ce
     imul word [bp + 0xa]             ; 0x10d1
@@ -33,7 +33,7 @@ math_loc_10a6:
     je short @..math_loc_10a6.l1     ; 0x10f4
     mov ax, 0x23                     ; 0x10f6
     push ax                          ; 0x10f9
-    call dos_mem_loc_36d0            ; 0x10fa
+    call leaf_loc_36d0               ; 0x10fa
     pop cx                           ; 0x10fd
 @..math_loc_10a6.l1:
     ret                              ; 0x10fe

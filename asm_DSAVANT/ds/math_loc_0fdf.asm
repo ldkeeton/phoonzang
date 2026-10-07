@@ -1,13 +1,13 @@
 math_loc_0fdf:
     mov ax, 0                        ; 0x0fdf
-    call loc_4652                    ; 0x0fe2
+    call leaf_loc_4652               ; 0x0fe2
     mov ax, 0xc3                     ; 0x0fe5
     push ax                          ; 0x0fe8
     push word [bp + 0xa]             ; 0x0fe9
     push word [bp + 0x8]             ; 0x0fec
     push word [bp + 0x6]             ; 0x0fef
     push word [bp + 0x4]             ; 0x0ff2
-    call math_loc_3b48               ; 0x0ff5
+    call loc_3b48                    ; 0x0ff5
     add sp, byte 0x0a                ; 0x0ff8
     push word [bp + 0xa]             ; 0x0ffb
     push word [bp + 0x8]             ; 0x0ffe

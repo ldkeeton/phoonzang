@@ -8,7 +8,7 @@ dos_con_loc_3a0f:
     db 'Frame 00 too big in slot 00.', 0
     db 0x0a, 0x24
 
-@..dos_con_loc_39e3.l1:
+@..math_loc_39e3.l1:
     mov cl, 2                        ; 0x3a3a
     shl al, cl                       ; 0x3a3c
     mov bx, 2                        ; 0x3a3e

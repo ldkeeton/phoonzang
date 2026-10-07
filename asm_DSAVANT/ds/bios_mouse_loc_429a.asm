@@ -1,4 +1,4 @@
-bios_mouse_loc_428d:
+loc_428d:
     push bp                          ; 0x428d
     mov bp, sp                       ; 0x428e
     cld                              ; 0x4290

@@ -116,7 +116,7 @@ leaf_loc_3f00:
     pop bp                           ; 0x4005
     or ax, 0xd5f                     ; 0x4006
     add ax, 0x6100                   ; 0x4009
-    or ax, math_loc_0d6a             ; 0x400c
+    or ax, 0xd6a                     ; 0x400c
     insb                             ; 0x400f
     or ax, 0xd6e                     ; 0x4010
     add ax, 0x7000                   ; 0x4013

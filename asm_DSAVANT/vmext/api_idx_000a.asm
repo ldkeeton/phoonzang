@@ -21,7 +21,7 @@ api_idx_000a:
     mov word [data_8f40], ax         ; 0x0bc5
     mov ax, word [data_8f32]         ; 0x0bc8
     mov word [data_8f3e], ax         ; 0x0bcb
-    call math_loc_054f               ; 0x0bce
+    call loc_054f                    ; 0x0bce
     test ax, ax                      ; 0x0bd1
     je short @..api_idx_000a.l1      ; 0x0bd3
     mov ax, word [data_82e8]         ; 0x0bd5

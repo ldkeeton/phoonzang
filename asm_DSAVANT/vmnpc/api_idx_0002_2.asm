@@ -133,6 +133,6 @@ api_idx_0002_2:
     push ax                          ; 0x2895
     mov ax, data_93f0                ; 0x2896
     push ax                          ; 0x2899
-    call math_loc_2472               ; 0x289a
+    call loc_2472                    ; 0x289a
     add sp, byte 4                   ; 0x289d
     ret                              ; 0x28a0

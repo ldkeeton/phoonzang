@@ -1673,8 +1673,20 @@ loc_1c25:
     add bx, bp                       ; 0x218a
     mov ax, word [bx - 0x002a]       ; 0x218c
     ret                              ; 0x218f
-%include "vpcvw/math_loc_2190.asm"
-
+loc_2190:
+    mov ax, 0                        ; 0x2190
+    call ds_dispatch_f40b            ; 0x2193
+    mov ax, 1                        ; 0x2196
+    push ax                          ; 0x2199
+    push ax                          ; 0x219a
+    push word [bp + 0x4]             ; 0x219b
+    call api_idx_000c                ; 0x219e
+    add sp, byte 6                   ; 0x21a1
+    mov ax, 0x3e8                    ; 0x21a4
+    push ax                          ; 0x21a7
+    call ds_dispatch_e489            ; 0x21a8
+    pop cx                           ; 0x21ab
+    ret                              ; 0x21ac
 %include "vpcvw/math_loc_21ad.asm"
 
 %include "vpcvw/api_idx_0008_2.asm"
@@ -1682,7 +1694,7 @@ loc_1c25:
     mov al, byte [bp - 0x0002]       ; 0x23fd
     mov byte [bx + 0x5d5f], al       ; 0x2400
     push word [bp + 0xa]             ; 0x2404
-    call math_loc_2190               ; 0x2407
+    call loc_2190                    ; 0x2407
     pop cx                           ; 0x240a
     jmp near @..api_idx_0008_2.l16   ; 0x240b
     mov ax, 0x248                    ; 0x240e
@@ -1738,7 +1750,7 @@ loc_1c25:
     jmp short loc_2493               ; 0x248c
     mov byte [bx + 0x5e2f], 0        ; 0x248e
     push word [bp + 0xa]             ; 0x2493
-    call math_loc_2190               ; 0x2496
+    call loc_2190                    ; 0x2496
     pop cx                           ; 0x2499
     jmp near @..api_idx_0008_2.l16   ; 0x249a
     mov ax, 0x248                    ; 0x249d
@@ -1759,7 +1771,7 @@ loc_1c25:
     mov al, byte [bp - 0x0002]       ; 0x24c4
     mov byte [bx + 0x5d61], al       ; 0x24c7
     push word [bp + 0xa]             ; 0x24cb
-    call math_loc_2190               ; 0x24ce
+    call loc_2190                    ; 0x24ce
     pop cx                           ; 0x24d1
     jmp near @..api_idx_0008_2.l16   ; 0x24d2
     mov ax, 3                        ; 0x24d5
@@ -1778,7 +1790,7 @@ loc_1c25:
     jle short loc_24fb               ; 0x24f4
     mov byte [bx + 0x5d60], 0        ; 0x24f6
     push word [bp + 0xa]             ; 0x24fb
-    call math_loc_2190               ; 0x24fe
+    call loc_2190                    ; 0x24fe
     pop cx                           ; 0x2501
     jmp near @..api_idx_0008_2.l16   ; 0x2502
     mov word [bp - 0x0002], 0        ; 0x2505
@@ -1803,7 +1815,7 @@ loc_1c25:
     mov al, byte [bp - 0x0004]       ; 0x2537
     mov byte [bx + 0x5d5c], al       ; 0x253a
     push word [bp - 0x0002]          ; 0x253e
-    call math_loc_2190               ; 0x2541
+    call loc_2190                    ; 0x2541
     pop cx                           ; 0x2544
     inc word [bp - 0x0002]           ; 0x2545
     mov ax, word [bp - 0x0002]       ; 0x2548
@@ -1849,7 +1861,7 @@ loc_1c25:
     cmp ax, strict word 9            ; 0x25b4
     jle short loc_2559               ; 0x25b7
     push word [bp + 0xa]             ; 0x25b9
-    call math_loc_2190               ; 0x25bc
+    call loc_2190                    ; 0x25bc
     pop cx                           ; 0x25bf
     jmp near @..api_idx_0008_2.l16   ; 0x25c0
     mov ax, 0                        ; 0x25c3
@@ -1916,7 +1928,7 @@ loc_1c25:
     cmp word [bp + 0x6], byte 0x58   ; 0x2665
     je short loc_2672                ; 0x2669
     push word [bp - 0x0002]          ; 0x266b
-    call math_loc_2190               ; 0x266e
+    call loc_2190                    ; 0x266e
     pop cx                           ; 0x2671
     inc word [bp - 0x0002]           ; 0x2672
     mov ax, word [bp - 0x0002]       ; 0x2675
@@ -1980,7 +1992,7 @@ loc_1c25:
     add word [bx + 0x5bfc], ax       ; 0x2705
     adc word [bx + 0x5bfe], dx       ; 0x2709
     push word [bp + 0xa]             ; 0x270d
-    call math_loc_2190               ; 0x2710
+    call loc_2190                    ; 0x2710
     pop cx                           ; 0x2713
     jmp near @..api_idx_0008_2.l16   ; 0x2714
     push word [bp + 0x8]             ; 0x2717
@@ -3281,8 +3293,35 @@ loc_2bf3:
     ret                              ; 0x3973
 %include "vpcvw/api_idx_0004_5.asm"
 
-%include "vpcvw/math_loc_3a6a.asm"
-
+loc_3a6a:
+    mov ax, 0                        ; 0x3a6a
+    call ds_dispatch_f40b            ; 0x3a6d
+    mov ax, 0xbb                     ; 0x3a70
+    push ax                          ; 0x3a73
+    mov ax, 0xab                     ; 0x3a74
+    push ax                          ; 0x3a77
+    mov ax, 0x70                     ; 0x3a78
+    push ax                          ; 0x3a7b
+    mov ax, 1                        ; 0x3a7c
+    push ax                          ; 0x3a7f
+    call ds_dispatch_e8da            ; 0x3a80
+    add sp, byte 8                   ; 0x3a83
+    call ds_dispatch_ec17            ; 0x3a86
+@..local.l7:
+    call ds_dispatch_baef            ; 0x3a89
+    test ax, ax                      ; 0x3a8c
+    jne short @..local.l8            ; 0x3a8e
+    jmp short @..local.l7            ; 0x3a90
+@..local.l8:
+    mov ax, 0                        ; 0x3a92
+    push ax                          ; 0x3a95
+    push ax                          ; 0x3a96
+    push word [data_93f8]            ; 0x3a97
+    push word [data_93f6]            ; 0x3a9b
+    call ds_dispatch_e942            ; 0x3a9f
+    add sp, byte 8                   ; 0x3aa2
+    mov word [data_9566], 0          ; 0x3aa5
+    ret                              ; 0x3aab
 %include "vpcvw/api_idx_0004_6.asm"
 
 @..api_idx_0004_6.l2:
@@ -3358,8 +3397,19 @@ loc_2bf3:
 
 %include "vpcvw/api_idx_0056.asm"
 
-%include "vpcvw/math_loc_3cde.asm"
-
+loc_3cde:
+    mov ax, 0                        ; 0x3cde
+    call ds_dispatch_f40b            ; 0x3ce1
+    mov bx, word [bp + 0x4]          ; 0x3ce4
+    cmp byte [bx + 0x6], 0           ; 0x3ce7
+    jbe short @..local.l9            ; 0x3ceb
+    dec byte [bx + 0x6]              ; 0x3ced
+    mov bx, word [bp + 0x4]          ; 0x3cf0
+    cmp byte [bx + 0x6], 0           ; 0x3cf3
+    jne short @..local.l9            ; 0x3cf7
+    mov word [bx], 0                 ; 0x3cf9
+@..local.l9:
+    ret                              ; 0x3cfd
 %include "vpcvw/api_idx_009e_2.asm"
 
     mov ax, 0xfa                     ; 0x3efe
@@ -3379,7 +3429,7 @@ loc_2bf3:
     pop ax                           ; 0x3f1f
     mov byte [bx + 0x5d62], al       ; 0x3f20
     push word [bp + 0x6]             ; 0x3f24
-    call math_loc_3cde               ; 0x3f27
+    call loc_3cde                    ; 0x3f27
     pop cx                           ; 0x3f2a
     mov ax, 0x248                    ; 0x3f2b
     imul word [bp + 0x4]             ; 0x3f2e
@@ -3407,7 +3457,7 @@ loc_2bf3:
     mov word [bp - 0x0002], ax       ; 0x3f6a
     jmp short loc_3f49               ; 0x3f6d
     push word [bp + 0x6]             ; 0x3f6f
-    call math_loc_3cde               ; 0x3f72
+    call loc_3cde                    ; 0x3f72
     pop cx                           ; 0x3f75
     jmp short @..api_idx_009e_2.l3   ; 0x3f76
     mov ax, 4                        ; 0x3f78
@@ -3420,7 +3470,7 @@ loc_2bf3:
     call api_idx_0002_7              ; 0x3f87
     add sp, byte 8                   ; 0x3f8a
     push word [bp + 0x6]             ; 0x3f8d
-    call math_loc_3cde               ; 0x3f90
+    call loc_3cde                    ; 0x3f90
     pop cx                           ; 0x3f93
     jmp short @..api_idx_009e_2.l3   ; 0x3f94
     add dl, byte [bx + si - 0x728d]  ; 0x3f96
@@ -3466,7 +3516,7 @@ loc_2bf3:
     call api_idx_0008_2              ; 0x3ff9
     add sp, byte 8                   ; 0x3ffc
     push word [bp + 0x6]             ; 0x3fff
-    call math_loc_3cde               ; 0x4002
+    call loc_3cde                    ; 0x4002
     pop cx                           ; 0x4005
     jmp short @..api_idx_009e_2.l7   ; 0x4006
 @..api_idx_009e_2.l6:
@@ -3476,10 +3526,102 @@ loc_2bf3:
     pop cx                           ; 0x400f
 @..api_idx_009e_2.l7:
     ret                              ; 0x4010
-%include "vpcvw/math_loc_4011.asm"
-
-%include "vpcvw/math_loc_40b7.asm"
-
+loc_4011:
+    mov ax, 0                        ; 0x4011
+    call ds_dispatch_f40b            ; 0x4014
+    les bx, word [data_0002]         ; 0x4017
+    mov ax, word [es:bx]             ; 0x401b
+    mov dx, word [es:bx + 0x2]       ; 0x401e
+    mov word [data_9090], dx         ; 0x4022
+    mov word [data_908e], ax         ; 0x4026
+    mov ax, word [data_908e]         ; 0x4029
+    mov dx, word [data_9090]         ; 0x402c
+    sub ax, word [data_908a]         ; 0x4030
+    sbb dx, word [data_908c]         ; 0x4034
+    mov word [data_9094], dx         ; 0x4038
+    mov word [data_9092], ax         ; 0x403c
+    mov ax, word [data_9562]         ; 0x403f
+    cwd                              ; 0x4042
+    mov cx, ax                       ; 0x4043
+    mov bx, dx                       ; 0x4045
+    mov ax, word [data_9092]         ; 0x4047
+    mov dx, word [data_9094]         ; 0x404a
+    cmp bx, dx                       ; 0x404e
+    jg short @..local.l10            ; 0x4050
+    jne short @..local.l11           ; 0x4052
+    cmp cx, ax                       ; 0x4054
+    jbe short @..local.l11           ; 0x4056
+@..local.l10:
+    jmp short @..local.l12           ; 0x4058
+@..local.l11:
+    mov ax, word [data_908e]         ; 0x405a
+    mov dx, word [data_9090]         ; 0x405d
+    mov word [data_908c], dx         ; 0x4061
+    mov word [data_908a], ax         ; 0x4065
+    mov ax, word [data_9432]         ; 0x4068
+    inc ax                           ; 0x406b
+    mov cx, 3                        ; 0x406c
+    cwd                              ; 0x406f
+    idiv cx                          ; 0x4070
+    mov word [data_9432], dx         ; 0x4072
+    push dx                          ; 0x4076
+    call api_idx_000a                ; 0x4077
+    pop cx                           ; 0x407a
+    mov ax, 0x41                     ; 0x407b
+    push ax                          ; 0x407e
+    mov ax, 0x65                     ; 0x407f
+    push ax                          ; 0x4082
+    mov ax, 0x19                     ; 0x4083
+    push ax                          ; 0x4086
+    mov ax, 0x5a                     ; 0x4087
+    push ax                          ; 0x408a
+    call ds_dispatch_e8da            ; 0x408b
+    add sp, byte 8                   ; 0x408e
+    mov ax, 0xffff                   ; 0x4091
+    push ax                          ; 0x4094
+    call api_idx_0002_2              ; 0x4095
+    pop cx                           ; 0x4098
+    push word [bp + 0x4]             ; 0x4099
+    call api_idx_0004_3              ; 0x409c
+    pop cx                           ; 0x409f
+    mov ax, 0xbf                     ; 0x40a0
+    push ax                          ; 0x40a3
+    mov ax, 0x13f                    ; 0x40a4
+    push ax                          ; 0x40a7
+    mov ax, 0x7e                     ; 0x40a8
+    push ax                          ; 0x40ab
+    mov ax, 0xb8                     ; 0x40ac
+    push ax                          ; 0x40af
+    call ds_dispatch_e8da            ; 0x40b0
+    add sp, byte 8                   ; 0x40b3
+@..local.l12:
+    ret                              ; 0x40b6
+loc_40b7:
+    mov ax, 0                        ; 0x40b7
+    call ds_dispatch_f40b            ; 0x40ba
+    push word [bp + 0x4]             ; 0x40bd
+    call api_idx_007c                ; 0x40c0
+    pop cx                           ; 0x40c3
+    push word [bp + 0x4]             ; 0x40c4
+    call api_idx_0080                ; 0x40c7
+    pop cx                           ; 0x40ca
+    cmp word [bp + 0x6], byte 0      ; 0x40cb
+    jne short @..local.l13           ; 0x40cf
+    push word [bp + 0x4]             ; 0x40d1
+    call api_idx_004c                ; 0x40d4
+    pop cx                           ; 0x40d7
+    call api_idx_0004_2              ; 0x40d8
+    mov ax, 0xc7                     ; 0x40db
+    push ax                          ; 0x40de
+    mov ax, 0x13f                    ; 0x40df
+    push ax                          ; 0x40e2
+    mov ax, 0                        ; 0x40e3
+    push ax                          ; 0x40e6
+    push ax                          ; 0x40e7
+    call ds_dispatch_e8da            ; 0x40e8
+    add sp, byte 8                   ; 0x40eb
+@..local.l13:
+    ret                              ; 0x40ee
 %include "vpcvw/api_idx_0084_2.asm"
 
 %include "vpcvw/api_idx_0048.asm"
@@ -5501,7 +5643,7 @@ loc_2bf3:
     mov ax, 0                        ; 0x5fe3
     push ax                          ; 0x5fe6
     push dx                          ; 0x5fe7
-    call math_loc_40b7               ; 0x5fe8
+    call loc_40b7                    ; 0x5fe8
     add sp, byte 4                   ; 0x5feb
     mov word [bp - 0x001a], data_0002 ; 0x5fee
 @..api_idx_00c2.l69:
@@ -5521,7 +5663,7 @@ loc_2bf3:
     mov ax, 0                        ; 0x601a
     push ax                          ; 0x601d
     push dx                          ; 0x601e
-    call math_loc_40b7               ; 0x601f
+    call loc_40b7                    ; 0x601f
     add sp, byte 4                   ; 0x6022
     mov word [bp - 0x001a], data_0002 ; 0x6025
 @..api_idx_00c2.l71:
@@ -5716,7 +5858,7 @@ loc_2bf3:
     mov ax, 0                        ; 0x63f9
     push ax                          ; 0x63fc
     push word [bp + 0x4]             ; 0x63fd
-    call math_loc_40b7               ; 0x6400
+    call loc_40b7                    ; 0x6400
     add sp, byte 4                   ; 0x6403
     mov ax, 0                        ; 0x6406
     push ax                          ; 0x6409
@@ -6052,7 +6194,7 @@ loc_2bf3:
     add sp, byte 0x0e                ; 0x66bd
 @..api_idx_0014.l13:
     push word [bp + 0x4]             ; 0x66c0
-    call math_loc_4011               ; 0x66c3
+    call loc_4011                    ; 0x66c3
     pop cx                           ; 0x66c6
     mov ax, 0x59fe                   ; 0x66c7
     push ax                          ; 0x66ca
@@ -8486,7 +8628,7 @@ loc_902e:
     mov ax, 0                        ; 0x902e
     call ds_dispatch_f40b            ; 0x9031
     mov ax, word [bp + 0x6]          ; 0x9034
-    jmp near @..local.l7             ; 0x9037
+    jmp near @..local.l14            ; 0x9037
 
     db 0xff, 0x76, 0x08, 0xb8, 0xe8, 0x92, 0x50, 0xff, 0x76, 0x06, 0xff, 0x76, 0x04, 0xe8, 0x6e, 0xff
     db 0x83, 0xc4, 0x08, 0xe9, 0x61, 0x01, 0xff, 0x76, 0x08, 0xb8, 0xf1, 0x92, 0x50, 0xff, 0x76, 0x06
@@ -8512,13 +8654,13 @@ loc_902e:
     db 0x97, 0xe0, 0xad, 0xe0, 0xc3, 0xe0, 0xd9, 0xe0, 0xef, 0xe0, 0x05, 0xe1, 0x1b, 0xe1, 0x31, 0xe1
     db 0x65, 0xe1, 0x7b, 0xe1, 0x90, 0xe1, 0xa5, 0xe1, 0xba, 0xe1
 
-@..local.l7:
+@..local.l14:
     cmp ax, strict word 0xe          ; 0x91a4
-    jae short @..local.l8            ; 0x91a7
+    jae short @..local.l15           ; 0x91a7
     xchg bx, ax                      ; 0x91a9
     shl bx, 1                        ; 0x91aa
     jmp [cs:bx - 0x1e31]             ; 0x91ac
-@..local.l8:
+@..local.l15:
     ret                              ; 0x91b1
 %include "vpcvw/api_idx_0002_11.asm"
 
@@ -8526,7 +8668,7 @@ loc_91d9:
     mov ax, 0                        ; 0x91d9
     call ds_dispatch_f40b            ; 0x91dc
     mov ax, word [bp + 0x6]          ; 0x91df
-    jmp near @..local.l9             ; 0x91e2
+    jmp near @..local.l16            ; 0x91e2
 
     db 0xb8, 0x66, 0x93, 0x50, 0xff, 0x76, 0x04, 0xe8, 0x75, 0xfd, 0x83, 0xc4, 0x04, 0xe9, 0xbd, 0x00
     db 0xb8, 0x6f, 0x93, 0x50, 0xff, 0x76, 0x04, 0xe8, 0x65, 0xfd, 0x83, 0xc4, 0x04, 0xe9, 0xad, 0x00
@@ -8541,13 +8683,13 @@ loc_91d9:
     db 0x76, 0x04, 0xe8, 0xda, 0xfc, 0x83, 0xc4, 0x04, 0xeb, 0x23, 0x2c, 0xe2, 0x3c, 0xe2, 0x4c, 0xe2
     db 0x5c, 0xe2, 0x6c, 0xe2, 0x7c, 0xe2, 0x8b, 0xe2, 0x9a, 0xe2, 0xa9, 0xe2, 0xb8, 0xe2, 0xc7, 0xe2
 
-@..local.l9:
+@..local.l16:
     cmp ax, strict word 0xb          ; 0x92a5
-    jae short @..local.l10           ; 0x92a8
+    jae short @..local.l17           ; 0x92a8
     xchg bx, ax                      ; 0x92aa
     shl bx, 1                        ; 0x92ab
     jmp [cs:bx - 0x1d2a]             ; 0x92ad
-@..local.l10:
+@..local.l17:
     ret                              ; 0x92b2
 %include "vpcvw/api_idx_0030.asm"
 

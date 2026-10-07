@@ -125,7 +125,7 @@ api_idx_000a_3:
     sub ah, ah                       ; 0x9521
     mov word [bp - 0x0008], ax       ; 0x9523
     push ax                          ; 0x9526
-    call math_loc_742e               ; 0x9527
+    call loc_742e                    ; 0x9527
     pop cx                           ; 0x952a
     inc word [bp - 0x000a]           ; 0x952b
     jmp short @..api_idx_000a_3.l21  ; 0x952e

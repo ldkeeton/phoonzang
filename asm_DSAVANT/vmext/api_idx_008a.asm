@@ -76,7 +76,7 @@ api_idx_008a:
     cwd                              ; 0x0cd0
     idiv cx                          ; 0x0cd1
     mov word [data_82ee], dx         ; 0x0cd3
-    call math_loc_054f               ; 0x0cd7
+    call loc_054f                    ; 0x0cd7
     test ax, ax                      ; 0x0cda
     je short @..api_idx_008a.l5      ; 0x0cdc
     mov ax, word [data_82e8]         ; 0x0cde

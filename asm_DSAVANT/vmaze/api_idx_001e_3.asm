@@ -126,7 +126,7 @@ api_idx_001e_3:
     push word [bp - 0x0014]          ; 0x7f7e
     mov ax, 7                        ; 0x7f81
     push ax                          ; 0x7f84
-    call math_loc_7cb4               ; 0x7f85
+    call loc_7cb4                    ; 0x7f85
     add sp, byte 4                   ; 0x7f88
 @..api_idx_001e_3.l4:
     push word [bp - 0x000a]          ; 0x7f8b
@@ -159,7 +159,7 @@ api_idx_001e_3:
     push word [bp - 0x0014]          ; 0x7fd5
     mov ax, 7                        ; 0x7fd8
     push ax                          ; 0x7fdb
-    call math_loc_7cb4               ; 0x7fdc
+    call loc_7cb4                    ; 0x7fdc
     add sp, byte 4                   ; 0x7fdf
 @..api_idx_001e_3.l6:
     jmp short @..api_idx_001e_3.l8   ; 0x7fe2
@@ -171,7 +171,7 @@ api_idx_001e_3:
     push word [bp - 0x0014]          ; 0x7ff0
     mov ax, 7                        ; 0x7ff3
     push ax                          ; 0x7ff6
-    call math_loc_7cb4               ; 0x7ff7
+    call loc_7cb4                    ; 0x7ff7
     add sp, byte 4                   ; 0x7ffa
 @..api_idx_001e_3.l8:
     call loc_676c                    ; 0x7ffd
@@ -186,7 +186,7 @@ api_idx_001e_3:
     push word [bp - 0x0014]          ; 0x800d
     mov ax, 7                        ; 0x8010
     push ax                          ; 0x8013
-    call math_loc_7cb4               ; 0x8014
+    call loc_7cb4                    ; 0x8014
     add sp, byte 4                   ; 0x8017
 @..api_idx_001e_3.l12:
     mov ax, 2                        ; 0x801a

@@ -1,4 +1,4 @@
-math_loc_3b55:
+loc_3b55:
     push bp                          ; 0x3b55
     mov bp, sp                       ; 0x3b56
     cld                              ; 0x3b58

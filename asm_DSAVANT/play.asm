@@ -82,17 +82,17 @@ loc_0000:
     retf                             ; 0x0006
     call strlen                      ; 0x0007
     retf                             ; 0x000a
-    call loc_0154                    ; 0x000b
+    call leaf_loc_0154               ; 0x000b
     retf                             ; 0x000e
-    call io_loc_01b0                 ; 0x000f
+    call loc_01b0                    ; 0x000f
     retf                             ; 0x0012
     call io_loc_023f                 ; 0x0013
     retf                             ; 0x0016
-    call io_loc_0294                 ; 0x0017
+    call bios_disk_loc_0294          ; 0x0017
     retf                             ; 0x001a
-    call io_loc_016e                 ; 0x001b
+    call leaf_loc_016e               ; 0x001b
     retf                             ; 0x001e
-    call io_loc_0183                 ; 0x001f
+    call leaf_loc_0183               ; 0x001f
     retf                             ; 0x0022
 loc_0023:
     push bp                          ; 0x0023
@@ -121,7 +121,7 @@ loc_0023:
     mov al, byte [cs:data_0b7c]      ; 0x0078
     mov ax, word [cs:data_0b83]      ; 0x007c
     mov word [cs:data_0b85], ax      ; 0x0080
-    call io_loc_0098                 ; 0x0084
+    call loc_0098                    ; 0x0084
     cmp ax, strict word 0            ; 0x0087
     jne short @..local.l3            ; 0x008a
     call io_loc_02ba                 ; 0x008c
@@ -130,8 +130,13 @@ loc_0023:
     pop bx                           ; 0x0095
     pop bp                           ; 0x0096
     ret                              ; 0x0097
-%include "play/io_loc_0098.asm"
-
+loc_0098:
+    mov bl, byte [cs:data_0b7c]      ; 0x0098
+    xor bh, bh                       ; 0x009d
+    shl bx, 1                        ; 0x009f
+    mov ax, 0                        ; 0x00a1
+    call [cs:bx + 0x1aa]             ; 0x00a4
+    ret                              ; 0x00a9
 
     db 0x84, 0x12, 0xc4, 0x01, 0x84, 0x12, 0x84, 0x12, 0xc4, 0x01, 0xb6, 0x01, 0x51, 0xb9, 0x0a, 0x00
     db 0xe8, 0x5a, 0x11, 0x3d, 0x00, 0x00, 0xe0, 0xf8, 0x59, 0xc3, 0xb0, 0x08, 0x2e, 0x80, 0x3e, 0x7d
@@ -147,32 +152,37 @@ loc_0023:
     times 6 db 0
     db 'PBAPBL'
 
-loc_0154:
-    push bp                          ; 0x0154
-    mov bp, sp                       ; 0x0155
-    mov ax, word [bp + 0x8]          ; 0x0157
-    mov word [cs:data_0bae], ax      ; 0x015a
-    mov ax, word [bp + 0xa]          ; 0x015e
-    mov word [cs:data_0bac], ax      ; 0x0161
-    mov ax, word [bp + 0xc]          ; 0x0165
-    mov byte [cs:data_0b7c], al      ; 0x0168
-    pop bp                           ; 0x016c
-    ret                              ; 0x016d
-%include "play/io_loc_016e.asm"
+%include "play/leaf_loc_0154.asm"
 
-%include "play/io_loc_0183.asm"
+%include "play/leaf_loc_016e.asm"
 
-@..io_loc_0183.l3:
+%include "play/leaf_loc_0183.asm"
+
+@..leaf_loc_0183.l3:
     cmp byte [cs:data_0b7d], 0       ; 0x019e
-    jne short @..io_loc_0183.l5      ; 0x01a4
-@..io_loc_0183.l4:
+    jne short @..leaf_loc_0183.l5    ; 0x01a4
+@..leaf_loc_0183.l4:
     cmp byte [cs:data_0b94], 0       ; 0x01a6
-    je short @..io_loc_0183.l4       ; 0x01ac
-@..io_loc_0183.l5:
+    je short @..leaf_loc_0183.l4     ; 0x01ac
+@..leaf_loc_0183.l5:
     pop bp                           ; 0x01ae
     ret                              ; 0x01af
-%include "play/io_loc_01b0.asm"
-
+loc_01b0:
+    push bx                          ; 0x01b0
+    cmp byte [cs:data_0b9a], 0       ; 0x01b1
+    je short @..local.l5             ; 0x01b7
+    mov byte [cs:data_0b9a], 0       ; 0x01b9
+    cmp byte [cs:data_0b94], 0       ; 0x01bf
+    je short @..local.l4             ; 0x01c5
+    call io_loc_0c97                 ; 0x01c7
+@..local.l4:
+    mov bl, byte [cs:data_0b7c]      ; 0x01ca
+    xor bh, bh                       ; 0x01cf
+    shl bx, 1                        ; 0x01d1
+    call [cs:bx + 0x2da]             ; 0x01d3
+@..local.l5:
+    pop bx                           ; 0x01d8
+    ret                              ; 0x01d9
 
     db 0x84, 0x12, 0xe6, 0x02, 0x84, 0x12, 0x84, 0x12, 0xe6, 0x02, 0x22, 0x03, 0x53, 0x51, 0x52, 0xb1
     db 0x00, 0xb4, 0xb1, 0x2e, 0x80, 0x3e, 0x7d, 0x0b, 0x01, 0x74, 0x0a, 0x2e, 0x80, 0x3e, 0x7d, 0x0b
@@ -184,20 +194,20 @@ loc_0154:
 
 %include "play/io_loc_023f.asm"
 
-%include "play/io_loc_0294.asm"
+%include "play/bios_disk_loc_0294.asm"
 
-%include "play/io_loc_02b3.asm"
+%include "play/leaf_loc_02b3.asm"
 
 %include "play/io_loc_02ba.asm"
 
     db 0x00
-@..io_loc_0294.l2:
+@..bios_disk_loc_0294.l2:
     mov ah, 0                        ; 0x0322
     int 0x13 ; BIOS disk: reset disk system
     cmp byte [bp + 0x15], 4          ; 0x0326
-    jne short @..io_loc_0294.l3      ; 0x032a
+    jne short @..bios_disk_loc_0294.l3 ; 0x032a
     mov byte [bp + 0x15], 1          ; 0x032c
-@..io_loc_0294.l3:
+@..bios_disk_loc_0294.l3:
     mov ax, 0x64                     ; 0x0330
     mov word [cs:data_0b81], ax      ; 0x0333
     mov al, byte [bp + 0x15]         ; 0x0337
@@ -206,9 +216,9 @@ loc_0154:
     pushf                            ; 0x0344
     pop ax                           ; 0x0345
     test ah, 0x80                    ; 0x0346
-    je short @..io_loc_0294.l4       ; 0x0349
+    je short @..bios_disk_loc_0294.l4 ; 0x0349
     inc byte [cs:data_0b90]          ; 0x034b
-@..io_loc_0294.l4:
+@..bios_disk_loc_0294.l4:
     mov bl, byte [cs:data_0b7d]      ; 0x0350
     shl bl, 1                        ; 0x0355
     xor bh, bh                       ; 0x0357
@@ -261,32 +271,32 @@ loc_0154:
     add al, ch                       ; 0x03db
     or ax, 0xe903                    ; 0x03dd
     mov al, 1                        ; 0x03e0
-@..io_loc_0294.l5:
+@..bios_disk_loc_0294.l5:
     cmp byte [bp + 0x12], 0          ; 0x03e2
-    jne short @..io_loc_0294.l7      ; 0x03e6
-    call io_loc_01b0                 ; 0x03e8
-@..io_loc_0294.l6:
+    jne short @..bios_disk_loc_0294.l7 ; 0x03e6
+    call loc_01b0                    ; 0x03e8
+@..bios_disk_loc_0294.l6:
     test byte [cs:data_0b94], 0xff   ; 0x03eb
-    je short @..io_loc_0294.l6       ; 0x03f1
-    jmp near @..io_loc_0294.l12      ; 0x03f3
-@..io_loc_0294.l7:
+    je short @..bios_disk_loc_0294.l6 ; 0x03f1
+    jmp near @..bios_disk_loc_0294.l12 ; 0x03f3
+@..bios_disk_loc_0294.l7:
     test byte [bp + 0x14], 2         ; 0x03f6
-    je short @..io_loc_0294.l8       ; 0x03fa
+    je short @..bios_disk_loc_0294.l8 ; 0x03fa
     test byte [cs:data_0b94], 0xff   ; 0x03fc
-    jne short @..io_loc_0294.l8      ; 0x0402
+    jne short @..bios_disk_loc_0294.l8 ; 0x0402
     jmp near loc_0592                ; 0x0404
-@..io_loc_0294.l8:
+@..bios_disk_loc_0294.l8:
     cli                              ; 0x0407
     test byte [cs:data_0b94], 0xff   ; 0x0408
-    jne short @..io_loc_0294.l9      ; 0x040e
+    jne short @..bios_disk_loc_0294.l9 ; 0x040e
     jmp near loc_04c3                ; 0x0410
-@..io_loc_0294.l9:
+@..bios_disk_loc_0294.l9:
     xor ax, ax                       ; 0x0413
     mov es, ax                       ; 0x0415
     mov di, 0x20                     ; 0x0417
     cli                              ; 0x041a
     cmp byte [cs:data_0421], 0       ; 0x041b
-    jne short @..io_loc_0294.l10     ; 0x0421
+    jne short @..bios_disk_loc_0294.l10 ; 0x0421
     mov byte [cs:data_0421], 1       ; 0x0423
     in al, 0x21                      ; 0x0429
     mov byte [cs:data_0b8f], al      ; 0x042b
@@ -294,17 +304,17 @@ loc_0154:
     mov word [cs:data_0c10], ax      ; 0x0432
     mov ax, word [es:di + 0x2]       ; 0x0436
     mov word [cs:data_0c12], ax      ; 0x043a
-@..io_loc_0294.l10:
+@..bios_disk_loc_0294.l10:
     mov al, 0x34                     ; 0x043e
     out 0x43, al                     ; 0x0440
-    call io_loc_0610                 ; 0x0442
+    call leaf_loc_0610               ; 0x0442
     mov ax, 0x48                     ; 0x0445
     out 0x40, al                     ; 0x0448
-    call io_loc_0610                 ; 0x044a
+    call leaf_loc_0610               ; 0x044a
     mov al, ah                       ; 0x044d
     out 0x40, al                     ; 0x044f
     cmp byte [cs:data_0b90], 0       ; 0x0451
-    je short @..io_loc_0294.l11      ; 0x0457
+    je short @..bios_disk_loc_0294.l11 ; 0x0457
     mov bl, byte [cs:data_0b7d]      ; 0x0459
     shl bl, 1                        ; 0x045e
     xor bh, bh                       ; 0x0460
@@ -313,7 +323,7 @@ loc_0154:
     je short loc_04b5                ; 0x046d
     mov dx, word [cs:bx + 0x5ad]     ; 0x046f
     jmp near loc_04b5                ; 0x0474
-@..io_loc_0294.l11:
+@..bios_disk_loc_0294.l11:
     mov bl, byte [cs:data_0b7d]      ; 0x0477
     shl bl, 1                        ; 0x047c
     xor bh, bh                       ; 0x047e
@@ -329,7 +339,7 @@ loc_059b:
     out 0x43, al                     ; 0x059d
     mov ax, 0x48                     ; 0x059f
     out 0x40, al                     ; 0x05a2
-    call io_loc_0610                 ; 0x05a4
+    call leaf_loc_0610               ; 0x05a4
     mov al, ah                       ; 0x05a7
     out 0x40, al                     ; 0x05a9
     mov al, strlen                   ; 0x05ab
@@ -364,20 +374,20 @@ loc_05e2:
     mov bl, 0x48                     ; 0x05fb
     mul bl                           ; 0x05fd
     out 0x40, al                     ; 0x05ff
-    call io_loc_0610                 ; 0x0601
+    call leaf_loc_0610               ; 0x0601
     mov al, ah                       ; 0x0604
     out 0x40, al                     ; 0x0606
 loc_0608:
     mov al, byte [cs:data_0b8f]      ; 0x0608
     out 0x21, al                     ; 0x060c
     jmp short loc_0592               ; 0x060e
-%include "play/io_loc_0610.asm"
+%include "play/leaf_loc_0610.asm"
 
-@..io_loc_0294.l12:
+@..bios_disk_loc_0294.l12:
     cmp byte [cs:data_0421], 0       ; 0x0614
-    jne short @..io_loc_0294.l13     ; 0x061a
+    jne short @..bios_disk_loc_0294.l13 ; 0x061a
     jmp near loc_0592                ; 0x061c
-@..io_loc_0294.l13:
+@..bios_disk_loc_0294.l13:
     cld                              ; 0x061f
     cli                              ; 0x0620
     xor ax, ax                       ; 0x0621
@@ -391,10 +401,10 @@ loc_0608:
     call io_loc_0a6d                 ; 0x0638
     mov al, 0x36                     ; 0x063b
     out 0x43, al                     ; 0x063d
-    call io_loc_0610                 ; 0x063f
+    call leaf_loc_0610               ; 0x063f
     mov ax, 0                        ; 0x0642
     out 0x40, al                     ; 0x0645
-    call io_loc_0610                 ; 0x0647
+    call leaf_loc_0610               ; 0x0647
     mov al, ah                       ; 0x064a
     out 0x40, al                     ; 0x064c
     mov al, byte [cs:data_0b8f]      ; 0x064e
@@ -422,7 +432,7 @@ loc_0608:
     db 0x00, 0xba, 0x88, 0x03, 0xb0, 0x40, 0xee, 0xe8, 0xbf, 0x00, 0xb0, 0x3f, 0x42, 0xee, 0xe8, 0xa8
     db 0x00, 0x9d, 0xc3
 
-%include "play/fpu_loc_077b.asm"
+%include "play/leaf_loc_077b.asm"
 
     mov bx, 0x1a3a                   ; 0x07db
     db 0x32, 0xc9 ; xor cl, cl
@@ -699,18 +709,18 @@ loc_0608:
     mov ds, word [cs:data_0c12]      ; 0x0a03
     mov dx, word [cs:data_0c10]      ; 0x0a08
     mov byte [cs:data_0421], 0       ; 0x0a0d
-    call io_loc_0a2a                 ; 0x0a13
+    call string_loc_0a2a             ; 0x0a13
     mov al, 0x36                     ; 0x0a16
     out 0x43, al                     ; 0x0a18
-    call io_loc_0610                 ; 0x0a1a
+    call leaf_loc_0610               ; 0x0a1a
     db 0x8b, 0xc3 ; mov ax, bx
     out 0x40, al                     ; 0x0a1f
-    call io_loc_0610                 ; 0x0a21
+    call leaf_loc_0610               ; 0x0a21
     db 0x8a, 0xc4 ; mov al, ah
     out 0x40, al                     ; 0x0a26
     pop dx                           ; 0x0a28
     ret                              ; 0x0a29
-%include "play/io_loc_0a2a.asm"
+%include "play/string_loc_0a2a.asm"
 
 
     db 0x00, 0xfa, 0x8a, 0x05, 0x2e, 0xd7, 0x8a, 0xc8, 0xb0, 0xb0, 0xe6, 0x43, 0x8a, 0xc1, 0xee, 0x32

@@ -13,7 +13,7 @@ strlen:
     repne scasb                      ; 0x0111
     mov word [es:di - 0x0001], 0x2e  ; 0x0113
     mov al, byte [bp + 0xc]          ; 0x0119
-    call io_loc_02b3                 ; 0x011c
+    call leaf_loc_02b3               ; 0x011c
     mov bl, al                       ; 0x011f
     mov byte [cs:data_0b7c], al      ; 0x0121
     mov bh, bl                       ; 0x0125

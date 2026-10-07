@@ -2,7 +2,7 @@ api_idx_0008:
     mov ax, 0xfff8                   ; 0x01c9
     call ds_dispatch_f40b            ; 0x01cc
     mov word [bp - 0x0008], 0        ; 0x01cf
-    call math_loc_13c0               ; 0x01d4
+    call loc_13c0                    ; 0x01d4
     cmp word [data_919e], byte 0     ; 0x01d7
     je short @..api_idx_0008.l2      ; 0x01dc
     cmp word [data_9194], byte 0x0d  ; 0x01de

@@ -19,7 +19,7 @@ string_loc_3a95:
     je short @..string_loc_3a95.l2   ; 0x3ab5
     push word [bp + 0x6]             ; 0x3ab7
     push ax                          ; 0x3aba
-    call string_loc_3a77             ; 0x3abb
+    call loc_3a77                    ; 0x3abb
     add sp, byte 4                   ; 0x3abe
     jmp short @..string_loc_3a95.l1  ; 0x3ac1
 @..string_loc_3a95.l2:

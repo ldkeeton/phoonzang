@@ -137,7 +137,7 @@ api_idx_005e_2:
     mov word [bp - 0x003e], ax       ; 0x5905
 @..api_idx_005e_2.l4:
     push word [bp - 0x0008]          ; 0x5908
-    call math_loc_5497               ; 0x590b
+    call loc_5497                    ; 0x590b
     pop cx                           ; 0x590e
     test ax, ax                      ; 0x590f
     je short @..api_idx_005e_2.l5    ; 0x5911
@@ -164,7 +164,7 @@ api_idx_005e_2:
     mov word [bp - 0x003c], dx       ; 0x593b
     mov word [bp - 0x003e], ax       ; 0x593e
     push word [bp - 0x0008]          ; 0x5941
-    call math_loc_5497               ; 0x5944
+    call loc_5497                    ; 0x5944
     pop cx                           ; 0x5947
     test ax, ax                      ; 0x5948
     je short @..api_idx_005e_2.l7    ; 0x594a
@@ -172,7 +172,7 @@ api_idx_005e_2:
     je short @..api_idx_005e_2.l8    ; 0x5951
 @..api_idx_005e_2.l7:
     push word [bp - 0x0008]          ; 0x5953
-    call math_loc_5497               ; 0x5956
+    call loc_5497                    ; 0x5956
     pop cx                           ; 0x5959
     test ax, ax                      ; 0x595a
     jne short @..api_idx_005e_2.l9   ; 0x595c

@@ -12,7 +12,7 @@ api_idx_005a:
     push word [data_8464]            ; 0x9f6c
     mov ax, 0x90e6                   ; 0x9f70
     push ax                          ; 0x9f73
-    call math_loc_15ab               ; 0x9f74
+    call loc_15ab                    ; 0x9f74
     add sp, byte 6                   ; 0x9f77
     mov word [bp - 0x0004], 0        ; 0x9f7a
     mov word [bp - 0x0006], 0        ; 0x9f7f

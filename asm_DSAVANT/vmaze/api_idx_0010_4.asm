@@ -31,7 +31,7 @@ api_idx_0010_4:
     mov word [bp - 0x0006], ax       ; 0x9ad1
     push ax                          ; 0x9ad4
     push word [bp + 0x4]             ; 0x9ad5
-    call math_loc_9448               ; 0x9ad8
+    call loc_9448                    ; 0x9ad8
     add sp, byte 4                   ; 0x9adb
     test ax, ax                      ; 0x9ade
     jne short @..api_idx_0010_4.l2   ; 0x9ae0

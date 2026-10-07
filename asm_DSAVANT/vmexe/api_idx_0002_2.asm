@@ -15,11 +15,11 @@ api_idx_0002_2:
     mov word [bp - 0x0002], ax       ; 0x1661
     push word [bp + 0x8]             ; 0x1664
     push ax                          ; 0x1667
-    call math_loc_15f9               ; 0x1668
+    call loc_15f9                    ; 0x1668
     add sp, byte 4                   ; 0x166b
     push word [bp + 0x6]             ; 0x166e
     push word [bp + 0x4]             ; 0x1671
-    call math_loc_1613               ; 0x1674
+    call loc_1613                    ; 0x1674
     add sp, byte 4                   ; 0x1677
     mov ax, 7                        ; 0x167a
     imul word [bp + 0x8]             ; 0x167d

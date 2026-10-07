@@ -8,7 +8,7 @@ api_idx_0004_15:
     sub ah, ah                       ; 0x96e0
     push ax                          ; 0x96e2
     push word [bp + 0x4]             ; 0x96e3
-    call math_loc_9448               ; 0x96e6
+    call loc_9448                    ; 0x96e6
     add sp, byte 4                   ; 0x96e9
     test ax, ax                      ; 0x96ec
     je short @..api_idx_0004_15.l1   ; 0x96ee

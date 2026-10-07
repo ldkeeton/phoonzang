@@ -115,7 +115,7 @@ api_idx_0050_2:
     cmp word [data_84a0], byte 0xff  ; 0x8065
     je short @..api_idx_0050_2.l8    ; 0x806a
     mov word [data_905e], 0xf        ; 0x806c
-    call loc_5789                    ; 0x8072
+    call math_loc_5789               ; 0x8072
 @..api_idx_0050_2.l8:
     cmp word [data_8450], byte 0     ; 0x8075
     je short @..api_idx_0050_2.l9    ; 0x807a

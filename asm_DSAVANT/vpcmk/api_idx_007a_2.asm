@@ -90,7 +90,7 @@ api_idx_007a_2:
     sub ah, ah                       ; 0x456b
     push ax                          ; 0x456d
     push word [bp + 0x4]             ; 0x456e
-    call math_loc_4392               ; 0x4571
+    call loc_4392                    ; 0x4571
     add sp, byte 4                   ; 0x4574
     mov ax, 1                        ; 0x4577
     push ax                          ; 0x457a

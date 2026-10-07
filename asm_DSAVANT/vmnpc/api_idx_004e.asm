@@ -37,7 +37,7 @@ api_idx_004e:
     db 0xe8, 0x72, 0x5a ; call 0xb63c
     add sp, byte 8                   ; 0x5bca
     push word [bp - 0x0002]          ; 0x5bcd
-    call math_loc_5497               ; 0x5bd0
+    call loc_5497                    ; 0x5bd0
     pop cx                           ; 0x5bd3
     test ax, ax                      ; 0x5bd4
     je short @..api_idx_004e.l1      ; 0x5bd6
@@ -45,7 +45,7 @@ api_idx_004e:
     je short @..api_idx_004e.l2      ; 0x5bdd
 @..api_idx_004e.l1:
     push word [bp - 0x0002]          ; 0x5bdf
-    call math_loc_5497               ; 0x5be2
+    call loc_5497                    ; 0x5be2
     pop cx                           ; 0x5be5
     test ax, ax                      ; 0x5be6
     jne short @..api_idx_004e.l3     ; 0x5be8

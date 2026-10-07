@@ -17,4 +17,4 @@ dos_mem_loc_36f5:
     add si, byte 4                   ; 0x3715
     jmp short @..dos_mem_loc_36f5.l2 ; 0x3718
 @..dos_mem_loc_36f5.l3:
-    call bios_mouse_loc_3760         ; 0x371a
+    call dos_mem_loc_3760            ; 0x371a

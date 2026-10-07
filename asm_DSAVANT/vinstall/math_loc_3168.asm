@@ -98,32 +98,32 @@ loc_322a:
     jne short loc_3249               ; 0x3233
     cmp byte [bp - 0x000c], data_0030 ; 0x3235
     jne short loc_323e               ; 0x3239
-    call string_loc_32eb             ; 0x323b
+    call loc_32eb                    ; 0x323b
 loc_323e:
     mov al, byte [bp - 0x000c]       ; 0x323e
-    call string_loc_3301             ; 0x3241
+    call loc_3301                    ; 0x3241
     dec word [bp - 0x0004]           ; 0x3244
     jg short loc_323e                ; 0x3247
 loc_3249:
-    call string_loc_32eb             ; 0x3249
+    call loc_32eb                    ; 0x3249
 loc_324c:
     dec word [bp - 0x0006]           ; 0x324c
     js short loc_3258                ; 0x324f
     mov al, data_0030                ; 0x3251
-    call string_loc_3301             ; 0x3253
+    call loc_3301                    ; 0x3253
     jmp short loc_324c               ; 0x3256
 loc_3258:
     dec word [bp - 0x0008]           ; 0x3258
     js short loc_3266                ; 0x325b
     mov al, byte [es:di]             ; 0x325d
     inc di                           ; 0x3260
-    call string_loc_3301             ; 0x3261
+    call loc_3301                    ; 0x3261
     jmp short loc_3258               ; 0x3264
 loc_3266:
     dec word [bp - 0x0004]           ; 0x3266
     js short loc_3272                ; 0x3269
     mov al, 0x20                     ; 0x326b
-    call string_loc_3301             ; 0x326d
+    call loc_3301                    ; 0x326d
     jmp short loc_3266               ; 0x3270
 loc_3272:
     jmp near loc_30aa                ; 0x3272
@@ -138,7 +138,7 @@ loc_327b:
     sub word [bp - 0x0004], byte 0x0a ; 0x3286
     jmp short loc_3258               ; 0x328a
 loc_328c:
-    call string_loc_331e             ; 0x328c
+    call leaf_loc_331e               ; 0x328c
     push di                          ; 0x328f
     mov al, 0                        ; 0x3290
     mov cx, 0xffff                   ; 0x3292

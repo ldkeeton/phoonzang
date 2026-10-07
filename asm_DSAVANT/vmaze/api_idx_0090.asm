@@ -77,7 +77,7 @@ api_idx_0090:
     pop cx                           ; 0x6d88
     mov ax, 0                        ; 0x6d89
     push ax                          ; 0x6d8c
-    call math_loc_6b5a               ; 0x6d8d
+    call loc_6b5a                    ; 0x6d8d
     pop cx                           ; 0x6d90
     jmp near @..api_idx_0090.l4      ; 0x6d91
     inc word [bp + 0x4]              ; 0x6d94

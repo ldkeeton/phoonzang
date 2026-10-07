@@ -51,7 +51,7 @@ dos_read_file:
     mov cl, 0xa                      ; 0x093d
     shr ax, cl                       ; 0x093f
     mov word [cs:data_3c8e], ax      ; 0x0941
-    call dos_file_loc_3b90           ; 0x0945
+    call leaf_loc_3b90               ; 0x0945
     and si, strict word 0x3ff        ; 0x0948
     mov cl, 4                        ; 0x094c
     shl si, cl                       ; 0x094e
@@ -68,7 +68,7 @@ dos_read_file:
     and si, strict word 0x3fff       ; 0x0968
     inc word [cs:data_3c8e]          ; 0x096c
     mov ax, word [cs:data_3c8e]      ; 0x0971
-    call dos_file_loc_3b90           ; 0x0975
+    call leaf_loc_3b90               ; 0x0975
     pop cx                           ; 0x0978
     loop @..dos_read_file.l3         ; 0x0979
     mov cx, 0x3a00                   ; 0x097b

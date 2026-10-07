@@ -248,7 +248,14 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         label_targets.add(mz_entry_point)
         label_map[mz_entry_point] = 'entry_point'
 
-    label_map = categorize_call_targets(data, label_targets, label_map)
+    direct_call_targets = {
+        address for address, info in ctx.code_targets.items()
+        if info.reason == 'direct_call'
+    }
+    label_map = categorize_call_targets(
+        data, label_targets, label_map, instructions=instructions,
+        function_roots=label_targets, bounded_targets=direct_call_targets,
+    )
     function_roots = _function_roots(
         label_map, instructions,
         entry_points=(seed.address for seed in ctx.seeds),

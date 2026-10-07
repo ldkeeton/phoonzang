@@ -104,7 +104,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
 
     def test_shared_epilogue_label_uses_its_function_scope(self):
         self.assertEqual(
-            self.local_labels.get(0x47fb), '@..math_loc_47e8.l1',
+            self.local_labels.get(0x47fb), '@..leaf_loc_47e8.l1',
         )
 
     def test_sidecar_data_anchors_remain_data(self):

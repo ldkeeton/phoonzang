@@ -5,7 +5,7 @@ api_idx_0004:
     push word [bp + 0xa]             ; 0x00e8
     mov bx, word [bp + 0x8]          ; 0x00eb
     push word [bx]                   ; 0x00ee
-    call math_loc_00a5               ; 0x00f0
+    call loc_00a5                    ; 0x00f0
     add sp, byte 6                   ; 0x00f3
     mov word [bp - 0x0004], ax       ; 0x00f6
     cmp ax, strict word 0xffff       ; 0x00f9
@@ -13,7 +13,7 @@ api_idx_0004:
     push word [bp + 0xc]             ; 0x00fe
     push word [bp + 0xa]             ; 0x0101
     push word [data_8f48]            ; 0x0104
-    call math_loc_00a5               ; 0x0108
+    call loc_00a5                    ; 0x0108
     add sp, byte 6                   ; 0x010b
     mov word [bp - 0x0004], ax       ; 0x010e
     cmp ax, strict word 0xffff       ; 0x0111
@@ -29,7 +29,7 @@ api_idx_0004:
     push word [bp + 0xc]             ; 0x0125
     push word [bp + 0xa]             ; 0x0128
     push word [bp - 0x0002]          ; 0x012b
-    call math_loc_00a5               ; 0x012e
+    call loc_00a5                    ; 0x012e
     add sp, byte 6                   ; 0x0131
     mov word [bp - 0x0004], ax       ; 0x0134
     cmp ax, strict word 0xffff       ; 0x0137

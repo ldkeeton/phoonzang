@@ -5,7 +5,7 @@ api_idx_0010_3:
     push word [data_8464]            ; 0x9a39
     mov ax, 0x90e6                   ; 0x9a3d
     push ax                          ; 0x9a40
-    call math_loc_15ab               ; 0x9a41
+    call loc_15ab                    ; 0x9a41
     add sp, byte 6                   ; 0x9a44
     mov ax, data_9136                ; 0x9a47
     push ax                          ; 0x9a4a

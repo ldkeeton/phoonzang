@@ -17,6 +17,6 @@ math_loc_4c82:
     mov ax, 0x18d                    ; 0x4ca7
     push ax                          ; 0x4caa
     push word [bp + 0x4]             ; 0x4cab
-    call math_loc_4c21               ; 0x4cae
+    call loc_4c21                    ; 0x4cae
     add sp, byte 0x0c                ; 0x4cb1
     ret                              ; 0x4cb4

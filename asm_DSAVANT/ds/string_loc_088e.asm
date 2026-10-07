@@ -3,4 +3,4 @@ string_loc_088e:
     mov al, byte [bx + 0x5244]       ; 0x0891
     sub ah, ah                       ; 0x0895
     mov word [bp + 0x8], ax          ; 0x0897
-    jmp short math_loc_08f2          ; 0x089a
+    jmp short loc_08f2               ; 0x089a

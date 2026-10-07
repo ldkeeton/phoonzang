@@ -33,7 +33,7 @@ mouse_init:
     push ax                          ; 0x1241
     mov ax, 0xffff                   ; 0x1242
     mov word [cs:data_15ae], ax      ; 0x1245
-    call math_loc_1e35               ; 0x1249
+    call graphics_loc_1e35           ; 0x1249
     pop si                           ; 0x124c
     pop di                           ; 0x124d
     pop es                           ; 0x124e

@@ -179,7 +179,7 @@ api_idx_005e_3:
     shl ax, 1                        ; 0x616f
     mov bx, ax                       ; 0x6171
     push word [bx - 0x632c]          ; 0x6173
-    call math_loc_5497               ; 0x6177
+    call loc_5497                    ; 0x6177
     pop cx                           ; 0x617a
     test ax, ax                      ; 0x617b
     jne short @..api_idx_005e_3.l13  ; 0x617d

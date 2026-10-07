@@ -1,7 +1,7 @@
 string_loc_30b3:
     test al, al                      ; 0x30b3
     je short @..string_loc_30b3.l1   ; 0x30b5
-    call string_loc_3301             ; 0x30b7
+    call loc_3301                    ; 0x30b7
     jmp short loc_30aa               ; 0x30ba
 @..string_loc_30b3.l1:
     mov ax, word [bp - 0x0002]       ; 0x30bc

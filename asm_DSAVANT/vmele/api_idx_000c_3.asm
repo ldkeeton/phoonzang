@@ -65,7 +65,7 @@ api_idx_000c_3:
     push word [bp - 0x0002]          ; 0x2a6a
     mov ax, 1                        ; 0x2a6d
     push ax                          ; 0x2a70
-    call math_loc_299f               ; 0x2a71
+    call loc_299f                    ; 0x2a71
     add sp, byte 6                   ; 0x2a74
     jmp near @..api_idx_000c_3.l17   ; 0x2a77
 @..api_idx_000c_3.l8:
@@ -75,7 +75,7 @@ api_idx_000c_3:
     push word [bp - 0x0002]          ; 0x2a84
     mov ax, 1                        ; 0x2a87
     push ax                          ; 0x2a8a
-    call math_loc_299f               ; 0x2a8b
+    call loc_299f                    ; 0x2a8b
     add sp, byte 6                   ; 0x2a8e
     jmp short @..api_idx_000c_3.l10  ; 0x2a91
 @..api_idx_000c_3.l9:
@@ -83,7 +83,7 @@ api_idx_000c_3:
     push word [bp - 0x0002]          ; 0x2a96
     mov ax, data_0002                ; 0x2a99
     push ax                          ; 0x2a9c
-    call math_loc_299f               ; 0x2a9d
+    call loc_299f                    ; 0x2a9d
     add sp, byte 6                   ; 0x2aa0
 @..api_idx_000c_3.l10:
     jmp short @..api_idx_000c_3.l17  ; 0x2aa3
@@ -94,7 +94,7 @@ api_idx_000c_3:
     push word [bp - 0x0002]          ; 0x2aaf
     mov ax, 1                        ; 0x2ab2
     push ax                          ; 0x2ab5
-    call math_loc_299f               ; 0x2ab6
+    call loc_299f                    ; 0x2ab6
     add sp, byte 6                   ; 0x2ab9
     jmp short @..api_idx_000c_3.l14  ; 0x2abc
 @..api_idx_000c_3.l12:
@@ -104,7 +104,7 @@ api_idx_000c_3:
     push word [bp - 0x0002]          ; 0x2ac8
     mov ax, data_0002                ; 0x2acb
     push ax                          ; 0x2ace
-    call math_loc_299f               ; 0x2acf
+    call loc_299f                    ; 0x2acf
     add sp, byte 6                   ; 0x2ad2
     jmp short @..api_idx_000c_3.l14  ; 0x2ad5
 @..api_idx_000c_3.l13:
@@ -112,7 +112,7 @@ api_idx_000c_3:
     push word [bp - 0x0002]          ; 0x2ada
     mov ax, 3                        ; 0x2add
     push ax                          ; 0x2ae0
-    call math_loc_299f               ; 0x2ae1
+    call loc_299f                    ; 0x2ae1
     add sp, byte 6                   ; 0x2ae4
 @..api_idx_000c_3.l14:
     jmp short @..api_idx_000c_3.l17  ; 0x2ae7

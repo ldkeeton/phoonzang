@@ -9,13 +9,13 @@ bios_video_loc_3067:
     push di                          ; 0x3071
     mov ax, ds                       ; 0x3072
     mov es, ax                       ; 0x3074
-    call bios_video_loc_30e2         ; 0x3076
-    call math_loc_3674               ; 0x3079
+    call leaf_loc_30e2               ; 0x3076
+    call leaf_loc_3674               ; 0x3079
     call bios_get_video_mode         ; 0x307c
     call dos_mem_loc_36f5            ; 0x307f
     call bios_mouse_loc_37a5         ; 0x3082
     call dos_intvec_loc_37d9         ; 0x3085
-    call dos_con_loc_35f5            ; 0x3088
+    call dos_file_loc_35f5           ; 0x3088
     call dos_file_loc_3534           ; 0x308b
     mov ax, 0                        ; 0x308e
     push ax                          ; 0x3091

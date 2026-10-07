@@ -63,7 +63,7 @@ loc_1b3a:
     sub ah, ah                       ; 0x1b89
     add ax, word [bp - 0x0008]       ; 0x1b8b
     push ax                          ; 0x1b8e
-    call math_loc_0a09               ; 0x1b8f
+    call loc_0a09                    ; 0x1b8f
     add sp, byte 6                   ; 0x1b92
     push ax                          ; 0x1b95
     mov ax, 0x248                    ; 0x1b96

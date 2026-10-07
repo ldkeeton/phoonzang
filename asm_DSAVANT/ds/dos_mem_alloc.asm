@@ -16,7 +16,7 @@ dos_mem_alloc:
     push ax                          ; 0x4b6f
     push word [bp + 0x4]             ; 0x4b70
     push di                          ; 0x4b73
-    call dos_mem_loc_4cf4            ; 0x4b74
+    call leaf_loc_4cf4               ; 0x4b74
     add sp, byte 6                   ; 0x4b77
     mov si, ax                       ; 0x4b7a
     mov ax, si                       ; 0x4b7c
@@ -29,7 +29,7 @@ dos_mem_alloc:
     push word [bp + 0x4]             ; 0x4b8e
     mov ax, 0x3c                     ; 0x4b91
     push ax                          ; 0x4b94
-    call dos_mem_loc_4cf4            ; 0x4b95
+    call leaf_loc_4cf4               ; 0x4b95
     add sp, byte 6                   ; 0x4b98
     mov si, ax                       ; 0x4b9b
 @..dos_mem_alloc.l2:

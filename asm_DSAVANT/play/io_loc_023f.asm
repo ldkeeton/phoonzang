@@ -18,13 +18,13 @@ io_loc_023f:
     je short @..io_loc_023f.l2       ; 0x026b
     mov al, 0x34                     ; 0x026d
     out 0x43, al                     ; 0x026f
-    call io_loc_0610                 ; 0x0271
+    call leaf_loc_0610               ; 0x0271
     mov ax, word [cs:data_0ba6]      ; 0x0274
     mov bl, 0x48                     ; 0x0278
     mul bl                           ; 0x027a
     mov word [cs:data_0b98], ax      ; 0x027c
     out 0x40, al                     ; 0x0280
-    call io_loc_0610                 ; 0x0282
+    call leaf_loc_0610               ; 0x0282
     mov al, ah                       ; 0x0285
     out 0x40, al                     ; 0x0287
 @..io_loc_023f.l2:

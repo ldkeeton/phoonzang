@@ -34,5 +34,5 @@ api_idx_0056:
     call api_idx_0004_6              ; 0x3cd6
     pop cx                           ; 0x3cd9
 @..api_idx_0056.l3:
-    call math_loc_3a6a               ; 0x3cda
+    call loc_3a6a                    ; 0x3cda
     ret                              ; 0x3cdd

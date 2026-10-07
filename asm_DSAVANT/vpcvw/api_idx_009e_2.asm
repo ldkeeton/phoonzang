@@ -182,7 +182,7 @@ api_idx_009e_2:
     db 0xe8, 0x8a, 0xad ; call ds_dispatch_ec41
     add sp, byte 6                   ; 0x3eb7
     push word [bp + 0x6]             ; 0x3eba
-    call math_loc_3cde               ; 0x3ebd
+    call loc_3cde                    ; 0x3ebd
     pop cx                           ; 0x3ec0
     jmp near @..api_idx_009e_2.l3    ; 0x3ec1
     mov ax, 0x248                    ; 0x3ec4

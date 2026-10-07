@@ -98,7 +98,7 @@ dos_read_file_5:
     mov cl, 0xa                      ; 0x4718
     shr ax, cl                       ; 0x471a
     mov word [cs:data_4540], ax      ; 0x471c
-    call dos_file_loc_4442           ; 0x4720
+    call leaf_loc_4442               ; 0x4720
     and di, strict word 0x3ff        ; 0x4723
     mov cl, 4                        ; 0x4727
     shl di, cl                       ; 0x4729
@@ -122,7 +122,7 @@ dos_read_file_5:
     sub di, strict word 0x4000       ; 0x4758
     inc word [cs:data_4540]          ; 0x475c
     mov ax, word [cs:data_4540]      ; 0x4761
-    call dos_file_loc_4442           ; 0x4765
+    call leaf_loc_4442               ; 0x4765
 @..dos_read_file_5.l6:
     mov ax, word [bp - 0x0006]       ; 0x4768
     mov dx, word [bp - 0x0008]       ; 0x476b

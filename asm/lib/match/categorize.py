@@ -1,12 +1,12 @@
 """Heuristic function categorization.
 
-Analyses unnamed call targets by scanning their function body for
+Analyses unnamed call targets by scanning reachable function instructions for
 signals: BIOS/DOS interrupts, I/O instructions, string ops, FPU,
 math, leaf (no calls), or thunk (single-call wrapper).
 """
 
-from capstone import CS_OP_IMM, CS_OP_REG
-from capstone.x86 import X86_REG_AH
+from capstone import CS_AC_WRITE, CS_OP_IMM, CS_OP_MEM, CS_OP_REG
+from capstone.x86 import X86_REG_AH, X86_REG_ES
 
 _CALL_MNEMONICS = {'call', 'lcall'}
 _IO_MNEMONICS = {'in', 'out'}
@@ -15,6 +15,8 @@ _STRING_MNEMONICS = {
     'scasb', 'scasw', 'cmpsb', 'cmpsw',
 }
 _MATH_MNEMONICS = {'mul', 'imul', 'div', 'idiv'}
+_RETURN_MNEMONICS = {'ret', 'retf', 'iret', 'hlt'}
+_UNCONDITIONAL_JUMPS = {'jmp', 'ljmp'}
 
 _DOS_AH_FILES = {0x3c, 0x3d, 0x3e, 0x3f, 0x40, 0x41, 0x42, 0x43, 0x56, 0x57,
                  0x5b, 0x5c, 0x6c}
@@ -47,6 +49,80 @@ def _find_mov_ah(insns, int_idx):
     return None
 
 
+def _has_graphics_rendering_pattern(insns):
+    """Recognize a masked 320-pixel-stride renderer, not incidental math."""
+    writes_es_memory = any(
+        operand.type == CS_OP_MEM
+        and operand.mem.segment == X86_REG_ES
+        and operand.access & CS_AC_WRITE
+        for insn in insns
+        for operand in insn.operands
+    )
+    has_320_pixel_stride = any(
+        operand.type == CS_OP_IMM and operand.imm in (320, 0x140)
+        for insn in insns
+        for operand in insn.operands
+    )
+    has_transparency_test = any(
+        insn.mnemonic == 'cmp'
+        and any(operand.type == CS_OP_IMM and operand.imm == 0xff
+                for operand in insn.operands)
+        for insn in insns
+    )
+    has_masked_loop = (
+        any(insn.mnemonic in ('rol', 'ror') for insn in insns)
+        and any(insn.mnemonic.startswith('loop') for insn in insns)
+    )
+    return (
+        writes_es_memory
+        and has_320_pixel_stride
+        and (has_transparency_test or has_masked_loop)
+    )
+
+
+def _function_instructions(root, instruction_map, function_roots,
+                           max_instructions=2048):
+    """Collect instructions reachable from one function entry.
+
+    Branches within the function are followed, calls are not descended into,
+    and traversal stops at returns or another known function root. This keeps
+    category evidence scoped to a function instead of an arbitrary byte window.
+    """
+    pending = [root]
+    visited = set()
+    body = []
+
+    while pending and len(visited) < max_instructions:
+        address = pending.pop()
+        if address in visited or (address in function_roots and address != root):
+            continue
+        insn = instruction_map.get(address)
+        if insn is None:
+            continue
+
+        visited.add(address)
+        body.append(insn)
+        mnemonic = insn.mnemonic
+        if mnemonic in _RETURN_MNEMONICS:
+            continue
+
+        fallthrough = insn.address + insn.size
+        if mnemonic in _UNCONDITIONAL_JUMPS:
+            if (insn.operands and insn.operands[0].type == CS_OP_IMM):
+                pending.append(insn.operands[0].imm)
+            continue
+
+        if mnemonic.startswith('j') or mnemonic.startswith('loop'):
+            if (insn.operands and insn.operands[0].type == CS_OP_IMM):
+                pending.append(insn.operands[0].imm)
+            pending.append(fallthrough)
+            continue
+
+        pending.append(fallthrough)
+
+    return sorted(body, key=lambda insn: insn.address)
+
+
 def _detect_category(insns, off, body_size):
     """Return a category prefix string, or None if no signal found."""
     has_call = False
@@ -56,7 +132,7 @@ def _detect_category(insns, off, body_size):
     bios_ints = set()
     has_io = False
     has_string = False
-    has_math = False
+    math_count = 0
     has_fpu = False
 
     for idx, insn in enumerate(insns):
@@ -74,7 +150,7 @@ def _detect_category(insns, off, body_size):
             has_string = True
 
         if mn in _MATH_MNEMONICS:
-            has_math = True
+            math_count += 1
 
         if mn.startswith('f'):
             has_fpu = True
@@ -117,6 +193,9 @@ def _detect_category(insns, off, body_size):
             return 'dos_psp'
         return 'dos'
 
+    if _has_graphics_rendering_pattern(insns):
+        return 'graphics'
+
     if has_io:
         return 'io'
 
@@ -126,7 +205,11 @@ def _detect_category(insns, off, body_size):
     if has_fpu:
         return 'fpu'
 
-    if has_math:
+    # A single multiply/divide often computes an address, length, or row
+    # stride. Only use the math category when arithmetic is repeated or the
+    # routine is a small, call-free arithmetic helper.
+    if math_count >= 2 or (
+            math_count == 1 and not has_call and len(insns) <= 16):
         return 'math'
 
     if not has_call:
@@ -140,7 +223,8 @@ def _detect_category(insns, off, body_size):
     return None
 
 
-def categorize_call_targets(data, call_targets, label_map):
+def categorize_call_targets(data, call_targets, label_map, instructions=None,
+                            function_roots=None, bounded_targets=None):
     """Analyse function bodies and upgrade loc_XXXX to categorized names.
 
     Returns a new label_map dict with categorized entries for unnamed
@@ -148,10 +232,14 @@ def categorize_call_targets(data, call_targets, label_map):
     """
     from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
-    md = Cs(CS_ARCH_X86, CS_MODE_16)
-    md.detail = True
-
     result = dict(label_map)
+    function_roots = set(call_targets if function_roots is None
+                         else function_roots)
+    bounded_targets = set(call_targets if bounded_targets is None
+                          else bounded_targets)
+    instruction_map = None
+    if instructions is not None:
+        instruction_map = {insn.address: insn for insn in instructions}
 
     for off in sorted(call_targets):
         if off in label_map:
@@ -159,16 +247,25 @@ def categorize_call_targets(data, call_targets, label_map):
         if off + 3 > len(data):
             continue
 
-        body = data[off:min(off + 128, len(data))]
-        try:
-            insns = list(md.disasm(body, off))
-        except Exception:
-            continue
+        if instruction_map is not None and off in bounded_targets:
+            insns = _function_instructions(
+                off, instruction_map, function_roots,
+            )
+        else:
+            # Keep the public helper usable without a prior project
+            # disassembly; the main pipeline supplies its classified code.
+            md = Cs(CS_ARCH_X86, CS_MODE_16)
+            md.detail = True
+            body = data[off:min(off + 128, len(data))]
+            try:
+                insns = list(md.disasm(body, off))
+            except Exception:
+                continue
 
         if not insns:
             continue
 
-        category = _detect_category(insns, off, len(body))
+        category = _detect_category(insns, off, len(data) - off)
         if category:
             result[off] = f'{category}_loc_{off:04x}'
 

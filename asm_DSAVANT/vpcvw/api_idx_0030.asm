@@ -150,7 +150,7 @@ api_idx_0030:
     mov ax, 0                        ; 0x9426
     push ax                          ; 0x9429
     push word [bp + 0x4]             ; 0x942a
-    call math_loc_40b7               ; 0x942d
+    call loc_40b7                    ; 0x942d
     add sp, byte 4                   ; 0x9430
 @..api_idx_0030.l11:
     ret                              ; 0x9433

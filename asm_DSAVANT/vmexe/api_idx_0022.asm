@@ -13,7 +13,7 @@ api_idx_0022:
     jae short @..api_idx_0022.l1     ; 0x2265
     push word [bp + 0x6]             ; 0x2267
     push word [bp + 0x4]             ; 0x226a
-    call math_loc_1f5d               ; 0x226d
+    call loc_1f5d                    ; 0x226d
     add sp, byte 4                   ; 0x2270
     test ax, ax                      ; 0x2273
     je short @..api_idx_0022.l2      ; 0x2275

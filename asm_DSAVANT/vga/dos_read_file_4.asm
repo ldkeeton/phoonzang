@@ -97,7 +97,7 @@ dos_read_file_4:
     mov cl, 0xa                      ; 0x3c81
     shr ax, cl                       ; 0x3c83
     mov word [cs:data_3c8e], ax      ; 0x3c85
-    call dos_file_loc_3b90           ; 0x3c89
+    call leaf_loc_3b90               ; 0x3c89
     mov si, word [bp - 0x0002]       ; 0x3c8c
     and si, strict word 0x3ff        ; 0x3c8f
     mov cl, 4                        ; 0x3c93
@@ -124,7 +124,7 @@ dos_read_file_4:
     je short @..dos_read_file_4.l8   ; 0x3cc3
     inc word [cs:data_3c8e]          ; 0x3cc5
     mov ax, word [cs:data_3c8e]      ; 0x3cca
-    call dos_file_loc_3b90           ; 0x3cce
+    call leaf_loc_3b90               ; 0x3cce
     and si, strict word 0x3fff       ; 0x3cd1
 @..dos_read_file_4.l8:
     dec word [bp - 0x0004]           ; 0x3cd5

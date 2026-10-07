@@ -52,7 +52,7 @@ mouse_set_pos_3:
     mov ax, cs                       ; 0x3533
     push ax                          ; 0x3535
     mov ax, 0                        ; 0x3536
-    call math_loc_2a4f               ; 0x3539
+    call leaf_loc_2a4f               ; 0x3539
     mov cx, word [bp - 0x0006]       ; 0x353c
     mov dx, word [bp - 0x0008]       ; 0x353f
     mov ax, 4                        ; 0x3542

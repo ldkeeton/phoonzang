@@ -21,10 +21,10 @@ io_loc_02ba:
     sti                              ; 0x02e8
     mov al, 0x34                     ; 0x02e9
     out 0x43, al                     ; 0x02eb
-    call io_loc_0610                 ; 0x02ed
+    call leaf_loc_0610               ; 0x02ed
     in al, 0x40                      ; 0x02f0
     mov ah, al                       ; 0x02f2
-    call io_loc_0610                 ; 0x02f4
+    call leaf_loc_0610               ; 0x02f4
     in al, 0x40                      ; 0x02f7
     xchg al, ah                      ; 0x02f9
     mov word [cs:data_0b96], ax      ; 0x02fb
@@ -35,7 +35,7 @@ io_loc_02ba:
     mul bl                           ; 0x0309
     mov word [cs:data_0b98], ax      ; 0x030b
     out 0x40, al                     ; 0x030f
-    call io_loc_0610                 ; 0x0311
+    call leaf_loc_0610               ; 0x0311
     mov al, ah                       ; 0x0314
     out 0x40, al                     ; 0x0316
 @..io_loc_02ba.l1:

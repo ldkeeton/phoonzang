@@ -1,6 +1,6 @@
 main:
     mov ax, 0xfffe                   ; 0x2dd5
-    call loc_4652                    ; 0x2dd8
+    call leaf_loc_4652               ; 0x2dd8
     mov word [data_830a], 0          ; 0x2ddb
 @..main.l1:
     mov ax, word [data_830a]         ; 0x2de1

@@ -1,6 +1,6 @@
 math_loc_1034:
     mov ax, 0                        ; 0x1034
-    call loc_4652                    ; 0x1037
+    call leaf_loc_4652               ; 0x1037
     mov ax, 1                        ; 0x103a
     push ax                          ; 0x103d
     mov ax, 6                        ; 0x103e
@@ -21,7 +21,7 @@ math_loc_1034:
     push ax                          ; 0x1063
     mov ax, 0x55                     ; 0x1064
     push ax                          ; 0x1067
-    call string_loc_3a6a             ; 0x1068
+    call loc_3a6a                    ; 0x1068
     add sp, byte 4                   ; 0x106b
     mov ax, word [bp + 0x6]          ; 0x106e
     inc ax                           ; 0x1071
@@ -41,7 +41,7 @@ math_loc_1034:
     add ax, word [bp + 0x4]          ; 0x108d
     inc ax                           ; 0x1090
     push ax                          ; 0x1091
-    call string_loc_3a50             ; 0x1092
+    call loc_3a50                    ; 0x1092
     add sp, byte 4                   ; 0x1095
     mov ax, 0                        ; 0x1098
     push ax                          ; 0x109b

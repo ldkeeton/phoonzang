@@ -36,7 +36,7 @@ api_idx_0010:
 @..api_idx_0010.l5:
     mov ax, 0xc8d                    ; 0x26b5
     push ax                          ; 0x26b8
-    call math_loc_24c2               ; 0x26b9
+    call loc_24c2                    ; 0x26b9
     pop cx                           ; 0x26bc
 @..api_idx_0010.l6:
     lea ax, word [bp - 0x0004]       ; 0x26bd
@@ -79,7 +79,7 @@ api_idx_0010:
 @..api_idx_0010.l9:
     push word [bp - 0x0002]          ; 0x271d
     push word [bp + 0x4]             ; 0x2720
-    call math_loc_1f5d               ; 0x2723
+    call loc_1f5d                    ; 0x2723
     add sp, byte 4                   ; 0x2726
     test ax, ax                      ; 0x2729
     je short @..api_idx_0010.l10     ; 0x272b
@@ -147,7 +147,7 @@ api_idx_0010:
     push word [bp + 0x4]             ; 0x27b9
     mov ax, 0x90e6                   ; 0x27bc
     push ax                          ; 0x27bf
-    call math_loc_15ab               ; 0x27c0
+    call loc_15ab                    ; 0x27c0
     add sp, byte 6                   ; 0x27c3
     mov ax, 2                        ; 0x27c6
     push ax                          ; 0x27c9

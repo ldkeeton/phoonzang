@@ -24,7 +24,7 @@ api_idx_0002_12:
     mov word [data_a5b2], ax         ; 0x8e9e
     mov ax, 0xf                      ; 0x8ea1
     push ax                          ; 0x8ea4
-    mov ax, math_loc_000e            ; 0x8ea5
+    mov ax, 0xe                      ; 0x8ea5
     push ax                          ; 0x8ea8
     call api_idx_0016_2              ; 0x8ea9
     add sp, byte 4                   ; 0x8eac
@@ -83,11 +83,11 @@ api_idx_0002_12:
     add sp, byte 4                   ; 0x8f47
     mov ax, 0xf                      ; 0x8f4a
     push ax                          ; 0x8f4d
-    call math_loc_72c2               ; 0x8f4e
+    call loc_72c2                    ; 0x8f4e
     pop cx                           ; 0x8f51
     mov ax, 0x10                     ; 0x8f52
     push ax                          ; 0x8f55
-    call math_loc_72c2               ; 0x8f56
+    call loc_72c2                    ; 0x8f56
     pop cx                           ; 0x8f59
     mov ax, 0                        ; 0x8f5a
     push ax                          ; 0x8f5d

@@ -18,7 +18,7 @@ api_idx_0002_5:
     mov word [bp - 0x0002], ax       ; 0x7000
     cmp ax, strict word 0xffff       ; 0x7003
     jne short @..api_idx_0002_5.l1   ; 0x7006
-    mov ax, math_loc_000e            ; 0x7008
+    mov ax, 0xe                      ; 0x7008
     push ax                          ; 0x700b
     call ds_dispatch_b171            ; 0x700c
     pop cx                           ; 0x700f

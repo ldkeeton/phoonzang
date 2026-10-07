@@ -41,6 +41,6 @@ dos_con_loc_4b1d:
     mov ax, word [cs:bx]             ; 0x4ba0
     add ax, word [cs:data_01e1]      ; 0x4ba3
     mov es, ax                       ; 0x4ba8
-    call dos_file_loc_4bb2           ; 0x4baa
+    call string_loc_4bb2             ; 0x4baa
     xor ax, ax                       ; 0x4bad
     jmp near @..dos_read_file_6.l3   ; 0x4baf

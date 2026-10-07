@@ -100,7 +100,7 @@ api_idx_0018:
     je short @..api_idx_0018.l9      ; 0x1da7
     jmp near @..api_idx_0018.l32     ; 0x1da9
 @..api_idx_0018.l9:
-    call math_loc_0f68               ; 0x1dac
+    call loc_0f68                    ; 0x1dac
     test ax, ax                      ; 0x1daf
     jne short @..api_idx_0018.l10    ; 0x1db1
     jmp short @..api_idx_0018.l9     ; 0x1db3
@@ -141,7 +141,7 @@ api_idx_0018:
     je short @..api_idx_0018.l14     ; 0x1e10
     mov word [data_91ae], 1          ; 0x1e12
 @..api_idx_0018.l14:
-    call math_loc_0f68               ; 0x1e18
+    call loc_0f68                    ; 0x1e18
     test ax, ax                      ; 0x1e1b
     jne short @..api_idx_0018.l15    ; 0x1e1d
     mov ax, 0xa                      ; 0x1e1f

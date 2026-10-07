@@ -216,5 +216,5 @@ math_loc_12b5:
     push ax                          ; 0x14a4
     call loc_040f                    ; 0x14a5
     add sp, byte 6                   ; 0x14a8
-    call io_loc_245e                 ; 0x14ab
+    call loc_245e                    ; 0x14ab
     mov word [bp - 0x0006], ax       ; 0x14ae

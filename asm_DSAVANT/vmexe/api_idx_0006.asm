@@ -142,7 +142,7 @@ api_idx_0006:
     jmp short @..api_idx_0006.l17    ; 0x19fc
 @..api_idx_0006.l12:
     push word [data_845e]            ; 0x19fe
-    call math_loc_0dbe               ; 0x1a02
+    call loc_0dbe                    ; 0x1a02
     pop cx                           ; 0x1a05
     jmp short @..api_idx_0006.l17    ; 0x1a06
 @..api_idx_0006.l13:

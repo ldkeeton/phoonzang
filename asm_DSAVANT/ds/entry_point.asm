@@ -131,7 +131,7 @@ entry_point:
     mov word [data_0c7a], ax         ; 0x4e5e
     mov word [data_0c74], ds         ; 0x4e61
     mov word [data_0c76], cs         ; 0x4e65
-    call dos_file_loc_4f85           ; 0x4e69
+    call leaf_loc_4f85               ; 0x4e69
     jb short @..entry_point.l16      ; 0x4e6c
     call loc_4ea7                    ; 0x4e6e
     jmp short loc_4e80               ; 0x4e71

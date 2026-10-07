@@ -5,7 +5,7 @@ api_idx_0004_8:
     jle short @..api_idx_0004_8.l1   ; 0x6c15
     mov ax, 0                        ; 0x6c17
     push ax                          ; 0x6c1a
-    call math_loc_6b5a               ; 0x6c1b
+    call loc_6b5a                    ; 0x6c1b
     pop cx                           ; 0x6c1e
 @..api_idx_0004_8.l1:
     mov bx, word [bp + 0x4]          ; 0x6c1f

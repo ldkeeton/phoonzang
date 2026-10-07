@@ -44,7 +44,7 @@ mouse_init:
     push ax                          ; 0x1776
     mov ax, 0xffff                   ; 0x1777
     mov word [cs:data_1bdb], ax      ; 0x177a
-    call math_loc_2a6a               ; 0x177e
+    call io_loc_2a6a                 ; 0x177e
     pop si                           ; 0x1781
     pop di                           ; 0x1782
     pop es                           ; 0x1783

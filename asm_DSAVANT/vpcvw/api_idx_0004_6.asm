@@ -3,7 +3,7 @@ api_idx_0004_6:
     call ds_dispatch_f40b            ; 0x3aaf
     cmp word [data_9566], byte 5     ; 0x3ab2
     jle short @..api_idx_0004_6.l1   ; 0x3ab7
-    call math_loc_3a6a               ; 0x3ab9
+    call loc_3a6a                    ; 0x3ab9
 @..api_idx_0004_6.l1:
     mov bx, word [bp + 0x4]          ; 0x3abc
     cmp byte [bx], 0                 ; 0x3abf

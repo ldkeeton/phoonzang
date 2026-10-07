@@ -207,4 +207,4 @@ dos_write_file_2:
     mov cl, 0xa                      ; 0x4305
     shr ax, cl                       ; 0x4307
     mov word [cs:data_4540], ax      ; 0x4309
-    call dos_file_loc_4442           ; 0x430d
+    call leaf_loc_4442               ; 0x430d

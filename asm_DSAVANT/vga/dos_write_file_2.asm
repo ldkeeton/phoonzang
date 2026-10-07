@@ -207,4 +207,4 @@ dos_write_file_2:
     mov cl, 0xa                      ; 0x3a53
     shr ax, cl                       ; 0x3a55
     mov word [cs:data_3c8e], ax      ; 0x3a57
-    call dos_file_loc_3b90           ; 0x3a5b
+    call leaf_loc_3b90               ; 0x3a5b

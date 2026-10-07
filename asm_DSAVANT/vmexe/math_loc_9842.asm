@@ -5,7 +5,7 @@ math_loc_9842:
     push word [data_8464]            ; 0x984c
     mov ax, 0x90e6                   ; 0x9850
     push ax                          ; 0x9853
-    call math_loc_15ab               ; 0x9854
+    call loc_15ab                    ; 0x9854
     add sp, byte 6                   ; 0x9857
     mov ax, data_9136                ; 0x985a
     push ax                          ; 0x985d

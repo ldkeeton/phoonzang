@@ -71,7 +71,7 @@ api_idx_0018:
     mov ax, 0                        ; 0x97d7
     push ax                          ; 0x97da
     push word [bp + 0x4]             ; 0x97db
-    call math_loc_40b7               ; 0x97de
+    call loc_40b7                    ; 0x97de
     add sp, byte 4                   ; 0x97e1
     cmp word [bp - 0x0004], byte 4   ; 0x97e4
     je short @..api_idx_0018.l8      ; 0x97e8

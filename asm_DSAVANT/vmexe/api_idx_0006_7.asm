@@ -88,7 +88,7 @@ api_idx_0006_7:
     push word [data_8464]            ; 0x996a
     mov ax, 0x90e6                   ; 0x996e
     push ax                          ; 0x9971
-    call math_loc_15ab               ; 0x9972
+    call loc_15ab                    ; 0x9972
     add sp, byte 6                   ; 0x9975
     mov ax, data_9136                ; 0x9978
     push ax                          ; 0x997b

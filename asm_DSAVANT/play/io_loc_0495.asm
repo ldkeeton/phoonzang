@@ -42,7 +42,7 @@ loc_04dc:
     or al, 3                         ; 0x04e6
     out 0x61, al                     ; 0x04e8
 loc_04ea:
-    call fpu_loc_077b                ; 0x04ea
+    call leaf_loc_077b               ; 0x04ea
     mov al, strlen                   ; 0x04ed
     out 0x21, al                     ; 0x04ef
     mov ax, word [bp + 0x8]          ; 0x04f1

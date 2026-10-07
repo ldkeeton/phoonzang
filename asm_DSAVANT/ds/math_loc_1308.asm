@@ -1,6 +1,6 @@
 math_loc_1308:
     mov ax, 0                        ; 0x1308
-    call loc_4652                    ; 0x130b
+    call leaf_loc_4652               ; 0x130b
     cmp word [bp + 0xc], byte 0      ; 0x130e
     je short @..math_loc_1308.l1     ; 0x1312
     push word [bp + 0xe]             ; 0x1314
@@ -16,7 +16,7 @@ math_loc_1308:
     push ax                          ; 0x132e
     mov ax, 1                        ; 0x132f
     push ax                          ; 0x1332
-    call string_loc_3a6a             ; 0x1333
+    call loc_3a6a                    ; 0x1333
     add sp, byte 4                   ; 0x1336
     mov ax, word [bp + 0x6]          ; 0x1339
     inc ax                           ; 0x133c
@@ -36,7 +36,7 @@ math_loc_1308:
     add ax, word [bp + 0x4]          ; 0x1358
     inc ax                           ; 0x135b
     push ax                          ; 0x135c
-    call string_loc_3a50             ; 0x135d
+    call loc_3a50                    ; 0x135d
     add sp, byte 4                   ; 0x1360
     mov ax, 0                        ; 0x1363
     push ax                          ; 0x1366

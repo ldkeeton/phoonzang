@@ -47,7 +47,7 @@ api_idx_0004_7:
     push ax                          ; 0x5e5c
     push ax                          ; 0x5e5d
     push word [bp + 0x4]             ; 0x5e5e
-    call math_loc_5d7e               ; 0x5e61
+    call loc_5d7e                    ; 0x5e61
     add sp, byte 0x0e                ; 0x5e64
     jmp near @..api_idx_0004_7.l6    ; 0x5e67
     mov ax, 0x248                    ; 0x5e6a
@@ -72,7 +72,7 @@ api_idx_0004_7:
     push ax                          ; 0x5e8c
     push ax                          ; 0x5e8d
     push word [bp + 0x4]             ; 0x5e8e
-    call math_loc_5d7e               ; 0x5e91
+    call loc_5d7e                    ; 0x5e91
     add sp, byte 0x0e                ; 0x5e94
     jmp near @..api_idx_0004_7.l6    ; 0x5e97
     mov ax, 0x248                    ; 0x5e9a
@@ -100,7 +100,7 @@ api_idx_0004_7:
     inc ax                           ; 0x5ec1
     push ax                          ; 0x5ec2
     push word [bp + 0x4]             ; 0x5ec3
-    call math_loc_5d7e               ; 0x5ec6
+    call loc_5d7e                    ; 0x5ec6
     add sp, byte 0x0e                ; 0x5ec9
     jmp near @..api_idx_0004_7.l6    ; 0x5ecc
     mov ax, word [bp - 0x0004]       ; 0x5ecf
@@ -117,7 +117,7 @@ api_idx_0004_7:
     push ax                          ; 0x5ee0
     push ax                          ; 0x5ee1
     push word [bp + 0x4]             ; 0x5ee2
-    call math_loc_5d7e               ; 0x5ee5
+    call loc_5d7e                    ; 0x5ee5
     add sp, byte 0x0e                ; 0x5ee8
     jmp near @..api_idx_0004_7.l6    ; 0x5eeb
     mov ax, 0x248                    ; 0x5eee
@@ -145,7 +145,7 @@ api_idx_0004_7:
     inc ax                           ; 0x5f15
     push ax                          ; 0x5f16
     push word [bp + 0x4]             ; 0x5f17
-    call math_loc_5d7e               ; 0x5f1a
+    call loc_5d7e                    ; 0x5f1a
     add sp, byte 0x0e                ; 0x5f1d
     jmp near @..api_idx_0004_7.l6    ; 0x5f20
     mov ax, word [bp - 0x0004]       ; 0x5f23
@@ -165,7 +165,7 @@ api_idx_0004_7:
     push ax                          ; 0x5f39
     push ax                          ; 0x5f3a
     push word [bp + 0x4]             ; 0x5f3b
-    call math_loc_5d7e               ; 0x5f3e
+    call loc_5d7e                    ; 0x5f3e
     add sp, byte 0x0e                ; 0x5f41
     jmp near @..api_idx_0004_7.l6    ; 0x5f44
     mov ax, 0x248                    ; 0x5f47
@@ -191,7 +191,7 @@ api_idx_0004_7:
     inc ax                           ; 0x5f6e
     push ax                          ; 0x5f6f
     push word [bp + 0x4]             ; 0x5f70
-    call math_loc_5d7e               ; 0x5f73
+    call loc_5d7e                    ; 0x5f73
     add sp, byte 0x0e                ; 0x5f76
     jmp near @..api_idx_0004_7.l6    ; 0x5f79
     mov ax, word [bp - 0x0004]       ; 0x5f7c
@@ -211,7 +211,7 @@ api_idx_0004_7:
     inc ax                           ; 0x5f92
     push ax                          ; 0x5f93
     push word [bp + 0x4]             ; 0x5f94
-    call math_loc_5d7e               ; 0x5f97
+    call loc_5d7e                    ; 0x5f97
     add sp, byte 0x0e                ; 0x5f9a
     jmp near @..api_idx_0004_7.l6    ; 0x5f9d
     mov ax, 0x248                    ; 0x5fa0
@@ -233,7 +233,7 @@ api_idx_0004_7:
     push ax                          ; 0x5fc1
     push ax                          ; 0x5fc2
     push word [bp + 0x4]             ; 0x5fc3
-    call math_loc_5d7e               ; 0x5fc6
+    call loc_5d7e                    ; 0x5fc6
     add sp, byte 0x0e                ; 0x5fc9
     jmp near @..api_idx_0004_7.l6    ; 0x5fcc
     mov ax, word [bp - 0x0004]       ; 0x5fcf
@@ -253,6 +253,6 @@ api_idx_0004_7:
     inc ax                           ; 0x5fe5
     push ax                          ; 0x5fe6
     push word [bp + 0x4]             ; 0x5fe7
-    call math_loc_5d7e               ; 0x5fea
+    call loc_5d7e                    ; 0x5fea
     add sp, byte 0x0e                ; 0x5fed
     jmp near @..api_idx_0004_7.l6    ; 0x5ff0

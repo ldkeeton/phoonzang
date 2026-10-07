@@ -37,7 +37,7 @@ api_idx_000a_4:
 @..api_idx_000a_4.l5:
     mov ax, 0xc8d                    ; 0x29f4
     push ax                          ; 0x29f7
-    call math_loc_24c2               ; 0x29f8
+    call loc_24c2                    ; 0x29f8
     pop cx                           ; 0x29fb
 @..api_idx_000a_4.l6:
     lea ax, word [bp - 0x0006]       ; 0x29fc

@@ -1,6 +1,6 @@
 math_loc_184f:
     mov ax, 0xffea                   ; 0x184f
-    call loc_4652                    ; 0x1852
+    call leaf_loc_4652               ; 0x1852
     mov ax, 0                        ; 0x1855
     push ax                          ; 0x1858
     mov ax, 0x12                     ; 0x1859

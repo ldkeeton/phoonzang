@@ -19,7 +19,7 @@ api_idx_0084:
     push ax                          ; 0x3b8f
     call api_idx_0004_6              ; 0x3b90
     pop cx                           ; 0x3b93
-    call math_loc_3a6a               ; 0x3b94
+    call loc_3a6a                    ; 0x3b94
 @..api_idx_0084.l2:
     cmp byte [data_956a], 0          ; 0x3b97
     je short @..api_idx_0084.l3      ; 0x3b9c

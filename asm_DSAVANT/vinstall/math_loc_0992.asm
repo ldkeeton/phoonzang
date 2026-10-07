@@ -25,7 +25,7 @@ math_loc_0992:
     push ax                          ; 0x09c3
     call loc_040f                    ; 0x09c4
     add sp, byte 6                   ; 0x09c7
-    call math_loc_0452               ; 0x09ca
+    call loc_0452                    ; 0x09ca
 @..math_loc_0992.l1:
     call dos_con_in_noecho           ; 0x09cd
     cmp ax, strict word 0xd          ; 0x09d0

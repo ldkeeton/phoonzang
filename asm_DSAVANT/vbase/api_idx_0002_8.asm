@@ -66,7 +66,7 @@ api_idx_0002_8:
     add sp, byte 8                   ; 0x8921
     mov ax, 0xf                      ; 0x8924
     push ax                          ; 0x8927
-    call math_loc_72c2               ; 0x8928
+    call loc_72c2                    ; 0x8928
     pop cx                           ; 0x892b
     mov ax, 0                        ; 0x892c
     push ax                          ; 0x892f
@@ -168,15 +168,15 @@ api_idx_0002_8:
     add sp, byte 4                   ; 0x8a3f
     mov ax, 0x11                     ; 0x8a42
     push ax                          ; 0x8a45
-    call math_loc_72c2               ; 0x8a46
+    call loc_72c2                    ; 0x8a46
     pop cx                           ; 0x8a49
     mov ax, 0x10                     ; 0x8a4a
     push ax                          ; 0x8a4d
-    call math_loc_72c2               ; 0x8a4e
+    call loc_72c2                    ; 0x8a4e
     pop cx                           ; 0x8a51
     mov ax, 0xf                      ; 0x8a52
     push ax                          ; 0x8a55
-    call math_loc_72c2               ; 0x8a56
+    call loc_72c2                    ; 0x8a56
     pop cx                           ; 0x8a59
     mov ax, 0                        ; 0x8a5a
     push ax                          ; 0x8a5d

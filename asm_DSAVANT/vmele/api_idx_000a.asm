@@ -34,7 +34,7 @@ api_idx_000a:
     push ax                          ; 0x0296
     mov ax, 0x37                     ; 0x0297
     push ax                          ; 0x029a
-    mov ax, math_loc_000e            ; 0x029b
+    mov ax, 0xe                      ; 0x029b
     push ax                          ; 0x029e
     call ds_dispatch_efd1            ; 0x029f
     add sp, byte 0x16                ; 0x02a2

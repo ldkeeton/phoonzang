@@ -19,7 +19,7 @@ mouse_set_pos:
     jne short @..mouse_set_pos.l1    ; 0x13e6
     cmp ax, 0x401                    ; 0x13e8
     jae short @..mouse_set_pos.l1    ; 0x13eb
-    call bios_mouse_loc_1308         ; 0x13ed
+    call leaf_loc_1308               ; 0x13ed
     mov ax, word [bp + 0xc]          ; 0x13f0
     mov word [cs:data_1e64], ax      ; 0x13f3
     mov ax, word [bp + 0xe]          ; 0x13f7
@@ -63,7 +63,7 @@ mouse_set_pos:
 @..mouse_set_pos.l6:
     mov ax, cs                       ; 0x1462
     push ax                          ; 0x1464
-    call math_loc_1e1a               ; 0x1465
+    call leaf_loc_1e1a               ; 0x1465
     mov byte [cs:data_0227], 0       ; 0x1468
 @..mouse_set_pos.l7:
     pop di                           ; 0x146e

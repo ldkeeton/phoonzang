@@ -69,7 +69,7 @@ api_idx_0002_4:
     push ax                          ; 0x68af
     call ds_dispatch_c12a            ; 0x68b0
     pop cx                           ; 0x68b3
-    mov ax, math_loc_000e            ; 0x68b4
+    mov ax, 0xe                      ; 0x68b4
     push ax                          ; 0x68b7
     call ds_dispatch_c12a            ; 0x68b8
     pop cx                           ; 0x68bb

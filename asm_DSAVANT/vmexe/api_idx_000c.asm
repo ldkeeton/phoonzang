@@ -86,7 +86,7 @@ api_idx_000c:
     push ax                          ; 0x700d
     mov ax, 0xffff                   ; 0x700e
     push ax                          ; 0x7011
-    mov ax, math_loc_0dbe            ; 0x7012
+    mov ax, 0xdbe                    ; 0x7012
     push ax                          ; 0x7015
     call api_idx_0006_6              ; 0x7016
     add sp, byte 8                   ; 0x7019

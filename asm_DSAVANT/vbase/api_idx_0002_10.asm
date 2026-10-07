@@ -73,7 +73,7 @@ api_idx_0002_10:
     add sp, byte 4                   ; 0x8d5f
     mov ax, 0xf                      ; 0x8d62
     push ax                          ; 0x8d65
-    call math_loc_72c2               ; 0x8d66
+    call loc_72c2                    ; 0x8d66
     pop cx                           ; 0x8d69
     mov ax, 0                        ; 0x8d6a
     push ax                          ; 0x8d6d

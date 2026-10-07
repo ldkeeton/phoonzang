@@ -98,32 +98,32 @@ loc_49f9:
     jne short loc_4a18               ; 0x4a02
     cmp byte [bp - 0x000c], 0x30     ; 0x4a04
     jne short loc_4a0d               ; 0x4a08
-    call string_loc_4aba             ; 0x4a0a
+    call loc_4aba                    ; 0x4a0a
 loc_4a0d:
     mov al, byte [bp - 0x000c]       ; 0x4a0d
-    call string_loc_4ad0             ; 0x4a10
+    call loc_4ad0                    ; 0x4a10
     dec word [bp - 0x0004]           ; 0x4a13
     jg short loc_4a0d                ; 0x4a16
 loc_4a18:
-    call string_loc_4aba             ; 0x4a18
+    call loc_4aba                    ; 0x4a18
 loc_4a1b:
     dec word [bp - 0x0006]           ; 0x4a1b
     js short loc_4a27                ; 0x4a1e
     mov al, 0x30                     ; 0x4a20
-    call string_loc_4ad0             ; 0x4a22
+    call loc_4ad0                    ; 0x4a22
     jmp short loc_4a1b               ; 0x4a25
 loc_4a27:
     dec word [bp - 0x0008]           ; 0x4a27
     js short loc_4a35                ; 0x4a2a
     mov al, byte [es:di]             ; 0x4a2c
     inc di                           ; 0x4a2f
-    call string_loc_4ad0             ; 0x4a30
+    call loc_4ad0                    ; 0x4a30
     jmp short loc_4a27               ; 0x4a33
 loc_4a35:
     dec word [bp - 0x0004]           ; 0x4a35
     js short loc_4a41                ; 0x4a38
     mov al, 0x20                     ; 0x4a3a
-    call string_loc_4ad0             ; 0x4a3c
+    call loc_4ad0                    ; 0x4a3c
     jmp short loc_4a35               ; 0x4a3f
 loc_4a41:
     jmp near loc_4879                ; 0x4a41
@@ -138,7 +138,7 @@ loc_4a4a:
     sub word [bp - 0x0004], byte 0x0a ; 0x4a55
     jmp short loc_4a27               ; 0x4a59
 loc_4a5b:
-    call string_loc_4aed             ; 0x4a5b
+    call leaf_loc_4aed               ; 0x4a5b
     push di                          ; 0x4a5e
     mov al, 0                        ; 0x4a5f
     mov cx, 0xffff                   ; 0x4a61

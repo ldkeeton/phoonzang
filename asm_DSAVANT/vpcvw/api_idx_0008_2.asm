@@ -135,7 +135,7 @@ api_idx_0008_2:
     cmp word [bp + 0x6], byte 0x13   ; 0x235c
     je short loc_2369                ; 0x2360
     push word [bp - 0x0002]          ; 0x2362
-    call math_loc_2190               ; 0x2365
+    call loc_2190                    ; 0x2365
     pop cx                           ; 0x2368
     inc word [bp - 0x0002]           ; 0x2369
     mov ax, word [bp - 0x0002]       ; 0x236c
@@ -160,7 +160,7 @@ api_idx_0008_2:
     mov al, byte [bp - 0x0002]       ; 0x239e
     mov byte [bx + 0x5d5d], al       ; 0x23a1
     push word [bp + 0xa]             ; 0x23a5
-    call math_loc_2190               ; 0x23a8
+    call loc_2190                    ; 0x23a8
     pop cx                           ; 0x23ab
     jmp near @..api_idx_0008_2.l16   ; 0x23ac
     mov ax, 0x248                    ; 0x23af

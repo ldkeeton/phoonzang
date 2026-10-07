@@ -21,7 +21,7 @@ bios_mouse_loc_18c1:
     shl cx, 1                        ; 0x18ed
     mov ax, cs                       ; 0x18ef
     push ax                          ; 0x18f1
-    call math_loc_2a4f               ; 0x18f2
+    call leaf_loc_2a4f               ; 0x18f2
 @..bios_mouse_loc_18c1.l4:
     mov byte [cs:data_0227], 0       ; 0x18f5
     pop di                           ; 0x18fb
