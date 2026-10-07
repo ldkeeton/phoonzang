@@ -229,6 +229,7 @@ def cmd_build_binary(app, binary):
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
 
+    cmd_clean([app])
     clear_project_stats(app)
     os.makedirs(out_dir, exist_ok=True)
     cross_refs = detect_cross_refs(app_dir, bins)
@@ -365,7 +366,7 @@ def cmd_rebuild(app, binary):
     print(f'rebuild {app}/{binary} -> {rel_path}  [OK]')
 
 
-def _elf_source_text(asm_path, entry_line=None):
+def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
     """Prepare generated MZ assembly for ELF/DWARF symbol output."""
     with open(asm_path) as f:
         lines = f.read().splitlines()
@@ -404,7 +405,7 @@ def _elf_source_text(asm_path, entry_line=None):
         None,
     )
     header_line = next(
-        (i for i, line in enumerate(lines) if '; header (' in line.lower()),
+        (i for i, line in enumerate(lines) if 'header (' in line.lower()),
         None,
     )
     if org_line is None or header_line is None:
@@ -427,7 +428,9 @@ def _elf_source_text(asm_path, entry_line=None):
             match = re.match(r'\s*([A-Za-z_][A-Za-z0-9_]*)\s+equ\b', line)
         if match and match.group(1) not in symbols:
             symbols.append(match.group(1))
-    needs_entry_symbol = entry_line is not None and '_start' not in symbols
+    needs_entry_symbol = (
+        (entry_line is not None or add_entry_symbol) and '_start' not in symbols
+    )
     if needs_entry_symbol:
         symbols.append('_start')
 
@@ -448,7 +451,7 @@ def _elf_source_text(asm_path, entry_line=None):
     lines[header_line:header_end] = declarations + [
         '' for _ in range(header_slots - len(declarations))
     ]
-    if needs_entry_symbol:
+    if entry_line is not None:
         if not 1 <= entry_line <= len(lines):
             raise ValueError(f'{asm_path}: invalid MZ entry source line {entry_line}')
         lines[entry_line - 1] = '_start: ' + lines[entry_line - 1].lstrip()
@@ -464,6 +467,8 @@ def _nasm_elf_build(out_dir, name, entry_ip):
     elf_path = os.path.join(build_out, f'{name.upper()}.elf')
     tmp_elf = elf_path + '.tmp'
     build_succeeded = False
+    extra_source_paths = []
+    extra_source_dirs = []
 
     try:
         cmd = [
@@ -490,16 +495,51 @@ def _nasm_elf_build(out_dir, name, entry_ip):
         # row; placing _start on that row preserves the correct load address.
         if entry_ip:
             result = subprocess.run(
-                ['addr2line', '-e', tmp_elf, '-f', '-s', f'0x{entry_ip:x}'],
+                ['addr2line', '-e', tmp_elf, '-f', f'0x{entry_ip:x}'],
                 capture_output=True, text=True,
             )
-            line_match = re.search(r':(\d+)\s*$', result.stdout.strip())
-            if result.returncode != 0 or line_match is None:
+            output_lines = result.stdout.strip().splitlines()
+            source_match = (
+                re.match(r'(.+):(\d+)\s*$', output_lines[-1])
+                if output_lines else None
+            )
+            if result.returncode != 0 or source_match is None:
                 print(f'  ELF BUILD FAIL: could not map MZ entry 0x{entry_ip:x}')
                 if result.stderr.strip():
                     print(f'    {result.stderr.strip()}')
                 return 1
-            result = assemble(_elf_source_text(asm_path, int(line_match.group(1))))
+
+            entry_source = os.path.realpath(source_match.group(1))
+            entry_line = int(source_match.group(2))
+            if entry_source in {
+                os.path.realpath(asm_path), os.path.realpath(source_path),
+            }:
+                source_text = _elf_source_text(asm_path, entry_line)
+            else:
+                out_root = os.path.realpath(out_dir)
+                if os.path.commonpath((out_root, entry_source)) != out_root:
+                    print(f'  ELF BUILD FAIL: entry source is outside {out_dir}')
+                    return 1
+                with open(entry_source) as f:
+                    entry_lines = f.read().splitlines()
+                if not 1 <= entry_line <= len(entry_lines):
+                    print(f'  ELF BUILD FAIL: invalid MZ entry source line {entry_line}')
+                    return 1
+                entry_lines[entry_line - 1] = (
+                    '_start: ' + entry_lines[entry_line - 1].lstrip()
+                )
+                relative_source = os.path.relpath(entry_source, out_root)
+                entry_copy = os.path.join(elf_dir, relative_source)
+                entry_copy_dir = os.path.dirname(entry_copy)
+                if not os.path.isdir(entry_copy_dir):
+                    os.makedirs(entry_copy_dir)
+                    extra_source_dirs.append(entry_copy_dir)
+                with open(entry_copy, 'w') as f:
+                    f.write('\n'.join(entry_lines) + '\n')
+                extra_source_paths.append(entry_copy)
+                source_text = _elf_source_text(asm_path, add_entry_symbol=True)
+
+            result = assemble(source_text)
             if result.returncode != 0:
                 print(f'  ELF BUILD FAIL: {name}.asm -> {os.path.basename(elf_path)}')
                 for line in result.stderr.strip().split('\n'):
@@ -513,11 +553,19 @@ def _nasm_elf_build(out_dir, name, entry_ip):
         # DW_AT_comp_dir. Keep the generated, line-aligned source at that path
         # so absolute break-insert requests can resolve instead of staying
         # pending. The VS Code sourceFileMap still presents the original file.
-        cleanup_paths = (tmp_elf,) if build_succeeded else (source_path, tmp_elf)
+        cleanup_paths = (
+            (tmp_elf,) if build_succeeded
+            else (source_path, tmp_elf, *extra_source_paths)
+        )
         for path in cleanup_paths:
             try:
                 os.unlink(path)
             except FileNotFoundError:
+                pass
+        for path in reversed(extra_source_dirs):
+            try:
+                os.rmdir(path)
+            except OSError:
                 pass
         try:
             os.rmdir(elf_dir)
@@ -732,6 +780,8 @@ def _build_projects(targets, all_projects):
             print(f'Unknown project: {project}')
             print(f'Known: {", ".join(all_projects)}')
             sys.exit(1)
+    cmd_clean(targets)
+    for project in targets:
         asm_app(project)
     if len(targets) > 1 or targets == all_projects:
         _charts_all()
