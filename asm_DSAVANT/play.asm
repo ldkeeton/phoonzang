@@ -83,67 +83,67 @@ data_1a04 equ 0x1a04
 data_89a3 equ 0x89a3
 
 loc_0000:
-    jmp near @..local.l1
+    jmp near @..local.l1             ; 0x0000
 @..local.l1:
-    call loc_0023
-    retf
-    call strlen
-    retf
-    call loc_0154
-    retf
-    call io_loc_01b0
-    retf
-    call io_loc_023f
-    retf
-    call io_loc_0294
-    retf
-    call io_loc_016e
-    retf
-    call io_loc_0183
-    retf
+    call loc_0023                    ; 0x0003
+    retf                             ; 0x0006
+    call strlen                      ; 0x0007
+    retf                             ; 0x000a
+    call loc_0154                    ; 0x000b
+    retf                             ; 0x000e
+    call io_loc_01b0                 ; 0x000f
+    retf                             ; 0x0012
+    call io_loc_023f                 ; 0x0013
+    retf                             ; 0x0016
+    call io_loc_0294                 ; 0x0017
+    retf                             ; 0x001a
+    call io_loc_016e                 ; 0x001b
+    retf                             ; 0x001e
+    call io_loc_0183                 ; 0x001f
+    retf                             ; 0x0022
 loc_0023:
-    push bp
-    mov bp, sp
-    push bx
-    mov byte [cs:data_0b9a], 0
-    mov ax, word [bp + 0x8]
-    mov word [cs:data_0ba4], ax
-    mov word [cs:data_0b9e], ax
-    mov ax, word [bp + 0xa]
-    mov word [cs:data_0ba2], ax
-    mov word [cs:data_0ba0], ax
-    mov ax, word [bp + 0xc]
-    mov byte [cs:data_0b9d], al
-    mov word [cs:data_0b81], 1
-    mov word [cs:data_0b7f], 1
-    mov bx, 0xe03
+    push bp                          ; 0x0023
+    mov bp, sp                       ; 0x0024
+    push bx                          ; 0x0026
+    mov byte [cs:data_0b9a], 0       ; 0x0027
+    mov ax, word [bp + 0x8]          ; 0x002d
+    mov word [cs:data_0ba4], ax      ; 0x0030
+    mov word [cs:data_0b9e], ax      ; 0x0034
+    mov ax, word [bp + 0xa]          ; 0x0038
+    mov word [cs:data_0ba2], ax      ; 0x003b
+    mov word [cs:data_0ba0], ax      ; 0x003f
+    mov ax, word [bp + 0xc]          ; 0x0043
+    mov byte [cs:data_0b9d], al      ; 0x0046
+    mov word [cs:data_0b81], 1       ; 0x004a
+    mov word [cs:data_0b7f], 1       ; 0x0051
+    mov bx, 0xe03                    ; 0x0058
 @..local.l2:
-    mov byte [cs:bx], 0
-    mov byte [cs:bx + 0x1], 0
-    mov byte [cs:bx + 0x2], 0xff
-    mov word [cs:bx + 0x3], 0
-    add bx, byte 5
-    cmp bx, strict word 0xe3a
-    jb short @..local.l2
-    mov al, byte [cs:data_0b7c]
-    mov ax, word [cs:data_0b83]
-    mov word [cs:data_0b85], ax
-    call io_loc_0098
-    cmp ax, strict word 0
-    jne short @..local.l3
-    call io_loc_02ba
-    mov byte [cs:data_0b9a], 1
+    mov byte [cs:bx], 0              ; 0x005b
+    mov byte [cs:bx + 0x1], 0        ; 0x005f
+    mov byte [cs:bx + 0x2], 0xff     ; 0x0064
+    mov word [cs:bx + 0x3], 0        ; 0x0069
+    add bx, byte 5                   ; 0x006f
+    cmp bx, strict word 0xe3a        ; 0x0072
+    jb short @..local.l2             ; 0x0076
+    mov al, byte [cs:data_0b7c]      ; 0x0078
+    mov ax, word [cs:data_0b83]      ; 0x007c
+    mov word [cs:data_0b85], ax      ; 0x0080
+    call io_loc_0098                 ; 0x0084
+    cmp ax, strict word 0            ; 0x0087
+    jne short @..local.l3            ; 0x008a
+    call io_loc_02ba                 ; 0x008c
+    mov byte [cs:data_0b9a], 1       ; 0x008f
 @..local.l3:
-    pop bx
-    pop bp
-    ret
+    pop bx                           ; 0x0095
+    pop bp                           ; 0x0096
+    ret                              ; 0x0097
 io_loc_0098:
-    mov bl, byte [cs:data_0b7c]
-    xor bh, bh
-    shl bx, 1
-    mov ax, 0
-    call [cs:bx + 0x1aa]
-    ret
+    mov bl, byte [cs:data_0b7c]      ; 0x0098
+    xor bh, bh                       ; 0x009d
+    shl bx, 1                        ; 0x009f
+    mov ax, 0                        ; 0x00a1
+    call [cs:bx + 0x1aa]             ; 0x00a4
+    ret                              ; 0x00a9
 
     db 0x84, 0x12, 0xc4, 0x01, 0x84, 0x12, 0x84, 0x12, 0xc4, 0x01, 0xb6, 0x01, 0x51, 0xb9, 0x0a, 0x00
     db 0xe8, 0x5a, 0x11, 0x3d, 0x00, 0x00, 0xe0, 0xf8, 0x59, 0xc3, 0xb0, 0x08, 0x2e, 0x80, 0x3e, 0x7d
@@ -160,65 +160,65 @@ io_loc_0098:
     db 'PBAPBL'
 
 loc_0154:
-    push bp
-    mov bp, sp
-    mov ax, word [bp + 0x8]
-    mov word [cs:data_0bae], ax
-    mov ax, word [bp + 0xa]
-    mov word [cs:data_0bac], ax
-    mov ax, word [bp + 0xc]
-    mov byte [cs:data_0b7c], al
-    pop bp
-    ret
+    push bp                          ; 0x0154
+    mov bp, sp                       ; 0x0155
+    mov ax, word [bp + 0x8]          ; 0x0157
+    mov word [cs:data_0bae], ax      ; 0x015a
+    mov ax, word [bp + 0xa]          ; 0x015e
+    mov word [cs:data_0bac], ax      ; 0x0161
+    mov ax, word [bp + 0xc]          ; 0x0165
+    mov byte [cs:data_0b7c], al      ; 0x0168
+    pop bp                           ; 0x016c
+    ret                              ; 0x016d
 io_loc_016e:
-    mov al, byte [cs:data_0b9a]
-    cmp al, 0
-    je short @..io_loc_016e.l1
-    mov al, byte [cs:data_0ba4]
-    cmp al, 0
-    jne short @..io_loc_016e.l1
-    mov al, 1
+    mov al, byte [cs:data_0b9a]      ; 0x016e
+    cmp al, 0                        ; 0x0172
+    je short @..io_loc_016e.l1       ; 0x0174
+    mov al, byte [cs:data_0ba4]      ; 0x0176
+    cmp al, 0                        ; 0x017a
+    jne short @..io_loc_016e.l1      ; 0x017c
+    mov al, 1                        ; 0x017e
 @..io_loc_016e.l1:
-    xor ah, ah
-    ret
+    xor ah, ah                       ; 0x0180
+    ret                              ; 0x0182
 io_loc_0183:
-    push bp
-    mov bp, sp
-    cmp word [bp + 0x8], byte 0
-    je short @..local.l4
+    push bp                          ; 0x0183
+    mov bp, sp                       ; 0x0184
+    cmp word [bp + 0x8], byte 0      ; 0x0186
+    je short @..local.l4             ; 0x018a
 @..io_loc_0183.l1:
-    cmp byte [cs:data_0b94], 0
-    je short @..io_loc_0183.l1
+    cmp byte [cs:data_0b94], 0       ; 0x018c
+    je short @..io_loc_0183.l1       ; 0x0192
 @..io_loc_0183.l2:
-    cmp byte [cs:data_0b9a], 0
-    jne short @..io_loc_0183.l2
-    pop bp
-    ret
+    cmp byte [cs:data_0b9a], 0       ; 0x0194
+    jne short @..io_loc_0183.l2      ; 0x019a
+    pop bp                           ; 0x019c
+    ret                              ; 0x019d
 @..local.l4:
-    cmp byte [cs:data_0b7d], 0
-    jne short @..local.l6
+    cmp byte [cs:data_0b7d], 0       ; 0x019e
+    jne short @..local.l6            ; 0x01a4
 @..local.l5:
-    cmp byte [cs:data_0b94], 0
-    je short @..local.l5
+    cmp byte [cs:data_0b94], 0       ; 0x01a6
+    je short @..local.l5             ; 0x01ac
 @..local.l6:
-    pop bp
-    ret
+    pop bp                           ; 0x01ae
+    ret                              ; 0x01af
 io_loc_01b0:
-    push bx
-    cmp byte [cs:data_0b9a], 0
-    je short @..io_loc_01b0.l2
-    mov byte [cs:data_0b9a], 0
-    cmp byte [cs:data_0b94], 0
-    je short @..io_loc_01b0.l1
-    call io_loc_0c97
+    push bx                          ; 0x01b0
+    cmp byte [cs:data_0b9a], 0       ; 0x01b1
+    je short @..io_loc_01b0.l2       ; 0x01b7
+    mov byte [cs:data_0b9a], 0       ; 0x01b9
+    cmp byte [cs:data_0b94], 0       ; 0x01bf
+    je short @..io_loc_01b0.l1       ; 0x01c5
+    call io_loc_0c97                 ; 0x01c7
 @..io_loc_01b0.l1:
-    mov bl, byte [cs:data_0b7c]
-    xor bh, bh
-    shl bx, 1
-    call [cs:bx + 0x2da]
+    mov bl, byte [cs:data_0b7c]      ; 0x01ca
+    xor bh, bh                       ; 0x01cf
+    shl bx, 1                        ; 0x01d1
+    call [cs:bx + 0x2da]             ; 0x01d3
 @..io_loc_01b0.l2:
-    pop bx
-    ret
+    pop bx                           ; 0x01d8
+    ret                              ; 0x01d9
 
     db 0x84, 0x12, 0xe6, 0x02, 0x84, 0x12, 0x84, 0x12, 0xe6, 0x02, 0x22, 0x03, 0x53, 0x51, 0x52, 0xb1
     db 0x00, 0xb4, 0xb1, 0x2e, 0x80, 0x3e, 0x7d, 0x0b, 0x01, 0x74, 0x0a, 0x2e, 0x80, 0x3e, 0x7d, 0x0b
@@ -229,425 +229,425 @@ io_loc_01b0:
     db 0x0a, 0x72, 0xe8, 0x5b, 0xc3
 
 io_loc_023f:
-    push bp
-    mov bp, sp
-    push bx
-    push dx
-    mov bx, word [bp + 0x8]
-    mov word [cs:data_0ba6], bx
-    mov ax, 0x38e
-    mov dx, 0
-    cmp bx, byte 0
-    je short @..io_loc_023f.l1
-    div bx
+    push bp                          ; 0x023f
+    mov bp, sp                       ; 0x0240
+    push bx                          ; 0x0242
+    push dx                          ; 0x0243
+    mov bx, word [bp + 0x8]          ; 0x0244
+    mov word [cs:data_0ba6], bx      ; 0x0247
+    mov ax, 0x38e                    ; 0x024c
+    mov dx, 0                        ; 0x024f
+    cmp bx, byte 0                   ; 0x0252
+    je short @..io_loc_023f.l1       ; 0x0255
+    div bx                           ; 0x0257
 @..io_loc_023f.l1:
-    mov word [cs:data_0b83], ax
-    cmp byte [cs:data_0b90], 0
-    je short @..io_loc_023f.l2
-    cmp byte [cs:data_0b9a], 0
-    je short @..io_loc_023f.l2
-    mov al, 0x34
-    out 0x43, al
-    call io_loc_0610
-    mov ax, word [cs:data_0ba6]
-    mov bl, 0x48
-    mul bl
-    mov word [cs:data_0b98], ax
-    out 0x40, al
-    call io_loc_0610
-    mov al, ah
-    out 0x40, al
+    mov word [cs:data_0b83], ax      ; 0x0259
+    cmp byte [cs:data_0b90], 0       ; 0x025d
+    je short @..io_loc_023f.l2       ; 0x0263
+    cmp byte [cs:data_0b9a], 0       ; 0x0265
+    je short @..io_loc_023f.l2       ; 0x026b
+    mov al, 0x34                     ; 0x026d
+    out 0x43, al                     ; 0x026f
+    call io_loc_0610                 ; 0x0271
+    mov ax, word [cs:data_0ba6]      ; 0x0274
+    mov bl, 0x48                     ; 0x0278
+    mul bl                           ; 0x027a
+    mov word [cs:data_0b98], ax      ; 0x027c
+    out 0x40, al                     ; 0x0280
+    call io_loc_0610                 ; 0x0282
+    mov al, ah                       ; 0x0285
+    out 0x40, al                     ; 0x0287
 @..io_loc_023f.l2:
-    mov ax, word [bp + 0xa]
-    mov byte [cs:data_0ba8], al
-    pop dx
-    pop bx
-    pop bp
-    ret
+    mov ax, word [bp + 0xa]          ; 0x0289
+    mov byte [cs:data_0ba8], al      ; 0x028c
+    pop dx                           ; 0x0290
+    pop bx                           ; 0x0291
+    pop bp                           ; 0x0292
+    ret                              ; 0x0293
 io_loc_0294:
-    push bp
-    mov bp, sp
-    push di
-    push si
-    push es
-    push ds
-    push dx
-    push bx
-    cmp byte [bp + 0x14], 0xff
-    jne short @..io_loc_0294.l1
-    jmp near @..local.l7
+    push bp                          ; 0x0294
+    mov bp, sp                       ; 0x0295
+    push di                          ; 0x0297
+    push si                          ; 0x0298
+    push es                          ; 0x0299
+    push ds                          ; 0x029a
+    push dx                          ; 0x029b
+    push bx                          ; 0x029c
+    cmp byte [bp + 0x14], 0xff       ; 0x029d
+    jne short @..io_loc_0294.l1      ; 0x02a1
+    jmp near @..local.l7             ; 0x02a3
 @..io_loc_0294.l1:
-    mov al, byte [cs:data_0b7d]
-    call io_loc_02b3
-    mov byte [bp + 0x15], al
-    jmp near @..local.l10
+    mov al, byte [cs:data_0b7d]      ; 0x02a6
+    call io_loc_02b3                 ; 0x02aa
+    mov byte [bp + 0x15], al         ; 0x02ad
+    jmp near @..local.l10            ; 0x02b0
 io_loc_02b3:
-    cmp al, 6
-    jb short @..io_loc_0294.l2
-    mov al, 0
+    cmp al, 6                        ; 0x02b3
+    jb short @..io_loc_0294.l2       ; 0x02b5
+    mov al, 0                        ; 0x02b7
 @..io_loc_0294.l2:
-    ret
+    ret                              ; 0x02b9
 io_loc_02ba:
-    push di
-    push es
-    cld
-    cmp byte [cs:data_0421], 0
-    jne short @..io_loc_02ba.l1
-    in al, 0x21
-    mov byte [cs:data_0b8f], al
-    cli
-    xor ax, ax
-    mov es, ax
-    mov di, 0x20
-    mov ax, word [es:di]
-    mov word [cs:data_0c10], ax
-    mov ax, 0xbb4
-    stosw
-    mov ax, word [es:di]
-    mov word [cs:data_0c12], ax
-    mov ax, cs
-    stosw
-    sti
-    mov al, 0x34
-    out 0x43, al
-    call io_loc_0610
-    in al, 0x40
-    mov ah, al
-    call io_loc_0610
-    in al, 0x40
-    xchg al, ah
-    mov word [cs:data_0b96], ax
-    mov al, 0x34
-    out 0x43, al
-    mov ax, word [cs:data_0ba6]
-    mov bl, 0x48
-    mul bl
-    mov word [cs:data_0b98], ax
-    out 0x40, al
-    call io_loc_0610
-    mov al, ah
-    out 0x40, al
+    push di                          ; 0x02ba
+    push es                          ; 0x02bb
+    cld                              ; 0x02bc
+    cmp byte [cs:data_0421], 0       ; 0x02bd
+    jne short @..io_loc_02ba.l1      ; 0x02c3
+    in al, 0x21                      ; 0x02c5
+    mov byte [cs:data_0b8f], al      ; 0x02c7
+    cli                              ; 0x02cb
+    xor ax, ax                       ; 0x02cc
+    mov es, ax                       ; 0x02ce
+    mov di, 0x20                     ; 0x02d0
+    mov ax, word [es:di]             ; 0x02d3
+    mov word [cs:data_0c10], ax      ; 0x02d6
+    mov ax, 0xbb4                    ; 0x02da
+    stosw                            ; 0x02dd
+    mov ax, word [es:di]             ; 0x02de
+    mov word [cs:data_0c12], ax      ; 0x02e1
+    mov ax, cs                       ; 0x02e5
+    stosw                            ; 0x02e7
+    sti                              ; 0x02e8
+    mov al, 0x34                     ; 0x02e9
+    out 0x43, al                     ; 0x02eb
+    call io_loc_0610                 ; 0x02ed
+    in al, 0x40                      ; 0x02f0
+    mov ah, al                       ; 0x02f2
+    call io_loc_0610                 ; 0x02f4
+    in al, 0x40                      ; 0x02f7
+    xchg al, ah                      ; 0x02f9
+    mov word [cs:data_0b96], ax      ; 0x02fb
+    mov al, 0x34                     ; 0x02ff
+    out 0x43, al                     ; 0x0301
+    mov ax, word [cs:data_0ba6]      ; 0x0303
+    mov bl, 0x48                     ; 0x0307
+    mul bl                           ; 0x0309
+    mov word [cs:data_0b98], ax      ; 0x030b
+    out 0x40, al                     ; 0x030f
+    call io_loc_0610                 ; 0x0311
+    mov al, ah                       ; 0x0314
+    out 0x40, al                     ; 0x0316
 @..io_loc_02ba.l1:
-    mov byte [cs:data_0421], 0xff
-    pop es
-    pop di
-    ret
+    mov byte [cs:data_0421], 0xff    ; 0x0318
+    pop es                           ; 0x031e
+    pop di                           ; 0x031f
+    ret                              ; 0x0320
     db 0x00
 @..local.l7:
-    mov ah, 0
+    mov ah, 0                        ; 0x0322
     int 0x13 ; BIOS disk: reset disk system
-    cmp byte [bp + 0x15], 4
-    jne short @..local.l8
-    mov byte [bp + 0x15], 1
+    cmp byte [bp + 0x15], 4          ; 0x0326
+    jne short @..local.l8            ; 0x032a
+    mov byte [bp + 0x15], 1          ; 0x032c
 @..local.l8:
-    mov ax, 0x64
-    mov word [cs:data_0b81], ax
-    mov al, byte [bp + 0x15]
-    mov byte [cs:data_0b7d], al
-    mov byte [cs:data_0b90], 0
-    pushf
-    pop ax
-    test ah, 0x80
-    je short @..local.l9
-    inc byte [cs:data_0b90]
+    mov ax, 0x64                     ; 0x0330
+    mov word [cs:data_0b81], ax      ; 0x0333
+    mov al, byte [bp + 0x15]         ; 0x0337
+    mov byte [cs:data_0b7d], al      ; 0x033a
+    mov byte [cs:data_0b90], 0       ; 0x033e
+    pushf                            ; 0x0344
+    pop ax                           ; 0x0345
+    test ah, 0x80                    ; 0x0346
+    je short @..local.l9             ; 0x0349
+    inc byte [cs:data_0b90]          ; 0x034b
 @..local.l9:
-    mov bl, byte [cs:data_0b7d]
-    shl bl, 1
-    xor bh, bh
-    jmp [cs:bx + 0x45e]
-    xchg dx, ax
-    push es
+    mov bl, byte [cs:data_0b7d]      ; 0x0350
+    shl bl, 1                        ; 0x0355
+    xor bh, bh                       ; 0x0357
+    jmp [cs:bx + 0x45e]              ; 0x0359
+    xchg dx, ax                      ; 0x035e
+    push es                          ; 0x035f
     db 0xdc, 0x04 ; fadd [si]
-    push 0x6804
-    add al, 0xca
-    add al, 0x8b
-    inc si
-    adc byte [data_89a3], ch
-    or ax, word [bx + si + 0x2e]
-    mov word [data_0b8b], ax
-    inc ax
-    cmp byte [bp + 0x15], 2
-    je short loc_0381
-    add ax, strict word 0xd
-    dec byte [bp + 0x15]
-    mov word [cs:data_0b8d], ax
-    mov dx, word [cs:data_0b89]
-    mov al, 7
-    out dx, al
-    mov dx, word [cs:data_0b8b]
-    in al, dx
-    or al, 0xc0
-    out dx, al
-    mov dx, word [cs:data_0b89]
-    mov al, 0xa
-    out dx, al
-    mov dx, word [cs:data_0b8b]
-    in al, dx
-    or al, 0x10
-    out dx, al
-    mov dx, word [cs:data_0b89]
-    mov al, 0xf
-    out dx, al
-    mov dx, word [cs:data_0b8b]
-    mov al, 0x70
-    out dx, al
-    mov dx, word [cs:data_0b89]
-    mov al, 0xe
-    out dx, al
-    mov dx, word [cs:data_0b8b]
-    mov al, 0x80
-    out dx, al
-    jmp near @..local.l25
-    jmp near @..local.l25
+    push 0x6804                      ; 0x0362
+    add al, 0xca                     ; 0x0365
+    add al, 0x8b                     ; 0x0367
+    inc si                           ; 0x0369
+    adc byte [data_89a3], ch         ; 0x036a
+    or ax, word [bx + si + 0x2e]     ; 0x036e
+    mov word [data_0b8b], ax         ; 0x0371
+    inc ax                           ; 0x0374
+    cmp byte [bp + 0x15], 2          ; 0x0375
+    je short loc_0381                ; 0x0379
+    add ax, strict word 0xd          ; 0x037b
+    dec byte [bp + 0x15]             ; 0x037e
+    mov word [cs:data_0b8d], ax      ; 0x0381
+    mov dx, word [cs:data_0b89]      ; 0x0385
+    mov al, 7                        ; 0x038a
+    out dx, al                       ; 0x038c
+    mov dx, word [cs:data_0b8b]      ; 0x038d
+    in al, dx                        ; 0x0392
+    or al, 0xc0                      ; 0x0393
+    out dx, al                       ; 0x0395
+    mov dx, word [cs:data_0b89]      ; 0x0396
+    mov al, 0xa                      ; 0x039b
+    out dx, al                       ; 0x039d
+    mov dx, word [cs:data_0b8b]      ; 0x039e
+    in al, dx                        ; 0x03a3
+    or al, 0x10                      ; 0x03a4
+    out dx, al                       ; 0x03a6
+    mov dx, word [cs:data_0b89]      ; 0x03a7
+    mov al, 0xf                      ; 0x03ac
+    out dx, al                       ; 0x03ae
+    mov dx, word [cs:data_0b8b]      ; 0x03af
+    mov al, 0x70                     ; 0x03b4
+    out dx, al                       ; 0x03b6
+    mov dx, word [cs:data_0b89]      ; 0x03b7
+    mov al, 0xe                      ; 0x03bc
+    out dx, al                       ; 0x03be
+    mov dx, word [cs:data_0b8b]      ; 0x03bf
+    mov al, 0x80                     ; 0x03c4
+    out dx, al                       ; 0x03c6
+    jmp near @..local.l25            ; 0x03c7
+    jmp near @..local.l25            ; 0x03ca
     times 14 db 0
-    add al, ch
-    or ax, 0xe903
-    mov al, 1
+    add al, ch                       ; 0x03db
+    or ax, 0xe903                    ; 0x03dd
+    mov al, 1                        ; 0x03e0
 @..local.l10:
-    cmp byte [bp + 0x12], 0
-    jne short @..local.l12
-    call io_loc_01b0
+    cmp byte [bp + 0x12], 0          ; 0x03e2
+    jne short @..local.l12           ; 0x03e6
+    call io_loc_01b0                 ; 0x03e8
 @..local.l11:
-    test byte [cs:data_0b94], 0xff
-    je short @..local.l11
-    jmp near @..local.l32
+    test byte [cs:data_0b94], 0xff   ; 0x03eb
+    je short @..local.l11            ; 0x03f1
+    jmp near @..local.l32            ; 0x03f3
 @..local.l12:
-    test byte [bp + 0x14], 2
-    je short @..local.l13
-    test byte [cs:data_0b94], 0xff
-    jne short @..local.l13
-    jmp near @..local.l25
+    test byte [bp + 0x14], 2         ; 0x03f6
+    je short @..local.l13            ; 0x03fa
+    test byte [cs:data_0b94], 0xff   ; 0x03fc
+    jne short @..local.l13           ; 0x0402
+    jmp near @..local.l25            ; 0x0404
 @..local.l13:
-    cli
-    test byte [cs:data_0b94], 0xff
-    jne short @..local.l14
-    jmp near @..local.l18
+    cli                              ; 0x0407
+    test byte [cs:data_0b94], 0xff   ; 0x0408
+    jne short @..local.l14           ; 0x040e
+    jmp near @..local.l18            ; 0x0410
 @..local.l14:
-    xor ax, ax
-    mov es, ax
-    mov di, 0x20
-    cli
-    cmp byte [cs:data_0421], 0
-    jne short @..local.l15
-    mov byte [cs:data_0421], 1
-    in al, 0x21
-    mov byte [cs:data_0b8f], al
-    mov ax, word [es:di]
-    mov word [cs:data_0c10], ax
-    mov ax, word [es:di + 0x2]
-    mov word [cs:data_0c12], ax
+    xor ax, ax                       ; 0x0413
+    mov es, ax                       ; 0x0415
+    mov di, 0x20                     ; 0x0417
+    cli                              ; 0x041a
+    cmp byte [cs:data_0421], 0       ; 0x041b
+    jne short @..local.l15           ; 0x0421
+    mov byte [cs:data_0421], 1       ; 0x0423
+    in al, 0x21                      ; 0x0429
+    mov byte [cs:data_0b8f], al      ; 0x042b
+    mov ax, word [es:di]             ; 0x042f
+    mov word [cs:data_0c10], ax      ; 0x0432
+    mov ax, word [es:di + 0x2]       ; 0x0436
+    mov word [cs:data_0c12], ax      ; 0x043a
 @..local.l15:
-    mov al, 0x34
-    out 0x43, al
-    call io_loc_0610
-    mov ax, 0x48
-    out 0x40, al
-    call io_loc_0610
-    mov al, ah
-    out 0x40, al
-    cmp byte [cs:data_0b90], 0
-    je short @..local.l16
-    mov bl, byte [cs:data_0b7d]
-    shl bl, 1
-    xor bh, bh
-    mov dx, word [cs:bx + 0x5a5]
-    cmp byte [cs:data_0b94], 0
-    je short @..local.l17
-    mov dx, word [cs:bx + 0x5ad]
-    jmp near @..local.l17
+    mov al, 0x34                     ; 0x043e
+    out 0x43, al                     ; 0x0440
+    call io_loc_0610                 ; 0x0442
+    mov ax, 0x48                     ; 0x0445
+    out 0x40, al                     ; 0x0448
+    call io_loc_0610                 ; 0x044a
+    mov al, ah                       ; 0x044d
+    out 0x40, al                     ; 0x044f
+    cmp byte [cs:data_0b90], 0       ; 0x0451
+    je short @..local.l16            ; 0x0457
+    mov bl, byte [cs:data_0b7d]      ; 0x0459
+    shl bl, 1                        ; 0x045e
+    xor bh, bh                       ; 0x0460
+    mov dx, word [cs:bx + 0x5a5]     ; 0x0462
+    cmp byte [cs:data_0b94], 0       ; 0x0467
+    je short @..local.l17            ; 0x046d
+    mov dx, word [cs:bx + 0x5ad]     ; 0x046f
+    jmp near @..local.l17            ; 0x0474
 @..local.l16:
-    mov bl, byte [cs:data_0b7d]
-    shl bl, 1
-    xor bh, bh
-    mov dx, word [cs:bx + 0x595]
-    cmp byte [cs:data_0b94], 0
-    je short @..local.l17
-    mov dx, word [cs:bx + 0x59d]
-    jmp near @..local.l17
-    in al, 0x19
-    scasw
-    or word [bx - 0x60f6], bx
+    mov bl, byte [cs:data_0b7d]      ; 0x0477
+    shl bl, 1                        ; 0x047c
+    xor bh, bh                       ; 0x047e
+    mov dx, word [cs:bx + 0x595]     ; 0x0480
+    cmp byte [cs:data_0b94], 0       ; 0x0485
+    je short @..local.l17            ; 0x048b
+    mov dx, word [cs:bx + 0x59d]     ; 0x048d
+    jmp near @..local.l17            ; 0x0492
+    in al, 0x19                      ; 0x0495
+    scasw                            ; 0x0497
+    or word [bx - 0x60f6], bx        ; 0x0498
     db 0x0a, 0xe4 ; or ah, ah
-    sbb word [bx - 0x60f7], bp
-    or bl, byte [bx + 0x410a]
-    or ax, word [bx + di + 0x9]
-    jne short @..local.l17
-    jne short loc_04b7
-    inc cx
-    or ax, word [bx + di + 0x9]
-    jne short loc_04bd
-    jne short loc_04bf
+    sbb word [bx - 0x60f7], bp       ; 0x049e
+    or bl, byte [bx + 0x410a]        ; 0x04a2
+    or ax, word [bx + di + 0x9]      ; 0x04a6
+    jne short @..local.l17           ; 0x04a9
+    jne short loc_04b7               ; 0x04ab
+    inc cx                           ; 0x04ad
+    or ax, word [bx + di + 0x9]      ; 0x04ae
+    jne short loc_04bd               ; 0x04b1
+    jne short loc_04bf               ; 0x04b3
 @..local.l17:
-    cld
-    xor ax, ax
-    mov es, ax
-    mov di, 0x20
-    mov ax, dx
-    stosw
-    mov ax, cs
-    stosw
+    cld                              ; 0x04b5
+    xor ax, ax                       ; 0x04b6
+    mov es, ax                       ; 0x04b8
+    mov di, 0x20                     ; 0x04ba
+    mov ax, dx                       ; 0x04bd
+    stosw                            ; 0x04bf
+    mov ax, cs                       ; 0x04c0
+    stosw                            ; 0x04c2
 @..local.l18:
-    cli
-    cmp byte [cs:data_0b7d], 1
-    jne short @..local.l20
-    mov al, 0
-    cmp byte [cs:data_0b94], 0
-    je short @..local.l19
-    mov al, 0xff
+    cli                              ; 0x04c3
+    cmp byte [cs:data_0b7d], 1       ; 0x04c4
+    jne short @..local.l20           ; 0x04ca
+    mov al, 0                        ; 0x04cc
+    cmp byte [cs:data_0b94], 0       ; 0x04ce
+    je short @..local.l19            ; 0x04d4
+    mov al, 0xff                     ; 0x04d6
 @..local.l19:
-    mov byte [cs:data_09ae], al
+    mov byte [cs:data_09ae], al      ; 0x04d8
 @..local.l20:
-    cmp byte [cs:data_0b7d], 0
-    jne short @..local.l21
-    in al, 0x61
-    or al, data_0003
-    out 0x61, al
+    cmp byte [cs:data_0b7d], 0       ; 0x04dc
+    jne short @..local.l21           ; 0x04e2
+    in al, 0x61                      ; 0x04e4
+    or al, data_0003                 ; 0x04e6
+    out 0x61, al                     ; 0x04e8
 @..local.l21:
-    call fpu_loc_077b
-    mov al, strlen
-    out 0x21, al
-    mov ax, word [bp + 0x8]
-    add ax, word [bp + 0xe]
-    mov cl, 4
-    shr ax, cl
-    add ax, word [bp + 0xa]
-    sub ax, 0x1000
-    mov es, ax
-    mov ds, ax
-    mov word [cs:data_19e8], ax
-    mov word [cs:data_09bf], ax
-    mov word [cs:data_0aa4], ax
-    mov ax, word [bp + 0xe]
-    sub ax, word [bp + 0xc]
-    neg ax
-    and al, strlen
-    add ax, strict word 0x10
-    mov di, ax
-    mov bx, ax
-    mov word [cs:data_19f2], ax
-    mov word [cs:data_09c4], ax
-    mov word [cs:data_0aa9], ax
-    mov al, byte [bx]
-    mov byte [cs:data_096f], al
-    mov byte [cs:data_096e], 0
-    mov al, 0xff
-    sub al, byte [bp + 0x10]
-    mov byte [cs:data_1a04], al
-    mov byte [cs:data_09d4], al
-    mov byte [cs:data_0abb], al
-    mov byte [cs:data_0b54], al
-    mov byte [cs:data_0948], al
-    mov byte [cs:data_0a7c], al
-    cmp byte [cs:data_0b7d], 1
-    je short @..local.l22
-    cmp byte [cs:data_0b7d], 4
-    jne short @..local.l23
+    call fpu_loc_077b                ; 0x04ea
+    mov al, strlen                   ; 0x04ed
+    out 0x21, al                     ; 0x04ef
+    mov ax, word [bp + 0x8]          ; 0x04f1
+    add ax, word [bp + 0xe]          ; 0x04f4
+    mov cl, 4                        ; 0x04f7
+    shr ax, cl                       ; 0x04f9
+    add ax, word [bp + 0xa]          ; 0x04fb
+    sub ax, 0x1000                   ; 0x04fe
+    mov es, ax                       ; 0x0501
+    mov ds, ax                       ; 0x0503
+    mov word [cs:data_19e8], ax      ; 0x0505
+    mov word [cs:data_09bf], ax      ; 0x0509
+    mov word [cs:data_0aa4], ax      ; 0x050d
+    mov ax, word [bp + 0xe]          ; 0x0511
+    sub ax, word [bp + 0xc]          ; 0x0514
+    neg ax                           ; 0x0517
+    and al, strlen                   ; 0x0519
+    add ax, strict word 0x10         ; 0x051b
+    mov di, ax                       ; 0x051e
+    mov bx, ax                       ; 0x0520
+    mov word [cs:data_19f2], ax      ; 0x0522
+    mov word [cs:data_09c4], ax      ; 0x0526
+    mov word [cs:data_0aa9], ax      ; 0x052a
+    mov al, byte [bx]                ; 0x052e
+    mov byte [cs:data_096f], al      ; 0x0530
+    mov byte [cs:data_096e], 0       ; 0x0534
+    mov al, 0xff                     ; 0x053a
+    sub al, byte [bp + 0x10]         ; 0x053c
+    mov byte [cs:data_1a04], al      ; 0x053f
+    mov byte [cs:data_09d4], al      ; 0x0543
+    mov byte [cs:data_0abb], al      ; 0x0547
+    mov byte [cs:data_0b54], al      ; 0x054b
+    mov byte [cs:data_0948], al      ; 0x054f
+    mov byte [cs:data_0a7c], al      ; 0x0553
+    cmp byte [cs:data_0b7d], 1       ; 0x0557
+    je short @..local.l22            ; 0x055d
+    cmp byte [cs:data_0b7d], 4       ; 0x055f
+    jne short @..local.l23           ; 0x0565
 @..local.l22:
-    mov dx, 0x388
-    mov al, 0x40
-    out dx, al
+    mov dx, 0x388                    ; 0x0567
+    mov al, 0x40                     ; 0x056a
+    out dx, al                       ; 0x056c
 @..local.l23:
-    mov byte [cs:data_0b94], 0
-    cmp byte [cs:data_0b90], 0
-    jne short @..local.l26
-    mov al, byte [cs:data_0b8f]
-    and al, strlen
-    out 0x21, al
-    sti
-    test byte [bp + 0x14], 1
-    je short @..local.l25
+    mov byte [cs:data_0b94], 0       ; 0x056d
+    cmp byte [cs:data_0b90], 0       ; 0x0573
+    jne short @..local.l26           ; 0x0579
+    mov al, byte [cs:data_0b8f]      ; 0x057b
+    and al, strlen                   ; 0x057f
+    out 0x21, al                     ; 0x0581
+    sti                              ; 0x0583
+    test byte [bp + 0x14], 1         ; 0x0584
+    je short @..local.l25            ; 0x0588
 @..local.l24:
-    test byte [cs:data_0b94], 0xff
-    je short @..local.l24
+    test byte [cs:data_0b94], 0xff   ; 0x058a
+    je short @..local.l24            ; 0x0590
 @..local.l25:
-    pop bx
-    pop dx
-    pop ds
-    pop es
-    pop si
-    pop di
-    pop bp
-    sti
-    ret
+    pop bx                           ; 0x0592
+    pop dx                           ; 0x0593
+    pop ds                           ; 0x0594
+    pop es                           ; 0x0595
+    pop si                           ; 0x0596
+    pop di                           ; 0x0597
+    pop bp                           ; 0x0598
+    sti                              ; 0x0599
+    ret                              ; 0x059a
 @..local.l26:
-    mov al, 0x34
-    out 0x43, al
-    mov ax, 0x48
-    out 0x40, al
-    call io_loc_0610
-    mov al, ah
-    out 0x40, al
-    mov al, strlen
-    out 0x21, al
-    mov ax, es
-    mov ds, ax
-    mov cx, 0x20b0
-    mov bx, 0x1a3a
-    mov dx, 0x42
-    cmp byte [cs:data_0b7d], 1
-    jne short @..local.l27
-    mov dx, 0x389
+    mov al, 0x34                     ; 0x059b
+    out 0x43, al                     ; 0x059d
+    mov ax, 0x48                     ; 0x059f
+    out 0x40, al                     ; 0x05a2
+    call io_loc_0610                 ; 0x05a4
+    mov al, ah                       ; 0x05a7
+    out 0x40, al                     ; 0x05a9
+    mov al, strlen                   ; 0x05ab
+    out 0x21, al                     ; 0x05ad
+    mov ax, es                       ; 0x05af
+    mov ds, ax                       ; 0x05b1
+    mov cx, 0x20b0                   ; 0x05b3
+    mov bx, 0x1a3a                   ; 0x05b6
+    mov dx, 0x42                     ; 0x05b9
+    cmp byte [cs:data_0b7d], 1       ; 0x05bc
+    jne short @..local.l27           ; 0x05c2
+    mov dx, 0x389                    ; 0x05c4
 @..local.l27:
-    cmp byte [cs:data_0b7d], data_0003
-    je short @..local.l28
-    cmp byte [cs:data_0b7d], 2
-    jne short @..local.l29
+    cmp byte [cs:data_0b7d], data_0003 ; 0x05c7
+    je short @..local.l28            ; 0x05cd
+    cmp byte [cs:data_0b7d], 2       ; 0x05cf
+    jne short @..local.l29           ; 0x05d5
 @..local.l28:
-    mov dx, word [cs:data_0b8d]
+    mov dx, word [cs:data_0b8d]      ; 0x05d7
 @..local.l29:
-    mov si, word [cs:data_0b81]
-    sti
+    mov si, word [cs:data_0b81]      ; 0x05dc
+    sti                              ; 0x05e1
 @..local.l30:
-    sti
-    test byte [cs:data_0b94], 0xff
-    je short @..local.l30
-    cmp byte [cs:data_0b9a], 0
-    je short @..local.l31
-    mov al, 0x34
-    out 0x43, al
-    mov ax, word [cs:data_0ba6]
-    mov bl, 0x48
-    mul bl
-    out 0x40, al
-    call io_loc_0610
-    mov al, ah
-    out 0x40, al
+    sti                              ; 0x05e2
+    test byte [cs:data_0b94], 0xff   ; 0x05e3
+    je short @..local.l30            ; 0x05e9
+    cmp byte [cs:data_0b9a], 0       ; 0x05eb
+    je short @..local.l31            ; 0x05f1
+    mov al, 0x34                     ; 0x05f3
+    out 0x43, al                     ; 0x05f5
+    mov ax, word [cs:data_0ba6]      ; 0x05f7
+    mov bl, 0x48                     ; 0x05fb
+    mul bl                           ; 0x05fd
+    out 0x40, al                     ; 0x05ff
+    call io_loc_0610                 ; 0x0601
+    mov al, ah                       ; 0x0604
+    out 0x40, al                     ; 0x0606
 @..local.l31:
-    mov al, byte [cs:data_0b8f]
-    out 0x21, al
-    jmp short @..local.l25
+    mov al, byte [cs:data_0b8f]      ; 0x0608
+    out 0x21, al                     ; 0x060c
+    jmp short @..local.l25           ; 0x060e
 io_loc_0610:
-    jmp near @..io_loc_0610.l1
+    jmp near @..io_loc_0610.l1       ; 0x0610
 @..io_loc_0610.l1:
-    ret
+    ret                              ; 0x0613
 @..local.l32:
-    cmp byte [cs:data_0421], 0
-    jne short @..local.l33
-    jmp near @..local.l25
+    cmp byte [cs:data_0421], 0       ; 0x0614
+    jne short @..local.l33           ; 0x061a
+    jmp near @..local.l25            ; 0x061c
 @..local.l33:
-    cld
-    cli
-    xor ax, ax
-    mov es, ax
-    mov di, 0x20
-    mov ax, word [cs:data_0c10]
-    stosw
-    mov ax, word [cs:data_0c12]
-    stosw
-    mov byte [cs:data_0421], 0
-    call io_loc_0a6d
-    mov al, 0x36
-    out 0x43, al
-    call io_loc_0610
-    mov ax, 0
-    out 0x40, al
-    call io_loc_0610
-    mov al, ah
-    out 0x40, al
-    mov al, byte [cs:data_0b8f]
-    out 0x21, al
-    sti
-    jmp near @..local.l25
+    cld                              ; 0x061f
+    cli                              ; 0x0620
+    xor ax, ax                       ; 0x0621
+    mov es, ax                       ; 0x0623
+    mov di, 0x20                     ; 0x0625
+    mov ax, word [cs:data_0c10]      ; 0x0628
+    stosw                            ; 0x062c
+    mov ax, word [cs:data_0c12]      ; 0x062d
+    stosw                            ; 0x0631
+    mov byte [cs:data_0421], 0       ; 0x0632
+    call io_loc_0a6d                 ; 0x0638
+    mov al, 0x36                     ; 0x063b
+    out 0x43, al                     ; 0x063d
+    call io_loc_0610                 ; 0x063f
+    mov ax, 0                        ; 0x0642
+    out 0x40, al                     ; 0x0645
+    call io_loc_0610                 ; 0x0647
+    mov al, ah                       ; 0x064a
+    out 0x40, al                     ; 0x064c
+    mov al, byte [cs:data_0b8f]      ; 0x064e
+    out 0x21, al                     ; 0x0652
+    sti                              ; 0x0654
+    jmp near @..local.l25            ; 0x0655
 
     db 0x00, 0x00, 0x57, 0x56, 0xbf, 0x3a, 0x1a, 0xbe, 0x3a, 0x1b, 0x32, 0xff, 0x8a, 0x5e, 0x12, 0x8b
     db 0xcb, 0x03, 0xcb, 0xb8, 0x80, 0x00, 0xf7, 0xe1, 0x8a, 0xc4, 0x8a, 0xe2, 0x3d, 0x80, 0x00, 0x72
@@ -670,357 +670,357 @@ io_loc_0610:
     db 0x00, 0x9d, 0xc3
 
 fpu_loc_077b:
-    mov bl, byte [cs:data_0b7d]
-    shl bl, 1
-    xor bh, bh
-    jmp [cs:bx + 0x889]
-    xchg bx, ax
-    or byte [bp + si + 0x7], bl
-    fisttp dword [bx + si]
-    fisttp dword [bx + si]
-    pop dx
-    pop es
-    mov ah, 0
-    mov al, byte [bp + 0x12]
-    cmp al, 0x49
-    jb short loc_07a2
-    sub al, 0x49
-    shr al, 1
+    mov bl, byte [cs:data_0b7d]      ; 0x077b
+    shl bl, 1                        ; 0x0780
+    xor bh, bh                       ; 0x0782
+    jmp [cs:bx + 0x889]              ; 0x0784
+    xchg bx, ax                      ; 0x0789
+    or byte [bp + si + 0x7], bl      ; 0x078a
+    fisttp dword [bx + si]           ; 0x078d
+    fisttp dword [bx + si]           ; 0x078f
+    pop dx                           ; 0x0791
+    pop es                           ; 0x0792
+    mov ah, 0                        ; 0x0793
+    mov al, byte [bp + 0x12]         ; 0x0795
+    cmp al, 0x49                     ; 0x0798
+    jb short loc_07a2                ; 0x079a
+    sub al, 0x49                     ; 0x079c
+    shr al, 1                        ; 0x079e
     db 0x8a, 0xe0 ; mov ah, al
-    mov byte [cs:data_0b93], ah
-    mov bx, 0x1a3a
+    mov byte [cs:data_0b93], ah      ; 0x07a2
+    mov bx, 0x1a3a                   ; 0x07a7
     db 0x32, 0xc9 ; xor cl, cl
-    mov al, byte [bp + 0x12]
-    mov byte [cs:data_0b92], al
-    mov al, byte [bp + 0x12]
-    mul cl
-    sub ah, byte [cs:data_0b93]
-    js short loc_07ce
-    cmp ah, byte [cs:data_0b92]
-    jb short loc_07d0
-    mov ah, byte [cs:data_0b92]
-    jmp near loc_07d0
-    mov ah, 0
-    inc ah
-    mov byte [cs:bx], ah
-    inc bx
-    inc cl
-    jne short loc_07b3
-    ret
-    mov bx, 0x1a3a
+    mov al, byte [bp + 0x12]         ; 0x07ac
+    mov byte [cs:data_0b92], al      ; 0x07af
+    mov al, byte [bp + 0x12]         ; 0x07b3
+    mul cl                           ; 0x07b6
+    sub ah, byte [cs:data_0b93]      ; 0x07b8
+    js short loc_07ce                ; 0x07bd
+    cmp ah, byte [cs:data_0b92]      ; 0x07bf
+    jb short loc_07d0                ; 0x07c4
+    mov ah, byte [cs:data_0b92]      ; 0x07c6
+    jmp near loc_07d0                ; 0x07cb
+    mov ah, 0                        ; 0x07ce
+    inc ah                           ; 0x07d0
+    mov byte [cs:bx], ah             ; 0x07d2
+    inc bx                           ; 0x07d5
+    inc cl                           ; 0x07d6
+    jne short loc_07b3               ; 0x07d8
+    ret                              ; 0x07da
+    mov bx, 0x1a3a                   ; 0x07db
     db 0x32, 0xc9 ; xor cl, cl
-    mov al, byte [bp + 0x12]
+    mov al, byte [bp + 0x12]         ; 0x07e0
     db 0x8a, 0xd0 ; mov dl, al
-    shr al, 1
-    shr al, 1
+    shr al, 1                        ; 0x07e5
+    shr al, 1                        ; 0x07e7
     db 0x8a, 0xc2 ; mov al, dl
-    mul cl
-    mov byte [cs:bx], ah
-    inc bx
-    inc cl
-    jne short loc_07e9
-    ret
-    push bx
-    push dx
+    mul cl                           ; 0x07eb
+    mov byte [cs:bx], ah             ; 0x07ed
+    inc bx                           ; 0x07f0
+    inc cl                           ; 0x07f1
+    jne short loc_07e9               ; 0x07f3
+    ret                              ; 0x07f5
+    push bx                          ; 0x07f6
+    push dx                          ; 0x07f7
     db 0x32, 0xff ; xor bh, bh
     db 0x8a, 0xdc ; mov bl, ah
-    mov byte [cs:bx + 0x1529], al
-    mov dx, 0x388
+    mov byte [cs:bx + 0x1529], al    ; 0x07fc
+    mov dx, 0x388                    ; 0x0801
     db 0x86, 0xc4 ; xchg ah, al
-    pushf
-    cli
-    call loc_0821
-    out dx, al
-    call loc_0831
-    inc dx
+    pushf                            ; 0x0806
+    cli                              ; 0x0807
+    call loc_0821                    ; 0x0808
+    out dx, al                       ; 0x080b
+    call loc_0831                    ; 0x080c
+    inc dx                           ; 0x080f
     db 0x86, 0xc4 ; xchg ah, al
-    out dx, al
+    out dx, al                       ; 0x0812
     db 0xe8, 0x0b, 0x00 ; call loc_0821
-    dec dx
-    mov al, 0x40
-    out dx, al
+    dec dx                           ; 0x0816
+    mov al, 0x40                     ; 0x0817
+    out dx, al                       ; 0x0819
     db 0xe8, 0x04, 0x00 ; call loc_0821
-    popf
-    pop dx
-    pop bx
-    ret
-    push ax
-    push cx
-    push dx
-    mov dx, 0x388
-    mov cx, 0x17
-    in al, dx
-    loop loc_082a
-    pop dx
-    pop cx
-    pop ax
-    ret
-    push ax
-    push cx
-    push dx
-    mov dx, 0x388
-    mov cx, 4
-    in al, dx
-    loop loc_083a
-    pop dx
-    pop cx
-    pop ax
-    ret
-    mov al, byte [di]
-    cs xlatb
-    out dx, al
-    add ah, 0x80
-    adc di, byte 0
-    jb short loc_0863
-    dec si
-    je short loc_0856
-    mov al, 0x20
-    out 0x20, al
-    iret
-    call loc_0af6
-    mov si, word [cs:data_0b81]
-    mov al, 0x20
-    out 0x20, al
-    iret
-    call data_09d4
-    mov al, 0x20
-    out 0x20, al
-    iret
-    jmp near loc_121d
+    popf                             ; 0x081d
+    pop dx                           ; 0x081e
+    pop bx                           ; 0x081f
+    ret                              ; 0x0820
+    push ax                          ; 0x0821
+    push cx                          ; 0x0822
+    push dx                          ; 0x0823
+    mov dx, 0x388                    ; 0x0824
+    mov cx, 0x17                     ; 0x0827
+    in al, dx                        ; 0x082a
+    loop loc_082a                    ; 0x082b
+    pop dx                           ; 0x082d
+    pop cx                           ; 0x082e
+    pop ax                           ; 0x082f
+    ret                              ; 0x0830
+    push ax                          ; 0x0831
+    push cx                          ; 0x0832
+    push dx                          ; 0x0833
+    mov dx, 0x388                    ; 0x0834
+    mov cx, 4                        ; 0x0837
+    in al, dx                        ; 0x083a
+    loop loc_083a                    ; 0x083b
+    pop dx                           ; 0x083d
+    pop cx                           ; 0x083e
+    pop ax                           ; 0x083f
+    ret                              ; 0x0840
+    mov al, byte [di]                ; 0x0841
+    cs xlatb                         ; 0x0843
+    out dx, al                       ; 0x0845
+    add ah, 0x80                     ; 0x0846
+    adc di, byte 0                   ; 0x0849
+    jb short loc_0863                ; 0x084c
+    dec si                           ; 0x084e
+    je short loc_0856                ; 0x084f
+    mov al, 0x20                     ; 0x0851
+    out 0x20, al                     ; 0x0853
+    iret                             ; 0x0855
+    call loc_0af6                    ; 0x0856
+    mov si, word [cs:data_0b81]      ; 0x0859
+    mov al, 0x20                     ; 0x085e
+    out 0x20, al                     ; 0x0860
+    iret                             ; 0x0862
+    call data_09d4                   ; 0x0863
+    mov al, 0x20                     ; 0x0866
+    out 0x20, al                     ; 0x0868
+    iret                             ; 0x086a
+    jmp near loc_121d                ; 0x086b
     db 0x00, 0x00
-    cli
-    push ax
-    push ds
-    push dx
-    push bx
-    mov al, byte [cs:data_096e]
-    cmp al, byte [cs:data_096f]
-    je short loc_089e
-    inc byte [cs:data_096e]
-    mov dx, 0x389
-    mov bx, 0x1a3a
-    cs xlatb
-    out dx, al
-    dec word [cs:data_0b81]
-    je short loc_08ed
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
-    mov byte [cs:data_09ae], 0
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
-    mov al, 0
-    cli
-    push ax
-    push ds
-    push dx
-    push bx
-    cmp byte [cs:data_09ae], 0
-    js short loc_0875
-    jne short loc_091f
-    mov ax, 0
-    mov ds, ax
-    mov al, byte [loc_0000]
-    mov dx, 0x389
-    mov bx, 0x1a3a
-    cs xlatb
-    out dx, al
-    add byte [cs:data_0b95], 0x80
+    cli                              ; 0x0870
+    push ax                          ; 0x0871
+    push ds                          ; 0x0872
+    push dx                          ; 0x0873
+    push bx                          ; 0x0874
+    mov al, byte [cs:data_096e]      ; 0x0875
+    cmp al, byte [cs:data_096f]      ; 0x0879
+    je short loc_089e                ; 0x087e
+    inc byte [cs:data_096e]          ; 0x0880
+    mov dx, 0x389                    ; 0x0885
+    mov bx, 0x1a3a                   ; 0x0888
+    cs xlatb                         ; 0x088b
+    out dx, al                       ; 0x088d
+    dec word [cs:data_0b81]          ; 0x088e
+    je short loc_08ed                ; 0x0893
+    mov al, 0x20                     ; 0x0895
+    out 0x20, al                     ; 0x0897
+    pop bx                           ; 0x0899
+    pop dx                           ; 0x089a
+    pop ds                           ; 0x089b
+    pop ax                           ; 0x089c
+    iret                             ; 0x089d
+    mov byte [cs:data_09ae], 0       ; 0x089e
+    mov al, 0x20                     ; 0x08a4
+    out 0x20, al                     ; 0x08a6
+    pop bx                           ; 0x08a8
+    pop dx                           ; 0x08a9
+    pop ds                           ; 0x08aa
+    pop ax                           ; 0x08ab
+    iret                             ; 0x08ac
+    mov al, 0                        ; 0x08ad
+    cli                              ; 0x08af
+    push ax                          ; 0x08b0
+    push ds                          ; 0x08b1
+    push dx                          ; 0x08b2
+    push bx                          ; 0x08b3
+    cmp byte [cs:data_09ae], 0       ; 0x08b4
+    js short loc_0875                ; 0x08ba
+    jne short loc_091f               ; 0x08bc
+    mov ax, 0                        ; 0x08be
+    mov ds, ax                       ; 0x08c1
+    mov al, byte [loc_0000]          ; 0x08c3
+    mov dx, 0x389                    ; 0x08c6
+    mov bx, 0x1a3a                   ; 0x08c9
+    cs xlatb                         ; 0x08cc
+    out dx, al                       ; 0x08ce
+    add byte [cs:data_0b95], 0x80    ; 0x08cf
     db 0x2e, 0x83, 0x16, 0xc4, 0x09, 0x00 ; adc word [cs:data_09c4], 0
-    jb short loc_08ff
-    dec word [cs:data_0b81]
-    je short loc_08ed
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
-    call loc_0af6
-    mov dx, 0x388
-    mov al, 0x40
-    out dx, al
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
-    mov bx, word [cs:data_09c4]
-    dec bx
-    mov al, byte [bx]
-    mov byte [cs:data_096e], al
-    mov byte [cs:data_09ae], 1
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
-    cli
-    push ax
-    push ds
-    push dx
-    push bx
-    mov al, byte [cs:data_096e]
-    cmp al, 0
-    je short loc_0945
-    dec byte [cs:data_096e]
-    mov dx, 0x389
-    mov bx, 0x1a3a
-    cs xlatb
-    out dx, al
-    dec word [cs:data_0b81]
+    jb short loc_08ff                ; 0x08db
+    dec word [cs:data_0b81]          ; 0x08dd
+    je short loc_08ed                ; 0x08e2
+    mov al, 0x20                     ; 0x08e4
+    out 0x20, al                     ; 0x08e6
+    pop bx                           ; 0x08e8
+    pop dx                           ; 0x08e9
+    pop ds                           ; 0x08ea
+    pop ax                           ; 0x08eb
+    iret                             ; 0x08ec
+    call loc_0af6                    ; 0x08ed
+    mov dx, 0x388                    ; 0x08f0
+    mov al, 0x40                     ; 0x08f3
+    out dx, al                       ; 0x08f5
+    mov al, 0x20                     ; 0x08f6
+    out 0x20, al                     ; 0x08f8
+    pop bx                           ; 0x08fa
+    pop dx                           ; 0x08fb
+    pop ds                           ; 0x08fc
+    pop ax                           ; 0x08fd
+    iret                             ; 0x08fe
+    mov bx, word [cs:data_09c4]      ; 0x08ff
+    dec bx                           ; 0x0904
+    mov al, byte [bx]                ; 0x0905
+    mov byte [cs:data_096e], al      ; 0x0907
+    mov byte [cs:data_09ae], 1       ; 0x090b
+    mov al, 0x20                     ; 0x0911
+    out 0x20, al                     ; 0x0913
+    pop bx                           ; 0x0915
+    pop dx                           ; 0x0916
+    pop ds                           ; 0x0917
+    pop ax                           ; 0x0918
+    iret                             ; 0x0919
+    cli                              ; 0x091a
+    push ax                          ; 0x091b
+    push ds                          ; 0x091c
+    push dx                          ; 0x091d
+    push bx                          ; 0x091e
+    mov al, byte [cs:data_096e]      ; 0x091f
+    cmp al, 0                        ; 0x0923
+    je short loc_0945                ; 0x0925
+    dec byte [cs:data_096e]          ; 0x0927
+    mov dx, 0x389                    ; 0x092c
+    mov bx, 0x1a3a                   ; 0x092f
+    cs xlatb                         ; 0x0932
+    out dx, al                       ; 0x0934
+    dec word [cs:data_0b81]          ; 0x0935
     db 0x74, 0xb1 ; je short loc_08ed
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
-    mov byte [cs:data_096e], 0
-    mov al, 0x3f
-    mov dx, 0x388
-    out dx, al
-    call data_09d4
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
+    mov al, 0x20                     ; 0x093c
+    out 0x20, al                     ; 0x093e
+    pop bx                           ; 0x0940
+    pop dx                           ; 0x0941
+    pop ds                           ; 0x0942
+    pop ax                           ; 0x0943
+    iret                             ; 0x0944
+    mov byte [cs:data_096e], 0       ; 0x0945
+    mov al, 0x3f                     ; 0x094b
+    mov dx, 0x388                    ; 0x094d
+    out dx, al                       ; 0x0950
+    call data_09d4                   ; 0x0951
+    mov al, 0x20                     ; 0x0954
+    out 0x20, al                     ; 0x0956
+    pop bx                           ; 0x0958
+    pop dx                           ; 0x0959
+    pop ds                           ; 0x095a
+    pop ax                           ; 0x095b
+    iret                             ; 0x095c
     db 0xe8, 0x96, 0x01 ; call loc_0af6
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
-    call data_09d4
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
-    mov al, byte [di]
-    cs xlatb
-    out dx, al
-    add ah, 0x80
-    adc di, byte 0
-    jb short loc_0997
-    dec si
-    je short loc_098a
-    mov al, 0x20
-    out 0x20, al
-    iret
+    mov al, 0x20                     ; 0x0960
+    out 0x20, al                     ; 0x0962
+    pop bx                           ; 0x0964
+    pop dx                           ; 0x0965
+    pop ds                           ; 0x0966
+    pop ax                           ; 0x0967
+    iret                             ; 0x0968
+    call data_09d4                   ; 0x0969
+    mov al, 0x20                     ; 0x096c
+    out 0x20, al                     ; 0x096e
+    pop bx                           ; 0x0970
+    pop dx                           ; 0x0971
+    pop ds                           ; 0x0972
+    pop ax                           ; 0x0973
+    iret                             ; 0x0974
+    mov al, byte [di]                ; 0x0975
+    cs xlatb                         ; 0x0977
+    out dx, al                       ; 0x0979
+    add ah, 0x80                     ; 0x097a
+    adc di, byte 0                   ; 0x097d
+    jb short loc_0997                ; 0x0980
+    dec si                           ; 0x0982
+    je short loc_098a                ; 0x0983
+    mov al, 0x20                     ; 0x0985
+    out 0x20, al                     ; 0x0987
+    iret                             ; 0x0989
     db 0xe8, 0x69, 0x01 ; call loc_0af6
-    mov si, word [cs:data_0b81]
-    mov al, 0x20
-    out 0x20, al
-    iret
-    call data_09d4
-    mov al, 0x20
-    out 0x20, al
-    iret
-    push ax
-    push ds
-    push dx
-    push bx
-    mov ax, 0
-    mov ds, ax
-    mov al, byte [loc_0000]
-    mov dx, word [cs:data_0b8d]
-    mov bx, 0x1a3a
-    cs xlatb
-    out dx, al
-    add byte [cs:data_0b95], 0x80
+    mov si, word [cs:data_0b81]      ; 0x098d
+    mov al, 0x20                     ; 0x0992
+    out 0x20, al                     ; 0x0994
+    iret                             ; 0x0996
+    call data_09d4                   ; 0x0997
+    mov al, 0x20                     ; 0x099a
+    out 0x20, al                     ; 0x099c
+    iret                             ; 0x099e
+    push ax                          ; 0x099f
+    push ds                          ; 0x09a0
+    push dx                          ; 0x09a1
+    push bx                          ; 0x09a2
+    mov ax, 0                        ; 0x09a3
+    mov ds, ax                       ; 0x09a6
+    mov al, byte [loc_0000]          ; 0x09a8
+    mov dx, word [cs:data_0b8d]      ; 0x09ab
+    mov bx, 0x1a3a                   ; 0x09b0
+    cs xlatb                         ; 0x09b3
+    out dx, al                       ; 0x09b5
+    add byte [cs:data_0b95], 0x80    ; 0x09b6
     db 0x2e, 0x83, 0x16, 0xa9, 0x0a, 0x00 ; adc word [cs:data_0aa9], 0
-    jb short loc_0969
-    dec word [cs:data_0b81]
-    je short loc_095d
-    mov al, 0x20
-    out 0x20, al
-    pop bx
-    pop dx
-    pop ds
-    pop ax
-    iret
-    push dx
-    in al, 0x61
-    and al, strlen
-    out 0x61, al
-    mov byte [cs:data_0b94], 0xff
-    mov ax, word [cs:data_0ba6]
-    mov bl, 0x48
-    mul bl
+    jb short loc_0969                ; 0x09c2
+    dec word [cs:data_0b81]          ; 0x09c4
+    je short loc_095d                ; 0x09c9
+    mov al, 0x20                     ; 0x09cb
+    out 0x20, al                     ; 0x09cd
+    pop bx                           ; 0x09cf
+    pop dx                           ; 0x09d0
+    pop ds                           ; 0x09d1
+    pop ax                           ; 0x09d2
+    iret                             ; 0x09d3
+    push dx                          ; 0x09d4
+    in al, 0x61                      ; 0x09d5
+    and al, strlen                   ; 0x09d7
+    out 0x61, al                     ; 0x09d9
+    mov byte [cs:data_0b94], 0xff    ; 0x09db
+    mov ax, word [cs:data_0ba6]      ; 0x09e1
+    mov bl, 0x48                     ; 0x09e5
+    mul bl                           ; 0x09e7
     db 0x8b, 0xd8 ; mov bx, ax
-    mov ax, cs
-    mov ds, ax
-    mov dx, 0xbb4
-    cmp byte [cs:data_0b9a], 0
-    jne short loc_0a13
-    mov al, byte [cs:data_0b8f]
-    out 0x21, al
-    mov bx, 0
-    mov ds, word [cs:data_0c12]
-    mov dx, word [cs:data_0c10]
-    mov byte [cs:data_0421], 0
-    call io_loc_0a2a
-    mov al, 0x36
-    out 0x43, al
-    call io_loc_0610
+    mov ax, cs                       ; 0x09eb
+    mov ds, ax                       ; 0x09ed
+    mov dx, 0xbb4                    ; 0x09ef
+    cmp byte [cs:data_0b9a], 0       ; 0x09f2
+    jne short loc_0a13               ; 0x09f8
+    mov al, byte [cs:data_0b8f]      ; 0x09fa
+    out 0x21, al                     ; 0x09fe
+    mov bx, 0                        ; 0x0a00
+    mov ds, word [cs:data_0c12]      ; 0x0a03
+    mov dx, word [cs:data_0c10]      ; 0x0a08
+    mov byte [cs:data_0421], 0       ; 0x0a0d
+    call io_loc_0a2a                 ; 0x0a13
+    mov al, 0x36                     ; 0x0a16
+    out 0x43, al                     ; 0x0a18
+    call io_loc_0610                 ; 0x0a1a
     db 0x8b, 0xc3 ; mov ax, bx
-    out 0x40, al
-    call io_loc_0610
+    out 0x40, al                     ; 0x0a1f
+    call io_loc_0610                 ; 0x0a21
     db 0x8a, 0xc4 ; mov al, ah
-    out 0x40, al
-    pop dx
-    ret
+    out 0x40, al                     ; 0x0a26
+    pop dx                           ; 0x0a28
+    ret                              ; 0x0a29
 io_loc_0a2a:
-    pushf
-    push di
-    push es
-    cli
-    cld
-    xor ax, ax
-    mov es, ax
-    mov di, 0x20
-    mov ax, dx
-    stosw
-    mov ax, ds
-    stosw
-    pop es
-    pop di
-    popf
-    ret
+    pushf                            ; 0x0a2a
+    push di                          ; 0x0a2b
+    push es                          ; 0x0a2c
+    cli                              ; 0x0a2d
+    cld                              ; 0x0a2e
+    xor ax, ax                       ; 0x0a2f
+    mov es, ax                       ; 0x0a31
+    mov di, 0x20                     ; 0x0a33
+    mov ax, dx                       ; 0x0a36
+    stosw                            ; 0x0a38
+    mov ax, ds                       ; 0x0a39
+    stosw                            ; 0x0a3b
+    pop es                           ; 0x0a3c
+    pop di                           ; 0x0a3d
+    popf                             ; 0x0a3e
+    ret                              ; 0x0a3f
 
     db 0x00, 0xfa, 0x8a, 0x05, 0x2e, 0xd7, 0x8a, 0xc8, 0xb0, 0xb0, 0xe6, 0x43, 0x8a, 0xc1, 0xee, 0x32
     db 0xc0, 0xee, 0x80, 0xc4, 0x80, 0x83, 0xd7, 0x00, 0x72, 0x05, 0xb0, 0x20, 0xe6, 0x20, 0xcf, 0xe8
     db 0x72, 0xff, 0x2e, 0xa0, 0x8f, 0x0b, 0xe6, 0x21, 0xb0, 0x20, 0xe6, 0x20, 0xcf
 
 io_loc_0a6d:
-    in al, 0x61
-    and al, strlen
-    out 0x61, al
-    mov byte [cs:data_0b94], 0xff
-    ret
+    in al, 0x61                      ; 0x0a6d
+    and al, strlen                   ; 0x0a6f
+    out 0x61, al                     ; 0x0a71
+    mov byte [cs:data_0b94], 0xff    ; 0x0a73
+    ret                              ; 0x0a79
 
     db 0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00, 0x64, 0x00, 0x0a, 0x00, 0x83, 0x0b, 0x20, 0x02, 0x20
     db 0x02, 0x21, 0x02, 0x22, 0x02
@@ -1063,27 +1063,27 @@ io_loc_0a6d:
     db 0xe9, 0x42, 0xfe
 
 io_loc_0c97:
-    push ax
-    push ds
-    push dx
-    mov al, 0x36
-    out 0x43, al
-    call io_loc_0610
-    mov ax, 0
-    out 0x40, al
-    call io_loc_0610
-    mov al, ah
-    out 0x40, al
-    mov al, byte [cs:data_0b8f]
-    out 0x21, al
-    mov ds, word [cs:data_0c12]
-    mov dx, word [cs:data_0c10]
-    call io_loc_0a2a
-    mov byte [cs:data_0421], 0
-    pop dx
-    pop ds
-    pop ax
-    ret
+    push ax                          ; 0x0c97
+    push ds                          ; 0x0c98
+    push dx                          ; 0x0c99
+    mov al, 0x36                     ; 0x0c9a
+    out 0x43, al                     ; 0x0c9c
+    call io_loc_0610                 ; 0x0c9e
+    mov ax, 0                        ; 0x0ca1
+    out 0x40, al                     ; 0x0ca4
+    call io_loc_0610                 ; 0x0ca6
+    mov al, ah                       ; 0x0ca9
+    out 0x40, al                     ; 0x0cab
+    mov al, byte [cs:data_0b8f]      ; 0x0cad
+    out 0x21, al                     ; 0x0cb1
+    mov ds, word [cs:data_0c12]      ; 0x0cb3
+    mov dx, word [cs:data_0c10]      ; 0x0cb8
+    call io_loc_0a2a                 ; 0x0cbd
+    mov byte [cs:data_0421], 0       ; 0x0cc0
+    pop dx                           ; 0x0cc6
+    pop ds                           ; 0x0cc7
+    pop ax                           ; 0x0cc8
+    ret                              ; 0x0cc9
 
     db 0xad, 0x3d, 0x00, 0x00, 0x75, 0x03, 0xe9, 0x71, 0xfe, 0x2e, 0xa3, 0x7f, 0x0b, 0x2e, 0x89, 0x36
     db 0xa4, 0x0b, 0xe9, 0xfa, 0xfd, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff

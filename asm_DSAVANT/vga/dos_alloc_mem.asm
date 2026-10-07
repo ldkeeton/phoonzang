@@ -1,84 +1,84 @@
 dos_alloc_mem:
-    push bp
-    mov bp, sp
-    sub sp, byte 0x0a
-    push es
-    push ds
-    push di
-    push si
-    mov ax, ds
-    mov es, ax
-    mov ax, word [bp + 0x10]
-    sub ax, word [bp + 0xc]
-    inc ax
-    mov word [bp - 0x0006], ax
-    mov bx, word [bp + 0x12]
-    sub bx, word [bp + 0xe]
-    inc bx
-    mov word [bp - 0x0004], bx
-    mul bx
-    mov word [bp - 0x0008], ax
-    mov word [bp - 0x000a], dx
-    add ax, strict word 0xc
-    add ax, strict word 0xf
-    mov cl, 4
-    shr ax, cl
-    mov bx, ax
-    mov ah, 0x48
+    push bp                          ; 0x077a
+    mov bp, sp                       ; 0x077b
+    sub sp, byte 0x0a                ; 0x077d
+    push es                          ; 0x0780
+    push ds                          ; 0x0781
+    push di                          ; 0x0782
+    push si                          ; 0x0783
+    mov ax, ds                       ; 0x0784
+    mov es, ax                       ; 0x0786
+    mov ax, word [bp + 0x10]         ; 0x0788
+    sub ax, word [bp + 0xc]          ; 0x078b
+    inc ax                           ; 0x078e
+    mov word [bp - 0x0006], ax       ; 0x078f
+    mov bx, word [bp + 0x12]         ; 0x0792
+    sub bx, word [bp + 0xe]          ; 0x0795
+    inc bx                           ; 0x0798
+    mov word [bp - 0x0004], bx       ; 0x0799
+    mul bx                           ; 0x079c
+    mov word [bp - 0x0008], ax       ; 0x079e
+    mov word [bp - 0x000a], dx       ; 0x07a1
+    add ax, strict word 0xc          ; 0x07a4
+    add ax, strict word 0xf          ; 0x07a7
+    mov cl, 4                        ; 0x07aa
+    shr ax, cl                       ; 0x07ac
+    mov bx, ax                       ; 0x07ae
+    mov ah, 0x48                     ; 0x07b0
     int 0x21 ; DOS allocate memory
-    jae short @..dos_alloc_mem.l1
-    jmp near dos_con_loc_07fd
+    jae short @..dos_alloc_mem.l1    ; 0x07b4
+    jmp near dos_con_loc_07fd        ; 0x07b6
 @..dos_alloc_mem.l1:
-    mov es, ax
-    xor di, di
-    mov ax, word [cs:data_01e5]
-    mov ds, ax
-    mov ax, word [bp + 0xe]
-    mov bx, 0x140
-    mul bx
-    add ax, word [bp + 0xc]
-    mov word [bp - 0x0002], ax
-    stosw
-    xor ax, ax
-    stosw
-    mov ax, word [bp - 0x0004]
-    stosw
-    mov ax, word [bp - 0x0006]
-    stosw
-    mov ax, word [bp - 0x0008]
-    stosw
-    mov ax, word [bp - 0x000a]
-    stosw
+    mov es, ax                       ; 0x07b9
+    xor di, di                       ; 0x07bb
+    mov ax, word [cs:data_01e5]      ; 0x07bd
+    mov ds, ax                       ; 0x07c1
+    mov ax, word [bp + 0xe]          ; 0x07c3
+    mov bx, 0x140                    ; 0x07c6
+    mul bx                           ; 0x07c9
+    add ax, word [bp + 0xc]          ; 0x07cb
+    mov word [bp - 0x0002], ax       ; 0x07ce
+    stosw                            ; 0x07d1
+    xor ax, ax                       ; 0x07d2
+    stosw                            ; 0x07d4
+    mov ax, word [bp - 0x0004]       ; 0x07d5
+    stosw                            ; 0x07d8
+    mov ax, word [bp - 0x0006]       ; 0x07d9
+    stosw                            ; 0x07dc
+    mov ax, word [bp - 0x0008]       ; 0x07dd
+    stosw                            ; 0x07e0
+    mov ax, word [bp - 0x000a]       ; 0x07e1
+    stosw                            ; 0x07e4
 @..dos_alloc_mem.l2:
-    mov si, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
-    rep movsb
-    dec word [bp - 0x0004]
-    jne short @..dos_alloc_mem.l2
-    mov dx, es
-    xor ax, ax
-    jmp short @..dos_alloc_mem.l3
+    mov si, word [bp - 0x0002]       ; 0x07e5
+    add word [bp - 0x0002], strict word 0x140 ; 0x07e8
+    mov cx, word [bp - 0x0006]       ; 0x07ed
+    rep movsb                        ; 0x07f0
+    dec word [bp - 0x0004]           ; 0x07f2
+    jne short @..dos_alloc_mem.l2    ; 0x07f5
+    mov dx, es                       ; 0x07f7
+    xor ax, ax                       ; 0x07f9
+    jmp short @..dos_alloc_mem.l3    ; 0x07fb
 dos_con_loc_07fd:
-    mov ax, cs
-    mov ds, ax
-    mov dx, 0x90d
-    mov ah, 9
+    mov ax, cs                       ; 0x07fd
+    mov ds, ax                       ; 0x07ff
+    mov dx, 0x90d                    ; 0x0801
+    mov ah, 9                        ; 0x0804
     int 0x21 ; DOS string output
-    mov ax, 0x4c01
+    mov ax, 0x4c01                   ; 0x0808
     int 0x21 ; DOS function dispatcher
-    or ax, 0x70a
+    or ax, 0x70a                     ; 0x080d
 
     db 'SAVEAREA out of memory.', 0
 
-    or ah, byte [si]
-    xor dx, dx
-    mov ax, dx
+    or ah, byte [si]                 ; 0x0828
+    xor dx, dx                       ; 0x082a
+    mov ax, dx                       ; 0x082c
 @..dos_alloc_mem.l3:
-    pop si
-    pop di
-    pop ds
-    pop es
-    mov sp, bp
-    pop bp
-    ret
+    pop si                           ; 0x082e
+    pop di                           ; 0x082f
+    pop ds                           ; 0x0830
+    pop es                           ; 0x0831
+    mov sp, bp                       ; 0x0832
+    pop bp                           ; 0x0834
+    ret                              ; 0x0835

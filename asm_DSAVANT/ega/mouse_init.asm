@@ -1,65 +1,65 @@
 mouse_init:
-    push bp
-    mov bp, sp
-    sub sp, byte 4
-    push es
-    mov ax, ds
-    mov es, ax
-    cmp byte [cs:data_0205], 0
-    jne short @..mouse_init.l1
-    jmp near @..mouse_init.l2
+    push bp                          ; 0x1719
+    mov bp, sp                       ; 0x171a
+    sub sp, byte 4                   ; 0x171c
+    push es                          ; 0x171f
+    mov ax, ds                       ; 0x1720
+    mov es, ax                       ; 0x1722
+    cmp byte [cs:data_0205], 0       ; 0x1724
+    jne short @..mouse_init.l1       ; 0x172a
+    jmp near @..mouse_init.l2        ; 0x172c
 @..mouse_init.l1:
-    push ds
-    push si
-    mov si, 0x259e
-    mov ax, cs
-    mov ds, ax
-    call string_loc_17a1
-    pop si
-    pop ds
-    mov ax, 0
+    push ds                          ; 0x172f
+    push si                          ; 0x1730
+    mov si, 0x259e                   ; 0x1731
+    mov ax, cs                       ; 0x1734
+    mov ds, ax                       ; 0x1736
+    call string_loc_17a1             ; 0x1738
+    pop si                           ; 0x173b
+    pop ds                           ; 0x173c
+    mov ax, 0                        ; 0x173d
     int 0x33 ; BIOS mouse
-    mov ax, 7
-    xor cx, cx
-    mov dx, 0x27f
+    mov ax, 7                        ; 0x1742
+    xor cx, cx                       ; 0x1745
+    mov dx, 0x27f                    ; 0x1747
     int 0x33 ; BIOS mouse
-    mov ax, 8
-    xor cx, cx
-    mov dx, 0xc7
+    mov ax, 8                        ; 0x174c
+    xor cx, cx                       ; 0x174f
+    mov dx, 0xc7                     ; 0x1751
     int 0x33 ; BIOS mouse
-    mov ax, 4
-    xor cx, cx
-    xor dx, dx
+    mov ax, 4                        ; 0x1756
+    xor cx, cx                       ; 0x1759
+    xor dx, dx                       ; 0x175b
     int 0x33 ; BIOS mouse
-    mov ax, data_0003
+    mov ax, data_0003                ; 0x175f
     int 0x33 ; BIOS mouse
-    shr cx, 1
-    mov word [cs:data_1beb], cx
-    mov word [cs:data_1bed], dx
-    push ds
-    push es
-    push di
-    push si
-    mov ax, cs
-    push ax
-    mov ax, 0xffff
-    mov word [cs:data_1bdb], ax
-    call math_loc_2a6a
-    pop si
-    pop di
-    pop es
-    pop ds
-    mov byte [cs:data_0228], 1
-    push es
-    mov ax, 0x14
-    mov bx, cs
-    mov es, bx
-    mov cx, 0xb
-    mov dx, 0x2b09
+    shr cx, 1                        ; 0x1764
+    mov word [cs:data_1beb], cx      ; 0x1766
+    mov word [cs:data_1bed], dx      ; 0x176b
+    push ds                          ; 0x1770
+    push es                          ; 0x1771
+    push di                          ; 0x1772
+    push si                          ; 0x1773
+    mov ax, cs                       ; 0x1774
+    push ax                          ; 0x1776
+    mov ax, 0xffff                   ; 0x1777
+    mov word [cs:data_1bdb], ax      ; 0x177a
+    call math_loc_2a6a               ; 0x177e
+    pop si                           ; 0x1781
+    pop di                           ; 0x1782
+    pop es                           ; 0x1783
+    pop ds                           ; 0x1784
+    mov byte [cs:data_0228], 1       ; 0x1785
+    push es                          ; 0x178b
+    mov ax, 0x14                     ; 0x178c
+    mov bx, cs                       ; 0x178f
+    mov es, bx                       ; 0x1791
+    mov cx, 0xb                      ; 0x1793
+    mov dx, 0x2b09                   ; 0x1796
     int 0x33 ; BIOS mouse
-    pop es
+    pop es                           ; 0x179b
 @..mouse_init.l2:
-    pop es
-    mov sp, bp
-    pop bp
-    ret
+    pop es                           ; 0x179c
+    mov sp, bp                       ; 0x179d
+    pop bp                           ; 0x179f
+    ret                              ; 0x17a0

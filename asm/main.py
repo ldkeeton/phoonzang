@@ -126,10 +126,11 @@ for a in sys.argv:
 _ITERATIVE = '--no-iterate' not in sys.argv
 _TRACE = '--trace' in sys.argv
 _DIAG = '--diag' in sys.argv
-_SHOW_OFFSETS = '--show-offsets' in sys.argv
+# Instruction offsets are shown by default; this flag suppresses the comments.
+_SHOW_OFFSETS = '--no-show-offsets' not in sys.argv
 _DECOMPILE = '--decompile' in sys.argv
 
-def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=False, output_dir=None, project=None, sidecar_entry=None,
+def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
             foreign_label_map=None, export_labels=False):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):

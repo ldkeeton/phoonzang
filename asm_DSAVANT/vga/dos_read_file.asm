@@ -1,92 +1,92 @@
 dos_read_file:
-    push bp
-    mov bp, sp
-    push ds
-    push es
-    push si
-    push di
-    mov ax, ds
-    mov es, ax
-    mov ax, word [bp + 0xe]
-    cmp ax, strict word 2
-    je short @..dos_read_file.l2
-    cmp ax, strict word 1
-    je short @..dos_read_file.l1
-    jmp near @..dos_read_file.l4
+    push bp                          ; 0x08d2
+    mov bp, sp                       ; 0x08d3
+    push ds                          ; 0x08d5
+    push es                          ; 0x08d6
+    push si                          ; 0x08d7
+    push di                          ; 0x08d8
+    mov ax, ds                       ; 0x08d9
+    mov es, ax                       ; 0x08db
+    mov ax, word [bp + 0xe]          ; 0x08dd
+    cmp ax, strict word 2            ; 0x08e0
+    je short @..dos_read_file.l2     ; 0x08e3
+    cmp ax, strict word 1            ; 0x08e5
+    je short @..dos_read_file.l1     ; 0x08e8
+    jmp near @..dos_read_file.l4     ; 0x08ea
 @..dos_read_file.l1:
-    mov ax, word [bp + 0xc]
-    shl ax, 1
-    mov bx, data_0251
-    add bx, ax
-    mov ax, word [cs:bx]
-    dec ax
-    mov cl, 2
-    shl ax, cl
-    mov bx, data_0bda
-    add bx, ax
-    mov ax, word [cs:bx]
-    mov bx, word [cs:data_01e1]
-    add bx, ax
-    mov ds, bx
-    mov ax, word [cs:data_01e5]
-    mov es, ax
-    xor di, di
-    xor si, si
-    mov cx, 0xfa00
-    rep movsb
-    jmp short @..dos_read_file.l5
+    mov ax, word [bp + 0xc]          ; 0x08ed
+    shl ax, 1                        ; 0x08f0
+    mov bx, data_0251                ; 0x08f2
+    add bx, ax                       ; 0x08f5
+    mov ax, word [cs:bx]             ; 0x08f7
+    dec ax                           ; 0x08fa
+    mov cl, 2                        ; 0x08fb
+    shl ax, cl                       ; 0x08fd
+    mov bx, data_0bda                ; 0x08ff
+    add bx, ax                       ; 0x0902
+    mov ax, word [cs:bx]             ; 0x0904
+    mov bx, word [cs:data_01e1]      ; 0x0907
+    add bx, ax                       ; 0x090c
+    mov ds, bx                       ; 0x090e
+    mov ax, word [cs:data_01e5]      ; 0x0910
+    mov es, ax                       ; 0x0914
+    xor di, di                       ; 0x0916
+    xor si, si                       ; 0x0918
+    mov cx, 0xfa00                   ; 0x091a
+    rep movsb                        ; 0x091d
+    jmp short @..dos_read_file.l5    ; 0x091f
 @..dos_read_file.l2:
-    mov ax, word [bp + 0xc]
-    shl ax, 1
-    mov bx, data_02d7
-    add bx, ax
-    mov ax, word [cs:bx]
-    dec ax
-    mov cl, 2
-    shl ax, cl
-    mov bx, 0x2eb
-    add bx, ax
-    mov si, word [cs:bx]
-    mov ax, si
-    mov cl, 0xa
-    shr ax, cl
-    mov word [cs:data_3c8e], ax
-    call dos_file_loc_3b90
-    and si, strict word 0x3ff
-    mov cl, 4
-    shl si, cl
-    mov bx, word [cs:data_0203]
-    mov ds, bx
-    mov ax, word [cs:data_01e5]
-    mov es, ax
-    xor di, di
-    mov cx, 3
+    mov ax, word [bp + 0xc]          ; 0x0921
+    shl ax, 1                        ; 0x0924
+    mov bx, data_02d7                ; 0x0926
+    add bx, ax                       ; 0x0929
+    mov ax, word [cs:bx]             ; 0x092b
+    dec ax                           ; 0x092e
+    mov cl, 2                        ; 0x092f
+    shl ax, cl                       ; 0x0931
+    mov bx, 0x2eb                    ; 0x0933
+    add bx, ax                       ; 0x0936
+    mov si, word [cs:bx]             ; 0x0938
+    mov ax, si                       ; 0x093b
+    mov cl, 0xa                      ; 0x093d
+    shr ax, cl                       ; 0x093f
+    mov word [cs:data_3c8e], ax      ; 0x0941
+    call dos_file_loc_3b90           ; 0x0945
+    and si, strict word 0x3ff        ; 0x0948
+    mov cl, 4                        ; 0x094c
+    shl si, cl                       ; 0x094e
+    mov bx, word [cs:data_0203]      ; 0x0950
+    mov ds, bx                       ; 0x0955
+    mov ax, word [cs:data_01e5]      ; 0x0957
+    mov es, ax                       ; 0x095b
+    xor di, di                       ; 0x095d
+    mov cx, 3                        ; 0x095f
 @..dos_read_file.l3:
-    push cx
-    mov cx, 0x4000
-    rep movsb
-    and si, strict word 0x3fff
-    inc word [cs:data_3c8e]
-    mov ax, word [cs:data_3c8e]
-    call dos_file_loc_3b90
-    pop cx
-    loop @..dos_read_file.l3
-    mov cx, 0x3a00
-    rep movsb
-    jmp short @..dos_read_file.l5
+    push cx                          ; 0x0962
+    mov cx, 0x4000                   ; 0x0963
+    rep movsb                        ; 0x0966
+    and si, strict word 0x3fff       ; 0x0968
+    inc word [cs:data_3c8e]          ; 0x096c
+    mov ax, word [cs:data_3c8e]      ; 0x0971
+    call dos_file_loc_3b90           ; 0x0975
+    pop cx                           ; 0x0978
+    loop @..dos_read_file.l3         ; 0x0979
+    mov cx, 0x3a00                   ; 0x097b
+    rep movsb                        ; 0x097e
+    jmp short @..dos_read_file.l5    ; 0x0980
 @..dos_read_file.l4:
-    mov ax, word [cs:data_01e5]
-    mov ds, ax
-    xor dx, dx
-    mov bx, word [bp + 0xc]
-    mov cx, 0xfa00
-    mov ah, 0x3f
+    mov ax, word [cs:data_01e5]      ; 0x0982
+    mov ds, ax                       ; 0x0986
+    xor dx, dx                       ; 0x0988
+    mov bx, word [bp + 0xc]          ; 0x098a
+    mov cx, 0xfa00                   ; 0x098d
+    mov ah, 0x3f                     ; 0x0990
     int 0x21 ; DOS read file (handle)
 @..dos_read_file.l5:
-    pop di
-    pop si
-    pop es
-    pop ds
-    mov sp, bp
-    pop bp
-    ret
+    pop di                           ; 0x0994
+    pop si                           ; 0x0995
+    pop es                           ; 0x0996
+    pop ds                           ; 0x0997
+    mov sp, bp                       ; 0x0998
+    pop bp                           ; 0x099a
+    ret                              ; 0x099b

@@ -907,7 +907,7 @@ def _count_bare_addrs(records):
 
 
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
-           bitmap=None, code_targets=None, exact_bytes=False, show_offsets=False,
+           bitmap=None, code_targets=None, exact_bytes=False, show_offsets=True,
            structs=None, asm_dir=None, cascade_promoted=None,
            carve_1=None, trace=None,
            foreign_label_map=None,
@@ -1329,7 +1329,7 @@ def _partition_function_records(records, split_ranges, split_dir):
     return main_records, split_sources
 
 
-def _render_records(records, binary_data, show_offsets=False):
+def _render_records(records, binary_data, show_offsets=True):
     """Render ordered body records, including textual NASM include directives."""
     out = []
     i = 0
@@ -1407,7 +1407,7 @@ def _render_records(records, binary_data, show_offsets=False):
     return out
 
 
-def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=False,
+def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
                   split_dir='ds'):
     """Render the master NASM source and any generated function includes."""

@@ -1,81 +1,81 @@
 dos_write_file:
-    push bp
-    mov bp, sp
-    sub sp, byte 8
-    push ds
-    push es
-    push si
-    push di
-    mov ax, ds
-    mov es, ax
-    mov ax, word [bp + 0xc]
-    test ah, 0x80
-    jne short @..dos_write_file.l1
-    jmp near @..dos_write_file.l4
+    push bp                          ; 0x099c
+    mov bp, sp                       ; 0x099d
+    sub sp, byte 8                   ; 0x099f
+    push ds                          ; 0x09a2
+    push es                          ; 0x09a3
+    push si                          ; 0x09a4
+    push di                          ; 0x09a5
+    mov ax, ds                       ; 0x09a6
+    mov es, ax                       ; 0x09a8
+    mov ax, word [bp + 0xc]          ; 0x09aa
+    test ah, 0x80                    ; 0x09ad
+    jne short @..dos_write_file.l1   ; 0x09b0
+    jmp near @..dos_write_file.l4    ; 0x09b2
 @..dos_write_file.l1:
-    neg ax
-    mov bx, data_0251
-    shl ax, 1
-    add bx, ax
-    mov ax, word [cs:bx]
-    or ax, ax
-    je short @..dos_write_file.l2
-    jmp near dos_con_loc_0a4f
+    neg ax                           ; 0x09b5
+    mov bx, data_0251                ; 0x09b7
+    shl ax, 1                        ; 0x09ba
+    add bx, ax                       ; 0x09bc
+    mov ax, word [cs:bx]             ; 0x09be
+    or ax, ax                        ; 0x09c1
+    je short @..dos_write_file.l2    ; 0x09c3
+    jmp near dos_con_loc_0a4f        ; 0x09c5
 @..dos_write_file.l2:
-    mov ax, word [cs:data_0caa]
-    inc ax
-    mov word [cs:data_0caa], ax
-    mov word [cs:bx], ax
-    mov cl, 2
-    dec ax
-    shl ax, cl
-    mov bx, data_0bda
-    add bx, ax
-    mov ax, word [cs:data_0cac]
-    mov word [cs:bx], ax
-    mov cx, 0xfa0
-    mov word [cs:bx + 0x2], cx
-    mov dx, word [cs:data_0cac]
-    add dx, cx
-    mov word [cs:data_0cac], dx
-    cmp dx, strict word 0x4180
-    jb short @..dos_write_file.l3
-    jmp near dos_con_loc_0a8d
+    mov ax, word [cs:data_0caa]      ; 0x09c8
+    inc ax                           ; 0x09cc
+    mov word [cs:data_0caa], ax      ; 0x09cd
+    mov word [cs:bx], ax             ; 0x09d1
+    mov cl, 2                        ; 0x09d4
+    dec ax                           ; 0x09d6
+    shl ax, cl                       ; 0x09d7
+    mov bx, data_0bda                ; 0x09d9
+    add bx, ax                       ; 0x09dc
+    mov ax, word [cs:data_0cac]      ; 0x09de
+    mov word [cs:bx], ax             ; 0x09e2
+    mov cx, 0xfa0                    ; 0x09e5
+    mov word [cs:bx + 0x2], cx       ; 0x09e8
+    mov dx, word [cs:data_0cac]      ; 0x09ec
+    add dx, cx                       ; 0x09f1
+    mov word [cs:data_0cac], dx      ; 0x09f3
+    cmp dx, strict word 0x4180       ; 0x09f8
+    jb short @..dos_write_file.l3    ; 0x09fc
+    jmp near dos_con_loc_0a8d        ; 0x09fe
 @..dos_write_file.l3:
-    mov ax, word [bp + 0xc]
-    neg ax
-    shl ax, 1
-    mov bx, data_0251
-    add bx, ax
-    mov ax, word [cs:bx]
-    dec ax
-    mov cl, 2
-    shl ax, cl
-    mov bx, data_0bda
-    add bx, ax
-    mov ax, word [cs:bx]
-    add ax, word [cs:data_01e1]
-    mov es, ax
-    mov ax, word [cs:data_01e5]
-    mov ds, ax
-    xor di, di
-    xor si, si
-    mov cx, 0xfa00
-    rep movsb
-    jmp short @..dos_write_file.l5
+    mov ax, word [bp + 0xc]          ; 0x0a01
+    neg ax                           ; 0x0a04
+    shl ax, 1                        ; 0x0a06
+    mov bx, data_0251                ; 0x0a08
+    add bx, ax                       ; 0x0a0b
+    mov ax, word [cs:bx]             ; 0x0a0d
+    dec ax                           ; 0x0a10
+    mov cl, 2                        ; 0x0a11
+    shl ax, cl                       ; 0x0a13
+    mov bx, data_0bda                ; 0x0a15
+    add bx, ax                       ; 0x0a18
+    mov ax, word [cs:bx]             ; 0x0a1a
+    add ax, word [cs:data_01e1]      ; 0x0a1d
+    mov es, ax                       ; 0x0a22
+    mov ax, word [cs:data_01e5]      ; 0x0a24
+    mov ds, ax                       ; 0x0a28
+    xor di, di                       ; 0x0a2a
+    xor si, si                       ; 0x0a2c
+    mov cx, 0xfa00                   ; 0x0a2e
+    rep movsb                        ; 0x0a31
+    jmp short @..dos_write_file.l5   ; 0x0a33
 @..dos_write_file.l4:
-    mov ax, word [cs:data_01e5]
-    mov ds, ax
-    xor dx, dx
-    mov bx, word [bp + 0xc]
-    mov cx, 0xfa00
-    mov ah, 0x40
+    mov ax, word [cs:data_01e5]      ; 0x0a35
+    mov ds, ax                       ; 0x0a39
+    xor dx, dx                       ; 0x0a3b
+    mov bx, word [bp + 0xc]          ; 0x0a3d
+    mov cx, 0xfa00                   ; 0x0a40
+    mov ah, 0x40                     ; 0x0a43
     int 0x21 ; DOS write file (handle)
 @..dos_write_file.l5:
-    pop di
-    pop si
-    pop es
-    pop ds
-    mov sp, bp
-    pop bp
-    ret
+    pop di                           ; 0x0a47
+    pop si                           ; 0x0a48
+    pop es                           ; 0x0a49
+    pop ds                           ; 0x0a4a
+    mov sp, bp                       ; 0x0a4b
+    pop bp                           ; 0x0a4d
+    ret                              ; 0x0a4e

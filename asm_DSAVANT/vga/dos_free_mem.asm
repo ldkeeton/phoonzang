@@ -1,63 +1,63 @@
 dos_free_mem:
-    push bp
-    mov bp, sp
-    sub sp, byte 8
-    push es
-    push ds
-    push di
-    push si
-    mov ax, ds
-    mov es, ax
-    mov ax, word [bp + 0xe]
-    mov ds, ax
-    mov si, word [bp + 0xc]
-    or ax, si
-    je short dos_con_loc_088f
-    mov ax, word [cs:data_01e5]
-    mov es, ax
-    lodsw
-    mov word [bp - 0x0002], ax
-    add si, byte 2
-    lodsw
-    mov word [bp - 0x0004], ax
-    lodsw
-    mov word [bp - 0x0006], ax
-    add si, byte 4
+    push bp                          ; 0x0836
+    mov bp, sp                       ; 0x0837
+    sub sp, byte 8                   ; 0x0839
+    push es                          ; 0x083c
+    push ds                          ; 0x083d
+    push di                          ; 0x083e
+    push si                          ; 0x083f
+    mov ax, ds                       ; 0x0840
+    mov es, ax                       ; 0x0842
+    mov ax, word [bp + 0xe]          ; 0x0844
+    mov ds, ax                       ; 0x0847
+    mov si, word [bp + 0xc]          ; 0x0849
+    or ax, si                        ; 0x084c
+    je short dos_con_loc_088f        ; 0x084e
+    mov ax, word [cs:data_01e5]      ; 0x0850
+    mov es, ax                       ; 0x0854
+    lodsw                            ; 0x0856
+    mov word [bp - 0x0002], ax       ; 0x0857
+    add si, byte 2                   ; 0x085a
+    lodsw                            ; 0x085d
+    mov word [bp - 0x0004], ax       ; 0x085e
+    lodsw                            ; 0x0861
+    mov word [bp - 0x0006], ax       ; 0x0862
+    add si, byte 4                   ; 0x0865
 @..dos_free_mem.l1:
-    mov di, word [bp - 0x0002]
-    add word [bp - 0x0002], strict word 0x140
-    mov cx, word [bp - 0x0006]
-    rep movsb
-    dec word [bp - 0x0004]
-    jne short @..dos_free_mem.l1
-    mov ax, word [bp + 0x10]
-    or ax, ax
-    je short @..dos_free_mem.l2
-    mov ax, ds
-    or ax, ax
-    je short @..dos_free_mem.l2
-    mov es, ax
-    mov ah, 0x49
+    mov di, word [bp - 0x0002]       ; 0x0868
+    add word [bp - 0x0002], strict word 0x140 ; 0x086b
+    mov cx, word [bp - 0x0006]       ; 0x0870
+    rep movsb                        ; 0x0873
+    dec word [bp - 0x0004]           ; 0x0875
+    jne short @..dos_free_mem.l1     ; 0x0878
+    mov ax, word [bp + 0x10]         ; 0x087a
+    or ax, ax                        ; 0x087d
+    je short @..dos_free_mem.l2      ; 0x087f
+    mov ax, ds                       ; 0x0881
+    or ax, ax                        ; 0x0883
+    je short @..dos_free_mem.l2      ; 0x0885
+    mov es, ax                       ; 0x0887
+    mov ah, 0x49                     ; 0x0889
     int 0x21 ; DOS free memory
-    jmp short @..dos_free_mem.l2
+    jmp short @..dos_free_mem.l2     ; 0x088d
 dos_con_loc_088f:
-    mov ax, cs
-    mov ds, ax
-    mov dx, 0x99f
-    mov ah, 9
+    mov ax, cs                       ; 0x088f
+    mov ds, ax                       ; 0x0891
+    mov dx, 0x99f                    ; 0x0893
+    mov ah, 9                        ; 0x0896
     int 0x21 ; DOS string output
-    mov ax, 0x4c01
+    mov ax, 0x4c01                   ; 0x089a
     int 0x21 ; DOS function dispatcher
-    or ax, 0x70a
+    or ax, 0x70a                     ; 0x089f
 
     db 'RESTOREAREA called with NULL pointer.', 0
 
-    or ah, byte [si]
+    or ah, byte [si]                 ; 0x08c8
 @..dos_free_mem.l2:
-    pop si
-    pop di
-    pop ds
-    pop es
-    mov sp, bp
-    pop bp
-    ret
+    pop si                           ; 0x08ca
+    pop di                           ; 0x08cb
+    pop ds                           ; 0x08cc
+    pop es                           ; 0x08cd
+    mov sp, bp                       ; 0x08ce
+    pop bp                           ; 0x08d0
+    ret                              ; 0x08d1

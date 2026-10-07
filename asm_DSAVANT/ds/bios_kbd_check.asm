@@ -1,26 +1,26 @@
 bios_kbd_check:
-    push bp
-    mov bp, sp
-    cld
-    push di
-    push si
-    push es
-    mov ax, ds
-    mov es, ax
-    mov ax, 0
-    mov word [cs:data_3a7f], ax
+    push bp                          ; 0x3e5e
+    mov bp, sp                       ; 0x3e5f
+    cld                              ; 0x3e61
+    push di                          ; 0x3e62
+    push si                          ; 0x3e63
+    push es                          ; 0x3e64
+    mov ax, ds                       ; 0x3e65
+    mov es, ax                       ; 0x3e67
+    mov ax, 0                        ; 0x3e69
+    mov word [cs:data_3a7f], ax      ; 0x3e6c
 @..bios_kbd_check.l1:
-    mov ah, 1
+    mov ah, 1                        ; 0x3e70
     int 0x16 ; BIOS keyboard: check keystroke
-    je short @..bios_kbd_check.l2
-    mov ah, 0
+    je short @..bios_kbd_check.l2    ; 0x3e74
+    mov ah, 0                        ; 0x3e76
     int 0x16 ; BIOS keyboard: read keystroke
-    jmp short @..bios_kbd_check.l1
+    jmp short @..bios_kbd_check.l1   ; 0x3e7a
 @..bios_kbd_check.l2:
-    call far [cs:data_2daf]
-    pop es
-    pop si
-    pop di
-    mov sp, bp
-    pop bp
-    ret
+    call far [cs:data_2daf]          ; 0x3e7c
+    pop es                           ; 0x3e81
+    pop si                           ; 0x3e82
+    pop di                           ; 0x3e83
+    mov sp, bp                       ; 0x3e84
+    pop bp                           ; 0x3e86
+    ret                              ; 0x3e87

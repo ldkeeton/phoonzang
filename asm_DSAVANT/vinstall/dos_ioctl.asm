@@ -1,14 +1,14 @@
 dos_ioctl:
-    push bp
-    mov bp, sp
-    mov bx, word [bp + 0x4]
-    mov ax, 0x4400
+    push bp                          ; 0x39e5
+    mov bp, sp                       ; 0x39e6
+    mov bx, word [bp + 0x4]          ; 0x39e8
+    mov ax, 0x4400                   ; 0x39eb
     int 0x21 ; DOS function dispatcher
-    jb short @..local.l193
-    test dl, data_0080
-    je short @..local.l193
-    test dl, 3
-    je short @..local.l193
-    mov ax, 1
-    pop bp
-    ret
+    jb short @..local.l193           ; 0x39f0
+    test dl, data_0080               ; 0x39f2
+    je short @..local.l193           ; 0x39f5
+    test dl, 3                       ; 0x39f7
+    je short @..local.l193           ; 0x39fa
+    mov ax, 1                        ; 0x39fc
+    pop bp                           ; 0x39ff
+    ret                              ; 0x3a00

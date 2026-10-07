@@ -14,8 +14,9 @@ Usage (from asm/):
 
 Env:
   EXTRA_FLAGS              space-separated flags forwarded to main.py:
-                             --exact-bytes     strict byte-accurate mode
-                             --detailed-timings full-precision phase timings
+                              --exact-bytes     strict byte-accurate mode
+                              --detailed-timings full-precision phase timings
+                              --no-show-offsets suppress instruction offsets
   EXACT_FLAG (deprecated)  same as EXTRA_FLAGS=--exact-bytes
 """
 
@@ -527,6 +528,7 @@ Env:
   EXTRA_FLAGS               space-separated flags forwarded to main.py:
                               --exact-bytes       strict byte-accurate mode
                               --detailed-timings  full-precision phase timings
+                              --no-show-offsets   suppress instruction offsets
   EXACT_FLAG (deprecated)   same as EXTRA_FLAGS=--exact-bytes
 '''
 
