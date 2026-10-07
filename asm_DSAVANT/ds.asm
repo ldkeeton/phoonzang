@@ -2,10 +2,23 @@
 %include "structs/loc_4ea0.inc"
 org 0
 bits 16
-    ; header (512 bytes)
-    db 0x4d, 0x5a, 0x56, 0x00, 0x88, 0x00, 0x01, 0x00, 0x20, 0x00, 0x4b, 0x0e, 0xff, 0xff, 0xf6, 0x0f
-    db 0x98, 0xf1, 0x00, 0x00, 0x3a, 0x4b, 0x00, 0x00, 0x20
-    times 7 db 0
+    ; DOS MZ executable header (512 bytes)
+    db "MZ"        ; e_magic: DOS MZ signature
+    dw 0x0056      ; e_cblp: bytes in final 512-byte page (0 means full)
+    dw 0x0088      ; e_cp: total 512-byte pages in the file
+    dw 0x0001      ; e_crlc: number of relocation entries
+    dw 0x0020      ; e_cparhdr: header size in 16-byte paragraphs
+    dw 0x0e4b      ; e_minalloc: minimum extra memory paragraphs
+    dw 0xffff      ; e_maxalloc: maximum extra memory paragraphs
+    dw 0x0ff6      ; e_ss: initial stack segment, relative to load module
+    dw 0xf198      ; e_sp: initial stack pointer
+    dw 0x0000      ; e_csum: file checksum (often unused)
+    dw 0x4b3a      ; e_ip: initial instruction pointer
+    dw 0x0000      ; e_cs: initial code segment, relative to load module
+    dw 0x0020      ; e_lfarlc: file offset of relocation table
+    dw 0x0000      ; e_ovno: overlay number (0 for main executable)
+
+    times 4 db 0
     db 0x3b, 0x4b
     times 478 db 0
 
@@ -2720,8 +2733,22 @@ loc_4b39:
     times 4 db 0
 %include "ds/entry_point.asm"
 
-%include "ds/dos_proc_loc_4e7e.asm"
-
+dos_proc_loc_4e7e:
+    pop ax                           ; 0x4e7e
+    pop ax                           ; 0x4e7f
+loc_4e80:
+    mov ah, 0x4c                     ; 0x4e80
+    int 0x21 ; DOS exit with return code
+    jmp far [cs:data_4b36]           ; 0x4e84
+    times 4 db 0
+    pop word [cs:data_4c89]          ; 0x4e8d
+    pop word [cs:data_4c8b]          ; 0x4e92
+    pop ds                           ; 0x4e97
+    call loc_4ea0                    ; 0x4e98
+    jmp far [cs:data_4c89]           ; 0x4e9b
+    push di                          ; 0x4ea0
+    push si                          ; 0x4ea1
+    retf                             ; 0x4ea2
     mov ax, 0                        ; 0x4ea3
     ret                              ; 0x4ea6
 loc_4ea7:

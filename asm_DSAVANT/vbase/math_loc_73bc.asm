@@ -1,0 +1,37 @@
+math_loc_73bc:
+    mov ax, 0                        ; 0x73bc
+    call ds_dispatch_f40b            ; 0x73bf
+    les bx, word [data_0002]         ; 0x73c2
+    mov ax, word [es:bx]             ; 0x73c6
+    mov dx, word [es:bx + 0x2]       ; 0x73c9
+    sub ax, word [data_908a]         ; 0x73cd
+    sbb dx, word [data_908c]         ; 0x73d1
+    push ax                          ; 0x73d5
+    push dx                          ; 0x73d6
+    mov ax, word [data_a5ae]         ; 0x73d7
+    cwd                              ; 0x73da
+    mov cx, ax                       ; 0x73db
+    mov bx, dx                       ; 0x73dd
+    pop dx                           ; 0x73df
+    pop ax                           ; 0x73e0
+    cmp dx, bx                       ; 0x73e1
+    jl short @..math_loc_73bc.l1     ; 0x73e3
+    jne short @..math_loc_73bc.l2    ; 0x73e5
+    cmp ax, cx                       ; 0x73e7
+    jae short @..math_loc_73bc.l2    ; 0x73e9
+@..math_loc_73bc.l1:
+    jmp short @..math_loc_73bc.l3    ; 0x73eb
+@..math_loc_73bc.l2:
+    mov ax, word [data_a5b0]         ; 0x73ed
+    inc ax                           ; 0x73f0
+    mov cx, 0xc                      ; 0x73f1
+    cwd                              ; 0x73f4
+    idiv cx                          ; 0x73f5
+    mov word [data_a5b0], dx         ; 0x73f7
+    les bx, word [data_0002]         ; 0x73fb
+    mov ax, word [es:bx]             ; 0x73ff
+    mov dx, word [es:bx + 0x2]       ; 0x7402
+    mov word [data_908c], dx         ; 0x7406
+    mov word [data_908a], ax         ; 0x740a
+    mov ax, 1                        ; 0x740d
+    ret                              ; 0x7410

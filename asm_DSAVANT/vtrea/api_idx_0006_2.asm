@@ -1,0 +1,27 @@
+api_idx_0006_2:
+    mov ax, 0xfffa                   ; 0x36af
+    call ds_dispatch_f40b            ; 0x36b2
+    mov ax, word [data_0e0e]         ; 0x36b5
+    mov word [bp - 0x0006], ax       ; 0x36b8
+    mov word [bp - 0x0002], 0        ; 0x36bb
+    jmp short @..api_idx_0006_2.l3   ; 0x36c0
+@..api_idx_0006_2.l1:
+    mov bx, word [bp - 0x0006]       ; 0x36c2
+    mov al, byte [bx]                ; 0x36c5
+    sub ah, ah                       ; 0x36c7
+    cmp ax, word [data_830c]         ; 0x36c9
+    jne short @..api_idx_0006_2.l2   ; 0x36cd
+    mov ax, word [data_8f3e]         ; 0x36cf
+    xchg al, ah                      ; 0x36d2
+    sub al, al                       ; 0x36d4
+    mov dx, word [data_8f42]         ; 0x36d6
+    mov cx, 4                        ; 0x36da
+    shl dx, cl                       ; 0x36dd
+    mov cx, dx                       ; 0x36df
+    add ax, cx                       ; 0x36e1
+    add ax, word [data_8f40]         ; 0x36e3
+    mov word [bp - 0x0004], ax       ; 0x36e7
+    cmp ax, word [bx + 0x2]          ; 0x36ea
+    jne short @..api_idx_0006_2.l2   ; 0x36ed
+    mov ax, bx                       ; 0x36ef
+    ret                              ; 0x36f1

@@ -618,7 +618,7 @@ def get_projects():
 
 
 def byte_verify(name, orig_dir, rel_path, asm_dir, start_offset,
-                exact_bytes=False, bitmap=None):
+                exact_bytes=False, bitmap=None, sidecar_entry=None):
     asm_path = os.path.join(asm_dir, f'{name}.asm')
     orig_path = os.path.join(orig_dir, rel_path)
 
@@ -666,7 +666,10 @@ def byte_verify(name, orig_dir, rel_path, asm_dir, start_offset,
             with open(orig_path, 'rb') as f:
                 data = f.read()
             from lib.classify import classify
-            bitmap, _ = classify(data, start_offset, entry_points=set())
+            bitmap, _ = classify(
+                data, start_offset, entry_points=set(),
+                sidecar_entry=sidecar_entry,
+            )
 
         if bitmap is not None:
             n = len(orig)
@@ -771,12 +774,15 @@ def verify_project(project_name):
         return 0, []
 
     out_dir = os.path.join(PROJECT_ROOT, f'asm_{project_name}')
+    sidecar = load_sidecar(project_name)
     bins = discover_binaries(project_dir)
     ok = 0
     fail = []
     for name, (rel_path, start_offset) in sorted(bins.items()):
+        sidecar_entry = sidecar_per_binary(sidecar, name) if sidecar else None
         if byte_verify(name, project_dir, rel_path, out_dir, start_offset,
-                       exact_bytes=EXACT_BYTES):
+                       exact_bytes=EXACT_BYTES,
+                       sidecar_entry=sidecar_entry):
             ok += 1
         else:
             fail.append(name)

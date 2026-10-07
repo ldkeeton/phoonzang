@@ -130,13 +130,8 @@ loc_0023:
     pop bx                           ; 0x0095
     pop bp                           ; 0x0096
     ret                              ; 0x0097
-io_loc_0098:
-    mov bl, byte [cs:data_0b7c]      ; 0x0098
-    xor bh, bh                       ; 0x009d
-    shl bx, 1                        ; 0x009f
-    mov ax, 0                        ; 0x00a1
-    call [cs:bx + 0x1aa]             ; 0x00a4
-    ret                              ; 0x00a9
+%include "play/io_loc_0098.asm"
+
 
     db 0x84, 0x12, 0xc4, 0x01, 0x84, 0x12, 0x84, 0x12, 0xc4, 0x01, 0xb6, 0x01, 0x51, 0xb9, 0x0a, 0x00
     db 0xe8, 0x5a, 0x11, 0x3d, 0x00, 0x00, 0xe0, 0xf8, 0x59, 0xc3, 0xb0, 0x08, 0x2e, 0x80, 0x3e, 0x7d
@@ -163,30 +158,10 @@ loc_0154:
     mov byte [cs:data_0b7c], al      ; 0x0168
     pop bp                           ; 0x016c
     ret                              ; 0x016d
-io_loc_016e:
-    mov al, byte [cs:data_0b9a]      ; 0x016e
-    cmp al, 0                        ; 0x0172
-    je short @..io_loc_016e.l1       ; 0x0174
-    mov al, byte [cs:data_0ba4]      ; 0x0176
-    cmp al, 0                        ; 0x017a
-    jne short @..io_loc_016e.l1      ; 0x017c
-    mov al, 1                        ; 0x017e
-@..io_loc_016e.l1:
-    xor ah, ah                       ; 0x0180
-    ret                              ; 0x0182
-io_loc_0183:
-    push bp                          ; 0x0183
-    mov bp, sp                       ; 0x0184
-    cmp word [bp + 0x8], byte 0      ; 0x0186
-    je short @..io_loc_0183.l3       ; 0x018a
-@..io_loc_0183.l1:
-    cmp byte [cs:data_0b94], 0       ; 0x018c
-    je short @..io_loc_0183.l1       ; 0x0192
-@..io_loc_0183.l2:
-    cmp byte [cs:data_0b9a], 0       ; 0x0194
-    jne short @..io_loc_0183.l2      ; 0x019a
-    pop bp                           ; 0x019c
-    ret                              ; 0x019d
+%include "play/io_loc_016e.asm"
+
+%include "play/io_loc_0183.asm"
+
 @..io_loc_0183.l3:
     cmp byte [cs:data_0b7d], 0       ; 0x019e
     jne short @..io_loc_0183.l5      ; 0x01a4
@@ -196,22 +171,8 @@ io_loc_0183:
 @..io_loc_0183.l5:
     pop bp                           ; 0x01ae
     ret                              ; 0x01af
-io_loc_01b0:
-    push bx                          ; 0x01b0
-    cmp byte [cs:data_0b9a], 0       ; 0x01b1
-    je short @..io_loc_01b0.l2       ; 0x01b7
-    mov byte [cs:data_0b9a], 0       ; 0x01b9
-    cmp byte [cs:data_0b94], 0       ; 0x01bf
-    je short @..io_loc_01b0.l1       ; 0x01c5
-    call io_loc_0c97                 ; 0x01c7
-@..io_loc_01b0.l1:
-    mov bl, byte [cs:data_0b7c]      ; 0x01ca
-    xor bh, bh                       ; 0x01cf
-    shl bx, 1                        ; 0x01d1
-    call [cs:bx + 0x2da]             ; 0x01d3
-@..io_loc_01b0.l2:
-    pop bx                           ; 0x01d8
-    ret                              ; 0x01d9
+%include "play/io_loc_01b0.asm"
+
 
     db 0x84, 0x12, 0xe6, 0x02, 0x84, 0x12, 0x84, 0x12, 0xe6, 0x02, 0x22, 0x03, 0x53, 0x51, 0x52, 0xb1
     db 0x00, 0xb4, 0xb1, 0x2e, 0x80, 0x3e, 0x7d, 0x0b, 0x01, 0x74, 0x0a, 0x2e, 0x80, 0x3e, 0x7d, 0x0b
@@ -221,110 +182,14 @@ io_loc_01b0:
     db 0xcf, 0x0f, 0xb0, 0x7b, 0xe8, 0xca, 0x0f, 0xb0, 0x00, 0xe8, 0xc5, 0x0f, 0xfe, 0xc3, 0x80, 0xfb
     db 0x0a, 0x72, 0xe8, 0x5b, 0xc3
 
-io_loc_023f:
-    push bp                          ; 0x023f
-    mov bp, sp                       ; 0x0240
-    push bx                          ; 0x0242
-    push dx                          ; 0x0243
-    mov bx, word [bp + 0x8]          ; 0x0244
-    mov word [cs:data_0ba6], bx      ; 0x0247
-    mov ax, 0x38e                    ; 0x024c
-    mov dx, 0                        ; 0x024f
-    cmp bx, byte 0                   ; 0x0252
-    je short @..io_loc_023f.l1       ; 0x0255
-    div bx                           ; 0x0257
-@..io_loc_023f.l1:
-    mov word [cs:data_0b83], ax      ; 0x0259
-    cmp byte [cs:data_0b90], 0       ; 0x025d
-    je short @..io_loc_023f.l2       ; 0x0263
-    cmp byte [cs:data_0b9a], 0       ; 0x0265
-    je short @..io_loc_023f.l2       ; 0x026b
-    mov al, 0x34                     ; 0x026d
-    out 0x43, al                     ; 0x026f
-    call io_loc_0610                 ; 0x0271
-    mov ax, word [cs:data_0ba6]      ; 0x0274
-    mov bl, 0x48                     ; 0x0278
-    mul bl                           ; 0x027a
-    mov word [cs:data_0b98], ax      ; 0x027c
-    out 0x40, al                     ; 0x0280
-    call io_loc_0610                 ; 0x0282
-    mov al, ah                       ; 0x0285
-    out 0x40, al                     ; 0x0287
-@..io_loc_023f.l2:
-    mov ax, word [bp + 0xa]          ; 0x0289
-    mov byte [cs:data_0ba8], al      ; 0x028c
-    pop dx                           ; 0x0290
-    pop bx                           ; 0x0291
-    pop bp                           ; 0x0292
-    ret                              ; 0x0293
-io_loc_0294:
-    push bp                          ; 0x0294
-    mov bp, sp                       ; 0x0295
-    push di                          ; 0x0297
-    push si                          ; 0x0298
-    push es                          ; 0x0299
-    push ds                          ; 0x029a
-    push dx                          ; 0x029b
-    push bx                          ; 0x029c
-    cmp byte [bp + 0x14], 0xff       ; 0x029d
-    jne short @..io_loc_0294.l1      ; 0x02a1
-    jmp near @..io_loc_0294.l2       ; 0x02a3
-@..io_loc_0294.l1:
-    mov al, byte [cs:data_0b7d]      ; 0x02a6
-    call io_loc_02b3                 ; 0x02aa
-    mov byte [bp + 0x15], al         ; 0x02ad
-    jmp near @..io_loc_0294.l5       ; 0x02b0
-io_loc_02b3:
-    cmp al, 6                        ; 0x02b3
-    jb short @..io_loc_02b3.l1       ; 0x02b5
-    mov al, 0                        ; 0x02b7
-@..io_loc_02b3.l1:
-    ret                              ; 0x02b9
-io_loc_02ba:
-    push di                          ; 0x02ba
-    push es                          ; 0x02bb
-    cld                              ; 0x02bc
-    cmp byte [cs:data_0421], 0       ; 0x02bd
-    jne short @..io_loc_02ba.l1      ; 0x02c3
-    in al, 0x21                      ; 0x02c5
-    mov byte [cs:data_0b8f], al      ; 0x02c7
-    cli                              ; 0x02cb
-    xor ax, ax                       ; 0x02cc
-    mov es, ax                       ; 0x02ce
-    mov di, 0x20                     ; 0x02d0
-    mov ax, word [es:di]             ; 0x02d3
-    mov word [cs:data_0c10], ax      ; 0x02d6
-    mov ax, 0xbb4                    ; 0x02da
-    stosw                            ; 0x02dd
-    mov ax, word [es:di]             ; 0x02de
-    mov word [cs:data_0c12], ax      ; 0x02e1
-    mov ax, cs                       ; 0x02e5
-    stosw                            ; 0x02e7
-    sti                              ; 0x02e8
-    mov al, 0x34                     ; 0x02e9
-    out 0x43, al                     ; 0x02eb
-    call io_loc_0610                 ; 0x02ed
-    in al, 0x40                      ; 0x02f0
-    mov ah, al                       ; 0x02f2
-    call io_loc_0610                 ; 0x02f4
-    in al, 0x40                      ; 0x02f7
-    xchg al, ah                      ; 0x02f9
-    mov word [cs:data_0b96], ax      ; 0x02fb
-    mov al, 0x34                     ; 0x02ff
-    out 0x43, al                     ; 0x0301
-    mov ax, word [cs:data_0ba6]      ; 0x0303
-    mov bl, 0x48                     ; 0x0307
-    mul bl                           ; 0x0309
-    mov word [cs:data_0b98], ax      ; 0x030b
-    out 0x40, al                     ; 0x030f
-    call io_loc_0610                 ; 0x0311
-    mov al, ah                       ; 0x0314
-    out 0x40, al                     ; 0x0316
-@..io_loc_02ba.l1:
-    mov byte [cs:data_0421], 0xff    ; 0x0318
-    pop es                           ; 0x031e
-    pop di                           ; 0x031f
-    ret                              ; 0x0320
+%include "play/io_loc_023f.asm"
+
+%include "play/io_loc_0294.asm"
+
+%include "play/io_loc_02b3.asm"
+
+%include "play/io_loc_02ba.asm"
+
     db 0x00
 @..io_loc_0294.l2:
     mov ah, 0                        ; 0x0322
@@ -457,116 +322,8 @@ io_loc_02ba:
     je short loc_04b5                ; 0x048b
     mov dx, word [cs:bx + 0x59d]     ; 0x048d
     jmp near loc_04b5                ; 0x0492
-io_loc_0495:
-    in al, 0x19                      ; 0x0495
-    scasw                            ; 0x0497
-    or word [bx - 0x60f6], bx        ; 0x0498
-    or ah, ah                        ; 0x049c
-    sbb word [bx - 0x60f7], bp       ; 0x049e
-    or bl, byte [bx + 0x410a]        ; 0x04a2
-    or ax, word [bx + di + 0x9]      ; 0x04a6
-    jne short loc_04b5               ; 0x04a9
-    jne short @..io_loc_0495.l1      ; 0x04ab
-    inc cx                           ; 0x04ad
-    or ax, word [bx + di + 0x9]      ; 0x04ae
-    jne short loc_04bd               ; 0x04b1
-    jne short loc_04bf               ; 0x04b3
-loc_04b5:
-    cld                              ; 0x04b5
-    db 0x33
-@..io_loc_0495.l1:
-    db 0xc0
-    mov es, ax                       ; 0x04b8
-    mov di, 0x20                     ; 0x04ba
-loc_04bd:
-    mov ax, dx                       ; 0x04bd
-loc_04bf:
-    stosw                            ; 0x04bf
-    mov ax, cs                       ; 0x04c0
-    stosw                            ; 0x04c2
-loc_04c3:
-    cli                              ; 0x04c3
-    cmp byte [cs:data_0b7d], 1       ; 0x04c4
-    jne short loc_04dc               ; 0x04ca
-    mov al, 0                        ; 0x04cc
-    cmp byte [cs:data_0b94], 0       ; 0x04ce
-    je short loc_04d8                ; 0x04d4
-    mov al, 0xff                     ; 0x04d6
-loc_04d8:
-    mov byte [cs:data_09ae], al      ; 0x04d8
-loc_04dc:
-    cmp byte [cs:data_0b7d], 0       ; 0x04dc
-    jne short loc_04ea               ; 0x04e2
-    in al, 0x61                      ; 0x04e4
-    or al, 3                         ; 0x04e6
-    out 0x61, al                     ; 0x04e8
-loc_04ea:
-    call fpu_loc_077b                ; 0x04ea
-    mov al, strlen                   ; 0x04ed
-    out 0x21, al                     ; 0x04ef
-    mov ax, word [bp + 0x8]          ; 0x04f1
-    add ax, word [bp + 0xe]          ; 0x04f4
-    mov cl, 4                        ; 0x04f7
-    shr ax, cl                       ; 0x04f9
-    add ax, word [bp + 0xa]          ; 0x04fb
-    sub ax, 0x1000                   ; 0x04fe
-    mov es, ax                       ; 0x0501
-    mov ds, ax                       ; 0x0503
-    mov word [cs:data_19e8], ax      ; 0x0505
-    mov word [cs:data_09bf], ax      ; 0x0509
-    mov word [cs:data_0aa4], ax      ; 0x050d
-    mov ax, word [bp + 0xe]          ; 0x0511
-    sub ax, word [bp + 0xc]          ; 0x0514
-    neg ax                           ; 0x0517
-    and al, strlen                   ; 0x0519
-    add ax, strict word 0x10         ; 0x051b
-    mov di, ax                       ; 0x051e
-    mov bx, ax                       ; 0x0520
-    mov word [cs:data_19f2], ax      ; 0x0522
-    mov word [cs:data_09c4], ax      ; 0x0526
-    mov word [cs:data_0aa9], ax      ; 0x052a
-    mov al, byte [bx]                ; 0x052e
-    mov byte [cs:data_096f], al      ; 0x0530
-    mov byte [cs:data_096e], 0       ; 0x0534
-    mov al, 0xff                     ; 0x053a
-    sub al, byte [bp + 0x10]         ; 0x053c
-    mov byte [cs:data_1a04], al      ; 0x053f
-    mov byte [cs:data_09d4], al      ; 0x0543
-    mov byte [cs:data_0abb], al      ; 0x0547
-    mov byte [cs:data_0b54], al      ; 0x054b
-    mov byte [cs:data_0948], al      ; 0x054f
-    mov byte [cs:data_0a7c], al      ; 0x0553
-    cmp byte [cs:data_0b7d], 1       ; 0x0557
-    je short loc_0567                ; 0x055d
-    cmp byte [cs:data_0b7d], 4       ; 0x055f
-    jne short loc_056d               ; 0x0565
-loc_0567:
-    mov dx, 0x388                    ; 0x0567
-    mov al, 0x40                     ; 0x056a
-    out dx, al                       ; 0x056c
-loc_056d:
-    mov byte [cs:data_0b94], 0       ; 0x056d
-    cmp byte [cs:data_0b90], 0       ; 0x0573
-    jne short loc_059b               ; 0x0579
-    mov al, byte [cs:data_0b8f]      ; 0x057b
-    and al, strlen                   ; 0x057f
-    out 0x21, al                     ; 0x0581
-    sti                              ; 0x0583
-    test byte [bp + 0x14], 1         ; 0x0584
-    je short loc_0592                ; 0x0588
-loc_058a:
-    test byte [cs:data_0b94], 0xff   ; 0x058a
-    je short loc_058a                ; 0x0590
-loc_0592:
-    pop bx                           ; 0x0592
-    pop dx                           ; 0x0593
-    pop ds                           ; 0x0594
-    pop es                           ; 0x0595
-    pop si                           ; 0x0596
-    pop di                           ; 0x0597
-    pop bp                           ; 0x0598
-    sti                              ; 0x0599
-    ret                              ; 0x059a
+%include "play/io_loc_0495.asm"
+
 loc_059b:
     mov al, 0x34                     ; 0x059b
     out 0x43, al                     ; 0x059d
@@ -614,10 +371,8 @@ loc_0608:
     mov al, byte [cs:data_0b8f]      ; 0x0608
     out 0x21, al                     ; 0x060c
     jmp short loc_0592               ; 0x060e
-io_loc_0610:
-    jmp near @..io_loc_0610.l1       ; 0x0610
-@..io_loc_0610.l1:
-    ret                              ; 0x0613
+%include "play/io_loc_0610.asm"
+
 @..io_loc_0294.l12:
     cmp byte [cs:data_0421], 0       ; 0x0614
     jne short @..io_loc_0294.l13     ; 0x061a
@@ -667,44 +422,8 @@ io_loc_0610:
     db 0x00, 0xba, 0x88, 0x03, 0xb0, 0x40, 0xee, 0xe8, 0xbf, 0x00, 0xb0, 0x3f, 0x42, 0xee, 0xe8, 0xa8
     db 0x00, 0x9d, 0xc3
 
-fpu_loc_077b:
-    mov bl, byte [cs:data_0b7d]      ; 0x077b
-    shl bl, 1                        ; 0x0780
-    xor bh, bh                       ; 0x0782
-    jmp [cs:bx + 0x889]              ; 0x0784
-    xchg bx, ax                      ; 0x0789
-    or byte [bp + si + 0x7], bl      ; 0x078a
-    fisttp dword [bx + si]           ; 0x078d
-    fisttp dword [bx + si]           ; 0x078f
-    pop dx                           ; 0x0791
-    pop es                           ; 0x0792
-    mov ah, 0                        ; 0x0793
-    mov al, byte [bp + 0x12]         ; 0x0795
-    cmp al, 0x49                     ; 0x0798
-    jb short loc_07a2                ; 0x079a
-    sub al, 0x49                     ; 0x079c
-    shr al, 1                        ; 0x079e
-    db 0x8a, 0xe0 ; mov ah, al
-    mov byte [cs:data_0b93], ah      ; 0x07a2
-    mov bx, 0x1a3a                   ; 0x07a7
-    db 0x32, 0xc9 ; xor cl, cl
-    mov al, byte [bp + 0x12]         ; 0x07ac
-    mov byte [cs:data_0b92], al      ; 0x07af
-    mov al, byte [bp + 0x12]         ; 0x07b3
-    mul cl                           ; 0x07b6
-    sub ah, byte [cs:data_0b93]      ; 0x07b8
-    js short loc_07ce                ; 0x07bd
-    cmp ah, byte [cs:data_0b92]      ; 0x07bf
-    jb short loc_07d0                ; 0x07c4
-    mov ah, byte [cs:data_0b92]      ; 0x07c6
-    jmp near loc_07d0                ; 0x07cb
-    mov ah, 0                        ; 0x07ce
-    inc ah                           ; 0x07d0
-    mov byte [cs:bx], ah             ; 0x07d2
-    inc bx                           ; 0x07d5
-    inc cl                           ; 0x07d6
-    jne short loc_07b3               ; 0x07d8
-    ret                              ; 0x07da
+%include "play/fpu_loc_077b.asm"
+
     mov bx, 0x1a3a                   ; 0x07db
     db 0x32, 0xc9 ; xor cl, cl
     mov al, byte [bp + 0x12]         ; 0x07e0
@@ -991,34 +710,15 @@ fpu_loc_077b:
     out 0x40, al                     ; 0x0a26
     pop dx                           ; 0x0a28
     ret                              ; 0x0a29
-io_loc_0a2a:
-    pushf                            ; 0x0a2a
-    push di                          ; 0x0a2b
-    push es                          ; 0x0a2c
-    cli                              ; 0x0a2d
-    cld                              ; 0x0a2e
-    xor ax, ax                       ; 0x0a2f
-    mov es, ax                       ; 0x0a31
-    mov di, 0x20                     ; 0x0a33
-    mov ax, dx                       ; 0x0a36
-    stosw                            ; 0x0a38
-    mov ax, ds                       ; 0x0a39
-    stosw                            ; 0x0a3b
-    pop es                           ; 0x0a3c
-    pop di                           ; 0x0a3d
-    popf                             ; 0x0a3e
-    ret                              ; 0x0a3f
+%include "play/io_loc_0a2a.asm"
+
 
     db 0x00, 0xfa, 0x8a, 0x05, 0x2e, 0xd7, 0x8a, 0xc8, 0xb0, 0xb0, 0xe6, 0x43, 0x8a, 0xc1, 0xee, 0x32
     db 0xc0, 0xee, 0x80, 0xc4, 0x80, 0x83, 0xd7, 0x00, 0x72, 0x05, 0xb0, 0x20, 0xe6, 0x20, 0xcf, 0xe8
     db 0x72, 0xff, 0x2e, 0xa0, 0x8f, 0x0b, 0xe6, 0x21, 0xb0, 0x20, 0xe6, 0x20, 0xcf
 
-io_loc_0a6d:
-    in al, 0x61                      ; 0x0a6d
-    and al, strlen                   ; 0x0a6f
-    out 0x61, al                     ; 0x0a71
-    mov byte [cs:data_0b94], 0xff    ; 0x0a73
-    ret                              ; 0x0a79
+%include "play/io_loc_0a6d.asm"
+
 
     db 0x00, 0x00, 0x01, 0x00, 0x00, 0x01, 0x00, 0x64, 0x00, 0x0a, 0x00, 0x83, 0x0b, 0x20, 0x02, 0x20
     db 0x02, 0x21, 0x02, 0x22, 0x02
@@ -1060,28 +760,8 @@ io_loc_0a6d:
     db 0x0b, 0x00, 0x2e, 0x80, 0x3e, 0x94, 0x0b, 0x00, 0x75, 0x03, 0xe9, 0x48, 0xfe, 0xe8, 0x03, 0x00
     db 0xe9, 0x42, 0xfe
 
-io_loc_0c97:
-    push ax                          ; 0x0c97
-    push ds                          ; 0x0c98
-    push dx                          ; 0x0c99
-    mov al, 0x36                     ; 0x0c9a
-    out 0x43, al                     ; 0x0c9c
-    call io_loc_0610                 ; 0x0c9e
-    mov ax, 0                        ; 0x0ca1
-    out 0x40, al                     ; 0x0ca4
-    call io_loc_0610                 ; 0x0ca6
-    mov al, ah                       ; 0x0ca9
-    out 0x40, al                     ; 0x0cab
-    mov al, byte [cs:data_0b8f]      ; 0x0cad
-    out 0x21, al                     ; 0x0cb1
-    mov ds, word [cs:data_0c12]      ; 0x0cb3
-    mov dx, word [cs:data_0c10]      ; 0x0cb8
-    call io_loc_0a2a                 ; 0x0cbd
-    mov byte [cs:data_0421], 0       ; 0x0cc0
-    pop dx                           ; 0x0cc6
-    pop ds                           ; 0x0cc7
-    pop ax                           ; 0x0cc8
-    ret                              ; 0x0cc9
+%include "play/io_loc_0c97.asm"
+
 
     db 0xad, 0x3d, 0x00, 0x00, 0x75, 0x03, 0xe9, 0x71, 0xfe, 0x2e, 0xa3, 0x7f, 0x0b, 0x2e, 0x89, 0x36
     db 0xa4, 0x0b, 0xe9, 0xfa, 0xfd, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff

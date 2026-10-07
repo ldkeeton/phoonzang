@@ -162,6 +162,17 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertEqual(self.bitmap[0x348f], main.IS_CODE)
         self.assertEqual(self.bitmap[0x45aa], main.IS_CODE)
 
+    def test_byte_verifier_uses_sidecar_data_boundaries(self):
+        project_dir = pathlib.Path(main.APPS_DIR) / 'DSAVANT'
+        sidecar = main.load_sidecar('DSAVANT')
+        sidecar_entry = main.sidecar_per_binary(sidecar, 'ds')
+        with contextlib.redirect_stdout(io.StringIO()):
+            verified = main.byte_verify(
+                'ds', str(project_dir), 'DS.EXE', self._output.name, 0x200,
+                sidecar_entry=sidecar_entry,
+            )
+        self.assertTrue(verified)
+
     def test_shared_exit_helper_remains_global(self):
         asm_text = '\n'.join(
             path.read_text()

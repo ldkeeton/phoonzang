@@ -1,0 +1,45 @@
+api_idx_0002_12:
+    mov ax, 0xfffe                   ; 0x626e
+    call ds_dispatch_f40b            ; 0x6271
+    mov ax, 0x248                    ; 0x6274
+    imul word [bp + 0x4]             ; 0x6277
+    mov bx, ax                       ; 0x627a
+    mov byte [bx + 0x5e3a], 0x64     ; 0x627c
+    push word [bp + 0x4]             ; 0x6281
+    call api_idx_000a_3              ; 0x6284
+    pop cx                           ; 0x6287
+    push word [bp + 0x4]             ; 0x6288
+    call api_idx_0004_7              ; 0x628b
+    pop cx                           ; 0x628e
+    mov ax, 0x248                    ; 0x628f
+    imul word [bp + 0x4]             ; 0x6292
+    mov bx, ax                       ; 0x6295
+    mov byte [bx + 0x5e30], 0        ; 0x6297
+    mov byte [bx + 0x5e31], 0        ; 0x629c
+    mov byte [bx + 0x5e33], 0        ; 0x62a1
+    mov byte [bx + 0x5e2e], 0        ; 0x62a6
+    mov word [bx + 0x5c18], 1        ; 0x62ab
+    mov word [bx + 0x5c1a], 1        ; 0x62b1
+    mov word [bp - 0x0002], 0        ; 0x62b7
+@..api_idx_0002_12.l1:
+    mov ax, 0x248                    ; 0x62bc
+    imul word [bp + 0x4]             ; 0x62bf
+    add ax, word [bp - 0x0002]       ; 0x62c2
+    mov bx, ax                       ; 0x62c5
+    mov byte [bx + 0x5d48], 0xff     ; 0x62c7
+    inc word [bp - 0x0002]           ; 0x62cc
+    mov ax, word [bp - 0x0002]       ; 0x62cf
+    cmp ax, strict word 8            ; 0x62d2
+    jl short @..api_idx_0002_12.l1   ; 0x62d5
+    push word [bp + 0x4]             ; 0x62d7
+    call api_idx_0004_6              ; 0x62da
+    pop cx                           ; 0x62dd
+    mov ax, 0x248                    ; 0x62de
+    imul word [bp + 0x4]             ; 0x62e1
+    mov bx, ax                       ; 0x62e4
+    mov byte [bx + 0x5e37], 1        ; 0x62e6
+    mov byte [bx + 0x5e38], 1        ; 0x62eb
+    mov al, byte [bx + 0x5d69]       ; 0x62f0
+    inc al                           ; 0x62f4
+    mov byte [bx + 0x5e39], al       ; 0x62f6
+    ret                              ; 0x62fa

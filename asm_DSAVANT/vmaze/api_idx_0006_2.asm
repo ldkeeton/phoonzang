@@ -1,0 +1,29 @@
+api_idx_0006_2:
+    mov ax, 0xfffa                   ; 0x0f8e
+    call ds_dispatch_f40b            ; 0x0f91
+    call ds_dispatch_ec17            ; 0x0f94
+    mov ax, word [bp + 0x4]          ; 0x0f97
+    cwd                              ; 0x0f9a
+    les bx, word [0x0002]            ; 0x0f9b
+    mov cx, word [es:bx]             ; 0x0f9f
+    mov bx, word [es:bx + 0x2]       ; 0x0fa2
+    add ax, cx                       ; 0x0fa6
+    adc dx, bx                       ; 0x0fa8
+    mov word [bp - 0x0002], dx       ; 0x0faa
+    mov word [bp - 0x0004], ax       ; 0x0fad
+@..api_idx_0006_2.l1:
+    les bx, word [0x0002]            ; 0x0fb0
+    mov ax, word [es:bx]             ; 0x0fb4
+    mov dx, word [es:bx + 0x2]       ; 0x0fb7
+    cmp dx, word [bp - 0x0002]       ; 0x0fbb
+    jg short @..api_idx_0006_2.l2    ; 0x0fbe
+    jne short @..api_idx_0006_2.l3   ; 0x0fc0
+    cmp ax, word [bp - 0x0004]       ; 0x0fc2
+    jb short @..api_idx_0006_2.l3    ; 0x0fc5
+@..api_idx_0006_2.l2:
+    jmp short @..api_idx_0006_2.l5   ; 0x0fc7
+@..api_idx_0006_2.l3:
+    call ds_dispatch_baef            ; 0x0fc9
+    test ax, ax                      ; 0x0fcc
+    je short @..api_idx_0006_2.l4    ; 0x0fce
+    ret                              ; 0x0fd0

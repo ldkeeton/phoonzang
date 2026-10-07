@@ -1628,13 +1628,41 @@ def _partition_function_records(records, split_ranges, split_dir):
     if not split_ranges:
         return records, {}
 
-    ranges = sorted(split_ranges, key=lambda item: item[0])
-    for i, (start, end, name) in enumerate(ranges):
+    # Function bounds are heuristic and can land inside an instruction or
+    # across un-emitted gaps (for example, when a label was matched to data).
+    # Splitting is only a source-layout optimization, so leave any unsafe span
+    # in the master file instead of failing the entire project build.
+    ranges = []
+    candidates = sorted(split_ranges, key=lambda item: item[0])
+    for start, end, name in candidates:
         if start >= end:
-            raise ValueError(f'{name}: invalid function split range 0x{start:x}-0x{end:x}')
-        if i and start < ranges[i - 1][1]:
-            prev = ranges[i - 1]
-            raise ValueError(f'overlapping function split ranges: {prev[2]} and {name}')
+            continue
+        spans = []
+        safe = True
+        for rec in records:
+            if rec['type'] == 'label':
+                continue
+            rec_start, rec_end = _record_span(rec)
+            if rec_start >= end or rec_end <= start:
+                continue
+            if rec['type'] != 'data_block' and (
+                    rec_start < start or rec_end > end):
+                safe = False
+                break
+            spans.append((max(start, rec_start), min(end, rec_end)))
+        if safe:
+            cursor = start
+            for span_start, span_end in sorted(spans):
+                if span_start != cursor:
+                    safe = False
+                    break
+                cursor = span_end
+            safe = safe and cursor == end
+        if safe and (not ranges or start >= ranges[-1][1]):
+            ranges.append((start, end, name))
+
+    if not ranges:
+        return records, {}
 
     # Data blocks can span a function's final byte and following data (or a
     # split boundary between adjacent named roots). Divide those aggregate
@@ -1790,6 +1818,33 @@ def _render_records(records, binary_data, show_offsets=True):
     return out
 
 
+def _render_mz_header(header):
+    """Render the fixed MZ fields with a shared comment column."""
+    _, cblp, cp, crlc, cparhdr, minalloc, maxalloc, ss, sp, \
+        csum, ip, cs, lfarlc, ovno = struct.unpack_from('<2s13H', header, 0)
+    fields = [
+        ('db "MZ"', 'e_magic: DOS MZ signature'),
+        (f'dw 0x{cblp:04x}', 'e_cblp: bytes in final 512-byte page (0 means full)'),
+        (f'dw 0x{cp:04x}', 'e_cp: total 512-byte pages in the file'),
+        (f'dw 0x{crlc:04x}', 'e_crlc: number of relocation entries'),
+        (f'dw 0x{cparhdr:04x}', 'e_cparhdr: header size in 16-byte paragraphs'),
+        (f'dw 0x{minalloc:04x}', 'e_minalloc: minimum extra memory paragraphs'),
+        (f'dw 0x{maxalloc:04x}', 'e_maxalloc: maximum extra memory paragraphs'),
+        (f'dw 0x{ss:04x}', 'e_ss: initial stack segment, relative to load module'),
+        (f'dw 0x{sp:04x}', 'e_sp: initial stack pointer'),
+        (f'dw 0x{csum:04x}', 'e_csum: file checksum (often unused)'),
+        (f'dw 0x{ip:04x}', 'e_ip: initial instruction pointer'),
+        (f'dw 0x{cs:04x}', 'e_cs: initial code segment, relative to load module'),
+        (f'dw 0x{lfarlc:04x}', 'e_lfarlc: file offset of relocation table'),
+        (f'dw 0x{ovno:04x}', 'e_ovno: overlay number (0 for main executable)'),
+    ]
+    return [
+        '    ; DOS MZ executable header (512 bytes)',
+        *(f'    {instruction:<14} ; {comment}'
+          for instruction, comment in fields),
+    ]
+
+
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
                   split_dir='ds'):
@@ -1799,7 +1854,14 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append(f'%include "{consumer_inc}"')
         out.append('')
 
-    if start_offset > 0:
+    if (start_offset == 0x200 and len(binary_data) >= 0x200
+            and binary_data[:2] == b'MZ'):
+        hdr = binary_data[:start_offset]
+        out.extend(_render_mz_header(hdr))
+        out.append('')
+        out.extend(_render_data_block(hdr[28:]))
+        out.append('')
+    elif start_offset > 0:
         hdr = binary_data[:start_offset]
         out.append(f'    ; header ({start_offset} bytes)')
         out.extend(_render_data_block(hdr))
