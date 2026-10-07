@@ -67,13 +67,11 @@ dos_alloc_mem:
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x0d29
     int 0x21 ; DOS function dispatcher
-    or ax, 0x70a                     ; 0x0d2e
 
+    db 0x0d, 0x0a, 0x07
     db 'SAVEAREA out of memory.', 0
+    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2
 
-    or ah, byte [si]                 ; 0x0d49
-    xor dx, dx                       ; 0x0d4b
-    mov ax, dx                       ; 0x0d4d
 @..dos_alloc_mem.l4:
     pop si                           ; 0x0d4f
     pop di                           ; 0x0d50

@@ -11,7 +11,7 @@ class TrampolinePhase(Phase):
     contract = PhaseContract(
         output_slot='trampoline',
         reads_columns=['ALL'],  # undecided_mask checks EVERY column with col < -0.3
-        reads_ctx=['binary_data', 'seeds', 'code_targets'],
+        reads_ctx=['binary_data', 'seeds', 'code_targets', 'hard_data'],
         writes_ctx=['seeds', 'code_targets', 'annotations'],
         requires_binary=True,
     )
@@ -23,6 +23,7 @@ class TrampolinePhase(Phase):
     def _undecided_mask(self, ctx):
         n = len(ctx.binary_data)
         opin = np.zeros(n, dtype=bool)
+        opin |= ctx.hard_data
         for name in ctx.layers.columns:
             if name in ('raw_byte', 'seed', 'squashed', self.output_slot):
                 continue
@@ -48,6 +49,9 @@ class TrampolinePhase(Phase):
             if not undecided[off]:
                 off += 1
                 continue
+            if ctx.hard_data[off:min(off + 6, n)].any():
+                off += 1
+                continue
 
             if data[off] == 0xE8 and off + 3 < n and data[off + 3] == 0xCB:
                 pass
@@ -66,7 +70,8 @@ class TrampolinePhase(Phase):
                 continue
 
             target = get_imm_target(insn)
-            if target is None or not (0 <= target < n):
+            if (target is None or not (0 <= target < n)
+                    or ctx.is_hard_data(target)):
                 off += 1
                 continue
 

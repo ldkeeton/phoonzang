@@ -34,7 +34,8 @@ class DispatchTablePhase(Phase):
         input_slot='borland_overlay',
         output_slot='dispatch_table',
         writes_columns=['dispatch_table'],
-        reads_ctx=['sidecar_entry', 'binary_data', 'seeds', 'code_targets'],
+        reads_ctx=['sidecar_entry', 'binary_data', 'seeds', 'code_targets',
+                   'hard_data'],
         writes_ctx=['seeds', 'code_targets'],
         requires_binary=True,
     )
@@ -60,6 +61,8 @@ class DispatchTablePhase(Phase):
             addr = base + i * esize
             if addr + 3 >= n:
                 break
+            if ctx.hard_data[addr:addr + 4].any():
+                continue
 
             if data[addr] != 0xE8 or data[addr + 3] != 0xCB:
                 continue
@@ -67,7 +70,8 @@ class DispatchTablePhase(Phase):
             rel16 = struct.unpack_from('<h', data, addr + 1)[0]
             target = (addr + 3 + rel16) & 0xFFFF
 
-            if 0 <= target < n and target not in ctx.code_targets:
+            if (0 <= target < n and not ctx.is_hard_data(target)
+                    and target not in ctx.code_targets):
                 ctx.code_targets[target] = TargetInfo(
                     address=target, reason='dispatch_handler',
                     confidence=CONF_CODE, source_offset=addr,

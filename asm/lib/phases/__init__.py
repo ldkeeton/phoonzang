@@ -11,3 +11,4 @@ from lib.phases.forcecode import ForceCodePhase
 from lib.phases.pattern_seed import PatternSeedPhase
 from lib.phases.borland_overlay import BorlandOverlayPhase
 from lib.phases.dispatch import DispatchTablePhase
+from lib.phases.cascade import CascadeTargetPhase

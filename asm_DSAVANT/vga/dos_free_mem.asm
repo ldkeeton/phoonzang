@@ -48,11 +48,11 @@ dos_con_loc_088f:
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x089a
     int 0x21 ; DOS function dispatcher
-    or ax, 0x70a                     ; 0x089f
 
+    db 0x0d, 0x0a, 0x07
     db 'RESTOREAREA called with NULL pointer.', 0
+    db 0x0a, 0x24
 
-    or ah, byte [si]                 ; 0x08c8
 @..dos_free_mem.l2:
     pop si                           ; 0x08ca
     pop di                           ; 0x08cb

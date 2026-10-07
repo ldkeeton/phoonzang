@@ -13,7 +13,8 @@ class PatternSeedPhase(Phase):
     contract = PhaseContract(
         output_slot='pattern_seed',
         writes_columns=['pattern_seed'],
-        reads_ctx=['binary_data', 'label_map', 'code_targets', 'seeds'],
+        reads_ctx=['binary_data', 'label_map', 'code_targets', 'seeds',
+                   'hard_data'],
         writes_ctx=['label_map', 'seeds', 'code_targets'],
         requires_binary=True,
     )
@@ -51,6 +52,10 @@ class PatternSeedPhase(Phase):
                     if idx == -1:
                         break
 
+                    if ctx.hard_data[idx:idx + len(pat_bytes)].any():
+                        idx += len(pat_bytes)
+                        continue
+
                     matched = False
                     for i in range(min(256, idx), 0, -1):
                         p = idx - i
@@ -76,7 +81,9 @@ class PatternSeedPhase(Phase):
                                 func_end = insn.address + insn.size
                                 break
 
-                        if func_start <= idx < func_end and func_end <= func_start + self.max_func_size:
+                        if (func_start <= idx < func_end
+                                and func_end <= func_start + self.max_func_size
+                                and not ctx.hard_data[func_start:func_end].any()):
                             matched = True
                             break
 

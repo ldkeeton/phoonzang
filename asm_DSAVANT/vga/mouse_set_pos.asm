@@ -11,7 +11,7 @@ mouse_set_pos:
     cmp ax, strict word 0x51         ; 0x13d7
     jb short @..mouse_set_pos.l2     ; 0x13da
 @..mouse_set_pos.l1:
-    jmp near @..local.l17            ; 0x13dc
+    jmp near @..mouse_set_pos.l8     ; 0x13dc
 @..mouse_set_pos.l2:
     mov bx, word [bp + 0x12]         ; 0x13df
     mul bx                           ; 0x13e2

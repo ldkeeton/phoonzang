@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/data_3283.inc"
+%include "structs/loc_3188.inc"
 org 0
 bits 16
 data_01e1 equ 0x01e1
@@ -17,27 +17,17 @@ data_0212 equ 0x0212
 data_0216 equ 0x0216
 data_021a equ 0x021a
 data_021e equ 0x021e
-data_0222 equ 0x0222
 data_0226 equ 0x0226
 data_0227 equ 0x0227
 data_0228 equ 0x0228
 data_027b equ 0x027b
-data_0291 equ 0x0291
-data_0295 equ 0x0295
-data_0297 equ 0x0297
-data_0299 equ 0x0299
-data_0300 equ 0x0300
 data_038f equ 0x038f
 data_0391 equ 0x0391
-data_0615 equ 0x0615
-data_082e equ 0x082e
-dos_con_loc_0a4f equ 0x0a4f
 data_0caa equ 0x0caa
 data_0cac equ 0x0cac
-dos_con_loc_0cf6 equ 0x0cf6
-dos_con_loc_0d06 equ 0x0d06
 data_0f6d equ 0x0f6d
-data_10ba equ 0x10ba
+data_0f6f equ 0x0f6f
+dos_con_loc_0fda equ 0x0fda
 data_15ac equ 0x15ac
 data_15ae equ 0x15ae
 data_15b0 equ 0x15b0
@@ -55,32 +45,81 @@ data_1e5e equ 0x1e5e
 data_1e64 equ 0x1e64
 data_1e66 equ 0x1e66
 data_1e68 equ 0x1e68
-data_1ecd equ 0x1ecd
-data_1ecf equ 0x1ecf
-data_1ed1 equ 0x1ed1
 data_1ed3 equ 0x1ed3
-data_2041 equ 0x2041
-dos_con_loc_22be equ 0x22be
 data_23de equ 0x23de
 data_23df equ 0x23df
-bios_video_loc_28ba equ 0x28ba
-dos_mem_loc_29bf equ 0x29bf
-dos_con_loc_2a97 equ 0x2a97
+loc_2cd9 equ 0x2cd9
+loc_2ced equ 0x2ced
+loc_2d00 equ 0x2d00
+loc_2deb equ 0x2deb
+loc_2dee equ 0x2dee
+loc_2e18 equ 0x2e18
 data_2e2b equ 0x2e2b
-data_2e2e equ 0x2e2e
+loc_2e36 equ 0x2e36
 data_2e53 equ 0x2e53
+loc_2e5c equ 0x2e5c
+loc_2e75 equ 0x2e75
+loc_2e9b equ 0x2e9b
+loc_2ead equ 0x2ead
+loc_2eca equ 0x2eca
+loc_2ed7 equ 0x2ed7
+loc_2ee4 equ 0x2ee4
+loc_2efd equ 0x2efd
+loc_2f0a equ 0x2f0a
+loc_2f2b equ 0x2f2b
+loc_2f46 equ 0x2f46
+loc_2f52 equ 0x2f52
+loc_2f56 equ 0x2f56
+loc_2f5e equ 0x2f5e
+loc_2f60 equ 0x2f60
+loc_2f76 equ 0x2f76
+loc_2f8b equ 0x2f8b
+loc_2f9e equ 0x2f9e
+loc_2fa6 equ 0x2fa6
+loc_2fa8 equ 0x2fa8
+loc_2fc1 equ 0x2fc1
+loc_2fcc equ 0x2fcc
+loc_2fce equ 0x2fce
+loc_2fd1 equ 0x2fd1
+loc_2fec equ 0x2fec
+loc_2ff8 equ 0x2ff8
+loc_2ffc equ 0x2ffc
+loc_3004 equ 0x3004
+loc_3006 equ 0x3006
+loc_301c equ 0x301c
+loc_3031 equ 0x3031
+loc_3044 equ 0x3044
+loc_304c equ 0x304c
+loc_304e equ 0x304e
+loc_3067 equ 0x3067
+loc_3072 equ 0x3072
+loc_3074 equ 0x3074
+loc_308f equ 0x308f
+loc_309b equ 0x309b
+loc_309f equ 0x309f
+loc_30a7 equ 0x30a7
+loc_30a9 equ 0x30a9
+loc_30c0 equ 0x30c0
+loc_30c2 equ 0x30c2
+loc_30d6 equ 0x30d6
+loc_30e2 equ 0x30e2
+loc_30e6 equ 0x30e6
+loc_30ee equ 0x30ee
+loc_30f0 equ 0x30f0
+loc_3101 equ 0x3101
+loc_310d equ 0x310d
+loc_3129 equ 0x3129
+loc_3131 equ 0x3131
 dos_con_loc_3153 equ 0x3153
+loc_3188 equ 0x3188
+loc_319f equ 0x319f
+loc_31d9 equ 0x31d9
 data_326f equ 0x326f
 data_3270 equ 0x3270
 data_3282 equ 0x3282
 data_3283 equ 0x3283
-dos_con_loc_3ab7 equ 0x3ab7
-dos_con_loc_3aee equ 0x3aee
-dos_con_loc_3b5c equ 0x3b5c
 data_3c8e equ 0x3c8e
-dos_con_loc_3d39 equ 0x3d39
-dos_con_loc_3efb equ 0x3efb
-data_455a equ 0x455a
+dos_read_file_7 equ 0x4245
 data_0229 equ 0x0229
 data_0251 equ 0x0251
 data_025b equ 0x025b
@@ -96,8 +135,7 @@ data_46d9 equ 0x46d9
 data_46f1 equ 0x46f1
 
 loc_0000:
-    jmp near @..local.l1             ; 0x0000
-@..local.l1:
+    jmp near 3                       ; 0x0000
 
     db 0xe8, 0xf2, 0x11, 0xcb, 0xe8, 0x62, 0x12, 0xcb, 0xe8, 0x09, 0x13, 0xcb, 0xe8, 0xf6, 0x12, 0xcb
     db 0xe8, 0xb3, 0x12, 0xcb, 0xe8, 0xb3, 0x21, 0xcb, 0xe8, 0x4e, 0x2d, 0xcb, 0xe8, 0xb0, 0x08, 0xcb
@@ -123,576 +161,86 @@ loc_0000:
     times 23 db 0
     db 0x01
     times 255 db 0
+    db 0x55, 0x8b, 0xec, 0x83, 0xec, 0x0c, 0x1e, 0x06, 0x56, 0x57, 0x8e, 0xc0, 0x8e, 0xd8, 0x33, 0xdb
+    db 0x2e, 0xa1, 0x97, 0x02, 0xb9, 0x40, 0x01, 0xf7, 0xe1, 0x2e, 0x03, 0x06, 0x95, 0x02, 0x8b, 0xf8
+    db 0x89, 0x46, 0xfa, 0x33, 0xc0, 0x8a, 0x07, 0x89, 0x46, 0xfe, 0x8a, 0x47, 0x01, 0x89, 0x46, 0xfc
+    db 0x8b, 0x4f, 0x0a, 0x83, 0xc3, 0x10, 0x8b, 0x46, 0x0c, 0xd1, 0xe0, 0x03, 0xd8, 0x8a, 0x07, 0x32
+    db 0xe4, 0x89, 0x46, 0xf6, 0xf7, 0xe1, 0x05, 0x10, 0x01, 0x8b, 0xf0, 0x32, 0xe4, 0x8a, 0x47, 0x01
+    db 0x2e, 0x01, 0x06, 0x95, 0x02, 0x89, 0x46, 0xf4, 0x33, 0xdb, 0x8a, 0x47, 0x07, 0x98, 0x2e, 0x01
+    db 0x06, 0x95, 0x02, 0x8a, 0x47, 0x02, 0xa8, 0x01, 0x74, 0x03, 0xe9, 0xd4, 0x00, 0x2e, 0xa1, 0x99
+    db 0x02, 0x0b, 0xc0, 0x75, 0x07, 0x8a, 0x47, 0x06, 0xa8, 0x02, 0x75, 0x62, 0x33, 0xc0, 0x8a, 0x47
+    db 0x03, 0x8b, 0x5e, 0xf4, 0x83, 0xc3, 0x07, 0xb1, 0x03, 0xd3, 0xeb, 0x2b, 0xc3, 0x89, 0x46, 0xf6
+    db 0x2e, 0x8b, 0x1e, 0x91, 0x02, 0x2e, 0x8b, 0x16, 0x93, 0x02, 0x8a, 0xf3, 0x2e, 0xa1, 0xe5, 0x01
+    db 0x8e, 0xc0, 0x8b, 0x4e, 0xf4, 0x89, 0x4e, 0xf8, 0xac, 0x83, 0xf9, 0x09, 0x72, 0x03, 0xb9, 0x08
+    db 0x00, 0x29, 0x4e, 0xf8, 0xd0, 0xe0, 0x72, 0x06, 0x26, 0x88, 0x35, 0x47, 0xeb, 0x04, 0x26, 0x88
+    db 0x15, 0x47, 0xe2, 0xf0, 0x8b, 0x4e, 0xf8, 0x0b, 0xc9, 0x75, 0xda, 0x03, 0x76, 0xf6, 0x81, 0x46
+    db 0xfa, 0x40, 0x01, 0x8b, 0x7e, 0xfa, 0xff, 0x4e, 0xfc, 0x75, 0xc7, 0xe9, 0xc0, 0x00, 0x8b, 0x46
+    db 0xf6, 0x8b, 0x4f, 0x0e, 0xf7, 0xe1, 0x03, 0x47, 0x0c, 0x8b, 0xd8, 0x2e, 0xa1, 0x91, 0x02, 0x2e
+    db 0x8b, 0x16, 0x93, 0x02, 0x8a, 0xf0, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xc0, 0x8b, 0x4e, 0xfe, 0x89
+    db 0x4e, 0xf8, 0xac, 0x8a, 0x27, 0x43, 0x83, 0xf9, 0x09, 0x72, 0x03, 0xb9, 0x08, 0x00, 0x29, 0x4e
+    db 0xf8, 0xd0, 0xe4, 0x73, 0x10, 0xd0, 0xe0, 0x72, 0x06, 0x26, 0x88, 0x35, 0x47, 0xeb, 0x09, 0x26
+    db 0x88, 0x15, 0x47, 0xeb, 0x03, 0xd0, 0xe0, 0x47, 0xe2, 0xe7, 0x8b, 0x4e, 0xf8, 0x0b, 0xc9, 0x75
+    db 0xce, 0x81, 0x46, 0xfa, 0x40, 0x01, 0x8b, 0x7e, 0xfa, 0xff, 0x4e, 0xfc, 0x75, 0xbe, 0xe9, 0x5d
+    db 0x00, 0x8a, 0x47, 0x06, 0xa8, 0x02, 0x75, 0x27, 0x8b, 0x46, 0xfe, 0x2b, 0x46, 0xf4, 0x89, 0x46
+    db 0xf6, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xc0, 0x8b, 0x4e, 0xf4, 0xf3, 0xa4, 0x03, 0x76, 0xf6, 0x81
+    db 0x46, 0xfa, 0x40, 0x01, 0x8b, 0x7e, 0xfa, 0xff, 0x4e, 0xfc, 0x75, 0xeb, 0xe9, 0x2f, 0x00, 0x8b
+    db 0x46, 0xfe, 0x2b, 0x46, 0xf4, 0x89, 0x46, 0xf6, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xc0, 0x8b, 0x4e
+    db 0xf4, 0x8a, 0x04, 0x3c, 0xff, 0x74, 0x03, 0x26, 0x88, 0x05, 0x46, 0x47, 0xe2, 0xf3, 0x03, 0x76
+    db 0xf6, 0x81, 0x46, 0xfa, 0x40, 0x01, 0x8b, 0x7e, 0xfa, 0xff, 0x4e, 0xfc, 0x75, 0xe0, 0x5f, 0x5e
+    db 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x8b, 0x46, 0x0c, 0x2e, 0xa3, 0x99, 0x02
+    db 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x8b, 0x46, 0x0c, 0x2e, 0xa3, 0x93, 0x02, 0x8b, 0x46
+    db 0x0e, 0x2e, 0xa3, 0x91, 0x02, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x06, 0x8c, 0xd8, 0x8e
+    db 0xc0, 0x8b, 0x46, 0x0c, 0x2e, 0xa3, 0x95, 0x02, 0x8b, 0x46, 0x0e, 0x2e, 0xa3, 0x97, 0x02, 0x07
+    db 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x06, 0x8c, 0xd8, 0x8e, 0xc0, 0x2e, 0xa1, 0x95, 0x02
+    db 0x8b, 0x5e, 0x0c, 0x89, 0x07, 0x2e, 0xa1, 0x97, 0x02, 0x8b, 0x5e, 0x0e, 0x89, 0x07, 0x07, 0x8b
+    db 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x06, 0x57, 0x8c, 0xd8, 0x8e, 0xc0, 0x2e, 0xa1, 0xe5, 0x01
+    db 0x8e, 0xc0, 0x33, 0xff, 0x8b, 0x46, 0x0c, 0xb9, 0x00, 0xfa, 0xf3, 0xaa, 0x5f, 0x07, 0x8b, 0xe5
+    db 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x83, 0xec, 0x10, 0x1e, 0x06, 0x57, 0x56, 0x8c, 0xd8, 0x8e, 0xc0
+    db 0xe8, 0x42, 0x0e, 0xe8, 0x4d, 0x00, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xd8, 0xb8, 0x00, 0xa0, 0x8e
+    db 0xc0, 0x8b, 0x46, 0x0e, 0xbb, 0x40, 0x01, 0xf7, 0xe3, 0x03, 0x46, 0x0c, 0x89, 0x46, 0xfe, 0x8b
+    db 0x46, 0x10, 0x2b, 0x46, 0x0c, 0x40, 0x89, 0x46, 0xfc, 0x8b, 0x46, 0x12, 0x2b, 0x46, 0x0e, 0x40
+    db 0x8b, 0xd0, 0x8b, 0x7e, 0xfe, 0x81, 0x46, 0xfe, 0x40, 0x01, 0x8b, 0xf7, 0x8b, 0x4e, 0xfc, 0xf3
+    db 0xa4, 0x4a, 0x75, 0xee, 0xe8, 0x75, 0x01, 0xe8, 0xbc, 0x0d, 0x5e, 0x5f, 0x07, 0x1f, 0x8b, 0xe5
+    db 0x5d, 0xc3, 0x00, 0x2e, 0x80, 0x3e, 0x28, 0x02, 0x01, 0x75, 0x2a, 0x2e, 0x8b, 0x0e, 0xac, 0x15
+    db 0x2e, 0x8b, 0x16, 0xae, 0x15, 0x39, 0x4e, 0x10, 0x72, 0x1b, 0x39, 0x56, 0x12, 0x72, 0x16, 0x2e
+    db 0x03, 0x0e, 0xb8, 0x15, 0x49, 0x2e, 0x03, 0x16, 0xba, 0x15, 0x4a, 0x3b, 0x4e, 0x0c, 0x72, 0x05
+    db 0x3b, 0x56, 0x0e, 0x73, 0x09, 0x2e, 0xc6, 0x06, 0x15, 0x06, 0x00, 0xe9, 0x2d, 0x01, 0x2e, 0xc6
+    db 0x06, 0x15, 0x06, 0x01, 0x2e, 0x8b, 0x0e, 0xac, 0x15, 0x8b, 0xc1, 0x39, 0x4e, 0x0c, 0x72, 0x03
+    db 0x8b, 0x46, 0x0c, 0x89, 0x46, 0xfa, 0x2e, 0x8b, 0x16, 0xae, 0x15, 0x8b, 0xda, 0x39, 0x56, 0x0e
+    db 0x72, 0x03, 0x8b, 0x5e, 0x0e, 0x89, 0x5e, 0xf8, 0x2b, 0xc1, 0x2b, 0xda, 0x89, 0x46, 0xf6, 0x89
+    db 0x5e, 0xf4, 0x2e, 0x8b, 0x0e, 0xb8, 0x15, 0x2e, 0x8b, 0x16, 0xba, 0x15, 0x2b, 0xc8, 0x89, 0x4e
+    db 0xf2, 0x2b, 0xd3, 0x89, 0x56, 0xf0, 0x8b, 0x46, 0xfa, 0x03, 0x46, 0xf2, 0x48, 0x3b, 0x46, 0x10
+    db 0x72, 0x0a, 0x8b, 0x46, 0x10, 0x2b, 0x46, 0xfa, 0x40, 0x89, 0x46, 0xf2, 0x8b, 0x46, 0xf8, 0x03
+    db 0x46, 0xf0, 0x48, 0x3b, 0x46, 0x12, 0x72, 0x0a, 0x8b, 0x46, 0x12, 0x2b, 0x46, 0xf8, 0x40, 0x89
+    db 0x46, 0xf0, 0x8b, 0x46, 0xf8, 0xbb, 0x40, 0x01, 0xf7, 0xe3, 0x03, 0x46, 0xfa, 0x8b, 0xf0, 0x8b
+    db 0x46, 0xf4, 0x2e, 0x8b, 0x1e, 0xb8, 0x15, 0xf7, 0xe3, 0x03, 0x46, 0xf6, 0x2e, 0x03, 0x06, 0xb4
+    db 0x15, 0x8b, 0xf8, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xd8, 0x8c, 0xc8, 0x8e, 0xc0, 0x8b, 0x4e, 0xf0
+    db 0x51, 0x56, 0x57, 0x8b, 0x4e, 0xf2, 0xf3, 0xa4, 0x5f, 0x2e, 0x03, 0x3e, 0xb8, 0x15, 0x5e, 0x81
+    db 0xc6, 0x40, 0x01, 0x59, 0xe2, 0xea, 0x8c, 0xc8, 0x8e, 0xc0, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xd8
+    db 0x2e, 0x8b, 0x36, 0xbc, 0x15, 0x2e, 0x8b, 0x3e, 0xb6, 0x15, 0x2e, 0x8b, 0x0e, 0xba, 0x15, 0x51
+    db 0x56, 0x2e, 0x8b, 0x0e, 0xb8, 0x15, 0xf3, 0xa4, 0x5e, 0x81, 0xc6, 0x40, 0x01, 0x59, 0xe2, 0xef
+    db 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xc0, 0x2e, 0x8b, 0x3e, 0xbc, 0x15, 0x2e, 0xa1, 0x66, 0x1e, 0x8e
+    db 0xd8, 0x2e, 0x8b, 0x36, 0x64, 0x1e, 0x2e, 0x8b, 0x0e, 0xba, 0x15, 0x8c, 0xd8, 0x0b, 0xc6, 0x75
+    db 0x07, 0xbe, 0x69, 0x1e, 0x8c, 0xc8, 0x8e, 0xd8, 0x51, 0x57, 0x56, 0x2e, 0x8b, 0x0e, 0xb8, 0x15
+    db 0x8a, 0x04, 0x3c, 0xff, 0x74, 0x03, 0x26, 0x88, 0x05, 0x46, 0x47, 0xe2, 0xf3, 0x5e, 0x2e, 0x03
+    db 0x36, 0x5c, 0x1e, 0x5f, 0x81, 0xc7, 0x40, 0x01, 0x59, 0xe2, 0xdd, 0xc3, 0x2e, 0x80, 0x3e, 0x15
+    db 0x06, 0x00, 0x74, 0x2a, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xc0, 0x8c, 0xc8, 0x8e, 0xd8, 0x2e, 0x8b
+    db 0x3e, 0xbc, 0x15, 0x2e, 0x8b, 0x36, 0xb6, 0x15, 0x2e, 0x8b, 0x0e, 0xba, 0x15, 0x51, 0x57, 0x2e
+    db 0x8b, 0x0e, 0xb8, 0x15, 0xf3, 0xa4, 0x5f, 0x81, 0xc7, 0x40, 0x01, 0x59, 0xe2, 0xef, 0xc3, 0x55
+    db 0x8b, 0xec, 0x1e, 0x06, 0x8c, 0xd8, 0x8e, 0xc0, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xd8, 0x8b, 0x46
+    db 0x0e, 0xbb, 0x40, 0x01, 0xf7, 0xe3, 0x03, 0x46, 0x0c, 0x8b, 0xd8, 0x8b, 0x46, 0x10, 0x88, 0x07
+    db 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x83, 0xec, 0x08, 0x06, 0x57, 0x8c, 0xd8
+    db 0x8e, 0xc0, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xc0, 0x8b, 0x46, 0x0e, 0xbb, 0x40, 0x01, 0xf7, 0xe3
+    db 0x03, 0x46, 0x0c, 0x89, 0x46, 0xfe, 0x8b, 0x46, 0x12, 0x2b, 0x46, 0x0e, 0x40, 0x89, 0x46, 0xfc
+    db 0x8b, 0x46, 0x10, 0x2b, 0x46, 0x0c, 0x40, 0x89, 0x46, 0xfa, 0x8b, 0x46, 0x14, 0x8b, 0x7e, 0xfe
+    db 0x81, 0x46, 0xfe, 0x40, 0x01, 0x8b, 0x4e, 0xfa, 0xf3, 0xaa, 0xff, 0x4e, 0xfc, 0x75, 0xee, 0x5f
+    db 0x07, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x83, 0xec, 0x08, 0x06, 0x1e, 0x57, 0x2e, 0xa1
+    db 0xe5, 0x01, 0x8e, 0xc0, 0x8e, 0xd8, 0x8b, 0x46, 0x0e, 0xbb, 0x40, 0x01, 0xf7, 0xe3, 0x03, 0x46
+    db 0x0c, 0x89, 0x46, 0xfe, 0x8b, 0x46, 0x12, 0x2b, 0x46, 0x0e, 0x40, 0x89, 0x46, 0xfc, 0x8b, 0x46
+    db 0x10, 0x2b, 0x46, 0x0c, 0x40, 0x89, 0x46, 0xfa, 0x8b, 0x7e, 0xfe, 0x8b, 0xf7, 0x81, 0x46, 0xfe
+    db 0x40, 0x01, 0x8b, 0x4e, 0xfa, 0xac, 0xf6, 0xd0, 0xaa, 0xe2, 0xfa, 0xff, 0x4e, 0xfc, 0x75, 0xe8
+    db 0x5f, 0x1f, 0x07, 0x8b, 0xe5, 0x5d, 0xc3
 
-math_loc_0293:
-    push bp                          ; 0x0293
-    mov bp, sp                       ; 0x0294
-    sub sp, byte 0x0c                ; 0x0296
-    push ds                          ; 0x0299
-    push es                          ; 0x029a
-    push si                          ; 0x029b
-    push di                          ; 0x029c
-    mov es, ax                       ; 0x029d
-    mov ds, ax                       ; 0x029f
-    xor bx, bx                       ; 0x02a1
-    mov ax, word [cs:data_0297]      ; 0x02a3
-    mov cx, 0x140                    ; 0x02a7
-    mul cx                           ; 0x02aa
-    add ax, word [cs:data_0295]      ; 0x02ac
-    mov di, ax                       ; 0x02b1
-    mov word [bp - 0x0006], ax       ; 0x02b3
-    xor ax, ax                       ; 0x02b6
-    mov al, byte [bx]                ; 0x02b8
-    mov word [bp - 0x0002], ax       ; 0x02ba
-    mov al, byte [bx + 0x1]          ; 0x02bd
-    mov word [bp - 0x0004], ax       ; 0x02c0
-    mov cx, word [bx + 0xa]          ; 0x02c3
-    add bx, byte 0x10                ; 0x02c6
-    mov ax, word [bp + 0xc]          ; 0x02c9
-    shl ax, 1                        ; 0x02cc
-    add bx, ax                       ; 0x02ce
-    mov al, byte [bx]                ; 0x02d0
-    xor ah, ah                       ; 0x02d2
-    mov word [bp - 0x000a], ax       ; 0x02d4
-    mul cx                           ; 0x02d7
-    add ax, 0x110                    ; 0x02d9
-    mov si, ax                       ; 0x02dc
-    xor ah, ah                       ; 0x02de
-    mov al, byte [bx + 0x1]          ; 0x02e0
-    add word [cs:data_0295], ax      ; 0x02e3
-    mov word [bp - 0x000c], ax       ; 0x02e8
-    xor bx, bx                       ; 0x02eb
-    mov al, byte [bx + 0x7]          ; 0x02ed
-    cbw                              ; 0x02f0
-    add word [cs:data_0295], ax      ; 0x02f1
-    mov al, byte [bx + 0x2]          ; 0x02f6
-    test al, 1                       ; 0x02f9
-    je short @..math_loc_0293.l1     ; 0x02fb
-    jmp near @..math_loc_0293.l17    ; 0x02fd
-@..math_loc_0293.l1:
-    mov ax, word [cs:data_0299]      ; 0x0300
-    or ax, ax                        ; 0x0304
-    jne short @..math_loc_0293.l2    ; 0x0306
-    mov al, byte [bx + 0x6]          ; 0x0308
-    test al, 2                       ; 0x030b
-    jne short @..math_loc_0293.l9    ; 0x030d
-@..math_loc_0293.l2:
-    xor ax, ax                       ; 0x030f
-    mov al, byte [bx + 0x3]          ; 0x0311
-    mov bx, word [bp - 0x000c]       ; 0x0314
-    add bx, byte 7                   ; 0x0317
-    mov cl, 3                        ; 0x031a
-    shr bx, cl                       ; 0x031c
-    sub ax, bx                       ; 0x031e
-    mov word [bp - 0x000a], ax       ; 0x0320
-    mov bx, word [cs:data_0291]      ; 0x0323
-    mov dx, word [cs:math_loc_0293]  ; 0x0328
-    mov dh, bl                       ; 0x032d
-    mov ax, word [cs:data_01e5]      ; 0x032f
-    mov es, ax                       ; 0x0333
-@..math_loc_0293.l3:
-    mov cx, word [bp - 0x000c]       ; 0x0335
-@..math_loc_0293.l4:
-    mov word [bp - 0x0008], cx       ; 0x0338
-    lodsb                            ; 0x033b
-    cmp cx, byte 9                   ; 0x033c
-    jb short @..math_loc_0293.l5     ; 0x033f
-    mov cx, 8                        ; 0x0341
-@..math_loc_0293.l5:
-    sub word [bp - 0x0008], cx       ; 0x0344
-@..math_loc_0293.l6:
-    shl al, 1                        ; 0x0347
-    jb short @..math_loc_0293.l7     ; 0x0349
-    mov byte [es:di], dh             ; 0x034b
-    inc di                           ; 0x034e
-    jmp short @..math_loc_0293.l8    ; 0x034f
-@..math_loc_0293.l7:
-    mov byte [es:di], dl             ; 0x0351
-    inc di                           ; 0x0354
-@..math_loc_0293.l8:
-    loop @..math_loc_0293.l6         ; 0x0355
-    mov cx, word [bp - 0x0008]       ; 0x0357
-    or cx, cx                        ; 0x035a
-    jne short @..math_loc_0293.l4    ; 0x035c
-    add si, word [bp - 0x000a]       ; 0x035e
-    add word [bp - 0x0006], strict word 0x140 ; 0x0361
-    mov di, word [bp - 0x0006]       ; 0x0366
-    dec word [bp - 0x0004]           ; 0x0369
-    jne short @..math_loc_0293.l3    ; 0x036c
-    jmp near @..math_loc_0293.l23    ; 0x036e
-@..math_loc_0293.l9:
-    mov ax, word [bp - 0x000a]       ; 0x0371
-    mov cx, word [bx + 0xe]          ; 0x0374
-    mul cx                           ; 0x0377
-    add ax, word [bx + 0xc]          ; 0x0379
-    mov bx, ax                       ; 0x037c
-    mov ax, word [cs:data_0291]      ; 0x037e
-    mov dx, word [cs:math_loc_0293]  ; 0x0382
-    mov dh, al                       ; 0x0387
-    mov ax, word [cs:data_01e5]      ; 0x0389
-    mov es, ax                       ; 0x038d
-@..math_loc_0293.l10:
-    mov cx, word [bp - 0x0002]       ; 0x038f
-@..math_loc_0293.l11:
-    mov word [bp - 0x0008], cx       ; 0x0392
-    lodsb                            ; 0x0395
-    mov ah, byte [bx]                ; 0x0396
-    inc bx                           ; 0x0398
-    cmp cx, byte 9                   ; 0x0399
-    jb short @..math_loc_0293.l12    ; 0x039c
-    mov cx, 8                        ; 0x039e
-@..math_loc_0293.l12:
-    sub word [bp - 0x0008], cx       ; 0x03a1
-@..math_loc_0293.l13:
-    shl ah, 1                        ; 0x03a4
-    jae short @..math_loc_0293.l15   ; 0x03a6
-    shl al, 1                        ; 0x03a8
-    jb short @..math_loc_0293.l14    ; 0x03aa
-    mov byte [es:di], dh             ; 0x03ac
-    inc di                           ; 0x03af
-    jmp short @..math_loc_0293.l16   ; 0x03b0
-@..math_loc_0293.l14:
-    mov byte [es:di], dl             ; 0x03b2
-    inc di                           ; 0x03b5
-    jmp short @..math_loc_0293.l16   ; 0x03b6
-@..math_loc_0293.l15:
-    shl al, 1                        ; 0x03b8
-    inc di                           ; 0x03ba
-@..math_loc_0293.l16:
-    loop @..math_loc_0293.l13        ; 0x03bb
-    mov cx, word [bp - 0x0008]       ; 0x03bd
-    or cx, cx                        ; 0x03c0
-    jne short @..math_loc_0293.l11   ; 0x03c2
-    add word [bp - 0x0006], strict word 0x140 ; 0x03c4
-    mov di, word [bp - 0x0006]       ; 0x03c9
-    dec word [bp - 0x0004]           ; 0x03cc
-    jne short @..math_loc_0293.l10   ; 0x03cf
-    jmp near @..math_loc_0293.l23    ; 0x03d1
-@..math_loc_0293.l17:
-    mov al, byte [bx + 0x6]          ; 0x03d4
-    test al, 2                       ; 0x03d7
-    jne short @..math_loc_0293.l19   ; 0x03d9
-    mov ax, word [bp - 0x0002]       ; 0x03db
-    sub ax, word [bp - 0x000c]       ; 0x03de
-    mov word [bp - 0x000a], ax       ; 0x03e1
-    mov ax, word [cs:data_01e5]      ; 0x03e4
-    mov es, ax                       ; 0x03e8
-@..math_loc_0293.l18:
-    mov cx, word [bp - 0x000c]       ; 0x03ea
-    rep movsb                        ; 0x03ed
-    add si, word [bp - 0x000a]       ; 0x03ef
-    add word [bp - 0x0006], strict word 0x140 ; 0x03f2
-    mov di, word [bp - 0x0006]       ; 0x03f7
-    dec word [bp - 0x0004]           ; 0x03fa
-    jne short @..math_loc_0293.l18   ; 0x03fd
-    jmp near @..math_loc_0293.l23    ; 0x03ff
-@..math_loc_0293.l19:
-    mov ax, word [bp - 0x0002]       ; 0x0402
-    sub ax, word [bp - 0x000c]       ; 0x0405
-    mov word [bp - 0x000a], ax       ; 0x0408
-    mov ax, word [cs:data_01e5]      ; 0x040b
-    mov es, ax                       ; 0x040f
-@..math_loc_0293.l20:
-    mov cx, word [bp - 0x000c]       ; 0x0411
-@..math_loc_0293.l21:
-    mov al, byte [si]                ; 0x0414
-    cmp al, 0xff                     ; 0x0416
-    je short @..math_loc_0293.l22    ; 0x0418
-    mov byte [es:di], al             ; 0x041a
-@..math_loc_0293.l22:
-    inc si                           ; 0x041d
-    inc di                           ; 0x041e
-    loop @..math_loc_0293.l21        ; 0x041f
-    add si, word [bp - 0x000a]       ; 0x0421
-    add word [bp - 0x0006], strict word 0x140 ; 0x0424
-    mov di, word [bp - 0x0006]       ; 0x0429
-    dec word [bp - 0x0004]           ; 0x042c
-    jne short @..math_loc_0293.l20   ; 0x042f
-@..math_loc_0293.l23:
-    pop di                           ; 0x0431
-    pop si                           ; 0x0432
-    pop es                           ; 0x0433
-    pop ds                           ; 0x0434
-    mov sp, bp                       ; 0x0435
-    pop bp                           ; 0x0437
-    ret                              ; 0x0438
-leaf_loc_0439:
-    push bp                          ; 0x0439
-    mov bp, sp                       ; 0x043a
-    mov ax, word [bp + 0xc]          ; 0x043c
-    mov word [cs:data_0299], ax      ; 0x043f
-    mov sp, bp                       ; 0x0443
-    pop bp                           ; 0x0445
-    ret                              ; 0x0446
-loc_0447:
-    push bp                          ; 0x0447
-    mov bp, sp                       ; 0x0448
-    mov ax, word [bp + 0xc]          ; 0x044a
-    mov word [cs:math_loc_0293], ax  ; 0x044d
-    mov ax, word [bp + 0xe]          ; 0x0451
-    mov word [cs:data_0291], ax      ; 0x0454
-    mov sp, bp                       ; 0x0458
-    pop bp                           ; 0x045a
-    ret                              ; 0x045b
-math_loc_045c:
-    push bp                          ; 0x045c
-    mov bp, sp                       ; 0x045d
-    push es                          ; 0x045f
-    mov ax, ds                       ; 0x0460
-    mov es, ax                       ; 0x0462
-    mov ax, word [bp + 0xc]          ; 0x0464
-    mov word [cs:data_0295], ax      ; 0x0467
-    mov ax, word [bp + 0xe]          ; 0x046b
-    mov word [cs:data_0297], ax      ; 0x046e
-    pop es                           ; 0x0472
-    mov sp, bp                       ; 0x0473
-    pop bp                           ; 0x0475
-    ret                              ; 0x0476
-math_loc_0477:
-    push bp                          ; 0x0477
-    mov bp, sp                       ; 0x0478
-    push es                          ; 0x047a
-    mov ax, ds                       ; 0x047b
-    mov es, ax                       ; 0x047d
-    mov ax, word [cs:data_0295]      ; 0x047f
-    mov bx, word [bp + 0xc]          ; 0x0483
-    mov word [bx], ax                ; 0x0486
-    mov ax, word [cs:data_0297]      ; 0x0488
-    mov bx, word [bp + 0xe]          ; 0x048c
-    mov word [bx], ax                ; 0x048f
-    pop es                           ; 0x0491
-    mov sp, bp                       ; 0x0492
-    pop bp                           ; 0x0494
-    ret                              ; 0x0495
-math_loc_0496:
-    push bp                          ; 0x0496
-    mov bp, sp                       ; 0x0497
-    push es                          ; 0x0499
-    push di                          ; 0x049a
-    mov ax, ds                       ; 0x049b
-    mov es, ax                       ; 0x049d
-    mov ax, word [cs:data_01e5]      ; 0x049f
-    mov es, ax                       ; 0x04a3
-    xor di, di                       ; 0x04a5
-    mov ax, word [bp + 0xc]          ; 0x04a7
-    mov cx, 0xfa00                   ; 0x04aa
-    rep stosb                        ; 0x04ad
-    pop di                           ; 0x04af
-    pop es                           ; 0x04b0
-    mov sp, bp                       ; 0x04b1
-    pop bp                           ; 0x04b3
-    ret                              ; 0x04b4
-math_loc_04b5:
-    push bp                          ; 0x04b5
-    mov bp, sp                       ; 0x04b6
-    sub sp, byte 0x10                ; 0x04b8
-    push ds                          ; 0x04bb
-    push es                          ; 0x04bc
-    push di                          ; 0x04bd
-    push si                          ; 0x04be
-    mov ax, ds                       ; 0x04bf
-    mov es, ax                       ; 0x04c1
-    call bios_mouse_loc_1308         ; 0x04c3
-    call leaf_loc_0516               ; 0x04c6
-    mov ax, word [cs:data_01e5]      ; 0x04c9
-    mov ds, ax                       ; 0x04cd
-    mov ax, 0xa000                   ; 0x04cf
-    mov es, ax                       ; 0x04d2
-    mov ax, word [bp + 0xe]          ; 0x04d4
-    mov bx, 0x140                    ; 0x04d7
-    mul bx                           ; 0x04da
-    add ax, word [bp + 0xc]          ; 0x04dc
-    mov word [bp - 0x0002], ax       ; 0x04df
-    mov ax, word [bp + 0x10]         ; 0x04e2
-    sub ax, word [bp + 0xc]          ; 0x04e5
-    inc ax                           ; 0x04e8
-    mov word [bp - 0x0004], ax       ; 0x04e9
-    mov ax, word [bp + 0x12]         ; 0x04ec
-    sub ax, word [bp + 0xe]          ; 0x04ef
-    inc ax                           ; 0x04f2
-    mov dx, ax                       ; 0x04f3
-@..math_loc_04b5.l1:
-    mov di, word [bp - 0x0002]       ; 0x04f5
-    add word [bp - 0x0002], strict word 0x140 ; 0x04f8
-    mov si, di                       ; 0x04fd
-    mov cx, word [bp - 0x0004]       ; 0x04ff
-    rep movsb                        ; 0x0502
-    dec dx                           ; 0x0504
-    jne short @..math_loc_04b5.l1    ; 0x0505
-    call math_loc_067f               ; 0x0507
-    call bios_mouse_loc_12c9         ; 0x050a
-    pop si                           ; 0x050d
-    pop di                           ; 0x050e
-    pop es                           ; 0x050f
-    pop ds                           ; 0x0510
-    mov sp, bp                       ; 0x0511
-    pop bp                           ; 0x0513
-    ret                              ; 0x0514
-    db 0x00
-leaf_loc_0516:
-    cmp byte [cs:data_0228], 1       ; 0x0516
-    jne short @..leaf_loc_0516.l1    ; 0x051c
-    mov cx, word [cs:data_15ac]      ; 0x051e
-    mov dx, word [cs:data_15ae]      ; 0x0523
-    cmp word [bp + 0x10], cx         ; 0x0528
-    jb short @..leaf_loc_0516.l1     ; 0x052b
-    cmp word [bp + 0x12], dx         ; 0x052d
-    jb short @..leaf_loc_0516.l1     ; 0x0530
-    add cx, word [cs:data_15b8]      ; 0x0532
-    dec cx                           ; 0x0537
-    add dx, word [cs:data_15ba]      ; 0x0538
-    dec dx                           ; 0x053d
-    cmp cx, word [bp + 0xc]          ; 0x053e
-    jb short @..leaf_loc_0516.l1     ; 0x0541
-    cmp dx, word [bp + 0xe]          ; 0x0543
-    jae short @..leaf_loc_0516.l2    ; 0x0546
-@..leaf_loc_0516.l1:
-    mov byte [cs:data_0615], 0       ; 0x0548
-    jmp near @..leaf_loc_0516.l12    ; 0x054e
-@..leaf_loc_0516.l2:
-    mov byte [cs:data_0615], 1       ; 0x0551
-    mov cx, word [cs:data_15ac]      ; 0x0557
-    mov ax, cx                       ; 0x055c
-    cmp word [bp + 0xc], cx          ; 0x055e
-    jb short @..leaf_loc_0516.l3     ; 0x0561
-    mov ax, word [bp + 0xc]          ; 0x0563
-@..leaf_loc_0516.l3:
-    mov word [bp - 0x0006], ax       ; 0x0566
-    mov dx, word [cs:data_15ae]      ; 0x0569
-    mov bx, dx                       ; 0x056e
-    cmp word [bp + 0xe], dx          ; 0x0570
-    jb short @..leaf_loc_0516.l4     ; 0x0573
-    mov bx, word [bp + 0xe]          ; 0x0575
-@..leaf_loc_0516.l4:
-    mov word [bp - 0x0008], bx       ; 0x0578
-    sub ax, cx                       ; 0x057b
-    sub bx, dx                       ; 0x057d
-    mov word [bp - 0x000a], ax       ; 0x057f
-    mov word [bp - 0x000c], bx       ; 0x0582
-    mov cx, word [cs:data_15b8]      ; 0x0585
-    mov dx, word [cs:data_15ba]      ; 0x058a
-    sub cx, ax                       ; 0x058f
-    mov word [bp - 0x000e], cx       ; 0x0591
-    sub dx, bx                       ; 0x0594
-    mov word [bp - 0x0010], dx       ; 0x0596
-    mov ax, word [bp - 0x0006]       ; 0x0599
-    add ax, word [bp - 0x000e]       ; 0x059c
-    dec ax                           ; 0x059f
-    cmp ax, word [bp + 0x10]         ; 0x05a0
-    jb short @..leaf_loc_0516.l5     ; 0x05a3
-    mov ax, word [bp + 0x10]         ; 0x05a5
-    sub ax, word [bp - 0x0006]       ; 0x05a8
-    inc ax                           ; 0x05ab
-    mov word [bp - 0x000e], ax       ; 0x05ac
-@..leaf_loc_0516.l5:
-    mov ax, word [bp - 0x0008]       ; 0x05af
-    add ax, word [bp - 0x0010]       ; 0x05b2
-    dec ax                           ; 0x05b5
-    cmp ax, word [bp + 0x12]         ; 0x05b6
-    jb short @..leaf_loc_0516.l6     ; 0x05b9
-    mov ax, word [bp + 0x12]         ; 0x05bb
-    sub ax, word [bp - 0x0008]       ; 0x05be
-    inc ax                           ; 0x05c1
-    mov word [bp - 0x0010], ax       ; 0x05c2
-@..leaf_loc_0516.l6:
-    mov ax, word [bp - 0x0008]       ; 0x05c5
-    mov bx, 0x140                    ; 0x05c8
-    mul bx                           ; 0x05cb
-    add ax, word [bp - 0x0006]       ; 0x05cd
-    mov si, ax                       ; 0x05d0
-    mov ax, word [bp - 0x000c]       ; 0x05d2
-    mov bx, word [cs:data_15b8]      ; 0x05d5
-    mul bx                           ; 0x05da
-    add ax, word [bp - 0x000a]       ; 0x05dc
-    add ax, word [cs:data_15b4]      ; 0x05df
-    mov di, ax                       ; 0x05e4
-    mov ax, word [cs:data_01e5]      ; 0x05e6
-    mov ds, ax                       ; 0x05ea
-    mov ax, cs                       ; 0x05ec
-    mov es, ax                       ; 0x05ee
-    mov cx, word [bp - 0x0010]       ; 0x05f0
-@..leaf_loc_0516.l7:
-    push cx                          ; 0x05f3
-    push si                          ; 0x05f4
-    push di                          ; 0x05f5
-    mov cx, word [bp - 0x000e]       ; 0x05f6
-    rep movsb                        ; 0x05f9
-    pop di                           ; 0x05fb
-    add di, word [cs:data_15b8]      ; 0x05fc
-    pop si                           ; 0x0601
-    add si, strict word 0x140        ; 0x0602
-    pop cx                           ; 0x0606
-    loop @..leaf_loc_0516.l7         ; 0x0607
-    mov ax, cs                       ; 0x0609
-    mov es, ax                       ; 0x060b
-    mov ax, word [cs:data_01e5]      ; 0x060d
-    mov ds, ax                       ; 0x0611
-    mov si, word [cs:data_15bc]      ; 0x0613
-    mov di, word [cs:data_15b6]      ; 0x0618
-    mov cx, word [cs:data_15ba]      ; 0x061d
-@..leaf_loc_0516.l8:
-    push cx                          ; 0x0622
-    push si                          ; 0x0623
-    mov cx, word [cs:data_15b8]      ; 0x0624
-    rep movsb                        ; 0x0629
-    pop si                           ; 0x062b
-    add si, strict word 0x140        ; 0x062c
-    pop cx                           ; 0x0630
-    loop @..leaf_loc_0516.l8         ; 0x0631
-    mov ax, word [cs:data_01e5]      ; 0x0633
-    mov es, ax                       ; 0x0637
-    mov di, word [cs:data_15bc]      ; 0x0639
-    mov ax, word [cs:data_1e66]      ; 0x063e
-    mov ds, ax                       ; 0x0642
-    mov si, word [cs:data_1e64]      ; 0x0644
-    mov cx, word [cs:data_15ba]      ; 0x0649
-    mov ax, ds                       ; 0x064e
-    or ax, si                        ; 0x0650
-    jne short @..leaf_loc_0516.l9    ; 0x0652
-    mov si, 0x1e69                   ; 0x0654
-    mov ax, cs                       ; 0x0657
-    mov ds, ax                       ; 0x0659
-@..leaf_loc_0516.l9:
-    push cx                          ; 0x065b
-    push di                          ; 0x065c
-    push si                          ; 0x065d
-    mov cx, word [cs:data_15b8]      ; 0x065e
-@..leaf_loc_0516.l10:
-    mov al, byte [si]                ; 0x0663
-    cmp al, 0xff                     ; 0x0665
-    je short @..leaf_loc_0516.l11    ; 0x0667
-    mov byte [es:di], al             ; 0x0669
-@..leaf_loc_0516.l11:
-    inc si                           ; 0x066c
-    inc di                           ; 0x066d
-    loop @..leaf_loc_0516.l10        ; 0x066e
-    pop si                           ; 0x0670
-    add si, word [cs:data_1e5c]      ; 0x0671
-    pop di                           ; 0x0676
-    add di, strict word 0x140        ; 0x0677
-    pop cx                           ; 0x067b
-    loop @..leaf_loc_0516.l9         ; 0x067c
-@..leaf_loc_0516.l12:
-    ret                              ; 0x067e
-math_loc_067f:
-    cmp byte [cs:data_0615], 0       ; 0x067f
-    je short @..math_loc_067f.l2     ; 0x0685
-    mov ax, word [cs:data_01e5]      ; 0x0687
-    mov es, ax                       ; 0x068b
-    mov ax, cs                       ; 0x068d
-    mov ds, ax                       ; 0x068f
-    mov di, word [cs:data_15bc]      ; 0x0691
-    mov si, word [cs:data_15b6]      ; 0x0696
-    mov cx, word [cs:data_15ba]      ; 0x069b
-@..math_loc_067f.l1:
-    push cx                          ; 0x06a0
-    push di                          ; 0x06a1
-    mov cx, word [cs:data_15b8]      ; 0x06a2
-    rep movsb                        ; 0x06a7
-    pop di                           ; 0x06a9
-    add di, strict word 0x140        ; 0x06aa
-    pop cx                           ; 0x06ae
-    loop @..math_loc_067f.l1         ; 0x06af
-@..math_loc_067f.l2:
-    ret                              ; 0x06b1
-math_loc_06b2:
-    push bp                          ; 0x06b2
-    mov bp, sp                       ; 0x06b3
-    push ds                          ; 0x06b5
-    push es                          ; 0x06b6
-    mov ax, ds                       ; 0x06b7
-    mov es, ax                       ; 0x06b9
-    mov ax, word [cs:data_01e5]      ; 0x06bb
-    mov ds, ax                       ; 0x06bf
-    mov ax, word [bp + 0xe]          ; 0x06c1
-    mov bx, 0x140                    ; 0x06c4
-    mul bx                           ; 0x06c7
-    add ax, word [bp + 0xc]          ; 0x06c9
-    mov bx, ax                       ; 0x06cc
-    mov ax, word [bp + 0x10]         ; 0x06ce
-    mov byte [bx], al                ; 0x06d1
-    pop es                           ; 0x06d3
-    pop ds                           ; 0x06d4
-    mov sp, bp                       ; 0x06d5
-    pop bp                           ; 0x06d7
-    ret                              ; 0x06d8
-math_loc_06d9:
-    push bp                          ; 0x06d9
-    mov bp, sp                       ; 0x06da
-    sub sp, byte 8                   ; 0x06dc
-    push es                          ; 0x06df
-    push di                          ; 0x06e0
-    mov ax, ds                       ; 0x06e1
-    mov es, ax                       ; 0x06e3
-    mov ax, word [cs:data_01e5]      ; 0x06e5
-    mov es, ax                       ; 0x06e9
-    mov ax, word [bp + 0xe]          ; 0x06eb
-    mov bx, 0x140                    ; 0x06ee
-    mul bx                           ; 0x06f1
-    add ax, word [bp + 0xc]          ; 0x06f3
-    mov word [bp - 0x0002], ax       ; 0x06f6
-    mov ax, word [bp + 0x12]         ; 0x06f9
-    sub ax, word [bp + 0xe]          ; 0x06fc
-    inc ax                           ; 0x06ff
-    mov word [bp - 0x0004], ax       ; 0x0700
-    mov ax, word [bp + 0x10]         ; 0x0703
-    sub ax, word [bp + 0xc]          ; 0x0706
-    inc ax                           ; 0x0709
-    mov word [bp - 0x0006], ax       ; 0x070a
-    mov ax, word [bp + 0x14]         ; 0x070d
-@..math_loc_06d9.l1:
-    mov di, word [bp - 0x0002]       ; 0x0710
-    add word [bp - 0x0002], strict word 0x140 ; 0x0713
-    mov cx, word [bp - 0x0006]       ; 0x0718
-    rep stosb                        ; 0x071b
-    dec word [bp - 0x0004]           ; 0x071d
-    jne short @..math_loc_06d9.l1    ; 0x0720
-    pop di                           ; 0x0722
-    pop es                           ; 0x0723
-    mov sp, bp                       ; 0x0724
-    pop bp                           ; 0x0726
-    ret                              ; 0x0727
-string_loc_0728:
-    push bp                          ; 0x0728
-    mov bp, sp                       ; 0x0729
-    sub sp, byte 8                   ; 0x072b
-    push es                          ; 0x072e
-    push ds                          ; 0x072f
-    push di                          ; 0x0730
-    mov ax, word [cs:data_01e5]      ; 0x0731
-    mov es, ax                       ; 0x0735
-    mov ds, ax                       ; 0x0737
-    mov ax, word [bp + 0xe]          ; 0x0739
-    mov bx, 0x140                    ; 0x073c
-    mul bx                           ; 0x073f
-    add ax, word [bp + 0xc]          ; 0x0741
-    mov word [bp - 0x0002], ax       ; 0x0744
-    mov ax, word [bp + 0x12]         ; 0x0747
-    sub ax, word [bp + 0xe]          ; 0x074a
-    inc ax                           ; 0x074d
-    mov word [bp - 0x0004], ax       ; 0x074e
-    mov ax, word [bp + 0x10]         ; 0x0751
-    sub ax, word [bp + 0xc]          ; 0x0754
-    inc ax                           ; 0x0757
-    mov word [bp - 0x0006], ax       ; 0x0758
-@..string_loc_0728.l1:
-    mov di, word [bp - 0x0002]       ; 0x075b
-    mov si, di                       ; 0x075e
-    add word [bp - 0x0002], strict word 0x140 ; 0x0760
-    mov cx, word [bp - 0x0006]       ; 0x0765
-@..string_loc_0728.l2:
-    lodsb                            ; 0x0768
-    not al                           ; 0x0769
-    stosb                            ; 0x076b
-    loop @..string_loc_0728.l2       ; 0x076c
-    dec word [bp - 0x0004]           ; 0x076e
-    jne short @..string_loc_0728.l1  ; 0x0771
-    pop di                           ; 0x0773
-    pop ds                           ; 0x0774
-    pop es                           ; 0x0775
-    mov sp, bp                       ; 0x0776
-    pop bp                           ; 0x0778
-    ret                              ; 0x0779
 %include "vga/dos_alloc_mem.asm"
 
 %include "vga/dos_free_mem.asm"
@@ -701,6 +249,7 @@ string_loc_0728:
 
 %include "vga/dos_write_file.asm"
 
+dos_con_loc_0a4f:
     mov ax, cs                       ; 0x0a4f
     mov ds, ax                       ; 0x0a51
     mov dx, 0xb5f                    ; 0x0a53
@@ -715,9 +264,14 @@ string_loc_0728:
 
 dos_con_loc_0a8d:
     mov ax, cs                       ; 0x0a8d
+    mov ds, ax                       ; 0x0a8f
+    mov dx, 0xb9d                    ; 0x0a91
+    mov ah, 9                        ; 0x0a94
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x0a98
+    int 0x21 ; DOS function dispatcher
 
-    db 0x8e, 0xd8, 0xba, 0x9d, 0x0b, 0xb4, 0x09, 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21, 0x0d, 0x0a
-    db 0x07
+    db 0x0d, 0x0a, 0x07
     db 'SAVE_SCREEN called with table full.', 0
     db 0x0a, 0x24
     times 232 db 0
@@ -734,9 +288,9 @@ dos_read_file_2:
     mov es, ax                       ; 0x0bba
     mov ax, word [bp + 0xe]          ; 0x0bbc
     cmp ax, strict word 0xa          ; 0x0bbf
-    jb short @..dos_con_loc_0a4f.l1  ; 0x0bc2
-    jmp near @..local.l2             ; 0x0bc4
-@..dos_con_loc_0a4f.l1:
+    jb short @..dos_read_file_2.l1   ; 0x0bc2
+    jmp near @..dos_read_file_2.l8   ; 0x0bc4
+@..dos_read_file_2.l1:
     shl ax, 1                        ; 0x0bc7
     mov word [bp - 0x0008], ax       ; 0x0bc9
     mov bx, data_0bc6                ; 0x0bcc
@@ -744,9 +298,9 @@ dos_read_file_2:
     mov word [bp - 0x0002], bx       ; 0x0bd1
     mov ax, word [cs:bx]             ; 0x0bd4
     or ax, ax                        ; 0x0bd7
-    jne short @..dos_con_loc_0a4f.l2 ; 0x0bd9
-    jmp near @..dos_con_loc_0a4f.l3  ; 0x0bdb
-@..dos_con_loc_0a4f.l2:
+    jne short @..dos_read_file_2.l2  ; 0x0bd9
+    jmp near @..dos_read_file_2.l3   ; 0x0bdb
+@..dos_read_file_2.l2:
     mov ax, cs                       ; 0x0bde
     mov ds, ax                       ; 0x0be0
     mov dx, 0xe3c                    ; 0x0be2
@@ -754,7 +308,7 @@ dos_read_file_2:
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x0be9
     int 0x21 ; DOS function dispatcher
-@..dos_con_loc_0a4f.l3:
+@..dos_read_file_2.l3:
     mov ax, word [cs:data_0caa]      ; 0x0bee
     inc ax                           ; 0x0bf2
     mov word [cs:data_0caa], ax      ; 0x0bf3
@@ -770,9 +324,9 @@ dos_read_file_2:
     mov word [cs:bx], ax             ; 0x0c0e
     mov ax, word [bp + 0x10]         ; 0x0c11
     or ax, ax                        ; 0x0c14
-    je short @..dos_con_loc_0a4f.l4  ; 0x0c16
-    jmp near @..dos_con_loc_0cf6.l2  ; 0x0c18
-@..dos_con_loc_0a4f.l4:
+    je short @..dos_read_file_2.l4   ; 0x0c16
+    jmp near @..dos_read_file_2.l10  ; 0x0c18
+@..dos_read_file_2.l4:
     cld                              ; 0x0c1b
     mov cx, 0x1000                   ; 0x0c1c
     mov bx, word [cs:data_01e1]      ; 0x0c1f
@@ -824,14 +378,14 @@ dos_read_file_2:
     add word [cs:data_0cac], ax      ; 0x0c93
     mov ax, word [cs:data_0cac]      ; 0x0c98
     cmp ax, 0x4180                   ; 0x0c9c
-    jae short @..dos_con_loc_0cf6.l1 ; 0x0c9f
+    jae short @..dos_read_file_2.l9  ; 0x0c9f
     mov ax, ds                       ; 0x0ca1
     add ax, 0x100                    ; 0x0ca3
     mov ds, ax                       ; 0x0ca6
     mov dx, 0                        ; 0x0ca8
-@..dos_read_file_2.l1:
+@..dos_read_file_2.l5:
     cmp word [bp - 0x0006], byte 0   ; 0x0cab
-    je short @..dos_read_file_2.l2   ; 0x0caf
+    je short @..dos_read_file_2.l6   ; 0x0caf
     dec word [bp - 0x0006]           ; 0x0cb1
     mov cx, 0x8000                   ; 0x0cb4
     xor dx, dx                       ; 0x0cb7
@@ -849,14 +403,14 @@ dos_read_file_2:
     mov ax, ds                       ; 0x0cd3
     add ax, 0x800                    ; 0x0cd5
     mov ds, ax                       ; 0x0cd8
-    jmp short @..dos_read_file_2.l1  ; 0x0cda
-@..dos_read_file_2.l2:
+    jmp short @..dos_read_file_2.l5  ; 0x0cda
+@..dos_read_file_2.l6:
     mov cx, word [bp - 0x0008]       ; 0x0cdc
     xor dx, dx                       ; 0x0cdf
     mov bx, word [bp + 0xc]          ; 0x0ce1
     mov ah, 0x3f                     ; 0x0ce4
     int 0x21 ; DOS read file (handle)
-@..dos_read_file_2.l3:
+@..dos_read_file_2.l7:
     pop si                           ; 0x0ce8
     pop di                           ; 0x0ce9
     pop es                           ; 0x0cea
@@ -864,11 +418,15 @@ dos_read_file_2:
     mov sp, bp                       ; 0x0cec
     pop bp                           ; 0x0cee
     ret                              ; 0x0cef
-@..local.l2:
-
-    db 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x10, 0x0e, 0xb4, 0x09, 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21
-
-@..dos_con_loc_0cf6.l1:
+@..dos_read_file_2.l8:
+    mov ax, cs                       ; 0x0cf0
+    mov ds, ax                       ; 0x0cf2
+    mov dx, 0xe10                    ; 0x0cf4
+    mov ah, 9                        ; 0x0cf7
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x0cfb
+    int 0x21 ; DOS function dispatcher
+@..dos_read_file_2.l9:
     mov ax, cs                       ; 0x0d00
     mov ds, ax                       ; 0x0d02
     mov dx, 0xe6b                    ; 0x0d04
@@ -885,7 +443,7 @@ dos_read_file_2:
     db 'oops... LOAD_MAZE filled its memory area.', 0
     db 0x0a, 0x24
 
-@..dos_con_loc_0cf6.l2:
+@..dos_read_file_2.l10:
     mov ax, word [bp + 0xc]          ; 0x0d9a
     shl ax, 1                        ; 0x0d9d
     mov si, 0x2c3                    ; 0x0d9f
@@ -915,14 +473,14 @@ dos_read_file_2:
     and si, strict word 0x3ff        ; 0x0de6
     mov cl, 4                        ; 0x0dea
     shl si, cl                       ; 0x0dec
-@..local.l3:
+@..dos_read_file_2.l11:
     test si, 0xc000                  ; 0x0dee
-    je short @..local.l4             ; 0x0df2
+    je short @..dos_read_file_2.l12  ; 0x0df2
     inc word [cs:data_3c8e]          ; 0x0df4
     mov ax, word [cs:data_3c8e]      ; 0x0df9
     call dos_file_loc_3b90           ; 0x0dfd
     sub si, strict word 0x4000       ; 0x0e00
-@..local.l4:
+@..dos_read_file_2.l12:
     xor di, di                       ; 0x0e04
     mov cx, 0x10                     ; 0x0e06
     rep movsb                        ; 0x0e09
@@ -930,7 +488,7 @@ dos_read_file_2:
     inc ax                           ; 0x0e0d
     mov es, ax                       ; 0x0e0e
     dec word [bp - 0x0004]           ; 0x0e10
-    jne short @..local.l3            ; 0x0e13
+    jne short @..dos_read_file_2.l11 ; 0x0e13
     mov ax, word [bp - 0x000a]       ; 0x0e15
     mov ds, ax                       ; 0x0e18
     mov bx, 0                        ; 0x0e1a
@@ -941,7 +499,7 @@ dos_read_file_2:
     mov bx, word [bp - 0x0008]       ; 0x0e27
     add bx, strict word 0x27d        ; 0x0e2a
     mov word [cs:bx], ax             ; 0x0e2e
-    jmp near @..dos_read_file_2.l3   ; 0x0e31
+    jmp near @..dos_read_file_2.l7   ; 0x0e31
 leaf_loc_0e34:
     push ax                          ; 0x0e34
     mov bx, data_029b                ; 0x0e35
@@ -987,7 +545,7 @@ loc_0e71:
     mov ax, word [cs:bx + 0x2]       ; 0x0e7e
     sub word [cs:data_0391], ax      ; 0x0e82
     mov word [bp - 0x0006], ax       ; 0x0e87
-@..local.l5:
+@..local.l2:
     mov bx, word [bp - 0x0004]       ; 0x0e8a
     mov di, word [cs:bx]             ; 0x0e8d
     mov dx, word [cs:data_0203]      ; 0x0e90
@@ -997,9 +555,9 @@ loc_0e71:
     add dx, word [cs:data_01e1]      ; 0x0e9d
     mov cx, word [cs:bx + 0x6]       ; 0x0ea2
     or cx, cx                        ; 0x0ea6
-    jne short @..local.l6            ; 0x0ea8
-    jmp near @..local.l12            ; 0x0eaa
-@..local.l6:
+    jne short @..local.l3            ; 0x0ea8
+    jmp near @..local.l9             ; 0x0eaa
+@..local.l3:
     push cx                          ; 0x0ead
     mov ax, si                       ; 0x0eae
     mov cl, 0xa                      ; 0x0eb0
@@ -1011,36 +569,36 @@ loc_0e71:
     mov ax, di                       ; 0x0ec0
     mov cl, 0xa                      ; 0x0ec2
     shr ax, cl                       ; 0x0ec4
-    mov word [cs:dos_con_loc_0f6f], ax ; 0x0ec6
+    mov word [cs:data_0f6f], ax      ; 0x0ec6
     and di, strict word 0x3ff        ; 0x0eca
     mov cl, 4                        ; 0x0ece
     shl di, cl                       ; 0x0ed0
     call loc_0f3b                    ; 0x0ed2
     pop cx                           ; 0x0ed5
-@..local.l7:
+@..local.l4:
     push cx                          ; 0x0ed6
     mov cx, 0x10                     ; 0x0ed7
     rep movsb                        ; 0x0eda
     xor dx, dx                       ; 0x0edc
     cmp di, strict word 0x4000       ; 0x0ede
-    jne short @..local.l8            ; 0x0ee2
-    inc word [cs:dos_con_loc_0f6f]   ; 0x0ee4
+    jne short @..local.l5            ; 0x0ee2
+    inc word [cs:data_0f6f]          ; 0x0ee4
     inc dx                           ; 0x0ee9
-@..local.l8:
+@..local.l5:
     cmp si, strict word 0x4000       ; 0x0eea
-    je short @..local.l9             ; 0x0eee
+    je short @..local.l6             ; 0x0eee
     cmp si, strict word 0x8000       ; 0x0ef0
-    jne short @..local.l10           ; 0x0ef4
-@..local.l9:
+    jne short @..local.l7            ; 0x0ef4
+@..local.l6:
     inc word [cs:data_0f6d]          ; 0x0ef6
     inc dx                           ; 0x0efb
-@..local.l10:
+@..local.l7:
     or dx, dx                        ; 0x0efc
-    je short @..local.l11            ; 0x0efe
+    je short @..local.l8             ; 0x0efe
     call loc_0f3b                    ; 0x0f00
-@..local.l11:
+@..local.l8:
     pop cx                           ; 0x0f03
-    loop @..local.l7                 ; 0x0f04
+    loop @..local.l4                 ; 0x0f04
     mov bx, word [bp - 0x0004]       ; 0x0f06
     mov cx, word [bp - 0x0006]       ; 0x0f09
     mov ax, word [cs:bx + 0x4]       ; 0x0f0c
@@ -1052,8 +610,8 @@ loc_0e71:
     mov word [cs:bx + 0x2], ax       ; 0x0f21
     add bx, byte 4                   ; 0x0f25
     mov word [bp - 0x0004], bx       ; 0x0f28
-    jmp near @..local.l5             ; 0x0f2b
-@..local.l12:
+    jmp near @..local.l2             ; 0x0f2b
+@..local.l9:
     mov bx, word [bp - 0x0004]       ; 0x0f2e
     xor ax, ax                       ; 0x0f31
     mov word [cs:bx], ax             ; 0x0f33
@@ -1064,88 +622,58 @@ loc_0f3b:
     and si, strict word 0x3fff       ; 0x0f3f
     mov ah, 0x44                     ; 0x0f43
     mov al, 0                        ; 0x0f45
-    mov bx, word [cs:dos_con_loc_0f6f] ; 0x0f47
+    mov bx, word [cs:data_0f6f]      ; 0x0f47
     mov dx, word [cs:data_0201]      ; 0x0f4c
     int 0x67 ; EMS (Expanded Memory)
     cmp bx, word [cs:data_0f6d]      ; 0x0f53
-    je short @..local.l13            ; 0x0f58
+    je short @..local.l10            ; 0x0f58
     or si, strict word 0x4000        ; 0x0f5a
     mov ah, 0x44                     ; 0x0f5e
     mov al, 1                        ; 0x0f60
     mov bx, word [cs:data_0f6d]      ; 0x0f62
     mov dx, word [cs:data_0201]      ; 0x0f67
     int 0x67 ; EMS (Expanded Memory)
-@..local.l13:
+@..local.l10:
     ret                              ; 0x0f6e
-dos_con_loc_0f6f:
-    push bp                          ; 0x0f6f
-    mov bp, sp                       ; 0x0f70
-    sub sp, byte 8                   ; 0x0f72
-    push ds                          ; 0x0f75
-    push es                          ; 0x0f76
-    push di                          ; 0x0f77
-    push si                          ; 0x0f78
-    mov ax, ds                       ; 0x0f79
-    mov es, ax                       ; 0x0f7b
-    mov ax, word [bp + 0xc]          ; 0x0f7d
-    cmp ax, strict word 0xa          ; 0x0f80
-    jb short @..dos_con_loc_0f6f.l1  ; 0x0f83
-    jmp near @..dos_con_loc_0f6f.l3  ; 0x0f85
-@..dos_con_loc_0f6f.l1:
-    shl ax, 1                        ; 0x0f88
-    mov word [bp - 0x0008], ax       ; 0x0f8a
-    mov bx, data_0bc6                ; 0x0f8d
-    add bx, ax                       ; 0x0f90
-    mov ax, word [cs:bx]             ; 0x0f92
-    or ax, ax                        ; 0x0f95
-    jne short @..dos_con_loc_0f6f.l2 ; 0x0f97
-    jmp near @..dos_con_loc_0f6f.l3  ; 0x0f99
-@..dos_con_loc_0f6f.l2:
-    mov word [cs:bx], 0              ; 0x0f9c
-    mov cx, word [cs:data_0caa]      ; 0x0fa1
-    dec cx                           ; 0x0fa6
-    mov word [cs:data_0caa], cx      ; 0x0fa7
-    call loc_43e1                    ; 0x0fac
-@..dos_con_loc_0f6f.l3:
-    pop si                           ; 0x0faf
-    pop di                           ; 0x0fb0
-    pop es                           ; 0x0fb1
-    pop ds                           ; 0x0fb2
-    mov sp, bp                       ; 0x0fb3
-    pop bp                           ; 0x0fb5
-    ret                              ; 0x0fb6
+
+    db 0x55, 0x8b, 0xec, 0x83, 0xec, 0x08, 0x1e, 0x06, 0x57, 0x56, 0x8c, 0xd8, 0x8e, 0xc0, 0x8b, 0x46
+    db 0x0c, 0x3d, 0x0a, 0x00, 0x72, 0x03, 0xe9, 0x27, 0x00, 0xd1, 0xe0, 0x89, 0x46, 0xf8, 0xbb, 0xc6
+    db 0x0b, 0x03, 0xd8, 0x2e, 0x8b, 0x07, 0x0b, 0xc0, 0x75, 0x03, 0xe9, 0x13, 0x00, 0x2e, 0xc7, 0x07
+    db 0x00, 0x00, 0x2e, 0x8b, 0x0e, 0xaa, 0x0c, 0x49, 0x2e, 0x89, 0x0e, 0xaa, 0x0c, 0xe8, 0x32, 0x34
+    db 0x5e, 0x5f, 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3
+
 %include "vga/dos_print_str.asm"
 
     or al, byte [es:di]              ; 0x11b5
     stosb                            ; 0x11b8
     loop @..dos_print_str.l15        ; 0x11b9
-    jmp short @..local.l15           ; 0x11bb
-@..dos_con_loc_0fda.l1:
+    jmp short @..dos_print_str.l21   ; 0x11bb
+@..dos_print_str.l16:
     mov al, byte [si]                ; 0x11bd
     dec si                           ; 0x11bf
     cmp al, 0xff                     ; 0x11c0
-    je short @..dos_con_loc_0fda.l2  ; 0x11c2
+    je short @..dos_print_str.l17    ; 0x11c2
     mov byte [es:di], ah             ; 0x11c4
-@..dos_con_loc_0fda.l2:
+@..dos_print_str.l17:
     inc di                           ; 0x11c7
-    loop @..dos_con_loc_0fda.l1      ; 0x11c8
-    jmp short @..local.l15           ; 0x11ca
-@..dos_con_loc_0fda.l3:
+    loop @..dos_print_str.l16        ; 0x11c8
+    jmp short @..dos_print_str.l21   ; 0x11ca
+@..dos_print_str.l18:
     mov al, byte [si]                ; 0x11cc
     dec si                           ; 0x11ce
     cmp al, 0xff                     ; 0x11cf
-    je short @..dos_con_loc_0fda.l4  ; 0x11d1
+    je short @..dos_print_str.l19    ; 0x11d1
     mov byte [es:di], al             ; 0x11d3
-@..dos_con_loc_0fda.l4:
+@..dos_print_str.l19:
     inc di                           ; 0x11d6
-    loop @..dos_con_loc_0fda.l3      ; 0x11d7
-    jmp short @..local.l15           ; 0x11d9
-@..local.l14:
+    loop @..dos_print_str.l18        ; 0x11d7
+    jmp short @..dos_print_str.l21   ; 0x11d9
+@..dos_print_str.l20:
     mov al, byte [si]                ; 0x11db
     dec si                           ; 0x11dd
     stosb                            ; 0x11de
-    loop @..local.l14                ; 0x11df
-@..local.l15:
+    loop @..dos_print_str.l20        ; 0x11df
+@..dos_print_str.l21:
     pop di                           ; 0x11e1
     add di, strict word 0x140        ; 0x11e2
     pop ax                           ; 0x11e6
@@ -1154,7 +682,7 @@ dos_con_loc_0f6f:
     pop si                           ; 0x11ec
     pop cx                           ; 0x11ed
     loop @..dos_print_str.l14        ; 0x11ee
-@..local.l16:
+@..dos_print_str.l22:
     pop si                           ; 0x11f0
     pop di                           ; 0x11f1
     pop es                           ; 0x11f2
@@ -1208,129 +736,35 @@ mouse_init_2:
     mov sp, bp                       ; 0x12c5
     pop bp                           ; 0x12c7
     ret                              ; 0x12c8
-bios_mouse_loc_12c9:
-    push ds                          ; 0x12c9
-    push es                          ; 0x12ca
-    push si                          ; 0x12cb
-    push di                          ; 0x12cc
-    cmp byte [cs:data_0226], 1       ; 0x12cd
-    je short @..bios_mouse_loc_12c9.l1 ; 0x12d3
-    cmp byte [cs:data_0228], 1       ; 0x12d5
-    je short @..bios_mouse_loc_12c9.l2 ; 0x12db
-@..bios_mouse_loc_12c9.l1:
-    jmp near @..bios_mouse_loc_12c9.l4 ; 0x12dd
-@..bios_mouse_loc_12c9.l2:
-    mov ax, 3                        ; 0x12e0
-    int 0x33 ; BIOS mouse
-    shr cx, 1                        ; 0x12e5
-    cmp word [cs:data_15ac], cx      ; 0x12e7
-    jne short @..bios_mouse_loc_12c9.l3 ; 0x12ec
-    cmp word [cs:data_15ae], dx      ; 0x12ee
-    je short @..bios_mouse_loc_12c9.l4 ; 0x12f3
-@..bios_mouse_loc_12c9.l3:
-    shl cx, 1                        ; 0x12f5
-    mov ax, cs                       ; 0x12f7
-    push ax                          ; 0x12f9
-    call math_loc_1e1a               ; 0x12fa
-@..bios_mouse_loc_12c9.l4:
-    mov byte [cs:data_0227], 0       ; 0x12fd
-    pop di                           ; 0x1303
-    pop si                           ; 0x1304
-    pop es                           ; 0x1305
-    pop ds                           ; 0x1306
-    ret                              ; 0x1307
+
+    db 0x1e, 0x06, 0x56, 0x57, 0x2e, 0x80, 0x3e, 0x26, 0x02, 0x01, 0x74, 0x08, 0x2e, 0x80, 0x3e, 0x28
+    db 0x02, 0x01, 0x74, 0x03, 0xe9, 0x1d, 0x00, 0xb8, 0x03, 0x00, 0xcd, 0x33, 0xd1, 0xe9, 0x2e, 0x39
+    db 0x0e, 0xac, 0x15, 0x75, 0x07, 0x2e, 0x39, 0x16, 0xae, 0x15, 0x74, 0x08, 0xd1, 0xe1, 0x8c, 0xc8
+    db 0x50, 0xe8, 0x1d, 0x0b, 0x2e, 0xc6, 0x06, 0x27, 0x02, 0x00, 0x5f, 0x5e, 0x07, 0x1f, 0xc3
+
 bios_mouse_loc_1308:
     cmp byte [cs:data_0228], 1       ; 0x1308
     jne short @..bios_mouse_loc_1308.l1 ; 0x130e
     mov byte [cs:data_0227], 1       ; 0x1310
 @..bios_mouse_loc_1308.l1:
     ret                              ; 0x1316
-bios_mouse_loc_1317:
-    push bp                          ; 0x1317
-    mov bp, sp                       ; 0x1318
-    sub sp, byte 4                   ; 0x131a
-    push ds                          ; 0x131d
-    push si                          ; 0x131e
-    push es                          ; 0x131f
-    mov ax, ds                       ; 0x1320
-    mov es, ax                       ; 0x1322
-    mov word [bp - 0x0004], 1        ; 0x1324
-    xor ax, ax                       ; 0x1329
-    cmp byte [cs:data_0228], 0       ; 0x132b
-    je short @..bios_mouse_loc_1317.l6 ; 0x1331
-    mov bx, word [cs:data_1ecd]      ; 0x1333
-    or bx, bx                        ; 0x1338
-    je short @..bios_mouse_loc_1317.l1 ; 0x133a
-    mov word [cs:data_1ecd], 0       ; 0x133c
-    mov word [bp - 0x0002], bx       ; 0x1343
-    mov cx, word [cs:data_1ecf]      ; 0x1346
-    mov dx, word [cs:data_1ed1]      ; 0x134b
-    jmp short @..bios_mouse_loc_1317.l2 ; 0x1350
-@..bios_mouse_loc_1317.l1:
-    mov ax, 3                        ; 0x1352
-    int 0x33 ; BIOS mouse
-    xor bx, bx                       ; 0x1357
-    mov word [bp - 0x0002], bx       ; 0x1359
-    shr cx, 1                        ; 0x135c
-@..bios_mouse_loc_1317.l2:
-    mov bx, cx                       ; 0x135e
-    mov si, word [bp + 0xc]          ; 0x1360
-@..bios_mouse_loc_1317.l3:
-    cmp word [si], byte 0xff         ; 0x1363
-    je short @..bios_mouse_loc_1317.l5 ; 0x1366
-    cmp bx, word [si]                ; 0x1368
-    jb short @..bios_mouse_loc_1317.l4 ; 0x136a
-    cmp dx, word [si + 0x2]          ; 0x136c
-    jb short @..bios_mouse_loc_1317.l4 ; 0x136f
-    cmp word [si + 0x4], bx          ; 0x1371
-    jb short @..bios_mouse_loc_1317.l4 ; 0x1374
-    cmp word [si + 0x6], dx          ; 0x1376
-    jb short @..bios_mouse_loc_1317.l4 ; 0x1379
-    mov ax, word [bp - 0x0004]       ; 0x137b
-    mov bx, word [bp - 0x0002]       ; 0x137e
-    or bx, bx                        ; 0x1381
-    je short @..bios_mouse_loc_1317.l6 ; 0x1383
-    neg ax                           ; 0x1385
-    jmp short @..bios_mouse_loc_1317.l6 ; 0x1387
-@..bios_mouse_loc_1317.l4:
-    add si, byte 8                   ; 0x1389
-    inc word [bp - 0x0004]           ; 0x138c
-    jmp short @..bios_mouse_loc_1317.l3 ; 0x138f
-@..bios_mouse_loc_1317.l5:
-    xor ax, ax                       ; 0x1391
-@..bios_mouse_loc_1317.l6:
-    pop es                           ; 0x1393
-    pop si                           ; 0x1394
-    pop ds                           ; 0x1395
-    mov sp, bp                       ; 0x1396
-    pop bp                           ; 0x1398
-    ret                              ; 0x1399
-bios_mouse_loc_139a:
-    push bp                          ; 0x139a
-    mov bp, sp                       ; 0x139b
-    sub sp, byte 6                   ; 0x139d
-    push es                          ; 0x13a0
-    mov ax, ds                       ; 0x13a1
-    mov es, ax                       ; 0x13a3
-    cmp byte [cs:data_0228], 0       ; 0x13a5
-    je short @..bios_mouse_loc_139a.l1 ; 0x13ab
-    mov ax, 3                        ; 0x13ad
-    int 0x33 ; BIOS mouse
-    mov word [bp - 0x0002], bx       ; 0x13b2
-    mov bx, word [bp + 0xc]          ; 0x13b5
-    shr cx, 1                        ; 0x13b8
-    mov word [bx], cx                ; 0x13ba
-    mov bx, word [bp + 0xe]          ; 0x13bc
-    mov word [bx], dx                ; 0x13bf
-    mov ax, word [bp - 0x0002]       ; 0x13c1
-@..bios_mouse_loc_139a.l1:
-    pop es                           ; 0x13c4
-    mov sp, bp                       ; 0x13c5
-    pop bp                           ; 0x13c7
-    ret                              ; 0x13c8
+
+    db 0x55, 0x8b, 0xec, 0x83, 0xec, 0x04, 0x1e, 0x56, 0x06, 0x8c, 0xd8, 0x8e, 0xc0, 0xc7, 0x46, 0xfc
+    db 0x01, 0x00, 0x33, 0xc0, 0x2e, 0x80, 0x3e, 0x28, 0x02, 0x00, 0x74, 0x60, 0x2e, 0x8b, 0x1e, 0xcd
+    db 0x1e, 0x0b, 0xdb, 0x74, 0x16, 0x2e, 0xc7, 0x06, 0xcd, 0x1e, 0x00, 0x00, 0x89, 0x5e, 0xfe, 0x2e
+    db 0x8b, 0x0e, 0xcf, 0x1e, 0x2e, 0x8b, 0x16, 0xd1, 0x1e, 0xeb, 0x0c, 0xb8, 0x03, 0x00, 0xcd, 0x33
+    db 0x33, 0xdb, 0x89, 0x5e, 0xfe, 0xd1, 0xe9, 0x8b, 0xd9, 0x8b, 0x76, 0x0c, 0x83, 0x3c, 0xff, 0x74
+    db 0x29, 0x3b, 0x1c, 0x72, 0x1d, 0x3b, 0x54, 0x02, 0x72, 0x18, 0x39, 0x5c, 0x04, 0x72, 0x13, 0x39
+    db 0x54, 0x06, 0x72, 0x0e, 0x8b, 0x46, 0xfc, 0x8b, 0x5e, 0xfe, 0x0b, 0xdb, 0x74, 0x0e, 0xf7, 0xd8
+    db 0xeb, 0x0a, 0x83, 0xc6, 0x08, 0xff, 0x46, 0xfc, 0xeb, 0xd2, 0x33, 0xc0, 0x07, 0x5e, 0x1f, 0x8b
+    db 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x83, 0xec, 0x06, 0x06, 0x8c, 0xd8, 0x8e, 0xc0, 0x2e, 0x80
+    db 0x3e, 0x28, 0x02, 0x00, 0x74, 0x17, 0xb8, 0x03, 0x00, 0xcd, 0x33, 0x89, 0x5e, 0xfe, 0x8b, 0x5e
+    db 0x0c, 0xd1, 0xe9, 0x89, 0x0f, 0x8b, 0x5e, 0x0e, 0x89, 0x17, 0x8b, 0x46, 0xfe, 0x07, 0x8b, 0xe5
+    db 0x5d, 0xc3
+
 %include "vga/mouse_set_pos.asm"
 
-@..local.l17:
+@..mouse_set_pos.l8:
     mov ax, cs                       ; 0x1476
     mov ds, ax                       ; 0x1478
     mov dx, 0x1586                   ; 0x147a
@@ -1363,9 +797,9 @@ dos_con_loc_147d:
 
 math_loc_1e1a:
     cmp byte [cs:data_1ed3], 0       ; 0x1e1a
-    je short @..local.l18            ; 0x1e20
+    je short @..math_loc_1e1a.l1     ; 0x1e20
     retf                             ; 0x1e22
-@..local.l18:
+@..math_loc_1e1a.l1:
     mov al, 0xff                     ; 0x1e23
     mov byte [cs:data_1ed3], al      ; 0x1e25
     shr cx, 1                        ; 0x1e29
@@ -1558,7 +992,7 @@ math_loc_1e35:
     mov ax, word [cs:data_15ae]      ; 0x2015
     cmp ax, strict word 0xffff       ; 0x2019
     jne short @..math_loc_1e35.l17   ; 0x201c
-    jmp near @..local.l32            ; 0x201e
+    jmp near @..math_loc_1e35.l32    ; 0x201e
 @..math_loc_1e35.l17:
     mov si, word [cs:data_15b6]      ; 0x2021
     mov cx, word [cs:data_15c0]      ; 0x2026
@@ -1568,17 +1002,17 @@ math_loc_1e35:
     push si                          ; 0x202d
     push bx                          ; 0x202e
     mov cx, word [cs:data_15be]      ; 0x202f
-@..local.l19:
+@..math_loc_1e35.l19:
     mov al, byte [bx]                ; 0x2034
     inc bx                           ; 0x2036
     cmp al, 0xff                     ; 0x2037
-    jne short @..local.l20           ; 0x2039
+    jne short @..math_loc_1e35.l20   ; 0x2039
     mov dl, byte [cs:si]             ; 0x203b
     mov byte [es:di], dl             ; 0x203e
-@..local.l20:
+@..math_loc_1e35.l20:
     inc si                           ; 0x2041
     inc di                           ; 0x2042
-    loop @..local.l19                ; 0x2043
+    loop @..math_loc_1e35.l19        ; 0x2043
     pop bx                           ; 0x2045
     add bx, word [cs:data_1e5c]      ; 0x2046
     pop si                           ; 0x204b
@@ -1600,7 +1034,7 @@ math_loc_1e35:
     shr ax, cl                       ; 0x2072
     mov word [bp - 0x0002], ax       ; 0x2074
     cmp byte [cs:data_1e68], 0       ; 0x2077
-    je short @..local.l27            ; 0x207d
+    je short @..math_loc_1e35.l27    ; 0x207d
     mov ax, word [bp - 0x0008]       ; 0x207f
     sub ax, word [cs:data_15ae]      ; 0x2082
     mov bx, word [bp - 0x0002]       ; 0x2087
@@ -1610,29 +1044,29 @@ math_loc_1e35:
     mov ax, word [bp - 0x0006]       ; 0x2092
     sub ax, word [cs:data_15ac]      ; 0x2095
     mov bx, data_1e4c                ; 0x209a
-@..local.l21:
+@..math_loc_1e35.l21:
     cmp ax, strict word 8            ; 0x209d
-    jb short @..local.l22            ; 0x20a0
+    jb short @..math_loc_1e35.l22    ; 0x20a0
     sub ax, strict word 8            ; 0x20a2
     inc di                           ; 0x20a5
-    jmp short @..local.l21           ; 0x20a6
-@..local.l22:
+    jmp short @..math_loc_1e35.l21   ; 0x20a6
+@..math_loc_1e35.l22:
     mov cx, ax                       ; 0x20a8
     mov ah, 0xff                     ; 0x20aa
     shr ah, cl                       ; 0x20ac
     mov dx, word [bp - 0x000e]       ; 0x20ae
     add dx, cx                       ; 0x20b1
-@..local.l23:
+@..math_loc_1e35.l23:
     cmp dx, byte 8                   ; 0x20b3
-    jb short @..local.l24            ; 0x20b6
+    jb short @..math_loc_1e35.l24    ; 0x20b6
     not ah                           ; 0x20b8
     mov byte [bx], ah                ; 0x20ba
     inc bx                           ; 0x20bc
     mov ah, 0xff                     ; 0x20bd
     sub dx, byte 8                   ; 0x20bf
-    je short @..local.l25            ; 0x20c2
-    jmp short @..local.l23           ; 0x20c4
-@..local.l24:
+    je short @..math_loc_1e35.l25    ; 0x20c2
+    jmp short @..math_loc_1e35.l23   ; 0x20c4
+@..math_loc_1e35.l24:
     mov al, 0xff                     ; 0x20c6
     mov cx, 8                        ; 0x20c8
     sub cx, dx                       ; 0x20cb
@@ -1641,11 +1075,11 @@ math_loc_1e35:
     not ah                           ; 0x20d1
     mov byte [bx], ah                ; 0x20d3
     inc bx                           ; 0x20d5
-@..local.l25:
+@..math_loc_1e35.l25:
     sub bx, data_1e4c                ; 0x20d6
     mov word [bp - 0x0004], bx       ; 0x20da
     mov cx, word [bp - 0x0010]       ; 0x20dd
-@..local.l26:
+@..math_loc_1e35.l26:
     push cx                          ; 0x20e0
     push di                          ; 0x20e1
     mov si, data_1e4c                ; 0x20e2
@@ -1654,35 +1088,35 @@ math_loc_1e35:
     pop di                           ; 0x20ea
     add di, word [bp - 0x0002]       ; 0x20eb
     pop cx                           ; 0x20ee
-    loop @..local.l26                ; 0x20ef
-@..local.l27:
+    loop @..math_loc_1e35.l26        ; 0x20ef
+@..math_loc_1e35.l27:
     mov bx, data_1dc4                ; 0x20f1
     mov si, word [cs:data_15b4]      ; 0x20f4
     mov di, word [cs:data_15bc]      ; 0x20f9
     mov ax, 0xa000                   ; 0x20fe
     mov es, ax                       ; 0x2101
     mov cx, word [cs:data_15ba]      ; 0x2103
-@..local.l28:
+@..math_loc_1e35.l28:
     push cx                          ; 0x2108
     push si                          ; 0x2109
     push bx                          ; 0x210a
     push di                          ; 0x210b
     mov cx, word [cs:data_15b8]      ; 0x210c
-@..local.l29:
+@..math_loc_1e35.l29:
     mov ah, byte [bx]                ; 0x2111
     inc bx                           ; 0x2113
     mov al, 9                        ; 0x2114
-@..local.l30:
+@..math_loc_1e35.l30:
     dec al                           ; 0x2116
-    je short @..local.l29            ; 0x2118
+    je short @..math_loc_1e35.l29    ; 0x2118
     shl ah, 1                        ; 0x211a
-    jae short @..local.l31           ; 0x211c
+    jae short @..math_loc_1e35.l31   ; 0x211c
     mov dl, byte [si]                ; 0x211e
     mov byte [es:di], dl             ; 0x2120
-@..local.l31:
+@..math_loc_1e35.l31:
     inc di                           ; 0x2123
     inc si                           ; 0x2124
-    loop @..local.l30                ; 0x2125
+    loop @..math_loc_1e35.l30        ; 0x2125
     pop di                           ; 0x2127
     add di, strict word 0x140        ; 0x2128
     pop bx                           ; 0x212c
@@ -1690,8 +1124,8 @@ math_loc_1e35:
     pop si                           ; 0x2130
     add si, word [cs:data_15b8]      ; 0x2131
     pop cx                           ; 0x2136
-    loop @..local.l28                ; 0x2137
-@..local.l32:
+    loop @..math_loc_1e35.l28        ; 0x2137
+@..math_loc_1e35.l32:
     mov ax, word [cs:data_15b4]      ; 0x2139
     mov bx, word [cs:data_15b6]      ; 0x213d
     mov word [cs:data_15b6], ax      ; 0x2142
@@ -1711,46 +1145,13 @@ math_loc_1e35:
     xor al, al                       ; 0x2176
     mov byte [cs:data_1ed3], al      ; 0x2178
     retf                             ; 0x217c
-loc_217d:
-    mov word [cs:data_1ecd], 0       ; 0x217d
-    ret                              ; 0x2184
-loc_2185:
-    push bp                          ; 0x2185
-    mov bp, sp                       ; 0x2186
-    sub sp, byte 8                   ; 0x2188
-    push ds                          ; 0x218b
-    push es                          ; 0x218c
-    push di                          ; 0x218d
-    push si                          ; 0x218e
-    mov ax, ds                       ; 0x218f
-    mov es, ax                       ; 0x2191
-    mov ax, word [bp + 0xc]          ; 0x2193
-    cmp ax, strict word 0x14         ; 0x2196
-    jb short @..local.l33            ; 0x2199
-    jmp near @..local.l35            ; 0x219b
-@..local.l33:
-    shl ax, 1                        ; 0x219e
-    mov word [bp - 0x0008], ax       ; 0x21a0
-    mov bx, data_0229                ; 0x21a3
-    add bx, ax                       ; 0x21a6
-    mov ax, word [cs:bx]             ; 0x21a8
-    or ax, ax                        ; 0x21ab
-    jne short @..local.l34           ; 0x21ad
-    jmp near @..local.l35            ; 0x21af
-@..local.l34:
-    mov word [cs:bx], 0              ; 0x21b2
-    mov cx, word [cs:data_0caa]      ; 0x21b7
-    dec cx                           ; 0x21bc
-    mov word [cs:data_0caa], cx      ; 0x21bd
-    call loc_43e1                    ; 0x21c2
-@..local.l35:
-    pop si                           ; 0x21c5
-    pop di                           ; 0x21c6
-    pop es                           ; 0x21c7
-    pop ds                           ; 0x21c8
-    mov sp, bp                       ; 0x21c9
-    pop bp                           ; 0x21cb
-    ret                              ; 0x21cc
+
+    db 0x2e, 0xc7, 0x06, 0xcd, 0x1e, 0x00, 0x00, 0xc3, 0x55, 0x8b, 0xec, 0x83, 0xec, 0x08, 0x1e, 0x06
+    db 0x57, 0x56, 0x8c, 0xd8, 0x8e, 0xc0, 0x8b, 0x46, 0x0c, 0x3d, 0x14, 0x00, 0x72, 0x03, 0xe9, 0x27
+    db 0x00, 0xd1, 0xe0, 0x89, 0x46, 0xf8, 0xbb, 0x29, 0x02, 0x03, 0xd8, 0x2e, 0x8b, 0x07, 0x0b, 0xc0
+    db 0x75, 0x03, 0xe9, 0x13, 0x00, 0x2e, 0xc7, 0x07, 0x00, 0x00, 0x2e, 0x8b, 0x0e, 0xaa, 0x0c, 0x49
+    db 0x2e, 0x89, 0x0e, 0xaa, 0x0c, 0xe8, 0x1c, 0x22, 0x5e, 0x5f, 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3
+
 dos_read_file_3:
     push bp                          ; 0x21cd
     mov bp, sp                       ; 0x21ce
@@ -1769,7 +1170,7 @@ dos_read_file_3:
     mov ax, word [cs:bx]             ; 0x21e8
     or ax, ax                        ; 0x21eb
     je short @..dos_read_file_3.l1   ; 0x21ed
-    jmp near @..local.l36            ; 0x21ef
+    jmp near @..dos_read_file_3.l7   ; 0x21ef
 @..dos_read_file_3.l1:
     mov ax, word [cs:data_0caa]      ; 0x21f2
     inc ax                           ; 0x21f6
@@ -1849,12 +1250,13 @@ dos_read_file_3:
     mov sp, bp                       ; 0x22a8
     pop bp                           ; 0x22aa
     ret                              ; 0x22ab
-@..local.l36:
+@..dos_read_file_3.l7:
     mov ax, word [bp + 0xe]          ; 0x22ac
     mov bx, 0xa                      ; 0x22af
     div bx                           ; 0x22b2
     or byte [cs:data_23de], al       ; 0x22b4
     or byte [cs:data_23df], dl       ; 0x22b9
+dos_con_loc_22be:
     mov ax, cs                       ; 0x22be
     mov ds, ax                       ; 0x22c0
     mov dx, 0x23ce                   ; 0x22c2
@@ -1869,9 +1271,14 @@ dos_read_file_3:
 
 dos_con_loc_22ee:
     mov ax, cs                       ; 0x22ee
+    mov ds, ax                       ; 0x22f0
+    mov dx, 0x23fe                   ; 0x22f2
+    mov ah, 9                        ; 0x22f5
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x22f9
+    int 0x21 ; DOS function dispatcher
 
-    db 0x8e, 0xd8, 0xba, 0xfe, 0x23, 0xb4, 0x09, 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21, 0x0d, 0x0a
-    db 0x07
+    db 0x0d, 0x0a, 0x07
     db 'Memory unavailable loading picture.', 0
     db 0x0a, 0x24, 0xef, 0x9f, 0x9d, 0x9c, 0x9b, 0xff, 0x9a, 0x99, 0x48, 0x8e, 0x8d, 0x8c, 0xff, 0xff
     db 0xff, 0xff, 0x38, 0xff, 0x4f, 0xff, 0x8b, 0xff, 0xff, 0xff, 0x37, 0xff, 0xff, 0x4e, 0xff, 0x89
@@ -1905,354 +1312,53 @@ dos_con_loc_22ee:
     db 0xff, 0xff, 0xff, 0xff, 0x15, 0xff, 0xff, 0x96, 0xff, 0xff, 0x27, 0xff, 0xff, 0xff, 0xff, 0xff
     db 0xff, 0xa8, 0xff, 0x26, 0xff, 0xde, 0x13, 0xff, 0x95, 0xff, 0xb6, 0x2d, 0x25, 0xdc, 0xda, 0x12
     db 0x94, 0xa7, 0x56, 0xb5, 0xb2, 0xff, 0xe3, 0xd7, 0x11, 0xff, 0x55, 0xff, 0xb1, 0xb0, 0xff, 0x52
-    db 0x50, 0x10, 0x00
+    db 0x50, 0x10, 0x00, 0x55, 0x8b, 0xec, 0x83, 0xec, 0x24, 0x1e, 0x06, 0x56, 0x57, 0x8c, 0xd8, 0x8e
+    db 0xc0, 0xe8, 0xcf, 0xed, 0xe8, 0xda, 0xdf, 0x33, 0xc0, 0x89, 0x46, 0xde, 0x8b, 0x46, 0x0e, 0xbb
+    db 0x40, 0x01, 0xf7, 0xe3, 0x03, 0x46, 0x0c, 0x89, 0x46, 0xfe, 0x8b, 0x46, 0x10, 0x2b, 0x46, 0x0c
+    db 0x40, 0x89, 0x46, 0xfc, 0x8b, 0x46, 0x12, 0x2b, 0x46, 0x0e, 0x40, 0x89, 0x46, 0xfa, 0x8b, 0x76
+    db 0xfe, 0x8b, 0x4e, 0xfc, 0x51, 0x2e, 0xc4, 0x3e, 0xf7, 0x01, 0xb1, 0x03, 0x2e, 0x8b, 0x16, 0xe5
+    db 0x01, 0x8e, 0xda, 0x33, 0xc0, 0x8a, 0x04, 0x89, 0x46, 0xec, 0x8b, 0xd8, 0xd1, 0xe0, 0x03, 0xd8
+    db 0x33, 0xc0, 0x26, 0x8a, 0x01, 0xd3, 0xe8, 0x89, 0x46, 0xf8, 0x26, 0x8a, 0x41, 0x01, 0xd3, 0xe8
+    db 0x89, 0x46, 0xf6, 0x26, 0x8a, 0x41, 0x02, 0xd3, 0xe8, 0x89, 0x46, 0xf4, 0xba, 0x00, 0xa0, 0x8e
+    db 0xda, 0x8a, 0x04, 0x89, 0x46, 0xdc, 0x3b, 0x46, 0xec, 0x75, 0x03, 0xe9, 0x8a, 0x01, 0x8b, 0xd8
+    db 0xd1, 0xe0, 0x03, 0xd8, 0x33, 0xc0, 0x26, 0x8a, 0x01, 0xd3, 0xe8, 0x89, 0x46, 0xf2, 0x26, 0x8a
+    db 0x41, 0x01, 0xd3, 0xe8, 0x89, 0x46, 0xf0, 0x26, 0x8a, 0x41, 0x02, 0xd3, 0xe8, 0x89, 0x46, 0xee
+    db 0x8b, 0x46, 0xf2, 0x2b, 0x46, 0xf8, 0x75, 0x27, 0x89, 0x46, 0xe4, 0x89, 0x46, 0xea, 0x8b, 0x46
+    db 0xf0, 0x2b, 0x46, 0xf6, 0x75, 0x2b, 0x89, 0x46, 0xe2, 0x89, 0x46, 0xe8, 0x8b, 0x46, 0xee, 0x2b
+    db 0x46, 0xf4, 0x75, 0x2f, 0x8b, 0x46, 0xec, 0x88, 0x04, 0xff, 0x46, 0xde, 0xe9, 0x39, 0x01, 0x89
+    db 0x46, 0xe4, 0x0b, 0xc0, 0x79, 0x02, 0xf7, 0xd8, 0x89, 0x46, 0xea, 0x8b, 0x46, 0xf0, 0x2b, 0x46
+    db 0xf6, 0x89, 0x46, 0xe2, 0x0b, 0xc0, 0x79, 0x02, 0xf7, 0xd8, 0x89, 0x46, 0xe8, 0x8b, 0x46, 0xee
+    db 0x2b, 0x46, 0xf4, 0x89, 0x46, 0xe0, 0x0b, 0xc0, 0x79, 0x02, 0xf7, 0xd8, 0x89, 0x46, 0xe6, 0x8b
+    db 0x46, 0xe6, 0x3b, 0x46, 0xe8, 0x73, 0x03, 0xe9, 0x90, 0x00, 0x3b, 0x46, 0xea, 0x72, 0x47, 0xbb
+    db 0xff, 0xff, 0x8b, 0x46, 0xe0, 0x0b, 0xc0, 0x79, 0x02, 0xf7, 0xdb, 0x01, 0x5e, 0xee, 0xbb, 0xff
+    db 0xff, 0x8b, 0x46, 0xea, 0xd1, 0xe0, 0x3b, 0x46, 0xe6, 0x72, 0x0c, 0x8b, 0x46, 0xe4, 0x0b, 0xc0
+    db 0x79, 0x02, 0xf7, 0xdb, 0x01, 0x5e, 0xf2, 0xbb, 0xff, 0xff, 0x8b, 0x46, 0xe8, 0xd1, 0xe0, 0x3b
+    db 0x46, 0xe6, 0x72, 0x0f, 0xbb, 0xff, 0xff, 0x8b, 0x46, 0xe2, 0x0b, 0xc0, 0x79, 0x02, 0xf7, 0xdb
+    db 0x01, 0x5e, 0xf0, 0xe9, 0x8f, 0x00, 0xbb, 0xff, 0xff, 0x8b, 0x46, 0xe4, 0x0b, 0xc0, 0x79, 0x02
+    db 0xf7, 0xdb, 0x01, 0x5e, 0xf2, 0xbb, 0xff, 0xff, 0x8b, 0x46, 0xe6, 0xd1, 0xe0, 0x3b, 0x46, 0xea
+    db 0x72, 0x0c, 0x8b, 0x46, 0xe0, 0x0b, 0xc0, 0x79, 0x02, 0xf7, 0xdb, 0x01, 0x5e, 0xee, 0xbb, 0xff
+    db 0xff, 0x8b, 0x46, 0xe8, 0xd1, 0xe0, 0x3b, 0x46, 0xea, 0x72, 0x0c, 0x8b, 0x46, 0xe2, 0x0b, 0xc0
+    db 0x79, 0x02, 0xf7, 0xdb, 0x01, 0x5e, 0xf0, 0xe9, 0x4b, 0x00, 0x8b, 0x46, 0xea, 0x3b, 0x46, 0xe8
+    db 0x72, 0x02, 0xeb, 0xb2, 0xbb, 0xff, 0xff, 0x8b, 0x46, 0xe2, 0x0b, 0xc0, 0x79, 0x02, 0xf7, 0xdb
+    db 0x01, 0x5e, 0xf0, 0xbb, 0xff, 0xff, 0x8b, 0x46, 0xe6, 0xd1, 0xe0, 0x3b, 0x46, 0xe8, 0x72, 0x0c
+    db 0x8b, 0x46, 0xe0, 0x0b, 0xc0, 0x79, 0x02, 0xf7, 0xdb, 0x01, 0x5e, 0xee, 0xbb, 0xff, 0xff, 0x8b
+    db 0x46, 0xea, 0xd1, 0xe0, 0x3b, 0x46, 0xe8, 0x72, 0x0c, 0x8b, 0x46, 0xe4, 0x0b, 0xc0, 0x79, 0x02
+    db 0xf7, 0xdb, 0x01, 0x5e, 0xf2, 0x8b, 0x5e, 0xf2, 0xb1, 0x06, 0xd3, 0xe3, 0x8b, 0x46, 0xf0, 0xb1
+    db 0x03, 0xd3, 0xe0, 0x03, 0xd8, 0x03, 0x5e, 0xee, 0x81, 0xc3, 0x27, 0x24, 0x2e, 0x8a, 0x07, 0x3c
+    db 0xff, 0x74, 0x1c, 0x88, 0x04, 0xff, 0x46, 0xde, 0x46, 0x59, 0xe2, 0x10, 0x81, 0x46, 0xfe, 0x40
+    db 0x01, 0x8b, 0x76, 0xfe, 0xff, 0x4e, 0xfa, 0x74, 0x09, 0xe9, 0x15, 0xfe, 0xe9, 0x15, 0xfe, 0xe9
+    db 0x7e, 0xfe, 0x8b, 0x46, 0xde, 0x0b, 0xc0, 0x74, 0x13, 0x8b, 0x46, 0x14, 0x0b, 0xc0, 0x74, 0x09
+    db 0xff, 0x76, 0x14, 0x2e, 0xff, 0x1e, 0xfb, 0x01, 0x58, 0xe9, 0xcb, 0xfd, 0xe8, 0x0b, 0xdf, 0xe8
+    db 0x52, 0xeb, 0x5f, 0x5e, 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x1e, 0x06, 0x56
+    db 0x57, 0x8c, 0xd8, 0x8e, 0xc0, 0x8b, 0x46, 0x0e, 0x3d, 0xff, 0xff, 0x75, 0x21, 0x2e, 0xc4, 0x3e
+    db 0xf7, 0x01, 0x8b, 0x46, 0x0c, 0x8b, 0xd8, 0xd1, 0xe0, 0x03, 0xd8, 0x26, 0x8a, 0x01, 0x8a, 0xf0
+    db 0x26, 0x8a, 0x41, 0x01, 0x8a, 0xe8, 0x26, 0x8a, 0x41, 0x02, 0x8a, 0xc8, 0xeb, 0x0d, 0x8b, 0x4e
+    db 0x12, 0x8b, 0x5e, 0x10, 0x8a, 0xeb, 0x8b, 0x5e, 0x0e, 0x8a, 0xf3, 0x8b, 0x5e, 0x0c, 0xb8, 0x10
+    db 0x10, 0xcd, 0x10, 0x5f, 0x5e, 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x1e, 0x06
+    db 0x56, 0x57, 0x8c, 0xd8, 0x8e, 0xc0, 0x8b, 0x5e, 0x0c, 0xb8, 0x15, 0x10, 0xcd, 0x10, 0x8b, 0x5e
+    db 0x0e, 0x32, 0xe4, 0x8a, 0xc6, 0x89, 0x07, 0x8a, 0xc5, 0x8b, 0x5e, 0x10, 0x89, 0x07, 0x8a, 0xc1
+    db 0x8b, 0x5e, 0x12, 0x89, 0x07, 0x5f, 0x5e, 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3
 
-math_loc_2528:
-    push bp                          ; 0x2528
-    mov bp, sp                       ; 0x2529
-    sub sp, byte 0x24                ; 0x252b
-    push ds                          ; 0x252e
-    push es                          ; 0x252f
-    push si                          ; 0x2530
-    push di                          ; 0x2531
-    mov ax, ds                       ; 0x2532
-    mov es, ax                       ; 0x2534
-    call bios_mouse_loc_1308         ; 0x2536
-    call leaf_loc_0516               ; 0x2539
-@..math_loc_2528.l1:
-    xor ax, ax                       ; 0x253c
-    mov word [bp - 0x0022], ax       ; 0x253e
-    mov ax, word [bp + 0xe]          ; 0x2541
-    mov bx, 0x140                    ; 0x2544
-    mul bx                           ; 0x2547
-    add ax, word [bp + 0xc]          ; 0x2549
-    mov word [bp - 0x0002], ax       ; 0x254c
-    mov ax, word [bp + 0x10]         ; 0x254f
-    sub ax, word [bp + 0xc]          ; 0x2552
-    inc ax                           ; 0x2555
-    mov word [bp - 0x0004], ax       ; 0x2556
-    mov ax, word [bp + 0x12]         ; 0x2559
-    sub ax, word [bp + 0xe]          ; 0x255c
-    inc ax                           ; 0x255f
-    mov word [bp - 0x0006], ax       ; 0x2560
-    mov si, word [bp - 0x0002]       ; 0x2563
-@..math_loc_2528.l2:
-    mov cx, word [bp - 0x0004]       ; 0x2566
-@..math_loc_2528.l3:
-    push cx                          ; 0x2569
-    les di, word [cs:data_01f7]      ; 0x256a
-    mov cl, 3                        ; 0x256f
-    mov dx, word [cs:data_01e5]      ; 0x2571
-    mov ds, dx                       ; 0x2576
-    xor ax, ax                       ; 0x2578
-    mov al, byte [si]                ; 0x257a
-    mov word [bp - 0x0014], ax       ; 0x257c
-    mov bx, ax                       ; 0x257f
-    shl ax, 1                        ; 0x2581
-    add bx, ax                       ; 0x2583
-    xor ax, ax                       ; 0x2585
-    mov al, byte [es:bx + di]        ; 0x2587
-    shr ax, cl                       ; 0x258a
-    mov word [bp - 0x0008], ax       ; 0x258c
-    mov al, byte [es:bx + di + 0x1]  ; 0x258f
-    shr ax, cl                       ; 0x2593
-    mov word [bp - 0x000a], ax       ; 0x2595
-    mov al, byte [es:bx + di + 0x2]  ; 0x2598
-    shr ax, cl                       ; 0x259c
-    mov word [bp - 0x000c], ax       ; 0x259e
-    mov dx, 0xa000                   ; 0x25a1
-    mov ds, dx                       ; 0x25a4
-    mov al, byte [si]                ; 0x25a6
-    mov word [bp - 0x0024], ax       ; 0x25a8
-    cmp ax, word [bp - 0x0014]       ; 0x25ab
-    jne short @..math_loc_2528.l4    ; 0x25ae
-    jmp near @..local.l37            ; 0x25b0
-@..math_loc_2528.l4:
-    mov bx, ax                       ; 0x25b3
-    shl ax, 1                        ; 0x25b5
-    add bx, ax                       ; 0x25b7
-    xor ax, ax                       ; 0x25b9
-    mov al, byte [es:bx + di]        ; 0x25bb
-    shr ax, cl                       ; 0x25be
-    mov word [bp - 0x000e], ax       ; 0x25c0
-    mov al, byte [es:bx + di + 0x1]  ; 0x25c3
-    shr ax, cl                       ; 0x25c7
-    mov word [bp - 0x0010], ax       ; 0x25c9
-    mov al, byte [es:bx + di + 0x2]  ; 0x25cc
-    shr ax, cl                       ; 0x25d0
-    mov word [bp - 0x0012], ax       ; 0x25d2
-@..math_loc_2528.l5:
-    mov ax, word [bp - 0x000e]       ; 0x25d5
-    sub ax, word [bp - 0x0008]       ; 0x25d8
-    jne short @..math_loc_2528.l6    ; 0x25db
-    mov word [bp - 0x001c], ax       ; 0x25dd
-    mov word [bp - 0x0016], ax       ; 0x25e0
-    mov ax, word [bp - 0x0010]       ; 0x25e3
-    sub ax, word [bp - 0x000a]       ; 0x25e6
-    jne short @..math_loc_2528.l8    ; 0x25e9
-    mov word [bp - 0x001e], ax       ; 0x25eb
-    mov word [bp - 0x0018], ax       ; 0x25ee
-    mov ax, word [bp - 0x0012]       ; 0x25f1
-    sub ax, word [bp - 0x000c]       ; 0x25f4
-    jne short @..math_loc_2528.l10   ; 0x25f7
-    mov ax, word [bp - 0x0014]       ; 0x25f9
-    mov byte [si], al                ; 0x25fc
-    inc word [bp - 0x0022]           ; 0x25fe
-    jmp near @..local.l37            ; 0x2601
-@..math_loc_2528.l6:
-    mov word [bp - 0x001c], ax       ; 0x2604
-    or ax, ax                        ; 0x2607
-    jns short @..math_loc_2528.l7    ; 0x2609
-    neg ax                           ; 0x260b
-@..math_loc_2528.l7:
-    mov word [bp - 0x0016], ax       ; 0x260d
-    mov ax, word [bp - 0x0010]       ; 0x2610
-    sub ax, word [bp - 0x000a]       ; 0x2613
-@..math_loc_2528.l8:
-    mov word [bp - 0x001e], ax       ; 0x2616
-    or ax, ax                        ; 0x2619
-    jns short @..math_loc_2528.l9    ; 0x261b
-    neg ax                           ; 0x261d
-@..math_loc_2528.l9:
-    mov word [bp - 0x0018], ax       ; 0x261f
-    mov ax, word [bp - 0x0012]       ; 0x2622
-    sub ax, word [bp - 0x000c]       ; 0x2625
-@..math_loc_2528.l10:
-    mov word [bp - 0x0020], ax       ; 0x2628
-    or ax, ax                        ; 0x262b
-    jns short @..math_loc_2528.l11   ; 0x262d
-    neg ax                           ; 0x262f
-@..math_loc_2528.l11:
-    mov word [bp - 0x001a], ax       ; 0x2631
-    mov ax, word [bp - 0x001a]       ; 0x2634
-    cmp ax, word [bp - 0x0018]       ; 0x2637
-    jae short @..math_loc_2528.l12   ; 0x263a
-    jmp near @..math_loc_2528.l24    ; 0x263c
-@..math_loc_2528.l12:
-    cmp ax, word [bp - 0x0016]       ; 0x263f
-    jb short @..math_loc_2528.l18    ; 0x2642
-    mov bx, 0xffff                   ; 0x2644
-    mov ax, word [bp - 0x0020]       ; 0x2647
-    or ax, ax                        ; 0x264a
-    jns short @..math_loc_2528.l13   ; 0x264c
-    neg bx                           ; 0x264e
-@..math_loc_2528.l13:
-    add word [bp - 0x0012], bx       ; 0x2650
-    mov bx, 0xffff                   ; 0x2653
-    mov ax, word [bp - 0x0016]       ; 0x2656
-    shl ax, 1                        ; 0x2659
-    cmp ax, word [bp - 0x001a]       ; 0x265b
-    jb short @..math_loc_2528.l15    ; 0x265e
-    mov ax, word [bp - 0x001c]       ; 0x2660
-    or ax, ax                        ; 0x2663
-    jns short @..math_loc_2528.l14   ; 0x2665
-    neg bx                           ; 0x2667
-@..math_loc_2528.l14:
-    add word [bp - 0x000e], bx       ; 0x2669
-@..math_loc_2528.l15:
-    mov bx, 0xffff                   ; 0x266c
-    mov ax, word [bp - 0x0018]       ; 0x266f
-    shl ax, 1                        ; 0x2672
-    cmp ax, word [bp - 0x001a]       ; 0x2674
-    jb short @..math_loc_2528.l17    ; 0x2677
-    mov bx, 0xffff                   ; 0x2679
-    mov ax, word [bp - 0x001e]       ; 0x267c
-    or ax, ax                        ; 0x267f
-    jns short @..math_loc_2528.l16   ; 0x2681
-    neg bx                           ; 0x2683
-@..math_loc_2528.l16:
-    add word [bp - 0x0010], bx       ; 0x2685
-@..math_loc_2528.l17:
-    jmp near @..math_loc_2528.l30    ; 0x2688
-@..math_loc_2528.l18:
-    mov bx, 0xffff                   ; 0x268b
-    mov ax, word [bp - 0x001c]       ; 0x268e
-    or ax, ax                        ; 0x2691
-    jns short @..math_loc_2528.l19   ; 0x2693
-    neg bx                           ; 0x2695
-@..math_loc_2528.l19:
-    add word [bp - 0x000e], bx       ; 0x2697
-    mov bx, 0xffff                   ; 0x269a
-    mov ax, word [bp - 0x001a]       ; 0x269d
-    shl ax, 1                        ; 0x26a0
-    cmp ax, word [bp - 0x0016]       ; 0x26a2
-    jb short @..math_loc_2528.l21    ; 0x26a5
-    mov ax, word [bp - 0x0020]       ; 0x26a7
-    or ax, ax                        ; 0x26aa
-    jns short @..math_loc_2528.l20   ; 0x26ac
-    neg bx                           ; 0x26ae
-@..math_loc_2528.l20:
-    add word [bp - 0x0012], bx       ; 0x26b0
-@..math_loc_2528.l21:
-    mov bx, 0xffff                   ; 0x26b3
-    mov ax, word [bp - 0x0018]       ; 0x26b6
-    shl ax, 1                        ; 0x26b9
-    cmp ax, word [bp - 0x0016]       ; 0x26bb
-    jb short @..math_loc_2528.l23    ; 0x26be
-    mov ax, word [bp - 0x001e]       ; 0x26c0
-    or ax, ax                        ; 0x26c3
-    jns short @..math_loc_2528.l22   ; 0x26c5
-    neg bx                           ; 0x26c7
-@..math_loc_2528.l22:
-    add word [bp - 0x0010], bx       ; 0x26c9
-@..math_loc_2528.l23:
-    jmp near @..math_loc_2528.l30    ; 0x26cc
-@..math_loc_2528.l24:
-    mov ax, word [bp - 0x0016]       ; 0x26cf
-    cmp ax, word [bp - 0x0018]       ; 0x26d2
-    jb short @..math_loc_2528.l25    ; 0x26d5
-    jmp short @..math_loc_2528.l18   ; 0x26d7
-@..math_loc_2528.l25:
-    mov bx, 0xffff                   ; 0x26d9
-    mov ax, word [bp - 0x001e]       ; 0x26dc
-    or ax, ax                        ; 0x26df
-    jns short @..math_loc_2528.l26   ; 0x26e1
-    neg bx                           ; 0x26e3
-@..math_loc_2528.l26:
-    add word [bp - 0x0010], bx       ; 0x26e5
-    mov bx, 0xffff                   ; 0x26e8
-    mov ax, word [bp - 0x001a]       ; 0x26eb
-    shl ax, 1                        ; 0x26ee
-    cmp ax, word [bp - 0x0018]       ; 0x26f0
-    jb short @..math_loc_2528.l28    ; 0x26f3
-    mov ax, word [bp - 0x0020]       ; 0x26f5
-    or ax, ax                        ; 0x26f8
-    jns short @..math_loc_2528.l27   ; 0x26fa
-    neg bx                           ; 0x26fc
-@..math_loc_2528.l27:
-    add word [bp - 0x0012], bx       ; 0x26fe
-@..math_loc_2528.l28:
-    mov bx, 0xffff                   ; 0x2701
-    mov ax, word [bp - 0x0016]       ; 0x2704
-    shl ax, 1                        ; 0x2707
-    cmp ax, word [bp - 0x0018]       ; 0x2709
-    jb short @..math_loc_2528.l30    ; 0x270c
-    mov ax, word [bp - 0x001c]       ; 0x270e
-    or ax, ax                        ; 0x2711
-    jns short @..math_loc_2528.l29   ; 0x2713
-    neg bx                           ; 0x2715
-@..math_loc_2528.l29:
-    add word [bp - 0x000e], bx       ; 0x2717
-@..math_loc_2528.l30:
-    mov bx, word [bp - 0x000e]       ; 0x271a
-    mov cl, 6                        ; 0x271d
-    shl bx, cl                       ; 0x271f
-    mov ax, word [bp - 0x0010]       ; 0x2721
-    mov cl, 3                        ; 0x2724
-    shl ax, cl                       ; 0x2726
-    add bx, ax                       ; 0x2728
-    add bx, word [bp - 0x0012]       ; 0x272a
-    add bx, strict word 0x2427       ; 0x272d
-    mov al, byte [cs:bx]             ; 0x2731
-    cmp al, 0xff                     ; 0x2734
-    je short @..local.l39            ; 0x2736
-    mov byte [si], al                ; 0x2738
-    inc word [bp - 0x0022]           ; 0x273a
-@..local.l37:
-    inc si                           ; 0x273d
-    pop cx                           ; 0x273e
-    loop @..local.l38                ; 0x273f
-    add word [bp - 0x0002], strict word 0x140 ; 0x2741
-    mov si, word [bp - 0x0002]       ; 0x2746
-    dec word [bp - 0x0006]           ; 0x2749
-    je short @..local.l40            ; 0x274c
-    jmp near @..math_loc_2528.l2     ; 0x274e
-@..local.l38:
-    jmp near @..math_loc_2528.l3     ; 0x2751
-@..local.l39:
-    jmp near @..math_loc_2528.l5     ; 0x2754
-@..local.l40:
-    mov ax, word [bp - 0x0022]       ; 0x2757
-    or ax, ax                        ; 0x275a
-    je short @..local.l42            ; 0x275c
-    mov ax, word [bp + 0x14]         ; 0x275e
-    or ax, ax                        ; 0x2761
-    je short @..local.l41            ; 0x2763
-    push word [bp + 0x14]            ; 0x2765
-    call far [cs:data_01fb]          ; 0x2768
-    pop ax                           ; 0x276d
-@..local.l41:
-    jmp near @..math_loc_2528.l1     ; 0x276e
-@..local.l42:
-    call math_loc_067f               ; 0x2771
-    call bios_mouse_loc_12c9         ; 0x2774
-    pop di                           ; 0x2777
-    pop si                           ; 0x2778
-    pop es                           ; 0x2779
-    pop ds                           ; 0x277a
-    mov sp, bp                       ; 0x277b
-    pop bp                           ; 0x277d
-    ret                              ; 0x277e
-bios_video_loc_277f:
-    push bp                          ; 0x277f
-    mov bp, sp                       ; 0x2780
-    push ds                          ; 0x2782
-    push es                          ; 0x2783
-    push si                          ; 0x2784
-    push di                          ; 0x2785
-    mov ax, ds                       ; 0x2786
-    mov es, ax                       ; 0x2788
-    mov ax, word [bp + 0xe]          ; 0x278a
-    cmp ax, strict word 0xffff       ; 0x278d
-    jne short @..bios_video_loc_277f.l1 ; 0x2790
-    les di, word [cs:data_01f7]      ; 0x2792
-    mov ax, word [bp + 0xc]          ; 0x2797
-    mov bx, ax                       ; 0x279a
-    shl ax, 1                        ; 0x279c
-    add bx, ax                       ; 0x279e
-    mov al, byte [es:bx + di]        ; 0x27a0
-    mov dh, al                       ; 0x27a3
-    mov al, byte [es:bx + di + 0x1]  ; 0x27a5
-    mov ch, al                       ; 0x27a9
-    mov al, byte [es:bx + di + 0x2]  ; 0x27ab
-    mov cl, al                       ; 0x27af
-    jmp short @..bios_video_loc_277f.l2 ; 0x27b1
-@..bios_video_loc_277f.l1:
-    mov cx, word [bp + 0x12]         ; 0x27b3
-    mov bx, word [bp + 0x10]         ; 0x27b6
-    mov ch, bl                       ; 0x27b9
-    mov bx, word [bp + 0xe]          ; 0x27bb
-    mov dh, bl                       ; 0x27be
-@..bios_video_loc_277f.l2:
-    mov bx, word [bp + 0xc]          ; 0x27c0
-    mov ax, 0x1010                   ; 0x27c3
-    int 0x10 ; BIOS video
-    pop di                           ; 0x27c8
-    pop si                           ; 0x27c9
-    pop es                           ; 0x27ca
-    pop ds                           ; 0x27cb
-    mov sp, bp                       ; 0x27cc
-    pop bp                           ; 0x27ce
-    ret                              ; 0x27cf
-bios_video_loc_27d0:
-    push bp                          ; 0x27d0
-    mov bp, sp                       ; 0x27d1
-    push ds                          ; 0x27d3
-    push es                          ; 0x27d4
-    push si                          ; 0x27d5
-    push di                          ; 0x27d6
-    mov ax, ds                       ; 0x27d7
-    mov es, ax                       ; 0x27d9
-    mov bx, word [bp + 0xc]          ; 0x27db
-    mov ax, 0x1015                   ; 0x27de
-    int 0x10 ; BIOS video
-    mov bx, word [bp + 0xe]          ; 0x27e3
-    xor ah, ah                       ; 0x27e6
-    mov al, dh                       ; 0x27e8
-    mov word [bx], ax                ; 0x27ea
-    mov al, ch                       ; 0x27ec
-    mov bx, word [bp + 0x10]         ; 0x27ee
-    mov word [bx], ax                ; 0x27f1
-    mov al, cl                       ; 0x27f3
-    mov bx, word [bp + 0x12]         ; 0x27f5
-    mov word [bx], ax                ; 0x27f8
-    pop di                           ; 0x27fa
-    pop si                           ; 0x27fb
-    pop es                           ; 0x27fc
-    pop ds                           ; 0x27fd
-    mov sp, bp                       ; 0x27fe
-    pop bp                           ; 0x2800
-    ret                              ; 0x2801
 dos_free_mem_2:
     push bp                          ; 0x2802
     mov bp, sp                       ; 0x2803
@@ -2312,7 +1418,7 @@ dos_free_mem_2:
     mov ax, word [bp - 0x0002]       ; 0x2872
     mov ds, ax                       ; 0x2875
     xor si, si                       ; 0x2877
-    mov cx, data_0300                ; 0x2879
+    mov cx, 0x300                    ; 0x2879
     mov dx, 0x3c8                    ; 0x287c
     mov al, 0                        ; 0x287f
     out dx, al                       ; 0x2881
@@ -2350,6 +1456,7 @@ dos_free_mem_2:
     mov sp, bp                       ; 0x28b6
     pop bp                           ; 0x28b8
     ret                              ; 0x28b9
+bios_video_loc_28ba:
     mov ax, cs                       ; 0x28ba
     mov ds, ax                       ; 0x28bc
     mov dx, 0x29ca                   ; 0x28be
@@ -2384,9 +1491,9 @@ dos_free_mem_3:
     mov ah, 0x48                     ; 0x2919
     mov bx, 0x30                     ; 0x291b
     int 0x21 ; DOS allocate memory
-    jae short @..bios_video_loc_28ba.l1 ; 0x2920
+    jae short @..dos_free_mem_3.l1   ; 0x2920
     jmp near dos_mem_loc_29bf        ; 0x2922
-@..bios_video_loc_28ba.l1:
+@..dos_free_mem_3.l1:
     mov word [bp - 0x0002], ax       ; 0x2925
     mov ax, 0x1017                   ; 0x2928
     xor bx, bx                       ; 0x292b
@@ -2395,67 +1502,67 @@ dos_free_mem_3:
     mov es, dx                       ; 0x2933
     xor dx, dx                       ; 0x2935
     int 0x10 ; BIOS video
-@..bios_video_loc_28ba.l2:
+@..dos_free_mem_3.l2:
     mov word [bp - 0x0004], 0        ; 0x2939
     mov ax, word [bp - 0x0002]       ; 0x293e
     mov ds, ax                       ; 0x2941
     xor si, si                       ; 0x2943
     mov cx, 0x100                    ; 0x2945
-@..bios_video_loc_28ba.l3:
+@..dos_free_mem_3.l3:
     push cx                          ; 0x2948
     mov cx, 3                        ; 0x2949
     lea di, word [bp - 0x000a]       ; 0x294c
-@..bios_video_loc_28ba.l4:
+@..dos_free_mem_3.l4:
     xor ax, ax                       ; 0x294f
     mov al, byte [si]                ; 0x2951
     cmp ax, word [ss:di]             ; 0x2953
-    je short @..bios_video_loc_28ba.l6 ; 0x2956
+    je short @..dos_free_mem_3.l6    ; 0x2956
     mov word [bp - 0x0004], 1        ; 0x2958
     cmp ax, word [ss:di]             ; 0x295d
-    jb short @..bios_video_loc_28ba.l5 ; 0x2960
+    jb short @..dos_free_mem_3.l5    ; 0x2960
     dec byte [si]                    ; 0x2962
-    jmp short @..bios_video_loc_28ba.l6 ; 0x2964
-@..bios_video_loc_28ba.l5:
+    jmp short @..dos_free_mem_3.l6   ; 0x2964
+@..dos_free_mem_3.l5:
     inc byte [si]                    ; 0x2966
-@..bios_video_loc_28ba.l6:
+@..dos_free_mem_3.l6:
     inc di                           ; 0x2968
     inc di                           ; 0x2969
     inc si                           ; 0x296a
-    loop @..bios_video_loc_28ba.l4   ; 0x296b
+    loop @..dos_free_mem_3.l4        ; 0x296b
     pop cx                           ; 0x296d
-    loop @..bios_video_loc_28ba.l3   ; 0x296e
+    loop @..dos_free_mem_3.l3        ; 0x296e
     mov ax, word [bp - 0x0004]       ; 0x2970
     or ax, ax                        ; 0x2973
-    je short @..bios_video_loc_28ba.l9 ; 0x2975
+    je short @..dos_free_mem_3.l9    ; 0x2975
     mov ax, word [bp - 0x0002]       ; 0x2977
     mov ds, ax                       ; 0x297a
     xor si, si                       ; 0x297c
-    mov cx, data_0300                ; 0x297e
+    mov cx, 0x300                    ; 0x297e
     mov dx, 0x3c8                    ; 0x2981
     mov al, 0                        ; 0x2984
     out dx, al                       ; 0x2986
-@..bios_video_loc_28ba.l7:
+@..dos_free_mem_3.l7:
     mov dx, 0x3da                    ; 0x2987
     in al, dx                        ; 0x298a
     test al, 1                       ; 0x298b
-    jne short @..bios_video_loc_28ba.l7 ; 0x298d
-@..bios_video_loc_28ba.l8:
+    jne short @..dos_free_mem_3.l7   ; 0x298d
+@..dos_free_mem_3.l8:
     mov dx, 0x3da                    ; 0x298f
     in al, dx                        ; 0x2992
     test al, 1                       ; 0x2993
-    je short @..bios_video_loc_28ba.l8 ; 0x2995
+    je short @..dos_free_mem_3.l8    ; 0x2995
     lodsb                            ; 0x2997
     mov dx, 0x3c9                    ; 0x2998
     out dx, al                       ; 0x299b
-    loop @..bios_video_loc_28ba.l7   ; 0x299c
+    loop @..dos_free_mem_3.l7        ; 0x299c
     mov ax, word [bp + 0x12]         ; 0x299e
     or ax, ax                        ; 0x29a1
-    je short @..bios_video_loc_28ba.l2 ; 0x29a3
+    je short @..dos_free_mem_3.l2    ; 0x29a3
     push ax                          ; 0x29a5
     call far [cs:data_01fb]          ; 0x29a6
     pop ax                           ; 0x29ab
-    jmp short @..bios_video_loc_28ba.l2 ; 0x29ac
-@..bios_video_loc_28ba.l9:
+    jmp short @..dos_free_mem_3.l2   ; 0x29ac
+@..dos_free_mem_3.l9:
     mov bx, word [bp - 0x0002]       ; 0x29ae
     mov es, bx                       ; 0x29b1
     mov ah, 0x49                     ; 0x29b3
@@ -2467,9 +1574,10 @@ dos_free_mem_3:
     mov sp, bp                       ; 0x29bb
     pop bp                           ; 0x29bd
     ret                              ; 0x29be
+dos_mem_loc_29bf:
     mov ax, cs                       ; 0x29bf
     mov ds, ax                       ; 0x29c1
-    mov dx, dos_mem_loc_2acf         ; 0x29c3
+    mov dx, 0x2acf                   ; 0x29c3
     mov ah, 9                        ; 0x29c6
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x29ca
@@ -2491,34 +1599,34 @@ dos_free_mem_4:
     mov es, ax                       ; 0x2a02
     mov ax, word [bp + 0xc]          ; 0x2a04
     cmp ax, strict word 0xffff       ; 0x2a07
-    jne short @..dos_mem_loc_29bf.l3 ; 0x2a0a
+    jne short @..dos_free_mem_4.l3   ; 0x2a0a
     lds si, word [cs:data_01f7]      ; 0x2a0c
-    mov cx, data_0300                ; 0x2a11
+    mov cx, 0x300                    ; 0x2a11
     mov dx, 0x3c8                    ; 0x2a14
     mov al, 0                        ; 0x2a17
     out dx, al                       ; 0x2a19
-@..dos_mem_loc_29bf.l1:
+@..dos_free_mem_4.l1:
     mov dx, 0x3da                    ; 0x2a1a
     in al, dx                        ; 0x2a1d
     test al, 1                       ; 0x2a1e
-    jne short @..dos_mem_loc_29bf.l1 ; 0x2a20
-@..dos_mem_loc_29bf.l2:
+    jne short @..dos_free_mem_4.l1   ; 0x2a20
+@..dos_free_mem_4.l2:
     mov dx, 0x3da                    ; 0x2a22
     in al, dx                        ; 0x2a25
     test al, 1                       ; 0x2a26
-    je short @..dos_mem_loc_29bf.l2  ; 0x2a28
+    je short @..dos_free_mem_4.l2    ; 0x2a28
     lodsb                            ; 0x2a2a
     mov dx, 0x3c9                    ; 0x2a2b
     out dx, al                       ; 0x2a2e
-    loop @..dos_mem_loc_29bf.l1      ; 0x2a2f
-    jmp short @..dos_mem_loc_29bf.l8 ; 0x2a31
-@..dos_mem_loc_29bf.l3:
+    loop @..dos_free_mem_4.l1        ; 0x2a2f
+    jmp short @..dos_free_mem_4.l8   ; 0x2a31
+@..dos_free_mem_4.l3:
     mov ah, 0x48                     ; 0x2a33
     mov bx, 0x30                     ; 0x2a35
     int 0x21 ; DOS allocate memory
-    jae short @..dos_mem_loc_29bf.l4 ; 0x2a3a
+    jae short @..dos_free_mem_4.l4   ; 0x2a3a
     jmp near dos_con_loc_2a97        ; 0x2a3c
-@..dos_mem_loc_29bf.l4:
+@..dos_free_mem_4.l4:
     mov word [bp - 0x0002], ax       ; 0x2a3f
     mov ds, ax                       ; 0x2a42
     xor di, di                       ; 0x2a44
@@ -2526,38 +1634,38 @@ dos_free_mem_4:
     mov bx, word [bp + 0xe]          ; 0x2a49
     mov dx, word [bp + 0x10]         ; 0x2a4c
     mov cx, 0x100                    ; 0x2a4f
-@..dos_mem_loc_29bf.l5:
+@..dos_free_mem_4.l5:
     mov byte [di], al                ; 0x2a52
     mov byte [di + 0x1], bl          ; 0x2a54
     mov byte [di + 0x2], dl          ; 0x2a57
     add di, byte 3                   ; 0x2a5a
-    loop @..dos_mem_loc_29bf.l5      ; 0x2a5d
+    loop @..dos_free_mem_4.l5        ; 0x2a5d
     mov ax, word [bp - 0x0002]       ; 0x2a5f
     mov ds, ax                       ; 0x2a62
     xor si, si                       ; 0x2a64
-    mov cx, data_0300                ; 0x2a66
+    mov cx, 0x300                    ; 0x2a66
     mov dx, 0x3c8                    ; 0x2a69
     mov al, 0                        ; 0x2a6c
     out dx, al                       ; 0x2a6e
-@..dos_mem_loc_29bf.l6:
+@..dos_free_mem_4.l6:
     mov dx, 0x3da                    ; 0x2a6f
     in al, dx                        ; 0x2a72
     test al, 1                       ; 0x2a73
-    jne short @..dos_mem_loc_29bf.l6 ; 0x2a75
-@..dos_mem_loc_29bf.l7:
+    jne short @..dos_free_mem_4.l6   ; 0x2a75
+@..dos_free_mem_4.l7:
     mov dx, 0x3da                    ; 0x2a77
     in al, dx                        ; 0x2a7a
     test al, 1                       ; 0x2a7b
-    je short @..dos_mem_loc_29bf.l7  ; 0x2a7d
+    je short @..dos_free_mem_4.l7    ; 0x2a7d
     lodsb                            ; 0x2a7f
     mov dx, 0x3c9                    ; 0x2a80
     out dx, al                       ; 0x2a83
-    loop @..dos_mem_loc_29bf.l6      ; 0x2a84
+    loop @..dos_free_mem_4.l6        ; 0x2a84
     mov bx, word [bp - 0x0002]       ; 0x2a86
     mov es, bx                       ; 0x2a89
     mov ah, 0x49                     ; 0x2a8b
     int 0x21 ; DOS free memory
-@..dos_mem_loc_29bf.l8:
+@..dos_free_mem_4.l8:
     pop di                           ; 0x2a8f
     pop si                           ; 0x2a90
     pop es                           ; 0x2a91
@@ -2565,6 +1673,7 @@ dos_free_mem_4:
     mov sp, bp                       ; 0x2a93
     pop bp                           ; 0x2a95
     ret                              ; 0x2a96
+dos_con_loc_2a97:
     mov ax, cs                       ; 0x2a97
     mov ds, ax                       ; 0x2a99
     mov dx, 0x2ba7                   ; 0x2a9b
@@ -2575,89 +1684,17 @@ dos_free_mem_4:
 
     db 0x0d, 0x0a, 0x07
     db 'Memory unavailable in RESET_RGB().', 0
-    db 0x0a, 0x24
+    db 0x0a, 0x24, 0x55, 0x8b, 0xec, 0x83, 0xec, 0x08, 0x1e, 0x06, 0x57, 0x56, 0x8c, 0xd8, 0x8e, 0xc0
+    db 0x2e, 0xc4, 0x3e, 0xf7, 0x01, 0x8b, 0x76, 0x0c, 0xb9, 0x00, 0x03, 0xf3, 0xa4, 0x8c, 0xc8, 0x8e
+    db 0xc0, 0xbf, 0x27, 0x24, 0x8b, 0x76, 0x0e, 0xb9, 0x00, 0x02, 0xf3, 0xa4, 0x5e, 0x5f, 0x07, 0x1f
+    db 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x83, 0xec, 0x0a, 0x1e, 0x06, 0x56, 0x57, 0x8c, 0xd8
+    db 0x8e, 0xc0, 0x83, 0x7e, 0x0c, 0x00, 0x74, 0x33, 0x83, 0x7e, 0x0c, 0x01, 0x74, 0x3b, 0x83, 0x7e
+    db 0x0c, 0x03, 0x74, 0x0f, 0xb8, 0x80, 0x41, 0x2e, 0x2b, 0x06, 0xac, 0x0c, 0xbb, 0x10, 0x00, 0xf7
+    db 0xe3, 0xeb, 0x34, 0xb4, 0x36, 0x8b, 0x56, 0x0e, 0xcd, 0x21, 0x3d, 0xff, 0xff, 0x75, 0x06, 0x33
+    db 0xc0, 0x33, 0xd2, 0xeb, 0x22, 0xf7, 0xe1, 0xf7, 0xe3, 0xeb, 0x1c, 0xb4, 0x48, 0xbb, 0xff, 0xff
+    db 0xcd, 0x21, 0xb8, 0x10, 0x00, 0xf7, 0xe3, 0xeb, 0x0e, 0x2e, 0xa1, 0xff, 0x01, 0x2e, 0x2b, 0x06
+    db 0x91, 0x03, 0xbb, 0x10, 0x00, 0xf7, 0xe3, 0x5f, 0x5e, 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3
 
-dos_mem_loc_2acf:
-    push bp                          ; 0x2acf
-    mov bp, sp                       ; 0x2ad0
-    sub sp, byte 8                   ; 0x2ad2
-    push ds                          ; 0x2ad5
-    push es                          ; 0x2ad6
-    push di                          ; 0x2ad7
-    push si                          ; 0x2ad8
-    mov ax, ds                       ; 0x2ad9
-    mov es, ax                       ; 0x2adb
-    les di, word [cs:data_01f7]      ; 0x2add
-    mov si, word [bp + 0xc]          ; 0x2ae2
-    mov cx, data_0300                ; 0x2ae5
-    rep movsb                        ; 0x2ae8
-    mov ax, cs                       ; 0x2aea
-    mov es, ax                       ; 0x2aec
-    mov di, 0x2427                   ; 0x2aee
-    mov si, word [bp + 0xe]          ; 0x2af1
-    mov cx, 0x200                    ; 0x2af4
-    rep movsb                        ; 0x2af7
-    pop si                           ; 0x2af9
-    pop di                           ; 0x2afa
-    pop es                           ; 0x2afb
-    pop ds                           ; 0x2afc
-    mov sp, bp                       ; 0x2afd
-    pop bp                           ; 0x2aff
-    ret                              ; 0x2b00
-dos_mem_loc_2b01:
-    push bp                          ; 0x2b01
-    mov bp, sp                       ; 0x2b02
-    sub sp, byte 0x0a                ; 0x2b04
-    push ds                          ; 0x2b07
-    push es                          ; 0x2b08
-    push si                          ; 0x2b09
-    push di                          ; 0x2b0a
-    mov ax, ds                       ; 0x2b0b
-    mov es, ax                       ; 0x2b0d
-    cmp word [bp + 0xc], byte 0      ; 0x2b0f
-    je short @..dos_mem_loc_2b01.l3  ; 0x2b13
-    cmp word [bp + 0xc], byte 1      ; 0x2b15
-    je short @..dos_mem_loc_2b01.l4  ; 0x2b19
-    cmp word [bp + 0xc], byte 3      ; 0x2b1b
-    je short @..dos_mem_loc_2b01.l1  ; 0x2b1f
-    mov ax, 0x4180                   ; 0x2b21
-    sub ax, word [cs:data_0cac]      ; 0x2b24
-    mov bx, 0x10                     ; 0x2b29
-    mul bx                           ; 0x2b2c
-    jmp short @..dos_mem_loc_2b01.l5 ; 0x2b2e
-@..dos_mem_loc_2b01.l1:
-    mov ah, 0x36                     ; 0x2b30
-    mov dx, word [bp + 0xe]          ; 0x2b32
-    int 0x21 ; DOS get disk free space
-    cmp ax, strict word 0xffff       ; 0x2b37
-    jne short @..dos_mem_loc_2b01.l2 ; 0x2b3a
-    xor ax, ax                       ; 0x2b3c
-    xor dx, dx                       ; 0x2b3e
-    jmp short @..dos_mem_loc_2b01.l5 ; 0x2b40
-@..dos_mem_loc_2b01.l2:
-    mul cx                           ; 0x2b42
-    mul bx                           ; 0x2b44
-    jmp short @..dos_mem_loc_2b01.l5 ; 0x2b46
-@..dos_mem_loc_2b01.l3:
-    mov ah, 0x48                     ; 0x2b48
-    mov bx, 0xffff                   ; 0x2b4a
-    int 0x21 ; DOS allocate memory
-    mov ax, 0x10                     ; 0x2b4f
-    mul bx                           ; 0x2b52
-    jmp short @..dos_mem_loc_2b01.l5 ; 0x2b54
-@..dos_mem_loc_2b01.l4:
-    mov ax, word [cs:data_01ff]      ; 0x2b56
-    sub ax, word [cs:data_0391]      ; 0x2b5a
-    mov bx, 0x10                     ; 0x2b5f
-    mul bx                           ; 0x2b62
-@..dos_mem_loc_2b01.l5:
-    pop di                           ; 0x2b64
-    pop si                           ; 0x2b65
-    pop es                           ; 0x2b66
-    pop ds                           ; 0x2b67
-    mov sp, bp                       ; 0x2b68
-    pop bp                           ; 0x2b6a
-    ret                              ; 0x2b6b
 mouse_set_pos_2:
     push bp                          ; 0x2b6c
     mov bp, sp                       ; 0x2b6d
@@ -2813,9 +1850,8 @@ mouse_set_pos_3:
     mov sp, bp                       ; 0x2cba
     pop bp                           ; 0x2cbc
     ret                              ; 0x2cbd
-loc_2cbe:
     push bp                          ; 0x2cbe
-    mov bp, sp                       ; 0x2cbf
+    db 0x8b, 0xec ; mov bp, sp
     sub sp, byte 8                   ; 0x2cc1
     push ds                          ; 0x2cc4
     push es                          ; 0x2cc5
@@ -2826,34 +1862,30 @@ loc_2cbe:
     mov ax, word [bp + 0xc]          ; 0x2ccc
     neg ax                           ; 0x2ccf
     cmp ax, strict word 5            ; 0x2cd1
-    jb short @..local.l43            ; 0x2cd4
-    jmp near @..local.l45            ; 0x2cd6
-@..local.l43:
+    jb short loc_2cd9                ; 0x2cd4
+    jmp near loc_2d00                ; 0x2cd6
     shl ax, 1                        ; 0x2cd9
     mov word [bp - 0x0008], ax       ; 0x2cdb
     mov bx, data_0251                ; 0x2cde
-    add bx, ax                       ; 0x2ce1
+    db 0x03, 0xd8 ; add bx, ax
     mov ax, word [cs:bx]             ; 0x2ce3
-    or ax, ax                        ; 0x2ce6
-    jne short @..local.l44           ; 0x2ce8
-    jmp near @..local.l45            ; 0x2cea
-@..local.l44:
+    db 0x0b, 0xc0 ; or ax, ax
+    jne short loc_2ced               ; 0x2ce8
+    db 0xe9, 0x13, 0x00 ; jmp near loc_2d00
     mov word [cs:bx], 0              ; 0x2ced
     mov cx, word [cs:data_0caa]      ; 0x2cf2
     dec cx                           ; 0x2cf7
     mov word [cs:data_0caa], cx      ; 0x2cf8
     call loc_43e1                    ; 0x2cfd
-@..local.l45:
     pop si                           ; 0x2d00
     pop di                           ; 0x2d01
     pop es                           ; 0x2d02
     pop ds                           ; 0x2d03
-    mov sp, bp                       ; 0x2d04
+    db 0x8b, 0xe5 ; mov sp, bp
     pop bp                           ; 0x2d06
     ret                              ; 0x2d07
-io_loc_2d08:
     push bp                          ; 0x2d08
-    mov bp, sp                       ; 0x2d09
+    db 0x8b, 0xec ; mov bp, sp
     sub sp, byte 8                   ; 0x2d0b
     push ds                          ; 0x2d0e
     push es                          ; 0x2d0f
@@ -2863,21 +1895,18 @@ io_loc_2d08:
     mov es, ax                       ; 0x2d14
     lds si, word [cs:data_01f7]      ; 0x2d16
     mov di, word [bp + 0xc]          ; 0x2d1b
-    mov cx, data_0300                ; 0x2d1e
+    mov cx, 0x300                    ; 0x2d1e
     rep movsb                        ; 0x2d21
     pop si                           ; 0x2d23
     pop di                           ; 0x2d24
     pop es                           ; 0x2d25
     pop ds                           ; 0x2d26
-    mov sp, bp                       ; 0x2d27
+    db 0x8b, 0xe5 ; mov sp, bp
     pop bp                           ; 0x2d29
     ret                              ; 0x2d2a
-
-    times 65 db 0
-
-math_loc_2d6c:
-    push bp                          ; 0x2d6c
-    mov bp, sp                       ; 0x2d6d
+    times 64 db 0
+    add byte [di - 0x0075], dl       ; 0x2d6b
+    in al, dx                        ; 0x2d6e
     sub sp, byte 0x40                ; 0x2d6f
     push ds                          ; 0x2d72
     push es                          ; 0x2d73
@@ -2887,10 +1916,10 @@ math_loc_2d6c:
     mov es, ax                       ; 0x2d78
     mov ax, word [bp + 0x14]         ; 0x2d7a
     sub ax, word [bp + 0x12]         ; 0x2d7d
-    jb short @..math_loc_2d6c.l1     ; 0x2d80
+    jb short loc_2deb                ; 0x2d80
     mov ax, word [bp + 0x18]         ; 0x2d82
     sub ax, word [bp + 0x16]         ; 0x2d85
-    jb short @..math_loc_2d6c.l1     ; 0x2d88
+    db 0x72, 0x61 ; jb short loc_2deb
     mov ax, word [bp + 0x10]         ; 0x2d8a
     mov bx, 0x140                    ; 0x2d8d
     mul bx                           ; 0x2d90
@@ -2899,168 +1928,155 @@ math_loc_2d6c:
     mov ax, word [bp + 0xc]          ; 0x2d98
     shl ax, 1                        ; 0x2d9b
     mov bx, data_0229                ; 0x2d9d
-    add bx, ax                       ; 0x2da0
+    db 0x03, 0xd8 ; add bx, ax
     mov ax, word [cs:bx]             ; 0x2da2
     dec ax                           ; 0x2da5
     mov cl, 2                        ; 0x2da6
     shl ax, cl                       ; 0x2da8
     mov bx, data_0bda                ; 0x2daa
-    add bx, ax                       ; 0x2dad
+    db 0x03, 0xd8 ; add bx, ax
     mov ax, word [cs:bx]             ; 0x2daf
     add ax, word [cs:data_01e1]      ; 0x2db2
     mov word [bp - 0x0008], ax       ; 0x2db7
     mov ds, ax                       ; 0x2dba
-    xor bx, bx                       ; 0x2dbc
+    db 0x33, 0xdb ; xor bx, bx
     mov ax, word [bx]                ; 0x2dbe
     mov word [bp - 0x0012], ax       ; 0x2dc0
     mov si, word [bp + 0x1c]         ; 0x2dc3
     mov bx, word [bp - 0x0008]       ; 0x2dc6
     mov ds, bx                       ; 0x2dc9
-    xor ah, ah                       ; 0x2dcb
+    db 0x32, 0xe4 ; xor ah, ah
     mov al, byte [ss:si]             ; 0x2dcd
-    or al, al                        ; 0x2dd0
-    je short @..math_loc_2d6c.l1     ; 0x2dd2
-    call dos_con_loc_3131            ; 0x2dd4
-    xor ah, ah                       ; 0x2dd7
+    db 0x0a, 0xc0 ; or al, al
+    je short loc_2deb                ; 0x2dd2
+    call loc_3131                    ; 0x2dd4
+    db 0x32, 0xe4 ; xor ah, ah
     mov al, byte [bx + 0x2]          ; 0x2dd9
     mov word [bp - 0x0002], ax       ; 0x2ddc
-    mov cx, ax                       ; 0x2ddf
+    db 0x8b, 0xc8 ; mov cx, ax
     mov al, byte [bx + 0x3]          ; 0x2de1
     mov word [bp - 0x0004], ax       ; 0x2de4
-    or ax, cx                        ; 0x2de7
-    jne short @..math_loc_2d6c.l2    ; 0x2de9
-@..math_loc_2d6c.l1:
-    jmp near @..local.l82            ; 0x2deb
-@..math_loc_2d6c.l2:
+    db 0x0b, 0xc1 ; or ax, cx
+    jne short loc_2dee               ; 0x2de9
+    jmp near loc_3129                ; 0x2deb
     mov word [bp - 0x003a], bx       ; 0x2dee
     mov ax, es                       ; 0x2df1
     mov word [bp - 0x0038], ax       ; 0x2df3
     mov ax, cs                       ; 0x2df6
     mov es, ax                       ; 0x2df8
     lea di, word [data_2e2b]         ; 0x2dfa
-    xor ax, ax                       ; 0x2dfe
+    db 0x33, 0xc0 ; xor ax, ax
     mov cx, 0x14                     ; 0x2e00
     rep stosw                        ; 0x2e03
     lea di, word [data_2e53]         ; 0x2e05
     mov cx, 0x19                     ; 0x2e09
     rep stosb                        ; 0x2e0c
     mov bx, word [bp + 0x20]         ; 0x2e0e
-    or bx, bx                        ; 0x2e11
-    jne short @..math_loc_2d6c.l3    ; 0x2e13
-    jmp near @..math_loc_2d6c.l7     ; 0x2e15
-@..math_loc_2d6c.l3:
+    db 0x0b, 0xdb ; or bx, bx
+    jne short loc_2e18               ; 0x2e13
+    jmp near loc_2e9b                ; 0x2e15
     cmp bx, byte 0x64                ; 0x2e18
-    jae short @..math_loc_2d6c.l1    ; 0x2e1b
+    jae short loc_2deb               ; 0x2e1b
     mov ax, word [bp - 0x0002]       ; 0x2e1d
     mov cl, 3                        ; 0x2e20
     shl ax, cl                       ; 0x2e22
-    mov cx, ax                       ; 0x2e24
+    db 0x8b, 0xc8 ; mov cx, ax
     mov bx, word [bp + 0x20]         ; 0x2e26
     mul bx                           ; 0x2e29
     mov bx, 0x64                     ; 0x2e2b
     div bx                           ; 0x2e2e
     cmp dx, byte 0x32                ; 0x2e30
-    jb short @..math_loc_2d6c.l4     ; 0x2e33
+    jb short loc_2e36                ; 0x2e33
     inc ax                           ; 0x2e35
-@..math_loc_2d6c.l4:
-    or ax, ax                        ; 0x2e36
-    je short @..math_loc_2d6c.l5     ; 0x2e38
-    xor dx, dx                       ; 0x2e3a
-    mov bx, ax                       ; 0x2e3c
+    db 0x0b, 0xc0 ; or ax, ax
+    je short loc_2e5c                ; 0x2e38
+    db 0x33, 0xd2 ; xor dx, dx
+    db 0x8b, 0xd8 ; mov bx, ax
     mov word [bp - 0x0034], ax       ; 0x2e3e
-    mov ax, cx                       ; 0x2e41
+    db 0x8b, 0xc1 ; mov ax, cx
     div bx                           ; 0x2e43
     mov di, data_2e2b                ; 0x2e45
     mov bx, word [bp - 0x0034]       ; 0x2e48
     shr bx, 1                        ; 0x2e4b
     mov word [bp - 0x003c], bx       ; 0x2e4d
-    mov si, ax                       ; 0x2e50
+    db 0x8b, 0xf0 ; mov si, ax
     dec si                           ; 0x2e52
     mov word [bp - 0x0030], ax       ; 0x2e53
     mov word [bp - 0x0032], cx       ; 0x2e56
-    call leaf_loc_319f               ; 0x2e59
-@..math_loc_2d6c.l5:
+    call loc_319f                    ; 0x2e59
     mov ax, word [bp - 0x0004]       ; 0x2e5c
     mov cl, 3                        ; 0x2e5f
     shl ax, cl                       ; 0x2e61
-    mov cx, ax                       ; 0x2e63
+    db 0x8b, 0xc8 ; mov cx, ax
     mov bx, word [bp + 0x20]         ; 0x2e65
     mul bx                           ; 0x2e68
     mov bx, 0x64                     ; 0x2e6a
     div bx                           ; 0x2e6d
     cmp dx, byte 0x32                ; 0x2e6f
-    jb short @..math_loc_2d6c.l6     ; 0x2e72
+    jb short loc_2e75                ; 0x2e72
     inc ax                           ; 0x2e74
-@..math_loc_2d6c.l6:
-    or ax, ax                        ; 0x2e75
-    je short @..math_loc_2d6c.l7     ; 0x2e77
-    xor dx, dx                       ; 0x2e79
-    mov bx, ax                       ; 0x2e7b
+    db 0x0b, 0xc0 ; or ax, ax
+    je short loc_2e9b                ; 0x2e77
+    db 0x33, 0xd2 ; xor dx, dx
+    db 0x8b, 0xd8 ; mov bx, ax
     mov word [bp - 0x0034], ax       ; 0x2e7d
-    mov ax, cx                       ; 0x2e80
+    db 0x8b, 0xc1 ; mov ax, cx
     div bx                           ; 0x2e82
     mov di, data_2e53                ; 0x2e84
     mov bx, word [bp - 0x0034]       ; 0x2e87
     shr bx, 1                        ; 0x2e8a
     mov word [bp - 0x003c], bx       ; 0x2e8c
-    mov si, ax                       ; 0x2e8f
+    db 0x8b, 0xf0 ; mov si, ax
     dec si                           ; 0x2e91
     mov word [bp - 0x0030], ax       ; 0x2e92
     mov word [bp - 0x0032], cx       ; 0x2e95
-    call leaf_loc_319f               ; 0x2e98
-@..math_loc_2d6c.l7:
+    db 0xe8, 0x04, 0x03 ; call loc_319f
     mov bx, word [bp - 0x003a]       ; 0x2e9b
     mov ax, word [bp - 0x0038]       ; 0x2e9e
     mov es, ax                       ; 0x2ea1
     mov ax, word [bp + 0x12]         ; 0x2ea3
     sub ax, word [bp + 0xe]          ; 0x2ea6
-    jge short @..math_loc_2d6c.l8    ; 0x2ea9
-    xor ax, ax                       ; 0x2eab
-@..math_loc_2d6c.l8:
+    jge short loc_2ead               ; 0x2ea9
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x0028], ax       ; 0x2ead
     mov ax, word [bp + 0xe]          ; 0x2eb0
     mov bx, word [bp - 0x0002]       ; 0x2eb3
     mov cl, 3                        ; 0x2eb6
     shl bx, cl                       ; 0x2eb8
-    mov cx, bx                       ; 0x2eba
+    db 0x8b, 0xcb ; mov cx, bx
     dec bx                           ; 0x2ebc
     mov word [bp - 0x001e], bx       ; 0x2ebd
-    add ax, bx                       ; 0x2ec0
+    db 0x03, 0xc3 ; add ax, bx
     inc ax                           ; 0x2ec2
     sub ax, word [bp + 0x14]         ; 0x2ec3
-    jge short @..math_loc_2d6c.l9    ; 0x2ec6
-    xor ax, ax                       ; 0x2ec8
-@..math_loc_2d6c.l9:
+    jge short loc_2eca               ; 0x2ec6
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x002a], ax       ; 0x2eca
     add ax, word [bp - 0x0028]       ; 0x2ecd
-    sub cx, ax                       ; 0x2ed0
-    ja short @..math_loc_2d6c.l10    ; 0x2ed2
-    jmp near @..local.l82            ; 0x2ed4
-@..math_loc_2d6c.l10:
+    db 0x2b, 0xc8 ; sub cx, ax
+    ja short loc_2ed7                ; 0x2ed2
+    jmp near loc_3129                ; 0x2ed4
     mov word [bp - 0x0026], cx       ; 0x2ed7
     mov ax, word [bp + 0x16]         ; 0x2eda
     sub ax, word [bp + 0x10]         ; 0x2edd
-    jge short @..math_loc_2d6c.l11   ; 0x2ee0
-    xor ax, ax                       ; 0x2ee2
-@..math_loc_2d6c.l11:
+    jge short loc_2ee4               ; 0x2ee0
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x0024], ax       ; 0x2ee4
     mov ax, word [bp + 0x10]         ; 0x2ee7
     mov bx, word [bp - 0x0004]       ; 0x2eea
     mov cl, 3                        ; 0x2eed
     shl bx, cl                       ; 0x2eef
-    mov cx, bx                       ; 0x2ef1
+    db 0x8b, 0xcb ; mov cx, bx
     dec bx                           ; 0x2ef3
-    add ax, bx                       ; 0x2ef4
+    db 0x03, 0xc3 ; add ax, bx
     sub ax, word [bp + 0x18]         ; 0x2ef6
-    jge short @..math_loc_2d6c.l12   ; 0x2ef9
-    xor ax, ax                       ; 0x2efb
-@..math_loc_2d6c.l12:
+    jge short loc_2efd               ; 0x2ef9
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x002c], ax       ; 0x2efd
     add ax, word [bp - 0x0024]       ; 0x2f00
-    sub cx, ax                       ; 0x2f03
-    ja short @..math_loc_2d6c.l13    ; 0x2f05
-    jmp near @..local.l82            ; 0x2f07
-@..math_loc_2d6c.l13:
+    db 0x2b, 0xc8 ; sub cx, ax
+    ja short loc_2f0a                ; 0x2f05
+    db 0xe9, 0x1f, 0x02 ; jmp near loc_3129
     mov ax, word [bp + 0x18]         ; 0x2f0a
     inc ax                           ; 0x2f0d
     mov cx, 0x140                    ; 0x2f0e
@@ -3072,273 +2088,229 @@ math_loc_2d6c:
     mov word [bp - 0x002e], ax       ; 0x2f1e
     mov ax, word [bp + 0x1a]         ; 0x2f21
     and al, 1                        ; 0x2f24
-    je short @..math_loc_2d6c.l14    ; 0x2f26
-    jmp near @..local.l54            ; 0x2f28
-@..math_loc_2d6c.l14:
+    je short loc_2f2b                ; 0x2f26
+    jmp near loc_2fd1                ; 0x2f28
     mov bx, word [bp - 0x001e]       ; 0x2f2b
     inc bx                           ; 0x2f2e
     mov word [bp - 0x003e], bx       ; 0x2f2f
     mov bx, data_2e2b                ; 0x2f32
     mov dl, 0x80                     ; 0x2f35
-    xor ax, ax                       ; 0x2f37
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x0030], ax       ; 0x2f39
     mov word [bp - 0x0040], ax       ; 0x2f3c
     mov cx, word [bp - 0x0028]       ; 0x2f3f
-    or cx, cx                        ; 0x2f42
-    je short @..math_loc_2d6c.l19    ; 0x2f44
-@..math_loc_2d6c.l15:
+    db 0x0b, 0xc9 ; or cx, cx
+    je short loc_2f60                ; 0x2f44
     mov al, byte [cs:bx]             ; 0x2f46
-    and al, dl                       ; 0x2f49
-    jne short @..math_loc_2d6c.l16   ; 0x2f4b
+    db 0x22, 0xc2 ; and al, dl
+    jne short loc_2f52               ; 0x2f4b
     or byte [cs:bx], dl              ; 0x2f4d
-    jmp short @..math_loc_2d6c.l17   ; 0x2f50
-@..math_loc_2d6c.l16:
+    jmp short loc_2f56               ; 0x2f50
     inc word [bp - 0x0030]           ; 0x2f52
     inc cx                           ; 0x2f55
-@..math_loc_2d6c.l17:
     ror dl, 1                        ; 0x2f56
     cmp dl, 0x80                     ; 0x2f58
-    jne short @..math_loc_2d6c.l18   ; 0x2f5b
+    jne short loc_2f5e               ; 0x2f5b
     inc bx                           ; 0x2f5d
-@..math_loc_2d6c.l18:
-    loop @..math_loc_2d6c.l15        ; 0x2f5e
-@..math_loc_2d6c.l19:
+    loop loc_2f46                    ; 0x2f5e
     mov word [bp - 0x0032], bx       ; 0x2f60
     mov ax, word [bp - 0x0030]       ; 0x2f63
     mov word [bp - 0x0040], ax       ; 0x2f66
     add ax, word [bp - 0x0028]       ; 0x2f69
     mov bx, word [bp - 0x003e]       ; 0x2f6c
-    cmp bx, ax                       ; 0x2f6f
-    ja short @..local.l46            ; 0x2f71
-    jmp near @..local.l82            ; 0x2f73
-@..local.l46:
-    sub bx, ax                       ; 0x2f76
-    xor ax, ax                       ; 0x2f78
+    db 0x3b, 0xd8 ; cmp bx, ax
+    ja short loc_2f76                ; 0x2f71
+    db 0xe9, 0xb3, 0x01 ; jmp near loc_3129
+    db 0x2b, 0xd8 ; sub bx, ax
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x0030], ax       ; 0x2f7a
     sub bx, word [bp - 0x0026]       ; 0x2f7d
-    jbe short @..local.l53           ; 0x2f80
+    jbe short loc_2fce               ; 0x2f80
     mov word [bp - 0x0034], bx       ; 0x2f82
     mov cx, word [bp - 0x0026]       ; 0x2f85
     mov bx, word [bp - 0x0032]       ; 0x2f88
-@..local.l47:
     mov al, byte [cs:bx]             ; 0x2f8b
-    and al, dl                       ; 0x2f8e
-    je short @..local.l48            ; 0x2f90
+    db 0x22, 0xc2 ; and al, dl
+    je short loc_2f9e                ; 0x2f90
     inc word [bp - 0x0030]           ; 0x2f92
     mov ax, word [bp - 0x0030]       ; 0x2f95
     cmp ax, word [bp - 0x0034]       ; 0x2f98
-    je short @..local.l50            ; 0x2f9b
+    je short loc_2fa8                ; 0x2f9b
     inc cx                           ; 0x2f9d
-@..local.l48:
     ror dl, 1                        ; 0x2f9e
     cmp dl, 0x80                     ; 0x2fa0
-    jne short @..local.l49           ; 0x2fa3
+    jne short loc_2fa6               ; 0x2fa3
     inc bx                           ; 0x2fa5
-@..local.l49:
-    loop @..local.l47                ; 0x2fa6
-@..local.l50:
+    loop loc_2f8b                    ; 0x2fa6
     mov word [bp - 0x0032], bx       ; 0x2fa8
     mov ax, word [bp - 0x0030]       ; 0x2fab
     add ax, word [bp - 0x0040]       ; 0x2fae
     add ax, word [bp - 0x0028]       ; 0x2fb1
     add ax, word [bp - 0x0026]       ; 0x2fb4
     mov cx, word [bp - 0x003e]       ; 0x2fb7
-    sub cx, ax                       ; 0x2fba
-    jbe short @..local.l53           ; 0x2fbc
+    db 0x2b, 0xc8 ; sub cx, ax
+    db 0x76, 0x10 ; jbe short loc_2fce
     mov bx, word [bp - 0x0032]       ; 0x2fbe
-@..local.l51:
     or byte [cs:bx], dl              ; 0x2fc1
     ror dl, 1                        ; 0x2fc4
     cmp dl, 0x80                     ; 0x2fc6
-    jne short @..local.l52           ; 0x2fc9
+    jne short loc_2fcc               ; 0x2fc9
     inc bx                           ; 0x2fcb
-@..local.l52:
-    loop @..local.l51                ; 0x2fcc
-@..local.l53:
-    jmp near @..local.l67            ; 0x2fce
-@..local.l54:
+    loop loc_2fc1                    ; 0x2fcc
+    jmp near loc_3074                ; 0x2fce
     mov bx, word [bp - 0x001e]       ; 0x2fd1
     inc bx                           ; 0x2fd4
     mov word [bp - 0x003e], bx       ; 0x2fd5
     mov bx, data_2e2b                ; 0x2fd8
     mov dl, 0x80                     ; 0x2fdb
-    xor ax, ax                       ; 0x2fdd
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x0030], ax       ; 0x2fdf
     mov word [bp - 0x0040], ax       ; 0x2fe2
     mov cx, word [bp - 0x002a]       ; 0x2fe5
-    or cx, cx                        ; 0x2fe8
-    je short @..local.l59            ; 0x2fea
-@..local.l55:
+    db 0x0b, 0xc9 ; or cx, cx
+    je short loc_3006                ; 0x2fea
     mov al, byte [cs:bx]             ; 0x2fec
-    and al, dl                       ; 0x2fef
-    jne short @..local.l56           ; 0x2ff1
+    db 0x22, 0xc2 ; and al, dl
+    jne short loc_2ff8               ; 0x2ff1
     or byte [cs:bx], dl              ; 0x2ff3
-    jmp short @..local.l57           ; 0x2ff6
-@..local.l56:
+    jmp short loc_2ffc               ; 0x2ff6
     inc word [bp - 0x0030]           ; 0x2ff8
     inc cx                           ; 0x2ffb
-@..local.l57:
     ror dl, 1                        ; 0x2ffc
     cmp dl, 0x80                     ; 0x2ffe
-    jne short @..local.l58           ; 0x3001
+    jne short loc_3004               ; 0x3001
     inc bx                           ; 0x3003
-@..local.l58:
-    loop @..local.l55                ; 0x3004
-@..local.l59:
+    loop loc_2fec                    ; 0x3004
     mov word [bp - 0x0032], bx       ; 0x3006
     mov ax, word [bp - 0x0030]       ; 0x3009
     mov word [bp - 0x0040], ax       ; 0x300c
     add ax, word [bp - 0x002a]       ; 0x300f
     mov bx, word [bp - 0x003e]       ; 0x3012
-    cmp bx, ax                       ; 0x3015
-    ja short @..local.l60            ; 0x3017
-    jmp near @..local.l82            ; 0x3019
-@..local.l60:
-    sub bx, ax                       ; 0x301c
-    xor ax, ax                       ; 0x301e
+    db 0x3b, 0xd8 ; cmp bx, ax
+    ja short loc_301c                ; 0x3017
+    db 0xe9, 0x0d, 0x01 ; jmp near loc_3129
+    db 0x2b, 0xd8 ; sub bx, ax
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x0030], ax       ; 0x3020
     sub bx, word [bp - 0x0026]       ; 0x3023
-    jbe short @..local.l67           ; 0x3026
+    jbe short loc_3074               ; 0x3026
     mov word [bp - 0x0034], bx       ; 0x3028
     mov cx, word [bp - 0x0026]       ; 0x302b
     mov bx, word [bp - 0x0032]       ; 0x302e
-@..local.l61:
     mov al, byte [cs:bx]             ; 0x3031
-    and al, dl                       ; 0x3034
-    je short @..local.l62            ; 0x3036
+    db 0x22, 0xc2 ; and al, dl
+    je short loc_3044                ; 0x3036
     inc word [bp - 0x0030]           ; 0x3038
     mov ax, word [bp - 0x0030]       ; 0x303b
     cmp ax, word [bp - 0x0034]       ; 0x303e
-    je short @..local.l64            ; 0x3041
+    je short loc_304e                ; 0x3041
     inc cx                           ; 0x3043
-@..local.l62:
     ror dl, 1                        ; 0x3044
     cmp dl, 0x80                     ; 0x3046
-    jne short @..local.l63           ; 0x3049
+    jne short loc_304c               ; 0x3049
     inc bx                           ; 0x304b
-@..local.l63:
-    loop @..local.l61                ; 0x304c
-@..local.l64:
+    loop loc_3031                    ; 0x304c
     mov word [bp - 0x0032], bx       ; 0x304e
     mov ax, word [bp - 0x0030]       ; 0x3051
     add ax, word [bp - 0x0040]       ; 0x3054
     add ax, word [bp - 0x002a]       ; 0x3057
     add ax, word [bp - 0x0026]       ; 0x305a
     mov cx, word [bp - 0x003e]       ; 0x305d
-    sub cx, ax                       ; 0x3060
-    jbe short @..local.l67           ; 0x3062
+    db 0x2b, 0xc8 ; sub cx, ax
+    db 0x76, 0x10 ; jbe short loc_3074
     mov bx, word [bp - 0x0032]       ; 0x3064
-@..local.l65:
     or byte [cs:bx], dl              ; 0x3067
     ror dl, 1                        ; 0x306a
     cmp dl, 0x80                     ; 0x306c
-    jne short @..local.l66           ; 0x306f
+    jne short loc_3072               ; 0x306f
     inc bx                           ; 0x3071
-@..local.l66:
-    loop @..local.l65                ; 0x3072
-@..local.l67:
+    loop loc_3067                    ; 0x3072
     mov ax, word [bp + 0x1a]         ; 0x3074
     and al, 2                        ; 0x3077
-    jne short @..local.l74           ; 0x3079
+    jne short loc_30c2               ; 0x3079
     mov bx, data_2e53                ; 0x307b
     mov dl, 0x80                     ; 0x307e
-    xor ax, ax                       ; 0x3080
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x0030], ax       ; 0x3082
     mov word [bp - 0x0040], ax       ; 0x3085
     mov cx, word [bp - 0x0024]       ; 0x3088
-    or cx, cx                        ; 0x308b
-    je short @..local.l72            ; 0x308d
-@..local.l68:
+    db 0x0b, 0xc9 ; or cx, cx
+    je short loc_30a9                ; 0x308d
     mov al, byte [cs:bx]             ; 0x308f
-    and al, dl                       ; 0x3092
-    jne short @..local.l69           ; 0x3094
+    db 0x22, 0xc2 ; and al, dl
+    jne short loc_309b               ; 0x3094
     or byte [cs:bx], dl              ; 0x3096
-    jmp short @..local.l70           ; 0x3099
-@..local.l69:
+    jmp short loc_309f               ; 0x3099
     inc word [bp - 0x0030]           ; 0x309b
     inc cx                           ; 0x309e
-@..local.l70:
     ror dl, 1                        ; 0x309f
     cmp dl, 0x80                     ; 0x30a1
-    jne short @..local.l71           ; 0x30a4
+    jne short loc_30a7               ; 0x30a4
     inc bx                           ; 0x30a6
-@..local.l71:
-    loop @..local.l68                ; 0x30a7
-@..local.l72:
+    loop loc_308f                    ; 0x30a7
     mov ax, word [bp - 0x0030]       ; 0x30a9
     mov word [bp - 0x0040], ax       ; 0x30ac
     add ax, word [bp - 0x0024]       ; 0x30af
     mov bx, word [bp - 0x0004]       ; 0x30b2
     mov cl, 3                        ; 0x30b5
     shl bx, cl                       ; 0x30b7
-    cmp bx, ax                       ; 0x30b9
-    ja short @..local.l73            ; 0x30bb
-    jmp near @..local.l82            ; 0x30bd
-@..local.l73:
-    jmp short @..local.l80           ; 0x30c0
-@..local.l74:
+    db 0x3b, 0xd8 ; cmp bx, ax
+    ja short loc_30c0                ; 0x30bb
+    db 0xe9, 0x69, 0x00 ; jmp near loc_3129
+    jmp short loc_3101               ; 0x30c0
     mov bx, data_2e53                ; 0x30c2
     mov dl, 0x80                     ; 0x30c5
-    xor ax, ax                       ; 0x30c7
+    db 0x33, 0xc0 ; xor ax, ax
     mov word [bp - 0x0030], ax       ; 0x30c9
     mov word [bp - 0x0040], ax       ; 0x30cc
     mov cx, word [bp - 0x002c]       ; 0x30cf
-    or cx, cx                        ; 0x30d2
-    je short @..local.l79            ; 0x30d4
-@..local.l75:
+    db 0x0b, 0xc9 ; or cx, cx
+    je short loc_30f0                ; 0x30d4
     mov al, byte [cs:bx]             ; 0x30d6
-    and al, dl                       ; 0x30d9
-    jne short @..local.l76           ; 0x30db
+    db 0x22, 0xc2 ; and al, dl
+    jne short loc_30e2               ; 0x30db
     or byte [cs:bx], dl              ; 0x30dd
-    jmp short @..local.l77           ; 0x30e0
-@..local.l76:
+    jmp short loc_30e6               ; 0x30e0
     inc word [bp - 0x0030]           ; 0x30e2
     inc cx                           ; 0x30e5
-@..local.l77:
     ror dl, 1                        ; 0x30e6
     cmp dl, 0x80                     ; 0x30e8
-    jne short @..local.l78           ; 0x30eb
+    jne short loc_30ee               ; 0x30eb
     inc bx                           ; 0x30ed
-@..local.l78:
-    loop @..local.l75                ; 0x30ee
-@..local.l79:
+    loop loc_30d6                    ; 0x30ee
     mov ax, word [bp - 0x0030]       ; 0x30f0
     add ax, word [bp - 0x002c]       ; 0x30f3
     mov bx, word [bp - 0x0004]       ; 0x30f6
     mov cl, 3                        ; 0x30f9
     shl bx, cl                       ; 0x30fb
-    cmp bx, ax                       ; 0x30fd
-    jbe short @..local.l82           ; 0x30ff
-@..local.l80:
+    db 0x3b, 0xd8 ; cmp bx, ax
+    jbe short loc_3129               ; 0x30ff
     mov ax, word [bp + 0x20]         ; 0x3101
     mov bl, 0xc                      ; 0x3104
     div bl                           ; 0x3106
-    xor ah, ah                       ; 0x3108
+    db 0x32, 0xe4 ; xor ah, ah
     mov word [bp - 0x0030], ax       ; 0x310a
-@..local.l81:
     mov si, word [bp + 0x1c]         ; 0x310d
     mov bx, word [bp - 0x0008]       ; 0x3110
     mov ds, bx                       ; 0x3113
-    xor ah, ah                       ; 0x3115
+    db 0x32, 0xe4 ; xor ah, ah
     mov al, byte [ss:si]             ; 0x3117
-    or al, al                        ; 0x311a
-    je short @..local.l82            ; 0x311c
-    call dos_con_loc_3131            ; 0x311e
-    call math_loc_31d9               ; 0x3121
+    db 0x0a, 0xc0 ; or al, al
+    je short loc_3129                ; 0x311c
+    call loc_3131                    ; 0x311e
+    call loc_31d9                    ; 0x3121
     inc word [bp + 0x1c]             ; 0x3124
-    jmp short @..local.l81           ; 0x3127
-@..local.l82:
+    jmp short loc_310d               ; 0x3127
     pop di                           ; 0x3129
     pop si                           ; 0x312a
     pop es                           ; 0x312b
     pop ds                           ; 0x312c
-    mov sp, bp                       ; 0x312d
+    db 0x8b, 0xe5 ; mov sp, bp
     pop bp                           ; 0x312f
     ret                              ; 0x3130
-dos_con_loc_3131:
     dec ax                           ; 0x3131
     cmp ax, word [bp - 0x0012]       ; 0x3132
-    jb short @..dos_con_loc_3131.l1  ; 0x3135
+    jb short loc_3188                ; 0x3135
     mov bl, 0xa                      ; 0x3137
     div bl                           ; 0x3139
     or byte [cs:data_326f], al       ; 0x313b
@@ -3358,701 +2330,98 @@ dos_con_loc_3131:
 
     db 0x0d, 0x0a, 0x07
     db 'Frame 00 too big in slot 00.', 0
-    db 0x0a, 0x24
-
-@..dos_con_loc_3131.l1:
-    mov cl, 2                        ; 0x3188
-    shl al, cl                       ; 0x318a
-    mov bx, 2                        ; 0x318c
-    add bx, ax                       ; 0x318f
-    mov ax, word [bx]                ; 0x3191
-    mov dx, word [bx + 0x2]          ; 0x3193
-    mov bx, ds                       ; 0x3196
-    add bx, dx                       ; 0x3198
-    mov ds, bx                       ; 0x319a
-    mov bx, ax                       ; 0x319c
-    ret                              ; 0x319e
-leaf_loc_319f:
-    jmp short @..leaf_loc_319f.l2    ; 0x319f
-@..leaf_loc_319f.l1:
-    add si, word [bp - 0x0030]       ; 0x31a1
-@..leaf_loc_319f.l2:
-    add word [bp - 0x003c], dx       ; 0x31a4
-    mov bx, word [bp - 0x003c]       ; 0x31a7
-    cmp bx, word [bp - 0x0034]       ; 0x31aa
-    jb short @..leaf_loc_319f.l3     ; 0x31ad
-    sub bx, word [bp - 0x0034]       ; 0x31af
-    mov word [bp - 0x003c], bx       ; 0x31b2
-    inc si                           ; 0x31b5
-@..leaf_loc_319f.l3:
-    cmp si, word [bp - 0x0032]       ; 0x31b6
-    jb short @..local.l83            ; 0x31b9
-@..leaf_loc_319f.l4:
-    ret                              ; 0x31bb
-@..local.l83:
-    test si, 0x8000                  ; 0x31bc
-    jne short @..leaf_loc_319f.l4    ; 0x31c0
-    mov cl, 3                        ; 0x31c2
-    mov ax, si                       ; 0x31c4
-    shr ax, cl                       ; 0x31c6
-    mov bx, ax                       ; 0x31c8
-    mov ax, si                       ; 0x31ca
-    and al, 7                        ; 0x31cc
-    mov cl, al                       ; 0x31ce
-    mov al, 0x80                     ; 0x31d0
-    shr al, cl                       ; 0x31d2
-    or byte [cs:bx + di], al         ; 0x31d4
-    jmp short @..leaf_loc_319f.l1    ; 0x31d7
-math_loc_31d9:
-    push es                          ; 0x31d9
-    mov ax, word [cs:data_01e5]      ; 0x31da
-    mov es, ax                       ; 0x31de
-    mov ax, data_2e53                ; 0x31e0
-    mov word [bp - 0x0036], ax       ; 0x31e3
-    xor ax, ax                       ; 0x31e6
-    mov word [bp - 0x003c], ax       ; 0x31e8
-    mov word [bp - 0x003e], ax       ; 0x31eb
-    mov ax, word [bp + 0x1a]         ; 0x31ee
-    cmp al, 2                        ; 0x31f1
-    jne short @..math_loc_31d9.l1    ; 0x31f3
-    jmp near @..local.l111           ; 0x31f5
-@..math_loc_31d9.l1:
-    cmp al, 3                        ; 0x31f8
-    jne short @..math_loc_31d9.l2    ; 0x31fa
-    jmp near @..local.l136           ; 0x31fc
-@..math_loc_31d9.l2:
-    mov ax, word [bp - 0x0006]       ; 0x31ff
-    mov word [bp - 0x000e], ax       ; 0x3202
-    mov si, word [bx]                ; 0x3205
-    add si, bx                       ; 0x3207
-    mov word [bp - 0x000a], 1        ; 0x3209
-    lea ax, word [bx + 0x4]          ; 0x320e
-    mov word [bp - 0x000c], ax       ; 0x3211
-    mov cx, word [bp - 0x0004]       ; 0x3214
-    mov byte [bp - 0x003a], 0x80     ; 0x3217
-    mov ax, word [bp + 0x1a]         ; 0x321b
-    cmp al, 1                        ; 0x321e
-    jne short @..math_loc_31d9.l3    ; 0x3220
-    jmp near @..local.l86            ; 0x3222
-@..math_loc_31d9.l3:
-    mov ax, word [bp - 0x0028]       ; 0x3225
-    add word [bp - 0x000e], ax       ; 0x3228
-    mov ax, word [bp - 0x0024]       ; 0x322b
-    mov bx, 0x140                    ; 0x322e
-    mul bx                           ; 0x3231
-    add word [bp - 0x000e], ax       ; 0x3233
-@..math_loc_31d9.l4:
-    mov ax, word [bp - 0x0022]       ; 0x3236
-    mov di, word [bp - 0x000e]       ; 0x3239
-    cmp di, ax                       ; 0x323c
-    jb short @..math_loc_31d9.l5     ; 0x323e
-    jmp near @..math_loc_31d9.l25    ; 0x3240
-@..math_loc_31d9.l5:
-    push cx                          ; 0x3243
-    call math_loc_3340               ; 0x3244
-    mov ax, data_2e2b                ; 0x3247
-    mov word [bp - 0x0034], ax       ; 0x324a
-    mov cx, word [bp - 0x0002]       ; 0x324d
-@..math_loc_31d9.l6:
-    push cx                          ; 0x3250
-    call math_loc_3360               ; 0x3251
-    mov bx, word [bp - 0x000c]       ; 0x3254
-    mov al, byte [bx]                ; 0x3257
-    and al, byte [bp - 0x000a]       ; 0x3259
-    jne short @..math_loc_31d9.l7    ; 0x325c
-    jmp near @..math_loc_31d9.l23    ; 0x325e
-@..math_loc_31d9.l7:
-    mov bx, word [bp - 0x0034]       ; 0x3261
-    mov al, byte [cs:bx]             ; 0x3264
-    cmp al, 0xff                     ; 0x3267
-    jne short @..math_loc_31d9.l8    ; 0x3269
-    add si, byte 0x40                ; 0x326b
-    jmp near @..math_loc_31d9.l23    ; 0x326e
-@..math_loc_31d9.l8:
-    push di                          ; 0x3271
-    push si                          ; 0x3272
-    mov al, 0x80                     ; 0x3273
-    mov byte [bp - 0x0038], al       ; 0x3275
-    mov cx, 8                        ; 0x3278
-@..math_loc_31d9.l9:
-    cmp di, word [bp - 0x0022]       ; 0x327b
-    jb short @..math_loc_31d9.l10    ; 0x327e
-    jmp near @..math_loc_31d9.l22    ; 0x3280
-@..math_loc_31d9.l10:
-    mov bx, word [bp - 0x0036]       ; 0x3283
-    mov al, byte [cs:bx]             ; 0x3286
-    and al, byte [bp - 0x0038]       ; 0x3289
-    je short @..math_loc_31d9.l11    ; 0x328c
-    jmp near @..math_loc_31d9.l21    ; 0x328e
-@..math_loc_31d9.l11:
-    push cx                          ; 0x3291
-    push di                          ; 0x3292
-    mov al, 0x80                     ; 0x3293
-    mov byte [bp - 0x0032], al       ; 0x3295
-    mov cx, 8                        ; 0x3298
-@..math_loc_31d9.l12:
-    mov bx, word [bp - 0x0034]       ; 0x329b
-    mov al, byte [cs:bx]             ; 0x329e
-    and al, byte [bp - 0x0032]       ; 0x32a1
-    jne short @..math_loc_31d9.l20   ; 0x32a4
-    xor ah, ah                       ; 0x32a6
-    mov al, byte [si]                ; 0x32a8
-    cmp al, 0xff                     ; 0x32aa
-    je short @..math_loc_31d9.l17    ; 0x32ac
-    cmp byte [bp + 0x1e], 2          ; 0x32ae
-    jne short @..math_loc_31d9.l14   ; 0x32b2
-    mov al, byte [es:di]             ; 0x32b4
-    mov bx, data_381b                ; 0x32b7
-    add bx, ax                       ; 0x32ba
-    add al, byte [si]                ; 0x32bc
-    jb short @..math_loc_31d9.l13    ; 0x32be
-    cmp al, byte [cs:bx]             ; 0x32c0
-    jb short @..math_loc_31d9.l16    ; 0x32c3
-@..math_loc_31d9.l13:
-    mov al, byte [cs:bx]             ; 0x32c5
-    jmp short @..math_loc_31d9.l16   ; 0x32c8
-@..math_loc_31d9.l14:
-    cmp byte [bp - 0x0030], 0        ; 0x32ca
-    je short @..math_loc_31d9.l16    ; 0x32ce
-    mov bx, data_381b                ; 0x32d0
-    add bx, ax                       ; 0x32d3
-    add al, byte [bp - 0x0030]       ; 0x32d5
-    jb short @..math_loc_31d9.l15    ; 0x32d8
-    cmp al, byte [cs:bx]             ; 0x32da
-    jb short @..math_loc_31d9.l16    ; 0x32dd
-@..math_loc_31d9.l15:
-    mov al, byte [cs:bx]             ; 0x32df
-@..math_loc_31d9.l16:
-    mov byte [es:di], al             ; 0x32e2
-@..math_loc_31d9.l17:
-    inc si                           ; 0x32e5
-    inc di                           ; 0x32e6
-    ror byte [bp - 0x0032], 1        ; 0x32e7
-    loop @..math_loc_31d9.l12        ; 0x32ea
-@..math_loc_31d9.l18:
-    pop di                           ; 0x32ec
-    pop cx                           ; 0x32ed
-    add di, strict word 0x140        ; 0x32ee
-@..math_loc_31d9.l19:
-    ror byte [bp - 0x0038], 1        ; 0x32f2
-    loop @..math_loc_31d9.l9         ; 0x32f5
-    jmp short @..math_loc_31d9.l22   ; 0x32f7
-@..math_loc_31d9.l20:
-    inc si                           ; 0x32f9
-    ror byte [bp - 0x0032], 1        ; 0x32fa
-    loop @..math_loc_31d9.l12        ; 0x32fd
-    jmp short @..math_loc_31d9.l18   ; 0x32ff
-@..math_loc_31d9.l21:
-    add si, byte 8                   ; 0x3301
-    jmp short @..math_loc_31d9.l19   ; 0x3304
-@..math_loc_31d9.l22:
-    pop si                           ; 0x3306
-    add si, byte 0x40                ; 0x3307
-    pop di                           ; 0x330a
-@..math_loc_31d9.l23:
-    add di, byte 8                   ; 0x330b
-    sub di, word [bp - 0x003c]       ; 0x330e
-    rol byte [bp - 0x000a], 1        ; 0x3311
-    cmp byte [bp - 0x000a], 1        ; 0x3314
-    jne short @..math_loc_31d9.l24   ; 0x3318
-    inc word [bp - 0x000c]           ; 0x331a
-@..math_loc_31d9.l24:
-    inc word [bp - 0x0034]           ; 0x331d
-    pop cx                           ; 0x3320
-    loop @..local.l84                ; 0x3321
-    pop cx                           ; 0x3323
-    add word [bp - 0x000e], strict word 0xa00 ; 0x3324
-    mov ax, word [bp - 0x003e]       ; 0x3329
-    sub word [bp - 0x000e], ax       ; 0x332c
-    inc word [bp - 0x0036]           ; 0x332f
-    mov byte [bp - 0x003a], 0x80     ; 0x3332
-    loop @..local.l85                ; 0x3336
-@..math_loc_31d9.l25:
-    pop es                           ; 0x3338
-    ret                              ; 0x3339
-@..local.l84:
-    jmp near @..math_loc_31d9.l6     ; 0x333a
-@..local.l85:
-    jmp near @..math_loc_31d9.l4     ; 0x333d
-math_loc_3340:
-    mov al, 0x80                     ; 0x3340
-    mov dl, al                       ; 0x3342
-    xor ax, ax                       ; 0x3344
-    mov word [bp - 0x003e], ax       ; 0x3346
-    mov bx, word [bp - 0x0036]       ; 0x3349
-    mov cx, 8                        ; 0x334c
-@..math_loc_3340.l1:
-    mov al, byte [cs:bx]             ; 0x334f
-    and al, dl                       ; 0x3352
-    je short @..math_loc_3340.l2     ; 0x3354
-    add word [bp - 0x003e], strict word 0x140 ; 0x3356
-@..math_loc_3340.l2:
-    ror dl, 1                        ; 0x335b
-    loop @..math_loc_3340.l1         ; 0x335d
-    ret                              ; 0x335f
-math_loc_3360:
-    xor ax, ax                       ; 0x3360
-    mov word [bp - 0x003c], ax       ; 0x3362
-    mov dl, 0x80                     ; 0x3365
-    mov bx, word [bp - 0x0034]       ; 0x3367
-    mov cx, 8                        ; 0x336a
-@..math_loc_3360.l1:
-    mov al, byte [cs:bx]             ; 0x336d
-    and al, dl                       ; 0x3370
-    je short @..math_loc_3360.l2     ; 0x3372
-    inc word [bp - 0x003c]           ; 0x3374
-@..math_loc_3360.l2:
-    ror dl, 1                        ; 0x3377
-    loop @..math_loc_3360.l1         ; 0x3379
-    ret                              ; 0x337b
-@..local.l86:
-    mov ax, word [bp - 0x002a]       ; 0x337c
-    sub word [bp - 0x000e], ax       ; 0x337f
-    mov ax, word [bp - 0x0024]       ; 0x3382
-    mov bx, 0x140                    ; 0x3385
-    mul bx                           ; 0x3388
-    add word [bp - 0x000e], ax       ; 0x338a
-@..local.l87:
-    mov ax, word [bp - 0x0022]       ; 0x338d
-    mov di, word [bp - 0x000e]       ; 0x3390
-    add di, word [bp - 0x001e]       ; 0x3393
-    cmp di, ax                       ; 0x3396
-    jb short @..local.l88            ; 0x3398
-    jmp near @..local.l108           ; 0x339a
-@..local.l88:
-    push cx                          ; 0x339d
-    call math_loc_3340               ; 0x339e
-    mov ax, data_2e2b                ; 0x33a1
-    mov word [bp - 0x0034], ax       ; 0x33a4
-    mov cx, word [bp - 0x0002]       ; 0x33a7
-@..local.l89:
-    push cx                          ; 0x33aa
-    call math_loc_3360               ; 0x33ab
-    mov bx, word [bp - 0x000c]       ; 0x33ae
-    mov al, byte [bx]                ; 0x33b1
-    and al, byte [bp - 0x000a]       ; 0x33b3
-    jne short @..local.l90           ; 0x33b6
-    jmp near @..local.l106           ; 0x33b8
-@..local.l90:
-    mov bx, word [bp - 0x0034]       ; 0x33bb
-    mov al, byte [cs:bx]             ; 0x33be
-    cmp al, 0xff                     ; 0x33c1
-    jne short @..local.l91           ; 0x33c3
-    add si, byte 0x40                ; 0x33c5
-    jmp near @..local.l106           ; 0x33c8
-@..local.l91:
-    push di                          ; 0x33cb
-    push si                          ; 0x33cc
-    mov al, 0x80                     ; 0x33cd
-    mov byte [bp - 0x0038], al       ; 0x33cf
-    mov cx, 8                        ; 0x33d2
-@..local.l92:
-    cmp di, word [bp - 0x0022]       ; 0x33d5
-    jb short @..local.l93            ; 0x33d8
-    jmp near @..local.l105           ; 0x33da
-@..local.l93:
-    mov bx, word [bp - 0x0036]       ; 0x33dd
-    mov al, byte [cs:bx]             ; 0x33e0
-    and al, byte [bp - 0x0038]       ; 0x33e3
-    je short @..local.l94            ; 0x33e6
-    jmp near @..local.l104           ; 0x33e8
-@..local.l94:
-    push cx                          ; 0x33eb
-    push di                          ; 0x33ec
-    mov al, 0x80                     ; 0x33ed
-    mov byte [bp - 0x0032], al       ; 0x33ef
-    mov cx, 8                        ; 0x33f2
-@..local.l95:
-    mov bx, word [bp - 0x0034]       ; 0x33f5
-    mov al, byte [cs:bx]             ; 0x33f8
-    and al, byte [bp - 0x0032]       ; 0x33fb
-    jne short @..local.l103          ; 0x33fe
-    mov al, byte [si]                ; 0x3400
-    cmp al, 0xff                     ; 0x3402
-    je short @..local.l100           ; 0x3404
-    cmp byte [bp + 0x1e], 2          ; 0x3406
-    jne short @..local.l97           ; 0x340a
-    mov al, byte [es:di]             ; 0x340c
-    mov bx, data_381b                ; 0x340f
-    add bx, ax                       ; 0x3412
-    add al, byte [si]                ; 0x3414
-    jb short @..local.l96            ; 0x3416
-    cmp al, byte [cs:bx]             ; 0x3418
-    jb short @..local.l99            ; 0x341b
-@..local.l96:
-    mov al, byte [cs:bx]             ; 0x341d
-    jmp short @..local.l99           ; 0x3420
-@..local.l97:
-    cmp byte [bp - 0x0030], 0        ; 0x3422
-    je short @..local.l99            ; 0x3426
-    mov bx, data_381b                ; 0x3428
-    add bx, ax                       ; 0x342b
-    add al, byte [bp - 0x0030]       ; 0x342d
-    jb short @..local.l98            ; 0x3430
-    cmp al, byte [cs:bx]             ; 0x3432
-    jb short @..local.l99            ; 0x3435
-@..local.l98:
-    mov al, byte [cs:bx]             ; 0x3437
-@..local.l99:
-    mov byte [es:di], al             ; 0x343a
-@..local.l100:
-    inc si                           ; 0x343d
-    dec di                           ; 0x343e
-    ror byte [bp - 0x0032], 1        ; 0x343f
-    loop @..local.l95                ; 0x3442
-@..local.l101:
-    pop di                           ; 0x3444
-    pop cx                           ; 0x3445
-    add di, strict word 0x140        ; 0x3446
-@..local.l102:
-    ror byte [bp - 0x0038], 1        ; 0x344a
-    loop @..local.l92                ; 0x344d
-    jmp short @..local.l105          ; 0x344f
-@..local.l103:
-    inc si                           ; 0x3451
-    ror byte [bp - 0x0032], 1        ; 0x3452
-    loop @..local.l95                ; 0x3455
-    jmp short @..local.l101          ; 0x3457
-@..local.l104:
-    add si, byte 8                   ; 0x3459
-    jmp short @..local.l102          ; 0x345c
-@..local.l105:
-    pop si                           ; 0x345e
-    add si, byte 0x40                ; 0x345f
-    pop di                           ; 0x3462
-@..local.l106:
-    sub di, byte 8                   ; 0x3463
-    add di, word [bp - 0x003c]       ; 0x3466
-    rol byte [bp - 0x000a], 1        ; 0x3469
-    cmp byte [bp - 0x000a], 1        ; 0x346c
-    jne short @..local.l107          ; 0x3470
-    inc word [bp - 0x000c]           ; 0x3472
-@..local.l107:
-    inc word [bp - 0x0034]           ; 0x3475
-    pop cx                           ; 0x3478
-    loop @..local.l109               ; 0x3479
-    pop cx                           ; 0x347b
-    add word [bp - 0x000e], strict word 0xa00 ; 0x347c
-    mov ax, word [bp - 0x003e]       ; 0x3481
-    sub word [bp - 0x000e], ax       ; 0x3484
-    inc word [bp - 0x0036]           ; 0x3487
-    mov byte [bp - 0x003a], 0x80     ; 0x348a
-    loop @..local.l110               ; 0x348e
-@..local.l108:
-    pop es                           ; 0x3490
-    ret                              ; 0x3491
-@..local.l109:
-    jmp near @..local.l89            ; 0x3492
-@..local.l110:
-    jmp near @..local.l87            ; 0x3495
-@..local.l111:
-    mov ax, word [bp - 0x0004]       ; 0x3498
-    mov cx, 0xa00                    ; 0x349b
-    mul cx                           ; 0x349e
-    sub ax, 0x140                    ; 0x34a0
-    add ax, word [bp - 0x0006]       ; 0x34a3
-    mov word [bp - 0x000e], ax       ; 0x34a6
-    mov si, word [bx]                ; 0x34a9
-    add si, bx                       ; 0x34ab
-    mov word [bp - 0x000a], 1        ; 0x34ad
-    lea ax, word [bx + 0x4]          ; 0x34b2
-    mov word [bp - 0x000c], ax       ; 0x34b5
-    mov cx, word [bp - 0x0004]       ; 0x34b8
-    mov byte [bp - 0x003a], 0x80     ; 0x34bb
-    mov ax, word [bp - 0x0028]       ; 0x34bf
-    add word [bp - 0x000e], ax       ; 0x34c2
-    mov ax, word [bp - 0x002c]       ; 0x34c5
-    mov bx, 0x140                    ; 0x34c8
-    mul bx                           ; 0x34cb
-    sub word [bp - 0x000e], ax       ; 0x34cd
-@..local.l112:
-    mov ax, word [bp - 0x002e]       ; 0x34d0
-    mov di, word [bp - 0x000e]       ; 0x34d3
-    cmp ax, di                       ; 0x34d6
-    jbe short @..local.l113          ; 0x34d8
-    jmp near @..local.l133           ; 0x34da
-@..local.l113:
-    push cx                          ; 0x34dd
-    call math_loc_3340               ; 0x34de
-    mov ax, data_2e2b                ; 0x34e1
-    mov word [bp - 0x0034], ax       ; 0x34e4
-    mov cx, word [bp - 0x0002]       ; 0x34e7
-@..local.l114:
-    push cx                          ; 0x34ea
-    call math_loc_3360               ; 0x34eb
-    mov bx, word [bp - 0x000c]       ; 0x34ee
-    mov al, byte [bx]                ; 0x34f1
-    and al, byte [bp - 0x000a]       ; 0x34f3
-    jne short @..local.l115          ; 0x34f6
-    jmp near @..local.l131           ; 0x34f8
-@..local.l115:
-    mov bx, word [bp - 0x0034]       ; 0x34fb
-    mov al, byte [cs:bx]             ; 0x34fe
-    cmp al, 0xff                     ; 0x3501
-    jne short @..local.l116          ; 0x3503
-    add si, byte 0x40                ; 0x3505
-    jmp near @..local.l131           ; 0x3508
-@..local.l116:
-    push di                          ; 0x350b
-    push si                          ; 0x350c
-    mov al, 0x80                     ; 0x350d
-    mov byte [bp - 0x0038], al       ; 0x350f
-    mov cx, 8                        ; 0x3512
-@..local.l117:
-    cmp word [bp - 0x002e], di       ; 0x3515
-    jbe short @..local.l118          ; 0x3518
-    jmp near @..local.l130           ; 0x351a
-@..local.l118:
-    mov bx, word [bp - 0x0036]       ; 0x351d
-    mov al, byte [cs:bx]             ; 0x3520
-    and al, byte [bp - 0x0038]       ; 0x3523
-    je short @..local.l119           ; 0x3526
-    jmp near @..local.l129           ; 0x3528
-@..local.l119:
-    push cx                          ; 0x352b
-    push di                          ; 0x352c
-    mov al, 0x80                     ; 0x352d
-    mov byte [bp - 0x0032], al       ; 0x352f
-    mov cx, 8                        ; 0x3532
-@..local.l120:
-    mov bx, word [bp - 0x0034]       ; 0x3535
-    mov al, byte [cs:bx]             ; 0x3538
-    and al, byte [bp - 0x0032]       ; 0x353b
-    jne short @..local.l128          ; 0x353e
-    mov al, byte [si]                ; 0x3540
-    cmp al, 0xff                     ; 0x3542
-    je short @..local.l125           ; 0x3544
-    cmp byte [bp + 0x1e], 2          ; 0x3546
-    jne short @..local.l122          ; 0x354a
-    mov al, byte [es:di]             ; 0x354c
-    mov bx, data_381b                ; 0x354f
-    add bx, ax                       ; 0x3552
-    add al, byte [si]                ; 0x3554
-    jb short @..local.l121           ; 0x3556
-    cmp al, byte [cs:bx]             ; 0x3558
-    jb short @..local.l124           ; 0x355b
-@..local.l121:
-    mov al, byte [cs:bx]             ; 0x355d
-    jmp short @..local.l124          ; 0x3560
-@..local.l122:
-    cmp byte [bp - 0x0030], 0        ; 0x3562
-    je short @..local.l124           ; 0x3566
-    mov bx, data_381b                ; 0x3568
-    add bx, ax                       ; 0x356b
-    add al, byte [bp - 0x0030]       ; 0x356d
-    jb short @..local.l123           ; 0x3570
-    cmp al, byte [cs:bx]             ; 0x3572
-    jb short @..local.l124           ; 0x3575
-@..local.l123:
-    mov al, byte [cs:bx]             ; 0x3577
-@..local.l124:
-    mov byte [es:di], al             ; 0x357a
-@..local.l125:
-    inc si                           ; 0x357d
-    inc di                           ; 0x357e
-    ror byte [bp - 0x0032], 1        ; 0x357f
-    loop @..local.l120               ; 0x3582
-@..local.l126:
-    pop di                           ; 0x3584
-    sub di, strict word 0x140        ; 0x3585
-    pop cx                           ; 0x3589
-@..local.l127:
-    ror byte [bp - 0x0038], 1        ; 0x358a
-    loop @..local.l117               ; 0x358d
-    jmp short @..local.l130          ; 0x358f
-@..local.l128:
-    inc si                           ; 0x3591
-    ror byte [bp - 0x0032], 1        ; 0x3592
-    loop @..local.l120               ; 0x3595
-    jmp short @..local.l126          ; 0x3597
-@..local.l129:
-    add si, byte 8                   ; 0x3599
-    jmp short @..local.l127          ; 0x359c
-@..local.l130:
-    pop si                           ; 0x359e
-    add si, byte 0x40                ; 0x359f
-    pop di                           ; 0x35a2
-@..local.l131:
-    add di, byte 8                   ; 0x35a3
-    sub di, word [bp - 0x003c]       ; 0x35a6
-    rol byte [bp - 0x000a], 1        ; 0x35a9
-    cmp byte [bp - 0x000a], 1        ; 0x35ac
-    jne short @..local.l132          ; 0x35b0
-    inc word [bp - 0x000c]           ; 0x35b2
-@..local.l132:
-    inc word [bp - 0x0034]           ; 0x35b5
-    pop cx                           ; 0x35b8
-    loop @..local.l134               ; 0x35b9
-    pop cx                           ; 0x35bb
-    sub word [bp - 0x000e], strict word 0xa00 ; 0x35bc
-    mov ax, word [bp - 0x003e]       ; 0x35c1
-    add word [bp - 0x000e], ax       ; 0x35c4
-    inc word [bp - 0x0036]           ; 0x35c7
-    mov byte [bp - 0x003a], 0x80     ; 0x35ca
-    loop @..local.l135               ; 0x35ce
-@..local.l133:
-    pop es                           ; 0x35d0
-    ret                              ; 0x35d1
-@..local.l134:
-    jmp near @..local.l114           ; 0x35d2
-@..local.l135:
-    jmp near @..local.l112           ; 0x35d5
-@..local.l136:
-    mov ax, word [bp - 0x0004]       ; 0x35d8
-    mov cx, 0xa00                    ; 0x35db
-    mul cx                           ; 0x35de
-    sub ax, 0x140                    ; 0x35e0
-    add ax, word [bp - 0x0006]       ; 0x35e3
-    mov word [bp - 0x000e], ax       ; 0x35e6
-    mov si, word [bx]                ; 0x35e9
-    add si, bx                       ; 0x35eb
-    mov word [bp - 0x000a], 1        ; 0x35ed
-    lea ax, word [bx + 0x4]          ; 0x35f2
-    mov word [bp - 0x000c], ax       ; 0x35f5
-    mov cx, word [bp - 0x0004]       ; 0x35f8
-    mov byte [bp - 0x003a], 0x80     ; 0x35fb
-    mov ax, word [bp - 0x002a]       ; 0x35ff
-    sub word [bp - 0x000e], ax       ; 0x3602
-    mov ax, word [bp - 0x002c]       ; 0x3605
-    mov bx, 0x140                    ; 0x3608
-    mul bx                           ; 0x360b
-    sub word [bp - 0x000e], ax       ; 0x360d
-@..local.l137:
-    mov ax, word [bp - 0x002e]       ; 0x3610
-    mov di, word [bp - 0x000e]       ; 0x3613
-    add di, word [bp - 0x001e]       ; 0x3616
-    cmp ax, di                       ; 0x3619
-    jb short @..local.l138           ; 0x361b
-    jmp near @..local.l158           ; 0x361d
-@..local.l138:
-    push cx                          ; 0x3620
-    call math_loc_3340               ; 0x3621
-    mov ax, data_2e2b                ; 0x3624
-    mov word [bp - 0x0034], ax       ; 0x3627
-    mov cx, word [bp - 0x0002]       ; 0x362a
-@..local.l139:
-    push cx                          ; 0x362d
-    call math_loc_3360               ; 0x362e
-    mov bx, word [bp - 0x000c]       ; 0x3631
-    mov al, byte [bx]                ; 0x3634
-    and al, byte [bp - 0x000a]       ; 0x3636
-    jne short @..local.l140          ; 0x3639
-    jmp near @..local.l156           ; 0x363b
-@..local.l140:
-    mov bx, word [bp - 0x0034]       ; 0x363e
-    mov al, byte [cs:bx]             ; 0x3641
-    cmp al, 0xff                     ; 0x3644
-    jne short @..local.l141          ; 0x3646
-    add si, byte 0x40                ; 0x3648
-    jmp near @..local.l156           ; 0x364b
-@..local.l141:
-    push di                          ; 0x364e
-    push si                          ; 0x364f
-    mov al, 0x80                     ; 0x3650
-    mov byte [bp - 0x0038], al       ; 0x3652
-    mov cx, 8                        ; 0x3655
-@..local.l142:
-    cmp word [bp - 0x002e], di       ; 0x3658
-    jbe short @..local.l143          ; 0x365b
-    jmp near @..local.l155           ; 0x365d
-@..local.l143:
-    mov bx, word [bp - 0x0036]       ; 0x3660
-    mov al, byte [cs:bx]             ; 0x3663
-    and al, byte [bp - 0x0038]       ; 0x3666
-    je short @..local.l144           ; 0x3669
-    jmp near @..local.l154           ; 0x366b
-@..local.l144:
-    push cx                          ; 0x366e
-    push di                          ; 0x366f
-    mov al, 0x80                     ; 0x3670
-    mov byte [bp - 0x0032], al       ; 0x3672
-    mov cx, 8                        ; 0x3675
-@..local.l145:
-    mov bx, word [bp - 0x0034]       ; 0x3678
-    mov al, byte [cs:bx]             ; 0x367b
-    and al, byte [bp - 0x0032]       ; 0x367e
-    jne short @..local.l153          ; 0x3681
-    mov al, byte [si]                ; 0x3683
-    cmp al, 0xff                     ; 0x3685
-    je short @..local.l150           ; 0x3687
-    cmp byte [bp + 0x1e], 2          ; 0x3689
-    jne short @..local.l147          ; 0x368d
-    mov al, byte [es:di]             ; 0x368f
-    mov bx, data_381b                ; 0x3692
-    add bx, ax                       ; 0x3695
-    add al, byte [si]                ; 0x3697
-    jb short @..local.l146           ; 0x3699
-    cmp al, byte [cs:bx]             ; 0x369b
-    jb short @..local.l149           ; 0x369e
-@..local.l146:
-    mov al, byte [cs:bx]             ; 0x36a0
-    jmp short @..local.l149          ; 0x36a3
-@..local.l147:
-    cmp byte [bp - 0x0030], 0        ; 0x36a5
-    je short @..local.l149           ; 0x36a9
-    mov bx, data_381b                ; 0x36ab
-    add bx, ax                       ; 0x36ae
-    add al, byte [bp - 0x0030]       ; 0x36b0
-    jb short @..local.l148           ; 0x36b3
-    cmp al, byte [cs:bx]             ; 0x36b5
-    jb short @..local.l149           ; 0x36b8
-@..local.l148:
-    mov al, byte [cs:bx]             ; 0x36ba
-@..local.l149:
-    mov byte [es:di], al             ; 0x36bd
-@..local.l150:
-    inc si                           ; 0x36c0
-    dec di                           ; 0x36c1
-    ror byte [bp - 0x0032], 1        ; 0x36c2
-    loop @..local.l145               ; 0x36c5
-@..local.l151:
-    pop di                           ; 0x36c7
-    sub di, strict word 0x140        ; 0x36c8
-    pop cx                           ; 0x36cc
-@..local.l152:
-    ror byte [bp - 0x0038], 1        ; 0x36cd
-    loop @..local.l142               ; 0x36d0
-    jmp short @..local.l155          ; 0x36d2
-@..local.l153:
-    inc si                           ; 0x36d4
-    ror byte [bp - 0x0032], 1        ; 0x36d5
-    loop @..local.l145               ; 0x36d8
-    jmp short @..local.l151          ; 0x36da
-@..local.l154:
-    add si, byte 8                   ; 0x36dc
-    jmp short @..local.l152          ; 0x36df
-@..local.l155:
-    pop si                           ; 0x36e1
-    add si, byte 0x40                ; 0x36e2
-    pop di                           ; 0x36e5
-@..local.l156:
-    sub di, byte 8                   ; 0x36e6
-    add di, word [bp - 0x003c]       ; 0x36e9
-    rol byte [bp - 0x000a], 1        ; 0x36ec
-    cmp byte [bp - 0x000a], 1        ; 0x36ef
-    jne short @..local.l157          ; 0x36f3
-    inc word [bp - 0x000c]           ; 0x36f5
-@..local.l157:
-    inc word [bp - 0x0034]           ; 0x36f8
-    pop cx                           ; 0x36fb
-    loop @..local.l159               ; 0x36fc
-    pop cx                           ; 0x36fe
-    sub word [bp - 0x000e], strict word 0xa00 ; 0x36ff
-    mov ax, word [bp - 0x003e]       ; 0x3704
-    add word [bp - 0x000e], ax       ; 0x3707
-    inc word [bp - 0x0036]           ; 0x370a
-    mov byte [bp - 0x003a], 0x80     ; 0x370d
-    loop @..local.l160               ; 0x3711
-@..local.l158:
-    pop es                           ; 0x3713
-    ret                              ; 0x3714
-@..local.l159:
-    jmp near @..local.l139           ; 0x3715
-@..local.l160:
-    jmp near @..local.l137           ; 0x3718
-
-    db 0x00, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f
-    db 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f
+    db 0x0a, 0x24, 0xb1, 0x02, 0xd2, 0xe0, 0xbb, 0x02, 0x00, 0x03, 0xd8, 0x8b, 0x07, 0x8b, 0x57, 0x02
+    db 0x8c, 0xdb, 0x03, 0xda, 0x8e, 0xdb, 0x8b, 0xd8, 0xc3, 0xeb, 0x03, 0x03, 0x76, 0xd0, 0x01, 0x56
+    db 0xc4, 0x8b, 0x5e, 0xc4, 0x3b, 0x5e, 0xcc, 0x72, 0x07, 0x2b, 0x5e, 0xcc, 0x89, 0x5e, 0xc4, 0x46
+    db 0x3b, 0x76, 0xce, 0x72, 0x01, 0xc3, 0xf7, 0xc6, 0x00, 0x80, 0x75, 0xf9, 0xb1, 0x03, 0x8b, 0xc6
+    db 0xd3, 0xe8, 0x8b, 0xd8, 0x8b, 0xc6, 0x24, 0x07, 0x8a, 0xc8, 0xb0, 0x80, 0xd2, 0xe8, 0x2e, 0x08
+    db 0x01, 0xeb, 0xc8, 0x06, 0x2e, 0xa1, 0xe5, 0x01, 0x8e, 0xc0, 0xb8, 0x53, 0x2e, 0x89, 0x46, 0xca
+    db 0x33, 0xc0, 0x89, 0x46, 0xc4, 0x89, 0x46, 0xc2, 0x8b, 0x46, 0x1a, 0x3c, 0x02, 0x75, 0x03, 0xe9
+    db 0xa0, 0x02, 0x3c, 0x03, 0x75, 0x03, 0xe9, 0xd9, 0x03, 0x8b, 0x46, 0xfa, 0x89, 0x46, 0xf2, 0x8b
+    db 0x37, 0x03, 0xf3, 0xc7, 0x46, 0xf6, 0x01, 0x00, 0x8d, 0x47, 0x04, 0x89, 0x46, 0xf4, 0x8b, 0x4e
+    db 0xfc, 0xc6, 0x46, 0xc6, 0x80, 0x8b, 0x46, 0x1a, 0x3c, 0x01, 0x75, 0x03, 0xe9, 0x57, 0x01, 0x8b
+    db 0x46, 0xd8, 0x01, 0x46, 0xf2, 0x8b, 0x46, 0xdc, 0xbb, 0x40, 0x01, 0xf7, 0xe3, 0x01, 0x46, 0xf2
+    db 0x8b, 0x46, 0xde, 0x8b, 0x7e, 0xf2, 0x3b, 0xf8, 0x72, 0x03, 0xe9, 0xf5, 0x00, 0x51, 0xe8, 0xf9
+    db 0x00, 0xb8, 0x2b, 0x2e, 0x89, 0x46, 0xcc, 0x8b, 0x4e, 0xfe, 0x51, 0xe8, 0x0c, 0x01, 0x8b, 0x5e
+    db 0xf4, 0x8a, 0x07, 0x22, 0x46, 0xf6, 0x75, 0x03, 0xe9, 0xaa, 0x00, 0x8b, 0x5e, 0xcc, 0x2e, 0x8a
+    db 0x07, 0x3c, 0xff, 0x75, 0x06, 0x83, 0xc6, 0x40, 0xe9, 0x9a, 0x00, 0x57, 0x56, 0xb0, 0x80, 0x88
+    db 0x46, 0xc8, 0xb9, 0x08, 0x00, 0x3b, 0x7e, 0xde, 0x72, 0x03, 0xe9, 0x83, 0x00, 0x8b, 0x5e, 0xca
+    db 0x2e, 0x8a, 0x07, 0x22, 0x46, 0xc8, 0x74, 0x03, 0xe9, 0x70, 0x00, 0x51, 0x57, 0xb0, 0x80, 0x88
+    db 0x46, 0xce, 0xb9, 0x08, 0x00, 0x8b, 0x5e, 0xcc, 0x2e, 0x8a, 0x07, 0x22, 0x46, 0xce, 0x75, 0x53
+    db 0x32, 0xe4, 0x8a, 0x04, 0x3c, 0xff, 0x74, 0x37, 0x80, 0x7e, 0x1e, 0x02, 0x75, 0x16, 0x26, 0x8a
+    db 0x05, 0xbb, 0x1b, 0x38, 0x03, 0xd8, 0x02, 0x04, 0x72, 0x05, 0x2e, 0x3a, 0x07, 0x72, 0x1d, 0x2e
+    db 0x8a, 0x07, 0xeb, 0x18, 0x80, 0x7e, 0xd0, 0x00, 0x74, 0x12, 0xbb, 0x1b, 0x38, 0x03, 0xd8, 0x02
+    db 0x46, 0xd0, 0x72, 0x05, 0x2e, 0x3a, 0x07, 0x72, 0x03, 0x2e, 0x8a, 0x07, 0x26, 0x88, 0x05, 0x46
+    db 0x47, 0xd0, 0x4e, 0xce, 0xe2, 0xaf, 0x5f, 0x59, 0x81, 0xc7, 0x40, 0x01, 0xd0, 0x4e, 0xc8, 0xe2
+    db 0x84, 0xeb, 0x0d, 0x46, 0xd0, 0x4e, 0xce, 0xe2, 0x9c, 0xeb, 0xeb, 0x83, 0xc6, 0x08, 0xeb, 0xec
+    db 0x5e, 0x83, 0xc6, 0x40, 0x5f, 0x83, 0xc7, 0x08, 0x2b, 0x7e, 0xc4, 0xd0, 0x46, 0xf6, 0x80, 0x7e
+    db 0xf6, 0x01, 0x75, 0x03, 0xff, 0x46, 0xf4, 0xff, 0x46, 0xcc, 0x59, 0xe2, 0x17, 0x59, 0x81, 0x46
+    db 0xf2, 0x00, 0x0a, 0x8b, 0x46, 0xc2, 0x29, 0x46, 0xf2, 0xff, 0x46, 0xca, 0xc6, 0x46, 0xc6, 0x80
+    db 0xe2, 0x05, 0x07, 0xc3, 0xe9, 0x13, 0xff, 0xe9, 0xf6, 0xfe, 0xb0, 0x80, 0x8a, 0xd0, 0x33, 0xc0
+    db 0x89, 0x46, 0xc2, 0x8b, 0x5e, 0xca, 0xb9, 0x08, 0x00, 0x2e, 0x8a, 0x07, 0x22, 0xc2, 0x74, 0x05
+    db 0x81, 0x46, 0xc2, 0x40, 0x01, 0xd0, 0xca, 0xe2, 0xf0, 0xc3, 0x33, 0xc0, 0x89, 0x46, 0xc4, 0xb2
+    db 0x80, 0x8b, 0x5e, 0xcc, 0xb9, 0x08, 0x00, 0x2e, 0x8a, 0x07, 0x22, 0xc2, 0x74, 0x03, 0xff, 0x46
+    db 0xc4, 0xd0, 0xca, 0xe2, 0xf2, 0xc3, 0x8b, 0x46, 0xd6, 0x29, 0x46, 0xf2, 0x8b, 0x46, 0xdc, 0xbb
+    db 0x40, 0x01, 0xf7, 0xe3, 0x01, 0x46, 0xf2, 0x8b, 0x46, 0xde, 0x8b, 0x7e, 0xf2, 0x03, 0x7e, 0xe2
+    db 0x3b, 0xf8, 0x72, 0x03, 0xe9, 0xf3, 0x00, 0x51, 0xe8, 0x9f, 0xff, 0xb8, 0x2b, 0x2e, 0x89, 0x46
+    db 0xcc, 0x8b, 0x4e, 0xfe, 0x51, 0xe8, 0xb2, 0xff, 0x8b, 0x5e, 0xf4, 0x8a, 0x07, 0x22, 0x46, 0xf6
+    db 0x75, 0x03, 0xe9, 0xa8, 0x00, 0x8b, 0x5e, 0xcc, 0x2e, 0x8a, 0x07, 0x3c, 0xff, 0x75, 0x06, 0x83
+    db 0xc6, 0x40, 0xe9, 0x98, 0x00, 0x57, 0x56, 0xb0, 0x80, 0x88, 0x46, 0xc8, 0xb9, 0x08, 0x00, 0x3b
+    db 0x7e, 0xde, 0x72, 0x03, 0xe9, 0x81, 0x00, 0x8b, 0x5e, 0xca, 0x2e, 0x8a, 0x07, 0x22, 0x46, 0xc8
+    db 0x74, 0x03, 0xe9, 0x6e, 0x00, 0x51, 0x57, 0xb0, 0x80, 0x88, 0x46, 0xce, 0xb9, 0x08, 0x00, 0x8b
+    db 0x5e, 0xcc, 0x2e, 0x8a, 0x07, 0x22, 0x46, 0xce, 0x75, 0x51, 0x8a, 0x04, 0x3c, 0xff, 0x74, 0x37
+    db 0x80, 0x7e, 0x1e, 0x02, 0x75, 0x16, 0x26, 0x8a, 0x05, 0xbb, 0x1b, 0x38, 0x03, 0xd8, 0x02, 0x04
+    db 0x72, 0x05, 0x2e, 0x3a, 0x07, 0x72, 0x1d, 0x2e, 0x8a, 0x07, 0xeb, 0x18, 0x80, 0x7e, 0xd0, 0x00
+    db 0x74, 0x12, 0xbb, 0x1b, 0x38, 0x03, 0xd8, 0x02, 0x46, 0xd0, 0x72, 0x05, 0x2e, 0x3a, 0x07, 0x72
+    db 0x03, 0x2e, 0x8a, 0x07, 0x26, 0x88, 0x05, 0x46, 0x4f, 0xd0, 0x4e, 0xce, 0xe2, 0xb1, 0x5f, 0x59
+    db 0x81, 0xc7, 0x40, 0x01, 0xd0, 0x4e, 0xc8, 0xe2, 0x86, 0xeb, 0x0d, 0x46, 0xd0, 0x4e, 0xce, 0xe2
+    db 0x9e, 0xeb, 0xeb, 0x83, 0xc6, 0x08, 0xeb, 0xec, 0x5e, 0x83, 0xc6, 0x40, 0x5f, 0x83, 0xef, 0x08
+    db 0x03, 0x7e, 0xc4, 0xd0, 0x46, 0xf6, 0x80, 0x7e, 0xf6, 0x01, 0x75, 0x03, 0xff, 0x46, 0xf4, 0xff
+    db 0x46, 0xcc, 0x59, 0xe2, 0x17, 0x59, 0x81, 0x46, 0xf2, 0x00, 0x0a, 0x8b, 0x46, 0xc2, 0x29, 0x46
+    db 0xf2, 0xff, 0x46, 0xca, 0xc6, 0x46, 0xc6, 0x80, 0xe2, 0x05, 0x07, 0xc3, 0xe9, 0x15, 0xff, 0xe9
+    db 0xf5, 0xfe, 0x8b, 0x46, 0xfc, 0xb9, 0x00, 0x0a, 0xf7, 0xe1, 0x2d, 0x40, 0x01, 0x03, 0x46, 0xfa
+    db 0x89, 0x46, 0xf2, 0x8b, 0x37, 0x03, 0xf3, 0xc7, 0x46, 0xf6, 0x01, 0x00, 0x8d, 0x47, 0x04, 0x89
+    db 0x46, 0xf4, 0x8b, 0x4e, 0xfc, 0xc6, 0x46, 0xc6, 0x80, 0x8b, 0x46, 0xd8, 0x01, 0x46, 0xf2, 0x8b
+    db 0x46, 0xd4, 0xbb, 0x40, 0x01, 0xf7, 0xe3, 0x29, 0x46, 0xf2, 0x8b, 0x46, 0xd2, 0x8b, 0x7e, 0xf2
+    db 0x3b, 0xc7, 0x76, 0x03, 0xe9, 0xf3, 0x00, 0x51, 0xe8, 0x5f, 0xfe, 0xb8, 0x2b, 0x2e, 0x89, 0x46
+    db 0xcc, 0x8b, 0x4e, 0xfe, 0x51, 0xe8, 0x72, 0xfe, 0x8b, 0x5e, 0xf4, 0x8a, 0x07, 0x22, 0x46, 0xf6
+    db 0x75, 0x03, 0xe9, 0xa8, 0x00, 0x8b, 0x5e, 0xcc, 0x2e, 0x8a, 0x07, 0x3c, 0xff, 0x75, 0x06, 0x83
+    db 0xc6, 0x40, 0xe9, 0x98, 0x00, 0x57, 0x56, 0xb0, 0x80, 0x88, 0x46, 0xc8, 0xb9, 0x08, 0x00, 0x39
+    db 0x7e, 0xd2, 0x76, 0x03, 0xe9, 0x81, 0x00, 0x8b, 0x5e, 0xca, 0x2e, 0x8a, 0x07, 0x22, 0x46, 0xc8
+    db 0x74, 0x03, 0xe9, 0x6e, 0x00, 0x51, 0x57, 0xb0, 0x80, 0x88, 0x46, 0xce, 0xb9, 0x08, 0x00, 0x8b
+    db 0x5e, 0xcc, 0x2e, 0x8a, 0x07, 0x22, 0x46, 0xce, 0x75, 0x51, 0x8a, 0x04, 0x3c, 0xff, 0x74, 0x37
+    db 0x80, 0x7e, 0x1e, 0x02, 0x75, 0x16, 0x26, 0x8a, 0x05, 0xbb, 0x1b, 0x38, 0x03, 0xd8, 0x02, 0x04
+    db 0x72, 0x05, 0x2e, 0x3a, 0x07, 0x72, 0x1d, 0x2e, 0x8a, 0x07, 0xeb, 0x18, 0x80, 0x7e, 0xd0, 0x00
+    db 0x74, 0x12, 0xbb, 0x1b, 0x38, 0x03, 0xd8, 0x02, 0x46, 0xd0, 0x72, 0x05, 0x2e, 0x3a, 0x07, 0x72
+    db 0x03, 0x2e, 0x8a, 0x07, 0x26, 0x88, 0x05, 0x46, 0x47, 0xd0, 0x4e, 0xce, 0xe2, 0xb1, 0x5f, 0x81
+    db 0xef, 0x40, 0x01, 0x59, 0xd0, 0x4e, 0xc8, 0xe2, 0x86, 0xeb, 0x0d, 0x46, 0xd0, 0x4e, 0xce, 0xe2
+    db 0x9e, 0xeb, 0xeb, 0x83, 0xc6, 0x08, 0xeb, 0xec, 0x5e, 0x83, 0xc6, 0x40, 0x5f, 0x83, 0xc7, 0x08
+    db 0x2b, 0x7e, 0xc4, 0xd0, 0x46, 0xf6, 0x80, 0x7e, 0xf6, 0x01, 0x75, 0x03, 0xff, 0x46, 0xf4, 0xff
+    db 0x46, 0xcc, 0x59, 0xe2, 0x17, 0x59, 0x81, 0x6e, 0xf2, 0x00, 0x0a, 0x8b, 0x46, 0xc2, 0x01, 0x46
+    db 0xf2, 0xff, 0x46, 0xca, 0xc6, 0x46, 0xc6, 0x80, 0xe2, 0x05, 0x07, 0xc3, 0xe9, 0x15, 0xff, 0xe9
+    db 0xf8, 0xfe, 0x8b, 0x46, 0xfc, 0xb9, 0x00, 0x0a, 0xf7, 0xe1, 0x2d, 0x40, 0x01, 0x03, 0x46, 0xfa
+    db 0x89, 0x46, 0xf2, 0x8b, 0x37, 0x03, 0xf3, 0xc7, 0x46, 0xf6, 0x01, 0x00, 0x8d, 0x47, 0x04, 0x89
+    db 0x46, 0xf4, 0x8b, 0x4e, 0xfc, 0xc6, 0x46, 0xc6, 0x80, 0x8b, 0x46, 0xd6, 0x29, 0x46, 0xf2, 0x8b
+    db 0x46, 0xd4, 0xbb, 0x40, 0x01, 0xf7, 0xe3, 0x29, 0x46, 0xf2, 0x8b, 0x46, 0xd2, 0x8b, 0x7e, 0xf2
+    db 0x03, 0x7e, 0xe2, 0x3b, 0xc7, 0x72, 0x03, 0xe9, 0xf3, 0x00, 0x51, 0xe8, 0x1c, 0xfd, 0xb8, 0x2b
+    db 0x2e, 0x89, 0x46, 0xcc, 0x8b, 0x4e, 0xfe, 0x51, 0xe8, 0x2f, 0xfd, 0x8b, 0x5e, 0xf4, 0x8a, 0x07
+    db 0x22, 0x46, 0xf6, 0x75, 0x03, 0xe9, 0xa8, 0x00, 0x8b, 0x5e, 0xcc, 0x2e, 0x8a, 0x07, 0x3c, 0xff
+    db 0x75, 0x06, 0x83, 0xc6, 0x40, 0xe9, 0x98, 0x00, 0x57, 0x56, 0xb0, 0x80, 0x88, 0x46, 0xc8, 0xb9
+    db 0x08, 0x00, 0x39, 0x7e, 0xd2, 0x76, 0x03, 0xe9, 0x81, 0x00, 0x8b, 0x5e, 0xca, 0x2e, 0x8a, 0x07
+    db 0x22, 0x46, 0xc8, 0x74, 0x03, 0xe9, 0x6e, 0x00, 0x51, 0x57, 0xb0, 0x80, 0x88, 0x46, 0xce, 0xb9
+    db 0x08, 0x00, 0x8b, 0x5e, 0xcc, 0x2e, 0x8a, 0x07, 0x22, 0x46, 0xce, 0x75, 0x51, 0x8a, 0x04, 0x3c
+    db 0xff, 0x74, 0x37, 0x80, 0x7e, 0x1e, 0x02, 0x75, 0x16, 0x26, 0x8a, 0x05, 0xbb, 0x1b, 0x38, 0x03
+    db 0xd8, 0x02, 0x04, 0x72, 0x05, 0x2e, 0x3a, 0x07, 0x72, 0x1d, 0x2e, 0x8a, 0x07, 0xeb, 0x18, 0x80
+    db 0x7e, 0xd0, 0x00, 0x74, 0x12, 0xbb, 0x1b, 0x38, 0x03, 0xd8, 0x02, 0x46, 0xd0, 0x72, 0x05, 0x2e
+    db 0x3a, 0x07, 0x72, 0x03, 0x2e, 0x8a, 0x07, 0x26, 0x88, 0x05, 0x46, 0x4f, 0xd0, 0x4e, 0xce, 0xe2
+    db 0xb1, 0x5f, 0x81, 0xef, 0x40, 0x01, 0x59, 0xd0, 0x4e, 0xc8, 0xe2, 0x86, 0xeb, 0x0d, 0x46, 0xd0
+    db 0x4e, 0xce, 0xe2, 0x9e, 0xeb, 0xeb, 0x83, 0xc6, 0x08, 0xeb, 0xec, 0x5e, 0x83, 0xc6, 0x40, 0x5f
+    db 0x83, 0xef, 0x08, 0x03, 0x7e, 0xc4, 0xd0, 0x46, 0xf6, 0x80, 0x7e, 0xf6, 0x01, 0x75, 0x03, 0xff
+    db 0x46, 0xf4, 0xff, 0x46, 0xcc, 0x59, 0xe2, 0x17, 0x59, 0x81, 0x6e, 0xf2, 0x00, 0x0a, 0x8b, 0x46
+    db 0xc2, 0x01, 0x46, 0xf2, 0xff, 0x46, 0xca, 0xc6, 0x46, 0xc6, 0x80, 0xe2, 0x05, 0x07, 0xc3, 0xe9
+    db 0x15, 0xff, 0xe9, 0xf5, 0xfe, 0x00, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x0f
+    db 0x0f, 0x0f, 0x0f, 0x0f, 0x0f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f, 0x1f
+    db 0x1f, 0x1f, 0x1f, 0x1f, 0x1f
     db '####++++++++////:::::::::::?????JJJJJJJJJJJOOOOO]]]]]]]]]]]]]]__oooooooooooooooowwwwwwww'
     db 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x7f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f
     db 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x8f, 0x93, 0x93, 0x93, 0x93, 0x96, 0x96, 0x96, 0x9f
@@ -4064,7 +2433,7 @@ math_loc_3360:
     db 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xef, 0xf5, 0xf5, 0xf5, 0xf5, 0xf5, 0xf5, 0xfe, 0xfe
     db 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xfe, 0xff
 
-@..local.l161:
+@..dos_write_file_2.l1:
     mov ax, cs                       ; 0x381b
     mov ds, ax                       ; 0x381d
     mov dx, 0x392b                   ; 0x381f
@@ -4089,7 +2458,7 @@ dos_write_file_2:
     mov ax, ds                       ; 0x3869
     mov es, ax                       ; 0x386b
     cmp word [bp + 0x14], byte 3     ; 0x386d
-    jne short @..dos_con_loc_3822.l5 ; 0x3871
+    jne short @..dos_write_file_2.l6 ; 0x3871
     mov ax, word [bp + 0x10]         ; 0x3873
     sub ax, word [bp + 0xc]          ; 0x3876
     inc ax                           ; 0x3879
@@ -4114,13 +2483,13 @@ dos_write_file_2:
     mov bx, word [bp + 0x16]         ; 0x38a9
     mov ah, 0x40                     ; 0x38ac
     int 0x21 ; DOS write file (handle)
-    jae short @..dos_con_loc_3822.l1 ; 0x38b0
-    jmp near @..local.l161           ; 0x38b2
-@..dos_con_loc_3822.l1:
+    jae short @..dos_write_file_2.l2 ; 0x38b0
+    jmp near @..dos_write_file_2.l1  ; 0x38b2
+@..dos_write_file_2.l2:
     mov ax, word [cs:data_01e5]      ; 0x38b5
     mov ds, ax                       ; 0x38b9
     mov cx, word [bp - 0x0004]       ; 0x38bb
-@..dos_con_loc_3822.l2:
+@..dos_write_file_2.l3:
     push cx                          ; 0x38be
     mov dx, word [bp - 0x0002]       ; 0x38bf
     add word [bp - 0x0002], strict word 0x140 ; 0x38c2
@@ -4128,23 +2497,23 @@ dos_write_file_2:
     mov bx, word [bp + 0x16]         ; 0x38ca
     mov ah, 0x40                     ; 0x38cd
     int 0x21 ; DOS write file (handle)
-    jae short @..dos_con_loc_3822.l3 ; 0x38d1
-    jmp near @..local.l161           ; 0x38d3
-@..dos_con_loc_3822.l3:
+    jae short @..dos_write_file_2.l4 ; 0x38d1
+    jmp near @..dos_write_file_2.l1  ; 0x38d3
+@..dos_write_file_2.l4:
     cmp ax, word [bp - 0x0006]       ; 0x38d6
-    je short @..dos_con_loc_3822.l4  ; 0x38d9
-    jmp near @..local.l161           ; 0x38db
-@..dos_con_loc_3822.l4:
+    je short @..dos_write_file_2.l5  ; 0x38d9
+    jmp near @..dos_write_file_2.l1  ; 0x38db
+@..dos_write_file_2.l5:
     pop cx                           ; 0x38de
-    loop @..dos_con_loc_3822.l2      ; 0x38df
+    loop @..dos_write_file_2.l3      ; 0x38df
     xor ax, ax                       ; 0x38e1
     mov dx, word [bp + 0x14]         ; 0x38e3
-    jmp near @..dos_con_loc_3ab7.l1  ; 0x38e6
-@..dos_con_loc_3822.l5:
+    jmp near @..dos_write_file_2.l18 ; 0x38e6
+@..dos_write_file_2.l6:
     cmp word [bp + 0x14], byte 2     ; 0x38e9
-    je short @..dos_con_loc_3822.l6  ; 0x38ed
-    jmp near @..dos_con_loc_3822.l11 ; 0x38ef
-@..dos_con_loc_3822.l6:
+    je short @..dos_write_file_2.l7  ; 0x38ed
+    jmp near @..dos_write_file_2.l12 ; 0x38ef
+@..dos_write_file_2.l7:
     mov ax, word [bp + 0x10]         ; 0x38f2
     sub ax, word [bp + 0xc]          ; 0x38f5
     inc ax                           ; 0x38f8
@@ -4163,24 +2532,24 @@ dos_write_file_2:
     mov word [bp - 0x0002], ax       ; 0x3918
     add ax, word [cs:data_0cac]      ; 0x391b
     cmp ax, 0x4180                   ; 0x3920
-    jbe short @..dos_con_loc_3822.l7 ; 0x3923
+    jbe short @..dos_write_file_2.l8 ; 0x3923
     jmp near dos_con_loc_3b1f        ; 0x3925
-@..dos_con_loc_3822.l7:
+@..dos_write_file_2.l8:
     mov bx, word [cs:data_0cac]      ; 0x3928
     mov word [bp - 0x000e], bx       ; 0x392d
     mov word [cs:data_0cac], ax      ; 0x3930
     mov bx, data_025b                ; 0x3934
     mov cx, 0x10                     ; 0x3937
     xor dx, dx                       ; 0x393a
-@..dos_con_loc_3822.l8:
+@..dos_write_file_2.l9:
     mov ax, word [cs:bx]             ; 0x393c
     or ax, ax                        ; 0x393f
-    je short @..dos_con_loc_3822.l9  ; 0x3941
+    je short @..dos_write_file_2.l10 ; 0x3941
     inc dx                           ; 0x3943
     add bx, byte 2                   ; 0x3944
-    loop @..dos_con_loc_3822.l8      ; 0x3947
+    loop @..dos_write_file_2.l9      ; 0x3947
     jmp near dos_con_loc_3b5c        ; 0x3949
-@..dos_con_loc_3822.l9:
+@..dos_write_file_2.l10:
     mov word [bp - 0x000c], dx       ; 0x394c
     mov ax, word [cs:data_0caa]      ; 0x394f
     inc ax                           ; 0x3953
@@ -4216,17 +2585,17 @@ dos_write_file_2:
     stosw                            ; 0x399e
     mov ax, word [bp - 0x000a]       ; 0x399f
     stosw                            ; 0x39a2
-@..dos_con_loc_3822.l10:
+@..dos_write_file_2.l11:
     mov si, word [bp - 0x0002]       ; 0x39a3
     add word [bp - 0x0002], strict word 0x140 ; 0x39a6
     mov cx, word [bp - 0x0006]       ; 0x39ab
     rep movsb                        ; 0x39ae
     dec word [bp - 0x0004]           ; 0x39b0
-    jne short @..dos_con_loc_3822.l10 ; 0x39b3
+    jne short @..dos_write_file_2.l11 ; 0x39b3
     mov ax, word [bp - 0x000c]       ; 0x39b5
     mov dx, word [bp + 0x14]         ; 0x39b8
-    jmp near @..dos_con_loc_3ab7.l1  ; 0x39bb
-@..dos_con_loc_3822.l11:
+    jmp near @..dos_write_file_2.l18 ; 0x39bb
+@..dos_write_file_2.l12:
     mov ax, word [bp + 0x10]         ; 0x39be
     sub ax, word [bp + 0xc]          ; 0x39c1
     inc ax                           ; 0x39c4
@@ -4245,24 +2614,24 @@ dos_write_file_2:
     mov word [bp - 0x0002], ax       ; 0x39e4
     add ax, word [cs:data_0391]      ; 0x39e7
     cmp ax, word [cs:data_01ff]      ; 0x39ec
-    jbe short @..dos_con_loc_3822.l12 ; 0x39f1
+    jbe short @..dos_write_file_2.l13 ; 0x39f1
     jmp near dos_con_loc_3ab7        ; 0x39f3
-@..dos_con_loc_3822.l12:
+@..dos_write_file_2.l13:
     mov bx, word [cs:data_0391]      ; 0x39f6
     mov word [bp - 0x000e], bx       ; 0x39fb
     mov word [cs:data_0391], ax      ; 0x39fe
     mov bx, data_029b                ; 0x3a02
     mov cx, 0x14                     ; 0x3a05
     xor dx, dx                       ; 0x3a08
-@..dos_con_loc_3822.l13:
+@..dos_write_file_2.l14:
     mov ax, word [cs:bx]             ; 0x3a0a
     or ax, ax                        ; 0x3a0d
-    je short @..dos_con_loc_3822.l14 ; 0x3a0f
+    je short @..dos_write_file_2.l15 ; 0x3a0f
     inc dx                           ; 0x3a11
     add bx, byte 2                   ; 0x3a12
-    loop @..dos_con_loc_3822.l13     ; 0x3a15
+    loop @..dos_write_file_2.l14     ; 0x3a15
     jmp near dos_con_loc_3aee        ; 0x3a17
-@..dos_con_loc_3822.l14:
+@..dos_write_file_2.l15:
     mov word [bp - 0x000c], dx       ; 0x3a1a
     mov ax, word [cs:data_038f]      ; 0x3a1d
     inc ax                           ; 0x3a21
@@ -4306,23 +2675,24 @@ dos_write_file_2:
     stosw                            ; 0x3a81
     mov ax, word [bp - 0x000a]       ; 0x3a82
     stosw                            ; 0x3a85
-@..local.l162:
+@..dos_write_file_2.l16:
     mov si, word [bp - 0x0002]       ; 0x3a86
     add word [bp - 0x0002], strict word 0x140 ; 0x3a89
     mov cx, word [bp - 0x0006]       ; 0x3a8e
     rep movsb                        ; 0x3a91
     test di, 0xc000                  ; 0x3a93
-    je short @..local.l163           ; 0x3a97
+    je short @..dos_write_file_2.l17 ; 0x3a97
     inc word [cs:data_3c8e]          ; 0x3a99
     mov ax, word [cs:data_3c8e]      ; 0x3a9e
     call dos_file_loc_3b90           ; 0x3aa2
     and di, strict word 0x3fff       ; 0x3aa5
-@..local.l163:
+@..dos_write_file_2.l17:
     dec word [bp - 0x0004]           ; 0x3aa9
-    jne short @..local.l162          ; 0x3aac
+    jne short @..dos_write_file_2.l16 ; 0x3aac
     mov ax, word [bp - 0x000c]       ; 0x3aae
     mov dx, word [bp + 0x14]         ; 0x3ab1
-    jmp near @..dos_con_loc_3ab7.l1  ; 0x3ab4
+    jmp near @..dos_write_file_2.l18 ; 0x3ab4
+dos_con_loc_3ab7:
     mov ax, cs                       ; 0x3ab7
     mov ds, ax                       ; 0x3ab9
     mov dx, 0x3bc7                   ; 0x3abb
@@ -4335,7 +2705,7 @@ dos_write_file_2:
     db 'CACHEAREA out of EMS.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2
 
-@..dos_con_loc_3ab7.l1:
+@..dos_write_file_2.l18:
     pop si                           ; 0x3ae6
     pop di                           ; 0x3ae7
     pop ds                           ; 0x3ae8
@@ -4343,6 +2713,7 @@ dos_write_file_2:
     mov sp, bp                       ; 0x3aea
     pop bp                           ; 0x3aec
     ret                              ; 0x3aed
+dos_con_loc_3aee:
     mov ax, cs                       ; 0x3aee
     mov ds, ax                       ; 0x3af0
     mov dx, 0x3bfe                   ; 0x3af2
@@ -4366,8 +2737,18 @@ dos_con_loc_3b1f:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of MAZE/PIC memory.', 0
-    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a, 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x6c, 0x3c, 0xb4
-    db 0x09, 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21, 0x0d, 0x0a, 0x07
+    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0x8a
+
+dos_con_loc_3b5c:
+    mov ax, cs                       ; 0x3b5c
+    mov ds, ax                       ; 0x3b5e
+    mov dx, 0x3c6c                   ; 0x3b60
+    mov ah, 9                        ; 0x3b63
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x3b67
+    int 0x21 ; DOS function dispatcher
+
+    db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of MAZE slots.', 0
     db 0x0a, 0x24, 0x00, 0x00
 
@@ -4560,6 +2941,7 @@ dos_file_loc_3d0b:
     pop cx                           ; 0x3d34
     cmp cx, ax                       ; 0x3d35
     je short @..dos_file_loc_3d0b.l1 ; 0x3d37
+dos_con_loc_3d39:
     mov ax, cs                       ; 0x3d39
     mov ds, ax                       ; 0x3d3b
     mov dx, 0x3e49                   ; 0x3d3d
@@ -4618,7 +3000,7 @@ dos_read_file_5:
     mov ax, word [cs:bx]             ; 0x3dc8
     or ax, ax                        ; 0x3dcb
     je short @..dos_read_file_5.l3   ; 0x3dcd
-    jmp near @..local.l164           ; 0x3dcf
+    jmp near @..dos_read_file_5.l9   ; 0x3dcf
 @..dos_read_file_5.l3:
     inc word [cs:data_038f]          ; 0x3dd2
     mov ax, word [cs:data_038f]      ; 0x3dd7
@@ -4672,7 +3054,7 @@ dos_read_file_5:
     mov ax, word [cs:data_0391]      ; 0x3e56
     cmp ax, word [cs:data_01ff]      ; 0x3e5a
     jbe short @..dos_read_file_5.l4  ; 0x3e5f
-    jmp near @..dos_con_loc_3efb.l1  ; 0x3e61
+    jmp near @..dos_read_file_5.l10  ; 0x3e61
 @..dos_read_file_5.l4:
     mov ax, di                       ; 0x3e64
     mov cl, 0xa                      ; 0x3e66
@@ -4737,7 +3119,7 @@ dos_read_file_5:
     mov sp, bp                       ; 0x3ef2
     pop bp                           ; 0x3ef4
     ret                              ; 0x3ef5
-@..local.l164:
+@..dos_read_file_5.l9:
     mov ax, cs                       ; 0x3ef6
     mov ds, ax                       ; 0x3ef8
     mov dx, 0x4006                   ; 0x3efa
@@ -4750,7 +3132,7 @@ dos_read_file_5:
     db 'CACHEMAZE().  Requested slot already in use.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xb0
 
-@..dos_con_loc_3efb.l1:
+@..dos_read_file_5.l10:
     mov ax, cs                       ; 0x3f3e
     mov ds, ax                       ; 0x3f40
     mov dx, 0x404e                   ; 0x3f42
@@ -4762,145 +3144,36 @@ dos_con_loc_3f45:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEMAZE().  Insufficient EMS.', 0
-    db 0x0a, 0x24
+    db 0x0a, 0x24, 0x55, 0x8b, 0xec, 0x83, 0xec, 0x14, 0x06, 0x1e, 0x57, 0x56, 0x8c, 0xd8, 0x8e, 0xc0
+    db 0x8b, 0x46, 0x0c, 0xf6, 0xc4, 0x80, 0x74, 0x20, 0x2e, 0xff, 0x0e, 0x8f, 0x03, 0x8b, 0x46, 0x0e
+    db 0xd1, 0xe0, 0xbb, 0xd7, 0x02, 0x03, 0xd8, 0x2e, 0x8b, 0x07, 0x2e, 0xc7, 0x07, 0x00, 0x00, 0xe8
+    db 0x91, 0xce, 0xe8, 0xcb, 0xce, 0xe9, 0xd0, 0x00, 0x89, 0x46, 0xfe, 0x8b, 0x46, 0x10, 0x0b, 0xc0
+    db 0x74, 0x0c, 0x8b, 0x46, 0x0e, 0x89, 0x46, 0xfc, 0xe8, 0x4f, 0xfd, 0xe9, 0xba, 0x00, 0x8b, 0x46
+    db 0x0e, 0xd1, 0xe0, 0xbb, 0xd7, 0x02, 0x03, 0xd8, 0x2e, 0x8b, 0x07, 0x0b, 0xc0, 0x74, 0x03, 0xe9
+    db 0xae, 0x00, 0x2e, 0xff, 0x06, 0x8f, 0x03, 0x2e, 0xa1, 0x8f, 0x03, 0x2e, 0x89, 0x07, 0x48, 0xb1
+    db 0x02, 0xd3, 0xe0, 0xbb, 0xeb, 0x02, 0x03, 0xd8, 0x89, 0x5e, 0xfe, 0x2e, 0xa1, 0x91, 0x03, 0x2e
+    db 0x89, 0x07, 0xb8, 0xa0, 0x0f, 0x2e, 0x89, 0x47, 0x02, 0x2e, 0x8b, 0x3e, 0x91, 0x03, 0x2e, 0x01
+    db 0x06, 0x91, 0x03, 0x2e, 0xa1, 0x91, 0x03, 0x2e, 0x3b, 0x06, 0xff, 0x01, 0x76, 0x03, 0xe9, 0xb9
+    db 0x00, 0xb8, 0x00, 0xfa, 0x89, 0x46, 0xfa, 0x8b, 0xc7, 0xb1, 0x0a, 0xd3, 0xe8, 0x2e, 0xa3, 0x8e
+    db 0x3c, 0xe8, 0x6b, 0xfb, 0x81, 0xe7, 0xff, 0x03, 0xb1, 0x04, 0xd3, 0xe7, 0x8b, 0xd7, 0xf7, 0xc2
+    db 0x00, 0xc0, 0x74, 0x10, 0x81, 0xef, 0x00, 0x40, 0x2e, 0xff, 0x06, 0x8e, 0x3c, 0x2e, 0xa1, 0x8e
+    db 0x3c, 0xe8, 0x4b, 0xfb, 0x8b, 0x46, 0xfa, 0x0b, 0xc0, 0x74, 0x2d, 0xb9, 0x00, 0x10, 0x3b, 0xc1
+    db 0x73, 0x02, 0x8b, 0xc8, 0x2b, 0xc1, 0x89, 0x46, 0xfa, 0x2e, 0xa1, 0x03, 0x02, 0x8e, 0xc0, 0x2e
+    db 0xa1, 0xe9, 0x01, 0x8e, 0xd8, 0xba, 0x00, 0x00, 0x8b, 0x5e, 0x0c, 0xb4, 0x3f, 0x51, 0xcd, 0x21
+    db 0x59, 0xbe, 0x00, 0x00, 0xf3, 0xa4, 0xeb, 0xb4, 0x5e, 0x5f, 0x1f, 0x07, 0x8b, 0xe5, 0x5d, 0xc3
+    db 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x91, 0x41
 
-loc_3f73:
-    push bp                          ; 0x3f73
-    mov bp, sp                       ; 0x3f74
-    sub sp, byte 0x14                ; 0x3f76
-    push es                          ; 0x3f79
-    push ds                          ; 0x3f7a
-    push di                          ; 0x3f7b
-    push si                          ; 0x3f7c
-    mov ax, ds                       ; 0x3f7d
-    mov es, ax                       ; 0x3f7f
-    mov ax, word [bp + 0xc]          ; 0x3f81
-    test ah, 0x80                    ; 0x3f84
-    je short @..dos_con_loc_3efb.l2  ; 0x3f87
-    dec word [cs:data_038f]          ; 0x3f89
-    mov ax, word [bp + 0xe]          ; 0x3f8e
-    shl ax, 1                        ; 0x3f91
-    mov bx, data_02d7                ; 0x3f93
-    add bx, ax                       ; 0x3f96
-    mov ax, word [cs:bx]             ; 0x3f98
-    mov word [cs:bx], 0              ; 0x3f9b
-    call leaf_loc_0e34               ; 0x3fa0
-    call loc_0e71                    ; 0x3fa3
-    jmp near @..dos_con_loc_3efb.l9  ; 0x3fa6
-@..dos_con_loc_3efb.l2:
-    mov word [bp - 0x0002], ax       ; 0x3fa9
-    mov ax, word [bp + 0x10]         ; 0x3fac
-    or ax, ax                        ; 0x3faf
-    je short @..dos_con_loc_3efb.l3  ; 0x3fb1
-    mov ax, word [bp + 0xe]          ; 0x3fb3
-    mov word [bp - 0x0004], ax       ; 0x3fb6
-    call dos_file_loc_3d0b           ; 0x3fb9
-    jmp near @..dos_con_loc_3efb.l9  ; 0x3fbc
-@..dos_con_loc_3efb.l3:
-    mov ax, word [bp + 0xe]          ; 0x3fbf
-    shl ax, 1                        ; 0x3fc2
-    mov bx, data_02d7                ; 0x3fc4
-    add bx, ax                       ; 0x3fc7
-    mov ax, word [cs:bx]             ; 0x3fc9
-    or ax, ax                        ; 0x3fcc
-    je short @..dos_con_loc_3efb.l4  ; 0x3fce
-    jmp near @..local.l165           ; 0x3fd0
-@..dos_con_loc_3efb.l4:
-    inc word [cs:data_038f]          ; 0x3fd3
-    mov ax, word [cs:data_038f]      ; 0x3fd8
-    mov word [cs:bx], ax             ; 0x3fdc
-    dec ax                           ; 0x3fdf
-    mov cl, 2                        ; 0x3fe0
-    shl ax, cl                       ; 0x3fe2
-    mov bx, 0x2eb                    ; 0x3fe4
-    add bx, ax                       ; 0x3fe7
-    mov word [bp - 0x0002], bx       ; 0x3fe9
-    mov ax, word [cs:data_0391]      ; 0x3fec
-    mov word [cs:bx], ax             ; 0x3ff0
-    mov ax, 0xfa0                    ; 0x3ff3
-    mov word [cs:bx + 0x2], ax       ; 0x3ff6
-    mov di, word [cs:data_0391]      ; 0x3ffa
-    add word [cs:data_0391], ax      ; 0x3fff
-    mov ax, word [cs:data_0391]      ; 0x4004
-    cmp ax, word [cs:data_01ff]      ; 0x4008
-    jbe short @..dos_con_loc_3efb.l5 ; 0x400d
-    jmp near @..dos_con_loc_4088.l1  ; 0x400f
-@..dos_con_loc_3efb.l5:
-    mov ax, 0xfa00                   ; 0x4012
-    mov word [bp - 0x0006], ax       ; 0x4015
-    mov ax, di                       ; 0x4018
-    mov cl, 0xa                      ; 0x401a
-    shr ax, cl                       ; 0x401c
-    mov word [cs:data_3c8e], ax      ; 0x401e
-    call dos_file_loc_3b90           ; 0x4022
-    and di, strict word 0x3ff        ; 0x4025
-    mov cl, 4                        ; 0x4029
-    shl di, cl                       ; 0x402b
-@..dos_con_loc_3efb.l6:
-    mov dx, di                       ; 0x402d
-    test dx, 0xc000                  ; 0x402f
-    je short @..dos_con_loc_3efb.l7  ; 0x4033
-    sub di, strict word 0x4000       ; 0x4035
-    inc word [cs:data_3c8e]          ; 0x4039
-    mov ax, word [cs:data_3c8e]      ; 0x403e
-    call dos_file_loc_3b90           ; 0x4042
-@..dos_con_loc_3efb.l7:
-    mov ax, word [bp - 0x0006]       ; 0x4045
-    or ax, ax                        ; 0x4048
-    je short @..dos_con_loc_3efb.l9  ; 0x404a
-    mov cx, 0x1000                   ; 0x404c
-    cmp ax, cx                       ; 0x404f
-    jae short @..dos_con_loc_3efb.l8 ; 0x4051
-    mov cx, ax                       ; 0x4053
-@..dos_con_loc_3efb.l8:
-    sub ax, cx                       ; 0x4055
-    mov word [bp - 0x0006], ax       ; 0x4057
-    mov ax, word [cs:data_0203]      ; 0x405a
-    mov es, ax                       ; 0x405e
-    mov ax, word [cs:data_01e9]      ; 0x4060
-    mov ds, ax                       ; 0x4064
-    mov dx, 0                        ; 0x4066
-    mov bx, word [bp + 0xc]          ; 0x4069
-    mov ah, 0x3f                     ; 0x406c
-    push cx                          ; 0x406e
-    int 0x21 ; DOS read file (handle)
-    pop cx                           ; 0x4071
-    mov si, 0                        ; 0x4072
-    rep movsb                        ; 0x4075
-    jmp short @..dos_con_loc_3efb.l6 ; 0x4077
-@..dos_con_loc_3efb.l9:
-    pop si                           ; 0x4079
-    pop di                           ; 0x407a
-    pop ds                           ; 0x407b
-    pop es                           ; 0x407c
-    mov sp, bp                       ; 0x407d
-    pop bp                           ; 0x407f
-    ret                              ; 0x4080
-@..local.l165:
-    mov ax, cs                       ; 0x4081
-    mov ds, ax                       ; 0x4083
-    mov dx, 0x4191                   ; 0x4085
 dos_con_loc_4088:
     mov ah, 9                        ; 0x4088
-    int 0x21 ; DOS string output
-    mov ax, 0x4c01                   ; 0x408c
-    int 0x21 ; DOS function dispatcher
 
-    db 0x0d, 0x0a, 0x07
+    db 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21, 0x0d, 0x0a, 0x07
     db 'CACHESCREEN().  Requested slot already in use.', 0
-    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
+    db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae, 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0xdb, 0x41
 
-@..dos_con_loc_4088.l1:
-    mov ax, cs                       ; 0x40cb
-    mov ds, ax                       ; 0x40cd
-    mov dx, 0x41db                   ; 0x40cf
 dos_con_loc_40d2:
     mov ah, 9                        ; 0x40d2
-    int 0x21 ; DOS string output
-    mov ax, 0x4c01                   ; 0x40d6
-    int 0x21 ; DOS function dispatcher
 
-    db 0x0d, 0x0a, 0x07
+    db 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21, 0x0d, 0x0a, 0x07
     db 'CACHESCREEN().  Insufficient EMS.', 0
     db 0x0a, 0x24
     times 84 db 0
@@ -4922,9 +3195,9 @@ dos_read_file_6:
     mov word [bp - 0x0002], bx       ; 0x416f
     mov ax, word [cs:bx]             ; 0x4172
     or ax, ax                        ; 0x4175
-    je short @..dos_con_loc_4088.l2  ; 0x4177
-    jmp near @..local.l166           ; 0x4179
-@..dos_con_loc_4088.l2:
+    je short @..dos_read_file_6.l1   ; 0x4177
+    jmp near @..dos_read_file_6.l4   ; 0x4179
+@..dos_read_file_6.l1:
     mov ax, word [cs:data_0caa]      ; 0x417c
     inc ax                           ; 0x4180
     mov word [cs:data_0caa], ax      ; 0x4181
@@ -4962,9 +3235,9 @@ dos_read_file_6:
     xor bx, bx                       ; 0x41d1
     mov ax, word [bx]                ; 0x41d3
     or ax, ax                        ; 0x41d5
-    je short @..dos_con_loc_4088.l3  ; 0x41d7
-    jmp near @..dos_con_loc_422f.l4  ; 0x41d9
-@..dos_con_loc_4088.l3:
+    je short @..dos_read_file_6.l2   ; 0x41d7
+    jmp near @..dos_read_file_6.l6   ; 0x41d9
+@..dos_read_file_6.l2:
     mov bx, word [bp - 0x0002]       ; 0x41dc
     mov ax, word [bp - 0x0004]       ; 0x41df
     sub ax, strict word 2            ; 0x41e2
@@ -4976,7 +3249,7 @@ dos_read_file_6:
     mov word [cs:bx + 0x2], ax       ; 0x41f3
     add ax, word [cs:data_0cac]      ; 0x41f7
     cmp ax, 0x4180                   ; 0x41fc
-    jae short @..dos_con_loc_422f.l1 ; 0x41ff
+    jae short @..dos_read_file_6.l5  ; 0x41ff
     mov word [cs:data_0cac], ax      ; 0x4201
     mov ax, word [cs:bx]             ; 0x4205
     add ax, word [cs:data_01e1]      ; 0x4208
@@ -4988,7 +3261,7 @@ dos_read_file_6:
     mov ah, 0x3f                     ; 0x421a
     int 0x21 ; DOS read file (handle)
     xor ax, ax                       ; 0x421e
-@..dos_con_loc_4088.l4:
+@..dos_read_file_6.l3:
     pop di                           ; 0x4220
     pop si                           ; 0x4221
     pop es                           ; 0x4222
@@ -4996,126 +3269,82 @@ dos_read_file_6:
     mov sp, bp                       ; 0x4224
     pop bp                           ; 0x4226
     ret                              ; 0x4227
-@..local.l166:
+@..dos_read_file_6.l4:
     mov ax, cs                       ; 0x4228
     mov ds, ax                       ; 0x422a
     mov dx, 0x4338                   ; 0x422c
 dos_con_loc_422f:
     mov ah, 9                        ; 0x422f
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x4233
+    int 0x21 ; DOS function dispatcher
 
-    db 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21, 0x0d, 0x0a, 0x07
-    db 'In LOAD_SO'
+    db 0x0d, 0x0a, 0x07
+    db 'In LOAD_SOUND() ... slot already used.', 0
+    db 0x0a, 0x24
 
-dos_read_file_7:
-    push bp                          ; 0x4245
-    dec si                           ; 0x4246
-    inc sp                           ; 0x4247
-    sub byte [bx + di], ch           ; 0x4248
-    and byte [data_2e2e], ch         ; 0x424a
-    and byte [bp + di + 0x6c], dh    ; 0x424e
-    outsw                            ; 0x4251
-    je short @..dos_con_loc_422f.l2  ; 0x4252
-    popaw                            ; 0x4254
-    insb                             ; 0x4255
-    jb short @..dos_con_loc_422f.l7  ; 0x4256
-    popaw                            ; 0x4258
-    db 0x64, 0x79, 0x20 ; jns @..dos_con_loc_422f.l3
-    jne short @..dos_con_loc_422f.l8 ; 0x425c
-    db 0x65, 0x64, 0x2e, 0x00, 0x0a ; add byte [cs:bp + si], cl
-    db 0x24
-@..dos_con_loc_422f.l1:
-    db 0x8c
-    enter 0xd88e, 0xffba             ; 0x4265
-    je short @..dos_con_loc_422f.l5  ; 0x4269
+@..dos_read_file_6.l5:
+    mov ax, cs                       ; 0x4264
+    mov ds, ax                       ; 0x4266
+    mov dx, 0x4374                   ; 0x4268
 dos_con_loc_426b:
     mov ah, 9                        ; 0x426b
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x426f
     int 0x21 ; DOS function dispatcher
-@..dos_con_loc_422f.l2:
-    or ax, 0x70a                     ; 0x4274
-    dec cx                           ; 0x4277
-    outsb                            ; 0x4278
-    and byte [si + 0x4f], cl         ; 0x4279
-@..dos_con_loc_422f.l3:
-    inc cx                           ; 0x427c
-    inc sp                           ; 0x427d
-    pop di                           ; 0x427e
-    push bx                          ; 0x427f
-    dec di                           ; 0x4280
-    push bp                          ; 0x4281
-    dec si                           ; 0x4282
-    inc sp                           ; 0x4283
-    sub byte [bx + di], ch           ; 0x4284
-    and byte [data_2e2e], ch         ; 0x4286
-    and byte [bp + 0x6f], ch         ; 0x428a
-    je short @..dos_con_loc_422f.l6  ; 0x428d
-    db 0x65, 0x6e ; outsb
-    outsw                            ; 0x4291
-    jne short @..dos_con_loc_422f.l10 ; 0x4292
-    push 0x6d20                      ; 0x4294
-    db 0x65, 0x6d ; insw
-    outsw                            ; 0x4299
-    jb short @..dos_con_loc_422f.l12 ; 0x429a
-    add byte [cs:bp + si], cl        ; 0x429c
-    db 0x24
-@..dos_con_loc_422f.l4:
-    db 0x8b
-    enter 0xa12e, 0xffe9             ; 0x42a1
-    add word [bp + 0x33d8], cx       ; 0x42a5
-    ror byte [bp + di + 0xc5e], cl   ; 0x42a9
-    db 0xb4
-@..dos_con_loc_422f.l5:
-    db 0x3f
-@..dos_con_loc_422f.l6:
-    int 0x21 ; DOS function dispatcher
+
+    db 0x0d, 0x0a, 0x07
+    db 'In LOAD_SOUND() ... not enough memory.', 0
+    db 0x0a, 0x24
+
+@..dos_read_file_6.l6:
+    mov cx, ax                       ; 0x42a0
+    mov ax, word [cs:data_01e9]      ; 0x42a2
+    mov ds, ax                       ; 0x42a6
+    xor dx, dx                       ; 0x42a8
+    mov bx, word [bp + 0xc]          ; 0x42aa
+    mov ah, 0x3f                     ; 0x42ad
+    int 0x21 ; DOS read file (handle)
     mov dx, 0x400                    ; 0x42b1
     mov bx, word [bp + 0xc]          ; 0x42b4
     mov cx, 0x1000                   ; 0x42b7
     mov ah, 0x3f                     ; 0x42ba
-    db 0xcd
-@..dos_con_loc_422f.l7:
-    db 0x21
+    int 0x21 ; DOS read file (handle)
     mov si, 0x400                    ; 0x42be
     mov di, 0                        ; 0x42c1
     lodsw                            ; 0x42c4
     mov word [bp - 0x0004], ax       ; 0x42c5
     mov bx, word [bp - 0x0002]       ; 0x42c8
     mov word [cs:bx + 0x2], ax       ; 0x42cb
-    db 0x05, 0x0f
-@..dos_con_loc_422f.l8:
-    db 0x00
+    add ax, strict word 0xf          ; 0x42cf
     mov cl, 4                        ; 0x42d2
     shr ax, cl                       ; 0x42d4
     mov bx, word [bp - 0x000a]       ; 0x42d6
     mov word [cs:bx + 0x2], ax       ; 0x42d9
     add ax, word [cs:data_0cac]      ; 0x42dd
     cmp ax, 0x4180                   ; 0x42e2
-    jb short @..dos_con_loc_422f.l9  ; 0x42e5
-    jmp near @..dos_con_loc_422f.l1  ; 0x42e7
-@..dos_con_loc_422f.l9:
+    jb short @..dos_read_file_6.l7   ; 0x42e5
+    jmp near @..dos_read_file_6.l5   ; 0x42e7
+@..dos_read_file_6.l7:
     mov word [cs:data_0cac], ax      ; 0x42ea
     mov ax, word [cs:bx]             ; 0x42ee
     add ax, word [cs:data_01e1]      ; 0x42f1
     mov es, ax                       ; 0x42f6
     call dos_file_loc_4300           ; 0x42f8
-@..dos_con_loc_422f.l10:
     xor ax, ax                       ; 0x42fb
-    jmp near @..dos_con_loc_4088.l4  ; 0x42fd
+    jmp near @..dos_read_file_6.l3   ; 0x42fd
 dos_file_loc_4300:
     mov word [bp - 0x0002], 8        ; 0x4300
     lodsb                            ; 0x4305
-@..dos_con_loc_422f.l11:
+@..dos_file_loc_4300.l1:
     cmp word [bp - 0x0004], byte 0   ; 0x4306
-    je short @..dos_con_loc_422f.l13 ; 0x430a
+    je short @..dos_file_loc_4300.l2 ; 0x430a
     call dos_file_loc_4319           ; 0x430c
     mov byte [es:di], bl             ; 0x430f
     inc di                           ; 0x4312
-    db 0xff, 0x4e
-@..dos_con_loc_422f.l12:
-    db 0xfc
-    jmp short @..dos_con_loc_422f.l11 ; 0x4316
-@..dos_con_loc_422f.l13:
+    dec word [bp - 0x0004]           ; 0x4313
+    jmp short @..dos_file_loc_4300.l1 ; 0x4316
+@..dos_file_loc_4300.l2:
     ret                              ; 0x4318
 dos_file_loc_4319:
     mov cx, word [bp - 0x0002]       ; 0x4319
@@ -5188,43 +3417,13 @@ dos_file_loc_4319:
 @..dos_file_loc_4319.l7:
     mov word [bp - 0x0002], cx       ; 0x4396
     ret                              ; 0x4399
-loc_439a:
-    push bp                          ; 0x439a
-    mov bp, sp                       ; 0x439b
-    sub sp, byte 0x0a                ; 0x439d
-    push ds                          ; 0x43a0
-    push es                          ; 0x43a1
-    push si                          ; 0x43a2
-    push di                          ; 0x43a3
-    mov ax, ds                       ; 0x43a4
-    mov es, ax                       ; 0x43a6
-    mov ax, word [bp + 0xc]          ; 0x43a8
-    cmp ax, strict word 0x14         ; 0x43ab
-    jb short @..local.l167           ; 0x43ae
-    jmp near @..local.l169           ; 0x43b0
-@..local.l167:
-    shl ax, 1                        ; 0x43b3
-    shl ax, 1                        ; 0x43b5
-    mov bx, data_4202                ; 0x43b7
-    add bx, ax                       ; 0x43ba
-    mov ax, word [cs:bx]             ; 0x43bc
-    or ax, ax                        ; 0x43bf
-    jne short @..local.l168          ; 0x43c1
-    jmp near @..local.l169           ; 0x43c3
-@..local.l168:
-    mov word [cs:bx], 0              ; 0x43c6
-    mov cx, word [cs:data_0caa]      ; 0x43cb
-    dec cx                           ; 0x43d0
-    mov word [cs:data_0caa], cx      ; 0x43d1
-    call loc_43e1                    ; 0x43d6
-@..local.l169:
-    pop di                           ; 0x43d9
-    pop si                           ; 0x43da
-    pop es                           ; 0x43db
-    pop ds                           ; 0x43dc
-    mov sp, bp                       ; 0x43dd
-    pop bp                           ; 0x43df
-    ret                              ; 0x43e0
+
+    db 0x55, 0x8b, 0xec, 0x83, 0xec, 0x0a, 0x1e, 0x06, 0x56, 0x57, 0x8c, 0xd8, 0x8e, 0xc0, 0x8b, 0x46
+    db 0x0c, 0x3d, 0x14, 0x00, 0x72, 0x03, 0xe9, 0x26, 0x00, 0xd1, 0xe0, 0xd1, 0xe0, 0xbb, 0x02, 0x42
+    db 0x03, 0xd8, 0x2e, 0x8b, 0x07, 0x0b, 0xc0, 0x75, 0x03, 0xe9, 0x13, 0x00, 0x2e, 0xc7, 0x07, 0x00
+    db 0x00, 0x2e, 0x8b, 0x0e, 0xaa, 0x0c, 0x49, 0x2e, 0x89, 0x0e, 0xaa, 0x0c, 0xe8, 0x08, 0x00, 0x5f
+    db 0x5e, 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3
+
 loc_43e1:
     call leaf_loc_43f7               ; 0x43e1
     call dos_con_loc_440c            ; 0x43e4
@@ -5389,80 +3588,17 @@ leaf_loc_44a3:
     mov word [cs:bx], ax             ; 0x451f
     mov word [cs:bx + 0x2], ax       ; 0x4522
     ret                              ; 0x4526
-loc_4527:
-    push bp                          ; 0x4527
-    mov bp, sp                       ; 0x4528
-    sub sp, byte 0x0a                ; 0x452a
-    push ds                          ; 0x452d
-    push es                          ; 0x452e
-    push si                          ; 0x452f
-    push di                          ; 0x4530
-    mov ax, ds                       ; 0x4531
-    mov es, ax                       ; 0x4533
-    mov ax, word [bp + 0xc]          ; 0x4535
-    cmp ax, strict word 0x14         ; 0x4538
-    jb short @..local.l170           ; 0x453b
-    jmp near @..local.l172           ; 0x453d
-@..local.l170:
-    shl ax, 1                        ; 0x4540
-    shl ax, 1                        ; 0x4542
-    mov bx, data_4202                ; 0x4544
-    add bx, ax                       ; 0x4547
-    mov ax, word [cs:bx + 0x2]       ; 0x4549
-    mov word [bp - 0x0002], ax       ; 0x454d
-    mov ax, word [cs:bx]             ; 0x4550
-    or ax, ax                        ; 0x4553
-    jne short @..local.l171          ; 0x4555
-    jmp near @..local.l172           ; 0x4557
-@..local.l171:
-    dec ax                           ; 0x455a
-    mov word [bp - 0x0004], ax       ; 0x455b
-    push word [bp + 0x12]            ; 0x455e
-    push word [bp + 0x10]            ; 0x4561
-    push word [bp + 0xe]             ; 0x4564
-    mov ax, word [bp - 0x0002]       ; 0x4567
-    push ax                          ; 0x456a
-    xor ax, ax                       ; 0x456b
-    push ax                          ; 0x456d
-    mov bx, data_0bda                ; 0x456e
-    mov ax, word [bp - 0x0004]       ; 0x4571
-    shl ax, 1                        ; 0x4574
-    shl ax, 1                        ; 0x4576
-    add bx, ax                       ; 0x4578
-    mov ax, word [cs:bx]             ; 0x457a
-    add ax, word [cs:data_01e1]      ; 0x457d
-    push ax                          ; 0x4582
-    xor ax, ax                       ; 0x4583
-    push ax                          ; 0x4585
-    call far [cs:data_021a]          ; 0x4586
-    add sp, byte 0x0e                ; 0x458b
-@..local.l172:
-    pop di                           ; 0x458e
-    pop si                           ; 0x458f
-    pop es                           ; 0x4590
-    pop ds                           ; 0x4591
-    mov sp, bp                       ; 0x4592
-    pop bp                           ; 0x4594
-    ret                              ; 0x4595
-loc_4596:
-    push bp                          ; 0x4596
-    mov bp, sp                       ; 0x4597
-    push ds                          ; 0x4599
-    push es                          ; 0x459a
-    push si                          ; 0x459b
-    push di                          ; 0x459c
-    mov ax, ds                       ; 0x459d
-    mov es, ax                       ; 0x459f
-    push word [bp + 0xc]             ; 0x45a1
-    call far [cs:data_0222]          ; 0x45a4
-    pop cx                           ; 0x45a9
-    pop di                           ; 0x45aa
-    pop si                           ; 0x45ab
-    pop es                           ; 0x45ac
-    pop ds                           ; 0x45ad
-    mov sp, bp                       ; 0x45ae
-    pop bp                           ; 0x45b0
-    ret                              ; 0x45b1
+
+    db 0x55, 0x8b, 0xec, 0x83, 0xec, 0x0a, 0x1e, 0x06, 0x56, 0x57, 0x8c, 0xd8, 0x8e, 0xc0, 0x8b, 0x46
+    db 0x0c, 0x3d, 0x14, 0x00, 0x72, 0x03, 0xe9, 0x4e, 0x00, 0xd1, 0xe0, 0xd1, 0xe0, 0xbb, 0x02, 0x42
+    db 0x03, 0xd8, 0x2e, 0x8b, 0x47, 0x02, 0x89, 0x46, 0xfe, 0x2e, 0x8b, 0x07, 0x0b, 0xc0, 0x75, 0x03
+    db 0xe9, 0x34, 0x00, 0x48, 0x89, 0x46, 0xfc, 0xff, 0x76, 0x12, 0xff, 0x76, 0x10, 0xff, 0x76, 0x0e
+    db 0x8b, 0x46, 0xfe, 0x50, 0x33, 0xc0, 0x50, 0xbb, 0xda, 0x0b, 0x8b, 0x46, 0xfc, 0xd1, 0xe0, 0xd1
+    db 0xe0, 0x03, 0xd8, 0x2e, 0x8b, 0x07, 0x2e, 0x03, 0x06, 0xe1, 0x01, 0x50, 0x33, 0xc0, 0x50, 0x2e
+    db 0xff, 0x1e, 0x1a, 0x02, 0x83, 0xc4, 0x0e, 0x5f, 0x5e, 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55
+    db 0x8b, 0xec, 0x1e, 0x06, 0x56, 0x57, 0x8c, 0xd8, 0x8e, 0xc0, 0xff, 0x76, 0x0c, 0x2e, 0xff, 0x1e
+    db 0x22, 0x02, 0x59, 0x5f, 0x5e, 0x07, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3
+
 loc_45b2:
     push bp                          ; 0x45b2
     mov bp, sp                       ; 0x45b3
@@ -5511,7 +3647,7 @@ dos_read_file_8:
     mov ax, word [cs:bx]             ; 0x4617
     or ax, ax                        ; 0x461a
     je short @..dos_read_file_8.l1   ; 0x461c
-    jmp near @..local.l173           ; 0x461e
+    jmp near @..dos_read_file_8.l5   ; 0x461e
 @..dos_read_file_8.l1:
     mov bx, word [bp + 0x12]         ; 0x4621
     shl bx, 1                        ; 0x4624
@@ -5582,7 +3718,7 @@ dos_read_file_8:
     add ax, word [cs:data_0cac]      ; 0x46c9
     cmp ax, 0x4180                   ; 0x46ce
     jb short @..dos_read_file_8.l3   ; 0x46d1
-    jmp near @..dos_con_loc_4719.l1  ; 0x46d3
+    jmp near @..dos_read_file_8.l6   ; 0x46d3
 @..dos_read_file_8.l3:
     mov word [cs:data_0cac], ax      ; 0x46d6
     mov ax, word [cs:bx]             ; 0x46da
@@ -5611,7 +3747,7 @@ dos_read_file_8:
     mov sp, bp                       ; 0x470e
     pop bp                           ; 0x4710
     ret                              ; 0x4711
-@..local.l173:
+@..dos_read_file_8.l5:
     mov ax, cs                       ; 0x4712
     mov ds, ax                       ; 0x4714
     mov dx, 0x4822                   ; 0x4716
@@ -5625,7 +3761,7 @@ dos_con_loc_4719:
     db 'In LOAD_SCORE() ... slot already used.', 0
     db 0x0a, 0x24
 
-@..dos_con_loc_4719.l1:
+@..dos_read_file_8.l6:
     mov ax, cs                       ; 0x474e
     mov ds, ax                       ; 0x4750
     mov dx, 0x485e                   ; 0x4752
@@ -5663,7 +3799,7 @@ loc_478a:
     mov word [bp - 0x0006], ax       ; 0x47b9
     mov ax, word [cs:bx]             ; 0x47bc
     or ax, ax                        ; 0x47bf
-    je short @..dos_con_loc_4719.l3  ; 0x47c1
+    je short @..local.l12            ; 0x47c1
     dec ax                           ; 0x47c3
     shl ax, 1                        ; 0x47c4
     shl ax, 1                        ; 0x47c6
@@ -5673,10 +3809,10 @@ loc_478a:
     push word [bp - 0x0008]          ; 0x47d0
     xor ax, ax                       ; 0x47d3
     cmp word [bp - 0x0006], byte 0   ; 0x47d5
-    je short @..dos_con_loc_4719.l2  ; 0x47d9
+    je short @..local.l11            ; 0x47d9
     mov ax, word [cs:bx]             ; 0x47db
     add ax, word [cs:data_01e1]      ; 0x47de
-@..dos_con_loc_4719.l2:
+@..local.l11:
     push ax                          ; 0x47e3
     xor ax, ax                       ; 0x47e4
     push ax                          ; 0x47e6
@@ -5694,7 +3830,7 @@ loc_478a:
     push word [bp - 0x0006]          ; 0x480c
     call far [cs:data_0206]          ; 0x480f
     add sp, byte 6                   ; 0x4814
-@..dos_con_loc_4719.l3:
+@..local.l12:
     pop di                           ; 0x4817
     pop si                           ; 0x4818
     pop es                           ; 0x4819
@@ -5714,24 +3850,24 @@ loc_481f:
     mov es, ax                       ; 0x482b
     mov ax, word [bp + 0xc]          ; 0x482d
     cmp ax, strict word 5            ; 0x4830
-    jb short @..local.l174           ; 0x4833
-    jmp near @..local.l176           ; 0x4835
-@..local.l174:
+    jb short @..local.l13            ; 0x4833
+    jmp near @..local.l15            ; 0x4835
+@..local.l13:
     shl ax, 1                        ; 0x4838
     shl ax, 1                        ; 0x483a
     mov bx, data_46d9                ; 0x483c
     add bx, ax                       ; 0x483f
     mov ax, word [cs:bx]             ; 0x4841
     or ax, ax                        ; 0x4844
-    jne short @..local.l175          ; 0x4846
-    jmp near @..local.l176           ; 0x4848
-@..local.l175:
+    jne short @..local.l14           ; 0x4846
+    jmp near @..local.l15            ; 0x4848
+@..local.l14:
     mov word [cs:bx], 0              ; 0x484b
     mov cx, word [cs:data_0caa]      ; 0x4850
     dec cx                           ; 0x4855
     mov word [cs:data_0caa], cx      ; 0x4856
     call loc_43e1                    ; 0x485b
-@..local.l176:
+@..local.l15:
     pop di                           ; 0x485e
     pop si                           ; 0x485f
     pop es                           ; 0x4860

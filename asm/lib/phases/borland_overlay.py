@@ -40,7 +40,7 @@ class BorlandOverlayPhase(Phase):
         input_slot='sidecar',
         output_slot='borland_overlay',
         writes_columns=['borland_overlay'],
-        reads_ctx=['binary_data', 'seeds', 'code_targets'],
+        reads_ctx=['binary_data', 'seeds', 'code_targets', 'hard_data'],
         writes_ctx=['seeds', 'code_targets'],
         requires_binary=True,
     )
@@ -71,6 +71,8 @@ class BorlandOverlayPhase(Phase):
         # Scan for B8 xx xx E8 xx xx where call target is outside the file
         # (patched runtime thunk in the main program's segment).
         for i in range(0, n - 5):
+            if ctx.hard_data[i:i + 6].any():
+                continue
             if data[i] != 0xB8 or data[i + 3] != 0xE8:
                 continue
 

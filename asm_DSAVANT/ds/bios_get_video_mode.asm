@@ -5,7 +5,7 @@ bios_get_video_mode:
     mov ax, word [bp + 0x4]          ; 0x30ff
     and ax, strict word 1            ; 0x3102
     jne short @..bios_get_video_mode.l1 ; 0x3105
-    jmp near @..local.l69            ; 0x3107
+    jmp near loc_3490                ; 0x3107
 @..bios_get_video_mode.l1:
     mov ax, 0                        ; 0x310a
     push ds                          ; 0x310d
@@ -27,7 +27,7 @@ bios_get_video_mode:
     cmp bh, 8                        ; 0x3130
     jne short @..bios_get_video_mode.l3 ; 0x3133
 @..bios_get_video_mode.l2:
-    jmp near @..leaf_loc_3330.l1     ; 0x3135
+    jmp near loc_343e                ; 0x3135
 @..bios_get_video_mode.l3:
     mov word [bp - 0x0002], 0        ; 0x3138
     ret                              ; 0x313d

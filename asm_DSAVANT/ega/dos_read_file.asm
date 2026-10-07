@@ -60,7 +60,7 @@ dos_read_file:
     mov ax, word [cs:data_01e5]      ; 0x0e78
     mov es, ax                       ; 0x0e7c
     xor di, di                       ; 0x0e7e
-    mov cx, data_0003                ; 0x0e80
+    mov cx, 3                        ; 0x0e80
 @..dos_read_file.l3:
     push cx                          ; 0x0e83
     mov cx, 0x4000                   ; 0x0e84

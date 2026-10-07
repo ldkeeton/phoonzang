@@ -8,8 +8,6 @@ bits 16
     db 0xf2, 0x00, 0x55, 0x50, 0x09, 0x16, 0x98, 0x90
 
 data_0002 equ 0x0002
-data_0041 equ 0x0041
-data_0e0e equ 0x0e0e
 data_0e10 equ 0x0e10
 data_0e12 equ 0x0e12
 data_0e14 equ 0x0e14
@@ -28,7 +26,6 @@ data_0e2c equ 0x0e2c
 data_0e2e equ 0x0e2e
 data_0e30 equ 0x0e30
 data_0e32 equ 0x0e32
-data_0e34 equ 0x0e34
 data_0e36 equ 0x0e36
 data_1008 equ 0x1008
 data_100a equ 0x100a
@@ -554,7 +551,7 @@ loc_03a8:
     call ds_dispatch_b171            ; 0x0472
     pop cx                           ; 0x0475
 @..local.l16:
-    mov word [data_0e34], data_905c  ; 0x0476
+    mov word [0x0e34], data_905c     ; 0x0476
     mov al, byte [data_5984]         ; 0x047c
     sub ah, ah                       ; 0x047f
     mov word [bp - 0x000a], ax       ; 0x0481
@@ -845,7 +842,7 @@ loc_03a8:
     mov word [data_0e14], 0          ; 0x0755
     mov word [data_0e12], 0          ; 0x075b
     mov word [data_0e10], 0          ; 0x0761
-    mov word [data_0e0e], 0          ; 0x0767
+    mov word [0x0e0e], 0             ; 0x0767
     mov ax, 0x400                    ; 0x076d
     mov dx, 0                        ; 0x0770
     push dx                          ; 0x0773
@@ -938,8 +935,8 @@ loc_03a8:
     push ax                          ; 0x083f
     call ds_dispatch_f4a3            ; 0x0840
     pop cx                           ; 0x0843
-    mov word [data_0e0e], ax         ; 0x0844
-    cmp word [data_0e0e], byte 0     ; 0x0847
+    mov word [0x0e0e], ax            ; 0x0844
+    cmp word [0x0e0e], byte 0        ; 0x0847
     jne short @..local.l36           ; 0x084c
     mov ax, 0xd                      ; 0x084e
     push ax                          ; 0x0851
@@ -1060,16 +1057,16 @@ api_idx_0002_6:
     mov ax, 0xfffe                   ; 0x094a
     call ds_dispatch_f40b            ; 0x094d
     cmp word [data_91b8], byte 0xff  ; 0x0950
-    jne short @..local.l38           ; 0x0955
+    jne short @..api_idx_0002_6.l1   ; 0x0955
     mov ax, 0                        ; 0x0957
     ret                              ; 0x095a
-@..local.l38:
+@..api_idx_0002_6.l1:
     mov ax, 1                        ; 0x095b
     push ax                          ; 0x095e
     call ds_dispatch_ea50            ; 0x095f
     pop cx                           ; 0x0962
     test ax, ax                      ; 0x0963
-    je short @..local.l40            ; 0x0965
+    je short @..api_idx_0002_6.l3    ; 0x0965
     mov ax, 1                        ; 0x0967
     push ax                          ; 0x096a
     call ds_dispatch_eb32            ; 0x096b
@@ -1078,11 +1075,11 @@ api_idx_0002_6:
     mov word [bp - 0x0002], ax       ; 0x0971
     mov ax, 0                        ; 0x0974
     cmp word [bp - 0x0002], byte 0x1b ; 0x0977
-    jne short @..local.l39           ; 0x097b
+    jne short @..api_idx_0002_6.l2   ; 0x097b
     mov ax, 1                        ; 0x097d
-@..local.l39:
+@..api_idx_0002_6.l2:
     or word [data_91b8], ax          ; 0x0980
-@..local.l40:
+@..api_idx_0002_6.l3:
     mov ax, word [data_91b8]         ; 0x0984
     ret                              ; 0x0987
 api_idx_0004:
@@ -1107,19 +1104,19 @@ api_idx_0004:
     cmp ax, word [bp - 0x0004]       ; 0x09b9
     jb short @..api_idx_0004.l3      ; 0x09bc
 @..api_idx_0004.l2:
-    jmp short @..local.l42           ; 0x09be
+    jmp short @..api_idx_0004.l5     ; 0x09be
 @..api_idx_0004.l3:
     call api_idx_0002_6              ; 0x09c0
     test ax, ax                      ; 0x09c3
-    je short @..local.l41            ; 0x09c5
+    je short @..api_idx_0004.l4      ; 0x09c5
     ret                              ; 0x09c7
-@..local.l41:
+@..api_idx_0004.l4:
     mov ax, 0xa                      ; 0x09c8
     push ax                          ; 0x09cb
     call ds_dispatch_e489            ; 0x09cc
     pop cx                           ; 0x09cf
     jmp short @..api_idx_0004.l1     ; 0x09d0
-@..local.l42:
+@..api_idx_0004.l5:
     ret                              ; 0x09d2
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x09d3
@@ -1195,21 +1192,21 @@ loc_0a56:
     call api_idx_000e                ; 0x0a7a
     add sp, byte 4                   ; 0x0a7d
     cmp word [bp + 0x6], byte 0      ; 0x0a80
-    je short @..local.l43            ; 0x0a84
+    je short @..local.l38            ; 0x0a84
     mov ax, 0                        ; 0x0a86
     push ax                          ; 0x0a89
     push word [bp + 0x6]             ; 0x0a8a
     call api_idx_000e                ; 0x0a8d
     add sp, byte 4                   ; 0x0a90
-@..local.l43:
+@..local.l38:
     cmp word [bp + 0x8], byte 0      ; 0x0a93
-    je short @..local.l44            ; 0x0a97
+    je short @..local.l39            ; 0x0a97
     mov ax, 0                        ; 0x0a99
     push ax                          ; 0x0a9c
     push word [bp + 0x8]             ; 0x0a9d
     call api_idx_000e                ; 0x0aa0
     add sp, byte 4                   ; 0x0aa3
-@..local.l44:
+@..local.l39:
     mov ax, 0xc7                     ; 0x0aa6
     push ax                          ; 0x0aa9
     mov ax, 0x13f                    ; 0x0aaa
@@ -1220,11 +1217,11 @@ loc_0a56:
     call ds_dispatch_e8da            ; 0x0ab3
     add sp, byte 8                   ; 0x0ab6
     cmp word [bp + 0xa], byte 0      ; 0x0ab9
-    je short @..local.l45            ; 0x0abd
+    je short @..local.l40            ; 0x0abd
     push word [bp + 0xa]             ; 0x0abf
     call api_idx_0004                ; 0x0ac2
     pop cx                           ; 0x0ac5
-@..local.l45:
+@..local.l40:
     ret                              ; 0x0ac6
 api_idx_0068:
     mov ax, 0xff98                   ; 0x0ac7
@@ -1414,7 +1411,7 @@ api_idx_0068:
     call api_idx_0002_6              ; 0x0c5a
     test ax, ax                      ; 0x0c5d
     je short @..api_idx_0068.l12     ; 0x0c5f
-    jmp near @..local.l50            ; 0x0c61
+    jmp near @..api_idx_0068.l19     ; 0x0c61
 @..api_idx_0068.l12:
     mov ax, 0xf                      ; 0x0c64
     push ax                          ; 0x0c67
@@ -1456,7 +1453,7 @@ api_idx_0068:
 @..api_idx_0068.l14:
     call api_idx_0002_6              ; 0x0cb4
     test ax, ax                      ; 0x0cb7
-    jne short @..local.l46           ; 0x0cb9
+    jne short @..api_idx_0068.l15    ; 0x0cb9
     mov ax, 0                        ; 0x0cbb
     push ax                          ; 0x0cbe
     push ax                          ; 0x0cbf
@@ -1466,14 +1463,14 @@ api_idx_0068:
     push ax                          ; 0x0cc7
     call loc_0a56                    ; 0x0cc8
     add sp, byte 8                   ; 0x0ccb
-@..local.l46:
+@..api_idx_0068.l15:
     mov ax, 0x90                     ; 0x0cce
     push ax                          ; 0x0cd1
     call api_idx_0004                ; 0x0cd2
     pop cx                           ; 0x0cd5
     call api_idx_0002_6              ; 0x0cd6
     test ax, ax                      ; 0x0cd9
-    jne short @..local.l47           ; 0x0cdb
+    jne short @..api_idx_0068.l16    ; 0x0cdb
     mov ax, 0xa                      ; 0x0cdd
     push ax                          ; 0x0ce0
     mov ax, 0xb                      ; 0x0ce1
@@ -1484,10 +1481,10 @@ api_idx_0068:
     push ax                          ; 0x0cec
     call loc_0a56                    ; 0x0ced
     add sp, byte 8                   ; 0x0cf0
-@..local.l47:
+@..api_idx_0068.l16:
     call api_idx_0002_6              ; 0x0cf3
     test ax, ax                      ; 0x0cf6
-    jne short @..local.l48           ; 0x0cf8
+    jne short @..api_idx_0068.l17    ; 0x0cf8
     mov ax, 0xa                      ; 0x0cfa
     push ax                          ; 0x0cfd
     mov ax, 0xe                      ; 0x0cfe
@@ -1498,10 +1495,10 @@ api_idx_0068:
     push ax                          ; 0x0d09
     call loc_0a56                    ; 0x0d0a
     add sp, byte 8                   ; 0x0d0d
-@..local.l48:
+@..api_idx_0068.l17:
     call api_idx_0002_6              ; 0x0d10
     test ax, ax                      ; 0x0d13
-    jne short @..local.l49           ; 0x0d15
+    jne short @..api_idx_0068.l18    ; 0x0d15
     mov ax, 0                        ; 0x0d17
     push ax                          ; 0x0d1a
     mov ax, 0x11                     ; 0x0d1b
@@ -1512,7 +1509,7 @@ api_idx_0068:
     push ax                          ; 0x0d26
     call loc_0a56                    ; 0x0d27
     add sp, byte 8                   ; 0x0d2a
-@..local.l49:
+@..api_idx_0068.l18:
     mov ax, 5                        ; 0x0d2d
     push ax                          ; 0x0d30
     call api_idx_0004                ; 0x0d31
@@ -1521,12 +1518,12 @@ api_idx_0068:
     push ax                          ; 0x0d38
     call ds_dispatch_c12a            ; 0x0d39
     pop cx                           ; 0x0d3c
-@..local.l50:
+@..api_idx_0068.l19:
     call api_idx_0002_6              ; 0x0d3d
     test ax, ax                      ; 0x0d40
-    je short @..local.l51            ; 0x0d42
-    jmp near @..local.l58            ; 0x0d44
-@..local.l51:
+    je short @..api_idx_0068.l20     ; 0x0d42
+    jmp near @..api_idx_0068.l27     ; 0x0d44
+@..api_idx_0068.l20:
     mov ax, 0xf                      ; 0x0d47
     push ax                          ; 0x0d4a
     mov ax, 0x3e                     ; 0x0d4b
@@ -1535,7 +1532,7 @@ api_idx_0068:
     add sp, byte 4                   ; 0x0d52
     call api_idx_0002_6              ; 0x0d55
     test ax, ax                      ; 0x0d58
-    jne short @..local.l52           ; 0x0d5a
+    jne short @..api_idx_0068.l21    ; 0x0d5a
     mov ax, 0                        ; 0x0d5c
     push ax                          ; 0x0d5f
     mov ax, 0xc7                     ; 0x0d60
@@ -1547,50 +1544,50 @@ api_idx_0068:
     push ax                          ; 0x0d6c
     call ds_dispatch_e901            ; 0x0d6d
     add sp, byte 0x0a                ; 0x0d70
-@..local.l52:
+@..api_idx_0068.l21:
     call api_idx_0002_6              ; 0x0d73
     test ax, ax                      ; 0x0d76
-    jne short @..local.l53           ; 0x0d78
+    jne short @..api_idx_0068.l22    ; 0x0d78
     mov ax, 0                        ; 0x0d7a
     push ax                          ; 0x0d7d
     mov ax, 1                        ; 0x0d7e
     push ax                          ; 0x0d81
     call api_idx_000e                ; 0x0d82
     add sp, byte 4                   ; 0x0d85
-@..local.l53:
+@..api_idx_0068.l22:
     call api_idx_0002_6              ; 0x0d88
     test ax, ax                      ; 0x0d8b
-    jne short @..local.l54           ; 0x0d8d
+    jne short @..api_idx_0068.l23    ; 0x0d8d
     mov ax, 0                        ; 0x0d8f
     push ax                          ; 0x0d92
     mov ax, data_0002                ; 0x0d93
     push ax                          ; 0x0d96
     call api_idx_000e                ; 0x0d97
     add sp, byte 4                   ; 0x0d9a
-@..local.l54:
+@..api_idx_0068.l23:
     call api_idx_0002_6              ; 0x0d9d
     test ax, ax                      ; 0x0da0
-    jne short @..local.l55           ; 0x0da2
+    jne short @..api_idx_0068.l24    ; 0x0da2
     mov ax, 0                        ; 0x0da4
     push ax                          ; 0x0da7
     mov ax, 3                        ; 0x0da8
     push ax                          ; 0x0dab
     call api_idx_000e                ; 0x0dac
     add sp, byte 4                   ; 0x0daf
-@..local.l55:
+@..api_idx_0068.l24:
     call api_idx_0002_6              ; 0x0db2
     test ax, ax                      ; 0x0db5
-    jne short @..local.l56           ; 0x0db7
+    jne short @..api_idx_0068.l25    ; 0x0db7
     mov ax, 0                        ; 0x0db9
     push ax                          ; 0x0dbc
     mov ax, 4                        ; 0x0dbd
     push ax                          ; 0x0dc0
     call api_idx_000e                ; 0x0dc1
     add sp, byte 4                   ; 0x0dc4
-@..local.l56:
+@..api_idx_0068.l25:
     call api_idx_0002_6              ; 0x0dc7
     test ax, ax                      ; 0x0dca
-    jne short @..local.l57           ; 0x0dcc
+    jne short @..api_idx_0068.l26    ; 0x0dcc
     mov ax, 0xc7                     ; 0x0dce
     push ax                          ; 0x0dd1
     mov ax, 0x13f                    ; 0x0dd2
@@ -1600,7 +1597,7 @@ api_idx_0068:
     push ax                          ; 0x0dda
     call ds_dispatch_e8da            ; 0x0ddb
     add sp, byte 8                   ; 0x0dde
-@..local.l57:
+@..api_idx_0068.l26:
     mov ax, 5                        ; 0x0de1
     push ax                          ; 0x0de4
     call api_idx_0004                ; 0x0de5
@@ -1609,10 +1606,10 @@ api_idx_0068:
     push ax                          ; 0x0dec
     call ds_dispatch_c12a            ; 0x0ded
     pop cx                           ; 0x0df0
-@..local.l58:
+@..api_idx_0068.l27:
     call api_idx_0002_6              ; 0x0df1
     test ax, ax                      ; 0x0df4
-    jne short @..local.l59           ; 0x0df6
+    jne short @..api_idx_0068.l28    ; 0x0df6
     mov ax, 1                        ; 0x0df8
     push ax                          ; 0x0dfb
     mov ax, 0x9187                   ; 0x0dfc
@@ -1623,7 +1620,7 @@ api_idx_0068:
     push ax                          ; 0x0e09
     call api_idx_0004                ; 0x0e0a
     pop cx                           ; 0x0e0d
-@..local.l59:
+@..api_idx_0068.l28:
     mov ax, 0                        ; 0x0e0e
     push ax                          ; 0x0e11
     mov ax, 0x9194                   ; 0x0e12
@@ -1638,9 +1635,9 @@ api_idx_0068:
     add sp, byte 4                   ; 0x0e27
     call api_idx_0002_6              ; 0x0e2a
     test ax, ax                      ; 0x0e2d
-    je short @..local.l60            ; 0x0e2f
-    jmp near @..local.l62            ; 0x0e31
-@..local.l60:
+    je short @..api_idx_0068.l29     ; 0x0e2f
+    jmp near @..api_idx_0068.l31     ; 0x0e31
+@..api_idx_0068.l29:
     mov ax, 0xc7                     ; 0x0e34
     push ax                          ; 0x0e37
     mov ax, 0x13f                    ; 0x0e38
@@ -1671,7 +1668,7 @@ api_idx_0068:
     mov word [bp - 0x000a], dx       ; 0x0e6d
     mov word [bp - 0x000c], ax       ; 0x0e70
     mov word [bp - 0x0002], 0x5f     ; 0x0e73
-@..local.l61:
+@..api_idx_0068.l30:
     mov ax, 0                        ; 0x0e78
     push ax                          ; 0x0e7b
     push ax                          ; 0x0e7c
@@ -1696,7 +1693,7 @@ api_idx_0068:
     add sp, byte 8                   ; 0x0ea9
     add word [bp - 0x0002], byte 0xfb ; 0x0eac
     cmp word [bp - 0x0002], byte 0   ; 0x0eb0
-    jge short @..local.l61           ; 0x0eb4
+    jge short @..api_idx_0068.l30    ; 0x0eb4
     mov ax, 0                        ; 0x0eb6
     push ax                          ; 0x0eb9
     mov ax, 1                        ; 0x0eba
@@ -1705,8 +1702,8 @@ api_idx_0068:
     push word [bp - 0x000c]          ; 0x0ec1
     call ds_dispatch_e942            ; 0x0ec4
     add sp, byte 8                   ; 0x0ec7
-    jmp short @..local.l63           ; 0x0eca
-@..local.l62:
+    jmp short @..api_idx_0068.l32    ; 0x0eca
+@..api_idx_0068.l31:
     mov ax, 0                        ; 0x0ecc
     push ax                          ; 0x0ecf
     mov ax, 1                        ; 0x0ed0
@@ -1722,7 +1719,7 @@ api_idx_0068:
     push ax                          ; 0x0ee6
     call ds_dispatch_e8da            ; 0x0ee7
     add sp, byte 8                   ; 0x0eea
-@..local.l63:
+@..api_idx_0068.l32:
     mov ax, 0xf                      ; 0x0eed
     push ax                          ; 0x0ef0
     call ds_dispatch_c12a            ; 0x0ef1
@@ -1746,9 +1743,9 @@ api_idx_0068:
     call api_idx_0002_6              ; 0x0f19
     mov ax, 0xb54                    ; 0x0f1c
     cmp word [data_91b8], byte 0     ; 0x0f1f
-    je short @..local.l64            ; 0x0f24
+    je short @..api_idx_0068.l33     ; 0x0f24
     mov ax, 0xb69                    ; 0x0f26
-@..local.l64:
+@..api_idx_0068.l33:
     mov word [bp - 0x0060], ax       ; 0x0f29
     lea ax, word [bp - 0x005c]       ; 0x0f2c
     push ax                          ; 0x0f2f
@@ -1758,7 +1755,7 @@ api_idx_0068:
     lea ax, word [bp - 0x005c]       ; 0x0f39
     mov word [bp - 0x005e], ax       ; 0x0f3c
     mov word [bp - 0x0002], 0        ; 0x0f3f
-@..local.l65:
+@..api_idx_0068.l34:
     mov ax, word [bp - 0x0002]       ; 0x0f44
     mov word [bp - 0x0066], ax       ; 0x0f47
     mov bx, word [bp - 0x005e]       ; 0x0f4a
@@ -1767,17 +1764,17 @@ api_idx_0068:
     mov word [bp - 0x0002], ax       ; 0x0f51
     inc word [bp - 0x005e]           ; 0x0f54
     mov word [bp - 0x0004], 0        ; 0x0f57
-    jmp near @..local.l77            ; 0x0f5c
-@..local.l66:
+    jmp near @..api_idx_0068.l46     ; 0x0f5c
+@..api_idx_0068.l35:
     mov bx, word [bp - 0x005e]       ; 0x0f5f
     mov al, byte [bx]                ; 0x0f62
     sub ah, ah                       ; 0x0f64
     mov word [bp - 0x0062], ax       ; 0x0f66
     inc word [bp - 0x005e]           ; 0x0f69
     cmp ax, strict word 2            ; 0x0f6c
-    je short @..local.l67            ; 0x0f6f
-    jmp near @..local.l68            ; 0x0f71
-@..local.l67:
+    je short @..api_idx_0068.l36     ; 0x0f6f
+    jmp near @..api_idx_0068.l37     ; 0x0f71
+@..api_idx_0068.l36:
     mov ax, data_0002                ; 0x0f74
     push ax                          ; 0x0f77
     push word [bp - 0x005e]          ; 0x0f78
@@ -1885,10 +1882,10 @@ api_idx_0068:
     push word [bp - 0x005e]          ; 0x1073
     call ds_dispatch_e84e            ; 0x1076
     add sp, byte 4                   ; 0x1079
-    jmp near @..local.l76            ; 0x107c
-@..local.l68:
+    jmp near @..api_idx_0068.l45     ; 0x107c
+@..api_idx_0068.l37:
     cmp word [bp - 0x0062], byte 3   ; 0x107f
-    jne short @..local.l69           ; 0x1083
+    jne short @..api_idx_0068.l38    ; 0x1083
     push word [bp - 0x005e]          ; 0x1085
     call ds_dispatch_fa90            ; 0x1088
     pop cx                           ; 0x108b
@@ -1902,8 +1899,8 @@ api_idx_0068:
     sub ax, cx                       ; 0x109c
     mov word [bp - 0x0064], ax       ; 0x109e
     mov word [bp - 0x0068], 0        ; 0x10a1
-    jmp short @..local.l70           ; 0x10a6
-@..local.l69:
+    jmp short @..api_idx_0068.l39    ; 0x10a6
+@..api_idx_0068.l38:
     mov ax, data_0002                ; 0x10a8
     push ax                          ; 0x10ab
     push word [bp - 0x005e]          ; 0x10ac
@@ -1918,7 +1915,7 @@ api_idx_0068:
     sub ax, cx                       ; 0x10c1
     mov word [bp - 0x0064], ax       ; 0x10c3
     mov word [bp - 0x0068], data_0002 ; 0x10c6
-@..local.l70:
+@..api_idx_0068.l39:
     mov ax, 0xc                      ; 0x10cb
     imul word [bp - 0x0004]          ; 0x10ce
     add ax, strict word 0x66         ; 0x10d1
@@ -1931,9 +1928,9 @@ api_idx_0068:
     mov ax, 0                        ; 0x10e0
     push ax                          ; 0x10e3
     cmp word [bp - 0x0062], byte 1   ; 0x10e4
-    jne short @..local.l71           ; 0x10e8
+    jne short @..api_idx_0068.l40    ; 0x10e8
     mov ax, 0x22                     ; 0x10ea
-@..local.l71:
+@..api_idx_0068.l40:
     push ax                          ; 0x10ed
     call ds_dispatch_e823            ; 0x10ee
     add sp, byte 4                   ; 0x10f1
@@ -1953,9 +1950,9 @@ api_idx_0068:
     mov ax, 0                        ; 0x1115
     push ax                          ; 0x1118
     cmp word [bp - 0x0062], byte 1   ; 0x1119
-    jne short @..local.l72           ; 0x111d
+    jne short @..api_idx_0068.l41    ; 0x111d
     mov ax, 0x22                     ; 0x111f
-@..local.l72:
+@..api_idx_0068.l41:
     push ax                          ; 0x1122
     call ds_dispatch_e823            ; 0x1123
     add sp, byte 4                   ; 0x1126
@@ -1973,9 +1970,9 @@ api_idx_0068:
     mov ax, 0                        ; 0x1148
     push ax                          ; 0x114b
     cmp word [bp - 0x0062], byte 1   ; 0x114c
-    jne short @..local.l73           ; 0x1150
+    jne short @..api_idx_0068.l42    ; 0x1150
     mov ax, 0x22                     ; 0x1152
-@..local.l73:
+@..api_idx_0068.l42:
     push ax                          ; 0x1155
     call ds_dispatch_e823            ; 0x1156
     add sp, byte 4                   ; 0x1159
@@ -1993,9 +1990,9 @@ api_idx_0068:
     mov ax, 0                        ; 0x117b
     push ax                          ; 0x117e
     cmp word [bp - 0x0062], byte 1   ; 0x117f
-    jne short @..local.l74           ; 0x1183
+    jne short @..api_idx_0068.l43    ; 0x1183
     mov ax, 0x22                     ; 0x1185
-@..local.l74:
+@..api_idx_0068.l43:
     push ax                          ; 0x1188
     call ds_dispatch_e823            ; 0x1189
     add sp, byte 4                   ; 0x118c
@@ -2014,9 +2011,9 @@ api_idx_0068:
     push ax                          ; 0x11b1
     mov ax, 0x55                     ; 0x11b2
     cmp word [bp - 0x0062], byte 1   ; 0x11b5
-    jne short @..local.l75           ; 0x11b9
+    jne short @..api_idx_0068.l44    ; 0x11b9
     mov ax, 0x16                     ; 0x11bb
-@..local.l75:
+@..api_idx_0068.l44:
     push ax                          ; 0x11be
     call ds_dispatch_e823            ; 0x11bf
     add sp, byte 4                   ; 0x11c2
@@ -2024,7 +2021,7 @@ api_idx_0068:
     push word [bp - 0x005e]          ; 0x11c8
     call ds_dispatch_e84e            ; 0x11cb
     add sp, byte 4                   ; 0x11ce
-@..local.l76:
+@..api_idx_0068.l45:
     inc word [bp - 0x0060]           ; 0x11d1
     lea ax, word [bp - 0x005c]       ; 0x11d4
     push ax                          ; 0x11d7
@@ -2034,24 +2031,24 @@ api_idx_0068:
     lea ax, word [bp - 0x005c]       ; 0x11e1
     mov word [bp - 0x005e], ax       ; 0x11e4
     inc word [bp - 0x0004]           ; 0x11e7
-@..local.l77:
+@..api_idx_0068.l46:
     mov ax, word [bp - 0x0004]       ; 0x11ea
     cmp ax, word [bp - 0x0002]       ; 0x11ed
-    jge short @..local.l78           ; 0x11f0
-    jmp near @..local.l66            ; 0x11f2
-@..local.l78:
+    jge short @..api_idx_0068.l47    ; 0x11f0
+    jmp near @..api_idx_0068.l35     ; 0x11f2
+@..api_idx_0068.l47:
     mov ax, 0                        ; 0x11f5
     push ax                          ; 0x11f8
     mov ax, word [bp - 0x0002]       ; 0x11f9
     cmp ax, word [bp - 0x0066]       ; 0x11fc
-    jle short @..local.l79           ; 0x11ff
+    jle short @..api_idx_0068.l48    ; 0x11ff
     mov cx, 0xc                      ; 0x1201
     imul cx                          ; 0x1204
-    jmp short @..local.l80           ; 0x1206
-@..local.l79:
+    jmp short @..api_idx_0068.l49    ; 0x1206
+@..api_idx_0068.l48:
     mov ax, 0xc                      ; 0x1208
     imul word [bp - 0x0066]          ; 0x120b
-@..local.l80:
+@..api_idx_0068.l49:
     add ax, strict word 0x66         ; 0x120e
     push ax                          ; 0x1211
     mov ax, 0x10d                    ; 0x1212
@@ -2075,9 +2072,9 @@ api_idx_0068:
     add sp, byte 8                   ; 0x123a
     call api_idx_0002_6              ; 0x123d
     test ax, ax                      ; 0x1240
-    je short @..local.l81            ; 0x1242
+    je short @..api_idx_0068.l50     ; 0x1242
     cmp word [bp - 0x0060], strict word 0xb69 ; 0x1244
-    jge short @..local.l81           ; 0x1249
+    jge short @..api_idx_0068.l50    ; 0x1249
     mov word [bp - 0x0060], 0xb69    ; 0x124b
     lea ax, word [bp - 0x005c]       ; 0x1250
     push ax                          ; 0x1253
@@ -2086,16 +2083,16 @@ api_idx_0068:
     add sp, byte 4                   ; 0x125a
     lea ax, word [bp - 0x005c]       ; 0x125d
     mov word [bp - 0x005e], ax       ; 0x1260
-@..local.l81:
+@..api_idx_0068.l50:
     cmp word [data_5216], byte 0     ; 0x1263
-    jne short @..local.l82           ; 0x1268
-    jmp near @..local.l65            ; 0x126a
-@..local.l82:
+    jne short @..api_idx_0068.l51    ; 0x1268
+    jmp near @..api_idx_0068.l34     ; 0x126a
+@..api_idx_0068.l51:
     call api_idx_0002_6              ; 0x126d
     test ax, ax                      ; 0x1270
-    je short @..local.l83            ; 0x1272
+    je short @..api_idx_0068.l52     ; 0x1272
     mov word [data_91b8], 0xffff     ; 0x1274
-@..local.l83:
+@..api_idx_0068.l52:
     mov ax, 0x32                     ; 0x127a
     push ax                          ; 0x127d
     call api_idx_0004                ; 0x127e
@@ -2109,15 +2106,15 @@ api_idx_0068:
     call ds_dispatch_e942            ; 0x1290
     add sp, byte 8                   ; 0x1293
     cmp word [data_8450], byte 0     ; 0x1296
-    je short @..local.l86            ; 0x129b
+    je short @..api_idx_0068.l55     ; 0x129b
     cmp word [data_91b8], byte 0     ; 0x129d
-    jne short @..local.l85           ; 0x12a2
-@..local.l84:
+    jne short @..api_idx_0068.l54    ; 0x12a2
+@..api_idx_0068.l53:
     call ds_dispatch_ef83            ; 0x12a4
     test ax, ax                      ; 0x12a7
-    je short @..local.l85            ; 0x12a9
-    jmp short @..local.l84           ; 0x12ab
-@..local.l85:
+    je short @..api_idx_0068.l54     ; 0x12a9
+    jmp short @..api_idx_0068.l53    ; 0x12ab
+@..api_idx_0068.l54:
     push word [data_844c]            ; 0x12ad
     push word [data_844e]            ; 0x12b1
     call ds_dispatch_d91b            ; 0x12b5
@@ -2126,13 +2123,13 @@ api_idx_0068:
     push ax                          ; 0x12be
     call ds_dispatch_d907            ; 0x12bf
     pop cx                           ; 0x12c2
-    jmp short @..local.l87           ; 0x12c3
-@..local.l86:
+    jmp short @..api_idx_0068.l56    ; 0x12c3
+@..api_idx_0068.l55:
     call ds_dispatch_baef            ; 0x12c5
     test ax, ax                      ; 0x12c8
-    jne short @..local.l87           ; 0x12ca
-    jmp short @..local.l86           ; 0x12cc
-@..local.l87:
+    jne short @..api_idx_0068.l56    ; 0x12ca
+    jmp short @..api_idx_0068.l55    ; 0x12cc
+@..api_idx_0068.l56:
     call ds_dispatch_ec17            ; 0x12ce
     mov ax, 0                        ; 0x12d1
     push ax                          ; 0x12d4
@@ -2166,15 +2163,15 @@ api_idx_0068:
     call ds_dispatch_ef14            ; 0x130c
     pop cx                           ; 0x130f
     test word [data_9056], 0x1000    ; 0x1310
-    je short @..local.l88            ; 0x1316
+    je short @..api_idx_0068.l57     ; 0x1316
     cmp byte [data_5989], 1          ; 0x1318
-    jne short @..local.l88           ; 0x131d
+    jne short @..api_idx_0068.l57    ; 0x131d
     call ds_dispatch_f02c            ; 0x131f
     mov word [data_0e32], 1          ; 0x1322
-    jmp short @..local.l89           ; 0x1328
-@..local.l88:
+    jmp short @..api_idx_0068.l58    ; 0x1328
+@..api_idx_0068.l57:
     mov word [data_0e32], 0          ; 0x132a
-@..local.l89:
+@..api_idx_0068.l58:
     mov word [data_5b3e], 0          ; 0x1330
     mov word [data_830a], data_0002  ; 0x1336
     ret                              ; 0x133c

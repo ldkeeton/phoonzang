@@ -15,6 +15,21 @@
           "sig": "uint16_t dos_mem_alloc(uint16_t flags, uint16_t param)"
         }
       },
+      "force_data": [
+        {"start": "08d4", "end": "08e1", "note": "Seven-entry switch table for the 0x08ed indirect jump"},
+        {"start": "3140", "end": "343d", "note": "Video palette/data table before code resumes at 0x343e"},
+        {"start": "3940", "end": "395a", "note": "I/O error loading font message"},
+        {"start": "396c", "end": "3988", "note": "Memory error loading file message"},
+        {"start": "10161", "end": "10e55", "note": "Structured data tail through end of DS.EXE"}
+      ],
+      "force_code": [
+        {"start": "0fdf", "end": "1033", "note": "Lost routine following the return at 0x0fde"},
+        {"start": "3067", "end": "30a2", "note": "Verified BP-frame routine ending at 0x30a2"},
+        {"start": "30f7", "end": "313d", "note": "BIOS get-video-mode routine following the return at 0x30f6"},
+        {"start": "343e", "end": "348f", "note": "Code resumes immediately after the data table"},
+        {"start": "3490", "end": "34f5", "note": "Code entries immediately following the return at 0x348f"},
+        {"start": "457c", "end": "45aa", "note": "Alternate strlen_3 entry with BP-frame prologue"}
+      ],
       "ghidra_base_offset": -512
     },
     "vinit": {

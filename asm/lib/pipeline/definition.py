@@ -12,6 +12,8 @@ _INITIAL_CTX_FIELDS = {
     'detailed_timings', 'trace', 'iteration', 'seeds',
     'code_targets', 'label_map', 'annotations', 'blocks',
     'jump_tables', 'carve_strings_1', 'report', 'layers',
+    'hard_data', 'hard_code',
+    'branch_targets', 'branch_edges', 'entry_targets',
 }
 _INITIAL_COLUMNS = {'raw_byte', 'seed'}
 

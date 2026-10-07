@@ -148,11 +148,7 @@ endstruc
 
 ; @struct s_bx_5d4b size=15 reg=bx disp=0x5d4b
 ; @field offset=0 size=2 name=f_00
-; @field offset=2 size=3 name=f_02
-; @field offset=5 size=1 name=f_05
-; @field offset=6 size=1 name=f_06
-; @field offset=7 size=1 name=f_07
-; @field offset=8 size=1 name=f_08
+; @field offset=2 size=7 name=f_02
 ; @field offset=9 size=1 name=f_09
 ; @field offset=10 size=1 name=f_0a
 ; @field offset=11 size=1 name=f_0b
@@ -161,11 +157,7 @@ endstruc
 ; @field offset=14 size=1 name=f_0e
 struc s_bx_5d4b
     .f_00: resb 2
-    .gap_2: resb 3
-    .f_05: resb 1
-    .f_06: resb 1
-    .f_07: resb 1
-    .f_08: resb 1
+    .gap_2: resb 7
     .f_09: resb 1
     .f_0a: resb 1
     .f_0b: resb 1

@@ -27,7 +27,14 @@ from lib.diagnostics import begin as diag_begin, flush as diag_flush
 from lib.diagnostics import phase as diag_phase, emit as diag_emit, enabled as diag_enabled
 
 from lib.decode import disassemble
-from lib.verify.compare import verify, clear_assemble_cache
+from lib.verify.compare import (
+    verify,
+    clear_assemble_cache,
+    _compute_func_boundaries,
+    _function_roots,
+    _compute_branch_ownership,
+    _local_branch_targets,
+)
 from lib.struct_analysis import build_structs
 from lib.match import match_patterns, match_trampolines, categorize_call_targets
 from lib.phases import (
@@ -36,11 +43,16 @@ from lib.phases import (
     PruneDeadPhase, PruneDeadBeforePhase, PruneZeroPhase,
     SettlePhase, ArbiterPhase, ForceCodePhase, PatternSeedPhase,
     BorlandOverlayPhase, DispatchTablePhase,
+    CascadeTargetPhase,
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.pipeline import run_functional, run_iterative, report_timings
 from lib.pipeline.definition import PipelineDef, Stage
-from lib.sidecar import load as load_sidecar, per_binary as sidecar_per_binary
+from lib.sidecar import (
+    SidecarError,
+    load as load_sidecar,
+    per_binary as sidecar_per_binary,
+)
 from lib.report import write_report, write_layers, print_short_report, print_compare
 
 
@@ -75,6 +87,7 @@ def _build_classify_phases(known_db=None):
         PruneDeadBeforePhase(),
         PruneZeroPhase(),
         CarvePhase(min_body=4, input_slot='prune_zero', output_slot='carve_2'),
+        CascadeTargetPhase(),
     ])
     return phases
 
@@ -125,6 +138,17 @@ for a in sys.argv:
 
 _ITERATIVE = '--no-iterate' not in sys.argv
 _TRACE = '--trace' in sys.argv
+_TRACE_ADDRESSES = set()
+for arg in sys.argv:
+    if arg.startswith('--trace-address='):
+        value = arg.split('=', 1)[1]
+        try:
+            _TRACE_ADDRESSES.add(int(value, 0))
+        except ValueError:
+            try:
+                _TRACE_ADDRESSES.add(int(value, 16))
+            except ValueError:
+                print(f'Ignoring invalid trace address: {value}', file=sys.stderr)
 _DIAG = '--diag' in sys.argv
 # Instruction offsets are shown by default; this flag suppresses the comments.
 _SHOW_OFFSETS = '--no-show-offsets' not in sys.argv
@@ -146,7 +170,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     if _DIAG and project:
         diag_begin(project, name)
 
-    trace_writer = TraceWriter(project, name) if _TRACE else None
+    trace_writer = TraceWriter(project, name, _TRACE_ADDRESSES) if _TRACE else None
 
     ctx = PhaseContext(
         binary_data=data,
@@ -189,10 +213,16 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         diag_emit('code_bytes', int((squashed_arr == IS_CODE).sum()))
         diag_emit('data_bytes', int((squashed_arr == IS_DATA).sum()))
 
-    # ── Build label map ──
-    label_map = match_patterns(data, ctx.code_target_set, known_db, max_func_size)
+    # Decode the classified code once before label selection. The CFG is used
+    # to distinguish internal branches from function-entry transfers.
+    t_flow_disasm_start = time.perf_counter()
+    instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
 
-    trampoline_map = match_trampolines(data, ctx.code_target_set, known_db)
+    # ── Build label map ──
+    label_targets = ctx.label_target_set
+    label_map = match_patterns(data, label_targets, known_db, max_func_size)
+
+    trampoline_map = match_trampolines(data, label_targets, known_db)
     for off, lbl in trampoline_map.items():
         if off not in label_map:
             label_map[off] = lbl
@@ -207,8 +237,45 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
             if off in ctx.code_targets and off not in label_map:
                 label_map[off] = info.get('name', f'fn_{hex_off}')
 
-    label_map = categorize_call_targets(data, ctx.code_target_set, label_map)
-    for off in ctx.code_targets:
+    label_map = categorize_call_targets(data, label_targets, label_map)
+    function_roots = _function_roots(
+        label_map, instructions,
+        entry_points=(seed.address for seed in ctx.seeds),
+        binary_size=len(data), start_offset=start_offset,
+    )
+    extra_flow_edges = {
+        (table.jmp_addr, target)
+        for table in ctx.jump_tables
+        if table.validated and table.validation_ok
+        for target in table.targets
+    }
+    extra_flow_edges.update(
+        (info.source_offset, address)
+        for address, info in ctx.code_targets.items()
+        if info.reason == 'indirect_jmp' and info.source_offset >= 0
+    )
+    owners, edge_sources, direct_edges, function_roots = _compute_branch_ownership(
+        instructions, function_roots, ctx.branch_edges, extra_flow_edges,
+        binary_size=len(data), start_offset=start_offset,
+    )
+    local_branch_targets = _local_branch_targets(
+        ctx.branch_targets | {target for _, target in direct_edges},
+        owners, edge_sources, function_roots,
+    )
+    for target in local_branch_targets:
+        label_targets.discard(target)
+        if label_map.get(target) == f'loc_{target:04x}':
+            del label_map[target]
+    external_branch_targets = {
+        target for target in ctx.branch_targets
+        if target in ctx.code_targets
+        and target not in local_branch_targets
+    }
+    label_targets |= external_branch_targets
+    for off in external_branch_targets:
+        label_map.setdefault(off, f'loc_{off:04x}')
+
+    for off in label_targets:
         if off not in label_map:
             label_map[off] = f'loc_{off:04x}'
 
@@ -266,7 +333,6 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         'code_pct': round(pct, 1),
     }
 
-    instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
     ctx.report['classification']['instructions'] = len(instructions)
     t_disasm = time.perf_counter()
 
@@ -298,6 +364,11 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         foreign_label_map=foreign_label_map,
         immediate_labels=immediate_labels,
         split_functions=split_functions,
+        hard_data=ctx.hard_data,
+        function_roots=function_roots,
+        branch_targets=ctx.branch_targets,
+        branch_edges=ctx.branch_edges,
+        extra_flow_edges=extra_flow_edges,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
@@ -345,7 +416,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
           f'loss={stats.get("code_loss", 0)}  '
           f'[{stats["status"]}]')
     print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
-          f'disasm: {t_disasm-t_classify_end:.1f}s  '
+          f'disasm: {t_disasm-t_flow_disasm_start:.1f}s  '
           f'verify+emit: {t_end-t_disasm:.1f}s  '
           f'(func_bounds={stats.get("timing_func_boundaries",0):.3f}s '
           f'local_lbl={stats.get("timing_local_labels",0):.3f}s '
@@ -788,4 +859,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except SidecarError as exc:
+        print(f'Sidecar configuration error: {exc}', file=sys.stderr)
+        sys.exit(2)

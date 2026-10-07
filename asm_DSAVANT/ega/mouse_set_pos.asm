@@ -75,7 +75,7 @@ mouse_set_pos:
     mov ax, 4                        ; 0x1a6b
     int 0x33 ; BIOS mouse
 @..mouse_set_pos.l5:
-    mov ax, data_0003                ; 0x1a70
+    mov ax, 3                        ; 0x1a70
     int 0x33 ; BIOS mouse
     jmp short @..mouse_set_pos.l7    ; 0x1a75
 @..mouse_set_pos.l6:

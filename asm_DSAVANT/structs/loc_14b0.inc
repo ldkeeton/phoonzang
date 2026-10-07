@@ -138,18 +138,18 @@ struc s_bx_82d0
     .f_02: resb 2
 endstruc
 
-; @struct s_si_0000 size=3 reg=si disp=0x0000
-; @field offset=0 size=2 name=f_00
-; @field offset=2 size=1 name=f_02
-struc s_si_0000
-    .f_00: resb 2
-    .f_02: resb 1
-endstruc
-
 ; @struct s_di_0000 size=4 reg=di disp=0x0000
 ; @field offset=0 size=2 name=f_00
 ; @field offset=2 size=2 name=f_02
 struc s_di_0000
     .f_00: resb 2
     .f_02: resb 2
+endstruc
+
+; @struct s_si_0000 size=3 reg=si disp=0x0000
+; @field offset=0 size=2 name=f_00
+; @field offset=2 size=1 name=f_02
+struc s_si_0000
+    .f_00: resb 2
+    .f_02: resb 1
 endstruc

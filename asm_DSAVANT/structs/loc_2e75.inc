@@ -38,46 +38,6 @@ struc s_bx_0292
     .f_1a: resb 2
 endstruc
 
-; @struct s_bx_5c0c size=20 reg=bx disp=0x5c0c
-; @field offset=0 size=2 name=f_00
-; @field offset=2 size=2 name=f_02
-; @field offset=4 size=2 name=f_04
-; @field offset=6 size=2 name=f_06
-; @field offset=8 size=8 name=f_08
-; @field offset=16 size=2 name=f_10
-; @field offset=18 size=2 name=f_12
-struc s_bx_5c0c
-    .f_00: resb 2
-    .f_02: resb 2
-    .f_04: resb 2
-    .f_06: resb 2
-    .gap_8: resb 8
-    .f_10: resb 2
-    .f_12: resb 2
-endstruc
-
-; @struct s_bx_5d5d size=4 reg=bx disp=0x5d5d
-; @field offset=0 size=1 name=f_00
-; @field offset=1 size=1 name=f_01
-; @field offset=2 size=1 name=f_02
-; @field offset=3 size=1 name=f_03
-struc s_bx_5d5d
-    .f_00: resb 1
-    .gap_1: resb 1
-    .f_02: resb 1
-    .f_03: resb 1
-endstruc
-
-; @struct s_bx_5e2f size=4 reg=bx disp=0x5e2f
-; @field offset=0 size=1 name=f_00
-; @field offset=1 size=2 name=f_01
-; @field offset=3 size=1 name=f_03
-struc s_bx_5e2f
-    .f_00: resb 1
-    .gap_1: resb 2
-    .f_03: resb 1
-endstruc
-
 ; @struct s_bx_69a4 size=4 reg=bx disp=0x69a4
 ; @field offset=0 size=2 name=f_00
 ; @field offset=2 size=2 name=f_02
@@ -178,4 +138,12 @@ endstruc
 struc s_bx_ffea
     .f_00: resb 2
     .f_02: resb 2
+endstruc
+
+; @struct s_di_0000 size=3 reg=di disp=0x0000
+; @field offset=0 size=2 name=f_00
+; @field offset=2 size=1 name=f_02
+struc s_di_0000
+    .f_00: resb 2
+    .f_02: resb 1
 endstruc

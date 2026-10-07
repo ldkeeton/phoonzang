@@ -2,16 +2,9 @@
 %include "structs/loc_0a13.inc"
 org 0
 bits 16
-data_0003 equ 0x0003
-data_0322 equ 0x0322
-data_0330 equ 0x0330
+loc_0007 equ 0x0007
 loc_0381 equ 0x0381
 data_0421 equ 0x0421
-loc_04b7 equ 0x04b7
-loc_04bd equ 0x04bd
-loc_04bf equ 0x04bf
-data_04dc equ 0x04dc
-data_058a equ 0x058a
 loc_07a2 equ 0x07a2
 loc_07b3 equ 0x07b3
 loc_07ce equ 0x07ce
@@ -185,7 +178,7 @@ io_loc_0183:
     push bp                          ; 0x0183
     mov bp, sp                       ; 0x0184
     cmp word [bp + 0x8], byte 0      ; 0x0186
-    je short @..local.l4             ; 0x018a
+    je short @..io_loc_0183.l3       ; 0x018a
 @..io_loc_0183.l1:
     cmp byte [cs:data_0b94], 0       ; 0x018c
     je short @..io_loc_0183.l1       ; 0x0192
@@ -194,13 +187,13 @@ io_loc_0183:
     jne short @..io_loc_0183.l2      ; 0x019a
     pop bp                           ; 0x019c
     ret                              ; 0x019d
-@..local.l4:
+@..io_loc_0183.l3:
     cmp byte [cs:data_0b7d], 0       ; 0x019e
-    jne short @..local.l6            ; 0x01a4
-@..local.l5:
+    jne short @..io_loc_0183.l5      ; 0x01a4
+@..io_loc_0183.l4:
     cmp byte [cs:data_0b94], 0       ; 0x01a6
-    je short @..local.l5             ; 0x01ac
-@..local.l6:
+    je short @..io_loc_0183.l4       ; 0x01ac
+@..io_loc_0183.l5:
     pop bp                           ; 0x01ae
     ret                              ; 0x01af
 io_loc_01b0:
@@ -275,17 +268,17 @@ io_loc_0294:
     push bx                          ; 0x029c
     cmp byte [bp + 0x14], 0xff       ; 0x029d
     jne short @..io_loc_0294.l1      ; 0x02a1
-    jmp near @..local.l7             ; 0x02a3
+    jmp near @..io_loc_0294.l2       ; 0x02a3
 @..io_loc_0294.l1:
     mov al, byte [cs:data_0b7d]      ; 0x02a6
     call io_loc_02b3                 ; 0x02aa
     mov byte [bp + 0x15], al         ; 0x02ad
-    jmp near @..local.l10            ; 0x02b0
+    jmp near @..io_loc_0294.l5       ; 0x02b0
 io_loc_02b3:
     cmp al, 6                        ; 0x02b3
-    jb short @..io_loc_0294.l2       ; 0x02b5
+    jb short @..io_loc_02b3.l1       ; 0x02b5
     mov al, 0                        ; 0x02b7
-@..io_loc_0294.l2:
+@..io_loc_02b3.l1:
     ret                              ; 0x02b9
 io_loc_02ba:
     push di                          ; 0x02ba
@@ -333,13 +326,13 @@ io_loc_02ba:
     pop di                           ; 0x031f
     ret                              ; 0x0320
     db 0x00
-@..local.l7:
+@..io_loc_0294.l2:
     mov ah, 0                        ; 0x0322
     int 0x13 ; BIOS disk: reset disk system
     cmp byte [bp + 0x15], 4          ; 0x0326
-    jne short @..local.l8            ; 0x032a
+    jne short @..io_loc_0294.l3      ; 0x032a
     mov byte [bp + 0x15], 1          ; 0x032c
-@..local.l8:
+@..io_loc_0294.l3:
     mov ax, 0x64                     ; 0x0330
     mov word [cs:data_0b81], ax      ; 0x0333
     mov al, byte [bp + 0x15]         ; 0x0337
@@ -348,9 +341,9 @@ io_loc_02ba:
     pushf                            ; 0x0344
     pop ax                           ; 0x0345
     test ah, 0x80                    ; 0x0346
-    je short @..local.l9             ; 0x0349
+    je short @..io_loc_0294.l4       ; 0x0349
     inc byte [cs:data_0b90]          ; 0x034b
-@..local.l9:
+@..io_loc_0294.l4:
     mov bl, byte [cs:data_0b7d]      ; 0x0350
     shl bl, 1                        ; 0x0355
     xor bh, bh                       ; 0x0357
@@ -397,38 +390,38 @@ io_loc_02ba:
     mov dx, word [cs:data_0b8b]      ; 0x03bf
     mov al, 0x80                     ; 0x03c4
     out dx, al                       ; 0x03c6
-    jmp near @..local.l25            ; 0x03c7
-    jmp near @..local.l25            ; 0x03ca
+    jmp near loc_0592                ; 0x03c7
+    jmp near loc_0592                ; 0x03ca
     times 14 db 0
     add al, ch                       ; 0x03db
     or ax, 0xe903                    ; 0x03dd
     mov al, 1                        ; 0x03e0
-@..local.l10:
+@..io_loc_0294.l5:
     cmp byte [bp + 0x12], 0          ; 0x03e2
-    jne short @..local.l12           ; 0x03e6
+    jne short @..io_loc_0294.l7      ; 0x03e6
     call io_loc_01b0                 ; 0x03e8
-@..local.l11:
+@..io_loc_0294.l6:
     test byte [cs:data_0b94], 0xff   ; 0x03eb
-    je short @..local.l11            ; 0x03f1
-    jmp near @..local.l32            ; 0x03f3
-@..local.l12:
+    je short @..io_loc_0294.l6       ; 0x03f1
+    jmp near @..io_loc_0294.l12      ; 0x03f3
+@..io_loc_0294.l7:
     test byte [bp + 0x14], 2         ; 0x03f6
-    je short @..local.l13            ; 0x03fa
+    je short @..io_loc_0294.l8       ; 0x03fa
     test byte [cs:data_0b94], 0xff   ; 0x03fc
-    jne short @..local.l13           ; 0x0402
-    jmp near @..local.l25            ; 0x0404
-@..local.l13:
+    jne short @..io_loc_0294.l8      ; 0x0402
+    jmp near loc_0592                ; 0x0404
+@..io_loc_0294.l8:
     cli                              ; 0x0407
     test byte [cs:data_0b94], 0xff   ; 0x0408
-    jne short @..local.l14           ; 0x040e
-    jmp near @..local.l18            ; 0x0410
-@..local.l14:
+    jne short @..io_loc_0294.l9      ; 0x040e
+    jmp near loc_04c3                ; 0x0410
+@..io_loc_0294.l9:
     xor ax, ax                       ; 0x0413
     mov es, ax                       ; 0x0415
     mov di, 0x20                     ; 0x0417
     cli                              ; 0x041a
     cmp byte [cs:data_0421], 0       ; 0x041b
-    jne short @..local.l15           ; 0x0421
+    jne short @..io_loc_0294.l10     ; 0x0421
     mov byte [cs:data_0421], 1       ; 0x0423
     in al, 0x21                      ; 0x0429
     mov byte [cs:data_0b8f], al      ; 0x042b
@@ -436,7 +429,7 @@ io_loc_02ba:
     mov word [cs:data_0c10], ax      ; 0x0432
     mov ax, word [es:di + 0x2]       ; 0x0436
     mov word [cs:data_0c12], ax      ; 0x043a
-@..local.l15:
+@..io_loc_0294.l10:
     mov al, 0x34                     ; 0x043e
     out 0x43, al                     ; 0x0440
     call io_loc_0610                 ; 0x0442
@@ -446,63 +439,68 @@ io_loc_02ba:
     mov al, ah                       ; 0x044d
     out 0x40, al                     ; 0x044f
     cmp byte [cs:data_0b90], 0       ; 0x0451
-    je short @..local.l16            ; 0x0457
+    je short @..io_loc_0294.l11      ; 0x0457
     mov bl, byte [cs:data_0b7d]      ; 0x0459
     shl bl, 1                        ; 0x045e
     xor bh, bh                       ; 0x0460
     mov dx, word [cs:bx + 0x5a5]     ; 0x0462
     cmp byte [cs:data_0b94], 0       ; 0x0467
-    je short @..local.l17            ; 0x046d
+    je short loc_04b5                ; 0x046d
     mov dx, word [cs:bx + 0x5ad]     ; 0x046f
-    jmp near @..local.l17            ; 0x0474
-@..local.l16:
+    jmp near loc_04b5                ; 0x0474
+@..io_loc_0294.l11:
     mov bl, byte [cs:data_0b7d]      ; 0x0477
     shl bl, 1                        ; 0x047c
     xor bh, bh                       ; 0x047e
     mov dx, word [cs:bx + 0x595]     ; 0x0480
     cmp byte [cs:data_0b94], 0       ; 0x0485
-    je short @..local.l17            ; 0x048b
+    je short loc_04b5                ; 0x048b
     mov dx, word [cs:bx + 0x59d]     ; 0x048d
-    jmp near @..local.l17            ; 0x0492
+    jmp near loc_04b5                ; 0x0492
+io_loc_0495:
     in al, 0x19                      ; 0x0495
     scasw                            ; 0x0497
     or word [bx - 0x60f6], bx        ; 0x0498
-    db 0x0a, 0xe4 ; or ah, ah
+    or ah, ah                        ; 0x049c
     sbb word [bx - 0x60f7], bp       ; 0x049e
     or bl, byte [bx + 0x410a]        ; 0x04a2
     or ax, word [bx + di + 0x9]      ; 0x04a6
-    jne short @..local.l17           ; 0x04a9
-    jne short loc_04b7               ; 0x04ab
+    jne short loc_04b5               ; 0x04a9
+    jne short @..io_loc_0495.l1      ; 0x04ab
     inc cx                           ; 0x04ad
     or ax, word [bx + di + 0x9]      ; 0x04ae
     jne short loc_04bd               ; 0x04b1
     jne short loc_04bf               ; 0x04b3
-@..local.l17:
+loc_04b5:
     cld                              ; 0x04b5
-    xor ax, ax                       ; 0x04b6
+    db 0x33
+@..io_loc_0495.l1:
+    db 0xc0
     mov es, ax                       ; 0x04b8
     mov di, 0x20                     ; 0x04ba
+loc_04bd:
     mov ax, dx                       ; 0x04bd
+loc_04bf:
     stosw                            ; 0x04bf
     mov ax, cs                       ; 0x04c0
     stosw                            ; 0x04c2
-@..local.l18:
+loc_04c3:
     cli                              ; 0x04c3
     cmp byte [cs:data_0b7d], 1       ; 0x04c4
-    jne short @..local.l20           ; 0x04ca
+    jne short loc_04dc               ; 0x04ca
     mov al, 0                        ; 0x04cc
     cmp byte [cs:data_0b94], 0       ; 0x04ce
-    je short @..local.l19            ; 0x04d4
+    je short loc_04d8                ; 0x04d4
     mov al, 0xff                     ; 0x04d6
-@..local.l19:
+loc_04d8:
     mov byte [cs:data_09ae], al      ; 0x04d8
-@..local.l20:
+loc_04dc:
     cmp byte [cs:data_0b7d], 0       ; 0x04dc
-    jne short @..local.l21           ; 0x04e2
+    jne short loc_04ea               ; 0x04e2
     in al, 0x61                      ; 0x04e4
-    or al, data_0003                 ; 0x04e6
+    or al, 3                         ; 0x04e6
     out 0x61, al                     ; 0x04e8
-@..local.l21:
+loc_04ea:
     call fpu_loc_077b                ; 0x04ea
     mov al, strlen                   ; 0x04ed
     out 0x21, al                     ; 0x04ef
@@ -539,27 +537,27 @@ io_loc_02ba:
     mov byte [cs:data_0948], al      ; 0x054f
     mov byte [cs:data_0a7c], al      ; 0x0553
     cmp byte [cs:data_0b7d], 1       ; 0x0557
-    je short @..local.l22            ; 0x055d
+    je short loc_0567                ; 0x055d
     cmp byte [cs:data_0b7d], 4       ; 0x055f
-    jne short @..local.l23           ; 0x0565
-@..local.l22:
+    jne short loc_056d               ; 0x0565
+loc_0567:
     mov dx, 0x388                    ; 0x0567
     mov al, 0x40                     ; 0x056a
     out dx, al                       ; 0x056c
-@..local.l23:
+loc_056d:
     mov byte [cs:data_0b94], 0       ; 0x056d
     cmp byte [cs:data_0b90], 0       ; 0x0573
-    jne short @..local.l26           ; 0x0579
+    jne short loc_059b               ; 0x0579
     mov al, byte [cs:data_0b8f]      ; 0x057b
     and al, strlen                   ; 0x057f
     out 0x21, al                     ; 0x0581
     sti                              ; 0x0583
     test byte [bp + 0x14], 1         ; 0x0584
-    je short @..local.l25            ; 0x0588
-@..local.l24:
+    je short loc_0592                ; 0x0588
+loc_058a:
     test byte [cs:data_0b94], 0xff   ; 0x058a
-    je short @..local.l24            ; 0x0590
-@..local.l25:
+    je short loc_058a                ; 0x0590
+loc_0592:
     pop bx                           ; 0x0592
     pop dx                           ; 0x0593
     pop ds                           ; 0x0594
@@ -569,7 +567,7 @@ io_loc_02ba:
     pop bp                           ; 0x0598
     sti                              ; 0x0599
     ret                              ; 0x059a
-@..local.l26:
+loc_059b:
     mov al, 0x34                     ; 0x059b
     out 0x43, al                     ; 0x059d
     mov ax, 0x48                     ; 0x059f
@@ -585,24 +583,24 @@ io_loc_02ba:
     mov bx, 0x1a3a                   ; 0x05b6
     mov dx, 0x42                     ; 0x05b9
     cmp byte [cs:data_0b7d], 1       ; 0x05bc
-    jne short @..local.l27           ; 0x05c2
+    jne short loc_05c7               ; 0x05c2
     mov dx, 0x389                    ; 0x05c4
-@..local.l27:
-    cmp byte [cs:data_0b7d], data_0003 ; 0x05c7
-    je short @..local.l28            ; 0x05cd
+loc_05c7:
+    cmp byte [cs:data_0b7d], 3       ; 0x05c7
+    je short loc_05d7                ; 0x05cd
     cmp byte [cs:data_0b7d], 2       ; 0x05cf
-    jne short @..local.l29           ; 0x05d5
-@..local.l28:
+    jne short loc_05dc               ; 0x05d5
+loc_05d7:
     mov dx, word [cs:data_0b8d]      ; 0x05d7
-@..local.l29:
+loc_05dc:
     mov si, word [cs:data_0b81]      ; 0x05dc
     sti                              ; 0x05e1
-@..local.l30:
+loc_05e2:
     sti                              ; 0x05e2
     test byte [cs:data_0b94], 0xff   ; 0x05e3
-    je short @..local.l30            ; 0x05e9
+    je short loc_05e2                ; 0x05e9
     cmp byte [cs:data_0b9a], 0       ; 0x05eb
-    je short @..local.l31            ; 0x05f1
+    je short loc_0608                ; 0x05f1
     mov al, 0x34                     ; 0x05f3
     out 0x43, al                     ; 0x05f5
     mov ax, word [cs:data_0ba6]      ; 0x05f7
@@ -612,19 +610,19 @@ io_loc_02ba:
     call io_loc_0610                 ; 0x0601
     mov al, ah                       ; 0x0604
     out 0x40, al                     ; 0x0606
-@..local.l31:
+loc_0608:
     mov al, byte [cs:data_0b8f]      ; 0x0608
     out 0x21, al                     ; 0x060c
-    jmp short @..local.l25           ; 0x060e
+    jmp short loc_0592               ; 0x060e
 io_loc_0610:
     jmp near @..io_loc_0610.l1       ; 0x0610
 @..io_loc_0610.l1:
     ret                              ; 0x0613
-@..local.l32:
+@..io_loc_0294.l12:
     cmp byte [cs:data_0421], 0       ; 0x0614
-    jne short @..local.l33           ; 0x061a
-    jmp near @..local.l25            ; 0x061c
-@..local.l33:
+    jne short @..io_loc_0294.l13     ; 0x061a
+    jmp near loc_0592                ; 0x061c
+@..io_loc_0294.l13:
     cld                              ; 0x061f
     cli                              ; 0x0620
     xor ax, ax                       ; 0x0621
@@ -647,7 +645,7 @@ io_loc_0610:
     mov al, byte [cs:data_0b8f]      ; 0x064e
     out 0x21, al                     ; 0x0652
     sti                              ; 0x0654
-    jmp near @..local.l25            ; 0x0655
+    jmp near loc_0592                ; 0x0655
 
     db 0x00, 0x00, 0x57, 0x56, 0xbf, 0x3a, 0x1a, 0xbe, 0x3a, 0x1b, 0x32, 0xff, 0x8a, 0x5e, 0x12, 0x8b
     db 0xcb, 0x03, 0xcb, 0xb8, 0x80, 0x00, 0xf7, 0xe1, 0x8a, 0xc4, 0x8a, 0xe2, 0x3d, 0x80, 0x00, 0x72

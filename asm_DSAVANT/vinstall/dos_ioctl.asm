@@ -4,11 +4,11 @@ dos_ioctl:
     mov bx, word [bp + 0x4]          ; 0x39e8
     mov ax, 0x4400                   ; 0x39eb
     int 0x21 ; DOS function dispatcher
-    jb short @..local.l193           ; 0x39f0
+    jb short @..dos_ioctl.l1         ; 0x39f0
     test dl, data_0080               ; 0x39f2
-    je short @..local.l193           ; 0x39f5
+    je short @..dos_ioctl.l1         ; 0x39f5
     test dl, 3                       ; 0x39f7
-    je short @..local.l193           ; 0x39fa
+    je short @..dos_ioctl.l1         ; 0x39fa
     mov ax, 1                        ; 0x39fc
     pop bp                           ; 0x39ff
     ret                              ; 0x3a00

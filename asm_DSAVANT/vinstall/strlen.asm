@@ -3,9 +3,7 @@ strlen:
     mov bp, sp                       ; 0x2aa7
     mov dx, 0x7fff                   ; 0x2aa9
     jmp short @..strlen.l1           ; 0x2aac
-    push bp                          ; 0x2aae
-    mov bp, sp                       ; 0x2aaf
-    mov dx, word [bp + 0x8]          ; 0x2ab1
+    db 0x55, 0x8b, 0xec, 0x8b, 0x56, 0x08
 @..strlen.l1:
     cld                              ; 0x2ab4
     push si                          ; 0x2ab5

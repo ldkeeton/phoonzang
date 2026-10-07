@@ -17,7 +17,7 @@ dos_alloc_mem:
     mov ah, 0x3f                     ; 0x387e
     int 0x21 ; DOS read file (handle)
     jae short @..dos_alloc_mem.l1    ; 0x3882
-    jmp near @..local.l70            ; 0x3884
+    jmp near @..dos_alloc_mem.l5     ; 0x3884
 @..dos_alloc_mem.l1:
     xor bx, bx                       ; 0x3887
     mov ax, word [bx + 0xa]          ; 0x3889
@@ -52,7 +52,7 @@ dos_alloc_mem:
     mov ah, 0x48                     ; 0x38d2
     int 0x21 ; DOS allocate memory
     jae short @..dos_alloc_mem.l3    ; 0x38d6
-    jmp near @..dos_con_loc_3936.l1  ; 0x38d8
+    jmp near @..dos_alloc_mem.l6     ; 0x38d8
 @..dos_alloc_mem.l3:
     mov bx, 0x364a                   ; 0x38db
     mov cx, word [bp + 0x6]          ; 0x38de
@@ -71,7 +71,7 @@ dos_alloc_mem:
     sub cx, dx                       ; 0x38fe
     mov ah, 0x3f                     ; 0x3900
     int 0x21 ; DOS read file (handle)
-    jb short @..local.l70            ; 0x3904
+    jb short @..dos_alloc_mem.l5     ; 0x3904
     xor bx, bx                       ; 0x3906
     mov al, byte [bx + 0x6]          ; 0x3908
     and al, 6                        ; 0x390b

@@ -48,11 +48,11 @@ dos_free_mem:
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x0dbb
     int 0x21 ; DOS function dispatcher
-    or ax, 0x70a                     ; 0x0dc0
 
+    db 0x0d, 0x0a, 0x07
     db 'RESTOREAREA called with NULL pointer.', 0
+    db 0x0a, 0x24
 
-    or ah, byte [si]                 ; 0x0de9
 @..dos_free_mem.l3:
     pop si                           ; 0x0deb
     pop di                           ; 0x0dec

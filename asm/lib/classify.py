@@ -6,6 +6,7 @@ from lib.phases import (
     TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
     PruneDeadPhase, PruneZeroPhase,
     SettlePhase, ArbiterPhase,
+    CascadeTargetPhase,
 )
 from lib.pipeline import run_functional
 
@@ -21,14 +22,16 @@ def _build_phases():
         PruneDeadPhase(),
         PruneZeroPhase(),
         CarvePhase(min_body=4, input_slot='prune_zero', output_slot='carve_2'),
+        CascadeTargetPhase(),
     ]
 
 
-def classify(data, start_offset=0, entry_points=None):
+def classify(data, start_offset=0, entry_points=None, sidecar_entry=None):
     ctx = PhaseContext(
         binary_data=data,
         start_offset=start_offset,
         entry_points=entry_points,
+        sidecar_entry=sidecar_entry,
     )
 
     phases = _build_phases()

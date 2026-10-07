@@ -497,7 +497,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
     return records
 
 
-def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None, immediate_labels=None):
+def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None, immediate_labels=None, hard_data=None):
     """Replace code-like data_block records with inline records;
     annotate jump tables and known file formats on the rest."""
     new_records = []
@@ -521,6 +521,13 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
 
         if len(raw) < 2:
             new_records.append(rec)
+            continue
+
+        if hard_data is not None and any(hard_data[start:end]):
+            new_records.append(rec)
+            if trace is not None:
+                trace.event('cascade', 'skipped', addr=start, end=end,
+                            size=end - start, reason='explicit force_data')
             continue
 
         promoted = False
@@ -793,41 +800,194 @@ def _direct_flow_targets(insn, binary_size, start_offset=0):
     )
 
 
-def _compute_local_labels(func_boundaries, code_targets, label_map,
-                          insn_by_addr=None, binary_size=None, start_offset=0):
-    """Return {offset: '@..name.l{N}'} for code targets within named functions."""
-    targets = set(code_targets) if code_targets else set()
+def _is_conditional_branch(mnemonic):
+    return ((mnemonic.startswith('j') and mnemonic not in ('jmp', 'ljmp'))
+            or mnemonic in ('loop', 'loope', 'loopne', 'jcxz', 'jecxz'))
 
-    if insn_by_addr:
-        for insn in insn_by_addr.values():
-            targets.update(_direct_flow_targets(
-                insn, binary_size if binary_size is not None else 0x10000,
-                start_offset,
-            ))
 
-    if binary_size is not None:
-        targets = {
-            off for off in targets
-            if start_offset <= off < binary_size
+def _direct_branch_targets(insn, binary_size, start_offset=0):
+    """Return immediate destinations of direct jumps, excluding calls."""
+    mnemonic = insn.mnemonic
+    if not (mnemonic.startswith('j') or mnemonic in (
+            'loop', 'loope', 'loopne')):
+        return ()
+    return _direct_flow_targets(insn, binary_size, start_offset)
+
+
+def _function_roots(label_map, instructions, entry_points=(),
+                    binary_size=None, start_offset=0):
+    """Find function roots from named labels, entries and direct calls."""
+    roots = {}
+    for address, name in (label_map or {}).items():
+        if name.startswith(('loc_', 'data_')):
+            continue
+        roots[address] = name
+
+    for address in entry_points or ():
+        roots.setdefault(address, None)
+
+    size = binary_size if binary_size is not None else 0x10000
+    for insn in instructions or ():
+        if insn.mnemonic not in ('call', 'lcall'):
+            continue
+        for address in _direct_flow_targets(insn, size, start_offset):
+            name = (label_map or {}).get(address)
+            if name and name.startswith(('loc_', 'data_')):
+                name = None
+            roots.setdefault(address, name)
+    return roots
+
+
+def _compute_branch_ownership(instructions, function_roots,
+                              branch_edges=(), extra_flow_edges=(),
+                              binary_size=None, start_offset=0):
+    """Return reachable function owners and direct branch edges.
+
+    Reachability follows decoded instructions, so a reachable block after a
+    return instruction is still owned by its function when a branch reaches
+    it. Calls create separate roots but continue at their fallthrough site.
+    """
+    insn_by_addr = {insn.address: insn for insn in instructions or ()}
+    ordered = sorted(insn_by_addr.values(), key=lambda insn: insn.address)
+    size = binary_size if binary_size is not None else 0x10000
+    roots = {
+        address: name for address, name in (function_roots or {}).items()
+        if address in insn_by_addr and start_offset <= address < size
+    }
+    root_addresses = set(roots)
+
+    direct_edges = set(branch_edges or ())
+    for insn in ordered:
+        for target in _direct_branch_targets(insn, size, start_offset):
+            direct_edges.add((insn.address, target))
+
+    outgoing = {insn.address: set() for insn in ordered}
+    edge_sources = {}
+    for source, target in direct_edges | set(extra_flow_edges or ()):
+        if source not in insn_by_addr or not (start_offset <= target < size):
+            continue
+        outgoing[source].add(target)
+        if (source, target) in direct_edges:
+            edge_sources.setdefault(target, set()).add(source)
+
+    for index, insn in enumerate(ordered):
+        mnemonic = insn.mnemonic
+        if mnemonic in ('ret', 'retf', 'iret', 'hlt', 'ud2'):
+            continue
+        next_address = insn.address + insn.size
+        has_fallthrough = (
+            mnemonic in ('call', 'lcall')
+            or _is_conditional_branch(mnemonic)
+            or mnemonic not in ('jmp', 'ljmp')
+        )
+        if (has_fallthrough and index + 1 < len(ordered)
+                and ordered[index + 1].address == next_address):
+            outgoing[insn.address].add(next_address)
+
+    owners = {}
+
+    def propagate(root):
+        pending = [root]
+        visited = set()
+        while pending:
+            address = pending.pop()
+            if address in visited:
+                continue
+            visited.add(address)
+            if address != root and address in root_addresses:
+                continue
+            owners.setdefault(address, set()).add(root)
+            pending.extend(outgoing.get(address, ()))
+
+    for root in sorted(roots):
+        propagate(root)
+
+    # Classifier output can contain detached code islands with no named
+    # function or call-site root (for example, switch arms reached through an
+    # indirect jump table that was not recovered). Group each rootless weak
+    # CFG component under one inferred owner so its arms and shared epilogues
+    # retain a common local scope.
+    all_addresses = set(insn_by_addr)
+    unowned = all_addresses - owners.keys()
+    undirected = {address: set() for address in unowned}
+    for source in unowned:
+        for target in outgoing.get(source, ()):
+            if target in unowned:
+                undirected[source].add(target)
+                undirected[target].add(source)
+    while unowned:
+        component = set()
+        pending = [min(unowned)]
+        while pending:
+            address = pending.pop()
+            if address in component:
+                continue
+            component.add(address)
+            pending.extend(undirected.get(address, ()) - component)
+        incoming = {
+            target for source in component
+            for target in outgoing.get(source, ()) if target in component
         }
+        external_owners = {
+            owner
+            for source in component
+            for target in outgoing.get(source, ())
+            if target not in component
+            for owner in owners.get(target, ())
+        }
+        if len(external_owners) == 1:
+            root = next(iter(external_owners))
+        else:
+            entries = sorted(component - incoming)
+            root = entries[0] if entries else min(component)
+            roots[root] = None
+            root_addresses.add(root)
+        for address in component:
+            owners.setdefault(address, set()).add(root)
+        unowned -= component
 
+    return owners, edge_sources, direct_edges, roots
+
+
+def _local_branch_targets(branch_targets, owners, edge_sources,
+                          function_roots):
+    """Select branch targets uniquely owned by one non-entry function."""
+    root_addresses = set(function_roots or ())
+    local = set()
+    for target in branch_targets or ():
+        target_owners = owners.get(target, set())
+        if target in root_addresses or len(target_owners) != 1:
+            continue
+        sources = edge_sources.get(target, set())
+        if not sources:
+            continue
+        owner = next(iter(target_owners))
+        if all(owners.get(source) == {owner} for source in sources):
+            local.add(target)
+    return local
+
+
+def _compute_local_labels(local_targets, owners, function_roots, label_map):
+    """Return local assembly names for branch targets with unique owners."""
     local_labels = {}
-    assigned = set()
+    named_counts = {}
+    generic_targets = []
+    for off in sorted(local_targets or ()):
+        if off in (label_map or {}):
+            continue
+        owner_set = owners.get(off, set())
+        if len(owner_set) != 1:
+            continue
+        owner = next(iter(owner_set))
+        name = (function_roots or {}).get(owner)
+        if name and not name.startswith(('loc_', 'data_')):
+            named_counts[owner] = named_counts.get(owner, 0) + 1
+            local_labels[off] = f'@..{name}.l{named_counts[owner]}'
+        else:
+            generic_targets.append(off)
 
-    if func_boundaries:
-        for fn_start, (fn_end, fn_name) in sorted(func_boundaries.items()):
-            n = 0
-            for off in sorted(t for t in targets if fn_start < t < fn_end):
-                if off not in label_map and off not in assigned:
-                    n += 1
-                    local_labels[off] = f'@..{fn_name}.l{n}'
-                    assigned.add(off)
-
-    flat_n = 0
-    for off in sorted(t for t in targets if t not in label_map and t not in assigned):
-        flat_n += 1
-        local_labels[off] = f'@..local.l{flat_n}'
-
+    for index, off in enumerate(generic_targets, 1):
+        local_labels[off] = f'@..local.l{index}'
     return local_labels
 
 
@@ -911,7 +1071,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            structs=None, asm_dir=None, cascade_promoted=None,
            carve_1=None, trace=None,
            foreign_label_map=None,
-           immediate_labels=None, split_functions=None):
+           immediate_labels=None, split_functions=None, hard_data=None,
+           function_roots=None, branch_targets=None, branch_edges=None,
+           extra_flow_edges=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -924,6 +1086,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     label_map : dict | None
     bitmap : bytearray | None
     code_targets : set | None
+    hard_data : bytearray | None
+        Explicit sidecar data bytes that may not be promoted or labeled as code.
     structs : list | None
     asm_dir : str | None
     cascade_promoted : set | None
@@ -932,12 +1096,46 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     """
     from lib.format import format_instruction
 
-    insns = list(instructions)
     total = len(binary_data)
+    if hard_data is None:
+        hard_data = bytearray(total)
+    else:
+        hard_data = bytearray(hard_data[:total])
+        hard_data.extend([0] * (total - len(hard_data)))
+    insns = [
+        insn for insn in instructions
+        if not any(hard_data[insn.address:insn.address + insn.size])
+    ]
     if label_map is None:
         label_map = {}
+    else:
+        label_map = {
+            off: label for off, label in label_map.items()
+            if not (0 <= off < total and hard_data[off])
+        }
+    if code_targets:
+        code_targets = {
+            off for off in code_targets
+            if not (0 <= off < total and hard_data[off])
+        }
+    classifier_code_targets = set(code_targets or ())
+    branch_targets = {
+        off for off in (branch_targets or ())
+        if not (0 <= off < total and hard_data[off])
+    }
+    branch_edges = {
+        (source, target) for source, target in (branch_edges or ())
+        if not (0 <= source < total and hard_data[source])
+        and not (0 <= target < total and hard_data[target])
+    }
+    extra_flow_edges = {
+        (source, target) for source, target in (extra_flow_edges or ())
+        if not (0 <= source < total and hard_data[source])
+        and not (0 <= target < total and hard_data[target])
+    }
 
     insn_by_addr = {insn.address: insn for insn in insns}
+    initial_insn_addrs = set(insn_by_addr)
 
     known_addrs = set(label_map.keys()) if label_map else set()
     if code_targets:
@@ -947,15 +1145,39 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     # Discover hidden address references from MZ relocation table
     reloc_targets = _parse_mz_relocs(binary_data, start_offset)
+    reloc_targets = {
+        off for off in reloc_targets
+        if not (0 <= off < total and hard_data[off])
+    }
     if reloc_targets and code_targets is not None:
         code_targets |= reloc_targets
 
     func_boundaries = _compute_func_boundaries(label_map, binary_data)
     t1 = time.perf_counter()
-    local_labels = _compute_local_labels(
-        func_boundaries, code_targets, label_map, insn_by_addr,
+    roots = function_roots or _function_roots(
+        label_map, insns, binary_size=total, start_offset=start_offset,
+    )
+    if function_roots:
+        roots = {
+            off: root_name for off, root_name in function_roots.items()
+            if off in insn_by_addr
+            and not (0 <= off < total and hard_data[off])
+        }
+    owners, edge_sources, direct_edges, roots = _compute_branch_ownership(
+        insns, roots, branch_edges, extra_flow_edges,
         binary_size=total, start_offset=start_offset,
     )
+    branch_targets.update(target for _, target in direct_edges)
+    local_targets = _local_branch_targets(
+        branch_targets, owners, edge_sources, roots,
+    )
+    local_labels = _compute_local_labels(
+        local_targets, owners, roots, label_map,
+    )
+    local_labels = {
+        off: label for off, label in local_labels.items()
+        if not (0 <= off < total and hard_data[off])
+    }
     t2 = time.perf_counter()
 
     if label_map:
@@ -1132,7 +1354,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     t3 = time.perf_counter()
     records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace, local_labels,
                                        foreign_label_map=foreign_label_map,
-                                       immediate_labels=immediate_labels)
+                                       immediate_labels=immediate_labels,
+                                       hard_data=hard_data)
 
     # Data-block promotion can reveal instructions after the first local-label
     # pass. Give their in-binary direct-flow destinations symbols too, then
@@ -1144,6 +1367,36 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if insn is None:
             continue
         for target in _direct_flow_targets(insn, total):
+            if trace is not None and (
+                    trace.watches(insn.address) or trace.watches(target)):
+                flow = ('call' if insn.mnemonic in ('call', 'lcall') else
+                        'jump' if insn.mnemonic in ('jmp', 'ljmp') else
+                        'conditional_jump')
+                target_bitmap = (
+                    int(bitmap[target]) if bitmap is not None
+                    and 0 <= target < len(bitmap) else None
+                )
+                trace.event(
+                    'verify', 'direct_flow_reference', addr=insn.address,
+                    target=target, mnemonic=insn.mnemonic, flow=flow,
+                    source_was_in_classifier_disassembly=(
+                        insn.address in initial_insn_addrs
+                    ),
+                    source_record_type=rec['type'],
+                    source_bitmap=(
+                        int(bitmap[insn.address]) if bitmap is not None
+                        and 0 <= insn.address < len(bitmap) else None
+                    ),
+                    target_bitmap=target_bitmap,
+                    target_in_classifier_code_targets=(
+                        target in classifier_code_targets
+                    ),
+                    target_hard_data=bool(hard_data[target]),
+                    target_label=label_map.get(target)
+                    or local_labels.get(target),
+                )
+            if hard_data[target]:
+                continue
             if target < start_offset and target not in label_map:
                 # Header destinations cannot be emitted as body labels, but a
                 # global equ keeps direct-flow references symbolic without
@@ -1157,6 +1410,56 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         )
         if formatted is not None:
             rec['text'] = formatted
+
+    if trace is not None and trace.watched_addresses:
+        for addr in sorted(trace.watched_addresses):
+            if not 0 <= addr < total:
+                continue
+            matching = None
+            for preferred_type in ('mnem', 'db_with_comment', 'db',
+                                   'data_block', 'label'):
+                for rec in records:
+                    if rec['type'] != preferred_type:
+                        continue
+                    if preferred_type == 'data_block':
+                        covers = rec['start'] <= addr < rec['end']
+                    elif preferred_type in ('mnem', 'db', 'db_with_comment'):
+                        rec_start = rec.get('offset', -1)
+                        covers = rec_start <= addr < rec_start + rec.get('size', 1)
+                    else:
+                        covers = rec.get('offset') == addr
+                    if covers:
+                        matching = rec
+                        break
+                if matching is not None:
+                    break
+
+            if matching is None:
+                record_info = None
+            else:
+                rec_start = matching.get('start', matching.get('offset'))
+                rec_end = matching.get(
+                    'end', rec_start + matching.get('size', 0)
+                    if rec_start is not None else None,
+                )
+                record_info = {
+                    'type': matching['type'],
+                    'start': rec_start,
+                    'end': rec_end,
+                    'format_hint': matching.get('format_hint'),
+                    'text': matching.get('text'),
+                }
+            trace.event(
+                'verify', 'address_emission', addr=addr,
+                bitmap=(
+                    int(bitmap[addr]) if bitmap is not None
+                    and addr < len(bitmap) else None
+                ),
+                classifier_code_target=(addr in classifier_code_targets),
+                hard_data=bool(hard_data[addr]),
+                label=label_map.get(addr) or local_labels.get(addr),
+                emitted_record=record_info,
+            )
 
     _annotate_interrupts(records)
     t4 = time.perf_counter()

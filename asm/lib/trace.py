@@ -8,11 +8,15 @@ TRACE_DIR = os.path.join(STATS_DIR, 'detailed')
 
 
 class TraceWriter:
-    def __init__(self, project, binary):
+    def __init__(self, project, binary, watched_addresses=None):
         os.makedirs(TRACE_DIR, exist_ok=True)
         self.path = os.path.join(TRACE_DIR, f'{project}_{binary}.jsonl')
         self.f = open(self.path, 'w')
         self._start = time.perf_counter()
+        self.watched_addresses = set(watched_addresses or ())
+
+    def watches(self, address):
+        return address in self.watched_addresses
 
     def event(self, phase, event_type, *, iteration=None, addr=None, **kwargs):
         rec = {

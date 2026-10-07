@@ -14,7 +14,7 @@ class CarvePhase(Phase):
     contract = PhaseContract(
         writes_columns=['carve_1', 'carve_2'],
         reads_columns=['ALL'],  # undecided_mask checks EVERY column with col != 0.0
-        reads_ctx=['binary_data', 'carve_strings_1'],
+        reads_ctx=['binary_data', 'carve_strings_1', 'hard_data'],
         writes_ctx=['carve_strings_1'],  # only carve_1 writes; carve_2 reads it
         requires_binary=True,
     )
@@ -27,6 +27,7 @@ class CarvePhase(Phase):
     def _undecided_mask(self, ctx):
         n = len(ctx.binary_data)
         opin = np.zeros(n, dtype=bool)
+        opin |= ctx.hard_data
         for name in ctx.layers.columns:
             if name in ('raw_byte', 'seed', 'squashed', self.output_slot):
                 continue

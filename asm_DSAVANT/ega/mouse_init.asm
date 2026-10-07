@@ -31,7 +31,7 @@ mouse_init:
     xor cx, cx                       ; 0x1759
     xor dx, dx                       ; 0x175b
     int 0x33 ; BIOS mouse
-    mov ax, data_0003                ; 0x175f
+    mov ax, 3                        ; 0x175f
     int 0x33 ; BIOS mouse
     shr cx, 1                        ; 0x1764
     mov word [cs:data_1beb], cx      ; 0x1766

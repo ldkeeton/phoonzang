@@ -17,28 +17,14 @@ dos_print_str:
     mov bx, word [cs:bx]             ; 0x14f4
     or bx, bx                        ; 0x14f7
     jne short @..dos_print_str.l1    ; 0x14f9
-    mov ax, cs                       ; 0x14fb
-    mov ds, ax                       ; 0x14fd
-    mov dx, 0x160b                   ; 0x14ff
-    mov ah, 9                        ; 0x1502
-    int 0x21 ; DOS string output
-    mov ax, 0x4c01                   ; 0x1506
-    int 0x21 ; DOS function dispatcher
-    or ax, 0x70a                     ; 0x150b
-    dec bp                           ; 0x150e
-    inc cx                           ; 0x150f
-    pop dx                           ; 0x1510
-    inc bp                           ; 0x1511
-    and byte [bp + di + 0x45], dl    ; 0x1512
-    push sp                          ; 0x1515
-    and byte [di + 0x52], al         ; 0x1516
-    push dx                          ; 0x1519
-    dec di                           ; 0x151a
-    push dx                          ; 0x151b
-    add byte [cs:bp + si], cl        ; 0x151c
-    db 0x24
+
+    db 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x0b, 0x16, 0xb4, 0x09, 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21
+    db 0x0d, 0x0a, 0x07
+    db 'MAZE SET ERROR.', 0
+    db 0x0a, 0x24
+
 @..dos_print_str.l1:
-    db 0x4b
+    dec bx                           ; 0x1520
     mov cl, 2                        ; 0x1521
     shl bx, cl                       ; 0x1523
     add bx, strict word 0x10fb       ; 0x1525
@@ -65,9 +51,9 @@ dos_print_str:
     mov al, byte [si + 0x4]          ; 0x155f
     or ax, ax                        ; 0x1562
     jne short @..dos_print_str.l3    ; 0x1564
-    jmp near @..local.l42            ; 0x1566
+    jmp near @..dos_print_str.l22    ; 0x1566
 @..dos_print_str.l3:
-    mov cl, data_0003                ; 0x1569
+    mov cl, 3                        ; 0x1569
     shl ax, cl                       ; 0x156b
     mov word [bp - 0x0004], ax       ; 0x156d
     mov al, byte [si + 0x1]          ; 0x1570
@@ -75,7 +61,7 @@ dos_print_str:
     mov bl, byte [si + 0x3]          ; 0x1574
     xor bh, bh                       ; 0x1577
     add ax, bx                       ; 0x1579
-    mov cl, data_0003                ; 0x157b
+    mov cl, 3                        ; 0x157b
     shl ax, cl                       ; 0x157d
     mov di, ax                       ; 0x157f
     mov al, byte [si + 0x2]          ; 0x1581
@@ -89,7 +75,7 @@ dos_print_str:
     mov bx, ax                       ; 0x1596
     xor ax, ax                       ; 0x1598
     mov al, byte [bx + 0x4]          ; 0x159a
-    mov cl, data_0003                ; 0x159d
+    mov cl, 3                        ; 0x159d
     shl ax, cl                       ; 0x159f
     mov word [bp - 0x0006], ax       ; 0x15a1
     mov ax, word [bx + 0x2]          ; 0x15a4
@@ -153,7 +139,7 @@ dos_print_str:
     pop si                           ; 0x160b
     pop cx                           ; 0x160c
     loop @..dos_print_str.l4         ; 0x160d
-    jmp near @..local.l42            ; 0x160f
+    jmp near @..dos_print_str.l22    ; 0x160f
 @..dos_print_str.l12:
     mov bx, word [bp + 0xe]          ; 0x1612
     mov ax, 5                        ; 0x1615
@@ -183,9 +169,9 @@ dos_print_str:
     mov al, byte [si + 0x4]          ; 0x1659
     or ax, ax                        ; 0x165c
     jne short @..dos_print_str.l13   ; 0x165e
-    jmp near @..local.l42            ; 0x1660
+    jmp near @..dos_print_str.l22    ; 0x1660
 @..dos_print_str.l13:
-    mov cl, data_0003                ; 0x1663
+    mov cl, 3                        ; 0x1663
     shl ax, cl                       ; 0x1665
     mov word [bp - 0x0004], ax       ; 0x1667
     mov al, byte [si + 0x1]          ; 0x166a
@@ -193,7 +179,7 @@ dos_print_str:
     mov bl, byte [si + 0x3]          ; 0x166e
     xor bh, bh                       ; 0x1671
     add ax, bx                       ; 0x1673
-    mov cl, data_0003                ; 0x1675
+    mov cl, 3                        ; 0x1675
     shl ax, cl                       ; 0x1677
     mov di, ax                       ; 0x1679
     mov al, byte [si + 0x2]          ; 0x167b
@@ -203,10 +189,10 @@ dos_print_str:
     mov bx, word [bp - 0x0002]       ; 0x1685
     xor ax, ax                       ; 0x1688
     mov al, byte [bx + 0x4]          ; 0x168a
-    mov cl, data_0003                ; 0x168d
+    mov cl, 3                        ; 0x168d
     shl ax, cl                       ; 0x168f
     mov word [bp - 0x0006], ax       ; 0x1691
-    mov cl, data_0003                ; 0x1694
+    mov cl, 3                        ; 0x1694
     mov ax, word [bx + 0x2]          ; 0x1696
     xor dh, dh                       ; 0x1699
     mov dl, byte [bx + 0x4]          ; 0x169b
@@ -231,11 +217,11 @@ dos_print_str:
     xchg si, ax                      ; 0x16be
     xor ah, ah                       ; 0x16bf
     cmp word [bp + 0x10], byte 0     ; 0x16c1
-    je short @..dos_con_loc_1501.l5  ; 0x16c5
+    je short @..dos_print_str.l20    ; 0x16c5
     cmp word [bp + 0x10], byte 2     ; 0x16c7
-    je short @..dos_con_loc_1501.l3  ; 0x16cb
+    je short @..dos_print_str.l18    ; 0x16cb
     cmp word [bp + 0x10], byte 3     ; 0x16cd
-    je short @..dos_con_loc_1501.l1  ; 0x16d1
+    je short @..dos_print_str.l16    ; 0x16d1
 @..dos_print_str.l15:
     mov al, byte [si]                ; 0x16d3
     dec si                           ; 0x16d5

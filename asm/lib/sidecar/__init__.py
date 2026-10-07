@@ -98,11 +98,73 @@ def _validate(data):
 
     for key in ('force_data', 'force_code'):
         if key in data:
-            if not isinstance(data[key], list):
-                raise SidecarError(f'"{key}" must be a list')
-            for r in data[key]:
-                if not isinstance(r, dict) or 'start' not in r:
-                    raise SidecarError(f'each "{key}" entry must have "start"')
+            _validate_ranges(data[key], key)
+
+    _reject_range_conflicts(data.get('force_data', []),
+                            data.get('force_code', []), 'project')
+
+    for b_name, b_info in data.get('binaries', {}).items():
+        force_data = b_info.get('force_data', data.get('force_data', []))
+        force_code = b_info.get('force_code', data.get('force_code', []))
+        _validate_ranges(force_data, f'binaries.{b_name}.force_data')
+        _validate_ranges(force_code, f'binaries.{b_name}.force_code')
+        _reject_range_conflicts(force_data, force_code, f'binaries.{b_name}')
+
+
+def _parse_offset(value, description):
+    try:
+        if isinstance(value, bool):
+            raise ValueError
+        if isinstance(value, int):
+            offset = value
+        elif isinstance(value, str):
+            offset = int(value, 16)
+        else:
+            raise ValueError
+    except ValueError as e:
+        raise SidecarError(f'{description}: expected a hexadecimal offset') from e
+    if offset < 0:
+        raise SidecarError(f'{description}: offset must be non-negative')
+    return offset
+
+
+def _validate_ranges(ranges, description):
+    if not isinstance(ranges, list):
+        raise SidecarError(f'{description} must be a list')
+    for index, entry in enumerate(ranges):
+        where = f'{description}[{index}]'
+        if not isinstance(entry, dict) or 'start' not in entry:
+            raise SidecarError(f'{where} must be an object with "start"')
+        start = _parse_offset(entry['start'], f'{where}.start')
+        end = _parse_offset(entry.get('end', entry['start']), f'{where}.end')
+        if end < start:
+            raise SidecarError(f'{where}: end precedes start')
+
+
+def _reject_range_conflicts(force_data, force_code, owner):
+    for data_index, data_range in enumerate(force_data):
+        data_start = _parse_offset(data_range['start'],
+                                   f'{owner}.force_data[{data_index}].start')
+        data_end = _parse_offset(data_range.get('end', data_range['start']),
+                                 f'{owner}.force_data[{data_index}].end')
+        for code_index, code_range in enumerate(force_code):
+            code_start = _parse_offset(code_range['start'],
+                                       f'{owner}.force_code[{code_index}].start')
+            code_end = _parse_offset(code_range.get('end', code_range['start']),
+                                     f'{owner}.force_code[{code_index}].end')
+            overlap_start = max(data_start, code_start)
+            overlap_end = min(data_end, code_end)
+            if overlap_start <= overlap_end:
+                raise SidecarError(
+                    f'{owner}: force_data and force_code overlap at '
+                    f'0x{overlap_start:x}-0x{overlap_end:x}')
+
+
+def validate_force_ranges(force_data, force_code, owner='sidecar'):
+    """Validate the effective hard-data and force-code range lists."""
+    _validate_ranges(force_data, f'{owner}.force_data')
+    _validate_ranges(force_code, f'{owner}.force_code')
+    _reject_range_conflicts(force_data, force_code, owner)
 
 
 def _validate_binary(name, info):
@@ -117,6 +179,10 @@ def _validate_binary(name, info):
     if so is not None and not isinstance(so, int):
         raise SidecarError(f'binaries.{name}: start_offset must be an int')
 
+    for key in ('force_data', 'force_code'):
+        if key in info:
+            _validate_ranges(info[key], f'binaries.{name}.{key}')
+
 
 def per_binary(sidecar, short_name):
     """Return the sidecar data for *short_name* within this project sidecar.
@@ -128,8 +194,8 @@ def per_binary(sidecar, short_name):
     Missing optional fields default to ``None`` / empty dict.
     """
     result = {
-        'force_data': [],
-        'force_code': [],
+        'force_data': sidecar.get('force_data', []),
+        'force_code': sidecar.get('force_code', []),
         'api_dispatch': sidecar.get('api_dispatch', {}),
         'function_names': {},
         'dispatch_table': None,
@@ -154,4 +220,6 @@ def per_binary(sidecar, short_name):
             result['force_data'] = b.get('force_data', sidecar.get('force_data', []))
             result['force_code'] = b.get('force_code', sidecar.get('force_code', []))
 
+    validate_force_ranges(result['force_data'], result['force_code'],
+                          f'binaries.{short_name}')
     return result

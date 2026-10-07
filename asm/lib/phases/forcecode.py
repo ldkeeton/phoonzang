@@ -16,7 +16,8 @@ class ForceCodePhase(Phase):
         output_slot='force_code',
         writes_columns=['force_code'],
         reads_columns=['ALL'],  # counts strong-data votes via col < -0.8
-        reads_ctx=['binary_data', 'label_map', 'code_targets', 'seeds'],
+        reads_ctx=['binary_data', 'label_map', 'code_targets', 'seeds',
+                   'hard_data'],
         writes_ctx=['code_targets', 'seeds'],
         requires_binary=True,
         requires_label_map=True,
@@ -44,6 +45,9 @@ class ForceCodePhase(Phase):
         for off in sorted(ctx.label_map.keys()):
             lbl = ctx.label_map[off]
 
+            if ctx.is_hard_data(off):
+                continue
+
             expected = f'loc_{off:04x}'
             if lbl == expected or lbl.endswith(f'_{expected}'):
                 continue
@@ -63,8 +67,11 @@ class ForceCodePhase(Phase):
                         func_start = p
                         break
 
+            if ctx.is_hard_data(func_start):
+                continue
+
             for i in range(func_start, off):
-                if i < n and strong_data_count[i] < 3:
+                if i < n and strong_data_count[i] < 3 and not ctx.is_hard_data(i):
                     result[i] = _CONF_FORCE_CODE
 
             end = min(func_start + 512, n)
@@ -77,7 +84,7 @@ class ForceCodePhase(Phase):
             except Exception:
                 pass
             for i in range(func_start, min(end, n)):
-                if strong_data_count[i] < 3:
+                if strong_data_count[i] < 3 and not ctx.is_hard_data(i):
                     result[i] = _CONF_FORCE_CODE
 
             if func_start not in ctx.code_targets:

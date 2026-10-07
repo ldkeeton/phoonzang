@@ -41,7 +41,8 @@ class ArbiterPhase(Phase):
         output_slot='squashed',
         writes_columns=['squashed'],
         reads_columns=['ALL'],  # weighted voting from ALL columns (excl raw_byte/seed/squashed/squashed_iter)
-        reads_ctx=['binary_data', 'code_targets', 'blocks', 'jump_tables', 'trace'],
+        reads_ctx=['binary_data', 'code_targets', 'blocks', 'jump_tables',
+                   'hard_data', 'hard_code', 'trace'],
         writes_ctx=['report'],
         requires_binary=True,
     )
@@ -55,14 +56,18 @@ class ArbiterPhase(Phase):
                       and not c.startswith('squashed_iter_')]
 
         if not phase_cols:
-            return pl.Series('squashed', [IS_UNKNOWN] * n, dtype=pl.UInt8)
+            result = np.full(n, IS_UNKNOWN, dtype=np.uint8)
+            result[ctx.hard_data] = IS_DATA
+            return pl.Series('squashed', result, dtype=pl.UInt8)
 
         code_weight = np.zeros(n, dtype=np.float32)
         data_weight = np.zeros(n, dtype=np.float32)
+        phase_values = {}
 
         for name in phase_cols:
             w = _PHASE_WEIGHTS.get(name, 1)
             col = ctx.layers[name].to_numpy()
+            phase_values[name] = col
             code_weight = np.where(col > _CONF_CODE, code_weight + w, code_weight)
             data_weight = np.where(col < _CONF_DATA, data_weight + w, data_weight)
 
@@ -87,6 +92,71 @@ class ArbiterPhase(Phase):
         undecided = (result == IS_UNKNOWN)
         result[undecided & (last_arr > 0.0)] = IS_CODE
         result[undecided & (last_arr < 0.0)] = IS_DATA
+        weighted_result = result.copy()
+
+        # Verified control-flow decoding is authoritative over heuristic
+        # data votes; explicit sidecar data remains the final authority.
+        hard_code = ctx.hard_code & ~ctx.hard_data
+        result[hard_code] = IS_CODE
+        result[ctx.hard_data] = IS_DATA
+        code_wins[hard_code] = True
+        data_wins[hard_code] = False
+        code_wins[ctx.hard_data] = False
+        data_wins[ctx.hard_data] = True
+
+        if tlog and tlog.watched_addresses:
+            decision_names = {
+                IS_UNKNOWN: 'unknown',
+                IS_CODE: 'code',
+                IS_DATA: 'data',
+            }
+            for addr in sorted(tlog.watched_addresses):
+                if not 0 <= addr < n:
+                    continue
+                code_sources = []
+                data_sources = []
+                phase_evidence = []
+                for name, values in phase_values.items():
+                    value = float(values[addr])
+                    weight = _PHASE_WEIGHTS.get(name, 1)
+                    vote = 'neutral'
+                    if value > _CONF_CODE:
+                        vote = 'code'
+                        code_sources.append({'phase': name, 'value': value,
+                                             'weight': weight})
+                    elif value < _CONF_DATA:
+                        vote = 'data'
+                        data_sources.append({'phase': name, 'value': value,
+                                             'weight': weight})
+                    if value != 0.0:
+                        phase_evidence.append({
+                            'phase': name, 'value': value,
+                            'weight': weight, 'vote': vote,
+                        })
+
+                target = ctx.code_targets.get(addr)
+                tlog.event(
+                    'arbiter', 'byte_decision', iteration=ctx.iteration,
+                    addr=addr,
+                    code_weight=float(code_weight[addr]),
+                    data_weight=float(data_weight[addr]),
+                    weighted_decision=decision_names[int(weighted_result[addr])],
+                    final_decision=decision_names[int(result[addr])],
+                    code_sources=code_sources, data_sources=data_sources,
+                    phase_evidence=phase_evidence,
+                    code_target=(
+                        {
+                            'reason': target.reason,
+                            'confidence': target.confidence,
+                            'hard': target.hard,
+                            'source_offset': target.source_offset,
+                        } if target else None
+                    ),
+                    hard_code=bool(ctx.hard_code[addr]),
+                    hard_data=bool(ctx.hard_data[addr]),
+                    last_phase=phase_cols[-1],
+                    last_phase_value=float(last_arr[addr]),
+                )
 
         if tlog:
             CHUNK = 256
@@ -120,6 +190,8 @@ class ArbiterPhase(Phase):
             'fallback_code': int((undecided & (last_arr > 0.0)).sum()),
             'fallback_data': int((undecided & (last_arr < 0.0)).sum()),
             'undecided_final': int((result == IS_UNKNOWN).sum()),
+            'hard_code_bytes': int(hard_code.sum()),
+            'hard_data_bytes': int(ctx.hard_data.sum()),
         }
         vote_log['_blocks_confirmed'] = len([
             b for b in ctx.blocks

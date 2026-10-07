@@ -47,7 +47,7 @@ class ErrorHandlerPhase(Phase):
         input_slot='trampoline',
         output_slot='error_handler',
         reads_columns=['ALL'],  # undecided_mask checks EVERY column with col < -0.3
-        reads_ctx=['binary_data', 'seeds'],
+        reads_ctx=['binary_data', 'seeds', 'hard_data'],
         writes_ctx=['seeds'],
         requires_binary=True,
     )
@@ -55,6 +55,7 @@ class ErrorHandlerPhase(Phase):
     def _undecided_mask(self, ctx):
         n = len(ctx.binary_data)
         opin = np.zeros(n, dtype=bool)
+        opin |= ctx.hard_data
         for name in ctx.layers.columns:
             if name in ('raw_byte', 'seed', 'squashed', self.output_slot):
                 continue
@@ -78,11 +79,17 @@ class ErrorHandlerPhase(Phase):
             if not undecided[off]:
                 off += 1
                 continue
+            if ctx.hard_data[off:min(off + 9, n)].any():
+                off += 1
+                continue
             end_after_exit = _find_print_exit(data, off)
             if end_after_exit is None:
                 off += 1
                 continue
             handler_start = _find_handler_start(data, off, md)
+            if ctx.hard_data[handler_start:end_after_exit].any():
+                off = end_after_exit
+                continue
             for i in range(handler_start, end_after_exit):
                 result[i] = _CONF_ERROR_CODE
             ctx.seeds.append(SeedInfo(

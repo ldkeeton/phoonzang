@@ -94,11 +94,44 @@ def _scan_jump_table(data, start, conf_arr, max_index=None, start_offset=0):
 
 
 def _add_target(ctx, address, reason, confidence, source_offset=-1):
+    if ctx.is_hard_data(address):
+        if ctx.trace:
+            ctx.trace.event(
+                'recursive', 'code_target_rejected', iteration=ctx.iteration,
+                addr=address, source_offset=source_offset, reason=reason,
+                confidence=confidence, hard_data=True,
+            )
+        return
+    if reason in ('direct_jump', 'conditional_jump'):
+        ctx.branch_targets.add(address)
+        if source_offset >= 0:
+            ctx.branch_edges.add((source_offset, address))
+    else:
+        ctx.entry_targets.add(address)
     existing = ctx.code_targets.get(address)
-    if existing is None or confidence > existing.confidence:
+    hard = reason in ('direct_call', 'direct_jump', 'conditional_jump')
+    accepted = (existing is None or confidence > existing.confidence
+                or (hard and not existing.hard))
+    if accepted:
         ctx.code_targets[address] = TargetInfo(
             address=address, reason=reason,
-            confidence=confidence, source_offset=source_offset,
+            confidence=max(confidence, existing.confidence if existing else 0.0),
+            source_offset=source_offset,
+            hard=hard or bool(existing and existing.hard),
+        )
+    if ctx.trace:
+        info = ctx.code_targets.get(address)
+        ctx.trace.event(
+            'recursive', 'code_target_discovered', iteration=ctx.iteration,
+            addr=address, source_offset=source_offset, reason=reason,
+            confidence=confidence, accepted=accepted,
+            previous_reason=existing.reason if existing else None,
+            previous_confidence=existing.confidence if existing else None,
+            previous_hard=existing.hard if existing else False,
+            target_reason=info.reason if info else None,
+            target_confidence=info.confidence if info else None,
+            target_hard=info.hard if info else False,
+            hard_data=ctx.is_hard_data(address),
         )
 
 
@@ -156,8 +189,10 @@ class RecursiveDescentPhase(Phase):
     contract = PhaseContract(
         output_slot='recursive',
         reads_columns=['ALL'],  # data_boundary/prior_code from ALL columns (excl seed/raw_byte/squashed/recursive/squashed_iter)
-        reads_ctx=['binary_data', 'seeds', 'code_targets', 'start_offset', 'trace'],
-        writes_ctx=['code_targets', 'blocks', 'jump_tables'],
+        reads_ctx=['binary_data', 'seeds', 'code_targets', 'start_offset',
+                   'hard_data', 'trace'],
+        writes_ctx=['code_targets', 'blocks', 'jump_tables', 'hard_code',
+                    'branch_targets', 'branch_edges', 'entry_targets'],
         requires_binary=True,
     )
 
@@ -170,6 +205,17 @@ class RecursiveDescentPhase(Phase):
         n = len(data)
         result = np.zeros(n, dtype=np.float32)
         tlog = ctx.trace
+        ctx.hard_code[:] = False
+        ctx.seeds = [s for s in ctx.seeds
+                     if not ctx.is_hard_data(s.address)]
+        ctx.code_targets = {
+            addr: info for addr, info in ctx.code_targets.items()
+            if not ctx.is_hard_data(addr)
+        }
+        ctx.label_map = {
+            addr: label for addr, label in ctx.label_map.items()
+            if not ctx.is_hard_data(addr)
+        }
 
         data_boundary = np.full(n, np.inf, dtype=np.float32)
         prior_code = np.zeros(n, dtype=np.float32)
@@ -212,12 +258,15 @@ class RecursiveDescentPhase(Phase):
         if 0 <= ctx.start_offset < n and data_boundary[ctx.start_offset] >= _HARD_DATA and ctx.start_offset not in visited_starts and ctx.start_offset not in worklist:
             worklist.append(ctx.start_offset)
         for addr in ctx.code_targets:
-            if addr not in visited_starts and 0 <= addr < n:
+            if (addr not in visited_starts and 0 <= addr < n
+                    and not ctx.is_hard_data(addr)):
                 worklist.append(addr)
 
         ctx.jump_tables = []
 
         for scan_idx in range(ctx.start_offset, n - 5):
+            if ctx.is_hard_data(scan_idx):
+                continue
             if (data[scan_idx] != 0x2E or data[scan_idx + 1] != 0xFF
                     or data[scan_idx + 2] not in (0xA7, 0xA5)):
                 continue
@@ -239,7 +288,7 @@ class RecursiveDescentPhase(Phase):
             )
             if jt_tgts:
                 for t in jt_tgts:
-                    if 0 <= t < n:
+                    if 0 <= t < n and not ctx.is_hard_data(t):
                         worklist.append(t)
                         _add_target(ctx, t, 'jt_target', _CONF_JT_CODE, source_offset=scan_idx)
                 for j in range(tgt, min(tbl_end, n)):
@@ -252,20 +301,36 @@ class RecursiveDescentPhase(Phase):
 
         while worklist:
             off = worklist.pop()
+            target_info = ctx.code_targets.get(off)
             if off in visited_starts or off < 0 or off >= n:
                 if tlog and off >= 0 and off < n:
                     tlog.event('recursive', 'worklist_skip_visited',
                                iteration=ctx.iteration, addr=off,
                                prior_code=float(prior_code[off]),
-                               data_boundary=float(data_boundary[off]))
+                               data_boundary=float(data_boundary[off]),
+                               target_reason=target_info.reason if target_info else None,
+                               target_hard=target_info.hard if target_info else False,
+                               hard_code=bool(ctx.hard_code[off]))
                 continue
-            if data_boundary[off] < _HARD_DATA:
+            if ctx.is_hard_data(off):
                 if tlog:
+                    tlog.event('recursive', 'worklist_skip_hard_data',
+                               iteration=ctx.iteration, addr=off,
+                               target_reason=target_info.reason if target_info else None,
+                               target_hard=target_info.hard if target_info else False)
+                continue
+            hard_path = bool(target_info and target_info.hard)
+            if data_boundary[off] < _HARD_DATA:
+                if not hard_path and tlog:
                     tlog.event('recursive', 'worklist_skip_data_boundary',
                                iteration=ctx.iteration, addr=off,
-                               data_boundary=float(data_boundary[off]))
-                continue
-            if prior_code[off] > _SOFT_CODE:
+                               data_boundary=float(data_boundary[off]),
+                               target_reason=target_info.reason if target_info else None,
+                               target_hard=target_info.hard if target_info else False,
+                               hard_data=bool(ctx.hard_data[off]))
+                if not hard_path:
+                    continue
+            if prior_code[off] > _SOFT_CODE and not hard_path:
                 if tlog:
                     tlog.event('recursive', 'worklist_skip_prior_code',
                                iteration=ctx.iteration, addr=off,
@@ -276,7 +341,11 @@ class RecursiveDescentPhase(Phase):
                 tlog.event('recursive', 'worklist_start',
                            iteration=ctx.iteration, addr=off,
                            prior_code=float(prior_code[off]),
-                           data_boundary=float(data_boundary[off]))
+                           data_boundary=float(data_boundary[off]),
+                           target_reason=target_info.reason if target_info else None,
+                           target_hard=target_info.hard if target_info else False,
+                           hard_path=hard_path,
+                           hard_data=bool(ctx.hard_data[off]))
 
             fork_ranges = []
             fork_exits = []
@@ -284,15 +353,25 @@ class RecursiveDescentPhase(Phase):
             gen = md.disasm(data[off:], off)
 
             while off < n:
-                if data_boundary[off] < _HARD_DATA:
+                if ctx.is_hard_data(off):
+                    if spec_start < off:
+                        fork_ranges.append((spec_start, off))
+                        fork_exits.append('fallthrough')
                     if tlog:
+                        tlog.event('recursive', 'decode_hard_data_boundary',
+                                   iteration=ctx.iteration,
+                                   addr=off, spec_start=spec_start)
+                    break
+                if data_boundary[off] < _HARD_DATA:
+                    if not hard_path and tlog:
                         tlog.event('recursive', 'decode_data_boundary',
                                    iteration=ctx.iteration,
                                    addr=off,
                                    spec_start=spec_start,
                                    data_boundary=float(data_boundary[off]))
-                    break
-                if prior_code[off] > _SOFT_CODE:
+                    if not hard_path:
+                        break
+                if prior_code[off] > _SOFT_CODE and not hard_path:
                     if tlog:
                         tlog.event('recursive', 'decode_prior_code',
                                    iteration=ctx.iteration,
@@ -309,6 +388,13 @@ class RecursiveDescentPhase(Phase):
 
                 insn_end = insn.address + insn.size
                 mnem = insn.mnemonic
+
+                # Never let an instruction straddle an explicit data range.
+                if ctx.hard_data[insn.address:insn_end].any():
+                    if spec_start < insn.address:
+                        fork_ranges.append((spec_start, insn.address))
+                        fork_exits.append('fallthrough')
+                    break
 
                 exit_type = _infer_exit_type(insn)
                 dos_term = is_dos_terminator(data, insn)
@@ -347,7 +433,7 @@ class RecursiveDescentPhase(Phase):
                             )
                             if jt_tgts:
                                 for t in jt_tgts:
-                                    if 0 <= t < n:
+                                    if 0 <= t < n and not ctx.is_hard_data(t):
                                         worklist.append(t)
                                         _add_target(ctx, t, 'jt_target', _CONF_JT_CODE, source_offset=off)
                                 for j in range(new_start, min(tbl_end, n)):
@@ -360,13 +446,23 @@ class RecursiveDescentPhase(Phase):
                             if 0 <= ptr_addr < n - 2:
                                 ptr = struct.unpack_from('<H', data, ptr_addr)[0]
                                 target = ptr + ctx.start_offset
-                                if 0 <= target < n:
+                                if 0 <= target < n and not ctx.is_hard_data(target):
                                     worklist.append(target)
                                     _add_target(ctx, target, 'indirect_jmp', _CONF_JT_CODE, source_offset=off)
                     else:
                         target = get_imm_target(insn)
                         if target is not None and 0 <= target < n:
+                            if tlog:
+                                tlog.event(
+                                    'recursive', 'direct_flow',
+                                    iteration=ctx.iteration, addr=insn.address,
+                                    target=target, mnemonic=mnem,
+                                    flow='jump', target_hard_data=ctx.is_hard_data(target),
+                                )
                             worklist.append(target)
+                            _add_target(ctx, target, 'direct_jump',
+                                        _CONF_CALL_CODE,
+                                        source_offset=insn.address)
                             fork_exits[-1] = 'jmp'
                     break
 
@@ -377,8 +473,17 @@ class RecursiveDescentPhase(Phase):
                     if not is_indirect(insn):
                         target = get_imm_target(insn)
                         if target is not None and 0 <= target < n:
+                            if tlog:
+                                tlog.event(
+                                    'recursive', 'direct_flow',
+                                    iteration=ctx.iteration, addr=insn.address,
+                                    target=target, mnemonic=mnem,
+                                    flow='call', target_hard_data=ctx.is_hard_data(target),
+                                )
                             worklist.append(target)
-                            _add_target(ctx, target, 'direct_call', _CONF_CALL_CODE, source_offset=insn.address)
+                            _add_target(ctx, target, 'direct_call',
+                                        _CONF_CALL_CODE,
+                                        source_offset=insn.address)
                     off = insn_end
                     continue
 
@@ -388,7 +493,18 @@ class RecursiveDescentPhase(Phase):
                     spec_start = insn_end
                     target = get_imm_target(insn)
                     if target is not None and 0 <= target < n:
+                        if tlog:
+                            tlog.event(
+                                'recursive', 'direct_flow',
+                                iteration=ctx.iteration, addr=insn.address,
+                                target=target, mnemonic=mnem,
+                                flow='conditional_jump',
+                                target_hard_data=ctx.is_hard_data(target),
+                            )
                         worklist.append(target)
+                        _add_target(ctx, target, 'conditional_jump',
+                                    _CONF_CALL_CODE,
+                                    source_offset=insn.address)
                     off = insn_end
                     continue
 
@@ -400,7 +516,9 @@ class RecursiveDescentPhase(Phase):
                 if not is_seed_addr and fn_start not in ctx.code_targets:
                     provenance = 'jt'
 
-                if provenance == 'seed':
+                if hard_path:
+                    conf = 1.0
+                elif provenance == 'seed':
                     conf = _CONF_SEED_CODE
                 elif provenance == 'call':
                     conf = _CONF_CALL_CODE
@@ -408,8 +526,10 @@ class RecursiveDescentPhase(Phase):
                     conf = _CONF_JT_CODE
 
                 for i in range(fn_start, fn_end):
-                    if i < n:
+                    if i < n and not ctx.is_hard_data(i):
                         result[i] = max(result[i], conf)
+                        if hard_path:
+                            ctx.hard_code[i] = True
 
                 block_exit = fork_exits[idx] if idx < len(fork_exits) else 'fallthrough'
                 exit_targets = []
@@ -440,7 +560,11 @@ class RecursiveDescentPhase(Phase):
                                provenance=('seed' if idx == 0 and is_seed_addr
                                            else 'call' if fn_start in ctx.code_targets
                                            else 'jt'),
-                               confidence=conf)
+                               confidence=conf, hard_path=hard_path,
+                               target_hard=bool(
+                                   ctx.code_targets.get(fn_start)
+                                   and ctx.code_targets[fn_start].hard
+                               ))
 
         _validate_jump_tables(ctx, data, n, result, md)
 

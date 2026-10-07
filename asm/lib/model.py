@@ -5,6 +5,7 @@ import polars as pl
 import numpy as np
 
 from lib.mz import parse_entrypoint as parse_mz_entrypoint
+from lib.sidecar import _parse_offset, validate_force_ranges
 
 IS_UNKNOWN = 0
 IS_CODE = 1
@@ -31,6 +32,7 @@ class TargetInfo:
     reason: str
     confidence: float
     source_offset: int = -1
+    hard: bool = False
 
 
 @dataclass
@@ -68,9 +70,27 @@ class PhaseContext:
         })
         self.label_map = {}
         self.code_targets: dict[int, TargetInfo] = {}
+        self.branch_targets: set[int] = set()
+        self.branch_edges: set[tuple[int, int]] = set()
+        self.entry_targets: set[int] = set()
         self.annotations = []
         self.start_offset = start_offset
         self.name = name
+        if sidecar_entry is not None:
+            validate_force_ranges(
+                sidecar_entry.get('force_data', []),
+                sidecar_entry.get('force_code', []),
+                f'binary {name or "<unnamed>"}',
+            )
+        self.hard_data = np.zeros(n, dtype=bool)
+        self.hard_code = np.zeros(n, dtype=bool)
+        for index, data_range in enumerate(
+                (sidecar_entry or {}).get('force_data', [])):
+            start = _parse_offset(data_range['start'],
+                                  f'force_data[{index}].start')
+            end = _parse_offset(data_range.get('end', data_range['start']),
+                                f'force_data[{index}].end') + 1
+            self.hard_data[start:min(end, n)] = True
         self.seeds: list[SeedInfo] = []
         seed_addresses = set()
         mz_entry = parse_mz_entrypoint(binary_data)
@@ -107,6 +127,20 @@ class PhaseContext:
     @property
     def code_target_set(self):
         return set(self.code_targets.keys())
+
+    @property
+    def label_target_set(self):
+        """Code targets suitable for global function-style labels.
+
+        Direct jumps and conditional branches remain classifier targets, but
+        are emitted as local labels when they stay within a function.
+        """
+        targets = self.code_target_set
+        return (targets - self.branch_targets) | (targets & self.entry_targets)
+
+    def is_hard_data(self, address):
+        return (0 <= address < len(self.hard_data)
+                and bool(self.hard_data[address]))
 
     @property
     def bitmap(self):
