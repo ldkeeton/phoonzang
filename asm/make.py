@@ -11,6 +11,7 @@ Usage (from asm/):
   make clean [PROJECT...]  clean one or all projects
   make rebuild PROJECT BIN nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
+  make delta PROJECT BIN          compare original and edited assembly layouts
 
 Env:
   EXTRA_FLAGS              space-separated flags forwarded to main.py:
@@ -38,6 +39,9 @@ sys.path.insert(0, ASM)
 from main import discover_binaries, load_whitelist, verify_all, clean_all, verify_project
 from lib.report import STATS_DIR, BASELINE_DIR, clear_stats, clear_project_stats, list_project_dirs
 from lib.cross_ref import detect as detect_cross_refs, read_label_json, write_label_json
+from lib.delta import (
+    analyze_delta, parse_nm_symbols, write_address_inventory, write_delta,
+)
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -220,6 +224,15 @@ def asm_app(app):
     _charts(app)
 
 
+def _copy_original_project(app):
+    """Refresh the comparison tree from the freshly generated project tree."""
+    source_dir = os.path.join(PROJECT, f'asm_{app}')
+    original_dir = os.path.join(PROJECT, f'asm_{app}_orig')
+    shutil.rmtree(original_dir, ignore_errors=True)
+    shutil.copytree(source_dir, original_dir)
+    print(f'  original baseline refreshed: {original_dir}')
+
+
 def cmd_build_binary(app, binary):
     app_dir = os.path.join(APPS, app)
     out_dir = os.path.join(PROJECT, f'asm_{app}')
@@ -254,18 +267,30 @@ def cmd_build_binary(app, binary):
         sys.exit(1)
     print(f'build {app}/{binary} -> {rel_path}  [OK]')
     _charts(app)
+    _copy_original_project(app)
 
 
 def cmd_clean(apps):
     if not apps:
         clean_all()
+        for app in os.listdir(APPS):
+            if os.path.isdir(os.path.join(APPS, app)):
+                original = os.path.join(PROJECT, f'asm_{app}_orig')
+                if os.path.isdir(original):
+                    shutil.rmtree(original)
+                    print(f'Removed {original}')
         return
     for app in apps:
-        out = os.path.join(PROJECT, f'asm_{app}')
-        if os.path.isdir(out):
-            shutil.rmtree(out)
-            print(f'Removed {out}')
-        else:
+        removed = False
+        for out in (
+            os.path.join(PROJECT, f'asm_{app}'),
+            os.path.join(PROJECT, f'asm_{app}_orig'),
+        ):
+            if os.path.isdir(out):
+                shutil.rmtree(out)
+                print(f'Removed {out}')
+                removed = True
+        if not removed:
             print(f'Nothing to clean for {app}')
 
 
@@ -366,6 +391,164 @@ def cmd_rebuild(app, binary):
     print(f'rebuild {app}/{binary} -> {rel_path}  [OK]')
 
 
+def _elf_symbols_for_binary(out_dir, name, binary_path):
+    with open(binary_path, 'rb') as source_file:
+        header = source_file.read(0x18)
+    entry_ip = int.from_bytes(header[0x14:0x16], 'little')
+    if _nasm_elf_build(out_dir, name, entry_ip) != 0:
+        raise RuntimeError(f'could not produce ELF symbol map for {out_dir}/{name}')
+    elf_path = os.path.join(out_dir, 'build_out', f'{name.upper()}.elf')
+    result = _run('nm', '-n', '-g', elf_path)
+    if result.returncode != 0:
+        raise RuntimeError(result.stderr.strip() or f'nm failed for {elf_path}')
+    return parse_nm_symbols(result.stdout)
+
+
+def _print_delta_report(report, report_path):
+    print(f'Delta: {report["binary"]} vs freshly rebuilt original-source tree')
+    print(
+        f'  Image: {report["before_size"]} -> {report["after_size"]} bytes '
+        f'({report["size_delta"]:+d})'
+    )
+    print(
+        f'  Changed byte spans: {len(report["byte_edits"])}; '
+        f'named labels moved: {report["moved_symbol_count"]}'
+    )
+    for edit in report['byte_edits'][:6]:
+        before_start, before_end = edit['before_load_range']
+        after_start, after_end = edit['after_load_range']
+        print(
+            f'    {edit["kind"]}: image '
+            f'0x{before_start:04x}..0x{before_end:04x} -> '
+            f'0x{after_start:04x}..0x{after_end:04x}'
+        )
+    if len(report['byte_edits']) > 6:
+        print(f'    … {len(report["byte_edits"]) - 6} additional byte spans in JSON')
+
+    important = {'entry_point', 'ds_dispatch_jump_0163', 'ds_dispatch_table_0163'}
+    examples = [
+        item for item in report['moved_symbols']
+        if item['symbol'] in important
+    ]
+    examples.extend(
+        item for item in report['moved_symbols']
+        if item['symbol'] not in important
+    )
+    for item in examples[:6]:
+        print(
+            f'    {item["symbol"]}: 0x{item["before"]:04x} -> '
+            f'0x{item["after"]:04x} ({item["delta"]:+d})'
+        )
+
+    for table in report['jump_tables']:
+        table_status = (
+            'OK' if table['entries_match_target_symbols']
+            and table['jump_base_check'] == 'ok' else 'REVIEW'
+        )
+        print(
+            f'  Jump table {table["id"]}: '
+            f'0x{table["old_table_load_offset"]:04x} -> '
+            f'0x{table["new_table_load_offset"]:04x}; '
+            f'{table["updated_entries"]}/{table["entries"]} entries changed; '
+            f'{table_status}'
+        )
+        if table['jump_base_check'] != 'ok':
+            print(f'    jump base: {table["jump_base_check"]}')
+
+    mz = report['mz']
+    before_mz, after_mz = mz['before'], mz['after']
+    print(
+        f'  MZ entry IP: 0x{before_mz["initial_ip"]:04x} -> '
+        f'0x{after_mz["initial_ip"]:04x}; file size fields: '
+        f'{before_mz["last_page_bytes"]}/{before_mz["page_count"]} -> '
+        f'{after_mz["last_page_bytes"]}/{after_mz["page_count"]}'
+    )
+    checks = mz['checks']
+    checked_fields = [value for value in checks.values() if value is not None]
+    relocation_status = (
+        'OK' if checks['relocation_sites_ok'] is True
+        else 'REVIEW' if checks['relocation_sites_ok'] is False
+        else 'not catalogued'
+    )
+    print(
+        '  MZ derived fields: '
+        + ('OK' if all(checked_fields) else 'REVIEW')
+        + f' (relocation site: {relocation_status})'
+    )
+
+    fixed = report['fixed_equ_candidates']
+    print(f'  Fixed in-image EQU addresses not regenerated: {len(fixed)}')
+    for item in fixed[:6]:
+        print(
+            f'    {item["symbol"]}: encoded 0x{item["encoded_value"]:04x}, '
+            f'target moved to 0x{item["target_after_edit"]:04x}'
+        )
+    if len(fixed) > 6:
+        print(f'    … {len(fixed) - 6} additional affected EQU addresses in JSON')
+    print(f'  Delta detail: {report_path}')
+
+
+def cmd_delta(app, binary):
+    app_dir = os.path.join(APPS, app)
+    current_dir = os.path.join(PROJECT, f'asm_{app}')
+    original_dir = os.path.join(PROJECT, f'asm_{app}_orig')
+    bins = discover_binaries(app_dir)
+    if binary not in bins:
+        print(f'Unknown binary "{binary}" in {app}')
+        print(f'Known: {", ".join(sorted(bins))}')
+        sys.exit(1)
+    if not os.path.isdir(original_dir):
+        print(f'{original_dir} not found; run "make build {app}" first')
+        sys.exit(1)
+
+    rel_path = bins[binary][0]
+    manifest_path = os.path.join(current_dir, f'{binary}', 'jump_tables.json')
+    try:
+        if os.path.isfile(manifest_path):
+            with open(manifest_path, encoding='utf-8') as f:
+                manifest = json.load(f)
+            if manifest.get('binary') != binary:
+                raise ValueError(f'{manifest_path}: wrong binary manifest')
+        else:
+            manifest = {'binary': binary}
+
+        before_path = os.path.join(original_dir, 'build_out', rel_path)
+        after_path = os.path.join(current_dir, 'build_out', rel_path)
+        if _nasm_build(original_dir, binary, rel_path) != 0:
+            raise RuntimeError('original source tree failed to assemble')
+        if _nasm_build(current_dir, binary, rel_path) != 0:
+            raise RuntimeError('edited source failed to assemble')
+
+        before_symbols = _elf_symbols_for_binary(original_dir, binary, before_path)
+        after_symbols = _elf_symbols_for_binary(current_dir, binary, after_path)
+        with open(before_path, 'rb') as f:
+            before = f.read()
+        with open(after_path, 'rb') as f:
+            after = f.read()
+        report = analyze_delta(
+            before, after, before_symbols, after_symbols, manifest,
+        )
+    except Exception as error:
+        print(f'Delta failed: {error}')
+        sys.exit(1)
+
+    addresses_path = os.path.join(current_dir, f'{binary}_addresses.json')
+    report_path = os.path.join(current_dir, f'{binary}_delta.json')
+    stale_reports = (
+        os.path.join(current_dir, 'build_out', f'{binary.upper()}.address-inventory.json'),
+        os.path.join(current_dir, 'build_out', f'{binary.upper()}.delta.json'),
+    )
+    for stale_path in stale_reports:
+        try:
+            os.unlink(stale_path)
+        except FileNotFoundError:
+            pass
+    write_address_inventory(addresses_path, binary, after_symbols)
+    write_delta(report_path, report)
+    print(f'  Address inventory: {addresses_path}')
+    _print_delta_report(report, report_path)
+
+
 def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
     """Prepare generated MZ assembly for ELF/DWARF symbol output."""
     with open(asm_path) as f:
@@ -458,17 +641,65 @@ def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
     return '\n'.join(lines) + '\n'
 
 
+def _is_instruction_source_line(line):
+    code = line.split(';', 1)[0].strip()
+    if not code:
+        return False
+    code = re.sub(r'^[A-Za-z_@.?][A-Za-z0-9_@.?]*\s*:\s*', '', code)
+    if not code:
+        return False
+    directive = re.match(
+        r'^(?:%|times\b|org\b|bits\b|section\b|global\b|extern\b|'
+        r'align\b|res[bwdq]\b|db\b|dw\b|dd\b|dq\b|dt\b|equ\b)',
+        code, re.I,
+    )
+    return directive is None
+
+
+def _source_has_label(asm_path, wanted_label):
+    include_re = re.compile(r'^\s*%include\s+["\']([^"\']+)["\']', re.I)
+    asm_root = os.path.dirname(os.path.abspath(asm_path))
+    visited = set()
+
+    def visit(source_path):
+        source_path = os.path.realpath(source_path)
+        if source_path in visited or not os.path.isfile(source_path):
+            return False
+        visited.add(source_path)
+        with open(source_path) as source_file:
+            source_lines = source_file.read().splitlines()
+        for line in source_lines:
+            if re.match(rf'\s*{re.escape(wanted_label)}\s*:', line, re.I):
+                return True
+            match = include_re.match(line)
+            if not match:
+                continue
+            include_name = match.group(1)
+            for candidate in (
+                os.path.join(asm_root, include_name),
+                os.path.join(os.path.dirname(source_path), include_name),
+            ):
+                if os.path.isfile(candidate):
+                    if visit(candidate):
+                        return True
+                    break
+        return False
+
+    return visit(asm_path)
+
+
 def _nasm_elf_build(out_dir, name, entry_ip):
     asm_path = os.path.join(out_dir, f'{name}.asm')
     build_out = os.path.join(out_dir, 'build_out')
     elf_dir = os.path.join(build_out, '.elf-rebuild')
+    # The source mirror is generated and may contain a synthetic _start label
+    # from a previous build. Recreate it so each pass starts from clean sources.
+    shutil.rmtree(elf_dir, ignore_errors=True)
     os.makedirs(elf_dir, exist_ok=True)
     source_path = os.path.join(elf_dir, f'{name}.asm')
     elf_path = os.path.join(build_out, f'{name.upper()}.elf')
     tmp_elf = elf_path + '.tmp'
     build_succeeded = False
-    extra_source_paths = []
-    extra_source_dirs = []
 
     try:
         cmd = [
@@ -490,9 +721,9 @@ def _nasm_elf_build(out_dir, name, entry_ip):
                 print(f'    {line}')
             return result.returncode
 
-        # Give the MZ entry point an addressable function symbol. The ELF line
-        # table maps the DOS header's initial IP to its generated ASM source
-        # row; placing _start on that row preserves the correct load address.
+        # Add a synthetic _start only when the line table maps the entry to an
+        # actual instruction. Edited layouts can make the old MZ IP ambiguous;
+        # in that case keep the valid first-pass ELF and let launch proceed.
         if entry_ip:
             result = subprocess.run(
                 ['addr2line', '-e', tmp_elf, '-f', f'0x{entry_ip:x}'],
@@ -504,47 +735,80 @@ def _nasm_elf_build(out_dir, name, entry_ip):
                 if output_lines else None
             )
             if result.returncode != 0 or source_match is None:
-                print(f'  ELF BUILD FAIL: could not map MZ entry 0x{entry_ip:x}')
+                print(
+                    f'  ELF ENTRY MAP WARN: could not map MZ entry '
+                    f'0x{entry_ip:x}; continuing without synthetic _start'
+                )
                 if result.stderr.strip():
                     print(f'    {result.stderr.strip()}')
-                return 1
-
-            entry_source = os.path.realpath(source_match.group(1))
-            entry_line = int(source_match.group(2))
-            if entry_source in {
-                os.path.realpath(asm_path), os.path.realpath(source_path),
-            }:
-                source_text = _elf_source_text(asm_path, entry_line)
             else:
+                entry_source = os.path.realpath(source_match.group(1))
+                entry_line = int(source_match.group(2))
+                root_source = os.path.realpath(asm_path)
                 out_root = os.path.realpath(out_dir)
-                if os.path.commonpath((out_root, entry_source)) != out_root:
-                    print(f'  ELF BUILD FAIL: entry source is outside {out_dir}')
-                    return 1
-                with open(entry_source) as f:
-                    entry_lines = f.read().splitlines()
-                if not 1 <= entry_line <= len(entry_lines):
-                    print(f'  ELF BUILD FAIL: invalid MZ entry source line {entry_line}')
-                    return 1
-                entry_lines[entry_line - 1] = (
-                    '_start: ' + entry_lines[entry_line - 1].lstrip()
-                )
-                relative_source = os.path.relpath(entry_source, out_root)
-                entry_copy = os.path.join(elf_dir, relative_source)
-                entry_copy_dir = os.path.dirname(entry_copy)
-                if not os.path.isdir(entry_copy_dir):
-                    os.makedirs(entry_copy_dir)
-                    extra_source_dirs.append(entry_copy_dir)
-                with open(entry_copy, 'w') as f:
-                    f.write('\n'.join(entry_lines) + '\n')
-                extra_source_paths.append(entry_copy)
-                source_text = _elf_source_text(asm_path, add_entry_symbol=True)
+                try:
+                    inside_out_root = os.path.commonpath((out_root, entry_source)) == out_root
+                except ValueError:
+                    inside_out_root = False
 
-            result = assemble(source_text)
-            if result.returncode != 0:
-                print(f'  ELF BUILD FAIL: {name}.asm -> {os.path.basename(elf_path)}')
-                for line in result.stderr.strip().split('\n'):
-                    print(f'    {line}')
-                return result.returncode
+                if _source_has_label(asm_path, '_start'):
+                    print(
+                        '  ELF ENTRY MAP WARN: _start already exists; '
+                        'keeping existing symbol and continuing'
+                    )
+                elif not inside_out_root:
+                    print(
+                        '  ELF ENTRY MAP WARN: entry source is outside generated '
+                        'assembly; continuing without synthetic _start'
+                    )
+                else:
+                    try:
+                        with open(entry_source) as f:
+                            entry_lines = f.read().splitlines()
+                    except OSError:
+                        entry_lines = []
+                    if not 1 <= entry_line <= len(entry_lines) or not _is_instruction_source_line(entry_lines[entry_line - 1]):
+                        print(
+                            '  ELF ENTRY MAP WARN: entry maps to a non-instruction '
+                            'source row; continuing without synthetic _start'
+                        )
+                    else:
+                        if entry_source == root_source:
+                            source_text = _elf_source_text(asm_path, entry_line)
+                        else:
+                            relative_source = os.path.relpath(entry_source, out_root)
+                            entry_copy = os.path.join(elf_dir, relative_source)
+                            os.makedirs(os.path.dirname(entry_copy), exist_ok=True)
+                            entry_lines[entry_line - 1] = (
+                                '_start: ' + entry_lines[entry_line - 1].lstrip()
+                            )
+                            with open(entry_copy, 'w') as f:
+                                f.write('\n'.join(entry_lines) + '\n')
+                            source_text = _elf_source_text(
+                                asm_path, add_entry_symbol=True,
+                            )
+
+                        result = assemble(source_text)
+                        if result.returncode != 0:
+                            print(
+                                f'  ELF ENTRY MAP WARN: synthetic _start assembly '
+                                f'failed; keeping first-pass ELF'
+                            )
+                            for line in result.stderr.strip().split('\n'):
+                                print(f'    {line}')
+                            # Reassemble the clean first-pass source after the
+                            # failed relabel attempt to restore the usable ELF.
+                            if entry_source != root_source:
+                                try:
+                                    os.unlink(entry_copy)
+                                except FileNotFoundError:
+                                    pass
+                            result = assemble(_elf_source_text(asm_path))
+                            if result.returncode != 0:
+                                print(f'  ELF BUILD FAIL: {name}.asm -> {os.path.basename(elf_path)}')
+                                for line in result.stderr.strip().split('\n'):
+                                    print(f'    {line}')
+                                return result.returncode
         os.replace(tmp_elf, elf_path)
         build_succeeded = True
         return 0
@@ -553,24 +817,14 @@ def _nasm_elf_build(out_dir, name, entry_ip):
         # DW_AT_comp_dir. Keep the generated, line-aligned source at that path
         # so absolute break-insert requests can resolve instead of staying
         # pending. The VS Code sourceFileMap still presents the original file.
-        cleanup_paths = (
-            (tmp_elf,) if build_succeeded
-            else (source_path, tmp_elf, *extra_source_paths)
-        )
+        cleanup_paths = (tmp_elf,) if build_succeeded else (source_path, tmp_elf)
         for path in cleanup_paths:
             try:
                 os.unlink(path)
             except FileNotFoundError:
                 pass
-        for path in reversed(extra_source_dirs):
-            try:
-                os.rmdir(path)
-            except OSError:
-                pass
-        try:
-            os.rmdir(elf_dir)
-        except OSError:
-            pass
+        if not build_succeeded:
+            shutil.rmtree(elf_dir, ignore_errors=True)
 
 
 def cmd_elf_rebuild(app, binary):
@@ -616,6 +870,7 @@ Commands (space-separated):
   make clean [PROJECT...]   clean one or all projects
   make rebuild PROJECT BIN  nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
+  make delta PROJECT BIN          compare original and edited assembly layouts
   make decompile PROJECT BIN  disassemble + decompile binary to .c
   make set-baseline         pin current stats as baseline (git-committable)
   make charts               regenerate all PNGs + CSVs from existing stats
@@ -730,6 +985,18 @@ def main():
         cmd_rebuild(project, binary)
         return
 
+    if '--delta' in flags:
+        if len(args) != 2:
+            print('Usage: make delta PROJECT BINARY')
+            sys.exit(1)
+        project, binary = args
+        if project not in all_projects:
+            print(f'Unknown project: {project}')
+            print(f'Known: {", ".join(all_projects)}')
+            sys.exit(1)
+        cmd_delta(project, binary)
+        return
+
     if '--elf-rebuild' in flags:
         if len(args) < 2:
             print('Usage: make elf-rebuild PROJECT BINARY')
@@ -783,6 +1050,7 @@ def _build_projects(targets, all_projects):
     cmd_clean(targets)
     for project in targets:
         asm_app(project)
+        _copy_original_project(project)
     if len(targets) > 1 or targets == all_projects:
         _charts_all()
 
