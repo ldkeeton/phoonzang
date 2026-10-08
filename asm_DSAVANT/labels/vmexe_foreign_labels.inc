@@ -140,8 +140,7 @@ ds_loc_45a4 equ 0x45a4
 ds_strlen_4 equ 0x45ab
 ds_dos_alloc_mem_2 equ 0x45d7
 ds_dos_free_mem equ 0x460d
-ds_leaf_loc_4652 equ 0x4652
-ds_stack_alloc_check equ 0x4653
+ds_stack_alloc_check equ 0x4652
 ds_leaf_loc_47e8 equ 0x47e8
 ds_string_loc_4867 equ 0x4867
 ds_loc_4879 equ 0x4879

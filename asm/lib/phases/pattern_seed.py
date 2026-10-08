@@ -3,10 +3,32 @@ import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.model import PhaseContext, SeedInfo, TargetInfo
+from lib.match.pattern import _call_target_entry_prefix
 from lib.pipeline.phase import Phase, PhaseContract
 
 
 _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
+
+
+def _discard_stale_prologue_seed(ctx, address):
+    """Drop a prior pattern root superseded by a discovered entry prefix."""
+    stale_reasons = {
+        seed.reason for seed in ctx.seeds
+        if seed.address == address and seed.source_phase == 'pattern_seed'
+    }
+    if not stale_reasons:
+        return
+
+    ctx.seeds = [
+        seed for seed in ctx.seeds
+        if not (seed.address == address
+                and seed.source_phase == 'pattern_seed')
+    ]
+    if ctx.label_map.get(address) in stale_reasons:
+        del ctx.label_map[address]
+    target = ctx.code_targets.get(address)
+    if target is not None and target.reason == 'pattern_seed':
+        del ctx.code_targets[address]
 
 
 class PatternSeedPhase(Phase):
@@ -68,7 +90,14 @@ class PatternSeedPhase(Phase):
                         if not (prev_insns and prev_insns[-1].address + prev_insns[-1].size == idx):
                             continue
 
-                        func_start = p
+                        func_start = _call_target_entry_prefix(
+                            data, p,
+                            (address for address, target in ctx.code_targets.items()
+                             if target.reason == 'direct_call'),
+                            md,
+                        )
+                        if func_start is None:
+                            func_start = p
 
                         max_end = min(func_start + self.max_func_size, n)
                         try:
@@ -91,6 +120,8 @@ class PatternSeedPhase(Phase):
                         n_label = name_count.get(name, 0) + 1
                         name_count[name] = n_label
                         label = f'{name}_{n_label}' if n_label > 1 else name
+                        if func_start < p:
+                            _discard_stale_prologue_seed(ctx, p)
                         ctx.label_map[func_start] = label
                         ctx.seeds.append(SeedInfo(
                             address=func_start, source_phase='pattern_seed',

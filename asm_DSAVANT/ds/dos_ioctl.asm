@@ -12,3 +12,7 @@ dos_ioctl:
     mov ax, 1                        ; 0x517f
     pop bp                           ; 0x5182
     ret                              ; 0x5183
+@..dos_ioctl.l1:
+    sub ax, ax                       ; 0x5184
+    pop bp                           ; 0x5186
+    ret                              ; 0x5187

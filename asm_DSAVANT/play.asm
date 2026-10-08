@@ -158,15 +158,6 @@ loc_0098:
 
 %include "play/leaf_loc_0183.asm"
 
-@..leaf_loc_0183.l3:
-    cmp byte [cs:data_0b7d], 0       ; 0x019e
-    jne short @..leaf_loc_0183.l5    ; 0x01a4
-@..leaf_loc_0183.l4:
-    cmp byte [cs:data_0b94], 0       ; 0x01a6
-    je short @..leaf_loc_0183.l4     ; 0x01ac
-@..leaf_loc_0183.l5:
-    pop bp                           ; 0x01ae
-    ret                              ; 0x01af
 loc_01b0:
     push bx                          ; 0x01b0
     cmp byte [cs:data_0b9a], 0       ; 0x01b1

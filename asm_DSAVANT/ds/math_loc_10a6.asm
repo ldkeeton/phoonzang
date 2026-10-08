@@ -1,6 +1,6 @@
 math_loc_10a6:
     mov ax, 0                        ; 0x10a6
-    call leaf_loc_4652               ; 0x10a9
+    call stack_alloc_check           ; 0x10a9
     mov ax, 6                        ; 0x10ac
     imul word [bp + 0xa]             ; 0x10af
     add ax, word [bp + 0x6]          ; 0x10b2

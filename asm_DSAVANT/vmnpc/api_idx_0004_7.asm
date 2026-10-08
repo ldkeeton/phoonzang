@@ -27,3 +27,36 @@ api_idx_0004_7:
     sub al, al                       ; 0x2323
     add ax, word [bp - 0x0004]       ; 0x2325
     ret                              ; 0x2328
+@..api_idx_0004_7.l3:
+    cmp word [bp + 0x6], byte 0      ; 0x2329
+    je short @..api_idx_0004_7.l6    ; 0x232d
+    mov al, byte [bx + 0x5c3b]       ; 0x232f
+    sub ah, ah                       ; 0x2333
+    test ax, 1                       ; 0x2335
+    jne short @..api_idx_0004_7.l4   ; 0x2338
+    test ax, 0x40                    ; 0x233a
+    jne short @..api_idx_0004_7.l4   ; 0x233d
+    push word [bx + 0x5c34]          ; 0x233f
+    call loc_5497                    ; 0x2343
+    pop cx                           ; 0x2346
+    test ax, ax                      ; 0x2347
+    je short @..api_idx_0004_7.l5    ; 0x2349
+@..api_idx_0004_7.l4:
+    jmp short @..api_idx_0004_7.l6   ; 0x234b
+@..api_idx_0004_7.l5:
+    mov ax, word [bp - 0x0002]       ; 0x234d
+    xchg al, ah                      ; 0x2350
+    sub al, al                       ; 0x2352
+    add ax, word [bp - 0x0004]       ; 0x2354
+    ret                              ; 0x2357
+@..api_idx_0004_7.l6:
+    inc word [bp - 0x0004]           ; 0x2358
+    mov ax, word [bp - 0x0004]       ; 0x235b
+    cmp ax, strict word 0xa          ; 0x235e
+    jl short @..api_idx_0004_7.l2    ; 0x2361
+    inc word [bp - 0x0002]           ; 0x2363
+    mov ax, word [bp - 0x0002]       ; 0x2366
+    cmp ax, strict word 2            ; 0x2369
+    jl short @..api_idx_0004_7.l1    ; 0x236c
+    mov ax, 0xffff                   ; 0x236e
+    ret                              ; 0x2371

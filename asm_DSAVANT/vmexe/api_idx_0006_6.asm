@@ -97,3 +97,21 @@ api_idx_0006_6:
     pop cx                           ; 0x917b
     mov ax, 1                        ; 0x917c
     ret                              ; 0x917f
+@..api_idx_0006_6.l4:
+    cmp word [data_8464], byte 0     ; 0x9180
+    je short @..api_idx_0006_6.l5    ; 0x9185
+    mov bx, word [data_8492]         ; 0x9187
+    cmp byte [bx + 0xd8], 0          ; 0x918b
+    jbe short @..api_idx_0006_6.l5   ; 0x9190
+    mov ax, word [data_8464]         ; 0x9192
+    shl ax, 1                        ; 0x9195
+    mov bx, ax                       ; 0x9197
+    mov bx, word [bx - 0x7b70]       ; 0x9199
+    mov al, byte [bx + 0xd8]         ; 0x919d
+    mov bx, word [data_8492]         ; 0x91a1
+    cmp al, byte [bx + 0xd8]         ; 0x91a5
+    jne short @..api_idx_0006_6.l5   ; 0x91a9
+    mov word [data_90de], 0x10       ; 0x91ab
+@..api_idx_0006_6.l5:
+    mov ax, 0                        ; 0x91b1
+    ret                              ; 0x91b4

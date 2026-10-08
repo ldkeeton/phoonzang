@@ -9,3 +9,7 @@ dos_file_loc_38a0:
     mov ax, 0xffff                   ; 0x38af
     pop bp                           ; 0x38b2
     ret                              ; 0x38b3
+@..dos_file_loc_38a0.l1:
+    sub ax, ax                       ; 0x38b4
+    pop bp                           ; 0x38b6
+    ret                              ; 0x38b7

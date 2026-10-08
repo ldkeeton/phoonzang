@@ -9,6 +9,31 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 
 _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
+_UNCONDITIONAL_TRANSFERS = {'jmp', 'ljmp', 'ud2'}
+
+
+def _call_target_entry_prefix(data, prologue_start, call_targets, md):
+    """Return a one-instruction call-target prefix before a BP prologue.
+
+    Some routines have a small entry shim immediately before the conventional
+    ``push bp; mov bp, sp`` prologue. If a direct call targets that shim and it
+    falls through into the prologue, the shim is the function entry too.
+    """
+    call_targets = set(call_targets or ())
+    for target in sorted(
+            (off for off in call_targets
+             if 0 <= prologue_start - off <= 8), reverse=True):
+        try:
+            prefix = list(md.disasm(data[target:prologue_start], target))
+        except Exception:
+            continue
+        if (len(prefix) == 1
+                and prefix[0].address + prefix[0].size == prologue_start
+                and prefix[0].mnemonic not in (
+                    *_TERMINATORS, *_UNCONDITIONAL_TRANSFERS,
+                )):
+            return target
+    return prologue_start if prologue_start in call_targets else None
 
 
 def match_patterns(data, call_targets, known_db, max_func_size=256):
@@ -49,8 +74,10 @@ def match_patterns(data, call_targets, known_db, max_func_size=256):
                     if not (prev_insns and prev_insns[-1].address + prev_insns[-1].size == idx):
                         continue
 
-                    func_start = p
-                    if func_start not in call_targets:
+                    func_start = _call_target_entry_prefix(
+                        data, p, call_targets, md,
+                    )
+                    if func_start is None:
                         continue
 
                     max_end = min(func_start + max_func_size, len(data))

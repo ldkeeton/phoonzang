@@ -27,3 +27,26 @@ api_idx_0004:
     test ax, ax                      ; 0x0929
     je short @..api_idx_0004.l4      ; 0x092b
     ret                              ; 0x092d
+@..api_idx_0004.l4:
+    mov ax, 1                        ; 0x092e
+    push ax                          ; 0x0931
+    call ds_dispatch_ea50            ; 0x0932
+    pop cx                           ; 0x0935
+    test ax, ax                      ; 0x0936
+    je short @..api_idx_0004.l5      ; 0x0938
+    mov ax, 1                        ; 0x093a
+    push ax                          ; 0x093d
+    call ds_dispatch_eb32            ; 0x093e
+    pop cx                           ; 0x0941
+    cmp al, 0xd                      ; 0x0942
+    jne short @..api_idx_0004.l5     ; 0x0944
+    ret                              ; 0x0946
+@..api_idx_0004.l5:
+    call math_loc_086b               ; 0x0947
+    test ax, ax                      ; 0x094a
+    jne short @..api_idx_0004.l6     ; 0x094c
+    call loc_82a9                    ; 0x094e
+@..api_idx_0004.l6:
+    jmp short @..api_idx_0004.l1     ; 0x0951
+@..api_idx_0004.l7:
+    ret                              ; 0x0953

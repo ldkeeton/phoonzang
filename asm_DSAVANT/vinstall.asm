@@ -3028,40 +3028,6 @@ loc_245e:
     db 0x00
 %include "vinstall/bios_video_loc_247a.asm"
 
-@..bios_video_loc_247a.l3:
-    mov dx, 0x3ba                    ; 0x24bb
-    in al, dx                        ; 0x24be
-    and al, data_0080                ; 0x24bf
-    xchg al, ah                      ; 0x24c1
-    mov cx, 0x1388                   ; 0x24c3
-@..bios_video_loc_247a.l4:
-    in al, dx                        ; 0x24c6
-    and al, data_0080                ; 0x24c7
-    cmp al, ah                       ; 0x24c9
-    jne short @..bios_video_loc_247a.l5 ; 0x24cb
-    loop @..bios_video_loc_247a.l4   ; 0x24cd
-    mov word [bp - 0x0002], 0        ; 0x24cf
-    ret                              ; 0x24d4
-@..bios_video_loc_247a.l5:
-    mov word [bp - 0x0002], 8        ; 0x24d5
-    ret                              ; 0x24da
-@..bios_video_loc_247a.l6:
-    mov word [bp - 0x0002], data_0006 ; 0x24db
-    xor bx, bx                       ; 0x24e0
-    mov ax, 0x1a00                   ; 0x24e2
-    int 0x10 ; BIOS video
-    cmp bl, 7                        ; 0x24e7
-    je short @..bios_video_loc_247a.l7 ; 0x24ea
-    cmp bh, 7                        ; 0x24ec
-    je short @..bios_video_loc_247a.l7 ; 0x24ef
-    cmp bl, 8                        ; 0x24f1
-    je short @..bios_video_loc_247a.l7 ; 0x24f4
-    cmp bh, 8                        ; 0x24f6
-    jne short @..bios_video_loc_247a.l8 ; 0x24f9
-@..bios_video_loc_247a.l7:
-    or word [bp - 0x0002], 1         ; 0x24fb
-@..bios_video_loc_247a.l8:
-    ret                              ; 0x2500
 %include "vinstall/bios_mouse_loc_2501.asm"
 
 %include "vinstall/dos_con_in_noecho.asm"
@@ -3711,11 +3677,6 @@ loc_2f7e:
 
 %include "vinstall/leaf_loc_3019.asm"
 
-@..leaf_loc_3019.l2:
-    and word [si], strict word 0xfffe ; 0x3031
-    mov word [data_2536], si         ; 0x3035
-    mov ax, 0                        ; 0x3039
-    jmp short @..leaf_loc_3019.l1    ; 0x303c
 
     db 'LlhFNoxXudiscpneEfgG%@/G/K/N/K/U/^/Z/c/h/h/'
     db 0x8c, 0x30, 0xab, 0x30, 0xd0, 0x30, 0xd3
@@ -3811,25 +3772,6 @@ loc_312d:
 
 %include "vinstall/string_loc_3338.asm"
 
-@..string_loc_3338.l1:
-    sub dx, dx                       ; 0x334c
-    mov ah, 0                        ; 0x334e
-@..string_loc_3338.l2:
-    cmp al, data_0030                ; 0x3350
-    jb short @..string_loc_3338.l3   ; 0x3352
-    cmp al, 0x39                     ; 0x3354
-    ja short @..string_loc_3338.l3   ; 0x3356
-    sub al, data_0030                ; 0x3358
-    shl dx, 1                        ; 0x335a
-    mov cx, dx                       ; 0x335c
-    shl dx, 1                        ; 0x335e
-    shl dx, 1                        ; 0x3360
-    add dx, cx                       ; 0x3362
-    add dx, ax                       ; 0x3364
-    lodsb                            ; 0x3366
-    jmp short @..string_loc_3338.l2  ; 0x3367
-@..string_loc_3338.l3:
-    ret                              ; 0x3369
 loc_336a:
     push bp                          ; 0x336a
     mov bp, sp                       ; 0x336b
@@ -3934,29 +3876,10 @@ loc_3381:
 
 %include "vinstall/string_loc_3508.asm"
 
-@..string_loc_3508.l4:
-    sub di, byte 2                   ; 0x355b
-    scasb                            ; 0x355e
-    jne short @..string_loc_3508.l5  ; 0x355f
-    test al, al                      ; 0x3561
-    je short @..string_loc_3508.l2   ; 0x3563
-    mov al, ah                       ; 0x3565
-    scasb                            ; 0x3567
-@..string_loc_3508.l5:
-    sbb ax, ax                       ; 0x3568
-    js short @..string_loc_3508.l3   ; 0x356a
-    inc ax                           ; 0x356c
-    jmp short @..string_loc_3508.l3  ; 0x356d
 %include "vinstall/strlen_3.asm"
 
 %include "vinstall/leaf_loc_358c.asm"
 
-@..leaf_loc_358c.l5:
-    mov dx, word [bp + 0x6]          ; 0x35c4
-    int 0x21 ; DOS function dispatcher
-    and ax, 0xff                     ; 0x35c9
-    pop bp                           ; 0x35cc
-    ret                              ; 0x35cd
     times 4 db 0
 %include "vinstall/entry_point.asm"
 
@@ -4100,18 +4023,10 @@ loc_380b:
 
 %include "vinstall/dos_file_loc_3869.asm"
 
-@..dos_file_loc_3869.l1:
-    sub ax, ax                       ; 0x387d
-    pop bp                           ; 0x387f
-    ret                              ; 0x3880
 %include "vinstall/dos_file_loc_3881.asm"
 
 %include "vinstall/dos_file_loc_38a0.asm"
 
-@..dos_file_loc_38a0.l1:
-    sub ax, ax                       ; 0x38b4
-    pop bp                           ; 0x38b6
-    ret                              ; 0x38b7
 
     db 0x55, 0x8b, 0xec, 0x57, 0xb4, 0x56, 0x8b, 0x56, 0x04, 0x8c, 0xdf, 0x8e, 0xc7, 0x8b, 0x7e, 0x06
     db 0xcd, 0x21, 0x5f, 0x73, 0x08, 0xa3, 0xd6, 0x24, 0xb8, 0xff, 0xff, 0x5d, 0xc3, 0x2b, 0xc0, 0x5d
@@ -4136,10 +4051,6 @@ loc_380b:
 
 %include "vinstall/dos_ioctl.asm"
 
-@..dos_ioctl.l1:
-    sub ax, ax                       ; 0x3a01
-    pop bp                           ; 0x3a03
-    ret                              ; 0x3a04
 loc_3a05:
     push bp                          ; 0x3a05
     mov bp, sp                       ; 0x3a06
@@ -4172,48 +4083,6 @@ loc_3a05:
     jmp short @..local.l116          ; 0x3a37
 %include "vinstall/dos_mem_loc_3a39.asm"
 
-@..dos_mem_loc_3a39.l2:
-    cmp ax, word [data_24e0]         ; 0x3a67
-    ja short @..dos_mem_loc_3a39.l3  ; 0x3a6b
-    cmp ax, word [data_24d4]         ; 0x3a6d
-    jb short @..dos_mem_loc_3a39.l3  ; 0x3a71
-    mov word [data_24d4], ax         ; 0x3a73
-    jmp short @..dos_mem_loc_3a39.l1 ; 0x3a76
-@..dos_mem_loc_3a39.l3:
-    push ax                          ; 0x3a78
-    mov bx, ax                       ; 0x3a79
-    mov cx, data_0004                ; 0x3a7b
-    shr bx, cl                       ; 0x3a7e
-    and bx, strict word 0xfff        ; 0x3a80
-    add bx, byte 0x41                ; 0x3a84
-    and bx, strict word 0xffc0       ; 0x3a87
-    push bx                          ; 0x3a8b
-    push es                          ; 0x3a8c
-    mov cx, ds                       ; 0x3a8d
-    add bx, cx                       ; 0x3a8f
-    mov es, word [data_24e4]         ; 0x3a91
-    sub bx, word [data_24e4]         ; 0x3a95
-    mov ah, 0x4a                     ; 0x3a99
-    int 0x21 ; DOS resize memory block
-    pop es                           ; 0x3a9d
-    pop bx                           ; 0x3a9e
-    pop ax                           ; 0x3a9f
-    jb short @..dos_mem_loc_3a39.l4  ; 0x3aa0
-    mov word [data_24d4], ax         ; 0x3aa2
-    test bx, 0xe000                  ; 0x3aa5
-    jne short @..dos_mem_loc_3a39.l4 ; 0x3aa9
-    mov cx, data_0004                ; 0x3aab
-    shl bx, cl                       ; 0x3aae
-    mov word [data_24e0], bx         ; 0x3ab0
-    sub ax, ax                       ; 0x3ab4
-    pop bp                           ; 0x3ab6
-    ret                              ; 0x3ab7
-@..dos_mem_loc_3a39.l4:
-    mov word [data_24d6], 0xfff8     ; 0x3ab8
-    mov ax, 0xffff                   ; 0x3abe
-    test ax, ax                      ; 0x3ac1
-    pop bp                           ; 0x3ac3
-    ret                              ; 0x3ac4
 
     db 0x55, 0x8b, 0xec, 0x8b, 0xc4, 0x2b, 0x46, 0x04, 0xa3, 0x14, 0x25, 0x5d, 0xc3
     times 16 db 0

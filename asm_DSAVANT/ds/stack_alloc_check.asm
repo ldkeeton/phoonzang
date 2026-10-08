@@ -1,4 +1,5 @@
 stack_alloc_check:
+    pop bx                           ; 0x4652
     push bp                          ; 0x4653
     mov bp, sp                       ; 0x4654
     add sp, ax                       ; 0x4656
@@ -18,3 +19,6 @@ stack_alloc_check:
     mov sp, bp                       ; 0x4672
     pop bp                           ; 0x4674
     ret                              ; 0x4675
+@..stack_alloc_check.l2:
+    mov sp, bp                       ; 0x4676
+    jmp near @..stack_alloc_check.l3 ; 0x4678

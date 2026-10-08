@@ -32,3 +32,20 @@ api_idx_0006_5:
     jne short @..api_idx_0006_5.l2   ; 0x69ae
     mov ax, word [bp - 0x0002]       ; 0x69b0
     ret                              ; 0x69b3
+@..api_idx_0006_5.l2:
+    jmp short @..api_idx_0006_5.l4   ; 0x69b4
+@..api_idx_0006_5.l3:
+    mov ax, word [bx + 0x2]          ; 0x69b6
+    cmp ax, word [bp - 0x0004]       ; 0x69b9
+    jne short @..api_idx_0006_5.l4   ; 0x69bc
+    mov ax, word [bp - 0x0002]       ; 0x69be
+    ret                              ; 0x69c1
+@..api_idx_0006_5.l4:
+    add word [bp - 0x0006], byte 6   ; 0x69c2
+    inc word [bp - 0x0002]           ; 0x69c6
+@..api_idx_0006_5.l5:
+    mov ax, word [bp - 0x0002]       ; 0x69c9
+    cmp ax, word [data_590e]         ; 0x69cc
+    jl short @..api_idx_0006_5.l1    ; 0x69d0
+    mov ax, 0xffff                   ; 0x69d2
+    ret                              ; 0x69d5

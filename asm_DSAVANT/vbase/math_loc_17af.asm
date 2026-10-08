@@ -6,3 +6,6 @@ math_loc_17af:
     mov ax, 0                        ; 0x17bd
     sub ax, word [bp + 0x4]          ; 0x17c0
     ret                              ; 0x17c3
+@..math_loc_17af.l1:
+    mov ax, word [bp + 0x4]          ; 0x17c4
+    ret                              ; 0x17c7

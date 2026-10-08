@@ -30,3 +30,6 @@ api_idx_0054_6:
     call loc_9c7a                    ; 0x9d75
     add sp, byte 4                   ; 0x9d78
     ret                              ; 0x9d7b
+@..api_idx_0054_6.l2:
+    mov ax, word [data_9e46]         ; 0x9d7c
+    jmp near @..api_idx_0054_6.l3    ; 0x9d7f

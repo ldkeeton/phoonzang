@@ -125,3 +125,6 @@ math_loc_68fa:
     add bx, bp                       ; 0x6a34
     mov ax, word [bx - 0x02c0]       ; 0x6a36
     ret                              ; 0x6a3a
+@..math_loc_68fa.l9:
+    mov ax, 0xffff                   ; 0x6a3b
+    ret                              ; 0x6a3e

@@ -20,3 +20,9 @@ api_idx_0002_11:
     db 0xe8, 0x4a, 0x67 ; call 0xf364
     add sp, byte 4                   ; 0x8c1a
     ret                              ; 0x8c1d
+@..api_idx_0002_11.l2:
+    inc word [bp - 0x0002]           ; 0x8c1e
+    mov ax, word [bp - 0x0002]       ; 0x8c21
+    cmp ax, strict word 5            ; 0x8c24
+    jl short @..api_idx_0002_11.l1   ; 0x8c27
+    ret                              ; 0x8c29

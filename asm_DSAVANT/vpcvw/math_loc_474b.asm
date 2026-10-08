@@ -26,3 +26,6 @@ math_loc_474b:
     je short @..math_loc_474b.l1     ; 0x4789
     mov ax, 1                        ; 0x478b
     ret                              ; 0x478e
+@..math_loc_474b.l1:
+    mov ax, 0                        ; 0x478f
+    ret                              ; 0x4792

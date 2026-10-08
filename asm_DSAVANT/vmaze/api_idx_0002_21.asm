@@ -49,3 +49,15 @@ api_idx_0002_21:
     jl short @..api_idx_0002_21.l5   ; 0x900d
     mov ax, 0                        ; 0x900f
     ret                              ; 0x9012
+@..api_idx_0002_21.l5:
+    mov ax, 1                        ; 0x9013
+    ret                              ; 0x9016
+@..api_idx_0002_21.l6:
+    inc word [bp - 0x0002]           ; 0x9017
+    mov ax, word [bp - 0x0002]       ; 0x901a
+    cmp ax, strict word 0x20         ; 0x901d
+    jge short @..api_idx_0002_21.l7  ; 0x9020
+    jmp near @..api_idx_0002_21.l1   ; 0x9022
+@..api_idx_0002_21.l7:
+    mov ax, 0                        ; 0x9025
+    ret                              ; 0x9028

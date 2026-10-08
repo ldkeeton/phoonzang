@@ -30,3 +30,19 @@ api_idx_0006_4:
     call loc_47b9                    ; 0x5787
     mov ax, 1                        ; 0x578a
     ret                              ; 0x578d
+@..api_idx_0006_4.l2:
+    mov ax, word [bp - 0x0004]       ; 0x578e
+    sub ax, word [data_9ca6]         ; 0x5791
+    mov word [bp - 0x0006], ax       ; 0x5795
+@..api_idx_0006_4.l3:
+    mov word [data_93d8], 0x8d       ; 0x5798
+    call loc_10b6                    ; 0x579e
+    mov word [data_93d8], 0x8f       ; 0x57a1
+    cmp word [bp - 0x0002], byte 2   ; 0x57a7
+    je short @..api_idx_0006_4.l4    ; 0x57ab
+    cmp word [data_9cd2], byte 0     ; 0x57ad
+    jg short @..api_idx_0006_4.l1    ; 0x57b2
+@..api_idx_0006_4.l4:
+    call loc_47b9                    ; 0x57b4
+    mov ax, 0                        ; 0x57b7
+    ret                              ; 0x57ba

@@ -27,3 +27,8 @@ api_idx_0004_4:
     test ax, ax                      ; 0x6cc5
     je short @..api_idx_0004_4.l4    ; 0x6cc7
     ret                              ; 0x6cc9
+@..api_idx_0004_4.l4:
+    call loc_6c5c                    ; 0x6cca
+    jmp short @..api_idx_0004_4.l1   ; 0x6ccd
+@..api_idx_0004_4.l5:
+    ret                              ; 0x6ccf

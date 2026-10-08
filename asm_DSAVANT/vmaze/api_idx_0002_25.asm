@@ -33,3 +33,6 @@ api_idx_0002_25:
     mov byte [bx - 0x7b00], al       ; 0xa2d3
     mov ax, 1                        ; 0xa2d7
     ret                              ; 0xa2da
+@..api_idx_0002_25.l2:
+    mov ax, 0                        ; 0xa2db
+    ret                              ; 0xa2de

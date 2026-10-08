@@ -12,3 +12,8 @@ leaf_loc_47e8:
     mov sp, bp                       ; 0x47fc
     pop bp                           ; 0x47fe
     ret                              ; 0x47ff
+@..leaf_loc_47e8.l2:
+    and word [si], strict word 0xfffe ; 0x4800
+    mov word [data_0d00], si         ; 0x4804
+    mov ax, 0                        ; 0x4808
+    jmp short @..leaf_loc_47e8.l1    ; 0x480b

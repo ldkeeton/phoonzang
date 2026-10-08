@@ -21,3 +21,6 @@ api_idx_0002_10:
     add sp, byte 4                   ; 0x8bdd
     mov ax, 0                        ; 0x8be0
     ret                              ; 0x8be3
+@..api_idx_0002_10.l1:
+    mov ax, 0xffff                   ; 0x8be4
+    ret                              ; 0x8be7

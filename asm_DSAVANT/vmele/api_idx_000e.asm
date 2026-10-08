@@ -203,3 +203,24 @@ api_idx_000e:
     cmp byte [bx + 0x24], 0          ; 0x14a3
     jbe short @..api_idx_000e.l15    ; 0x14a7
     dec byte [bx + 0x24]             ; 0x14a9
+@..api_idx_000e.l15:
+    mov bx, word [bp - 0x0004]       ; 0x14ac
+    cmp byte [bx + 0x2b], 3          ; 0x14af
+    jne short @..api_idx_000e.l16    ; 0x14b3
+    mov byte [bx + 0x2b], 0          ; 0x14b5
+@..api_idx_000e.l16:
+    mov bx, word [bp - 0x0004]       ; 0x14b9
+    cmp byte [bx + 0x22], 3          ; 0x14bc
+    je short @..api_idx_000e.l17     ; 0x14c0
+    cmp word [bp + 0x4], byte 0      ; 0x14c2
+    je short @..api_idx_000e.l17     ; 0x14c6
+    cmp byte [bx + 0x2b], data_0002  ; 0x14c8
+    jne short @..api_idx_000e.l17    ; 0x14cc
+    mov word [bx + 0x2], 0           ; 0x14ce
+    mov bx, word [bp - 0x0004]       ; 0x14d3
+    mov word [bx + 0x6], 0           ; 0x14d6
+    mov bx, word [bp - 0x0004]       ; 0x14db
+    mov byte [bx + 0x22], 3          ; 0x14de
+@..api_idx_000e.l17:
+    mov ax, word [bp - 0x000a]       ; 0x14e2
+    ret                              ; 0x14e5

@@ -1,6 +1,6 @@
 math_loc_1308:
     mov ax, 0                        ; 0x1308
-    call leaf_loc_4652               ; 0x130b
+    call stack_alloc_check           ; 0x130b
     cmp word [bp + 0xc], byte 0      ; 0x130e
     je short @..math_loc_1308.l1     ; 0x1312
     push word [bp + 0xe]             ; 0x1314

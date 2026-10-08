@@ -37,3 +37,14 @@ api_idx_0006_4:
     call api_idx_0004_5              ; 0x2cdb
     pop cx                           ; 0x2cde
     ret                              ; 0x2cdf
+@..api_idx_0006_4.l1:
+    cmp word [bp + 0x8], byte 5      ; 0x2ce0
+    jne short @..api_idx_0006_4.l2   ; 0x2ce4
+    mov word [bp - 0x0004], 3        ; 0x2ce6
+@..api_idx_0006_4.l2:
+    cmp word [bp + 0x8], byte 0x0b   ; 0x2ceb
+    jne short @..api_idx_0006_4.l3   ; 0x2cef
+    mov word [bp - 0x0004], 4        ; 0x2cf1
+@..api_idx_0006_4.l3:
+    mov word [bp - 0x0002], 0        ; 0x2cf6
+    jmp short @..api_idx_0006_4.l6   ; 0x2cfb

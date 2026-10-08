@@ -23,3 +23,14 @@ api_idx_00b8:
     call math_loc_0eb2               ; 0x1519
     add sp, byte 8                   ; 0x151c
     ret                              ; 0x151f
+@..api_idx_00b8.l1:
+    mov ax, 0                        ; 0x1520
+    push ax                          ; 0x1523
+    mov ax, 0xc                      ; 0x1524
+    push ax                          ; 0x1527
+    lea ax, word [bp - 0x0018]       ; 0x1528
+    push ax                          ; 0x152b
+    call ds_dispatch_f306            ; 0x152c
+    add sp, byte 6                   ; 0x152f
+    mov word [bp - 0x0002], 0        ; 0x1532
+    jmp short @..api_idx_00b8.l4     ; 0x1537

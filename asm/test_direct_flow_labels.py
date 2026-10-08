@@ -9,6 +9,7 @@ from lib.verify.compare import (
     _compute_branch_ownership,
     _compute_local_labels,
     _local_branch_targets,
+    _extend_split_ranges_with_local_tails,
     _render_mz_header,
     _select_split_ranges,
 )
@@ -112,6 +113,57 @@ class FunctionIncludeTests(unittest.TestCase):
                 (0x100, 0x110, 'main'),
                 (0x110, 0x125, 'bios_video_loc_3067'),
             ],
+        )
+
+    def test_named_function_include_starts_at_its_call_target_prefix(self):
+        records = [
+            {'type': 'label', 'text': 'stack_alloc_check:', 'offset': 0x100},
+            {'type': 'mnem', 'text': 'pop bx', 'offset': 0x100, 'size': 1},
+            {'type': 'mnem', 'text': 'push bp', 'offset': 0x101, 'size': 1},
+            {'type': 'mnem', 'text': 'ret', 'offset': 0x102, 'size': 1},
+        ]
+        master, includes = _build_source(
+            records, 0, bytes(0x103), label_map={}, show_offsets=False,
+            split_ranges=[(0x100, 0x103, 'stack_alloc_check')],
+            split_dir='ds',
+        )
+
+        self.assertIn('%include "ds/stack_alloc_check.asm"', master)
+        self.assertNotIn('loc_0100:', master)
+        self.assertEqual(
+            includes['ds/stack_alloc_check.asm'],
+            'stack_alloc_check:\n    pop bx\n    push bp\n    ret\n',
+        )
+
+    def test_referenced_local_tail_joins_its_named_function_include(self):
+        records = [
+            {'type': 'label', 'text': 'stack_alloc_check:', 'offset': 0x100},
+            {'type': 'mnem', 'text': 'ja short @..stack_alloc_check.l2',
+             'offset': 0x100, 'size': 2},
+            {'type': 'mnem', 'text': 'ret', 'offset': 0x102, 'size': 1},
+            {'type': 'label', 'text': '@..stack_alloc_check.l2:',
+             'offset': 0x103},
+            {'type': 'mnem', 'text': 'mov sp, bp', 'offset': 0x103, 'size': 2},
+            {'type': 'mnem', 'text': 'jmp near @..stack_alloc_check.l3',
+             'offset': 0x105, 'size': 3},
+        ]
+        ranges = _extend_split_ranges_with_local_tails(
+            [(0x100, 0x103, 'stack_alloc_check')], records,
+        )
+
+        self.assertEqual(
+            ranges, [(0x100, 0x108, 'stack_alloc_check')],
+        )
+        master, includes = _build_source(
+            records, 0, bytes(0x108), label_map={}, show_offsets=False,
+            split_ranges=ranges, split_dir='ds',
+        )
+
+        self.assertNotIn('@..stack_alloc_check.l2:', master)
+        self.assertIn(
+            '@..stack_alloc_check.l2:\n    mov sp, bp\n'
+            '    jmp near @..stack_alloc_check.l3\n',
+            includes['ds/stack_alloc_check.asm'],
         )
 
     def test_include_replaces_contiguous_function_records_in_place(self):

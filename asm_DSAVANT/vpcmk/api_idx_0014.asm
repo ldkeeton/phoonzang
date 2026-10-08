@@ -16,3 +16,22 @@ api_idx_0014:
     cmp ax, strict word 2            ; 0x6694
     jne short @..api_idx_0014.l1     ; 0x6697
     ret                              ; 0x6699
+@..api_idx_0014.l1:
+    mov word [data_978a], 0          ; 0x669a
+    cmp byte [bp - 0x0014], 0        ; 0x66a0
+    je short @..api_idx_0014.l3      ; 0x66a4
+    lea ax, word [bp - 0x0014]       ; 0x66a6
+    push ax                          ; 0x66a9
+    call loc_6626                    ; 0x66aa
+    pop cx                           ; 0x66ad
+    cmp ax, strict word 0xffff       ; 0x66ae
+    jne short @..api_idx_0014.l2     ; 0x66b1
+    jmp short @..api_idx_0014.l3     ; 0x66b3
+@..api_idx_0014.l2:
+    push word [bp + 0x4]             ; 0x66b5
+    lea ax, word [bp - 0x0014]       ; 0x66b8
+    push ax                          ; 0x66bb
+    call math_loc_62fb               ; 0x66bc
+    add sp, byte 4                   ; 0x66bf
+@..api_idx_0014.l3:
+    ret                              ; 0x66c2

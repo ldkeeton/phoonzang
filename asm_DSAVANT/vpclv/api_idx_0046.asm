@@ -88,3 +88,10 @@ api_idx_0046:
 @..api_idx_0046.l6:
     mov ax, 1                        ; 0x5093
     ret                              ; 0x5096
+@..api_idx_0046.l7:
+    jmp short @..api_idx_0046.l9     ; 0x5097
+@..api_idx_0046.l8:
+    mov ax, 0                        ; 0x5099
+    ret                              ; 0x509c
+@..api_idx_0046.l9:
+    jmp near @..api_idx_0046.l1      ; 0x509d

@@ -56,3 +56,28 @@ api_idx_000a_3:
     je short @..api_idx_000a_3.l2    ; 0x78de
 @..api_idx_000a_3.l1:
     ret                              ; 0x78e0
+@..api_idx_000a_3.l2:
+    mov ax, 8                        ; 0x78e1
+    push ax                          ; 0x78e4
+    mov ax, 0                        ; 0x78e5
+    push ax                          ; 0x78e8
+    push word [bp - 0x0002]          ; 0x78e9
+    call ds_dispatch_ed3a            ; 0x78ec
+    add sp, byte 6                   ; 0x78ef
+    mov word [bp - 0x0004], ax       ; 0x78f2
+    mov ax, 5                        ; 0x78f5
+    push ax                          ; 0x78f8
+    mov ax, 8                        ; 0x78f9
+    push ax                          ; 0x78fc
+    push word [bp - 0x0002]          ; 0x78fd
+    call ds_dispatch_ed3a            ; 0x7900
+    add sp, byte 6                   ; 0x7903
+    mov word [bp - 0x0008], ax       ; 0x7906
+    mov ax, 1                        ; 0x7909
+    push ax                          ; 0x790c
+    mov ax, 0xd                      ; 0x790d
+    push ax                          ; 0x7910
+    push word [bp - 0x0002]          ; 0x7911
+    call ds_dispatch_ed3a            ; 0x7914
+    add sp, byte 6                   ; 0x7917
+    jmp short @..api_idx_000a_3.l5   ; 0x791a

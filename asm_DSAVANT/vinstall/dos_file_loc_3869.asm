@@ -9,3 +9,7 @@ dos_file_loc_3869:
     mov ax, 0xffff                   ; 0x3878
     pop bp                           ; 0x387b
     ret                              ; 0x387c
+@..dos_file_loc_3869.l1:
+    sub ax, ax                       ; 0x387d
+    pop bp                           ; 0x387f
+    ret                              ; 0x3880

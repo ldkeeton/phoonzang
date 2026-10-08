@@ -27,3 +27,12 @@ api_idx_0006_2:
     test ax, ax                      ; 0x0fcc
     je short @..api_idx_0006_2.l4    ; 0x0fce
     ret                              ; 0x0fd0
+@..api_idx_0006_2.l4:
+    call loc_0f68                    ; 0x0fd1
+    not ax                           ; 0x0fd4
+    push ax                          ; 0x0fd6
+    call loc_0ea6                    ; 0x0fd7
+    pop cx                           ; 0x0fda
+    jmp short @..api_idx_0006_2.l1   ; 0x0fdb
+@..api_idx_0006_2.l5:
+    ret                              ; 0x0fdd

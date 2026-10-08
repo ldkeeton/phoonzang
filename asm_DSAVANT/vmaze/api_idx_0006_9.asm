@@ -57,3 +57,11 @@ api_idx_0006_9:
     add sp, byte 6                   ; 0x9a6d
 @..api_idx_0006_9.l2:
     ret                              ; 0x9a70
+@..api_idx_0006_9.l3:
+    inc word [bp - 0x0002]           ; 0x9a71
+    mov ax, word [bp - 0x0002]       ; 0x9a74
+    cmp ax, strict word 0xb          ; 0x9a77
+    jge short @..api_idx_0006_9.l4   ; 0x9a7a
+    jmp near @..api_idx_0006_9.l1    ; 0x9a7c
+@..api_idx_0006_9.l4:
+    ret                              ; 0x9a7f

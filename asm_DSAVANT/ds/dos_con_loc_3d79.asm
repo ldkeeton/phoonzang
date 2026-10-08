@@ -63,3 +63,57 @@ dos_con_loc_3d79:
     mov sp, bp                       ; 0x3de7
     pop bp                           ; 0x3de9
     ret                              ; 0x3dea
+@..dos_con_loc_3d79.l6:
+    dec word [si]                    ; 0x3deb
+    push si                          ; 0x3ded
+    push di                          ; 0x3dee
+    add si, byte 3                   ; 0x3def
+    mov di, si                       ; 0x3df2
+    dec di                           ; 0x3df4
+    mov cx, 0x14                     ; 0x3df5
+    rep movsb                        ; 0x3df8
+    pop di                           ; 0x3dfa
+    pop si                           ; 0x3dfb
+    jmp short @..dos_con_loc_3d79.l1 ; 0x3dfc
+@..dos_con_loc_3d79.l7:
+    xor ax, ax                       ; 0x3dfe
+    push ax                          ; 0x3e00
+    call far [cs:data_2d83]          ; 0x3e01
+    pop ax                           ; 0x3e06
+    mov ah, 7                        ; 0x3e07
+    int 0x21 ; DOS keyboard input (no echo)
+    mov ah, 0                        ; 0x3e0b
+    cmp word [bp + 0x4], byte 0      ; 0x3e0d
+    je short @..dos_con_loc_3d79.l5  ; 0x3e11
+    mov bx, word [si]                ; 0x3e13
+    mov byte [bx + si + 0x2], al     ; 0x3e15
+    inc word [si]                    ; 0x3e18
+    cmp al, 0                        ; 0x3e1a
+    je short @..dos_con_loc_3d79.l8  ; 0x3e1c
+    cmp al, 0x61                     ; 0x3e1e
+    jb short @..dos_con_loc_3d79.l3  ; 0x3e20
+    cmp al, 0x7b                     ; 0x3e22
+    jae short @..dos_con_loc_3d79.l3 ; 0x3e24
+    and word [bx + si + 0x2], strict word 0xdf ; 0x3e26
+    jmp short @..dos_con_loc_3d79.l3 ; 0x3e2b
+@..dos_con_loc_3d79.l8:
+    mov ah, 7                        ; 0x3e2d
+    int 0x21 ; DOS keyboard input (no echo)
+    mov bx, word [si]                ; 0x3e31
+    mov byte [bx + si + 0x1], 8      ; 0x3e33
+    cmp al, 0x4b                     ; 0x3e37
+    je short @..dos_con_loc_3d79.l9  ; 0x3e39
+    mov byte [bx + si + 0x1], 9      ; 0x3e3b
+    cmp al, 0x48                     ; 0x3e3f
+    je short @..dos_con_loc_3d79.l9  ; 0x3e41
+    mov byte [bx + si + 0x1], 0xa    ; 0x3e43
+    cmp al, 0x4d                     ; 0x3e47
+    je short @..dos_con_loc_3d79.l9  ; 0x3e49
+    mov byte [bx + si + 0x1], 0xb    ; 0x3e4b
+    cmp al, 0x50                     ; 0x3e4f
+    je short @..dos_con_loc_3d79.l9  ; 0x3e51
+    mov byte [bx + si + 0x1], 0      ; 0x3e53
+    dec word [si]                    ; 0x3e57
+    jmp short @..dos_con_loc_3d79.l7 ; 0x3e59
+@..dos_con_loc_3d79.l9:
+    jmp near @..dos_con_loc_3d79.l1  ; 0x3e5b

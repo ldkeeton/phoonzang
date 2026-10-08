@@ -107,3 +107,134 @@ api_idx_0012_3:
     add sp, byte 8                   ; 0x0874
     mov ax, word [bp - 0x0004]       ; 0x0877
     ret                              ; 0x087a
+@..api_idx_0012_3.l6:
+    push word [data_0e28]            ; 0x087b
+    push word [data_0e26]            ; 0x087f
+    call ds_dispatch_b8af            ; 0x0883
+    add sp, byte 4                   ; 0x0886
+    mov word [bp - 0x0002], 0        ; 0x0889
+@..api_idx_0012_3.l7:
+    mov ax, 0                        ; 0x088e
+    push ax                          ; 0x0891
+    mov ax, word [bp - 0x0002]       ; 0x0892
+    inc ax                           ; 0x0895
+    mov cx, 0xa                      ; 0x0896
+    cwd                              ; 0x0899
+    idiv cx                          ; 0x089a
+    mov ax, dx                       ; 0x089c
+    add ax, strict word 0x30         ; 0x089e
+    cbw                              ; 0x08a1
+    push ax                          ; 0x08a2
+    mov ax, word [bp - 0x0002]       ; 0x08a3
+    mov cx, 5                        ; 0x08a6
+    cwd                              ; 0x08a9
+    idiv cx                          ; 0x08aa
+    mov ax, dx                       ; 0x08ac
+    mov cx, 0xe                      ; 0x08ae
+    imul cx                          ; 0x08b1
+    add ax, strict word 0x7d         ; 0x08b3
+    push ax                          ; 0x08b6
+    mov ax, word [bp - 0x0002]       ; 0x08b7
+    mov cx, 5                        ; 0x08ba
+    cwd                              ; 0x08bd
+    idiv cx                          ; 0x08be
+    mov cx, 0x4f                     ; 0x08c0
+    imul cx                          ; 0x08c3
+    add ax, strict word 0x4e         ; 0x08c5
+    push ax                          ; 0x08c8
+    mov ax, word [bp - 0x0002]       ; 0x08c9
+    mov cx, 5                        ; 0x08cc
+    cwd                              ; 0x08cf
+    idiv cx                          ; 0x08d0
+    mov ax, dx                       ; 0x08d2
+    mov cx, 0xe                      ; 0x08d4
+    imul cx                          ; 0x08d7
+    add ax, strict word 0x71         ; 0x08d9
+    push ax                          ; 0x08dc
+    mov ax, word [bp - 0x0002]       ; 0x08dd
+    mov cx, 5                        ; 0x08e0
+    cwd                              ; 0x08e3
+    idiv cx                          ; 0x08e4
+    mov cx, 0x4f                     ; 0x08e6
+    imul cx                          ; 0x08e9
+    inc ax                           ; 0x08eb
+    inc ax                           ; 0x08ec
+    push ax                          ; 0x08ed
+    push word [bp - 0x0002]          ; 0x08ee
+    call ds_dispatch_baa6            ; 0x08f1
+    add sp, byte 0x0e                ; 0x08f4
+    inc word [bp - 0x0002]           ; 0x08f7
+    mov ax, word [bp - 0x0002]       ; 0x08fa
+    cmp ax, strict word 0xa          ; 0x08fd
+    jl short @..api_idx_0012_3.l7    ; 0x0900
+    mov ax, 0                        ; 0x0902
+    push ax                          ; 0x0905
+    push ax                          ; 0x0906
+    push ax                          ; 0x0907
+    push ax                          ; 0x0908
+    push ax                          ; 0x0909
+    mov ax, 0xffff                   ; 0x090a
+    push ax                          ; 0x090d
+    mov ax, 0xa                      ; 0x090e
+    push ax                          ; 0x0911
+    call ds_dispatch_baa6            ; 0x0912
+    add sp, byte 0x0e                ; 0x0915
+    mov word [bp - 0x0008], 0        ; 0x0918
+@..api_idx_0012_3.l8:
+    lea ax, word [bp - 0x000c]       ; 0x091d
+    push ax                          ; 0x0920
+    lea ax, word [bp - 0x000a]       ; 0x0921
+    push ax                          ; 0x0924
+    call ds_dispatch_f053            ; 0x0925
+    add sp, byte 4                   ; 0x0928
+    mov word [bp - 0x0006], ax       ; 0x092b
+    mov ax, 0                        ; 0x092e
+    cmp word [bp - 0x0006], byte 0   ; 0x0931
+    jne short @..api_idx_0012_3.l9   ; 0x0935
+    mov ax, 1                        ; 0x0937
+@..api_idx_0012_3.l9:
+    or word [bp - 0x0008], ax        ; 0x093a
+    mov ax, 0x14                     ; 0x093d
+    push ax                          ; 0x0940
+    call ds_dispatch_e489            ; 0x0941
+    pop cx                           ; 0x0944
+    mov ax, 0x59fe                   ; 0x0945
+    push ax                          ; 0x0948
+    call ds_dispatch_b90d            ; 0x0949
+    pop cx                           ; 0x094c
+    dec ax                           ; 0x094d
+    mov word [bp - 0x0004], ax       ; 0x094e
+    cmp word [data_59fa], byte 0     ; 0x0951
+    je short @..api_idx_0012_3.l10   ; 0x0956
+    mov ax, 0                        ; 0x0958
+    mov dx, 0                        ; 0x095b
+    push dx                          ; 0x095e
+    push ax                          ; 0x095f
+    call ds_dispatch_b8af            ; 0x0960
+    add sp, byte 4                   ; 0x0963
+    mov ax, 0xffff                   ; 0x0966
+    ret                              ; 0x0969
+@..api_idx_0012_3.l10:
+    cmp word [data_5b3e], byte 1     ; 0x096a
+    jne short @..api_idx_0012_3.l11  ; 0x096f
+    mov ax, 0                        ; 0x0971
+    mov dx, 0                        ; 0x0974
+    push dx                          ; 0x0977
+    push ax                          ; 0x0978
+    call ds_dispatch_b8af            ; 0x0979
+    add sp, byte 4                   ; 0x097c
+    mov ax, word [bp - 0x0004]       ; 0x097f
+    ret                              ; 0x0982
+@..api_idx_0012_3.l11:
+    cmp word [bp - 0x0006], byte 0   ; 0x0983
+    je short @..api_idx_0012_3.l8    ; 0x0987
+    cmp word [bp - 0x0008], byte 0   ; 0x0989
+    je short @..api_idx_0012_3.l8    ; 0x098d
+    mov ax, 0                        ; 0x098f
+    mov dx, 0                        ; 0x0992
+    push dx                          ; 0x0995
+    push ax                          ; 0x0996
+    call ds_dispatch_b8af            ; 0x0997
+    add sp, byte 4                   ; 0x099a
+    mov ax, 0xffff                   ; 0x099d
+    ret                              ; 0x09a0

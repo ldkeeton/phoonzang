@@ -13,3 +13,12 @@ math_loc_0f67:
     cmp byte [bx + si + 0x1f], 0     ; 0x0f86
     jne short @..math_loc_0f67.l1    ; 0x0f8a
     ret                              ; 0x0f8c
+@..math_loc_0f67.l1:
+    call loc_1a35                    ; 0x0f8d
+    mov word [bp - 0x00f8], 7        ; 0x0f90
+    mov ax, 6                        ; 0x0f96
+    imul word [bp + 0x8]             ; 0x0f99
+    mov bx, ax                       ; 0x0f9c
+    mov al, byte [bx + 0x889]        ; 0x0f9e
+    sub ah, ah                       ; 0x0fa2
+    jmp short @..math_loc_0f67.l5    ; 0x0fa4

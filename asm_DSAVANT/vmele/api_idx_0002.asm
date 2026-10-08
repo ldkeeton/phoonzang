@@ -6,3 +6,6 @@ api_idx_0002:
     jle short @..api_idx_0002.l1     ; 0x2909
     mov ax, 0xffff                   ; 0x290b
     ret                              ; 0x290e
+@..api_idx_0002.l1:
+    mov word [bp - 0x0002], 0        ; 0x290f
+    jmp short @..api_idx_0002.l4     ; 0x2914

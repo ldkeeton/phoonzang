@@ -21,3 +21,21 @@ api_idx_0004_10:
     jne short @..api_idx_0004_10.l3  ; 0x63a3
     mov ax, word [bp - 0x0004]       ; 0x63a5
     ret                              ; 0x63a8
+@..api_idx_0004_10.l3:
+    mov ax, word [data_69c8]         ; 0x63a9
+    dec ax                           ; 0x63ac
+    cmp ax, word [bp + 0x4]          ; 0x63ad
+    jle short @..api_idx_0004_10.l4  ; 0x63b0
+    mov ax, word [bp + 0x4]          ; 0x63b2
+    inc ax                           ; 0x63b5
+    jmp short @..api_idx_0004_10.l5  ; 0x63b6
+@..api_idx_0004_10.l4:
+    mov ax, word [bp + 0x4]          ; 0x63b8
+@..api_idx_0004_10.l5:
+    mov word [bp - 0x0004], ax       ; 0x63bb
+    inc word [bp - 0x0002]           ; 0x63be
+    mov ax, word [bp - 0x0002]       ; 0x63c1
+    cmp ax, strict word 2            ; 0x63c4
+    jl short @..api_idx_0004_10.l2   ; 0x63c7
+    mov ax, word [bp + 0x4]          ; 0x63c9
+    ret                              ; 0x63cc

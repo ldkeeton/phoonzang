@@ -39,3 +39,10 @@ api_idx_0004_12:
     call api_idx_0050_2              ; 0x759a
     add sp, byte 4                   ; 0x759d
     ret                              ; 0x75a0
+@..api_idx_0004_12.l3:
+    inc word [bp - 0x0002]           ; 0x75a1
+@..api_idx_0004_12.l4:
+    mov ax, word [bp - 0x0002]       ; 0x75a4
+    cmp ax, word [data_69c8]         ; 0x75a7
+    jl short @..api_idx_0004_12.l2   ; 0x75ab
+    ret                              ; 0x75ad

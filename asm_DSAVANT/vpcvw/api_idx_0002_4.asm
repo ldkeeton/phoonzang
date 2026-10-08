@@ -48,3 +48,36 @@ api_idx_0002_4:
     add sp, byte 4                   ; 0x43ce
     mov ax, 1                        ; 0x43d1
     ret                              ; 0x43d4
+@..api_idx_0002_4.l4:
+    mov bx, word [bp + 0x6]          ; 0x43d5
+    mov al, byte [bx + 0x7]          ; 0x43d8
+    sub ah, ah                       ; 0x43db
+    test ax, 0x20                    ; 0x43dd
+    je short @..api_idx_0002_4.l5    ; 0x43e0
+    push word [bp + 0x4]             ; 0x43e2
+    push bx                          ; 0x43e5
+    call api_idx_004e                ; 0x43e6
+    add sp, byte 4                   ; 0x43e9
+    mov ax, 1                        ; 0x43ec
+    ret                              ; 0x43ef
+@..api_idx_0002_4.l5:
+    push word [bp + 0x8]             ; 0x43f0
+    push word [bp + 0x6]             ; 0x43f3
+    push word [bp + 0x4]             ; 0x43f6
+    mov ax, 6                        ; 0x43f9
+    imul word [bp - 0x0002]          ; 0x43fc
+    mov bx, ax                       ; 0x43ff
+    push word [bx + 0xb1e]           ; 0x4401
+    call api_idx_0048                ; 0x4405
+    add sp, byte 8                   ; 0x4408
+    mov ax, 1                        ; 0x440b
+    ret                              ; 0x440e
+@..api_idx_0002_4.l6:
+    inc word [bp - 0x0002]           ; 0x440f
+    mov ax, word [bp - 0x0002]       ; 0x4412
+    cmp ax, strict word 0xf          ; 0x4415
+    jge short @..api_idx_0002_4.l7   ; 0x4418
+    jmp near @..api_idx_0002_4.l1    ; 0x441a
+@..api_idx_0002_4.l7:
+    mov ax, 0                        ; 0x441d
+    ret                              ; 0x4420

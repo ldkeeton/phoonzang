@@ -193,3 +193,23 @@ api_idx_001e_2:
     call api_idx_0002_9              ; 0x720b
     add sp, byte 4                   ; 0x720e
     ret                              ; 0x7211
+@..api_idx_001e_2.l14:
+    mov bx, word [data_0e12]         ; 0x7212
+    mov si, word [data_8f3e]         ; 0x7216
+    mov al, byte [bx + si + 0xb40]   ; 0x721a
+    sub ah, ah                       ; 0x721e
+    mov word [data_8d12], ax         ; 0x7220
+    mov word [data_9bd0], 0          ; 0x7223
+@..api_idx_001e_2.l15:
+    call loc_676c                    ; 0x7229
+    inc word [bp - 0x0002]           ; 0x722c
+@..api_idx_001e_2.l16:
+    mov ax, word [bp - 0x0002]       ; 0x722f
+    cmp ax, word [bp - 0x0010]       ; 0x7232
+    jge short @..api_idx_001e_2.l17  ; 0x7235
+    jmp near @..api_idx_001e_2.l5    ; 0x7237
+@..api_idx_001e_2.l17:
+    push word [bp - 0x001e]          ; 0x723a
+    call api_idx_0006_2              ; 0x723d
+    pop cx                           ; 0x7240
+    ret                              ; 0x7241

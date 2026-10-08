@@ -19,3 +19,45 @@ dos_mem_loc_51bc:
     sub ax, ax                       ; 0x51e6
     pop bp                           ; 0x51e8
     ret                              ; 0x51e9
+@..dos_mem_loc_51bc.l2:
+    cmp ax, word [data_0c7c]         ; 0x51ea
+    ja short @..dos_mem_loc_51bc.l3  ; 0x51ee
+    cmp ax, word [data_0c70]         ; 0x51f0
+    jb short @..dos_mem_loc_51bc.l3  ; 0x51f4
+    mov word [data_0c70], ax         ; 0x51f6
+    jmp short @..dos_mem_loc_51bc.l1 ; 0x51f9
+@..dos_mem_loc_51bc.l3:
+    push ax                          ; 0x51fb
+    mov bx, ax                       ; 0x51fc
+    mov cx, 4                        ; 0x51fe
+    shr bx, cl                       ; 0x5201
+    and bx, strict word 0xfff        ; 0x5203
+    add bx, byte 0x41                ; 0x5207
+    and bx, strict word 0xffc0       ; 0x520a
+    push bx                          ; 0x520e
+    push es                          ; 0x520f
+    mov cx, ds                       ; 0x5210
+    add bx, cx                       ; 0x5212
+    mov es, word [data_0c80]         ; 0x5214
+    sub bx, word [data_0c80]         ; 0x5218
+    mov ah, 0x4a                     ; 0x521c
+    int 0x21 ; DOS resize memory block
+    pop es                           ; 0x5220
+    pop bx                           ; 0x5221
+    pop ax                           ; 0x5222
+    jb short @..dos_mem_loc_51bc.l4  ; 0x5223
+    mov word [data_0c70], ax         ; 0x5225
+    test bx, 0xe000                  ; 0x5228
+    jne short @..dos_mem_loc_51bc.l4 ; 0x522c
+    mov cx, 4                        ; 0x522e
+    shl bx, cl                       ; 0x5231
+    mov word [data_0c7c], bx         ; 0x5233
+    sub ax, ax                       ; 0x5237
+    pop bp                           ; 0x5239
+    ret                              ; 0x523a
+@..dos_mem_loc_51bc.l4:
+    mov word [data_0c72], 0xfff8     ; 0x523b
+    mov ax, 0xffff                   ; 0x5241
+    test ax, ax                      ; 0x5244
+    pop bp                           ; 0x5246
+    ret                              ; 0x5247

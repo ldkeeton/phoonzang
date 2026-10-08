@@ -27,3 +27,26 @@ api_idx_0002_18:
     je short @..api_idx_0002_18.l1   ; 0x8e2c
     mov ax, 0                        ; 0x8e2e
     ret                              ; 0x8e31
+@..api_idx_0002_18.l1:
+    mov ax, 1                        ; 0x8e32
+    push ax                          ; 0x8e35
+    mov ax, 8                        ; 0x8e36
+    push ax                          ; 0x8e39
+    push word [bp - 0x0002]          ; 0x8e3a
+    call ds_dispatch_ed3a            ; 0x8e3d
+    add sp, byte 6                   ; 0x8e40
+    test ax, ax                      ; 0x8e43
+    jne short @..api_idx_0002_18.l2  ; 0x8e45
+    mov ax, 0                        ; 0x8e47
+    ret                              ; 0x8e4a
+@..api_idx_0002_18.l2:
+    mov ax, word [bp + 0x4]          ; 0x8e4b
+    mov word [data_8d12], ax         ; 0x8e4e
+    mov bx, word [data_0e12]         ; 0x8e51
+    mov si, ax                       ; 0x8e55
+    mov al, byte [bx + si + 0xa50]   ; 0x8e57
+    sub ah, ah                       ; 0x8e5b
+    mov word [data_84a0], ax         ; 0x8e5d
+    mov word [data_830a], 0x15       ; 0x8e60
+    mov ax, 1                        ; 0x8e66
+    ret                              ; 0x8e69

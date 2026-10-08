@@ -29,3 +29,16 @@ string_loc_9386:
     pop si                           ; 0x93d6
     pop bp                           ; 0x93d7
     ret                              ; 0x93d8
+@..string_loc_9386.l4:
+    sub di, byte 2                   ; 0x93d9
+    scasb                            ; 0x93dc
+    jne short @..string_loc_9386.l5  ; 0x93dd
+    test al, al                      ; 0x93df
+    je short @..string_loc_9386.l2   ; 0x93e1
+    mov al, ah                       ; 0x93e3
+    scasb                            ; 0x93e5
+@..string_loc_9386.l5:
+    sbb ax, ax                       ; 0x93e6
+    js short @..string_loc_9386.l3   ; 0x93e8
+    inc ax                           ; 0x93ea
+    jmp short @..string_loc_9386.l3  ; 0x93eb

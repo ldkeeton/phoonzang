@@ -57,3 +57,62 @@ api_idx_009a:
     call api_idx_0004                ; 0x6fe9
     add sp, byte 4                   ; 0x6fec
     ret                              ; 0x6fef
+@..api_idx_009a.l2:
+    mov ax, word [bp + 0x8]          ; 0x6ff0
+    shl ax, 1                        ; 0x6ff3
+    push ax                          ; 0x6ff5
+    mov al, byte [bp - 0x000f]       ; 0x6ff6
+    sub ah, ah                       ; 0x6ff9
+    mov cx, ax                       ; 0x6ffb
+    pop ax                           ; 0x6ffd
+    sub ax, cx                       ; 0x6ffe
+    push ax                          ; 0x7000
+    call ds_dispatch_b7a9            ; 0x7001
+    pop cx                           ; 0x7004
+    inc ax                           ; 0x7005
+    mov word [bp - 0x0002], ax       ; 0x7006
+    mov bx, word [bp + 0x6]          ; 0x7009
+    mov al, byte [bx + 0x6]          ; 0x700c
+    sub ah, ah                       ; 0x700f
+    mov cx, ax                       ; 0x7011
+    mov ax, word [bp - 0x0002]       ; 0x7013
+    add cx, ax                       ; 0x7016
+    mov ax, cx                       ; 0x7018
+    cmp ax, strict word 0x64         ; 0x701a
+    jge short @..api_idx_009a.l3     ; 0x701d
+    mov al, byte [bx + 0x6]          ; 0x701f
+    sub ah, ah                       ; 0x7022
+    add ax, word [bp - 0x0002]       ; 0x7024
+    mov byte [bx + 0x6], al          ; 0x7027
+    jmp short @..api_idx_009a.l4     ; 0x702a
+@..api_idx_009a.l3:
+    mov byte [bx + 0x6], 0x63        ; 0x702c
+@..api_idx_009a.l4:
+    mov ax, 0x64                     ; 0x7030
+    push ax                          ; 0x7033
+    call ds_dispatch_b7a9            ; 0x7034
+    pop cx                           ; 0x7037
+    push ax                          ; 0x7038
+    mov al, byte [bp - 0x000f]       ; 0x7039
+    sub ah, ah                       ; 0x703c
+    mov cx, ax                       ; 0x703e
+    pop ax                           ; 0x7040
+    cmp ax, cx                       ; 0x7041
+    jge short @..api_idx_009a.l5     ; 0x7043
+    mov bx, word [bp + 0x6]          ; 0x7045
+    mov word [bx], 0                 ; 0x7048
+    lea ax, word [bp - 0x009a]       ; 0x704c
+    push ax                          ; 0x7050
+    mov ax, 0x1d1                    ; 0x7051
+    push ax                          ; 0x7054
+    call ds_dispatch_b53b            ; 0x7055
+    add sp, byte 4                   ; 0x7058
+    mov ax, 1                        ; 0x705b
+    push ax                          ; 0x705e
+    lea ax, word [bp - 0x009a]       ; 0x705f
+    push ax                          ; 0x7063
+    call api_idx_0004                ; 0x7064
+    add sp, byte 4                   ; 0x7067
+    ret                              ; 0x706a
+@..api_idx_009a.l5:
+    ret                              ; 0x706b

@@ -1,6 +1,6 @@
 math_loc_23ef:
     mov ax, 0xff46                   ; 0x23ef
-    call leaf_loc_4652               ; 0x23f2
+    call stack_alloc_check           ; 0x23f2
     mov word [bp - 0x00b0], 0x37     ; 0x23f5
     mov word [bp - 0x00b2], 0x8f     ; 0x23fb
     mov word [bp - 0x00b4], 0x108    ; 0x2401

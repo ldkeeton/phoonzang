@@ -32,3 +32,20 @@ api_idx_000e_3:
     cmp ax, strict word 2            ; 0x9719
     jne short @..api_idx_000e_3.l1   ; 0x971c
     ret                              ; 0x971e
+@..api_idx_000e_3.l1:
+    lea ax, word [bp - 0x000a]       ; 0x971f
+    push ax                          ; 0x9722
+    call ds_dispatch_fa90            ; 0x9723
+    pop cx                           ; 0x9726
+    test ax, ax                      ; 0x9727
+    je short @..api_idx_000e_3.l2    ; 0x9729
+    lea ax, word [bp - 0x000a]       ; 0x972b
+    push ax                          ; 0x972e
+    mov ax, 0x248                    ; 0x972f
+    imul word [bp + 0x4]             ; 0x9732
+    add ax, 0x5bf4                   ; 0x9735
+    push ax                          ; 0x9738
+    call ds_dispatch_f364            ; 0x9739
+    add sp, byte 4                   ; 0x973c
+@..api_idx_000e_3.l2:
+    ret                              ; 0x973f

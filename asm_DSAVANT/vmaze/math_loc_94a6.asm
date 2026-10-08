@@ -29,3 +29,6 @@ math_loc_94a6:
     pop cx                           ; 0x94e6
     mov ax, 1                        ; 0x94e7
     ret                              ; 0x94ea
+@..math_loc_94a6.l1:
+    mov ax, 0                        ; 0x94eb
+    ret                              ; 0x94ee

@@ -51,3 +51,6 @@ math_loc_086b:
     call loc_07de                    ; 0x08e0
     mov ax, 1                        ; 0x08e3
     ret                              ; 0x08e6
+@..math_loc_086b.l4:
+    mov ax, 0                        ; 0x08e7
+    ret                              ; 0x08ea

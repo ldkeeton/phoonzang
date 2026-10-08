@@ -267,7 +267,8 @@ def cmd_build_binary(app, binary):
         sys.exit(1)
     print(f'build {app}/{binary} -> {rel_path}  [OK]')
     _charts(app)
-    _copy_original_project(app)
+    #for future use
+    #_copy_original_project(app)
 
 
 def cmd_clean(apps):
@@ -1050,7 +1051,8 @@ def _build_projects(targets, all_projects):
     cmd_clean(targets)
     for project in targets:
         asm_app(project)
-        _copy_original_project(project)
+        #for future use
+        #_copy_original_project(project)
     if len(targets) > 1 or targets == all_projects:
         _charts_all()
 

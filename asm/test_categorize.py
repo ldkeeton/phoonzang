@@ -7,7 +7,8 @@ from unittest.mock import patch
 
 import main
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
-from lib.match.categorize import _detect_category
+from lib.match.categorize import _detect_category, categorize_call_targets
+from lib.match.pattern import match_patterns
 
 
 def _disassemble(data):
@@ -17,6 +18,43 @@ def _disassemble(data):
 
 
 class FunctionCategoryTests(unittest.TestCase):
+    def test_named_signature_anchors_to_call_target_prefix(self):
+        data = bytes.fromhex('5b 55 8b ec 03 e0 3b e5 c3')
+        known_db = {
+            'signatures': [
+                {'name': 'stack_alloc_check', 'patterns': ['03 E0 3B E5']},
+            ],
+        }
+
+        labels = match_patterns(data, {0}, known_db)
+
+        self.assertEqual(labels, {0: 'stack_alloc_check'})
+
+    def test_single_instruction_prefix_to_named_root_is_not_a_leaf_function(self):
+        data = bytes.fromhex('5b 55 8b ec')
+        instructions = _disassemble(data)
+
+        labels = categorize_call_targets(
+            data, {0}, {1: 'stack_alloc_check'},
+            instructions=instructions,
+            function_roots={0, 1},
+            bounded_targets={0},
+        )
+
+        self.assertNotIn(0, labels)
+        self.assertEqual(labels[1], 'stack_alloc_check')
+
+    def test_single_instruction_leaf_without_adjacent_named_root_stays_leaf(self):
+        data = bytes.fromhex('5b 90 90')
+        instructions = _disassemble(bytes.fromhex('5b'))
+
+        labels = categorize_call_targets(
+            data, {0}, {}, instructions=instructions,
+            function_roots={0}, bounded_targets={0},
+        )
+
+        self.assertEqual(labels[0], 'leaf_loc_0000')
+
     def test_single_multiply_in_long_routine_is_not_math_evidence(self):
         insns = _disassemble(b'\x90' * 20 + bytes.fromhex('f7 e3 c3'))
         self.assertEqual(_detect_category(insns, 0, 0), 'leaf')

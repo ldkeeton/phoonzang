@@ -78,3 +78,19 @@ api_idx_00a6:
     db 0xe8, 0xdf, 0x64 ; call 0xf364
     add sp, byte 4                   ; 0x8e85
     ret                              ; 0x8e88
+@..api_idx_00a6.l3:
+    mov ax, 0x32                     ; 0x8e89
+    imul word [bp - 0x0002]          ; 0x8e8c
+    add ax, word [bp - 0x0004]       ; 0x8e8f
+    mov bx, ax                       ; 0x8e92
+    cmp byte [bx - 0x573c], 0        ; 0x8e94
+    je short @..api_idx_00a6.l4      ; 0x8e99
+    jmp near @..api_idx_00a6.l2      ; 0x8e9b
+@..api_idx_00a6.l4:
+    inc word [bp - 0x0002]           ; 0x8e9e
+    mov ax, word [bp - 0x0002]       ; 0x8ea1
+    cmp ax, strict word 0x26         ; 0x8ea4
+    jge short @..api_idx_00a6.l5     ; 0x8ea7
+    jmp near @..api_idx_00a6.l1      ; 0x8ea9
+@..api_idx_00a6.l5:
+    ret                              ; 0x8eac

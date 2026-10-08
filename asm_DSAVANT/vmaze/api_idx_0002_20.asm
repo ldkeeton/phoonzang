@@ -43,3 +43,8 @@ api_idx_0002_20:
     call api_idx_0004_10             ; 0x8f89
     pop cx                           ; 0x8f8c
     ret                              ; 0x8f8d
+@..api_idx_0002_20.l4:
+    inc word [bp - 0x0002]           ; 0x8f8e
+    jmp short @..api_idx_0002_20.l1  ; 0x8f91
+@..api_idx_0002_20.l5:
+    ret                              ; 0x8f93

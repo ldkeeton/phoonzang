@@ -37,3 +37,38 @@ api_idx_0006_4:
     add sp, byte 8                   ; 0x2189
     mov ax, 1                        ; 0x218c
     ret                              ; 0x218f
+@..api_idx_0006_4.l1:
+    mov ax, 0                        ; 0x2190
+    push ax                          ; 0x2193
+    mov ax, word [data_8f3e]         ; 0x2194
+    mov cx, 6                        ; 0x2197
+    shl ax, cl                       ; 0x219a
+    mov cx, word [data_8f40]         ; 0x219c
+    shl cx, 1                        ; 0x21a0
+    shl cx, 1                        ; 0x21a2
+    shl cx, 1                        ; 0x21a4
+    add ax, cx                       ; 0x21a6
+    add ax, word [data_8f42]         ; 0x21a8
+    push ax                          ; 0x21ac
+    mov ax, 0x8bfe                   ; 0x21ad
+    push ax                          ; 0x21b0
+    call ds_dispatch_ec41            ; 0x21b1
+    add sp, byte 6                   ; 0x21b4
+    mov ax, 0                        ; 0x21b7
+    push ax                          ; 0x21ba
+    push word [0x8d08]               ; 0x21bb
+    push word [data_8d06]            ; 0x21bf
+    call ds_dispatch_e94f            ; 0x21c3
+    add sp, byte 6                   ; 0x21c6
+    mov ax, 0xc4                     ; 0x21c9
+    push ax                          ; 0x21cc
+    mov ax, 0x13c                    ; 0x21cd
+    push ax                          ; 0x21d0
+    mov ax, 0xb9                     ; 0x21d1
+    push ax                          ; 0x21d4
+    mov ax, 0x131                    ; 0x21d5
+    push ax                          ; 0x21d8
+    call ds_dispatch_e8da            ; 0x21d9
+    add sp, byte 8                   ; 0x21dc
+    mov ax, 0                        ; 0x21df
+    ret                              ; 0x21e2

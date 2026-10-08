@@ -48,3 +48,25 @@ dos_mem_alloc:
     mov sp, bp                       ; 0x4bb6
     pop bp                           ; 0x4bb8
     ret                              ; 0x4bb9
+@..dos_mem_alloc.l5:
+    cmp si, byte 0                   ; 0x4bba
+    jl short @..dos_mem_alloc.l7     ; 0x4bbd
+    test word [bp + 0x6], 0x800      ; 0x4bbf
+    je short @..dos_mem_alloc.l6     ; 0x4bc4
+    mov ax, data_0002                ; 0x4bc6
+    push ax                          ; 0x4bc9
+    mov ax, 0                        ; 0x4bca
+    mov dx, 0                        ; 0x4bcd
+    push dx                          ; 0x4bd0
+    push ax                          ; 0x4bd1
+    push si                          ; 0x4bd2
+    call dos_file_loc_5004           ; 0x4bd3
+    add sp, byte 8                   ; 0x4bd6
+@..dos_mem_alloc.l6:
+    push si                          ; 0x4bd9
+    call dos_ioctl                   ; 0x4bda
+    pop cx                           ; 0x4bdd
+    mov byte [si + 0xcdc], al        ; 0x4bde
+@..dos_mem_alloc.l7:
+    mov ax, si                       ; 0x4be2
+    jmp short @..dos_mem_alloc.l4    ; 0x4be4

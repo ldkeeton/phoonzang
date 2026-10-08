@@ -165,3 +165,7 @@ graphics_loc_3a8b:
 @..graphics_loc_3a8b.l25:
     pop es                           ; 0x3bea
     ret                              ; 0x3beb
+@..graphics_loc_3a8b.l26:
+    jmp near @..graphics_loc_3a8b.l6 ; 0x3bec
+@..graphics_loc_3a8b.l27:
+    jmp near @..graphics_loc_3a8b.l4 ; 0x3bef

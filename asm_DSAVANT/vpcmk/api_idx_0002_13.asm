@@ -9,3 +9,11 @@ api_idx_0002_13:
     jne short @..api_idx_0002_13.l2  ; 0x6611
     mov ax, bx                       ; 0x6613
     ret                              ; 0x6615
+@..api_idx_0002_13.l2:
+    inc word [bp - 0x0002]           ; 0x6616
+@..api_idx_0002_13.l3:
+    mov ax, word [bp - 0x0002]       ; 0x6619
+    cmp ax, word [data_9070]         ; 0x661c
+    jl short @..api_idx_0002_13.l1   ; 0x6620
+    mov ax, 0xffff                   ; 0x6622
+    ret                              ; 0x6625

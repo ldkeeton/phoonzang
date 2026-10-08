@@ -22,3 +22,7 @@ api_idx_0040:
     mov ax, word [bx - 0x0048]       ; 0x1fa1
     mov dx, word [bx - 0x0046]       ; 0x1fa4
     ret                              ; 0x1fa7
+@..api_idx_0040.l1:
+    mov ax, 0                        ; 0x1fa8
+    mov dx, 0                        ; 0x1fab
+    ret                              ; 0x1fae

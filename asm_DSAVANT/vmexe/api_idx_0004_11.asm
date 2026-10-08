@@ -16,3 +16,13 @@ api_idx_0004_11:
     jle short @..api_idx_0004_11.l2  ; 0x7419
     mov ax, si                       ; 0x741b
     ret                              ; 0x741d
+@..api_idx_0004_11.l2:
+    mov al, byte [bx + si]           ; 0x741e
+    sub ah, ah                       ; 0x7420
+    sub word [bp - 0x0004], ax       ; 0x7422
+    inc word [bp - 0x0002]           ; 0x7425
+    mov ax, word [bp - 0x0002]       ; 0x7428
+    cmp ax, strict word 8            ; 0x742b
+    jl short @..api_idx_0004_11.l1   ; 0x742e
+    mov ax, 4                        ; 0x7430
+    ret                              ; 0x7433

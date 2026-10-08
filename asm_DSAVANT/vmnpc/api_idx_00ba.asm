@@ -82,3 +82,22 @@ api_idx_00ba:
     mov al, byte [bx - 0x00b6]       ; 0xab58
     sub ah, ah                       ; 0xab5c
     ret                              ; 0xab5e
+@..api_idx_00ba.l4:
+    inc word [bp - 0x0002]           ; 0xab5f
+    jmp short @..api_idx_00ba.l3     ; 0xab62
+@..api_idx_00ba.l5:
+    mov ax, word [bp - 0x00b8]       ; 0xab64
+    add ax, word [bp - 0x00ba]       ; 0xab68
+    inc ax                           ; 0xab6c
+    inc ax                           ; 0xab6d
+    mov word [bp - 0x00b8], ax       ; 0xab6e
+    mov bx, word [bp - 0x00b8]       ; 0xab72
+    add bx, bp                       ; 0xab76
+    cmp byte [bx - 0x00b6], 0        ; 0xab78
+    jne short @..api_idx_00ba.l2     ; 0xab7d
+    cmp word [bp + 0x8], byte 1      ; 0xab7f
+    jne short @..api_idx_00ba.l6     ; 0xab83
+    mov ax, 1                        ; 0xab85
+    ret                              ; 0xab88
+@..api_idx_00ba.l6:
+    jmp near @..api_idx_00ba.l1      ; 0xab89

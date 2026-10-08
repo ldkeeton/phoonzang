@@ -224,7 +224,8 @@ def _detect_category(insns, off, body_size):
 
 
 def categorize_call_targets(data, call_targets, label_map, instructions=None,
-                            function_roots=None, bounded_targets=None):
+                            function_roots=None, bounded_targets=None,
+                            trace=None):
     """Analyse function bodies and upgrade loc_XXXX to categorized names.
 
     Returns a new label_map dict with categorized entries for unnamed
@@ -266,6 +267,50 @@ def categorize_call_targets(data, call_targets, label_map, instructions=None,
             continue
 
         category = _detect_category(insns, off, len(data) - off)
+        detected_category = category
+        adjacent_named_root = None
+        if len(insns) == 1:
+            insn = insns[0]
+            fallthrough = insn.address + insn.size
+            fallthrough_name = label_map.get(fallthrough)
+            if (fallthrough in function_roots
+                    and fallthrough_name
+                    and not fallthrough_name.startswith(('loc_', 'data_'))
+                    and insn.mnemonic not in (
+                        *_RETURN_MNEMONICS, *_UNCONDITIONAL_JUMPS, 'ud2',
+                    )):
+                adjacent_named_root = (fallthrough, fallthrough_name)
+
+        suppressed_category = None
+        if category == 'leaf' and adjacent_named_root is not None:
+            # A one-instruction call target immediately falling into a known
+            # named root is often just an entry prefix to that routine. Keep
+            # the address target, but don't promote the prefix to a separate
+            # leaf-function name.
+            category = None
+            suppressed_category = 'adjacent_named_root_prefix'
+
+        if trace is not None and trace.watches(off):
+            trace.event(
+                'labeling', 'call_target_category', addr=off,
+                detected_category=detected_category,
+                result_category=category,
+                assigned_label=(
+                    f'{category}_loc_{off:04x}' if category else None
+                ),
+                suppression_reason=suppressed_category,
+                instructions=[
+                    {'address': insn.address, 'mnemonic': insn.mnemonic,
+                     'size': insn.size}
+                    for insn in insns
+                ],
+                adjacent_named_root=(
+                    {'address': adjacent_named_root[0],
+                     'name': adjacent_named_root[1]}
+                    if adjacent_named_root else None
+                ),
+            )
+
         if category:
             result[off] = f'{category}_loc_{off:04x}'
 

@@ -20,3 +20,10 @@ math_loc_4c82:
     call loc_4c21                    ; 0x4cae
     add sp, byte 0x0c                ; 0x4cb1
     ret                              ; 0x4cb4
+@..math_loc_4c82.l1:
+    mov ax, 0x248                    ; 0x4cb5
+    imul word [bp + 0x4]             ; 0x4cb8
+    mov bx, ax                       ; 0x4cbb
+    mov al, byte [bx + 0x5e2d]       ; 0x4cbd
+    sub ah, ah                       ; 0x4cc1
+    jmp near @..math_loc_4c82.l2     ; 0x4cc3

@@ -100,3 +100,36 @@ api_idx_0006_8:
     je short @..api_idx_0006_8.l9    ; 0x930d
     mov ax, 0                        ; 0x930f
     ret                              ; 0x9312
+@..api_idx_0006_8.l9:
+    mov word [data_9c00], 0          ; 0x9313
+@..api_idx_0006_8.l10:
+    mov word [data_9be6], 0          ; 0x9319
+    mov ax, 0                        ; 0x931f
+    push ax                          ; 0x9322
+    mov ax, 0x40                     ; 0x9323
+    push ax                          ; 0x9326
+    mov ax, 0x9c02                   ; 0x9327
+    push ax                          ; 0x932a
+    call ds_dispatch_f306            ; 0x932b
+    add sp, byte 6                   ; 0x932e
+    inc word [data_9c00]             ; 0x9331
+    mov ax, 0                        ; 0x9335
+    push ax                          ; 0x9338
+    mov ax, 1                        ; 0x9339
+    push ax                          ; 0x933c
+    push word [bp + 0x8]             ; 0x933d
+    push word [bp + 0x6]             ; 0x9340
+    call api_idx_0048                ; 0x9343
+    add sp, byte 8                   ; 0x9346
+    test ax, ax                      ; 0x9349
+    jne short @..api_idx_0006_8.l11  ; 0x934b
+    cmp word [data_9c00], byte 0x14  ; 0x934d
+    jl short @..api_idx_0006_8.l10   ; 0x9352
+@..api_idx_0006_8.l11:
+    cmp word [data_9c00], byte 0x14  ; 0x9354
+    jl short @..api_idx_0006_8.l12   ; 0x9359
+    mov ax, 0                        ; 0x935b
+    ret                              ; 0x935e
+@..api_idx_0006_8.l12:
+    mov word [bp - 0x0002], 0        ; 0x935f
+    jmp short @..api_idx_0006_8.l14  ; 0x9364

@@ -27,3 +27,14 @@ api_idx_0004_9:
     sub al, al                       ; 0x5328
     add ax, word [bp - 0x0004]       ; 0x532a
     ret                              ; 0x532d
+@..api_idx_0004_9.l3:
+    inc word [bp - 0x0004]           ; 0x532e
+    mov ax, word [bp - 0x0004]       ; 0x5331
+    cmp ax, strict word 0xa          ; 0x5334
+    jl short @..api_idx_0004_9.l2    ; 0x5337
+    inc word [bp - 0x0002]           ; 0x5339
+    mov ax, word [bp - 0x0002]       ; 0x533c
+    cmp ax, strict word 2            ; 0x533f
+    jl short @..api_idx_0004_9.l1    ; 0x5342
+    mov ax, 0xffff                   ; 0x5344
+    ret                              ; 0x5347

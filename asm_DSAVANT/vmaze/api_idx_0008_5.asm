@@ -203,3 +203,18 @@ api_idx_0008_5:
     cmp word [bp - 0x0002], byte 0xff ; 0xa78e
     jne short @..api_idx_0008_5.l14  ; 0xa792
     ret                              ; 0xa794
+@..api_idx_0008_5.l14:
+    jmp short @..api_idx_0008_5.l16  ; 0xa795
+@..api_idx_0008_5.l15:
+    push word [bp - 0x0006]          ; 0xa797
+    push word [bp + 0x4]             ; 0xa79a
+    call math_loc_a215               ; 0xa79d
+    add sp, byte 4                   ; 0xa7a0
+@..api_idx_0008_5.l16:
+    inc word [bp - 0x0006]           ; 0xa7a3
+    mov ax, word [bp - 0x0006]       ; 0xa7a6
+    cmp ax, strict word 0x16         ; 0xa7a9
+    jge short @..api_idx_0008_5.l17  ; 0xa7ac
+    jmp near @..api_idx_0008_5.l1    ; 0xa7ae
+@..api_idx_0008_5.l17:
+    ret                              ; 0xa7b1

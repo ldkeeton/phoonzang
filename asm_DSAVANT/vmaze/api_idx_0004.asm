@@ -63,3 +63,6 @@ api_idx_0004:
     call loc_12a2                    ; 0x13b5
     mov ax, 1                        ; 0x13b8
     ret                              ; 0x13bb
+@..api_idx_0004.l5:
+    mov ax, 0                        ; 0x13bc
+    ret                              ; 0x13bf

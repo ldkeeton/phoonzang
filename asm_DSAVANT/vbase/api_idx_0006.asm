@@ -24,3 +24,10 @@ api_idx_0006:
     jne short @..api_idx_0006.l5     ; 0x05f1
     mov ax, word [bp - 0x0002]       ; 0x05f3
     ret                              ; 0x05f6
+@..api_idx_0006.l5:
+    inc word [bp - 0x0002]           ; 0x05f7
+    mov ax, word [bp - 0x0002]       ; 0x05fa
+    cmp ax, strict word 6            ; 0x05fd
+    jl short @..api_idx_0006.l1      ; 0x0600
+    mov ax, 0                        ; 0x0602
+    ret                              ; 0x0605

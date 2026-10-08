@@ -20,3 +20,6 @@ api_idx_0002_5:
     call api_idx_000c                ; 0x0b81
     add sp, byte 4                   ; 0x0b84
     ret                              ; 0x0b87
+@..api_idx_0002_5.l2:
+    mov ax, 1                        ; 0x0b88
+    ret                              ; 0x0b8b

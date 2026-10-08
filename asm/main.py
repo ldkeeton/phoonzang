@@ -255,6 +255,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     label_map = categorize_call_targets(
         data, label_targets, label_map, instructions=instructions,
         function_roots=label_targets, bounded_targets=direct_call_targets,
+        trace=ctx.trace,
     )
     function_roots = _function_roots(
         label_map, instructions,

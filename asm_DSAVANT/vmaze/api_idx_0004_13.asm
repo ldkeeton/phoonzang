@@ -39,3 +39,23 @@ api_idx_0004_13:
     cmp ax, word [data_82ee]         ; 0x7a00
     je short @..api_idx_0004_13.l2   ; 0x7a04
     ret                              ; 0x7a06
+@..api_idx_0004_13.l2:
+    mov ax, 1                        ; 0x7a07
+    push ax                          ; 0x7a0a
+    mov ax, 2                        ; 0x7a0b
+    push ax                          ; 0x7a0e
+    push word [bp - 0x0002]          ; 0x7a0f
+    call ds_dispatch_ed3a            ; 0x7a12
+    add sp, byte 6                   ; 0x7a15
+    push ax                          ; 0x7a18
+    mov ax, word [data_8d12]         ; 0x7a19
+    shl ax, 1                        ; 0x7a1c
+    mov si, ax                       ; 0x7a1e
+    mov bx, word [data_0e12]         ; 0x7a20
+    push word [bx + si]              ; 0x7a24
+    call loc_6f14                    ; 0x7a26
+    add sp, byte 4                   ; 0x7a29
+    push word [bp - 0x0004]          ; 0x7a2c
+    call loc_7242                    ; 0x7a2f
+    pop cx                           ; 0x7a32
+    ret                              ; 0x7a33

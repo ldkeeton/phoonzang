@@ -801,16 +801,29 @@ def _compute_func_boundaries(label_map, binary_data):
         if name == f'loc_{off:04x}':
             continue
         func_start = off
-        for i in range(min(16, off), 0, -1):
-            p = off - i
-            if binary_data[p] == 0x55:
-                try:
-                    prev = list(md.disasm(binary_data[p:off], p))
-                except Exception:
-                    prev = []
-                if prev and prev[-1].address + prev[-1].size == off:
-                    func_start = p
-                    break
+        current = list(md.disasm(binary_data[off:min(off + 8, len(binary_data))], off))
+        has_entry_prefix = (
+            len(current) >= 3
+            and current[0].address == off
+            and current[1].address == off + current[0].size
+            and current[0].mnemonic not in ('ret', 'retf', 'retn', 'iret',
+                                            'hlt', 'jmp', 'ljmp', 'ud2')
+            and current[1].mnemonic == 'push'
+            and current[1].op_str == 'bp'
+            and current[2].mnemonic == 'mov'
+            and current[2].op_str == 'bp, sp'
+        )
+        if not has_entry_prefix:
+            for i in range(min(16, off), 0, -1):
+                p = off - i
+                if binary_data[p] == 0x55:
+                    try:
+                        prev = list(md.disasm(binary_data[p:off], p))
+                    except Exception:
+                        prev = []
+                    if prev and prev[-1].address + prev[-1].size == off:
+                        func_start = p
+                        break
         end = min(func_start + 512, len(binary_data))
         for insn in md.disasm(binary_data[func_start:end], func_start):
             if insn.mnemonic in _TERMINATORS:
@@ -1302,7 +1315,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     off = start_offset
     while off < total:
-        if off in known_addrs and (off in insn_by_addr or (label_map and off in label_map and label_map[off].startswith('data_')) or (local_labels and off in local_labels)):
+        if off in known_addrs and (
+                off in insn_by_addr
+                or (label_map and off in label_map
+                    and label_map[off].startswith('data_'))
+                or (local_labels and off in local_labels)):
             data_block_start, pending_data = _flush_data_block(
                 records, pending_data, data_block_start, off,
             )
@@ -1314,7 +1331,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
             inner_labels = sorted(
                 a for a in known_addrs
-                if off < a < insn_end and (a in insn_by_addr or (label_map and a in label_map and label_map[a].startswith('data_')) or (local_labels and a in local_labels))
+                if off < a < insn_end and (
+                    a in insn_by_addr
+                    or (label_map and a in label_map
+                        and label_map[a].startswith('data_'))
+                    or (local_labels and a in local_labels))
             )
 
             if inner_labels:
@@ -1538,6 +1559,28 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
     split_ranges = _select_split_ranges(func_boundaries, split_functions)
+    split_ranges = _extend_split_ranges_with_local_tails(split_ranges, records)
+
+    if trace is not None and trace.watched_addresses:
+        for addr in sorted(trace.watched_addresses):
+            if not 0 <= addr < total:
+                continue
+            nearby_boundaries = [
+                {'start': start, 'end': end, 'name': boundary_name}
+                for start, (end, boundary_name) in func_boundaries.items()
+                if abs(start - addr) <= 1
+            ]
+            nearby_ranges = [
+                {'start': start, 'end': end, 'name': range_name}
+                for start, end, range_name in split_ranges
+                if start - 1 <= addr <= end
+            ]
+            trace.event(
+                'verify', 'split_range_context', addr=addr,
+                label=label_map.get(addr),
+                boundaries=nearby_boundaries,
+                selected_ranges=nearby_ranges,
+            )
 
     src_lines, split_sources = _build_source(
         records, start_offset, binary_data, label_map,
@@ -1621,6 +1664,70 @@ def _select_split_ranges(func_boundaries, split_functions):
          if index + 1 < len(selected) else end, name)
         for index, (start, end, name) in enumerate(selected)
     ]
+
+
+def _extend_split_ranges_with_local_tails(split_ranges, records):
+    """Keep immediately following, referenced local blocks with their root."""
+    if not split_ranges:
+        return split_ranges
+
+    labels_at = {}
+    records_at = {}
+    for rec in records:
+        if rec['type'] == 'label':
+            labels_at.setdefault(rec['offset'], []).append(
+                rec['text'].removesuffix(':')
+            )
+        else:
+            start, end = _record_span(rec)
+            if end > start:
+                records_at[start] = rec
+
+    extended = []
+    for start, end, name in split_ranges:
+        scope_prefix = f'@..{name}.'
+        while True:
+            local_labels = [
+                label for label in labels_at.get(end, ())
+                if label.startswith(scope_prefix)
+            ]
+            referenced = any(
+                rec.get('type') in ('mnem', 'db_with_comment')
+                and start <= rec.get('offset', -1) < end
+                and any(label in rec.get('text', '') for label in local_labels)
+                for rec in records
+            )
+            if not local_labels or not referenced:
+                break
+
+            cursor = end
+            found_terminator = False
+            while True:
+                scoped_labels = [
+                    label for label in labels_at.get(cursor, ())
+                    if label.startswith(scope_prefix)
+                ]
+                if labels_at.get(cursor) and not scoped_labels:
+                    break
+                rec = records_at.get(cursor)
+                if rec is None or rec['type'] not in (
+                        'mnem', 'db', 'db_with_comment'):
+                    break
+                rec_start, rec_end = _record_span(rec)
+                if rec_start != cursor or rec_end <= cursor:
+                    break
+                cursor = rec_end
+                mnemonic = rec.get('text', '').split(' ', 1)[0]
+                if mnemonic in ('jmp', 'ljmp', 'ret', 'retf', 'retn',
+                                'iret', 'hlt'):
+                    found_terminator = True
+                    break
+
+            if not found_terminator:
+                break
+            end = cursor
+        extended.append((start, end, name))
+    return extended
 
 
 def _partition_function_records(records, split_ranges, split_dir):

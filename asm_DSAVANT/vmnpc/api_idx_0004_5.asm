@@ -27,3 +27,15 @@ api_idx_0004_5:
     test ax, ax                      ; 0x11dc
     je short @..api_idx_0004_5.l4    ; 0x11de
     ret                              ; 0x11e0
+@..api_idx_0004_5.l4:
+    cmp word [bp + 0x6], byte 0      ; 0x11e1
+    je short @..api_idx_0004_5.l5    ; 0x11e5
+    cmp word [data_59fc], byte 0     ; 0x11e7
+    je short @..api_idx_0004_5.l5    ; 0x11ec
+    call api_idx_0004_4              ; 0x11ee
+    ret                              ; 0x11f1
+@..api_idx_0004_5.l5:
+    call api_idx_0006_2              ; 0x11f2
+    jmp short @..api_idx_0004_5.l1   ; 0x11f5
+@..api_idx_0004_5.l6:
+    ret                              ; 0x11f7

@@ -42,3 +42,59 @@ io_loc_2e7d:
     pop cx                           ; 0x2ed6
     loop @..io_loc_2e7d.l1           ; 0x2ed7
     ret                              ; 0x2ed9
+@..io_loc_2e7d.l3:
+    push cx                          ; 0x2eda
+    push di                          ; 0x2edb
+    push si                          ; 0x2edc
+    push bx                          ; 0x2edd
+    mov cx, word [cs:data_1bf9]      ; 0x2ede
+    mov al, byte [bx]                ; 0x2ee3
+    not al                           ; 0x2ee5
+    mov ah, 0xff                     ; 0x2ee7
+    shr ax, cl                       ; 0x2ee9
+    out dx, al                       ; 0x2eeb
+    mov al, byte [si]                ; 0x2eec
+    mov ah, byte [es:di]             ; 0x2eee
+    mov byte [es:di], al             ; 0x2ef1
+    inc di                           ; 0x2ef4
+    inc si                           ; 0x2ef5
+    mov ax, word [cs:data_1bf1]      ; 0x2ef6
+    dec ax                           ; 0x2efa
+    je short @..io_loc_2e7d.l5       ; 0x2efb
+@..io_loc_2e7d.l4:
+    push ax                          ; 0x2efd
+    mov ah, byte [bx]                ; 0x2efe
+    mov al, byte [bx + 0x1]          ; 0x2f00
+    not ax                           ; 0x2f03
+    shr ax, cl                       ; 0x2f05
+    out dx, al                       ; 0x2f07
+    mov al, byte [cs:si]             ; 0x2f08
+    mov ah, byte [es:di]             ; 0x2f0b
+    mov byte [es:di], al             ; 0x2f0e
+    inc si                           ; 0x2f11
+    inc bx                           ; 0x2f12
+    inc di                           ; 0x2f13
+    pop ax                           ; 0x2f14
+    dec ax                           ; 0x2f15
+    jne short @..io_loc_2e7d.l4      ; 0x2f16
+@..io_loc_2e7d.l5:
+    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:data_1bfb], 0
+    jne short @..io_loc_2e7d.l6      ; 0x2f1e
+    mov ah, byte [bx]                ; 0x2f20
+    xor al, al                       ; 0x2f22
+    not ax                           ; 0x2f24
+    shr ax, cl                       ; 0x2f26
+    out dx, al                       ; 0x2f28
+    mov al, byte [cs:si]             ; 0x2f29
+    mov ah, byte [es:di]             ; 0x2f2c
+    mov byte [es:di], al             ; 0x2f2f
+@..io_loc_2e7d.l6:
+    pop bx                           ; 0x2f32
+    add bx, word [cs:data_258f]      ; 0x2f33
+    pop si                           ; 0x2f38
+    add si, word [cs:data_1bf3]      ; 0x2f39
+    pop di                           ; 0x2f3e
+    add di, byte 0x50                ; 0x2f3f
+    pop cx                           ; 0x2f42
+    loop @..io_loc_2e7d.l3           ; 0x2f43
+    ret                              ; 0x2f45

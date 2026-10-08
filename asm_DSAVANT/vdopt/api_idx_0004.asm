@@ -45,3 +45,34 @@ api_idx_0004:
     jne short @..api_idx_0004.l2     ; 0x014e
     mov ax, 1                        ; 0x0150
     ret                              ; 0x0153
+@..api_idx_0004.l2:
+    jmp short @..api_idx_0004.l1     ; 0x0154
+@..api_idx_0004.l3:
+    mov ax, word [bp + 0xa]          ; 0x0156
+    push ax                          ; 0x0159
+    mov bx, word [data_0e14]         ; 0x015a
+    mov si, word [bp - 0x0004]       ; 0x015e
+    mov al, byte [bx + si + 0x490]   ; 0x0161
+    sub ah, ah                       ; 0x0165
+    mov cx, ax                       ; 0x0167
+    pop ax                           ; 0x0169
+    sub ax, cx                       ; 0x016a
+    mov bx, word [bp + 0x4]          ; 0x016c
+    mov word [bx], ax                ; 0x016f
+    mov ax, word [bp + 0xc]          ; 0x0171
+    push ax                          ; 0x0174
+    mov bx, word [data_0e14]         ; 0x0175
+    mov si, word [bp - 0x0004]       ; 0x0179
+    mov al, byte [bx + si + 0x4a0]   ; 0x017c
+    sub ah, ah                       ; 0x0180
+    mov cx, ax                       ; 0x0182
+    pop ax                           ; 0x0184
+    sub ax, cx                       ; 0x0185
+    mov bx, word [bp + 0x6]          ; 0x0187
+    mov word [bx], ax                ; 0x018a
+    mov ax, word [bp - 0x0004]       ; 0x018c
+    mov bx, word [bp + 0x8]          ; 0x018f
+    mov word [bx], ax                ; 0x0192
+    mov word [data_8f48], ax         ; 0x0194
+    mov ax, 0                        ; 0x0197
+    ret                              ; 0x019a

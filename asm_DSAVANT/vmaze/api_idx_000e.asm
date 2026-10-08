@@ -56,3 +56,10 @@ api_idx_000e:
     add sp, byte 4                   ; 0x16b9
     mov ax, 1                        ; 0x16bc
     ret                              ; 0x16bf
+@..api_idx_000e.l3:
+    cmp word [data_919e], byte 0     ; 0x16c0
+    jne short @..api_idx_000e.l4     ; 0x16c5
+    call loc_13c0                    ; 0x16c7
+@..api_idx_000e.l4:
+    call api_idx_0004_3              ; 0x16ca
+    jmp near @..api_idx_000e.l13     ; 0x16cd

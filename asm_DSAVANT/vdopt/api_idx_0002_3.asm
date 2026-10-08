@@ -48,3 +48,9 @@ api_idx_0002_3:
 @..api_idx_0002_3.l2:
     mov ax, word [bp - 0x0002]       ; 0x06db
     ret                              ; 0x06de
+@..api_idx_0002_3.l3:
+    inc word [bp - 0x0002]           ; 0x06df
+    jmp short @..api_idx_0002_3.l1   ; 0x06e2
+@..api_idx_0002_3.l4:
+    mov ax, 0xffff                   ; 0x06e4
+    ret                              ; 0x06e7

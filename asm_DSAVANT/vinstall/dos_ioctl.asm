@@ -12,3 +12,7 @@ dos_ioctl:
     mov ax, 1                        ; 0x39fc
     pop bp                           ; 0x39ff
     ret                              ; 0x3a00
+@..dos_ioctl.l1:
+    sub ax, ax                       ; 0x3a01
+    pop bp                           ; 0x3a03
+    ret                              ; 0x3a04

@@ -7,3 +7,7 @@ leaf_loc_4aed:
     mov di, word [di]                ; 0x4af8
     add word [bp + 0x8], byte 2      ; 0x4afa
     ret                              ; 0x4afe
+@..leaf_loc_4aed.l1:
+    les di, word [es:di]             ; 0x4aff
+    add word [bp + 0x8], byte 4      ; 0x4b02
+    ret                              ; 0x4b06

@@ -30,3 +30,9 @@ leaf_loc_4cf4:
     pop si                           ; 0x4d29
     pop bp                           ; 0x4d2a
     ret                              ; 0x4d2b
+@..leaf_loc_4cf4.l5:
+    mov dx, word [bp + 0x6]          ; 0x4d2c
+    int 0x21 ; DOS function dispatcher
+    and ax, 0xff                     ; 0x4d31
+    pop bp                           ; 0x4d34
+    ret                              ; 0x4d35

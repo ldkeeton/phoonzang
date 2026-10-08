@@ -12,3 +12,8 @@ leaf_loc_3019:
     mov sp, bp                       ; 0x302d
     pop bp                           ; 0x302f
     ret                              ; 0x3030
+@..leaf_loc_3019.l2:
+    and word [si], strict word 0xfffe ; 0x3031
+    mov word [data_2536], si         ; 0x3035
+    mov ax, 0                        ; 0x3039
+    jmp short @..leaf_loc_3019.l1    ; 0x303c

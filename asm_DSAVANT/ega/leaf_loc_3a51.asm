@@ -15,3 +15,17 @@ leaf_loc_3a51:
     jb short @..leaf_loc_3a51.l5     ; 0x3a6b
 @..leaf_loc_3a51.l4:
     ret                              ; 0x3a6d
+@..leaf_loc_3a51.l5:
+    test si, 0x8000                  ; 0x3a6e
+    jne short @..leaf_loc_3a51.l4    ; 0x3a72
+    mov cl, 3                        ; 0x3a74
+    mov ax, si                       ; 0x3a76
+    shr ax, cl                       ; 0x3a78
+    mov bx, ax                       ; 0x3a7a
+    mov ax, si                       ; 0x3a7c
+    and al, 7                        ; 0x3a7e
+    mov cl, al                       ; 0x3a80
+    mov al, 0x80                     ; 0x3a82
+    shr al, cl                       ; 0x3a84
+    or byte [cs:bx + di], al         ; 0x3a86
+    jmp short @..leaf_loc_3a51.l1    ; 0x3a89

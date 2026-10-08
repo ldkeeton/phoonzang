@@ -33,3 +33,37 @@ bios_video_loc_247a:
 @..bios_video_loc_247a.l2:
     mov word [bp - 0x0002], data_0004 ; 0x24b5
     ret                              ; 0x24ba
+@..bios_video_loc_247a.l3:
+    mov dx, 0x3ba                    ; 0x24bb
+    in al, dx                        ; 0x24be
+    and al, data_0080                ; 0x24bf
+    xchg al, ah                      ; 0x24c1
+    mov cx, 0x1388                   ; 0x24c3
+@..bios_video_loc_247a.l4:
+    in al, dx                        ; 0x24c6
+    and al, data_0080                ; 0x24c7
+    cmp al, ah                       ; 0x24c9
+    jne short @..bios_video_loc_247a.l5 ; 0x24cb
+    loop @..bios_video_loc_247a.l4   ; 0x24cd
+    mov word [bp - 0x0002], 0        ; 0x24cf
+    ret                              ; 0x24d4
+@..bios_video_loc_247a.l5:
+    mov word [bp - 0x0002], 8        ; 0x24d5
+    ret                              ; 0x24da
+@..bios_video_loc_247a.l6:
+    mov word [bp - 0x0002], data_0006 ; 0x24db
+    xor bx, bx                       ; 0x24e0
+    mov ax, 0x1a00                   ; 0x24e2
+    int 0x10 ; BIOS video
+    cmp bl, 7                        ; 0x24e7
+    je short @..bios_video_loc_247a.l7 ; 0x24ea
+    cmp bh, 7                        ; 0x24ec
+    je short @..bios_video_loc_247a.l7 ; 0x24ef
+    cmp bl, 8                        ; 0x24f1
+    je short @..bios_video_loc_247a.l7 ; 0x24f4
+    cmp bh, 8                        ; 0x24f6
+    jne short @..bios_video_loc_247a.l8 ; 0x24f9
+@..bios_video_loc_247a.l7:
+    or word [bp - 0x0002], 1         ; 0x24fb
+@..bios_video_loc_247a.l8:
+    ret                              ; 0x2500

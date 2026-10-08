@@ -135,3 +135,58 @@ api_idx_0008_3:
     call api_idx_0004_5              ; 0x3a20
     add sp, byte 4                   ; 0x3a23
     ret                              ; 0x3a26
+@..api_idx_0008_3.l7:
+    mov ax, data_0002                ; 0x3a27
+    push ax                          ; 0x3a2a
+    db 0xe8, 0x7b, 0x7d ; call 0xb7a9
+    pop cx                           ; 0x3a2e
+    test ax, ax                      ; 0x3a2f
+    je short @..api_idx_0008_3.l8    ; 0x3a31
+    mov ax, 1                        ; 0x3a33
+    push ax                          ; 0x3a36
+    push ax                          ; 0x3a37
+    mov ax, 0xffff                   ; 0x3a38
+    push ax                          ; 0x3a3b
+    call api_idx_0038                ; 0x3a3c
+    add sp, byte 6                   ; 0x3a3f
+    test ax, ax                      ; 0x3a42
+    jne short @..api_idx_0008_3.l8   ; 0x3a44
+    ret                              ; 0x3a46
+@..api_idx_0008_3.l8:
+    mov ax, 1                        ; 0x3a47
+    push ax                          ; 0x3a4a
+    mov ax, data_95a8                ; 0x3a4b
+    push ax                          ; 0x3a4e
+    call api_idx_0084                ; 0x3a4f
+    add sp, byte 4                   ; 0x3a52
+    mov ax, data_95fa                ; 0x3a55
+    push ax                          ; 0x3a58
+    mov ax, 0x60a                    ; 0x3a59
+    push ax                          ; 0x3a5c
+    db 0xe8, 0xdb, 0x7a ; call 0xb53b
+    add sp, byte 4                   ; 0x3a60
+    mov ax, 0x5e                     ; 0x3a63
+    push ax                          ; 0x3a66
+    mov ax, data_95a8                ; 0x3a67
+    push ax                          ; 0x3a6a
+    mov ax, data_95fa                ; 0x3a6b
+    push ax                          ; 0x3a6e
+    db 0xe8, 0x8e, 0x78 ; call 0xb300
+    add sp, byte 6                   ; 0x3a72
+    mov ax, 1                        ; 0x3a75
+    push ax                          ; 0x3a78
+    mov ax, data_95fa                ; 0x3a79
+    push ax                          ; 0x3a7c
+    call loc_2472                    ; 0x3a7d
+    add sp, byte 4                   ; 0x3a80
+    jmp short @..api_idx_0008_3.l11  ; 0x3a83
+@..api_idx_0008_3.l9:
+    cmp ax, strict word 0x3c         ; 0x3a85
+    jne short @..api_idx_0008_3.l10  ; 0x3a88
+    jmp near @..api_idx_0008_3.l1    ; 0x3a8a
+@..api_idx_0008_3.l10:
+    cmp ax, strict word 0x44         ; 0x3a8d
+    jne short @..api_idx_0008_3.l11  ; 0x3a90
+    jmp near @..api_idx_0008_3.l5    ; 0x3a92
+@..api_idx_0008_3.l11:
+    ret                              ; 0x3a95

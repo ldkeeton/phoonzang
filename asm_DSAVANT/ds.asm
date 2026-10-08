@@ -142,7 +142,7 @@ leaf_loc_10108 equ 0x10108
 
 loc_0200:
     mov ax, 0                        ; 0x0200
-    call leaf_loc_4652               ; 0x0203
+    call stack_alloc_check           ; 0x0203
     push word [bp + 0x6]             ; 0x0206
     push word [bp + 0x4]             ; 0x0209
     call dos_alloc_mem_2             ; 0x020c
@@ -150,7 +150,7 @@ loc_0200:
     ret                              ; 0x0212
 loc_0213:
     mov ax, 0                        ; 0x0213
-    call leaf_loc_4652               ; 0x0216
+    call stack_alloc_check           ; 0x0216
     push word [bp + 0xc]             ; 0x0219
     push word [bp + 0xa]             ; 0x021c
     push word [bp + 0x8]             ; 0x021f
@@ -161,7 +161,7 @@ loc_0213:
     ret                              ; 0x022e
 loc_022f:
     mov ax, 0                        ; 0x022f
-    call leaf_loc_4652               ; 0x0232
+    call stack_alloc_check           ; 0x0232
     push word [bp + 0x6]             ; 0x0235
     push word [bp + 0x4]             ; 0x0238
     call dos_free_mem                ; 0x023b
@@ -169,7 +169,7 @@ loc_022f:
     ret                              ; 0x0241
 loc_0242:
     mov ax, 0xfffe                   ; 0x0242
-    call leaf_loc_4652               ; 0x0245
+    call stack_alloc_check           ; 0x0245
     mov word [bp - 0x0002], 0        ; 0x0248
     mov ax, word [bp + 0x4]          ; 0x024d
     jmp near @..local.l18            ; 0x0250
@@ -294,7 +294,7 @@ loc_0242:
     ret                              ; 0x03b7
 loc_03b8:
     mov ax, 0                        ; 0x03b8
-    call leaf_loc_4652               ; 0x03bb
+    call stack_alloc_check           ; 0x03bb
     push word [bp + 0x4]             ; 0x03be
     call loc_0242                    ; 0x03c1
     pop cx                           ; 0x03c4
@@ -330,7 +330,7 @@ loc_03b8:
 
 loc_0547:
     mov ax, 0xfefa                   ; 0x0547
-    call leaf_loc_4652               ; 0x054a
+    call stack_alloc_check           ; 0x054a
     mov word [bp - 0x0002], 0        ; 0x054d
     mov word [bp - 0x0006], 0        ; 0x0552
 @..local.l21:
@@ -455,7 +455,7 @@ loc_0547:
 
 loc_0a09:
     mov ax, 0                        ; 0x0a09
-    call leaf_loc_4652               ; 0x0a0c
+    call stack_alloc_check           ; 0x0a0c
     mov ax, word [bp + 0x6]          ; 0x0a0f
     push ax                          ; 0x0a12
     cmp ax, word [bp + 0x4]          ; 0x0a13
@@ -492,7 +492,7 @@ loc_0a09:
 
 loc_0b54:
     mov ax, 0xfffc                   ; 0x0b54
-    call leaf_loc_4652               ; 0x0b57
+    call stack_alloc_check           ; 0x0b57
     mov word [data_59fa], 0          ; 0x0b5a
     mov word [data_59fc], 0          ; 0x0b60
     mov ax, 1                        ; 0x0b66
@@ -585,7 +585,7 @@ loc_0b54:
 
 loc_0ced:
     mov ax, 0                        ; 0x0ced
-    call leaf_loc_4652               ; 0x0cf0
+    call stack_alloc_check           ; 0x0cf0
     mov al, byte [bp + 0xe]          ; 0x0cf3
     mov cx, word [bp + 0x4]          ; 0x0cf6
     shl cx, 1                        ; 0x0cf9
@@ -628,7 +628,7 @@ loc_0ced:
 
 loc_0e03:
     mov ax, 0                        ; 0x0e03
-    call leaf_loc_4652               ; 0x0e06
+    call stack_alloc_check           ; 0x0e06
     mov ax, 0                        ; 0x0e09
     push ax                          ; 0x0e0c
     mov ax, word [bp + 0x6]          ; 0x0e0d
@@ -696,7 +696,7 @@ loc_0e03:
     ret                              ; 0x0e81
 loc_0e82:
     mov ax, 0                        ; 0x0e82
-    call leaf_loc_4652               ; 0x0e85
+    call stack_alloc_check           ; 0x0e85
     push word [bp + 0xc]             ; 0x0e88
     push word [bp + 0x6]             ; 0x0e8b
     push word [bp + 0x8]             ; 0x0e8e
@@ -732,7 +732,7 @@ loc_0e82:
     ret                              ; 0x0ee0
 loc_0ee1:
     mov ax, 0                        ; 0x0ee1
-    call leaf_loc_4652               ; 0x0ee4
+    call stack_alloc_check           ; 0x0ee4
     mov ax, 0xc2                     ; 0x0ee7
     push ax                          ; 0x0eea
     push word [bp + 0xa]             ; 0x0eeb
@@ -760,7 +760,7 @@ loc_0ee1:
     ret                              ; 0x0f29
 loc_0f2a:
     mov ax, 0                        ; 0x0f2a
-    call leaf_loc_4652               ; 0x0f2d
+    call stack_alloc_check           ; 0x0f2d
     mov ax, 0xc0                     ; 0x0f30
     push ax                          ; 0x0f33
     push word [bp + 0xa]             ; 0x0f34
@@ -880,7 +880,7 @@ loc_0f2a:
 
 loc_1371:
     mov ax, 0                        ; 0x1371
-    call leaf_loc_4652               ; 0x1374
+    call stack_alloc_check           ; 0x1374
     push word [bp + 0x4]             ; 0x1377
     call loc_41fe                    ; 0x137a
     pop cx                           ; 0x137d
@@ -890,7 +890,7 @@ loc_1371:
     ret                              ; 0x138b
 loc_138c:
     mov ax, 0                        ; 0x138c
-    call leaf_loc_4652               ; 0x138f
+    call stack_alloc_check           ; 0x138f
     cmp word [data_5b6c], byte 0     ; 0x1392
     jge short @..math_loc_14bd.l1    ; 0x1397
     jmp near math_loc_14bd           ; 0x1399
@@ -1142,7 +1142,7 @@ loc_1a9d:
 
 loc_2359:
     mov ax, 0xfffc                   ; 0x2359
-    call leaf_loc_4652               ; 0x235c
+    call stack_alloc_check           ; 0x235c
     mov word [bp - 0x0002], 0        ; 0x235f
     mov word [bp - 0x0004], 0        ; 0x2364
 @..local.l38:
@@ -1175,7 +1175,7 @@ loc_2359:
     ret                              ; 0x23a7
 loc_23a8:
     mov ax, 0                        ; 0x23a8
-    call leaf_loc_4652               ; 0x23ab
+    call stack_alloc_check           ; 0x23ab
     cmp byte [data_5987], 5          ; 0x23ae
     jne short @..local.l42           ; 0x23b3
     cmp word [bp + 0x6], byte 1      ; 0x23b5
@@ -1413,7 +1413,7 @@ loc_23a8:
     ret                              ; 0x27e8
 loc_27e9:
     mov ax, 0xffe8                   ; 0x27e9
-    call leaf_loc_4652               ; 0x27ec
+    call stack_alloc_check           ; 0x27ec
     mov word [bp - 0x0016], 0        ; 0x27ef
     mov al, byte [data_5987]         ; 0x27f4
     sub ah, ah                       ; 0x27f7
@@ -1974,114 +1974,8 @@ loc_3b96:
 
 %include "ds/bios_kbd_loc_3c97.asm"
 
-@..bios_kbd_loc_3c97.l6:
-    dec word [si]                    ; 0x3d08
-    push si                          ; 0x3d0a
-    push di                          ; 0x3d0b
-    add si, byte 3                   ; 0x3d0c
-    mov di, si                       ; 0x3d0f
-    dec di                           ; 0x3d11
-    mov cx, 0x14                     ; 0x3d12
-    rep movsb                        ; 0x3d15
-    pop di                           ; 0x3d17
-    pop si                           ; 0x3d18
-    jmp short @..bios_kbd_loc_3c97.l1 ; 0x3d19
-@..bios_kbd_loc_3c97.l7:
-    mov ah, 1                        ; 0x3d1b
-    int 0x16 ; BIOS keyboard: check keystroke
-    mov ax, 0                        ; 0x3d1f
-    je short @..bios_kbd_loc_3c97.l5 ; 0x3d22
-    mov ax, 1                        ; 0x3d24
-    cmp word [bp + 0x4], byte 0      ; 0x3d27
-    je short @..bios_kbd_loc_3c97.l5 ; 0x3d2b
-    mov ah, 7                        ; 0x3d2d
-    int 0x21 ; DOS keyboard input (no echo)
-    mov bx, word [si]                ; 0x3d31
-    mov byte [bx + si + 0x2], al     ; 0x3d33
-    inc word [si]                    ; 0x3d36
-    cmp al, 0                        ; 0x3d38
-    je short @..bios_kbd_loc_3c97.l8 ; 0x3d3a
-    cmp al, 0x61                     ; 0x3d3c
-    jb short @..bios_kbd_loc_3c97.l3 ; 0x3d3e
-    cmp al, 0x7b                     ; 0x3d40
-    jae short @..bios_kbd_loc_3c97.l3 ; 0x3d42
-    and word [bx + si + 0x2], strict word 0xdf ; 0x3d44
-    jmp short @..bios_kbd_loc_3c97.l3 ; 0x3d49
-@..bios_kbd_loc_3c97.l8:
-    mov ah, 7                        ; 0x3d4b
-    int 0x21 ; DOS keyboard input (no echo)
-    mov bx, word [si]                ; 0x3d4f
-    mov byte [bx + si + 0x1], 8      ; 0x3d51
-    cmp al, 0x4b                     ; 0x3d55
-    je short @..bios_kbd_loc_3c97.l3 ; 0x3d57
-    mov byte [bx + si + 0x1], 9      ; 0x3d59
-    cmp al, 0x48                     ; 0x3d5d
-    je short @..bios_kbd_loc_3c97.l3 ; 0x3d5f
-    mov byte [bx + si + 0x1], 0xa    ; 0x3d61
-    cmp al, 0x4d                     ; 0x3d65
-    je short @..bios_kbd_loc_3c97.l3 ; 0x3d67
-    mov byte [bx + si + 0x1], 0xb    ; 0x3d69
-    cmp al, 0x50                     ; 0x3d6d
-    je short @..bios_kbd_loc_3c97.l3 ; 0x3d6f
-    mov byte [bx + si + 0x1], 0      ; 0x3d71
-    dec word [si]                    ; 0x3d75
-    jmp short @..bios_kbd_loc_3c97.l7 ; 0x3d77
 %include "ds/dos_con_loc_3d79.asm"
 
-@..dos_con_loc_3d79.l6:
-    dec word [si]                    ; 0x3deb
-    push si                          ; 0x3ded
-    push di                          ; 0x3dee
-    add si, byte 3                   ; 0x3def
-    mov di, si                       ; 0x3df2
-    dec di                           ; 0x3df4
-    mov cx, 0x14                     ; 0x3df5
-    rep movsb                        ; 0x3df8
-    pop di                           ; 0x3dfa
-    pop si                           ; 0x3dfb
-    jmp short @..dos_con_loc_3d79.l1 ; 0x3dfc
-@..dos_con_loc_3d79.l7:
-    xor ax, ax                       ; 0x3dfe
-    push ax                          ; 0x3e00
-    call far [cs:data_2d83]          ; 0x3e01
-    pop ax                           ; 0x3e06
-    mov ah, 7                        ; 0x3e07
-    int 0x21 ; DOS keyboard input (no echo)
-    mov ah, 0                        ; 0x3e0b
-    cmp word [bp + 0x4], byte 0      ; 0x3e0d
-    je short @..dos_con_loc_3d79.l5  ; 0x3e11
-    mov bx, word [si]                ; 0x3e13
-    mov byte [bx + si + 0x2], al     ; 0x3e15
-    inc word [si]                    ; 0x3e18
-    cmp al, 0                        ; 0x3e1a
-    je short @..dos_con_loc_3d79.l8  ; 0x3e1c
-    cmp al, 0x61                     ; 0x3e1e
-    jb short @..dos_con_loc_3d79.l3  ; 0x3e20
-    cmp al, 0x7b                     ; 0x3e22
-    jae short @..dos_con_loc_3d79.l3 ; 0x3e24
-    and word [bx + si + 0x2], strict word 0xdf ; 0x3e26
-    jmp short @..dos_con_loc_3d79.l3 ; 0x3e2b
-@..dos_con_loc_3d79.l8:
-    mov ah, 7                        ; 0x3e2d
-    int 0x21 ; DOS keyboard input (no echo)
-    mov bx, word [si]                ; 0x3e31
-    mov byte [bx + si + 0x1], 8      ; 0x3e33
-    cmp al, 0x4b                     ; 0x3e37
-    je short @..dos_con_loc_3d79.l9  ; 0x3e39
-    mov byte [bx + si + 0x1], 9      ; 0x3e3b
-    cmp al, 0x48                     ; 0x3e3f
-    je short @..dos_con_loc_3d79.l9  ; 0x3e41
-    mov byte [bx + si + 0x1], 0xa    ; 0x3e43
-    cmp al, 0x4d                     ; 0x3e47
-    je short @..dos_con_loc_3d79.l9  ; 0x3e49
-    mov byte [bx + si + 0x1], 0xb    ; 0x3e4b
-    cmp al, 0x50                     ; 0x3e4f
-    je short @..dos_con_loc_3d79.l9  ; 0x3e51
-    mov byte [bx + si + 0x1], 0      ; 0x3e53
-    dec word [si]                    ; 0x3e57
-    jmp short @..dos_con_loc_3d79.l7 ; 0x3e59
-@..dos_con_loc_3d79.l9:
-    jmp near @..dos_con_loc_3d79.l1  ; 0x3e5b
 %include "ds/bios_kbd_check.asm"
 
 
@@ -2428,13 +2322,8 @@ loc_44d4:
     db 0xe2, 0xfa, 0x8b, 0xd8, 0xb4, 0x4a, 0x8e, 0x46, 0x06, 0xcd, 0x21, 0x72, 0x08, 0x8b, 0x46, 0x04
     db 0x8b, 0x56, 0x06, 0x5d, 0xc3, 0x33, 0xc0, 0x33, 0xd2, 0xeb, 0xf8, 0x3a, 0x4b
 
-%include "ds/leaf_loc_4652.asm"
-
 %include "ds/stack_alloc_check.asm"
 
-@..stack_alloc_check.l2:
-    mov sp, bp                       ; 0x4676
-    jmp near @..stack_alloc_check.l3 ; 0x4678
 
     db 0x55, 0x8b, 0xec, 0x83, 0xc4, 0xfc, 0x57, 0x56, 0x8b, 0x76, 0x04, 0x8b, 0x44, 0xfe, 0x25, 0xfe
     db 0xff, 0x89, 0x46, 0xfe, 0x2b, 0xc6, 0x89, 0x46, 0xfc, 0x3b, 0x46, 0x06, 0x76, 0x0d, 0x8b, 0x46
@@ -2462,11 +2351,6 @@ loc_44d4:
 
 %include "ds/leaf_loc_47e8.asm"
 
-@..leaf_loc_47e8.l2:
-    and word [si], strict word 0xfffe ; 0x4800
-    mov word [data_0d00], si         ; 0x4804
-    mov ax, 0                        ; 0x4808
-    jmp short @..leaf_loc_47e8.l1    ; 0x480b
 
     db 'LlhFNoxXudiscpneEfgG%'
     db 0x0f, 0x47, 0x16, 0x47, 0x1a, 0x47, 0x1d, 0x47, 0x1a
@@ -2560,31 +2444,8 @@ loc_48fc:
 
 %include "ds/leaf_loc_4aed.asm"
 
-@..leaf_loc_4aed.l1:
-    les di, word [es:di]             ; 0x4aff
-    add word [bp + 0x8], byte 4      ; 0x4b02
-    ret                              ; 0x4b06
 %include "ds/string_loc_4b07.asm"
 
-@..string_loc_4b07.l1:
-    sub dx, dx                       ; 0x4b1b
-    mov ah, 0                        ; 0x4b1d
-@..string_loc_4b07.l2:
-    cmp al, 0x30                     ; 0x4b1f
-    jb short @..string_loc_4b07.l3   ; 0x4b21
-    cmp al, 0x39                     ; 0x4b23
-    ja short @..string_loc_4b07.l3   ; 0x4b25
-    sub al, 0x30                     ; 0x4b27
-    shl dx, 1                        ; 0x4b29
-    mov cx, dx                       ; 0x4b2b
-    shl dx, 1                        ; 0x4b2d
-    shl dx, 1                        ; 0x4b2f
-    add dx, cx                       ; 0x4b31
-    add dx, ax                       ; 0x4b33
-    lodsb                            ; 0x4b35
-    jmp short @..string_loc_4b07.l2  ; 0x4b36
-@..string_loc_4b07.l3:
-    ret                              ; 0x4b38
 loc_4b39:
     push bp                          ; 0x4b39
     mov bp, sp                       ; 0x4b3a
@@ -2599,28 +2460,6 @@ loc_4b39:
     ret                              ; 0x4b4f
 %include "ds/dos_mem_alloc.asm"
 
-@..dos_mem_alloc.l5:
-    cmp si, byte 0                   ; 0x4bba
-    jl short @..dos_mem_alloc.l7     ; 0x4bbd
-    test word [bp + 0x6], 0x800      ; 0x4bbf
-    je short @..dos_mem_alloc.l6     ; 0x4bc4
-    mov ax, data_0002                ; 0x4bc6
-    push ax                          ; 0x4bc9
-    mov ax, 0                        ; 0x4bca
-    mov dx, 0                        ; 0x4bcd
-    push dx                          ; 0x4bd0
-    push ax                          ; 0x4bd1
-    push si                          ; 0x4bd2
-    call dos_file_loc_5004           ; 0x4bd3
-    add sp, byte 8                   ; 0x4bd6
-@..dos_mem_alloc.l6:
-    push si                          ; 0x4bd9
-    call dos_ioctl                   ; 0x4bda
-    pop cx                           ; 0x4bdd
-    mov byte [si + 0xcdc], al        ; 0x4bde
-@..dos_mem_alloc.l7:
-    mov ax, si                       ; 0x4be2
-    jmp short @..dos_mem_alloc.l4    ; 0x4be4
 
     db 0x57, 0x2b, 0xff, 0x85, 0xd2, 0x79, 0x08, 0xf7, 0xda, 0xf7, 0xd8, 0x83, 0xda, 0x00, 0x47, 0x85
     db 0xdb, 0x79, 0x0b, 0xf7, 0xdb, 0xf7, 0xd9, 0x83, 0xdb, 0x00, 0x81, 0xf7, 0x01, 0x00, 0xe8, 0x39
@@ -2643,12 +2482,6 @@ loc_4b39:
 
 %include "ds/leaf_loc_4cf4.asm"
 
-@..leaf_loc_4cf4.l5:
-    mov dx, word [bp + 0x6]          ; 0x4d2c
-    int 0x21 ; DOS function dispatcher
-    and ax, 0xff                     ; 0x4d31
-    pop bp                           ; 0x4d34
-    ret                              ; 0x4d35
     times 4 db 0
 %include "ds/entry_point.asm"
 
@@ -2806,10 +2639,6 @@ loc_4f73:
 
 %include "ds/dos_file_loc_4fec.asm"
 
-@..dos_file_loc_4fec.l1:
-    sub ax, ax                       ; 0x5000
-    pop bp                           ; 0x5002
-    ret                              ; 0x5003
 %include "ds/dos_file_loc_5004.asm"
 
 
@@ -2837,10 +2666,6 @@ loc_4f73:
 
 %include "ds/dos_ioctl.asm"
 
-@..dos_ioctl.l1:
-    sub ax, ax                       ; 0x5184
-    pop bp                           ; 0x5186
-    ret                              ; 0x5187
 loc_5188:
     push bp                          ; 0x5188
     mov bp, sp                       ; 0x5189
@@ -2873,48 +2698,6 @@ loc_5188:
     jmp short @..local.l73           ; 0x51ba
 %include "ds/dos_mem_loc_51bc.asm"
 
-@..dos_mem_loc_51bc.l2:
-    cmp ax, word [data_0c7c]         ; 0x51ea
-    ja short @..dos_mem_loc_51bc.l3  ; 0x51ee
-    cmp ax, word [data_0c70]         ; 0x51f0
-    jb short @..dos_mem_loc_51bc.l3  ; 0x51f4
-    mov word [data_0c70], ax         ; 0x51f6
-    jmp short @..dos_mem_loc_51bc.l1 ; 0x51f9
-@..dos_mem_loc_51bc.l3:
-    push ax                          ; 0x51fb
-    mov bx, ax                       ; 0x51fc
-    mov cx, 4                        ; 0x51fe
-    shr bx, cl                       ; 0x5201
-    and bx, strict word 0xfff        ; 0x5203
-    add bx, byte 0x41                ; 0x5207
-    and bx, strict word 0xffc0       ; 0x520a
-    push bx                          ; 0x520e
-    push es                          ; 0x520f
-    mov cx, ds                       ; 0x5210
-    add bx, cx                       ; 0x5212
-    mov es, word [data_0c80]         ; 0x5214
-    sub bx, word [data_0c80]         ; 0x5218
-    mov ah, 0x4a                     ; 0x521c
-    int 0x21 ; DOS resize memory block
-    pop es                           ; 0x5220
-    pop bx                           ; 0x5221
-    pop ax                           ; 0x5222
-    jb short @..dos_mem_loc_51bc.l4  ; 0x5223
-    mov word [data_0c70], ax         ; 0x5225
-    test bx, 0xe000                  ; 0x5228
-    jne short @..dos_mem_loc_51bc.l4 ; 0x522c
-    mov cx, 4                        ; 0x522e
-    shl bx, cl                       ; 0x5231
-    mov word [data_0c7c], bx         ; 0x5233
-    sub ax, ax                       ; 0x5237
-    pop bp                           ; 0x5239
-    ret                              ; 0x523a
-@..dos_mem_loc_51bc.l4:
-    mov word [data_0c72], 0xfff8     ; 0x523b
-    mov ax, 0xffff                   ; 0x5241
-    test ax, ax                      ; 0x5244
-    pop bp                           ; 0x5246
-    ret                              ; 0x5247
 
     db 0x55, 0x8b, 0xec, 0x8b, 0xc4, 0x2b, 0x46, 0x04, 0xa3, 0xd6, 0x0c, 0x5d, 0xc3
     times 44813 db 0

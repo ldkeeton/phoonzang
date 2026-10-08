@@ -8,3 +8,10 @@ math_loc_9d06:
     imul cx                          ; 0x9d18
     add ax, word [data_b050]         ; 0x9d1a
     ret                              ; 0x9d1e
+@..math_loc_9d06.l1:
+    mov ax, word [bp + 0x4]          ; 0x9d1f
+    sub ax, word [data_b046]         ; 0x9d22
+    mov cx, 5                        ; 0x9d26
+    imul cx                          ; 0x9d29
+    add ax, word [data_b052]         ; 0x9d2b
+    ret                              ; 0x9d2f

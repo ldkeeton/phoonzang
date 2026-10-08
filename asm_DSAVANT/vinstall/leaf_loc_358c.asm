@@ -30,3 +30,9 @@ leaf_loc_358c:
     pop si                           ; 0x35c1
     pop bp                           ; 0x35c2
     ret                              ; 0x35c3
+@..leaf_loc_358c.l5:
+    mov dx, word [bp + 0x6]          ; 0x35c4
+    int 0x21 ; DOS function dispatcher
+    and ax, 0xff                     ; 0x35c9
+    pop bp                           ; 0x35cc
+    ret                              ; 0x35cd

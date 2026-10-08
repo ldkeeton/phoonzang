@@ -1,6 +1,6 @@
 math_loc_1034:
     mov ax, 0                        ; 0x1034
-    call leaf_loc_4652               ; 0x1037
+    call stack_alloc_check           ; 0x1037
     mov ax, 1                        ; 0x103a
     push ax                          ; 0x103d
     mov ax, 6                        ; 0x103e

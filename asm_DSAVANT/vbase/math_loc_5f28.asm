@@ -125,3 +125,6 @@ math_loc_5f28:
     add bx, bp                       ; 0x6062
     mov ax, word [bx - 0x02c0]       ; 0x6064
     ret                              ; 0x6068
+@..math_loc_5f28.l9:
+    mov ax, 0xffff                   ; 0x6069
+    ret                              ; 0x606c

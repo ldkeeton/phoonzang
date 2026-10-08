@@ -17,3 +17,6 @@ api_idx_0008:
     mov ax, word [bp + 0xe]          ; 0x01f3
     mov word [data_9198], ax         ; 0x01f6
     ret                              ; 0x01f9
+@..api_idx_0008.l2:
+    mov ax, word [bp + 0xe]          ; 0x01fa
+    jmp near @..api_idx_0008.l10     ; 0x01fd

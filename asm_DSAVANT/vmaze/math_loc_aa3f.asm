@@ -37,3 +37,27 @@ math_loc_aa3f:
     mov byte [bx - 0x7b16], 2        ; 0xaa95
     mov byte [bx - 0x7b13], 0        ; 0xaa9a
     ret                              ; 0xaa9f
+@..math_loc_aa3f.l1:
+    jmp short @..math_loc_aa3f.l3    ; 0xaaa0
+@..math_loc_aa3f.l2:
+    mov ax, 3                        ; 0xaaa2
+    push ax                          ; 0xaaa5
+    mov ax, 2                        ; 0xaaa6
+    push ax                          ; 0xaaa9
+    push word [bp + 0x4]             ; 0xaaaa
+    call api_idx_0002_25             ; 0xaaad
+    add sp, byte 6                   ; 0xaab0
+    test ax, ax                      ; 0xaab3
+    je short @..math_loc_aa3f.l3     ; 0xaab5
+    ret                              ; 0xaab7
+@..math_loc_aa3f.l3:
+    mov ax, 0xffff                   ; 0xaab8
+    push ax                          ; 0xaabb
+    push word [bp + 0x4]             ; 0xaabc
+    call api_idx_0008_5              ; 0xaabf
+    add sp, byte 4                   ; 0xaac2
+    mov ax, 0x26                     ; 0xaac5
+    imul word [bp + 0x4]             ; 0xaac8
+    mov bx, ax                       ; 0xaacb
+    mov byte [bx - 0x7b16], 6        ; 0xaacd
+    ret                              ; 0xaad2

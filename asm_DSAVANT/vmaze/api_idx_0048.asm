@@ -9,3 +9,18 @@ api_idx_0048:
     je short @..api_idx_0048.l1      ; 0x903d
     mov ax, 1                        ; 0x903f
     ret                              ; 0x9042
+@..api_idx_0048.l1:
+    cmp word [bp + 0x8], byte 0      ; 0x9043
+    jne short @..api_idx_0048.l2     ; 0x9047
+    mov ax, 0                        ; 0x9049
+    ret                              ; 0x904c
+@..api_idx_0048.l2:
+    mov ax, 1                        ; 0x904d
+    mov cx, word [bp + 0xa]          ; 0x9050
+    cmp cx, word [data_9c00]         ; 0x9053
+    jge short @..api_idx_0048.l3     ; 0x9057
+    mov ax, 2                        ; 0x9059
+@..api_idx_0048.l3:
+    mov word [bp - 0x0008], ax       ; 0x905c
+    mov word [bp - 0x0004], 0        ; 0x905f
+    jmp near @..api_idx_0048.l20     ; 0x9064

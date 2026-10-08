@@ -62,3 +62,55 @@ bios_kbd_loc_3c97:
     mov sp, bp                       ; 0x3d04
     pop bp                           ; 0x3d06
     ret                              ; 0x3d07
+@..bios_kbd_loc_3c97.l6:
+    dec word [si]                    ; 0x3d08
+    push si                          ; 0x3d0a
+    push di                          ; 0x3d0b
+    add si, byte 3                   ; 0x3d0c
+    mov di, si                       ; 0x3d0f
+    dec di                           ; 0x3d11
+    mov cx, 0x14                     ; 0x3d12
+    rep movsb                        ; 0x3d15
+    pop di                           ; 0x3d17
+    pop si                           ; 0x3d18
+    jmp short @..bios_kbd_loc_3c97.l1 ; 0x3d19
+@..bios_kbd_loc_3c97.l7:
+    mov ah, 1                        ; 0x3d1b
+    int 0x16 ; BIOS keyboard: check keystroke
+    mov ax, 0                        ; 0x3d1f
+    je short @..bios_kbd_loc_3c97.l5 ; 0x3d22
+    mov ax, 1                        ; 0x3d24
+    cmp word [bp + 0x4], byte 0      ; 0x3d27
+    je short @..bios_kbd_loc_3c97.l5 ; 0x3d2b
+    mov ah, 7                        ; 0x3d2d
+    int 0x21 ; DOS keyboard input (no echo)
+    mov bx, word [si]                ; 0x3d31
+    mov byte [bx + si + 0x2], al     ; 0x3d33
+    inc word [si]                    ; 0x3d36
+    cmp al, 0                        ; 0x3d38
+    je short @..bios_kbd_loc_3c97.l8 ; 0x3d3a
+    cmp al, 0x61                     ; 0x3d3c
+    jb short @..bios_kbd_loc_3c97.l3 ; 0x3d3e
+    cmp al, 0x7b                     ; 0x3d40
+    jae short @..bios_kbd_loc_3c97.l3 ; 0x3d42
+    and word [bx + si + 0x2], strict word 0xdf ; 0x3d44
+    jmp short @..bios_kbd_loc_3c97.l3 ; 0x3d49
+@..bios_kbd_loc_3c97.l8:
+    mov ah, 7                        ; 0x3d4b
+    int 0x21 ; DOS keyboard input (no echo)
+    mov bx, word [si]                ; 0x3d4f
+    mov byte [bx + si + 0x1], 8      ; 0x3d51
+    cmp al, 0x4b                     ; 0x3d55
+    je short @..bios_kbd_loc_3c97.l3 ; 0x3d57
+    mov byte [bx + si + 0x1], 9      ; 0x3d59
+    cmp al, 0x48                     ; 0x3d5d
+    je short @..bios_kbd_loc_3c97.l3 ; 0x3d5f
+    mov byte [bx + si + 0x1], 0xa    ; 0x3d61
+    cmp al, 0x4d                     ; 0x3d65
+    je short @..bios_kbd_loc_3c97.l3 ; 0x3d67
+    mov byte [bx + si + 0x1], 0xb    ; 0x3d69
+    cmp al, 0x50                     ; 0x3d6d
+    je short @..bios_kbd_loc_3c97.l3 ; 0x3d6f
+    mov byte [bx + si + 0x1], 0      ; 0x3d71
+    dec word [si]                    ; 0x3d75
+    jmp short @..bios_kbd_loc_3c97.l7 ; 0x3d77

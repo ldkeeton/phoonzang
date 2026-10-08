@@ -19,3 +19,7 @@ api_idx_0002_12:
     jne short @..api_idx_0002_12.l3  ; 0x8db0
     mov ax, 0xffff                   ; 0x8db2
     ret                              ; 0x8db5
+@..api_idx_0002_12.l3:
+    mov ax, word [bp + 0x6]          ; 0x8db6
+    add ax, word [bp - 0x0002]       ; 0x8db9
+    ret                              ; 0x8dbc

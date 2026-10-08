@@ -97,3 +97,149 @@ math_loc_15af:
     call ds_dispatch_cb3a            ; 0x1693
     add sp, byte 4                   ; 0x1696
     ret                              ; 0x1699
+@..math_loc_15af.l2:
+    mov ax, 0x248                    ; 0x169a
+    imul word [bp + 0x4]             ; 0x169d
+    mov si, ax                       ; 0x16a0
+    add ax, 0x5bf4                   ; 0x16a2
+    mov si, ax                       ; 0x16a5
+    lea di, word [bp - 0x024a]       ; 0x16a7
+    mov cx, ds                       ; 0x16ab
+    mov es, cx                       ; 0x16ad
+    mov cx, 0x124                    ; 0x16af
+    rep movsw                        ; 0x16b2
+    mov ax, word [bp + 0x4]          ; 0x16b4
+    shl ax, 1                        ; 0x16b7
+    mov bx, ax                       ; 0x16b9
+    mov ax, word [bx - 0x750e]       ; 0x16bb
+    mov word [bp - 0x024c], ax       ; 0x16bf
+    mov ax, word [bx + 0x69bc]       ; 0x16c3
+    mov word [bp - 0x024e], ax       ; 0x16c7
+    mov ax, 0x248                    ; 0x16cb
+    imul word [bp - 0x0002]          ; 0x16ce
+    mov si, ax                       ; 0x16d1
+    add ax, 0x5bf4                   ; 0x16d3
+    mov si, ax                       ; 0x16d6
+    mov ax, 0x248                    ; 0x16d8
+    imul word [bp + 0x4]             ; 0x16db
+    mov di, ax                       ; 0x16de
+    add ax, 0x5bf4                   ; 0x16e0
+    mov di, ax                       ; 0x16e3
+    mov cx, ds                       ; 0x16e5
+    mov es, cx                       ; 0x16e7
+    mov cx, 0x124                    ; 0x16e9
+    rep movsw                        ; 0x16ec
+    mov ax, word [bp - 0x0002]       ; 0x16ee
+    shl ax, 1                        ; 0x16f1
+    mov bx, ax                       ; 0x16f3
+    mov ax, word [bx - 0x750e]       ; 0x16f5
+    mov cx, word [bp + 0x4]          ; 0x16f9
+    shl cx, 1                        ; 0x16fc
+    mov bx, cx                       ; 0x16fe
+    mov word [bx - 0x750e], ax       ; 0x1700
+    mov ax, word [bp - 0x0002]       ; 0x1704
+    shl ax, 1                        ; 0x1707
+    mov bx, ax                       ; 0x1709
+    mov ax, word [bx + 0x69bc]       ; 0x170b
+    mov bx, cx                       ; 0x170f
+    mov word [bx + 0x69bc], ax       ; 0x1711
+    lea si, word [bp - 0x024a]       ; 0x1715
+    mov ax, 0x248                    ; 0x1719
+    imul word [bp - 0x0002]          ; 0x171c
+    mov di, ax                       ; 0x171f
+    add ax, 0x5bf4                   ; 0x1721
+    mov di, ax                       ; 0x1724
+    mov cx, ds                       ; 0x1726
+    mov es, cx                       ; 0x1728
+    mov cx, 0x124                    ; 0x172a
+    rep movsw                        ; 0x172d
+    mov ax, word [bp - 0x024c]       ; 0x172f
+    mov cx, word [bp - 0x0002]       ; 0x1733
+    shl cx, 1                        ; 0x1736
+    mov bx, cx                       ; 0x1738
+    mov word [bx - 0x750e], ax       ; 0x173a
+    mov ax, word [bp - 0x024e]       ; 0x173e
+    mov word [bx + 0x69bc], ax       ; 0x1742
+    mov ax, 0                        ; 0x1746
+    push ax                          ; 0x1749
+    mov ax, word [bp + 0x4]          ; 0x174a
+    shl ax, 1                        ; 0x174d
+    shl ax, 1                        ; 0x174f
+    mov bx, ax                       ; 0x1751
+    push word [bx + 0x69a6]          ; 0x1753
+    push word [bx + 0x69a4]          ; 0x1757
+    call ds_dispatch_e94f            ; 0x175b
+    add sp, byte 6                   ; 0x175e
+    mov ax, word [bp + 0x4]          ; 0x1761
+    mov cx, 2                        ; 0x1764
+    cwd                              ; 0x1767
+    idiv cx                          ; 0x1768
+    mov ax, dx                       ; 0x176a
+    mov cx, 0xfc                     ; 0x176c
+    imul cx                          ; 0x176f
+    add ax, strict word 5            ; 0x1771
+    mov word [bp - 0x0250], ax       ; 0x1774
+    mov ax, word [bp + 0x4]          ; 0x1778
+    mov cx, 2                        ; 0x177b
+    cwd                              ; 0x177e
+    idiv cx                          ; 0x177f
+    mov cx, 0x2d                     ; 0x1781
+    imul cx                          ; 0x1784
+    add ax, strict word 0x12         ; 0x1786
+    mov word [bp - 0x0252], ax       ; 0x1789
+    add ax, strict word 0x2b         ; 0x178d
+    push ax                          ; 0x1790
+    mov ax, word [bp - 0x0250]       ; 0x1791
+    add ax, strict word 0x3b         ; 0x1795
+    push ax                          ; 0x1798
+    push word [bp - 0x0252]          ; 0x1799
+    push word [bp - 0x0250]          ; 0x179d
+    call ds_dispatch_e8da            ; 0x17a1
+    add sp, byte 8                   ; 0x17a4
+    mov ax, 0                        ; 0x17a7
+    push ax                          ; 0x17aa
+    mov ax, word [bp - 0x0002]       ; 0x17ab
+    shl ax, 1                        ; 0x17ae
+    shl ax, 1                        ; 0x17b0
+    mov bx, ax                       ; 0x17b2
+    push word [bx + 0x69a6]          ; 0x17b4
+    push word [bx + 0x69a4]          ; 0x17b8
+    call ds_dispatch_e94f            ; 0x17bc
+    add sp, byte 6                   ; 0x17bf
+    mov ax, word [bp - 0x0002]       ; 0x17c2
+    mov cx, 2                        ; 0x17c5
+    cwd                              ; 0x17c8
+    idiv cx                          ; 0x17c9
+    mov ax, dx                       ; 0x17cb
+    mov cx, 0xfc                     ; 0x17cd
+    imul cx                          ; 0x17d0
+    add ax, strict word 5            ; 0x17d2
+    mov word [bp - 0x0250], ax       ; 0x17d5
+    mov ax, word [bp - 0x0002]       ; 0x17d9
+    mov cx, 2                        ; 0x17dc
+    cwd                              ; 0x17df
+    idiv cx                          ; 0x17e0
+    mov cx, 0x2d                     ; 0x17e2
+    imul cx                          ; 0x17e5
+    add ax, strict word 0x12         ; 0x17e7
+    mov word [bp - 0x0252], ax       ; 0x17ea
+    add ax, strict word 0x2b         ; 0x17ee
+    push ax                          ; 0x17f1
+    mov ax, word [bp - 0x0250]       ; 0x17f2
+    add ax, strict word 0x3b         ; 0x17f6
+    push ax                          ; 0x17f9
+    push word [bp - 0x0252]          ; 0x17fa
+    push word [bp - 0x0250]          ; 0x17fe
+    call ds_dispatch_e8da            ; 0x1802
+    add sp, byte 8                   ; 0x1805
+    mov ax, 1                        ; 0x1808
+    push ax                          ; 0x180b
+    push word [bp + 0x4]             ; 0x180c
+    call ds_dispatch_cb3a            ; 0x180f
+    add sp, byte 4                   ; 0x1812
+    mov ax, 1                        ; 0x1815
+    push ax                          ; 0x1818
+    push word [bp - 0x0002]          ; 0x1819
+    call ds_dispatch_cb3a            ; 0x181c
+    add sp, byte 4                   ; 0x181f
+    ret                              ; 0x1822

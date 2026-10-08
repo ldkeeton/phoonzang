@@ -34,3 +34,14 @@ api_idx_0008_2:
     jne short @..api_idx_0008_2.l3   ; 0x641a
     mov ax, dx                       ; 0x641c
     ret                              ; 0x641e
+@..api_idx_0008_2.l3:
+    inc word [bp - 0x0004]           ; 0x641f
+    mov ax, word [bp - 0x0004]       ; 0x6422
+    cmp ax, strict word 3            ; 0x6425
+    jl short @..api_idx_0008_2.l2    ; 0x6428
+    inc word [bp - 0x0002]           ; 0x642a
+    mov ax, word [bp - 0x0002]       ; 0x642d
+    cmp ax, strict word 3            ; 0x6430
+    jl short @..api_idx_0008_2.l1    ; 0x6433
+    mov word [bp - 0x0006], 0        ; 0x6435
+    jmp short @..api_idx_0008_2.l6   ; 0x643a

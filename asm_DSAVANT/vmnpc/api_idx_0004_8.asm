@@ -28,3 +28,14 @@ api_idx_0004_8:
     sub al, al                       ; 0x23b0
     add ax, word [bp - 0x0002]       ; 0x23b2
     ret                              ; 0x23b5
+@..api_idx_0004_8.l3:
+    inc word [bp - 0x0002]           ; 0x23b6
+    mov ax, word [bp - 0x0002]       ; 0x23b9
+    cmp ax, strict word 0xa          ; 0x23bc
+    jl short @..api_idx_0004_8.l2    ; 0x23bf
+    inc word [bp - 0x0004]           ; 0x23c1
+    mov ax, word [bp - 0x0004]       ; 0x23c4
+    cmp ax, strict word 2            ; 0x23c7
+    jl short @..api_idx_0004_8.l1    ; 0x23ca
+    mov ax, 0xffff                   ; 0x23cc
+    ret                              ; 0x23cf

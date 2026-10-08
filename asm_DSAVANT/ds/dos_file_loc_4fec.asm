@@ -9,3 +9,7 @@ dos_file_loc_4fec:
     mov ax, 0xffff                   ; 0x4ffb
     pop bp                           ; 0x4ffe
     ret                              ; 0x4fff
+@..dos_file_loc_4fec.l1:
+    sub ax, ax                       ; 0x5000
+    pop bp                           ; 0x5002
+    ret                              ; 0x5003

@@ -9,3 +9,22 @@ string_loc_3338:
     mov word [bp + 0x8], di          ; 0x3347
     lodsb                            ; 0x334a
     ret                              ; 0x334b
+@..string_loc_3338.l1:
+    sub dx, dx                       ; 0x334c
+    mov ah, 0                        ; 0x334e
+@..string_loc_3338.l2:
+    cmp al, data_0030                ; 0x3350
+    jb short @..string_loc_3338.l3   ; 0x3352
+    cmp al, 0x39                     ; 0x3354
+    ja short @..string_loc_3338.l3   ; 0x3356
+    sub al, data_0030                ; 0x3358
+    shl dx, 1                        ; 0x335a
+    mov cx, dx                       ; 0x335c
+    shl dx, 1                        ; 0x335e
+    shl dx, 1                        ; 0x3360
+    add dx, cx                       ; 0x3362
+    add dx, ax                       ; 0x3364
+    lodsb                            ; 0x3366
+    jmp short @..string_loc_3338.l2  ; 0x3367
+@..string_loc_3338.l3:
+    ret                              ; 0x3369

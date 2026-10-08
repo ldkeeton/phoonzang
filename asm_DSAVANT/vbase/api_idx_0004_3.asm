@@ -42,3 +42,47 @@ api_idx_0004_3:
     call ds_dispatch_e8da            ; 0x66c6
     add sp, byte 8                   ; 0x66c9
     ret                              ; 0x66cc
+@..api_idx_0004_3.l5:
+    push word [data_830c]            ; 0x66cd
+    mov ax, 0                        ; 0x66d1
+    push ax                          ; 0x66d4
+    call ds_dispatch_d5a2            ; 0x66d5
+    add sp, byte 4                   ; 0x66d8
+    mov ax, 0                        ; 0x66db
+    push ax                          ; 0x66de
+    mov ax, 8                        ; 0x66df
+    push ax                          ; 0x66e2
+    mov ax, 0x8cfe                   ; 0x66e3
+    push ax                          ; 0x66e6
+    call ds_dispatch_f306            ; 0x66e7
+    add sp, byte 6                   ; 0x66ea
+    mov word [data_82ea], 0          ; 0x66ed
+    mov ax, word [data_82ee]         ; 0x66f3
+    shl ax, 1                        ; 0x66f6
+    mov word [data_82f0], ax         ; 0x66f8
+    mov word [data_82ec], 0          ; 0x66fb
+    mov word [bp - 0x0004], 0xf      ; 0x6701
+@..api_idx_0004_3.l6:
+    mov bx, word [bp - 0x0004]       ; 0x6706
+    mov byte [bx + 0x5b48], 0xff     ; 0x6709
+    mov byte [bx + 0x5b5a], 0        ; 0x670e
+    inc word [bp - 0x0004]           ; 0x6713
+    mov ax, word [bp - 0x0004]       ; 0x6716
+    cmp ax, strict word 0x12         ; 0x6719
+    jl short @..api_idx_0004_3.l6    ; 0x671c
+    mov word [data_5b70], 0          ; 0x671e
+    mov word [data_5b6e], 0          ; 0x6724
+    mov word [data_5b6c], 0xffff     ; 0x672a
+    cmp word [data_904c], byte 2     ; 0x6730
+    je short @..api_idx_0004_3.l7    ; 0x6735
+    call 0xb389                      ; 0x6737
+    mov word [data_904c], data_0002  ; 0x673a
+@..api_idx_0004_3.l7:
+    cmp word [data_95b2], byte 0     ; 0x6740
+    jle short @..api_idx_0004_3.l8   ; 0x6745
+    push word [data_95b2]            ; 0x6747
+    call api_idx_0002_13             ; 0x674b
+    pop cx                           ; 0x674e
+@..api_idx_0004_3.l8:
+    mov word [data_830a], 6          ; 0x674f
+    ret                              ; 0x6755

@@ -10,3 +10,7 @@ api_idx_0004_2:
     mov ax, word [data_8f40]         ; 0x1410
     mov word [data_8f2c], ax         ; 0x1413
     ret                              ; 0x1416
+@..api_idx_0004_2.l1:
+    call loc_676c                    ; 0x1417
+    mov word [bp - 0x0002], 0        ; 0x141a
+    jmp near @..api_idx_0004_2.l7    ; 0x141f

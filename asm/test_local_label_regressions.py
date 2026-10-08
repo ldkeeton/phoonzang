@@ -150,6 +150,33 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
 
         self.assertFalse((output / 'ds' / 'loc_23ef.asm').exists())
 
+    def test_stack_check_name_owns_its_call_target_prefix(self):
+        output = pathlib.Path(self._output.name)
+        master = (output / 'ds.asm').read_text()
+        stack_include = (output / 'ds' / 'stack_alloc_check.asm').read_text()
+
+        self.assertEqual(self.label_map.get(0x4652), 'stack_alloc_check')
+        self.assertNotIn(0x4653, self.label_map)
+        self.assertIn('%include "ds/stack_alloc_check.asm"', master)
+        self.assertNotIn('%include "ds/leaf_loc_4652.asm"', master)
+        self.assertFalse((output / 'ds' / 'leaf_loc_4652.asm').exists())
+        self.assertNotIn('leaf_loc_4652', master)
+        self.assertNotIn('loc_4653:', stack_include)
+        self.assertIn('call stack_alloc_check', master)
+        self.assertTrue(stack_include.startswith('stack_alloc_check:'))
+        self.assertIn('pop bx                           ; 0x4652', stack_include)
+
+    def test_stack_check_local_error_tail_is_in_function_include(self):
+        output = pathlib.Path(self._output.name)
+        master = (output / 'ds.asm').read_text()
+        stack_include = (output / 'ds' / 'stack_alloc_check.asm').read_text()
+
+        self.assertIn('%include "ds/stack_alloc_check.asm"', master)
+        self.assertNotIn('@..stack_alloc_check.l2:', master)
+        self.assertIn('@..stack_alloc_check.l2:', stack_include)
+        self.assertIn('mov sp, bp                       ; 0x4676', stack_include)
+        self.assertIn('jmp near @..stack_alloc_check.l3 ; 0x4678', stack_include)
+
     def test_sidecar_code_anchors_decode_as_code(self):
         code_starts = (0x0fdf, 0x3067, 0x30f7, 0x343e, 0x3490, 0x457c)
         for address in code_starts:

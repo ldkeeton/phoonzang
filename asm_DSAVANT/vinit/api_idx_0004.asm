@@ -26,3 +26,11 @@ api_idx_0004:
     test ax, ax                      ; 0x09c3
     je short @..api_idx_0004.l4      ; 0x09c5
     ret                              ; 0x09c7
+@..api_idx_0004.l4:
+    mov ax, 0xa                      ; 0x09c8
+    push ax                          ; 0x09cb
+    call ds_dispatch_e489            ; 0x09cc
+    pop cx                           ; 0x09cf
+    jmp short @..api_idx_0004.l1     ; 0x09d0
+@..api_idx_0004.l5:
+    ret                              ; 0x09d2

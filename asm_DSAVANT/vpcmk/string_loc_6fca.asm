@@ -29,3 +29,16 @@ string_loc_6fca:
     pop si                           ; 0x701a
     pop bp                           ; 0x701b
     ret                              ; 0x701c
+@..string_loc_6fca.l4:
+    sub di, byte 2                   ; 0x701d
+    scasb                            ; 0x7020
+    jne short @..string_loc_6fca.l5  ; 0x7021
+    test al, al                      ; 0x7023
+    je short @..string_loc_6fca.l2   ; 0x7025
+    mov al, ah                       ; 0x7027
+    scasb                            ; 0x7029
+@..string_loc_6fca.l5:
+    sbb ax, ax                       ; 0x702a
+    js short @..string_loc_6fca.l3   ; 0x702c
+    inc ax                           ; 0x702e
+    jmp short @..string_loc_6fca.l3  ; 0x702f
