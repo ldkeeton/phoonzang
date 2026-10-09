@@ -43,7 +43,7 @@ from lib.phases import (
     TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
     PruneDeadPhase, PruneDeadBeforePhase, PruneZeroPhase,
     SettlePhase, ArbiterPhase, ForceCodePhase, PatternSeedPhase,
-    BorlandOverlayPhase, DispatchTablePhase,
+    AztecOverlayPhase, DispatchTablePhase,
     CascadeTargetPhase,
 )
 from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
@@ -79,7 +79,7 @@ def _build_classify_phases(known_db=None):
     phases = [
         SeedPhase(),
         SidecarPhase(),
-        BorlandOverlayPhase(),
+        AztecOverlayPhase(),
         DispatchTablePhase(),
     ]
     if known_db and known_db.get('signatures'):
@@ -236,6 +236,10 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
 
     # ── Build label map ──
     label_targets = ctx.label_target_set
+    # Let the MZ entry participate in matching so a runtime signature (e.g.
+    # Aztec's ``$begin`` startup) can name it instead of the generic label.
+    if mz_entry_point is not None and mz_entry_point in ctx.code_targets:
+        label_targets.add(mz_entry_point)
     label_map = match_patterns(data, label_targets, known_db, max_func_size)
 
     trampoline_map = match_trampolines(data, label_targets, known_db)
@@ -253,11 +257,12 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
             if off in ctx.code_targets:
                 label_map[off] = info.get('name', f'fn_{hex_off}')
 
-    # The MZ header determines the executable entry point. Keep its public
-    # label stable even when pattern matching or sidecar names identify it.
+    # The MZ header determines the executable entry point. Prefer a name
+    # discovered by pattern matching or the sidecar; otherwise fall back to
+    # the generic 'entry_point' label.
     if mz_entry_point is not None and mz_entry_point in ctx.code_targets:
         label_targets.add(mz_entry_point)
-        label_map[mz_entry_point] = 'entry_point'
+        label_map.setdefault(mz_entry_point, 'entry_point')
 
     direct_call_targets = {
         address for address, info in ctx.code_targets.items()
@@ -450,6 +455,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
           f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
           f'bare=[mem:{stats["bare_mem"]} call:{stats["bare_call"]} dbc:{stats["bare_dbc"]}]  '
           f'loss={stats.get("code_loss", 0)}  '
+          f'aztec={stats.get("aztec_labels", 0)}  '
           f'[{stats["status"]}]')
     print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
           f'disasm: {t_disasm-t_flow_disasm_start:.1f}s  '

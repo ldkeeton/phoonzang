@@ -67,7 +67,6 @@ data_3b21 equ 0x3b21
 data_3b22 equ 0x3b22
 data_3b34 equ 0x3b34
 data_4540 equ 0x4540
-dos_read_file_7 equ 0x4af7
 
 loc_0000:
     jmp near @..local.l1             ; 0x0000
@@ -2584,9 +2583,9 @@ loc_4e64:
 
     times 34 db 0
 
-%include "ega/dos_read_file_8.asm"
+%include "ega/dos_read_file_7.asm"
 
-@..dos_read_file_8.l5:
+@..dos_read_file_7.l5:
     mov ax, cs                       ; 0x4fc4
     mov ds, ax                       ; 0x4fc6
     mov dx, 0x50d4                   ; 0x4fc8
@@ -2599,7 +2598,7 @@ loc_4e64:
     db 'In LOAD_SCORE() ... slot already used.', 0
     db 0x0a, 0x24
 
-@..dos_read_file_8.l6:
+@..dos_read_file_7.l6:
     mov ax, cs                       ; 0x5000
     mov ds, ax                       ; 0x5002
     mov dx, 0x5110                   ; 0x5004

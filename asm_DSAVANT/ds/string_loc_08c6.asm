@@ -60,7 +60,7 @@ loc_0956:
     push word [bx + 0x5524]          ; 0x0963
     push word [bp + 0x6]             ; 0x0967
     push word [data_0e22]            ; 0x096a
-    call leaf_loc_4fbd               ; 0x096e
+    call aztec_write                 ; 0x096e
     add sp, byte 6                   ; 0x0971
 loc_0974:
     jmp short loc_09a4               ; 0x0974

@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/loc_7001.inc"
+%include "structs/loc_600d.inc"
 org 0
 bits 16
 %include "labels/vpcmk_foreign_labels.inc"
@@ -35,8 +35,6 @@ loc_5c67 equ 0x5c67
 loc_5c78 equ 0x5c78
 data_5e2a equ 0x5e2a
 loc_600d equ 0x600d
-loc_7001 equ 0x7001
-loc_700f equ 0x700f
 data_830a equ 0x830a
 data_844c equ 0x844c
 data_844e equ 0x844e
@@ -55,6 +53,11 @@ data_908e equ 0x908e
 data_9090 equ 0x9090
 data_9092 equ 0x9092
 data_9094 equ 0x9094
+data_951a equ 0x951a
+data_951c equ 0x951c
+data_951e equ 0x951e
+data_9520 equ 0x9520
+data_9522 equ 0x9522
 data_9524 equ 0x9524
 data_9526 equ 0x9526
 data_9528 equ 0x9528
@@ -3976,7 +3979,7 @@ loc_6626:
     lea ax, word [bp - 0x024a]       ; 0x664d
     push ax                          ; 0x6651
     push word [bp + 0x4]             ; 0x6652
-    call aztec_strncmp               ; 0x6655
+    call aztec_strcmp                ; 0x6655
     add sp, byte 4                   ; 0x6658
     test ax, ax                      ; 0x665b
     jne short @..local.l28           ; 0x665d
@@ -4276,14 +4279,25 @@ loc_67e2:
     call ds_dispatch_e8da            ; 0x6f85
     add sp, byte 8                   ; 0x6f88
     ret                              ; 0x6f8b
+%include "vpcmk/string_loc_6f8c.asm"
 
-    db 0x8f, 0x06, 0x22, 0x95, 0x59, 0x89, 0x26, 0x1e, 0x95, 0x89, 0x2e, 0x20, 0x95, 0x89, 0x36, 0x1a
-    db 0x95, 0x89, 0x3e, 0x1c, 0x95, 0xfc, 0xbf, 0x24, 0x95, 0xb9, 0x8c, 0x97, 0x2b, 0xcf, 0xd1, 0xe9
-    db 0x74, 0x04, 0x2b, 0xc0, 0xf3, 0xab, 0xe8, 0x59, 0x90, 0x8b, 0x2e, 0x20, 0x95, 0x8b, 0x26, 0x1e
-    db 0x95, 0x8b, 0x36, 0x1a, 0x95, 0x8b, 0x3e, 0x1c, 0x95, 0x51, 0xff, 0x26, 0x22, 0x95
+%include "vpcmk/aztec_strcmp.asm"
 
 %include "vpcmk/aztec_strncmp.asm"
 
+loc_701d:
+    sub di, byte 2                   ; 0x701d
+    scasb                            ; 0x7020
+    jne short loc_702a               ; 0x7021
+    test al, al                      ; 0x7023
+    je short loc_7017                ; 0x7025
+    mov al, ah                       ; 0x7027
+    scasb                            ; 0x7029
+loc_702a:
+    sbb ax, ax                       ; 0x702a
+    js short loc_7019                ; 0x702c
+    inc ax                           ; 0x702e
+    jmp short loc_7019               ; 0x702f
 
     db 'PCFILE.DBS', 0
     db 'V.$$$', 0

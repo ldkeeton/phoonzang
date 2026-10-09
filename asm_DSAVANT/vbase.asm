@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/loc_93bd.inc"
+%include "structs/loc_773d.inc"
 org 0
 bits 16
 %include "labels/vbase_foreign_labels.inc"
@@ -152,9 +152,12 @@ data_9072 equ 0x9072
 data_9088 equ 0x9088
 data_908a equ 0x908a
 data_908c equ 0x908c
-loc_93bd equ 0x93bd
+data_91bc equ 0x91bc
+data_91be equ 0x91be
+data_91c0 equ 0x91c0
+data_91c2 equ 0x91c2
+data_91c4 equ 0x91c4
 data_93be equ 0x93be
-loc_93cb equ 0x93cb
 data_9400 equ 0x9400
 data_940a equ 0x940a
 data_940c equ 0x940c
@@ -2920,7 +2923,7 @@ api_idx_004e:
     push ax                          ; 0x39b7
     mov ax, 0x91c6                   ; 0x39b8
     push ax                          ; 0x39bb
-    call aztec_strncmp               ; 0x39bc
+    call aztec_strcmp                ; 0x39bc
     add sp, byte 4                   ; 0x39bf
     test ax, ax                      ; 0x39c2
     jne short @..api_idx_004e.l8     ; 0x39c4
@@ -2936,7 +2939,7 @@ api_idx_004e:
     push ax                          ; 0x39d9
     mov ax, 0x91c6                   ; 0x39da
     push ax                          ; 0x39dd
-    call aztec_strncmp               ; 0x39de
+    call aztec_strcmp                ; 0x39de
     add sp, byte 4                   ; 0x39e1
     test ax, ax                      ; 0x39e4
     je short @..api_idx_004e.l9      ; 0x39e6
@@ -7039,16 +7042,48 @@ loc_8a74:
     call ds_dispatch_f0bd            ; 0x932b
     pop cx                           ; 0x932e
     ret                              ; 0x932f
-
-    db 0x8f, 0x06, 0xc4, 0x91, 0x59, 0x89, 0x26, 0xc0, 0x91, 0x89, 0x2e, 0xc2, 0x91, 0x89, 0x36, 0xbc
-    db 0x91, 0x89, 0x3e, 0xbe, 0x91, 0xfc, 0xbf, 0xc6, 0x91, 0xb9, 0x02, 0xa6, 0x2b, 0xcf, 0xd1, 0xe9
-    db 0x74, 0x04, 0x2b, 0xc0, 0xf3, 0xab, 0xe8, 0xb5, 0x6c, 0x8b, 0x2e, 0xc2, 0x91, 0x8b, 0x26, 0xc0
-    db 0x91, 0x8b, 0x36, 0xbc, 0x91, 0x8b, 0x3e, 0xbe, 0x91, 0x51, 0xff, 0x26, 0xc4, 0x91
-
+string_loc_9330:
+    pop word [data_91c4]             ; 0x9330
+    pop cx                           ; 0x9334
+    mov word [data_91c0], sp         ; 0x9335
+    mov word [data_91c2], bp         ; 0x9339
+    mov word [data_91bc], si         ; 0x933d
+    mov word [data_91be], di         ; 0x9341
+    cld                              ; 0x9345
+    mov di, 0x91c6                   ; 0x9346
+    mov cx, 0xa602                   ; 0x9349
+    sub cx, di                       ; 0x934c
+    shr cx, 1                        ; 0x934e
+    je short @..string_loc_9330.l1   ; 0x9350
+    sub ax, ax                       ; 0x9352
+    rep stosw                        ; 0x9354
+@..string_loc_9330.l1:
+    call loc_000e                    ; 0x9356
+    mov bp, word [data_91c2]         ; 0x9359
+    mov sp, word [data_91c0]         ; 0x935d
+    mov si, word [data_91bc]         ; 0x9361
+    mov di, word [data_91be]         ; 0x9365
+    push cx                          ; 0x9369
+    jmp [data_91c4]                  ; 0x936a
 %include "vbase/leaf_loc_936e.asm"
+
+%include "vbase/aztec_strcmp.asm"
 
 %include "vbase/aztec_strncmp.asm"
 
+loc_93d9:
+    sub di, byte 2                   ; 0x93d9
+    scasb                            ; 0x93dc
+    jne short loc_93e6               ; 0x93dd
+    test al, al                      ; 0x93df
+    je short loc_93d3                ; 0x93e1
+    mov al, ah                       ; 0x93e3
+    scasb                            ; 0x93e5
+loc_93e6:
+    sbb ax, ax                       ; 0x93e6
+    js short loc_93d5                ; 0x93e8
+    inc ax                           ; 0x93ea
+    jmp short loc_93d5               ; 0x93eb
 
     db 'PCFILE.DBS', 0
     db 'V.$$$', 0

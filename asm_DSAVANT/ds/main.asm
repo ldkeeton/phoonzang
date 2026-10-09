@@ -1,6 +1,6 @@
 main:
     mov ax, 0xfffe                   ; 0x2dd5
-    call aztec_cret                  ; 0x2dd8
+    call aztec_csav                  ; 0x2dd8
     mov word [data_830a], 0          ; 0x2ddb
 @..main.l1:
     mov ax, word [data_830a]         ; 0x2de1
@@ -13,7 +13,7 @@ main:
     add sp, byte 4                   ; 0x2df2
     mov ax, 0xbfa                    ; 0x2df5
     push ax                          ; 0x2df8
-    call loc_4379                    ; 0x2df9
+    call aztec_ovloader              ; 0x2df9
     pop cx                           ; 0x2dfc
     mov word [bp - 0x0002], ax       ; 0x2dfd
     jmp near @..main.l3              ; 0x2e00
@@ -25,25 +25,25 @@ main:
     add sp, byte 4                   ; 0x2e0e
     mov ax, 0xc00                    ; 0x2e11
     push ax                          ; 0x2e14
-    call loc_4379                    ; 0x2e15
+    call aztec_ovloader              ; 0x2e15
     pop cx                           ; 0x2e18
     mov word [bp - 0x0002], ax       ; 0x2e19
     jmp near @..main.l3              ; 0x2e1c
     mov ax, 0xc06                    ; 0x2e1f
     push ax                          ; 0x2e22
-    call loc_4379                    ; 0x2e23
+    call aztec_ovloader              ; 0x2e23
     pop cx                           ; 0x2e26
     mov word [bp - 0x0002], ax       ; 0x2e27
     jmp near @..main.l3              ; 0x2e2a
     mov ax, 0xc0c                    ; 0x2e2d
     push ax                          ; 0x2e30
-    call loc_4379                    ; 0x2e31
+    call aztec_ovloader              ; 0x2e31
     pop cx                           ; 0x2e34
     mov word [bp - 0x0002], ax       ; 0x2e35
     jmp near @..main.l3              ; 0x2e38
     mov ax, 0xc12                    ; 0x2e3b
     push ax                          ; 0x2e3e
-    call loc_4379                    ; 0x2e3f
+    call aztec_ovloader              ; 0x2e3f
     pop cx                           ; 0x2e42
     mov word [bp - 0x0002], ax       ; 0x2e43
     jmp near @..main.l3              ; 0x2e46
@@ -55,49 +55,49 @@ main:
     mov word [data_830a], 5          ; 0x2e57
     mov ax, 0xc18                    ; 0x2e5d
     push ax                          ; 0x2e60
-    call loc_4379                    ; 0x2e61
+    call aztec_ovloader              ; 0x2e61
     pop cx                           ; 0x2e64
     mov word [bp - 0x0002], ax       ; 0x2e65
     jmp near @..main.l3              ; 0x2e68
     mov ax, 0xc1e                    ; 0x2e6b
     push ax                          ; 0x2e6e
-    call loc_4379                    ; 0x2e6f
+    call aztec_ovloader              ; 0x2e6f
     pop cx                           ; 0x2e72
     mov word [bp - 0x0002], ax       ; 0x2e73
     jmp near @..main.l3              ; 0x2e76
     mov ax, 0xc24                    ; 0x2e79
     push ax                          ; 0x2e7c
-    call loc_4379                    ; 0x2e7d
+    call aztec_ovloader              ; 0x2e7d
     pop cx                           ; 0x2e80
     mov word [bp - 0x0002], ax       ; 0x2e81
     jmp near @..main.l3              ; 0x2e84
     mov ax, 0xc2a                    ; 0x2e87
     push ax                          ; 0x2e8a
-    call loc_4379                    ; 0x2e8b
+    call aztec_ovloader              ; 0x2e8b
     pop cx                           ; 0x2e8e
     mov word [bp - 0x0002], ax       ; 0x2e8f
     jmp near @..main.l3              ; 0x2e92
     mov ax, 0xc30                    ; 0x2e95
     push ax                          ; 0x2e98
-    call loc_4379                    ; 0x2e99
+    call aztec_ovloader              ; 0x2e99
     pop cx                           ; 0x2e9c
     mov word [bp - 0x0002], ax       ; 0x2e9d
     jmp near @..main.l3              ; 0x2ea0
     mov ax, 0xc36                    ; 0x2ea3
     push ax                          ; 0x2ea6
-    call loc_4379                    ; 0x2ea7
+    call aztec_ovloader              ; 0x2ea7
     pop cx                           ; 0x2eaa
     mov word [bp - 0x0002], ax       ; 0x2eab
     jmp short @..main.l3             ; 0x2eae
     mov ax, 0xc3c                    ; 0x2eb0
     push ax                          ; 0x2eb3
-    call loc_4379                    ; 0x2eb4
+    call aztec_ovloader              ; 0x2eb4
     pop cx                           ; 0x2eb7
     mov word [bp - 0x0002], ax       ; 0x2eb8
     jmp short @..main.l3             ; 0x2ebb
     mov ax, 0xc42                    ; 0x2ebd
     push ax                          ; 0x2ec0
-    call loc_4379                    ; 0x2ec1
+    call aztec_ovloader              ; 0x2ec1
     pop cx                           ; 0x2ec4
     mov word [bp - 0x0002], ax       ; 0x2ec5
     jmp short @..main.l3             ; 0x2ec8

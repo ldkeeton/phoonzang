@@ -1,10 +1,15 @@
+aztec_unlink:
     push bp                          ; 0x5023
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp                       ; 0x5024
     mov ah, 0x41                     ; 0x5026
     mov dx, word [bp + 0x4]          ; 0x5028
     int 0x21 ; DOS delete file (handle)
-    jae short loc_5037               ; 0x502d
+    jae short @..aztec_unlink.l1     ; 0x502d
     mov word [data_0c72], ax         ; 0x502f
     mov ax, 0xffff                   ; 0x5032
     pop bp                           ; 0x5035
     ret                              ; 0x5036
+@..aztec_unlink.l1:
+    sub ax, ax                       ; 0x5037
+    pop bp                           ; 0x5039
+    ret                              ; 0x503a

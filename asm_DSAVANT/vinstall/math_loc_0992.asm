@@ -11,7 +11,7 @@ math_loc_0992:
     add sp, byte 6                   ; 0x09a4
     push word [bp + 0x4]             ; 0x09a7
     push word [bp + 0x4]             ; 0x09aa
-    call strlen                      ; 0x09ad
+    call aztec_strlen                ; 0x09ad
     pop cx                           ; 0x09b0
     inc ax                           ; 0x09b1
     mov cx, data_0002                ; 0x09b2
@@ -43,7 +43,7 @@ math_loc_0992:
     mov ax, 0x2648                   ; 0x09e9
     push ax                          ; 0x09ec
     push ax                          ; 0x09ed
-    call strlen                      ; 0x09ee
+    call aztec_strlen                ; 0x09ee
     pop cx                           ; 0x09f1
     inc ax                           ; 0x09f2
     mov cx, data_0002                ; 0x09f3

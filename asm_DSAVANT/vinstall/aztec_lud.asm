@@ -1,15 +1,90 @@
+aztec_lud:
     test bx, bx                      ; 0x3471
-    jne short loc_3493               ; 0x3473
-    db 0x3b, 0xca ; cmp cx, dx
-    ja short loc_348c                ; 0x3477
+    jne short @..aztec_lud.l2        ; 0x3473
+    cmp cx, dx                       ; 0x3475
+    ja short @..aztec_lud.l1         ; 0x3477
     push ax                          ; 0x3479
-    db 0x8b, 0xc2 ; mov ax, dx
-    db 0x2b, 0xd2 ; sub dx, dx
+    mov ax, dx                       ; 0x347a
+    sub dx, dx                       ; 0x347c
     div cx                           ; 0x347e
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x3480
     pop ax                           ; 0x3482
     div cx                           ; 0x3483
-    db 0x8b, 0xca ; mov cx, dx
-    db 0x8b, 0xd3 ; mov dx, bx
-    db 0x2b, 0xdb ; sub bx, bx
+    mov cx, dx                       ; 0x3485
+    mov dx, bx                       ; 0x3487
+    sub bx, bx                       ; 0x3489
     ret                              ; 0x348b
+@..aztec_lud.l1:
+    div cx                           ; 0x348c
+    mov cx, dx                       ; 0x348e
+    mov dx, bx                       ; 0x3490
+    ret                              ; 0x3492
+@..aztec_lud.l2:
+    push di                          ; 0x3493
+    push si                          ; 0x3494
+    mov si, cx                       ; 0x3495
+    mov di, bx                       ; 0x3497
+    push dx                          ; 0x3499
+    push ax                          ; 0x349a
+    test bh, bh                      ; 0x349b
+    je short @..aztec_lud.l3         ; 0x349d
+    mov cl, ch                       ; 0x349f
+    mov ch, bl                       ; 0x34a1
+    mov bl, bh                       ; 0x34a3
+    mov al, ah                       ; 0x34a5
+    mov ah, dl                       ; 0x34a7
+    mov dl, dh                       ; 0x34a9
+    sub dh, dh                       ; 0x34ab
+@..aztec_lud.l3:
+    shr dx, 1                        ; 0x34ad
+    rcr ax, 1                        ; 0x34af
+    shr bl, 1                        ; 0x34b1
+    rcr cx, 1                        ; 0x34b3
+    test bl, bl                      ; 0x34b5
+    jne short @..aztec_lud.l3        ; 0x34b7
+    div cx                           ; 0x34b9
+    mov cx, ax                       ; 0x34bb
+    mul si                           ; 0x34bd
+    mov bx, dx                       ; 0x34bf
+    push ax                          ; 0x34c1
+    mov ax, cx                       ; 0x34c2
+    mul di                           ; 0x34c4
+    add bx, ax                       ; 0x34c6
+    jae short @..aztec_lud.l4        ; 0x34c8
+    dec cx                           ; 0x34ca
+    pop ax                           ; 0x34cb
+    mov ax, cx                       ; 0x34cc
+    mul di                           ; 0x34ce
+    mov bx, ax                       ; 0x34d0
+    mov ax, cx                       ; 0x34d2
+    mul si                           ; 0x34d4
+    add bx, dx                       ; 0x34d6
+    mov es, cx                       ; 0x34d8
+    mov cx, ax                       ; 0x34da
+    pop ax                           ; 0x34dc
+    pop dx                           ; 0x34dd
+    sub cx, ax                       ; 0x34de
+    sbb bx, dx                       ; 0x34e0
+    not cx                           ; 0x34e2
+    not bx                           ; 0x34e4
+    add cx, byte 1                   ; 0x34e6
+    adc bx, byte 0                   ; 0x34e9
+    mov ax, es                       ; 0x34ec
+    jmp near @..aztec_lud.l5         ; 0x34ee
+@..aztec_lud.l4:
+    mov dx, bx                       ; 0x34f1
+    mov ax, cx                       ; 0x34f3
+    pop bx                           ; 0x34f5
+    pop cx                           ; 0x34f6
+    sub cx, bx                       ; 0x34f7
+    pop bx                           ; 0x34f9
+    sbb bx, dx                       ; 0x34fa
+    jae short @..aztec_lud.l5        ; 0x34fc
+    add cx, si                       ; 0x34fe
+    adc bx, di                       ; 0x3500
+    dec ax                           ; 0x3502
+@..aztec_lud.l5:
+    sub dx, dx                       ; 0x3503
+    pop si                           ; 0x3505
+    pop di                           ; 0x3506
+    ret                              ; 0x3507

@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/loc_511a.inc"
+%include "structs/loc_4ea0.inc"
 org 0
 bits 16
     ; DOS MZ executable header (512 bytes)
@@ -82,7 +82,6 @@ data_2d39 equ 0x2d39
 data_2d3a equ 0x2d3a
 data_2d3b equ 0x2d3b
 data_2d40 equ 0x2d40
-data_2d4a equ 0x2d4a
 data_2d4e equ 0x2d4e
 data_2d52 equ 0x2d52
 data_2d56 equ 0x2d56
@@ -110,10 +109,22 @@ data_2ddb equ 0x2ddb
 data_2ddf equ 0x2ddf
 data_2de3 equ 0x2de3
 data_2de7 equ 0x2de7
+data_2deb equ 0x2deb
+data_2df7 equ 0x2df7
+data_2dfb equ 0x2dfb
+data_2dff equ 0x2dff
+data_2e03 equ 0x2e03
+data_2e07 equ 0x2e07
+data_2e0b equ 0x2e0b
+data_2e0f equ 0x2e0f
 data_2e13 equ 0x2e13
+data_2e1b equ 0x2e1b
+data_2e1f equ 0x2e1f
 data_2e23 equ 0x2e23
 data_2e27 equ 0x2e27
 data_2e2b equ 0x2e2b
+data_2e2f equ 0x2e2f
+data_2e33 equ 0x2e33
 data_2e43 equ 0x2e43
 data_2e47 equ 0x2e47
 data_2e63 equ 0x2e63
@@ -122,38 +133,19 @@ data_2ede equ 0x2ede
 data_2ee0 equ 0x2ee0
 data_3332 equ 0x3332
 data_3472 equ 0x3472
+dos_con_loc_3962 equ 0x3962
 data_3a7f equ 0x3a7f
-aztec_lrealloc equ 0x4625
-loc_4631 equ 0x4631
-loc_4648 equ 0x4648
-loc_464a equ 0x464a
+loc_3eb5 equ 0x3eb5
+loc_3ee3 equ 0x3ee3
+loc_3ee5 equ 0x3ee5
+loc_3fce equ 0x3fce
+dos_con_loc_3fd5 equ 0x3fd5
+loc_42d5 equ 0x42d5
 data_4b36 equ 0x4b36
-loc_4bf5 equ 0x4bf5
-loc_4c04 equ 0x4c04
-loc_4c07 equ 0x4c07
-loc_4c12 equ 0x4c12
-loc_4c24 equ 0x4c24
-loc_4c2f equ 0x4c2f
-aztec_lum equ 0x4c38
-aztec_lud equ 0x4c40
-loc_4c5b equ 0x4c5b
-loc_4c62 equ 0x4c62
-loc_4c7c equ 0x4c7c
 data_4c89 equ 0x4c89
 data_4c8b equ 0x4c8b
-loc_4cc0 equ 0x4cc0
-loc_4cd2 equ 0x4cd2
 loc_4ea0 equ 0x4ea0
-aztec_unlink equ 0x5023
-loc_5037 equ 0x5037
-aztec_rename equ 0x503b
-loc_5058 equ 0x5058
-aztec_tty_wr equ 0x50c1
-loc_50ce equ 0x50ce
-loc_50fc equ 0x50fc
-loc_511a equ 0x511a
 data_5218 equ 0x5218
-aztec_rsvstk equ 0x5248
 data_5987 equ 0x5987
 data_59fa equ 0x59fa
 data_59fc equ 0x59fc
@@ -174,7 +166,7 @@ leaf_loc_10108 equ 0x10108
 
 loc_0200:
     mov ax, 0                        ; 0x0200
-    call aztec_cret                  ; 0x0203
+    call aztec_csav                  ; 0x0203
     push word [bp + 0x6]             ; 0x0206
     push word [bp + 0x4]             ; 0x0209
     call aztec_lmalloc               ; 0x020c
@@ -182,7 +174,7 @@ loc_0200:
     ret                              ; 0x0212
 loc_0213:
     mov ax, 0                        ; 0x0213
-    call aztec_cret                  ; 0x0216
+    call aztec_csav                  ; 0x0216
     push word [bp + 0xc]             ; 0x0219
     push word [bp + 0xa]             ; 0x021c
     push word [bp + 0x8]             ; 0x021f
@@ -193,7 +185,7 @@ loc_0213:
     ret                              ; 0x022e
 loc_022f:
     mov ax, 0                        ; 0x022f
-    call aztec_cret                  ; 0x0232
+    call aztec_csav                  ; 0x0232
     push word [bp + 0x6]             ; 0x0235
     push word [bp + 0x4]             ; 0x0238
     call aztec_lfree                 ; 0x023b
@@ -201,7 +193,7 @@ loc_022f:
     ret                              ; 0x0241
 loc_0242:
     mov ax, 0xfffe                   ; 0x0242
-    call aztec_cret                  ; 0x0245
+    call aztec_csav                  ; 0x0245
     mov word [bp - 0x0002], 0        ; 0x0248
     mov ax, word [bp + 0x4]          ; 0x024d
     jmp near @..local.l18            ; 0x0250
@@ -326,7 +318,7 @@ loc_0242:
     ret                              ; 0x03b7
 loc_03b8:
     mov ax, 0                        ; 0x03b8
-    call aztec_cret                  ; 0x03bb
+    call aztec_csav                  ; 0x03bb
     push word [bp + 0x4]             ; 0x03be
     call loc_0242                    ; 0x03c1
     pop cx                           ; 0x03c4
@@ -362,7 +354,7 @@ loc_03b8:
 
 loc_0547:
     mov ax, 0xfefa                   ; 0x0547
-    call aztec_cret                  ; 0x054a
+    call aztec_csav                  ; 0x054a
     mov word [bp - 0x0002], 0        ; 0x054d
     mov word [bp - 0x0006], 0        ; 0x0552
 @..local.l21:
@@ -487,7 +479,7 @@ loc_0547:
 
 loc_0a09:
     mov ax, 0                        ; 0x0a09
-    call aztec_cret                  ; 0x0a0c
+    call aztec_csav                  ; 0x0a0c
     mov ax, word [bp + 0x6]          ; 0x0a0f
     push ax                          ; 0x0a12
     cmp ax, word [bp + 0x4]          ; 0x0a13
@@ -524,7 +516,7 @@ loc_0a09:
 
 loc_0b54:
     mov ax, 0xfffc                   ; 0x0b54
-    call aztec_cret                  ; 0x0b57
+    call aztec_csav                  ; 0x0b57
     mov word [data_59fa], 0          ; 0x0b5a
     mov word [data_59fc], 0          ; 0x0b60
     mov ax, 1                        ; 0x0b66
@@ -617,7 +609,7 @@ loc_0b54:
 
 loc_0ced:
     mov ax, 0                        ; 0x0ced
-    call aztec_cret                  ; 0x0cf0
+    call aztec_csav                  ; 0x0cf0
     mov al, byte [bp + 0xe]          ; 0x0cf3
     mov cx, word [bp + 0x4]          ; 0x0cf6
     shl cx, 1                        ; 0x0cf9
@@ -660,7 +652,7 @@ loc_0ced:
 
 loc_0e03:
     mov ax, 0                        ; 0x0e03
-    call aztec_cret                  ; 0x0e06
+    call aztec_csav                  ; 0x0e06
     mov ax, 0                        ; 0x0e09
     push ax                          ; 0x0e0c
     mov ax, word [bp + 0x6]          ; 0x0e0d
@@ -728,7 +720,7 @@ loc_0e03:
     ret                              ; 0x0e81
 loc_0e82:
     mov ax, 0                        ; 0x0e82
-    call aztec_cret                  ; 0x0e85
+    call aztec_csav                  ; 0x0e85
     push word [bp + 0xc]             ; 0x0e88
     push word [bp + 0x6]             ; 0x0e8b
     push word [bp + 0x8]             ; 0x0e8e
@@ -764,7 +756,7 @@ loc_0e82:
     ret                              ; 0x0ee0
 loc_0ee1:
     mov ax, 0                        ; 0x0ee1
-    call aztec_cret                  ; 0x0ee4
+    call aztec_csav                  ; 0x0ee4
     mov ax, 0xc2                     ; 0x0ee7
     push ax                          ; 0x0eea
     push word [bp + 0xa]             ; 0x0eeb
@@ -792,7 +784,7 @@ loc_0ee1:
     ret                              ; 0x0f29
 loc_0f2a:
     mov ax, 0                        ; 0x0f2a
-    call aztec_cret                  ; 0x0f2d
+    call aztec_csav                  ; 0x0f2d
     mov ax, 0xc0                     ; 0x0f30
     push ax                          ; 0x0f33
     push word [bp + 0xa]             ; 0x0f34
@@ -912,7 +904,7 @@ loc_0f2a:
 
 loc_1371:
     mov ax, 0                        ; 0x1371
-    call aztec_cret                  ; 0x1374
+    call aztec_csav                  ; 0x1374
     push word [bp + 0x4]             ; 0x1377
     call loc_41fe                    ; 0x137a
     pop cx                           ; 0x137d
@@ -922,7 +914,7 @@ loc_1371:
     ret                              ; 0x138b
 loc_138c:
     mov ax, 0                        ; 0x138c
-    call aztec_cret                  ; 0x138f
+    call aztec_csav                  ; 0x138f
     cmp word [data_5b6c], byte 0     ; 0x1392
     jge short @..math_loc_14bd.l1    ; 0x1397
     jmp near math_loc_14bd           ; 0x1399
@@ -1174,7 +1166,7 @@ loc_1a9d:
 
 loc_2359:
     mov ax, 0xfffc                   ; 0x2359
-    call aztec_cret                  ; 0x235c
+    call aztec_csav                  ; 0x235c
     mov word [bp - 0x0002], 0        ; 0x235f
     mov word [bp - 0x0004], 0        ; 0x2364
 @..local.l38:
@@ -1207,7 +1199,7 @@ loc_2359:
     ret                              ; 0x23a7
 loc_23a8:
     mov ax, 0                        ; 0x23a8
-    call aztec_cret                  ; 0x23ab
+    call aztec_csav                  ; 0x23ab
     cmp byte [data_5987], 5          ; 0x23ae
     jne short @..local.l42           ; 0x23b3
     cmp word [bp + 0x6], byte 1      ; 0x23b5
@@ -1231,7 +1223,7 @@ loc_23a8:
     push word [bp + 0x4]             ; 0x23de
     mov ax, 0x69ca                   ; 0x23e1
     push ax                          ; 0x23e4
-    call aztec_strncat               ; 0x23e5
+    call string_loc_4574             ; 0x23e5
     add sp, byte 4                   ; 0x23e8
     mov ax, 0x69ca                   ; 0x23eb
     ret                              ; 0x23ee
@@ -1318,7 +1310,7 @@ loc_23a8:
     push ax                          ; 0x26ae
     lea ax, word [bp - 0x00a0]       ; 0x26af
     push ax                          ; 0x26b3
-    call aztec_strncat               ; 0x26b4
+    call string_loc_4574             ; 0x26b4
     add sp, byte 4                   ; 0x26b7
     mov ax, 0                        ; 0x26ba
     push ax                          ; 0x26bd
@@ -1445,7 +1437,7 @@ loc_23a8:
     ret                              ; 0x27e8
 loc_27e9:
     mov ax, 0xffe8                   ; 0x27e9
-    call aztec_cret                  ; 0x27ec
+    call aztec_csav                  ; 0x27ec
     mov word [bp - 0x0016], 0        ; 0x27ef
     mov al, byte [data_5987]         ; 0x27f4
     sub ah, ah                       ; 0x27f7
@@ -1857,19 +1849,27 @@ loc_3796:
 
     db 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xa1, 0x72, 0x34, 0x8b, 0xe5, 0x5d, 0xc3
     times 20 db 0
-    db 0xff, 0xff
+    db 0xff, 0xff, 0x55, 0x8b, 0xec, 0xfc, 0x83, 0xec, 0x08, 0x56, 0x57, 0x1e, 0x06, 0x8c, 0xd8, 0x8e
+    db 0xc0, 0x2e, 0x8b, 0x1e, 0x4a, 0x2d, 0x8e, 0xdb, 0x33, 0xd2, 0x8b, 0x5e, 0x04, 0xb9, 0x10, 0x00
+    db 0xb4, 0x3f, 0xcd, 0x21, 0x73, 0x03, 0xe9, 0xa8, 0x00, 0x33, 0xdb, 0x8b, 0x47, 0x0a, 0x33, 0xc9
+    db 0x8a, 0x4f, 0x05, 0xf7, 0xe1, 0x89, 0x46, 0xf8, 0x05, 0x10, 0x01, 0x89, 0x46, 0xfe, 0x89, 0x46
+    db 0xfc, 0x8a, 0x47, 0x02, 0x0a, 0xc0, 0x75, 0x20, 0x8a, 0x57, 0x06, 0xf6, 0xc2, 0x02, 0x74, 0x18
+    db 0x8b, 0x47, 0x0e, 0x32, 0xed, 0x8a, 0x4f, 0x05, 0xf7, 0xe1, 0x01, 0x46, 0xfc, 0x8a, 0x57, 0x06
+    db 0xf6, 0xc2, 0x04, 0x74, 0x03, 0x01, 0x46, 0xfe, 0x8b, 0x56, 0xfc, 0x83, 0xc2, 0x0f, 0xb1, 0x04
+    db 0xd3, 0xea, 0x8b, 0xda, 0xb4, 0x48, 0xcd, 0x21, 0x73, 0x03, 0xe9, 0x80, 0x00, 0xbb, 0x4a, 0x36
+    db 0x8b, 0x4e, 0x06, 0xd1, 0xe1, 0x03, 0xd9, 0x2e, 0x89, 0x07, 0x8e, 0xc0, 0x33, 0xff, 0x33, 0xf6
+    db 0xb9, 0x10, 0x00, 0xf3, 0xa4, 0x8e, 0xd8, 0xba, 0x10, 0x00, 0x8b, 0x5e, 0x04, 0x8b, 0x4e, 0xfe
+    db 0x2b, 0xca
 
-%include "ds/dos_alloc_mem.asm"
+%include "ds/dos_read_file.asm"
 
-@..dos_alloc_mem.l5:
+@..dos_read_file.l2:
     mov ax, cs                       ; 0x392f
     mov ds, ax                       ; 0x3931
     mov dx, 0x373f                   ; 0x3933
 %include "ds/dos_con_loc_3936.asm"
 
 %include "ds/dos_con_loc_3962.asm"
-
-%include "ds/dos_read_file.asm"
 
 
     db 0x55, 0x8b, 0xec, 0xfc, 0x83, 0xec, 0x08, 0x56, 0x57, 0x1e, 0x06, 0x8c, 0xd8, 0x8e, 0xc0, 0x8c
@@ -2010,30 +2010,178 @@ loc_3b96:
 
 %include "ds/bios_kbd_check.asm"
 
-
-    db 0x55, 0x8b, 0xec, 0xfc, 0x06, 0x56, 0x8c, 0xd8, 0x8e, 0xc0, 0x8b, 0x76, 0x04, 0x8b, 0x5e, 0x06
-    db 0x8b, 0xd3, 0xb1, 0x03, 0xd3, 0xeb, 0xb9, 0x07, 0x00, 0x23, 0xca, 0xb0, 0x01, 0xd2, 0xe0, 0x8a
-    db 0xe0, 0xf6, 0xd4, 0x20, 0x20, 0x83, 0x7e, 0x08, 0x00, 0x74, 0x02, 0x08, 0x00, 0x5e, 0x07, 0x8b
-    db 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x06, 0x56, 0x8c, 0xd8, 0x8e, 0xc0, 0x8b, 0x76, 0x04
-    db 0x8b, 0x5e, 0x06, 0x8b, 0xd3, 0xb1, 0x03, 0xd3, 0xeb, 0xb9, 0x07, 0x00, 0x23, 0xca, 0xb0, 0x01
-    db 0xd2, 0xe0, 0x84, 0x00, 0x74, 0x05, 0xb8, 0x01, 0x00, 0xeb, 0x02, 0x33, 0xc0, 0x5e, 0x07, 0x8b
-    db 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x83, 0xec, 0x02, 0x1e, 0x56, 0x06, 0x8c, 0xd8, 0x8e
-    db 0xc0, 0xb8, 0xff, 0xff, 0x8b, 0x4e, 0x08, 0x8a, 0xe9, 0xb1, 0x10, 0x2a, 0xcd, 0xd3, 0xe8, 0x89
-    db 0x46, 0xfe, 0x21, 0x46, 0x0a, 0x8b, 0x76, 0x04, 0x8b, 0x5e, 0x06, 0x8b, 0x46, 0x08, 0xf7, 0xe3
-    db 0x8b, 0xd0, 0x8b, 0xd8, 0xb1, 0x03, 0xd3, 0xeb, 0xb9, 0x07, 0x00, 0x23, 0xca, 0x8b, 0x46, 0xfe
-    db 0xd3, 0xe0, 0xd3, 0x66, 0x0a, 0x8b, 0x56, 0x0a, 0xf7, 0xd0, 0x21, 0x00, 0x09, 0x10, 0x07, 0x5e
-    db 0x1f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x1e, 0x57, 0x56, 0x06, 0x8c, 0xd8, 0x8e
-    db 0xc0, 0xb8, 0xff, 0xff, 0x8b, 0x4e, 0x08, 0x8a, 0xe9, 0xb1, 0x10, 0x2a, 0xcd, 0xd3, 0xe8, 0x8b
-    db 0xf8, 0x8b, 0x76, 0x04, 0x8b, 0x5e, 0x06, 0x8b, 0x46, 0x08, 0xf7, 0xe3, 0x8b, 0xd0, 0x8b, 0xd8
-    db 0xb1, 0x03, 0xd3, 0xeb, 0xb9, 0x07, 0x00, 0x23, 0xca, 0x8b, 0xc7, 0x8b, 0x10, 0xd3, 0xea, 0x23
-    db 0xc2, 0x07, 0x5e, 0x5f, 0x1f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x06, 0x56, 0x8c
-    db 0xd8, 0x8e, 0xc0, 0x8b, 0x5e, 0x04, 0x8b, 0x4e, 0x06, 0xd3, 0xeb, 0x8b, 0x4e, 0x08, 0x8a, 0xe9
-    db 0xb1, 0x10, 0x2a, 0xcd, 0xb8, 0xff, 0xff, 0xd3, 0xe8, 0x23, 0xc3, 0x5e, 0x07, 0x8b, 0xe5, 0x5d
-    db 0xc3
-
-%include "ds/dos_read_file_2.asm"
-
-@..dos_read_file_2.l1:
+    push bp                          ; 0x3e88
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x3e8b
+    push es                          ; 0x3e8c
+    push si                          ; 0x3e8d
+    mov ax, ds                       ; 0x3e8e
+    mov es, ax                       ; 0x3e90
+    mov si, word [bp + 0x4]          ; 0x3e92
+    mov bx, word [bp + 0x6]          ; 0x3e95
+    db 0x8b, 0xd3 ; mov dx, bx
+    mov cl, 3                        ; 0x3e9a
+    shr bx, cl                       ; 0x3e9c
+    mov cx, 7                        ; 0x3e9e
+    db 0x23, 0xca ; and cx, dx
+    mov al, 1                        ; 0x3ea3
+    shl al, cl                       ; 0x3ea5
+    db 0x8a, 0xe0 ; mov ah, al
+    not ah                           ; 0x3ea9
+    and byte [bx + si], ah           ; 0x3eab
+    cmp word [bp + 0x8], byte 0      ; 0x3ead
+    je short loc_3eb5                ; 0x3eb1
+    or byte [bx + si], al            ; 0x3eb3
+    pop si                           ; 0x3eb5
+    pop es                           ; 0x3eb6
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x3eb9
+    ret                              ; 0x3eba
+    push bp                          ; 0x3ebb
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x3ebe
+    push es                          ; 0x3ebf
+    push si                          ; 0x3ec0
+    mov ax, ds                       ; 0x3ec1
+    mov es, ax                       ; 0x3ec3
+    mov si, word [bp + 0x4]          ; 0x3ec5
+    mov bx, word [bp + 0x6]          ; 0x3ec8
+    db 0x8b, 0xd3 ; mov dx, bx
+    mov cl, 3                        ; 0x3ecd
+    shr bx, cl                       ; 0x3ecf
+    mov cx, 7                        ; 0x3ed1
+    db 0x23, 0xca ; and cx, dx
+    mov al, 1                        ; 0x3ed6
+    shl al, cl                       ; 0x3ed8
+    test byte [bx + si], al          ; 0x3eda
+    je short loc_3ee3                ; 0x3edc
+    mov ax, 1                        ; 0x3ede
+    jmp short loc_3ee5               ; 0x3ee1
+    db 0x33, 0xc0 ; xor ax, ax
+    pop si                           ; 0x3ee5
+    pop es                           ; 0x3ee6
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x3ee9
+    ret                              ; 0x3eea
+    push bp                          ; 0x3eeb
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x3eee
+    sub sp, byte 2                   ; 0x3eef
+    push ds                          ; 0x3ef2
+    push si                          ; 0x3ef3
+    push es                          ; 0x3ef4
+    mov ax, ds                       ; 0x3ef5
+    mov es, ax                       ; 0x3ef7
+    mov ax, 0xffff                   ; 0x3ef9
+    mov cx, word [bp + 0x8]          ; 0x3efc
+    db 0x8a, 0xe9 ; mov ch, cl
+    mov cl, 0x10                     ; 0x3f01
+    db 0x2a, 0xcd ; sub cl, ch
+    shr ax, cl                       ; 0x3f05
+    mov word [bp - 0x0002], ax       ; 0x3f07
+    and word [bp + 0xa], ax          ; 0x3f0a
+    mov si, word [bp + 0x4]          ; 0x3f0d
+    mov bx, word [bp + 0x6]          ; 0x3f10
+    mov ax, word [bp + 0x8]          ; 0x3f13
+    mul bx                           ; 0x3f16
+    db 0x8b, 0xd0 ; mov dx, ax
+    db 0x8b, 0xd8 ; mov bx, ax
+    mov cl, 3                        ; 0x3f1c
+    shr bx, cl                       ; 0x3f1e
+    mov cx, 7                        ; 0x3f20
+    db 0x23, 0xca ; and cx, dx
+    mov ax, word [bp - 0x0002]       ; 0x3f25
+    shl ax, cl                       ; 0x3f28
+    shl word [bp + 0xa], cl          ; 0x3f2a
+    mov dx, word [bp + 0xa]          ; 0x3f2d
+    not ax                           ; 0x3f30
+    and word [bx + si], ax           ; 0x3f32
+    or word [bx + si], dx            ; 0x3f34
+    pop es                           ; 0x3f36
+    pop si                           ; 0x3f37
+    pop ds                           ; 0x3f38
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x3f3b
+    ret                              ; 0x3f3c
+    push bp                          ; 0x3f3d
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x3f40
+    push ds                          ; 0x3f41
+    push di                          ; 0x3f42
+    push si                          ; 0x3f43
+    push es                          ; 0x3f44
+    mov ax, ds                       ; 0x3f45
+    mov es, ax                       ; 0x3f47
+    mov ax, 0xffff                   ; 0x3f49
+    mov cx, word [bp + 0x8]          ; 0x3f4c
+    db 0x8a, 0xe9 ; mov ch, cl
+    mov cl, 0x10                     ; 0x3f51
+    db 0x2a, 0xcd ; sub cl, ch
+    shr ax, cl                       ; 0x3f55
+    db 0x8b, 0xf8 ; mov di, ax
+    mov si, word [bp + 0x4]          ; 0x3f59
+    mov bx, word [bp + 0x6]          ; 0x3f5c
+    mov ax, word [bp + 0x8]          ; 0x3f5f
+    mul bx                           ; 0x3f62
+    db 0x8b, 0xd0 ; mov dx, ax
+    db 0x8b, 0xd8 ; mov bx, ax
+    mov cl, 3                        ; 0x3f68
+    shr bx, cl                       ; 0x3f6a
+    mov cx, 7                        ; 0x3f6c
+    db 0x23, 0xca ; and cx, dx
+    db 0x8b, 0xc7 ; mov ax, di
+    mov dx, word [bx + si]           ; 0x3f73
+    shr dx, cl                       ; 0x3f75
+    db 0x23, 0xc2 ; and ax, dx
+    pop es                           ; 0x3f79
+    pop si                           ; 0x3f7a
+    pop di                           ; 0x3f7b
+    pop ds                           ; 0x3f7c
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x3f7f
+    ret                              ; 0x3f80
+    push bp                          ; 0x3f81
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x3f84
+    push es                          ; 0x3f85
+    push si                          ; 0x3f86
+    mov ax, ds                       ; 0x3f87
+    mov es, ax                       ; 0x3f89
+    mov bx, word [bp + 0x4]          ; 0x3f8b
+    mov cx, word [bp + 0x6]          ; 0x3f8e
+    shr bx, cl                       ; 0x3f91
+    mov cx, word [bp + 0x8]          ; 0x3f93
+    db 0x8a, 0xe9 ; mov ch, cl
+    mov cl, 0x10                     ; 0x3f98
+    db 0x2a, 0xcd ; sub cl, ch
+    mov ax, 0xffff                   ; 0x3f9c
+    shr ax, cl                       ; 0x3f9f
+    db 0x23, 0xc3 ; and ax, bx
+    pop si                           ; 0x3fa3
+    pop es                           ; 0x3fa4
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x3fa7
+    ret                              ; 0x3fa8
+    push bp                          ; 0x3fa9
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x3fac
+    push ds                          ; 0x3fad
+    push es                          ; 0x3fae
+    mov ax, ds                       ; 0x3faf
+    mov es, ax                       ; 0x3fb1
+    mov cx, 0x400                    ; 0x3fb3
+    mov bx, word [cs:data_2d4e]      ; 0x3fb6
+    mov ds, bx                       ; 0x3fbb
+    db 0x33, 0xd2 ; xor dx, dx
+    mov bx, word [bp + 0x4]          ; 0x3fbf
+    mov ah, 0x3f                     ; 0x3fc2
+    int 0x21 ; DOS read file (handle)
+    jb short loc_3fce                ; 0x3fc6
+    pop es                           ; 0x3fc8
+    pop ds                           ; 0x3fc9
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x3fcc
+    ret                              ; 0x3fcd
     mov ax, cs                       ; 0x3fce
     mov ds, ax                       ; 0x3fd0
     mov dx, 0x3dde                   ; 0x3fd2
@@ -2043,14 +2191,20 @@ loc_3b96:
 
 %include "ds/string_loc_4046.asm"
 
-%include "ds/strlen.asm"
 
-%include "ds/strlen_2.asm"
-
-
-    db 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x3b, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec
-    db 0xfc, 0x2e, 0xff, 0x1e, 0x37, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff
-    db 0x1e, 0x3f, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3
+    db 0x55, 0x8b, 0xec, 0xfc, 0x06, 0x57, 0x8c, 0xd8, 0x8e, 0xc0, 0xfc, 0x8b, 0x7e, 0x04, 0x8b, 0xdf
+    db 0xb0, 0x00, 0xb9, 0xff, 0xff, 0xf2, 0xae, 0x8b, 0xcf, 0x2b, 0xcb, 0x49, 0x8b, 0xfb, 0x8a, 0x46
+    db 0x06, 0xf2, 0xae, 0x4f, 0x26, 0x3a, 0x05, 0x75, 0x07, 0x8b, 0xc7, 0x2b, 0xc3, 0xe9, 0x03, 0x00
+    db 0xb8, 0xff, 0xff, 0x5f, 0x07, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x83, 0xec, 0x06
+    db 0x1e, 0x06, 0x56, 0x57, 0x8c, 0xd8, 0x8e, 0xc0, 0xfc, 0x8b, 0x7e, 0x04, 0x8b, 0x76, 0x06, 0x8b
+    db 0xdf, 0xb0, 0x00, 0xb9, 0xff, 0xff, 0xf2, 0xae, 0x8b, 0xcf, 0x2b, 0xcb, 0x49, 0x89, 0x4e, 0xfe
+    db 0x8b, 0xfb, 0x8a, 0x04, 0xf2, 0xae, 0x4f, 0x26, 0x3a, 0x05, 0x75, 0x2c, 0x8b, 0xd7, 0x2b, 0xd3
+    db 0x56, 0x57, 0x46, 0x47, 0x8a, 0x04, 0x3c, 0x00, 0x74, 0x18, 0x26, 0x80, 0x3d, 0x00, 0x74, 0x05
+    db 0x26, 0x3a, 0x05, 0x74, 0xed, 0x5f, 0x5e, 0x47, 0x8b, 0x4e, 0xfe, 0x2b, 0xca, 0x49, 0x74, 0x08
+    db 0xeb, 0xd0, 0x5e, 0x5f, 0x8b, 0xc2, 0xeb, 0x03, 0xb8, 0xff, 0xff, 0x5f, 0x5e, 0x07, 0x1f, 0x8b
+    db 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x3b, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3
+    db 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x37, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec
+    db 0xfc, 0x2e, 0xff, 0x1e, 0x3f, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3
 
 loc_415b:
     push bp                          ; 0x415b
@@ -2120,21 +2274,30 @@ loc_4280:
     mov sp, bp                       ; 0x4289
     pop bp                           ; 0x428b
     ret                              ; 0x428c
-%include "ds/bios_mouse_loc_429a.asm"
-
-bios_mouse_loc_429a:
+loc_428d:
+    push bp                          ; 0x428d
+    mov bp, sp                       ; 0x428e
+    cld                              ; 0x4290
+    call far [cs:data_2d8f]          ; 0x4291
+    mov sp, bp                       ; 0x4296
+    pop bp                           ; 0x4298
+    ret                              ; 0x4299
     push bp                          ; 0x429a
-    mov bp, sp                       ; 0x429b
+    db 0x8b, 0xec ; mov bp, sp
     cld                              ; 0x429d
     call far [cs:data_2de3]          ; 0x429e
-    mov sp, bp                       ; 0x42a3
+    db 0x8b, 0xe5 ; mov sp, bp
     pop bp                           ; 0x42a5
     ret                              ; 0x42a6
-%include "ds/mouse_set_pos.asm"
-
-mouse_set_pos:
+    push bp                          ; 0x42a7
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x42aa
+    call far [cs:data_2de7]          ; 0x42ab
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x42b2
+    ret                              ; 0x42b3
     push bp                          ; 0x42b4
-    mov bp, sp                       ; 0x42b5
+    db 0x8b, 0xec ; mov bp, sp
     cld                              ; 0x42b7
     push ds                          ; 0x42b8
     push es                          ; 0x42b9
@@ -2143,33 +2306,99 @@ mouse_set_pos:
     mov ax, ds                       ; 0x42bc
     mov es, ax                       ; 0x42be
     cmp byte [cs:data_2d66], 0       ; 0x42c0
-    je short @..mouse_set_pos.l1     ; 0x42c6
+    je short loc_42d5                ; 0x42c6
     mov cx, word [bp + 0x4]          ; 0x42c8
     shl cx, 1                        ; 0x42cb
     mov dx, word [bp + 0x6]          ; 0x42cd
     mov ax, 4                        ; 0x42d0
     int 0x33 ; BIOS mouse
-@..mouse_set_pos.l1:
     pop di                           ; 0x42d5
     pop si                           ; 0x42d6
     pop es                           ; 0x42d7
     pop ds                           ; 0x42d8
-    mov sp, bp                       ; 0x42d9
+    db 0x8b, 0xe5 ; mov sp, bp
     pop bp                           ; 0x42db
     ret                              ; 0x42dc
+    push bp                          ; 0x42dd
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x42e0
+    call far [cs:data_2deb]          ; 0x42e1
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x42e8
+    ret                              ; 0x42e9
+    push bp                          ; 0x42ea
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x42ed
+    call far [cs:data_2df7]          ; 0x42ee
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x42f5
+    ret                              ; 0x42f6
+    push bp                          ; 0x42f7
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x42fa
+    call far [cs:data_2dfb]          ; 0x42fb
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x4302
+    ret                              ; 0x4303
+    push bp                          ; 0x4304
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x4307
+    call far [cs:data_2dff]          ; 0x4308
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x430f
+    ret                              ; 0x4310
+    push bp                          ; 0x4311
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x4314
+    call far [cs:data_2e03]          ; 0x4315
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x431c
+    ret                              ; 0x431d
+    push bp                          ; 0x431e
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x4321
+    call far [cs:data_2e07]          ; 0x4322
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x4329
+    ret                              ; 0x432a
+    push bp                          ; 0x432b
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x432e
+    call far [cs:data_2e0b]          ; 0x432f
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x4336
+    ret                              ; 0x4337
+    push bp                          ; 0x4338
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x433b
+    call far [cs:data_2e0f]          ; 0x433c
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x4343
+    ret                              ; 0x4344
+    push bp                          ; 0x4345
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x4348
+    call far [cs:data_2e1b]          ; 0x4349
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x4350
+    ret                              ; 0x4351
+    push bp                          ; 0x4352
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x4355
+    call far [cs:data_2e1f]          ; 0x4356
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x435d
+    ret                              ; 0x435e
+    push bp                          ; 0x435f
+    db 0x8b, 0xec ; mov bp, sp
+    cld                              ; 0x4362
+    call far [cs:data_2e2f]          ; 0x4363
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x436a
+    ret                              ; 0x436b
+%include "ds/aztec_ovloader.asm"
 
-    db 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0xeb, 0x2d, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec
-    db 0xfc, 0x2e, 0xff, 0x1e, 0xf7, 0x2d, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff
-    db 0x1e, 0xfb, 0x2d, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0xff, 0x2d
-    db 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x03, 0x2e, 0x8b, 0xe5, 0x5d
-    db 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x07, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b
-    db 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x0b, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e
-    db 0xff, 0x1e, 0x0f, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x1b
-    db 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x1f, 0x2e, 0x8b, 0xe5
-    db 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x2f, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55
-    db 0x8b, 0xec, 0xfc, 0x2e, 0xff, 0x1e, 0x33, 0x2e, 0x8b, 0xe5, 0x5d, 0xc3
-
-loc_4379:
+aztec_ovloader:
     mov bx, sp                       ; 0x4379
     mov ax, word [bx + 0x2]          ; 0x437b
     mov word [data_0cfa], ax         ; 0x437e
@@ -2190,7 +2419,7 @@ loc_4386:
     push ax                          ; 0x439f
     lea ax, word [bp - 0x0052]       ; 0x43a0
     push ax                          ; 0x43a3
-    call aztec_strncat               ; 0x43a4
+    call string_loc_4574             ; 0x43a4
     add sp, byte 4                   ; 0x43a7
     mov ax, 0                        ; 0x43aa
     push ax                          ; 0x43ad
@@ -2326,22 +2555,13 @@ loc_44d4:
     mov sp, bp                       ; 0x44fb
     pop bp                           ; 0x44fd
     ret                              ; 0x44fe
-    push bp                          ; 0x44ff
-    db 0x8b, 0xec ; mov bp, sp
-    mov al, byte [bp + 0x4]          ; 0x4502
-    mov bx, word [data_0cfc]         ; 0x4505
-    inc word [data_0cfc]             ; 0x4509
-    mov byte [bx], al                ; 0x450d
-    cbw                              ; 0x450f
-    and ax, 0xff                     ; 0x4510
-    db 0x8b, 0xe5 ; mov sp, bp
-    pop bp                           ; 0x4515
-    ret                              ; 0x4516
+%include "ds/string_loc_44ff.asm"
+
 %include "ds/aztec_movblock.asm"
 
 %include "ds/aztec_setmem.asm"
 
-%include "ds/aztec_strncat.asm"
+%include "ds/string_loc_4574.asm"
 
 %include "ds/aztec_strcpy.asm"
 
@@ -2351,12 +2571,14 @@ loc_44d4:
 
 %include "ds/aztec_lrealloc.asm"
 
-    db 0x33, 0xc0 ; xor ax, ax
-    db 0x33, 0xd2 ; xor dx, dx
-    jmp short loc_4648               ; 0x464e
     db 0x3a, 0x4b
+%include "ds/aztec_csav.asm"
+
 %include "ds/aztec_cret.asm"
 
+@..aztec_csav.l2:
+    mov sp, bp                       ; 0x4676
+    jmp near aztec_stkover           ; 0x4678
 %include "ds/aztec_realloc.asm"
 
 %include "ds/aztec_malloc.asm"
@@ -2464,124 +2686,32 @@ loc_48fc:
 
 %include "ds/dos_mem_alloc.asm"
 
-    push di                          ; 0x4be6
-    db 0x2b, 0xff ; sub di, di
-    test dx, dx                      ; 0x4be9
-    jns short loc_4bf5               ; 0x4beb
-    neg dx                           ; 0x4bed
-    neg ax                           ; 0x4bef
-    sbb dx, byte 0                   ; 0x4bf1
-    inc di                           ; 0x4bf4
-    test bx, bx                      ; 0x4bf5
-    jns short loc_4c04               ; 0x4bf7
-    neg bx                           ; 0x4bf9
-    neg cx                           ; 0x4bfb
-    sbb bx, byte 0                   ; 0x4bfd
-    xor di, 1                        ; 0x4c00
-    call aztec_lud                   ; 0x4c04
+
+    db 0x57, 0x2b, 0xff, 0x85, 0xd2, 0x79, 0x08, 0xf7, 0xda, 0xf7, 0xd8, 0x83, 0xda, 0x00, 0x47, 0x85
+    db 0xdb, 0x79, 0x0b, 0xf7, 0xdb, 0xf7, 0xd9, 0x83, 0xdb, 0x00, 0x81, 0xf7, 0x01, 0x00, 0xe8, 0x39
+    db 0x00
+
+@..aztec_lrm.l1:
     test di, di                      ; 0x4c07
-    je short loc_4c12                ; 0x4c09
+    je short @..aztec_lrm.l2         ; 0x4c09
     neg dx                           ; 0x4c0b
     neg ax                           ; 0x4c0d
     sbb dx, byte 0                   ; 0x4c0f
+@..aztec_lrm.l2:
     pop di                           ; 0x4c12
     ret                              ; 0x4c13
-    push di                          ; 0x4c14
-    mov di, 0                        ; 0x4c15
-    test dx, dx                      ; 0x4c18
-    jns short loc_4c24               ; 0x4c1a
-    neg dx                           ; 0x4c1c
-    neg ax                           ; 0x4c1e
-    sbb dx, byte 0                   ; 0x4c20
-    inc di                           ; 0x4c23
-    test bx, bx                      ; 0x4c24
-    jns short loc_4c2f               ; 0x4c26
-    neg bx                           ; 0x4c28
-    neg cx                           ; 0x4c2a
-    sbb bx, byte 0                   ; 0x4c2c
-    call aztec_lud                   ; 0x4c2f
-    db 0x8b, 0xc1 ; mov ax, cx
-    db 0x8b, 0xd3 ; mov dx, bx
-    jmp short loc_4c07               ; 0x4c36
+%include "ds/aztec_lrm.asm"
+
 %include "ds/aztec_lum.asm"
 
 %include "ds/aztec_lud.asm"
 
-    div cx                           ; 0x4c5b
-    db 0x8b, 0xca ; mov cx, dx
-    db 0x8b, 0xd3 ; mov dx, bx
-    ret                              ; 0x4c61
-    push di                          ; 0x4c62
-    push si                          ; 0x4c63
-    db 0x8b, 0xf1 ; mov si, cx
-    db 0x8b, 0xfb ; mov di, bx
-    push dx                          ; 0x4c68
-    push ax                          ; 0x4c69
-    test bh, bh                      ; 0x4c6a
-    je short loc_4c7c                ; 0x4c6c
-    db 0x8a, 0xcd ; mov cl, ch
-    db 0x8a, 0xeb ; mov ch, bl
-    db 0x8a, 0xdf ; mov bl, bh
-    db 0x8a, 0xc4 ; mov al, ah
-    db 0x8a, 0xe2 ; mov ah, dl
-    db 0x8a, 0xd6 ; mov dl, dh
-    db 0x2a, 0xf6 ; sub dh, dh
-    shr dx, 1                        ; 0x4c7c
-    rcr ax, 1                        ; 0x4c7e
-    shr bl, 1                        ; 0x4c80
-    rcr cx, 1                        ; 0x4c82
-    test bl, bl                      ; 0x4c84
-    jne short loc_4c7c               ; 0x4c86
-    div cx                           ; 0x4c88
-    db 0x8b, 0xc8 ; mov cx, ax
-    mul si                           ; 0x4c8c
-    db 0x8b, 0xda ; mov bx, dx
-    push ax                          ; 0x4c90
-    db 0x8b, 0xc1 ; mov ax, cx
-    mul di                           ; 0x4c93
-    db 0x03, 0xd8 ; add bx, ax
-    jae short loc_4cc0               ; 0x4c97
-    dec cx                           ; 0x4c99
-    pop ax                           ; 0x4c9a
-    db 0x8b, 0xc1 ; mov ax, cx
-    mul di                           ; 0x4c9d
-    db 0x8b, 0xd8 ; mov bx, ax
-    db 0x8b, 0xc1 ; mov ax, cx
-    mul si                           ; 0x4ca3
-    db 0x03, 0xda ; add bx, dx
-    mov es, cx                       ; 0x4ca7
-    db 0x8b, 0xc8 ; mov cx, ax
-    pop ax                           ; 0x4cab
-    pop dx                           ; 0x4cac
-    db 0x2b, 0xc8 ; sub cx, ax
-    db 0x1b, 0xda ; sbb bx, dx
-    not cx                           ; 0x4cb1
-    not bx                           ; 0x4cb3
-    add cx, byte 1                   ; 0x4cb5
-    adc bx, byte 0                   ; 0x4cb8
-    mov ax, es                       ; 0x4cbb
-    jmp near loc_4cd2                ; 0x4cbd
-    db 0x8b, 0xd3 ; mov dx, bx
-    db 0x8b, 0xc1 ; mov ax, cx
-    pop bx                           ; 0x4cc4
-    pop cx                           ; 0x4cc5
-    db 0x2b, 0xcb ; sub cx, bx
-    pop bx                           ; 0x4cc8
-    db 0x1b, 0xda ; sbb bx, dx
-    jae short loc_4cd2               ; 0x4ccb
-    db 0x03, 0xce ; add cx, si
-    db 0x13, 0xdf ; adc bx, di
-    dec ax                           ; 0x4cd1
-    db 0x2b, 0xd2 ; sub dx, dx
-    pop si                           ; 0x4cd4
-    pop di                           ; 0x4cd5
-    ret                              ; 0x4cd6
 %include "ds/aztec_strlen.asm"
 
 %include "ds/aztec_sys.asm"
 
     times 4 db 0
-%include "ds/entry_point.asm"
+%include "ds/aztec_begin.asm"
 
 dos_proc_loc_4e7e:
     pop ax                           ; 0x4e7e
@@ -2615,25 +2745,13 @@ loc_4f73:
     ret                              ; 0x4f84
 %include "ds/leaf_loc_4f85.asm"
 
-@..aztec_cret.l3:
-    mov ax, 0x24                     ; 0x4f87
-    push ax                          ; 0x4f8a
-    mov ax, 0xcae                    ; 0x4f8b
-    push ax                          ; 0x4f8e
-    mov ax, data_0002                ; 0x4f8f
-    push ax                          ; 0x4f92
-    call leaf_loc_4fbd               ; 0x4f93
-    add sp, byte 6                   ; 0x4f96
-    mov ax, 0x64                     ; 0x4f99
-    push ax                          ; 0x4f9c
-    call dos_proc_loc_4e7e           ; 0x4f9d
-    pop cx                           ; 0x4fa0
-    ret                              ; 0x4fa1
+%include "ds/aztec_stkover.asm"
+
 %include "ds/aztec_read.asm"
 
 %include "ds/leaf_loc_4fb6.asm"
 
-%include "ds/leaf_loc_4fbd.asm"
+%include "ds/aztec_write.asm"
 
 %include "ds/aztec_close.asm"
 
@@ -2641,14 +2759,8 @@ loc_4f73:
 
 %include "ds/aztec_unlink.asm"
 
-    db 0x2b, 0xc0 ; sub ax, ax
-    pop bp                           ; 0x5039
-    ret                              ; 0x503a
 %include "ds/aztec_rename.asm"
 
-    db 0x2b, 0xc0 ; sub ax, ax
-    pop bp                           ; 0x505a
-    ret                              ; 0x505b
 %include "ds/aztec_tty_rd.asm"
 
 %include "ds/aztec_tty_wr.asm"
@@ -2659,7 +2771,7 @@ loc_4f73:
 
 %include "ds/aztec_sbrk.asm"
 
-%include "ds/dos_mem_loc_51bc.asm"
+%include "ds/aztec_brk.asm"
 
 %include "ds/aztec_rsvstk.asm"
 

@@ -1624,6 +1624,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'bare_call': bare_call,
         'bare_dbc': bare_dbc,
         'code_loss': code_loss,
+        'aztec_labels': (
+            sum(1 for n in label_map.values()
+                if isinstance(n, str) and n.startswith('aztec_'))
+            if label_map else 0
+        ),
         'status': 'OK',
         'timing_func_boundaries': t1 - t0,
         'timing_local_labels': t2 - t1,

@@ -9,6 +9,6 @@ from lib.phases.settle import SettlePhase
 from lib.phases.arbiter import ArbiterPhase
 from lib.phases.forcecode import ForceCodePhase
 from lib.phases.pattern_seed import PatternSeedPhase
-from lib.phases.borland_overlay import BorlandOverlayPhase
+from lib.phases.aztec_overlay import AztecOverlayPhase
 from lib.phases.dispatch import DispatchTablePhase
 from lib.phases.cascade import CascadeTargetPhase

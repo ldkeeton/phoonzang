@@ -10,7 +10,7 @@ _PHASE_WEIGHTS = {
     'recursive': 5,
     'force_code': 5,
     'dispatch_table': 3,
-    'borland_overlay': 4,
+    'aztec_overlay': 4,
     'trampoline': 3,
     'prune_dead': 3,
     'prune_zero': 3,

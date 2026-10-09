@@ -16,7 +16,7 @@ loc_2cf5:
     mov ax, si                       ; 0x2cf9
     add si, byte 0x0d                ; 0x2cfb
     push ax                          ; 0x2cfe
-    call loc_2d0b                    ; 0x2cff
+    call aztec_fclose                ; 0x2cff
     pop cx                           ; 0x2d02
     cmp si, data_244e                ; 0x2d03
     jb short @..local.l50            ; 0x2d07

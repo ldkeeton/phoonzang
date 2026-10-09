@@ -1,17 +1,24 @@
+aztec_lrealloc:
     push bp                          ; 0x4625
-    db 0x8b, 0xec ; mov bp, sp
+    mov bp, sp                       ; 0x4626
     mov ax, word [bp + 0x8]          ; 0x4628
     mov dx, word [bp + 0xa]          ; 0x462b
     mov cx, 4                        ; 0x462e
+@..aztec_lrealloc.l1:
     shr dx, 1                        ; 0x4631
     rcr ax, 1                        ; 0x4633
-    loop loc_4631                    ; 0x4635
-    db 0x8b, 0xd8 ; mov bx, ax
+    loop @..aztec_lrealloc.l1        ; 0x4635
+    mov bx, ax                       ; 0x4637
     mov ah, 0x4a                     ; 0x4639
     mov es, word [bp + 0x6]          ; 0x463b
     int 0x21 ; DOS resize memory block
-    jb short loc_464a                ; 0x4640
+    jb short @..aztec_lrealloc.l3    ; 0x4640
     mov ax, word [bp + 0x4]          ; 0x4642
     mov dx, word [bp + 0x6]          ; 0x4645
+@..aztec_lrealloc.l2:
     pop bp                           ; 0x4648
     ret                              ; 0x4649
+@..aztec_lrealloc.l3:
+    xor ax, ax                       ; 0x464a
+    xor dx, dx                       ; 0x464c
+    jmp short @..aztec_lrealloc.l2   ; 0x464e

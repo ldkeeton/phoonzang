@@ -94,7 +94,7 @@ api_idx_006a:
     push ax                          ; 0xac87
     lea ax, word [bp - 0x0056]       ; 0xac88
     push ax                          ; 0xac8b
-    call string_loc_ae94             ; 0xac8c
+    call aztec_strncmp               ; 0xac8c
     add sp, byte 6                   ; 0xac8f
     test ax, ax                      ; 0xac92
     je short @..api_idx_006a.l3      ; 0xac94

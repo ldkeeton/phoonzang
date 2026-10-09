@@ -207,6 +207,13 @@
       "notes": "INT 33h AX=0x0004 set mouse cursor position",
       "entries": [],
       "patterns": ["B8 04 00 CD 33"]
+    },
+    {
+      "name": "aztec_begin",
+      "notes": "Aztec C86 small-model startup ($begin, SBEGIN.ASM) as linked here; the C.LIB sbegin.o is patched with an extra CS:PSP save, so the library bytes differ",
+      "entries": [],
+      "entry_offset": 0,
+      "patterns": ["BD F6 0F 85 ED 75 02 8C DD 2E 8C 1E 38 4B 8B 1E 02 00 2B DD 81 FB 00 10"]
     }
   ]
 }

@@ -1,4 +1,4 @@
-dos_file_loc_4fac:
+leaf_loc_4fac:
     push bp                          ; 0x4fac
     mov bp, sp                       ; 0x4fad
     mov ah, 0x40                     ; 0x4faf

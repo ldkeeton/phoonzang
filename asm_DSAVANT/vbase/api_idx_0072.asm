@@ -114,7 +114,7 @@ api_idx_0072:
     push ax                          ; 0x20b5
     mov ax, 0x91c6                   ; 0x20b6
     push ax                          ; 0x20b9
-    call aztec_strncmp               ; 0x20ba
+    call aztec_strcmp                ; 0x20ba
     add sp, byte 4                   ; 0x20bd
     test ax, ax                      ; 0x20c0
     jne short @..api_idx_0072.l5     ; 0x20c2
@@ -130,7 +130,7 @@ api_idx_0072:
     push ax                          ; 0x20d7
     mov ax, 0x91c6                   ; 0x20d8
     push ax                          ; 0x20db
-    call aztec_strncmp               ; 0x20dc
+    call aztec_strcmp                ; 0x20dc
     add sp, byte 4                   ; 0x20df
     test ax, ax                      ; 0x20e2
     je short @..api_idx_0072.l6      ; 0x20e4

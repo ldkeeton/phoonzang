@@ -1,1 +1,8 @@
-    db 0x55, 0x8b, 0xec, 0x8b, 0xc4, 0x2b, 0x46, 0x04, 0xa3, 0xd6, 0x0c, 0x5d, 0xc3
+aztec_rsvstk:
+    push bp                          ; 0x5248
+    mov bp, sp                       ; 0x5249
+    mov ax, sp                       ; 0x524b
+    sub ax, word [bp + 0x4]          ; 0x524d
+    mov word [data_0cd6], ax         ; 0x5250
+    pop bp                           ; 0x5253
+    ret                              ; 0x5254

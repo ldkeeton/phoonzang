@@ -40,7 +40,7 @@ api_idx_0058:
     lea ax, word [bp - 0x002c]       ; 0x8a07
     push ax                          ; 0x8a0a
     push word [bp + 0x4]             ; 0x8a0b
-    call string_loc_ae94             ; 0x8a0e
+    call aztec_strncmp               ; 0x8a0e
     add sp, byte 6                   ; 0x8a11
     test ax, ax                      ; 0x8a14
     jne short @..api_idx_0058.l2     ; 0x8a16
@@ -66,7 +66,7 @@ api_idx_0058:
     lea ax, word [bp - 0x0054]       ; 0x8a3f
     push ax                          ; 0x8a42
     push word [bp + 0x4]             ; 0x8a43
-    call string_loc_ae94             ; 0x8a46
+    call aztec_strncmp               ; 0x8a46
     add sp, byte 6                   ; 0x8a49
     test ax, ax                      ; 0x8a4c
     jne short @..api_idx_0058.l3     ; 0x8a4e

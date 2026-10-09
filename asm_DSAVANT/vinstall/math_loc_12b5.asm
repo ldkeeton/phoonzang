@@ -72,7 +72,7 @@ math_loc_12b5:
     add sp, byte 4                   ; 0x1358
     lea ax, word [bp - 0x02d6]       ; 0x135b
     push ax                          ; 0x135f
-    call strlen                      ; 0x1360
+    call aztec_strlen                ; 0x1360
     pop cx                           ; 0x1363
     cmp ax, strict word 1            ; 0x1364
     jne short @..math_loc_12b5.l1    ; 0x1367

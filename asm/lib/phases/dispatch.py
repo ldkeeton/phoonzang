@@ -31,7 +31,7 @@ class DispatchTablePhase(Phase):
     """Extract handler targets from dispatch table entries; do NOT mark entry bytes as code."""
 
     contract = PhaseContract(
-        input_slot='borland_overlay',
+        input_slot='aztec_overlay',
         output_slot='dispatch_table',
         writes_columns=['dispatch_table'],
         reads_ctx=['sidecar_entry', 'binary_data', 'seeds', 'code_targets',

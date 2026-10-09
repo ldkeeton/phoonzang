@@ -123,7 +123,7 @@ api_idx_0038_2:
     push ax                          ; 0x310f
     mov ax, 0x91c6                   ; 0x3110
     push ax                          ; 0x3113
-    call aztec_strncmp               ; 0x3114
+    call aztec_strcmp                ; 0x3114
     add sp, byte 4                   ; 0x3117
     test ax, ax                      ; 0x311a
     jne short @..api_idx_0038_2.l7   ; 0x311c
@@ -139,7 +139,7 @@ api_idx_0038_2:
     push ax                          ; 0x3131
     mov ax, 0x91c6                   ; 0x3132
     push ax                          ; 0x3135
-    call aztec_strncmp               ; 0x3136
+    call aztec_strcmp                ; 0x3136
     add sp, byte 4                   ; 0x3139
     test ax, ax                      ; 0x313c
     je short @..api_idx_0038_2.l8    ; 0x313e

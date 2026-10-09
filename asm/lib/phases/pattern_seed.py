@@ -3,11 +3,8 @@ import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.model import PhaseContext, SeedInfo, TargetInfo
-from lib.match.pattern import _call_target_entry_prefix
+from lib.match.pattern import anchor_signature
 from lib.pipeline.phase import Phase, PhaseContract
-
-
-_TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
 
 
 def _discard_stale_prologue_seed(ctx, address):
@@ -59,6 +56,7 @@ class PatternSeedPhase(Phase):
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = False
 
+        known_targets = set(ctx.code_targets.keys())
         name_count = {}
 
         for sig in self.known_db.get('signatures', []):
@@ -78,60 +76,36 @@ class PatternSeedPhase(Phase):
                         idx += len(pat_bytes)
                         continue
 
-                    matched = False
-                    for i in range(min(256, idx), 0, -1):
-                        p = idx - i
-                        if data[p] != 0x55:
-                            continue
-                        try:
-                            prev_insns = list(md.disasm(data[p:idx], p))
-                        except Exception:
-                            prev_insns = []
-                        if not (prev_insns and prev_insns[-1].address + prev_insns[-1].size == idx):
-                            continue
+                    anchored = anchor_signature(
+                        data, idx, sig, known_targets, md, self.max_func_size,
+                        window_len=len(pat_bytes))
+                    if anchored is None:
+                        idx += len(pat_bytes)
+                        continue
 
-                        func_start = _call_target_entry_prefix(
-                            data, p,
-                            (address for address, target in ctx.code_targets.items()
-                             if target.reason == 'direct_call'),
-                            md,
+                    func_start, _ = anchored
+                    if func_start in ctx.label_map:
+                        # First match wins (Aztec/known precedence over reuse).
+                        idx += len(pat_bytes)
+                        continue
+
+                    if func_start != idx:
+                        _discard_stale_prologue_seed(ctx, idx)
+
+                    n_label = name_count.get(name, 0) + 1
+                    name_count[name] = n_label
+                    label = f'{name}_{n_label}' if n_label > 1 else name
+
+                    ctx.label_map[func_start] = label
+                    ctx.seeds.append(SeedInfo(
+                        address=func_start, source_phase='pattern_seed',
+                        confidence=1.0, reason=label,
+                    ))
+                    if func_start not in ctx.code_targets:
+                        ctx.code_targets[func_start] = TargetInfo(
+                            address=func_start, reason='pattern_seed',
+                            confidence=1.0, source_offset=-1,
                         )
-                        if func_start is None:
-                            func_start = p
-
-                        max_end = min(func_start + self.max_func_size, n)
-                        try:
-                            insns = list(md.disasm(data[func_start:max_end], func_start))
-                        except Exception:
-                            insns = []
-                        func_end = max_end
-                        for insn in insns:
-                            if insn.mnemonic in _TERMINATORS:
-                                func_end = insn.address + insn.size
-                                break
-
-                        if (func_start <= idx < func_end
-                                and func_end <= func_start + self.max_func_size
-                                and not ctx.hard_data[func_start:func_end].any()):
-                            matched = True
-                            break
-
-                    if matched:
-                        n_label = name_count.get(name, 0) + 1
-                        name_count[name] = n_label
-                        label = f'{name}_{n_label}' if n_label > 1 else name
-                        if func_start < p:
-                            _discard_stale_prologue_seed(ctx, p)
-                        ctx.label_map[func_start] = label
-                        ctx.seeds.append(SeedInfo(
-                            address=func_start, source_phase='pattern_seed',
-                            confidence=1.0, reason=label,
-                        ))
-                        if func_start not in ctx.code_targets:
-                            ctx.code_targets[func_start] = TargetInfo(
-                                address=func_start, reason='pattern_seed',
-                                confidence=1.0, source_offset=-1,
-                            )
 
                     idx += len(pat_bytes)
 

@@ -62,7 +62,7 @@ aztec_Croot:
     push ax                          ; 0x4f26
     mov ax, data_0002                ; 0x4f27
     push ax                          ; 0x4f2a
-    call leaf_loc_4fbd               ; 0x4f2b
+    call aztec_write                 ; 0x4f2b
     add sp, byte 6                   ; 0x4f2e
     mov ax, 0xc8                     ; 0x4f31
     push ax                          ; 0x4f34

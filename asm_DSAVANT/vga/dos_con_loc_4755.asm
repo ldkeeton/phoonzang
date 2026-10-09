@@ -32,7 +32,7 @@ loc_478a:
     mov word [bp - 0x0006], ax       ; 0x47b9
     mov ax, word [cs:bx]             ; 0x47bc
     or ax, ax                        ; 0x47bf
-    je short @..local.l11            ; 0x47c1
+    je short @..local.l3             ; 0x47c1
     dec ax                           ; 0x47c3
     shl ax, 1                        ; 0x47c4
     shl ax, 1                        ; 0x47c6
@@ -42,10 +42,10 @@ loc_478a:
     push word [bp - 0x0008]          ; 0x47d0
     xor ax, ax                       ; 0x47d3
     cmp word [bp - 0x0006], byte 0   ; 0x47d5
-    je short @..local.l10            ; 0x47d9
+    je short @..local.l2             ; 0x47d9
     mov ax, word [cs:bx]             ; 0x47db
     add ax, word [cs:data_01e1]      ; 0x47de
-@..local.l10:
+@..local.l2:
     push ax                          ; 0x47e3
     xor ax, ax                       ; 0x47e4
     push ax                          ; 0x47e6
@@ -63,7 +63,7 @@ loc_478a:
     push word [bp - 0x0006]          ; 0x480c
     call far [cs:data_0206]          ; 0x480f
     add sp, byte 6                   ; 0x4814
-@..local.l11:
+@..local.l3:
     pop di                           ; 0x4817
     pop si                           ; 0x4818
     pop es                           ; 0x4819

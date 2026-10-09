@@ -14,7 +14,7 @@ aztec_sbrk:
     jb short @..aztec_sbrk.l4        ; 0x3a1c
 @..aztec_sbrk.l2:
     push ax                          ; 0x3a1e
-    call dos_mem_loc_3a39            ; 0x3a1f
+    call aztec_brk                   ; 0x3a1f
     pop cx                           ; 0x3a22
     test ax, ax                      ; 0x3a23
     jne short @..aztec_sbrk.l3       ; 0x3a25

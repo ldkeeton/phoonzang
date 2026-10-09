@@ -17,7 +17,7 @@ Schema
       "binaries": {
         "<short_name>": {
           "file": "FILENAME.EXT",
-          "type": "mz | borland_overlay | raw_drv",
+          "type": "mz | aztec_overlay | raw_drv",
           "start_offset": 512,
 
           "fingerprint-start": "sha256_of_first_512_bytes",
@@ -51,7 +51,7 @@ import os
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SIDECAR_DIR = os.path.join(ASM_DIR, 'sidecar')
 
-_BINARY_TYPES = {'mz', 'borland_overlay', 'raw_drv'}
+_BINARY_TYPES = {'mz', 'aztec_overlay', 'raw_drv'}
 
 
 class SidecarError(Exception):

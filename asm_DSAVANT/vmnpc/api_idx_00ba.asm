@@ -73,7 +73,7 @@ api_idx_00ba:
     add ax, cx                       ; 0xab44
     push ax                          ; 0xab46
     push bx                          ; 0xab47
-    call string_loc_ae94             ; 0xab48
+    call aztec_strncmp               ; 0xab48
     add sp, byte 6                   ; 0xab4b
     test ax, ax                      ; 0xab4e
     jne short @..api_idx_00ba.l4     ; 0xab50

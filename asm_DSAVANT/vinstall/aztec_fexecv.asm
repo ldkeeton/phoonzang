@@ -76,7 +76,7 @@ aztec_fexecv:
     mov ax, 0                        ; 0x29c6
     push ax                          ; 0x29c9
     push word [bp + 0x4]             ; 0x29ca
-    call leaf_loc_2a27               ; 0x29cd
+    call aztec_fexec                 ; 0x29cd
     add sp, byte 0x0a                ; 0x29d0
     pop si                           ; 0x29d3
     pop di                           ; 0x29d4

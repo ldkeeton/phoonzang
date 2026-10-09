@@ -1,4 +1,5 @@
+aztec_lum:
     call aztec_lud                   ; 0x4c38
-    db 0x8b, 0xc1 ; mov ax, cx
-    db 0x8b, 0xd3 ; mov dx, bx
+    mov ax, cx                       ; 0x4c3b
+    mov dx, bx                       ; 0x4c3d
     ret                              ; 0x4c3f

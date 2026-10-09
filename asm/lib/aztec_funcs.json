@@ -1,27 +1,47 @@
 {
   "version": 1,
-  "source": "Manx Aztec C86 v5.2a runtime libraries (C/M/MS/S)",
+  "source": "Manx Aztec C86 v5.2a runtime libraries (C/M/MS/S + overlay OVLD/OVLDPATH/OVBGN)",
   "signatures": [
     {
       "name": "aztec_Croot",
-      "notes": "Aztec C86 v5.2a runtime Croot (entry+0, 10 bytes)",
+      "notes": "Aztec C86 v5.2a runtime Croot (entry+0, 12 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 57 56 8B 76 04 B8 00"
+        "55 8B EC 57 56 8B 76 04 B8 00 00 50"
       ]
     },
     {
       "name": "aztec_assert",
-      "notes": "Aztec C86 v5.2a runtime assert (entry+3, 8 bytes)",
+      "notes": "Aztec C86 v5.2a runtime assert (entry+6, 6 bytes)",
       "entries": [],
+      "entry_offset": 6,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC FF 76 06",
       "patterns": [
-        "FF 76 06 FF 76 08 FF 76"
+        "FF 76 08 FF 76 04"
+      ]
+    },
+    {
+      "name": "aztec_atexit",
+      "notes": "Aztec C86 v5.2a runtime atexit (entry+38, 6 bytes)",
+      "entries": [],
+      "entry_offset": 38,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 56 B8 04 00 50 E8 00 00 59 8B F0 85 F6 75 08 B8 FF FF 5E 8B E5 5D C3 A1 00 00 89 04 89 36 00 00 8B 46 04",
+      "patterns": [
+        "89 44 02 B8 00 00"
       ]
     },
     {
       "name": "aztec_atoi",
       "notes": "Aztec C86 v5.2a runtime atoi (entry+0, 24 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 83 C4 FE 57 56 8B 76 04 80 3C 20 74 05 80 3C 09 75 03 46 EB F3"
       ]
@@ -30,30 +50,53 @@
       "name": "aztec_atol",
       "notes": "Aztec C86 v5.2a runtime atol (entry+0, 24 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 83 C4 FC 57 56 8B 76 04 80 3C 20 74 05 80 3C 09 75 03 46 EB F3"
       ]
     },
     {
       "name": "aztec_bdos",
-      "notes": "Aztec C86 v5.2a runtime bdos (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime bdos (entry+0, 28 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 06 8B 46 04 84 E4 75 02 86 E0 8B 56 06 8B 4E 08 CD 21 8C C2 07"
+        "55 8B EC 06 8B 46 04 84 E4 75 02 86 E0 8B 56 06 8B 4E 08 CD 21 8C C2 07 25 FF 00 5D"
+      ]
+    },
+    {
+      "name": "aztec_begin",
+      "notes": "Aztec C86 v5.2a runtime begin (entry+3, 6 bytes)",
+      "entries": [],
+      "entry_offset": 3,
+      "has_prologue": false,
+      "entry_prefix": "BD 00 00",
+      "patterns": [
+        "85 ED 75 02 8C DD"
       ]
     },
     {
       "name": "aztec_brk",
-      "notes": "Aztec C86 v5.2a runtime brk (entry+0, 10 bytes)",
+      "notes": "Aztec C86 v5.2a runtime brk (entry+1, 8 bytes)",
       "entries": [],
+      "entry_offset": 1,
+      "has_prologue": true,
+      "entry_prefix": "55",
       "patterns": [
-        "55 8B EC 8B 46 04 40 24 FE 3B"
+        "8B EC 8B 46 04 40 24 FE"
       ]
     },
     {
       "name": "aztec_calloc",
       "notes": "Aztec C86 v5.2a runtime calloc (entry+0, 8 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 57 56 8B 46 04"
       ]
@@ -62,190 +105,251 @@
       "name": "aztec_close",
       "notes": "Aztec C86 v5.2a runtime close (entry+0, 12 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC B4 3E 8B 5E 04 CD 21 73 08"
       ]
     },
     {
       "name": "aztec_creat",
-      "notes": "Aztec C86 v5.2a runtime creat (entry+0, 20 bytes)",
+      "notes": "Aztec C86 v5.2a runtime creat (entry+0, 16 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC FF 76 06 B8 01 03 50 FF 76 04 E8 07 00 83 C4 06 8B"
+        "55 8B EC FF 76 06 B8 01 03 50 FF 76 04 E8 07 00"
       ]
     },
     {
       "name": "aztec_cret",
       "notes": "Aztec C86 v5.2a runtime cret (entry+0, 8 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": false,
+      "entry_prefix": "",
       "patterns": [
         "5E 5F 8B E5 5D C3 8B E5"
       ]
     },
     {
       "name": "aztec_csav",
-      "notes": "Aztec C86 v5.2a runtime csav (entry+0, 12 bytes)",
+      "notes": "Aztec C86 v5.2a runtime csav (entry+0, 10 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": false,
+      "entry_prefix": "",
       "patterns": [
-        "5B 55 8B EC 03 E0 3B E5 77 1A 3B 26"
+        "5B 55 8B EC 03 E0 3B E5 77 1A"
       ]
     },
     {
       "name": "aztec_csread",
       "notes": "Aztec C86 v5.2a runtime csread (entry+0, 24 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 8B 5E 04 1E 8B 56 06 8B 4E 08 8C C8 8E D8 B4 3F CD 21 1F 73 06"
       ]
     },
     {
-      "name": "aztec_div",
-      "notes": "Aztec C86 v5.2a runtime div (entry+0, 12 bytes)",
-      "entries": [],
-      "patterns": [
-        "55 8B EC 83 C4 FC 57 56 8B 76 04 8B"
-      ]
-    },
-    {
       "name": "aztec_exit",
-      "notes": "Aztec C86 v5.2a runtime exit (entry+0, 8 bytes)",
+      "notes": "Aztec C86 v5.2a runtime exit (entry+0, 6 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "58 58 B4 4C CD 21 2E FF"
+        "58 58 B4 4C CD 21"
       ]
     },
     {
       "name": "aztec_fcbinit",
       "notes": "Aztec C86 v5.2a runtime fcbinit (entry+0, 20 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 57 56 8C DF 8E C7 8B 76 04 8B 7E 06 B8 00 29 CD 21"
       ]
     },
     {
-      "name": "aztec_fexec",
-      "notes": "Aztec C86 v5.2a runtime fexec (entry+0, 12 bytes)",
+      "name": "aztec_fclose",
+      "notes": "Aztec C86 v5.2a runtime fclose (entry+6, 10 bytes)",
       "entries": [],
+      "entry_offset": 6,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 F2",
       "patterns": [
-        "55 8B EC 56 57 9C FF 36 30 00 FF 36"
+        "57 56 8B 76 04 BF 00 00 85 F6"
+      ]
+    },
+    {
+      "name": "aztec_fexec",
+      "notes": "Aztec C86 v5.2a runtime fexec (entry+0, 10 bytes)",
+      "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
+      "patterns": [
+        "55 8B EC 56 57 9C FF 36 30 00"
       ]
     },
     {
       "name": "aztec_fexecv",
-      "notes": "Aztec C86 v5.2a runtime fexecv (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime fexecv (entry+0, 18 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 81 C4 5C FF 57 56 8D B6 7D FF C7 46 FE 01 00 8D 86 6C FF 50 B8"
-      ]
-    },
-    {
-      "name": "aztec_fgets",
-      "notes": "Aztec C86 v5.2a runtime fgets (entry+27, 8 bytes)",
-      "entries": [],
-      "patterns": [
-        "59 89 46 FE 3D FF FF 74"
+        "55 8B EC 81 C4 5C FF 57 56 8D B6 7D FF C7 46 FE 01 00"
       ]
     },
     {
       "name": "aztec_filbuf",
-      "notes": "Aztec C86 v5.2a runtime filbuf (entry+37, 12 bytes)",
+      "notes": "Aztec C86 v5.2a runtime filbuf (entry+38, 10 bytes)",
       "entries": [],
+      "entry_offset": 38,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 FC 57 56 8B 76 04 85 F6 74 19 8B 44 06 89 46 FE 85 C0 74 0F A9 02 00 75 0A A9 00 04 75 05 A9 08 00",
       "patterns": [
-        "00 74 09 B8 FF FF 5E 5F 8B E5 5D C3"
+        "74 09 B8 FF FF 5E 5F 8B E5 5D"
       ]
     },
     {
       "name": "aztec_fputs",
-      "notes": "Aztec C86 v5.2a runtime fputs (entry+24, 18 bytes)",
+      "notes": "Aztec C86 v5.2a runtime fputs (entry+25, 16 bytes)",
       "entries": [],
+      "entry_offset": 25,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 FE 57 56 8B 76 04 8B 7E 06 EB 1B 57 8A 46 FF 98 50 E8 00 00",
       "patterns": [
-        "00 83 C4 04 3D FF FF 75 09 B8 FF FF 5E 5F 8B E5 5D C3"
+        "83 C4 04 3D FF FF 75 09 B8 FF FF 5E 5F 8B E5 5D"
       ]
     },
     {
       "name": "aztec_free",
       "notes": "Aztec C86 v5.2a runtime free (entry+18, 10 bytes)",
       "entries": [],
+      "entry_offset": 18,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 56 83 7E 04 00 75 08 B8 00 00 5E 8B E5 5D C3",
       "patterns": [
         "8B 76 04 83 C6 FE F7 04 01 00"
       ]
     },
     {
       "name": "aztec_freopen",
-      "notes": "Aztec C86 v5.2a runtime freopen (entry+39, 8 bytes)",
+      "notes": "Aztec C86 v5.2a runtime freopen (entry+20, 6 bytes)",
       "entries": [],
+      "entry_offset": 20,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 56 8B 76 08 85 F6 74 06 83 7C 06 00 75 08 B8 00 00",
       "patterns": [
-        "56 FF 76 06 FF 76 04 E8"
+        "5E 8B E5 5D C3 56"
       ]
     },
     {
       "name": "aztec_ftell",
-      "notes": "Aztec C86 v5.2a runtime ftell (entry+34, 8 bytes)",
+      "notes": "Aztec C86 v5.2a runtime ftell (entry+36, 6 bytes)",
       "entries": [],
+      "entry_offset": 36,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 FC 56 8B 76 04 B8 01 00 50 B8 00 00 BA 00 00 52 50 8A 44 08 98 50 E8 00 00 83 C4 08 89 56 FE",
       "patterns": [
-        "56 FE 89 46 FC 83 FA 00"
-      ]
-    },
-    {
-      "name": "aztec_gchar",
-      "notes": "Aztec C86 v5.2a runtime gchar (entry+0, 8 bytes)",
-      "entries": [],
-      "patterns": [
-        "55 8B EC 83 C4 FE 83 7E"
+        "89 46 FC 83 FA 00"
       ]
     },
     {
       "name": "aztec_gmtime",
-      "notes": "Aztec C86 v5.2a runtime gmtime (entry+15, 8 bytes)",
+      "notes": "Aztec C86 v5.2a runtime gmtime (entry+15, 14 bytes)",
       "entries": [],
+      "entry_offset": 15,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 FA 56 B8 00 00 50 E8 00 00 59",
       "patterns": [
-        "8B F0 85 F6 75 08 B8 00"
+        "8B F0 85 F6 75 08 B8 00 00 5E 8B E5 5D C3"
       ]
     },
     {
       "name": "aztec_isatty",
-      "notes": "Aztec C86 v5.2a runtime isatty (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime isatty (entry+0, 18 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 8B 5E 04 B8 00 44 CD 21 72 0F F6 C2 80 74 0A F6 C2 03 74 05 B8"
+        "55 8B EC 8B 5E 04 B8 00 44 CD 21 72 0F F6 C2 80 74 0A"
       ]
     },
     {
       "name": "aztec_lfree",
       "notes": "Aztec C86 v5.2a runtime lfree (entry+0, 24 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 06 8E 46 06 B4 49 CD 21 73 06 B8 FF FF E9 02 00 33 C0 07 5D C3"
       ]
     },
     {
       "name": "aztec_lmalloc",
-      "notes": "Aztec C86 v5.2a runtime lmalloc (entry+0, 18 bytes)",
+      "notes": "Aztec C86 v5.2a runtime lmalloc (entry+0, 16 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 8B 46 04 8B 56 06 85 D2 78 22 05 0F 00 83 D2"
+        "55 8B EC 8B 46 04 8B 56 06 85 D2 78 22 05 0F 00"
       ]
     },
     {
       "name": "aztec_lrealloc",
-      "notes": "Aztec C86 v5.2a runtime lrealloc (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime lrealloc (entry+0, 32 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 8B 46 08 8B 56 0A B9 04 00 D1 EA D1 D8 E2 FA 8B D8 B4 4A 8E 46"
+        "55 8B EC 8B 46 08 8B 56 0A B9 04 00 D1 EA D1 D8 E2 FA 8B D8 B4 4A 8E 46 06 CD 21 72 08 8B 46 04"
+      ]
+    },
+    {
+      "name": "aztec_lrm",
+      "notes": "Aztec C86 v5.2a runtime lrm (entry+4, 20 bytes)",
+      "entries": [],
+      "entry_offset": 4,
+      "has_prologue": false,
+      "entry_prefix": "57 BF 00 00",
+      "patterns": [
+        "85 D2 79 08 F7 DA F7 D8 83 DA 00 47 85 DB 79 07 F7 DB F7 D9"
       ]
     },
     {
       "name": "aztec_lseek",
-      "notes": "Aztec C86 v5.2a runtime lseek (entry+0, 20 bytes)",
+      "notes": "Aztec C86 v5.2a runtime lseek (entry+0, 14 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC B4 42 8A 46 0A 8B 56 06 8B 4E 08 8B 5E 04 CD 21 73"
+        "55 8B EC B4 42 8A 46 0A 8B 56 06 8B 4E 08"
       ]
     },
     {
       "name": "aztec_lud",
       "notes": "Aztec C86 v5.2a runtime lud (entry+0, 24 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": false,
+      "entry_prefix": "",
       "patterns": [
         "85 DB 75 1E 3B CA 77 13 50 8B C2 2B D2 F7 F1 8B D8 58 F7 F1 8B CA 8B D3"
       ]
@@ -254,70 +358,119 @@
       "name": "aztec_lum",
       "notes": "Aztec C86 v5.2a runtime lum (entry+0, 8 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": false,
+      "entry_prefix": "",
       "patterns": [
         "E8 05 00 8B C1 8B D3 C3"
       ]
     },
     {
       "name": "aztec_malloc",
-      "notes": "Aztec C86 v5.2a runtime malloc (entry+23, 14 bytes)",
+      "notes": "Aztec C86 v5.2a runtime malloc (entry+23, 10 bytes)",
       "entries": [],
+      "entry_offset": 23,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 FA 57 56 83 7E 04 00 75 09 B8 00 00 5E 5F 8B E5 5D C3",
       "patterns": [
-        "8B 46 04 40 40 40 D1 E8 D1 E0 89 46 04 83"
+        "8B 46 04 40 40 40 D1 E8 D1 E0"
+      ]
+    },
+    {
+      "name": "aztec_memcpy",
+      "notes": "Aztec C86 v5.2a runtime memcpy (entry+21, 6 bytes)",
+      "entries": [],
+      "entry_offset": 21,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 56 57 FC 8C DF 8E C7 8B 7E 04 8B 76 06 8B 4E 08 8B D1",
+      "patterns": [
+        "D1 E9 E3 02 F3 A5"
       ]
     },
     {
       "name": "aztec_mkdir",
       "notes": "Aztec C86 v5.2a runtime mkdir (entry+0, 10 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC B4 39 8B 56 04 CD 21"
       ]
     },
     {
       "name": "aztec_monitor",
-      "notes": "Aztec C86 v5.2a runtime monitor (entry+3, 16 bytes)",
+      "notes": "Aztec C86 v5.2a runtime monitor (entry+3, 12 bytes)",
       "entries": [],
+      "entry_offset": 3,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC",
       "patterns": [
-        "FF 76 0C FF 76 0A FF 76 08 FF 76 06 FF 76 04 E8"
+        "FF 76 0C FF 76 0A FF 76 08 FF 76 06"
       ]
     },
     {
       "name": "aztec_movblock",
       "notes": "Aztec C86 v5.2a runtime movblock (entry+0, 12 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 57 56 1E 06 9C FC 8B 4E 0C"
       ]
     },
     {
       "name": "aztec_movmem",
-      "notes": "Aztec C86 v5.2a runtime movmem (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime movmem (entry+0, 32 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 9C FC 56 57 8C DF 8E C7 8B 76 04 8B 7E 06 8B 4E 08 8C C0 8C DA"
+        "55 8B EC 9C FC 56 57 8C DF 8E C7 8B 76 04 8B 7E 06 8B 4E 08 8C C0 8C DA 3B C2 75 17 3B FE 74 1F"
       ]
     },
     {
       "name": "aztec_open",
-      "notes": "Aztec C86 v5.2a runtime open (entry+0, 14 bytes)",
+      "notes": "Aztec C86 v5.2a runtime open (entry+0, 8 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 57 56 8B 46 06 25 F3 00 8B F8 0D"
+        "55 8B EC 57 56 8B 46 06"
+      ]
+    },
+    {
+      "name": "aztec_ovloader",
+      "notes": "Aztec C86 v5.2a runtime ovloader (entry+8, 12 bytes)",
+      "entries": [],
+      "entry_offset": 8,
+      "has_prologue": false,
+      "entry_prefix": "8B DC 8B 47 02 A3 23 00",
+      "patterns": [
+        "E8 02 00 FF E0 55 8B EC 83 C4 AE 57"
       ]
     },
     {
       "name": "aztec_putc",
-      "notes": "Aztec C86 v5.2a runtime putc (entry+32, 12 bytes)",
+      "notes": "Aztec C86 v5.2a runtime putc (entry+32, 10 bytes)",
       "entries": [],
+      "entry_offset": 32,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 56 8B 76 06 85 F6 74 06 83 7C 06 00 75 08 B8 FF FF 5E 8B E5 5D C3 8B 04 3B 44 02 73 11",
       "patterns": [
-        "8A 46 04 50 8B 04 FF 04 8B D8 58 88"
+        "8A 46 04 50 8B 04 FF 04 8B D8"
       ]
     },
     {
       "name": "aztec_putw",
       "notes": "Aztec C86 v5.2a runtime putw (entry+24, 10 bytes)",
       "entries": [],
+      "entry_offset": 24,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 57 56 8B 76 04 8B 7E 06 57 56 E8 00 00 83 C4 04 3D 00 00 7D 09",
       "patterns": [
         "B8 FF FF 5E 5F 8B E5 5D C3 57"
       ]
@@ -326,6 +479,9 @@
       "name": "aztec_raise",
       "notes": "Aztec C86 v5.2a runtime raise (entry+0, 8 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 57 56 8B 7E 04"
       ]
@@ -334,150 +490,218 @@
       "name": "aztec_read",
       "notes": "Aztec C86 v5.2a runtime read (entry+0, 8 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC B4 3F 8B 5E 04"
       ]
     },
     {
       "name": "aztec_realloc",
-      "notes": "Aztec C86 v5.2a runtime realloc (entry+28, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime realloc (entry+28, 32 bytes)",
       "entries": [],
+      "entry_offset": 28,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 FC 57 56 8B 76 04 85 F6 75 0D FF 76 06 E8 00 00 59 5E 5F 8B E5 5D C3",
       "patterns": [
-        "8B 44 FE 25 FE FF 89 46 FE 2B C6 89 46 FC 3B 46 06 76 0D 8B 46 06 89 46"
+        "8B 44 FE 25 FE FF 89 46 FE 2B C6 89 46 FC 3B 46 06 76 0D 8B 46 06 89 46 FC 8B CE 03 C8 89 4E FE"
       ]
     },
     {
       "name": "aztec_rename",
-      "notes": "Aztec C86 v5.2a runtime rename (entry+0, 20 bytes)",
+      "notes": "Aztec C86 v5.2a runtime rename (entry+0, 18 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 57 B4 56 8B 56 04 8C DF 8E C7 8B 7E 06 CD 21 5F 73"
+        "55 8B EC 57 B4 56 8B 56 04 8C DF 8E C7 8B 7E 06 CD 21"
       ]
     },
     {
       "name": "aztec_rsvstk",
       "notes": "Aztec C86 v5.2a runtime rsvstk (entry+0, 8 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 8B C4 2B 46 04"
       ]
     },
     {
       "name": "aztec_sbrk",
-      "notes": "Aztec C86 v5.2a runtime sbrk (entry+0, 8 bytes)",
+      "notes": "Aztec C86 v5.2a runtime sbrk (entry+1, 6 bytes)",
       "entries": [],
+      "entry_offset": 1,
+      "has_prologue": true,
+      "entry_prefix": "55",
       "patterns": [
-        "55 8B EC 57 8B 46 04 8B"
+        "8B EC 57 8B 46 04"
       ]
     },
     {
-      "name": "aztec_scr_curs",
-      "notes": "Aztec C86 v5.2a runtime scr_curs (entry+0, 12 bytes)",
+      "name": "aztec_scan",
+      "notes": "Aztec C86 v5.2a runtime scan (entry+1, 6 bytes)",
       "entries": [],
+      "entry_offset": 1,
+      "has_prologue": true,
+      "entry_prefix": "55",
       "patterns": [
-        "55 8B EC 57 56 8B 76 04 8B 7E 06 83"
+        "8B EC 81 C4 60 FF"
       ]
     },
     {
       "name": "aztec_setmem",
-      "notes": "Aztec C86 v5.2a runtime setmem (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime setmem (entry+0, 32 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 9C FC 57 8C DF 8E C7 8B 7E 04 8B 4E 06 8A 46 08 8A E0 8B D1 D1"
+        "55 8B EC 9C FC 57 8C DF 8E C7 8B 7E 04 8B 4E 06 8A 46 08 8A E0 8B D1 D1 E9 74 02 F3 AB F6 C2 01"
       ]
     },
     {
       "name": "aztec_sinh",
-      "notes": "Aztec C86 v5.2a runtime sinh (entry+18, 8 bytes)",
+      "notes": "Aztec C86 v5.2a runtime sinh (entry+18, 6 bytes)",
       "entries": [],
+      "entry_offset": 18,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 F6 8B 46 04 89 46 F8 8B 46 06 89 46 FA",
       "patterns": [
-        "8B 46 08 89 46 FC 8B 46"
+        "8B 46 08 89 46 FC"
+      ]
+    },
+    {
+      "name": "aztec_stkover",
+      "notes": "Aztec C86 v5.2a runtime stkover (entry+15, 6 bytes)",
+      "entries": [],
+      "entry_offset": 15,
+      "has_prologue": false,
+      "entry_prefix": "B8 24 00 50 B8 00 00 50 B8 02 00 50 E8 00 00",
+      "patterns": [
+        "83 C4 06 B8 64 00"
       ]
     },
     {
       "name": "aztec_strcmp",
       "notes": "Aztec C86 v5.2a runtime strcmp (entry+0, 18 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC FC 56 57 8B 76 04 8C DF 8E C7 8B 7E 06 AD AF"
       ]
     },
     {
       "name": "aztec_strcpy",
-      "notes": "Aztec C86 v5.2a runtime strcpy (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime strcpy (entry+0, 28 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC FC 56 57 8C DF 8E C7 8B 7E 06 B9 FF FF B0 00 F2 AE F7 D1 8B 7E"
-      ]
-    },
-    {
-      "name": "aztec_strerror",
-      "notes": "Aztec C86 v5.2a runtime strerror (entry+0, 8 bytes)",
-      "entries": [],
-      "patterns": [
-        "55 8B EC 56 8B 76 04 83"
+        "55 8B EC FC 56 57 8C DF 8E C7 8B 7E 06 B9 FF FF B0 00 F2 AE F7 D1 8B 7E 04 8B 76 06"
       ]
     },
     {
       "name": "aztec_strlen",
-      "notes": "Aztec C86 v5.2a runtime strlen (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime strlen (entry+0, 28 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC FC 57 8C DF 8E C7 8B 7E 04 8B DF 2B C0 B9 FF 7F F2 AE 8B C7 2B"
+        "55 8B EC FC 57 8C DF 8E C7 8B 7E 04 8B DF 2B C0 B9 FF 7F F2 AE 8B C7 2B C3 48 5F 5D"
       ]
     },
     {
       "name": "aztec_strncat",
       "notes": "Aztec C86 v5.2a runtime strncat (entry+0, 24 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC 8B 56 08 FC 56 57 8C DF 8E C7 8B 7E 04 2B C0 B9 FF 7F F2 AE 4F"
       ]
     },
     {
       "name": "aztec_strncmp",
-      "notes": "Aztec C86 v5.2a runtime strncmp (entry+17, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime strncmp (entry+17, 32 bytes)",
       "entries": [],
+      "entry_offset": 17,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC FC 56 57 8B 4E 08 85 C9 74 26 8B D1 D1 E9",
       "patterns": [
-        "8B 76 04 8C DF 8E C7 8B 7E 06 E3 0E AD AF 75 18 84 C0 74 0E 84 E4 E0 F4"
+        "8B 76 04 8C DF 8E C7 8B 7E 06 E3 0E AD AF 75 18 84 C0 74 0E 84 E4 E0 F4 74 08 F6 C2 01 74 03 A6"
       ]
     },
     {
       "name": "aztec_strncpy",
       "notes": "Aztec C86 v5.2a runtime strncpy (entry+21, 18 bytes)",
       "entries": [],
+      "entry_offset": 21,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC FC 56 57 8B 4E 08 E3 16 8C DF 8E C7 8B 7E 04 8B 76 06",
       "patterns": [
         "AC 84 C0 74 05 AA E2 F8 EB 02 F3 AA 5F 5E 8B 46 04 5D"
       ]
     },
     {
       "name": "aztec_strnicmp",
-      "notes": "Aztec C86 v5.2a runtime strnicmp (entry+6, 14 bytes)",
+      "notes": "Aztec C86 v5.2a runtime strnicmp (entry+0, 6 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "FC 56 57 8B 76 04 8C DF 8E C7 8B 7E 06 E3"
+        "55 8B EC 8B 4E 08"
+      ]
+    },
+    {
+      "name": "aztec_strxfrm",
+      "notes": "Aztec C86 v5.2a runtime strxfrm (entry+44, 6 bytes)",
+      "entries": [],
+      "entry_offset": 44,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 FE 56 83 7E 08 00 75 08 8B 46 08 5E 8B E5 5D C3 FF 76 06 E8 00 00 59 40 89 46 FE FF 76 08 FF 76 06 FF 76 04 E8 00 00",
+      "patterns": [
+        "83 C4 06 8B 46 FE"
       ]
     },
     {
       "name": "aztec_sys",
-      "notes": "Aztec C86 v5.2a runtime sys (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime sys (entry+0, 32 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 8B 46 04 84 E4 75 02 86 E0 80 FC 0A 72 27 56 06 80 FC 47 75 08"
+        "55 8B EC 8B 46 04 84 E4 75 02 86 E0 80 FC 0A 72 27 56 06 80 FC 47 75 08 8B 56 08 8B 76 06 EB 06"
       ]
     },
     {
       "name": "aztec_sysint",
-      "notes": "Aztec C86 v5.2a runtime sysint (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime sysint (entry+0, 20 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 83 EC 0E 56 57 06 1E C6 46 F6 CD 8A 46 04 88 46 F7 C7 46 F8 8C"
+        "55 8B EC 83 EC 0E 56 57 06 1E C6 46 F6 CD 8A 46 04 88 46 F7"
       ]
     },
     {
       "name": "aztec_tolower",
       "notes": "Aztec C86 v5.2a runtime tolower (entry+11, 14 bytes)",
       "entries": [],
+      "entry_offset": 11,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 8B 46 04 3D FF FF 74 0C",
       "patterns": [
         "2A E4 3C 41 7C 06 3C 5A 7F 02 04 20 5D C3"
       ]
@@ -486,6 +710,9 @@
       "name": "aztec_toupper",
       "notes": "Aztec C86 v5.2a runtime toupper (entry+11, 14 bytes)",
       "entries": [],
+      "entry_offset": 11,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 8B 46 04 3D FF FF 74 0C",
       "patterns": [
         "2A E4 3C 61 7C 06 3C 7A 7F 02 2C 20 5D C3"
       ]
@@ -494,22 +721,31 @@
       "name": "aztec_tty_rd",
       "notes": "Aztec C86 v5.2a runtime tty_rd (entry+8, 8 bytes)",
       "entries": [],
+      "entry_offset": 8,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 56 8B 36 06 01",
       "patterns": [
         "85 F6 75 30 B8 04 01 50"
       ]
     },
     {
       "name": "aztec_tty_wr",
-      "notes": "Aztec C86 v5.2a runtime tty_wr (entry+0, 24 bytes)",
+      "notes": "Aztec C86 v5.2a runtime tty_wr (entry+0, 16 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC 57 56 8B 7E 06 8B 76 08 EB 2E 8B DF 47 80 3F 0A 75 26 8B C7 2B"
+        "55 8B EC 57 56 8B 7E 06 8B 76 08 EB 2E 8B DF 47"
       ]
     },
     {
       "name": "aztec_unlink",
       "notes": "Aztec C86 v5.2a runtime unlink (entry+0, 12 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
         "55 8B EC B4 41 8B 56 04 CD 21 73 08"
       ]
@@ -518,40 +754,44 @@
       "name": "aztec_utime",
       "notes": "Aztec C86 v5.2a runtime utime (entry+21, 10 bytes)",
       "entries": [],
+      "entry_offset": 21,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC 83 C4 FE 57 56 8B 76 06 B8 00 00 50 FF 76 04 E8 00 00",
       "patterns": [
         "83 C4 04 8B F8 8B C7 3D FF FF"
       ]
     },
     {
       "name": "aztec_vfprintf",
-      "notes": "Aztec C86 v5.2a runtime vfprintf (entry+0, 8 bytes)",
+      "notes": "Aztec C86 v5.2a runtime vfprintf (entry+0, 6 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": true,
+      "entry_prefix": "",
       "patterns": [
-        "55 8B EC FF 76 08 FF 76"
-      ]
-    },
-    {
-      "name": "aztec_vsprintf",
-      "notes": "Aztec C86 v5.2a runtime vsprintf (entry+8, 10 bytes)",
-      "entries": [],
-      "patterns": [
-        "46 04 89 46 FE FF 76 08 FF 76"
+        "55 8B EC FF 76 08"
       ]
     },
     {
       "name": "aztec_wait",
       "notes": "Aztec C86 v5.2a runtime wait (entry+0, 8 bytes)",
       "entries": [],
+      "entry_offset": 0,
+      "has_prologue": false,
+      "entry_prefix": "",
       "patterns": [
         "B4 4D CD 21 73 02 F7 D8"
       ]
     },
     {
       "name": "aztec_write",
-      "notes": "Aztec C86 v5.2a runtime write (entry+1, 8 bytes)",
+      "notes": "Aztec C86 v5.2a runtime write (entry+10, 10 bytes)",
       "entries": [],
+      "entry_offset": 10,
+      "has_prologue": true,
+      "entry_prefix": "55 8B EC B4 40 8B 5E 04 EB 00",
       "patterns": [
-        "8B EC B4 40 8B 5E 04 EB"
+        "8B 56 06 8B 4E 08 CD 21 73 06"
       ]
     }
   ]

@@ -1,6 +1,6 @@
 math_loc_1034:
     mov ax, 0                        ; 0x1034
-    call aztec_cret                  ; 0x1037
+    call aztec_csav                  ; 0x1037
     mov ax, 1                        ; 0x103a
     push ax                          ; 0x103d
     mov ax, 6                        ; 0x103e
