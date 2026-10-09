@@ -5,7 +5,7 @@ aztec_creat:
     mov ax, 0x301                    ; 0x4b3f
     push ax                          ; 0x4b42
     push word [bp + 0x4]             ; 0x4b43
-    call dos_mem_alloc               ; 0x4b46
+    call aztec_open                  ; 0x4b46
     add sp, byte 6                   ; 0x4b49
     mov sp, bp                       ; 0x4b4c
     pop bp                           ; 0x4b4e

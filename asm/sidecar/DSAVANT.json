@@ -12,11 +12,7 @@
       "function_names": {
         "2dd5": {
           "name": "main"
-        },
-        "4b50": {
-          "name": "dos_mem_alloc",
-          "sig": "uint16_t dos_mem_alloc(uint16_t flags, uint16_t param)"
-        }
+        } 
       },
       "force_data": [
         {"start": "08d4", "end": "08e1", "note": "Seven-entry switch table for the 0x08ed indirect jump"},

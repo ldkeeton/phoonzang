@@ -536,7 +536,7 @@ leaf_loc_10108 equ 0x10108
 
 %include "ds/aztec_creat.asm"
 
-%include "ds/dos_mem_alloc.asm"
+%include "ds/aztec_open.asm"
 
 %include "ds/aztec_lrm.asm"
 

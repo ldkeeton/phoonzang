@@ -44,7 +44,7 @@ app_file_2a2e: ; Aztec csav frame=0x00a8
     call app_23a8                    ; 0x2a99
     add sp, byte 4                   ; 0x2a9c
     push ax                          ; 0x2a9f
-    call dos_mem_alloc               ; 0x2aa0
+    call aztec_open                  ; 0x2aa0
     add sp, byte 4                   ; 0x2aa3
     mov word [bp - 0x0002], ax       ; 0x2aa6
     cmp ax, strict word 0xffff       ; 0x2aa9
@@ -86,7 +86,7 @@ app_file_2a2e: ; Aztec csav frame=0x00a8
     call app_23a8                    ; 0x2af6
     add sp, byte 4                   ; 0x2af9
     push ax                          ; 0x2afc
-    call dos_mem_alloc               ; 0x2afd
+    call aztec_open                  ; 0x2afd
     add sp, byte 4                   ; 0x2b00
     mov word [bp - 0x0004], ax       ; 0x2b03
     cmp ax, strict word 0xffff       ; 0x2b06

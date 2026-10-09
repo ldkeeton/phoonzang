@@ -25,7 +25,7 @@ loc_4386:
     push ax                          ; 0x43ad
     lea ax, word [bp - 0x0052]       ; 0x43ae
     push ax                          ; 0x43b1
-    call dos_mem_alloc               ; 0x43b2
+    call aztec_open                  ; 0x43b2
     add sp, byte 4                   ; 0x43b5
     mov word [bp - 0x0002], ax       ; 0x43b8
     cmp ax, strict word 0xffff       ; 0x43bb

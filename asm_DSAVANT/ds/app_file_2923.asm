@@ -60,7 +60,7 @@ app_file_2923: ; Aztec csav frame=0x0018
     call app_23a8                    ; 0x29b4
     add sp, byte 4                   ; 0x29b7
     push ax                          ; 0x29ba
-    call dos_mem_alloc               ; 0x29bb
+    call aztec_open                  ; 0x29bb
     add sp, byte 4                   ; 0x29be
     mov word [bp - 0x0004], ax       ; 0x29c1
     cmp ax, strict word 0xffff       ; 0x29c4

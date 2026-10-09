@@ -293,7 +293,7 @@ ds_loc_4aec equ 0x4aec
 ds_leaf_loc_4aed equ 0x4aed
 ds_string_loc_4b07 equ 0x4b07
 ds_aztec_creat equ 0x4b39
-ds_dos_mem_alloc equ 0x4b50
+ds_aztec_open equ 0x4b50
 ds_loc_4be6 equ 0x4be6
 ds_loc_4c07 equ 0x4c07
 ds_loc_4c12 equ 0x4c12

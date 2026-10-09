@@ -146,7 +146,7 @@ app_file_14ca: ; Aztec csav frame=0x000c
     imul word [bp - 0x0004]          ; 0x1632
     add ax, 0x5b7c                   ; 0x1635
     push ax                          ; 0x1638
-    call dos_mem_alloc               ; 0x1639
+    call aztec_open                  ; 0x1639
     add sp, byte 4                   ; 0x163c
     mov word [bp - 0x000c], ax       ; 0x163f
     cmp ax, strict word 0xffff       ; 0x1642
