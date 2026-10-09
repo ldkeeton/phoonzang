@@ -1,6 +1,6 @@
 math_loc_0fdf:
     mov ax, 0                        ; 0x0fdf
-    call stack_alloc_check           ; 0x0fe2
+    call aztec_cret                  ; 0x0fe2
     mov ax, 0xc3                     ; 0x0fe5
     push ax                          ; 0x0fe8
     push word [bp + 0xa]             ; 0x0fe9

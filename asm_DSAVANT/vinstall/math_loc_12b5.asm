@@ -68,11 +68,11 @@ math_loc_12b5:
     idiv cx                          ; 0x1350
     mov ax, dx                       ; 0x1352
     push ax                          ; 0x1354
-    call math_loc_02b2               ; 0x1355
+    call aztec_raise                 ; 0x1355
     add sp, byte 4                   ; 0x1358
     lea ax, word [bp - 0x02d6]       ; 0x135b
     push ax                          ; 0x135f
-    call strlen_3                    ; 0x1360
+    call strlen                      ; 0x1360
     pop cx                           ; 0x1363
     cmp ax, strict word 1            ; 0x1364
     jne short @..math_loc_12b5.l1    ; 0x1367
@@ -169,7 +169,7 @@ math_loc_12b5:
     push ax                          ; 0x143b
     mov ax, 0x2648                   ; 0x143c
     push ax                          ; 0x143f
-    call strlen_2                    ; 0x1440
+    call aztec_strcpy                ; 0x1440
     add sp, byte 4                   ; 0x1443
     mov ax, 0x1a92                   ; 0x1446
     push ax                          ; 0x1449

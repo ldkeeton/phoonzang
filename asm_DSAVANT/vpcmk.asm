@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/loc_600d.inc"
+%include "structs/loc_7001.inc"
 org 0
 bits 16
 %include "labels/vpcmk_foreign_labels.inc"
@@ -35,6 +35,8 @@ loc_5c67 equ 0x5c67
 loc_5c78 equ 0x5c78
 data_5e2a equ 0x5e2a
 loc_600d equ 0x600d
+loc_7001 equ 0x7001
+loc_700f equ 0x700f
 data_830a equ 0x830a
 data_844c equ 0x844c
 data_844e equ 0x844e
@@ -3974,7 +3976,7 @@ loc_6626:
     lea ax, word [bp - 0x024a]       ; 0x664d
     push ax                          ; 0x6651
     push word [bp + 0x4]             ; 0x6652
-    call string_loc_6fca             ; 0x6655
+    call aztec_strncmp               ; 0x6655
     add sp, byte 4                   ; 0x6658
     test ax, ax                      ; 0x665b
     jne short @..local.l28           ; 0x665d
@@ -4280,7 +4282,7 @@ loc_67e2:
     db 0x74, 0x04, 0x2b, 0xc0, 0xf3, 0xab, 0xe8, 0x59, 0x90, 0x8b, 0x2e, 0x20, 0x95, 0x8b, 0x26, 0x1e
     db 0x95, 0x8b, 0x36, 0x1a, 0x95, 0x8b, 0x3e, 0x1c, 0x95, 0x51, 0xff, 0x26, 0x22, 0x95
 
-%include "vpcmk/string_loc_6fca.asm"
+%include "vpcmk/aztec_strncmp.asm"
 
 
     db 'PCFILE.DBS', 0

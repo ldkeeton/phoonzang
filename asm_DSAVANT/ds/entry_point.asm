@@ -133,7 +133,7 @@ entry_point:
     mov word [data_0c76], cs         ; 0x4e65
     call leaf_loc_4f85               ; 0x4e69
     jb short @..entry_point.l16      ; 0x4e6c
-    call loc_4ea7                    ; 0x4e6e
+    call aztec_Croot                 ; 0x4e6e
     jmp short loc_4e80               ; 0x4e71
 @..entry_point.l16:
     mov ah, 9                        ; 0x4e73

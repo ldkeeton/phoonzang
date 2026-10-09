@@ -83,7 +83,7 @@ api_idx_0084:
     add ax, cx                       ; 0x8d3d
     push ax                          ; 0x8d3f
     push word [bp + 0x4]             ; 0x8d40
-    call string_loc_ae4e             ; 0x8d43
+    call aztec_strncpy               ; 0x8d43
     add sp, byte 6                   ; 0x8d46
     mov bx, word [bp + 0x4]          ; 0x8d49
     mov si, word [bp - 0x0052]       ; 0x8d4c

@@ -19,7 +19,7 @@ api_idx_0006_8:
     add ax, 0x9e88                   ; 0x8873
     push ax                          ; 0x8876
     push word [bp + 0x6]             ; 0x8877
-    call string_loc_ae4e             ; 0x887a
+    call aztec_strncpy               ; 0x887a
     add sp, byte 6                   ; 0x887d
     mov bx, word [bp + 0x6]          ; 0x8880
     mov si, word [bp - 0x0006]       ; 0x8883
@@ -46,7 +46,7 @@ api_idx_0006_8:
     add ax, 0x9e88                   ; 0x88b9
     push ax                          ; 0x88bc
     push word [bp + 0x6]             ; 0x88bd
-    call string_loc_ae4e             ; 0x88c0
+    call aztec_strncpy               ; 0x88c0
     add sp, byte 6                   ; 0x88c3
     mov bx, word [bp + 0x6]          ; 0x88c6
     mov si, word [bp - 0x0006]       ; 0x88c9
@@ -85,7 +85,7 @@ api_idx_0006_8:
     add ax, 0x9e88                   ; 0x891a
     push ax                          ; 0x891d
     push word [bp + 0x6]             ; 0x891e
-    call string_loc_ae4e             ; 0x8921
+    call aztec_strncpy               ; 0x8921
     add sp, byte 6                   ; 0x8924
     mov ax, word [bp - 0x0006]       ; 0x8927
     sub ax, word [bp - 0x0004]       ; 0x892a

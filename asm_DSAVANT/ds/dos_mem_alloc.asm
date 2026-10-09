@@ -16,7 +16,7 @@ dos_mem_alloc:
     push ax                          ; 0x4b6f
     push word [bp + 0x4]             ; 0x4b70
     push di                          ; 0x4b73
-    call leaf_loc_4cf4               ; 0x4b74
+    call aztec_sys                   ; 0x4b74
     add sp, byte 6                   ; 0x4b77
     mov si, ax                       ; 0x4b7a
     mov ax, si                       ; 0x4b7c
@@ -29,7 +29,7 @@ dos_mem_alloc:
     push word [bp + 0x4]             ; 0x4b8e
     mov ax, 0x3c                     ; 0x4b91
     push ax                          ; 0x4b94
-    call leaf_loc_4cf4               ; 0x4b95
+    call aztec_sys                   ; 0x4b95
     add sp, byte 6                   ; 0x4b98
     mov si, ax                       ; 0x4b9b
 @..dos_mem_alloc.l2:
@@ -38,7 +38,7 @@ dos_mem_alloc:
     test word [bp + 0x6], 0x400      ; 0x4b9f
     je short @..dos_mem_alloc.l5     ; 0x4ba4
     push si                          ; 0x4ba6
-    call dos_file_loc_4fec           ; 0x4ba7
+    call aztec_close                 ; 0x4ba7
     pop cx                           ; 0x4baa
     mov word [data_0c72], 0x13       ; 0x4bab
     mov ax, 0xffff                   ; 0x4bb1
@@ -60,11 +60,11 @@ dos_mem_alloc:
     push dx                          ; 0x4bd0
     push ax                          ; 0x4bd1
     push si                          ; 0x4bd2
-    call dos_file_loc_5004           ; 0x4bd3
+    call aztec_lseek                 ; 0x4bd3
     add sp, byte 8                   ; 0x4bd6
 @..dos_mem_alloc.l6:
     push si                          ; 0x4bd9
-    call dos_ioctl                   ; 0x4bda
+    call aztec_isatty                ; 0x4bda
     pop cx                           ; 0x4bdd
     mov byte [si + 0xcdc], al        ; 0x4bde
 @..dos_mem_alloc.l7:

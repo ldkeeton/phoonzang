@@ -8,7 +8,7 @@ api_idx_0002_11:
     add ax, 0xa7ac                   ; 0x8bf9
     push ax                          ; 0x8bfc
     push word [bp + 0x4]             ; 0x8bfd
-    call string_loc_ae76             ; 0x8c00
+    call aztec_strcmp                ; 0x8c00
     add sp, byte 4                   ; 0x8c03
     test ax, ax                      ; 0x8c06
     jne short @..api_idx_0002_11.l2  ; 0x8c08

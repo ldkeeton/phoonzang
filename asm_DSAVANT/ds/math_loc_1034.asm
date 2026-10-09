@@ -1,6 +1,6 @@
 math_loc_1034:
     mov ax, 0                        ; 0x1034
-    call stack_alloc_check           ; 0x1037
+    call aztec_cret                  ; 0x1037
     mov ax, 1                        ; 0x103a
     push ax                          ; 0x103d
     mov ax, 6                        ; 0x103e
@@ -28,7 +28,7 @@ math_loc_1034:
     inc ax                           ; 0x1072
     push ax                          ; 0x1073
     push word [bp + 0xc]             ; 0x1074
-    call strlen_5                    ; 0x1077
+    call aztec_strlen                ; 0x1077
     pop cx                           ; 0x107a
     mov cx, ax                       ; 0x107b
     mov ax, word [bp + 0x8]          ; 0x107d

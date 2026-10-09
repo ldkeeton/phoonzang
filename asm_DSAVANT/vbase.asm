@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/loc_773d.inc"
+%include "structs/loc_93bd.inc"
 org 0
 bits 16
 %include "labels/vbase_foreign_labels.inc"
@@ -152,7 +152,9 @@ data_9072 equ 0x9072
 data_9088 equ 0x9088
 data_908a equ 0x908a
 data_908c equ 0x908c
+loc_93bd equ 0x93bd
 data_93be equ 0x93be
+loc_93cb equ 0x93cb
 data_9400 equ 0x9400
 data_940a equ 0x940a
 data_940c equ 0x940c
@@ -2918,7 +2920,7 @@ api_idx_004e:
     push ax                          ; 0x39b7
     mov ax, 0x91c6                   ; 0x39b8
     push ax                          ; 0x39bb
-    call string_loc_9386             ; 0x39bc
+    call aztec_strncmp               ; 0x39bc
     add sp, byte 4                   ; 0x39bf
     test ax, ax                      ; 0x39c2
     jne short @..api_idx_004e.l8     ; 0x39c4
@@ -2934,7 +2936,7 @@ api_idx_004e:
     push ax                          ; 0x39d9
     mov ax, 0x91c6                   ; 0x39da
     push ax                          ; 0x39dd
-    call string_loc_9386             ; 0x39de
+    call aztec_strncmp               ; 0x39de
     add sp, byte 4                   ; 0x39e1
     test ax, ax                      ; 0x39e4
     je short @..api_idx_004e.l9      ; 0x39e6
@@ -7045,7 +7047,7 @@ loc_8a74:
 
 %include "vbase/leaf_loc_936e.asm"
 
-%include "vbase/string_loc_9386.asm"
+%include "vbase/aztec_strncmp.asm"
 
 
     db 'PCFILE.DBS', 0

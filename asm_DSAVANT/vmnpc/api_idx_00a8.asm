@@ -32,7 +32,7 @@ api_idx_00a8:
     push ax                          ; 0x8f03
     lea ax, word [bp - 0x00a2]       ; 0x8f04
     push ax                          ; 0x8f08
-    call string_loc_ae4e             ; 0x8f09
+    call aztec_strncpy               ; 0x8f09
     add sp, byte 6                   ; 0x8f0c
     mov ax, word [bp - 0x00a6]       ; 0x8f0f
     sub ax, word [bp - 0x00a4]       ; 0x8f13

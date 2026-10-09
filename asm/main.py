@@ -21,6 +21,7 @@ ASM_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(ASM_DIR)
 APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
 KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
+AZTEC_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'aztec_funcs.json')
 
 from lib.trace import TraceWriter
 from lib.diagnostics import begin as diag_begin, flush as diag_flush
@@ -57,11 +58,21 @@ from lib.report import write_report, write_layers, print_short_report, print_com
 
 
 def _load_known_funcs():
-    if not os.path.exists(KNOWN_FUNCS_PATH):
-        return {'signatures': []}
     import json
-    with open(KNOWN_FUNCS_PATH) as f:
-        return json.load(f)
+    db = {'signatures': []}
+    if os.path.exists(KNOWN_FUNCS_PATH):
+        with open(KNOWN_FUNCS_PATH) as f:
+            db = json.load(f)
+    # Exact compiler-runtime signatures (Manx Aztec C86 v5.2a) take precedence
+    # over the generic heuristic signatures in known_funcs.json.
+    if os.path.exists(AZTEC_FUNCS_PATH):
+        with open(AZTEC_FUNCS_PATH) as f:
+            aztec = json.load(f)
+        db['signatures'] = (
+            list(aztec.get('signatures', []))
+            + list(db.get('signatures', []))
+        )
+    return db
 
 
 def _build_classify_phases(known_db=None):

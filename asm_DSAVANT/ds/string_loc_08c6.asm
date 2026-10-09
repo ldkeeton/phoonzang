@@ -37,7 +37,7 @@ loc_08f2:
     push dx                          ; 0x0925
     push ax                          ; 0x0926
     push word [data_0e22]            ; 0x0927
-    call dos_file_loc_5004           ; 0x092b
+    call aztec_lseek                 ; 0x092b
     add sp, byte 8                   ; 0x092e
     mov bx, word [bp + 0x4]          ; 0x0931
     cmp byte [bx + 0x556c], 0        ; 0x0934

@@ -1,6 +1,6 @@
 math_loc_184f:
     mov ax, 0xffea                   ; 0x184f
-    call stack_alloc_check           ; 0x1852
+    call aztec_cret                  ; 0x1852
     mov ax, 0                        ; 0x1855
     push ax                          ; 0x1858
     mov ax, 0x12                     ; 0x1859
@@ -15,7 +15,7 @@ math_loc_184f:
     add ax, cx                       ; 0x186d
     add ax, 0x5d24                   ; 0x186f
     push ax                          ; 0x1872
-    call string_loc_454d             ; 0x1873
+    call aztec_setmem                ; 0x1873
     add sp, byte 6                   ; 0x1876
     mov ax, 0x248                    ; 0x1879
     imul word [bp + 0x4]             ; 0x187c

@@ -5604,7 +5604,7 @@ loc_9587:
     push word [bp - 0x0008]          ; 0x95d4
     lea ax, word [bp - 0x0158]       ; 0x95d7
     push ax                          ; 0x95db
-    call string_loc_ae4e             ; 0x95dc
+    call aztec_strncpy               ; 0x95dc
     add sp, byte 6                   ; 0x95df
     mov bx, word [bp - 0x0006]       ; 0x95e2
     add bx, bp                       ; 0x95e5
@@ -6146,9 +6146,9 @@ loc_a441:
     db 0x74, 0x04, 0x2b, 0xc0, 0xf3, 0xab, 0xe8, 0x86, 0x73, 0x8b, 0x2e, 0x30, 0x91, 0x8b, 0x26, 0x2e
     db 0x91, 0x8b, 0x36, 0x2a, 0x91, 0x8b, 0x3e, 0x2c, 0x91, 0x51, 0xff, 0x26, 0x32, 0x91
 
-%include "vmnpc/string_loc_ae4e.asm"
+%include "vmnpc/aztec_strncpy.asm"
 
-%include "vmnpc/string_loc_ae76.asm"
+%include "vmnpc/aztec_strcmp.asm"
 
 %include "vmnpc/string_loc_ae94.asm"
 

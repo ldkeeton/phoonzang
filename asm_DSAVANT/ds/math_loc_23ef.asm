@@ -1,6 +1,6 @@
 math_loc_23ef:
     mov ax, 0xff46                   ; 0x23ef
-    call stack_alloc_check           ; 0x23f2
+    call aztec_cret                  ; 0x23f2
     mov word [bp - 0x00b0], 0x37     ; 0x23f5
     mov word [bp - 0x00b2], 0x8f     ; 0x23fb
     mov word [bp - 0x00b4], 0x108    ; 0x2401
@@ -30,15 +30,15 @@ math_loc_23ef:
     push word [bp + 0x4]             ; 0x2442
     lea ax, word [bp - 0x0078]       ; 0x2445
     push ax                          ; 0x2448
-    call strlen_4                    ; 0x2449
+    call aztec_strcpy                ; 0x2449
     add sp, byte 4                   ; 0x244c
     cmp word [bp + 0x8], byte 0      ; 0x244f
     je short @..math_loc_23ef.l1     ; 0x2453
     push word [data_0e24]            ; 0x2455
-    call dos_file_loc_4fec           ; 0x2459
+    call aztec_close                 ; 0x2459
     pop cx                           ; 0x245c
     push word [data_0e22]            ; 0x245d
-    call dos_file_loc_4fec           ; 0x2461
+    call aztec_close                 ; 0x2461
     pop cx                           ; 0x2464
 @..math_loc_23ef.l1:
     mov word [bp - 0x00aa], 0xfffe   ; 0x2465
@@ -51,7 +51,7 @@ math_loc_23ef:
     push ax                          ; 0x247a
     lea ax, word [bp - 0x0050]       ; 0x247b
     push ax                          ; 0x247e
-    call strlen_4                    ; 0x247f
+    call aztec_strcpy                ; 0x247f
     add sp, byte 4                   ; 0x2482
     jmp short @..math_loc_23ef.l5    ; 0x2485
 @..math_loc_23ef.l4:
@@ -63,7 +63,7 @@ math_loc_23ef:
     push ax                          ; 0x2499
     lea ax, word [bp - 0x0050]       ; 0x249a
     push ax                          ; 0x249d
-    call strlen_4                    ; 0x249e
+    call aztec_strcpy                ; 0x249e
     add sp, byte 4                   ; 0x24a1
     mov ax, 0x5e                     ; 0x24a4
     push ax                          ; 0x24a7
@@ -91,7 +91,7 @@ math_loc_23ef:
     push ax                          ; 0x24e2
     lea ax, word [bp - 0x0050]       ; 0x24e3
     push ax                          ; 0x24e6
-    call strlen_5                    ; 0x24e7
+    call aztec_strlen                ; 0x24e7
     pop cx                           ; 0x24ea
     mov cx, 6                        ; 0x24eb
     imul cx                          ; 0x24ee
@@ -117,7 +117,7 @@ math_loc_23ef:
     push ax                          ; 0x251f
     lea ax, word [bp - 0x0050]       ; 0x2520
     push ax                          ; 0x2523
-    call strlen_4                    ; 0x2524
+    call aztec_strcpy                ; 0x2524
     add sp, byte 4                   ; 0x2527
     mov ax, 0x5e                     ; 0x252a
     push ax                          ; 0x252d
@@ -132,7 +132,7 @@ math_loc_23ef:
     push ax                          ; 0x2543
     lea ax, word [bp - 0x0050]       ; 0x2544
     push ax                          ; 0x2547
-    call strlen_5                    ; 0x2548
+    call aztec_strlen                ; 0x2548
     pop cx                           ; 0x254b
     mov cx, 6                        ; 0x254c
     imul cx                          ; 0x254f

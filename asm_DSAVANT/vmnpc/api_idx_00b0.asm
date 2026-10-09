@@ -108,7 +108,7 @@ api_idx_00b0:
     push ax                          ; 0xa941
     lea ax, word [bp - 0x00b0]       ; 0xa942
     push ax                          ; 0xa946
-    call string_loc_ae4e             ; 0xa947
+    call aztec_strncpy               ; 0xa947
     add sp, byte 6                   ; 0xa94a
     mov ax, word [bp - 0x0004]       ; 0xa94d
     sub ax, word [bp - 0x0006]       ; 0xa950

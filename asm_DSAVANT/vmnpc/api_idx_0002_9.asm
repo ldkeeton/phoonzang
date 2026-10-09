@@ -18,7 +18,7 @@ api_idx_0002_9:
     add ax, 0x9e88                   ; 0x87bc
     push ax                          ; 0x87bf
     push word [bp + 0x6]             ; 0x87c0
-    call string_loc_ae4e             ; 0x87c3
+    call aztec_strncpy               ; 0x87c3
     add sp, byte 6                   ; 0x87c6
     mov bx, word [bp + 0x6]          ; 0x87c9
     mov si, word [bp - 0x0002]       ; 0x87cc
@@ -42,7 +42,7 @@ api_idx_0002_9:
     add ax, 0x9e88                   ; 0x87f7
     push ax                          ; 0x87fa
     push word [bp + 0x6]             ; 0x87fb
-    call string_loc_ae4e             ; 0x87fe
+    call aztec_strncpy               ; 0x87fe
     add sp, byte 6                   ; 0x8801
     mov bx, word [bp + 0x6]          ; 0x8804
     mov si, word [bp - 0x0002]       ; 0x8807
@@ -66,7 +66,7 @@ api_idx_0002_9:
     add ax, 0x9e88                   ; 0x8832
     push ax                          ; 0x8835
     push word [bp + 0x6]             ; 0x8836
-    call string_loc_ae4e             ; 0x8839
+    call aztec_strncpy               ; 0x8839
     add sp, byte 6                   ; 0x883c
     mov bx, word [bp + 0x6]          ; 0x883f
     mov si, word [bp - 0x0002]       ; 0x8842

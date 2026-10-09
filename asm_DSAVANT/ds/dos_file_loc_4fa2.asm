@@ -1,6 +1,0 @@
-dos_file_loc_4fa2:
-    push bp                          ; 0x4fa2
-    mov bp, sp                       ; 0x4fa3
-    mov ah, 0x3f                     ; 0x4fa5
-    mov bx, word [bp + 0x4]          ; 0x4fa7
-    jmp short loc_4fda               ; 0x4faa

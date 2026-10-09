@@ -1,5 +1,5 @@
 %include "structs/structs.inc"
-%include "structs/loc_3738.inc"
+%include "structs/loc_3997.inc"
 org 0
 bits 16
     ; DOS MZ executable header (512 bytes)
@@ -63,16 +63,25 @@ data_251a equ 0x251a
 data_251b equ 0x251b
 data_251c equ 0x251c
 data_2530 equ 0x2530
+data_2532 equ 0x2532
 data_2534 equ 0x2534
 data_2536 equ 0x2536
 data_2538 equ 0x2538
 data_253a equ 0x253a
 data_253c equ 0x253c
+data_2642 equ 0x2642
 data_2644 equ 0x2644
 data_2645 equ 0x2645
 data_2646 equ 0x2646
 data_2647 equ 0x2647
+loc_2677 equ 0x2677
+loc_2696 equ 0x2696
 data_2698 equ 0x2698
+loc_26b3 equ 0x26b3
+loc_26b7 equ 0x26b7
+loc_26cb equ 0x26cb
+loc_26d1 equ 0x26d1
+aztec_calloc equ 0x26f6
 data_2823 equ 0x2823
 data_2825 equ 0x2825
 data_29ba equ 0x29ba
@@ -103,11 +112,34 @@ data_2af4 equ 0x2af4
 data_2af6 equ 0x2af6
 data_2af8 equ 0x2af8
 data_2afa equ 0x2afa
+data_2afc equ 0x2afc
 data_33ce equ 0x33ce
+loc_3426 equ 0x3426
+loc_3435 equ 0x3435
+loc_3438 equ 0x3438
+loc_3443 equ 0x3443
+loc_3455 equ 0x3455
+loc_3460 equ 0x3460
+aztec_lum equ 0x3469
+aztec_lud equ 0x3471
+loc_348c equ 0x348c
+loc_3493 equ 0x3493
+loc_34ad equ 0x34ad
+loc_34f1 equ 0x34f1
+loc_3503 equ 0x3503
 data_3521 equ 0x3521
 data_3523 equ 0x3523
+loc_353f equ 0x353f
+loc_354d equ 0x354d
 loc_3738 equ 0x3738
 data_380c equ 0x380c
+aztec_rename equ 0x38b8
+loc_38d5 equ 0x38d5
+aztec_tty_wr equ 0x393e
+loc_394b equ 0x394b
+loc_3979 equ 0x3979
+loc_3997 equ 0x3997
+aztec_rsvstk equ 0x3ac5
 leaf_loc_5fe5 equ 0x5fe5
 
 %include "vinstall/leaf_loc_0200.asm"
@@ -128,7 +160,7 @@ loc_026d:
     push si                          ; 0x0274
     mov di, 0                        ; 0x0275
     push word [bp + 0x4]             ; 0x0278
-    call strlen_3                    ; 0x027b
+    call strlen                      ; 0x027b
     pop cx                           ; 0x027e
     dec ax                           ; 0x027f
     mov word [bp - 0x0002], ax       ; 0x0280
@@ -157,7 +189,7 @@ loc_026d:
     mov sp, bp                       ; 0x02ae
     pop bp                           ; 0x02b0
     ret                              ; 0x02b1
-%include "vinstall/math_loc_02b2.asm"
+%include "vinstall/aztec_raise.asm"
 
 
     db 0x55, 0x8b, 0xec, 0x83, 0xc4, 0xfc, 0x57, 0x56, 0x8b, 0x46, 0x04, 0x8b, 0x56, 0x06, 0x89, 0x56
@@ -182,7 +214,7 @@ loc_03b3:
     lea ax, word [bp - 0x00ff]       ; 0x03c6
     push ax                          ; 0x03ca
     push word [bp + 0x8]             ; 0x03cb
-    call math_loc_02b2               ; 0x03ce
+    call aztec_raise                 ; 0x03ce
     add sp, byte 4                   ; 0x03d1
     lea ax, word [bp - 0x00ff]       ; 0x03d4
     push ax                          ; 0x03d8
@@ -202,7 +234,7 @@ loc_03e1:
     lea ax, word [bp - 0x00ff]       ; 0x03f4
     push ax                          ; 0x03f8
     push word [bp + 0x8]             ; 0x03f9
-    call math_loc_02b2               ; 0x03fc
+    call aztec_raise                 ; 0x03fc
     add sp, byte 4                   ; 0x03ff
     lea ax, word [bp - 0x00ff]       ; 0x0402
     push ax                          ; 0x0406
@@ -313,7 +345,7 @@ loc_05b6:
     mov byte [bp - 0x0002], 0        ; 0x05bd
     mov byte [bp - 0x0001], 0        ; 0x05c1
     push word [bp + 0x8]             ; 0x05c5
-    call strlen_3                    ; 0x05c8
+    call strlen                      ; 0x05c8
     pop cx                           ; 0x05cb
     mov word [bp - 0x0006], ax       ; 0x05cc
     add word [bp + 0x6], ax          ; 0x05cf
@@ -328,7 +360,7 @@ loc_05b6:
 @..local.l4:
     call dos_con_in_noecho           ; 0x05e6
     push ax                          ; 0x05e9
-    call loc_06a6                    ; 0x05ea
+    call aztec_gchar                 ; 0x05ea
     pop cx                           ; 0x05ed
     mov word [bp - 0x0004], ax       ; 0x05ee
     cmp ax, strict word 0xd          ; 0x05f1
@@ -410,47 +442,34 @@ loc_05b6:
     mov sp, bp                       ; 0x06a2
     pop bp                           ; 0x06a4
     ret                              ; 0x06a5
-loc_06a6:
-    push bp                          ; 0x06a6
-    mov bp, sp                       ; 0x06a7
-    add sp, byte 0xfe                ; 0x06a9
-    cmp word [bp + 0x4], byte 0      ; 0x06ac
-    jne short @..local.l19           ; 0x06b0
-    call dos_con_in_noecho           ; 0x06b2
-    mov word [bp - 0x0002], ax       ; 0x06b5
-    jmp short @..local.l18           ; 0x06b8
-@..local.l13:
-    mov ax, 8                        ; 0x06ba
-@..local.l14:
-    mov sp, bp                       ; 0x06bd
-    pop bp                           ; 0x06bf
-    ret                              ; 0x06c0
-@..local.l15:
+%include "vinstall/aztec_gchar.asm"
+
+@..aztec_gchar.l3:
     mov ax, 9                        ; 0x06c1
-    jmp short @..local.l14           ; 0x06c4
-@..local.l16:
+    jmp short @..aztec_gchar.l2      ; 0x06c4
+@..aztec_gchar.l4:
     mov ax, 0xa                      ; 0x06c6
-    jmp short @..local.l14           ; 0x06c9
-@..local.l17:
+    jmp short @..aztec_gchar.l2      ; 0x06c9
+@..aztec_gchar.l5:
     mov ax, 0xb                      ; 0x06cb
-    jmp short @..local.l14           ; 0x06ce
-@..local.l18:
+    jmp short @..aztec_gchar.l2      ; 0x06ce
+@..aztec_gchar.l6:
     cmp ax, strict word 0x48         ; 0x06d0
-    je short @..local.l15            ; 0x06d3
+    je short @..aztec_gchar.l3       ; 0x06d3
     cmp ax, strict word 0x4b         ; 0x06d5
-    je short @..local.l13            ; 0x06d8
+    je short @..aztec_gchar.l1       ; 0x06d8
     cmp ax, strict word 0x4d         ; 0x06da
-    je short @..local.l16            ; 0x06dd
+    je short @..aztec_gchar.l4       ; 0x06dd
     cmp ax, strict word 0x50         ; 0x06df
-    je short @..local.l17            ; 0x06e2
-    jmp short @..local.l20           ; 0x06e4
-@..local.l19:
+    je short @..aztec_gchar.l5       ; 0x06e2
+    jmp short @..aztec_gchar.l8      ; 0x06e4
+@..aztec_gchar.l7:
     push word [bp + 0x4]             ; 0x06e6
-    call leaf_loc_2bb2               ; 0x06e9
+    call aztec_toupper               ; 0x06e9
     pop cx                           ; 0x06ec
-    jmp short @..local.l14           ; 0x06ed
-@..local.l20:
-    jmp short @..local.l14           ; 0x06ef
+    jmp short @..aztec_gchar.l2      ; 0x06ed
+@..aztec_gchar.l8:
+    jmp short @..aztec_gchar.l2      ; 0x06ef
 loc_06f1:
     push bp                          ; 0x06f1
     mov bp, sp                       ; 0x06f2
@@ -462,7 +481,7 @@ loc_06f1:
     push ax                          ; 0x0701
     mov ax, 0x10                     ; 0x0702
     push ax                          ; 0x0705
-    call loc_2b31                    ; 0x0706
+    call aztec_sysint                ; 0x0706
     add sp, byte 6                   ; 0x0709
     mov sp, bp                       ; 0x070c
     pop bp                           ; 0x070e
@@ -490,7 +509,7 @@ loc_0807:
     push bp                          ; 0x0807
     mov bp, sp                       ; 0x0808
     push word [bp + 0x4]             ; 0x080a
-    call leaf_loc_2806               ; 0x080d
+    call aztec_atoi                  ; 0x080d
     pop cx                           ; 0x0810
     mov sp, bp                       ; 0x0811
     pop bp                           ; 0x0813
@@ -499,7 +518,7 @@ loc_0815:
     push bp                          ; 0x0815
     mov bp, sp                       ; 0x0816
     push word [bp + 0x4]             ; 0x0818
-    call math_loc_2877               ; 0x081b
+    call aztec_atol                  ; 0x081b
     pop cx                           ; 0x081e
     mov sp, bp                       ; 0x081f
     pop bp                           ; 0x0821
@@ -510,7 +529,7 @@ loc_0823:
     add sp, strict word 0xfefe       ; 0x0826
     mov ax, word [bp + 0x4]          ; 0x082a
     mov word [bp - 0x0002], ax       ; 0x082d
-@..local.l21:
+@..local.l13:
     push word [bp + 0x8]             ; 0x0830
     push word [bp + 0x6]             ; 0x0833
     call bios_video_loc_2551         ; 0x0836
@@ -518,7 +537,7 @@ loc_0823:
     lea ax, word [bp - 0x0101]       ; 0x083c
     push ax                          ; 0x0840
     push word [bp - 0x0002]          ; 0x0841
-    call math_loc_02b2               ; 0x0844
+    call aztec_raise                 ; 0x0844
     add sp, byte 4                   ; 0x0847
     lea ax, word [bp - 0x0101]       ; 0x084a
     push ax                          ; 0x084e
@@ -542,9 +561,9 @@ loc_0823:
     mov word [bp - 0x0002], ax       ; 0x0878
     mov ax, word [bp - 0x0002]       ; 0x087b
     cmp ax, word [bp + 0xe]          ; 0x087e
-    jl short @..local.l21            ; 0x0881
+    jl short @..local.l13            ; 0x0881
     cmp ax, word [bp + 0xc]          ; 0x0883
-    jg short @..local.l21            ; 0x0886
+    jg short @..local.l13            ; 0x0886
     mov ax, word [bp - 0x0002]       ; 0x0888
     mov sp, bp                       ; 0x088b
     pop bp                           ; 0x088d
@@ -569,38 +588,8 @@ loc_0927:
     mov byte [data_2647], 0x1f       ; 0x093b
     call loc_0443                    ; 0x0940
     ret                              ; 0x0943
-loc_0944:
-    push bp                          ; 0x0944
-    mov bp, sp                       ; 0x0945
-    push word [bp + 0x8]             ; 0x0947
-    push word [bp + 0x6]             ; 0x094a
-    push word [bp + 0x4]             ; 0x094d
-    call loc_040f                    ; 0x0950
-    add sp, byte 6                   ; 0x0953
-    mov ax, word [bp + 0xa]          ; 0x0956
-    shl ax, 1                        ; 0x0959
-    mov bx, ax                       ; 0x095b
-    push word [bx + 0x160]           ; 0x095d
-    mov ax, 0x16                     ; 0x0961
-    push ax                          ; 0x0964
-    push word [bp + 0x4]             ; 0x0965
-    call loc_040f                    ; 0x0968
-    add sp, byte 6                   ; 0x096b
-    push word [bp + 0xc]             ; 0x096e
-    mov ax, data_002e                ; 0x0971
-    push ax                          ; 0x0974
-    push word [bp + 0x4]             ; 0x0975
-    call loc_040f                    ; 0x0978
-    add sp, byte 6                   ; 0x097b
-    push word [bp + 0xe]             ; 0x097e
-    mov ax, 0x3a                     ; 0x0981
-    push ax                          ; 0x0984
-    push word [bp + 0x4]             ; 0x0985
-    call loc_040f                    ; 0x0988
-    add sp, byte 6                   ; 0x098b
-    mov sp, bp                       ; 0x098e
-    pop bp                           ; 0x0990
-    ret                              ; 0x0991
+%include "vinstall/aztec_vfprintf.asm"
+
 %include "vinstall/math_loc_0992.asm"
 
 loc_0a0f:
@@ -610,51 +599,51 @@ loc_0a0f:
     push word [bp + 0x6]             ; 0x0a16
     lea ax, word [bp - 0x0050]       ; 0x0a19
     push ax                          ; 0x0a1c
-    call strlen_2                    ; 0x0a1d
+    call aztec_strcpy                ; 0x0a1d
     add sp, byte 4                   ; 0x0a20
     mov ax, 0x14ef                   ; 0x0a23
     push ax                          ; 0x0a26
     lea ax, word [bp - 0x0050]       ; 0x0a27
     push ax                          ; 0x0a2a
-    call strlen                      ; 0x0a2b
+    call aztec_strncat               ; 0x0a2b
     add sp, byte 4                   ; 0x0a2e
     mov ax, data_0002                ; 0x0a31
     push ax                          ; 0x0a34
     lea ax, word [bp - 0x0050]       ; 0x0a35
     push ax                          ; 0x0a38
-    call loc_3381                    ; 0x0a39
+    call aztec_open                  ; 0x0a39
     add sp, byte 4                   ; 0x0a3c
     mov word [data_2698], ax         ; 0x0a3f
     cmp ax, strict word 0xffff       ; 0x0a42
-    jne short @..local.l23           ; 0x0a45
+    jne short @..local.l15           ; 0x0a45
     mov ax, 0x14fc                   ; 0x0a47
     push ax                          ; 0x0a4a
     lea ax, word [bp - 0x00a0]       ; 0x0a4b
     push ax                          ; 0x0a4f
-    call strlen_2                    ; 0x0a50
+    call aztec_strcpy                ; 0x0a50
     add sp, byte 4                   ; 0x0a53
     lea ax, word [bp - 0x0050]       ; 0x0a56
     push ax                          ; 0x0a59
     lea ax, word [bp - 0x00a0]       ; 0x0a5a
     push ax                          ; 0x0a5e
-    call strlen                      ; 0x0a5f
+    call aztec_strncat               ; 0x0a5f
     add sp, byte 4                   ; 0x0a62
     mov ax, 0x151a                   ; 0x0a65
     push ax                          ; 0x0a68
     lea ax, word [bp - 0x00a0]       ; 0x0a69
     push ax                          ; 0x0a6d
-    call strlen                      ; 0x0a6e
+    call aztec_strncat               ; 0x0a6e
     add sp, byte 4                   ; 0x0a71
     lea ax, word [bp - 0x00a0]       ; 0x0a74
     push ax                          ; 0x0a78
     call math_loc_0992               ; 0x0a79
     pop cx                           ; 0x0a7c
     mov ax, 1                        ; 0x0a7d
-@..local.l22:
+@..local.l14:
     mov sp, bp                       ; 0x0a80
     pop bp                           ; 0x0a82
     ret                              ; 0x0a83
-@..local.l23:
+@..local.l15:
     mov ax, 0                        ; 0x0a84
     push ax                          ; 0x0a87
     mov ax, 0                        ; 0x0a88
@@ -662,7 +651,7 @@ loc_0a0f:
     push dx                          ; 0x0a8e
     push ax                          ; 0x0a8f
     push word [data_2698]            ; 0x0a90
-    call dos_file_loc_3881           ; 0x0a94
+    call aztec_lseek                 ; 0x0a94
     add sp, byte 8                   ; 0x0a97
     mov ax, 0x34c                    ; 0x0a9a
     push ax                          ; 0x0a9d
@@ -673,17 +662,17 @@ loc_0a0f:
     add sp, byte 6                   ; 0x0aa9
     mov ax, word [bp + 0x1c]         ; 0x0aac
     cmp ax, word [data_29d2]         ; 0x0aaf
-    je short @..local.l24            ; 0x0ab3
+    je short @..local.l16            ; 0x0ab3
     mov ax, 0x152c                   ; 0x0ab5
     push ax                          ; 0x0ab8
     call math_loc_0992               ; 0x0ab9
     pop cx                           ; 0x0abc
     push word [data_2698]            ; 0x0abd
-    call dos_file_loc_3869           ; 0x0ac1
+    call aztec_close                 ; 0x0ac1
     pop cx                           ; 0x0ac4
     mov ax, 1                        ; 0x0ac5
-    jmp short @..local.l22           ; 0x0ac8
-@..local.l24:
+    jmp short @..local.l14           ; 0x0ac8
+@..local.l16:
     mov ax, word [bp + 0x1c]         ; 0x0aca
     mov word [data_29d2], ax         ; 0x0acd
     mov al, byte [bp + 0xc]          ; 0x0ad0
@@ -695,7 +684,7 @@ loc_0a0f:
     push word [bp + 0x16]            ; 0x0ae2
     mov ax, 0x29bc                   ; 0x0ae5
     push ax                          ; 0x0ae8
-    call strlen_2                    ; 0x0ae9
+    call aztec_strcpy                ; 0x0ae9
     add sp, byte 4                   ; 0x0aec
     mov al, byte [bp + 0x18]         ; 0x0aef
     mov byte [data_29d0], al         ; 0x0af2
@@ -703,27 +692,27 @@ loc_0a0f:
     mov byte [data_29d1], al         ; 0x0af8
     mov ax, 0xa                      ; 0x0afb
     cmp word [bp + 0xe], byte 7      ; 0x0afe
-    jne short @..local.l25           ; 0x0b02
+    jne short @..local.l17           ; 0x0b02
     mov ax, 0                        ; 0x0b04
-@..local.l25:
+@..local.l17:
     mov byte [data_29d4], al         ; 0x0b07
     mov ax, 0xa                      ; 0x0b0a
     cmp word [bp + 0xe], byte 7      ; 0x0b0d
-    jne short @..local.l26           ; 0x0b11
+    jne short @..local.l18           ; 0x0b11
     mov ax, 0                        ; 0x0b13
-@..local.l26:
+@..local.l18:
     mov byte [data_29d5], al         ; 0x0b16
     mov ax, 0xa                      ; 0x0b19
     cmp word [bp + 0xe], byte 7      ; 0x0b1c
-    jne short @..local.l27           ; 0x0b20
+    jne short @..local.l19           ; 0x0b20
     mov ax, 0                        ; 0x0b22
-@..local.l27:
+@..local.l19:
     mov byte [data_29d6], al         ; 0x0b25
     mov ax, 0xa                      ; 0x0b28
     cmp word [bp + 0xe], byte 7      ; 0x0b2b
-    jne short @..local.l28           ; 0x0b2f
+    jne short @..local.l20           ; 0x0b2f
     mov ax, 0                        ; 0x0b31
-@..local.l28:
+@..local.l20:
     mov byte [data_29d7], al         ; 0x0b34
     mov ax, word [bp + 0xe]          ; 0x0b37
     mov cx, 7                        ; 0x0b3a
@@ -734,62 +723,62 @@ loc_0a0f:
     mov al, byte [bp + 0xe]          ; 0x0b45
     mov byte [data_29dc], al         ; 0x0b48
     cmp word [bp + 0xe], byte 5      ; 0x0b4b
-    jne short @..local.l29           ; 0x0b4f
+    jne short @..local.l21           ; 0x0b4f
     mov byte [data_29dc], 0          ; 0x0b51
-@..local.l29:
+@..local.l21:
     mov byte [data_29dd], al         ; 0x0b56
     cmp word [bp + 0xe], byte 2      ; 0x0b59
-    je short @..local.l30            ; 0x0b5d
+    je short @..local.l22            ; 0x0b5d
     cmp word [bp + 0xe], byte 3      ; 0x0b5f
-    jne short @..local.l31           ; 0x0b63
-@..local.l30:
+    jne short @..local.l23           ; 0x0b63
+@..local.l22:
     mov byte [data_29dd], 0          ; 0x0b65
-@..local.l31:
+@..local.l23:
     mov word [data_29d8], 0          ; 0x0b6a
     mov word [data_29da], 0          ; 0x0b70
     cmp word [bp + 0xe], byte 0      ; 0x0b76
-    jle short @..local.l32           ; 0x0b7a
+    jle short @..local.l24           ; 0x0b7a
     mov word [data_29d8], 0x220      ; 0x0b7c
     mov word [data_29da], 0x220      ; 0x0b82
-@..local.l32:
+@..local.l24:
     mov ax, 1                        ; 0x0b88
     cmp word [bp + 0x10], byte 0     ; 0x0b8b
-    jne short @..local.l33           ; 0x0b8f
+    jne short @..local.l25           ; 0x0b8f
     mov ax, 0                        ; 0x0b91
-@..local.l33:
+@..local.l25:
     mov byte [data_29e1], al         ; 0x0b94
     mov al, byte [bp + 0xa]          ; 0x0b97
     mov byte [data_29df], al         ; 0x0b9a
     push word [bp + 0x6]             ; 0x0b9d
     mov ax, 0x296a                   ; 0x0ba0
     push ax                          ; 0x0ba3
-    call strlen_2                    ; 0x0ba4
+    call aztec_strcpy                ; 0x0ba4
     add sp, byte 4                   ; 0x0ba7
     push word [bp + 0x6]             ; 0x0baa
     mov ax, 0x2992                   ; 0x0bad
     push ax                          ; 0x0bb0
-    call strlen_2                    ; 0x0bb1
+    call aztec_strcpy                ; 0x0bb1
     add sp, byte 4                   ; 0x0bb4
     cmp word [bp + 0xa], byte 5      ; 0x0bb7
-    jne short @..local.l34           ; 0x0bbb
+    jne short @..local.l26           ; 0x0bbb
     push word [bp + 0x8]             ; 0x0bbd
     mov ax, 0x297e                   ; 0x0bc0
     push ax                          ; 0x0bc3
-    call strlen_2                    ; 0x0bc4
+    call aztec_strcpy                ; 0x0bc4
     add sp, byte 4                   ; 0x0bc7
     mov ax, 0x155e                   ; 0x0bca
     push ax                          ; 0x0bcd
     mov ax, 0x297e                   ; 0x0bce
     push ax                          ; 0x0bd1
-    call strlen                      ; 0x0bd2
+    call aztec_strncat               ; 0x0bd2
     add sp, byte 4                   ; 0x0bd5
     mov byte [data_29e3], 1          ; 0x0bd8
-@..local.l34:
+@..local.l26:
     mov ax, 0x1560                   ; 0x0bdd
     push ax                          ; 0x0be0
     mov ax, 0x29a6                   ; 0x0be1
     push ax                          ; 0x0be4
-    call strlen_2                    ; 0x0be5
+    call aztec_strcpy                ; 0x0be5
     add sp, byte 4                   ; 0x0be8
     mov ax, 0                        ; 0x0beb
     push ax                          ; 0x0bee
@@ -798,7 +787,7 @@ loc_0a0f:
     push dx                          ; 0x0bf5
     push ax                          ; 0x0bf6
     push word [data_2698]            ; 0x0bf7
-    call dos_file_loc_3881           ; 0x0bfb
+    call aztec_lseek                 ; 0x0bfb
     add sp, byte 8                   ; 0x0bfe
     mov ax, 0x34c                    ; 0x0c01
     push ax                          ; 0x0c04
@@ -808,10 +797,10 @@ loc_0a0f:
     call leaf_loc_383a               ; 0x0c0d
     add sp, byte 6                   ; 0x0c10
     push word [data_2698]            ; 0x0c13
-    call dos_file_loc_3869           ; 0x0c17
+    call aztec_close                 ; 0x0c17
     pop cx                           ; 0x0c1a
     mov ax, 0                        ; 0x0c1b
-    jmp near @..local.l22            ; 0x0c1e
+    jmp near @..local.l14            ; 0x0c1e
 loc_0c21:
     push bp                          ; 0x0c21
     mov bp, sp                       ; 0x0c22
@@ -823,53 +812,53 @@ loc_0c21:
     inc ax                           ; 0x0c2f
     mov word [bp + 0x4], ax          ; 0x0c30
     cmp ax, strict word 1            ; 0x0c33
-    jne short @..local.l35           ; 0x0c36
+    jne short @..local.l27           ; 0x0c36
     cmp word [data_29e6], byte 0     ; 0x0c38
-    jne short @..local.l35           ; 0x0c3d
+    jne short @..local.l27           ; 0x0c3d
     inc word [bp + 0x4]              ; 0x0c3f
-@..local.l35:
+@..local.l27:
     cmp word [bp + 0x4], byte 2      ; 0x0c42
-    jne short @..local.l36           ; 0x0c46
+    jne short @..local.l28           ; 0x0c46
     cmp word [data_29e8], byte 0     ; 0x0c48
-    jne short @..local.l36           ; 0x0c4d
+    jne short @..local.l28           ; 0x0c4d
     inc word [bp + 0x4]              ; 0x0c4f
-@..local.l36:
+@..local.l28:
     cmp word [bp + 0x4], byte 3      ; 0x0c52
-    jne short @..local.l37           ; 0x0c56
+    jne short @..local.l29           ; 0x0c56
     cmp word [data_29ea], byte 0     ; 0x0c58
-    jne short @..local.l37           ; 0x0c5d
+    jne short @..local.l29           ; 0x0c5d
     inc word [bp + 0x4]              ; 0x0c5f
-@..local.l37:
+@..local.l29:
     cmp word [bp + 0x4], byte 4      ; 0x0c62
-    jne short @..local.l38           ; 0x0c66
+    jne short @..local.l30           ; 0x0c66
     cmp word [data_29ec], byte 0     ; 0x0c68
-    jne short @..local.l38           ; 0x0c6d
+    jne short @..local.l30           ; 0x0c6d
     mov word [bp + 0x4], 1           ; 0x0c6f
-@..local.l38:
+@..local.l30:
     cmp word [bp + 0x4], byte 1      ; 0x0c74
-    jne short @..local.l39           ; 0x0c78
+    jne short @..local.l31           ; 0x0c78
     cmp word [data_29e6], byte 0     ; 0x0c7a
-    jne short @..local.l39           ; 0x0c7f
+    jne short @..local.l31           ; 0x0c7f
     inc word [bp + 0x4]              ; 0x0c81
-@..local.l39:
+@..local.l31:
     cmp word [bp + 0x4], byte 2      ; 0x0c84
-    jne short @..local.l40           ; 0x0c88
+    jne short @..local.l32           ; 0x0c88
     cmp word [data_29e8], byte 0     ; 0x0c8a
-    jne short @..local.l40           ; 0x0c8f
+    jne short @..local.l32           ; 0x0c8f
     inc word [bp + 0x4]              ; 0x0c91
-@..local.l40:
+@..local.l32:
     cmp word [bp + 0x4], byte 3      ; 0x0c94
-    jne short @..local.l41           ; 0x0c98
+    jne short @..local.l33           ; 0x0c98
     cmp word [data_29ea], byte 0     ; 0x0c9a
-    jne short @..local.l41           ; 0x0c9f
+    jne short @..local.l33           ; 0x0c9f
     inc word [bp + 0x4]              ; 0x0ca1
-@..local.l41:
+@..local.l33:
     cmp word [bp + 0x4], byte 4      ; 0x0ca4
-    jne short @..local.l42           ; 0x0ca8
+    jne short @..local.l34           ; 0x0ca8
     cmp word [data_29ec], byte 0     ; 0x0caa
-    jne short @..local.l42           ; 0x0caf
+    jne short @..local.l34           ; 0x0caf
     mov word [bp + 0x4], 0           ; 0x0cb1
-@..local.l42:
+@..local.l34:
     mov ax, word [bp + 0x4]          ; 0x0cb6
     shl ax, 1                        ; 0x0cb9
     mov bx, ax                       ; 0x0cbb
@@ -888,7 +877,7 @@ loc_0cd6:
     push bp                          ; 0x0cd6
     mov bp, sp                       ; 0x0cd7
     push si                          ; 0x0cd9
-@..local.l43:
+@..local.l35:
     mov ax, word [bp + 0x6]          ; 0x0cda
     inc ax                           ; 0x0cdd
     mov cx, data_0005                ; 0x0cde
@@ -898,7 +887,7 @@ loc_0cd6:
     mov bx, word [bp + 0x8]          ; 0x0ce7
     mov si, word [bp + 0x6]          ; 0x0cea
     cmp byte [bx + si], data_0030    ; 0x0ced
-    je short @..local.l43            ; 0x0cf0
+    je short @..local.l35            ; 0x0cf0
     mov ax, word [bp + 0x6]          ; 0x0cf2
     shl ax, 1                        ; 0x0cf5
     mov bx, ax                       ; 0x0cf7
@@ -960,23 +949,23 @@ loc_0d6a:
     mov bp, sp                       ; 0x0d6b
     add sp, byte 0xae                ; 0x0d6d
     push word [bp + 0x4]             ; 0x0d70
-    call strlen_3                    ; 0x0d73
+    call strlen                      ; 0x0d73
     pop cx                           ; 0x0d76
     cmp ax, strict word 0x4c         ; 0x0d77
-    jle short @..local.l44           ; 0x0d7a
+    jle short @..local.l36           ; 0x0d7a
     mov ax, 0x4c                     ; 0x0d7c
-    jmp short @..local.l45           ; 0x0d7f
-@..local.l44:
+    jmp short @..local.l37           ; 0x0d7f
+@..local.l36:
     push word [bp + 0x4]             ; 0x0d81
-    call strlen_3                    ; 0x0d84
+    call strlen                      ; 0x0d84
     pop cx                           ; 0x0d87
-@..local.l45:
+@..local.l37:
     mov word [bp - 0x0002], ax       ; 0x0d88
     push ax                          ; 0x0d8b
     push word [bp + 0x4]             ; 0x0d8c
     lea ax, word [bp - 0x0052]       ; 0x0d8f
     push ax                          ; 0x0d92
-    call string_loc_2b09             ; 0x0d93
+    call aztec_strncpy               ; 0x0d93
     add sp, byte 6                   ; 0x0d96
     mov bx, word [bp - 0x0002]       ; 0x0d99
     add bx, bp                       ; 0x0d9c
@@ -992,7 +981,7 @@ loc_0d6a:
     lea ax, word [bp - 0x0052]       ; 0x0db4
     push ax                          ; 0x0db7
     push ax                          ; 0x0db8
-    call strlen_3                    ; 0x0db9
+    call strlen                      ; 0x0db9
     pop cx                           ; 0x0dbc
     inc ax                           ; 0x0dbd
     mov cx, data_0002                ; 0x0dbe
@@ -1017,34 +1006,34 @@ loc_0dda:
     push ax                          ; 0x0de4
     lea ax, word [bp - 0x00a2]       ; 0x0de5
     push ax                          ; 0x0de9
-    call strlen_2                    ; 0x0dea
+    call aztec_strcpy                ; 0x0dea
     add sp, byte 4                   ; 0x0ded
     cmp word [bp + 0x8], byte 0      ; 0x0df0
-    jge short @..local.l46           ; 0x0df4
+    jge short @..local.l38           ; 0x0df4
     mov ax, 0x15cc                   ; 0x0df6
     push ax                          ; 0x0df9
     lea ax, word [bp - 0x00a2]       ; 0x0dfa
     push ax                          ; 0x0dfe
-    call strlen                      ; 0x0dff
+    call aztec_strncat               ; 0x0dff
     add sp, byte 4                   ; 0x0e02
     mov ax, 0                        ; 0x0e05
     sub ax, word [bp + 0x8]          ; 0x0e08
     mov word [bp + 0x8], ax          ; 0x0e0b
-    jmp short @..local.l47           ; 0x0e0e
-@..local.l46:
+    jmp short @..local.l39           ; 0x0e0e
+@..local.l38:
     mov ax, 0x15d8                   ; 0x0e10
     push ax                          ; 0x0e13
     lea ax, word [bp - 0x00a2]       ; 0x0e14
     push ax                          ; 0x0e18
-    call strlen                      ; 0x0e19
+    call aztec_strncat               ; 0x0e19
     add sp, byte 4                   ; 0x0e1c
     call loc_0452                    ; 0x0e1f
-@..local.l47:
+@..local.l39:
     mov ax, 0x15e1                   ; 0x0e22
     push ax                          ; 0x0e25
     lea ax, word [bp - 0x00a2]       ; 0x0e26
     push ax                          ; 0x0e2a
-    call strlen                      ; 0x0e2b
+    call aztec_strncat               ; 0x0e2b
     add sp, byte 4                   ; 0x0e2e
     mov ax, word [bp + 0x8]          ; 0x0e31
     add ax, strict word 0x40         ; 0x0e34
@@ -1054,41 +1043,41 @@ loc_0dda:
     push ax                          ; 0x0e41
     lea ax, word [bp - 0x00a2]       ; 0x0e42
     push ax                          ; 0x0e46
-    call strlen                      ; 0x0e47
+    call aztec_strncat               ; 0x0e47
     add sp, byte 4                   ; 0x0e4a
     mov ax, 0x15e9                   ; 0x0e4d
     push ax                          ; 0x0e50
     lea ax, word [bp - 0x00a2]       ; 0x0e51
     push ax                          ; 0x0e55
-    call strlen                      ; 0x0e56
+    call aztec_strncat               ; 0x0e56
     add sp, byte 4                   ; 0x0e59
     push word [bp + 0x4]             ; 0x0e5c
     lea ax, word [bp - 0x00a2]       ; 0x0e5f
     push ax                          ; 0x0e63
-    call strlen                      ; 0x0e64
+    call aztec_strncat               ; 0x0e64
     add sp, byte 4                   ; 0x0e67
     mov ax, 0x15f7                   ; 0x0e6a
     push ax                          ; 0x0e6d
     lea ax, word [bp - 0x00a2]       ; 0x0e6e
     push ax                          ; 0x0e72
-    call strlen                      ; 0x0e73
+    call aztec_strncat               ; 0x0e73
     add sp, byte 4                   ; 0x0e76
     push word [bp + 0xa]             ; 0x0e79
-    call strlen_3                    ; 0x0e7c
+    call strlen                      ; 0x0e7c
     pop cx                           ; 0x0e7f
     cmp ax, strict word 0            ; 0x0e80
-    jle short @..local.l49           ; 0x0e83
+    jle short @..local.l41           ; 0x0e83
     push word [bp + 0x6]             ; 0x0e85
     lea ax, word [bp - 0x0052]       ; 0x0e88
     push ax                          ; 0x0e8b
-    call strlen_2                    ; 0x0e8c
+    call aztec_strcpy                ; 0x0e8c
     add sp, byte 4                   ; 0x0e8f
     push word [bp + 0xa]             ; 0x0e92
     lea ax, word [bp - 0x0052]       ; 0x0e95
     push ax                          ; 0x0e98
-    call strlen                      ; 0x0e99
+    call aztec_strncat               ; 0x0e99
     add sp, byte 4                   ; 0x0e9c
-@..local.l48:
+@..local.l40:
     lea ax, word [bp - 0x00a2]       ; 0x0e9f
     push ax                          ; 0x0ea3
     call math_loc_0992               ; 0x0ea4
@@ -1097,21 +1086,21 @@ loc_0dda:
     push ax                          ; 0x0eab
     lea ax, word [bp - 0x0052]       ; 0x0eac
     push ax                          ; 0x0eaf
-    call loc_3381                    ; 0x0eb0
+    call aztec_open                  ; 0x0eb0
     add sp, byte 4                   ; 0x0eb3
     mov word [bp - 0x00a4], ax       ; 0x0eb6
     cmp word [bp - 0x00a4], byte 0xff ; 0x0eba
-    je short @..local.l48            ; 0x0ebf
+    je short @..local.l40            ; 0x0ebf
     push word [bp - 0x00a4]          ; 0x0ec1
-    call dos_file_loc_3869           ; 0x0ec5
+    call aztec_close                 ; 0x0ec5
     pop cx                           ; 0x0ec8
-    jmp short @..local.l50           ; 0x0ec9
-@..local.l49:
+    jmp short @..local.l42           ; 0x0ec9
+@..local.l41:
     lea ax, word [bp - 0x00a2]       ; 0x0ecb
     push ax                          ; 0x0ecf
     call math_loc_0992               ; 0x0ed0
     pop cx                           ; 0x0ed3
-@..local.l50:
+@..local.l42:
     mov sp, bp                       ; 0x0ed4
     pop bp                           ; 0x0ed6
     ret                              ; 0x0ed7
@@ -1122,61 +1111,61 @@ loc_0ed8:
     push word [bp + 0x4]             ; 0x0edf
     lea ax, word [bp - 0x0028]       ; 0x0ee2
     push ax                          ; 0x0ee5
-    call strlen_2                    ; 0x0ee6
+    call aztec_strcpy                ; 0x0ee6
     add sp, byte 4                   ; 0x0ee9
     mov ax, 0x1609                   ; 0x0eec
     push ax                          ; 0x0eef
     lea ax, word [bp - 0x0028]       ; 0x0ef0
     push ax                          ; 0x0ef3
-    call strlen                      ; 0x0ef4
+    call aztec_strncat               ; 0x0ef4
     add sp, byte 4                   ; 0x0ef7
     mov ax, 0x1615                   ; 0x0efa
     push ax                          ; 0x0efd
     lea ax, word [bp - 0x0050]       ; 0x0efe
     push ax                          ; 0x0f01
-    call strlen_2                    ; 0x0f02
+    call aztec_strcpy                ; 0x0f02
     add sp, byte 4                   ; 0x0f05
     push word [bp + 0x4]             ; 0x0f08
     lea ax, word [bp - 0x0078]       ; 0x0f0b
     push ax                          ; 0x0f0e
-    call strlen_2                    ; 0x0f0f
+    call aztec_strcpy                ; 0x0f0f
     add sp, byte 4                   ; 0x0f12
     push word [bp + 0x8]             ; 0x0f15
     lea ax, word [bp - 0x0078]       ; 0x0f18
     push ax                          ; 0x0f1b
-    call strlen                      ; 0x0f1c
+    call aztec_strncat               ; 0x0f1c
     add sp, byte 4                   ; 0x0f1f
     push word [bp + 0x4]             ; 0x0f22
     lea ax, word [bp - 0x0177]       ; 0x0f25
     push ax                          ; 0x0f29
-    call strlen_2                    ; 0x0f2a
+    call aztec_strcpy                ; 0x0f2a
     add sp, byte 4                   ; 0x0f2d
     mov ax, 0x1621                   ; 0x0f30
     push ax                          ; 0x0f33
     lea ax, word [bp - 0x0177]       ; 0x0f34
     push ax                          ; 0x0f38
-    call strlen                      ; 0x0f39
+    call aztec_strncat               ; 0x0f39
     add sp, byte 4                   ; 0x0f3c
     push word [bp + 0x4]             ; 0x0f3f
     lea ax, word [bp - 0x0177]       ; 0x0f42
     push ax                          ; 0x0f46
-    call strlen                      ; 0x0f47
+    call aztec_strncat               ; 0x0f47
     add sp, byte 4                   ; 0x0f4a
     push word [bp + 0x8]             ; 0x0f4d
     lea ax, word [bp - 0x0177]       ; 0x0f50
     push ax                          ; 0x0f54
-    call strlen                      ; 0x0f55
+    call aztec_strncat               ; 0x0f55
     add sp, byte 4                   ; 0x0f58
     mov ax, 0x162e                   ; 0x0f5b
     push ax                          ; 0x0f5e
     lea ax, word [bp - 0x0177]       ; 0x0f5f
     push ax                          ; 0x0f63
-    call strlen                      ; 0x0f64
+    call aztec_strncat               ; 0x0f64
     add sp, byte 4                   ; 0x0f67
     push word [bp + 0xa]             ; 0x0f6a
     lea ax, word [bp - 0x0177]       ; 0x0f6d
     push ax                          ; 0x0f71
-    call strlen                      ; 0x0f72
+    call aztec_strncat               ; 0x0f72
     add sp, byte 4                   ; 0x0f75
     lea ax, word [bp - 0x0177]       ; 0x0f78
     push ax                          ; 0x0f7c
@@ -1204,7 +1193,7 @@ loc_0ed8:
     call loc_2908                    ; 0x0faa
     add sp, byte 0x0c                ; 0x0fad
     mov word [bp - 0x01c9], ax       ; 0x0fb0
-    call dos_proc_loc_2a9d           ; 0x0fb4
+    call aztec_wait                  ; 0x0fb4
     mov word [bp - 0x01cb], ax       ; 0x0fb7
     push word [data_29ee]            ; 0x0fbb
     mov ax, 0x163a                   ; 0x0fbf
@@ -1215,31 +1204,31 @@ loc_0ed8:
     add sp, byte 6                   ; 0x0fca
     mov word [data_29ee], ax         ; 0x0fcd
     cmp word [bp - 0x01c9], byte 0xff ; 0x0fd0
-    je short @..local.l51            ; 0x0fd5
+    je short @..local.l43            ; 0x0fd5
     cmp word [bp - 0x01cb], byte 0   ; 0x0fd7
-    je short @..local.l52            ; 0x0fdc
-@..local.l51:
+    je short @..local.l44            ; 0x0fdc
+@..local.l43:
     mov ax, 0x163c                   ; 0x0fde
     push ax                          ; 0x0fe1
     lea ax, word [bp - 0x01c7]       ; 0x0fe2
     push ax                          ; 0x0fe6
-    call strlen_2                    ; 0x0fe7
+    call aztec_strcpy                ; 0x0fe7
     add sp, byte 4                   ; 0x0fea
     push word [bp + 0x4]             ; 0x0fed
     lea ax, word [bp - 0x01c7]       ; 0x0ff0
     push ax                          ; 0x0ff4
-    call strlen                      ; 0x0ff5
+    call aztec_strncat               ; 0x0ff5
     add sp, byte 4                   ; 0x0ff8
     push word [bp + 0x8]             ; 0x0ffb
     lea ax, word [bp - 0x01c7]       ; 0x0ffe
     push ax                          ; 0x1002
-    call strlen                      ; 0x1003
+    call aztec_strncat               ; 0x1003
     add sp, byte 4                   ; 0x1006
     mov ax, 0x1657                   ; 0x1009
     push ax                          ; 0x100c
     lea ax, word [bp - 0x01c7]       ; 0x100d
     push ax                          ; 0x1011
-    call strlen                      ; 0x1012
+    call aztec_strncat               ; 0x1012
     add sp, byte 4                   ; 0x1015
     lea ax, word [bp - 0x01c7]       ; 0x1018
     push ax                          ; 0x101c
@@ -1249,7 +1238,7 @@ loc_0ed8:
     push ax                          ; 0x1024
     call loc_380b                    ; 0x1025
     pop cx                           ; 0x1028
-@..local.l52:
+@..local.l44:
     mov sp, bp                       ; 0x1029
     pop bp                           ; 0x102b
     ret                              ; 0x102c
@@ -1289,120 +1278,8 @@ loc_0ed8:
     db 0xff, 0x46, 0xfe, 0x8d, 0x46, 0xae, 0x50, 0xe8, 0xc0, 0x23, 0x59, 0x3b, 0x46, 0xfe, 0x7f, 0xd2
     db 0xb8, 0x00, 0x00, 0xeb, 0xe7
 
-loc_11ba:
-    push bp                          ; 0x11ba
-    mov bp, sp                       ; 0x11bb
-    add sp, byte 0xae                ; 0x11bd
-    push word [bp + 0x4]             ; 0x11c0
-    call leaf_loc_0200               ; 0x11c3
-    pop cx                           ; 0x11c6
-    mov word [bp - 0x0002], ax       ; 0x11c7
-    cmp ax, strict word 0xffff       ; 0x11ca
-    jne short @..local.l53           ; 0x11cd
-    mov ax, 0x1689                   ; 0x11cf
-    push ax                          ; 0x11d2
-    lea ax, word [bp - 0x0052]       ; 0x11d3
-    push ax                          ; 0x11d6
-    call strlen_2                    ; 0x11d7
-    add sp, byte 4                   ; 0x11da
-    push word [bp + 0x4]             ; 0x11dd
-    lea ax, word [bp - 0x0052]       ; 0x11e0
-    push ax                          ; 0x11e3
-    call strlen                      ; 0x11e4
-    add sp, byte 4                   ; 0x11e7
-    mov ax, 0x16af                   ; 0x11ea
-    push ax                          ; 0x11ed
-    lea ax, word [bp - 0x0052]       ; 0x11ee
-    push ax                          ; 0x11f1
-    call strlen                      ; 0x11f2
-    add sp, byte 4                   ; 0x11f5
-    lea ax, word [bp - 0x0052]       ; 0x11f8
-    push ax                          ; 0x11fb
-    call math_loc_0992               ; 0x11fc
-    pop cx                           ; 0x11ff
-    mov ax, data_0004                ; 0x1200
-    push ax                          ; 0x1203
-    call loc_380b                    ; 0x1204
-    pop cx                           ; 0x1207
-@..local.l53:
-    push word [bp + 0x6]             ; 0x1208
-    call leaf_loc_2a1c               ; 0x120b
-    pop cx                           ; 0x120e
-    mov word [bp - 0x0002], ax       ; 0x120f
-    cmp ax, strict word 0xffff       ; 0x1212
-    je short @..local.l54            ; 0x1215
-    jmp near @..local.l57            ; 0x1217
-@..local.l54:
-    cmp word [bp + 0x8], byte 1      ; 0x121a
-    jne short @..local.l56           ; 0x121e
-    push word [bp + 0x6]             ; 0x1220
-    call dos_loc_29fe                ; 0x1223
-    pop cx                           ; 0x1226
-    mov word [bp - 0x0002], ax       ; 0x1227
-    cmp ax, strict word 0xffff       ; 0x122a
-    jne short @..local.l55           ; 0x122d
-    mov ax, 0x16c2                   ; 0x122f
-    push ax                          ; 0x1232
-    lea ax, word [bp - 0x0052]       ; 0x1233
-    push ax                          ; 0x1236
-    call strlen_2                    ; 0x1237
-    add sp, byte 4                   ; 0x123a
-    push word [bp + 0x6]             ; 0x123d
-    lea ax, word [bp - 0x0052]       ; 0x1240
-    push ax                          ; 0x1243
-    call strlen                      ; 0x1244
-    add sp, byte 4                   ; 0x1247
-    mov ax, 0x16e8                   ; 0x124a
-    push ax                          ; 0x124d
-    lea ax, word [bp - 0x0052]       ; 0x124e
-    push ax                          ; 0x1251
-    call strlen                      ; 0x1252
-    add sp, byte 4                   ; 0x1255
-    lea ax, word [bp - 0x0052]       ; 0x1258
-    push ax                          ; 0x125b
-    call math_loc_0992               ; 0x125c
-    pop cx                           ; 0x125f
-    mov ax, 1                        ; 0x1260
-    push ax                          ; 0x1263
-    call loc_380b                    ; 0x1264
-    pop cx                           ; 0x1267
-@..local.l55:
-    push word [bp + 0x6]             ; 0x1268
-    call leaf_loc_2a1c               ; 0x126b
-    pop cx                           ; 0x126e
-    mov word [bp - 0x0002], ax       ; 0x126f
-@..local.l56:
-    cmp word [bp - 0x0002], byte 0xff ; 0x1272
-    jne short @..local.l57           ; 0x1276
-    mov ax, 0x16fa                   ; 0x1278
-    push ax                          ; 0x127b
-    lea ax, word [bp - 0x0052]       ; 0x127c
-    push ax                          ; 0x127f
-    call strlen_2                    ; 0x1280
-    add sp, byte 4                   ; 0x1283
-    push word [bp + 0x6]             ; 0x1286
-    lea ax, word [bp - 0x0052]       ; 0x1289
-    push ax                          ; 0x128c
-    call strlen                      ; 0x128d
-    add sp, byte 4                   ; 0x1290
-    mov ax, 0x1720                   ; 0x1293
-    push ax                          ; 0x1296
-    lea ax, word [bp - 0x0052]       ; 0x1297
-    push ax                          ; 0x129a
-    call strlen                      ; 0x129b
-    add sp, byte 4                   ; 0x129e
-    lea ax, word [bp - 0x0052]       ; 0x12a1
-    push ax                          ; 0x12a4
-    call math_loc_0992               ; 0x12a5
-    pop cx                           ; 0x12a8
-    mov ax, data_0002                ; 0x12a9
-    push ax                          ; 0x12ac
-    call loc_380b                    ; 0x12ad
-    pop cx                           ; 0x12b0
-@..local.l57:
-    mov sp, bp                       ; 0x12b1
-    pop bp                           ; 0x12b3
-    ret                              ; 0x12b4
+%include "vinstall/aztec_fgets.asm"
+
 %include "vinstall/math_loc_12b5.asm"
 
     mov word [data_29e6], 0          ; 0x14b1
@@ -1432,13 +1309,13 @@ loc_11ba:
     push ax                          ; 0x1516
     lea ax, word [bp - 0x001c]       ; 0x1517
     push ax                          ; 0x151a
-    call strlen_2                    ; 0x151b
+    call aztec_strcpy                ; 0x151b
     add sp, byte 4                   ; 0x151e
     mov ax, 0x1bcd                   ; 0x1521
     push ax                          ; 0x1524
     lea ax, word [bp - 0x0032]       ; 0x1525
     push ax                          ; 0x1528
-    call strlen_2                    ; 0x1529
+    call aztec_strcpy                ; 0x1529
     add sp, byte 4                   ; 0x152c
     mov word [bp - 0x0010], data_0004 ; 0x152f
     lea ax, word [bp - 0x0054]       ; 0x1534
@@ -1475,7 +1352,7 @@ loc_11ba:
     push ax                          ; 0x157b
     mov ax, 8                        ; 0x157c
     push ax                          ; 0x157f
-    call loc_0944                    ; 0x1580
+    call aztec_vfprintf              ; 0x1580
     add sp, byte 0x0c                ; 0x1583
     lea ax, word [bp - 0x0054]       ; 0x1586
     push ax                          ; 0x1589
@@ -1488,7 +1365,7 @@ loc_11ba:
     push ax                          ; 0x1598
     mov ax, 9                        ; 0x1599
     push ax                          ; 0x159c
-    call loc_0944                    ; 0x159d
+    call aztec_vfprintf              ; 0x159d
     add sp, byte 0x0c                ; 0x15a0
     mov word [bp - 0x01a0], 0        ; 0x15a3
     mov word [bp - 0x01a2], 0        ; 0x15a9
@@ -1696,7 +1573,7 @@ loc_11ba:
     push ax                          ; 0x17bd
     mov ax, 0x2648                   ; 0x17be
     push ax                          ; 0x17c1
-    call strlen_2                    ; 0x17c2
+    call aztec_strcpy                ; 0x17c2
     add sp, byte 4                   ; 0x17c5
     mov ax, word [bp - 0x019e]       ; 0x17c8
     jmp near @..math_loc_12b5.l10    ; 0x17cc
@@ -2060,7 +1937,7 @@ loc_11ba:
 @..math_loc_12b5.l13:
     call dos_con_in_noecho           ; 0x1b6b
     push ax                          ; 0x1b6e
-    call loc_06a6                    ; 0x1b6f
+    call aztec_gchar                 ; 0x1b6f
     pop cx                           ; 0x1b72
     mov word [bp - 0x0008], ax       ; 0x1b73
     jmp near @..math_loc_12b5.l48    ; 0x1b76
@@ -2252,7 +2129,7 @@ loc_1bd5:
     jne short @..math_loc_12b5.l26   ; 0x1d36
     lea ax, word [bp - 0x0054]       ; 0x1d38
     push ax                          ; 0x1d3b
-    call strlen_3                    ; 0x1d3c
+    call strlen                      ; 0x1d3c
     pop cx                           ; 0x1d3f
     cmp ax, strict word 2            ; 0x1d40
     jle short @..math_loc_12b5.l27   ; 0x1d43
@@ -2308,7 +2185,7 @@ loc_1bd5:
     add sp, byte 8                   ; 0x1db6
     lea ax, word [bp - 0x01b8]       ; 0x1db9
     push ax                          ; 0x1dbd
-    call strlen_3                    ; 0x1dbe
+    call strlen                      ; 0x1dbe
     pop cx                           ; 0x1dc1
     mov word [bp - 0x02d8], ax       ; 0x1dc2
     cmp ax, strict word 2            ; 0x1dc6
@@ -2403,7 +2280,7 @@ loc_1bd5:
     push ax                          ; 0x1e9d
     lea ax, word [bp - 0x0194]       ; 0x1e9e
     push ax                          ; 0x1ea2
-    call strlen_2                    ; 0x1ea3
+    call aztec_strcpy                ; 0x1ea3
     add sp, byte 4                   ; 0x1ea6
     jmp short @..math_loc_12b5.l43   ; 0x1ea9
 @..math_loc_12b5.l39:
@@ -2411,7 +2288,7 @@ loc_1bd5:
     push ax                          ; 0x1eae
     lea ax, word [bp - 0x0194]       ; 0x1eaf
     push ax                          ; 0x1eb3
-    call strlen_2                    ; 0x1eb4
+    call aztec_strcpy                ; 0x1eb4
     add sp, byte 4                   ; 0x1eb7
     jmp short @..math_loc_12b5.l43   ; 0x1eba
 @..math_loc_12b5.l40:
@@ -2419,7 +2296,7 @@ loc_1bd5:
     push ax                          ; 0x1ebf
     lea ax, word [bp - 0x0194]       ; 0x1ec0
     push ax                          ; 0x1ec4
-    call strlen_2                    ; 0x1ec5
+    call aztec_strcpy                ; 0x1ec5
     add sp, byte 4                   ; 0x1ec8
     jmp short @..math_loc_12b5.l43   ; 0x1ecb
 @..math_loc_12b5.l41:
@@ -2427,7 +2304,7 @@ loc_1bd5:
     push ax                          ; 0x1ed0
     lea ax, word [bp - 0x0194]       ; 0x1ed1
     push ax                          ; 0x1ed5
-    call strlen_2                    ; 0x1ed6
+    call aztec_strcpy                ; 0x1ed6
     add sp, byte 4                   ; 0x1ed9
     jmp short @..math_loc_12b5.l43   ; 0x1edc
 @..math_loc_12b5.l42:
@@ -2444,7 +2321,7 @@ loc_1bd5:
     push ax                          ; 0x1ef5
     mov ax, 0x2648                   ; 0x1ef6
     push ax                          ; 0x1ef9
-    call strlen_2                    ; 0x1efa
+    call aztec_strcpy                ; 0x1efa
     add sp, byte 4                   ; 0x1efd
     cmp word [bp - 0x0010], byte 4   ; 0x1f00
     je short @..math_loc_12b5.l44    ; 0x1f04
@@ -2452,19 +2329,19 @@ loc_1bd5:
     push ax                          ; 0x1f09
     lea ax, word [bp - 0x0144]       ; 0x1f0a
     push ax                          ; 0x1f0e
-    call strlen_2                    ; 0x1f0f
+    call aztec_strcpy                ; 0x1f0f
     add sp, byte 4                   ; 0x1f12
     lea ax, word [bp - 0x0194]       ; 0x1f15
     push ax                          ; 0x1f19
     lea ax, word [bp - 0x0144]       ; 0x1f1a
     push ax                          ; 0x1f1e
-    call strlen                      ; 0x1f1f
+    call aztec_strncat               ; 0x1f1f
     add sp, byte 4                   ; 0x1f22
     mov ax, 0x20c0                   ; 0x1f25
     push ax                          ; 0x1f28
     lea ax, word [bp - 0x0144]       ; 0x1f29
     push ax                          ; 0x1f2d
-    call strlen                      ; 0x1f2e
+    call aztec_strncat               ; 0x1f2e
     add sp, byte 4                   ; 0x1f31
     lea ax, word [bp - 0x0144]       ; 0x1f34
     push ax                          ; 0x1f38
@@ -2527,37 +2404,37 @@ loc_1fb2:
     push ax                          ; 0x1fe5
     mov ax, 0x29f0                   ; 0x1fe6
     push ax                          ; 0x1fe9
-    call strlen_2                    ; 0x1fea
+    call aztec_strcpy                ; 0x1fea
     add sp, byte 4                   ; 0x1fed
     mov ax, 0x2113                   ; 0x1ff0
     push ax                          ; 0x1ff3
     mov ax, 0x2648                   ; 0x1ff4
     push ax                          ; 0x1ff7
-    call strlen_2                    ; 0x1ff8
+    call aztec_strcpy                ; 0x1ff8
     add sp, byte 4                   ; 0x1ffb
     lea ax, word [bp - 0x001c]       ; 0x1ffe
     push ax                          ; 0x2001
     lea ax, word [bp - 0x00a4]       ; 0x2002
     push ax                          ; 0x2006
-    call strlen_2                    ; 0x2007
+    call aztec_strcpy                ; 0x2007
     add sp, byte 4                   ; 0x200a
     mov ax, 0x2114                   ; 0x200d
     push ax                          ; 0x2010
     lea ax, word [bp - 0x00a4]       ; 0x2011
     push ax                          ; 0x2015
-    call strlen                      ; 0x2016
+    call aztec_strncat               ; 0x2016
     add sp, byte 4                   ; 0x2019
     lea ax, word [bp - 0x003e]       ; 0x201c
     push ax                          ; 0x201f
     lea ax, word [bp - 0x00f4]       ; 0x2020
     push ax                          ; 0x2024
-    call strlen_2                    ; 0x2025
+    call aztec_strcpy                ; 0x2025
     add sp, byte 4                   ; 0x2028
     mov ax, 0x2116                   ; 0x202b
     push ax                          ; 0x202e
     lea ax, word [bp - 0x00f4]       ; 0x202f
     push ax                          ; 0x2033
-    call strlen                      ; 0x2034
+    call aztec_strncat               ; 0x2034
     add sp, byte 4                   ; 0x2037
     cmp word [bp - 0x01ca], byte 0   ; 0x203a
     jne short @..math_loc_12b5.l52   ; 0x203f
@@ -2567,11 +2444,11 @@ loc_1fb2:
     push ax                          ; 0x204a
     lea ax, word [bp - 0x00f4]       ; 0x204b
     push ax                          ; 0x204f
-    call strlen                      ; 0x2050
+    call aztec_strncat               ; 0x2050
     add sp, byte 4                   ; 0x2053
     lea ax, word [bp - 0x0054]       ; 0x2056
     push ax                          ; 0x2059
-    call strlen_3                    ; 0x205a
+    call strlen                      ; 0x205a
     pop cx                           ; 0x205d
     cmp ax, strict word 0            ; 0x205e
     jle short @..math_loc_12b5.l52   ; 0x2061
@@ -2579,7 +2456,7 @@ loc_1fb2:
     push ax                          ; 0x2066
     lea ax, word [bp - 0x00f4]       ; 0x2067
     push ax                          ; 0x206b
-    call strlen                      ; 0x206c
+    call aztec_strncat               ; 0x206c
     add sp, byte 4                   ; 0x206f
 @..math_loc_12b5.l52:
     cmp word [bp - 0x01ca], byte 1   ; 0x2072
@@ -2594,7 +2471,7 @@ loc_1fb2:
     push ax                          ; 0x2088
     lea ax, word [bp - 0x00f4]       ; 0x2089
     push ax                          ; 0x208d
-    call strlen                      ; 0x208e
+    call aztec_strncat               ; 0x208e
     add sp, byte 4                   ; 0x2091
     mov ax, 1                        ; 0x2094
     push ax                          ; 0x2097
@@ -2602,11 +2479,11 @@ loc_1fb2:
     push ax                          ; 0x209c
     lea ax, word [bp - 0x003e]       ; 0x209d
     push ax                          ; 0x20a0
-    call loc_11ba                    ; 0x20a1
+    call aztec_fgets                 ; 0x20a1
     add sp, byte 6                   ; 0x20a4
     lea ax, word [bp - 0x0054]       ; 0x20a7
     push ax                          ; 0x20aa
-    call strlen_3                    ; 0x20ab
+    call strlen                      ; 0x20ab
     pop cx                           ; 0x20ae
     cmp ax, strict word 0            ; 0x20af
     jle short @..math_loc_12b5.l55   ; 0x20b2
@@ -2614,7 +2491,7 @@ loc_1fb2:
     push ax                          ; 0x20b7
     lea ax, word [bp - 0x00f4]       ; 0x20b8
     push ax                          ; 0x20bc
-    call strlen                      ; 0x20bd
+    call aztec_strncat               ; 0x20bd
     add sp, byte 4                   ; 0x20c0
 @..math_loc_12b5.l55:
     mov ax, 0x211c                   ; 0x20c3
@@ -3068,17 +2945,75 @@ bios_video_loc_252e:
 
 %include "vinstall/bios_video_loc_2621.asm"
 
-
-    db 0x55, 0x8b, 0xec, 0x57, 0x56, 0x8b, 0x5e, 0x04, 0x8a, 0x07, 0x0a, 0xc0, 0x74, 0x3a, 0x53, 0x3c
-    db 0x0a, 0x75, 0x14, 0xb4, 0x03, 0xb7, 0x00, 0xcd, 0x10, 0xb2, 0x00, 0xfe, 0xc6, 0xb4, 0x03, 0xb7
-    db 0x00, 0xb4, 0x02, 0xcd, 0x10, 0xeb, 0x1d, 0xb4, 0x09, 0x8a, 0x1e, 0x46, 0x26, 0xb7, 0x00, 0xb9
-    db 0x01, 0x00, 0xcd, 0x10, 0xb4, 0x03, 0xb7, 0x00, 0xcd, 0x10, 0xfe, 0xc2, 0xb4, 0x03, 0xb7, 0x00
-    db 0xb4, 0x02, 0xcd, 0x10, 0x5b, 0x43, 0xeb, 0xc0, 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b
-    db 0xec, 0x83, 0xec, 0x02, 0x57, 0x56, 0x8b, 0x76, 0x0a, 0x8b, 0x7e, 0x08, 0x8b, 0x46, 0x06, 0x89
-    db 0x46, 0xfe, 0xb4, 0x0c, 0x8a, 0x46, 0x0c, 0x33, 0xdb, 0x8b, 0x4e, 0xfe, 0x8b, 0x56, 0x04, 0xcd
-    db 0x10, 0xff, 0x46, 0xfe, 0x3b, 0x76, 0xfe, 0x73, 0xe9, 0xff, 0x46, 0x04, 0x3b, 0x7e, 0x04, 0x73
-    db 0xdb, 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x57, 0x56, 0x8b, 0x46, 0x04, 0xba
-    db 0x01, 0x00, 0xcd, 0x17, 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3
+    push bp                          ; 0x266f
+    db 0x8b, 0xec ; mov bp, sp
+    push di                          ; 0x2672
+    push si                          ; 0x2673
+    mov bx, word [bp + 0x4]          ; 0x2674
+    mov al, byte [bx]                ; 0x2677
+    db 0x0a, 0xc0 ; or al, al
+    je short loc_26b7                ; 0x267b
+    push bx                          ; 0x267d
+    cmp al, 0xa                      ; 0x267e
+    jne short loc_2696               ; 0x2680
+    mov ah, 3                        ; 0x2682
+    mov bh, 0                        ; 0x2684
+    int 0x10 ; BIOS video: get cursor position
+    mov dl, 0                        ; 0x2688
+    inc dh                           ; 0x268a
+    mov ah, 3                        ; 0x268c
+    mov bh, 0                        ; 0x268e
+    mov ah, data_0002                ; 0x2690
+    int 0x10 ; BIOS video: set cursor position
+    jmp short loc_26b3               ; 0x2694
+    mov ah, 9                        ; 0x2696
+    mov bl, byte [data_2646]         ; 0x2698
+    mov bh, 0                        ; 0x269c
+    mov cx, 1                        ; 0x269e
+    int 0x10 ; BIOS video: write char/attribute
+    mov ah, 3                        ; 0x26a3
+    mov bh, 0                        ; 0x26a5
+    int 0x10 ; BIOS video: get cursor position
+    inc dl                           ; 0x26a9
+    mov ah, 3                        ; 0x26ab
+    mov bh, 0                        ; 0x26ad
+    mov ah, data_0002                ; 0x26af
+    int 0x10 ; BIOS video: set cursor position
+    pop bx                           ; 0x26b3
+    inc bx                           ; 0x26b4
+    jmp short loc_2677               ; 0x26b5
+    pop si                           ; 0x26b7
+    pop di                           ; 0x26b8
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x26bb
+    ret                              ; 0x26bc
+    push bp                          ; 0x26bd
+    db 0x8b, 0xec ; mov bp, sp
+    sub sp, byte 2                   ; 0x26c0
+    push di                          ; 0x26c3
+    push si                          ; 0x26c4
+    mov si, word [bp + 0xa]          ; 0x26c5
+    mov di, word [bp + 0x8]          ; 0x26c8
+    mov ax, word [bp + 0x6]          ; 0x26cb
+    mov word [bp - 0x0002], ax       ; 0x26ce
+    mov ah, 0xc                      ; 0x26d1
+    mov al, byte [bp + 0xc]          ; 0x26d3
+    db 0x33, 0xdb ; xor bx, bx
+    mov cx, word [bp - 0x0002]       ; 0x26d8
+    mov dx, word [bp + 0x4]          ; 0x26db
+    int 0x10 ; BIOS video: write pixel
+    inc word [bp - 0x0002]           ; 0x26e0
+    cmp si, word [bp - 0x0002]       ; 0x26e3
+    jae short loc_26d1               ; 0x26e6
+    inc word [bp + 0x4]              ; 0x26e8
+    cmp di, word [bp + 0x4]          ; 0x26eb
+    jae short loc_26cb               ; 0x26ee
+    pop si                           ; 0x26f0
+    pop di                           ; 0x26f1
+    db 0x8b, 0xe5 ; mov sp, bp
+    pop bp                           ; 0x26f4
+    ret                              ; 0x26f5
+%include "vinstall/aztec_calloc.asm"
 
 %include "vinstall/bios_kbd_check.asm"
 
@@ -3100,9 +3035,9 @@ bios_video_loc_252e:
     db 0x09, 0xcd, 0x10, 0x8b, 0xdf, 0x83, 0xc3, 0x02, 0x8b, 0xce, 0xe2, 0xd8, 0x59, 0x5a, 0xfe, 0xc6
     db 0xff, 0x4e, 0xfe, 0x74, 0x04, 0x52, 0x51, 0xeb, 0xcb, 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3
 
-%include "vinstall/leaf_loc_2806.asm"
+%include "vinstall/aztec_atoi.asm"
 
-%include "vinstall/math_loc_2877.asm"
+%include "vinstall/aztec_atol.asm"
 
 loc_2908:
     push bp                          ; 0x2908
@@ -3110,222 +3045,67 @@ loc_2908:
     lea ax, word [bp + 0x6]          ; 0x290b
     push ax                          ; 0x290e
     push word [bp + 0x4]             ; 0x290f
-    call loc_291c                    ; 0x2912
+    call aztec_fexecv                ; 0x2912
     add sp, byte 4                   ; 0x2915
     mov sp, bp                       ; 0x2918
     pop bp                           ; 0x291a
     ret                              ; 0x291b
-loc_291c:
-    push bp                          ; 0x291c
-    mov bp, sp                       ; 0x291d
-    add sp, strict word 0xff5c       ; 0x291f
-    push di                          ; 0x2923
-    push si                          ; 0x2924
-    lea si, word [bp - 0x0083]       ; 0x2925
-    mov word [bp - 0x0002], 1        ; 0x2929
-    lea ax, word [bp - 0x0094]       ; 0x292e
-    push ax                          ; 0x2932
-    mov ax, 0x230a                   ; 0x2933
-    push ax                          ; 0x2936
-    call leaf_loc_29d9               ; 0x2937
-    add sp, byte 4                   ; 0x293a
-    lea ax, word [bp - 0x00a4]       ; 0x293d
-    push ax                          ; 0x2941
-    mov ax, 0x230c                   ; 0x2942
-    push ax                          ; 0x2945
-    call leaf_loc_29d9               ; 0x2946
-    add sp, byte 4                   ; 0x2949
-    mov bx, word [bp + 0x6]          ; 0x294c
-    cmp word [bx], byte 0            ; 0x294f
-    je short @..local.l63            ; 0x2952
-    add word [bp + 0x6], byte 2      ; 0x2954
-@..local.l58:
-    mov bx, word [bp + 0x6]          ; 0x2958
-    add word [bp + 0x6], byte 2      ; 0x295b
-    mov di, word [bx]                ; 0x295f
-    test di, di                      ; 0x2961
-    je short @..local.l63            ; 0x2963
-    cmp word [bp - 0x0002], byte 1   ; 0x2965
-    jne short @..local.l59           ; 0x2969
-    lea ax, word [bp - 0x0094]       ; 0x296b
-    push ax                          ; 0x296f
-    push di                          ; 0x2970
-    call leaf_loc_29d9               ; 0x2971
-    add sp, byte 4                   ; 0x2974
-    jmp short @..local.l60           ; 0x2977
-@..local.l59:
-    cmp word [bp - 0x0002], byte 2   ; 0x2979
-    jne short @..local.l60           ; 0x297d
-    lea ax, word [bp - 0x00a4]       ; 0x297f
-    push ax                          ; 0x2983
-    push di                          ; 0x2984
-    call leaf_loc_29d9               ; 0x2985
-    add sp, byte 4                   ; 0x2988
-@..local.l60:
-    mov byte [si], 0x20              ; 0x298b
-    inc si                           ; 0x298e
-@..local.l61:
-    cmp byte [di], 0                 ; 0x298f
-    je short @..local.l62            ; 0x2992
-    lea ax, word [bp - 0x0005]       ; 0x2994
-    cmp ax, si                       ; 0x2997
-    jbe short @..local.l63           ; 0x2999
-    mov al, byte [di]                ; 0x299b
-    mov byte [si], al                ; 0x299d
-    inc di                           ; 0x299f
-    inc si                           ; 0x29a0
-    jmp short @..local.l61           ; 0x29a1
-@..local.l62:
-    inc word [bp - 0x0002]           ; 0x29a3
-    jmp short @..local.l58           ; 0x29a6
-@..local.l63:
-    mov ax, si                       ; 0x29a8
-    lea cx, word [bp - 0x0083]       ; 0x29aa
-    sub ax, cx                       ; 0x29ae
-    mov byte [bp - 0x0084], al       ; 0x29b0
-    mov byte [si], 0xd               ; 0x29b4
-    lea ax, word [bp - 0x00a4]       ; 0x29b7
-    push ax                          ; 0x29bb
-    lea ax, word [bp - 0x0094]       ; 0x29bc
-    push ax                          ; 0x29c0
-    lea ax, word [bp - 0x0084]       ; 0x29c1
-    push ax                          ; 0x29c5
-    mov ax, 0                        ; 0x29c6
-    push ax                          ; 0x29c9
-    push word [bp + 0x4]             ; 0x29ca
-    call leaf_loc_2a27               ; 0x29cd
-    add sp, byte 0x0a                ; 0x29d0
-    pop si                           ; 0x29d3
-    pop di                           ; 0x29d4
-    mov sp, bp                       ; 0x29d5
-    pop bp                           ; 0x29d7
-    ret                              ; 0x29d8
-%include "vinstall/leaf_loc_29d9.asm"
+%include "vinstall/aztec_fexecv.asm"
 
-%include "vinstall/dos_loc_29fe.asm"
+%include "vinstall/aztec_fcbinit.asm"
 
-%include "vinstall/leaf_loc_2a15.asm"
+%include "vinstall/aztec_mkdir.asm"
+
+%include "vinstall/aztec_fexec.asm"
 
 %include "vinstall/leaf_loc_2a27.asm"
 
-%include "vinstall/dos_proc_loc_2a9d.asm"
+%include "vinstall/aztec_wait.asm"
 
-%include "vinstall/strlen.asm"
+%include "vinstall/aztec_strncat.asm"
 
-%include "vinstall/strlen_2.asm"
+%include "vinstall/aztec_strcpy.asm"
 
-%include "vinstall/string_loc_2b09.asm"
+%include "vinstall/aztec_strncpy.asm"
 
-loc_2b31:
-    push bp                          ; 0x2b31
-    mov bp, sp                       ; 0x2b32
-    sub sp, byte 0x0e                ; 0x2b34
-    push si                          ; 0x2b37
-    push di                          ; 0x2b38
-    push es                          ; 0x2b39
-    push ds                          ; 0x2b3a
-    mov byte [bp - 0x000a], 0xcd     ; 0x2b3b
-    mov al, byte [bp + 0x4]          ; 0x2b3f
-    mov byte [bp - 0x0009], al       ; 0x2b42
-    mov word [bp - 0x0008], 0xcd8c   ; 0x2b45
-    mov word [bp - 0x0006], 0xd58e   ; 0x2b4a
-    mov byte [bp - 0x0004], 0xbc     ; 0x2b4f
-    mov ax, sp                       ; 0x2b53
-    sub ax, strict word 6            ; 0x2b55
-    mov word [bp - 0x0003], ax       ; 0x2b58
-    mov byte [bp - 0x0001], 0xcb     ; 0x2b5b
-    mov word [bp - 0x000c], ss       ; 0x2b5f
-    lea ax, word [bp - 0x000a]       ; 0x2b62
-    mov word [bp - 0x000e], ax       ; 0x2b65
-    mov bx, word [bp + 0x6]          ; 0x2b68
-    mov ax, word [bx]                ; 0x2b6b
-    push word [bx + 0x2]             ; 0x2b6d
-    mov cx, word [bx + 0x4]          ; 0x2b70
-    mov dx, word [bx + 0x6]          ; 0x2b73
-    mov si, word [bx + 0x8]          ; 0x2b76
-    mov di, word [bx + 0xa]          ; 0x2b79
-    mov es, word [bx + 0xe]          ; 0x2b7c
-    mov ds, word [bx + 0xc]          ; 0x2b7f
-    pop bx                           ; 0x2b82
-    push bp                          ; 0x2b83
-    call far [bp - 0x000e]           ; 0x2b84
-    pop bp                           ; 0x2b87
-    push ds                          ; 0x2b88
-    push bx                          ; 0x2b89
-    mov bx, word [bp + 0x8]          ; 0x2b8a
-    mov word [ss:bx + 0xe], es       ; 0x2b8d
-    pop word [ss:bx + 0x2]           ; 0x2b91
-    pop word [ss:bx + 0xc]           ; 0x2b95
-    pop ds                           ; 0x2b99
-    mov word [bx], ax                ; 0x2b9a
-    mov word [bx + 0x4], cx          ; 0x2b9c
-    mov word [bx + 0x6], dx          ; 0x2b9f
-    mov word [bx + 0x8], si          ; 0x2ba2
-    mov word [bx + 0xa], di          ; 0x2ba5
-    pop es                           ; 0x2ba8
-    pop di                           ; 0x2ba9
-    pop si                           ; 0x2baa
-    pushf                            ; 0x2bab
-    pop ax                           ; 0x2bac
-    add sp, byte 0x0e                ; 0x2bad
-    pop bp                           ; 0x2bb0
-    ret                              ; 0x2bb1
-%include "vinstall/leaf_loc_2bb2.asm"
+%include "vinstall/aztec_sysint.asm"
 
+%include "vinstall/aztec_toupper.asm"
 
-    db 0x55, 0x8b, 0xec, 0x8a, 0x46, 0x04, 0x2a, 0xe4, 0x3c, 0x41, 0x7c, 0x06, 0x3c, 0x5a, 0x7f, 0x02
-    db 0x04, 0x20, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x56, 0xe8, 0x64, 0x02, 0x8b, 0xf0, 0x85, 0xf6, 0x75
-    db 0x08, 0xb8, 0x00, 0x00, 0x5e, 0x8b, 0xe5, 0x5d, 0xc3, 0x56, 0xff, 0x76, 0x06, 0xff, 0x76, 0x04
-    db 0xe8, 0x05, 0x00, 0x83, 0xc4, 0x06, 0xeb, 0xec
+%include "vinstall/aztec_tolower.asm"
 
-loc_2bfe:
-    push bp                          ; 0x2bfe
-    mov bp, sp                       ; 0x2bff
-    push di                          ; 0x2c01
-    push si                          ; 0x2c02
-    push word [bp + 0x8]             ; 0x2c03
-    call loc_2d0b                    ; 0x2c06
-    pop cx                           ; 0x2c09
-    mov si, 0x231c                   ; 0x2c0a
-@..local.l64:
-    cmp byte [si], 0                 ; 0x2c0d
-    jne short @..local.l66           ; 0x2c10
-    mov word [data_24d6], 1          ; 0x2c12
-    mov ax, 0                        ; 0x2c18
-@..local.l65:
-    pop si                           ; 0x2c1b
-    pop di                           ; 0x2c1c
-    mov sp, bp                       ; 0x2c1d
-    pop bp                           ; 0x2c1f
-    ret                              ; 0x2c20
-@..local.l66:
+%include "vinstall/aztec_gmtime.asm"
+
+%include "vinstall/aztec_freopen.asm"
+
+@..local.l47:
     push word [bp + 0x6]             ; 0x2c21
     push si                          ; 0x2c24
-    call string_loc_3508             ; 0x2c25
+    call aztec_strcmp                ; 0x2c25
     add sp, byte 4                   ; 0x2c28
     test ax, ax                      ; 0x2c2b
-    je short @..local.l67            ; 0x2c2d
+    je short @..local.l48            ; 0x2c2d
     add si, byte 5                   ; 0x2c2f
-    jmp short @..local.l64           ; 0x2c32
-@..local.l67:
+    jmp short @..local.l45           ; 0x2c32
+@..local.l48:
     push word [si + 0x3]             ; 0x2c34
     push word [bp + 0x4]             ; 0x2c37
-    call loc_3381                    ; 0x2c3a
+    call aztec_open                  ; 0x2c3a
     add sp, byte 4                   ; 0x2c3d
     mov di, ax                       ; 0x2c40
     mov ax, di                       ; 0x2c42
     cmp ax, strict word 0xffff       ; 0x2c44
-    jne short @..local.l68           ; 0x2c47
+    jne short @..local.l49           ; 0x2c47
     mov ax, 0                        ; 0x2c49
-    jmp short @..local.l65           ; 0x2c4c
-@..local.l68:
+    jmp short @..local.l46           ; 0x2c4c
+@..local.l49:
     mov ax, di                       ; 0x2c4e
     mov bx, word [bp + 0x8]          ; 0x2c50
     mov byte [bx + 0x7], al          ; 0x2c53
     mov bx, word [bp + 0x8]          ; 0x2c56
     mov byte [bx + 0x6], 1           ; 0x2c59
     mov ax, word [bp + 0x8]          ; 0x2c5d
-    jmp short @..local.l65           ; 0x2c60
+    jmp short @..local.l46           ; 0x2c60
 loc_2c62:
     push bp                          ; 0x2c62
     mov bp, sp                       ; 0x2c63
@@ -3339,17 +3119,39 @@ loc_2c62:
     mov sp, bp                       ; 0x2c76
     pop bp                           ; 0x2c78
     ret                              ; 0x2c79
+loc_2c7a:
+    push bp                          ; 0x2c7a
+    mov bp, sp                       ; 0x2c7b
+    mov ax, 0x2357                   ; 0x2c7d
+    push ax                          ; 0x2c80
+    push word [bp + 0x4]             ; 0x2c81
+    call aztec_putw                  ; 0x2c84
+    add sp, byte 4                   ; 0x2c87
+    mov sp, bp                       ; 0x2c8a
+    pop bp                           ; 0x2c8c
+    ret                              ; 0x2c8d
+%include "vinstall/aztec_putw.asm"
 
-    db 0x55, 0x8b, 0xec, 0xb8, 0x57, 0x23, 0x50, 0xff, 0x76, 0x04, 0xe8, 0x07, 0x00, 0x83, 0xc4, 0x04
-    db 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x57, 0x56, 0x8b, 0x76, 0x04, 0x8b, 0x7e, 0x06, 0x83
-    db 0xfe, 0x0a, 0x75, 0x19, 0x57, 0xb8, 0x0d, 0x00, 0x50, 0xe8, 0x1b, 0x00, 0x83, 0xc4, 0x04, 0x3d
-    db 0xff, 0xff, 0x75, 0x09, 0xb8, 0xff, 0xff, 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3, 0x57, 0x56, 0xe8
-    db 0x05, 0x00, 0x83, 0xc4, 0x04, 0xeb, 0xf0, 0x55, 0x8b, 0xec, 0x56, 0x8b, 0x76, 0x06, 0x8b, 0x04
-    db 0x3b, 0x44, 0x02, 0x72, 0x13, 0x8b, 0x46, 0x04, 0x25, 0xff, 0x00, 0x50, 0x56, 0xe8, 0xac, 0x00
-    db 0x83, 0xc4, 0x04, 0x5e, 0x8b, 0xe5, 0x5d, 0xc3, 0x8a, 0x46, 0x04, 0x50, 0x8b, 0x04, 0xff, 0x04
-    db 0x8b, 0xd8, 0x58, 0x88, 0x07, 0x98, 0x25, 0xff, 0x00, 0xeb, 0xe8, 0x56, 0xbe, 0x4a, 0x23, 0x8b
-    db 0xc6, 0x83, 0xc6, 0x0d, 0x50, 0xe8, 0x09, 0x00, 0x59, 0x81, 0xfe, 0x4e, 0x24, 0x72, 0xf0, 0x5e
-    db 0xc3
+loc_2cc1:
+    push bp                          ; 0x2cc1
+    mov bp, sp                       ; 0x2cc2
+    push si                          ; 0x2cc4
+    mov si, word [bp + 0x6]          ; 0x2cc5
+    mov ax, word [si]                ; 0x2cc8
+    cmp ax, word [si + 0x2]          ; 0x2cca
+    jb short aztec_putc              ; 0x2ccd
+    mov ax, word [bp + 0x4]          ; 0x2ccf
+    and ax, 0xff                     ; 0x2cd2
+    push ax                          ; 0x2cd5
+    push si                          ; 0x2cd6
+    call loc_2d86                    ; 0x2cd7
+    add sp, byte 4                   ; 0x2cda
+loc_2cdd:
+    pop si                           ; 0x2cdd
+    mov sp, bp                       ; 0x2cde
+    pop bp                           ; 0x2ce0
+    ret                              ; 0x2ce1
+%include "vinstall/aztec_putc.asm"
 
 loc_2d0b:
     push bp                          ; 0x2d0b
@@ -3359,60 +3161,60 @@ loc_2d0b:
     mov si, word [bp + 0x4]          ; 0x2d10
     mov di, 0                        ; 0x2d13
     test si, si                      ; 0x2d16
-    jne short @..local.l70           ; 0x2d18
+    jne short @..local.l52           ; 0x2d18
     mov ax, 0xffff                   ; 0x2d1a
-@..local.l69:
+@..local.l51:
     pop si                           ; 0x2d1d
     pop di                           ; 0x2d1e
     mov sp, bp                       ; 0x2d1f
     pop bp                           ; 0x2d21
     ret                              ; 0x2d22
-@..local.l70:
+@..local.l52:
     cmp byte [si + 0x6], 0           ; 0x2d23
-    je short @..local.l73            ; 0x2d27
+    je short @..local.l55            ; 0x2d27
     mov al, byte [si + 0x6]          ; 0x2d29
     cbw                              ; 0x2d2c
     test ax, data_0004               ; 0x2d2d
-    je short @..local.l71            ; 0x2d30
+    je short @..local.l53            ; 0x2d30
     mov ax, 0xffff                   ; 0x2d32
     push ax                          ; 0x2d35
     push si                          ; 0x2d36
     call loc_2d86                    ; 0x2d37
     add sp, byte 4                   ; 0x2d3a
     mov di, ax                       ; 0x2d3d
-@..local.l71:
+@..local.l53:
     mov al, byte [si + 0x7]          ; 0x2d3f
     cbw                              ; 0x2d42
     push ax                          ; 0x2d43
-    call dos_file_loc_3869           ; 0x2d44
+    call aztec_close                 ; 0x2d44
     pop cx                           ; 0x2d47
     or di, ax                        ; 0x2d48
     mov al, byte [si + 0x6]          ; 0x2d4a
     cbw                              ; 0x2d4d
     test ax, data_0002               ; 0x2d4e
-    je short @..local.l72            ; 0x2d51
+    je short @..local.l54            ; 0x2d51
     push word [si + 0x4]             ; 0x2d53
-    call leaf_loc_3019               ; 0x2d56
+    call aztec_free                  ; 0x2d56
     pop cx                           ; 0x2d59
-@..local.l72:
+@..local.l54:
     mov al, byte [si + 0x6]          ; 0x2d5a
     cbw                              ; 0x2d5d
     test ax, 0x20                    ; 0x2d5e
-    je short @..local.l73            ; 0x2d61
+    je short @..local.l55            ; 0x2d61
     push word [si + 0xb]             ; 0x2d63
-    call dos_file_loc_38a0           ; 0x2d66
+    call aztec_unlink                ; 0x2d66
     pop cx                           ; 0x2d69
     push word [si + 0xb]             ; 0x2d6a
-    call leaf_loc_3019               ; 0x2d6d
+    call aztec_free                  ; 0x2d6d
     pop cx                           ; 0x2d70
-@..local.l73:
+@..local.l55:
     mov ax, 0                        ; 0x2d71
     mov word [si], 0                 ; 0x2d74
     mov word [si + 0x2], ax          ; 0x2d78
     mov word [si + 0x4], ax          ; 0x2d7b
     mov byte [si + 0x6], 0           ; 0x2d7e
     mov ax, di                       ; 0x2d82
-    jmp short @..local.l69           ; 0x2d84
+    jmp short @..local.l51           ; 0x2d84
 loc_2d86:
     push bp                          ; 0x2d86
     mov bp, sp                       ; 0x2d87
@@ -3423,19 +3225,19 @@ loc_2d86:
     mov al, byte [si + 0x6]          ; 0x2d94
     cbw                              ; 0x2d97
     test ax, 0x10                    ; 0x2d98
-    je short @..local.l75            ; 0x2d9b
+    je short @..local.l57            ; 0x2d9b
     mov ax, 0xffff                   ; 0x2d9d
-@..local.l74:
+@..local.l56:
     pop si                           ; 0x2da0
     pop di                           ; 0x2da1
     mov sp, bp                       ; 0x2da2
     pop bp                           ; 0x2da4
     ret                              ; 0x2da5
-@..local.l75:
+@..local.l57:
     mov al, byte [si + 0x6]          ; 0x2da6
     cbw                              ; 0x2da9
     test ax, data_0004               ; 0x2daa
-    je short @..local.l77            ; 0x2dad
+    je short @..local.l59            ; 0x2dad
     mov di, word [si]                ; 0x2daf
     sub di, word [si + 0x4]          ; 0x2db1
     push di                          ; 0x2db4
@@ -3446,32 +3248,32 @@ loc_2d86:
     call leaf_loc_383a               ; 0x2dbd
     add sp, byte 6                   ; 0x2dc0
     cmp ax, di                       ; 0x2dc3
-    je short @..local.l77            ; 0x2dc5
-@..local.l76:
+    je short @..local.l59            ; 0x2dc5
+@..local.l58:
     or byte [si + 0x6], 0x10         ; 0x2dc7
     mov ax, 0                        ; 0x2dcb
     mov word [si], 0                 ; 0x2dce
     mov word [si + 0x2], ax          ; 0x2dd2
     mov ax, 0xffff                   ; 0x2dd5
-    jmp short @..local.l74           ; 0x2dd8
-@..local.l77:
+    jmp short @..local.l56           ; 0x2dd8
+@..local.l59:
     cmp word [bp + 0x6], byte 0xff   ; 0x2dda
-    jne short @..local.l78           ; 0x2dde
+    jne short @..local.l60           ; 0x2dde
     and byte [si + 0x6], 0xfb        ; 0x2de0
     mov ax, 0                        ; 0x2de4
     mov word [si], 0                 ; 0x2de7
     mov word [si + 0x2], ax          ; 0x2deb
     mov ax, 0                        ; 0x2dee
-    jmp short @..local.l74           ; 0x2df1
-@..local.l78:
+    jmp short @..local.l56           ; 0x2df1
+@..local.l60:
     cmp word [si + 0x4], byte 0      ; 0x2df3
-    jne short @..local.l79           ; 0x2df7
+    jne short @..local.l61           ; 0x2df7
     push si                          ; 0x2df9
     call loc_2e63                    ; 0x2dfa
     pop cx                           ; 0x2dfd
-@..local.l79:
+@..local.l61:
     cmp word [si + 0x9], byte 1      ; 0x2dfe
-    jne short @..local.l80           ; 0x2e02
+    jne short @..local.l62           ; 0x2e02
     mov ax, 1                        ; 0x2e04
     push ax                          ; 0x2e07
     lea ax, word [bp + 0x6]          ; 0x2e08
@@ -3482,10 +3284,10 @@ loc_2d86:
     call leaf_loc_383a               ; 0x2e11
     add sp, byte 6                   ; 0x2e14
     cmp ax, strict word 1            ; 0x2e17
-    jne short @..local.l76           ; 0x2e1a
+    jne short @..local.l58           ; 0x2e1a
     mov ax, word [bp + 0x6]          ; 0x2e1c
-    jmp near @..local.l74            ; 0x2e1f
-@..local.l80:
+    jmp near @..local.l56            ; 0x2e1f
+@..local.l62:
     mov ax, word [si + 0x4]          ; 0x2e22
     mov word [si], ax                ; 0x2e25
     add ax, word [si + 0x9]          ; 0x2e27
@@ -3500,25 +3302,9 @@ loc_2d86:
     mov byte [bx], al                ; 0x2e3c
     cbw                              ; 0x2e3e
     and ax, 0xff                     ; 0x2e3f
-    jmp near @..local.l74            ; 0x2e42
-loc_2e45:
-    push si                          ; 0x2e45
-    mov si, 0x234a                   ; 0x2e46
-@..local.l81:
-    cmp byte [si + 0x6], 0           ; 0x2e49
-    je short @..local.l84            ; 0x2e4d
-    add si, byte 0x0d                ; 0x2e4f
-    cmp si, data_244e                ; 0x2e52
-    jb short @..local.l83            ; 0x2e56
-    mov ax, 0                        ; 0x2e58
-@..local.l82:
-    pop si                           ; 0x2e5b
-    ret                              ; 0x2e5c
-@..local.l83:
-    jmp short @..local.l81           ; 0x2e5d
-@..local.l84:
-    mov ax, si                       ; 0x2e5f
-    jmp short @..local.l82           ; 0x2e61
+    jmp near @..local.l56            ; 0x2e42
+%include "vinstall/leaf_loc_2e45.asm"
+
 loc_2e63:
     push bp                          ; 0x2e63
     mov bp, sp                       ; 0x2e64
@@ -3528,154 +3314,40 @@ loc_2e63:
     mov al, byte [si + 0x7]          ; 0x2e6d
     cbw                              ; 0x2e70
     push ax                          ; 0x2e71
-    call dos_ioctl                   ; 0x2e72
+    call aztec_isatty                ; 0x2e72
     pop cx                           ; 0x2e75
     test ax, ax                      ; 0x2e76
-    je short @..local.l87            ; 0x2e78
-@..local.l85:
+    je short @..local.l65            ; 0x2e78
+@..local.l63:
     mov word [si + 0x9], 1           ; 0x2e7a
     mov ax, si                       ; 0x2e7f
     add ax, strict word 8            ; 0x2e81
     mov word [si + 0x4], ax          ; 0x2e84
-@..local.l86:
+@..local.l64:
     pop si                           ; 0x2e87
     mov sp, bp                       ; 0x2e88
     pop bp                           ; 0x2e8a
     ret                              ; 0x2e8b
-@..local.l87:
+@..local.l65:
     mov ax, 0x400                    ; 0x2e8c
     push ax                          ; 0x2e8f
-    call loc_2f1b                    ; 0x2e90
+    call aztec_malloc                ; 0x2e90
     pop cx                           ; 0x2e93
     mov word [bp - 0x0002], ax       ; 0x2e94
     test ax, ax                      ; 0x2e97
-    je short @..local.l85            ; 0x2e99
+    je short @..local.l63            ; 0x2e99
     mov word [si + 0x9], 0x400       ; 0x2e9b
     or byte [si + 0x6], data_0002    ; 0x2ea0
     mov ax, word [bp - 0x0002]       ; 0x2ea4
     mov word [si + 0x4], ax          ; 0x2ea7
-    jmp short @..local.l86           ; 0x2eaa
+    jmp short @..local.l64           ; 0x2eaa
+%include "vinstall/aztec_realloc.asm"
 
-    db 0x55, 0x8b, 0xec, 0x83, 0xc4, 0xfc, 0x57, 0x56, 0x8b, 0x76, 0x04, 0x8b, 0x44, 0xfe, 0x25, 0xfe
-    db 0xff, 0x89, 0x46, 0xfe, 0x2b, 0xc6, 0x89, 0x46, 0xfc, 0x3b, 0x46, 0x06, 0x76, 0x0d, 0x8b, 0x46
-    db 0x06, 0x89, 0x46, 0xfc, 0x8b, 0xce, 0x03, 0xc8, 0x89, 0x4e, 0xfe, 0x56, 0xe8, 0x3e, 0x01, 0x59
-    db 0xff, 0x76, 0x06, 0xe8, 0x39, 0x00, 0x59, 0x8b, 0xf8, 0x85, 0xff, 0x74, 0x2a, 0x3b, 0xfe, 0x74
-    db 0x26, 0xff, 0x76, 0xfc, 0x57, 0x56, 0xe8, 0xab, 0x0a, 0x83, 0xc4, 0x06
-    db ';66%w'
-    db 0x15, 0xa1, 0x36, 0x25, 0x3b, 0x46, 0xfe, 0x73, 0x0d, 0xa1, 0x34, 0x25, 0x8b, 0x0e, 0x36, 0x25
-    db 0x2b, 0xce, 0x8b, 0xd9, 0x89, 0x01, 0x8b, 0xc7, 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3
+%include "vinstall/aztec_malloc.asm"
 
-loc_2f1b:
-    push bp                          ; 0x2f1b
-    mov bp, sp                       ; 0x2f1c
-    add sp, byte 0xfa                ; 0x2f1e
-    push di                          ; 0x2f21
-    push si                          ; 0x2f22
-    mov ax, word [bp + 0x4]          ; 0x2f23
-    inc ax                           ; 0x2f26
-    inc ax                           ; 0x2f27
-    inc ax                           ; 0x2f28
-    shr ax, 1                        ; 0x2f29
-    shl ax, 1                        ; 0x2f2b
-    mov word [bp + 0x4], ax          ; 0x2f2d
-    cmp word [data_2536], byte 0     ; 0x2f30
-    jne short @..local.l88           ; 0x2f35
-    mov word [data_2538], data_2538  ; 0x2f37
-    or word [data_2538], 1           ; 0x2f3d
-    mov word [data_2536], data_2538  ; 0x2f43
-@..local.l88:
-    mov word [bp - 0x0006], 0        ; 0x2f49
-    mov si, word [data_2536]         ; 0x2f4e
-    mov word [bp - 0x0002], si       ; 0x2f52
-@..local.l89:
-    cmp si, word [data_244e]         ; 0x2f55
-    jne short @..local.l92           ; 0x2f59
-    inc word [bp - 0x0006]           ; 0x2f5b
-    mov ax, word [bp - 0x0006]       ; 0x2f5e
-    cmp ax, strict word 1            ; 0x2f61
-    jle short @..local.l92           ; 0x2f64
-    mov word [bp - 0x0004], 0x400    ; 0x2f66
-    push word [bp - 0x0004]          ; 0x2f6b
-    call loc_3a05                    ; 0x2f6e
-    pop cx                           ; 0x2f71
-    mov di, ax                       ; 0x2f72
-    mov ax, di                       ; 0x2f74
-    cmp ax, strict word 0xffff       ; 0x2f76
-    jne short @..local.l90           ; 0x2f79
-    mov ax, 0                        ; 0x2f7b
-loc_2f7e:
-    pop si                           ; 0x2f7e
-    pop di                           ; 0x2f7f
-    mov sp, bp                       ; 0x2f80
-    pop bp                           ; 0x2f82
-    ret                              ; 0x2f83
-@..local.l90:
-    mov ax, si                       ; 0x2f84
-    add ax, strict word 2            ; 0x2f86
-    cmp di, ax                       ; 0x2f89
-    je short @..local.l91            ; 0x2f8b
-    mov word [si], di                ; 0x2f8d
-    or word [si], 1                  ; 0x2f8f
-    dec word [bp - 0x0004]           ; 0x2f93
-    dec word [bp - 0x0004]           ; 0x2f96
-    mov si, di                       ; 0x2f99
-@..local.l91:
-    mov di, si                       ; 0x2f9b
-    add di, word [bp - 0x0004]       ; 0x2f9d
-    mov word [si], di                ; 0x2fa0
-    mov word [di], data_2538         ; 0x2fa2
-    or word [di], 1                  ; 0x2fa6
-    mov word [data_244e], di         ; 0x2faa
-    mov bx, word [bp - 0x0002]       ; 0x2fae
-    mov ax, word [bx]                ; 0x2fb1
-    and ax, strict word 0xfffe       ; 0x2fb3
-    cmp ax, si                       ; 0x2fb6
-    jne short @..local.l92           ; 0x2fb8
-    mov si, bx                       ; 0x2fba
-@..local.l92:
-    test word [si], 1                ; 0x2fbc
-    jne short @..local.l96           ; 0x2fc0
-    mov word [bp - 0x0002], si       ; 0x2fc2
-@..local.l93:
-    mov ax, word [si]                ; 0x2fc5
-    and ax, strict word 0xfffe       ; 0x2fc7
-    mov di, ax                       ; 0x2fca
-    mov bx, di                       ; 0x2fcc
-    test word [bx], 1                ; 0x2fce
-    jne short @..local.l94           ; 0x2fd2
-    mov ax, word [di]                ; 0x2fd4
-    mov word [si], ax                ; 0x2fd6
-    jmp short @..local.l93           ; 0x2fd8
-@..local.l94:
-    sub bx, si                       ; 0x2fda
-    mov word [bp - 0x0004], bx       ; 0x2fdc
-    cmp bx, word [bp + 0x4]          ; 0x2fdf
-    jb short @..local.l96            ; 0x2fe2
-    cmp bx, word [bp + 0x4]          ; 0x2fe4
-    jbe short @..local.l95           ; 0x2fe7
-    mov ax, si                       ; 0x2fe9
-    add ax, word [bp + 0x4]          ; 0x2feb
-    mov word [si], ax                ; 0x2fee
-    mov bx, ax                       ; 0x2ff0
-    mov ax, word [bx]                ; 0x2ff2
-    mov word [data_2534], ax         ; 0x2ff4
-    mov bx, word [si]                ; 0x2ff7
-    mov word [bx], di                ; 0x2ff9
-@..local.l95:
-    mov ax, word [si]                ; 0x2ffb
-    mov word [data_2536], ax         ; 0x2ffd
-    or word [si], 1                  ; 0x3000
-    mov ax, si                       ; 0x3004
-    add ax, strict word 2            ; 0x3006
-    jmp near loc_2f7e                ; 0x3009
-@..local.l96:
-    mov ax, word [si]                ; 0x300c
-    and ax, strict word 0xfffe       ; 0x300e
-    mov si, ax                       ; 0x3011
-    jmp near @..local.l89            ; 0x3013
 %include "vinstall/leaf_loc_3016.asm"
 
-%include "vinstall/leaf_loc_3019.asm"
+%include "vinstall/aztec_free.asm"
 
 
     db 'LlhFNoxXudiscpneEfgG%@/G/K/N/K/U/^/Z/c/h/h/'
@@ -3772,113 +3444,127 @@ loc_312d:
 
 %include "vinstall/string_loc_3338.asm"
 
-loc_336a:
-    push bp                          ; 0x336a
-    mov bp, sp                       ; 0x336b
-    push word [bp + 0x6]             ; 0x336d
-    mov ax, 0x301                    ; 0x3370
-    push ax                          ; 0x3373
-    push word [bp + 0x4]             ; 0x3374
-    call loc_3381                    ; 0x3377
-    add sp, byte 6                   ; 0x337a
-    mov sp, bp                       ; 0x337d
-    pop bp                           ; 0x337f
-    ret                              ; 0x3380
-loc_3381:
-    push bp                          ; 0x3381
-    mov bp, sp                       ; 0x3382
-    push di                          ; 0x3384
-    push si                          ; 0x3385
-    mov ax, word [bp + 0x6]          ; 0x3386
-    and ax, 0xf3                     ; 0x3389
-    mov di, ax                       ; 0x338c
-    or ax, 0x3d00                    ; 0x338e
-    mov di, ax                       ; 0x3391
-    test word [bp + 0x6], leaf_loc_0200 ; 0x3393
-    je short @..local.l99            ; 0x3398
-    mov di, 0x3c00                   ; 0x339a
-@..local.l99:
-    mov ax, 0                        ; 0x339d
-    push ax                          ; 0x33a0
-    push word [bp + 0x4]             ; 0x33a1
-    push di                          ; 0x33a4
-    call leaf_loc_358c               ; 0x33a5
-    add sp, byte 6                   ; 0x33a8
-    mov si, ax                       ; 0x33ab
-    mov ax, si                       ; 0x33ad
-    cmp ax, strict word 0xffff       ; 0x33af
-    jne short @..local.l101          ; 0x33b2
-    test word [bp + 0x6], 0x100      ; 0x33b4
-    je short @..local.l100           ; 0x33b9
-    mov ax, 0                        ; 0x33bb
-    push ax                          ; 0x33be
-    push word [bp + 0x4]             ; 0x33bf
-    mov ax, 0x3c                     ; 0x33c2
-    push ax                          ; 0x33c5
-    call leaf_loc_358c               ; 0x33c6
-    add sp, byte 6                   ; 0x33c9
-    mov si, ax                       ; 0x33cc
-@..local.l100:
-    jmp short @..local.l103          ; 0x33ce
-@..local.l101:
-    test word [bp + 0x6], 0x400      ; 0x33d0
-    je short @..local.l103           ; 0x33d5
-    push si                          ; 0x33d7
-    call dos_file_loc_3869           ; 0x33d8
-    pop cx                           ; 0x33db
-    mov word [data_24d6], 0x13       ; 0x33dc
-    mov ax, 0xffff                   ; 0x33e2
-@..local.l102:
-    pop si                           ; 0x33e5
-    pop di                           ; 0x33e6
-    mov sp, bp                       ; 0x33e7
-    pop bp                           ; 0x33e9
-    ret                              ; 0x33ea
-@..local.l103:
-    cmp si, byte 0                   ; 0x33eb
-    jl short @..local.l105           ; 0x33ee
-    test word [bp + 0x6], 0x800      ; 0x33f0
-    je short @..local.l104           ; 0x33f5
-    mov ax, data_0002                ; 0x33f7
-    push ax                          ; 0x33fa
-    mov ax, 0                        ; 0x33fb
-    mov dx, 0                        ; 0x33fe
-    push dx                          ; 0x3401
-    push ax                          ; 0x3402
-    push si                          ; 0x3403
-    call dos_file_loc_3881           ; 0x3404
-    add sp, byte 8                   ; 0x3407
-@..local.l104:
-    push si                          ; 0x340a
-    call dos_ioctl                   ; 0x340b
-    pop cx                           ; 0x340e
-    mov byte [si + 0x251a], al       ; 0x340f
-@..local.l105:
-    mov ax, si                       ; 0x3413
-    jmp short @..local.l102          ; 0x3415
+%include "vinstall/aztec_creat.asm"
 
-    db 0x57, 0x2b, 0xff, 0x85, 0xd2, 0x79, 0x08, 0xf7, 0xda, 0xf7, 0xd8, 0x83, 0xda, 0x00, 0x47, 0x85
-    db 0xdb, 0x79, 0x0b, 0xf7, 0xdb, 0xf7, 0xd9, 0x83, 0xdb, 0x00, 0x81, 0xf7, 0x01, 0x00, 0xe8, 0x39
-    db 0x00, 0x85, 0xff, 0x74, 0x07, 0xf7, 0xda, 0xf7, 0xd8, 0x83, 0xda, 0x00, 0x5f, 0xc3, 0x57, 0xbf
-    db 0x00, 0x00, 0x85, 0xd2, 0x79, 0x08, 0xf7, 0xda, 0xf7, 0xd8, 0x83, 0xda, 0x00, 0x47, 0x85, 0xdb
-    db 0x79, 0x07, 0xf7, 0xdb, 0xf7, 0xd9, 0x83, 0xdb, 0x00, 0xe8, 0x0e, 0x00, 0x8b, 0xc1, 0x8b, 0xd3
-    db 0xeb, 0xcf, 0xe8, 0x05, 0x00, 0x8b, 0xc1, 0x8b, 0xd3, 0xc3, 0x85, 0xdb, 0x75, 0x1e, 0x3b, 0xca
-    db 0x77, 0x13, 0x50, 0x8b, 0xc2, 0x2b, 0xd2, 0xf7, 0xf1, 0x8b, 0xd8, 0x58, 0xf7, 0xf1, 0x8b, 0xca
-    db 0x8b, 0xd3, 0x2b, 0xdb, 0xc3, 0xf7, 0xf1, 0x8b, 0xca, 0x8b, 0xd3, 0xc3, 0x57, 0x56, 0x8b, 0xf1
-    db 0x8b, 0xfb, 0x52, 0x50, 0x84, 0xff, 0x74, 0x0e, 0x8a, 0xcd, 0x8a, 0xeb, 0x8a, 0xdf, 0x8a, 0xc4
-    db 0x8a, 0xe2, 0x8a, 0xd6, 0x2a, 0xf6, 0xd1, 0xea, 0xd1, 0xd8, 0xd0, 0xeb, 0xd1, 0xd9, 0x84, 0xdb
-    db 0x75, 0xf4, 0xf7, 0xf1, 0x8b, 0xc8, 0xf7, 0xe6, 0x8b, 0xda, 0x50, 0x8b, 0xc1, 0xf7, 0xe7, 0x03
-    db 0xd8, 0x73, 0x27, 0x49, 0x58, 0x8b, 0xc1, 0xf7, 0xe7, 0x8b, 0xd8, 0x8b, 0xc1, 0xf7, 0xe6, 0x03
-    db 0xda, 0x8e, 0xc1, 0x8b, 0xc8, 0x58, 0x5a, 0x2b, 0xc8, 0x1b, 0xda, 0xf7, 0xd1, 0xf7, 0xd3, 0x83
-    db 0xc1, 0x01, 0x83, 0xd3, 0x00, 0x8c, 0xc0, 0xe9, 0x12, 0x00, 0x8b, 0xd3, 0x8b, 0xc1, 0x5b, 0x59
-    db 0x2b, 0xcb, 0x5b, 0x1b, 0xda, 0x73, 0x05, 0x03, 0xce, 0x13, 0xdf, 0x48, 0x2b, 0xd2, 0x5e, 0x5f
-    db 0xc3
+%include "vinstall/aztec_open.asm"
 
-%include "vinstall/string_loc_3508.asm"
+    push di                          ; 0x3417
+    db 0x2b, 0xff ; sub di, di
+    test dx, dx                      ; 0x341a
+    jns short loc_3426               ; 0x341c
+    neg dx                           ; 0x341e
+    neg ax                           ; 0x3420
+    sbb dx, byte 0                   ; 0x3422
+    inc di                           ; 0x3425
+    test bx, bx                      ; 0x3426
+    jns short loc_3435               ; 0x3428
+    neg bx                           ; 0x342a
+    neg cx                           ; 0x342c
+    sbb bx, byte 0                   ; 0x342e
+    xor di, 1                        ; 0x3431
+    call aztec_lud                   ; 0x3435
+    test di, di                      ; 0x3438
+    je short loc_3443                ; 0x343a
+    neg dx                           ; 0x343c
+    neg ax                           ; 0x343e
+    sbb dx, byte 0                   ; 0x3440
+    pop di                           ; 0x3443
+    ret                              ; 0x3444
+    push di                          ; 0x3445
+    mov di, 0                        ; 0x3446
+    test dx, dx                      ; 0x3449
+    jns short loc_3455               ; 0x344b
+    neg dx                           ; 0x344d
+    neg ax                           ; 0x344f
+    sbb dx, byte 0                   ; 0x3451
+    inc di                           ; 0x3454
+    test bx, bx                      ; 0x3455
+    jns short loc_3460               ; 0x3457
+    neg bx                           ; 0x3459
+    neg cx                           ; 0x345b
+    sbb bx, byte 0                   ; 0x345d
+    call aztec_lud                   ; 0x3460
+    db 0x8b, 0xc1 ; mov ax, cx
+    db 0x8b, 0xd3 ; mov dx, bx
+    jmp short loc_3438               ; 0x3467
+%include "vinstall/aztec_lum.asm"
 
-%include "vinstall/strlen_3.asm"
+%include "vinstall/aztec_lud.asm"
 
-%include "vinstall/leaf_loc_358c.asm"
+    div cx                           ; 0x348c
+    db 0x8b, 0xca ; mov cx, dx
+    db 0x8b, 0xd3 ; mov dx, bx
+    ret                              ; 0x3492
+    push di                          ; 0x3493
+    push si                          ; 0x3494
+    db 0x8b, 0xf1 ; mov si, cx
+    db 0x8b, 0xfb ; mov di, bx
+    push dx                          ; 0x3499
+    push ax                          ; 0x349a
+    test bh, bh                      ; 0x349b
+    je short loc_34ad                ; 0x349d
+    db 0x8a, 0xcd ; mov cl, ch
+    db 0x8a, 0xeb ; mov ch, bl
+    db 0x8a, 0xdf ; mov bl, bh
+    db 0x8a, 0xc4 ; mov al, ah
+    db 0x8a, 0xe2 ; mov ah, dl
+    db 0x8a, 0xd6 ; mov dl, dh
+    db 0x2a, 0xf6 ; sub dh, dh
+    shr dx, 1                        ; 0x34ad
+    rcr ax, 1                        ; 0x34af
+    shr bl, 1                        ; 0x34b1
+    rcr cx, 1                        ; 0x34b3
+    test bl, bl                      ; 0x34b5
+    jne short loc_34ad               ; 0x34b7
+    div cx                           ; 0x34b9
+    db 0x8b, 0xc8 ; mov cx, ax
+    mul si                           ; 0x34bd
+    db 0x8b, 0xda ; mov bx, dx
+    push ax                          ; 0x34c1
+    db 0x8b, 0xc1 ; mov ax, cx
+    mul di                           ; 0x34c4
+    db 0x03, 0xd8 ; add bx, ax
+    jae short loc_34f1               ; 0x34c8
+    dec cx                           ; 0x34ca
+    pop ax                           ; 0x34cb
+    db 0x8b, 0xc1 ; mov ax, cx
+    mul di                           ; 0x34ce
+    db 0x8b, 0xd8 ; mov bx, ax
+    db 0x8b, 0xc1 ; mov ax, cx
+    mul si                           ; 0x34d4
+    db 0x03, 0xda ; add bx, dx
+    mov es, cx                       ; 0x34d8
+    db 0x8b, 0xc8 ; mov cx, ax
+    pop ax                           ; 0x34dc
+    pop dx                           ; 0x34dd
+    db 0x2b, 0xc8 ; sub cx, ax
+    db 0x1b, 0xda ; sbb bx, dx
+    not cx                           ; 0x34e2
+    not bx                           ; 0x34e4
+    add cx, byte 1                   ; 0x34e6
+    adc bx, byte 0                   ; 0x34e9
+    mov ax, es                       ; 0x34ec
+    jmp near loc_3503                ; 0x34ee
+    db 0x8b, 0xd3 ; mov dx, bx
+    db 0x8b, 0xc1 ; mov ax, cx
+    pop bx                           ; 0x34f5
+    pop cx                           ; 0x34f6
+    db 0x2b, 0xcb ; sub cx, bx
+    pop bx                           ; 0x34f9
+    db 0x1b, 0xda ; sbb bx, dx
+    jae short loc_3503               ; 0x34fc
+    db 0x03, 0xce ; add cx, si
+    db 0x13, 0xdf ; adc bx, di
+    dec ax                           ; 0x3502
+    db 0x2b, 0xd2 ; sub dx, dx
+    pop si                           ; 0x3505
+    pop di                           ; 0x3506
+    ret                              ; 0x3507
+%include "vinstall/aztec_strcmp.asm"
+
+%include "vinstall/strlen.asm"
+
+%include "vinstall/aztec_sys.asm"
 
     times 4 db 0
 %include "vinstall/entry_point.asm"
@@ -3901,108 +3587,8 @@ loc_3718:
     retf                             ; 0x373a
     mov ax, 0                        ; 0x373b
     ret                              ; 0x373e
-loc_373f:
-    push bp                          ; 0x373f
-    mov bp, sp                       ; 0x3740
-    push di                          ; 0x3742
-    push si                          ; 0x3743
-    mov si, word [bp + 0x4]          ; 0x3744
-    mov ax, 0                        ; 0x3747
-    push ax                          ; 0x374a
-    call dos_ioctl                   ; 0x374b
-    pop cx                           ; 0x374e
-    mov byte [data_251a], al         ; 0x374f
-    mov ax, 1                        ; 0x3752
-    push ax                          ; 0x3755
-    call dos_ioctl                   ; 0x3756
-    pop cx                           ; 0x3759
-    mov byte [data_251b], al         ; 0x375a
-    mov ax, data_0002                ; 0x375d
-    push ax                          ; 0x3760
-    call dos_ioctl                   ; 0x3761
-    pop cx                           ; 0x3764
-    mov byte [data_251c], al         ; 0x3765
-    mov ax, word [bp + 0x6]          ; 0x3768
-    shl ax, 1                        ; 0x376b
-    inc ax                           ; 0x376d
-    inc ax                           ; 0x376e
-    push ax                          ; 0x376f
-    call loc_3a05                    ; 0x3770
-    pop cx                           ; 0x3773
-    mov word [data_253c], ax         ; 0x3774
-    mov ax, 0x2502                   ; 0x3777
-    mov bx, word [data_253c]         ; 0x377a
-    mov word [bx], 0x2502            ; 0x377e
-    mov ax, word [bp + 0x6]          ; 0x3782
-    mov word [data_253a], ax         ; 0x3785
-    shl ax, 1                        ; 0x3788
-    mov di, word [data_253c]         ; 0x378a
-    add di, ax                       ; 0x378e
-@..local.l106:
-    cmp byte [si], 0x20              ; 0x3790
-    je short @..local.l107           ; 0x3793
-    cmp byte [si], 9                 ; 0x3795
-    jne short @..local.l108          ; 0x3798
-@..local.l107:
-    inc si                           ; 0x379a
-    jmp short @..local.l106          ; 0x379b
-@..local.l108:
-    cmp byte [si], 0                 ; 0x379d
-    je short @..local.l113           ; 0x37a0
-    mov word [di], si                ; 0x37a2
-    inc di                           ; 0x37a4
-    inc di                           ; 0x37a5
-    inc word [data_253a]             ; 0x37a6
-    mov ax, data_0002                ; 0x37aa
-    push ax                          ; 0x37ad
-    call loc_3a05                    ; 0x37ae
-    pop cx                           ; 0x37b1
-    cmp ax, strict word 0xffff       ; 0x37b2
-    jne short @..local.l109          ; 0x37b5
-    mov ax, 0xe                      ; 0x37b7
-    push ax                          ; 0x37ba
-    mov ax, 0x2503                   ; 0x37bb
-    push ax                          ; 0x37be
-    mov ax, data_0002                ; 0x37bf
-    push ax                          ; 0x37c2
-    call leaf_loc_383a               ; 0x37c3
-    add sp, byte 6                   ; 0x37c6
-    mov ax, 0xc8                     ; 0x37c9
-    push ax                          ; 0x37cc
-    call dos_proc_loc_3716           ; 0x37cd
-    pop cx                           ; 0x37d0
-@..local.l109:
-    inc si                           ; 0x37d1
-    cmp byte [si], 0                 ; 0x37d2
-    je short @..local.l112           ; 0x37d5
-    mov al, byte [si]                ; 0x37d7
-    cmp al, 0x20                     ; 0x37d9
-    je short @..local.l110           ; 0x37db
-    cmp al, 9                        ; 0x37dd
-    jne short @..local.l111          ; 0x37df
-@..local.l110:
-    mov byte [si], 0                 ; 0x37e1
-    inc si                           ; 0x37e4
-    jmp short @..local.l112          ; 0x37e5
-@..local.l111:
-    jmp short @..local.l109          ; 0x37e7
-@..local.l112:
-    jmp short @..local.l106          ; 0x37e9
-@..local.l113:
-    mov word [di], 0                 ; 0x37eb
-    push word [data_253c]            ; 0x37ef
-    push word [data_253a]            ; 0x37f3
-    call math_loc_12b5               ; 0x37f7
-    add sp, byte 4                   ; 0x37fa
-    mov ax, 0                        ; 0x37fd
-    push ax                          ; 0x3800
-    call loc_380b                    ; 0x3801
-    pop cx                           ; 0x3804
-    pop si                           ; 0x3805
-    pop di                           ; 0x3806
-    mov sp, bp                       ; 0x3807
-    pop bp                           ; 0x3809
-    ret                              ; 0x380a
+%include "vinstall/aztec_Croot.asm"
+
 loc_380b:
     push bp                          ; 0x380b
     mov bp, sp                       ; 0x380c
@@ -4015,78 +3601,45 @@ loc_380b:
     ret                              ; 0x381c
 %include "vinstall/leaf_loc_381d.asm"
 
-%include "vinstall/dos_file_loc_381f.asm"
+%include "vinstall/aztec_read.asm"
 
 %include "vinstall/leaf_loc_3833.asm"
 
 %include "vinstall/leaf_loc_383a.asm"
 
-%include "vinstall/dos_file_loc_3869.asm"
+%include "vinstall/aztec_close.asm"
 
-%include "vinstall/dos_file_loc_3881.asm"
+%include "vinstall/aztec_lseek.asm"
 
-%include "vinstall/dos_file_loc_38a0.asm"
+%include "vinstall/aztec_unlink.asm"
 
+%include "vinstall/aztec_rename.asm"
 
-    db 0x55, 0x8b, 0xec, 0x57, 0xb4, 0x56, 0x8b, 0x56, 0x04, 0x8c, 0xdf, 0x8e, 0xc7, 0x8b, 0x7e, 0x06
-    db 0xcd, 0x21, 0x5f, 0x73, 0x08, 0xa3, 0xd6, 0x24, 0xb8, 0xff, 0xff, 0x5d, 0xc3, 0x2b, 0xc0, 0x5d
-    db 0xc3, 0x55, 0x8b, 0xec, 0x56, 0x8b, 0x36, 0xfc, 0x2a, 0x85, 0xf6, 0x75, 0x30, 0xb8, 0x04, 0x01
-    db 0x50, 0xb8, 0x3e, 0x25, 0x50, 0xff, 0x76, 0x04, 0xe8, 0x2c, 0xff, 0x83, 0xc4, 0x06, 0x8b, 0xf0
-    db 0x85, 0xf6, 0x74, 0x0f, 0x80, 0xbc, 0x3d, 0x25, 0x0a, 0x75, 0x08, 0x4e, 0xa0, 0x32, 0x25, 0x88
-    db 0x84, 0x3d, 0x25, 0xc7, 0x06, 0x42, 0x26, 0x3e, 0x25, 0x89, 0x36, 0xfc, 0x2a, 0x3b, 0x76, 0x08
-    db 0x7e, 0x03, 0x8b, 0x76, 0x08, 0x85, 0xf6, 0x74, 0x0e, 0x56, 0xff, 0x76, 0x06, 0xff, 0x36, 0x42
-    db 0x26, 0xe8, 0x74, 0x00, 0x83, 0xc4, 0x06, 0x01
-    db '6B&)6'
-    db 0xfc, 0x2a, 0x8b, 0xc6, 0x5e, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x57, 0x56, 0x8b, 0x7e
-    db 0x06, 0x8b, 0x76, 0x08, 0xeb, 0x2e, 0x8b, 0xdf, 0x47, 0x80, 0x3f, 0x0a, 0x75, 0x26, 0x8b, 0xc7
-    db 0x2b, 0x46, 0x06, 0x50, 0xff, 0x76, 0x06, 0xff, 0x76, 0x04, 0xe8, 0xc7, 0xfe, 0x83, 0xc4, 0x06
-    db 0xb8, 0x01, 0x00, 0x50, 0xb8, 0x33, 0x25, 0x50, 0xff, 0x76, 0x04, 0xe8, 0xb6, 0xfe, 0x83, 0xc4
-    db 0x06, 0x89, 0x7e, 0x06, 0x8b, 0xc6, 0x4e, 0x85, 0xc0, 0x75, 0xcb, 0x3b, 0x7e, 0x06, 0x74, 0x12
-    db 0x8b, 0xc7, 0x2b, 0x46, 0x06, 0x50, 0xff, 0x76, 0x06, 0xff, 0x76, 0x04, 0xe8, 0x95, 0xfe, 0x83
-    db 0xc4, 0x06, 0x8b, 0x46, 0x08, 0x5e, 0x5f, 0x8b, 0xe5, 0x5d, 0xc3, 0x55, 0x8b, 0xec, 0x9c, 0xfc
-    db 0x56, 0x57, 0x8c, 0xdf, 0x8e, 0xc7, 0x8b, 0x76, 0x04, 0x8b, 0x7e, 0x06, 0x8b, 0x4e, 0x08, 0x8c
-    db 0xc0, 0x8c, 0xda, 0x3b, 0xc2, 0x75, 0x17, 0x3b, 0xfe, 0x74, 0x1f, 0x72, 0x11, 0xfd, 0x03, 0xf9
-    db 0x03, 0xf1, 0x4f, 0x4e, 0xf6, 0xc1, 0x01, 0x74, 0x01, 0xa4, 0x4f, 0x4e, 0xeb, 0x06, 0xf6, 0xc1
-    db 0x01, 0x74, 0x01, 0xa4, 0xd1, 0xe9, 0x74, 0x02, 0xf3, 0xa5, 0xfc, 0x5f, 0x5e, 0x9d, 0x5d, 0xc3
+    db 0x2b, 0xc0 ; sub ax, ax
+    pop bp                           ; 0x38d7
+    ret                              ; 0x38d8
+%include "vinstall/aztec_tty_rd.asm"
 
-%include "vinstall/dos_ioctl.asm"
+%include "vinstall/aztec_tty_wr.asm"
 
-loc_3a05:
-    push bp                          ; 0x3a05
-    mov bp, sp                       ; 0x3a06
-    push di                          ; 0x3a08
-    mov ax, word [bp + 0x4]          ; 0x3a09
-    mov di, word [data_24d4]         ; 0x3a0c
-    test ax, ax                      ; 0x3a10
-    jge short @..local.l114          ; 0x3a12
-    sub di, ax                       ; 0x3a14
-    jb short @..local.l117           ; 0x3a16
-    jmp short @..local.l115          ; 0x3a18
-@..local.l114:
-    add ax, di                       ; 0x3a1a
-    jb short @..local.l117           ; 0x3a1c
-@..local.l115:
-    push ax                          ; 0x3a1e
-    call dos_mem_loc_3a39            ; 0x3a1f
-    pop cx                           ; 0x3a22
-    test ax, ax                      ; 0x3a23
-    jne short @..local.l116          ; 0x3a25
-    mov ax, di                       ; 0x3a27
-@..local.l116:
-    pop di                           ; 0x3a29
-    test ax, ax                      ; 0x3a2a
-    pop bp                           ; 0x3a2c
-    ret                              ; 0x3a2d
-@..local.l117:
-    mov word [data_24d6], 0xfff8     ; 0x3a2e
-    mov ax, 0xffff                   ; 0x3a34
-    jmp short @..local.l116          ; 0x3a37
+%include "vinstall/aztec_movmem.asm"
+
+%include "vinstall/aztec_isatty.asm"
+
+%include "vinstall/aztec_sbrk.asm"
+
 %include "vinstall/dos_mem_loc_3a39.asm"
 
+%include "vinstall/aztec_rsvstk.asm"
 
-    db 0x55, 0x8b, 0xec, 0x8b, 0xc4, 0x2b, 0x46, 0x04, 0xa3, 0x14, 0x25, 0x5d, 0xc3
     times 16 db 0
-    db 0x0e, 0x00, 0x25, 0x00, 0x3c, 0x00, 0x53, 0x00, 0x6a, 0x00, 0x81, 0x00
+    push cs                          ; 0x3ae2
+    add byte [di], ah                ; 0x3ae3
+    add byte [si], bh                ; 0x3ae5
+    db 0x00, 0x53, 0x00 ; add byte [bp + di], dl
+    db 0x6a, 0x00 ; push 0
+
+    db 0x81, 0x00
     db '0-NO GRAPHICS BOARD   ', 0
     db '1-VGA/MCGA (256 Color)', 0
     db '2-EGA      (16 Color) ', 0
