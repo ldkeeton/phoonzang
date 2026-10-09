@@ -140,3 +140,40 @@ api_idx_000c_3:
     jmp near @..api_idx_000c_3.l1    ; 0x2b15
 @..api_idx_000c_3.l20:
     ret                              ; 0x2b18
+loc_2b19:
+    mov ax, 0                        ; 0x2b19
+    call ds_dispatch_f40b            ; 0x2b1c
+    les bx, word [data_0002]         ; 0x2b1f
+    mov ax, word [es:bx]             ; 0x2b23
+    mov dx, word [es:bx + 0x2]       ; 0x2b26
+    mov word [data_9090], dx         ; 0x2b2a
+    mov word [data_908e], ax         ; 0x2b2e
+    mov ax, word [data_908e]         ; 0x2b31
+    mov dx, word [data_9090]         ; 0x2b34
+    sub ax, word [data_908a]         ; 0x2b38
+    sbb dx, word [data_908c]         ; 0x2b3c
+    mov word [data_9094], dx         ; 0x2b40
+    mov word [data_9092], ax         ; 0x2b44
+    mov ax, word [data_90b6]         ; 0x2b47
+    cwd                              ; 0x2b4a
+    mov cx, ax                       ; 0x2b4b
+    mov bx, dx                       ; 0x2b4d
+    mov ax, word [data_9092]         ; 0x2b4f
+    mov dx, word [data_9094]         ; 0x2b52
+    cmp bx, dx                       ; 0x2b56
+    jg short @..local.l62            ; 0x2b58
+    jne short @..local.l63           ; 0x2b5a
+    cmp cx, ax                       ; 0x2b5c
+    jbe short @..local.l63           ; 0x2b5e
+@..local.l62:
+    jmp short @..local.l64           ; 0x2b60
+@..local.l63:
+    mov ax, word [data_908e]         ; 0x2b62
+    mov dx, word [data_9090]         ; 0x2b65
+    mov word [data_908c], dx         ; 0x2b69
+    mov word [data_908a], ax         ; 0x2b6d
+    mov ax, 1                        ; 0x2b70
+    ret                              ; 0x2b73
+@..local.l64:
+    mov ax, 0                        ; 0x2b74
+    ret                              ; 0x2b77

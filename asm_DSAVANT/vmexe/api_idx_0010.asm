@@ -214,3 +214,65 @@ api_idx_0010:
     add sp, byte 0x0e                ; 0x2854
     push word [bp - 0x000c]          ; 0x2857
     mov ax, 0x2c                     ; 0x285a
+    imul word [bp - 0x0002]          ; 0x285d
+    mov cx, ax                       ; 0x2860
+    mov ax, word [bp + 0x4]          ; 0x2862
+    shl ax, 1                        ; 0x2865
+    mov bx, ax                       ; 0x2867
+    mov ax, word [bx - 0x7b7e]       ; 0x2869
+    add ax, cx                       ; 0x286d
+    push ax                          ; 0x286f
+    call loc_182b                    ; 0x2870
+    add sp, byte 4                   ; 0x2873
+    cmp word [bp + 0x4], byte 0      ; 0x2876
+    jne short @..api_idx_0010.l19    ; 0x287a
+    mov ax, 0x248                    ; 0x287c
+    imul word [bp - 0x0002]          ; 0x287f
+    mov bx, ax                       ; 0x2882
+    mov al, byte [bx + 0x5e2c]       ; 0x2884
+    sub ah, ah                       ; 0x2888
+    add ax, strict word 8            ; 0x288a
+    push ax                          ; 0x288d
+    call ds_dispatch_b7e0            ; 0x288e
+    pop cx                           ; 0x2891
+    mov ax, 1                        ; 0x2892
+    push ax                          ; 0x2895
+    push word [bp - 0x0002]          ; 0x2896
+    call api_idx_0004_2              ; 0x2899
+    add sp, byte 4                   ; 0x289c
+@..api_idx_0010.l19:
+    mov ax, word [data_9058]         ; 0x289f
+    mov cx, 2                        ; 0x28a2
+    cwd                              ; 0x28a5
+    idiv cx                          ; 0x28a6
+    push ax                          ; 0x28a8
+    call api_idx_0004_5              ; 0x28a9
+    pop cx                           ; 0x28ac
+    jmp short @..api_idx_0010.l21    ; 0x28ad
+@..api_idx_0010.l20:
+    mov ax, 3                        ; 0x28af
+    push ax                          ; 0x28b2
+    mov ax, 0x41                     ; 0x28b3
+    push ax                          ; 0x28b6
+    mov ax, 0xcee                    ; 0x28b7
+    push ax                          ; 0x28ba
+    call api_idx_0050                ; 0x28bb
+    add sp, byte 6                   ; 0x28be
+@..api_idx_0010.l21:
+    mov ax, word [data_9058]         ; 0x28c1
+    mov cx, 2                        ; 0x28c4
+    cwd                              ; 0x28c7
+    idiv cx                          ; 0x28c8
+    push ax                          ; 0x28ca
+    call api_idx_0004_5              ; 0x28cb
+    pop cx                           ; 0x28ce
+@..api_idx_0010.l22:
+    inc word [bp - 0x0002]           ; 0x28cf
+@..api_idx_0010.l23:
+    mov ax, word [bp - 0x0006]       ; 0x28d2
+    add ax, word [bp - 0x0004]       ; 0x28d5
+    cmp ax, word [bp - 0x0002]       ; 0x28d8
+    jle short @..api_idx_0010.l24    ; 0x28db
+    jmp near @..api_idx_0010.l7      ; 0x28dd
+@..api_idx_0010.l24:
+    ret                              ; 0x28e0

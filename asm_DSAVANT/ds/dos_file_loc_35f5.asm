@@ -31,3 +31,5 @@ dos_file_loc_35f5:
     pop es                           ; 0x363a
     pop ds                           ; 0x363b
     ret                              ; 0x363c
+@..dos_file_loc_35f5.l2:
+    call loc_30a3                    ; 0x363d

@@ -85,6 +85,6 @@ api_idx_0004_9:
     push word [bp + 0x8]             ; 0x34aa
     push word [data_8462]            ; 0x34ad
     push word [data_8464]            ; 0x34b1
-    call math_loc_0f67               ; 0x34b5
+    call loc_0f67                    ; 0x34b5
     add sp, byte 0x0e                ; 0x34b8
     ret                              ; 0x34bb

@@ -26,3 +26,8 @@ dos_con_loc_4461:
     loop @..dos_con_loc_4461.l1      ; 0x4488
     pop ax                           ; 0x448a
     ret                              ; 0x448b
+
+    db 0x0d, 0x0a, 0x07
+    db 'Score slot moved.', 0
+    db 0x0a, 0x24
+

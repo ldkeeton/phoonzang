@@ -9,7 +9,7 @@ bios_kbd_loc_3c97:
     mov ax, cs                       ; 0x3c9f
     mov ds, ax                       ; 0x3ca1
     mov es, ax                       ; 0x3ca3
-    call math_loc_3c0d               ; 0x3ca5
+    call leaf_loc_3c0d               ; 0x3ca5
     lea si, word [data_3a7f]         ; 0x3ca8
 @..bios_kbd_loc_3c97.l1:
     mov bx, word [si]                ; 0x3cac

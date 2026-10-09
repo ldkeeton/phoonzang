@@ -133,3 +133,32 @@ api_idx_0006_8:
 @..api_idx_0006_8.l12:
     mov word [bp - 0x0002], 0        ; 0x935f
     jmp short @..api_idx_0006_8.l14  ; 0x9364
+@..api_idx_0006_8.l13:
+    mov ax, word [bp - 0x0002]       ; 0x9366
+    shl ax, 1                        ; 0x9369
+    mov bx, ax                       ; 0x936b
+    mov al, byte [bx - 0x6418]       ; 0x936d
+    push ax                          ; 0x9371
+    mov ax, 0x26                     ; 0x9372
+    imul word [bp + 0x4]             ; 0x9375
+    mov cx, ax                       ; 0x9378
+    add ax, word [bp - 0x0002]       ; 0x937a
+    mov bx, ax                       ; 0x937d
+    pop ax                           ; 0x937f
+    mov byte [bx - 0x7b10], al       ; 0x9380
+    inc word [bp - 0x0002]           ; 0x9384
+@..api_idx_0006_8.l14:
+    mov ax, word [bp - 0x0002]       ; 0x9387
+    cmp ax, word [data_9be6]         ; 0x938a
+    jl short @..api_idx_0006_8.l13   ; 0x938e
+    mov ax, word [data_9be6]         ; 0x9390
+    dec ax                           ; 0x9393
+    push ax                          ; 0x9394
+    mov ax, 0x26                     ; 0x9395
+    imul word [bp + 0x4]             ; 0x9398
+    mov bx, ax                       ; 0x939b
+    pop ax                           ; 0x939d
+    mov byte [bx - 0x7b11], al       ; 0x939e
+    mov byte [bx - 0x7b13], 0        ; 0x93a2
+    mov ax, 1                        ; 0x93a7
+    ret                              ; 0x93aa

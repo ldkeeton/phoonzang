@@ -205,3 +205,46 @@ api_idx_0004_5:
 @..api_idx_0004_5.l13:
     mov ax, word [bp + 0x6]          ; 0x2217
     push ax                          ; 0x221a
+    mov ax, 0x11                     ; 0x221b
+    imul word [data_92f2]            ; 0x221e
+    mov bx, ax                       ; 0x2222
+    pop ax                           ; 0x2224
+    mov word [bx - 0x6d0c], ax       ; 0x2225
+    mov ax, word [bp + 0x8]          ; 0x2229
+    mov word [bx - 0x6d0a], ax       ; 0x222c
+@..api_idx_0004_5.l14:
+    mov al, byte [bp + 0xa]          ; 0x2230
+    push ax                          ; 0x2233
+    mov ax, 0x11                     ; 0x2234
+    imul word [data_92f2]            ; 0x2237
+    mov bx, ax                       ; 0x223b
+    pop ax                           ; 0x223d
+    mov byte [bx - 0x6d04], al       ; 0x223e
+    mov al, byte [bp + 0xc]          ; 0x2242
+    mov byte [bx - 0x6d03], al       ; 0x2245
+    mov al, byte [bp + 0xe]          ; 0x2249
+    mov byte [bx - 0x6d02], al       ; 0x224c
+    mov al, byte [bp + 0x10]         ; 0x2250
+    mov byte [bx - 0x6d01], al       ; 0x2253
+    mov ax, word [bp + 0x12]         ; 0x2257
+    mov word [bx - 0x6d08], ax       ; 0x225a
+    mov ax, word [bp + 0x14]         ; 0x225e
+    mov word [bx - 0x6d06], ax       ; 0x2261
+    mov al, byte [bp + 0x16]         ; 0x2265
+    mov byte [bx - 0x6cff], al       ; 0x2268
+    mov al, byte [bp + 0x1a]         ; 0x226c
+    mov byte [bx - 0x6cfd], al       ; 0x226f
+    mov al, byte [bp + 0x1c]         ; 0x2273
+    mov byte [bx - 0x6cfc], al       ; 0x2276
+    inc word [data_92f2]             ; 0x227a
+    mov ax, word [data_92f2]         ; 0x227e
+    cmp ax, strict word 0x78         ; 0x2281
+    jl short @..api_idx_0004_5.l16   ; 0x2284
+@..api_idx_0004_5.l15:
+    mov ax, 0                        ; 0x2286
+    push ax                          ; 0x2289
+    call ds_dispatch_b7e0            ; 0x228a
+    pop cx                           ; 0x228d
+    jmp short @..api_idx_0004_5.l15  ; 0x228e
+@..api_idx_0004_5.l16:
+    ret                              ; 0x2290

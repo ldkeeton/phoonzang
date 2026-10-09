@@ -302,3 +302,4 @@ api_idx_0016:
     add word [bp + 0x6], byte 6      ; 0xa82f
 @..api_idx_0016.l20:
     jmp near @..api_idx_0016.l1      ; 0xa833
+    db 0xc3

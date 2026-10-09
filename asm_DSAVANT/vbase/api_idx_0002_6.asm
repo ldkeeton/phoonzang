@@ -225,3 +225,51 @@ api_idx_0002_6:
     mov ax, 1                        ; 0x7266
     push ax                          ; 0x7269
     call api_idx_004e                ; 0x726a
+    pop cx                           ; 0x726d
+    cmp ax, strict word 0xffff       ; 0x726e
+    jne short @..api_idx_0002_6.l12  ; 0x7271
+    mov ax, 0xc6                     ; 0x7273
+    push ax                          ; 0x7276
+    mov ax, 0x109                    ; 0x7277
+    push ax                          ; 0x727a
+    mov ax, 0x8e                     ; 0x727b
+    push ax                          ; 0x727e
+    mov ax, api_idx_0002             ; 0x727f
+    push ax                          ; 0x7282
+    call ds_dispatch_e8da            ; 0x7283
+    add sp, byte 8                   ; 0x7286
+@..api_idx_0002_6.l12:
+    mov ax, 0                        ; 0x7289
+    push ax                          ; 0x728c
+    mov ax, 0xc7                     ; 0x728d
+    push ax                          ; 0x7290
+    mov ax, 0x13f                    ; 0x7291
+    push ax                          ; 0x7294
+    mov ax, 0                        ; 0x7295
+    push ax                          ; 0x7298
+    push ax                          ; 0x7299
+    call ds_dispatch_e901            ; 0x729a
+    add sp, byte 0x0a                ; 0x729d
+    mov ax, 0xc7                     ; 0x72a0
+    push ax                          ; 0x72a3
+    mov ax, 0x13f                    ; 0x72a4
+    push ax                          ; 0x72a7
+    mov ax, 0                        ; 0x72a8
+    push ax                          ; 0x72ab
+    push ax                          ; 0x72ac
+    call ds_dispatch_e8da            ; 0x72ad
+    add sp, byte 8                   ; 0x72b0
+    mov ax, data_0002                ; 0x72b3
+    push ax                          ; 0x72b6
+    mov ax, 0x912b                   ; 0x72b7
+    push ax                          ; 0x72ba
+    call api_idx_0002_5              ; 0x72bb
+    add sp, byte 4                   ; 0x72be
+    ret                              ; 0x72c1
+loc_72c2:
+    mov ax, 0                        ; 0x72c2
+    call ds_dispatch_f40b            ; 0x72c5
+    push word [bp + 0x4]             ; 0x72c8
+    call 0xefb7                      ; 0x72cb
+    pop cx                           ; 0x72ce
+    ret                              ; 0x72cf

@@ -143,3 +143,12 @@ api_idx_0006_2:
     mov word [data_845e], 0xfffd     ; 0x2cc0
 @..api_idx_0006_2.l17:
     ret                              ; 0x2cc6
+loc_2cc7:
+    mov ax, 0                        ; 0x2cc7
+    call ds_dispatch_f40b            ; 0x2cca
+    mov word [data_845e], 0xfffe     ; 0x2ccd
+@..local.l65:
+    call api_idx_0006_2              ; 0x2cd3
+    cmp word [data_845e], byte 0xfe  ; 0x2cd6
+    jne short @..local.l65           ; 0x2cdb
+    ret                              ; 0x2cdd

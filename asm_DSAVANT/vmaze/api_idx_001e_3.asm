@@ -206,3 +206,9 @@ api_idx_001e_3:
     mov bx, word [data_0e12]         ; 0x803a
     cmp byte [bx + si + 0x960], 0    ; 0x803e
     jbe short @..api_idx_001e_3.l15  ; 0x8043
+    mov ax, 2                        ; 0x8045
+    push ax                          ; 0x8048
+    call loc_7242                    ; 0x8049
+    pop cx                           ; 0x804c
+@..api_idx_001e_3.l15:
+    ret                              ; 0x804d

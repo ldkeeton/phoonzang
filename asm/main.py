@@ -46,7 +46,10 @@ from lib.phases import (
     AztecOverlayPhase, DispatchTablePhase,
     CascadeTargetPhase,
 )
-from lib.model import PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN
+from lib.model import (
+    PhaseContext, IS_CODE, IS_DATA, IS_UNKNOWN,
+    CONF_CODE, SeedInfo, TargetInfo,
+)
 from lib.pipeline import run_functional, run_iterative, report_timings
 from lib.pipeline.definition import PipelineDef, Stage
 from lib.sidecar import (
@@ -73,6 +76,169 @@ def _load_known_funcs():
             + list(db.get('signatures', []))
         )
     return db
+
+
+_CSAV_PROLOGUE = b'\x5b\x55\x8b\xec'  # $csav: pop bx; push bp; mov bp, sp
+
+# Application wrappers that forward to a single runtime routine.
+_CSAV_WRAPPER_NAMES = {
+    'aztec_lmalloc': 'app_malloc',
+    'aztec_movblock': 'app_memmove',
+    'aztec_lfree': 'app_free',
+}
+
+
+def _seed_csav_functions(ctx):
+    """Detect Aztec stack-checked application functions.
+
+    The compiler emits ``mov ax,<frame>; call $csav`` at the entry of every
+    function when stack checking is enabled.  ``$csav`` is the shared runtime
+    prologue (``pop bx; push bp; mov bp, sp``); the frame size is encoded as
+    the negative immediate.  These are the program's own functions, not
+    runtime-library routines.
+    """
+    data = ctx.binary_data
+    n = len(data)
+    found = {}
+    i = 0
+    while i < n - 2:
+        if data[i] != 0xE8:
+            i += 1
+            continue
+        rel = data[i + 1] | (data[i + 2] << 8)
+        if rel >= 0x8000:
+            rel -= 0x10000
+        target = i + 3 + rel
+        if (target >= 0 and target + 4 <= n
+                and data[target:target + 4] == _CSAV_PROLOGUE):
+            entry = i - 3
+            if entry >= 0 and data[entry] == 0xB8:
+                imm = data[entry + 1] | (data[entry + 2] << 8)
+                frame = (-imm) & 0xFFFF
+                if not ctx.hard_data[entry:entry + 3].any():
+                    found[entry] = frame
+                    if entry not in ctx.code_targets:
+                        ctx.code_targets[entry] = TargetInfo(
+                            address=entry, reason='csav',
+                            confidence=CONF_CODE, source_offset=-1)
+                    ctx.seeds.append(SeedInfo(
+                        address=entry, source_phase='csav',
+                        confidence=CONF_CODE,
+                        reason=f'csav frame=0x{frame:x}'))
+        i += 1
+    ctx.csav_functions = found
+
+
+_AZTEC_STUB_PROLOGUE = b'\x55\x8b\xec\xfc'  # push bp; mov bp, sp; cld
+
+
+def _seed_aztec_stubs(ctx):
+    """Seed Aztec OS-call / interrupt veneer stubs.
+
+    The runtime lays out small ``push bp; mov bp, sp; cld`` stubs (``call far
+    [cs:...]`` or direct ``int`` wrappers).  They are reached indirectly, so
+    recursive descent never finds them and they leak out as data blocks.
+    """
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+
+    data = ctx.binary_data
+    n = len(data)
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    seed_terminators = {'ret', 'retf', 'iret', 'hlt', 'int3'}
+    found = 0
+    i = 0
+    while True:
+        i = data.find(_AZTEC_STUB_PROLOGUE, i)
+        if i < 0:
+            break
+        entry = i
+        i += 1
+        if ctx.hard_data[entry:entry + 4].any():
+            continue
+        if entry in ctx.code_targets:
+            continue
+        end = min(entry + 256, n)
+        if not any(insn.mnemonic in seed_terminators
+                   for insn in md.disasm(data[entry:end], entry)):
+            continue
+        ctx.code_targets[entry] = TargetInfo(
+            address=entry, reason='aztec_stub', confidence=CONF_CODE,
+            source_offset=-1)
+        ctx.seeds.append(SeedInfo(
+            address=entry, source_phase='aztec_stub', confidence=CONF_CODE,
+            reason='aztec veneer prologue'))
+        found += 1
+    return found
+
+
+_APP_WRAPPER_MAX_INSNS = 12
+
+# Callee substrings -> affinity tag, in priority order.
+_APP_TAG_KEYS = (
+    ('file', ('open', 'close', 'read', 'write', 'lseek', 'unlink',
+              'rename', 'creat')),
+    ('alloc', ('malloc', 'free', 'alloc', 'lmalloc', 'lfree')),
+    ('io', ('con_', 'getch', 'putch', 'bios_', 'kbd', 'scr_', 'intvec')),
+    ('mem', ('movmem', 'setmem', 'movblock', 'memcpy', 'memset')),
+    ('string', ('str',)),
+)
+
+
+def _app_affinity_tag(callee_names):
+    joined = ' '.join(callee_names).lower()
+    for tag, keys in _APP_TAG_KEYS:
+        if any(key in joined for key in keys):
+            return tag
+    return None
+
+
+def _label_app_functions(label_map, ctx, instructions):
+    """Give each csav application function a hybrid name.
+
+    A function that forwards to exactly one runtime routine is named after
+    that routine; otherwise it gets a callee-affinity tag (or a bare
+    ``app_<addr>`` when there is no clear affinity).
+    """
+    csav_types = getattr(ctx, 'csav_functions', None)
+    if not csav_types:
+        return
+    by_addr = {ins.address: ins for ins in instructions}
+    csav_sorted = sorted(csav_types)
+
+    for index, entry in enumerate(csav_sorted):
+        existing = label_map.get(entry)
+        if (existing and existing != 'entry_point'
+                and not existing.startswith('loc_')):
+            # Preserve an explicit sidecar/known name (e.g. 'main').
+            continue
+        boundary = (csav_sorted[index + 1] if index + 1 < len(csav_sorted)
+                    else len(ctx.binary_data))
+        span = [(a, ins) for a, ins in by_addr.items()
+                if entry <= a < boundary]
+        callees = list(dict.fromkeys(
+            label_map.get(ins.operands[0].imm)
+            for _, ins in span
+            if ins.mnemonic in ('call', 'lcall') and ins.operands
+            and label_map.get(ins.operands[0].imm) not in (
+                None, 'aztec_csav')
+            and ins.operands[0].imm not in csav_types
+        ))
+
+        if len(callees) == 1 and len(span) <= _APP_WRAPPER_MAX_INSNS:
+            callee = callees[0]
+            short = _CSAV_WRAPPER_NAMES.get(callee)
+            if short:
+                label_map[entry] = short
+            else:
+                base = (callee.split('_', 1)[-1]
+                        if callee.startswith(('aztec_', 'dos_', 'bios_'))
+                        else callee)
+                label_map[entry] = f'app_{base}_{entry:04x}'
+            continue
+
+        tag = _app_affinity_tag(callees)
+        label_map[entry] = (
+            f'app_{tag}_{entry:04x}' if tag else f'app_{entry:04x}')
 
 
 def _build_classify_phases(known_db=None):
@@ -204,6 +370,11 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         known_db.setdefault('api_dispatch', {}).update(sidecar_entry['api_dispatch'])
     max_func_size = _MAX_FUNC_SIZE if _MAX_FUNC_SIZE is not None else 256
 
+    # Seed the program's own stack-checked application functions (csav) and
+    # the runtime's indirectly-reached OS/interrupt veneer stubs.
+    _seed_csav_functions(ctx)
+    _seed_aztec_stubs(ctx)
+
     classify_phases = _build_classify_phases(known_db)
     last_classify_slot = classify_phases[-1].output_slot
     refine_phases = _build_refine_phases(last_classify_slot)
@@ -263,6 +434,11 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     if mz_entry_point is not None and mz_entry_point in ctx.code_targets:
         label_targets.add(mz_entry_point)
         label_map.setdefault(mz_entry_point, 'entry_point')
+
+    # Aztec stack-checked application functions: name pure runtime wrappers
+    # after the routine they forward to, and everything else with a callee
+    # affinity tag (or a bare app_<addr>).
+    _label_app_functions(label_map, ctx, instructions)
 
     direct_call_targets = {
         address for address, info in ctx.code_targets.items()
@@ -383,6 +559,10 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
 
     raw_imm = (ctx.sidecar_entry or {}).get('immediate_labels', {})
     immediate_labels = {int(k, 16): v for k, v in raw_imm.items()}
+    label_comments = {
+        off: f'; Aztec csav frame=0x{frame:04x}'
+        for off, frame in ctx.csav_functions.items()
+    }
     split_functions = {
         signature['name']
         for signature in known_db.get('signatures', [])
@@ -410,6 +590,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         branch_targets=ctx.branch_targets,
         branch_edges=ctx.branch_edges,
         extra_flow_edges=extra_flow_edges,
+        label_comments=label_comments,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))

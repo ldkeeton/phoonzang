@@ -36,3 +36,16 @@ api_idx_0056:
 @..api_idx_0056.l3:
     call loc_3a6a                    ; 0x3cda
     ret                              ; 0x3cdd
+loc_3cde:
+    mov ax, 0                        ; 0x3cde
+    call ds_dispatch_f40b            ; 0x3ce1
+    mov bx, word [bp + 0x4]          ; 0x3ce4
+    cmp byte [bx + 0x6], 0           ; 0x3ce7
+    jbe short @..local.l43           ; 0x3ceb
+    dec byte [bx + 0x6]              ; 0x3ced
+    mov bx, word [bp + 0x4]          ; 0x3cf0
+    cmp byte [bx + 0x6], 0           ; 0x3cf3
+    jne short @..local.l43           ; 0x3cf7
+    mov word [bx], 0                 ; 0x3cf9
+@..local.l43:
+    ret                              ; 0x3cfd

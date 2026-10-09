@@ -225,3 +225,49 @@ dos_print_str:
 @..dos_print_str.l15:
     mov al, byte [si]                ; 0x16d3
     dec si                           ; 0x16d5
+    or al, byte [es:di]              ; 0x16d6
+    stosb                            ; 0x16d9
+    loop @..dos_print_str.l15        ; 0x16da
+    jmp short @..dos_print_str.l21   ; 0x16dc
+@..dos_print_str.l16:
+    mov al, byte [si]                ; 0x16de
+    dec si                           ; 0x16e0
+    cmp al, 0xff                     ; 0x16e1
+    je short @..dos_print_str.l17    ; 0x16e3
+    mov byte [es:di], ah             ; 0x16e5
+@..dos_print_str.l17:
+    inc di                           ; 0x16e8
+    loop @..dos_print_str.l16        ; 0x16e9
+    jmp short @..dos_print_str.l21   ; 0x16eb
+@..dos_print_str.l18:
+    mov al, byte [si]                ; 0x16ed
+    dec si                           ; 0x16ef
+    cmp al, 0xff                     ; 0x16f0
+    je short @..dos_print_str.l19    ; 0x16f2
+    mov byte [es:di], al             ; 0x16f4
+@..dos_print_str.l19:
+    inc di                           ; 0x16f7
+    loop @..dos_print_str.l18        ; 0x16f8
+    jmp short @..dos_print_str.l21   ; 0x16fa
+@..dos_print_str.l20:
+    mov al, byte [si]                ; 0x16fc
+    dec si                           ; 0x16fe
+    stosb                            ; 0x16ff
+    loop @..dos_print_str.l20        ; 0x1700
+@..dos_print_str.l21:
+    pop di                           ; 0x1702
+    add di, strict word 0x140        ; 0x1703
+    pop ax                           ; 0x1707
+    mov dx, word [bp - 0x0006]       ; 0x1708
+    add ax, dx                       ; 0x170b
+    pop si                           ; 0x170d
+    pop cx                           ; 0x170e
+    loop @..dos_print_str.l14        ; 0x170f
+@..dos_print_str.l22:
+    pop si                           ; 0x1711
+    pop di                           ; 0x1712
+    pop es                           ; 0x1713
+    pop ds                           ; 0x1714
+    mov sp, bp                       ; 0x1715
+    pop bp                           ; 0x1717
+    ret                              ; 0x1718

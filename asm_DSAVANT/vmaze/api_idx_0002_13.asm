@@ -56,3 +56,12 @@ api_idx_0002_13:
     jmp [cs:bx - 0x3b9f]             ; 0x7430
 @..api_idx_0002_13.l2:
     ret                              ; 0x7435
+loc_7436:
+    mov ax, 0                        ; 0x7436
+    call ds_dispatch_f40b            ; 0x7439
+    mov bx, word [data_0e12]         ; 0x743c
+    mov si, word [data_8d12]         ; 0x7440
+    mov al, byte [bx + si + 0xa50]   ; 0x7444
+    sub ah, ah                       ; 0x7448
+    mov word [data_91b0], ax         ; 0x744a
+    ret                              ; 0x744d

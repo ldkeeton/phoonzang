@@ -187,3 +187,37 @@ graphics_loc_0949:
     mov ax, word [cs:data_1bdb]      ; 0x0b40
     mov bx, 0x140                    ; 0x0b44
     mul bx                           ; 0x0b47
+    add ax, word [cs:data_1bd9]      ; 0x0b49
+    mov di, ax                       ; 0x0b4e
+    mov ax, word [cs:data_259b]      ; 0x0b50
+    mov ds, ax                       ; 0x0b54
+    mov si, word [cs:data_2599]      ; 0x0b56
+    mov cx, word [cs:data_1be3]      ; 0x0b5b
+    mov ax, ds                       ; 0x0b60
+    or ax, si                        ; 0x0b62
+    jne short @..graphics_loc_0949.l13 ; 0x0b64
+    mov si, 0x259e                   ; 0x0b66
+    mov ax, cs                       ; 0x0b69
+    mov ds, ax                       ; 0x0b6b
+@..graphics_loc_0949.l13:
+    push cx                          ; 0x0b6d
+    push di                          ; 0x0b6e
+    push si                          ; 0x0b6f
+    mov cx, word [cs:data_1bdd]      ; 0x0b70
+@..graphics_loc_0949.l14:
+    mov al, byte [si]                ; 0x0b75
+    cmp al, 0xff                     ; 0x0b77
+    je short @..graphics_loc_0949.l15 ; 0x0b79
+    mov byte [es:di], al             ; 0x0b7b
+@..graphics_loc_0949.l15:
+    inc si                           ; 0x0b7e
+    inc di                           ; 0x0b7f
+    loop @..graphics_loc_0949.l14    ; 0x0b80
+    pop si                           ; 0x0b82
+    add si, word [cs:data_258d]      ; 0x0b83
+    pop di                           ; 0x0b88
+    add di, strict word 0x140        ; 0x0b89
+    pop cx                           ; 0x0b8d
+    loop @..graphics_loc_0949.l13    ; 0x0b8e
+@..graphics_loc_0949.l16:
+    ret                              ; 0x0b90

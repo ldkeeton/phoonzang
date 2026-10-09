@@ -45,3 +45,28 @@ api_idx_0008_2:
     jl short @..api_idx_0008_2.l1    ; 0x6433
     mov word [bp - 0x0006], 0        ; 0x6435
     jmp short @..api_idx_0008_2.l6   ; 0x643a
+@..api_idx_0008_2.l4:
+    mov ax, 0x2c                     ; 0x643c
+    imul word [bp - 0x0006]          ; 0x643f
+    mov si, ax                       ; 0x6442
+    mov ax, word [bp + 0x4]          ; 0x6444
+    shl ax, 1                        ; 0x6447
+    mov bx, ax                       ; 0x6449
+    mov bx, word [bx - 0x7b7e]       ; 0x644b
+    cmp byte [bx + si + 0x22], 3     ; 0x644f
+    jae short @..api_idx_0008_2.l5   ; 0x6453
+    mov ax, word [bp - 0x0006]       ; 0x6455
+    ret                              ; 0x6458
+@..api_idx_0008_2.l5:
+    inc word [bp - 0x0006]           ; 0x6459
+@..api_idx_0008_2.l6:
+    mov ax, word [bp + 0x4]          ; 0x645c
+    shl ax, 1                        ; 0x645f
+    mov bx, ax                       ; 0x6461
+    mov bx, word [bx - 0x7b7e]       ; 0x6463
+    mov al, byte [bx + 0x1a1]        ; 0x6467
+    sub ah, ah                       ; 0x646b
+    cmp ax, word [bp - 0x0006]       ; 0x646d
+    jg short @..api_idx_0008_2.l4    ; 0x6470
+    mov ax, word [bp + 0x6]          ; 0x6472
+    ret                              ; 0x6475

@@ -123,7 +123,7 @@ api_idx_004e:
     push dx                          ; 0x5c81
     push ax                          ; 0x5c82
     push word [bp + 0x4]             ; 0x5c83
-    call math_loc_85f9               ; 0x5c86
+    call loc_85f9                    ; 0x5c86
     add sp, byte 8                   ; 0x5c89
     push word [bp - 0x0002]          ; 0x5c8c
     call loc_5497                    ; 0x5c8f

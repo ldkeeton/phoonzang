@@ -83,3 +83,31 @@ api_idx_0004_9:
 @..api_idx_0004_9.l6:
     mov ax, word [bp - 0x0004]       ; 0x295f
     ret                              ; 0x2962
+loc_2963:
+    mov ax, 0                        ; 0x2963
+    db 0xe8, 0xa2, 0xca ; call 0xf40b
+    mov ax, 1                        ; 0x2969
+    push ax                          ; 0x296c
+    call 0xef14                      ; 0x296d
+    pop cx                           ; 0x2970
+    cmp word [bp + 0x4], byte 0      ; 0x2971
+    je short @..local.l79            ; 0x2975
+    mov ax, 0x55                     ; 0x2977
+    push ax                          ; 0x297a
+    mov ax, 1                        ; 0x297b
+    push ax                          ; 0x297e
+    push ax                          ; 0x297f
+    mov ax, 0x605                    ; 0x2980
+    push ax                          ; 0x2983
+    call api_idx_0050                ; 0x2984
+    add sp, byte 8                   ; 0x2987
+@..local.l79:
+    mov al, byte [data_91c2]         ; 0x298a
+    sub ah, ah                       ; 0x298d
+    mov word [data_0e36], ax         ; 0x298f
+    mov word [data_8452], 1          ; 0x2992
+    mov word [data_845a], 0          ; 0x2998
+    mov word [data_95a6], 0          ; 0x299e
+    mov word [data_830a], 0xa        ; 0x29a4
+    mov word [data_905e], 0x12       ; 0x29aa
+    ret                              ; 0x29b0

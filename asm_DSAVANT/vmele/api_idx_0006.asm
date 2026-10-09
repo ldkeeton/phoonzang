@@ -46,7 +46,7 @@ api_idx_0006:
     mov ax, 0x19                     ; 0x1784
     push ax                          ; 0x1787
     push word [bp - 0x0004]          ; 0x1788
-    call math_loc_16d1               ; 0x178b
+    call loc_16d1                    ; 0x178b
     add sp, byte 6                   ; 0x178e
 @..api_idx_0006.l4:
     inc word [bp - 0x0004]           ; 0x1791

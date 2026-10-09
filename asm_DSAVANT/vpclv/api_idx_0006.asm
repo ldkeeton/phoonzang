@@ -55,7 +55,7 @@ api_idx_0006:
     mov ax, 0                        ; 0x2afe
     push ax                          ; 0x2b01
     push word [bp + 0x4]             ; 0x2b02
-    call math_loc_2a32               ; 0x2b05
+    call loc_2a32                    ; 0x2b05
     add sp, byte 8                   ; 0x2b08
     inc word [bp - 0x0002]           ; 0x2b0b
     mov ax, word [bp - 0x0002]       ; 0x2b0e

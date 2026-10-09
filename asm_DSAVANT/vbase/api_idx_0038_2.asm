@@ -778,3 +778,137 @@ api_idx_0038_2:
     mov word [data_69c8], 0          ; 0x373f
     mov word [bp - 0x0002], 0        ; 0x3745
     jmp near @..api_idx_0038_2.l48   ; 0x374a
+@..api_idx_0038_2.l45:
+    mov ax, 0x248                    ; 0x374d
+    push ax                          ; 0x3750
+    mov ax, 0x9a4c                   ; 0x3751
+    push ax                          ; 0x3754
+    push word [bp - 0x000a]          ; 0x3755
+    call ds_dispatch_fd6f            ; 0x3758
+    add sp, byte 6                   ; 0x375b
+    mov word [bp - 0x0008], ax       ; 0x375e
+    cmp ax, strict word 0            ; 0x3761
+    jg short @..api_idx_0038_2.l47   ; 0x3764
+    lea ax, word [bp - 0x0024]       ; 0x3766
+    push ax                          ; 0x3769
+    call loc_150d                    ; 0x376a
+    pop cx                           ; 0x376d
+    push word [bp - 0x000a]          ; 0x376e
+    call ds_dispatch_fda5            ; 0x3771
+    pop cx                           ; 0x3774
+    cmp word [bp - 0x000c], byte 0   ; 0x3775
+    je short @..api_idx_0038_2.l46   ; 0x3779
+    mov ax, 1                        ; 0x377b
+    push ax                          ; 0x377e
+    push word [bp - 0x0010]          ; 0x377f
+    push word [bp - 0x000e]          ; 0x3782
+    mov ax, 0x91c6                   ; 0x3785
+    push ax                          ; 0x3788
+    db 0xe8, 0x1c, 0x9a ; call 0xd1a8
+    add sp, byte 8                   ; 0x378c
+@..api_idx_0038_2.l46:
+    mov ax, 0xffff                   ; 0x378f
+    ret                              ; 0x3792
+@..api_idx_0038_2.l47:
+    push word [data_69c8]            ; 0x3793
+    call api_idx_0006                ; 0x3797
+    pop cx                           ; 0x379a
+    mov cx, word [data_69c8]         ; 0x379b
+    shl cx, 1                        ; 0x379f
+    mov bx, cx                       ; 0x37a1
+    mov word [bx + 0x69bc], ax       ; 0x37a3
+    mov si, 0x9a4c                   ; 0x37a7
+    mov ax, 0x248                    ; 0x37aa
+    imul word [data_69c8]            ; 0x37ad
+    mov di, ax                       ; 0x37b1
+    add ax, 0x5bf4                   ; 0x37b3
+    mov di, ax                       ; 0x37b6
+    mov cx, ds                       ; 0x37b8
+    mov es, cx                       ; 0x37ba
+    mov cx, 0x124                    ; 0x37bc
+    rep movsw                        ; 0x37bf
+    inc word [data_69c8]             ; 0x37c1
+    inc word [bp - 0x0002]           ; 0x37c5
+@..api_idx_0038_2.l48:
+    mov ax, word [bp - 0x0002]       ; 0x37c8
+    cmp ax, word [data_9a4a]         ; 0x37cb
+    jge short @..api_idx_0038_2.l49  ; 0x37cf
+    jmp near @..api_idx_0038_2.l45   ; 0x37d1
+@..api_idx_0038_2.l49:
+    push word [bp - 0x000a]          ; 0x37d4
+    call ds_dispatch_fda5            ; 0x37d7
+    pop cx                           ; 0x37da
+    cmp word [bp - 0x000c], byte 0   ; 0x37db
+    je short @..api_idx_0038_2.l50   ; 0x37df
+    mov ax, 1                        ; 0x37e1
+    push ax                          ; 0x37e4
+    push word [bp - 0x0010]          ; 0x37e5
+    push word [bp - 0x000e]          ; 0x37e8
+    mov ax, 0x91c6                   ; 0x37eb
+    push ax                          ; 0x37ee
+    db 0xe8, 0xb6, 0x99 ; call 0xd1a8
+    add sp, byte 8                   ; 0x37f2
+@..api_idx_0038_2.l50:
+    cmp word [bp + 0x4], byte 2      ; 0x37f5
+    jne short @..api_idx_0038_2.l52  ; 0x37f9
+    mov word [bp - 0x0002], 0        ; 0x37fb
+@..api_idx_0038_2.l51:
+    mov ax, 0                        ; 0x3800
+    push ax                          ; 0x3803
+    mov ax, 0x248                    ; 0x3804
+    push ax                          ; 0x3807
+    mov ax, 0x248                    ; 0x3808
+    imul word [bp - 0x0002]          ; 0x380b
+    add ax, 0x5bf4                   ; 0x380e
+    push ax                          ; 0x3811
+    call ds_dispatch_f306            ; 0x3812
+    add sp, byte 6                   ; 0x3815
+    inc word [bp - 0x0002]           ; 0x3818
+    mov ax, word [bp - 0x0002]       ; 0x381b
+    cmp ax, strict word 6            ; 0x381e
+    jl short @..api_idx_0038_2.l51   ; 0x3821
+    call api_idx_0072                ; 0x3823
+    cmp ax, strict word 0xffff       ; 0x3826
+    jne short @..api_idx_0038_2.l52  ; 0x3829
+    mov ax, 0xffff                   ; 0x382b
+    ret                              ; 0x382e
+@..api_idx_0038_2.l52:
+    mov word [bp - 0x0002], 0        ; 0x382f
+    jmp short @..api_idx_0038_2.l55  ; 0x3834
+@..api_idx_0038_2.l53:
+    mov ax, word [bp - 0x0002]       ; 0x3836
+    shl ax, 1                        ; 0x3839
+    mov bx, ax                       ; 0x383b
+    push word [bx + 0x69bc]          ; 0x383d
+    mov ax, 0x248                    ; 0x3841
+    imul word [bp - 0x0002]          ; 0x3844
+    mov bx, ax                       ; 0x3847
+    mov al, byte [bx + 0x5e2a]       ; 0x3849
+    sub ah, ah                       ; 0x384d
+    push ax                          ; 0x384f
+    call api_idx_0016                ; 0x3850
+    add sp, byte 4                   ; 0x3853
+    cmp word [bp + 0x4], byte 2      ; 0x3856
+    je short @..api_idx_0038_2.l54   ; 0x385a
+    mov ax, 0                        ; 0x385c
+    push ax                          ; 0x385f
+    push word [bp - 0x0002]          ; 0x3860
+    call ds_dispatch_cb3a            ; 0x3863
+    add sp, byte 4                   ; 0x3866
+@..api_idx_0038_2.l54:
+    inc word [bp - 0x0002]           ; 0x3869
+@..api_idx_0038_2.l55:
+    mov ax, word [bp - 0x0002]       ; 0x386c
+    cmp ax, word [data_69c8]         ; 0x386f
+    jl short @..api_idx_0038_2.l53   ; 0x3873
+    mov ax, 0xc7                     ; 0x3875
+    push ax                          ; 0x3878
+    mov ax, 0x13f                    ; 0x3879
+    push ax                          ; 0x387c
+    mov ax, 0                        ; 0x387d
+    push ax                          ; 0x3880
+    push ax                          ; 0x3881
+    call ds_dispatch_e8da            ; 0x3882
+    add sp, byte 8                   ; 0x3885
+    mov ax, 0                        ; 0x3888
+    ret                              ; 0x388b

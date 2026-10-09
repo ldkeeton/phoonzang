@@ -39,7 +39,7 @@ api_idx_007a_2:
     push ax                          ; 0x44f0
     mov ax, 0x8c                     ; 0x44f1
     push ax                          ; 0x44f4
-    call math_loc_0445               ; 0x44f5
+    call loc_0445                    ; 0x44f5
     add sp, byte 0x1a                ; 0x44f8
     push ax                          ; 0x44fb
     mov ax, 0x248                    ; 0x44fc

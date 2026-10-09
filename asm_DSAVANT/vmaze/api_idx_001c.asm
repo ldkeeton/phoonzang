@@ -203,3 +203,5 @@ api_idx_001c:
 @..api_idx_001c.l4:
     push word [bp - 0x0014]          ; 0x7847
     call loc_7242                    ; 0x784a
+    pop cx                           ; 0x784d
+    ret                              ; 0x784e

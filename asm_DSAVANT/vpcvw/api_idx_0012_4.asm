@@ -212,3 +212,29 @@ api_idx_0012_4:
     push word [bp + 0xa]             ; 0x0c8e
     mov ax, 0x9414                   ; 0x0c91
     push ax                          ; 0x0c94
+    call ds_dispatch_f364            ; 0x0c95
+    add sp, byte 4                   ; 0x0c98
+    mov bx, word [bp + 0x8]          ; 0x0c9b
+    mov al, byte [bx + 0x5]          ; 0x0c9e
+    sub ah, ah                       ; 0x0ca1
+    mov word [data_9410], ax         ; 0x0ca3
+    mov al, byte [bx + 0x4]          ; 0x0ca6
+    sub ah, ah                       ; 0x0ca9
+    mov word [data_942a], ax         ; 0x0cab
+    mov al, byte [bx + 0x6]          ; 0x0cae
+    sub ah, ah                       ; 0x0cb1
+    mov word [data_942c], ax         ; 0x0cb3
+    mov word [data_9412], 1          ; 0x0cb6
+    call api_idx_0004_2              ; 0x0cbc
+@..api_idx_0012_4.l8:
+    mov ax, 0xb6                     ; 0x0cbf
+    push ax                          ; 0x0cc2
+    mov ax, 0xab                     ; 0x0cc3
+    push ax                          ; 0x0cc6
+    mov ax, 0x70                     ; 0x0cc7
+    push ax                          ; 0x0cca
+    mov ax, 1                        ; 0x0ccb
+    push ax                          ; 0x0cce
+    call ds_dispatch_e8da            ; 0x0ccf
+    add sp, byte 8                   ; 0x0cd2
+    ret                              ; 0x0cd5

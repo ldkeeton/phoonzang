@@ -48,3 +48,45 @@ api_idx_0006_4:
 @..api_idx_0006_4.l3:
     mov word [bp - 0x0002], 0        ; 0x2cf6
     jmp short @..api_idx_0006_4.l6   ; 0x2cfb
+@..api_idx_0006_4.l4:
+    mov ax, word [bp + 0xc]          ; 0x2cfd
+    mov word [bp - 0x0006], ax       ; 0x2d00
+    cmp word [bp - 0x0004], byte 0   ; 0x2d03
+    jle short @..api_idx_0006_4.l5   ; 0x2d07
+    mov ax, 0x2c                     ; 0x2d09
+    imul word [bp - 0x0002]          ; 0x2d0c
+    mov si, ax                       ; 0x2d0f
+    mov ax, word [bp + 0x4]          ; 0x2d11
+    shl ax, 1                        ; 0x2d14
+    mov bx, ax                       ; 0x2d16
+    mov bx, word [bx - 0x7b7e]       ; 0x2d18
+    mov ax, word [bx + si]           ; 0x2d1c
+    mov cx, word [bp + 0x10]         ; 0x2d1e
+    add cx, word [bp - 0x0004]       ; 0x2d21
+    cmp ax, cx                       ; 0x2d24
+    jle short @..api_idx_0006_4.l5   ; 0x2d26
+    mov word [bp - 0x0006], 0xff9c   ; 0x2d28
+@..api_idx_0006_4.l5:
+    push word [bp + 0x14]            ; 0x2d2d
+    push word [bp + 0x12]            ; 0x2d30
+    push word [bp + 0x10]            ; 0x2d33
+    push word [bp + 0xe]             ; 0x2d36
+    push word [bp - 0x0006]          ; 0x2d39
+    push word [bp + 0xa]             ; 0x2d3c
+    push word [bp + 0x8]             ; 0x2d3f
+    push word [bp + 0x6]             ; 0x2d42
+    push word [bp - 0x0002]          ; 0x2d45
+    push word [bp + 0x4]             ; 0x2d48
+    call api_idx_000a_4              ; 0x2d4b
+    add sp, byte 0x14                ; 0x2d4e
+    inc word [bp - 0x0002]           ; 0x2d51
+@..api_idx_0006_4.l6:
+    mov ax, word [bp + 0x4]          ; 0x2d54
+    shl ax, 1                        ; 0x2d57
+    mov bx, ax                       ; 0x2d59
+    mov bx, word [bx - 0x7b7e]       ; 0x2d5b
+    mov al, byte [bx + 0x1a1]        ; 0x2d5f
+    sub ah, ah                       ; 0x2d63
+    cmp ax, word [bp - 0x0002]       ; 0x2d65
+    jg short @..api_idx_0006_4.l4    ; 0x2d68
+    ret                              ; 0x2d6a

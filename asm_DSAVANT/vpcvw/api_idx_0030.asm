@@ -73,7 +73,7 @@ api_idx_0030:
     push ax                          ; 0x9359
     mov ax, 0x78                     ; 0x935a
     push ax                          ; 0x935d
-    call math_loc_1ca0               ; 0x935e
+    call loc_1ca0                    ; 0x935e
     add sp, byte 0x1a                ; 0x9361
     mov word [bp - 0x0004], ax       ; 0x9364
     cmp ax, strict word 0xd          ; 0x9367

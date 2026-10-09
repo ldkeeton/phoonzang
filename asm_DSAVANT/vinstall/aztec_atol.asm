@@ -77,3 +77,14 @@ aztec_atol:
     mov sp, bp                       ; 0x2904
     pop bp                           ; 0x2906
     ret                              ; 0x2907
+loc_2908:
+    push bp                          ; 0x2908
+    mov bp, sp                       ; 0x2909
+    lea ax, word [bp + 0x6]          ; 0x290b
+    push ax                          ; 0x290e
+    push word [bp + 0x4]             ; 0x290f
+    call aztec_fexecv                ; 0x2912
+    add sp, byte 4                   ; 0x2915
+    mov sp, bp                       ; 0x2918
+    pop bp                           ; 0x291a
+    ret                              ; 0x291b

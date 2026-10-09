@@ -16,3 +16,7 @@ dos_con_loc_4370:
     mov sp, bp                       ; 0x439c
     pop bp                           ; 0x439e
     ret                              ; 0x439f
+@..dos_write_file_2.l20:
+    mov ax, cs                       ; 0x43a0
+    mov ds, ax                       ; 0x43a2
+    mov dx, 0x44b0                   ; 0x43a4

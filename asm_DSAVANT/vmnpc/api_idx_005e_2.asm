@@ -337,7 +337,7 @@ api_idx_005e_2:
     push ax                          ; 0x5ac0
     mov ax, data_95a8                ; 0x5ac1
     push ax                          ; 0x5ac4
-    call math_loc_1d39               ; 0x5ac5
+    call loc_1d39                    ; 0x5ac5
     add sp, byte 0x1c                ; 0x5ac8
     mov word [bp - 0x0002], ax       ; 0x5acb
     cmp word [bp - 0x0002], byte 0   ; 0x5ace

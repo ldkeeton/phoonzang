@@ -37,3 +37,46 @@ api_idx_0004_8:
     mov al, byte [bx + si]           ; 0x6c58
     sub ah, ah                       ; 0x6c5a
     jmp short @..api_idx_0004_8.l5   ; 0x6c5c
+@..api_idx_0004_8.l3:
+    mov bx, word [bp + 0x4]          ; 0x6c5e
+    mov si, word [bp - 0x0004]       ; 0x6c61
+    mov byte [bx + si], 0            ; 0x6c64
+    mov word [bp - 0x0002], 0x44     ; 0x6c67
+    jmp short @..api_idx_0004_8.l6   ; 0x6c6c
+@..api_idx_0004_8.l4:
+    mov bx, word [bp + 0x4]          ; 0x6c6e
+    mov si, word [bp - 0x0004]       ; 0x6c71
+    mov byte [bx + si], 0            ; 0x6c74
+    mov ax, word [data_9b4e]         ; 0x6c77
+    mov word [bp - 0x0002], ax       ; 0x6c7a
+    jmp short @..api_idx_0004_8.l6   ; 0x6c7d
+@..api_idx_0004_8.l5:
+    cmp ax, strict word 0x24         ; 0x6c7f
+    je short @..api_idx_0004_8.l3    ; 0x6c82
+    cmp ax, strict word 0x5e         ; 0x6c84
+    je short @..api_idx_0004_8.l4    ; 0x6c87
+@..api_idx_0004_8.l6:
+    mov ax, 0xc                      ; 0x6c89
+    imul word [data_9b4c]            ; 0x6c8c
+    add ax, 0x92                     ; 0x6c90
+    push ax                          ; 0x6c93
+    push word [bp - 0x0002]          ; 0x6c94
+    call ds_dispatch_e809            ; 0x6c97
+    add sp, byte 4                   ; 0x6c9a
+    mov ax, 0                        ; 0x6c9d
+    push ax                          ; 0x6ca0
+    mov ax, 0x55                     ; 0x6ca1
+    push ax                          ; 0x6ca4
+    call ds_dispatch_e823            ; 0x6ca5
+    add sp, byte 4                   ; 0x6ca8
+    mov ax, 2                        ; 0x6cab
+    push ax                          ; 0x6cae
+    push word [bp + 0x4]             ; 0x6caf
+    call ds_dispatch_e84e            ; 0x6cb2
+    add sp, byte 4                   ; 0x6cb5
+    mov bx, word [bp + 0x4]          ; 0x6cb8
+    mov byte [bx], 0                 ; 0x6cbb
+    mov ax, word [bp - 0x0002]       ; 0x6cbe
+    mov word [data_9b4e], ax         ; 0x6cc1
+    inc word [data_9b4c]             ; 0x6cc4
+    ret                              ; 0x6cc8

@@ -212,3 +212,176 @@ api_idx_00aa:
     lea ax, word [bp - 0x0058]       ; 0x64de
     push ax                          ; 0x64e1
     call ds_dispatch_b300            ; 0x64e2
+    add sp, byte 6                   ; 0x64e5
+    mov ax, word [bp - 0x0004]       ; 0x64e8
+    add ax, strict word 0x1b         ; 0x64eb
+    push ax                          ; 0x64ee
+    lea ax, word [bp - 0x0058]       ; 0x64ef
+    push ax                          ; 0x64f2
+    call ds_dispatch_fa90            ; 0x64f3
+    pop cx                           ; 0x64f6
+    mov cx, ax                       ; 0x64f7
+    mov ax, 0x15                     ; 0x64f9
+    sub ax, cx                       ; 0x64fc
+    mov cx, 6                        ; 0x64fe
+    imul cx                          ; 0x6501
+    inc ax                           ; 0x6503
+    inc ax                           ; 0x6504
+    mov cx, data_0002                ; 0x6505
+    cwd                              ; 0x6508
+    idiv cx                          ; 0x6509
+    add ax, word [bp - 0x0002]       ; 0x650b
+    add ax, strict word 0x29         ; 0x650e
+    push ax                          ; 0x6511
+    call ds_dispatch_e809            ; 0x6512
+    add sp, byte 4                   ; 0x6515
+    mov ax, 0                        ; 0x6518
+    push ax                          ; 0x651b
+    lea ax, word [bp - 0x0058]       ; 0x651c
+    push ax                          ; 0x651f
+    call ds_dispatch_e84e            ; 0x6520
+    add sp, byte 4                   ; 0x6523
+    mov byte [data_0e38], 0          ; 0x6526
+    mov ax, 1                        ; 0x652b
+    push ax                          ; 0x652e
+    mov ax, 0                        ; 0x652f
+    push ax                          ; 0x6532
+    push ax                          ; 0x6533
+    mov ax, 1                        ; 0x6534
+    push ax                          ; 0x6537
+    mov ax, 0x15                     ; 0x6538
+    push ax                          ; 0x653b
+    mov ax, word [bp - 0x0004]       ; 0x653c
+    add ax, strict word 0x28         ; 0x653f
+    push ax                          ; 0x6542
+    mov ax, word [bp - 0x0002]       ; 0x6543
+    add ax, strict word 0x29         ; 0x6546
+    push ax                          ; 0x6549
+    call ds_dispatch_bf97            ; 0x654a
+    add sp, byte 0x0e                ; 0x654d
+    mov ax, word [bp - 0x0008]       ; 0x6550
+    inc ax                           ; 0x6553
+    push ax                          ; 0x6554
+    mov ax, word [bp - 0x0006]       ; 0x6555
+    inc ax                           ; 0x6558
+    push ax                          ; 0x6559
+    mov ax, word [bp - 0x0004]       ; 0x655a
+    dec ax                           ; 0x655d
+    push ax                          ; 0x655e
+    mov ax, word [bp - 0x0002]       ; 0x655f
+    dec ax                           ; 0x6562
+    push ax                          ; 0x6563
+    call ds_dispatch_e8da            ; 0x6564
+    add sp, byte 8                   ; 0x6567
+    mov ax, 0                        ; 0x656a
+    push ax                          ; 0x656d
+    call ds_dispatch_b7e0            ; 0x656e
+    pop cx                           ; 0x6571
+    call ds_dispatch_ec17            ; 0x6572
+    mov ax, 1                        ; 0x6575
+    push ax                          ; 0x6578
+    mov ax, 0                        ; 0x6579
+    push ax                          ; 0x657c
+    push ax                          ; 0x657d
+    mov ax, 1                        ; 0x657e
+    push ax                          ; 0x6581
+    mov ax, 0x15                     ; 0x6582
+    push ax                          ; 0x6585
+    mov ax, word [bp - 0x0004]       ; 0x6586
+    add ax, strict word 0x28         ; 0x6589
+    push ax                          ; 0x658c
+    mov ax, word [bp - 0x0002]       ; 0x658d
+    add ax, strict word 0x29         ; 0x6590
+    push ax                          ; 0x6593
+    call ds_dispatch_bf97            ; 0x6594
+    add sp, byte 0x0e                ; 0x6597
+    mov ax, word [bp - 0x0004]       ; 0x659a
+    add ax, strict word 0x2f         ; 0x659d
+    push ax                          ; 0x65a0
+    mov ax, word [bp - 0x0002]       ; 0x65a1
+    add ax, 0xa9                     ; 0x65a4
+    push ax                          ; 0x65a7
+    mov ax, word [bp - 0x0004]       ; 0x65a8
+    add ax, strict word 0x28         ; 0x65ab
+    push ax                          ; 0x65ae
+    mov ax, word [bp - 0x0002]       ; 0x65af
+    add ax, strict word 0x29         ; 0x65b2
+    push ax                          ; 0x65b5
+    call ds_dispatch_e8da            ; 0x65b6
+    add sp, byte 8                   ; 0x65b9
+    mov ax, 0                        ; 0x65bc
+    push ax                          ; 0x65bf
+    mov ax, 1                        ; 0x65c0
+    push ax                          ; 0x65c3
+    mov ax, 0                        ; 0x65c4
+    push ax                          ; 0x65c7
+    mov ax, 0x14                     ; 0x65c8
+    push ax                          ; 0x65cb
+    mov ax, word [bp - 0x0004]       ; 0x65cc
+    add ax, strict word 0x29         ; 0x65cf
+    push ax                          ; 0x65d2
+    mov ax, word [bp - 0x0002]       ; 0x65d3
+    add ax, strict word 0x2b         ; 0x65d6
+    push ax                          ; 0x65d9
+    mov ax, data_0e38                ; 0x65da
+    push ax                          ; 0x65dd
+    call api_idx_0008                ; 0x65de
+    add sp, byte 0x0e                ; 0x65e1
+    mov ax, 1                        ; 0x65e4
+    push ax                          ; 0x65e7
+    mov ax, 0xffff                   ; 0x65e8
+    push ax                          ; 0x65eb
+    mov ax, 0                        ; 0x65ec
+    push ax                          ; 0x65ef
+    mov ax, 1                        ; 0x65f0
+    push ax                          ; 0x65f3
+    mov ax, 0x15                     ; 0x65f4
+    push ax                          ; 0x65f7
+    mov ax, word [bp - 0x0004]       ; 0x65f8
+    add ax, strict word 0x28         ; 0x65fb
+    push ax                          ; 0x65fe
+    mov ax, word [bp - 0x0002]       ; 0x65ff
+    add ax, strict word 0x29         ; 0x6602
+    push ax                          ; 0x6605
+    call ds_dispatch_bf97            ; 0x6606
+    add sp, byte 0x0e                ; 0x6609
+    mov ax, word [bp - 0x0004]       ; 0x660c
+    add ax, strict word 0x2f         ; 0x660f
+    push ax                          ; 0x6612
+    mov ax, word [bp - 0x0002]       ; 0x6613
+    add ax, 0xa9                     ; 0x6616
+    push ax                          ; 0x6619
+    mov ax, word [bp - 0x0004]       ; 0x661a
+    add ax, strict word 0x28         ; 0x661d
+    push ax                          ; 0x6620
+    mov ax, word [bp - 0x0002]       ; 0x6621
+    add ax, strict word 0x29         ; 0x6624
+    push ax                          ; 0x6627
+    call ds_dispatch_e8da            ; 0x6628
+    add sp, byte 8                   ; 0x662b
+    mov ax, 1                        ; 0x662e
+    push ax                          ; 0x6631
+    push word [bp - 0x00aa]          ; 0x6632
+    call ds_dispatch_c459            ; 0x6636
+    add sp, byte 4                   ; 0x6639
+    mov ax, word [bp - 0x0008]       ; 0x663c
+    inc ax                           ; 0x663f
+    push ax                          ; 0x6640
+    mov ax, word [bp - 0x0006]       ; 0x6641
+    inc ax                           ; 0x6644
+    push ax                          ; 0x6645
+    mov ax, word [bp - 0x0004]       ; 0x6646
+    dec ax                           ; 0x6649
+    push ax                          ; 0x664a
+    mov ax, word [bp - 0x0002]       ; 0x664b
+    dec ax                           ; 0x664e
+    push ax                          ; 0x664f
+    call ds_dispatch_e8da            ; 0x6650
+    add sp, byte 8                   ; 0x6653
+    mov ax, data_0e38                ; 0x6656
+    push ax                          ; 0x6659
+    mov ax, 0x82b8                   ; 0x665a
+    push ax                          ; 0x665d
+    call ds_dispatch_f364            ; 0x665e
+    add sp, byte 4                   ; 0x6661
+    ret                              ; 0x6664

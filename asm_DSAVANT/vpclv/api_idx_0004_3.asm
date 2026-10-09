@@ -207,3 +207,60 @@ api_idx_0004_3:
 @..api_idx_0004_3.l12:
     mov si, word [bp + 0x8]          ; 0x23b7
     add si, byte 0x1e                ; 0x23ba
+    mov ax, 0x248                    ; 0x23bd
+    imul word [bp + 0x4]             ; 0x23c0
+    push ax                          ; 0x23c3
+    mov ax, 0x12                     ; 0x23c4
+    imul word [bp + 0x6]             ; 0x23c7
+    mov cx, ax                       ; 0x23ca
+    pop ax                           ; 0x23cc
+    add ax, cx                       ; 0x23cd
+    mov di, ax                       ; 0x23cf
+    add ax, 0x5d24                   ; 0x23d1
+    mov di, ax                       ; 0x23d4
+    mov cx, ds                       ; 0x23d6
+    mov es, cx                       ; 0x23d8
+    movsw                            ; 0x23da
+    movsw                            ; 0x23db
+    cmp word [bp + 0x6], byte 0      ; 0x23dc
+    jne short @..api_idx_0004_3.l16  ; 0x23e0
+    mov ax, 0x248                    ; 0x23e2
+    imul word [bp + 0x4]             ; 0x23e5
+    mov bx, ax                       ; 0x23e8
+    cmp byte [bx + 0x5d64], 0xf      ; 0x23ea
+    jbe short @..api_idx_0004_3.l13  ; 0x23ef
+    mov ax, 1                        ; 0x23f1
+    jmp short @..api_idx_0004_3.l14  ; 0x23f4
+@..api_idx_0004_3.l13:
+    mov ax, 0                        ; 0x23f6
+@..api_idx_0004_3.l14:
+    add word [bx + 0x5d24], ax       ; 0x23f9
+    mov ax, 0                        ; 0x23fd
+    cmp byte [bx + 0x5d64], 0x11     ; 0x2400
+    jbe short @..api_idx_0004_3.l15  ; 0x2405
+    mov ax, 1                        ; 0x2407
+@..api_idx_0004_3.l15:
+    add word [bx + 0x5d24], ax       ; 0x240a
+@..api_idx_0004_3.l16:
+    mov bx, word [bp + 0x8]          ; 0x240e
+    mov al, byte [bx + 0x46]         ; 0x2411
+    push ax                          ; 0x2414
+    mov ax, 0x248                    ; 0x2415
+    imul word [bp + 0x4]             ; 0x2418
+    mov cx, ax                       ; 0x241b
+    mov ax, 0x12                     ; 0x241d
+    imul word [bp + 0x6]             ; 0x2420
+    mov dx, ax                       ; 0x2423
+    add cx, ax                       ; 0x2425
+    mov bx, cx                       ; 0x2427
+    pop ax                           ; 0x2429
+    mov byte [bx + 0x5d33], al       ; 0x242a
+    mov bx, word [bp + 0x8]          ; 0x242e
+    mov al, byte [bx + 0x42]         ; 0x2431
+    mov bx, cx                       ; 0x2434
+    mov byte [bx + 0x5d34], al       ; 0x2436
+    mov bx, word [bp + 0x8]          ; 0x243a
+    mov al, byte [bx + 0x43]         ; 0x243d
+    mov bx, cx                       ; 0x2440
+    mov byte [bx + 0x5d35], al       ; 0x2442
+    ret                              ; 0x2446

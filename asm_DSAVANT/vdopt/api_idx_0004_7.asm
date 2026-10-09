@@ -101,3 +101,26 @@ api_idx_0004_7:
     pop cx                           ; 0x46d7
 @..api_idx_0004_7.l5:
     ret                              ; 0x46d8
+loc_46d9:
+    pop word [data_90b4]             ; 0x46d9
+    pop cx                           ; 0x46dd
+    mov word [data_90b0], sp         ; 0x46de
+    mov word [data_90b2], bp         ; 0x46e2
+    mov word [data_90ac], si         ; 0x46e6
+    mov word [data_90ae], di         ; 0x46ea
+    cld                              ; 0x46ee
+    mov di, data_90b6                ; 0x46ef
+    mov cx, 0x9d94                   ; 0x46f2
+    sub cx, di                       ; 0x46f5
+    shr cx, 1                        ; 0x46f7
+    je short @..local.l39            ; 0x46f9
+    sub ax, ax                       ; 0x46fb
+    rep stosw                        ; 0x46fd
+@..local.l39:
+    call loc_000e                    ; 0x46ff
+    mov bp, word [data_90b2]         ; 0x4702
+    mov sp, word [data_90b0]         ; 0x4706
+    mov si, word [data_90ac]         ; 0x470a
+    mov di, word [data_90ae]         ; 0x470e
+    push cx                          ; 0x4712
+    jmp [data_90b4]                  ; 0x4713

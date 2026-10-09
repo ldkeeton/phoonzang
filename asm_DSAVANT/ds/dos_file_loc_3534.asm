@@ -21,7 +21,7 @@ dos_file_loc_3534:
     int 0x21 ; DOS close file handle
     mov ax, cs                       ; 0x3565
     mov es, ax                       ; 0x3567
-    mov di, 0x2d87                   ; 0x3569
+    mov di, data_2d87                ; 0x3569
     mov ax, word [cs:data_2d52]      ; 0x356c
     mov cx, 0x37                     ; 0x3570
 @..dos_file_loc_3534.l1:
@@ -56,3 +56,5 @@ dos_file_loc_3534:
     pop es                           ; 0x35b2
     pop ds                           ; 0x35b3
     ret                              ; 0x35b4
+@..dos_file_loc_3534.l3:
+    call loc_30a3                    ; 0x35b5

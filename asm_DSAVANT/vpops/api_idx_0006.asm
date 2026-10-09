@@ -132,3 +132,89 @@ api_idx_0006:
     je short @..api_idx_0006.l4      ; 0x02ac
 @..api_idx_0006.l8:
     ret                              ; 0x02ae
+loc_02af:
+    mov ax, 0                        ; 0x02af
+    call ds_dispatch_f40b            ; 0x02b2
+    mov ax, word [bp + 0x4]          ; 0x02b5
+    jmp near @..local.l6             ; 0x02b8
+@..local.l2:
+    mov ax, 0x9f                     ; 0x02bb
+    push ax                          ; 0x02be
+    mov ax, 0xcd                     ; 0x02bf
+    push ax                          ; 0x02c2
+    mov ax, 0x93                     ; 0x02c3
+    push ax                          ; 0x02c6
+    mov ax, 0x73                     ; 0x02c7
+    push ax                          ; 0x02ca
+    call ds_dispatch_e8da            ; 0x02cb
+    add sp, byte 8                   ; 0x02ce
+    mov ax, 0xc2                     ; 0x02d1
+    push ax                          ; 0x02d4
+    mov ax, 0x60                     ; 0x02d5
+    push ax                          ; 0x02d8
+    mov ax, 0xa5                     ; 0x02d9
+    push ax                          ; 0x02dc
+    mov ax, 8                        ; 0x02dd
+    push ax                          ; 0x02e0
+    call ds_dispatch_e8da            ; 0x02e1
+    add sp, byte 8                   ; 0x02e4
+    mov ax, 0xc2                     ; 0x02e7
+    push ax                          ; 0x02ea
+    mov ax, 0x13a                    ; 0x02eb
+    push ax                          ; 0x02ee
+    mov ax, 0xa5                     ; 0x02ef
+    push ax                          ; 0x02f2
+    mov ax, 0xe7                     ; 0x02f3
+    push ax                          ; 0x02f6
+    call ds_dispatch_e8da            ; 0x02f7
+    add sp, byte 8                   ; 0x02fa
+    jmp short @..local.l8            ; 0x02fd
+@..local.l3:
+    mov ax, 0xc2                     ; 0x02ff
+    push ax                          ; 0x0302
+    mov ax, 0xe0                     ; 0x0303
+    push ax                          ; 0x0306
+    mov ax, 0xa4                     ; 0x0307
+    push ax                          ; 0x030a
+    mov ax, 0x62                     ; 0x030b
+    push ax                          ; 0x030e
+    call ds_dispatch_e8da            ; 0x030f
+    add sp, byte 8                   ; 0x0312
+    jmp short @..local.l8            ; 0x0315
+@..local.l4:
+    mov ax, 0x9f                     ; 0x0317
+    push ax                          ; 0x031a
+    mov ax, 0xcd                     ; 0x031b
+    push ax                          ; 0x031e
+    mov ax, 0x93                     ; 0x031f
+    push ax                          ; 0x0322
+    mov ax, 0x73                     ; 0x0323
+    push ax                          ; 0x0326
+    call ds_dispatch_e8da            ; 0x0327
+    add sp, byte 8                   ; 0x032a
+    jmp short @..local.l8            ; 0x032d
+@..local.l5:
+    mov ax, 0xc2                     ; 0x032f
+    push ax                          ; 0x0332
+    mov ax, 0x13a                    ; 0x0333
+    push ax                          ; 0x0336
+    mov ax, 0x93                     ; 0x0337
+    push ax                          ; 0x033a
+    mov ax, 8                        ; 0x033b
+    push ax                          ; 0x033e
+    call ds_dispatch_e8da            ; 0x033f
+    add sp, byte 8                   ; 0x0342
+    jmp short @..local.l8            ; 0x0345
+@..local.l6:
+    cmp ax, strict word 0            ; 0x0347
+    jne short @..local.l7            ; 0x034a
+    jmp near @..local.l2             ; 0x034c
+@..local.l7:
+    cmp ax, strict word 1            ; 0x034f
+    je short @..local.l3             ; 0x0352
+    cmp ax, strict word 2            ; 0x0354
+    je short @..local.l4             ; 0x0357
+    cmp ax, strict word 3            ; 0x0359
+    je short @..local.l5             ; 0x035c
+@..local.l8:
+    ret                              ; 0x035e

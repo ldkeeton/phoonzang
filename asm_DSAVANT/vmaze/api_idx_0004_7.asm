@@ -94,3 +94,35 @@ api_idx_0004_7:
     jmp [cs:bx - 0x450e]             ; 0x6ac1
 @..api_idx_0004_7.l4:
     ret                              ; 0x6ac6
+loc_6ac7:
+    mov ax, 0                        ; 0x6ac7
+    call ds_dispatch_f40b            ; 0x6aca
+    cmp word [bp + 0x4], byte 0      ; 0x6acd
+    jle short @..local.l57           ; 0x6ad1
+    mov ax, word [bp + 0x4]          ; 0x6ad3
+    cmp ax, strict word 5            ; 0x6ad6
+    jl short @..local.l55            ; 0x6ad9
+    cmp ax, strict word 8            ; 0x6adb
+    je short @..local.l55            ; 0x6ade
+    cmp ax, strict word 9            ; 0x6ae0
+    jne short @..local.l56           ; 0x6ae3
+@..local.l55:
+    push ax                          ; 0x6ae5
+    call ds_dispatch_b7e0            ; 0x6ae6
+    pop cx                           ; 0x6ae9
+    jmp short @..local.l57           ; 0x6aea
+@..local.l56:
+    push word [bp + 0x4]             ; 0x6aec
+    call ds_dispatch_d7aa            ; 0x6aef
+    pop cx                           ; 0x6af2
+    mov ax, 0x10                     ; 0x6af3
+    push ax                          ; 0x6af6
+    call ds_dispatch_b7e0            ; 0x6af7
+    pop cx                           ; 0x6afa
+    mov ax, 0x10                     ; 0x6afb
+    push ax                          ; 0x6afe
+    call ds_dispatch_d6c6            ; 0x6aff
+    pop cx                           ; 0x6b02
+    mov word [data_598e], 0xffff     ; 0x6b03
+@..local.l57:
+    ret                              ; 0x6b09

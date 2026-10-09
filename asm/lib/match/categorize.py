@@ -2,7 +2,7 @@
 
 Analyses unnamed call targets by scanning reachable function instructions for
 signals: BIOS/DOS interrupts, I/O instructions, string ops, FPU,
-math, leaf (no calls), or thunk (single-call wrapper).
+leaf (no calls), or thunk (single-call wrapper).
 """
 
 from capstone import CS_AC_WRITE, CS_OP_IMM, CS_OP_MEM, CS_OP_REG
@@ -14,7 +14,6 @@ _STRING_MNEMONICS = {
     'movsb', 'movsw', 'stosb', 'stosw', 'lodsb', 'lodsw',
     'scasb', 'scasw', 'cmpsb', 'cmpsw',
 }
-_MATH_MNEMONICS = {'mul', 'imul', 'div', 'idiv'}
 _RETURN_MNEMONICS = {'ret', 'retf', 'iret', 'hlt'}
 _UNCONDITIONAL_JUMPS = {'jmp', 'ljmp'}
 
@@ -132,7 +131,6 @@ def _detect_category(insns, off, body_size):
     bios_ints = set()
     has_io = False
     has_string = False
-    math_count = 0
     has_fpu = False
 
     for idx, insn in enumerate(insns):
@@ -148,9 +146,6 @@ def _detect_category(insns, off, body_size):
 
         if mn in _STRING_MNEMONICS:
             has_string = True
-
-        if mn in _MATH_MNEMONICS:
-            math_count += 1
 
         if mn.startswith('f'):
             has_fpu = True
@@ -204,13 +199,6 @@ def _detect_category(insns, off, body_size):
 
     if has_fpu:
         return 'fpu'
-
-    # A single multiply/divide often computes an address, length, or row
-    # stride. Only use the math category when arithmetic is repeated or the
-    # routine is a small, call-free arithmetic helper.
-    if math_count >= 2 or (
-            math_count == 1 and not has_call and len(insns) <= 16):
-        return 'math'
 
     if not has_call:
         return 'leaf'

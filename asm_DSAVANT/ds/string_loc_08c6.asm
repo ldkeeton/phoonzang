@@ -5,7 +5,7 @@ string_loc_08c6:
     mov word [bp + 0x8], ax          ; 0x08cf
     jmp short loc_08f2               ; 0x08d2
     db 0x8e, 0x06, 0x8e, 0x06, 0xb8, 0x06, 0x9c, 0x06, 0xf2, 0x06, 0xaa, 0x06, 0xc6, 0x06
-@..string_loc_0883.l1:
+@..app_file_0883.l1:
     sub ax, strict word 2            ; 0x08e2
     cmp ax, strict word 7            ; 0x08e5
     jae short loc_08f2               ; 0x08e8

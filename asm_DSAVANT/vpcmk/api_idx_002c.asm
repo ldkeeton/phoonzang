@@ -4,7 +4,7 @@ api_idx_002c:
     push word [bp + 0x4]             ; 0x673e
     mov ax, 0                        ; 0x6741
     push ax                          ; 0x6744
-    call math_loc_66c3               ; 0x6745
+    call loc_66c3                    ; 0x6745
     add sp, byte 4                   ; 0x6748
     mov word [bp - 0x002c], 1        ; 0x674b
     mov word [bp - 0x002a], 1        ; 0x6750
@@ -35,7 +35,7 @@ api_idx_002c:
     push ax                          ; 0x6789
     mov ax, 0x465                    ; 0x678a
     push ax                          ; 0x678d
-    call math_loc_0445               ; 0x678e
+    call loc_0445                    ; 0x678e
     add sp, byte 0x1a                ; 0x6791
     mov word [bp - 0x0002], ax       ; 0x6794
     cmp word [bp - 0x0002], byte 0   ; 0x6797
@@ -70,3 +70,18 @@ api_idx_002c:
     pop cx                           ; 0x67e0
 @..api_idx_002c.l1:
     ret                              ; 0x67e1
+loc_67e2:
+    mov ax, 0                        ; 0x67e2
+    call ds_dispatch_f40b            ; 0x67e5
+    push word [bp + 0x4]             ; 0x67e8
+    mov ax, 0                        ; 0x67eb
+    push ax                          ; 0x67ee
+    call loc_66c3                    ; 0x67ef
+    add sp, byte 4                   ; 0x67f2
+@..local.l73:
+    call ds_dispatch_baef            ; 0x67f5
+    test ax, ax                      ; 0x67f8
+    jne short @..local.l74           ; 0x67fa
+    jmp short @..local.l73           ; 0x67fc
+@..local.l74:
+    ret                              ; 0x67fe

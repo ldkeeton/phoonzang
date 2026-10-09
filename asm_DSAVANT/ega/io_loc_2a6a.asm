@@ -186,3 +186,199 @@ io_loc_2a6a:
     mov cx, word [bp - 0x000e]       ; 0x2c62
     rep movsb                        ; 0x2c65
     add ax, 0x120                    ; 0x2c67
+    add bx, strict word 0x120        ; 0x2c6a
+    mov si, ax                       ; 0x2c6e
+    mov di, bx                       ; 0x2c70
+    mov cx, word [bp - 0x000e]       ; 0x2c72
+    rep movsb                        ; 0x2c75
+    add ax, 0x120                    ; 0x2c77
+    add bx, strict word 0x120        ; 0x2c7a
+    mov si, ax                       ; 0x2c7e
+    mov di, bx                       ; 0x2c80
+    mov cx, word [bp - 0x000e]       ; 0x2c82
+    rep movsb                        ; 0x2c85
+    add ax, 0x120                    ; 0x2c87
+    add bx, strict word 0x120        ; 0x2c8a
+    mov si, ax                       ; 0x2c8e
+    mov di, bx                       ; 0x2c90
+    mov cx, word [bp - 0x000e]       ; 0x2c92
+    rep movsb                        ; 0x2c95
+    pop di                           ; 0x2c97
+    add di, word [cs:data_1bf3]      ; 0x2c98
+    pop si                           ; 0x2c9d
+    add si, word [cs:data_1be1]      ; 0x2c9e
+    pop cx                           ; 0x2ca3
+    loop @..io_loc_2a6a.l12          ; 0x2ca4
+@..io_loc_2a6a.l13:
+    mov ax, 0xa000                   ; 0x2ca6
+    mov es, ax                       ; 0x2ca9
+    mov si, 0x2602                   ; 0x2cab
+    mov ax, cs                       ; 0x2cae
+    mov ds, ax                       ; 0x2cb0
+    xor si, si                       ; 0x2cb2
+    mov ah, 1                        ; 0x2cb4
+    call io_loc_2f70                 ; 0x2cb6
+    mov si, 0x100                    ; 0x2cb9
+    mov ah, 2                        ; 0x2cbc
+    call io_loc_2f70                 ; 0x2cbe
+    mov si, 0x200                    ; 0x2cc1
+    mov ah, 4                        ; 0x2cc4
+    call io_loc_2f70                 ; 0x2cc6
+    mov si, 0x300                    ; 0x2cc9
+    mov ah, 8                        ; 0x2ccc
+    call io_loc_2f70                 ; 0x2cce
+    mov dx, 0x3ce                    ; 0x2cd1
+    mov al, 8                        ; 0x2cd4
+    out dx, al                       ; 0x2cd6
+    inc dx                           ; 0x2cd7
+    mov al, 0xff                     ; 0x2cd8
+    out dx, al                       ; 0x2cda
+    mov dx, 0x3c4                    ; 0x2cdb
+    mov al, 2                        ; 0x2cde
+    out dx, al                       ; 0x2ce0
+    inc dx                           ; 0x2ce1
+    mov al, 0xf                      ; 0x2ce2
+    out dx, al                       ; 0x2ce4
+    mov ax, word [cs:data_1bdb]      ; 0x2ce5
+    cmp ax, strict word 0xffff       ; 0x2ce9
+    jne short @..io_loc_2a6a.l14     ; 0x2cec
+    jmp near @..io_loc_2a6a.l23      ; 0x2cee
+@..io_loc_2a6a.l14:
+    mov ah, 1                        ; 0x2cf1
+    xor si, si                       ; 0x2cf3
+    call io_loc_2e7d                 ; 0x2cf5
+    mov ah, 2                        ; 0x2cf8
+    mov si, 0x120                    ; 0x2cfa
+    call io_loc_2e7d                 ; 0x2cfd
+    mov ah, 4                        ; 0x2d00
+    mov si, 0x240                    ; 0x2d02
+    call io_loc_2e7d                 ; 0x2d05
+    mov ah, 8                        ; 0x2d08
+    mov si, 0x360                    ; 0x2d0a
+    call io_loc_2e7d                 ; 0x2d0d
+    mov dx, 0x3ce                    ; 0x2d10
+    mov al, 8                        ; 0x2d13
+    out dx, al                       ; 0x2d15
+    inc dx                           ; 0x2d16
+    mov al, 0xff                     ; 0x2d17
+    out dx, al                       ; 0x2d19
+    mov dx, 0x3c4                    ; 0x2d1a
+    mov al, 2                        ; 0x2d1d
+    out dx, al                       ; 0x2d1f
+    inc dx                           ; 0x2d20
+    mov al, 0xf                      ; 0x2d21
+    out dx, al                       ; 0x2d23
+    mov ax, cs                       ; 0x2d24
+    mov es, ax                       ; 0x2d26
+    mov ds, ax                       ; 0x2d28
+    mov di, 0x24fd                   ; 0x2d2a
+    mov cx, 0x80                     ; 0x2d2d
+    mov al, 0xff                     ; 0x2d30
+    rep stosb                        ; 0x2d32
+    mov ax, word [cs:data_1be1]      ; 0x2d34
+    add ax, strict word 7            ; 0x2d38
+    mov cl, 3                        ; 0x2d3b
+    shr ax, cl                       ; 0x2d3d
+    mov word [bp - 0x0002], ax       ; 0x2d3f
+    cmp byte [cs:data_259d], 0       ; 0x2d42
+    jne short @..io_loc_2a6a.l15     ; 0x2d48
+    jmp near @..io_loc_2a6a.l22      ; 0x2d4a
+@..io_loc_2a6a.l15:
+    mov ax, word [bp - 0x0008]       ; 0x2d4d
+    sub ax, word [cs:data_1bdb]      ; 0x2d50
+    mov bx, word [bp - 0x0002]       ; 0x2d55
+    mul bx                           ; 0x2d58
+    mov di, ax                       ; 0x2d5a
+    add di, strict word 0x24fd       ; 0x2d5c
+    mov ax, word [bp - 0x0006]       ; 0x2d60
+    mov bx, word [cs:data_1bd9]      ; 0x2d63
+    shr bx, 1                        ; 0x2d68
+    shr bx, 1                        ; 0x2d6a
+    sub ax, bx                       ; 0x2d6c
+    mov bx, 0x257d                   ; 0x2d6e
+@..io_loc_2a6a.l16:
+    cmp ax, strict word 8            ; 0x2d71
+    jb short @..io_loc_2a6a.l17      ; 0x2d74
+    sub ax, strict word 8            ; 0x2d76
+    inc di                           ; 0x2d79
+    jmp short @..io_loc_2a6a.l16     ; 0x2d7a
+@..io_loc_2a6a.l17:
+    mov cx, ax                       ; 0x2d7c
+    mov ah, 0xff                     ; 0x2d7e
+    shr ah, cl                       ; 0x2d80
+    mov dx, word [bp - 0x000e]       ; 0x2d82
+    add dx, cx                       ; 0x2d85
+@..io_loc_2a6a.l18:
+    cmp dx, byte 8                   ; 0x2d87
+    jb short @..io_loc_2a6a.l19      ; 0x2d8a
+    not ah                           ; 0x2d8c
+    mov byte [bx], ah                ; 0x2d8e
+    inc bx                           ; 0x2d90
+    mov ah, 0xff                     ; 0x2d91
+    sub dx, byte 8                   ; 0x2d93
+    je short @..io_loc_2a6a.l20      ; 0x2d96
+    jmp short @..io_loc_2a6a.l18     ; 0x2d98
+@..io_loc_2a6a.l19:
+    mov al, 0xff                     ; 0x2d9a
+    mov cx, 8                        ; 0x2d9c
+    sub cx, dx                       ; 0x2d9f
+    shl al, cl                       ; 0x2da1
+    and ah, al                       ; 0x2da3
+    not ah                           ; 0x2da5
+    mov byte [bx], ah                ; 0x2da7
+    inc bx                           ; 0x2da9
+@..io_loc_2a6a.l20:
+    sub bx, strict word 0x257d       ; 0x2daa
+    mov word [bp - 0x0004], bx       ; 0x2dae
+    mov cx, word [bp - 0x0010]       ; 0x2db1
+@..io_loc_2a6a.l21:
+    push cx                          ; 0x2db4
+    push di                          ; 0x2db5
+    mov si, 0x257d                   ; 0x2db6
+    mov cx, word [bp - 0x0004]       ; 0x2db9
+    rep movsb                        ; 0x2dbc
+    pop di                           ; 0x2dbe
+    add di, word [bp - 0x0002]       ; 0x2dbf
+    pop cx                           ; 0x2dc2
+    loop @..io_loc_2a6a.l21          ; 0x2dc3
+@..io_loc_2a6a.l22:
+    mov ax, 0xa000                   ; 0x2dc5
+    mov es, ax                       ; 0x2dc8
+    mov si, word [cs:data_1bd5]      ; 0x2dca
+    mov ah, 1                        ; 0x2dcf
+    call io_loc_2e35                 ; 0x2dd1
+    mov si, word [cs:data_1bd5]      ; 0x2dd4
+    add si, strict word 0x120        ; 0x2dd9
+    mov ah, 2                        ; 0x2ddd
+    call io_loc_2e35                 ; 0x2ddf
+    mov si, word [cs:data_1bd5]      ; 0x2de2
+    add si, strict word 0x240        ; 0x2de7
+    mov ah, 4                        ; 0x2deb
+    call io_loc_2e35                 ; 0x2ded
+    mov si, word [cs:data_1bd5]      ; 0x2df0
+    add si, strict word 0x360        ; 0x2df5
+    mov ah, 8                        ; 0x2df9
+    call io_loc_2e35                 ; 0x2dfb
+    mov dx, 0x3c4                    ; 0x2dfe
+    mov al, 2                        ; 0x2e01
+    out dx, al                       ; 0x2e03
+    inc dx                           ; 0x2e04
+    mov al, 0xf                      ; 0x2e05
+    out dx, al                       ; 0x2e07
+@..io_loc_2a6a.l23:
+    mov ax, word [cs:data_1bd5]      ; 0x2e08
+    mov bx, word [cs:data_1bd7]      ; 0x2e0c
+    mov word [cs:data_1bd7], ax      ; 0x2e11
+    mov word [cs:data_1bd5], bx      ; 0x2e15
+    mov ax, cs                       ; 0x2e1a
+    mov ds, ax                       ; 0x2e1c
+    mov es, ax                       ; 0x2e1e
+    mov si, data_1beb                ; 0x2e20
+    mov di, data_1bd9                ; 0x2e23
+    mov cx, 9                        ; 0x2e26
+    rep movsw                        ; 0x2e29
+    mov sp, bp                       ; 0x2e2b
+    pop bp                           ; 0x2e2d
+    xor al, al                       ; 0x2e2e
+    mov byte [cs:data_2b08], al      ; 0x2e30
+    retf                             ; 0x2e34

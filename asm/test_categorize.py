@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import main
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
-from lib.match.categorize import _detect_category, categorize_call_targets
+from lib.match.categorize import categorize_call_targets
 from lib.match.pattern import match_patterns
 
 
@@ -54,14 +54,6 @@ class FunctionCategoryTests(unittest.TestCase):
         )
 
         self.assertEqual(labels[0], 'leaf_loc_0000')
-
-    def test_single_multiply_in_long_routine_is_not_math_evidence(self):
-        insns = _disassemble(b'\x90' * 20 + bytes.fromhex('f7 e3 c3'))
-        self.assertEqual(_detect_category(insns, 0, 0), 'leaf')
-
-    def test_repeated_arithmetic_is_math_evidence(self):
-        insns = _disassemble(bytes.fromhex('f7 e3 f7 f1 c3'))
-        self.assertEqual(_detect_category(insns, 0, 0), 'math')
 
 
 class DSAVANTEgaNamingTests(unittest.TestCase):

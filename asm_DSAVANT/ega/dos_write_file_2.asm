@@ -208,3 +208,42 @@ dos_write_file_2:
     shr ax, cl                       ; 0x4307
     mov word [cs:data_4540], ax      ; 0x4309
     call leaf_loc_4442               ; 0x430d
+    mov ax, word [cs:data_01e5]      ; 0x4310
+    mov ds, ax                       ; 0x4314
+    mov ax, word [bp + 0xe]          ; 0x4316
+    mov bx, 0x140                    ; 0x4319
+    mul bx                           ; 0x431c
+    add ax, word [bp + 0xc]          ; 0x431e
+    mov word [bp - 0x0002], ax       ; 0x4321
+    stosw                            ; 0x4324
+    xor ax, ax                       ; 0x4325
+    stosw                            ; 0x4327
+    mov ax, word [bp - 0x0004]       ; 0x4328
+    stosw                            ; 0x432b
+    mov ax, word [bp - 0x0006]       ; 0x432c
+    stosw                            ; 0x432f
+    mov ax, word [bp - 0x0008]       ; 0x4330
+    stosw                            ; 0x4333
+    mov ax, word [bp - 0x000a]       ; 0x4334
+    stosw                            ; 0x4337
+@..dos_write_file_2.l16:
+    mov si, word [bp - 0x0002]       ; 0x4338
+    add word [bp - 0x0002], strict word 0x140 ; 0x433b
+    mov cx, word [bp - 0x0006]       ; 0x4340
+    rep movsb                        ; 0x4343
+    test di, 0xc000                  ; 0x4345
+    je short @..dos_write_file_2.l17 ; 0x4349
+    inc word [cs:data_4540]          ; 0x434b
+    mov ax, word [cs:data_4540]      ; 0x4350
+    call leaf_loc_4442               ; 0x4354
+    and di, strict word 0x3fff       ; 0x4357
+@..dos_write_file_2.l17:
+    dec word [bp - 0x0004]           ; 0x435b
+    jne short @..dos_write_file_2.l16 ; 0x435e
+    mov ax, word [bp - 0x000c]       ; 0x4360
+    mov dx, word [bp + 0x14]         ; 0x4363
+    jmp near @..dos_write_file_2.l19 ; 0x4366
+@..dos_write_file_2.l18:
+    mov ax, cs                       ; 0x4369
+    mov ds, ax                       ; 0x436b
+    mov dx, 0x4479                   ; 0x436d

@@ -69,6 +69,7 @@ class PhaseContext:
                               dtype=pl.Float32),
         })
         self.label_map = {}
+        self.csav_functions: dict[int, int] = {}
         self.code_targets: dict[int, TargetInfo] = {}
         self.branch_targets: set[int] = set()
         self.branch_edges: set[tuple[int, int]] = set()

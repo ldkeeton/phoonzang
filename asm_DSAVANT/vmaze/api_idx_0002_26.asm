@@ -41,7 +41,7 @@ api_idx_0002_26:
     je short @..api_idx_0002_26.l4   ; 0xa814
     mov byte [bx - 0x7b15], al       ; 0xa816
     push word [bp + 0x4]             ; 0xa81a
-    call math_loc_946a               ; 0xa81d
+    call loc_946a                    ; 0xa81d
     pop cx                           ; 0xa820
     mov ax, 0x26                     ; 0xa821
     imul word [bp + 0x4]             ; 0xa824

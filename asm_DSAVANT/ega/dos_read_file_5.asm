@@ -157,3 +157,7 @@ dos_read_file_5:
     mov sp, bp                       ; 0x47a4
     pop bp                           ; 0x47a6
     ret                              ; 0x47a7
+@..dos_read_file_5.l9:
+    mov ax, cs                       ; 0x47a8
+    mov ds, ax                       ; 0x47aa
+    mov dx, 0x48b8                   ; 0x47ac

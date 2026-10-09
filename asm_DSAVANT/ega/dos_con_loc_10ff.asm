@@ -116,3 +116,7 @@ loc_1209:
     mov sp, bp                       ; 0x120d
     pop bp                           ; 0x120f
     ret                              ; 0x1210
+@..dos_read_file_2.l2:
+    mov ax, cs                       ; 0x1211
+    mov ds, ax                       ; 0x1213
+    mov dx, 0x1331                   ; 0x1215

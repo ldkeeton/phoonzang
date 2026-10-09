@@ -159,3 +159,60 @@ api_idx_006a:
     lea ax, word [bp - 0x0056]       ; 0xad85
     push ax                          ; 0xad88
     call api_idx_0002_12             ; 0xad89
+    add sp, byte 4                   ; 0xad8c
+    mov word [bp - 0x0002], ax       ; 0xad8f
+    cmp ax, strict word 0xffff       ; 0xad92
+    jne short @..api_idx_006a.l5     ; 0xad95
+    mov ax, word [data_9136]         ; 0xad97
+    cmp ax, strict word 0x2d         ; 0xad9a
+    je short @..api_idx_006a.l7      ; 0xad9d
+    cmp ax, strict word 0x51         ; 0xad9f
+    je short @..api_idx_006a.l7      ; 0xada2
+    cmp ax, strict word 0x53         ; 0xada4
+    je short @..api_idx_006a.l7      ; 0xada7
+    cmp ax, strict word 0x4d         ; 0xada9
+    jne short @..api_idx_006a.l8     ; 0xadac
+    cmp word [bp - 0x0006], byte 0   ; 0xadae
+    jne short @..api_idx_006a.l8     ; 0xadb2
+@..api_idx_006a.l7:
+    mov byte [bp - 0x0056], 0        ; 0xadb4
+@..api_idx_006a.l8:
+    lea ax, word [bp - 0x0056]       ; 0xadb8
+    push ax                          ; 0xadbb
+    db 0xe8, 0xd1, 0x4c ; call 0xfa90
+    pop cx                           ; 0xadbf
+    cmp ax, strict word 0            ; 0xadc0
+    jle short @..api_idx_006a.l9     ; 0xadc3
+    call api_idx_00a2                ; 0xadc5
+    test ax, ax                      ; 0xadc8
+    jne short @..api_idx_006a.l9     ; 0xadca
+    call loc_a29f                    ; 0xadcc
+@..api_idx_006a.l9:
+    cmp word [data_9e70], byte 1     ; 0xadcf
+    je short @..api_idx_006a.l10     ; 0xadd4
+    jmp near @..api_idx_006a.l2      ; 0xadd6
+@..api_idx_006a.l10:
+    mov ax, 3                        ; 0xadd9
+    push ax                          ; 0xaddc
+    call api_idx_0006                ; 0xaddd
+    pop cx                           ; 0xade0
+    mov ax, 3                        ; 0xade1
+    push ax                          ; 0xade4
+    call loc_0c96                    ; 0xade5
+    pop cx                           ; 0xade8
+    mov ax, 0                        ; 0xade9
+    push ax                          ; 0xadec
+    mov ax, 0xa4                     ; 0xaded
+    push ax                          ; 0xadf0
+    mov ax, 0x12e                    ; 0xadf1
+    push ax                          ; 0xadf4
+    db 0xe8, 0xf9, 0x42 ; call 0xf0f1
+    add sp, byte 6                   ; 0xadf8
+    mov ax, 0                        ; 0xadfb
+    mov dx, 0                        ; 0xadfe
+    push dx                          ; 0xae01
+    push ax                          ; 0xae02
+    db 0xe8, 0xa9, 0x0a ; call 0xb8af
+    add sp, byte 4                   ; 0xae06
+    mov word [data_93ee], 1          ; 0xae09
+    ret                              ; 0xae0f

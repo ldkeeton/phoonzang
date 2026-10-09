@@ -193,3 +193,7 @@ api_idx_001e:
     mov ax, 0x6e                     ; 0x72b0
     push ax                          ; 0x72b3
     mov ax, 0x94f0                   ; 0x72b4
+    push ax                          ; 0x72b7
+    db 0xe8, 0x4b, 0x80 ; call 0xf306
+    add sp, byte 6                   ; 0x72bb
+    ret                              ; 0x72be

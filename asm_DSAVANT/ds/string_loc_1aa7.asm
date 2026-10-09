@@ -1,7 +1,7 @@
 string_loc_1aa7:
     push word [bp - 0x0002]          ; 0x1aa7
     push word [bp + 0x4]             ; 0x1aaa
-    call math_loc_184f               ; 0x1aad
+    call app_mem_184f                ; 0x1aad
     add sp, byte 4                   ; 0x1ab0
     mov ax, 0x248                    ; 0x1ab3
     imul word [bp + 0x4]             ; 0x1ab6

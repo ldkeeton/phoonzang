@@ -89,3 +89,7 @@ dos_read_file_6:
     mov sp, bp                       ; 0x4ad6
     pop bp                           ; 0x4ad8
     ret                              ; 0x4ad9
+@..dos_read_file_6.l4:
+    mov ax, cs                       ; 0x4ada
+    mov ds, ax                       ; 0x4adc
+    mov dx, 0x4bea                   ; 0x4ade

@@ -19,6 +19,6 @@ api_idx_0050:
     push word [bp + 0x6]             ; 0x13df
     lea ax, word [bp - 0x0050]       ; 0x13e2
     push ax                          ; 0x13e5
-    call math_loc_130b               ; 0x13e6
+    call loc_130b                    ; 0x13e6
     add sp, byte 8                   ; 0x13e9
     ret                              ; 0x13ec

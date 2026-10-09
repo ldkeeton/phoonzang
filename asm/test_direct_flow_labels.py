@@ -98,16 +98,22 @@ class DirectFlowLabelTests(unittest.TestCase):
 
 class FunctionIncludeTests(unittest.TestCase):
     def test_selects_named_roots_and_clips_ranges_before_next_root(self):
+        label_map = {
+            0x100: 'main',
+            0x110: 'bios_video_loc_3067',
+            0x120: 'loc_23ef',
+        }
         boundaries = {
             0x100: (0x130, 'main'),
             0x110: (0x125, 'bios_video_loc_3067'),
-            0x120: (0x128, 'loc_23ef'),
         }
 
         self.assertEqual(
             _select_split_ranges(
-                boundaries,
+                label_map,
                 {'main', 'bios_video_loc_3067', 'loc_23ef'},
+                boundaries,
+                binary_size=0x200,
             ),
             [
                 (0x100, 0x110, 'main'),

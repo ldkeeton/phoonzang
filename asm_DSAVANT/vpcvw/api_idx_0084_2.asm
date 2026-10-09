@@ -76,7 +76,7 @@ api_idx_0084_2:
     push ax                          ; 0x41b1
     mov ax, 0x258                    ; 0x41b2
     push ax                          ; 0x41b5
-    call math_loc_1ca0               ; 0x41b6
+    call loc_1ca0                    ; 0x41b6
     add sp, byte 0x1a                ; 0x41b9
     mov word [bp - 0x0004], ax       ; 0x41bc
     lea ax, word [bp - 0x0084]       ; 0x41bf

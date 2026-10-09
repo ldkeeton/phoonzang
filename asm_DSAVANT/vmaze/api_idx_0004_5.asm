@@ -205,3 +205,46 @@ api_idx_0004_5:
 @..api_idx_0004_5.l13:
     mov ax, word [bp + 0x6]          ; 0x3788
     push ax                          ; 0x378b
+    mov ax, 0x11                     ; 0x378c
+    imul word [data_931e]            ; 0x378f
+    mov bx, ax                       ; 0x3793
+    pop ax                           ; 0x3795
+    mov word [bx - 0x6ce0], ax       ; 0x3796
+    mov ax, word [bp + 0x8]          ; 0x379a
+    mov word [bx - 0x6cde], ax       ; 0x379d
+@..api_idx_0004_5.l14:
+    mov al, byte [bp + 0xa]          ; 0x37a1
+    push ax                          ; 0x37a4
+    mov ax, 0x11                     ; 0x37a5
+    imul word [data_931e]            ; 0x37a8
+    mov bx, ax                       ; 0x37ac
+    pop ax                           ; 0x37ae
+    mov byte [bx - 0x6cd8], al       ; 0x37af
+    mov al, byte [bp + 0xc]          ; 0x37b3
+    mov byte [bx - 0x6cd7], al       ; 0x37b6
+    mov al, byte [bp + 0xe]          ; 0x37ba
+    mov byte [bx - 0x6cd6], al       ; 0x37bd
+    mov al, byte [bp + 0x10]         ; 0x37c1
+    mov byte [bx - 0x6cd5], al       ; 0x37c4
+    mov ax, word [bp + 0x12]         ; 0x37c8
+    mov word [bx - 0x6cdc], ax       ; 0x37cb
+    mov ax, word [bp + 0x14]         ; 0x37cf
+    mov word [bx - 0x6cda], ax       ; 0x37d2
+    mov al, byte [bp + 0x16]         ; 0x37d6
+    mov byte [bx - 0x6cd3], al       ; 0x37d9
+    mov al, byte [bp + 0x1a]         ; 0x37dd
+    mov byte [bx - 0x6cd1], al       ; 0x37e0
+    mov al, byte [bp + 0x1c]         ; 0x37e4
+    mov byte [bx - 0x6cd0], al       ; 0x37e7
+    inc word [data_931e]             ; 0x37eb
+    mov ax, word [data_931e]         ; 0x37ef
+    cmp ax, strict word 0x78         ; 0x37f2
+    jl short @..api_idx_0004_5.l16   ; 0x37f5
+@..api_idx_0004_5.l15:
+    mov ax, 0                        ; 0x37f7
+    push ax                          ; 0x37fa
+    call ds_dispatch_b7e0            ; 0x37fb
+    pop cx                           ; 0x37fe
+    jmp short @..api_idx_0004_5.l15  ; 0x37ff
+@..api_idx_0004_5.l16:
+    ret                              ; 0x3801

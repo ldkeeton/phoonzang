@@ -147,3 +147,27 @@ api_idx_0018_2:
     jmp near @..api_idx_0018_2.l3    ; 0x7cb0
 @..api_idx_0018_2.l6:
     ret                              ; 0x7cb3
+loc_7cb4:
+    mov ax, 0                        ; 0x7cb4
+    call ds_dispatch_f40b            ; 0x7cb7
+@..local.l72:
+    cmp word [bp + 0x4], byte 0      ; 0x7cba
+    jle short @..local.l74           ; 0x7cbe
+    cmp word [bp + 0x6], byte 0      ; 0x7cc0
+    je short @..local.l73            ; 0x7cc4
+    mov ax, word [data_82e8]         ; 0x7cc6
+    inc ax                           ; 0x7cc9
+    mov cx, 2                        ; 0x7cca
+    cwd                              ; 0x7ccd
+    idiv cx                          ; 0x7cce
+    mov word [data_82e8], dx         ; 0x7cd0
+    call loc_676c                    ; 0x7cd4
+    mov ax, 0x10                     ; 0x7cd7
+    push ax                          ; 0x7cda
+    call ds_dispatch_b7e0            ; 0x7cdb
+    pop cx                           ; 0x7cde
+@..local.l73:
+    dec word [bp + 0x4]              ; 0x7cdf
+    jmp short @..local.l72           ; 0x7ce2
+@..local.l74:
+    ret                              ; 0x7ce4

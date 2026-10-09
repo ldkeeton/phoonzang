@@ -32,3 +32,8 @@ strlen:
     pop es                           ; 0x013f
     pop bp                           ; 0x0140
     ret                              ; 0x0141
+
+    db 0x00, 0x00, 0x00, 0x50, 0x42, 0x41
+    times 6 db 0
+    db 'PBAPBL'
+

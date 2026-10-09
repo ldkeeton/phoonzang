@@ -36,3 +36,4 @@ aztec_sys:
     and ax, 0xff                     ; 0x35c9
     pop bp                           ; 0x35cc
     ret                              ; 0x35cd
+    times 4 db 0

@@ -213,3 +213,42 @@ api_idx_001e_2:
     call api_idx_0006_2              ; 0x723d
     pop cx                           ; 0x7240
     ret                              ; 0x7241
+loc_7242:
+    mov ax, 0                        ; 0x7242
+    call ds_dispatch_f40b            ; 0x7245
+    cmp word [bp + 0x4], byte 0      ; 0x7248
+    jle short @..local.l69           ; 0x724c
+    mov bx, word [data_0e12]         ; 0x724e
+    mov si, word [data_8d12]         ; 0x7252
+    cmp byte [bx + si + 0x960], 0    ; 0x7256
+    jbe short @..local.l69           ; 0x725b
+    mov ax, 1                        ; 0x725d
+    push ax                          ; 0x7260
+    mov al, byte [bx + si + 0x960]   ; 0x7261
+    sub ah, ah                       ; 0x7265
+    push ax                          ; 0x7267
+    mov ax, word [data_830c]         ; 0x7268
+    mov cx, 4                        ; 0x726b
+    shl ax, cl                       ; 0x726e
+    add ax, 0x8d14                   ; 0x7270
+    push ax                          ; 0x7273
+    call ds_dispatch_ec41            ; 0x7274
+    add sp, byte 6                   ; 0x7277
+    cmp word [bp + 0x4], byte 1      ; 0x727a
+    jle short @..local.l69           ; 0x727e
+    mov ax, 1                        ; 0x7280
+    push ax                          ; 0x7283
+    mov bx, word [data_0e12]         ; 0x7284
+    mov si, word [data_8d12]         ; 0x7288
+    mov al, byte [bx + si + 0x960]   ; 0x728c
+    sub ah, ah                       ; 0x7290
+    push ax                          ; 0x7292
+    mov ax, word [data_830c]         ; 0x7293
+    mov cx, 4                        ; 0x7296
+    shl ax, cl                       ; 0x7299
+    add ax, 0x5642                   ; 0x729b
+    push ax                          ; 0x729e
+    call ds_dispatch_ec41            ; 0x729f
+    add sp, byte 6                   ; 0x72a2
+@..local.l69:
+    ret                              ; 0x72a5

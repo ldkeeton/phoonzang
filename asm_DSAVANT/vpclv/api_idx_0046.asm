@@ -95,3 +95,4 @@ api_idx_0046:
     ret                              ; 0x509c
 @..api_idx_0046.l9:
     jmp near @..api_idx_0046.l1      ; 0x509d
+    db 0xc3

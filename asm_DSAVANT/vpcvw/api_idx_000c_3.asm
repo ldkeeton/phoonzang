@@ -62,3 +62,62 @@ api_idx_000c_3:
     jmp near @..api_idx_000c_3.l1    ; 0x2bef
 @..api_idx_000c_3.l2:
     ret                              ; 0x2bf2
+loc_2bf3:
+    mov ax, 0                        ; 0x2bf3
+    call ds_dispatch_f40b            ; 0x2bf6
+    les bx, word [data_0002]         ; 0x2bf9
+    mov ax, word [es:bx]             ; 0x2bfd
+    mov dx, word [es:bx + 0x2]       ; 0x2c00
+    mov word [data_9090], dx         ; 0x2c04
+    mov word [data_908e], ax         ; 0x2c08
+    mov ax, word [data_908e]         ; 0x2c0b
+    mov dx, word [data_9090]         ; 0x2c0e
+    sub ax, word [data_908a]         ; 0x2c12
+    sbb dx, word [data_908c]         ; 0x2c16
+    mov word [data_9094], dx         ; 0x2c1a
+    mov word [data_9092], ax         ; 0x2c1e
+    mov ax, word [data_9562]         ; 0x2c21
+    cwd                              ; 0x2c24
+    mov cx, ax                       ; 0x2c25
+    mov bx, dx                       ; 0x2c27
+    mov ax, word [data_9092]         ; 0x2c29
+    mov dx, word [data_9094]         ; 0x2c2c
+    cmp bx, dx                       ; 0x2c30
+    jg short @..local.l38            ; 0x2c32
+    jne short @..local.l39           ; 0x2c34
+    cmp cx, ax                       ; 0x2c36
+    jbe short @..local.l39           ; 0x2c38
+@..local.l38:
+    jmp short @..local.l40           ; 0x2c3a
+@..local.l39:
+    mov ax, word [data_908e]         ; 0x2c3c
+    mov dx, word [data_9090]         ; 0x2c3f
+    mov word [data_908c], dx         ; 0x2c43
+    mov word [data_908a], ax         ; 0x2c47
+    call api_idx_000a_2              ; 0x2c4a
+    push word [bp + 0x4]             ; 0x2c4d
+    call api_idx_000c_3              ; 0x2c50
+    pop cx                           ; 0x2c53
+    push word [bp + 0x6]             ; 0x2c54
+    call api_idx_0002_2              ; 0x2c57
+    pop cx                           ; 0x2c5a
+    mov ax, 1                        ; 0x2c5b
+    push ax                          ; 0x2c5e
+    mov ax, 0x73                     ; 0x2c5f
+    push ax                          ; 0x2c62
+    mov ax, 0x32                     ; 0x2c63
+    push ax                          ; 0x2c66
+    call api_idx_000c_2              ; 0x2c67
+    add sp, byte 6                   ; 0x2c6a
+    mov ax, 0xc5                     ; 0x2c6d
+    push ax                          ; 0x2c70
+    mov ax, 0x93                     ; 0x2c71
+    push ax                          ; 0x2c74
+    mov ax, 0x73                     ; 0x2c75
+    push ax                          ; 0x2c78
+    mov ax, 0x32                     ; 0x2c79
+    push ax                          ; 0x2c7c
+    call ds_dispatch_e8da            ; 0x2c7d
+    add sp, byte 8                   ; 0x2c80
+@..local.l40:
+    ret                              ; 0x2c83

@@ -1056,7 +1056,8 @@ def _flush_data_block(records, pending_data, data_block_start, end_off):
     return None, []
 
 
-def _emit_label_record(records, off, label_map, local_labels=None, insn_by_addr=None):
+def _emit_label_record(records, off, label_map, local_labels=None,
+                       insn_by_addr=None, label_comments=None):
     if label_map and off in label_map:
         name = label_map[off]
         if name.startswith('data_'):
@@ -1074,9 +1075,12 @@ def _emit_label_record(records, off, label_map, local_labels=None, insn_by_addr=
                 'offset': off,
             })
             return
+        text = _emit_label(name)
+        if label_comments and off in label_comments:
+            text = f'{text} {label_comments[off]}'
         records.append({
             'type': 'label',
-            'text': f'{_emit_label(name)}',
+            'text': text,
             'offset': off,
         })
     elif local_labels and off in local_labels:
@@ -1125,7 +1129,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            foreign_label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
            function_roots=None, branch_targets=None, branch_edges=None,
-           extra_flow_edges=None):
+           extra_flow_edges=None, label_comments=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -1323,7 +1327,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             data_block_start, pending_data = _flush_data_block(
                 records, pending_data, data_block_start, off,
             )
-            _emit_label_record(records, off, label_map, local_labels, insn_by_addr)
+            _emit_label_record(records, off, label_map, local_labels,
+                               insn_by_addr, label_comments)
         insn = insn_by_addr.get(off)
 
         if insn is not None:
@@ -1351,7 +1356,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                             'offset': b_off,
                             'size': 1,
                         })
-                    _emit_label_record(records, lab, label_map, local_labels, insn_by_addr)
+                    _emit_label_record(records, lab, label_map, local_labels,
+                                       insn_by_addr, label_comments)
                     chunk_start = lab
                 for b_off in range(chunk_start, insn_end):
                     records.append({
@@ -1558,7 +1564,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
-    split_ranges = _select_split_ranges(func_boundaries, split_functions)
+    split_ranges = _select_split_ranges(
+        label_map, split_functions, func_boundaries, binary_size=total,
+    )
     split_ranges = _extend_split_ranges_with_local_tails(split_ranges, records)
 
     if trace is not None and trace.watched_addresses:
@@ -1649,26 +1657,36 @@ def _record_span(rec):
     return start, start + rec.get('size', 1)
 
 
-def _select_split_ranges(func_boundaries, split_functions):
-    """Select named function boundaries, ending each at the next split root."""
+def _select_split_ranges(label_map, split_functions, func_boundaries=None,
+                         binary_size=None):
+    """Select named function boundaries, ending each at the next split root.
+
+    Starts come straight from the label offsets so a function's file always
+    begins at its real entry.  Deriving starts from the heuristic boundary
+    scan was unreliable: the 512-byte cap truncated long functions and the
+    backward push-bp scan pulled starts into the preceding function.
+    """
     requested = set(split_functions or ())
-    selected = [
-        (start, end, name)
-        for start, (end, name) in func_boundaries.items()
+    selected = sorted(
+        (off, name)
+        for off, name in (label_map or {}).items()
         if name in requested
         and not name.startswith('data_')
         and not re.fullmatch(r'loc_[0-9a-fA-F]+', name)
-    ]
-    selected.sort(key=lambda item: item[0])
+    )
 
-    # Some named entry blocks tail-jump or fall through without a RET, so the
-    # heuristic boundary can extend into the next named root. Keep each split
-    # contiguous and non-overlapping by ending it at that next root.
-    return [
-        (start, min(end, selected[index + 1][0])
-         if index + 1 < len(selected) else end, name)
-        for index, (start, end, name) in enumerate(selected)
-    ]
+    ranges = []
+    for index, (start, name) in enumerate(selected):
+        if index + 1 < len(selected):
+            end = selected[index + 1][0]
+        else:
+            end = None
+            if func_boundaries and start in func_boundaries:
+                end = func_boundaries[start][0]
+            if end is None:
+                end = binary_size
+        ranges.append((start, end, name))
+    return ranges
 
 
 def _extend_split_ranges_with_local_tails(split_ranges, records):

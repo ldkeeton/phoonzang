@@ -37,3 +37,46 @@ api_idx_0004_2:
     mov al, byte [bx + si]           ; 0x0ab8
     sub ah, ah                       ; 0x0aba
     jmp short @..api_idx_0004_2.l5   ; 0x0abc
+@..api_idx_0004_2.l3:
+    mov bx, word [bp + 0x4]          ; 0x0abe
+    mov si, word [bp - 0x0004]       ; 0x0ac1
+    mov byte [bx + si], 0            ; 0x0ac4
+    mov word [bp - 0x0002], 0x44     ; 0x0ac7
+    jmp short @..api_idx_0004_2.l6   ; 0x0acc
+@..api_idx_0004_2.l4:
+    mov bx, word [bp + 0x4]          ; 0x0ace
+    mov si, word [bp - 0x0004]       ; 0x0ad1
+    mov byte [bx + si], 0            ; 0x0ad4
+    mov ax, word [data_9152]         ; 0x0ad7
+    mov word [bp - 0x0002], ax       ; 0x0ada
+    jmp short @..api_idx_0004_2.l6   ; 0x0add
+@..api_idx_0004_2.l5:
+    cmp ax, strict word 0x24         ; 0x0adf
+    je short @..api_idx_0004_2.l3    ; 0x0ae2
+    cmp ax, strict word 0x5e         ; 0x0ae4
+    je short @..api_idx_0004_2.l4    ; 0x0ae7
+@..api_idx_0004_2.l6:
+    mov ax, 0xc                      ; 0x0ae9
+    imul word [data_9150]            ; 0x0aec
+    add ax, 0x92                     ; 0x0af0
+    push ax                          ; 0x0af3
+    push word [bp - 0x0002]          ; 0x0af4
+    call ds_dispatch_e809            ; 0x0af7
+    add sp, byte 4                   ; 0x0afa
+    mov ax, 0                        ; 0x0afd
+    push ax                          ; 0x0b00
+    mov ax, 0x55                     ; 0x0b01
+    push ax                          ; 0x0b04
+    call ds_dispatch_e823            ; 0x0b05
+    add sp, byte 4                   ; 0x0b08
+    mov ax, data_0002                ; 0x0b0b
+    push ax                          ; 0x0b0e
+    push word [bp + 0x4]             ; 0x0b0f
+    call ds_dispatch_e84e            ; 0x0b12
+    add sp, byte 4                   ; 0x0b15
+    mov bx, word [bp + 0x4]          ; 0x0b18
+    mov byte [bx], 0                 ; 0x0b1b
+    mov ax, word [bp - 0x0002]       ; 0x0b1e
+    mov word [data_9152], ax         ; 0x0b21
+    inc word [data_9150]             ; 0x0b24
+    ret                              ; 0x0b28

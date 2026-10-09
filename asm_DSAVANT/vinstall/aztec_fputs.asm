@@ -27,3 +27,22 @@ aztec_fputs:
     call loc_2cc1                    ; 0x2cb9
     add sp, byte 4                   ; 0x2cbc
     jmp short @..aztec_fputs.l1      ; 0x2cbf
+loc_2cc1:
+    push bp                          ; 0x2cc1
+    mov bp, sp                       ; 0x2cc2
+    push si                          ; 0x2cc4
+    mov si, word [bp + 0x6]          ; 0x2cc5
+    mov ax, word [si]                ; 0x2cc8
+    cmp ax, word [si + 0x2]          ; 0x2cca
+    jb short aztec_putc              ; 0x2ccd
+    mov ax, word [bp + 0x4]          ; 0x2ccf
+    and ax, 0xff                     ; 0x2cd2
+    push ax                          ; 0x2cd5
+    push si                          ; 0x2cd6
+    call aztec_filbuf                ; 0x2cd7
+    add sp, byte 4                   ; 0x2cda
+loc_2cdd:
+    pop si                           ; 0x2cdd
+    mov sp, bp                       ; 0x2cde
+    pop bp                           ; 0x2ce0
+    ret                              ; 0x2ce1

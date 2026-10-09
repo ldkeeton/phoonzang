@@ -42,7 +42,7 @@ api_idx_0004:
     jne short @..api_idx_0004.l5     ; 0x0944
     ret                              ; 0x0946
 @..api_idx_0004.l5:
-    call math_loc_086b               ; 0x0947
+    call loc_086b                    ; 0x0947
     test ax, ax                      ; 0x094a
     jne short @..api_idx_0004.l6     ; 0x094c
     call loc_82a9                    ; 0x094e

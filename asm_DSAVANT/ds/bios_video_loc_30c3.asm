@@ -9,3 +9,4 @@ bios_video_loc_30c3:
     xor ah, ah                       ; 0x30d7
     int 0x10 ; BIOS video
     ret                              ; 0x30db
+    db 0xb8, 0x0b, 0x01, 0x00, 0x2f, 0x75

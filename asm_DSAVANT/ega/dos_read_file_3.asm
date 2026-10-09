@@ -96,3 +96,12 @@ dos_read_file_3:
     mov sp, bp                       ; 0x3160
     pop bp                           ; 0x3162
     ret                              ; 0x3163
+@..dos_read_file_3.l7:
+    mov ax, word [bp + 0xe]          ; 0x3164
+    mov bx, 0xa                      ; 0x3167
+    div bx                           ; 0x316a
+    or byte [cs:data_3296], al       ; 0x316c
+    or byte [cs:data_3297], dl       ; 0x3171
+    mov ax, cs                       ; 0x3176
+    mov ds, ax                       ; 0x3178
+    mov dx, 0x3286                   ; 0x317a

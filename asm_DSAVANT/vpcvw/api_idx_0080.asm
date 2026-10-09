@@ -196,3 +196,20 @@ api_idx_0080:
     add sp, byte 4                   ; 0x6c1a
 @..api_idx_0080.l6:
     lea ax, word [bp - 0x0068]       ; 0x6c1d
+    push ax                          ; 0x6c20
+    push word [bp - 0x0006]          ; 0x6c21
+    call ds_dispatch_b27d            ; 0x6c24
+    add sp, byte 4                   ; 0x6c27
+    mov ax, 0                        ; 0x6c2a
+    push ax                          ; 0x6c2d
+    lea ax, word [bp - 0x0068]       ; 0x6c2e
+    push ax                          ; 0x6c31
+    call ds_dispatch_e84e            ; 0x6c32
+    add sp, byte 4                   ; 0x6c35
+    inc word [bp - 0x0002]           ; 0x6c38
+    mov ax, word [bp - 0x0002]       ; 0x6c3b
+    cmp ax, strict word 5            ; 0x6c3e
+    jge short @..api_idx_0080.l7     ; 0x6c41
+    jmp near @..api_idx_0080.l3      ; 0x6c43
+@..api_idx_0080.l7:
+    ret                              ; 0x6c46

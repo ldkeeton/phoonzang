@@ -20,7 +20,7 @@ loc_4825:
     mov es, ax                       ; 0x4831
     mov ax, word [bp + 0xc]          ; 0x4833
     test ah, 0x80                    ; 0x4836
-    je short @..local.l105           ; 0x4839
+    je short @..local.l122           ; 0x4839
     dec word [cs:0x038f]             ; 0x483b
     mov ax, word [bp + 0xe]          ; 0x4840
     shl ax, 1                        ; 0x4843
@@ -30,26 +30,26 @@ loc_4825:
     mov word [cs:bx], 0              ; 0x484d
     call leaf_loc_1355               ; 0x4852
     call loc_1392                    ; 0x4855
-    jmp near @..local.l112           ; 0x4858
-@..local.l105:
+    jmp near @..local.l129           ; 0x4858
+@..local.l122:
     mov word [bp - 0x0002], ax       ; 0x485b
     mov ax, word [bp + 0x10]         ; 0x485e
     or ax, ax                        ; 0x4861
-    je short @..local.l106           ; 0x4863
+    je short @..local.l123           ; 0x4863
     mov ax, word [bp + 0xe]          ; 0x4865
     mov word [bp - 0x0004], ax       ; 0x4868
     call dos_file_loc_45bd           ; 0x486b
-    jmp near @..local.l112           ; 0x486e
-@..local.l106:
+    jmp near @..local.l129           ; 0x486e
+@..local.l123:
     mov ax, word [bp + 0xe]          ; 0x4871
     shl ax, 1                        ; 0x4874
     mov bx, 0x2d7                    ; 0x4876
     add bx, ax                       ; 0x4879
     mov ax, word [cs:bx]             ; 0x487b
     or ax, ax                        ; 0x487e
-    je short @..local.l107           ; 0x4880
-    jmp near @..local.l113           ; 0x4882
-@..local.l107:
+    je short @..local.l124           ; 0x4880
+    jmp near @..local.l130           ; 0x4882
+@..local.l124:
     inc word [cs:0x038f]             ; 0x4885
     mov ax, word [cs:0x038f]         ; 0x488a
     mov word [cs:bx], ax             ; 0x488e
@@ -67,9 +67,9 @@ loc_4825:
     add word [cs:data_0391], ax      ; 0x48b1
     mov ax, word [cs:data_0391]      ; 0x48b6
     cmp ax, word [cs:data_01ff]      ; 0x48ba
-    jbe short @..local.l108          ; 0x48bf
-    jmp near @..local.l114           ; 0x48c1
-@..local.l108:
+    jbe short @..local.l125          ; 0x48bf
+    jmp near @..local.l131           ; 0x48c1
+@..local.l125:
     mov ax, 0xfa00                   ; 0x48c4
     mov word [bp - 0x0006], ax       ; 0x48c7
     mov ax, di                       ; 0x48ca
@@ -80,23 +80,23 @@ loc_4825:
     and di, strict word 0x3ff        ; 0x48d7
     mov cl, 4                        ; 0x48db
     shl di, cl                       ; 0x48dd
-@..local.l109:
+@..local.l126:
     mov dx, di                       ; 0x48df
     test dx, 0xc000                  ; 0x48e1
-    je short @..local.l110           ; 0x48e5
+    je short @..local.l127           ; 0x48e5
     sub di, strict word 0x4000       ; 0x48e7
     inc word [cs:data_4540]          ; 0x48eb
     mov ax, word [cs:data_4540]      ; 0x48f0
     call leaf_loc_4442               ; 0x48f4
-@..local.l110:
+@..local.l127:
     mov ax, word [bp - 0x0006]       ; 0x48f7
     or ax, ax                        ; 0x48fa
-    je short @..local.l112           ; 0x48fc
+    je short @..local.l129           ; 0x48fc
     mov cx, 0x1000                   ; 0x48fe
     cmp ax, cx                       ; 0x4901
-    jae short @..local.l111          ; 0x4903
+    jae short @..local.l128          ; 0x4903
     mov cx, ax                       ; 0x4905
-@..local.l111:
+@..local.l128:
     sub ax, cx                       ; 0x4907
     mov word [bp - 0x0006], ax       ; 0x4909
     mov ax, word [cs:data_0203]      ; 0x490c
@@ -111,8 +111,8 @@ loc_4825:
     pop cx                           ; 0x4923
     mov si, 0                        ; 0x4924
     rep movsb                        ; 0x4927
-    jmp short @..local.l109          ; 0x4929
-@..local.l112:
+    jmp short @..local.l126          ; 0x4929
+@..local.l129:
     pop si                           ; 0x492b
     pop di                           ; 0x492c
     pop ds                           ; 0x492d
@@ -120,3 +120,7 @@ loc_4825:
     mov sp, bp                       ; 0x492f
     pop bp                           ; 0x4931
     ret                              ; 0x4932
+@..local.l130:
+    mov ax, cs                       ; 0x4933
+    mov ds, ax                       ; 0x4935
+    mov dx, 0x4a43                   ; 0x4937

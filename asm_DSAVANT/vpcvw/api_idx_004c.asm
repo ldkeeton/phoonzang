@@ -211,3 +211,37 @@ api_idx_004c:
     mov ax, word [bp - 0x0002]       ; 0x6f09
     shl ax, 1                        ; 0x6f0c
     mov bx, ax                       ; 0x6f0e
+    push word [bx - 0x6a14]          ; 0x6f10
+    mov ax, 0x16                     ; 0x6f14
+    imul word [bp - 0x0002]          ; 0x6f17
+    add ax, 0x9436                   ; 0x6f1a
+    push ax                          ; 0x6f1d
+    mov ax, 0x248                    ; 0x6f1e
+    imul word [bp + 0x4]             ; 0x6f21
+    push ax                          ; 0x6f24
+    mov ax, 0x78                     ; 0x6f25
+    imul word [api_idx_0016]         ; 0x6f28
+    mov cx, ax                       ; 0x6f2c
+    pop ax                           ; 0x6f2e
+    add ax, cx                       ; 0x6f2f
+    push ax                          ; 0x6f31
+    mov ax, 0xc                      ; 0x6f32
+    imul word [bp - 0x0002]          ; 0x6f35
+    mov cx, ax                       ; 0x6f38
+    pop ax                           ; 0x6f3a
+    add ax, cx                       ; 0x6f3b
+    add ax, 0x5c34                   ; 0x6f3d
+    push ax                          ; 0x6f40
+    push word [bp - 0x0002]          ; 0x6f41
+    push word [bp + 0x4]             ; 0x6f44
+    call api_idx_0004_10             ; 0x6f47
+    add sp, byte 0x0a                ; 0x6f4a
+@..api_idx_004c.l16:
+    inc word [bp - 0x0002]           ; 0x6f4d
+    mov ax, word [bp - 0x0002]       ; 0x6f50
+    cmp ax, strict word 0xa          ; 0x6f53
+    jge short @..api_idx_004c.l17    ; 0x6f56
+    jmp near @..api_idx_004c.l6      ; 0x6f58
+@..api_idx_004c.l17:
+    mov word [data_967a], 1          ; 0x6f5b
+    ret                              ; 0x6f61

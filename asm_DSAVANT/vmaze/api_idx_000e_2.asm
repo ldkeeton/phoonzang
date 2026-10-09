@@ -67,7 +67,7 @@ api_idx_000e_2:
     mov ax, 0x12                     ; 0x80eb
     push ax                          ; 0x80ee
     push word [data_8af0]            ; 0x80ef
-    call math_loc_6fbf               ; 0x80f3
+    call loc_6fbf                    ; 0x80f3
     add sp, byte 6                   ; 0x80f6
 @..api_idx_000e_2.l5:
     mov ax, 0x248                    ; 0x80f9
@@ -112,7 +112,7 @@ api_idx_000e_2:
     mov ax, 0xb                      ; 0x8158
     push ax                          ; 0x815b
     push word [bp - 0x0004]          ; 0x815c
-    call math_loc_6fbf               ; 0x815f
+    call loc_6fbf                    ; 0x815f
     add sp, byte 6                   ; 0x8162
 @..api_idx_000e_2.l8:
     inc word [bp - 0x0004]           ; 0x8165

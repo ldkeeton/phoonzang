@@ -72,7 +72,7 @@ api_idx_0072:
     mov ax, 0                        ; 0x4ae9
     push ax                          ; 0x4aec
     push word [bp + 0x4]             ; 0x4aed
-    call math_loc_474b               ; 0x4af0
+    call loc_474b                    ; 0x4af0
     add sp, byte 4                   ; 0x4af3
     test ax, ax                      ; 0x4af6
     je short @..api_idx_0072.l5      ; 0x4af8
@@ -81,7 +81,7 @@ api_idx_0072:
     mov ax, 1                        ; 0x4aff
     push ax                          ; 0x4b02
     push word [bp + 0x4]             ; 0x4b03
-    call math_loc_474b               ; 0x4b06
+    call loc_474b                    ; 0x4b06
     add sp, byte 4                   ; 0x4b09
     test ax, ax                      ; 0x4b0c
     je short @..api_idx_0072.l6      ; 0x4b0e
@@ -94,7 +94,7 @@ api_idx_0072:
     mov ax, 1                        ; 0x4b1f
     push ax                          ; 0x4b22
     push word [bp + 0x4]             ; 0x4b23
-    call math_loc_474b               ; 0x4b26
+    call loc_474b                    ; 0x4b26
     add sp, byte 4                   ; 0x4b29
     test ax, ax                      ; 0x4b2c
     je short @..api_idx_0072.l7      ; 0x4b2e
@@ -104,7 +104,7 @@ api_idx_0072:
 @..api_idx_0072.l7:
     push word [bp - 0x0006]          ; 0x4b37
     push word [bp + 0x4]             ; 0x4b3a
-    call math_loc_474b               ; 0x4b3d
+    call loc_474b                    ; 0x4b3d
     add sp, byte 4                   ; 0x4b40
     test ax, ax                      ; 0x4b43
     je short @..api_idx_0072.l8      ; 0x4b45
@@ -131,7 +131,7 @@ api_idx_0072:
     mov ax, 0                        ; 0x4b79
     push ax                          ; 0x4b7c
     push word [bp + 0x4]             ; 0x4b7d
-    call math_loc_474b               ; 0x4b80
+    call loc_474b                    ; 0x4b80
     add sp, byte 4                   ; 0x4b83
     test ax, ax                      ; 0x4b86
     je short @..api_idx_0072.l9      ; 0x4b88
@@ -180,7 +180,7 @@ api_idx_0072:
     push ax                          ; 0x4beb
     mov ax, 0x15f                    ; 0x4bec
     push ax                          ; 0x4bef
-    call math_loc_1ca0               ; 0x4bf0
+    call loc_1ca0                    ; 0x4bf0
     add sp, byte 0x1a                ; 0x4bf3
     mov word [bp - 0x0006], ax       ; 0x4bf6
 @..api_idx_0072.l10:

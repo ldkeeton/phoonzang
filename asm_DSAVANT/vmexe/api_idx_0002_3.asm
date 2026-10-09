@@ -37,3 +37,31 @@ api_idx_0002_3:
     mov ax, word [bp + 0x6]          ; 0x1f57
     sub ax, cx                       ; 0x1f5a
     ret                              ; 0x1f5c
+loc_1f5d:
+    mov ax, 0                        ; 0x1f5d
+    call ds_dispatch_f40b            ; 0x1f60
+    mov ax, 0x2c                     ; 0x1f63
+    imul word [bp + 0x6]             ; 0x1f66
+    mov si, ax                       ; 0x1f69
+    mov ax, word [bp + 0x4]          ; 0x1f6b
+    shl ax, 1                        ; 0x1f6e
+    mov bx, ax                       ; 0x1f70
+    mov bx, word [bx - 0x7b7e]       ; 0x1f72
+    cmp byte [bx + si + 0x2b], 0     ; 0x1f76
+    je short @..local.l54            ; 0x1f7a
+    mov al, byte [bx + si + 0x2b]    ; 0x1f7c
+    cmp al, 1                        ; 0x1f7f
+    jne short @..local.l55           ; 0x1f81
+    mov ax, 3                        ; 0x1f83
+    push ax                          ; 0x1f86
+    call ds_dispatch_b7a9            ; 0x1f87
+    pop cx                           ; 0x1f8a
+    test ax, ax                      ; 0x1f8b
+    jne short @..local.l55           ; 0x1f8d
+@..local.l54:
+    mov ax, 0                        ; 0x1f8f
+    jmp short @..local.l56           ; 0x1f92
+@..local.l55:
+    mov ax, 1                        ; 0x1f94
+@..local.l56:
+    ret                              ; 0x1f97

@@ -47,3 +47,12 @@ api_idx_000a:
     mov ax, word [bp - 0x000a]       ; 0x0c06
     mov word [data_8f3e], ax         ; 0x0c09
     ret                              ; 0x0c0c
+loc_0c0d:
+    mov ax, 0                        ; 0x0c0d
+    call ds_dispatch_f40b            ; 0x0c10
+    mov ax, 0x7f9                    ; 0x0c13
+    push ax                          ; 0x0c16
+    call api_idx_0050                ; 0x0c17
+    pop cx                           ; 0x0c1a
+    mov ax, 1                        ; 0x0c1b
+    ret                              ; 0x0c1e

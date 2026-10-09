@@ -47,7 +47,7 @@ api_idx_0004_15:
     ret                              ; 0x9745
 @..api_idx_0004_15.l1:
     push word [bp + 0x4]             ; 0x9746
-    call math_loc_94a6               ; 0x9749
+    call loc_94a6                    ; 0x9749
     pop cx                           ; 0x974c
     test ax, ax                      ; 0x974d
     je short @..api_idx_0004_15.l2   ; 0x974f
@@ -106,7 +106,7 @@ api_idx_0004_15:
     pop ax                           ; 0x97d0
     mov byte [bx - 0x7b15], al       ; 0x97d1
     push word [bp + 0x4]             ; 0x97d5
-    call math_loc_946a               ; 0x97d8
+    call loc_946a                    ; 0x97d8
     pop cx                           ; 0x97db
     ret                              ; 0x97dc
 @..api_idx_0004_15.l5:
@@ -136,7 +136,7 @@ api_idx_0004_15:
     pop ax                           ; 0x9816
     mov byte [bx - 0x7b15], al       ; 0x9817
     push word [bp + 0x4]             ; 0x981b
-    call math_loc_946a               ; 0x981e
+    call loc_946a                    ; 0x981e
     pop cx                           ; 0x9821
     jmp near @..api_idx_0004_15.l10  ; 0x9822
 @..api_idx_0004_15.l8:
@@ -168,7 +168,7 @@ api_idx_0004_15:
     pop ax                           ; 0x9866
     mov byte [bx - 0x7b12], al       ; 0x9867
     push word [bp + 0x4]             ; 0x986b
-    call math_loc_946a               ; 0x986e
+    call loc_946a                    ; 0x986e
     pop cx                           ; 0x9871
     mov ax, 0x26                     ; 0x9872
     imul word [bp + 0x4]             ; 0x9875

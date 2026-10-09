@@ -90,3 +90,19 @@ api_idx_0006_2:
     add sp, byte 8                   ; 0x62c2
 @..api_idx_0006_2.l5:
     ret                              ; 0x62c5
+loc_62c6:
+    mov ax, 0                        ; 0x62c6
+    call ds_dispatch_f40b            ; 0x62c9
+@..local.l118:
+    cmp word [data_69c8], byte 0     ; 0x62cc
+    jle short @..local.l119          ; 0x62d1
+    mov ax, 0                        ; 0x62d3
+    push ax                          ; 0x62d6
+    mov ax, word [data_69c8]         ; 0x62d7
+    dec ax                           ; 0x62da
+    push ax                          ; 0x62db
+    call api_idx_0006_2              ; 0x62dc
+    add sp, byte 4                   ; 0x62df
+    jmp short @..local.l118          ; 0x62e2
+@..local.l119:
+    ret                              ; 0x62e4

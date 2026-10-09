@@ -148,7 +148,7 @@ api_idx_0008_2:
     push ax                          ; 0x2b12
     mov ax, data_95a8                ; 0x2b13
     push ax                          ; 0x2b16
-    call math_loc_130b               ; 0x2b17
+    call loc_130b                    ; 0x2b17
     add sp, byte 8                   ; 0x2b1a
     jmp short @..api_idx_0008_2.l12  ; 0x2b1d
 @..api_idx_0008_2.l11:

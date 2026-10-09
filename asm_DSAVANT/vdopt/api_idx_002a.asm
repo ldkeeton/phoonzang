@@ -67,3 +67,11 @@ api_idx_002a:
     call ds_dispatch_e84e            ; 0x02ad
     add sp, byte 4                   ; 0x02b0
     ret                              ; 0x02b3
+loc_02b4:
+    mov ax, 0                        ; 0x02b4
+    call ds_dispatch_f40b            ; 0x02b7
+    mov ax, 0xa                      ; 0x02ba
+    push ax                          ; 0x02bd
+    call ds_dispatch_e489            ; 0x02be
+    pop cx                           ; 0x02c1
+    ret                              ; 0x02c2

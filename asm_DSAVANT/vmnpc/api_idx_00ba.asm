@@ -101,3 +101,4 @@ api_idx_00ba:
     ret                              ; 0xab88
 @..api_idx_00ba.l6:
     jmp near @..api_idx_00ba.l1      ; 0xab89
+    db 0xc3

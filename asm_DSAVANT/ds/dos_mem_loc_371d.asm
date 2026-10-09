@@ -8,3 +8,8 @@ dos_mem_loc_371d:
     int 0x21 ; DOS function dispatcher
 loc_372d:
     ret                              ; 0x372d
+
+    db 0x0d, 0x0a, 0x07
+    db 'Unable to allocate sufficient memory to run.', 0
+    db 0x0a, 0x24
+

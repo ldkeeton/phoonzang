@@ -208,7 +208,7 @@ api_idx_0008_5:
 @..api_idx_0008_5.l15:
     push word [bp - 0x0006]          ; 0xa797
     push word [bp + 0x4]             ; 0xa79a
-    call math_loc_a215               ; 0xa79d
+    call loc_a215                    ; 0xa79d
     add sp, byte 4                   ; 0xa7a0
 @..api_idx_0008_5.l16:
     inc word [bp - 0x0006]           ; 0xa7a3

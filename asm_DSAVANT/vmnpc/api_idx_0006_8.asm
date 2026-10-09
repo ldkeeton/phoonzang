@@ -125,3 +125,20 @@ api_idx_0006_8:
     jg short @..api_idx_0006_8.l4    ; 0x897e
 @..api_idx_0006_8.l6:
     ret                              ; 0x8980
+loc_8981:
+    mov ax, 0                        ; 0x8981
+    db 0xe8, 0x84, 0x6a ; call 0xf40b
+    cmp word [bp + 0x6], byte 0      ; 0x8987
+    jne short @..local.l98           ; 0x898b
+    push word [bp + 0x8]             ; 0x898d
+    push word [bp + 0x4]             ; 0x8990
+    call api_idx_0002_9              ; 0x8993
+    add sp, byte 4                   ; 0x8996
+    jmp short @..local.l99           ; 0x8999
+@..local.l98:
+    push word [bp + 0x8]             ; 0x899b
+    push word [bp + 0x4]             ; 0x899e
+    call api_idx_0006_8              ; 0x89a1
+    add sp, byte 4                   ; 0x89a4
+@..local.l99:
+    ret                              ; 0x89a7

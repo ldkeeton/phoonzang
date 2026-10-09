@@ -42,7 +42,7 @@ api_idx_0054:
     push word [data_91d4]            ; 0x42c0
     lea ax, word [bp - 0x0054]       ; 0x42c4
     push ax                          ; 0x42c7
-    call math_loc_0eb2               ; 0x42c8
+    call loc_0eb2                    ; 0x42c8
     add sp, byte 8                   ; 0x42cb
     jmp short @..api_idx_0054.l5     ; 0x42ce
 @..api_idx_0054.l3:
@@ -72,7 +72,42 @@ api_idx_0054:
     push word [data_91d4]            ; 0x4309
     lea ax, word [bp - 0x0054]       ; 0x430d
     push ax                          ; 0x4310
-    call math_loc_0eb2               ; 0x4311
+    call loc_0eb2                    ; 0x4311
     add sp, byte 8                   ; 0x4314
 @..api_idx_0054.l5:
     ret                              ; 0x4317
+loc_4318:
+    mov ax, 0                        ; 0x4318
+    call ds_dispatch_f40b            ; 0x431b
+    cmp word [bp + 0x8], byte 1      ; 0x431e
+    jne short @..local.l58           ; 0x4322
+    cmp word [bp + 0x6], byte 0      ; 0x4324
+    jle short @..local.l56           ; 0x4328
+    mov ax, word [bp + 0x4]          ; 0x432a
+    sub word [bp + 0x6], ax          ; 0x432d
+    jmp short @..local.l57           ; 0x4330
+@..local.l56:
+    mov ax, 0                        ; 0x4332
+    sub ax, word [bp + 0x4]          ; 0x4335
+    cmp ax, word [bp + 0x6]          ; 0x4338
+    jge short @..local.l57           ; 0x433b
+    mov word [bp + 0x6], ax          ; 0x433d
+@..local.l57:
+    jmp short @..local.l60           ; 0x4340
+@..local.l58:
+    cmp word [bp + 0x8], byte 0      ; 0x4342
+    jne short @..local.l60           ; 0x4346
+    cmp word [bp + 0x6], byte 0      ; 0x4348
+    jge short @..local.l59           ; 0x434c
+    mov ax, word [bp + 0x4]          ; 0x434e
+    add word [bp + 0x6], ax          ; 0x4351
+    jmp short @..local.l60           ; 0x4354
+@..local.l59:
+    mov ax, word [bp + 0x6]          ; 0x4356
+    cmp ax, word [bp + 0x4]          ; 0x4359
+    jge short @..local.l60           ; 0x435c
+    mov ax, word [bp + 0x4]          ; 0x435e
+    mov word [bp + 0x6], ax          ; 0x4361
+@..local.l60:
+    mov ax, word [bp + 0x6]          ; 0x4364
+    ret                              ; 0x4367

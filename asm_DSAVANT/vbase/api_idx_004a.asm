@@ -55,7 +55,7 @@ api_idx_004a:
     push ax                          ; 0x6941
     mov ax, 0x898                    ; 0x6942
     push ax                          ; 0x6945
-    call math_loc_023a               ; 0x6946
+    call loc_023a                    ; 0x6946
     add sp, byte 0x10                ; 0x6949
     mov word [bp - 0x0002], ax       ; 0x694c
     lea ax, word [bp - 0x004a]       ; 0x694f

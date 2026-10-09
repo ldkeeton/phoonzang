@@ -8,7 +8,7 @@ dos_mem_alloc:
     mov di, ax                       ; 0x4b5b
     or ax, 0x3d00                    ; 0x4b5d
     mov di, ax                       ; 0x4b60
-    test word [bp + 0x6], 0x200      ; 0x4b62
+    test word [bp + 0x6], app_malloc ; 0x4b62
     je short @..dos_mem_alloc.l1     ; 0x4b67
     mov di, 0x3c00                   ; 0x4b69
 @..dos_mem_alloc.l1:
@@ -70,3 +70,30 @@ dos_mem_alloc:
 @..dos_mem_alloc.l7:
     mov ax, si                       ; 0x4be2
     jmp short @..dos_mem_alloc.l4    ; 0x4be4
+loc_4be6:
+    push di                          ; 0x4be6
+    sub di, di                       ; 0x4be7
+    test dx, dx                      ; 0x4be9
+    jns short @..local.l16           ; 0x4beb
+    neg dx                           ; 0x4bed
+    neg ax                           ; 0x4bef
+    sbb dx, byte 0                   ; 0x4bf1
+    inc di                           ; 0x4bf4
+@..local.l16:
+    test bx, bx                      ; 0x4bf5
+    jns short @..local.l17           ; 0x4bf7
+    neg bx                           ; 0x4bf9
+    neg cx                           ; 0x4bfb
+    sbb bx, byte 0                   ; 0x4bfd
+    xor di, 1                        ; 0x4c00
+@..local.l17:
+    call aztec_lud                   ; 0x4c04
+loc_4c07:
+    test di, di                      ; 0x4c07
+    je short loc_4c12                ; 0x4c09
+    neg dx                           ; 0x4c0b
+    neg ax                           ; 0x4c0d
+    sbb dx, byte 0                   ; 0x4c0f
+loc_4c12:
+    pop di                           ; 0x4c12
+    ret                              ; 0x4c13

@@ -6,7 +6,7 @@ api_idx_0002_2:
     jmp short @..api_idx_0002_2.l2   ; 0x36c9
 @..api_idx_0002_2.l1:
     push word [bp - 0x0002]          ; 0x36cb
-    call math_loc_1eb4               ; 0x36ce
+    call loc_1eb4                    ; 0x36ce
     pop cx                           ; 0x36d1
     mov ax, 1                        ; 0x36d2
     push ax                          ; 0x36d5
@@ -26,7 +26,7 @@ api_idx_0002_2:
     call loc_2cc7                    ; 0x36f6
     cmp word [data_90bc], byte 0     ; 0x36f9
     jne short @..api_idx_0002_2.l3   ; 0x36fe
-    call math_loc_1a16               ; 0x3700
+    call loc_1a16                    ; 0x3700
 @..api_idx_0002_2.l3:
     mov word [data_90bc], 0          ; 0x3703
     mov word [data_830a], 0xc        ; 0x3709

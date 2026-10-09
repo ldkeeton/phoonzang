@@ -244,7 +244,7 @@ api_idx_0010_5:
 @..api_idx_0010_5.l15:
     push word [bp - 0x000c]          ; 0xa513
     push word [bp + 0x4]             ; 0xa516
-    call math_loc_a215               ; 0xa519
+    call loc_a215                    ; 0xa519
     add sp, byte 4                   ; 0xa51c
     mov ax, 5                        ; 0xa51f
     push ax                          ; 0xa522

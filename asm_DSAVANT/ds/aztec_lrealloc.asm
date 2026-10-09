@@ -22,3 +22,4 @@ aztec_lrealloc:
     xor ax, ax                       ; 0x464a
     xor dx, dx                       ; 0x464c
     jmp short @..aztec_lrealloc.l2   ; 0x464e
+    db 0x3a, 0x4b

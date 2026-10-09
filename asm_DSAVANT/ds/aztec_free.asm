@@ -17,3 +17,12 @@ aztec_free:
     mov word [data_0d00], si         ; 0x4804
     mov ax, 0                        ; 0x4808
     jmp short @..aztec_free.l1       ; 0x480b
+
+    db 'LlhFNoxXudiscpneEfgG%'
+    db 0x0f, 0x47, 0x16, 0x47, 0x1a, 0x47, 0x1d, 0x47, 0x1a
+    db 'G$G-G)G2G7G7G[HzH'
+    db 0x9f, 0x48, 0xa2
+    db 'HJHDHJHJHDH'
+    db 0x82
+    db 'F0123456789abcdef -lm first', 0
+

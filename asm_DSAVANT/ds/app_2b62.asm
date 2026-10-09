@@ -1,0 +1,34 @@
+app_2b62: ; Aztec csav frame=0x0000
+    mov ax, 0                        ; 0x2b62
+    call aztec_csav                  ; 0x2b65
+    call loc_41ca                    ; 0x2b68
+    test ax, ax                      ; 0x2b6b
+    je short @..app_2b62.l3          ; 0x2b6d
+@..app_2b62.l1:
+    cmp word [bp + 0x6], byte 0      ; 0x2b6f
+    jle short @..app_2b62.l2         ; 0x2b73
+    call loc_41ca                    ; 0x2b75
+    test ax, ax                      ; 0x2b78
+    je short @..app_2b62.l2          ; 0x2b7a
+    push word [bp + 0x6]             ; 0x2b7c
+    mov ax, 0                        ; 0x2b7f
+    push ax                          ; 0x2b82
+    mov ax, word [bp + 0x6]          ; 0x2b83
+    add ax, strict word 0xfff6       ; 0x2b86
+    push ax                          ; 0x2b89
+    call app_0a09                    ; 0x2b8a
+    add sp, byte 6                   ; 0x2b8d
+    mov word [bp + 0x6], ax          ; 0x2b90
+    push ax                          ; 0x2b93
+    push word [bp + 0x4]             ; 0x2b94
+    call loc_41e4                    ; 0x2b97
+    add sp, byte 4                   ; 0x2b9a
+    mov ax, 0x19                     ; 0x2b9d
+    push ax                          ; 0x2ba0
+    call leaf_loc_36d0               ; 0x2ba1
+    pop cx                           ; 0x2ba4
+    jmp short @..app_2b62.l1         ; 0x2ba5
+@..app_2b62.l2:
+    call loc_41d7                    ; 0x2ba7
+@..app_2b62.l3:
+    ret                              ; 0x2baa

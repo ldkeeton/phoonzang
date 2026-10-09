@@ -203,3 +203,54 @@ api_idx_00fa:
     mov ax, 0x109                    ; 0x1c56
     push ax                          ; 0x1c59
     mov ax, 0x92                     ; 0x1c5a
+    push ax                          ; 0x1c5d
+    mov ax, 0x37                     ; 0x1c5e
+    push ax                          ; 0x1c61
+    call ds_dispatch_bb33            ; 0x1c62
+    add sp, byte 8                   ; 0x1c65
+    mov ax, 0xe                      ; 0x1c68
+    push ax                          ; 0x1c6b
+    call ds_dispatch_c12a            ; 0x1c6c
+    pop cx                           ; 0x1c6f
+    mov ax, data_0002                ; 0x1c70
+    push ax                          ; 0x1c73
+    mov ax, 3                        ; 0x1c74
+    push ax                          ; 0x1c77
+    call ds_dispatch_d61c            ; 0x1c78
+    add sp, byte 4                   ; 0x1c7b
+    ret                              ; 0x1c7e
+loc_1c7f:
+    mov ax, 0                        ; 0x1c7f
+    call ds_dispatch_f40b            ; 0x1c82
+    cmp word [bp + 0x8], byte 1      ; 0x1c85
+    jne short @..local.l29           ; 0x1c89
+    cmp word [bp + 0x6], byte 0      ; 0x1c8b
+    jle short @..local.l27           ; 0x1c8f
+    mov ax, word [bp + 0x4]          ; 0x1c91
+    sub word [bp + 0x6], ax          ; 0x1c94
+    jmp short @..local.l28           ; 0x1c97
+@..local.l27:
+    mov ax, 0                        ; 0x1c99
+    sub ax, word [bp + 0x4]          ; 0x1c9c
+    cmp ax, word [bp + 0x6]          ; 0x1c9f
+    jge short @..local.l28           ; 0x1ca2
+    mov word [bp + 0x6], ax          ; 0x1ca4
+@..local.l28:
+    jmp short @..local.l31           ; 0x1ca7
+@..local.l29:
+    cmp word [bp + 0x8], byte 0      ; 0x1ca9
+    jne short @..local.l31           ; 0x1cad
+    cmp word [bp + 0x6], byte 0      ; 0x1caf
+    jge short @..local.l30           ; 0x1cb3
+    mov ax, word [bp + 0x4]          ; 0x1cb5
+    add word [bp + 0x6], ax          ; 0x1cb8
+    jmp short @..local.l31           ; 0x1cbb
+@..local.l30:
+    mov ax, word [bp + 0x6]          ; 0x1cbd
+    cmp ax, word [bp + 0x4]          ; 0x1cc0
+    jge short @..local.l31           ; 0x1cc3
+    mov ax, word [bp + 0x4]          ; 0x1cc5
+    mov word [bp + 0x6], ax          ; 0x1cc8
+@..local.l31:
+    mov ax, word [bp + 0x6]          ; 0x1ccb
+    ret                              ; 0x1cce

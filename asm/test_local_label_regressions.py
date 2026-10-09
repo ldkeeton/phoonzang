@@ -38,8 +38,11 @@ _SHARED_OR_CROSS_FUNCTION_TARGETS = {
     0x4879, 0x4894, 0x48a5, 0x48b0, 0x48ba, 0x48ca,
     0x48d4, 0x48dd, 0x48ea, 0x48f8, 0x48fc,
 }
+# Resolved as a named library routine rather than a local branch target.
+_NOW_GLOBALLY_NAMED = {0x4f87}  # aztec_stkover
 _EXPECTED_LOCAL_TARGETS = (
     _PREVIOUS_LOCAL_TARGETS - _SHARED_OR_CROSS_FUNCTION_TARGETS
+    - _NOW_GLOBALLY_NAMED
 )
 
 
@@ -104,7 +107,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
 
     def test_shared_epilogue_label_uses_its_function_scope(self):
         self.assertEqual(
-            self.local_labels.get(0x47fb), '@..leaf_loc_47e8.l1',
+            self.local_labels.get(0x47fb), '@..aztec_free.l1',
         )
 
     def test_sidecar_data_anchors_remain_data(self):
@@ -153,29 +156,30 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
     def test_stack_check_name_owns_its_call_target_prefix(self):
         output = pathlib.Path(self._output.name)
         master = (output / 'ds.asm').read_text()
-        stack_include = (output / 'ds' / 'stack_alloc_check.asm').read_text()
+        all_text = '\n'.join(
+            path.read_text() for path in output.rglob('*.asm'))
+        stack_include = (output / 'ds' / 'aztec_csav.asm').read_text()
 
-        self.assertEqual(self.label_map.get(0x4652), 'stack_alloc_check')
+        self.assertEqual(self.label_map.get(0x4652), 'aztec_csav')
         self.assertNotIn(0x4653, self.label_map)
-        self.assertIn('%include "ds/stack_alloc_check.asm"', master)
-        self.assertNotIn('%include "ds/leaf_loc_4652.asm"', master)
-        self.assertFalse((output / 'ds' / 'leaf_loc_4652.asm').exists())
+        self.assertIn('%include "ds/aztec_csav.asm"', master)
         self.assertNotIn('leaf_loc_4652', master)
+        self.assertFalse((output / 'ds' / 'leaf_loc_4652.asm').exists())
         self.assertNotIn('loc_4653:', stack_include)
-        self.assertIn('call stack_alloc_check', master)
-        self.assertTrue(stack_include.startswith('stack_alloc_check:'))
+        self.assertIn('call aztec_csav', all_text)
+        self.assertTrue(stack_include.startswith('aztec_csav:'))
         self.assertIn('pop bx                           ; 0x4652', stack_include)
 
     def test_stack_check_local_error_tail_is_in_function_include(self):
         output = pathlib.Path(self._output.name)
         master = (output / 'ds.asm').read_text()
-        stack_include = (output / 'ds' / 'stack_alloc_check.asm').read_text()
+        cret_include = (output / 'ds' / 'aztec_cret.asm').read_text()
 
-        self.assertIn('%include "ds/stack_alloc_check.asm"', master)
-        self.assertNotIn('@..stack_alloc_check.l2:', master)
-        self.assertIn('@..stack_alloc_check.l2:', stack_include)
-        self.assertIn('mov sp, bp                       ; 0x4676', stack_include)
-        self.assertIn('jmp near @..stack_alloc_check.l3 ; 0x4678', stack_include)
+        self.assertIn('%include "ds/aztec_cret.asm"', master)
+        self.assertNotIn('@..aztec_csav.l2:', master)
+        self.assertIn('@..aztec_csav.l2:', cret_include)
+        self.assertIn('mov sp, bp                       ; 0x4676', cret_include)
+        self.assertIn('jmp near aztec_stkover           ; 0x4678', cret_include)
 
     def test_sidecar_code_anchors_decode_as_code(self):
         code_starts = (0x0fdf, 0x3067, 0x30f7, 0x343e, 0x3490, 0x457c)

@@ -13,7 +13,7 @@ api_idx_0054_4:
     mov ax, 0xa0                     ; 0x5dac
     push ax                          ; 0x5daf
     push word [bp + 0x8]             ; 0x5db0
-    call math_loc_0b30               ; 0x5db3
+    call loc_0b30                    ; 0x5db3
     add sp, byte 8                   ; 0x5db6
     lea ax, word [bp - 0x0054]       ; 0x5db9
     push ax                          ; 0x5dbc
@@ -37,7 +37,7 @@ api_idx_0054_4:
     push ax                          ; 0x5deb
     lea ax, word [bp - 0x0054]       ; 0x5dec
     push ax                          ; 0x5def
-    call math_loc_0b30               ; 0x5df0
+    call loc_0b30                    ; 0x5df0
     add sp, byte 8                   ; 0x5df3
     mov word [bp - 0x0002], 0        ; 0x5df6
     mov word [bp - 0x0004], 0        ; 0x5dfb
@@ -82,7 +82,7 @@ api_idx_0054_4:
     mov ax, 3                        ; 0x5e4f
     push ax                          ; 0x5e52
     push word [bp + 0x6]             ; 0x5e53
-    call math_loc_1821               ; 0x5e56
+    call loc_1821                    ; 0x5e56
     add sp, byte 0x18                ; 0x5e59
     mov word [bp - 0x0004], ax       ; 0x5e5c
     mov ax, 0                        ; 0x5e5f
@@ -96,7 +96,7 @@ api_idx_0054_4:
     mov ax, 0xa0                     ; 0x5e6f
     push ax                          ; 0x5e72
     push word [bp + 0x8]             ; 0x5e73
-    call math_loc_0b30               ; 0x5e76
+    call loc_0b30                    ; 0x5e76
     add sp, byte 8                   ; 0x5e79
     mov ax, 0xb3                     ; 0x5e7c
     push ax                          ; 0x5e7f
@@ -106,7 +106,7 @@ api_idx_0054_4:
     push ax                          ; 0x5e87
     lea ax, word [bp - 0x0054]       ; 0x5e88
     push ax                          ; 0x5e8b
-    call math_loc_0b30               ; 0x5e8c
+    call loc_0b30                    ; 0x5e8c
     add sp, byte 8                   ; 0x5e8f
     mov ax, word [bp - 0x0004]       ; 0x5e92
     ret                              ; 0x5e95

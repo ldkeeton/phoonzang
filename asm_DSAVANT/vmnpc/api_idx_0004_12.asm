@@ -102,3 +102,16 @@ api_idx_0004_12:
     cmp word [bp - 0x0002], byte 0x1e ; 0x5490
     jl short @..api_idx_0004_12.l6   ; 0x5494
     ret                              ; 0x5496
+loc_5497:
+    mov ax, 0                        ; 0x5497
+    db 0xe8, 0x6e, 0x9f ; call 0xf40b
+    cmp word [bp + 0x4], strict word 0x190 ; 0x549d
+    jl short @..local.l80            ; 0x54a2
+    cmp word [bp + 0x4], strict word 0x19b ; 0x54a4
+    jge short @..local.l80           ; 0x54a9
+    mov ax, 1                        ; 0x54ab
+    jmp short @..local.l81           ; 0x54ae
+@..local.l80:
+    mov ax, 0                        ; 0x54b0
+@..local.l81:
+    ret                              ; 0x54b3

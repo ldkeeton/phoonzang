@@ -206,6 +206,8 @@
       "name": "mouse_set_pos",
       "notes": "INT 33h AX=0x0004 set mouse cursor position",
       "entries": [],
+      "entry_offset": 28,
+      "has_prologue": true,
       "patterns": ["B8 04 00 CD 33"]
     },
     {

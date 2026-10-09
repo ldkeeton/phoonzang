@@ -126,7 +126,7 @@ api_idx_0008_3:
     push ax                          ; 0x3a0d
     mov ax, data_95fa                ; 0x3a0e
     push ax                          ; 0x3a11
-    call math_loc_130b               ; 0x3a12
+    call loc_130b                    ; 0x3a12
     add sp, byte 8                   ; 0x3a15
     mov ax, 0                        ; 0x3a18
     push ax                          ; 0x3a1b

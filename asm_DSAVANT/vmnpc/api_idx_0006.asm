@@ -132,3 +132,89 @@ api_idx_0006:
     je short @..api_idx_0006.l4      ; 0x0c93
 @..api_idx_0006.l8:
     ret                              ; 0x0c95
+loc_0c96:
+    mov ax, 0                        ; 0x0c96
+    db 0xe8, 0x6f, 0xe7 ; call 0xf40b
+    mov ax, word [bp + 0x4]          ; 0x0c9c
+    jmp near @..local.l6             ; 0x0c9f
+@..local.l2:
+    mov ax, 0x9f                     ; 0x0ca2
+    push ax                          ; 0x0ca5
+    mov ax, 0xcd                     ; 0x0ca6
+    push ax                          ; 0x0ca9
+    mov ax, 0x93                     ; 0x0caa
+    push ax                          ; 0x0cad
+    mov ax, 0x73                     ; 0x0cae
+    push ax                          ; 0x0cb1
+    db 0xe8, 0x25, 0xdc ; call 0xe8da
+    add sp, byte 8                   ; 0x0cb5
+    mov ax, 0xc2                     ; 0x0cb8
+    push ax                          ; 0x0cbb
+    mov ax, 0x60                     ; 0x0cbc
+    push ax                          ; 0x0cbf
+    mov ax, 0xa5                     ; 0x0cc0
+    push ax                          ; 0x0cc3
+    mov ax, 8                        ; 0x0cc4
+    push ax                          ; 0x0cc7
+    db 0xe8, 0x0f, 0xdc ; call 0xe8da
+    add sp, byte 8                   ; 0x0ccb
+    mov ax, 0xc2                     ; 0x0cce
+    push ax                          ; 0x0cd1
+    mov ax, 0x13a                    ; 0x0cd2
+    push ax                          ; 0x0cd5
+    mov ax, 0xa5                     ; 0x0cd6
+    push ax                          ; 0x0cd9
+    mov ax, 0xe7                     ; 0x0cda
+    push ax                          ; 0x0cdd
+    db 0xe8, 0xf9, 0xdb ; call 0xe8da
+    add sp, byte 8                   ; 0x0ce1
+    jmp short @..local.l8            ; 0x0ce4
+@..local.l3:
+    mov ax, 0xc2                     ; 0x0ce6
+    push ax                          ; 0x0ce9
+    mov ax, 0xe0                     ; 0x0cea
+    push ax                          ; 0x0ced
+    mov ax, 0xa4                     ; 0x0cee
+    push ax                          ; 0x0cf1
+    mov ax, 0x62                     ; 0x0cf2
+    push ax                          ; 0x0cf5
+    db 0xe8, 0xe1, 0xdb ; call 0xe8da
+    add sp, byte 8                   ; 0x0cf9
+    jmp short @..local.l8            ; 0x0cfc
+@..local.l4:
+    mov ax, 0x9f                     ; 0x0cfe
+    push ax                          ; 0x0d01
+    mov ax, 0xcd                     ; 0x0d02
+    push ax                          ; 0x0d05
+    mov ax, 0x93                     ; 0x0d06
+    push ax                          ; 0x0d09
+    mov ax, 0x73                     ; 0x0d0a
+    push ax                          ; 0x0d0d
+    db 0xe8, 0xc9, 0xdb ; call 0xe8da
+    add sp, byte 8                   ; 0x0d11
+    jmp short @..local.l8            ; 0x0d14
+@..local.l5:
+    mov ax, 0xc2                     ; 0x0d16
+    push ax                          ; 0x0d19
+    mov ax, 0x13a                    ; 0x0d1a
+    push ax                          ; 0x0d1d
+    mov ax, 0x93                     ; 0x0d1e
+    push ax                          ; 0x0d21
+    mov ax, 8                        ; 0x0d22
+    push ax                          ; 0x0d25
+    db 0xe8, 0xb1, 0xdb ; call 0xe8da
+    add sp, byte 8                   ; 0x0d29
+    jmp short @..local.l8            ; 0x0d2c
+@..local.l6:
+    cmp ax, strict word 0            ; 0x0d2e
+    jne short @..local.l7            ; 0x0d31
+    jmp near @..local.l2             ; 0x0d33
+@..local.l7:
+    cmp ax, strict word 1            ; 0x0d36
+    je short @..local.l3             ; 0x0d39
+    cmp ax, strict word 2            ; 0x0d3b
+    je short @..local.l4             ; 0x0d3e
+    cmp ax, strict word 3            ; 0x0d40
+    je short @..local.l5             ; 0x0d43
+@..local.l8:
+    ret                              ; 0x0d45

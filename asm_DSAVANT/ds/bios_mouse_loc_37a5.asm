@@ -17,3 +17,4 @@ bios_mouse_loc_37a5:
     or word [bp - 0x0002], strict word 0x1000 ; 0x37cb
 @..bios_mouse_loc_37a5.l1:
     ret                              ; 0x37d0
+    db 'EMMXXXX0'

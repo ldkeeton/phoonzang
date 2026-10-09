@@ -268,4 +268,4 @@ api_idx_0030:
     mov word [data_91a6], dx         ; 0x4118
     mov word [data_91a8], 0          ; 0x411c
     mov ax, word [data_5b6e]         ; 0x4122
-    jmp near loc_447f                ; 0x4125
+    jmp near @..api_idx_0030.l13     ; 0x4125

@@ -4,7 +4,7 @@ api_idx_0018:
     push word [bp + 0x4]             ; 0x6805
     mov ax, 0                        ; 0x6808
     push ax                          ; 0x680b
-    call math_loc_66c3               ; 0x680c
+    call loc_66c3                    ; 0x680c
     add sp, byte 4                   ; 0x680f
     mov ax, 8                        ; 0x6812
     push ax                          ; 0x6815

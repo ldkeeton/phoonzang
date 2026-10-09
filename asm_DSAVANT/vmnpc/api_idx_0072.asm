@@ -112,7 +112,7 @@ api_idx_0072:
     push ax                          ; 0x5f9d
     lea ax, word [bp - 0x0068]       ; 0x5f9e
     push ax                          ; 0x5fa1
-    call math_loc_0b30               ; 0x5fa2
+    call loc_0b30                    ; 0x5fa2
     add sp, byte 8                   ; 0x5fa5
     mov ax, data_0002                ; 0x5fa8
     push ax                          ; 0x5fab

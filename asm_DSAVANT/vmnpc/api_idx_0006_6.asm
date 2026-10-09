@@ -131,3 +131,32 @@ api_idx_0006_6:
     db 0xe8, 0x46, 0x75 ; call 0xe942
     add sp, byte 8                   ; 0x73fc
     ret                              ; 0x73ff
+loc_7400:
+    mov ax, 0                        ; 0x7400
+    db 0xe8, 0x05, 0x80 ; call 0xf40b
+    mov word [data_9d6c], 3          ; 0x7406
+    mov word [data_93d8], 0x8f       ; 0x740c
+    mov word [data_9d62], 3          ; 0x7412
+    call api_idx_001e                ; 0x7418
+    call loc_6d9d                    ; 0x741b
+    call api_idx_0086                ; 0x741e
+    call loc_a441                    ; 0x7421
+    call api_idx_0054                ; 0x7424
+    call api_idx_009c                ; 0x7427
+    call api_idx_0006_6              ; 0x742a
+    ret                              ; 0x742d
+loc_742e:
+    mov ax, 0                        ; 0x742e
+    db 0xe8, 0xd7, 0x7f ; call 0xf40b
+    mov ax, word [data_598e]         ; 0x7434
+    cmp ax, word [bp + 0x4]          ; 0x7437
+    je short @..local.l85            ; 0x743a
+    push word [bp + 0x4]             ; 0x743c
+    db 0xe8, 0x68, 0x63 ; call 0xd7aa
+    pop cx                           ; 0x7442
+@..local.l85:
+    mov word [data_93da], 0x10       ; 0x7443
+    push word [data_93da]            ; 0x7449
+    db 0xe8, 0x90, 0x43 ; call 0xb7e0
+    pop cx                           ; 0x7450
+    ret                              ; 0x7451
