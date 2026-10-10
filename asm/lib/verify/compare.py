@@ -430,11 +430,11 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
         bts = raw_bytes[rel_off:rel_off + insn.size]
 
         if all(b == 0 for b in bts):
-            for b in bts:
+            for i, b in enumerate(bts):
                 records.append({
                     'type': 'db',
                     'text': f'0x{b:02x}',
-                    'offset': insn.address,
+                    'offset': insn.address + i,
                     'size': 1,
                 })
             continue
@@ -442,11 +442,11 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
         nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels)
 
         if nasm_text is None:
-            for b in bts:
+            for i, b in enumerate(bts):
                 records.append({
                     'type': 'db',
                     'text': f'0x{b:02x}',
-                    'offset': insn.address,
+                    'offset': insn.address + i,
                     'size': 1,
                 })
             continue
