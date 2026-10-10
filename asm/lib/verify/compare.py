@@ -1129,8 +1129,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            foreign_label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
            function_roots=None, branch_targets=None, branch_edges=None,
-           extra_flow_edges=None, label_comments=None, c_overrides=None,
-           c_labels=None):
+           extra_flow_edges=None, label_comments=None, c_overrides=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -1601,7 +1600,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         records, start_offset, binary_data, label_map,
         show_offsets=show_offsets, consumer_inc=consumer_inc,
         immediate_labels=immediate_labels, split_ranges=split_ranges,
-        split_dir=name, c_labels=c_labels,
+        split_dir=name,
     )
     t6 = time.perf_counter()
 
@@ -1639,6 +1638,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'bare_call': bare_call,
         'bare_dbc': bare_dbc,
         'code_loss': code_loss,
+        'aztec_spans': {
+            name: [start, end] for start, end, name in split_ranges
+            if isinstance(name, str) and name.startswith('aztec_')
+        },
         'aztec_labels': (
             sum(1 for n in label_map.values()
                 if isinstance(n, str) and n.startswith('aztec_'))
@@ -1741,24 +1744,43 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         if start is None:
             raise ValueError(f'C override: label {label!r} not found')
         compiled = bytearray(override['code'])
-        for off, width in override.get('fixups', ()):
-            chunk = binary_data[start + off:start + off + width]
-            if len(chunk) < width:
-                chunk = chunk + bytes(width - len(chunk))
-            compiled[off:off + width] = chunk
-        compiled_end = start + len(compiled)
+        # The routine owns exactly *length* bytes (its original, exact-match
+        # size).  A shorter compile is NOP-filled up to that size; a longer one
+        # would shift every following address, so it is a hard error.
+        length = override.get('length') or len(compiled)
+        if len(compiled) > length:
+            raise ValueError(
+                f'C override: {label!r} compiled to {len(compiled)} bytes, '
+                f'exceeds the original {length} bytes')
 
-        # Extend to the end of whichever original record the compiled code
-        # ends inside, then take any uncovered bytes from the original image.
-        end = compiled_end
+        # Overlay the original relocation bytes.  A relocation may start on the
+        # routine's last byte and run one byte past it; clamp to the code so the
+        # overlay never grows the routine.
+        for off, width in override.get('fixups', ()):
+            n = min(width, len(compiled) - off)
+            if n <= 0:
+                continue
+            chunk = binary_data[start + off:start + off + n]
+            if len(chunk) < n:
+                chunk = chunk + bytes(n - len(chunk))
+            compiled[off:off + n] = chunk
+
+        # Extend to the end of whichever original record the routine ends
+        # inside, then take any uncovered bytes (local tails, alignment) from
+        # the original image.
+        end = start + length
         for rec in records:
             rec_start, rec_end = _record_span(rec)
             if rec['type'] == 'label':
                 continue
-            if rec_start < compiled_end and rec_end > end:
+            if rec_start < end and rec_end > end:
                 end = rec_end
         final = bytearray(binary_data[start:end])
+        if len(final) < length:
+            final.extend(b'\x90' * (length - len(final)))
         final[:len(compiled)] = compiled
+        if len(compiled) < length:
+            final[len(compiled):length] = b'\x90' * (length - len(compiled))
         new_records = _c_bytes_to_records(
             bytes(final), start, label_map, local_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes)
@@ -1908,16 +1930,8 @@ def _extend_split_ranges_with_local_tails(split_ranges, records):
     return extended
 
 
-def _partition_function_records(records, split_ranges, split_dir,
-                                c_labels=None):
-    """Replace selected contiguous function spans with include records.
-
-    Ranges named in *c_labels* are still treated as boundaries (so adjacent
-    functions do not absorb them) but their records are kept inline in the
-    master listing rather than written to a ``.asm`` include -- the routine is
-    emitted as a ``.c`` source instead.
-    """
-    c_labels = c_labels or set()
+def _partition_function_records(records, split_ranges, split_dir):
+    """Replace selected contiguous function spans with include records."""
     if not split_ranges:
         return records, {}
 
@@ -2004,9 +2018,6 @@ def _partition_function_records(records, split_ranges, split_dir,
             continue
 
         start, end, name = owner
-        if name in c_labels:
-            main_records.append(rec)
-            continue
         if name not in include_inserted:
             filename = re.sub(r'[^A-Za-z0-9_.-]+', '_', name).strip('._')
             if not filename:
@@ -2021,8 +2032,6 @@ def _partition_function_records(records, split_ranges, split_dir,
             split_bytes[name] += rec_end - rec_start
 
     for start, end, name in ranges:
-        if name in c_labels:
-            continue
         if name not in include_inserted:
             raise ValueError(f'{name}: no emitted records in split range 0x{start:x}-0x{end:x}')
         if split_bytes[name] != end - start:
@@ -2033,8 +2042,6 @@ def _partition_function_records(records, split_ranges, split_dir,
 
     split_sources = {}
     for _, _, name in ranges:
-        if name in c_labels:
-            continue
         filename = re.sub(r'[^A-Za-z0-9_.-]+', '_', name).strip('._')
         split_sources[f'{split_dir}/{filename}.asm'] = split_records[name]
     return main_records, split_sources
@@ -2147,7 +2154,7 @@ def _render_mz_header(header):
 
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
-                  split_dir='ds', c_labels=None):
+                  split_dir='ds'):
     """Render the master NASM source and any generated function includes."""
     out = ['org 0', 'bits 16']
     if consumer_inc:
@@ -2184,7 +2191,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append('')
 
     main_records, split_records = _partition_function_records(
-        records, split_ranges, split_dir, c_labels=c_labels,
+        records, split_ranges, split_dir,
     )
     out.extend(_render_records(main_records, binary_data, show_offsets))
 

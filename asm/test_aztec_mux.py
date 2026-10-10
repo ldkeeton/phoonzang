@@ -83,5 +83,39 @@ class MuxCompileTest(unittest.TestCase):
         self.assertEqual(best.compiler, 'v52a')
 
 
+class ObdParseTest(unittest.TestCase):
+    """OBD pads a segment short of its declared length when a relocation
+    operand is suppressed; ``parse_obd`` must restore the declared length so a
+    function is not clipped mid-instruction."""
+
+    def test_trailing_relocation_operand_is_padded(self):
+        from lib.aztec.objread import parse_obd
+        # Mirrors a real listing tail: the final ``e9`` operand bytes are not
+        # printed as Data, and ``TheEnd`` declares the 0xfe segment length.
+        text = (
+            'Code (0000): Data( 2)  8b ec\n'
+            'Code (00fb): Data( 1)  e9\n'
+            'Code (00fc): WREL LCLSYM .11\n'
+            'Code (00fe): Use Code\n'
+            'Code (00fe): TheEnd\n'
+        )
+        dump = parse_obd(text)
+        self.assertEqual(len(dump.code), 0xfe)
+        self.assertEqual(bytes(dump.code[:2]), b'\x8b\xec')
+        self.assertEqual(dump.code[0xfb], 0xe9)
+        # The suppressed operand bytes are zero-filled and relocation-covered.
+        self.assertEqual(bytes(dump.code[0xfc:0xfe]), b'\x00\x00')
+        self.assertTrue(any(fx.offset == 0xfc for fx in dump.fixups))
+
+    def test_complete_segment_is_not_padded(self):
+        from lib.aztec.objread import parse_obd
+        dump = parse_obd(
+            'Code (0000): Data( 3)  90 90 c3\n'
+            'Code (0003): TheEnd\n'
+        )
+        self.assertEqual(len(dump.code), 3)
+        self.assertEqual(bytes(dump.code), b'\x90\x90\xc3')
+
+
 if __name__ == '__main__':
     unittest.main()

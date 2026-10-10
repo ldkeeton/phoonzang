@@ -1,5 +1,5 @@
 /* Aztec runtime routine: aztec_free
- * source: Manx Aztec C86 v340a malloc.c
+ * source: Manx Aztec C86 v340a malloc.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
  * relocation bytes are supplied by the original image.
@@ -32,84 +32,6 @@ static size_t keep;
 #define chain(p)	((l_t *)(*(size_t *)(p) & ~INUSE))
 
 #define BLOCK	(512*sizeof(l_t))	/* # of bytes to ask sbrk for */
-
-char *
-realloc(area, size)
-register char *area; unsigned size;
-{
-	register char *cp, *end;
-	size_t osize;
-	char *malloc();
-
-	end = (char *)chain((l_t *)area-1);
-	if ((osize = ptrdiff(end, area)) > size) {
-		osize = size;
-		end = (char *)bump(area, osize);
-	}
-	free(area);
-	if ((cp = malloc(size)) != 0 && cp != area) {
-		movmem(area, cp, osize);
-		if ((char *)current >= area && (char *)current < end)
-			*(size_t *)bump(cp, ptrdiff(current,area)) = keep;
-	}
-	return cp;
-}
-
-char *
-malloc(size)
-unsigned size;
-{
-	register l_t *ptr, *temp, *lastfree;
-	register size_t len;
-	int times;
-	char *sbrk();
-
-	size = ((size+sizeof(l_t)*2-1)/sizeof(l_t))*sizeof(l_t);
-	if (current == 0) {
-		first.next = &first;
-		markblk(&first);
-		current = &first;
-	}
-	for (times = 0, lastfree = ptr = current ; ; ptr = chain(ptr)) {
-		if (ptr == endmarker) {
-			if (++times > 1) {
-				len = BLOCK;
-				if ((temp = (l_t *)sbrk((int)len)) == (l_t *)-1)
-					return 0;
-				if (temp != bump(ptr,sizeof(l_t))) {
-					/* non-contiguous allocation */
-					ptr->next = temp;
-					markblk(ptr);
-					len -= sizeof(l_t);
-					ptr = temp;
-				}
-				temp = bump(ptr, len);
-				ptr->next = temp;
-				temp->next = &first;	/* new end marker */
-				markblk(temp);
-				endmarker = temp;
-				if (chain(lastfree) == ptr)
-					ptr = lastfree;
-			}
-		}
-		if (inuse(ptr))
-			continue;
-		lastfree = ptr;
-		while (!inuse(temp = chain(ptr)))
-			ptr->next = temp->next;
-		len = ptrdiff(temp,ptr);
-		if (len >= size) {
-			if (len > size) {
-				ptr->next = bump(ptr, size);
-				keep = *(size_t *)ptr->next;
-				ptr->next->next = temp;
-			}
-			current = ptr->next;
-			markblk(ptr);
-			return (char *)(ptr+1);
-		}
-	}
-}
 
 free(p)
 char *p;

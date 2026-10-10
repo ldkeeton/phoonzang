@@ -449,8 +449,17 @@ def _build_module(module, omf_path, dump):
     code_len = len(dump.code)
     for pf in public_functions(data):
         off = pf['offset']
-        end = min(pf['offset'] + pf['length'], code_len) if pf['length'] \
-            else code_len
+        # A function's length is declared by its own object: the distance to
+        # the next public symbol, or the segment end for the last one.  Take
+        # exactly that many bytes, so ``len(func.code)`` -- the length the mux
+        # matches and the build splices -- equals the image-derived length
+        # instead of being clipped.  OBD suppresses a trailing relocation's
+        # operands (``parse_obd`` pads them back), but pad here as well so a
+        # short dump can never silently truncate a routine mid-instruction.
+        length = pf['length']
+        end = (off + length) if length else code_len
+        if end > len(dump.code):
+            dump.code.extend(b'\x00' * (end - len(dump.code)))
         seg = bytes(dump.code[off:end])
         if not seg:
             continue

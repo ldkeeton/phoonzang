@@ -1,5 +1,5 @@
 /* Aztec runtime routine: aztec_Croot
- * source: Manx Aztec C86 v340a croot.c
+ * source: Manx Aztec C86 v340a croot.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
  * relocation bytes are supplied by the original image.
@@ -82,25 +82,5 @@ redirect:
 	*cpp = 0;
 	main(Argc,Argv);
 	exit(0);
-}
-
-#ifdef REDIR
-static redir_err(name)
-char *name;
-{
-	char buff[200];
-
-	strcpy(buff, "Can't open file for redirection: ");
-	strcat(buff, name);
-	strcat(buff, "\n");
-	write(2, buff, strlen(buff));
-	exit(10);
-}
-#endif
-
-exit(code)
-{
-	(*cls_)();
-	_exit(code);
 }
 

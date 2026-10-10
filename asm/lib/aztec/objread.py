@@ -81,8 +81,20 @@ class ObjDump:
 
 
 def parse_obd(text):
-    """Parse ``OBD`` output into an :class:`ObjDump`."""
+    """Parse ``OBD`` output into an :class:`ObjDump`.
+
+    OBD prints a ``Code (xxxx)`` line for every data, relocation and
+    segment-use record, and the segment-use / ``TheEnd`` record carries the
+    code segment's total length.  The operands of a *trailing* relocation are
+    suppressed from the data lines (they are held in the fixup record instead),
+    so the decoded bytes can stop a few bytes short of the segment.  Track the
+    highest ``Code`` address and pad below it, so a function's ``length``
+    matches its OMF length instead of being clipped mid-instruction.  The
+    padded bytes are relocation operands and are always overwritten from the
+    original image.
+    """
     dump = ObjDump()
+    code_len = 0
     for raw in text.splitlines():
         line = raw.rstrip()
         m = _DATA_RE.match(line)
@@ -98,10 +110,12 @@ def parse_obd(text):
             if len(dump.code) < addr + len(data):
                 dump.code.extend(b'\x00' * (addr + len(data) - len(dump.code)))
             dump.code[addr:addr + len(data)] = data
+            code_len = max(code_len, addr + len(data))
             continue
         m = _CODE_RE.match(line)
         if not m:
             continue
+        code_len = max(code_len, int(m.group(1), 16))
         rest = m.group(2)
         if rest.startswith('Use ') or rest == 'TheEnd':
             continue
@@ -119,4 +133,6 @@ def parse_obd(text):
             symbol_index=index,
             symbol=name.strip() or None,
         ))
+    if len(dump.code) < code_len:
+        dump.code.extend(b'\x00' * (code_len - len(dump.code)))
     return dump

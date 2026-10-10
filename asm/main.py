@@ -338,16 +338,18 @@ _SHOW_OFFSETS = '--no-show-offsets' not in sys.argv
 _DECOMPILE = '--decompile' in sys.argv
 
 
-def _aztec_c_overrides(project, name, data, label_map):
-    """Resolve Aztec runtime routines to C via the mixed-version mux.
+def _aztec_c_overrides(project, name, data, label_map, out_dir):
+    """Resolve Aztec runtime routines to C and compile the current seeds.
 
     Returns ``(overrides, entries)`` where *overrides* feeds the byte-preserving
     splice in :func:`lib.verify.compare.verify` and *entries* records the
-    winning provenance for emitting ``.c`` sources.
+    winning provenance.
 
     ``WIZ7_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
-    ``asm_prebuild_<project>/``; otherwise the prebuilt result is read and a
-    missing prebuild is a hard error.
+    ``asm_prebuild_<project>/``; otherwise the prebuilt manifest is read and a
+    missing prebuild is a hard error.  The seed ``.c`` files live in
+    ``<out_dir>/<binary>/`` and are written only when absent, so a no-clean
+    debug rebuild respects hand edits.
     """
     if not project or AZTEC_MUX_DISABLED:
         return {}, {}
@@ -355,37 +357,50 @@ def _aztec_c_overrides(project, name, data, label_map):
               if isinstance(nm, str) and nm.startswith('aztec_')]
     if not labels:
         return {}, {}
-    from lib.aztec.cache import load_or_build, PrebuildMissing
+    from lib.aztec import cache
+    from lib.aztec.objread import fixup_width
     mode = 'prebuild' if (AZTEC_PREBUILD or AZTEC_MUX_REFRESH) else 'build'
     try:
-        return load_or_build(project, name, data, labels, mode=mode)
-    except PrebuildMissing as exc:
+        entries = cache.load_or_build(project, name, data, labels, mode=mode)
+    except cache.PrebuildMissing as exc:
         raise SystemExit(f'error: {exc}')
     except Exception as exc:  # never let C recovery break the build
         print(f'  aztec mux: skipped ({exc})')
         return {}, {}
+    if AZTEC_PREBUILD_ONLY:
+        return {}, entries
+
+    dest = os.path.join(out_dir, name)
+    overrides = {}
+    for label, entry in entries.items():
+        text = _seed_aztec_c(cache, project, name, label, entry, dest)
+        try:
+            func = cache.compile_source(project, label, entry, text)
+        except Exception as exc:
+            print(f'  aztec mux: {label}: compile failed ({exc})')
+            continue
+        overrides[label] = {
+            'code': func.code,
+            'fixups': [(fx.offset, fixup_width(fx.kind))
+                       for fx in func.fixups],
+            'length': entry.get('original_length') or len(func.code),
+            'source_version': entry['source_version'],
+            'file': entry['file'], 'compiler': entry['compiler'],
+        }
+    return overrides, entries
 
 
-def _write_aztec_c(entries, out_dir, binary):
-    """Emit one ``.c`` per recovered routine, replacing its ``.asm``."""
-    if not entries:
-        return
-    from lib.aztec import sources
-    dest = os.path.join(out_dir, binary)
+def _seed_aztec_c(cache, project, binary, label, entry, dest):
+    """Return the routine's C text, writing a seed only when it is absent."""
     os.makedirs(dest, exist_ok=True)
-    for label, entry in sorted(entries.items()):
-        text = sources.catalog(entry['source_version']).get(entry['file'], '')
-        header = (
-            f'/* Aztec runtime routine: {label}\n'
-            f' * source: Manx Aztec C86 {entry["source_version"]} '
-            f'{entry["file"]}\n'
-            f' * compiled with: Aztec C86 {entry["compiler"]} '
-            f'(includes {entry["includes"]})\n'
-            f' * recovered byte-exact by the C mux (lib/aztec/mux.py);\n'
-            f' * relocation bytes are supplied by the original image.\n'
-            f' */\n')
-        with open(os.path.join(dest, f'{label}.c'), 'w') as f:
-            f.write(header + text)
+    path = os.path.join(dest, f'{label}.c')
+    if os.path.exists(path):
+        with open(path) as f:
+            return f.read()
+    text = cache.seed_source_text(project, binary, label, entry)
+    with open(path, 'w') as f:
+        f.write(text)
+    return text
 
 
 def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
@@ -610,9 +625,10 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
 
     # Resolve Aztec routines before the verify/emit window so the (potentially
     # slow) DOSBox work is reported separately instead of inflating it.
+    out_dir = output_dir or ASM_DIR
     t_aztec = time.perf_counter()
-    c_overrides, c_entries = _aztec_c_overrides(
-        project, name, data, ctx.label_map)
+    c_overrides, _entries = _aztec_c_overrides(
+        project, name, data, ctx.label_map, out_dir)
     t_aztec_end = time.perf_counter()
 
     if AZTEC_PREBUILD_ONLY:
@@ -621,8 +637,6 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         return ctx.bitmap, label_map
 
     structs = build_structs(instructions)
-
-    out_dir = output_dir or ASM_DIR
 
     carve_1 = ctx.layers['carve_1'].to_numpy() if 'carve_1' in ctx.layers.columns else None
 
@@ -661,7 +675,6 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         extra_flow_edges=extra_flow_edges,
         label_comments=label_comments,
         c_overrides=c_overrides,
-        c_labels=set(c_overrides) if c_overrides else None,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
@@ -681,7 +694,10 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w') as f:
             f.write(include_text)
-    _write_aztec_c(c_entries, out_dir, name)
+    spans = stats.get('aztec_spans') or {}
+    if spans:
+        with open(os.path.join(out_dir, f'{name}_aztec_spans.json'), 'w') as f:
+            json.dump(spans, f, indent=1, sort_keys=True)
     asm_path = os.path.join(out_dir, f'{name}.asm')
     with open(asm_path, 'w') as f:
         f.write(asm_text)

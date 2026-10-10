@@ -1,5 +1,5 @@
 /* Aztec runtime routine: aztec_tty_rd
- * source: Manx Aztec C86 v340a ttyio.c
+ * source: Manx Aztec C86 v340a ttyio.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
  * relocation bytes are supplied by the original image.
@@ -35,22 +35,3 @@ char *buff;
 	return l;
 }
 
-__tty_wr(fd, buff, len)
-char *buff;
-{
-	register int count;
-	register char *cp;
-	static char crbuf = '\r';
-
-	cp = buff;
-	for (count = len ; count-- ; ) {
-		if (*cp++ == '\n') {
-			_write(fd, buff, cp-buff);
-			_write(fd, &crbuf, 1);
-			buff = cp;
-		}
-	}
-	if (cp != buff)
-		_write(fd, buff, cp-buff);
-	return len;
-}

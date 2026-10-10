@@ -1,5 +1,5 @@
 /* Aztec runtime routine: aztec_open
- * source: Manx Aztec C86 v340a open.c
+ * source: Manx Aztec C86 v340a open.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
  * relocation bytes are supplied by the original image.
@@ -11,18 +11,13 @@
 extern int errno;
 extern char _ioflg[];
 
-creat(name, mode)
-char *name;
-{
-	return open(name, O_WRONLY|O_TRUNC|O_CREAT, mode);
-}
-
 open(name, flag, mode)
 char *name;
 {
 	register int fd, m;
 
-	m = 0x3d00 | (flag&0x00f3);
+	//m = 0x3d00 | (flag&0x00f3);
+	m = 0x4c00 | (flag&0x00f3);
 	if ((flag&O_TRUNC) != 0)
 		m = 0x3c00;
 

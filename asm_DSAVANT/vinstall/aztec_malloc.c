@@ -1,5 +1,5 @@
 /* Aztec runtime routine: aztec_malloc
- * source: Manx Aztec C86 v340a malloc.c
+ * source: Manx Aztec C86 v340a malloc.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
  * relocation bytes are supplied by the original image.
@@ -32,28 +32,6 @@ static size_t keep;
 #define chain(p)	((l_t *)(*(size_t *)(p) & ~INUSE))
 
 #define BLOCK	(512*sizeof(l_t))	/* # of bytes to ask sbrk for */
-
-char *
-realloc(area, size)
-register char *area; unsigned size;
-{
-	register char *cp, *end;
-	size_t osize;
-	char *malloc();
-
-	end = (char *)chain((l_t *)area-1);
-	if ((osize = ptrdiff(end, area)) > size) {
-		osize = size;
-		end = (char *)bump(area, osize);
-	}
-	free(area);
-	if ((cp = malloc(size)) != 0 && cp != area) {
-		movmem(area, cp, osize);
-		if ((char *)current >= area && (char *)current < end)
-			*(size_t *)bump(cp, ptrdiff(current,area)) = keep;
-	}
-	return cp;
-}
 
 char *
 malloc(size)
@@ -111,15 +89,3 @@ unsigned size;
 	}
 }
 
-free(p)
-char *p;
-{
-	register l_t *ptr;
-
-	ptr = (l_t *)p - 1;
-	if (!inuse(ptr))
-		return -1;
-	unmark(ptr);
-	current = ptr;
-	return 0;
-}

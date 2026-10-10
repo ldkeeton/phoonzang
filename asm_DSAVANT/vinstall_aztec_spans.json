@@ -1,0 +1,198 @@
+{
+ "aztec_Croot": [
+  14143,
+  14365
+ ],
+ "aztec_atoi": [
+  10246,
+  10359
+ ],
+ "aztec_atol": [
+  10359,
+  10524
+ ],
+ "aztec_begin": [
+  13778,
+  14102
+ ],
+ "aztec_brk": [
+  14905,
+  15045
+ ],
+ "aztec_calloc": [
+  9974,
+  9993
+ ],
+ "aztec_close": [
+  14441,
+  14465
+ ],
+ "aztec_creat": [
+  13162,
+  13185
+ ],
+ "aztec_fcbinit": [
+  10713,
+  10750
+ ],
+ "aztec_fclose": [
+  11531,
+  11654
+ ],
+ "aztec_fexec": [
+  10791,
+  10909
+ ],
+ "aztec_fexecv": [
+  10524,
+  10713
+ ],
+ "aztec_filbuf": [
+  11654,
+  11845
+ ],
+ "aztec_fputs": [
+  11406,
+  11490
+ ],
+ "aztec_free": [
+  12313,
+  12440
+ ],
+ "aztec_gmtime": [
+  11226,
+  11406
+ ],
+ "aztec_isatty": [
+  14821,
+  14853
+ ],
+ "aztec_lrm": [
+  13381,
+  13417
+ ],
+ "aztec_lseek": [
+  14465,
+  14496
+ ],
+ "aztec_lud": [
+  13425,
+  13576
+ ],
+ "aztec_lum": [
+  13417,
+  13425
+ ],
+ "aztec_malloc": [
+  12059,
+  12310
+ ],
+ "aztec_mkdir": [
+  10750,
+  10773
+ ],
+ "aztec_movmem": [
+  14752,
+  14821
+ ],
+ "aztec_open": [
+  13185,
+  13381
+ ],
+ "aztec_putc": [
+  11490,
+  11531
+ ],
+ "aztec_raise": [
+  690,
+  2372
+ ],
+ "aztec_read": [
+  14367,
+  14377
+ ],
+ "aztec_realloc": [
+  11948,
+  12059
+ ],
+ "aztec_rename": [
+  14520,
+  14553
+ ],
+ "aztec_rsvstk": [
+  15045,
+  16128
+ ],
+ "aztec_sbrk": [
+  14853,
+  14905
+ ],
+ "aztec_scan": [
+  2575,
+  4260
+ ],
+ "aztec_strcmp": [
+  13576,
+  13606
+ ],
+ "aztec_strcpy": [
+  10973,
+  11017
+ ],
+ "aztec_strlen": [
+  13679,
+  13708
+ ],
+ "aztec_strncat": [
+  10926,
+  10973
+ ],
+ "aztec_strncmp": [
+  13606,
+  13679
+ ],
+ "aztec_strncpy": [
+  11017,
+  11057
+ ],
+ "aztec_sys": [
+  13708,
+  13778
+ ],
+ "aztec_sysint": [
+  11057,
+  11186
+ ],
+ "aztec_tolower": [
+  11206,
+  11226
+ ],
+ "aztec_toupper": [
+  11186,
+  11206
+ ],
+ "aztec_tty_rd": [
+  14553,
+  14654
+ ],
+ "aztec_tty_wr": [
+  14654,
+  14752
+ ],
+ "aztec_unlink": [
+  14496,
+  14520
+ ],
+ "aztec_vfprintf": [
+  2372,
+  2575
+ ],
+ "aztec_wait": [
+  10909,
+  10918
+ ],
+ "aztec_write": [
+  14394,
+  14441
+ ]
+}
