@@ -696,7 +696,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
             f.write(include_text)
     spans = stats.get('aztec_spans') or {}
     if spans:
-        with open(os.path.join(out_dir, f'{name}_aztec_spans.json'), 'w') as f:
+        spans_dir = os.path.join(out_dir, 'inc', 'spans')
+        os.makedirs(spans_dir, exist_ok=True)
+        with open(os.path.join(spans_dir, f'{name}_aztec_spans.json'), 'w') as f:
             json.dump(spans, f, indent=1, sort_keys=True)
     asm_path = os.path.join(out_dir, f'{name}.asm')
     with open(asm_path, 'w') as f:
@@ -761,9 +763,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
 
     if export_labels and label_map:
         from lib.cross_ref import write_label_json, write_label_inc
-        json_path = os.path.join(out_dir, f'{name}_labels.json')
-        labels_dir = os.path.join(out_dir, 'labels')
+        labels_dir = os.path.join(out_dir, 'inc', 'labels')
         os.makedirs(labels_dir, exist_ok=True)
+        json_path = os.path.join(labels_dir, f'{name}_labels.json')
         inc_path = os.path.join(labels_dir, f'{name}_labels.inc')
         write_label_json(label_map, json_path)
         write_label_inc(label_map, inc_path, prefix=name)

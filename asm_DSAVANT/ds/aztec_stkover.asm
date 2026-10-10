@@ -3,7 +3,7 @@ aztec_stkover:
     push ax                          ; 0x4f8a
     mov ax, 0xcae                    ; 0x4f8b
     push ax                          ; 0x4f8e
-    mov ax, 2                        ; 0x4f8f
+    mov ax, data_0002                ; 0x4f8f
     push ax                          ; 0x4f92
     call aztec_write                 ; 0x4f93
     add sp, byte 6                   ; 0x4f96

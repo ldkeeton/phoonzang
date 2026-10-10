@@ -1,5 +1,5 @@
-%include "structs/structs.inc"
-%include "structs/data_0cac.inc"
+%include "inc/structs/structs.inc"
+%include "inc/structs/data_0cac.inc"
 org 0
 bits 16
 data_01e1 equ 0x01e1

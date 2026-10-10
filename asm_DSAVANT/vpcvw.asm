@@ -1,8 +1,8 @@
-%include "structs/structs.inc"
-%include "structs/loc_8592.inc"
+%include "inc/structs/structs.inc"
+%include "inc/structs/loc_8592.inc"
 org 0
 bits 16
-%include "labels/vpcvw_foreign_labels.inc"
+%include "inc/labels/vpcvw_foreign_labels.inc"
 
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x36, 0x98, 0x98, 0x90

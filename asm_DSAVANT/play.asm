@@ -1,5 +1,5 @@
-%include "structs/structs.inc"
-%include "structs/loc_0a13.inc"
+%include "inc/structs/structs.inc"
+%include "inc/structs/loc_0a13.inc"
 org 0
 bits 16
 loc_0007 equ 0x0007

@@ -1,5 +1,5 @@
-%include "structs/structs.inc"
-%include "structs/loc_3738.inc"
+%include "inc/structs/structs.inc"
+%include "inc/structs/loc_3738.inc"
 org 0
 bits 16
     ; DOS MZ executable header (512 bytes)

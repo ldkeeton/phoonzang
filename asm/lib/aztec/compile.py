@@ -250,9 +250,8 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
         argv = _dosbox_argv(exe, work, cmds, time_limit=timeout)
         env = dict(os.environ)
         env['HOME'] = work
-        if os.environ.get('WIZ7_DOSBOX_HEADLESS'):
-            env['SDL_VIDEODRIVER'] = 'dummy'
-            env['SDL_AUDIODRIVER'] = 'dummy'
+        env['SDL_VIDEODRIVER'] = 'dummy'
+        env['SDL_AUDIODRIVER'] = 'dummy'
         with _dosbox_lock():
             proc = subprocess.run(argv, capture_output=True, text=True,
                                   timeout=timeout, env=env)
@@ -295,8 +294,8 @@ def _dosbox_argv(exe, work, cmds, *, time_limit=None):
     """
     argv = [exe, '-conf', os.path.join(work, 'dosbox.conf'),
             '-nopromptfolder', '-defaultdir', work, '-fastlaunch', '-exit']
-    if os.environ.get('WIZ7_DOSBOX_HEADLESS'):
-        argv.append('-nogui')
+    
+    argv.append('-nogui')
     if time_limit:
         argv += ['-time-limit', str(int(time_limit))]
     for cmd in cmds:
@@ -382,9 +381,8 @@ def _compile_group(compiler, inc_version, flags, members, *, timeout,
         argv = _dosbox_argv(exe, work, cmds, time_limit=timeout)
         env = dict(os.environ)
         env['HOME'] = work
-        if os.environ.get('WIZ7_DOSBOX_HEADLESS'):
-            env['SDL_VIDEODRIVER'] = 'dummy'
-            env['SDL_AUDIODRIVER'] = 'dummy'
+        env['SDL_VIDEODRIVER'] = 'dummy'
+        env['SDL_AUDIODRIVER'] = 'dummy'
         print(f'  aztec batch: {len(names)} modules via {compiler} '
               f'({inc_version} includes)', flush=True)
         if verbose:

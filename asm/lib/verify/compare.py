@@ -1307,11 +1307,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     consumer_inc = None
     if foreign_label_map and asm_dir and name:
         from lib.cross_ref import write_label_inc
-        labels_dir = os.path.join(asm_dir, 'labels')
+        labels_dir = os.path.join(asm_dir, 'inc', 'labels')
         os.makedirs(labels_dir, exist_ok=True)
         inc_name = f'{name}_foreign_labels.inc'
         write_label_inc(foreign_label_map, os.path.join(labels_dir, inc_name))
-        consumer_inc = f'labels/{inc_name}'
+        consumer_inc = f'inc/labels/{inc_name}'
 
     records = []
     pending_data = []
@@ -1621,10 +1621,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         from lib.struct_analysis import write_struct_inc_files
         if asm_dir is None:
             asm_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        structs_dir = os.path.join(asm_dir, 'structs')
+        structs_dir = os.path.join(asm_dir, 'inc', 'structs')
         inc_line = write_struct_inc_files(structs, name, structs_dir)
         if inc_line:
-            src_lines = '%include "structs/structs.inc"\n' + inc_line + '\n' + src_lines
+            src_lines = '%include "inc/structs/structs.inc"\n' + inc_line + '\n' + src_lines
             struct_count = len(structs)
 
     return src_lines, {

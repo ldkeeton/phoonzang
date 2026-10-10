@@ -1,5 +1,5 @@
-%include "structs/structs.inc"
-%include "structs/loc_8466.inc"
+%include "inc/structs/structs.inc"
+%include "inc/structs/loc_8466.inc"
 org 0
 bits 16
     ; header (8 bytes)

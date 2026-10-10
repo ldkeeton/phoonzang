@@ -142,7 +142,8 @@ def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
     # Inject synthetic dispatch labels for cross-binary targets.
     if cross_refs:
         for src_name in source_names & set(bins.keys()):
-            json_path = os.path.join(out_dir, f'{src_name}_labels.json')
+            json_path = os.path.join(out_dir, 'inc', 'labels',
+                                     f'{src_name}_labels.json')
             if not os.path.exists(json_path):
                 continue
             src_rel_path = bins[src_name][0]
@@ -174,7 +175,8 @@ def _foreign_args(out_dir, name, cross_refs):
     if name not in cross_refs:
         return None
     prefix = next(iter(set(src for _, src in cross_refs[name])), '')
-    json_path = os.path.join(out_dir, f'{prefix}_labels.json')
+    json_path = os.path.join(out_dir, 'inc', 'labels',
+                             f'{prefix}_labels.json')
     if not os.path.exists(json_path):
         return None
     return [
@@ -973,8 +975,10 @@ def resplice_c(app, binary):
 
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     dest = os.path.join(out_dir, binary)
-    spans_path = os.path.join(out_dir, f'{binary}_aztec_spans.json')
-    labels_path = os.path.join(out_dir, f'{binary}_labels.json')
+    spans_path = os.path.join(out_dir, 'inc', 'spans',
+                              f'{binary}_aztec_spans.json')
+    labels_path = os.path.join(out_dir, 'inc', 'labels',
+                               f'{binary}_labels.json')
     manifest = cache.manifest_path(app, binary)
     if not all(os.path.isfile(p) for p in
                (spans_path, labels_path, manifest)):

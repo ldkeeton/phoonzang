@@ -1,8 +1,8 @@
-%include "structs/structs.inc"
-%include "structs/loc_773d.inc"
+%include "inc/structs/structs.inc"
+%include "inc/structs/loc_773d.inc"
 org 0
 bits 16
-%include "labels/vbase_foreign_labels.inc"
+%include "inc/labels/vbase_foreign_labels.inc"
 
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0xdf, 0x93, 0x98, 0x90

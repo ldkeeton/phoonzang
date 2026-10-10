@@ -16,8 +16,7 @@ char *name;
 {
 	register int fd, m;
 
-	//m = 0x3d00 | (flag&0x00f3);
-	m = 0x4c00 | (flag&0x00f3);
+	m = 0x3d00 | (flag&0x00f3);
 	if ((flag&O_TRUNC) != 0)
 		m = 0x3c00;
 

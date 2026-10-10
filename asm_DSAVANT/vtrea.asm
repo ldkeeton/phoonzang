@@ -1,8 +1,8 @@
-%include "structs/structs.inc"
-%include "structs/loc_49f2.inc"
+%include "inc/structs/structs.inc"
+%include "inc/structs/loc_49f2.inc"
 org 0
 bits 16
-%include "labels/vtrea_foreign_labels.inc"
+%include "inc/labels/vtrea_foreign_labels.inc"
 
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x0d, 0x9a, 0x98, 0x90

@@ -1,8 +1,8 @@
-%include "structs/structs.inc"
-%include "structs/data_91b8.inc"
+%include "inc/structs/structs.inc"
+%include "inc/structs/data_91b8.inc"
 org 0
 bits 16
-%include "labels/vinit_foreign_labels.inc"
+%include "inc/labels/vinit_foreign_labels.inc"
 
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x09, 0x16, 0x98, 0x90

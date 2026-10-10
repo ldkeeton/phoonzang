@@ -1,8 +1,8 @@
-%include "structs/structs.inc"
-%include "structs/loc_982e.inc"
+%include "inc/structs/structs.inc"
+%include "inc/structs/loc_982e.inc"
 org 0
 bits 16
-%include "labels/vmexe_foreign_labels.inc"
+%include "inc/labels/vmexe_foreign_labels.inc"
 
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x37, 0xa5, 0x98, 0x90
