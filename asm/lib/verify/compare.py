@@ -1129,7 +1129,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            foreign_label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
            function_roots=None, branch_targets=None, branch_edges=None,
-           extra_flow_edges=None, label_comments=None):
+           extra_flow_edges=None, label_comments=None, c_overrides=None,
+           c_labels=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -1536,6 +1537,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 emitted_record=record_info,
             )
 
+    if c_overrides:
+        records = _apply_c_overrides(
+            records, c_overrides, binary_data, label_map, local_labels,
+            foreign_label_map, immediate_labels, exact_bytes=exact_bytes,
+        )
+
     _annotate_interrupts(records)
     t4 = time.perf_counter()
 
@@ -1594,7 +1601,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         records, start_offset, binary_data, label_map,
         show_offsets=show_offsets, consumer_inc=consumer_inc,
         immediate_labels=immediate_labels, split_ranges=split_ranges,
-        split_dir=name,
+        split_dir=name, c_labels=c_labels,
     )
     t6 = time.perf_counter()
 
@@ -1645,6 +1652,154 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'timing_emit_class': t5 - t4,
         'timing_build_source': t6 - t5,
     }, emit_class, label_positions, split_sources
+
+
+def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
+                        immediate_labels, exact_bytes=False):
+    """Disassemble compiler-produced code into emission records."""
+    from lib.format import format_instruction
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    md.detail = True
+    records = []
+    consumed = 0
+
+    def emit_db(start, end):
+        for k in range(start, end):
+            records.append({
+                'type': 'db', 'text': f'0x{data[k]:02x}',
+                'offset': base + k, 'size': 1,
+            })
+
+    for insn in md.disasm(data, base):
+        off = insn.address - base
+        if off > consumed:
+            emit_db(consumed, off)
+        bts = data[off:off + insn.size]
+        nasm_text = format_instruction(
+            insn, label_map, local_labels, foreign_label_map,
+            immediate_labels=immediate_labels)
+        if nasm_text:
+            built = micro_assemble(
+                nasm_text, insn.address, label_map, local_labels,
+                foreign_label_map=foreign_label_map,
+                immediate_labels=immediate_labels)
+            ok = built is not None and built[:len(bts)] == bts
+            if not ok and not exact_bytes and built:
+                ok = is_semantically_equivalent(bts, built[:len(bts)],
+                                                insn.address)
+            rec = {
+                'type': 'mnem' if ok else 'db_with_comment',
+                'text': nasm_text, 'offset': insn.address, 'size': insn.size,
+            }
+            if not ok:
+                rec['db_hex'] = ', '.join(f'0x{b:02x}' for b in bts)
+            _set_insn_fields(rec, insn)
+            records.append(rec)
+        else:
+            emit_db(off, off + insn.size)
+        consumed = off + insn.size
+    if consumed < len(data):
+        emit_db(consumed, len(data))
+    return records
+
+
+def _merge_label_records(new_records, label_records):
+    """Re-insert original ``label`` records into regenerated code records."""
+    out = []
+    labels = sorted(label_records, key=lambda r: r['offset'])
+    li = 0
+    for rec in new_records:
+        off = rec.get('offset', 0)
+        while li < len(labels) and labels[li]['offset'] <= off:
+            out.append(labels[li])
+            li += 1
+        out.append(rec)
+    while li < len(labels):
+        out.append(labels[li])
+        li += 1
+    return out
+
+
+def _apply_c_overrides(records, c_overrides, binary_data, label_map,
+                       local_labels, foreign_label_map, immediate_labels,
+                       exact_bytes=False):
+    """Replace disassembled records with code compiled from C.
+
+    ``c_overrides`` maps a function label to ``{'code': bytes,
+    'fixups': [(offset, width), ...]}``.  Relocation bytes are taken from the
+    original binary (the compiled code carries placeholders there), so an
+    exactly-recovered routine reproduces the original bytes verbatim.
+    """
+    name_to_addr = {}
+    for addr, nm in label_map.items():
+        if isinstance(nm, str):
+            name_to_addr.setdefault(nm, addr)
+
+    replacements = []
+    for label, override in c_overrides.items():
+        start = name_to_addr.get(label)
+        if start is None:
+            raise ValueError(f'C override: label {label!r} not found')
+        compiled = bytearray(override['code'])
+        for off, width in override.get('fixups', ()):
+            chunk = binary_data[start + off:start + off + width]
+            if len(chunk) < width:
+                chunk = chunk + bytes(width - len(chunk))
+            compiled[off:off + width] = chunk
+        compiled_end = start + len(compiled)
+
+        # Extend to the end of whichever original record the compiled code
+        # ends inside, then take any uncovered bytes from the original image.
+        end = compiled_end
+        for rec in records:
+            rec_start, rec_end = _record_span(rec)
+            if rec['type'] == 'label':
+                continue
+            if rec_start < compiled_end and rec_end > end:
+                end = rec_end
+        final = bytearray(binary_data[start:end])
+        final[:len(compiled)] = compiled
+        new_records = _c_bytes_to_records(
+            bytes(final), start, label_map, local_labels, foreign_label_map,
+            immediate_labels, exact_bytes=exact_bytes)
+        labels_in = [r for r in records
+                     if r['type'] == 'label' and start < r['offset'] < end]
+        replacements.append((start, end,
+                             _merge_label_records(new_records, labels_in)))
+
+    if not replacements:
+        return records
+
+    out = []
+    done = set()
+    for rec in records:
+        rec_start, rec_end = _record_span(rec)
+        span = None
+        for repl_start, repl_end, _ in replacements:
+            if rec['type'] == 'label':
+                if repl_start <= rec_start < repl_end:
+                    span = (repl_start, repl_end)
+                    break
+            elif rec_start < repl_end and rec_end > repl_start:
+                if rec_start < repl_start or rec_end > repl_end:
+                    raise ValueError(
+                        f'C override: record 0x{rec_start:x}-0x{rec_end:x} '
+                        f'straddles override boundary '
+                        f'0x{repl_start:x}-0x{repl_end:x}')
+                span = (repl_start, repl_end)
+                break
+        if span is None:
+            out.append(rec)
+            continue
+        if rec['type'] == 'label':
+            if rec_start == span[0]:
+                out.append(rec)
+            continue
+        if span not in done:
+            out.extend(next(r[2] for r in replacements
+                            if (r[0], r[1]) == span))
+            done.add(span)
+    return out
 
 
 def _record_span(rec):
@@ -1753,8 +1908,16 @@ def _extend_split_ranges_with_local_tails(split_ranges, records):
     return extended
 
 
-def _partition_function_records(records, split_ranges, split_dir):
-    """Replace selected contiguous function spans with include records."""
+def _partition_function_records(records, split_ranges, split_dir,
+                                c_labels=None):
+    """Replace selected contiguous function spans with include records.
+
+    Ranges named in *c_labels* are still treated as boundaries (so adjacent
+    functions do not absorb them) but their records are kept inline in the
+    master listing rather than written to a ``.asm`` include -- the routine is
+    emitted as a ``.c`` source instead.
+    """
+    c_labels = c_labels or set()
     if not split_ranges:
         return records, {}
 
@@ -1841,6 +2004,9 @@ def _partition_function_records(records, split_ranges, split_dir):
             continue
 
         start, end, name = owner
+        if name in c_labels:
+            main_records.append(rec)
+            continue
         if name not in include_inserted:
             filename = re.sub(r'[^A-Za-z0-9_.-]+', '_', name).strip('._')
             if not filename:
@@ -1855,6 +2021,8 @@ def _partition_function_records(records, split_ranges, split_dir):
             split_bytes[name] += rec_end - rec_start
 
     for start, end, name in ranges:
+        if name in c_labels:
+            continue
         if name not in include_inserted:
             raise ValueError(f'{name}: no emitted records in split range 0x{start:x}-0x{end:x}')
         if split_bytes[name] != end - start:
@@ -1865,6 +2033,8 @@ def _partition_function_records(records, split_ranges, split_dir):
 
     split_sources = {}
     for _, _, name in ranges:
+        if name in c_labels:
+            continue
         filename = re.sub(r'[^A-Za-z0-9_.-]+', '_', name).strip('._')
         split_sources[f'{split_dir}/{filename}.asm'] = split_records[name]
     return main_records, split_sources
@@ -1977,7 +2147,7 @@ def _render_mz_header(header):
 
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
-                  split_dir='ds'):
+                  split_dir='ds', c_labels=None):
     """Render the master NASM source and any generated function includes."""
     out = ['org 0', 'bits 16']
     if consumer_inc:
@@ -2014,7 +2184,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append('')
 
     main_records, split_records = _partition_function_records(
-        records, split_ranges, split_dir,
+        records, split_ranges, split_dir, c_labels=c_labels,
     )
     out.extend(_render_records(main_records, binary_data, show_offsets))
 

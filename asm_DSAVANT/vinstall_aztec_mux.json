@@ -1,0 +1,761 @@
+{
+ "functions": {
+  "aztec_Croot": {
+   "code": "558bec57568b7604b8000050e8000059a20000b8010050e8000059a20000b8020050e8000059a200008b4606d1e0404050e8000059a30000b800008b1e0000c70700008b4606a30000d1e08b3e000003f8803c207400803c09750046eb00803c00740089354747ff060000b8020050e80000593dffff7500b80e0050b8000050b8020050e8000083c406b8c80050e800005946803c0074008a043c2074003c097500c6040046eb00eb00eb00c7050000ff360000ff360000e8000083c404b8000050e80000595e5f8be55dc3",
+   "compiler": "v52a",
+   "file": "croot.c",
+   "fixups": [
+    {
+     "kind": "WREL",
+     "offset": 13
+    },
+    {
+     "kind": "WABS",
+     "offset": 17
+    },
+    {
+     "kind": "WREL",
+     "offset": 24
+    },
+    {
+     "kind": "Expr",
+     "offset": 28
+    },
+    {
+     "kind": "WREL",
+     "offset": 35
+    },
+    {
+     "kind": "Expr",
+     "offset": 39
+    },
+    {
+     "kind": "WREL",
+     "offset": 50
+    },
+    {
+     "kind": "WABS",
+     "offset": 54
+    },
+    {
+     "kind": "Expr",
+     "offset": 57
+    },
+    {
+     "kind": "WABS",
+     "offset": 61
+    },
+    {
+     "kind": "Expr",
+     "offset": 65
+    },
+    {
+     "kind": "WABS",
+     "offset": 71
+    },
+    {
+     "kind": "WABS",
+     "offset": 77
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 85
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 90
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 93
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 98
+    },
+    {
+     "kind": "WABS",
+     "offset": 105
+    },
+    {
+     "kind": "WREL",
+     "offset": 112
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 119
+    },
+    {
+     "kind": "Expr",
+     "offset": 125
+    },
+    {
+     "kind": "WREL",
+     "offset": 133
+    },
+    {
+     "kind": "WREL",
+     "offset": 143
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 151
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 157
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 161
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 167
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 169
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 171
+    },
+    {
+     "kind": "WABS",
+     "offset": 178
+    },
+    {
+     "kind": "WABS",
+     "offset": 182
+    },
+    {
+     "kind": "WREL",
+     "offset": 185
+    },
+    {
+     "kind": "WREL",
+     "offset": 195
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_atoi": {
+   "code": "558bec83c4fe57568b7604803c207400803c09750046eb00c746fe0000803c2d7500c746fe010046eb00803c2b750046bf0000eb008bc78bd0d1e0d1e003c2d1e0508bde468a07988bc85803c105d0ff8bf88a04988bd88a87000098a9040075008bc7837efe007400f7d85e5f8be55dc3",
+   "compiler": "v52a",
+   "file": "atoi.c",
+   "fixups": [
+    {
+     "kind": "LCLSYM",
+     "offset": 15
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 20
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 23
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 33
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 41
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 46
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 52
+    },
+    {
+     "kind": "Expr",
+     "offset": 89
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 96
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 104
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_atol": {
+   "code": "558bec83c4fc57568b7604803c207400803c09750046eb00bf0000803c2d7500bf010046eb00803c2b750046c746fe0000c746fc0000eb008b46fc8b56fe5092bb0a00f7e38bc858f7e303d150528bde468a0798998bc88bda5a5803c113d305d0ff83d2ff8956fe8946fc8a04988bd88a87000098a9040075008b46fc8b56fe85ff7400f7daf7d883da005e5f8be55dc3",
+   "compiler": "v52a",
+   "file": "atol.c",
+   "fixups": [
+    {
+     "kind": "LCLSYM",
+     "offset": 15
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 20
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 23
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 31
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 37
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 42
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 55
+    },
+    {
+     "kind": "Expr",
+     "offset": 114
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 121
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 131
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_creat": {
+   "code": "558becff7606b8010350ff7604e8000083c4068be55dc3",
+   "compiler": "v52a",
+   "file": "open.c",
+   "fixups": [
+    {
+     "kind": "WREL",
+     "offset": 14
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_fclose": {
+   "code": "558bec57568b7604bf000085f67500b8ffff5e5f8be55dc3807c060074008a440698a904007400b8ffff5056e8000083c4048bf88a44079850e80000590bf88a440698a902007400ff7404e80000598a440698a920007400ff740be8000059ff740be8000059b80000c7040000894402894404c64406008bc7eb00",
+   "compiler": "v52a",
+   "file": "putc.c",
+   "fixups": [
+    {
+     "kind": "LCLSYM",
+     "offset": 14
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 29
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 38
+    },
+    {
+     "kind": "WREL",
+     "offset": 45
+    },
+    {
+     "kind": "WREL",
+     "offset": 58
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 71
+    },
+    {
+     "kind": "WREL",
+     "offset": 76
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 87
+    },
+    {
+     "kind": "WREL",
+     "offset": 92
+    },
+    {
+     "kind": "WREL",
+     "offset": 99
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 122
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_fexecv": {
+   "code": "558bec81c45cff57568db67dffc746fe01008d866cff50b8000050e8000083c4048d865cff50b8000050e8000083c4048b5e06833f007400834606028b5e06834606028b3f85ff7400837efe0175008d866cff5057e8000083c404eb00837efe0275008d865cff5057e8000083c404c6042046803d0074008d46fb3bc676008a0588044746eb00ff46feeb008bc68d8e7dff2bc188867cffc6040d8d865cff508d866cff508d867cff50b8000050ff7604e8000083c40a5e5f8be55dc3",
+   "compiler": "v52a",
+   "file": "fexecv.c",
+   "fixups": [
+    {
+     "kind": "Expr",
+     "offset": 24
+    },
+    {
+     "kind": "WREL",
+     "offset": 28
+    },
+    {
+     "kind": "Expr",
+     "offset": 39
+    },
+    {
+     "kind": "WREL",
+     "offset": 43
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 55
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 72
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 78
+    },
+    {
+     "kind": "WREL",
+     "offset": 86
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 92
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 98
+    },
+    {
+     "kind": "WREL",
+     "offset": 106
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 119
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 126
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 134
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 139
+    },
+    {
+     "kind": "WREL",
+     "offset": 178
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_free": {
+   "code": "558bec568b760483c6fef70401007500b8ffff5e8be55dc38124feff89360000b80000eb",
+   "compiler": "v52a",
+   "file": "malloc.c",
+   "fixups": [
+    {
+     "kind": "LCLSYM",
+     "offset": 15
+    },
+    {
+     "kind": "WABS",
+     "offset": 30
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_malloc": {
+   "code": "558bec83c4fa57568b4604404040d1e8d1e0894604833e0000007500c70600000000810e00000100c70600000000c746fa00008b3600008976fe3b3600007500ff46fa8b46fa3d01007e00c746fc0004ff76fce80000598bf88bc73dffff7500b800005e5f8be55dc38bc60502003bf87400893c810c0100ff4efcff4efc8bf78bfe037efc893cc7050000810d0100893e00008b5efe8b0725feff3bc675008bf3f704010075008976fe8b0425feff8bf88bdff707010075008b058904eb002bde895efc3b5e0472003b5e0476008bc603460489048bd88b07a300008b1c893f8b04a30000810c01008bc6050200e900008b0425feff8bf0e90000e90000",
+   "compiler": "v52a",
+   "file": "malloc.c",
+   "fixups": [
+    {
+     "kind": "WABS",
+     "offset": 23
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 27
+    },
+    {
+     "kind": "WABS",
+     "offset": 30
+    },
+    {
+     "kind": "WABS",
+     "offset": 32
+    },
+    {
+     "kind": "WABS",
+     "offset": 36
+    },
+    {
+     "kind": "WABS",
+     "offset": 42
+    },
+    {
+     "kind": "WABS",
+     "offset": 44
+    },
+    {
+     "kind": "WABS",
+     "offset": 53
+    },
+    {
+     "kind": "WABS",
+     "offset": 60
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 63
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 74
+    },
+    {
+     "kind": "WREL",
+     "offset": 84
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 95
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 113
+    },
+    {
+     "kind": "WABS",
+     "offset": 137
+    },
+    {
+     "kind": "WABS",
+     "offset": 145
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 158
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 166
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 184
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 190
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 200
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 205
+    },
+    {
+     "kind": "WABS",
+     "offset": 218
+    },
+    {
+     "kind": "WABS",
+     "offset": 227
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 239
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 249
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 252
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_open": {
+   "code": "558bec57568b460625f3008bf80d003d8bf8f7460600027400bf003cb8000050ff760457e8000083c4068bf08bc63dffff7500f7460600017400b8000050ff7604b83c0050e8000083c4068bf0eb00f746060004740056e8000059c70600001300b8ffff5e5f8be55dc383fe007c00f7460600087400b8020050b80000ba0000525056e8000083c40856e8000059888400008bc6eb",
+   "compiler": "v52a",
+   "file": "open.c",
+   "fixups": [
+    {
+     "kind": "LCLSYM",
+     "offset": 24
+    },
+    {
+     "kind": "WREL",
+     "offset": 37
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 50
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 57
+    },
+    {
+     "kind": "WREL",
+     "offset": 70
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 78
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 85
+    },
+    {
+     "kind": "WREL",
+     "offset": 88
+    },
+    {
+     "kind": "WABS",
+     "offset": 93
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 110
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 117
+    },
+    {
+     "kind": "WREL",
+     "offset": 132
+    },
+    {
+     "kind": "WREL",
+     "offset": 139
+    },
+    {
+     "kind": "Expr",
+     "offset": 144
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_realloc": {
+   "code": "558bec83c4fc57568b76048b44fe25feff8946fe2bc68946fc3b460676008b46068946fc8bce03c8894efe56e8000059ff7606e80000598bf885ff74003bfe7400ff76fc5756e8000083c4063b3600007700a100003b46fe7300a100008b0e00002bce8bd989018bc75e5f8be55dc3",
+   "compiler": "v52a",
+   "file": "malloc.c",
+   "fixups": [
+    {
+     "kind": "LCLSYM",
+     "offset": 29
+    },
+    {
+     "kind": "WREL",
+     "offset": 45
+    },
+    {
+     "kind": "WREL",
+     "offset": 52
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 60
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 64
+    },
+    {
+     "kind": "WREL",
+     "offset": 71
+    },
+    {
+     "kind": "WABS",
+     "offset": 78
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 81
+    },
+    {
+     "kind": "WABS",
+     "offset": 83
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 89
+    },
+    {
+     "kind": "WABS",
+     "offset": 91
+    },
+    {
+     "kind": "WABS",
+     "offset": 95
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_tty_rd": {
+   "code": "558bec568b36000085f67500b8040150b8000050ff7604e8000083c4068bf085f6740080bc00000a75004ea0000088840000c70600000000893600003b76087e008b760885f6740056ff7606ff360000e8000083c40601360000293600008bc65e8be55dc3",
+   "compiler": "v52a",
+   "file": "ttyio.c",
+   "fixups": [
+    {
+     "kind": "WABS",
+     "offset": 6
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 11
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 17
+    },
+    {
+     "kind": "WREL",
+     "offset": 24
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 34
+    },
+    {
+     "kind": "Expr",
+     "offset": 37
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 41
+    },
+    {
+     "kind": "WABS",
+     "offset": 44
+    },
+    {
+     "kind": "Expr",
+     "offset": 48
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 52
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 54
+    },
+    {
+     "kind": "WABS",
+     "offset": 58
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 64
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 71
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 78
+    },
+    {
+     "kind": "WREL",
+     "offset": 81
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 88
+    },
+    {
+     "kind": "WABS",
+     "offset": 92
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  },
+  "aztec_tty_wr": {
+   "code": "558bec57568b7e068b7608eb008bdf47803f0a75008bc72b460650ff7606ff7604e8000083c406b8010050b8000050ff7604e8000083c406897e068bc64e85c075003b7e0674008bc72b460650ff7606ff7604e8000083c4068b46085e5f8be55dc3",
+   "compiler": "v52a",
+   "file": "ttyio.c",
+   "fixups": [
+    {
+     "kind": "LCLSYM",
+     "offset": 12
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 20
+    },
+    {
+     "kind": "WREL",
+     "offset": 34
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 44
+    },
+    {
+     "kind": "WREL",
+     "offset": 51
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 65
+    },
+    {
+     "kind": "LCLSYM",
+     "offset": 70
+    },
+    {
+     "kind": "WREL",
+     "offset": 84
+    }
+   ],
+   "includes": "v340a",
+   "source_version": "v340a"
+  }
+ },
+ "version": 1
+}

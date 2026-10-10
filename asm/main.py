@@ -22,6 +22,8 @@ PROJECT_ROOT = os.path.dirname(ASM_DIR)
 APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
 KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 AZTEC_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'aztec_funcs.json')
+AZTEC_MUX_DISABLED = bool(os.environ.get('WIZ7_NO_C'))
+AZTEC_MUX_REFRESH = bool(os.environ.get('WIZ7_AZTEC_REFRESH'))
 
 from lib.trace import TraceWriter
 from lib.diagnostics import begin as diag_begin, flush as diag_flush
@@ -331,6 +333,51 @@ _DIAG = '--diag' in sys.argv
 _SHOW_OFFSETS = '--no-show-offsets' not in sys.argv
 _DECOMPILE = '--decompile' in sys.argv
 
+
+def _aztec_c_overrides(project, name, data, label_map):
+    """Resolve Aztec runtime routines to C via the mixed-version mux.
+
+    Returns ``(overrides, entries)`` where *overrides* feeds the byte-preserving
+    splice in :func:`lib.verify.compare.verify` and *entries* records the
+    winning provenance for emitting ``.c`` sources.
+    """
+    if not project or AZTEC_MUX_DISABLED:
+        return {}, {}
+    labels = [(addr, nm) for addr, nm in label_map.items()
+              if isinstance(nm, str) and nm.startswith('aztec_')]
+    if not labels:
+        return {}, {}
+    from lib.aztec.cache import load_or_build
+    try:
+        return load_or_build(project, name, data, labels,
+                             refresh=AZTEC_MUX_REFRESH)
+    except Exception as exc:  # never let C recovery break the build
+        print(f'  aztec mux: skipped ({exc})')
+        return {}, {}
+
+
+def _write_aztec_c(entries, out_dir, binary):
+    """Emit one ``.c`` per recovered routine, replacing its ``.asm``."""
+    if not entries:
+        return
+    from lib.aztec import sources
+    dest = os.path.join(out_dir, binary)
+    os.makedirs(dest, exist_ok=True)
+    for label, entry in sorted(entries.items()):
+        text = sources.catalog(entry['source_version']).get(entry['file'], '')
+        header = (
+            f'/* Aztec runtime routine: {label}\n'
+            f' * source: Manx Aztec C86 {entry["source_version"]} '
+            f'{entry["file"]}\n'
+            f' * compiled with: Aztec C86 {entry["compiler"]} '
+            f'(includes {entry["includes"]})\n'
+            f' * recovered byte-exact by the C mux (lib/aztec/mux.py);\n'
+            f' * relocation bytes are supplied by the original image.\n'
+            f' */\n')
+        with open(os.path.join(dest, f'{label}.c'), 'w') as f:
+            f.write(header + text)
+
+
 def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
             foreign_label_map=None, export_labels=False):
     path = os.path.join(orig_dir, rel_path)
@@ -574,6 +621,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         if isinstance(root_name, str)
         and not root_name.startswith(('loc_', 'data_'))
     )
+    c_overrides, c_entries = _aztec_c_overrides(
+        project, name, data, ctx.label_map)
     asm_text, stats, emit_bytes, label_positions, split_sources = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
@@ -591,6 +640,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         branch_edges=ctx.branch_edges,
         extra_flow_edges=extra_flow_edges,
         label_comments=label_comments,
+        c_overrides=c_overrides,
+        c_labels=set(c_overrides) if c_overrides else None,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
@@ -610,6 +661,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w') as f:
             f.write(include_text)
+    _write_aztec_c(c_entries, out_dir, name)
     asm_path = os.path.join(out_dir, f'{name}.asm')
     with open(asm_path, 'w') as f:
         f.write(asm_text)
