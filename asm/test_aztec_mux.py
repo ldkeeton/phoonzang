@@ -1,7 +1,7 @@
 """Tests for the mixed-version Aztec C mux.
 
 The compile-backed checks are skipped when DOSBox or the vendored toolchain is
-unavailable.  The cache checks always run if a cache file exists.
+unavailable.  The cache checks always run if a prebuild manifest exists.
 """
 
 import json
@@ -49,7 +49,7 @@ class CacheTest(unittest.TestCase):
     def test_cached_routines_are_byte_exact(self):
         path = cache_path('DSAVANT', 'ds')
         if not os.path.exists(path):
-            self.skipTest('no mux cache; run a build first')
+            self.skipTest('no prebuild manifest; run "make prebuild DSAVANT"')
         with open(path) as f:
             functions = json.load(f)['functions']
         data = self._data()

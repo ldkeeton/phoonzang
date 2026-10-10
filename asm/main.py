@@ -24,6 +24,10 @@ KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 AZTEC_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'aztec_funcs.json')
 AZTEC_MUX_DISABLED = bool(os.environ.get('WIZ7_NO_C'))
 AZTEC_MUX_REFRESH = bool(os.environ.get('WIZ7_AZTEC_REFRESH'))
+AZTEC_PREBUILD = bool(os.environ.get('WIZ7_AZTEC_PREBUILD'))
+# Prebuild-only: disassemble just far enough to locate the aztec_* labels, run
+# the mux, and stop.  No verify/emit, no asm_<project>/ output.
+AZTEC_PREBUILD_ONLY = bool(os.environ.get('WIZ7_AZTEC_PREBUILD_ONLY'))
 
 from lib.trace import TraceWriter
 from lib.diagnostics import begin as diag_begin, flush as diag_flush
@@ -340,6 +344,10 @@ def _aztec_c_overrides(project, name, data, label_map):
     Returns ``(overrides, entries)`` where *overrides* feeds the byte-preserving
     splice in :func:`lib.verify.compare.verify` and *entries* records the
     winning provenance for emitting ``.c`` sources.
+
+    ``WIZ7_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
+    ``asm_prebuild_<project>/``; otherwise the prebuilt result is read and a
+    missing prebuild is a hard error.
     """
     if not project or AZTEC_MUX_DISABLED:
         return {}, {}
@@ -347,10 +355,12 @@ def _aztec_c_overrides(project, name, data, label_map):
               if isinstance(nm, str) and nm.startswith('aztec_')]
     if not labels:
         return {}, {}
-    from lib.aztec.cache import load_or_build
+    from lib.aztec.cache import load_or_build, PrebuildMissing
+    mode = 'prebuild' if (AZTEC_PREBUILD or AZTEC_MUX_REFRESH) else 'build'
     try:
-        return load_or_build(project, name, data, labels,
-                             refresh=AZTEC_MUX_REFRESH)
+        return load_or_build(project, name, data, labels, mode=mode)
+    except PrebuildMissing as exc:
+        raise SystemExit(f'error: {exc}')
     except Exception as exc:  # never let C recovery break the build
         print(f'  aztec mux: skipped ({exc})')
         return {}, {}
@@ -598,6 +608,18 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         diag_phase('disasm')
         diag_emit('insns', len(instructions))
 
+    # Resolve Aztec routines before the verify/emit window so the (potentially
+    # slow) DOSBox work is reported separately instead of inflating it.
+    t_aztec = time.perf_counter()
+    c_overrides, c_entries = _aztec_c_overrides(
+        project, name, data, ctx.label_map)
+    t_aztec_end = time.perf_counter()
+
+    if AZTEC_PREBUILD_ONLY:
+        # `make prebuild`: the mux manifest is written; nothing downstream of
+        # this point (emit/NASM/build_out) belongs to a prebuild.
+        return ctx.bitmap, label_map
+
     structs = build_structs(instructions)
 
     out_dir = output_dir or ASM_DIR
@@ -621,8 +643,6 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         if isinstance(root_name, str)
         and not root_name.startswith(('loc_', 'data_'))
     )
-    c_overrides, c_entries = _aztec_c_overrides(
-        project, name, data, ctx.label_map)
     asm_text, stats, emit_bytes, label_positions, split_sources = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
@@ -692,7 +712,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
           f'[{stats["status"]}]')
     print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
           f'disasm: {t_disasm-t_flow_disasm_start:.1f}s  '
-          f'verify+emit: {t_end-t_disasm:.1f}s  '
+          f'aztec: {t_aztec_end-t_aztec:.1f}s  '
+          f'verify+emit: {t_end-t_aztec_end:.1f}s  '
           f'(func_bounds={stats.get("timing_func_boundaries",0):.3f}s '
           f'local_lbl={stats.get("timing_local_labels",0):.3f}s '
           f'main_loop={stats.get("timing_main_loop",0):.3f}s '

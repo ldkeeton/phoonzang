@@ -4,11 +4,12 @@
 Usage (from asm/):
   make                     show help
   make all                 all projects serially
-  make build PROJECT [BIN] asm + nasm + assets for one project or binary
+  make build PROJECT [BIN] asm + nasm + assets (prebuilds first if missing)
+  make prebuild PROJECT [BIN] run the slow Aztec C mux and cache it
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT         run game in dosbox
   make verify [PROJECT...] verify one or all projects
-  make clean [PROJECT...]  clean one or all projects
+  make clean [PROJECT...]  clean one or all projects (incl. asm_prebuild_*)
   make rebuild PROJECT BIN nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
   make delta PROJECT BIN          compare original and edited assembly layouts
@@ -242,7 +243,8 @@ def cmd_build_binary(app, binary):
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
 
-    cmd_clean([app])
+    cmd_clean([app], keep_prebuild=True)
+    _ensure_prebuild(app)
     clear_project_stats(app)
     os.makedirs(out_dir, exist_ok=True)
     cross_refs = detect_cross_refs(app_dir, bins)
@@ -271,28 +273,90 @@ def cmd_build_binary(app, binary):
     #_copy_original_project(app)
 
 
-def cmd_clean(apps):
+def cmd_clean(apps, keep_prebuild=False):
+    """Remove generated trees.
+
+    ``make clean`` removes ``asm_prebuild_<app>`` as well.  ``make build``
+    passes ``keep_prebuild=True`` so the expensive prebuild survives repeated
+    builds (it is created first only when absent).
+    """
+    def _targets(app):
+        outs = [
+            os.path.join(PROJECT, f'asm_{app}'),
+            os.path.join(PROJECT, f'asm_{app}_orig'),
+            os.path.join(PROJECT, f'asm_cache_{app}'),
+        ]
+        if not keep_prebuild:
+            outs.append(os.path.join(PROJECT, f'asm_prebuild_{app}'))
+        return outs
+
     if not apps:
         clean_all()
         for app in os.listdir(APPS):
-            if os.path.isdir(os.path.join(APPS, app)):
-                original = os.path.join(PROJECT, f'asm_{app}_orig')
-                if os.path.isdir(original):
-                    shutil.rmtree(original)
-                    print(f'Removed {original}')
+            if not os.path.isdir(os.path.join(APPS, app)):
+                continue
+            # asm_<app> is handled by clean_all(); keep the old no-arg scope.
+            for out in _targets(app)[1:]:
+                if os.path.isdir(out):
+                    shutil.rmtree(out)
+                    print(f'Removed {out}')
         return
     for app in apps:
         removed = False
-        for out in (
-            os.path.join(PROJECT, f'asm_{app}'),
-            os.path.join(PROJECT, f'asm_{app}_orig'),
-        ):
+        for out in _targets(app):
             if os.path.isdir(out):
                 shutil.rmtree(out)
                 print(f'Removed {out}')
                 removed = True
         if not removed:
             print(f'Nothing to clean for {app}')
+
+
+def cmd_prebuild(app, binary=None):
+    """Resolve the Aztec C mux and persist it under asm_prebuild_<app>/.
+
+    This intentionally stops main.py right after the mux manifest is written:
+    no verify/emit and no NASM, and asm_<app>/ is left untouched.  Re-run
+    after deleting asm_prebuild_<app>/ to force a full re-search.
+    """
+    app_dir = os.path.join(APPS, app)
+    bins = discover_binaries(app_dir)
+    if binary is not None and binary not in bins:
+        print(f'Unknown binary "{binary}" in {app}')
+        print(f'Known: {", ".join(sorted(bins))}')
+        sys.exit(1)
+
+    out_dir = os.path.join(PROJECT, f'asm_prebuild_{app}')
+    os.makedirs(out_dir, exist_ok=True)
+    os.environ['WIZ7_AZTEC_PREBUILD'] = '1'
+    os.environ['WIZ7_AZTEC_PREBUILD_ONLY'] = '1'
+    # Binaries disassemble in parallel (CPU-bound); the emulator is serialized
+    # behind one inter-process lock (see lib/aztec/compile._dosbox_lock).
+    os.environ['WIZ7_DOSBOX_LOCK'] = os.path.join(out_dir, '.dosbox.lock')
+    targets = [binary] if binary else sorted(bins)
+    try:
+        with ThreadPoolExecutor(max_workers=JOBS) as ex:
+            futures = {ex.submit(_asm_one, app, name): name
+                       for name in targets}
+            for future in as_completed(futures):
+                rc = future.result()
+                if rc != 0:
+                    sys.exit(rc)
+    finally:
+        os.environ.pop('WIZ7_AZTEC_PREBUILD', None)
+        os.environ.pop('WIZ7_AZTEC_PREBUILD_ONLY', None)
+        os.environ.pop('WIZ7_DOSBOX_LOCK', None)
+
+    target = f'{app}/{binary}' if binary else app
+    print(f'prebuild {target} -> {out_dir}  [OK]')
+
+
+def _ensure_prebuild(app):
+    """Run the prebuild only when ``asm_prebuild_<app>/`` does not exist yet."""
+    if os.path.isdir(os.path.join(PROJECT, f'asm_prebuild_{app}')):
+        return
+    print(f'{app}: asm_prebuild_{app}/ missing; running prebuild first')
+    cmd_prebuild(app)
 
 
 def cmd_verify(apps):
@@ -864,11 +928,12 @@ HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
   make all                  all projects serially
-  make build PROJECT [BIN]  asm + nasm + assets for one project or binary
+  make build PROJECT [BIN]  asm + nasm + assets (runs prebuild first if missing)
+  make prebuild PROJECT [BIN]  run the slow Aztec C mux and cache it
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox
   make verify [PROJECT...]  verify one or all projects
-  make clean [PROJECT...]   clean one or all projects
+  make clean [PROJECT...]   clean one or all projects (incl. asm_prebuild_*)
   make rebuild PROJECT BIN  nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
   make delta PROJECT BIN          compare original and edited assembly layouts
@@ -934,6 +999,26 @@ def main():
 
     if '--clean' in flags:
         cmd_clean(args)
+        return
+
+    if '--prebuild' in flags:
+        if len(args) == 2:
+            project, binary = args
+            if project not in all_projects:
+                print(f'Unknown project: {project}')
+                print(f'Known: {", ".join(all_projects)}')
+                sys.exit(1)
+            cmd_prebuild(project, binary)
+        elif len(args) == 1:
+            project = args[0]
+            if project not in all_projects:
+                print(f'Unknown project: {project}')
+                print(f'Known: {", ".join(all_projects)}')
+                sys.exit(1)
+            cmd_prebuild(project)
+        else:
+            print('Usage: make prebuild PROJECT [BIN]')
+            sys.exit(1)
         return
 
     if '--check' in flags:
@@ -1048,8 +1133,9 @@ def _build_projects(targets, all_projects):
             print(f'Unknown project: {project}')
             print(f'Known: {", ".join(all_projects)}')
             sys.exit(1)
-    cmd_clean(targets)
+    cmd_clean(targets, keep_prebuild=True)
     for project in targets:
+        _ensure_prebuild(project)
         asm_app(project)
         #for future use
         #_copy_original_project(project)

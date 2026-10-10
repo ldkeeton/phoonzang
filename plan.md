@@ -31,21 +31,7 @@ and growing a routine beyond its original length.
   (`main.py:695`). This is what made a `vinstall` build report
   `verify+emit: 1428.3s` while its real verify breakdown summed to ~15s.
 
-### The "too much DOSBox" problem
-86 DOSBox compiles were spent to recover 21 routines that come from just
-**9 unique `(module, compiler)` pairs**:
-
-- `load_or_build` resolves **every** `aztec_*` label, including losers; a
-  non-matching symbol probes all `(source file x compiler)` candidates and
-  discards them. `vinstall`: 49 labels, 12 winners, 55 compiles.
-- Every binary constructs a fresh `MuxEngine` (`cache.py:75`), so shared
-  modules recompile per binary (`croot.c`, `open.c`, `malloc.c`, `ttyio.c` are
-  used by both `ds` and `vinstall`).
-- `cmd_clean` deletes the mux cache on every `make build`, so the whole search
-  repeats every build.
-
-The fix is primarily **doing less** (no search at build time; compile per
-unique module), with hashing/caching as the secondary speed-up.
+ 
 
 ---
 
@@ -168,27 +154,7 @@ Seeding (`_write_aztec_c` -> `_seed_aztec_c`):
   `%include "ds/aztec_<name>.asm"`.
 
 ---
-
-## 5. `make prebuild <project>`
-
-Runs the long DOSBox work once and persists it. Never run during normal builds.
-
-1. For each binary with `aztec_*` labels, run the mux search
-   (`load_or_build(refresh=True)`) to determine winners.
-2. Compile **per unique `(file, compiler, includes)`** and extract **all**
-   needed symbols (e.g. `open.c` -> `open` + `creat`) instead of once per
-   routine.
-3. For each winner: extract the function (`Task 1`), compile the extracted
-   source, validate masked bytes vs original; fall back to whole-module on
-   mismatch.
-4. Write `asm_prebuild_<project>/manifest.json`, `src/`, and `objs/`.
-
-Manual deletion + re-run is only needed when:
-1. new tools are added under `asm/tools/`, or
-2. extraction heuristics change.
-
----
-
+ 
 ## 6. `make build <project>`
 
 - `cmd_clean` wipes `asm_<project>` **and** `asm_cache_<project>`.
@@ -223,18 +189,9 @@ Debug does **not** wipe `asm_cache`, so repeated clicks only recompile files
 whose content hash changed.
 
 ---
-
-## 8. Performance summary (fixing the 1400s `verify+emit`)
-
-1. **No search at build time.** Builds are manifest-driven; compile the known
-   winner modules only. (`vinstall` 55 -> ~8; project-wide 86 -> ~9.)
-2. **Compile per unique module, extract per symbol.**
-3. **Content-hash cache.** `asm_cache_<project>` (session) + `asm_prebuild_<project>/objs`
-   (baseline). Skips unchanged, repeated, and cross-binary-shared compiles.
-4. **Move the compile above `t_disasm`** so `verify+emit` reflects real verify.
-
+ 
 Cache policy:
-- `asm_prebuild_<project>` - never wiped by clean; manual `make prebuild`.
+ 
 - `asm_cache_<project>` - wiped by `make clean` / `make build`; survives Debug.
 
 ---
@@ -249,13 +206,12 @@ Cache policy:
 
 ## 10. Known quirks (accepted)
 
-1. `make build` wipes asm/c; `asm_prebuild` and (until build) `asm_cache`
-   follow the lifetimes above.
-2. With an `.asm` and `.c` side by side, the `.asm` is ignored - it is
+ 
+ With an `.asm` and `.c` side by side, the `.asm` is ignored - it is
    regenerated from the C (`cc` -> object -> disassemble to NASM).
     - 2a. With no `.c`, the `.asm` is authoritative; editing it changes the EXE
       with no DOSBox round-trip.
-3. If a single function cannot be extracted, duplicated C files are allowed;
+ If a single function cannot be extracted, duplicated C files are allowed;
    only the relevant function is compiled into the fragment.
 
 ---
@@ -273,11 +229,11 @@ Cache policy:
 ## 12. Implementation order (bottom-up)
 
 1. `compare.py`: revert `c_labels` inline; NOP-fill + hard-error window.
-2. `lib/aztec`: `extract_routine`; content-hash compile cache; manifest
+2. `lib/aztec`: `extract_routine`; ~~content-hash compile cache~~ **DONE**; manifest
    `original_length` + `extracted`.
 3. `main.py`: compile-from-C in `_aztec_c_overrides`; seed-if-absent;
-   move call above `t_disasm`; seed from `asm_prebuild`.
-4. `make.py`: `prebuild` command; `cmd_clean` also clears `asm_cache`;
+   ~~move call above `t_disasm`~~ **DONE**; seed from `asm_prebuild`.
+4. `make.py`: ~~`prebuild` command; `cmd_clean` also clears `asm_cache`~~ **DONE**;
    `resplice_c` wired into `elf-rebuild`.
 5. Makefile / help / docs.
 
@@ -285,18 +241,17 @@ Cache policy:
 
 ## 13. Validation
 
-1. `make prebuild DSAVANT` -> `asm_prebuild_DSAVANT/` populated; 9 unique
-   module compiles project-wide.
-2. `make build DSAVANT` -> verify green; `ds.asm` has
+ 
+  `make build DSAVANT` -> verify green; `ds.asm` has
    `%include "ds/aztec_Croot.asm"`; `aztec_Croot.c` contains only `Croot`
    (extracted).
-3. `make elf-rebuild DSAVANT ds` -> EXE + ELF; breakpoint resolves in
+  `make elf-rebuild DSAVANT ds` -> EXE + ELF; breakpoint resolves in
    `aztec_Croot.asm`.
-4. Same-size edit to `aztec_Croot.c` -> Debug -> `aztec_Croot.asm` and ELF
+ Same-size edit to `aztec_Croot.c` -> Debug -> `aztec_Croot.asm` and ELF
    change; a hand-edited non-C `.asm` is untouched; repeated Debug clicks are
    fast (`asm_cache` hit).
-5. Shrink edit -> NOP-fill; grow edit -> hard error.
-6. Repeat `make build` -> edits wiped, verify green, no full recompile.
+  Shrink edit -> NOP-fill; grow edit -> hard error.
+  Repeat `make build` -> edits wiped, verify green, no full recompile.
 
 ---
 
