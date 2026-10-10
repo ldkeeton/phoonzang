@@ -42,7 +42,7 @@ class CacheTest(unittest.TestCase):
             return f.read()
 
     def _labels(self):
-        with open(os.path.join(PROJECT, 'asm_DSAVANT',
+        with open(os.path.join(PROJECT, 'asm_DSAVANT', 'inc', 'labels',
                                'ds_labels.json')) as f:
             return {v: int(k) for k, v in json.load(f).items()}
 
@@ -71,7 +71,7 @@ class MuxCompileTest(unittest.TestCase):
         with open(os.path.join(PROJECT, 'apps', 'DSAVANT', 'DS.EXE'),
                   'rb') as f:
             data = f.read()
-        with open(os.path.join(PROJECT, 'asm_DSAVANT',
+        with open(os.path.join(PROJECT, 'asm_DSAVANT', 'inc', 'labels',
                                'ds_labels.json')) as f:
             labels = {v: int(k) for k, v in json.load(f).items()}
         engine = MuxEngine()

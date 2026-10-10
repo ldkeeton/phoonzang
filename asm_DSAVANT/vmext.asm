@@ -4,6 +4,10 @@ org 0
 bits 16
 %include "inc/labels/vmext_foreign_labels.inc"
 
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0008
+%endif
+
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x4b, 0x52, 0x98, 0x90
 
@@ -240,8 +244,10 @@ data_9b1a equ 0x9b1a
     db 0x8f, 0x08, 0x75, 0x02, 0xeb, 0x23, 0xb8, 0x1f, 0x00, 0x50, 0xe8, 0xf6, 0xd7, 0x59, 0x50, 0xb8
     db 0x00, 0x00, 0x50
 
+jumptable_52f2_case_2:
     mov ax, 0x1f                     ; 0x414b
     push ax                          ; 0x414e
+jumptable_52f2_case_0:
     push ax                          ; 0x414f
     call loc_194f                    ; 0x4150
     add sp, byte 4                   ; 0x4153
@@ -347,6 +353,7 @@ data_9b1a equ 0x9b1a
     mov ax, 4                        ; 0x4459
     push ax                          ; 0x445c
     push ax                          ; 0x445d
+jumptable_52f2_case_3:
     call loc_194f                    ; 0x445e
     add sp, byte 4                   ; 0x4461
     push ax                          ; 0x4464
@@ -1621,6 +1628,7 @@ loc_4471:
     idiv cx                          ; 0x4f02
     mov ax, dx                       ; 0x4f04
     test ax, ax                      ; 0x4f06
+jumptable_52f2_case_1:
     jne short @..api_idx_0030.l49    ; 0x4f08
     cmp word [data_8456], byte 1     ; 0x4f0a
     jg short @..api_idx_0030.l49     ; 0x4f0f
@@ -1986,8 +1994,15 @@ loc_521b:
     db 'TILEDATA.VGA', 0
     db 'TREEDATA.VGA', 0
     db 'OCAVDATA.VGA', 0
-    db 'CAVEDATA.VGA', 0
-    db 'OCAVDATA.VGA', 0
+    db 'CAVEDATA.V'
+
+jumptable_52f2:
+    dw jumptable_52f2_case_0 - IMAGE_BASE
+    dw jumptable_52f2_case_1 - IMAGE_BASE
+    dw jumptable_52f2_case_2 - IMAGE_BASE
+    dw jumptable_52f2_case_3 - IMAGE_BASE
+
+    db 'ATA.VGA', 0
     db 'WATRDATA.VGA', 0
     db 'TREEDATA.VGA', 0
     db 'OTWNDATA.VGA', 0

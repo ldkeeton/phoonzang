@@ -77,6 +77,7 @@ api_idx_0038:
     add ax, strict word 8            ; 0x06c5
     push ax                          ; 0x06c8
     call ds_dispatch_c0c1            ; 0x06c9
+jumptable_5d53_case_4:
     add sp, byte 0x0c                ; 0x06cc
     lea ax, word [bp - 0x0036]       ; 0x06cf
     push ax                          ; 0x06d2
@@ -468,7 +469,7 @@ loc_0d10:
     jae short loc_0d1d               ; 0x0d13
     xchg bx, ax                      ; 0x0d15
     shl bx, 1                        ; 0x0d16
-    jmp [cs:bx + 0x5d4b]             ; 0x0d18
+    jmp [cs:bx + jumptable_5d53 - IMAGE_BASE] ; 0x0d18
 loc_0d1d:
     jmp short loc_0cb1               ; 0x0d1d
 loc_0d1f:

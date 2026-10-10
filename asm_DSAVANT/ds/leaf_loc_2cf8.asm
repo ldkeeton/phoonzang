@@ -35,13 +35,19 @@ leaf_loc_2cf8:
     add ax, strict word 0xb          ; 0x2d48
     mov word [bp - 0x0004], ax       ; 0x2d4b
     jmp short loc_2d69               ; 0x2d4e
-    db 0xba, 0x2a, 0xc4, 0x2a, 0xd0, 0x2a, 0xdc, 0x2a, 0xf8, 0x2a, 0xec, 0x2a
+jumptable_2d50:
+    dw leaf_loc_2cba - IMAGE_BASE
+    dw leaf_loc_2cc4 - IMAGE_BASE
+    dw leaf_loc_2cd0 - IMAGE_BASE
+    dw leaf_loc_2cdc - IMAGE_BASE
+    dw leaf_loc_2cf8 - IMAGE_BASE
+    dw leaf_loc_2cec - IMAGE_BASE
 loc_2d5c:
     cmp ax, strict word 6            ; 0x2d5c
     jae short loc_2d69               ; 0x2d5f
     xchg bx, ax                      ; 0x2d61
     shl bx, 1                        ; 0x2d62
-    jmp [cs:bx + 0x2b50]             ; 0x2d64
+    jmp [cs:bx + jumptable_2d50 - IMAGE_BASE] ; 0x2d64
 loc_2d69:
     mov ax, word [bp - 0x0002]       ; 0x2d69
     shl ax, 1                        ; 0x2d6c

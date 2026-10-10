@@ -194,7 +194,7 @@ api_idx_0004_4:
     jae short @..api_idx_0004_4.l2   ; 0x242d
     xchg bx, ax                      ; 0x242f
     shl bx, 1                        ; 0x2430
-    jmp [cs:bx + 0x7455]             ; 0x2432
+    jmp [cs:bx + jumptable_745d - IMAGE_BASE] ; 0x2432
 @..api_idx_0004_4.l2:
     mov ax, 0x248                    ; 0x2437
     imul word [bp + 0x4]             ; 0x243a

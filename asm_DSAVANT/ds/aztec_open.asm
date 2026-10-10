@@ -40,7 +40,7 @@ aztec_open:
     push si                          ; 0x4ba6
     call aztec_close                 ; 0x4ba7
     pop cx                           ; 0x4baa
-    mov word [data_0c72], 0x13       ; 0x4bab
+    mov word [0x0c72], 0x13          ; 0x4bab
     mov ax, 0xffff                   ; 0x4bb1
 @..aztec_open.l4:
     pop si                           ; 0x4bb4
@@ -53,7 +53,7 @@ aztec_open:
     jl short @..aztec_open.l7        ; 0x4bbd
     test word [bp + 0x6], 0x800      ; 0x4bbf
     je short @..aztec_open.l6        ; 0x4bc4
-    mov ax, data_0002                ; 0x4bc6
+    mov ax, 2                        ; 0x4bc6
     push ax                          ; 0x4bc9
     mov ax, 0                        ; 0x4bca
     mov dx, 0                        ; 0x4bcd
@@ -74,19 +74,17 @@ loc_4be6:
     push di                          ; 0x4be6
     sub di, di                       ; 0x4be7
     test dx, dx                      ; 0x4be9
-    jns short @..local.l16           ; 0x4beb
+    jns short 0x4bf5                 ; 0x4beb
     neg dx                           ; 0x4bed
     neg ax                           ; 0x4bef
     sbb dx, byte 0                   ; 0x4bf1
     inc di                           ; 0x4bf4
-@..local.l16:
     test bx, bx                      ; 0x4bf5
-    jns short @..local.l17           ; 0x4bf7
+    jns short 0x4c04                 ; 0x4bf7
     neg bx                           ; 0x4bf9
     neg cx                           ; 0x4bfb
     sbb bx, byte 0                   ; 0x4bfd
     xor di, 1                        ; 0x4c00
-@..local.l17:
     call aztec_lud                   ; 0x4c04
 loc_4c07:
     test di, di                      ; 0x4c07

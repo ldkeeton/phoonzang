@@ -55,7 +55,8 @@ def _fmt_imm(val, bits=16):
     return f'0x{uval:04x}'
 
 
-def _fmt_mem(op, insn, label_map=None, foreign_label_map=None, local_labels=None):
+def _fmt_mem(op, insn, label_map=None, foreign_label_map=None, local_labels=None,
+             disp_labels=None):
     seg = insn.reg_name(op.mem.segment) if op.mem.segment else ''
     base = insn.reg_name(op.mem.base) if op.mem.base else ''
     idx = insn.reg_name(op.mem.index) if op.mem.index else ''
@@ -70,8 +71,16 @@ def _fmt_mem(op, insn, label_map=None, foreign_label_map=None, local_labels=None
     inner = ' + '.join(regs) if regs else ''
 
     # displacement
-    if not inner:
-        addr = disp & 0xFFFF
+    addr = disp & 0xFFFF
+    sym = disp_labels.get(addr) if disp_labels else None
+    if sym is not None:
+        # A switch-table displacement: render as the load-image symbol so the
+        # emitted source names the table instead of an opaque constant.
+        if inner:
+            ea = f'{inner} + {sym} - IMAGE_BASE'
+        else:
+            ea = f'{sym} - IMAGE_BASE'
+    elif not inner:
         if label_map and addr in label_map:
             ea = label_map[addr]
         elif foreign_label_map and addr in foreign_label_map:
@@ -119,7 +128,7 @@ def _label_comment(insn, label_map):
 
 
 def format_instruction(insn, label_map=None, local_labels=None, foreign_label_map=None,
-                       immediate_labels=None):
+                       immediate_labels=None, disp_labels=None):
     """Return valid NASM line text for *insn*, or None if the instruction
     should stay as raw db bytes."""
     b = insn.bytes
@@ -199,7 +208,7 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
             else:
                 parts.append(_fmt_imm(op.imm))
         elif op.type == CS_OP_MEM:
-            parts.append(_fmt_mem(op, insn, label_map, foreign_label_map, local_labels))
+            parts.append(_fmt_mem(op, insn, label_map, foreign_label_map, local_labels, disp_labels))
             has_mem = True
 
     ops = ', '.join(parts)

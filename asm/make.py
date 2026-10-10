@@ -989,6 +989,11 @@ def resplice_c(app, binary):
         entries = json.load(f)['functions']
     with open(labels_path) as f:
         label_map = {int(k): v for k, v in json.load(f).items()}
+    resplice_labels_path = os.path.join(
+        out_dir, 'inc', 'labels', f'{binary}_resplice_labels.json')
+    if os.path.isfile(resplice_labels_path):
+        with open(resplice_labels_path) as f:
+            label_map.update({int(k): v for k, v in json.load(f).items()})
 
     bins = discover_binaries(os.path.join(APPS, app))
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:

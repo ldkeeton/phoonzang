@@ -4,14 +4,21 @@ string_loc_08c6:
     sub ah, ah                       ; 0x08cd
     mov word [bp + 0x8], ax          ; 0x08cf
     jmp short loc_08f2               ; 0x08d2
-    db 0x8e, 0x06, 0x8e, 0x06, 0xb8, 0x06, 0x9c, 0x06, 0xf2, 0x06, 0xaa, 0x06, 0xc6, 0x06
+jumptable_08d4:
+    dw string_loc_088e - IMAGE_BASE
+    dw string_loc_088e - IMAGE_BASE
+    dw string_loc_08b8 - IMAGE_BASE
+    dw string_loc_089c - IMAGE_BASE
+    dw loc_08f2 - IMAGE_BASE
+    dw string_loc_08aa - IMAGE_BASE
+    dw string_loc_08c6 - IMAGE_BASE
 @..app_file_0883.l1:
     sub ax, strict word 2            ; 0x08e2
     cmp ax, strict word 7            ; 0x08e5
     jae short loc_08f2               ; 0x08e8
     xchg bx, ax                      ; 0x08ea
     shl bx, 1                        ; 0x08eb
-    jmp [cs:bx + 0x6d4]              ; 0x08ed
+    jmp [cs:bx + jumptable_08d4 - IMAGE_BASE] ; 0x08ed
 loc_08f2:
     mov ax, 0                        ; 0x08f2
     push ax                          ; 0x08f5

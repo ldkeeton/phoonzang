@@ -4,6 +4,10 @@ org 0
 bits 16
 %include "inc/labels/vpcmk_foreign_labels.inc"
 
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0008
+%endif
+
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x23, 0x70, 0x98, 0x90
 
@@ -329,9 +333,25 @@ loc_702a:
     db 'ACECCEGCCIFKFA', 0
     db '02222222122220', 0
     db 'ACKCGDHCCFKIDA', 0
-    db '02322212112320', 0
-    db 'ACHCHHGCCCECHA', 0
-    db '02322322112230', 0
+    db '02322212'
+
+jumptable_745d:
+    dw jumptable_745d_case_0 - IMAGE_BASE
+    dw jumptable_745d_case_1 - IMAGE_BASE
+    dw 0x3032
+    dw 0x4100
+    dw 0x4843
+    dw 0x4843
+    dw 0x4748
+    dw jumptable_745d_case_7 - IMAGE_BASE
+    dw jumptable_745d_case_8 - IMAGE_BASE
+    dw 0x4843
+    dw 0x0041
+    dw 0x3230
+    dw 0x3233
+    dw jumptable_745d_case_1 - IMAGE_BASE
+
+    db '22112230', 0
     db 'PORTDATA.VGA', 0
     db 'PCFILE.DBS', 0
     db 'PCFILE.DBS', 0

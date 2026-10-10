@@ -1064,7 +1064,7 @@ api_idx_0072:
     jae short @..api_idx_0072.l68    ; 0x2b14
     xchg bx, ax                      ; 0x2b16
     shl bx, 1                        ; 0x2b17
-    jmp [cs:bx + 0x7b3c]             ; 0x2b19
+    jmp [cs:bx + jumptable_7b44 - IMAGE_BASE] ; 0x2b19
 @..api_idx_0072.l68:
     cmp byte [data_959f], 5          ; 0x2b1e
     jne short @..api_idx_0072.l69    ; 0x2b23

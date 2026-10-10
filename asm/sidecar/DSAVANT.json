@@ -29,6 +29,15 @@
         {"start": "3490", "end": "34f5", "note": "Code entries immediately following the return at 0x348f"},
         {"start": "457c", "end": "45aa", "note": "Alternate strlen_3 entry with BP-frame prologue"}
       ],
+      "jump_tables": [
+        {"table": "0363", "jmp": "03a9", "entry_size": 2, "count": 31, "note": "Switch table for the 0x03a9 cs:[bx+0x163] indirect jump; six distinct targets, some entries repeat"},
+        {"table": "08d4", "jmp": "08ed", "entry_size": 2, "count": 7, "note": "Seven-entry switch table for the 0x08ed cs:[bx+0x6d4] indirect jump"},
+        {"table": "14a2", "jmp": "14b8", "entry_size": 2, "count": 7, "note": "Switch table for the 0x14b8 cs:[bx+0x12a2] indirect jump"},
+        {"table": "1aff", "jmp": "1b17", "entry_size": 2, "count": 8, "note": "Switch table for the 0x1b17 cs:[bx+0x18ff] indirect jump"},
+        {"table": "2d50", "jmp": "2d64", "entry_size": 2, "count": 6, "note": "Switch table for the 0x2d64 cs:[bx+0x2b50] indirect jump"},
+        {"table": "2edc", "jmp": "2f24", "entry_size": 2, "count": 32, "note": "Switch table for the 0x2f24 cs:[bx+0x2cdc] indirect jump"},
+        {"table": "4822", "jmp": "490a", "entry_size": 2, "count": 21, "note": "Switch table for the 0x490a cs:[di+0x4622] indirect jump"}
+      ],
       "ghidra_base_offset": -512
     },
     "vinit": {

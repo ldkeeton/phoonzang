@@ -4,6 +4,7 @@ app_file_0242: ; Aztec csav frame=0x0002
     mov word [bp - 0x0002], 0        ; 0x0248
     mov ax, word [bp + 0x4]          ; 0x024d
     jmp near @..app_file_0242.l18    ; 0x0250
+jumptable_0363_case_0:
     cmp word [data_0e0e], byte 0     ; 0x0253
     je short @..app_file_0242.l1     ; 0x0258
     push word [data_0e0e]            ; 0x025a
@@ -57,13 +58,16 @@ app_file_0242: ; Aztec csav frame=0x0002
     push word [data_0e1e]            ; 0x02d9
     call app_free                    ; 0x02dd
     add sp, byte 4                   ; 0x02e0
+jumptable_0363_case_11:
 @..app_file_0242.l10:
     push word [data_0e22]            ; 0x02e3
     call aztec_close                 ; 0x02e7
     pop cx                           ; 0x02ea
+jumptable_0363_case_10:
     push word [data_0e24]            ; 0x02eb
     call aztec_close                 ; 0x02ef
     pop cx                           ; 0x02f2
+jumptable_0363_case_7:
     cmp word [data_0e28], byte 0     ; 0x02f3
     jne short @..app_file_0242.l11   ; 0x02f8
     cmp word [data_0e26], byte 0     ; 0x02fa
@@ -93,6 +97,7 @@ app_file_0242: ; Aztec csav frame=0x0002
     push word [data_0e2e]            ; 0x033d
     call app_free                    ; 0x0341
     add sp, byte 4                   ; 0x0344
+jumptable_0363_case_4:
 @..app_file_0242.l16:
     mov word [bp - 0x0002], 1        ; 0x0347
     mov ax, 1                        ; 0x034c
@@ -103,20 +108,47 @@ app_file_0242: ; Aztec csav frame=0x0002
     cmp word [data_0e32], byte 0     ; 0x0357
     je short @..app_file_0242.l17    ; 0x035c
     call loc_4280                    ; 0x035e
+jumptable_0363_case_1:
 @..app_file_0242.l17:
     jmp short @..app_file_0242.l19   ; 0x0361
-
-    db 0x53, 0x00, 0x61, 0x01, 0x61, 0x01, 0x61, 0x01, 0x47, 0x01, 0x47, 0x01, 0x47, 0x01, 0xf3, 0x00
-    db 0xf3, 0x00, 0xf3, 0x00, 0xeb, 0x00, 0xe3, 0x00, 0xe3, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00
-    db 0x53, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00
-    db 0x53, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00, 0x53, 0x00
-
+jumptable_0363:
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_1 - IMAGE_BASE
+    dw jumptable_0363_case_1 - IMAGE_BASE
+    dw jumptable_0363_case_1 - IMAGE_BASE
+    dw jumptable_0363_case_4 - IMAGE_BASE
+    dw jumptable_0363_case_4 - IMAGE_BASE
+    dw jumptable_0363_case_4 - IMAGE_BASE
+    dw jumptable_0363_case_7 - IMAGE_BASE
+    dw jumptable_0363_case_7 - IMAGE_BASE
+    dw jumptable_0363_case_7 - IMAGE_BASE
+    dw jumptable_0363_case_10 - IMAGE_BASE
+    dw jumptable_0363_case_11 - IMAGE_BASE
+    dw jumptable_0363_case_11 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE
 @..app_file_0242.l18:
     cmp ax, strict word 0x1f         ; 0x03a1
     jae short @..app_file_0242.l19   ; 0x03a4
     xchg bx, ax                      ; 0x03a6
     shl bx, 1                        ; 0x03a7
-    jmp [cs:bx + 0x163]              ; 0x03a9
+    jmp [cs:bx + jumptable_0363 - IMAGE_BASE] ; 0x03a9
 @..app_file_0242.l19:
     cmp word [bp - 0x0002], byte 1   ; 0x03ae
     jne short @..app_file_0242.l20   ; 0x03b2

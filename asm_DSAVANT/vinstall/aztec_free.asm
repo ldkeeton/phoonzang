@@ -18,9 +18,31 @@ aztec_free:
     mov ax, 0                        ; 0x3039
     jmp short @..aztec_free.l1       ; 0x303c
 
-    db 'LlhFNoxXudiscpneEfgG%@/G/K/N/K/U/^/Z/c/h/h/'
-    db 0x8c, 0x30, 0xab, 0x30, 0xd0, 0x30, 0xd3
-    db '0{0u0{0{0u0'
-    db 0xb3
-    db '.0123456789abcdef -lm first', 0
+    db 'LlhFNoxXudiscpneEfgG%'
+
+jumptable_3053:
+    dw string_loc_3140 - IMAGE_BASE
+    dw string_loc_3147 - IMAGE_BASE
+    dw string_loc_314b - IMAGE_BASE
+    dw string_loc_314e - IMAGE_BASE
+    dw string_loc_314b - IMAGE_BASE
+    dw leaf_loc_3155 - IMAGE_BASE
+    dw leaf_loc_315e - IMAGE_BASE
+    dw leaf_loc_315a - IMAGE_BASE
+    dw leaf_loc_3163 - IMAGE_BASE
+    dw leaf_loc_3168 - IMAGE_BASE
+    dw leaf_loc_3168 - IMAGE_BASE
+    dw loc_328c - IMAGE_BASE
+    dw loc_32ab - IMAGE_BASE
+    dw string_loc_32d0 - IMAGE_BASE
+    dw string_loc_32d3 - IMAGE_BASE
+    dw loc_327b - IMAGE_BASE
+    dw loc_3275 - IMAGE_BASE
+    dw loc_327b - IMAGE_BASE
+    dw loc_327b - IMAGE_BASE
+    dw loc_3275 - IMAGE_BASE
+    dw string_loc_30b3 - IMAGE_BASE
+    dw string_loc_3330 - IMAGE_BASE
+
+    db '23456789abcdef -lm first', 0
 

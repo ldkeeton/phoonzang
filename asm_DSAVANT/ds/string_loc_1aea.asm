@@ -6,15 +6,21 @@ string_loc_1aea:
     add bx, word [bp - 0x0002]       ; 0x1af6
     mov byte [bx + 0x5daa], al       ; 0x1af9
     jmp short loc_1b1c               ; 0x1afd
-
-    db 0xa7, 0x18, 0xa7, 0x18, 0xdb, 0x18, 0xea, 0x18, 0xea, 0x18, 0xea, 0x18, 0xea, 0x18, 0xea, 0x18
-
+jumptable_1aff:
+    dw string_loc_1aa7 - IMAGE_BASE
+    dw string_loc_1aa7 - IMAGE_BASE
+    dw string_loc_1adb - IMAGE_BASE
+    dw string_loc_1aea - IMAGE_BASE
+    dw string_loc_1aea - IMAGE_BASE
+    dw string_loc_1aea - IMAGE_BASE
+    dw string_loc_1aea - IMAGE_BASE
+    dw string_loc_1aea - IMAGE_BASE
 loc_1b0f:
     cmp ax, strict word 8            ; 0x1b0f
     jae short loc_1b1c               ; 0x1b12
     xchg bx, ax                      ; 0x1b14
     shl bx, 1                        ; 0x1b15
-    jmp [cs:bx + 0x18ff]             ; 0x1b17
+    jmp [cs:bx + jumptable_1aff - IMAGE_BASE] ; 0x1b17
 loc_1b1c:
     mov ax, 0x248                    ; 0x1b1c
     imul word [bp + 0x4]             ; 0x1b1f

@@ -65,4 +65,4 @@ loc_312d:
     repne scasb                      ; 0x3133
     sub di, strict word 0x2e3f       ; 0x3135
     shl di, 1                        ; 0x3139
-    jmp [cs:di + 0x2e53]             ; 0x313b
+    jmp [cs:di + jumptable_3053 - IMAGE_BASE] ; 0x313b

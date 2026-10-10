@@ -2,6 +2,10 @@
 %include "inc/structs/loc_3738.inc"
 org 0
 bits 16
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0200
+%endif
+
     ; DOS MZ executable header (512 bytes)
     db "MZ"        ; e_magic: DOS MZ signature
     dw 0x0014      ; e_cblp: bytes in final 512-byte page (0 means full)
@@ -249,24 +253,8 @@ leaf_loc_5fe5 equ 0x5fe5
 
 %include "vinstall/aztec_begin.asm"
 
-dos_proc_loc_3716:
-    pop ax                           ; 0x3716
-    pop ax                           ; 0x3717
-loc_3718:
-    mov ah, 0x4c                     ; 0x3718
-    int 0x21 ; DOS exit with return code
-    jmp far [cs:data_33ce]           ; 0x371c
-    times 4 db 0
-    pop word [cs:data_3521]          ; 0x3725
-    pop word [cs:data_3523]          ; 0x372a
-    pop ds                           ; 0x372f
-    call loc_3738                    ; 0x3730
-    jmp far [cs:data_3521]           ; 0x3733
-    push di                          ; 0x3738
-    push si                          ; 0x3739
-    retf                             ; 0x373a
-    mov ax, 0                        ; 0x373b
-    ret                              ; 0x373e
+%include "vinstall/dos_proc_loc_3716.asm"
+
 %include "vinstall/aztec_Croot.asm"
 
 %include "vinstall/leaf_loc_381d.asm"

@@ -75,6 +75,7 @@ api_idx_007a_2:
     mov al, byte [bp - 0x0052]       ; 0x4545
     sub ah, ah                       ; 0x4548
     push ax                          ; 0x454a
+jumptable_745d_case_8:
     call ds_dispatch_e830            ; 0x454b
     add sp, byte 4                   ; 0x454e
     mov ax, 0                        ; 0x4551

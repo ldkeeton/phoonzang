@@ -2,6 +2,10 @@
 %include "inc/structs/loc_4ea0.inc"
 org 0
 bits 16
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0200
+%endif
+
     ; DOS MZ executable header (512 bytes)
     db "MZ"        ; e_magic: DOS MZ signature
     dw 0x0056      ; e_cblp: bytes in final 512-byte page (0 means full)

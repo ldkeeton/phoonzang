@@ -48,7 +48,7 @@ api_idx_0002_4:
     jae short @..api_idx_0002_4.l2   ; 0x02e6
     xchg bx, ax                      ; 0x02e8
     shl bx, 1                        ; 0x02e9
-    jmp [cs:bx + 0x52ea]             ; 0x02eb
+    jmp [cs:bx + jumptable_52f2 - IMAGE_BASE] ; 0x02eb
 @..api_idx_0002_4.l2:
     cmp word [data_5b70], byte 0     ; 0x02f0
     je short @..api_idx_0002_4.l3    ; 0x02f5

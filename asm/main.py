@@ -675,6 +675,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         extra_flow_edges=extra_flow_edges,
         label_comments=label_comments,
         c_overrides=c_overrides,
+        jump_tables=ctx.jump_tables,
+        jump_table_overrides=(ctx.sidecar_entry or {}).get('jump_tables', []),
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
@@ -769,6 +771,13 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         inc_path = os.path.join(labels_dir, f'{name}_labels.inc')
         write_label_json(label_map, json_path)
         write_label_inc(label_map, inc_path, prefix=name)
+        # Jump-table labels inside C-rebuilt fragments must survive resplice but
+        # are not part of the exported symbol set, so they travel separately.
+        resplice_labels = stats.get('resplice_labels') or {}
+        if resplice_labels:
+            write_label_json(
+                resplice_labels,
+                os.path.join(labels_dir, f'{name}_resplice_labels.json'))
 
     if _DECOMPILE:
         from lib.decompile import decompile

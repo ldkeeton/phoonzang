@@ -274,7 +274,7 @@ api_idx_0002_5:
     jae short @..api_idx_0002_5.l5   ; 0x06c6
     xchg bx, ax                      ; 0x06c8
     shl bx, 1                        ; 0x06c9
-    jmp [cs:bx + 0x56fc]             ; 0x06cb
+    jmp [cs:bx + jumptable_5704 - IMAGE_BASE] ; 0x06cb
 @..api_idx_0002_5.l5:
     call loc_0344                    ; 0x06d0
     mov word [data_5b70], 1          ; 0x06d3

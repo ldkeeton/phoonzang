@@ -28,7 +28,12 @@ Schema
               "name": "human_readable_name",
               "sig": "full signature string"
             }
-          }
+          },
+
+          "jump_tables": [
+            { "table": "08D4", "jmp": "08ED", "entry_size": 2, "count": 7,
+              "note": "switch table for the indirect jump" }
+          ]
         }
       },
 
@@ -141,6 +146,30 @@ def _validate_ranges(ranges, description):
             raise SidecarError(f'{where}: end precedes start')
 
 
+def _validate_jump_tables(tables, description):
+    """Validate a sidecar jump_tables list.
+
+    Each entry declares a switch table: ``table`` is the table's load-image
+    offset, ``jmp`` the dispatcher offset, and ``entry_size``/``count`` the
+    geometry.  Symbolic ``table``/``jmp`` addresses are required; the rest
+    are optional overrides of auto-detection.
+    """
+    if not isinstance(tables, list):
+        raise SidecarError(f'{description} must be a list')
+    for index, entry in enumerate(tables):
+        where = f'{description}[{index}]'
+        if not isinstance(entry, dict) or 'table' not in entry:
+            raise SidecarError(f'{where} must be an object with "table"')
+        _parse_offset(entry['table'], f'{where}.table')
+        if 'jmp' in entry:
+            _parse_offset(entry['jmp'], f'{where}.jmp')
+        for key in ('entry_size', 'count'):
+            if key in entry:
+                value = entry[key]
+                if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+                    raise SidecarError(f'{where}.{key} must be a positive integer')
+
+
 def _reject_range_conflicts(force_data, force_code, owner):
     for data_index, data_range in enumerate(force_data):
         data_start = _parse_offset(data_range['start'],
@@ -183,6 +212,9 @@ def _validate_binary(name, info):
         if key in info:
             _validate_ranges(info[key], f'binaries.{name}.{key}')
 
+    if 'jump_tables' in info:
+        _validate_jump_tables(info['jump_tables'], f'binaries.{name}.jump_tables')
+
 
 def per_binary(sidecar, short_name):
     """Return the sidecar data for *short_name* within this project sidecar.
@@ -200,6 +232,7 @@ def per_binary(sidecar, short_name):
         'function_names': {},
         'dispatch_table': None,
         'immediate_labels': {},
+        'jump_tables': [],
         'ghidra_base_offset': 0,
         'fingerprint-start': None,
         'fingerprint-end': None,
@@ -214,6 +247,7 @@ def per_binary(sidecar, short_name):
             result['function_names'] = b.get('function_names', {})
             result['dispatch_table'] = b.get('dispatch_table')
             result['immediate_labels'] = b.get('immediate_labels', {})
+            result['jump_tables'] = b.get('jump_tables', [])
             result['ghidra_base_offset'] = b.get('ghidra_base_offset', 0)
             result['fingerprint-start'] = b.get('fingerprint-start')
             result['fingerprint-end'] = b.get('fingerprint-end')

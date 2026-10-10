@@ -75,6 +75,7 @@ api_idx_0050:
     push ax                          ; 0x3132
     push word [bp + 0x8]             ; 0x3133
     mov ax, 1                        ; 0x3136
+jumptable_745d_case_0:
     push ax                          ; 0x3139
     mov ax, 8                        ; 0x313a
     push ax                          ; 0x313d
@@ -287,6 +288,7 @@ api_idx_0050:
     push ax                          ; 0x3335
     mov ax, 3                        ; 0x3336
     push ax                          ; 0x3339
+jumptable_745d_case_1:
     call ds_dispatch_baa6            ; 0x333a
     add sp, byte 0x0e                ; 0x333d
     mov ax, 0                        ; 0x3340

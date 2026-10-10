@@ -4,6 +4,10 @@ org 0
 bits 16
 %include "inc/labels/vbase_foreign_labels.inc"
 
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0008
+%endif
+
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0xdf, 0x93, 0x98, 0x90
 
@@ -247,7 +251,9 @@ data_a600 equ 0xa600
 data_c06d equ 0xc06d
 data_c56e equ 0xc56e
 
-    db 0x2e, 0x01, 0x3c, 0x14, 0x77, 0xe3
+    db 0x2e, 0x01, 0x3c
+jumptable_7b44_case_12:
+    db 0x14, 0x77, 0xe3
 loc_000e:
     mov ax, 0                        ; 0x000e
     call ds_dispatch_f40b            ; 0x0011

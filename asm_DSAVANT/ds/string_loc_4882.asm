@@ -65,4 +65,4 @@ loc_48fc:
     repne scasb                      ; 0x4902
     sub di, strict word 0x460e       ; 0x4904
     shl di, 1                        ; 0x4908
-    jmp [cs:di + 0x4622]             ; 0x490a
+    jmp [cs:di + jumptable_4822 - IMAGE_BASE] ; 0x490a

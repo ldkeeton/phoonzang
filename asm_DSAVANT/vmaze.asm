@@ -4,6 +4,10 @@ org 0
 bits 16
 %include "inc/labels/vmaze_foreign_labels.inc"
 
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0008
+%endif
+
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x60, 0xac, 0x98, 0x90
 

@@ -268,6 +268,7 @@ loc_47bb:
     mov word [bp - 0x000a], 0xffff   ; 0x48b1
     mov word [bp - 0x0010], 0xffff   ; 0x48b6
     mov word [bp - 0x000c], 0xffff   ; 0x48bb
+jumptable_5704_case_5:
     cmp word [bp + 0x40], byte 0xff  ; 0x48c0
     je short @..api_idx_0012_2.l24   ; 0x48c4
     mov ax, word [bp + 0x42]         ; 0x48c6
