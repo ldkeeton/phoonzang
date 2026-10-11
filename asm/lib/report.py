@@ -4,6 +4,9 @@ import hashlib
 import json
 import os
 import shutil
+import subprocess
+import sys
+import time
 
 import polars as pl
 
@@ -11,8 +14,20 @@ from lib.model import PhaseContext
 
 
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATS_DIR = os.path.join(ASM_DIR, 'stats')
-BASELINE_DIR = os.path.join(ASM_DIR, 'stats_baseline')
+PROJECT_ROOT = os.path.dirname(ASM_DIR)
+STATS_DIR = os.path.join(PROJECT_ROOT, '.cache', 'stats')
+BASELINE_DIR = os.path.join(PROJECT_ROOT, '.cache', 'stats_baseline')
+
+
+# Metrics where an increase is an improvement (for delta rendering). Anything
+# not listed is treated as neutral. Lower-is-better metrics are GOOD_DOWN.
+GOOD_UP = {
+    'code_bytes', 'instructions', 'labels', 'jt_validated', 'jt_targets',
+    'code_pct',
+}
+GOOD_DOWN = {
+    'unknown_bytes', 'code_loss', 'bare_mem', 'bare_call',
+}
 
 
 def _ensure(dirpath):
@@ -23,43 +38,16 @@ def report_path(project, binary):
     return os.path.join(STATS_DIR, project, f'{project}_{binary}.json')
 
 
+def summary_path(project, binary):
+    return os.path.join(STATS_DIR, project, f'{project}_{binary}.summary.json')
+
+
 def layers_path(project, binary):
     return os.path.join(STATS_DIR, project, f'{project}_{binary}.layers.parquet')
 
 
-def baseline_report_path(project, binary):
-    return os.path.join(BASELINE_DIR, project, f'{project}_{binary}.json')
-
-
-def hex_dump_path(project, binary):
-    return os.path.join(STATS_DIR, project, f'{project}_{binary}.hex.txt')
-
-
-def write_hex_dump(ctx):
-    """Write a text hex dump of the binary to stats/<project>/<binary>.hex.txt.
-
-    Format: one line per 16 bytes:
-        OFFSET:  HH HH HH HH HH HH HH HH HH HH HH HH HH HH HH HH  ASCII
-    where OFFSET is the byte offset into the binary (matching disassembler
-    addresses).
-    """
-    path = hex_dump_path(ctx.report.get('project', 'unknown'), ctx.name)
-    data = ctx.binary_data
-    lines = []
-    for off in range(0, len(data), 16):
-        chunk = data[off:off+16]
-        hex_part = ' '.join(f'{b:02X}' for b in chunk)
-        ascii_part = ''.join(chr(b) if 32 <= b < 127 else '.' for b in chunk)
-        lines.append(f'{off:04X}: {hex_part:<47}  {ascii_part}')
-    with open(path, 'w') as f:
-        f.write('\n'.join(lines))
-    return path
-
-
-def clear_stats():
-    if os.path.exists(STATS_DIR):
-        shutil.rmtree(STATS_DIR)
-    os.makedirs(STATS_DIR)
+def baseline_layers_path(project, binary):
+    return os.path.join(BASELINE_DIR, project, f'{project}_{binary}.layers.parquet')
 
 
 def clear_project_stats(project):
@@ -75,7 +63,7 @@ def list_project_dirs():
         return dirs
     for name in os.listdir(STATS_DIR):
         p = os.path.join(STATS_DIR, name)
-        if os.path.isdir(p) and not name.startswith('image'):
+        if os.path.isdir(p) and not name.startswith('image') and name != 'detailed':
             dirs.append(name)
     return sorted(dirs)
 
@@ -110,6 +98,37 @@ def asm_hash(asm_text):
     return hashlib.sha256(asm_text.encode('utf-8')).hexdigest()[:12]
 
 
+_RUN_METADATA = None
+
+
+def run_metadata():
+    """Provenance for a stats snapshot: git rev/dirty, argv, timestamp."""
+    global _RUN_METADATA
+    if _RUN_METADATA is not None:
+        return _RUN_METADATA
+
+    def _git(*args):
+        try:
+            return subprocess.run(
+                ('git',) + args, cwd=PROJECT_ROOT,
+                capture_output=True, text=True, timeout=5,
+            )
+        except (OSError, subprocess.SubprocessError):
+            return None
+
+    rev = _git('rev-parse', 'HEAD')
+    status = _git('status', '--porcelain')
+    rev = rev.stdout.strip() if rev and rev.returncode == 0 else ''
+    dirty = bool(status and status.stdout.strip())
+    _RUN_METADATA = {
+        'git_rev': rev,
+        'git_dirty': dirty,
+        'argv': tuple(sys.argv[1:]),
+        'ts': time.strftime('%Y-%m-%dT%H:%M:%S'),
+    }
+    return _RUN_METADATA
+
+
 def _final_classification(ctx):
     if 'squashed' not in ctx.layers.columns:
         return {'code_bytes': 0, 'data_bytes': 0, 'unknown_bytes': len(ctx.binary_data)}
@@ -127,11 +146,12 @@ def _final_classification(ctx):
 
 
 def generate_report(ctx):
-    report = dict(ctx.report)
+    report = {k: v for k, v in ctx.report.items() if k != 'addresses'}
     live_cls = _final_classification(ctx)
     existing = report.get('classification', {})
     existing.update(live_cls)
     report['classification'] = existing
+    report['run'] = dict(run_metadata())
     return report
 
 
@@ -142,7 +162,6 @@ def write_report(ctx, asm_text=''):
     path = report_path(ctx.report.get('project', 'unknown'), ctx.name)
     with open(path, 'w') as f:
         json.dump(report, f, indent=2, default=str)
-    write_hex_dump(ctx)
     return path
 
 
@@ -152,6 +171,91 @@ def write_layers(ctx):
     path = layers_path(project, ctx.name)
     ctx.layers.write_parquet(path, compression='zstd')
     return path
+
+
+# ── flat KPI summary ──────────────────────────────────────────────────────────
+
+SUMMARY_SCHEMA = 1
+
+
+def summarize(ctx):
+    """Return a flat, stable dict of scalar KPIs for one binary."""
+    report = generate_report(ctx)
+    cls = report.get('classification', {})
+    verify = report.get('verify', {})
+    jts = report.get('jump_tables', []) or []
+    targets = report.get('code_targets', {}) or {}
+    it = report.get('iterative', {}) or {}
+    binary = report.get('binary', {}) or {}
+
+    def _int(v):
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return 0
+
+    return {
+        'size': _int(binary.get('size')),
+        'code_bytes': _int(cls.get('code_bytes', cls.get('code', 0))),
+        'data_bytes': _int(cls.get('data_bytes', cls.get('data', 0))),
+        'unknown_bytes': _int(cls.get('unknown_bytes', cls.get('unknown', 0))),
+        'code_pct': round(float(cls.get('code_pct', 0.0)), 3),
+        'instructions': _int(cls.get('instructions')),
+        'labels': _int(verify.get('labels')),
+        'data_blocks': _int(verify.get('data_blocks')),
+        'structs': _int(verify.get('structs')),
+        'verify_status': str(verify.get('status', '')),
+        'jt_count': len(jts),
+        'jt_validated': sum(1 for jt in jts if jt.get('validated')),
+        'jt_targets': sum(_int(jt.get('targets_found')) for jt in jts),
+        'code_loss': _int(targets.get('code_loss', verify.get('code_loss', 0))),
+        'bare_mem': _int(verify.get('bare_mem')),
+        'bare_call': _int(verify.get('bare_call')),
+        'iterations': _int(it.get('iterations')),
+        'converged': bool(it.get('converged', False)),
+        'asm_hash': report.get('asm_hash', ''),
+    }
+
+
+def write_summary(ctx, asm_text=''):
+    project = ctx.report.get('project', 'unknown')
+    _ensure(os.path.join(STATS_DIR, project))
+    summary = summarize(ctx)
+    summary['asm_hash'] = asm_hash(asm_text) if asm_text else ''
+    path = summary_path(project, ctx.name)
+    with open(path, 'w') as f:
+        json.dump(summary, f, indent=2, sort_keys=True, default=str)
+    return path
+
+
+def load_summaries(stats_dir):
+    """Aggregate all per-binary *.summary.json under stats_dir.
+
+    Returns {binary: kpi} across every project dir, plus a `totals` entry.
+    """
+    binaries = {}
+    totals = {}
+    if not os.path.isdir(stats_dir):
+        return {'binaries': binaries, 'totals': totals}
+    for entry in sorted(os.listdir(stats_dir)):
+        pdir = os.path.join(stats_dir, entry)
+        if not os.path.isdir(pdir) or entry.startswith('image') or entry == 'detailed':
+            continue
+        for fn in sorted(os.listdir(pdir)):
+            if not fn.endswith('.summary.json'):
+                continue
+            try:
+                with open(os.path.join(pdir, fn)) as f:
+                    kpi = json.load(f)
+            except (OSError, json.JSONDecodeError):
+                continue
+            binaries[f'{entry}/{fn[:-len(".summary.json")]}'] = kpi
+            for k, v in kpi.items():
+                if isinstance(v, bool):
+                    continue
+                if isinstance(v, (int, float)):
+                    totals[k] = totals.get(k, 0) + v
+    return {'binaries': binaries, 'totals': totals}
 
 
 def print_short_report(ctx):

@@ -8,7 +8,6 @@ from main import discover_binaries
 from lib.report import clear_project_stats
 from lib.cross_ref import detect as detect_cross_refs
 
-from .charts import _charts, _charts_all
 from .clean import cmd_clean
 from .common import (
     APPS,
@@ -16,6 +15,7 @@ from .common import (
     PROJECT,
     _asm_one,
     _copy_assets,
+    _extra_flags,
     _foreign_args,
     _nasm_build,
     _prepare_cross_ref_sources,
@@ -23,8 +23,13 @@ from .common import (
 from .prebuild import _ensure_prebuild
 
 
+def _stats_enabled():
+    return '--stats' in _extra_flags()
+
+
 def asm_app(app):
-    clear_project_stats(app)
+    if _stats_enabled():
+        clear_project_stats(app)
     app_dir = os.path.join(APPS, app)
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     os.makedirs(out_dir, exist_ok=True)
@@ -61,8 +66,6 @@ def asm_app(app):
             if f.result() != 0:
                 print(f'  BUILD FAIL: {futures[f]}')
 
-    _charts(app)
-
 
 def cmd_build_binary(app, binary):
     app_dir = os.path.join(APPS, app)
@@ -75,7 +78,8 @@ def cmd_build_binary(app, binary):
 
     cmd_clean([app], keep_prebuild=True)
     _ensure_prebuild(app)
-    clear_project_stats(app)
+    if _stats_enabled():
+        clear_project_stats(app)
     os.makedirs(out_dir, exist_ok=True)
     cross_refs = detect_cross_refs(app_dir, bins)
     source_names = {src for refs in cross_refs.values() for _, src in refs}
@@ -98,7 +102,6 @@ def cmd_build_binary(app, binary):
     if _nasm_build(out_dir, binary, rel_path) != 0:
         sys.exit(1)
     print(f'build {app}/{binary} -> {rel_path}  [OK]')
-    _charts(app)
 
 
 def cmd_rebuild(app, binary):
@@ -126,5 +129,3 @@ def _build_projects(targets, all_projects):
     for project in targets:
         _ensure_prebuild(project)
         asm_app(project)
-    if len(targets) > 1 or targets == all_projects:
-        _charts_all()

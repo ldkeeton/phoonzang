@@ -36,13 +36,14 @@ from lib.segdataflow import (
     analyze as analyze_segments,
     operand_space_counts,
 )
-from lib.report import write_report, write_layers, print_short_report
+from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_c_overrides
 from .emit import _write_address_inventory
 from .options import (
     ASM_DIR,
     AZTEC_PREBUILD_ONLY,
+    STATS,
     _DIAG,
     _ITERATIVE,
     _MAX_FUNC_SIZE,
@@ -464,8 +465,10 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     }
     ctx.report['addresses'] = stats.get('address_records', [])
     _write_address_inventory(out_dir, name, label_map, ctx.report['addresses'])
-    report_path = write_report(ctx, asm_text)
-    write_layers(ctx)
+    if STATS:
+        write_report(ctx, asm_text)
+        write_layers(ctx)
+        write_summary(ctx, asm_text)
     print_short_report(ctx)
 
     if export_labels and label_map:

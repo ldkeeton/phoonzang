@@ -52,3 +52,5 @@ _DIAG = '--diag' in sys.argv
 # Instruction offsets are shown by default; this flag suppresses the comments.
 _SHOW_OFFSETS = '--no-show-offsets' not in sys.argv
 _DECOMPILE = '--decompile' in sys.argv
+# Stats (reports, layers, summaries) are only written when explicitly requested.
+STATS = '--stats' in sys.argv

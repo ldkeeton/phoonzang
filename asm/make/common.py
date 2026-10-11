@@ -12,10 +12,14 @@ Usage (from asm/):
   make rebuild PROJECT BIN nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
   make delta PROJECT BIN          compare original and edited assembly layouts
+  make set-baseline        pin current stats (.cache/stats) as local baseline
+  make stats-diff          current-vs-baseline KPI delta
+  make charts              render PNG charts from existing stats
 
 Env:
   EXTRA_FLAGS              space-separated flags forwarded to python -m main:
-                              --exact-bytes     strict byte-accurate mode
+                              --stats             write stats to .cache/stats
+                              --exact-bytes       strict byte-accurate mode
                               --detailed-timings full-precision phase timings
                               --no-show-offsets suppress instruction offsets
   EXACT_FLAG (deprecated)  same as EXTRA_FLAGS=--exact-bytes

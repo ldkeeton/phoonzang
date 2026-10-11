@@ -11,12 +11,23 @@ from lib.report import (
 
 
 def cmd_set_baseline():
+    """Pin the current stats as the local baseline (JSON + layers only)."""
+    if not os.path.isdir(STATS_DIR):
+        print(f'No stats at {STATS_DIR}; build with EXTRA_FLAGS=--stats first')
+        return
+    if os.path.isdir(BASELINE_DIR):
+        shutil.rmtree(BASELINE_DIR)
     count = 0
-    for root, dirs, files in os.walk(STATS_DIR):
-        count += sum(1 for f in files if f.endswith('.json'))
-    print(f'Found {count} binaries in stats')
-    shutil.copytree(STATS_DIR, BASELINE_DIR, dirs_exist_ok=True)
-    _charts_all()
+    for project in list_project_dirs():
+        src = os.path.join(STATS_DIR, project)
+        dst = os.path.join(BASELINE_DIR, project)
+        os.makedirs(dst, exist_ok=True)
+        for fn in os.listdir(src):
+            if fn.endswith('.json') or fn.endswith('.layers.parquet'):
+                shutil.copy2(os.path.join(src, fn), os.path.join(dst, fn))
+                if fn.endswith('.json') and not fn.endswith('.summary.json'):
+                    count += 1
+    print(f'Baseline set: {count} binaries -> {BASELINE_DIR}')
 
 
 def _charts(app):

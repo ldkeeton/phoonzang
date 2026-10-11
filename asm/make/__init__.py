@@ -35,6 +35,7 @@ from .delta import cmd_delta
 from .elf import cmd_elf_rebuild, resplice_c
 from .prebuild import _ensure_prebuild, cmd_prebuild
 from .run import DEFAULT_CHECK_SECONDS, _parse_check_args, cmd_check, cmd_run
+from .stats_diff import cmd_stats_diff
 from .testing import cmd_test
 from .verify import cmd_verify
 
@@ -57,6 +58,7 @@ __all__ = [
     'cmd_elf_rebuild',
     'cmd_charts',
     'cmd_set_baseline',
+    'cmd_stats_diff',
     'cmd_test',
     'resplice_c',
     '_apps',

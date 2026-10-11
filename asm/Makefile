@@ -13,6 +13,9 @@ charts:
 set-baseline:
 	@$(PY) -m make --set-baseline
 
+stats-diff:
+	@$(PY) -m make --stats-diff
+
 concat-code:
 	@bash concat-code.sh
 

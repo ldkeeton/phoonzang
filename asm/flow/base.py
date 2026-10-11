@@ -8,7 +8,7 @@ import sys
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(ASM_DIR)
 APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
-STATS_DIR = os.path.join(ASM_DIR, 'stats')
+STATS_DIR = os.path.join(PROJECT_ROOT, '.cache', 'stats')
 DETAILED_DIR = os.path.join(STATS_DIR, 'detailed')
 FLOW_DIR = os.path.dirname(os.path.abspath(__file__))
 BUILD_OUT = os.path.join(FLOW_DIR, 'build_out')

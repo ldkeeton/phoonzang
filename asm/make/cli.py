@@ -10,6 +10,7 @@ from .delta import cmd_delta
 from .elf import cmd_elf_rebuild
 from .prebuild import cmd_prebuild
 from .run import _parse_check_args, cmd_check, cmd_run
+from .stats_diff import cmd_stats_diff
 from .testing import cmd_test
 from .verify import cmd_verify
 
@@ -27,17 +28,26 @@ Commands (space-separated):
   make elf-rebuild PROJECT BIN recompile edited .c (no verify) + rebuild EXE + ELF/DWARF
   make delta PROJECT BIN          compare original and edited assembly layouts
   make decompile PROJECT BIN  disassemble + decompile binary to .c
-  make set-baseline         pin current stats as baseline (git-committable)
+  make set-baseline         pin current stats as the local baseline
+  make stats-diff           current-vs-baseline KPI delta (+ delta.json)
   make charts               regenerate all PNGs + CSVs from existing stats
   make test [TEST...]       run the unit test suite in lib/tests (optionally
                             only the named dotted tests)
 
 Env:
   EXTRA_FLAGS               space-separated flags forwarded to python -m main:
+                              --stats             write stats (.cache/stats)
                               --exact-bytes       strict byte-accurate mode
                               --detailed-timings  full-precision phase timings
                               --no-show-offsets   suppress instruction offsets
   EXACT_FLAG (deprecated)   same as EXTRA_FLAGS=--exact-bytes
+
+Stats workflow (LLM/human regression loop):
+  EXTRA_FLAGS=--stats make build PROJECT   # snapshot -> .cache/stats
+  make set-baseline                        # pin -> .cache/stats_baseline
+  ...edit heuristics...
+  EXTRA_FLAGS=--stats make build PROJECT
+  make stats-diff                          # read the delta
 '''
 
 
@@ -111,6 +121,10 @@ def main():
 
     if '--charts' in flags:
         cmd_charts()
+        return
+
+    if '--stats-diff' in flags:
+        cmd_stats_diff()
         return
 
     if '--test' in flags:

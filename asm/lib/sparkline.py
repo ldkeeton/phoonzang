@@ -9,8 +9,8 @@ import polars as pl
 
 from lib.model import IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.report import (
-    STATS_DIR, BASELINE_DIR,
-    layers_path, list_project_dirs,
+    STATS_DIR,
+    layers_path, baseline_layers_path, list_project_dirs,
     images_dir, images_csv_dir,
     layers_images_dir, layers_images_csv_dir,
 )
@@ -194,25 +194,6 @@ def _binary_keys(project=None):
                 yield g, binary
 
 
-def _baseline_binary_keys(project=None):
-    """Yield (project, binary) for binaries present in baseline."""
-    if not os.path.isdir(BASELINE_DIR):
-        return
-    if project:
-        dirs = [project]
-    else:
-        dirs = os.listdir(BASELINE_DIR)
-    for g in dirs:
-        bg = os.path.join(BASELINE_DIR, g)
-        if not os.path.isdir(bg):
-            continue
-        prefix = f'{g}_'
-        for fn in os.listdir(bg):
-            if fn.endswith('.layers.parquet'):
-                binary = fn[len(prefix):-len('.layers.parquet')]
-                yield g, binary
-
-
 # ── CSV writers ───────────────────────────────────────────────────────────────
 
 def _write_flat_csv(path, scope, current_metrics, baseline_metrics):
@@ -325,9 +306,14 @@ def _override_thresholds():
     return dict(WARN_THRESHOLDS)
 
 
-def _check_and_print_warnings(scope, current, baseline):
+def scope_warnings(scope, current, baseline):
+    """Return a list of threshold-breach warnings for one scope.
+
+    Each item: {scope, metric, delta, bucket_pct, threshold}.
+    """
+    result = []
     if baseline is None:
-        return
+        return result
     thresholds = _override_thresholds()
     for m in _WARN_METRICS:
         max_delta = max(abs(float(current[m][d]) - float(baseline[m][d]))
@@ -336,8 +322,30 @@ def _check_and_print_warnings(scope, current, baseline):
         if max_delta > th:
             peak_d = max(range(N_BUCKETS),
                          key=lambda d: abs(float(current[m][d]) - float(baseline[m][d])))
-            delta = float(current[m][peak_d]) - float(baseline[m][peak_d])
-            print(f'  \u26a0 {scope}: {m} \u0394={delta:+.0%} at bucket {BUCKET_PCTS[peak_d]}% (threshold \u00b1{th:.0%})')
+            result.append({
+                'scope': scope,
+                'metric': m,
+                'delta': float(current[m][peak_d]) - float(baseline[m][peak_d]),
+                'bucket_pct': BUCKET_PCTS[peak_d],
+                'threshold': th,
+            })
+    return result
+
+
+def binary_warnings(project, binary):
+    """Compare current vs baseline layers for one binary; return warnings."""
+    cur = _load_binary(project, binary, layers_path)
+    base = _load_binary(project, binary, baseline_layers_path)
+    if cur is None or base is None:
+        return []
+    return scope_warnings(f'{project}_{binary}', cur, base)
+
+
+def _check_and_print_warnings(scope, current, baseline):
+    for w in scope_warnings(scope, current, baseline):
+        print(f'  \u26a0 {w["scope"]}: {w["metric"]} '
+              f'\u0394={w["delta"]:+.0%} at bucket {w["bucket_pct"]}% '
+              f'(threshold \u00b1{w["threshold"]:.0%})')
 
 
 # ── chart generators ──────────────────────────────────────────────────────────
@@ -552,7 +560,7 @@ def generate_scope(scope, binaries, byte_sources=None):
     baseline_metrics = None
     base_vals = []
     for project, binary, _ in binaries:
-        bm = _load_binary(project, binary, layers_path)
+        bm = _load_binary(project, binary, baseline_layers_path)
         if bm is not None:
             base_vals.append(bm)
     if base_vals:
@@ -565,7 +573,7 @@ def generate_scope(scope, binaries, byte_sources=None):
     total_ins_lost = 0
     if has_base:
         for project, binary, _ in binaries:
-            bp = layers_path(project, binary)
+            bp = baseline_layers_path(project, binary)
             if not os.path.exists(bp):
                 continue
             try:
@@ -602,7 +610,7 @@ def generate_scope(scope, binaries, byte_sources=None):
         col_name = 'emit' if 'emit' in df.columns else 'squashed'
         col = df[col_name].to_numpy().astype(np.int8)
         base_col = None
-        bp = layers_path(g, b)
+        bp = baseline_layers_path(g, b)
         if os.path.exists(bp):
             try:
                 bdf = pl.read_parquet(bp)
@@ -687,7 +695,7 @@ def generate_layers_scope(scope, binaries):
     # Baseline
     baseline_avg = {}
     for project, binary, _ in binaries:
-        bp = _load_all_phases(project, binary, layers_path)
+        bp = _load_all_phases(project, binary, baseline_layers_path)
         if bp is not None:
             for phase in PHASE_COLS:
                 if phase in bp:
