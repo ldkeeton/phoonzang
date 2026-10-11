@@ -2,12 +2,12 @@ fpu_loc_19ba:
     mov word [bp - 0x0008], 9        ; 0x19ba
     jmp short loc_19da               ; 0x19bf
 jumptable_19c1:
-    dw 0x69de
-    dw 0x69e5
-    dw 0x69ec
-    dw 0x69f3
-    dw 0x69fa
-    dw jumptable_19c1_case_5 - IMAGE_BASE
+    dw fpu_loc_1997 - IMAGE_BASE + 0x5055      ; 0x19c1
+    dw fpu_loc_199e - IMAGE_BASE + 0x5055      ; 0x19c3
+    dw fpu_loc_19a5 - IMAGE_BASE + 0x5055      ; 0x19c5
+    dw fpu_loc_19ac - IMAGE_BASE + 0x5055      ; 0x19c7
+    dw fpu_loc_19b3 - IMAGE_BASE + 0x5055      ; 0x19c9
+    dw fpu_loc_19ba - IMAGE_BASE + 0x5055      ; 0x19cb
 @..api_idx_000a.l4:
     cmp ax, strict word 6            ; 0x19cd
     jae short loc_19da               ; 0x19d0

@@ -78,7 +78,6 @@ api_idx_0006_2:
     mov cx, 0x2d                     ; 0x62a3
     imul cx                          ; 0x62a6
     add ax, strict word 0x12         ; 0x62a8
-jumptable_14d6_case_0:
     mov word [bp - 0x0006], ax       ; 0x62ab
     add ax, strict word 0x2b         ; 0x62ae
     push ax                          ; 0x62b1
@@ -94,9 +93,9 @@ jumptable_14d6_case_0:
 loc_62c6:
     mov ax, 0                        ; 0x62c6
     call ds_dispatch_f40b            ; 0x62c9
-@..local.l131:
+@..local.l117:
     cmp word [bss_69c8], byte 0      ; 0x62cc
-    jle short @..local.l132          ; 0x62d1
+    jle short @..local.l118          ; 0x62d1
     mov ax, 0                        ; 0x62d3
     push ax                          ; 0x62d6
     mov ax, word [bss_69c8]          ; 0x62d7
@@ -104,6 +103,6 @@ loc_62c6:
     push ax                          ; 0x62db
     call api_idx_0006_2              ; 0x62dc
     add sp, byte 4                   ; 0x62df
-    jmp short @..local.l131          ; 0x62e2
-@..local.l132:
+    jmp short @..local.l117          ; 0x62e2
+@..local.l118:
     ret                              ; 0x62e4

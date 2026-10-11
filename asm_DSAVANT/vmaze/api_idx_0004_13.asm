@@ -74,7 +74,7 @@ loc_7a34:
     call ds_dispatch_ed3a            ; 0x7a51
     add sp, byte 6                   ; 0x7a54
     cmp ax, strict word 1            ; 0x7a57
-    jne short @..local.l96           ; 0x7a5a
+    jne short @..local.l70           ; 0x7a5a
     mov si, word [bss_8d12]          ; 0x7a5c
     mov bx, word [bss_0e12]          ; 0x7a60
     mov al, byte [bx + si + 0xa50]   ; 0x7a64
@@ -84,15 +84,15 @@ loc_7a34:
     pop cx                           ; 0x7a6e
     mov bx, word [bss_100a]          ; 0x7a6f
     mov word [bx], ax                ; 0x7a73
-    jmp short @..local.l97           ; 0x7a75
-@..local.l96:
+    jmp short @..local.l71           ; 0x7a75
+@..local.l70:
     mov bx, word [bss_0e12]          ; 0x7a77
     mov si, word [bss_8d12]          ; 0x7a7b
     mov al, byte [bx + si + 0xa50]   ; 0x7a7f
     sub ah, ah                       ; 0x7a83
     mov bx, word [bss_100a]          ; 0x7a85
     mov word [bx], ax                ; 0x7a89
-@..local.l97:
+@..local.l71:
     mov ax, 1                        ; 0x7a8b
     push ax                          ; 0x7a8e
     push ax                          ; 0x7a8f
@@ -109,7 +109,6 @@ loc_7a34:
     mov bx, word [bss_0e12]          ; 0x7aa6
     push word [bx + si + 0x3c0]      ; 0x7aaa
     call ds_dispatch_ed3a            ; 0x7aae
-jumptable_2a3c_case_3:
     add sp, byte 6                   ; 0x7ab1
     push ax                          ; 0x7ab4
     call loc_7242                    ; 0x7ab5

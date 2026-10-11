@@ -10,17 +10,17 @@ per-binary inventory is conflict-free.
 ## Current state — verified
 
 `make verify DSAVANT` is **18/18 byte-exact**; `python3 -m unittest discover
--p 'test_*.py'` is **111/111 OK**. The `ds` host model is built once and threaded
+-p 'test_*.py'` is **113/113 OK**. The `ds` host model is built once and threaded
 into overlays; the overlay header is 14 bytes; the segment dataflow is recomputed
 against the final bitmap and sees every recovered switch-table arm. Detected
-`jumptable_*` labels are up from 113 (HEAD) to 308.
+`jumptable_*` labels are up from 294 (HEAD) to 455.
 
 | metric | baseline | now |
 |---|---|---|
-| asm `[data_*]` operand refs | 454 | 198 |
-| inventory `unknown` records | 219 | 131 |
-| inventory `dseg_` / `bss_` | 1225 / 102 | 165 / 1182 |
-| inventory `cs` | 1989 | 2342 |
+| asm `[data_*]` operand refs | 454 | 111 |
+| inventory `unknown` records | 219 | 84 |
+| inventory `dseg_` / `bss_` | 1225 / 102 | 167 / 1213 |
+| inventory `cs` | 1989 | 3125 |
 | inventory `psp` | 6 | 6 |
 
 Done in the working tree (source only; generated `asm_DSAVANT/**` rewritten):
@@ -33,7 +33,12 @@ Done in the working tree (source only; generated `asm_DSAVANT/**` rewritten):
   `_resolve_imm_symbols` use `data_space`; `_apply_c_overrides` /
   `_c_bytes_to_records` carry `mem_symbols`/`mem_equ`; `_render_ovr_header`
   emits the 14-byte Aztec header as commented `dw` fields; `_postprocess_data_blocks`
-  takes `table_ranges` and refuses to promote detected switch tables to instructions.
+  takes `table_ranges` and refuses to promote detected switch tables to instructions;
+  `_inject_jump_tables` maps overlay entry words through the `o_corg` convention
+  (`start_offset + (value - o_corg)`) so case labels land on the real arms, encodes
+  them `label - IMAGE_BASE + o_corg`, will not synthesize a case label inside another
+  detected table, and emits `; 0x…` addresses on `dw` and function-split `%include`
+  lines.
 - `main.py` — `_build_host_model` + `host_model=` threading; `discover_binaries`
   now uses `start_offset = 14` for `*.OVR`; `analyze_segments` receives
   `segment_edges` (validated tables + **all** recovered table arms + branch
@@ -44,11 +49,15 @@ Done in the working tree (source only; generated `asm_DSAVANT/**` rewritten):
   hard data; forward scan now also stops at a **DOS exit** (`is_dos_terminator`),
   so inline data after an error handler's `mov ax,0x4c01; int 0x21` stays data.
 - `lib/phases/recursive.py` — `_code_off` routes jump-table/indirect-jump
-  translation through `SegmentModel.code_offset` for overlays; `_scan_jump_table`
+  translation through `SegmentModel.code_offset` for overlays and masks the
+  offset to 16 bits (capstone sign-extends `jmp [cs:bx - 0x78c1]` to `-0x78c1`,
+  which previously failed the range check and dropped the table); the CS-prefixed
+  scan reads the displacement as `<H`; `_scan_jump_table`
   only applies the data-vote stop when `max_index is None` (a bounded table is
   read fully even when `prune_dead` pre-voted its arms data); `_validate_jump_tables`
   marks every detected table region `_CONF_JT_DATA` and clears `hard_code` over it.
-- `test_segments.py`, `test_jump_tables.py`, new `test_forcecode.py`.
+- `test_segments.py`, `test_jump_tables.py` (`ScanJumpTableBoundsTests`,
+  `CodeOffSignExtensionTests`), new `test_forcecode.py`.
 - `sidecar/DSAVANT.json` — overlay `start_offset` 8 → 14.
 
 Diagnosed and fixed here (was surfacing as *data → instruction*): the Aztec
@@ -58,6 +67,14 @@ fallback then emitted as code once the post-phase instruction stream was
 recomputed. With the header marked hard data and the back-scan clamped, those
 bytes are `db` again and the real entry (`mov ax,<api>; call <dispatch>`) at
 offset 14 is preserved.
+
+Diagnosed and fixed here (was surfacing as *code → data*): overlay switch
+dispatchers use `jmp [cs:bx + <o_corg offset>]`; when that offset's high byte is
+set capstone reports it signed (`-0x78c1`), `_code_off` translated it to a
+negative file offset, and the range check aborted the table scan.  The arm code
+was then classified data and inflated into `db`.  Masking to 16 bits recovers
+the table (e.g. `vmnpc/api_idx_0040` arms `0x2bef..0x36f8` and
+`jumptable_36f8`).
 
 ## Confirmed facts (do not re-derive)
 

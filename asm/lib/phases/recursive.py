@@ -77,7 +77,13 @@ def _code_off(ctx, value):
 
     Overlays store ``o_corg``-based CS values (``SegmentModel.code_offset``);
     MZ images and drivers use the plain ``start_offset + value`` convention.
+
+    Embedded code offsets are 16-bit.  capstone sign-extends a memory
+    displacement whose high byte is set (e.g. ``jmp [cs:bx - 0x78c1]`` arrives
+    as ``-0x78c1``), so mask to 16 bits before translating or the range check
+    rejects a valid table.
     """
+    value &= 0xFFFF
     segments = getattr(ctx, 'segments', None)
     if segments is not None:
         off = segments.code_offset(value)
@@ -300,7 +306,7 @@ class RecursiveDescentPhase(Phase):
                 continue
             if data_boundary[scan_idx] < _HARD_DATA:
                 continue
-            disp = struct.unpack_from('<h', data, scan_idx + 3)[0]
+            disp = struct.unpack_from('<H', data, scan_idx + 3)[0]
             tgt = _code_off(ctx, disp)
             if not (0 <= tgt < n):
                 continue
@@ -442,7 +448,7 @@ class RecursiveDescentPhase(Phase):
                         has_base = False
                         for op in insn.operands:
                             if op.type == CS_OP_MEM:
-                                mem_disp = op.mem.disp
+                                mem_disp = op.mem.disp & 0xFFFF
                                 has_base = op.mem.base != 0
                                 break
                         use_jt = has_base and mem_disp is not None

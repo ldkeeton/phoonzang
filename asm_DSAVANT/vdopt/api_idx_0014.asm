@@ -229,24 +229,25 @@ api_idx_0014:
     je short @..api_idx_0014.l23     ; 0x0bfc
     mov ax, word [bss_830c]          ; 0x0bfe
     jmp short @..api_idx_0014.l22    ; 0x0c01
+jumptable_0c0b_case_0:
     db 0xa1, 0xea, 0x9a, 0x89, 0x46, 0xf2, 0xeb, 0x30
 jumptable_0c0b:
-    dw 0x5c4a
-    dw 0x5c82
-    dw 0x5c4a
-    dw 0x5c82
-    dw 0x5c82
-    dw 0x5c82
-    dw 0x5c82
-    dw 0x5c4a
-    dw 0x5c4a
-    dw 0x5c4a
-    dw 0x5c4a
-    dw 0x5c4a
-    dw 0x5c82
-    dw 0x5c82
-    dw 0x5c4a
-    dw 0x5c4a
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c0b
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c0d
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c0f
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c11
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c13
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c15
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c17
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c19
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c1b
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c1d
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c1f
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c21
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c23
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c25
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c27
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c29
 @..api_idx_0014.l22:
     sub ax, strict word 0xf          ; 0x0c2b
     cmp ax, strict word 0x10         ; 0x0c2e
@@ -254,6 +255,7 @@ jumptable_0c0b:
     xchg bx, ax                      ; 0x0c33
     shl bx, 1                        ; 0x0c34
     jmp [cs:bx + 0x5c52]             ; 0x0c36
+jumptable_0c0b_case_1:
 @..api_idx_0014.l23:
     push word [bp - 0x0002]          ; 0x0c3b
     mov ax, word [bss_0e14]          ; 0x0c3e
@@ -354,20 +356,21 @@ loc_0d18:
     mov word [bp - 0x0010], ax       ; 0x0d1b
     jmp short @..api_idx_0014.l33    ; 0x0d1e
 jumptable_0d20:
-    dw 0x5d84
-    dw 0x5d47
-    dw 0x5d4f
-    dw 0x5d57
-    dw 0x5d5f
-    dw 0x5d84
-    dw 0x5d57
-    dw 0x5d4f
+    dw jumptable_0d20_case_0 - IMAGE_BASE + 0x5055 ; 0x0d20
+    dw loc_0d00 - IMAGE_BASE + 0x5055          ; 0x0d22
+    dw loc_0d08 - IMAGE_BASE + 0x5055          ; 0x0d24
+    dw loc_0d10 - IMAGE_BASE + 0x5055          ; 0x0d26
+    dw loc_0d18 - IMAGE_BASE + 0x5055          ; 0x0d28
+    dw jumptable_0d20_case_0 - IMAGE_BASE + 0x5055 ; 0x0d2a
+    dw loc_0d10 - IMAGE_BASE + 0x5055          ; 0x0d2c
+    dw loc_0d08 - IMAGE_BASE + 0x5055          ; 0x0d2e
 @..api_idx_0014.l32:
     cmp ax, strict word 8            ; 0x0d30
     jae short @..api_idx_0014.l33    ; 0x0d33
     xchg bx, ax                      ; 0x0d35
     shl bx, 1                        ; 0x0d36
     jmp [cs:bx + 0x5d67]             ; 0x0d38
+jumptable_0d20_case_0:
 @..api_idx_0014.l33:
     cmp word [bp - 0x0010], byte 0xff ; 0x0d3d
     je short @..api_idx_0014.l34     ; 0x0d41

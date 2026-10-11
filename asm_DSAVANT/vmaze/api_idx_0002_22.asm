@@ -72,12 +72,12 @@ loc_9448:
     mov al, byte [bx - 0x7b14]       ; 0x9456
     sub ah, ah                       ; 0x945a
     cmp ax, word [bp + 0x6]          ; 0x945c
-    jne short @..local.l110          ; 0x945f
+    jne short @..local.l77           ; 0x945f
     mov ax, 1                        ; 0x9461
-    jmp short @..local.l111          ; 0x9464
-@..local.l110:
+    jmp short @..local.l78           ; 0x9464
+@..local.l77:
     mov ax, 0                        ; 0x9466
-@..local.l111:
+@..local.l78:
     ret                              ; 0x9469
 loc_946a:
     mov ax, 0                        ; 0x946a
@@ -96,12 +96,12 @@ loc_946a:
     call api_idx_0006_8              ; 0x948e
     add sp, byte 6                   ; 0x9491
     test ax, ax                      ; 0x9494
-    jne short @..local.l112          ; 0x9496
+    jne short @..local.l79           ; 0x9496
     mov ax, 0x26                     ; 0x9498
     imul word [bp + 0x4]             ; 0x949b
     mov bx, ax                       ; 0x949e
     mov byte [bx - 0x7b16], 0        ; 0x94a0
-@..local.l112:
+@..local.l79:
     ret                              ; 0x94a5
 loc_94a6:
     mov ax, 0                        ; 0x94a6
@@ -111,7 +111,7 @@ loc_94a6:
     call ds_dispatch_b7a9            ; 0x94b0
     pop cx                           ; 0x94b3
     test ax, ax                      ; 0x94b4
-    je short @..local.l113           ; 0x94b6
+    je short @..local.l80            ; 0x94b6
     mov ax, 0x26                     ; 0x94b8
     imul word [bp + 0x4]             ; 0x94bb
     mov bx, ax                       ; 0x94be
@@ -126,7 +126,7 @@ loc_94a6:
     mov cx, ax                       ; 0x94d1
     pop ax                           ; 0x94d3
     cmp ax, cx                       ; 0x94d4
-    jge short @..local.l113          ; 0x94d6
+    jge short @..local.l80           ; 0x94d6
     mov al, byte [bx - 0x7b17]       ; 0x94d8
     mov byte [bx - 0x7b15], al       ; 0x94dc
     push word [bp + 0x4]             ; 0x94e0
@@ -134,6 +134,6 @@ loc_94a6:
     pop cx                           ; 0x94e6
     mov ax, 1                        ; 0x94e7
     ret                              ; 0x94ea
-@..local.l113:
+@..local.l80:
     mov ax, 0                        ; 0x94eb
     ret                              ; 0x94ee

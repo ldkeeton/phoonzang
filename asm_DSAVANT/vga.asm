@@ -220,51 +220,51 @@ loc_0000:
     db 'SAVE_SCREEN called with bad slot number.', 0
     db 0x0a, 0x24
 
-%include "vga/dos_con_loc_0a8d.asm"
+%include "vga/dos_con_loc_0a8d.asm"        ; 0x0a8d
 
-%include "vga/dos_con_loc_147d.asm"
+%include "vga/dos_con_loc_147d.asm"        ; 0x147d
 
-%include "vga/dos_con_loc_22ee.asm"
+%include "vga/dos_con_loc_22ee.asm"        ; 0x22ee
 
-%include "vga/dos_free_mem.asm"
+%include "vga/dos_free_mem.asm"            ; 0x28ae
 
-%include "vga/dos_free_mem_2.asm"
+%include "vga/dos_free_mem_2.asm"          ; 0x29b3
 
-%include "vga/dos_free_mem_3.asm"
+%include "vga/dos_free_mem_3.asm"          ; 0x2a8b
 
-%include "vga/dos_con_loc_3822.asm"
+%include "vga/dos_con_loc_3822.asm"        ; 0x3822
 
-%include "vga/dos_con_loc_3b1f.asm"
+%include "vga/dos_con_loc_3b1f.asm"        ; 0x3b1f
 
-%include "vga/dos_con_loc_3f45.asm"
+%include "vga/dos_con_loc_3f45.asm"        ; 0x3f45
 
-%include "vga/dos_con_loc_4088.asm"
+%include "vga/dos_con_loc_4088.asm"        ; 0x4088
 
-%include "vga/dos_con_loc_40d2.asm"
+%include "vga/dos_con_loc_40d2.asm"        ; 0x40d2
 
-%include "vga/dos_con_loc_422f.asm"
+%include "vga/dos_con_loc_422f.asm"        ; 0x422f
 
-%include "vga/dos_con_loc_426b.asm"
+%include "vga/dos_con_loc_426b.asm"        ; 0x426b
 
-%include "vga/leaf_loc_43f7.asm"
+%include "vga/leaf_loc_43f7.asm"           ; 0x43f7
 
-%include "vga/leaf_loc_440c.asm"
+%include "vga/leaf_loc_440c.asm"           ; 0x440c
 
-%include "vga/leaf_loc_4421.asm"
+%include "vga/leaf_loc_4421.asm"           ; 0x4421
 
-%include "vga/leaf_loc_4436.asm"
+%include "vga/leaf_loc_4436.asm"           ; 0x4436
 
-%include "vga/leaf_loc_444b.asm"
+%include "vga/leaf_loc_444b.asm"           ; 0x444b
 
-%include "vga/dos_con_loc_4461.asm"
+%include "vga/dos_con_loc_4461.asm"        ; 0x4461
 
-%include "vga/leaf_loc_44a3.asm"
+%include "vga/leaf_loc_44a3.asm"           ; 0x44a3
 
-%include "vga/dos_read_file.asm"
+%include "vga/dos_read_file.asm"           ; 0x45fb
 
-%include "vga/dos_con_loc_4719.asm"
+%include "vga/dos_con_loc_4719.asm"        ; 0x4719
 
-%include "vga/dos_con_loc_4755.asm"
+%include "vga/dos_con_loc_4755.asm"        ; 0x4755
 
 loc_481f:
     push bp                          ; 0x481f

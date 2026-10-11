@@ -103,71 +103,83 @@ loc_000e:
 @..local.l3:
     mov ax, 0                        ; 0x004a
     ret                              ; 0x004d
-%include "vmele/api_idx_0008.asm"
+%include "vmele/api_idx_0008.asm"          ; 0x004e
 
-%include "vmele/api_idx_0004.asm"
+%include "vmele/api_idx_0004.asm"          ; 0x0102
 
-%include "vmele/api_idx_0008_2.asm"
+%include "vmele/api_idx_0008_2.asm"        ; 0x0164
 
-%include "vmele/api_idx_000a.asm"
+%include "vmele/api_idx_000a.asm"          ; 0x0244
 
-%include "vmele/api_idx_0004_2.asm"
+%include "vmele/api_idx_0004_2.asm"        ; 0x02c2
 
-%include "vmele/api_idx_000c.asm"
+%include "vmele/api_idx_000c.asm"          ; 0x030a
 
-%include "vmele/api_idx_0004_3.asm"
+%include "vmele/api_idx_0004_3.asm"        ; 0x03b9
 
-%include "vmele/api_idx_00a8.asm"
+%include "vmele/api_idx_00a8.asm"          ; 0x041d
 
-%include "vmele/api_idx_005e.asm"
+%include "vmele/api_idx_005e.asm"          ; 0x0649
 
-%include "vmele/api_idx_0008_3.asm"
+%include "vmele/api_idx_0008_3.asm"        ; 0x07ad
 
-%include "vmele/api_idx_0004_4.asm"
+%include "vmele/api_idx_0004_4.asm"        ; 0x0c67
 
-%include "vmele/api_idx_000a_2.asm"
+%include "vmele/api_idx_000a_2.asm"        ; 0x0f95
 
-%include "vmele/api_idx_000c_2.asm"
+%include "vmele/api_idx_000c_2.asm"        ; 0x11b0
 
-%include "vmele/api_idx_000e.asm"
+%include "vmele/api_idx_000e.asm"          ; 0x12ac
 
-%include "vmele/api_idx_005c.asm"
+%include "vmele/api_idx_005c.asm"          ; 0x14e6
 
-%include "vmele/api_idx_0006.asm"
+%include "vmele/api_idx_0006.asm"          ; 0x1713
 
-%include "vmele/api_idx_0004_5.asm"
+%include "vmele/api_idx_0004_5.asm"        ; 0x17ad
 
-%include "vmele/api_idx_0014.asm"
+%include "vmele/api_idx_0014.asm"          ; 0x1844
 
-%include "vmele/api_idx_000e_2.asm"
+%include "vmele/api_idx_000e_2.asm"        ; 0x2138
 
-%include "vmele/api_idx_0004_6.asm"
+%include "vmele/api_idx_0004_6.asm"        ; 0x245b
 
-%include "vmele/api_idx_001c.asm"
+%include "vmele/api_idx_001c.asm"          ; 0x2565
 
-%include "vmele/api_idx_000e_3.asm"
+%include "vmele/api_idx_000e_3.asm"        ; 0x27ab
 
-%include "vmele/api_idx_0002.asm"
+%include "vmele/api_idx_0002.asm"          ; 0x28fc
 
-%include "vmele/api_idx_000c_3.asm"
+%include "vmele/api_idx_000c_3.asm"        ; 0x29c5
 
-%include "vmele/api_idx_0006_2.asm"
+%include "vmele/api_idx_0006_2.asm"        ; 0x2b78
 
-%include "vmele/api_idx_005a.asm"
+%include "vmele/api_idx_005a.asm"          ; 0x2cde
 
-%include "vmele/api_idx_0004_7.asm"
+%include "vmele/api_idx_0004_7.asm"        ; 0x2ec4
 
-%include "vmele/api_idx_0008_4.asm"
+%include "vmele/api_idx_0008_4.asm"        ; 0x306a
 
-%include "vmele/api_idx_0056.asm"
+%include "vmele/io_loc_309d.asm"           ; 0x309d
 
-%include "vmele/api_idx_0004_8.asm"
+%include "vmele/io_loc_30ab.asm"           ; 0x30ab
 
-%include "vmele/api_idx_0002_2.asm"
+%include "vmele/io_loc_30b9.asm"           ; 0x30b9
 
-%include "vmele/string_loc_3710.asm"
+%include "vmele/io_loc_30c7.asm"           ; 0x30c7
 
-%include "vmele/string_loc_374e.asm"
+%include "vmele/io_loc_30d5.asm"           ; 0x30d5
+
+%include "vmele/io_loc_30e3.asm"           ; 0x30e3
+
+%include "vmele/api_idx_0056.asm"          ; 0x31a1
+
+%include "vmele/api_idx_0004_8.asm"        ; 0x3390
+
+%include "vmele/api_idx_0002_2.asm"        ; 0x36b8
+
+%include "vmele/string_loc_3710.asm"       ; 0x3710
+
+%include "vmele/string_loc_374e.asm"       ; 0x374e
 
 
     db 'MON00.PIC', 0

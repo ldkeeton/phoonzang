@@ -32,6 +32,7 @@ loc_1a5a:
     je short @..api_idx_0008_3.l2    ; 0x1a5f
     mov ax, 0                        ; 0x1a61
     ret                              ; 0x1a64
+jumptable_1a8f_case_1:
 @..api_idx_0008_3.l2:
     mov ax, 5                        ; 0x1a65
     imul word [bss_91aa]             ; 0x1a68
@@ -49,12 +50,12 @@ loc_1a7a:
     mov ax, 0                        ; 0x1a8b
     ret                              ; 0x1a8e
 jumptable_1a8f:
-    dw 0x6a9d
-    dw 0x6aac
-    dw 0x6a9d
-    dw 0x6aa1
-    dw 0x6a9d
-    dw 0x6ac1
+    dw loc_1a56 - IMAGE_BASE + 0x5055          ; 0x1a8f
+    dw jumptable_1a8f_case_1 - IMAGE_BASE + 0x5055 ; 0x1a91
+    dw loc_1a56 - IMAGE_BASE + 0x5055          ; 0x1a93
+    dw loc_1a5a - IMAGE_BASE + 0x5055          ; 0x1a95
+    dw loc_1a56 - IMAGE_BASE + 0x5055          ; 0x1a97
+    dw loc_1a7a - IMAGE_BASE + 0x5055          ; 0x1a99
 @..api_idx_0008_3.l3:
     cmp ax, strict word 6            ; 0x1a9b
     jae short @..api_idx_0008_3.l4   ; 0x1a9e
@@ -104,12 +105,12 @@ loc_1afe:
     mov byte [bx - 0x6e52], 2        ; 0x1b0a
     jmp short @..api_idx_0008_3.l6   ; 0x1b0f
 jumptable_1b11:
-    dw 0x6b1f
-    dw 0x6b32
-    dw 0x6b45
-    dw 0x6b32
-    dw 0x6b1f
-    dw 0x6b32
+    dw loc_1ad8 - IMAGE_BASE + 0x5055          ; 0x1b11
+    dw loc_1aeb - IMAGE_BASE + 0x5055          ; 0x1b13
+    dw loc_1afe - IMAGE_BASE + 0x5055          ; 0x1b15
+    dw loc_1aeb - IMAGE_BASE + 0x5055          ; 0x1b17
+    dw loc_1ad8 - IMAGE_BASE + 0x5055          ; 0x1b19
+    dw loc_1aeb - IMAGE_BASE + 0x5055          ; 0x1b1b
 @..api_idx_0008_3.l5:
     cmp ax, strict word 6            ; 0x1b1d
     jae short @..api_idx_0008_3.l6   ; 0x1b20

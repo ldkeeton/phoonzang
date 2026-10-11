@@ -5,25 +5,25 @@ loc_2661:
     mov word [bp - 0x001a], 0x21     ; 0x2661
     jmp short loc_269e               ; 0x2666
 jumptable_2668:
-    dw jumptable_2668_case_0 - IMAGE_BASE
-    dw jumptable_2668_case_1 - IMAGE_BASE
-    dw jumptable_2668_case_2 - IMAGE_BASE
-    dw jumptable_2668_case_3 - IMAGE_BASE
-    dw jumptable_2668_case_4 - IMAGE_BASE
-    dw jumptable_2668_case_5 - IMAGE_BASE
-    dw jumptable_2668_case_6 - IMAGE_BASE
-    dw jumptable_2668_case_7 - IMAGE_BASE
-    dw jumptable_2668_case_8 - IMAGE_BASE
-    dw jumptable_2668_case_9 - IMAGE_BASE
-    dw jumptable_2668_case_10 - IMAGE_BASE
-    dw jumptable_2668_case_11 - IMAGE_BASE
-    dw jumptable_2668_case_12 - IMAGE_BASE
-    dw jumptable_2668_case_13 - IMAGE_BASE
-    dw jumptable_2668_case_14 - IMAGE_BASE
-    dw jumptable_2668_case_15 - IMAGE_BASE
-    dw jumptable_2668_case_16 - IMAGE_BASE
-    dw jumptable_2668_case_17 - IMAGE_BASE
-    dw jumptable_2668_case_18 - IMAGE_BASE
+    dw leaf_loc_25da - IMAGE_BASE + 0x5055     ; 0x2668
+    dw leaf_loc_25e2 - IMAGE_BASE + 0x5055     ; 0x266a
+    dw leaf_loc_25ea - IMAGE_BASE + 0x5055     ; 0x266c
+    dw leaf_loc_25f2 - IMAGE_BASE + 0x5055     ; 0x266e
+    dw leaf_loc_25fa - IMAGE_BASE + 0x5055     ; 0x2670
+    dw leaf_loc_2602 - IMAGE_BASE + 0x5055     ; 0x2672
+    dw leaf_loc_260a - IMAGE_BASE + 0x5055     ; 0x2674
+    dw leaf_loc_2612 - IMAGE_BASE + 0x5055     ; 0x2676
+    dw leaf_loc_261a - IMAGE_BASE + 0x5055     ; 0x2678
+    dw leaf_loc_2622 - IMAGE_BASE + 0x5055     ; 0x267a
+    dw leaf_loc_2629 - IMAGE_BASE + 0x5055     ; 0x267c
+    dw leaf_loc_2630 - IMAGE_BASE + 0x5055     ; 0x267e
+    dw leaf_loc_2637 - IMAGE_BASE + 0x5055     ; 0x2680
+    dw leaf_loc_263e - IMAGE_BASE + 0x5055     ; 0x2682
+    dw leaf_loc_2645 - IMAGE_BASE + 0x5055     ; 0x2684
+    dw leaf_loc_264c - IMAGE_BASE + 0x5055     ; 0x2686
+    dw leaf_loc_2653 - IMAGE_BASE + 0x5055     ; 0x2688
+    dw leaf_loc_265a - IMAGE_BASE + 0x5055     ; 0x268a
+    dw loc_2661 - IMAGE_BASE + 0x5055          ; 0x268c
 loc_268e:
     sub ax, strict word 0xb          ; 0x268e
     cmp ax, strict word 0x13         ; 0x2691

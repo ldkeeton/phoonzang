@@ -117,7 +117,6 @@ api_idx_001e:
     mov ax, 0x24                     ; 0x53ae
     sub ax, word [bp - 0x000a]       ; 0x53b1
     jmp short @..api_idx_001e.l11    ; 0x53b4
-jumptable_03ce_case_2:
 @..api_idx_001e.l10:
     mov ax, word [bp - 0x000a]       ; 0x53b6
     add ax, strict word 0x20         ; 0x53b9
@@ -132,7 +131,6 @@ jumptable_03ce_case_2:
     lea ax, word [bp - 0x001e]       ; 0x53cc
     push ax                          ; 0x53cf
     mov ax, 0                        ; 0x53d0
-jumptable_03ce_case_3:
     push ax                          ; 0x53d3
     mov ax, 0x90                     ; 0x53d4
     push ax                          ; 0x53d7

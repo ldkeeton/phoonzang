@@ -2,12 +2,12 @@ leaf_loc_185a:
     mov ax, 0x16                     ; 0x185a
     ret                              ; 0x185d
 jumptable_185e:
-    dw 0x6872
-    dw 0x687f
-    dw 0x6883
-    dw 0x6887
-    dw 0x6894
-    dw jumptable_185e_case_5 - IMAGE_BASE
+    dw leaf_loc_182b - IMAGE_BASE + 0x5055     ; 0x185e
+    dw leaf_loc_1838 - IMAGE_BASE + 0x5055     ; 0x1860
+    dw leaf_loc_183c - IMAGE_BASE + 0x5055     ; 0x1862
+    dw leaf_loc_1840 - IMAGE_BASE + 0x5055     ; 0x1864
+    dw leaf_loc_184d - IMAGE_BASE + 0x5055     ; 0x1866
+    dw leaf_loc_185a - IMAGE_BASE + 0x5055     ; 0x1868
 @..local.l36:
     sub ax, strict word 5            ; 0x186a
     cmp ax, strict word 6            ; 0x186d

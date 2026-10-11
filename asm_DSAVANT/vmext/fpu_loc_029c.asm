@@ -2,38 +2,38 @@ fpu_loc_029c:
     mov word [bp - 0x0002], 6        ; 0x029c
     jmp short loc_02f0               ; 0x02a1
 jumptable_02a3:
-    dw jumptable_02a3_case_0 - IMAGE_BASE
-    dw jumptable_02a3_case_0 - IMAGE_BASE
-    dw jumptable_02a3_case_0 - IMAGE_BASE
-    dw jumptable_02a3_case_0 - IMAGE_BASE
-    dw jumptable_02a3_case_0 - IMAGE_BASE
-    dw jumptable_02a3_case_0 - IMAGE_BASE
-    dw jumptable_02a3_case_0 - IMAGE_BASE
-    dw jumptable_02a3_case_7 - IMAGE_BASE
-    dw jumptable_02a3_case_8 - IMAGE_BASE
-    dw jumptable_02a3_case_8 - IMAGE_BASE
-    dw jumptable_02a3_case_8 - IMAGE_BASE
-    dw jumptable_02a3_case_8 - IMAGE_BASE
-    dw jumptable_02a3_case_8 - IMAGE_BASE
-    dw jumptable_02a3_case_0 - IMAGE_BASE
-    dw jumptable_02a3_case_14 - IMAGE_BASE
-    dw jumptable_02a3_case_15 - IMAGE_BASE
-    dw jumptable_02a3_case_14 - IMAGE_BASE
-    dw jumptable_02a3_case_15 - IMAGE_BASE
-    dw jumptable_02a3_case_14 - IMAGE_BASE
-    dw jumptable_02a3_case_14 - IMAGE_BASE
-    dw jumptable_02a3_case_14 - IMAGE_BASE
-    dw jumptable_02a3_case_14 - IMAGE_BASE
-    dw jumptable_02a3_case_22 - IMAGE_BASE
-    dw jumptable_02a3_case_15 - IMAGE_BASE
-    dw jumptable_02a3_case_15 - IMAGE_BASE
-    dw jumptable_02a3_case_22 - IMAGE_BASE
-    dw jumptable_02a3_case_15 - IMAGE_BASE
-    dw jumptable_02a3_case_27 - IMAGE_BASE
-    dw jumptable_02a3_case_22 - IMAGE_BASE
-    dw jumptable_02a3_case_15 - IMAGE_BASE
-    dw jumptable_02a3_case_15 - IMAGE_BASE
-    dw jumptable_02a3_case_14 - IMAGE_BASE
+    dw fpu_loc_027a - IMAGE_BASE + 0x5055      ; 0x02a3
+    dw fpu_loc_027a - IMAGE_BASE + 0x5055      ; 0x02a5
+    dw fpu_loc_027a - IMAGE_BASE + 0x5055      ; 0x02a7
+    dw fpu_loc_027a - IMAGE_BASE + 0x5055      ; 0x02a9
+    dw fpu_loc_027a - IMAGE_BASE + 0x5055      ; 0x02ab
+    dw fpu_loc_027a - IMAGE_BASE + 0x5055      ; 0x02ad
+    dw fpu_loc_027a - IMAGE_BASE + 0x5055      ; 0x02af
+    dw fpu_loc_028e - IMAGE_BASE + 0x5055      ; 0x02b1
+    dw fpu_loc_029c - IMAGE_BASE + 0x5055      ; 0x02b3
+    dw fpu_loc_029c - IMAGE_BASE + 0x5055      ; 0x02b5
+    dw fpu_loc_029c - IMAGE_BASE + 0x5055      ; 0x02b7
+    dw fpu_loc_029c - IMAGE_BASE + 0x5055      ; 0x02b9
+    dw fpu_loc_029c - IMAGE_BASE + 0x5055      ; 0x02bb
+    dw fpu_loc_027a - IMAGE_BASE + 0x5055      ; 0x02bd
+    dw fpu_loc_0281 - IMAGE_BASE + 0x5055      ; 0x02bf
+    dw fpu_loc_0273 - IMAGE_BASE + 0x5055      ; 0x02c1
+    dw fpu_loc_0281 - IMAGE_BASE + 0x5055      ; 0x02c3
+    dw fpu_loc_0273 - IMAGE_BASE + 0x5055      ; 0x02c5
+    dw fpu_loc_0281 - IMAGE_BASE + 0x5055      ; 0x02c7
+    dw fpu_loc_0281 - IMAGE_BASE + 0x5055      ; 0x02c9
+    dw fpu_loc_0281 - IMAGE_BASE + 0x5055      ; 0x02cb
+    dw fpu_loc_0281 - IMAGE_BASE + 0x5055      ; 0x02cd
+    dw fpu_loc_0295 - IMAGE_BASE + 0x5055      ; 0x02cf
+    dw fpu_loc_0273 - IMAGE_BASE + 0x5055      ; 0x02d1
+    dw fpu_loc_0273 - IMAGE_BASE + 0x5055      ; 0x02d3
+    dw fpu_loc_0295 - IMAGE_BASE + 0x5055      ; 0x02d5
+    dw fpu_loc_0273 - IMAGE_BASE + 0x5055      ; 0x02d7
+    dw fpu_loc_0288 - IMAGE_BASE + 0x5055      ; 0x02d9
+    dw fpu_loc_0295 - IMAGE_BASE + 0x5055      ; 0x02db
+    dw fpu_loc_0273 - IMAGE_BASE + 0x5055      ; 0x02dd
+    dw fpu_loc_0273 - IMAGE_BASE + 0x5055      ; 0x02df
+    dw fpu_loc_0281 - IMAGE_BASE + 0x5055      ; 0x02e1
 @..api_idx_0002_4.l1:
     cmp ax, strict word 0x20         ; 0x02e3
     jae short loc_02f0               ; 0x02e6
@@ -52,6 +52,7 @@ loc_0303:
     mov ax, word [bp - 0x0002]       ; 0x0306
     mov word [bss_5b6e], ax          ; 0x0309
     jmp near loc_053b                ; 0x030c
+jumptable_052d_case_1:
     mov ax, 0                        ; 0x030f
     push ax                          ; 0x0312
     mov ax, 0x9098                   ; 0x0313
@@ -90,6 +91,7 @@ loc_0303:
     add sp, byte 4                   ; 0x0360
     mov word [bss_5b6c], 0           ; 0x0363
     jmp near loc_0548                ; 0x0369
+jumptable_052d_case_2:
     mov ax, 1                        ; 0x036c
     push ax                          ; 0x036f
     mov ax, 0x90b2                   ; 0x0370
@@ -116,6 +118,7 @@ loc_0303:
     add sp, byte 4                   ; 0x03a1
     mov word [bss_5b6c], 1           ; 0x03a4
     jmp near loc_0548                ; 0x03aa
+jumptable_052d_case_3:
     mov ax, 2                        ; 0x03ad
     push ax                          ; 0x03b0
     mov ax, 0x90d9                   ; 0x03b1
@@ -166,6 +169,7 @@ loc_0303:
     add sp, byte 4                   ; 0x041a
     mov word [bss_5b6c], 2           ; 0x041d
     jmp near loc_0548                ; 0x0423
+jumptable_052d_case_4:
     mov ax, 1                        ; 0x0426
     push ax                          ; 0x0429
     mov ax, 0x910d                   ; 0x042a
@@ -186,6 +190,7 @@ loc_0303:
     add sp, byte 4                   ; 0x044d
     mov word [bss_5b6c], 1           ; 0x0450
     jmp near loc_0548                ; 0x0456
+jumptable_052d_case_5:
     mov ax, 2                        ; 0x0459
     push ax                          ; 0x045c
     mov ax, 0x9127                   ; 0x045d
@@ -236,6 +241,7 @@ loc_0303:
     add sp, byte 4                   ; 0x04c6
     mov word [bss_5b6c], 2           ; 0x04c9
     jmp short loc_0548               ; 0x04cf
+jumptable_052d_case_6:
     mov ax, 1                        ; 0x04d1
     push ax                          ; 0x04d4
     mov ax, 0x914e                   ; 0x04d5
@@ -275,13 +281,13 @@ loc_0303:
     mov word [bss_5b6c], 1           ; 0x0525
     jmp short loc_0548               ; 0x052b
 jumptable_052d:
-    dw 0x558f
-    dw 0x5356
-    dw 0x53b3
-    dw 0x53f4
-    dw 0x546d
-    dw 0x54a0
-    dw 0x5518
+    dw loc_0548 - IMAGE_BASE + 0x5055          ; 0x052d
+    dw jumptable_052d_case_1 - IMAGE_BASE + 0x5055 ; 0x052f
+    dw jumptable_052d_case_2 - IMAGE_BASE + 0x5055 ; 0x0531
+    dw jumptable_052d_case_3 - IMAGE_BASE + 0x5055 ; 0x0533
+    dw jumptable_052d_case_4 - IMAGE_BASE + 0x5055 ; 0x0535
+    dw jumptable_052d_case_5 - IMAGE_BASE + 0x5055 ; 0x0537
+    dw jumptable_052d_case_6 - IMAGE_BASE + 0x5055 ; 0x0539
 loc_053b:
     cmp ax, strict word 7            ; 0x053b
     jae short loc_0548               ; 0x053e

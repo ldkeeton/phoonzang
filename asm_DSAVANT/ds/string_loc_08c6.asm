@@ -5,13 +5,13 @@ string_loc_08c6:
     mov word [bp + 0x8], ax          ; 0x08cf
     jmp short loc_08f2               ; 0x08d2
 jumptable_08d4:
-    dw string_loc_088e - IMAGE_BASE
-    dw string_loc_088e - IMAGE_BASE
-    dw string_loc_08b8 - IMAGE_BASE
-    dw string_loc_089c - IMAGE_BASE
-    dw loc_08f2 - IMAGE_BASE
-    dw string_loc_08aa - IMAGE_BASE
-    dw string_loc_08c6 - IMAGE_BASE
+    dw string_loc_088e - IMAGE_BASE            ; 0x08d4
+    dw string_loc_088e - IMAGE_BASE            ; 0x08d6
+    dw string_loc_08b8 - IMAGE_BASE            ; 0x08d8
+    dw string_loc_089c - IMAGE_BASE            ; 0x08da
+    dw loc_08f2 - IMAGE_BASE                   ; 0x08dc
+    dw string_loc_08aa - IMAGE_BASE            ; 0x08de
+    dw string_loc_08c6 - IMAGE_BASE            ; 0x08e0
 @..app_file_0883.l1:
     sub ax, strict word 2            ; 0x08e2
     cmp ax, strict word 7            ; 0x08e5

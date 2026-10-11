@@ -191,18 +191,18 @@ loc_2680:
     mov word [bp - 0x000c], 0x6ea    ; 0x2685
     jmp short @..api_idx_0038.l15    ; 0x268a
 jumptable_268c:
-    dw jumptable_268c_case_0 - IMAGE_BASE
-    dw jumptable_268c_case_0 - IMAGE_BASE
-    dw jumptable_268c_case_0 - IMAGE_BASE
-    dw 0x76af
-    dw 0x76bb
-    dw jumptable_268c_case_0 - IMAGE_BASE
-    dw jumptable_268c_case_0 - IMAGE_BASE
-    dw 0x76bb
-    dw jumptable_268c_case_8 - IMAGE_BASE
-    dw jumptable_268c_case_8 - IMAGE_BASE
-    dw 0x76af
-    dw jumptable_268c_case_8 - IMAGE_BASE
+    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x268c
+    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x268e
+    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x2690
+    dw loc_2668 - IMAGE_BASE + 0x5055          ; 0x2692
+    dw loc_2674 - IMAGE_BASE + 0x5055          ; 0x2694
+    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x2696
+    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x2698
+    dw loc_2674 - IMAGE_BASE + 0x5055          ; 0x269a
+    dw loc_2680 - IMAGE_BASE + 0x5055          ; 0x269c
+    dw loc_2680 - IMAGE_BASE + 0x5055          ; 0x269e
+    dw loc_2668 - IMAGE_BASE + 0x5055          ; 0x26a0
+    dw loc_2680 - IMAGE_BASE + 0x5055          ; 0x26a2
 @..api_idx_0038.l14:
     cmp ax, strict word 0xc          ; 0x26a4
     jae short @..api_idx_0038.l15    ; 0x26a7

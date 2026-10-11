@@ -64,11 +64,11 @@ jumptable_113a_case_4:
     add sp, byte 4                   ; 0x1135
     jmp short @..leaf_loc_10a4.l2    ; 0x1138
 jumptable_113a:
-    dw jumptable_113a_case_0 - IMAGE_BASE
-    dw jumptable_113a_case_1 - IMAGE_BASE
-    dw jumptable_113a_case_2 - IMAGE_BASE
-    dw jumptable_113a_case_3 - IMAGE_BASE
-    dw jumptable_113a_case_4 - IMAGE_BASE
+    dw jumptable_113a_case_0 - IMAGE_BASE      ; 0x113a
+    dw jumptable_113a_case_1 - IMAGE_BASE      ; 0x113c
+    dw jumptable_113a_case_2 - IMAGE_BASE      ; 0x113e
+    dw jumptable_113a_case_3 - IMAGE_BASE      ; 0x1140
+    dw jumptable_113a_case_4 - IMAGE_BASE      ; 0x1142
 @..leaf_loc_10a4.l1:
     cmp ax, strict word 5            ; 0x1144
     jae short @..leaf_loc_10a4.l2    ; 0x1147
@@ -902,24 +902,24 @@ jumptable_1969_case_17:
 jumptable_1969_case_0:
     db 0xeb, 0x34 ; jmp short loc_199d
 jumptable_1969:
-    dw jumptable_1969_case_0 - IMAGE_BASE
-    dw jumptable_1969_case_1 - IMAGE_BASE
-    dw jumptable_1969_case_2 - IMAGE_BASE
-    dw jumptable_1969_case_3 - IMAGE_BASE
-    dw jumptable_1969_case_4 - IMAGE_BASE
-    dw jumptable_1969_case_5 - IMAGE_BASE
-    dw jumptable_1969_case_6 - IMAGE_BASE
-    dw jumptable_1969_case_7 - IMAGE_BASE
-    dw jumptable_1969_case_8 - IMAGE_BASE
-    dw jumptable_1969_case_9 - IMAGE_BASE
-    dw jumptable_1969_case_10 - IMAGE_BASE
-    dw jumptable_1969_case_11 - IMAGE_BASE
-    dw jumptable_1969_case_12 - IMAGE_BASE
-    dw jumptable_1969_case_13 - IMAGE_BASE
-    dw jumptable_1969_case_14 - IMAGE_BASE
-    dw jumptable_1969_case_15 - IMAGE_BASE
-    dw jumptable_1969_case_16 - IMAGE_BASE
-    dw jumptable_1969_case_17 - IMAGE_BASE
+    dw jumptable_1969_case_0 - IMAGE_BASE      ; 0x1969
+    dw jumptable_1969_case_1 - IMAGE_BASE      ; 0x196b
+    dw jumptable_1969_case_2 - IMAGE_BASE      ; 0x196d
+    dw jumptable_1969_case_3 - IMAGE_BASE      ; 0x196f
+    dw jumptable_1969_case_4 - IMAGE_BASE      ; 0x1971
+    dw jumptable_1969_case_5 - IMAGE_BASE      ; 0x1973
+    dw jumptable_1969_case_6 - IMAGE_BASE      ; 0x1975
+    dw jumptable_1969_case_7 - IMAGE_BASE      ; 0x1977
+    dw jumptable_1969_case_8 - IMAGE_BASE      ; 0x1979
+    dw jumptable_1969_case_9 - IMAGE_BASE      ; 0x197b
+    dw jumptable_1969_case_10 - IMAGE_BASE     ; 0x197d
+    dw jumptable_1969_case_11 - IMAGE_BASE     ; 0x197f
+    dw jumptable_1969_case_12 - IMAGE_BASE     ; 0x1981
+    dw jumptable_1969_case_13 - IMAGE_BASE     ; 0x1983
+    dw jumptable_1969_case_14 - IMAGE_BASE     ; 0x1985
+    dw jumptable_1969_case_15 - IMAGE_BASE     ; 0x1987
+    dw jumptable_1969_case_16 - IMAGE_BASE     ; 0x1989
+    dw jumptable_1969_case_17 - IMAGE_BASE     ; 0x198b
 loc_198d:
     sub ax, strict word 0xffff       ; 0x198d
     cmp ax, strict word 0x12         ; 0x1990
@@ -1113,23 +1113,23 @@ jumptable_1b3c_case_16:
     add sp, byte 6                   ; 0x1b37
     db 0xeb, 0x2f ; jmp short loc_1b6b
 jumptable_1b3c:
-    dw jumptable_1b3c_case_0 - IMAGE_BASE
-    dw jumptable_1b3c_case_1 - IMAGE_BASE
-    dw jumptable_1b3c_case_2 - IMAGE_BASE
-    dw jumptable_1b3c_case_3 - IMAGE_BASE
-    dw jumptable_1b3c_case_4 - IMAGE_BASE
-    dw jumptable_1b3c_case_5 - IMAGE_BASE
-    dw jumptable_1b3c_case_6 - IMAGE_BASE
-    dw jumptable_1b3c_case_7 - IMAGE_BASE
-    dw jumptable_1b3c_case_8 - IMAGE_BASE
-    dw jumptable_1b3c_case_9 - IMAGE_BASE
-    dw jumptable_1b3c_case_10 - IMAGE_BASE
-    dw jumptable_1b3c_case_11 - IMAGE_BASE
-    dw jumptable_1b3c_case_12 - IMAGE_BASE
-    dw jumptable_1b3c_case_13 - IMAGE_BASE
-    dw jumptable_1b3c_case_14 - IMAGE_BASE
-    dw jumptable_1b3c_case_15 - IMAGE_BASE
-    dw jumptable_1b3c_case_16 - IMAGE_BASE
+    dw jumptable_1b3c_case_0 - IMAGE_BASE      ; 0x1b3c
+    dw jumptable_1b3c_case_1 - IMAGE_BASE      ; 0x1b3e
+    dw jumptable_1b3c_case_2 - IMAGE_BASE      ; 0x1b40
+    dw jumptable_1b3c_case_3 - IMAGE_BASE      ; 0x1b42
+    dw jumptable_1b3c_case_4 - IMAGE_BASE      ; 0x1b44
+    dw jumptable_1b3c_case_5 - IMAGE_BASE      ; 0x1b46
+    dw jumptable_1b3c_case_6 - IMAGE_BASE      ; 0x1b48
+    dw jumptable_1b3c_case_7 - IMAGE_BASE      ; 0x1b4a
+    dw jumptable_1b3c_case_8 - IMAGE_BASE      ; 0x1b4c
+    dw jumptable_1b3c_case_9 - IMAGE_BASE      ; 0x1b4e
+    dw jumptable_1b3c_case_10 - IMAGE_BASE     ; 0x1b50
+    dw jumptable_1b3c_case_11 - IMAGE_BASE     ; 0x1b52
+    dw jumptable_1b3c_case_12 - IMAGE_BASE     ; 0x1b54
+    dw jumptable_1b3c_case_13 - IMAGE_BASE     ; 0x1b56
+    dw jumptable_1b3c_case_14 - IMAGE_BASE     ; 0x1b58
+    dw jumptable_1b3c_case_15 - IMAGE_BASE     ; 0x1b5a
+    dw jumptable_1b3c_case_16 - IMAGE_BASE     ; 0x1b5c
 loc_1b5e:
     cmp ax, strict word 0x11         ; 0x1b5e
     jae short loc_1b6b               ; 0x1b61
@@ -1585,23 +1585,23 @@ jumptable_1f81_case_16:
     mov word [bp - 0x01ca], 0        ; 0x1f79
     db 0xeb, 0x2f ; jmp short loc_1fb0
 jumptable_1f81:
-    dw jumptable_1f81_case_0 - IMAGE_BASE
-    dw jumptable_1f81_case_1 - IMAGE_BASE
-    dw jumptable_1f81_case_2 - IMAGE_BASE
-    dw jumptable_1f81_case_3 - IMAGE_BASE
-    dw jumptable_1f81_case_4 - IMAGE_BASE
-    dw jumptable_1f81_case_5 - IMAGE_BASE
-    dw jumptable_1f81_case_6 - IMAGE_BASE
-    dw jumptable_1f81_case_7 - IMAGE_BASE
-    dw jumptable_1f81_case_8 - IMAGE_BASE
-    dw jumptable_1f81_case_9 - IMAGE_BASE
-    dw jumptable_1f81_case_10 - IMAGE_BASE
-    dw jumptable_1f81_case_11 - IMAGE_BASE
-    dw jumptable_1f81_case_12 - IMAGE_BASE
-    dw jumptable_1f81_case_13 - IMAGE_BASE
-    dw jumptable_1f81_case_14 - IMAGE_BASE
-    dw jumptable_1f81_case_15 - IMAGE_BASE
-    dw jumptable_1f81_case_16 - IMAGE_BASE
+    dw jumptable_1f81_case_0 - IMAGE_BASE      ; 0x1f81
+    dw jumptable_1f81_case_1 - IMAGE_BASE      ; 0x1f83
+    dw jumptable_1f81_case_2 - IMAGE_BASE      ; 0x1f85
+    dw jumptable_1f81_case_3 - IMAGE_BASE      ; 0x1f87
+    dw jumptable_1f81_case_4 - IMAGE_BASE      ; 0x1f89
+    dw jumptable_1f81_case_5 - IMAGE_BASE      ; 0x1f8b
+    dw jumptable_1f81_case_6 - IMAGE_BASE      ; 0x1f8d
+    dw jumptable_1f81_case_7 - IMAGE_BASE      ; 0x1f8f
+    dw jumptable_1f81_case_8 - IMAGE_BASE      ; 0x1f91
+    dw jumptable_1f81_case_9 - IMAGE_BASE      ; 0x1f93
+    dw jumptable_1f81_case_10 - IMAGE_BASE     ; 0x1f95
+    dw jumptable_1f81_case_11 - IMAGE_BASE     ; 0x1f97
+    dw jumptable_1f81_case_12 - IMAGE_BASE     ; 0x1f99
+    dw jumptable_1f81_case_13 - IMAGE_BASE     ; 0x1f9b
+    dw jumptable_1f81_case_14 - IMAGE_BASE     ; 0x1f9d
+    dw jumptable_1f81_case_15 - IMAGE_BASE     ; 0x1f9f
+    dw jumptable_1f81_case_16 - IMAGE_BASE     ; 0x1fa1
 @..local.l87:
     cmp ax, strict word 0x11         ; 0x1fa3
     jae short loc_1fb0               ; 0x1fa6
@@ -1611,16 +1611,16 @@ jumptable_1f81:
 loc_1fb0:
     jmp short loc_1fce               ; 0x1fb0
 jumptable_1fb2:
-    dw loc_1b79 - IMAGE_BASE
-    dw loc_1b90 - IMAGE_BASE
-    dw loc_1ba7 - IMAGE_BASE
-    dw loc_1bbe - IMAGE_BASE
-    dw loc_1fce - IMAGE_BASE
-    dw loc_1bd5 - IMAGE_BASE
-    dw 0x082d
-    dw leaf_loc_3f00 - IMAGE_BASE
-    dw loc_0206 - IMAGE_BASE
-    dw 0x0873
+    dw loc_1b79 - IMAGE_BASE                   ; 0x1fb2
+    dw loc_1b90 - IMAGE_BASE                   ; 0x1fb4
+    dw loc_1ba7 - IMAGE_BASE                   ; 0x1fb6
+    dw loc_1bbe - IMAGE_BASE                   ; 0x1fb8
+    dw loc_1fce - IMAGE_BASE                   ; 0x1fba
+    dw loc_1bd5 - IMAGE_BASE                   ; 0x1fbc
+    dw 0x082d                                  ; 0x1fbe
+    dw leaf_loc_3f00 - IMAGE_BASE              ; 0x1fc0
+    dw loc_0206 - IMAGE_BASE                   ; 0x1fc2
+    dw 0x0873                                  ; 0x1fc4
     xchg bx, ax                      ; 0x1fc6
     shl bx, 1                        ; 0x1fc7
     jmp [cs:bx + jumptable_1fb2 - IMAGE_BASE] ; 0x1fc9
@@ -2050,11 +2050,11 @@ loc_23b4:
     mov word [bp - 0x022c], 1        ; 0x23b4
     jmp short @..local.l101          ; 0x23ba
 jumptable_23bc:
-    dw loc_2394 - IMAGE_BASE
-    dw loc_239c - IMAGE_BASE
-    dw loc_23a4 - IMAGE_BASE
-    dw loc_23ac - IMAGE_BASE
-    dw loc_23b4 - IMAGE_BASE
+    dw loc_2394 - IMAGE_BASE                   ; 0x23bc
+    dw loc_239c - IMAGE_BASE                   ; 0x23be
+    dw loc_23a4 - IMAGE_BASE                   ; 0x23c0
+    dw loc_23ac - IMAGE_BASE                   ; 0x23c2
+    dw loc_23b4 - IMAGE_BASE                   ; 0x23c4
 @..local.l100:
     cmp ax, strict word 5            ; 0x23c6
     jae short @..local.l101          ; 0x23c9

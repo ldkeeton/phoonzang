@@ -810,6 +810,7 @@ api_idx_0022:
 @..api_idx_0022.l53:
     mov ax, word [bp - 0x001e]       ; 0x29a7
     jmp near @..api_idx_0022.l56     ; 0x29aa
+jumptable_2a3c_case_0:
     mov ax, 0                        ; 0x29ad
     push ax                          ; 0x29b0
     mov ax, 0x46                     ; 0x29b1
@@ -827,6 +828,7 @@ api_idx_0022:
     call ds_dispatch_baa6            ; 0x29c9
     add sp, byte 0x0e                ; 0x29cc
     jmp near @..api_idx_0022.l57     ; 0x29cf
+jumptable_2a3c_case_1:
     cmp word [bss_5b6e], byte 1      ; 0x29d2
     jne short @..api_idx_0022.l54    ; 0x29d7
     mov ax, 0                        ; 0x29d9
@@ -863,6 +865,7 @@ api_idx_0022:
     add sp, byte 0x0e                ; 0x2a16
 @..api_idx_0022.l55:
     jmp short @..api_idx_0022.l57    ; 0x2a19
+jumptable_2a3c_case_6:
     mov ax, 0                        ; 0x2a1b
     push ax                          ; 0x2a1e
     push ax                          ; 0x2a1f
@@ -880,14 +883,14 @@ api_idx_0022:
     add sp, byte 0x0e                ; 0x2a37
     jmp short @..api_idx_0022.l57    ; 0x2a3a
 jumptable_2a3c:
-    dw 0x79f4
-    dw 0x7a19
-    dw 0x7a19
-    dw jumptable_2a3c_case_3 - IMAGE_BASE
-    dw jumptable_2a3c_case_3 - IMAGE_BASE
-    dw jumptable_2a3c_case_3 - IMAGE_BASE
-    dw 0x7a62
-    dw 0x7a62
+    dw jumptable_2a3c_case_0 - IMAGE_BASE + 0x5055 ; 0x2a3c
+    dw jumptable_2a3c_case_1 - IMAGE_BASE + 0x5055 ; 0x2a3e
+    dw jumptable_2a3c_case_1 - IMAGE_BASE + 0x5055 ; 0x2a40
+    dw jumptable_2a3c_case_3 - IMAGE_BASE + 0x5055 ; 0x2a42
+    dw jumptable_2a3c_case_3 - IMAGE_BASE + 0x5055 ; 0x2a44
+    dw jumptable_2a3c_case_3 - IMAGE_BASE + 0x5055 ; 0x2a46
+    dw jumptable_2a3c_case_6 - IMAGE_BASE + 0x5055 ; 0x2a48
+    dw jumptable_2a3c_case_6 - IMAGE_BASE + 0x5055 ; 0x2a4a
 @..api_idx_0022.l56:
     sub ax, strict word 4            ; 0x2a4c
     cmp ax, strict word 8            ; 0x2a4f
@@ -895,6 +898,7 @@ jumptable_2a3c:
     xchg bx, ax                      ; 0x2a54
     shl bx, 1                        ; 0x2a55
     jmp [cs:bx + 0x7a83]             ; 0x2a57
+jumptable_2a3c_case_3:
 @..api_idx_0022.l57:
     mov ax, 0                        ; 0x2a5c
     push ax                          ; 0x2a5f
@@ -1006,6 +1010,7 @@ jumptable_2a3c:
 @..api_idx_0022.l68:
     mov ax, word [bp - 0x0002]       ; 0x2b67
     jmp near @..api_idx_0022.l81     ; 0x2b6a
+jumptable_2d1b_case_0:
     mov ax, 0                        ; 0x2b6d
     push ax                          ; 0x2b70
     call api_idx_0004_4              ; 0x2b71
@@ -1016,6 +1021,7 @@ jumptable_2a3c:
     pop cx                           ; 0x2b7c
     mov word [bss_91b0], 0           ; 0x2b7d
     jmp near @..api_idx_0022.l82     ; 0x2b83
+jumptable_2d1b_case_1:
     call api_idx_0002_3              ; 0x2b86
     mov ax, 1                        ; 0x2b89
     cmp word [bp - 0x0002], byte 1   ; 0x2b8c
@@ -1042,6 +1048,7 @@ jumptable_2a3c:
     call api_idx_0002_10             ; 0x2bca
     pop cx                           ; 0x2bcd
     jmp near @..api_idx_0022.l82     ; 0x2bce
+jumptable_2d1b_case_3:
     mov ax, 3                        ; 0x2bd1
     mov cx, word [bp - 0x0002]       ; 0x2bd4
     cmp cx, byte 3                   ; 0x2bd7
@@ -1066,6 +1073,7 @@ jumptable_2a3c:
     db 0xff, 0x89, 0x46, 0xfc, 0x8b, 0x46, 0xfc, 0x8b, 0x1e, 0x0a, 0x10, 0x89, 0x07, 0xb8, 0x01, 0x00
     db 0x50, 0xb8, 0x00, 0x00, 0x50, 0x50, 0xe8, 0xd4, 0xde, 0x83, 0xc4, 0x06, 0xc3
 
+jumptable_2d1b_case_25:
     cmp word [bp - 0x001c], byte 0   ; 0x2c44
     jle short @..api_idx_0022.l73    ; 0x2c48
     mov ax, word [bp - 0x001c]       ; 0x2c4a
@@ -1085,6 +1093,7 @@ jumptable_2a3c:
     pop cx                           ; 0x2c64
 @..api_idx_0022.l74:
     jmp near @..api_idx_0022.l82     ; 0x2c65
+jumptable_2d1b_case_7:
     mov ax, 1                        ; 0x2c68
     push ax                          ; 0x2c6b
     call api_idx_000a_5              ; 0x2c6c
@@ -1094,6 +1103,7 @@ jumptable_2a3c:
     call api_idx_0002_10             ; 0x2c74
     pop cx                           ; 0x2c77
     jmp near @..api_idx_0022.l82     ; 0x2c78
+jumptable_2d1b_case_8:
     call ds_dispatch_ceb1            ; 0x2c7b
     mov word [bss_8af0], ax          ; 0x2c7e
     cmp ax, strict word 0xffff       ; 0x2c81
@@ -1116,8 +1126,10 @@ jumptable_2a3c:
     mov word [bss_905e], 5           ; 0x2ca6
 @..api_idx_0022.l76:
     jmp near @..api_idx_0022.l82     ; 0x2cac
+jumptable_2d1b_case_10:
     call api_idx_0002_19             ; 0x2caf
     jmp near @..api_idx_0022.l82     ; 0x2cb2
+jumptable_2d1b_case_6:
     cmp word [bp - 0x0022], byte 0   ; 0x2cb5
     jne short @..api_idx_0022.l78    ; 0x2cb9
     call api_idx_0018                ; 0x2cbb
@@ -1147,8 +1159,10 @@ jumptable_2a3c:
     pop cx                           ; 0x2cee
 @..api_idx_0022.l79:
     jmp short @..api_idx_0022.l82    ; 0x2cef
+jumptable_2d1b_case_9:
     mov word [bss_830a], 0x18        ; 0x2cf1
     jmp short @..api_idx_0022.l82    ; 0x2cf7
+jumptable_2d1b_case_24:
     cmp word [bp - 0x001a], byte 0   ; 0x2cf9
     je short @..api_idx_0022.l80     ; 0x2cfd
     call ds_dispatch_ceb1            ; 0x2cff
@@ -1164,38 +1178,39 @@ jumptable_2a3c:
 @..api_idx_0022.l80:
     jmp short @..api_idx_0022.l82    ; 0x2d19
 jumptable_2d1b:
-    dw 0x7bb4
-    dw 0x7bcd
-    dw 0x7bcd
-    dw 0x7c18
-    dw 0x7c18
-    dw 0x7c18
-    dw jumptable_2d1b_case_6 - IMAGE_BASE
-    dw 0x7caf
-    dw jumptable_2d1b_case_8 - IMAGE_BASE
-    dw 0x7d38
-    dw jumptable_2d1b_case_10 - IMAGE_BASE
-    dw jumptable_2d1b_case_8 - IMAGE_BASE
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7da3
-    dw 0x7d40
-    dw 0x7c8b
+    dw jumptable_2d1b_case_0 - IMAGE_BASE + 0x5055 ; 0x2d1b
+    dw jumptable_2d1b_case_1 - IMAGE_BASE + 0x5055 ; 0x2d1d
+    dw jumptable_2d1b_case_1 - IMAGE_BASE + 0x5055 ; 0x2d1f
+    dw jumptable_2d1b_case_3 - IMAGE_BASE + 0x5055 ; 0x2d21
+    dw jumptable_2d1b_case_3 - IMAGE_BASE + 0x5055 ; 0x2d23
+    dw jumptable_2d1b_case_3 - IMAGE_BASE + 0x5055 ; 0x2d25
+    dw jumptable_2d1b_case_6 - IMAGE_BASE + 0x5055 ; 0x2d27
+    dw jumptable_2d1b_case_7 - IMAGE_BASE + 0x5055 ; 0x2d29
+    dw jumptable_2d1b_case_8 - IMAGE_BASE + 0x5055 ; 0x2d2b
+    dw jumptable_2d1b_case_9 - IMAGE_BASE + 0x5055 ; 0x2d2d
+    dw jumptable_2d1b_case_10 - IMAGE_BASE + 0x5055 ; 0x2d2f
+    dw jumptable_2d1b_case_8 - IMAGE_BASE + 0x5055 ; 0x2d31
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d33
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d35
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d37
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d39
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d3b
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d3d
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d3f
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d41
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d43
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d45
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d47
+    dw jumptable_2d1b_case_12 - IMAGE_BASE + 0x5055 ; 0x2d49
+    dw jumptable_2d1b_case_24 - IMAGE_BASE + 0x5055 ; 0x2d4b
+    dw jumptable_2d1b_case_25 - IMAGE_BASE + 0x5055 ; 0x2d4d
 @..api_idx_0022.l81:
     cmp ax, strict word 0x1a         ; 0x2d4f
     jae short @..api_idx_0022.l82    ; 0x2d52
     xchg bx, ax                      ; 0x2d54
     shl bx, 1                        ; 0x2d55
     jmp [cs:bx + 0x7d62]             ; 0x2d57
+jumptable_2d1b_case_12:
 @..api_idx_0022.l82:
     cmp word [bp - 0x0002], byte 0   ; 0x2d5c
     jl short @..api_idx_0022.l83     ; 0x2d60

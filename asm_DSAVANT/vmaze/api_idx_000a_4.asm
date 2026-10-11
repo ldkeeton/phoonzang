@@ -9,10 +9,8 @@ api_idx_000a_4:
     mov word [bp - 0x0006], ax       ; 0x7cfb
     mov al, byte [bx + si + 0x4a0]   ; 0x7cfe
     sub ah, ah                       ; 0x7d02
-jumptable_2d1b_case_10:
     add ax, word [bp + 0xc]          ; 0x7d04
     mov word [bp - 0x0008], ax       ; 0x7d07
-jumptable_2d1b_case_6:
     mov cx, 6                        ; 0x7d0a
     shl si, cl                       ; 0x7d0d
     mov ax, si                       ; 0x7d0f

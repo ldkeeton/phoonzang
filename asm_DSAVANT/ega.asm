@@ -120,173 +120,173 @@ loc_0000:
     db 0x01
     times 255 db 0
 
-%include "ega/leaf_loc_0293.asm"
+%include "ega/leaf_loc_0293.asm"           ; 0x0293
 
-%include "ega/leaf_loc_0439.asm"
+%include "ega/leaf_loc_0439.asm"           ; 0x0439
 
-%include "ega/leaf_loc_0447.asm"
+%include "ega/leaf_loc_0447.asm"           ; 0x0447
 
-%include "ega/graphics_loc_0949.asm"
+%include "ega/graphics_loc_0949.asm"       ; 0x0949
 
-%include "ega/leaf_loc_0b91.asm"
+%include "ega/leaf_loc_0b91.asm"           ; 0x0b91
 
-%include "ega/leaf_loc_0bcf.asm"
+%include "ega/leaf_loc_0bcf.asm"           ; 0x0bcf
 
-%include "ega/leaf_loc_0bf6.asm"
+%include "ega/leaf_loc_0bf6.asm"           ; 0x0bf6
 
-%include "ega/string_loc_0c45.asm"
+%include "ega/string_loc_0c45.asm"         ; 0x0c45
 
-%include "ega/dos_alloc_mem.asm"
+%include "ega/dos_alloc_mem.asm"           ; 0x0c9b
 
-%include "ega/dos_free_mem.asm"
+%include "ega/dos_free_mem.asm"            ; 0x0d57
 
-%include "ega/dos_read_file.asm"
+%include "ega/dos_read_file.asm"           ; 0x0df3
 
-%include "ega/dos_write_file.asm"
+%include "ega/dos_write_file.asm"          ; 0x0ebd
 
-%include "ega/dos_con_loc_0f70.asm"
+%include "ega/dos_con_loc_0f70.asm"        ; 0x0f70
 
-%include "ega/dos_con_loc_0fae.asm"
+%include "ega/dos_con_loc_0fae.asm"        ; 0x0fae
 
-%include "ega/dos_read_file_2.asm"
+%include "ega/dos_read_file_2.asm"         ; 0x10cf
 
-%include "ega/dos_con_loc_10ff.asm"
+%include "ega/dos_con_loc_10ff.asm"        ; 0x10ff
 
-%include "ega/dos_con_loc_1218.asm"
+%include "ega/dos_con_loc_1218.asm"        ; 0x1218
 
-%include "ega/leaf_loc_1355.asm"
+%include "ega/leaf_loc_1355.asm"           ; 0x1355
 
-%include "ega/leaf_loc_145c.asm"
+%include "ega/leaf_loc_145c.asm"           ; 0x145c
 
-%include "ega/dos_con_loc_1490.asm"
+%include "ega/dos_con_loc_1490.asm"        ; 0x1490
 
-%include "ega/dos_print_str.asm"
+%include "ega/dos_print_str.asm"           ; 0x14d8
 
-%include "ega/mouse_init.asm"
+%include "ega/mouse_init.asm"              ; 0x1719
 
-%include "ega/string_loc_17a1.asm"
+%include "ega/string_loc_17a1.asm"         ; 0x17a1
 
-%include "ega/mouse_init_2.asm"
+%include "ega/mouse_init_2.asm"            ; 0x1810
 
-%include "ega/leaf_loc_189f.asm"
+%include "ega/leaf_loc_189f.asm"           ; 0x189f
 
-%include "ega/bios_mouse_loc_18c1.asm"
+%include "ega/bios_mouse_loc_18c1.asm"     ; 0x18c1
 
-%include "ega/leaf_loc_1900.asm"
+%include "ega/leaf_loc_1900.asm"           ; 0x1900
 
-%include "ega/bios_mouse_loc_190f.asm"
+%include "ega/bios_mouse_loc_190f.asm"     ; 0x190f
 
-%include "ega/bios_mouse_loc_1992.asm"
+%include "ega/bios_mouse_loc_1992.asm"     ; 0x1992
 
-%include "ega/dos_con_loc_1a9f.asm"
+%include "ega/dos_con_loc_1a9f.asm"        ; 0x1a9f
 
-%include "ega/leaf_loc_2a4f.asm"
+%include "ega/leaf_loc_2a4f.asm"           ; 0x2a4f
 
-%include "ega/io_loc_2a6a.asm"
+%include "ega/io_loc_2a6a.asm"             ; 0x2a6a
 
-%include "ega/io_loc_2e35.asm"
+%include "ega/io_loc_2e35.asm"             ; 0x2e35
 
-%include "ega/io_loc_2e7d.asm"
+%include "ega/io_loc_2e7d.asm"             ; 0x2e7d
 
-%include "ega/io_loc_2f46.asm"
+%include "ega/io_loc_2f46.asm"             ; 0x2f46
 
-%include "ega/io_loc_2f70.asm"
+%include "ega/io_loc_2f70.asm"             ; 0x2f70
 
-%include "ega/dos_read_file_3.asm"
+%include "ega/dos_read_file_3.asm"         ; 0x3085
 
-%include "ega/dos_con_loc_317d.asm"
+%include "ega/dos_con_loc_317d.asm"        ; 0x317d
 
-%include "ega/dos_con_loc_31ad.asm"
+%include "ega/dos_con_loc_31ad.asm"        ; 0x31ad
 
-%include "ega/string_loc_31df.asm"
+%include "ega/string_loc_31df.asm"         ; 0x31df
 
-%include "ega/leaf_loc_31f4.asm"
+%include "ega/leaf_loc_31f4.asm"           ; 0x31f4
 
-%include "ega/leaf_loc_3240.asm"
+%include "ega/leaf_loc_3240.asm"           ; 0x3240
 
-%include "ega/leaf_loc_3241.asm"
+%include "ega/leaf_loc_3241.asm"           ; 0x3241
 
-%include "ega/leaf_loc_3242.asm"
+%include "ega/leaf_loc_3242.asm"           ; 0x3242
 
-%include "ega/leaf_loc_3243.asm"
+%include "ega/leaf_loc_3243.asm"           ; 0x3243
 
-%include "ega/leaf_loc_3244.asm"
+%include "ega/leaf_loc_3244.asm"           ; 0x3244
 
-%include "ega/leaf_loc_3245.asm"
+%include "ega/leaf_loc_3245.asm"           ; 0x3245
 
-%include "ega/leaf_loc_3252.asm"
+%include "ega/leaf_loc_3252.asm"           ; 0x3252
 
-%include "ega/dos_mem_loc_33b3.asm"
+%include "ega/dos_mem_loc_33b3.asm"        ; 0x33b3
 
-%include "ega/bios_mouse_loc_341e.asm"
+%include "ega/bios_mouse_loc_341e.asm"     ; 0x341e
 
-%include "ega/io_loc_35ba.asm"
+%include "ega/io_loc_35ba.asm"             ; 0x35ba
 
-%include "ega/leaf_loc_39e3.asm"
+%include "ega/leaf_loc_39e3.asm"           ; 0x39e3
 
-%include "ega/dos_con_loc_3a0f.asm"
+%include "ega/dos_con_loc_3a0f.asm"        ; 0x3a0f
 
-%include "ega/leaf_loc_3a51.asm"
+%include "ega/leaf_loc_3a51.asm"           ; 0x3a51
 
-%include "ega/graphics_loc_3a8b.asm"
+%include "ega/graphics_loc_3a8b.asm"       ; 0x3a8b
 
-%include "ega/leaf_loc_3bf2.asm"
+%include "ega/leaf_loc_3bf2.asm"           ; 0x3bf2
 
-%include "ega/leaf_loc_3c12.asm"
+%include "ega/leaf_loc_3c12.asm"           ; 0x3c12
 
-%include "ega/dos_con_loc_40d4.asm"
+%include "ega/dos_con_loc_40d4.asm"        ; 0x40d4
 
-%include "ega/dos_write_file_2.asm"
+%include "ega/dos_write_file_2.asm"        ; 0x4111
 
-%include "ega/dos_con_loc_4370.asm"
+%include "ega/dos_con_loc_4370.asm"        ; 0x4370
 
-%include "ega/dos_con_loc_43a7.asm"
+%include "ega/dos_con_loc_43a7.asm"        ; 0x43a7
 
-%include "ega/dos_con_loc_43d8.asm"
+%include "ega/dos_con_loc_43d8.asm"        ; 0x43d8
 
-%include "ega/leaf_loc_4442.asm"
+%include "ega/leaf_loc_4442.asm"           ; 0x4442
 
-%include "ega/dos_read_file_4.asm"
+%include "ega/dos_read_file_4.asm"         ; 0x4457
 
-%include "ega/dos_file_loc_45bd.asm"
+%include "ega/dos_file_loc_45bd.asm"       ; 0x45bd
 
-%include "ega/dos_con_loc_45f2.asm"
+%include "ega/dos_con_loc_45f2.asm"        ; 0x45f2
 
-%include "ega/dos_read_file_5.asm"
+%include "ega/dos_read_file_5.asm"         ; 0x4624
 
-%include "ega/dos_con_loc_47af.asm"
+%include "ega/dos_con_loc_47af.asm"        ; 0x47af
 
-%include "ega/dos_con_loc_47f7.asm"
+%include "ega/dos_con_loc_47f7.asm"        ; 0x47f7
 
-%include "ega/dos_con_loc_493a.asm"
+%include "ega/dos_con_loc_493a.asm"        ; 0x493a
 
-%include "ega/dos_con_loc_4984.asm"
+%include "ega/dos_con_loc_4984.asm"        ; 0x4984
 
-%include "ega/dos_read_file_6.asm"
+%include "ega/dos_read_file_6.asm"         ; 0x4a08
 
-%include "ega/dos_con_loc_4ae1.asm"
+%include "ega/dos_con_loc_4ae1.asm"        ; 0x4ae1
 
-%include "ega/dos_con_loc_4b1d.asm"
+%include "ega/dos_con_loc_4b1d.asm"        ; 0x4b1d
 
-%include "ega/string_loc_4bb2.asm"
+%include "ega/string_loc_4bb2.asm"         ; 0x4bb2
 
-%include "ega/dos_file_loc_4bcb.asm"
+%include "ega/dos_file_loc_4bcb.asm"       ; 0x4bcb
 
-%include "ega/leaf_loc_4ca9.asm"
+%include "ega/leaf_loc_4ca9.asm"           ; 0x4ca9
 
-%include "ega/leaf_loc_4cbe.asm"
+%include "ega/leaf_loc_4cbe.asm"           ; 0x4cbe
 
-%include "ega/leaf_loc_4cd3.asm"
+%include "ega/leaf_loc_4cd3.asm"           ; 0x4cd3
 
-%include "ega/leaf_loc_4ce8.asm"
+%include "ega/leaf_loc_4ce8.asm"           ; 0x4ce8
 
-%include "ega/leaf_loc_4cfd.asm"
+%include "ega/leaf_loc_4cfd.asm"           ; 0x4cfd
 
-%include "ega/dos_con_loc_4d13.asm"
+%include "ega/dos_con_loc_4d13.asm"        ; 0x4d13
 
-%include "ega/leaf_loc_4d55.asm"
+%include "ega/leaf_loc_4d55.asm"           ; 0x4d55
 
-%include "ega/dos_read_file_7.asm"
+%include "ega/dos_read_file_7.asm"         ; 0x4ead
 
 @..dos_read_file_7.l5:
     mov ax, cs                       ; 0x4fc4

@@ -17,6 +17,7 @@ IMAGE_BASE equ 0x000e
     dw 0x05a6      ; o_bss: uninitialized data size
     dw 0xea0c      ; o_entry: overlay entry offset (CS)
 
+loc_34f1 equ 0x34f1
 loc_4582 equ 0x4582
 loc_4ad7 equ 0x4ad7
 loc_4af7 equ 0x4af7
@@ -49,6 +50,23 @@ loc_4f2b equ 0x4f2b
 loc_4f69 equ 0x4f69
 loc_4f6e equ 0x4f6e
 loc_4f8c equ 0x4f8c
+loc_501e equ 0x501e
+loc_502d equ 0x502d
+loc_5069 equ 0x5069
+loc_506c equ 0x506c
+loc_507b equ 0x507b
+loc_5089 equ 0x5089
+loc_5095 equ 0x5095
+loc_50f2 equ 0x50f2
+loc_5120 equ 0x5120
+loc_5123 equ 0x5123
+loc_5132 equ 0x5132
+loc_5140 equ 0x5140
+loc_5169 equ 0x5169
+loc_5176 equ 0x5176
+loc_5187 equ 0x5187
+loc_51b6 equ 0x51b6
+loc_51b8 equ 0x51b8
 data_69c8 equ 0x69c8
 data_82f2 equ 0x82f2
 data_82f4 equ 0x82f4
@@ -192,117 +210,125 @@ loc_000e:
 @..local.l6:
     mov ax, 0                        ; 0x008c
     ret                              ; 0x008f
-%include "vtrea/api_idx_0010.asm"
+%include "vtrea/api_idx_0010.asm"          ; 0x0090
 
-%include "vtrea/api_idx_000e.asm"
+%include "vtrea/api_idx_000e.asm"          ; 0x067b
 
-%include "vtrea/api_idx_000a.asm"
+%include "vtrea/api_idx_000a.asm"          ; 0x073b
 
-%include "vtrea/api_idx_0004.asm"
+%include "vtrea/api_idx_0004.asm"          ; 0x08eb
 
-%include "vtrea/api_idx_000a_2.asm"
+%include "vtrea/api_idx_000a_2.asm"        ; 0x0954
 
-%include "vtrea/api_idx_0004_2.asm"
+%include "vtrea/api_idx_0004_2.asm"        ; 0x0a6a
 
-%include "vtrea/api_idx_0090.asm"
+%include "vtrea/api_idx_0090.asm"          ; 0x0b29
 
-%include "vtrea/api_idx_0004_3.asm"
+%include "vtrea/api_idx_0004_3.asm"        ; 0x0d24
 
-%include "vtrea/api_idx_0004_4.asm"
+%include "vtrea/api_idx_0004_4.asm"        ; 0x0e03
 
-%include "vtrea/api_idx_0002.asm"
+%include "vtrea/api_idx_0002.asm"          ; 0x0f96
 
-%include "vtrea/api_idx_005a.asm"
+%include "vtrea/api_idx_005a.asm"          ; 0x10fb
 
-%include "vtrea/api_idx_003e.asm"
+%include "vtrea/api_idx_003e.asm"          ; 0x11bc
 
-%include "vtrea/api_idx_0056.asm"
+%include "vtrea/api_idx_0056.asm"          ; 0x12cc
 
-%include "vtrea/api_idx_0050.asm"
+%include "vtrea/api_idx_0050.asm"          ; 0x13e0
 
-%include "vtrea/api_idx_0004_5.asm"
+%include "vtrea/api_idx_0004_5.asm"        ; 0x1447
 
-%include "vtrea/api_idx_0006.asm"
+%include "vtrea/api_idx_0006.asm"          ; 0x148d
 
-%include "vtrea/api_idx_00b8.asm"
+%include "vtrea/api_idx_00b8.asm"          ; 0x14e7
 
-%include "vtrea/api_idx_0060.asm"
+%include "vtrea/api_idx_0060.asm"          ; 0x1fd5
 
-%include "vtrea/api_idx_0002_2.asm"
+%include "vtrea/api_idx_0002_2.asm"        ; 0x251a
 
-%include "vtrea/api_idx_0084.asm"
+%include "vtrea/api_idx_0084.asm"          ; 0x25ab
 
-%include "vtrea/api_idx_0008.asm"
+%include "vtrea/api_idx_0008.asm"          ; 0x3552
 
-%include "vtrea/api_idx_0004_6.asm"
+%include "vtrea/api_idx_0004_6.asm"        ; 0x35de
 
-%include "vtrea/api_idx_0006_2.asm"
+%include "vtrea/api_idx_0006_2.asm"        ; 0x36af
 
-%include "vtrea/api_idx_0006_3.asm"
+%include "vtrea/api_idx_0006_3.asm"        ; 0x3706
 
-%include "vtrea/api_idx_0018.asm"
+%include "vtrea/api_idx_0018.asm"          ; 0x37b6
 
-%include "vtrea/api_idx_0004_7.asm"
+%include "vtrea/api_idx_0004_7.asm"        ; 0x38b3
 
-%include "vtrea/api_idx_0038.asm"
+%include "vtrea/api_idx_0038.asm"          ; 0x3a56
 
-%include "vtrea/api_idx_0054.asm"
+%include "vtrea/api_idx_0054.asm"          ; 0x4254
 
-%include "vtrea/api_idx_0008_2.asm"
+%include "vtrea/api_idx_0008_2.asm"        ; 0x4368
 
-%include "vtrea/api_idx_004c.asm"
+%include "vtrea/api_idx_004c.asm"          ; 0x51d7
 
-%include "vtrea/api_idx_0004_9.asm"
+%include "vtrea/api_idx_0004_9.asm"        ; 0x52ec
 
-%include "vtrea/api_idx_0040.asm"
+%include "vtrea/api_idx_0040.asm"          ; 0x5348
 
-%include "vtrea/api_idx_0006_4.asm"
+%include "vtrea/api_idx_0006_4.asm"        ; 0x550e
 
-%include "vtrea/api_idx_0002_3.asm"
+%include "vtrea/api_idx_0002_3.asm"        ; 0x5689
 
-%include "vtrea/api_idx_0002_4.asm"
+%include "vtrea/api_idx_0002_4.asm"        ; 0x56cc
 
-%include "vtrea/api_idx_00a8.asm"
+%include "vtrea/api_idx_00a8.asm"          ; 0x5d80
 
-%include "vtrea/api_idx_0006_5.asm"
+%include "vtrea/api_idx_0006_5.asm"        ; 0x5e88
 
-%include "vtrea/api_idx_0004_10.asm"
+%include "vtrea/api_idx_0004_10.asm"       ; 0x5efe
 
-%include "vtrea/api_idx_006a.asm"
+%include "vtrea/leaf_loc_5f7f.asm"         ; 0x5f7f
 
-%include "vtrea/api_idx_0074.asm"
+%include "vtrea/leaf_loc_5fa2.asm"         ; 0x5fa2
 
-%include "vtrea/api_idx_0002_5.asm"
+%include "vtrea/leaf_loc_5fad.asm"         ; 0x5fad
 
-%include "vtrea/api_idx_0004_11.asm"
+%include "vtrea/leaf_loc_5fbf.asm"         ; 0x5fbf
 
-%include "vtrea/api_idx_0034.asm"
+%include "vtrea/api_idx_006a.asm"          ; 0x5fef
 
-%include "vtrea/api_idx_0072.asm"
+%include "vtrea/api_idx_0074.asm"          ; 0x66eb
 
-%include "vtrea/api_idx_0004_12.asm"
+%include "vtrea/api_idx_0002_5.asm"        ; 0x6e69
 
-%include "vtrea/api_idx_00e6.asm"
+%include "vtrea/api_idx_0004_11.asm"       ; 0x6ead
 
-%include "vtrea/api_idx_0074_2.asm"
+%include "vtrea/api_idx_0034.asm"          ; 0x6ff5
 
-%include "vtrea/api_idx_0050_2.asm"
+%include "vtrea/api_idx_0072.asm"          ; 0x7151
 
-%include "vtrea/api_idx_002a.asm"
+%include "vtrea/api_idx_0004_12.asm"       ; 0x7319
 
-%include "vtrea/api_idx_0008_3.asm"
+%include "vtrea/api_idx_00e6.asm"          ; 0x73ae
 
-%include "vtrea/api_idx_000c.asm"
+%include "vtrea/api_idx_0074_2.asm"        ; 0x78ed
 
-%include "vtrea/api_idx_0002_6.asm"
+%include "vtrea/api_idx_0050_2.asm"        ; 0x7f5a
 
-%include "vtrea/api_idx_0004_13.asm"
+%include "vtrea/api_idx_002a.asm"          ; 0x8200
 
-%include "vtrea/api_idx_000a_3.asm"
+%include "vtrea/api_idx_0008_3.asm"        ; 0x82b8
 
-%include "vtrea/api_idx_000c_2.asm"
+%include "vtrea/api_idx_000c.asm"          ; 0x893e
 
-%include "vtrea/api_idx_0044.asm"
+%include "vtrea/api_idx_0002_6.asm"        ; 0x89bd
 
-%include "vtrea/leaf_loc_9a03.asm"
+%include "vtrea/api_idx_0004_13.asm"       ; 0x8a18
+
+%include "vtrea/api_idx_000a_3.asm"        ; 0x8a89
+
+%include "vtrea/api_idx_000c_2.asm"        ; 0x8bf4
+
+%include "vtrea/api_idx_0044.asm"          ; 0x8d1e
+
+%include "vtrea/leaf_loc_9a03.asm"         ; 0x9a03
 

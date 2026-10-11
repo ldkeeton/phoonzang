@@ -210,423 +210,423 @@ bss_830a equ 0x830a
 bss_830c equ 0x830c
 bss_9096 equ 0x9096
 
-%include "ds/app_malloc.asm"
+%include "ds/app_malloc.asm"               ; 0x0200
 
-%include "ds/app_memmove.asm"
+%include "ds/app_memmove.asm"              ; 0x0213
 
-%include "ds/app_free.asm"
+%include "ds/app_free.asm"                 ; 0x022f
 
-%include "ds/app_file_0242.asm"
+%include "ds/app_file_0242.asm"            ; 0x0242
 
-%include "ds/app_03b8.asm"
+%include "ds/app_03b8.asm"                 ; 0x03b8
 
-%include "ds/app_03cd.asm"
+%include "ds/app_03cd.asm"                 ; 0x03cd
 
-%include "ds/app_string_03da.asm"
+%include "ds/app_string_03da.asm"          ; 0x03da
 
-%include "ds/app_0422.asm"
+%include "ds/app_0422.asm"                 ; 0x0422
 
-%include "ds/app_04c4.asm"
+%include "ds/app_04c4.asm"                 ; 0x04c4
 
-%include "ds/app_string_04da.asm"
+%include "ds/app_string_04da.asm"          ; 0x04da
 
-%include "ds/app_052e.asm"
+%include "ds/app_052e.asm"                 ; 0x052e
 
-%include "ds/app_string_0547.asm"
+%include "ds/app_string_0547.asm"          ; 0x0547
 
-%include "ds/app_string_05d0.asm"
+%include "ds/app_string_05d0.asm"          ; 0x05d0
 
-%include "ds/app_065d.asm"
+%include "ds/app_065d.asm"                 ; 0x065d
 
-%include "ds/app_file_06c6.asm"
+%include "ds/app_file_06c6.asm"            ; 0x06c6
 
-%include "ds/app_mem_0782.asm"
+%include "ds/app_mem_0782.asm"             ; 0x0782
 
-%include "ds/app_0860.asm"
+%include "ds/app_0860.asm"                 ; 0x0860
 
-%include "ds/app_file_0883.asm"
+%include "ds/app_file_0883.asm"            ; 0x0883
 
-%include "ds/string_loc_088e.asm"
+%include "ds/string_loc_088e.asm"          ; 0x088e
 
-%include "ds/string_loc_089c.asm"
+%include "ds/string_loc_089c.asm"          ; 0x089c
 
-%include "ds/string_loc_08aa.asm"
+%include "ds/string_loc_08aa.asm"          ; 0x08aa
 
-%include "ds/string_loc_08b8.asm"
+%include "ds/string_loc_08b8.asm"          ; 0x08b8
 
-%include "ds/string_loc_08c6.asm"
+%include "ds/string_loc_08c6.asm"          ; 0x08c6
 
-%include "ds/app_09a5.asm"
+%include "ds/app_09a5.asm"                 ; 0x09a5
 
-%include "ds/app_09f0.asm"
+%include "ds/app_09f0.asm"                 ; 0x09f0
 
-%include "ds/app_0a09.asm"
+%include "ds/app_0a09.asm"                 ; 0x0a09
 
-%include "ds/app_0a27.asm"
+%include "ds/app_0a27.asm"                 ; 0x0a27
 
-%include "ds/app_0ad7.asm"
+%include "ds/app_0ad7.asm"                 ; 0x0ad7
 
-%include "ds/app_io_0af6.asm"
+%include "ds/app_io_0af6.asm"              ; 0x0af6
 
-%include "ds/app_0b54.asm"
+%include "ds/app_0b54.asm"                 ; 0x0b54
 
-%include "ds/app_string_0c0b.asm"
+%include "ds/app_string_0c0b.asm"          ; 0x0c0b
 
-%include "ds/app_0ced.asm"
+%include "ds/app_0ced.asm"                 ; 0x0ced
 
-%include "ds/app_0d36.asm"
+%include "ds/app_0d36.asm"                 ; 0x0d36
 
-%include "ds/app_io_0d7a.asm"
+%include "ds/app_io_0d7a.asm"              ; 0x0d7a
 
-%include "ds/app_0e03.asm"
+%include "ds/app_0e03.asm"                 ; 0x0e03
 
-%include "ds/app_0e82.asm"
+%include "ds/app_0e82.asm"                 ; 0x0e82
 
-%include "ds/app_0ee1.asm"
+%include "ds/app_0ee1.asm"                 ; 0x0ee1
 
-%include "ds/app_0f2a.asm"
+%include "ds/app_0f2a.asm"                 ; 0x0f2a
 
-%include "ds/app_0fdf.asm"
+%include "ds/app_0fdf.asm"                 ; 0x0fdf
 
-%include "ds/app_string_1034.asm"
+%include "ds/app_string_1034.asm"          ; 0x1034
 
-%include "ds/app_10a6.asm"
+%include "ds/app_10a6.asm"                 ; 0x10a6
 
-%include "ds/app_10ff.asm"
+%include "ds/app_10ff.asm"                 ; 0x10ff
 
-%include "ds/app_1138.asm"
+%include "ds/app_1138.asm"                 ; 0x1138
 
-%include "ds/app_11de.asm"
+%include "ds/app_11de.asm"                 ; 0x11de
 
-%include "ds/app_121f.asm"
+%include "ds/app_121f.asm"                 ; 0x121f
 
-%include "ds/app_string_1308.asm"
+%include "ds/app_string_1308.asm"          ; 0x1308
 
-%include "ds/app_1371.asm"
+%include "ds/app_1371.asm"                 ; 0x1371
 
-%include "ds/app_138c.asm"
+%include "ds/app_138c.asm"                 ; 0x138c
 
-%include "ds/app_file_14ca.asm"
+%include "ds/app_file_14ca.asm"            ; 0x14ca
 
-%include "ds/app_file_16a0.asm"
+%include "ds/app_file_16a0.asm"            ; 0x16a0
 
-%include "ds/app_1741.asm"
+%include "ds/app_1741.asm"                 ; 0x1741
 
-%include "ds/app_17d6.asm"
+%include "ds/app_17d6.asm"                 ; 0x17d6
 
-%include "ds/app_mem_184f.asm"
+%include "ds/app_mem_184f.asm"             ; 0x184f
 
-%include "ds/app_1a23.asm"
+%include "ds/app_1a23.asm"                 ; 0x1a23
 
-%include "ds/string_loc_1aa7.asm"
+%include "ds/string_loc_1aa7.asm"          ; 0x1aa7
 
-%include "ds/string_loc_1adb.asm"
+%include "ds/string_loc_1adb.asm"          ; 0x1adb
 
-%include "ds/string_loc_1aea.asm"
+%include "ds/string_loc_1aea.asm"          ; 0x1aea
 
-%include "ds/app_1c2f.asm"
+%include "ds/app_1c2f.asm"                 ; 0x1c2f
 
-%include "ds/app_1c6e.asm"
+%include "ds/app_1c6e.asm"                 ; 0x1c6e
 
-%include "ds/app_1cb1.asm"
+%include "ds/app_1cb1.asm"                 ; 0x1cb1
 
-%include "ds/app_1ccc.asm"
+%include "ds/app_1ccc.asm"                 ; 0x1ccc
 
-%include "ds/app_1cf8.asm"
+%include "ds/app_1cf8.asm"                 ; 0x1cf8
 
-%include "ds/app_1d81.asm"
+%include "ds/app_1d81.asm"                 ; 0x1d81
 
-%include "ds/app_20f8.asm"
+%include "ds/app_20f8.asm"                 ; 0x20f8
 
-%include "ds/app_2305.asm"
+%include "ds/app_2305.asm"                 ; 0x2305
 
-%include "ds/app_2331.asm"
+%include "ds/app_2331.asm"                 ; 0x2331
 
-%include "ds/app_2359.asm"
+%include "ds/app_2359.asm"                 ; 0x2359
 
-%include "ds/app_23a8.asm"
+%include "ds/app_23a8.asm"                 ; 0x23a8
 
-%include "ds/app_file_23ef.asm"
+%include "ds/app_file_23ef.asm"            ; 0x23ef
 
-%include "ds/app_27e9.asm"
+%include "ds/app_27e9.asm"                 ; 0x27e9
 
-%include "ds/app_file_2863.asm"
+%include "ds/app_file_2863.asm"            ; 0x2863
 
-%include "ds/app_290d.asm"
+%include "ds/app_290d.asm"                 ; 0x290d
 
-%include "ds/app_file_2923.asm"
+%include "ds/app_file_2923.asm"            ; 0x2923
 
-%include "ds/app_29f1.asm"
+%include "ds/app_29f1.asm"                 ; 0x29f1
 
-%include "ds/app_file_2a2e.asm"
+%include "ds/app_file_2a2e.asm"            ; 0x2a2e
 
-%include "ds/app_2b4e.asm"
+%include "ds/app_2b4e.asm"                 ; 0x2b4e
 
-%include "ds/app_2b62.asm"
+%include "ds/app_2b62.asm"                 ; 0x2b62
 
-%include "ds/app_2bab.asm"
+%include "ds/app_2bab.asm"                 ; 0x2bab
 
-%include "ds/app_2bed.asm"
+%include "ds/app_2bed.asm"                 ; 0x2bed
 
-%include "ds/app_2c11.asm"
+%include "ds/app_2c11.asm"                 ; 0x2c11
 
-%include "ds/app_2c69.asm"
+%include "ds/app_2c69.asm"                 ; 0x2c69
 
-%include "ds/leaf_loc_2cba.asm"
+%include "ds/leaf_loc_2cba.asm"            ; 0x2cba
 
-%include "ds/leaf_loc_2cc4.asm"
+%include "ds/leaf_loc_2cc4.asm"            ; 0x2cc4
 
-%include "ds/leaf_loc_2cd0.asm"
+%include "ds/leaf_loc_2cd0.asm"            ; 0x2cd0
 
-%include "ds/leaf_loc_2cdc.asm"
+%include "ds/leaf_loc_2cdc.asm"            ; 0x2cdc
 
-%include "ds/leaf_loc_2cec.asm"
+%include "ds/leaf_loc_2cec.asm"            ; 0x2cec
 
-%include "ds/leaf_loc_2cf8.asm"
+%include "ds/leaf_loc_2cf8.asm"            ; 0x2cf8
 
-%include "ds/main.asm"
+%include "ds/main.asm"                     ; 0x2dd5
 
-%include "ds/bios_video_loc_3067.asm"
+%include "ds/bios_video_loc_3067.asm"      ; 0x3067
 
-%include "ds/bios_video_loc_30c3.asm"
+%include "ds/bios_video_loc_30c3.asm"      ; 0x30c3
 
-%include "ds/leaf_loc_30e2.asm"
+%include "ds/leaf_loc_30e2.asm"            ; 0x30e2
 
-%include "ds/bios_get_video_mode.asm"
+%include "ds/bios_get_video_mode.asm"      ; 0x30f7
 
-%include "ds/dos_file_loc_3534.asm"
+%include "ds/dos_file_loc_3534.asm"        ; 0x3534
 
-%include "ds/dos_con_loc_35b8.asm"
+%include "ds/dos_con_loc_35b8.asm"         ; 0x35b8
 
-%include "ds/dos_file_loc_35f5.asm"
+%include "ds/dos_file_loc_35f5.asm"        ; 0x35f5
 
-%include "ds/dos_con_loc_3640.asm"
+%include "ds/dos_con_loc_3640.asm"         ; 0x3640
 
-%include "ds/leaf_loc_3674.asm"
+%include "ds/leaf_loc_3674.asm"            ; 0x3674
 
-%include "ds/dos_mem_loc_36bc.asm"
+%include "ds/dos_mem_loc_36bc.asm"         ; 0x36bc
 
-%include "ds/dos_mem_loc_36cd.asm"
+%include "ds/dos_mem_loc_36cd.asm"         ; 0x36cd
 
-%include "ds/leaf_loc_36d0.asm"
+%include "ds/leaf_loc_36d0.asm"            ; 0x36d0
 
-%include "ds/dos_mem_loc_36f5.asm"
+%include "ds/dos_mem_loc_36f5.asm"         ; 0x36f5
 
-%include "ds/dos_mem_loc_371d.asm"
+%include "ds/dos_mem_loc_371d.asm"         ; 0x371d
 
-%include "ds/dos_mem_loc_3760.asm"
+%include "ds/dos_mem_loc_3760.asm"         ; 0x3760
 
-%include "ds/dos_mem_loc_377b.asm"
+%include "ds/dos_mem_loc_377b.asm"         ; 0x377b
 
-%include "ds/bios_mouse_loc_37a5.asm"
+%include "ds/bios_mouse_loc_37a5.asm"      ; 0x37a5
 
-%include "ds/dos_intvec_loc_37d9.asm"
+%include "ds/dos_intvec_loc_37d9.asm"      ; 0x37d9
 
-%include "ds/leaf_loc_382c.asm"
+%include "ds/leaf_loc_382c.asm"            ; 0x382c
 
-%include "ds/leaf_loc_383e.asm"
+%include "ds/leaf_loc_383e.asm"            ; 0x383e
 
-%include "ds/dos_alloc_mem.asm"
+%include "ds/dos_alloc_mem.asm"            ; 0x3860
 
-%include "ds/dos_con_loc_3936.asm"
+%include "ds/dos_con_loc_3936.asm"         ; 0x3936
 
-%include "ds/dos_con_loc_3962.asm"
+%include "ds/dos_con_loc_3962.asm"         ; 0x3962
 
-%include "ds/dos_read_file.asm"
+%include "ds/dos_read_file.asm"            ; 0x398a
 
-%include "ds/string_loc_3a5d.asm"
+%include "ds/string_loc_3a5d.asm"          ; 0x3a5d
 
-%include "ds/string_loc_3a95.asm"
+%include "ds/string_loc_3a95.asm"          ; 0x3a95
 
-%include "ds/leaf_loc_3c0d.asm"
+%include "ds/leaf_loc_3c0d.asm"            ; 0x3c0d
 
-%include "ds/bios_kbd_loc_3c97.asm"
+%include "ds/bios_kbd_loc_3c97.asm"        ; 0x3c97
 
-%include "ds/dos_con_loc_3d79.asm"
+%include "ds/dos_con_loc_3d79.asm"         ; 0x3d79
 
-%include "ds/bios_kbd_check.asm"
+%include "ds/bios_kbd_check.asm"           ; 0x3e5e
 
-%include "ds/leaf_loc_3e88.asm"
+%include "ds/leaf_loc_3e88.asm"            ; 0x3e88
 
-%include "ds/leaf_loc_3ebb.asm"
+%include "ds/leaf_loc_3ebb.asm"            ; 0x3ebb
 
-%include "ds/leaf_loc_3eeb.asm"
+%include "ds/leaf_loc_3eeb.asm"            ; 0x3eeb
 
-%include "ds/leaf_loc_3f3d.asm"
+%include "ds/leaf_loc_3f3d.asm"            ; 0x3f3d
 
-%include "ds/dos_con_loc_3f81.asm"
+%include "ds/dos_con_loc_3f81.asm"         ; 0x3f81
 
-%include "ds/dos_read_file_2.asm"
+%include "ds/dos_read_file_2.asm"          ; 0x3fa9
 
-%include "ds/dos_con_loc_3fd5.asm"
+%include "ds/dos_con_loc_3fd5.asm"         ; 0x3fd5
 
-%include "ds/string_loc_4002.asm"
+%include "ds/string_loc_4002.asm"          ; 0x4002
 
-%include "ds/string_loc_4046.asm"
+%include "ds/string_loc_4046.asm"          ; 0x4046
 
-%include "ds/strlen.asm"
+%include "ds/strlen.asm"                   ; 0x4091
 
-%include "ds/strlen_2.asm"
+%include "ds/strlen_2.asm"                 ; 0x40ca
 
-%include "ds/bios_mouse_loc_4259.asm"
+%include "ds/bios_mouse_loc_4259.asm"      ; 0x4259
 
-%include "ds/bios_mouse_loc_4266.asm"
+%include "ds/bios_mouse_loc_4266.asm"      ; 0x4266
 
-%include "ds/bios_mouse_loc_4273.asm"
+%include "ds/bios_mouse_loc_4273.asm"      ; 0x4273
 
-%include "ds/mouse_set_pos.asm"
+%include "ds/mouse_set_pos.asm"            ; 0x42b4
 
-%include "ds/aztec_ovloader.asm"
+%include "ds/aztec_ovloader.asm"           ; 0x4379
 
-%include "ds/aztec_bdos.asm"
+%include "ds/aztec_bdos.asm"               ; 0x4497
 
-%include "ds/aztec_csread.asm"
+%include "ds/aztec_csread.asm"             ; 0x44b4
 
-%include "ds/string_loc_44ff.asm"
+%include "ds/string_loc_44ff.asm"          ; 0x44ff
 
-%include "ds/aztec_movblock.asm"
+%include "ds/aztec_movblock.asm"           ; 0x4517
 
-%include "ds/aztec_setmem.asm"
+%include "ds/aztec_setmem.asm"             ; 0x454d
 
-%include "ds/string_loc_4574.asm"
+%include "ds/string_loc_4574.asm"          ; 0x4574
 
-%include "ds/aztec_strncat.asm"
+%include "ds/aztec_strncat.asm"            ; 0x457c
 
-%include "ds/aztec_strcpy.asm"
+%include "ds/aztec_strcpy.asm"             ; 0x45ab
 
-%include "ds/aztec_lmalloc.asm"
+%include "ds/aztec_lmalloc.asm"            ; 0x45d7
 
-%include "ds/aztec_lfree.asm"
+%include "ds/aztec_lfree.asm"              ; 0x460d
 
-%include "ds/aztec_lrealloc.asm"
+%include "ds/aztec_lrealloc.asm"           ; 0x4625
 
-%include "ds/aztec_csav.asm"
+%include "ds/aztec_csav.asm"               ; 0x4652
 
-%include "ds/aztec_cret.asm"
+%include "ds/aztec_cret.asm"               ; 0x4670
 
-%include "ds/aztec_realloc.asm"
+%include "ds/aztec_realloc.asm"            ; 0x467b
 
-%include "ds/aztec_malloc.asm"
+%include "ds/aztec_malloc.asm"             ; 0x46ea
 
-%include "ds/leaf_loc_47e5.asm"
+%include "ds/leaf_loc_47e5.asm"            ; 0x47e5
 
-%include "ds/aztec_free.asm"
+%include "ds/aztec_free.asm"               ; 0x47e8
 
 
     db 'LlhFNoxXudiscpneEfgG%'
 
 jumptable_4822:
-    dw string_loc_490f - IMAGE_BASE
-    dw string_loc_4916 - IMAGE_BASE
-    dw string_loc_491a - IMAGE_BASE
-    dw string_loc_491d - IMAGE_BASE
-    dw string_loc_491a - IMAGE_BASE
-    dw leaf_loc_4924 - IMAGE_BASE
-    dw leaf_loc_492d - IMAGE_BASE
-    dw leaf_loc_4929 - IMAGE_BASE
-    dw leaf_loc_4932 - IMAGE_BASE
-    dw leaf_loc_4937 - IMAGE_BASE
-    dw leaf_loc_4937 - IMAGE_BASE
-    dw loc_4a5b - IMAGE_BASE
-    dw loc_4a7a - IMAGE_BASE
-    dw string_loc_4a9f - IMAGE_BASE
-    dw string_loc_4aa2 - IMAGE_BASE
-    dw loc_4a4a - IMAGE_BASE
-    dw loc_4a44 - IMAGE_BASE
-    dw loc_4a4a - IMAGE_BASE
-    dw loc_4a4a - IMAGE_BASE
-    dw loc_4a44 - IMAGE_BASE
-    dw string_loc_4882 - IMAGE_BASE
+    dw string_loc_490f - IMAGE_BASE            ; 0x4822
+    dw string_loc_4916 - IMAGE_BASE            ; 0x4824
+    dw string_loc_491a - IMAGE_BASE            ; 0x4826
+    dw string_loc_491d - IMAGE_BASE            ; 0x4828
+    dw string_loc_491a - IMAGE_BASE            ; 0x482a
+    dw leaf_loc_4924 - IMAGE_BASE              ; 0x482c
+    dw leaf_loc_492d - IMAGE_BASE              ; 0x482e
+    dw leaf_loc_4929 - IMAGE_BASE              ; 0x4830
+    dw leaf_loc_4932 - IMAGE_BASE              ; 0x4832
+    dw leaf_loc_4937 - IMAGE_BASE              ; 0x4834
+    dw leaf_loc_4937 - IMAGE_BASE              ; 0x4836
+    dw loc_4a5b - IMAGE_BASE                   ; 0x4838
+    dw loc_4a7a - IMAGE_BASE                   ; 0x483a
+    dw string_loc_4a9f - IMAGE_BASE            ; 0x483c
+    dw string_loc_4aa2 - IMAGE_BASE            ; 0x483e
+    dw loc_4a4a - IMAGE_BASE                   ; 0x4840
+    dw loc_4a44 - IMAGE_BASE                   ; 0x4842
+    dw loc_4a4a - IMAGE_BASE                   ; 0x4844
+    dw loc_4a4a - IMAGE_BASE                   ; 0x4846
+    dw loc_4a44 - IMAGE_BASE                   ; 0x4848
+    dw string_loc_4882 - IMAGE_BASE            ; 0x484a
 
     db '0123456789abcdef -lm first', 0
 
-%include "ds/string_loc_4867.asm"
+%include "ds/string_loc_4867.asm"          ; 0x4867
 
-%include "ds/string_loc_4882.asm"
+%include "ds/string_loc_4882.asm"          ; 0x4882
 
-%include "ds/string_loc_490f.asm"
+%include "ds/string_loc_490f.asm"          ; 0x490f
 
-%include "ds/string_loc_4916.asm"
+%include "ds/string_loc_4916.asm"          ; 0x4916
 
-%include "ds/string_loc_491a.asm"
+%include "ds/string_loc_491a.asm"          ; 0x491a
 
-%include "ds/string_loc_491d.asm"
+%include "ds/string_loc_491d.asm"          ; 0x491d
 
-%include "ds/leaf_loc_4924.asm"
+%include "ds/leaf_loc_4924.asm"            ; 0x4924
 
-%include "ds/leaf_loc_4929.asm"
+%include "ds/leaf_loc_4929.asm"            ; 0x4929
 
-%include "ds/leaf_loc_492d.asm"
+%include "ds/leaf_loc_492d.asm"            ; 0x492d
 
-%include "ds/leaf_loc_4932.asm"
+%include "ds/leaf_loc_4932.asm"            ; 0x4932
 
-%include "ds/leaf_loc_4937.asm"
+%include "ds/leaf_loc_4937.asm"            ; 0x4937
 
-%include "ds/string_loc_4a9f.asm"
+%include "ds/string_loc_4a9f.asm"          ; 0x4a9f
 
-%include "ds/string_loc_4aa2.asm"
+%include "ds/string_loc_4aa2.asm"          ; 0x4aa2
 
-%include "ds/leaf_loc_4aed.asm"
+%include "ds/leaf_loc_4aed.asm"            ; 0x4aed
 
-%include "ds/string_loc_4b07.asm"
+%include "ds/string_loc_4b07.asm"          ; 0x4b07
 
-%include "ds/aztec_creat.asm"
+%include "ds/aztec_creat.asm"              ; 0x4b39
 
-%include "ds/aztec_open.asm"
+%include "ds/aztec_open.asm"               ; 0x4b50
 
-%include "ds/loc_4be6.asm"
+%include "ds/loc_4be6.asm"                 ; 0x4be6
 
-%include "ds/aztec_lrm.asm"
+%include "ds/aztec_lrm.asm"                ; 0x4c14
 
-%include "ds/aztec_lum.asm"
+%include "ds/aztec_lum.asm"                ; 0x4c38
 
-%include "ds/aztec_lud.asm"
+%include "ds/aztec_lud.asm"                ; 0x4c40
 
-%include "ds/aztec_strlen.asm"
+%include "ds/aztec_strlen.asm"             ; 0x4cd7
 
-%include "ds/aztec_sys.asm"
+%include "ds/aztec_sys.asm"                ; 0x4cf4
 
-%include "ds/aztec_begin.asm"
+%include "ds/aztec_begin.asm"              ; 0x4d3a
 
-%include "ds/dos_proc_loc_4e7e.asm"
+%include "ds/dos_proc_loc_4e7e.asm"        ; 0x4e7e
 
-%include "ds/aztec_Croot.asm"
+%include "ds/aztec_Croot.asm"              ; 0x4ea7
 
-%include "ds/loc_4f73.asm"
+%include "ds/loc_4f73.asm"                 ; 0x4f73
 
-%include "ds/leaf_loc_4f85.asm"
+%include "ds/leaf_loc_4f85.asm"            ; 0x4f85
 
-%include "ds/aztec_stkover.asm"
+%include "ds/aztec_stkover.asm"            ; 0x4f87
 
-%include "ds/aztec_read.asm"
+%include "ds/aztec_read.asm"               ; 0x4fa2
 
-%include "ds/leaf_loc_4fac.asm"
+%include "ds/leaf_loc_4fac.asm"            ; 0x4fac
 
-%include "ds/leaf_loc_4fb6.asm"
+%include "ds/leaf_loc_4fb6.asm"            ; 0x4fb6
 
-%include "ds/aztec_write.asm"
+%include "ds/aztec_write.asm"              ; 0x4fbd
 
-%include "ds/aztec_close.asm"
+%include "ds/aztec_close.asm"              ; 0x4fec
 
-%include "ds/aztec_lseek.asm"
+%include "ds/aztec_lseek.asm"              ; 0x5004
 
-%include "ds/aztec_unlink.asm"
+%include "ds/aztec_unlink.asm"             ; 0x5023
 
-%include "ds/aztec_rename.asm"
+%include "ds/aztec_rename.asm"             ; 0x503b
 
-%include "ds/aztec_tty_rd.asm"
+%include "ds/aztec_tty_rd.asm"             ; 0x505c
 
-%include "ds/aztec_tty_wr.asm"
+%include "ds/aztec_tty_wr.asm"             ; 0x50c1
 
-%include "ds/aztec_movmem.asm"
+%include "ds/aztec_movmem.asm"             ; 0x5123
 
-%include "ds/aztec_isatty.asm"
+%include "ds/aztec_isatty.asm"             ; 0x5168
 
-%include "ds/aztec_sbrk.asm"
+%include "ds/aztec_sbrk.asm"               ; 0x5188
 
-%include "ds/aztec_brk.asm"
+%include "ds/aztec_brk.asm"                ; 0x51bc
 
-%include "ds/aztec_rsvstk.asm"
+%include "ds/aztec_rsvstk.asm"             ; 0x5248
 
 
     times 44813 db 0

@@ -11,12 +11,12 @@ leaf_loc_1b7f:
     mov ax, 0                        ; 0x1b9c
     ret                              ; 0x1b9f
 jumptable_1ba0:
-    dw 0x6bc6
-    dw 0x6b8d
-    dw 0x6ba0
-    dw 0x6bc6
-    dw 0x6ba0
-    dw 0x6bb3
+    dw leaf_loc_1b7f - IMAGE_BASE + 0x5055     ; 0x1ba0
+    dw leaf_loc_1b46 - IMAGE_BASE + 0x5055     ; 0x1ba2
+    dw leaf_loc_1b59 - IMAGE_BASE + 0x5055     ; 0x1ba4
+    dw leaf_loc_1b7f - IMAGE_BASE + 0x5055     ; 0x1ba6
+    dw leaf_loc_1b59 - IMAGE_BASE + 0x5055     ; 0x1ba8
+    dw leaf_loc_1b6c - IMAGE_BASE + 0x5055     ; 0x1baa
 @..api_idx_0008_3.l8:
     cmp ax, strict word 6            ; 0x1bac
     jae short loc_1bb9               ; 0x1baf

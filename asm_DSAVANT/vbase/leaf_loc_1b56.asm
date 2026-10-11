@@ -2,85 +2,85 @@ leaf_loc_1b56:
     mov ax, 0x5f                     ; 0x1b56
     ret                              ; 0x1b59
 jumptable_1b5a:
-    dw 0x6a65
-    dw jumptable_1b5a_case_1 - IMAGE_BASE
-    dw 0x6a6d
-    dw 0x6a71
-    dw jumptable_1b5a_case_4 - IMAGE_BASE
-    dw 0x6a79
-    dw 0x6a7d
-    dw 0x6a81
-    dw 0x6a85
-    dw jumptable_1b5a_case_9 - IMAGE_BASE
-    dw 0x6a8d
-    dw 0x6a91
-    dw jumptable_1b5a_case_12 - IMAGE_BASE
-    dw 0x6a99
-    dw jumptable_1b5a_case_14 - IMAGE_BASE
-    dw 0x6aa1
-    dw 0x6aa5
-    dw 0x6aa9
-    dw jumptable_1b5a_case_18 - IMAGE_BASE
-    dw 0x6ab1
-    dw 0x6ab5
-    dw jumptable_1b5a_case_21 - IMAGE_BASE
-    dw 0x6abd
-    dw 0x6ac1
-    dw 0x6ac5
-    dw 0x6ac9
-    dw jumptable_1b5a_case_26 - IMAGE_BASE
-    dw jumptable_1b5a_case_27 - IMAGE_BASE
-    dw jumptable_1b5a_case_28 - IMAGE_BASE
-    dw jumptable_1b5a_case_29 - IMAGE_BASE
-    dw jumptable_1b5a_case_30 - IMAGE_BASE
-    dw jumptable_1b5a_case_31 - IMAGE_BASE
-    dw jumptable_1b5a_case_32 - IMAGE_BASE
-    dw jumptable_1b5a_case_33 - IMAGE_BASE
-    dw jumptable_1b5a_case_34 - IMAGE_BASE
-    dw jumptable_1b5a_case_35 - IMAGE_BASE
-    dw jumptable_1b5a_case_36 - IMAGE_BASE
-    dw 0x6af9
-    dw 0x6afd
-    dw 0x6b01
-    dw jumptable_1b5a_case_40 - IMAGE_BASE
-    dw jumptable_1b5a_case_41 - IMAGE_BASE
-    dw 0x6b0d
-    dw 0x6b11
-    dw 0x6b15
-    dw 0x6b19
-    dw 0x6b1d
-    dw 0x6b21
-    dw 0x6b25
-    dw 0x6b29
-    dw 0x6b2d
-    dw jumptable_1b5a_case_51 - IMAGE_BASE
-    dw 0x6b35
-    dw 0x6b39
-    dw jumptable_1b5a_case_54 - IMAGE_BASE
-    dw 0x6b41
-    dw jumptable_1b5a_case_56 - IMAGE_BASE
-    dw 0x6b49
-    dw 0x6b4d
-    dw jumptable_1b5a_case_59 - IMAGE_BASE
-    dw 0x6b55
-    dw 0x6b59
-    dw jumptable_1b5a_case_62 - IMAGE_BASE
-    dw 0x6b61
-    dw 0x6b65
-    dw 0x6b69
-    dw jumptable_1b5a_case_66 - IMAGE_BASE
-    dw 0x6b71
-    dw 0x6b75
-    dw jumptable_1b5a_case_69 - IMAGE_BASE
-    dw 0x6b7d
-    dw jumptable_1b5a_case_71 - IMAGE_BASE
-    dw 0x6b85
-    dw 0x6b89
-    dw 0x6b8d
-    dw 0x6b91
-    dw 0x6b95
-    dw jumptable_1b5a_case_77 - IMAGE_BASE
-    dw jumptable_1b5a_case_78 - IMAGE_BASE
+    dw leaf_loc_1a1e - IMAGE_BASE + 0x5055     ; 0x1b5a
+    dw leaf_loc_1a22 - IMAGE_BASE + 0x5055     ; 0x1b5c
+    dw leaf_loc_1a26 - IMAGE_BASE + 0x5055     ; 0x1b5e
+    dw leaf_loc_1a2a - IMAGE_BASE + 0x5055     ; 0x1b60
+    dw leaf_loc_1a2e - IMAGE_BASE + 0x5055     ; 0x1b62
+    dw leaf_loc_1a32 - IMAGE_BASE + 0x5055     ; 0x1b64
+    dw leaf_loc_1a36 - IMAGE_BASE + 0x5055     ; 0x1b66
+    dw leaf_loc_1a3a - IMAGE_BASE + 0x5055     ; 0x1b68
+    dw leaf_loc_1a3e - IMAGE_BASE + 0x5055     ; 0x1b6a
+    dw leaf_loc_1a42 - IMAGE_BASE + 0x5055     ; 0x1b6c
+    dw leaf_loc_1a46 - IMAGE_BASE + 0x5055     ; 0x1b6e
+    dw leaf_loc_1a4a - IMAGE_BASE + 0x5055     ; 0x1b70
+    dw leaf_loc_1a4e - IMAGE_BASE + 0x5055     ; 0x1b72
+    dw leaf_loc_1a52 - IMAGE_BASE + 0x5055     ; 0x1b74
+    dw leaf_loc_1a56 - IMAGE_BASE + 0x5055     ; 0x1b76
+    dw leaf_loc_1a5a - IMAGE_BASE + 0x5055     ; 0x1b78
+    dw leaf_loc_1a5e - IMAGE_BASE + 0x5055     ; 0x1b7a
+    dw leaf_loc_1a62 - IMAGE_BASE + 0x5055     ; 0x1b7c
+    dw leaf_loc_1a66 - IMAGE_BASE + 0x5055     ; 0x1b7e
+    dw leaf_loc_1a6a - IMAGE_BASE + 0x5055     ; 0x1b80
+    dw leaf_loc_1a6e - IMAGE_BASE + 0x5055     ; 0x1b82
+    dw leaf_loc_1a72 - IMAGE_BASE + 0x5055     ; 0x1b84
+    dw leaf_loc_1a76 - IMAGE_BASE + 0x5055     ; 0x1b86
+    dw leaf_loc_1a7a - IMAGE_BASE + 0x5055     ; 0x1b88
+    dw leaf_loc_1a7e - IMAGE_BASE + 0x5055     ; 0x1b8a
+    dw leaf_loc_1a82 - IMAGE_BASE + 0x5055     ; 0x1b8c
+    dw leaf_loc_1a86 - IMAGE_BASE + 0x5055     ; 0x1b8e
+    dw leaf_loc_1a8a - IMAGE_BASE + 0x5055     ; 0x1b90
+    dw leaf_loc_1a8e - IMAGE_BASE + 0x5055     ; 0x1b92
+    dw leaf_loc_1a92 - IMAGE_BASE + 0x5055     ; 0x1b94
+    dw leaf_loc_1a96 - IMAGE_BASE + 0x5055     ; 0x1b96
+    dw leaf_loc_1a9a - IMAGE_BASE + 0x5055     ; 0x1b98
+    dw leaf_loc_1a9e - IMAGE_BASE + 0x5055     ; 0x1b9a
+    dw leaf_loc_1aa2 - IMAGE_BASE + 0x5055     ; 0x1b9c
+    dw leaf_loc_1aa6 - IMAGE_BASE + 0x5055     ; 0x1b9e
+    dw leaf_loc_1aaa - IMAGE_BASE + 0x5055     ; 0x1ba0
+    dw leaf_loc_1aae - IMAGE_BASE + 0x5055     ; 0x1ba2
+    dw leaf_loc_1ab2 - IMAGE_BASE + 0x5055     ; 0x1ba4
+    dw leaf_loc_1ab6 - IMAGE_BASE + 0x5055     ; 0x1ba6
+    dw leaf_loc_1aba - IMAGE_BASE + 0x5055     ; 0x1ba8
+    dw leaf_loc_1abe - IMAGE_BASE + 0x5055     ; 0x1baa
+    dw leaf_loc_1ac2 - IMAGE_BASE + 0x5055     ; 0x1bac
+    dw leaf_loc_1ac6 - IMAGE_BASE + 0x5055     ; 0x1bae
+    dw leaf_loc_1aca - IMAGE_BASE + 0x5055     ; 0x1bb0
+    dw leaf_loc_1ace - IMAGE_BASE + 0x5055     ; 0x1bb2
+    dw leaf_loc_1ad2 - IMAGE_BASE + 0x5055     ; 0x1bb4
+    dw leaf_loc_1ad6 - IMAGE_BASE + 0x5055     ; 0x1bb6
+    dw leaf_loc_1ada - IMAGE_BASE + 0x5055     ; 0x1bb8
+    dw leaf_loc_1ade - IMAGE_BASE + 0x5055     ; 0x1bba
+    dw leaf_loc_1ae2 - IMAGE_BASE + 0x5055     ; 0x1bbc
+    dw leaf_loc_1ae6 - IMAGE_BASE + 0x5055     ; 0x1bbe
+    dw leaf_loc_1aea - IMAGE_BASE + 0x5055     ; 0x1bc0
+    dw leaf_loc_1aee - IMAGE_BASE + 0x5055     ; 0x1bc2
+    dw leaf_loc_1af2 - IMAGE_BASE + 0x5055     ; 0x1bc4
+    dw leaf_loc_1af6 - IMAGE_BASE + 0x5055     ; 0x1bc6
+    dw leaf_loc_1afa - IMAGE_BASE + 0x5055     ; 0x1bc8
+    dw leaf_loc_1afe - IMAGE_BASE + 0x5055     ; 0x1bca
+    dw leaf_loc_1b02 - IMAGE_BASE + 0x5055     ; 0x1bcc
+    dw leaf_loc_1b06 - IMAGE_BASE + 0x5055     ; 0x1bce
+    dw leaf_loc_1b0a - IMAGE_BASE + 0x5055     ; 0x1bd0
+    dw leaf_loc_1b0e - IMAGE_BASE + 0x5055     ; 0x1bd2
+    dw leaf_loc_1b12 - IMAGE_BASE + 0x5055     ; 0x1bd4
+    dw leaf_loc_1b16 - IMAGE_BASE + 0x5055     ; 0x1bd6
+    dw leaf_loc_1b1a - IMAGE_BASE + 0x5055     ; 0x1bd8
+    dw leaf_loc_1b1e - IMAGE_BASE + 0x5055     ; 0x1bda
+    dw leaf_loc_1b22 - IMAGE_BASE + 0x5055     ; 0x1bdc
+    dw leaf_loc_1b26 - IMAGE_BASE + 0x5055     ; 0x1bde
+    dw leaf_loc_1b2a - IMAGE_BASE + 0x5055     ; 0x1be0
+    dw leaf_loc_1b2e - IMAGE_BASE + 0x5055     ; 0x1be2
+    dw leaf_loc_1b32 - IMAGE_BASE + 0x5055     ; 0x1be4
+    dw leaf_loc_1b36 - IMAGE_BASE + 0x5055     ; 0x1be6
+    dw leaf_loc_1b3a - IMAGE_BASE + 0x5055     ; 0x1be8
+    dw leaf_loc_1b3e - IMAGE_BASE + 0x5055     ; 0x1bea
+    dw leaf_loc_1b42 - IMAGE_BASE + 0x5055     ; 0x1bec
+    dw leaf_loc_1b46 - IMAGE_BASE + 0x5055     ; 0x1bee
+    dw leaf_loc_1b4a - IMAGE_BASE + 0x5055     ; 0x1bf0
+    dw leaf_loc_1b4e - IMAGE_BASE + 0x5055     ; 0x1bf2
+    dw leaf_loc_1b52 - IMAGE_BASE + 0x5055     ; 0x1bf4
+    dw leaf_loc_1b56 - IMAGE_BASE + 0x5055     ; 0x1bf6
 @..local.l60:
     cmp ax, strict word 0x4f         ; 0x1bf8
     jae short @..local.l61           ; 0x1bfb

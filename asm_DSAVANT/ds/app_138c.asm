@@ -139,13 +139,13 @@ jumptable_14a2_case_6:
     pop cx                           ; 0x149f
     jmp short @..app_138c.l3         ; 0x14a0
 jumptable_14a2:
-    dw jumptable_14a2_case_0 - IMAGE_BASE
-    dw jumptable_14a2_case_1 - IMAGE_BASE
-    dw jumptable_14a2_case_2 - IMAGE_BASE
-    dw jumptable_14a2_case_3 - IMAGE_BASE
-    dw jumptable_14a2_case_4 - IMAGE_BASE
-    dw jumptable_14a2_case_5 - IMAGE_BASE
-    dw jumptable_14a2_case_6 - IMAGE_BASE
+    dw jumptable_14a2_case_0 - IMAGE_BASE      ; 0x14a2
+    dw jumptable_14a2_case_1 - IMAGE_BASE      ; 0x14a4
+    dw jumptable_14a2_case_2 - IMAGE_BASE      ; 0x14a6
+    dw jumptable_14a2_case_3 - IMAGE_BASE      ; 0x14a8
+    dw jumptable_14a2_case_4 - IMAGE_BASE      ; 0x14aa
+    dw jumptable_14a2_case_5 - IMAGE_BASE      ; 0x14ac
+    dw jumptable_14a2_case_6 - IMAGE_BASE      ; 0x14ae
 @..app_138c.l2:
     cmp ax, strict word 7            ; 0x14b0
     jae short @..app_138c.l3         ; 0x14b3

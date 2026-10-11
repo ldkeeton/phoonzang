@@ -11,20 +11,20 @@ loc_2aee:
     mov word [bp - 0x0004], 0x2f     ; 0x2aee
     jmp short loc_2b1e               ; 0x2af3
 jumptable_2af5:
-    dw jumptable_2af5_case_0 - IMAGE_BASE
-    dw jumptable_2af5_case_1 - IMAGE_BASE
-    dw jumptable_2af5_case_2 - IMAGE_BASE
-    dw jumptable_2af5_case_3 - IMAGE_BASE
-    dw jumptable_2af5_case_4 - IMAGE_BASE
-    dw jumptable_2af5_case_5 - IMAGE_BASE
-    dw jumptable_2af5_case_6 - IMAGE_BASE
-    dw jumptable_2af5_case_7 - IMAGE_BASE
-    dw jumptable_2af5_case_8 - IMAGE_BASE
-    dw jumptable_2af5_case_9 - IMAGE_BASE
-    dw jumptable_2af5_case_10 - IMAGE_BASE
-    dw jumptable_2af5_case_11 - IMAGE_BASE
-    dw jumptable_2af5_case_12 - IMAGE_BASE
-    dw jumptable_2af5_case_13 - IMAGE_BASE
+    dw leaf_loc_2a85 - IMAGE_BASE + 0x5055     ; 0x2af5
+    dw leaf_loc_2a8d - IMAGE_BASE + 0x5055     ; 0x2af7
+    dw leaf_loc_2a95 - IMAGE_BASE + 0x5055     ; 0x2af9
+    dw leaf_loc_2a9d - IMAGE_BASE + 0x5055     ; 0x2afb
+    dw leaf_loc_2aa5 - IMAGE_BASE + 0x5055     ; 0x2afd
+    dw leaf_loc_2ab1 - IMAGE_BASE + 0x5055     ; 0x2aff
+    dw leaf_loc_2ab8 - IMAGE_BASE + 0x5055     ; 0x2b01
+    dw leaf_loc_2ac4 - IMAGE_BASE + 0x5055     ; 0x2b03
+    dw leaf_loc_2acb - IMAGE_BASE + 0x5055     ; 0x2b05
+    dw leaf_loc_2ad2 - IMAGE_BASE + 0x5055     ; 0x2b07
+    dw leaf_loc_2ad9 - IMAGE_BASE + 0x5055     ; 0x2b09
+    dw loc_2ae0 - IMAGE_BASE + 0x5055          ; 0x2b0b
+    dw loc_2ae7 - IMAGE_BASE + 0x5055          ; 0x2b0d
+    dw loc_2aee - IMAGE_BASE + 0x5055          ; 0x2b0f
 loc_2b11:
     cmp ax, strict word 0xe          ; 0x2b11
     jae short loc_2b1e               ; 0x2b14

@@ -361,6 +361,7 @@ api_idx_0038:
 @..api_idx_0038.l10:
     mov ax, word [bp - 0x0018]       ; 0x0e10
     jmp near @..api_idx_0038.l22     ; 0x0e13
+jumptable_11b9_case_0:
     lea ax, word [bp - 0x000e]       ; 0x0e16
     push ax                          ; 0x0e19
     lea ax, word [bp - 0x000c]       ; 0x0e1a
@@ -486,6 +487,7 @@ api_idx_0038:
     jmp near @..api_idx_0038.l11     ; 0x0f37
 @..api_idx_0038.l13:
     jmp near @..api_idx_0038.l24     ; 0x0f3a
+jumptable_11b9_case_1:
     cmp word [bp - 0x0018], byte 1   ; 0x0f3d
     jne short @..api_idx_0038.l15    ; 0x0f41
     mov ax, 1                        ; 0x0f43
@@ -617,6 +619,7 @@ api_idx_0038:
     call ds_dispatch_e8da            ; 0x106b
     add sp, byte 8                   ; 0x106e
     jmp near @..api_idx_0038.l24     ; 0x1071
+jumptable_11b9_case_3:
     cmp word [bp + 0x6], byte 0      ; 0x1074
     je short @..api_idx_0038.l18     ; 0x1078
     mov ax, 1                        ; 0x107a
@@ -650,6 +653,7 @@ api_idx_0038:
     mov word [bp - 0x001a], 0        ; 0x10bd
 @..api_idx_0038.l18:
     jmp near @..api_idx_0038.l24     ; 0x10c2
+jumptable_11b9_case_4:
     cmp word [bp + 0x8], byte 0      ; 0x10c5
     je short @..api_idx_0038.l19     ; 0x10c9
     mov ax, 1                        ; 0x10cb
@@ -683,6 +687,7 @@ api_idx_0038:
     mov word [bp - 0x001a], 0        ; 0x110e
 @..api_idx_0038.l19:
     jmp near @..api_idx_0038.l24     ; 0x1113
+jumptable_11b9_case_5:
     cmp word [bp + 0xa], byte 0      ; 0x1116
     je short @..api_idx_0038.l20     ; 0x111a
     mov ax, 1                        ; 0x111c
@@ -752,12 +757,12 @@ api_idx_0038:
     add sp, byte 8                   ; 0x11b4
     jmp short @..api_idx_0038.l24    ; 0x11b7
 jumptable_11b9:
-    dw 0x5e5d
-    dw jumptable_11b9_case_1 - IMAGE_BASE
-    dw jumptable_11b9_case_1 - IMAGE_BASE
-    dw 0x60bb
-    dw 0x610c
-    dw jumptable_11b9_case_5 - IMAGE_BASE
+    dw jumptable_11b9_case_0 - IMAGE_BASE + 0x5055 ; 0x11b9
+    dw jumptable_11b9_case_1 - IMAGE_BASE + 0x5055 ; 0x11bb
+    dw jumptable_11b9_case_1 - IMAGE_BASE + 0x5055 ; 0x11bd
+    dw jumptable_11b9_case_3 - IMAGE_BASE + 0x5055 ; 0x11bf
+    dw jumptable_11b9_case_4 - IMAGE_BASE + 0x5055 ; 0x11c1
+    dw jumptable_11b9_case_5 - IMAGE_BASE + 0x5055 ; 0x11c3
 @..api_idx_0038.l22:
     cmp ax, strict word 6            ; 0x11c5
     jae short @..api_idx_0038.l23    ; 0x11c8

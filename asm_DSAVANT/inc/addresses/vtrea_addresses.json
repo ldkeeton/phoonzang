@@ -353,6 +353,7 @@
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
+        12395,
         21426,
         29355,
         34481
@@ -384,6 +385,28 @@
       "name": "api_idx_0002",
       "address": 3990,
       "address_hex": "0x0f96",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_107b",
+      "address": 4219,
+      "address_hex": "0x107b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_10a2",
+      "address": 4258,
+      "address_hex": "0x10a2",
       "type": "T",
       "space": "cs",
       "kind": "code",
@@ -513,9 +536,53 @@
       "referenced_by": []
     },
     {
+      "name": "loc_34d2",
+      "address": 13522,
+      "address_hex": "0x34d2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_34d4",
+      "address": 13524,
+      "address_hex": "0x34d4",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_34f1",
+      "address": 13553,
+      "address_hex": "0x34f1",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
       "name": "api_idx_0008",
       "address": 13650,
       "address_hex": "0x3552",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_356a",
+      "address": 13674,
+      "address_hex": "0x356a",
       "type": "T",
       "space": "cs",
       "kind": "code",
@@ -1010,6 +1077,193 @@
       "referenced_by": []
     },
     {
+      "name": "loc_501e",
+      "address": 20510,
+      "address_hex": "0x501e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_502d",
+      "address": 20525,
+      "address_hex": "0x502d",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5069",
+      "address": 20585,
+      "address_hex": "0x5069",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_506c",
+      "address": 20588,
+      "address_hex": "0x506c",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_507b",
+      "address": 20603,
+      "address_hex": "0x507b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5089",
+      "address": 20617,
+      "address_hex": "0x5089",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5095",
+      "address": 20629,
+      "address_hex": "0x5095",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_50f2",
+      "address": 20722,
+      "address_hex": "0x50f2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5120",
+      "address": 20768,
+      "address_hex": "0x5120",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5123",
+      "address": 20771,
+      "address_hex": "0x5123",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5132",
+      "address": 20786,
+      "address_hex": "0x5132",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5140",
+      "address": 20800,
+      "address_hex": "0x5140",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5169",
+      "address": 20841,
+      "address_hex": "0x5169",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5176",
+      "address": 20854,
+      "address_hex": "0x5176",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5187",
+      "address": 20871,
+      "address_hex": "0x5187",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_51b6",
+      "address": 20918,
+      "address_hex": "0x51b6",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_51b8",
+      "address": 20920,
+      "address_hex": "0x51b8",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
       "name": "loc_51c6",
       "address": 20934,
       "address_hex": "0x51c6",
@@ -1258,6 +1512,61 @@
       "name": "api_idx_0004_10",
       "address": 24318,
       "address_hex": "0x5efe",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_5f7f",
+      "address": 24447,
+      "address_hex": "0x5f7f",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_5fa2",
+      "address": 24482,
+      "address_hex": "0x5fa2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_5fad",
+      "address": 24493,
+      "address_hex": "0x5fad",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_5fbf",
+      "address": 24511,
+      "address_hex": "0x5fbf",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_5fee",
+      "address": 24558,
+      "address_hex": "0x5fee",
       "type": "T",
       "space": "cs",
       "kind": "code",
@@ -2256,7 +2565,15 @@
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
+        12098,
+        12743,
+        13126,
+        13174,
+        13540,
         13646,
+        16657,
+        16738,
+        16819,
         16976,
         25894,
         26074,
@@ -2267,6 +2584,8 @@
         28096,
         28173,
         28261,
+        38198,
+        38287,
         39361
       ]
     },
@@ -2903,7 +3222,9 @@
         9159,
         9169,
         9709,
-        9724
+        9724,
+        13119,
+        13149
       ]
     },
     {

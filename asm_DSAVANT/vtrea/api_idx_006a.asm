@@ -626,7 +626,6 @@ api_idx_006a:
     mov ax, word [bp - 0x0002]       ; 0x65b6
     shl ax, 1                        ; 0x65b9
     mov bx, ax                       ; 0x65bb
-jumptable_1fa3_case_1:
     add bx, bp                       ; 0x65bd
     cmp word [bx - 0x0036], byte 0   ; 0x65bf
     jne short @..api_idx_006a.l28    ; 0x65c3
@@ -684,7 +683,6 @@ jumptable_1fa3_case_1:
     add ax, strict word 0x2e         ; 0x6641
     push ax                          ; 0x6644
     mov ax, 0x14                     ; 0x6645
-jumptable_1fa3_case_2:
     imul word [bp - 0x0002]          ; 0x6648
     add ax, word [bp - 0x0006]       ; 0x664b
     add ax, strict word 0x67         ; 0x664e

@@ -3,14 +3,14 @@ leaf_loc_0e98:
     mov word [bp - 0x0010], ax       ; 0x0e9b
     jmp short loc_0ebd               ; 0x0e9e
 jumptable_0ea0:
-    dw 0x5f04
-    dw 0x5ec7
-    dw 0x5ecf
-    dw 0x5ed7
-    dw 0x5edf
-    dw 0x5f04
-    dw 0x5ed7
-    dw 0x5ecf
+    dw loc_0ebd - IMAGE_BASE + 0x5055          ; 0x0ea0
+    dw leaf_loc_0e80 - IMAGE_BASE + 0x5055     ; 0x0ea2
+    dw leaf_loc_0e88 - IMAGE_BASE + 0x5055     ; 0x0ea4
+    dw leaf_loc_0e90 - IMAGE_BASE + 0x5055     ; 0x0ea6
+    dw leaf_loc_0e98 - IMAGE_BASE + 0x5055     ; 0x0ea8
+    dw loc_0ebd - IMAGE_BASE + 0x5055          ; 0x0eaa
+    dw leaf_loc_0e90 - IMAGE_BASE + 0x5055     ; 0x0eac
+    dw leaf_loc_0e88 - IMAGE_BASE + 0x5055     ; 0x0eae
 loc_0eb0:
     cmp ax, strict word 8            ; 0x0eb0
     jae short loc_0ebd               ; 0x0eb3

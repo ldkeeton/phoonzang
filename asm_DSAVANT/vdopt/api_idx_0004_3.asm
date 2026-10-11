@@ -86,13 +86,13 @@ loc_0443:
     mov word [bx + 0x4], ax          ; 0x0452
     jmp short @..api_idx_0004_3.l4   ; 0x0455
 jumptable_0457:
-    dw 0x544a
-    dw 0x546d
-    dw 0x546d
-    dw 0x546d
-    dw 0x546d
-    dw 0x5478
-    dw 0x548a
+    dw loc_0403 - IMAGE_BASE + 0x5055          ; 0x0457
+    dw loc_0426 - IMAGE_BASE + 0x5055          ; 0x0459
+    dw loc_0426 - IMAGE_BASE + 0x5055          ; 0x045b
+    dw loc_0426 - IMAGE_BASE + 0x5055          ; 0x045d
+    dw loc_0426 - IMAGE_BASE + 0x5055          ; 0x045f
+    dw loc_0431 - IMAGE_BASE + 0x5055          ; 0x0461
+    dw loc_0443 - IMAGE_BASE + 0x5055          ; 0x0463
 @..api_idx_0004_3.l3:
     cmp ax, strict word 7            ; 0x0465
     jae short @..api_idx_0004_3.l4   ; 0x0468

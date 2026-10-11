@@ -90,7 +90,7 @@ loc_474b:
     mov al, byte [bx + 0x5d48]       ; 0x475c
     sub ah, ah                       ; 0x4760
     cmp ax, 0xff                     ; 0x4762
-    je short @..local.l55            ; 0x4765
+    je short @..local.l49            ; 0x4765
     mov ax, 0x248                    ; 0x4767
     imul word [bp + 0x4]             ; 0x476a
     push ax                          ; 0x476d
@@ -105,9 +105,9 @@ loc_474b:
     mov al, byte [bx + 0x5c3b]       ; 0x4780
     sub ah, ah                       ; 0x4784
     test ax, 2                       ; 0x4786
-    je short @..local.l55            ; 0x4789
+    je short @..local.l49            ; 0x4789
     mov ax, 1                        ; 0x478b
     ret                              ; 0x478e
-@..local.l55:
+@..local.l49:
     mov ax, 0                        ; 0x478f
     ret                              ; 0x4792

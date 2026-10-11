@@ -14,6 +14,6 @@ aztec_free:
     ret                              ; 0x47ff
 @..aztec_free.l2:
     and word [si], strict word 0xfffe ; 0x4800
-    mov word [bss_0d00], si          ; 0x4804
+    mov word [0x0d00], si            ; 0x4804
     mov ax, 0                        ; 0x4808
     jmp short @..aztec_free.l1       ; 0x480b

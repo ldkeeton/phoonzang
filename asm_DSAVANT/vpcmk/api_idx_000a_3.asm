@@ -30,6 +30,7 @@ api_idx_000a_3:
     mov al, byte [bx + 0x5e2d]       ; 0x5ad4
     sub ah, ah                       ; 0x5ad8
     jmp near @..api_idx_000a_3.l1    ; 0x5ada
+jumptable_5cb4_case_0:
     mov ax, 5                        ; 0x5add
     push ax                          ; 0x5ae0
     call ds_dispatch_b7a9            ; 0x5ae1
@@ -44,6 +45,7 @@ api_idx_000a_3:
     mov bx, ax                       ; 0x5af8
     add byte [bx + 0x5e3a], 0xfd     ; 0x5afa
     jmp near @..api_idx_000a_3.l2    ; 0x5aff
+jumptable_5cb4_case_1:
     mov ax, 3                        ; 0x5b02
     push ax                          ; 0x5b05
     call ds_dispatch_b7a9            ; 0x5b06
@@ -55,6 +57,7 @@ api_idx_000a_3:
     call loc_5706                    ; 0x5b12
     pop cx                           ; 0x5b15
     jmp near @..api_idx_000a_3.l2    ; 0x5b16
+jumptable_5cb4_case_2:
     mov ax, 4                        ; 0x5b19
     push ax                          ; 0x5b1c
     call ds_dispatch_b7a9            ; 0x5b1d
@@ -65,6 +68,7 @@ api_idx_000a_3:
     call loc_5706                    ; 0x5b2a
     pop cx                           ; 0x5b2d
     jmp near @..api_idx_000a_3.l2    ; 0x5b2e
+jumptable_5cb4_case_3:
     mov ax, 4                        ; 0x5b31
     push ax                          ; 0x5b34
     call ds_dispatch_b7a9            ; 0x5b35
@@ -81,6 +85,7 @@ api_idx_000a_3:
     mov bx, ax                       ; 0x5b4c
     dec byte [bx + 0x5e3a]           ; 0x5b4e
     jmp near @..api_idx_000a_3.l2    ; 0x5b52
+jumptable_5cb4_case_4:
     mov ax, 4                        ; 0x5b55
     push ax                          ; 0x5b58
     call ds_dispatch_b7a9            ; 0x5b59
@@ -104,6 +109,7 @@ api_idx_000a_3:
     dec byte [bx + 0x5e3a]           ; 0x5b80
     dec byte [bx + 0x5e3a]           ; 0x5b84
     jmp near @..api_idx_000a_3.l2    ; 0x5b88
+jumptable_5cb4_case_5:
     mov ax, 4                        ; 0x5b8b
     push ax                          ; 0x5b8e
     call ds_dispatch_b7a9            ; 0x5b8f
@@ -116,6 +122,7 @@ api_idx_000a_3:
     call loc_5706                    ; 0x5b9c
     pop cx                           ; 0x5b9f
     jmp near @..api_idx_000a_3.l2    ; 0x5ba0
+jumptable_5cb4_case_6:
     mov ax, 4                        ; 0x5ba3
     push ax                          ; 0x5ba6
     call ds_dispatch_b7a9            ; 0x5ba7
@@ -127,6 +134,7 @@ api_idx_000a_3:
     call loc_5706                    ; 0x5bb3
     pop cx                           ; 0x5bb6
     jmp near @..api_idx_000a_3.l2    ; 0x5bb7
+jumptable_5cb4_case_7:
     mov ax, 3                        ; 0x5bba
     push ax                          ; 0x5bbd
     call ds_dispatch_b7a9            ; 0x5bbe
@@ -139,6 +147,7 @@ api_idx_000a_3:
     call loc_5706                    ; 0x5bcb
     pop cx                           ; 0x5bce
     jmp near @..api_idx_000a_3.l2    ; 0x5bcf
+jumptable_5cb4_case_8:
     mov ax, 5                        ; 0x5bd2
     push ax                          ; 0x5bd5
     call ds_dispatch_b7a9            ; 0x5bd6
@@ -153,6 +162,7 @@ api_idx_000a_3:
     mov bx, ax                       ; 0x5bed
     add byte [bx + 0x5e3a], 0xfc     ; 0x5bef
     jmp near @..api_idx_000a_3.l2    ; 0x5bf4
+jumptable_5cb4_case_9:
     mov ax, 4                        ; 0x5bf7
     push ax                          ; 0x5bfa
     call ds_dispatch_b7a9            ; 0x5bfb
@@ -165,6 +175,7 @@ api_idx_000a_3:
     call loc_5706                    ; 0x5c08
     pop cx                           ; 0x5c0b
     jmp near @..api_idx_000a_3.l2    ; 0x5c0c
+jumptable_5cb4_case_10:
     mov ax, 7                        ; 0x5c0f
     push ax                          ; 0x5c12
     call ds_dispatch_b7a9            ; 0x5c13
@@ -179,6 +190,7 @@ api_idx_000a_3:
     mov bx, ax                       ; 0x5c2a
     add byte [bx + 0x5e3a], 0xfc     ; 0x5c2c
     jmp near @..api_idx_000a_3.l2    ; 0x5c31
+jumptable_5cb4_case_11:
     mov ax, 4                        ; 0x5c34
     push ax                          ; 0x5c37
     call ds_dispatch_b7a9            ; 0x5c38
@@ -201,6 +213,7 @@ api_idx_000a_3:
     mov bx, ax                       ; 0x5c5d
     add byte [bx + 0x5e3a], 0xfb     ; 0x5c5f
     jmp short @..api_idx_000a_3.l2   ; 0x5c64
+jumptable_5cb4_case_12:
     mov ax, 4                        ; 0x5c66
     push ax                          ; 0x5c69
     call ds_dispatch_b7a9            ; 0x5c6a
@@ -214,13 +227,39 @@ api_idx_000a_3:
     imul word [bp + 0x4]             ; 0x5c7e
     mov bx, ax                       ; 0x5c81
     dec byte [bx + 0x5e3a]           ; 0x5c83
-
-    db 0xfe, 0x8f, 0x3a, 0x5e, 0xeb, 0x50, 0xb8, 0x05, 0x00, 0x50, 0xe8, 0x15, 0x5b, 0x59, 0x05, 0x04
-    db 0x00, 0x89, 0x46, 0xfe, 0xff, 0x76, 0x04, 0xe8, 0x65, 0xfa, 0x59, 0xb8, 0x48, 0x02, 0xf7, 0x6e
-    db 0x04, 0x8b, 0xd8, 0xfe, 0x8f, 0x3a, 0x5e, 0xfe, 0x8f, 0x3a, 0x5e, 0xeb, 0x29, 0x24, 0xab, 0x49
-    db 0xab, 0x60, 0xab, 0x78, 0xab, 0x9c, 0xab, 0xd2, 0xab, 0xea, 0xab, 0x01, 0xac, 0x19, 0xac, 0x3e
-    db 0xac, 0x56, 0xac, 0x7b, 0xac, 0xad, 0xac, 0xd4, 0xac
-
+    dec byte [bx + 0x5e3a]           ; 0x5c87
+    jmp short @..api_idx_000a_3.l2   ; 0x5c8b
+jumptable_5cb4_case_13:
+    mov ax, 5                        ; 0x5c8d
+    push ax                          ; 0x5c90
+    call ds_dispatch_b7a9            ; 0x5c91
+    pop cx                           ; 0x5c94
+    add ax, strict word 4            ; 0x5c95
+    mov word [bp - 0x0002], ax       ; 0x5c98
+    push word [bp + 0x4]             ; 0x5c9b
+    call loc_5706                    ; 0x5c9e
+    pop cx                           ; 0x5ca1
+    mov ax, 0x248                    ; 0x5ca2
+    imul word [bp + 0x4]             ; 0x5ca5
+    mov bx, ax                       ; 0x5ca8
+    dec byte [bx + 0x5e3a]           ; 0x5caa
+    dec byte [bx + 0x5e3a]           ; 0x5cae
+    jmp short @..api_idx_000a_3.l2   ; 0x5cb2
+jumptable_5cb4:
+    dw jumptable_5cb4_case_0 - IMAGE_BASE + 0x5055 ; 0x5cb4
+    dw jumptable_5cb4_case_1 - IMAGE_BASE + 0x5055 ; 0x5cb6
+    dw jumptable_5cb4_case_2 - IMAGE_BASE + 0x5055 ; 0x5cb8
+    dw jumptable_5cb4_case_3 - IMAGE_BASE + 0x5055 ; 0x5cba
+    dw jumptable_5cb4_case_4 - IMAGE_BASE + 0x5055 ; 0x5cbc
+    dw jumptable_5cb4_case_5 - IMAGE_BASE + 0x5055 ; 0x5cbe
+    dw jumptable_5cb4_case_6 - IMAGE_BASE + 0x5055 ; 0x5cc0
+    dw jumptable_5cb4_case_7 - IMAGE_BASE + 0x5055 ; 0x5cc2
+    dw jumptable_5cb4_case_8 - IMAGE_BASE + 0x5055 ; 0x5cc4
+    dw jumptable_5cb4_case_9 - IMAGE_BASE + 0x5055 ; 0x5cc6
+    dw jumptable_5cb4_case_10 - IMAGE_BASE + 0x5055 ; 0x5cc8
+    dw jumptable_5cb4_case_11 - IMAGE_BASE + 0x5055 ; 0x5cca
+    dw jumptable_5cb4_case_12 - IMAGE_BASE + 0x5055 ; 0x5ccc
+    dw jumptable_5cb4_case_13 - IMAGE_BASE + 0x5055 ; 0x5cce
 @..api_idx_000a_3.l1:
     cmp ax, strict word 0xe          ; 0x5cd0
     jae short @..api_idx_000a_3.l2   ; 0x5cd3
@@ -296,9 +335,9 @@ loc_5d7e:
     push ax                          ; 0x5d87
     cmp ax, strict word 1            ; 0x5d88
     pop ax                           ; 0x5d8b
-    jge short @..local.l72           ; 0x5d8c
+    jge short @..local.l57           ; 0x5d8c
     mov ax, 1                        ; 0x5d8e
-@..local.l72:
+@..local.l57:
     push ax                          ; 0x5d91
     mov ax, 0x248                    ; 0x5d92
     imul word [bp + 0x4]             ; 0x5d95
@@ -309,40 +348,40 @@ loc_5d7e:
     push ax                          ; 0x5da2
     cmp ax, strict word 1            ; 0x5da3
     pop ax                           ; 0x5da6
-    jge short @..local.l73           ; 0x5da7
+    jge short @..local.l58           ; 0x5da7
     mov ax, 1                        ; 0x5da9
-@..local.l73:
+@..local.l58:
     mov byte [bx + 0x5d55], al       ; 0x5dac
     mov ax, word [bp + 0xa]          ; 0x5db0
     push ax                          ; 0x5db3
     cmp ax, strict word 1            ; 0x5db4
     pop ax                           ; 0x5db7
-    jge short @..local.l74           ; 0x5db8
+    jge short @..local.l59           ; 0x5db8
     mov ax, 1                        ; 0x5dba
-@..local.l74:
+@..local.l59:
     mov byte [bx + 0x5d56], al       ; 0x5dbd
     mov ax, word [bp + 0xc]          ; 0x5dc1
     push ax                          ; 0x5dc4
     cmp ax, strict word 1            ; 0x5dc5
     pop ax                           ; 0x5dc8
-    jge short @..local.l75           ; 0x5dc9
+    jge short @..local.l60           ; 0x5dc9
     mov ax, 1                        ; 0x5dcb
-@..local.l75:
+@..local.l60:
     mov byte [bx + 0x5d57], al       ; 0x5dce
     mov ax, word [bp + 0xe]          ; 0x5dd2
     push ax                          ; 0x5dd5
     cmp ax, strict word 1            ; 0x5dd6
     pop ax                           ; 0x5dd9
-    jge short @..local.l76           ; 0x5dda
+    jge short @..local.l61           ; 0x5dda
     mov ax, 1                        ; 0x5ddc
-@..local.l76:
+@..local.l61:
     mov byte [bx + 0x5d58], al       ; 0x5ddf
     mov ax, word [bp + 0x10]         ; 0x5de3
     push ax                          ; 0x5de6
     cmp ax, strict word 1            ; 0x5de7
     pop ax                           ; 0x5dea
-    jge short @..local.l77           ; 0x5deb
+    jge short @..local.l62           ; 0x5deb
     mov ax, 1                        ; 0x5ded
-@..local.l77:
+@..local.l62:
     mov byte [bx + 0x5d59], al       ; 0x5df0
     ret                              ; 0x5df4

@@ -5,12 +5,13 @@ import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.model import JumpTableInfo
-from lib.phases.recursive import _scan_jump_table
+from lib.phases.recursive import _code_off, _scan_jump_table
 from lib.verify.assemble import clear_assemble_cache, micro_assemble
 from lib.verify.compare import (
     _build_source,
     _inject_jump_tables,
     _merge_jump_table_specs,
+    _partition_function_records,
     _render_records,
 )
 
@@ -50,6 +51,32 @@ class ScanJumpTableBoundsTests(unittest.TestCase):
             self._table(), 0x40, conf, max_index=None)
         self.assertEqual(targets, set())
         self.assertEqual(end, 0x40)
+
+
+class CodeOffSignExtensionTests(unittest.TestCase):
+    """``_code_off`` must treat a signed displacement as a 16-bit offset.
+
+    capstone sign-extends ``jmp [cs:bx + disp]`` when ``disp`` has the high
+    bit set (``-0x78c1`` for ``0x873f``); before masking, the translated
+    offset went negative and the jump table was silently dropped.
+    """
+
+    class _Overlay:
+        def __init__(self, o_corg):
+            self.o_corg = o_corg
+
+        def code_offset(self, value):
+            return 14 + (value - self.o_corg)
+
+    def test_overlay_negative_displacement_masks_to_16_bits(self):
+        ctx = type('Ctx', (), {
+            'segments': self._Overlay(0x5055), 'start_offset': 14,
+        })()
+        self.assertEqual(_code_off(ctx, -0x78c1), 0x36f8)
+
+    def test_mz_fallback_masks_to_16_bits(self):
+        ctx = type('Ctx', (), {'segments': None, 'start_offset': 0})()
+        self.assertEqual(_code_off(ctx, -0x7ff0), 0x8010)
 
 
 class MergeJumpTableSpecsTests(unittest.TestCase):
@@ -139,6 +166,38 @@ class InjectJumpTablesTests(unittest.TestCase):
              'jumptable_0250_case_1': 0x220},
         )
 
+    def test_overlay_code_targets_map_via_o_corg(self):
+        # Values are CS offsets in an overlay loaded at o_corg=0x1000; a word
+        # ``value`` addresses file offset start_offset + (value - o_corg).
+        binary = bytearray(0x300)
+        binary[0x250:0x256] = b'\x10\x10\x30\x10\x70\x10'
+        records = [
+            {'type': 'mnem', 'text': 'nop', 'offset': 0x210, 'size': 1},
+            {'type': 'mnem', 'text': 'nop', 'offset': 0x230, 'size': 1},
+            {'type': 'mnem', 'text': 'nop', 'offset': 0x270, 'size': 1},
+            {'type': 'data_block', 'start': 0x250, 'end': 0x256, 'bytes': []},
+        ]
+        specs = [{
+            'table_addr': 0x250, 'table_end': 0x256, 'jmp_addr': 0x290,
+            'count': 3, 'entry_size': 2, 'label': 'jumptable_0250',
+            'source': 'auto', 'note': '',
+        }]
+        out, injected, _ = _inject_jump_tables(
+            records, specs, bytes(binary), 0x200, {}, {}, o_corg=0x1000,
+        )
+        self.assertEqual(injected, {0x250: 'jumptable_0250'})
+        table = next(r for r in out if r['type'] == 'jump_table')
+        self.assertEqual(table['adjust'], 0x1000)
+        self.assertEqual(
+            table['entries'],
+            ['jumptable_0250_case_0', 'jumptable_0250_case_1',
+             'jumptable_0250_case_2'],
+        )
+        lines = _render_records(out, bytes(binary))
+        self.assertTrue(any(
+            'jumptable_0250_case_0 - IMAGE_BASE + 0x1000' in line
+            for line in lines))
+
     def test_code_overlap_is_skipped(self):
         binary = self._binary()
         records = [{
@@ -167,9 +226,15 @@ class JumpTableRenderTests(unittest.TestCase):
         }
         lines = _render_records([record], binary)
         self.assertEqual(lines[0], 'jumptable_0250:')
-        self.assertIn('    dw string_loc_0210 - IMAGE_BASE', lines)
-        self.assertIn('    dw 0', lines)
-        self.assertIn('    dw 0x1234', lines)
+        self.assertTrue(any(
+            line.startswith('    dw string_loc_0210 - IMAGE_BASE')
+            and line.rstrip().endswith('; 0x0250') for line in lines))
+        self.assertTrue(any(
+            line.startswith('    dw 0') and line.rstrip().endswith('; 0x0252')
+            for line in lines))
+        self.assertTrue(any(
+            line.startswith('    dw 0x1234')
+            and line.rstrip().endswith('; 0x0254') for line in lines))
 
     def test_image_base_only_with_tables(self):
         binary = bytes(0x10)
@@ -208,6 +273,25 @@ class DispatcherFormatTests(unittest.TestCase):
             text, insn.address, disp_labels=disp_labels, image_base=8,
         )
         self.assertEqual(bytes(built), original)
+
+
+class IncludeOffsetTests(unittest.TestCase):
+    def test_include_record_carries_first_address(self):
+        records = [
+            {'type': 'label', 'text': 'foo:', 'offset': 0x210},
+            {'type': 'mnem', 'text': 'nop', 'offset': 0x210, 'size': 1},
+            {'type': 'mnem', 'text': 'ret', 'offset': 0x211, 'size': 1},
+        ]
+        main, sources = _partition_function_records(
+            records, [(0x210, 0x212, 'foo')], 'demo',
+        )
+        inc = next(r for r in main if r['type'] == 'include')
+        self.assertEqual(inc['offset'], 0x210)
+        lines = _render_records(main, bytes(0x300))
+        self.assertTrue(any(
+            line.startswith('%include "demo/foo.asm"')
+            and line.rstrip().endswith('; 0x0210') for line in lines))
+        self.assertIn('demo/foo.asm', sources)
 
 
 if __name__ == '__main__':

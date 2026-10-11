@@ -77,6 +77,7 @@ loc_0712:
     mov al, byte [bx + 0x1]          ; 0x0798
     sub ah, ah                       ; 0x079b
     jmp near @..api_idx_0014.l8      ; 0x079d
+jumptable_099e_case_0:
     mov ax, word [bp - 0x0010]       ; 0x07a0
     mov cx, 0x10                     ; 0x07a3
     cwd                              ; 0x07a6
@@ -182,6 +183,7 @@ loc_0712:
     add sp, byte 8                   ; 0x0887
 @..api_idx_0014.l5:
     jmp near @..api_idx_0014.l9      ; 0x088a
+jumptable_099e_case_1:
     mov bx, word [bp - 0x0004]       ; 0x088d
     push word [bx + 0x4]             ; 0x0890
     mov ax, 4                        ; 0x0893
@@ -193,6 +195,7 @@ loc_0712:
     call ds_dispatch_eca4            ; 0x08a1
     add sp, byte 8                   ; 0x08a4
     jmp near @..api_idx_0014.l9      ; 0x08a7
+jumptable_099e_case_2:
     mov bx, word [bp - 0x0004]       ; 0x08aa
     push word [bx + 0x4]             ; 0x08ad
     mov ax, 4                        ; 0x08b0
@@ -204,6 +207,7 @@ loc_0712:
     call ds_dispatch_eca4            ; 0x08be
     add sp, byte 8                   ; 0x08c1
     jmp near @..api_idx_0014.l9      ; 0x08c4
+jumptable_099e_case_3:
     mov ax, word [bp - 0x000e]       ; 0x08c7
     dec ax                           ; 0x08ca
     push ax                          ; 0x08cb
@@ -240,6 +244,7 @@ loc_0712:
     add sp, byte 8                   ; 0x0915
 @..api_idx_0014.l6:
     jmp near @..api_idx_0014.l9      ; 0x0918
+jumptable_099e_case_4:
     push word [bp - 0x000e]          ; 0x091b
     mov ax, word [bp - 0x000c]       ; 0x091e
     dec ax                           ; 0x0921
@@ -276,6 +281,7 @@ loc_0712:
     add sp, byte 8                   ; 0x0969
 @..api_idx_0014.l7:
     jmp short @..api_idx_0014.l9     ; 0x096c
+jumptable_099e_case_5:
     push word [bp - 0x0010]          ; 0x096e
     mov ax, 6                        ; 0x0971
     push ax                          ; 0x0974
@@ -296,12 +302,12 @@ loc_0712:
     add sp, byte 8                   ; 0x0999
     jmp short @..api_idx_0014.l9     ; 0x099c
 jumptable_099e:
-    dw jumptable_099e_case_0 - IMAGE_BASE
-    dw jumptable_099e_case_1 - IMAGE_BASE
-    dw jumptable_099e_case_2 - IMAGE_BASE
-    dw jumptable_099e_case_3 - IMAGE_BASE
-    dw jumptable_099e_case_4 - IMAGE_BASE
-    dw jumptable_099e_case_5 - IMAGE_BASE
+    dw jumptable_099e_case_0 - IMAGE_BASE + 0x5055 ; 0x099e
+    dw jumptable_099e_case_1 - IMAGE_BASE + 0x5055 ; 0x09a0
+    dw jumptable_099e_case_2 - IMAGE_BASE + 0x5055 ; 0x09a2
+    dw jumptable_099e_case_3 - IMAGE_BASE + 0x5055 ; 0x09a4
+    dw jumptable_099e_case_4 - IMAGE_BASE + 0x5055 ; 0x09a6
+    dw jumptable_099e_case_5 - IMAGE_BASE + 0x5055 ; 0x09a8
 @..api_idx_0014.l8:
     cmp ax, strict word 6            ; 0x09aa
     jae short @..api_idx_0014.l9     ; 0x09ad

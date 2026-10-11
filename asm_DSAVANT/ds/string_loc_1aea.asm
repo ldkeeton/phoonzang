@@ -7,14 +7,14 @@ string_loc_1aea:
     mov byte [bx + 0x5daa], al       ; 0x1af9
     jmp short loc_1b1c               ; 0x1afd
 jumptable_1aff:
-    dw string_loc_1aa7 - IMAGE_BASE
-    dw string_loc_1aa7 - IMAGE_BASE
-    dw string_loc_1adb - IMAGE_BASE
-    dw string_loc_1aea - IMAGE_BASE
-    dw string_loc_1aea - IMAGE_BASE
-    dw string_loc_1aea - IMAGE_BASE
-    dw string_loc_1aea - IMAGE_BASE
-    dw string_loc_1aea - IMAGE_BASE
+    dw string_loc_1aa7 - IMAGE_BASE            ; 0x1aff
+    dw string_loc_1aa7 - IMAGE_BASE            ; 0x1b01
+    dw string_loc_1adb - IMAGE_BASE            ; 0x1b03
+    dw string_loc_1aea - IMAGE_BASE            ; 0x1b05
+    dw string_loc_1aea - IMAGE_BASE            ; 0x1b07
+    dw string_loc_1aea - IMAGE_BASE            ; 0x1b09
+    dw string_loc_1aea - IMAGE_BASE            ; 0x1b0b
+    dw string_loc_1aea - IMAGE_BASE            ; 0x1b0d
 loc_1b0f:
     cmp ax, strict word 8            ; 0x1b0f
     jae short loc_1b1c               ; 0x1b12

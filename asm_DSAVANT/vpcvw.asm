@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_5255.inc"
+%include "inc/structs/loc_23fd.inc"
 org 0
 bits 16
 %include "inc/labels/vpcvw_foreign_labels.inc"
@@ -18,7 +18,6 @@ IMAGE_BASE equ 0x000e
     dw 0xe835      ; o_entry: overlay entry offset (CS)
 
 loc_23fd equ 0x23fd
-loc_5255 equ 0x5255
 data_82f2 equ 0x82f2
 data_82f4 equ 0x82f4
 data_82f6 equ 0x82f6
@@ -29,9 +28,9 @@ data_82fe equ 0x82fe
 data_8300 equ 0x8300
 data_8302 equ 0x8302
 data_8306 equ 0x8306
-data_8aee equ 0x8aee
-data_96d0 equ 0x96d0
 dseg_0002 equ 0x0002
+dseg_001e equ 0x001e
+dseg_0022 equ 0x0022
 dseg_0024 equ 0x0024
 dseg_0038 equ 0x0038
 dseg_003c equ 0x003c
@@ -64,6 +63,7 @@ bss_830c equ 0x830c
 bss_844c equ 0x844c
 bss_844e equ 0x844e
 bss_8450 equ 0x8450
+bss_8aee equ 0x8aee
 bss_8af0 equ 0x8af0
 bss_8f20 equ 0x8f20
 bss_8f3e equ 0x8f3e
@@ -117,6 +117,7 @@ bss_956a equ 0x956a
 bss_95ea equ 0x95ea
 bss_9614 equ 0x9614
 bss_967a equ 0x967a
+bss_96d0 equ 0x96d0
 
 loc_000e:
     mov ax, 0                        ; 0x000e
@@ -129,139 +130,165 @@ loc_000e:
 @..local.l1:
     mov ax, 0                        ; 0x0023
     ret                              ; 0x0026
-%include "vpcvw/api_idx_0002.asm"
+%include "vpcvw/api_idx_0002.asm"          ; 0x0027
 
-%include "vpcvw/api_idx_000e.asm"
+%include "vpcvw/api_idx_000e.asm"          ; 0x008b
 
-%include "vpcvw/api_idx_0012.asm"
+%include "vpcvw/api_idx_0012.asm"          ; 0x014b
 
-%include "vpcvw/api_idx_0004.asm"
+%include "vpcvw/api_idx_0004.asm"          ; 0x02c7
 
-%include "vpcvw/api_idx_000c.asm"
+%include "vpcvw/api_idx_000c.asm"          ; 0x037b
 
-%include "vpcvw/api_idx_0012_2.asm"
+%include "vpcvw/api_idx_0012_2.asm"        ; 0x0521
 
-%include "vpcvw/api_idx_0012_3.asm"
+%include "vpcvw/api_idx_0012_3.asm"        ; 0x0781
 
-%include "vpcvw/api_idx_0004_2.asm"
+%include "vpcvw/api_idx_0004_2.asm"        ; 0x09a1
 
-%include "vpcvw/api_idx_0012_4.asm"
+%include "vpcvw/api_idx_0012_4.asm"        ; 0x0a96
 
-%include "vpcvw/api_idx_000c_2.asm"
+%include "vpcvw/api_idx_000c_2.asm"        ; 0x0cd6
 
-%include "vpcvw/api_idx_0004_3.asm"
+%include "vpcvw/api_idx_0004_3.asm"        ; 0x0d55
 
-%include "vpcvw/api_idx_0002_2.asm"
+%include "vpcvw/api_idx_0002_2.asm"        ; 0x0e05
 
-%include "vpcvw/api_idx_0002_3.asm"
+%include "vpcvw/api_idx_0002_3.asm"        ; 0x0e60
 
-%include "vpcvw/api_idx_0010.asm"
+%include "vpcvw/api_idx_0010.asm"          ; 0x0ea1
 
-%include "vpcvw/api_idx_000a.asm"
+%include "vpcvw/api_idx_000a.asm"          ; 0x0f9e
 
-%include "vpcvw/api_idx_007c.asm"
+%include "vpcvw/api_idx_007c.asm"          ; 0x1046
 
-%include "vpcvw/api_idx_009e.asm"
+%include "vpcvw/api_idx_009e.asm"          ; 0x1894
 
-%include "vpcvw/api_idx_0008.asm"
+%include "vpcvw/api_idx_0008.asm"          ; 0x1b17
 
-%include "vpcvw/api_idx_0008_2.asm"
+%include "vpcvw/api_idx_0008_2.asm"        ; 0x21fd
 
-%include "vpcvw/api_idx_0004_4.asm"
+%include "vpcvw/api_idx_0004_4.asm"        ; 0x297e
 
-%include "vpcvw/api_idx_000a_2.asm"
+%include "vpcvw/api_idx_000a_2.asm"        ; 0x29ef
 
-%include "vpcvw/api_idx_000c_3.asm"
+%include "vpcvw/api_idx_000c_3.asm"        ; 0x2b5a
 
-%include "vpcvw/api_idx_0050.asm"
+%include "vpcvw/api_idx_0050.asm"          ; 0x2c84
 
-%include "vpcvw/api_idx_0004_5.asm"
+%include "vpcvw/api_idx_0004_5.asm"        ; 0x3974
 
-%include "vpcvw/api_idx_0004_6.asm"
+%include "vpcvw/api_idx_0004_6.asm"        ; 0x3aac
 
-%include "vpcvw/api_idx_0084.asm"
+%include "vpcvw/api_idx_0084.asm"          ; 0x3b66
 
-%include "vpcvw/api_idx_0004_7.asm"
+%include "vpcvw/api_idx_0004_7.asm"        ; 0x3c18
 
-%include "vpcvw/api_idx_0056.asm"
+%include "vpcvw/api_idx_0056.asm"          ; 0x3c7b
 
-%include "vpcvw/api_idx_009e_2.asm"
+%include "vpcvw/api_idx_009e_2.asm"        ; 0x3cfe
 
-%include "vpcvw/api_idx_0084_2.asm"
+%include "vpcvw/api_idx_0084_2.asm"        ; 0x40ef
 
-%include "vpcvw/api_idx_0048.asm"
+%include "vpcvw/api_idx_0048.asm"          ; 0x4253
 
-%include "vpcvw/api_idx_004e.asm"
+%include "vpcvw/api_idx_004e.asm"          ; 0x42e3
 
-%include "vpcvw/api_idx_0002_4.asm"
+%include "vpcvw/api_idx_0002_4.asm"        ; 0x435b
 
-%include "vpcvw/api_idx_0002_5.asm"
+%include "vpcvw/api_idx_0002_5.asm"        ; 0x4421
 
-%include "vpcvw/api_idx_000e_2.asm"
+%include "vpcvw/api_idx_000e_2.asm"        ; 0x4505
 
-%include "vpcvw/api_idx_0002_6.asm"
+%include "vpcvw/api_idx_0002_6.asm"        ; 0x4573
 
-%include "vpcvw/api_idx_0056_2.asm"
+%include "vpcvw/leaf_loc_4589.asm"         ; 0x4589
 
-%include "vpcvw/api_idx_0004_8.asm"
+%include "vpcvw/leaf_loc_45a3.asm"         ; 0x45a3
 
-%include "vpcvw/api_idx_0048_2.asm"
+%include "vpcvw/leaf_loc_45ab.asm"         ; 0x45ab
 
-%include "vpcvw/api_idx_0072.asm"
+%include "vpcvw/leaf_loc_45b2.asm"         ; 0x45b2
 
-%include "vpcvw/api_idx_0002_7.asm"
+%include "vpcvw/api_idx_0056_2.asm"        ; 0x468b
 
-%include "vpcvw/api_idx_0010_2.asm"
+%include "vpcvw/api_idx_0004_8.asm"        ; 0x4793
 
-%include "vpcvw/api_idx_0008_3.asm"
+%include "vpcvw/api_idx_0048_2.asm"        ; 0x4a1c
 
-%include "vpcvw/api_idx_0004_9.asm"
+%include "vpcvw/api_idx_0072.asm"          ; 0x4a3f
 
-%include "vpcvw/api_idx_00c2.asm"
+%include "vpcvw/api_idx_0002_7.asm"        ; 0x5006
 
-%include "vpcvw/api_idx_0014.asm"
+%include "vpcvw/api_idx_0010_2.asm"        ; 0x5050
 
-%include "vpcvw/api_idx_002a.asm"
+%include "vpcvw/api_idx_0008_3.asm"        ; 0x539e
 
-%include "vpcvw/api_idx_0080.asm"
+%include "vpcvw/api_idx_0004_9.asm"        ; 0x542a
 
-%include "vpcvw/api_idx_0004_10.asm"
+%include "vpcvw/api_idx_00c2.asm"          ; 0x54fb
 
-%include "vpcvw/api_idx_004c.asm"
+%include "vpcvw/api_idx_0014.asm"          ; 0x616c
 
-%include "vpcvw/api_idx_009a.asm"
+%include "vpcvw/api_idx_002a.asm"          ; 0x6977
 
-%include "vpcvw/api_idx_001a.asm"
+%include "vpcvw/api_idx_0080.asm"          ; 0x6a20
 
-%include "vpcvw/api_idx_0004_11.asm"
+%include "vpcvw/api_idx_0004_10.asm"       ; 0x6c47
 
-%include "vpcvw/api_idx_0004_12.asm"
+%include "vpcvw/api_idx_004c.asm"          ; 0x6d13
 
-%include "vpcvw/api_idx_0002_8.asm"
+%include "vpcvw/api_idx_009a.asm"          ; 0x6f62
 
-%include "vpcvw/api_idx_0058.asm"
+%include "vpcvw/api_idx_001a.asm"          ; 0x706c
 
-%include "vpcvw/api_idx_0008_4.asm"
+%include "vpcvw/leaf_loc_7349.asm"         ; 0x7349
 
-%include "vpcvw/api_idx_0026.asm"
+%include "vpcvw/leaf_loc_7375.asm"         ; 0x7375
 
-%include "vpcvw/api_idx_0002_9.asm"
+%include "vpcvw/leaf_loc_738d.asm"         ; 0x738d
 
-%include "vpcvw/api_idx_0002_10.asm"
+%include "vpcvw/leaf_loc_73a8.asm"         ; 0x73a8
 
-%include "vpcvw/api_idx_0002_11.asm"
+%include "vpcvw/io_loc_73c5.asm"           ; 0x73c5
 
-%include "vpcvw/api_idx_0030.asm"
+%include "vpcvw/io_loc_73dd.asm"           ; 0x73dd
 
-%include "vpcvw/api_idx_0016.asm"
+%include "vpcvw/io_loc_73f9.asm"           ; 0x73f9
 
-%include "vpcvw/api_idx_0022.asm"
+%include "vpcvw/io_loc_7410.asm"           ; 0x7410
 
-%include "vpcvw/api_idx_000e_3.asm"
+%include "vpcvw/io_loc_7415.asm"           ; 0x7415
 
-%include "vpcvw/api_idx_0018.asm"
+%include "vpcvw/api_idx_0004_11.asm"       ; 0x82da
 
-%include "vpcvw/leaf_loc_982c.asm"
+%include "vpcvw/api_idx_0004_12.asm"       ; 0x8421
+
+%include "vpcvw/api_idx_0002_8.asm"        ; 0x8676
+
+%include "vpcvw/api_idx_0058.asm"          ; 0x8730
+
+%include "vpcvw/api_idx_0008_4.asm"        ; 0x88b6
+
+%include "vpcvw/api_idx_0026.asm"          ; 0x8a6e
+
+%include "vpcvw/api_idx_0002_9.asm"        ; 0x8f64
+
+%include "vpcvw/api_idx_0002_10.asm"       ; 0x8fb8
+
+%include "vpcvw/api_idx_0002_11.asm"       ; 0x91b2
+
+%include "vpcvw/api_idx_0030.asm"          ; 0x92b3
+
+%include "vpcvw/api_idx_0016.asm"          ; 0x9434
+
+%include "vpcvw/api_idx_0022.asm"          ; 0x9491
+
+%include "vpcvw/api_idx_000e_3.asm"        ; 0x96d5
+
+%include "vpcvw/api_idx_0018.asm"          ; 0x9740
+
+%include "vpcvw/leaf_loc_982c.asm"         ; 0x982c
 
 
     db 0x31, 0x30, 0x30, 0x30, 0x00

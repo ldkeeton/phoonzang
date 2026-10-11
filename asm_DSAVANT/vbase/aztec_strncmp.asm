@@ -33,3 +33,9 @@ loc_93d5:
     pop si                           ; 0x93d6
     pop bp                           ; 0x93d7
     ret                              ; 0x93d8
+loc_93d9:
+    sub di, byte 2                   ; 0x93d9
+    scasb                            ; 0x93dc
+    jne short loc_93e6               ; 0x93dd
+    test al, al                      ; 0x93df
+    je short loc_93d3                ; 0x93e1

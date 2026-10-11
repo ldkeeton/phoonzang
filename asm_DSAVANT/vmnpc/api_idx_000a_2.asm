@@ -42,9 +42,9 @@ loc_75db:
     push ax                          ; 0x75f8
     mov ax, 0                        ; 0x75f9
     cmp word [bp + 0xa], byte 0      ; 0x75fc
-    je short @..local.l90            ; 0x7600
+    je short @..local.l86            ; 0x7600
     mov ax, 1                        ; 0x7602
-@..local.l90:
+@..local.l86:
     add ax, strict word 0x10         ; 0x7605
     sub ah, ah                       ; 0x7608
     push ax                          ; 0x760a
@@ -71,9 +71,9 @@ loc_75db:
     call ds_dispatch_e830            ; 0x763a
     add sp, byte 4                   ; 0x763d
     cmp word [bp + 0x8], byte 0      ; 0x7640
-    jne short @..local.l91           ; 0x7644
+    jne short @..local.l87           ; 0x7644
     cmp word [bp + 0xa], byte 0      ; 0x7646
-    jne short @..local.l91           ; 0x764a
+    jne short @..local.l87           ; 0x764a
     mov ax, 0xc2                     ; 0x764c
     push ax                          ; 0x764f
     mov ax, word [bp + 0x6]          ; 0x7650
@@ -86,7 +86,7 @@ loc_75db:
     push ax                          ; 0x765f
     call ds_dispatch_e901            ; 0x7660
     add sp, byte 0x0a                ; 0x7663
-@..local.l91:
+@..local.l87:
     ret                              ; 0x7666
 loc_7667:
     mov ax, 0                        ; 0x7667
@@ -117,7 +117,6 @@ loc_7667:
     call ds_dispatch_e901            ; 0x76a8
     add sp, byte 0x0a                ; 0x76ab
     mov ax, word [bp + 0x6]          ; 0x76ae
-jumptable_268c_case_0:
     inc ax                           ; 0x76b1
     push ax                          ; 0x76b2
     mov ax, word [bp + 0x4]          ; 0x76b3
@@ -127,15 +126,14 @@ jumptable_268c_case_0:
     call ds_dispatch_e809            ; 0x76b9
     add sp, byte 4                   ; 0x76bc
     cmp word [bp + 0xa], byte 0      ; 0x76bf
-    jle short @..local.l92           ; 0x76c3
+    jle short @..local.l88           ; 0x76c3
     mov ax, word [bp + 0xa]          ; 0x76c5
     cmp ax, word [bp + 0xc]          ; 0x76c8
-    jg short @..local.l92            ; 0x76cb
+    jg short @..local.l88            ; 0x76cb
     mov ax, 0                        ; 0x76cd
     push ax                          ; 0x76d0
     mov ax, 1                        ; 0x76d1
     push ax                          ; 0x76d4
-jumptable_268c_case_8:
     call ds_dispatch_e823            ; 0x76d5
     add sp, byte 4                   ; 0x76d8
     mov ax, 0                        ; 0x76db
@@ -145,8 +143,8 @@ jumptable_268c_case_8:
     push word [bp + 0xa]             ; 0x76e3
     call ds_dispatch_b2e7            ; 0x76e6
     add sp, byte 6                   ; 0x76e9
-    jmp short @..local.l93           ; 0x76ec
-@..local.l92:
+    jmp short @..local.l89           ; 0x76ec
+@..local.l88:
     mov ax, 0                        ; 0x76ee
     push ax                          ; 0x76f1
     push ax                          ; 0x76f2
@@ -158,5 +156,5 @@ jumptable_268c_case_8:
     push ax                          ; 0x7700
     call ds_dispatch_e84e            ; 0x7701
     add sp, byte 4                   ; 0x7704
-@..local.l93:
+@..local.l89:
     ret                              ; 0x7707

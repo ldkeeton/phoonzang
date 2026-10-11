@@ -67,24 +67,12 @@ api_idx_00ac:
     add ax, strict word 4            ; 0x4671
     mov word [bp - 0x0002], ax       ; 0x4674
     jmp short @..api_idx_00ac.l2     ; 0x4677
+loc_4679:
     push ax                          ; 0x4679
-    xchg si, ax                      ; 0x467a
-    popaw                            ; 0x467b
-    xchg si, ax                      ; 0x467c
-    jo short loc_4615                ; 0x467d
-    adc byte [bp - 0x69b0], 0x70     ; 0x467f
-    xchg si, ax                      ; 0x4684
-    nop                              ; 0x4685
-    xchg si, ax                      ; 0x4686
-    nop                              ; 0x4687
-    xchg si, ax                      ; 0x4688
-    mov al, byte [data_9096]         ; 0x4689
-    xchg si, ax                      ; 0x468c
-    push ax                          ; 0x468d
-    xchg si, ax                      ; 0x468e
-    mov al, byte [data_7096]         ; 0x468f
-    xchg si, ax                      ; 0x4692
-    mov al, 0x96                     ; 0x4693
+
+    db 0x96, 0x61, 0x96, 0x70, 0x96, 0x80, 0x96, 0x50, 0x96, 0x70, 0x96, 0x90, 0x96, 0x90, 0x96, 0xa0
+    db 0x96, 0x90, 0x96, 0x50, 0x96, 0xa0, 0x96, 0x70, 0x96, 0xb0, 0x96
+
 @..api_idx_00ac.l1:
     cmp ax, strict word 0xe          ; 0x4695
     jae short @..api_idx_00ac.l2     ; 0x4698

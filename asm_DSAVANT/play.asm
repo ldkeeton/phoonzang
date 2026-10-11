@@ -164,33 +164,33 @@ loc_0098:
     db 0x07, 0xb8, 0x06, 0x04, 0xe8, 0x05, 0x07, 0x9d, 0x52, 0xba, 0x88, 0x03, 0xb0, 0x40, 0xee, 0x5a
     db 0xb8, 0x00, 0x00, 0xc3
 
-%include "play/strlen.asm"
+%include "play/strlen.asm"                 ; 0x00fe
 
-%include "play/leaf_loc_0154.asm"
+%include "play/leaf_loc_0154.asm"          ; 0x0154
 
-%include "play/leaf_loc_016e.asm"
+%include "play/leaf_loc_016e.asm"          ; 0x016e
 
-%include "play/leaf_loc_0183.asm"
+%include "play/leaf_loc_0183.asm"          ; 0x0183
 
-%include "play/io_loc_023f.asm"
+%include "play/io_loc_023f.asm"            ; 0x023f
 
-%include "play/bios_disk_loc_0294.asm"
+%include "play/bios_disk_loc_0294.asm"     ; 0x0294
 
-%include "play/leaf_loc_02b3.asm"
+%include "play/leaf_loc_02b3.asm"          ; 0x02b3
 
-%include "play/io_loc_02ba.asm"
+%include "play/io_loc_02ba.asm"            ; 0x02ba
 
-%include "play/io_loc_0495.asm"
+%include "play/io_loc_0495.asm"            ; 0x0495
 
-%include "play/leaf_loc_0610.asm"
+%include "play/leaf_loc_0610.asm"          ; 0x0610
 
-%include "play/leaf_loc_077b.asm"
+%include "play/leaf_loc_077b.asm"          ; 0x077b
 
-%include "play/string_loc_0a2a.asm"
+%include "play/string_loc_0a2a.asm"        ; 0x0a2a
 
-%include "play/io_loc_0a6d.asm"
+%include "play/io_loc_0a6d.asm"            ; 0x0a6d
 
-%include "play/io_loc_0c97.asm"
+%include "play/io_loc_0c97.asm"            ; 0x0c97
 
 
     db 0xad, 0x3d, 0x00, 0x00, 0x75, 0x03, 0xe9, 0x71, 0xfe, 0x2e, 0xa3, 0x7f, 0x0b, 0x2e, 0x89, 0x36

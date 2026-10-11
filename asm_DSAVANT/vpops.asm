@@ -70,63 +70,63 @@ loc_000e:
 @..local.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
-%include "vpops/api_idx_002a.asm"
+%include "vpops/api_idx_002a.asm"          ; 0x0022
 
-%include "vpops/api_idx_000a.asm"
+%include "vpops/api_idx_000a.asm"          ; 0x00cb
 
-%include "vpops/api_idx_0006.asm"
+%include "vpops/api_idx_0006.asm"          ; 0x018d
 
-%include "vpops/api_idx_0054.asm"
+%include "vpops/api_idx_0054.asm"          ; 0x035f
 
-%include "vpops/api_idx_000a_2.asm"
+%include "vpops/api_idx_000a_2.asm"        ; 0x0504
 
-%include "vpops/api_idx_000e.asm"
+%include "vpops/api_idx_000e.asm"          ; 0x0704
 
-%include "vpops/api_idx_0004.asm"
+%include "vpops/api_idx_0004.asm"          ; 0x0a27
 
-%include "vpops/api_idx_001c.asm"
+%include "vpops/api_idx_001c.asm"          ; 0x0b31
 
-%include "vpops/api_idx_000e_2.asm"
+%include "vpops/api_idx_000e_2.asm"        ; 0x0d77
 
-%include "vpops/api_idx_0006_2.asm"
+%include "vpops/api_idx_0006_2.asm"        ; 0x0f27
 
-%include "vpops/api_idx_000c.asm"
+%include "vpops/api_idx_000c.asm"          ; 0x178a
 
-%include "vpops/api_idx_000c_2.asm"
+%include "vpops/api_idx_000c_2.asm"        ; 0x18c2
 
-%include "vpops/api_idx_0002.asm"
+%include "vpops/api_idx_0002.asm"          ; 0x1941
 
-%include "vpops/api_idx_0004_2.asm"
+%include "vpops/api_idx_0004_2.asm"        ; 0x199c
 
-%include "vpops/api_idx_000a_3.asm"
+%include "vpops/api_idx_000a_3.asm"        ; 0x1a0d
 
-%include "vpops/api_idx_000c_3.asm"
+%include "vpops/api_idx_000c_3.asm"        ; 0x1b78
 
-%include "vpops/api_idx_0044.asm"
+%include "vpops/api_idx_0044.asm"          ; 0x1ca2
 
-%include "vpops/api_idx_000a_4.asm"
+%include "vpops/api_idx_000a_4.asm"        ; 0x2947
 
-%include "vpops/api_idx_0018.asm"
+%include "vpops/api_idx_0018.asm"          ; 0x29f2
 
-%include "vpops/api_idx_0004_3.asm"
+%include "vpops/api_idx_0004_3.asm"        ; 0x2aef
 
-%include "vpops/api_idx_0038.asm"
+%include "vpops/api_idx_0038.asm"          ; 0x2c92
 
-%include "vpops/api_idx_0094.asm"
+%include "vpops/api_idx_0094.asm"          ; 0x33db
 
-%include "vpops/api_idx_0006_3.asm"
+%include "vpops/api_idx_0006_3.asm"        ; 0x36c0
 
-%include "vpops/api_idx_00d4.asm"
+%include "vpops/api_idx_00d4.asm"          ; 0x3710
 
-%include "vpops/api_idx_0004_4.asm"
+%include "vpops/api_idx_0004_4.asm"        ; 0x4528
 
-%include "vpops/api_idx_0002_2.asm"
+%include "vpops/api_idx_0002_2.asm"        ; 0x45b3
 
-%include "vpops/api_idx_0024.asm"
+%include "vpops/api_idx_0024.asm"          ; 0x45f3
 
-%include "vpops/api_idx_0002_3.asm"
+%include "vpops/api_idx_0002_3.asm"        ; 0x4d91
 
-%include "vpops/api_idx_0004_5.asm"
+%include "vpops/api_idx_0004_5.asm"        ; 0x4e3b
 
 loc_4e9d:
     pop word [dseg_90d4]             ; 0x4e9d

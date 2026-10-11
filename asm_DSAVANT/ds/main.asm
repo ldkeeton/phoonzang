@@ -128,38 +128,38 @@ jumptable_2edc_case_3:
     pop cx                           ; 0x2ed9
     jmp short @..main.l3             ; 0x2eda
 jumptable_2edc:
-    dw jumptable_2edc_case_0 - IMAGE_BASE
-    dw jumptable_2edc_case_0 - IMAGE_BASE
-    dw jumptable_2edc_case_0 - IMAGE_BASE
-    dw jumptable_2edc_case_3 - IMAGE_BASE
-    dw jumptable_2edc_case_4 - IMAGE_BASE
-    dw jumptable_2edc_case_5 - IMAGE_BASE
-    dw jumptable_2edc_case_5 - IMAGE_BASE
-    dw jumptable_2edc_case_7 - IMAGE_BASE
-    dw jumptable_2edc_case_8 - IMAGE_BASE
-    dw jumptable_2edc_case_9 - IMAGE_BASE
-    dw jumptable_2edc_case_10 - IMAGE_BASE
-    dw jumptable_2edc_case_10 - IMAGE_BASE
-    dw jumptable_2edc_case_12 - IMAGE_BASE
-    dw jumptable_2edc_case_13 - IMAGE_BASE
-    dw jumptable_2edc_case_10 - IMAGE_BASE
-    dw jumptable_2edc_case_15 - IMAGE_BASE
-    dw jumptable_2edc_case_16 - IMAGE_BASE
-    dw jumptable_2edc_case_17 - IMAGE_BASE
-    dw jumptable_2edc_case_18 - IMAGE_BASE
-    dw jumptable_2edc_case_19 - IMAGE_BASE
-    dw jumptable_2edc_case_19 - IMAGE_BASE
-    dw jumptable_2edc_case_15 - IMAGE_BASE
-    dw jumptable_2edc_case_22 - IMAGE_BASE
-    dw jumptable_2edc_case_23 - IMAGE_BASE
-    dw jumptable_2edc_case_7 - IMAGE_BASE
-    dw jumptable_2edc_case_25 - IMAGE_BASE
-    dw jumptable_2edc_case_15 - IMAGE_BASE
-    dw jumptable_2edc_case_23 - IMAGE_BASE
-    dw jumptable_2edc_case_15 - IMAGE_BASE
-    dw jumptable_2edc_case_15 - IMAGE_BASE
-    dw jumptable_2edc_case_23 - IMAGE_BASE
-    dw jumptable_2edc_case_23 - IMAGE_BASE
+    dw jumptable_2edc_case_0 - IMAGE_BASE      ; 0x2edc
+    dw jumptable_2edc_case_0 - IMAGE_BASE      ; 0x2ede
+    dw jumptable_2edc_case_0 - IMAGE_BASE      ; 0x2ee0
+    dw jumptable_2edc_case_3 - IMAGE_BASE      ; 0x2ee2
+    dw jumptable_2edc_case_4 - IMAGE_BASE      ; 0x2ee4
+    dw jumptable_2edc_case_5 - IMAGE_BASE      ; 0x2ee6
+    dw jumptable_2edc_case_5 - IMAGE_BASE      ; 0x2ee8
+    dw jumptable_2edc_case_7 - IMAGE_BASE      ; 0x2eea
+    dw jumptable_2edc_case_8 - IMAGE_BASE      ; 0x2eec
+    dw jumptable_2edc_case_9 - IMAGE_BASE      ; 0x2eee
+    dw jumptable_2edc_case_10 - IMAGE_BASE     ; 0x2ef0
+    dw jumptable_2edc_case_10 - IMAGE_BASE     ; 0x2ef2
+    dw jumptable_2edc_case_12 - IMAGE_BASE     ; 0x2ef4
+    dw jumptable_2edc_case_13 - IMAGE_BASE     ; 0x2ef6
+    dw jumptable_2edc_case_10 - IMAGE_BASE     ; 0x2ef8
+    dw jumptable_2edc_case_15 - IMAGE_BASE     ; 0x2efa
+    dw jumptable_2edc_case_16 - IMAGE_BASE     ; 0x2efc
+    dw jumptable_2edc_case_17 - IMAGE_BASE     ; 0x2efe
+    dw jumptable_2edc_case_18 - IMAGE_BASE     ; 0x2f00
+    dw jumptable_2edc_case_19 - IMAGE_BASE     ; 0x2f02
+    dw jumptable_2edc_case_19 - IMAGE_BASE     ; 0x2f04
+    dw jumptable_2edc_case_15 - IMAGE_BASE     ; 0x2f06
+    dw jumptable_2edc_case_22 - IMAGE_BASE     ; 0x2f08
+    dw jumptable_2edc_case_23 - IMAGE_BASE     ; 0x2f0a
+    dw jumptable_2edc_case_7 - IMAGE_BASE      ; 0x2f0c
+    dw jumptable_2edc_case_25 - IMAGE_BASE     ; 0x2f0e
+    dw jumptable_2edc_case_15 - IMAGE_BASE     ; 0x2f10
+    dw jumptable_2edc_case_23 - IMAGE_BASE     ; 0x2f12
+    dw jumptable_2edc_case_15 - IMAGE_BASE     ; 0x2f14
+    dw jumptable_2edc_case_15 - IMAGE_BASE     ; 0x2f16
+    dw jumptable_2edc_case_23 - IMAGE_BASE     ; 0x2f18
+    dw jumptable_2edc_case_23 - IMAGE_BASE     ; 0x2f1a
 @..main.l2:
     cmp ax, strict word 0x20         ; 0x2f1c
     jae short @..main.l3             ; 0x2f1f

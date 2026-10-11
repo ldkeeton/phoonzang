@@ -112,37 +112,37 @@ jumptable_0363_case_1:
 @..app_file_0242.l17:
     jmp short @..app_file_0242.l19   ; 0x0361
 jumptable_0363:
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_1 - IMAGE_BASE
-    dw jumptable_0363_case_1 - IMAGE_BASE
-    dw jumptable_0363_case_1 - IMAGE_BASE
-    dw jumptable_0363_case_4 - IMAGE_BASE
-    dw jumptable_0363_case_4 - IMAGE_BASE
-    dw jumptable_0363_case_4 - IMAGE_BASE
-    dw jumptable_0363_case_7 - IMAGE_BASE
-    dw jumptable_0363_case_7 - IMAGE_BASE
-    dw jumptable_0363_case_7 - IMAGE_BASE
-    dw jumptable_0363_case_10 - IMAGE_BASE
-    dw jumptable_0363_case_11 - IMAGE_BASE
-    dw jumptable_0363_case_11 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
-    dw jumptable_0363_case_0 - IMAGE_BASE
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0363
+    dw jumptable_0363_case_1 - IMAGE_BASE      ; 0x0365
+    dw jumptable_0363_case_1 - IMAGE_BASE      ; 0x0367
+    dw jumptable_0363_case_1 - IMAGE_BASE      ; 0x0369
+    dw jumptable_0363_case_4 - IMAGE_BASE      ; 0x036b
+    dw jumptable_0363_case_4 - IMAGE_BASE      ; 0x036d
+    dw jumptable_0363_case_4 - IMAGE_BASE      ; 0x036f
+    dw jumptable_0363_case_7 - IMAGE_BASE      ; 0x0371
+    dw jumptable_0363_case_7 - IMAGE_BASE      ; 0x0373
+    dw jumptable_0363_case_7 - IMAGE_BASE      ; 0x0375
+    dw jumptable_0363_case_10 - IMAGE_BASE     ; 0x0377
+    dw jumptable_0363_case_11 - IMAGE_BASE     ; 0x0379
+    dw jumptable_0363_case_11 - IMAGE_BASE     ; 0x037b
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x037d
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x037f
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0381
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0383
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0385
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0387
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0389
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x038b
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x038d
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x038f
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0391
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0393
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0395
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0397
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x0399
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x039b
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x039d
+    dw jumptable_0363_case_0 - IMAGE_BASE      ; 0x039f
 @..app_file_0242.l18:
     cmp ax, strict word 0x1f         ; 0x03a1
     jae short @..app_file_0242.l19   ; 0x03a4

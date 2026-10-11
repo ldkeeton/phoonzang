@@ -66,7 +66,6 @@ api_idx_0002_4:
     call ds_dispatch_c12a            ; 0x68a8
     pop cx                           ; 0x68ab
     mov ax, 8                        ; 0x68ac
-jumptable_185e_case_5:
     push ax                          ; 0x68af
     call ds_dispatch_c12a            ; 0x68b0
     pop cx                           ; 0x68b3

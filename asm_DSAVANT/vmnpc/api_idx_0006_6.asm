@@ -150,11 +150,11 @@ loc_742e:
     call ds_dispatch_f40b            ; 0x7431
     mov ax, word [bss_598e]          ; 0x7434
     cmp ax, word [bp + 0x4]          ; 0x7437
-    je short @..local.l89            ; 0x743a
+    je short @..local.l85            ; 0x743a
     push word [bp + 0x4]             ; 0x743c
     call ds_dispatch_d7aa            ; 0x743f
     pop cx                           ; 0x7442
-@..local.l89:
+@..local.l85:
     mov word [bss_93da], 0x10        ; 0x7443
     push word [bss_93da]             ; 0x7449
     call ds_dispatch_b7e0            ; 0x744d

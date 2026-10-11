@@ -5,6 +5,7 @@ api_idx_0012_2:
     mov word [bp - 0x0006], 0xffff   ; 0x29f0
     mov ax, word [bp + 0x6]          ; 0x29f5
     jmp near @..api_idx_0012_2.l1    ; 0x29f8
+jumptable_2e93_case_8:
     cmp word [bp + 0x26], byte 0xff  ; 0x29fb
     jne short @..leaf_loc_2ec0.l1    ; 0x29ff
     jmp near @..leaf_loc_2ec0.l11    ; 0x2a01
@@ -74,6 +75,7 @@ api_idx_0012_2:
     push ax                          ; 0x2a81
     call api_idx_0004_5              ; 0x2a82
     add sp, byte 0x1c                ; 0x2a85
+jumptable_2e93_case_3:
 @..leaf_loc_2ec0.l11:
     cmp word [bp + 0x6], byte 3      ; 0x2a88
     je short @..leaf_loc_2ec0.l12    ; 0x2a8c
@@ -158,6 +160,7 @@ api_idx_0012_2:
     call loc_193b                    ; 0x2b3e
     pop cx                           ; 0x2b41
     mov word [bp - 0x0006], ax       ; 0x2b42
+jumptable_2e93_case_1:
 @..leaf_loc_2ec0.l16:
     cmp word [bss_91a8], byte 0      ; 0x2b45
     jne short @..leaf_loc_2ec0.l18   ; 0x2b4a
@@ -280,6 +283,7 @@ api_idx_0012_2:
     add sp, byte 0x1c                ; 0x2c4b
 @..leaf_loc_2ec0.l22:
     jmp near leaf_loc_2ec0           ; 0x2c4e
+jumptable_2e93_case_7:
     cmp word [bp + 0x4], byte 4      ; 0x2c51
     jge short @..leaf_loc_2ec0.l23   ; 0x2c55
     mov ax, word [bp + 0x3a]         ; 0x2c57
@@ -297,6 +301,7 @@ api_idx_0012_2:
     call loc_193b                    ; 0x2c75
     pop cx                           ; 0x2c78
     mov word [bp - 0x0006], ax       ; 0x2c79
+jumptable_2e93_case_2:
 @..leaf_loc_2ec0.l23:
     cmp word [bss_91a8], byte 0      ; 0x2c7c
     jne short @..leaf_loc_2ec0.l25   ; 0x2c81
@@ -462,6 +467,7 @@ api_idx_0012_2:
     add sp, byte 0x1c                ; 0x2dde
 @..leaf_loc_2ec0.l31:
     jmp near leaf_loc_2ec0           ; 0x2de1
+jumptable_2e93_case_4:
     cmp word [bp + 0x4], byte 4      ; 0x2de4
     jge short @..leaf_loc_2ec0.l32   ; 0x2de8
     mov ax, 0                        ; 0x2dea
@@ -503,6 +509,7 @@ api_idx_0012_2:
     add sp, byte 0x1c                ; 0x2e36
 @..leaf_loc_2ec0.l32:
     jmp near leaf_loc_2ec0           ; 0x2e39
+jumptable_2e93_case_5:
     cmp word [bp + 0x4], byte 4      ; 0x2e3c
     jge short @..leaf_loc_2ec0.l33   ; 0x2e40
     mov ax, 0                        ; 0x2e42
@@ -545,22 +552,22 @@ api_idx_0012_2:
 @..leaf_loc_2ec0.l33:
     jmp short leaf_loc_2ec0          ; 0x2e91
 jumptable_2e93:
-    dw 0x7f07
-    dw 0x7b8c
-    dw 0x7cc3
-    dw 0x7acf
-    dw 0x7e2b
-    dw 0x7e83
-    dw 0x7acf
-    dw 0x7c98
-    dw 0x7a42
-    dw 0x7a42
-    dw 0x7cc3
-    dw 0x7cc3
-    dw 0x7cc3
-    dw 0x7cc3
-    dw 0x7cc3
-    dw 0x7cc3
+    dw leaf_loc_2ec0 - IMAGE_BASE + 0x5055     ; 0x2e93
+    dw jumptable_2e93_case_1 - IMAGE_BASE + 0x5055 ; 0x2e95
+    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2e97
+    dw jumptable_2e93_case_3 - IMAGE_BASE + 0x5055 ; 0x2e99
+    dw jumptable_2e93_case_4 - IMAGE_BASE + 0x5055 ; 0x2e9b
+    dw jumptable_2e93_case_5 - IMAGE_BASE + 0x5055 ; 0x2e9d
+    dw jumptable_2e93_case_3 - IMAGE_BASE + 0x5055 ; 0x2e9f
+    dw jumptable_2e93_case_7 - IMAGE_BASE + 0x5055 ; 0x2ea1
+    dw jumptable_2e93_case_8 - IMAGE_BASE + 0x5055 ; 0x2ea3
+    dw jumptable_2e93_case_8 - IMAGE_BASE + 0x5055 ; 0x2ea5
+    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2ea7
+    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2ea9
+    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2eab
+    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2ead
+    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2eaf
+    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2eb1
 @..api_idx_0012_2.l1:
     cmp ax, strict word 0x10         ; 0x2eb3
     jae short leaf_loc_2ec0          ; 0x2eb6

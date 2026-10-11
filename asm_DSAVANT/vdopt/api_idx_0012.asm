@@ -62,6 +62,7 @@ api_idx_0012:
 @..api_idx_0012.l4:
     mov ax, word [bss_5b6e]          ; 0x1065
     jmp near @..api_idx_0012.l5      ; 0x1068
+jumptable_147e_case_1:
     mov ax, 0xffff                   ; 0x106b
     cmp word [bp + 0x4], byte 1      ; 0x106e
     jle short @..leaf_loc_1499.l1    ; 0x1072
@@ -128,6 +129,7 @@ api_idx_0012:
 @..leaf_loc_1499.l8:
     mov word [bss_95ce], ax          ; 0x1122
     jmp near leaf_loc_1499           ; 0x1125
+jumptable_147e_case_2:
     mov ax, 0xffff                   ; 0x1128
     cmp word [bp + 0x4], byte 1      ; 0x112b
     jle short @..leaf_loc_1499.l9    ; 0x112f
@@ -194,6 +196,7 @@ api_idx_0012:
 @..leaf_loc_1499.l16:
     mov word [bss_95ce], ax          ; 0x11df
     jmp near leaf_loc_1499           ; 0x11e2
+jumptable_147e_case_3:
     mov ax, 0xffff                   ; 0x11e5
     cmp word [bp + 0x4], byte 1      ; 0x11e8
     jle short @..leaf_loc_1499.l17   ; 0x11ec
@@ -260,6 +263,7 @@ api_idx_0012:
 @..leaf_loc_1499.l24:
     mov word [bss_95ce], ax          ; 0x129c
     jmp near leaf_loc_1499           ; 0x129f
+jumptable_147e_case_4:
     mov ax, 0xffff                   ; 0x12a2
     cmp word [bp + 0x4], byte 1      ; 0x12a5
     jle short @..leaf_loc_1499.l25   ; 0x12a9
@@ -314,6 +318,7 @@ api_idx_0012:
 @..leaf_loc_1499.l32:
     mov word [bss_95ce], ax          ; 0x1335
     jmp near leaf_loc_1499           ; 0x1338
+jumptable_147e_case_5:
     mov ax, 0xffff                   ; 0x133b
     cmp word [bp + 0x4], byte 1      ; 0x133e
     jle short @..leaf_loc_1499.l33   ; 0x1342
@@ -368,6 +373,7 @@ api_idx_0012:
 @..leaf_loc_1499.l40:
     mov word [bss_95ce], ax          ; 0x13ce
     jmp near leaf_loc_1499           ; 0x13d1
+jumptable_147e_case_6:
     mov ax, 0xffff                   ; 0x13d4
     cmp word [bp + 0x4], byte 1      ; 0x13d7
     jle short @..leaf_loc_1499.l41   ; 0x13db
@@ -425,13 +431,13 @@ api_idx_0012:
     mov word [bss_95ce], 0xffff      ; 0x1476
     jmp short leaf_loc_1499          ; 0x147c
 jumptable_147e:
-    dw 0x64e0
-    dw 0x60b2
-    dw 0x616f
-    dw 0x622c
-    dw 0x62e9
-    dw 0x6382
-    dw 0x641b
+    dw leaf_loc_1499 - IMAGE_BASE + 0x5055     ; 0x147e
+    dw jumptable_147e_case_1 - IMAGE_BASE + 0x5055 ; 0x1480
+    dw jumptable_147e_case_2 - IMAGE_BASE + 0x5055 ; 0x1482
+    dw jumptable_147e_case_3 - IMAGE_BASE + 0x5055 ; 0x1484
+    dw jumptable_147e_case_4 - IMAGE_BASE + 0x5055 ; 0x1486
+    dw jumptable_147e_case_5 - IMAGE_BASE + 0x5055 ; 0x1488
+    dw jumptable_147e_case_6 - IMAGE_BASE + 0x5055 ; 0x148a
 @..api_idx_0012.l5:
     cmp ax, strict word 7            ; 0x148c
     jae short leaf_loc_1499          ; 0x148f

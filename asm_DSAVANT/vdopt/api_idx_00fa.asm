@@ -26,20 +26,21 @@ loc_1a9f:
     add word [bp - 0x0004], byte 0x32 ; 0x1a9f
     jmp short @..api_idx_00fa.l2     ; 0x1aa3
 jumptable_1aa5:
-    dw 0x6b09
-    dw 0x6ae6
-    dw 0x6ade
-    dw 0x6ad6
-    dw 0x6ace
-    dw 0x6ac6
-    dw 0x6ac2
-    dw 0x6abe
+    dw jumptable_1aa5_case_0 - IMAGE_BASE + 0x5055 ; 0x1aa5
+    dw loc_1a9f - IMAGE_BASE + 0x5055          ; 0x1aa7
+    dw loc_1a97 - IMAGE_BASE + 0x5055          ; 0x1aa9
+    dw loc_1a8f - IMAGE_BASE + 0x5055          ; 0x1aab
+    dw loc_1a87 - IMAGE_BASE + 0x5055          ; 0x1aad
+    dw loc_1a7f - IMAGE_BASE + 0x5055          ; 0x1aaf
+    dw loc_1a7b - IMAGE_BASE + 0x5055          ; 0x1ab1
+    dw loc_1a77 - IMAGE_BASE + 0x5055          ; 0x1ab3
 @..api_idx_00fa.l1:
     cmp ax, strict word 8            ; 0x1ab5
     jae short @..api_idx_00fa.l2     ; 0x1ab8
     xchg bx, ax                      ; 0x1aba
     shl bx, 1                        ; 0x1abb
     jmp [cs:bx + 0x6aec]             ; 0x1abd
+jumptable_1aa5_case_0:
 @..api_idx_00fa.l2:
     mov ax, 2                        ; 0x1ac2
     push ax                          ; 0x1ac5

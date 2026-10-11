@@ -140,7 +140,6 @@ api_idx_00aa:
     call ds_dispatch_b53b            ; 0x6431
     add sp, byte 4                   ; 0x6434
     mov ax, 0x24                     ; 0x6437
-jumptable_14d6_case_2:
     push ax                          ; 0x643a
     lea ax, word [bp - 0x00a8]       ; 0x643b
     push ax                          ; 0x643f
@@ -177,7 +176,6 @@ jumptable_14d6_case_2:
     call ds_dispatch_e84e            ; 0x6482
     add sp, byte 4                   ; 0x6485
     lea ax, word [bp - 0x0058]       ; 0x6488
-jumptable_14d6_case_3:
     push ax                          ; 0x648b
     mov ax, 0x41d                    ; 0x648c
     push ax                          ; 0x648f

@@ -103,6 +103,7 @@ api_idx_0002:
     add sp, byte 4                   ; 0x1074
     mov ax, 0                        ; 0x1077
     push ax                          ; 0x107a
+loc_107b:
     push word [bp + 0x6]             ; 0x107b
     call ds_dispatch_e84e            ; 0x107e
     add sp, byte 4                   ; 0x1081

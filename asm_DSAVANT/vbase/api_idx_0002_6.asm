@@ -87,6 +87,7 @@ api_idx_0002_6:
     mov word [bss_a4a4], 0           ; 0x712a
     mov ax, word [bp + 0x4]          ; 0x7130
     jmp short @..api_idx_0002_6.l5   ; 0x7133
+jumptable_7185_case_1:
     mov ax, 1                        ; 0x7135
     push ax                          ; 0x7138
     mov ax, 0x6e96                   ; 0x7139
@@ -94,6 +95,7 @@ api_idx_0002_6:
     call loc_6f79                    ; 0x713d
     add sp, byte 4                   ; 0x7140
     jmp short @..api_idx_0002_6.l6   ; 0x7143
+jumptable_7185_case_2:
     mov ax, 1                        ; 0x7145
     push ax                          ; 0x7148
     mov ax, 0x6fc2                   ; 0x7149
@@ -101,6 +103,7 @@ api_idx_0002_6:
     call loc_6f79                    ; 0x714d
     add sp, byte 4                   ; 0x7150
     jmp short @..api_idx_0002_6.l6   ; 0x7153
+jumptable_7185_case_3:
     mov ax, 1                        ; 0x7155
     push ax                          ; 0x7158
     mov ax, 0x6ffe                   ; 0x7159
@@ -108,6 +111,7 @@ api_idx_0002_6:
     call loc_6f79                    ; 0x715d
     add sp, byte 4                   ; 0x7160
     jmp short @..api_idx_0002_6.l6   ; 0x7163
+jumptable_7185_case_4:
     mov ax, 1                        ; 0x7165
     push ax                          ; 0x7168
     mov ax, 0x6e46                   ; 0x7169
@@ -115,6 +119,7 @@ api_idx_0002_6:
     call loc_6f79                    ; 0x716d
     add sp, byte 4                   ; 0x7170
     jmp short @..api_idx_0002_6.l6   ; 0x7173
+jumptable_7185_case_5:
     mov ax, 1                        ; 0x7175
     push ax                          ; 0x7178
     mov ax, 0x6f54                   ; 0x7179
@@ -122,17 +127,20 @@ api_idx_0002_6:
     call loc_6f79                    ; 0x717d
     add sp, byte 4                   ; 0x7180
     jmp short @..api_idx_0002_6.l6   ; 0x7183
-    in ax, 0xc1                      ; 0x7185
-    jl short loc_714a                ; 0x7187
-    mov cx, es                       ; 0x7189
-    pushf                            ; 0x718b
-    shr word [si - 0x433f], 0xc1     ; 0x718c
+jumptable_7185:
+    dw jumptable_7185_case_0 - IMAGE_BASE + 0x5055 ; 0x7185
+    dw jumptable_7185_case_1 - IMAGE_BASE + 0x5055 ; 0x7187
+    dw jumptable_7185_case_2 - IMAGE_BASE + 0x5055 ; 0x7189
+    dw jumptable_7185_case_3 - IMAGE_BASE + 0x5055 ; 0x718b
+    dw jumptable_7185_case_4 - IMAGE_BASE + 0x5055 ; 0x718d
+    dw jumptable_7185_case_5 - IMAGE_BASE + 0x5055 ; 0x718f
 @..api_idx_0002_6.l5:
     cmp ax, strict word 6            ; 0x7191
     jae short @..api_idx_0002_6.l6   ; 0x7194
     xchg bx, ax                      ; 0x7196
     shl bx, 1                        ; 0x7197
     jmp [cs:bx - 0x3e34]             ; 0x7199
+jumptable_7185_case_0:
 @..api_idx_0002_6.l6:
     mov ax, 0                        ; 0x719e
     push ax                          ; 0x71a1

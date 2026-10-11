@@ -48,6 +48,7 @@ api_idx_0006_5:
     call ds_dispatch_b7a9            ; 0x319a
     pop cx                           ; 0x319d
     jmp near @..api_idx_0006_5.l4    ; 0x319e
+jumptable_3341_case_0:
     push word [bp + 0xa]             ; 0x31a1
     mov ax, 0xc                      ; 0x31a4
     push ax                          ; 0x31a7
@@ -61,6 +62,7 @@ api_idx_0006_5:
     call api_idx_0022                ; 0x31b9
     add sp, byte 0x0e                ; 0x31bc
     jmp near @..api_idx_0006_5.l5    ; 0x31bf
+jumptable_3341_case_1:
     push word [bp + 0x8]             ; 0x31c2
     mov ax, 4                        ; 0x31c5
     push ax                          ; 0x31c8
@@ -81,6 +83,7 @@ api_idx_0006_5:
     call api_idx_000a_4              ; 0x31e8
     add sp, byte 0x14                ; 0x31eb
     jmp near @..api_idx_0006_5.l5    ; 0x31ee
+jumptable_3341_case_2:
     mov ax, 0                        ; 0x31f1
     push ax                          ; 0x31f4
     mov ax, 2                        ; 0x31f5
@@ -100,6 +103,7 @@ api_idx_0006_5:
     call api_idx_000a_4              ; 0x3215
     add sp, byte 0x14                ; 0x3218
     jmp near @..api_idx_0006_5.l5    ; 0x321b
+jumptable_3341_case_3:
     push word [bp + 0x8]             ; 0x321e
     mov ax, 1                        ; 0x3221
     push ax                          ; 0x3224
@@ -120,6 +124,7 @@ api_idx_0006_5:
     call api_idx_000a_4              ; 0x3244
     add sp, byte 0x14                ; 0x3247
     jmp near @..api_idx_0006_5.l5    ; 0x324a
+jumptable_3341_case_4:
     push word [bp + 0x8]             ; 0x324d
     mov ax, 4                        ; 0x3250
     push ax                          ; 0x3253
@@ -138,6 +143,7 @@ api_idx_0006_5:
     call api_idx_000a_4              ; 0x3270
     add sp, byte 0x14                ; 0x3273
     jmp near @..api_idx_0006_5.l5    ; 0x3276
+jumptable_3341_case_5:
     mov ax, 0                        ; 0x3279
     push ax                          ; 0x327c
     push ax                          ; 0x327d
@@ -158,6 +164,7 @@ api_idx_0006_5:
     call api_idx_000a_4              ; 0x329c
     add sp, byte 0x14                ; 0x329f
     jmp near @..api_idx_0006_5.l5    ; 0x32a2
+jumptable_3341_case_6:
     push word [bp + 0xa]             ; 0x32a5
     mov ax, 0                        ; 0x32a8
     push ax                          ; 0x32ab
@@ -174,6 +181,7 @@ api_idx_0006_5:
     call api_idx_0022                ; 0x32c2
     add sp, byte 0x0e                ; 0x32c5
     jmp near @..api_idx_0006_5.l5    ; 0x32c8
+jumptable_3341_case_7:
     push word [bp + 0x8]             ; 0x32cb
     mov ax, 2                        ; 0x32ce
     push ax                          ; 0x32d1
@@ -192,6 +200,7 @@ api_idx_0006_5:
     call api_idx_000a_4              ; 0x32ee
     add sp, byte 0x14                ; 0x32f1
     jmp short @..api_idx_0006_5.l5   ; 0x32f4
+jumptable_3341_case_8:
     mov ax, 0                        ; 0x32f6
     push ax                          ; 0x32f9
     push ax                          ; 0x32fa
@@ -212,16 +221,31 @@ api_idx_0006_5:
     call api_idx_000a_4              ; 0x3319
     add sp, byte 0x14                ; 0x331c
     jmp short @..api_idx_0006_5.l5   ; 0x331f
+jumptable_3341_case_9:
     push word [bp + 0xa]             ; 0x3321
     mov ax, 1                        ; 0x3324
     push ax                          ; 0x3327
     push word [bp + 0x8]             ; 0x3328
     mov ax, 7                        ; 0x332b
-
-    db 0x50, 0xb8, 0x04, 0x00, 0x50, 0xff, 0x76, 0xfe, 0xff, 0x76, 0x04, 0xe8, 0x06, 0xef, 0x83, 0xc4
-    db 0x0e, 0xeb, 0x21, 0xe8, 0x81, 0x09, 0x82, 0x38, 0x82, 0x65, 0x82, 0x94, 0x82, 0xc0, 0x82, 0xec
-    db 0x82, 0x12, 0x83, 0x3d, 0x83, 0x68, 0x83
-
+    push ax                          ; 0x332e
+    mov ax, 4                        ; 0x332f
+    push ax                          ; 0x3332
+    push word [bp - 0x0002]          ; 0x3333
+    push word [bp + 0x4]             ; 0x3336
+    call api_idx_0022                ; 0x3339
+    add sp, byte 0x0e                ; 0x333c
+    jmp short @..api_idx_0006_5.l5   ; 0x333f
+jumptable_3341:
+    dw jumptable_3341_case_0 - IMAGE_BASE + 0x5055 ; 0x3341
+    dw jumptable_3341_case_1 - IMAGE_BASE + 0x5055 ; 0x3343
+    dw jumptable_3341_case_2 - IMAGE_BASE + 0x5055 ; 0x3345
+    dw jumptable_3341_case_3 - IMAGE_BASE + 0x5055 ; 0x3347
+    dw jumptable_3341_case_4 - IMAGE_BASE + 0x5055 ; 0x3349
+    dw jumptable_3341_case_5 - IMAGE_BASE + 0x5055 ; 0x334b
+    dw jumptable_3341_case_6 - IMAGE_BASE + 0x5055 ; 0x334d
+    dw jumptable_3341_case_7 - IMAGE_BASE + 0x5055 ; 0x334f
+    dw jumptable_3341_case_8 - IMAGE_BASE + 0x5055 ; 0x3351
+    dw jumptable_3341_case_9 - IMAGE_BASE + 0x5055 ; 0x3353
 @..api_idx_0006_5.l4:
     cmp ax, strict word 0xa          ; 0x3355
     jae short @..api_idx_0006_5.l5   ; 0x3358

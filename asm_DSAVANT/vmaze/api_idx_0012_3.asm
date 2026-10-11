@@ -155,12 +155,12 @@ loc_86a9:
     imul cx                          ; 0x86de
     mov bx, ax                       ; 0x86e0
     cmp byte [bx - 0x7b59], 0        ; 0x86e2
-    je short @..local.l101           ; 0x86e7
+    je short @..local.l75            ; 0x86e7
     mov ax, 0                        ; 0x86e9
-    jmp short @..local.l102          ; 0x86ec
-@..local.l101:
+    jmp short @..local.l76           ; 0x86ec
+@..local.l75:
     mov ax, 1                        ; 0x86ee
-@..local.l102:
+@..local.l76:
     push ax                          ; 0x86f1
     call loc_8540                    ; 0x86f2
     add sp, byte 4                   ; 0x86f5

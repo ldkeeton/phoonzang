@@ -546,6 +546,7 @@ api_idx_0044:
 @..api_idx_0044.l13:
     mov ax, word [bp - 0x001a]       ; 0x21c3
     jmp near @..api_idx_0044.l48     ; 0x21c6
+jumptable_28e9_case_0:
     lea ax, word [bp - 0x0010]       ; 0x21c9
     push ax                          ; 0x21cc
     lea ax, word [bp - 0x000e]       ; 0x21cd
@@ -671,6 +672,7 @@ api_idx_0044:
     jmp near @..api_idx_0044.l14     ; 0x22ea
 @..api_idx_0044.l16:
     jmp near @..api_idx_0044.l50     ; 0x22ed
+jumptable_28e9_case_1:
     cmp word [bp - 0x001a], byte 1   ; 0x22f0
     jne short @..api_idx_0044.l18    ; 0x22f4
     mov ax, 1                        ; 0x22f6
@@ -802,6 +804,7 @@ api_idx_0044:
     call ds_dispatch_e8da            ; 0x241e
     add sp, byte 8                   ; 0x2421
     jmp near @..api_idx_0044.l50     ; 0x2424
+jumptable_28e9_case_3:
     cmp word [bp + 0x8], byte 0      ; 0x2427
     jne short @..api_idx_0044.l21    ; 0x242b
     jmp near @..api_idx_0044.l26     ; 0x242d
@@ -877,6 +880,7 @@ api_idx_0044:
     pop cx                           ; 0x24d0
 @..api_idx_0044.l26:
     jmp near @..api_idx_0044.l50     ; 0x24d1
+jumptable_28e9_case_4:
     mov ax, 1                        ; 0x24d4
     push ax                          ; 0x24d7
     push ax                          ; 0x24d8
@@ -1313,11 +1317,11 @@ api_idx_0044:
 @..api_idx_0044.l47:
     jmp short @..api_idx_0044.l50    ; 0x28e7
 jumptable_28e9:
-    dw 0x7210
-    dw 0x7337
-    dw 0x7337
-    dw 0x746e
-    dw 0x751b
+    dw jumptable_28e9_case_0 - IMAGE_BASE + 0x5055 ; 0x28e9
+    dw jumptable_28e9_case_1 - IMAGE_BASE + 0x5055 ; 0x28eb
+    dw jumptable_28e9_case_1 - IMAGE_BASE + 0x5055 ; 0x28ed
+    dw jumptable_28e9_case_3 - IMAGE_BASE + 0x5055 ; 0x28ef
+    dw jumptable_28e9_case_4 - IMAGE_BASE + 0x5055 ; 0x28f1
 @..api_idx_0044.l48:
     cmp ax, strict word 5            ; 0x28f3
     jae short @..api_idx_0044.l49    ; 0x28f6

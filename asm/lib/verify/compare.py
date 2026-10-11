@@ -910,6 +910,7 @@ def _jump_table_record(spec, entries):
         'jmp_addr': spec.get('jmp_addr', -1),
         'entry_size': spec.get('entry_size', 2),
         'entries': list(entries),
+        'adjust': spec.get('adjust', 0),
         'note': spec.get('note', ''),
     }
 
@@ -967,13 +968,18 @@ def _replace_jump_span(records, binary_data, spec, entries):
 
 
 def _inject_jump_tables(records, specs, binary_data, start_offset,
-                        label_map, local_labels=None):
+                        label_map, local_labels=None, o_corg=None):
     """Replace detected switch-table data blocks with readable records.
 
     Table entries are read as raw little-endian words (order and duplicates
     preserved -- ``JumpTableInfo.targets`` is a set and would collapse them).
     Targets that already have a global label reference it; otherwise a
     ``jumptable_<table>_case_<index>`` label is synthesized at the target.
+
+    Overlay code addresses are ``o_corg``-based CS offsets, so a word *value*
+    addresses file offset ``start_offset + (value - o_corg)`` and re-encodes as
+    ``label - IMAGE_BASE + o_corg``.  MZ/driver words are load-image offsets
+    (``value + start_offset``) and re-encode as ``label - IMAGE_BASE``.
 
     Returns ``(records, injected, synthesized)`` where *injected* maps each
     emitted table offset to its label and *synthesized* maps every generated
@@ -982,6 +988,28 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
     total = len(binary_data)
     injected = {}
     synthesized = {}
+    # A synthesized case label must not land inside any detected table: for an
+    # overlay a neighbouring table's span can cover it and drop the label when
+    # that table is later replaced.  Fall back to the raw word in that case.
+    table_ranges = []
+    for spec in specs:
+        if spec.get('entry_size') != 2:
+            continue
+        r_start = spec['table_addr']
+        r_end = spec['table_end']
+        if r_start < 0 or r_end > total or r_end - r_start < 6:
+            continue
+        if (r_end - r_start) % 2:
+            r_end -= 1
+        table_ranges.append((r_start, r_end))
+
+    def _entry_target(value):
+        if o_corg is not None:
+            target = start_offset + (value - o_corg)
+        else:
+            target = value + start_offset
+        return target if 0 <= target < total else None
+
     for spec in specs:
         if spec.get('entry_size') != 2:
             continue
@@ -991,7 +1019,6 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
             continue
         if (end - start) % 2:
             end -= 1
-            spec = {**spec, 'table_end': end}
         count = (end - start) // 2
 
         overlap = _records_overlapping(records, start, end)
@@ -1000,16 +1027,31 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
                 for i in overlap):
             continue
 
-        entries = []
-        case_names = {}
+        resolved = []
         for index in range(count):
             value = struct.unpack_from('<H', binary_data, start + index * 2)[0]
+            target = None
+            if value != 0:
+                target = _entry_target(value)
+                if target is not None and (
+                        start <= target < end
+                        or any(r_start <= target < r_end
+                               for r_start, r_end in table_ranges)):
+                    target = None
+            resolved.append((value, target))
+
+        adjust = o_corg if o_corg is not None else 0
+        label = f'jumptable_{start:04x}'
+        spec = {**spec, 'table_end': end, 'label': label, 'adjust': adjust}
+
+        entries = []
+        case_names = {}
+        for index, (value, target) in enumerate(resolved):
             if value == 0:
                 entries.append(None)
                 continue
-            target = value + start_offset
             name = None
-            if 0 <= target < total and not (start <= target < end):
+            if target is not None:
                 name = _usable_jump_label(target, label_map)
                 if name is None:
                     name = case_names.get(target)
@@ -2097,17 +2139,23 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # Only tables that were actually emitted get a dispatcher rewrite, so a
     # false-positive detection (span overlapping real code) stays untouched.
     synthesized = {}
+    o_corg = None
+    if segments is not None and getattr(segments, 'overlay', None):
+        o_corg = segments.overlay.get('o_corg')
     if table_specs:
         records, injected, synthesized = _inject_jump_tables(
             records, table_specs, binary_data, start_offset,
-            label_map, local_labels,
+            label_map, local_labels, o_corg=o_corg,
         )
         disp_labels = {
             table_addr - start_offset: label
             for table_addr, label in injected.items()
             if 0 <= table_addr - start_offset < 0x10000
         }
-        if disp_labels:
+        # Overlay dispatchers carry an o_corg-based displacement; the emitted
+        # ``label - IMAGE_BASE`` form would not reproduce it, so leave those
+        # raw.  MZ/driver dispatchers keep their load-image convention.
+        if disp_labels and o_corg is None:
             records = _rewrite_jump_dispatchers(
                 records, disp_labels, start_offset, label_map, local_labels,
                 foreign_label_map, immediate_labels, data_labels=data_labels,
@@ -2705,6 +2753,7 @@ def _partition_function_records(records, split_ranges, split_dir):
             main_records.append({
                 'type': 'include',
                 'text': f'%include "{split_dir}/{filename}.asm"',
+                'offset': start,
             })
             include_inserted.add(name)
         split_records[name].append(rec)
@@ -2735,7 +2784,11 @@ def _render_records(records, binary_data, show_offsets=True):
         rec = records[i]
 
         if rec['type'] == 'include':
-            out.append(rec['text'])
+            offset = rec.get('offset')
+            if show_offsets and offset is not None:
+                out.append(f'{rec["text"]:<42s} ; 0x{offset:04x}')
+            else:
+                out.append(rec['text'])
             out.append('')
 
         elif rec['type'] == 'label':
@@ -2757,13 +2810,22 @@ def _render_records(records, binary_data, show_offsets=True):
 
         elif rec['type'] == 'jump_table':
             out.append(f'{rec["label"]}:')
+            adjust = rec.get('adjust', 0)
+            addr = rec['start']
+            entry_size = rec.get('entry_size', 2)
             for entry in rec['entries']:
                 if entry is None:
-                    out.append('    dw 0')
+                    text = 'dw 0'
                 elif isinstance(entry, str):
-                    out.append(f'    dw {entry} - IMAGE_BASE')
+                    suffix = f' + 0x{adjust:04x}' if adjust else ''
+                    text = f'dw {entry} - IMAGE_BASE{suffix}'
                 else:
-                    out.append(f'    dw 0x{entry:04x}')
+                    text = f'dw 0x{entry:04x}'
+                if show_offsets:
+                    out.append(f'    {text:<42s} ; 0x{addr:04x}')
+                else:
+                    out.append(f'    {text}')
+                addr += entry_size
 
         elif rec['type'] == 'mnem':
             annotation = rec.get('annotation')

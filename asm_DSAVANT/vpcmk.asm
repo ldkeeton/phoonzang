@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_4d4a.inc"
+%include "inc/structs/loc_67e2.inc"
 org 0
 bits 16
 %include "inc/labels/vpcmk_foreign_labels.inc"
@@ -17,11 +17,11 @@ IMAGE_BASE equ 0x000e
     dw 0x0268      ; o_bss: uninitialized data size
     dw 0xbfd3      ; o_entry: overlay entry offset (CS)
 
-loc_4d4a equ 0x4d4a
-data_a0f9 equ 0xa0f9
-data_a10d equ 0xa10d
-data_a16f equ 0xa16f
-data_a195 equ 0xa195
+loc_4267 equ 0x4267
+string_loc_436e equ 0x436e
+string_loc_5a60 equ 0x5a60
+string_loc_5cb4 equ 0x5cb4
+loc_6e5f equ 0x6e5f
 dseg_0002 equ 0x0002
 dseg_0038 equ 0x0038
 dseg_003c equ 0x003c
@@ -88,117 +88,119 @@ loc_000e:
     mov word [bss_830a], 4           ; 0x0017
     mov ax, 0                        ; 0x001d
     ret                              ; 0x0020
-%include "vpcmk/api_idx_0002.asm"
+%include "vpcmk/api_idx_0002.asm"          ; 0x0021
 
-%include "vpcmk/api_idx_0002_2.asm"
+%include "vpcmk/api_idx_0002_2.asm"        ; 0x0085
 
-%include "vpcmk/api_idx_0008.asm"
+%include "vpcmk/api_idx_0008.asm"          ; 0x0104
 
-%include "vpcmk/api_idx_0008_2.asm"
+%include "vpcmk/api_idx_0008_2.asm"        ; 0x02bc
 
-%include "vpcmk/api_idx_0058.asm"
+%include "vpcmk/api_idx_0058.asm"          ; 0x0935
 
-%include "vpcmk/api_idx_0038.asm"
+%include "vpcmk/api_idx_0038.asm"          ; 0x0abb
 
-%include "vpcmk/api_idx_0026.asm"
+%include "vpcmk/api_idx_0026.asm"          ; 0x11f4
 
-%include "vpcmk/api_idx_000c.asm"
+%include "vpcmk/api_idx_000c.asm"          ; 0x16ea
 
-%include "vpcmk/api_idx_0004.asm"
+%include "vpcmk/api_idx_0004.asm"          ; 0x1769
 
-%include "vpcmk/api_idx_0002_3.asm"
+%include "vpcmk/api_idx_0002_3.asm"        ; 0x1819
 
-%include "vpcmk/api_idx_0002_4.asm"
+%include "vpcmk/api_idx_0002_4.asm"        ; 0x1874
 
-%include "vpcmk/api_idx_0010.asm"
+%include "vpcmk/api_idx_0010.asm"          ; 0x18b5
 
-%include "vpcmk/api_idx_0002_5.asm"
+%include "vpcmk/api_idx_0002_5.asm"        ; 0x19ab
 
-%include "vpcmk/api_idx_000a.asm"
+%include "vpcmk/api_idx_000a.asm"          ; 0x1a98
 
-%include "vpcmk/api_idx_0054.asm"
+%include "vpcmk/api_idx_0054.asm"          ; 0x1b40
 
-%include "vpcmk/api_idx_0004_2.asm"
+%include "vpcmk/api_idx_0004_2.asm"        ; 0x2090
 
-%include "vpcmk/api_idx_0004_3.asm"
+%include "vpcmk/api_idx_0004_3.asm"        ; 0x2144
 
-%include "vpcmk/api_idx_0004_4.asm"
+%include "vpcmk/api_idx_0004_4.asm"        ; 0x2273
 
-%include "vpcmk/api_idx_0002_6.asm"
+%include "vpcmk/api_idx_0002_6.asm"        ; 0x24c8
 
-%include "vpcmk/api_idx_002e.asm"
+%include "vpcmk/api_idx_002e.asm"          ; 0x2582
 
-%include "vpcmk/api_idx_0032.asm"
+%include "vpcmk/api_idx_0032.asm"          ; 0x26f1
 
-%include "vpcmk/api_idx_0088.asm"
+%include "vpcmk/api_idx_0088.asm"          ; 0x2c15
 
-%include "vpcmk/api_idx_0004_5.asm"
+%include "vpcmk/api_idx_0004_5.asm"        ; 0x2d63
 
-%include "vpcmk/api_idx_000a_2.asm"
+%include "vpcmk/api_idx_000a_2.asm"        ; 0x2dd4
 
-%include "vpcmk/api_idx_000c_2.asm"
+%include "vpcmk/api_idx_000c_2.asm"        ; 0x2f3f
 
-%include "vpcmk/api_idx_0050.asm"
+%include "vpcmk/api_idx_0050.asm"          ; 0x3069
 
-%include "vpcmk/api_idx_006e.asm"
+%include "vpcmk/api_idx_006e.asm"          ; 0x3d59
 
-%include "vpcmk/api_idx_0002_7.asm"
+%include "vpcmk/api_idx_0002_7.asm"        ; 0x402d
 
-%include "vpcmk/api_idx_0006.asm"
+%include "vpcmk/api_idx_0006.asm"          ; 0x4081
 
-%include "vpcmk/api_idx_0002_8.asm"
+%include "vpcmk/api_idx_0002_8.asm"        ; 0x4291
 
-%include "vpcmk/api_idx_007a.asm"
+%include "vpcmk/api_idx_007a.asm"          ; 0x43bb
 
-%include "vpcmk/api_idx_007a_2.asm"
+%include "vpcmk/api_idx_007a_2.asm"        ; 0x4498
 
-%include "vpcmk/api_idx_007c.asm"
+%include "vpcmk/api_idx_007c.asm"          ; 0x4585
 
-%include "vpcmk/api_idx_006c.asm"
+%include "vpcmk/api_idx_006c.asm"          ; 0x4697
 
-%include "vpcmk/api_idx_0008_3.asm"
+%include "vpcmk/api_idx_0008_3.asm"        ; 0x4934
 
-%include "vpcmk/api_idx_0002_9.asm"
+%include "vpcmk/api_idx_0002_9.asm"        ; 0x4ade
 
-%include "vpcmk/api_idx_004e.asm"
+%include "vpcmk/api_idx_004e.asm"          ; 0x4b05
 
-%include "vpcmk/api_idx_0006_2.asm"
+%include "vpcmk/api_idx_0006_2.asm"        ; 0x4f00
 
-%include "vpcmk/api_idx_0002_10.asm"
+%include "vpcmk/api_idx_0002_10.asm"       ; 0x4f95
 
-%include "vpcmk/api_idx_0004_6.asm"
+%include "vpcmk/api_idx_0004_6.asm"        ; 0x5087
 
-%include "vpcmk/api_idx_001c.asm"
+%include "vpcmk/api_idx_001c.asm"          ; 0x5580
 
-%include "vpcmk/api_idx_0002_11.asm"
+%include "vpcmk/api_idx_0002_11.asm"       ; 0x56b0
 
-%include "vpcmk/api_idx_000a_3.asm"
+%include "vpcmk/string_loc_5a0b.asm"       ; 0x5a0b
 
-%include "vpcmk/api_idx_0004_7.asm"
+%include "vpcmk/api_idx_000a_3.asm"        ; 0x5a8a
 
-%include "vpcmk/api_idx_0016.asm"
+%include "vpcmk/api_idx_0004_7.asm"        ; 0x5df5
 
-%include "vpcmk/api_idx_0006_3.asm"
+%include "vpcmk/api_idx_0016.asm"          ; 0x6083
 
-%include "vpcmk/api_idx_0002_12.asm"
+%include "vpcmk/api_idx_0006_3.asm"        ; 0x60e0
 
-%include "vpcmk/api_idx_0002_13.asm"
+%include "vpcmk/api_idx_0002_12.asm"       ; 0x626e
 
-%include "vpcmk/api_idx_0014.asm"
+%include "vpcmk/api_idx_0002_13.asm"       ; 0x65fc
 
-%include "vpcmk/api_idx_002c.asm"
+%include "vpcmk/api_idx_0014.asm"          ; 0x6673
 
-%include "vpcmk/api_idx_0018.asm"
+%include "vpcmk/api_idx_002c.asm"          ; 0x6738
 
-%include "vpcmk/api_idx_0006_4.asm"
+%include "vpcmk/api_idx_0018.asm"          ; 0x67ff
 
-%include "vpcmk/api_idx_002c_2.asm"
+%include "vpcmk/api_idx_0006_4.asm"        ; 0x6887
 
-%include "vpcmk/string_loc_6f8c.asm"
+%include "vpcmk/api_idx_002c_2.asm"        ; 0x6a3f
 
-%include "vpcmk/aztec_strcmp.asm"
+%include "vpcmk/string_loc_6f8c.asm"       ; 0x6f8c
 
-%include "vpcmk/aztec_strncmp.asm"
+%include "vpcmk/aztec_strcmp.asm"          ; 0x6fca
+
+%include "vpcmk/aztec_strncmp.asm"         ; 0x6fe8
 
 loc_701d:
     sub di, byte 2                   ; 0x701d
@@ -289,91 +291,37 @@ loc_702a:
     db 'KALLKLIA', 0
     db 'APPAAAIA', 0
     db 'MJMMJJOA', 0
-    db 'MLAJMOI'
-
-jumptable_240e_case_0:
-
-    db 0x41, 0x00
+    db 'MLAJMOIA', 0
     db 'NINAKNIA', 0
     db 'MKKMMMAA', 0
-    db 'JIIJJIIA'
-
-jumptable_240e_case_1:
-
-    db 0x00
+    db 'JIIJJIIA', 0
     db 'HKKHJJIA', 0
     db 'LGKMHHHA', 0
     db 'KHNKIGGA', 0
-
-jumptable_240e_case_2:
-
     db 'IHGJKHNA', 0
     db 'FLGGKOMA', 0
     db 'MFFOIKDA', 0
-    db 0x4b
-
-jumptable_240e_case_3:
-
-    db 'HGMKIGA', 0
+    db 'KHGMKIGA', 0
     db 'HKHHKMKA', 0
     db 'IGMKIIKA', 0
-    db 0x4b, 0x4b
-
-jumptable_240e_case_4:
-
-    db 'GKHHJA', 0
+    db 'KKGKHHJA', 0
     db 'ACBCBCCCCHCHBA', 0
-    db '022222'
-
-jumptable_240e_case_5:
-
-    db '32112230', 0
+    db '02222232112230', 0
     db 'ACCCCDCCCHHKDA', 0
-    db 0x30, 0x32, 0x32, 0x32
-
-jumptable_240e_case_6:
-
-    db '2232123230', 0
+    db '02222232123230', 0
     db 'ACCCCDCCCIFKEA', 0
-    db 0x30, 0x32
-
-jumptable_240e_case_7:
-
-    db '222232121230', 0
+    db '02222232121230', 0
     db 'ACHCHDCCCHFIDA', 0
-
-jumptable_240e_case_8:
-
     db '02323232111230', 0
-    db 'ACKCHHGCCIECB'
-
-jumptable_240e_case_9:
-
-    db 0x41, 0x00
+    db 'ACKCHHGCCIECBA', 0
     db '02322322121220', 0
-    db 'ACBCCDECCEE'
-
-jumptable_240e_case_10:
-
-    db 0x45, 0x47, 0x41, 0x00
+    db 'ACBCCDECCEEEGA', 0
     db '02121212111330', 0
-    db 'ACICIBHC'
-
-jumptable_240e_case_11:
-
-    db 'CFKFFA', 0
+    db 'ACICIBHCCFKFFA', 0
     db '02323112113330', 0
-    db 'ACECC'
-
-jumptable_240e_case_12:
-
-    db 'EGCCIFKFA', 0
+    db 'ACECCEGCCIFKFA', 0
     db '02222222122220', 0
-    db 0x41, 0x43
-
-jumptable_240e_case_13:
-
-    db 'KCGDHCCFKIDA', 0
+    db 'ACKCGDHCCFKIDA', 0
     db '02322212112320', 0
     db 'ACHCHHGCCCECHA', 0
     db '02322322112230', 0

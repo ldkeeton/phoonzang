@@ -268,4 +268,4 @@ api_idx_0030:
     mov word [bss_91a6], dx          ; 0x4118
     mov word [bss_91a8], 0           ; 0x411c
     mov ax, word [bss_5b6e]          ; 0x4122
-    jmp near @..api_idx_0030.l9      ; 0x4125
+    jmp near @..api_idx_0030.l24     ; 0x4125

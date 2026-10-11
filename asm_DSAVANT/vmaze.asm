@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_416c.inc"
+%include "inc/structs/loc_33fa.inc"
 org 0
 bits 16
 %include "inc/labels/vmaze_foreign_labels.inc"
@@ -18,17 +18,9 @@ IMAGE_BASE equ 0x000e
     dw 0xfc77      ; o_entry: overlay entry offset (CS)
 
 fpu_loc_06b5 equ 0x06b5
-loc_3405 equ 0x3405
-loc_3a2f equ 0x3a2f
-loc_416c equ 0x416c
-data_59fa equ 0x59fa
-data_8d12 equ 0x8d12
-data_905a equ 0x905a
-data_91a6 equ 0x91a6
-data_91b2 equ 0x91b2
-data_91d4 equ 0x91d4
-data_9b48 equ 0x9b48
-data_9b4c equ 0x9b4c
+leaf_loc_4404 equ 0x4404
+string_loc_4b6b equ 0x4b6b
+loc_ab7d equ 0xab7d
 dseg_0002 equ 0x0002
 dseg_010e equ 0x010e
 dseg_0112 equ 0x0112
@@ -165,211 +157,300 @@ bss_9bdc equ 0x9bdc
 bss_9bde equ 0x9bde
 bss_9be6 equ 0x9be6
 bss_9c00 equ 0x9c00
-bss_bd44 equ 0xbd44
 
-%include "vmaze/api_idx_0002.asm"
+%include "vmaze/api_idx_0002.asm"          ; 0x000e
 
-%include "vmaze/api_idx_0002_2.asm"
+%include "vmaze/api_idx_0002_2.asm"        ; 0x0106
 
-%include "vmaze/api_idx_0008.asm"
+%include "vmaze/api_idx_0008.asm"          ; 0x01c9
 
-%include "vmaze/api_idx_0002_3.asm"
+%include "vmaze/api_idx_0002_3.asm"        ; 0x02da
 
-%include "vmaze/api_idx_0002_4.asm"
+%include "vmaze/api_idx_0002_4.asm"        ; 0x02fe
 
-%include "vmaze/api_idx_0002_5.asm"
+%include "vmaze/api_idx_0002_5.asm"        ; 0x03ea
 
-%include "vmaze/leaf_loc_03fb.asm"
+%include "vmaze/leaf_loc_03fb.asm"         ; 0x03fb
 
-%include "vmaze/leaf_loc_0402.asm"
+%include "vmaze/leaf_loc_0402.asm"         ; 0x0402
 
-%include "vmaze/leaf_loc_0409.asm"
+%include "vmaze/leaf_loc_0409.asm"         ; 0x0409
 
-%include "vmaze/api_idx_0014.asm"
+%include "vmaze/api_idx_0014.asm"          ; 0x06da
 
-%include "vmaze/api_idx_0006.asm"
+%include "vmaze/api_idx_0006.asm"          ; 0x0a6e
 
-%include "vmaze/api_idx_0002_6.asm"
+%include "vmaze/api_idx_0002_6.asm"        ; 0x0acc
 
-%include "vmaze/api_idx_0002_7.asm"
+%include "vmaze/api_idx_0002_7.asm"        ; 0x0b66
 
-%include "vmaze/api_idx_000c.asm"
+%include "vmaze/api_idx_000c.asm"          ; 0x0cb5
 
-%include "vmaze/api_idx_0002_8.asm"
+%include "vmaze/api_idx_0002_8.asm"        ; 0x0e5d
 
-%include "vmaze/api_idx_0006_2.asm"
+%include "vmaze/api_idx_0006_2.asm"        ; 0x0f8e
 
-%include "vmaze/api_idx_0008_2.asm"
+%include "vmaze/api_idx_0008_2.asm"        ; 0x0fde
 
-%include "vmaze/api_idx_0050.asm"
+%include "vmaze/api_idx_0050.asm"          ; 0x1094
 
-%include "vmaze/api_idx_0002_9.asm"
+%include "vmaze/api_idx_0002_9.asm"        ; 0x110e
 
-%include "vmaze/api_idx_0002_10.asm"
+%include "vmaze/api_idx_0002_10.asm"       ; 0x1206
 
-%include "vmaze/api_idx_0004.asm"
+%include "vmaze/api_idx_0004.asm"          ; 0x1308
 
-%include "vmaze/api_idx_0004_2.asm"
+%include "vmaze/api_idx_0004_2.asm"        ; 0x13f7
 
-%include "vmaze/api_idx_0004_3.asm"
+%include "vmaze/api_idx_0004_3.asm"        ; 0x1504
 
-%include "vmaze/api_idx_000e.asm"
+%include "vmaze/api_idx_000e.asm"          ; 0x162b
 
-%include "vmaze/api_idx_0004_4.asm"
+%include "vmaze/api_idx_0004_4.asm"        ; 0x17ee
 
-%include "vmaze/api_idx_000a.asm"
+%include "vmaze/api_idx_000a.asm"          ; 0x195c
 
-%include "vmaze/fpu_loc_1997.asm"
+%include "vmaze/fpu_loc_1997.asm"          ; 0x1997
 
-%include "vmaze/fpu_loc_199e.asm"
+%include "vmaze/fpu_loc_199e.asm"          ; 0x199e
 
-%include "vmaze/fpu_loc_19a5.asm"
+%include "vmaze/fpu_loc_19a5.asm"          ; 0x19a5
 
-%include "vmaze/fpu_loc_19ac.asm"
+%include "vmaze/fpu_loc_19ac.asm"          ; 0x19ac
 
-%include "vmaze/fpu_loc_19b3.asm"
+%include "vmaze/fpu_loc_19b3.asm"          ; 0x19b3
 
-%include "vmaze/fpu_loc_19ba.asm"
+%include "vmaze/fpu_loc_19ba.asm"          ; 0x19ba
 
-%include "vmaze/api_idx_0018.asm"
+%include "vmaze/api_idx_0018.asm"          ; 0x1c94
 
-%include "vmaze/api_idx_0010.asm"
+%include "vmaze/api_idx_0010.asm"          ; 0x2033
 
-%include "vmaze/api_idx_0006_3.asm"
+%include "vmaze/api_idx_0006_3.asm"        ; 0x20dc
 
-%include "vmaze/api_idx_0006_4.asm"
+%include "vmaze/api_idx_0006_4.asm"        ; 0x2133
 
-%include "vmaze/api_idx_0022.asm"
+%include "vmaze/api_idx_0022.asm"          ; 0x2215
 
-%include "vmaze/api_idx_0008_3.asm"
+%include "vmaze/api_idx_0008_3.asm"        ; 0x2f8e
 
-%include "vmaze/api_idx_0008_4.asm"
+%include "vmaze/leaf_loc_3241.asm"         ; 0x3241
 
-%include "vmaze/api_idx_0004_5.asm"
+%include "vmaze/leaf_loc_3249.asm"         ; 0x3249
 
-%include "vmaze/api_idx_0010_2.asm"
+%include "vmaze/leaf_loc_3251.asm"         ; 0x3251
 
-%include "vmaze/api_idx_0012.asm"
+%include "vmaze/leaf_loc_3259.asm"         ; 0x3259
 
-%include "vmaze/api_idx_0012_2.asm"
+%include "vmaze/leaf_loc_3261.asm"         ; 0x3261
 
-%include "vmaze/api_idx_0016.asm"
+%include "vmaze/leaf_loc_3270.asm"         ; 0x3270
 
-%include "vmaze/api_idx_0024.asm"
+%include "vmaze/leaf_loc_327f.asm"         ; 0x327f
 
-%include "vmaze/api_idx_001e.asm"
+%include "vmaze/leaf_loc_329a.asm"         ; 0x329a
 
-%include "vmaze/api_idx_0030.asm"
+%include "vmaze/leaf_loc_32b9.asm"         ; 0x32b9
 
-%include "vmaze/api_idx_0004_6.asm"
+%include "vmaze/leaf_loc_32d8.asm"         ; 0x32d8
 
-%include "vmaze/api_idx_0002_11.asm"
+%include "vmaze/leaf_loc_32e0.asm"         ; 0x32e0
 
-%include "vmaze/api_idx_0006_5.asm"
+%include "vmaze/leaf_loc_32e8.asm"         ; 0x32e8
 
-%include "vmaze/api_idx_0004_7.asm"
+%include "vmaze/leaf_loc_32fc.asm"         ; 0x32fc
 
-%include "vmaze/api_idx_000a_2.asm"
+%include "vmaze/leaf_loc_330f.asm"         ; 0x330f
 
-%include "vmaze/api_idx_0004_8.asm"
+%include "vmaze/leaf_loc_3325.asm"         ; 0x3325
 
-%include "vmaze/api_idx_0090.asm"
+%include "vmaze/leaf_loc_3343.asm"         ; 0x3343
 
-%include "vmaze/api_idx_0004_9.asm"
+%include "vmaze/api_idx_0008_4.asm"        ; 0x33c0
 
-%include "vmaze/api_idx_0002_12.asm"
+%include "vmaze/api_idx_0004_5.asm"        ; 0x358c
 
-%include "vmaze/api_idx_001e_2.asm"
+%include "vmaze/api_idx_0010_2.asm"        ; 0x3802
 
-%include "vmaze/api_idx_0004_10.asm"
+%include "vmaze/api_idx_0012.asm"          ; 0x3f56
 
-%include "vmaze/api_idx_0002_13.asm"
+%include "vmaze/leaf_loc_4431.asm"         ; 0x4431
 
-%include "vmaze/api_idx_0004_11.asm"
+%include "vmaze/leaf_loc_446b.asm"         ; 0x446b
 
-%include "vmaze/api_idx_0050_2.asm"
+%include "vmaze/leaf_loc_44ad.asm"         ; 0x44ad
 
-%include "vmaze/api_idx_0004_12.asm"
+%include "vmaze/leaf_loc_44f6.asm"         ; 0x44f6
 
-%include "vmaze/api_idx_0006_6.asm"
+%include "vmaze/leaf_loc_45c0.asm"         ; 0x45c0
 
-%include "vmaze/api_idx_001c.asm"
+%include "vmaze/api_idx_0012_2.asm"        ; 0x4665
 
-%include "vmaze/api_idx_000a_3.asm"
+%include "vmaze/string_loc_4b23.asm"       ; 0x4b23
 
-%include "vmaze/api_idx_0004_13.asm"
+%include "vmaze/string_loc_4b67.asm"       ; 0x4b67
 
-%include "vmaze/api_idx_0002_14.asm"
+%include "vmaze/string_loc_4b69.asm"       ; 0x4b69
 
-%include "vmaze/api_idx_0018_2.asm"
+%include "vmaze/api_idx_0016.asm"          ; 0x4f53
 
-%include "vmaze/api_idx_000a_4.asm"
+%include "vmaze/api_idx_0024.asm"          ; 0x50f4
 
-%include "vmaze/api_idx_001e_3.asm"
+%include "vmaze/api_idx_001e.asm"          ; 0x529a
 
-%include "vmaze/api_idx_000e_2.asm"
+%include "vmaze/api_idx_0030.asm"          ; 0x53fd
 
-%include "vmaze/api_idx_0010_3.asm"
+%include "vmaze/api_idx_0004_6.asm"        ; 0x67c6
 
-%include "vmaze/api_idx_0004_14.asm"
+%include "vmaze/api_idx_0002_11.asm"       ; 0x6882
 
-%include "vmaze/api_idx_000e_3.asm"
+%include "vmaze/api_idx_0006_5.asm"        ; 0x6960
 
-%include "vmaze/api_idx_0012_3.asm"
+%include "vmaze/api_idx_0004_7.asm"        ; 0x69d6
 
-%include "vmaze/api_idx_0002_15.asm"
+%include "vmaze/fpu_loc_6a57.asm"          ; 0x6a57
 
-%include "vmaze/api_idx_000c_2.asm"
+%include "vmaze/fpu_loc_6a7a.asm"          ; 0x6a7a
 
-%include "vmaze/api_idx_0002_16.asm"
+%include "vmaze/fpu_loc_6a85.asm"          ; 0x6a85
 
-%include "vmaze/api_idx_0002_17.asm"
+%include "vmaze/fpu_loc_6a97.asm"          ; 0x6a97
 
-%include "vmaze/api_idx_0006_7.asm"
+%include "vmaze/api_idx_000a_2.asm"        ; 0x6b0a
 
-%include "vmaze/api_idx_000a_5.asm"
+%include "vmaze/api_idx_0004_8.asm"        ; 0x6c0a
 
-%include "vmaze/api_idx_0002_18.asm"
+%include "vmaze/api_idx_0090.asm"          ; 0x6cc9
 
-%include "vmaze/api_idx_0002_19.asm"
+%include "vmaze/api_idx_0004_9.asm"        ; 0x6eb1
 
-%include "vmaze/api_idx_0002_20.asm"
+%include "vmaze/api_idx_0002_12.asm"       ; 0x7001
 
-%include "vmaze/api_idx_0002_21.asm"
+%include "vmaze/api_idx_001e_2.asm"        ; 0x7034
 
-%include "vmaze/api_idx_0048.asm"
+%include "vmaze/api_idx_0004_10.asm"       ; 0x72a6
 
-%include "vmaze/api_idx_0006_8.asm"
+%include "vmaze/api_idx_0002_13.asm"       ; 0x73b6
 
-%include "vmaze/api_idx_0002_22.asm"
+%include "vmaze/api_idx_0004_11.asm"       ; 0x744e
 
-%include "vmaze/api_idx_003a.asm"
+%include "vmaze/api_idx_0050_2.asm"        ; 0x74e2
 
-%include "vmaze/api_idx_0004_15.asm"
+%include "vmaze/api_idx_0004_12.asm"       ; 0x7542
 
-%include "vmaze/api_idx_0002_23.asm"
+%include "vmaze/api_idx_0006_6.asm"        ; 0x75ae
 
-%include "vmaze/api_idx_0002_24.asm"
+%include "vmaze/api_idx_001c.asm"          ; 0x764d
 
-%include "vmaze/api_idx_0006_9.asm"
+%include "vmaze/api_idx_000a_3.asm"        ; 0x784f
 
-%include "vmaze/api_idx_0010_4.asm"
+%include "vmaze/api_idx_0004_13.asm"       ; 0x799e
 
-%include "vmaze/api_idx_0004_16.asm"
+%include "vmaze/api_idx_0002_14.asm"       ; 0x7abe
 
-%include "vmaze/api_idx_0012_4.asm"
+%include "vmaze/api_idx_0018_2.asm"        ; 0x7b53
 
-%include "vmaze/api_idx_0002_25.asm"
+%include "vmaze/api_idx_000a_4.asm"        ; 0x7ce5
 
-%include "vmaze/api_idx_0010_5.asm"
+%include "vmaze/api_idx_001e_3.asm"        ; 0x7e46
 
-%include "vmaze/api_idx_0008_5.asm"
+%include "vmaze/api_idx_000e_2.asm"        ; 0x804e
 
-%include "vmaze/api_idx_0002_26.asm"
+%include "vmaze/api_idx_0010_3.asm"        ; 0x820b
 
-%include "vmaze/api_idx_0002_27.asm"
+%include "vmaze/api_idx_0004_14.asm"       ; 0x83b3
 
-%include "vmaze/api_idx_0032.asm"
+%include "vmaze/api_idx_000e_3.asm"        ; 0x8448
+
+%include "vmaze/api_idx_0012_3.asm"        ; 0x8568
+
+%include "vmaze/api_idx_0002_15.asm"       ; 0x86f9
+
+%include "vmaze/api_idx_000c_2.asm"        ; 0x8794
+
+%include "vmaze/fpu_loc_8925.asm"          ; 0x8925
+
+%include "vmaze/fpu_loc_892e.asm"          ; 0x892e
+
+%include "vmaze/fpu_loc_8934.asm"          ; 0x8934
+
+%include "vmaze/fpu_loc_893a.asm"          ; 0x893a
+
+%include "vmaze/fpu_loc_8943.asm"          ; 0x8943
+
+%include "vmaze/fpu_loc_8948.asm"          ; 0x8948
+
+%include "vmaze/fpu_loc_894d.asm"          ; 0x894d
+
+%include "vmaze/fpu_loc_894f.asm"          ; 0x894f
+
+%include "vmaze/fpu_loc_8954.asm"          ; 0x8954
+
+%include "vmaze/fpu_loc_8959.asm"          ; 0x8959
+
+%include "vmaze/fpu_loc_895e.asm"          ; 0x895e
+
+%include "vmaze/fpu_loc_8960.asm"          ; 0x8960
+
+%include "vmaze/fpu_loc_8962.asm"          ; 0x8962
+
+%include "vmaze/fpu_loc_8967.asm"          ; 0x8967
+
+%include "vmaze/fpu_loc_896c.asm"          ; 0x896c
+
+%include "vmaze/fpu_loc_8971.asm"          ; 0x8971
+
+%include "vmaze/fpu_loc_8976.asm"          ; 0x8976
+
+%include "vmaze/api_idx_0002_16.asm"       ; 0x89d0
+
+%include "vmaze/api_idx_0002_17.asm"       ; 0x8a14
+
+%include "vmaze/api_idx_0006_7.asm"        ; 0x8b52
+
+%include "vmaze/api_idx_000a_5.asm"        ; 0x8c47
+
+%include "vmaze/api_idx_0002_18.asm"       ; 0x8de9
+
+%include "vmaze/api_idx_0002_19.asm"       ; 0x8e6a
+
+%include "vmaze/api_idx_0002_20.asm"       ; 0x8f1a
+
+%include "vmaze/api_idx_0002_21.asm"       ; 0x8f94
+
+%include "vmaze/api_idx_0048.asm"          ; 0x9029
+
+%include "vmaze/api_idx_0006_8.asm"        ; 0x920f
+
+%include "vmaze/api_idx_0002_22.asm"       ; 0x93ab
+
+%include "vmaze/api_idx_003a.asm"          ; 0x94ef
+
+%include "vmaze/api_idx_0004_15.asm"       ; 0x96ce
+
+%include "vmaze/api_idx_0002_23.asm"       ; 0x98cc
+
+%include "vmaze/api_idx_0002_24.asm"       ; 0x9920
+
+%include "vmaze/api_idx_0006_9.asm"        ; 0x99dd
+
+%include "vmaze/api_idx_0010_4.asm"        ; 0x9a80
+
+%include "vmaze/api_idx_0004_16.asm"       ; 0x9e79
+
+%include "vmaze/api_idx_0012_4.asm"        ; 0x9ef7
+
+%include "vmaze/api_idx_0002_25.asm"       ; 0xa28c
+
+%include "vmaze/api_idx_0010_5.asm"        ; 0xa2df
+
+%include "vmaze/api_idx_0008_5.asm"        ; 0xa5ba
+
+%include "vmaze/api_idx_0002_26.asm"       ; 0xa7b2
+
+%include "vmaze/api_idx_0002_27.asm"       ; 0xa9a4
+
+%include "vmaze/api_idx_0032.asm"          ; 0xab9b
 
 loc_ac30:
     pop word [dseg_9190]             ; 0xac30
@@ -383,10 +464,10 @@ loc_ac30:
     mov cx, 0x9e26                   ; 0xac49
     sub cx, di                       ; 0xac4c
     shr cx, 1                        ; 0xac4e
-    je short @..local.l121           ; 0xac50
+    je short @..local.l89            ; 0xac50
     sub ax, ax                       ; 0xac52
     rep stosw                        ; 0xac54
-@..local.l121:
+@..local.l89:
     call api_idx_0002                ; 0xac56
     mov bp, word [dseg_918e]         ; 0xac59
     mov sp, word [dseg_918c]         ; 0xac5d

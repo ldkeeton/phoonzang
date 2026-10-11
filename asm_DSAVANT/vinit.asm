@@ -112,29 +112,29 @@ loc_000e:
 @..local.l6:
     mov ax, 0                        ; 0x0041
     ret                              ; 0x0044
-%include "vinit/api_idx_0002.asm"
+%include "vinit/api_idx_0002.asm"          ; 0x0045
 
-%include "vinit/api_idx_0002_2.asm"
+%include "vinit/api_idx_0002_2.asm"        ; 0x0084
 
-%include "vinit/api_idx_0002_3.asm"
+%include "vinit/api_idx_0002_3.asm"        ; 0x00ca
 
-%include "vinit/api_idx_0002_4.asm"
+%include "vinit/api_idx_0002_4.asm"        ; 0x010c
 
-%include "vinit/api_idx_000c.asm"
+%include "vinit/api_idx_000c.asm"          ; 0x0146
 
-%include "vinit/api_idx_0002_5.asm"
+%include "vinit/api_idx_0002_5.asm"        ; 0x08b7
 
-%include "vinit/api_idx_0002_6.asm"
+%include "vinit/api_idx_0002_6.asm"        ; 0x094a
 
-%include "vinit/api_idx_0004.asm"
+%include "vinit/api_idx_0004.asm"          ; 0x0988
 
-%include "vinit/api_idx_000e.asm"
+%include "vinit/api_idx_000e.asm"          ; 0x09d3
 
-%include "vinit/api_idx_0068.asm"
+%include "vinit/api_idx_0068.asm"          ; 0x0ac7
 
-%include "vinit/api_idx_0002_7.asm"
+%include "vinit/api_idx_0002_7.asm"        ; 0x133d
 
-%include "vinit/api_idx_0008.asm"
+%include "vinit/api_idx_0008.asm"          ; 0x1409
 
 loc_15d9:
     pop word [dseg_91b6]             ; 0x15d9

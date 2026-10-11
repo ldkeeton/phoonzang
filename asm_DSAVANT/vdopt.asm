@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_35f3.inc"
+%include "inc/structs/loc_238c.inc"
 org 0
 bits 16
 %include "inc/labels/vdopt_foreign_labels.inc"
@@ -18,7 +18,6 @@ IMAGE_BASE equ 0x000e
     dw 0x9720      ; o_entry: overlay entry offset (CS)
 
 loc_238c equ 0x238c
-loc_35f3 equ 0x35f3
 data_69c8 equ 0x69c8
 data_82f2 equ 0x82f2
 data_82f4 equ 0x82f4
@@ -186,85 +185,85 @@ loc_00a5:
 @..local.l4:
     mov ax, 0xffff                   ; 0x00db
     ret                              ; 0x00de
-%include "vdopt/api_idx_0004.asm"
+%include "vdopt/api_idx_0004.asm"          ; 0x00df
 
-%include "vdopt/api_idx_0002.asm"
+%include "vdopt/api_idx_0002.asm"          ; 0x019b
 
-%include "vdopt/api_idx_002a.asm"
+%include "vdopt/api_idx_002a.asm"          ; 0x020b
 
-%include "vdopt/api_idx_0004_2.asm"
+%include "vdopt/api_idx_0004_2.asm"        ; 0x02c3
 
-%include "vdopt/api_idx_0006.asm"
+%include "vdopt/api_idx_0006.asm"          ; 0x030c
 
-%include "vdopt/api_idx_0004_3.asm"
+%include "vdopt/api_idx_0004_3.asm"        ; 0x0382
 
-%include "vdopt/api_idx_0002_2.asm"
+%include "vdopt/api_idx_0002_2.asm"        ; 0x0473
 
-%include "vdopt/api_idx_0058.asm"
+%include "vdopt/api_idx_0058.asm"          ; 0x0565
 
-%include "vdopt/api_idx_0002_3.asm"
+%include "vdopt/api_idx_0002_3.asm"        ; 0x065b
 
-%include "vdopt/api_idx_000e.asm"
+%include "vdopt/api_idx_000e.asm"          ; 0x06e8
 
-%include "vdopt/api_idx_0014.asm"
+%include "vdopt/api_idx_0014.asm"          ; 0x09c0
 
-%include "vdopt/leaf_loc_0d80.asm"
+%include "vdopt/leaf_loc_0d80.asm"         ; 0x0d80
 
-%include "vdopt/leaf_loc_0d88.asm"
+%include "vdopt/leaf_loc_0d88.asm"         ; 0x0d88
 
-%include "vdopt/leaf_loc_0d90.asm"
+%include "vdopt/leaf_loc_0d90.asm"         ; 0x0d90
 
-%include "vdopt/leaf_loc_0d98.asm"
+%include "vdopt/leaf_loc_0d98.asm"         ; 0x0d98
 
-%include "vdopt/leaf_loc_0e80.asm"
+%include "vdopt/leaf_loc_0e80.asm"         ; 0x0e80
 
-%include "vdopt/leaf_loc_0e88.asm"
+%include "vdopt/leaf_loc_0e88.asm"         ; 0x0e88
 
-%include "vdopt/leaf_loc_0e90.asm"
+%include "vdopt/leaf_loc_0e90.asm"         ; 0x0e90
 
-%include "vdopt/leaf_loc_0e98.asm"
+%include "vdopt/leaf_loc_0e98.asm"         ; 0x0e98
 
-%include "vdopt/api_idx_000a.asm"
+%include "vdopt/api_idx_000a.asm"          ; 0x0f7f
 
-%include "vdopt/api_idx_0012.asm"
+%include "vdopt/api_idx_0012.asm"          ; 0x0fd3
 
-%include "vdopt/leaf_loc_1499.asm"
+%include "vdopt/leaf_loc_1499.asm"         ; 0x1499
 
-%include "vdopt/api_idx_000a_2.asm"
+%include "vdopt/api_idx_000a_2.asm"        ; 0x190b
 
-%include "vdopt/api_idx_0002_4.asm"
+%include "vdopt/api_idx_0002_4.asm"        ; 0x195b
 
-%include "vdopt/api_idx_00fa.asm"
+%include "vdopt/api_idx_00fa.asm"          ; 0x1a5d
 
-%include "vdopt/api_idx_0008.asm"
+%include "vdopt/api_idx_0008.asm"          ; 0x1ccf
 
-%include "vdopt/api_idx_000c.asm"
+%include "vdopt/api_idx_000c.asm"          ; 0x238d
 
-%include "vdopt/api_idx_000c_2.asm"
+%include "vdopt/api_idx_000c_2.asm"        ; 0x25a8
 
-%include "vdopt/api_idx_0002_5.asm"
+%include "vdopt/api_idx_0002_5.asm"        ; 0x2627
 
-%include "vdopt/api_idx_0004_4.asm"
+%include "vdopt/api_idx_0004_4.asm"        ; 0x2682
 
-%include "vdopt/api_idx_000a_3.asm"
+%include "vdopt/api_idx_000a_3.asm"        ; 0x26f3
 
-%include "vdopt/api_idx_000c_3.asm"
+%include "vdopt/api_idx_000c_3.asm"        ; 0x285e
 
-%include "vdopt/api_idx_0044.asm"
+%include "vdopt/api_idx_0044.asm"          ; 0x2988
 
-%include "vdopt/api_idx_0008_2.asm"
+%include "vdopt/api_idx_0008_2.asm"        ; 0x362f
 
-%include "vdopt/api_idx_0004_5.asm"
+%include "vdopt/api_idx_0004_5.asm"        ; 0x36bb
 
-%include "vdopt/api_idx_0018.asm"
+%include "vdopt/api_idx_0018.asm"          ; 0x378c
 
-%include "vdopt/api_idx_0004_6.asm"
+%include "vdopt/api_idx_0004_6.asm"        ; 0x3889
 
-%include "vdopt/api_idx_0038.asm"
+%include "vdopt/api_idx_0038.asm"          ; 0x3a2c
 
-%include "vdopt/api_idx_0094.asm"
+%include "vdopt/api_idx_0094.asm"          ; 0x417c
 
-%include "vdopt/api_idx_0004_7.asm"
+%include "vdopt/api_idx_0004_7.asm"        ; 0x45dd
 
-%include "vdopt/leaf_loc_4717.asm"
+%include "vdopt/leaf_loc_4717.asm"         ; 0x4717
 

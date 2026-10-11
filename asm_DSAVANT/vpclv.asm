@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_4df1.inc"
+%include "inc/structs/loc_4af5.inc"
 org 0
 bits 16
 %include "inc/labels/vpclv_foreign_labels.inc"
@@ -17,14 +17,8 @@ IMAGE_BASE equ 0x000e
     dw 0x03a4      ; o_bss: uninitialized data size
     dw 0xa4b9      ; o_entry: overlay entry offset (CS)
 
-loc_3734 equ 0x3734
-data_3a87 equ 0x3a87
-loc_4615 equ 0x4615
-loc_4ad9 equ 0x4ad9
-loc_4def equ 0x4def
-loc_4df1 equ 0x4df1
-data_7096 equ 0x7096
-data_9096 equ 0x9096
+fpu_loc_45b6 equ 0x45b6
+loc_4b3c equ 0x4b3c
 dseg_0002 equ 0x0002
 dseg_0038 equ 0x0038
 dseg_003c equ 0x003c
@@ -92,87 +86,109 @@ loc_000e:
 @..local.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
-%include "vpclv/api_idx_0002.asm"
+%include "vpclv/api_idx_0002.asm"          ; 0x0022
 
-%include "vpclv/api_idx_0012.asm"
+%include "vpclv/api_idx_0012.asm"          ; 0x0086
 
-%include "vpclv/api_idx_000c.asm"
+%include "vpclv/api_idx_000c.asm"          ; 0x0202
 
-%include "vpclv/api_idx_0004.asm"
+%include "vpclv/api_idx_0004.asm"          ; 0x0281
 
-%include "vpclv/api_idx_0002_2.asm"
+%include "vpclv/api_idx_0002_2.asm"        ; 0x0331
 
-%include "vpclv/api_idx_0002_3.asm"
+%include "vpclv/api_idx_0002_3.asm"        ; 0x038c
 
-%include "vpclv/api_idx_0010.asm"
+%include "vpclv/api_idx_0010.asm"          ; 0x03cd
 
-%include "vpclv/api_idx_000a.asm"
+%include "vpclv/api_idx_000a.asm"          ; 0x04ca
 
-%include "vpclv/api_idx_007c.asm"
+%include "vpclv/api_idx_007c.asm"          ; 0x0572
 
-%include "vpclv/api_idx_0004_2.asm"
+%include "vpclv/api_idx_0004_2.asm"        ; 0x0e3b
 
-%include "vpclv/api_idx_000a_2.asm"
+%include "vpclv/api_idx_000a_2.asm"        ; 0x0eac
 
-%include "vpclv/api_idx_000c_2.asm"
+%include "vpclv/api_idx_000c_2.asm"        ; 0x1017
 
-%include "vpclv/api_idx_0050.asm"
+%include "vpclv/api_idx_0050.asm"          ; 0x1141
 
-%include "vpclv/api_idx_00ca.asm"
+%include "vpclv/api_idx_00ca.asm"          ; 0x1e31
 
-%include "vpclv/api_idx_0004_3.asm"
+%include "vpclv/api_idx_0004_3.asm"        ; 0x21be
 
-%include "vpclv/api_idx_002a.asm"
+%include "vpclv/api_idx_002a.asm"          ; 0x2447
 
-%include "vpclv/api_idx_0080.asm"
+%include "vpclv/api_idx_0080.asm"          ; 0x24f0
 
-%include "vpclv/api_idx_0004_4.asm"
+%include "vpclv/api_idx_0004_4.asm"        ; 0x2717
 
-%include "vpclv/api_idx_004c.asm"
+%include "vpclv/api_idx_004c.asm"          ; 0x27e3
 
-%include "vpclv/api_idx_0006.asm"
+%include "vpclv/api_idx_0006.asm"          ; 0x2a85
 
-%include "vpclv/api_idx_0002_4.asm"
+%include "vpclv/api_idx_0002_4.asm"        ; 0x2b1a
 
-%include "vpclv/api_idx_0052.asm"
+%include "vpclv/api_idx_0052.asm"          ; 0x2c0c
 
-%include "vpclv/api_idx_0004_5.asm"
+%include "vpclv/api_idx_0004_5.asm"        ; 0x3288
 
-%include "vpclv/api_idx_0020.asm"
+%include "vpclv/api_idx_0020.asm"          ; 0x333c
 
-%include "vpclv/api_idx_0004_6.asm"
+%include "vpclv/api_idx_0004_6.asm"        ; 0x34cd
 
-%include "vpclv/api_idx_0004_7.asm"
+%include "vpclv/api_idx_0004_7.asm"        ; 0x35fc
 
-%include "vpclv/api_idx_0002_5.asm"
+%include "vpclv/api_idx_0002_5.asm"        ; 0x3851
 
-%include "vpclv/api_idx_002e.asm"
+%include "vpclv/api_idx_002e.asm"          ; 0x390b
 
-%include "vpclv/api_idx_0032.asm"
+%include "vpclv/api_idx_0032.asm"          ; 0x3a7a
 
-%include "vpclv/api_idx_0088.asm"
+%include "vpclv/api_idx_0088.asm"          ; 0x3f9e
 
-%include "vpclv/api_idx_001c.asm"
+%include "vpclv/api_idx_001c.asm"          ; 0x4140
 
-%include "vpclv/api_idx_0002_6.asm"
+%include "vpclv/api_idx_0002_6.asm"        ; 0x4270
 
-%include "vpclv/api_idx_00ac.asm"
+%include "vpclv/api_idx_00ac.asm"          ; 0x45e0
 
-%include "vpclv/api_idx_0004_8.asm"
+%include "vpclv/api_idx_0004_8.asm"        ; 0x4884
 
-%include "vpclv/api_idx_0018.asm"
+%include "vpclv/api_idx_0018.asm"          ; 0x4955
 
-%include "vpclv/api_idx_00b4.asm"
+%include "vpclv/leaf_loc_4990.asm"         ; 0x4990
 
-%include "vpclv/api_idx_0006_2.asm"
+%include "vpclv/leaf_loc_49b1.asm"         ; 0x49b1
 
-%include "vpclv/api_idx_00a4.asm"
+%include "vpclv/leaf_loc_49d2.asm"         ; 0x49d2
 
-%include "vpclv/api_idx_0046.asm"
+%include "vpclv/leaf_loc_49f3.asm"         ; 0x49f3
 
-%include "vpclv/api_idx_000e.asm"
+%include "vpclv/leaf_loc_4a14.asm"         ; 0x4a14
 
-%include "vpclv/api_idx_000c_3.asm"
+%include "vpclv/leaf_loc_4a35.asm"         ; 0x4a35
+
+%include "vpclv/leaf_loc_4a56.asm"         ; 0x4a56
+
+%include "vpclv/leaf_loc_4a77.asm"         ; 0x4a77
+
+%include "vpclv/leaf_loc_4ab4.asm"         ; 0x4ab4
+
+%include "vpclv/api_idx_00b4.asm"          ; 0x4cc5
+
+%include "vpclv/api_idx_0006_2.asm"        ; 0x4e03
+
+%include "vpclv/leaf_loc_4e18.asm"         ; 0x4e18
+
+%include "vpclv/leaf_loc_4e1f.asm"         ; 0x4e1f
+
+%include "vpclv/api_idx_00a4.asm"          ; 0x4e9e
+
+%include "vpclv/api_idx_0046.asm"          ; 0x4fca
+
+%include "vpclv/api_idx_000e.asm"          ; 0x50a1
+
+%include "vpclv/api_idx_000c_3.asm"        ; 0x5161
 
 @..api_idx_000c_3.l5:
     mov ax, 1                        ; 0x535f

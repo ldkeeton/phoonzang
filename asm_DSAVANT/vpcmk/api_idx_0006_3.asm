@@ -61,7 +61,6 @@ api_idx_0006_3:
     push ax                          ; 0x6164
     mov ax, 0x248                    ; 0x6165
     imul word [bp + 0x4]             ; 0x6168
-jumptable_11b9_case_5:
     mov bx, ax                       ; 0x616b
     mov al, byte [bx + 0x5e2a]       ; 0x616d
     sub ah, ah                       ; 0x6171

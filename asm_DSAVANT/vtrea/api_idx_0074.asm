@@ -218,7 +218,6 @@ api_idx_0074:
     push ax                          ; 0x68ec
     mov ax, word [bp - 0x0008]       ; 0x68ed
     add ax, strict word 0x15         ; 0x68f0
-jumptable_1fa3_case_6:
     push ax                          ; 0x68f3
     mov ax, word [bp - 0x0002]       ; 0x68f4
     shl ax, 1                        ; 0x68f7
@@ -296,7 +295,6 @@ jumptable_1fa3_case_6:
     push ax                          ; 0x699c
     call ds_dispatch_e901            ; 0x699d
     add sp, byte 0x0a                ; 0x69a0
-jumptable_1fa3_case_7:
     inc word [bp - 0x0002]           ; 0x69a3
     mov ax, word [bp - 0x0002]       ; 0x69a6
     cmp ax, strict word 0xe          ; 0x69a9
@@ -431,7 +429,6 @@ jumptable_1fa3_case_7:
     mov bx, 0                        ; 0x6ac1
     call ds_dispatch_f99f            ; 0x6ac4
     mov word [bp - 0x0020], ax       ; 0x6ac7
-jumptable_1b19_case_0:
     mov ax, 0x248                    ; 0x6aca
     imul word [bp - 0x0002]          ; 0x6acd
     mov bx, ax                       ; 0x6ad0
@@ -440,7 +437,6 @@ jumptable_1b19_case_0:
     cwd                              ; 0x6ad9
     idiv cx                          ; 0x6ada
     add ax, word [bp - 0x0022]       ; 0x6adc
-jumptable_1b19_case_1:
     mov cx, ax                       ; 0x6adf
     mov ax, word [bp - 0x0020]       ; 0x6ae1
     add cx, ax                       ; 0x6ae4
@@ -583,7 +579,6 @@ jumptable_1b19_case_1:
     call ds_dispatch_b7a9            ; 0x6c24
     pop cx                           ; 0x6c27
     push ax                          ; 0x6c28
-jumptable_1fa3_case_10:
     push word [bp - 0x0022]          ; 0x6c29
     call ds_dispatch_b7a9            ; 0x6c2c
     pop cx                           ; 0x6c2f
@@ -815,7 +810,6 @@ jumptable_1fa3_case_10:
     push word [bss_905a]             ; 0x6e30
     call api_idx_0004                ; 0x6e34
     pop cx                           ; 0x6e37
-jumptable_1fa3_case_13:
     mov word [bss_911c], 0x8f        ; 0x6e38
     mov ax, 1                        ; 0x6e3e
     push ax                          ; 0x6e41
@@ -831,7 +825,6 @@ jumptable_1fa3_case_13:
     mov ax, word [bp - 0x0008]       ; 0x6e55
     dec ax                           ; 0x6e58
     push ax                          ; 0x6e59
-jumptable_1fa3_case_15:
     mov ax, word [bp - 0x0006]       ; 0x6e5a
     dec ax                           ; 0x6e5d
     push ax                          ; 0x6e5e

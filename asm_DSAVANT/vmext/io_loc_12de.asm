@@ -11,21 +11,21 @@ io_loc_12de:
 @..io_loc_12de.l1:
     jmp short loc_1325               ; 0x12f8
 jumptable_12fa:
-    dw 0x5ffa
-    dw 0x6029
-    dw 0x60b7
-    dw 0x60e6
-    dw 0x60fb
-    dw 0x610b
-    dw 0x6127
-    dw 0x616a
-    dw 0x618a
-    dw 0x61e3
-    dw 0x6271
-    dw 0x62c4
-    dw 0x62f3
-    dw 0x630f
-    dw 0x6325
+    dw string_loc_0fb3 - IMAGE_BASE + 0x5055   ; 0x12fa
+    dw string_loc_0fe2 - IMAGE_BASE + 0x5055   ; 0x12fc
+    dw loc_1070 - IMAGE_BASE + 0x5055          ; 0x12fe
+    dw leaf_loc_109f - IMAGE_BASE + 0x5055     ; 0x1300
+    dw leaf_loc_10b4 - IMAGE_BASE + 0x5055     ; 0x1302
+    dw leaf_loc_10c4 - IMAGE_BASE + 0x5055     ; 0x1304
+    dw loc_10e0 - IMAGE_BASE + 0x5055          ; 0x1306
+    dw loc_1123 - IMAGE_BASE + 0x5055          ; 0x1308
+    dw loc_1143 - IMAGE_BASE + 0x5055          ; 0x130a
+    dw string_loc_119c - IMAGE_BASE + 0x5055   ; 0x130c
+    dw loc_122a - IMAGE_BASE + 0x5055          ; 0x130e
+    dw leaf_loc_127d - IMAGE_BASE + 0x5055     ; 0x1310
+    dw io_loc_12ac - IMAGE_BASE + 0x5055       ; 0x1312
+    dw io_loc_12c8 - IMAGE_BASE + 0x5055       ; 0x1314
+    dw io_loc_12de - IMAGE_BASE + 0x5055       ; 0x1316
 loc_1318:
     cmp ax, strict word 0xf          ; 0x1318
     jae short loc_1325               ; 0x131b

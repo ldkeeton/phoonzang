@@ -96,14 +96,12 @@ loc_6f41:
     mov ax, 0                        ; 0x6f7e
     push ax                          ; 0x6f81
     push ax                          ; 0x6f82
-jumptable_1fa3_case_16:
     push word [bp + 0x4]             ; 0x6f83
     mov ax, 6                        ; 0x6f86
     push ax                          ; 0x6f89
     push word [bss_830c]             ; 0x6f8a
     call api_idx_0004_10             ; 0x6f8e
     add sp, byte 0x12                ; 0x6f91
-jumptable_1fa3_case_17:
     mov ax, word [bp + 0x4]          ; 0x6f94
     shl ax, 1                        ; 0x6f97
     mov si, ax                       ; 0x6f99

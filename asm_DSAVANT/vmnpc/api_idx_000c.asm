@@ -428,10 +428,7 @@ api_idx_000c:
     mov bx, word [bp + 0xc]          ; 0x05e1
     mov byte [bx], al                ; 0x05e4
 @..api_idx_000c.l29:
-    db 0xc7, 0x46
-@..io_loc_4fa9.l1:
-    db 0xf4, 0x01
-    db 0x00
+    mov word [bp - 0x000c], 1        ; 0x05e6
     jmp short @..api_idx_000c.l31    ; 0x05eb
 @..api_idx_000c.l30:
     cmp ax, strict word 0x34         ; 0x05ed

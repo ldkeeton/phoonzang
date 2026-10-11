@@ -87,17 +87,17 @@ loc_9c7a:
     call ds_dispatch_b53b            ; 0x9c94
     add sp, byte 4                   ; 0x9c97
     cmp byte [bss_95fa], 0           ; 0x9c9a
-    jne short @..local.l114          ; 0x9c9f
+    jne short @..local.l113          ; 0x9c9f
     mov ax, 0x9d10                   ; 0x9ca1
     push ax                          ; 0x9ca4
     mov ax, 0x650                    ; 0x9ca5
     push ax                          ; 0x9ca8
     call api_idx_0080                ; 0x9ca9
     add sp, byte 4                   ; 0x9cac
-    jmp short @..local.l119          ; 0x9caf
-@..local.l114:
+    jmp short @..local.l118          ; 0x9caf
+@..local.l113:
     cmp byte [bss_95fa], 0x24        ; 0x9cb1
-    jne short @..local.l116          ; 0x9cb6
+    jne short @..local.l115          ; 0x9cb6
     mov al, byte [bss_95fb]          ; 0x9cb8
     sub ah, ah                       ; 0x9cbb
     push ax                          ; 0x9cbd
@@ -105,45 +105,45 @@ loc_9c7a:
     call api_idx_0040                ; 0x9cc2
     add sp, byte 4                   ; 0x9cc5
     cmp ax, strict word 1            ; 0x9cc8
-    jne short @..local.l115          ; 0x9ccb
+    jne short @..local.l114          ; 0x9ccb
     mov word [bss_9e70], 1           ; 0x9ccd
+@..local.l114:
+    jmp short @..local.l118          ; 0x9cd3
 @..local.l115:
-    jmp short @..local.l119          ; 0x9cd3
-@..local.l116:
     cmp byte [bss_95fa], 0x26        ; 0x9cd5
-    jne short @..local.l117          ; 0x9cda
+    jne short @..local.l116          ; 0x9cda
     mov al, byte [bss_95fb]          ; 0x9cdc
     sub ah, ah                       ; 0x9cdf
     dec ax                           ; 0x9ce1
     push ax                          ; 0x9ce2
     call api_idx_0002_13             ; 0x9ce3
     pop cx                           ; 0x9ce6
-    jmp short @..local.l119          ; 0x9ce7
-@..local.l117:
+    jmp short @..local.l118          ; 0x9ce7
+@..local.l116:
     cmp byte [bss_95fa], 0x2d        ; 0x9ce9
-    jne short @..local.l118          ; 0x9cee
+    jne short @..local.l117          ; 0x9cee
     mov al, byte [bss_95fb]          ; 0x9cf0
     sub ah, ah                       ; 0x9cf3
     sub word [bp + 0x4], ax          ; 0x9cf5
-@..local.l118:
+@..local.l117:
     mov ax, 0x9102                   ; 0x9cf8
     push ax                          ; 0x9cfb
     push word [bp + 0x4]             ; 0x9cfc
     call api_idx_0080                ; 0x9cff
     add sp, byte 4                   ; 0x9d02
-@..local.l119:
+@..local.l118:
     ret                              ; 0x9d05
 loc_9d06:
     mov ax, 0                        ; 0x9d06
     call ds_dispatch_f40b            ; 0x9d09
     mov ax, word [bp + 0x4]          ; 0x9d0c
     cmp ax, word [bss_b046]          ; 0x9d0f
-    jge short @..local.l120          ; 0x9d13
+    jge short @..local.l119          ; 0x9d13
     mov cx, 5                        ; 0x9d15
     imul cx                          ; 0x9d18
     add ax, word [bss_b050]          ; 0x9d1a
     ret                              ; 0x9d1e
-@..local.l120:
+@..local.l119:
     mov ax, word [bp + 0x4]          ; 0x9d1f
     sub ax, word [bss_b046]          ; 0x9d22
     mov cx, 5                        ; 0x9d26

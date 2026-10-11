@@ -304,12 +304,14 @@ struc s_bx_90cf
     .f_09: resb 1
 endstruc
 
-; @struct s_bx_ff3e size=4 reg=bx disp=0xff3e
+; @struct s_bx_ff3c size=6 reg=bx disp=0xff3c
 ; @field offset=0 size=2 name=f_00
 ; @field offset=2 size=2 name=f_02
-struc s_bx_ff3e
+; @field offset=4 size=2 name=f_04
+struc s_bx_ff3c
     .f_00: resb 2
     .f_02: resb 2
+    .f_04: resb 2
 endstruc
 
 ; @struct s_bx_ffd2 size=16 reg=bx disp=0xffd2

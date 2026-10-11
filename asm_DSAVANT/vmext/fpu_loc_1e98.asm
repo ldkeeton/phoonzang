@@ -2,12 +2,12 @@ fpu_loc_1e98:
     mov ax, 0                        ; 0x1e98
     ret                              ; 0x1e9b
 jumptable_1e9c:
-    dw 0x6ecc
-    dw 0x6edb
-    dw 0x6ecc
-    dw 0x6ed0
-    dw 0x6ecc
-    dw 0x6edf
+    dw fpu_loc_1e85 - IMAGE_BASE + 0x5055      ; 0x1e9c
+    dw fpu_loc_1e94 - IMAGE_BASE + 0x5055      ; 0x1e9e
+    dw fpu_loc_1e85 - IMAGE_BASE + 0x5055      ; 0x1ea0
+    dw fpu_loc_1e89 - IMAGE_BASE + 0x5055      ; 0x1ea2
+    dw fpu_loc_1e85 - IMAGE_BASE + 0x5055      ; 0x1ea4
+    dw fpu_loc_1e98 - IMAGE_BASE + 0x5055      ; 0x1ea6
 @..api_idx_0008_4.l1:
     cmp ax, strict word 6            ; 0x1ea8
     jae short @..api_idx_0008_4.l2   ; 0x1eab
@@ -154,24 +154,25 @@ loc_1feb:
     mov word [bp - 0x0004], 0xf      ; 0x1feb
     jmp short @..api_idx_0008_4.l16  ; 0x1ff0
 jumptable_1ff2:
-    dw 0x705e
-    dw 0x6ff3
-    dw 0x6ffa
-    dw 0x7001
-    dw 0x7008
-    dw 0x700f
-    dw 0x701d
-    dw 0x705e
-    dw 0x705e
-    dw 0x705e
-    dw 0x702b
-    dw 0x7032
+    dw jumptable_1ff2_case_0 - IMAGE_BASE + 0x5055 ; 0x1ff2
+    dw loc_1fac - IMAGE_BASE + 0x5055          ; 0x1ff4
+    dw loc_1fb3 - IMAGE_BASE + 0x5055          ; 0x1ff6
+    dw loc_1fba - IMAGE_BASE + 0x5055          ; 0x1ff8
+    dw loc_1fc1 - IMAGE_BASE + 0x5055          ; 0x1ffa
+    dw loc_1fc8 - IMAGE_BASE + 0x5055          ; 0x1ffc
+    dw loc_1fd6 - IMAGE_BASE + 0x5055          ; 0x1ffe
+    dw jumptable_1ff2_case_0 - IMAGE_BASE + 0x5055 ; 0x2000
+    dw jumptable_1ff2_case_0 - IMAGE_BASE + 0x5055 ; 0x2002
+    dw jumptable_1ff2_case_0 - IMAGE_BASE + 0x5055 ; 0x2004
+    dw loc_1fe4 - IMAGE_BASE + 0x5055          ; 0x2006
+    dw loc_1feb - IMAGE_BASE + 0x5055          ; 0x2008
 @..api_idx_0008_4.l15:
     cmp ax, strict word 0xc          ; 0x200a
     jae short @..api_idx_0008_4.l16  ; 0x200d
     xchg bx, ax                      ; 0x200f
     shl bx, 1                        ; 0x2010
     jmp [cs:bx + 0x7039]             ; 0x2012
+jumptable_1ff2_case_0:
 @..api_idx_0008_4.l16:
     mov ax, word [bp - 0x0004]       ; 0x2017
     ret                              ; 0x201a
