@@ -9,7 +9,7 @@ api_idx_0002_11:
     add sp, byte 4                   ; 0x8d95
     mov ax, 0                        ; 0x8d98
     push ax                          ; 0x8d9b
-    mov ax, data_0002                ; 0x8d9c
+    mov ax, 2                        ; 0x8d9c
     push ax                          ; 0x8d9f
     mov ax, 0x91                     ; 0x8da0
     push ax                          ; 0x8da3
@@ -20,8 +20,8 @@ api_idx_0002_11:
     push ax                          ; 0x8dac
     call ds_dispatch_e935            ; 0x8dad
     add sp, byte 0x0c                ; 0x8db0
-    mov word [data_a5b4], dx         ; 0x8db3
-    mov word [data_a5b2], ax         ; 0x8db7
+    mov word [dseg_a5b4], dx         ; 0x8db3
+    mov word [dseg_a5b2], ax         ; 0x8db7
     mov ax, 0xf                      ; 0x8dba
     push ax                          ; 0x8dbd
     mov ax, 0xc                      ; 0x8dbe
@@ -34,18 +34,18 @@ api_idx_0002_11:
     push ax                          ; 0x8dcf
     call ds_dispatch_f364            ; 0x8dd0
     add sp, byte 4                   ; 0x8dd3
-    mov word [data_a5fc], 0          ; 0x8dd6
-    mov word [data_a5ce], 0          ; 0x8ddc
-    mov word [data_a5fa], 0          ; 0x8de2
-    mov word [data_a5fe], 0          ; 0x8de8
-    mov word [data_a5b0], 0          ; 0x8dee
-    mov word [data_a4a4], 7          ; 0x8df4
-    mov word [data_a5ae], 5          ; 0x8dfa
-    les bx, word [data_0002]         ; 0x8e00
+    mov word [dseg_a5fc], 0          ; 0x8dd6
+    mov word [dseg_a5ce], 0          ; 0x8ddc
+    mov word [dseg_a5fa], 0          ; 0x8de2
+    mov word [dseg_a5fe], 0          ; 0x8de8
+    mov word [dseg_a5b0], 0          ; 0x8dee
+    mov word [dseg_a4a4], 7          ; 0x8df4
+    mov word [dseg_a5ae], 5          ; 0x8dfa
+    les bx, word [dseg_0002]         ; 0x8e00
     mov ax, word [es:bx]             ; 0x8e04
     mov dx, word [es:bx + 0x2]       ; 0x8e07
-    mov word [data_908c], dx         ; 0x8e0b
-    mov word [data_908a], ax         ; 0x8e0f
+    mov word [dseg_908c], dx         ; 0x8e0b
+    mov word [dseg_908a], ax         ; 0x8e0f
     call api_idx_000a_3              ; 0x8e12
     mov ax, 0                        ; 0x8e15
     push ax                          ; 0x8e18
@@ -79,8 +79,8 @@ api_idx_0002_11:
     push ax                          ; 0x8e54
     mov ax, 1                        ; 0x8e55
     push ax                          ; 0x8e58
-    push word [data_a5b4]            ; 0x8e59
-    push word [data_a5b2]            ; 0x8e5d
+    push word [dseg_a5b4]            ; 0x8e59
+    push word [dseg_a5b2]            ; 0x8e5d
     call ds_dispatch_e942            ; 0x8e61
     add sp, byte 8                   ; 0x8e64
     call loc_85f0                    ; 0x8e67

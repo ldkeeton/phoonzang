@@ -34,7 +34,7 @@ api_idx_009a:
     jne short @..api_idx_009a.l1     ; 0x6fb1
     mov al, byte [bp - 0x0013]       ; 0x6fb3
     sub ah, ah                       ; 0x6fb6
-    test ax, data_0002               ; 0x6fb8
+    test ax, 2                       ; 0x6fb8
     jne short @..api_idx_009a.l1     ; 0x6fbb
     mov al, byte [bp - 0x0012]       ; 0x6fbd
     sub ah, ah                       ; 0x6fc0

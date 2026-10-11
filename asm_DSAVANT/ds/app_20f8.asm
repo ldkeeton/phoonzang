@@ -1,7 +1,7 @@
 app_20f8: ; Aztec csav frame=0x0012
     mov ax, 0xffee                   ; 0x20f8
     call aztec_csav                  ; 0x20fb
-    cmp word [data_0e32], byte 0     ; 0x20fe
+    cmp word [bss_0e32], byte 0      ; 0x20fe
     je short @..app_20f8.l1          ; 0x2103
     jmp near @..app_20f8.l6          ; 0x2105
 @..app_20f8.l1:
@@ -79,7 +79,7 @@ app_20f8: ; Aztec csav frame=0x0012
 @..app_20f8.l3:
     cmp ax, strict word 0x31         ; 0x21b0
     jl short @..app_20f8.l4          ; 0x21b3
-    mov cx, word [data_69c8]         ; 0x21b5
+    mov cx, word [bss_69c8]          ; 0x21b5
     add cx, byte 0x31                ; 0x21b9
     cmp cx, ax                       ; 0x21bc
     jle short @..app_20f8.l4         ; 0x21be
@@ -107,15 +107,15 @@ app_20f8: ; Aztec csav frame=0x0012
     mov ax, word [bp - 0x0004]       ; 0x21ee
     ret                              ; 0x21f1
 @..app_20f8.l6:
-    push word [data_0e30]            ; 0x21f2
-    push word [data_0e2e]            ; 0x21f6
+    push word [bss_0e30]             ; 0x21f2
+    push word [bss_0e2e]             ; 0x21f6
     call app_io_0af6                 ; 0x21fa
     add sp, byte 4                   ; 0x21fd
     mov word [bp - 0x0002], 0        ; 0x2200
     jmp short @..app_20f8.l8         ; 0x2205
 @..app_20f8.l7:
     mov ax, word [bp - 0x0002]       ; 0x2207
-    mov cx, data_0002                ; 0x220a
+    mov cx, 2                        ; 0x220a
     cwd                              ; 0x220d
     idiv cx                          ; 0x220e
     mov ax, dx                       ; 0x2210
@@ -124,7 +124,7 @@ app_20f8: ; Aztec csav frame=0x0012
     add ax, strict word 5            ; 0x2217
     mov word [bp - 0x000a], ax       ; 0x221a
     mov ax, word [bp - 0x0002]       ; 0x221d
-    mov cx, data_0002                ; 0x2220
+    mov cx, 2                        ; 0x2220
     cwd                              ; 0x2223
     idiv cx                          ; 0x2224
     mov cx, 0x2d                     ; 0x2226
@@ -151,7 +151,7 @@ app_20f8: ; Aztec csav frame=0x0012
     inc word [bp - 0x0002]           ; 0x225a
 @..app_20f8.l8:
     mov ax, word [bp - 0x0002]       ; 0x225d
-    cmp ax, word [data_69c8]         ; 0x2260
+    cmp ax, word [bss_69c8]          ; 0x2260
     jl short @..app_20f8.l7          ; 0x2264
     mov ax, 0                        ; 0x2266
     push ax                          ; 0x2269
@@ -161,7 +161,7 @@ app_20f8: ; Aztec csav frame=0x0012
     push ax                          ; 0x226d
     mov ax, 0xffff                   ; 0x226e
     push ax                          ; 0x2271
-    push word [data_69c8]            ; 0x2272
+    push word [bss_69c8]             ; 0x2272
     call app_0ced                    ; 0x2276
     add sp, byte 0x0e                ; 0x2279
     mov word [bp - 0x0008], 0        ; 0x227c
@@ -189,7 +189,7 @@ app_20f8: ; Aztec csav frame=0x0012
     pop cx                           ; 0x22b0
     dec ax                           ; 0x22b1
     mov word [bp - 0x0004], ax       ; 0x22b2
-    cmp word [data_59fa], byte 0     ; 0x22b5
+    cmp word [bss_59fa], byte 0      ; 0x22b5
     je short @..app_20f8.l11         ; 0x22ba
     mov ax, 0                        ; 0x22bc
     mov dx, 0                        ; 0x22bf
@@ -200,7 +200,7 @@ app_20f8: ; Aztec csav frame=0x0012
     mov ax, 0xffff                   ; 0x22ca
     ret                              ; 0x22cd
 @..app_20f8.l11:
-    cmp word [data_5b3e], byte 1     ; 0x22ce
+    cmp word [bss_5b3e], byte 1      ; 0x22ce
     jne short @..app_20f8.l12        ; 0x22d3
     mov ax, 0                        ; 0x22d5
     mov dx, 0                        ; 0x22d8

@@ -203,7 +203,7 @@ api_idx_0004_4:
     jbe short @..api_idx_0004_4.l3   ; 0x2444
     cmp byte [bx + 0x5d6a], 0xd      ; 0x2446
     jbe short @..api_idx_0004_4.l3   ; 0x244b
-    mov word [data_95e8], 1          ; 0x244d
+    mov word [dseg_95e8], 1          ; 0x244d
 @..api_idx_0004_4.l3:
     mov word [bp - 0x0004], 0        ; 0x2453
     mov ax, word [bp + 0x6]          ; 0x2458

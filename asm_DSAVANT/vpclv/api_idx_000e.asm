@@ -1,12 +1,12 @@
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x50a1
     call ds_dispatch_f40b            ; 0x50a4
-    cmp word [data_8f20], byte 0     ; 0x50a7
+    cmp word [dseg_8f20], byte 0     ; 0x50a7
     jg short @..api_idx_000e.l1      ; 0x50ac
     jmp near @..api_idx_000e.l8      ; 0x50ae
 @..api_idx_000e.l1:
-    mov ax, word [data_82ee]         ; 0x50b1
-    mov cx, word [data_8f20]         ; 0x50b4
+    mov ax, word [dseg_82ee]         ; 0x50b1
+    mov cx, word [dseg_8f20]         ; 0x50b4
     dec cx                           ; 0x50b8
     sub ax, cx                       ; 0x50b9
     add ax, strict word 6            ; 0x50bb
@@ -18,7 +18,7 @@ api_idx_000e:
     jmp short @..api_idx_000e.l6     ; 0x50c9
 @..api_idx_000e.l2:
     mov byte [bp - 0x000e], 1        ; 0x50cb
-    mov byte [bp - 0x000d], data_0002 ; 0x50cf
+    mov byte [bp - 0x000d], 2        ; 0x50cf
     mov ax, 5                        ; 0x50d3
     cmp word [bp - 0x0002], byte 0   ; 0x50d6
     jne short @..api_idx_000e.l3     ; 0x50da

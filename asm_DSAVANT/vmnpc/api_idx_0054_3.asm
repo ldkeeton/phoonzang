@@ -4,7 +4,7 @@ api_idx_0054_3:
     mov word [bp - 0x0002], 0        ; 0x451a
     jmp near @..api_idx_0054_3.l10   ; 0x451f
 @..api_idx_0054_3.l1:
-    mov ax, api_idx_0008             ; 0x4522
+    mov ax, 0xe                      ; 0x4522
     imul word [bp - 0x0002]          ; 0x4525
     add ax, word [bp + 0x8]          ; 0x4528
     inc ax                           ; 0x452b
@@ -92,7 +92,7 @@ api_idx_0054_3:
     push ax                          ; 0x45e7
     db 0xe8, 0x63, 0xa2 ; call 0xe84e
     add sp, byte 4                   ; 0x45eb
-    mov ax, api_idx_0008             ; 0x45ee
+    mov ax, 0xe                      ; 0x45ee
     imul word [bp - 0x0002]          ; 0x45f1
     add ax, word [bp + 0x8]          ; 0x45f4
     add ax, strict word 7            ; 0x45f7
@@ -140,7 +140,7 @@ api_idx_0054_3:
     jne short @..api_idx_0054_3.l5   ; 0x465c
     mov ax, 1                        ; 0x465e
     push ax                          ; 0x4661
-    mov ax, api_idx_0008             ; 0x4662
+    mov ax, 0xe                      ; 0x4662
     imul word [bp - 0x0002]          ; 0x4665
     add ax, word [bp + 0x8]          ; 0x4668
     add ax, strict word 0xd          ; 0x466b
@@ -151,7 +151,7 @@ api_idx_0054_3:
     inc ax                           ; 0x4678
     inc ax                           ; 0x4679
     push ax                          ; 0x467a
-    mov ax, api_idx_0008             ; 0x467b
+    mov ax, 0xe                      ; 0x467b
     imul word [bp - 0x0002]          ; 0x467e
     add ax, word [bp + 0x8]          ; 0x4681
     inc ax                           ; 0x4684
@@ -166,7 +166,7 @@ api_idx_0054_3:
 @..api_idx_0054_3.l5:
     mov word [bp - 0x0004], 0xb4     ; 0x469a
 @..api_idx_0054_3.l6:
-    mov ax, api_idx_0008             ; 0x469f
+    mov ax, 0xe                      ; 0x469f
     imul word [bp - 0x0002]          ; 0x46a2
     add ax, word [bp + 0x8]          ; 0x46a5
     inc ax                           ; 0x46a8
@@ -187,7 +187,7 @@ api_idx_0054_3:
     db 0xe8, 0x63, 0xa1 ; call 0xe830
     add sp, byte 4                   ; 0x46cd
     push word [bp - 0x0004]          ; 0x46d0
-    mov ax, api_idx_0008             ; 0x46d3
+    mov ax, 0xe                      ; 0x46d3
     imul word [bp - 0x0002]          ; 0x46d6
     add ax, word [bp + 0x8]          ; 0x46d9
     inc ax                           ; 0x46dc
@@ -212,7 +212,7 @@ api_idx_0054_3:
     mov bx, ax                       ; 0x4709
     cmp byte [bx + 0x60e], 1         ; 0x470b
     jne short @..api_idx_0054_3.l9   ; 0x4710
-    mov ax, api_idx_0008             ; 0x4712
+    mov ax, 0xe                      ; 0x4712
     imul word [bp - 0x0002]          ; 0x4715
     add ax, word [bp + 0x8]          ; 0x4718
     add ax, strict word 8            ; 0x471b
@@ -231,7 +231,7 @@ api_idx_0054_3:
     mov ax, word [bp - 0x0004]       ; 0x473b
     jmp short @..api_idx_0054_3.l8   ; 0x473e
 @..api_idx_0054_3.l7:
-    mov ax, data_0002                ; 0x4740
+    mov ax, 2                        ; 0x4740
 @..api_idx_0054_3.l8:
     push ax                          ; 0x4743
     db 0xe8, 0xdc, 0xa0 ; call 0xe823

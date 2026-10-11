@@ -18,7 +18,7 @@ api_idx_0006_7:
     inc word [bp - 0x0006]           ; 0x8529
 @..api_idx_0006_7.l2:
     mov ax, word [bp - 0x0006]       ; 0x852c
-    cmp ax, word [data_69c8]         ; 0x852f
+    cmp ax, word [dseg_69c8]         ; 0x852f
     jl short @..api_idx_0006_7.l1    ; 0x8533
     mov ax, word [bp - 0x0004]       ; 0x8535
     mov dx, word [bp - 0x0002]       ; 0x8538

@@ -4,7 +4,7 @@ api_idx_0004_2:
     call ds_dispatch_ec17            ; 0x02c9
     mov ax, word [bp + 0x4]          ; 0x02cc
     cwd                              ; 0x02cf
-    les bx, word [data_0002]         ; 0x02d0
+    les bx, word [dseg_0002]         ; 0x02d0
     mov cx, word [es:bx]             ; 0x02d4
     mov bx, word [es:bx + 0x2]       ; 0x02d7
     add ax, cx                       ; 0x02db
@@ -12,7 +12,7 @@ api_idx_0004_2:
     mov word [bp - 0x0002], dx       ; 0x02df
     mov word [bp - 0x0004], ax       ; 0x02e2
 @..api_idx_0004_2.l1:
-    les bx, word [data_0002]         ; 0x02e5
+    les bx, word [dseg_0002]         ; 0x02e5
     mov ax, word [es:bx]             ; 0x02e9
     mov dx, word [es:bx + 0x2]       ; 0x02ec
     cmp dx, word [bp - 0x0002]       ; 0x02f0

@@ -20,7 +20,7 @@ api_idx_0004:
     pop cx                           ; 0x02f3
     mov cx, 6                        ; 0x02f4
     imul cx                          ; 0x02f7
-    mov cx, data_0002                ; 0x02f9
+    mov cx, 2                        ; 0x02f9
     cwd                              ; 0x02fc
     idiv cx                          ; 0x02fd
     mov cx, ax                       ; 0x02ff
@@ -57,7 +57,7 @@ api_idx_0004:
     call ds_dispatch_b7e0            ; 0x0348
     pop cx                           ; 0x034b
 @..api_idx_0004.l1:
-    push word [data_905a]            ; 0x034c
+    push word [dseg_905a]            ; 0x034c
     call ds_dispatch_b75e            ; 0x0350
     pop cx                           ; 0x0353
     mov ax, 1                        ; 0x0354

@@ -8,12 +8,12 @@ api_idx_0006:
     pop cx                           ; 0x149b
     add ax, word [bp + 0xa]          ; 0x149c
     mov word [bp - 0x0004], ax       ; 0x149f
-    cmp ax, word [data_69c8]         ; 0x14a2
+    cmp ax, word [dseg_69c8]         ; 0x14a2
     jle short @..api_idx_0006.l1     ; 0x14a6
-    mov ax, word [data_69c8]         ; 0x14a8
+    mov ax, word [dseg_69c8]         ; 0x14a8
     mov word [bp - 0x0004], ax       ; 0x14ab
 @..api_idx_0006.l1:
-    mov ax, word [data_69c8]         ; 0x14ae
+    mov ax, word [dseg_69c8]         ; 0x14ae
     sub ax, word [bp - 0x0004]       ; 0x14b1
     inc ax                           ; 0x14b4
     push ax                          ; 0x14b5

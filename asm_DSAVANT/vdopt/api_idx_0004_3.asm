@@ -11,10 +11,10 @@ api_idx_0004_3:
     mov word [bp - 0x0002], ax       ; 0x039d
     cmp ax, strict word 0xffff       ; 0x03a0
     jne short @..api_idx_0004_3.l2   ; 0x03a3
-    mov ax, word [data_590e]         ; 0x03a5
+    mov ax, word [dseg_590e]         ; 0x03a5
     mov word [bp - 0x0002], ax       ; 0x03a8
-    inc word [data_590e]             ; 0x03ab
-    mov ax, word [data_590e]         ; 0x03af
+    inc word [dseg_590e]             ; 0x03ab
+    mov ax, word [dseg_590e]         ; 0x03af
     cmp ax, 0x200                    ; 0x03b2
     jl short @..api_idx_0004_3.l2    ; 0x03b5
 @..api_idx_0004_3.l1:
@@ -27,7 +27,7 @@ api_idx_0004_3:
     mov ax, 6                        ; 0x03c1
     imul word [bp - 0x0002]          ; 0x03c4
     mov cx, ax                       ; 0x03c7
-    mov ax, word [data_0e10]         ; 0x03c9
+    mov ax, word [dseg_0e10]         ; 0x03c9
     add ax, cx                       ; 0x03cc
     mov word [bp - 0x0004], ax       ; 0x03ce
     mov al, byte [bp + 0x4]          ; 0x03d1

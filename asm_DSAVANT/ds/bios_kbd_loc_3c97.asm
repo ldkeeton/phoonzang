@@ -10,7 +10,7 @@ bios_kbd_loc_3c97:
     mov ds, ax                       ; 0x3ca1
     mov es, ax                       ; 0x3ca3
     call leaf_loc_3c0d               ; 0x3ca5
-    lea si, word [data_3a7f]         ; 0x3ca8
+    lea si, word [cseg_3c7f - IMAGE_BASE] ; 0x3ca8
 @..bios_kbd_loc_3c97.l1:
     mov bx, word [si]                ; 0x3cac
     or bx, bx                        ; 0x3cae
@@ -18,7 +18,7 @@ bios_kbd_loc_3c97:
     mov ax, word [bp + 0x4]          ; 0x3cb2
     cmp al, 0                        ; 0x3cb5
     je short @..bios_kbd_loc_3c97.l4 ; 0x3cb7
-    cmp al, data_0002                ; 0x3cb9
+    cmp al, 2                        ; 0x3cb9
     je short @..bios_kbd_loc_3c97.l2 ; 0x3cbb
     mov al, byte [si + 0x2]          ; 0x3cbd
     cmp al, 8                        ; 0x3cc0

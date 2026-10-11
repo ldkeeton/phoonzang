@@ -4,8 +4,8 @@ aztec_begin:
     jne short @..aztec_begin.l1      ; 0x4d3f
     mov bp, ds                       ; 0x4d41
 @..aztec_begin.l1:
-    mov word [cs:0x4b38], ds         ; 0x4d43
-    mov bx, word [data_0002]         ; 0x4d48
+    mov word [cs:cseg_4d38 - IMAGE_BASE], ds ; 0x4d43
+    mov bx, word [psp_top_of_memory] ; 0x4d48
     sub bx, bp                       ; 0x4d4c
     cmp bx, strict word 0x1000       ; 0x4d4e
     jbe short @..aztec_begin.l2      ; 0x4d52
@@ -17,14 +17,14 @@ aztec_begin:
     mov bx, 0x1000                   ; 0x4d60
 @..aztec_begin.l2:
     mov es, bp                       ; 0x4d63
-    mov word [es:data_0c80], ds      ; 0x4d65
+    mov word [es:dseg_0c80], ds      ; 0x4d65
     mov cl, 4                        ; 0x4d6a
     shl bx, cl                       ; 0x4d6c
-    db 0x26, 0x83, 0x3e, 0xda, 0x0c, 0x00 ; cmp word [es:data_0cda], 0
+    db 0x26, 0x83, 0x3e, 0xda, 0x0c, 0x00 ; cmp word [es:dseg_0cda], 0
     je short @..aztec_begin.l4       ; 0x4d74
-    mov ax, word [es:data_0cd6]      ; 0x4d76
+    mov ax, word [es:dseg_0cd6]      ; 0x4d76
     shl ax, 1                        ; 0x4d7a
-    mov bx, word [es:data_0cd4]      ; 0x4d7c
+    mov bx, word [es:dseg_0cd4]      ; 0x4d7c
     shl bx, cl                       ; 0x4d81
     cmp bx, ax                       ; 0x4d83
     ja short @..aztec_begin.l3       ; 0x4d85
@@ -40,19 +40,19 @@ aztec_begin:
     jne short @..aztec_begin.l5      ; 0x4d95
     mov bx, 0xffff                   ; 0x4d97
 @..aztec_begin.l5:
-    mov word [es:data_0c7c], bx      ; 0x4d9a
-    db 0x26, 0x83, 0x3e, 0xda, 0x0c, 0x00 ; cmp word [es:data_0cda], 0
+    mov word [es:dseg_0c7c], bx      ; 0x4d9a
+    db 0x26, 0x83, 0x3e, 0xda, 0x0c, 0x00 ; cmp word [es:dseg_0cda], 0
     je short @..aztec_begin.l7       ; 0x4da5
-    mov si, word [es:data_0cd8]      ; 0x4da7
+    mov si, word [es:dseg_0cd8]      ; 0x4da7
     mov ax, bx                       ; 0x4dac
     inc ax                           ; 0x4dae
-    mov word [es:data_0c70], ax      ; 0x4daf
+    mov word [es:dseg_0c70], ax      ; 0x4daf
     shl si, cl                       ; 0x4db3
     add bx, si                       ; 0x4db5
     jae short @..aztec_begin.l6      ; 0x4db7
     mov bx, 0xffff                   ; 0x4db9
 @..aztec_begin.l6:
-    mov word [es:data_0c7c], bx      ; 0x4dbc
+    mov word [es:dseg_0c7c], bx      ; 0x4dbc
     add bx, byte 0x0f                ; 0x4dc1
     shr bx, cl                       ; 0x4dc4
     mov ax, es                       ; 0x4dc6
@@ -69,7 +69,7 @@ aztec_begin:
 @..aztec_begin.l7:
     mov es, bp                       ; 0x4ddd
     cld                              ; 0x4ddf
-    mov di, data_0cf6                ; 0x4de0
+    mov di, bss_0cf6                 ; 0x4de0
     mov cx, 0x9098                   ; 0x4de3
     sub cx, di                       ; 0x4de6
     inc cx                           ; 0x4de8
@@ -78,7 +78,7 @@ aztec_begin:
     sub ax, ax                       ; 0x4ded
     rep stosw                        ; 0x4def
 @..aztec_begin.l8:
-    mov es, word [data_002c]         ; 0x4df1
+    mov es, word [psp_env_segment]   ; 0x4df1
     sub di, di                       ; 0x4df5
     mov cx, 0x7fff                   ; 0x4df7
 @..aztec_begin.l9:
@@ -90,7 +90,7 @@ aztec_begin:
     repne scasb                      ; 0x4e06
     je short @..aztec_begin.l9       ; 0x4e08
 @..aztec_begin.l10:
-    mov cl, byte [data_0080]         ; 0x4e0a
+    mov cl, byte [psp_cmd_tail_len]  ; 0x4e0a
     sub ch, ch                       ; 0x4e0e
     mov si, 0x81                     ; 0x4e10
     mov ax, 1                        ; 0x4e13
@@ -104,7 +104,7 @@ aztec_begin:
 @..aztec_begin.l12:
     push ax                          ; 0x4e21
     mov es, bp                       ; 0x4e22
-    mov di, word [es:data_0c70]      ; 0x4e24
+    mov di, word [es:dseg_0c70]      ; 0x4e24
     push di                          ; 0x4e29
     jcxz @..aztec_begin.l14          ; 0x4e2a
 @..aztec_begin.l13:
@@ -119,18 +119,18 @@ aztec_begin:
     mov ds, bp                       ; 0x4e37
     inc di                           ; 0x4e39
     and di, strict word 0xfffe       ; 0x4e3a
-    mov word [data_0c70], di         ; 0x4e3e
-    mov word [data_0c78], di         ; 0x4e42
-    mov word [data_0c7a], 0x9098     ; 0x4e46
-    cmp word [data_0cda], byte 0     ; 0x4e4c
+    mov word [dseg_0c70], di         ; 0x4e3e
+    mov word [dseg_0c78], di         ; 0x4e42
+    mov word [dseg_0c7a], 0x9098     ; 0x4e46
+    cmp word [dseg_0cda], byte 0     ; 0x4e4c
     jne short @..aztec_begin.l15     ; 0x4e51
-    mov word [data_0c7a], di         ; 0x4e53
+    mov word [dseg_0c7a], di         ; 0x4e53
 @..aztec_begin.l15:
-    mov ax, word [data_0c7a]         ; 0x4e57
-    add ax, word [data_0cd6]         ; 0x4e5a
-    mov word [data_0c7a], ax         ; 0x4e5e
-    mov word [data_0c74], ds         ; 0x4e61
-    mov word [data_0c76], cs         ; 0x4e65
+    mov ax, word [dseg_0c7a]         ; 0x4e57
+    add ax, word [dseg_0cd6]         ; 0x4e5a
+    mov word [dseg_0c7a], ax         ; 0x4e5e
+    mov word [dseg_0c74], ds         ; 0x4e61
+    mov word [dseg_0c76], cs         ; 0x4e65
     call leaf_loc_4f85               ; 0x4e69
     jb short @..aztec_begin.l16      ; 0x4e6c
     call aztec_Croot                 ; 0x4e6e

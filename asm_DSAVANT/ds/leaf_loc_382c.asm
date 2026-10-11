@@ -1,7 +1,7 @@
 leaf_loc_382c:
     push ds                          ; 0x382c
     push es                          ; 0x382d
-    mov dx, word [cs:data_2d62]      ; 0x382e
+    mov dx, word [cs:cseg_2f62 - IMAGE_BASE] ; 0x382e
     or dx, dx                        ; 0x3833
     je short @..leaf_loc_382c.l1     ; 0x3835
     mov ah, 0x45                     ; 0x3837

@@ -23,7 +23,7 @@ aztec_sys:
     mov dx, es                       ; 0x4d1c
     pop es                           ; 0x4d1e
     jae short @..aztec_sys.l4        ; 0x4d1f
-    mov word [data_0c72], ax         ; 0x4d21
+    mov word [dseg_0c72], ax         ; 0x4d21
     mov ax, 0xffff                   ; 0x4d24
     mov dx, ax                       ; 0x4d27
 @..aztec_sys.l4:

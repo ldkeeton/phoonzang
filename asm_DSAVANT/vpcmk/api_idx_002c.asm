@@ -17,7 +17,7 @@ api_idx_002c:
     push ax                          ; 0x6765
     mov ax, 1                        ; 0x6766
     push ax                          ; 0x6769
-    mov ax, data_0002                ; 0x676a
+    mov ax, 2                        ; 0x676a
     push ax                          ; 0x676d
     mov ax, 1                        ; 0x676e
     push ax                          ; 0x6771
@@ -46,7 +46,7 @@ api_idx_002c:
     push ax                          ; 0x67a8
     call ds_dispatch_ef14            ; 0x67a9
     pop cx                           ; 0x67ac
-    mov ax, data_0002                ; 0x67ad
+    mov ax, 2                        ; 0x67ad
     push ax                          ; 0x67b0
     mov ax, 0                        ; 0x67b1
     push ax                          ; 0x67b4
@@ -60,7 +60,7 @@ api_idx_002c:
     mov word [bp - 0x0004], ax       ; 0x67c6
     mov ax, 0x18                     ; 0x67c9
     push ax                          ; 0x67cc
-    mov ax, data_906e                ; 0x67cd
+    mov ax, 0x906e                   ; 0x67cd
     push ax                          ; 0x67d0
     push word [bp - 0x0004]          ; 0x67d1
     call ds_dispatch_fd76            ; 0x67d4

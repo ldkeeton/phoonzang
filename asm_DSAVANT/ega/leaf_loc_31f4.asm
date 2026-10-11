@@ -8,7 +8,7 @@ leaf_loc_31f4:
     push di                          ; 0x31fd
     mov ax, ds                       ; 0x31fe
     mov es, ax                       ; 0x3200
-    mov bx, dos_mem_loc_33b3         ; 0x3202
+    mov bx, 0x33b3                   ; 0x3202
     add bx, word [bp + 0xc]          ; 0x3205
     mov ax, word [bp + 0xe]          ; 0x3208
     cmp ax, strict word 0xffff       ; 0x320b

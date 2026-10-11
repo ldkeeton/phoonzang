@@ -86,7 +86,7 @@ api_idx_000c_2:
     sub ax, cx                       ; 0x173f
     mov cx, 6                        ; 0x1741
     imul cx                          ; 0x1744
-    mov cx, data_0002                ; 0x1746
+    mov cx, 2                        ; 0x1746
     cwd                              ; 0x1749
     idiv cx                          ; 0x174a
     add ax, word [bp - 0x0006]       ; 0x174c
@@ -194,7 +194,7 @@ loc_17a6:
 loc_1821:
     mov ax, 0xfe30                   ; 0x1821
     db 0xe8, 0xe4, 0xdb ; call 0xf40b
-    mov word [data_9052], 0xffff     ; 0x1827
+    mov word [dseg_9052], 0xffff     ; 0x1827
     mov ax, word [bp + 0x14]         ; 0x182d
     shl ax, 1                        ; 0x1830
     mov word [bp - 0x0010], ax       ; 0x1832
@@ -293,7 +293,7 @@ loc_1821:
     sub ax, cx                       ; 0x1915
     mov cx, 6                        ; 0x1917
     imul cx                          ; 0x191a
-    mov cx, data_0002                ; 0x191c
+    mov cx, 2                        ; 0x191c
     cwd                              ; 0x191f
     idiv cx                          ; 0x1920
     add ax, word [bp - 0x0006]       ; 0x1922
@@ -365,7 +365,7 @@ loc_1821:
     push word [bp + 0x6]             ; 0x19be
     call loc_0c96                    ; 0x19c1
     pop cx                           ; 0x19c4
-    cmp word [data_0e32], byte 0     ; 0x19c5
+    cmp word [dseg_0e32], byte 0     ; 0x19c5
     je short @..local.l24            ; 0x19ca
 @..local.l23:
     mov ax, 0x59fe                   ; 0x19cc
@@ -374,7 +374,7 @@ loc_1821:
     pop cx                           ; 0x19d3
     mov word [bp - 0x0004], ax       ; 0x19d4
     call api_idx_0006_2              ; 0x19d7
-    cmp word [data_5b3e], byte 0     ; 0x19da
+    cmp word [dseg_5b3e], byte 0     ; 0x19da
     je short @..local.l23            ; 0x19df
     jmp near @..local.l50            ; 0x19e1
 @..local.l24:
@@ -733,7 +733,7 @@ loc_1821:
     db 0xe8, 0xb4, 0xcb ; call 0xe8da
     add sp, byte 8                   ; 0x1d26
     mov ax, word [bp - 0x0004]       ; 0x1d29
-    mov word [data_9052], ax         ; 0x1d2c
+    mov word [dseg_9052], ax         ; 0x1d2c
     shl ax, 1                        ; 0x1d2f
     mov bx, ax                       ; 0x1d31
     add bx, bp                       ; 0x1d33
@@ -815,7 +815,7 @@ loc_1d39:
     pop cx                           ; 0x1de8
     mov cx, 6                        ; 0x1de9
     imul cx                          ; 0x1dec
-    mov cx, data_0002                ; 0x1dee
+    mov cx, 2                        ; 0x1dee
     cwd                              ; 0x1df1
     idiv cx                          ; 0x1df2
     mov cx, ax                       ; 0x1df4
@@ -837,7 +837,7 @@ loc_1d39:
     pop cx                           ; 0x1e1c
     mov cx, 6                        ; 0x1e1d
     imul cx                          ; 0x1e20
-    mov cx, data_0002                ; 0x1e22
+    mov cx, 2                        ; 0x1e22
     cwd                              ; 0x1e25
     idiv cx                          ; 0x1e26
     mov cx, ax                       ; 0x1e28
@@ -954,7 +954,7 @@ loc_1d39:
     sub ax, cx                       ; 0x1f28
     mov cx, 6                        ; 0x1f2a
     imul cx                          ; 0x1f2d
-    mov cx, data_0002                ; 0x1f2f
+    mov cx, 2                        ; 0x1f2f
     cwd                              ; 0x1f32
     idiv cx                          ; 0x1f33
     add ax, word [bp + 0xa]          ; 0x1f35
@@ -1025,7 +1025,7 @@ loc_1d39:
     push ax                          ; 0x1fc9
     db 0xe8, 0x0d, 0xc9 ; call 0xe8da
     add sp, byte 8                   ; 0x1fcd
-    cmp word [data_0e32], byte 0     ; 0x1fd0
+    cmp word [dseg_0e32], byte 0     ; 0x1fd0
     je short @..local.l63            ; 0x1fd5
 @..local.l62:
     mov ax, 0x59fe                   ; 0x1fd7
@@ -1033,7 +1033,7 @@ loc_1d39:
     db 0xe8, 0x2f, 0x99 ; call 0xb90d
     pop cx                           ; 0x1fde
     mov word [bp - 0x0004], ax       ; 0x1fdf
-    cmp word [data_5b3e], byte 0     ; 0x1fe2
+    cmp word [dseg_5b3e], byte 0     ; 0x1fe2
     je short @..local.l62            ; 0x1fe7
     jmp near @..local.l72            ; 0x1fe9
 @..local.l63:
@@ -1242,7 +1242,7 @@ loc_1d39:
     add sp, byte 8                   ; 0x21ac
 @..local.l74:
     mov ax, word [bp - 0x0004]       ; 0x21af
-    mov word [data_9052], ax         ; 0x21b2
+    mov word [dseg_9052], ax         ; 0x21b2
     shl ax, 1                        ; 0x21b5
     mov bx, ax                       ; 0x21b7
     add bx, bp                       ; 0x21b9
@@ -1251,8 +1251,8 @@ loc_1d39:
 loc_21bf:
     mov ax, 0                        ; 0x21bf
     db 0xe8, 0x46, 0xd2 ; call 0xf40b
-    mov ax, word [data_0e36]         ; 0x21c5
-    mov word [data_9136], ax         ; 0x21c8
+    mov ax, word [dseg_0e36]         ; 0x21c5
+    mov word [dseg_9136], ax         ; 0x21c8
     call loc_7400                    ; 0x21cb
     mov ax, 0                        ; 0x21ce
     ret                              ; 0x21d1

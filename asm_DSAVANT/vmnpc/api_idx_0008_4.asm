@@ -124,7 +124,7 @@ api_idx_0008_4:
     mov ax, word [bp - 0x0004]       ; 0x568a
     add ax, 0xfe70                   ; 0x568d
     push ax                          ; 0x5690
-    mov al, byte [data_91c6]         ; 0x5691
+    mov al, byte [dseg_91c6]         ; 0x5691
     cbw                              ; 0x5694
     push ax                          ; 0x5695
     mov ax, 0x15                     ; 0x5696

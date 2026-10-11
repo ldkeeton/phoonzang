@@ -23,7 +23,7 @@ api_idx_0054:
     shl ax, 1                        ; 0x0397
     mov bx, ax                       ; 0x0399
     mov bx, word [bx - 0x7b7e]       ; 0x039b
-    cmp byte [bx + si + 0x22], data_0002 ; 0x039f
+    cmp byte [bx + si + 0x22], 2     ; 0x039f
     jae short @..api_idx_0054.l3     ; 0x03a3
     cmp byte [bx + si + 0x11], 0     ; 0x03a5
     jne short @..api_idx_0054.l3     ; 0x03a9
@@ -169,7 +169,7 @@ api_idx_0054:
     inc word [bp - 0x0002]           ; 0x04f4
 @..api_idx_0054.l9:
     mov ax, word [bp - 0x0002]       ; 0x04f7
-    cmp ax, word [data_8466]         ; 0x04fa
+    cmp ax, word [dseg_8466]         ; 0x04fa
     jg short @..api_idx_0054.l10     ; 0x04fe
     jmp near @..api_idx_0054.l1      ; 0x0500
 @..api_idx_0054.l10:

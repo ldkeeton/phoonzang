@@ -30,7 +30,7 @@ app_string_1308: ; Aztec csav frame=0x0000
     sub ax, cx                       ; 0x134b
     mov cx, 6                        ; 0x134d
     imul cx                          ; 0x1350
-    mov cx, data_0002                ; 0x1352
+    mov cx, 2                        ; 0x1352
     cwd                              ; 0x1355
     idiv cx                          ; 0x1356
     add ax, word [bp + 0x4]          ; 0x1358

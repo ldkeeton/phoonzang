@@ -20,7 +20,7 @@ api_idx_0008_2:
     pop cx                           ; 0x0192
     mov cx, 6                        ; 0x0193
     imul cx                          ; 0x0196
-    mov cx, data_0002                ; 0x0198
+    mov cx, 2                        ; 0x0198
     cwd                              ; 0x019b
     idiv cx                          ; 0x019c
     mov cx, ax                       ; 0x019e

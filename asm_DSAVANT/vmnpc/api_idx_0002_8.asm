@@ -16,7 +16,7 @@ api_idx_0002_8:
 loc_86c6:
     mov ax, 0                        ; 0x86c6
     db 0xe8, 0x3f, 0x6d ; call 0xf40b
-    mov word [data_9e62], 1          ; 0x86cc
+    mov word [dseg_9e62], 1          ; 0x86cc
     mov ax, word [bp + 0x4]          ; 0x86d2
     jmp short @..local.l96           ; 0x86d5
 

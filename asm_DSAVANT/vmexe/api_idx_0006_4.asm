@@ -1,7 +1,7 @@
 api_idx_0006_4:
     mov ax, 0xfffa                   ; 0x2c7b
     call ds_dispatch_f40b            ; 0x2c7e
-    mov word [data_91d6], 2          ; 0x2c81
+    mov word [dseg_91d6], 2          ; 0x2c81
     mov word [bp - 0x0004], 0        ; 0x2c87
     cmp word [bp + 0xa], byte 3      ; 0x2c8c
     jne short @..api_idx_0006_4.l3   ; 0x2c90
@@ -33,7 +33,7 @@ api_idx_0006_4:
     push ax                          ; 0x2cd0
     call api_idx_0050                ; 0x2cd1
     add sp, byte 6                   ; 0x2cd4
-    push word [data_9058]            ; 0x2cd7
+    push word [dseg_9058]            ; 0x2cd7
     call api_idx_0004_5              ; 0x2cdb
     pop cx                           ; 0x2cde
     ret                              ; 0x2cdf

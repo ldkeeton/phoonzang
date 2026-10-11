@@ -88,11 +88,12 @@ def is_semantically_equivalent(orig_bytes, nasm_bytes, address):
 
 
 def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediate_labels=None,
-                       disp_labels=None, image_base=None):
+                       disp_labels=None, image_base=None, mem_equ=None):
     """Build and cache the EQU preamble string for a label_map+local_labels pair."""
     global _equ_prelude, _equ_hash
     h = (id(label_map) ^ id(local_labels) ^ id(foreign_label_map)
-         ^ id(immediate_labels) ^ id(disp_labels) ^ hash(image_base))
+         ^ id(immediate_labels) ^ id(disp_labels) ^ hash(image_base)
+         ^ id(mem_equ))
     if h == _equ_hash and _equ_prelude:
         return _equ_prelude
     lines = []
@@ -108,12 +109,17 @@ def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediat
     if immediate_labels:
         for lbl_off, lbl_name in immediate_labels.items():
             lines.append(f'{lbl_name} equ 0x{lbl_off:04x}')
-    if disp_labels and image_base is not None:
-        # Switch-table symbols are load-image offsets; define each at its
-        # absolute file offset so `name - IMAGE_BASE` reproduces the disp.
+    if (disp_labels or mem_equ) and image_base is not None:
+        # Switch-table symbols and code-segment operand symbols are load-image
+        # offsets; define each at its absolute file offset so `name -
+        # IMAGE_BASE` reproduces the disp.
         lines.append(f'IMAGE_BASE equ 0x{image_base:04x}')
+    if disp_labels and image_base is not None:
         for disp, lbl_name in disp_labels.items():
             lines.append(f'{lbl_name} equ 0x{disp + image_base:04x}')
+    if mem_equ:
+        for name, value in mem_equ.items():
+            lines.append(f'{name} equ 0x{value:04x}')
     _equ_prelude = '\n'.join(lines)
     if _equ_prelude:
         _equ_prelude += '\n'
@@ -122,7 +128,7 @@ def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediat
 
 
 def _get_label_re(label_map, local_labels, foreign_label_map=None, immediate_labels=None,
-                  disp_labels=None, image_base=None):
+                  disp_labels=None, image_base=None, mem_equ=None):
     """Build and cache a combined regex for all label names."""
     global _label_re, _label_re_key
     names = []
@@ -136,9 +142,13 @@ def _get_label_re(label_map, local_labels, foreign_label_map=None, immediate_lab
         names.extend(immediate_labels.values())
     if disp_labels and image_base is not None:
         names.extend(disp_labels.values())
+    if (disp_labels or mem_equ) and image_base is not None:
         names.append('IMAGE_BASE')
+    if mem_equ:
+        names.extend(mem_equ)
     h = (id(label_map) ^ id(local_labels) ^ id(foreign_label_map)
-         ^ id(immediate_labels) ^ id(disp_labels) ^ hash(image_base))
+         ^ id(immediate_labels) ^ id(disp_labels) ^ hash(image_base)
+         ^ id(mem_equ))
     if h == _label_re_key and _label_re is not None:
         return _label_re
     if not names:
@@ -152,16 +162,16 @@ def _get_label_re(label_map, local_labels, foreign_label_map=None, immediate_lab
 
 
 def micro_assemble(nasm_text, offset, label_map=None, local_labels=None, foreign_label_map=None,
-                   immediate_labels=None, disp_labels=None, image_base=None):
+                   immediate_labels=None, disp_labels=None, image_base=None, mem_equ=None):
     label_re = _get_label_re(label_map, local_labels, foreign_label_map,
-                             immediate_labels, disp_labels, image_base)
+                             immediate_labels, disp_labels, image_base, mem_equ)
     uses_label = label_re is not None and bool(label_re.search(nasm_text))
-    key = (nasm_text, offset) if uses_label else (nasm_text,)
+    key = (nasm_text, offset, id(mem_equ)) if uses_label else (nasm_text,)
     if key in _assemble_cache:
         return _assemble_cache[key]
 
     asm = (f'org {offset}\nbits 16\n'
-           f'{_build_equ_prelude(label_map, local_labels, foreign_label_map, immediate_labels, disp_labels, image_base)}'
+           f'{_build_equ_prelude(label_map, local_labels, foreign_label_map, immediate_labels, disp_labels, image_base, mem_equ)}'
            f'{nasm_text}\n')
 
     fd, asm_path = tempfile.mkstemp(suffix='.asm', text=True)

@@ -1,14 +1,14 @@
 api_idx_0002_3:
     mov ax, 0xfffe                   ; 0x6756
     call ds_dispatch_f40b            ; 0x6759
-    cmp word [data_906a], byte 0     ; 0x675c
+    cmp word [dseg_906a], byte 0     ; 0x675c
     je short @..api_idx_0002_3.l1    ; 0x6761
     mov ax, 1                        ; 0x6763
     push ax                          ; 0x6766
-    push word [data_9068]            ; 0x6767
+    push word [dseg_9068]            ; 0x6767
     call ds_dispatch_c459            ; 0x676b
     add sp, byte 4                   ; 0x676e
-    mov word [data_906a], 0          ; 0x6771
+    mov word [dseg_906a], 0          ; 0x6771
 @..api_idx_0002_3.l1:
     call ds_dispatch_c145            ; 0x6777
     mov ax, 0                        ; 0x677a
@@ -25,8 +25,8 @@ api_idx_0002_3:
     add sp, byte 0x0a                ; 0x6791
     mov ax, 0                        ; 0x6794
     push ax                          ; 0x6797
-    push word [data_8d08]            ; 0x6798
-    push word [data_8d06]            ; 0x679c
+    push word [dseg_8d08]            ; 0x6798
+    push word [dseg_8d06]            ; 0x679c
     call ds_dispatch_e94f            ; 0x67a0
     add sp, byte 6                   ; 0x67a3
     mov word [bp - 0x0002], 0        ; 0x67a6
@@ -45,9 +45,9 @@ api_idx_0002_3:
     mov ax, word [bp - 0x0002]       ; 0x67c9
     cmp ax, strict word 6            ; 0x67cc
     jl short @..api_idx_0002_3.l2    ; 0x67cf
-    cmp word [data_8460], byte 0     ; 0x67d1
+    cmp word [dseg_8460], byte 0     ; 0x67d1
     jle short @..api_idx_0002_3.l3   ; 0x67d6
-    push word [data_8460]            ; 0x67d8
+    push word [dseg_8460]            ; 0x67d8
     call api_idx_0002_6              ; 0x67dc
     pop cx                           ; 0x67df
 @..api_idx_0002_3.l3:
@@ -60,6 +60,6 @@ api_idx_0002_3:
     push ax                          ; 0x67ec
     call ds_dispatch_e8da            ; 0x67ed
     add sp, byte 8                   ; 0x67f0
-    mov word [data_69c8], 0          ; 0x67f3
-    mov word [data_830a], 4          ; 0x67f9
+    mov word [dseg_69c8], 0          ; 0x67f3
+    mov word [dseg_830a], 4          ; 0x67f9
     ret                              ; 0x67ff

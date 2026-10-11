@@ -226,17 +226,7 @@ def asm_app(app):
                 print(f'  BUILD FAIL: {futures[f]}')
 
     _charts(app)
-
-
-def _copy_original_project(app):
-    """Refresh the comparison tree from the freshly generated project tree."""
-    source_dir = os.path.join(PROJECT, f'asm_{app}')
-    original_dir = os.path.join(PROJECT, f'asm_{app}_orig')
-    shutil.rmtree(original_dir, ignore_errors=True)
-    shutil.copytree(source_dir, original_dir)
-    print(f'  original baseline refreshed: {original_dir}')
-
-
+ 
 def cmd_build_binary(app, binary):
     app_dir = os.path.join(APPS, app)
     out_dir = os.path.join(PROJECT, f'asm_{app}')
@@ -272,9 +262,6 @@ def cmd_build_binary(app, binary):
         sys.exit(1)
     print(f'build {app}/{binary} -> {rel_path}  [OK]')
     _charts(app)
-    #for future use
-    #_copy_original_project(app)
-
 
 def cmd_clean(apps, keep_prebuild=False):
     """Remove generated trees.
@@ -989,12 +976,6 @@ def resplice_c(app, binary):
         entries = json.load(f)['functions']
     with open(labels_path) as f:
         label_map = {int(k): v for k, v in json.load(f).items()}
-    resplice_labels_path = os.path.join(
-        out_dir, 'inc', 'labels', f'{binary}_resplice_labels.json')
-    if os.path.isfile(resplice_labels_path):
-        with open(resplice_labels_path) as f:
-            label_map.update({int(k): v for k, v in json.load(f).items()})
-
     bins = discover_binaries(os.path.join(APPS, app))
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:
         data = f.read()
@@ -1323,8 +1304,6 @@ def _build_projects(targets, all_projects):
     for project in targets:
         _ensure_prebuild(project)
         asm_app(project)
-        #for future use
-        #_copy_original_project(project)
     if len(targets) > 1 or targets == all_projects:
         _charts_all()
 

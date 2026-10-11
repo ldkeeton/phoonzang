@@ -9,10 +9,10 @@ leaf_loc_0293:
     mov es, ax                       ; 0x029d
     mov ds, ax                       ; 0x029f
     xor bx, bx                       ; 0x02a1
-    mov ax, word [cs:data_0297]      ; 0x02a3
+    mov ax, word [cs:cseg_0297 - IMAGE_BASE] ; 0x02a3
     mov cx, 0x140                    ; 0x02a7
     mul cx                           ; 0x02aa
-    add ax, word [cs:data_0295]      ; 0x02ac
+    add ax, word [cs:cseg_0295 - IMAGE_BASE] ; 0x02ac
     mov di, ax                       ; 0x02b1
     mov word [bp - 0x0006], ax       ; 0x02b3
     xor ax, ax                       ; 0x02b6
@@ -33,18 +33,18 @@ leaf_loc_0293:
     mov si, ax                       ; 0x02dc
     xor ah, ah                       ; 0x02de
     mov al, byte [bx + 0x1]          ; 0x02e0
-    add word [cs:data_0295], ax      ; 0x02e3
+    add word [cs:cseg_0295 - IMAGE_BASE], ax ; 0x02e3
     mov word [bp - 0x000c], ax       ; 0x02e8
     xor bx, bx                       ; 0x02eb
     mov al, byte [bx + 0x7]          ; 0x02ed
     cbw                              ; 0x02f0
-    add word [cs:data_0295], ax      ; 0x02f1
+    add word [cs:cseg_0295 - IMAGE_BASE], ax ; 0x02f1
     mov al, byte [bx + 0x2]          ; 0x02f6
     test al, 1                       ; 0x02f9
     je short @..leaf_loc_0293.l1     ; 0x02fb
     jmp near @..leaf_loc_0293.l17    ; 0x02fd
 @..leaf_loc_0293.l1:
-    mov ax, word [cs:data_0299]      ; 0x0300
+    mov ax, word [cs:cseg_0299 - IMAGE_BASE] ; 0x0300
     or ax, ax                        ; 0x0304
     jne short @..leaf_loc_0293.l2    ; 0x0306
     mov al, byte [bx + 0x6]          ; 0x0308
@@ -59,10 +59,10 @@ leaf_loc_0293:
     shr bx, cl                       ; 0x031c
     sub ax, bx                       ; 0x031e
     mov word [bp - 0x000a], ax       ; 0x0320
-    mov bx, word [cs:data_0291]      ; 0x0323
-    mov dx, word [cs:leaf_loc_0293]  ; 0x0328
+    mov bx, word [cs:cseg_0291 - IMAGE_BASE] ; 0x0323
+    mov dx, word [cs:leaf_loc_0293 - IMAGE_BASE] ; 0x0328
     mov dh, bl                       ; 0x032d
-    mov ax, word [cs:data_01e5]      ; 0x032f
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x032f
     mov es, ax                       ; 0x0333
 @..leaf_loc_0293.l3:
     mov cx, word [bp - 0x000c]       ; 0x0335
@@ -100,10 +100,10 @@ leaf_loc_0293:
     mul cx                           ; 0x0377
     add ax, word [bx + 0xc]          ; 0x0379
     mov bx, ax                       ; 0x037c
-    mov ax, word [cs:data_0291]      ; 0x037e
-    mov dx, word [cs:leaf_loc_0293]  ; 0x0382
+    mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x037e
+    mov dx, word [cs:leaf_loc_0293 - IMAGE_BASE] ; 0x0382
     mov dh, al                       ; 0x0387
-    mov ax, word [cs:data_01e5]      ; 0x0389
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0389
     mov es, ax                       ; 0x038d
 @..leaf_loc_0293.l10:
     mov cx, word [bp - 0x0002]       ; 0x038f
@@ -149,7 +149,7 @@ leaf_loc_0293:
     mov ax, word [bp - 0x0002]       ; 0x03db
     sub ax, word [bp - 0x000c]       ; 0x03de
     mov word [bp - 0x000a], ax       ; 0x03e1
-    mov ax, word [cs:data_01e5]      ; 0x03e4
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x03e4
     mov es, ax                       ; 0x03e8
 @..leaf_loc_0293.l18:
     mov cx, word [bp - 0x000c]       ; 0x03ea
@@ -164,7 +164,7 @@ leaf_loc_0293:
     mov ax, word [bp - 0x0002]       ; 0x0402
     sub ax, word [bp - 0x000c]       ; 0x0405
     mov word [bp - 0x000a], ax       ; 0x0408
-    mov ax, word [cs:data_01e5]      ; 0x040b
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x040b
     mov es, ax                       ; 0x040f
 @..leaf_loc_0293.l20:
     mov cx, word [bp - 0x000c]       ; 0x0411

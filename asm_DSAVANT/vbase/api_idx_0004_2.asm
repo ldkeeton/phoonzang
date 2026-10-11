@@ -53,7 +53,7 @@ api_idx_0004_2:
     mov ax, 0x248                    ; 0x1cf5
     imul word [bp + 0x4]             ; 0x1cf8
     db 0x8b, 0xd8 ; mov bx, ax
-    mov byte [bx + 0x5d50], data_0002 ; 0x1cfd
+    mov byte [bx + 0x5d50], 2        ; 0x1cfd
     mov ax, word [bp - 0x0004]       ; 0x1d02
     inc ax                           ; 0x1d05
     inc ax                           ; 0x1d06
@@ -78,7 +78,7 @@ api_idx_0004_2:
     mov ax, 0x248                    ; 0x1d25
     imul word [bp + 0x4]             ; 0x1d28
     db 0x8b, 0xd8 ; mov bx, ax
-    mov byte [bx + 0x5d51], data_0002 ; 0x1d2d
+    mov byte [bx + 0x5d51], 2        ; 0x1d2d
     mov ax, word [bp - 0x0004]       ; 0x1d32
     inc ax                           ; 0x1d35
     inc ax                           ; 0x1d36
@@ -123,7 +123,7 @@ api_idx_0004_2:
     mov ax, 0x248                    ; 0x1d79
     imul word [bp + 0x4]             ; 0x1d7c
     db 0x8b, 0xd8 ; mov bx, ax
-    mov byte [bx + 0x5d52], data_0002 ; 0x1d81
+    mov byte [bx + 0x5d52], 2        ; 0x1d81
     mov ax, word [bp - 0x0004]       ; 0x1d86
     inc ax                           ; 0x1d89
     inc ax                           ; 0x1d8a
@@ -171,7 +171,7 @@ api_idx_0004_2:
     mov ax, 0x248                    ; 0x1dd2
     imul word [bp + 0x4]             ; 0x1dd5
     db 0x8b, 0xd8 ; mov bx, ax
-    mov byte [bx + 0x5d53], data_0002 ; 0x1dda
+    mov byte [bx + 0x5d53], 2        ; 0x1dda
     mov ax, word [bp - 0x0004]       ; 0x1ddf
     inc ax                           ; 0x1de2
     inc ax                           ; 0x1de3
@@ -343,33 +343,33 @@ loc_1f0e:
     mov ax, 0                        ; 0x1f0e
     call ds_dispatch_f40b            ; 0x1f11
     mov al, byte [bp + 0x4]          ; 0x1f14
-    mov byte [data_89df], al         ; 0x1f17
-    mov byte [data_89ea], al         ; 0x1f1a
+    mov byte [dseg_89df], al         ; 0x1f17
+    mov byte [dseg_89ea], al         ; 0x1f1a
     mov al, byte [bp + 0x6]          ; 0x1f1d
-    mov byte [data_89e0], al         ; 0x1f20
-    mov byte [data_89f6], al         ; 0x1f23
+    mov byte [dseg_89e0], al         ; 0x1f20
+    mov byte [dseg_89f6], al         ; 0x1f23
     mov al, byte [bp + 0x8]          ; 0x1f26
-    mov byte [data_89e1], al         ; 0x1f29
-    mov byte [data_8a02], al         ; 0x1f2c
+    mov byte [dseg_89e1], al         ; 0x1f29
+    mov byte [dseg_8a02], al         ; 0x1f2c
     mov al, byte [bp + 0xa]          ; 0x1f2f
-    mov byte [data_89e2], al         ; 0x1f32
-    mov byte [data_8a0e], al         ; 0x1f35
+    mov byte [dseg_89e2], al         ; 0x1f32
+    mov byte [dseg_8a0e], al         ; 0x1f35
     mov al, byte [bp + 0xc]          ; 0x1f38
-    mov byte [data_89e3], al         ; 0x1f3b
-    mov byte [data_8a1a], al         ; 0x1f3e
+    mov byte [dseg_89e3], al         ; 0x1f3b
+    mov byte [dseg_8a1a], al         ; 0x1f3e
     mov al, byte [bp + 0xe]          ; 0x1f41
-    mov byte [data_89e4], al         ; 0x1f44
-    mov byte [data_8a26], al         ; 0x1f47
+    mov byte [dseg_89e4], al         ; 0x1f44
+    mov byte [dseg_8a26], al         ; 0x1f47
     mov al, byte [bp + 0x10]         ; 0x1f4a
-    mov byte [data_89e5], al         ; 0x1f4d
-    mov byte [data_8a32], al         ; 0x1f50
+    mov byte [dseg_89e5], al         ; 0x1f4d
+    mov byte [dseg_8a32], al         ; 0x1f50
     mov al, byte [bp + 0x12]         ; 0x1f53
-    mov byte [data_89e6], al         ; 0x1f56
-    mov byte [data_8a3e], al         ; 0x1f59
+    mov byte [dseg_89e6], al         ; 0x1f56
+    mov byte [dseg_8a3e], al         ; 0x1f59
     mov al, byte [bp + 0x14]         ; 0x1f5c
-    mov byte [data_89e7], al         ; 0x1f5f
-    mov byte [data_8a4a], al         ; 0x1f62
+    mov byte [dseg_89e7], al         ; 0x1f5f
+    mov byte [dseg_8a4a], al         ; 0x1f62
     mov al, byte [bp + 0x16]         ; 0x1f65
-    mov byte [data_89e8], al         ; 0x1f68
-    mov byte [data_8a56], al         ; 0x1f6b
+    mov byte [dseg_89e8], al         ; 0x1f68
+    mov byte [dseg_8a56], al         ; 0x1f6b
     ret                              ; 0x1f6e

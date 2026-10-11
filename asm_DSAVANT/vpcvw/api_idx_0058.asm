@@ -58,7 +58,7 @@ api_idx_0058:
     pop cx                           ; 0x87be
     mov cx, 6                        ; 0x87bf
     imul cx                          ; 0x87c2
-    mov cx, data_0002                ; 0x87c4
+    mov cx, 2                        ; 0x87c4
     cwd                              ; 0x87c7
     idiv cx                          ; 0x87c8
     mov cx, ax                       ; 0x87ca
@@ -112,7 +112,7 @@ api_idx_0058:
     sub ax, cx                       ; 0x8837
     mov cx, 6                        ; 0x8839
     imul cx                          ; 0x883c
-    mov cx, data_0002                ; 0x883e
+    mov cx, 2                        ; 0x883e
     cwd                              ; 0x8841
     idiv cx                          ; 0x8842
     add ax, word [bp + 0x6]          ; 0x8844

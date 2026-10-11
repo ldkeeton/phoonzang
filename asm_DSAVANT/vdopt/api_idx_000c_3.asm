@@ -35,7 +35,7 @@ api_idx_000c_3:
     pop cx                           ; 0x28b3
     mov cx, 6                        ; 0x28b4
     imul cx                          ; 0x28b7
-    mov cx, data_0002                ; 0x28b9
+    mov cx, 2                        ; 0x28b9
     cwd                              ; 0x28bc
     idiv cx                          ; 0x28bd
     mov cx, ax                       ; 0x28bf
@@ -65,23 +65,23 @@ api_idx_000c_3:
 loc_28f7:
     mov ax, 0                        ; 0x28f7
     call ds_dispatch_f40b            ; 0x28fa
-    les bx, word [data_0002]         ; 0x28fd
+    les bx, word [dseg_0002]         ; 0x28fd
     mov ax, word [es:bx]             ; 0x2901
     mov dx, word [es:bx + 0x2]       ; 0x2904
-    mov word [data_9090], dx         ; 0x2908
-    mov word [data_908e], ax         ; 0x290c
-    mov ax, word [data_908e]         ; 0x290f
-    mov dx, word [data_9090]         ; 0x2912
-    sub ax, word [data_908a]         ; 0x2916
-    sbb dx, word [data_908c]         ; 0x291a
-    mov word [data_9094], dx         ; 0x291e
-    mov word [data_9092], ax         ; 0x2922
-    mov ax, word [data_9b5e]         ; 0x2925
+    mov word [dseg_9090], dx         ; 0x2908
+    mov word [dseg_908e], ax         ; 0x290c
+    mov ax, word [dseg_908e]         ; 0x290f
+    mov dx, word [dseg_9090]         ; 0x2912
+    sub ax, word [dseg_908a]         ; 0x2916
+    sbb dx, word [dseg_908c]         ; 0x291a
+    mov word [dseg_9094], dx         ; 0x291e
+    mov word [dseg_9092], ax         ; 0x2922
+    mov ax, word [dseg_9b5e]         ; 0x2925
     cwd                              ; 0x2928
     mov cx, ax                       ; 0x2929
     mov bx, dx                       ; 0x292b
-    mov ax, word [data_9092]         ; 0x292d
-    mov dx, word [data_9094]         ; 0x2930
+    mov ax, word [dseg_9092]         ; 0x292d
+    mov dx, word [dseg_9094]         ; 0x2930
     cmp bx, dx                       ; 0x2934
     jg short @..local.l36            ; 0x2936
     jne short @..local.l37           ; 0x2938
@@ -90,10 +90,10 @@ loc_28f7:
 @..local.l36:
     jmp short @..local.l38           ; 0x293e
 @..local.l37:
-    mov ax, word [data_908e]         ; 0x2940
-    mov dx, word [data_9090]         ; 0x2943
-    mov word [data_908c], dx         ; 0x2947
-    mov word [data_908a], ax         ; 0x294b
+    mov ax, word [dseg_908e]         ; 0x2940
+    mov dx, word [dseg_9090]         ; 0x2943
+    mov word [dseg_908c], dx         ; 0x2947
+    mov word [dseg_908a], ax         ; 0x294b
     call api_idx_000a_3              ; 0x294e
     push word [bp + 0x4]             ; 0x2951
     call api_idx_000c_3              ; 0x2954

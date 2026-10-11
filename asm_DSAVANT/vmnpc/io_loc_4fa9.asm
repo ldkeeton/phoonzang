@@ -24,8 +24,8 @@ loc_4fcd:
     push word [bp - 0x0038]          ; 0x4fd1
     db 0xe8, 0x82, 0x74 ; call 0xc459
     add sp, byte 4                   ; 0x4fd7
-    mov word [data_93d8], 0x8f       ; 0x4fda
+    mov word [dseg_93d8], 0x8f       ; 0x4fda
     mov ax, word [bp - 0x0020]       ; 0x4fe0
-    mov word [data_904e], ax         ; 0x4fe3
-    mov ax, word [data_9050]         ; 0x4fe6
+    mov word [dseg_904e], ax         ; 0x4fe3
+    mov ax, word [dseg_9050]         ; 0x4fe6
     ret                              ; 0x4fe9

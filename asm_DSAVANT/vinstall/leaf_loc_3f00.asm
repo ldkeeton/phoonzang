@@ -1,6 +1,6 @@
 leaf_loc_3f00:
     or di, word [bx + 0xb]           ; 0x3f00
-    or word [bp + di], data_0004     ; 0x3f03
+    or word [bp + di], 4             ; 0x3f03
     or word [bp + di], byte 0x8d     ; 0x3f07
     or cx, word [bx - 0x6ef5]        ; 0x3f0a
     or ax, word [si]                 ; 0x3f0e
@@ -31,63 +31,63 @@ leaf_loc_3f00:
     add bh, dh                       ; 0x3f4c
     or ax, word [bx + di]            ; 0x3f4e
     or al, 3                         ; 0x3f50
-    or al, data_0005                 ; 0x3f52
-    or al, data_0004                 ; 0x3f54
+    or al, 5                         ; 0x3f52
+    or al, 4                         ; 0x3f54
     add byte [bx], al                ; 0x3f56
     or al, 0x11                      ; 0x3f58
     or al, 0x15                      ; 0x3f5a
     or al, 0x19                      ; 0x3f5c
-    or al, data_0004                 ; 0x3f5e
+    or al, 4                         ; 0x3f5e
     add byte [bp + di], bl           ; 0x3f60
     or al, 0x25                      ; 0x3f62
     or al, 0x28                      ; 0x3f64
     or al, 0x2b                      ; 0x3f66
-    or al, data_0004                 ; 0x3f68
-    add byte [data_380c], ch         ; 0x3f6a
+    or al, 4                         ; 0x3f68
+    add byte [bss_380c], ch          ; 0x3f6a
     or al, 0x3c                      ; 0x3f6e
     or al, 0x40                      ; 0x3f70
-    or al, data_0004                 ; 0x3f72
+    or al, 4                         ; 0x3f72
     add byte [bp + si + 0xc], al     ; 0x3f74
     dec sp                           ; 0x3f77
     or al, 0x4e                      ; 0x3f78
     or al, 0x50                      ; 0x3f7a
-    or al, data_0004                 ; 0x3f7c
+    or al, 4                         ; 0x3f7c
     add byte [bp + si + 0xc], dl     ; 0x3f7e
     pop sp                           ; 0x3f81
     or al, 0x5f                      ; 0x3f82
     or al, 0x62                      ; 0x3f84
-    or al, data_0004                 ; 0x3f86
+    or al, 4                         ; 0x3f86
     add byte [si + 0xc], ah          ; 0x3f88
     outsb                            ; 0x3f8b
     or al, 0x72                      ; 0x3f8c
     or al, 0x76                      ; 0x3f8e
-    or al, data_0004                 ; 0x3f90
+    or al, 4                         ; 0x3f90
     add byte [bx + di + 0xc], bh     ; 0x3f92
     or word [si], byte 0x87          ; 0x3f95
     or al, 0x8b                      ; 0x3f98
-    or al, data_0004                 ; 0x3f9a
+    or al, 4                         ; 0x3f9a
     add byte [bp - 0x67f4], cl       ; 0x3f9c
     or al, 0x9e                      ; 0x3fa0
     or al, 0xa4                      ; 0x3fa2
-    or al, data_0004                 ; 0x3fa4
+    or al, 4                         ; 0x3fa4
     add byte [bx - 0x4ef4], ah       ; 0x3fa6
     or al, 0xb4                      ; 0x3faa
     or al, 0xb7                      ; 0x3fac
-    or al, data_0004                 ; 0x3fae
+    or al, 4                         ; 0x3fae
     add byte [bx + di - 0x3cf4], bh  ; 0x3fb0
     or al, 0xc6                      ; 0x3fb4
     or al, 0xc9                      ; 0x3fb6
-    or al, data_0004                 ; 0x3fb8
+    or al, 4                         ; 0x3fb8
     add ah, cl                       ; 0x3fba
     or al, 0xd6                      ; 0x3fbc
     or al, 0xd9                      ; 0x3fbe
     or al, 0xdc                      ; 0x3fc0
-    or al, data_0004                 ; 0x3fc2
+    or al, 4                         ; 0x3fc2
     add dh, bl                       ; 0x3fc4
     or al, 0xe8                      ; 0x3fc6
     or al, 0xeb                      ; 0x3fc8
     or al, 0xee                      ; 0x3fca
-    or al, data_0004                 ; 0x3fcc
+    or al, 4                         ; 0x3fcc
     add al, dh                       ; 0x3fce
     or al, 0xfa                      ; 0x3fd0
     or al, 0xfd                      ; 0x3fd2
@@ -106,7 +106,7 @@ leaf_loc_3f00:
     xor byte [di], cl                ; 0x3fed
     cmp cl, byte [di]                ; 0x3fef
     cmp al, 0xd                      ; 0x3ff1
-    ds or ax, data_0004              ; 0x3ff3
+    ds or ax, 4                      ; 0x3ff3
     inc ax                           ; 0x3ff7
     or ax, 0xd4a                     ; 0x3ff8
     dec bp                           ; 0x3ffb

@@ -11,7 +11,7 @@ bios_mouse_loc_37a5:
     je short @..bios_mouse_loc_37a5.l1 ; 0x37bc
     mov ax, 0                        ; 0x37be
     int 0x33 ; BIOS mouse
-    mov byte [cs:data_2d66], al      ; 0x37c3
+    mov byte [cs:cseg_2f66 - IMAGE_BASE], al ; 0x37c3
     or al, al                        ; 0x37c7
     je short @..bios_mouse_loc_37a5.l1 ; 0x37c9
     or word [bp - 0x0002], strict word 0x1000 ; 0x37cb

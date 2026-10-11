@@ -31,5 +31,5 @@ app_0d36: ; Aztec csav frame=0x0000
     push ax                          ; 0x0d71
     call app_0b54                    ; 0x0d72
     pop cx                           ; 0x0d75
-    mov ax, word [data_5b3e]         ; 0x0d76
+    mov ax, word [bss_5b3e]          ; 0x0d76
     ret                              ; 0x0d79

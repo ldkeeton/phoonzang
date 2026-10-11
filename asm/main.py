@@ -63,7 +63,17 @@ from lib.sidecar import (
     load as load_sidecar,
     per_binary as sidecar_per_binary,
 )
+from lib.segments import (
+    from_binary as build_segment_model,
+    check_bss_boundary,
+    SegmentError,
+)
+from lib.segdataflow import (
+    analyze as analyze_segments,
+    operand_space_counts,
+)
 from lib.report import write_report, write_layers, print_short_report, print_compare
+from lib.delta import write_address_inventory
 
 
 def _load_known_funcs():
@@ -403,6 +413,18 @@ def _seed_aztec_c(cache, project, binary, label, entry, dest):
     return text
 
 
+def _write_address_inventory(out_dir, name, label_map, records):
+    """Emit ``<binary>_addresses.json`` fed from Phase 4 resolution."""
+    symbols = {}
+    for offset, label in (label_map or {}).items():
+        if isinstance(label, str):
+            symbols.setdefault(label, (offset, 'T'))
+    for record in records or ():
+        symbols.setdefault(record['name'], (record['value'], 'A'))
+    path = os.path.join(out_dir, 'inc', 'addresses', f'{name}_addresses.json')
+    write_address_inventory(path, name, symbols, records)
+
+
 def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
             foreign_label_map=None, export_labels=False):
     path = os.path.join(orig_dir, rel_path)
@@ -428,6 +450,22 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         trace=trace_writer,
         sidecar_entry=sidecar_entry,
     )
+
+    binary_type = (sidecar_entry or {}).get('type')
+    try:
+        ctx.segments = build_segment_model(data, binary_type, start_offset)
+        crt_bss_range = check_bss_boundary(ctx.segments, data)
+    except SegmentError as error:
+        print(f'{name}: SEGMENT ERROR: {error}')
+        raise
+    if crt_bss_range is not None:
+        ctx.report['segments'] = {
+            'kind': ctx.segments.kind,
+            'data_origin': ctx.segments.data_origin,
+            'bss_boundary': ctx.segments.bss_boundary,
+            'crt_bss_range': list(crt_bss_range),
+        }
+
     mz_entry_point = next(
         (seed.address for seed in ctx.seeds
          if seed.source_phase == 'mz_entry'),
@@ -541,6 +579,13 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         instructions, function_roots, ctx.branch_edges, extra_flow_edges,
         binary_size=len(data), start_offset=start_offset,
     )
+    ctx.segment_flow = analyze_segments(
+        instructions, ctx.segments, binary_data=data,
+        function_roots=set(function_roots),
+        extra_edges=extra_flow_edges,
+    )
+    ctx.report['segment_flow'] = operand_space_counts(
+        instructions, ctx.segment_flow)
     local_branch_targets = _local_branch_targets(
         ctx.branch_targets | {target for _, target in direct_edges},
         owners, edge_sources, function_roots,
@@ -677,6 +722,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         c_overrides=c_overrides,
         jump_tables=ctx.jump_tables,
         jump_table_overrides=(ctx.sidecar_entry or {}).get('jump_tables', []),
+        segment_flow=ctx.segment_flow,
+        segments=ctx.segments,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
@@ -759,6 +806,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         'bare_call': stats.get('bare_call', 0),
         'bare_dbc': stats.get('bare_dbc', 0),
     }
+    ctx.report['addresses'] = stats.get('address_records', [])
+    _write_address_inventory(out_dir, name, label_map, ctx.report['addresses'])
     report_path = write_report(ctx, asm_text)
     write_layers(ctx)
     print_short_report(ctx)
@@ -771,13 +820,6 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         inc_path = os.path.join(labels_dir, f'{name}_labels.inc')
         write_label_json(label_map, json_path)
         write_label_inc(label_map, inc_path, prefix=name)
-        # Jump-table labels inside C-rebuilt fragments must survive resplice but
-        # are not part of the exported symbol set, so they travel separately.
-        resplice_labels = stats.get('resplice_labels') or {}
-        if resplice_labels:
-            write_label_json(
-                resplice_labels,
-                os.path.join(labels_dir, f'{name}_resplice_labels.json'))
 
     if _DECOMPILE:
         from lib.decompile import decompile

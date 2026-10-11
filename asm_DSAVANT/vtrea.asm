@@ -4,24 +4,18 @@ org 0
 bits 16
 %include "inc/labels/vtrea_foreign_labels.inc"
 
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0008
+%endif
+
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x0d, 0x9a, 0x98, 0x90
 
-data_0002 equ 0x0002
-data_0110 equ 0x0110
-data_0112 equ 0x0112
 loc_0c44 equ 0x0c44
 loc_0c5c equ 0x0c5c
 loc_0c63 equ 0x0c63
 loc_0c80 equ 0x0c80
 loc_0cef equ 0x0cef
-data_0e0e equ 0x0e0e
-data_0e10 equ 0x0e10
-data_0e12 equ 0x0e12
-data_0e2a equ 0x0e2a
-data_0e2c equ 0x0e2c
-data_0e32 equ 0x0e32
-data_3f00 equ 0x3f00
 loc_4443 equ 0x4443
 loc_446f equ 0x446f
 loc_4495 equ 0x4495
@@ -94,17 +88,8 @@ loc_4f2b equ 0x4f2b
 loc_4f69 equ 0x4f69
 loc_4f6e equ 0x4f6e
 loc_4f8c equ 0x4f8c
-data_5216 equ 0x5216
-data_590e equ 0x590e
-data_5910 equ 0x5910
-data_598c equ 0x598c
 data_598e equ 0x598e
-data_59fc equ 0x59fc
-data_5b3e equ 0x5b3e
-data_5b6e equ 0x5b6e
 data_69c8 equ 0x69c8
-data_82e8 equ 0x82e8
-data_82ee equ 0x82ee
 data_82f2 equ 0x82f2
 data_82f4 equ 0x82f4
 data_82f6 equ 0x82f6
@@ -115,110 +100,138 @@ data_82fe equ 0x82fe
 data_8300 equ 0x8300
 data_8302 equ 0x8302
 data_8306 equ 0x8306
-data_830a equ 0x830a
-data_830c equ 0x830c
-data_844c equ 0x844c
-data_844e equ 0x844e
-data_8450 equ 0x8450
-data_849e equ 0x849e
-data_84a0 equ 0x84a0
-data_84a2 equ 0x84a2
-data_84a4 equ 0x84a4
-data_8d06 equ 0x8d06
-data_8d08 equ 0x8d08
-data_8d0a equ 0x8d0a
-data_8d0c equ 0x8d0c
-data_8d0e equ 0x8d0e
-data_8d10 equ 0x8d10
-data_8d12 equ 0x8d12
-data_8f20 equ 0x8f20
-data_8f3e equ 0x8f3e
-data_8f40 equ 0x8f40
-data_8f42 equ 0x8f42
-data_8f44 equ 0x8f44
-data_8f46 equ 0x8f46
-data_904e equ 0x904e
-data_9050 equ 0x9050
-data_9052 equ 0x9052
 data_905a equ 0x905a
-data_905e equ 0x905e
-data_9060 equ 0x9060
-data_9062 equ 0x9062
-data_9064 equ 0x9064
-data_9066 equ 0x9066
-data_9068 equ 0x9068
-data_906a equ 0x906a
-data_906c equ 0x906c
-data_908a equ 0x908a
-data_908c equ 0x908c
-data_908e equ 0x908e
-data_9090 equ 0x9090
-data_9092 equ 0x9092
-data_9094 equ 0x9094
-data_910a equ 0x910a
-data_910c equ 0x910c
-data_910e equ 0x910e
-data_9110 equ 0x9110
-data_9112 equ 0x9112
-data_9114 equ 0x9114
-data_9116 equ 0x9116
-data_9118 equ 0x9118
-data_911a equ 0x911a
-data_911c equ 0x911c
-data_911e equ 0x911e
-data_9120 equ 0x9120
-data_9122 equ 0x9122
-data_9124 equ 0x9124
-data_9126 equ 0x9126
 data_9150 equ 0x9150
-data_9152 equ 0x9152
-data_9154 equ 0x9154
-data_91d4 equ 0x91d4
 data_91fe equ 0x91fe
 data_9250 equ 0x9250
 data_95de equ 0x95de
-data_95e0 equ 0x95e0
-data_95e4 equ 0x95e4
+dseg_0002 equ 0x0002
+dseg_0110 equ 0x0110
+dseg_0112 equ 0x0112
+dseg_0e0e equ 0x0e0e
+dseg_0e10 equ 0x0e10
+dseg_0e12 equ 0x0e12
+dseg_0e2a equ 0x0e2a
+dseg_0e2c equ 0x0e2c
+dseg_0e32 equ 0x0e32
+dseg_3f00 equ 0x3f00
+dseg_5216 equ 0x5216
+dseg_590e equ 0x590e
+dseg_5910 equ 0x5910
+dseg_598c equ 0x598c
+dseg_598e equ 0x598e
+dseg_59fc equ 0x59fc
+dseg_5b3e equ 0x5b3e
+dseg_5b6e equ 0x5b6e
+dseg_69c8 equ 0x69c8
+dseg_82e8 equ 0x82e8
+dseg_82ee equ 0x82ee
+dseg_8306 equ 0x8306
+dseg_830a equ 0x830a
+dseg_830c equ 0x830c
+dseg_844c equ 0x844c
+dseg_844e equ 0x844e
+dseg_8450 equ 0x8450
+dseg_849e equ 0x849e
+dseg_84a0 equ 0x84a0
+dseg_84a2 equ 0x84a2
+dseg_84a4 equ 0x84a4
+dseg_8d06 equ 0x8d06
+dseg_8d08 equ 0x8d08
+dseg_8d0a equ 0x8d0a
+dseg_8d0c equ 0x8d0c
+dseg_8d0e equ 0x8d0e
+dseg_8d10 equ 0x8d10
+dseg_8d12 equ 0x8d12
+dseg_8f20 equ 0x8f20
+dseg_8f3e equ 0x8f3e
+dseg_8f40 equ 0x8f40
+dseg_8f42 equ 0x8f42
+dseg_8f44 equ 0x8f44
+dseg_8f46 equ 0x8f46
+dseg_904e equ 0x904e
+dseg_9050 equ 0x9050
+dseg_9052 equ 0x9052
+dseg_905a equ 0x905a
+dseg_905e equ 0x905e
+dseg_9060 equ 0x9060
+dseg_9062 equ 0x9062
+dseg_9064 equ 0x9064
+dseg_9066 equ 0x9066
+dseg_9068 equ 0x9068
+dseg_906a equ 0x906a
+dseg_906c equ 0x906c
+dseg_908a equ 0x908a
+dseg_908c equ 0x908c
+dseg_908e equ 0x908e
+dseg_9090 equ 0x9090
+dseg_9092 equ 0x9092
+dseg_9094 equ 0x9094
+dseg_910a equ 0x910a
+dseg_910c equ 0x910c
+dseg_910e equ 0x910e
+dseg_9110 equ 0x9110
+dseg_9112 equ 0x9112
+dseg_9114 equ 0x9114
+dseg_9116 equ 0x9116
+dseg_9118 equ 0x9118
+dseg_911a equ 0x911a
+dseg_911c equ 0x911c
+dseg_911e equ 0x911e
+dseg_9120 equ 0x9120
+dseg_9122 equ 0x9122
+dseg_9124 equ 0x9124
+dseg_9126 equ 0x9126
+dseg_9150 equ 0x9150
+dseg_9152 equ 0x9152
+dseg_9154 equ 0x9154
+dseg_91d4 equ 0x91d4
+dseg_91fe equ 0x91fe
+dseg_9200 equ 0x9200
+dseg_9250 equ 0x9250
+dseg_95de equ 0x95de
+dseg_95e0 equ 0x95e0
+dseg_95e4 equ 0x95e4
 
     db 0x7c, 0x00, 0xa6, 0x05, 0x0c, 0xea
 loc_000e:
     mov ax, 0                        ; 0x000e
     call ds_dispatch_f40b            ; 0x0011
-    mov word [data_9114], 0          ; 0x0014
-    mov word [data_9116], 0xffff     ; 0x001a
-    mov word [data_9118], 0          ; 0x0020
-    mov word [data_911a], 0xffff     ; 0x0026
-    cmp word [data_830a], byte 0x0f  ; 0x002c
+    mov word [dseg_9114], 0          ; 0x0014
+    mov word [dseg_9116], 0xffff     ; 0x001a
+    mov word [dseg_9118], 0          ; 0x0020
+    mov word [dseg_911a], 0xffff     ; 0x0026
+    cmp word [dseg_830a], byte 0x0f  ; 0x002c
     jne short @..local.l1            ; 0x0031
-    mov word [data_830a], 0x16       ; 0x0033
+    mov word [dseg_830a], 0x16       ; 0x0033
     call api_idx_0050_2              ; 0x0039
     jmp short @..local.l6            ; 0x003c
 @..local.l1:
-    cmp word [data_830a], byte 0x15  ; 0x003e
+    cmp word [dseg_830a], byte 0x15  ; 0x003e
     jne short @..local.l2            ; 0x0043
-    mov word [data_830a], 0x16       ; 0x0045
+    mov word [dseg_830a], 0x16       ; 0x0045
     call loc_809e                    ; 0x004b
     jmp short @..local.l6            ; 0x004e
 @..local.l2:
-    cmp word [data_830a], byte 0x1a  ; 0x0050
+    cmp word [dseg_830a], byte 0x1a  ; 0x0050
     jne short @..local.l3            ; 0x0055
-    mov word [data_830a], 5          ; 0x0057
+    mov word [dseg_830a], 5          ; 0x0057
     call loc_811f                    ; 0x005d
     jmp short @..local.l6            ; 0x0060
 @..local.l3:
-    cmp word [data_830a], byte 0x1c  ; 0x0062
+    cmp word [dseg_830a], byte 0x1c  ; 0x0062
     jne short @..local.l4            ; 0x0067
-    mov word [data_830a], 5          ; 0x0069
+    mov word [dseg_830a], 5          ; 0x0069
     call loc_81b6                    ; 0x006f
     jmp short @..local.l6            ; 0x0072
 @..local.l4:
-    cmp word [data_830a], byte 0x1d  ; 0x0074
+    cmp word [dseg_830a], byte 0x1d  ; 0x0074
     jne short @..local.l5            ; 0x0079
-    mov word [data_830a], 5          ; 0x007b
+    mov word [dseg_830a], 5          ; 0x007b
     call loc_81db                    ; 0x0081
     jmp short @..local.l6            ; 0x0084
 @..local.l5:
-    mov word [data_830a], 0x16       ; 0x0086
+    mov word [dseg_830a], 0x16       ; 0x0086
 @..local.l6:
     mov ax, 0                        ; 0x008c
     ret                              ; 0x008f

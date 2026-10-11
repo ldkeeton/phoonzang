@@ -103,10 +103,10 @@ api_idx_004e:
 @..api_idx_004e.l6:
     mov al, byte [bp - 0x0015]       ; 0x4c08
     sub ah, ah                       ; 0x4c0b
-    test ax, data_0002               ; 0x4c0d
+    test ax, 2                       ; 0x4c0d
     je short @..api_idx_004e.l7      ; 0x4c10
     mov bx, word [bp - 0x004e]       ; 0x4c12
-    or byte [bx + 0x7], data_0040    ; 0x4c15
+    or byte [bx + 0x7], 0x40         ; 0x4c15
 @..api_idx_004e.l7:
     push word [bp + 0x4]             ; 0x4c19
     call ds_dispatch_c58f            ; 0x4c1c

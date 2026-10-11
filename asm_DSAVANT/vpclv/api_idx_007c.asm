@@ -4,15 +4,15 @@ api_idx_007c:
     mov ax, 0                        ; 0x0578
     push ax                          ; 0x057b
     push ax                          ; 0x057c
-    push word [data_9418]            ; 0x057d
-    push word [data_9416]            ; 0x0581
+    push word [dseg_9418]            ; 0x057d
+    push word [dseg_9416]            ; 0x0581
     call ds_dispatch_e942            ; 0x0585
     add sp, byte 8                   ; 0x0588
     mov ax, 0                        ; 0x058b
     push ax                          ; 0x058e
     push ax                          ; 0x058f
-    push word [data_941c]            ; 0x0590
-    push word [data_941a]            ; 0x0594
+    push word [dseg_941c]            ; 0x0590
+    push word [dseg_941a]            ; 0x0594
     call ds_dispatch_e942            ; 0x0598
     add sp, byte 8                   ; 0x059b
     mov ax, 0x12                     ; 0x059e
@@ -37,7 +37,7 @@ api_idx_007c:
     pop cx                           ; 0x05cb
     mov cx, 6                        ; 0x05cc
     imul cx                          ; 0x05cf
-    mov cx, data_0002                ; 0x05d1
+    mov cx, 2                        ; 0x05d1
     cwd                              ; 0x05d4
     idiv cx                          ; 0x05d5
     mov cx, ax                       ; 0x05d7
@@ -225,15 +225,15 @@ api_idx_007c:
     mov cx, 0x12                     ; 0x0783
     mov bx, 0                        ; 0x0786
     call ds_dispatch_f99f            ; 0x0789
-    mov word [data_9436], ax         ; 0x078c
+    mov word [dseg_9436], ax         ; 0x078c
     mov ax, 0x14                     ; 0x078f
     push ax                          ; 0x0792
     mov ax, 0                        ; 0x0793
     push ax                          ; 0x0796
-    push word [data_9436]            ; 0x0797
+    push word [dseg_9436]            ; 0x0797
     call ds_dispatch_b7c2            ; 0x079b
     add sp, byte 6                   ; 0x079e
-    mov word [data_9436], ax         ; 0x07a1
+    mov word [dseg_9436], ax         ; 0x07a1
     mov ax, 0x248                    ; 0x07a4
     imul word [bp + 0x4]             ; 0x07a7
     mov bx, ax                       ; 0x07aa
@@ -244,9 +244,9 @@ api_idx_007c:
 @..api_idx_007c.l1:
     mov ax, 1                        ; 0x07b8
 @..api_idx_007c.l2:
-    mov word [data_9438], ax         ; 0x07bb
-    mov word [data_943a], 0          ; 0x07be
-    push word [data_943a]            ; 0x07c4
+    mov word [dseg_9438], ax         ; 0x07bb
+    mov word [dseg_943a], 0          ; 0x07be
+    push word [dseg_943a]            ; 0x07c4
     call api_idx_000a                ; 0x07c8
     pop cx                           ; 0x07cb
     mov ax, 0                        ; 0x07cc

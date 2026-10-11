@@ -8,7 +8,7 @@ io_loc_35ba:
     push si                          ; 0x35c3
     mov ax, ds                       ; 0x35c4
     mov es, ax                       ; 0x35c6
-    lds si, word [cs:data_01f7]      ; 0x35c8
+    lds si, word [cs:cseg_01f7 - IMAGE_BASE] ; 0x35c8
     mov di, word [bp + 0xc]          ; 0x35cd
     mov cx, 0x300                    ; 0x35d0
     rep movsb                        ; 0x35d3
@@ -54,7 +54,7 @@ loc_361e:
     mov bx, 0x10fb                   ; 0x365c
     add bx, ax                       ; 0x365f
     mov ax, word [cs:bx]             ; 0x3661
-    add ax, word [cs:data_01e1]      ; 0x3664
+    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x3664
     mov word [bp - 0x0008], ax       ; 0x3669
     mov ds, ax                       ; 0x366c
     xor bx, bx                       ; 0x366e
@@ -117,7 +117,7 @@ loc_361e:
     mov word [bp - 0x0034], ax       ; 0x36f0
     mov ax, cx                       ; 0x36f3
     div bx                           ; 0x36f5
-    mov di, data_36dd                ; 0x36f7
+    mov di, 0x36dd                   ; 0x36f7
     mov bx, word [bp - 0x0034]       ; 0x36fa
     shr bx, 1                        ; 0x36fd
     mov word [bp - 0x003c], bx       ; 0x36ff
@@ -146,7 +146,7 @@ loc_361e:
     mov word [bp - 0x0034], ax       ; 0x372f
     mov ax, cx                       ; 0x3732
     div bx                           ; 0x3734
-    mov di, data_3705                ; 0x3736
+    mov di, 0x3705                   ; 0x3736
     mov bx, word [bp - 0x0034]       ; 0x3739
     shr bx, 1                        ; 0x373c
     mov word [bp - 0x003c], bx       ; 0x373e
@@ -225,7 +225,7 @@ loc_361e:
     mov bx, word [bp - 0x001e]       ; 0x37dd
     inc bx                           ; 0x37e0
     mov word [bp - 0x003e], bx       ; 0x37e1
-    mov bx, data_36dd                ; 0x37e4
+    mov bx, cseg_36dd - IMAGE_BASE   ; 0x37e4
     mov dl, 0x80                     ; 0x37e7
     xor ax, ax                       ; 0x37e9
     mov word [bp - 0x0030], ax       ; 0x37eb
@@ -307,7 +307,7 @@ loc_361e:
     mov bx, word [bp - 0x001e]       ; 0x3883
     inc bx                           ; 0x3886
     mov word [bp - 0x003e], bx       ; 0x3887
-    mov bx, data_36dd                ; 0x388a
+    mov bx, cseg_36dd - IMAGE_BASE   ; 0x388a
     mov dl, 0x80                     ; 0x388d
     xor ax, ax                       ; 0x388f
     mov word [bp - 0x0030], ax       ; 0x3891
@@ -387,7 +387,7 @@ loc_361e:
     mov ax, word [bp + 0x1a]         ; 0x3926
     and al, 2                        ; 0x3929
     jne short @..local.l113          ; 0x392b
-    mov bx, data_3705                ; 0x392d
+    mov bx, cseg_3705 - IMAGE_BASE   ; 0x392d
     mov dl, 0x80                     ; 0x3930
     xor ax, ax                       ; 0x3932
     mov word [bp - 0x0030], ax       ; 0x3934
@@ -424,7 +424,7 @@ loc_361e:
 @..local.l112:
     jmp short @..local.l119          ; 0x3972
 @..local.l113:
-    mov bx, data_3705                ; 0x3974
+    mov bx, cseg_3705 - IMAGE_BASE   ; 0x3974
     mov dl, 0x80                     ; 0x3977
     xor ax, ax                       ; 0x3979
     mov word [bp - 0x0030], ax       ; 0x397b

@@ -46,7 +46,7 @@ api_idx_0004_9:
 loc_6f14:
     mov ax, 0xfefa                   ; 0x6f14
     call ds_dispatch_f40b            ; 0x6f17
-    mov word [data_9b48], 0          ; 0x6f1a
+    mov word [dseg_9b48], 0          ; 0x6f1a
     mov ax, 0xc6                     ; 0x6f20
     push ax                          ; 0x6f23
     mov ax, 0x109                    ; 0x6f24
@@ -57,21 +57,21 @@ loc_6f14:
     push ax                          ; 0x6f2f
     call ds_dispatch_e928            ; 0x6f30
     add sp, byte 8                   ; 0x6f33
-    mov word [data_8d10], dx         ; 0x6f36
-    mov word [data_8d0e], ax         ; 0x6f3a
+    mov word [dseg_8d10], dx         ; 0x6f36
+    mov word [dseg_8d0e], ax         ; 0x6f3a
     call api_idx_000a_2              ; 0x6f3d
-    mov word [data_9b4e], 0x44       ; 0x6f40
-    mov word [data_9b4c], 0          ; 0x6f46
-    mov byte [data_9b50], 0          ; 0x6f4c
+    mov word [dseg_9b4e], 0x44       ; 0x6f40
+    mov word [dseg_9b4c], 0          ; 0x6f46
+    mov byte [dseg_9b50], 0          ; 0x6f4c
 @..local.l64:
     lea ax, word [bp - 0x0105]       ; 0x6f51
     push ax                          ; 0x6f55
     push word [bp + 0x4]             ; 0x6f56
     call ds_dispatch_b53b            ; 0x6f59
     add sp, byte 4                   ; 0x6f5c
-    cmp word [data_5216], byte 0     ; 0x6f5f
+    cmp word [dseg_5216], byte 0     ; 0x6f5f
     jne short @..local.l66           ; 0x6f64
-    cmp word [data_9b48], byte 0     ; 0x6f66
+    cmp word [dseg_9b48], byte 0     ; 0x6f66
     jne short @..local.l65           ; 0x6f6b
     lea ax, word [bp - 0x0105]       ; 0x6f6d
     push ax                          ; 0x6f71
@@ -80,11 +80,11 @@ loc_6f14:
 @..local.l65:
     inc word [bp + 0x4]              ; 0x6f76
 @..local.l66:
-    cmp word [data_5216], byte 0     ; 0x6f79
+    cmp word [dseg_5216], byte 0     ; 0x6f79
     je short @..local.l64            ; 0x6f7e
-    cmp byte [data_9b50], 0          ; 0x6f80
+    cmp byte [dseg_9b50], 0          ; 0x6f80
     je short @..local.l67            ; 0x6f85
-    mov ax, data_9b50                ; 0x6f87
+    mov ax, 0x9b50                   ; 0x6f87
     push ax                          ; 0x6f8a
     call api_idx_0004_8              ; 0x6f8b
     pop cx                           ; 0x6f8e
@@ -94,8 +94,8 @@ loc_6f14:
     pop cx                           ; 0x6f95
     mov ax, 1                        ; 0x6f96
     push ax                          ; 0x6f99
-    push word [data_8d10]            ; 0x6f9a
-    push word [data_8d0e]            ; 0x6f9e
+    push word [dseg_8d10]            ; 0x6f9a
+    push word [dseg_8d0e]            ; 0x6f9e
     call ds_dispatch_e94f            ; 0x6fa2
     add sp, byte 6                   ; 0x6fa5
     mov ax, 0xc6                     ; 0x6fa8

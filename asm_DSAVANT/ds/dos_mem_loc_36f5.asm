@@ -3,7 +3,7 @@ dos_mem_loc_36f5:
     jne short @..dos_mem_loc_36f5.l1 ; 0x36f9
     jmp near loc_372d                ; 0x36fb
 @..dos_mem_loc_36f5.l1:
-    lea si, word [data_2d40]         ; 0x36fe
+    lea si, word [bss_2d40]          ; 0x36fe
 @..dos_mem_loc_36f5.l2:
     mov bx, word [cs:si]             ; 0x3702
     or bx, bx                        ; 0x3705

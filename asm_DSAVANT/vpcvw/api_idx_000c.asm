@@ -14,7 +14,7 @@ api_idx_000c:
     mov cx, 3                        ; 0x039a
     cwd                              ; 0x039d
     idiv cx                          ; 0x039e
-    mov cx, api_idx_0002             ; 0x03a0
+    mov cx, 0x27                     ; 0x03a0
     imul cx                          ; 0x03a3
     add ax, strict word 0x70         ; 0x03a5
     mov word [bp - 0x0008], ax       ; 0x03a8

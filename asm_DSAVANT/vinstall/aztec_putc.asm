@@ -18,7 +18,7 @@ loc_2cf5:
     push ax                          ; 0x2cfe
     call aztec_fclose                ; 0x2cff
     pop cx                           ; 0x2d02
-    cmp si, data_244e                ; 0x2d03
+    cmp si, strict word 0x244e       ; 0x2d03
     jb short @..local.l118           ; 0x2d07
     pop si                           ; 0x2d09
     ret                              ; 0x2d0a

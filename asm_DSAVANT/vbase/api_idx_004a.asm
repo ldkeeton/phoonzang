@@ -1,7 +1,7 @@
 api_idx_004a:
     mov ax, 0xffb6                   ; 0x68bd
     call ds_dispatch_f40b            ; 0x68c0
-    mov word [data_830a], 0x19       ; 0x68c3
+    mov word [dseg_830a], 0x19       ; 0x68c3
     mov ax, 0                        ; 0x68c9
     push ax                          ; 0x68cc
     mov ax, 0x8f                     ; 0x68cd
@@ -75,7 +75,7 @@ api_idx_004a:
     push ax                          ; 0x696f
     mov ax, 0x61                     ; 0x6970
     push ax                          ; 0x6973
-    push word [data_9052]            ; 0x6974
+    push word [dseg_9052]            ; 0x6974
     lea ax, word [bp - 0x004a]       ; 0x6978
     push ax                          ; 0x697b
     call api_idx_0004                ; 0x697c
@@ -102,7 +102,7 @@ api_idx_004a:
     push ax                          ; 0x69af
     mov ax, 0x8e                     ; 0x69b0
     push ax                          ; 0x69b3
-    mov ax, api_idx_0002             ; 0x69b4
+    mov ax, 0x36                     ; 0x69b4
     push ax                          ; 0x69b7
     db 0xe8, 0x1f, 0x7f ; call ds_dispatch_e8da
     add sp, byte 8                   ; 0x69bb

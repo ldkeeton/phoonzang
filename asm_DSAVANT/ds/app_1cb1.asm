@@ -5,8 +5,8 @@ app_1cb1: ; Aztec csav frame=0x0000
     push ax                          ; 0x1cba
     call app_09f0                    ; 0x1cbb
     pop cx                           ; 0x1cbe
-    mov word [data_59f4], ax         ; 0x1cbf
-    mov al, byte [data_59f4]         ; 0x1cc2
-    mov byte [data_5990], al         ; 0x1cc5
-    mov byte [data_0fd5], al         ; 0x1cc8
+    mov word [bss_59f4], ax          ; 0x1cbf
+    mov al, byte [bss_59f4]          ; 0x1cc2
+    mov byte [bss_5990], al          ; 0x1cc5
+    mov byte [bss_0fd5], al          ; 0x1cc8
     ret                              ; 0x1ccb

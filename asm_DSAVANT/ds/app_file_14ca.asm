@@ -39,11 +39,11 @@ app_file_14ca: ; Aztec csav frame=0x000c
     inc cx                           ; 0x152e
     mov bx, cx                       ; 0x152f
     imul bx                          ; 0x1531
-    add ax, data_0080                ; 0x1533
+    add ax, 0x80                     ; 0x1533
     adc dx, byte 0                   ; 0x1536
     mov word [bp - 0x0008], dx       ; 0x1539
     mov word [bp - 0x000a], ax       ; 0x153c
-    cmp byte [data_5962], 1          ; 0x153f
+    cmp byte [bss_5962], 1           ; 0x153f
     jne short @..app_file_14ca.l6    ; 0x1544
     mov ax, 0                        ; 0x1546
     push ax                          ; 0x1549
@@ -71,7 +71,7 @@ app_file_14ca: ; Aztec csav frame=0x000c
 @..app_file_14ca.l6:
     mov ax, 0                        ; 0x157a
     push ax                          ; 0x157d
-    mov ax, data_0002                ; 0x157e
+    mov ax, 2                        ; 0x157e
     push ax                          ; 0x1581
     call loc_3b62                    ; 0x1582
     add sp, byte 4                   ; 0x1585
@@ -86,12 +86,12 @@ app_file_14ca: ; Aztec csav frame=0x000c
     mov ax, word [bp - 0x0004]       ; 0x1596
     shl ax, 1                        ; 0x1599
     mov bx, ax                       ; 0x159b
-    mov word [bx + 0x5b72], data_0002 ; 0x159d
+    mov word [bx + 0x5b72], 2        ; 0x159d
     jmp short @..app_file_14ca.l12   ; 0x15a3
 @..app_file_14ca.l9:
-    cmp byte [data_5963], 1          ; 0x15a5
+    cmp byte [bss_5963], 1           ; 0x15a5
     jne short @..app_file_14ca.l12   ; 0x15aa
-    mov al, byte [data_5964]         ; 0x15ac
+    mov al, byte [bss_5964]          ; 0x15ac
     sub ah, ah                       ; 0x15af
     add ax, strict word 0xffc0       ; 0x15b1
     mov word [bp - 0x0006], ax       ; 0x15b4

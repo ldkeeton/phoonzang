@@ -5,7 +5,7 @@ api_idx_00a8:
     shl ax, 1                        ; 0x0426
     mov bx, ax                       ; 0x0428
     mov bx, word [bx - 0x7b70]       ; 0x042a
-    cmp byte [bx + 0xe5], data_0002  ; 0x042e
+    cmp byte [bx + 0xe5], 2          ; 0x042e
     jge short @..api_idx_00a8.l1     ; 0x0433
     mov ax, 0xffff                   ; 0x0435
     ret                              ; 0x0438
@@ -53,7 +53,7 @@ api_idx_00a8:
     mov word [bp - 0x006e], 0x46     ; 0x04d5
     mov word [bp - 0x006c], 0x4d     ; 0x04da
     mov word [bp - 0x006a], 0x4d     ; 0x04df
-    mov word [bp - 0x0068], api_idx_0008 ; 0x04e4
+    mov word [bp - 0x0068], 0x4e     ; 0x04e4
     mov word [bp - 0x0066], 0x4f     ; 0x04e9
     mov word [bp - 0x0064], 0x50     ; 0x04ee
     mov word [bp - 0x0062], 0x50     ; 0x04f3
@@ -75,8 +75,8 @@ api_idx_00a8:
     mov word [bp - 0x0042], 0x5b     ; 0x0543
     mov word [bp - 0x0040], 0x5c     ; 0x0548
     mov word [bp - 0x003e], 0x69     ; 0x054d
-    mov ax, word [data_5b6e]         ; 0x0552
-    mov cx, data_0002                ; 0x0555
+    mov ax, word [dseg_5b6e]         ; 0x0552
+    mov cx, 2                        ; 0x0555
     cwd                              ; 0x0558
     idiv cx                          ; 0x0559
     mov ax, dx                       ; 0x055b

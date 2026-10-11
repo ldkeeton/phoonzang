@@ -33,7 +33,7 @@ api_idx_00fa:
     shl bx, 1                        ; 0x1abb
     jmp [cs:bx + 0x6aec]             ; 0x1abd
 @..api_idx_00fa.l2:
-    mov ax, data_0002                ; 0x1ac2
+    mov ax, 2                        ; 0x1ac2
     push ax                          ; 0x1ac5
     call ds_dispatch_c12a            ; 0x1ac6
     pop cx                           ; 0x1ac9
@@ -53,8 +53,8 @@ api_idx_00fa:
     push ax                          ; 0x1ae7
     call ds_dispatch_e928            ; 0x1ae8
     add sp, byte 8                   ; 0x1aeb
-    mov word [data_8d10], dx         ; 0x1aee
-    mov word [data_8d0e], ax         ; 0x1af2
+    mov word [dseg_8d10], dx         ; 0x1aee
+    mov word [dseg_8d0e], ax         ; 0x1af2
     call api_idx_000a_2              ; 0x1af5
     mov word [bp - 0x000a], 0        ; 0x1af8
     mov word [bp - 0x0002], 0        ; 0x1afd
@@ -82,7 +82,7 @@ api_idx_00fa:
     mov bx, ax                       ; 0x1b33
     mov al, byte [bx - 0x7687]       ; 0x1b35
     cbw                              ; 0x1b39
-    cmp ax, word [data_830c]         ; 0x1b3a
+    cmp ax, word [dseg_830c]         ; 0x1b3a
     jne short @..api_idx_00fa.l5     ; 0x1b3e
     mov ax, 0x64                     ; 0x1b40
     push ax                          ; 0x1b43
@@ -96,7 +96,7 @@ api_idx_00fa:
     mov bx, ax                       ; 0x1b53
     mov al, byte [bx - 0x7b13]       ; 0x1b55
     sub ah, ah                       ; 0x1b59
-    cmp ax, word [data_8f3e]         ; 0x1b5b
+    cmp ax, word [dseg_8f3e]         ; 0x1b5b
     je short @..api_idx_00fa.l6      ; 0x1b5f
     jmp near @..api_idx_00fa.l11     ; 0x1b61
 @..api_idx_00fa.l6:
@@ -194,8 +194,8 @@ api_idx_00fa:
 @..api_idx_00fa.l13:
     mov ax, 1                        ; 0x1c40
     push ax                          ; 0x1c43
-    push word [data_8d10]            ; 0x1c44
-    push word [data_8d0e]            ; 0x1c48
+    push word [dseg_8d10]            ; 0x1c44
+    push word [dseg_8d0e]            ; 0x1c48
     call ds_dispatch_e94f            ; 0x1c4c
     add sp, byte 6                   ; 0x1c4f
     mov ax, 0xc6                     ; 0x1c52
@@ -212,7 +212,7 @@ api_idx_00fa:
     push ax                          ; 0x1c6b
     call ds_dispatch_c12a            ; 0x1c6c
     pop cx                           ; 0x1c6f
-    mov ax, data_0002                ; 0x1c70
+    mov ax, 2                        ; 0x1c70
     push ax                          ; 0x1c73
     mov ax, 3                        ; 0x1c74
     push ax                          ; 0x1c77

@@ -4,11 +4,11 @@ api_idx_004c:
     mov ax, 0                        ; 0x6d19
     push ax                          ; 0x6d1c
     push ax                          ; 0x6d1d
-    push word [data_93f8]            ; 0x6d1e
-    push word [data_93f6]            ; 0x6d22
+    push word [dseg_93f8]            ; 0x6d1e
+    push word [dseg_93f6]            ; 0x6d22
     call ds_dispatch_e942            ; 0x6d26
     add sp, byte 8                   ; 0x6d29
-    cmp word [api_idx_0016], byte 0  ; 0x6d2c
+    cmp word [dseg_9434], byte 0     ; 0x6d2c
     je short @..api_idx_004c.l1      ; 0x6d31
     mov ax, 0xac                     ; 0x6d33
     push ax                          ; 0x6d36
@@ -23,9 +23,9 @@ api_idx_004c:
     call ds_dispatch_e830            ; 0x6d49
     add sp, byte 4                   ; 0x6d4c
 @..api_idx_004c.l1:
-    cmp word [data_9614], byte 0     ; 0x6d4f
+    cmp word [dseg_9614], byte 0     ; 0x6d4f
     jne short @..api_idx_004c.l2     ; 0x6d54
-    cmp word [api_idx_0016], byte 0  ; 0x6d56
+    cmp word [dseg_9434], byte 0     ; 0x6d56
     je short @..api_idx_004c.l5      ; 0x6d5b
 @..api_idx_004c.l2:
     mov word [bp - 0x0002], 0        ; 0x6d5d
@@ -79,7 +79,7 @@ api_idx_004c:
     imul word [bp + 0x4]             ; 0x6dcd
     push ax                          ; 0x6dd0
     mov ax, 0x78                     ; 0x6dd1
-    imul word [api_idx_0016]         ; 0x6dd4
+    imul word [dseg_9434]            ; 0x6dd4
     mov cx, ax                       ; 0x6dd8
     pop ax                           ; 0x6dda
     add ax, cx                       ; 0x6ddb
@@ -94,7 +94,7 @@ api_idx_004c:
     jg short @..api_idx_004c.l7      ; 0x6df0
     jmp near @..api_idx_004c.l16     ; 0x6df2
 @..api_idx_004c.l7:
-    cmp word [data_967a], byte 0     ; 0x6df5
+    cmp word [dseg_967a], byte 0     ; 0x6df5
     je short @..api_idx_004c.l8      ; 0x6dfa
     jmp near @..api_idx_004c.l11     ; 0x6dfc
 @..api_idx_004c.l8:
@@ -111,7 +111,7 @@ api_idx_004c:
     imul word [bp + 0x4]             ; 0x6e18
     push ax                          ; 0x6e1b
     mov ax, 0x78                     ; 0x6e1c
-    imul word [api_idx_0016]         ; 0x6e1f
+    imul word [dseg_9434]            ; 0x6e1f
     mov cx, ax                       ; 0x6e23
     pop ax                           ; 0x6e25
     add ax, cx                       ; 0x6e26
@@ -158,7 +158,7 @@ api_idx_004c:
     shl ax, 1                        ; 0x6e83
     mov bx, ax                       ; 0x6e85
     mov word [bx - 0x6a14], 0x69     ; 0x6e87
-    cmp word [api_idx_0016], byte 0  ; 0x6e8d
+    cmp word [dseg_9434], byte 0     ; 0x6e8d
     jne short @..api_idx_004c.l14    ; 0x6e92
     mov word [bp - 0x0004], 0        ; 0x6e94
 @..api_idx_004c.l12:
@@ -188,7 +188,7 @@ api_idx_004c:
     imul word [bp + 0x4]             ; 0x6ed3
     push ax                          ; 0x6ed6
     mov ax, 0x78                     ; 0x6ed7
-    imul word [api_idx_0016]         ; 0x6eda
+    imul word [dseg_9434]            ; 0x6eda
     mov cx, ax                       ; 0x6ede
     pop ax                           ; 0x6ee0
     add ax, cx                       ; 0x6ee1
@@ -201,7 +201,7 @@ api_idx_004c:
     mov bx, ax                       ; 0x6eef
     mov al, byte [bx + 0x5c3b]       ; 0x6ef1
     sub ah, ah                       ; 0x6ef5
-    test ax, data_0002               ; 0x6ef7
+    test ax, 2                       ; 0x6ef7
     je short @..api_idx_004c.l15     ; 0x6efa
     mov ax, word [bp - 0x0002]       ; 0x6efc
     shl ax, 1                        ; 0x6eff
@@ -220,7 +220,7 @@ api_idx_004c:
     imul word [bp + 0x4]             ; 0x6f21
     push ax                          ; 0x6f24
     mov ax, 0x78                     ; 0x6f25
-    imul word [api_idx_0016]         ; 0x6f28
+    imul word [dseg_9434]            ; 0x6f28
     mov cx, ax                       ; 0x6f2c
     pop ax                           ; 0x6f2e
     add ax, cx                       ; 0x6f2f
@@ -243,5 +243,5 @@ api_idx_004c:
     jge short @..api_idx_004c.l17    ; 0x6f56
     jmp near @..api_idx_004c.l6      ; 0x6f58
 @..api_idx_004c.l17:
-    mov word [data_967a], 1          ; 0x6f5b
+    mov word [dseg_967a], 1          ; 0x6f5b
     ret                              ; 0x6f61

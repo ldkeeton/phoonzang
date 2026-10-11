@@ -61,7 +61,7 @@ api_idx_0018:
     sub ax, cx                       ; 0x2a80
     mov cx, 6                        ; 0x2a82
     imul cx                          ; 0x2a85
-    mov cx, data_0002                ; 0x2a87
+    mov cx, 2                        ; 0x2a87
     cwd                              ; 0x2a8a
     idiv cx                          ; 0x2a8b
     add ax, word [bp + 0x8]          ; 0x2a8d

@@ -74,7 +74,7 @@ api_idx_005a:
     push word [bp + 0x4]             ; 0x11aa
     call ds_dispatch_cb3a            ; 0x11ad
     add sp, byte 4                   ; 0x11b0
-    push word [data_905a]            ; 0x11b3
+    push word [dseg_905a]            ; 0x11b3
     call api_idx_0004                ; 0x11b7
     pop cx                           ; 0x11ba
 @..api_idx_005a.l5:

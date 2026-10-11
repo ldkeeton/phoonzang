@@ -39,12 +39,12 @@ api_idx_0002_21:
     jne short @..api_idx_0002_21.l6  ; 0x8ff2
 @..api_idx_0002_21.l4:
     mov ax, word [bp - 0x0002]       ; 0x8ff4
-    mov cx, word [data_9be6]         ; 0x8ff7
+    mov cx, word [dseg_9be6]         ; 0x8ff7
     shl cx, 1                        ; 0x8ffb
     mov bx, cx                       ; 0x8ffd
     mov word [bx - 0x6418], ax       ; 0x8fff
-    inc word [data_9be6]             ; 0x9003
-    mov ax, word [data_9be6]         ; 0x9007
+    inc word [dseg_9be6]             ; 0x9003
+    mov ax, word [dseg_9be6]         ; 0x9007
     cmp ax, strict word 0xc          ; 0x900a
     jl short @..api_idx_0002_21.l5   ; 0x900d
     mov ax, 0                        ; 0x900f

@@ -95,7 +95,7 @@ loc_0eb2:
     pop cx                           ; 0x0ee1
     mov cx, 6                        ; 0x0ee2
     imul cx                          ; 0x0ee5
-    mov cx, data_0002                ; 0x0ee7
+    mov cx, 2                        ; 0x0ee7
     cwd                              ; 0x0eea
     idiv cx                          ; 0x0eeb
     mov cx, ax                       ; 0x0eed
@@ -131,7 +131,7 @@ loc_0eb2:
     call ds_dispatch_b7e0            ; 0x0f35
     pop cx                           ; 0x0f38
 @..local.l46:
-    push word [data_905a]            ; 0x0f39
+    push word [dseg_905a]            ; 0x0f39
     call api_idx_0004                ; 0x0f3d
     pop cx                           ; 0x0f40
     cmp word [bp + 0x8], byte 0xff   ; 0x0f41

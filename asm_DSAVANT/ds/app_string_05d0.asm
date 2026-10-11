@@ -3,7 +3,7 @@ app_string_05d0: ; Aztec csav frame=0x0054
     call aztec_csav                  ; 0x05d3
     lea ax, word [bp - 0x0054]       ; 0x05d6
     push ax                          ; 0x05d9
-    mov al, byte [data_0fd5]         ; 0x05da
+    mov al, byte [bss_0fd5]          ; 0x05da
     sub ah, ah                       ; 0x05dd
     add ax, 0x9c4                    ; 0x05df
     push ax                          ; 0x05e2
@@ -54,10 +54,10 @@ app_string_05d0: ; Aztec csav frame=0x0054
     mov word [bp - 0x0002], dx       ; 0x0649
     jmp short @..app_string_05d0.l1  ; 0x064c
 @..app_string_05d0.l3:
-    mov al, byte [data_0fd6]         ; 0x064e
+    mov al, byte [bss_0fd6]          ; 0x064e
     cmp al, byte [bp - 0x0002]       ; 0x0651
     jne short @..app_string_05d0.l4  ; 0x0654
-    mov ax, word [data_1008]         ; 0x0656
-    mov word [data_100a], ax         ; 0x0659
+    mov ax, word [bss_1008]          ; 0x0656
+    mov word [bss_100a], ax          ; 0x0659
 @..app_string_05d0.l4:
     ret                              ; 0x065c

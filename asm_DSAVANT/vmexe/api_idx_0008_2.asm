@@ -8,7 +8,7 @@ api_idx_0008_2:
     mov ax, 6                        ; 0x63dd
     imul word [bp - 0x0002]          ; 0x63e0
     push ax                          ; 0x63e3
-    mov ax, word [data_8462]         ; 0x63e4
+    mov ax, word [dseg_8462]         ; 0x63e4
     mov cx, 6                        ; 0x63e7
     cwd                              ; 0x63ea
     idiv cx                          ; 0x63eb

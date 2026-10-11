@@ -14,7 +14,10 @@ _MZ_FIELDS = (
     'initial_sp', 'checksum', 'initial_ip', 'initial_cs',
     'relocation_table_offset', 'overlay_number',
 )
-_EXTERNAL_DATA_EQU = {'data_0002', 'data_002c', 'data_0080', 'data_0410'}
+# ``data_*`` names that address an *external* segment (PSP under DS, or the
+# BIOS data area under ES) rather than this image, so their offsets must not
+# be mapped through load-image edits.  PSP fields are now named ``psp_*``.
+_EXTERNAL_DATA_EQU = {'data_0410'}
 
 
 def parse_nm_symbols(text):
@@ -200,7 +203,9 @@ def analyze_delta(
     for name, (value, kind) in before_symbols.items():
         if kind.upper() != 'A' or name in _EXTERNAL_DATA_EQU:
             continue
-        if not name.startswith(('data_', 'loc_', 'leaf_loc_')):
+        # Only names whose value is a load-image file offset can be remapped.
+        # ``dseg_``/``bss_``/``psp_`` are segment offsets, not file offsets.
+        if not name.startswith(('data_', 'cseg_', 'loc_', 'leaf_loc_')):
             continue
         if not 0 <= value < len(before) - header_size:
             continue
@@ -283,23 +288,25 @@ def write_delta(path, report):
         output_file.write('\n')
 
 
-def write_address_inventory(path, binary, symbols):
-    """Write exported symbols as a sorted load-image address inventory."""
+def write_address_inventory(path, binary, symbols, records=None):
+    """Write the address inventory, fed from Phase 4 records when available.
+
+    Each entry carries the address space (``cs``/``ds``/``bss``/``psp``/
+    ``unknown``), kind, identifying source, confidence tier, and the load
+    addresses that reference it.  ``records`` is the Phase 4 resolver output
+    (``report['addresses']``); without it the inventory still classifies the
+    ``nm`` symbols by namespace.
+    """
+    from lib.inventory import merge_inventory, find_conflicts
+
     inventory = {
-        'schema_version': 1,
+        'schema_version': 2,
         'binary': binary,
         'address_kind': 'load_image_offset',
-        'symbols': [
-            {
-                'name': name,
-                'address': address,
-                'address_hex': f'0x{address:04x}',
-                'type': kind,
-            }
-            for name, (address, kind) in sorted(
-                symbols.items(), key=lambda item: (item[1][0], item[0]),
-            )
-        ],
+        'spaces': ['cs', 'ds', 'bss', 'psp', 'unknown'],
+        'confidence_tiers': ['certain', 'strong', 'candidate'],
+        'conflicts': find_conflicts(symbols, records),
+        'symbols': merge_inventory(symbols, records),
     }
     os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as output_file:

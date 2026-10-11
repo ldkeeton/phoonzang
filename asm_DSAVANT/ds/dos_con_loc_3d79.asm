@@ -9,7 +9,7 @@ dos_con_loc_3d79:
     mov ax, cs                       ; 0x3d81
     mov ds, ax                       ; 0x3d83
     mov es, ax                       ; 0x3d85
-    lea si, word [data_3a7f]         ; 0x3d87
+    lea si, word [cseg_3c7f - IMAGE_BASE] ; 0x3d87
 @..dos_con_loc_3d79.l1:
     mov bx, word [si]                ; 0x3d8b
     or bx, bx                        ; 0x3d8d
@@ -17,7 +17,7 @@ dos_con_loc_3d79:
     mov ax, word [bp + 0x4]          ; 0x3d91
     cmp al, 0                        ; 0x3d94
     je short @..dos_con_loc_3d79.l4  ; 0x3d96
-    cmp al, data_0002                ; 0x3d98
+    cmp al, 2                        ; 0x3d98
     je short @..dos_con_loc_3d79.l2  ; 0x3d9a
     mov al, byte [si + 0x2]          ; 0x3d9c
     cmp al, 8                        ; 0x3d9f
@@ -78,7 +78,7 @@ dos_con_loc_3d79:
 @..dos_con_loc_3d79.l7:
     xor ax, ax                       ; 0x3dfe
     push ax                          ; 0x3e00
-    call far [cs:data_2d83]          ; 0x3e01
+    call far [cs:cseg_2f83 - IMAGE_BASE] ; 0x3e01
     pop ax                           ; 0x3e06
     mov ah, 7                        ; 0x3e07
     int 0x21 ; DOS keyboard input (no echo)

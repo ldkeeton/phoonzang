@@ -18,9 +18,9 @@ dos_read_file_3:
     je short @..dos_read_file_3.l1   ; 0x30a5
     jmp near @..dos_read_file_3.l7   ; 0x30a7
 @..dos_read_file_3.l1:
-    mov ax, word [cs:data_11cb]      ; 0x30aa
+    mov ax, word [cs:cseg_11cb - IMAGE_BASE] ; 0x30aa
     inc ax                           ; 0x30ae
-    mov word [cs:data_11cb], ax      ; 0x30af
+    mov word [cs:cseg_11cb - IMAGE_BASE], ax ; 0x30af
     mov bx, word [bp - 0x0002]       ; 0x30b3
     mov word [cs:bx], ax             ; 0x30b6
     dec ax                           ; 0x30b9
@@ -29,9 +29,9 @@ dos_read_file_3:
     mov bx, 0x10fb                   ; 0x30be
     add bx, ax                       ; 0x30c1
     mov word [bp - 0x0002], bx       ; 0x30c3
-    mov ax, word [cs:data_11cd]      ; 0x30c6
+    mov ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x30c6
     mov word [cs:bx], ax             ; 0x30ca
-    mov ax, word [cs:data_01e9]      ; 0x30cd
+    mov ax, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x30cd
     mov ds, ax                       ; 0x30d1
     xor dx, dx                       ; 0x30d3
     mov cx, 4                        ; 0x30d5
@@ -49,17 +49,17 @@ dos_read_file_3:
     shr ax, cl                       ; 0x30f4
     shl dl, cl                       ; 0x30f6
     or ah, dl                        ; 0x30f8
-    add word [cs:data_11cd], ax      ; 0x30fa
+    add word [cs:cseg_11cd - IMAGE_BASE], ax ; 0x30fa
     mov bx, word [bp - 0x0002]       ; 0x30ff
     mov word [cs:bx + 0x2], ax       ; 0x3102
-    mov ax, word [cs:data_11cd]      ; 0x3106
+    mov ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x3106
     cmp ax, 0x4180                   ; 0x310a
     jb short @..dos_read_file_3.l2   ; 0x310d
     jmp near @..dos_read_file_3.l8   ; 0x310f
 @..dos_read_file_3.l2:
     mov bx, word [bp - 0x0002]       ; 0x3112
     mov ax, word [cs:bx]             ; 0x3115
-    add ax, word [cs:data_01e1]      ; 0x3118
+    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x3118
     mov ds, ax                       ; 0x311d
 @..dos_read_file_3.l3:
     mov cx, word [bp - 0x0004]       ; 0x311f
@@ -100,8 +100,8 @@ dos_read_file_3:
     mov ax, word [bp + 0xe]          ; 0x3164
     mov bx, 0xa                      ; 0x3167
     div bx                           ; 0x316a
-    or byte [cs:data_3296], al       ; 0x316c
-    or byte [cs:data_3297], dl       ; 0x3171
+    or byte [cs:cseg_3296 - IMAGE_BASE], al ; 0x316c
+    or byte [cs:cseg_3297 - IMAGE_BASE], dl ; 0x3171
     mov ax, cs                       ; 0x3176
     mov ds, ax                       ; 0x3178
     mov dx, 0x3286                   ; 0x317a

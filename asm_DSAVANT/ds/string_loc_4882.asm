@@ -60,7 +60,7 @@ loc_48f8:
     mov di, cs                       ; 0x48f8
     mov es, di                       ; 0x48fa
 loc_48fc:
-    mov di, aztec_lfree              ; 0x48fc
+    mov di, 0x460d                   ; 0x48fc
     mov cx, 0x15                     ; 0x48ff
     repne scasb                      ; 0x4902
     sub di, strict word 0x460e       ; 0x4904

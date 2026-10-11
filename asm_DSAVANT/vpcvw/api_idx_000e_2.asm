@@ -23,7 +23,7 @@ api_idx_000e_2:
     mov bx, word [bp + 0x4]          ; 0x453f
     mov al, byte [bx + 0x6]          ; 0x4542
     sub ah, ah                       ; 0x4545
-    mov cx, data_0002                ; 0x4547
+    mov cx, 2                        ; 0x4547
     cwd                              ; 0x454a
     idiv cx                          ; 0x454b
     mov word [bp - 0x0002], ax       ; 0x454d

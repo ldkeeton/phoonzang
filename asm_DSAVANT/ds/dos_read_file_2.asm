@@ -7,7 +7,7 @@ dos_read_file_2:
     mov ax, ds                       ; 0x3faf
     mov es, ax                       ; 0x3fb1
     mov cx, 0x400                    ; 0x3fb3
-    mov bx, word [cs:data_2d4e]      ; 0x3fb6
+    mov bx, word [cs:cseg_2f4e - IMAGE_BASE] ; 0x3fb6
     mov ds, bx                       ; 0x3fbb
     xor dx, dx                       ; 0x3fbd
     mov bx, word [bp + 0x4]          ; 0x3fbf

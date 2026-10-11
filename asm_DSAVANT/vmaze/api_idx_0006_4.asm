@@ -7,8 +7,8 @@ api_idx_0006_4:
     je short @..api_idx_0006_4.l1    ; 0x2141
     mov ax, 0                        ; 0x2143
     push ax                          ; 0x2146
-    push word [0x8d08]               ; 0x2147
-    push word [data_8d06]            ; 0x214b
+    push word [dseg_8d08]            ; 0x2147
+    push word [dseg_8d06]            ; 0x214b
     call ds_dispatch_e94f            ; 0x214f
     add sp, byte 6                   ; 0x2152
     mov ax, 0xb9                     ; 0x2155
@@ -40,15 +40,15 @@ api_idx_0006_4:
 @..api_idx_0006_4.l1:
     mov ax, 0                        ; 0x2190
     push ax                          ; 0x2193
-    mov ax, word [data_8f3e]         ; 0x2194
+    mov ax, word [dseg_8f3e]         ; 0x2194
     mov cx, 6                        ; 0x2197
     shl ax, cl                       ; 0x219a
-    mov cx, word [data_8f40]         ; 0x219c
+    mov cx, word [dseg_8f40]         ; 0x219c
     shl cx, 1                        ; 0x21a0
     shl cx, 1                        ; 0x21a2
     shl cx, 1                        ; 0x21a4
     add ax, cx                       ; 0x21a6
-    add ax, word [data_8f42]         ; 0x21a8
+    add ax, word [dseg_8f42]         ; 0x21a8
     push ax                          ; 0x21ac
     mov ax, 0x8bfe                   ; 0x21ad
     push ax                          ; 0x21b0
@@ -56,8 +56,8 @@ api_idx_0006_4:
     add sp, byte 6                   ; 0x21b4
     mov ax, 0                        ; 0x21b7
     push ax                          ; 0x21ba
-    push word [0x8d08]               ; 0x21bb
-    push word [data_8d06]            ; 0x21bf
+    push word [dseg_8d08]            ; 0x21bb
+    push word [dseg_8d06]            ; 0x21bf
     call ds_dispatch_e94f            ; 0x21c3
     add sp, byte 6                   ; 0x21c6
     mov ax, 0xc4                     ; 0x21c9
@@ -92,5 +92,5 @@ loc_21e3:
     push word [bp + 0x4]             ; 0x2207
     call api_idx_0050                ; 0x220a
     pop cx                           ; 0x220d
-    mov word [data_91b2], 1          ; 0x220e
+    mov word [dseg_91b2], 1          ; 0x220e
     ret                              ; 0x2214

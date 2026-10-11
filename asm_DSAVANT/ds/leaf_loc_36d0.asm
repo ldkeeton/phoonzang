@@ -6,9 +6,9 @@ leaf_loc_36d0:
     push si                          ; 0x36d5
     push cs                          ; 0x36d6
     pop ds                           ; 0x36d7
-    mov bx, 0x34ce                   ; 0x36d8
+    mov bx, cseg_36ce - IMAGE_BASE   ; 0x36d8
 @..leaf_loc_36d0.l1:
-    mov cx, word [cs:data_3472]      ; 0x36db
+    mov cx, word [cs:cseg_3672 - IMAGE_BASE] ; 0x36db
 @..leaf_loc_36d0.l2:
     sub cx, byte 1                   ; 0x36e0
     jne short @..leaf_loc_36d0.l3    ; 0x36e3

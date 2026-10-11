@@ -201,7 +201,7 @@ api_idx_0004_7:
     jbe short @..api_idx_0004_7.l3   ; 0x37cd
     cmp byte [bx + 0x5d6a], 0xd      ; 0x37cf
     jbe short @..api_idx_0004_7.l3   ; 0x37d4
-    mov word [data_95d0], 1          ; 0x37d6
+    mov word [dseg_95d0], 1          ; 0x37d6
 @..api_idx_0004_7.l3:
     mov word [bp - 0x0004], 0        ; 0x37dc
     mov ax, word [bp + 0x6]          ; 0x37e1

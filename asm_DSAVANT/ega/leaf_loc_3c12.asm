@@ -30,7 +30,7 @@ leaf_loc_3c12:
 @..graphics_loc_3a8b.l30:
     push cx                          ; 0x3c4f
     call leaf_loc_3bf2               ; 0x3c50
-    mov ax, data_36dd                ; 0x3c53
+    mov ax, 0x36dd                   ; 0x3c53
     mov word [bp - 0x0034], ax       ; 0x3c56
     mov cx, word [bp - 0x0002]       ; 0x3c59
 @..graphics_loc_3a8b.l31:
@@ -182,7 +182,7 @@ leaf_loc_3c12:
 @..graphics_loc_3a8b.l55:
     push cx                          ; 0x3d8f
     call leaf_loc_3bf2               ; 0x3d90
-    mov ax, data_36dd                ; 0x3d93
+    mov ax, 0x36dd                   ; 0x3d93
     mov word [bp - 0x0034], ax       ; 0x3d96
     mov cx, word [bp - 0x0002]       ; 0x3d99
 @..graphics_loc_3a8b.l56:
@@ -335,7 +335,7 @@ leaf_loc_3c12:
 @..graphics_loc_3a8b.l80:
     push cx                          ; 0x3ed2
     call leaf_loc_3bf2               ; 0x3ed3
-    mov ax, data_36dd                ; 0x3ed6
+    mov ax, 0x36dd                   ; 0x3ed6
     mov word [bp - 0x0034], ax       ; 0x3ed9
     mov cx, word [bp - 0x0002]       ; 0x3edc
 @..graphics_loc_3a8b.l81:

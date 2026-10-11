@@ -62,7 +62,7 @@ api_idx_0008:
     add sp, byte 8                   ; 0x019b
     mov ax, word [bp - 0x0006]       ; 0x019e
     inc ax                           ; 0x01a1
-    mov cx, data_0002                ; 0x01a2
+    mov cx, 2                        ; 0x01a2
     cwd                              ; 0x01a5
     idiv cx                          ; 0x01a6
     mov word [bp - 0x0006], dx       ; 0x01a8

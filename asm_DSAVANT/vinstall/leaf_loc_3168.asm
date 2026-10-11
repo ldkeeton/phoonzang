@@ -6,7 +6,7 @@ loc_316b:
     mov di, word [bp + 0x8]          ; 0x316d
     mov ax, word [es:di]             ; 0x3170
     add di, byte 2                   ; 0x3173
-    test byte [bp - 0x000b], data_0002 ; 0x3176
+    test byte [bp - 0x000b], 2       ; 0x3176
     je short loc_3184                ; 0x317a
     mov dx, word [es:di]             ; 0x317c
     add di, byte 2                   ; 0x317f
@@ -73,7 +73,7 @@ loc_31e7:
     jmp short loc_3202               ; 0x31fb
 loc_31fd:
     dec di                           ; 0x31fd
-    mov byte [es:di], data_0030      ; 0x31fe
+    mov byte [es:di], 0x30           ; 0x31fe
 loc_3202:
     lea cx, word [bp - 0x0140]       ; 0x3202
     sub cx, di                       ; 0x3206
@@ -96,7 +96,7 @@ loc_322a:
     jle short loc_3249               ; 0x322d
     test byte [bp - 0x000b], 8       ; 0x322f
     jne short loc_3249               ; 0x3233
-    cmp byte [bp - 0x000c], data_0030 ; 0x3235
+    cmp byte [bp - 0x000c], 0x30     ; 0x3235
     jne short loc_323e               ; 0x3239
     call loc_32eb                    ; 0x323b
 loc_323e:
@@ -109,7 +109,7 @@ loc_3249:
 loc_324c:
     dec word [bp - 0x0006]           ; 0x324c
     js short loc_3258                ; 0x324f
-    mov al, data_0030                ; 0x3251
+    mov al, 0x30                     ; 0x3251
     call loc_3301                    ; 0x3253
     jmp short loc_324c               ; 0x3256
 loc_3258:

@@ -1,21 +1,16 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/data_0cac.inc"
+%include "inc/structs/loc_43e1.inc"
 org 0
 bits 16
-data_01e1 equ 0x01e1
-data_0206 equ 0x0206
-data_020e equ 0x020e
-data_0212 equ 0x0212
-data_0216 equ 0x0216
-data_021a equ 0x021a
-data_021e equ 0x021e
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0000
+%endif
+
 dos_con_loc_07fd equ 0x07fd
 dos_con_loc_088f equ 0x088f
 dos_con_loc_0a4f equ 0x0a4f
 dos_con_loc_0a8d equ 0x0a8d
 dos_con_loc_0be4 equ 0x0be4
-data_0caa equ 0x0caa
-data_0cac equ 0x0cac
 dos_con_loc_0cf6 equ 0x0cf6
 dos_con_loc_0d06 equ 0x0d06
 dos_con_loc_0fda equ 0x0fda
@@ -55,6 +50,21 @@ data_381b equ 0x381b
 data_4202 equ 0x4202
 data_46d9 equ 0x46d9
 data_46f1 equ 0x46f1
+cseg_01e1 equ 0x01e1
+cseg_0206 equ 0x0206
+cseg_020e equ 0x020e
+cseg_0212 equ 0x0212
+cseg_0216 equ 0x0216
+cseg_021a equ 0x021a
+cseg_021e equ 0x021e
+cseg_0229 equ 0x0229
+cseg_0251 equ 0x0251
+cseg_025b equ 0x025b
+cseg_0bc6 equ 0x0bc6
+cseg_0caa equ 0x0caa
+cseg_0cac equ 0x0cac
+cseg_4202 equ 0x4202
+cseg_46d9 equ 0x46d9
 
 loc_0000:
     jmp near 3                       ; 0x0000
@@ -281,9 +291,9 @@ loc_481f:
     jmp near @..local.l6             ; 0x4848
 @..local.l5:
     mov word [cs:bx], 0              ; 0x484b
-    mov cx, word [cs:data_0caa]      ; 0x4850
+    mov cx, word [cs:cseg_0caa - IMAGE_BASE] ; 0x4850
     dec cx                           ; 0x4855
-    mov word [cs:data_0caa], cx      ; 0x4856
+    mov word [cs:cseg_0caa - IMAGE_BASE], cx ; 0x4856
     call loc_43e1                    ; 0x485b
 @..local.l6:
     pop di                           ; 0x485e
@@ -302,7 +312,7 @@ loc_4866:
     push di                          ; 0x486c
     mov ax, ds                       ; 0x486d
     mov es, ax                       ; 0x486f
-    call far [cs:data_021e]          ; 0x4871
+    call far [cs:cseg_021e - IMAGE_BASE] ; 0x4871
     pop di                           ; 0x4876
     pop si                           ; 0x4877
     pop es                           ; 0x4878
@@ -319,7 +329,7 @@ loc_487e:
     push di                          ; 0x4884
     mov ax, ds                       ; 0x4885
     mov es, ax                       ; 0x4887
-    call far [cs:data_0212]          ; 0x4889
+    call far [cs:cseg_0212 - IMAGE_BASE] ; 0x4889
     pop di                           ; 0x488e
     pop si                           ; 0x488f
     pop es                           ; 0x4890
@@ -338,7 +348,7 @@ loc_4896:
     mov es, ax                       ; 0x489f
     push word [bp + 0xe]             ; 0x48a1
     push word [bp + 0xc]             ; 0x48a4
-    call far [cs:data_0216]          ; 0x48a7
+    call far [cs:cseg_0216 - IMAGE_BASE] ; 0x48a7
     add sp, byte 4                   ; 0x48ac
     pop di                           ; 0x48af
     pop si                           ; 0x48b0

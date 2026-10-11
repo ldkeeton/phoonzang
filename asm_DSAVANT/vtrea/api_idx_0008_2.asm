@@ -25,7 +25,7 @@ api_idx_0008_2:
     push word [data_82f4]            ; 0x43aa
     mov ax, word [bp + 0x8]          ; 0x43ae
     dec ax                           ; 0x43b1
-    mov cx, data_0002                ; 0x43b2
+    mov cx, 2                        ; 0x43b2
     cwd                              ; 0x43b5
     idiv cx                          ; 0x43b6
     inc ax                           ; 0x43b8
@@ -42,7 +42,7 @@ api_idx_0008_2:
     push word [data_82f8]            ; 0x43d4
     mov ax, word [bp + 0x8]          ; 0x43d8
     dec ax                           ; 0x43db
-    mov cx, data_0002                ; 0x43dc
+    mov cx, 2                        ; 0x43dc
     cwd                              ; 0x43df
     idiv cx                          ; 0x43e0
     inc ax                           ; 0x43e2
@@ -54,7 +54,7 @@ api_idx_0008_2:
     mov ax, 5                        ; 0x43f0
     imul word [bp + 0x8]             ; 0x43f3
     add word [data_8306], ax         ; 0x43f6
-    db 0xe9, 0xda, 0x06 ; jmp near loc_4ad7
+    jmp near loc_4ad7                ; 0x43fa
     mov ax, 0x64                     ; 0x43fd
     imul word [bp + 0x8]             ; 0x4400
     add word [data_8302], ax         ; 0x4403
@@ -133,7 +133,7 @@ api_idx_0008_2:
     cmp ax, strict word 8            ; 0x44cf
     jge short loc_44d7               ; 0x44d2
     jmp near loc_4443                ; 0x44d4
-    db 0xe9, 0xfd, 0x05 ; jmp near loc_4ad7
+    jmp near loc_4ad7                ; 0x44d7
     mov ax, 0                        ; 0x44da
     cmp word [bp + 0x6], byte 0x13   ; 0x44dd
     je short loc_44e6                ; 0x44e1
@@ -264,7 +264,7 @@ api_idx_0008_2:
     mov ax, 0x248                    ; 0x4630
     imul word [bp + 0xa]             ; 0x4633
     db 0x8b, 0xd8 ; mov bx, ax
-    cmp byte [bx + 0x5e2f], data_0002 ; 0x4638
+    cmp byte [bx + 0x5e2f], 2        ; 0x4638
     je short loc_4642                ; 0x463d
     jmp near loc_46c2                ; 0x463f
     mov ax, 3                        ; 0x4642
@@ -602,7 +602,7 @@ api_idx_0008_2:
     mov word [bx + 0x5c10], ax       ; 0x49a3
     mov ax, 0                        ; 0x49a7
     push ax                          ; 0x49aa
-    mov ax, data_0002                ; 0x49ab
+    mov ax, 2                        ; 0x49ab
     push ax                          ; 0x49ae
     push word [bp + 0x8]             ; 0x49af
     db 0xe8, 0x35, 0x87 ; call ds_dispatch_d0ea
@@ -701,7 +701,7 @@ loc_4a07:
     add byte [bx + di], dh           ; 0x4a8c
     add byte [bx + si], bh           ; 0x4a8e
     add byte [di], bh                ; 0x4a90
-    add byte [data_3f00], bh         ; 0x4a92
+    add byte [dseg_3f00], bh         ; 0x4a92
     db 0x00, 0x42, 0x00 ; add byte [bp + si], al
     inc bp                           ; 0x4a99
     add byte [bp], cl                ; 0x4a9a

@@ -1,19 +1,19 @@
 api_idx_0002_4:
     mov ax, 0xfffe                   ; 0x6800
     call ds_dispatch_f40b            ; 0x6803
-    cmp word [data_906a], byte 0     ; 0x6806
+    cmp word [dseg_906a], byte 0     ; 0x6806
     je short @..api_idx_0002_4.l1    ; 0x680b
     mov ax, 1                        ; 0x680d
     push ax                          ; 0x6810
-    push word [data_9068]            ; 0x6811
+    push word [dseg_9068]            ; 0x6811
     call ds_dispatch_c459            ; 0x6815
     add sp, byte 4                   ; 0x6818
-    mov word [data_906a], 0          ; 0x681b
+    mov word [dseg_906a], 0          ; 0x681b
 @..api_idx_0002_4.l1:
     mov ax, 1                        ; 0x6821
     push ax                          ; 0x6824
-    push word [data_8d08]            ; 0x6825
-    push word [data_8d06]            ; 0x6829
+    push word [dseg_8d08]            ; 0x6825
+    push word [dseg_8d06]            ; 0x6829
     call ds_dispatch_e94f            ; 0x682d
     add sp, byte 6                   ; 0x6830
     mov word [bp - 0x0002], 0        ; 0x6833

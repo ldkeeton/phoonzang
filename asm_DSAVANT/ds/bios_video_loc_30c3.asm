@@ -2,10 +2,10 @@ bios_video_loc_30c3:
     push es                          ; 0x30c3
     sub ax, ax                       ; 0x30c4
     mov es, ax                       ; 0x30c6
-    mov dl, byte [cs:data_2d37]      ; 0x30c8
+    mov dl, byte [cs:cseg_2f37 - IMAGE_BASE] ; 0x30c8
     mov byte [es:data_0410], dl      ; 0x30cd
     pop es                           ; 0x30d2
-    mov al, byte [cs:data_2d36]      ; 0x30d3
+    mov al, byte [cs:cseg_2f36 - IMAGE_BASE] ; 0x30d3
     xor ah, ah                       ; 0x30d7
     int 0x10 ; BIOS video
     ret                              ; 0x30db

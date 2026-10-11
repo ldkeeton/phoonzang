@@ -189,7 +189,7 @@ api_idx_0094:
     call api_idx_0038                ; 0x358e
     add sp, byte 0x0c                ; 0x3591
     mov word [bp - 0x004c], ax       ; 0x3594
-    mov ax, word [data_904e]         ; 0x3597
+    mov ax, word [dseg_904e]         ; 0x3597
     mov word [bp - 0x0002], ax       ; 0x359a
     cmp word [bp - 0x004c], byte 1   ; 0x359d
     jne short @..api_idx_0094.l12    ; 0x35a1
@@ -290,14 +290,14 @@ api_idx_0094:
     mov ax, 0x2c                     ; 0x367a
     imul word [bp + 0x4]             ; 0x367d
     mov si, ax                       ; 0x3680
-    mov bx, word [data_8482]         ; 0x3682
+    mov bx, word [dseg_8482]         ; 0x3682
     mov byte [bx + si + 0x1f], 0     ; 0x3686
     mov al, byte [bp - 0x0094]       ; 0x368a
     push ax                          ; 0x368e
     mov ax, 0x2c                     ; 0x368f
     imul word [bp + 0x4]             ; 0x3692
     mov si, ax                       ; 0x3695
-    mov bx, word [data_8482]         ; 0x3697
+    mov bx, word [dseg_8482]         ; 0x3697
     pop ax                           ; 0x369b
     mov byte [bx + si + 0x20], al    ; 0x369c
 @..api_idx_0094.l15:

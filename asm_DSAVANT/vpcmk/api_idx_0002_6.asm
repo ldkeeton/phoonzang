@@ -4,8 +4,8 @@ api_idx_0002_6:
     mov ax, 0                        ; 0x24ce
     push ax                          ; 0x24d1
     push ax                          ; 0x24d2
-    push word [data_952e]            ; 0x24d3
-    push word [data_952c]            ; 0x24d7
+    push word [dseg_952e]            ; 0x24d3
+    push word [dseg_952c]            ; 0x24d7
     call ds_dispatch_e942            ; 0x24db
     add sp, byte 8                   ; 0x24de
     mov word [bp - 0x0002], 0        ; 0x24e1
@@ -39,7 +39,7 @@ api_idx_0002_6:
     imul word [bp - 0x0002]          ; 0x2529
     add ax, strict word 0x72         ; 0x252c
     push ax                          ; 0x252f
-    mov ax, api_idx_0002_2           ; 0x2530
+    mov ax, 0x85                     ; 0x2530
     push ax                          ; 0x2533
     call ds_dispatch_e809            ; 0x2534
     add sp, byte 4                   ; 0x2537

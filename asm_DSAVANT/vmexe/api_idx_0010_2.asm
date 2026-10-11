@@ -279,7 +279,7 @@ api_idx_0010_2:
     call api_idx_0004_2              ; 0x30f2
     add sp, byte 4                   ; 0x30f5
 @..api_idx_0010_2.l16:
-    push word [data_9058]            ; 0x30f8
+    push word [dseg_9058]            ; 0x30f8
     call api_idx_0004_5              ; 0x30fc
     pop cx                           ; 0x30ff
     jmp short @..api_idx_0010_2.l18  ; 0x3100
@@ -292,7 +292,7 @@ api_idx_0010_2:
     push ax                          ; 0x310d
     call api_idx_0050                ; 0x310e
     add sp, byte 6                   ; 0x3111
-    push word [data_9058]            ; 0x3114
+    push word [dseg_9058]            ; 0x3114
     call api_idx_0004_5              ; 0x3118
     pop cx                           ; 0x311b
 @..api_idx_0010_2.l18:

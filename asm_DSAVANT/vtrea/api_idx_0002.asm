@@ -65,7 +65,7 @@ api_idx_0002:
     add ax, word [bp - 0x0002]       ; 0x1017
     mov cx, 6                        ; 0x101a
     imul cx                          ; 0x101d
-    mov cx, data_0002                ; 0x101f
+    mov cx, 2                        ; 0x101f
     cwd                              ; 0x1022
     idiv cx                          ; 0x1023
     mov cx, ax                       ; 0x1025

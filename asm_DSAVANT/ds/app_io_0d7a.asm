@@ -1,12 +1,12 @@
 app_io_0d7a: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x0d7a
     call aztec_csav                  ; 0x0d7d
-    cmp byte [data_598c], 0          ; 0x0d80
+    cmp byte [bss_598c], 0           ; 0x0d80
     jne short @..app_io_0d7a.l3      ; 0x0d85
-    cmp word [data_0e32], byte 0     ; 0x0d87
+    cmp word [bss_0e32], byte 0      ; 0x0d87
     je short @..app_io_0d7a.l1       ; 0x0d8c
-    push word [data_0e2c]            ; 0x0d8e
-    push word [data_0e2a]            ; 0x0d92
+    push word [bss_0e2c]             ; 0x0d8e
+    push word [bss_0e2a]             ; 0x0d92
     call app_io_0af6                 ; 0x0d96
     add sp, byte 4                   ; 0x0d99
     mov ax, 0                        ; 0x0d9c
@@ -26,7 +26,7 @@ app_io_0d7a: ; Aztec csav frame=0x0000
     push word [bp + 0x4]             ; 0x0dbb
     call loc_424c                    ; 0x0dbe
     add sp, byte 0x0a                ; 0x0dc1
-    cmp word [data_0e32], byte 0     ; 0x0dc4
+    cmp word [bss_0e32], byte 0      ; 0x0dc4
     je short @..app_io_0d7a.l2       ; 0x0dc9
     mov ax, 0                        ; 0x0dcb
     push ax                          ; 0x0dce

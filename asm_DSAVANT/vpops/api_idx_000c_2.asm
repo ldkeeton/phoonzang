@@ -42,7 +42,7 @@ api_idx_000c_2:
     mov ax, word [bx + 0x1a4]        ; 0x1923
     add ax, word [bp + 0x4]          ; 0x1927
     push ax                          ; 0x192a
-    mov ax, data_0002                ; 0x192b
+    mov ax, 2                        ; 0x192b
     push ax                          ; 0x192e
     call ds_dispatch_efd1            ; 0x192f
     add sp, byte 0x16                ; 0x1932

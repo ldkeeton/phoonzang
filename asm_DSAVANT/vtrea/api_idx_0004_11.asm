@@ -3,11 +3,11 @@ api_idx_0004_11:
     call ds_dispatch_f40b            ; 0x6eb0
     mov cx, word [bp + 0x4]          ; 0x6eb3
     shl cx, 1                        ; 0x6eb6
-    mov ax, word [data_0e12]         ; 0x6eb8
+    mov ax, word [dseg_0e12]         ; 0x6eb8
     add ax, cx                       ; 0x6ebb
     add ax, 0x3c0                    ; 0x6ebd
     mov word [bp - 0x0004], ax       ; 0x6ec0
-    mov ax, word [data_82ee]         ; 0x6ec3
+    mov ax, word [dseg_82ee]         ; 0x6ec3
     shl ax, 1                        ; 0x6ec6
     mov word [bp - 0x0002], ax       ; 0x6ec8
     mov cx, 8                        ; 0x6ecb
@@ -56,7 +56,7 @@ api_idx_0004_11:
     mov ax, word [bp + 0x4]          ; 0x6f1b
     shl ax, 1                        ; 0x6f1e
     mov si, ax                       ; 0x6f20
-    mov bx, word [data_0e12]         ; 0x6f22
+    mov bx, word [dseg_0e12]         ; 0x6f22
     push word [bx + si + 0x3c0]      ; 0x6f26
     mov ax, 0                        ; 0x6f2a
     push ax                          ; 0x6f2d
@@ -64,21 +64,21 @@ api_idx_0004_11:
     push word [bp + 0x4]             ; 0x6f2f
     mov ax, 6                        ; 0x6f32
     push ax                          ; 0x6f35
-    push word [data_830c]            ; 0x6f36
+    push word [dseg_830c]            ; 0x6f36
     call api_idx_0004_10             ; 0x6f3a
     add sp, byte 0x12                ; 0x6f3d
     ret                              ; 0x6f40
 loc_6f41:
     mov ax, 0                        ; 0x6f41
     call ds_dispatch_f40b            ; 0x6f44
-    mov ax, word [data_82ee]         ; 0x6f47
+    mov ax, word [dseg_82ee]         ; 0x6f47
     shl ax, 1                        ; 0x6f4a
     mov bx, ax                       ; 0x6f4c
     mov word [bx - 0x7302], 0        ; 0x6f4e
     push ax                          ; 0x6f54
     mov cx, word [bp + 0x4]          ; 0x6f55
     shl cx, 1                        ; 0x6f58
-    mov ax, word [data_0e12]         ; 0x6f5a
+    mov ax, word [dseg_0e12]         ; 0x6f5a
     add ax, cx                       ; 0x6f5d
     add ax, 0x3c0                    ; 0x6f5f
     push ax                          ; 0x6f62
@@ -91,7 +91,7 @@ loc_6f41:
     mov ax, word [bp + 0x4]          ; 0x6f6f
     shl ax, 1                        ; 0x6f72
     mov si, ax                       ; 0x6f74
-    mov bx, word [data_0e12]         ; 0x6f76
+    mov bx, word [dseg_0e12]         ; 0x6f76
     push word [bx + si + 0x3c0]      ; 0x6f7a
     mov ax, 0                        ; 0x6f7e
     push ax                          ; 0x6f81
@@ -99,19 +99,19 @@ loc_6f41:
     push word [bp + 0x4]             ; 0x6f83
     mov ax, 6                        ; 0x6f86
     push ax                          ; 0x6f89
-    push word [data_830c]            ; 0x6f8a
+    push word [dseg_830c]            ; 0x6f8a
     call api_idx_0004_10             ; 0x6f8e
     add sp, byte 0x12                ; 0x6f91
     mov ax, word [bp + 0x4]          ; 0x6f94
     shl ax, 1                        ; 0x6f97
     mov si, ax                       ; 0x6f99
-    mov bx, word [data_0e12]         ; 0x6f9b
+    mov bx, word [dseg_0e12]         ; 0x6f9b
     cmp word [bx + si], byte 0       ; 0x6f9f
     jle short @..local.l120          ; 0x6fa2
     mov ax, 0                        ; 0x6fa4
     push ax                          ; 0x6fa7
     push word [bx + si]              ; 0x6fa8
-    mov ax, word [data_830c]         ; 0x6faa
+    mov ax, word [dseg_830c]         ; 0x6faa
     mov cx, 4                        ; 0x6fad
     shl ax, cl                       ; 0x6fb0
     add ax, 0x8d14                   ; 0x6fb2
@@ -123,9 +123,9 @@ loc_6f41:
     mov ax, word [bp + 0x4]          ; 0x6fc0
     shl ax, 1                        ; 0x6fc3
     mov si, ax                       ; 0x6fc5
-    mov bx, word [data_0e12]         ; 0x6fc7
+    mov bx, word [dseg_0e12]         ; 0x6fc7
     push word [bx + si]              ; 0x6fcb
-    mov ax, word [data_830c]         ; 0x6fcd
+    mov ax, word [dseg_830c]         ; 0x6fcd
     mov cx, 4                        ; 0x6fd0
     shl ax, cl                       ; 0x6fd3
     add ax, 0x5642                   ; 0x6fd5
@@ -134,7 +134,7 @@ loc_6f41:
     add sp, byte 6                   ; 0x6fdc
     mov ax, word [bp + 0x4]          ; 0x6fdf
     inc ax                           ; 0x6fe2
-    mov word [data_8d12], ax         ; 0x6fe3
+    mov word [dseg_8d12], ax         ; 0x6fe3
 @..local.l120:
     cmp word [bp + 0x6], byte 0      ; 0x6fe6
     je short @..local.l121           ; 0x6fea

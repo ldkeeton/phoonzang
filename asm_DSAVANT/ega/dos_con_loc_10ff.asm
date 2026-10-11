@@ -7,9 +7,9 @@ dos_con_loc_10ff:
     mov ax, 0x4c01                   ; 0x110a
     int 0x21 ; DOS function dispatcher
 loc_110f:
-    mov ax, word [cs:data_11cb]      ; 0x110f
+    mov ax, word [cs:cseg_11cb - IMAGE_BASE] ; 0x110f
     inc ax                           ; 0x1113
-    mov word [cs:data_11cb], ax      ; 0x1114
+    mov word [cs:cseg_11cb - IMAGE_BASE], ax ; 0x1114
     mov bx, word [bp - 0x0002]       ; 0x1118
     mov word [cs:bx], ax             ; 0x111b
     dec ax                           ; 0x111e
@@ -18,7 +18,7 @@ loc_110f:
     mov bx, 0x10fb                   ; 0x1123
     add bx, ax                       ; 0x1126
     mov word [bp - 0x0002], bx       ; 0x1128
-    mov ax, word [cs:data_11cd]      ; 0x112b
+    mov ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x112b
     mov word [cs:bx], ax             ; 0x112f
     mov ax, word [bp + 0x10]         ; 0x1132
     or ax, ax                        ; 0x1135
@@ -27,8 +27,8 @@ loc_110f:
 loc_113c:
     cld                              ; 0x113c
     mov cx, 0x1000                   ; 0x113d
-    mov bx, word [cs:data_01e1]      ; 0x1140
-    add bx, word [cs:data_11cd]      ; 0x1145
+    mov bx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x1140
+    add bx, word [cs:cseg_11cd - IMAGE_BASE] ; 0x1145
     mov ds, bx                       ; 0x114a
     xor dx, dx                       ; 0x114c
     mov bx, word [bp + 0xc]          ; 0x114e
@@ -73,8 +73,8 @@ loc_113c:
     div bx                           ; 0x11ab
     mov bx, word [bp - 0x0002]       ; 0x11ad
     mov word [cs:bx + 0x2], ax       ; 0x11b0
-    add word [cs:data_11cd], ax      ; 0x11b4
-    mov ax, word [cs:data_11cd]      ; 0x11b9
+    add word [cs:cseg_11cd - IMAGE_BASE], ax ; 0x11b4
+    mov ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x11b9
     cmp ax, 0x4180                   ; 0x11bd
     jae short loc_1221               ; 0x11c0
     mov ax, ds                       ; 0x11c2

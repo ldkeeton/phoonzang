@@ -3,7 +3,7 @@ leaf_loc_0610:
 @..leaf_loc_0610.l1:
     ret                              ; 0x0613
 @..bios_disk_loc_0294.l12:
-    cmp byte [cs:data_0421], 0       ; 0x0614
+    cmp byte [cs:cseg_0421 - IMAGE_BASE], 0 ; 0x0614
     jne short @..bios_disk_loc_0294.l13 ; 0x061a
     jmp near loc_0592                ; 0x061c
 @..bios_disk_loc_0294.l13:
@@ -12,11 +12,11 @@ leaf_loc_0610:
     xor ax, ax                       ; 0x0621
     mov es, ax                       ; 0x0623
     mov di, 0x20                     ; 0x0625
-    mov ax, word [cs:data_0c10]      ; 0x0628
+    mov ax, word [cs:cseg_0c10 - IMAGE_BASE] ; 0x0628
     stosw                            ; 0x062c
-    mov ax, word [cs:data_0c12]      ; 0x062d
+    mov ax, word [cs:cseg_0c12 - IMAGE_BASE] ; 0x062d
     stosw                            ; 0x0631
-    mov byte [cs:data_0421], 0       ; 0x0632
+    mov byte [cs:cseg_0421 - IMAGE_BASE], 0 ; 0x0632
     call io_loc_0a6d                 ; 0x0638
     mov al, 0x36                     ; 0x063b
     out 0x43, al                     ; 0x063d
@@ -26,7 +26,7 @@ leaf_loc_0610:
     call leaf_loc_0610               ; 0x0647
     mov al, ah                       ; 0x064a
     out 0x40, al                     ; 0x064c
-    mov al, byte [cs:data_0b8f]      ; 0x064e
+    mov al, byte [cs:cseg_0b8f - IMAGE_BASE] ; 0x064e
     out 0x21, al                     ; 0x0652
     sti                              ; 0x0654
     jmp near loc_0592                ; 0x0655

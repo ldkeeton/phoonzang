@@ -53,7 +53,7 @@ api_idx_0004_7:
     mov ax, 0x248                    ; 0x5e6a
     imul word [bp + 0x4]             ; 0x5e6d
     db 0x8b, 0xd8 ; mov bx, ax
-    mov byte [bx + 0x5d50], data_0002 ; 0x5e72
+    mov byte [bx + 0x5d50], 2        ; 0x5e72
     mov ax, word [bp - 0x0004]       ; 0x5e77
     inc ax                           ; 0x5e7a
     inc ax                           ; 0x5e7b
@@ -78,7 +78,7 @@ api_idx_0004_7:
     mov ax, 0x248                    ; 0x5e9a
     imul word [bp + 0x4]             ; 0x5e9d
     db 0x8b, 0xd8 ; mov bx, ax
-    mov byte [bx + 0x5d51], data_0002 ; 0x5ea2
+    mov byte [bx + 0x5d51], 2        ; 0x5ea2
     mov ax, word [bp - 0x0004]       ; 0x5ea7
     inc ax                           ; 0x5eaa
     inc ax                           ; 0x5eab
@@ -123,7 +123,7 @@ api_idx_0004_7:
     mov ax, 0x248                    ; 0x5eee
     imul word [bp + 0x4]             ; 0x5ef1
     db 0x8b, 0xd8 ; mov bx, ax
-    mov byte [bx + 0x5d52], data_0002 ; 0x5ef6
+    mov byte [bx + 0x5d52], 2        ; 0x5ef6
     mov ax, word [bp - 0x0004]       ; 0x5efb
     inc ax                           ; 0x5efe
     inc ax                           ; 0x5eff
@@ -171,7 +171,7 @@ api_idx_0004_7:
     mov ax, 0x248                    ; 0x5f47
     imul word [bp + 0x4]             ; 0x5f4a
     db 0x8b, 0xd8 ; mov bx, ax
-    mov byte [bx + 0x5d53], data_0002 ; 0x5f4f
+    mov byte [bx + 0x5d53], 2        ; 0x5f4f
     mov ax, word [bp - 0x0004]       ; 0x5f54
     inc ax                           ; 0x5f57
     inc ax                           ; 0x5f58

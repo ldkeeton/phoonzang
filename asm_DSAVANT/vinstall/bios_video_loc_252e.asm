@@ -4,13 +4,13 @@ bios_video_loc_252e:
     push di                          ; 0x2531
     push si                          ; 0x2532
     mov ax, 0x600                    ; 0x2533
-    mov bh, byte [data_2647]         ; 0x2536
+    mov bh, byte [bss_2647]          ; 0x2536
     xor cx, cx                       ; 0x253a
     mov dx, 0x184f                   ; 0x253c
     push bp                          ; 0x253f
     int 0x10 ; BIOS video
     pop bp                           ; 0x2542
-    mov ah, data_0002                ; 0x2543
+    mov ah, 2                        ; 0x2543
     xor dx, dx                       ; 0x2545
     mov bx, dx                       ; 0x2547
     int 0x10 ; BIOS video: set cursor position

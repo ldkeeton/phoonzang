@@ -3,7 +3,7 @@ app_09a5: ; Aztec csav frame=0x0004
     call aztec_csav                  ; 0x09a8
     mov ax, word [bp + 0x4]          ; 0x09ab
     cwd                              ; 0x09ae
-    les bx, word [data_0002]         ; 0x09af
+    les bx, word [dseg_0002]         ; 0x09af
     mov cx, word [es:bx]             ; 0x09b3
     mov bx, word [es:bx + 0x2]       ; 0x09b6
     add ax, cx                       ; 0x09ba
@@ -11,7 +11,7 @@ app_09a5: ; Aztec csav frame=0x0004
     mov word [bp - 0x0002], dx       ; 0x09be
     mov word [bp - 0x0004], ax       ; 0x09c1
 @..app_09a5.l1:
-    les bx, word [data_0002]         ; 0x09c4
+    les bx, word [dseg_0002]         ; 0x09c4
     mov ax, word [es:bx]             ; 0x09c8
     mov dx, word [es:bx + 0x2]       ; 0x09cb
     cmp dx, word [bp - 0x0002]       ; 0x09cf

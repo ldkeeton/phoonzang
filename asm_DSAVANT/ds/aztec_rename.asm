@@ -10,7 +10,7 @@ aztec_rename:
     int 0x21 ; DOS rename file
     pop di                           ; 0x504d
     jae short @..aztec_rename.l1     ; 0x504e
-    mov word [data_0c72], ax         ; 0x5050
+    mov word [dseg_0c72], ax         ; 0x5050
     mov ax, 0xffff                   ; 0x5053
     pop bp                           ; 0x5056
     ret                              ; 0x5057

@@ -75,11 +75,11 @@ api_idx_0012:
     mov word [bp - 0x000a], 0x14     ; 0x0205
     cmp word [bp - 0x0008], byte 2   ; 0x020a
     jle short @..api_idx_0012.l11    ; 0x020e
-    mov word [bp - 0x0008], data_0002 ; 0x0210
+    mov word [bp - 0x0008], 2        ; 0x0210
 @..api_idx_0012.l11:
     cmp word [bp - 0x0006], byte 2   ; 0x0215
     jle short @..api_idx_0012.l12    ; 0x0219
-    mov word [bp - 0x0006], data_0002 ; 0x021b
+    mov word [bp - 0x0006], 2        ; 0x021b
 @..api_idx_0012.l12:
     mov ax, 0x248                    ; 0x0220
     imul word [bp + 0x4]             ; 0x0223
@@ -100,7 +100,7 @@ api_idx_0012:
 @..api_idx_0012.l14:
     jmp short @..api_idx_0012.l16    ; 0x024a
 @..api_idx_0012.l15:
-    mov word [bp - 0x000e], data_0002 ; 0x024c
+    mov word [bp - 0x000e], 2        ; 0x024c
     mov word [bp - 0x000c], 0x14     ; 0x0251
     mov word [bp - 0x000a], 0x28     ; 0x0256
     mov word [bp - 0x0008], 1        ; 0x025b
@@ -132,7 +132,7 @@ api_idx_0012:
     mov word [bp - 0x0002], 0x16     ; 0x02af
 @..api_idx_0012.l17:
     lea si, word [bp - 0x000e]       ; 0x02b4
-    mov di, 0x93e0                   ; 0x02b7
+    mov di, dseg_93e0                ; 0x02b7
     mov cx, ds                       ; 0x02ba
     mov es, cx                       ; 0x02bc
     mov cx, 7                        ; 0x02be

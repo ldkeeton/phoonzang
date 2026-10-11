@@ -30,13 +30,13 @@ api_idx_0038:
     mov bx, ax                       ; 0x24fa
     mov al, byte [bx - 0x7687]       ; 0x24fc
     cbw                              ; 0x2500
-    cmp ax, word [data_830c]         ; 0x2501
+    cmp ax, word [dseg_830c]         ; 0x2501
     je short @..api_idx_0038.l2      ; 0x2505
     mov ax, 0x26                     ; 0x2507
     imul word [bp - 0x0002]          ; 0x250a
     mov bx, ax                       ; 0x250d
     mov al, byte [bx - 0x7b18]       ; 0x250f
-    cmp al, byte [data_91c7]         ; 0x2513
+    cmp al, byte [dseg_91c7]         ; 0x2513
     jne short @..api_idx_0038.l3     ; 0x2517
 @..api_idx_0038.l2:
     mov ax, word [bp - 0x0002]       ; 0x2519
@@ -50,13 +50,13 @@ api_idx_0038:
     mov ax, word [bp - 0x0002]       ; 0x252d
     cmp ax, strict word 0x15         ; 0x2530
     jl short @..api_idx_0038.l1      ; 0x2533
-    mov byte [data_93f0], 0          ; 0x2535
+    mov byte [dseg_93f0], 0          ; 0x2535
 @..api_idx_0038.l4:
     cmp word [bp - 0x0004], byte 0   ; 0x253a
     jg short @..api_idx_0038.l5      ; 0x253e
     jmp near @..api_idx_0038.l17     ; 0x2540
 @..api_idx_0038.l5:
-    cmp byte [data_93f0], 0          ; 0x2543
+    cmp byte [dseg_93f0], 0          ; 0x2543
     je short @..api_idx_0038.l6      ; 0x2548
     jmp near @..api_idx_0038.l17     ; 0x254a
 @..api_idx_0038.l6:
@@ -135,7 +135,7 @@ api_idx_0038:
     jmp near @..api_idx_0038.l16     ; 0x25fd
 @..api_idx_0038.l11:
     mov byte [bx - 0x6b10], 1        ; 0x2600
-    mov ax, data_93f0                ; 0x2605
+    mov ax, 0x93f0                   ; 0x2605
     push ax                          ; 0x2608
     mov ax, 0xf                      ; 0x2609
     imul word [bp - 0x0002]          ; 0x260c
@@ -149,7 +149,7 @@ api_idx_0038:
     add sp, byte 4                   ; 0x261f
     mov ax, 0x955e                   ; 0x2622
     push ax                          ; 0x2625
-    mov al, byte [data_91c6]         ; 0x2626
+    mov al, byte [dseg_91c6]         ; 0x2626
     cbw                              ; 0x2629
     cmp ax, word [bp - 0x0002]       ; 0x262a
     jne short @..api_idx_0038.l12    ; 0x262d
@@ -243,7 +243,7 @@ api_idx_0038:
     push ax                          ; 0x2702
     mov ax, 0x955e                   ; 0x2703
     push ax                          ; 0x2706
-    mov ax, data_93f0                ; 0x2707
+    mov ax, 0x93f0                   ; 0x2707
     push ax                          ; 0x270a
     db 0xe8, 0xf2, 0x8b ; call 0xb300
     add sp, byte 6                   ; 0x270e
@@ -251,7 +251,7 @@ api_idx_0038:
     push ax                          ; 0x2714
     mov ax, 0x9576                   ; 0x2715
     push ax                          ; 0x2718
-    mov ax, data_93f0                ; 0x2719
+    mov ax, 0x93f0                   ; 0x2719
     push ax                          ; 0x271c
     db 0xe8, 0xe0, 0x8b ; call 0xb300
     add sp, byte 6                   ; 0x2720
@@ -259,21 +259,21 @@ api_idx_0038:
     push ax                          ; 0x2726
     mov ax, 0x958e                   ; 0x2727
     push ax                          ; 0x272a
-    mov ax, data_93f0                ; 0x272b
+    mov ax, 0x93f0                   ; 0x272b
     push ax                          ; 0x272e
     db 0xe8, 0xce, 0x8b ; call 0xb300
     add sp, byte 6                   ; 0x2732
 @..api_idx_0038.l16:
     jmp near @..api_idx_0038.l4      ; 0x2735
 @..api_idx_0038.l17:
-    cmp byte [data_93f0], 0          ; 0x2738
+    cmp byte [dseg_93f0], 0          ; 0x2738
     jne short @..api_idx_0038.l19    ; 0x273d
     cmp word [bp + 0x8], byte 0      ; 0x273f
     je short @..api_idx_0038.l18     ; 0x2743
     mov ax, 0xffff                   ; 0x2745
     ret                              ; 0x2748
 @..api_idx_0038.l18:
-    mov ax, data_93f0                ; 0x2749
+    mov ax, 0x93f0                   ; 0x2749
     push ax                          ; 0x274c
     mov ax, 0x669                    ; 0x274d
     push ax                          ; 0x2750
@@ -281,7 +281,7 @@ api_idx_0038:
     add sp, byte 4                   ; 0x2754
 @..api_idx_0038.l19:
     push word [bp + 0x6]             ; 0x2757
-    mov ax, data_93f0                ; 0x275a
+    mov ax, 0x93f0                   ; 0x275a
     push ax                          ; 0x275d
     call loc_2472                    ; 0x275e
     add sp, byte 4                   ; 0x2761

@@ -41,7 +41,7 @@ api_idx_004e:
     pop cx                           ; 0x5bd3
     test ax, ax                      ; 0x5bd4
     je short @..api_idx_004e.l1      ; 0x5bd6
-    cmp byte [data_91c6], 0xff       ; 0x5bd8
+    cmp byte [dseg_91c6], 0xff       ; 0x5bd8
     je short @..api_idx_004e.l2      ; 0x5bdd
 @..api_idx_004e.l1:
     push word [bp - 0x0002]          ; 0x5bdf
@@ -51,10 +51,10 @@ api_idx_004e:
     jne short @..api_idx_004e.l3     ; 0x5be8
     mov al, byte [bp - 0x0017]       ; 0x5bea
     sub ah, ah                       ; 0x5bed
-    test ax, data_0002               ; 0x5bef
+    test ax, 2                       ; 0x5bef
     je short @..api_idx_004e.l3      ; 0x5bf2
     mov ax, word [bp - 0x0002]       ; 0x5bf4
-    cmp ax, word [data_91ae]         ; 0x5bf7
+    cmp ax, word [dseg_91ae]         ; 0x5bf7
     je short @..api_idx_004e.l3      ; 0x5bfb
 @..api_idx_004e.l2:
     mov ax, 0x98                     ; 0x5bfd
@@ -111,7 +111,7 @@ api_idx_004e:
     db 0xe8, 0x30, 0x9d ; call 0xf99f
     push ax                          ; 0x5c6f
     push dx                          ; 0x5c70
-    mov al, byte [0x91c5]            ; 0x5c71
+    mov al, byte [dseg_91c5]         ; 0x5c71
     sub ah, ah                       ; 0x5c74
     inc ax                           ; 0x5c76
     cwd                              ; 0x5c77
@@ -135,7 +135,7 @@ api_idx_004e:
     push ax                          ; 0x5c9d
     mov ax, 0x15                     ; 0x5c9e
     push ax                          ; 0x5ca1
-    mov al, byte [data_91c6]         ; 0x5ca2
+    mov al, byte [dseg_91c6]         ; 0x5ca2
     cbw                              ; 0x5ca5
     push ax                          ; 0x5ca6
     call api_idx_0002_5              ; 0x5ca7

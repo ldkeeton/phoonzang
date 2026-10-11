@@ -1,11 +1,11 @@
 api_idx_0004_5:
     mov ax, 0xfffc                   ; 0x1a5f
     call ds_dispatch_f40b            ; 0x1a62
-    mov word [data_90e4], 1          ; 0x1a65
+    mov word [dseg_90e4], 1          ; 0x1a65
     call ds_dispatch_ec17            ; 0x1a6b
     mov ax, word [bp + 0x4]          ; 0x1a6e
     cwd                              ; 0x1a71
-    les bx, word [0x0002]            ; 0x1a72
+    les bx, word [dseg_0002]         ; 0x1a72
     mov cx, word [es:bx]             ; 0x1a76
     mov bx, word [es:bx + 0x2]       ; 0x1a79
     add ax, cx                       ; 0x1a7d
@@ -13,7 +13,7 @@ api_idx_0004_5:
     mov word [bp - 0x0002], dx       ; 0x1a81
     mov word [bp - 0x0004], ax       ; 0x1a84
 @..api_idx_0004_5.l1:
-    les bx, word [0x0002]            ; 0x1a87
+    les bx, word [dseg_0002]         ; 0x1a87
     mov ax, word [es:bx]             ; 0x1a8b
     mov dx, word [es:bx + 0x2]       ; 0x1a8e
     cmp dx, word [bp - 0x0002]       ; 0x1a92

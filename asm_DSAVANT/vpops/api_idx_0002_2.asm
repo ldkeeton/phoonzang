@@ -10,7 +10,7 @@ api_idx_0002_2:
     mov si, word [bp - 0x0002]       ; 0x45c9
     cmp byte [bx + si + 0x86], 0     ; 0x45cc
     je short @..api_idx_0002_2.l2    ; 0x45d1
-    mov ax, data_0002                ; 0x45d3
+    mov ax, 2                        ; 0x45d3
     push ax                          ; 0x45d6
     call ds_dispatch_b7a9            ; 0x45d7
     pop cx                           ; 0x45da

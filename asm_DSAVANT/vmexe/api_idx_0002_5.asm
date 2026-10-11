@@ -21,7 +21,7 @@ api_idx_0002_5:
     inc word [bp - 0x0002]           ; 0x2c27
 @..api_idx_0002_5.l2:
     mov ax, word [bp - 0x0002]       ; 0x2c2a
-    cmp ax, word [data_8466]         ; 0x2c2d
+    cmp ax, word [dseg_8466]         ; 0x2c2d
     jle short @..api_idx_0002_5.l1   ; 0x2c31
     jmp short @..api_idx_0002_5.l4   ; 0x2c33
 @..api_idx_0002_5.l3:
@@ -36,7 +36,7 @@ api_idx_0002_5:
     push ax                          ; 0x2c4b
     call api_idx_000a_3              ; 0x2c4c
     add sp, byte 0x0e                ; 0x2c4f
-    mov bx, word [data_848e]         ; 0x2c52
+    mov bx, word [dseg_848e]         ; 0x2c52
     cmp byte [bx + 0x1a1], 0         ; 0x2c56
     jbe short @..api_idx_0002_5.l4   ; 0x2c5b
     push word [bp + 0xe]             ; 0x2c5d

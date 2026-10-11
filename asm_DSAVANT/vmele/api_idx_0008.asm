@@ -11,7 +11,7 @@ api_idx_0008:
     mov ax, 0x2c                     ; 0x0062
     imul word [bp + 0x4]             ; 0x0065
     mov si, ax                       ; 0x0068
-    mov bx, word [data_8482]         ; 0x006a
+    mov bx, word [dseg_8482]         ; 0x006a
     cmp byte [bx + si + 0x2b], 1     ; 0x006e
     je short @..api_idx_0008.l2      ; 0x0072
     cmp byte [bx + si + 0x2b], 3     ; 0x0074
@@ -24,7 +24,7 @@ api_idx_0008:
     call ds_dispatch_cb3a            ; 0x0084
     add sp, byte 4                   ; 0x0087
     mov ax, word [bp + 0x4]          ; 0x008a
-    mov cx, data_0002                ; 0x008d
+    mov cx, 2                        ; 0x008d
     cwd                              ; 0x0090
     idiv cx                          ; 0x0091
     mov ax, dx                       ; 0x0093
@@ -33,7 +33,7 @@ api_idx_0008:
     add ax, strict word 5            ; 0x009a
     mov word [bp - 0x0006], ax       ; 0x009d
     mov ax, word [bp + 0x4]          ; 0x00a0
-    mov cx, data_0002                ; 0x00a3
+    mov cx, 2                        ; 0x00a3
     cwd                              ; 0x00a6
     idiv cx                          ; 0x00a7
     mov cx, 0x2d                     ; 0x00a9

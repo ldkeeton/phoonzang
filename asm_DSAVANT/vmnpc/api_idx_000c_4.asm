@@ -35,7 +35,7 @@ api_idx_000c_4:
     pop cx                           ; 0x775d
     mov cx, 6                        ; 0x775e
     imul cx                          ; 0x7761
-    mov cx, data_0002                ; 0x7763
+    mov cx, 2                        ; 0x7763
     cwd                              ; 0x7766
     idiv cx                          ; 0x7767
     mov cx, ax                       ; 0x7769
@@ -65,23 +65,23 @@ api_idx_000c_4:
 loc_77a1:
     mov ax, 0                        ; 0x77a1
     db 0xe8, 0x64, 0x7c ; call 0xf40b
-    les bx, word [data_0002]         ; 0x77a7
+    les bx, word [dseg_0002]         ; 0x77a7
     mov ax, word [es:bx]             ; 0x77ab
     mov dx, word [es:bx + 0x2]       ; 0x77ae
-    mov word [data_9090], dx         ; 0x77b2
-    mov word [data_908e], ax         ; 0x77b6
-    mov ax, word [data_908e]         ; 0x77b9
-    mov dx, word [data_9090]         ; 0x77bc
-    sub ax, word [data_908a]         ; 0x77c0
-    sbb dx, word [data_908c]         ; 0x77c4
-    mov word [data_9094], dx         ; 0x77c8
-    mov word [data_9092], ax         ; 0x77cc
-    mov ax, word [data_93d6]         ; 0x77cf
+    mov word [dseg_9090], dx         ; 0x77b2
+    mov word [dseg_908e], ax         ; 0x77b6
+    mov ax, word [dseg_908e]         ; 0x77b9
+    mov dx, word [dseg_9090]         ; 0x77bc
+    sub ax, word [dseg_908a]         ; 0x77c0
+    sbb dx, word [dseg_908c]         ; 0x77c4
+    mov word [dseg_9094], dx         ; 0x77c8
+    mov word [dseg_9092], ax         ; 0x77cc
+    mov ax, word [dseg_93d6]         ; 0x77cf
     cwd                              ; 0x77d2
     mov cx, ax                       ; 0x77d3
     mov bx, dx                       ; 0x77d5
-    mov ax, word [data_9092]         ; 0x77d7
-    mov dx, word [data_9094]         ; 0x77da
+    mov ax, word [dseg_9092]         ; 0x77d7
+    mov dx, word [dseg_9094]         ; 0x77da
     cmp bx, dx                       ; 0x77de
     jg short @..local.l89            ; 0x77e0
     jne short @..local.l90           ; 0x77e2
@@ -90,10 +90,10 @@ loc_77a1:
 @..local.l89:
     jmp short @..local.l91           ; 0x77e8
 @..local.l90:
-    mov ax, word [data_908e]         ; 0x77ea
-    mov dx, word [data_9090]         ; 0x77ed
-    mov word [data_908c], dx         ; 0x77f1
-    mov word [data_908a], ax         ; 0x77f5
+    mov ax, word [dseg_908e]         ; 0x77ea
+    mov dx, word [dseg_9090]         ; 0x77ed
+    mov word [dseg_908c], dx         ; 0x77f1
+    mov word [dseg_908a], ax         ; 0x77f5
     call api_idx_000a_2              ; 0x77f8
     push word [bp + 0x4]             ; 0x77fb
     call api_idx_000c_4              ; 0x77fe

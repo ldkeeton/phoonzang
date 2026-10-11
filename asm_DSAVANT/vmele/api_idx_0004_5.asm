@@ -29,7 +29,7 @@ api_idx_0004_5:
     inc word [bp - 0x0002]           ; 0x17f7
 @..api_idx_0004_5.l3:
     mov ax, word [bp - 0x0002]       ; 0x17fa
-    cmp ax, word [data_8466]         ; 0x17fd
+    cmp ax, word [dseg_8466]         ; 0x17fd
     jle short @..api_idx_0004_5.l2   ; 0x1801
     mov word [bp - 0x0004], 0xf      ; 0x1803
 @..api_idx_0004_5.l4:
@@ -48,7 +48,7 @@ api_idx_0004_5:
     mov ax, word [bp - 0x0004]       ; 0x1825
     cmp ax, strict word 0x12         ; 0x1828
     jl short @..api_idx_0004_5.l4    ; 0x182b
-    mov bx, word [data_8492]         ; 0x182d
+    mov bx, word [dseg_8492]         ; 0x182d
     cmp byte [bx + 0xd8], 0          ; 0x1831
     jbe short @..api_idx_0004_5.l6   ; 0x1836
     mov al, byte [bx + 0xd8]         ; 0x1838

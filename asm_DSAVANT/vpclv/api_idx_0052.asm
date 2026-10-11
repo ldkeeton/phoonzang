@@ -379,7 +379,7 @@ api_idx_0052:
     jbe short @..api_idx_0052.l8     ; 0x2f84
     mov al, byte [bx + 0x5d83]       ; 0x2f86
     sub ah, ah                       ; 0x2f8a
-    mov cx, data_0002                ; 0x2f8c
+    mov cx, 2                        ; 0x2f8c
     cwd                              ; 0x2f8f
     idiv cx                          ; 0x2f90
     push ax                          ; 0x2f92
@@ -583,7 +583,7 @@ api_idx_0052:
     mov cx, 0                        ; 0x31d6
     cmp byte [bx + 0x5e2b], 5        ; 0x31d9
     jne short @..api_idx_0052.l21    ; 0x31de
-    mov cx, data_0002                ; 0x31e0
+    mov cx, 2                        ; 0x31e0
 @..api_idx_0052.l21:
     sub ax, cx                       ; 0x31e3
     mov byte [bx + 0x5daa], al       ; 0x31e5
@@ -596,7 +596,7 @@ api_idx_0052:
     cmp word [bx + 0x5c18], byte 0x14 ; 0x31fa
     jg short @..api_idx_0052.l23     ; 0x31ff
     mov ax, word [bx + 0x5c18]       ; 0x3201
-    mov cx, data_0002                ; 0x3205
+    mov cx, 2                        ; 0x3205
     cwd                              ; 0x3208
     idiv cx                          ; 0x3209
 @..api_idx_0052.l23:

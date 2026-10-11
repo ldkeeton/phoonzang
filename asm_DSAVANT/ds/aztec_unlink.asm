@@ -5,7 +5,7 @@ aztec_unlink:
     mov dx, word [bp + 0x4]          ; 0x5028
     int 0x21 ; DOS delete file (handle)
     jae short @..aztec_unlink.l1     ; 0x502d
-    mov word [data_0c72], ax         ; 0x502f
+    mov word [dseg_0c72], ax         ; 0x502f
     mov ax, 0xffff                   ; 0x5032
     pop bp                           ; 0x5035
     ret                              ; 0x5036

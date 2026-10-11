@@ -9,7 +9,7 @@ dos_alloc_mem:
     push es                          ; 0x386a
     mov ax, ds                       ; 0x386b
     mov es, ax                       ; 0x386d
-    mov bx, word [cs:data_2d4a]      ; 0x386f
+    mov bx, word [cs:cseg_2f4a - IMAGE_BASE] ; 0x386f
     mov ds, bx                       ; 0x3874
     xor dx, dx                       ; 0x3876
     mov bx, word [bp + 0x4]          ; 0x3878
@@ -32,7 +32,7 @@ dos_alloc_mem:
     or al, al                        ; 0x38a2
     jne short @..dos_alloc_mem.l2    ; 0x38a4
     mov dl, byte [bx + 0x6]          ; 0x38a6
-    test dl, data_0002               ; 0x38a9
+    test dl, 2                       ; 0x38a9
     je short @..dos_alloc_mem.l2     ; 0x38ac
     mov ax, word [bx + 0xe]          ; 0x38ae
     xor ch, ch                       ; 0x38b1
@@ -75,7 +75,7 @@ dos_alloc_mem:
     xor bx, bx                       ; 0x3906
     mov al, byte [bx + 0x6]          ; 0x3908
     and al, 6                        ; 0x390b
-    cmp al, data_0002                ; 0x390d
+    cmp al, 2                        ; 0x390d
     jne short @..dos_alloc_mem.l4    ; 0x390f
     mov al, byte [bx + 0x2]          ; 0x3911
     or al, al                        ; 0x3914

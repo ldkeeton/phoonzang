@@ -9,15 +9,15 @@ bios_mouse_loc_190f:
     mov es, ax                       ; 0x191a
     mov word [bp - 0x0004], 1        ; 0x191c
     xor ax, ax                       ; 0x1921
-    cmp byte [cs:data_0228], 0       ; 0x1923
+    cmp byte [cs:cseg_0228 - IMAGE_BASE], 0 ; 0x1923
     je short @..bios_mouse_loc_190f.l6 ; 0x1929
-    mov bx, word [cs:data_2b02]      ; 0x192b
+    mov bx, word [cs:cseg_2b02 - IMAGE_BASE] ; 0x192b
     or bx, bx                        ; 0x1930
     je short @..bios_mouse_loc_190f.l1 ; 0x1932
-    mov word [cs:data_2b02], 0       ; 0x1934
+    mov word [cs:cseg_2b02 - IMAGE_BASE], 0 ; 0x1934
     mov word [bp - 0x0002], bx       ; 0x193b
-    mov cx, word [cs:data_2b04]      ; 0x193e
-    mov dx, word [cs:data_2b06]      ; 0x1943
+    mov cx, word [cs:cseg_2b04 - IMAGE_BASE] ; 0x193e
+    mov dx, word [cs:cseg_2b06 - IMAGE_BASE] ; 0x1943
     jmp short @..bios_mouse_loc_190f.l2 ; 0x1948
 @..bios_mouse_loc_190f.l1:
     mov ax, 3                        ; 0x194a

@@ -21,7 +21,7 @@ api_idx_0018:
     jmp near @..api_idx_0018.l4      ; 0x498d
     mov ax, word [bp - 0x0004]       ; 0x4990
     add ax, word [bp - 0x0006]       ; 0x4993
-    mov cx, data_0002                ; 0x4996
+    mov cx, 2                        ; 0x4996
     cwd                              ; 0x4999
     idiv cx                          ; 0x499a
     mov word [bp - 0x000c], ax       ; 0x499c
@@ -31,7 +31,7 @@ api_idx_0018:
     jmp near @..api_idx_0018.l6      ; 0x49ae
     mov ax, word [bp - 0x0006]       ; 0x49b1
     add ax, word [bp - 0x0008]       ; 0x49b4
-    mov cx, data_0002                ; 0x49b7
+    mov cx, 2                        ; 0x49b7
     cwd                              ; 0x49ba
     idiv cx                          ; 0x49bb
     mov word [bp - 0x000c], ax       ; 0x49bd
@@ -41,27 +41,27 @@ api_idx_0018:
     jmp near @..api_idx_0018.l6      ; 0x49cf
     mov ax, word [bp - 0x0004]       ; 0x49d2
     add ax, word [bp - 0x0006]       ; 0x49d5
-    mov cx, data_0002                ; 0x49d8
+    mov cx, 2                        ; 0x49d8
     cwd                              ; 0x49db
     idiv cx                          ; 0x49dc
     mov word [bp - 0x000c], ax       ; 0x49de
-    mov word [bp - 0x0014], data_0002 ; 0x49e1
+    mov word [bp - 0x0014], 2        ; 0x49e1
     mov word [bp - 0x0016], 0x1d     ; 0x49e6
     mov word [bp - 0x0018], 3        ; 0x49eb
     jmp near @..api_idx_0018.l6      ; 0x49f0
     mov ax, word [bp - 0x0004]       ; 0x49f3
     add ax, word [bp - 0x0006]       ; 0x49f6
-    mov cx, data_0002                ; 0x49f9
+    mov cx, 2                        ; 0x49f9
     cwd                              ; 0x49fc
     idiv cx                          ; 0x49fd
     mov word [bp - 0x000c], ax       ; 0x49ff
-    mov word [bp - 0x0014], data_0002 ; 0x4a02
+    mov word [bp - 0x0014], 2        ; 0x4a02
     mov word [bp - 0x0016], 0x1d     ; 0x4a07
     mov word [bp - 0x0018], 1        ; 0x4a0c
     jmp near @..api_idx_0018.l6      ; 0x4a11
     mov ax, word [bp - 0x0004]       ; 0x4a14
     add ax, word [bp - 0x0006]       ; 0x4a17
-    mov cx, data_0002                ; 0x4a1a
+    mov cx, 2                        ; 0x4a1a
     cwd                              ; 0x4a1d
     idiv cx                          ; 0x4a1e
     mov word [bp - 0x000c], ax       ; 0x4a20
@@ -71,7 +71,7 @@ api_idx_0018:
     jmp near @..api_idx_0018.l6      ; 0x4a32
     mov ax, word [bp - 0x0004]       ; 0x4a35
     add ax, word [bp - 0x0006]       ; 0x4a38
-    mov cx, data_0002                ; 0x4a3b
+    mov cx, 2                        ; 0x4a3b
     cwd                              ; 0x4a3e
     idiv cx                          ; 0x4a3f
     mov word [bp - 0x000c], ax       ; 0x4a41
@@ -81,7 +81,7 @@ api_idx_0018:
     jmp near @..api_idx_0018.l6      ; 0x4a53
     mov ax, word [bp - 0x0006]       ; 0x4a56
     add ax, word [bp - 0x0008]       ; 0x4a59
-    mov cx, data_0002                ; 0x4a5c
+    mov cx, 2                        ; 0x4a5c
     cwd                              ; 0x4a5f
     idiv cx                          ; 0x4a60
     mov word [bp - 0x000c], ax       ; 0x4a62
@@ -91,7 +91,7 @@ api_idx_0018:
     jmp near @..api_idx_0018.l6      ; 0x4a74
     mov ax, word [bp - 0x0004]       ; 0x4a77
     add ax, word [bp - 0x0006]       ; 0x4a7a
-    mov cx, data_0002                ; 0x4a7d
+    mov cx, 2                        ; 0x4a7d
     cwd                              ; 0x4a80
     idiv cx                          ; 0x4a81
     mov word [bp - 0x000c], ax       ; 0x4a83
@@ -112,7 +112,7 @@ api_idx_0018:
     jmp near @..api_idx_0018.l6      ; 0x4ab1
     mov ax, word [bp - 0x000a]       ; 0x4ab4
     add ax, word [bp - 0x0006]       ; 0x4ab7
-    mov cx, data_0002                ; 0x4aba
+    mov cx, 2                        ; 0x4aba
     cwd                              ; 0x4abd
     idiv cx                          ; 0x4abe
     mov word [bp - 0x000c], ax       ; 0x4ac0
@@ -125,7 +125,7 @@ api_idx_0018:
 @..api_idx_0018.l1:
     inc si                           ; 0x4ad9
     cli                              ; 0x4ada
-    mov cx, data_0002                ; 0x4adb
+    mov cx, 2                        ; 0x4adb
     cwd                              ; 0x4ade
 @..api_idx_0018.l2:
     idiv cx                          ; 0x4adf
@@ -136,7 +136,7 @@ api_idx_0018:
     jmp short @..api_idx_0018.l6     ; 0x4af3
     mov ax, word [bp - 0x0004]       ; 0x4af5
     add ax, word [bp - 0x0006]       ; 0x4af8
-    mov cx, data_0002                ; 0x4afb
+    mov cx, 2                        ; 0x4afb
     cwd                              ; 0x4afe
     idiv cx                          ; 0x4aff
     mov word [bp - 0x000c], ax       ; 0x4b01
@@ -146,11 +146,11 @@ api_idx_0018:
     jmp short @..api_idx_0018.l6     ; 0x4b13
     mov ax, word [bp - 0x0004]       ; 0x4b15
     add ax, word [bp - 0x0006]       ; 0x4b18
-    mov cx, data_0002                ; 0x4b1b
+    mov cx, 2                        ; 0x4b1b
     cwd                              ; 0x4b1e
     idiv cx                          ; 0x4b1f
     mov word [bp - 0x000c], ax       ; 0x4b21
-    mov word [bp - 0x0014], data_0002 ; 0x4b24
+    mov word [bp - 0x0014], 2        ; 0x4b24
     mov word [bp - 0x0016], 0x1d     ; 0x4b29
     mov word [bp - 0x0018], 5        ; 0x4b2e
     jmp short @..api_idx_0018.l6     ; 0x4b33

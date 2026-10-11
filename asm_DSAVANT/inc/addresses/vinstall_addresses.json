@@ -1,0 +1,3464 @@
+{
+  "schema_version": 2,
+  "binary": "vinstall",
+  "address_kind": "load_image_offset",
+  "spaces": [
+    "cs",
+    "ds",
+    "bss",
+    "psp",
+    "unknown"
+  ],
+  "confidence_tiers": [
+    "certain",
+    "strong",
+    "candidate"
+  ],
+  "conflicts": [],
+  "symbols": [
+    {
+      "name": "psp_top_of_memory",
+      "address": 2,
+      "address_hex": "0x0002",
+      "type": "A",
+      "space": "psp",
+      "kind": "psp",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13792
+      ]
+    },
+    {
+      "name": "dseg_0004",
+      "address": 4,
+      "address_hex": "0x0004",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        5706
+      ]
+    },
+    {
+      "name": "data_0005",
+      "address": 5,
+      "address_hex": "0x0005",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "data_0006",
+      "address": 6,
+      "address_hex": "0x0006",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "dseg_0006",
+      "address": 6,
+      "address_hex": "0x0006",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        5748
+      ]
+    },
+    {
+      "name": "psp_env_segment",
+      "address": 44,
+      "address_hex": "0x002c",
+      "type": "A",
+      "space": "psp",
+      "kind": "psp",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13961
+      ]
+    },
+    {
+      "name": "dseg_002e",
+      "address": 46,
+      "address_hex": "0x002e",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10801,
+        10896
+      ]
+    },
+    {
+      "name": "dseg_0030",
+      "address": 48,
+      "address_hex": "0x0030",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10797,
+        10900
+      ]
+    },
+    {
+      "name": "psp_cmd_tail_len",
+      "address": 128,
+      "address_hex": "0x0080",
+      "type": "A",
+      "space": "psp",
+      "kind": "psp",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13986
+      ]
+    },
+    {
+      "name": "leaf_loc_0200",
+      "address": 512,
+      "address_hex": "0x0200",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0206",
+      "address": 518,
+      "address_hex": "0x0206",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_025d",
+      "address": 605,
+      "address_hex": "0x025d",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0261",
+      "address": 609,
+      "address_hex": "0x0261",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0263",
+      "address": 611,
+      "address_hex": "0x0263",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0268",
+      "address": 616,
+      "address_hex": "0x0268",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_026d",
+      "address": 621,
+      "address_hex": "0x026d",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_raise",
+      "address": 690,
+      "address_hex": "0x02b2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_03b3",
+      "address": 947,
+      "address_hex": "0x03b3",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_03e1",
+      "address": 993,
+      "address_hex": "0x03e1",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_040f",
+      "address": 1039,
+      "address_hex": "0x040f",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0429",
+      "address": 1065,
+      "address_hex": "0x0429",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0443",
+      "address": 1091,
+      "address_hex": "0x0443",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0452",
+      "address": 1106,
+      "address_hex": "0x0452",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0584",
+      "address": 1412,
+      "address_hex": "0x0584",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_05b6",
+      "address": 1462,
+      "address_hex": "0x05b6",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "data_060e",
+      "address": 1550,
+      "address_hex": "0x060e",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_06a6",
+      "address": 1702,
+      "address_hex": "0x06a6",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_06f1",
+      "address": 1777,
+      "address_hex": "0x06f1",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0807",
+      "address": 2055,
+      "address_hex": "0x0807",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0815",
+      "address": 2069,
+      "address_hex": "0x0815",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0823",
+      "address": 2083,
+      "address_hex": "0x0823",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0927",
+      "address": 2343,
+      "address_hex": "0x0927",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_vfprintf",
+      "address": 2372,
+      "address_hex": "0x0944",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0992",
+      "address": 2450,
+      "address_hex": "0x0992",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_scan",
+      "address": 2575,
+      "address_hex": "0x0a0f",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0a2d",
+      "address": 2605,
+      "address_hex": "0x0a2d",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0a73",
+      "address": 2675,
+      "address_hex": "0x0a73",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0c21",
+      "address": 3105,
+      "address_hex": "0x0c21",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0cd6",
+      "address": 3286,
+      "address_hex": "0x0cd6",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0d12",
+      "address": 3346,
+      "address_hex": "0x0d12",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0d3f",
+      "address": 3391,
+      "address_hex": "0x0d3f",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0d6a",
+      "address": 3434,
+      "address_hex": "0x0d6a",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0dda",
+      "address": 3546,
+      "address_hex": "0x0dda",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "data_0e18",
+      "address": 3608,
+      "address_hex": "0x0e18",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "data_0e1c",
+      "address": 3612,
+      "address_hex": "0x0e1c",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "data_0e2d",
+      "address": 3629,
+      "address_hex": "0x0e2d",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "data_0e8f",
+      "address": 3727,
+      "address_hex": "0x0e8f",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "data_0ec8",
+      "address": 3784,
+      "address_hex": "0x0ec8",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_0ed8",
+      "address": 3800,
+      "address_hex": "0x0ed8",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "data_0ee4",
+      "address": 3812,
+      "address_hex": "0x0ee4",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_10a4",
+      "address": 4260,
+      "address_hex": "0x10a4",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_11ba",
+      "address": 4538,
+      "address_hex": "0x11ba",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_12b5",
+      "address": 4789,
+      "address_hex": "0x12b5",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_1b79",
+      "address": 7033,
+      "address_hex": "0x1b79",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_1b90",
+      "address": 7056,
+      "address_hex": "0x1b90",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_1ba7",
+      "address": 7079,
+      "address_hex": "0x1ba7",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_1bbe",
+      "address": 7102,
+      "address_hex": "0x1bbe",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_1bd5",
+      "address": 7125,
+      "address_hex": "0x1bd5",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_1fb2",
+      "address": 8114,
+      "address_hex": "0x1fb2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_1fcd",
+      "address": 8141,
+      "address_hex": "0x1fcd",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "dseg_230e",
+      "address": 8974,
+      "address_hex": "0x230e",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10820
+      ]
+    },
+    {
+      "name": "dseg_2310",
+      "address": 8976,
+      "address_hex": "0x2310",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10830
+      ]
+    },
+    {
+      "name": "dseg_2312",
+      "address": 8978,
+      "address_hex": "0x2312",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10833
+      ]
+    },
+    {
+      "name": "dseg_2314",
+      "address": 8980,
+      "address_hex": "0x2314",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10840
+      ]
+    },
+    {
+      "name": "dseg_2316",
+      "address": 8982,
+      "address_hex": "0x2316",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10843
+      ]
+    },
+    {
+      "name": "dseg_2318",
+      "address": 8984,
+      "address_hex": "0x2318",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10850
+      ]
+    },
+    {
+      "name": "dseg_231a",
+      "address": 8986,
+      "address_hex": "0x231a",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10853
+      ]
+    },
+    {
+      "name": "dseg_231c",
+      "address": 8988,
+      "address_hex": "0x231c",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "immediate",
+      "confidence": "strong",
+      "referenced_by": [
+        11274
+      ]
+    },
+    {
+      "name": "dseg_234a",
+      "address": 9034,
+      "address_hex": "0x234a",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "immediate",
+      "confidence": "strong",
+      "referenced_by": [
+        11846
+      ]
+    },
+    {
+      "name": "loc_2394",
+      "address": 9108,
+      "address_hex": "0x2394",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_239c",
+      "address": 9116,
+      "address_hex": "0x239c",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_23a4",
+      "address": 9124,
+      "address_hex": "0x23a4",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_23ac",
+      "address": 9132,
+      "address_hex": "0x23ac",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_23b4",
+      "address": 9140,
+      "address_hex": "0x23b4",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "dseg_244e",
+      "address": 9294,
+      "address_hex": "0x244e",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        12117,
+        12202
+      ]
+    },
+    {
+      "name": "loc_245e",
+      "address": 9310,
+      "address_hex": "0x245e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "cseg_2479",
+      "address": 9337,
+      "address_hex": "0x2479",
+      "type": "A",
+      "space": "cs",
+      "kind": "embedded_pointer",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        9342,
+        9365
+      ]
+    },
+    {
+      "name": "bios_video_loc_247a",
+      "address": 9338,
+      "address_hex": "0x247a",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "dseg_24d4",
+      "address": 9428,
+      "address_hex": "0x24d4",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13895,
+        14012,
+        14038,
+        14860,
+        14937,
+        14957,
+        14963,
+        15010
+      ]
+    },
+    {
+      "name": "dseg_24d6",
+      "address": 9430,
+      "address_hex": "0x24d6",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10765,
+        10886,
+        11282,
+        13276,
+        13753,
+        14433,
+        14453,
+        14486,
+        14508,
+        14541,
+        14894,
+        15032
+      ]
+    },
+    {
+      "name": "dseg_24d8",
+      "address": 9432,
+      "address_hex": "0x24d8",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14073
+      ]
+    },
+    {
+      "name": "dseg_24da",
+      "address": 9434,
+      "address_hex": "0x24da",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14077
+      ]
+    },
+    {
+      "name": "dseg_24dc",
+      "address": 9436,
+      "address_hex": "0x24dc",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14042,
+        14914
+      ]
+    },
+    {
+      "name": "dseg_24de",
+      "address": 9438,
+      "address_hex": "0x24de",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14046,
+        14059,
+        14063,
+        14070,
+        14944
+      ]
+    },
+    {
+      "name": "dseg_24e0",
+      "address": 9440,
+      "address_hex": "0x24e0",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13874,
+        13908,
+        14951,
+        15024
+      ]
+    },
+    {
+      "name": "dseg_24e4",
+      "address": 9444,
+      "address_hex": "0x24e4",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13821,
+        14993,
+        14997
+      ]
+    },
+    {
+      "name": "dseg_2500",
+      "address": 9472,
+      "address_hex": "0x2500",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        11662,
+        14350
+      ]
+    },
+    {
+      "name": "bios_mouse_loc_2501",
+      "address": 9473,
+      "address_hex": "0x2501",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "dseg_2512",
+      "address": 9490,
+      "address_hex": "0x2512",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13844
+      ]
+    },
+    {
+      "name": "dseg_2514",
+      "address": 9492,
+      "address_hex": "0x2514",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13838,
+        14066,
+        14929,
+        14940,
+        15053
+      ]
+    },
+    {
+      "name": "dseg_2516",
+      "address": 9494,
+      "address_hex": "0x2516",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13887
+      ]
+    },
+    {
+      "name": "dseg_2518",
+      "address": 9496,
+      "address_hex": "0x2518",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13830,
+        13879,
+        14052,
+        14920
+      ]
+    },
+    {
+      "name": "dseg_251a",
+      "address": 9498,
+      "address_hex": "0x251a",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14159
+      ]
+    },
+    {
+      "name": "dseg_251b",
+      "address": 9499,
+      "address_hex": "0x251b",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14170
+      ]
+    },
+    {
+      "name": "dseg_251c",
+      "address": 9500,
+      "address_hex": "0x251c",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14181
+      ]
+    },
+    {
+      "name": "dos_con_in_noecho",
+      "address": 9505,
+      "address_hex": "0x2521",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bios_video_loc_252e",
+      "address": 9518,
+      "address_hex": "0x252e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "dseg_252e",
+      "address": 9518,
+      "address_hex": "0x252e",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14419
+      ]
+    },
+    {
+      "name": "dseg_2530",
+      "address": 9520,
+      "address_hex": "0x2530",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14415
+      ]
+    },
+    {
+      "name": "dseg_2532",
+      "address": 9522,
+      "address_hex": "0x2532",
+      "type": "A",
+      "space": "ds",
+      "kind": "data",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14596
+      ]
+    },
+    {
+      "name": "bss_2534",
+      "address": 9524,
+      "address_hex": "0x2534",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "immediate",
+      "confidence": "strong",
+      "referenced_by": [
+        12038,
+        12276,
+        13944
+      ]
+    },
+    {
+      "name": "bss_2536",
+      "address": 9526,
+      "address_hex": "0x2536",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        12024,
+        12030,
+        12041,
+        12080,
+        12099,
+        12110,
+        12285,
+        12341
+      ]
+    },
+    {
+      "name": "bss_2538",
+      "address": 9528,
+      "address_hex": "0x2538",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        12087,
+        12093
+      ]
+    },
+    {
+      "name": "bss_253a",
+      "address": 9530,
+      "address_hex": "0x253a",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14213,
+        14246,
+        14323
+      ]
+    },
+    {
+      "name": "bss_253c",
+      "address": 9532,
+      "address_hex": "0x253c",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14196,
+        14202,
+        14218,
+        14319
+      ]
+    },
+    {
+      "name": "bios_video_loc_2551",
+      "address": 9553,
+      "address_hex": "0x2551",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bios_video_loc_25d3",
+      "address": 9683,
+      "address_hex": "0x25d3",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bios_video_loc_2621",
+      "address": 9761,
+      "address_hex": "0x2621",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bss_2642",
+      "address": 9794,
+      "address_hex": "0x2642",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14603,
+        14629,
+        14639
+      ]
+    },
+    {
+      "name": "bss_2644",
+      "address": 9796,
+      "address_hex": "0x2644",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2343,
+        9802
+      ]
+    },
+    {
+      "name": "bss_2645",
+      "address": 9797,
+      "address_hex": "0x2645",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2348,
+        2353,
+        9724
+      ]
+    },
+    {
+      "name": "bss_2646",
+      "address": 9798,
+      "address_hex": "0x2646",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2358
+      ]
+    },
+    {
+      "name": "bss_2647",
+      "address": 9799,
+      "address_hex": "0x2647",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2363,
+        9526
+      ]
+    },
+    {
+      "name": "bss_2698",
+      "address": 9880,
+      "address_hex": "0x2698",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2623,
+        2704,
+        2722,
+        2749,
+        3063,
+        3081,
+        3091
+      ]
+    },
+    {
+      "name": "aztec_calloc",
+      "address": 9974,
+      "address_hex": "0x26f6",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bios_kbd_check",
+      "address": 9993,
+      "address_hex": "0x2709",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bios_video_loc_2720",
+      "address": 10016,
+      "address_hex": "0x2720",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bios_video_loc_2733",
+      "address": 10035,
+      "address_hex": "0x2733",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_atoi",
+      "address": 10246,
+      "address_hex": "0x2806",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_atol",
+      "address": 10359,
+      "address_hex": "0x2877",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2908",
+      "address": 10504,
+      "address_hex": "0x2908",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_fexecv",
+      "address": 10524,
+      "address_hex": "0x291c",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bss_29ba",
+      "address": 10682,
+      "address_hex": "0x29ba",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2777
+      ]
+    },
+    {
+      "name": "bss_29bb",
+      "address": 10683,
+      "address_hex": "0x29bb",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2783
+      ]
+    },
+    {
+      "name": "bss_29d0",
+      "address": 10704,
+      "address_hex": "0x29d0",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2802
+      ]
+    },
+    {
+      "name": "bss_29d1",
+      "address": 10705,
+      "address_hex": "0x29d1",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2808
+      ]
+    },
+    {
+      "name": "bss_29d2",
+      "address": 10706,
+      "address_hex": "0x29d2",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2735,
+        2765
+      ]
+    },
+    {
+      "name": "bss_29d4",
+      "address": 10708,
+      "address_hex": "0x29d4",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2823
+      ]
+    },
+    {
+      "name": "bss_29d5",
+      "address": 10709,
+      "address_hex": "0x29d5",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2838
+      ]
+    },
+    {
+      "name": "bss_29d6",
+      "address": 10710,
+      "address_hex": "0x29d6",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2853
+      ]
+    },
+    {
+      "name": "bss_29d7",
+      "address": 10711,
+      "address_hex": "0x29d7",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2868
+      ]
+    },
+    {
+      "name": "bss_29d8",
+      "address": 10712,
+      "address_hex": "0x29d8",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2922,
+        2940
+      ]
+    },
+    {
+      "name": "aztec_fcbinit",
+      "address": 10713,
+      "address_hex": "0x29d9",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bss_29da",
+      "address": 10714,
+      "address_hex": "0x29da",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2928,
+        2946
+      ]
+    },
+    {
+      "name": "bss_29dc",
+      "address": 10716,
+      "address_hex": "0x29dc",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2888,
+        2897
+      ]
+    },
+    {
+      "name": "bss_29dd",
+      "address": 10717,
+      "address_hex": "0x29dd",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2902,
+        2917
+      ]
+    },
+    {
+      "name": "bss_29df",
+      "address": 10719,
+      "address_hex": "0x29df",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2970
+      ]
+    },
+    {
+      "name": "bss_29e1",
+      "address": 10721,
+      "address_hex": "0x29e1",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2964
+      ]
+    },
+    {
+      "name": "bss_29e2",
+      "address": 10722,
+      "address_hex": "0x29e2",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        2771
+      ]
+    },
+    {
+      "name": "bss_29e3",
+      "address": 10723,
+      "address_hex": "0x29e3",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        3032
+      ]
+    },
+    {
+      "name": "bss_29e6",
+      "address": 10726,
+      "address_hex": "0x29e6",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        3128,
+        3194,
+        5297,
+        5362,
+        5693
+      ]
+    },
+    {
+      "name": "bss_29e8",
+      "address": 10728,
+      "address_hex": "0x29e8",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        3144,
+        3210,
+        5303,
+        5373,
+        5728
+      ]
+    },
+    {
+      "name": "bss_29ea",
+      "address": 10730,
+      "address_hex": "0x29ea",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        3160,
+        3226,
+        5309
+      ]
+    },
+    {
+      "name": "bss_29ec",
+      "address": 10732,
+      "address_hex": "0x29ec",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        3176,
+        3242,
+        5321
+      ]
+    },
+    {
+      "name": "bss_29ee",
+      "address": 10734,
+      "address_hex": "0x29ee",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        3987,
+        4027,
+        4045
+      ]
+    },
+    {
+      "name": "aztec_mkdir",
+      "address": 10750,
+      "address_hex": "0x29fe",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2a03",
+      "address": 10755,
+      "address_hex": "0x2a03",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2a13",
+      "address": 10771,
+      "address_hex": "0x2a13",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_2a15",
+      "address": 10773,
+      "address_hex": "0x2a15",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_2a1c",
+      "address": 10780,
+      "address_hex": "0x2a1c",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "cseg_2a23",
+      "address": 10787,
+      "address_hex": "0x2a23",
+      "type": "A",
+      "space": "cs",
+      "kind": "embedded_pointer",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10807,
+        10872
+      ]
+    },
+    {
+      "name": "cseg_2a25",
+      "address": 10789,
+      "address_hex": "0x2a25",
+      "type": "A",
+      "space": "cs",
+      "kind": "embedded_pointer",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        10812,
+        10877
+      ]
+    },
+    {
+      "name": "aztec_fexec",
+      "address": 10791,
+      "address_hex": "0x2a27",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_wait",
+      "address": 10909,
+      "address_hex": "0x2a9d",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_2aa6",
+      "address": 10918,
+      "address_hex": "0x2aa6",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_strncat",
+      "address": 10926,
+      "address_hex": "0x2aae",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2ab4",
+      "address": 10932,
+      "address_hex": "0x2ab4",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2acb",
+      "address": 10955,
+      "address_hex": "0x2acb",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2ad6",
+      "address": 10966,
+      "address_hex": "0x2ad6",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_strcpy",
+      "address": 10973,
+      "address_hex": "0x2add",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bss_2af0",
+      "address": 10992,
+      "address_hex": "0x2af0",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        5315
+      ]
+    },
+    {
+      "name": "bss_2af2",
+      "address": 10994,
+      "address_hex": "0x2af2",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        5327
+      ]
+    },
+    {
+      "name": "bss_2af4",
+      "address": 10996,
+      "address_hex": "0x2af4",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        5333
+      ]
+    },
+    {
+      "name": "bss_2af6",
+      "address": 10998,
+      "address_hex": "0x2af6",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        5339
+      ]
+    },
+    {
+      "name": "bss_2af8",
+      "address": 11000,
+      "address_hex": "0x2af8",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        5345
+      ]
+    },
+    {
+      "name": "bss_2afa",
+      "address": 11002,
+      "address_hex": "0x2afa",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        5351,
+        5384,
+        5880
+      ]
+    },
+    {
+      "name": "bss_2afc",
+      "address": 11004,
+      "address_hex": "0x2afc",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        14557,
+        14609,
+        14643
+      ]
+    },
+    {
+      "name": "aztec_strncpy",
+      "address": 11017,
+      "address_hex": "0x2b09",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_sysint",
+      "address": 11057,
+      "address_hex": "0x2b31",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_toupper",
+      "address": 11186,
+      "address_hex": "0x2bb2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_tolower",
+      "address": 11206,
+      "address_hex": "0x2bc6",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_gmtime",
+      "address": 11226,
+      "address_hex": "0x2bda",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2bfe",
+      "address": 11262,
+      "address_hex": "0x2bfe",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2c62",
+      "address": 11362,
+      "address_hex": "0x2c62",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2c7a",
+      "address": 11386,
+      "address_hex": "0x2c7a",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_fputs",
+      "address": 11406,
+      "address_hex": "0x2c8e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2cc1",
+      "address": 11457,
+      "address_hex": "0x2cc1",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2cdd",
+      "address": 11485,
+      "address_hex": "0x2cdd",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_putc",
+      "address": 11490,
+      "address_hex": "0x2ce2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2cf5",
+      "address": 11509,
+      "address_hex": "0x2cf5",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_fclose",
+      "address": 11531,
+      "address_hex": "0x2d0b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_filbuf",
+      "address": 11654,
+      "address_hex": "0x2d86",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_2e45",
+      "address": 11845,
+      "address_hex": "0x2e45",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2e63",
+      "address": 11875,
+      "address_hex": "0x2e63",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_realloc",
+      "address": 11948,
+      "address_hex": "0x2eac",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_malloc",
+      "address": 12059,
+      "address_hex": "0x2f1b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_2f7e",
+      "address": 12158,
+      "address_hex": "0x2f7e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_3016",
+      "address": 12310,
+      "address_hex": "0x3016",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_free",
+      "address": 12313,
+      "address_hex": "0x3019",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_3098",
+      "address": 12440,
+      "address_hex": "0x3098",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_30aa",
+      "address": 12458,
+      "address_hex": "0x30aa",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_30b3",
+      "address": 12467,
+      "address_hex": "0x30b3",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_30c5",
+      "address": 12485,
+      "address_hex": "0x30c5",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_30d6",
+      "address": 12502,
+      "address_hex": "0x30d6",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_30e1",
+      "address": 12513,
+      "address_hex": "0x30e1",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_30eb",
+      "address": 12523,
+      "address_hex": "0x30eb",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_30fb",
+      "address": 12539,
+      "address_hex": "0x30fb",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3105",
+      "address": 12549,
+      "address_hex": "0x3105",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_310e",
+      "address": 12558,
+      "address_hex": "0x310e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_311b",
+      "address": 12571,
+      "address_hex": "0x311b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3129",
+      "address": 12585,
+      "address_hex": "0x3129",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_312d",
+      "address": 12589,
+      "address_hex": "0x312d",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_3140",
+      "address": 12608,
+      "address_hex": "0x3140",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_3147",
+      "address": 12615,
+      "address_hex": "0x3147",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_314b",
+      "address": 12619,
+      "address_hex": "0x314b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_314e",
+      "address": 12622,
+      "address_hex": "0x314e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_3155",
+      "address": 12629,
+      "address_hex": "0x3155",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_315a",
+      "address": 12634,
+      "address_hex": "0x315a",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_315e",
+      "address": 12638,
+      "address_hex": "0x315e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_3163",
+      "address": 12643,
+      "address_hex": "0x3163",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_3168",
+      "address": 12648,
+      "address_hex": "0x3168",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_316b",
+      "address": 12651,
+      "address_hex": "0x316b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3184",
+      "address": 12676,
+      "address_hex": "0x3184",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_318b",
+      "address": 12683,
+      "address_hex": "0x318b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_31a4",
+      "address": 12708,
+      "address_hex": "0x31a4",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_31b2",
+      "address": 12722,
+      "address_hex": "0x31b2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_31bc",
+      "address": 12732,
+      "address_hex": "0x31bc",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_31c4",
+      "address": 12740,
+      "address_hex": "0x31c4",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_31d8",
+      "address": 12760,
+      "address_hex": "0x31d8",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_31da",
+      "address": 12762,
+      "address_hex": "0x31da",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_31e7",
+      "address": 12775,
+      "address_hex": "0x31e7",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_31fd",
+      "address": 12797,
+      "address_hex": "0x31fd",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3202",
+      "address": 12802,
+      "address_hex": "0x3202",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3215",
+      "address": 12821,
+      "address_hex": "0x3215",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3227",
+      "address": 12839,
+      "address_hex": "0x3227",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_322a",
+      "address": 12842,
+      "address_hex": "0x322a",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_323e",
+      "address": 12862,
+      "address_hex": "0x323e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3249",
+      "address": 12873,
+      "address_hex": "0x3249",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_324c",
+      "address": 12876,
+      "address_hex": "0x324c",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3258",
+      "address": 12888,
+      "address_hex": "0x3258",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3266",
+      "address": 12902,
+      "address_hex": "0x3266",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3272",
+      "address": 12914,
+      "address_hex": "0x3272",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3275",
+      "address": 12917,
+      "address_hex": "0x3275",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_327b",
+      "address": 12923,
+      "address_hex": "0x327b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_328c",
+      "address": 12940,
+      "address_hex": "0x328c",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_32a2",
+      "address": 12962,
+      "address_hex": "0x32a2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_32ab",
+      "address": 12971,
+      "address_hex": "0x32ab",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_32d0",
+      "address": 13008,
+      "address_hex": "0x32d0",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_32d3",
+      "address": 13011,
+      "address_hex": "0x32d3",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_32eb",
+      "address": 13035,
+      "address_hex": "0x32eb",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3301",
+      "address": 13057,
+      "address_hex": "0x3301",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_331d",
+      "address": 13085,
+      "address_hex": "0x331d",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_331e",
+      "address": 13086,
+      "address_hex": "0x331e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_3330",
+      "address": 13104,
+      "address_hex": "0x3330",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "string_loc_3338",
+      "address": 13112,
+      "address_hex": "0x3338",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_creat",
+      "address": 13162,
+      "address_hex": "0x336a",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_open",
+      "address": 13185,
+      "address_hex": "0x3381",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "data_33ce",
+      "address": 13262,
+      "address_hex": "0x33ce",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_lrm",
+      "address": 13381,
+      "address_hex": "0x3445",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_lum",
+      "address": 13417,
+      "address_hex": "0x3469",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_lud",
+      "address": 13425,
+      "address_hex": "0x3471",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_strcmp",
+      "address": 13576,
+      "address_hex": "0x3508",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "data_3521",
+      "address": 13601,
+      "address_hex": "0x3521",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "data_3523",
+      "address": 13603,
+      "address_hex": "0x3523",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_strncmp",
+      "address": 13606,
+      "address_hex": "0x3526",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3555",
+      "address": 13653,
+      "address_hex": "0x3555",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3557",
+      "address": 13655,
+      "address_hex": "0x3557",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_355b",
+      "address": 13659,
+      "address_hex": "0x355b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3568",
+      "address": 13672,
+      "address_hex": "0x3568",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_strlen",
+      "address": 13679,
+      "address_hex": "0x356f",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_sys",
+      "address": 13708,
+      "address_hex": "0x358c",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "cseg_35d0",
+      "address": 13776,
+      "address_hex": "0x35d0",
+      "type": "A",
+      "space": "cs",
+      "kind": "embedded_pointer",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        13787
+      ]
+    },
+    {
+      "name": "aztec_begin",
+      "address": 13778,
+      "address_hex": "0x35d2",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "dos_proc_loc_3716",
+      "address": 14102,
+      "address_hex": "0x3716",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3718",
+      "address": 14104,
+      "address_hex": "0x3718",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_Croot",
+      "address": 14143,
+      "address_hex": "0x373f",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_380b",
+      "address": 14347,
+      "address_hex": "0x380b",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "bss_380c",
+      "address": 14348,
+      "address_hex": "0x380c",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        16234
+      ]
+    },
+    {
+      "name": "leaf_loc_381d",
+      "address": 14365,
+      "address_hex": "0x381d",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_read",
+      "address": 14367,
+      "address_hex": "0x381f",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_3829",
+      "address": 14377,
+      "address_hex": "0x3829",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_3833",
+      "address": 14387,
+      "address_hex": "0x3833",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_write",
+      "address": 14394,
+      "address_hex": "0x383a",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_383f",
+      "address": 14399,
+      "address_hex": "0x383f",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3853",
+      "address": 14419,
+      "address_hex": "0x3853",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3857",
+      "address": 14423,
+      "address_hex": "0x3857",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_3867",
+      "address": 14439,
+      "address_hex": "0x3867",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_close",
+      "address": 14441,
+      "address_hex": "0x3869",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_lseek",
+      "address": 14465,
+      "address_hex": "0x3881",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_unlink",
+      "address": 14496,
+      "address_hex": "0x38a0",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_rename",
+      "address": 14520,
+      "address_hex": "0x38b8",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_tty_rd",
+      "address": 14553,
+      "address_hex": "0x38d9",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_tty_wr",
+      "address": 14654,
+      "address_hex": "0x393e",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_movmem",
+      "address": 14752,
+      "address_hex": "0x39a0",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_isatty",
+      "address": 14821,
+      "address_hex": "0x39e5",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_sbrk",
+      "address": 14853,
+      "address_hex": "0x3a05",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_brk",
+      "address": 14905,
+      "address_hex": "0x3a39",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "aztec_rsvstk",
+      "address": 15045,
+      "address_hex": "0x3ac5",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_3f00",
+      "address": 16128,
+      "address_hex": "0x3f00",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "leaf_loc_5fe5",
+      "address": 24549,
+      "address_hex": "0x5fe5",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    }
+  ]
+}

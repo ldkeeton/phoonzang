@@ -26,8 +26,8 @@ app_mem_184f: ; Aztec csav frame=0x0016
     pop ax                           ; 0x1888
     add ax, cx                       ; 0x1889
     mov bx, ax                       ; 0x188b
-    mov byte [bx + 0x5d26], data_0002 ; 0x188d
-    mov byte [bx + 0x5d27], data_0002 ; 0x1892
+    mov byte [bx + 0x5d26], 2        ; 0x188d
+    mov byte [bx + 0x5d27], 2        ; 0x1892
     mov byte [bx + 0x5d33], 0x20     ; 0x1897
     mov ax, 0x248                    ; 0x189c
     imul word [bp + 0x4]             ; 0x189f

@@ -13,7 +13,7 @@ api_idx_0002_13:
     inc word [bp - 0x0002]           ; 0x6616
 @..api_idx_0002_13.l3:
     mov ax, word [bp - 0x0002]       ; 0x6619
-    cmp ax, word [data_9070]         ; 0x661c
+    cmp ax, word [dseg_9070]         ; 0x661c
     jl short @..api_idx_0002_13.l1   ; 0x6620
     mov ax, 0xffff                   ; 0x6622
     ret                              ; 0x6625
@@ -46,7 +46,7 @@ loc_6626:
     inc word [bp - 0x0002]           ; 0x6663
 @..local.l72:
     mov ax, word [bp - 0x0002]       ; 0x6666
-    cmp ax, word [data_9070]         ; 0x6669
+    cmp ax, word [dseg_9070]         ; 0x6669
     jl short @..local.l70            ; 0x666d
     mov ax, 0                        ; 0x666f
     ret                              ; 0x6672

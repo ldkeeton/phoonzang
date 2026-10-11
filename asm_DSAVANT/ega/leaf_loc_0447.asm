@@ -5,9 +5,9 @@ leaf_loc_0447:
     mov ax, ds                       ; 0x044b
     mov es, ax                       ; 0x044d
     mov ax, word [bp + 0xc]          ; 0x044f
-    mov word [cs:leaf_loc_0293], ax  ; 0x0452
+    mov word [cs:leaf_loc_0293 - IMAGE_BASE], ax ; 0x0452
     mov ax, word [bp + 0xe]          ; 0x0456
-    mov word [cs:data_0291], ax      ; 0x0459
+    mov word [cs:cseg_0291 - IMAGE_BASE], ax ; 0x0459
     pop es                           ; 0x045d
     mov sp, bp                       ; 0x045e
     pop bp                           ; 0x0460
@@ -19,9 +19,9 @@ loc_0462:
     mov ax, ds                       ; 0x0466
     mov es, ax                       ; 0x0468
     mov ax, word [bp + 0xc]          ; 0x046a
-    mov word [cs:data_0295], ax      ; 0x046d
+    mov word [cs:cseg_0295 - IMAGE_BASE], ax ; 0x046d
     mov ax, word [bp + 0xe]          ; 0x0471
-    mov word [cs:data_0297], ax      ; 0x0474
+    mov word [cs:cseg_0297 - IMAGE_BASE], ax ; 0x0474
     pop es                           ; 0x0478
     mov sp, bp                       ; 0x0479
     pop bp                           ; 0x047b
@@ -29,10 +29,10 @@ loc_0462:
 loc_047d:
     push bp                          ; 0x047d
     mov bp, sp                       ; 0x047e
-    mov ax, word [cs:data_0295]      ; 0x0480
+    mov ax, word [cs:cseg_0295 - IMAGE_BASE] ; 0x0480
     mov bx, word [bp + 0xc]          ; 0x0484
     mov word [bx], ax                ; 0x0487
-    mov ax, word [cs:data_0297]      ; 0x0489
+    mov ax, word [cs:cseg_0297 - IMAGE_BASE] ; 0x0489
     mov bx, word [bp + 0xe]          ; 0x048d
     mov word [bx], ax                ; 0x0490
     mov sp, bp                       ; 0x0492
@@ -43,7 +43,7 @@ loc_0496:
     mov bp, sp                       ; 0x0497
     push es                          ; 0x0499
     push di                          ; 0x049a
-    mov ax, word [cs:data_01e5]      ; 0x049b
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x049b
     mov es, ax                       ; 0x049f
     xor di, di                       ; 0x04a1
     mov ax, word [bp + 0xc]          ; 0x04a3
@@ -70,7 +70,7 @@ loc_04b1:
     mov es, ax                       ; 0x04c8
     call leaf_loc_1900               ; 0x04ca
     call graphics_loc_0949           ; 0x04cd
-    mov ax, word [cs:data_01e5]      ; 0x04d0
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x04d0
     mov ds, ax                       ; 0x04d4
     mov ax, 0xa000                   ; 0x04d6
     mov es, ax                       ; 0x04d9
@@ -148,7 +148,7 @@ loc_04b1:
     add ax, strict word 0xf          ; 0x0589
     mov cl, 4                        ; 0x058c
     shr ax, cl                       ; 0x058e
-    add ax, word [cs:data_11cd]      ; 0x0590
+    add ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x0590
     cmp ax, 0x4180                   ; 0x0595
     jae short @..local.l6            ; 0x0598
     cmp byte [bp - 0x0036], 0        ; 0x059a
@@ -171,7 +171,7 @@ loc_04b1:
 @..local.l8:
     mov di, word [bp - 0x0002]       ; 0x05ba
     mov si, word [bp - 0x0012]       ; 0x05bd
-    mov bx, dos_mem_loc_33b3         ; 0x05c0
+    mov bx, 0x33b3                   ; 0x05c0
     mov cl, 4                        ; 0x05c3
     test byte [bp - 0x0014], 0xaa    ; 0x05c5
     jne short @..local.l9            ; 0x05c9
@@ -218,8 +218,8 @@ loc_04b1:
     pop bp                           ; 0x061c
     ret                              ; 0x061d
 @..local.l12:
-    mov ax, word [cs:data_11cd]      ; 0x061e
-    add ax, word [cs:data_01e1]      ; 0x0622
+    mov ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x061e
+    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x0622
     mov es, ax                       ; 0x0627
     mov ax, 0xa000                   ; 0x0629
     mov ds, ax                       ; 0x062c
@@ -395,7 +395,7 @@ loc_04b1:
     dec bx                           ; 0x0779
     jne short @..local.l23           ; 0x077a
 @..local.l24:
-    mov ax, word [cs:data_01e5]      ; 0x077c
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x077c
     mov ds, ax                       ; 0x0780
     xor di, di                       ; 0x0782
     mov cx, word [bp - 0x0016]       ; 0x0784
@@ -415,7 +415,7 @@ loc_04b1:
     add bx, word [bp - 0x0024]       ; 0x07a9
     mov dh, byte [es:bx + di]        ; 0x07ac
 @..local.l26:
-    mov bx, dos_mem_loc_33b3         ; 0x07af
+    mov bx, 0x33b3                   ; 0x07af
     lodsb                            ; 0x07b2
     cs xlatb                         ; 0x07b3
     rcl al, 1                        ; 0x07b5
@@ -454,7 +454,7 @@ loc_04b1:
     xor dx, dx                       ; 0x07fc
     mov byte [bp - 0x0030], 4        ; 0x07fe
 @..local.l29:
-    mov bx, dos_mem_loc_33b3         ; 0x0802
+    mov bx, 0x33b3                   ; 0x0802
     lodsb                            ; 0x0805
     cs xlatb                         ; 0x0806
     rcl al, 1                        ; 0x0808
@@ -502,7 +502,7 @@ loc_04b1:
     add bx, word [bp - 0x0024]       ; 0x0868
     mov dh, byte [es:bx + di]        ; 0x086b
 @..local.l31:
-    mov bx, dos_mem_loc_33b3         ; 0x086e
+    mov bx, 0x33b3                   ; 0x086e
     mov al, byte [si]                ; 0x0871
     dec si                           ; 0x0873
     cs xlatb                         ; 0x0874
@@ -540,8 +540,8 @@ loc_04b1:
 @..local.l33:
     mov ax, 0xa000                   ; 0x08b9
     mov es, ax                       ; 0x08bc
-    mov ax, word [cs:data_01e1]      ; 0x08be
-    add ax, word [cs:data_11cd]      ; 0x08c2
+    mov ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x08be
+    add ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x08c2
     mov ds, ax                       ; 0x08c7
     xor si, si                       ; 0x08c9
     mov di, word [bp - 0x0002]       ; 0x08cb

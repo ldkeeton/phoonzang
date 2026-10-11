@@ -11,7 +11,7 @@ string_loc_4002:
     mov es, ax                       ; 0x400f
     mov si, word [bp + 0x4]          ; 0x4011
     mov di, word [bp + 0x6]          ; 0x4014
-    mov ax, word [cs:data_2d4e]      ; 0x4017
+    mov ax, word [cs:cseg_2f4e - IMAGE_BASE] ; 0x4017
     mov es, ax                       ; 0x401b
     lodsb                            ; 0x401d
     xor ah, ah                       ; 0x401e

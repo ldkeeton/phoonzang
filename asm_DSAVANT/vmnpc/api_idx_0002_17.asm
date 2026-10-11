@@ -22,31 +22,31 @@ api_idx_0002_17:
 loc_a441:
     mov ax, 0                        ; 0xa441
     db 0xe8, 0xc4, 0x4f ; call 0xf40b
-    mov word [data_93d4], 0          ; 0xa447
+    mov word [dseg_93d4], 0          ; 0xa447
 @..local.l119:
-    mov ax, word [data_93d4]         ; 0xa44d
+    mov ax, word [dseg_93d4]         ; 0xa44d
     mov cx, 7                        ; 0xa450
     shl ax, cl                       ; 0xa453
     mov bx, ax                       ; 0xa455
     mov byte [bx - 0x6e34], 0        ; 0xa457
-    mov ax, word [data_93d4]         ; 0xa45c
+    mov ax, word [dseg_93d4]         ; 0xa45c
     shl ax, 1                        ; 0xa45f
     mov bx, ax                       ; 0xa461
     mov word [bx - 0x6c34], 0        ; 0xa463
-    inc word [data_93d4]             ; 0xa469
-    mov ax, word [data_93d4]         ; 0xa46d
+    inc word [dseg_93d4]             ; 0xa469
+    mov ax, word [dseg_93d4]         ; 0xa46d
     cmp ax, strict word 4            ; 0xa470
     jl short @..local.l119           ; 0xa473
-    mov word [data_93d4], 0          ; 0xa475
-    mov word [data_b052], 0x1f40     ; 0xa47b
-    mov ax, word [data_91a0]         ; 0xa481
-    mov word [data_b050], ax         ; 0xa484
-    mov ax, word [data_91a4]         ; 0xa487
-    mov word [data_b04a], ax         ; 0xa48a
-    mov ax, word [data_91a6]         ; 0xa48d
-    mov word [data_b04c], ax         ; 0xa490
-    push word [data_b052]            ; 0xa493
-    push word [data_b050]            ; 0xa497
+    mov word [dseg_93d4], 0          ; 0xa475
+    mov word [dseg_b052], 0x1f40     ; 0xa47b
+    mov ax, word [dseg_91a0]         ; 0xa481
+    mov word [dseg_b050], ax         ; 0xa484
+    mov ax, word [dseg_91a4]         ; 0xa487
+    mov word [dseg_b04a], ax         ; 0xa48a
+    mov ax, word [dseg_91a6]         ; 0xa48d
+    mov word [dseg_b04c], ax         ; 0xa490
+    push word [dseg_b052]            ; 0xa493
+    push word [dseg_b050]            ; 0xa497
     call api_idx_0002_14             ; 0xa49b
     add sp, byte 4                   ; 0xa49e
     mov ax, 0xa658                   ; 0xa4a1

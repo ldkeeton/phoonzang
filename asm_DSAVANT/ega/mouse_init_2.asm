@@ -4,9 +4,9 @@ mouse_init_2:
     push es                          ; 0x1813
     mov ax, ds                       ; 0x1814
     mov es, ax                       ; 0x1816
-    cmp byte [cs:data_0228], 0       ; 0x1818
+    cmp byte [cs:cseg_0228 - IMAGE_BASE], 0 ; 0x1818
     je short @..mouse_init_2.l1      ; 0x181e
-    mov byte [cs:data_0228], 0       ; 0x1820
+    mov byte [cs:cseg_0228 - IMAGE_BASE], 0 ; 0x1820
     mov ax, 0                        ; 0x1826
     int 0x33 ; BIOS mouse
     push ds                          ; 0x182b
@@ -17,7 +17,7 @@ mouse_init_2:
     mov ds, ax                       ; 0x1831
     mov ax, 0xa000                   ; 0x1833
     mov es, ax                       ; 0x1836
-    mov si, word [cs:data_1bd5]      ; 0x1838
+    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x1838
     mov dx, 0x3c4                    ; 0x183d
     mov al, 2                        ; 0x1840
     out dx, al                       ; 0x1842
@@ -25,7 +25,7 @@ mouse_init_2:
     mov al, 1                        ; 0x1844
     out dx, al                       ; 0x1846
     call leaf_loc_189f               ; 0x1847
-    mov si, word [cs:data_1bd5]      ; 0x184a
+    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x184a
     add si, strict word 0x120        ; 0x184f
     mov dx, 0x3c4                    ; 0x1853
     mov al, 2                        ; 0x1856
@@ -34,7 +34,7 @@ mouse_init_2:
     mov al, 2                        ; 0x185a
     out dx, al                       ; 0x185c
     call leaf_loc_189f               ; 0x185d
-    mov si, word [cs:data_1bd5]      ; 0x1860
+    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x1860
     add si, strict word 0x240        ; 0x1865
     mov dx, 0x3c4                    ; 0x1869
     mov al, 2                        ; 0x186c
@@ -43,7 +43,7 @@ mouse_init_2:
     mov al, 4                        ; 0x1870
     out dx, al                       ; 0x1872
     call leaf_loc_189f               ; 0x1873
-    mov si, word [cs:data_1bd5]      ; 0x1876
+    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x1876
     add si, strict word 0x360        ; 0x187b
     mov dx, 0x3c4                    ; 0x187f
     mov al, 2                        ; 0x1882

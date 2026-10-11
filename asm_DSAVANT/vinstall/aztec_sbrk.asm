@@ -3,7 +3,7 @@ aztec_sbrk:
     mov bp, sp                       ; 0x3a06
     push di                          ; 0x3a08
     mov ax, word [bp + 0x4]          ; 0x3a09
-    mov di, word [data_24d4]         ; 0x3a0c
+    mov di, word [dseg_24d4]         ; 0x3a0c
     test ax, ax                      ; 0x3a10
     jge short @..aztec_sbrk.l1       ; 0x3a12
     sub di, ax                       ; 0x3a14
@@ -25,6 +25,6 @@ aztec_sbrk:
     pop bp                           ; 0x3a2c
     ret                              ; 0x3a2d
 @..aztec_sbrk.l4:
-    mov word [data_24d6], 0xfff8     ; 0x3a2e
+    mov word [dseg_24d6], 0xfff8     ; 0x3a2e
     mov ax, 0xffff                   ; 0x3a34
     jmp short @..aztec_sbrk.l3       ; 0x3a37

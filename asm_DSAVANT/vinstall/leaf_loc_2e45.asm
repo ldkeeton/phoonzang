@@ -1,11 +1,11 @@
 leaf_loc_2e45:
     push si                          ; 0x2e45
-    mov si, 0x234a                   ; 0x2e46
+    mov si, dseg_234a                ; 0x2e46
 @..leaf_loc_2e45.l1:
     cmp byte [si + 0x6], 0           ; 0x2e49
     je short @..leaf_loc_2e45.l4     ; 0x2e4d
     add si, byte 0x0d                ; 0x2e4f
-    cmp si, data_244e                ; 0x2e52
+    cmp si, strict word 0x244e       ; 0x2e52
     jb short @..leaf_loc_2e45.l3     ; 0x2e56
     mov ax, 0                        ; 0x2e58
 @..leaf_loc_2e45.l2:
@@ -48,7 +48,7 @@ loc_2e63:
     test ax, ax                      ; 0x2e97
     je short @..local.l119           ; 0x2e99
     mov word [si + 0x9], 0x400       ; 0x2e9b
-    or byte [si + 0x6], data_0002    ; 0x2ea0
+    or byte [si + 0x6], 2            ; 0x2ea0
     mov ax, word [bp - 0x0002]       ; 0x2ea4
     mov word [si + 0x4], ax          ; 0x2ea7
     jmp short @..local.l120          ; 0x2eaa

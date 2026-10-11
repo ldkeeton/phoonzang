@@ -136,7 +136,7 @@ api_idx_0030:
     sub ah, ah                       ; 0x9403
     test ax, 1                       ; 0x9405
     je short @..api_idx_0030.l10     ; 0x9408
-    test ax, data_0002               ; 0x940a
+    test ax, 2                       ; 0x940a
     jne short @..api_idx_0030.l10    ; 0x940d
     push word [bp - 0x0008]          ; 0x940f
     push word [bp + 0x4]             ; 0x9412

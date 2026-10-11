@@ -69,7 +69,7 @@ loc_4134:
     push bp                          ; 0x4134
     mov bp, sp                       ; 0x4135
     cld                              ; 0x4137
-    call far [cs:data_2e3b]          ; 0x4138
+    call far [cs:cseg_303b - IMAGE_BASE] ; 0x4138
     mov sp, bp                       ; 0x413d
     pop bp                           ; 0x413f
     ret                              ; 0x4140
@@ -77,7 +77,7 @@ loc_4141:
     push bp                          ; 0x4141
     mov bp, sp                       ; 0x4142
     cld                              ; 0x4144
-    call far [cs:data_2e37]          ; 0x4145
+    call far [cs:cseg_3037 - IMAGE_BASE] ; 0x4145
     mov sp, bp                       ; 0x414a
     pop bp                           ; 0x414c
     ret                              ; 0x414d
@@ -85,7 +85,7 @@ loc_414e:
     push bp                          ; 0x414e
     mov bp, sp                       ; 0x414f
     cld                              ; 0x4151
-    call far [cs:data_2e3f]          ; 0x4152
+    call far [cs:cseg_303f - IMAGE_BASE] ; 0x4152
     mov sp, bp                       ; 0x4157
     pop bp                           ; 0x4159
     ret                              ; 0x415a
@@ -93,7 +93,7 @@ loc_415b:
     push bp                          ; 0x415b
     mov bp, sp                       ; 0x415c
     cld                              ; 0x415e
-    call far [cs:data_2e43]          ; 0x415f
+    call far [cs:cseg_3043 - IMAGE_BASE] ; 0x415f
     mov sp, bp                       ; 0x4164
     pop bp                           ; 0x4166
     ret                              ; 0x4167
@@ -101,7 +101,7 @@ loc_4168:
     push bp                          ; 0x4168
     mov bp, sp                       ; 0x4169
     cld                              ; 0x416b
-    call far [cs:data_2e47]          ; 0x416c
+    call far [cs:cseg_3047 - IMAGE_BASE] ; 0x416c
     mov sp, bp                       ; 0x4171
     pop bp                           ; 0x4173
     ret                              ; 0x4174
@@ -126,7 +126,7 @@ loc_4175:
     push ax                          ; 0x4190
     push ax                          ; 0x4191
     push ax                          ; 0x4192
-    call far [cs:data_2d7b]          ; 0x4193
+    call far [cs:cseg_2f7b - IMAGE_BASE] ; 0x4193
     add sp, byte 0x0e                ; 0x4198
     pop di                           ; 0x419b
     pop si                           ; 0x419c
@@ -139,7 +139,7 @@ loc_41a3:
     push bp                          ; 0x41a3
     mov bp, sp                       ; 0x41a4
     cld                              ; 0x41a6
-    call far [cs:data_2e4b]          ; 0x41a7
+    call far [cs:cseg_304b - IMAGE_BASE] ; 0x41a7
     mov sp, bp                       ; 0x41ac
     pop bp                           ; 0x41ae
     ret                              ; 0x41af
@@ -147,7 +147,7 @@ loc_41b0:
     push bp                          ; 0x41b0
     mov bp, sp                       ; 0x41b1
     cld                              ; 0x41b3
-    call far [cs:data_2e4f]          ; 0x41b4
+    call far [cs:cseg_304f - IMAGE_BASE] ; 0x41b4
     mov sp, bp                       ; 0x41b9
     pop bp                           ; 0x41bb
     ret                              ; 0x41bc
@@ -155,7 +155,7 @@ loc_41bd:
     push bp                          ; 0x41bd
     mov bp, sp                       ; 0x41be
     cld                              ; 0x41c0
-    call far [cs:data_2e53]          ; 0x41c1
+    call far [cs:cseg_3053 - IMAGE_BASE] ; 0x41c1
     mov sp, bp                       ; 0x41c6
     pop bp                           ; 0x41c8
     ret                              ; 0x41c9
@@ -163,7 +163,7 @@ loc_41ca:
     push bp                          ; 0x41ca
     mov bp, sp                       ; 0x41cb
     cld                              ; 0x41cd
-    call far [cs:data_2e57]          ; 0x41ce
+    call far [cs:cseg_3057 - IMAGE_BASE] ; 0x41ce
     mov sp, bp                       ; 0x41d3
     pop bp                           ; 0x41d5
     ret                              ; 0x41d6
@@ -171,7 +171,7 @@ loc_41d7:
     push bp                          ; 0x41d7
     mov bp, sp                       ; 0x41d8
     cld                              ; 0x41da
-    call far [cs:data_2e5b]          ; 0x41db
+    call far [cs:cseg_305b - IMAGE_BASE] ; 0x41db
     mov sp, bp                       ; 0x41e0
     pop bp                           ; 0x41e2
     ret                              ; 0x41e3
@@ -179,7 +179,7 @@ loc_41e4:
     push bp                          ; 0x41e4
     mov bp, sp                       ; 0x41e5
     cld                              ; 0x41e7
-    call far [cs:data_2e5f]          ; 0x41e8
+    call far [cs:cseg_305f - IMAGE_BASE] ; 0x41e8
     mov sp, bp                       ; 0x41ed
     pop bp                           ; 0x41ef
     ret                              ; 0x41f0
@@ -187,7 +187,7 @@ loc_41f1:
     push bp                          ; 0x41f1
     mov bp, sp                       ; 0x41f2
     cld                              ; 0x41f4
-    call far [cs:data_2d9b]          ; 0x41f5
+    call far [cs:cseg_2f9b - IMAGE_BASE] ; 0x41f5
     mov sp, bp                       ; 0x41fa
     pop bp                           ; 0x41fc
     ret                              ; 0x41fd
@@ -195,7 +195,7 @@ loc_41fe:
     push bp                          ; 0x41fe
     mov bp, sp                       ; 0x41ff
     cld                              ; 0x4201
-    call far [cs:data_2ddf]          ; 0x4202
+    call far [cs:cseg_2fdf - IMAGE_BASE] ; 0x4202
     mov sp, bp                       ; 0x4207
     pop bp                           ; 0x4209
     ret                              ; 0x420a
@@ -203,7 +203,7 @@ loc_420b:
     push bp                          ; 0x420b
     mov bp, sp                       ; 0x420c
     cld                              ; 0x420e
-    call far [cs:data_2e13]          ; 0x420f
+    call far [cs:cseg_3013 - IMAGE_BASE] ; 0x420f
     mov sp, bp                       ; 0x4214
     pop bp                           ; 0x4216
     ret                              ; 0x4217
@@ -211,7 +211,7 @@ loc_4218:
     push bp                          ; 0x4218
     mov bp, sp                       ; 0x4219
     cld                              ; 0x421b
-    call far [cs:data_2d9f]          ; 0x421c
+    call far [cs:cseg_2f9f - IMAGE_BASE] ; 0x421c
     mov sp, bp                       ; 0x4221
     pop bp                           ; 0x4223
     ret                              ; 0x4224
@@ -219,7 +219,7 @@ loc_4225:
     push bp                          ; 0x4225
     mov bp, sp                       ; 0x4226
     cld                              ; 0x4228
-    call far [cs:data_2da3]          ; 0x4229
+    call far [cs:cseg_2fa3 - IMAGE_BASE] ; 0x4229
     mov sp, bp                       ; 0x422e
     pop bp                           ; 0x4230
     ret                              ; 0x4231
@@ -227,7 +227,7 @@ loc_4232:
     push bp                          ; 0x4232
     mov bp, sp                       ; 0x4233
     cld                              ; 0x4235
-    call far [cs:data_2e17]          ; 0x4236
+    call far [cs:cseg_3017 - IMAGE_BASE] ; 0x4236
     mov sp, bp                       ; 0x423b
     pop bp                           ; 0x423d
     ret                              ; 0x423e
@@ -235,7 +235,7 @@ loc_423f:
     push bp                          ; 0x423f
     mov bp, sp                       ; 0x4240
     cld                              ; 0x4242
-    call far [cs:data_2def]          ; 0x4243
+    call far [cs:cseg_2fef - IMAGE_BASE] ; 0x4243
     mov sp, bp                       ; 0x4248
     pop bp                           ; 0x424a
     ret                              ; 0x424b
@@ -243,7 +243,7 @@ loc_424c:
     push bp                          ; 0x424c
     mov bp, sp                       ; 0x424d
     cld                              ; 0x424f
-    call far [cs:data_2df3]          ; 0x4250
+    call far [cs:cseg_2ff3 - IMAGE_BASE] ; 0x4250
     mov sp, bp                       ; 0x4255
     pop bp                           ; 0x4257
     ret                              ; 0x4258

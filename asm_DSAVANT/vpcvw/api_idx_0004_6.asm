@@ -1,23 +1,23 @@
 api_idx_0004_6:
     mov ax, 0xfffc                   ; 0x3aac
     call ds_dispatch_f40b            ; 0x3aaf
-    cmp word [data_9566], byte 5     ; 0x3ab2
+    cmp word [dseg_9566], byte 5     ; 0x3ab2
     jle short @..api_idx_0004_6.l1   ; 0x3ab7
     call loc_3a6a                    ; 0x3ab9
 @..api_idx_0004_6.l1:
     mov bx, word [bp + 0x4]          ; 0x3abc
     cmp byte [bx], 0                 ; 0x3abf
     jne short @..api_idx_0004_6.l2   ; 0x3ac2
-    inc word [data_9566]             ; 0x3ac4
+    inc word [dseg_9566]             ; 0x3ac4
     ret                              ; 0x3ac8
 @..api_idx_0004_6.l2:
-    mov ax, data_0002                ; 0x3ac9
+    mov ax, 2                        ; 0x3ac9
     push ax                          ; 0x3acc
     push bx                          ; 0x3acd
     call ds_dispatch_e883            ; 0x3ace
     add sp, byte 4                   ; 0x3ad1
     inc ax                           ; 0x3ad4
-    mov cx, data_0002                ; 0x3ad5
+    mov cx, 2                        ; 0x3ad5
     cwd                              ; 0x3ad8
     idiv cx                          ; 0x3ad9
     mov cx, ax                       ; 0x3adb
@@ -44,7 +44,7 @@ api_idx_0004_6:
     mov bx, word [bp + 0x4]          ; 0x3b0b
     mov si, word [bp - 0x0004]       ; 0x3b0e
     mov byte [bx + si], 0            ; 0x3b11
-    mov ax, word [data_9568]         ; 0x3b14
+    mov ax, word [dseg_9568]         ; 0x3b14
     mov word [bp - 0x0002], ax       ; 0x3b17
     jmp short @..api_idx_0004_6.l6   ; 0x3b1a
 @..api_idx_0004_6.l5:
@@ -54,7 +54,7 @@ api_idx_0004_6:
     je short @..api_idx_0004_6.l4    ; 0x3b24
 @..api_idx_0004_6.l6:
     mov ax, 0xc                      ; 0x3b26
-    imul word [data_9566]            ; 0x3b29
+    imul word [dseg_9566]            ; 0x3b29
     add ax, strict word 0x70         ; 0x3b2d
     push ax                          ; 0x3b30
     push word [bp - 0x0002]          ; 0x3b31
@@ -66,7 +66,7 @@ api_idx_0004_6:
     push ax                          ; 0x3b41
     call ds_dispatch_e823            ; 0x3b42
     add sp, byte 4                   ; 0x3b45
-    mov ax, data_0002                ; 0x3b48
+    mov ax, 2                        ; 0x3b48
     push ax                          ; 0x3b4b
     push word [bp + 0x4]             ; 0x3b4c
     call ds_dispatch_e84e            ; 0x3b4f
@@ -74,6 +74,6 @@ api_idx_0004_6:
     mov bx, word [bp + 0x4]          ; 0x3b55
     mov byte [bx], 0                 ; 0x3b58
     mov ax, word [bp - 0x0002]       ; 0x3b5b
-    mov word [data_9568], ax         ; 0x3b5e
-    inc word [data_9566]             ; 0x3b61
+    mov word [dseg_9568], ax         ; 0x3b5e
+    inc word [dseg_9566]             ; 0x3b61
     ret                              ; 0x3b65

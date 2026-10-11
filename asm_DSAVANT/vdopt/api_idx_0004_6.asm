@@ -124,7 +124,7 @@ api_idx_0004_6:
     mov ax, word [bp - 0x0004]       ; 0x39b1
     jmp short @..api_idx_0004_6.l6   ; 0x39b4
 @..api_idx_0004_6.l5:
-    mov ax, data_0002                ; 0x39b6
+    mov ax, 2                        ; 0x39b6
 @..api_idx_0004_6.l6:
     push ax                          ; 0x39b9
     call ds_dispatch_e823            ; 0x39ba

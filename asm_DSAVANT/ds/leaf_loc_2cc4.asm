@@ -1,5 +1,5 @@
 leaf_loc_2cc4:
-    mov ax, word [data_82e8]         ; 0x2cc4
+    mov ax, word [bss_82e8]          ; 0x2cc4
     inc ax                           ; 0x2cc7
     inc ax                           ; 0x2cc8
     inc ax                           ; 0x2cc9

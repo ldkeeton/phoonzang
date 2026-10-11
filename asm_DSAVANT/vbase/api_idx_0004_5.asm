@@ -2,7 +2,7 @@ api_idx_0004_5:
     mov ax, 0xfffc                   ; 0x6cd0
     call ds_dispatch_f40b            ; 0x6cd3
     call loc_6c3f                    ; 0x6cd6
-    les bx, word [data_0002]         ; 0x6cd9
+    les bx, word [dseg_0002]         ; 0x6cd9
     mov ax, word [es:bx]             ; 0x6cdd
     mov dx, word [es:bx + 0x2]       ; 0x6ce0
     add ax, 0x10e                    ; 0x6ce4
@@ -13,7 +13,7 @@ api_idx_0004_5:
     call ds_dispatch_baef            ; 0x6cf0
     test ax, ax                      ; 0x6cf3
     jne short @..api_idx_0004_5.l4   ; 0x6cf5
-    les bx, word [data_0002]         ; 0x6cf7
+    les bx, word [dseg_0002]         ; 0x6cf7
     mov ax, word [es:bx]             ; 0x6cfb
     mov dx, word [es:bx + 0x2]       ; 0x6cfe
     cmp dx, word [bp - 0x0002]       ; 0x6d02
@@ -28,5 +28,5 @@ api_idx_0004_5:
     jmp short @..api_idx_0004_5.l1   ; 0x6d13
 @..api_idx_0004_5.l4:
     call loc_6c1e                    ; 0x6d15
-    mov word [data_a4a6], 0          ; 0x6d18
+    mov word [dseg_a4a6], 0          ; 0x6d18
     ret                              ; 0x6d1e

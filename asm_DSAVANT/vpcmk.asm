@@ -11,14 +11,6 @@ IMAGE_BASE equ 0x0008
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x23, 0x70, 0x98, 0x90
 
-data_0002 equ 0x0002
-data_0038 equ 0x0038
-data_003c equ 0x003c
-data_0040 equ 0x0040
-data_0042 equ 0x0042
-data_0044 equ 0x0044
-data_010e equ 0x010e
-data_0e32 equ 0x0e32
 loc_23b2 equ 0x23b2
 loc_23d0 equ 0x23d0
 loc_23ee equ 0x23ee
@@ -33,72 +25,80 @@ loc_2476 equ 0x2476
 loc_2494 equ 0x2494
 loc_4d4a equ 0x4d4a
 loc_52dc equ 0x52dc
-data_59fc equ 0x59fc
-data_5b3e equ 0x5b3e
 loc_5c67 equ 0x5c67
 loc_5c78 equ 0x5c78
-data_5e2a equ 0x5e2a
 loc_600d equ 0x600d
-data_830a equ 0x830a
-data_844c equ 0x844c
-data_844e equ 0x844e
-data_8450 equ 0x8450
-data_904e equ 0x904e
-data_9050 equ 0x9050
-data_9052 equ 0x9052
-data_905a equ 0x905a
-data_906e equ 0x906e
-data_9070 equ 0x9070
-data_9072 equ 0x9072
-data_9074 equ 0x9074
-data_908a equ 0x908a
-data_908c equ 0x908c
-data_908e equ 0x908e
-data_9090 equ 0x9090
-data_9092 equ 0x9092
-data_9094 equ 0x9094
-data_951a equ 0x951a
-data_951c equ 0x951c
-data_951e equ 0x951e
-data_9520 equ 0x9520
-data_9522 equ 0x9522
-data_9524 equ 0x9524
-data_9526 equ 0x9526
-data_9528 equ 0x9528
-data_952a equ 0x952a
-data_952c equ 0x952c
-data_952e equ 0x952e
-data_9530 equ 0x9530
-data_9532 equ 0x9532
-data_9534 equ 0x9534
-data_9536 equ 0x9536
-data_9538 equ 0x9538
-data_953a equ 0x953a
-data_953c equ 0x953c
-data_953e equ 0x953e
-data_9540 equ 0x9540
-data_9542 equ 0x9542
-data_9594 equ 0x9594
-data_95aa equ 0x95aa
-data_95ac equ 0x95ac
-data_95ae equ 0x95ae
-data_95e8 equ 0x95e8
-data_960c equ 0x960c
-data_976c equ 0x976c
-data_978a equ 0x978a
 data_a0f9 equ 0xa0f9
 data_a10d equ 0xa10d
 data_a16f equ 0xa16f
 data_a195 equ 0xa195
 data_a1fa equ 0xa1fa
 data_a2d1 equ 0xa2d1
+dseg_0002 equ 0x0002
+dseg_0038 equ 0x0038
+dseg_003c equ 0x003c
+dseg_0040 equ 0x0040
+dseg_0042 equ 0x0042
+dseg_0044 equ 0x0044
+dseg_010e equ 0x010e
+dseg_0e32 equ 0x0e32
+dseg_59fc equ 0x59fc
+dseg_5b3e equ 0x5b3e
+dseg_5e2a equ 0x5e2a
+dseg_830a equ 0x830a
+dseg_844c equ 0x844c
+dseg_844e equ 0x844e
+dseg_8450 equ 0x8450
+dseg_904e equ 0x904e
+dseg_9050 equ 0x9050
+dseg_9052 equ 0x9052
+dseg_905a equ 0x905a
+dseg_906e equ 0x906e
+dseg_9070 equ 0x9070
+dseg_9072 equ 0x9072
+dseg_9074 equ 0x9074
+dseg_908a equ 0x908a
+dseg_908c equ 0x908c
+dseg_908e equ 0x908e
+dseg_9090 equ 0x9090
+dseg_9092 equ 0x9092
+dseg_9094 equ 0x9094
+dseg_951a equ 0x951a
+dseg_951c equ 0x951c
+dseg_951e equ 0x951e
+dseg_9520 equ 0x9520
+dseg_9522 equ 0x9522
+dseg_9524 equ 0x9524
+dseg_9526 equ 0x9526
+dseg_9528 equ 0x9528
+dseg_952a equ 0x952a
+dseg_952c equ 0x952c
+dseg_952e equ 0x952e
+dseg_9530 equ 0x9530
+dseg_9532 equ 0x9532
+dseg_9534 equ 0x9534
+dseg_9536 equ 0x9536
+dseg_9538 equ 0x9538
+dseg_953a equ 0x953a
+dseg_953c equ 0x953c
+dseg_953e equ 0x953e
+dseg_9540 equ 0x9540
+dseg_9542 equ 0x9542
+dseg_9594 equ 0x9594
+dseg_95aa equ 0x95aa
+dseg_95ac equ 0x95ac
+dseg_95ae equ 0x95ae
+dseg_95e8 equ 0x95e8
+dseg_960c equ 0x960c
+dseg_976c equ 0x976c
+dseg_978a equ 0x978a
 
     db 0x8c, 0x04, 0x68, 0x02, 0xd3, 0xbf
 loc_000e:
     mov ax, 0                        ; 0x000e
     call ds_dispatch_f40b            ; 0x0011
     call api_idx_002c_2              ; 0x0014
-    mov word [data_830a], 4          ; 0x0017
+    mov word [dseg_830a], 4          ; 0x0017
     mov ax, 0                        ; 0x001d
     ret                              ; 0x0020
 %include "vpcmk/api_idx_0002.asm"

@@ -4,6 +4,47 @@ Every edge case between capstone's Intel-syntax output and NASM's
 syntax requirements lives here.  Uses capstone's *detailed* operand
 API so we build the text from structured data, never by regex-parsing
 capstone's op_str.
+
+Address spaces
+--------------
+The recovered DOS image has more than one address space, but early
+revisions had a single ``label_map`` keyed by file offset, which
+conflated them:
+
+* **F (file/listing offset)** - where code labels (``loc_``, ``aztec_``,
+  ``app_``, ``string_``, ``leaf_``) live.  ``label_map`` is keyed by F and
+  the generated listing's ``; 0xADDR`` comments are F.
+* **L (load/segment offset)** - what the code embeds in absolute operands.
+  For the code segment, ``F = L + IMAGE_BASE`` (``IMAGE_BASE`` is the MZ
+  header size: ``0x200`` for an EXE, ``8`` for an overlay, ``0`` for a
+  driver).  Embedded pointers are therefore rendered ``symbol - IMAGE_BASE``.
+* **DATA** - the program's data segment.  ``DS:o`` addresses file
+  ``hdr + e_ss*16 + o``, which is yet another offset from F and L.  Part of
+  this segment is file-backed and part is BSS (beyond the BSS boundary
+  ``load_size - e_ss*16``); see ``lib.segments``.
+* **PSP** - the Program Segment Prefix.  ``DS:o`` before the CRT reassigns
+  DS addresses the PSP, not the data segment (e.g. ``[2]`` is top-of-memory,
+  ``[0x2c]`` the environment segment, ``[0x80]`` the command tail).
+
+Callers therefore pass three separate namespaces: code labels for flow
+(``label_map``/``local_labels``/``foreign_label_map``), the data namespace
+for absolute memory displacements (``data_labels``), and an explicit
+sidecar (``immediate_labels``) for the few immediates proven to be
+addresses.  An immediate is never symbolized from the code map: the same
+numeric value can be a constant (``mov cx, 2``) or a pointer in another
+segment.
+
+``lib.segdataflow`` resolves which space each operand actually addresses and
+supplies ``mem_symbols`` (keyed ``(insn.address, operand_index)``); when an
+entry is present it overrides the raw displacement for both absolute memory
+displacements and proven immediate pointers.  The namespaces it introduces:
+
+* ``cseg_<file>`` - a symbol in the **code/load segment** (file offset),
+  rendered ``cseg_<file> - IMAGE_BASE``.  An existing code/data label at the
+  same file offset is reused when one exists.
+* ``dseg_<off>`` - a **file-backed data-segment** offset.
+* ``bss_<off>`` - a data-segment offset **past the BSS boundary**.
+* ``psp_<field>`` - a **PSP** field (``psp_<off>`` when not catalogued).
 """
 
 from capstone import CS_OP_MEM, CS_OP_REG, CS_OP_IMM
@@ -55,8 +96,20 @@ def _fmt_imm(val, bits=16):
     return f'0x{uval:04x}'
 
 
-def _fmt_mem(op, insn, label_map=None, foreign_label_map=None, local_labels=None,
-             disp_labels=None):
+def _fmt_mem(op, insn, op_index=None, data_labels=None, foreign_label_map=None,
+             local_labels=None, disp_labels=None, mem_symbols=None):
+    """Render a memory operand.
+
+    Absolute displacements (no base/index register) are drawn only from the
+    *data* namespace (``data_labels``), never the code-label map.  A numeric
+    displacement can coincide with a code label at the same file offset, but
+    the operand addresses data in some segment, so substituting a code label
+    there conflates two address spaces.  Flow targets keep using code labels.
+
+    ``mem_symbols`` (keyed ``(insn.address, operand_index)``) carries the
+    segment-aware symbol chosen by ``lib.segdataflow``; when present it
+    replaces the generic ``data_`` fallback for an absolute operand.
+    """
     seg = insn.reg_name(op.mem.segment) if op.mem.segment else ''
     base = insn.reg_name(op.mem.base) if op.mem.base else ''
     idx = insn.reg_name(op.mem.index) if op.mem.index else ''
@@ -72,6 +125,7 @@ def _fmt_mem(op, insn, label_map=None, foreign_label_map=None, local_labels=None
 
     # displacement
     addr = disp & 0xFFFF
+    override = mem_symbols.get((insn.address, op_index)) if mem_symbols else None
     sym = disp_labels.get(addr) if disp_labels else None
     if sym is not None:
         # A switch-table displacement: render as the load-image symbol so the
@@ -80,9 +134,13 @@ def _fmt_mem(op, insn, label_map=None, foreign_label_map=None, local_labels=None
             ea = f'{inner} + {sym} - IMAGE_BASE'
         else:
             ea = f'{sym} - IMAGE_BASE'
+    elif override is not None:
+        # Segment-aware resolution (PSP field, data/BSS word, or a code-segment
+        # symbol rendered ``sym - IMAGE_BASE``).
+        ea = override if not inner else f'{inner} + {override}'
     elif not inner:
-        if label_map and addr in label_map:
-            ea = label_map[addr]
+        if data_labels and addr in data_labels:
+            ea = data_labels[addr]
         elif foreign_label_map and addr in foreign_label_map:
             ea = foreign_label_map[addr]
         else:
@@ -128,7 +186,8 @@ def _label_comment(insn, label_map):
 
 
 def format_instruction(insn, label_map=None, local_labels=None, foreign_label_map=None,
-                       immediate_labels=None, disp_labels=None):
+                       immediate_labels=None, disp_labels=None, data_labels=None,
+                       mem_symbols=None):
     """Return valid NASM line text for *insn*, or None if the instruction
     should stay as raw db bytes."""
     b = insn.bytes
@@ -190,7 +249,7 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
                        'je', 'jne', 'jb', 'jae', 'jbe', 'ja', 'jl', 'jge', 'jle', 'jg',
                        'js', 'jns', 'jp', 'jnp', 'jo', 'jno')
 
-    for op in insn.operands:
+    for op_idx, op in enumerate(insn.operands):
         if op.type == CS_OP_REG:
             parts.append(insn.reg_name(op.reg))
         elif op.type == CS_OP_IMM:
@@ -203,12 +262,22 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
                 parts.append(foreign_label_map[target])
             elif not is_flow and immediate_labels and target in immediate_labels:
                 parts.append(immediate_labels[target])
-            elif not is_flow and label_map and target in label_map and not label_map[target].startswith('loc_'):
-                parts.append(label_map[target])
+            elif (not is_flow and mem_symbols
+                  and (insn.address, op_idx) in mem_symbols):
+                # A `mov reg, imm` proven (by segment dataflow) to be a pointer
+                # into a known segment.
+                parts.append(mem_symbols[(insn.address, op_idx)])
             else:
+                # An immediate is not an address label.  The same numeric value
+                # can be a constant (e.g. PSP:0002 -> mov cx, 2) or a pointer in
+                # a segment other than the one the label map is keyed by.  Only
+                # an explicit sidecar entry (immediate_labels) may symbolize it;
+                # everything else stays numeric until segment resolution can
+                # prove which address space it belongs to.
                 parts.append(_fmt_imm(op.imm))
         elif op.type == CS_OP_MEM:
-            parts.append(_fmt_mem(op, insn, label_map, foreign_label_map, local_labels, disp_labels))
+            parts.append(_fmt_mem(op, insn, op_idx, data_labels, foreign_label_map,
+                                  local_labels, disp_labels, mem_symbols))
             has_mem = True
 
     ops = ', '.join(parts)

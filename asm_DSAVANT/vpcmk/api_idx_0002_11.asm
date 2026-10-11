@@ -13,7 +13,7 @@ api_idx_0002_11:
     mov bx, ax                       ; 0x56cc
     mov ax, word [bx + 0x5c18]       ; 0x56ce
     dec ax                           ; 0x56d2
-    mov cx, data_0002                ; 0x56d3
+    mov cx, 2                        ; 0x56d3
     cwd                              ; 0x56d6
     idiv cx                          ; 0x56d7
     mov cx, ax                       ; 0x56d9

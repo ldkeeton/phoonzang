@@ -70,7 +70,7 @@ api_idx_0004_4:
     add sp, byte 4                   ; 0x27ba
     mov ax, 0                        ; 0x27bd
     push ax                          ; 0x27c0
-    mov ax, data_0002                ; 0x27c1
+    mov ax, 2                        ; 0x27c1
     push ax                          ; 0x27c4
     call ds_dispatch_e823            ; 0x27c5
     add sp, byte 4                   ; 0x27c8

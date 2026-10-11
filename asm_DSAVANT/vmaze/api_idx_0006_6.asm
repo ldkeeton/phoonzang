@@ -9,10 +9,10 @@ api_idx_0006_6:
     mov ax, word [bp - 0x0002]       ; 0x75c2
     shl ax, 1                        ; 0x75c5
     push ax                          ; 0x75c7
-    mov ax, word [data_8d12]         ; 0x75c8
+    mov ax, word [dseg_8d12]         ; 0x75c8
     shl ax, 1                        ; 0x75cb
     mov si, ax                       ; 0x75cd
-    mov bx, word [data_0e12]         ; 0x75cf
+    mov bx, word [dseg_0e12]         ; 0x75cf
     push word [bx + si + 0x3c0]      ; 0x75d3
     call ds_dispatch_ed3a            ; 0x75d7
     add sp, byte 6                   ; 0x75da
@@ -25,10 +25,10 @@ api_idx_0006_6:
     add cx, byte 8                   ; 0x75ec
     mov ax, cx                       ; 0x75ef
     push ax                          ; 0x75f1
-    mov ax, word [data_8d12]         ; 0x75f2
+    mov ax, word [dseg_8d12]         ; 0x75f2
     shl ax, 1                        ; 0x75f5
     mov si, ax                       ; 0x75f7
-    mov bx, word [data_0e12]         ; 0x75f9
+    mov bx, word [dseg_0e12]         ; 0x75f9
     push word [bx + si + 0x3c0]      ; 0x75fd
     call ds_dispatch_ed3a            ; 0x7601
     add sp, byte 6                   ; 0x7604
@@ -44,8 +44,8 @@ api_idx_0006_6:
     je short @..api_idx_0006_6.l3    ; 0x7620
     call api_idx_0004_12             ; 0x7622
 @..api_idx_0006_6.l3:
-    mov bx, word [data_0e12]         ; 0x7625
-    mov si, word [data_8d12]         ; 0x7629
+    mov bx, word [dseg_0e12]         ; 0x7625
+    mov si, word [dseg_8d12]         ; 0x7629
     mov al, byte [bx + si + 0xa50]   ; 0x762d
     sub ah, ah                       ; 0x7631
     mov word [bp - 0x0006], ax       ; 0x7633

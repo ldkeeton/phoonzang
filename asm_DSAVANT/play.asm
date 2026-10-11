@@ -2,6 +2,10 @@
 %include "inc/structs/loc_0a13.inc"
 org 0
 bits 16
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0000
+%endif
+
 loc_0007 equ 0x0007
 loc_0381 equ 0x0381
 data_0421 equ 0x0421
@@ -22,7 +26,6 @@ loc_08ed equ 0x08ed
 loc_08ff equ 0x08ff
 loc_091f equ 0x091f
 loc_0945 equ 0x0945
-data_0948 equ 0x0948
 loc_095d equ 0x095d
 loc_0969 equ 0x0969
 data_096e equ 0x096e
@@ -30,50 +33,66 @@ data_096f equ 0x096f
 loc_098a equ 0x098a
 loc_0997 equ 0x0997
 data_09ae equ 0x09ae
-data_09bf equ 0x09bf
 data_09c4 equ 0x09c4
-data_09d4 equ 0x09d4
+loc_09d4 equ 0x09d4
 loc_0a13 equ 0x0a13
-data_0a7c equ 0x0a7c
-data_0aa4 equ 0x0aa4
-data_0aa9 equ 0x0aa9
-data_0abb equ 0x0abb
 loc_0af6 equ 0x0af6
-data_0b54 equ 0x0b54
-data_0b7c equ 0x0b7c
-data_0b7d equ 0x0b7d
-data_0b7f equ 0x0b7f
 data_0b81 equ 0x0b81
-data_0b83 equ 0x0b83
-data_0b85 equ 0x0b85
 data_0b89 equ 0x0b89
 data_0b8b equ 0x0b8b
 data_0b8d equ 0x0b8d
 data_0b8f equ 0x0b8f
-data_0b90 equ 0x0b90
 data_0b92 equ 0x0b92
 data_0b93 equ 0x0b93
 data_0b94 equ 0x0b94
 data_0b95 equ 0x0b95
-data_0b96 equ 0x0b96
-data_0b98 equ 0x0b98
 data_0b9a equ 0x0b9a
-data_0b9d equ 0x0b9d
-data_0b9e equ 0x0b9e
-data_0ba0 equ 0x0ba0
-data_0ba2 equ 0x0ba2
-data_0ba4 equ 0x0ba4
 data_0ba6 equ 0x0ba6
-data_0ba8 equ 0x0ba8
-data_0bac equ 0x0bac
-data_0bae equ 0x0bae
 data_0c10 equ 0x0c10
 data_0c12 equ 0x0c12
 loc_121d equ 0x121d
-data_19e8 equ 0x19e8
-data_19f2 equ 0x19f2
-data_1a04 equ 0x1a04
 data_89a3 equ 0x89a3
+cseg_0421 equ 0x0421
+cseg_0948 equ 0x0948
+cseg_096e equ 0x096e
+cseg_096f equ 0x096f
+cseg_09ae equ 0x09ae
+cseg_09bf equ 0x09bf
+cseg_09c4 equ 0x09c4
+cseg_09d4 equ 0x09d4
+cseg_0a7c equ 0x0a7c
+cseg_0aa4 equ 0x0aa4
+cseg_0aa9 equ 0x0aa9
+cseg_0abb equ 0x0abb
+cseg_0b54 equ 0x0b54
+cseg_0b7c equ 0x0b7c
+cseg_0b7d equ 0x0b7d
+cseg_0b7f equ 0x0b7f
+cseg_0b81 equ 0x0b81
+cseg_0b83 equ 0x0b83
+cseg_0b85 equ 0x0b85
+cseg_0b8d equ 0x0b8d
+cseg_0b8f equ 0x0b8f
+cseg_0b90 equ 0x0b90
+cseg_0b94 equ 0x0b94
+cseg_0b96 equ 0x0b96
+cseg_0b98 equ 0x0b98
+cseg_0b9a equ 0x0b9a
+cseg_0b9d equ 0x0b9d
+cseg_0b9e equ 0x0b9e
+cseg_0ba0 equ 0x0ba0
+cseg_0ba2 equ 0x0ba2
+cseg_0ba4 equ 0x0ba4
+cseg_0ba6 equ 0x0ba6
+cseg_0ba8 equ 0x0ba8
+cseg_0bac equ 0x0bac
+cseg_0bae equ 0x0bae
+cseg_0c10 equ 0x0c10
+cseg_0c12 equ 0x0c12
+cseg_0e03 equ 0x0e03
+cseg_19e8 equ 0x19e8
+cseg_19f2 equ 0x19f2
+cseg_1a04 equ 0x1a04
 
 loc_0000:
     jmp near @..local.l1             ; 0x0000
@@ -98,18 +117,18 @@ loc_0023:
     push bp                          ; 0x0023
     mov bp, sp                       ; 0x0024
     push bx                          ; 0x0026
-    mov byte [cs:data_0b9a], 0       ; 0x0027
+    mov byte [cs:cseg_0b9a - IMAGE_BASE], 0 ; 0x0027
     mov ax, word [bp + 0x8]          ; 0x002d
-    mov word [cs:data_0ba4], ax      ; 0x0030
-    mov word [cs:data_0b9e], ax      ; 0x0034
+    mov word [cs:cseg_0ba4 - IMAGE_BASE], ax ; 0x0030
+    mov word [cs:cseg_0b9e - IMAGE_BASE], ax ; 0x0034
     mov ax, word [bp + 0xa]          ; 0x0038
-    mov word [cs:data_0ba2], ax      ; 0x003b
-    mov word [cs:data_0ba0], ax      ; 0x003f
+    mov word [cs:cseg_0ba2 - IMAGE_BASE], ax ; 0x003b
+    mov word [cs:cseg_0ba0 - IMAGE_BASE], ax ; 0x003f
     mov ax, word [bp + 0xc]          ; 0x0043
-    mov byte [cs:data_0b9d], al      ; 0x0046
-    mov word [cs:data_0b81], 1       ; 0x004a
-    mov word [cs:data_0b7f], 1       ; 0x0051
-    mov bx, 0xe03                    ; 0x0058
+    mov byte [cs:cseg_0b9d - IMAGE_BASE], al ; 0x0046
+    mov word [cs:cseg_0b81 - IMAGE_BASE], 1 ; 0x004a
+    mov word [cs:cseg_0b7f - IMAGE_BASE], 1 ; 0x0051
+    mov bx, cseg_0e03 - IMAGE_BASE   ; 0x0058
 @..local.l2:
     mov byte [cs:bx], 0              ; 0x005b
     mov byte [cs:bx + 0x1], 0        ; 0x005f
@@ -118,20 +137,20 @@ loc_0023:
     add bx, byte 5                   ; 0x006f
     cmp bx, strict word 0xe3a        ; 0x0072
     jb short @..local.l2             ; 0x0076
-    mov al, byte [cs:data_0b7c]      ; 0x0078
-    mov ax, word [cs:data_0b83]      ; 0x007c
-    mov word [cs:data_0b85], ax      ; 0x0080
+    mov al, byte [cs:cseg_0b7c - IMAGE_BASE] ; 0x0078
+    mov ax, word [cs:cseg_0b83 - IMAGE_BASE] ; 0x007c
+    mov word [cs:cseg_0b85 - IMAGE_BASE], ax ; 0x0080
     call loc_0098                    ; 0x0084
     cmp ax, strict word 0            ; 0x0087
     jne short @..local.l3            ; 0x008a
     call io_loc_02ba                 ; 0x008c
-    mov byte [cs:data_0b9a], 1       ; 0x008f
+    mov byte [cs:cseg_0b9a - IMAGE_BASE], 1 ; 0x008f
 @..local.l3:
     pop bx                           ; 0x0095
     pop bp                           ; 0x0096
     ret                              ; 0x0097
 loc_0098:
-    mov bl, byte [cs:data_0b7c]      ; 0x0098
+    mov bl, byte [cs:cseg_0b7c - IMAGE_BASE] ; 0x0098
     xor bh, bh                       ; 0x009d
     shl bx, 1                        ; 0x009f
     mov ax, 0                        ; 0x00a1

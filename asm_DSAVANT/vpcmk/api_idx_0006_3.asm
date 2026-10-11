@@ -33,7 +33,7 @@ api_idx_0006_3:
     push ax                          ; 0x6123
     call ds_dispatch_baa6            ; 0x6124
     add sp, byte 0x0e                ; 0x6127
-    mov ax, data_0002                ; 0x612a
+    mov ax, 2                        ; 0x612a
     push ax                          ; 0x612d
     mov ax, 1                        ; 0x612e
     push ax                          ; 0x6131
@@ -76,7 +76,7 @@ api_idx_0006_3:
     add sp, byte 6                   ; 0x6188
     mov ax, 0x4a                     ; 0x618b
     push ax                          ; 0x618e
-    mov ax, data_0042                ; 0x618f
+    mov ax, 0x42                     ; 0x618f
     push ax                          ; 0x6192
     mov ax, 0x12                     ; 0x6193
     push ax                          ; 0x6196
@@ -91,7 +91,7 @@ api_idx_0006_3:
     pop cx                           ; 0x61a8
     dec ax                           ; 0x61a9
     mov word [bp - 0x0002], ax       ; 0x61aa
-    cmp word [data_5b3e], byte 0     ; 0x61ad
+    cmp word [dseg_5b3e], byte 0     ; 0x61ad
     je short @..api_idx_0006_3.l2    ; 0x61b2
     mov ax, word [bp - 0x0002]       ; 0x61b4
     jmp short @..api_idx_0006_3.l5   ; 0x61b7
@@ -102,7 +102,7 @@ api_idx_0006_3:
     mov al, byte [bx + 0x5e2a]       ; 0x61c1
     sub ah, ah                       ; 0x61c5
     add ax, strict word 0x20         ; 0x61c7
-    mov cx, api_idx_0002             ; 0x61ca
+    mov cx, 0x21                     ; 0x61ca
     cwd                              ; 0x61cd
     idiv cx                          ; 0x61ce
     mov ax, dx                       ; 0x61d0
@@ -115,7 +115,7 @@ api_idx_0006_3:
     mov al, byte [bx + 0x5e2a]       ; 0x61e0
     sub ah, ah                       ; 0x61e4
     inc ax                           ; 0x61e6
-    mov cx, api_idx_0002             ; 0x61e7
+    mov cx, 0x21                     ; 0x61e7
     cwd                              ; 0x61ea
     idiv cx                          ; 0x61eb
     mov ax, dx                       ; 0x61ed

@@ -34,10 +34,10 @@ app_file_23ef: ; Aztec csav frame=0x00ba
     add sp, byte 4                   ; 0x244c
     cmp word [bp + 0x8], byte 0      ; 0x244f
     je short @..app_file_23ef.l1     ; 0x2453
-    push word [data_0e24]            ; 0x2455
+    push word [bss_0e24]             ; 0x2455
     call aztec_close                 ; 0x2459
     pop cx                           ; 0x245c
-    push word [data_0e22]            ; 0x245d
+    push word [bss_0e22]             ; 0x245d
     call aztec_close                 ; 0x2461
     pop cx                           ; 0x2464
 @..app_file_23ef.l1:
@@ -100,7 +100,7 @@ app_file_23ef: ; Aztec csav frame=0x00ba
     sub ax, word [bp - 0x00b0]       ; 0x24f6
     inc ax                           ; 0x24fa
     sub ax, cx                       ; 0x24fb
-    mov cx, data_0002                ; 0x24fd
+    mov cx, 2                        ; 0x24fd
     cwd                              ; 0x2500
     idiv cx                          ; 0x2501
     add ax, word [bp - 0x00b0]       ; 0x2503
@@ -141,7 +141,7 @@ app_file_23ef: ; Aztec csav frame=0x00ba
     sub ax, word [bp - 0x00b0]       ; 0x2557
     inc ax                           ; 0x255b
     sub ax, cx                       ; 0x255c
-    mov cx, data_0002                ; 0x255e
+    mov cx, 2                        ; 0x255e
     cwd                              ; 0x2561
     idiv cx                          ; 0x2562
     add ax, word [bp - 0x00b0]       ; 0x2564
@@ -221,7 +221,7 @@ app_file_23ef: ; Aztec csav frame=0x00ba
     push ax                          ; 0x260f
     call app_0b54                    ; 0x2610
     pop cx                           ; 0x2613
-    cmp word [data_5b3e], byte 1     ; 0x2614
+    cmp word [bss_5b3e], byte 1      ; 0x2614
     jne short @..app_file_23ef.l7    ; 0x2619
     mov ax, 1                        ; 0x261b
     push ax                          ; 0x261e
@@ -304,7 +304,7 @@ app_file_23ef: ; Aztec csav frame=0x00ba
     push ax                          ; 0x26e0
     call aztec_close                 ; 0x26e1
     pop cx                           ; 0x26e4
-    cmp byte [data_5987], 1          ; 0x26e5
+    cmp byte [bss_5987], 1           ; 0x26e5
     jne short @..app_file_23ef.l9    ; 0x26ea
     mov word [bp - 0x00a8], 1        ; 0x26ec
 @..app_file_23ef.l9:
@@ -314,13 +314,13 @@ app_file_23ef: ; Aztec csav frame=0x00ba
     je short @..app_file_23ef.l14    ; 0x26f9
     mov ax, 0x30c                    ; 0x26fb
     push ax                          ; 0x26fe
-    mov ax, data_5218                ; 0x26ff
+    mov ax, 0x5218                   ; 0x26ff
     push ax                          ; 0x2702
     push word [bp - 0x00a2]          ; 0x2703
     call leaf_loc_4fb6               ; 0x2707
     add sp, byte 6                   ; 0x270a
     mov word [bp - 0x00a6], ax       ; 0x270d
-    cmp byte [data_5987], 5          ; 0x2711
+    cmp byte [bss_5987], 5           ; 0x2711
     jne short @..app_file_23ef.l11   ; 0x2716
     mov ax, word [bp + 0x6]          ; 0x2718
     cmp ax, strict word 0            ; 0x271b
@@ -334,7 +334,7 @@ app_file_23ef: ; Aztec csav frame=0x00ba
     mov word [bp - 0x00ac], ax       ; 0x2727
     cmp word [bp - 0x00a6], byte 0   ; 0x272b
     jle short @..app_file_23ef.l13   ; 0x2730
-    cmp ax, word [data_5218]         ; 0x2732
+    cmp ax, word [bss_5218]          ; 0x2732
     jne short @..app_file_23ef.l13   ; 0x2736
     mov word [bp - 0x00a8], 1        ; 0x2738
 @..app_file_23ef.l13:
@@ -378,7 +378,7 @@ app_file_23ef: ; Aztec csav frame=0x00ba
     push ax                          ; 0x279e
     call aztec_open                  ; 0x279f
     add sp, byte 4                   ; 0x27a2
-    mov word [data_0e24], ax         ; 0x27a5
+    mov word [bss_0e24], ax          ; 0x27a5
     cmp ax, strict word 0xffff       ; 0x27a8
     jne short @..app_file_23ef.l17   ; 0x27ab
     mov ax, 0x19                     ; 0x27ad
@@ -401,7 +401,7 @@ app_file_23ef: ; Aztec csav frame=0x00ba
     push ax                          ; 0x27d1
     call aztec_open                  ; 0x27d2
     add sp, byte 4                   ; 0x27d5
-    mov word [data_0e22], ax         ; 0x27d8
+    mov word [bss_0e22], ax          ; 0x27d8
     cmp ax, strict word 0xffff       ; 0x27db
     jne short @..app_file_23ef.l19   ; 0x27de
     mov ax, 0x1a                     ; 0x27e0

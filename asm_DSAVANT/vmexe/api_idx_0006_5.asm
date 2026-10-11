@@ -282,7 +282,7 @@ api_idx_0006_5:
     push ax                          ; 0x33c1
     call api_idx_0050                ; 0x33c2
     add sp, byte 6                   ; 0x33c5
-    push word [data_9058]            ; 0x33c8
+    push word [dseg_9058]            ; 0x33c8
     call api_idx_0004_5              ; 0x33cc
     pop cx                           ; 0x33cf
 @..api_idx_0006_5.l8:

@@ -7,7 +7,7 @@ bios_video_loc_2551:
     mov dx, word [bp + 0x6]          ; 0x2559
     mov dh, bl                       ; 0x255c
     mov bh, 0                        ; 0x255e
-    mov ah, data_0002                ; 0x2560
+    mov ah, 2                        ; 0x2560
     int 0x10 ; BIOS video: set cursor position
     pop si                           ; 0x2564
     pop di                           ; 0x2565

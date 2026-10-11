@@ -27,11 +27,11 @@ loc_2bfe:
     push word [bp + 0x8]             ; 0x2c03
     call aztec_fclose                ; 0x2c06
     pop cx                           ; 0x2c09
-    mov si, 0x231c                   ; 0x2c0a
+    mov si, dseg_231c                ; 0x2c0a
 @..local.l113:
     cmp byte [si], 0                 ; 0x2c0d
     jne short @..local.l115          ; 0x2c10
-    mov word [data_24d6], 1          ; 0x2c12
+    mov word [dseg_24d6], 1          ; 0x2c12
     mov ax, 0                        ; 0x2c18
 @..local.l114:
     pop si                           ; 0x2c1b

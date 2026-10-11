@@ -94,9 +94,9 @@ loc_4c4c:
     jmp near @..local.l134           ; 0x4c75
 @..local.l133:
     mov word [cs:bx], 0              ; 0x4c78
-    mov cx, word [cs:data_11cb]      ; 0x4c7d
+    mov cx, word [cs:cseg_11cb - IMAGE_BASE] ; 0x4c7d
     dec cx                           ; 0x4c82
-    mov word [cs:data_11cb], cx      ; 0x4c83
+    mov word [cs:cseg_11cb - IMAGE_BASE], cx ; 0x4c83
     call loc_4c93                    ; 0x4c88
 @..local.l134:
     pop di                           ; 0x4c8b

@@ -1,7 +1,7 @@
 app_23a8: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x23a8
     call aztec_csav                  ; 0x23ab
-    cmp byte [data_5987], 5          ; 0x23ae
+    cmp byte [bss_5987], 5           ; 0x23ae
     jne short @..app_23a8.l1         ; 0x23b3
     cmp word [bp + 0x6], byte 1      ; 0x23b5
     jne short @..app_23a8.l1         ; 0x23b9

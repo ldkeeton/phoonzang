@@ -1,7 +1,7 @@
 api_idx_0002_4:
     mov ax, 0xfffe                   ; 0x515b
     db 0xe8, 0xaa, 0xa2 ; call 0xf40b
-    dec word [data_9ca8]             ; 0x5161
+    dec word [dseg_9ca8]             ; 0x5161
     mov ax, word [bp + 0x4]          ; 0x5165
     mov word [bp - 0x0002], ax       ; 0x5168
     jmp short @..api_idx_0002_4.l2   ; 0x516b
@@ -30,6 +30,6 @@ api_idx_0002_4:
     inc word [bp - 0x0002]           ; 0x51ae
 @..api_idx_0002_4.l2:
     mov ax, word [bp - 0x0002]       ; 0x51b1
-    cmp ax, word [data_9ca8]         ; 0x51b4
+    cmp ax, word [dseg_9ca8]         ; 0x51b4
     jl short @..api_idx_0002_4.l1    ; 0x51b8
     ret                              ; 0x51ba

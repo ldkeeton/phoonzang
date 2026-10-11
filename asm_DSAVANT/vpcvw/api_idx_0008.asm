@@ -71,7 +71,7 @@ api_idx_0008:
     sub ax, cx                       ; 0x1bbe
     mov cx, 6                        ; 0x1bc0
     imul cx                          ; 0x1bc3
-    mov cx, data_0002                ; 0x1bc5
+    mov cx, 2                        ; 0x1bc5
     cwd                              ; 0x1bc8
     idiv cx                          ; 0x1bc9
     add ax, word [bp + 0x8]          ; 0x1bcb
@@ -257,7 +257,7 @@ loc_1ca0:
     pop cx                           ; 0x1d5d
     mov cx, 6                        ; 0x1d5e
     imul cx                          ; 0x1d61
-    mov cx, data_0002                ; 0x1d63
+    mov cx, 2                        ; 0x1d63
     cwd                              ; 0x1d66
     idiv cx                          ; 0x1d67
     mov cx, ax                       ; 0x1d69
@@ -375,7 +375,7 @@ loc_1ca0:
     sub ax, cx                       ; 0x1e6b
     mov cx, 6                        ; 0x1e6d
     imul cx                          ; 0x1e70
-    mov cx, data_0002                ; 0x1e72
+    mov cx, 2                        ; 0x1e72
     cwd                              ; 0x1e75
     idiv cx                          ; 0x1e76
     add ax, word [bp + 0x8]          ; 0x1e78
@@ -445,7 +445,7 @@ loc_1ca0:
     push ax                          ; 0x1f09
     call ds_dispatch_e8da            ; 0x1f0a
     add sp, byte 8                   ; 0x1f0d
-    cmp word [data_0e32], byte 0     ; 0x1f10
+    cmp word [dseg_0e32], byte 0     ; 0x1f10
     je short @..local.l12            ; 0x1f15
 @..local.l11:
     mov ax, 0x59fe                   ; 0x1f17
@@ -453,7 +453,7 @@ loc_1ca0:
     call ds_dispatch_b90d            ; 0x1f1b
     pop cx                           ; 0x1f1e
     mov word [bp - 0x0004], ax       ; 0x1f1f
-    cmp word [data_5b3e], byte 0     ; 0x1f22
+    cmp word [dseg_5b3e], byte 0     ; 0x1f22
     je short @..local.l11            ; 0x1f27
     jmp near @..local.l26            ; 0x1f29
 @..local.l12:
@@ -731,7 +731,7 @@ loc_1ca0:
     add sp, byte 8                   ; 0x217d
 @..local.l28:
     mov ax, word [bp - 0x0004]       ; 0x2180
-    mov word [data_9052], ax         ; 0x2183
+    mov word [dseg_9052], ax         ; 0x2183
     shl ax, 1                        ; 0x2186
     mov bx, ax                       ; 0x2188
     add bx, bp                       ; 0x218a

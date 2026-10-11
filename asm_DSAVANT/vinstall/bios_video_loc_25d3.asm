@@ -18,12 +18,12 @@ bios_video_loc_25d3:
     inc dh                           ; 0x25ee
     mov ah, 3                        ; 0x25f0
     mov bh, 0                        ; 0x25f2
-    mov ah, data_0002                ; 0x25f4
+    mov ah, 2                        ; 0x25f4
     int 0x10 ; BIOS video: set cursor position
     jmp short @..bios_video_loc_25d3.l3 ; 0x25f8
 @..bios_video_loc_25d3.l2:
     mov ah, 9                        ; 0x25fa
-    mov bl, byte [data_2645]         ; 0x25fc
+    mov bl, byte [bss_2645]          ; 0x25fc
     mov bh, 0                        ; 0x2600
     mov cx, 1                        ; 0x2602
     int 0x10 ; BIOS video: write char/attribute
@@ -33,7 +33,7 @@ bios_video_loc_25d3:
     inc dl                           ; 0x260d
     mov ah, 3                        ; 0x260f
     mov bh, 0                        ; 0x2611
-    mov ah, data_0002                ; 0x2613
+    mov ah, 2                        ; 0x2613
     int 0x10 ; BIOS video: set cursor position
 @..bios_video_loc_25d3.l3:
     pop bx                           ; 0x2617

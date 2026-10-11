@@ -5,7 +5,7 @@ bios_video_loc_2733:
     push si                          ; 0x2737
     mov dx, word [bp + 0x4]          ; 0x2738
     mov bh, 0                        ; 0x273b
-    mov ah, data_0002                ; 0x273d
+    mov ah, 2                        ; 0x273d
     int 0x10 ; BIOS video: set cursor position
     pop si                           ; 0x2741
     pop di                           ; 0x2742

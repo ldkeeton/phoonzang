@@ -3,7 +3,7 @@ api_idx_0008_2:
     call ds_dispatch_f40b            ; 0x3632
     mov word [bp - 0x0006], 0xffff   ; 0x3635
     mov word [bp - 0x0008], 0xffff   ; 0x363a
-    mov ax, word [data_0e0e]         ; 0x363f
+    mov ax, word [dseg_0e0e]         ; 0x363f
     mov word [bp - 0x0004], ax       ; 0x3642
     mov word [bp - 0x0002], 0        ; 0x3645
     jmp short @..api_idx_0008_2.l6   ; 0x364a
@@ -32,7 +32,7 @@ api_idx_0008_2:
     mov bx, word [bp - 0x0004]       ; 0x3678
     mov al, byte [bx]                ; 0x367b
     sub ah, ah                       ; 0x367d
-    cmp ax, word [data_830c]         ; 0x367f
+    cmp ax, word [dseg_830c]         ; 0x367f
     jne short @..api_idx_0008_2.l4   ; 0x3683
     mov ax, word [bp - 0x0002]       ; 0x3685
     mov word [bp - 0x0008], ax       ; 0x3688
@@ -45,7 +45,7 @@ api_idx_0008_2:
     inc word [bp - 0x0002]           ; 0x3697
 @..api_idx_0008_2.l6:
     mov ax, word [bp - 0x0002]       ; 0x369a
-    cmp ax, word [data_5910]         ; 0x369d
+    cmp ax, word [dseg_5910]         ; 0x369d
     jl short @..api_idx_0008_2.l1    ; 0x36a1
     cmp word [bp + 0x4], byte 0      ; 0x36a3
     je short @..api_idx_0008_2.l8    ; 0x36a7

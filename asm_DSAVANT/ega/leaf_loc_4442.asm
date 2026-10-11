@@ -3,7 +3,7 @@ leaf_loc_4442:
     mov ah, 0x44                     ; 0x4443
     mov al, 0                        ; 0x4445
     pop bx                           ; 0x4447
-    mov dx, word [cs:data_0201]      ; 0x4448
+    mov dx, word [cs:cseg_0201 - IMAGE_BASE] ; 0x4448
     int 0x67 ; EMS (Expanded Memory)
     inc bx                           ; 0x444f
     mov ah, 0x44                     ; 0x4450

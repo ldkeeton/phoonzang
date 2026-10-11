@@ -6,7 +6,7 @@ leaf_loc_0bf6:
     push di                          ; 0x0bfd
     mov ax, ds                       ; 0x0bfe
     mov es, ax                       ; 0x0c00
-    mov ax, word [cs:data_01e5]      ; 0x0c02
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0c02
     mov es, ax                       ; 0x0c06
     mov ax, word [bp + 0xe]          ; 0x0c08
     mov bx, 0x140                    ; 0x0c0b

@@ -1,7 +1,7 @@
 api_idx_0038:
     mov ax, 0xffc8                   ; 0x0606
     call ds_dispatch_f40b            ; 0x0609
-    mov word [data_904e], 0xffff     ; 0x060c
+    mov word [dseg_904e], 0xffff     ; 0x060c
     mov word [bp - 0x0004], 0x37     ; 0x0612
     mov word [bp - 0x0006], 0x8f     ; 0x0617
     mov word [bp - 0x0008], 0x108    ; 0x061c
@@ -190,7 +190,7 @@ jumptable_5d53_case_4:
     mov ax, word [bp - 0x0004]       ; 0x07d1
     add ax, 0xc1                     ; 0x07d4
     push ax                          ; 0x07d7
-    mov ax, data_0002                ; 0x07d8
+    mov ax, 2                        ; 0x07d8
     push ax                          ; 0x07db
     call ds_dispatch_baa6            ; 0x07dc
     add sp, byte 0x0e                ; 0x07df
@@ -327,7 +327,7 @@ loc_08fc:
     pop cx                           ; 0x0903
     dec ax                           ; 0x0904
     mov word [bp - 0x0018], ax       ; 0x0905
-    cmp word [data_59fc], byte 0     ; 0x0908
+    cmp word [dseg_59fc], byte 0     ; 0x0908
     je short loc_0951                ; 0x090d
     mov ax, word [bp - 0x0020]       ; 0x090f
     cmp ax, word [bp - 0x0016]       ; 0x0912
@@ -351,13 +351,13 @@ loc_0939:
     mov ax, word [bp - 0x0016]       ; 0x0939
     mov word [bp - 0x0020], ax       ; 0x093c
 loc_093f:
-    mov word [data_5b3e], 1          ; 0x093f
+    mov word [dseg_5b3e], 1          ; 0x093f
     mov ax, word [bp - 0x0020]       ; 0x0945
     sub ax, word [bp - 0x0016]       ; 0x0948
     add ax, strict word 6            ; 0x094b
     mov word [bp - 0x0018], ax       ; 0x094e
 loc_0951:
-    cmp word [data_5b3e], byte 1     ; 0x0951
+    cmp word [dseg_5b3e], byte 1     ; 0x0951
     je short loc_095b                ; 0x0956
     jmp near loc_0d1f                ; 0x0958
 loc_095b:
@@ -483,6 +483,6 @@ loc_0d28:
     call ds_dispatch_c459            ; 0x0d2f
     add sp, byte 4                   ; 0x0d32
     mov ax, word [bp - 0x0020]       ; 0x0d35
-    mov word [data_904e], ax         ; 0x0d38
-    mov ax, word [data_9050]         ; 0x0d3b
+    mov word [dseg_904e], ax         ; 0x0d38
+    mov ax, word [dseg_9050]         ; 0x0d3b
     ret                              ; 0x0d3e

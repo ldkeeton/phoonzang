@@ -15,7 +15,7 @@ api_idx_001c:
     mov word [bp - 0x0014], 0        ; 0x55b1
     mov word [bp - 0x0012], 0        ; 0x55b6
     mov word [bp - 0x0010], 1        ; 0x55bb
-    mov word [bp - 0x000e], data_0002 ; 0x55c0
+    mov word [bp - 0x000e], 2        ; 0x55c0
     mov word [bp - 0x0002], 0        ; 0x55c5
 @..api_idx_001c.l1:
     cmp word [bp - 0x0002], byte 2   ; 0x55ca
@@ -68,7 +68,7 @@ api_idx_001c:
     mov word [bx - 0x000c], 1        ; 0x5635
 @..api_idx_001c.l3:
     mov ax, word [bx - 0x000c]       ; 0x563a
-    mov cx, data_0002                ; 0x563d
+    mov cx, 2                        ; 0x563d
     cwd                              ; 0x5640
     idiv cx                          ; 0x5641
     mov word [bp - 0x0004], ax       ; 0x5643
@@ -93,8 +93,8 @@ api_idx_001c:
     jge short @..api_idx_001c.l5     ; 0x566e
     jmp near @..api_idx_001c.l1      ; 0x5670
 @..api_idx_001c.l5:
-    mov word [data_960c], 0          ; 0x5673
-    mov ax, word [data_0040]         ; 0x5679
+    mov word [dseg_960c], 0          ; 0x5673
+    mov ax, word [dseg_0040]         ; 0x5679
     mov word [bp - 0x0002], ax       ; 0x567c
     jmp short @..api_idx_001c.l8     ; 0x567f
 @..api_idx_001c.l6:
@@ -104,17 +104,17 @@ api_idx_001c:
     mov bx, ax                       ; 0x568a
     cmp byte [bx + 0x5d6c], 0        ; 0x568c
     jbe short @..api_idx_001c.l7     ; 0x5691
-    mov ax, data_0002                ; 0x5693
+    mov ax, 2                        ; 0x5693
     push ax                          ; 0x5696
     call ds_dispatch_b7a9            ; 0x5697
     pop cx                           ; 0x569a
-    add ax, word [data_960c]         ; 0x569b
+    add ax, word [dseg_960c]         ; 0x569b
     inc ax                           ; 0x569f
-    mov word [data_960c], ax         ; 0x56a0
+    mov word [dseg_960c], ax         ; 0x56a0
 @..api_idx_001c.l7:
     inc word [bp - 0x0002]           ; 0x56a3
 @..api_idx_001c.l8:
     mov ax, word [bp - 0x0002]       ; 0x56a6
-    cmp ax, word [data_0042]         ; 0x56a9
+    cmp ax, word [dseg_0042]         ; 0x56a9
     jle short @..api_idx_001c.l6     ; 0x56ad
     ret                              ; 0x56af

@@ -8,7 +8,7 @@ api_idx_000e_5:
     mov al, byte [bx + 0x20]         ; 0x3b18
     sub ah, ah                       ; 0x3b1b
     mov word [bp - 0x000c], ax       ; 0x3b1d
-    mov word [data_90e4], 0          ; 0x3b20
+    mov word [dseg_90e4], 0          ; 0x3b20
     push word [bp + 0x8]             ; 0x3b26
     push word [bp + 0x6]             ; 0x3b29
     call loc_1c36                    ; 0x3b2c
@@ -618,9 +618,9 @@ api_idx_000e_5:
     shl bx, 1                        ; 0x5f8a
     jmp [cs:bx - 0x5101]             ; 0x5f8c
 @..api_idx_000e_5.l2:
-    cmp word [data_90e4], byte 0     ; 0x5f91
+    cmp word [dseg_90e4], byte 0     ; 0x5f91
     jne short @..api_idx_000e_5.l3   ; 0x5f96
-    push word [data_9058]            ; 0x5f98
+    push word [dseg_9058]            ; 0x5f98
     call api_idx_0004_5              ; 0x5f9c
     pop cx                           ; 0x5f9f
 @..api_idx_000e_5.l3:

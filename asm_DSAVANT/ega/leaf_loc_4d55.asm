@@ -6,15 +6,15 @@ leaf_loc_4d55:
     add bx, ax                       ; 0x4d5d
     mov word [bp - 0x0004], bx       ; 0x4d5f
     mov ax, word [cs:bx + 0x2]       ; 0x4d62
-    sub word [cs:data_11cd], ax      ; 0x4d66
+    sub word [cs:cseg_11cd - IMAGE_BASE], ax ; 0x4d66
     mov word [bp - 0x0006], ax       ; 0x4d6b
 @..leaf_loc_4d55.l1:
     mov bx, word [bp - 0x0004]       ; 0x4d6e
     mov dx, word [cs:bx]             ; 0x4d71
-    add dx, word [cs:data_01e1]      ; 0x4d74
+    add dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4d74
     mov es, dx                       ; 0x4d79
     mov dx, word [cs:bx + 0x4]       ; 0x4d7b
-    add dx, word [cs:data_01e1]      ; 0x4d7f
+    add dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4d7f
     mov ds, dx                       ; 0x4d84
     mov cx, word [cs:bx + 0x6]       ; 0x4d86
     or cx, cx                        ; 0x4d8a
@@ -92,11 +92,11 @@ loc_4dd9:
     shl ax, 1                        ; 0x4e28
     add bx, ax                       ; 0x4e2a
     mov ax, word [cs:bx]             ; 0x4e2c
-    add ax, word [cs:data_01e1]      ; 0x4e2f
+    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4e2f
     push ax                          ; 0x4e34
     xor ax, ax                       ; 0x4e35
     push ax                          ; 0x4e37
-    call far [cs:data_021a]          ; 0x4e38
+    call far [cs:cseg_021a - IMAGE_BASE] ; 0x4e38
     add sp, byte 0x0e                ; 0x4e3d
 @..local.l137:
     pop di                           ; 0x4e40
@@ -116,7 +116,7 @@ loc_4e48:
     mov ax, ds                       ; 0x4e4f
     mov es, ax                       ; 0x4e51
     push word [bp + 0xc]             ; 0x4e53
-    call far [cs:data_0222]          ; 0x4e56
+    call far [cs:cseg_0222 - IMAGE_BASE] ; 0x4e56
     pop cx                           ; 0x4e5b
     pop di                           ; 0x4e5c
     pop si                           ; 0x4e5d
@@ -143,7 +143,7 @@ loc_4e64:
     push ax                          ; 0x4e78
     push ax                          ; 0x4e79
     push ax                          ; 0x4e7a
-    call far [cs:data_021a]          ; 0x4e7b
+    call far [cs:cseg_021a - IMAGE_BASE] ; 0x4e7b
     add sp, byte 0x0e                ; 0x4e80
     pop di                           ; 0x4e83
     pop si                           ; 0x4e84

@@ -1,7 +1,7 @@
 api_idx_000a_5:
     mov ax, 0xfff6                   ; 0x7434
     call ds_dispatch_f40b            ; 0x7437
-    mov word [data_91d6], 4          ; 0x743a
+    mov word [dseg_91d6], 4          ; 0x743a
     mov ax, 0x2c                     ; 0x7440
     imul word [bp + 0xa]             ; 0x7443
     mov si, ax                       ; 0x7446

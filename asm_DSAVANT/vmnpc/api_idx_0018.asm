@@ -26,15 +26,15 @@ api_idx_0018:
     jne short @..api_idx_0018.l2     ; 0x0768
     ret                              ; 0x076a
 @..api_idx_0018.l2:
-    cmp word [data_9136], byte 0x3e  ; 0x076b
+    cmp word [dseg_9136], byte 0x3e  ; 0x076b
     jne short @..api_idx_0018.l3     ; 0x0770
-    cmp word [data_9134], byte 0x12  ; 0x0772
+    cmp word [dseg_9134], byte 0x12  ; 0x0772
     jne short @..api_idx_0018.l3     ; 0x0777
     mov ax, 1                        ; 0x0779
     jmp short @..api_idx_0018.l4     ; 0x077c
 @..api_idx_0018.l3:
     mov ax, word [bp + 0x6]          ; 0x077e
-    mov cx, data_0002                ; 0x0781
+    mov cx, 2                        ; 0x0781
     cwd                              ; 0x0784
     idiv cx                          ; 0x0785
     mov ax, dx                       ; 0x0787
@@ -99,7 +99,7 @@ api_idx_0018:
     imul word [bp - 0x0002]          ; 0x0813
     push ax                          ; 0x0816
     mov ax, word [bp - 0x0004]       ; 0x0817
-    mov cx, data_0002                ; 0x081a
+    mov cx, 2                        ; 0x081a
     cwd                              ; 0x081d
     idiv cx                          ; 0x081e
     mov cx, dx                       ; 0x0820
@@ -149,7 +149,7 @@ api_idx_0018:
     mov bx, word [bp - 0x0002]       ; 0x0886
     cmp byte [bx + 0x5b48], 0x18     ; 0x0889
     jne short @..api_idx_0018.l9     ; 0x088e
-    cmp word [data_9134], byte 1     ; 0x0890
+    cmp word [dseg_9134], byte 1     ; 0x0890
     jne short @..api_idx_0018.l9     ; 0x0895
     cmp byte [bp - 0x0018], 4        ; 0x0897
     jne short @..api_idx_0018.l9     ; 0x089b
@@ -160,7 +160,7 @@ api_idx_0018:
     add ax, word [bp - 0x000a]       ; 0x08a5
     dec ax                           ; 0x08a8
     mov word [bp - 0x000a], ax       ; 0x08a9
-    mov ax, data_0002                ; 0x08ac
+    mov ax, 2                        ; 0x08ac
     push ax                          ; 0x08af
     db 0xe8, 0xf6, 0xae ; call 0xb7a9
     pop cx                           ; 0x08b3
@@ -174,7 +174,7 @@ api_idx_0018:
     idiv cx                          ; 0x08c4
     add word [bp - 0x000a], ax       ; 0x08c6
     mov ax, word [bp - 0x0004]       ; 0x08c9
-    mov cx, data_0002                ; 0x08cc
+    mov cx, 2                        ; 0x08cc
     cwd                              ; 0x08cf
     idiv cx                          ; 0x08d0
     mov ax, dx                       ; 0x08d2
@@ -184,7 +184,7 @@ api_idx_0018:
     imul word [bp - 0x0002]          ; 0x08db
     mov cx, ax                       ; 0x08de
     mov ax, word [bp - 0x0004]       ; 0x08e0
-    mov bx, data_0002                ; 0x08e3
+    mov bx, 2                        ; 0x08e3
     cwd                              ; 0x08e6
     idiv bx                          ; 0x08e7
     mov ax, dx                       ; 0x08e9

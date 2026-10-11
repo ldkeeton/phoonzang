@@ -11,7 +11,7 @@ bios_disk_loc_0294:
     jne short @..bios_disk_loc_0294.l1 ; 0x02a1
     jmp near @..bios_disk_loc_0294.l2 ; 0x02a3
 @..bios_disk_loc_0294.l1:
-    mov al, byte [cs:data_0b7d]      ; 0x02a6
+    mov al, byte [cs:cseg_0b7d - IMAGE_BASE] ; 0x02a6
     call leaf_loc_02b3               ; 0x02aa
     mov byte [bp + 0x15], al         ; 0x02ad
     jmp near @..bios_disk_loc_0294.l5 ; 0x02b0

@@ -11,17 +11,17 @@ aztec_malloc:
     shr ax, 1                        ; 0x2f29
     shl ax, 1                        ; 0x2f2b
     mov word [bp + 0x4], ax          ; 0x2f2d
-    cmp word [data_2536], byte 0     ; 0x2f30
+    cmp word [0x2536], byte 0        ; 0x2f30
     jne short @..aztec_malloc.l1     ; 0x2f35
-    mov word [data_2538], data_2538  ; 0x2f37
-    or word [data_2538], 1           ; 0x2f3d
-    mov word [data_2536], data_2538  ; 0x2f43
+    mov word [0x2538], 0x2538        ; 0x2f37
+    or word [0x2538], 1              ; 0x2f3d
+    mov word [0x2536], 0x2538        ; 0x2f43
 @..aztec_malloc.l1:
     mov word [bp - 0x0006], 0        ; 0x2f49
-    mov si, word [data_2536]         ; 0x2f4e
+    mov si, word [0x2536]            ; 0x2f4e
     mov word [bp - 0x0002], si       ; 0x2f52
 @..aztec_malloc.l2:
-    cmp si, word [data_244e]         ; 0x2f55
+    cmp si, word [0x244e]            ; 0x2f55
     jne short @..aztec_malloc.l5     ; 0x2f59
     inc word [bp - 0x0006]           ; 0x2f5b
     mov ax, word [bp - 0x0006]       ; 0x2f5e
@@ -56,9 +56,9 @@ loc_2f7e:
     mov di, si                       ; 0x2f9b
     add di, word [bp - 0x0004]       ; 0x2f9d
     mov word [si], di                ; 0x2fa0
-    mov word [di], data_2538         ; 0x2fa2
+    mov word [di], 0x2538            ; 0x2fa2
     or word [di], 1                  ; 0x2fa6
-    mov word [data_244e], di         ; 0x2faa
+    mov word [0x244e], di            ; 0x2faa
     mov bx, word [bp - 0x0002]       ; 0x2fae
     mov ax, word [bx]                ; 0x2fb1
     and ax, strict word 0xfffe       ; 0x2fb3
@@ -91,12 +91,12 @@ loc_2f7e:
     mov word [si], ax                ; 0x2fee
     mov bx, ax                       ; 0x2ff0
     mov ax, word [bx]                ; 0x2ff2
-    mov word [data_2534], ax         ; 0x2ff4
+    mov word [0x2534], ax            ; 0x2ff4
     mov bx, word [si]                ; 0x2ff7
     mov word [bx], di                ; 0x2ff9
 @..aztec_malloc.l8:
     mov ax, word [si]                ; 0x2ffb
-    mov word [data_2536], ax         ; 0x2ffd
+    mov word [0x2536], ax            ; 0x2ffd
     or word [si], 1                  ; 0x3000
     mov ax, si                       ; 0x3004
     add ax, strict word 2            ; 0x3006

@@ -25,7 +25,7 @@ api_idx_0008:
     push word [data_82f4]            ; 0x1d11
     mov ax, word [bp + 0x8]          ; 0x1d15
     dec ax                           ; 0x1d18
-    mov cx, data_0002                ; 0x1d19
+    mov cx, 2                        ; 0x1d19
     cwd                              ; 0x1d1c
     idiv cx                          ; 0x1d1d
     inc ax                           ; 0x1d1f
@@ -42,7 +42,7 @@ api_idx_0008:
     push word [data_82f8]            ; 0x1d3b
     mov ax, word [bp + 0x8]          ; 0x1d3f
     dec ax                           ; 0x1d42
-    mov cx, data_0002                ; 0x1d43
+    mov cx, 2                        ; 0x1d43
     cwd                              ; 0x1d46
     idiv cx                          ; 0x1d47
     inc ax                           ; 0x1d49
@@ -187,7 +187,7 @@ api_idx_0008:
     mov ax, 0x248                    ; 0x1ec5
     imul word [bp + 0xa]             ; 0x1ec8
     db 0x8b, 0xd8 ; mov bx, ax
-    cmp byte [bx + 0x5e2f], data_0002 ; 0x1ecd
+    cmp byte [bx + 0x5e2f], 2        ; 0x1ecd
     jne short loc_1f47               ; 0x1ed2
     mov ax, 3                        ; 0x1ed4
     imul word [bp + 0x8]             ; 0x1ed7
@@ -510,7 +510,7 @@ api_idx_0008:
     mov word [bx + 0x5c10], ax       ; 0x220e
     mov ax, 0                        ; 0x2212
     push ax                          ; 0x2215
-    mov ax, data_0002                ; 0x2216
+    mov ax, 2                        ; 0x2216
     push ax                          ; 0x2219
     push word [bp + 0x8]             ; 0x221a
     db 0xe8, 0xca, 0xae ; call ds_dispatch_d0ea

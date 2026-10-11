@@ -44,24 +44,24 @@ loc_478a:
     cmp word [bp - 0x0006], byte 0   ; 0x47d5
     je short @..local.l2             ; 0x47d9
     mov ax, word [cs:bx]             ; 0x47db
-    add ax, word [cs:data_01e1]      ; 0x47de
+    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x47de
 @..local.l2:
     push ax                          ; 0x47e3
     xor ax, ax                       ; 0x47e4
     push ax                          ; 0x47e6
-    call far [cs:data_020e]          ; 0x47e7
+    call far [cs:cseg_020e - IMAGE_BASE] ; 0x47e7
     add sp, byte 6                   ; 0x47ec
     push word [bp + 0x10]            ; 0x47ef
     push word [bp + 0xe]             ; 0x47f2
-    call far [cs:data_0216]          ; 0x47f5
+    call far [cs:cseg_0216 - IMAGE_BASE] ; 0x47f5
     add sp, byte 4                   ; 0x47fa
     push word [bp + 0x12]            ; 0x47fd
     mov bx, word [bp - 0x0004]       ; 0x4800
     mov ax, word [cs:bx]             ; 0x4803
-    add ax, word [cs:data_01e1]      ; 0x4806
+    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4806
     push ax                          ; 0x480b
     push word [bp - 0x0006]          ; 0x480c
-    call far [cs:data_0206]          ; 0x480f
+    call far [cs:cseg_0206 - IMAGE_BASE] ; 0x480f
     add sp, byte 6                   ; 0x4814
 @..local.l3:
     pop di                           ; 0x4817

@@ -35,7 +35,7 @@ leaf_loc_3674:
     sub ax, dx                       ; 0x36ab
     shr dx, 1                        ; 0x36ad
     add ax, dx                       ; 0x36af
-    mov word [cs:data_3472], ax      ; 0x36b1
+    mov word [cs:cseg_3672 - IMAGE_BASE], ax ; 0x36b1
     pop dx                           ; 0x36b5
     pop cx                           ; 0x36b6
     pop bx                           ; 0x36b7

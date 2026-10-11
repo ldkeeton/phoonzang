@@ -3,12 +3,12 @@ leaf_loc_3c0d:
     push bx                          ; 0x3c0e
     push cx                          ; 0x3c0f
     push dx                          ; 0x3c10
-    mov ax, word [cs:data_2edc]      ; 0x3c11
+    mov ax, word [cs:cseg_30dc - IMAGE_BASE] ; 0x3c11
     cwd                              ; 0x3c15
     mov bx, 0xb1                     ; 0x3c16
     idiv bx                          ; 0x3c19
     mov cx, dx                       ; 0x3c1b
-    mov dx, data_0002                ; 0x3c1d
+    mov dx, 2                        ; 0x3c1d
     imul dx                          ; 0x3c20
     mov bx, ax                       ; 0x3c22
     mov ax, 0xab                     ; 0x3c24
@@ -17,8 +17,8 @@ leaf_loc_3c0d:
     jns short @..leaf_loc_3c0d.l1    ; 0x3c2b
     add ax, 0x763d                   ; 0x3c2d
 @..leaf_loc_3c0d.l1:
-    mov word [cs:data_2edc], ax      ; 0x3c30
-    mov ax, word [cs:data_2ede]      ; 0x3c34
+    mov word [cs:cseg_30dc - IMAGE_BASE], ax ; 0x3c30
+    mov ax, word [cs:cseg_30de - IMAGE_BASE] ; 0x3c34
     cwd                              ; 0x3c38
     mov bx, 0xb0                     ; 0x3c39
     idiv bx                          ; 0x3c3c
@@ -32,8 +32,8 @@ leaf_loc_3c0d:
     jns short @..leaf_loc_3c0d.l2    ; 0x3c4e
     add ax, 0x7663                   ; 0x3c50
 @..leaf_loc_3c0d.l2:
-    mov word [cs:data_2ede], ax      ; 0x3c53
-    mov ax, word [cs:data_2ee0]      ; 0x3c57
+    mov word [cs:cseg_30de - IMAGE_BASE], ax ; 0x3c53
+    mov ax, word [cs:cseg_30e0 - IMAGE_BASE] ; 0x3c57
     cwd                              ; 0x3c5b
     mov bx, 0xb2                     ; 0x3c5c
     idiv bx                          ; 0x3c5f
@@ -47,7 +47,7 @@ leaf_loc_3c0d:
     jns short @..leaf_loc_3c0d.l3    ; 0x3c71
     add ax, 0x7673                   ; 0x3c73
 @..leaf_loc_3c0d.l3:
-    mov word [cs:data_2ee0], ax      ; 0x3c76
+    mov word [cs:cseg_30e0 - IMAGE_BASE], ax ; 0x3c76
     pop dx                           ; 0x3c7a
     pop cx                           ; 0x3c7b
     pop bx                           ; 0x3c7c

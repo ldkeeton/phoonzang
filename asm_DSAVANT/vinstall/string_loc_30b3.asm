@@ -39,9 +39,9 @@ loc_30fb:
     or byte [bp - 0x000b], 0x10      ; 0x30ff
     jmp short loc_30d6               ; 0x3103
 loc_3105:
-    cmp al, data_0030                ; 0x3105
+    cmp al, 0x30                     ; 0x3105
     jne short loc_310e               ; 0x3107
-    mov byte [bp - 0x000c], data_0030 ; 0x3109
+    mov byte [bp - 0x000c], 0x30     ; 0x3109
     lodsb                            ; 0x310d
 loc_310e:
     call string_loc_3338             ; 0x310e
@@ -51,7 +51,7 @@ loc_310e:
     or byte [bp - 0x000b], 8         ; 0x3117
 loc_311b:
     mov word [bp - 0x0004], dx       ; 0x311b
-    cmp al, data_002e                ; 0x311e
+    cmp al, 0x2e                     ; 0x311e
     jne short loc_3129               ; 0x3120
     lodsb                            ; 0x3122
     call string_loc_3338             ; 0x3123

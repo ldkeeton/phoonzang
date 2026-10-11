@@ -71,7 +71,7 @@ api_idx_0008_3:
     sub ax, cx                       ; 0x835f
     mov cx, 6                        ; 0x8361
     imul cx                          ; 0x8364
-    mov cx, data_0002                ; 0x8366
+    mov cx, 2                        ; 0x8366
     cwd                              ; 0x8369
     idiv cx                          ; 0x836a
     add ax, word [bp + 0x8]          ; 0x836c
@@ -257,7 +257,7 @@ loc_8441:
     pop cx                           ; 0x84fe
     mov cx, 6                        ; 0x84ff
     imul cx                          ; 0x8502
-    mov cx, data_0002                ; 0x8504
+    mov cx, 2                        ; 0x8504
     cwd                              ; 0x8507
     idiv cx                          ; 0x8508
     mov cx, ax                       ; 0x850a
@@ -375,7 +375,7 @@ loc_8441:
     sub ax, cx                       ; 0x860c
     mov cx, 6                        ; 0x860e
     imul cx                          ; 0x8611
-    mov cx, data_0002                ; 0x8613
+    mov cx, 2                        ; 0x8613
     cwd                              ; 0x8616
     idiv cx                          ; 0x8617
     add ax, word [bp + 0x8]          ; 0x8619
@@ -445,7 +445,7 @@ loc_8441:
     push ax                          ; 0x86aa
     call ds_dispatch_e8da            ; 0x86ab
     add sp, byte 8                   ; 0x86ae
-    cmp word [data_0e32], byte 0     ; 0x86b1
+    cmp word [dseg_0e32], byte 0     ; 0x86b1
     je short @..local.l143           ; 0x86b6
 @..local.l141:
     mov ax, 0x59fe                   ; 0x86b8
@@ -453,11 +453,11 @@ loc_8441:
     call ds_dispatch_b90d            ; 0x86bc
     pop cx                           ; 0x86bf
     mov word [bp - 0x0004], ax       ; 0x86c0
-    cmp word [data_5b3e], byte 0     ; 0x86c3
+    cmp word [dseg_5b3e], byte 0     ; 0x86c3
     jne short @..local.l142          ; 0x86c8
     call loc_086b                    ; 0x86ca
 @..local.l142:
-    cmp word [data_5b3e], byte 0     ; 0x86cd
+    cmp word [dseg_5b3e], byte 0     ; 0x86cd
     je short @..local.l141           ; 0x86d2
     jmp near @..local.l157           ; 0x86d4
 @..local.l143:
@@ -736,7 +736,7 @@ loc_8441:
     add sp, byte 8                   ; 0x892b
 @..local.l159:
     mov ax, word [bp - 0x0004]       ; 0x892e
-    mov word [data_9052], ax         ; 0x8931
+    mov word [dseg_9052], ax         ; 0x8931
     shl ax, 1                        ; 0x8934
     mov bx, ax                       ; 0x8936
     add bx, bp                       ; 0x8938

@@ -8,11 +8,11 @@ bios_mouse_loc_341e:
     push di                          ; 0x3427
     mov ax, ds                       ; 0x3428
     mov es, ax                       ; 0x342a
-    cmp byte [cs:data_0228], 1       ; 0x342c
+    cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x342c
     je short @..bios_mouse_loc_341e.l1 ; 0x3432
     jmp near @..bios_mouse_loc_341e.l8 ; 0x3434
 @..bios_mouse_loc_341e.l1:
-    mov byte [cs:data_0226], 1       ; 0x3437
+    mov byte [cs:cseg_0226 - IMAGE_BASE], 1 ; 0x3437
     mov ax, word [bp + 0xc]          ; 0x343d
     shl ax, 1                        ; 0x3440
     mov word [bp - 0x0002], ax       ; 0x3442
@@ -62,7 +62,7 @@ bios_mouse_loc_341e:
     or ax, ax                        ; 0x34ab
     je short @..bios_mouse_loc_341e.l2 ; 0x34ad
     push ax                          ; 0x34af
-    call far [cs:data_01fb]          ; 0x34b0
+    call far [cs:cseg_01fb - IMAGE_BASE] ; 0x34b0
     pop ax                           ; 0x34b5
     jmp short @..bios_mouse_loc_341e.l2 ; 0x34b6
 @..bios_mouse_loc_341e.l8:
@@ -83,7 +83,7 @@ loc_34c0:
     push di                          ; 0x34c9
     mov ax, ds                       ; 0x34ca
     mov es, ax                       ; 0x34cc
-    cmp byte [cs:data_0228], 1       ; 0x34ce
+    cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x34ce
     je short @..local.l54            ; 0x34d4
     jmp near @..local.l62            ; 0x34d6
 @..local.l54:
@@ -92,9 +92,9 @@ loc_34c0:
     mov word [bp - 0x0002], ax       ; 0x34de
     mov ax, word [bp + 0xe]          ; 0x34e1
     mov word [bp - 0x0004], ax       ; 0x34e4
-    mov cx, word [cs:data_1bd9]      ; 0x34e7
+    mov cx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x34e7
     shl cx, 1                        ; 0x34ec
-    mov dx, word [cs:data_1bdb]      ; 0x34ee
+    mov dx, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x34ee
     mov word [bp - 0x0006], cx       ; 0x34f3
     mov word [bp - 0x0008], dx       ; 0x34f6
 @..local.l55:
@@ -136,7 +136,7 @@ loc_34c0:
     or ax, ax                        ; 0x354a
     je short @..local.l55            ; 0x354c
     push ax                          ; 0x354e
-    call far [cs:data_01fb]          ; 0x354f
+    call far [cs:cseg_01fb - IMAGE_BASE] ; 0x354f
     pop ax                           ; 0x3554
     jmp short @..local.l55           ; 0x3555
 @..local.l61:
@@ -144,7 +144,7 @@ loc_34c0:
     mov dx, word [bp - 0x0004]       ; 0x355a
     mov ax, 4                        ; 0x355d
     int 0x33 ; BIOS mouse
-    mov byte [cs:data_0226], 0       ; 0x3562
+    mov byte [cs:cseg_0226 - IMAGE_BASE], 0 ; 0x3562
 @..local.l62:
     pop di                           ; 0x3568
     pop si                           ; 0x3569
@@ -179,9 +179,9 @@ loc_3570:
     jmp near @..local.l65            ; 0x359c
 @..local.l64:
     mov word [cs:bx], 0              ; 0x359f
-    mov cx, word [cs:data_11cb]      ; 0x35a4
+    mov cx, word [cs:cseg_11cb - IMAGE_BASE] ; 0x35a4
     dec cx                           ; 0x35a9
-    mov word [cs:data_11cb], cx      ; 0x35aa
+    mov word [cs:cseg_11cb - IMAGE_BASE], cx ; 0x35aa
     call loc_4c93                    ; 0x35af
 @..local.l65:
     pop si                           ; 0x35b2

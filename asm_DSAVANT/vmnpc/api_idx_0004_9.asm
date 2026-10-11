@@ -14,7 +14,7 @@ api_idx_0004_9:
     mov ax, 1                        ; 0x28c2
     push ax                          ; 0x28c5
     push word [bp - 0x0002]          ; 0x28c6
-    mov al, byte [data_91c6]         ; 0x28c9
+    mov al, byte [dseg_91c6]         ; 0x28c9
     cbw                              ; 0x28cc
     mov cx, 0x26                     ; 0x28cd
     imul cx                          ; 0x28d0
@@ -24,7 +24,7 @@ api_idx_0004_9:
     add sp, byte 6                   ; 0x28d9
 @..api_idx_0004_9.l2:
     push word [bp - 0x0002]          ; 0x28dc
-    mov al, byte [data_91c6]         ; 0x28df
+    mov al, byte [dseg_91c6]         ; 0x28df
     cbw                              ; 0x28e2
     mov cx, 0x26                     ; 0x28e3
     imul cx                          ; 0x28e6
@@ -43,7 +43,7 @@ api_idx_0004_9:
     add sp, byte 6                   ; 0x2904
 @..api_idx_0004_9.l3:
     push word [bp - 0x0002]          ; 0x2907
-    mov al, byte [data_91c6]         ; 0x290a
+    mov al, byte [dseg_91c6]         ; 0x290a
     cbw                              ; 0x290d
     mov cx, 0x26                     ; 0x290e
     imul cx                          ; 0x2911
@@ -102,12 +102,12 @@ loc_2963:
     call api_idx_0050                ; 0x2984
     add sp, byte 8                   ; 0x2987
 @..local.l79:
-    mov al, byte [data_91c2]         ; 0x298a
+    mov al, byte [dseg_91c2]         ; 0x298a
     sub ah, ah                       ; 0x298d
-    mov word [data_0e36], ax         ; 0x298f
-    mov word [data_8452], 1          ; 0x2992
-    mov word [data_845a], 0          ; 0x2998
-    mov word [data_95a6], 0          ; 0x299e
-    mov word [data_830a], 0xa        ; 0x29a4
-    mov word [data_905e], 0x12       ; 0x29aa
+    mov word [dseg_0e36], ax         ; 0x298f
+    mov word [dseg_8452], 1          ; 0x2992
+    mov word [dseg_845a], 0          ; 0x2998
+    mov word [dseg_95a6], 0          ; 0x299e
+    mov word [dseg_830a], 0xa        ; 0x29a4
+    mov word [dseg_905e], 0x12       ; 0x29aa
     ret                              ; 0x29b0

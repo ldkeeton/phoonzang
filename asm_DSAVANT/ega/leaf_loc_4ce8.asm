@@ -1,6 +1,6 @@
 leaf_loc_4ce8:
     push ax                          ; 0x4ce8
-    mov bx, 0x251                    ; 0x4ce9
+    mov bx, cseg_0251 - IMAGE_BASE   ; 0x4ce9
     mov cx, 5                        ; 0x4cec
 @..leaf_loc_4ce8.l1:
     cmp ax, word [cs:bx]             ; 0x4cef

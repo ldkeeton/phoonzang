@@ -2,8 +2,8 @@ api_idx_001e:
     mov ax, 0xffe2                   ; 0x529a
     call ds_dispatch_f40b            ; 0x529d
     mov word [bp - 0x0004], 0x14a    ; 0x52a0
-    mov ax, word [data_8f1c]         ; 0x52a5
-    mov dx, word [data_8f1e]         ; 0x52a8
+    mov ax, word [dseg_8f1c]         ; 0x52a5
+    mov dx, word [dseg_8f1e]         ; 0x52a8
     push ax                          ; 0x52ac
     push dx                          ; 0x52ad
     mov ax, word [bp - 0x0004]       ; 0x52ae
@@ -66,7 +66,7 @@ api_idx_001e:
     sub ax, cx                       ; 0x533c
     mov word [bp - 0x000e], ax       ; 0x533e
 @..api_idx_001e.l6:
-    mov ax, word [data_82ee]         ; 0x5341
+    mov ax, word [dseg_82ee]         ; 0x5341
     shl ax, 1                        ; 0x5344
     mov bx, ax                       ; 0x5346
     add bx, bp                       ; 0x5348
@@ -74,7 +74,7 @@ api_idx_001e:
     jne short @..api_idx_001e.l7     ; 0x534f
     ret                              ; 0x5351
 @..api_idx_001e.l7:
-    cmp word [bp - 0x0006], data_010e ; 0x5352
+    cmp word [bp - 0x0006], strict word 0x10e ; 0x5352
     jge short @..api_idx_001e.l8     ; 0x5357
     mov ax, word [bp - 0x0006]       ; 0x5359
     mov cx, 0xa                      ; 0x535c

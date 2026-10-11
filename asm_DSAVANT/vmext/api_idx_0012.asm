@@ -1,10 +1,10 @@
 api_idx_0012:
     mov ax, 0xffee                   ; 0x0ee0
     call ds_dispatch_f40b            ; 0x0ee3
-    mov ax, word [data_8d12]         ; 0x0ee6
+    mov ax, word [dseg_8d12]         ; 0x0ee6
     shl ax, 1                        ; 0x0ee9
     mov si, ax                       ; 0x0eeb
-    mov bx, word [data_0e12]         ; 0x0eed
+    mov bx, word [dseg_0e12]         ; 0x0eed
     mov ax, word [bx + si + 0x3c0]   ; 0x0ef1
     mov word [bp - 0x0008], ax       ; 0x0ef5
     mov ax, word [bx + si + 0x1e0]   ; 0x0ef8
@@ -437,5 +437,5 @@ api_idx_0012:
     pop cx                           ; 0x134d
     jmp near @..api_idx_0012.l1      ; 0x134e
 @..api_idx_0012.l11:
-    inc word [data_8d12]             ; 0x1351
+    inc word [dseg_8d12]             ; 0x1351
     ret                              ; 0x1355

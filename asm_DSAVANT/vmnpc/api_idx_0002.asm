@@ -23,7 +23,7 @@ api_idx_0002:
     mov ax, word [bp - 0x0002]       ; 0x0dfb
     cmp ax, strict word 3            ; 0x0dfe
     jl short @..api_idx_0002.l1      ; 0x0e01
-    mov byte [data_934c], 0          ; 0x0e03
-    mov word [data_93d2], 0          ; 0x0e08
-    mov word [data_93d4], 3          ; 0x0e0e
+    mov byte [dseg_934c], 0          ; 0x0e03
+    mov word [dseg_93d2], 0          ; 0x0e08
+    mov word [dseg_93d4], 3          ; 0x0e0e
     ret                              ; 0x0e14

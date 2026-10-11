@@ -1,6 +1,6 @@
 leaf_loc_4cfd:
     push ax                          ; 0x4cfd
-    mov bx, 0x4ab4                   ; 0x4cfe
+    mov bx, cseg_4ab4 - IMAGE_BASE   ; 0x4cfe
     mov cx, 0x14                     ; 0x4d01
 @..leaf_loc_4cfd.l1:
     cmp ax, word [cs:bx]             ; 0x4d04

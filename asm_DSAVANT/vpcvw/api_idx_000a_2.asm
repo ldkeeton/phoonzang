@@ -62,7 +62,7 @@ loc_2a2d:
     push ax                          ; 0x2a7a
     call ds_dispatch_e823            ; 0x2a7b
     add sp, byte 4                   ; 0x2a7e
-    mov ax, data_0002                ; 0x2a81
+    mov ax, 2                        ; 0x2a81
     push ax                          ; 0x2a84
     mov ax, word [bp + 0x8]          ; 0x2a85
     inc ax                           ; 0x2a88

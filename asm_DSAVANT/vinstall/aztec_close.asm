@@ -5,7 +5,7 @@ aztec_close:
     mov bx, word [bp + 0x4]          ; 0x386e
     int 0x21 ; DOS close file handle
     jae short @..aztec_close.l1      ; 0x3873
-    mov word [data_24d6], ax         ; 0x3875
+    mov word [dseg_24d6], ax         ; 0x3875
     mov ax, 0xffff                   ; 0x3878
     pop bp                           ; 0x387b
     ret                              ; 0x387c

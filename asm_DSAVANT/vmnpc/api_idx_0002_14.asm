@@ -3,14 +3,14 @@ api_idx_0002_14:
     db 0xe8, 0x1e, 0x51 ; call 0xf40b
     mov word [bp - 0x0002], 0        ; 0xa2ed
 @..api_idx_0002_14.l1:
-    mov ax, data_95a8                ; 0xa2f2
+    mov ax, 0x95a8                   ; 0xa2f2
     push ax                          ; 0xa2f5
     push word [bp + 0x4]             ; 0xa2f6
     db 0xe8, 0x3f, 0x12 ; call 0xb53b
     add sp, byte 4                   ; 0xa2fc
-    cmp word [data_5216], byte 0     ; 0xa2ff
+    cmp word [dseg_5216], byte 0     ; 0xa2ff
     jne short @..api_idx_0002_14.l2  ; 0xa304
-    mov al, byte [data_95a8]         ; 0xa306
+    mov al, byte [dseg_95a8]         ; 0xa306
     sub ah, ah                       ; 0xa309
     add ax, strict word 0xffe0       ; 0xa30b
     push ax                          ; 0xa30e
@@ -29,19 +29,19 @@ api_idx_0002_14:
     add word [bp + 0x4], byte 5      ; 0xa32d
     inc word [bp - 0x0002]           ; 0xa331
 @..api_idx_0002_14.l2:
-    cmp word [data_5216], byte 0     ; 0xa334
+    cmp word [dseg_5216], byte 0     ; 0xa334
     je short @..api_idx_0002_14.l1   ; 0xa339
     mov ax, word [bp - 0x0002]       ; 0xa33b
-    mov word [data_b046], ax         ; 0xa33e
+    mov word [dseg_b046], ax         ; 0xa33e
 @..api_idx_0002_14.l3:
-    mov ax, data_95a8                ; 0xa341
+    mov ax, 0x95a8                   ; 0xa341
     push ax                          ; 0xa344
     push word [bp + 0x6]             ; 0xa345
     db 0xe8, 0xf0, 0x11 ; call 0xb53b
     add sp, byte 4                   ; 0xa34b
-    cmp word [data_5216], byte 0     ; 0xa34e
+    cmp word [dseg_5216], byte 0     ; 0xa34e
     jne short @..api_idx_0002_14.l4  ; 0xa353
-    mov al, byte [data_95a8]         ; 0xa355
+    mov al, byte [dseg_95a8]         ; 0xa355
     sub ah, ah                       ; 0xa358
     add ax, strict word 0xffe0       ; 0xa35a
     push ax                          ; 0xa35d
@@ -60,8 +60,8 @@ api_idx_0002_14:
     add word [bp + 0x6], byte 5      ; 0xa37c
     inc word [bp - 0x0002]           ; 0xa380
 @..api_idx_0002_14.l4:
-    cmp word [data_5216], byte 0     ; 0xa383
+    cmp word [dseg_5216], byte 0     ; 0xa383
     je short @..api_idx_0002_14.l3   ; 0xa388
     mov ax, word [bp - 0x0002]       ; 0xa38a
-    mov word [data_a656], ax         ; 0xa38d
+    mov word [dseg_a656], ax         ; 0xa38d
     ret                              ; 0xa390

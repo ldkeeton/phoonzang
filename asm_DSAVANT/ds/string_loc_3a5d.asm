@@ -2,7 +2,7 @@ string_loc_3a5d:
     push bp                          ; 0x3a5d
     mov bp, sp                       ; 0x3a5e
     cld                              ; 0x3a60
-    call far [cs:data_2dbf]          ; 0x3a61
+    call far [cs:cseg_2fbf - IMAGE_BASE] ; 0x3a61
     mov sp, bp                       ; 0x3a66
     pop bp                           ; 0x3a68
     ret                              ; 0x3a69
@@ -10,7 +10,7 @@ loc_3a6a:
     push bp                          ; 0x3a6a
     mov bp, sp                       ; 0x3a6b
     cld                              ; 0x3a6d
-    call far [cs:data_2db7]          ; 0x3a6e
+    call far [cs:cseg_2fb7 - IMAGE_BASE] ; 0x3a6e
     mov sp, bp                       ; 0x3a73
     pop bp                           ; 0x3a75
     ret                              ; 0x3a76
@@ -25,7 +25,7 @@ loc_3a77:
     mov ax, word [cs:bx]             ; 0x3a85
     or ax, ax                        ; 0x3a88
     je short @..local.l3             ; 0x3a8a
-    call far [cs:data_2db3]          ; 0x3a8c
+    call far [cs:cseg_2fb3 - IMAGE_BASE] ; 0x3a8c
 @..local.l3:
     mov sp, bp                       ; 0x3a91
     pop bp                           ; 0x3a93

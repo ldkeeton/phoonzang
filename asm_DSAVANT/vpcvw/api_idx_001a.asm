@@ -40,7 +40,7 @@ loc_70ca:
     mov ax, 0xfe6c                   ; 0x70ca
     call ds_dispatch_f40b            ; 0x70cd
     mov word [bp - 0x0194], 0        ; 0x70d0
-    cmp word [data_0e32], byte 0     ; 0x70d6
+    cmp word [dseg_0e32], byte 0     ; 0x70d6
     je short @..local.l49            ; 0x70db
     lea ax, word [bp - 0x000c]       ; 0x70dd
     push ax                          ; 0x70e0
@@ -132,8 +132,8 @@ loc_70ca:
     mov ax, 0                        ; 0x71a0
     push ax                          ; 0x71a3
     push ax                          ; 0x71a4
-    push word [data_93f8]            ; 0x71a5
-    push word [data_93f6]            ; 0x71a9
+    push word [dseg_93f8]            ; 0x71a5
+    push word [dseg_93f6]            ; 0x71a9
     call ds_dispatch_e942            ; 0x71ad
     add sp, byte 8                   ; 0x71b0
     mov word [bp - 0x000c], 0x72     ; 0x71b3
@@ -227,7 +227,7 @@ loc_70ca:
     push word [bp - 0x000c]          ; 0x7296
     mov cx, 6                        ; 0x7299
     imul cx                          ; 0x729c
-    mov cx, data_0002                ; 0x729e
+    mov cx, 2                        ; 0x729e
     cwd                              ; 0x72a1
     idiv cx                          ; 0x72a2
     mov cx, ax                       ; 0x72a4
@@ -247,7 +247,7 @@ loc_70ca:
     push ax                          ; 0x72c7
     mov ax, 6                        ; 0x72c8
     imul word [bp - 0x0004]          ; 0x72cb
-    mov cx, data_0002                ; 0x72ce
+    mov cx, 2                        ; 0x72ce
     cwd                              ; 0x72d1
     idiv cx                          ; 0x72d2
     mov cx, ax                       ; 0x72d4
@@ -278,7 +278,7 @@ loc_70ca:
     mov word [bp - 0x002a], 0        ; 0x732c
     mov word [bp - 0x0028], 0        ; 0x7331
     mov word [bp - 0x0022], 1        ; 0x7336
-    mov ax, word [data_0024]         ; 0x733b
+    mov ax, word [dseg_0024]         ; 0x733b
     mov word [bp - 0x0024], ax       ; 0x733e
     mov al, byte [bp - 0x0042]       ; 0x7341
     sub ah, ah                       ; 0x7344
@@ -333,7 +333,7 @@ loc_70ca:
     pop cx                           ; 0x748f
     mov cx, 6                        ; 0x7490
     imul cx                          ; 0x7493
-    mov cx, data_0002                ; 0x7495
+    mov cx, 2                        ; 0x7495
     cwd                              ; 0x7498
     idiv cx                          ; 0x7499
     mov cx, ax                       ; 0x749b
@@ -510,7 +510,7 @@ loc_70ca:
     pop cx                           ; 0x7639
     mov cx, 6                        ; 0x763a
     imul cx                          ; 0x763d
-    mov cx, data_0002                ; 0x763f
+    mov cx, 2                        ; 0x763f
     cwd                              ; 0x7642
     idiv cx                          ; 0x7643
     mov cx, ax                       ; 0x7645
@@ -564,7 +564,7 @@ loc_70ca:
     add byte [bp + di], cl           ; 0x76f7
     add byte [si], cl                ; 0x76f9
     add byte [di], cl                ; 0x76fb
-    add byte [data_0f00], cl         ; 0x76fd
+    add byte [dseg_0f00], cl         ; 0x76fd
     add byte [bx + si], dl           ; 0x7701
     add byte [bx + di], dl           ; 0x7703
     add byte [bp + si], dl           ; 0x7705
@@ -573,10 +573,10 @@ loc_70ca:
     add byte [di], dl                ; 0x770b
     add byte [bx + si], bl           ; 0x770d
     add byte [di], ah                ; 0x770f
-    add byte [data_3300], ah         ; 0x7711
+    add byte [dseg_3300], ah         ; 0x7711
     add byte [si], dh                ; 0x7715
     add byte [di], dh                ; 0x7717
-    add byte [data_3700], dh         ; 0x7719
+    add byte [dseg_3700], dh         ; 0x7719
     add byte [bx + si], bh           ; 0x771d
     add byte [bx + di], bh           ; 0x771f
     add byte [bp + si], bh           ; 0x7721
@@ -834,7 +834,7 @@ loc_70ca:
     pop cx                           ; 0x7a80
     mov cx, 6                        ; 0x7a81
     imul cx                          ; 0x7a84
-    mov cx, data_0002                ; 0x7a86
+    mov cx, 2                        ; 0x7a86
     cwd                              ; 0x7a89
     idiv cx                          ; 0x7a8a
     mov cx, ax                       ; 0x7a8c
@@ -874,7 +874,7 @@ loc_70ca:
     pop cx                           ; 0x7ade
     mov cx, 6                        ; 0x7adf
     imul cx                          ; 0x7ae2
-    mov cx, data_0002                ; 0x7ae4
+    mov cx, 2                        ; 0x7ae4
     cwd                              ; 0x7ae7
     idiv cx                          ; 0x7ae8
     mov cx, ax                       ; 0x7aea
@@ -1335,7 +1335,7 @@ loc_70ca:
     pop cx                           ; 0x7f36
     mov cx, 6                        ; 0x7f37
     imul cx                          ; 0x7f3a
-    mov cx, data_0002                ; 0x7f3c
+    mov cx, 2                        ; 0x7f3c
     cwd                              ; 0x7f3f
     idiv cx                          ; 0x7f40
     mov cx, ax                       ; 0x7f42
@@ -1408,7 +1408,7 @@ loc_70ca:
     pop cx                           ; 0x7fec
     mov cx, 6                        ; 0x7fed
     imul cx                          ; 0x7ff0
-    mov cx, data_0002                ; 0x7ff2
+    mov cx, 2                        ; 0x7ff2
     cwd                              ; 0x7ff5
     idiv cx                          ; 0x7ff6
     mov cx, ax                       ; 0x7ff8
@@ -1465,7 +1465,7 @@ loc_70ca:
     pop cx                           ; 0x8076
     mov cx, 6                        ; 0x8077
     imul cx                          ; 0x807a
-    mov cx, data_0002                ; 0x807c
+    mov cx, 2                        ; 0x807c
     cwd                              ; 0x807f
     idiv cx                          ; 0x8080
     mov cx, ax                       ; 0x8082
@@ -1503,7 +1503,7 @@ loc_70ca:
     pop cx                           ; 0x80cd
     mov cx, 6                        ; 0x80ce
     imul cx                          ; 0x80d1
-    mov cx, data_0002                ; 0x80d3
+    mov cx, 2                        ; 0x80d3
     cwd                              ; 0x80d6
     idiv cx                          ; 0x80d7
     mov cx, ax                       ; 0x80d9
@@ -1544,7 +1544,7 @@ loc_70ca:
     pop cx                           ; 0x812a
     mov cx, 6                        ; 0x812b
     imul cx                          ; 0x812e
-    mov cx, data_0002                ; 0x8130
+    mov cx, 2                        ; 0x8130
     cwd                              ; 0x8133
     idiv cx                          ; 0x8134
     mov cx, ax                       ; 0x8136
@@ -1657,7 +1657,7 @@ loc_70ca:
     pop cx                           ; 0x8246
     mov cx, 6                        ; 0x8247
     imul cx                          ; 0x824a
-    mov cx, data_0002                ; 0x824c
+    mov cx, 2                        ; 0x824c
     cwd                              ; 0x824f
     idiv cx                          ; 0x8250
     mov cx, ax                       ; 0x8252
@@ -1683,7 +1683,7 @@ loc_70ca:
     push ax                          ; 0x827e
     call ds_dispatch_e8da            ; 0x827f
     add sp, byte 8                   ; 0x8282
-    cmp word [data_0e32], byte 0     ; 0x8285
+    cmp word [dseg_0e32], byte 0     ; 0x8285
     je short @..local.l131           ; 0x828a
     cmp word [bp + 0xa], byte 0      ; 0x828c
     jne short @..local.l128          ; 0x8290

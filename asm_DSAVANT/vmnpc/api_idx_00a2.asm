@@ -1,20 +1,20 @@
 api_idx_00a2:
     mov ax, 0xff5e                   ; 0x9844
     db 0xe8, 0xc1, 0x5b ; call 0xf40b
-    cmp word [data_9e46], byte 0xff  ; 0x984a
+    cmp word [dseg_9e46], byte 0xff  ; 0x984a
     jne short @..api_idx_00a2.l1     ; 0x984f
-    cmp word [data_9e60], byte 1     ; 0x9851
+    cmp word [dseg_9e60], byte 1     ; 0x9851
     jne short @..api_idx_00a2.l1     ; 0x9856
-    mov word [data_9e46], 1          ; 0x9858
+    mov word [dseg_9e46], 1          ; 0x9858
 @..api_idx_00a2.l1:
-    cmp word [data_9e7e], byte 0xff  ; 0x985e
+    cmp word [dseg_9e7e], byte 0xff  ; 0x985e
     jne short @..api_idx_00a2.l2     ; 0x9863
     jmp near @..api_idx_00a2.l3      ; 0x9865
 @..api_idx_00a2.l2:
     lea ax, word [bp - 0x0052]       ; 0x9868
     push ax                          ; 0x986b
-    push word [data_9e44]            ; 0x986c
-    push word [data_9e42]            ; 0x9870
+    push word [dseg_9e44]            ; 0x986c
+    push word [dseg_9e42]            ; 0x9870
     call loc_8981                    ; 0x9874
     add sp, byte 6                   ; 0x9877
     lea ax, word [bp - 0x0052]       ; 0x987a
@@ -45,8 +45,8 @@ api_idx_00a2:
     pop cx                           ; 0x98b4
     lea ax, word [bp - 0x0052]       ; 0x98b5
     push ax                          ; 0x98b8
-    push word [data_9e80]            ; 0x98b9
-    push word [data_9e7e]            ; 0x98bd
+    push word [dseg_9e80]            ; 0x98b9
+    push word [dseg_9e7e]            ; 0x98bd
     call loc_8981                    ; 0x98c1
     add sp, byte 6                   ; 0x98c4
     lea ax, word [bp - 0x0052]       ; 0x98c7
@@ -66,14 +66,14 @@ api_idx_00a2:
     mov ax, 0xffff                   ; 0x98e5
     ret                              ; 0x98e8
 @..api_idx_00a2.l3:
-    cmp word [data_9e48], byte 0xff  ; 0x98e9
+    cmp word [dseg_9e48], byte 0xff  ; 0x98e9
     jne short @..api_idx_00a2.l7     ; 0x98ee
-    cmp word [data_9e42], byte 0xff  ; 0x98f0
+    cmp word [dseg_9e42], byte 0xff  ; 0x98f0
     jne short @..api_idx_00a2.l7     ; 0x98f5
-    cmp word [data_9e46], byte 0xff  ; 0x98f7
+    cmp word [dseg_9e46], byte 0xff  ; 0x98f7
     je short @..api_idx_00a2.l4      ; 0x98fc
     mov ax, 0xa                      ; 0x98fe
-    imul word [data_9e46]            ; 0x9901
+    imul word [dseg_9e46]            ; 0x9901
     add ax, 0xa658                   ; 0x9905
     push ax                          ; 0x9908
     lea ax, word [bp - 0x0052]       ; 0x9909
@@ -92,7 +92,7 @@ api_idx_00a2:
     add sp, byte 4                   ; 0x9926
     jmp short @..api_idx_00a2.l6     ; 0x9929
 @..api_idx_00a2.l4:
-    mov ax, data_0002                ; 0x992b
+    mov ax, 2                        ; 0x992b
     push ax                          ; 0x992e
     db 0xe8, 0x77, 0x1e ; call 0xb7a9
     pop cx                           ; 0x9932
@@ -116,15 +116,15 @@ api_idx_00a2:
     mov ax, 0xffff                   ; 0x9955
     ret                              ; 0x9958
 @..api_idx_00a2.l7:
-    cmp word [data_9e82], byte 0xff  ; 0x9959
+    cmp word [dseg_9e82], byte 0xff  ; 0x9959
     je short @..api_idx_00a2.l10     ; 0x995e
-    cmp word [data_9e42], byte 0xff  ; 0x9960
+    cmp word [dseg_9e42], byte 0xff  ; 0x9960
     je short @..api_idx_00a2.l8      ; 0x9965
     lea ax, word [bp - 0x0052]       ; 0x9967
     push ax                          ; 0x996a
     mov ax, 1                        ; 0x996b
     push ax                          ; 0x996e
-    push word [data_9e42]            ; 0x996f
+    push word [dseg_9e42]            ; 0x996f
     call loc_8981                    ; 0x9973
     add sp, byte 6                   ; 0x9976
     lea ax, word [bp - 0x0052]       ; 0x9979
@@ -141,12 +141,12 @@ api_idx_00a2:
     push ax                          ; 0x9990
     call api_idx_0080                ; 0x9991
     add sp, byte 4                   ; 0x9994
-    mov word [data_9e4e], 1          ; 0x9997
-    mov ax, word [data_9e42]         ; 0x999d
-    mov word [data_9e4a], ax         ; 0x99a0
-    mov ax, word [data_9e44]         ; 0x99a3
-    mov word [data_9e4c], ax         ; 0x99a6
-    mov word [data_9e50], 1          ; 0x99a9
+    mov word [dseg_9e4e], 1          ; 0x9997
+    mov ax, word [dseg_9e42]         ; 0x999d
+    mov word [dseg_9e4a], ax         ; 0x99a0
+    mov ax, word [dseg_9e44]         ; 0x99a3
+    mov word [dseg_9e4c], ax         ; 0x99a6
+    mov word [dseg_9e50], 1          ; 0x99a9
     jmp short @..api_idx_00a2.l9     ; 0x99af
 @..api_idx_00a2.l8:
     mov ax, 0x90f6                   ; 0x99b1
@@ -159,15 +159,15 @@ api_idx_00a2:
     mov ax, 0xffff                   ; 0x99bf
     ret                              ; 0x99c2
 @..api_idx_00a2.l10:
-    cmp word [data_9e48], byte 0xff  ; 0x99c3
+    cmp word [dseg_9e48], byte 0xff  ; 0x99c3
     jne short @..api_idx_00a2.l12    ; 0x99c8
-    cmp word [data_9e46], byte 0xff  ; 0x99ca
+    cmp word [dseg_9e46], byte 0xff  ; 0x99ca
     jne short @..api_idx_00a2.l12    ; 0x99cf
-    cmp word [data_9e42], byte 0xff  ; 0x99d1
+    cmp word [dseg_9e42], byte 0xff  ; 0x99d1
     je short @..api_idx_00a2.l11     ; 0x99d6
-    mov word [data_9e62], 1          ; 0x99d8
-    mov word [data_9e54], 1          ; 0x99de
-    mov word [data_9e46], 1          ; 0x99e4
+    mov word [dseg_9e62], 1          ; 0x99d8
+    mov word [dseg_9e54], 1          ; 0x99de
+    mov word [dseg_9e46], 1          ; 0x99e4
     mov ax, 0                        ; 0x99ea
     ret                              ; 0x99ed
 @..api_idx_00a2.l11:
@@ -185,10 +185,10 @@ api_idx_00a2:
 loc_9a04:
     mov ax, 0                        ; 0x9a04
     db 0xe8, 0x01, 0x5a ; call 0xf40b
-    mov word [data_9e46], 0xffff     ; 0x9a0a
-    mov word [data_9e42], 0xffff     ; 0x9a10
-    mov word [data_9e44], 0          ; 0x9a16
-    mov ax, word [data_9e48]         ; 0x9a1c
+    mov word [dseg_9e46], 0xffff     ; 0x9a0a
+    mov word [dseg_9e42], 0xffff     ; 0x9a10
+    mov word [dseg_9e44], 0          ; 0x9a16
+    mov ax, word [dseg_9e48]         ; 0x9a1c
     jmp near @..local.l107           ; 0x9a1f
 
     db 0xb8, 0xf8, 0x90, 0x50, 0xff, 0x36, 0x4a, 0xb0, 0xe8, 0x9a, 0xfc, 0x83, 0xc4, 0x04, 0xe9, 0x98

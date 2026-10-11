@@ -19,7 +19,7 @@ api_idx_0050:
     pop cx                           ; 0x4214
     mov cx, 6                        ; 0x4215
     imul cx                          ; 0x4218
-    mov cx, data_0002                ; 0x421a
+    mov cx, 2                        ; 0x421a
     cwd                              ; 0x421d
     idiv cx                          ; 0x421e
     mov cx, ax                       ; 0x4220
@@ -100,7 +100,7 @@ loc_4292:
     add sp, byte 4                   ; 0x42ce
     mov ax, 0                        ; 0x42d1
     push ax                          ; 0x42d4
-    mov ax, data_0002                ; 0x42d5
+    mov ax, 2                        ; 0x42d5
     push ax                          ; 0x42d8
     push word [bp + 0x4]             ; 0x42d9
     call ds_dispatch_b2e7            ; 0x42dc

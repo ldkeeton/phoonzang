@@ -8,7 +8,7 @@ aztec_lseek:
     mov bx, word [bp + 0x4]          ; 0x388f
     int 0x21 ; DOS seek file (lseek)
     jae short @..aztec_lseek.l1      ; 0x3894
-    mov word [data_24d6], ax         ; 0x3896
+    mov word [dseg_24d6], ax         ; 0x3896
     mov ax, 0xffff                   ; 0x3899
     mov dx, ax                       ; 0x389c
 @..aztec_lseek.l1:

@@ -1,7 +1,7 @@
 api_idx_0004_11:
     mov ax, 0xfffc                   ; 0x82da
     call ds_dispatch_f40b            ; 0x82dd
-    mov ax, word [data_0038]         ; 0x82e0
+    mov ax, word [dseg_0038]         ; 0x82e0
     mov word [bp - 0x0004], ax       ; 0x82e3
     mov word [bp - 0x0002], 0        ; 0x82e6
     jmp short @..api_idx_0004_11.l5  ; 0x82eb
@@ -35,7 +35,7 @@ api_idx_0004_11:
     pop cx                           ; 0x832a
     cmp ax, word [bp - 0x0002]       ; 0x832b
     jg short @..api_idx_0004_11.l1   ; 0x832e
-    mov ax, word [data_003c]         ; 0x8330
+    mov ax, word [dseg_003c]         ; 0x8330
     mov word [bp - 0x0004], ax       ; 0x8333
     mov word [bp - 0x0002], 0        ; 0x8336
     jmp short @..api_idx_0004_11.l10 ; 0x833b
@@ -69,7 +69,7 @@ api_idx_0004_11:
     pop cx                           ; 0x837a
     cmp ax, word [bp - 0x0002]       ; 0x837b
     jg short @..api_idx_0004_11.l6   ; 0x837e
-    mov ax, word [data_0040]         ; 0x8380
+    mov ax, word [dseg_0040]         ; 0x8380
     mov word [bp - 0x0004], ax       ; 0x8383
     mov word [bp - 0x0002], 0        ; 0x8386
     jmp short @..api_idx_0004_11.l15 ; 0x838b
@@ -103,7 +103,7 @@ api_idx_0004_11:
     pop cx                           ; 0x83ca
     cmp ax, word [bp - 0x0002]       ; 0x83cb
     jg short @..api_idx_0004_11.l11  ; 0x83ce
-    mov ax, word [data_0044]         ; 0x83d0
+    mov ax, word [dseg_0044]         ; 0x83d0
     mov word [bp - 0x0004], ax       ; 0x83d3
     mov word [bp - 0x0002], 0        ; 0x83d6
     jmp short @..api_idx_0004_11.l20 ; 0x83db

@@ -121,7 +121,7 @@ api_idx_0012_2:
 @..api_idx_0012_2.l10:
     mov cx, word [bx - 0x6d92]       ; 0x476d
     dec cx                           ; 0x4771
-    mov ax, word [data_82ee]         ; 0x4772
+    mov ax, word [dseg_82ee]         ; 0x4772
     sub ax, cx                       ; 0x4775
     add ax, strict word 6            ; 0x4777
     mov cx, 4                        ; 0x477a
@@ -159,7 +159,7 @@ api_idx_0012_2:
 loc_47bb:
     inc ax                           ; 0x47bb
     mov word [bp - 0x0004], ax       ; 0x47bc
-    mov ax, word [data_91d0]         ; 0x47bf
+    mov ax, word [dseg_91d0]         ; 0x47bf
     mov word [bp - 0x0006], ax       ; 0x47c2
     mov ax, word [bx + 0x260]        ; 0x47c5
     mov word [bp - 0x0008], ax       ; 0x47c9
@@ -221,7 +221,7 @@ loc_47bb:
     sub ah, ah                       ; 0x484b
     jmp near @..api_idx_0012_2.l36   ; 0x484d
 @..api_idx_0012_2.l21:
-    cmp word [data_91d4], byte 2     ; 0x4850
+    cmp word [dseg_91d4], byte 2     ; 0x4850
     je short @..api_idx_0012_2.l22   ; 0x4855
     jmp near @..api_idx_0012_2.l32   ; 0x4857
 @..api_idx_0012_2.l22:
@@ -337,7 +337,7 @@ jumptable_5704_case_5:
     jne short @..api_idx_0012_2.l27  ; 0x4955
     jmp near @..api_idx_0012_2.l31   ; 0x4957
 @..api_idx_0012_2.l27:
-    cmp word [data_91d4], byte 0     ; 0x495a
+    cmp word [dseg_91d4], byte 0     ; 0x495a
     jne short @..api_idx_0012_2.l28  ; 0x495f
     jmp near @..api_idx_0012_2.l31   ; 0x4961
 @..api_idx_0012_2.l28:
@@ -419,7 +419,7 @@ jumptable_5704_case_5:
 @..api_idx_0012_2.l31:
     jmp near @..api_idx_0012_2.l35   ; 0x49fd
 @..api_idx_0012_2.l32:
-    cmp word [data_91d4], byte 4     ; 0x4a00
+    cmp word [dseg_91d4], byte 4     ; 0x4a00
     je short @..api_idx_0012_2.l33   ; 0x4a05
     jmp near @..api_idx_0012_2.l35   ; 0x4a07
 @..api_idx_0012_2.l33:
@@ -601,7 +601,7 @@ jumptable_5704_case_5:
 @..api_idx_0012_2.l47:
     mov cx, word [bx - 0x6dc4]       ; 0x4c34
     dec cx                           ; 0x4c38
-    mov ax, word [data_82ee]         ; 0x4c39
+    mov ax, word [dseg_82ee]         ; 0x4c39
     sub ax, cx                       ; 0x4c3c
     add ax, strict word 6            ; 0x4c3e
     mov cx, 4                        ; 0x4c41
@@ -629,7 +629,7 @@ jumptable_5704_case_5:
     add ax, cx                       ; 0x4c72
     inc ax                           ; 0x4c74
     mov word [bp - 0x0004], ax       ; 0x4c75
-    mov ax, word [data_91d0]         ; 0x4c78
+    mov ax, word [dseg_91d0]         ; 0x4c78
     mov word [bp - 0x0006], ax       ; 0x4c7b
     mov ax, word [bx + 0x260]        ; 0x4c7e
     mov word [bp - 0x0008], ax       ; 0x4c82
@@ -697,9 +697,9 @@ jumptable_5704_case_5:
     mov ax, word [bp + 0x6]          ; 0x4d12
     cmp ax, strict word 2            ; 0x4d15
     jne short @..api_idx_0012_2.l57  ; 0x4d18
-    cmp word [data_8f22], byte 0     ; 0x4d1a
+    cmp word [dseg_8f22], byte 0     ; 0x4d1a
     je short @..api_idx_0012_2.l57   ; 0x4d1f
-    mov word [data_8f20], 0xffff     ; 0x4d21
+    mov word [dseg_8f20], 0xffff     ; 0x4d21
 @..api_idx_0012_2.l57:
     cmp word [bp + 0x4], byte 0      ; 0x4d27
     jne short @..api_idx_0012_2.l58  ; 0x4d2b
@@ -820,11 +820,11 @@ jumptable_5704_case_5:
     mov ax, word [bp + 0x6]          ; 0x4e39
     cmp ax, strict word 2            ; 0x4e3c
     jne short @..api_idx_0012_2.l66  ; 0x4e3f
-    cmp word [data_8f22], byte 0     ; 0x4e41
+    cmp word [dseg_8f22], byte 0     ; 0x4e41
     je short @..api_idx_0012_2.l66   ; 0x4e46
     mov al, byte [bx - 0x6ddd]       ; 0x4e48
     sub ah, ah                       ; 0x4e4c
-    mov word [data_8f20], ax         ; 0x4e4e
+    mov word [dseg_8f20], ax         ; 0x4e4e
     jmp near @..api_idx_0012_2.l75   ; 0x4e51
 @..api_idx_0012_2.l66:
     mov ax, word [bp + 0x4]          ; 0x4e54
@@ -840,7 +840,7 @@ jumptable_5704_case_5:
     mov cx, ax                       ; 0x4e6d
     dec ax                           ; 0x4e6f
     mov cx, ax                       ; 0x4e70
-    mov ax, word [data_82ee]         ; 0x4e72
+    mov ax, word [dseg_82ee]         ; 0x4e72
     sub ax, cx                       ; 0x4e75
     add ax, strict word 6            ; 0x4e77
     mov cx, 4                        ; 0x4e7a

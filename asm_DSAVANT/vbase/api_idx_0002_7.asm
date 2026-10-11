@@ -20,11 +20,11 @@ api_idx_0002_7:
     call api_idx_0016_2              ; 0x8780
     add sp, byte 4                   ; 0x8783
     mov ax, word [bp + 0x6]          ; 0x8786
-    mov word [data_a5b6], ax         ; 0x8789
+    mov word [dseg_a5b6], ax         ; 0x8789
     mov ax, word [bp + 0x8]          ; 0x878c
-    mov word [data_a5b8], ax         ; 0x878f
+    mov word [dseg_a5b8], ax         ; 0x878f
     mov ax, word [bp + 0xa]          ; 0x8792
-    mov word [data_a5ba], ax         ; 0x8795
+    mov word [dseg_a5ba], ax         ; 0x8795
     mov word [bp - 0x0002], 0        ; 0x8798
 @..api_idx_0002_7.l1:
     mov ax, 0x50                     ; 0x879d
@@ -56,19 +56,19 @@ api_idx_0002_7:
     mov ax, word [bp - 0x0002]       ; 0x87e4
     cmp ax, strict word 8            ; 0x87e7
     jl short @..api_idx_0002_7.l2    ; 0x87ea
-    mov word [data_a5e0], 0x13e      ; 0x87ec
-    mov word [data_a5f0], 0x2a       ; 0x87f2
-    mov word [data_a5e2], 0xff50     ; 0x87f8
-    mov word [data_a5f2], 0x3c       ; 0x87fe
-    mov word [data_a5b0], 0          ; 0x8804
-    mov word [data_a4a4], data_0002  ; 0x880a
-    mov word [data_a5fa], 1          ; 0x8810
-    mov word [data_a5ae], 3          ; 0x8816
-    les bx, word [data_0002]         ; 0x881c
+    mov word [dseg_a5e0], 0x13e      ; 0x87ec
+    mov word [dseg_a5f0], 0x2a       ; 0x87f2
+    mov word [dseg_a5e2], 0xff50     ; 0x87f8
+    mov word [dseg_a5f2], 0x3c       ; 0x87fe
+    mov word [dseg_a5b0], 0          ; 0x8804
+    mov word [dseg_a4a4], 2          ; 0x880a
+    mov word [dseg_a5fa], 1          ; 0x8810
+    mov word [dseg_a5ae], 3          ; 0x8816
+    les bx, word [dseg_0002]         ; 0x881c
     mov ax, word [es:bx]             ; 0x8820
     mov dx, word [es:bx + 0x2]       ; 0x8823
-    mov word [data_908c], dx         ; 0x8827
-    mov word [data_908a], ax         ; 0x882b
+    mov word [dseg_908c], dx         ; 0x8827
+    mov word [dseg_908a], ax         ; 0x882b
     call api_idx_000a_3              ; 0x882e
     mov ax, 0                        ; 0x8831
     push ax                          ; 0x8834

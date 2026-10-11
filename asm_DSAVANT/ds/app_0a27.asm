@@ -17,7 +17,7 @@ app_0a27: ; Aztec csav frame=0x0006
     mov ax, word [bx + 0x5576]       ; 0x0a52
     mov word [bp - 0x0002], ax       ; 0x0a56
 @..app_0a27.l2:
-    cmp byte [data_5984], 0          ; 0x0a59
+    cmp byte [bss_5984], 0           ; 0x0a59
     jbe short @..app_0a27.l3         ; 0x0a5e
     mov ax, word [bp - 0x0004]       ; 0x0a60
     shl ax, 1                        ; 0x0a63
@@ -29,7 +29,7 @@ app_0a27: ; Aztec csav frame=0x0006
     mov word [bp - 0x0006], 0        ; 0x0a72
     cmp word [bp + 0x4], byte 0x10   ; 0x0a77
     jne short @..app_0a27.l4         ; 0x0a7b
-    cmp word [data_598e], byte 0x1e  ; 0x0a7d
+    cmp word [bss_598e], byte 0x1e   ; 0x0a7d
     jl short @..app_0a27.l4          ; 0x0a82
     mov word [bp - 0x0006], 1        ; 0x0a84
     jmp short @..app_0a27.l6         ; 0x0a89
@@ -40,7 +40,7 @@ app_0a27: ; Aztec csav frame=0x0006
     cmp ax, strict word 0xf          ; 0x0a93
     jne short @..app_0a27.l6         ; 0x0a96
 @..app_0a27.l5:
-    mov word [bp - 0x0006], data_0002 ; 0x0a98
+    mov word [bp - 0x0006], 2        ; 0x0a98
 @..app_0a27.l6:
     mov bx, word [bp - 0x0006]       ; 0x0a9d
     mov al, byte [bx + 0x597c]       ; 0x0aa0

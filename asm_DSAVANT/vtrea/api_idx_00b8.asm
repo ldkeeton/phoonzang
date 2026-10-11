@@ -17,7 +17,7 @@ api_idx_00b8:
     push ax                          ; 0x150c
     mov ax, 0                        ; 0x150d
     push ax                          ; 0x1510
-    push word [data_91d4]            ; 0x1511
+    push word [dseg_91d4]            ; 0x1511
     lea ax, word [bp - 0x0068]       ; 0x1515
     push ax                          ; 0x1518
     call loc_0eb2                    ; 0x1519
@@ -49,7 +49,7 @@ api_idx_00b8:
     inc word [bp - 0x0002]           ; 0x1556
 @..api_idx_00b8.l4:
     mov ax, word [bp - 0x0002]       ; 0x1559
-    cmp ax, word [data_69c8]         ; 0x155c
+    cmp ax, word [dseg_69c8]         ; 0x155c
     jl short @..api_idx_00b8.l2      ; 0x1560
     mov ax, word [bp + 0x4]          ; 0x1562
     jmp near @..api_idx_00b8.l5      ; 0x1565

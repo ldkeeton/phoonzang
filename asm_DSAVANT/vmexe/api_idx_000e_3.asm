@@ -29,11 +29,11 @@ api_idx_000e_3:
 loc_17d1:
     mov ax, 0                        ; 0x17d1
     call ds_dispatch_f40b            ; 0x17d4
-    mov word [data_90e0], 0          ; 0x17d7
-    cmp word [data_830a], byte 0x0d  ; 0x17dd
+    mov word [dseg_90e0], 0          ; 0x17d7
+    cmp word [dseg_830a], byte 0x0d  ; 0x17dd
     jne short @..local.l39           ; 0x17e2
-    push word [data_0e2c]            ; 0x17e4
-    push word [data_0e2a]            ; 0x17e8
+    push word [dseg_0e2c]            ; 0x17e4
+    push word [dseg_0e2a]            ; 0x17e8
     call ds_dispatch_b8af            ; 0x17ec
     add sp, byte 4                   ; 0x17ef
     mov ax, 0                        ; 0x17f2
@@ -77,23 +77,23 @@ loc_182b:
 loc_1849:
     mov ax, 0                        ; 0x1849
     call ds_dispatch_f40b            ; 0x184c
-    les bx, word [0x0002]            ; 0x184f
+    les bx, word [dseg_0002]         ; 0x184f
     mov ax, word [es:bx]             ; 0x1853
     mov dx, word [es:bx + 0x2]       ; 0x1856
-    mov word [data_9090], dx         ; 0x185a
-    mov word [data_908e], ax         ; 0x185e
-    mov ax, word [data_908e]         ; 0x1861
-    mov dx, word [data_9090]         ; 0x1864
-    sub ax, word [data_908a]         ; 0x1868
-    sbb dx, word [0x908c]            ; 0x186c
-    mov word [data_9094], dx         ; 0x1870
-    mov word [data_9092], ax         ; 0x1874
-    mov ax, word [data_90e2]         ; 0x1877
+    mov word [dseg_9090], dx         ; 0x185a
+    mov word [dseg_908e], ax         ; 0x185e
+    mov ax, word [dseg_908e]         ; 0x1861
+    mov dx, word [dseg_9090]         ; 0x1864
+    sub ax, word [dseg_908a]         ; 0x1868
+    sbb dx, word [dseg_908c]         ; 0x186c
+    mov word [dseg_9094], dx         ; 0x1870
+    mov word [dseg_9092], ax         ; 0x1874
+    mov ax, word [dseg_90e2]         ; 0x1877
     cwd                              ; 0x187a
     mov cx, ax                       ; 0x187b
     mov bx, dx                       ; 0x187d
-    mov ax, word [data_9092]         ; 0x187f
-    mov dx, word [data_9094]         ; 0x1882
+    mov ax, word [dseg_9092]         ; 0x187f
+    mov dx, word [dseg_9094]         ; 0x1882
     cmp bx, dx                       ; 0x1886
     jg short @..local.l41            ; 0x1888
     jne short @..local.l42           ; 0x188a
@@ -102,10 +102,10 @@ loc_1849:
 @..local.l41:
     jmp short @..local.l43           ; 0x1890
 @..local.l42:
-    mov ax, word [data_908e]         ; 0x1892
-    mov dx, word [data_9090]         ; 0x1895
-    mov word [0x908c], dx            ; 0x1899
-    mov word [data_908a], ax         ; 0x189d
+    mov ax, word [dseg_908e]         ; 0x1892
+    mov dx, word [dseg_9090]         ; 0x1895
+    mov word [dseg_908c], dx         ; 0x1899
+    mov word [dseg_908a], ax         ; 0x189d
     mov ax, 1                        ; 0x18a0
     ret                              ; 0x18a3
 @..local.l43:

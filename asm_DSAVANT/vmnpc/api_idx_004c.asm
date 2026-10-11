@@ -100,7 +100,7 @@ api_idx_004c:
 @..api_idx_004c.l8:
     mov al, byte [bp - 0x0015]       ; 0x22ce
     sub ah, ah                       ; 0x22d1
-    test ax, data_0002               ; 0x22d3
+    test ax, 2                       ; 0x22d3
     je short @..api_idx_004c.l9      ; 0x22d6
     mov bx, word [bp + 0x8]          ; 0x22d8
     or byte [bx + 0x7], 0x40         ; 0x22db

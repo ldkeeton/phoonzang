@@ -85,7 +85,7 @@ api_idx_0004_12:
     push ax                          ; 0x84e7
     mov ax, 0x91bd                   ; 0x84e8
     push ax                          ; 0x84eb
-    mov ax, api_idx_0002_11          ; 0x84ec
+    mov ax, 0x91b2                   ; 0x84ec
     push ax                          ; 0x84ef
     push word [bp + 0x4]             ; 0x84f0
     call api_idx_0004_11             ; 0x84f3
@@ -181,7 +181,7 @@ api_idx_0004_12:
     aam 0xd3                         ; 0x85c1
     aam 0xef                         ; 0x85c3
     aam 0xb                          ; 0x85c5
-    aad api_idx_0002                 ; 0x85c7
+    aad 0x27                         ; 0x85c7
     aad 0x43                         ; 0x85c9
     aad 0x5f                         ; 0x85cb
     aad 0x7b                         ; 0x85cd
@@ -204,7 +204,7 @@ api_idx_0004_12:
     jbe short @..api_idx_0004_12.l3  ; 0x85f2
     cmp byte [bx + 0x5d6a], 0xd      ; 0x85f4
     jbe short @..api_idx_0004_12.l3  ; 0x85f9
-    mov word [data_96d0], 1          ; 0x85fb
+    mov word [dseg_96d0], 1          ; 0x85fb
 @..api_idx_0004_12.l3:
     mov word [bp - 0x0004], 0        ; 0x8601
     mov ax, word [bp + 0x6]          ; 0x8606

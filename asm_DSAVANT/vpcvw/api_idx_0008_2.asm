@@ -25,7 +25,7 @@ api_idx_0008_2:
     push word [data_82f4]            ; 0x223f
     mov ax, word [bp + 0x8]          ; 0x2243
     dec ax                           ; 0x2246
-    mov cx, data_0002                ; 0x2247
+    mov cx, 2                        ; 0x2247
     cwd                              ; 0x224a
     idiv cx                          ; 0x224b
     inc ax                           ; 0x224d
@@ -42,7 +42,7 @@ api_idx_0008_2:
     push word [data_82f8]            ; 0x2269
     mov ax, word [bp + 0x8]          ; 0x226d
     dec ax                           ; 0x2270
-    mov cx, data_0002                ; 0x2271
+    mov cx, 2                        ; 0x2271
     cwd                              ; 0x2274
     idiv cx                          ; 0x2275
     inc ax                           ; 0x2277
@@ -198,7 +198,7 @@ api_idx_0008_2:
     mov ax, 0x248                    ; 0x240e
     imul word [bp + 0xa]             ; 0x2411
     db 0x8b, 0xd8 ; mov bx, ax
-    cmp byte [bx + 0x5e2f], data_0002 ; 0x2416
+    cmp byte [bx + 0x5e2f], 2        ; 0x2416
     je short loc_2420                ; 0x241b
     jmp near loc_249a                ; 0x241d
     mov ax, 3                        ; 0x2420
@@ -524,7 +524,7 @@ api_idx_0008_2:
     mov word [bx + 0x5c10], ax       ; 0x275d
     mov ax, 0                        ; 0x2761
     push ax                          ; 0x2764
-    mov ax, data_0002                ; 0x2765
+    mov ax, 2                        ; 0x2765
     push ax                          ; 0x2768
     push word [bp + 0x8]             ; 0x2769
     db 0xe8, 0x7b, 0xa9 ; call ds_dispatch_d0ea
@@ -602,7 +602,7 @@ api_idx_0008_2:
     imul word [bp + 0x4]             ; 0x2826
     push ax                          ; 0x2829
     mov ax, 0x78                     ; 0x282a
-    imul word [api_idx_0016]         ; 0x282d
+    imul word [0x9434]               ; 0x282d
     db 0x8b, 0xc8 ; mov cx, ax
     pop ax                           ; 0x2833
     db 0x03, 0xc1 ; add ax, cx
@@ -676,7 +676,7 @@ api_idx_0008_2:
     imul word [bp + 0x4]             ; 0x28e1
     push ax                          ; 0x28e4
     mov ax, 0x78                     ; 0x28e5
-    imul word [api_idx_0016]         ; 0x28e8
+    imul word [0x9434]               ; 0x28e8
     db 0x8b, 0xc8 ; mov cx, ax
     pop ax                           ; 0x28ee
     db 0x03, 0xc1 ; add ax, cx

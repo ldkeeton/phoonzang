@@ -42,7 +42,7 @@ api_idx_000c_3:
     mov ax, word [bx + 0x1a4]        ; 0x74b3
     add ax, word [bp + 0x4]          ; 0x74b7
     push ax                          ; 0x74ba
-    mov ax, data_0002                ; 0x74bb
+    mov ax, 2                        ; 0x74bb
     push ax                          ; 0x74be
     db 0xe8, 0x0f, 0x7b ; call 0xefd1
     add sp, byte 0x16                ; 0x74c2

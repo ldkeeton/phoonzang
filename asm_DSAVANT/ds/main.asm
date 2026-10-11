@@ -1,9 +1,9 @@
 main: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x2dd5
     call aztec_csav                  ; 0x2dd8
-    mov word [data_830a], 0          ; 0x2ddb
+    mov word [bss_830a], 0           ; 0x2ddb
 @..main.l1:
-    mov ax, word [data_830a]         ; 0x2de1
+    mov ax, word [bss_830a]          ; 0x2de1
     jmp near @..main.l2              ; 0x2de4
 jumptable_2edc_case_8:
     mov ax, 0                        ; 0x2de7
@@ -56,7 +56,7 @@ jumptable_2edc_case_16:
     jmp near @..main.l3              ; 0x2e46
 jumptable_2edc_case_25:
     push word [data_830c]            ; 0x2e49
-    mov ax, data_0002                ; 0x2e4d
+    mov ax, 2                        ; 0x2e4d
     push ax                          ; 0x2e50
     call app_27e9                    ; 0x2e51
     add sp, byte 4                   ; 0x2e54

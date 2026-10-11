@@ -4,5 +4,5 @@ app_2b4e: ; Aztec csav frame=0x0000
     push word [bp + 0x4]             ; 0x2b54
     call loc_41bd                    ; 0x2b57
     pop cx                           ; 0x2b5a
-    mov word [data_82b6], 0xffff     ; 0x2b5b
+    mov word [bss_82b6], 0xffff      ; 0x2b5b
     ret                              ; 0x2b61

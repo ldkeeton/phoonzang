@@ -1,7 +1,7 @@
 app_065d: ; Aztec csav frame=0x0008
     mov ax, 0xfff8                   ; 0x065d
     call aztec_csav                  ; 0x0660
-    mov ax, word [data_100c]         ; 0x0663
+    mov ax, word [bss_100c]          ; 0x0663
     dec ax                           ; 0x0666
     mov word [bp - 0x0004], ax       ; 0x0667
     mov word [bp - 0x0006], 0        ; 0x066a
@@ -12,7 +12,7 @@ app_065d: ; Aztec csav frame=0x0008
     mov cx, word [bp - 0x0004]       ; 0x0677
     sub cx, ax                       ; 0x067a
     mov ax, cx                       ; 0x067c
-    mov cx, data_0002                ; 0x067e
+    mov cx, 2                        ; 0x067e
     cwd                              ; 0x0681
     idiv cx                          ; 0x0682
     mov cx, ax                       ; 0x0684

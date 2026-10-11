@@ -121,6 +121,60 @@ class FunctionIncludeTests(unittest.TestCase):
             ],
         )
 
+    def test_capped_c_routine_carves_following_code_into_its_own_fragment(self):
+        label_map = {
+            0x100: 'aztec_open',
+            0x150: 'loc_4be6',
+            0x170: 'aztec_lrm',
+        }
+        self.assertEqual(
+            _select_split_ranges(
+                label_map,
+                {'aztec_open', 'aztec_lrm'},
+                binary_size=0x200,
+                c_override_lengths={0x100: 0x50},
+            ),
+            [
+                (0x100, 0x150, 'aztec_open'),
+                (0x150, 0x170, 'loc_4be6'),
+                (0x170, 0x200, 'aztec_lrm'),
+            ],
+        )
+
+    def test_capped_c_routine_without_tail_label_stays_clipped(self):
+        label_map = {0x100: 'aztec_free', 0x170: 'string_loc_4867'}
+        self.assertEqual(
+            _select_split_ranges(
+                label_map,
+                {'aztec_free', 'string_loc_4867'},
+                binary_size=0x200,
+                c_override_lengths={0x100: 0x50},
+            ),
+            [
+                (0x100, 0x150, 'aztec_free'),
+                (0x170, 0x200, 'string_loc_4867'),
+            ],
+        )
+
+    def test_loc_fragment_scopes_local_labels(self):
+        local_targets = {0x120, 0x124}
+        owners = {0x120: {0x100}, 0x124: {0x100}}
+        label_map = {0x100: 'loc_4be6'}
+        labels = _compute_local_labels(
+            local_targets, owners, {}, label_map, {'loc_4be6'},
+        )
+        self.assertEqual(labels[0x120], '@..loc_4be6.l1')
+        self.assertEqual(labels[0x124], '@..loc_4be6.l2')
+
+    def test_loc_owner_without_fragment_stays_generic(self):
+        local_targets = {0x120}
+        owners = {0x120: {0x100}}
+        label_map = {0x100: 'loc_4be6'}
+        labels = _compute_local_labels(
+            local_targets, owners, {}, label_map, set(),
+        )
+        self.assertEqual(labels[0x120], '@..local.l1')
+
     def test_named_function_include_starts_at_its_call_target_prefix(self):
         records = [
             {'type': 'label', 'text': 'stack_alloc_check:', 'offset': 0x100},

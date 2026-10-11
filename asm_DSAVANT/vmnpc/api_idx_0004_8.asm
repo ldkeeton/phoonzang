@@ -42,24 +42,24 @@ api_idx_0004_8:
 loc_23d0:
     mov ax, 0                        ; 0x23d0
     db 0xe8, 0x35, 0xd0 ; call 0xf40b
-    mov word [data_93d4], 0          ; 0x23d6
+    mov word [dseg_93d4], 0          ; 0x23d6
 @..local.l75:
-    mov ax, word [data_93d4]         ; 0x23dc
+    mov ax, word [dseg_93d4]         ; 0x23dc
     mov cx, 7                        ; 0x23df
     shl ax, cl                       ; 0x23e2
     mov bx, ax                       ; 0x23e4
     mov byte [bx - 0x6e34], 0        ; 0x23e6
-    mov ax, word [data_93d4]         ; 0x23eb
+    mov ax, word [dseg_93d4]         ; 0x23eb
     shl ax, 1                        ; 0x23ee
     mov bx, ax                       ; 0x23f0
     mov word [bx - 0x6c34], 0        ; 0x23f2
-    inc word [data_93d4]             ; 0x23f8
-    mov ax, word [data_93d4]         ; 0x23fc
+    inc word [dseg_93d4]             ; 0x23f8
+    mov ax, word [dseg_93d4]         ; 0x23fc
     cmp ax, strict word 4            ; 0x23ff
     jl short @..local.l75            ; 0x2402
-    mov word [data_93d4], 0          ; 0x2404
-    push word [data_0e2c]            ; 0x240a
-    push word [data_0e2a]            ; 0x240e
+    mov word [dseg_93d4], 0          ; 0x2404
+    push word [dseg_0e2c]            ; 0x240a
+    push word [dseg_0e2a]            ; 0x240e
     call 0xb8af                      ; 0x2412
     add sp, byte 4                   ; 0x2415
     mov ax, 0                        ; 0x2418
@@ -108,7 +108,7 @@ loc_243b:
 loc_2472:
     mov ax, 0                        ; 0x2472
     db 0xe8, 0x93, 0xcf ; call 0xf40b
-    cmp word [data_93ee], byte 0     ; 0x2478
+    cmp word [dseg_93ee], byte 0     ; 0x2478
     je short @..local.l76            ; 0x247d
     call loc_23d0                    ; 0x247f
 @..local.l76:
@@ -126,7 +126,7 @@ loc_2472:
     call api_idx_0004_5              ; 0x249d
     add sp, byte 4                   ; 0x24a0
 @..local.l77:
-    cmp word [data_93ee], byte 0     ; 0x24a3
+    cmp word [dseg_93ee], byte 0     ; 0x24a3
     je short @..local.l78            ; 0x24a8
     call loc_243b                    ; 0x24aa
 @..local.l78:

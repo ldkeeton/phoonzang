@@ -21,7 +21,7 @@ api_idx_007a_2:
     push ax                          ; 0x44cc
     mov ax, 1                        ; 0x44cd
     push ax                          ; 0x44d0
-    mov ax, data_0002                ; 0x44d1
+    mov ax, 2                        ; 0x44d1
     push ax                          ; 0x44d4
     mov ax, 1                        ; 0x44d5
     push ax                          ; 0x44d8

@@ -11,10 +11,10 @@ api_idx_0004_7:
     mov word [bp - 0x0002], ax       ; 0x69f1
     cmp ax, strict word 0xffff       ; 0x69f4
     jne short @..api_idx_0004_7.l2   ; 0x69f7
-    mov ax, word [data_590e]         ; 0x69f9
+    mov ax, word [dseg_590e]         ; 0x69f9
     mov word [bp - 0x0002], ax       ; 0x69fc
-    inc word [data_590e]             ; 0x69ff
-    mov ax, word [data_590e]         ; 0x6a03
+    inc word [dseg_590e]             ; 0x69ff
+    mov ax, word [dseg_590e]         ; 0x6a03
     cmp ax, 0x200                    ; 0x6a06
     jl short @..api_idx_0004_7.l2    ; 0x6a09
 @..api_idx_0004_7.l1:
@@ -27,7 +27,7 @@ api_idx_0004_7:
     mov ax, 6                        ; 0x6a15
     imul word [bp - 0x0002]          ; 0x6a18
     mov cx, ax                       ; 0x6a1b
-    mov ax, word [data_0e10]         ; 0x6a1d
+    mov ax, word [dseg_0e10]         ; 0x6a1d
     add ax, cx                       ; 0x6a20
     mov word [bp - 0x0004], ax       ; 0x6a22
     mov al, byte [bp + 0x4]          ; 0x6a25
@@ -123,6 +123,6 @@ loc_6ac7:
     push ax                          ; 0x6afe
     call ds_dispatch_d6c6            ; 0x6aff
     pop cx                           ; 0x6b02
-    mov word [data_598e], 0xffff     ; 0x6b03
+    mov word [dseg_598e], 0xffff     ; 0x6b03
 @..local.l57:
     ret                              ; 0x6b09

@@ -6,44 +6,44 @@ app_string_0c0b: ; Aztec csav frame=0x0054
     call app_09f0                    ; 0x0c15
     pop cx                           ; 0x0c18
     inc ax                           ; 0x0c19
-    mov word [data_5b40], ax         ; 0x0c1a
+    mov word [bss_5b40], ax          ; 0x0c1a
     mov ax, 0x19                     ; 0x0c1d
     push ax                          ; 0x0c20
     call app_09f0                    ; 0x0c21
     pop cx                           ; 0x0c24
     add ax, strict word 0x19         ; 0x0c25
-    mov word [data_5b42], ax         ; 0x0c28
+    mov word [bss_5b42], ax          ; 0x0c28
     mov ax, 0x19                     ; 0x0c2b
     push ax                          ; 0x0c2e
     call app_09f0                    ; 0x0c2f
     pop cx                           ; 0x0c32
     add ax, strict word 0x32         ; 0x0c33
-    mov word [data_5b44], ax         ; 0x0c36
+    mov word [bss_5b44], ax          ; 0x0c36
     mov ax, 0x19                     ; 0x0c39
     push ax                          ; 0x0c3c
     call app_09f0                    ; 0x0c3d
     pop cx                           ; 0x0c40
     add ax, strict word 0x4b         ; 0x0c41
-    mov word [data_5b46], ax         ; 0x0c44
+    mov word [bss_5b46], ax          ; 0x0c44
     lea ax, word [bp - 0x0054]       ; 0x0c47
     push ax                          ; 0x0c4a
-    mov al, byte [data_5990]         ; 0x0c4b
+    mov al, byte [bss_5990]          ; 0x0c4b
     sub ah, ah                       ; 0x0c4e
     add ax, 0x9c4                    ; 0x0c50
     push ax                          ; 0x0c53
     call app_mem_0782                ; 0x0c54
     add sp, byte 4                   ; 0x0c57
     mov al, byte [bp - 0x0054]       ; 0x0c5a
-    mov bx, word [data_5b40]         ; 0x0c5d
+    mov bx, word [bss_5b40]          ; 0x0c5d
     mov byte [bx + 0x5990], al       ; 0x0c61
     mov al, byte [bp - 0x0053]       ; 0x0c65
-    mov bx, word [data_5b42]         ; 0x0c68
+    mov bx, word [bss_5b42]          ; 0x0c68
     mov byte [bx + 0x5990], al       ; 0x0c6c
     mov al, byte [bp - 0x0052]       ; 0x0c70
-    mov bx, word [data_5b44]         ; 0x0c73
+    mov bx, word [bss_5b44]          ; 0x0c73
     mov byte [bx + 0x5990], al       ; 0x0c77
     mov al, byte [bp - 0x0051]       ; 0x0c7b
-    mov bx, word [data_5b46]         ; 0x0c7e
+    mov bx, word [bss_5b46]          ; 0x0c7e
     mov byte [bx + 0x5990], al       ; 0x0c82
     mov word [bp - 0x0002], 0        ; 0x0c86
     lea ax, word [bp - 0x0054]       ; 0x0c8b
@@ -52,7 +52,7 @@ app_string_0c0b: ; Aztec csav frame=0x0054
     pop cx                           ; 0x0c92
     add ax, strict word 0xfffc       ; 0x0c93
     mov word [bp - 0x0004], ax       ; 0x0c96
-    mov word [data_59f6], ax         ; 0x0c99
+    mov word [bss_59f6], ax          ; 0x0c99
 @..app_string_0c0b.l1:
     cmp word [bp - 0x0004], byte 0   ; 0x0c9c
     jle short @..app_string_0c0b.l2  ; 0x0ca0
@@ -87,5 +87,5 @@ app_string_0c0b: ; Aztec csav frame=0x0054
     jmp short @..app_string_0c0b.l1  ; 0x0ce4
 @..app_string_0c0b.l2:
     mov al, byte [bp - 0x0002]       ; 0x0ce6
-    mov byte [data_0fd6], al         ; 0x0ce9
+    mov byte [bss_0fd6], al          ; 0x0ce9
     ret                              ; 0x0cec

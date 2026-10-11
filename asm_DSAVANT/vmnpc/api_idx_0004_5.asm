@@ -4,7 +4,7 @@ api_idx_0004_5:
     db 0xe8, 0x70, 0xda ; call 0xec17
     mov ax, word [bp + 0x4]          ; 0x11a7
     cwd                              ; 0x11aa
-    les bx, word [data_0002]         ; 0x11ab
+    les bx, word [dseg_0002]         ; 0x11ab
     mov cx, word [es:bx]             ; 0x11af
     mov bx, word [es:bx + 0x2]       ; 0x11b2
     add ax, cx                       ; 0x11b6
@@ -12,7 +12,7 @@ api_idx_0004_5:
     mov word [bp - 0x0002], dx       ; 0x11ba
     mov word [bp - 0x0004], ax       ; 0x11bd
 @..api_idx_0004_5.l1:
-    les bx, word [data_0002]         ; 0x11c0
+    les bx, word [dseg_0002]         ; 0x11c0
     mov ax, word [es:bx]             ; 0x11c4
     mov dx, word [es:bx + 0x2]       ; 0x11c7
     cmp dx, word [bp - 0x0002]       ; 0x11cb
@@ -30,7 +30,7 @@ api_idx_0004_5:
 @..api_idx_0004_5.l4:
     cmp word [bp + 0x6], byte 0      ; 0x11e1
     je short @..api_idx_0004_5.l5    ; 0x11e5
-    cmp word [data_59fc], byte 0     ; 0x11e7
+    cmp word [dseg_59fc], byte 0     ; 0x11e7
     je short @..api_idx_0004_5.l5    ; 0x11ec
     call api_idx_0004_4              ; 0x11ee
     ret                              ; 0x11f1

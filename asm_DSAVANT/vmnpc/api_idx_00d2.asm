@@ -43,7 +43,7 @@ api_idx_00d2:
     jne short @..api_idx_00d2.l4     ; 0x6390
     mov word [bp - 0x0072], 0        ; 0x6392
 @..api_idx_00d2.l4:
-    cmp word [data_9ca8], byte 0     ; 0x6397
+    cmp word [dseg_9ca8], byte 0     ; 0x6397
     jne short @..api_idx_00d2.l5     ; 0x639c
     mov word [bp - 0x006e], 0        ; 0x639e
 @..api_idx_00d2.l5:
@@ -116,10 +116,10 @@ api_idx_00d2:
     mov al, byte [bx + 0x5d6b]       ; 0x65cd
     sub ah, ah                       ; 0x65d1
     push ax                          ; 0x65d3
-    add bx, word [data_9136]         ; 0x65d4
+    add bx, word [dseg_9136]         ; 0x65d4
     mov al, byte [bx + 0x5db2]       ; 0x65d8
     cbw                              ; 0x65dc
-    add ax, word [data_964e]         ; 0x65dd
+    add ax, word [dseg_964e]         ; 0x65dd
     mov cx, 3                        ; 0x65e1
     cwd                              ; 0x65e4
     idiv cx                          ; 0x65e5
@@ -133,12 +133,12 @@ api_idx_00d2:
     push ax                          ; 0x65f8
     mov ax, 0                        ; 0x65f9
     push ax                          ; 0x65fc
-    mov al, byte [data_91c7]         ; 0x65fd
+    mov al, byte [dseg_91c7]         ; 0x65fd
     sub ah, ah                       ; 0x6600
     mov bx, ax                       ; 0x6602
     mov al, byte [bx - 0x7622]       ; 0x6604
     cbw                              ; 0x6608
-    add ax, word [data_964e]         ; 0x6609
+    add ax, word [dseg_964e]         ; 0x6609
     mov cx, 3                        ; 0x660d
     cwd                              ; 0x6610
     idiv cx                          ; 0x6611
@@ -151,15 +151,15 @@ api_idx_00d2:
     push ax                          ; 0x6623
     db 0xe8, 0x82, 0x51 ; call 0xb7a9
     pop cx                           ; 0x6627
-    add ax, word [data_9d64]         ; 0x6628
+    add ax, word [dseg_9d64]         ; 0x6628
     mov word [bp - 0x0004], ax       ; 0x662c
     mov ax, 5                        ; 0x662f
     push ax                          ; 0x6632
     db 0xe8, 0x73, 0x51 ; call 0xb7a9
     pop cx                           ; 0x6636
-    add ax, word [data_9d64]         ; 0x6637
+    add ax, word [dseg_9d64]         ; 0x6637
     add ax, strict word 0xa          ; 0x663b
-    mov word [data_9d64], ax         ; 0x663e
+    mov word [dseg_9d64], ax         ; 0x663e
     lea ax, word [bp - 0x005a]       ; 0x6641
     push ax                          ; 0x6644
     mov ax, 0x637                    ; 0x6645
@@ -190,7 +190,7 @@ api_idx_00d2:
     mov ax, word [bp - 0x0004]       ; 0x6682
     cmp ax, word [bp - 0x0002]       ; 0x6685
     jge short @..api_idx_00d2.l11    ; 0x6688
-    cmp word [data_9d62], byte 3     ; 0x668a
+    cmp word [dseg_9d62], byte 3     ; 0x668a
     jne short @..api_idx_00d2.l10    ; 0x668f
     mov ax, 3                        ; 0x6691
     push ax                          ; 0x6694
@@ -225,7 +225,7 @@ api_idx_00d2:
     jmp near @..api_idx_00d2.l14     ; 0x66d6
 @..api_idx_00d2.l11:
     mov ax, word [bp - 0x0002]       ; 0x66d9
-    imul word [data_9d62]            ; 0x66dc
+    imul word [dseg_9d62]            ; 0x66dc
     cmp ax, word [bp - 0x0004]       ; 0x66e0
     jl short @..api_idx_00d2.l12     ; 0x66e3
     cmp word [bp - 0x0004], byte 0x5f ; 0x66e5

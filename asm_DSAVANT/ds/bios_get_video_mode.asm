@@ -1,7 +1,7 @@
 bios_get_video_mode:
     mov ah, 0xf                      ; 0x30f7
     int 0x10 ; BIOS video: get video mode
-    mov byte [cs:data_2d36], al      ; 0x30fb
+    mov byte [cs:cseg_2f36 - IMAGE_BASE], al ; 0x30fb
     mov ax, word [bp + 0x4]          ; 0x30ff
     and ax, strict word 1            ; 0x3102
     jne short @..bios_get_video_mode.l1 ; 0x3105
@@ -89,15 +89,15 @@ bios_get_video_mode:
     db 0x18, 0x20
 
 loc_343e:
-    mov byte [cs:data_2d3a], 0       ; 0x343e
-    mov byte [cs:data_2d3b], 0       ; 0x3444
-    mov byte [cs:data_2d38], 0       ; 0x344a
-    mov byte [cs:data_2d39], 1       ; 0x3450
+    mov byte [cs:cseg_2f3a - IMAGE_BASE], 0 ; 0x343e
+    mov byte [cs:cseg_2f3b - IMAGE_BASE], 0 ; 0x3444
+    mov byte [cs:cseg_2f38 - IMAGE_BASE], 0 ; 0x344a
+    mov byte [cs:cseg_2f39 - IMAGE_BASE], 1 ; 0x3450
     push es                          ; 0x3456
     sub ax, ax                       ; 0x3457
     mov es, ax                       ; 0x3459
     mov dl, byte [es:data_0410]      ; 0x345b
-    mov byte [cs:data_2d37], dl      ; 0x3460
+    mov byte [cs:cseg_2f37 - IMAGE_BASE], dl ; 0x3460
     and dl, 0xcf                     ; 0x3465
     mov byte [es:data_0410], dl      ; 0x3468
     pop es                           ; 0x346d
@@ -128,15 +128,15 @@ loc_3490:
     mov word [bp - 0x0002], 0        ; 0x34a3
     ret                              ; 0x34a8
 @..local.l2:
-    mov byte [cs:data_2d3a], 0       ; 0x34a9
-    mov byte [cs:data_2d3b], 0       ; 0x34af
-    mov byte [cs:data_2d38], 1       ; 0x34b5
-    mov byte [cs:data_2d39], 0       ; 0x34bb
+    mov byte [cs:cseg_2f3a - IMAGE_BASE], 0 ; 0x34a9
+    mov byte [cs:cseg_2f3b - IMAGE_BASE], 0 ; 0x34af
+    mov byte [cs:cseg_2f38 - IMAGE_BASE], 1 ; 0x34b5
+    mov byte [cs:cseg_2f39 - IMAGE_BASE], 0 ; 0x34bb
     push es                          ; 0x34c1
     sub ax, ax                       ; 0x34c2
     mov es, ax                       ; 0x34c4
     mov dl, byte [es:data_0410]      ; 0x34c6
-    mov byte [cs:data_2d37], dl      ; 0x34cb
+    mov byte [cs:cseg_2f37 - IMAGE_BASE], dl ; 0x34cb
     and dl, 0xcf                     ; 0x34d0
     mov byte [es:data_0410], dl      ; 0x34d3
     pop es                           ; 0x34d8
@@ -147,7 +147,7 @@ loc_3490:
     mov dx, 0x32f6                   ; 0x34e2
     mov ax, 0x1002                   ; 0x34e5
     int 0x10 ; BIOS video
-    mov word [bp - 0x0002], data_0002 ; 0x34ea
+    mov word [bp - 0x0002], 2        ; 0x34ea
     mov bx, 0x330f                   ; 0x34ef
     mov word [bp - 0x0004], bx       ; 0x34f2
     ret                              ; 0x34f5

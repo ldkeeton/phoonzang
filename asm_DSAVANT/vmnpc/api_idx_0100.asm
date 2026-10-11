@@ -7,9 +7,9 @@ api_idx_0100:
     push word [bp + 0x4]             ; 0x9753
     db 0xe8, 0xe2, 0x1d ; call 0xb53b
     add sp, byte 4                   ; 0x9759
-    cmp word [data_5216], byte 0     ; 0x975c
+    cmp word [dseg_5216], byte 0     ; 0x975c
     jne short @..api_idx_0100.l3     ; 0x9761
-    mov ax, word [data_93d4]         ; 0x9763
+    mov ax, word [dseg_93d4]         ; 0x9763
     mov cx, 7                        ; 0x9766
     shl ax, cl                       ; 0x9769
     mov bx, ax                       ; 0x976b
@@ -25,14 +25,14 @@ api_idx_0100:
 @..api_idx_0100.l2:
     lea ax, word [bp - 0x00ff]       ; 0x9785
     push ax                          ; 0x9789
-    mov ax, word [data_93d4]         ; 0x978a
+    mov ax, word [dseg_93d4]         ; 0x978a
     mov cx, 7                        ; 0x978d
     shl ax, cl                       ; 0x9790
     add ax, 0x91cc                   ; 0x9792
     push ax                          ; 0x9795
     db 0xe8, 0x94, 0x5b ; call 0xf32d
     add sp, byte 4                   ; 0x9799
-    mov ax, word [data_93d4]         ; 0x979c
+    mov ax, word [dseg_93d4]         ; 0x979c
     mov cx, 7                        ; 0x979f
     shl ax, cl                       ; 0x97a2
     add ax, 0x91cc                   ; 0x97a4
@@ -47,7 +47,7 @@ api_idx_0100:
     pop cx                           ; 0x97bb
     inc word [bp + 0x4]              ; 0x97bc
 @..api_idx_0100.l3:
-    cmp word [data_5216], byte 0     ; 0x97bf
+    cmp word [dseg_5216], byte 0     ; 0x97bf
     je short @..api_idx_0100.l1      ; 0x97c4
     call api_idx_000e_2              ; 0x97c6
     mov ax, word [bp + 0x6]          ; 0x97c9
@@ -77,8 +77,8 @@ api_idx_0100:
     call api_idx_0006_2              ; 0x97fa
     jmp short @..api_idx_0100.l6     ; 0x97fd
 @..api_idx_0100.l7:
-    push word [data_0e2c]            ; 0x97ff
-    push word [data_0e2a]            ; 0x9803
+    push word [dseg_0e2c]            ; 0x97ff
+    push word [dseg_0e2a]            ; 0x9803
     db 0xe8, 0xa5, 0x20 ; call 0xb8af
     add sp, byte 4                   ; 0x980a
     mov ax, 0                        ; 0x980d

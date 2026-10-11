@@ -26,40 +26,7 @@ IMAGE_BASE equ 0x0200
     db 0x3b, 0x4b
     times 478 db 0
 
-data_0002 equ 0x0002
-data_002c equ 0x002c
-data_0080 equ 0x0080
 data_0410 equ 0x0410
-data_0c6c equ 0x0c6c
-data_0c70 equ 0x0c70
-data_0c72 equ 0x0c72
-data_0c74 equ 0x0c74
-data_0c76 equ 0x0c76
-data_0c78 equ 0x0c78
-data_0c7a equ 0x0c7a
-data_0c7c equ 0x0c7c
-data_0c7e equ 0x0c7e
-data_0c80 equ 0x0c80
-data_0cd4 equ 0x0cd4
-data_0cd6 equ 0x0cd6
-data_0cd8 equ 0x0cd8
-data_0cda equ 0x0cda
-data_0cdc equ 0x0cdc
-data_0cdd equ 0x0cdd
-data_0cde equ 0x0cde
-data_0cf0 equ 0x0cf0
-data_0cf2 equ 0x0cf2
-data_0cf4 equ 0x0cf4
-data_0cf6 equ 0x0cf6
-data_0cf8 equ 0x0cf8
-data_0cfa equ 0x0cfa
-data_0cfc equ 0x0cfc
-data_0cfe equ 0x0cfe
-data_0d00 equ 0x0d00
-data_0d02 equ 0x0d02
-data_0d04 equ 0x0d04
-data_0d06 equ 0x0d06
-data_0e0c equ 0x0e0c
 data_0e0e equ 0x0e0e
 data_0e10 equ 0x0e10
 data_0e12 equ 0x0e12
@@ -79,132 +46,181 @@ data_0e2c equ 0x0e2c
 data_0e2e equ 0x0e2e
 data_0e30 equ 0x0e30
 data_0e32 equ 0x0e32
-data_0e34 equ 0x0e34
-data_0fd5 equ 0x0fd5
-data_0fd6 equ 0x0fd6
-data_1008 equ 0x1008
-data_100a equ 0x100a
-data_100c equ 0x100c
-data_2d36 equ 0x2d36
-data_2d37 equ 0x2d37
-data_2d38 equ 0x2d38
-data_2d39 equ 0x2d39
-data_2d3a equ 0x2d3a
-data_2d3b equ 0x2d3b
-data_2d40 equ 0x2d40
-data_2d4a equ 0x2d4a
-data_2d4e equ 0x2d4e
-data_2d52 equ 0x2d52
-data_2d56 equ 0x2d56
-data_2d58 equ 0x2d58
-data_2d60 equ 0x2d60
-data_2d62 equ 0x2d62
-data_2d64 equ 0x2d64
-data_2d66 equ 0x2d66
-data_2d7b equ 0x2d7b
-data_2d83 equ 0x2d83
-data_2d87 equ 0x2d87
-data_2d8b equ 0x2d8b
-data_2d8f equ 0x2d8f
-data_2d9b equ 0x2d9b
-data_2d9f equ 0x2d9f
-data_2da3 equ 0x2da3
-data_2da7 equ 0x2da7
-data_2dab equ 0x2dab
-data_2daf equ 0x2daf
-data_2db3 equ 0x2db3
-data_2db7 equ 0x2db7
-data_2dbb equ 0x2dbb
-data_2dbf equ 0x2dbf
-data_2dc3 equ 0x2dc3
-data_2dc7 equ 0x2dc7
-data_2dcb equ 0x2dcb
-data_2dcf equ 0x2dcf
-data_2dd3 equ 0x2dd3
-data_2dd7 equ 0x2dd7
-data_2ddb equ 0x2ddb
-data_2ddf equ 0x2ddf
-data_2de3 equ 0x2de3
-data_2de7 equ 0x2de7
-data_2deb equ 0x2deb
-data_2def equ 0x2def
-data_2df3 equ 0x2df3
-data_2df7 equ 0x2df7
-data_2dfb equ 0x2dfb
-data_2dff equ 0x2dff
-data_2e03 equ 0x2e03
-data_2e07 equ 0x2e07
-data_2e0b equ 0x2e0b
-data_2e0f equ 0x2e0f
-data_2e13 equ 0x2e13
-data_2e17 equ 0x2e17
-data_2e1b equ 0x2e1b
-data_2e1f equ 0x2e1f
-data_2e23 equ 0x2e23
-data_2e27 equ 0x2e27
-data_2e2b equ 0x2e2b
-data_2e2f equ 0x2e2f
-data_2e33 equ 0x2e33
-data_2e37 equ 0x2e37
-data_2e3b equ 0x2e3b
-data_2e3f equ 0x2e3f
-data_2e43 equ 0x2e43
-data_2e47 equ 0x2e47
-data_2e4b equ 0x2e4b
-data_2e4f equ 0x2e4f
-data_2e53 equ 0x2e53
-data_2e57 equ 0x2e57
-data_2e5b equ 0x2e5b
-data_2e5f equ 0x2e5f
-data_2e63 equ 0x2e63
-data_2edc equ 0x2edc
-data_2ede equ 0x2ede
-data_2ee0 equ 0x2ee0
-data_3332 equ 0x3332
-data_3472 equ 0x3472
-data_3a7f equ 0x3a7f
 data_4b36 equ 0x4b36
 data_4c89 equ 0x4c89
 data_4c8b equ 0x4c8b
 loc_4ea0 equ 0x4ea0
-data_5212 equ 0x5212
-data_5214 equ 0x5214
-data_5216 equ 0x5216
-data_5218 equ 0x5218
-data_5962 equ 0x5962
-data_5963 equ 0x5963
-data_5964 equ 0x5964
-data_597f equ 0x597f
-data_5984 equ 0x5984
-data_5985 equ 0x5985
-data_5987 equ 0x5987
-data_598c equ 0x598c
-data_598e equ 0x598e
-data_5990 equ 0x5990
-data_59f4 equ 0x59f4
-data_59f6 equ 0x59f6
-data_59f8 equ 0x59f8
-data_59fa equ 0x59fa
-data_59fc equ 0x59fc
-data_5b3e equ 0x5b3e
-data_5b40 equ 0x5b40
-data_5b42 equ 0x5b42
-data_5b44 equ 0x5b44
-data_5b46 equ 0x5b46
-data_5b6c equ 0x5b6c
-data_5b6e equ 0x5b6e
-data_5b70 equ 0x5b70
-data_69c8 equ 0x69c8
-data_82b6 equ 0x82b6
-data_82e8 equ 0x82e8
-data_82ea equ 0x82ea
-data_82ec equ 0x82ec
-data_82ee equ 0x82ee
-data_82f0 equ 0x82f0
 data_830a equ 0x830a
 data_830c equ 0x830c
-data_9096 equ 0x9096
 leaf_loc_10108 equ 0x10108
+dseg_0002 equ 0x0002
+psp_top_of_memory equ 0x0002
+dseg_000a equ 0x000a
+psp_env_segment equ 0x002c
+psp_cmd_tail_len equ 0x0080
+dseg_0c6c equ 0x0c6c
+dseg_0c70 equ 0x0c70
+dseg_0c72 equ 0x0c72
+dseg_0c74 equ 0x0c74
+dseg_0c76 equ 0x0c76
+dseg_0c78 equ 0x0c78
+dseg_0c7a equ 0x0c7a
+dseg_0c7c equ 0x0c7c
+dseg_0c7e equ 0x0c7e
+dseg_0c80 equ 0x0c80
+dseg_0c9c equ 0x0c9c
+dseg_0cd4 equ 0x0cd4
+dseg_0cd6 equ 0x0cd6
+dseg_0cd8 equ 0x0cd8
+dseg_0cda equ 0x0cda
+dseg_0cdc equ 0x0cdc
+dseg_0cdd equ 0x0cdd
+dseg_0cde equ 0x0cde
+dseg_0cf0 equ 0x0cf0
+dseg_0cf2 equ 0x0cf2
+dseg_0cf4 equ 0x0cf4
+bss_0cf6 equ 0x0cf6
+bss_0cf8 equ 0x0cf8
+bss_0cfa equ 0x0cfa
+bss_0cfc equ 0x0cfc
+bss_0cfe equ 0x0cfe
+bss_0d00 equ 0x0d00
+bss_0d02 equ 0x0d02
+bss_0d04 equ 0x0d04
+bss_0d06 equ 0x0d06
+bss_0e0c equ 0x0e0c
+bss_0e22 equ 0x0e22
+bss_0e24 equ 0x0e24
+bss_0e2a equ 0x0e2a
+bss_0e2c equ 0x0e2c
+bss_0e2e equ 0x0e2e
+bss_0e30 equ 0x0e30
+bss_0e32 equ 0x0e32
+bss_0e34 equ 0x0e34
+bss_0fd5 equ 0x0fd5
+bss_0fd6 equ 0x0fd6
+bss_1008 equ 0x1008
+bss_100a equ 0x100a
+bss_100c equ 0x100c
+bss_2d40 equ 0x2d40
+bss_2d58 equ 0x2d58
+cseg_2f36 equ 0x2f36
+cseg_2f37 equ 0x2f37
+cseg_2f38 equ 0x2f38
+cseg_2f39 equ 0x2f39
+cseg_2f3a equ 0x2f3a
+cseg_2f3b equ 0x2f3b
+cseg_2f40 equ 0x2f40
+cseg_2f4a equ 0x2f4a
+cseg_2f4e equ 0x2f4e
+cseg_2f52 equ 0x2f52
+cseg_2f56 equ 0x2f56
+cseg_2f60 equ 0x2f60
+cseg_2f62 equ 0x2f62
+cseg_2f64 equ 0x2f64
+cseg_2f66 equ 0x2f66
+cseg_2f7b equ 0x2f7b
+cseg_2f83 equ 0x2f83
+cseg_2f87 equ 0x2f87
+cseg_2f8b equ 0x2f8b
+cseg_2f8f equ 0x2f8f
+cseg_2f9b equ 0x2f9b
+cseg_2f9f equ 0x2f9f
+cseg_2fa3 equ 0x2fa3
+cseg_2fa7 equ 0x2fa7
+cseg_2fab equ 0x2fab
+cseg_2faf equ 0x2faf
+cseg_2fb3 equ 0x2fb3
+cseg_2fb7 equ 0x2fb7
+cseg_2fbb equ 0x2fbb
+cseg_2fbf equ 0x2fbf
+cseg_2fc3 equ 0x2fc3
+cseg_2fc7 equ 0x2fc7
+cseg_2fcb equ 0x2fcb
+cseg_2fcf equ 0x2fcf
+cseg_2fd3 equ 0x2fd3
+cseg_2fd7 equ 0x2fd7
+cseg_2fdb equ 0x2fdb
+cseg_2fdf equ 0x2fdf
+cseg_2fe3 equ 0x2fe3
+cseg_2fe7 equ 0x2fe7
+cseg_2feb equ 0x2feb
+cseg_2fef equ 0x2fef
+cseg_2ff3 equ 0x2ff3
+cseg_2ff7 equ 0x2ff7
+cseg_2ffb equ 0x2ffb
+cseg_2fff equ 0x2fff
+cseg_3003 equ 0x3003
+cseg_3007 equ 0x3007
+cseg_300b equ 0x300b
+cseg_300f equ 0x300f
+cseg_3013 equ 0x3013
+cseg_3017 equ 0x3017
+cseg_301b equ 0x301b
+cseg_301f equ 0x301f
+cseg_3023 equ 0x3023
+cseg_3027 equ 0x3027
+cseg_302b equ 0x302b
+cseg_302f equ 0x302f
+cseg_3033 equ 0x3033
+cseg_3037 equ 0x3037
+cseg_303b equ 0x303b
+cseg_303f equ 0x303f
+cseg_3043 equ 0x3043
+cseg_3047 equ 0x3047
+cseg_304b equ 0x304b
+cseg_304f equ 0x304f
+cseg_3053 equ 0x3053
+cseg_3057 equ 0x3057
+cseg_305b equ 0x305b
+cseg_305f equ 0x305f
+cseg_3063 equ 0x3063
+cseg_30dc equ 0x30dc
+cseg_30de equ 0x30de
+cseg_30e0 equ 0x30e0
+cseg_3532 equ 0x3532
+cseg_3672 equ 0x3672
+cseg_36ce equ 0x36ce
+cseg_37d1 equ 0x37d1
+cseg_384a equ 0x384a
+cseg_3c7f equ 0x3c7f
+cseg_4d38 equ 0x4d38
+bss_5212 equ 0x5212
+bss_5214 equ 0x5214
+bss_5216 equ 0x5216
+bss_5218 equ 0x5218
+bss_5962 equ 0x5962
+bss_5963 equ 0x5963
+bss_5964 equ 0x5964
+bss_597f equ 0x597f
+bss_5984 equ 0x5984
+bss_5985 equ 0x5985
+bss_5987 equ 0x5987
+bss_598c equ 0x598c
+bss_598e equ 0x598e
+bss_5990 equ 0x5990
+bss_59f4 equ 0x59f4
+bss_59f6 equ 0x59f6
+bss_59f8 equ 0x59f8
+bss_59fa equ 0x59fa
+bss_59fc equ 0x59fc
+bss_5b3e equ 0x5b3e
+bss_5b40 equ 0x5b40
+bss_5b42 equ 0x5b42
+bss_5b44 equ 0x5b44
+bss_5b46 equ 0x5b46
+bss_5b6c equ 0x5b6c
+bss_5b6e equ 0x5b6e
+bss_5b70 equ 0x5b70
+bss_69c8 equ 0x69c8
+bss_82b6 equ 0x82b6
+bss_82e8 equ 0x82e8
+bss_82ea equ 0x82ea
+bss_82ec equ 0x82ec
+bss_82ee equ 0x82ee
+bss_82f0 equ 0x82f0
+bss_830a equ 0x830a
+bss_9096 equ 0x9096
 
 %include "ds/app_malloc.asm"
 
@@ -508,6 +524,34 @@ leaf_loc_10108 equ 0x10108
 
 %include "ds/aztec_free.asm"
 
+
+    db 'LlhFNoxXudiscpneEfgG%'
+
+jumptable_4822:
+    dw string_loc_490f - IMAGE_BASE
+    dw string_loc_4916 - IMAGE_BASE
+    dw string_loc_491a - IMAGE_BASE
+    dw string_loc_491d - IMAGE_BASE
+    dw string_loc_491a - IMAGE_BASE
+    dw leaf_loc_4924 - IMAGE_BASE
+    dw leaf_loc_492d - IMAGE_BASE
+    dw leaf_loc_4929 - IMAGE_BASE
+    dw leaf_loc_4932 - IMAGE_BASE
+    dw leaf_loc_4937 - IMAGE_BASE
+    dw leaf_loc_4937 - IMAGE_BASE
+    dw loc_4a5b - IMAGE_BASE
+    dw loc_4a7a - IMAGE_BASE
+    dw string_loc_4a9f - IMAGE_BASE
+    dw string_loc_4aa2 - IMAGE_BASE
+    dw loc_4a4a - IMAGE_BASE
+    dw loc_4a44 - IMAGE_BASE
+    dw loc_4a4a - IMAGE_BASE
+    dw loc_4a4a - IMAGE_BASE
+    dw loc_4a44 - IMAGE_BASE
+    dw string_loc_4882 - IMAGE_BASE
+
+    db '0123456789abcdef -lm first', 0
+
 %include "ds/string_loc_4867.asm"
 
 %include "ds/string_loc_4882.asm"
@@ -542,6 +586,8 @@ leaf_loc_10108 equ 0x10108
 
 %include "ds/aztec_open.asm"
 
+%include "ds/loc_4be6.asm"
+
 %include "ds/aztec_lrm.asm"
 
 %include "ds/aztec_lum.asm"
@@ -557,6 +603,8 @@ leaf_loc_10108 equ 0x10108
 %include "ds/dos_proc_loc_4e7e.asm"
 
 %include "ds/aztec_Croot.asm"
+
+%include "ds/loc_4f73.asm"
 
 %include "ds/leaf_loc_4f85.asm"
 

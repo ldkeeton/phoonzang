@@ -5,7 +5,7 @@ aztec_isatty:
     mov ax, 0x4400                   ; 0x516e
     int 0x21 ; DOS function dispatcher
     jb short @..aztec_isatty.l1      ; 0x5173
-    test dl, data_0080               ; 0x5175
+    test dl, 0x80                    ; 0x5175
     je short @..aztec_isatty.l1      ; 0x5178
     test dl, 3                       ; 0x517a
     je short @..aztec_isatty.l1      ; 0x517d

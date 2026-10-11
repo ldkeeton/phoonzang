@@ -19,7 +19,7 @@ aztec_fclose:
     je short @..aztec_fclose.l5      ; 0x2d27
     mov al, byte [si + 0x6]          ; 0x2d29
     cbw                              ; 0x2d2c
-    test ax, data_0004               ; 0x2d2d
+    test ax, 4                       ; 0x2d2d
     je short @..aztec_fclose.l3      ; 0x2d30
     mov ax, 0xffff                   ; 0x2d32
     push ax                          ; 0x2d35
@@ -36,7 +36,7 @@ aztec_fclose:
     or di, ax                        ; 0x2d48
     mov al, byte [si + 0x6]          ; 0x2d4a
     cbw                              ; 0x2d4d
-    test ax, data_0002               ; 0x2d4e
+    test ax, 2                       ; 0x2d4e
     je short @..aztec_fclose.l4      ; 0x2d51
     push word [si + 0x4]             ; 0x2d53
     call aztec_free                  ; 0x2d56

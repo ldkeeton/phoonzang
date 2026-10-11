@@ -47,7 +47,7 @@ api_idx_005e:
     mov ax, 0xffff                   ; 0x06b7
     ret                              ; 0x06ba
 @..api_idx_005e.l3:
-    mov ax, data_0002                ; 0x06bb
+    mov ax, 2                        ; 0x06bb
     push ax                          ; 0x06be
     mov ax, 0                        ; 0x06bf
     mov dx, 0                        ; 0x06c2
@@ -65,7 +65,7 @@ api_idx_005e:
     mov word [bp - 0x000c], 0x2800   ; 0x06e2
     mov ax, 0                        ; 0x06e7
     push ax                          ; 0x06ea
-    mov ax, data_0002                ; 0x06eb
+    mov ax, 2                        ; 0x06eb
     push ax                          ; 0x06ee
     call ds_dispatch_e91b            ; 0x06ef
     add sp, byte 4                   ; 0x06f2
@@ -84,7 +84,7 @@ api_idx_005e:
     mov ax, 0                        ; 0x070d
     ret                              ; 0x0710
 @..api_idx_005e.l6:
-    cmp byte [data_5962], 1          ; 0x0711
+    cmp byte [dseg_5962], 1          ; 0x0711
     jne short @..api_idx_005e.l9     ; 0x0716
     mov ax, 0                        ; 0x0718
     push ax                          ; 0x071b
@@ -104,9 +104,9 @@ api_idx_005e:
     mov word [bp - 0x000c], 0        ; 0x0739
     jmp short @..api_idx_005e.l12    ; 0x073e
 @..api_idx_005e.l9:
-    cmp byte [data_5963], 1          ; 0x0740
+    cmp byte [dseg_5963], 1          ; 0x0740
     jne short @..api_idx_005e.l12    ; 0x0745
-    mov al, byte [data_5964]         ; 0x0747
+    mov al, byte [dseg_5964]         ; 0x0747
     sub ah, ah                       ; 0x074a
     add ax, strict word 0xffc0       ; 0x074c
     mov word [bp - 0x000e], ax       ; 0x074f
@@ -132,7 +132,7 @@ api_idx_005e:
 @..api_idx_005e.l12:
     mov ax, 0                        ; 0x077f
     push ax                          ; 0x0782
-    mov ax, data_0002                ; 0x0783
+    mov ax, 2                        ; 0x0783
     push ax                          ; 0x0786
     call ds_dispatch_e91b            ; 0x0787
     add sp, byte 4                   ; 0x078a

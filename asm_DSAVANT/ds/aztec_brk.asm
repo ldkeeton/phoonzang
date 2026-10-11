@@ -4,27 +4,27 @@ aztec_brk:
     mov ax, word [bp + 0x4]          ; 0x51bf
     inc ax                           ; 0x51c2
     and al, 0xfe                     ; 0x51c3
-    cmp ax, word [data_0c78]         ; 0x51c5
+    cmp ax, word [dseg_0c78]         ; 0x51c5
     jb short @..aztec_brk.l4         ; 0x51c9
-    cmp word [data_0cda], byte 0     ; 0x51cb
+    cmp word [dseg_0cda], byte 0     ; 0x51cb
     jne short @..aztec_brk.l2        ; 0x51d0
     mov bx, sp                       ; 0x51d2
-    sub bx, word [data_0cd6]         ; 0x51d4
+    sub bx, word [dseg_0cd6]         ; 0x51d4
     cmp ax, bx                       ; 0x51d8
     jae short @..aztec_brk.l4        ; 0x51da
-    mov word [data_0c70], ax         ; 0x51dc
-    add ax, word [data_0cd6]         ; 0x51df
-    mov word [data_0c7a], ax         ; 0x51e3
+    mov word [dseg_0c70], ax         ; 0x51dc
+    add ax, word [dseg_0cd6]         ; 0x51df
+    mov word [dseg_0c7a], ax         ; 0x51e3
 @..aztec_brk.l1:
     sub ax, ax                       ; 0x51e6
     pop bp                           ; 0x51e8
     ret                              ; 0x51e9
 @..aztec_brk.l2:
-    cmp ax, word [data_0c7c]         ; 0x51ea
+    cmp ax, word [dseg_0c7c]         ; 0x51ea
     ja short @..aztec_brk.l3         ; 0x51ee
-    cmp ax, word [data_0c70]         ; 0x51f0
+    cmp ax, word [dseg_0c70]         ; 0x51f0
     jb short @..aztec_brk.l3         ; 0x51f4
-    mov word [data_0c70], ax         ; 0x51f6
+    mov word [dseg_0c70], ax         ; 0x51f6
     jmp short @..aztec_brk.l1        ; 0x51f9
 @..aztec_brk.l3:
     push ax                          ; 0x51fb
@@ -38,25 +38,25 @@ aztec_brk:
     push es                          ; 0x520f
     mov cx, ds                       ; 0x5210
     add bx, cx                       ; 0x5212
-    mov es, word [data_0c80]         ; 0x5214
-    sub bx, word [data_0c80]         ; 0x5218
+    mov es, word [dseg_0c80]         ; 0x5214
+    sub bx, word [dseg_0c80]         ; 0x5218
     mov ah, 0x4a                     ; 0x521c
     int 0x21 ; DOS resize memory block
     pop es                           ; 0x5220
     pop bx                           ; 0x5221
     pop ax                           ; 0x5222
     jb short @..aztec_brk.l4         ; 0x5223
-    mov word [data_0c70], ax         ; 0x5225
+    mov word [dseg_0c70], ax         ; 0x5225
     test bx, 0xe000                  ; 0x5228
     jne short @..aztec_brk.l4        ; 0x522c
     mov cx, 4                        ; 0x522e
     shl bx, cl                       ; 0x5231
-    mov word [data_0c7c], bx         ; 0x5233
+    mov word [dseg_0c7c], bx         ; 0x5233
     sub ax, ax                       ; 0x5237
     pop bp                           ; 0x5239
     ret                              ; 0x523a
 @..aztec_brk.l4:
-    mov word [data_0c72], 0xfff8     ; 0x523b
+    mov word [dseg_0c72], 0xfff8     ; 0x523b
     mov ax, 0xffff                   ; 0x5241
     test ax, ax                      ; 0x5244
     pop bp                           ; 0x5246

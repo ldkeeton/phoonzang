@@ -18,7 +18,7 @@ api_idx_0004_6:
     pop cx                           ; 0x1220
     mov cx, 6                        ; 0x1221
     imul cx                          ; 0x1224
-    mov cx, data_0002                ; 0x1226
+    mov cx, 2                        ; 0x1226
     cwd                              ; 0x1229
     idiv cx                          ; 0x122a
     mov cx, ax                       ; 0x122c

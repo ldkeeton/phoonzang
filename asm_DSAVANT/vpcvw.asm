@@ -4,25 +4,13 @@ org 0
 bits 16
 %include "inc/labels/vpcvw_foreign_labels.inc"
 
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0008
+%endif
+
     ; header (8 bytes)
     db 0xf2, 0x00, 0x55, 0x50, 0x36, 0x98, 0x98, 0x90
 
-data_0002 equ 0x0002
-data_0024 equ 0x0024
-data_0038 equ 0x0038
-data_003c equ 0x003c
-data_0040 equ 0x0040
-data_0042 equ 0x0042
-data_0044 equ 0x0044
-data_0110 equ 0x0110
-data_0e0e equ 0x0e0e
-data_0e20 equ 0x0e20
-data_0e26 equ 0x0e26
-data_0e28 equ 0x0e28
-data_0e2e equ 0x0e2e
-data_0e30 equ 0x0e30
-data_0e32 equ 0x0e32
-data_0f00 equ 0x0f00
 loc_22d0 equ 0x22d0
 loc_22e0 equ 0x22e0
 loc_22ee equ 0x22ee
@@ -63,8 +51,6 @@ loc_286a equ 0x286a
 loc_2872 equ 0x2872
 loc_2877 equ 0x2877
 loc_28ba equ 0x28ba
-data_3300 equ 0x3300
-data_3700 equ 0x3700
 loc_3d69 equ 0x3d69
 loc_3d96 equ 0x3d96
 loc_3de3 equ 0x3de3
@@ -87,18 +73,10 @@ loc_51a1 equ 0x51a1
 loc_51cb equ 0x51cb
 loc_5206 equ 0x5206
 loc_5212 equ 0x5212
-data_5216 equ 0x5216
-data_5218 equ 0x5218
 loc_522f equ 0x522f
 loc_5255 equ 0x5255
 loc_52d9 equ 0x52d9
-data_5910 equ 0x5910
-data_5987 equ 0x5987
-data_59fa equ 0x59fa
-data_59fc equ 0x59fc
-data_5b3e equ 0x5b3e
 data_69c8 equ 0x69c8
-data_82ee equ 0x82ee
 data_82f2 equ 0x82f2
 data_82f4 equ 0x82f4
 data_82f6 equ 0x82f6
@@ -109,79 +87,110 @@ data_82fe equ 0x82fe
 data_8300 equ 0x8300
 data_8302 equ 0x8302
 data_8306 equ 0x8306
-data_830a equ 0x830a
 data_830c equ 0x830c
-data_844c equ 0x844c
-data_844e equ 0x844e
-data_8450 equ 0x8450
 loc_8592 equ 0x8592
 data_8aee equ 0x8aee
-data_8af0 equ 0x8af0
-data_8f20 equ 0x8f20
-data_8f3e equ 0x8f3e
-data_8f40 equ 0x8f40
-data_8f42 equ 0x8f42
-data_904e equ 0x904e
-data_9050 equ 0x9050
-data_9052 equ 0x9052
-data_905a equ 0x905a
-data_905e equ 0x905e
-data_908a equ 0x908a
-data_908c equ 0x908c
-data_908e equ 0x908e
-data_9090 equ 0x9090
-data_9092 equ 0x9092
-data_9094 equ 0x9094
-data_93d6 equ 0x93d6
-data_93d8 equ 0x93d8
-data_93da equ 0x93da
-data_93dc equ 0x93dc
-data_93de equ 0x93de
-data_93ee equ 0x93ee
-data_93f0 equ 0x93f0
-data_93f2 equ 0x93f2
-data_93f4 equ 0x93f4
-data_93f6 equ 0x93f6
-data_93f8 equ 0x93f8
-data_93fa equ 0x93fa
-data_93fc equ 0x93fc
-data_93fe equ 0x93fe
-data_9400 equ 0x9400
-data_9402 equ 0x9402
-data_9404 equ 0x9404
-data_940a equ 0x940a
-data_940c equ 0x940c
-data_940e equ 0x940e
-data_9410 equ 0x9410
-data_9412 equ 0x9412
-data_942a equ 0x942a
-data_942c equ 0x942c
-data_942e equ 0x942e
-data_9430 equ 0x9430
-data_9432 equ 0x9432
-data_9562 equ 0x9562
-data_9564 equ 0x9564
-data_9566 equ 0x9566
-data_9568 equ 0x9568
-data_956a equ 0x956a
-data_95ea equ 0x95ea
-data_9614 equ 0x9614
-data_967a equ 0x967a
-data_96d0 equ 0x96d0
 data_a195 equ 0xa195
 data_a271 equ 0xa271
 data_a2b7 equ 0xa2b7
 data_a2e7 equ 0xa2e7
 data_a347 equ 0xa347
 data_a3d5 equ 0xa3d5
+dseg_0002 equ 0x0002
+dseg_0024 equ 0x0024
+dseg_0038 equ 0x0038
+dseg_003c equ 0x003c
+dseg_0040 equ 0x0040
+dseg_0042 equ 0x0042
+dseg_0044 equ 0x0044
+dseg_0110 equ 0x0110
+dseg_0e0e equ 0x0e0e
+dseg_0e1e equ 0x0e1e
+dseg_0e20 equ 0x0e20
+dseg_0e26 equ 0x0e26
+dseg_0e28 equ 0x0e28
+dseg_0e2e equ 0x0e2e
+dseg_0e30 equ 0x0e30
+dseg_0e32 equ 0x0e32
+dseg_0f00 equ 0x0f00
+dseg_3300 equ 0x3300
+dseg_3700 equ 0x3700
+dseg_5216 equ 0x5216
+dseg_5218 equ 0x5218
+dseg_5910 equ 0x5910
+dseg_5987 equ 0x5987
+dseg_59fa equ 0x59fa
+dseg_59fc equ 0x59fc
+dseg_5b3e equ 0x5b3e
+dseg_69c8 equ 0x69c8
+dseg_82ee equ 0x82ee
+dseg_830a equ 0x830a
+dseg_830c equ 0x830c
+dseg_844c equ 0x844c
+dseg_844e equ 0x844e
+dseg_8450 equ 0x8450
+dseg_8af0 equ 0x8af0
+dseg_8f20 equ 0x8f20
+dseg_8f3e equ 0x8f3e
+dseg_8f40 equ 0x8f40
+dseg_8f42 equ 0x8f42
+dseg_904e equ 0x904e
+dseg_9050 equ 0x9050
+dseg_9052 equ 0x9052
+dseg_905a equ 0x905a
+dseg_905e equ 0x905e
+dseg_908a equ 0x908a
+dseg_908c equ 0x908c
+dseg_908e equ 0x908e
+dseg_9090 equ 0x9090
+dseg_9092 equ 0x9092
+dseg_9094 equ 0x9094
+dseg_93d6 equ 0x93d6
+dseg_93d8 equ 0x93d8
+dseg_93da equ 0x93da
+dseg_93dc equ 0x93dc
+dseg_93de equ 0x93de
+dseg_93e0 equ 0x93e0
+dseg_93ee equ 0x93ee
+dseg_93f0 equ 0x93f0
+dseg_93f2 equ 0x93f2
+dseg_93f4 equ 0x93f4
+dseg_93f6 equ 0x93f6
+dseg_93f8 equ 0x93f8
+dseg_93fa equ 0x93fa
+dseg_93fc equ 0x93fc
+dseg_93fe equ 0x93fe
+dseg_9400 equ 0x9400
+dseg_9402 equ 0x9402
+dseg_9404 equ 0x9404
+dseg_940a equ 0x940a
+dseg_940c equ 0x940c
+dseg_940e equ 0x940e
+dseg_9410 equ 0x9410
+dseg_9412 equ 0x9412
+dseg_942a equ 0x942a
+dseg_942c equ 0x942c
+dseg_942e equ 0x942e
+dseg_9430 equ 0x9430
+dseg_9432 equ 0x9432
+dseg_9434 equ 0x9434
+dseg_9562 equ 0x9562
+dseg_9564 equ 0x9564
+dseg_9566 equ 0x9566
+dseg_9568 equ 0x9568
+dseg_956a equ 0x956a
+dseg_95ea equ 0x95ea
+dseg_9614 equ 0x9614
+dseg_967a equ 0x967a
+dseg_96d0 equ 0x96d0
 
     db 0x48, 0x03, 0x10, 0x03, 0x35, 0xe8
 loc_000e:
     mov ax, 0                        ; 0x000e
     call ds_dispatch_f40b            ; 0x0011
-    cmp word [data_830a], byte 0x11  ; 0x0014
+    cmp word [dseg_830a], byte 0x11  ; 0x0014
     jne short @..local.l1            ; 0x0019
-    push word [data_8af0]            ; 0x001b
+    push word [dseg_8af0]            ; 0x001b
     call api_idx_0014                ; 0x001f
     pop cx                           ; 0x0022
 @..local.l1:

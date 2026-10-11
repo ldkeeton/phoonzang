@@ -5,7 +5,7 @@ api_idx_0002_11:
     mov word [bp - 0x0002], ax       ; 0x688b
     jmp short @..api_idx_0002_11.l4  ; 0x688e
 @..api_idx_0002_11.l1:
-    mov bx, word [data_0e12]         ; 0x6890
+    mov bx, word [dseg_0e12]         ; 0x6890
     mov si, word [bp - 0x0002]       ; 0x6894
     mov al, byte [bx + si + 0x870]   ; 0x6897
     sub ah, ah                       ; 0x689b
@@ -27,7 +27,7 @@ api_idx_0002_11:
     mov al, byte [bx + si + 0x960]   ; 0x68c3
     sub ah, ah                       ; 0x68c7
     push ax                          ; 0x68c9
-    mov ax, word [data_830c]         ; 0x68ca
+    mov ax, word [dseg_830c]         ; 0x68ca
     mov cx, 4                        ; 0x68cd
     shl ax, cl                       ; 0x68d0
     add ax, 0x8d14                   ; 0x68d2
@@ -50,12 +50,12 @@ loc_68f2:
     call ds_dispatch_f40b            ; 0x68f5
     mov ax, 0x10                     ; 0x68f8
     push ax                          ; 0x68fb
-    mov ax, word [data_830c]         ; 0x68fc
+    mov ax, word [dseg_830c]         ; 0x68fc
     mov cx, 4                        ; 0x68ff
     shl ax, cl                       ; 0x6902
     add ax, 0x5642                   ; 0x6904
     push ax                          ; 0x6907
-    mov ax, word [data_830c]         ; 0x6908
+    mov ax, word [dseg_830c]         ; 0x6908
     shl ax, cl                       ; 0x690b
     add ax, 0x8d14                   ; 0x690d
     push ax                          ; 0x6910
@@ -63,12 +63,12 @@ loc_68f2:
     add sp, byte 6                   ; 0x6914
     mov ax, 0x80                     ; 0x6917
     push ax                          ; 0x691a
-    mov ax, word [data_830c]         ; 0x691b
+    mov ax, word [dseg_830c]         ; 0x691b
     mov cx, 7                        ; 0x691e
     shl ax, cl                       ; 0x6921
     mov cx, ax                       ; 0x6923
-    mov ax, word [data_0e1a]         ; 0x6925
-    mov dx, word [data_0e1c]         ; 0x6928
+    mov ax, word [dseg_0e1a]         ; 0x6925
+    mov dx, word [dseg_0e1c]         ; 0x6928
     add ax, cx                       ; 0x692c
     push dx                          ; 0x692e
     push ax                          ; 0x692f
@@ -79,12 +79,12 @@ loc_68f2:
     add sp, byte 0x0a                ; 0x6938
     mov ax, 0x80                     ; 0x693b
     push ax                          ; 0x693e
-    mov ax, word [data_830c]         ; 0x693f
+    mov ax, word [dseg_830c]         ; 0x693f
     mov cx, 7                        ; 0x6942
     shl ax, cl                       ; 0x6945
     mov cx, ax                       ; 0x6947
-    mov ax, word [data_0e16]         ; 0x6949
-    mov dx, word [data_0e18]         ; 0x694c
+    mov ax, word [dseg_0e16]         ; 0x6949
+    mov dx, word [dseg_0e18]         ; 0x694c
     add ax, cx                       ; 0x6950
     push dx                          ; 0x6952
     push ax                          ; 0x6953

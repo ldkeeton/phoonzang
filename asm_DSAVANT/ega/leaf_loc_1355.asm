@@ -1,6 +1,6 @@
 leaf_loc_1355:
     push ax                          ; 0x1355
-    mov bx, 0x29b                    ; 0x1356
+    mov bx, cseg_029b - IMAGE_BASE   ; 0x1356
     mov cx, 0x14                     ; 0x1359
 @..leaf_loc_1355.l1:
     cmp ax, word [cs:bx]             ; 0x135c
@@ -10,7 +10,7 @@ leaf_loc_1355:
     inc bx                           ; 0x1364
     inc bx                           ; 0x1365
     loop @..leaf_loc_1355.l1         ; 0x1366
-    mov bx, 0x2c3                    ; 0x1368
+    mov bx, cseg_02c3 - IMAGE_BASE   ; 0x1368
     mov cx, 0xa                      ; 0x136b
 @..leaf_loc_1355.l3:
     cmp ax, word [cs:bx]             ; 0x136e
@@ -20,7 +20,7 @@ leaf_loc_1355:
     inc bx                           ; 0x1376
     inc bx                           ; 0x1377
     loop @..leaf_loc_1355.l3         ; 0x1378
-    mov bx, 0x2d7                    ; 0x137a
+    mov bx, cseg_02d7 - IMAGE_BASE   ; 0x137a
     mov cx, 0xa                      ; 0x137d
 @..leaf_loc_1355.l5:
     cmp ax, word [cs:bx]             ; 0x1380
@@ -41,16 +41,16 @@ loc_1392:
     add bx, ax                       ; 0x139a
     mov word [bp - 0x0004], bx       ; 0x139c
     mov ax, word [cs:bx + 0x2]       ; 0x139f
-    sub word [cs:data_0391], ax      ; 0x13a3
+    sub word [cs:cseg_0391 - IMAGE_BASE], ax ; 0x13a3
     mov word [bp - 0x0006], ax       ; 0x13a8
 @..local.l35:
     mov bx, word [bp - 0x0004]       ; 0x13ab
     mov di, word [cs:bx]             ; 0x13ae
-    mov dx, word [cs:data_0203]      ; 0x13b1
+    mov dx, word [cs:cseg_0203 - IMAGE_BASE] ; 0x13b1
     mov es, dx                       ; 0x13b6
     mov ds, dx                       ; 0x13b8
     mov si, word [cs:bx + 0x4]       ; 0x13ba
-    add dx, word [cs:data_01e1]      ; 0x13be
+    add dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x13be
     mov cx, word [cs:bx + 0x6]       ; 0x13c3
     or cx, cx                        ; 0x13c7
     jne short @..local.l36           ; 0x13c9
@@ -60,14 +60,14 @@ loc_1392:
     mov ax, si                       ; 0x13cf
     mov cl, 0xa                      ; 0x13d1
     shr ax, cl                       ; 0x13d3
-    mov word [cs:data_148e], ax      ; 0x13d5
+    mov word [cs:cseg_148e - IMAGE_BASE], ax ; 0x13d5
     and si, strict word 0x3ff        ; 0x13d9
     mov cl, 4                        ; 0x13dd
     shl si, cl                       ; 0x13df
     mov ax, di                       ; 0x13e1
     mov cl, 0xa                      ; 0x13e3
     shr ax, cl                       ; 0x13e5
-    mov word [cs:dos_con_loc_1490], ax ; 0x13e7
+    mov word [cs:dos_con_loc_1490 - IMAGE_BASE], ax ; 0x13e7
     and di, strict word 0x3ff        ; 0x13eb
     mov cl, 4                        ; 0x13ef
     shl di, cl                       ; 0x13f1
@@ -80,7 +80,7 @@ loc_1392:
     xor dx, dx                       ; 0x13fd
     cmp di, strict word 0x4000       ; 0x13ff
     jne short @..local.l38           ; 0x1403
-    inc word [cs:dos_con_loc_1490]   ; 0x1405
+    inc word [cs:dos_con_loc_1490 - IMAGE_BASE] ; 0x1405
     inc dx                           ; 0x140a
 @..local.l38:
     cmp si, strict word 0x4000       ; 0x140b
@@ -88,7 +88,7 @@ loc_1392:
     cmp si, strict word 0x8000       ; 0x1411
     jne short @..local.l40           ; 0x1415
 @..local.l39:
-    inc word [cs:data_148e]          ; 0x1417
+    inc word [cs:cseg_148e - IMAGE_BASE] ; 0x1417
     inc dx                           ; 0x141c
 @..local.l40:
     or dx, dx                        ; 0x141d

@@ -21,7 +21,7 @@ loc_4825:
     mov ax, word [bp + 0xc]          ; 0x4833
     test ah, 0x80                    ; 0x4836
     je short @..local.l122           ; 0x4839
-    dec word [cs:0x038f]             ; 0x483b
+    dec word [cs:cseg_038f - IMAGE_BASE] ; 0x483b
     mov ax, word [bp + 0xe]          ; 0x4840
     shl ax, 1                        ; 0x4843
     mov bx, 0x2d7                    ; 0x4845
@@ -50,8 +50,8 @@ loc_4825:
     je short @..local.l124           ; 0x4880
     jmp near @..local.l130           ; 0x4882
 @..local.l124:
-    inc word [cs:0x038f]             ; 0x4885
-    mov ax, word [cs:0x038f]         ; 0x488a
+    inc word [cs:cseg_038f - IMAGE_BASE] ; 0x4885
+    mov ax, word [cs:cseg_038f - IMAGE_BASE] ; 0x488a
     mov word [cs:bx], ax             ; 0x488e
     dec ax                           ; 0x4891
     mov cl, 2                        ; 0x4892
@@ -59,14 +59,14 @@ loc_4825:
     mov bx, 0x2eb                    ; 0x4896
     add bx, ax                       ; 0x4899
     mov word [bp - 0x0002], bx       ; 0x489b
-    mov ax, word [cs:data_0391]      ; 0x489e
+    mov ax, word [cs:cseg_0391 - IMAGE_BASE] ; 0x489e
     mov word [cs:bx], ax             ; 0x48a2
     mov ax, 0xfa0                    ; 0x48a5
     mov word [cs:bx + 0x2], ax       ; 0x48a8
-    mov di, word [cs:data_0391]      ; 0x48ac
-    add word [cs:data_0391], ax      ; 0x48b1
-    mov ax, word [cs:data_0391]      ; 0x48b6
-    cmp ax, word [cs:data_01ff]      ; 0x48ba
+    mov di, word [cs:cseg_0391 - IMAGE_BASE] ; 0x48ac
+    add word [cs:cseg_0391 - IMAGE_BASE], ax ; 0x48b1
+    mov ax, word [cs:cseg_0391 - IMAGE_BASE] ; 0x48b6
+    cmp ax, word [cs:cseg_01ff - IMAGE_BASE] ; 0x48ba
     jbe short @..local.l125          ; 0x48bf
     jmp near @..local.l131           ; 0x48c1
 @..local.l125:
@@ -75,7 +75,7 @@ loc_4825:
     mov ax, di                       ; 0x48ca
     mov cl, 0xa                      ; 0x48cc
     shr ax, cl                       ; 0x48ce
-    mov word [cs:data_4540], ax      ; 0x48d0
+    mov word [cs:cseg_4540 - IMAGE_BASE], ax ; 0x48d0
     call leaf_loc_4442               ; 0x48d4
     and di, strict word 0x3ff        ; 0x48d7
     mov cl, 4                        ; 0x48db
@@ -85,8 +85,8 @@ loc_4825:
     test dx, 0xc000                  ; 0x48e1
     je short @..local.l127           ; 0x48e5
     sub di, strict word 0x4000       ; 0x48e7
-    inc word [cs:data_4540]          ; 0x48eb
-    mov ax, word [cs:data_4540]      ; 0x48f0
+    inc word [cs:cseg_4540 - IMAGE_BASE] ; 0x48eb
+    mov ax, word [cs:cseg_4540 - IMAGE_BASE] ; 0x48f0
     call leaf_loc_4442               ; 0x48f4
 @..local.l127:
     mov ax, word [bp - 0x0006]       ; 0x48f7
@@ -99,9 +99,9 @@ loc_4825:
 @..local.l128:
     sub ax, cx                       ; 0x4907
     mov word [bp - 0x0006], ax       ; 0x4909
-    mov ax, word [cs:data_0203]      ; 0x490c
+    mov ax, word [cs:cseg_0203 - IMAGE_BASE] ; 0x490c
     mov es, ax                       ; 0x4910
-    mov ax, word [cs:data_01e9]      ; 0x4912
+    mov ax, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x4912
     mov ds, ax                       ; 0x4916
     mov dx, 0                        ; 0x4918
     mov bx, word [bp + 0xc]          ; 0x491b

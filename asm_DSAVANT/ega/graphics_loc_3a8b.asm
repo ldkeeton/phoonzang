@@ -1,8 +1,8 @@
 graphics_loc_3a8b:
     push es                          ; 0x3a8b
-    mov ax, word [cs:data_01e5]      ; 0x3a8c
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x3a8c
     mov es, ax                       ; 0x3a90
-    mov ax, data_3705                ; 0x3a92
+    mov ax, 0x3705                   ; 0x3a92
     mov word [bp - 0x0036], ax       ; 0x3a95
     xor ax, ax                       ; 0x3a98
     mov word [bp - 0x003c], ax       ; 0x3a9a
@@ -45,7 +45,7 @@ graphics_loc_3a8b:
 @..graphics_loc_3a8b.l5:
     push cx                          ; 0x3af5
     call leaf_loc_3bf2               ; 0x3af6
-    mov ax, data_36dd                ; 0x3af9
+    mov ax, 0x36dd                   ; 0x3af9
     mov word [bp - 0x0034], ax       ; 0x3afc
     mov cx, word [bp - 0x0002]       ; 0x3aff
 @..graphics_loc_3a8b.l6:

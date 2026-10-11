@@ -1,7 +1,7 @@
 aztec_ovloader:
     mov bx, sp                       ; 0x4379
     mov ax, word [bx + 0x2]          ; 0x437b
-    mov word [data_0cfa], ax         ; 0x437e
+    mov word [bss_0cfa], ax          ; 0x437e
     call loc_4386                    ; 0x4381
     jmp ax                           ; 0x4384
 loc_4386:
@@ -10,7 +10,7 @@ loc_4386:
     add sp, byte 0xae                ; 0x4389
     push di                          ; 0x438c
     push si                          ; 0x438d
-    push word [data_0cfa]            ; 0x438e
+    push word [bss_0cfa]             ; 0x438e
     lea ax, word [bp - 0x0052]       ; 0x4392
     push ax                          ; 0x4395
     call aztec_strcpy                ; 0x4396
@@ -59,7 +59,7 @@ loc_4386:
     mov ax, word [bp - 0x000c]       ; 0x43f5
     add ax, word [bp - 0x000a]       ; 0x43f8
     add ax, word [bp - 0x0008]       ; 0x43fb
-    cmp ax, word [data_0c78]         ; 0x43fe
+    cmp ax, word [dseg_0c78]         ; 0x43fe
     jbe short @..local.l9            ; 0x4402
     mov ax, 0x28                     ; 0x4404
     push ax                          ; 0x4407
@@ -109,7 +109,7 @@ loc_4462:
     push bp                          ; 0x4462
     mov bp, sp                       ; 0x4463
     add sp, byte 0xb0                ; 0x4465
-    push word [data_0cfa]            ; 0x4468
+    push word [bss_0cfa]             ; 0x4468
     push word [bp + 0x4]             ; 0x446c
     mov ax, 0xc4d                    ; 0x446f
     push ax                          ; 0x4472

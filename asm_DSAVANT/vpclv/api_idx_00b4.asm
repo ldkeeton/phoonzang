@@ -125,7 +125,7 @@ api_idx_00b4:
     call ds_dispatch_e8da            ; 0x4ded
     add sp, byte 8                   ; 0x4df0
 @..api_idx_00b4.l8:
-    mov ax, data_0002                ; 0x4df3
+    mov ax, 2                        ; 0x4df3
     push ax                          ; 0x4df6
     call ds_dispatch_b7a9            ; 0x4df7
     pop cx                           ; 0x4dfa

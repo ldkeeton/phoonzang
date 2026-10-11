@@ -17,7 +17,7 @@ api_idx_0004_4:
     sub ax, cx                       ; 0x4553
     cmp ax, word [bp - 0x0004]       ; 0x4555
     jle short @..api_idx_0004_4.l2   ; 0x4558
-    mov ax, data_0002                ; 0x455a
+    mov ax, 2                        ; 0x455a
     push ax                          ; 0x455d
     call ds_dispatch_b7a9            ; 0x455e
     pop cx                           ; 0x4561

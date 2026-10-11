@@ -2,10 +2,10 @@ api_idx_000e_3:
     mov ax, 0xfff2                   ; 0x8448
     call ds_dispatch_f40b            ; 0x844b
     mov word [bp - 0x000e], 1        ; 0x844e
-    mov ax, word [data_8d12]         ; 0x8453
+    mov ax, word [dseg_8d12]         ; 0x8453
     shl ax, 1                        ; 0x8456
     mov si, ax                       ; 0x8458
-    mov bx, word [data_0e12]         ; 0x845a
+    mov bx, word [dseg_0e12]         ; 0x845a
     mov ax, word [bx + si]           ; 0x845e
     mov word [bp - 0x000a], ax       ; 0x8460
     mov ax, word [bx + si + 0x3c0]   ; 0x8463
@@ -63,11 +63,11 @@ api_idx_000e_3:
     inc word [bp - 0x0002]           ; 0x84e4
 @..api_idx_000e_3.l6:
     mov ax, word [bp - 0x0002]       ; 0x84e7
-    cmp ax, word [data_69c8]         ; 0x84ea
+    cmp ax, word [dseg_69c8]         ; 0x84ea
     jl short @..api_idx_000e_3.l1    ; 0x84ee
     push word [bp - 0x000e]          ; 0x84f0
-    mov si, word [data_8d12]         ; 0x84f3
-    mov bx, word [data_0e12]         ; 0x84f7
+    mov si, word [dseg_8d12]         ; 0x84f3
+    mov bx, word [dseg_0e12]         ; 0x84f7
     mov al, byte [bx + si + 0xa50]   ; 0x84fb
     sub ah, ah                       ; 0x84ff
     push ax                          ; 0x8501
@@ -103,10 +103,10 @@ loc_8540:
     mov ax, 0                        ; 0x8540
     call ds_dispatch_f40b            ; 0x8543
     push word [bp + 0x4]             ; 0x8546
-    mov ax, word [data_8d12]         ; 0x8549
+    mov ax, word [dseg_8d12]         ; 0x8549
     shl ax, 1                        ; 0x854c
     mov si, ax                       ; 0x854e
-    mov bx, word [data_0e12]         ; 0x8550
+    mov bx, word [dseg_0e12]         ; 0x8550
     push word [bx + si + 0x1e0]      ; 0x8554
     push word [bx + si]              ; 0x8558
     call api_idx_0004_14             ; 0x855a

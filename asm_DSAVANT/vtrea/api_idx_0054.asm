@@ -6,7 +6,7 @@ api_idx_0054:
     add ax, strict word 0x32         ; 0x4260
     push ax                          ; 0x4263
     mov ax, 5                        ; 0x4264
-    imul word [data_95de]            ; 0x4267
+    imul word [dseg_95de]            ; 0x4267
     mov cx, ax                       ; 0x426b
     pop ax                           ; 0x426d
     sub ax, cx                       ; 0x426e
@@ -26,9 +26,9 @@ api_idx_0054:
     mov word [bp - 0x0002], ax       ; 0x4290
     cmp ax, word [bp - 0x0004]       ; 0x4293
     jge short @..api_idx_0054.l3     ; 0x4296
-    mov word [data_91fe], 0          ; 0x4298
-    mov word [data_95e0], 1          ; 0x429e
-    mov word [data_9114], 1          ; 0x42a4
+    mov word [dseg_91fe], 0          ; 0x4298
+    mov word [dseg_95e0], 1          ; 0x429e
+    mov word [dseg_9114], 1          ; 0x42a4
     lea ax, word [bp - 0x0054]       ; 0x42aa
     push ax                          ; 0x42ad
     mov ax, 0x1472                   ; 0x42ae
@@ -37,9 +37,9 @@ api_idx_0054:
     add sp, byte 4                   ; 0x42b5
     mov ax, 1                        ; 0x42b8
     push ax                          ; 0x42bb
-    mov ax, data_0002                ; 0x42bc
+    mov ax, 2                        ; 0x42bc
     push ax                          ; 0x42bf
-    push word [data_91d4]            ; 0x42c0
+    push word [dseg_91d4]            ; 0x42c0
     lea ax, word [bp - 0x0054]       ; 0x42c4
     push ax                          ; 0x42c7
     call loc_0eb2                    ; 0x42c8
@@ -56,10 +56,10 @@ api_idx_0054:
     sub ax, cx                       ; 0x42e1
     cmp ax, word [bp - 0x0002]       ; 0x42e3
     jge short @..api_idx_0054.l4     ; 0x42e6
-    mov word [data_95e0], 0xffff     ; 0x42e8
+    mov word [dseg_95e0], 0xffff     ; 0x42e8
     jmp short @..api_idx_0054.l5     ; 0x42ee
 @..api_idx_0054.l4:
-    mov word [data_95e0], 0          ; 0x42f0
+    mov word [dseg_95e0], 0          ; 0x42f0
     lea ax, word [bp - 0x0054]       ; 0x42f6
     push ax                          ; 0x42f9
     mov ax, 0x1473                   ; 0x42fa
@@ -69,7 +69,7 @@ api_idx_0054:
     mov ax, 1                        ; 0x4304
     push ax                          ; 0x4307
     push ax                          ; 0x4308
-    push word [data_91d4]            ; 0x4309
+    push word [dseg_91d4]            ; 0x4309
     lea ax, word [bp - 0x0054]       ; 0x430d
     push ax                          ; 0x4310
     call loc_0eb2                    ; 0x4311

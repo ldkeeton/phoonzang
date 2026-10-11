@@ -1,10 +1,10 @@
 api_idx_0002_13:
     mov ax, 0xfffe                   ; 0x73b6
     call ds_dispatch_f40b            ; 0x73b9
-    mov ax, word [data_8d12]         ; 0x73bc
+    mov ax, word [dseg_8d12]         ; 0x73bc
     shl ax, 1                        ; 0x73bf
     mov si, ax                       ; 0x73c1
-    mov bx, word [data_0e12]         ; 0x73c3
+    mov bx, word [dseg_0e12]         ; 0x73c3
     mov ax, word [bx + si]           ; 0x73c7
     mov word [bp - 0x0002], ax       ; 0x73c9
     jmp short @..api_idx_0002_13.l1  ; 0x73cc
@@ -59,9 +59,9 @@ api_idx_0002_13:
 loc_7436:
     mov ax, 0                        ; 0x7436
     call ds_dispatch_f40b            ; 0x7439
-    mov bx, word [data_0e12]         ; 0x743c
-    mov si, word [data_8d12]         ; 0x7440
+    mov bx, word [dseg_0e12]         ; 0x743c
+    mov si, word [dseg_8d12]         ; 0x7440
     mov al, byte [bx + si + 0xa50]   ; 0x7444
     sub ah, ah                       ; 0x7448
-    mov word [data_91b0], ax         ; 0x744a
+    mov word [dseg_91b0], ax         ; 0x744a
     ret                              ; 0x744d

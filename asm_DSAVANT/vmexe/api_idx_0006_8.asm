@@ -28,8 +28,8 @@ api_idx_0006_8:
 @..api_idx_0006_8.l3:
     mov word [bp - 0x0004], 0xffff   ; 0x9e94
 @..api_idx_0006_8.l4:
-    push word [data_8462]            ; 0x9e99
-    push word [data_8464]            ; 0x9e9d
+    push word [dseg_8462]            ; 0x9e99
+    push word [dseg_8464]            ; 0x9e9d
     mov ax, 0x90e6                   ; 0x9ea1
     push ax                          ; 0x9ea4
     call loc_15ab                    ; 0x9ea5
@@ -37,7 +37,7 @@ api_idx_0006_8:
     mov ax, word [bp + 0x4]          ; 0x9eab
     cmp ax, word [bp + 0x6]          ; 0x9eae
     jle short @..api_idx_0006_8.l5   ; 0x9eb1
-    mov ax, data_9136                ; 0x9eb3
+    mov ax, 0x9136                   ; 0x9eb3
     push ax                          ; 0x9eb6
     mov ax, 0xdb9                    ; 0x9eb7
     push ax                          ; 0x9eba
@@ -46,7 +46,7 @@ api_idx_0006_8:
     mov word [bp - 0x0002], 0xfffe   ; 0x9ec1
     jmp short @..api_idx_0006_8.l6   ; 0x9ec6
 @..api_idx_0006_8.l5:
-    mov ax, data_9136                ; 0x9ec8
+    mov ax, 0x9136                   ; 0x9ec8
     push ax                          ; 0x9ecb
     mov ax, 0xdba                    ; 0x9ecc
     push ax                          ; 0x9ecf
@@ -54,16 +54,16 @@ api_idx_0006_8:
     add sp, byte 4                   ; 0x9ed3
     mov word [bp - 0x0002], 2        ; 0x9ed6
 @..api_idx_0006_8.l6:
-    mov byte [data_9186], 0          ; 0x9edb
+    mov byte [dseg_9186], 0          ; 0x9edb
     mov ax, 0                        ; 0x9ee0
     push ax                          ; 0x9ee3
     mov ax, 0x43                     ; 0x9ee4
     push ax                          ; 0x9ee7
     mov ax, 1                        ; 0x9ee8
     push ax                          ; 0x9eeb
-    mov ax, data_9186                ; 0x9eec
+    mov ax, 0x9186                   ; 0x9eec
     push ax                          ; 0x9eef
-    mov ax, data_9136                ; 0x9ef0
+    mov ax, 0x9136                   ; 0x9ef0
     push ax                          ; 0x9ef3
     mov ax, 0x90e6                   ; 0x9ef4
     push ax                          ; 0x9ef7
@@ -100,7 +100,7 @@ api_idx_0006_8:
     call loc_9d8d                    ; 0x9f40
     add sp, byte 4                   ; 0x9f43
 @..api_idx_0006_8.l9:
-    push word [data_9058]            ; 0x9f46
+    push word [dseg_9058]            ; 0x9f46
     call api_idx_0004_5              ; 0x9f4a
     pop cx                           ; 0x9f4d
     ret                              ; 0x9f4e

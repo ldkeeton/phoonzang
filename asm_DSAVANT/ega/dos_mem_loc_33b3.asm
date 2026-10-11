@@ -15,7 +15,7 @@ dos_mem_loc_33b3:
     cmp word [bp + 0xc], byte 3      ; 0x33cd
     je short @..dos_mem_loc_33b3.l1  ; 0x33d1
     mov ax, 0x4180                   ; 0x33d3
-    sub ax, word [cs:data_11cd]      ; 0x33d6
+    sub ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x33d6
     mov bx, 0x10                     ; 0x33db
     mul bx                           ; 0x33de
     jmp short @..dos_mem_loc_33b3.l5 ; 0x33e0
@@ -40,8 +40,8 @@ dos_mem_loc_33b3:
     mul bx                           ; 0x3404
     jmp short @..dos_mem_loc_33b3.l5 ; 0x3406
 @..dos_mem_loc_33b3.l4:
-    mov ax, word [cs:data_01ff]      ; 0x3408
-    sub ax, word [cs:data_0391]      ; 0x340c
+    mov ax, word [cs:cseg_01ff - IMAGE_BASE] ; 0x3408
+    sub ax, word [cs:cseg_0391 - IMAGE_BASE] ; 0x340c
     mov bx, 0x10                     ; 0x3411
     mul bx                           ; 0x3414
 @..dos_mem_loc_33b3.l5:

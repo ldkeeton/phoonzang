@@ -4,7 +4,7 @@ aztec_filbuf:
     push di                          ; 0x2d89
     push si                          ; 0x2d8a
     mov si, word [bp + 0x4]          ; 0x2d8b
-    mov word [0x2500], 0x2af5        ; 0x2d8e
+    mov word [dseg_2500], 0x2af5     ; 0x2d8e
     mov al, byte [si + 0x6]          ; 0x2d94
     cbw                              ; 0x2d97
     test ax, 0x10                    ; 0x2d98
@@ -19,7 +19,7 @@ aztec_filbuf:
 @..aztec_filbuf.l2:
     mov al, byte [si + 0x6]          ; 0x2da6
     cbw                              ; 0x2da9
-    test ax, data_0004               ; 0x2daa
+    test ax, 4                       ; 0x2daa
     je short @..aztec_filbuf.l4      ; 0x2dad
     mov di, word [si]                ; 0x2daf
     sub di, word [si + 0x4]          ; 0x2db1
@@ -75,7 +75,7 @@ aztec_filbuf:
     mov word [si], ax                ; 0x2e25
     add ax, word [si + 0x9]          ; 0x2e27
     mov word [si + 0x2], ax          ; 0x2e2a
-    or byte [si + 0x6], data_0004    ; 0x2e2d
+    or byte [si + 0x6], 4            ; 0x2e2d
     mov al, byte [bp + 0x6]          ; 0x2e31
     push ax                          ; 0x2e34
     mov ax, word [si]                ; 0x2e35

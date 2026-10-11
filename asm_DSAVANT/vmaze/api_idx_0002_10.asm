@@ -22,7 +22,7 @@ api_idx_0002_10:
 loc_1240:
     mov ax, 0                        ; 0x1240
     call ds_dispatch_f40b            ; 0x1243
-    mov word [data_91a8], 1          ; 0x1246
+    mov word [dseg_91a8], 1          ; 0x1246
     mov ax, 0                        ; 0x124c
     push ax                          ; 0x124f
     mov ax, 8                        ; 0x1250
@@ -31,24 +31,24 @@ loc_1240:
     push ax                          ; 0x1257
     call ds_dispatch_f306            ; 0x1258
     add sp, byte 6                   ; 0x125b
-    mov word [data_82ea], 0          ; 0x125e
+    mov word [dseg_82ea], 0          ; 0x125e
     mov ax, word [bp + 0x4]          ; 0x1264
     jmp short @..local.l31           ; 0x1267
 @..local.l27:
     mov ax, word [bp + 0x6]          ; 0x1269
-    add word [data_8f44], ax         ; 0x126c
+    add word [dseg_8f44], ax         ; 0x126c
     jmp short @..local.l32           ; 0x1270
 @..local.l28:
     mov ax, word [bp + 0x6]          ; 0x1272
-    add word [data_8f46], ax         ; 0x1275
+    add word [dseg_8f46], ax         ; 0x1275
     jmp short @..local.l32           ; 0x1279
 @..local.l29:
     mov ax, word [bp + 0x6]          ; 0x127b
-    sub word [data_8f44], ax         ; 0x127e
+    sub word [dseg_8f44], ax         ; 0x127e
     jmp short @..local.l32           ; 0x1282
 @..local.l30:
     mov ax, word [bp + 0x6]          ; 0x1284
-    sub word [data_8f46], ax         ; 0x1287
+    sub word [dseg_8f46], ax         ; 0x1287
     jmp short @..local.l32           ; 0x128b
 @..local.l31:
     cmp ax, strict word 0            ; 0x128d
@@ -64,20 +64,20 @@ loc_1240:
 loc_12a2:
     mov ax, 0                        ; 0x12a2
     call ds_dispatch_f40b            ; 0x12a5
-    mov ax, word [data_8f46]         ; 0x12a8
-    mov word [data_8f3a], ax         ; 0x12ab
-    mov ax, word [data_8f44]         ; 0x12ae
-    mov word [data_8f38], ax         ; 0x12b1
-    mov ax, word [data_8f42]         ; 0x12b4
-    mov word [data_8f36], ax         ; 0x12b7
-    mov ax, word [data_8f40]         ; 0x12ba
-    mov word [data_8f34], ax         ; 0x12bd
-    mov ax, word [data_8f3e]         ; 0x12c0
-    mov word [data_8f32], ax         ; 0x12c3
-    mov ax, word [data_830c]         ; 0x12c6
-    mov word [data_8f3c], ax         ; 0x12c9
-    mov ax, word [data_82ee]         ; 0x12cc
-    mov word [data_8f30], ax         ; 0x12cf
+    mov ax, word [dseg_8f46]         ; 0x12a8
+    mov word [dseg_8f3a], ax         ; 0x12ab
+    mov ax, word [dseg_8f44]         ; 0x12ae
+    mov word [dseg_8f38], ax         ; 0x12b1
+    mov ax, word [dseg_8f42]         ; 0x12b4
+    mov word [dseg_8f36], ax         ; 0x12b7
+    mov ax, word [dseg_8f40]         ; 0x12ba
+    mov word [dseg_8f34], ax         ; 0x12bd
+    mov ax, word [dseg_8f3e]         ; 0x12c0
+    mov word [dseg_8f32], ax         ; 0x12c3
+    mov ax, word [dseg_830c]         ; 0x12c6
+    mov word [dseg_8f3c], ax         ; 0x12c9
+    mov ax, word [dseg_82ee]         ; 0x12cc
+    mov word [dseg_8f30], ax         ; 0x12cf
     ret                              ; 0x12d2
 loc_12d3:
     mov ax, 0                        ; 0x12d3

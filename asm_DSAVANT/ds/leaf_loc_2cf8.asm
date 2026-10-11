@@ -1,11 +1,11 @@
 leaf_loc_2cf8:
-    mov ax, word [data_82e8]         ; 0x2cf8
-    cmp ax, word [data_82ec]         ; 0x2cfb
+    mov ax, word [bss_82e8]          ; 0x2cf8
+    cmp ax, word [bss_82ec]          ; 0x2cfb
     je short @..leaf_loc_2cf8.l3     ; 0x2cff
-    mov word [data_82ec], ax         ; 0x2d01
-    mov ax, word [data_82ee]         ; 0x2d04
+    mov word [bss_82ec], ax          ; 0x2d01
+    mov ax, word [bss_82ee]          ; 0x2d04
     shl ax, 1                        ; 0x2d07
-    sub ax, word [data_82f0]         ; 0x2d09
+    sub ax, word [bss_82f0]          ; 0x2d09
     mov word [bp - 0x0006], ax       ; 0x2d0d
     cmp word [bp - 0x0006], byte 0   ; 0x2d10
     je short @..leaf_loc_2cf8.l3     ; 0x2d14
@@ -16,22 +16,22 @@ leaf_loc_2cf8:
     cmp ax, strict word 5            ; 0x2d20
     jge short @..leaf_loc_2cf8.l2    ; 0x2d23
 @..leaf_loc_2cf8.l1:
-    mov ax, word [data_82f0]         ; 0x2d25
+    mov ax, word [bss_82f0]          ; 0x2d25
     inc ax                           ; 0x2d28
     mov cx, 8                        ; 0x2d29
     cwd                              ; 0x2d2c
     idiv cx                          ; 0x2d2d
-    mov word [data_82f0], dx         ; 0x2d2f
+    mov word [bss_82f0], dx          ; 0x2d2f
     jmp short @..leaf_loc_2cf8.l3    ; 0x2d33
 @..leaf_loc_2cf8.l2:
-    mov ax, word [data_82f0]         ; 0x2d35
+    mov ax, word [bss_82f0]          ; 0x2d35
     add ax, strict word 7            ; 0x2d38
     mov cx, 8                        ; 0x2d3b
     cwd                              ; 0x2d3e
     idiv cx                          ; 0x2d3f
-    mov word [data_82f0], dx         ; 0x2d41
+    mov word [bss_82f0], dx          ; 0x2d41
 @..leaf_loc_2cf8.l3:
-    mov ax, word [data_82f0]         ; 0x2d45
+    mov ax, word [bss_82f0]          ; 0x2d45
     add ax, strict word 0xb          ; 0x2d48
     mov word [bp - 0x0004], ax       ; 0x2d4b
     jmp short loc_2d69               ; 0x2d4e

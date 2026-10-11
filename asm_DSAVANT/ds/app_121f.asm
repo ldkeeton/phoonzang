@@ -75,7 +75,7 @@ app_121f: ; Aztec csav frame=0x0000
     add sp, byte 4                   ; 0x12ce
     mov ax, 0                        ; 0x12d1
     push ax                          ; 0x12d4
-    mov ax, data_0002                ; 0x12d5
+    mov ax, 2                        ; 0x12d5
     push ax                          ; 0x12d8
     call loc_3a77                    ; 0x12d9
     add sp, byte 4                   ; 0x12dc

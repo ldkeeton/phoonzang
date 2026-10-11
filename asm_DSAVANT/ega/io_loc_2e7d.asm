@@ -5,15 +5,15 @@ io_loc_2e7d:
     inc dx                           ; 0x2e83
     mov al, ah                       ; 0x2e84
     out dx, al                       ; 0x2e86
-    add si, word [cs:data_1bd7]      ; 0x2e87
-    mov di, word [cs:data_1bf7]      ; 0x2e8c
+    add si, word [cs:cseg_1bd7 - IMAGE_BASE] ; 0x2e87
+    mov di, word [cs:cseg_1bf7 - IMAGE_BASE] ; 0x2e8c
     mov bx, 0x2a02                   ; 0x2e91
-    mov cx, word [cs:data_1bf5]      ; 0x2e94
+    mov cx, word [cs:cseg_1bf5 - IMAGE_BASE] ; 0x2e94
     mov dx, 0x3ce                    ; 0x2e99
     mov al, 8                        ; 0x2e9c
     out dx, al                       ; 0x2e9e
     inc dx                           ; 0x2e9f
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word [cs:data_1bf9], 0
+    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word [cs:cseg_1bf9 - IMAGE_BASE], 0
     je short @..io_loc_2e7d.l1       ; 0x2ea6
     jmp short @..io_loc_2e7d.l3      ; 0x2ea8
 @..io_loc_2e7d.l1:
@@ -21,7 +21,7 @@ io_loc_2e7d:
     push di                          ; 0x2eab
     push si                          ; 0x2eac
     push bx                          ; 0x2ead
-    mov cx, word [cs:data_1bf1]      ; 0x2eae
+    mov cx, word [cs:cseg_1bf1 - IMAGE_BASE] ; 0x2eae
 @..io_loc_2e7d.l2:
     mov al, byte [bx]                ; 0x2eb3
     not al                           ; 0x2eb5
@@ -34,9 +34,9 @@ io_loc_2e7d:
     inc di                           ; 0x2ec3
     loop @..io_loc_2e7d.l2           ; 0x2ec4
     pop bx                           ; 0x2ec6
-    add bx, word [cs:data_258f]      ; 0x2ec7
+    add bx, word [cs:cseg_258f - IMAGE_BASE] ; 0x2ec7
     pop si                           ; 0x2ecc
-    add si, word [cs:data_1bf3]      ; 0x2ecd
+    add si, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2ecd
     pop di                           ; 0x2ed2
     add di, byte 0x50                ; 0x2ed3
     pop cx                           ; 0x2ed6
@@ -47,7 +47,7 @@ io_loc_2e7d:
     push di                          ; 0x2edb
     push si                          ; 0x2edc
     push bx                          ; 0x2edd
-    mov cx, word [cs:data_1bf9]      ; 0x2ede
+    mov cx, word [cs:cseg_1bf9 - IMAGE_BASE] ; 0x2ede
     mov al, byte [bx]                ; 0x2ee3
     not al                           ; 0x2ee5
     mov ah, 0xff                     ; 0x2ee7
@@ -58,7 +58,7 @@ io_loc_2e7d:
     mov byte [es:di], al             ; 0x2ef1
     inc di                           ; 0x2ef4
     inc si                           ; 0x2ef5
-    mov ax, word [cs:data_1bf1]      ; 0x2ef6
+    mov ax, word [cs:cseg_1bf1 - IMAGE_BASE] ; 0x2ef6
     dec ax                           ; 0x2efa
     je short @..io_loc_2e7d.l5       ; 0x2efb
 @..io_loc_2e7d.l4:
@@ -78,7 +78,7 @@ io_loc_2e7d:
     dec ax                           ; 0x2f15
     jne short @..io_loc_2e7d.l4      ; 0x2f16
 @..io_loc_2e7d.l5:
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:data_1bfb], 0
+    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:cseg_1bfb - IMAGE_BASE], 0
     jne short @..io_loc_2e7d.l6      ; 0x2f1e
     mov ah, byte [bx]                ; 0x2f20
     xor al, al                       ; 0x2f22
@@ -90,9 +90,9 @@ io_loc_2e7d:
     mov byte [es:di], al             ; 0x2f2f
 @..io_loc_2e7d.l6:
     pop bx                           ; 0x2f32
-    add bx, word [cs:data_258f]      ; 0x2f33
+    add bx, word [cs:cseg_258f - IMAGE_BASE] ; 0x2f33
     pop si                           ; 0x2f38
-    add si, word [cs:data_1bf3]      ; 0x2f39
+    add si, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2f39
     pop di                           ; 0x2f3e
     add di, byte 0x50                ; 0x2f3f
     pop cx                           ; 0x2f42

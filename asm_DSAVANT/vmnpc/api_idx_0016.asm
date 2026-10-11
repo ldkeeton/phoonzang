@@ -103,7 +103,7 @@ api_idx_0016:
     add sp, byte 8                   ; 0xa64f
     mov ax, word [bp - 0x0008]       ; 0xa652
     inc ax                           ; 0xa655
-    mov cx, data_0002                ; 0xa656
+    mov cx, 2                        ; 0xa656
     cwd                              ; 0xa659
     idiv cx                          ; 0xa65a
     mov word [bp - 0x0008], dx       ; 0xa65c
@@ -245,7 +245,7 @@ api_idx_0016:
     mov si, word [bp - 0x0006]       ; 0xa7a2
     mov byte [bx + si], 0            ; 0xa7a5
     mov ax, word [bp - 0x0002]       ; 0xa7a8
-    mov word [data_b054], ax         ; 0xa7ab
+    mov word [dseg_b054], ax         ; 0xa7ab
     mov ax, 1                        ; 0xa7ae
     push ax                          ; 0xa7b1
     push word [bp - 0x0010]          ; 0xa7b2

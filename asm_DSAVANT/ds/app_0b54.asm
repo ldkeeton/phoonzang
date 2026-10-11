@@ -1,8 +1,8 @@
 app_0b54: ; Aztec csav frame=0x0004
     mov ax, 0xfffc                   ; 0x0b54
     call aztec_csav                  ; 0x0b57
-    mov word [data_59fa], 0          ; 0x0b5a
-    mov word [data_59fc], 0          ; 0x0b60
+    mov word [bss_59fa], 0           ; 0x0b5a
+    mov word [bss_59fc], 0           ; 0x0b60
     mov ax, 1                        ; 0x0b66
     push ax                          ; 0x0b69
     call bios_kbd_loc_3c97           ; 0x0b6a
@@ -17,11 +17,11 @@ app_0b54: ; Aztec csav frame=0x0004
     mov word [bp - 0x0004], ax       ; 0x0b7c
     cmp ax, strict word 0x1b         ; 0x0b7f
     jne short @..app_0b54.l1         ; 0x0b82
-    mov word [data_59fa], 1          ; 0x0b84
+    mov word [bss_59fa], 1           ; 0x0b84
 @..app_0b54.l1:
     cmp ax, strict word 0x20         ; 0x0b8a
     jne short @..app_0b54.l2         ; 0x0b8d
-    mov word [data_59fc], 1          ; 0x0b8f
+    mov word [bss_59fc], 1           ; 0x0b8f
 @..app_0b54.l2:
     mov word [bp - 0x0002], 0        ; 0x0b95
 @..app_0b54.l3:
@@ -44,7 +44,7 @@ app_0b54: ; Aztec csav frame=0x0004
     cmp ax, word [bp - 0x0004]       ; 0x0bc4
     jne short @..app_0b54.l5         ; 0x0bc7
 @..app_0b54.l4:
-    mov word [data_5b3e], 1          ; 0x0bc9
+    mov word [bss_5b3e], 1           ; 0x0bc9
     mov ax, word [bp - 0x0002]       ; 0x0bcf
     inc ax                           ; 0x0bd2
     ret                              ; 0x0bd3
@@ -53,7 +53,7 @@ app_0b54: ; Aztec csav frame=0x0004
     jmp short @..app_0b54.l3         ; 0x0bd7
 @..app_0b54.l6:
     mov word [bp - 0x0002], 0        ; 0x0bd9
-    cmp word [data_0e32], byte 0     ; 0x0bde
+    cmp word [bss_0e32], byte 0      ; 0x0bde
     je short @..app_0b54.l7          ; 0x0be3
     push word [bp + 0x4]             ; 0x0be5
     call loc_428d                    ; 0x0be8
@@ -65,7 +65,7 @@ app_0b54: ; Aztec csav frame=0x0004
     jge short @..app_0b54.l8         ; 0x0bf6
     mov ax, 1                        ; 0x0bf8
 @..app_0b54.l8:
-    mov word [data_5b3e], ax         ; 0x0bfb
+    mov word [bss_5b3e], ax          ; 0x0bfb
     mov ax, word [bp - 0x0002]       ; 0x0bfe
     push ax                          ; 0x0c01
     cmp ax, strict word 0            ; 0x0c02

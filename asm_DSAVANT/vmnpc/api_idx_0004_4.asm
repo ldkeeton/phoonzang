@@ -10,7 +10,7 @@ api_idx_0004_4:
     push ax                          ; 0x115f
     mov ax, 0xc1                     ; 0x1160
     push ax                          ; 0x1163
-    mov ax, data_0002                ; 0x1164
+    mov ax, 2                        ; 0x1164
     push ax                          ; 0x1167
     mov ax, 0xc6                     ; 0x1168
     push ax                          ; 0x116b

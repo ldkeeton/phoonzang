@@ -1,15 +1,15 @@
 api_idx_0004_11:
     mov ax, 0xfffc                   ; 0x744e
     call ds_dispatch_f40b            ; 0x7451
-    mov ax, word [data_8d12]         ; 0x7454
+    mov ax, word [dseg_8d12]         ; 0x7454
     shl ax, 1                        ; 0x7457
     mov si, ax                       ; 0x7459
-    mov bx, word [data_0e12]         ; 0x745b
+    mov bx, word [dseg_0e12]         ; 0x745b
     mov ax, word [bx + si + 0x3c0]   ; 0x745f
     mov word [bp - 0x0002], ax       ; 0x7463
     mov ax, 1                        ; 0x7466
     push ax                          ; 0x7469
-    mov ax, api_idx_0002             ; 0x746a
+    mov ax, 0xe                      ; 0x746a
     push ax                          ; 0x746d
     push word [bp - 0x0002]          ; 0x746e
     call ds_dispatch_ed3a            ; 0x7471
@@ -23,15 +23,15 @@ api_idx_0004_11:
     push word [bp - 0x0002]          ; 0x7484
     call ds_dispatch_ed3a            ; 0x7487
     add sp, byte 6                   ; 0x748a
-    mov word [data_8f24], ax         ; 0x748d
-    cmp ax, word [data_82ee]         ; 0x7490
+    mov word [dseg_8f24], ax         ; 0x748d
+    cmp ax, word [dseg_82ee]         ; 0x7490
     je short @..api_idx_0004_11.l1   ; 0x7494
     ret                              ; 0x7496
 @..api_idx_0004_11.l1:
-    mov ax, word [data_8d12]         ; 0x7497
+    mov ax, word [dseg_8d12]         ; 0x7497
     shl ax, 1                        ; 0x749a
     mov si, ax                       ; 0x749c
-    mov bx, word [data_0e12]         ; 0x749e
+    mov bx, word [dseg_0e12]         ; 0x749e
     cmp word [bx + si], byte 0       ; 0x74a2
     jle short @..api_idx_0004_11.l2  ; 0x74a5
     mov ax, 0                        ; 0x74a7
@@ -51,10 +51,10 @@ api_idx_0004_11:
     jne short @..api_idx_0004_11.l3  ; 0x74c7
     ret                              ; 0x74c9
 @..api_idx_0004_11.l3:
-    mov bx, word [data_0e12]         ; 0x74ca
-    mov si, word [data_8d12]         ; 0x74ce
+    mov bx, word [dseg_0e12]         ; 0x74ca
+    mov si, word [dseg_8d12]         ; 0x74ce
     mov al, byte [bx + si + 0xa50]   ; 0x74d2
     sub ah, ah                       ; 0x74d6
-    mov word [data_84a0], ax         ; 0x74d8
-    mov word [data_830a], 0x15       ; 0x74db
+    mov word [dseg_84a0], ax         ; 0x74d8
+    mov word [dseg_830a], 0x15       ; 0x74db
     ret                              ; 0x74e1

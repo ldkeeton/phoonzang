@@ -18,9 +18,9 @@ dos_read_file_6:
     je short @..dos_read_file_6.l1   ; 0x4a29
     jmp near @..dos_read_file_6.l4   ; 0x4a2b
 @..dos_read_file_6.l1:
-    mov ax, word [cs:data_11cb]      ; 0x4a2e
+    mov ax, word [cs:cseg_11cb - IMAGE_BASE] ; 0x4a2e
     inc ax                           ; 0x4a32
-    mov word [cs:data_11cb], ax      ; 0x4a33
+    mov word [cs:cseg_11cb - IMAGE_BASE], ax ; 0x4a33
     mov bx, word [bp - 0x0002]       ; 0x4a37
     mov word [cs:bx], ax             ; 0x4a3a
     dec ax                           ; 0x4a3d
@@ -29,7 +29,7 @@ dos_read_file_6:
     mov bx, 0x10fb                   ; 0x4a42
     add bx, ax                       ; 0x4a45
     mov word [bp - 0x000a], bx       ; 0x4a47
-    mov ax, word [cs:data_11cd]      ; 0x4a4a
+    mov ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x4a4a
     mov word [cs:bx], ax             ; 0x4a4e
     mov ah, 0x42                     ; 0x4a51
     mov al, 2                        ; 0x4a53
@@ -45,7 +45,7 @@ dos_read_file_6:
     xor cx, cx                       ; 0x4a6b
     mov dx, cx                       ; 0x4a6d
     int 0x21 ; DOS seek file (lseek)
-    mov ax, word [cs:data_01e9]      ; 0x4a71
+    mov ax, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x4a71
     mov ds, ax                       ; 0x4a75
     xor dx, dx                       ; 0x4a77
     mov bx, word [bp + 0xc]          ; 0x4a79
@@ -67,12 +67,12 @@ dos_read_file_6:
     shr ax, cl                       ; 0x4aa0
     mov bx, word [bp - 0x000a]       ; 0x4aa2
     mov word [cs:bx + 0x2], ax       ; 0x4aa5
-    add ax, word [cs:data_11cd]      ; 0x4aa9
+    add ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x4aa9
     cmp ax, 0x4180                   ; 0x4aae
     jae short @..dos_read_file_6.l5  ; 0x4ab1
-    mov word [cs:data_11cd], ax      ; 0x4ab3
+    mov word [cs:cseg_11cd - IMAGE_BASE], ax ; 0x4ab3
     mov ax, word [cs:bx]             ; 0x4ab7
-    add ax, word [cs:data_01e1]      ; 0x4aba
+    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4aba
     mov ds, ax                       ; 0x4abf
     xor dx, dx                       ; 0x4ac1
     mov bx, word [bp + 0xc]          ; 0x4ac3

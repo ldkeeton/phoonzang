@@ -119,7 +119,7 @@ loc_0111:
     cmp word [bp + 0x4], byte 0xff   ; 0x01c0
     je short @..local.l16            ; 0x01c4
     mov ax, word [bp + 0x4]          ; 0x01c6
-    mov cx, data_0002                ; 0x01c9
+    mov cx, 2                        ; 0x01c9
     cwd                              ; 0x01cc
     idiv cx                          ; 0x01cd
     mov ax, dx                       ; 0x01cf
@@ -163,20 +163,20 @@ loc_0111:
     mov word [bp - 0x00d4], 3        ; 0x0255
     mov word [bp - 0x00d2], 3        ; 0x025b
     mov word [bp - 0x00d0], 3        ; 0x0261
-    mov word [bp - 0x00ce], data_0002 ; 0x0267
-    mov word [bp - 0x00cc], data_0002 ; 0x026d
-    mov word [bp - 0x00ca], data_0002 ; 0x0273
-    mov word [bp - 0x00c8], data_0002 ; 0x0279
+    mov word [bp - 0x00ce], 2        ; 0x0267
+    mov word [bp - 0x00cc], 2        ; 0x026d
+    mov word [bp - 0x00ca], 2        ; 0x0273
+    mov word [bp - 0x00c8], 2        ; 0x0279
     mov word [bp - 0x00c6], 1        ; 0x027f
     mov word [bp - 0x00c4], 1        ; 0x0285
     mov word [bp - 0x00c2], 3        ; 0x028b
-    mov word [bp - 0x00c0], data_0002 ; 0x0291
-    mov word [bp - 0x00be], data_0002 ; 0x0297
-    mov word [bp - 0x00bc], data_0002 ; 0x029d
+    mov word [bp - 0x00c0], 2        ; 0x0291
+    mov word [bp - 0x00be], 2        ; 0x0297
+    mov word [bp - 0x00bc], 2        ; 0x029d
     mov word [bp - 0x00ba], 3        ; 0x02a3
-    mov word [bp - 0x00b8], data_0002 ; 0x02a9
-    mov word [bp - 0x00b6], data_0002 ; 0x02af
-    mov word [bp - 0x00b4], data_0002 ; 0x02b5
+    mov word [bp - 0x00b8], 2        ; 0x02a9
+    mov word [bp - 0x00b6], 2        ; 0x02af
+    mov word [bp - 0x00b4], 2        ; 0x02b5
     mov word [bp - 0x00b2], 4        ; 0x02bb
     mov word [bp - 0x00b0], 3        ; 0x02c1
     mov word [bp - 0x00ae], 3        ; 0x02c7
@@ -199,12 +199,12 @@ loc_0111:
     mov word [bp - 0x008c], 4        ; 0x032d
     mov word [bp - 0x008a], 4        ; 0x0333
     mov word [bp - 0x0088], 3        ; 0x0339
-    mov word [bp - 0x0086], data_0002 ; 0x033f
+    mov word [bp - 0x0086], 2        ; 0x033f
     mov word [bp - 0x0084], 6        ; 0x0345
     mov word [bp - 0x0082], 5        ; 0x034b
     mov word [bp - 0x0080], 4        ; 0x0351
     mov word [bp - 0x007e], 3        ; 0x0356
-    mov word [bp - 0x007c], data_0002 ; 0x035b
+    mov word [bp - 0x007c], 2        ; 0x035b
     mov word [bp - 0x007a], 6        ; 0x0360
     mov word [bp - 0x0078], 5        ; 0x0365
     mov word [bp - 0x0076], 3        ; 0x036a
@@ -261,7 +261,7 @@ loc_0111:
     cmp word [bp - 0x000c], byte 0   ; 0x0467
     je short @..local.l21            ; 0x046b
     mov ax, 5                        ; 0x046d
-    cmp byte [bx + 0x889], data_0002 ; 0x0470
+    cmp byte [bx + 0x889], 2         ; 0x0470
     jne short @..local.l21           ; 0x0475
     mov ax, 3                        ; 0x0477
 @..local.l21:
@@ -269,7 +269,7 @@ loc_0111:
     mov word [bp - 0x0100], ax       ; 0x047e
     mov ax, 0                        ; 0x0482
     push ax                          ; 0x0485
-    mov ax, data_0002                ; 0x0486
+    mov ax, 2                        ; 0x0486
     push ax                          ; 0x0489
     mov ax, 0x8f                     ; 0x048a
     push ax                          ; 0x048d
@@ -287,8 +287,8 @@ loc_0111:
     push ax                          ; 0x04ab
     call api_idx_0010                ; 0x04ac
     pop cx                           ; 0x04af
-    mov word [data_9116], ax         ; 0x04b0
-    push word [data_911c]            ; 0x04b3
+    mov word [dseg_9116], ax         ; 0x04b0
+    push word [dseg_911c]            ; 0x04b3
     mov ax, 0xf8                     ; 0x04b7
     push ax                          ; 0x04ba
     mov ax, 0x21                     ; 0x04bb
@@ -306,7 +306,7 @@ loc_0111:
     mov word [bp - 0x0002], ax       ; 0x04d9
     jmp near @..local.l29            ; 0x04dc
 @..local.l22:
-    les bx, word [data_0002]         ; 0x04df
+    les bx, word [dseg_0002]         ; 0x04df
     mov ax, word [es:bx]             ; 0x04e3
     mov dx, word [es:bx + 0x2]       ; 0x04e6
     mov word [bp - 0x0112], dx       ; 0x04ea
@@ -353,7 +353,7 @@ loc_0111:
     push word [bp - 0x0118]          ; 0x055b
     call ds_dispatch_e942            ; 0x055f
     add sp, byte 8                   ; 0x0562
-    cmp word [data_9116], byte 0     ; 0x0565
+    cmp word [dseg_9116], byte 0     ; 0x0565
     jl short @..local.l25            ; 0x056a
     mov ax, word [bp - 0x0004]       ; 0x056c
     mov cx, 3                        ; 0x056f
@@ -362,12 +362,12 @@ loc_0111:
     mov ax, dx                       ; 0x0575
     test ax, ax                      ; 0x0577
     jne short @..local.l24           ; 0x0579
-    inc word [data_9116]             ; 0x057b
+    inc word [dseg_9116]             ; 0x057b
 @..local.l24:
-    push word [data_9116]            ; 0x057f
+    push word [dseg_9116]            ; 0x057f
     call api_idx_0010                ; 0x0583
     pop cx                           ; 0x0586
-    mov word [data_9116], ax         ; 0x0587
+    mov word [dseg_9116], ax         ; 0x0587
 @..local.l25:
     mov ax, 0x18                     ; 0x058a
     imul word [bp - 0x000e]          ; 0x058d
@@ -412,7 +412,7 @@ loc_0111:
     push word [bp - 0x00f6]          ; 0x05f1
     call ds_dispatch_efd1            ; 0x05f5
     add sp, byte 0x16                ; 0x05f8
-    push word [data_911c]            ; 0x05fb
+    push word [dseg_911c]            ; 0x05fb
     mov ax, 0xf8                     ; 0x05ff
     push ax                          ; 0x0602
     mov ax, 0x21                     ; 0x0603
@@ -435,7 +435,7 @@ loc_0111:
     mov ax, word [bp - 0x0102]       ; 0x062e
     mov word [bp - 0x0100], ax       ; 0x0632
 @..local.l26:
-    les bx, word [data_0002]         ; 0x0636
+    les bx, word [dseg_0002]         ; 0x0636
     mov ax, word [es:bx]             ; 0x063a
     mov dx, word [es:bx + 0x2]       ; 0x063d
     cmp dx, word [bp - 0x0112]       ; 0x0641

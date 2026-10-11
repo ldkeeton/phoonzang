@@ -19,7 +19,7 @@ api_idx_001c:
     cmp ax, strict word 3            ; 0x0b5f
     jg short @..api_idx_001c.l1      ; 0x0b62
     mov ax, word [bp + 0x4]          ; 0x0b64
-    cmp ax, word [data_8454]         ; 0x0b67
+    cmp ax, word [dseg_8454]         ; 0x0b67
     jle short @..api_idx_001c.l2     ; 0x0b6b
 @..api_idx_001c.l1:
     ret                              ; 0x0b6d
@@ -49,7 +49,7 @@ api_idx_001c:
     ret                              ; 0x0ba6
 @..api_idx_001c.l4:
     mov ax, word [bp + 0x6]          ; 0x0ba7
-    mov cx, data_0002                ; 0x0baa
+    mov cx, 2                        ; 0x0baa
     cwd                              ; 0x0bad
     idiv cx                          ; 0x0bae
     mov word [bp - 0x0008], dx       ; 0x0bb0
@@ -113,7 +113,7 @@ api_idx_001c:
     imul word [bp - 0x0006]          ; 0x0c3d
     push ax                          ; 0x0c40
     mov ax, word [bp - 0x0008]       ; 0x0c41
-    mov cx, data_0002                ; 0x0c44
+    mov cx, 2                        ; 0x0c44
     cwd                              ; 0x0c47
     idiv cx                          ; 0x0c48
     mov cx, dx                       ; 0x0c4a
@@ -160,9 +160,9 @@ api_idx_001c:
     pop ax                           ; 0x0caa
     add ax, cx                       ; 0x0cab
     mov word [bp - 0x0010], ax       ; 0x0cad
-    cmp word [data_8466], byte 1     ; 0x0cb0
+    cmp word [dseg_8466], byte 1     ; 0x0cb0
     jne short @..api_idx_001c.l9     ; 0x0cb5
-    mov bx, word [data_8484]         ; 0x0cb7
+    mov bx, word [dseg_8484]         ; 0x0cb7
     cmp byte [bx + 0x1a1], 1         ; 0x0cbb
     jne short @..api_idx_001c.l9     ; 0x0cc0
     cmp word [bp + 0x4], byte 0      ; 0x0cc2
@@ -177,7 +177,7 @@ api_idx_001c:
     idiv cx                          ; 0x0cda
     add word [bp - 0x000e], ax       ; 0x0cdc
     mov ax, word [bp - 0x0008]       ; 0x0cdf
-    mov cx, data_0002                ; 0x0ce2
+    mov cx, 2                        ; 0x0ce2
     cwd                              ; 0x0ce5
     idiv cx                          ; 0x0ce6
     mov ax, dx                       ; 0x0ce8
@@ -187,7 +187,7 @@ api_idx_001c:
     imul word [bp - 0x0006]          ; 0x0cf1
     mov cx, ax                       ; 0x0cf4
     mov ax, word [bp - 0x0008]       ; 0x0cf6
-    mov bx, data_0002                ; 0x0cf9
+    mov bx, 2                        ; 0x0cf9
     cwd                              ; 0x0cfc
     idiv bx                          ; 0x0cfd
     mov ax, dx                       ; 0x0cff

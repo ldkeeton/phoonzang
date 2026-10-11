@@ -16,7 +16,7 @@ api_idx_0002_6:
     jmp near @..api_idx_0002_6.l2    ; 0x45a0
     mov word [bp - 0x0002], 1        ; 0x45a3
     jmp near @..api_idx_0002_6.l2    ; 0x45a8
-    mov word [bp - 0x0002], data_0002 ; 0x45ab
+    mov word [bp - 0x0002], 2        ; 0x45ab
     jmp short @..api_idx_0002_6.l2   ; 0x45b0
     mov word [bp - 0x0002], 3        ; 0x45b2
     jmp short @..api_idx_0002_6.l2   ; 0x45b7

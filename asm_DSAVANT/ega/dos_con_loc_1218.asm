@@ -35,17 +35,17 @@ loc_12bb:
     mov ax, word [cs:di + 0x2]       ; 0x12d5
     mov word [cs:bx + 0x2], ax       ; 0x12d9
     mov word [bp - 0x0004], ax       ; 0x12dd
-    mov dx, word [cs:data_01e1]      ; 0x12e0
-    add dx, word [cs:data_11cd]      ; 0x12e5
+    mov dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x12e0
+    add dx, word [cs:cseg_11cd - IMAGE_BASE] ; 0x12e5
     mov word [bp - 0x000a], dx       ; 0x12ea
     mov es, dx                       ; 0x12ed
-    add word [cs:data_11cd], ax      ; 0x12ef
-    mov ax, word [cs:data_0203]      ; 0x12f4
+    add word [cs:cseg_11cd - IMAGE_BASE], ax ; 0x12ef
+    mov ax, word [cs:cseg_0203 - IMAGE_BASE] ; 0x12f4
     mov ds, ax                       ; 0x12f8
     mov ax, si                       ; 0x12fa
     mov cl, 0xa                      ; 0x12fc
     shr ax, cl                       ; 0x12fe
-    mov word [cs:data_4540], ax      ; 0x1300
+    mov word [cs:cseg_4540 - IMAGE_BASE], ax ; 0x1300
     call leaf_loc_4442               ; 0x1304
     and si, strict word 0x3ff        ; 0x1307
     mov cl, 4                        ; 0x130b
@@ -53,8 +53,8 @@ loc_12bb:
 loc_130f:
     test si, 0xc000                  ; 0x130f
     je short loc_1325                ; 0x1313
-    inc word [cs:data_4540]          ; 0x1315
-    mov ax, word [cs:data_4540]      ; 0x131a
+    inc word [cs:cseg_4540 - IMAGE_BASE] ; 0x1315
+    mov ax, word [cs:cseg_4540 - IMAGE_BASE] ; 0x131a
     call leaf_loc_4442               ; 0x131e
     sub si, strict word 0x4000       ; 0x1321
 loc_1325:

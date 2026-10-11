@@ -23,9 +23,9 @@ dos_con_loc_1490:
     jmp near @..dos_con_loc_1490.l3  ; 0x14ba
 @..dos_con_loc_1490.l2:
     mov word [cs:bx], 0              ; 0x14bd
-    mov cx, word [cs:data_11cb]      ; 0x14c2
+    mov cx, word [cs:cseg_11cb - IMAGE_BASE] ; 0x14c2
     dec cx                           ; 0x14c7
-    mov word [cs:data_11cb], cx      ; 0x14c8
+    mov word [cs:cseg_11cb - IMAGE_BASE], cx ; 0x14c8
     call loc_4c93                    ; 0x14cd
 @..dos_con_loc_1490.l3:
     pop si                           ; 0x14d0

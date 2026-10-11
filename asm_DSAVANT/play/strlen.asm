@@ -15,7 +15,7 @@ strlen:
     mov al, byte [bp + 0xc]          ; 0x0119
     call leaf_loc_02b3               ; 0x011c
     mov bl, al                       ; 0x011f
-    mov byte [cs:data_0b7c], al      ; 0x0121
+    mov byte [cs:cseg_0b7c - IMAGE_BASE], al ; 0x0121
     mov bh, bl                       ; 0x0125
     shl bl, 1                        ; 0x0127
     add bl, bh                       ; 0x0129

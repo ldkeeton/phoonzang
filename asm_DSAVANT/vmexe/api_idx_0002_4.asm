@@ -23,9 +23,9 @@ api_idx_0002_4:
 @..api_idx_0002_4.l2:
     cmp word [bp + 0x4], byte 0      ; 0x1fcc
     jne short @..api_idx_0002_4.l3   ; 0x1fd0
-    mov ax, api_idx_0002             ; 0x1fd2
+    mov ax, 0xe                      ; 0x1fd2
     push ax                          ; 0x1fd5
-    mov ax, word [data_8490]         ; 0x1fd6
+    mov ax, word [dseg_8490]         ; 0x1fd6
     add ax, 0x9a                     ; 0x1fd9
     push ax                          ; 0x1fdc
     mov ax, 0x248                    ; 0x1fdd

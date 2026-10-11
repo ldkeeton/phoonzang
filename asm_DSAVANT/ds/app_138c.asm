@@ -1,14 +1,14 @@
 app_138c: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x138c
     call aztec_csav                  ; 0x138f
-    cmp word [data_5b6c], byte 0     ; 0x1392
+    cmp word [bss_5b6c], byte 0      ; 0x1392
     jge short @..app_138c.l1         ; 0x1397
     jmp near @..app_138c.l3          ; 0x1399
 @..app_138c.l1:
-    push word [data_5b6c]            ; 0x139c
+    push word [bss_5b6c]             ; 0x139c
     call loc_420b                    ; 0x13a0
     pop cx                           ; 0x13a3
-    mov ax, word [data_5b6e]         ; 0x13a4
+    mov ax, word [bss_5b6e]          ; 0x13a4
     jmp near @..app_138c.l2          ; 0x13a7
 jumptable_14a2_case_1:
     mov ax, 5                        ; 0x13aa
@@ -154,6 +154,6 @@ jumptable_14a2:
     jmp [cs:bx + jumptable_14a2 - IMAGE_BASE] ; 0x14b8
 jumptable_14a2_case_0:
 @..app_138c.l3:
-    mov word [data_5b70], 0          ; 0x14bd
-    mov word [data_5b6c], 0xffff     ; 0x14c3
+    mov word [bss_5b70], 0           ; 0x14bd
+    mov word [bss_5b6c], 0xffff      ; 0x14c3
     ret                              ; 0x14c9

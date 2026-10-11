@@ -12,7 +12,7 @@ api_idx_0010_2:
     push ax                          ; 0x5070
     mov ax, 1                        ; 0x5071
     push ax                          ; 0x5074
-    mov ax, data_0002                ; 0x5075
+    mov ax, 2                        ; 0x5075
     push ax                          ; 0x5078
     mov ax, 1                        ; 0x5079
     push ax                          ; 0x507c
@@ -216,7 +216,7 @@ api_idx_0010_2:
     jmp near @..api_idx_0010_2.l5    ; 0x529d
     mov ax, 3                        ; 0x52a0
     push ax                          ; 0x52a3
-    mov ax, data_0002                ; 0x52a4
+    mov ax, 2                        ; 0x52a4
     push ax                          ; 0x52a7
     mov ax, 0x18                     ; 0x52a8
     push ax                          ; 0x52ab

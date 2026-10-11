@@ -1,15 +1,15 @@
 api_idx_0004_12:
     mov ax, 0xfffc                   ; 0x7542
     call ds_dispatch_f40b            ; 0x7545
-    cmp word [data_82fe], byte 0     ; 0x7548
+    cmp word [dseg_82fe], byte 0     ; 0x7548
     jle short @..api_idx_0004_12.l1  ; 0x754d
     mov ax, 0x64                     ; 0x754f
     push ax                          ; 0x7552
     call ds_dispatch_b7a9            ; 0x7553
     pop cx                           ; 0x7556
-    cmp ax, word [data_8300]         ; 0x7557
+    cmp ax, word [dseg_8300]         ; 0x7557
     jge short @..api_idx_0004_12.l1  ; 0x755b
-    mov word [data_82ea], 1          ; 0x755d
+    mov word [dseg_82ea], 1          ; 0x755d
 @..api_idx_0004_12.l1:
     mov word [bp - 0x0002], 0        ; 0x7563
     jmp short @..api_idx_0004_12.l4  ; 0x7568
@@ -43,6 +43,6 @@ api_idx_0004_12:
     inc word [bp - 0x0002]           ; 0x75a1
 @..api_idx_0004_12.l4:
     mov ax, word [bp - 0x0002]       ; 0x75a4
-    cmp ax, word [data_69c8]         ; 0x75a7
+    cmp ax, word [dseg_69c8]         ; 0x75a7
     jl short @..api_idx_0004_12.l2   ; 0x75ab
     ret                              ; 0x75ad

@@ -6,7 +6,7 @@ loc_493a:
     mov di, word [bp + 0x8]          ; 0x493c
     mov ax, word [es:di]             ; 0x493f
     add di, byte 2                   ; 0x4942
-    test byte [bp - 0x000b], data_0002 ; 0x4945
+    test byte [bp - 0x000b], 2       ; 0x4945
     je short loc_4953                ; 0x4949
     mov dx, word [es:di]             ; 0x494b
     add di, byte 2                   ; 0x494e

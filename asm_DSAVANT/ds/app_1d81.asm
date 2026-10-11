@@ -12,7 +12,7 @@ app_1d81: ; Aztec csav frame=0x003a
     call loc_3b96                    ; 0x1d9c
     add sp, byte 6                   ; 0x1d9f
     mov ax, word [bp + 0x4]          ; 0x1da2
-    mov cx, data_0002                ; 0x1da5
+    mov cx, 2                        ; 0x1da5
     cwd                              ; 0x1da8
     idiv cx                          ; 0x1da9
     mov ax, dx                       ; 0x1dab
@@ -21,7 +21,7 @@ app_1d81: ; Aztec csav frame=0x003a
     add ax, strict word 5            ; 0x1db2
     mov word [bp - 0x000a], ax       ; 0x1db5
     mov ax, word [bp + 0x4]          ; 0x1db8
-    mov cx, data_0002                ; 0x1dbb
+    mov cx, 2                        ; 0x1dbb
     cwd                              ; 0x1dbe
     idiv cx                          ; 0x1dbf
     mov cx, 0x2d                     ; 0x1dc1

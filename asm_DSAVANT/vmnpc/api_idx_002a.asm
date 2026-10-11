@@ -76,7 +76,7 @@ loc_85f9:
     push ax                          ; 0x8606
     mov ax, 0x248                    ; 0x8607
     imul word [bp + 0x4]             ; 0x860a
-    add ax, word [data_9136]         ; 0x860d
+    add ax, word [dseg_9136]         ; 0x860d
     mov bx, ax                       ; 0x8611
     mov al, byte [bx + 0x5db2]       ; 0x8613
     cbw                              ; 0x8617
@@ -88,7 +88,7 @@ loc_85f9:
     mov ax, 0x248                    ; 0x8623
     imul word [bp + 0x4]             ; 0x8626
     mov cx, ax                       ; 0x8629
-    add ax, word [data_9136]         ; 0x862b
+    add ax, word [dseg_9136]         ; 0x862b
     mov bx, ax                       ; 0x862f
     pop ax                           ; 0x8631
     mov byte [bx + 0x5db2], al       ; 0x8632
@@ -96,7 +96,7 @@ loc_85f9:
     push ax                          ; 0x8639
     mov ax, 0xff9c                   ; 0x863a
     push ax                          ; 0x863d
-    mov al, byte [data_91c7]         ; 0x863e
+    mov al, byte [dseg_91c7]         ; 0x863e
     sub ah, ah                       ; 0x8641
     mov bx, ax                       ; 0x8643
     mov al, byte [bx - 0x7622]       ; 0x8645
@@ -106,7 +106,7 @@ loc_85f9:
     db 0xe8, 0x71, 0x31 ; call 0xb7c2
     add sp, byte 6                   ; 0x8651
     push ax                          ; 0x8654
-    mov al, byte [data_91c7]         ; 0x8655
+    mov al, byte [dseg_91c7]         ; 0x8655
     sub ah, ah                       ; 0x8658
     mov bx, ax                       ; 0x865a
     pop ax                           ; 0x865c

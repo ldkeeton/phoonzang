@@ -1,7 +1,7 @@
 api_idx_0002_6:
     mov ax, 0xfffe                   ; 0x094a
     call ds_dispatch_f40b            ; 0x094d
-    cmp word [data_91b8], byte 0xff  ; 0x0950
+    cmp word [dseg_91b8], byte 0xff  ; 0x0950
     jne short @..api_idx_0002_6.l1   ; 0x0955
     mov ax, 0                        ; 0x0957
     ret                              ; 0x095a
@@ -23,7 +23,7 @@ api_idx_0002_6:
     jne short @..api_idx_0002_6.l2   ; 0x097b
     mov ax, 1                        ; 0x097d
 @..api_idx_0002_6.l2:
-    or word [data_91b8], ax          ; 0x0980
+    or word [dseg_91b8], ax          ; 0x0980
 @..api_idx_0002_6.l3:
-    mov ax, word [data_91b8]         ; 0x0984
+    mov ax, word [dseg_91b8]         ; 0x0984
     ret                              ; 0x0987

@@ -1,14 +1,14 @@
 app_29f1: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x29f1
     call aztec_csav                  ; 0x29f4
-    mov ax, word [data_598e]         ; 0x29f7
+    mov ax, word [bss_598e]          ; 0x29f7
     cmp ax, word [bp + 0x4]          ; 0x29fa
     je short @..app_29f1.l2          ; 0x29fd
     mov ax, 1                        ; 0x29ff
     push ax                          ; 0x2a02
     call loc_415b                    ; 0x2a03
     pop cx                           ; 0x2a06
-    cmp word [data_598e], byte 0xff  ; 0x2a07
+    cmp word [bss_598e], byte 0xff   ; 0x2a07
     je short @..app_29f1.l1          ; 0x2a0c
     mov ax, 0x10                     ; 0x2a0e
     push ax                          ; 0x2a11
@@ -16,7 +16,7 @@ app_29f1: ; Aztec csav frame=0x0000
     pop cx                           ; 0x2a15
 @..app_29f1.l1:
     mov ax, word [bp + 0x4]          ; 0x2a16
-    mov word [data_598e], ax         ; 0x2a19
+    mov word [bss_598e], ax          ; 0x2a19
     mov ax, 0                        ; 0x2a1c
     push ax                          ; 0x2a1f
     mov ax, 0x10                     ; 0x2a20

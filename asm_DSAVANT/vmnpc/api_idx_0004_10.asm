@@ -18,7 +18,7 @@ api_idx_0004_10:
     je short @..api_idx_0004_10.l1   ; 0x3abb
     jmp near @..api_idx_0004_10.l5   ; 0x3abd
 @..api_idx_0004_10.l1:
-    mov ax, word [data_904e]         ; 0x3ac0
+    mov ax, word [dseg_904e]         ; 0x3ac0
     mov cx, 0x100                    ; 0x3ac3
     cwd                              ; 0x3ac6
     idiv cx                          ; 0x3ac7
@@ -30,7 +30,7 @@ api_idx_0004_10:
     cmp byte [bx + 0x624], 1         ; 0x3ad6
     jne short @..api_idx_0004_10.l2  ; 0x3adb
     call 0xceb1                      ; 0x3add
-    mov word [data_9650], ax         ; 0x3ae0
+    mov word [dseg_9650], ax         ; 0x3ae0
     cmp ax, strict word 0xffff       ; 0x3ae3
     jne short @..api_idx_0004_10.l2  ; 0x3ae6
     mov word [bp - 0x0002], 0xffff   ; 0x3ae8
@@ -59,7 +59,7 @@ api_idx_0004_10:
     mov bx, cx                       ; 0x3b20
     pop ax                           ; 0x3b22
     sub word [bx + 0x5c1c], ax       ; 0x3b23
-    push word [data_9650]            ; 0x3b27
+    push word [dseg_9650]            ; 0x3b27
     push word [bp - 0x0004]          ; 0x3b2b
     push word [bp - 0x0002]          ; 0x3b2e
     push word [bp + 0x4]             ; 0x3b31

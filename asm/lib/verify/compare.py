@@ -4,6 +4,22 @@ Each candidate mnemonic is round-trip verified at its original offset.
 Lines that don't reassemble to the exact original bytes are kept as
 ``db`` with a comment.  Data blocks are grouped under block headers
 when a classification bitmap is provided.
+
+Address spaces
+--------------
+See ``lib.format`` for the F/L/DATA/PSP model.  Within this module:
+
+* ``label_map`` is F-keyed and holds code labels (and emitted ``data_``
+  aliases for the data namespace).
+* ``data_labels`` is the dedicated data namespace used for absolute memory
+  displacements; a displacement is only drawn from here, never from the
+  code map.
+* ``immediate_labels`` is the sidecar namespace for proven address
+  immediates.
+* A C/compiler-recovered routine (``c_overrides``) owns exactly its
+  original ``length`` bytes.  Its split range and its replacement span are
+  both capped there so following non-C data (strings, jump tables, lookup
+  tables) is not absorbed and mis-decoded as pseudo-instructions.
 """
 
 import os
@@ -415,7 +431,7 @@ def _detect_file_format(raw_bytes):
     return None
 
 
-def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, local_labels=None, exact_bytes=False, foreign_label_map=None, immediate_labels=None):
+def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map, local_labels=None, exact_bytes=False, foreign_label_map=None, immediate_labels=None, data_labels=None, mem_symbols=None, mem_equ=None, image_base=0):
     """Build mnem/db_with_comment/db records for a code-like block."""
     from lib.format import format_instruction
 
@@ -439,7 +455,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                 })
             continue
 
-        nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels)
+        nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels, data_labels=data_labels, mem_symbols=mem_symbols)
 
         if nasm_text is None:
             for i, b in enumerate(bts):
@@ -451,25 +467,34 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                 })
             continue
 
-        built = micro_assemble(nasm_text, insn.address, label_map, local_labels, immediate_labels=immediate_labels)
+        built = micro_assemble(nasm_text, insn.address, label_map, local_labels, immediate_labels=immediate_labels, mem_equ=mem_equ, image_base=image_base)
         ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
         if not ok and not exact_bytes and built:
             ok = is_semantically_equivalent(bts, built[:len(bts)], insn.address)
         if ok:
             new_text = None
-            if label_map is not None:
+            names = data_labels if data_labels is not None else label_map
+            if names is not None:
                 for op in insn.operands:
                     if op.type == CS_OP_MEM and op.mem.base == 0 and op.mem.index == 0:
                         addr = op.mem.disp & 0xFFFF
-                        if addr != 0 and addr not in label_map:
-                            label_map[addr] = f'data_{addr:04x}'
-                            data_added += 1
-                            clear_assemble_cache()
-                            new_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels)
-                            if new_text:
-                                rebuilt = micro_assemble(new_text, insn.address, label_map, local_labels, immediate_labels=immediate_labels)
-                                if rebuilt and len(built) >= len(bts) and rebuilt[:len(bts)] == bts:
-                                    nasm_text = new_text
+                        if addr == 0 or addr in names:
+                            continue
+                        if label_map is not None and addr in label_map:
+                            # A code label owns this offset; a data-space
+                            # alias would be undefined.
+                            continue
+                        dname = f'data_{addr:04x}'
+                        names[addr] = dname
+                        if label_map is not None and names is not label_map:
+                            label_map[addr] = dname
+                        data_added += 1
+                        clear_assemble_cache()
+                        new_text = format_instruction(insn, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels, data_labels=names, mem_symbols=mem_symbols)
+                        if new_text:
+                            rebuilt = micro_assemble(new_text, insn.address, label_map, local_labels, immediate_labels=immediate_labels, mem_equ=mem_equ, image_base=image_base)
+                            if rebuilt and len(built) >= len(bts) and rebuilt[:len(bts)] == bts:
+                                nasm_text = new_text
             rec = {
                 'type': 'mnem',
                 'text': nasm_text,
@@ -497,7 +522,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
     return records
 
 
-def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None, immediate_labels=None, hard_data=None):
+def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None, immediate_labels=None, hard_data=None, data_labels=None, mem_symbols=None, mem_equ=None, image_base=0):
     """Replace code-like data_block records with inline records;
     annotate jump tables and known file formats on the rest."""
     new_records = []
@@ -635,7 +660,10 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                             safe_insns, raw[:safe_end_offset], start,
                             binary_data, label_map, local_labels, exact_bytes=True,
                             foreign_label_map=foreign_label_map,
-                            immediate_labels=immediate_labels)
+                            immediate_labels=immediate_labels,
+                            data_labels=data_labels,
+                            mem_symbols=mem_symbols, mem_equ=mem_equ,
+                            image_base=image_base)
                         if inline:
                             partial_blocks += 1
                             if trace is not None:
@@ -661,7 +689,10 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
             if all_decoded or (0 < gap <= 3):
                 inline = _generate_inline_code(insns, raw, start, binary_data, label_map, local_labels, exact_bytes=True,
                                                foreign_label_map=foreign_label_map,
-                                               immediate_labels=immediate_labels)
+                                               immediate_labels=immediate_labels,
+                                               data_labels=data_labels,
+                                               mem_symbols=mem_symbols, mem_equ=mem_equ,
+                                               image_base=image_base)
                 if inline:
                     promoted_blocks += 1
                     promoted_mnemonics += sum(1 for r in inline if r['type'] == 'mnem')
@@ -988,7 +1019,8 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
 
 def _rewrite_jump_dispatchers(records, disp_labels, start_offset,
                               label_map, local_labels, foreign_label_map,
-                              immediate_labels):
+                              immediate_labels, data_labels=None,
+                              mem_symbols=None, mem_equ=None):
     """Rewrite switch dispatchers to reference the emitted table label.
 
     Only applied to mnemonics whose CS-relative displacement resolves to an
@@ -1014,6 +1046,7 @@ def _rewrite_jump_dispatchers(records, disp_labels, start_offset,
         text = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
             immediate_labels=immediate_labels, disp_labels=disp_labels,
+            data_labels=data_labels, mem_symbols=mem_symbols,
         )
         if not text:
             continue
@@ -1023,6 +1056,7 @@ def _rewrite_jump_dispatchers(records, disp_labels, start_offset,
             foreign_label_map=foreign_label_map,
             immediate_labels=immediate_labels,
             disp_labels=disp_labels, image_base=start_offset,
+            mem_equ=mem_equ,
         )
         if built and len(built) >= len(original) and built[:len(original)] == original:
             rec['text'] = text
@@ -1327,8 +1361,15 @@ def _local_branch_targets(branch_targets, owners, edge_sources,
     return local
 
 
-def _compute_local_labels(local_targets, owners, function_roots, label_map):
-    """Return local assembly names for branch targets with unique owners."""
+def _compute_local_labels(local_targets, owners, function_roots, label_map,
+                          fragment_names=None):
+    """Return local assembly names for branch targets with unique owners.
+
+    Owners are normally scoped by their function-root name.  A root without a
+    friendly name (for example a bare ``loc_`` helper that is a call target)
+    only gets scoped labels when its own label is being split into a fragment,
+    so its locals read as ``@..loc_4be6.l1`` inside ``loc_4be6.asm``.
+    """
     local_labels = {}
     named_counts = {}
     generic_targets = []
@@ -1340,7 +1381,12 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map):
             continue
         owner = next(iter(owner_set))
         name = (function_roots or {}).get(owner)
-        if name and not name.startswith(('loc_', 'data_')):
+        if not name or name.startswith(('loc_', 'data_')):
+            candidate = (label_map or {}).get(owner)
+            if (fragment_names and isinstance(candidate, str)
+                    and candidate in fragment_names):
+                name = candidate
+        if name and not name.startswith('data_'):
             named_counts[owner] = named_counts.get(owner, 0) + 1
             local_labels[off] = f'@..{name}.l{named_counts[owner]}'
         else:
@@ -1430,6 +1476,187 @@ def _count_bare_addrs(records):
     return bare_mem, bare_call, bare_dbc
 
 
+def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset):
+    """Choose a segment-correct symbol for every absolute memory operand.
+
+    Returns ``(mem_symbols, mem_equ)`` where ``mem_symbols`` maps
+    ``(insn.address, operand_index)`` to the rendered effective address and
+    ``mem_equ`` maps each newly introduced symbol name to the value it must
+    ``equ``.  Segments come from ``lib.segdataflow``:
+
+    * **LOAD** (CS) - the displacement is a load-image offset; reuse a code
+      label at ``disp + IMAGE_BASE`` if one exists, else create ``cseg_<file>``,
+      and render ``name - IMAGE_BASE``.
+    * **DATA** (DS/SS) - ``dseg_<off>`` when file-backed, ``bss_<off>`` past the
+      BSS boundary.
+    * **PSP** - ``psp_<field>`` for catalogued fields, else ``psp_<off>``.
+    * **UNKNOWN** - left to the ``data_`` fallback (nothing emitted here).
+    """
+    if segment_flow is None:
+        return {}, {}
+    from lib.segdataflow import LOAD, DATA, PSP
+    from lib.segments import psp_field
+
+    symbols = {}
+    equ = {}
+    boundary = segments.bss_boundary if segments is not None else None
+    for insn in insns:
+        for idx, op in enumerate(insn.operands):
+            if (op.type != CS_OP_MEM or op.mem.base or op.mem.index):
+                continue
+            addr = op.mem.disp & 0xFFFF
+            if addr == 0:
+                continue
+            _, space = segment_flow.effective_segment(insn, op)
+            if space == LOAD:
+                file_off = addr + start_offset
+                name = (label_map or {}).get(file_off)
+                if name is None:
+                    name = f'cseg_{file_off:04x}'
+                    equ.setdefault(name, file_off)
+                symbols[(insn.address, idx)] = f'{name} - IMAGE_BASE'
+            elif space == PSP:
+                name = psp_field(addr) or f'psp_{addr:04x}'
+                equ.setdefault(name, addr)
+                symbols[(insn.address, idx)] = name
+            elif space == DATA:
+                prefix = 'bss' if (boundary is not None and addr >= boundary) else 'dseg'
+                name = f'{prefix}_{addr:04x}'
+                equ.setdefault(name, addr)
+                symbols[(insn.address, idx)] = name
+    return symbols, equ
+
+
+def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
+                         start_offset):
+    """Symbols for immediates proven to point into a known segment.
+
+    Uses :func:`lib.segdataflow.immediate_pointer_spaces` and returns entries
+    keyed the same way as :func:`_resolve_mem_symbols`, so both share one
+    ``mem_symbols`` map.
+    """
+    if segment_flow is None:
+        return {}
+    from lib.segdataflow import immediate_pointer_spaces, LOAD, DATA, PSP
+    from lib.segments import psp_field
+
+    proven = immediate_pointer_spaces(insns, segment_flow)
+    by_addr = {insn.address: insn for insn in insns}
+    boundary = segments.bss_boundary if segments is not None else None
+    file_size = segments.file_size if segments is not None else 0
+    result = {}
+    for (addr, idx), space in proven.items():
+        insn = by_addr.get(addr)
+        if insn is None or idx >= len(insn.operands):
+            continue
+        value = insn.operands[idx].imm & 0xFFFF
+        if value == 0:
+            continue
+        if space == LOAD:
+            file_off = value + start_offset
+            if not 0 <= file_off < file_size:
+                continue
+            name = (label_map or {}).get(file_off)
+            if name is None:
+                name = f'cseg_{file_off:04x}'
+                mem_equ.setdefault(name, file_off)
+            result[(addr, idx)] = f'{name} - IMAGE_BASE'
+        elif space == PSP:
+            name = psp_field(value) or f'psp_{value:04x}'
+            mem_equ.setdefault(name, value)
+            result[(addr, idx)] = name
+        elif space == DATA:
+            prefix = 'bss' if (boundary is not None and value >= boundary) else 'dseg'
+            name = f'{prefix}_{value:04x}'
+            mem_equ.setdefault(name, value)
+            result[(addr, idx)] = name
+    return result
+
+
+def _build_address_records(insns, mem_symbols, mem_equ, segment_flow,
+                           label_map, start_offset, data_labels=None,
+                           reloc_targets=None, immediate_labels=None):
+    """Summarize the Phase 4 resolution as inventory records (Phase 5/6).
+
+    Each record names the symbol, its value, the space/kind/confidence it
+    belongs to, and every instruction load address that references it.
+    Segment-resolved operands are ``strong``; symbols reached by relative
+    flow, MZ relocation, or an explicit sidecar assertion are ``certain``;
+    plausible but unresolved ``data_`` names are ``candidate`` and are
+    reported, never asserted.
+    """
+    from lib.inventory import classify, CERTAIN
+    from lib.segdataflow import immediate_pointer_spaces
+
+    proven_immediates = (
+        immediate_pointer_spaces(insns, segment_flow)
+        if segment_flow is not None else set())
+    label_value = {}
+    for off, label in (label_map or {}).items():
+        if isinstance(label, str):
+            label_value.setdefault(label, off)
+
+    suffix = ' - IMAGE_BASE'
+    records = {}
+    for insn in insns:
+        for idx in range(len(insn.operands)):
+            key = (insn.address, idx)
+            rendered = mem_symbols.get(key)
+            if rendered is None:
+                continue
+            name = rendered[:-len(suffix)] if rendered.endswith(suffix) else rendered
+            value = mem_equ.get(name)
+            if value is None:
+                value = label_value.get(name)
+            if value is None:
+                continue
+            space, kind, source, confidence = classify(name)
+            record = records.setdefault(name, {
+                'name': name,
+                'value': value,
+                'space': space,
+                'kind': kind,
+                'source': source,
+                'confidence': confidence,
+                'referenced_by': [],
+            })
+            if key in proven_immediates:
+                record['source'] = 'immediate'
+            record['referenced_by'].append(insn.address)
+
+    reloc_targets = reloc_targets or set()
+    for addr, name in (data_labels or {}).items():
+        if name in records:
+            continue
+        if name.startswith('data_') and addr in reloc_targets:
+            space, kind, source, confidence = 'ds', 'data', 'relocation', CERTAIN
+        else:
+            space, kind, source, confidence = classify(name)
+        records[name] = {
+            'name': name,
+            'value': addr,
+            'space': space,
+            'kind': kind,
+            'source': source,
+            'confidence': confidence,
+            'referenced_by': [],
+        }
+
+    for addr, name in (immediate_labels or {}).items():
+        if name in records:
+            continue
+        records[name] = {
+            'name': name,
+            'value': addr,
+            'space': 'unknown',
+            'kind': 'candidate',
+            'source': 'sidecar',
+            'confidence': CERTAIN,
+            'referenced_by': [],
+        }
+    return sorted(records.values(), key=lambda item: (item['value'], item['name']))
+
+
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False, show_offsets=True,
            structs=None, asm_dir=None, cascade_promoted=None,
@@ -1438,7 +1665,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
            function_roots=None, branch_targets=None, branch_edges=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None,
-           jump_tables=None, jump_table_overrides=None):
+           jump_tables=None, jump_table_overrides=None,
+           segment_flow=None, segments=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -1545,8 +1773,25 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     local_targets = _local_branch_targets(
         branch_targets, owners, edge_sources, roots,
     )
+    c_override_lengths = {}
+    if c_overrides:
+        override_name_to_addr = {}
+        for off, nm in label_map.items():
+            if isinstance(nm, str):
+                override_name_to_addr.setdefault(nm, off)
+        for label, override in c_overrides.items():
+            off = override_name_to_addr.get(label)
+            length = override.get('length')
+            if off is not None and length:
+                c_override_lengths[off] = length
+
+    split_ranges = _select_split_ranges(
+        label_map, split_functions, func_boundaries, binary_size=total,
+        c_override_lengths=c_override_lengths,
+    )
+    fragment_names = {range_name for _, _, range_name in split_ranges}
     local_labels = _compute_local_labels(
-        local_targets, owners, roots, label_map,
+        local_targets, owners, roots, label_map, fragment_names,
     )
     local_labels = {
         off: label for off, label in local_labels.items()
@@ -1573,13 +1818,23 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         # raw-data bytes or at an alternate instruction boundary.
         known_addrs |= local_labels.keys()
 
+    # Segment-aware symbols for absolute memory operands (Phase 4).  Operands
+    # resolved here are rendered from the correct namespace and are excluded
+    # from the generic ``data_`` fallback below.
+    mem_symbols, mem_equ = _resolve_mem_symbols(
+        insns, segment_flow, segments, label_map, start_offset)
+    mem_symbols.update(_resolve_imm_symbols(
+        insns, segment_flow, segments, label_map, mem_equ, start_offset))
+
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
     data_refs = set()
     if reloc_targets:
         data_refs.update(reloc_targets)
     for insn in insns:
-        for op in insn.operands:
+        for idx, op in enumerate(insn.operands):
             if op.type == CS_OP_MEM and op.mem.base == 0 and op.mem.index == 0:
+                if (insn.address, idx) in mem_symbols:
+                    continue
                 addr = op.mem.disp & 0xFFFF
                 if addr != 0:
                     data_refs.add(addr)
@@ -1601,16 +1856,27 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                     data_refs.add(val)
         else:
             i += 1
+    # A data reference is only symbolized when its data-space name is actually
+    # emitted.  When a code label already owns the same file offset the two
+    # spaces collide; emitting the data name too would be an undefined symbol,
+    # and reusing the code label would conflate the spaces.  Fall back to a raw
+    # displacement in that case.
     data_labels = {}
     for addr in sorted(data_refs):
         if addr == 0:
             continue
         dname = f'data_{addr:04x}'
+        if label_map is None:
+            data_labels[addr] = dname
+            continue
+        if addr in label_map:
+            if label_map[addr] == dname:
+                data_labels[addr] = dname
+            continue
+        if code_targets is not None and addr in code_targets:
+            continue
+        label_map[addr] = dname
         data_labels[addr] = dname
-        if label_map is not None and addr not in label_map:
-            if code_targets is not None and addr in code_targets:
-                continue
-            label_map[addr] = dname
 
     # ── Switch tables: merge auto-detection with sidecar overrides ──────────
     table_specs = _merge_jump_table_specs(
@@ -1688,10 +1954,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             )
 
             bts = binary_data[off:insn_end]
-            nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map, immediate_labels=immediate_labels)
+            nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map, immediate_labels=immediate_labels, data_labels=data_labels, mem_symbols=mem_symbols)
 
             if nasm_text:
-                built = micro_assemble(nasm_text, off, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels)
+                built = micro_assemble(nasm_text, off, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels, mem_equ=mem_equ, image_base=start_offset)
                 exact_here = exact_bytes
                 ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
                 if not ok and not exact_here and built:
@@ -1744,7 +2010,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     records = _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes, bitmap, carve_1, trace, local_labels,
                                        foreign_label_map=foreign_label_map,
                                        immediate_labels=immediate_labels,
-                                       hard_data=hard_data)
+                                       hard_data=hard_data,
+                                       data_labels=data_labels,
+                                       mem_symbols=mem_symbols, mem_equ=mem_equ,
+                                       image_base=start_offset)
 
     # Data-block promotion can reveal instructions after the first local-label
     # pass. Give their in-binary direct-flow destinations symbols too, then
@@ -1795,7 +2064,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 label_map[target] = f'loc_{target:04x}'
         formatted = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels,
+            immediate_labels=immediate_labels, data_labels=data_labels,
+            mem_symbols=mem_symbols,
         )
         if formatted is not None:
             rec['text'] = formatted
@@ -1818,7 +2088,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if disp_labels:
             records = _rewrite_jump_dispatchers(
                 records, disp_labels, start_offset, label_map, local_labels,
-                foreign_label_map, immediate_labels,
+                foreign_label_map, immediate_labels, data_labels=data_labels,
+                mem_symbols=mem_symbols, mem_equ=mem_equ,
             )
 
     if trace is not None and trace.watched_addresses:
@@ -1875,6 +2146,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         records = _apply_c_overrides(
             records, c_overrides, binary_data, label_map, local_labels,
             foreign_label_map, immediate_labels, exact_bytes=exact_bytes,
+            data_labels=data_labels,
         )
 
     _annotate_interrupts(records)
@@ -1905,9 +2177,6 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
-    split_ranges = _select_split_ranges(
-        label_map, split_functions, func_boundaries, binary_size=total,
-    )
     split_ranges = _extend_split_ranges_with_local_tails(split_ranges, records)
 
     if trace is not None and trace.watched_addresses:
@@ -1935,7 +2204,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         records, start_offset, binary_data, label_map,
         show_offsets=show_offsets, consumer_inc=consumer_inc,
         immediate_labels=immediate_labels, split_ranges=split_ranges,
-        split_dir=name,
+        split_dir=name, mem_equ=mem_equ, image_base=start_offset,
     )
     t6 = time.perf_counter()
 
@@ -1977,21 +2246,15 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             name: [start, end] for start, end, name in split_ranges
             if isinstance(name, str) and name.startswith('aztec_')
         },
-        # Jump-table labels that sit inside a fragment the debug hot loop
-        # (resplice_c) regenerates from C: they must be re-addable after the
-        # fragment is rewritten.  They are kept out of ``label_map`` so the
-        # exported symbols and consumer foreign-label includes stay clean.
-        'resplice_labels': {
-            addr: lbl for lbl, addr in synthesized.items()
-            if any(start < addr < end
-                   for start, end, rname in split_ranges
-                   if isinstance(rname, str) and rname.startswith('aztec_'))
-        },
         'aztec_labels': (
             sum(1 for n in label_map.values()
                 if isinstance(n, str) and n.startswith('aztec_'))
             if label_map else 0
         ),
+        'address_records': _build_address_records(
+            insns, mem_symbols, mem_equ, segment_flow, label_map, start_offset,
+            data_labels=data_labels, reloc_targets=reloc_targets,
+            immediate_labels=immediate_labels),
         'status': 'OK',
         'timing_func_boundaries': t1 - t0,
         'timing_local_labels': t2 - t1,
@@ -2003,7 +2266,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
 
 def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
-                        immediate_labels, exact_bytes=False):
+                        immediate_labels, exact_bytes=False, data_labels=None):
     """Disassemble compiler-produced code into emission records."""
     from lib.format import format_instruction
     md = Cs(CS_ARCH_X86, CS_MODE_16)
@@ -2025,7 +2288,7 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
         bts = data[off:off + insn.size]
         nasm_text = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels)
+            immediate_labels=immediate_labels, data_labels=data_labels)
         if nasm_text:
             built = micro_assemble(
                 nasm_text, insn.address, label_map, local_labels,
@@ -2070,7 +2333,7 @@ def _merge_label_records(new_records, label_records):
 
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        local_labels, foreign_label_map, immediate_labels,
-                       exact_bytes=False):
+                       exact_bytes=False, data_labels=None):
     """Replace disassembled records with code compiled from C.
 
     ``c_overrides`` maps a function label to ``{'code': bytes,
@@ -2110,16 +2373,37 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                 chunk = chunk + bytes(n - len(chunk))
             compiled[off:off + n] = chunk
 
-        # Extend to the end of whichever original record the routine ends
-        # inside, then take any uncovered bytes (local tails, alignment) from
-        # the original image.
+        # The C routine owns exactly *length* bytes: [start, start+length) is
+        # replaced and nothing more.  Previously the replacement was extended
+        # to the end of whichever record the routine ended inside, which
+        # swallowed following non-C data (strings, jump tables, lookups) and
+        # re-decoded it as garbage pseudo-instructions, misplacing any label
+        # (e.g. a switch table) that lived past the true routine end.
         end = start + length
-        for rec in records:
+        for index, rec in enumerate(records):
             rec_start, rec_end = _record_span(rec)
             if rec['type'] == 'label':
                 continue
-            if rec_start < end and rec_end > end:
-                end = rec_end
+            if rec_start < end < rec_end:
+                if rec['type'] == 'data_block':
+                    # Split the aggregate data block at the routine boundary so
+                    # the replacement covers only the routine's own bytes.
+                    prefix = {
+                        **rec, 'end': end,
+                        'bytes': [f'0x{b:02x}'
+                                  for b in binary_data[rec_start:end]],
+                    }
+                    suffix = {
+                        **rec, 'start': end,
+                        'bytes': [f'0x{b:02x}'
+                                  for b in binary_data[end:rec_end]],
+                    }
+                    records[index:index + 1] = [prefix, suffix]
+                else:
+                    # A single instruction/record straddles the boundary; keep
+                    # the previous behaviour and absorb the whole record.
+                    end = rec_end
+                break
         final = bytearray(binary_data[start:end])
         if len(final) < length:
             final.extend(b'\x90' * (length - len(final)))
@@ -2128,7 +2412,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             final[len(compiled):length] = b'\x90' * (length - len(compiled))
         new_records = _c_bytes_to_records(
             bytes(final), start, label_map, local_labels, foreign_label_map,
-            immediate_labels, exact_bytes=exact_bytes)
+            immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels)
         labels_in = [r for r in records
                      if r['type'] == 'label' and start < r['offset'] < end]
         replacements.append((start, end,
@@ -2180,15 +2464,20 @@ def _record_span(rec):
 
 
 def _select_split_ranges(label_map, split_functions, func_boundaries=None,
-                         binary_size=None):
+                         binary_size=None, c_override_lengths=None):
     """Select named function boundaries, ending each at the next split root.
 
     Starts come straight from the label offsets so a function's file always
     begins at its real entry.  Deriving starts from the heuristic boundary
     scan was unreliable: the 512-byte cap truncated long functions and the
     backward push-bp scan pulled starts into the preceding function.
+
+    Functions that have a C override own exactly ``length`` bytes; their split
+    range is capped there so non-C data after the routine stays in the master
+    file instead of being absorbed into the C fragment.
     """
     requested = set(split_functions or ())
+    c_override_lengths = c_override_lengths or {}
     selected = sorted(
         (off, name)
         for off, name in (label_map or {}).items()
@@ -2200,14 +2489,33 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
     ranges = []
     for index, (start, name) in enumerate(selected):
         if index + 1 < len(selected):
-            end = selected[index + 1][0]
+            original_end = selected[index + 1][0]
         else:
-            end = None
+            original_end = None
             if func_boundaries and start in func_boundaries:
-                end = func_boundaries[start][0]
-            if end is None:
-                end = binary_size
+                original_end = func_boundaries[start][0]
+            if original_end is None:
+                original_end = binary_size
+        capped = None
+        if start in c_override_lengths:
+            boundary = start + c_override_lengths[start]
+            if original_end is None or boundary < original_end:
+                capped = boundary
+        end = capped if capped is not None else original_end
+        if end is None or end <= start:
+            continue
         ranges.append((start, end, name))
+        # A C routine's fragment ends at its compiled length.  Any real code
+        # that follows it (up to the next split root) is a separate subroutine;
+        # carve it out under its own label instead of dropping it into the
+        # master file.
+        if capped is not None:
+            tail_end = original_end if original_end is not None else binary_size
+            tail_name = (label_map or {}).get(capped)
+            if (isinstance(tail_name, str) and tail_name not in requested
+                    and not tail_name.startswith('data_')
+                    and tail_end is not None and tail_end > capped):
+                ranges.append((capped, tail_end, tail_name))
     return ranges
 
 
@@ -2509,18 +2817,22 @@ def _render_mz_header(header):
 
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
-                  split_dir='ds'):
+                  split_dir='ds', mem_equ=None, image_base=None):
     """Render the master NASM source and any generated function includes."""
     out = ['org 0', 'bits 16']
     if consumer_inc:
         out.append(f'%include "{consumer_inc}"')
         out.append('')
 
-    if any(rec['type'] == 'jump_table' for rec in records):
-        # Switch-table entries are emitted as `label - IMAGE_BASE`, where the
-        # base is the binary's load offset (the MZ header size for DS.EXE).
+    base = start_offset if image_base is None else image_base
+    uses_image_base = base > 0 or any(
+        'IMAGE_BASE' in rec.get('text', '') for rec in records
+    )
+    if uses_image_base:
+        # ``label - IMAGE_BASE`` renders embedded CS pointers as their load
+        # offset; IMAGE_BASE is the binary's load offset (header size for MZ).
         out.append('%ifndef IMAGE_BASE')
-        out.append(f'IMAGE_BASE equ 0x{start_offset:04x}')
+        out.append(f'IMAGE_BASE equ 0x{base:04x}')
         out.append('%endif')
         out.append('')
 
@@ -2550,7 +2862,12 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             name = immediate_labels[addr]
             if not label_map or addr not in label_map or label_map[addr] != name:
                 out.append(f'{name} equ 0x{addr:04x}')
-    if label_map or immediate_labels:
+    if mem_equ:
+        # Segment-resolved operand symbols (Phase 4): cseg_ (code segment file
+        # offset), dseg_/bss_ (data segment offset), psp_ (PSP field).
+        for name in sorted(mem_equ, key=lambda n: (mem_equ[n], n)):
+            out.append(f'{name} equ 0x{mem_equ[name]:04x}')
+    if label_map or immediate_labels or mem_equ:
         out.append('')
 
     main_records, split_records = _partition_function_records(

@@ -40,7 +40,7 @@ api_idx_000e_2:
     shl ax, 1                        ; 0x2199
     mov bx, ax                       ; 0x219b
     mov bx, word [bx - 0x7b7e]       ; 0x219d
-    cmp byte [bx + si + 0x22], data_0002 ; 0x21a1
+    cmp byte [bx + si + 0x22], 2     ; 0x21a1
     je short @..api_idx_000e_2.l3    ; 0x21a5
     cmp byte [bx + si + 0x11], 0     ; 0x21a7
     ja short @..api_idx_000e_2.l3    ; 0x21ab

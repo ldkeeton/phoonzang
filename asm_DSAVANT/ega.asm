@@ -1,72 +1,95 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/data_4540.inc"
+%include "inc/structs/data_3705.inc"
 org 0
 bits 16
-data_01e1 equ 0x01e1
-data_01e5 equ 0x01e5
-data_01e9 equ 0x01e9
-data_01f7 equ 0x01f7
-data_01fb equ 0x01fb
-data_01ff equ 0x01ff
-data_0201 equ 0x0201
-data_0203 equ 0x0203
-data_0205 equ 0x0205
-data_0206 equ 0x0206
-data_020e equ 0x020e
-data_0212 equ 0x0212
-data_0216 equ 0x0216
-data_021a equ 0x021a
-data_021e equ 0x021e
-data_0222 equ 0x0222
-data_0226 equ 0x0226
-data_0227 equ 0x0227
-data_0228 equ 0x0228
-data_027b equ 0x027b
-data_0291 equ 0x0291
-data_0295 equ 0x0295
-data_0297 equ 0x0297
-data_0299 equ 0x0299
-data_0391 equ 0x0391
-data_0a48 equ 0x0a48
-data_11cb equ 0x11cb
-data_11cd equ 0x11cd
-data_148e equ 0x148e
+%ifndef IMAGE_BASE
+IMAGE_BASE equ 0x0000
+%endif
+
 dos_con_loc_1501 equ 0x1501
-data_1bd5 equ 0x1bd5
-data_1bd7 equ 0x1bd7
-data_1bd9 equ 0x1bd9
-data_1bdb equ 0x1bdb
-data_1bdd equ 0x1bdd
-data_1be1 equ 0x1be1
-data_1be3 equ 0x1be3
-data_1be5 equ 0x1be5
-data_1beb equ 0x1beb
-data_1bed equ 0x1bed
-data_1bef equ 0x1bef
-data_1bf1 equ 0x1bf1
-data_1bf3 equ 0x1bf3
-data_1bf5 equ 0x1bf5
-data_1bf7 equ 0x1bf7
-data_1bf9 equ 0x1bf9
-data_1bfb equ 0x1bfb
-data_258d equ 0x258d
-data_258f equ 0x258f
-data_2591 equ 0x2591
-data_2599 equ 0x2599
-data_259b equ 0x259b
-data_259d equ 0x259d
-data_2b02 equ 0x2b02
-data_2b04 equ 0x2b04
-data_2b06 equ 0x2b06
-data_2b08 equ 0x2b08
-data_3296 equ 0x3296
-data_3297 equ 0x3297
 data_36dd equ 0x36dd
 data_3705 equ 0x3705
-data_3b21 equ 0x3b21
-data_3b22 equ 0x3b22
-data_3b34 equ 0x3b34
-data_4540 equ 0x4540
+cseg_01e1 equ 0x01e1
+cseg_01e5 equ 0x01e5
+cseg_01e9 equ 0x01e9
+cseg_01f7 equ 0x01f7
+cseg_01fb equ 0x01fb
+cseg_01ff equ 0x01ff
+cseg_0201 equ 0x0201
+cseg_0203 equ 0x0203
+cseg_0205 equ 0x0205
+cseg_0206 equ 0x0206
+cseg_020e equ 0x020e
+cseg_0212 equ 0x0212
+cseg_0216 equ 0x0216
+cseg_021a equ 0x021a
+cseg_021e equ 0x021e
+cseg_0222 equ 0x0222
+cseg_0226 equ 0x0226
+cseg_0227 equ 0x0227
+cseg_0228 equ 0x0228
+cseg_0229 equ 0x0229
+cseg_0251 equ 0x0251
+cseg_025b equ 0x025b
+cseg_027b equ 0x027b
+cseg_0291 equ 0x0291
+cseg_0295 equ 0x0295
+cseg_0297 equ 0x0297
+cseg_0299 equ 0x0299
+cseg_029b equ 0x029b
+cseg_02c3 equ 0x02c3
+cseg_02d7 equ 0x02d7
+cseg_038f equ 0x038f
+cseg_0391 equ 0x0391
+cseg_0a48 equ 0x0a48
+cseg_10e7 equ 0x10e7
+cseg_11cb equ 0x11cb
+cseg_11cd equ 0x11cd
+cseg_148e equ 0x148e
+cseg_1bd5 equ 0x1bd5
+cseg_1bd7 equ 0x1bd7
+cseg_1bd9 equ 0x1bd9
+cseg_1bdb equ 0x1bdb
+cseg_1bdd equ 0x1bdd
+cseg_1be1 equ 0x1be1
+cseg_1be3 equ 0x1be3
+cseg_1be5 equ 0x1be5
+cseg_1beb equ 0x1beb
+cseg_1bed equ 0x1bed
+cseg_1bef equ 0x1bef
+cseg_1bf1 equ 0x1bf1
+cseg_1bf3 equ 0x1bf3
+cseg_1bf5 equ 0x1bf5
+cseg_1bf7 equ 0x1bf7
+cseg_1bf9 equ 0x1bf9
+cseg_1bfb equ 0x1bfb
+cseg_24fd equ 0x24fd
+dseg_24fd equ 0x24fd
+cseg_257d equ 0x257d
+cseg_258d equ 0x258d
+cseg_258f equ 0x258f
+cseg_2591 equ 0x2591
+cseg_2593 equ 0x2593
+cseg_2599 equ 0x2599
+cseg_259b equ 0x259b
+cseg_259d equ 0x259d
+cseg_2602 equ 0x2602
+cseg_2a02 equ 0x2a02
+cseg_2b02 equ 0x2b02
+cseg_2b04 equ 0x2b04
+cseg_2b06 equ 0x2b06
+cseg_2b08 equ 0x2b08
+cseg_3296 equ 0x3296
+cseg_3297 equ 0x3297
+cseg_36dd equ 0x36dd
+cseg_3705 equ 0x3705
+cseg_3b21 equ 0x3b21
+cseg_3b22 equ 0x3b22
+cseg_3b34 equ 0x3b34
+cseg_3b35 equ 0x3b35
+cseg_4540 equ 0x4540
+cseg_4ab4 equ 0x4ab4
+cseg_4f8b equ 0x4f8b
 
 loc_0000:
     jmp near @..local.l1             ; 0x0000
@@ -328,24 +351,24 @@ loc_503c:
     cmp word [bp - 0x0006], byte 0   ; 0x5087
     je short @..local.l138           ; 0x508b
     mov ax, word [cs:bx]             ; 0x508d
-    add ax, word [cs:data_01e1]      ; 0x5090
+    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x5090
 @..local.l138:
     push ax                          ; 0x5095
     xor ax, ax                       ; 0x5096
     push ax                          ; 0x5098
-    call far [cs:data_020e]          ; 0x5099
+    call far [cs:cseg_020e - IMAGE_BASE] ; 0x5099
     add sp, byte 6                   ; 0x509e
     push word [bp + 0x10]            ; 0x50a1
     push word [bp + 0xe]             ; 0x50a4
-    call far [cs:data_0216]          ; 0x50a7
+    call far [cs:cseg_0216 - IMAGE_BASE] ; 0x50a7
     add sp, byte 4                   ; 0x50ac
     push word [bp + 0x12]            ; 0x50af
     mov bx, word [bp - 0x0004]       ; 0x50b2
     mov ax, word [cs:bx]             ; 0x50b5
-    add ax, word [cs:data_01e1]      ; 0x50b8
+    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x50b8
     push ax                          ; 0x50bd
     push word [bp - 0x0006]          ; 0x50be
-    call far [cs:data_0206]          ; 0x50c1
+    call far [cs:cseg_0206 - IMAGE_BASE] ; 0x50c1
     add sp, byte 6                   ; 0x50c6
 @..local.l139:
     pop di                           ; 0x50c9
@@ -380,9 +403,9 @@ loc_50d1:
     jmp near @..local.l142           ; 0x50fa
 @..local.l141:
     mov word [cs:bx], 0              ; 0x50fd
-    mov cx, word [cs:data_11cb]      ; 0x5102
+    mov cx, word [cs:cseg_11cb - IMAGE_BASE] ; 0x5102
     dec cx                           ; 0x5107
-    mov word [cs:data_11cb], cx      ; 0x5108
+    mov word [cs:cseg_11cb - IMAGE_BASE], cx ; 0x5108
     call loc_4c93                    ; 0x510d
 @..local.l142:
     pop di                           ; 0x5110
@@ -401,7 +424,7 @@ loc_5118:
     push di                          ; 0x511e
     mov ax, ds                       ; 0x511f
     mov es, ax                       ; 0x5121
-    call far [cs:data_021e]          ; 0x5123
+    call far [cs:cseg_021e - IMAGE_BASE] ; 0x5123
     pop di                           ; 0x5128
     pop si                           ; 0x5129
     pop es                           ; 0x512a
@@ -418,7 +441,7 @@ loc_5130:
     push di                          ; 0x5136
     mov ax, ds                       ; 0x5137
     mov es, ax                       ; 0x5139
-    call far [cs:data_0212]          ; 0x513b
+    call far [cs:cseg_0212 - IMAGE_BASE] ; 0x513b
     pop di                           ; 0x5140
     pop si                           ; 0x5141
     pop es                           ; 0x5142
@@ -437,7 +460,7 @@ loc_5148:
     mov es, ax                       ; 0x5151
     push word [bp + 0xe]             ; 0x5153
     push word [bp + 0xc]             ; 0x5156
-    call far [cs:data_0216]          ; 0x5159
+    call far [cs:cseg_0216 - IMAGE_BASE] ; 0x5159
     add sp, byte 4                   ; 0x515e
     pop di                           ; 0x5161
     pop si                           ; 0x5162

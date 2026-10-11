@@ -2,7 +2,7 @@ string_loc_32d3:
     call leaf_loc_331e               ; 0x32d3
     mov ax, word [bp - 0x0002]       ; 0x32d6
     mov word [es:di], ax             ; 0x32d9
-    test byte [bp - 0x000b], data_0002 ; 0x32dc
+    test byte [bp - 0x000b], 2       ; 0x32dc
     je short @..string_loc_32d3.l1   ; 0x32e0
     mov word [es:di + 0x2], 0        ; 0x32e2
 @..string_loc_32d3.l1:
@@ -13,7 +13,7 @@ loc_32eb:
     je short loc_331d                ; 0x32f0
     cmp al, 0x78                     ; 0x32f2
     jne short @..local.l122          ; 0x32f4
-    mov al, data_0030                ; 0x32f6
+    mov al, 0x30                     ; 0x32f6
     call loc_3301                    ; 0x32f8
     mov al, 0x78                     ; 0x32fb
 @..local.l122:

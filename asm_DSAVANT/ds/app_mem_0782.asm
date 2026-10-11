@@ -7,13 +7,13 @@ app_mem_0782: ; Aztec csav frame=0x010a
     mov word [bp - 0x0008], ax       ; 0x078f
     test ax, ax                      ; 0x0792
     jne short @..app_mem_0782.l1     ; 0x0794
-    mov word [data_5216], 1          ; 0x0796
+    mov word [bss_5216], 1           ; 0x0796
     ret                              ; 0x079c
 @..app_mem_0782.l1:
     mov bx, ax                       ; 0x079d
     mov al, byte [bx + 0x5]          ; 0x079f
     sub ah, ah                       ; 0x07a2
-    cmp ax, word [data_5212]         ; 0x07a4
+    cmp ax, word [bss_5212]          ; 0x07a4
     je short @..app_mem_0782.l2      ; 0x07a8
     push ax                          ; 0x07aa
     call app_file_06c6               ; 0x07ab
@@ -62,7 +62,7 @@ app_mem_0782: ; Aztec csav frame=0x010a
     sub ax, word [bp - 0x0002]       ; 0x0817
     sub word [bp - 0x0004], ax       ; 0x081a
     add word [bp - 0x000a], ax       ; 0x081d
-    mov ax, word [data_5212]         ; 0x0820
+    mov ax, word [bss_5212]          ; 0x0820
     inc ax                           ; 0x0823
     push ax                          ; 0x0824
     call app_file_06c6               ; 0x0825
@@ -84,5 +84,5 @@ app_mem_0782: ; Aztec csav frame=0x010a
     push ax                          ; 0x0852
     call string_loc_4002             ; 0x0853
     add sp, byte 4                   ; 0x0856
-    mov word [data_5216], 0          ; 0x0859
+    mov word [bss_5216], 0           ; 0x0859
     ret                              ; 0x085f

@@ -2,49 +2,49 @@ io_loc_2a6a:
     push bp                          ; 0x2a6a
     mov bp, sp                       ; 0x2a6b
     sub sp, byte 0x10                ; 0x2a6d
-    mov ax, word [cs:data_1bed]      ; 0x2a70
+    mov ax, word [cs:cseg_1bed - IMAGE_BASE] ; 0x2a70
     mov bx, 0xc8                     ; 0x2a74
     sub bx, ax                       ; 0x2a77
-    cmp bx, word [cs:data_2591]      ; 0x2a79
+    cmp bx, word [cs:cseg_2591 - IMAGE_BASE] ; 0x2a79
     jb short @..io_loc_2a6a.l1       ; 0x2a7e
-    mov bx, word [cs:data_2591]      ; 0x2a80
+    mov bx, word [cs:cseg_2591 - IMAGE_BASE] ; 0x2a80
 @..io_loc_2a6a.l1:
-    mov word [cs:data_1bf5], bx      ; 0x2a85
+    mov word [cs:cseg_1bf5 - IMAGE_BASE], bx ; 0x2a85
     mov bx, 0x50                     ; 0x2a8a
     mul bx                           ; 0x2a8d
-    mov bx, word [cs:data_1beb]      ; 0x2a8f
+    mov bx, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2a8f
     mov cl, 2                        ; 0x2a94
     shr bx, cl                       ; 0x2a96
     add ax, bx                       ; 0x2a98
-    mov word [cs:data_1bf7], ax      ; 0x2a9a
-    mov ax, word [cs:data_1beb]      ; 0x2a9e
+    mov word [cs:cseg_1bf7 - IMAGE_BASE], ax ; 0x2a9a
+    mov ax, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2a9e
     and ax, strict word 3            ; 0x2aa2
     shl ax, 1                        ; 0x2aa5
-    mov word [cs:data_1bf9], ax      ; 0x2aa7
+    mov word [cs:cseg_1bf9 - IMAGE_BASE], ax ; 0x2aa7
     mov ax, 0x140                    ; 0x2aab
-    mov bx, word [cs:data_1beb]      ; 0x2aae
+    mov bx, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2aae
     sub ax, bx                       ; 0x2ab3
-    cmp ax, word [cs:data_258d]      ; 0x2ab5
+    cmp ax, word [cs:cseg_258d - IMAGE_BASE] ; 0x2ab5
     jb short @..io_loc_2a6a.l2       ; 0x2aba
-    mov ax, word [cs:data_258d]      ; 0x2abc
-    mov word [cs:data_1bfb], 0       ; 0x2ac0
+    mov ax, word [cs:cseg_258d - IMAGE_BASE] ; 0x2abc
+    mov word [cs:cseg_1bfb - IMAGE_BASE], 0 ; 0x2ac0
     jmp short @..io_loc_2a6a.l3      ; 0x2ac7
 @..io_loc_2a6a.l2:
-    mov word [cs:data_1bfb], 0xff    ; 0x2ac9
+    mov word [cs:cseg_1bfb - IMAGE_BASE], 0xff ; 0x2ac9
 @..io_loc_2a6a.l3:
-    mov word [cs:data_1bef], ax      ; 0x2ad0
+    mov word [cs:cseg_1bef - IMAGE_BASE], ax ; 0x2ad0
     add ax, strict word 3            ; 0x2ad4
     mov cl, 2                        ; 0x2ad7
     shr ax, cl                       ; 0x2ad9
-    mov word [cs:data_1bf1], ax      ; 0x2adb
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:data_1bfb], 0
+    mov word [cs:cseg_1bf1 - IMAGE_BASE], ax ; 0x2adb
+    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:cseg_1bfb - IMAGE_BASE], 0
     jne short @..io_loc_2a6a.l4      ; 0x2ae5
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word [cs:data_1bf9], 0
+    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word [cs:cseg_1bf9 - IMAGE_BASE], 0
     je short @..io_loc_2a6a.l4       ; 0x2aed
     inc ax                           ; 0x2aef
 @..io_loc_2a6a.l4:
-    mov word [cs:data_1bf3], ax      ; 0x2af0
-    mov di, word [cs:data_1bd7]      ; 0x2af4
+    mov word [cs:cseg_1bf3 - IMAGE_BASE], ax ; 0x2af0
+    mov di, word [cs:cseg_1bd7 - IMAGE_BASE] ; 0x2af4
     mov ax, cs                       ; 0x2af9
     mov es, ax                       ; 0x2afb
     mov ax, 0xa000                   ; 0x2afd
@@ -67,71 +67,71 @@ io_loc_2a6a:
     mov di, 0x360                    ; 0x2b23
     mov ah, 3                        ; 0x2b26
     call io_loc_2f46                 ; 0x2b28
-    mov ax, word [cs:data_1bdb]      ; 0x2b2b
+    mov ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2b2b
     cmp ax, strict word 0xffff       ; 0x2b2f
     jne short @..io_loc_2a6a.l5      ; 0x2b32
     jmp near @..io_loc_2a6a.l13      ; 0x2b34
 @..io_loc_2a6a.l5:
-    add ax, word [cs:data_1be3]      ; 0x2b37
+    add ax, word [cs:cseg_1be3 - IMAGE_BASE] ; 0x2b37
     dec ax                           ; 0x2b3c
     mov word [bp - 0x0002], ax       ; 0x2b3d
-    mov ax, word [cs:data_1bd9]      ; 0x2b40
+    mov ax, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2b40
     mov cl, 2                        ; 0x2b44
     shr ax, cl                       ; 0x2b46
-    add ax, word [cs:data_1be1]      ; 0x2b48
+    add ax, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2b48
     dec ax                           ; 0x2b4d
     mov word [bp - 0x0004], ax       ; 0x2b4e
-    mov cx, word [cs:data_1beb]      ; 0x2b51
+    mov cx, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2b51
     shr cx, 1                        ; 0x2b56
     shr cx, 1                        ; 0x2b58
-    mov dx, word [cs:data_1bed]      ; 0x2b5a
+    mov dx, word [cs:cseg_1bed - IMAGE_BASE] ; 0x2b5a
     cmp word [bp - 0x0004], cx       ; 0x2b5f
     jb short @..io_loc_2a6a.l6       ; 0x2b62
     cmp word [bp - 0x0002], dx       ; 0x2b64
     jb short @..io_loc_2a6a.l6       ; 0x2b67
-    add cx, word [cs:data_1bf3]      ; 0x2b69
+    add cx, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2b69
     dec cx                           ; 0x2b6e
-    add dx, word [cs:data_1bf5]      ; 0x2b6f
+    add dx, word [cs:cseg_1bf5 - IMAGE_BASE] ; 0x2b6f
     dec dx                           ; 0x2b74
-    mov ax, word [cs:data_1bd9]      ; 0x2b75
+    mov ax, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2b75
     shr ax, 1                        ; 0x2b79
     shr ax, 1                        ; 0x2b7b
     cmp cx, ax                       ; 0x2b7d
     jb short @..io_loc_2a6a.l6       ; 0x2b7f
-    cmp dx, word [cs:data_1bdb]      ; 0x2b81
+    cmp dx, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2b81
     jae short @..io_loc_2a6a.l7      ; 0x2b86
 @..io_loc_2a6a.l6:
-    mov byte [cs:data_259d], 0       ; 0x2b88
+    mov byte [cs:cseg_259d - IMAGE_BASE], 0 ; 0x2b88
     jmp near @..io_loc_2a6a.l13      ; 0x2b8e
 @..io_loc_2a6a.l7:
-    mov byte [cs:data_259d], 1       ; 0x2b91
-    mov cx, word [cs:data_1beb]      ; 0x2b97
+    mov byte [cs:cseg_259d - IMAGE_BASE], 1 ; 0x2b91
+    mov cx, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2b97
     shr cx, 1                        ; 0x2b9c
     shr cx, 1                        ; 0x2b9e
     mov ax, cx                       ; 0x2ba0
-    mov bx, word [cs:data_1bd9]      ; 0x2ba2
+    mov bx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2ba2
     shr bx, 1                        ; 0x2ba7
     shr bx, 1                        ; 0x2ba9
     cmp bx, cx                       ; 0x2bab
     jb short @..io_loc_2a6a.l8       ; 0x2bad
-    mov ax, word [cs:data_1bd9]      ; 0x2baf
+    mov ax, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2baf
     shr ax, 1                        ; 0x2bb3
     shr ax, 1                        ; 0x2bb5
 @..io_loc_2a6a.l8:
     mov word [bp - 0x0006], ax       ; 0x2bb7
-    mov dx, word [cs:data_1bed]      ; 0x2bba
+    mov dx, word [cs:cseg_1bed - IMAGE_BASE] ; 0x2bba
     mov bx, dx                       ; 0x2bbf
-    cmp word [cs:data_1bdb], dx      ; 0x2bc1
+    cmp word [cs:cseg_1bdb - IMAGE_BASE], dx ; 0x2bc1
     jb short @..io_loc_2a6a.l9       ; 0x2bc6
-    mov bx, word [cs:data_1bdb]      ; 0x2bc8
+    mov bx, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2bc8
 @..io_loc_2a6a.l9:
     mov word [bp - 0x0008], bx       ; 0x2bcd
     sub ax, cx                       ; 0x2bd0
     sub bx, dx                       ; 0x2bd2
     mov word [bp - 0x000a], ax       ; 0x2bd4
     mov word [bp - 0x000c], bx       ; 0x2bd7
-    mov cx, word [cs:data_1bf3]      ; 0x2bda
-    mov dx, word [cs:data_1bf5]      ; 0x2bdf
+    mov cx, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2bda
+    mov dx, word [cs:cseg_1bf5 - IMAGE_BASE] ; 0x2bdf
     sub cx, ax                       ; 0x2be4
     mov word [bp - 0x000e], cx       ; 0x2be6
     sub dx, bx                       ; 0x2be9
@@ -157,21 +157,21 @@ io_loc_2a6a:
     mov word [bp - 0x0010], ax       ; 0x2c17
 @..io_loc_2a6a.l11:
     mov ax, word [bp - 0x0008]       ; 0x2c1a
-    sub ax, word [cs:data_1bdb]      ; 0x2c1d
-    mov bx, word [cs:data_1be1]      ; 0x2c22
+    sub ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2c1d
+    mov bx, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2c22
     mul bx                           ; 0x2c27
     add ax, word [bp - 0x0006]       ; 0x2c29
-    mov bx, word [cs:data_1bd9]      ; 0x2c2c
+    mov bx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2c2c
     shr bx, 1                        ; 0x2c31
     shr bx, 1                        ; 0x2c33
     sub ax, bx                       ; 0x2c35
-    add ax, word [cs:data_1bd5]      ; 0x2c37
+    add ax, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2c37
     mov si, ax                       ; 0x2c3c
     mov ax, word [bp - 0x000c]       ; 0x2c3e
-    mov bx, word [cs:data_1bf3]      ; 0x2c41
+    mov bx, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2c41
     mul bx                           ; 0x2c46
     add ax, word [bp - 0x000a]       ; 0x2c48
-    add ax, word [cs:data_1bd7]      ; 0x2c4b
+    add ax, word [cs:cseg_1bd7 - IMAGE_BASE] ; 0x2c4b
     mov di, ax                       ; 0x2c50
     mov ax, cs                       ; 0x2c52
     mov ds, ax                       ; 0x2c54
@@ -204,9 +204,9 @@ io_loc_2a6a:
     mov cx, word [bp - 0x000e]       ; 0x2c92
     rep movsb                        ; 0x2c95
     pop di                           ; 0x2c97
-    add di, word [cs:data_1bf3]      ; 0x2c98
+    add di, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2c98
     pop si                           ; 0x2c9d
-    add si, word [cs:data_1be1]      ; 0x2c9e
+    add si, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2c9e
     pop cx                           ; 0x2ca3
     loop @..io_loc_2a6a.l12          ; 0x2ca4
 @..io_loc_2a6a.l13:
@@ -239,7 +239,7 @@ io_loc_2a6a:
     inc dx                           ; 0x2ce1
     mov al, 0xf                      ; 0x2ce2
     out dx, al                       ; 0x2ce4
-    mov ax, word [cs:data_1bdb]      ; 0x2ce5
+    mov ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2ce5
     cmp ax, strict word 0xffff       ; 0x2ce9
     jne short @..io_loc_2a6a.l14     ; 0x2cec
     jmp near @..io_loc_2a6a.l23      ; 0x2cee
@@ -271,27 +271,27 @@ io_loc_2a6a:
     mov ax, cs                       ; 0x2d24
     mov es, ax                       ; 0x2d26
     mov ds, ax                       ; 0x2d28
-    mov di, 0x24fd                   ; 0x2d2a
+    mov di, cseg_24fd - IMAGE_BASE   ; 0x2d2a
     mov cx, 0x80                     ; 0x2d2d
     mov al, 0xff                     ; 0x2d30
     rep stosb                        ; 0x2d32
-    mov ax, word [cs:data_1be1]      ; 0x2d34
+    mov ax, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2d34
     add ax, strict word 7            ; 0x2d38
     mov cl, 3                        ; 0x2d3b
     shr ax, cl                       ; 0x2d3d
     mov word [bp - 0x0002], ax       ; 0x2d3f
-    cmp byte [cs:data_259d], 0       ; 0x2d42
+    cmp byte [cs:cseg_259d - IMAGE_BASE], 0 ; 0x2d42
     jne short @..io_loc_2a6a.l15     ; 0x2d48
     jmp near @..io_loc_2a6a.l22      ; 0x2d4a
 @..io_loc_2a6a.l15:
     mov ax, word [bp - 0x0008]       ; 0x2d4d
-    sub ax, word [cs:data_1bdb]      ; 0x2d50
+    sub ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2d50
     mov bx, word [bp - 0x0002]       ; 0x2d55
     mul bx                           ; 0x2d58
     mov di, ax                       ; 0x2d5a
     add di, strict word 0x24fd       ; 0x2d5c
     mov ax, word [bp - 0x0006]       ; 0x2d60
-    mov bx, word [cs:data_1bd9]      ; 0x2d63
+    mov bx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2d63
     shr bx, 1                        ; 0x2d68
     shr bx, 1                        ; 0x2d6a
     sub ax, bx                       ; 0x2d6c
@@ -334,7 +334,7 @@ io_loc_2a6a:
 @..io_loc_2a6a.l21:
     push cx                          ; 0x2db4
     push di                          ; 0x2db5
-    mov si, 0x257d                   ; 0x2db6
+    mov si, cseg_257d - IMAGE_BASE   ; 0x2db6
     mov cx, word [bp - 0x0004]       ; 0x2db9
     rep movsb                        ; 0x2dbc
     pop di                           ; 0x2dbe
@@ -344,18 +344,18 @@ io_loc_2a6a:
 @..io_loc_2a6a.l22:
     mov ax, 0xa000                   ; 0x2dc5
     mov es, ax                       ; 0x2dc8
-    mov si, word [cs:data_1bd5]      ; 0x2dca
+    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2dca
     mov ah, 1                        ; 0x2dcf
     call io_loc_2e35                 ; 0x2dd1
-    mov si, word [cs:data_1bd5]      ; 0x2dd4
+    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2dd4
     add si, strict word 0x120        ; 0x2dd9
     mov ah, 2                        ; 0x2ddd
     call io_loc_2e35                 ; 0x2ddf
-    mov si, word [cs:data_1bd5]      ; 0x2de2
+    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2de2
     add si, strict word 0x240        ; 0x2de7
     mov ah, 4                        ; 0x2deb
     call io_loc_2e35                 ; 0x2ded
-    mov si, word [cs:data_1bd5]      ; 0x2df0
+    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2df0
     add si, strict word 0x360        ; 0x2df5
     mov ah, 8                        ; 0x2df9
     call io_loc_2e35                 ; 0x2dfb
@@ -366,19 +366,19 @@ io_loc_2a6a:
     mov al, 0xf                      ; 0x2e05
     out dx, al                       ; 0x2e07
 @..io_loc_2a6a.l23:
-    mov ax, word [cs:data_1bd5]      ; 0x2e08
-    mov bx, word [cs:data_1bd7]      ; 0x2e0c
-    mov word [cs:data_1bd7], ax      ; 0x2e11
-    mov word [cs:data_1bd5], bx      ; 0x2e15
+    mov ax, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2e08
+    mov bx, word [cs:cseg_1bd7 - IMAGE_BASE] ; 0x2e0c
+    mov word [cs:cseg_1bd7 - IMAGE_BASE], ax ; 0x2e11
+    mov word [cs:cseg_1bd5 - IMAGE_BASE], bx ; 0x2e15
     mov ax, cs                       ; 0x2e1a
     mov ds, ax                       ; 0x2e1c
     mov es, ax                       ; 0x2e1e
-    mov si, data_1beb                ; 0x2e20
-    mov di, data_1bd9                ; 0x2e23
+    mov si, cseg_1beb - IMAGE_BASE   ; 0x2e20
+    mov di, cseg_1bd9 - IMAGE_BASE   ; 0x2e23
     mov cx, 9                        ; 0x2e26
     rep movsw                        ; 0x2e29
     mov sp, bp                       ; 0x2e2b
     pop bp                           ; 0x2e2d
     xor al, al                       ; 0x2e2e
-    mov byte [cs:data_2b08], al      ; 0x2e30
+    mov byte [cs:cseg_2b08 - IMAGE_BASE], al ; 0x2e30
     retf                             ; 0x2e34

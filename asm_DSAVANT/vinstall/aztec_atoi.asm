@@ -50,7 +50,7 @@ aztec_atoi:
     mov bx, ax                       ; 0x285b
     mov al, byte [bx + 0x2453]       ; 0x285d
     cbw                              ; 0x2861
-    test ax, data_0004               ; 0x2862
+    test ax, 4                       ; 0x2862
     jne short @..aztec_atoi.l6       ; 0x2865
     mov ax, di                       ; 0x2867
     cmp word [bp - 0x0002], byte 0   ; 0x2869

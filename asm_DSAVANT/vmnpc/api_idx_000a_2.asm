@@ -62,7 +62,7 @@ loc_75db:
     push ax                          ; 0x7628
     db 0xe8, 0xf7, 0x71 ; call 0xe823
     add sp, byte 4                   ; 0x762c
-    mov ax, data_0002                ; 0x762f
+    mov ax, 2                        ; 0x762f
     push ax                          ; 0x7632
     mov ax, word [bp + 0x8]          ; 0x7633
     inc ax                           ; 0x7636

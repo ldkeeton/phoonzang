@@ -100,7 +100,7 @@ loc_46b8:
     add sp, byte 4                   ; 0x46f8
     mov ax, 0                        ; 0x46fb
     push ax                          ; 0x46fe
-    mov ax, data_0002                ; 0x46ff
+    mov ax, 2                        ; 0x46ff
     push ax                          ; 0x4702
     push word [bp + 0x4]             ; 0x4703
     call ds_dispatch_b2e7            ; 0x4706

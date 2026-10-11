@@ -35,7 +35,7 @@ api_idx_000c_2:
     pop cx                           ; 0x2f94
     mov cx, 6                        ; 0x2f95
     imul cx                          ; 0x2f98
-    mov cx, data_0002                ; 0x2f9a
+    mov cx, 2                        ; 0x2f9a
     cwd                              ; 0x2f9d
     idiv cx                          ; 0x2f9e
     mov cx, ax                       ; 0x2fa0
@@ -65,23 +65,23 @@ api_idx_000c_2:
 loc_2fd8:
     mov ax, 0                        ; 0x2fd8
     call ds_dispatch_f40b            ; 0x2fdb
-    les bx, word [data_0002]         ; 0x2fde
+    les bx, word [dseg_0002]         ; 0x2fde
     mov ax, word [es:bx]             ; 0x2fe2
     mov dx, word [es:bx + 0x2]       ; 0x2fe5
-    mov word [data_9090], dx         ; 0x2fe9
-    mov word [data_908e], ax         ; 0x2fed
-    mov ax, word [data_908e]         ; 0x2ff0
-    mov dx, word [data_9090]         ; 0x2ff3
-    sub ax, word [data_908a]         ; 0x2ff7
-    sbb dx, word [data_908c]         ; 0x2ffb
-    mov word [data_9094], dx         ; 0x2fff
-    mov word [data_9092], ax         ; 0x3003
-    mov ax, word [data_976c]         ; 0x3006
+    mov word [dseg_9090], dx         ; 0x2fe9
+    mov word [dseg_908e], ax         ; 0x2fed
+    mov ax, word [dseg_908e]         ; 0x2ff0
+    mov dx, word [dseg_9090]         ; 0x2ff3
+    sub ax, word [dseg_908a]         ; 0x2ff7
+    sbb dx, word [dseg_908c]         ; 0x2ffb
+    mov word [dseg_9094], dx         ; 0x2fff
+    mov word [dseg_9092], ax         ; 0x3003
+    mov ax, word [dseg_976c]         ; 0x3006
     cwd                              ; 0x3009
     mov cx, ax                       ; 0x300a
     mov bx, dx                       ; 0x300c
-    mov ax, word [data_9092]         ; 0x300e
-    mov dx, word [data_9094]         ; 0x3011
+    mov ax, word [dseg_9092]         ; 0x300e
+    mov dx, word [dseg_9094]         ; 0x3011
     cmp bx, dx                       ; 0x3015
     jg short @..local.l32            ; 0x3017
     jne short @..local.l33           ; 0x3019
@@ -90,10 +90,10 @@ loc_2fd8:
 @..local.l32:
     jmp short @..local.l34           ; 0x301f
 @..local.l33:
-    mov ax, word [data_908e]         ; 0x3021
-    mov dx, word [data_9090]         ; 0x3024
-    mov word [data_908c], dx         ; 0x3028
-    mov word [data_908a], ax         ; 0x302c
+    mov ax, word [dseg_908e]         ; 0x3021
+    mov dx, word [dseg_9090]         ; 0x3024
+    mov word [dseg_908c], dx         ; 0x3028
+    mov word [dseg_908a], ax         ; 0x302c
     call api_idx_000a_2              ; 0x302f
     push word [bp + 0x4]             ; 0x3032
     call api_idx_000c_2              ; 0x3035

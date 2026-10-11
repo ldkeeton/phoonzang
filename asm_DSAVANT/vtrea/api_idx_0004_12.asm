@@ -18,7 +18,7 @@ api_idx_0004_12:
     mov ax, 0                        ; 0x7343
     push ax                          ; 0x7346
     push word [bp - 0x0002]          ; 0x7347
-    mov ax, word [data_830c]         ; 0x734a
+    mov ax, word [dseg_830c]         ; 0x734a
     mov cx, 4                        ; 0x734d
     shl ax, cl                       ; 0x7350
     add ax, 0x8d14                   ; 0x7352
@@ -28,7 +28,7 @@ api_idx_0004_12:
     mov ax, 0                        ; 0x735c
     push ax                          ; 0x735f
     push word [bp - 0x0002]          ; 0x7360
-    mov ax, word [data_830c]         ; 0x7363
+    mov ax, word [dseg_830c]         ; 0x7363
     mov cx, 4                        ; 0x7366
     shl ax, cl                       ; 0x7369
     add ax, 0x5642                   ; 0x736b
@@ -41,7 +41,7 @@ api_idx_0004_12:
     mov ax, 1                        ; 0x737b
     push ax                          ; 0x737e
     push word [bp - 0x0004]          ; 0x737f
-    mov ax, word [data_830c]         ; 0x7382
+    mov ax, word [dseg_830c]         ; 0x7382
     mov cx, 4                        ; 0x7385
     shl ax, cl                       ; 0x7388
     add ax, 0x8d14                   ; 0x738a
@@ -51,7 +51,7 @@ api_idx_0004_12:
     mov ax, 1                        ; 0x7394
     push ax                          ; 0x7397
     push word [bp - 0x0004]          ; 0x7398
-    mov ax, word [data_830c]         ; 0x739b
+    mov ax, word [dseg_830c]         ; 0x739b
     mov cx, 4                        ; 0x739e
     shl ax, cl                       ; 0x73a1
     add ax, 0x5642                   ; 0x73a3

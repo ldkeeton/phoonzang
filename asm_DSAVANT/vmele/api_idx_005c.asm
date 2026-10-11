@@ -191,7 +191,7 @@ api_idx_005c:
     push ax                          ; 0x16af
     call api_idx_000c                ; 0x16b0
     add sp, byte 4                   ; 0x16b3
-    push word [data_905a]            ; 0x16b6
+    push word [dseg_905a]            ; 0x16b6
     call api_idx_0004                ; 0x16ba
     pop cx                           ; 0x16bd
 @..api_idx_005c.l11:

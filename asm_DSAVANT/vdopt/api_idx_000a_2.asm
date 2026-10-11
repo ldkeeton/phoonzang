@@ -3,8 +3,8 @@ api_idx_000a_2:
     call ds_dispatch_f40b            ; 0x190e
     mov ax, 0                        ; 0x1911
     push ax                          ; 0x1914
-    push word [data_8d10]            ; 0x1915
-    push word [data_8d0e]            ; 0x1919
+    push word [dseg_8d10]            ; 0x1915
+    push word [dseg_8d0e]            ; 0x1919
     call ds_dispatch_e94f            ; 0x191d
     add sp, byte 6                   ; 0x1920
     mov byte [bp - 0x000a], 1        ; 0x1923

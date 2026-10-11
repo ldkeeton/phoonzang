@@ -87,7 +87,7 @@ api_idx_0058:
     inc word [bp - 0x0002]           ; 0x8a6e
 @..api_idx_0058.l4:
     mov ax, word [bp - 0x0002]       ; 0x8a71
-    cmp ax, word [data_a656]         ; 0x8a74
+    cmp ax, word [dseg_a656]         ; 0x8a74
     jge short @..api_idx_0058.l5     ; 0x8a78
     jmp near @..api_idx_0058.l1      ; 0x8a7a
 @..api_idx_0058.l5:

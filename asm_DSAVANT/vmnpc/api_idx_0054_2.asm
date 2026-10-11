@@ -12,7 +12,7 @@ api_idx_0054_2:
     pop cx                           ; 0x12a6
     mov cx, 6                        ; 0x12a7
     imul cx                          ; 0x12aa
-    mov cx, data_0002                ; 0x12ac
+    mov cx, 2                        ; 0x12ac
     cwd                              ; 0x12af
     idiv cx                          ; 0x12b0
     mov cx, ax                       ; 0x12b2
@@ -50,7 +50,7 @@ api_idx_0054_2:
     push ax                          ; 0x12fd
     db 0xe8, 0xdf, 0xa4 ; call 0xb7e0
     pop cx                           ; 0x1301
-    push word [data_905a]            ; 0x1302
+    push word [dseg_905a]            ; 0x1302
     call 0xb75e                      ; 0x1306
     pop cx                           ; 0x1309
     ret                              ; 0x130a
@@ -79,7 +79,7 @@ loc_130b:
     pop cx                           ; 0x133e
     mov cx, 6                        ; 0x133f
     imul cx                          ; 0x1342
-    mov cx, data_0002                ; 0x1344
+    mov cx, 2                        ; 0x1344
     cwd                              ; 0x1347
     idiv cx                          ; 0x1348
     mov cx, ax                       ; 0x134a
@@ -116,7 +116,7 @@ loc_130b:
 @..local.l15:
     mov ax, 0                        ; 0x1395
     push ax                          ; 0x1398
-    push word [data_905a]            ; 0x1399
+    push word [dseg_905a]            ; 0x1399
     call api_idx_0004_5              ; 0x139d
     add sp, byte 4                   ; 0x13a0
     mov ax, 3                        ; 0x13a3

@@ -1,8 +1,8 @@
 api_idx_0002_5:
     mov ax, 0xfffe                   ; 0x03ea
     call ds_dispatch_f40b            ; 0x03ed
-    mov word [data_91a6], 0          ; 0x03f0
-    mov ax, word [data_830c]         ; 0x03f6
+    mov word [dseg_91a6], 0          ; 0x03f0
+    mov ax, word [dseg_830c]         ; 0x03f6
     jmp short @..api_idx_0002_5.l1   ; 0x03f9
     mov word [bp - 0x0002], 1        ; 0x03fb
     jmp short @..api_idx_0002_5.l2   ; 0x0400
@@ -27,16 +27,16 @@ api_idx_0002_5:
     shl bx, 1                        ; 0x0471
     jmp [cs:bx + 0x5472]             ; 0x0473
 @..api_idx_0002_5.l2:
-    cmp word [data_5b70], byte 0     ; 0x0478
+    cmp word [dseg_5b70], byte 0     ; 0x0478
     je short @..api_idx_0002_5.l3    ; 0x047d
     mov ax, word [bp - 0x0002]       ; 0x047f
-    cmp ax, word [data_5b6e]         ; 0x0482
+    cmp ax, word [dseg_5b6e]         ; 0x0482
     jne short @..api_idx_0002_5.l3   ; 0x0486
     jmp near @..api_idx_0002_5.l5    ; 0x0488
 @..api_idx_0002_5.l3:
     call ds_dispatch_c145            ; 0x048b
     mov ax, word [bp - 0x0002]       ; 0x048e
-    mov word [data_5b6e], ax         ; 0x0491
+    mov word [dseg_5b6e], ax         ; 0x0491
     jmp near @..api_idx_0002_5.l4    ; 0x0494
     mov ax, 0                        ; 0x0497
     push ax                          ; 0x049a
@@ -277,5 +277,5 @@ api_idx_0002_5:
     jmp [cs:bx + jumptable_5704 - IMAGE_BASE] ; 0x06cb
 @..api_idx_0002_5.l5:
     call loc_0344                    ; 0x06d0
-    mov word [data_5b70], 1          ; 0x06d3
+    mov word [dseg_5b70], 1          ; 0x06d3
     ret                              ; 0x06d9

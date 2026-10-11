@@ -108,16 +108,16 @@ api_idx_0008_4:
     jge short @..api_idx_0008_4.l12  ; 0x3174
     jmp near @..api_idx_0008_4.l1    ; 0x3176
 @..api_idx_0008_4.l12:
-    cmp word [data_82fa], byte 0     ; 0x3179
+    cmp word [dseg_82fa], byte 0     ; 0x3179
     jle short @..api_idx_0008_4.l13  ; 0x317e
-    mov bx, word [data_8482]         ; 0x3180
+    mov bx, word [dseg_8482]         ; 0x3180
     mov al, byte [bx + 0x190]        ; 0x3184
     sub ah, ah                       ; 0x3188
-    mov word [data_82fc], ax         ; 0x318a
+    mov word [dseg_82fc], ax         ; 0x318a
 @..api_idx_0008_4.l13:
-    cmp word [data_82fc], byte 0     ; 0x318d
+    cmp word [dseg_82fc], byte 0     ; 0x318d
     jg short @..api_idx_0008_4.l14   ; 0x3192
-    mov word [data_82fa], 0          ; 0x3194
-    mov word [data_82fc], 0          ; 0x319a
+    mov word [dseg_82fa], 0          ; 0x3194
+    mov word [dseg_82fc], 0          ; 0x319a
 @..api_idx_0008_4.l14:
     ret                              ; 0x31a0

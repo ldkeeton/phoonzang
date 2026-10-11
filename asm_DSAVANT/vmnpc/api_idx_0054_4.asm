@@ -64,7 +64,7 @@ api_idx_0054_4:
     mov ax, 3                        ; 0x5e2a
     cmp word [bp - 0x0002], byte 5   ; 0x5e2d
     jge short @..api_idx_0054_4.l4   ; 0x5e31
-    mov ax, data_0002                ; 0x5e33
+    mov ax, 2                        ; 0x5e33
 @..api_idx_0054_4.l4:
     push ax                          ; 0x5e36
     mov ax, 0xa                      ; 0x5e37

@@ -28,14 +28,14 @@ api_idx_000a_2:
 loc_73bc:
     mov ax, 0                        ; 0x73bc
     call ds_dispatch_f40b            ; 0x73bf
-    les bx, word [data_0002]         ; 0x73c2
+    les bx, word [dseg_0002]         ; 0x73c2
     mov ax, word [es:bx]             ; 0x73c6
     mov dx, word [es:bx + 0x2]       ; 0x73c9
-    sub ax, word [data_908a]         ; 0x73cd
-    sbb dx, word [data_908c]         ; 0x73d1
+    sub ax, word [dseg_908a]         ; 0x73cd
+    sbb dx, word [dseg_908c]         ; 0x73d1
     push ax                          ; 0x73d5
     push dx                          ; 0x73d6
-    mov ax, word [data_a5ae]         ; 0x73d7
+    mov ax, word [dseg_a5ae]         ; 0x73d7
     cwd                              ; 0x73da
     mov cx, ax                       ; 0x73db
     mov bx, dx                       ; 0x73dd
@@ -49,17 +49,17 @@ loc_73bc:
 @..local.l134:
     jmp short @..local.l136          ; 0x73eb
 @..local.l135:
-    mov ax, word [data_a5b0]         ; 0x73ed
+    mov ax, word [dseg_a5b0]         ; 0x73ed
     inc ax                           ; 0x73f0
     mov cx, 0xc                      ; 0x73f1
     cwd                              ; 0x73f4
     idiv cx                          ; 0x73f5
-    mov word [data_a5b0], dx         ; 0x73f7
-    les bx, word [data_0002]         ; 0x73fb
+    mov word [dseg_a5b0], dx         ; 0x73f7
+    les bx, word [dseg_0002]         ; 0x73fb
     mov ax, word [es:bx]             ; 0x73ff
     mov dx, word [es:bx + 0x2]       ; 0x7402
-    mov word [data_908c], dx         ; 0x7406
-    mov word [data_908a], ax         ; 0x740a
+    mov word [dseg_908c], dx         ; 0x7406
+    mov word [dseg_908a], ax         ; 0x740a
     mov ax, 1                        ; 0x740d
     ret                              ; 0x7410
 @..local.l136:

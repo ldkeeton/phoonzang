@@ -110,6 +110,8 @@ class PhaseContext:
                 ))
                 seed_addresses.add(address)
         self.sidecar_entry = sidecar_entry
+        self.segments = None
+        self.segment_flow = None
         self.detailed_timings = detailed_timings
         self.trace = trace
         self.iteration: int | None = None

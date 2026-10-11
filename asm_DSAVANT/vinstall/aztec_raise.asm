@@ -451,10 +451,10 @@ loc_0823:
     db 0xfc, 0x8b, 0x56, 0xfe, 0x8b, 0xe5, 0x5d, 0xc3
 
 loc_0927:
-    mov byte [data_2644], 0x1f       ; 0x0927
-    mov byte [data_2645], data_002e  ; 0x092c
-    mov byte [data_2645], 0x70       ; 0x0931
-    mov byte [data_2646], 0x4e       ; 0x0936
-    mov byte [data_2647], 0x1f       ; 0x093b
+    mov byte [bss_2644], 0x1f        ; 0x0927
+    mov byte [bss_2645], 0x2e        ; 0x092c
+    mov byte [bss_2645], 0x70        ; 0x0931
+    mov byte [bss_2646], 0x4e        ; 0x0936
+    mov byte [bss_2647], 0x1f        ; 0x093b
     call loc_0443                    ; 0x0940
     ret                              ; 0x0943

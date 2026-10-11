@@ -43,7 +43,7 @@ loc_08f2:
     adc dx, bx                       ; 0x0923
     push dx                          ; 0x0925
     push ax                          ; 0x0926
-    push word [data_0e22]            ; 0x0927
+    push word [bss_0e22]             ; 0x0927
     call aztec_lseek                 ; 0x092b
     add sp, byte 8                   ; 0x092e
     mov bx, word [bp + 0x4]          ; 0x0931
@@ -54,7 +54,7 @@ loc_08f2:
     shl bx, 1                        ; 0x0941
     push word [bx + 0x5524]          ; 0x0943
     push word [bp + 0x6]             ; 0x0947
-    push word [data_0e22]            ; 0x094a
+    push word [bss_0e22]             ; 0x094a
     call leaf_loc_4fb6               ; 0x094e
     add sp, byte 6                   ; 0x0951
     jmp short loc_0974               ; 0x0954
@@ -66,7 +66,7 @@ loc_0956:
     mov bx, ax                       ; 0x0961
     push word [bx + 0x5524]          ; 0x0963
     push word [bp + 0x6]             ; 0x0967
-    push word [data_0e22]            ; 0x096a
+    push word [bss_0e22]             ; 0x096a
     call aztec_write                 ; 0x096e
     add sp, byte 6                   ; 0x0971
 loc_0974:
@@ -80,7 +80,7 @@ loc_0976:
     push word [bx + 0x5524]          ; 0x0983
     lea ax, word [bp - 0x00ff]       ; 0x0987
     push ax                          ; 0x098b
-    push word [data_0e22]            ; 0x098c
+    push word [bss_0e22]             ; 0x098c
     call leaf_loc_4fb6               ; 0x0990
     add sp, byte 6                   ; 0x0993
     push word [bp + 0x6]             ; 0x0996

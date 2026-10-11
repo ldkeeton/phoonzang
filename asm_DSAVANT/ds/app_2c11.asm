@@ -26,17 +26,17 @@ loc_2c47:
     mov ax, 0                        ; 0x2c47
     ret                              ; 0x2c4a
 @..app_2c11.l2:
-    mov ax, word [data_59f6]         ; 0x2c4b
+    mov ax, word [bss_59f6]          ; 0x2c4b
     dec ax                           ; 0x2c4e
     cmp ax, bx                       ; 0x2c4f
     jne short @..app_2c11.l3         ; 0x2c51
-    mov ax, word [data_59f8]         ; 0x2c53
-    mov word [data_1008], ax         ; 0x2c56
+    mov ax, word [bss_59f8]          ; 0x2c53
+    mov word [bss_1008], ax          ; 0x2c56
 @..app_2c11.l3:
     inc word [bp - 0x0002]           ; 0x2c59
 @..app_2c11.l4:
     mov ax, word [bp - 0x0002]       ; 0x2c5c
-    cmp ax, word [data_59f6]         ; 0x2c5f
+    cmp ax, word [bss_59f6]          ; 0x2c5f
     jl short @..app_2c11.l1          ; 0x2c63
     mov ax, 1                        ; 0x2c65
     ret                              ; 0x2c68

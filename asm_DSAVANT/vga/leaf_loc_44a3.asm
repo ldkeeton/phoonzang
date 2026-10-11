@@ -6,15 +6,15 @@ leaf_loc_44a3:
     add bx, ax                       ; 0x44ab
     mov word [bp - 0x0004], bx       ; 0x44ad
     mov ax, word [cs:bx + 0x2]       ; 0x44b0
-    sub word [cs:data_0cac], ax      ; 0x44b4
+    sub word [cs:cseg_0cac - IMAGE_BASE], ax ; 0x44b4
     mov word [bp - 0x0006], ax       ; 0x44b9
 @..leaf_loc_44a3.l1:
     mov bx, word [bp - 0x0004]       ; 0x44bc
     mov dx, word [cs:bx]             ; 0x44bf
-    add dx, word [cs:data_01e1]      ; 0x44c2
+    add dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x44c2
     mov es, dx                       ; 0x44c7
     mov dx, word [cs:bx + 0x4]       ; 0x44c9
-    add dx, word [cs:data_01e1]      ; 0x44cd
+    add dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x44cd
     mov ds, dx                       ; 0x44d2
     mov cx, word [cs:bx + 0x6]       ; 0x44d4
     or cx, cx                        ; 0x44d8
@@ -80,7 +80,7 @@ loc_45b2:
     push ax                          ; 0x45c6
     push ax                          ; 0x45c7
     push ax                          ; 0x45c8
-    call far [cs:data_021a]          ; 0x45c9
+    call far [cs:cseg_021a - IMAGE_BASE] ; 0x45c9
     add sp, byte 0x0e                ; 0x45ce
     pop di                           ; 0x45d1
     pop si                           ; 0x45d2

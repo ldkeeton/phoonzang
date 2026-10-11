@@ -1,7 +1,7 @@
 app_file_2a2e: ; Aztec csav frame=0x00a8
     mov ax, 0xff58                   ; 0x2a2e
     call aztec_csav                  ; 0x2a31
-    mov al, byte [data_5985]         ; 0x2a34
+    mov al, byte [bss_5985]          ; 0x2a34
     sub ah, ah                       ; 0x2a37
     mov word [bp - 0x00a8], ax       ; 0x2a39
     cmp ax, strict word 6            ; 0x2a3d
@@ -117,5 +117,5 @@ app_file_2a2e: ; Aztec csav frame=0x00a8
     call aztec_close                 ; 0x2b43
     pop cx                           ; 0x2b46
     mov ax, word [bp + 0x4]          ; 0x2b47
-    mov word [data_82b6], ax         ; 0x2b4a
+    mov word [bss_82b6], ax          ; 0x2b4a
     ret                              ; 0x2b4d

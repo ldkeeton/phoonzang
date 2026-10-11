@@ -16,7 +16,7 @@ aztec_vfprintf:
     call loc_040f                    ; 0x0968
     add sp, byte 6                   ; 0x096b
     push word [bp + 0xc]             ; 0x096e
-    mov ax, data_002e                ; 0x0971
+    mov ax, 0x2e                     ; 0x0971
     push ax                          ; 0x0974
     push word [bp + 0x4]             ; 0x0975
     call loc_040f                    ; 0x0978
@@ -46,7 +46,7 @@ loc_0992:
     call aztec_strlen                ; 0x09ad
     pop cx                           ; 0x09b0
     inc ax                           ; 0x09b1
-    mov cx, data_0002                ; 0x09b2
+    mov cx, 2                        ; 0x09b2
     cwd                              ; 0x09b5
     idiv cx                          ; 0x09b6
     mov cx, ax                       ; 0x09b8
@@ -78,7 +78,7 @@ loc_0992:
     call aztec_strlen                ; 0x09ee
     pop cx                           ; 0x09f1
     inc ax                           ; 0x09f2
-    mov cx, data_0002                ; 0x09f3
+    mov cx, 2                        ; 0x09f3
     cwd                              ; 0x09f6
     idiv cx                          ; 0x09f7
     mov cx, ax                       ; 0x09f9

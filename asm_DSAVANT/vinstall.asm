@@ -26,14 +26,8 @@ IMAGE_BASE equ 0x0200
     db 0xd3, 0x33
     times 478 db 0
 
-data_0002 equ 0x0002
-data_0004 equ 0x0004
 data_0005 equ 0x0005
 data_0006 equ 0x0006
-data_002c equ 0x002c
-data_002e equ 0x002e
-data_0030 equ 0x0030
-data_0080 equ 0x0080
 data_060e equ 0x060e
 data_0e18 equ 0x0e18
 data_0e1c equ 0x0e1c
@@ -42,80 +36,92 @@ data_0e8f equ 0x0e8f
 data_0ec8 equ 0x0ec8
 data_0ee4 equ 0x0ee4
 loc_1fcd equ 0x1fcd
-data_2279 equ 0x2279
-data_230e equ 0x230e
-data_2310 equ 0x2310
-data_2312 equ 0x2312
-data_2314 equ 0x2314
-data_2316 equ 0x2316
-data_2318 equ 0x2318
-data_231a equ 0x231a
-data_244e equ 0x244e
-data_24d4 equ 0x24d4
-data_24d6 equ 0x24d6
-data_24d8 equ 0x24d8
-data_24da equ 0x24da
-data_24dc equ 0x24dc
-data_24de equ 0x24de
-data_24e0 equ 0x24e0
-data_24e4 equ 0x24e4
-data_2512 equ 0x2512
-data_2514 equ 0x2514
-data_2516 equ 0x2516
-data_2518 equ 0x2518
-data_251a equ 0x251a
-data_251b equ 0x251b
-data_251c equ 0x251c
-data_2530 equ 0x2530
-data_2532 equ 0x2532
-data_2534 equ 0x2534
-data_2536 equ 0x2536
-data_2538 equ 0x2538
-data_253a equ 0x253a
-data_253c equ 0x253c
-data_2642 equ 0x2642
-data_2644 equ 0x2644
-data_2645 equ 0x2645
-data_2646 equ 0x2646
-data_2647 equ 0x2647
-data_2698 equ 0x2698
-data_2823 equ 0x2823
-data_2825 equ 0x2825
-data_29ba equ 0x29ba
-data_29bb equ 0x29bb
-data_29d0 equ 0x29d0
-data_29d1 equ 0x29d1
-data_29d2 equ 0x29d2
-data_29d4 equ 0x29d4
-data_29d5 equ 0x29d5
-data_29d6 equ 0x29d6
-data_29d7 equ 0x29d7
-data_29d8 equ 0x29d8
-data_29da equ 0x29da
-data_29dc equ 0x29dc
-data_29dd equ 0x29dd
-data_29df equ 0x29df
-data_29e1 equ 0x29e1
-data_29e2 equ 0x29e2
-data_29e3 equ 0x29e3
-data_29e6 equ 0x29e6
-data_29e8 equ 0x29e8
-data_29ea equ 0x29ea
-data_29ec equ 0x29ec
-data_29ee equ 0x29ee
-data_2af0 equ 0x2af0
-data_2af2 equ 0x2af2
-data_2af4 equ 0x2af4
-data_2af6 equ 0x2af6
-data_2af8 equ 0x2af8
-data_2afa equ 0x2afa
-data_2afc equ 0x2afc
 data_33ce equ 0x33ce
 data_3521 equ 0x3521
 data_3523 equ 0x3523
 loc_3738 equ 0x3738
-data_380c equ 0x380c
 leaf_loc_5fe5 equ 0x5fe5
+psp_top_of_memory equ 0x0002
+dseg_0004 equ 0x0004
+dseg_0006 equ 0x0006
+psp_env_segment equ 0x002c
+dseg_002e equ 0x002e
+dseg_0030 equ 0x0030
+psp_cmd_tail_len equ 0x0080
+dseg_230e equ 0x230e
+dseg_2310 equ 0x2310
+dseg_2312 equ 0x2312
+dseg_2314 equ 0x2314
+dseg_2316 equ 0x2316
+dseg_2318 equ 0x2318
+dseg_231a equ 0x231a
+dseg_231c equ 0x231c
+dseg_234a equ 0x234a
+dseg_244e equ 0x244e
+cseg_2479 equ 0x2479
+dseg_24d4 equ 0x24d4
+dseg_24d6 equ 0x24d6
+dseg_24d8 equ 0x24d8
+dseg_24da equ 0x24da
+dseg_24dc equ 0x24dc
+dseg_24de equ 0x24de
+dseg_24e0 equ 0x24e0
+dseg_24e4 equ 0x24e4
+dseg_2500 equ 0x2500
+dseg_2512 equ 0x2512
+dseg_2514 equ 0x2514
+dseg_2516 equ 0x2516
+dseg_2518 equ 0x2518
+dseg_251a equ 0x251a
+dseg_251b equ 0x251b
+dseg_251c equ 0x251c
+dseg_252e equ 0x252e
+dseg_2530 equ 0x2530
+dseg_2532 equ 0x2532
+bss_2534 equ 0x2534
+bss_2536 equ 0x2536
+bss_2538 equ 0x2538
+bss_253a equ 0x253a
+bss_253c equ 0x253c
+bss_2642 equ 0x2642
+bss_2644 equ 0x2644
+bss_2645 equ 0x2645
+bss_2646 equ 0x2646
+bss_2647 equ 0x2647
+bss_2698 equ 0x2698
+bss_29ba equ 0x29ba
+bss_29bb equ 0x29bb
+bss_29d0 equ 0x29d0
+bss_29d1 equ 0x29d1
+bss_29d2 equ 0x29d2
+bss_29d4 equ 0x29d4
+bss_29d5 equ 0x29d5
+bss_29d6 equ 0x29d6
+bss_29d7 equ 0x29d7
+bss_29d8 equ 0x29d8
+bss_29da equ 0x29da
+bss_29dc equ 0x29dc
+bss_29dd equ 0x29dd
+bss_29df equ 0x29df
+bss_29e1 equ 0x29e1
+bss_29e2 equ 0x29e2
+bss_29e3 equ 0x29e3
+bss_29e6 equ 0x29e6
+bss_29e8 equ 0x29e8
+bss_29ea equ 0x29ea
+bss_29ec equ 0x29ec
+bss_29ee equ 0x29ee
+cseg_2a23 equ 0x2a23
+cseg_2a25 equ 0x2a25
+bss_2af0 equ 0x2af0
+bss_2af2 equ 0x2af2
+bss_2af4 equ 0x2af4
+bss_2af6 equ 0x2af6
+bss_2af8 equ 0x2af8
+bss_2afa equ 0x2afa
+bss_2afc equ 0x2afc
+cseg_35d0 equ 0x35d0
+bss_380c equ 0x380c
 
 %include "vinstall/leaf_loc_0200.asm"
 
@@ -152,6 +158,8 @@ leaf_loc_5fe5 equ 0x5fe5
 %include "vinstall/aztec_atoi.asm"
 
 %include "vinstall/aztec_atol.asm"
+
+%include "vinstall/loc_2908.asm"
 
 %include "vinstall/aztec_fexecv.asm"
 
@@ -201,6 +209,35 @@ leaf_loc_5fe5 equ 0x5fe5
 
 %include "vinstall/aztec_free.asm"
 
+
+    db 'LlhFNoxXudiscpneEfgG%'
+
+jumptable_3053:
+    dw string_loc_3140 - IMAGE_BASE
+    dw string_loc_3147 - IMAGE_BASE
+    dw string_loc_314b - IMAGE_BASE
+    dw string_loc_314e - IMAGE_BASE
+    dw string_loc_314b - IMAGE_BASE
+    dw leaf_loc_3155 - IMAGE_BASE
+    dw leaf_loc_315e - IMAGE_BASE
+    dw leaf_loc_315a - IMAGE_BASE
+    dw leaf_loc_3163 - IMAGE_BASE
+    dw leaf_loc_3168 - IMAGE_BASE
+    dw leaf_loc_3168 - IMAGE_BASE
+    dw loc_328c - IMAGE_BASE
+    dw loc_32ab - IMAGE_BASE
+    dw string_loc_32d0 - IMAGE_BASE
+    dw string_loc_32d3 - IMAGE_BASE
+    dw loc_327b - IMAGE_BASE
+    dw loc_3275 - IMAGE_BASE
+    dw loc_327b - IMAGE_BASE
+    dw loc_327b - IMAGE_BASE
+    dw loc_3275 - IMAGE_BASE
+    dw string_loc_30b3 - IMAGE_BASE
+    dw string_loc_3330 - IMAGE_BASE
+
+    db '23456789abcdef -lm first', 0
+
 %include "vinstall/string_loc_3098.asm"
 
 %include "vinstall/string_loc_30b3.asm"
@@ -237,6 +274,20 @@ leaf_loc_5fe5 equ 0x5fe5
 
 %include "vinstall/aztec_open.asm"
 
+
+    db 0x57, 0x2b, 0xff, 0x85, 0xd2, 0x79, 0x08, 0xf7, 0xda, 0xf7, 0xd8, 0x83, 0xda, 0x00, 0x47, 0x85
+    db 0xdb, 0x79, 0x0b, 0xf7, 0xdb, 0xf7, 0xd9, 0x83, 0xdb, 0x00, 0x81, 0xf7, 0x01, 0x00, 0xe8, 0x39
+    db 0x00
+
+@..aztec_lrm.l1:
+    test di, di                      ; 0x3438
+    je short @..aztec_lrm.l2         ; 0x343a
+    neg dx                           ; 0x343c
+    neg ax                           ; 0x343e
+    sbb dx, byte 0                   ; 0x3440
+@..aztec_lrm.l2:
+    pop di                           ; 0x3443
+    ret                              ; 0x3444
 %include "vinstall/aztec_lrm.asm"
 
 %include "vinstall/aztec_lum.asm"
@@ -256,6 +307,8 @@ leaf_loc_5fe5 equ 0x5fe5
 %include "vinstall/dos_proc_loc_3716.asm"
 
 %include "vinstall/aztec_Croot.asm"
+
+%include "vinstall/loc_380b.asm"
 
 %include "vinstall/leaf_loc_381d.asm"
 

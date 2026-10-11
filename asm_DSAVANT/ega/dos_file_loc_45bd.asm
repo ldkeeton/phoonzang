@@ -3,7 +3,7 @@ dos_file_loc_45bd:
     push es                          ; 0x45be
     push si                          ; 0x45bf
     push di                          ; 0x45c0
-    mov dx, word [cs:data_01e9]      ; 0x45c1
+    mov dx, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x45c1
     mov ds, dx                       ; 0x45c6
 @..dos_file_loc_45bd.l1:
     xor dx, dx                       ; 0x45c8

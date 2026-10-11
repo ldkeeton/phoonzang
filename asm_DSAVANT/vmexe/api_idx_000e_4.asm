@@ -1,7 +1,7 @@
 api_idx_000e_4:
     mov ax, 0xfff2                   ; 0x2a8b
     call ds_dispatch_f40b            ; 0x2a8e
-    mov word [data_91d6], 4          ; 0x2a91
+    mov word [dseg_91d6], 4          ; 0x2a91
     cmp word [bp + 0x10], byte 0     ; 0x2a97
     jle short @..api_idx_000e_4.l1   ; 0x2a9b
     push word [bp + 0x10]            ; 0x2a9d
