@@ -19,6 +19,7 @@ from lib.compare import (
     _compute_branch_ownership,
     _local_branch_targets,
 )
+from lib.verify.assemble import assemble_stats, reset_assemble_stats
 from lib.struct_analysis import build_structs
 from lib.match import match_patterns, match_trampolines, categorize_call_targets
 from lib.phases import (
@@ -72,6 +73,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
 
     t_total = time.perf_counter()
     clear_assemble_cache()
+    reset_assemble_stats()
 
     if _DIAG and project:
         diag_begin(project, name)
@@ -434,6 +436,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
           f'loss={stats.get("code_loss", 0)}  '
           f'aztec={stats.get("aztec_labels", 0)}  '
           f'[{stats["status"]}]')
+    a_stats = assemble_stats()
     print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
           f'disasm: {t_disasm-t_flow_disasm_start:.1f}s  '
           f'aztec: {t_aztec_end-t_aztec:.1f}s  '
@@ -441,9 +444,11 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
           f'(func_bounds={stats.get("timing_func_boundaries",0):.3f}s '
           f'local_lbl={stats.get("timing_local_labels",0):.3f}s '
           f'main_loop={stats.get("timing_main_loop",0):.3f}s '
+          f'format={stats.get("timing_format",0):.3f}s '
           f'postproc={stats.get("timing_postprocess",0):.3f}s '
           f'emit_class={stats.get("timing_emit_class",0):.3f}s '
           f'build_src={stats.get("timing_build_source",0):.3f}s) '
+          f'nasm={a_stats["spawns"]}sp+{a_stats["hits"]}c/{a_stats["time"]:.1f}s '
           f'total: {t_end-t_total:.1f}s')
     print(f'  classify phases:')
     print(classify_timing)

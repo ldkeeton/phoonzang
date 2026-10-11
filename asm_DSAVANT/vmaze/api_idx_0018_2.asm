@@ -121,7 +121,7 @@ api_idx_0018_2:
     push ax                          ; 0x7c76
     mov ax, 0                        ; 0x7c77
     push ax                          ; 0x7c7a
-    db 0xe8, 0xa1, 0x73 ; call 0xf01f
+    call 0xf01f                      ; 0x7c7b
     add sp, byte 8                   ; 0x7c7e
     mov ax, 0x8f                     ; 0x7c81
     push ax                          ; 0x7c84

@@ -4,7 +4,7 @@ api_idx_0002_13:
     call loc_85f0                    ; 0x8f7a
     cmp word [bss_0e32], byte 1      ; 0x8f7d
     jne short @..api_idx_0002_13.l1  ; 0x8f82
-    db 0xe8, 0xb2, 0x60 ; call 0xf039
+    call 0xf039                      ; 0x8f84
 @..api_idx_0002_13.l1:
     mov word [bss_0e32], 0           ; 0x8f87
     call ds_dispatch_d9a6            ; 0x8f8d

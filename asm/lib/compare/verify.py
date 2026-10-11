@@ -25,12 +25,17 @@ See ``lib.format`` for the F/L/DATA/PSP model.  Within this module:
 import os
 import struct
 import time
+from bisect import bisect_left, bisect_right
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_MEM
 
 from lib.model import IS_CODE, IS_DATA
 from lib.mz import parse_relocs as _parse_mz_relocs
-from lib.verify.assemble import micro_assemble, is_semantically_equivalent
+from lib.verify.assemble import (
+    micro_assemble,
+    assemble_batch,
+    is_semantically_equivalent,
+)
 from lib.compare.analysis import (
     _compute_func_boundaries,
     _function_roots,
@@ -207,23 +212,28 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     t2 = time.perf_counter()
 
     if label_map:
+        insn_start_list = sorted(insn_by_addr)
         bad = set()
         for off in label_map:
-            for addr, insn in insn_by_addr.items():
-                if addr < off < addr + insn.size:
+            idx = bisect_right(insn_start_list, off) - 1
+            if idx >= 0:
+                addr = insn_start_list[idx]
+                if addr < off < addr + insn_by_addr[addr].size:
                     bad.add(off)
-                    break
         for off in bad:
             del label_map[off]
         known_addrs = set(label_map.keys())
         if code_targets:
             known_addrs |= code_targets
+    else:
+        insn_start_list = sorted(insn_by_addr)
     if local_labels:
         # Keep in-binary destinations even when current code/data classification
         # did not decode them as instruction starts. The emitted label still
         # resolves the reference; the byte-exact renderer can place it between
         # raw-data bytes or at an alternate instruction boundary.
         known_addrs |= local_labels.keys()
+    known_addr_sorted = sorted(known_addrs)
 
     # Segment-aware symbols for absolute memory operands (Phase 4).  Operands
     # resolved here are rendered from the correct namespace and are excluded
@@ -305,6 +315,44 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         write_label_inc(foreign_label_map, os.path.join(labels_dir, inc_name))
         consumer_inc = f'inc/labels/{inc_name}'
 
+    # Assemble every candidate instruction in a single NASM round-trip rather
+    # than spawning a subprocess per instruction.  Falls back to per-instruction
+    # assembly when the batch cannot be processed structurally.
+    t_pre0 = time.perf_counter()
+    text_by_addr = {}
+    batch_reqs = []
+    for insn in insns:
+        text = format_instruction(
+            insn, label_map, local_labels, foreign_label_map,
+            immediate_labels=immediate_labels, data_labels=data_labels,
+            mem_symbols=mem_symbols,
+        )
+        text_by_addr[insn.address] = text
+        if text:
+            batch_reqs.append((text, insn.address))
+    if batch_reqs:
+        built_batch = assemble_batch(
+            batch_reqs, label_map, local_labels, foreign_label_map,
+            immediate_labels=immediate_labels, image_base=start_offset,
+            mem_equ=mem_equ,
+        )
+        if built_batch is None:
+            built_batch = [
+                micro_assemble(
+                    text, addr, label_map, local_labels,
+                    foreign_label_map=foreign_label_map,
+                    immediate_labels=immediate_labels, mem_equ=mem_equ,
+                    image_base=start_offset,
+                )
+                for text, addr in batch_reqs
+            ]
+    else:
+        built_batch = []
+    built_by_addr = {
+        addr: built for (_, addr), built in zip(batch_reqs, built_batch)
+    }
+    timing_format = time.perf_counter() - t_pre0
+
     records = []
     pending_data = []
     data_block_start = None
@@ -326,14 +374,15 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if insn is not None:
             insn_end = off + insn.size
 
-            inner_labels = sorted(
-                a for a in known_addrs
-                if off < a < insn_end and (
-                    a in insn_by_addr
+            inner_labels = [
+                a for a in known_addr_sorted[
+                    bisect_right(known_addr_sorted, off):
+                    bisect_left(known_addr_sorted, insn_end)]
+                if (a in insn_by_addr
                     or (label_map and a in label_map
                         and label_map[a].startswith('data_'))
                     or (local_labels and a in local_labels))
-            )
+            ]
 
             if inner_labels:
                 data_block_start, pending_data = _flush_data_block(
@@ -366,10 +415,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             )
 
             bts = binary_data[off:insn_end]
-            nasm_text = format_instruction(insn, label_map, local_labels, foreign_label_map, immediate_labels=immediate_labels, data_labels=data_labels, mem_symbols=mem_symbols)
+            nasm_text = text_by_addr.get(off)
 
             if nasm_text:
-                built = micro_assemble(nasm_text, off, label_map, local_labels, foreign_label_map=foreign_label_map, immediate_labels=immediate_labels, mem_equ=mem_equ, image_base=start_offset)
+                built = built_by_addr.get(off)
                 exact_here = exact_bytes
                 ok = built and len(built) >= len(bts) and built[:len(bts)] == bts
                 if not ok and not exact_here and built:
@@ -679,6 +728,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'timing_func_boundaries': t1 - t0,
         'timing_local_labels': t2 - t1,
         'timing_main_loop': t3 - t2,
+        'timing_format': timing_format,
         'timing_postprocess': t4 - t3,
         'timing_emit_class': t5 - t4,
         'timing_build_source': t6 - t5,

@@ -738,7 +738,7 @@ jumptable_1969_case_2:
     push ax                          ; 0x17f6
     call loc_040f                    ; 0x17f7
     add sp, byte 6                   ; 0x17fa
-    db 0xe9, 0x9d, 0x01 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x17fd
 jumptable_1969_case_3:
     lea ax, word [bp - 0x0032]       ; 0x1800
     push ax                          ; 0x1803
@@ -748,7 +748,7 @@ jumptable_1969_case_3:
     push ax                          ; 0x180b
     call loc_040f                    ; 0x180c
     add sp, byte 6                   ; 0x180f
-    db 0xe9, 0x88, 0x01 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x1812
 jumptable_1969_case_4:
     mov ax, word [bp - 0x0010]       ; 0x1815
     shl ax, 1                        ; 0x1818
@@ -760,7 +760,7 @@ jumptable_1969_case_4:
     push ax                          ; 0x1827
     call loc_040f                    ; 0x1828
     add sp, byte 6                   ; 0x182b
-    db 0xe9, 0x6c, 0x01 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x182e
 jumptable_1969_case_5:
     lea ax, word [bp - 0x003e]       ; 0x1831
     push ax                          ; 0x1834
@@ -770,7 +770,7 @@ jumptable_1969_case_5:
     push ax                          ; 0x183c
     call loc_040f                    ; 0x183d
     add sp, byte 6                   ; 0x1840
-    db 0xe9, 0x57, 0x01 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x1843
 jumptable_1969_case_6:
     lea ax, word [bp - 0x0054]       ; 0x1846
     push ax                          ; 0x1849
@@ -780,7 +780,7 @@ jumptable_1969_case_6:
     push ax                          ; 0x1851
     call loc_040f                    ; 0x1852
     add sp, byte 6                   ; 0x1855
-    db 0xe9, 0x42, 0x01 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x1858
 jumptable_1969_case_7:
     mov ax, word [bp - 0x01a0]       ; 0x185b
     shl ax, 1                        ; 0x185f
@@ -792,7 +792,7 @@ jumptable_1969_case_7:
     push ax                          ; 0x186e
     call loc_040f                    ; 0x186f
     add sp, byte 6                   ; 0x1872
-    db 0xe9, 0x25, 0x01 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x1875
 jumptable_1969_case_8:
     mov ax, word [bp - 0x01a2]       ; 0x1878
     shl ax, 1                        ; 0x187c
@@ -804,7 +804,7 @@ jumptable_1969_case_8:
     push ax                          ; 0x188b
     call loc_040f                    ; 0x188c
     add sp, byte 6                   ; 0x188f
-    db 0xe9, 0x08, 0x01 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x1892
 jumptable_1969_case_9:
     lea ax, word [bp - 0x01b8]       ; 0x1895
     push ax                          ; 0x1899
@@ -814,7 +814,7 @@ jumptable_1969_case_9:
     push ax                          ; 0x18a1
     call loc_040f                    ; 0x18a2
     add sp, byte 6                   ; 0x18a5
-    db 0xe9, 0xf2, 0x00 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x18a8
 jumptable_1969_case_10:
     mov ax, word [bp - 0x0196]       ; 0x18ab
     shl ax, 1                        ; 0x18af
@@ -826,7 +826,7 @@ jumptable_1969_case_10:
     push ax                          ; 0x18be
     call loc_040f                    ; 0x18bf
     add sp, byte 6                   ; 0x18c2
-    db 0xe9, 0xd5, 0x00 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x18c5
 jumptable_1969_case_11:
     push word [bp - 0x01ba]          ; 0x18c8
     mov ax, 0x3e                     ; 0x18cc
@@ -835,7 +835,7 @@ jumptable_1969_case_11:
     push ax                          ; 0x18d3
     call loc_03b3                    ; 0x18d4
     add sp, byte 6                   ; 0x18d7
-    db 0xe9, 0xc0, 0x00 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x18da
 jumptable_1969_case_12:
     push word [bp - 0x01bc]          ; 0x18dd
     mov ax, 0x3e                     ; 0x18e1
@@ -844,7 +844,7 @@ jumptable_1969_case_12:
     push ax                          ; 0x18e8
     call loc_03b3                    ; 0x18e9
     add sp, byte 6                   ; 0x18ec
-    db 0xe9, 0xab, 0x00 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x18ef
 jumptable_1969_case_13:
     mov ax, word [bp - 0x019a]       ; 0x18f2
     shl ax, 1                        ; 0x18f6
@@ -856,7 +856,7 @@ jumptable_1969_case_13:
     push ax                          ; 0x1905
     call loc_040f                    ; 0x1906
     add sp, byte 6                   ; 0x1909
-    db 0xe9, 0x8e, 0x00 ; jmp near loc_199d
+    jmp near loc_199d                ; 0x190c
 jumptable_1969_case_14:
     mov ax, word [bp - 0x0198]       ; 0x190f
     shl ax, 1                        ; 0x1913
@@ -878,7 +878,7 @@ jumptable_1969_case_15:
     push ax                          ; 0x1936
     call loc_040f                    ; 0x1937
     add sp, byte 6                   ; 0x193a
-    db 0xeb, 0x5e ; jmp short loc_199d
+    jmp short loc_199d               ; 0x193d
 jumptable_1969_case_16:
     mov ax, 0x1e5d                   ; 0x193f
     push ax                          ; 0x1942
@@ -888,7 +888,7 @@ jumptable_1969_case_16:
     push ax                          ; 0x194a
     call loc_040f                    ; 0x194b
     add sp, byte 6                   ; 0x194e
-    db 0xeb, 0x4a ; jmp short loc_199d
+    jmp short loc_199d               ; 0x1951
 jumptable_1969_case_17:
     mov ax, 0x1e69                   ; 0x1953
     push ax                          ; 0x1956
@@ -898,9 +898,9 @@ jumptable_1969_case_17:
     push ax                          ; 0x195e
     call loc_040f                    ; 0x195f
     add sp, byte 6                   ; 0x1962
-    db 0xeb, 0x36 ; jmp short loc_199d
+    jmp short loc_199d               ; 0x1965
 jumptable_1969_case_0:
-    db 0xeb, 0x34 ; jmp short loc_199d
+    jmp short loc_199d               ; 0x1967
 jumptable_1969:
     dw jumptable_1969_case_0 - IMAGE_BASE      ; 0x1969
     dw jumptable_1969_case_1 - IMAGE_BASE      ; 0x196b
@@ -951,7 +951,7 @@ jumptable_1b3c_case_1:
     push ax                          ; 0x19cb
     call loc_0429                    ; 0x19cc
     add sp, byte 6                   ; 0x19cf
-    db 0xe9, 0x96, 0x01 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x19d2
 jumptable_1b3c_case_2:
     lea ax, word [bp - 0x0032]       ; 0x19d5
     push ax                          ; 0x19d8
@@ -961,7 +961,7 @@ jumptable_1b3c_case_2:
     push ax                          ; 0x19e0
     call loc_0429                    ; 0x19e1
     add sp, byte 6                   ; 0x19e4
-    db 0xe9, 0x81, 0x01 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x19e7
 jumptable_1b3c_case_3:
     mov ax, word [bp - 0x0010]       ; 0x19ea
     shl ax, 1                        ; 0x19ed
@@ -973,7 +973,7 @@ jumptable_1b3c_case_3:
     push ax                          ; 0x19fc
     call loc_0429                    ; 0x19fd
     add sp, byte 6                   ; 0x1a00
-    db 0xe9, 0x65, 0x01 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1a03
 jumptable_1b3c_case_4:
     lea ax, word [bp - 0x003e]       ; 0x1a06
     push ax                          ; 0x1a09
@@ -983,7 +983,7 @@ jumptable_1b3c_case_4:
     push ax                          ; 0x1a11
     call loc_0429                    ; 0x1a12
     add sp, byte 6                   ; 0x1a15
-    db 0xe9, 0x50, 0x01 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1a18
 jumptable_1b3c_case_5:
     lea ax, word [bp - 0x0054]       ; 0x1a1b
     push ax                          ; 0x1a1e
@@ -993,7 +993,7 @@ jumptable_1b3c_case_5:
     push ax                          ; 0x1a26
     call loc_0429                    ; 0x1a27
     add sp, byte 6                   ; 0x1a2a
-    db 0xe9, 0x3b, 0x01 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1a2d
 jumptable_1b3c_case_6:
     mov ax, word [bp - 0x01a0]       ; 0x1a30
     shl ax, 1                        ; 0x1a34
@@ -1005,7 +1005,7 @@ jumptable_1b3c_case_6:
     push ax                          ; 0x1a43
     call loc_0429                    ; 0x1a44
     add sp, byte 6                   ; 0x1a47
-    db 0xe9, 0x1e, 0x01 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1a4a
 jumptable_1b3c_case_7:
     mov ax, word [bp - 0x01a2]       ; 0x1a4d
     shl ax, 1                        ; 0x1a51
@@ -1017,7 +1017,7 @@ jumptable_1b3c_case_7:
     push ax                          ; 0x1a60
     call loc_0429                    ; 0x1a61
     add sp, byte 6                   ; 0x1a64
-    db 0xe9, 0x01, 0x01 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1a67
 jumptable_1b3c_case_8:
     lea ax, word [bp - 0x01b8]       ; 0x1a6a
     push ax                          ; 0x1a6e
@@ -1027,7 +1027,7 @@ jumptable_1b3c_case_8:
     push ax                          ; 0x1a76
     call loc_0429                    ; 0x1a77
     add sp, byte 6                   ; 0x1a7a
-    db 0xe9, 0xeb, 0x00 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1a7d
 jumptable_1b3c_case_9:
     mov ax, word [bp - 0x0196]       ; 0x1a80
     shl ax, 1                        ; 0x1a84
@@ -1039,7 +1039,7 @@ jumptable_1b3c_case_9:
     push ax                          ; 0x1a93
     call loc_0429                    ; 0x1a94
     add sp, byte 6                   ; 0x1a97
-    db 0xe9, 0xce, 0x00 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1a9a
 jumptable_1b3c_case_10:
     push word [bp - 0x01ba]          ; 0x1a9d
     mov ax, 0x3e                     ; 0x1aa1
@@ -1048,7 +1048,7 @@ jumptable_1b3c_case_10:
     push ax                          ; 0x1aa8
     call loc_03e1                    ; 0x1aa9
     add sp, byte 6                   ; 0x1aac
-    db 0xe9, 0xb9, 0x00 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1aaf
 jumptable_1b3c_case_11:
     push word [bp - 0x01bc]          ; 0x1ab2
     mov ax, 0x3e                     ; 0x1ab6
@@ -1057,7 +1057,7 @@ jumptable_1b3c_case_11:
     push ax                          ; 0x1abd
     call loc_03e1                    ; 0x1abe
     add sp, byte 6                   ; 0x1ac1
-    db 0xe9, 0xa4, 0x00 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1ac4
 jumptable_1b3c_case_12:
     mov ax, word [bp - 0x019a]       ; 0x1ac7
     shl ax, 1                        ; 0x1acb
@@ -1069,7 +1069,7 @@ jumptable_1b3c_case_12:
     push ax                          ; 0x1ada
     call loc_0429                    ; 0x1adb
     add sp, byte 6                   ; 0x1ade
-    db 0xe9, 0x87, 0x00 ; jmp near loc_1b6b
+    jmp near loc_1b6b                ; 0x1ae1
 jumptable_1b3c_case_13:
     mov ax, word [bp - 0x0198]       ; 0x1ae4
     shl ax, 1                        ; 0x1ae8
@@ -1091,7 +1091,7 @@ jumptable_1b3c_case_14:
     push ax                          ; 0x1b0b
     call loc_0429                    ; 0x1b0c
     add sp, byte 6                   ; 0x1b0f
-    db 0xeb, 0x57 ; jmp short loc_1b6b
+    jmp short loc_1b6b               ; 0x1b12
 jumptable_1b3c_case_15:
     mov ax, 0x1e84                   ; 0x1b14
     push ax                          ; 0x1b17
@@ -1101,7 +1101,7 @@ jumptable_1b3c_case_15:
     push ax                          ; 0x1b1f
     call loc_0429                    ; 0x1b20
     add sp, byte 6                   ; 0x1b23
-    db 0xeb, 0x43 ; jmp short loc_1b6b
+    jmp short loc_1b6b               ; 0x1b26
 jumptable_1b3c_case_16:
     mov ax, 0x1e90                   ; 0x1b28
     push ax                          ; 0x1b2b
@@ -1111,7 +1111,7 @@ jumptable_1b3c_case_16:
     push ax                          ; 0x1b33
     call loc_0429                    ; 0x1b34
     add sp, byte 6                   ; 0x1b37
-    db 0xeb, 0x2f ; jmp short loc_1b6b
+    jmp short loc_1b6b               ; 0x1b3a
 jumptable_1b3c:
     dw jumptable_1b3c_case_0 - IMAGE_BASE      ; 0x1b3c
     dw jumptable_1b3c_case_1 - IMAGE_BASE      ; 0x1b3e
@@ -1158,7 +1158,7 @@ loc_1b90:
     mov bx, ax                       ; 0x1b9a
     mov ax, word [bx + 0x221]        ; 0x1b9c
     mov word [bp - 0x019c], ax       ; 0x1ba0
-    db 0xe9, 0x27, 0x04 ; jmp near loc_1fce
+    jmp near loc_1fce                ; 0x1ba4
 loc_1ba7:
     mov ax, word [bp - 0x019c]       ; 0x1ba7
     mov word [bp - 0x019e], ax       ; 0x1bab
@@ -1166,7 +1166,7 @@ loc_1ba7:
     mov bx, ax                       ; 0x1bb1
     mov ax, word [bx + 0x1ff]        ; 0x1bb3
     mov word [bp - 0x019c], ax       ; 0x1bb7
-    db 0xe9, 0x10, 0x04 ; jmp near loc_1fce
+    jmp near loc_1fce                ; 0x1bbb
 loc_1bbe:
     mov ax, word [bp - 0x019c]       ; 0x1bbe
     mov word [bp - 0x019e], ax       ; 0x1bc2
@@ -1174,7 +1174,7 @@ loc_1bbe:
     mov bx, ax                       ; 0x1bc8
     mov ax, word [bx + 0x243]        ; 0x1bca
     mov word [bp - 0x019c], ax       ; 0x1bce
-    db 0xe9, 0xf9, 0x03 ; jmp near loc_1fce
+    jmp near loc_1fce                ; 0x1bd2
 loc_1bd5:
     mov word [bp - 0x019e], 0xffff   ; 0x1bd5
     mov ax, word [bp - 0x019c]       ; 0x1bdb
@@ -1223,13 +1223,13 @@ jumptable_1f81_case_1:
 @..local.l59:
     cmp word [bp - 0x01c2], byte 1   ; 0x1c3a
     je short @..local.l55            ; 0x1c3f
-    db 0xe9, 0x6c, 0x03 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1c41
 jumptable_1f81_case_2:
     mov ax, 0x1ecd                   ; 0x1c44
     push ax                          ; 0x1c47
     call loc_0992                    ; 0x1c48
     pop cx                           ; 0x1c4b
-    db 0xe9, 0x61, 0x03 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1c4c
 jumptable_1f81_case_3:
     mov ax, 0x1ef6                   ; 0x1c4f
     push ax                          ; 0x1c52
@@ -1270,7 +1270,7 @@ jumptable_1f81_case_3:
     push ax                          ; 0x1ca3
     call loc_040f                    ; 0x1ca4
     add sp, byte 6                   ; 0x1ca7
-    db 0xe9, 0x03, 0x03 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1caa
 jumptable_1f81_case_4:
 @..local.l60:
     mov ax, 2                        ; 0x1cad
@@ -1314,7 +1314,7 @@ jumptable_1f81_case_4:
 @..local.l65:
     cmp word [bp - 0x01c2], byte 1   ; 0x1d00
     je short @..local.l60            ; 0x1d05
-    db 0xe9, 0xa6, 0x02 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1d07
 jumptable_1f81_case_5:
 @..local.l66:
     mov ax, 0x14                     ; 0x1d0a
@@ -1361,7 +1361,7 @@ jumptable_1f81_case_5:
 @..local.l72:
     cmp word [bp - 0x01c2], byte 1   ; 0x1d66
     je short @..local.l66            ; 0x1d6b
-    db 0xe9, 0x40, 0x02 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1d6d
 jumptable_1f81_case_6:
     push word [bp - 0x01a0]          ; 0x1d70
     mov ax, 0x1b                     ; 0x1d74
@@ -1371,7 +1371,7 @@ jumptable_1f81_case_6:
     call loc_0d3f                    ; 0x1d7c
     add sp, byte 6                   ; 0x1d7f
     mov word [bp - 0x01a0], ax       ; 0x1d82
-    db 0xe9, 0x27, 0x02 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1d86
 jumptable_1f81_case_7:
     push word [bp - 0x01a2]          ; 0x1d89
     mov ax, 0x29                     ; 0x1d8d
@@ -1381,7 +1381,7 @@ jumptable_1f81_case_7:
     call loc_0d3f                    ; 0x1d95
     add sp, byte 6                   ; 0x1d98
     mov word [bp - 0x01a2], ax       ; 0x1d9b
-    db 0xe9, 0x0e, 0x02 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1d9f
 jumptable_1f81_case_8:
 @..local.l73:
     mov ax, 0x14                     ; 0x1da2
@@ -1421,13 +1421,13 @@ jumptable_1f81_case_8:
 @..local.l77:
     cmp word [bp - 0x01c2], byte 1   ; 0x1def
     je short @..local.l73            ; 0x1df4
-    db 0xe9, 0xb7, 0x01 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1df6
 jumptable_1f81_case_9:
     push word [bp - 0x0196]          ; 0x1df9
     call loc_0c21                    ; 0x1dfd
     pop cx                           ; 0x1e00
     mov word [bp - 0x0196], ax       ; 0x1e01
-    db 0xe9, 0xa8, 0x01 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1e05
 jumptable_1f81_case_10:
     mov ax, 0xff9d                   ; 0x1e08
     push ax                          ; 0x1e0b
@@ -1443,7 +1443,7 @@ jumptable_1f81_case_10:
     call loc_0823                    ; 0x1e20
     add sp, byte 0x0c                ; 0x1e23
     mov word [bp - 0x01ba], ax       ; 0x1e26
-    db 0xe9, 0x83, 0x01 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1e2a
 jumptable_1f81_case_11:
     mov ax, 0xff9d                   ; 0x1e2d
     push ax                          ; 0x1e30
@@ -1459,7 +1459,7 @@ jumptable_1f81_case_11:
     call loc_0823                    ; 0x1e45
     add sp, byte 0x0c                ; 0x1e48
     mov word [bp - 0x01bc], ax       ; 0x1e4b
-    db 0xe9, 0x5e, 0x01 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1e4f
 jumptable_1f81_case_12:
     push word [bp - 0x019a]          ; 0x1e52
     mov ax, 0x1b                     ; 0x1e56
@@ -1469,13 +1469,13 @@ jumptable_1f81_case_12:
     call loc_0d3f                    ; 0x1e5e
     add sp, byte 6                   ; 0x1e61
     mov word [bp - 0x019a], ax       ; 0x1e64
-    db 0xe9, 0x45, 0x01 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1e68
 jumptable_1f81_case_13:
     push word [bp - 0x0198]          ; 0x1e6b
     call loc_0d12                    ; 0x1e6f
     pop cx                           ; 0x1e72
     mov word [bp - 0x0198], ax       ; 0x1e73
-    db 0xe9, 0x36, 0x01 ; jmp near loc_1fb0
+    jmp near loc_1fb0                ; 0x1e77
 jumptable_1f81_case_14:
     mov al, byte [bp - 0x001c]       ; 0x1e7a
     cmp al, byte [bp - 0x003e]       ; 0x1e7d
@@ -1578,12 +1578,12 @@ jumptable_1f81_case_15:
     mov word [bp - 0x01c6], 1        ; 0x1f59
     mov word [bp - 0x01c0], 1        ; 0x1f5f
     mov word [bp - 0x01ca], 0        ; 0x1f65
-    db 0xeb, 0x43 ; jmp short loc_1fb0
+    jmp short loc_1fb0               ; 0x1f6b
 jumptable_1f81_case_16:
     mov word [bp - 0x01c6], 0        ; 0x1f6d
     mov word [bp - 0x01c0], 1        ; 0x1f73
     mov word [bp - 0x01ca], 0        ; 0x1f79
-    db 0xeb, 0x2f ; jmp short loc_1fb0
+    jmp short loc_1fb0               ; 0x1f7f
 jumptable_1f81:
     dw jumptable_1f81_case_0 - IMAGE_BASE      ; 0x1f81
     dw jumptable_1f81_case_1 - IMAGE_BASE      ; 0x1f83

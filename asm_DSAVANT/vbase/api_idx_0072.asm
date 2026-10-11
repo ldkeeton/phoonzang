@@ -76,7 +76,7 @@ api_idx_0072:
     push ax                          ; 0x2058
     mov ax, 0x91da                   ; 0x2059
     push ax                          ; 0x205c
-    db 0xe8, 0xb2, 0xb0 ; call 0xd112
+    call 0xd112                      ; 0x205d
     add sp, byte 6                   ; 0x2060
     lea ax, word [bp - 0x004a]       ; 0x2063
     push ax                          ; 0x2066
@@ -166,7 +166,7 @@ api_idx_0072:
     push ax                          ; 0x212e
     mov ax, 0x91c6                   ; 0x212f
     push ax                          ; 0x2132
-    db 0xe8, 0x72, 0xb0 ; call 0xd1a8
+    call 0xd1a8                      ; 0x2133
     add sp, byte 8                   ; 0x2136
     mov ax, 1                        ; 0x2139
     cmp word [bp - 0x000e], byte 0   ; 0x213c
@@ -221,7 +221,7 @@ api_idx_0072:
     push word [bp - 0x0010]          ; 0x21a8
     mov ax, 0x91c6                   ; 0x21ab
     push ax                          ; 0x21ae
-    db 0xe8, 0xf6, 0xaf ; call 0xd1a8
+    call 0xd1a8                      ; 0x21af
     add sp, byte 8                   ; 0x21b2
 @..api_idx_0072.l12:
     mov ax, 0xffff                   ; 0x21b5
@@ -261,7 +261,7 @@ api_idx_0072:
     push word [bp - 0x0010]          ; 0x2203
     mov ax, 0x91c6                   ; 0x2206
     push ax                          ; 0x2209
-    db 0xe8, 0x9b, 0xaf ; call 0xd1a8
+    call 0xd1a8                      ; 0x220a
     add sp, byte 8                   ; 0x220d
 @..api_idx_0072.l14:
     mov ax, 0xffff                   ; 0x2210
@@ -308,7 +308,7 @@ api_idx_0072:
     push word [bp - 0x0010]          ; 0x2270
     mov ax, 0x91c6                   ; 0x2273
     push ax                          ; 0x2276
-    db 0xe8, 0x2e, 0xaf ; call 0xd1a8
+    call 0xd1a8                      ; 0x2277
     add sp, byte 8                   ; 0x227a
 @..api_idx_0072.l18:
     mov ax, 0xffff                   ; 0x227d
@@ -341,7 +341,7 @@ api_idx_0072:
     push word [bp - 0x0010]          ; 0x22be
     mov ax, 0x91c6                   ; 0x22c1
     push ax                          ; 0x22c4
-    db 0xe8, 0xe0, 0xae ; call 0xd1a8
+    call 0xd1a8                      ; 0x22c5
     add sp, byte 8                   ; 0x22c8
 @..api_idx_0072.l20:
     mov ax, 0xffff                   ; 0x22cb
@@ -381,7 +381,7 @@ api_idx_0072:
     push word [bp - 0x0010]          ; 0x231a
     mov ax, 0x91c6                   ; 0x231d
     push ax                          ; 0x2320
-    db 0xe8, 0x84, 0xae ; call 0xd1a8
+    call 0xd1a8                      ; 0x2321
     add sp, byte 8                   ; 0x2324
 @..api_idx_0072.l23:
     mov ax, 0xffff                   ; 0x2327
@@ -416,7 +416,7 @@ loc_2339:
     push word [bp - 0x0010]          ; 0x236e
     mov ax, 0x91c6                   ; 0x2371
     push ax                          ; 0x2374
-    db 0xe8, 0x30, 0xae ; call 0xd1a8
+    call 0xd1a8                      ; 0x2375
     add sp, byte 8                   ; 0x2378
 loc_237b:
     mov ax, 0xffff                   ; 0x237b

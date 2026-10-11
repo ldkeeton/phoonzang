@@ -520,7 +520,7 @@ loc_4ab6:
     add sp, byte 4                   ; 0x4add
     push ax                          ; 0x4ae0
     push word [bp + 0xa]             ; 0x4ae1
-    db 0xe8, 0x38, 0xa5 ; call 0xf01f
+    call 0xf01f                      ; 0x4ae4
     add sp, byte 8                   ; 0x4ae7
 @..api_idx_0012_2.l38:
     jmp near loc_4b82                ; 0x4aea
@@ -545,7 +545,7 @@ loc_4aed:
     add sp, byte 4                   ; 0x4b14
     push ax                          ; 0x4b17
     push word [bp + 0x16]            ; 0x4b18
-    db 0xe8, 0x01, 0xa5 ; call 0xf01f
+    call 0xf01f                      ; 0x4b1b
     add sp, byte 8                   ; 0x4b1e
 @..api_idx_0012_2.l39:
     jmp short loc_4b82               ; 0x4b21

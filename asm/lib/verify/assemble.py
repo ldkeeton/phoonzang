@@ -9,6 +9,7 @@ import os
 import re
 import subprocess
 import tempfile
+import time
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
@@ -21,6 +22,19 @@ _equ_prelude = ''
 _equ_hash = 0
 _label_re = None
 _label_re_key = 0
+
+# NASM invocation accounting for ``main/runner.py``'s timing line.
+_stats = {'spawns': 0, 'hits': 0, 'time': 0.0}
+
+
+def assemble_stats():
+    return dict(_stats)
+
+
+def reset_assemble_stats():
+    _stats['spawns'] = 0
+    _stats['hits'] = 0
+    _stats['time'] = 0.0
 
 _COMMUTATIVE = {
     'xchg', 'add', 'or', 'and', 'xor', 'adc',
@@ -166,8 +180,12 @@ def micro_assemble(nasm_text, offset, label_map=None, local_labels=None, foreign
     label_re = _get_label_re(label_map, local_labels, foreign_label_map,
                              immediate_labels, disp_labels, image_base, mem_equ)
     uses_label = label_re is not None and bool(label_re.search(nasm_text))
-    key = (nasm_text, offset, id(mem_equ)) if uses_label else (nasm_text,)
+    if uses_label or _needs_origin(nasm_text):
+        key = (nasm_text, offset, id(mem_equ))
+    else:
+        key = (nasm_text,)
     if key in _assemble_cache:
+        _stats['hits'] += 1
         return _assemble_cache[key]
 
     asm = (f'org {offset}\nbits 16\n'
@@ -175,6 +193,7 @@ def micro_assemble(nasm_text, offset, label_map=None, local_labels=None, foreign
            f'{nasm_text}\n')
 
     fd, asm_path = tempfile.mkstemp(suffix='.asm', text=True)
+    t0 = time.perf_counter()
     try:
         with os.fdopen(fd, 'w') as f:
             f.write(asm)
@@ -187,6 +206,8 @@ def micro_assemble(nasm_text, offset, label_map=None, local_labels=None, foreign
             os.unlink(asm_path)
         except OSError:
             pass
+    _stats['spawns'] += 1
+    _stats['time'] += time.perf_counter() - t0
 
     if r.returncode != 0:
         _assemble_cache[key] = None
@@ -194,6 +215,126 @@ def micro_assemble(nasm_text, offset, label_map=None, local_labels=None, foreign
 
     _assemble_cache[key] = r.stdout
     return r.stdout
+
+
+_LINE_RE = re.compile(r'^\s*(\d+)\s+([0-9A-Fa-f]{8})\s+([0-9A-Fa-f()]+)\s*(.*)$')
+_ERR_RE = re.compile(r':(\d+):\s*(?:error|fatal):')
+
+
+def _hex_len(field):
+    return sum(1 for c in field if c in '0123456789abcdefABCDEF') // 2
+
+
+def _needs_origin(text):
+    """True when NASM encodes *text* relative to the current position.
+
+    Only relative control-transfer instructions depend on ``$``; every other
+    16-bit instruction assembles to the same bytes regardless of origin.  Such
+    origin-independent instructions can share one section (keeping NASM fast),
+    while branches get their own ``vstart``.
+    """
+    token = text.strip().split(None, 1)[0].lower()
+    if token.startswith('j'):
+        return True
+    if token in ('call', 'lcall', 'loop', 'loope', 'loopne', 'jcxz', 'jecxz'):
+        return True
+    return '$' in text
+
+
+def assemble_batch(requests, label_map=None, local_labels=None,
+                   foreign_label_map=None, immediate_labels=None,
+                   disp_labels=None, image_base=None, mem_equ=None):
+    """Assemble many ``(text, offset)`` instructions in one NASM run.
+
+    Each origin-independent instruction is emitted bare; only relative
+    control-transfer instructions (whose encoding depends on ``$``) get their
+    own ``align=1 vstart=<offset>`` section so NASM sees the correct origin.
+    The output stays a dense concatenation we can slice, and the listing file
+    supplies each instruction's assembled length.
+
+    Returns a list aligned with *requests*: the assembled bytes for each, or
+    ``None`` when that instruction cannot be assembled (same contract as
+    :func:`micro_assemble`).  Returns ``None`` if the batch cannot be processed
+    structurally, signalling the caller to fall back to per-instruction
+    assembly.
+    """
+    reqs = list(requests)
+    if not reqs:
+        return []
+    prelude = _build_equ_prelude(
+        label_map, local_labels, foreign_label_map, immediate_labels,
+        disp_labels, image_base, mem_equ)
+
+    bad = [False] * len(reqs)
+    for _ in range(len(reqs) + 1):
+        lines = ['bits 16']
+        if prelude:
+            lines.extend(prelude.rstrip('\n').split('\n'))
+        req_line = {}
+        need_section = True
+        for i, req in enumerate(reqs):
+            if req is None or bad[i]:
+                continue
+            text, offset = req
+            if need_section or _needs_origin(text):
+                lines.append(f'section s{i} align=1 vstart=0x{offset:x}')
+                need_section = False
+            lines.append(text)
+            req_line[len(lines)] = i
+
+        fd, asm_path = tempfile.mkstemp(suffix='.asm', text=True)
+        lst_path = asm_path + '.lst'
+        bin_path = asm_path + '.bin'
+        try:
+            with os.fdopen(fd, 'w') as f:
+                f.write('\n'.join(lines) + '\n')
+            t0 = time.perf_counter()
+            r = subprocess.run(
+                [NASM, '-O0', '-f', 'bin', '-w-number-overflow',
+                 '-o', bin_path, '-l', lst_path, asm_path],
+                capture_output=True, timeout=120,
+            )
+            _stats['spawns'] += 1
+            _stats['time'] += time.perf_counter() - t0
+
+            if r.returncode != 0:
+                found = False
+                for m in _ERR_RE.finditer(r.stderr.decode(errors='replace')):
+                    line_no = int(m.group(1))
+                    cands = [(ln, i) for ln, i in req_line.items()
+                             if ln <= line_no]
+                    if cands:
+                        bad[max(cands)[1]] = True
+                        found = True
+                if not found:
+                    return None
+                continue
+
+            with open(bin_path, 'rb') as f:
+                blob = f.read()
+            lengths = {}
+            with open(lst_path) as f:
+                for line in f:
+                    m = _LINE_RE.match(line)
+                    if m:
+                        lengths[int(m.group(1))] = _hex_len(m.group(3))
+
+            result = [None] * len(reqs)
+            pos = 0
+            for line_no in sorted(req_line):
+                size = lengths.get(line_no, 0)
+                result[req_line[line_no]] = blob[pos:pos + size]
+                pos += size
+            if pos != len(blob):
+                return None
+            return result
+        finally:
+            for path in (asm_path, lst_path, bin_path):
+                try:
+                    os.unlink(path)
+                except OSError:
+                    pass
+    return None
 
 
 def clear_assemble_cache():

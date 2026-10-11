@@ -499,7 +499,7 @@ loc_242c:
     dec ax                           ; 0x24ac
     dec ax                           ; 0x24ad
     push ax                          ; 0x24ae
-    db 0xe8, 0x89, 0x97 ; call 0xbc3b
+    call 0xbc3b                      ; 0x24af
     add sp, byte 0x0c                ; 0x24b2
     mov ax, 0x51                     ; 0x24b5
     cmp word [bp + 0xc], byte 0      ; 0x24b8

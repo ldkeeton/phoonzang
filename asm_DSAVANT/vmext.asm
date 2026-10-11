@@ -265,7 +265,7 @@ jumptable_4471_case_1:
     push ax                          ; 0x4156
     mov ax, 0                        ; 0x4157
     push ax                          ; 0x415a
-    db 0xe8, 0xc1, 0xae ; call 0xf01f
+    call 0xf01f                      ; 0x415b
     add sp, byte 8                   ; 0x415e
 @..api_idx_0030.l10:
     mov ax, 0x20                     ; 0x4161
@@ -283,7 +283,7 @@ jumptable_4471_case_1:
     push ax                          ; 0x4179
     mov ax, 0                        ; 0x417a
     push ax                          ; 0x417d
-    db 0xe8, 0x9e, 0xae ; call 0xf01f
+    call 0xf01f                      ; 0x417e
     add sp, byte 8                   ; 0x4181
     jmp near @..api_idx_0030.l25     ; 0x4184
 jumptable_4471_case_2:
@@ -317,7 +317,7 @@ jumptable_4471_case_2:
     push ax                          ; 0x41c5
     mov ax, 1                        ; 0x41c6
     push ax                          ; 0x41c9
-    db 0xe8, 0x52, 0xae ; call 0xf01f
+    call 0xf01f                      ; 0x41ca
     add sp, byte 8                   ; 0x41cd
     mov ax, 0x3e                     ; 0x41d0
     push ax                          ; 0x41d3
@@ -334,7 +334,7 @@ jumptable_4471_case_2:
     push ax                          ; 0x41e8
     mov ax, 1                        ; 0x41e9
     push ax                          ; 0x41ec
-    db 0xe8, 0x2f, 0xae ; call 0xf01f
+    call 0xf01f                      ; 0x41ed
     add sp, byte 8                   ; 0x41f0
     jmp near @..api_idx_0030.l25     ; 0x41f3
 jumptable_4471_case_3:
@@ -395,7 +395,7 @@ jumptable_4471_case_3:
     push ax                          ; 0x4278
     mov ax, 4                        ; 0x4279
     push ax                          ; 0x427c
-    db 0xe8, 0x9f, 0xad ; call 0xf01f
+    call 0xf01f                      ; 0x427d
     add sp, byte 8                   ; 0x4280
     mov ax, 0xad                     ; 0x4283
     push ax                          ; 0x4286
@@ -412,7 +412,7 @@ jumptable_4471_case_3:
     push ax                          ; 0x429b
     mov ax, 2                        ; 0x429c
     push ax                          ; 0x429f
-    db 0xe8, 0x7c, 0xad ; call 0xf01f
+    call 0xf01f                      ; 0x42a0
     add sp, byte 8                   ; 0x42a3
 @..api_idx_0030.l13:
     jmp near @..api_idx_0030.l25     ; 0x42a6
@@ -451,7 +451,7 @@ jumptable_4471_case_4:
     push ax                          ; 0x42f1
     mov ax, 1                        ; 0x42f2
     push ax                          ; 0x42f5
-    db 0xe8, 0x26, 0xad ; call 0xf01f
+    call 0xf01f                      ; 0x42f6
     add sp, byte 8                   ; 0x42f9
     cmp word [bss_9188], byte 0      ; 0x42fc
     jne short @..api_idx_0030.l15    ; 0x4301
@@ -470,7 +470,7 @@ jumptable_4471_case_4:
     push ax                          ; 0x431b
     mov ax, 4                        ; 0x431c
     push ax                          ; 0x431f
-    db 0xe8, 0xfc, 0xac ; call 0xf01f
+    call 0xf01f                      ; 0x4320
     add sp, byte 8                   ; 0x4323
 @..api_idx_0030.l15:
     jmp near @..api_idx_0030.l25     ; 0x4326
@@ -517,7 +517,7 @@ jumptable_4471_case_5:
     push ax                          ; 0x4381
     mov ax, 4                        ; 0x4382
     push ax                          ; 0x4385
-    db 0xe8, 0x96, 0xac ; call 0xf01f
+    call 0xf01f                      ; 0x4386
     add sp, byte 8                   ; 0x4389
     jmp near @..api_idx_0030.l25     ; 0x438c
 jumptable_4471_case_6:
@@ -551,7 +551,7 @@ jumptable_4471_case_6:
     push ax                          ; 0x43cd
     mov ax, 1                        ; 0x43ce
     push ax                          ; 0x43d1
-    db 0xe8, 0x4a, 0xac ; call 0xf01f
+    call 0xf01f                      ; 0x43d2
     add sp, byte 8                   ; 0x43d5
     cmp word [bss_830c], byte 8      ; 0x43d8
     jne short @..api_idx_0030.l20    ; 0x43dd
@@ -617,7 +617,7 @@ jumptable_4471_case_6:
     push ax                          ; 0x4464
     mov ax, 1                        ; 0x4465
     push ax                          ; 0x4468
-    db 0xe8, 0xb3, 0xab ; call 0xf01f
+    call 0xf01f                      ; 0x4469
     add sp, byte 8                   ; 0x446c
 @..api_idx_0030.l23:
     jmp short @..api_idx_0030.l25    ; 0x446f
@@ -1745,7 +1745,7 @@ jumptable_4471_case_0:
     mov al, byte [bx + 0xe]          ; 0x4db7
     sub ah, ah                       ; 0x4dba
     push ax                          ; 0x4dbc
-    db 0xe8, 0x5f, 0xa2 ; call 0xf01f
+    call 0xf01f                      ; 0x4dbd
     add sp, byte 8                   ; 0x4dc0
 @..api_idx_0030.l43:
     mov bx, word [bp - 0x0026]       ; 0x4dc3
@@ -1759,7 +1759,7 @@ jumptable_4471_case_0:
     mov al, byte [bx + 0xe]          ; 0x4dd8
     sub ah, ah                       ; 0x4ddb
     push ax                          ; 0x4ddd
-    db 0xe8, 0x3e, 0xa2 ; call 0xf01f
+    call 0xf01f                      ; 0x4dde
     add sp, byte 8                   ; 0x4de1
 @..api_idx_0030.l44:
     dec word [bp - 0x0002]           ; 0x4de4

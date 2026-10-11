@@ -249,7 +249,7 @@ api_idx_0022:
     push word [bp - 0x000e]          ; 0x96c7
     lea ax, word [bp - 0x0022]       ; 0x96ca
     push ax                          ; 0x96cd
-    db 0xe8, 0xd7, 0x3a ; call 0xd1a8
+    call 0xd1a8                      ; 0x96ce
     add sp, byte 8                   ; 0x96d1
 @..api_idx_0022.l11:
     ret                              ; 0x96d4

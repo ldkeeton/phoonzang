@@ -520,7 +520,7 @@ loc_3545:
     add sp, byte 4                   ; 0x356c
     push ax                          ; 0x356f
     push word [bp + 0xa]             ; 0x3570
-    db 0xe8, 0xa9, 0xba ; call 0xf01f
+    call 0xf01f                      ; 0x3573
     add sp, byte 8                   ; 0x3576
 @..api_idx_0012_3.l38:
     jmp near @..api_idx_0012_3.l46   ; 0x3579
@@ -545,7 +545,7 @@ loc_357c:
     add sp, byte 4                   ; 0x35a3
     push ax                          ; 0x35a6
     push word [bp + 0x16]            ; 0x35a7
-    db 0xe8, 0x72, 0xba ; call 0xf01f
+    call 0xf01f                      ; 0x35aa
     add sp, byte 8                   ; 0x35ad
 @..api_idx_0012_3.l39:
     jmp short @..api_idx_0012_3.l46  ; 0x35b0
@@ -579,7 +579,7 @@ loc_35b2:
 @..api_idx_0012_3.l43:
     push ax                          ; 0x35ea
     push word [bp + 0x14]            ; 0x35eb
-    db 0xe8, 0x2e, 0xba ; call 0xf01f
+    call 0xf01f                      ; 0x35ee
     add sp, byte 8                   ; 0x35f1
 @..api_idx_0012_3.l44:
     jmp short @..api_idx_0012_3.l46  ; 0x35f4
@@ -637,7 +637,7 @@ jumptable_35fa:
     push ax                          ; 0x3664
     mov ax, 3                        ; 0x3665
     push ax                          ; 0x3668
-    db 0xe8, 0xb3, 0xb9 ; call 0xf01f
+    call 0xf01f                      ; 0x3669
     add sp, byte 8                   ; 0x366c
     jmp short @..api_idx_0012_3.l53  ; 0x366f
 @..api_idx_0012_3.l49:
@@ -664,7 +664,7 @@ jumptable_35fa:
     push ax                          ; 0x369f
     mov ax, 3                        ; 0x36a0
     push ax                          ; 0x36a3
-    db 0xe8, 0x78, 0xb9 ; call 0xf01f
+    call 0xf01f                      ; 0x36a4
     add sp, byte 8                   ; 0x36a7
 @..api_idx_0012_3.l53:
     mov ax, 0xa                      ; 0x36aa

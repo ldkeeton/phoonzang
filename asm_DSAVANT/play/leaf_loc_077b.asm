@@ -64,11 +64,11 @@ leaf_loc_077b:
     inc dx                           ; 0x080f
     db 0x86, 0xc4 ; xchg ah, al
     out dx, al                       ; 0x0812
-    db 0xe8, 0x0b, 0x00 ; call loc_0821
+    call loc_0821                    ; 0x0813
     dec dx                           ; 0x0816
     mov al, 0x40                     ; 0x0817
     out dx, al                       ; 0x0819
-    db 0xe8, 0x04, 0x00 ; call loc_0821
+    call loc_0821                    ; 0x081a
     popf                             ; 0x081d
     pop dx                           ; 0x081e
     pop bx                           ; 0x081f
@@ -240,7 +240,7 @@ leaf_loc_077b:
     pop ds                           ; 0x0966
     pop ax                           ; 0x0967
     iret                             ; 0x0968
-    db 0xe8, 0x68, 0x00 ; call loc_09d4
+    call loc_09d4                    ; 0x0969
     mov al, 0x20                     ; 0x096c
     out 0x20, al                     ; 0x096e
     pop bx                           ; 0x0970
@@ -259,12 +259,12 @@ leaf_loc_077b:
     mov al, 0x20                     ; 0x0985
     out 0x20, al                     ; 0x0987
     iret                             ; 0x0989
-    db 0xe8, 0x69, 0x01 ; call loc_0af6
+    call loc_0af6                    ; 0x098a
     mov si, word [cs:data_0b81]      ; 0x098d
     mov al, 0x20                     ; 0x0992
     out 0x20, al                     ; 0x0994
     iret                             ; 0x0996
-    db 0xe8, 0x3a, 0x00 ; call loc_09d4
+    call loc_09d4                    ; 0x0997
     mov al, 0x20                     ; 0x099a
     out 0x20, al                     ; 0x099c
     iret                             ; 0x099e

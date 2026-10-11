@@ -83,7 +83,7 @@ api_idx_004e:
     push ax                          ; 0x3948
     mov ax, 0x91c6                   ; 0x3949
     push ax                          ; 0x394c
-    db 0xe8, 0xc2, 0x97 ; call 0xd112
+    call 0xd112                      ; 0x394d
     add sp, byte 6                   ; 0x3950
     mov ax, 0x3a                     ; 0x3953
     push ax                          ; 0x3956
@@ -91,7 +91,7 @@ api_idx_004e:
     push ax                          ; 0x395a
     mov ax, 0x91da                   ; 0x395b
     push ax                          ; 0x395e
-    db 0xe8, 0xb0, 0x97 ; call 0xd112
+    call 0xd112                      ; 0x395f
     add sp, byte 6                   ; 0x3962
     mov ax, 0x593a                   ; 0x3965
     push ax                          ; 0x3968
@@ -161,7 +161,7 @@ api_idx_004e:
     push ax                          ; 0x39fe
     mov ax, 0x91da                   ; 0x39ff
     push ax                          ; 0x3a02
-    db 0xe8, 0xa2, 0x97 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3a03
     add sp, byte 8                   ; 0x3a06
     mov ax, 1                        ; 0x3a09
     cmp word [bp - 0x000e], byte 0   ; 0x3a0c
@@ -181,7 +181,7 @@ api_idx_004e:
     push ax                          ; 0x3a30
     mov ax, 0x91c6                   ; 0x3a31
     push ax                          ; 0x3a34
-    db 0xe8, 0x70, 0x97 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3a35
     add sp, byte 8                   ; 0x3a38
     mov ax, 1                        ; 0x3a3b
     cmp word [bp - 0x000e], byte 0   ; 0x3a3e
@@ -220,7 +220,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3a88
     mov ax, 0x91c6                   ; 0x3a8b
     push ax                          ; 0x3a8e
-    db 0xe8, 0x16, 0x97 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3a8f
     add sp, byte 8                   ; 0x3a92
 @..api_idx_004e.l15:
     mov ax, 0xffff                   ; 0x3a95
@@ -326,7 +326,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3b76
     mov ax, 0x91c6                   ; 0x3b79
     push ax                          ; 0x3b7c
-    db 0xe8, 0x28, 0x96 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3b7d
     add sp, byte 8                   ; 0x3b80
 @..api_idx_004e.l19:
     mov ax, 0xffff                   ; 0x3b83
@@ -360,7 +360,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3bc8
     mov ax, 0x91c6                   ; 0x3bcb
     push ax                          ; 0x3bce
-    db 0xe8, 0xd6, 0x95 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3bcf
     add sp, byte 8                   ; 0x3bd2
 @..api_idx_004e.l21:
     mov ax, 0xffff                   ; 0x3bd5
@@ -396,7 +396,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3c1c
     mov ax, 0x91c6                   ; 0x3c1f
     push ax                          ; 0x3c22
-    db 0xe8, 0x82, 0x95 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3c23
     add sp, byte 8                   ; 0x3c26
 @..api_idx_004e.l23:
     mov ax, 0xffff                   ; 0x3c29
@@ -461,7 +461,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3caf
     mov ax, 0x91c6                   ; 0x3cb2
     push ax                          ; 0x3cb5
-    db 0xe8, 0xef, 0x94 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3cb6
     add sp, byte 8                   ; 0x3cb9
 @..api_idx_004e.l26:
     mov ax, 0xffff                   ; 0x3cbc
@@ -492,7 +492,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3cf5
     mov ax, 0x91c6                   ; 0x3cf8
     push ax                          ; 0x3cfb
-    db 0xe8, 0xa9, 0x94 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3cfc
     add sp, byte 8                   ; 0x3cff
 @..api_idx_004e.l28:
     mov ax, 0xffff                   ; 0x3d02
@@ -595,7 +595,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3e14
     mov ax, 0x91c6                   ; 0x3e17
     push ax                          ; 0x3e1a
-    db 0xe8, 0x8a, 0x93 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3e1b
     add sp, byte 8                   ; 0x3e1e
 @..api_idx_004e.l32:
     mov ax, 0xffff                   ; 0x3e21
@@ -666,7 +666,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3ebe
     mov ax, 0x91c6                   ; 0x3ec1
     push ax                          ; 0x3ec4
-    db 0xe8, 0xe0, 0x92 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3ec5
     add sp, byte 8                   ; 0x3ec8
 @..api_idx_004e.l34:
     mov ax, 0xffff                   ; 0x3ecb
@@ -697,7 +697,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3f04
     mov ax, 0x91c6                   ; 0x3f07
     push ax                          ; 0x3f0a
-    db 0xe8, 0x9a, 0x92 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3f0b
     add sp, byte 8                   ; 0x3f0e
 @..api_idx_004e.l36:
     mov ax, 0xffff                   ; 0x3f11
@@ -741,7 +741,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3f6a
     mov ax, 0x91c6                   ; 0x3f6d
     push ax                          ; 0x3f70
-    db 0xe8, 0x34, 0x92 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3f71
     add sp, byte 8                   ; 0x3f74
 @..api_idx_004e.l39:
     mov ax, 0xffff                   ; 0x3f77
@@ -763,7 +763,7 @@ api_idx_004e:
     push word [bp - 0x0010]          ; 0x3f9b
     mov ax, 0x91c6                   ; 0x3f9e
     push ax                          ; 0x3fa1
-    db 0xe8, 0x03, 0x92 ; call 0xd1a8
+    call 0xd1a8                      ; 0x3fa2
     add sp, byte 8                   ; 0x3fa5
 @..api_idx_004e.l42:
     mov ax, 0                        ; 0x3fa8

@@ -33,7 +33,7 @@ api_idx_0008_2:
     call loc_4318                    ; 0x43ba
     add sp, byte 6                   ; 0x43bd
     mov word [bss_82f4], ax          ; 0x43c0
-    db 0xe9, 0x11, 0x07 ; jmp near loc_4ad7
+    jmp near loc_4ad7                ; 0x43c3
     mov ax, 0x32                     ; 0x43c6
     imul word [bp + 0x8]             ; 0x43c9
     add word [bss_82f6], ax          ; 0x43cc
@@ -50,15 +50,15 @@ api_idx_0008_2:
     call loc_4318                    ; 0x43e4
     add sp, byte 6                   ; 0x43e7
     mov word [bss_82f8], ax          ; 0x43ea
-    db 0xe9, 0xe7, 0x06 ; jmp near loc_4ad7
+    jmp near loc_4ad7                ; 0x43ed
     mov ax, 5                        ; 0x43f0
     imul word [bp + 0x8]             ; 0x43f3
     add word [bss_8306], ax          ; 0x43f6
-    db 0xe9, 0xda, 0x06 ; jmp near loc_4ad7
+    jmp near loc_4ad7                ; 0x43fa
     mov ax, 0x64                     ; 0x43fd
     imul word [bp + 0x8]             ; 0x4400
     add word [bss_8302], ax          ; 0x4403
-    db 0xe9, 0xcd, 0x06 ; jmp near loc_4ad7
+    jmp near loc_4ad7                ; 0x4407
     mov ax, 0x32                     ; 0x440a
     imul word [bp + 0x8]             ; 0x440d
     add word [bss_82fa], ax          ; 0x4410
@@ -71,12 +71,12 @@ api_idx_0008_2:
     call loc_4318                    ; 0x4423
     add sp, byte 6                   ; 0x4426
     mov word [bss_82fc], ax          ; 0x4429
-    db 0xe9, 0xa8, 0x06 ; jmp near loc_4ad7
+    jmp near loc_4ad7                ; 0x442c
     push word [bp + 0x8]             ; 0x442f
     push word [bp + 0x4]             ; 0x4432
     call api_idx_0054                ; 0x4435
     add sp, byte 4                   ; 0x4438
-    db 0xe9, 0x99, 0x06 ; jmp near loc_4ad7
+    jmp near loc_4ad7                ; 0x443b
     mov word [bp - 0x0006], 0        ; 0x443e
 @..local.l61:
     mov ax, 0x64                     ; 0x4443
@@ -142,7 +142,7 @@ api_idx_0008_2:
     jge short @..local.l69           ; 0x44d2
     jmp near @..local.l61            ; 0x44d4
 @..local.l69:
-    db 0xe9, 0xfd, 0x05 ; jmp near loc_4ad7
+    jmp near loc_4ad7                ; 0x44d7
     mov ax, 0                        ; 0x44da
     cmp word [bp + 0x6], byte 0x13   ; 0x44dd
     je short @..local.l70            ; 0x44e1

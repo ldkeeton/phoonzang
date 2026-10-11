@@ -30,7 +30,7 @@ api_idx_0002_6:
     add sp, byte 8                   ; 0x70a7
     cmp word [bss_0e32], byte 1      ; 0x70aa
     jne short @..api_idx_0002_6.l1   ; 0x70af
-    db 0xe8, 0x85, 0x7f ; call 0xf039
+    call 0xf039                      ; 0x70b1
 @..api_idx_0002_6.l1:
     mov word [bss_0e32], 0           ; 0x70b4
     call ds_dispatch_d9a6            ; 0x70ba
