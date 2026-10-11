@@ -1417,6 +1417,7 @@
         1448,
         1466,
         1681,
+        8915,
         24524,
         24530,
         24585,
@@ -2418,114 +2419,138 @@
       ]
     },
     {
-      "name": "data_82f2",
+      "name": "bss_82f2",
       "address": 33522,
       "address_hex": "0x82f2",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8759
+      ]
     },
     {
-      "name": "data_82f4",
+      "name": "bss_82f4",
       "address": 33524,
       "address_hex": "0x82f4",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8767,
+        8789
+      ]
     },
     {
-      "name": "data_82f6",
+      "name": "bss_82f6",
       "address": 33526,
       "address_hex": "0x82f6",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8801
+      ]
     },
     {
-      "name": "data_82f8",
+      "name": "bss_82f8",
       "address": 33528,
       "address_hex": "0x82f8",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8809,
+        8831
+      ]
     },
     {
-      "name": "data_82fa",
+      "name": "bss_82fa",
       "address": 33530,
       "address_hex": "0x82fa",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8869
+      ]
     },
     {
-      "name": "data_82fc",
+      "name": "bss_82fc",
       "address": 33532,
       "address_hex": "0x82fc",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8877,
+        8894
+      ]
     },
     {
-      "name": "data_82fe",
+      "name": "bss_82fe",
       "address": 33534,
       "address_hex": "0x82fe",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8719
+      ]
     },
     {
-      "name": "data_8300",
+      "name": "bss_8300",
       "address": 33536,
       "address_hex": "0x8300",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8727,
+        8747
+      ]
     },
     {
-      "name": "data_8302",
+      "name": "bss_8302",
       "address": 33538,
       "address_hex": "0x8302",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8856
+      ]
     },
     {
-      "name": "data_8306",
+      "name": "bss_8306",
       "address": 33542,
       "address_hex": "0x8306",
       "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        8843
+      ]
     },
     {
       "name": "bss_830a",

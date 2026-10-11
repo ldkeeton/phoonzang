@@ -297,25 +297,41 @@ def analyze(instructions, model, binary_data=None, function_roots=(),
             states[address] = merged
             worklist.append(address)
 
+    def run():
+        while worklist:
+            address = worklist.pop()
+            insn = insns.get(address)
+            if insn is None:
+                continue
+            state = states[address]
+            out = _transfer(insn, state, model, relocs, binary_data)
+            for succ in _successors(insn, insns, state, model, extra,
+                                    test_before):
+                if succ is None:
+                    continue
+                if succ in roots or succ == entry:
+                    incoming = seed_for(succ)
+                else:
+                    incoming = out
+                push(succ, incoming)
+
     for root in roots | ({entry} if entry is not None else set()):
         if root in insns:
             push(root, seed_for(root))
+    run()
 
-    while worklist:
-        address = worklist.pop()
-        insn = insns.get(address)
-        if insn is None:
-            continue
-        state = states[address]
-        out = _transfer(insn, state, model, relocs, binary_data)
-        for succ in _successors(insn, insns, state, model, extra, test_before):
-            if succ is None:
-                continue
-            if succ in roots or succ == entry:
-                incoming = seed_for(succ)
-            else:
-                incoming = out
-            push(succ, incoming)
+    # Detached code islands (e.g. switch arms promoted after the first decode)
+    # have no incoming edge, so the walk above never reaches them and their
+    # absolute operands would fall back to the generic ``data_`` namespace.
+    # For overlays the data segment is the host's for the whole image, so each
+    # unreached instruction can be treated as an entry following the caller
+    # convention.  MZ images are excluded: their DS starts at the PSP and only
+    # later becomes the data segment, so a blind seed could overwrite states.
+    if model.kind == 'overlay':
+        for address in insns:
+            if address not in states:
+                push(address, _convention_state())
+        run()
 
     return SegmentFlow(model, states)
 

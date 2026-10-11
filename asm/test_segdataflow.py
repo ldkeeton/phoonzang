@@ -116,5 +116,31 @@ class RealAztecBeginTest(unittest.TestCase):
         self.assertEqual(flow.effective_segment(insn, mem), ('cs', LOAD))
 
 
+class OverlayIslandTest(unittest.TestCase):
+    """Unreached overlay code gets the caller-convention segment state.
+
+    Overlay switch arms are often promoted to code after the first decode, so
+    the dataflow walk never reaches them.  Their DS is still the host data
+    segment, so they must resolve rather than fall back to ``data_``.
+    """
+
+    def test_unreached_island_seeded_for_overlay(self):
+        # 0x200 jmp 0x205 ; 0x202 mov ax, [0x300] (unreachable) ; 0x205 nop
+        code = bytes.fromhex('eb03' 'a10003' '90')
+        model = _model(kind='overlay', psp=False, header_size=14)
+        insns = _disasm(code, 0x200)
+        flow = analyze(insns, model, binary_data=bytes(0x2000),
+                       function_roots={0x200})
+        self.assertEqual(flow.space_of(0x202, 'ds'), DATA)
+
+    def test_unreached_island_left_unseeded_for_mz(self):
+        code = bytes.fromhex('eb03' 'a10003' '90')
+        model = _model()
+        insns = _disasm(code, 0x200)
+        flow = analyze(insns, model, binary_data=bytes(0x2000),
+                       function_roots={0x200})
+        self.assertNotIn(0x202, flow.states)
+
+
 if __name__ == '__main__':
     unittest.main()

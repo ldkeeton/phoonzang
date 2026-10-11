@@ -18,16 +18,6 @@ IMAGE_BASE equ 0x000e
     dw 0xe835      ; o_entry: overlay entry offset (CS)
 
 loc_23fd equ 0x23fd
-data_82f2 equ 0x82f2
-data_82f4 equ 0x82f4
-data_82f6 equ 0x82f6
-data_82f8 equ 0x82f8
-data_82fa equ 0x82fa
-data_82fc equ 0x82fc
-data_82fe equ 0x82fe
-data_8300 equ 0x8300
-data_8302 equ 0x8302
-data_8306 equ 0x8306
 dseg_0002 equ 0x0002
 dseg_001e equ 0x001e
 dseg_0022 equ 0x0022
@@ -58,6 +48,16 @@ bss_59fc equ 0x59fc
 bss_5b3e equ 0x5b3e
 bss_69c8 equ 0x69c8
 bss_82ee equ 0x82ee
+bss_82f2 equ 0x82f2
+bss_82f4 equ 0x82f4
+bss_82f6 equ 0x82f6
+bss_82f8 equ 0x82f8
+bss_82fa equ 0x82fa
+bss_82fc equ 0x82fc
+bss_82fe equ 0x82fe
+bss_8300 equ 0x8300
+bss_8302 equ 0x8302
+bss_8306 equ 0x8306
 bss_830a equ 0x830a
 bss_830c equ 0x830c
 bss_844c equ 0x844c

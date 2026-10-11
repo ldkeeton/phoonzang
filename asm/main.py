@@ -633,7 +633,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         # instruction stream and the segment dataflow against the final
         # bitmap so symbolization/emission see the same code the verifier
         # will filter on (otherwise promoted instructions fall back to the
-        # generic ``data_`` namespace).
+        # generic ``data_`` namespace).  ``analyze_segments`` seeds any
+        # promoted island the walk does not reach.
         instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
         ctx.segment_flow = analyze_segments(
             instructions, ctx.segments, binary_data=data,

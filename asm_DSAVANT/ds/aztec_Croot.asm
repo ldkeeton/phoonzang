@@ -8,17 +8,17 @@ aztec_Croot:
     push ax                          ; 0x4eb2
     call aztec_isatty                ; 0x4eb3
     pop cx                           ; 0x4eb6
-    mov byte [0x0cdc], al            ; 0x4eb7
+    mov byte [dseg_0cdc], al         ; 0x4eb7
     mov ax, 1                        ; 0x4eba
     push ax                          ; 0x4ebd
     call aztec_isatty                ; 0x4ebe
     pop cx                           ; 0x4ec1
-    mov byte [0x0cdd], al            ; 0x4ec2
+    mov byte [dseg_0cdd], al         ; 0x4ec2
     mov ax, 2                        ; 0x4ec5
     push ax                          ; 0x4ec8
     call aztec_isatty                ; 0x4ec9
     pop cx                           ; 0x4ecc
-    mov byte [0x0cde], al            ; 0x4ecd
+    mov byte [dseg_0cde], al         ; 0x4ecd
     mov ax, word [bp + 0x6]          ; 0x4ed0
     shl ax, 1                        ; 0x4ed3
     inc ax                           ; 0x4ed5
@@ -26,14 +26,14 @@ aztec_Croot:
     push ax                          ; 0x4ed7
     call aztec_sbrk                  ; 0x4ed8
     pop cx                           ; 0x4edb
-    mov word [0x0d06], ax            ; 0x4edc
+    mov word [bss_0d06], ax          ; 0x4edc
     mov ax, 0xc9e                    ; 0x4edf
-    mov bx, word [0x0d06]            ; 0x4ee2
+    mov bx, word [bss_0d06]          ; 0x4ee2
     mov word [bx], 0xc9e             ; 0x4ee6
     mov ax, word [bp + 0x6]          ; 0x4eea
-    mov word [0x0d04], ax            ; 0x4eed
+    mov word [bss_0d04], ax          ; 0x4eed
     shl ax, 1                        ; 0x4ef0
-    mov di, word [0x0d06]            ; 0x4ef2
+    mov di, word [bss_0d06]          ; 0x4ef2
     add di, ax                       ; 0x4ef6
 @..aztec_Croot.l1:
     cmp byte [si], 0x20              ; 0x4ef8
@@ -49,7 +49,7 @@ aztec_Croot:
     mov word [di], si                ; 0x4f0a
     inc di                           ; 0x4f0c
     inc di                           ; 0x4f0d
-    inc word [0x0d04]                ; 0x4f0e
+    inc word [bss_0d04]              ; 0x4f0e
     mov ax, 2                        ; 0x4f12
     push ax                          ; 0x4f15
     call aztec_sbrk                  ; 0x4f16
@@ -87,8 +87,8 @@ aztec_Croot:
     jmp short @..aztec_Croot.l1      ; 0x4f51
 @..aztec_Croot.l8:
     mov word [di], 0                 ; 0x4f53
-    push word [0x0d06]               ; 0x4f57
-    push word [0x0d04]               ; 0x4f5b
+    push word [bss_0d06]             ; 0x4f57
+    push word [bss_0d04]             ; 0x4f5b
     call main                        ; 0x4f5f
     add sp, byte 4                   ; 0x4f62
     mov ax, 0                        ; 0x4f65

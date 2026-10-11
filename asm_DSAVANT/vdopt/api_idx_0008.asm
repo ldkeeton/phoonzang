@@ -5,24 +5,24 @@ api_idx_0008:
     jmp near @..api_idx_0008.l1      ; 0x1cd8
     mov ax, 0x32                     ; 0x1cdb
     imul word [bp + 0x8]             ; 0x1cde
-    add word [data_82fe], ax         ; 0x1ce1
+    add word [bss_82fe], ax          ; 0x1ce1
     mov ax, 0                        ; 0x1ce5
     push ax                          ; 0x1ce8
-    push word [data_8300]            ; 0x1ce9
+    push word [bss_8300]             ; 0x1ce9
     mov ax, 5                        ; 0x1ced
     imul word [bp + 0x8]             ; 0x1cf0
     add ax, strict word 0x46         ; 0x1cf3
     push ax                          ; 0x1cf6
     call loc_1c7f                    ; 0x1cf7
     add sp, byte 6                   ; 0x1cfa
-    mov word [data_8300], ax         ; 0x1cfd
+    mov word [bss_8300], ax          ; 0x1cfd
     jmp near loc_238c                ; 0x1d00
     mov ax, 0x23                     ; 0x1d03
     imul word [bp + 0x8]             ; 0x1d06
-    add word [data_82f2], ax         ; 0x1d09
+    add word [bss_82f2], ax          ; 0x1d09
     mov ax, 0                        ; 0x1d0d
     push ax                          ; 0x1d10
-    push word [data_82f4]            ; 0x1d11
+    push word [bss_82f4]             ; 0x1d11
     mov ax, word [bp + 0x8]          ; 0x1d15
     dec ax                           ; 0x1d18
     mov cx, 2                        ; 0x1d19
@@ -32,14 +32,14 @@ api_idx_0008:
     push ax                          ; 0x1d20
     call loc_1c7f                    ; 0x1d21
     add sp, byte 6                   ; 0x1d24
-    mov word [data_82f4], ax         ; 0x1d27
+    mov word [bss_82f4], ax          ; 0x1d27
     db 0xe9, 0x5f, 0x06 ; jmp near loc_238c
     mov ax, 0x32                     ; 0x1d2d
     imul word [bp + 0x8]             ; 0x1d30
-    add word [data_82f6], ax         ; 0x1d33
+    add word [bss_82f6], ax          ; 0x1d33
     mov ax, 0                        ; 0x1d37
     push ax                          ; 0x1d3a
-    push word [data_82f8]            ; 0x1d3b
+    push word [bss_82f8]             ; 0x1d3b
     mov ax, word [bp + 0x8]          ; 0x1d3f
     dec ax                           ; 0x1d42
     mov cx, 2                        ; 0x1d43
@@ -49,28 +49,28 @@ api_idx_0008:
     push ax                          ; 0x1d4a
     call loc_1c7f                    ; 0x1d4b
     add sp, byte 6                   ; 0x1d4e
-    mov word [data_82f8], ax         ; 0x1d51
+    mov word [bss_82f8], ax          ; 0x1d51
     db 0xe9, 0x35, 0x06 ; jmp near loc_238c
     mov ax, 5                        ; 0x1d57
     imul word [bp + 0x8]             ; 0x1d5a
-    add word [data_8306], ax         ; 0x1d5d
+    add word [bss_8306], ax          ; 0x1d5d
     db 0xe9, 0x28, 0x06 ; jmp near loc_238c
     mov ax, 0x64                     ; 0x1d64
     imul word [bp + 0x8]             ; 0x1d67
-    add word [data_8302], ax         ; 0x1d6a
+    add word [bss_8302], ax          ; 0x1d6a
     db 0xe9, 0x1b, 0x06 ; jmp near loc_238c
     mov ax, 0x32                     ; 0x1d71
     imul word [bp + 0x8]             ; 0x1d74
-    add word [data_82fa], ax         ; 0x1d77
+    add word [bss_82fa], ax          ; 0x1d77
     mov ax, 0                        ; 0x1d7b
     push ax                          ; 0x1d7e
-    push word [data_82fc]            ; 0x1d7f
+    push word [bss_82fc]             ; 0x1d7f
     mov ax, 5                        ; 0x1d83
     imul word [bp + 0x8]             ; 0x1d86
     push ax                          ; 0x1d89
     call loc_1c7f                    ; 0x1d8a
     add sp, byte 6                   ; 0x1d8d
-    mov word [data_82fc], ax         ; 0x1d90
+    mov word [bss_82fc], ax          ; 0x1d90
     db 0xe9, 0xf6, 0x05 ; jmp near loc_238c
     mov ax, 0                        ; 0x1d96
     cmp word [bp + 0x6], byte 0x13   ; 0x1d99
@@ -78,7 +78,7 @@ api_idx_0008:
     mov ax, word [bp + 0xa]          ; 0x1d9f
 @..local.l32:
     mov word [bp - 0x0002], ax       ; 0x1da2
-    mov ax, word [data_69c8]         ; 0x1da5
+    mov ax, word [bss_69c8]          ; 0x1da5
     cmp word [bp + 0x6], byte 0x13   ; 0x1da8
     je short @..local.l33            ; 0x1dac
     mov ax, word [bp + 0xa]          ; 0x1dae

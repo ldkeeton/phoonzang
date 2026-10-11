@@ -5,24 +5,24 @@ api_idx_0008_2:
     jmp near @..api_idx_0008_2.l12   ; 0x2206
     mov ax, 0x32                     ; 0x2209
     imul word [bp + 0x8]             ; 0x220c
-    add word [data_82fe], ax         ; 0x220f
+    add word [bss_82fe], ax          ; 0x220f
     mov ax, 0                        ; 0x2213
     push ax                          ; 0x2216
-    push word [data_8300]            ; 0x2217
+    push word [bss_8300]             ; 0x2217
     mov ax, 5                        ; 0x221b
     imul word [bp + 0x8]             ; 0x221e
     add ax, strict word 0x46         ; 0x2221
     push ax                          ; 0x2224
     call loc_21ad                    ; 0x2225
     add sp, byte 6                   ; 0x2228
-    mov word [data_8300], ax         ; 0x222b
+    mov word [bss_8300], ax          ; 0x222b
     jmp near @..api_idx_0008_2.l24   ; 0x222e
     mov ax, 0x23                     ; 0x2231
     imul word [bp + 0x8]             ; 0x2234
-    add word [data_82f2], ax         ; 0x2237
+    add word [bss_82f2], ax          ; 0x2237
     mov ax, 0                        ; 0x223b
     push ax                          ; 0x223e
-    push word [data_82f4]            ; 0x223f
+    push word [bss_82f4]             ; 0x223f
     mov ax, word [bp + 0x8]          ; 0x2243
     dec ax                           ; 0x2246
     mov cx, 2                        ; 0x2247
@@ -32,14 +32,14 @@ api_idx_0008_2:
     push ax                          ; 0x224e
     call loc_21ad                    ; 0x224f
     add sp, byte 6                   ; 0x2252
-    mov word [data_82f4], ax         ; 0x2255
+    mov word [bss_82f4], ax          ; 0x2255
     jmp near @..api_idx_0008_2.l24   ; 0x2258
     mov ax, 0x32                     ; 0x225b
     imul word [bp + 0x8]             ; 0x225e
-    add word [data_82f6], ax         ; 0x2261
+    add word [bss_82f6], ax          ; 0x2261
     mov ax, 0                        ; 0x2265
     push ax                          ; 0x2268
-    push word [data_82f8]            ; 0x2269
+    push word [bss_82f8]             ; 0x2269
     mov ax, word [bp + 0x8]          ; 0x226d
     dec ax                           ; 0x2270
     mov cx, 2                        ; 0x2271
@@ -49,28 +49,28 @@ api_idx_0008_2:
     push ax                          ; 0x2278
     call loc_21ad                    ; 0x2279
     add sp, byte 6                   ; 0x227c
-    mov word [data_82f8], ax         ; 0x227f
+    mov word [bss_82f8], ax          ; 0x227f
     jmp near @..api_idx_0008_2.l24   ; 0x2282
     mov ax, 5                        ; 0x2285
     imul word [bp + 0x8]             ; 0x2288
-    add word [data_8306], ax         ; 0x228b
+    add word [bss_8306], ax          ; 0x228b
     jmp near @..api_idx_0008_2.l24   ; 0x228f
     mov ax, 0x64                     ; 0x2292
     imul word [bp + 0x8]             ; 0x2295
-    add word [data_8302], ax         ; 0x2298
+    add word [bss_8302], ax          ; 0x2298
     jmp near @..api_idx_0008_2.l24   ; 0x229c
     mov ax, 0x32                     ; 0x229f
     imul word [bp + 0x8]             ; 0x22a2
-    add word [data_82fa], ax         ; 0x22a5
+    add word [bss_82fa], ax          ; 0x22a5
     mov ax, 0                        ; 0x22a9
     push ax                          ; 0x22ac
-    push word [data_82fc]            ; 0x22ad
+    push word [bss_82fc]             ; 0x22ad
     mov ax, 5                        ; 0x22b1
     imul word [bp + 0x8]             ; 0x22b4
     push ax                          ; 0x22b7
     call loc_21ad                    ; 0x22b8
     add sp, byte 6                   ; 0x22bb
-    mov word [data_82fc], ax         ; 0x22be
+    mov word [bss_82fc], ax          ; 0x22be
     jmp near @..api_idx_0008_2.l24   ; 0x22c1
     mov ax, 0                        ; 0x22c4
     cmp word [bp + 0x6], byte 0x13   ; 0x22c7
@@ -78,7 +78,7 @@ api_idx_0008_2:
     mov ax, word [bp + 0xa]          ; 0x22cd
 @..api_idx_0008_2.l1:
     mov word [bp - 0x0002], ax       ; 0x22d0
-    mov ax, word [0x69c8]            ; 0x22d3
+    mov ax, word [bss_69c8]          ; 0x22d3
     cmp word [bp + 0x6], byte 0x13   ; 0x22d6
     je short @..api_idx_0008_2.l2    ; 0x22da
     mov ax, word [bp + 0xa]          ; 0x22dc
