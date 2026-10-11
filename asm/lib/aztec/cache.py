@@ -2,7 +2,7 @@
 
 Compiling through DOSBox is slow, so ``make prebuild <project>`` resolves every
 ``aztec_*`` routine once and stores the winners under
-``asm_prebuild_<project>/``:
+``.cache/asm_prebuild_<project>/``:
 
 ``<binary>_aztec_mux.json``
     Winners with provenance (source version/file, compiler, includes, byte
@@ -16,10 +16,7 @@ Compiling through DOSBox is slow, so ``make prebuild <project>`` resolves every
     Baseline compiled modules keyed by content hash, so re-running prebuild (or
     a later build) never repeats an unchanged compile.
 
-``make build`` reads the manifest (creating nothing) and compiles each seed;
-the per-session results land in ``asm_cache_<project>/cobjs/``, which
-``make clean`` and ``make build`` wipe but a debug rebuild keeps.
-
+``make build`` reads the manifest (creating nothing) and compiles each seed.
 A build that finds ``aztec_*`` labels but no prebuild data fails loudly with
 :class:`PrebuildMissing` rather than silently repeating the expensive search.
 """
@@ -43,12 +40,7 @@ class PrebuildMissing(RuntimeError):
 
 
 def prebuild_dir(project):
-    return os.path.join(_ROOT, f'asm_prebuild_{project}')
-
-
-def cache_dir(project):
-    """Session cache wiped by build; survives debug (future hot-C use)."""
-    return os.path.join(_ROOT, f'asm_cache_{project}')
+    return os.path.join(_ROOT, '.cache', f'asm_prebuild_{project}')
 
 
 def manifest_path(project, binary):
@@ -68,11 +60,6 @@ def src_dir(project, binary):
 def objs_dir(project):
     """Baseline compiled objects inside the prebuild tree."""
     return os.path.join(prebuild_dir(project), 'objs')
-
-
-def cobjs_dir(project):
-    """Session compile cache, wiped by build and surviving debug."""
-    return os.path.join(cache_dir(project), 'cobjs')
 
 
 def source_header(label, entry):
@@ -322,27 +309,18 @@ def seed_source_text(project, binary, label, entry):
 def compile_source(project, label, entry, source_text):
     """Compile a routine's C and return its :class:`Func`.
 
-    Lookup order is ``asm_cache/cobjs`` then ``asm_prebuild/objs`` (no DOSBox on
-    a hit), then a fresh DOSBox compile whose result is written to ``cobjs``.
+    The prebuild ``objs`` cache is consulted first (no DOSBox on a hit);
+    otherwise the routine is compiled in a fresh DOSBox session.
     """
     from . import compile as azc
     from .mux import normalize
 
     key = _module_key(entry, source_text)
-    module = None
-    for cache in (cobjs_dir(project), objs_dir(project)):
-        module = objcache.load(cache, key)
-        if module is not None:
-            break
+    module = objcache.load(objs_dir(project), key)
     if module is None:
-        try:
-            module = azc.compile_module(
-                source_text, label, compiler=entry['compiler'],
-                includes=entry['includes'], flags=_flags_for(entry))
-        except Exception as exc:
-            objcache.save(cobjs_dir(project), key, exc)
-            raise
-        objcache.save(cobjs_dir(project), key, module)
+        module = azc.compile_module(
+            source_text, label, compiler=entry['compiler'],
+            includes=entry['includes'], flags=_flags_for(entry))
     if isinstance(module, Exception):
         raise module
     func = module.get(normalize(_symbol(label)))

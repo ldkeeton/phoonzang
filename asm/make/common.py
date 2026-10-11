@@ -8,7 +8,7 @@ Usage (from asm/):
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT         run game in dosbox
   make verify [PROJECT...] verify one or all projects
-  make clean [PROJECT...]  clean one or all projects (incl. asm_prebuild_*)
+  make clean [PROJECT...]  clean one or all projects (incl. .cache/asm_prebuild_*)
   make rebuild PROJECT BIN nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
   make delta PROJECT BIN          compare original and edited assembly layouts

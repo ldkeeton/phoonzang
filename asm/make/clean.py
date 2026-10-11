@@ -3,6 +3,7 @@
 import os
 import shutil
 
+from lib.aztec.cache import prebuild_dir
 from main import clean_all
 
 from .common import APPS, PROJECT
@@ -11,18 +12,17 @@ from .common import APPS, PROJECT
 def cmd_clean(apps, keep_prebuild=False):
     """Remove generated trees.
 
-    ``make clean`` removes ``asm_prebuild_<app>`` as well.  ``make build``
-    passes ``keep_prebuild=True`` so the expensive prebuild survives repeated
-    builds (it is created first only when absent).
+    ``make clean`` removes ``.cache/asm_prebuild_<app>`` as well.  ``make
+    build`` passes ``keep_prebuild=True`` so the expensive prebuild survives
+    repeated builds (it is created first only when absent).
     """
     def _targets(app):
         outs = [
             os.path.join(PROJECT, f'asm_{app}'),
             os.path.join(PROJECT, f'asm_{app}_orig'),
-            os.path.join(PROJECT, f'asm_cache_{app}'),
         ]
         if not keep_prebuild:
-            outs.append(os.path.join(PROJECT, f'asm_prebuild_{app}'))
+            outs.append(prebuild_dir(app))
         return outs
 
     if not apps:
