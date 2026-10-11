@@ -15,7 +15,7 @@ Usage (from asm/):
   make delta PROJECT BIN          compare original and edited assembly layouts
 
 Env:
-  EXTRA_FLAGS              space-separated flags forwarded to main.py:
+  EXTRA_FLAGS              space-separated flags forwarded to python -m main:
                               --exact-bytes     strict byte-accurate mode
                               --detailed-timings full-precision phase timings
                               --no-show-offsets suppress instruction offsets
@@ -61,7 +61,7 @@ def _run(*args):
 
 
 def _extra_flags():
-    """Return list of extra CLI flags to forward to main.py based on env."""
+    """Return list of extra CLI flags to forward to python -m main based on env."""
     flags = []
     val = os.environ.get('EXTRA_FLAGS', '')
     if val:
@@ -74,11 +74,12 @@ def _extra_flags():
 
 
 def _asm_one(app, binary, extra_args=None):
-    cmd = [sys.executable, os.path.join(ASM, 'main.py'), app, binary]
-    cmd[3:3] = _extra_flags()
+    cmd = [sys.executable, '-m', 'main', app]
+    cmd.extend(_extra_flags())
+    cmd.append(binary)
     if extra_args:
         cmd.extend(extra_args)
-    r = _run(*cmd)
+    r = subprocess.run(cmd, capture_output=True, text=True, cwd=ASM)
     for line in r.stdout.strip().split('\n'):
         print(line)
     if r.returncode != 0 and r.stderr.strip():
@@ -305,7 +306,7 @@ def cmd_clean(apps, keep_prebuild=False):
 def cmd_prebuild(app, binary=None):
     """Resolve the Aztec C mux and persist it under asm_prebuild_<app>/.
 
-    This intentionally stops main.py right after the mux manifest is written:
+    This intentionally stops the pipeline right after the mux manifest is written:
     no verify/emit and no NASM, and asm_<app>/ is left untouched.  Re-run
     after deleting asm_prebuild_<app>/ to force a full re-search.
     """
@@ -1111,7 +1112,7 @@ Commands (space-separated):
                             only the named dotted tests)
 
 Env:
-  EXTRA_FLAGS               space-separated flags forwarded to main.py:
+  EXTRA_FLAGS               space-separated flags forwarded to python -m main:
                               --exact-bytes       strict byte-accurate mode
                               --detailed-timings  full-precision phase timings
                               --no-show-offsets   suppress instruction offsets

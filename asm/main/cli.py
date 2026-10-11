@@ -1,0 +1,97 @@
+"""Command-line entry point and argument dispatch."""
+
+import os
+import sys
+
+from lib.sidecar import (
+    load as load_sidecar,
+    per_binary as sidecar_per_binary,
+)
+from lib.report import print_compare
+
+from .clean import clean_all
+from .options import (
+    APPS_DIR,
+    EXACT_BYTES,
+    EXPORT_LABELS,
+    FOREIGN_LABELS_PATH,
+    FOREIGN_PREFIX,
+    PROJECT_ROOT,
+    _SHOW_OFFSETS,
+)
+from .projects import _build_host_model, discover_binaries, get_projects
+from .runner import process
+from .verify import verify_all
+
+
+def main():
+    if '--verify' in sys.argv:
+        verify_all()
+        return
+    if '--clean' in sys.argv:
+        clean_all()
+        return
+    if '--compare' in sys.argv:
+        idx = sys.argv.index('--compare')
+        if idx + 2 < len(sys.argv):
+            print_compare(sys.argv[idx + 1], sys.argv[idx + 2])
+        else:
+            print('Usage: --compare <report_a.json> <report_b.json>')
+        return
+
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    projects = get_projects()
+
+    if len(args) >= 2:
+        p = args[0]
+        binary = args[1]
+        if p not in projects:
+            print(f'Unknown project: {p}')
+            sys.exit(1)
+        project_dir = os.path.join(APPS_DIR, p)
+        sidecar = load_sidecar(p)
+        out_dir = os.path.join(PROJECT_ROOT, f'asm_{p}')
+        bins = discover_binaries(project_dir)
+        if binary not in bins:
+            print(f'Unknown binary "{binary}" in {p}')
+            print(f'Known: {", ".join(sorted(bins))}')
+            sys.exit(1)
+        rel_path, start_offset = bins[binary]
+        sc_entry = sidecar_per_binary(sidecar, binary) if sidecar else None
+        host_model = _build_host_model(project_dir, bins, sidecar)
+        foreign_label_map = None
+        if FOREIGN_LABELS_PATH:
+            from lib.cross_ref import read_label_json
+            raw = read_label_json(FOREIGN_LABELS_PATH)
+            prefix = FOREIGN_PREFIX or ''
+            foreign_label_map = {
+                addr: f'{prefix}_{name}' if prefix else name
+                for addr, name in raw.items()
+            }
+        process(binary, project_dir, rel_path, start_offset,
+                exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
+                output_dir=out_dir,
+                project=p, sidecar_entry=sc_entry,
+                foreign_label_map=foreign_label_map,
+                export_labels=EXPORT_LABELS, host_model=host_model)
+        return
+
+    target = args[0] if args else None
+
+    if target:
+        if target in projects:
+            from .projects import process_project
+            process_project(target)
+        else:
+            print(f'Unknown target: {target}')
+            print(f'Known projects: {", ".join(projects)}')
+            sys.exit(1)
+    else:
+        if projects:
+            from .projects import process_project
+            for p in projects:
+                process_project(p)
+        else:
+            print(f'Usage: python3 -m main <{"|".join(projects)}>')
+            print('       No args processes all projects in apps/')
+            sys.exit(1)

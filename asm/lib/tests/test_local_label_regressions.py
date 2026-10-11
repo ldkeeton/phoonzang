@@ -70,9 +70,9 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         project_dir = pathlib.Path(main.APPS_DIR) / 'DSAVANT'
         sidecar = main.load_sidecar('DSAVANT')
         sidecar_entry = main.sidecar_per_binary(sidecar, 'ds')
-        with (patch('main.write_report', return_value=''),
-              patch('main.write_layers', return_value=''),
-              patch('main.print_short_report'),
+        with (patch('main.runner.write_report', return_value=''),
+              patch('main.runner.write_layers', return_value=''),
+              patch('main.runner.print_short_report'),
               contextlib.redirect_stdout(io.StringIO())):
             cls.bitmap, cls.label_map = main.process(
                 'ds', str(project_dir), 'DS.EXE', 0x200,

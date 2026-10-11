@@ -34,7 +34,7 @@ def generate_architecture_diagram(out_dir):
     ]
 
     # ── Entry point ──
-    m.subgraph_start('entry', 'Entry: main.py:process()')
+    m.subgraph_start('entry', 'Entry: main/runner.py:process()')
     read_key = m.node('read_binary', 'Read binary\\ndata = f.read()', 'box')
     ctx_key = m.node('phase_ctx', 'PhaseContext(ctx)\\nwraps binary + layers DataFrame', 'box')
     m.edge(read_key, ctx_key, '', 'solid')

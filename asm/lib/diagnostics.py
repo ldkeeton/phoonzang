@@ -1,7 +1,7 @@
 """Per-binary diagnostic logging for pipeline and verify stages.
 
 Usage:
-  - Enable via ``--diag`` on the main.py command line.
+  - Enable via ``--diag`` on the ``python -m main`` command line.
   - A ``Diag`` context manager records key->value pairs; on close it flushes
     to ``asm_PROJECT/diag/NAME.diag``.
 

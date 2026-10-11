@@ -45,7 +45,7 @@ def process_trace(project, binary_name):
     """Generate pipeline trace flow from JSONL."""
     jsonl_path = base.find_detailed_jsonl(project, binary_name)
     if not jsonl_path:
-        print(f'  [trace] no JSONL trace for {project}/{binary_name} (run main.py --trace)')
+        print(f'  [trace] no JSONL trace for {project}/{binary_name} (run python -m main --trace)')
         return
 
     out_dir = os.path.join(BUILD_OUT, 'trace')
@@ -116,7 +116,7 @@ def main():
                         process_trace(project, name)
                         traced_bins += 1
         if not traced_bins:
-            print('  (no JSONL traces found — run main.py --trace first)')
+            print('  (no JSONL traces found — run python -m main --trace first)')
 
     # Summary
     for sub in ('arch', 'trace'):
