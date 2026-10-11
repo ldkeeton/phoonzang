@@ -7,8 +7,8 @@ Scans ``apps/`` for app directories.  For each app:
   - Creates ``asm_<project>/build_out/``
 
 This package is the refactored form of the former ``main.py``.  The original
-flat namespace is preserved below so in-process callers (``make.py`` and the
-regression tests) can keep using ``import main`` unchanged.
+flat namespace is preserved below so in-process callers (the ``make`` tool and
+the regression tests) can keep using ``import main`` unchanged.
 """
 
 from lib.model import IS_CODE, IS_DATA
