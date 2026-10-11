@@ -1,10 +1,10 @@
 api_idx_0068:
     mov ax, 0xff98                   ; 0x51bb
-    db 0xe8, 0x4a, 0xa2 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x51be
     push word [bp + 0x4]             ; 0x51c1
     call api_idx_004c_2              ; 0x51c4
     pop cx                           ; 0x51c7
-    cmp word [dseg_9ca8], byte 0     ; 0x51c8
+    cmp word [bss_9ca8], byte 0      ; 0x51c8
     jne short @..api_idx_0068.l1     ; 0x51cd
     ret                              ; 0x51cf
 @..api_idx_0068.l1:
@@ -17,7 +17,7 @@ api_idx_0068:
     imul word [bp + 0x4]             ; 0x51de
     add ax, 0x5bf4                   ; 0x51e1
     push ax                          ; 0x51e4
-    push word [dseg_9ca8]            ; 0x51e5
+    push word [bss_9ca8]             ; 0x51e5
     mov ax, 1                        ; 0x51e9
     push ax                          ; 0x51ec
     push ax                          ; 0x51ed
@@ -28,7 +28,7 @@ api_idx_0068:
     call api_idx_0038_2              ; 0x51f6
     add sp, byte 0x0c                ; 0x51f9
     mov word [bp - 0x004c], ax       ; 0x51fc
-    mov ax, word [dseg_904e]         ; 0x51ff
+    mov ax, word [bss_904e]          ; 0x51ff
     mov word [bp - 0x0002], ax       ; 0x5202
     cmp word [bp - 0x004c], byte 2   ; 0x5205
     je short @..api_idx_0068.l2      ; 0x5209
@@ -43,7 +43,7 @@ api_idx_0068:
     push ax                          ; 0x521b
     mov ax, 0x36                     ; 0x521c
     push ax                          ; 0x521f
-    db 0xe8, 0xb7, 0x96 ; call 0xe8da
+    call ds_dispatch_e8da            ; 0x5220
     add sp, byte 8                   ; 0x5223
     ret                              ; 0x5226
 @..api_idx_0068.l3:
@@ -97,7 +97,7 @@ api_idx_0068:
     push ax                          ; 0x5295
     mov ax, 1                        ; 0x5296
     push ax                          ; 0x5299
-    db 0xe8, 0x9f, 0x63 ; call 0xb63c
+    call ds_dispatch_b63c            ; 0x529a
     add sp, byte 8                   ; 0x529d
     cmp word [bp - 0x0028], byte 0   ; 0x52a0
     je short @..api_idx_0068.l6      ; 0x52a4
@@ -112,8 +112,8 @@ api_idx_0068:
     mov bx, ax                       ; 0x52ba
     cmp byte [bx + 0x624], 1         ; 0x52bc
     jne short @..api_idx_0068.l5     ; 0x52c1
-    db 0xe8, 0xeb, 0x7b ; call 0xceb1
-    mov word [dseg_9650], ax         ; 0x52c6
+    call ds_dispatch_ceb1            ; 0x52c3
+    mov word [bss_9650], ax          ; 0x52c6
     cmp ax, strict word 0xffff       ; 0x52c9
     jne short @..api_idx_0068.l5     ; 0x52cc
     mov word [bp - 0x0052], 0xffff   ; 0x52ce
@@ -128,14 +128,14 @@ api_idx_0068:
     push ax                          ; 0x52e4
     mov ax, 0x36                     ; 0x52e5
     push ax                          ; 0x52e8
-    db 0xe8, 0xee, 0x95 ; call 0xe8da
+    call ds_dispatch_e8da            ; 0x52e9
     add sp, byte 8                   ; 0x52ec
     push word [bp - 0x0050]          ; 0x52ef
     push word [bp - 0x004e]          ; 0x52f2
     push word [bp + 0x4]             ; 0x52f5
-    call 0xca27                      ; 0x52f8
+    call ds_dispatch_ca27            ; 0x52f8
     add sp, byte 6                   ; 0x52fb
-    push word [dseg_9650]            ; 0x52fe
+    push word [bss_9650]             ; 0x52fe
     push word [bp - 0x0054]          ; 0x5302
     push word [bp - 0x0052]          ; 0x5305
     push word [bp + 0x4]             ; 0x5308
@@ -150,12 +150,12 @@ api_idx_0068:
     push ax                          ; 0x531c
     mov ax, 0x36                     ; 0x531d
     push ax                          ; 0x5320
-    db 0xe8, 0xb6, 0x95 ; call 0xe8da
+    call ds_dispatch_e8da            ; 0x5321
     add sp, byte 8                   ; 0x5324
     mov ax, 1                        ; 0x5327
     push ax                          ; 0x532a
     push word [bp + 0x4]             ; 0x532b
-    db 0xe8, 0x09, 0x78 ; call 0xcb3a
+    call ds_dispatch_cb3a            ; 0x532e
     add sp, byte 4                   ; 0x5331
     cmp word [bp - 0x004c], byte 1   ; 0x5334
     jne short @..api_idx_0068.l7     ; 0x5338

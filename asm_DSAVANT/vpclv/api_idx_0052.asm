@@ -87,21 +87,21 @@ api_idx_0052:
     call api_idx_0006                ; 0x2cde
     add sp, byte 6                   ; 0x2ce1
     jmp short @..api_idx_0052.l2     ; 0x2ce4
-    db 0x6a, 0x7c ; push 0x7c
-    into                             ; 0x2ce8
-    jl short loc_2cdf                ; 0x2ce9
-    jl short loc_2d07                ; 0x2ceb
-    jge short loc_2d6d               ; 0x2ced
-    jl short loc_2cbf                ; 0x2cef
-    jl short loc_2d0d                ; 0x2cf1
-    jge short loc_2cd6               ; 0x2cf3
-    jl short loc_2d75                ; 0x2cf5
-    jl short loc_2ced                ; 0x2cf7
-    jl short loc_2c8d                ; 0x2cf9
-    jl short loc_2ca3                ; 0x2cfb
-    jl short loc_2d06                ; 0x2cfd
-    jge short loc_2cbb               ; 0x2cff
-    db 0x7c
+jumptable_2ce6:
+    dw 0x7c6a
+    dw 0x7cce
+    dw 0x7cf4
+    dw 0x7d1a
+    dw 0x7c7e
+    dw 0x7cce
+    dw 0x7d1a
+    dw 0x7ce1
+    dw 0x7c7e
+    dw 0x7cf4
+    dw 0x7c92
+    dw 0x7ca6
+    dw 0x7d07
+    dw 0x7cba
 @..api_idx_0052.l1:
     cmp ax, strict word 0xe          ; 0x2d02
     jae short @..api_idx_0052.l2     ; 0x2d05
@@ -127,9 +127,9 @@ api_idx_0052:
     jmp near @..api_idx_0052.l4      ; 0x2d35
     mov ax, 0x248                    ; 0x2d38
     imul word [bp + 0x4]             ; 0x2d3b
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x2d3e
     mov al, byte [bx + 0x5d67]       ; 0x2d40
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah                       ; 0x2d44
     mov cx, 5                        ; 0x2d46
     cwd                              ; 0x2d49
     idiv cx                          ; 0x2d4a
@@ -144,9 +144,9 @@ api_idx_0052:
     add sp, byte 8                   ; 0x2d5d
     mov ax, 0x248                    ; 0x2d60
     imul word [bp + 0x4]             ; 0x2d63
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x2d66
     mov al, byte [bx + 0x5d67]       ; 0x2d68
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah                       ; 0x2d6c
     mov cx, 5                        ; 0x2d6e
     cwd                              ; 0x2d71
     idiv cx                          ; 0x2d72
@@ -291,17 +291,18 @@ api_idx_0052:
     call loc_2a32                    ; 0x2eb6
     add sp, byte 8                   ; 0x2eb9
     jmp short @..api_idx_0052.l4     ; 0x2ebc
-    db 0x67, 0x7d, 0xd2 ; jge loc_2e93
-    jge short loc_2f42               ; 0x2ec1
-    jge short loc_2e6c               ; 0x2ec3
-    jge short loc_2f46               ; 0x2ec5
-    jge short loc_2eb3               ; 0x2ec7
-    jge short loc_2f21               ; 0x2ec9
-    jle short loc_2f23               ; 0x2ecb
-    jle short loc_2e67               ; 0x2ecd
-    jle short loc_2e93               ; 0x2ecf
-    jle short loc_2eac               ; 0x2ed1
-    db 0x7e
+jumptable_2ebe:
+    dw 0x7d67
+    dw 0x7dd2
+    dw 0x7d7f
+    dw 0x7da7
+    dw 0x7d7f
+    dw 0x7dea
+    dw 0x7e56
+    dw 0x7e56
+    dw 0x7e98
+    dw 0x7ec2
+    dw 0x7ed9
 @..api_idx_0052.l3:
     cmp ax, strict word 0xb          ; 0x2ed4
     jae short @..api_idx_0052.l4     ; 0x2ed7

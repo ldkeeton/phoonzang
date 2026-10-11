@@ -343,7 +343,7 @@ loc_023a:
     push ax                          ; 0x03d3
     call ds_dispatch_e8da            ; 0x03d4
     add sp, byte 8                   ; 0x03d7
-    cmp word [dseg_0e32], byte 0     ; 0x03da
+    cmp word [bss_0e32], byte 0      ; 0x03da
     je short @..local.l10            ; 0x03df
 @..local.l9:
     mov ax, 0x59fe                   ; 0x03e1
@@ -351,7 +351,7 @@ loc_023a:
     call ds_dispatch_b90d            ; 0x03e5
     pop cx                           ; 0x03e8
     mov word [bp - 0x0004], ax       ; 0x03e9
-    cmp word [dseg_5b3e], byte 0     ; 0x03ec
+    cmp word [bss_5b3e], byte 0      ; 0x03ec
     je short @..local.l9             ; 0x03f1
     jmp near @..local.l19            ; 0x03f3
 @..local.l10:
@@ -508,7 +508,7 @@ loc_023a:
     call ds_dispatch_c459            ; 0x0543
     add sp, byte 4                   ; 0x0546
     mov ax, word [bp - 0x0004]       ; 0x0549
-    mov word [dseg_9052], ax         ; 0x054c
+    mov word [bss_9052], ax          ; 0x054c
     shl ax, 1                        ; 0x054f
     mov bx, ax                       ; 0x0551
     add bx, bp                       ; 0x0553

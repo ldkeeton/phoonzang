@@ -61,7 +61,7 @@ api_idx_0056_2:
     push ax                          ; 0x4718
     call ds_dispatch_b7e0            ; 0x4719
     pop cx                           ; 0x471c
-    push word [dseg_905a]            ; 0x471d
+    push word [bss_905a]             ; 0x471d
     call ds_dispatch_b75e            ; 0x4721
     pop cx                           ; 0x4724
     mov ax, 1                        ; 0x4725
@@ -90,7 +90,7 @@ loc_474b:
     mov al, byte [bx + 0x5d48]       ; 0x475c
     sub ah, ah                       ; 0x4760
     cmp ax, 0xff                     ; 0x4762
-    je short @..local.l48            ; 0x4765
+    je short @..local.l55            ; 0x4765
     mov ax, 0x248                    ; 0x4767
     imul word [bp + 0x4]             ; 0x476a
     push ax                          ; 0x476d
@@ -105,9 +105,9 @@ loc_474b:
     mov al, byte [bx + 0x5c3b]       ; 0x4780
     sub ah, ah                       ; 0x4784
     test ax, 2                       ; 0x4786
-    je short @..local.l48            ; 0x4789
+    je short @..local.l55            ; 0x4789
     mov ax, 1                        ; 0x478b
     ret                              ; 0x478e
-@..local.l48:
+@..local.l55:
     mov ax, 0                        ; 0x478f
     ret                              ; 0x4792

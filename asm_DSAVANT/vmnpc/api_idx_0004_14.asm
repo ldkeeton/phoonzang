@@ -1,7 +1,7 @@
 api_idx_0004_14:
     mov ax, 0xfffc                   ; 0x8738
-    db 0xe8, 0xcd, 0x6c ; call 0xf40b
-    mov word [dseg_9e84], 0          ; 0x873e
+    call ds_dispatch_f40b            ; 0x873b
+    mov word [bss_9e84], 0           ; 0x873e
     mov word [bp - 0x0002], 0        ; 0x8744
     jmp short @..api_idx_0004_14.l5  ; 0x8749
 @..api_idx_0004_14.l1:
@@ -12,7 +12,7 @@ api_idx_0004_14:
     mov word [bp - 0x0004], ax       ; 0x8755
     cmp ax, strict word 0x3f         ; 0x8758
     jne short @..api_idx_0004_14.l2  ; 0x875b
-    mov word [dseg_9e84], 1          ; 0x875d
+    mov word [bss_9e84], 1           ; 0x875d
     mov byte [bx + si], 0x20         ; 0x8763
     jmp short @..api_idx_0004_14.l4  ; 0x8766
 @..api_idx_0004_14.l2:
@@ -31,7 +31,7 @@ api_idx_0004_14:
     inc word [bp - 0x0002]           ; 0x8783
 @..api_idx_0004_14.l5:
     push word [bp + 0x4]             ; 0x8786
-    db 0xe8, 0x04, 0x73 ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8789
     pop cx                           ; 0x878c
     cmp ax, word [bp - 0x0002]       ; 0x878d
     jg short @..api_idx_0004_14.l1   ; 0x8790

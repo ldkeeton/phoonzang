@@ -4,15 +4,15 @@ api_idx_007c:
     mov ax, 0                        ; 0x104c
     push ax                          ; 0x104f
     push ax                          ; 0x1050
-    push word [dseg_93f0]            ; 0x1051
-    push word [dseg_93ee]            ; 0x1055
+    push word [bss_93f0]             ; 0x1051
+    push word [bss_93ee]             ; 0x1055
     call ds_dispatch_e942            ; 0x1059
     add sp, byte 8                   ; 0x105c
     mov ax, 0                        ; 0x105f
     push ax                          ; 0x1062
     push ax                          ; 0x1063
-    push word [dseg_93f4]            ; 0x1064
-    push word [dseg_93f2]            ; 0x1068
+    push word [bss_93f4]             ; 0x1064
+    push word [bss_93f2]             ; 0x1068
     call ds_dispatch_e942            ; 0x106c
     add sp, byte 8                   ; 0x106f
     mov ax, 0x12                     ; 0x1072
@@ -225,15 +225,15 @@ api_idx_007c:
     mov cx, 0x12                     ; 0x1257
     mov bx, 0                        ; 0x125a
     call ds_dispatch_f99f            ; 0x125d
-    mov word [dseg_942e], ax         ; 0x1260
+    mov word [bss_942e], ax          ; 0x1260
     mov ax, 0x14                     ; 0x1263
     push ax                          ; 0x1266
     mov ax, 0                        ; 0x1267
     push ax                          ; 0x126a
-    push word [dseg_942e]            ; 0x126b
+    push word [bss_942e]             ; 0x126b
     call ds_dispatch_b7c2            ; 0x126f
     add sp, byte 6                   ; 0x1272
-    mov word [dseg_942e], ax         ; 0x1275
+    mov word [bss_942e], ax          ; 0x1275
     mov ax, 0x248                    ; 0x1278
     imul word [bp + 0x4]             ; 0x127b
     mov bx, ax                       ; 0x127e
@@ -244,9 +244,9 @@ api_idx_007c:
 @..api_idx_007c.l1:
     mov ax, 1                        ; 0x128c
 @..api_idx_007c.l2:
-    mov word [dseg_9430], ax         ; 0x128f
-    mov word [dseg_9432], 0          ; 0x1292
-    push word [dseg_9432]            ; 0x1298
+    mov word [bss_9430], ax          ; 0x128f
+    mov word [bss_9432], 0           ; 0x1292
+    push word [bss_9432]             ; 0x1298
     call api_idx_000a                ; 0x129c
     pop cx                           ; 0x129f
     mov ax, 0                        ; 0x12a0

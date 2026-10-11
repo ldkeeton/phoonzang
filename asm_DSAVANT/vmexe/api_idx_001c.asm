@@ -19,7 +19,7 @@ api_idx_001c:
     cmp ax, strict word 3            ; 0x0ab1
     jg short @..api_idx_001c.l1      ; 0x0ab4
     mov ax, word [bp + 0x4]          ; 0x0ab6
-    cmp ax, word [dseg_8454]         ; 0x0ab9
+    cmp ax, word [bss_8454]          ; 0x0ab9
     jle short @..api_idx_001c.l2     ; 0x0abd
 @..api_idx_001c.l1:
     ret                              ; 0x0abf
@@ -160,9 +160,9 @@ api_idx_001c:
     pop ax                           ; 0x0bfc
     add ax, cx                       ; 0x0bfd
     mov word [bp - 0x0010], ax       ; 0x0bff
-    cmp word [dseg_8466], byte 1     ; 0x0c02
+    cmp word [bss_8466], byte 1      ; 0x0c02
     jne short @..api_idx_001c.l9     ; 0x0c07
-    mov bx, word [dseg_8484]         ; 0x0c09
+    mov bx, word [bss_8484]          ; 0x0c09
     cmp byte [bx + 0x1a1], 1         ; 0x0c0d
     jne short @..api_idx_001c.l9     ; 0x0c12
     cmp word [bp + 0x4], byte 0      ; 0x0c14

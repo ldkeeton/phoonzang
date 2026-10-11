@@ -6,7 +6,7 @@ string_loc_9330:
     mov word [dseg_91bc], si         ; 0x933d
     mov word [dseg_91be], di         ; 0x9341
     cld                              ; 0x9345
-    mov di, dseg_91c6                ; 0x9346
+    mov di, bss_91c6                 ; 0x9346
     mov cx, 0xa602                   ; 0x9349
     sub cx, di                       ; 0x934c
     shr cx, 1                        ; 0x934e

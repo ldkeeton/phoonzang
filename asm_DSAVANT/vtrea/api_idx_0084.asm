@@ -21,14 +21,14 @@ api_idx_0084:
     mov ax, word [bp - 0x0002]       ; 0x25da
     cmp ax, word [bp + 0xc]          ; 0x25dd
     jl short @..api_idx_0084.l1      ; 0x25e0
-    mov word [dseg_911c], 0x8d       ; 0x25e2
+    mov word [bss_911c], 0x8d        ; 0x25e2
     mov word [bp - 0x0078], 0        ; 0x25e8
-    cmp word [dseg_9250], byte 0xff  ; 0x25ed
+    cmp word [bss_9250], byte 0xff   ; 0x25ed
     je short @..api_idx_0084.l5      ; 0x25f2
     mov word [bp - 0x0004], 0        ; 0x25f4
 @..api_idx_0084.l3:
     mov ax, 0xa                      ; 0x25f9
-    imul word [dseg_9250]            ; 0x25fc
+    imul word [bss_9250]             ; 0x25fc
     add ax, word [bp - 0x0004]       ; 0x2600
     mov bx, ax                       ; 0x2603
     cmp byte [bx - 0x6dae], 0x2d     ; 0x2605
@@ -40,7 +40,7 @@ api_idx_0084:
     cmp ax, strict word 8            ; 0x2615
     jl short @..api_idx_0084.l3      ; 0x2618
 @..api_idx_0084.l5:
-    mov word [dseg_904e], 0xffff     ; 0x261a
+    mov word [bss_904e], 0xffff      ; 0x261a
     mov word [bp - 0x0006], 0x37     ; 0x2620
     mov word [bp - 0x0008], 0x8f     ; 0x2625
     mov word [bp - 0x000a], 0x108    ; 0x262a
@@ -681,7 +681,7 @@ api_idx_0084:
     pop cx                           ; 0x2c04
     dec ax                           ; 0x2c05
     mov word [bp - 0x001a], ax       ; 0x2c06
-    cmp word [dseg_5b3e], byte 1     ; 0x2c09
+    cmp word [bss_5b3e], byte 1      ; 0x2c09
     je short @..api_idx_0084.l19     ; 0x2c0e
     jmp near @..api_idx_0084.l21     ; 0x2c10
 @..api_idx_0084.l19:
@@ -848,7 +848,7 @@ api_idx_0084:
     push word [bp - 0x0076]          ; 0x3525
     call ds_dispatch_c459            ; 0x3528
     add sp, byte 4                   ; 0x352b
-    mov word [dseg_911c], 0x8f       ; 0x352e
+    mov word [bss_911c], 0x8f        ; 0x352e
     mov ax, word [bp - 0x000c]       ; 0x3534
     inc ax                           ; 0x3537
     push ax                          ; 0x3538
@@ -863,5 +863,5 @@ api_idx_0084:
     push ax                          ; 0x3547
     call ds_dispatch_e8da            ; 0x3548
     add sp, byte 8                   ; 0x354b
-    mov ax, word [dseg_9050]         ; 0x354e
+    mov ax, word [bss_9050]          ; 0x354e
     ret                              ; 0x3551

@@ -1,6 +1,6 @@
 api_idx_0002_11:
     mov ax, 0xfffe                   ; 0x8be8
-    db 0xe8, 0x1d, 0x68 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x8beb
     mov word [bp - 0x0002], 0        ; 0x8bee
 @..api_idx_0002_11.l1:
     mov ax, 0x14                     ; 0x8bf3
@@ -17,7 +17,7 @@ api_idx_0002_11:
     add ax, 0xa7b6                   ; 0x8c10
     push ax                          ; 0x8c13
     push word [bp + 0x4]             ; 0x8c14
-    db 0xe8, 0x4a, 0x67 ; call 0xf364
+    call ds_dispatch_f364            ; 0x8c17
     add sp, byte 4                   ; 0x8c1a
     ret                              ; 0x8c1d
 @..api_idx_0002_11.l2:

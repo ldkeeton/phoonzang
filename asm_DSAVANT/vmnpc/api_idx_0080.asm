@@ -1,19 +1,19 @@
 api_idx_0080:
     mov ax, 0xff80                   ; 0x96c7
-    db 0xe8, 0x3e, 0x5d ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x96ca
     lea ax, word [bp - 0x0080]       ; 0x96cd
     push ax                          ; 0x96d0
     push word [bp + 0x4]             ; 0x96d1
-    db 0xe8, 0x64, 0x1e ; call 0xb53b
+    call ds_dispatch_b53b            ; 0x96d4
     add sp, byte 4                   ; 0x96d7
     mov ax, 0x5e                     ; 0x96da
     push ax                          ; 0x96dd
     push word [bp + 0x6]             ; 0x96de
     lea ax, word [bp - 0x0080]       ; 0x96e1
     push ax                          ; 0x96e4
-    db 0xe8, 0x18, 0x1c ; call 0xb300
+    call ds_dispatch_b300            ; 0x96e5
     add sp, byte 6                   ; 0x96e8
-    mov ax, word [dseg_93d4]         ; 0x96eb
+    mov ax, word [bss_93d4]          ; 0x96eb
     mov cx, 7                        ; 0x96ee
     shl ax, cl                       ; 0x96f1
     mov bx, ax                       ; 0x96f3
@@ -24,26 +24,26 @@ api_idx_0080:
     add bx, strict word 0x91cc       ; 0x9700
     mov ax, bx                       ; 0x9704
     push ax                          ; 0x9706
-    db 0xe8, 0x23, 0x5c ; call 0xf32d
+    call ds_dispatch_f32d            ; 0x9707
     add sp, byte 4                   ; 0x970a
 @..api_idx_0080.l1:
     lea ax, word [bp - 0x0080]       ; 0x970d
     push ax                          ; 0x9710
-    mov ax, word [dseg_93d4]         ; 0x9711
+    mov ax, word [bss_93d4]          ; 0x9711
     mov cx, 7                        ; 0x9714
     shl ax, cl                       ; 0x9717
     add ax, 0x91cc                   ; 0x9719
     push ax                          ; 0x971c
-    db 0xe8, 0x0d, 0x5c ; call 0xf32d
+    call ds_dispatch_f32d            ; 0x971d
     add sp, byte 4                   ; 0x9720
-    mov ax, word [dseg_93d4]         ; 0x9723
+    mov ax, word [bss_93d4]          ; 0x9723
     mov cx, 7                        ; 0x9726
     shl ax, cl                       ; 0x9729
     add ax, 0x91cc                   ; 0x972b
     push ax                          ; 0x972e
     lea ax, word [bp - 0x0080]       ; 0x972f
     push ax                          ; 0x9732
-    db 0xe8, 0x2e, 0x5c ; call 0xf364
+    call ds_dispatch_f364            ; 0x9733
     add sp, byte 4                   ; 0x9736
     lea ax, word [bp - 0x0080]       ; 0x9739
     push ax                          ; 0x973c

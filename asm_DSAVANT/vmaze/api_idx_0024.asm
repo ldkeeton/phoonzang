@@ -1,8 +1,8 @@
 api_idx_0024:
     mov ax, 0xffdc                   ; 0x50f4
     call ds_dispatch_f40b            ; 0x50f7
-    mov ax, word [dseg_8f1c]         ; 0x50fa
-    mov dx, word [dseg_8f1e]         ; 0x50fd
+    mov ax, word [bss_8f1c]          ; 0x50fa
+    mov dx, word [bss_8f1e]          ; 0x50fd
     mov cx, 0x5a0                    ; 0x5101
     mov bx, 0                        ; 0x5104
     call ds_dispatch_f99f            ; 0x5107
@@ -14,8 +14,8 @@ api_idx_0024:
     cwd                              ; 0x5119
     idiv cx                          ; 0x511a
     mov word [bp - 0x0006], dx       ; 0x511c
-    mov ax, word [dseg_8f1c]         ; 0x511f
-    mov dx, word [dseg_8f1e]         ; 0x5122
+    mov ax, word [bss_8f1c]          ; 0x511f
+    mov dx, word [bss_8f1e]          ; 0x5122
     mov cx, 0x5a0                    ; 0x5126
     mov bx, 0                        ; 0x5129
     call ds_dispatch_f9cd            ; 0x512c
@@ -45,8 +45,8 @@ api_idx_0024:
     cwd                              ; 0x5164
     mov cx, ax                       ; 0x5165
     mov bx, dx                       ; 0x5167
-    mov ax, word [dseg_8f1c]         ; 0x5169
-    mov dx, word [dseg_8f1e]         ; 0x516c
+    mov ax, word [bss_8f1c]          ; 0x5169
+    mov dx, word [bss_8f1e]          ; 0x516c
     sub ax, cx                       ; 0x5170
     sbb dx, bx                       ; 0x5172
     mov cx, 0x5a0                    ; 0x5174
@@ -97,7 +97,7 @@ api_idx_0024:
     add ax, 0xff4e                   ; 0x51e8
     mov word [bp - 0x0010], ax       ; 0x51eb
 @..api_idx_0024.l9:
-    mov ax, word [dseg_82ee]         ; 0x51ee
+    mov ax, word [bss_82ee]          ; 0x51ee
     shl ax, 1                        ; 0x51f1
     mov bx, ax                       ; 0x51f3
     add bx, bp                       ; 0x51f5

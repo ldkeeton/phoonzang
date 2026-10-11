@@ -28,5 +28,5 @@ api_idx_0004_5:
     jmp short @..api_idx_0004_5.l1   ; 0x6d13
 @..api_idx_0004_5.l4:
     call loc_6c1e                    ; 0x6d15
-    mov word [dseg_a4a6], 0          ; 0x6d18
+    mov word [bss_a4a6], 0           ; 0x6d18
     ret                              ; 0x6d1e

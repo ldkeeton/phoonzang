@@ -82,7 +82,7 @@ api_idx_00aa:
     add sp, byte 4                   ; 0x63a6
     lea ax, word [bp - 0x00a8]       ; 0x63a9
     push ax                          ; 0x63ad
-    mov bx, word [dseg_5b40]         ; 0x63ae
+    mov bx, word [bss_5b40]          ; 0x63ae
     mov al, byte [bx + 0x5990]       ; 0x63b2
     sub ah, ah                       ; 0x63b6
     push ax                          ; 0x63b8
@@ -132,7 +132,7 @@ api_idx_00aa:
     add sp, byte 4                   ; 0x641b
     lea ax, word [bp - 0x00a8]       ; 0x641e
     push ax                          ; 0x6422
-    mov bx, word [dseg_5b46]         ; 0x6423
+    mov bx, word [bss_5b46]          ; 0x6423
     mov al, byte [bx + 0x5990]       ; 0x6427
     sub ah, ah                       ; 0x642b
     add ax, 0x423                    ; 0x642d
@@ -140,6 +140,7 @@ api_idx_00aa:
     call ds_dispatch_b53b            ; 0x6431
     add sp, byte 4                   ; 0x6434
     mov ax, 0x24                     ; 0x6437
+jumptable_14d6_case_2:
     push ax                          ; 0x643a
     lea ax, word [bp - 0x00a8]       ; 0x643b
     push ax                          ; 0x643f
@@ -176,6 +177,7 @@ api_idx_00aa:
     call ds_dispatch_e84e            ; 0x6482
     add sp, byte 4                   ; 0x6485
     lea ax, word [bp - 0x0058]       ; 0x6488
+jumptable_14d6_case_3:
     push ax                          ; 0x648b
     mov ax, 0x41d                    ; 0x648c
     push ax                          ; 0x648f
@@ -183,7 +185,7 @@ api_idx_00aa:
     add sp, byte 4                   ; 0x6493
     lea ax, word [bp - 0x00a8]       ; 0x6496
     push ax                          ; 0x649a
-    mov bx, word [dseg_5b42]         ; 0x649b
+    mov bx, word [bss_5b42]          ; 0x649b
     mov al, byte [bx + 0x5990]       ; 0x649f
     sub ah, ah                       ; 0x64a3
     push ax                          ; 0x64a5
@@ -199,7 +201,7 @@ api_idx_00aa:
     add sp, byte 6                   ; 0x64bc
     lea ax, word [bp - 0x00a8]       ; 0x64bf
     push ax                          ; 0x64c3
-    mov bx, word [dseg_5b44]         ; 0x64c4
+    mov bx, word [bss_5b44]          ; 0x64c4
     mov al, byte [bx + 0x5990]       ; 0x64c8
     sub ah, ah                       ; 0x64cc
     push ax                          ; 0x64ce
@@ -241,7 +243,7 @@ api_idx_00aa:
     push ax                          ; 0x651f
     call ds_dispatch_e84e            ; 0x6520
     add sp, byte 4                   ; 0x6523
-    mov byte [dseg_0e38], 0          ; 0x6526
+    mov byte [bss_0e38], 0           ; 0x6526
     mov ax, 1                        ; 0x652b
     push ax                          ; 0x652e
     mov ax, 0                        ; 0x652f

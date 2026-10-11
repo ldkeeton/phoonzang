@@ -4,8 +4,8 @@ api_idx_0008_3:
     mov ax, 0                        ; 0x493a
     push ax                          ; 0x493d
     push ax                          ; 0x493e
-    push word [dseg_953e]            ; 0x493f
-    push word [dseg_953c]            ; 0x4943
+    push word [bss_953e]             ; 0x493f
+    push word [bss_953c]             ; 0x4943
     call ds_dispatch_e942            ; 0x4947
     add sp, byte 8                   ; 0x494a
     mov ax, 0x53                     ; 0x494d
@@ -101,7 +101,7 @@ api_idx_0008_3:
     push ax                          ; 0x4a20
     call ds_dispatch_b90d            ; 0x4a21
     pop cx                           ; 0x4a24
-    cmp word [dseg_5b3e], byte 0     ; 0x4a25
+    cmp word [bss_5b3e], byte 0      ; 0x4a25
     jne short @..api_idx_0008_3.l3   ; 0x4a2a
     jmp near @..api_idx_0008_3.l1    ; 0x4a2c
 @..api_idx_0008_3.l3:

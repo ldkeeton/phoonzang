@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_3738.inc"
+%include "inc/structs/loc_1fb0.inc"
 org 0
 bits 16
 %ifndef IMAGE_BASE
@@ -35,11 +35,8 @@ data_0e2d equ 0x0e2d
 data_0e8f equ 0x0e8f
 data_0ec8 equ 0x0ec8
 data_0ee4 equ 0x0ee4
-loc_1fcd equ 0x1fcd
-data_33ce equ 0x33ce
-data_3521 equ 0x3521
-data_3523 equ 0x3523
-loc_3738 equ 0x3738
+loc_1fb2 equ 0x1fb2
+loc_1fbe equ 0x1fbe
 leaf_loc_5fe5 equ 0x5fe5
 psp_top_of_memory equ 0x0002
 dseg_0004 equ 0x0004

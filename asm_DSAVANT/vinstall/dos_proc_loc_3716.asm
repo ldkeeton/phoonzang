@@ -4,15 +4,10 @@ dos_proc_loc_3716:
 loc_3718:
     mov ah, 0x4c                     ; 0x3718
     int 0x21 ; DOS exit with return code
-    jmp far [cs:data_33ce]           ; 0x371c
+
+    db 0x2e, 0xff, 0x2e, 0xce, 0x33
     times 4 db 0
-    pop word [cs:data_3521]          ; 0x3725
-    pop word [cs:data_3523]          ; 0x372a
-    pop ds                           ; 0x372f
-    call loc_3738                    ; 0x3730
-    jmp far [cs:data_3521]           ; 0x3733
-    push di                          ; 0x3738
-    push si                          ; 0x3739
-    retf                             ; 0x373a
-    mov ax, 0                        ; 0x373b
-    ret                              ; 0x373e
+    db 0x2e, 0x8f, 0x06, 0x21, 0x35, 0x2e, 0x8f, 0x06, 0x23, 0x35, 0x1f, 0xe8, 0x05, 0x00, 0x2e, 0xff
+    db '.!5WV'
+    db 0xcb, 0xb8, 0x00, 0x00, 0xc3
+

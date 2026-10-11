@@ -9,34 +9,36 @@ api_idx_0002_6:
     mov word [bp - 0x0002], 0        ; 0x4589
     mov bx, word [bp + 0x6]          ; 0x458e
     mov al, byte [bx + 0x37]         ; 0x4591
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah                       ; 0x4594
     test ax, 8                       ; 0x4596
-    je short loc_45a0                ; 0x4599
+    je short @..local.l50            ; 0x4599
     mov word [bp - 0x0002], 0xfffe   ; 0x459b
-    jmp near @..api_idx_0002_6.l2    ; 0x45a0
+@..local.l50:
+    jmp near @..local.l52            ; 0x45a0
     mov word [bp - 0x0002], 1        ; 0x45a3
-    jmp near @..api_idx_0002_6.l2    ; 0x45a8
+    jmp near @..local.l52            ; 0x45a8
     mov word [bp - 0x0002], 2        ; 0x45ab
-    jmp short @..api_idx_0002_6.l2   ; 0x45b0
+    jmp short @..local.l52           ; 0x45b0
     mov word [bp - 0x0002], 3        ; 0x45b2
-    jmp short @..api_idx_0002_6.l2   ; 0x45b7
+    jmp short @..local.l52           ; 0x45b7
     mov word [bp - 0x0002], 4        ; 0x45b9
-    jmp short @..api_idx_0002_6.l2   ; 0x45be
+    jmp short @..local.l52           ; 0x45be
     mov word [bp - 0x0002], 5        ; 0x45c0
-    jmp short @..api_idx_0002_6.l2   ; 0x45c5
+    jmp short @..local.l52           ; 0x45c5
     mov word [bp - 0x0002], 6        ; 0x45c7
-    jmp short @..api_idx_0002_6.l2   ; 0x45cc
+    jmp short @..local.l52           ; 0x45cc
     mov word [bp - 0x0002], 7        ; 0x45ce
-    jmp short @..api_idx_0002_6.l2   ; 0x45d3
+    jmp short @..local.l52           ; 0x45d3
     mov word [bp - 0x0002], 1        ; 0x45d5
-    jmp short @..api_idx_0002_6.l2   ; 0x45da
+    jmp short @..local.l52           ; 0x45da
     mov bx, word [bp + 0x6]          ; 0x45dc
     mov al, byte [bx + 0x37]         ; 0x45df
-    db 0x2a, 0xe4 ; sub ah, ah
+    sub ah, ah                       ; 0x45e2
     test ax, 8                       ; 0x45e4
-    je short loc_45ee                ; 0x45e7
+    je short @..local.l51            ; 0x45e7
     mov word [bp - 0x0002], 1        ; 0x45e9
-    jmp short @..api_idx_0002_6.l2   ; 0x45ee
+@..local.l51:
+    jmp short @..local.l52           ; 0x45ee
     rcl byte [di - 0x6a30], 1        ; 0x45f0
     rcl byte [di - 0x6a30], 1        ; 0x45f4
     jmp far 0xf995:0xf295            ; 0x45f8
@@ -50,12 +52,12 @@ api_idx_0002_6:
     and dx, word [bp - 0x69dd]       ; 0x460c
     db 0xd0, 0x95
 @..api_idx_0002_6.l1:
-    cmp ax, strict word 0x11         ; 0x4612
-    jae short @..api_idx_0002_6.l2   ; 0x4615
+    db 0x3d, 0x11
+    add byte [bp + di + 0x8], dh     ; 0x4614
     xchg bx, ax                      ; 0x4617
     shl bx, 1                        ; 0x4618
     jmp [cs:bx - 0x69c9]             ; 0x461a
-@..api_idx_0002_6.l2:
+@..local.l52:
     mov ax, 0x248                    ; 0x461f
     imul word [bp + 0x4]             ; 0x4622
     mov bx, ax                       ; 0x4625
@@ -68,7 +70,7 @@ api_idx_0002_6:
     call ds_dispatch_ec74            ; 0x4635
     add sp, byte 4                   ; 0x4638
     cmp ax, strict word 1            ; 0x463b
-    jne short @..api_idx_0002_6.l3   ; 0x463e
+    jne short @..local.l53           ; 0x463e
     mov ax, 0x248                    ; 0x4640
     imul word [bp + 0x4]             ; 0x4643
     mov bx, ax                       ; 0x4646
@@ -81,7 +83,7 @@ api_idx_0002_6:
     call ds_dispatch_ec74            ; 0x4656
     add sp, byte 4                   ; 0x4659
     cmp ax, strict word 1            ; 0x465c
-    jne short @..api_idx_0002_6.l3   ; 0x465f
+    jne short @..local.l53           ; 0x465f
     mov ax, 0x248                    ; 0x4661
     imul word [bp + 0x4]             ; 0x4664
     mov bx, ax                       ; 0x4667
@@ -94,9 +96,9 @@ api_idx_0002_6:
     call ds_dispatch_ec74            ; 0x4677
     add sp, byte 4                   ; 0x467a
     cmp ax, strict word 1            ; 0x467d
-    je short @..api_idx_0002_6.l4    ; 0x4680
-@..api_idx_0002_6.l3:
+    je short @..local.l54            ; 0x4680
+@..local.l53:
     mov word [bp - 0x0002], 0xffff   ; 0x4682
-@..api_idx_0002_6.l4:
+@..local.l54:
     mov ax, word [bp - 0x0002]       ; 0x4687
     ret                              ; 0x468a

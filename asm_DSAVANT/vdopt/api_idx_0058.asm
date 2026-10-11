@@ -74,14 +74,14 @@ api_idx_0058:
     push word [bp - 0x0002]          ; 0x060e
     call ds_dispatch_e8da            ; 0x0611
     add sp, byte 8                   ; 0x0614
-    cmp word [dseg_90b8], byte 0     ; 0x0617
+    cmp word [bss_90b8], byte 0      ; 0x0617
     je short @..api_idx_0058.l1      ; 0x061c
     mov ax, 0                        ; 0x061e
     push ax                          ; 0x0621
     call ds_dispatch_b7e0            ; 0x0622
     pop cx                           ; 0x0625
 @..api_idx_0058.l1:
-    mov ax, word [dseg_905a]         ; 0x0626
+    mov ax, word [bss_905a]          ; 0x0626
     mov cx, 2                        ; 0x0629
     cwd                              ; 0x062c
     idiv cx                          ; 0x062d

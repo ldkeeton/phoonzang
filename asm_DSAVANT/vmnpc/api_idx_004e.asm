@@ -1,6 +1,6 @@
 api_idx_004e:
     mov ax, 0xffb2                   ; 0x5b74
-    db 0xe8, 0x91, 0x98 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x5b77
     mov ax, word [bp + 0x6]          ; 0x5b7a
     shl ax, 1                        ; 0x5b7d
     mov bx, ax                       ; 0x5b7f
@@ -34,14 +34,14 @@ api_idx_004e:
     push ax                          ; 0x5bc2
     mov ax, 1                        ; 0x5bc3
     push ax                          ; 0x5bc6
-    db 0xe8, 0x72, 0x5a ; call 0xb63c
+    call ds_dispatch_b63c            ; 0x5bc7
     add sp, byte 8                   ; 0x5bca
     push word [bp - 0x0002]          ; 0x5bcd
     call loc_5497                    ; 0x5bd0
     pop cx                           ; 0x5bd3
     test ax, ax                      ; 0x5bd4
     je short @..api_idx_004e.l1      ; 0x5bd6
-    cmp byte [dseg_91c6], 0xff       ; 0x5bd8
+    cmp byte [bss_91c6], 0xff        ; 0x5bd8
     je short @..api_idx_004e.l2      ; 0x5bdd
 @..api_idx_004e.l1:
     push word [bp - 0x0002]          ; 0x5bdf
@@ -54,7 +54,7 @@ api_idx_004e:
     test ax, 2                       ; 0x5bef
     je short @..api_idx_004e.l3      ; 0x5bf2
     mov ax, word [bp - 0x0002]       ; 0x5bf4
-    cmp ax, word [dseg_91ae]         ; 0x5bf7
+    cmp ax, word [bss_91ae]          ; 0x5bf7
     je short @..api_idx_004e.l3      ; 0x5bfb
 @..api_idx_004e.l2:
     mov ax, 0x98                     ; 0x5bfd
@@ -100,7 +100,7 @@ api_idx_004e:
 @..api_idx_004e.l4:
     mov ax, 5                        ; 0x5c54
     push ax                          ; 0x5c57
-    db 0xe8, 0x4e, 0x5b ; call 0xb7a9
+    call ds_dispatch_b7a9            ; 0x5c58
     pop cx                           ; 0x5c5b
     add ax, strict word 5            ; 0x5c5c
     push ax                          ; 0x5c5f
@@ -108,10 +108,10 @@ api_idx_004e:
     mov dx, word [bp - 0x0036]       ; 0x5c63
     mov cx, 0xa                      ; 0x5c66
     mov bx, 0                        ; 0x5c69
-    db 0xe8, 0x30, 0x9d ; call 0xf99f
+    call ds_dispatch_f99f            ; 0x5c6c
     push ax                          ; 0x5c6f
     push dx                          ; 0x5c70
-    mov al, byte [dseg_91c5]         ; 0x5c71
+    mov al, byte [bss_91c5]          ; 0x5c71
     sub ah, ah                       ; 0x5c74
     inc ax                           ; 0x5c76
     cwd                              ; 0x5c77
@@ -119,7 +119,7 @@ api_idx_004e:
     mov bx, dx                       ; 0x5c7a
     pop dx                           ; 0x5c7c
     pop ax                           ; 0x5c7d
-    db 0xe8, 0x1e, 0x9d ; call 0xf99f
+    call ds_dispatch_f99f            ; 0x5c7e
     push dx                          ; 0x5c81
     push ax                          ; 0x5c82
     push word [bp + 0x4]             ; 0x5c83
@@ -135,7 +135,7 @@ api_idx_004e:
     push ax                          ; 0x5c9d
     mov ax, 0x15                     ; 0x5c9e
     push ax                          ; 0x5ca1
-    mov al, byte [dseg_91c6]         ; 0x5ca2
+    mov al, byte [bss_91c6]          ; 0x5ca2
     cbw                              ; 0x5ca5
     push ax                          ; 0x5ca6
     call api_idx_0002_5              ; 0x5ca7
@@ -144,7 +144,7 @@ api_idx_004e:
     push word [bp - 0x0006]          ; 0x5cad
     push word [bp - 0x0004]          ; 0x5cb0
     push word [bp + 0x4]             ; 0x5cb3
-    db 0xe8, 0x2f, 0x6d ; call 0xc9e8
+    call ds_dispatch_c9e8            ; 0x5cb6
     add sp, byte 6                   ; 0x5cb9
     push word [bp + 0x6]             ; 0x5cbc
     call api_idx_0002_4              ; 0x5cbf
@@ -165,12 +165,12 @@ api_idx_004e:
     push ax                          ; 0x5ce0
     mov ax, 0x36                     ; 0x5ce1
     push ax                          ; 0x5ce4
-    db 0xe8, 0xf2, 0x8b ; call 0xe8da
+    call ds_dispatch_e8da            ; 0x5ce5
     add sp, byte 8                   ; 0x5ce8
     mov ax, 1                        ; 0x5ceb
     push ax                          ; 0x5cee
     push word [bp + 0x4]             ; 0x5cef
-    db 0xe8, 0x45, 0x6e ; call 0xcb3a
+    call ds_dispatch_cb3a            ; 0x5cf2
     add sp, byte 4                   ; 0x5cf5
     mov ax, 0                        ; 0x5cf8
     push ax                          ; 0x5cfb

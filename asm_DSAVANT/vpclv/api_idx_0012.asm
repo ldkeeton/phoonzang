@@ -132,7 +132,7 @@ api_idx_0012:
     mov word [bp - 0x0002], 0x16     ; 0x01ea
 @..api_idx_0012.l17:
     lea si, word [bp - 0x000e]       ; 0x01ef
-    mov di, dseg_9408                ; 0x01f2
+    mov di, bss_9408                 ; 0x01f2
     mov cx, ds                       ; 0x01f5
     mov es, cx                       ; 0x01f7
     mov cx, 7                        ; 0x01f9

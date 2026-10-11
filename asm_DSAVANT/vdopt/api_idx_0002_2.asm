@@ -36,14 +36,14 @@ api_idx_0002_2:
 loc_04b7:
     mov ax, 0                        ; 0x04b7
     call ds_dispatch_f40b            ; 0x04ba
-    mov ax, word [dseg_82ee]         ; 0x04bd
+    mov ax, word [bss_82ee]          ; 0x04bd
     shl ax, 1                        ; 0x04c0
     mov bx, ax                       ; 0x04c2
     mov word [bx - 0x7302], 0        ; 0x04c4
     push ax                          ; 0x04ca
     mov cx, word [bp + 0x4]          ; 0x04cb
     shl cx, 1                        ; 0x04ce
-    mov ax, word [dseg_0e12]         ; 0x04d0
+    mov ax, word [bss_0e12]          ; 0x04d0
     add ax, cx                       ; 0x04d3
     add ax, 0x3c0                    ; 0x04d5
     push ax                          ; 0x04d8
@@ -56,7 +56,7 @@ loc_04b7:
     mov ax, word [bp + 0x4]          ; 0x04e5
     shl ax, 1                        ; 0x04e8
     mov si, ax                       ; 0x04ea
-    mov bx, word [dseg_0e12]         ; 0x04ec
+    mov bx, word [bss_0e12]          ; 0x04ec
     push word [bx + si + 0x3c0]      ; 0x04f0
     mov ax, 0                        ; 0x04f4
     push ax                          ; 0x04f7
@@ -64,19 +64,19 @@ loc_04b7:
     push word [bp + 0x4]             ; 0x04f9
     mov ax, 6                        ; 0x04fc
     push ax                          ; 0x04ff
-    push word [dseg_830c]            ; 0x0500
+    push word [bss_830c]             ; 0x0500
     call api_idx_0004_3              ; 0x0504
     add sp, byte 0x12                ; 0x0507
     mov ax, word [bp + 0x4]          ; 0x050a
     shl ax, 1                        ; 0x050d
     mov si, ax                       ; 0x050f
-    mov bx, word [dseg_0e12]         ; 0x0511
+    mov bx, word [bss_0e12]          ; 0x0511
     cmp word [bx + si], byte 0       ; 0x0515
     jle short @..local.l5            ; 0x0518
     mov ax, 0                        ; 0x051a
     push ax                          ; 0x051d
     push word [bx + si]              ; 0x051e
-    mov ax, word [dseg_830c]         ; 0x0520
+    mov ax, word [bss_830c]          ; 0x0520
     mov cx, 4                        ; 0x0523
     shl ax, cl                       ; 0x0526
     add ax, 0x8d14                   ; 0x0528
@@ -88,9 +88,9 @@ loc_04b7:
     mov ax, word [bp + 0x4]          ; 0x0536
     shl ax, 1                        ; 0x0539
     mov si, ax                       ; 0x053b
-    mov bx, word [dseg_0e12]         ; 0x053d
+    mov bx, word [bss_0e12]          ; 0x053d
     push word [bx + si]              ; 0x0541
-    mov ax, word [dseg_830c]         ; 0x0543
+    mov ax, word [bss_830c]          ; 0x0543
     mov cx, 4                        ; 0x0546
     shl ax, cl                       ; 0x0549
     add ax, 0x5642                   ; 0x054b
@@ -99,7 +99,7 @@ loc_04b7:
     add sp, byte 6                   ; 0x0552
     mov ax, word [bp + 0x4]          ; 0x0555
     inc ax                           ; 0x0558
-    mov word [dseg_8d12], ax         ; 0x0559
+    mov word [bss_8d12], ax          ; 0x0559
 @..local.l5:
     mov ax, 1                        ; 0x055c
     push ax                          ; 0x055f

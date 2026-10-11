@@ -99,8 +99,8 @@ api_idx_0002_4:
     push ax                          ; 0x1a41
     call ds_dispatch_bb33            ; 0x1a42
     add sp, byte 8                   ; 0x1a45
-    mov ax, word [dseg_905a]         ; 0x1a48
-    cmp byte [dseg_598c], 0          ; 0x1a4b
+    mov ax, word [bss_905a]          ; 0x1a48
+    cmp byte [bss_598c], 0           ; 0x1a4b
     je short @..api_idx_0002_4.l3    ; 0x1a50
     shl ax, 1                        ; 0x1a52
 @..api_idx_0002_4.l3:

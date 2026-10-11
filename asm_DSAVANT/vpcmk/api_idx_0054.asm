@@ -4,15 +4,15 @@ api_idx_0054:
     mov ax, 0                        ; 0x1b46
     push ax                          ; 0x1b49
     push ax                          ; 0x1b4a
-    push word [dseg_9526]            ; 0x1b4b
-    push word [dseg_9524]            ; 0x1b4f
+    push word [bss_9526]             ; 0x1b4b
+    push word [bss_9524]             ; 0x1b4f
     call ds_dispatch_e942            ; 0x1b53
     add sp, byte 8                   ; 0x1b56
     mov ax, 0                        ; 0x1b59
     push ax                          ; 0x1b5c
     push ax                          ; 0x1b5d
-    push word [dseg_952a]            ; 0x1b5e
-    push word [dseg_9528]            ; 0x1b62
+    push word [bss_952a]             ; 0x1b5e
+    push word [bss_9528]             ; 0x1b62
     call ds_dispatch_e942            ; 0x1b66
     add sp, byte 8                   ; 0x1b69
     mov ax, 0                        ; 0x1b6c
@@ -224,15 +224,15 @@ api_idx_0054:
     mov cx, 0x12                     ; 0x1d4e
     mov bx, 0                        ; 0x1d51
     call ds_dispatch_f99f            ; 0x1d54
-    mov word [dseg_95aa], ax         ; 0x1d57
+    mov word [bss_95aa], ax          ; 0x1d57
     mov ax, 0x14                     ; 0x1d5a
     push ax                          ; 0x1d5d
     mov ax, 0                        ; 0x1d5e
     push ax                          ; 0x1d61
-    push word [dseg_95aa]            ; 0x1d62
+    push word [bss_95aa]             ; 0x1d62
     call ds_dispatch_b7c2            ; 0x1d66
     add sp, byte 6                   ; 0x1d69
-    mov word [dseg_95aa], ax         ; 0x1d6c
+    mov word [bss_95aa], ax          ; 0x1d6c
     mov ax, 0x248                    ; 0x1d6f
     imul word [bp + 0x4]             ; 0x1d72
     mov bx, ax                       ; 0x1d75
@@ -243,9 +243,9 @@ api_idx_0054:
 @..api_idx_0054.l1:
     mov ax, 1                        ; 0x1d83
 @..api_idx_0054.l2:
-    mov word [dseg_95ac], ax         ; 0x1d86
-    mov word [dseg_95ae], 0          ; 0x1d89
-    push word [dseg_95ae]            ; 0x1d8f
+    mov word [bss_95ac], ax          ; 0x1d86
+    mov word [bss_95ae], 0           ; 0x1d89
+    push word [bss_95ae]             ; 0x1d8f
     call api_idx_000a                ; 0x1d93
     pop cx                           ; 0x1d96
     mov ax, 0                        ; 0x1d97

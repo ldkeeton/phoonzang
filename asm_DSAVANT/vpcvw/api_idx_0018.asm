@@ -86,14 +86,14 @@ loc_97ee:
     mov word [dseg_93d6], si         ; 0x97fb
     mov word [dseg_93d8], di         ; 0x97ff
     cld                              ; 0x9803
-    mov di, dseg_93e0                ; 0x9804
+    mov di, bss_93e0                 ; 0x9804
     mov cx, 0x96f0                   ; 0x9807
     sub cx, di                       ; 0x980a
     shr cx, 1                        ; 0x980c
-    je short @..local.l137           ; 0x980e
+    je short @..local.l150           ; 0x980e
     sub ax, ax                       ; 0x9810
     rep stosw                        ; 0x9812
-@..local.l137:
+@..local.l150:
     call loc_000e                    ; 0x9814
     mov bp, word [dseg_93dc]         ; 0x9817
     mov sp, word [dseg_93da]         ; 0x981b

@@ -20,7 +20,7 @@ api_idx_0008_4:
     add sp, byte 0x0e                ; 0x33ea
     test ax, ax                      ; 0x33ed
     je short @..api_idx_0008_4.l2    ; 0x33ef
-    mov ax, word [dseg_91d4]         ; 0x33f1
+    mov ax, word [bss_91d4]          ; 0x33f1
     jmp short @..api_idx_0008_4.l1   ; 0x33f4
     mov ax, 2                        ; 0x33f6
     ret                              ; 0x33f9
@@ -55,14 +55,14 @@ api_idx_0008_4:
     add ax, word [bp + 0xa]          ; 0x3439
     mov word [bp - 0x0002], ax       ; 0x343c
     push ax                          ; 0x343f
-    mov ax, word [dseg_0e14]         ; 0x3440
+    mov ax, word [bss_0e14]          ; 0x3440
     add ax, 0x8b0                    ; 0x3443
     push ax                          ; 0x3446
     call ds_dispatch_ec74            ; 0x3447
     add sp, byte 4                   ; 0x344a
     test ax, ax                      ; 0x344d
     je short @..api_idx_0008_4.l5    ; 0x344f
-    mov ax, word [dseg_91d4]         ; 0x3451
+    mov ax, word [bss_91d4]          ; 0x3451
     jmp short @..api_idx_0008_4.l4   ; 0x3454
 @..api_idx_0008_4.l3:
     mov ax, 0                        ; 0x3456
@@ -73,7 +73,7 @@ api_idx_0008_4:
     cmp ax, strict word 3            ; 0x345f
     je short @..api_idx_0008_4.l3    ; 0x3462
 @..api_idx_0008_4.l5:
-    mov ax, word [dseg_82ee]         ; 0x3464
+    mov ax, word [bss_82ee]          ; 0x3464
     add ax, word [bp + 0x4]          ; 0x3467
     mov cx, 4                        ; 0x346a
     cwd                              ; 0x346d
@@ -94,7 +94,7 @@ api_idx_0008_4:
     mov ax, 4                        ; 0x348e
     push ax                          ; 0x3491
     push word [bp - 0x0002]          ; 0x3492
-    mov ax, word [dseg_0e14]         ; 0x3495
+    mov ax, word [bss_0e14]          ; 0x3495
     add ax, 0x90                     ; 0x3498
     push ax                          ; 0x349b
     call ds_dispatch_ecf6            ; 0x349c
@@ -105,7 +105,7 @@ api_idx_0008_4:
     mov ax, 4                        ; 0x34a7
     push ax                          ; 0x34aa
     push word [bp - 0x0002]          ; 0x34ab
-    mov ax, word [dseg_0e14]         ; 0x34ae
+    mov ax, word [bss_0e14]          ; 0x34ae
     add ax, 0x290                    ; 0x34b1
     push ax                          ; 0x34b4
     call ds_dispatch_ecf6            ; 0x34b5
@@ -146,7 +146,7 @@ api_idx_0008_4:
     cwd                              ; 0x3509
     idiv cx                          ; 0x350a
     mov word [bp - 0x0008], dx       ; 0x350c
-    cmp dx, word [dseg_82ee]         ; 0x350f
+    cmp dx, word [bss_82ee]          ; 0x350f
     je short @..api_idx_0008_4.l12   ; 0x3513
     jmp near @..api_idx_0008_4.l14   ; 0x3515
 @..api_idx_0008_4.l12:

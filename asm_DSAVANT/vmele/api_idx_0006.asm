@@ -25,7 +25,7 @@ api_idx_0006:
     sub ah, ah                       ; 0x1751
     push ax                          ; 0x1753
     mov ax, 3                        ; 0x1754
-    imul word [dseg_830c]            ; 0x1757
+    imul word [bss_830c]             ; 0x1757
     mov cx, ax                       ; 0x175b
     pop ax                           ; 0x175d
     sub ax, cx                       ; 0x175e
@@ -52,12 +52,12 @@ api_idx_0006:
     inc word [bp - 0x0004]           ; 0x1791
 @..api_idx_0006.l5:
     mov ax, word [bp - 0x0004]       ; 0x1794
-    cmp ax, word [dseg_69c8]         ; 0x1797
+    cmp ax, word [bss_69c8]          ; 0x1797
     jl short @..api_idx_0006.l2      ; 0x179b
     inc word [bp - 0x0002]           ; 0x179d
 @..api_idx_0006.l6:
     mov ax, word [bp - 0x0002]       ; 0x17a0
-    cmp ax, word [dseg_8466]         ; 0x17a3
+    cmp ax, word [bss_8466]          ; 0x17a3
     jg short @..api_idx_0006.l7      ; 0x17a7
     jmp near @..api_idx_0006.l1      ; 0x17a9
 @..api_idx_0006.l7:

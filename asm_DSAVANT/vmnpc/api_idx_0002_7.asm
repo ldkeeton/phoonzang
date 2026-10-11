@@ -1,6 +1,6 @@
 api_idx_0002_7:
     mov ax, 0xfffe                   ; 0x74d1
-    db 0xe8, 0x34, 0x7f ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x74d4
     mov word [bp - 0x0002], 0        ; 0x74d7
 @..api_idx_0002_7.l1:
     cmp word [bp + 0x4], byte 0      ; 0x74dc

@@ -169,7 +169,7 @@ api_idx_0054:
     inc word [bp - 0x0002]           ; 0x04f4
 @..api_idx_0054.l9:
     mov ax, word [bp - 0x0002]       ; 0x04f7
-    cmp ax, word [dseg_8466]         ; 0x04fa
+    cmp ax, word [bss_8466]          ; 0x04fa
     jg short @..api_idx_0054.l10     ; 0x04fe
     jmp near @..api_idx_0054.l1      ; 0x0500
 @..api_idx_0054.l10:

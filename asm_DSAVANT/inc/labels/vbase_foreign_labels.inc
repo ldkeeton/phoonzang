@@ -328,7 +328,6 @@ ds_aztec_isatty equ 0x5168
 ds_aztec_sbrk equ 0x5188
 ds_aztec_brk equ 0x51bc
 ds_aztec_rsvstk equ 0x5248
-ds_dispatch_9c0b equ 0x9c0b
 ds_dispatch_afb9 equ 0xafb9
 ds_dispatch_afcc equ 0xafcc
 ds_dispatch_b171 equ 0xb171
@@ -450,5 +449,4 @@ ds_dispatch_fd76 equ 0xfd76
 ds_dispatch_fda5 equ 0xfda5
 ds_dispatch_fdbd equ 0xfdbd
 ds_dispatch_fedc equ 0xfedc
-ds_dispatch_ffc7 equ 0xffc7
 ds_leaf_loc_10108 equ 0x10108

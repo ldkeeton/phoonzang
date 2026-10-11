@@ -17,7 +17,7 @@ api_idx_0014:
     jne short @..api_idx_0014.l1     ; 0x6697
     ret                              ; 0x6699
 @..api_idx_0014.l1:
-    mov word [dseg_978a], 0          ; 0x669a
+    mov word [bss_978a], 0           ; 0x669a
     cmp byte [bp - 0x0014], 0        ; 0x66a0
     je short @..api_idx_0014.l3      ; 0x66a4
     lea ax, word [bp - 0x0014]       ; 0x66a6
@@ -47,7 +47,7 @@ loc_66c3:
     push ax                          ; 0x66d9
     call api_idx_0002_2              ; 0x66da
     add sp, byte 6                   ; 0x66dd
-    mov word [dseg_9594], 0xffff     ; 0x66e0
+    mov word [bss_9594], 0xffff      ; 0x66e0
     push word [bp + 0x4]             ; 0x66e6
     call api_idx_0054                ; 0x66e9
     pop cx                           ; 0x66ec

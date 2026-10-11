@@ -5,7 +5,7 @@ api_idx_0002:
     mov word [bp - 0x0002], ax       ; 0x01a4
     jmp short @..api_idx_0002.l4     ; 0x01a7
 @..api_idx_0002.l1:
-    mov bx, word [dseg_0e12]         ; 0x01a9
+    mov bx, word [bss_0e12]          ; 0x01a9
     mov si, word [bp - 0x0002]       ; 0x01ad
     mov al, byte [bx + si + 0x870]   ; 0x01b0
     sub ah, ah                       ; 0x01b4
@@ -27,7 +27,7 @@ api_idx_0002:
     mov al, byte [bx + si + 0x960]   ; 0x01dc
     sub ah, ah                       ; 0x01e0
     push ax                          ; 0x01e2
-    mov ax, word [dseg_830c]         ; 0x01e3
+    mov ax, word [bss_830c]          ; 0x01e3
     mov cx, 4                        ; 0x01e6
     shl ax, cl                       ; 0x01e9
     add ax, 0x8d14                   ; 0x01eb

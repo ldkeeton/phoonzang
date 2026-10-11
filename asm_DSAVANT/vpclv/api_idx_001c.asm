@@ -93,7 +93,7 @@ api_idx_001c:
     jge short @..api_idx_001c.l5     ; 0x422e
     jmp near @..api_idx_001c.l1      ; 0x4230
 @..api_idx_001c.l5:
-    mov word [dseg_95f4], 0          ; 0x4233
+    mov word [bss_95f4], 0           ; 0x4233
     mov ax, word [dseg_0040]         ; 0x4239
     mov word [bp - 0x0002], ax       ; 0x423c
     jmp short @..api_idx_001c.l8     ; 0x423f
@@ -108,9 +108,9 @@ api_idx_001c:
     push ax                          ; 0x4256
     call ds_dispatch_b7a9            ; 0x4257
     pop cx                           ; 0x425a
-    add ax, word [dseg_95f4]         ; 0x425b
+    add ax, word [bss_95f4]          ; 0x425b
     inc ax                           ; 0x425f
-    mov word [dseg_95f4], ax         ; 0x4260
+    mov word [bss_95f4], ax          ; 0x4260
 @..api_idx_001c.l7:
     inc word [bp - 0x0002]           ; 0x4263
 @..api_idx_001c.l8:

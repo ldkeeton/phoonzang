@@ -522,7 +522,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
     return records
 
 
-def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None, immediate_labels=None, hard_data=None, data_labels=None, mem_symbols=None, mem_equ=None, image_base=0):
+def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact_bytes=False, bitmap=None, carve_1=None, trace=None, local_labels=None, foreign_label_map=None, immediate_labels=None, hard_data=None, data_labels=None, mem_symbols=None, mem_equ=None, image_base=0, table_ranges=None):
     """Replace code-like data_block records with inline records;
     annotate jump tables and known file formats on the rest."""
     new_records = []
@@ -546,6 +546,17 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
 
         if len(raw) < 2:
             new_records.append(rec)
+            continue
+
+        # Never promote a detected switch table to instructions: its bytes
+        # are target words, not code, even when the run is short enough to
+        # trip the dead-code heuristic below.  _inject_jump_tables renders
+        # the table from these data blocks.
+        if table_ranges and any(s < end and start < e for s, e in table_ranges):
+            new_records.append(rec)
+            if trace is not None:
+                trace.event('cascade', 'skipped', addr=start, end=end,
+                            size=end - start, reason='jump table')
             continue
 
         if hard_data is not None and any(hard_data[start:end]):
@@ -1476,6 +1487,13 @@ def _count_bare_addrs(records):
     return bare_mem, bare_call, bare_dbc
 
 
+def _data_prefix(segments, offset):
+    """``'dseg'``/``'bss'`` for a data-segment offset (see SegmentModel)."""
+    if segments is None:
+        return 'dseg'
+    return segments.data_space(offset) or 'dseg'
+
+
 def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset):
     """Choose a segment-correct symbol for every absolute memory operand.
 
@@ -1499,7 +1517,6 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset)
 
     symbols = {}
     equ = {}
-    boundary = segments.bss_boundary if segments is not None else None
     for insn in insns:
         for idx, op in enumerate(insn.operands):
             if (op.type != CS_OP_MEM or op.mem.base or op.mem.index):
@@ -1520,7 +1537,7 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset)
                 equ.setdefault(name, addr)
                 symbols[(insn.address, idx)] = name
             elif space == DATA:
-                prefix = 'bss' if (boundary is not None and addr >= boundary) else 'dseg'
+                prefix = _data_prefix(segments, addr)
                 name = f'{prefix}_{addr:04x}'
                 equ.setdefault(name, addr)
                 symbols[(insn.address, idx)] = name
@@ -1542,7 +1559,6 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
 
     proven = immediate_pointer_spaces(insns, segment_flow)
     by_addr = {insn.address: insn for insn in insns}
-    boundary = segments.bss_boundary if segments is not None else None
     file_size = segments.file_size if segments is not None else 0
     result = {}
     for (addr, idx), space in proven.items():
@@ -1566,7 +1582,7 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
             mem_equ.setdefault(name, value)
             result[(addr, idx)] = name
         elif space == DATA:
-            prefix = 'bss' if (boundary is not None and value >= boundary) else 'dseg'
+            prefix = _data_prefix(segments, value)
             name = f'{prefix}_{value:04x}'
             mem_equ.setdefault(name, value)
             result[(addr, idx)] = name
@@ -1882,6 +1898,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     table_specs = _merge_jump_table_specs(
         jump_tables, jump_table_overrides, start_offset, total,
     )
+    table_ranges = [
+        (spec['table_addr'], spec['table_end'])
+        for spec in table_specs
+        if spec.get('table_end', 0) > spec['table_addr']
+    ]
 
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
     consumer_inc = None
@@ -2013,7 +2034,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                                        hard_data=hard_data,
                                        data_labels=data_labels,
                                        mem_symbols=mem_symbols, mem_equ=mem_equ,
-                                       image_base=start_offset)
+                                       image_base=start_offset,
+                                       table_ranges=table_ranges)
 
     # Data-block promotion can reveal instructions after the first local-label
     # pass. Give their in-binary direct-flow destinations symbols too, then
@@ -2147,6 +2169,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             records, c_overrides, binary_data, label_map, local_labels,
             foreign_label_map, immediate_labels, exact_bytes=exact_bytes,
             data_labels=data_labels,
+            mem_symbols=mem_symbols, mem_equ=mem_equ,
         )
 
     _annotate_interrupts(records)
@@ -2266,7 +2289,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
 
 def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
-                        immediate_labels, exact_bytes=False, data_labels=None):
+                        immediate_labels, exact_bytes=False, data_labels=None,
+                        mem_symbols=None, mem_equ=None):
     """Disassemble compiler-produced code into emission records."""
     from lib.format import format_instruction
     md = Cs(CS_ARCH_X86, CS_MODE_16)
@@ -2288,12 +2312,13 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
         bts = data[off:off + insn.size]
         nasm_text = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels, data_labels=data_labels)
+            immediate_labels=immediate_labels, data_labels=data_labels,
+            mem_symbols=mem_symbols)
         if nasm_text:
             built = micro_assemble(
                 nasm_text, insn.address, label_map, local_labels,
                 foreign_label_map=foreign_label_map,
-                immediate_labels=immediate_labels)
+                immediate_labels=immediate_labels, mem_equ=mem_equ)
             ok = built is not None and built[:len(bts)] == bts
             if not ok and not exact_bytes and built:
                 ok = is_semantically_equivalent(bts, built[:len(bts)],
@@ -2333,7 +2358,8 @@ def _merge_label_records(new_records, label_records):
 
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        local_labels, foreign_label_map, immediate_labels,
-                       exact_bytes=False, data_labels=None):
+                       exact_bytes=False, data_labels=None,
+                       mem_symbols=None, mem_equ=None):
     """Replace disassembled records with code compiled from C.
 
     ``c_overrides`` maps a function label to ``{'code': bytes,
@@ -2412,7 +2438,8 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             final[len(compiled):length] = b'\x90' * (length - len(compiled))
         new_records = _c_bytes_to_records(
             bytes(final), start, label_map, local_labels, foreign_label_map,
-            immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels)
+            immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
+            mem_symbols=mem_symbols, mem_equ=mem_equ)
         labels_in = [r for r in records
                      if r['type'] == 'label' and start < r['offset'] < end]
         replacements.append((start, end,
@@ -2815,6 +2842,26 @@ def _render_mz_header(header):
     ]
 
 
+def _render_ovr_header(header):
+    """Render the Aztec overlay header fields with a shared comment column."""
+    (o_magic, o_corg, o_csize, o_dorg, o_dsize, o_bss, o_entry) = \
+        struct.unpack_from('<7H', header, 0)
+    fields = [
+        (f'dw 0x{o_magic:04x}', 'o_magic: overlay signature (0x00f2)'),
+        (f'dw 0x{o_corg:04x}', 'o_corg: code load origin (memory offset)'),
+        (f'dw 0x{o_csize:04x}', 'o_csize: code size in bytes'),
+        (f'dw 0x{o_dorg:04x}', 'o_dorg: data load origin (memory offset)'),
+        (f'dw 0x{o_dsize:04x}', 'o_dsize: initialized data size'),
+        (f'dw 0x{o_bss:04x}', 'o_bss: uninitialized data size'),
+        (f'dw 0x{o_entry:04x}', 'o_entry: overlay entry offset (CS)'),
+    ]
+    return [
+        '    ; Aztec C86 overlay header (14 bytes)',
+        *(f'    {instruction:<14} ; {comment}'
+          for instruction, comment in fields),
+    ]
+
+
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None):
@@ -2842,6 +2889,10 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.extend(_render_mz_header(hdr))
         out.append('')
         out.extend(_render_data_block(hdr[28:]))
+        out.append('')
+    elif (start_offset >= 14 and len(binary_data) >= 14
+            and binary_data[:2] == b'\xf2\x00'):
+        out.extend(_render_ovr_header(binary_data[:14]))
         out.append('')
     elif start_offset > 0:
         hdr = binary_data[:start_offset]

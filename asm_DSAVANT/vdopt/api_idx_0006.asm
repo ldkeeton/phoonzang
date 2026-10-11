@@ -11,7 +11,7 @@ api_idx_0006:
     add ax, cx                       ; 0x0323
     add ax, word [bp + 0xc]          ; 0x0325
     mov word [bp - 0x0004], ax       ; 0x0328
-    mov ax, word [dseg_0e10]         ; 0x032b
+    mov ax, word [bss_0e10]          ; 0x032b
     mov word [bp - 0x0006], ax       ; 0x032e
     mov word [bp - 0x0002], 0        ; 0x0331
     jmp short @..api_idx_0006.l5     ; 0x0336
@@ -45,7 +45,7 @@ api_idx_0006:
     inc word [bp - 0x0002]           ; 0x0372
 @..api_idx_0006.l5:
     mov ax, word [bp - 0x0002]       ; 0x0375
-    cmp ax, word [dseg_590e]         ; 0x0378
+    cmp ax, word [bss_590e]          ; 0x0378
     jl short @..api_idx_0006.l1      ; 0x037c
     mov ax, 0xffff                   ; 0x037e
     ret                              ; 0x0381

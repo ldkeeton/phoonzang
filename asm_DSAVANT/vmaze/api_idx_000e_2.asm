@@ -5,10 +5,10 @@ api_idx_000e_2:
     push ax                          ; 0x8057
     call api_idx_0006_2              ; 0x8058
     pop cx                           ; 0x805b
-    mov ax, word [dseg_8d12]         ; 0x805c
+    mov ax, word [bss_8d12]          ; 0x805c
     shl ax, 1                        ; 0x805f
     mov si, ax                       ; 0x8061
-    mov bx, word [dseg_0e12]         ; 0x8063
+    mov bx, word [bss_0e12]          ; 0x8063
     mov ax, word [bx + si + 0x3c0]   ; 0x8067
     mov word [bp - 0x0002], ax       ; 0x806b
     mov ax, 8                        ; 0x806e
@@ -19,8 +19,8 @@ api_idx_000e_2:
     call ds_dispatch_ed3a            ; 0x8079
     add sp, byte 6                   ; 0x807c
     mov word [bp - 0x0006], ax       ; 0x807f
-    mov bx, word [dseg_0e12]         ; 0x8082
-    mov si, word [dseg_8d12]         ; 0x8086
+    mov bx, word [bss_0e12]          ; 0x8082
+    mov si, word [bss_8d12]          ; 0x8086
     mov al, byte [bx + si + 0xa50]   ; 0x808a
     sub ah, ah                       ; 0x808e
     mov word [bp - 0x000a], ax       ; 0x8090
@@ -66,12 +66,12 @@ api_idx_000e_2:
     push ax                          ; 0x80ea
     mov ax, 0x12                     ; 0x80eb
     push ax                          ; 0x80ee
-    push word [dseg_8af0]            ; 0x80ef
+    push word [bss_8af0]             ; 0x80ef
     call loc_6fbf                    ; 0x80f3
     add sp, byte 6                   ; 0x80f6
 @..api_idx_000e_2.l5:
     mov ax, 0x248                    ; 0x80f9
-    imul word [dseg_8af0]            ; 0x80fc
+    imul word [bss_8af0]             ; 0x80fc
     mov bx, ax                       ; 0x8100
     mov al, byte [bx + 0x5d68]       ; 0x8102
     sub ah, ah                       ; 0x8106
@@ -118,11 +118,11 @@ api_idx_000e_2:
     inc word [bp - 0x0004]           ; 0x8165
 @..api_idx_000e_2.l9:
     mov ax, word [bp - 0x0004]       ; 0x8168
-    cmp ax, word [dseg_69c8]         ; 0x816b
+    cmp ax, word [bss_69c8]          ; 0x816b
     jl short @..api_idx_000e_2.l7    ; 0x816f
     mov ax, word [bp - 0x000a]       ; 0x8171
     cwd                              ; 0x8174
-    idiv word [dseg_69c8]            ; 0x8175
+    idiv word [bss_69c8]             ; 0x8175
     mov word [bp - 0x000a], ax       ; 0x8179
 @..api_idx_000e_2.l10:
     push word [bp - 0x0006]          ; 0x817c
@@ -131,24 +131,24 @@ api_idx_000e_2:
     mov word [bp - 0x000c], ax       ; 0x8183
     cmp ax, word [bp - 0x000a]       ; 0x8186
     jge short @..api_idx_000e_2.l11  ; 0x8189
-    mov ax, word [dseg_8d12]         ; 0x818b
+    mov ax, word [bss_8d12]          ; 0x818b
     shl ax, 1                        ; 0x818e
     mov si, ax                       ; 0x8190
-    mov bx, word [dseg_0e12]         ; 0x8192
+    mov bx, word [bss_0e12]          ; 0x8192
     mov ax, word [bx + si]           ; 0x8196
     jmp short @..api_idx_000e_2.l12  ; 0x8198
 @..api_idx_000e_2.l11:
-    mov ax, word [dseg_8d12]         ; 0x819a
+    mov ax, word [bss_8d12]          ; 0x819a
     shl ax, 1                        ; 0x819d
     mov si, ax                       ; 0x819f
-    mov bx, word [dseg_0e12]         ; 0x81a1
+    mov bx, word [bss_0e12]          ; 0x81a1
     mov ax, word [bx + si + 0x1e0]   ; 0x81a5
 @..api_idx_000e_2.l12:
     mov word [bp - 0x000e], ax       ; 0x81a9
     mov ax, 0                        ; 0x81ac
     push ax                          ; 0x81af
     push word [bp - 0x000e]          ; 0x81b0
-    mov ax, word [dseg_830c]         ; 0x81b3
+    mov ax, word [bss_830c]          ; 0x81b3
     mov cx, 4                        ; 0x81b6
     shl ax, cl                       ; 0x81b9
     add ax, 0x8d14                   ; 0x81bb
@@ -167,7 +167,7 @@ api_idx_000e_2:
     mov ax, 0                        ; 0x81db
     push ax                          ; 0x81de
     push word [bp - 0x000e]          ; 0x81df
-    mov ax, word [dseg_830c]         ; 0x81e2
+    mov ax, word [bss_830c]          ; 0x81e2
     mov cx, 4                        ; 0x81e5
     shl ax, cl                       ; 0x81e8
     add ax, 0x5642                   ; 0x81ea

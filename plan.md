@@ -1,179 +1,177 @@
-# Plan: identify & symbolize every hard-coded address
+# Plan: complete address symbolization — next steps
 
 ## Goal
 
-Make every address-encoding operand in the recovered DSAVANT images resolve to a
-correct, space-tagged symbol (and appear in the address inventory), instead of
-today's mixture of raw constants, colliding labels, and conflated address spaces.
+Drive the remaining `[data_*]` operand references to correct, space-tagged
+symbols (`dseg_`/`bss_`/`cseg_`/`psp_`) without losing byte-exactness, so every
+address-encoding operand in the recovered DSAVANT images is symbolized and the
+per-binary inventory is conflict-free.
 
-## What is broken today
+## Current state — verified
 
-The pipeline has **one** label/address concept, but the binary uses **two**
-address spaces and **three** segments.
+`make verify DSAVANT` is **18/18 byte-exact**; `python3 -m unittest discover
+-p 'test_*.py'` is **111/111 OK**. The `ds` host model is built once and threaded
+into overlays; the overlay header is 14 bytes; the segment dataflow is recomputed
+against the final bitmap and sees every recovered switch-table arm. Detected
+`jumptable_*` labels are up from 113 (HEAD) to 308.
 
-- **F (file/listing offset):** where code labels (`loc_`, `aztec_`, `app_`,
-  `string_`, `leaf_`) live and what `label_map` is keyed by. Confirmed: aztec_free
-  bytes at file `0x47e8`, sprintf string at file `0x480d`, matching the emitted
-  offsets.
-- **L (segment offset):** what the code embeds in absolute operands.
+| metric | baseline | now |
+|---|---|---|
+| asm `[data_*]` operand refs | 454 | 198 |
+| inventory `unknown` records | 219 | 131 |
+| inventory `dseg_` / `bss_` | 1225 / 102 | 165 / 1182 |
+| inventory `cs` | 1989 | 2342 |
+| inventory `psp` | 6 | 6 |
 
-`lib/delta.py` already models this (`address_kind: "load_image_offset"`) and
-special-cases the small-address collisions
-(`_EXTERNAL_DATA_EQU = {data_0002, data_002c, data_0080, data_0410}`, `:17`).
+Done in the working tree (source only; generated `asm_DSAVANT/**` rewritten):
 
-### Defects (all byte-exact, so `make verify` 18/18 never catches them)
+- `lib/segments.py` — `SegmentModel.data_space(offset)` implements the **layered**
+  overlay DATA rule (host file-backed → host BSS → overlay init → overlay BSS);
+  `SegmentModel.code_offset(disp)` maps an embedded `o_corg`-based CS value to its
+  file offset (`14 + (disp - o_corg)`), `None` for MZ/drivers.
+- `lib/verify/compare.py` — `_data_prefix`; `_resolve_mem_symbols` /
+  `_resolve_imm_symbols` use `data_space`; `_apply_c_overrides` /
+  `_c_bytes_to_records` carry `mem_symbols`/`mem_equ`; `_render_ovr_header`
+  emits the 14-byte Aztec header as commented `dw` fields; `_postprocess_data_blocks`
+  takes `table_ranges` and refuses to promote detected switch tables to instructions.
+- `main.py` — `_build_host_model` + `host_model=` threading; `discover_binaries`
+  now uses `start_offset = 14` for `*.OVR`; `analyze_segments` receives
+  `segment_edges` (validated tables + **all** recovered table arms + branch
+  edges); instructions **and** segment flow recomputed after the post-phases.
+- `lib/phases/aztec_overlay.py` — marks the 14-byte header `hard_data`, and only
+  drops a sidecar seed that points *into* the header (`start_offset < 14`).
+- `lib/phases/forcecode.py` — back-scan clamped to `>= start_offset` and skips
+  hard data; forward scan now also stops at a **DOS exit** (`is_dos_terminator`),
+  so inline data after an error handler's `mov ax,0x4c01; int 0x21` stays data.
+- `lib/phases/recursive.py` — `_code_off` routes jump-table/indirect-jump
+  translation through `SegmentModel.code_offset` for overlays; `_scan_jump_table`
+  only applies the data-vote stop when `max_index is None` (a bounded table is
+  read fully even when `prune_dead` pre-voted its arms data); `_validate_jump_tables`
+  marks every detected table region `_CONF_JT_DATA` and clears `hard_code` over it.
+- `test_segments.py`, `test_jump_tables.py`, new `test_forcecode.py`.
+- `sidecar/DSAVANT.json` — overlay `start_offset` 8 → 14.
 
-1. **Non-flow immediates symbolized from the mixed map** — `lib/format.py:206-207`.
-   833 sites: `data_*` x833, `dos_*` x7, `aztec_*` x1. `data_0002` alone x518
-   (e.g. `mov cx, data_0002; cwd; idiv cx` == `mov cx, 2`). `mov di, aztec_lfree`
-   (`string_loc_4882.asm:63`) is really the sprintf string pointer (`0x460d`).
-2. **Memory operands share the same namespace** — `lib/format.py:83-89`. Code
-   labels leak into data contexts: `[loc_0000]`, `[bios_video_loc_252e]`,
-   `[cs:leaf_loc_0293]`.
-3. **Data labels are L-space but stored in the F-keyed map** —
-   `lib/verify/compare.py:460-466` and `:1580-1613`, which feeds defects 1-2.
-4. **C fragment spans over-allocate** — `_select_split_ranges`
-   (`lib/verify/compare.py:2182`) ends each fragment at the next split root, so
-   `aztec_free`'s 127-byte span swallows 90 bytes of non-C data (sprintf string,
-   `jumptable_4822`, hex string). This is why the resplice-label channel exists.
+Diagnosed and fixed here (was surfacing as *data → instruction*): the Aztec
+overlay header's `o_corg` low byte `0x55` sits at file offset 2; `ForceCodePhase`
+mistook it for a `push bp` prologue and force-coded `[8,14)`, which the arbiter
+fallback then emitted as code once the post-phase instruction stream was
+recomputed. With the header marked hard data and the back-scan clamped, those
+bytes are `db` again and the real entry (`mov ax,<api>; call <dispatch>`) at
+offset 14 is preserved.
 
-## Segment model (verified)
+## Confirmed facts (do not re-derive)
 
-From the MZ header and the CRT startup:
+- Every overlay `*.OVR` has `o_corg = 0x5055`, `o_dorg = 0x9098` (host CRT BSS
+  end); `o_dsize` 0x1e–0x48c, `o_bss` 2–0x1f22. Host `DS.EXE`:
+  `data_origin = 0x10160`, `bss_boundary = 0xcf6`, CRT BSS `0xcf6..0x9098`.
+- `o_corg`/`o_dorg` are offsets in the **host's** CS/DS (confirmed from
+  `tools/dos_compilers/.../LIB/DOS/OVLOADER.C` and `asm_DSAVANT/ds/aztec_ovloader.asm`).
+- Overlay embedded CS offsets are `o_corg`-based. The mapping from an embedded
+  CS value `v` to a file offset is `14 + (v - o_corg)` (equivalently
+  `v - 0x5047`), used only for analysis; emitted `cseg_<file>` names must keep
+  the existing `addr + start_offset` round-trip convention (`- IMAGE_BASE`).
+- Remaining `[data_*]` by binary: `play` 44, `vbase` 49, `vdopt` 46, `ds` 42,
+  `vmaze` 29, `vtrea` 23, `vpcvw` 17, `vmext` 13, `vinstall` 10, others < 10.
+  Drivers (`ega` 2, `play` 44) are runtime-DS candidates and are **waived**.
 
-```
-e_cs = 0x0000  -> CS  base = load segment        ; CS:o  -> file hdr + o
-e_ss = 0x0ff6  -> DATA base = load + e_ss*16      ; DATA:o -> file hdr + e_ss*16 + o
-PSP at entry:  DS = ES = PSP                       ; PSP:o is a non-image segment
-SS = DATA
-```
+## Phase 7E — overlay runtime-switch / jump-table recovery — DONE (7E.1–7E.3)
 
-Validation on `apps/DSAVANT/DS.EXE` (`hdr=0x200`, load size `0x10c56`):
+The residual overlay `[data_*]` sat in Aztec switch arms the dataflow never saw.
+Two idioms appear:
 
-```
-load_size - e_ss*16 = 0x10c56 - 0xff60 = 0xcf6  ==  BSS start (data_0cf6)   OK
-DS:0x0c70 -> file 0x10dd0 = 98 b1               ==  default stack value at 0x4e24
-DS:0x0c80 -> file 0x10de0 = zeros + "8087/8..."
-DS:0x0410 -> file 0x10570 = 39 00 c5 00 ...
-file tail contains "...ERFLOW, INCREASE STACK SIZE"
-BSS boundary (interior, no file bytes) = o >= 0xcf6
-```
+1. `jmp [cs:bx + disp16]` (e.g. VDOPT `0x1494: jmp [cs:bx+0x64c5]`, table at file
+   `0x147e`), entries are `o_corg`-based CS offsets.
+2. `mov cx, N; call <helper>` followed by an inline `dw` table.
 
-The startup makes the space distinction concrete:
+### 7E.1 DONE — segment-aware code translation
+`SegmentModel.code_offset(disp)` returns `14 + (disp - o_corg)` for overlays and
+`None` for MZ/drivers (which keep `start_offset + disp`). Tested by
+`test_segments.CodeOffsetTest`.
 
-- `mov bx, word ptr [2]` (`0x4b48`, `aztec_begin` line 8) reads **PSP:0002**
-  (top-of-memory) while `DS=PSP`.
-- `mov es, word [data_002c]` (line 81) reads **PSP:002c** (environment).
-- `mov cl, byte [data_0080]` (line 93) reads **PSP:0080** (command tail).
-- `mov word [es:data_0c80], ds` (line 20) writes **DATA:0xc80** (`ES=DATA`).
-- The CRT zeroes BSS `data_0cf6..0x9098` and finally `mov ds, bp` / `mov ds, di`
-  (lines 103, 119) reassign DS to the program DATA segment.
-- The single MZ relocation patches `mov bp, 0xff6` (a **segment word**), not an
-  offset.
+### 7E.2 DONE — scanner uses the model
+`RecursiveDescentPhase` routes the `2E FF A7/A5` scan (`recursive.py:290`), the
+indirect-jump table scan (`recursive.py:436`), and the pointer-table scan
+(`recursive.py:461`) through `_code_off(ctx, value)`; `_scan_jump_table` takes a
+`translate=` callable instead of `start_offset=` so table **entries** are
+translated too. `_find_jump_table_bounds` is unchanged.
 
-So `data_0002` (PSP) and `data_0c80` (DATA) are different spaces that currently
-render identically.
+### 7E.3 DONE — arm dataflow guard
+Naively promoting arms regressed the metric (296 → 382, unknown 576 → 1115).
+Fixed by giving the segment dataflow every recovered table edge: `main.py` builds
+`segment_edges = extra_flow_edges | ctx.branch_edges | {(table.jmp_addr, target)}`
+for **all** tables (not only validated ones) and passes it to both
+`analyze_segments` calls. Ownership/labels still use the validated-only
+`extra_flow_edges`, so label churn stays contained. Result: `[data_*]` 296 → 201
+and unknown 183 → 134 while staying 18/18.
 
-## Execution plan
+### 7E.4 Remaining — second idiom (`mov cx,N; call helper; dw table`)
+- Detect `mov cx, imm; call <leaf helper>` immediately followed by `dw` words.
+- Determine the entry base empirically (`api_idx_0012` l5 = file `0x1077`) before
+  generalizing; otherwise leave the table a documented candidate.
 
-### Phase 1 - Foundation (stop corrupting identification)
+### 7E.5 Remaining — overlay CS naming (7C)
+- Decide whether `cseg_` names for overlay code should use `code_offset(addr)`
+  instead of `addr + start_offset`; text-only change, must keep the
+  `- IMAGE_BASE` round-trip.
 
-- **1a** `lib/format.py:204-207`: drop the generic `label_map` fallback for
-  non-flow immediates; keep only the explicit `immediate_labels` sidecar path.
-  Effect: `mov cx, data_0002` -> `mov cx, 2`; `mov di, aztec_lfree` ->
-  `mov di, 0x460d`.
-- **1b** `lib/format.py:83-89` (`_fmt_mem`) + `format_instruction` signature and
-  all callers in `compare.py`: route absolute memory operands through a
-  dedicated segment/data namespace, flow through code labels, immediates through
-  the sidecar only.
-- **1c** `compare.py:_select_split_ranges` (`:2182`): cap C-seeded fragment ends
-  at `c_overrides[label]['length']` (derived in `verify` from `c_overrides` +
-  `label_map`). Then **remove the resplice-label channel**:
-  `compare.py` `stats['resplice_labels']`, `main.py:766-776`,
-  `make.py:992-996`. Keep the `_inject_jump_tables` 3-tuple for tests.
-- **1d** Document the two-space / three-segment model in `lib/format.py` and
-  `lib/verify/compare.py`.
+## Phase 8 — candidate & unknown reconciliation
 
-### Phase 2 - MZ segment model (new: `lib/segments.py`)
+- **8a MZ (`ds`, `vinstall`):** enumerate every remaining absolute `[data_*]`
+  operand; each is a modelling bug. Likely PSP/segment-selector cases or switch
+  arms inside the MZ itself. Fix or waive each explicitly (waivers recorded in a
+  comment/table in this plan).
+- **8b candidates:** re-audit `unknown` inventory records by binary. Only
+  records with non-empty `referenced_by` are true unresolved operands; the rest
+  are data-gap/`data_labels` words and should be documented as such.
+- **8c `data_0410`:** it is the BIOS data area accessed via `ES`. Either name it
+  `bios_data_0410` (and keep `_EXTERNAL_DATA_EQU`/`lib/delta.py:20` in sync) or
+  keep it as a documented candidate. Do not assert an address space it does not
+  have.
+- **8d:** assert `lib.inventory.find_conflicts(...)` is empty and there are 0
+  symbol collisions across all 18 inventories (add/extend a test).
 
-- Parse `e_cs`, `e_ss`, `e_cparhdr`, relocation table.
-- Derive `CS_BASE`, `DATA_BASE = load + e_ss*16`, `SS_BASE = DATA_BASE`,
-  `PSP_BASE` (opaque), and the **BSS boundary = `load_image_size - e_ss*16`**.
-- Provide `resolve(segment, offset) -> ("file", file_off) | ("bss",) |
-  ("psp",) | ("unknown",)`.
-- PSP field catalogue: `0x02` top-of-memory, `0x2c` env seg, `0x80` cmd tail,
-  `0x5c`/`0x6c` FCBs, etc. -> `psp_<field>` names.
-- Cross-check at build: header-derived BSS boundary must equal the CRT zero
-  range (e.g. `data_0cf6`); mismatch is a hard error.
+## Phase 9 — finalization
 
-### Phase 3 - Full segment-register dataflow (new: `lib/segdataflow.py`)
+- **9a Tests:** suite is 105/105. Done: `DataSpaceTest`, `CodeOffsetTest`
+  (`SegmentModel.code_offset` overlay/MZ/driver cases). Still optional: an
+  overlay-BSS inventory test asserting the layered `dseg_`/`bss_` split.
+- **9b Docs:** update the `lib/format.py` / `lib/verify/compare.py` /
+  `lib/segments.py` address-space narratives to state (i) prompt: dataflow is
+  recomputed against the final bitmap, (ii) overlay DATA is layered, (iii) the
+  `cseg_` round-trip convention.
+- **9c Build/verify:** `make build DSAVANT`; `make verify DSAVANT` 18/18;
+  `python3 -m unittest discover -p 'test_*.py'`; then
+  `make elf-rebuild DSAVANT ds` and `make elf-rebuild DSAVANT vinstall`.
+- **9d Commit** the source change set + regenerated `asm_DSAVANT/**` and this
+  `plan.md` (only on explicit request).
 
-- Build CFG from existing `branch_targets`/`branch_edges`/`extra_flow_edges`
-  plus a call graph from `lib/cross_ref`.
-- Abstract-interpret segment registers with a lattice
-  `{CS,DS,SS,ES -> ABS(LOAD), ABS(DATA), ABS(PSP), UNKNOWN}`.
-- Transfer functions: `mov Sreg, reg/imm/mem`, `push/pop Sreg`, `les/lds`,
-  `mov reg, Sreg`, `int 21h`, `retf`, call/return (DS/SS callee-saved, ES
-  caller-saved), and a function-entry convention (`DS=ABS(DATA)`,
-  `ES=ABS(DATA)` post-CRT).
-- Seed from Phase 2: entry `CS=LOAD, DS=ES=PSP, SS=DATA`; the `aztec_begin`
-  window is where PSP references occur.
-- Output: for every memory operand (and absolute pointer), the active segment
-  base + offset.
+## Verification (every sub-step)
 
-### Phase 4 - Resolve + symbolize every address
+- `python3 -m unittest discover -p 'test_*.py'`.
+- `make build DSAVANT` then `make verify DSAVANT` must be 18/18.
+- Re-measure with the ad-hoc counter: total asm `[data_*]` operands (baseline
+  454, currently 201) should keep falling as more arms resolve.
+- Track per-binary `[data_*]`: `vbase`, `vpcvw`, `vtrea`, `vmexe`, `vmnpc`,
+  `vpcmk`, then `ds`/`vinstall` and the drivers.
 
-- For each operand/table word with a known base: `file = base + offset`, then
-  symbolize in the correct namespace:
-  - **CS** -> code/data label at `hdr + o` (create when missing, e.g.
-    `string_loc_480d`), rendered `sym - IMAGE_BASE` for embedded pointers.
-  - **DATA** -> `dseg_00xx` (file-backed) or `bss_00xx` (beyond BSS boundary).
-  - **PSP** -> `psp_<field>`.
-- Immediates: symbolize only when the segment is provably known (e.g. a CS
-  code-pointer table word); otherwise leave raw and mark as candidate.
-- Effect: every true address reads symbolically; constants stay numeric.
-  Fixes `mov cx, 2`, `[cs:leaf_loc_0293]`, `mov di, aztec_lfree`
-  (-> `string_loc_480d - IMAGE_BASE`).
+## Success criteria
 
-### Phase 5 - Inventory + cross-reference
-
-- Extend the `lib/delta.py:286` schema with `space` (`cs`/`ds`/`psp`/`bss`),
-  `kind`, `source`, `confidence`, `referenced_by`.
-- Emit all identified addresses into `<binary>_addresses.json` fed from Phase 4
-  (not merely from `nm` labels).
-- Reconcile with `_EXTERNAL_DATA_EQU` / `fixed_equ_candidates`
-  (`lib/delta.py:17`, `:199-215`) and the jump-table manifest.
-
-### Phase 6 - Constant-vs-address confidence
-
-- Tiers: **certain** (relative flow, jump tables, MZ relocations, sidecar),
-  **strong** (CS/DATA/BSS/PSP-resolved), **candidate** (plausible range, unknown
-  segment). Never silently conflate; report candidates, do not assert them.
-
-## Deliverables
-
-- `lib/segments.py`, `lib/segdataflow.py`.
-- Updated `lib/format.py`, `lib/verify/compare.py`, `main.py`, `make.py`.
-- Address inventory extended with space/kind/source/confidence/xref.
-- Non-C data removed from C fragment spans; resplice channel removed.
-
-## Verification
-
-- Per phase: full `python3 -m unittest`; `make build DSAVANT` then
-  `make verify DSAVANT` 18/18 (byte-exact must hold throughout).
-- Phase 2: assert BSS boundary == CRT zero range for `ds` and `vinstall`.
-- Phase 3: spot-check `aztec_begin` (PSP vs DATA), `[cs:...]` sites, `les/lds`.
-- Phase 4/5: `data_0002` immediate count 833 -> 0; every memory operand
-  symbolic; `make elf-rebuild DSAVANT ds` / `vinstall`; `make delta` inventory
-  shows cs/ds/psp spaces.
-- Phase 6: candidate list reviewed, no new collisions.
+- `[data_*]` operands reduced to close to the driver waiver set (`ega` + `play`,
+  46) plus the remaining overlay/`vbase` switch arms and documented MZ cases.
+- Inventory `unknown` reduced to documented candidates with clear `source`
+  (`candidate`/`sidecar`), zero conflicts, and `referenced_by` populated only
+  for real operands.
+- `make verify DSAVANT` 18/18 byte-exact throughout; suite green.
 
 ## Risks
 
-- Phase 3 is the long pole: ad-hoc `mov ds/es` sites (`bios_*`,
-  `aztec_csread`, `aztec_lud`, `aztec_movmem`) and far-pointer loads
-  (`les`/`lds`) drive values to `UNKNOWN`; those operands stay candidates.
-- DATA offsets are partly file-backed and partly BSS; the BSS boundary must be
-  exact or bytes are mislabeled.
-- Existing tests (`test_delta`, `test_hard_classification`) encode current
-  `data_*` behavior and will need updating.
+- **Switch-table promotion without dataflow coverage** regresses `[data_*]`; the
+  edge from `ctx.jump_tables` to `analyze_segments` must be verified before
+  promoting arms. Revert any sub-step that raises the count.
+- **Entry-base ambiguity** for the `mov cx,N; call helper` idiom; do not
+  generalize without one proven example.
+- **Overlay CS mapping** is a labeling change only; it must preserve the
+  `- IMAGE_BASE` round-trip or byte-exactness breaks.
+- **Generated outputs** are committed; after a good build, remove stale
+  single-binary fragments (`git checkout -- asm_DSAVANT && git clean -fdq
+  asm_DSAVANT`) before the final `make build DSAVANT`.

@@ -154,50 +154,6 @@
       "referenced_by": []
     },
     {
-      "name": "loc_025d",
-      "address": 605,
-      "address_hex": "0x025d",
-      "type": "T",
-      "space": "cs",
-      "kind": "code",
-      "source": "relative_flow",
-      "confidence": "certain",
-      "referenced_by": []
-    },
-    {
-      "name": "loc_0261",
-      "address": 609,
-      "address_hex": "0x0261",
-      "type": "T",
-      "space": "cs",
-      "kind": "code",
-      "source": "relative_flow",
-      "confidence": "certain",
-      "referenced_by": []
-    },
-    {
-      "name": "loc_0263",
-      "address": 611,
-      "address_hex": "0x0263",
-      "type": "T",
-      "space": "cs",
-      "kind": "code",
-      "source": "relative_flow",
-      "confidence": "certain",
-      "referenced_by": []
-    },
-    {
-      "name": "loc_0268",
-      "address": 616,
-      "address_hex": "0x0268",
-      "type": "T",
-      "space": "cs",
-      "kind": "code",
-      "source": "relative_flow",
-      "confidence": "certain",
-      "referenced_by": []
-    },
-    {
       "name": "loc_026d",
       "address": 621,
       "address_hex": "0x026d",
@@ -608,6 +564,17 @@
       "name": "loc_12b5",
       "address": 4789,
       "address_hex": "0x12b5",
+      "type": "T",
+      "space": "cs",
+      "kind": "code",
+      "source": "relative_flow",
+      "confidence": "certain",
+      "referenced_by": []
+    },
+    {
+      "name": "loc_17ba",
+      "address": 6074,
+      "address_hex": "0x17ba",
       "type": "T",
       "space": "cs",
       "kind": "code",
@@ -2984,17 +2951,6 @@
       "referenced_by": []
     },
     {
-      "name": "data_33ce",
-      "address": 13262,
-      "address_hex": "0x33ce",
-      "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
-    },
-    {
       "name": "aztec_lrm",
       "address": 13381,
       "address_hex": "0x3445",
@@ -3036,28 +2992,6 @@
       "kind": "code",
       "source": "relative_flow",
       "confidence": "certain",
-      "referenced_by": []
-    },
-    {
-      "name": "data_3521",
-      "address": 13601,
-      "address_hex": "0x3521",
-      "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
-      "referenced_by": []
-    },
-    {
-      "name": "data_3523",
-      "address": 13603,
-      "address_hex": "0x3523",
-      "type": "A",
-      "space": "unknown",
-      "kind": "candidate",
-      "source": "candidate",
-      "confidence": "candidate",
       "referenced_by": []
     },
     {

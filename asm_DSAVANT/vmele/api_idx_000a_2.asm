@@ -67,9 +67,9 @@ api_idx_000a_2:
     mov bx, word [bx - 0x7b70]       ; 0x1046
     cmp byte [bx + 0xd7], 0x47       ; 0x104a
     jne short @..api_idx_000a_2.l7   ; 0x104f
-    cmp word [dseg_90ba], byte 1     ; 0x1051
+    cmp word [bss_90ba], byte 1      ; 0x1051
     jne short @..api_idx_000a_2.l6   ; 0x1056
-    mov ax, word [dseg_8460]         ; 0x1058
+    mov ax, word [bss_8460]          ; 0x1058
     mov cx, 0x100                    ; 0x105b
     cwd                              ; 0x105e
     idiv cx                          ; 0x105f

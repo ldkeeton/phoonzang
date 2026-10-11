@@ -17,8 +17,14 @@ dos_print_str:
     mov bx, word [cs:bx]             ; 0x14f4
     or bx, bx                        ; 0x14f7
     jne short @..dos_print_str.l1    ; 0x14f9
+    mov ax, cs                       ; 0x14fb
+    mov ds, ax                       ; 0x14fd
+    mov dx, 0x160b                   ; 0x14ff
+    mov ah, 9                        ; 0x1502
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x1506
+    int 0x21 ; DOS function dispatcher
 
-    db 0x8c, 0xc8, 0x8e, 0xd8, 0xba, 0x0b, 0x16, 0xb4, 0x09, 0xcd, 0x21, 0xb8, 0x01, 0x4c, 0xcd, 0x21
     db 0x0d, 0x0a, 0x07
     db 'MAZE SET ERROR.', 0
     db 0x0a, 0x24

@@ -15,7 +15,7 @@ api_idx_0046:
     push ax                          ; 0x4fea
     call ds_dispatch_b63c            ; 0x4feb
     add sp, byte 8                   ; 0x4fee
-    mov word [dseg_9492], 0          ; 0x4ff1
+    mov word [bss_9492], 0           ; 0x4ff1
 @..api_idx_0046.l1:
     mov ax, 0x248                    ; 0x4ff7
     imul word [bp + 0x4]             ; 0x4ffa

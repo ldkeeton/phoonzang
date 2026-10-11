@@ -13,7 +13,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x372d
     imul word [bp - 0x0006]          ; 0x3730
     mov cx, ax                       ; 0x3733
-    mov ax, word [dseg_8482]         ; 0x3735
+    mov ax, word [bss_8482]          ; 0x3735
     add ax, cx                       ; 0x3738
     mov word [bp - 0x00aa], ax       ; 0x373a
     mov ax, 0xa                      ; 0x373e
@@ -33,7 +33,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x375b
     imul word [bp - 0x0006]          ; 0x375e
     mov si, ax                       ; 0x3761
-    mov bx, word [dseg_8482]         ; 0x3763
+    mov bx, word [bss_8482]          ; 0x3763
     mov al, byte [bx + si + 0x29]    ; 0x3767
     cbw                              ; 0x376a
     mov cx, ax                       ; 0x376b
@@ -102,7 +102,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x380c
     imul word [bp - 0x0006]          ; 0x380f
     mov si, ax                       ; 0x3812
-    mov bx, word [dseg_8482]         ; 0x3814
+    mov bx, word [bss_8482]          ; 0x3814
     mov al, byte [bx + si + 0x29]    ; 0x3818
     cbw                              ; 0x381b
     mov cx, 0xa                      ; 0x381c
@@ -154,7 +154,7 @@ api_idx_00d4:
     inc word [bp - 0x0006]           ; 0x38a2
 @..api_idx_00d4.l11:
     mov ax, word [bp - 0x0006]       ; 0x38a5
-    cmp ax, word [dseg_69c8]         ; 0x38a8
+    cmp ax, word [bss_69c8]          ; 0x38a8
     jge short @..api_idx_00d4.l12    ; 0x38ac
     jmp near @..api_idx_00d4.l1      ; 0x38ae
 @..api_idx_00d4.l12:
@@ -171,7 +171,7 @@ api_idx_00d4:
     mov word [bp - 0x0006], 0        ; 0x38cc
 @..api_idx_00d4.l13:
     mov ax, word [bp - 0x0006]       ; 0x38d1
-    cmp ax, word [dseg_69c8]         ; 0x38d4
+    cmp ax, word [bss_69c8]          ; 0x38d4
     jl short @..api_idx_00d4.l14     ; 0x38d8
     jmp near @..api_idx_00d4.l73     ; 0x38da
 @..api_idx_00d4.l14:
@@ -192,19 +192,19 @@ api_idx_00d4:
     mov cx, 0x2c                     ; 0x38fe
     imul cx                          ; 0x3901
     mov cx, ax                       ; 0x3903
-    mov ax, word [dseg_8482]         ; 0x3905
+    mov ax, word [bss_8482]          ; 0x3905
     add ax, cx                       ; 0x3908
     mov word [bp - 0x00aa], ax       ; 0x390a
 @..api_idx_00d4.l16:
     mov ax, 0x2c                     ; 0x390e
     imul word [bp - 0x0006]          ; 0x3911
     mov si, ax                       ; 0x3914
-    mov bx, word [dseg_8482]         ; 0x3916
+    mov bx, word [bss_8482]          ; 0x3916
     cmp byte [bx + si + 0x1f], 1     ; 0x391a
     jb short @..api_idx_00d4.l17     ; 0x391e
     mov al, byte [bx + si + 0x1f]    ; 0x3920
     sub ah, ah                       ; 0x3923
-    cmp ax, word [dseg_8466]         ; 0x3925
+    cmp ax, word [bss_8466]          ; 0x3925
     jle short @..api_idx_00d4.l18    ; 0x3929
 @..api_idx_00d4.l17:
     mov byte [bx + si + 0x1f], 1     ; 0x392b
@@ -230,7 +230,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x3961
     imul word [bp - 0x0006]          ; 0x3964
     mov si, ax                       ; 0x3967
-    mov bx, word [dseg_8482]         ; 0x3969
+    mov bx, word [bss_8482]          ; 0x3969
     cmp byte [bx + si + 0x2b], 0     ; 0x396d
     jne short @..api_idx_00d4.l21    ; 0x3971
     mov ax, 0x248                    ; 0x3973
@@ -420,7 +420,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x3b3d
     imul word [bp - 0x0006]          ; 0x3b40
     mov si, ax                       ; 0x3b43
-    mov bx, word [dseg_8482]         ; 0x3b45
+    mov bx, word [bss_8482]          ; 0x3b45
     mov al, byte [bx + si + 0x1f]    ; 0x3b49
     sub ah, ah                       ; 0x3b4c
     mov cx, word [bp - 0x00b2]       ; 0x3b4e
@@ -435,15 +435,15 @@ api_idx_00d4:
     jl short @..api_idx_00d4.l39     ; 0x3b67
     cmp word [bp - 0x00b2], byte 0   ; 0x3b69
     jne short @..api_idx_00d4.l39    ; 0x3b6e
-    mov bx, word [dseg_8482]         ; 0x3b70
+    mov bx, word [bss_8482]          ; 0x3b70
     cmp byte [bx + si + 0x2b], 1     ; 0x3b74
     je short @..api_idx_00d4.l39     ; 0x3b78
     mov word [bp - 0x0028], 0        ; 0x3b7a
 @..api_idx_00d4.l39:
-    mov bx, word [dseg_8482]         ; 0x3b7f
+    mov bx, word [bss_8482]          ; 0x3b7f
     mov al, byte [bx + si + 0x1f]    ; 0x3b83
     sub ah, ah                       ; 0x3b86
-    cmp ax, word [dseg_9388]         ; 0x3b88
+    cmp ax, word [bss_9388]          ; 0x3b88
     jle short @..api_idx_00d4.l40    ; 0x3b8c
     mov word [bp - 0x001e], 0        ; 0x3b8e
 @..api_idx_00d4.l40:
@@ -457,7 +457,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x3baa
     imul word [bp - 0x0006]          ; 0x3bad
     mov si, ax                       ; 0x3bb0
-    mov bx, word [dseg_8482]         ; 0x3bb2
+    mov bx, word [bss_8482]          ; 0x3bb2
     mov al, byte [bx + si + 0x1f]    ; 0x3bb6
     sub ah, ah                       ; 0x3bb9
     push ax                          ; 0x3bbb
@@ -526,7 +526,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x3c4a
     imul word [bp - 0x0006]          ; 0x3c4d
     mov si, ax                       ; 0x3c50
-    mov bx, word [dseg_8482]         ; 0x3c52
+    mov bx, word [bss_8482]          ; 0x3c52
     pop ax                           ; 0x3c56
     mov byte [bx + si + 0x1f], al    ; 0x3c57
     mov ax, 0                        ; 0x3c5a
@@ -646,26 +646,26 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x40c3
     imul word [bp - 0x0006]          ; 0x40c6
     mov si, ax                       ; 0x40c9
-    mov bx, word [dseg_8482]         ; 0x40cb
+    mov bx, word [bss_8482]          ; 0x40cb
     pop ax                           ; 0x40cf
     mov word [bx + si + 0xa], ax     ; 0x40d0
     mov ax, 0x2c                     ; 0x40d3
     imul word [bp - 0x0006]          ; 0x40d6
     mov si, ax                       ; 0x40d9
-    mov bx, word [dseg_8482]         ; 0x40db
+    mov bx, word [bss_8482]          ; 0x40db
     mov word [bx + si + 0xc], 0xffff ; 0x40df
     mov al, byte [bp - 0x0008]       ; 0x40e4
     push ax                          ; 0x40e7
     mov ax, 0x2c                     ; 0x40e8
     imul word [bp - 0x0006]          ; 0x40eb
     mov si, ax                       ; 0x40ee
-    mov bx, word [dseg_8482]         ; 0x40f0
+    mov bx, word [bss_8482]          ; 0x40f0
     pop ax                           ; 0x40f4
     mov byte [bx + si + 0x1e], al    ; 0x40f5
     mov ax, 0x2c                     ; 0x40f8
     imul word [bp - 0x0006]          ; 0x40fb
     mov si, ax                       ; 0x40fe
-    mov bx, word [dseg_8482]         ; 0x4100
+    mov bx, word [bss_8482]          ; 0x4100
     mov al, byte [bx + si + 0x1f]    ; 0x4104
     sub ah, ah                       ; 0x4107
     mov word [bp - 0x009a], ax       ; 0x4109
@@ -683,7 +683,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x4128
     imul word [bp - 0x0006]          ; 0x412b
     mov si, ax                       ; 0x412e
-    mov bx, word [dseg_8482]         ; 0x4130
+    mov bx, word [bss_8482]          ; 0x4130
     pop ax                           ; 0x4134
     mov byte [bx + si + 0x20], al    ; 0x4135
 @..api_idx_00d4.l47:
@@ -716,7 +716,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x417a
     imul word [bp - 0x0006]          ; 0x417d
     mov si, ax                       ; 0x4180
-    mov bx, word [dseg_8482]         ; 0x4182
+    mov bx, word [bss_8482]          ; 0x4182
     pop ax                           ; 0x4186
     mov word [bx + si + 0xc], ax     ; 0x4187
 @..api_idx_00d4.l49:
@@ -744,7 +744,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x41bf
     imul word [bp - 0x0006]          ; 0x41c2
     mov si, ax                       ; 0x41c5
-    mov bx, word [dseg_8482]         ; 0x41c7
+    mov bx, word [bss_8482]          ; 0x41c7
     mov word [bx + si + 0xc], 8      ; 0x41cb
     jmp near @..api_idx_00d4.l59     ; 0x41d0
 @..api_idx_00d4.l52:
@@ -768,7 +768,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x41f8
     imul word [bp - 0x0006]          ; 0x41fb
     mov si, ax                       ; 0x41fe
-    mov bx, word [dseg_8482]         ; 0x4200
+    mov bx, word [bss_8482]          ; 0x4200
     mov word [bx + si + 0xc], 4      ; 0x4204
     jmp near @..api_idx_00d4.l59     ; 0x4209
 @..api_idx_00d4.l54:
@@ -819,13 +819,13 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x427e
     imul word [bp - 0x0006]          ; 0x4281
     mov si, ax                       ; 0x4284
-    mov bx, word [dseg_8482]         ; 0x4286
+    mov bx, word [bss_8482]          ; 0x4286
     pop ax                           ; 0x428a
     mov word [bx + si + 0xc], ax     ; 0x428b
 @..api_idx_00d4.l59:
     inc word [bp - 0x0006]           ; 0x428e
     mov ax, word [bp - 0x0006]       ; 0x4291
-    cmp ax, word [dseg_69c8]         ; 0x4294
+    cmp ax, word [bss_69c8]          ; 0x4294
     je short @..api_idx_00d4.l60     ; 0x4298
     jmp near @..api_idx_00d4.l72     ; 0x429a
 @..api_idx_00d4.l60:
@@ -910,7 +910,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x4353
     imul word [bp - 0x0006]          ; 0x4356
     mov si, ax                       ; 0x4359
-    mov bx, word [dseg_8482]         ; 0x435b
+    mov bx, word [bss_8482]          ; 0x435b
     cmp byte [bx + si + 0x22], 3     ; 0x435f
     je short @..api_idx_00d4.l65     ; 0x4363
     mov ax, 0x248                    ; 0x4365
@@ -919,17 +919,17 @@ api_idx_00d4:
     mov word [bx + 0x5c0c], 0        ; 0x436d
     mov word [bx + 0x5c10], 0        ; 0x4373
     mov byte [bx + 0x5e2f], 3        ; 0x4379
-    mov bx, word [dseg_8482]         ; 0x437e
+    mov bx, word [bss_8482]          ; 0x437e
     mov word [bx + si + 0x2], 0      ; 0x4382
     mov ax, 0x2c                     ; 0x4387
     imul word [bp - 0x0006]          ; 0x438a
     mov si, ax                       ; 0x438d
-    mov bx, word [dseg_8482]         ; 0x438f
+    mov bx, word [bss_8482]          ; 0x438f
     mov word [bx + si + 0x6], 0      ; 0x4393
     mov ax, 0x2c                     ; 0x4398
     imul word [bp - 0x0006]          ; 0x439b
     mov si, ax                       ; 0x439e
-    mov bx, word [dseg_8482]         ; 0x43a0
+    mov bx, word [bss_8482]          ; 0x43a0
     mov byte [bx + si + 0x22], 3     ; 0x43a4
     mov ax, 0x248                    ; 0x43a8
     imul word [bp - 0x0006]          ; 0x43ab
@@ -953,7 +953,7 @@ api_idx_00d4:
     inc word [bp - 0x0006]           ; 0x43d3
 @..api_idx_00d4.l66:
     mov ax, word [bp - 0x0006]       ; 0x43d6
-    cmp ax, word [dseg_69c8]         ; 0x43d9
+    cmp ax, word [bss_69c8]          ; 0x43d9
     jge short @..api_idx_00d4.l67    ; 0x43dd
     jmp near @..api_idx_00d4.l64     ; 0x43df
 @..api_idx_00d4.l67:
@@ -976,7 +976,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x4406
     imul word [bp - 0x009a]          ; 0x4409
     mov si, ax                       ; 0x440d
-    mov bx, word [dseg_8482]         ; 0x440f
+    mov bx, word [bss_8482]          ; 0x440f
     cmp byte [bx + si + 0x1f], 0     ; 0x4413
     jbe short @..api_idx_00d4.l70    ; 0x4417
     mov al, byte [bx + si + 0x1f]    ; 0x4419
@@ -994,7 +994,7 @@ api_idx_00d4:
 @..api_idx_00d4.l70:
     inc word [bp - 0x009a]           ; 0x4435
 @..api_idx_00d4.l71:
-    mov ax, word [dseg_69c8]         ; 0x4439
+    mov ax, word [bss_69c8]          ; 0x4439
     dec ax                           ; 0x443c
     cmp ax, word [bp - 0x009a]       ; 0x443d
     jg short @..api_idx_00d4.l69     ; 0x4441
@@ -1014,7 +1014,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x4463
     imul word [bp - 0x0006]          ; 0x4466
     mov si, ax                       ; 0x4469
-    mov bx, word [dseg_8482]         ; 0x446b
+    mov bx, word [bss_8482]          ; 0x446b
     cmp byte [bx + si + 0xf], 0      ; 0x446f
     jbe short @..api_idx_00d4.l75    ; 0x4473
     mov ax, 0x64                     ; 0x4475
@@ -1036,13 +1036,13 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x4498
     imul word [bp - 0x0006]          ; 0x449b
     mov si, ax                       ; 0x449e
-    mov bx, word [dseg_8482]         ; 0x44a0
+    mov bx, word [bss_8482]          ; 0x44a0
     mov byte [bx + si + 0x1e], 6     ; 0x44a4
 @..api_idx_00d4.l75:
     mov ax, 0x2c                     ; 0x44a8
     imul word [bp - 0x0006]          ; 0x44ab
     mov si, ax                       ; 0x44ae
-    mov bx, word [dseg_8482]         ; 0x44b0
+    mov bx, word [bss_8482]          ; 0x44b0
     cmp byte [bx + si + 0x1e], 1     ; 0x44b4
     je short @..api_idx_00d4.l76     ; 0x44b8
     cmp byte [bx + si + 0x1e], 7     ; 0x44ba
@@ -1053,7 +1053,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x44c4
     imul word [bp - 0x0006]          ; 0x44c7
     mov si, ax                       ; 0x44ca
-    mov bx, word [dseg_8482]         ; 0x44cc
+    mov bx, word [bss_8482]          ; 0x44cc
     cmp byte [bx + si + 0x1e], 0     ; 0x44d0
     jne short @..api_idx_00d4.l79    ; 0x44d4
     cmp word [bx + si + 0xc], byte 0xff ; 0x44d6
@@ -1062,7 +1062,7 @@ api_idx_00d4:
     mov ax, 0x2c                     ; 0x44e0
     imul word [bp - 0x0006]          ; 0x44e3
     mov si, ax                       ; 0x44e6
-    mov bx, word [dseg_8482]         ; 0x44e8
+    mov bx, word [bss_8482]          ; 0x44e8
     mov byte [bx + si + 0x1b], 0     ; 0x44ec
 @..api_idx_00d4.l78:
     jmp short @..api_idx_00d4.l81    ; 0x44f0
@@ -1073,7 +1073,7 @@ api_idx_00d4:
     imul word [bp - 0x0006]          ; 0x44fa
     add ax, word [bp - 0x0002]       ; 0x44fd
     mov si, ax                       ; 0x4500
-    mov bx, word [dseg_8482]         ; 0x4502
+    mov bx, word [bss_8482]          ; 0x4502
     mov byte [bx + si + 0x18], 0     ; 0x4506
     inc word [bp - 0x0002]           ; 0x450a
     mov ax, word [bp - 0x0002]       ; 0x450d
@@ -1083,7 +1083,7 @@ api_idx_00d4:
     inc word [bp - 0x0006]           ; 0x4515
 @..api_idx_00d4.l82:
     mov ax, word [bp - 0x0006]       ; 0x4518
-    cmp ax, word [dseg_69c8]         ; 0x451b
+    cmp ax, word [bss_69c8]          ; 0x451b
     jge short @..api_idx_00d4.l83    ; 0x451f
     jmp near @..api_idx_00d4.l74     ; 0x4521
 @..api_idx_00d4.l83:

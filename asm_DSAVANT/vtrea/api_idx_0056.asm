@@ -110,7 +110,7 @@ api_idx_0056:
     push word [bp + 0x4]             ; 0x13ce
     call ds_dispatch_cb3a            ; 0x13d1
     add sp, byte 4                   ; 0x13d4
-    push word [dseg_905a]            ; 0x13d7
+    push word [bss_905a]             ; 0x13d7
     call api_idx_0004                ; 0x13db
     pop cx                           ; 0x13de
 @..api_idx_0056.l7:

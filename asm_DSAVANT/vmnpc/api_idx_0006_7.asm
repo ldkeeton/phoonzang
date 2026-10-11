@@ -1,6 +1,6 @@
 api_idx_0006_7:
     mov ax, 0xfffa                   ; 0x84f0
-    db 0xe8, 0x15, 0x6f ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x84f3
     mov word [bp - 0x0002], 0        ; 0x84f6
     mov word [bp - 0x0004], 0        ; 0x84fb
     mov word [bp - 0x0006], 0        ; 0x8500
@@ -18,7 +18,7 @@ api_idx_0006_7:
     inc word [bp - 0x0006]           ; 0x8529
 @..api_idx_0006_7.l2:
     mov ax, word [bp - 0x0006]       ; 0x852c
-    cmp ax, word [dseg_69c8]         ; 0x852f
+    cmp ax, word [bss_69c8]          ; 0x852f
     jl short @..api_idx_0006_7.l1    ; 0x8533
     mov ax, word [bp - 0x0004]       ; 0x8535
     mov dx, word [bp - 0x0002]       ; 0x8538

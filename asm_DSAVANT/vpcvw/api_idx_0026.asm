@@ -1,7 +1,7 @@
 api_idx_0026:
     mov ax, 0xffda                   ; 0x8a6e
     call ds_dispatch_f40b            ; 0x8a71
-    mov word [dseg_904e], 0xffff     ; 0x8a74
+    mov word [bss_904e], 0xffff      ; 0x8a74
     mov word [bp - 0x0002], 0x37     ; 0x8a7a
     mov word [bp - 0x0004], 0x8f     ; 0x8a7f
     mov word [bp - 0x0006], 0x108    ; 0x8a84
@@ -328,7 +328,7 @@ api_idx_0026:
     pop cx                           ; 0x8d58
     dec ax                           ; 0x8d59
     mov word [bp - 0x000e], ax       ; 0x8d5a
-    cmp word [dseg_5b3e], byte 1     ; 0x8d5d
+    cmp word [bss_5b3e], byte 1      ; 0x8d5d
     je short @..api_idx_0026.l2      ; 0x8d62
     jmp near @..api_idx_0026.l14     ; 0x8d64
 @..api_idx_0026.l2:
@@ -452,7 +452,7 @@ api_idx_0026:
     push ax                          ; 0x8e72
     call ds_dispatch_be5f            ; 0x8e73
     add sp, byte 0x0a                ; 0x8e76
-    mov word [dseg_9050], 0          ; 0x8e79
+    mov word [bss_9050], 0           ; 0x8e79
     mov word [bp - 0x0010], 0        ; 0x8e7f
 @..api_idx_0026.l5:
     jmp near @..api_idx_0026.l14     ; 0x8e84
@@ -486,7 +486,7 @@ api_idx_0026:
     push ax                          ; 0x8ec3
     call ds_dispatch_be5f            ; 0x8ec4
     add sp, byte 0x0a                ; 0x8ec7
-    mov word [dseg_9050], 1          ; 0x8eca
+    mov word [bss_9050], 1           ; 0x8eca
     mov word [bp - 0x0010], 0        ; 0x8ed0
 @..api_idx_0026.l7:
     jmp short @..api_idx_0026.l14    ; 0x8ed5
@@ -520,7 +520,7 @@ api_idx_0026:
     push ax                          ; 0x8f13
     call ds_dispatch_be5f            ; 0x8f14
     add sp, byte 0x0a                ; 0x8f17
-    mov word [dseg_9050], 2          ; 0x8f1a
+    mov word [bss_9050], 2           ; 0x8f1a
     mov word [bp - 0x0010], 0        ; 0x8f20
 @..api_idx_0026.l9:
     jmp short @..api_idx_0026.l14    ; 0x8f25
@@ -549,6 +549,6 @@ api_idx_0026:
     push word [bp - 0x0026]          ; 0x8f51
     call ds_dispatch_c459            ; 0x8f54
     add sp, byte 4                   ; 0x8f57
-    mov word [dseg_904e], 0xffff     ; 0x8f5a
-    mov ax, word [dseg_9050]         ; 0x8f60
+    mov word [bss_904e], 0xffff      ; 0x8f5a
+    mov ax, word [bss_9050]          ; 0x8f60
     ret                              ; 0x8f63

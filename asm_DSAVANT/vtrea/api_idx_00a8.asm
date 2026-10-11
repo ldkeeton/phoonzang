@@ -15,16 +15,16 @@ api_idx_00a8:
     inc word [bp - 0x0002]           ; 0x5da4
 @..api_idx_00a8.l3:
     mov ax, word [bp - 0x0002]       ; 0x5da7
-    cmp ax, word [dseg_69c8]         ; 0x5daa
+    cmp ax, word [bss_69c8]          ; 0x5daa
     jl short @..api_idx_00a8.l1      ; 0x5dae
-    mov ax, word [dseg_84a2]         ; 0x5db0
-    mov dx, word [dseg_84a4]         ; 0x5db3
+    mov ax, word [bss_84a2]          ; 0x5db0
+    mov dx, word [bss_84a4]          ; 0x5db3
     mov cx, 0x14                     ; 0x5db7
     mov bx, 0                        ; 0x5dba
     call ds_dispatch_f99f            ; 0x5dbd
     push ax                          ; 0x5dc0
     push dx                          ; 0x5dc1
-    mov ax, word [dseg_69c8]         ; 0x5dc2
+    mov ax, word [bss_69c8]          ; 0x5dc2
     sub ax, word [bp - 0x0004]       ; 0x5dc5
     cwd                              ; 0x5dc8
     mov cx, ax                       ; 0x5dc9
@@ -45,10 +45,10 @@ api_idx_00a8:
     mov word [bp - 0x0008], ax       ; 0x5de2
     mov ax, word [bp - 0x0008]       ; 0x5de5
     mov dx, word [bp - 0x0006]       ; 0x5de8
-    add word [dseg_84a2], ax         ; 0x5deb
-    adc word [dseg_84a4], dx         ; 0x5def
-    mov ax, word [dseg_84a2]         ; 0x5df3
-    mov dx, word [dseg_84a4]         ; 0x5df6
+    add word [bss_84a2], ax          ; 0x5deb
+    adc word [bss_84a4], dx          ; 0x5def
+    mov ax, word [bss_84a2]          ; 0x5df3
+    mov dx, word [bss_84a4]          ; 0x5df6
     push ax                          ; 0x5dfa
     push dx                          ; 0x5dfb
     mov ax, word [bp - 0x0004]       ; 0x5dfc
@@ -84,7 +84,7 @@ api_idx_00a8:
     push ax                          ; 0x5e44
     mov ax, 0                        ; 0x5e45
     push ax                          ; 0x5e48
-    push word [dseg_91d4]            ; 0x5e49
+    push word [bss_91d4]             ; 0x5e49
     lea ax, word [bp - 0x0058]       ; 0x5e4d
     push ax                          ; 0x5e50
     call loc_0eb2                    ; 0x5e51
@@ -105,6 +105,6 @@ api_idx_00a8:
     inc word [bp - 0x0002]           ; 0x5e7b
 @..api_idx_00a8.l6:
     mov ax, word [bp - 0x0002]       ; 0x5e7e
-    cmp ax, word [dseg_69c8]         ; 0x5e81
+    cmp ax, word [bss_69c8]          ; 0x5e81
     jl short @..api_idx_00a8.l4      ; 0x5e85
     ret                              ; 0x5e87

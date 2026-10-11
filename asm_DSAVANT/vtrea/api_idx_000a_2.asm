@@ -3,14 +3,14 @@ api_idx_000a_2:
     call ds_dispatch_f40b            ; 0x0957
     mov ax, 0                        ; 0x095a
     push ax                          ; 0x095d
-    push word [dseg_8d10]            ; 0x095e
-    push word [dseg_8d0e]            ; 0x0962
+    push word [bss_8d10]             ; 0x095e
+    push word [bss_8d0e]             ; 0x0962
     call ds_dispatch_e94f            ; 0x0966
     add sp, byte 6                   ; 0x0969
     mov ax, 0                        ; 0x096c
     push ax                          ; 0x096f
-    push word [dseg_8d0c]            ; 0x0970
-    push word [dseg_8d0a]            ; 0x0974
+    push word [bss_8d0c]             ; 0x0970
+    push word [bss_8d0a]             ; 0x0974
     call ds_dispatch_e94f            ; 0x0978
     add sp, byte 6                   ; 0x097b
     mov byte [bp - 0x000a], 1        ; 0x097e
@@ -38,7 +38,7 @@ api_idx_000a_2:
     push ax                          ; 0x09ae
     call ds_dispatch_efd1            ; 0x09af
     add sp, byte 0x16                ; 0x09b2
-    cmp word [dseg_9126], byte 0     ; 0x09b5
+    cmp word [bss_9126], byte 0      ; 0x09b5
     je short @..api_idx_000a_2.l1    ; 0x09ba
     mov ax, 0x92                     ; 0x09bc
     push ax                          ; 0x09bf
@@ -99,8 +99,8 @@ loc_0a1a:
     add sp, byte 8                   ; 0x0a33
     cmp word [bp + 0x4], byte 0      ; 0x0a36
     je short @..local.l41            ; 0x0a3a
-    mov ax, word [dseg_905a]         ; 0x0a3c
-    cmp byte [dseg_598c], 0          ; 0x0a3f
+    mov ax, word [bss_905a]          ; 0x0a3c
+    cmp byte [bss_598c], 0           ; 0x0a3f
     je short @..local.l40            ; 0x0a44
     shl ax, 1                        ; 0x0a46
 @..local.l40:
@@ -119,5 +119,5 @@ loc_0a1a:
     push ax                          ; 0x0a5e
     call api_idx_000a_2              ; 0x0a5f
     pop cx                           ; 0x0a62
-    mov word [dseg_9150], 0          ; 0x0a63
+    mov word [bss_9150], 0           ; 0x0a63
     ret                              ; 0x0a69

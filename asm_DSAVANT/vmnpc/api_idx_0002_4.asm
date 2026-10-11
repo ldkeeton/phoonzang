@@ -1,7 +1,7 @@
 api_idx_0002_4:
     mov ax, 0xfffe                   ; 0x515b
-    db 0xe8, 0xaa, 0xa2 ; call 0xf40b
-    dec word [dseg_9ca8]             ; 0x5161
+    call ds_dispatch_f40b            ; 0x515e
+    dec word [bss_9ca8]              ; 0x5161
     mov ax, word [bp + 0x4]          ; 0x5165
     mov word [bp - 0x0002], ax       ; 0x5168
     jmp short @..api_idx_0002_4.l2   ; 0x516b
@@ -14,7 +14,7 @@ api_idx_0002_4:
     imul word [bp - 0x0002]          ; 0x517a
     add ax, 0x96a2                   ; 0x517d
     push ax                          ; 0x5180
-    db 0xe8, 0xe0, 0xa1 ; call 0xf364
+    call ds_dispatch_f364            ; 0x5181
     add sp, byte 4                   ; 0x5184
     mov ax, word [bp - 0x0002]       ; 0x5187
     shl ax, 1                        ; 0x518a
@@ -30,6 +30,6 @@ api_idx_0002_4:
     inc word [bp - 0x0002]           ; 0x51ae
 @..api_idx_0002_4.l2:
     mov ax, word [bp - 0x0002]       ; 0x51b1
-    cmp ax, word [dseg_9ca8]         ; 0x51b4
+    cmp ax, word [bss_9ca8]          ; 0x51b4
     jl short @..api_idx_0002_4.l1    ; 0x51b8
     ret                              ; 0x51ba

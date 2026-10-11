@@ -181,7 +181,7 @@ api_idx_006c:
     pop cx                           ; 0x4827
     dec ax                           ; 0x4828
     mov word [bp - 0x0004], ax       ; 0x4829
-    cmp word [dseg_5b3e], byte 0     ; 0x482c
+    cmp word [bss_5b3e], byte 0      ; 0x482c
     je short @..api_idx_006c.l8      ; 0x4831
     cmp word [bp - 0x0004], byte 7   ; 0x4833
     jge short @..api_idx_006c.l9     ; 0x4837
@@ -210,7 +210,7 @@ api_idx_006c:
     mov bx, ax                       ; 0x4872
     add bx, bp                       ; 0x4874
     dec word [bx - 0x0018]           ; 0x4876
-    inc word [dseg_9594]             ; 0x4879
+    inc word [bss_9594]              ; 0x4879
     jmp short @..api_idx_006c.l11    ; 0x487d
 @..api_idx_006c.l10:
     mov ax, 0                        ; 0x487f
@@ -228,7 +228,7 @@ api_idx_006c:
     mov bx, ax                       ; 0x4898
     cmp byte [bx + 0x5d64], 0x12     ; 0x489a
     jae short @..api_idx_006c.l13    ; 0x489f
-    cmp word [dseg_9594], byte 0     ; 0x48a1
+    cmp word [bss_9594], byte 0      ; 0x48a1
     jle short @..api_idx_006c.l13    ; 0x48a6
     inc byte [bx + 0x5d64]           ; 0x48a8
     mov ax, word [bp - 0x0006]       ; 0x48ac
@@ -236,7 +236,7 @@ api_idx_006c:
     mov bx, ax                       ; 0x48b1
     add bx, bp                       ; 0x48b3
     inc word [bx - 0x0018]           ; 0x48b5
-    dec word [dseg_9594]             ; 0x48b8
+    dec word [bss_9594]              ; 0x48b8
     jmp short @..api_idx_006c.l14    ; 0x48bc
 @..api_idx_006c.l13:
     mov ax, 0                        ; 0x48be
@@ -248,11 +248,11 @@ api_idx_006c:
     je short @..api_idx_006c.l15     ; 0x48ca
     jmp near @..api_idx_006c.l1      ; 0x48cc
 @..api_idx_006c.l15:
-    cmp word [dseg_9594], byte 0     ; 0x48cf
+    cmp word [bss_9594], byte 0      ; 0x48cf
     je short @..api_idx_006c.l16     ; 0x48d4
     jmp near @..api_idx_006c.l1      ; 0x48d6
 @..api_idx_006c.l16:
-    mov word [dseg_9594], 0xffff     ; 0x48d9
+    mov word [bss_9594], 0xffff      ; 0x48d9
     mov ax, 1                        ; 0x48df
     push ax                          ; 0x48e2
     push ax                          ; 0x48e3

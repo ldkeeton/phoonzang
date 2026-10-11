@@ -61,6 +61,7 @@ api_idx_0006_3:
     push ax                          ; 0x6164
     mov ax, 0x248                    ; 0x6165
     imul word [bp + 0x4]             ; 0x6168
+jumptable_11b9_case_5:
     mov bx, ax                       ; 0x616b
     mov al, byte [bx + 0x5e2a]       ; 0x616d
     sub ah, ah                       ; 0x6171
@@ -91,7 +92,7 @@ api_idx_0006_3:
     pop cx                           ; 0x61a8
     dec ax                           ; 0x61a9
     mov word [bp - 0x0002], ax       ; 0x61aa
-    cmp word [dseg_5b3e], byte 0     ; 0x61ad
+    cmp word [bss_5b3e], byte 0      ; 0x61ad
     je short @..api_idx_0006_3.l2    ; 0x61b2
     mov ax, word [bp - 0x0002]       ; 0x61b4
     jmp short @..api_idx_0006_3.l5   ; 0x61b7

@@ -12,13 +12,13 @@ aztec_putc:
 loc_2cf5:
     push si                          ; 0x2cf5
     mov si, 0x234a                   ; 0x2cf6
-@..local.l118:
+@..local.l110:
     mov ax, si                       ; 0x2cf9
     add si, byte 0x0d                ; 0x2cfb
     push ax                          ; 0x2cfe
     call aztec_fclose                ; 0x2cff
     pop cx                           ; 0x2d02
     cmp si, strict word 0x244e       ; 0x2d03
-    jb short @..local.l118           ; 0x2d07
+    jb short @..local.l110           ; 0x2d07
     pop si                           ; 0x2d09
     ret                              ; 0x2d0a

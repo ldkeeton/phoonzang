@@ -32,9 +32,9 @@ api_idx_0018_2:
     sub ax, word [bx + 0x256]        ; 0x7ba0
     mov word [bp - 0x0006], ax       ; 0x7ba4
 @..api_idx_0018_2.l2:
-    mov ax, word [dseg_8f46]         ; 0x7ba7
-    add ax, word [dseg_8f44]         ; 0x7baa
-    add ax, word [dseg_82ee]         ; 0x7bae
+    mov ax, word [bss_8f46]          ; 0x7ba7
+    add ax, word [bss_8f44]          ; 0x7baa
+    add ax, word [bss_82ee]          ; 0x7bae
     add ax, word [bp + 0x6]          ; 0x7bb2
     mov cx, 2                        ; 0x7bb5
     cwd                              ; 0x7bb8
@@ -42,12 +42,12 @@ api_idx_0018_2:
     mov word [bp - 0x000a], dx       ; 0x7bbb
     mov word [bp - 0x0002], 1        ; 0x7bbe
 @..api_idx_0018_2.l3:
-    mov ax, word [dseg_82e8]         ; 0x7bc3
+    mov ax, word [bss_82e8]          ; 0x7bc3
     inc ax                           ; 0x7bc6
     mov cx, 2                        ; 0x7bc7
     cwd                              ; 0x7bca
     idiv cx                          ; 0x7bcb
-    mov word [dseg_82e8], dx         ; 0x7bcd
+    mov word [bss_82e8], dx          ; 0x7bcd
     call api_idx_0030                ; 0x7bd1
     mov al, byte [bp - 0x000c]       ; 0x7bd4
     mov byte [bp - 0x0018], al       ; 0x7bd7
@@ -150,24 +150,25 @@ api_idx_0018_2:
 loc_7cb4:
     mov ax, 0                        ; 0x7cb4
     call ds_dispatch_f40b            ; 0x7cb7
-@..local.l72:
+@..local.l98:
     cmp word [bp + 0x4], byte 0      ; 0x7cba
-    jle short @..local.l74           ; 0x7cbe
+    jle short @..local.l100          ; 0x7cbe
     cmp word [bp + 0x6], byte 0      ; 0x7cc0
-    je short @..local.l73            ; 0x7cc4
-    mov ax, word [dseg_82e8]         ; 0x7cc6
+    je short @..local.l99            ; 0x7cc4
+    mov ax, word [bss_82e8]          ; 0x7cc6
     inc ax                           ; 0x7cc9
     mov cx, 2                        ; 0x7cca
     cwd                              ; 0x7ccd
     idiv cx                          ; 0x7cce
-    mov word [dseg_82e8], dx         ; 0x7cd0
+jumptable_2d1b_case_8:
+    mov word [bss_82e8], dx          ; 0x7cd0
     call loc_676c                    ; 0x7cd4
     mov ax, 0x10                     ; 0x7cd7
     push ax                          ; 0x7cda
     call ds_dispatch_b7e0            ; 0x7cdb
     pop cx                           ; 0x7cde
-@..local.l73:
+@..local.l99:
     dec word [bp + 0x4]              ; 0x7cdf
-    jmp short @..local.l72           ; 0x7ce2
-@..local.l74:
+    jmp short @..local.l98           ; 0x7ce2
+@..local.l100:
     ret                              ; 0x7ce4

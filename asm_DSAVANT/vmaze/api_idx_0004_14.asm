@@ -18,7 +18,7 @@ api_idx_0004_14:
     mov ax, 0                        ; 0x83dd
     push ax                          ; 0x83e0
     push word [bp - 0x0002]          ; 0x83e1
-    mov ax, word [dseg_830c]         ; 0x83e4
+    mov ax, word [bss_830c]          ; 0x83e4
     mov cx, 4                        ; 0x83e7
     shl ax, cl                       ; 0x83ea
     add ax, 0x8d14                   ; 0x83ec
@@ -28,7 +28,7 @@ api_idx_0004_14:
     mov ax, 0                        ; 0x83f6
     push ax                          ; 0x83f9
     push word [bp - 0x0002]          ; 0x83fa
-    mov ax, word [dseg_830c]         ; 0x83fd
+    mov ax, word [bss_830c]          ; 0x83fd
     mov cx, 4                        ; 0x8400
     shl ax, cl                       ; 0x8403
     add ax, 0x5642                   ; 0x8405
@@ -41,7 +41,7 @@ api_idx_0004_14:
     mov ax, 1                        ; 0x8415
     push ax                          ; 0x8418
     push word [bp - 0x0004]          ; 0x8419
-    mov ax, word [dseg_830c]         ; 0x841c
+    mov ax, word [bss_830c]          ; 0x841c
     mov cx, 4                        ; 0x841f
     shl ax, cl                       ; 0x8422
     add ax, 0x8d14                   ; 0x8424
@@ -51,7 +51,7 @@ api_idx_0004_14:
     mov ax, 1                        ; 0x842e
     push ax                          ; 0x8431
     push word [bp - 0x0004]          ; 0x8432
-    mov ax, word [dseg_830c]         ; 0x8435
+    mov ax, word [bss_830c]          ; 0x8435
     mov cx, 4                        ; 0x8438
     shl ax, cl                       ; 0x843b
     add ax, 0x5642                   ; 0x843d

@@ -6,7 +6,7 @@ string_loc_a4ca:
     mov word [dseg_90b2], si         ; 0xa4d7
     mov word [dseg_90b4], di         ; 0xa4db
     cld                              ; 0xa4df
-    mov di, dseg_90bc                ; 0xa4e0
+    mov di, bss_90bc                 ; 0xa4e0
     mov cx, 0x91dc                   ; 0xa4e3
     sub cx, di                       ; 0xa4e6
     shr cx, 1                        ; 0xa4e8

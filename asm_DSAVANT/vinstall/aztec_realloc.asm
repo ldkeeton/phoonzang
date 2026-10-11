@@ -34,13 +34,13 @@ aztec_realloc:
     push si                          ; 0x2ef1
     call aztec_movmem                ; 0x2ef2
     add sp, byte 6                   ; 0x2ef5
-    cmp si, word [0x2536]            ; 0x2ef8
+    cmp si, word [bss_2536]          ; 0x2ef8
     ja short @..aztec_realloc.l2     ; 0x2efc
-    mov ax, word [0x2536]            ; 0x2efe
+    mov ax, word [bss_2536]          ; 0x2efe
     cmp ax, word [bp - 0x0002]       ; 0x2f01
     jae short @..aztec_realloc.l2    ; 0x2f04
-    mov ax, word [0x2534]            ; 0x2f06
-    mov cx, word [0x2536]            ; 0x2f09
+    mov ax, word [bss_2534]          ; 0x2f06
+    mov cx, word [bss_2536]          ; 0x2f09
     sub cx, si                       ; 0x2f0d
     mov bx, cx                       ; 0x2f0f
     mov word [bx + di], ax           ; 0x2f11

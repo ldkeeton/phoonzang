@@ -1,0 +1,3 @@
+leaf_loc_1a66:
+    mov ax, 0x15                     ; 0x1a66
+    ret                              ; 0x1a69

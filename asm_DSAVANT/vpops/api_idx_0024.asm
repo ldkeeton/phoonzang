@@ -16,7 +16,7 @@ api_idx_0024:
     mov ax, 0x2c                     ; 0x461f
     imul word [bp - 0x0004]          ; 0x4622
     mov si, ax                       ; 0x4625
-    mov bx, word [dseg_8482]         ; 0x4627
+    mov bx, word [bss_8482]          ; 0x4627
     mov ax, word [bx + si + 0x2]     ; 0x462b
     cwd                              ; 0x462e
     add word [bp - 0x0020], ax       ; 0x462f
@@ -24,7 +24,7 @@ api_idx_0024:
 @..api_idx_0024.l2:
     inc word [bp - 0x0004]           ; 0x4635
 @..api_idx_0024.l3:
-    mov bx, word [dseg_8482]         ; 0x4638
+    mov bx, word [bss_8482]          ; 0x4638
     mov al, byte [bx + 0x1a1]        ; 0x463c
     sub ah, ah                       ; 0x4640
     cmp ax, word [bp - 0x0004]       ; 0x4642
@@ -35,14 +35,14 @@ api_idx_0024:
     mov ax, 0x2c                     ; 0x464e
     imul word [bp - 0x0004]          ; 0x4651
     mov si, ax                       ; 0x4654
-    mov bx, word [dseg_848e]         ; 0x4656
+    mov bx, word [bss_848e]          ; 0x4656
     mov ax, word [bx + si + 0x2]     ; 0x465a
     cwd                              ; 0x465d
     add word [bp - 0x0020], ax       ; 0x465e
     adc word [bp - 0x001e], dx       ; 0x4661
     inc word [bp - 0x0004]           ; 0x4664
 @..api_idx_0024.l5:
-    mov bx, word [dseg_848e]         ; 0x4667
+    mov bx, word [bss_848e]          ; 0x4667
     mov al, byte [bx + 0x1a1]        ; 0x466b
     sub ah, ah                       ; 0x466f
     cmp ax, word [bp - 0x0004]       ; 0x4671
@@ -77,7 +77,7 @@ api_idx_0024:
     inc word [bp - 0x0004]           ; 0x46ba
 @..api_idx_0024.l9:
     mov ax, word [bp - 0x0004]       ; 0x46bd
-    cmp ax, word [dseg_8466]         ; 0x46c0
+    cmp ax, word [bss_8466]          ; 0x46c0
     jle short @..api_idx_0024.l6     ; 0x46c4
     cmp word [bp + 0x4], byte 6      ; 0x46c6
     jne short @..api_idx_0024.l10    ; 0x46ca
@@ -440,7 +440,7 @@ api_idx_0024:
     add sp, byte 4                   ; 0x4a29
     test ax, ax                      ; 0x4a2c
     jne short @..api_idx_0024.l35    ; 0x4a2e
-    push word [dseg_8466]            ; 0x4a30
+    push word [bss_8466]             ; 0x4a30
     call ds_dispatch_b7a9            ; 0x4a34
     pop cx                           ; 0x4a37
     inc ax                           ; 0x4a38

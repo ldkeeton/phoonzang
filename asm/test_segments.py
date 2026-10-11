@@ -127,10 +127,54 @@ class RealBinaryTest(unittest.TestCase):
         host = from_binary(self._load('DS.EXE'), 'mz')
         with open(path, 'rb') as f:
             data = f.read()
-        model = from_binary(data, 'aztec_overlay', 8, host=host)
+        model = from_binary(data, 'aztec_overlay', 14, host=host)
         self.assertEqual(model.kind, 'overlay')
-        self.assertEqual(model.resolve('CS', 0), ('file', 8))
+        self.assertEqual(model.resolve('CS', 0), ('file', 14))
         self.assertEqual(model.resolve('DS', 0x0c70), ('file', 0x10dd0))
+
+
+class DataSpaceTest(unittest.TestCase):
+    def test_mz_boundary(self):
+        data = _synthetic_mz(bss_start=0x100, bss_end=0x400)
+        model = from_binary(data, 'mz')
+        self.assertEqual(model.data_space(0x10), 'dseg')
+        self.assertEqual(model.data_space(0x100), 'bss')
+
+    def test_driver_unknown(self):
+        model = from_binary(b'\xe9\x00\x00', 'raw_drv')
+        self.assertIsNone(model.data_space(0x10))
+
+    def test_overlay_layered(self):
+        from lib.segments import SegmentModel
+        host = SegmentModel(
+            kind='mz', file_size=0x10000, bss_boundary=0x1000,
+        )
+        overlay = {'o_dorg': 0x2000, 'o_dsize': 0x40, 'o_bss': 0x100}
+        model = SegmentModel(
+            kind='overlay', file_size=0x1000, host=host, overlay=overlay,
+        )
+        self.assertEqual(model.data_space(0x0100), 'dseg')  # host file
+        self.assertEqual(model.data_space(0x1800), 'bss')   # host BSS
+        self.assertEqual(model.data_space(0x2000), 'dseg')  # overlay data
+        self.assertEqual(model.data_space(0x203f), 'dseg')  # overlay data end
+        self.assertEqual(model.data_space(0x2040), 'bss')   # overlay BSS
+
+
+class CodeOffsetTest(unittest.TestCase):
+    def test_overlay_maps_o_corg_to_header_end(self):
+        from lib.segments import SegmentModel
+        overlay = {'o_corg': 0x5055, 'o_csize': 0x100, 'o_dorg': 0x9098}
+        model = SegmentModel(
+            kind='overlay', file_size=0x2000, overlay=overlay,
+        )
+        self.assertEqual(model.code_offset(0x5055), 14)
+        self.assertEqual(model.code_offset(0x64c5), 14 + (0x64c5 - 0x5055))
+
+    def test_mz_and_driver_have_no_overlay_mapping(self):
+        mz = from_binary(_synthetic_mz(bss_start=0x100, bss_end=0x400), 'mz')
+        self.assertIsNone(mz.code_offset(0x10))
+        drv = from_binary(b'\xe9\x00\x00', 'raw_drv')
+        self.assertIsNone(drv.code_offset(0x10))
 
 
 if __name__ == '__main__':

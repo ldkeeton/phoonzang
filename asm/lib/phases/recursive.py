@@ -72,7 +72,21 @@ def _find_jump_table_bounds(data, jmp_addr, md, jt_addr=None):
     return None
 
 
-def _scan_jump_table(data, start, conf_arr, max_index=None, start_offset=0):
+def _code_off(ctx, value):
+    """Translate an embedded CS offset to a file offset.
+
+    Overlays store ``o_corg``-based CS values (``SegmentModel.code_offset``);
+    MZ images and drivers use the plain ``start_offset + value`` convention.
+    """
+    segments = getattr(ctx, 'segments', None)
+    if segments is not None:
+        off = segments.code_offset(value)
+        if off is not None:
+            return off
+    return ctx.start_offset + value
+
+
+def _scan_jump_table(data, start, conf_arr, max_index=None, translate=None):
     n = len(conf_arr)
     targets = set()
     tbl = start
@@ -80,10 +94,16 @@ def _scan_jump_table(data, start, conf_arr, max_index=None, start_offset=0):
     entries_read = 0
     while tbl + 2 <= n and entries_read < max_entries:
         val = struct.unpack_from('<H', data, tbl)[0]
-        buf_val = val + start_offset
+        buf_val = translate(val) if translate is not None else val
         if not (0 <= buf_val < n):
             break
-        if conf_arr[buf_val] < -0.3:
+        # The data-vote stop is only a length heuristic for a table whose
+        # bounds are unknown.  When max_index came from the cmp/jae bounds
+        # pattern the count is authoritative, so accept in-range entries
+        # even if a prior phase (prune_dead after a jmp-ending block) has
+        # already voted the arm data -- otherwise valid switch tables are
+        # never detected.
+        if max_index is None and conf_arr[buf_val] < -0.3:
             break
         targets.add(buf_val)
         tbl += 2
@@ -143,6 +163,14 @@ def _validate_jump_tables(ctx, data, n, result, md):
     for jt in ctx.jump_tables:
         if not jt.targets:
             continue
+        # The table holds target words, never code.  A hard-path block that
+        # happened to be decoded linearly across the table stamps hard_code
+        # on these bytes, which the arbiter treats as authoritative; undo
+        # that so the table is emitted as data/jumptable.
+        for j in range(jt.table_addr, min(jt.table_end, n)):
+            if not ctx.hard_data[j]:
+                result[j] = _CONF_JT_DATA
+                ctx.hard_code[j] = False
         valid = 0
         for t in jt.targets:
             for block in ctx.blocks:
@@ -273,13 +301,14 @@ class RecursiveDescentPhase(Phase):
             if data_boundary[scan_idx] < _HARD_DATA:
                 continue
             disp = struct.unpack_from('<h', data, scan_idx + 3)[0]
-            tgt = ctx.start_offset + disp
+            tgt = _code_off(ctx, disp)
             if not (0 <= tgt < n):
                 continue
             max_idx = _find_jump_table_bounds(data, scan_idx, md, jt_addr=tgt)
             tbl_end, jt_tgts = _scan_jump_table(
                 data, tgt, data_boundary,
-                max_index=max_idx, start_offset=ctx.start_offset,
+                max_index=max_idx,
+                translate=lambda v: _code_off(ctx, v),
             )
             jt_info = JumpTableInfo(
                 table_addr=tgt, jmp_addr=scan_idx,
@@ -418,13 +447,14 @@ class RecursiveDescentPhase(Phase):
                                 break
                         use_jt = has_base and mem_disp is not None
                         if use_jt:
-                            new_start = ctx.start_offset + mem_disp
+                            new_start = _code_off(ctx, mem_disp)
                             if not (0 <= new_start < n):
                                 break
                             max_idx = _find_jump_table_bounds(data, off, md, jt_addr=new_start)
                             tbl_end, jt_tgts = _scan_jump_table(
                                 data, new_start, data_boundary,
-                                max_index=max_idx, start_offset=ctx.start_offset,
+                                max_index=max_idx,
+                                translate=lambda v: _code_off(ctx, v),
                             )
                             jt_info = JumpTableInfo(
                                 table_addr=new_start, jmp_addr=off,
@@ -442,10 +472,10 @@ class RecursiveDescentPhase(Phase):
                                         data_boundary[j] = _CONF_JT_DATA
                             ctx.jump_tables.append(jt_info)
                         elif mem_disp is not None:
-                            ptr_addr = ctx.start_offset + mem_disp
+                            ptr_addr = _code_off(ctx, mem_disp)
                             if 0 <= ptr_addr < n - 2:
                                 ptr = struct.unpack_from('<H', data, ptr_addr)[0]
-                                target = ptr + ctx.start_offset
+                                target = _code_off(ctx, ptr)
                                 if 0 <= target < n and not ctx.is_hard_data(target):
                                     worklist.append(target)
                                     _add_target(ctx, target, 'indirect_jmp', _CONF_JT_CODE, source_offset=off)

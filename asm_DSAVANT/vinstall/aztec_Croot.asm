@@ -8,17 +8,17 @@ aztec_Croot:
     push ax                          ; 0x374a
     call aztec_isatty                ; 0x374b
     pop cx                           ; 0x374e
-    mov byte [0x251a], al            ; 0x374f
+    mov byte [dseg_251a], al         ; 0x374f
     mov ax, 1                        ; 0x3752
     push ax                          ; 0x3755
     call aztec_isatty                ; 0x3756
     pop cx                           ; 0x3759
-    mov byte [0x251b], al            ; 0x375a
+    mov byte [dseg_251b], al         ; 0x375a
     mov ax, 2                        ; 0x375d
     push ax                          ; 0x3760
     call aztec_isatty                ; 0x3761
     pop cx                           ; 0x3764
-    mov byte [0x251c], al            ; 0x3765
+    mov byte [dseg_251c], al         ; 0x3765
     mov ax, word [bp + 0x6]          ; 0x3768
     shl ax, 1                        ; 0x376b
     inc ax                           ; 0x376d
@@ -26,14 +26,14 @@ aztec_Croot:
     push ax                          ; 0x376f
     call aztec_sbrk                  ; 0x3770
     pop cx                           ; 0x3773
-    mov word [0x253c], ax            ; 0x3774
+    mov word [bss_253c], ax          ; 0x3774
     mov ax, 0x2502                   ; 0x3777
-    mov bx, word [0x253c]            ; 0x377a
+    mov bx, word [bss_253c]          ; 0x377a
     mov word [bx], 0x2502            ; 0x377e
     mov ax, word [bp + 0x6]          ; 0x3782
-    mov word [0x253a], ax            ; 0x3785
+    mov word [bss_253a], ax          ; 0x3785
     shl ax, 1                        ; 0x3788
-    mov di, word [0x253c]            ; 0x378a
+    mov di, word [bss_253c]          ; 0x378a
     add di, ax                       ; 0x378e
 @..aztec_Croot.l1:
     cmp byte [si], 0x20              ; 0x3790
@@ -49,7 +49,7 @@ aztec_Croot:
     mov word [di], si                ; 0x37a2
     inc di                           ; 0x37a4
     inc di                           ; 0x37a5
-    inc word [0x253a]                ; 0x37a6
+    inc word [bss_253a]              ; 0x37a6
     mov ax, 2                        ; 0x37aa
     push ax                          ; 0x37ad
     call aztec_sbrk                  ; 0x37ae
@@ -87,8 +87,8 @@ aztec_Croot:
     jmp short @..aztec_Croot.l1      ; 0x37e9
 @..aztec_Croot.l8:
     mov word [di], 0                 ; 0x37eb
-    push word [0x253c]               ; 0x37ef
-    push word [0x253a]               ; 0x37f3
+    push word [bss_253c]             ; 0x37ef
+    push word [bss_253a]             ; 0x37f3
     call loc_12b5                    ; 0x37f7
     add sp, byte 4                   ; 0x37fa
     mov ax, 0                        ; 0x37fd

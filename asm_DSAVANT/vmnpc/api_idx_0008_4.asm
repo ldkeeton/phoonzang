@@ -1,6 +1,6 @@
 api_idx_0008_4:
     mov ax, 0xfff8                   ; 0x5571
-    db 0xe8, 0x94, 0x9e ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x5574
     mov ax, word [bp + 0x6]          ; 0x5577
     shl ax, 1                        ; 0x557a
     mov bx, ax                       ; 0x557c
@@ -16,7 +16,7 @@ api_idx_0008_4:
     shl ax, 1                        ; 0x5597
     add ax, 0x9882                   ; 0x5599
     push ax                          ; 0x559c
-    db 0xe8, 0xd4, 0x96 ; call 0xec74
+    call ds_dispatch_ec74            ; 0x559d
     add sp, byte 4                   ; 0x55a0
     test ax, ax                      ; 0x55a3
     je short @..api_idx_0008_4.l1    ; 0x55a5
@@ -30,7 +30,7 @@ api_idx_0008_4:
     shl ax, 1                        ; 0x55b9
     add ax, 0x98be                   ; 0x55bb
     push ax                          ; 0x55be
-    db 0xe8, 0xb2, 0x96 ; call 0xec74
+    call ds_dispatch_ec74            ; 0x55bf
     add sp, byte 4                   ; 0x55c2
     test ax, ax                      ; 0x55c5
     je short @..api_idx_0008_4.l1    ; 0x55c7
@@ -43,7 +43,7 @@ api_idx_0008_4:
     mov ax, word [bp + 0x6]          ; 0x55d8
     add ax, 0x98fa                   ; 0x55db
     push ax                          ; 0x55de
-    db 0xe8, 0x92, 0x96 ; call 0xec74
+    call ds_dispatch_ec74            ; 0x55df
     add sp, byte 4                   ; 0x55e2
     test ax, ax                      ; 0x55e5
     jne short @..api_idx_0008_4.l2   ; 0x55e7
@@ -124,7 +124,7 @@ api_idx_0008_4:
     mov ax, word [bp - 0x0004]       ; 0x568a
     add ax, 0xfe70                   ; 0x568d
     push ax                          ; 0x5690
-    mov al, byte [dseg_91c6]         ; 0x5691
+    mov al, byte [bss_91c6]          ; 0x5691
     cbw                              ; 0x5694
     push ax                          ; 0x5695
     mov ax, 0x15                     ; 0x5696

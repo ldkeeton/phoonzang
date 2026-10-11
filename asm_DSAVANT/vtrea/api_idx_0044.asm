@@ -11,7 +11,7 @@ api_idx_0044:
     mov ax, word [bp - 0x0002]       ; 0x8d39
     cmp ax, strict word 6            ; 0x8d3c
     jl short @..api_idx_0044.l1      ; 0x8d3f
-    mov word [dseg_904e], 0xffff     ; 0x8d41
+    mov word [bss_904e], 0xffff      ; 0x8d41
     mov word [bp - 0x0004], 0x32     ; 0x8d47
     mov word [bp - 0x0006], 0x73     ; 0x8d4c
     mov word [bp - 0x0008], 0x10d    ; 0x8d51
@@ -494,12 +494,12 @@ api_idx_0044:
     push ax                          ; 0x91b2
     call ds_dispatch_e8da            ; 0x91b3
     add sp, byte 8                   ; 0x91b6
-    mov word [dseg_9124], 5          ; 0x91b9
+    mov word [bss_9124], 5           ; 0x91b9
     les bx, word [dseg_0002]         ; 0x91bf
     mov ax, word [es:bx]             ; 0x91c3
     mov dx, word [es:bx + 0x2]       ; 0x91c6
-    mov word [dseg_908c], dx         ; 0x91ca
-    mov word [dseg_908a], ax         ; 0x91ce
+    mov word [bss_908c], dx          ; 0x91ca
+    mov word [bss_908a], ax          ; 0x91ce
     mov word [bp - 0x001c], 1        ; 0x91d1
 @..api_idx_0044.l8:
     push word [bp - 0x0042]          ; 0x91d6
@@ -512,7 +512,7 @@ api_idx_0044:
     pop cx                           ; 0x91e9
     dec ax                           ; 0x91ea
     mov word [bp - 0x001a], ax       ; 0x91eb
-    cmp word [dseg_59fc], byte 0     ; 0x91ee
+    cmp word [bss_59fc], byte 0      ; 0x91ee
     je short @..api_idx_0044.l12     ; 0x91f3
     mov ax, word [bp - 0x0022]       ; 0x91f5
     cmp ax, word [bp - 0x0018]       ; 0x91f8
@@ -536,13 +536,13 @@ api_idx_0044:
     mov ax, word [bp - 0x0018]       ; 0x921f
     mov word [bp - 0x0022], ax       ; 0x9222
 @..api_idx_0044.l11:
-    mov word [dseg_5b3e], 1          ; 0x9225
+    mov word [bss_5b3e], 1           ; 0x9225
     mov ax, word [bp - 0x0022]       ; 0x922b
     sub ax, word [bp - 0x0018]       ; 0x922e
     add ax, strict word 0x12         ; 0x9231
     mov word [bp - 0x001a], ax       ; 0x9234
 @..api_idx_0044.l12:
-    cmp word [dseg_5b3e], byte 1     ; 0x9237
+    cmp word [bss_5b3e], byte 1      ; 0x9237
     je short @..api_idx_0044.l13     ; 0x923c
     jmp near @..api_idx_0044.l37     ; 0x923e
 @..api_idx_0044.l13:
@@ -1047,8 +1047,8 @@ api_idx_0044:
     sub al, al                       ; 0x99b6
     add ax, word [bp - 0x003c]       ; 0x99b8
     add ax, 0x100                    ; 0x99bb
-    mov word [dseg_904e], ax         ; 0x99be
-    mov ax, word [dseg_9050]         ; 0x99c1
+    mov word [bss_904e], ax          ; 0x99be
+    mov ax, word [bss_9050]          ; 0x99c1
     ret                              ; 0x99c4
 loc_99c5:
     pop word [dseg_9112]             ; 0x99c5
@@ -1058,14 +1058,14 @@ loc_99c5:
     mov word [dseg_910a], si         ; 0x99d2
     mov word [dseg_910c], di         ; 0x99d6
     cld                              ; 0x99da
-    mov di, dseg_9114                ; 0x99db
+    mov di, bss_9114                 ; 0x99db
     mov cx, 0x96ba                   ; 0x99de
     sub cx, di                       ; 0x99e1
     shr cx, 1                        ; 0x99e3
-    je short @..local.l167           ; 0x99e5
+    je short @..local.l180           ; 0x99e5
     sub ax, ax                       ; 0x99e7
     rep stosw                        ; 0x99e9
-@..local.l167:
+@..local.l180:
     call loc_000e                    ; 0x99eb
     mov bp, word [dseg_9110]         ; 0x99ee
     mov sp, word [dseg_910e]         ; 0x99f2

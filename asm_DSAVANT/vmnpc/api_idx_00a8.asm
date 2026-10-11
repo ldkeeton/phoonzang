@@ -1,10 +1,10 @@
 api_idx_00a8:
     mov ax, 0xff58                   ; 0x8ead
-    db 0xe8, 0x58, 0x65 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x8eb0
     push word [bp + 0x4]             ; 0x8eb3
     lea ax, word [bp - 0x0052]       ; 0x8eb6
     push ax                          ; 0x8eb9
-    db 0xe8, 0xa7, 0x64 ; call 0xf364
+    call ds_dispatch_f364            ; 0x8eba
     add sp, byte 4                   ; 0x8ebd
     mov word [bp - 0x00a8], 0        ; 0x8ec0
     mov word [bp - 0x00a4], 0        ; 0x8ec6
@@ -59,13 +59,13 @@ api_idx_00a8:
 @..api_idx_00a8.l4:
     lea ax, word [bp - 0x00a2]       ; 0x8f4f
     push ax                          ; 0x8f53
-    db 0xe8, 0x39, 0x6b ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8f54
     pop cx                           ; 0x8f57
     cmp ax, word [bp - 0x0002]       ; 0x8f58
     jg short @..api_idx_00a8.l3      ; 0x8f5b
     lea ax, word [bp - 0x00a2]       ; 0x8f5d
     push ax                          ; 0x8f61
-    db 0xe8, 0x2b, 0x6b ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8f62
     pop cx                           ; 0x8f65
     add word [bp - 0x00a8], ax       ; 0x8f66
 @..api_idx_00a8.l5:

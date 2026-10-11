@@ -6,7 +6,7 @@ string_loc_ae10:
     mov word [dseg_912a], si         ; 0xae1d
     mov word [dseg_912c], di         ; 0xae21
     cld                              ; 0xae25
-    mov di, dseg_9134                ; 0xae26
+    mov di, bss_9134                 ; 0xae26
     mov cx, 0xb056                   ; 0xae29
     sub cx, di                       ; 0xae2c
     shr cx, 1                        ; 0xae2e

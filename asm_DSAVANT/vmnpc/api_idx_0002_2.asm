@@ -1,12 +1,12 @@
 api_idx_0002_2:
     mov ax, 0xfffe                   ; 0x2768
-    db 0xe8, 0x9d, 0xcc ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x276b
     mov ax, 0x9576                   ; 0x276e
     push ax                          ; 0x2771
     mov ax, word [bp + 0x4]          ; 0x2772
     add ax, 0x708                    ; 0x2775
     push ax                          ; 0x2778
-    db 0xe8, 0xbf, 0x8d ; call 0xb53b
+    call ds_dispatch_b53b            ; 0x2779
     add sp, byte 4                   ; 0x277c
     mov ax, 6                        ; 0x277f
     imul word [bp + 0x4]             ; 0x2782
@@ -21,7 +21,7 @@ api_idx_0002_2:
     imul cx                          ; 0x279a
     mov bx, ax                       ; 0x279c
     mov al, byte [bx - 0x7b18]       ; 0x279e
-    cmp al, byte [dseg_91c7]         ; 0x27a2
+    cmp al, byte [bss_91c7]          ; 0x27a2
     jne short @..api_idx_0002_2.l2   ; 0x27a6
     mov ax, 0                        ; 0x27a8
     jmp short @..api_idx_0002_2.l3   ; 0x27ab
@@ -37,7 +37,7 @@ api_idx_0002_2:
     mov al, byte [bx - 0x7b5a]       ; 0x27bf
     sub ah, ah                       ; 0x27c3
     push ax                          ; 0x27c5
-    mov al, byte [dseg_91c6]         ; 0x27c6
+    mov al, byte [bss_91c6]          ; 0x27c6
     cbw                              ; 0x27c9
     mov cx, ax                       ; 0x27ca
     pop ax                           ; 0x27cc
@@ -52,7 +52,7 @@ api_idx_0002_2:
     mov ax, 0x75a                    ; 0x27df
 @..api_idx_0002_2.l5:
     push ax                          ; 0x27e2
-    db 0xe8, 0x55, 0x8d ; call 0xb53b
+    call ds_dispatch_b53b            ; 0x27e3
     add sp, byte 4                   ; 0x27e6
     mov ax, 0x958e                   ; 0x27e9
     push ax                          ; 0x27ec
@@ -62,7 +62,7 @@ api_idx_0002_2:
     mov al, byte [bx - 0x7b5a]       ; 0x27f5
     sub ah, ah                       ; 0x27f9
     push ax                          ; 0x27fb
-    mov al, byte [dseg_91c6]         ; 0x27fc
+    mov al, byte [bss_91c6]          ; 0x27fc
     cbw                              ; 0x27ff
     mov cx, ax                       ; 0x2800
     pop ax                           ; 0x2802
@@ -91,7 +91,7 @@ api_idx_0002_2:
     add ax, 0x6a4                    ; 0x2838
 @..api_idx_0002_2.l8:
     push ax                          ; 0x283b
-    db 0xe8, 0xfc, 0x8c ; call 0xb53b
+    call ds_dispatch_b53b            ; 0x283c
     add sp, byte 4                   ; 0x283f
     jmp short @..api_idx_0002_2.l10  ; 0x2842
 @..api_idx_0002_2.l9:
@@ -99,7 +99,7 @@ api_idx_0002_2:
     push ax                          ; 0x2847
     mov ax, 0x75b                    ; 0x2848
     push ax                          ; 0x284b
-    db 0xe8, 0xec, 0x8c ; call 0xb53b
+    call ds_dispatch_b53b            ; 0x284c
     add sp, byte 4                   ; 0x284f
     mov ax, 0x958e                   ; 0x2852
     push ax                          ; 0x2855
@@ -110,7 +110,7 @@ api_idx_0002_2:
     sub ah, ah                       ; 0x2862
     add ax, 0x6ea                    ; 0x2864
     push ax                          ; 0x2867
-    db 0xe8, 0xd0, 0x8c ; call 0xb53b
+    call ds_dispatch_b53b            ; 0x2868
     add sp, byte 4                   ; 0x286b
 @..api_idx_0002_2.l10:
     mov ax, 0x23                     ; 0x286e
@@ -119,7 +119,7 @@ api_idx_0002_2:
     push ax                          ; 0x2875
     mov ax, 0x93f0                   ; 0x2876
     push ax                          ; 0x2879
-    db 0xe8, 0x83, 0x8a ; call 0xb300
+    call ds_dispatch_b300            ; 0x287a
     add sp, byte 6                   ; 0x287d
     mov ax, 0x24                     ; 0x2880
     push ax                          ; 0x2883
@@ -127,7 +127,7 @@ api_idx_0002_2:
     push ax                          ; 0x2887
     mov ax, 0x93f0                   ; 0x2888
     push ax                          ; 0x288b
-    db 0xe8, 0x71, 0x8a ; call 0xb300
+    call ds_dispatch_b300            ; 0x288c
     add sp, byte 6                   ; 0x288f
     mov ax, 1                        ; 0x2892
     push ax                          ; 0x2895

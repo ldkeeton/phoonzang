@@ -68,20 +68,20 @@ loc_10b0:
     les bx, word [dseg_0002]         ; 0x10b6
     mov ax, word [es:bx]             ; 0x10ba
     mov dx, word [es:bx + 0x2]       ; 0x10bd
-    mov word [dseg_9090], dx         ; 0x10c1
-    mov word [dseg_908e], ax         ; 0x10c5
-    mov ax, word [dseg_908e]         ; 0x10c8
-    mov dx, word [dseg_9090]         ; 0x10cb
-    sub ax, word [dseg_908a]         ; 0x10cf
-    sbb dx, word [dseg_908c]         ; 0x10d3
-    mov word [dseg_9094], dx         ; 0x10d7
-    mov word [dseg_9092], ax         ; 0x10db
-    mov ax, word [dseg_948c]         ; 0x10de
+    mov word [bss_9090], dx          ; 0x10c1
+    mov word [bss_908e], ax          ; 0x10c5
+    mov ax, word [bss_908e]          ; 0x10c8
+    mov dx, word [bss_9090]          ; 0x10cb
+    sub ax, word [bss_908a]          ; 0x10cf
+    sbb dx, word [bss_908c]          ; 0x10d3
+    mov word [bss_9094], dx          ; 0x10d7
+    mov word [bss_9092], ax          ; 0x10db
+    mov ax, word [bss_948c]          ; 0x10de
     cwd                              ; 0x10e1
     mov cx, ax                       ; 0x10e2
     mov bx, dx                       ; 0x10e4
-    mov ax, word [dseg_9092]         ; 0x10e6
-    mov dx, word [dseg_9094]         ; 0x10e9
+    mov ax, word [bss_9092]          ; 0x10e6
+    mov dx, word [bss_9094]          ; 0x10e9
     cmp bx, dx                       ; 0x10ed
     jg short @..local.l6             ; 0x10ef
     jne short @..local.l7            ; 0x10f1
@@ -90,10 +90,10 @@ loc_10b0:
 @..local.l6:
     jmp short @..local.l8            ; 0x10f7
 @..local.l7:
-    mov ax, word [dseg_908e]         ; 0x10f9
-    mov dx, word [dseg_9090]         ; 0x10fc
-    mov word [dseg_908c], dx         ; 0x1100
-    mov word [dseg_908a], ax         ; 0x1104
+    mov ax, word [bss_908e]          ; 0x10f9
+    mov dx, word [bss_9090]          ; 0x10fc
+    mov word [bss_908c], dx          ; 0x1100
+    mov word [bss_908a], ax          ; 0x1104
     call api_idx_000a_2              ; 0x1107
     push word [bp + 0x4]             ; 0x110a
     call api_idx_000c_2              ; 0x110d

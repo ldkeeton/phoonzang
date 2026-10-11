@@ -300,7 +300,9 @@ def discover_binaries(directory):
     for entry in os.listdir(directory):
         lower = entry.lower()
         if lower.endswith('.ovr'):
-            bins[lower[:-4]] = (entry, 8)
+            # Aztec ``.OVR`` files carry a 14-byte ``ovrheader``
+            # (``LIB/DOS/OVLOADER.C``); code begins immediately after it.
+            bins[lower[:-4]] = (entry, 14)
         elif lower.endswith('.drv'):
             bins[lower[:-4]] = (entry, 0)
         elif lower.endswith('.exe'):
@@ -426,7 +428,7 @@ def _write_address_inventory(out_dir, name, label_map, records):
 
 
 def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
-            foreign_label_map=None, export_labels=False):
+            foreign_label_map=None, export_labels=False, host_model=None):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -452,8 +454,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     )
 
     binary_type = (sidecar_entry or {}).get('type')
+    host = host_model if binary_type == 'aztec_overlay' else None
     try:
-        ctx.segments = build_segment_model(data, binary_type, start_offset)
+        ctx.segments = build_segment_model(data, binary_type, start_offset, host=host)
         crt_bss_range = check_bss_boundary(ctx.segments, data)
     except SegmentError as error:
         print(f'{name}: SEGMENT ERROR: {error}')
@@ -579,10 +582,17 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         instructions, function_roots, ctx.branch_edges, extra_flow_edges,
         binary_size=len(data), start_offset=start_offset,
     )
+    # For the segment dataflow every recovered switch-table arm is a real
+    # code entry whose default segment (DS/CS) should be known, even when the
+    # table itself failed the strict terminator-based validation.
+    segment_edges = set(extra_flow_edges) | set(ctx.branch_edges)
+    for table in ctx.jump_tables:
+        for target in table.targets:
+            segment_edges.add((table.jmp_addr, target))
     ctx.segment_flow = analyze_segments(
         instructions, ctx.segments, binary_data=data,
         function_roots=set(function_roots),
-        extra_edges=extra_flow_edges,
+        extra_edges=segment_edges,
     )
     ctx.report['segment_flow'] = operand_space_counts(
         instructions, ctx.segment_flow)
@@ -619,6 +629,19 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
             ArbiterPhase(),
         ]
         run_functional(ctx, post_phases)
+        # The post-phases can promote bytes to code.  Recompute the
+        # instruction stream and the segment dataflow against the final
+        # bitmap so symbolization/emission see the same code the verifier
+        # will filter on (otherwise promoted instructions fall back to the
+        # generic ``data_`` namespace).
+        instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
+        ctx.segment_flow = analyze_segments(
+            instructions, ctx.segments, binary_data=data,
+            function_roots=set(function_roots),
+            extra_edges=segment_edges,
+        )
+        ctx.report['segment_flow'] = operand_space_counts(
+            instructions, ctx.segment_flow)
 
     if diag_enabled() and _ITERATIVE:
         squashed_arr = ctx.layers['squashed'].to_numpy()
@@ -869,6 +892,30 @@ def build_binaries(asm_dir, bins, out_dir):
     return all_ok
 
 
+def _build_host_model(project_dir, bins, sidecar):
+    """SegmentModel for the MZ host (``DS.EXE``).
+
+    Overlays execute inside the host's data segment, so their DATA references
+    need the host geometry (see ``lib.segments``).  Returns ``None`` when no
+    MZ host is present or it cannot be parsed.
+    """
+    ds_name = 'ds' if 'ds' in bins else next(
+        (n for n in bins
+         if (sidecar_per_binary(sidecar, n) or {}).get('type') == 'mz'),
+        None,
+    )
+    if ds_name is None:
+        return None
+    rel_path = bins[ds_name][0]
+    try:
+        with open(os.path.join(project_dir, rel_path), 'rb') as f:
+            data = f.read()
+        entry = sidecar_per_binary(sidecar, ds_name) if sidecar else None
+        return build_segment_model(data, (entry or {}).get('type') or 'mz')
+    except (OSError, SegmentError):
+        return None
+
+
 def process_project(project_name):
     project_dir = os.path.join(APPS_DIR, project_name)
     if not os.path.isdir(project_dir):
@@ -887,6 +934,8 @@ def process_project(project_name):
 
     print(f'\n=== {project_name} ({len(bins)} binaries) ===')
 
+    host_model = _build_host_model(project_dir, bins, sidecar)
+
     from lib.cross_ref import detect as detect_cross_refs
     cross_refs = detect_cross_refs(project_dir, bins)
 
@@ -899,7 +948,7 @@ def process_project(project_name):
                         exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
                         output_dir=out_dir,
                         project=project_name, sidecar_entry=sc_entry,
-                        export_labels=True)
+                        export_labels=True, host_model=host_model)
         source_label_maps[name] = lm
 
     # inject synthetic dispatch labels for cross-binary targets
@@ -939,7 +988,7 @@ def process_project(project_name):
                 exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
                 output_dir=out_dir,
                 project=project_name, sidecar_entry=sc_entry,
-                foreign_label_map=foreign_label_map)
+                foreign_label_map=foreign_label_map, host_model=host_model)
 
     processed = set(bins.keys())
 
@@ -1193,6 +1242,7 @@ def main():
             sys.exit(1)
         rel_path, start_offset = bins[binary]
         sc_entry = sidecar_per_binary(sidecar, binary) if sidecar else None
+        host_model = _build_host_model(project_dir, bins, sidecar)
         foreign_label_map = None
         if FOREIGN_LABELS_PATH:
             from lib.cross_ref import read_label_json
@@ -1207,7 +1257,7 @@ def main():
                 output_dir=out_dir,
                 project=p, sidecar_entry=sc_entry,
                 foreign_label_map=foreign_label_map,
-                export_labels=EXPORT_LABELS)
+                export_labels=EXPORT_LABELS, host_model=host_model)
         return
 
     target = args[0] if args else None

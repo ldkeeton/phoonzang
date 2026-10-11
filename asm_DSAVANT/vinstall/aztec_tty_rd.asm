@@ -2,7 +2,7 @@ aztec_tty_rd:
     push bp                          ; 0x38d9
     mov bp, sp                       ; 0x38da
     push si                          ; 0x38dc
-    mov si, word [0x2afc]            ; 0x38dd
+    mov si, word [bss_2afc]          ; 0x38dd
     test si, si                      ; 0x38e1
     jne short @..aztec_tty_rd.l2     ; 0x38e3
     mov ax, 0x104                    ; 0x38e5
@@ -18,11 +18,11 @@ aztec_tty_rd:
     cmp byte [si + 0x253d], 0xa      ; 0x38fc
     jne short @..aztec_tty_rd.l1     ; 0x3901
     dec si                           ; 0x3903
-    mov al, byte [0x2532]            ; 0x3904
+    mov al, byte [dseg_2532]         ; 0x3904
     mov byte [si + 0x253d], al       ; 0x3907
 @..aztec_tty_rd.l1:
-    mov word [0x2642], 0x253e        ; 0x390b
-    mov word [0x2afc], si            ; 0x3911
+    mov word [bss_2642], 0x253e      ; 0x390b
+    mov word [bss_2afc], si          ; 0x3911
 @..aztec_tty_rd.l2:
     cmp si, word [bp + 0x8]          ; 0x3915
     jle short @..aztec_tty_rd.l3     ; 0x3918
@@ -32,12 +32,12 @@ aztec_tty_rd:
     je short @..aztec_tty_rd.l4      ; 0x391f
     push si                          ; 0x3921
     push word [bp + 0x6]             ; 0x3922
-    push word [0x2642]               ; 0x3925
+    push word [bss_2642]             ; 0x3925
     call aztec_movmem                ; 0x3929
     add sp, byte 6                   ; 0x392c
 @..aztec_tty_rd.l4:
-    add word [0x2642], si            ; 0x392f
-    sub word [0x2afc], si            ; 0x3933
+    add word [bss_2642], si          ; 0x392f
+    sub word [bss_2afc], si          ; 0x3933
     mov ax, si                       ; 0x3937
     pop si                           ; 0x3939
     mov sp, bp                       ; 0x393a

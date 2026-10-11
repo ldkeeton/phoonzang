@@ -147,6 +147,51 @@ class SegmentModel:
         """
         return self.resolve(prefix or default_segment, offset)
 
+    def code_offset(self, disp):
+        """Map an embedded code-segment offset to a file offset.
+
+        Aztec overlay code is loaded at ``CS:o_corg`` but begins at file
+        offset :data:`_OVR_HEADER_SIZE`, so an embedded CS value ``disp``
+        corresponds to file offset ``14 + (disp - o_corg)``.  Returns
+        ``None`` when the model is not an overlay (callers then fall back to
+        the plain ``start_offset + disp`` MZ/driver convention).
+        """
+        if self.kind != 'overlay' or not self.overlay:
+            return None
+        o_corg = self.overlay.get('o_corg')
+        if o_corg is None:
+            return None
+        return _OVR_HEADER_SIZE + (disp - o_corg)
+
+    def data_space(self, offset):
+        """Classify a data-segment offset as ``'dseg'`` or ``'bss'``.
+
+        Returns ``None`` when the model has no statically known data segment
+        (raw drivers).  For a plain MZ image the boundary is
+        ``bss_boundary``.  An overlay shares the host's data segment, but its
+        own loaded data sits at ``o_dorg`` and its BSS above
+        ``o_dorg + o_dsize``, so the classification is layered:
+
+        * below ``host.bss_boundary`` - host file-backed data (``dseg``);
+        * ``host.bss_boundary .. o_dorg`` - host BSS (``bss``);
+        * ``o_dorg .. o_dorg + o_dsize`` - overlay file-backed data (``dseg``);
+        * at/above ``o_dorg + o_dsize`` - overlay BSS (``bss``).
+        """
+        if self.host is not None:
+            o_dorg = self.overlay.get('o_dorg') if self.overlay else None
+            o_dsize = self.overlay.get('o_dsize') if self.overlay else None
+            if o_dorg is not None and offset >= o_dorg:
+                if o_dsize is not None and offset < o_dorg + o_dsize:
+                    return 'dseg'
+                return 'bss'
+            host_bss = self.host.bss_boundary
+            if host_bss is not None and offset >= host_bss:
+                return 'bss'
+            return 'dseg'
+        if self.bss_boundary is None:
+            return None
+        return 'bss' if offset >= self.bss_boundary else 'dseg'
+
 
 def from_binary(binary_data, binary_type=None, start_offset=0, host=None):
     """Build the :class:`SegmentModel` for *binary_data*.

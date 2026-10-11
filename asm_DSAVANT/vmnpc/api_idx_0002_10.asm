@@ -1,8 +1,8 @@
 api_idx_0002_10:
     mov ax, 0xfffe                   ; 0x8bb0
-    db 0xe8, 0x55, 0x68 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x8bb3
     push word [bp + 0x6]             ; 0x8bb6
-    db 0xe8, 0xd4, 0x6e ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8bb9
     pop cx                           ; 0x8bbc
     push ax                          ; 0x8bbd
     push word [bp + 0x6]             ; 0x8bbe
@@ -12,7 +12,7 @@ api_idx_0002_10:
     test ax, ax                      ; 0x8bca
     jne short @..api_idx_0002_10.l1  ; 0x8bcc
     push word [bp + 0x6]             ; 0x8bce
-    db 0xe8, 0xbc, 0x6e ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8bd1
     pop cx                           ; 0x8bd4
     dec ax                           ; 0x8bd5
     push ax                          ; 0x8bd6

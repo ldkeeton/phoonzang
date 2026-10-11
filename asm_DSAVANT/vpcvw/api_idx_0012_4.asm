@@ -1,7 +1,7 @@
 api_idx_0012_4:
     mov ax, 0xffee                   ; 0x0a96
     call ds_dispatch_f40b            ; 0x0a99
-    mov word [dseg_940e], 0xffff     ; 0x0a9c
+    mov word [bss_940e], 0xffff      ; 0x0a9c
     mov ax, word [bp + 0x6]          ; 0x0aa2
     push ax                          ; 0x0aa5
     cmp ax, strict word 0            ; 0x0aa6
@@ -49,7 +49,7 @@ api_idx_0012_4:
     add ax, cx                       ; 0x0af5
     add ax, strict word 0x71         ; 0x0af7
     mov word [bp - 0x000a], ax       ; 0x0afa
-    cmp word [dseg_0e32], byte 0     ; 0x0afd
+    cmp word [bss_0e32], byte 0      ; 0x0afd
     jne short @..api_idx_0012_4.l3   ; 0x0b02
     jmp near @..api_idx_0012_4.l6    ; 0x0b04
 @..api_idx_0012_4.l3:
@@ -140,8 +140,8 @@ api_idx_0012_4:
     mov word [bp - 0x0012], ax       ; 0x0bda
     mov ax, 0x3dc                    ; 0x0bdd
     push ax                          ; 0x0be0
-    push word [dseg_0e20]            ; 0x0be1
-    push word [dseg_0e1e]            ; 0x0be5
+    push word [bss_0e20]             ; 0x0be1
+    push word [bss_0e1e]             ; 0x0be5
     mov ax, word [bp - 0x0012]       ; 0x0be9
     add ax, strict word 0xc          ; 0x0bec
     push dx                          ; 0x0bef
@@ -194,8 +194,8 @@ api_idx_0012_4:
     push ax                          ; 0x0c62
     mov ax, 0x4c                     ; 0x0c63
     push ax                          ; 0x0c66
-    push word [dseg_0e20]            ; 0x0c67
-    push word [dseg_0e1e]            ; 0x0c6b
+    push word [bss_0e20]             ; 0x0c67
+    push word [bss_0e1e]             ; 0x0c6b
     call ds_dispatch_f060            ; 0x0c6f
     add sp, byte 0x0c                ; 0x0c72
     call ds_dispatch_ec17            ; 0x0c75
@@ -204,11 +204,11 @@ api_idx_0012_4:
 @..api_idx_0012_4.l6:
     cmp word [bp + 0x6], byte 0      ; 0x0c7a
     jge short @..api_idx_0012_4.l7   ; 0x0c7e
-    mov word [dseg_940e], 0xffff     ; 0x0c80
+    mov word [bss_940e], 0xffff      ; 0x0c80
     jmp short @..api_idx_0012_4.l8   ; 0x0c86
 @..api_idx_0012_4.l7:
     mov ax, word [bp - 0x0002]       ; 0x0c88
-    mov word [dseg_940e], ax         ; 0x0c8b
+    mov word [bss_940e], ax          ; 0x0c8b
     push word [bp + 0xa]             ; 0x0c8e
     mov ax, 0x9414                   ; 0x0c91
     push ax                          ; 0x0c94
@@ -217,14 +217,14 @@ api_idx_0012_4:
     mov bx, word [bp + 0x8]          ; 0x0c9b
     mov al, byte [bx + 0x5]          ; 0x0c9e
     sub ah, ah                       ; 0x0ca1
-    mov word [dseg_9410], ax         ; 0x0ca3
+    mov word [bss_9410], ax          ; 0x0ca3
     mov al, byte [bx + 0x4]          ; 0x0ca6
     sub ah, ah                       ; 0x0ca9
-    mov word [dseg_942a], ax         ; 0x0cab
+    mov word [bss_942a], ax          ; 0x0cab
     mov al, byte [bx + 0x6]          ; 0x0cae
     sub ah, ah                       ; 0x0cb1
-    mov word [dseg_942c], ax         ; 0x0cb3
-    mov word [dseg_9412], 1          ; 0x0cb6
+    mov word [bss_942c], ax          ; 0x0cb3
+    mov word [bss_9412], 1           ; 0x0cb6
     call api_idx_0004_2              ; 0x0cbc
 @..api_idx_0012_4.l8:
     mov ax, 0xb6                     ; 0x0cbf

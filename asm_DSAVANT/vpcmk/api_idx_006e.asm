@@ -136,7 +136,7 @@ api_idx_006e:
     je short @..api_idx_006e.l10     ; 0x3eaa
     jmp near @..api_idx_006e.l12     ; 0x3eac
 @..api_idx_006e.l10:
-    mov ax, word [dseg_904e]         ; 0x3eaf
+    mov ax, word [bss_904e]          ; 0x3eaf
     mov cx, 0x100                    ; 0x3eb2
     cwd                              ; 0x3eb5
     idiv cx                          ; 0x3eb6
@@ -232,20 +232,20 @@ loc_3f87:
     les bx, word [dseg_0002]         ; 0x3f8d
     mov ax, word [es:bx]             ; 0x3f91
     mov dx, word [es:bx + 0x2]       ; 0x3f94
-    mov word [dseg_9090], dx         ; 0x3f98
-    mov word [dseg_908e], ax         ; 0x3f9c
-    mov ax, word [dseg_908e]         ; 0x3f9f
-    mov dx, word [dseg_9090]         ; 0x3fa2
-    sub ax, word [dseg_908a]         ; 0x3fa6
-    sbb dx, word [dseg_908c]         ; 0x3faa
-    mov word [dseg_9094], dx         ; 0x3fae
-    mov word [dseg_9092], ax         ; 0x3fb2
-    mov ax, word [dseg_976c]         ; 0x3fb5
+    mov word [bss_9090], dx          ; 0x3f98
+    mov word [bss_908e], ax          ; 0x3f9c
+    mov ax, word [bss_908e]          ; 0x3f9f
+    mov dx, word [bss_9090]          ; 0x3fa2
+    sub ax, word [bss_908a]          ; 0x3fa6
+    sbb dx, word [bss_908c]          ; 0x3faa
+    mov word [bss_9094], dx          ; 0x3fae
+    mov word [bss_9092], ax          ; 0x3fb2
+    mov ax, word [bss_976c]          ; 0x3fb5
     cwd                              ; 0x3fb8
     mov cx, ax                       ; 0x3fb9
     mov bx, dx                       ; 0x3fbb
-    mov ax, word [dseg_9092]         ; 0x3fbd
-    mov dx, word [dseg_9094]         ; 0x3fc0
+    mov ax, word [bss_9092]          ; 0x3fbd
+    mov dx, word [bss_9094]          ; 0x3fc0
     cmp bx, dx                       ; 0x3fc4
     jg short @..local.l35            ; 0x3fc6
     jne short @..local.l36           ; 0x3fc8
@@ -254,16 +254,16 @@ loc_3f87:
 @..local.l35:
     jmp short @..local.l37           ; 0x3fce
 @..local.l36:
-    mov ax, word [dseg_908e]         ; 0x3fd0
-    mov dx, word [dseg_9090]         ; 0x3fd3
-    mov word [dseg_908c], dx         ; 0x3fd7
-    mov word [dseg_908a], ax         ; 0x3fdb
-    mov ax, word [dseg_95ae]         ; 0x3fde
+    mov ax, word [bss_908e]          ; 0x3fd0
+    mov dx, word [bss_9090]          ; 0x3fd3
+    mov word [bss_908c], dx          ; 0x3fd7
+    mov word [bss_908a], ax          ; 0x3fdb
+    mov ax, word [bss_95ae]          ; 0x3fde
     inc ax                           ; 0x3fe1
     mov cx, 3                        ; 0x3fe2
     cwd                              ; 0x3fe5
     idiv cx                          ; 0x3fe6
-    mov word [dseg_95ae], dx         ; 0x3fe8
+    mov word [bss_95ae], dx          ; 0x3fe8
     push dx                          ; 0x3fec
     call api_idx_000a                ; 0x3fed
     pop cx                           ; 0x3ff0

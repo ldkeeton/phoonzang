@@ -1,6 +1,6 @@
 api_idx_0004_4:
     mov ax, 0xfffc                   ; 0x114d
-    db 0xe8, 0xb8, 0xe2 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x1150
     mov ax, 0x90c2                   ; 0x1153
     push ax                          ; 0x1156
     mov ax, 1                        ; 0x1157
@@ -23,7 +23,7 @@ api_idx_0004_4:
     call api_idx_0004_3              ; 0x1178
     add sp, byte 0x14                ; 0x117b
 @..api_idx_0004_4.l1:
-    call 0xbaef                      ; 0x117e
+    call ds_dispatch_baef            ; 0x117e
     test ax, ax                      ; 0x1181
     jne short @..api_idx_0004_4.l2   ; 0x1183
     jmp short @..api_idx_0004_4.l1   ; 0x1185
@@ -36,6 +36,6 @@ api_idx_0004_4:
     push ax                          ; 0x1192
     mov ax, 1                        ; 0x1193
     push ax                          ; 0x1196
-    db 0xe8, 0x40, 0xd7 ; call 0xe8da
+    call ds_dispatch_e8da            ; 0x1197
     add sp, byte 8                   ; 0x119a
     ret                              ; 0x119d

@@ -47,7 +47,7 @@ api_idx_0010:
     push word [bp + 0x4]             ; 0x26c8
     call api_idx_0006_3              ; 0x26cb
     add sp, byte 8                   ; 0x26ce
-    mov word [dseg_91d6], 4          ; 0x26d1
+    mov word [bss_91d6], 4           ; 0x26d1
     mov ax, word [bp - 0x0006]       ; 0x26d7
     mov word [bp - 0x0002], ax       ; 0x26da
     jmp near @..api_idx_0010.l23     ; 0x26dd
@@ -56,7 +56,7 @@ api_idx_0010:
     jne short @..api_idx_0010.l8     ; 0x26e4
     mov ax, 0xe                      ; 0x26e6
     push ax                          ; 0x26e9
-    mov ax, word [dseg_8490]         ; 0x26ea
+    mov ax, word [bss_8490]          ; 0x26ea
     add ax, 0x9a                     ; 0x26ed
     push ax                          ; 0x26f0
     mov ax, 0x248                    ; 0x26f1
@@ -196,8 +196,8 @@ api_idx_0010:
     push ax                          ; 0x282a
     call ds_dispatch_b300            ; 0x282b
     add sp, byte 6                   ; 0x282e
-    mov byte [dseg_9136], 0          ; 0x2831
-    mov byte [dseg_9186], 0          ; 0x2836
+    mov byte [bss_9136], 0           ; 0x2831
+    mov byte [bss_9186], 0           ; 0x2836
     mov ax, 0x41                     ; 0x283b
     push ax                          ; 0x283e
     push ax                          ; 0x283f
@@ -241,7 +241,7 @@ api_idx_0010:
     call api_idx_0004_2              ; 0x2899
     add sp, byte 4                   ; 0x289c
 @..api_idx_0010.l19:
-    mov ax, word [dseg_9058]         ; 0x289f
+    mov ax, word [bss_9058]          ; 0x289f
     mov cx, 2                        ; 0x28a2
     cwd                              ; 0x28a5
     idiv cx                          ; 0x28a6
@@ -259,7 +259,7 @@ api_idx_0010:
     call api_idx_0050                ; 0x28bb
     add sp, byte 6                   ; 0x28be
 @..api_idx_0010.l21:
-    mov ax, word [dseg_9058]         ; 0x28c1
+    mov ax, word [bss_9058]          ; 0x28c1
     mov cx, 2                        ; 0x28c4
     cwd                              ; 0x28c7
     idiv cx                          ; 0x28c8

@@ -1,12 +1,12 @@
 api_idx_0006_5:
     mov ax, 0xfffa                   ; 0x5d0e
-    db 0xe8, 0xf7, 0x96 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x5d11
     call loc_10b6                    ; 0x5d14
     mov ax, 0x248                    ; 0x5d17
     imul word [bp + 0x4]             ; 0x5d1a
     add ax, 0x5bf4                   ; 0x5d1d
     push ax                          ; 0x5d20
-    push word [dseg_9ca8]            ; 0x5d21
+    push word [bss_9ca8]             ; 0x5d21
     mov ax, 1                        ; 0x5d25
     push ax                          ; 0x5d28
     push ax                          ; 0x5d29
@@ -16,7 +16,7 @@ api_idx_0006_5:
     call api_idx_0038_2              ; 0x5d31
     add sp, byte 0x0c                ; 0x5d34
     mov word [bp - 0x0006], ax       ; 0x5d37
-    mov ax, word [dseg_904e]         ; 0x5d3a
+    mov ax, word [bss_904e]          ; 0x5d3a
     mov word [bp - 0x0002], ax       ; 0x5d3d
     mov word [bp - 0x0004], 0        ; 0x5d40
     mov ax, word [bp - 0x0006]       ; 0x5d45
@@ -47,7 +47,7 @@ api_idx_0006_5:
     push ax                          ; 0x5d84
     mov ax, 0x36                     ; 0x5d85
     push ax                          ; 0x5d88
-    db 0xe8, 0x4e, 0x8b ; call 0xe8da
+    call ds_dispatch_e8da            ; 0x5d89
     add sp, byte 8                   ; 0x5d8c
     mov ax, word [bp - 0x0004]       ; 0x5d8f
     ret                              ; 0x5d92

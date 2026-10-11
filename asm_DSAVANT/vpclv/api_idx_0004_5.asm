@@ -57,7 +57,7 @@ api_idx_0004_5:
     call ds_dispatch_b7e0            ; 0x3309
     pop cx                           ; 0x330c
 @..api_idx_0004_5.l1:
-    push word [dseg_905a]            ; 0x330d
+    push word [bss_905a]             ; 0x330d
     call ds_dispatch_b75e            ; 0x3311
     pop cx                           ; 0x3314
     mov ax, 1                        ; 0x3315

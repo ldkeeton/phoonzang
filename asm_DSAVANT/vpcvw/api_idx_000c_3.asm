@@ -68,32 +68,32 @@ loc_2bf3:
     les bx, word [dseg_0002]         ; 0x2bf9
     mov ax, word [es:bx]             ; 0x2bfd
     mov dx, word [es:bx + 0x2]       ; 0x2c00
-    mov word [dseg_9090], dx         ; 0x2c04
-    mov word [dseg_908e], ax         ; 0x2c08
-    mov ax, word [dseg_908e]         ; 0x2c0b
-    mov dx, word [dseg_9090]         ; 0x2c0e
-    sub ax, word [dseg_908a]         ; 0x2c12
-    sbb dx, word [dseg_908c]         ; 0x2c16
-    mov word [dseg_9094], dx         ; 0x2c1a
-    mov word [dseg_9092], ax         ; 0x2c1e
-    mov ax, word [dseg_9562]         ; 0x2c21
+    mov word [bss_9090], dx          ; 0x2c04
+    mov word [bss_908e], ax          ; 0x2c08
+    mov ax, word [bss_908e]          ; 0x2c0b
+    mov dx, word [bss_9090]          ; 0x2c0e
+    sub ax, word [bss_908a]          ; 0x2c12
+    sbb dx, word [bss_908c]          ; 0x2c16
+    mov word [bss_9094], dx          ; 0x2c1a
+    mov word [bss_9092], ax          ; 0x2c1e
+    mov ax, word [bss_9562]          ; 0x2c21
     cwd                              ; 0x2c24
     mov cx, ax                       ; 0x2c25
     mov bx, dx                       ; 0x2c27
-    mov ax, word [dseg_9092]         ; 0x2c29
-    mov dx, word [dseg_9094]         ; 0x2c2c
+    mov ax, word [bss_9092]          ; 0x2c29
+    mov dx, word [bss_9094]          ; 0x2c2c
     cmp bx, dx                       ; 0x2c30
-    jg short @..local.l38            ; 0x2c32
-    jne short @..local.l39           ; 0x2c34
+    jg short @..local.l39            ; 0x2c32
+    jne short @..local.l40           ; 0x2c34
     cmp cx, ax                       ; 0x2c36
-    jbe short @..local.l39           ; 0x2c38
-@..local.l38:
-    jmp short @..local.l40           ; 0x2c3a
+    jbe short @..local.l40           ; 0x2c38
 @..local.l39:
-    mov ax, word [dseg_908e]         ; 0x2c3c
-    mov dx, word [dseg_9090]         ; 0x2c3f
-    mov word [dseg_908c], dx         ; 0x2c43
-    mov word [dseg_908a], ax         ; 0x2c47
+    jmp short @..local.l41           ; 0x2c3a
+@..local.l40:
+    mov ax, word [bss_908e]          ; 0x2c3c
+    mov dx, word [bss_9090]          ; 0x2c3f
+    mov word [bss_908c], dx          ; 0x2c43
+    mov word [bss_908a], ax          ; 0x2c47
     call api_idx_000a_2              ; 0x2c4a
     push word [bp + 0x4]             ; 0x2c4d
     call api_idx_000c_3              ; 0x2c50
@@ -119,5 +119,5 @@ loc_2bf3:
     push ax                          ; 0x2c7c
     call ds_dispatch_e8da            ; 0x2c7d
     add sp, byte 8                   ; 0x2c80
-@..local.l40:
+@..local.l41:
     ret                              ; 0x2c83

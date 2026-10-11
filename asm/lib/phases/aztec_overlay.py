@@ -72,11 +72,15 @@ class AztecOverlayPhase(Phase):
             return pl.Series(self.output_slot, result, dtype=pl.Float32)
 
         # The whole 14-byte header is data; real code starts at offset 14.
-        for i in range(0, min(_HEADER_SIZE, n)):
+        # Mark it as hard data so no later heuristic (force-code back-scan,
+        # arbiter fallback) can promote header fields to code.
+        header_end = min(_HEADER_SIZE, n)
+        for i in range(0, header_end):
             result[i] = CONF_DATA
+            ctx.hard_data[i] = True
 
-        # The sidecar start offset points into the header, not at code.
-        if 0 < ctx.start_offset <= _HEADER_SIZE:
+        # A sidecar start offset that points *into* the header is not code.
+        if 0 < ctx.start_offset < _HEADER_SIZE:
             ctx.code_targets.pop(ctx.start_offset, None)
             ctx.seeds = [s for s in ctx.seeds if s.address != ctx.start_offset]
 

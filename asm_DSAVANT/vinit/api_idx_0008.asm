@@ -25,10 +25,10 @@ api_idx_0008:
     mov ax, word [bp - 0x0004]       ; 0x1445
     cmp ax, strict word 0x12         ; 0x1448
     jl short @..api_idx_0008.l1      ; 0x144b
-    mov word [dseg_906a], 0          ; 0x144d
-    mov word [dseg_5b70], 0          ; 0x1453
-    mov word [dseg_5b6e], 0          ; 0x1459
-    mov word [dseg_5b6c], 0xffff     ; 0x145f
+    mov word [bss_906a], 0           ; 0x144d
+    mov word [bss_5b70], 0           ; 0x1453
+    mov word [bss_5b6e], 0           ; 0x1459
+    mov word [bss_5b6c], 0xffff      ; 0x145f
     mov ax, 0                        ; 0x1465
     push ax                          ; 0x1468
     mov ax, 1                        ; 0x1469
@@ -65,7 +65,7 @@ api_idx_0008:
     push ax                          ; 0x14b2
     call ds_dispatch_d61c            ; 0x14b3
     add sp, byte 4                   ; 0x14b6
-    cmp word [dseg_904c], byte 0     ; 0x14b9
+    cmp word [bss_904c], byte 0      ; 0x14b9
     jne short @..api_idx_0008.l2     ; 0x14be
     call ds_dispatch_b890            ; 0x14c0
 @..api_idx_0008.l2:
@@ -112,8 +112,8 @@ api_idx_0008:
     mov ax, word [bp - 0x0002]       ; 0x1529
     cmp ax, strict word 6            ; 0x152c
     jl short @..api_idx_0008.l3      ; 0x152f
-    mov word [dseg_5212], 0xffff     ; 0x1531
-    mov word [dseg_69c8], 0          ; 0x1537
+    mov word [bss_5212], 0xffff      ; 0x1531
+    mov word [bss_69c8], 0           ; 0x1537
     mov word [bp - 0x0002], 0        ; 0x153d
 @..api_idx_0008.l4:
     mov ax, word [bp - 0x0002]       ; 0x1542
@@ -167,8 +167,8 @@ api_idx_0008:
     push ax                          ; 0x15be
     call ds_dispatch_e928            ; 0x15bf
     add sp, byte 8                   ; 0x15c2
-    mov word [dseg_8d08], dx         ; 0x15c5
-    mov word [dseg_8d06], ax         ; 0x15c9
-    mov word [dseg_0e36], 0          ; 0x15cc
-    mov word [dseg_830a], 4          ; 0x15d2
+    mov word [bss_8d08], dx          ; 0x15c5
+    mov word [bss_8d06], ax          ; 0x15c9
+    mov word [bss_0e36], 0           ; 0x15cc
+    mov word [bss_830a], 4           ; 0x15d2
     ret                              ; 0x15d8

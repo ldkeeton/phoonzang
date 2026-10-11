@@ -43,91 +43,91 @@
     "vinit": {
       "file": "VINIT.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "a9ce1c8209c02378c2b52536d4442b4825c7820a2b68735f1eab961bfc1f9a5b",
       "fingerprint-end": "19413ae6ba3589e0f4a879c23822ba988cf4dfdb22725e7a88a067ef49ae2fed"
     },
     "vbase": {
       "file": "VBASE.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "218b560702235a79832b753b32bb54d07498cf6d1948ab9e54b72739a963854a",
       "fingerprint-end": "139233ffa401a5bb3c3287111ccd0e0ba55235342014fc450dd3e69f6a996639"
     },
     "vdopt": {
       "file": "VDOPT.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "c8c4c23e3ad867c36b8080699225c729746fdffbc6b8722bab2d7c77ee68258a",
       "fingerprint-end": "fc8a5d7527045414e8771ddf3d475a04522f6a27059089e70e25885476ccd204"
     },
     "vmele": {
       "file": "VMELE.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "7c68ef4f19c68660460f175896f3e6154117e8f20ae856242aacd9396d16f430",
       "fingerprint-end": "5f236ebf8108dddf3960a4857c7c89fb31686a72420cd060a30b9d8264dee6f6"
     },
     "vmexe": {
       "file": "VMEXE.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "4d8f72c62c974d97d1c3a549d02539af95d9c729d7db48ee8b34725b7c91b906",
       "fingerprint-end": "cf3c207601279bfa68168f45b79aa45735dc9eff5a68d2e974ab3260440c4fd3"
     },
     "vmaze": {
       "file": "VMAZE.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "7036496b95041e558f2300d8edfb7bafbf28bf3b49287b08c83be6777ade2076",
       "fingerprint-end": "9a549cc9b826f26418d2a2526edb43513f6ad2bd5c199b45e0474c601469b619"
     },
     "vmnpc": {
       "file": "VMNPC.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "7a44e4294fecaf7a6beecdfb6be6e38decb565ec60ff42bd8e7cd529c85110af",
       "fingerprint-end": "e0216eba09aade5df0f1a2ba3de10736eb3757014b86fde7bb218c287d1d8941"
     },
     "vpcvw": {
       "file": "VPCVW.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "9fb646e733642383e8c32ea00fc61b95d8de9559348ceb0d6505372774fb4ebb",
       "fingerprint-end": "6a64e76475eabcf56db577a52b85d64311bb4437bf6c9d2c5f19b8043207148c"
     },
     "vpclv": {
       "file": "VPCLV.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "a1b4edc3972d7eaf1885ec5cdb4d86ef190f50ef7ccfc62d69b8d207e549ebaa",
       "fingerprint-end": "a8abc7a622f186ea7f236ac8f4a12ca8c73cac886ee9350419e8b09cd3a7be2c"
     },
     "vpcmk": {
       "file": "VPCMK.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "9913c930bd2325cb85aa1fdeee01dcd8643f723ad91419d17c97eb80c2cbe2f1",
       "fingerprint-end": "78d26a13eb62891e3c8cd98d8f74cd9f4f05b028031d0c418b0b663516a33f76"
     },
     "vpops": {
       "file": "VPOPS.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "a81c6b7a75e996d2f0feb4ca7c68aa5a14424e51d578dd8d107296d1550d6e09",
       "fingerprint-end": "28a41ce973d74b574c1e907936aacc224f5595a92d4a6305e748497902ec108f"
     },
     "vtrea": {
       "file": "VTREA.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "c6c44873a8e2c2fefadfc69be5426dff544f1674e6a87ded0d95c74b8843f007",
       "fingerprint-end": "891661dde33bd5a33bc26b02c23f61f633e2d37eb80b5b6a41851f6e63aa9aea"
     },
     "vmext": {
       "file": "VMEXT.OVR",
       "type": "aztec_overlay",
-      "start_offset": 8,
+      "start_offset": 14,
       "fingerprint-start": "fbf6829bb248e42709a2a1cbb19e67bab5dc8b55e262e4b1d1e6d58e07496317",
       "fingerprint-end": "7f2b38f34f19a1344d7654e39b636dc35eca7916d4861533a83a4d3ba105e524"
     },

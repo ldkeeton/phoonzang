@@ -11,7 +11,7 @@ api_idx_0008:
     mov ax, 0x2c                     ; 0x026b
     imul word [bp + 0x4]             ; 0x026e
     mov si, ax                       ; 0x0271
-    mov bx, word [dseg_8482]         ; 0x0273
+    mov bx, word [bss_8482]          ; 0x0273
     cmp byte [bx + si + 0x2b], 1     ; 0x0277
     je short @..api_idx_0008.l2      ; 0x027b
     cmp byte [bx + si + 0x2b], 3     ; 0x027d

@@ -68,32 +68,32 @@ loc_28f7:
     les bx, word [dseg_0002]         ; 0x28fd
     mov ax, word [es:bx]             ; 0x2901
     mov dx, word [es:bx + 0x2]       ; 0x2904
-    mov word [dseg_9090], dx         ; 0x2908
-    mov word [dseg_908e], ax         ; 0x290c
-    mov ax, word [dseg_908e]         ; 0x290f
-    mov dx, word [dseg_9090]         ; 0x2912
-    sub ax, word [dseg_908a]         ; 0x2916
-    sbb dx, word [dseg_908c]         ; 0x291a
-    mov word [dseg_9094], dx         ; 0x291e
-    mov word [dseg_9092], ax         ; 0x2922
-    mov ax, word [dseg_9b5e]         ; 0x2925
+    mov word [bss_9090], dx          ; 0x2908
+    mov word [bss_908e], ax          ; 0x290c
+    mov ax, word [bss_908e]          ; 0x290f
+    mov dx, word [bss_9090]          ; 0x2912
+    sub ax, word [bss_908a]          ; 0x2916
+    sbb dx, word [bss_908c]          ; 0x291a
+    mov word [bss_9094], dx          ; 0x291e
+    mov word [bss_9092], ax          ; 0x2922
+    mov ax, word [bss_9b5e]          ; 0x2925
     cwd                              ; 0x2928
     mov cx, ax                       ; 0x2929
     mov bx, dx                       ; 0x292b
-    mov ax, word [dseg_9092]         ; 0x292d
-    mov dx, word [dseg_9094]         ; 0x2930
+    mov ax, word [bss_9092]          ; 0x292d
+    mov dx, word [bss_9094]          ; 0x2930
     cmp bx, dx                       ; 0x2934
-    jg short @..local.l36            ; 0x2936
-    jne short @..local.l37           ; 0x2938
+    jg short @..local.l45            ; 0x2936
+    jne short @..local.l46           ; 0x2938
     cmp cx, ax                       ; 0x293a
-    jbe short @..local.l37           ; 0x293c
-@..local.l36:
-    jmp short @..local.l38           ; 0x293e
-@..local.l37:
-    mov ax, word [dseg_908e]         ; 0x2940
-    mov dx, word [dseg_9090]         ; 0x2943
-    mov word [dseg_908c], dx         ; 0x2947
-    mov word [dseg_908a], ax         ; 0x294b
+    jbe short @..local.l46           ; 0x293c
+@..local.l45:
+    jmp short @..local.l47           ; 0x293e
+@..local.l46:
+    mov ax, word [bss_908e]          ; 0x2940
+    mov dx, word [bss_9090]          ; 0x2943
+    mov word [bss_908c], dx          ; 0x2947
+    mov word [bss_908a], ax          ; 0x294b
     call api_idx_000a_3              ; 0x294e
     push word [bp + 0x4]             ; 0x2951
     call api_idx_000c_3              ; 0x2954
@@ -119,5 +119,5 @@ loc_28f7:
     push ax                          ; 0x2980
     call ds_dispatch_e8da            ; 0x2981
     add sp, byte 8                   ; 0x2984
-@..local.l38:
+@..local.l47:
     ret                              ; 0x2987

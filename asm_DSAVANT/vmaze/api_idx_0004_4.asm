@@ -1,19 +1,19 @@
 api_idx_0004_4:
     mov ax, 0xfffc                   ; 0x17ee
     call ds_dispatch_f40b            ; 0x17f1
-    mov word [dseg_91ac], 0x7e4      ; 0x17f4
-    mov ax, word [dseg_82ee]         ; 0x17fa
+    mov word [bss_91ac], 0x7e4       ; 0x17f4
+    mov ax, word [bss_82ee]          ; 0x17fa
     add ax, word [bp + 0x4]          ; 0x17fd
     add ax, strict word 4            ; 0x1800
     mov cx, 4                        ; 0x1803
     cwd                              ; 0x1806
     idiv cx                          ; 0x1807
     mov word [bp - 0x0004], dx       ; 0x1809
-    push word [dseg_8f44]            ; 0x180c
-    push word [dseg_8f46]            ; 0x1810
-    push word [dseg_8f40]            ; 0x1814
-    push word [dseg_8f42]            ; 0x1818
-    push word [dseg_8f3e]            ; 0x181c
+    push word [bss_8f44]             ; 0x180c
+    push word [bss_8f46]             ; 0x1810
+    push word [bss_8f40]             ; 0x1814
+    push word [bss_8f42]             ; 0x1818
+    push word [bss_8f3e]             ; 0x181c
     push dx                          ; 0x1820
     call loc_1165                    ; 0x1821
     add sp, byte 0x0c                ; 0x1824
@@ -41,7 +41,7 @@ api_idx_0004_4:
     cmp word [bp - 0x0002], byte 3   ; 0x1852
     jne short @..api_idx_0004_4.l5   ; 0x1856
     mov ax, word [bp - 0x0004]       ; 0x1858
-    cmp ax, word [dseg_82ee]         ; 0x185b
+    cmp ax, word [bss_82ee]          ; 0x185b
     jne short @..api_idx_0004_4.l5   ; 0x185f
     mov ax, 0xf                      ; 0x1861
     push ax                          ; 0x1864
@@ -51,7 +51,7 @@ api_idx_0004_4:
     push ax                          ; 0x186c
     call ds_dispatch_b7e0            ; 0x186d
     pop cx                           ; 0x1870
-    mov word [dseg_831a], 1          ; 0x1871
+    mov word [bss_831a], 1           ; 0x1871
     call loc_676c                    ; 0x1877
     mov ax, 0x10                     ; 0x187a
     push ax                          ; 0x187d
@@ -61,18 +61,18 @@ api_idx_0004_4:
     push ax                          ; 0x1885
     call ds_dispatch_d6c6            ; 0x1886
     pop cx                           ; 0x1889
-    mov word [dseg_598e], 0xffff     ; 0x188a
+    mov word [bss_598e], 0xffff      ; 0x188a
     mov ax, 2                        ; 0x1890
     push ax                          ; 0x1893
     call ds_dispatch_b75e            ; 0x1894
     pop cx                           ; 0x1897
-    mov word [dseg_831a], 2          ; 0x1898
+    mov word [bss_831a], 2           ; 0x1898
     call loc_676c                    ; 0x189e
     mov ax, 2                        ; 0x18a1
     push ax                          ; 0x18a4
     call ds_dispatch_b75e            ; 0x18a5
     pop cx                           ; 0x18a8
-    mov word [dseg_831a], 0          ; 0x18a9
+    mov word [bss_831a], 0           ; 0x18a9
     push word [bp - 0x0004]          ; 0x18af
     call api_idx_000e                ; 0x18b2
     pop cx                           ; 0x18b5
@@ -80,17 +80,17 @@ api_idx_0004_4:
     je short @..api_idx_0004_4.l5    ; 0x18b8
     ret                              ; 0x18ba
 @..api_idx_0004_4.l5:
-    cmp word [dseg_91a8], byte 0     ; 0x18bb
+    cmp word [bss_91a8], byte 0      ; 0x18bb
     jne short @..api_idx_0004_4.l7   ; 0x18c0
     mov ax, 2                        ; 0x18c2
     push ax                          ; 0x18c5
     mov ax, 0                        ; 0x18c6
-    cmp word [dseg_91ac], strict word 0x7e4 ; 0x18c9
+    cmp word [bss_91ac], strict word 0x7e4 ; 0x18c9
     jne short @..api_idx_0004_4.l6   ; 0x18cf
     mov ax, 2                        ; 0x18d1
 @..api_idx_0004_4.l6:
     push ax                          ; 0x18d4
-    push word [dseg_91ac]            ; 0x18d5
+    push word [bss_91ac]             ; 0x18d5
     call loc_12d3                    ; 0x18d9
     add sp, byte 6                   ; 0x18dc
 @..api_idx_0004_4.l7:
@@ -102,9 +102,9 @@ api_idx_0004_4:
     jne short @..api_idx_0004_4.l10  ; 0x18ec
 @..api_idx_0004_4.l9:
     mov ax, word [bp - 0x0004]       ; 0x18ee
-    cmp ax, word [dseg_82ee]         ; 0x18f1
+    cmp ax, word [bss_82ee]          ; 0x18f1
     jne short @..api_idx_0004_4.l10  ; 0x18f5
-    mov ax, word [dseg_905a]         ; 0x18f7
+    mov ax, word [bss_905a]          ; 0x18f7
     mov cx, 2                        ; 0x18fa
     cwd                              ; 0x18fd
     idiv cx                          ; 0x18fe
@@ -119,7 +119,7 @@ api_idx_0004_4:
     mov ax, 2                        ; 0x190e
     push ax                          ; 0x1911
     push ax                          ; 0x1912
-    push word [dseg_91ac]            ; 0x1913
+    push word [bss_91ac]             ; 0x1913
     call loc_12d3                    ; 0x1917
     add sp, byte 6                   ; 0x191a
 @..api_idx_0004_4.l11:
@@ -139,7 +139,7 @@ api_idx_0004_4:
     mov ax, 2                        ; 0x1933
     push ax                          ; 0x1936
     push ax                          ; 0x1937
-    push word [dseg_91ac]            ; 0x1938
+    push word [bss_91ac]             ; 0x1938
     call loc_12d3                    ; 0x193c
     add sp, byte 6                   ; 0x193f
 @..api_idx_0004_4.l15:

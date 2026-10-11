@@ -3,4 +3,5 @@ leaf_loc_2a1c:
     mov bp, sp                       ; 0x2a1d
     mov ah, 0x3b                     ; 0x2a1f
     jmp short loc_2a03               ; 0x2a21
-    times 4 db 0
+    add byte [bx + si], al           ; 0x2a23
+    add byte [bx + si], al           ; 0x2a25

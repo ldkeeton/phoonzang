@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_4ea0.inc"
+%include "inc/structs/data_0410.inc"
 org 0
 bits 16
 %ifndef IMAGE_BASE
@@ -27,31 +27,6 @@ IMAGE_BASE equ 0x0200
     times 478 db 0
 
 data_0410 equ 0x0410
-data_0e0e equ 0x0e0e
-data_0e10 equ 0x0e10
-data_0e12 equ 0x0e12
-data_0e14 equ 0x0e14
-data_0e16 equ 0x0e16
-data_0e18 equ 0x0e18
-data_0e1a equ 0x0e1a
-data_0e1c equ 0x0e1c
-data_0e1e equ 0x0e1e
-data_0e20 equ 0x0e20
-data_0e22 equ 0x0e22
-data_0e24 equ 0x0e24
-data_0e26 equ 0x0e26
-data_0e28 equ 0x0e28
-data_0e2a equ 0x0e2a
-data_0e2c equ 0x0e2c
-data_0e2e equ 0x0e2e
-data_0e30 equ 0x0e30
-data_0e32 equ 0x0e32
-data_4b36 equ 0x4b36
-data_4c89 equ 0x4c89
-data_4c8b equ 0x4c8b
-loc_4ea0 equ 0x4ea0
-data_830a equ 0x830a
-data_830c equ 0x830c
 leaf_loc_10108 equ 0x10108
 dseg_0002 equ 0x0002
 psp_top_of_memory equ 0x0002
@@ -89,8 +64,20 @@ bss_0d02 equ 0x0d02
 bss_0d04 equ 0x0d04
 bss_0d06 equ 0x0d06
 bss_0e0c equ 0x0e0c
+bss_0e0e equ 0x0e0e
+bss_0e10 equ 0x0e10
+bss_0e12 equ 0x0e12
+bss_0e14 equ 0x0e14
+bss_0e16 equ 0x0e16
+bss_0e18 equ 0x0e18
+bss_0e1a equ 0x0e1a
+bss_0e1c equ 0x0e1c
+bss_0e1e equ 0x0e1e
+bss_0e20 equ 0x0e20
 bss_0e22 equ 0x0e22
 bss_0e24 equ 0x0e24
+bss_0e26 equ 0x0e26
+bss_0e28 equ 0x0e28
 bss_0e2a equ 0x0e2a
 bss_0e2c equ 0x0e2c
 bss_0e2e equ 0x0e2e
@@ -220,6 +207,7 @@ bss_82ec equ 0x82ec
 bss_82ee equ 0x82ee
 bss_82f0 equ 0x82f0
 bss_830a equ 0x830a
+bss_830c equ 0x830c
 bss_9096 equ 0x9096
 
 %include "ds/app_malloc.asm"

@@ -273,7 +273,7 @@ api_idx_0032:
     jne short @..api_idx_0032.l15    ; 0x2977
     mov ax, word [bp - 0x000e]       ; 0x2979
     mov word [bp - 0x0032], ax       ; 0x297c
-    cmp word [dseg_0e32], byte 0     ; 0x297f
+    cmp word [bss_0e32], byte 0      ; 0x297f
     jne short @..api_idx_0032.l15    ; 0x2984
     mov ax, 0x16                     ; 0x2986
     push ax                          ; 0x2989
@@ -320,7 +320,7 @@ api_idx_0032:
     push ax                          ; 0x29dc
     call ds_dispatch_e8da            ; 0x29dd
     add sp, byte 8                   ; 0x29e0
-    cmp word [dseg_0e32], byte 0     ; 0x29e3
+    cmp word [bss_0e32], byte 0      ; 0x29e3
     je short @..api_idx_0032.l19     ; 0x29e8
 @..api_idx_0032.l18:
     mov ax, 0x59fe                   ; 0x29ea
@@ -329,7 +329,7 @@ api_idx_0032:
     pop cx                           ; 0x29f1
     dec ax                           ; 0x29f2
     mov word [bp - 0x0008], ax       ; 0x29f3
-    cmp word [dseg_5b3e], byte 0     ; 0x29f6
+    cmp word [bss_5b3e], byte 0      ; 0x29f6
     je short @..api_idx_0032.l18     ; 0x29fb
     jmp near @..api_idx_0032.l31     ; 0x29fd
 @..api_idx_0032.l19:

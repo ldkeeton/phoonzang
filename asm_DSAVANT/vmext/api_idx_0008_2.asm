@@ -329,7 +329,7 @@ loc_1823:
     add sp, byte 0x0a                ; 0x1840
     test ax, ax                      ; 0x1843
     je short @..local.l27            ; 0x1845
-    mov ax, word [dseg_5b6e]         ; 0x1847
+    mov ax, word [bss_5b6e]          ; 0x1847
     mov cx, 2                        ; 0x184a
     cwd                              ; 0x184d
     idiv cx                          ; 0x184e
@@ -339,10 +339,10 @@ loc_1823:
     mov ax, cx                       ; 0x1856
     jmp short @..local.l26           ; 0x1858
 @..local.l23:
-    mov ax, word [dseg_5b6e]         ; 0x185a
+    mov ax, word [bss_5b6e]          ; 0x185a
     cmp ax, strict word 6            ; 0x185d
     je short @..local.l24            ; 0x1860
-    cmp word [dseg_9188], byte 0     ; 0x1862
+    cmp word [bss_9188], byte 0      ; 0x1862
     je short @..local.l25            ; 0x1867
 @..local.l24:
     mov ax, 0                        ; 0x1869
@@ -364,7 +364,7 @@ loc_1823:
     add ax, cx                       ; 0x1887
     add ax, word [bp + 0x8]          ; 0x1889
     push ax                          ; 0x188c
-    mov ax, word [dseg_0e14]         ; 0x188d
+    mov ax, word [bss_0e14]          ; 0x188d
     add ax, 0x90                     ; 0x1890
     push ax                          ; 0x1893
     call ds_dispatch_ecf6            ; 0x1894
@@ -387,7 +387,7 @@ loc_189b:
     add sp, byte 0x0a                ; 0x18b8
     test ax, ax                      ; 0x18bb
     je short @..local.l32            ; 0x18bd
-    mov ax, word [dseg_5b6e]         ; 0x18bf
+    mov ax, word [bss_5b6e]          ; 0x18bf
     mov cx, 2                        ; 0x18c2
     cwd                              ; 0x18c5
     idiv cx                          ; 0x18c6
@@ -397,10 +397,10 @@ loc_189b:
     mov ax, cx                       ; 0x18ce
     jmp short @..local.l31           ; 0x18d0
 @..local.l28:
-    mov ax, word [dseg_5b6e]         ; 0x18d2
+    mov ax, word [bss_5b6e]          ; 0x18d2
     cmp ax, strict word 6            ; 0x18d5
     je short @..local.l29            ; 0x18d8
-    cmp word [dseg_9188], byte 0     ; 0x18da
+    cmp word [bss_9188], byte 0      ; 0x18da
     je short @..local.l30            ; 0x18df
 @..local.l29:
     mov ax, 0                        ; 0x18e1
@@ -422,7 +422,7 @@ loc_189b:
     add ax, cx                       ; 0x18ff
     add ax, word [bp + 0x8]          ; 0x1901
     push ax                          ; 0x1904
-    mov ax, word [dseg_0e14]         ; 0x1905
+    mov ax, word [bss_0e14]          ; 0x1905
     add ax, 0x290                    ; 0x1908
     push ax                          ; 0x190b
     call ds_dispatch_ecf6            ; 0x190c
@@ -432,7 +432,7 @@ loc_1913:
     mov ax, 0                        ; 0x1913
     call ds_dispatch_f40b            ; 0x1916
     mov ax, 0xffff                   ; 0x1919
-    cmp word [dseg_91a4], byte 0     ; 0x191c
+    cmp word [bss_91a4], byte 0      ; 0x191c
     je short @..local.l33            ; 0x1921
     mov ax, word [bp + 0x4]          ; 0x1923
 @..local.l33:
@@ -441,7 +441,7 @@ loc_1927:
     mov ax, 0                        ; 0x1927
     call ds_dispatch_f40b            ; 0x192a
     mov ax, word [bp + 0x4]          ; 0x192d
-    cmp word [dseg_91a4], byte 0     ; 0x1930
+    cmp word [bss_91a4], byte 0      ; 0x1930
     je short @..local.l34            ; 0x1935
     mov ax, word [bp + 0x6]          ; 0x1937
 @..local.l34:
@@ -450,7 +450,7 @@ loc_193b:
     mov ax, 0                        ; 0x193b
     call ds_dispatch_f40b            ; 0x193e
     mov ax, 0xffff                   ; 0x1941
-    cmp word [dseg_91a6], byte 0     ; 0x1944
+    cmp word [bss_91a6], byte 0      ; 0x1944
     je short @..local.l35            ; 0x1949
     mov ax, word [bp + 0x4]          ; 0x194b
 @..local.l35:
@@ -459,7 +459,7 @@ loc_194f:
     mov ax, 0                        ; 0x194f
     call ds_dispatch_f40b            ; 0x1952
     mov ax, word [bp + 0x4]          ; 0x1955
-    cmp word [dseg_91a6], byte 0     ; 0x1958
+    cmp word [bss_91a6], byte 0      ; 0x1958
     je short @..local.l36            ; 0x195d
     mov ax, word [bp + 0x6]          ; 0x195f
 @..local.l36:
@@ -467,7 +467,7 @@ loc_194f:
 loc_1963:
     mov ax, 0                        ; 0x1963
     call ds_dispatch_f40b            ; 0x1966
-    mov ax, word [dseg_82ee]         ; 0x1969
+    mov ax, word [bss_82ee]          ; 0x1969
     jmp short @..local.l41           ; 0x196c
 @..local.l37:
     mov ax, word [bp + 0xe]          ; 0x196e
@@ -527,7 +527,7 @@ loc_19e4:
     mov ax, 6                        ; 0x19ea
     push ax                          ; 0x19ed
     push word [bp + 0x4]             ; 0x19ee
-    mov ax, word [dseg_0e14]         ; 0x19f1
+    mov ax, word [bss_0e14]          ; 0x19f1
     add ax, 0x4b0                    ; 0x19f4
     push ax                          ; 0x19f7
     call ds_dispatch_ecf6            ; 0x19f8
@@ -537,7 +537,7 @@ loc_19e4:
     mov ax, 2                        ; 0x1a03
     push ax                          ; 0x1a06
     push word [bp + 0x4]             ; 0x1a07
-    mov ax, word [dseg_0e14]         ; 0x1a0a
+    mov ax, word [bss_0e14]          ; 0x1a0a
     add ax, 0x7b0                    ; 0x1a0d
     push ax                          ; 0x1a10
     call ds_dispatch_ecf6            ; 0x1a11

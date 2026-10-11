@@ -2,8 +2,8 @@ api_idx_001e:
     mov ax, 0xffe2                   ; 0x529a
     call ds_dispatch_f40b            ; 0x529d
     mov word [bp - 0x0004], 0x14a    ; 0x52a0
-    mov ax, word [dseg_8f1c]         ; 0x52a5
-    mov dx, word [dseg_8f1e]         ; 0x52a8
+    mov ax, word [bss_8f1c]          ; 0x52a5
+    mov dx, word [bss_8f1e]          ; 0x52a8
     push ax                          ; 0x52ac
     push dx                          ; 0x52ad
     mov ax, word [bp - 0x0004]       ; 0x52ae
@@ -66,7 +66,7 @@ api_idx_001e:
     sub ax, cx                       ; 0x533c
     mov word [bp - 0x000e], ax       ; 0x533e
 @..api_idx_001e.l6:
-    mov ax, word [dseg_82ee]         ; 0x5341
+    mov ax, word [bss_82ee]          ; 0x5341
     shl ax, 1                        ; 0x5344
     mov bx, ax                       ; 0x5346
     add bx, bp                       ; 0x5348
@@ -117,6 +117,7 @@ api_idx_001e:
     mov ax, 0x24                     ; 0x53ae
     sub ax, word [bp - 0x000a]       ; 0x53b1
     jmp short @..api_idx_001e.l11    ; 0x53b4
+jumptable_03ce_case_2:
 @..api_idx_001e.l10:
     mov ax, word [bp - 0x000a]       ; 0x53b6
     add ax, strict word 0x20         ; 0x53b9
@@ -131,6 +132,7 @@ api_idx_001e:
     lea ax, word [bp - 0x001e]       ; 0x53cc
     push ax                          ; 0x53cf
     mov ax, 0                        ; 0x53d0
+jumptable_03ce_case_3:
     push ax                          ; 0x53d3
     mov ax, 0x90                     ; 0x53d4
     push ax                          ; 0x53d7

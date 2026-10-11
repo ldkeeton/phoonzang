@@ -1,7 +1,7 @@
 api_idx_0022:
     mov ax, 0xffde                   ; 0x2242
     call ds_dispatch_f40b            ; 0x2245
-    mov word [dseg_91d6], 4          ; 0x2248
+    mov word [bss_91d6], 4           ; 0x2248
     mov ax, 0x2c                     ; 0x224e
     imul word [bp + 0x6]             ; 0x2251
     mov si, ax                       ; 0x2254
@@ -48,7 +48,7 @@ api_idx_0022:
     jne short @..api_idx_0022.l7     ; 0x22b4
     mov ax, 0xe                      ; 0x22b6
     push ax                          ; 0x22b9
-    mov ax, word [dseg_8490]         ; 0x22ba
+    mov ax, word [bss_8490]          ; 0x22ba
     add ax, 0x9a                     ; 0x22bd
     push ax                          ; 0x22c0
     mov ax, 0x248                    ; 0x22c1
@@ -138,7 +138,7 @@ api_idx_0022:
     push ax                          ; 0x2384
     call ds_dispatch_b53b            ; 0x2385
     add sp, byte 4                   ; 0x2388
-    mov byte [dseg_9186], 0          ; 0x238b
+    mov byte [bss_9186], 0           ; 0x238b
     mov ax, 0x41                     ; 0x2390
     push ax                          ; 0x2393
     push ax                          ; 0x2394
@@ -206,7 +206,7 @@ api_idx_0022:
     mov bx, word [bx - 0x7b7e]       ; 0x2428
     cmp word [bx + si + 0x2], byte 0 ; 0x242c
     jg short @..api_idx_0022.l13     ; 0x2430
-    mov ax, word [dseg_9058]         ; 0x2432
+    mov ax, word [bss_9058]          ; 0x2432
     mov cx, 2                        ; 0x2435
     cwd                              ; 0x2438
     idiv cx                          ; 0x2439
@@ -249,7 +249,7 @@ api_idx_0022:
     call api_idx_0004_2              ; 0x2488
     add sp, byte 4                   ; 0x248b
 @..api_idx_0022.l14:
-    mov ax, word [dseg_9058]         ; 0x248e
+    mov ax, word [bss_9058]          ; 0x248e
     mov cx, 2                        ; 0x2491
     cwd                              ; 0x2494
     idiv cx                          ; 0x2495
@@ -268,7 +268,7 @@ api_idx_0022:
     call api_idx_0050                ; 0x24aa
     add sp, byte 6                   ; 0x24ad
 @..api_idx_0022.l17:
-    mov ax, word [dseg_9058]         ; 0x24b0
+    mov ax, word [bss_9058]          ; 0x24b0
     mov cx, 2                        ; 0x24b3
     cwd                              ; 0x24b6
     idiv cx                          ; 0x24b7
@@ -293,7 +293,7 @@ loc_24c2:
     push word [bp + 0x4]             ; 0x24de
     call api_idx_0050                ; 0x24e1
     add sp, byte 6                   ; 0x24e4
-    push word [dseg_9058]            ; 0x24e7
+    push word [bss_9058]             ; 0x24e7
     call api_idx_0004_5              ; 0x24eb
     pop cx                           ; 0x24ee
     ret                              ; 0x24ef

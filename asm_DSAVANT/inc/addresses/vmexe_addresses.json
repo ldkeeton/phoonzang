@@ -167,12 +167,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_0e2a",
+      "name": "bss_0e2a",
       "address": 3626,
       "address_hex": "0x0e2a",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -180,12 +180,12 @@
       ]
     },
     {
-      "name": "dseg_0e2c",
+      "name": "bss_0e2c",
       "address": 3628,
       "address_hex": "0x0e2c",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -193,12 +193,12 @@
       ]
     },
     {
-      "name": "dseg_0e36",
+      "name": "bss_0e36",
       "address": 3638,
       "address_hex": "0x0e36",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -206,12 +206,12 @@
       ]
     },
     {
-      "name": "dseg_0f00",
+      "name": "bss_0f00",
       "address": 3840,
       "address_hex": "0x0f00",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -659,12 +659,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_3300",
+      "name": "bss_3300",
       "address": 13056,
       "address_hex": "0x3300",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -705,12 +705,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_3700",
+      "name": "bss_3700",
       "address": 14080,
       "address_hex": "0x3700",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -740,12 +740,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_3ed1",
+      "name": "bss_3ed1",
       "address": 16081,
       "address_hex": "0x3ed1",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -754,12 +754,12 @@
       ]
     },
     {
-      "name": "dseg_46d1",
+      "name": "bss_46d1",
       "address": 18129,
       "address_hex": "0x46d1",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -767,12 +767,12 @@
       ]
     },
     {
-      "name": "dseg_56d1",
+      "name": "bss_56d1",
       "address": 22225,
       "address_hex": "0x56d1",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -780,12 +780,12 @@
       ]
     },
     {
-      "name": "dseg_5962",
+      "name": "bss_5962",
       "address": 22882,
       "address_hex": "0x5962",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -793,12 +793,12 @@
       ]
     },
     {
-      "name": "dseg_5963",
+      "name": "bss_5963",
       "address": 22883,
       "address_hex": "0x5963",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -806,12 +806,12 @@
       ]
     },
     {
-      "name": "dseg_5964",
+      "name": "bss_5964",
       "address": 22884,
       "address_hex": "0x5964",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -819,12 +819,12 @@
       ]
     },
     {
-      "name": "dseg_5988",
+      "name": "bss_5988",
       "address": 22920,
       "address_hex": "0x5988",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -835,12 +835,12 @@
       ]
     },
     {
-      "name": "dseg_598e",
+      "name": "bss_598e",
       "address": 22926,
       "address_hex": "0x598e",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -893,12 +893,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_69c8",
+      "name": "bss_69c8",
       "address": 27080,
       "address_hex": "0x69c8",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -975,12 +975,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_7abc",
+      "name": "bss_7abc",
       "address": 31420,
       "address_hex": "0x7abc",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -988,12 +988,12 @@
       ]
     },
     {
-      "name": "dseg_7b04",
+      "name": "bss_7b04",
       "address": 31492,
       "address_hex": "0x7b04",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1023,12 +1023,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_82e8",
+      "name": "bss_82e8",
       "address": 33512,
       "address_hex": "0x82e8",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1039,12 +1039,12 @@
       ]
     },
     {
-      "name": "dseg_82ee",
+      "name": "bss_82ee",
       "address": 33518,
       "address_hex": "0x82ee",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1052,12 +1052,12 @@
       ]
     },
     {
-      "name": "dseg_82f2",
+      "name": "bss_82f2",
       "address": 33522,
       "address_hex": "0x82f2",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1065,12 +1065,12 @@
       ]
     },
     {
-      "name": "dseg_82f4",
+      "name": "bss_82f4",
       "address": 33524,
       "address_hex": "0x82f4",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1078,12 +1078,12 @@
       ]
     },
     {
-      "name": "dseg_82f6",
+      "name": "bss_82f6",
       "address": 33526,
       "address_hex": "0x82f6",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1091,12 +1091,12 @@
       ]
     },
     {
-      "name": "dseg_82f8",
+      "name": "bss_82f8",
       "address": 33528,
       "address_hex": "0x82f8",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1104,12 +1104,12 @@
       ]
     },
     {
-      "name": "dseg_830a",
+      "name": "bss_830a",
       "address": 33546,
       "address_hex": "0x830a",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1119,12 +1119,12 @@
       ]
     },
     {
-      "name": "dseg_8320",
+      "name": "bss_8320",
       "address": 33568,
       "address_hex": "0x8320",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1139,12 +1139,12 @@
       ]
     },
     {
-      "name": "dseg_8454",
+      "name": "bss_8454",
       "address": 33876,
       "address_hex": "0x8454",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1153,12 +1153,12 @@
       ]
     },
     {
-      "name": "dseg_8458",
+      "name": "bss_8458",
       "address": 33880,
       "address_hex": "0x8458",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1166,12 +1166,12 @@
       ]
     },
     {
-      "name": "dseg_845a",
+      "name": "bss_845a",
       "address": 33882,
       "address_hex": "0x845a",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1179,12 +1179,12 @@
       ]
     },
     {
-      "name": "dseg_845e",
+      "name": "bss_845e",
       "address": 33886,
       "address_hex": "0x845e",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1202,12 +1202,12 @@
       ]
     },
     {
-      "name": "dseg_8460",
+      "name": "bss_8460",
       "address": 33888,
       "address_hex": "0x8460",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1222,12 +1222,12 @@
       ]
     },
     {
-      "name": "dseg_8462",
+      "name": "bss_8462",
       "address": 33890,
       "address_hex": "0x8462",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1334,12 +1334,12 @@
       ]
     },
     {
-      "name": "dseg_8464",
+      "name": "bss_8464",
       "address": 33892,
       "address_hex": "0x8464",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1443,12 +1443,23 @@
       ]
     },
     {
-      "name": "dseg_8466",
+      "name": "data_8464",
+      "address": 33892,
+      "address_hex": "0x8464",
+      "type": "A",
+      "space": "unknown",
+      "kind": "candidate",
+      "source": "candidate",
+      "confidence": "candidate",
+      "referenced_by": []
+    },
+    {
+      "name": "bss_8466",
       "address": 33894,
       "address_hex": "0x8466",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1464,12 +1475,12 @@
       ]
     },
     {
-      "name": "dseg_8468",
+      "name": "bss_8468",
       "address": 33896,
       "address_hex": "0x8468",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1480,12 +1491,12 @@
       ]
     },
     {
-      "name": "dseg_8482",
+      "name": "bss_8482",
       "address": 33922,
       "address_hex": "0x8482",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1502,12 +1513,12 @@
       ]
     },
     {
-      "name": "dseg_8484",
+      "name": "bss_8484",
       "address": 33924,
       "address_hex": "0x8484",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1515,12 +1526,12 @@
       ]
     },
     {
-      "name": "dseg_848e",
+      "name": "bss_848e",
       "address": 33934,
       "address_hex": "0x848e",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1529,12 +1540,12 @@
       ]
     },
     {
-      "name": "dseg_8490",
+      "name": "bss_8490",
       "address": 33936,
       "address_hex": "0x8490",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1570,12 +1581,12 @@
       ]
     },
     {
-      "name": "dseg_8492",
+      "name": "bss_8492",
       "address": 33938,
       "address_hex": "0x8492",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1587,12 +1598,12 @@
       ]
     },
     {
-      "name": "dseg_849e",
+      "name": "bss_849e",
       "address": 33950,
       "address_hex": "0x849e",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1600,12 +1611,12 @@
       ]
     },
     {
-      "name": "dseg_84a0",
+      "name": "bss_84a0",
       "address": 33952,
       "address_hex": "0x84a0",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1613,12 +1624,12 @@
       ]
     },
     {
-      "name": "dseg_84a2",
+      "name": "bss_84a2",
       "address": 33954,
       "address_hex": "0x84a2",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1626,12 +1637,12 @@
       ]
     },
     {
-      "name": "dseg_84a4",
+      "name": "bss_84a4",
       "address": 33956,
       "address_hex": "0x84a4",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1639,12 +1650,12 @@
       ]
     },
     {
-      "name": "dseg_8d0a",
+      "name": "bss_8d0a",
       "address": 36106,
       "address_hex": "0x8d0a",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1652,12 +1663,12 @@
       ]
     },
     {
-      "name": "dseg_8d0c",
+      "name": "bss_8d0c",
       "address": 36108,
       "address_hex": "0x8d0c",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1665,12 +1676,12 @@
       ]
     },
     {
-      "name": "dseg_8d0e",
+      "name": "bss_8d0e",
       "address": 36110,
       "address_hex": "0x8d0e",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1678,12 +1689,12 @@
       ]
     },
     {
-      "name": "dseg_8d10",
+      "name": "bss_8d10",
       "address": 36112,
       "address_hex": "0x8d10",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1691,12 +1702,12 @@
       ]
     },
     {
-      "name": "dseg_8f20",
+      "name": "bss_8f20",
       "address": 36640,
       "address_hex": "0x8f20",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1706,12 +1717,12 @@
       ]
     },
     {
-      "name": "dseg_9058",
+      "name": "bss_9058",
       "address": 36952,
       "address_hex": "0x9058",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1761,12 +1772,12 @@
       ]
     },
     {
-      "name": "dseg_905c",
+      "name": "bss_905c",
       "address": 36956,
       "address_hex": "0x905c",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1774,12 +1785,12 @@
       ]
     },
     {
-      "name": "dseg_906c",
+      "name": "bss_906c",
       "address": 36972,
       "address_hex": "0x906c",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1791,12 +1802,12 @@
       ]
     },
     {
-      "name": "dseg_908a",
+      "name": "bss_908a",
       "address": 37002,
       "address_hex": "0x908a",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1806,12 +1817,12 @@
       ]
     },
     {
-      "name": "dseg_908c",
+      "name": "bss_908c",
       "address": 37004,
       "address_hex": "0x908c",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1832,12 +1843,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_908e",
+      "name": "bss_908e",
       "address": 37006,
       "address_hex": "0x908e",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1847,12 +1858,12 @@
       ]
     },
     {
-      "name": "dseg_9090",
+      "name": "bss_9090",
       "address": 37008,
       "address_hex": "0x9090",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1862,12 +1873,12 @@
       ]
     },
     {
-      "name": "dseg_9092",
+      "name": "bss_9092",
       "address": 37010,
       "address_hex": "0x9092",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1876,12 +1887,12 @@
       ]
     },
     {
-      "name": "dseg_9094",
+      "name": "bss_9094",
       "address": 37012,
       "address_hex": "0x9094",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1960,12 +1971,12 @@
       ]
     },
     {
-      "name": "dseg_90bc",
+      "name": "bss_90bc",
       "address": 37052,
       "address_hex": "0x90bc",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "immediate",
       "confidence": "strong",
       "referenced_by": [
@@ -1974,12 +1985,12 @@
       ]
     },
     {
-      "name": "dseg_90dc",
+      "name": "bss_90dc",
       "address": 37084,
       "address_hex": "0x90dc",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -1988,6 +1999,23 @@
         6346,
         6361,
         6376
+      ]
+    },
+    {
+      "name": "bss_90de",
+      "address": 37086,
+      "address_hex": "0x90de",
+      "type": "A",
+      "space": "bss",
+      "kind": "bss",
+      "source": "segdataflow",
+      "confidence": "strong",
+      "referenced_by": [
+        4316,
+        13467,
+        25733,
+        32760,
+        37291
       ]
     },
     {
@@ -2002,29 +2030,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_90de",
-      "address": 37086,
-      "address_hex": "0x90de",
-      "type": "A",
-      "space": "ds",
-      "kind": "data",
-      "source": "segdataflow",
-      "confidence": "strong",
-      "referenced_by": [
-        4316,
-        13467,
-        25733,
-        32760,
-        37291
-      ]
-    },
-    {
-      "name": "dseg_90e0",
+      "name": "bss_90e0",
       "address": 37088,
       "address_hex": "0x90e0",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -2032,12 +2043,12 @@
       ]
     },
     {
-      "name": "dseg_90e2",
+      "name": "bss_90e2",
       "address": 37090,
       "address_hex": "0x90e2",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -2047,12 +2058,12 @@
       ]
     },
     {
-      "name": "dseg_90e4",
+      "name": "bss_90e4",
       "address": 37092,
       "address_hex": "0x90e4",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -2065,12 +2076,12 @@
       ]
     },
     {
-      "name": "dseg_9136",
+      "name": "bss_9136",
       "address": 37174,
       "address_hex": "0x9136",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -2079,12 +2090,12 @@
       ]
     },
     {
-      "name": "dseg_9186",
+      "name": "bss_9186",
       "address": 37254,
       "address_hex": "0x9186",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -2114,12 +2125,12 @@
       "referenced_by": []
     },
     {
-      "name": "dseg_91d6",
+      "name": "bss_91d6",
       "address": 37334,
       "address_hex": "0x91d6",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -2135,12 +2146,12 @@
       ]
     },
     {
-      "name": "dseg_91d8",
+      "name": "bss_91d8",
       "address": 37336,
       "address_hex": "0x91d8",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [
@@ -2163,12 +2174,12 @@
       ]
     },
     {
-      "name": "dseg_91da",
+      "name": "bss_91da",
       "address": 37338,
       "address_hex": "0x91da",
       "type": "A",
-      "space": "ds",
-      "kind": "data",
+      "space": "bss",
+      "kind": "bss",
       "source": "segdataflow",
       "confidence": "strong",
       "referenced_by": [

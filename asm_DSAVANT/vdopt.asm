@@ -5,94 +5,18 @@ bits 16
 %include "inc/labels/vdopt_foreign_labels.inc"
 
 %ifndef IMAGE_BASE
-IMAGE_BASE equ 0x0008
+IMAGE_BASE equ 0x000e
 %endif
 
-    ; header (8 bytes)
-    db 0xf2, 0x00, 0x55, 0x50, 0x21, 0x47, 0x98, 0x90
+    ; Aztec C86 overlay header (14 bytes)
+    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
+    dw 0x5055      ; o_corg: code load origin (memory offset)
+    dw 0x4721      ; o_csize: code size in bytes
+    dw 0x9098      ; o_dorg: data load origin (memory offset)
+    dw 0x001e      ; o_dsize: initialized data size
+    dw 0x0cde      ; o_bss: uninitialized data size
+    dw 0x9720      ; o_entry: overlay entry offset (CS)
 
-loc_1077 equ 0x1077
-loc_1086 equ 0x1086
-loc_109e equ 0x109e
-loc_10b6 equ 0x10b6
-loc_10ce equ 0x10ce
-loc_10e6 equ 0x10e6
-loc_1113 equ 0x1113
-loc_1122 equ 0x1122
-loc_1134 equ 0x1134
-loc_1143 equ 0x1143
-loc_115b equ 0x115b
-loc_1173 equ 0x1173
-loc_118b equ 0x118b
-loc_11a3 equ 0x11a3
-loc_11d0 equ 0x11d0
-loc_11df equ 0x11df
-loc_11f1 equ 0x11f1
-loc_1200 equ 0x1200
-loc_1218 equ 0x1218
-loc_1230 equ 0x1230
-loc_1248 equ 0x1248
-loc_1260 equ 0x1260
-loc_128d equ 0x128d
-loc_129c equ 0x129c
-loc_12ae equ 0x12ae
-loc_12bd equ 0x12bd
-loc_12cc equ 0x12cc
-loc_12db equ 0x12db
-loc_12ea equ 0x12ea
-loc_12f9 equ 0x12f9
-loc_1326 equ 0x1326
-loc_1335 equ 0x1335
-loc_1347 equ 0x1347
-loc_1356 equ 0x1356
-loc_1365 equ 0x1365
-loc_1374 equ 0x1374
-loc_1383 equ 0x1383
-loc_1392 equ 0x1392
-loc_13bf equ 0x13bf
-loc_13ce equ 0x13ce
-loc_13e0 equ 0x13e0
-loc_13ef equ 0x13ef
-loc_1407 equ 0x1407
-loc_141f equ 0x141f
-loc_1437 equ 0x1437
-loc_144f equ 0x144f
-loc_14e4 equ 0x14e4
-loc_1da2 equ 0x1da2
-loc_1db2 equ 0x1db2
-loc_1dc0 equ 0x1dc0
-loc_1dcf equ 0x1dcf
-loc_1dd4 equ 0x1dd4
-loc_1e31 equ 0x1e31
-loc_1e63 equ 0x1e63
-loc_1e90 equ 0x1e90
-loc_1ebb equ 0x1ebb
-loc_1f42 equ 0x1f42
-loc_1f47 equ 0x1f47
-loc_1f71 equ 0x1f71
-loc_1fa1 equ 0x1fa1
-loc_1fab equ 0x1fab
-loc_1fd6 equ 0x1fd6
-loc_1fe0 equ 0x1fe0
-loc_1ff1 equ 0x1ff1
-loc_200d equ 0x200d
-loc_203f equ 0x203f
-loc_2046 equ 0x2046
-loc_2060 equ 0x2060
-loc_2070 equ 0x2070
-loc_207f equ 0x207f
-loc_208e equ 0x208e
-loc_2093 equ 0x2093
-loc_20f9 equ 0x20f9
-loc_2116 equ 0x2116
-loc_2191 equ 0x2191
-loc_21a0 equ 0x21a0
-loc_2212 equ 0x2212
-loc_225d equ 0x225d
-loc_2265 equ 0x2265
-loc_22bb equ 0x22bb
-loc_22d8 equ 0x22d8
-loc_22ee equ 0x22ee
 loc_238c equ 0x238c
 loc_35f3 equ 0x35f3
 data_69c8 equ 0x69c8
@@ -106,104 +30,94 @@ data_82fe equ 0x82fe
 data_8300 equ 0x8300
 data_8302 equ 0x8302
 data_8306 equ 0x8306
-data_9342 equ 0x9342
-data_9344 equ 0x9344
-data_95ce equ 0x95ce
-data_9af0 equ 0x9af0
-data_9af2 equ 0x9af2
-data_9af4 equ 0x9af4
-data_9af6 equ 0x9af6
-data_9af8 equ 0x9af8
-data_9afa equ 0x9afa
-data_9afe equ 0x9afe
-data_9b00 equ 0x9b00
-data_9b02 equ 0x9b02
-data_9b06 equ 0x9b06
 dseg_0002 equ 0x0002
-dseg_0e0e equ 0x0e0e
-dseg_0e10 equ 0x0e10
-dseg_0e12 equ 0x0e12
-dseg_0e14 equ 0x0e14
-dseg_590e equ 0x590e
-dseg_5910 equ 0x5910
-dseg_598c equ 0x598c
-dseg_598e equ 0x598e
-dseg_59fc equ 0x59fc
-dseg_5b3e equ 0x5b3e
-dseg_5b6e equ 0x5b6e
-dseg_82ee equ 0x82ee
-dseg_8304 equ 0x8304
-dseg_830a equ 0x830a
-dseg_830c equ 0x830c
-dseg_8af0 equ 0x8af0
-dseg_8d0e equ 0x8d0e
-dseg_8d10 equ 0x8d10
-dseg_8d12 equ 0x8d12
-dseg_8f3e equ 0x8f3e
-dseg_8f40 equ 0x8f40
-dseg_8f42 equ 0x8f42
-dseg_8f44 equ 0x8f44
-dseg_8f46 equ 0x8f46
-dseg_8f48 equ 0x8f48
-dseg_904e equ 0x904e
-dseg_9050 equ 0x9050
-dseg_905a equ 0x905a
-dseg_9068 equ 0x9068
-dseg_906a equ 0x906a
-dseg_908a equ 0x908a
-dseg_908c equ 0x908c
-dseg_908e equ 0x908e
-dseg_9090 equ 0x9090
-dseg_9092 equ 0x9092
-dseg_9094 equ 0x9094
+bss_0e0e equ 0x0e0e
+bss_0e10 equ 0x0e10
+bss_0e12 equ 0x0e12
+bss_0e14 equ 0x0e14
+bss_590e equ 0x590e
+bss_5910 equ 0x5910
+bss_598c equ 0x598c
+bss_598e equ 0x598e
+bss_59fc equ 0x59fc
+bss_5b3e equ 0x5b3e
+bss_5b6e equ 0x5b6e
+bss_82ee equ 0x82ee
+bss_8304 equ 0x8304
+bss_830a equ 0x830a
+bss_830c equ 0x830c
+bss_8af0 equ 0x8af0
+bss_8d0e equ 0x8d0e
+bss_8d10 equ 0x8d10
+bss_8d12 equ 0x8d12
+bss_8f3e equ 0x8f3e
+bss_8f40 equ 0x8f40
+bss_8f42 equ 0x8f42
+bss_8f44 equ 0x8f44
+bss_8f46 equ 0x8f46
+bss_8f48 equ 0x8f48
+bss_904e equ 0x904e
+bss_9050 equ 0x9050
+bss_905a equ 0x905a
+bss_9068 equ 0x9068
+bss_906a equ 0x906a
+bss_908a equ 0x908a
+bss_908c equ 0x908c
+bss_908e equ 0x908e
+bss_9090 equ 0x9090
+bss_9092 equ 0x9092
+bss_9094 equ 0x9094
 dseg_90ac equ 0x90ac
 dseg_90ae equ 0x90ae
 dseg_90b0 equ 0x90b0
 dseg_90b2 equ 0x90b2
 dseg_90b4 equ 0x90b4
-dseg_90b6 equ 0x90b6
-dseg_90b8 equ 0x90b8
-dseg_9342 equ 0x9342
-dseg_9344 equ 0x9344
-dseg_95ce equ 0x95ce
-dseg_9858 equ 0x9858
-dseg_9ae2 equ 0x9ae2
-dseg_9ae4 equ 0x9ae4
-dseg_9ae6 equ 0x9ae6
-dseg_9ae8 equ 0x9ae8
-dseg_9aea equ 0x9aea
-dseg_9aec equ 0x9aec
-dseg_9aee equ 0x9aee
-dseg_9af0 equ 0x9af0
-dseg_9af2 equ 0x9af2
-dseg_9af4 equ 0x9af4
-dseg_9af8 equ 0x9af8
-dseg_9afc equ 0x9afc
-dseg_9b00 equ 0x9b00
-dseg_9b04 equ 0x9b04
-dseg_9b06 equ 0x9b06
-dseg_9b08 equ 0x9b08
-dseg_9b0a equ 0x9b0a
-dseg_9b0c equ 0x9b0c
-dseg_9b5e equ 0x9b5e
-dseg_9d90 equ 0x9d90
+bss_90b6 equ 0x90b6
+bss_90b8 equ 0x90b8
+bss_9342 equ 0x9342
+bss_9344 equ 0x9344
+bss_95ce equ 0x95ce
+bss_9858 equ 0x9858
+bss_9ae2 equ 0x9ae2
+bss_9ae4 equ 0x9ae4
+bss_9ae6 equ 0x9ae6
+bss_9ae8 equ 0x9ae8
+bss_9aea equ 0x9aea
+bss_9aec equ 0x9aec
+bss_9aee equ 0x9aee
+bss_9af0 equ 0x9af0
+bss_9af2 equ 0x9af2
+bss_9af4 equ 0x9af4
+bss_9af6 equ 0x9af6
+bss_9af8 equ 0x9af8
+bss_9afa equ 0x9afa
+bss_9afc equ 0x9afc
+bss_9afe equ 0x9afe
+bss_9b00 equ 0x9b00
+bss_9b02 equ 0x9b02
+bss_9b04 equ 0x9b04
+bss_9b06 equ 0x9b06
+bss_9b08 equ 0x9b08
+bss_9b0a equ 0x9b0a
+bss_9b0c equ 0x9b0c
+bss_9b5e equ 0x9b5e
+bss_9d90 equ 0x9d90
 
-    db 0x1e, 0x00, 0xde, 0x0c, 0x20, 0x97
 loc_000e:
     mov ax, 0                        ; 0x000e
     call ds_dispatch_f40b            ; 0x0011
-    cmp word [dseg_906a], byte 0     ; 0x0014
+    cmp word [bss_906a], byte 0      ; 0x0014
     je short @..local.l1             ; 0x0019
     mov ax, 1                        ; 0x001b
     push ax                          ; 0x001e
-    push word [dseg_9068]            ; 0x001f
+    push word [bss_9068]             ; 0x001f
     call ds_dispatch_c459            ; 0x0023
     add sp, byte 4                   ; 0x0026
-    mov word [dseg_906a], 0          ; 0x0029
+    mov word [bss_906a], 0           ; 0x0029
 @..local.l1:
-    mov word [dseg_90b6], 0          ; 0x002f
-    mov word [dseg_90b8], 0          ; 0x0035
-    cmp word [dseg_830a], byte 0x13  ; 0x003b
+    mov word [bss_90b6], 0           ; 0x002f
+    mov word [bss_90b8], 0           ; 0x0035
+    cmp word [bss_830a], byte 0x13   ; 0x003b
     jne short @..local.l2            ; 0x0040
     mov ax, 0xe                      ; 0x0042
     push ax                          ; 0x0045
@@ -221,7 +135,7 @@ loc_000e:
     push ax                          ; 0x005f
     call ds_dispatch_d61c            ; 0x0060
     add sp, byte 4                   ; 0x0063
-    push word [dseg_8af0]            ; 0x0066
+    push word [bss_8af0]             ; 0x0066
     call api_idx_0004_7              ; 0x006a
     pop cx                           ; 0x006d
     mov ax, 1                        ; 0x006e
@@ -239,19 +153,19 @@ loc_000e:
     call ds_dispatch_d61c            ; 0x0086
     add sp, byte 4                   ; 0x0089
 @..local.l2:
-    cmp word [dseg_830a], byte 0x14  ; 0x008c
+    cmp word [bss_830a], byte 0x14   ; 0x008c
     jne short @..local.l3            ; 0x0091
-    push word [dseg_8af0]            ; 0x0093
+    push word [bss_8af0]             ; 0x0093
     call api_idx_0094                ; 0x0097
     pop cx                           ; 0x009a
 @..local.l3:
-    mov word [dseg_830a], 5          ; 0x009b
+    mov word [bss_830a], 5           ; 0x009b
     mov ax, 0                        ; 0x00a1
     ret                              ; 0x00a4
 loc_00a5:
     mov ax, 0                        ; 0x00a5
     call ds_dispatch_f40b            ; 0x00a8
-    mov bx, word [dseg_0e14]         ; 0x00ab
+    mov bx, word [bss_0e14]          ; 0x00ab
     mov si, word [bp + 0x4]          ; 0x00af
     mov al, byte [bx + si + 0x490]   ; 0x00b2
     sub ah, ah                       ; 0x00b6
@@ -294,9 +208,27 @@ loc_00a5:
 
 %include "vdopt/api_idx_0014.asm"
 
+%include "vdopt/leaf_loc_0d80.asm"
+
+%include "vdopt/leaf_loc_0d88.asm"
+
+%include "vdopt/leaf_loc_0d90.asm"
+
+%include "vdopt/leaf_loc_0d98.asm"
+
+%include "vdopt/leaf_loc_0e80.asm"
+
+%include "vdopt/leaf_loc_0e88.asm"
+
+%include "vdopt/leaf_loc_0e90.asm"
+
+%include "vdopt/leaf_loc_0e98.asm"
+
 %include "vdopt/api_idx_000a.asm"
 
 %include "vdopt/api_idx_0012.asm"
+
+%include "vdopt/leaf_loc_1499.asm"
 
 %include "vdopt/api_idx_000a_2.asm"
 

@@ -175,26 +175,27 @@ api_idx_0004_4:
     call api_idx_0004_3              ; 0x2406
     add sp, byte 0x0a                ; 0x2409
     jmp short @..api_idx_0004_4.l2   ; 0x240c
-    db 0xd1, 0x72, 0xed ; sal word [bp + si - 0x0013], 1
-    jb short loc_241c                ; 0x2411
-    jae short loc_243a               ; 0x2413
-    jae short loc_2458               ; 0x2415
-    jae short loc_2476               ; 0x2417
-    jae short loc_2494               ; 0x2419
-    jae short loc_23b2               ; 0x241b
-    jae short loc_23d0               ; 0x241d
-    jae short loc_23ee               ; 0x241f
-    jae short loc_240c               ; 0x2421
-    jae short loc_2429               ; 0x2423
-    je short loc_2446                ; 0x2425
-    je short loc_2463                ; 0x2427
-    db 0x74
+jumptable_240e:
+    dw jumptable_240e_case_0 - IMAGE_BASE
+    dw jumptable_240e_case_1 - IMAGE_BASE
+    dw jumptable_240e_case_2 - IMAGE_BASE
+    dw jumptable_240e_case_3 - IMAGE_BASE
+    dw jumptable_240e_case_4 - IMAGE_BASE
+    dw jumptable_240e_case_5 - IMAGE_BASE
+    dw jumptable_240e_case_6 - IMAGE_BASE
+    dw jumptable_240e_case_7 - IMAGE_BASE
+    dw jumptable_240e_case_8 - IMAGE_BASE
+    dw jumptable_240e_case_9 - IMAGE_BASE
+    dw jumptable_240e_case_10 - IMAGE_BASE
+    dw jumptable_240e_case_11 - IMAGE_BASE
+    dw jumptable_240e_case_12 - IMAGE_BASE
+    dw jumptable_240e_case_13 - IMAGE_BASE
 @..api_idx_0004_4.l1:
     cmp ax, strict word 0xe          ; 0x242a
     jae short @..api_idx_0004_4.l2   ; 0x242d
     xchg bx, ax                      ; 0x242f
     shl bx, 1                        ; 0x2430
-    jmp [cs:bx + jumptable_745d - IMAGE_BASE] ; 0x2432
+    jmp [cs:bx + 0x7455]             ; 0x2432
 @..api_idx_0004_4.l2:
     mov ax, 0x248                    ; 0x2437
     imul word [bp + 0x4]             ; 0x243a
@@ -203,7 +204,7 @@ api_idx_0004_4:
     jbe short @..api_idx_0004_4.l3   ; 0x2444
     cmp byte [bx + 0x5d6a], 0xd      ; 0x2446
     jbe short @..api_idx_0004_4.l3   ; 0x244b
-    mov word [dseg_95e8], 1          ; 0x244d
+    mov word [bss_95e8], 1           ; 0x244d
 @..api_idx_0004_4.l3:
     mov word [bp - 0x0004], 0        ; 0x2453
     mov ax, word [bp + 0x6]          ; 0x2458

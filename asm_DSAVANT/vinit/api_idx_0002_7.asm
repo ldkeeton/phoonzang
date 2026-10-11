@@ -1,22 +1,22 @@
 api_idx_0002_7:
     mov ax, 0xfffe                   ; 0x133d
     call ds_dispatch_f40b            ; 0x1340
-    cmp word [dseg_906a], byte 0     ; 0x1343
+    cmp word [bss_906a], byte 0      ; 0x1343
     je short @..api_idx_0002_7.l1    ; 0x1348
     mov ax, 1                        ; 0x134a
     push ax                          ; 0x134d
-    push word [dseg_9068]            ; 0x134e
+    push word [bss_9068]             ; 0x134e
     call ds_dispatch_c459            ; 0x1352
     add sp, byte 4                   ; 0x1355
-    mov word [dseg_906a], 0          ; 0x1358
+    mov word [bss_906a], 0           ; 0x1358
 @..api_idx_0002_7.l1:
     mov ax, 1                        ; 0x135e
     push ax                          ; 0x1361
-    push word [dseg_8d08]            ; 0x1362
-    push word [dseg_8d06]            ; 0x1366
+    push word [bss_8d08]             ; 0x1362
+    push word [bss_8d06]             ; 0x1366
     call ds_dispatch_e94f            ; 0x136a
     add sp, byte 6                   ; 0x136d
-    mov word [dseg_69c8], 0          ; 0x1370
+    mov word [bss_69c8], 0           ; 0x1370
     mov word [bp - 0x0002], 0        ; 0x1376
 @..api_idx_0002_7.l2:
     mov ax, 1                        ; 0x137b
@@ -74,6 +74,6 @@ api_idx_0002_7:
     push ax                          ; 0x13fa
     call ds_dispatch_c12a            ; 0x13fb
     pop cx                           ; 0x13fe
-    mov word [dseg_830a], 2          ; 0x13ff
+    mov word [bss_830a], 2           ; 0x13ff
     call ds_dispatch_ec17            ; 0x1405
     ret                              ; 0x1408

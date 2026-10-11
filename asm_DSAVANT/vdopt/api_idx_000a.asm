@@ -21,12 +21,12 @@ api_idx_000a:
     push ax                          ; 0x0fab
     mov ax, 7                        ; 0x0fac
     imul word [bp + 0x6]             ; 0x0faf
-    add ax, word [dseg_9b0a]         ; 0x0fb2
+    add ax, word [bss_9b0a]          ; 0x0fb2
     add ax, word [bp + 0xc]          ; 0x0fb6
     push ax                          ; 0x0fb9
     mov ax, 7                        ; 0x0fba
     imul word [bp + 0x4]             ; 0x0fbd
-    add ax, word [dseg_9b0c]         ; 0x0fc0
+    add ax, word [bss_9b0c]          ; 0x0fc0
     add ax, word [bp + 0xa]          ; 0x0fc4
     push ax                          ; 0x0fc7
     mov ax, 0xf                      ; 0x0fc8

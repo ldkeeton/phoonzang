@@ -47,24 +47,24 @@ loc_0636:
     push ax                          ; 0x0647
     call ds_dispatch_f306            ; 0x0648
     add sp, byte 6                   ; 0x064b
-    mov word [dseg_82ea], 0          ; 0x064e
+    mov word [bss_82ea], 0           ; 0x064e
     mov ax, word [bp + 0x4]          ; 0x0654
     jmp short @..local.l12           ; 0x0657
 @..local.l8:
     mov ax, word [bp + 0x6]          ; 0x0659
-    add word [dseg_8f44], ax         ; 0x065c
+    add word [bss_8f44], ax          ; 0x065c
     jmp short @..local.l13           ; 0x0660
 @..local.l9:
     mov ax, word [bp + 0x6]          ; 0x0662
-    add word [dseg_8f46], ax         ; 0x0665
+    add word [bss_8f46], ax          ; 0x0665
     jmp short @..local.l13           ; 0x0669
 @..local.l10:
     mov ax, word [bp + 0x6]          ; 0x066b
-    sub word [dseg_8f44], ax         ; 0x066e
+    sub word [bss_8f44], ax          ; 0x066e
     jmp short @..local.l13           ; 0x0672
 @..local.l11:
     mov ax, word [bp + 0x6]          ; 0x0674
-    sub word [dseg_8f46], ax         ; 0x0677
+    sub word [bss_8f46], ax          ; 0x0677
     jmp short @..local.l13           ; 0x067b
 @..local.l12:
     cmp ax, strict word 0            ; 0x067d
@@ -80,20 +80,20 @@ loc_0636:
 loc_0692:
     mov ax, 0                        ; 0x0692
     call ds_dispatch_f40b            ; 0x0695
-    mov ax, word [dseg_8f46]         ; 0x0698
-    mov word [dseg_8f3a], ax         ; 0x069b
-    mov ax, word [dseg_8f44]         ; 0x069e
-    mov word [dseg_8f38], ax         ; 0x06a1
-    mov ax, word [dseg_8f42]         ; 0x06a4
-    mov word [dseg_8f36], ax         ; 0x06a7
-    mov ax, word [dseg_8f40]         ; 0x06aa
-    mov word [dseg_8f34], ax         ; 0x06ad
-    mov ax, word [dseg_8f3e]         ; 0x06b0
-    mov word [dseg_8f32], ax         ; 0x06b3
-    mov ax, word [dseg_830c]         ; 0x06b6
-    mov word [dseg_8f3c], ax         ; 0x06b9
-    mov ax, word [dseg_82ee]         ; 0x06bc
-    mov word [dseg_8f30], ax         ; 0x06bf
+    mov ax, word [bss_8f46]          ; 0x0698
+    mov word [bss_8f3a], ax          ; 0x069b
+    mov ax, word [bss_8f44]          ; 0x069e
+    mov word [bss_8f38], ax          ; 0x06a1
+    mov ax, word [bss_8f42]          ; 0x06a4
+    mov word [bss_8f36], ax          ; 0x06a7
+    mov ax, word [bss_8f40]          ; 0x06aa
+    mov word [bss_8f34], ax          ; 0x06ad
+    mov ax, word [bss_8f3e]          ; 0x06b0
+    mov word [bss_8f32], ax          ; 0x06b3
+    mov ax, word [bss_830c]          ; 0x06b6
+    mov word [bss_8f3c], ax          ; 0x06b9
+    mov ax, word [bss_82ee]          ; 0x06bc
+    mov word [bss_8f30], ax          ; 0x06bf
     ret                              ; 0x06c2
 loc_06c3:
     mov ax, 0                        ; 0x06c3
@@ -113,7 +113,7 @@ loc_06c3:
     add ax, cx                       ; 0x06e3
     add ax, word [bp + 0x8]          ; 0x06e5
     push ax                          ; 0x06e8
-    mov ax, word [dseg_0e14]         ; 0x06e9
+    mov ax, word [bss_0e14]          ; 0x06e9
     add ax, 0x90                     ; 0x06ec
     push ax                          ; 0x06ef
     call ds_dispatch_ecf6            ; 0x06f0
@@ -132,7 +132,7 @@ loc_06c3:
     add ax, cx                       ; 0x070c
     add ax, word [bp + 0x8]          ; 0x070e
     push ax                          ; 0x0711
-    mov ax, word [dseg_0e14]         ; 0x0712
+    mov ax, word [bss_0e14]          ; 0x0712
     add ax, 0x290                    ; 0x0715
     push ax                          ; 0x0718
     call ds_dispatch_ecf6            ; 0x0719

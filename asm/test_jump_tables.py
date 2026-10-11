@@ -1,8 +1,11 @@
+import struct
 import unittest
 
+import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.model import JumpTableInfo
+from lib.phases.recursive import _scan_jump_table
 from lib.verify.assemble import clear_assemble_cache, micro_assemble
 from lib.verify.compare import (
     _build_source,
@@ -16,6 +19,37 @@ def _disassemble(data, address=0):
     md = Cs(CS_ARCH_X86, CS_MODE_16)
     md.detail = True
     return list(md.disasm(data, address))
+
+
+class ScanJumpTableBoundsTests(unittest.TestCase):
+    """``_scan_jump_table`` must not let data votes hide a bounded table.
+
+    Switch arms can be pre-voted data (prune_dead marks the block after a
+    jmp-ending block dead), which previously aborted the scan before three
+    targets were found and left valid tables undetected.
+    """
+
+    def _table(self):
+        data = bytearray(0x100)
+        for i, target in enumerate((0x50, 0x60, 0x70, 0x80)):
+            struct.pack_into('<H', data, 0x40 + 2 * i, target)
+        return bytes(data)
+
+    def test_bounded_table_ignores_data_votes(self):
+        conf = np.zeros(0x100, dtype=np.float32)
+        conf[0x60] = -1.0  # arm poisoned by prune_dead
+        end, targets = _scan_jump_table(
+            self._table(), 0x40, conf, max_index=3)
+        self.assertEqual(end, 0x48)
+        self.assertEqual(targets, {0x50, 0x60, 0x70, 0x80})
+
+    def test_unbounded_table_still_stops_at_data(self):
+        conf = np.zeros(0x100, dtype=np.float32)
+        conf[0x60] = -1.0
+        end, targets = _scan_jump_table(
+            self._table(), 0x40, conf, max_index=None)
+        self.assertEqual(targets, set())
+        self.assertEqual(end, 0x40)
 
 
 class MergeJumpTableSpecsTests(unittest.TestCase):

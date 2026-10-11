@@ -27,7 +27,7 @@ api_idx_0050_2:
     call ds_dispatch_b7e0            ; 0x751f
     pop cx                           ; 0x7522
 @..api_idx_0050_2.l1:
-    push word [dseg_905a]            ; 0x7523
+    push word [bss_905a]             ; 0x7523
     call api_idx_0006_2              ; 0x7527
     pop cx                           ; 0x752a
     mov ax, 0x98                     ; 0x752b

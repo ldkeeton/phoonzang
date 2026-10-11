@@ -68,32 +68,32 @@ loc_8c8d:
     les bx, word [dseg_0002]         ; 0x8c93
     mov ax, word [es:bx]             ; 0x8c97
     mov dx, word [es:bx + 0x2]       ; 0x8c9a
-    mov word [dseg_9090], dx         ; 0x8c9e
-    mov word [dseg_908e], ax         ; 0x8ca2
-    mov ax, word [dseg_908e]         ; 0x8ca5
-    mov dx, word [dseg_9090]         ; 0x8ca8
-    sub ax, word [dseg_908a]         ; 0x8cac
-    sbb dx, word [dseg_908c]         ; 0x8cb0
-    mov word [dseg_9094], dx         ; 0x8cb4
-    mov word [dseg_9092], ax         ; 0x8cb8
-    mov ax, word [dseg_9124]         ; 0x8cbb
+    mov word [bss_9090], dx          ; 0x8c9e
+    mov word [bss_908e], ax          ; 0x8ca2
+    mov ax, word [bss_908e]          ; 0x8ca5
+    mov dx, word [bss_9090]          ; 0x8ca8
+    sub ax, word [bss_908a]          ; 0x8cac
+    sbb dx, word [bss_908c]          ; 0x8cb0
+    mov word [bss_9094], dx          ; 0x8cb4
+    mov word [bss_9092], ax          ; 0x8cb8
+    mov ax, word [bss_9124]          ; 0x8cbb
     cwd                              ; 0x8cbe
     mov cx, ax                       ; 0x8cbf
     mov bx, dx                       ; 0x8cc1
-    mov ax, word [dseg_9092]         ; 0x8cc3
-    mov dx, word [dseg_9094]         ; 0x8cc6
+    mov ax, word [bss_9092]          ; 0x8cc3
+    mov dx, word [bss_9094]          ; 0x8cc6
     cmp bx, dx                       ; 0x8cca
-    jg short @..local.l164           ; 0x8ccc
-    jne short @..local.l165          ; 0x8cce
+    jg short @..local.l177           ; 0x8ccc
+    jne short @..local.l178          ; 0x8cce
     cmp cx, ax                       ; 0x8cd0
-    jbe short @..local.l165          ; 0x8cd2
-@..local.l164:
-    jmp short @..local.l166          ; 0x8cd4
-@..local.l165:
-    mov ax, word [dseg_908e]         ; 0x8cd6
-    mov dx, word [dseg_9090]         ; 0x8cd9
-    mov word [dseg_908c], dx         ; 0x8cdd
-    mov word [dseg_908a], ax         ; 0x8ce1
+    jbe short @..local.l178          ; 0x8cd2
+@..local.l177:
+    jmp short @..local.l179          ; 0x8cd4
+@..local.l178:
+    mov ax, word [bss_908e]          ; 0x8cd6
+    mov dx, word [bss_9090]          ; 0x8cd9
+    mov word [bss_908c], dx          ; 0x8cdd
+    mov word [bss_908a], ax          ; 0x8ce1
     call api_idx_000a_3              ; 0x8ce4
     push word [bp + 0x4]             ; 0x8ce7
     call api_idx_000c_2              ; 0x8cea
@@ -119,5 +119,5 @@ loc_8c8d:
     push ax                          ; 0x8d16
     call ds_dispatch_e8da            ; 0x8d17
     add sp, byte 8                   ; 0x8d1a
-@..local.l166:
+@..local.l179:
     ret                              ; 0x8d1d

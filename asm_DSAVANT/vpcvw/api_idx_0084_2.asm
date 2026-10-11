@@ -100,7 +100,7 @@ api_idx_0084_2:
     push ax                          ; 0x41e8
     mov ax, 4                        ; 0x41e9
     push ax                          ; 0x41ec
-    push word [dseg_9052]            ; 0x41ed
+    push word [bss_9052]             ; 0x41ed
     lea ax, word [bp - 0x0084]       ; 0x41f1
     push ax                          ; 0x41f5
     call api_idx_0008                ; 0x41f6
@@ -136,7 +136,7 @@ api_idx_0084_2:
 @..api_idx_0084_2.l6:
     mov ax, word [bp - 0x0004]       ; 0x423d
     mov word [bp - 0x000a], ax       ; 0x4240
-    mov ax, word [dseg_9052]         ; 0x4243
+    mov ax, word [bss_9052]          ; 0x4243
     mov word [bp - 0x000c], ax       ; 0x4246
     cmp word [bp - 0x0004], byte 4   ; 0x4249
     je short @..api_idx_0084_2.l7    ; 0x424d

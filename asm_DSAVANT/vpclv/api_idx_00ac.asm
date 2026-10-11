@@ -15,14 +15,14 @@ api_idx_00ac:
     jmp near @..api_idx_00ac.l1      ; 0x4606
     mov ax, 5                        ; 0x4609
     push ax                          ; 0x460c
-    db 0xe8, 0x99, 0x71 ; call ds_dispatch_b7a9
+    call ds_dispatch_b7a9            ; 0x460d
     pop cx                           ; 0x4610
     add ax, strict word 6            ; 0x4611
     mov word [bp - 0x0002], ax       ; 0x4614
     jmp near @..api_idx_00ac.l2      ; 0x4617
     mov ax, 3                        ; 0x461a
     push ax                          ; 0x461d
-    db 0xe8, 0x88, 0x71 ; call ds_dispatch_b7a9
+    call ds_dispatch_b7a9            ; 0x461e
     pop cx                           ; 0x4621
     inc ax                           ; 0x4622
     inc ax                           ; 0x4623
@@ -30,14 +30,14 @@ api_idx_00ac:
     jmp short @..api_idx_00ac.l2     ; 0x4627
     mov ax, 4                        ; 0x4629
     push ax                          ; 0x462c
-    db 0xe8, 0x79, 0x71 ; call ds_dispatch_b7a9
+    call ds_dispatch_b7a9            ; 0x462d
     pop cx                           ; 0x4630
     add ax, strict word 4            ; 0x4631
     mov word [bp - 0x0002], ax       ; 0x4634
     jmp short @..api_idx_00ac.l2     ; 0x4637
     mov ax, 4                        ; 0x4639
     push ax                          ; 0x463c
-    db 0xe8, 0x69, 0x71 ; call ds_dispatch_b7a9
+    call ds_dispatch_b7a9            ; 0x463d
     pop cx                           ; 0x4640
     inc ax                           ; 0x4641
     inc ax                           ; 0x4642
@@ -46,7 +46,7 @@ api_idx_00ac:
     jmp short @..api_idx_00ac.l2     ; 0x4647
     mov ax, 3                        ; 0x4649
     push ax                          ; 0x464c
-    db 0xe8, 0x59, 0x71 ; call ds_dispatch_b7a9
+    call ds_dispatch_b7a9            ; 0x464d
     pop cx                           ; 0x4650
     inc ax                           ; 0x4651
     inc ax                           ; 0x4652
@@ -55,14 +55,14 @@ api_idx_00ac:
     jmp short @..api_idx_00ac.l2     ; 0x4657
     mov ax, 5                        ; 0x4659
     push ax                          ; 0x465c
-    db 0xe8, 0x49, 0x71 ; call ds_dispatch_b7a9
+    call ds_dispatch_b7a9            ; 0x465d
     pop cx                           ; 0x4660
     add ax, strict word 5            ; 0x4661
     mov word [bp - 0x0002], ax       ; 0x4664
     jmp short @..api_idx_00ac.l2     ; 0x4667
     mov ax, 5                        ; 0x4669
     push ax                          ; 0x466c
-    db 0xe8, 0x39, 0x71 ; call ds_dispatch_b7a9
+    call ds_dispatch_b7a9            ; 0x466d
     pop cx                           ; 0x4670
     add ax, strict word 4            ; 0x4671
     mov word [bp - 0x0002], ax       ; 0x4674

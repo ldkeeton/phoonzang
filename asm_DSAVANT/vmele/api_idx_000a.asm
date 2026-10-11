@@ -3,14 +3,14 @@ api_idx_000a:
     call ds_dispatch_f40b            ; 0x0247
     mov ax, 0                        ; 0x024a
     push ax                          ; 0x024d
-    push word [dseg_8d10]            ; 0x024e
-    push word [dseg_8d0e]            ; 0x0252
+    push word [bss_8d10]             ; 0x024e
+    push word [bss_8d0e]             ; 0x0252
     call ds_dispatch_e94f            ; 0x0256
     add sp, byte 6                   ; 0x0259
     mov ax, 0                        ; 0x025c
     push ax                          ; 0x025f
-    push word [dseg_8d0c]            ; 0x0260
-    push word [dseg_8d0a]            ; 0x0264
+    push word [bss_8d0c]             ; 0x0260
+    push word [bss_8d0a]             ; 0x0264
     call ds_dispatch_e94f            ; 0x0268
     add sp, byte 6                   ; 0x026b
     mov byte [bp - 0x000a], 1        ; 0x026e

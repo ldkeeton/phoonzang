@@ -84,7 +84,7 @@ api_idx_005e:
     mov ax, 0                        ; 0x070d
     ret                              ; 0x0710
 @..api_idx_005e.l6:
-    cmp byte [dseg_5962], 1          ; 0x0711
+    cmp byte [bss_5962], 1           ; 0x0711
     jne short @..api_idx_005e.l9     ; 0x0716
     mov ax, 0                        ; 0x0718
     push ax                          ; 0x071b
@@ -104,9 +104,9 @@ api_idx_005e:
     mov word [bp - 0x000c], 0        ; 0x0739
     jmp short @..api_idx_005e.l12    ; 0x073e
 @..api_idx_005e.l9:
-    cmp byte [dseg_5963], 1          ; 0x0740
+    cmp byte [bss_5963], 1           ; 0x0740
     jne short @..api_idx_005e.l12    ; 0x0745
-    mov al, byte [dseg_5964]         ; 0x0747
+    mov al, byte [bss_5964]          ; 0x0747
     sub ah, ah                       ; 0x074a
     add ax, strict word 0xffc0       ; 0x074c
     mov word [bp - 0x000e], ax       ; 0x074f

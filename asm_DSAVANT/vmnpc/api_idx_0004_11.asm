@@ -1,6 +1,6 @@
 api_idx_0004_11:
     mov ax, 0xfffc                   ; 0x3c97
-    db 0xe8, 0x6e, 0xb7 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x3c9a
     mov word [bp - 0x0002], 0        ; 0x3c9d
     jmp near @..api_idx_0004_11.l8   ; 0x3ca2
 @..api_idx_0004_11.l1:
@@ -29,7 +29,7 @@ api_idx_0004_11:
     mov ax, word [bp + 0x4]          ; 0x3cd8
     add ax, strict word 0x1c         ; 0x3cdb
     push ax                          ; 0x3cde
-    db 0xe8, 0x1f, 0xac ; call 0xe901
+    call ds_dispatch_e901            ; 0x3cdf
     add sp, byte 0x0a                ; 0x3ce2
     mov word [bp - 0x0004], 0        ; 0x3ce5
     jmp short @..api_idx_0004_11.l3  ; 0x3cea
@@ -45,7 +45,7 @@ api_idx_0004_11:
     inc ax                           ; 0x3cff
     inc ax                           ; 0x3d00
     push ax                          ; 0x3d01
-    db 0xe8, 0x04, 0xab ; call 0xe809
+    call ds_dispatch_e809            ; 0x3d02
     add sp, byte 4                   ; 0x3d05
     mov ax, word [bp + 0xc]          ; 0x3d08
     add ax, word [bp - 0x0002]       ; 0x3d0b
@@ -57,7 +57,7 @@ api_idx_0004_11:
     push ax                          ; 0x3d1c
     mov ax, 0x63                     ; 0x3d1d
     push ax                          ; 0x3d20
-    call 0xe830                      ; 0x3d21
+    call ds_dispatch_e830            ; 0x3d21
     add sp, byte 4                   ; 0x3d24
 @..api_idx_0004_11.l4:
     mov ax, 0xe                      ; 0x3d27
@@ -68,7 +68,7 @@ api_idx_0004_11:
     mov ax, word [bp + 0x4]          ; 0x3d32
     add ax, strict word 0xf          ; 0x3d35
     push ax                          ; 0x3d38
-    db 0xe8, 0xcd, 0xaa ; call 0xe809
+    call ds_dispatch_e809            ; 0x3d39
     add sp, byte 4                   ; 0x3d3c
     mov ax, 4                        ; 0x3d3f
     push ax                          ; 0x3d42
@@ -79,7 +79,7 @@ api_idx_0004_11:
     mov al, byte [bx - 0x6986]       ; 0x3d4d
     sub ah, ah                       ; 0x3d51
     push ax                          ; 0x3d53
-    db 0xe8, 0xd9, 0xaa ; call 0xe830
+    call ds_dispatch_e830            ; 0x3d54
     add sp, byte 4                   ; 0x3d57
     push word [bp - 0x0004]          ; 0x3d5a
     mov ax, 0xe                      ; 0x3d5d
@@ -113,7 +113,7 @@ api_idx_0004_11:
     mov ax, word [bp + 0x4]          ; 0x3da3
     add ax, strict word 0x47         ; 0x3da6
     push ax                          ; 0x3da9
-    db 0xe8, 0x5c, 0xaa ; call 0xe809
+    call ds_dispatch_e809            ; 0x3daa
     add sp, byte 4                   ; 0x3dad
     mov ax, 0                        ; 0x3db0
     push ax                          ; 0x3db3
@@ -127,7 +127,7 @@ api_idx_0004_11:
     mov ax, 2                        ; 0x3dc4
 @..api_idx_0004_11.l6:
     push ax                          ; 0x3dc7
-    db 0xe8, 0x58, 0xaa ; call 0xe823
+    call ds_dispatch_e823            ; 0x3dc8
     add sp, byte 4                   ; 0x3dcb
     mov ax, 0                        ; 0x3dce
     push ax                          ; 0x3dd1
@@ -138,7 +138,7 @@ api_idx_0004_11:
     shl ax, 1                        ; 0x3ddc
     mov bx, ax                       ; 0x3dde
     push word [bx - 0x67a6]          ; 0x3de0
-    call 0xb2e7                      ; 0x3de4
+    call ds_dispatch_b2e7            ; 0x3de4
     add sp, byte 6                   ; 0x3de7
 @..api_idx_0004_11.l7:
     inc word [bp - 0x0002]           ; 0x3dea
@@ -151,7 +151,7 @@ api_idx_0004_11:
     ret                              ; 0x3df8
 loc_3df9:
     mov ax, 0                        ; 0x3df9
-    db 0xe8, 0x0c, 0xb6 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x3dfc
     mov ax, 6                        ; 0x3dff
     imul word [bp + 0xa]             ; 0x3e02
     add ax, word [bp + 0x6]          ; 0x3e05
@@ -164,7 +164,7 @@ loc_3df9:
     push ax                          ; 0x3e14
     push word [bp + 0x6]             ; 0x3e15
     push word [bp + 0x4]             ; 0x3e18
-    call 0xbd98                      ; 0x3e1b
+    call ds_dispatch_bd98            ; 0x3e1b
     add sp, byte 8                   ; 0x3e1e
     push word [bp + 0xe]             ; 0x3e21
     push word [bp + 0xc]             ; 0x3e24

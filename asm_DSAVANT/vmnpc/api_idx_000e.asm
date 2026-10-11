@@ -1,12 +1,12 @@
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x0961
-    db 0xe8, 0xa4, 0xea ; call 0xf40b
-    cmp word [dseg_8f20], byte 0     ; 0x0967
+    call ds_dispatch_f40b            ; 0x0964
+    cmp word [bss_8f20], byte 0      ; 0x0967
     jg short @..api_idx_000e.l1      ; 0x096c
     jmp near @..api_idx_000e.l8      ; 0x096e
 @..api_idx_000e.l1:
-    mov ax, word [dseg_82ee]         ; 0x0971
-    mov cx, word [dseg_8f20]         ; 0x0974
+    mov ax, word [bss_82ee]          ; 0x0971
+    mov cx, word [bss_8f20]          ; 0x0974
     dec cx                           ; 0x0978
     sub ax, cx                       ; 0x0979
     add ax, strict word 6            ; 0x097b
@@ -79,7 +79,7 @@ api_idx_000e:
     call api_idx_0004                ; 0x0a15
     add sp, byte 0x12                ; 0x0a18
 @..api_idx_000e.l8:
-    cmp word [dseg_8f20], byte 0xff  ; 0x0a1b
+    cmp word [bss_8f20], byte 0xff   ; 0x0a1b
     jne short @..api_idx_000e.l9     ; 0x0a20
     mov byte [bp - 0x000e], 1        ; 0x0a22
     mov byte [bp - 0x000d], 0        ; 0x0a26
@@ -92,10 +92,10 @@ api_idx_000e:
     push ax                          ; 0x0a36
     mov ax, 0x48                     ; 0x0a37
     push ax                          ; 0x0a3a
-    mov al, byte [dseg_7b04]         ; 0x0a3b
+    mov al, byte [bss_7b04]          ; 0x0a3b
     sub ah, ah                       ; 0x0a3e
     push ax                          ; 0x0a40
-    mov al, byte [dseg_7abc]         ; 0x0a41
+    mov al, byte [bss_7abc]          ; 0x0a41
     sub ah, ah                       ; 0x0a44
     push ax                          ; 0x0a46
     mov ax, 0xc                      ; 0x0a47
@@ -108,7 +108,7 @@ api_idx_000e:
     ret                              ; 0x0a55
 loc_0a56:
     mov ax, 0                        ; 0x0a56
-    db 0xe8, 0xaf, 0xe9 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x0a59
     mov ax, word [bp + 0x4]          ; 0x0a5c
     shl ax, 1                        ; 0x0a5f
     mov bx, ax                       ; 0x0a61
@@ -143,7 +143,7 @@ loc_0a56:
     mov al, byte [bx + 0x15]         ; 0x0aa5
     sub ah, ah                       ; 0x0aa8
     push ax                          ; 0x0aaa
-    call 0xefd1                      ; 0x0aab
+    call ds_dispatch_efd1            ; 0x0aab
     add sp, byte 0x16                ; 0x0aae
 @..local.l1:
     ret                              ; 0x0ab1

@@ -1,8 +1,8 @@
 api_idx_0024:
     mov ax, 0xffdc                   ; 0x3b83
     call ds_dispatch_f40b            ; 0x3b86
-    mov ax, word [dseg_8f1c]         ; 0x3b89
-    mov dx, word [dseg_8f1e]         ; 0x3b8c
+    mov ax, word [bss_8f1c]          ; 0x3b89
+    mov dx, word [bss_8f1e]          ; 0x3b8c
     mov cx, 0x5a0                    ; 0x3b90
     mov bx, 0                        ; 0x3b93
     call ds_dispatch_f99f            ; 0x3b96
@@ -14,8 +14,8 @@ api_idx_0024:
     cwd                              ; 0x3ba8
     idiv cx                          ; 0x3ba9
     mov word [bp - 0x0006], dx       ; 0x3bab
-    mov ax, word [dseg_8f1c]         ; 0x3bae
-    mov dx, word [dseg_8f1e]         ; 0x3bb1
+    mov ax, word [bss_8f1c]          ; 0x3bae
+    mov dx, word [bss_8f1e]          ; 0x3bb1
     mov cx, 0x5a0                    ; 0x3bb5
     mov bx, 0                        ; 0x3bb8
     call ds_dispatch_f9cd            ; 0x3bbb
@@ -45,8 +45,8 @@ api_idx_0024:
     cwd                              ; 0x3bf3
     mov cx, ax                       ; 0x3bf4
     mov bx, dx                       ; 0x3bf6
-    mov ax, word [dseg_8f1c]         ; 0x3bf8
-    mov dx, word [dseg_8f1e]         ; 0x3bfb
+    mov ax, word [bss_8f1c]          ; 0x3bf8
+    mov dx, word [bss_8f1e]          ; 0x3bfb
     sub ax, cx                       ; 0x3bff
     sbb dx, bx                       ; 0x3c01
     mov cx, 0x5a0                    ; 0x3c03
@@ -97,7 +97,7 @@ api_idx_0024:
     add ax, 0xff4e                   ; 0x3c77
     mov word [bp - 0x0010], ax       ; 0x3c7a
 @..api_idx_0024.l9:
-    mov ax, word [dseg_82ee]         ; 0x3c7d
+    mov ax, word [bss_82ee]          ; 0x3c7d
     shl ax, 1                        ; 0x3c80
     mov bx, ax                       ; 0x3c82
     add bx, bp                       ; 0x3c84

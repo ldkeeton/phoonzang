@@ -1,6 +1,6 @@
 api_idx_0002_5:
     mov ax, 0xfffe                   ; 0x54b4
-    db 0xe8, 0x51, 0x9f ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x54b7
     mov al, byte [bp + 0x4]          ; 0x54ba
     push ax                          ; 0x54bd
     mov ax, 6                        ; 0x54be
@@ -16,7 +16,7 @@ api_idx_0002_5:
     imul word [bp + 0x4]             ; 0x54da
     add ax, 0x8502                   ; 0x54dd
     push ax                          ; 0x54e0
-    db 0xe8, 0x5d, 0x97 ; call 0xec41
+    call ds_dispatch_ec41            ; 0x54e1
     add sp, byte 6                   ; 0x54e4
     mov ax, 1                        ; 0x54e7
     push ax                          ; 0x54ea
@@ -25,7 +25,7 @@ api_idx_0002_5:
     imul word [bp + 0x4]             ; 0x54f1
     add ax, 0x850a                   ; 0x54f4
     push ax                          ; 0x54f7
-    db 0xe8, 0x46, 0x97 ; call 0xec41
+    call ds_dispatch_ec41            ; 0x54f8
     add sp, byte 6                   ; 0x54fb
     mov word [bp - 0x0002], 0        ; 0x54fe
 @..api_idx_0002_5.l1:
@@ -36,7 +36,7 @@ api_idx_0002_5:
     imul word [bp - 0x0002]          ; 0x550d
     add ax, 0x8504                   ; 0x5510
     push ax                          ; 0x5513
-    db 0xe8, 0x2a, 0x97 ; call 0xec41
+    call ds_dispatch_ec41            ; 0x5514
     add sp, byte 6                   ; 0x5517
     inc word [bp - 0x0002]           ; 0x551a
     mov ax, word [bp - 0x0002]       ; 0x551d
@@ -49,7 +49,7 @@ api_idx_0002_5:
     imul word [bp + 0x4]             ; 0x552f
     add ax, 0x8504                   ; 0x5532
     push ax                          ; 0x5535
-    db 0xe8, 0x08, 0x97 ; call 0xec41
+    call ds_dispatch_ec41            ; 0x5536
     add sp, byte 6                   ; 0x5539
     cmp word [bp + 0x6], byte 0xff   ; 0x553c
     je short @..api_idx_0002_5.l2    ; 0x5540
@@ -60,7 +60,7 @@ api_idx_0002_5:
     imul word [bp + 0x6]             ; 0x554c
     add ax, 0x8502                   ; 0x554f
     push ax                          ; 0x5552
-    db 0xe8, 0xeb, 0x96 ; call 0xec41
+    call ds_dispatch_ec41            ; 0x5553
     add sp, byte 6                   ; 0x5556
     mov ax, 1                        ; 0x5559
     push ax                          ; 0x555c
@@ -69,7 +69,7 @@ api_idx_0002_5:
     imul word [bp + 0x6]             ; 0x5563
     add ax, 0x8504                   ; 0x5566
     push ax                          ; 0x5569
-    db 0xe8, 0xd4, 0x96 ; call 0xec41
+    call ds_dispatch_ec41            ; 0x556a
     add sp, byte 6                   ; 0x556d
 @..api_idx_0002_5.l2:
     ret                              ; 0x5570

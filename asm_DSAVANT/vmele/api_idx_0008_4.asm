@@ -57,7 +57,8 @@ api_idx_0008_4:
     sbb word [si], strict word 0x2a81 ; 0x30f1
     db 0x81
 @..api_idx_0008_4.l4:
-    cmp ax, strict word 6            ; 0x30f6
+    db 0x3d, 0x06
+    db 0x00
     jae short @..api_idx_0008_4.l5   ; 0x30f9
     xchg bx, ax                      ; 0x30fb
     shl bx, 1                        ; 0x30fc
@@ -108,16 +109,16 @@ api_idx_0008_4:
     jge short @..api_idx_0008_4.l12  ; 0x3174
     jmp near @..api_idx_0008_4.l1    ; 0x3176
 @..api_idx_0008_4.l12:
-    cmp word [dseg_82fa], byte 0     ; 0x3179
+    cmp word [bss_82fa], byte 0      ; 0x3179
     jle short @..api_idx_0008_4.l13  ; 0x317e
-    mov bx, word [dseg_8482]         ; 0x3180
+    mov bx, word [bss_8482]          ; 0x3180
     mov al, byte [bx + 0x190]        ; 0x3184
     sub ah, ah                       ; 0x3188
-    mov word [dseg_82fc], ax         ; 0x318a
+    mov word [bss_82fc], ax          ; 0x318a
 @..api_idx_0008_4.l13:
-    cmp word [dseg_82fc], byte 0     ; 0x318d
+    cmp word [bss_82fc], byte 0      ; 0x318d
     jg short @..api_idx_0008_4.l14   ; 0x3192
-    mov word [dseg_82fa], 0          ; 0x3194
-    mov word [dseg_82fc], 0          ; 0x319a
+    mov word [bss_82fa], 0           ; 0x3194
+    mov word [bss_82fc], 0           ; 0x319a
 @..api_idx_0008_4.l14:
     ret                              ; 0x31a0

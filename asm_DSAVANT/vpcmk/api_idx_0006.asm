@@ -1,7 +1,7 @@
 api_idx_0006:
     mov ax, 0xfffa                   ; 0x4081
     call ds_dispatch_f40b            ; 0x4084
-    mov ax, word [dseg_9594]         ; 0x4087
+    mov ax, word [bss_9594]          ; 0x4087
     mov word [bp - 0x0006], ax       ; 0x408a
     mov word [bp - 0x0002], 0        ; 0x408d
 @..api_idx_0006.l1:
@@ -29,7 +29,7 @@ api_idx_0006:
     add ax, si                       ; 0x40c9
     mov bx, ax                       ; 0x40cb
     inc byte [bx + 0x5d64]           ; 0x40cd
-    dec word [dseg_9594]             ; 0x40d1
+    dec word [bss_9594]              ; 0x40d1
     mov ax, 1                        ; 0x40d5
     push ax                          ; 0x40d8
     push word [bp + 0x4]             ; 0x40d9

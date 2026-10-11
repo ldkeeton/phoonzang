@@ -68,20 +68,20 @@ loc_2fd8:
     les bx, word [dseg_0002]         ; 0x2fde
     mov ax, word [es:bx]             ; 0x2fe2
     mov dx, word [es:bx + 0x2]       ; 0x2fe5
-    mov word [dseg_9090], dx         ; 0x2fe9
-    mov word [dseg_908e], ax         ; 0x2fed
-    mov ax, word [dseg_908e]         ; 0x2ff0
-    mov dx, word [dseg_9090]         ; 0x2ff3
-    sub ax, word [dseg_908a]         ; 0x2ff7
-    sbb dx, word [dseg_908c]         ; 0x2ffb
-    mov word [dseg_9094], dx         ; 0x2fff
-    mov word [dseg_9092], ax         ; 0x3003
-    mov ax, word [dseg_976c]         ; 0x3006
+    mov word [bss_9090], dx          ; 0x2fe9
+    mov word [bss_908e], ax          ; 0x2fed
+    mov ax, word [bss_908e]          ; 0x2ff0
+    mov dx, word [bss_9090]          ; 0x2ff3
+    sub ax, word [bss_908a]          ; 0x2ff7
+    sbb dx, word [bss_908c]          ; 0x2ffb
+    mov word [bss_9094], dx          ; 0x2fff
+    mov word [bss_9092], ax          ; 0x3003
+    mov ax, word [bss_976c]          ; 0x3006
     cwd                              ; 0x3009
     mov cx, ax                       ; 0x300a
     mov bx, dx                       ; 0x300c
-    mov ax, word [dseg_9092]         ; 0x300e
-    mov dx, word [dseg_9094]         ; 0x3011
+    mov ax, word [bss_9092]          ; 0x300e
+    mov dx, word [bss_9094]          ; 0x3011
     cmp bx, dx                       ; 0x3015
     jg short @..local.l32            ; 0x3017
     jne short @..local.l33           ; 0x3019
@@ -90,10 +90,10 @@ loc_2fd8:
 @..local.l32:
     jmp short @..local.l34           ; 0x301f
 @..local.l33:
-    mov ax, word [dseg_908e]         ; 0x3021
-    mov dx, word [dseg_9090]         ; 0x3024
-    mov word [dseg_908c], dx         ; 0x3028
-    mov word [dseg_908a], ax         ; 0x302c
+    mov ax, word [bss_908e]          ; 0x3021
+    mov dx, word [bss_9090]          ; 0x3024
+    mov word [bss_908c], dx          ; 0x3028
+    mov word [bss_908a], ax          ; 0x302c
     call api_idx_000a_2              ; 0x302f
     push word [bp + 0x4]             ; 0x3032
     call api_idx_000c_2              ; 0x3035
@@ -104,7 +104,6 @@ loc_2fd8:
     mov ax, 1                        ; 0x3040
     push ax                          ; 0x3043
     mov ax, 0x73                     ; 0x3044
-loc_3047:
     push ax                          ; 0x3047
     mov ax, 0x32                     ; 0x3048
     push ax                          ; 0x304b

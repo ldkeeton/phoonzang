@@ -97,16 +97,17 @@ api_idx_0018:
     mov word [bp - 0x000c], ax       ; 0x4a83
     mov ax, 0x248                    ; 0x4a86
     imul word [bp + 0x4]             ; 0x4a89
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x4a8c
     mov ax, word [bx + 0x5c18]       ; 0x4a8e
     cwd                              ; 0x4a92
     idiv cx                          ; 0x4a93
     mov word [bp - 0x0014], dx       ; 0x4a95
     mov ax, 0x1e                     ; 0x4a98
     cmp word [bp - 0x0014], byte 0   ; 0x4a9b
-    jne short loc_4aa9               ; 0x4a9f
+    jne short @..api_idx_0018.l1     ; 0x4a9f
     mov ax, 0x20                     ; 0x4aa1
     mov word [bp - 0x0016], 0x20     ; 0x4aa4
+@..api_idx_0018.l1:
     mov word [bp - 0x0016], ax       ; 0x4aa9
     mov word [bp - 0x0018], 1        ; 0x4aac
     jmp near @..api_idx_0018.l6      ; 0x4ab1
@@ -121,10 +122,7 @@ api_idx_0018:
     mov word [bp - 0x0018], 3        ; 0x4acd
     jmp near @..api_idx_0018.l6      ; 0x4ad2
     mov ax, word [bp - 0x0004]       ; 0x4ad5
-    db 0x03
-@..api_idx_0018.l1:
-    inc si                           ; 0x4ad9
-    cli                              ; 0x4ada
+    add ax, word [bp - 0x0006]       ; 0x4ad8
     mov cx, 2                        ; 0x4adb
     cwd                              ; 0x4ade
 @..api_idx_0018.l2:
@@ -158,7 +156,7 @@ api_idx_0018:
     mov word [bp - 0x0018], 0        ; 0x4b35
     jmp short @..api_idx_0018.l6     ; 0x4b3a
 loc_4b3c:
-    jl short @..api_idx_0018.l1      ; 0x4b3c
+    jl short loc_4ad9                ; 0x4b3c
     xlatb                            ; 0x4b3e
     cwd                              ; 0x4b3f
     clc                              ; 0x4b40

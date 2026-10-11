@@ -287,8 +287,8 @@ loc_0111:
     push ax                          ; 0x04ab
     call api_idx_0010                ; 0x04ac
     pop cx                           ; 0x04af
-    mov word [dseg_9116], ax         ; 0x04b0
-    push word [dseg_911c]            ; 0x04b3
+    mov word [bss_9116], ax          ; 0x04b0
+    push word [bss_911c]             ; 0x04b3
     mov ax, 0xf8                     ; 0x04b7
     push ax                          ; 0x04ba
     mov ax, 0x21                     ; 0x04bb
@@ -353,7 +353,7 @@ loc_0111:
     push word [bp - 0x0118]          ; 0x055b
     call ds_dispatch_e942            ; 0x055f
     add sp, byte 8                   ; 0x0562
-    cmp word [dseg_9116], byte 0     ; 0x0565
+    cmp word [bss_9116], byte 0      ; 0x0565
     jl short @..local.l25            ; 0x056a
     mov ax, word [bp - 0x0004]       ; 0x056c
     mov cx, 3                        ; 0x056f
@@ -362,12 +362,12 @@ loc_0111:
     mov ax, dx                       ; 0x0575
     test ax, ax                      ; 0x0577
     jne short @..local.l24           ; 0x0579
-    inc word [dseg_9116]             ; 0x057b
+    inc word [bss_9116]              ; 0x057b
 @..local.l24:
-    push word [dseg_9116]            ; 0x057f
+    push word [bss_9116]             ; 0x057f
     call api_idx_0010                ; 0x0583
     pop cx                           ; 0x0586
-    mov word [dseg_9116], ax         ; 0x0587
+    mov word [bss_9116], ax          ; 0x0587
 @..local.l25:
     mov ax, 0x18                     ; 0x058a
     imul word [bp - 0x000e]          ; 0x058d
@@ -412,7 +412,7 @@ loc_0111:
     push word [bp - 0x00f6]          ; 0x05f1
     call ds_dispatch_efd1            ; 0x05f5
     add sp, byte 0x16                ; 0x05f8
-    push word [dseg_911c]            ; 0x05fb
+    push word [bss_911c]             ; 0x05fb
     mov ax, 0xf8                     ; 0x05ff
     push ax                          ; 0x0602
     mov ax, 0x21                     ; 0x0603

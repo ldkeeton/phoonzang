@@ -1,14 +1,14 @@
 api_idx_0004_2:
     mov ax, 0xfffc                   ; 0x13f7
     call ds_dispatch_f40b            ; 0x13fa
-    cmp word [dseg_919e], byte 0     ; 0x13fd
+    cmp word [bss_919e], byte 0      ; 0x13fd
     je short @..api_idx_0004_2.l1    ; 0x1402
-    mov ax, word [dseg_8f3e]         ; 0x1404
-    mov word [dseg_8f2a], ax         ; 0x1407
-    mov ax, word [dseg_8f42]         ; 0x140a
-    mov word [dseg_8f2e], ax         ; 0x140d
-    mov ax, word [dseg_8f40]         ; 0x1410
-    mov word [dseg_8f2c], ax         ; 0x1413
+    mov ax, word [bss_8f3e]          ; 0x1404
+    mov word [bss_8f2a], ax          ; 0x1407
+    mov ax, word [bss_8f42]          ; 0x140a
+    mov word [bss_8f2e], ax          ; 0x140d
+    mov ax, word [bss_8f40]          ; 0x1410
+    mov word [bss_8f2c], ax          ; 0x1413
     ret                              ; 0x1416
 @..api_idx_0004_2.l1:
     call loc_676c                    ; 0x1417
@@ -110,7 +110,7 @@ api_idx_0004_2:
     inc word [bp - 0x0002]           ; 0x14f4
 @..api_idx_0004_2.l7:
     mov ax, word [bp - 0x0002]       ; 0x14f7
-    cmp ax, word [dseg_69c8]         ; 0x14fa
+    cmp ax, word [bss_69c8]          ; 0x14fa
     jge short @..api_idx_0004_2.l8   ; 0x14fe
     jmp near @..api_idx_0004_2.l2    ; 0x1500
 @..api_idx_0004_2.l8:

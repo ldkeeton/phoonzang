@@ -55,12 +55,12 @@ jumptable_2edc_case_16:
     mov word [bp - 0x0002], ax       ; 0x2e43
     jmp near @..main.l3              ; 0x2e46
 jumptable_2edc_case_25:
-    push word [data_830c]            ; 0x2e49
+    push word [bss_830c]             ; 0x2e49
     mov ax, 2                        ; 0x2e4d
     push ax                          ; 0x2e50
     call app_27e9                    ; 0x2e51
     add sp, byte 4                   ; 0x2e54
-    mov word [data_830a], 5          ; 0x2e57
+    mov word [bss_830a], 5           ; 0x2e57
 jumptable_2edc_case_5:
     mov ax, 0xc18                    ; 0x2e5d
     push ax                          ; 0x2e60
@@ -173,8 +173,8 @@ jumptable_2edc_case_9:
     call loc_415b                    ; 0x2f2d
     pop cx                           ; 0x2f30
     jmp near @..main.l1              ; 0x2f31
+    ret                              ; 0x2f34
 
-    db 0xc3
     times 11 db 0
     db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00
     db 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01

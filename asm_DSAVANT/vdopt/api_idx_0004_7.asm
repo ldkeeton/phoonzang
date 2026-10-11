@@ -1,7 +1,7 @@
 api_idx_0004_7:
     mov ax, 0xfffc                   ; 0x45dd
     call ds_dispatch_f40b            ; 0x45e0
-    mov word [dseg_9b5e], 5          ; 0x45e3
+    mov word [bss_9b5e], 5           ; 0x45e3
     mov ax, 1                        ; 0x45e9
     push ax                          ; 0x45ec
     push ax                          ; 0x45ed
@@ -14,7 +14,7 @@ api_idx_0004_7:
     je short @..api_idx_0004_7.l1    ; 0x45fd
     jmp near @..api_idx_0004_7.l4    ; 0x45ff
 @..api_idx_0004_7.l1:
-    mov ax, word [dseg_904e]         ; 0x4602
+    mov ax, word [bss_904e]          ; 0x4602
     mov cx, 0x100                    ; 0x4605
     cwd                              ; 0x4608
     idiv cx                          ; 0x4609
@@ -26,7 +26,7 @@ api_idx_0004_7:
     cmp byte [bx + 0x624], 1         ; 0x4618
     jne short @..api_idx_0004_7.l2   ; 0x461d
     call ds_dispatch_ceb1            ; 0x461f
-    mov word [dseg_9d90], ax         ; 0x4622
+    mov word [bss_9d90], ax          ; 0x4622
     cmp ax, strict word 0xffff       ; 0x4625
     jne short @..api_idx_0004_7.l2   ; 0x4628
 @..api_idx_0004_7.l2:
@@ -54,7 +54,7 @@ api_idx_0004_7:
     mov bx, cx                       ; 0x465d
     pop ax                           ; 0x465f
     sub word [bx + 0x5c1c], ax       ; 0x4660
-    push word [dseg_9d90]            ; 0x4664
+    push word [bss_9d90]             ; 0x4664
     push word [bp - 0x0004]          ; 0x4668
     push word [bp - 0x0002]          ; 0x466b
     push word [bp + 0x4]             ; 0x466e
@@ -94,9 +94,9 @@ api_idx_0004_7:
     pop ax                           ; 0x46c4
     mov byte [bx + 0x5d5c], al       ; 0x46c5
 @..api_idx_0004_7.l4:
-    cmp word [dseg_90b6], byte 0     ; 0x46c9
+    cmp word [bss_90b6], byte 0      ; 0x46c9
     jle short @..api_idx_0004_7.l5   ; 0x46ce
-    push word [dseg_90b6]            ; 0x46d0
+    push word [bss_90b6]             ; 0x46d0
     call api_idx_0058                ; 0x46d4
     pop cx                           ; 0x46d7
 @..api_idx_0004_7.l5:
@@ -109,14 +109,14 @@ loc_46d9:
     mov word [dseg_90ac], si         ; 0x46e6
     mov word [dseg_90ae], di         ; 0x46ea
     cld                              ; 0x46ee
-    mov di, dseg_90b6                ; 0x46ef
+    mov di, bss_90b6                 ; 0x46ef
     mov cx, 0x9d94                   ; 0x46f2
     sub cx, di                       ; 0x46f5
     shr cx, 1                        ; 0x46f7
-    je short @..local.l39            ; 0x46f9
+    je short @..local.l48            ; 0x46f9
     sub ax, ax                       ; 0x46fb
     rep stosw                        ; 0x46fd
-@..local.l39:
+@..local.l48:
     call loc_000e                    ; 0x46ff
     mov bp, word [dseg_90b2]         ; 0x4702
     mov sp, word [dseg_90b0]         ; 0x4706

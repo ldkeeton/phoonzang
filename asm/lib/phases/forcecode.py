@@ -4,6 +4,7 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.model import PhaseContext, CONF_CODE, SeedInfo, TargetInfo
 from lib.pipeline.phase import Phase, PhaseContract
+from lib.x86util import is_dos_terminator
 
 
 _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
@@ -17,7 +18,7 @@ class ForceCodePhase(Phase):
         writes_columns=['force_code'],
         reads_columns=['ALL'],  # counts strong-data votes via col < -0.8
         reads_ctx=['binary_data', 'label_map', 'code_targets', 'seeds',
-                   'hard_data'],
+                   'hard_data', 'start_offset'],
         writes_ctx=['code_targets', 'seeds'],
         requires_binary=True,
         requires_label_map=True,
@@ -56,8 +57,13 @@ class ForceCodePhase(Phase):
                 continue
 
             func_start = off
-            for i in range(min(16, off), 0, -1):
+            # Never scan back into the binary header (MZ/overlay): those
+            # bytes are not code and often contain 0x55 by chance.
+            max_back = min(16, off - ctx.start_offset)
+            for i in range(max_back, 0, -1):
                 p = off - i
+                if ctx.is_hard_data(p):
+                    continue
                 if data[p] == 0x55:
                     try:
                         prev = list(md.disasm(data[p:off], p))
@@ -77,7 +83,9 @@ class ForceCodePhase(Phase):
             end = min(func_start + 512, n)
             try:
                 for insn in md.disasm(data[func_start:end], func_start):
-                    if insn.mnemonic in _TERMINATORS:
+                    # A DOS exit (int 0x20 / int 0x21 with AH=0/4C/31) never
+                    # returns, so bytes after it are inline data, not code.
+                    if insn.mnemonic in _TERMINATORS or is_dos_terminator(data, insn):
                         end = insn.address + insn.size
                         break
                     end = insn.address + insn.size

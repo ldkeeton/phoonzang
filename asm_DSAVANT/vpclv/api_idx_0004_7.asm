@@ -179,7 +179,7 @@ api_idx_0004_7:
     xchg byte [bp - 0x007a], dh      ; 0x3798
     xchg dx, ax                      ; 0x379b
     xchg byte [bp - 0x357a], ch      ; 0x379c
-    db 0x86, 0xe6 ; xchg dh, ah
+    xchg dh, ah                      ; 0x37a0
     xchg byte [bp + si], al          ; 0x37a2
     xchg word [data_3a87], bx        ; 0x37a4
     xchg word [bp - 0x0079], dx      ; 0x37a8
@@ -201,7 +201,7 @@ api_idx_0004_7:
     jbe short @..api_idx_0004_7.l3   ; 0x37cd
     cmp byte [bx + 0x5d6a], 0xd      ; 0x37cf
     jbe short @..api_idx_0004_7.l3   ; 0x37d4
-    mov word [dseg_95d0], 1          ; 0x37d6
+    mov word [bss_95d0], 1           ; 0x37d6
 @..api_idx_0004_7.l3:
     mov word [bp - 0x0004], 0        ; 0x37dc
     mov ax, word [bp + 0x6]          ; 0x37e1

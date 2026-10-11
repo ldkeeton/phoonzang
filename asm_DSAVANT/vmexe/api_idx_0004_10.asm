@@ -14,7 +14,7 @@ api_idx_0004_10:
     mov ax, 0x2c                     ; 0x638d
     imul word [bp - 0x0004]          ; 0x6390
     mov si, ax                       ; 0x6393
-    mov bx, word [dseg_8482]         ; 0x6395
+    mov bx, word [bss_8482]          ; 0x6395
     cmp byte [bx + si + 0x22], 3     ; 0x6399
     jae short @..api_idx_0004_10.l3  ; 0x639d
     cmp byte [bx + si + 0x2b], 0     ; 0x639f
@@ -22,7 +22,7 @@ api_idx_0004_10:
     mov ax, word [bp - 0x0004]       ; 0x63a5
     ret                              ; 0x63a8
 @..api_idx_0004_10.l3:
-    mov ax, word [dseg_69c8]         ; 0x63a9
+    mov ax, word [bss_69c8]          ; 0x63a9
     dec ax                           ; 0x63ac
     cmp ax, word [bp + 0x4]          ; 0x63ad
     jle short @..api_idx_0004_10.l4  ; 0x63b0

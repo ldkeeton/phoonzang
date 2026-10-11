@@ -16,7 +16,7 @@ api_idx_0004_5:
     je short @..api_idx_0004_5.l2    ; 0x3998
     jmp near @..api_idx_0004_5.l6    ; 0x399a
 @..api_idx_0004_5.l2:
-    mov ax, word [dseg_904e]         ; 0x399d
+    mov ax, word [bss_904e]          ; 0x399d
     mov cx, 0x100                    ; 0x39a0
     cwd                              ; 0x39a3
     idiv cx                          ; 0x39a4
@@ -28,7 +28,7 @@ api_idx_0004_5:
     cmp byte [bx + 0x624], 1         ; 0x39b3
     jne short @..api_idx_0004_5.l3   ; 0x39b8
     call api_idx_0012_2              ; 0x39ba
-    mov word [dseg_9564], ax         ; 0x39bd
+    mov word [bss_9564], ax          ; 0x39bd
     cmp ax, strict word 0xffff       ; 0x39c0
     jne short @..api_idx_0004_5.l3   ; 0x39c3
     mov word [bp - 0x0002], 0xffff   ; 0x39c5
@@ -91,7 +91,7 @@ api_idx_0004_5:
     pop ax                           ; 0x3a51
     mov byte [bx + 0x5d5c], al       ; 0x3a52
 @..api_idx_0004_5.l5:
-    push word [dseg_9564]            ; 0x3a56
+    push word [bss_9564]             ; 0x3a56
     push word [bp - 0x0004]          ; 0x3a5a
     push word [bp - 0x0002]          ; 0x3a5d
     push word [bp + 0x4]             ; 0x3a60
@@ -113,18 +113,18 @@ loc_3a6a:
     call ds_dispatch_e8da            ; 0x3a80
     add sp, byte 8                   ; 0x3a83
     call ds_dispatch_ec17            ; 0x3a86
-@..local.l41:
+@..local.l42:
     call ds_dispatch_baef            ; 0x3a89
     test ax, ax                      ; 0x3a8c
-    jne short @..local.l42           ; 0x3a8e
-    jmp short @..local.l41           ; 0x3a90
-@..local.l42:
+    jne short @..local.l43           ; 0x3a8e
+    jmp short @..local.l42           ; 0x3a90
+@..local.l43:
     mov ax, 0                        ; 0x3a92
     push ax                          ; 0x3a95
     push ax                          ; 0x3a96
-    push word [dseg_93f8]            ; 0x3a97
-    push word [dseg_93f6]            ; 0x3a9b
+    push word [bss_93f8]             ; 0x3a97
+    push word [bss_93f6]             ; 0x3a9b
     call ds_dispatch_e942            ; 0x3a9f
     add sp, byte 8                   ; 0x3aa2
-    mov word [dseg_9566], 0          ; 0x3aa5
+    mov word [bss_9566], 0           ; 0x3aa5
     ret                              ; 0x3aab

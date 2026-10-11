@@ -1,6 +1,6 @@
 api_idx_0058:
     mov ax, 0xffa8                   ; 0x89a8
-    db 0xe8, 0x5d, 0x6a ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x89ab
     mov word [bp - 0x0002], 0        ; 0x89ae
     jmp near @..api_idx_0058.l4      ; 0x89b3
 @..api_idx_0058.l1:
@@ -16,7 +16,7 @@ api_idx_0058:
     add sp, byte 4                   ; 0x89cd
     lea ax, word [bp - 0x002c]       ; 0x89d0
     push ax                          ; 0x89d3
-    db 0xe8, 0xb9, 0x70 ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x89d4
     pop cx                           ; 0x89d7
     mov word [bp - 0x0058], ax       ; 0x89d8
     mov bx, ax                       ; 0x89db
@@ -25,7 +25,7 @@ api_idx_0058:
     mov byte [bx - 0x002b], 0        ; 0x89e3
     lea ax, word [bp - 0x0054]       ; 0x89e7
     push ax                          ; 0x89ea
-    db 0xe8, 0xa2, 0x70 ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x89eb
     pop cx                           ; 0x89ee
     mov word [bp - 0x0058], ax       ; 0x89ef
     mov bx, ax                       ; 0x89f2
@@ -34,7 +34,7 @@ api_idx_0058:
     mov byte [bx - 0x0053], 0        ; 0x89fa
     lea ax, word [bp - 0x002c]       ; 0x89fe
     push ax                          ; 0x8a01
-    db 0xe8, 0x8b, 0x70 ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8a02
     pop cx                           ; 0x8a05
     push ax                          ; 0x8a06
     lea ax, word [bp - 0x002c]       ; 0x8a07
@@ -46,7 +46,7 @@ api_idx_0058:
     jne short @..api_idx_0058.l2     ; 0x8a16
     lea ax, word [bp - 0x002c]       ; 0x8a18
     push ax                          ; 0x8a1b
-    db 0xe8, 0x71, 0x70 ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8a1c
     pop cx                           ; 0x8a1f
     dec ax                           ; 0x8a20
     push ax                          ; 0x8a21
@@ -60,7 +60,7 @@ api_idx_0058:
 @..api_idx_0058.l2:
     lea ax, word [bp - 0x0054]       ; 0x8a36
     push ax                          ; 0x8a39
-    db 0xe8, 0x53, 0x70 ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8a3a
     pop cx                           ; 0x8a3d
     push ax                          ; 0x8a3e
     lea ax, word [bp - 0x0054]       ; 0x8a3f
@@ -72,7 +72,7 @@ api_idx_0058:
     jne short @..api_idx_0058.l3     ; 0x8a4e
     lea ax, word [bp - 0x0054]       ; 0x8a50
     push ax                          ; 0x8a53
-    db 0xe8, 0x39, 0x70 ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8a54
     pop cx                           ; 0x8a57
     dec ax                           ; 0x8a58
     push ax                          ; 0x8a59
@@ -87,7 +87,7 @@ api_idx_0058:
     inc word [bp - 0x0002]           ; 0x8a6e
 @..api_idx_0058.l4:
     mov ax, word [bp - 0x0002]       ; 0x8a71
-    cmp ax, word [dseg_a656]         ; 0x8a74
+    cmp ax, word [bss_a656]          ; 0x8a74
     jge short @..api_idx_0058.l5     ; 0x8a78
     jmp near @..api_idx_0058.l1      ; 0x8a7a
 @..api_idx_0058.l5:

@@ -3,15 +3,15 @@ api_idx_0050:
     call ds_dispatch_f40b            ; 0x13e3
     cmp word [bp + 0x6], byte 0      ; 0x13e6
     jl short @..api_idx_0050.l1      ; 0x13ea
-    mov word [dseg_911a], 1          ; 0x13ec
+    mov word [bss_911a], 1           ; 0x13ec
     mov ax, word [bp + 0x4]          ; 0x13f2
-    mov word [dseg_9122], ax         ; 0x13f5
+    mov word [bss_9122], ax          ; 0x13f5
     mov ax, word [bp + 0x6]          ; 0x13f8
-    mov word [dseg_9120], ax         ; 0x13fb
+    mov word [bss_9120], ax          ; 0x13fb
     jmp short @..api_idx_0050.l2     ; 0x13fe
 @..api_idx_0050.l1:
-    mov word [dseg_9116], 0          ; 0x1400
-    mov word [dseg_9118], 1          ; 0x1406
+    mov word [bss_9116], 0           ; 0x1400
+    mov word [bss_9118], 1           ; 0x1406
 @..api_idx_0050.l2:
     lea ax, word [bp - 0x0050]       ; 0x140c
     push ax                          ; 0x140f
@@ -23,7 +23,7 @@ api_idx_0050:
     push ax                          ; 0x141d
     mov ax, 0                        ; 0x141e
     push ax                          ; 0x1421
-    push word [dseg_91d4]            ; 0x1422
+    push word [bss_91d4]             ; 0x1422
     lea ax, word [bp - 0x0050]       ; 0x1426
     push ax                          ; 0x1429
     call loc_0eb2                    ; 0x142a
@@ -32,7 +32,7 @@ api_idx_0050:
     push ax                          ; 0x1433
     mov ax, 0                        ; 0x1434
     push ax                          ; 0x1437
-    push word [dseg_91d4]            ; 0x1438
+    push word [bss_91d4]             ; 0x1438
     mov ax, 0x91d6                   ; 0x143c
     push ax                          ; 0x143f
     call loc_0eb2                    ; 0x1440

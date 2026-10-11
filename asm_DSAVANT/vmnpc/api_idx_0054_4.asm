@@ -1,6 +1,6 @@
 api_idx_0054_4:
     mov ax, 0xffac                   ; 0x5d93
-    db 0xe8, 0x72, 0x96 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x5d96
     mov ax, 3                        ; 0x5d99
     push ax                          ; 0x5d9c
     call api_idx_0006                ; 0x5d9d
@@ -22,12 +22,12 @@ api_idx_0054_4:
     mov bx, ax                       ; 0x5dc3
     push word [bx + 0x5c0a]          ; 0x5dc5
     push word [bx + 0x5c08]          ; 0x5dc9
-    db 0xe8, 0x0b, 0x54 ; call 0xb1db
+    call ds_dispatch_b1db            ; 0x5dcd
     add sp, byte 6                   ; 0x5dd0
     push word [bp + 0xa]             ; 0x5dd3
     lea ax, word [bp - 0x0054]       ; 0x5dd6
     push ax                          ; 0x5dd9
-    db 0xe8, 0x50, 0x95 ; call 0xf32d
+    call ds_dispatch_f32d            ; 0x5dda
     add sp, byte 4                   ; 0x5ddd
     mov ax, 0xb3                     ; 0x5de0
     push ax                          ; 0x5de3

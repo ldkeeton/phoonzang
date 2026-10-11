@@ -1,7 +1,7 @@
 api_idx_0054_6:
     mov ax, 0xffac                   ; 0x9d30
-    db 0xe8, 0xd5, 0x56 ; call 0xf40b
-    mov ax, word [dseg_9e42]         ; 0x9d36
+    call ds_dispatch_f40b            ; 0x9d33
+    mov ax, word [bss_9e42]          ; 0x9d36
     mov word [bp - 0x0002], ax       ; 0x9d39
     mov cx, 0x14                     ; 0x9d3c
     imul cx                          ; 0x9d3f
@@ -31,7 +31,7 @@ api_idx_0054_6:
     add sp, byte 4                   ; 0x9d78
     ret                              ; 0x9d7b
 @..api_idx_0054_6.l2:
-    mov ax, word [dseg_9e46]         ; 0x9d7c
+    mov ax, word [bss_9e46]          ; 0x9d7c
     jmp near @..api_idx_0054_6.l3    ; 0x9d7f
 
     db 0x83, 0x3e, 0x62, 0x9e, 0x01, 0x74, 0x03, 0xe9, 0xf0, 0x00, 0x83, 0x7e, 0xfe, 0x00, 0x74, 0x03
@@ -126,27 +126,27 @@ api_idx_0054_6:
     ret                              ; 0xa29e
 loc_a29f:
     mov ax, 0                        ; 0xa29f
-    db 0xe8, 0x66, 0x51 ; call 0xf40b
-    cmp word [dseg_9e48], byte 0xff  ; 0xa2a5
-    je short @..local.l117           ; 0xa2aa
-    cmp word [dseg_9e46], byte 0xff  ; 0xa2ac
-    je short @..local.l116           ; 0xa2b1
-    cmp word [dseg_9e42], byte 0xff  ; 0xa2b3
-    jne short @..local.l117          ; 0xa2b8
-@..local.l116:
+    call ds_dispatch_f40b            ; 0xa2a2
+    cmp word [bss_9e48], byte 0xff   ; 0xa2a5
+    je short @..local.l122           ; 0xa2aa
+    cmp word [bss_9e46], byte 0xff   ; 0xa2ac
+    je short @..local.l121           ; 0xa2b1
+    cmp word [bss_9e42], byte 0xff   ; 0xa2b3
+    jne short @..local.l122          ; 0xa2b8
+@..local.l121:
     call loc_9a04                    ; 0xa2ba
-@..local.l117:
-    cmp word [dseg_9e46], byte 0xff  ; 0xa2bd
-    je short @..local.l118           ; 0xa2c2
-    cmp word [dseg_9e42], byte 0xff  ; 0xa2c4
-    je short @..local.l118           ; 0xa2c9
+@..local.l122:
+    cmp word [bss_9e46], byte 0xff   ; 0xa2bd
+    je short @..local.l123           ; 0xa2c2
+    cmp word [bss_9e42], byte 0xff   ; 0xa2c4
+    je short @..local.l123           ; 0xa2c9
     call api_idx_0054_6              ; 0xa2cb
-    mov ax, word [dseg_9e42]         ; 0xa2ce
-    mov word [dseg_9e4a], ax         ; 0xa2d1
-    mov ax, word [dseg_9e44]         ; 0xa2d4
-    mov word [dseg_9e4c], ax         ; 0xa2d7
-    mov ax, word [dseg_9e46]         ; 0xa2da
-    mov word [dseg_9e4e], ax         ; 0xa2dd
-    mov word [dseg_9e50], 0xffff     ; 0xa2e0
-@..local.l118:
+    mov ax, word [bss_9e42]          ; 0xa2ce
+    mov word [bss_9e4a], ax          ; 0xa2d1
+    mov ax, word [bss_9e44]          ; 0xa2d4
+    mov word [bss_9e4c], ax          ; 0xa2d7
+    mov ax, word [bss_9e46]          ; 0xa2da
+    mov word [bss_9e4e], ax          ; 0xa2dd
+    mov word [bss_9e50], 0xffff      ; 0xa2e0
+@..local.l123:
     ret                              ; 0xa2e6

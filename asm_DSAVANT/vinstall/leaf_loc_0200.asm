@@ -12,9 +12,9 @@ loc_0206:
     add ax, strict word 0xffbf       ; 0x0211
     mov word [bp - 0x0012], ax       ; 0x0214
     cmp ax, strict word 0            ; 0x0217
-    jl short loc_0263                ; 0x021a
+    jl short @..leaf_loc_0200.l3     ; 0x021a
     cmp ax, strict word 0x19         ; 0x021c
-    jg short loc_0263                ; 0x021f
+    jg short @..leaf_loc_0200.l3     ; 0x021f
     mov ax, word [bp - 0x0012]       ; 0x0221
     mov word [bp - 0x000a], ax       ; 0x0224
     mov word [bp - 0x0010], 0xe00    ; 0x0227
@@ -36,20 +36,20 @@ loc_0206:
     mov ax, word [bp - 0x0010]       ; 0x024f
     and ax, 0xff                     ; 0x0252
     cmp ax, word [bp - 0x0012]       ; 0x0255
-    je short loc_0261                ; 0x0258
+    je short @..leaf_loc_0200.l2     ; 0x0258
     mov ax, 0xffff                   ; 0x025a
-loc_025d:
+@..leaf_loc_0200.l1:
     mov sp, bp                       ; 0x025d
     pop bp                           ; 0x025f
     ret                              ; 0x0260
-loc_0261:
-    jmp short loc_0268               ; 0x0261
-loc_0263:
+@..leaf_loc_0200.l2:
+    jmp short @..leaf_loc_0200.l4    ; 0x0261
+@..leaf_loc_0200.l3:
     mov ax, 0xffff                   ; 0x0263
-    jmp short loc_025d               ; 0x0266
-loc_0268:
+    jmp short @..leaf_loc_0200.l1    ; 0x0266
+@..leaf_loc_0200.l4:
     mov ax, 0                        ; 0x0268
-    jmp short loc_025d               ; 0x026b
+    jmp short @..leaf_loc_0200.l1    ; 0x026b
 loc_026d:
     push bp                          ; 0x026d
     mov bp, sp                       ; 0x026e

@@ -92,8 +92,8 @@ api_idx_000e:
     mov bx, word [bx - 0x7b70]       ; 0x1398
     mov ax, word [bx + 0x40]         ; 0x139c
     mov dx, word [bx + 0x42]         ; 0x139f
-    add word [dseg_84a2], ax         ; 0x13a2
-    adc word [dseg_84a4], dx         ; 0x13a6
+    add word [bss_84a2], ax          ; 0x13a2
+    adc word [bss_84a4], dx          ; 0x13a6
 @..api_idx_000e.l6:
     mov bx, word [bp - 0x0004]       ; 0x13aa
     cmp byte [bx + 0x2a], 0xff       ; 0x13ad

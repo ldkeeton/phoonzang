@@ -74,13 +74,13 @@ loc_aa3f:
     mov byte [bx - 0x7b13], al       ; 0xaa57
     mov al, byte [bx - 0x7b14]       ; 0xaa5b
     cmp al, byte [bx - 0x7b17]       ; 0xaa5f
-    jne short @..local.l90           ; 0xaa63
+    jne short @..local.l116          ; 0xaa63
     mov ax, 0xa                      ; 0xaa65
     push ax                          ; 0xaa68
     call ds_dispatch_b7a9            ; 0xaa69
     pop cx                           ; 0xaa6c
     test ax, ax                      ; 0xaa6d
-    jne short @..local.l90           ; 0xaa6f
+    jne short @..local.l116          ; 0xaa6f
     mov ax, 0x26                     ; 0xaa71
     imul word [bp + 0x4]             ; 0xaa74
     mov bx, ax                       ; 0xaa77
@@ -91,16 +91,16 @@ loc_aa3f:
     call ds_dispatch_b7a9            ; 0xaa85
     pop cx                           ; 0xaa88
     test ax, ax                      ; 0xaa89
-    jne short @..local.l89           ; 0xaa8b
+    jne short @..local.l115          ; 0xaa8b
     mov ax, 0x26                     ; 0xaa8d
     imul word [bp + 0x4]             ; 0xaa90
     mov bx, ax                       ; 0xaa93
     mov byte [bx - 0x7b16], 2        ; 0xaa95
     mov byte [bx - 0x7b13], 0        ; 0xaa9a
     ret                              ; 0xaa9f
-@..local.l89:
-    jmp short @..local.l91           ; 0xaaa0
-@..local.l90:
+@..local.l115:
+    jmp short @..local.l117          ; 0xaaa0
+@..local.l116:
     mov ax, 3                        ; 0xaaa2
     push ax                          ; 0xaaa5
     mov ax, 2                        ; 0xaaa6
@@ -109,9 +109,9 @@ loc_aa3f:
     call api_idx_0002_25             ; 0xaaad
     add sp, byte 6                   ; 0xaab0
     test ax, ax                      ; 0xaab3
-    je short @..local.l91            ; 0xaab5
+    je short @..local.l117           ; 0xaab5
     ret                              ; 0xaab7
-@..local.l91:
+@..local.l117:
     mov ax, 0xffff                   ; 0xaab8
     push ax                          ; 0xaabb
     push word [bp + 0x4]             ; 0xaabc
@@ -129,12 +129,12 @@ loc_aad3:
     imul word [bp + 0x4]             ; 0xaadc
     mov bx, ax                       ; 0xaadf
     cmp byte [bx - 0x7b00], 0        ; 0xaae1
-    jg short @..local.l92            ; 0xaae6
+    jg short @..local.l118           ; 0xaae6
     ret                              ; 0xaae8
-@..local.l92:
+@..local.l118:
     mov al, byte [bx - 0x7b16]       ; 0xaae9
     sub ah, ah                       ; 0xaaed
-    jmp near @..local.l93            ; 0xaaef
+    jmp near @..local.l119           ; 0xaaef
 
     db 0xff, 0x76, 0x04, 0xe8, 0xd6, 0xeb, 0x59, 0xe9, 0x9e, 0x00, 0xb8, 0x05, 0x00, 0x50, 0x50, 0xff
     db 0x76, 0x04, 0xe8, 0x85, 0xf7, 0x83, 0xc4, 0x06, 0xe9, 0x8d, 0x00, 0xff, 0x76, 0x04, 0xe8, 0xcc
@@ -147,11 +147,11 @@ loc_aad3:
     db 0xff, 0x76, 0x04, 0xe8, 0x3a, 0xfc, 0x83, 0xc4, 0x04, 0xeb, 0x1d, 0x39, 0xfb, 0x43, 0xfb, 0x54
     db 0xfb, 0x5e, 0xfb, 0x6d, 0xfb, 0x76, 0xfb, 0x90, 0xfb, 0x99, 0xfb
 
-@..local.l93:
+@..local.l119:
     cmp ax, strict word 8            ; 0xab8d
-    jae short @..local.l94           ; 0xab90
+    jae short @..local.l120          ; 0xab90
     xchg bx, ax                      ; 0xab92
     shl bx, 1                        ; 0xab93
     jmp [cs:bx - 0x043c]             ; 0xab95
-@..local.l94:
+@..local.l120:
     ret                              ; 0xab9a

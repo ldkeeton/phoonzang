@@ -121,7 +121,7 @@ api_idx_0012_3:
 @..api_idx_0012_3.l10:
     mov cx, word [bx - 0x6dbe]       ; 0x31fc
     dec cx                           ; 0x3200
-    mov ax, word [dseg_82ee]         ; 0x3201
+    mov ax, word [bss_82ee]          ; 0x3201
     sub ax, cx                       ; 0x3204
     add ax, strict word 6            ; 0x3206
     mov cx, 4                        ; 0x3209
@@ -158,7 +158,7 @@ api_idx_0012_3:
     inc ax                           ; 0x3249
     inc ax                           ; 0x324a
     mov word [bp - 0x0004], ax       ; 0x324b
-    mov ax, word [dseg_91a4]         ; 0x324e
+    mov ax, word [bss_91a4]          ; 0x324e
     mov word [bp - 0x0006], ax       ; 0x3251
     mov ax, word [bx + 0x260]        ; 0x3254
     mov word [bp - 0x0008], ax       ; 0x3258
@@ -220,7 +220,7 @@ api_idx_0012_3:
     sub ah, ah                       ; 0x32da
     jmp near @..api_idx_0012_3.l36   ; 0x32dc
 @..api_idx_0012_3.l21:
-    cmp word [dseg_91a8], byte 2     ; 0x32df
+    cmp word [bss_91a8], byte 2      ; 0x32df
     je short @..api_idx_0012_3.l22   ; 0x32e4
     jmp near @..api_idx_0012_3.l32   ; 0x32e6
 @..api_idx_0012_3.l22:
@@ -335,7 +335,7 @@ api_idx_0012_3:
     jne short @..api_idx_0012_3.l27  ; 0x33e4
     jmp near @..api_idx_0012_3.l31   ; 0x33e6
 @..api_idx_0012_3.l27:
-    cmp word [dseg_91a8], byte 0     ; 0x33e9
+    cmp word [bss_91a8], byte 0      ; 0x33e9
     jne short @..api_idx_0012_3.l28  ; 0x33ee
     jmp near @..api_idx_0012_3.l31   ; 0x33f0
 @..api_idx_0012_3.l28:
@@ -417,7 +417,7 @@ api_idx_0012_3:
 @..api_idx_0012_3.l31:
     jmp near @..api_idx_0012_3.l35   ; 0x348c
 @..api_idx_0012_3.l32:
-    cmp word [dseg_91a8], byte 4     ; 0x348f
+    cmp word [bss_91a8], byte 4      ; 0x348f
     je short @..api_idx_0012_3.l33   ; 0x3494
     jmp near @..api_idx_0012_3.l35   ; 0x3496
 @..api_idx_0012_3.l33:
@@ -599,7 +599,7 @@ api_idx_0012_3:
 @..api_idx_0012_3.l47:
     mov cx, word [bx - 0x6df0]       ; 0x36c3
     dec cx                           ; 0x36c7
-    mov ax, word [dseg_82ee]         ; 0x36c8
+    mov ax, word [bss_82ee]          ; 0x36c8
     sub ax, cx                       ; 0x36cb
     add ax, strict word 6            ; 0x36cd
     mov cx, 4                        ; 0x36d0
@@ -627,7 +627,7 @@ api_idx_0012_3:
     add ax, cx                       ; 0x3701
     inc ax                           ; 0x3703
     mov word [bp - 0x0004], ax       ; 0x3704
-    mov ax, word [dseg_91a4]         ; 0x3707
+    mov ax, word [bss_91a4]          ; 0x3707
     mov word [bp - 0x0006], ax       ; 0x370a
     mov ax, word [bx + 0x260]        ; 0x370d
     mov word [bp - 0x0008], ax       ; 0x3711
@@ -695,9 +695,9 @@ api_idx_0012_3:
     mov ax, word [bp + 0x6]          ; 0x37a1
     cmp ax, strict word 2            ; 0x37a4
     jne short @..api_idx_0012_3.l57  ; 0x37a7
-    cmp word [dseg_8f22], byte 0     ; 0x37a9
+    cmp word [bss_8f22], byte 0      ; 0x37a9
     je short @..api_idx_0012_3.l57   ; 0x37ae
-    mov word [dseg_8f20], 0xffff     ; 0x37b0
+    mov word [bss_8f20], 0xffff      ; 0x37b0
 @..api_idx_0012_3.l57:
     cmp word [bp + 0x4], byte 0      ; 0x37b6
     jne short @..api_idx_0012_3.l58  ; 0x37ba
@@ -818,11 +818,11 @@ api_idx_0012_3:
     mov ax, word [bp + 0x6]          ; 0x38c8
     cmp ax, strict word 2            ; 0x38cb
     jne short @..api_idx_0012_3.l66  ; 0x38ce
-    cmp word [dseg_8f22], byte 0     ; 0x38d0
+    cmp word [bss_8f22], byte 0      ; 0x38d0
     je short @..api_idx_0012_3.l66   ; 0x38d5
     mov al, byte [bx - 0x6e09]       ; 0x38d7
     sub ah, ah                       ; 0x38db
-    mov word [dseg_8f20], ax         ; 0x38dd
+    mov word [bss_8f20], ax          ; 0x38dd
     jmp near @..api_idx_0012_3.l75   ; 0x38e0
 @..api_idx_0012_3.l66:
     mov ax, word [bp + 0x4]          ; 0x38e3
@@ -838,7 +838,7 @@ api_idx_0012_3:
     mov cx, ax                       ; 0x38fc
     dec ax                           ; 0x38fe
     mov cx, ax                       ; 0x38ff
-    mov ax, word [dseg_82ee]         ; 0x3901
+    mov ax, word [bss_82ee]          ; 0x3901
     sub ax, cx                       ; 0x3904
     add ax, strict word 6            ; 0x3906
     mov cx, 4                        ; 0x3909

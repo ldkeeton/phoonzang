@@ -6,7 +6,7 @@ string_loc_6f8c:
     mov word [dseg_951a], si         ; 0x6f99
     mov word [dseg_951c], di         ; 0x6f9d
     cld                              ; 0x6fa1
-    mov di, dseg_9524                ; 0x6fa2
+    mov di, bss_9524                 ; 0x6fa2
     mov cx, 0x978c                   ; 0x6fa5
     sub cx, di                       ; 0x6fa8
     shr cx, 1                        ; 0x6faa

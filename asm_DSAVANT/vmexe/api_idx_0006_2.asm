@@ -23,7 +23,7 @@ api_idx_0006_2:
     jne short @..api_idx_0006_2.l4   ; 0x20d0
     mov ax, 0xe                      ; 0x20d2
     push ax                          ; 0x20d5
-    mov ax, word [dseg_8490]         ; 0x20d6
+    mov ax, word [bss_8490]          ; 0x20d6
     add ax, 0x9a                     ; 0x20d9
     push ax                          ; 0x20dc
     mov ax, 0x248                    ; 0x20dd

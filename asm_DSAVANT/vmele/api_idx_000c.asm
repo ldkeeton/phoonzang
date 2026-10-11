@@ -37,7 +37,7 @@ api_idx_000c:
     push word [bp + 0x4]             ; 0x035e
     call ds_dispatch_e84e            ; 0x0361
     add sp, byte 4                   ; 0x0364
-    mov ax, word [dseg_598e]         ; 0x0367
+    mov ax, word [bss_598e]          ; 0x0367
     mov word [bp - 0x000c], ax       ; 0x036a
     push word [bp + 0x6]             ; 0x036d
     call ds_dispatch_d7aa            ; 0x0370
@@ -65,7 +65,7 @@ api_idx_000c:
     push ax                          ; 0x03a2
     call ds_dispatch_d6c6            ; 0x03a3
     pop cx                           ; 0x03a6
-    mov word [dseg_598e], 0xffff     ; 0x03a7
+    mov word [bss_598e], 0xffff      ; 0x03a7
 @..api_idx_000c.l2:
     mov ax, 0                        ; 0x03ad
     push ax                          ; 0x03b0

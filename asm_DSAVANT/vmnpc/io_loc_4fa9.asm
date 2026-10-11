@@ -22,10 +22,10 @@ loc_4fcd:
     mov ax, 1                        ; 0x4fcd
     push ax                          ; 0x4fd0
     push word [bp - 0x0038]          ; 0x4fd1
-    db 0xe8, 0x82, 0x74 ; call 0xc459
+    call ds_dispatch_c459            ; 0x4fd4
     add sp, byte 4                   ; 0x4fd7
-    mov word [dseg_93d8], 0x8f       ; 0x4fda
+    mov word [bss_93d8], 0x8f        ; 0x4fda
     mov ax, word [bp - 0x0020]       ; 0x4fe0
-    mov word [dseg_904e], ax         ; 0x4fe3
-    mov ax, word [dseg_9050]         ; 0x4fe6
+    mov word [bss_904e], ax          ; 0x4fe3
+    mov ax, word [bss_9050]          ; 0x4fe6
     ret                              ; 0x4fe9

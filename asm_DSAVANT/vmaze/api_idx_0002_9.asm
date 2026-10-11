@@ -16,9 +16,9 @@ api_idx_0002_9:
     inc word [bp - 0x0002]           ; 0x1132
 @..api_idx_0002_9.l2:
     mov ax, word [bp - 0x0002]       ; 0x1135
-    cmp ax, word [dseg_69c8]         ; 0x1138
+    cmp ax, word [bss_69c8]          ; 0x1138
     jl short @..api_idx_0002_9.l1    ; 0x113c
-    mov ax, word [dseg_905a]         ; 0x113e
+    mov ax, word [bss_905a]          ; 0x113e
     shl ax, 1                        ; 0x1141
     push ax                          ; 0x1143
     call api_idx_0006_2              ; 0x1144
@@ -33,7 +33,7 @@ api_idx_0002_9:
     push ax                          ; 0x1157
     call ds_dispatch_e8da            ; 0x1158
     add sp, byte 8                   ; 0x115b
-    mov word [dseg_830a], 8          ; 0x115e
+    mov word [bss_830a], 8           ; 0x115e
     ret                              ; 0x1164
 loc_1165:
     mov ax, 0                        ; 0x1165
@@ -53,7 +53,7 @@ loc_1165:
     add ax, cx                       ; 0x1185
     add ax, word [bp + 0x8]          ; 0x1187
     push ax                          ; 0x118a
-    mov ax, word [dseg_0e14]         ; 0x118b
+    mov ax, word [bss_0e14]          ; 0x118b
     add ax, 0x90                     ; 0x118e
     push ax                          ; 0x1191
     call ds_dispatch_ecf6            ; 0x1192
@@ -72,7 +72,7 @@ loc_1165:
     add ax, cx                       ; 0x11ae
     add ax, word [bp + 0x8]          ; 0x11b0
     push ax                          ; 0x11b3
-    mov ax, word [dseg_0e14]         ; 0x11b4
+    mov ax, word [bss_0e14]          ; 0x11b4
     add ax, 0x290                    ; 0x11b7
     push ax                          ; 0x11ba
     call ds_dispatch_ecf6            ; 0x11bb

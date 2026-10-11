@@ -40,7 +40,7 @@ aztec_open:
     push si                          ; 0x33d7
     call aztec_close                 ; 0x33d8
     pop cx                           ; 0x33db
-    mov word [0x24d6], 0x13          ; 0x33dc
+    mov word [dseg_24d6], 0x13       ; 0x33dc
     mov ax, 0xffff                   ; 0x33e2
 @..aztec_open.l4:
     pop si                           ; 0x33e5

@@ -6,7 +6,6 @@ bits 16
 IMAGE_BASE equ 0x0000
 %endif
 
-dos_con_loc_1501 equ 0x1501
 data_36dd equ 0x36dd
 data_3705 equ 0x3705
 cseg_01e1 equ 0x01e1

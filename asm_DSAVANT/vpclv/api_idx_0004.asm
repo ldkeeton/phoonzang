@@ -4,8 +4,8 @@ api_idx_0004:
     mov ax, 0                        ; 0x0287
     push ax                          ; 0x028a
     push ax                          ; 0x028b
-    push word [dseg_942c]            ; 0x028c
-    push word [dseg_942a]            ; 0x0290
+    push word [bss_942c]             ; 0x028c
+    push word [bss_942a]             ; 0x0290
     call ds_dispatch_e942            ; 0x0294
     add sp, byte 8                   ; 0x0297
     mov word [bp - 0x0002], 0        ; 0x029a

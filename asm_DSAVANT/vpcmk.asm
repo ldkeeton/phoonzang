@@ -1,39 +1,27 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_600d.inc"
+%include "inc/structs/loc_4d4a.inc"
 org 0
 bits 16
 %include "inc/labels/vpcmk_foreign_labels.inc"
 
 %ifndef IMAGE_BASE
-IMAGE_BASE equ 0x0008
+IMAGE_BASE equ 0x000e
 %endif
 
-    ; header (8 bytes)
-    db 0xf2, 0x00, 0x55, 0x50, 0x23, 0x70, 0x98, 0x90
+    ; Aztec C86 overlay header (14 bytes)
+    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
+    dw 0x5055      ; o_corg: code load origin (memory offset)
+    dw 0x7023      ; o_csize: code size in bytes
+    dw 0x9098      ; o_dorg: data load origin (memory offset)
+    dw 0x048c      ; o_dsize: initialized data size
+    dw 0x0268      ; o_bss: uninitialized data size
+    dw 0xbfd3      ; o_entry: overlay entry offset (CS)
 
-loc_23b2 equ 0x23b2
-loc_23d0 equ 0x23d0
-loc_23ee equ 0x23ee
-loc_240c equ 0x240c
-loc_241c equ 0x241c
-loc_2429 equ 0x2429
-loc_243a equ 0x243a
-loc_2446 equ 0x2446
-loc_2458 equ 0x2458
-loc_2463 equ 0x2463
-loc_2476 equ 0x2476
-loc_2494 equ 0x2494
 loc_4d4a equ 0x4d4a
-loc_52dc equ 0x52dc
-loc_5c67 equ 0x5c67
-loc_5c78 equ 0x5c78
-loc_600d equ 0x600d
 data_a0f9 equ 0xa0f9
 data_a10d equ 0xa10d
 data_a16f equ 0xa16f
 data_a195 equ 0xa195
-data_a1fa equ 0xa1fa
-data_a2d1 equ 0xa2d1
 dseg_0002 equ 0x0002
 dseg_0038 equ 0x0038
 dseg_003c equ 0x003c
@@ -41,64 +29,63 @@ dseg_0040 equ 0x0040
 dseg_0042 equ 0x0042
 dseg_0044 equ 0x0044
 dseg_010e equ 0x010e
-dseg_0e32 equ 0x0e32
-dseg_59fc equ 0x59fc
-dseg_5b3e equ 0x5b3e
-dseg_5e2a equ 0x5e2a
-dseg_830a equ 0x830a
-dseg_844c equ 0x844c
-dseg_844e equ 0x844e
-dseg_8450 equ 0x8450
-dseg_904e equ 0x904e
-dseg_9050 equ 0x9050
-dseg_9052 equ 0x9052
-dseg_905a equ 0x905a
-dseg_906e equ 0x906e
-dseg_9070 equ 0x9070
-dseg_9072 equ 0x9072
-dseg_9074 equ 0x9074
-dseg_908a equ 0x908a
-dseg_908c equ 0x908c
-dseg_908e equ 0x908e
-dseg_9090 equ 0x9090
-dseg_9092 equ 0x9092
-dseg_9094 equ 0x9094
+bss_0e32 equ 0x0e32
+bss_59fc equ 0x59fc
+bss_5b3e equ 0x5b3e
+bss_5e2a equ 0x5e2a
+bss_830a equ 0x830a
+bss_844c equ 0x844c
+bss_844e equ 0x844e
+bss_8450 equ 0x8450
+bss_904e equ 0x904e
+bss_9050 equ 0x9050
+bss_9052 equ 0x9052
+bss_905a equ 0x905a
+bss_906e equ 0x906e
+bss_9070 equ 0x9070
+bss_9072 equ 0x9072
+bss_9074 equ 0x9074
+bss_908a equ 0x908a
+bss_908c equ 0x908c
+bss_908e equ 0x908e
+bss_9090 equ 0x9090
+bss_9092 equ 0x9092
+bss_9094 equ 0x9094
 dseg_951a equ 0x951a
 dseg_951c equ 0x951c
 dseg_951e equ 0x951e
 dseg_9520 equ 0x9520
 dseg_9522 equ 0x9522
-dseg_9524 equ 0x9524
-dseg_9526 equ 0x9526
-dseg_9528 equ 0x9528
-dseg_952a equ 0x952a
-dseg_952c equ 0x952c
-dseg_952e equ 0x952e
-dseg_9530 equ 0x9530
-dseg_9532 equ 0x9532
-dseg_9534 equ 0x9534
-dseg_9536 equ 0x9536
-dseg_9538 equ 0x9538
-dseg_953a equ 0x953a
-dseg_953c equ 0x953c
-dseg_953e equ 0x953e
-dseg_9540 equ 0x9540
-dseg_9542 equ 0x9542
-dseg_9594 equ 0x9594
-dseg_95aa equ 0x95aa
-dseg_95ac equ 0x95ac
-dseg_95ae equ 0x95ae
-dseg_95e8 equ 0x95e8
-dseg_960c equ 0x960c
-dseg_976c equ 0x976c
-dseg_978a equ 0x978a
+bss_9524 equ 0x9524
+bss_9526 equ 0x9526
+bss_9528 equ 0x9528
+bss_952a equ 0x952a
+bss_952c equ 0x952c
+bss_952e equ 0x952e
+bss_9530 equ 0x9530
+bss_9532 equ 0x9532
+bss_9534 equ 0x9534
+bss_9536 equ 0x9536
+bss_9538 equ 0x9538
+bss_953a equ 0x953a
+bss_953c equ 0x953c
+bss_953e equ 0x953e
+bss_9540 equ 0x9540
+bss_9542 equ 0x9542
+bss_9594 equ 0x9594
+bss_95aa equ 0x95aa
+bss_95ac equ 0x95ac
+bss_95ae equ 0x95ae
+bss_95e8 equ 0x95e8
+bss_960c equ 0x960c
+bss_976c equ 0x976c
+bss_978a equ 0x978a
 
-    db 0x8c, 0x04, 0x68, 0x02, 0xd3, 0xbf
 loc_000e:
     mov ax, 0                        ; 0x000e
     call ds_dispatch_f40b            ; 0x0011
     call api_idx_002c_2              ; 0x0014
-    mov word [dseg_830a], 4          ; 0x0017
+    mov word [bss_830a], 4           ; 0x0017
     mov ax, 0                        ; 0x001d
     ret                              ; 0x0020
 %include "vpcmk/api_idx_0002.asm"
@@ -302,56 +289,94 @@ loc_702a:
     db 'KALLKLIA', 0
     db 'APPAAAIA', 0
     db 'MJMMJJOA', 0
-    db 'MLAJMOIA', 0
+    db 'MLAJMOI'
+
+jumptable_240e_case_0:
+
+    db 0x41, 0x00
     db 'NINAKNIA', 0
     db 'MKKMMMAA', 0
-    db 'JIIJJIIA', 0
+    db 'JIIJJIIA'
+
+jumptable_240e_case_1:
+
+    db 0x00
     db 'HKKHJJIA', 0
     db 'LGKMHHHA', 0
     db 'KHNKIGGA', 0
+
+jumptable_240e_case_2:
+
     db 'IHGJKHNA', 0
     db 'FLGGKOMA', 0
     db 'MFFOIKDA', 0
-    db 'KHGMKIGA', 0
+    db 0x4b
+
+jumptable_240e_case_3:
+
+    db 'HGMKIGA', 0
     db 'HKHHKMKA', 0
     db 'IGMKIIKA', 0
-    db 'KKGKHHJA', 0
+    db 0x4b, 0x4b
+
+jumptable_240e_case_4:
+
+    db 'GKHHJA', 0
     db 'ACBCBCCCCHCHBA', 0
-    db '02222232112230', 0
+    db '022222'
+
+jumptable_240e_case_5:
+
+    db '32112230', 0
     db 'ACCCCDCCCHHKDA', 0
-    db '02222232123230', 0
+    db 0x30, 0x32, 0x32, 0x32
+
+jumptable_240e_case_6:
+
+    db '2232123230', 0
     db 'ACCCCDCCCIFKEA', 0
-    db '02222232121230', 0
+    db 0x30, 0x32
+
+jumptable_240e_case_7:
+
+    db '222232121230', 0
     db 'ACHCHDCCCHFIDA', 0
+
+jumptable_240e_case_8:
+
     db '02323232111230', 0
-    db 'ACKCHHGCCIECBA', 0
+    db 'ACKCHHGCCIECB'
+
+jumptable_240e_case_9:
+
+    db 0x41, 0x00
     db '02322322121220', 0
-    db 'ACBCCDECCEEEGA', 0
+    db 'ACBCCDECCEE'
+
+jumptable_240e_case_10:
+
+    db 0x45, 0x47, 0x41, 0x00
     db '02121212111330', 0
-    db 'ACICIBHCCFKFFA', 0
+    db 'ACICIBHC'
+
+jumptable_240e_case_11:
+
+    db 'CFKFFA', 0
     db '02323112113330', 0
-    db 'ACECCEGCCIFKFA', 0
+    db 'ACECC'
+
+jumptable_240e_case_12:
+
+    db 'EGCCIFKFA', 0
     db '02222222122220', 0
-    db 'ACKCGDHCCFKIDA', 0
-    db '02322212'
+    db 0x41, 0x43
 
-jumptable_745d:
-    dw jumptable_745d_case_0 - IMAGE_BASE
-    dw jumptable_745d_case_1 - IMAGE_BASE
-    dw 0x3032
-    dw 0x4100
-    dw 0x4843
-    dw 0x4843
-    dw 0x4748
-    dw jumptable_745d_case_7 - IMAGE_BASE
-    dw jumptable_745d_case_8 - IMAGE_BASE
-    dw 0x4843
-    dw 0x0041
-    dw 0x3230
-    dw 0x3233
-    dw jumptable_745d_case_1 - IMAGE_BASE
+jumptable_240e_case_13:
 
-    db '22112230', 0
+    db 'KCGDHCCFKIDA', 0
+    db '02322212112320', 0
+    db 'ACHCHHGCCCECHA', 0
+    db '02322322112230', 0
     db 'PORTDATA.VGA', 0
     db 'PCFILE.DBS', 0
     db 'PCFILE.DBS', 0

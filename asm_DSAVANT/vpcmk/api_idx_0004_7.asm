@@ -52,7 +52,7 @@ api_idx_0004_7:
     jmp near @..api_idx_0004_7.l6    ; 0x5e67
     mov ax, 0x248                    ; 0x5e6a
     imul word [bp + 0x4]             ; 0x5e6d
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x5e70
     mov byte [bx + 0x5d50], 2        ; 0x5e72
     mov ax, word [bp - 0x0004]       ; 0x5e77
     inc ax                           ; 0x5e7a
@@ -77,7 +77,7 @@ api_idx_0004_7:
     jmp near @..api_idx_0004_7.l6    ; 0x5e97
     mov ax, 0x248                    ; 0x5e9a
     imul word [bp + 0x4]             ; 0x5e9d
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x5ea0
     mov byte [bx + 0x5d51], 2        ; 0x5ea2
     mov ax, word [bp - 0x0004]       ; 0x5ea7
     inc ax                           ; 0x5eaa
@@ -122,7 +122,7 @@ api_idx_0004_7:
     jmp near @..api_idx_0004_7.l6    ; 0x5eeb
     mov ax, 0x248                    ; 0x5eee
     imul word [bp + 0x4]             ; 0x5ef1
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x5ef4
     mov byte [bx + 0x5d52], 2        ; 0x5ef6
     mov ax, word [bp - 0x0004]       ; 0x5efb
     inc ax                           ; 0x5efe
@@ -170,7 +170,7 @@ api_idx_0004_7:
     jmp near @..api_idx_0004_7.l6    ; 0x5f44
     mov ax, 0x248                    ; 0x5f47
     imul word [bp + 0x4]             ; 0x5f4a
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x5f4d
     mov byte [bx + 0x5d53], 2        ; 0x5f4f
     mov ax, word [bp - 0x0004]       ; 0x5f54
     inc ax                           ; 0x5f57
@@ -208,6 +208,7 @@ api_idx_0004_7:
     push ax                          ; 0x5f8d
     push ax                          ; 0x5f8e
     mov ax, word [bp - 0x0004]       ; 0x5f8f
+jumptable_11b9_case_1:
     inc ax                           ; 0x5f92
     push ax                          ; 0x5f93
     push word [bp + 0x4]             ; 0x5f94
@@ -216,7 +217,7 @@ api_idx_0004_7:
     jmp near @..api_idx_0004_7.l6    ; 0x5f9d
     mov ax, 0x248                    ; 0x5fa0
     imul word [bp + 0x4]             ; 0x5fa3
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x5fa6
     mov byte [bx + 0x5d50], 1        ; 0x5fa8
     mov byte [bx + 0x5d51], 1        ; 0x5fad
     mov ax, word [bp - 0x0004]       ; 0x5fb2
@@ -256,82 +257,17 @@ api_idx_0004_7:
     call loc_5d7e                    ; 0x5fea
     add sp, byte 0x0e                ; 0x5fed
     jmp near @..api_idx_0004_7.l6    ; 0x5ff0
-    mov ax, word [bp - 0x0004]       ; 0x5ff3
-    inc ax                           ; 0x5ff6
-    inc ax                           ; 0x5ff7
-    push ax                          ; 0x5ff8
-    mov ax, word [bp - 0x0004]       ; 0x5ff9
-    inc ax                           ; 0x5ffc
-    push ax                          ; 0x5ffd
-    push ax                          ; 0x5ffe
-    push ax                          ; 0x5fff
-    mov ax, word [bp - 0x0004]       ; 0x6000
-    inc ax                           ; 0x6003
-    inc ax                           ; 0x6004
-    push ax                          ; 0x6005
-    push ax                          ; 0x6006
-    push word [bp + 0x4]             ; 0x6007
-    call loc_5d7e                    ; 0x600a
-    add sp, byte 0x0e                ; 0x600d
-    jmp short @..api_idx_0004_7.l6   ; 0x6010
-    mov ax, word [bp - 0x0004]       ; 0x6012
-    inc ax                           ; 0x6015
-    push ax                          ; 0x6016
-    mov ax, word [bp - 0x0004]       ; 0x6017
-    inc ax                           ; 0x601a
-    inc ax                           ; 0x601b
-    inc ax                           ; 0x601c
-    push ax                          ; 0x601d
-    mov ax, word [bp - 0x0004]       ; 0x601e
-    inc ax                           ; 0x6021
-    push ax                          ; 0x6022
-    push ax                          ; 0x6023
-    push ax                          ; 0x6024
-    mov ax, word [bp - 0x0004]       ; 0x6025
-    inc ax                           ; 0x6028
-    inc ax                           ; 0x6029
-    push ax                          ; 0x602a
-    push word [bp + 0x4]             ; 0x602b
-    call loc_5d7e                    ; 0x602e
-    add sp, byte 0x0e                ; 0x6031
-    jmp short @..api_idx_0004_7.l6   ; 0x6034
-    mov ax, word [bp - 0x0004]       ; 0x6036
-    inc ax                           ; 0x6039
-    push ax                          ; 0x603a
-    push ax                          ; 0x603b
-    mov ax, word [bp - 0x0004]       ; 0x603c
-    inc ax                           ; 0x603f
-    inc ax                           ; 0x6040
-    push ax                          ; 0x6041
-    push ax                          ; 0x6042
-    mov ax, word [bp - 0x0004]       ; 0x6043
-    inc ax                           ; 0x6046
-    push ax                          ; 0x6047
-    mov ax, word [bp - 0x0004]       ; 0x6048
-    inc ax                           ; 0x604b
-    inc ax                           ; 0x604c
-    push ax                          ; 0x604d
-    push word [bp + 0x4]             ; 0x604e
-    call loc_5d7e                    ; 0x6051
-    add sp, byte 0x0e                ; 0x6054
-    jmp short @..api_idx_0004_7.l6   ; 0x6057
-    wait                             ; 0x6059
-    scasb                            ; 0x605a
-    mov cl, 0xae                     ; 0x605b
-    loope loc_600d                   ; 0x605d
-    wait                             ; 0x605f
-    scasb                            ; 0x6060
-    push ss                          ; 0x6061
-    scasw                            ; 0x6062
-    xor ax, 0x6aaf                   ; 0x6063
-    scasw                            ; 0x6066
-    mov gs, word [bx - 0x503d]       ; 0x6067
-    out 0xaf, ax                     ; 0x606b
-    push ss                          ; 0x606d
-    mov al, 0x3a                     ; 0x606e
-    mov al, 0x59                     ; 0x6070
-    mov al, 0x7d                     ; 0x6072
-    db 0xb0
+
+    db 0x8b, 0x46, 0xfc, 0x40, 0x40, 0x50, 0x8b, 0x46, 0xfc, 0x40, 0x50, 0x50, 0x50, 0x8b, 0x46, 0xfc
+    db 0x40, 0x40, 0x50, 0x50, 0xff, 0x76, 0x04, 0xe8, 0x71, 0xfd, 0x83, 0xc4, 0x0e, 0xeb, 0x70, 0x8b
+    db 0x46, 0xfc, 0x40, 0x50, 0x8b, 0x46, 0xfc, 0x40, 0x40, 0x40, 0x50, 0x8b, 0x46, 0xfc, 0x40, 0x50
+    db 0x50, 0x50, 0x8b, 0x46, 0xfc, 0x40, 0x40, 0x50, 0xff, 0x76, 0x04, 0xe8, 0x4d, 0xfd, 0x83, 0xc4
+    db 0x0e, 0xeb, 0x4c, 0x8b, 0x46, 0xfc, 0x40, 0x50, 0x50, 0x8b, 0x46, 0xfc, 0x40, 0x40, 0x50, 0x50
+    db 0x8b, 0x46, 0xfc, 0x40, 0x50, 0x8b, 0x46, 0xfc, 0x40, 0x40, 0x50, 0xff, 0x76, 0x04, 0xe8, 0x2a
+    db 0xfd, 0x83, 0xc4, 0x0e, 0xeb, 0x29, 0x9b, 0xae, 0xb1, 0xae, 0xe1, 0xae, 0x9b, 0xae, 0x16, 0xaf
+    db 0x35, 0xaf, 0x6a, 0xaf, 0x8e, 0xaf, 0xc3, 0xaf, 0xe7, 0xaf, 0x16, 0xb0, 0x3a, 0xb0, 0x59, 0xb0
+    db 0x7d, 0xb0
+
 @..api_idx_0004_7.l5:
     cmp ax, strict word 0xe          ; 0x6075
     jae short @..api_idx_0004_7.l6   ; 0x6078

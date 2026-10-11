@@ -10,7 +10,7 @@ api_idx_0040:
 @..api_idx_0040.l1:
     lea ax, word [bp - 0x0034]       ; 0x535c
     push ax                          ; 0x535f
-    push word [dseg_95e4]            ; 0x5360
+    push word [bss_95e4]             ; 0x5360
     mov ax, 1                        ; 0x5364
     push ax                          ; 0x5367
     push ax                          ; 0x5368
@@ -21,7 +21,7 @@ api_idx_0040:
     call api_idx_0038                ; 0x5371
     add sp, byte 0x0c                ; 0x5374
     mov word [bp - 0x0006], ax       ; 0x5377
-    mov ax, word [dseg_904e]         ; 0x537a
+    mov ax, word [bss_904e]          ; 0x537a
     mov word [bp - 0x0002], ax       ; 0x537d
     cmp word [bp - 0x0002], byte 0xff ; 0x5380
     je short @..api_idx_0040.l1      ; 0x5384
@@ -44,7 +44,7 @@ api_idx_0040:
     je short @..api_idx_0040.l2      ; 0x53ad
     jmp near @..api_idx_0040.l8      ; 0x53af
 @..api_idx_0040.l2:
-    cmp word [dseg_0e32], byte 0     ; 0x53b2
+    cmp word [bss_0e32], byte 0      ; 0x53b2
     jne short @..api_idx_0040.l3     ; 0x53b7
     mov ax, 0xc6                     ; 0x53b9
     push ax                          ; 0x53bc
@@ -134,7 +134,7 @@ api_idx_0040:
 @..api_idx_0040.l9:
     cmp word [bp - 0x0002], byte 0xff ; 0x547e
     je short @..api_idx_0040.l12     ; 0x5482
-    dec word [dseg_95e4]             ; 0x5484
+    dec word [bss_95e4]              ; 0x5484
     mov ax, word [bp - 0x0002]       ; 0x5488
     mov word [bp - 0x0004], ax       ; 0x548b
     jmp short @..api_idx_0040.l11    ; 0x548e
@@ -167,10 +167,10 @@ api_idx_0040:
     inc word [bp - 0x0004]           ; 0x54e1
 @..api_idx_0040.l11:
     mov ax, word [bp - 0x0004]       ; 0x54e4
-    cmp ax, word [dseg_95e4]         ; 0x54e7
+    cmp ax, word [bss_95e4]          ; 0x54e7
     jl short @..api_idx_0040.l10     ; 0x54eb
 @..api_idx_0040.l12:
-    cmp word [dseg_95e4], byte 0     ; 0x54ed
+    cmp word [bss_95e4], byte 0      ; 0x54ed
     jle short @..api_idx_0040.l13    ; 0x54f2
     jmp near @..api_idx_0040.l1      ; 0x54f4
 @..api_idx_0040.l13:

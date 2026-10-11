@@ -12,7 +12,7 @@ api_idx_0004:
     jne short @..api_idx_0004.l3     ; 0x010d
     push word [bp + 0xc]             ; 0x010f
     push word [bp + 0xa]             ; 0x0112
-    push word [dseg_8f48]            ; 0x0115
+    push word [bss_8f48]             ; 0x0115
     call loc_00b6                    ; 0x0119
     add sp, byte 6                   ; 0x011c
     mov word [bp - 0x0004], ax       ; 0x011f
@@ -50,7 +50,7 @@ api_idx_0004:
 @..api_idx_0004.l3:
     mov ax, word [bp + 0xa]          ; 0x0167
     push ax                          ; 0x016a
-    mov bx, word [dseg_0e14]         ; 0x016b
+    mov bx, word [bss_0e14]          ; 0x016b
     mov si, word [bp - 0x0004]       ; 0x016f
     mov al, byte [bx + si + 0x490]   ; 0x0172
     sub ah, ah                       ; 0x0176
@@ -61,7 +61,7 @@ api_idx_0004:
     mov word [bx], ax                ; 0x0180
     mov ax, word [bp + 0xc]          ; 0x0182
     push ax                          ; 0x0185
-    mov bx, word [dseg_0e14]         ; 0x0186
+    mov bx, word [bss_0e14]          ; 0x0186
     mov si, word [bp - 0x0004]       ; 0x018a
     mov al, byte [bx + si + 0x4a0]   ; 0x018d
     sub ah, ah                       ; 0x0191
@@ -73,6 +73,6 @@ api_idx_0004:
     mov ax, word [bp - 0x0004]       ; 0x019d
     mov bx, word [bp + 0x8]          ; 0x01a0
     mov word [bx], ax                ; 0x01a3
-    mov word [dseg_8f48], ax         ; 0x01a5
+    mov word [bss_8f48], ax          ; 0x01a5
     mov ax, 0                        ; 0x01a8
     ret                              ; 0x01ab

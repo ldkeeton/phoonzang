@@ -7,8 +7,8 @@ api_idx_0006_3:
     je short @..api_idx_0006_3.l1    ; 0x3714
     mov ax, 0                        ; 0x3716
     push ax                          ; 0x3719
-    push word [dseg_8d08]            ; 0x371a
-    push word [dseg_8d06]            ; 0x371e
+    push word [bss_8d08]             ; 0x371a
+    push word [bss_8d06]             ; 0x371e
     call ds_dispatch_e94f            ; 0x3722
     add sp, byte 6                   ; 0x3725
     mov ax, 0xb9                     ; 0x3728
@@ -40,15 +40,15 @@ api_idx_0006_3:
 @..api_idx_0006_3.l1:
     mov ax, 0                        ; 0x3763
     push ax                          ; 0x3766
-    mov ax, word [dseg_8f3e]         ; 0x3767
+    mov ax, word [bss_8f3e]          ; 0x3767
     mov cx, 6                        ; 0x376a
     shl ax, cl                       ; 0x376d
-    mov cx, word [dseg_8f40]         ; 0x376f
+    mov cx, word [bss_8f40]          ; 0x376f
     shl cx, 1                        ; 0x3773
     shl cx, 1                        ; 0x3775
     shl cx, 1                        ; 0x3777
     add ax, cx                       ; 0x3779
-    add ax, word [dseg_8f42]         ; 0x377b
+    add ax, word [bss_8f42]          ; 0x377b
     push ax                          ; 0x377f
     mov ax, 0x8bfe                   ; 0x3780
     push ax                          ; 0x3783
@@ -56,8 +56,8 @@ api_idx_0006_3:
     add sp, byte 6                   ; 0x3787
     mov ax, 0                        ; 0x378a
     push ax                          ; 0x378d
-    push word [dseg_8d08]            ; 0x378e
-    push word [dseg_8d06]            ; 0x3792
+    push word [bss_8d08]             ; 0x378e
+    push word [bss_8d06]             ; 0x3792
     call ds_dispatch_e94f            ; 0x3796
     add sp, byte 6                   ; 0x3799
     mov ax, 0xc4                     ; 0x379c

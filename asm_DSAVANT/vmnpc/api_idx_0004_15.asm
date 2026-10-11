@@ -1,6 +1,6 @@
 api_idx_0004_15:
     mov ax, 0xfffc                   ; 0x8c2a
-    db 0xe8, 0xdb, 0x67 ; call 0xf40b
+    call ds_dispatch_f40b            ; 0x8c2d
     mov word [bp - 0x0004], 0x20     ; 0x8c30
     mov word [bp - 0x0002], 0        ; 0x8c35
     jmp short @..api_idx_0004_15.l3  ; 0x8c3a
@@ -23,7 +23,7 @@ api_idx_0004_15:
     inc word [bp - 0x0002]           ; 0x8c62
 @..api_idx_0004_15.l3:
     push word [bp + 0x4]             ; 0x8c65
-    db 0xe8, 0x25, 0x6e ; call 0xfa90
+    call ds_dispatch_fa90            ; 0x8c68
     pop cx                           ; 0x8c6b
     cmp ax, word [bp - 0x0002]       ; 0x8c6c
     jg short @..api_idx_0004_15.l1   ; 0x8c6f

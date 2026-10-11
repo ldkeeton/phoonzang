@@ -25,11 +25,11 @@ api_idx_0032:
     mov bx, ax                       ; 0xabd1
     mov al, byte [bx - 0x7687]       ; 0xabd3
     cbw                              ; 0xabd7
-    cmp ax, word [dseg_830c]         ; 0xabd8
+    cmp ax, word [bss_830c]          ; 0xabd8
     jne short @..api_idx_0032.l2     ; 0xabdc
     mov al, byte [bp - 0x0004]       ; 0xabde
-    mov byte [dseg_8809], al         ; 0xabe1
-    mov byte [dseg_880a], al         ; 0xabe4
+    mov byte [bss_8809], al          ; 0xabe1
+    mov byte [bss_880a], al          ; 0xabe4
 @..api_idx_0032.l2:
     inc word [bp - 0x0004]           ; 0xabe7
     mov ax, word [bp - 0x0004]       ; 0xabea
