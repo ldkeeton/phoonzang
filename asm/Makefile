@@ -1,5 +1,5 @@
 PY := python3
-CMD := check clean run verify rebuild elf-rebuild delta set-baseline charts concat-code help all build prebuild decompile
+CMD := check clean run verify rebuild elf-rebuild delta set-baseline charts concat-code help all build prebuild decompile test
 
 help:
 	@$(PY) make.py --help
@@ -17,7 +17,7 @@ concat-code:
 	@bash concat-code.sh
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
-check clean run verify rebuild elf-rebuild delta build prebuild decompile:
+check clean run verify rebuild elf-rebuild delta build prebuild decompile test:
 	@$(PY) make.py --$@ $(filter-out $(CMD),$(MAKECMDGOALS))
 $(filter-out $(CMD),$(MAKECMDGOALS)):
 	@true

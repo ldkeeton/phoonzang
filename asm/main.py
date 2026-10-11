@@ -34,7 +34,7 @@ from lib.diagnostics import begin as diag_begin, flush as diag_flush
 from lib.diagnostics import phase as diag_phase, emit as diag_emit, enabled as diag_enabled
 
 from lib.decode import disassemble
-from lib.verify.compare import (
+from lib.compare import (
     verify,
     clear_assemble_cache,
     _compute_func_boundaries,
@@ -354,7 +354,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
     """Resolve Aztec runtime routines to C and compile the current seeds.
 
     Returns ``(overrides, entries)`` where *overrides* feeds the byte-preserving
-    splice in :func:`lib.verify.compare.verify` and *entries* records the
+    splice in :func:`lib.compare.verify` and *entries* records the
     winning provenance.
 
     ``WIZ7_AZTEC_PREBUILD=1`` runs the DOSBox search and writes

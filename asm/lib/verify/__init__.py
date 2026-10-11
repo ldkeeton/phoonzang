@@ -1,2 +1,2 @@
-from lib.verify.compare import verify, clear_assemble_cache
-from lib.verify.assemble import micro_assemble
+from lib.verify.assemble import micro_assemble, clear_assemble_cache
+from lib.compare.verify import verify

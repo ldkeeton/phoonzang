@@ -10,7 +10,7 @@ from lib.phases.recursive import RecursiveDescentPhase
 from lib.phases.sidecar import SidecarPhase
 from lib.sidecar import SidecarError, _validate, per_binary
 from lib.decode import disassemble
-from lib.verify.compare import (
+from lib.compare import (
     verify,
     _compute_branch_ownership,
     _local_branch_targets,

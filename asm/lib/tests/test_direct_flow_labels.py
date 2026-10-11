@@ -4,7 +4,7 @@ import unittest
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.format import format_instruction
-from lib.verify.compare import (
+from lib.compare import (
     _build_source,
     _compute_branch_ownership,
     _compute_local_labels,

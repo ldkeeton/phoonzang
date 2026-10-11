@@ -9,7 +9,7 @@ from lib.inventory import (
     classify, merge_inventory, find_conflicts, CERTAIN, STRONG, CANDIDATE,
 )
 from lib.delta import write_address_inventory
-from lib.verify.compare import _build_address_records
+from lib.compare import _build_address_records
 
 
 class ClassifyTest(unittest.TestCase):

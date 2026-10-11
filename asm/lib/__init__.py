@@ -7,7 +7,7 @@ from lib.phases import (
     PruneDeadPhase, PruneZeroPhase,
     SettlePhase, ArbiterPhase, ForceCodePhase,
 )
-from lib.verify.compare import verify, clear_assemble_cache
+from lib.compare import verify, clear_assemble_cache
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent
 from lib.match import match_patterns, match_trampolines, categorize_call_targets
 from lib.pipeline import run_linear, run_functional, Phase

@@ -956,7 +956,7 @@ def resplice_c(app, binary):
     """
     from lib.aztec import cache
     from lib.aztec.objread import fixup_width
-    from lib.verify.compare import (
+    from lib.compare import (
         _c_bytes_to_records, _merge_label_records, _render_records,
     )
 
@@ -1107,6 +1107,8 @@ Commands (space-separated):
   make decompile PROJECT BIN  disassemble + decompile binary to .c
   make set-baseline         pin current stats as baseline (git-committable)
   make charts               regenerate all PNGs + CSVs from existing stats
+  make test [TEST...]       run the unit test suite in lib/tests (optionally
+                            only the named dotted tests)
 
 Env:
   EXTRA_FLAGS               space-separated flags forwarded to main.py:
@@ -1149,6 +1151,19 @@ def cmd_charts():
         _charts(p)
     _charts_all()
     print('Done')
+
+
+def cmd_test(patterns):
+    import unittest
+    loader = unittest.TestLoader()
+    if patterns:
+        suite = unittest.TestSuite(
+            loader.loadTestsFromName(p) for p in patterns)
+    else:
+        suite = loader.discover(
+            os.path.join(ASM, 'lib', 'tests'), top_level_dir=ASM)
+    result = unittest.TextTestRunner(verbosity=2).run(suite)
+    sys.exit(0 if result.wasSuccessful() else 1)
 
 
 def main():
@@ -1221,6 +1236,10 @@ def main():
 
     if '--charts' in flags:
         cmd_charts()
+        return
+
+    if '--test' in flags:
+        cmd_test(args)
         return
 
     if '--set-baseline' in flags:
