@@ -1,14 +1,55 @@
 """``make check`` / ``make run`` — smoke-test or launch a built game."""
 
 import os
+import shutil
 import subprocess
 import sys
 
+from lib.dosbox import DOSBOX
 from main import discover_binaries
 
 from .common import APPS, PROJECT, _main_exe
 
 DEFAULT_CHECK_SECONDS = 5
+
+
+def _dosbox_exe():
+    """Return the DOSBox-X executable, or exit with a friendly error."""
+    exe = shutil.which(DOSBOX)
+    if exe is None:
+        print(f'dosbox-x not found (looked for {DOSBOX!r}; set ASM_DOSBOX to override)')
+        sys.exit(1)
+    return exe
+
+
+def _dosbox_flags():
+    """DOSBox-X flags shared by ``check`` and ``run``.
+
+    ``-fastlaunch`` skips the BIOS logo/splash and welcome banner,
+    ``-nomenu`` hides the menu bar, ``-nopromptfolder`` suppresses the startup
+    working-directory dialog, and the ``-set`` override disables the
+    close-confirmation prompt while a program is running.
+    """
+    return [
+        '-fastlaunch',
+        '-nomenu',
+        '-nopromptfolder',
+        '-set', 'dosbox quit warning=false',
+    ]
+
+
+def _dosbox_argv(build_dir, rel, *, timeout=None):
+    """Build the DOSBox-X command line that mounts *build_dir* and runs *rel*.
+
+    ``@echo off`` goes first so the mount/run commands are not echoed to the
+    screen.  When *timeout* is given the process is wrapped in ``timeout(1)``.
+    """
+    argv = [_dosbox_exe(), *_dosbox_flags()]
+    if timeout is not None:
+        argv = ['timeout', str(timeout)] + argv
+    for cmd in ('@echo off', f'mount c {build_dir}', 'c:', rel):
+        argv += ['-c', cmd]
+    return argv
 
 
 def _parse_check_args(args):
@@ -42,10 +83,9 @@ def cmd_check(app, timeout_seconds=DEFAULT_CHECK_SECONDS):
         sys.exit(1)
 
     build_dir = os.path.join(out_dir, 'build_out')
-    print(f'Smoke test: launching {rel} via dosbox ({timeout_seconds}s timeout)...')
+    print(f'Smoke test: launching {rel} via dosbox-x ({timeout_seconds}s timeout)...')
     rc = subprocess.run(
-        ['timeout', str(timeout_seconds), 'dosbox', '-c', f'mount c {build_dir}',
-         '-c', 'c:', '-c', rel],
+        _dosbox_argv(build_dir, rel, timeout=timeout_seconds),
         capture_output=True, text=True,
     ).returncode
 
@@ -55,7 +95,7 @@ def cmd_check(app, timeout_seconds=DEFAULT_CHECK_SECONDS):
         print(f'{app}: FAIL (game exited silently)')
         sys.exit(1)
     else:
-        print(f'{app}: FAIL (dosbox error {rc})')
+        print(f'{app}: FAIL (dosbox-x error {rc})')
         sys.exit(1)
 
 
@@ -73,5 +113,4 @@ def cmd_run(app):
         print(f'{app}: {rel} not built')
         sys.exit(1)
 
-    subprocess.run(['dosbox', '-c', f'mount c {os.path.join(out_dir, "build_out")}',
-                    '-c', 'c:', '-c', rel])
+    subprocess.run(_dosbox_argv(os.path.join(out_dir, 'build_out'), rel))

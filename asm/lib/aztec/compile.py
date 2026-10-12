@@ -30,6 +30,7 @@ try:
 except ImportError:  # pragma: no cover - non-POSIX
     fcntl = None
 
+from ..dosbox import DOSBOX
 from .objread import parse_obd, fixup_width
 from . import sources
 
@@ -57,24 +58,6 @@ def _obj_converter(compiler):
     except KeyError:
         raise ValueError(f'unknown Aztec compiler version {compiler!r}')
 
-# Only DOSBox-X is supported: the stock/debug DOSBox floods stdout and wedges
-# on compiler errors.
-_DOSBOX_CANDIDATES = ('dosbox-x',)
-
-
-def _resolve_dosbox():
-    override = os.environ.get('WIZ7_DOSBOX')
-    if override:
-        return shutil.which(override) or override
-    for candidate in _DOSBOX_CANDIDATES:
-        found = shutil.which(candidate)
-        if found:
-            return found
-    return 'dosbox'
-
-
-DOSBOX = _resolve_dosbox()
-
 _CONF = """\
 [dosbox]
 machine=svga_s3
@@ -92,13 +75,13 @@ mpu401=none
 
 @contextlib.contextmanager
 def _dosbox_lock():
-    """Serialize DOSBox across processes when ``WIZ7_DOSBOX_LOCK`` is set.
+    """Serialize DOSBox across processes when ``ASM_DOSBOX_LOCK`` is set.
 
     Runs that only *disassemble* (``make prebuild``) can run in parallel, but
     the emulator itself contends badly, so callers set a lock file and every
     DOSBox invocation waits on it.  With no lock configured this is a no-op.
     """
-    path = os.environ.get('WIZ7_DOSBOX_LOCK')
+    path = os.environ.get('ASM_DOSBOX_LOCK')
     if not path or fcntl is None:
         yield
         return
@@ -225,7 +208,7 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
     if exe is None:
         raise AztecCompileError(f'DOSBox {DOSBOX!r} not found')
 
-    work = tempfile.mkdtemp(prefix='wiz7az-')
+    work = tempfile.mkdtemp(prefix='asmaz-')
     try:
         os.symlink(cbin, os.path.join(work, 'azbin'))
         os.symlink(incdir, os.path.join(work, 'azinc'))
@@ -339,7 +322,7 @@ def _compile_group(compiler, inc_version, flags, members, *, timeout,
     if not (os.path.exists(exe) or shutil.which(exe)):
         raise AztecCompileError(f'DOSBox {exe!r} not found')
 
-    work = tempfile.mkdtemp(prefix='wiz7azb-')
+    work = tempfile.mkdtemp(prefix='asmazb-')
     try:
         # Mount through space-free symlinks: the vendor paths contain spaces,
         # which DOSBox's `mount` cannot take unquoted.
@@ -423,7 +406,7 @@ def _compile_group(compiler, inc_version, flags, members, *, timeout,
                 results[key] = exc
         return results
     finally:
-        if os.environ.get('WIZ7_KEEP_BATCH'):
+        if os.environ.get('ASM_KEEP_BATCH'):
             print(f'  aztec batch: kept work dir {work}', flush=True)
         else:
             shutil.rmtree(work, ignore_errors=True)

@@ -28,7 +28,10 @@ elif [ -n "${2:-}" ]; then
 fi
 SDL_OUTPUT=opengl
 SDL_ENV=()
-DOSBOX_ARGS=()
+# Shared launch flags: skip the BIOS logo/splash and welcome banner
+# (-fastlaunch), hide the menu bar (-nomenu), and suppress the startup
+# working-directory dialog (-nopromptfolder).
+DOSBOX_ARGS=(-fastlaunch -nomenu -nopromptfolder)
 if [ "$HEADLESS" -eq 1 ]; then
     SDL_OUTPUT=surface
     SDL_ENV=(env SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy)
@@ -64,6 +67,7 @@ quit warning = false
 cputype = 386
 
 [autoexec]
+@echo off
 mount C "$APP_BUILD"
 C:
 CFG

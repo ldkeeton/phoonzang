@@ -12,12 +12,12 @@ PROJECT_ROOT = os.path.dirname(ASM_DIR)
 APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
 KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 AZTEC_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'aztec_funcs.json')
-AZTEC_MUX_DISABLED = bool(os.environ.get('WIZ7_NO_C'))
-AZTEC_MUX_REFRESH = bool(os.environ.get('WIZ7_AZTEC_REFRESH'))
-AZTEC_PREBUILD = bool(os.environ.get('WIZ7_AZTEC_PREBUILD'))
+AZTEC_MUX_DISABLED = bool(os.environ.get('ASM_NO_C'))
+AZTEC_MUX_REFRESH = bool(os.environ.get('ASM_AZTEC_REFRESH'))
+AZTEC_PREBUILD = bool(os.environ.get('ASM_AZTEC_PREBUILD'))
 # Prebuild-only: disassemble just far enough to locate the aztec_* labels, run
 # the mux, and stop.  No verify/emit, no asm_<project>/ output.
-AZTEC_PREBUILD_ONLY = bool(os.environ.get('WIZ7_AZTEC_PREBUILD_ONLY'))
+AZTEC_PREBUILD_ONLY = bool(os.environ.get('ASM_AZTEC_PREBUILD_ONLY'))
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
 EXPORT_LABELS = '--export-labels' in sys.argv

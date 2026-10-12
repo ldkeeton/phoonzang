@@ -26,11 +26,11 @@ def cmd_prebuild(app, binary=None):
 
     out_dir = prebuild_dir(app)
     os.makedirs(out_dir, exist_ok=True)
-    os.environ['WIZ7_AZTEC_PREBUILD'] = '1'
-    os.environ['WIZ7_AZTEC_PREBUILD_ONLY'] = '1'
+    os.environ['ASM_AZTEC_PREBUILD'] = '1'
+    os.environ['ASM_AZTEC_PREBUILD_ONLY'] = '1'
     # Binaries disassemble in parallel (CPU-bound); the emulator is serialized
     # behind one inter-process lock (see lib/aztec/compile._dosbox_lock).
-    os.environ['WIZ7_DOSBOX_LOCK'] = os.path.join(out_dir, '.dosbox.lock')
+    os.environ['ASM_DOSBOX_LOCK'] = os.path.join(out_dir, '.dosbox.lock')
     targets = [binary] if binary else sorted(bins)
     try:
         with ThreadPoolExecutor(max_workers=JOBS) as ex:
@@ -41,9 +41,9 @@ def cmd_prebuild(app, binary=None):
                 if rc != 0:
                     sys.exit(rc)
     finally:
-        os.environ.pop('WIZ7_AZTEC_PREBUILD', None)
-        os.environ.pop('WIZ7_AZTEC_PREBUILD_ONLY', None)
-        os.environ.pop('WIZ7_DOSBOX_LOCK', None)
+        os.environ.pop('ASM_AZTEC_PREBUILD', None)
+        os.environ.pop('ASM_AZTEC_PREBUILD_ONLY', None)
+        os.environ.pop('ASM_DOSBOX_LOCK', None)
 
     target = f'{app}/{binary}' if binary else app
     print(f'prebuild {target} -> {out_dir}  [OK]')

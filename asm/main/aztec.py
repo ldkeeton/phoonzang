@@ -17,7 +17,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
     splice in :func:`lib.compare.verify` and *entries* records the
     winning provenance.
 
-    ``WIZ7_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
+    ``ASM_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
     ``.cache/asm_prebuild_<project>/``; otherwise the prebuilt manifest is read and a
     missing prebuild is a hard error.  The seed ``.c`` files live in
     ``<out_dir>/<binary>/`` and are written only when absent, so a no-clean

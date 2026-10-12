@@ -1,1 +1,1 @@
-"""Test suite for the Wiz7 reverse-engineering toolchain."""
+"""Test suite for the reverse-engineering toolchain."""

@@ -20,7 +20,7 @@ Commands (space-separated):
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
   make prebuild PROJECT [BIN]  run the slow Aztec C mux and cache extracted seeds
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
-  make run PROJECT          run game in dosbox
+  make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
   make clean [PROJECT...]   clean one or all projects (incl. .cache/asm_prebuild_*)
   make rebuild PROJECT BIN  nasm-only rebuild of one binary
