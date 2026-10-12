@@ -6,7 +6,7 @@ uses ``.cache/asm_prebuild_<project>/objs`` so the long DOSBox work is never
 repeated for an unchanged module.
 
 Failures are cached too: some ``(source, compiler)`` pairings make the DOS
-compiler hang until the subprocess timeout, and retrying them on every prebuild
+compiler fail outright, and retrying them on every prebuild
 is pure waste.  Deleting the prebuild tree retries them.
 
 Writes are atomic (temp file + rename) because prebuild may compile the same
@@ -24,7 +24,7 @@ from .compile import CompiledModule
 # Bump when the compile pipeline changes in a way that alters output for the
 # same inputs (e.g. a different object->OMF converter), so stale entries are
 # not trusted.
-CACHE_VERSION = 4
+CACHE_VERSION = 6
 
 
 def module_key(version, filename, compiler, flags, source_text):

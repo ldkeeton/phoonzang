@@ -104,7 +104,8 @@ class SegmentModel:
     def __init__(self, kind, file_size, load_size=0,
                  cs_origin=None, data_origin=None, cs_base=0, data_base=0,
                  bss_boundary=None, psp=False, entry_offset=None,
-                 relocations=(), header_size=0, overlay=None, host=None):
+                 relocations=(), header_size=0, overlay=None, host=None,
+                 ds_size=None):
         self.kind = kind
         self.file_size = file_size
         self.load_size = load_size
@@ -119,6 +120,12 @@ class SegmentModel:
         self.header_size = header_size
         self.overlay = overlay
         self.host = host
+        # Total data-segment size (file-backed data + BSS), recovered from the
+        # CRT BSS zero-fill idiom.  For the main program this is the value the
+        # startup code and the overlay loader hard-code, and it equals every
+        # overlay's ``o_dorg`` (see plan.md D7.0).  ``None`` when the idiom is
+        # absent (raw drivers, or capstone unavailable).
+        self.ds_size = ds_size
 
     def resolve(self, segment, offset):
         """Resolve *segment*:*offset* to a concrete location.
@@ -261,6 +268,11 @@ def _from_mz(data):
     load_size = len(data) - headers_bytes
     bss_boundary = load_size - data_base
     relocations = _mz_relocations(data, header)
+    entry_offset = headers_bytes + cs_base + header['initial_ip']
+    # The CRT zero-fill idiom (``mov di,<bss_start>; mov cx,<bss_end>; stosw``)
+    # reveals the program's true data-segment size.  It is the constant the
+    # startup and overlay loader use as ``o_dorg`` (plan.md D7.0).
+    crt = find_crt_bss_zero_range(data, entry_offset)
 
     return SegmentModel(
         kind='mz',
@@ -272,9 +284,10 @@ def _from_mz(data):
         data_base=data_base,
         bss_boundary=bss_boundary,
         psp=True,
-        entry_offset=headers_bytes + cs_base + header['initial_ip'],
+        entry_offset=entry_offset,
         relocations=relocations,
         header_size=headers_bytes,
+        ds_size=(crt[1] if crt is not None else None),
     )
 
 

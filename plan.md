@@ -2,7 +2,7 @@
 
 **This is the single plan.** It merges the former `plan-data.md` (F7 data-pointer
 detection) into the original dynamic-address plan. It is written so a *fresh
-context* can pick up at **D7** without re-deriving anything.
+context* can pick up at **D7** (D7.0a done) without re-deriving anything.
 
 Plain-language goal: a user may add or remove bytes anywhere in the generated
 assembler and it must **still assemble into a working EXE**. The only tolerated
@@ -28,59 +28,75 @@ lives in `asm/lib`, not in the generated assembly.
 | D3 — sidecar corpus | **none** (corpus only) | 0 |
 | D4 — static scorer | **none** (pure analysis) | 0 |
 | D5 — promotion | 25 data words in the same two files | 0 (invisible to the census) |
+| D7.0a — shared-geometry counters | **7 `; dssize` tags** in 3 files | **+33** (one-time re-baseline †) |
 
-D1 is the only landed step that moved the metric. D5's 25 words are real
+† D7.0a did not *create* 33 new problems — it made 33 already-frozen values
+**visible**. A host EXE and its overlays share one data segment: every overlay's
+`o_dorg` field **is** the host's DS size, and the host's CRT startup and overlay
+loader hard-code that same size as a plain immediate. The census counted none of
+them (`_FROZEN_OVR_FIELD_RE` matched only `o_csize`/`o_dsize`/`o_bss`/`o_entry`),
+so the previous 1383 was an under-count, not a target. See §0.2 and Section 17.
+
+D1 and D7.0a are the landed steps that moved the metric. D5's 25 words are real
 correctness work — they are `db` bytes that drift when the data segment resizes
 — but `count_frozen_addrs` cannot see them, so the count does not move (Section
 18). The detail of each step is in Section 17.
 
 ### 0.2 Remaining — all of it is D7
 
-**Current census** on the committed (rebuilt) tree:
+**Current census** on the regenerated tree (a `make build` fixed point):
 
 | class | value | meaning |
 |-------|------:|---------|
-| `code_shift` | 152 | breaks when code resizes — **must reach 0** (15 of it is reclassified `inert`, D7.3) |
-| `data_shift` | 1231 | breaks when data resizes — **must reach 0** |
+| `code_shift` | 172 | breaks when code resizes — **must reach 0** (15 of them are reclassified `inert`, D7.3) |
+| `data_shift` | 1244 | breaks when data resizes — **must reach 0** |
 | `inert` | 248 | can never change — **excluded** |
-| `total` (gated) | 1383 | `code_shift + data_shift` |
+| `total` (gated) | 1416 | `code_shift + data_shift` |
 
-Per-taxonomy breakdown: `f1=2 f2=13 f3=134 f4=1231 f5=3 f6=241 f7=0`.
+Per-taxonomy breakdown: `f1=2 f2=13 f3=134 f4=1231 f5=3 f6=241 f7=0`, plus the
+three shared-geometry buckets added by D7.0a: `o_corg=13 o_dorg=13
+ds_size_imm=7` (13 + 13 + 7 = the +33).
 
-Where the 1383 live, per emitted file:
+Where the 1416 live, per emitted file:
 
 | binary | gated | of which F4 (`dseg_`/`bss_` `equ`) |
 |--------|------:|-----------------------------------:|
-| `ds.asm` | 2 | 0 |
-| `vinstall.asm` | 3 | 0 |
-| `vbase` | 227 | 218 |
-| `vmnpc` | 163 | 160 |
-| `vmaze` | 141 | 136 |
-| `vpcvw` | 113 | 97 |
-| `vtrea` | 102 | 95 |
-| `vdopt` | 85 | 83 |
-| `vmexe` | 84 | 79 |
-| `vmext` | 77 | 75 |
-| `vinit` | 66 | 65 |
-| `vmele` | 65 | 64 |
-| `vpcmk` / `vpclv` / `vpops` | 64 / 59 / 44 | 58 / 57 / 43 |
-| `play` / `vga` / `ega` (+ subfiles) | 34 / 34 / 19 | 0 / 0 / 1 |
+| `ds.asm` | 6 | 0 |
+| `vinstall.asm` | 6 | 0 |
+| `vbase` | 229 | 218 |
+| `vmnpc` | 165 | 160 |
+| `vmaze` | 143 | 136 |
+| `vpcvw` | 115 | 97 |
+| `vtrea` | 104 | 95 |
+| `vdopt` | 87 | 83 |
+| `vmexe` | 86 | 79 |
+| `vmext` | 79 | 75 |
+| `vinit` | 68 | 65 |
+| `vmele` | 67 | 64 |
+| `vpcmk` / `vpclv` / `vpops` | 66 / 61 / 46 | 58 / 57 / 43 |
+| `vga` / `play` / `ega` (+ subfiles) | 35 / 34 / 19 | 0 / 0 / 1 |
 
-**1378 of the 1383 are in the overlays and drivers**; the two MZ images that
-D1–D5 worked on contribute 5. `data_shift` is exactly the 13 overlays' F4 `equ`
-lines. `code_shift` decomposes as overlay F3 `equ` (134) + overlay `o_bss` (13)
-+ MZ `e_sp` (2) + overlay zero pads (3); the 15 `o_bss`/`e_sp` values are
-declared waivers (Appendix C) that are nevertheless *counted* today — D7.3
-reconciles that. Two of the `vinstall` "data" words (`0x2e`/`0x30`) are still
-inert PSP slots mis-bound as `dseg_` (Section 5d); that is a naming bug that
-does not move the census.
+**1404 of the 1416 are in the overlays and drivers**; the two MZ images that
+D1–D5 worked on contribute 12. `data_shift` is exactly the 13 overlays' F4 `equ`
+lines (1231) plus the 13 `o_dorg` fields (which *are* the host DS size).
+`code_shift` decomposes as overlay F3 `equ` (134) + overlay `o_bss` (13) + MZ
+`e_sp` (2) + overlay zero pads (3) + overlay `o_corg` (13) + host DS-size
+immediates (7); the 15 `o_bss`/`e_sp` values are declared waivers (Appendix C)
+that are nevertheless *counted* today — D7.3 reconciles that. Two of the
+`vinstall` "data" words (`0x2e`/`0x30`) are still inert PSP slots mis-bound as
+`dseg_` (Section 5d); that is a naming bug that does not move the census.
+
+*(The per-step "Outcome" figures below D1/D5, e.g. `total 1383`, predate D7.0a
+and describe the state at that step, not today's.)*
 
 ### 0.3 Not measured by any metric
 
 - **F4 code immediates.** A DS address emitted as a bare number — e.g.
   `vinstall/leaf_loc_10a4.asm` does `mov ax, 0x1806` then `call loc_040f`. This
   is the same "moves under an edit" class as F7, and the census cannot see it
-  at all.
+  at all. **D7.0a gave the host DS-size slice of this class a counter**
+  (`ds_size_imm`, the 7 `; dssize`-tagged immediates); the general DS-address
+  immediate still has none.
 - **Odd-aligned pointer tables.** The scorer collects even offsets only.
 
 **Rule:** no work starts on a class that has no counter (Section 21). F7
@@ -214,11 +230,13 @@ validates it with an edit-property test (Section 15), not with `make verify`.
 | F2 | overlay `o_csize`, `o_entry` | `_render_ovr_header` | **dynamic ✅** |
 | F2 | overlay `o_dsize` | `_render_ovr_header` | **dynamic ✅** |
 | F2 | overlay `o_bss` | `_render_ovr_header` | literal (host/runtime) — **still counted in `code_shift` (f2=13); reclassified `inert` in D7.3** |
-| F2 | overlay `o_corg`, `o_dorg` | `_render_ovr_header` | plain literals — **not counted by the census** |
+| F2 | overlay `o_corg` | `_render_ovr_header` | literal (host code origin) — **counted as `o_corg` → `code_shift` since D7.0a; bind in D7.2** |
+| F2 | overlay `o_dorg` | `_render_ovr_header` | literal — **it *is* the host DS size** — **counted as `o_dorg` → `data_shift` since D7.0a; bind in D7.1b** |
 | F3 | `cseg_<f>` / `data_<f>` / unreached `loc_*`/`leaf_*`/`io_*`/`dos_*`/`string_*`/`api_*` `equ` | `_build_source` | **dynamic ✅** for the MZ images; **134 overlay `equ` lines remain (D7.2)** |
 | F4 | `dseg_<o>`, `bss_<o>` `equ` (MZ images) | `_build_source` | **dynamic ✅** (D1; `f4=0`) |
 | F4 | `dseg_<o>`, `bss_<o>` `equ` (overlays) | `_build_source` | **next phase (D7.1); 1231 lines** |
 | F4 | `psp_<o>` `equ` | `_build_source` | **inert ✅** (D0) |
+| F4 | host DS-size immediate (`0x9098` in `ds`, `0x2afe` in `vinstall`) | `_build_source` | tagged `; dssize` — **counted as `ds_size_imm` → `code_shift` since D7.0a; bind in D7.0b** |
 | F5 | `times <N> db 0` gap to `data_origin` | `_render_data_block` | **dynamic ✅** (MZ images); 3 overlay pads remain (D7.3) |
 | F5 | trailing pads | `_render_data_block` | literal (unless an anchor exists) |
 | F6 | numeric `dw 0x<value>` inside a `literal` table | `_inject_jump_tables` | **inert ✅** (D0; tagged) |
@@ -231,8 +249,9 @@ F3 and F5 are what actually break under the `nop` probe; F1/F2 must be fixed for
 the resulting file to be loadable. F6 is inert; F8 is in scope. F4 is done for
 the MZ images (D1), and **D7.1** is the remaining 1231; F3 for the overlays is
 **D7.2**. F7 is done for the MZ images; its only open extension is the
-code-immediate class, which has no counter and therefore no scheduled work
-(§0.3).
+code-immediate class, which now has a *partial* counter — `ds_size_imm` covers
+only the 7 host DS-size immediates — while the general F4-immediate class still
+has no counter and therefore no scheduled work (§0.3).
 
 ---
 
@@ -280,9 +299,10 @@ because every current table word is a deliberate literal table.
 
 **Residual waivers still inside `code_shift`** (deliberately, per the plan's
 explicit inert list): `e_sp` ×2, `o_bss` ×13, and the ega/vga code pads (F5).
-These are the reason `code_shift` is 152 rather than 0; resolving them is out of
-D0's scope. **Scheduled as D7.3** (§17), which moves `e_sp`/`o_bss` to `inert`
-and settles the pads, so `code_shift` can reach 0.
+These are the reason `code_shift` is not 0 (172 after D7.0a, of which 15 are
+these waivers); resolving them is out of D0's scope. **Scheduled as D7.3**
+(§17), which moves `e_sp`/`o_bss` to `inert` and settles the pads, so
+`code_shift` can reach 0.
 
 ---
 
@@ -869,7 +889,7 @@ backlog, **plus** `data_shift == 0` as the final gate. The dynamic tier (Section
 
 **Where we stand (2026-10-12).** Met **for the two MZ images** (`ds`,
 `vinstall`): 100% precision, a two-word backlog, both edit-property tests green.
-**Not met for the whole tree** — the 1378 remaining gated values are
+**Not met for the whole tree** — the 1404 remaining gated values are
 overlays/drivers (D7), which have no bindings and no edit-property test. The
 overall goal ("nothing that moves under an edit is still hard-coded") is
 therefore **open**, and the gap is exactly D7 (§0.2).
@@ -893,8 +913,9 @@ therefore **open**, and the gap is exactly D7 (§0.2).
 
 ## 17. Sequencing
 
-Pass 1 and D0–D5 are complete. **D7 is the only step that moves the census**
-(1378 of the 1383 gated values are overlays/drivers). **D6 is dropped** (§0.4).
+Pass 1 and D0–D5 are complete, and D7.0a has started D7. **D7 is the only step
+that moves the census** (1404 of the 1416 gated values are overlays/drivers).
+**D6 is dropped** (§0.4).
 
 | step | meaning | status | gate impact |
 |------|---------|--------|------------:|
@@ -905,7 +926,8 @@ Pass 1 and D0–D5 are complete. **D7 is the only step that moves the census**
 | D4 | static candidate scorer (weights + strong-anchor rule + 5d refusals) | ✅ DONE (2026-10-12) | 0 |
 | D5 | promote accepted; backlog the rest; round-trip + edit-property tests | ✅ DONE (2026-10-12) | 0 |
 | D6 | dynamic confirmation (one capture, offline replay) | ❌ **DROPPED** (§0.4) | (F7 only) |
-| D7 | overlays and raw drivers (incl. overlay `dseg_`/`bss_` + F3) | ▶️ **NEXT** | **−1383 (→ 0)** |
+| D7.0a | shared host/overlay geometry counters (`o_corg`/`o_dorg`/`ds_size_imm`) | ✅ DONE (2026-10-12) | **+33** (re-baseline) |
+| D7 | overlays and raw drivers (incl. overlay `dseg_`/`bss_` + F3) | ▶️ **NEXT** | **−1416 (→ 0)** |
 
 `gate impact` is the change in `code_shift + data_shift`; it is deliberately a
 separate column so effort and effect cannot be confused (§0.1, Section 21).
@@ -1159,25 +1181,45 @@ backlog is empty.
 ### D7 — overlays and raw drivers  ▶️ NEXT
 
 Ordered. Keep `make build && make verify DSAVANT` at 18/18 after each sub-step
-and lower `BASELINE_TOTALS` as counts fall.
+and lower `BASELINE_TOTALS` as counts fall. The shared-DS model — every overlay's
+data offsets are the *host's* DS offsets, and each overlay's `o_dorg` **is** the
+host DS size — is established in §0.1/§0.2 and Section 18.
 
-- **D7.0 — decide the overlay data anchor.** An overlay's `dseg_<o>` resolves
-  against the *host's* data origin, and each overlay is assembled as its own
-  file, so the literal can only be replaced once the host anchor is expressible
-  in every overlay source (Section 18, "Overlay DATA"). Nothing else here is
-  safe until this is settled.
-- **D7.1 — bind F4 for the overlays.** `data_shift` 1231 → 0: the same
+- **D7.0 — make the shared geometry visible, then choose the anchor.**
+  - **D7.0a — counters.** ✅ DONE (2026-10-12). `count_frozen_addrs` now counts
+    the 13 overlay `o_corg` (`code_shift`), the 13 overlay `o_dorg`
+    (`data_shift` — each *is* the host DS size), and the 7 host code immediates
+    equal to the DS size (`ds_size_imm` → `code_shift`; tagged `; dssize` at
+    emit time, driven by the new `SegmentModel.ds_size`, recovered from the CRT
+    BSS zero-fill idiom via `find_crt_bss_zero_range`). Baseline re-based
+    1383 → **1416**; `make verify DSAVANT` 18/18; unit suite 247 OK.
+  - **D7.0b — bind the 7 DS-size immediates.** Declare a real host symbol
+    `__zdataseg_end` in `ds.asm` (`= (__zimage_end - __zdataseg_start) +
+    (ds_size - bss_boundary)`, i.e. the host BSS size past the file-backed end)
+    and export it to the overlays through the existing generated
+    `*_foreign_labels.inc` channel; then `0x9098`/`0x2afe` become expressions
+    (`ds_size_imm` 7 → 0).
+- **D7.1 — bind F4 for the overlays.** `data_shift` 1244 → 0: the same
   `dseg_<o> → __zdseg_<o> - __zdataseg_start` / `bss_<o> → … + delta` transform
-  as D1, for the 13 overlays, against the D7.0 anchor.
-- **D7.2 — bind F3 for the overlays.** The 134 remaining `cseg_`/`loc_`/`leaf_`/
-  `string_`/`api_` `equ` lines → in-place labels — the Pass 1 Phase 3 transform,
-  which was applied to the MZ images only.
+  as D1, for the 13 overlays, against the D7.0 anchor. Splits at the host DS
+  boundary `0x9098`: the 229 offsets `< 0x9098` are host-resident (**D7.1a**;
+  212 are host BSS, expressible as `host_data_size + (o - 0xcf6)` with no label,
+  and only 17 are file-backed host bytes needing a real label) and the 400
+  offsets `≥ 0x9098` are the overlay's own data/BSS (**D7.1b**).
+- **D7.1b — bind the 13 `o_dorg` fields** to the host DS-size symbol from D7.0b
+  (`o_dorg` 13 → 0).
+- **D7.2 — bind F3 and `o_corg` for the overlays.** The 134 remaining
+  `cseg_`/`loc_`/`leaf_`/`string_`/`api_` `equ` lines → in-place labels — the
+  Pass 1 Phase 3 transform, which was applied to the MZ images only — and the 13
+  `o_corg` fields once the host code-region origin is pinned (see Section 18,
+  "Overlay DATA"; the base is still unproven).
 - **D7.3 — reclassify the declared waivers and the pads.** Overlay `o_bss` (13)
   and MZ `e_sp` (2) are permanent per Appendix C but are currently counted in
   `code_shift`; move them to `inert`. Resolve the 3 overlay zero pads (or
   declare them). After this the gated total can reach **0**.
 - **D7.4 — extend the edit-property test to an overlay** (only `ds`/`vinstall`
-  are exercised today) and lower `BASELINE_TOTALS` to the new floor.
+  are exercised today) and lower `BASELINE_TOTALS` to the new floor (`total` → 0
+  as each class lands).
 
 ---
 
@@ -1188,19 +1230,28 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
 
 - **[D7] Overlay DATA — the anchor (D7.0).** Overlay data offsets resolve
   against the *host* model, so a bound `dseg_<o>` (or a promoted DS word) in an
-  overlay must use the host's `__zdataseg_start`. Confirm the host anchor is in
-  scope in every overlay source file. **Moves the gate: yes — the whole 1231.**
-- **[D7] The census does not count data-block words or code immediates.**
+  overlay must use the host's `__zdataseg_start` — and every overlay's `o_dorg`
+  **is** the host DS size. D7.0a answered the *measurement* half: both are now
+  counted (13 `o_dorg` + 13 `o_corg`). **Still open:** whether `o_corg` is the
+  host CS offset at which overlay code is linked — `segments.host_code_offset()`
+  implies it, yet host routines the overlays call sit at CS `0xafcc`+ (above
+  `0x5055`). D7.0b/D7.1 need only the *data* anchor, so they are unblocked;
+  **D7.2 waits on this.** **Moves the gate: yes — the whole 1244 `data_shift`
+  plus the 13 `o_corg`.**
+- **[D7] The census did not count data-block words or code immediates.**
   `count_frozen_addrs` matches only MZ/OVR header `dw`, `equ 0x` lines,
-  `times N db 0`, and `dw 0x… ; 0x…` data words. Two whole classes are
-  invisible: a stored pointer word rendered as a raw `db` pair *before* D5
-  promotion, and raw immediates that are DS addresses — e.g.
-  `vinstall/leaf_loc_10a4.asm` does `mov ax, 0x1806` then `call loc_040f`, a DS
-  string pointer emitted as a bare number. So `data_shift` **cannot** measure
-  D5's effect (it did not move: 1231). This is why the acceptance gate is the
-  edit-property test (Section 3.1) plus the `promoted_data_words` count, not the
-  census. **Moves the gate: it hides work — the F4-immediate class needs a
-  counter before it can be scheduled (§0.3).**
+  `times N db 0`, and `dw 0x… ; 0x…` data words. Two classes were invisible: a
+  stored pointer word rendered as a raw `db` pair *before* D5 promotion, and raw
+  immediates that are DS addresses — e.g. `vinstall/leaf_loc_10a4.asm` does
+  `mov ax, 0x1806` then `call loc_040f`, a DS string pointer emitted as a bare
+  number. D7.0a closed the *geometry* slice of the second class: the 7 host
+  DS-size immediates are tagged `; dssize` and counted. The general DS-address
+  immediate (and the pre-promotion `db` pair) is still invisible, so D5's effect
+  is still **not** visible in the census (it did not move: 1244) and the
+  acceptance gate remains the edit-property test (Section 3.1) plus
+  `promoted_data_words`, not the census. **Moves the gate: it hides work — the
+  general F4-immediate class still needs a counter before it can be scheduled
+  (§0.3).**
 - **[OPEN] Unrelocated absolute DS displacements (Section 5d).** `segdataflow`
   names a default-DS operand `dseg_` even when its displacement carries no
   relocation and is a hardcoded fixed address (e.g. `0x2E`/`0x30`). Decide a
@@ -1304,10 +1355,18 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
     check for non-pointers.
   - The sidecar corpus round-trips: precision 100%; recall recorded (not gated)
     as the remaining backlog.
+- **D7.0a:** the shared host/overlay geometry is countable —
+  `count_frozen_addrs` now returns `o_corg` (13 → `code_shift`), `o_dorg`
+  (13 → `data_shift`) and `ds_size_imm` (7 → `code_shift`); `SegmentModel.ds_size`
+  (from the CRT BSS idiom) and the `; dssize` emit tag added; `BASELINE_TOTALS`
+  re-based 1383 → **1416** as a documented one-time correction;
+  `make verify DSAVANT` 18/18; unit suite 247 OK; regeneration is a fixed point
+  (re-running `make build` changes nothing). ✅
 - **REMAINING — D7 (overlays and raw drivers).** The overall goal is **not**
   met. Exit criteria:
-  - `data_shift` 1231 → 0 (overlay F4 bound; D7.1) and overlay F3 `equ`
-    134 → 0 (D7.2).
+  - `data_shift` 1244 → 0 (overlay F4 bound; D7.1) and overlay F3 `equ`
+    134 → 0 + `o_corg` 13 → 0 (D7.2); the 7 `ds_size_imm` and 13 `o_dorg`
+    bound to the host anchor (D7.0b/D7.1b).
   - overlay `o_bss` (13) + MZ `e_sp` (2) reclassified `inert`, overlay pads
     resolved (D7.3), so `code_shift + data_shift` → **0**.
   - an overlay is covered by the edit-property test (D7.4) and
@@ -1340,17 +1399,17 @@ Local copies (git-ignored, not dependencies): `asm/tools/reference/README.md`.
 
 The campaign is large in `asm/lib` and small in the generated assembly. That is
 expected for an analysis-heavy phase, but it means **effort is not evidence of
-progress** — only the census is. Ledger as of 2026-10-12 (uncommitted working
-tree vs `HEAD`):
+progress** — only the census is. Ledger as of 2026-10-12 (working tree vs
+`HEAD`, whose `chkpoint` commit already contains D0–D5's new modules, so their
+lines do not appear below):
 
 | area | change | note |
 |------|-------:|------|
-| generated asm (`asm_DSAVANT/**`) | ~618 lines changed, in **2 of 1376 files** | `ds.asm`, `vinstall.asm` only (D1 + D5) |
-| analysis modules | **+1134 new lines** | `pointers.py` 647, `regions.py` 302, `promote.py` 185 |
-| new test files | 3 | `test_pointers.py`, `test_promote.py`, `test_regions.py` |
-| existing tests | ~330 lines added | `test_dynamic_addrs.py`, `test_hard_classification.py` |
-| `plan.md` | ~970 lines changed | this document |
-| **census** | **−170, then flat** | D1 is the only mover |
+| generated asm (`asm_DSAVANT/**`) | **+359/−359 in 57 of 1376 files** | the D7.0a `; dssize` tags (7 lines) are the only census-visible part; the rest is local-label naming and split-fragment churn |
+| `asm/lib` | **+300/−98 in 12 files** | D7.0a is `segments.py`, `records.py`, `render.py`, `verify.py`, `report.py`, `test_dynamic_addrs.py`; the rest is unrelated aztec/compile+cache churn |
+| analysis modules (already in `HEAD`) | `pointers.py` 647, `regions.py` 302, `promote.py` 185 | 1134 lines total |
+| `plan.md` | **+142/−79** | this document (self-referential — re-measure with `git diff --stat plan.md`) |
+| **census** | **1416** (1553 before D1) | D1 **−170**; D7.0a **+33** (a re-baseline, not new debt) |
 
 Two disciplines follow, and they are the point of this section:
 
@@ -1361,6 +1420,8 @@ Two disciplines follow, and they are the point of this section:
 2. **No work on an unmeasured class** (§0.3). If a class cannot be counted, the
    first deliverable is the counter, not the fix. F7 was correct work with no
    counter: it moved the generated assembly by 25 words and the census by 0.
+   D7.0a is the same rule applied *prospectively* — the shared-geometry counter
+   (and the one-time re-baseline it forced) landed before any binding.
 
 The metric of record is `code_shift + data_shift` (§0.2), guarded by
 `BASELINE_TOTALS` in `asm/lib/tests/test_dynamic_addrs.py`; the *behavioural*
@@ -1451,8 +1512,10 @@ here and reclassified in D7.3.
   `code_shift` (f1=2); reclassified `inert` in D7.3.**
 - Overlay `o_bss` — uninitialized data size (host/runtime). **Currently still
   counted in `code_shift` (f2=13); reclassified `inert` in D7.3.**
-- Overlay `o_corg`/`o_dorg` — code/data load origin; plain literals the census
-  does not count.
+- Overlay `o_corg`/`o_dorg` — code/data load origin. **Now counted (D7.0a):**
+  `o_corg` → `code_shift`, `o_dorg` → `data_shift`. `o_dorg` **is** the host DS
+  size, so it is bound in D7.1b; `o_corg` is bound in D7.2 once the host code
+  base is pinned.
 - `bios_data_0410` and any `external_data` field — fixed external segment
   (now counted `inert`, Section 5).
 - PSP fields not in `PSP_FIELDS` (now counted `inert`).

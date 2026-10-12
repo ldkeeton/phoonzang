@@ -24,8 +24,8 @@ A build that finds ``aztec_*`` labels but no prebuild data fails loudly with
 import json
 import os
 
-from . import objcache
-from .mux import MuxEngine
+from . import listing, objcache, sources
+from .mux import MuxEngine, is_asm, tool_flags
 from .objread import fixup_width
 
 PREBUILD_VERSION = 1
@@ -60,6 +60,11 @@ def src_dir(project, binary):
 def objs_dir(project):
     """Baseline compiled objects inside the prebuild tree."""
     return os.path.join(prebuild_dir(project), 'objs')
+
+
+def is_asm_entry(entry):
+    """True when the routine was recovered from a hand-written ``.asm``."""
+    return is_asm(entry['file'])
 
 
 def source_header(label, entry):
@@ -105,11 +110,12 @@ def _load(path):
     return blob.get('functions', {})
 
 
-def _save(path, binary, functions):
+def _save(path, binary, functions, misses):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w') as f:
         json.dump({'version': PREBUILD_VERSION, 'binary': binary,
-                   'functions': functions}, f, indent=1, sort_keys=True)
+                   'functions': functions, 'misses': misses},
+                  f, indent=1, sort_keys=True)
 
 
 def to_override(entry):
@@ -146,8 +152,6 @@ def load_or_build(project, binary, data, aztec_labels, *, mode='build',
 
 def _prebuild(project, binary, data, aztec_labels, path, verbose):
     from . import compile as azc
-    from .mux import COMPILER_FLAGS
-
     objcache_dir = os.path.join(prebuild_dir(project), 'objs')
     os.makedirs(objcache_dir, exist_ok=True)
     engine = MuxEngine(objcache_dir=objcache_dir)
@@ -165,9 +169,9 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose):
     for index, (key, (version, filename, source, compiler)) in enumerate(
             requests.items()):
         if objcache.load(objcache_dir, key) is None:
-            flags = COMPILER_FLAGS.get(compiler, engine.flags)
+            flags = tool_flags(filename, compiler, engine.flags)
             missing.append((key, f'T{index:04d}', source, compiler, version,
-                            flags))
+                            flags, 'asm' if is_asm(filename) else 'c'))
     if missing:
         if verbose:
             print(f'  aztec mux: prebuilding {binary} ...')
@@ -178,22 +182,28 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose):
     # Phase 2: resolve winners.  Every module is now in the object cache, so
     # this does no DOSBox work (and any cached compile error is reproduced).
     functions = {}
+    misses = {}
     for addr, label in aztec_labels:
         if not label.startswith('aztec_'):
             continue
         symbol = label[len('aztec_'):]
         matches = engine.resolve(symbol, data, addr)
         good = [m for m in matches if m.exact]
+        if not good:
+            misses[label] = _miss_status(matches)
         if good:
-            functions[label] = _entry_from_match(good[0])
+            m = good[0]
+            functions[label] = _entry_from_match(m)
+            if is_asm(m.filename):
+                _annotate_entry(engine, m, functions[label])
             if verbose:
-                m = good[0]
-                print(f'    C  {label:20} <- {m.version}/{m.filename} '
+                kind = 'ASM' if is_asm(m.filename) else 'C  '
+                print(f'    {kind} {label:20} <- {m.version}/{m.filename} '
                       f'via {m.compiler}')
     _seed_sources(project, binary, functions, data,
                   {label: addr for addr, label in aztec_labels},
                   objcache_dir, verbose)
-    _save(path, binary, functions)
+    _save(path, binary, functions, misses)
     if verbose:
         extracted = sum(1 for e in functions.values() if e.get('extracted'))
         if functions:
@@ -209,9 +219,34 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose):
     return functions
 
 
+def _annotate_entry(engine, match, entry):
+    """Attach the vendor source's local label names and comments.
+
+    The hand-written routine's bytes are reproduced by the generated disassembly
+    already; the vendor listing only adds what the disassembly cannot know.
+    """
+    source = sources.catalog(match.version)[match.filename]
+    module = engine._compile(match.version, match.filename, source,
+                             match.compiler)
+    notes = listing.annotate(getattr(module, 'listing', ''), match.func)
+    if notes:
+        entry['labels'] = sorted(notes['labels'].items())
+        entry['comments'] = sorted(notes['comments'].items())
+
+
+def _miss_status(matches):
+    """Why a routine has no byte-exact source, for the manifest's ``misses``."""
+    if not matches:
+        return 'no vendor source defines it'
+    best = matches[0]
+    if best.error:
+        return f'{best.filename}: {best.error.splitlines()[0][:80]}'
+    return (f'closest {best.version}/{best.filename}: '
+            f'{len(best.diffs)} of {best.length} bytes differ')
+
+
 def _flags_for(entry):
-    from .mux import COMPILER_FLAGS
-    return COMPILER_FLAGS.get(entry['compiler'], ('-n', '+y'))
+    return tool_flags(entry['file'], entry['compiler'])
 
 
 def _symbol(label):
@@ -234,12 +269,14 @@ def _seed_sources(project, binary, functions, data, addr_by_label,
     whole module is seeded, so ``extracted`` is a truthful provenance flag.
     """
     from . import compile as azc
-    from . import extract, sources
+    from . import extract
     from .mux import compare as mux_compare, normalize
 
     candidates = {}
     requests = {}
     for label, entry in functions.items():
+        if is_asm_entry(entry):
+            continue
         module_text = sources.catalog(entry['source_version']).get(entry['file'])
         if not module_text:
             continue
@@ -266,6 +303,8 @@ def _seed_sources(project, binary, functions, data, addr_by_label,
     dest = src_dir(project, binary)
     os.makedirs(dest, exist_ok=True)
     for label, entry in functions.items():
+        if is_asm_entry(entry):
+            continue
         text = None
         extracted = False
         if label in candidates:
@@ -301,7 +340,6 @@ def _seed_sources(project, binary, functions, data, addr_by_label,
 
 def seed_source_text(project, binary, label, entry):
     """Return the C seed for *label* (prebuild copy if present, else module)."""
-    from . import sources
     path = os.path.join(src_dir(project, binary), f'{label}.c')
     try:
         with open(path) as f:

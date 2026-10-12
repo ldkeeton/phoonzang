@@ -1,5 +1,6 @@
 """NASM source rendering: data blocks, records, headers and master file."""
 
+import re
 import struct
 
 from lib.compare.splitting import _partition_function_records
@@ -74,13 +75,19 @@ def _render_data_block(raw):
     return lines
 
 
-def _render_records(records, binary_data, show_offsets=True, gap=None):
+def _render_records(records, binary_data, show_offsets=True, gap=None,
+                    ds_size=None):
     """Render ordered body records, including textual NASM include directives.
 
     *gap* is an optional ``(block_start, gap_end, header_size, gap_len)`` tuple
     naming the MZ code→data gap.  The data block starting at ``block_start``
     is emitted with a dynamic ``__zdataseg_para`` prologue instead of a frozen
     zero pad, so the data segment follows a relocated image.
+
+    *ds_size* is the image's data-segment size.  A code immediate equal to it
+    is the shared host/overlay geometry value (plan.md D7.0); such a line is
+    tagged ``; dssize`` so the frozen-address census can count it as form-based
+    rather than by a magic number.
     """
     out = []
     i = 0
@@ -168,12 +175,17 @@ def _render_records(records, binary_data, show_offsets=True, gap=None):
 
         elif rec['type'] == 'mnem':
             annotation = rec.get('annotation')
+            # Tag an immediate equal to the data-segment size (plan.md D7.0).
+            tag = ''
+            if ds_size is not None and re.search(
+                    rf'\b0x{ds_size:04x}\b', rec.get('text') or ''):
+                tag = ' ; dssize'
             if annotation:
-                out.append(f'    {rec["text"]} ; {annotation}')
+                out.append(f'    {rec["text"]} ; {annotation}{tag}')
             elif show_offsets:
-                out.append(f'    {rec["text"]:<32s} ; 0x{rec["offset"]:04x}')
+                out.append(f'    {rec["text"]:<32s} ; 0x{rec["offset"]:04x}{tag}')
             else:
-                out.append(f'    {rec["text"]}')
+                out.append(f'    {rec["text"]}{tag}')
 
         elif rec['type'] == 'db_with_comment':
             annotation = rec.get('annotation')
@@ -359,7 +371,7 @@ def mz_data_gap(records, binary_data, start_offset):
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
-                  label_defined=None):
+                  label_defined=None, ds_size=None):
     """Render the master NASM source and any generated function includes."""
     label_defined = label_defined or ()
     out = ['org 0', 'bits 16']
@@ -510,10 +522,12 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     main_records, split_records = _partition_function_records(
         records, split_ranges, split_dir,
     )
-    out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap))
+    out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap,
+                               ds_size=ds_size))
 
     split_sources = {
-        path: '\n'.join(_render_records(fragment, binary_data, show_offsets)) + '\n'
+        path: '\n'.join(_render_records(fragment, binary_data, show_offsets,
+                                        ds_size=ds_size)) + '\n'
         for path, fragment in split_records.items()
     }
     if is_mz or (start_offset >= 14 and len(binary_data) >= 14

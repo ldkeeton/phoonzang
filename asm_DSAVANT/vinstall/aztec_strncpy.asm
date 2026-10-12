@@ -9,17 +9,17 @@ aztec_strncpy:
     mov es, di                       ; 0x2b14
     mov di, word [bp + 0x4]          ; 0x2b16
     mov si, word [bp + 0x6]          ; 0x2b19
-    jcxz @..aztec_strncpy.l3         ; 0x2b1c
-@..aztec_strncpy.l1:
+    jcxz @..aztec_strncpy.cpydone    ; 0x2b1c
+@..aztec_strncpy.cpyloop:
     lodsb                            ; 0x2b1e
     test al, al                      ; 0x2b1f
-    je short @..aztec_strncpy.l2     ; 0x2b21
+    je short @..aztec_strncpy.zerofill ; 0x2b21
     stosb                            ; 0x2b23
-    loop @..aztec_strncpy.l1         ; 0x2b24
-    jmp short @..aztec_strncpy.l3    ; 0x2b26
-@..aztec_strncpy.l2:
+    loop @..aztec_strncpy.cpyloop    ; 0x2b24
+    jmp short @..aztec_strncpy.cpydone ; 0x2b26
+@..aztec_strncpy.zerofill:
     rep stosb                        ; 0x2b28
-@..aztec_strncpy.l3:
+@..aztec_strncpy.cpydone:
     pop di                           ; 0x2b2a
     pop si                           ; 0x2b2b
     mov ax, word [bp + 0x4]          ; 0x2b2c

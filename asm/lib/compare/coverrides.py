@@ -9,7 +9,7 @@ from lib.compare.records import _record_span
 
 def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
                         immediate_labels, exact_bytes=False, data_labels=None,
-                        mem_symbols=None, mem_equ=None):
+                        mem_symbols=None, mem_equ=None, image_base=None):
     """Disassemble compiler-produced code into emission records."""
     from lib.format import format_instruction
     md = Cs(CS_ARCH_X86, CS_MODE_16)
@@ -37,7 +37,8 @@ def _c_bytes_to_records(data, base, label_map, local_labels, foreign_label_map,
             built = micro_assemble(
                 nasm_text, insn.address, label_map, local_labels,
                 foreign_label_map=foreign_label_map,
-                immediate_labels=immediate_labels, mem_equ=mem_equ)
+                immediate_labels=immediate_labels, mem_equ=mem_equ,
+                image_base=image_base)
             ok = built is not None and built[:len(bts)] == bts
             if not ok and not exact_bytes and built:
                 ok = is_semantically_equivalent(bts, built[:len(bts)],
@@ -78,7 +79,7 @@ def _merge_label_records(new_records, label_records):
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        local_labels, foreign_label_map, immediate_labels,
                        exact_bytes=False, data_labels=None,
-                       mem_symbols=None, mem_equ=None):
+                       mem_symbols=None, mem_equ=None, image_base=None):
     """Replace disassembled records with code compiled from C.
 
     ``c_overrides`` maps a function label to ``{'code': bytes,
@@ -158,7 +159,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         new_records = _c_bytes_to_records(
             bytes(final), start, label_map, local_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
-            mem_symbols=mem_symbols, mem_equ=mem_equ)
+            mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base)
         labels_in = [r for r in records
                      if r['type'] == 'label' and start < r['offset'] < end]
         replacements.append((start, end,

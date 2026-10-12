@@ -82,15 +82,19 @@ def _mz_header(e_ss):
 
 
 # Snapshot taken from the committed tree after the F1/F2/F3/F5 work
-# (2026-10-11), the D0 census split (2026-10-12), and D1's data-label binding
-# (2026-10-12).  ``total`` is the *gated* sum (``code_shift + data_shift``);
-# ``inert`` values (``psp_`` fields, ``bios_data_0410``, literal data tables)
-# are reported but excluded from the gate.  Every count may only go down from
-# here.
+# (2026-10-11), the D0 census split and D1's data-label binding (2026-10-12),
+# and the D7.0a shared-geometry counters (2026-10-12).  ``total`` is the
+# *gated* sum (``code_shift + data_shift``); ``inert`` values (``psp_`` fields,
+# ``bios_data_0410``, literal data tables) are reported but excluded from the
+# gate.  D7.0a *raised* the baseline by 33: it made the previously invisible
+# shared host/overlay geometry countable (13 ``o_corg`` + 13 ``o_dorg`` +
+# 7 ``ds_size_imm``).  That is a one-time honesty correction, not a regression.
+# Every count may only go down from here.
 BASELINE_TOTALS = {
-    'code_shift': 152, 'data_shift': 1231, 'inert': 248,
+    'code_shift': 172, 'data_shift': 1244, 'inert': 248,
     'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1231, 'f5': 3, 'f6': 241, 'f7': 0,
-    'total': 1383,
+    'o_corg': 13, 'o_dorg': 13, 'ds_size_imm': 7,
+    'total': 1416,
 }
 
 
@@ -161,6 +165,32 @@ class CountFrozenAddrsTests(unittest.TestCase):
 
     def test_empty_text(self):
         self.assertEqual(count_frozen_addrs('')['total'], 0)
+
+    def test_shared_geometry_buckets(self):
+        # plan.md D7.0: overlay origins and the host DS-size immediate.
+        text = '\n'.join([
+            '    dw 0x5055 ; o_corg: code load origin (memory offset)',
+            '    dw 0x9098 ; o_dorg: data load origin (memory offset)',
+            '    dw 0x143c ; o_bss: uninitialized data size',
+            '    add bx, strict word 0x9098       ; 0x4d89 ; dssize',
+            '    mov cx, 0x2afe                   ; 0x367b ; dssize',
+        ])
+        counts = count_frozen_addrs(text)
+        self.assertEqual(counts['o_corg'], 1)
+        self.assertEqual(counts['o_dorg'], 1)
+        self.assertEqual(counts['ds_size_imm'], 2)
+        self.assertEqual(counts['f2'], 1)               # o_bss stays F2
+        # code_shift also carries the F2 o_bss field.
+        self.assertEqual(counts['code_shift'], 1 + 1 + 2)
+        self.assertEqual(counts['data_shift'], 1)       # o_dorg
+        self.assertEqual(counts['inert'], 0)
+        self.assertEqual(counts['total'], 1 + 1 + 2 + 1)
+
+    def test_dssize_immediate_without_tag_is_not_counted(self):
+        # The counter is form-based: an untagged immediate is invisible.
+        counts = count_frozen_addrs('    mov cx, 0x9098                   ; 0x4de3')
+        self.assertEqual(counts['ds_size_imm'], 0)
+        self.assertEqual(counts['total'], 0)
 
 
 class DynamicDataAnchorTests(unittest.TestCase):

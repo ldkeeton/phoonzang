@@ -11,8 +11,8 @@ loc_2ab4:
     mov di, word [bp + 0x4]          ; 0x2abb
     sub ax, ax                       ; 0x2abe
     mov cx, 0x7fff                   ; 0x2ac0
-    repne scasb                      ; 0x2ac3
-    dec di                           ; 0x2ac5
+    repne scasb ; find end of destination string ; 0x2ac3
+    dec di ; backup to null byte ; 0x2ac5
     mov si, word [bp + 0x6]          ; 0x2ac6
     mov cx, dx                       ; 0x2ac9
 loc_2acb:
@@ -21,7 +21,7 @@ loc_2acb:
     test al, al                      ; 0x2acd
     loopne loc_2acb                  ; 0x2acf
     je short loc_2ad6                ; 0x2ad1
-    sub al, al                       ; 0x2ad3
+    sub al, al ; guarantee that string is nul terminated ; 0x2ad3
     stosb                            ; 0x2ad5
 loc_2ad6:
     pop di                           ; 0x2ad6

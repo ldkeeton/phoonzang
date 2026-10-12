@@ -35,13 +35,26 @@ COMPILER_FLAGS = {
     'v340a': ('-n',),
 }
 
-# A real compile takes ~1-2s; a hung DOSBox (compiler waiting on input) is
-# abandoned quickly so a fresh prebuild is not held up for minutes.
-COMPILE_TIMEOUT = 45
+# Hand-written library routines (``strcmp``, the DOS2 handle I/O in ``io.asm``
+# ...) ship as Manx ``.asm``, not C.  They are assembled with the assembler of
+# the *same* release as the source tree (its ``lmacros.h`` defines the calling
+# convention); ``-l`` additionally writes the listing used for annotations.
+ASM_VERSIONS = ('v340a', 'v52a')
+
+
+def is_asm(filename):
+    return filename.lower().endswith('.asm')
+
+
+def tool_flags(filename, compiler, default=('-n', '+y')):
+    """Switches for the tool (``cc`` or ``as``) that builds *filename*."""
+    if is_asm(filename):
+        return ('-l',)  # also write MODULE.LST, the source-to-offset listing
+    return COMPILER_FLAGS.get(compiler, tuple(default))
 
 
 def normalize(name):
-    return name.strip('_').lower()
+    return name.strip('_$').lower()
 
 
 class Match:
@@ -89,7 +102,7 @@ class MuxEngine:
         self.errors = []
 
     def _compile(self, version, filename, source, compiler):
-        flags = COMPILER_FLAGS.get(compiler, self.flags)
+        flags = tool_flags(filename, compiler, self.flags)
         key = (version, filename, compiler, flags)
         cached = self._modules.get(key)
         if cached is not None:
@@ -106,7 +119,7 @@ class MuxEngine:
             compiled = azc.compile_module(
                 source, os.path.splitext(filename)[0],
                 compiler=compiler, includes=version, flags=flags,
-                timeout=COMPILE_TIMEOUT)
+                kind='asm' if is_asm(filename) else 'c')
         except Exception as exc:  # keep going, record the failure
             compiled = exc
             summary = str(exc).splitlines()[0] if str(exc) else ''
@@ -133,9 +146,14 @@ class MuxEngine:
                     continue
                 for compiler in self.compiler_versions:
                     yield version, filename, source, compiler
+        for version in ASM_VERSIONS:
+            for filename in sources.asm_definition_files(version, name):
+                source = sources.catalog(version).get(filename)
+                if source is not None:
+                    yield version, filename, source, version
 
     def compile_key(self, version, filename, source, compiler):
-        flags = COMPILER_FLAGS.get(compiler, self.flags)
+        flags = tool_flags(filename, compiler, self.flags)
         return objcache.module_key(version, filename, compiler, flags, source)
 
     def resolve(self, symbol, data, gstart):

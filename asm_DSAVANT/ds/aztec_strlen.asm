@@ -6,12 +6,12 @@ aztec_strlen:
     mov di, ds                       ; 0x4cdc
     mov es, di                       ; 0x4cde
     mov di, word [bp + 0x4]          ; 0x4ce0
-    mov bx, di                       ; 0x4ce3
+    mov bx, di ; save for later ; 0x4ce3
     sub ax, ax                       ; 0x4ce5
     mov cx, 0x7fff                   ; 0x4ce7
     repne scasb                      ; 0x4cea
     mov ax, di                       ; 0x4cec
-    sub ax, bx                       ; 0x4cee
+    sub ax, bx ; compute length of string ; 0x4cee
     dec ax                           ; 0x4cf0
     pop di                           ; 0x4cf1
     pop bp                           ; 0x4cf2

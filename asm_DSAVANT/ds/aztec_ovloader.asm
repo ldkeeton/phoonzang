@@ -68,7 +68,7 @@ loc_4386:
 @..local.l9:
     cmp word [bp - 0x0010], strict word 0x5055 ; 0x440c
     jb short @..local.l10            ; 0x4411
-    cmp word [bp - 0x000c], strict word 0x9098 ; 0x4413
+    cmp word [bp - 0x000c], strict word 0x9098 ; 0x4413 ; dssize
     jae short @..local.l11           ; 0x4418
 @..local.l10:
     mov ax, 0x3c                     ; 0x441a

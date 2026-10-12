@@ -42,7 +42,7 @@ from lib.segdataflow import (
 from lib.cross_ref import overlay_host_aliases
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
-from .aztec import _aztec_c_overrides
+from .aztec import _aztec_asm_annotations, _aztec_c_overrides
 from .emit import _write_address_inventory, _write_render_context
 from .options import (
     ASM_DIR,
@@ -348,6 +348,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     t_aztec = time.perf_counter()
     c_overrides, _entries = _aztec_c_overrides(
         project, name, data, ctx.label_map, out_dir)
+    asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map)
     t_aztec_end = time.perf_counter()
 
     if AZTEC_PREBUILD_ONLY:
@@ -402,6 +403,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         extra_flow_edges=extra_flow_edges,
         label_comments=label_comments,
         c_overrides=c_overrides,
+        asm_annotations=asm_annotations,
         jump_tables=ctx.jump_tables,
         jump_table_overrides=(ctx.sidecar_entry or {}).get('jump_tables', []),
         external_data=(ctx.sidecar_entry or {}).get('external_data', {}),

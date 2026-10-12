@@ -1,7 +1,7 @@
 aztec_write:
     push bp                          ; 0x4fbd
     mov bp, sp                       ; 0x4fbe
-    mov ah, 0x40                     ; 0x4fc0
+    mov ah, 0x40 ; write(fd, buffer, length) / char *buffer; int length; ; 0x4fc0
 loc_4fc2:
     mov bx, word [bp + 0x4]          ; 0x4fc2
     cmp byte [bx + 0xcdc], 0         ; 0x4fc5

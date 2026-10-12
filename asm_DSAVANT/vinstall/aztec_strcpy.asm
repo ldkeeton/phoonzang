@@ -10,16 +10,16 @@ aztec_strcpy:
     mov cx, 0xffff                   ; 0x2aea
     mov al, 0                        ; 0x2aed
     repne scasb                      ; 0x2aef
-    not cx                           ; 0x2af1
+    not cx ; real length of string ; 0x2af1
     mov di, word [bp + 0x4]          ; 0x2af3
     mov si, word [bp + 0x6]          ; 0x2af6
     shr cx, 1                        ; 0x2af9
-    jcxz @..aztec_strcpy.l1          ; 0x2afb
+    jcxz @..aztec_strcpy.nowords     ; 0x2afb
     rep movsw                        ; 0x2afd
-@..aztec_strcpy.l1:
-    jae short @..aztec_strcpy.l2     ; 0x2aff
+@..aztec_strcpy.nowords:
+    jae short @..aztec_strcpy.nobyte ; 0x2aff
     movsb                            ; 0x2b01
-@..aztec_strcpy.l2:
+@..aztec_strcpy.nobyte:
     pop di                           ; 0x2b02
     pop si                           ; 0x2b03
     mov ax, word [bp + 0x4]          ; 0x2b04

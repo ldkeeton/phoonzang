@@ -11,8 +11,8 @@ loc_4582:
     mov di, word [bp + 0x4]          ; 0x4589
     sub ax, ax                       ; 0x458c
     mov cx, 0x7fff                   ; 0x458e
-    repne scasb                      ; 0x4591
-    dec di                           ; 0x4593
+    repne scasb ; find end of destination string ; 0x4591
+    dec di ; backup to null byte ; 0x4593
     mov si, word [bp + 0x6]          ; 0x4594
     mov cx, dx                       ; 0x4597
 loc_4599:
@@ -21,7 +21,7 @@ loc_4599:
     test al, al                      ; 0x459b
     loopne loc_4599                  ; 0x459d
     je short loc_45a4                ; 0x459f
-    sub al, al                       ; 0x45a1
+    sub al, al ; guarantee that string is nul terminated ; 0x45a1
     stosb                            ; 0x45a3
 loc_45a4:
     pop di                           ; 0x45a4

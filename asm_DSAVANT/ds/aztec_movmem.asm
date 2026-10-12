@@ -13,31 +13,31 @@ aztec_movmem:
     mov ax, es                       ; 0x5137
     mov dx, ds                       ; 0x5139
     cmp ax, dx                       ; 0x513b
-    jne short @..aztec_movmem.l2     ; 0x513d
+    jne short @..aztec_movmem.move_forward ; 0x513d
     cmp di, si                       ; 0x513f
-    je short @..aztec_movmem.l4      ; 0x5141
-    jb short @..aztec_movmem.l2      ; 0x5143
+    je short @..aztec_movmem.done    ; 0x5141
+    jb short @..aztec_movmem.move_forward ; 0x5143
     std                              ; 0x5145
     add di, cx                       ; 0x5146
     add si, cx                       ; 0x5148
     dec di                           ; 0x514a
     dec si                           ; 0x514b
     test cl, 1                       ; 0x514c
-    je short @..aztec_movmem.l1      ; 0x514f
+    je short @..aztec_movmem.nobyte  ; 0x514f
     movsb                            ; 0x5151
-@..aztec_movmem.l1:
+@..aztec_movmem.nobyte:
     dec di                           ; 0x5152
     dec si                           ; 0x5153
-    jmp short @..aztec_movmem.l3     ; 0x5154
-@..aztec_movmem.l2:
+    jmp short @..aztec_movmem.domove ; 0x5154
+@..aztec_movmem.move_forward:
     test cl, 1                       ; 0x5156
-    je short @..aztec_movmem.l3      ; 0x5159
+    je short @..aztec_movmem.domove  ; 0x5159
     movsb                            ; 0x515b
-@..aztec_movmem.l3:
+@..aztec_movmem.domove:
     shr cx, 1                        ; 0x515c
-    je short @..aztec_movmem.l4      ; 0x515e
+    je short @..aztec_movmem.done    ; 0x515e
     rep movsw                        ; 0x5160
-@..aztec_movmem.l4:
+@..aztec_movmem.done:
     cld                              ; 0x5162
     pop di                           ; 0x5163
     pop si                           ; 0x5164

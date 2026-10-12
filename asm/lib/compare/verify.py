@@ -56,6 +56,7 @@ from lib.compare.analysis import (
     _direct_flow_targets,
 )
 from lib.compare.coverrides import _apply_c_overrides
+from lib.compare.vendor import _apply_asm_annotations
 from lib.compare.interrupts import _set_insn_fields, _annotate_interrupts
 from lib.compare.jumptables import (
     _merge_jump_table_specs,
@@ -173,7 +174,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            foreign_label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
            function_roots=None, branch_targets=None, branch_edges=None,
-           extra_flow_edges=None, label_comments=None, c_overrides=None,
+           extra_flow_edges=None, label_comments=None, c_overrides=None, asm_annotations=None,
            jump_tables=None, jump_table_overrides=None,
            segment_flow=None, segments=None, external_data=None,
            entry_symbol=None, data_pointers=(), not_pointers=()):
@@ -842,12 +843,16 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 emitted_record=record_info,
             )
 
+    if asm_annotations:
+        records = _apply_asm_annotations(records, asm_annotations)
+
     if c_overrides:
         records = _apply_c_overrides(
             records, c_overrides, binary_data, label_map, local_labels,
             foreign_label_map, immediate_labels, exact_bytes=exact_bytes,
             data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ,
+            image_base=start_offset,
         )
 
     _annotate_interrupts(records)
@@ -951,6 +956,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         immediate_labels=immediate_labels, split_ranges=split_ranges,
         split_dir=name, mem_equ=mem_equ, image_base=start_offset,
         entry_symbol=source_entry_symbol, label_defined=label_defined,
+        ds_size=getattr(segments, 'ds_size', None),
     )
     t6 = time.perf_counter()
 

@@ -114,7 +114,7 @@ class Func:
 
     @property
     def key(self):
-        return self.name.strip('_').lower()
+        return self.name.strip('_$').lower()
 
     def masked(self):
         """Yield ``(index, is_relocation)`` for every byte of the code."""
@@ -157,19 +157,23 @@ class CompiledModule:
     def __init__(self):
         self.functions = {}
         self.log = ''
+        # Assembler listing (``as -l``) of a hand-written module, else ''.
+        self.listing = ''
 
     def get(self, name):
-        return self.functions.get(name.strip('_').lower())
+        return self.functions.get(name.strip('_$').lower())
 
     def to_dict(self):
         return {'functions': {name: func.to_dict()
-                              for name, func in self.functions.items()}}
+                              for name, func in self.functions.items()},
+                'listing': self.listing}
 
     @classmethod
     def from_dict(cls, blob):
         result = cls()
         result.functions = {name: Func.from_dict(func)
                             for name, func in blob.get('functions', {}).items()}
+        result.listing = blob.get('listing', '')
         return result
 
 
@@ -192,9 +196,19 @@ def _dos_name(name):
     return stem[:8]
 
 
+def _tool_line(kind, flags, module, log):
+    """The DOS command that turns ``MODULE.C``/``MODULE.ASM`` into ``.O``."""
+    if kind == 'asm':
+        return ' '.join(['as', *flags, f'{module}.ASM', f'> {log}'])
+    return ' '.join(['cc', *flags, f'{module}.C', f'> {log}'])
+
+
 def compile_module(source_text, name, *, compiler='v52a', includes=None,
-                   flags=('-n', '+y'), timeout=120, keep=False):
+                   flags=('-n', '+y'), keep=False, kind='c'):
     """Compile *source_text* and return a :class:`CompiledModule`.
+
+    ``kind='asm'`` assembles a hand-written Manx ``.ASM`` module with ``as``
+    instead of compiling C with ``cc``.
 
     ``compiler`` selects the code generator; ``includes`` selects the header
     tree (defaults to the same version as the compiler).
@@ -215,7 +229,8 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
         with open(os.path.join(work, 'dosbox.conf'), 'w') as f:
             f.write(_CONF)
         module = _dos_name(name)
-        with open(os.path.join(work, f'{module}.C'), 'w') as f:
+        ext = 'ASM' if kind == 'asm' else 'C'
+        with open(os.path.join(work, f'{module}.{ext}'), 'w') as f:
             f.write(source_text)
 
         cmds = [
@@ -225,19 +240,19 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
             'set PATH=C:\\BIN',
             'set INCLUDE=E:\\',
             'd:',
-            ' '.join(['cc', *flags, f'{module}.C', '> CC.LOG']),
+            _tool_line(kind, flags, module, 'CC.LOG'),
             f'{_obj_converter(compiler)} {module}.O > OBJMS.LOG',
             f'obd {module}.O > OBD.TXT',
             'exit',
         ]
-        argv = _dosbox_argv(exe, work, cmds, time_limit=timeout)
+        argv = _dosbox_argv(exe, work, cmds)
         env = dict(os.environ)
         env['HOME'] = work
         env['SDL_VIDEODRIVER'] = 'dummy'
         env['SDL_AUDIODRIVER'] = 'dummy'
         with _dosbox_lock():
             proc = subprocess.run(argv, capture_output=True, text=True,
-                                  timeout=timeout, env=env)
+                                  env=env)
         log = proc.stdout + proc.stderr
 
         obj_path = os.path.join(work, f'{module}.O')
@@ -250,6 +265,7 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
 
         dump = parse_obd(_read(obd_path))
         result = _build_module(module, omf_path, dump)
+        result.listing = _read(os.path.join(work, f'{module}.LST'))
         result.log = log + cc_log
         if keep:
             result._work = work
@@ -268,29 +284,27 @@ def _read(path):
         return ''
 
 
-def _dosbox_argv(exe, work, cmds, *, time_limit=None):
+def _dosbox_argv(exe, work, cmds):
     """Build a non-interactive DOSBox-X command line.
 
     ``-nopromptfolder`` is essential: recent DOSBox-X builds otherwise block on
-    a working-directory dialog.  ``-time-limit`` is a hard wall-clock kill so a
-    wedged DOS compiler cannot hold the session open forever.
+    a working-directory dialog.
     """
     argv = [exe, '-conf', os.path.join(work, 'dosbox.conf'),
             '-nopromptfolder', '-defaultdir', work, '-fastlaunch', '-exit']
     
     argv.append('-nogui')
-    if time_limit:
-        argv += ['-time-limit', str(int(time_limit))]
     for cmd in cmds:
         argv += ['-c', cmd]
     return argv
 
 
-def compile_batch(requests, *, timeout=None, verbose=False):
+def compile_batch(requests, *, verbose=False):
     """Compile many modules with as few DOSBox launches as possible.
 
     ``requests`` is an iterable of
-    ``(key, dos_name, source_text, compiler, includes, flags)`` tuples.  One
+    ``(key, dos_name, source_text, compiler, includes, flags[, kind])`` tuples
+    (``kind`` is ``'c'`` by default, ``'asm'`` for a hand-written module).  One
     DOSBox session is used per ``(compiler, includes, flags)`` group: mixing
     compilers in a single session wedges the DOS ``cc`` driver, and repeatedly
     opening/closing DOSBox is both slow and unreliable.
@@ -298,18 +312,19 @@ def compile_batch(requests, *, timeout=None, verbose=False):
     Returns ``{key: CompiledModule | Exception}``.
     """
     groups = {}
-    for key, dos_name, source_text, compiler, includes, flags in requests:
-        groups.setdefault((compiler, includes, tuple(flags)), []).append(
+    for key, dos_name, source_text, compiler, includes, flags, *rest in requests:
+        kind = rest[0] if rest else 'c'
+        groups.setdefault((compiler, includes, tuple(flags), kind), []).append(
             (key, dos_name, source_text))
     results = {}
-    for (compiler, includes, flags), members in groups.items():
+    for (compiler, includes, flags, kind), members in groups.items():
         results.update(_compile_group(compiler, includes, flags, members,
-                                      timeout=timeout, verbose=verbose))
+                                      verbose=verbose, kind=kind))
     return results
 
 
-def _compile_group(compiler, inc_version, flags, members, *, timeout,
-                   verbose):
+def _compile_group(compiler, inc_version, flags, members, *, verbose,
+                   kind='c'):
     cbin = _compiler_dir(compiler)
     incdir = sources.include_dir(inc_version)
     if not os.path.isdir(cbin):
@@ -335,17 +350,16 @@ def _compile_group(compiler, inc_version, flags, members, *, timeout,
         # goes into one batch file; the mounts stay as -c.
         lines = []
         names = []
-        sources_by_key = {}
         converter = _obj_converter(compiler)
         for key, dos_name, source_text in members:
             dos = dos_name.upper()
-            with open(os.path.join(work, f'{dos}.C'), 'w') as f:
+            ext = 'ASM' if kind == 'asm' else 'C'
+            with open(os.path.join(work, f'{dos}.{ext}'), 'w') as f:
                 f.write(source_text)
-            lines.append(' '.join(['cc', *flags, f'{dos}.C', f'> {dos}.CC']))
+            lines.append(_tool_line(kind, flags, dos, f'{dos}.CC'))
             lines.append(f'if exist {dos}.O {converter} {dos}.O > {dos}.OM')
             lines.append(f'if exist {dos}.O obd {dos}.O > {dos}.OBD')
             names.append((key, dos))
-            sources_by_key[key] = (dos, source_text)
         with open(os.path.join(work, 'BUILD.BAT'), 'w') as f:
             f.write('\r\n'.join(lines) + '\r\n')
 
@@ -359,9 +373,7 @@ def _compile_group(compiler, inc_version, flags, members, *, timeout,
             'BUILD.BAT',
             'exit',
         ]
-        if timeout is None:
-            timeout = max(60, 3 * len(names))
-        argv = _dosbox_argv(exe, work, cmds, time_limit=timeout)
+        argv = _dosbox_argv(exe, work, cmds)
         env = dict(os.environ)
         env['HOME'] = work
         env['SDL_VIDEODRIVER'] = 'dummy'
@@ -370,15 +382,10 @@ def _compile_group(compiler, inc_version, flags, members, *, timeout,
               f'({inc_version} includes)', flush=True)
         if verbose:
             print(f'    {" ".join(argv)}', flush=True)
-        try:
-            with _dosbox_lock():
-                subprocess.run(argv, timeout=timeout, env=env)
-        except subprocess.TimeoutExpired:
-            print(f'  aztec batch: {compiler} batch timed out after '
-                  f'{timeout}s; isolating unfinished modules', flush=True)
+        with _dosbox_lock():
+            subprocess.run(argv, env=env)
 
         results = {}
-        unfinished = []
         for key, dos in names:
             obj_path = os.path.join(work, f'{dos}.O')
             cc_path = os.path.join(work, f'{dos}.CC')
@@ -387,23 +394,13 @@ def _compile_group(compiler, inc_version, flags, members, *, timeout,
                 obd_path = os.path.join(work, f'{dos}.OBD')
                 dump = parse_obd(_read(obd_path))
                 results[key] = _build_module(dos, omf_path, dump)
+                results[key].listing = _read(os.path.join(work, f'{dos}.LST'))
             elif os.path.exists(cc_path) and os.path.getsize(cc_path) > 0:
                 results[key] = AztecCompileError(
                     f'compiler produced no object for {dos}')
             else:
-                unfinished.append(key)
-
-        # Anything the batch never reached (a wedged module blocks the rest of
-        # the BAT) is retried one at a time with a short timeout, so a single
-        # bad source cannot sink the whole group.
-        for key in unfinished:
-            dos, source_text = sources_by_key[key]
-            try:
-                results[key] = compile_module(
-                    source_text, dos, compiler=compiler, includes=inc_version,
-                    flags=flags, timeout=COMPILE_TIMEOUT)
-            except Exception as exc:
-                results[key] = exc
+                results[key] = AztecCompileError(
+                    f'compiler never reached {dos}')
         return results
     finally:
         if os.environ.get('ASM_KEEP_BATCH'):
@@ -450,6 +447,6 @@ def _build_module(module, omf_path, dump):
                 from .objread import Fixup
                 fixups.append(Fixup(fx.offset - off, fx.kind, fx.symbol_kind,
                                     fx.symbol_index, fx.symbol))
-        result.functions[pf['name'].strip('_').lower()] = Func(
+        result.functions[pf['name'].strip('_$').lower()] = Func(
             pf['name'], pf['module'] or module, off, seg, fixups)
     return result

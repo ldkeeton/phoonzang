@@ -1,7 +1,7 @@
 aztec_fexec:
     push bp                          ; 0x2a27
     mov bp, sp                       ; 0x2a28
-    push si                          ; 0x2a2a
+    push si ; char *fexec(name,env,cline,fcb1,fcb2) ; 0x2a2a
     push di                          ; 0x2a2b
     pushf                            ; 0x2a2c
     push word [dseg_0030]            ; 0x2a2d
@@ -10,7 +10,7 @@ aztec_fexec:
     push es                          ; 0x2a36
     mov word [cs:cseg_2a23 - IMAGE_BASE], ss ; 0x2a37
     mov word [cs:cseg_2a25 - IMAGE_BASE], sp ; 0x2a3c
-    mov ax, word [bp + 0x6]          ; 0x2a41
+    mov ax, word [bp + 0x6] ; set up parameter block for exec call ; 0x2a41
     mov word [dseg_230e], ax         ; 0x2a44
     mov ax, ds                       ; 0x2a47
     mov es, ax                       ; 0x2a49
@@ -33,13 +33,13 @@ aztec_fexec:
     mov sp, word [cs:cseg_2a25 - IMAGE_BASE] ; 0x2a7d
     pop es                           ; 0x2a82
     pop ds                           ; 0x2a83
-    jae short @..aztec_fexec.l1      ; 0x2a84
+    jae short @..aztec_fexec.noerror ; 0x2a84
     mov word [dseg_24d6], ax         ; 0x2a86
     mov ax, 0xffff                   ; 0x2a89
-    jmp short @..aztec_fexec.l2      ; 0x2a8c
-@..aztec_fexec.l1:
+    jmp short @..aztec_fexec.done    ; 0x2a8c
+@..aztec_fexec.noerror:
     sub ax, ax                       ; 0x2a8e
-@..aztec_fexec.l2:
+@..aztec_fexec.done:
     pop word [dseg_002e]             ; 0x2a90
     pop word [dseg_0030]             ; 0x2a94
     popf                             ; 0x2a98

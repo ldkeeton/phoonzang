@@ -1,7 +1,7 @@
 aztec_mkdir:
     push bp                          ; 0x29fe
     mov bp, sp                       ; 0x29ff
-    mov ah, 0x39                     ; 0x2a01
+    mov ah, 0x39 ; char *mkdir(name) / char *name; ; 0x2a01
 loc_2a03:
     mov dx, word [bp + 0x4]          ; 0x2a03
     int 0x21 ; DOS create directory

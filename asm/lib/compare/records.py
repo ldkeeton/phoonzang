@@ -88,6 +88,17 @@ _FROZEN_MZ_FIELD_RE = re.compile(
 _FROZEN_OVR_FIELD_RE = re.compile(
     r'^\s*dw\s+0x[0-9a-f]{1,4}\s*;\s*o_(csize|dsize|bss|entry)\b'
 )
+# Overlay *origin* fields are counted separately from the size/entry fields
+# because their gate class differs: ``o_corg`` (code origin) follows the host
+# code region, while ``o_dorg`` (data origin) **is** the host's data-segment
+# size (plan.md D7.0).  Both stand as bare literals today.
+_FROZEN_OVR_ORIGIN_RE = re.compile(
+    r'^\s*dw\s+0x[0-9a-f]{1,4}\s*;\s*o_(corg|dorg)\b'
+)
+# A code immediate equal to the image's data-segment size -- the shared
+# host/overlay geometry constant (plan.md D7.0).  Tagged ``; dssize`` at emit
+# time (``render.py``) so the census matches a *form*, not a magic number.
+_FROZEN_DSSIZE_RE = re.compile(r';\s*dssize\s*$')
 _FROZEN_EQU_RE = re.compile(r'^\s*(\w+)\s+equ\s+0x')
 _FROZEN_PAD_RE = re.compile(r'^\s*times\s+(\d+)\s+db\s+0\b')
 # A numeric word in a jump table renders as ``dw 0x<value> ; 0x<slot>``; header
@@ -134,16 +145,31 @@ def count_frozen_addrs(src_text):
     pointer word -- a numeric ``dw`` in a jump table *without* the ``; literal``
     tag that marks a deliberate data table.  See ``plan.md`` section 3 for the
     taxonomy; rewriting a value as an assembler expression removes it.
+
+    Three extra buckets cover the shared host/overlay segment geometry
+    (``plan.md`` D7.0): ``o_corg`` (overlay code origin -> ``code_shift``),
+    ``o_dorg`` (overlay data origin, i.e. the host DS size -> ``data_shift``),
+    and ``ds_size_imm`` (a code immediate equal to the DS size -> ``code_shift``).
     """
     f = {'f1': 0, 'f2': 0, 'f3': 0, 'f4': 0, 'f5': 0, 'f6': 0, 'f7': 0}
     f4_inert = 0
     external = 0
+    o_corg = 0
+    o_dorg = 0
+    ds_size_imm = 0
     for line in (src_text or '').splitlines():
         if _FROZEN_MZ_FIELD_RE.match(line):
             f['f1'] += 1
             continue
         if _FROZEN_OVR_FIELD_RE.match(line):
             f['f2'] += 1
+            continue
+        m = _FROZEN_OVR_ORIGIN_RE.match(line)
+        if m:
+            if m.group(1) == 'corg':
+                o_corg += 1
+            else:
+                o_dorg += 1
             continue
         m = _FROZEN_EQU_RE.match(line)
         if m:
@@ -166,11 +192,17 @@ def count_frozen_addrs(src_text):
             continue
         if _FROZEN_JT_WORD_RE.match(line):
             f['f7'] += 1
-    code_shift = f['f1'] + f['f2'] + f['f3'] + f['f5']
-    data_shift = f['f4'] + f['f7']
+            continue
+        if _FROZEN_DSSIZE_RE.search(line):
+            ds_size_imm += 1
+    code_shift = f['f1'] + f['f2'] + f['f3'] + f['f5'] + o_corg + ds_size_imm
+    data_shift = f['f4'] + f['f7'] + o_dorg
     inert = f4_inert + f['f6'] + external
     return {
         **f,
+        'o_corg': o_corg,
+        'o_dorg': o_dorg,
+        'ds_size_imm': ds_size_imm,
         'code_shift': code_shift,
         'data_shift': data_shift,
         'inert': inert,

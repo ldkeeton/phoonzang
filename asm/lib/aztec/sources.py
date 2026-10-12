@@ -156,3 +156,53 @@ def _definition_files(version):
 def definition_files(version, name):
     """Files in *version* whose text defines *name* at column zero."""
     return list(_definition_files(version).get(name.lstrip('_').lower(), []))
+
+
+_ASM_DEF_CACHE = {}
+
+# An assembly routine is introduced by the library macro ``procdef name`` or,
+# in the hand-written modules, ``public a, b`` / ``name proc``.  Runtime-private
+# names carry a ``$`` (``$csav``, ``$begin``) and C names an ``_``/``_`` affix.
+# ``public`` alone also covers forward references, so this over-approximates;
+# the mux's exact byte compare is what decides a real match.
+_ASM_DECL_RE = re.compile(
+    r'^[ \t]*(?:procdef|proc|entry|public|intrdef)[ \t]+([^;\n]+)', re.M | re.I)
+_ASM_PROC_RE = re.compile(r'^[ \t]*([A-Za-z0-9_$@?]+)[ \t]+proc\b', re.M | re.I)
+_ASM_NAME_RE = re.compile(r'[A-Za-z0-9_$@?]+')
+
+
+def _asm_names(text):
+    for m in _ASM_DECL_RE.finditer(text):
+        # ``procdef strcmp,<<str1,ptr>,...>``: only the first name is defined.
+        decl = m.group(0).split(None, 1)
+        if decl[0].lower() == 'procdef':
+            first = _ASM_NAME_RE.match(m.group(1).strip())
+            if first:
+                yield first.group(0)
+        else:
+            yield from _ASM_NAME_RE.findall(m.group(1))
+    for m in _ASM_PROC_RE.finditer(text):
+        yield m.group(1)
+
+
+def _asm_definition_files(version):
+    if version in _ASM_DEF_CACHE:
+        return _ASM_DEF_CACHE[version]
+    index = {}
+    for fn, text in catalog(version).items():
+        if not fn.endswith('.asm'):
+            continue
+        for raw in _asm_names(text):
+            name = raw.strip('_$').lower()
+            if not name:
+                continue
+            index.setdefault(name, [])
+            if fn not in index[name]:
+                index[name].append(fn)
+    _ASM_DEF_CACHE[version] = index
+    return index
+
+
+def asm_definition_files(version, name):
+    """Hand-written ``.asm`` files in *version* that define *name*."""
+    return list(_asm_definition_files(version).get(name.strip('_$').lower(), []))
