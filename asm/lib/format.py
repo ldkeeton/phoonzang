@@ -15,9 +15,18 @@ conflated them:
   ``app_``, ``string_``, ``leaf_``) live.  ``label_map`` is keyed by F and
   the generated listing's ``; 0xADDR`` comments are F.
 * **L (load/segment offset)** - what the code embeds in absolute operands.
-  For the code segment, ``F = L + IMAGE_BASE`` (``IMAGE_BASE`` is the MZ
-  header size: ``0x200`` for an EXE, ``8`` for an overlay, ``0`` for a
-  driver).  Embedded pointers are therefore rendered ``symbol - IMAGE_BASE``.
+  For the code segment, ``F = L + IMAGE_BASE`` (``IMAGE_BASE`` is the load
+  offset: ``0x200`` for an EXE, ``14`` for an overlay (its 14-byte Aztec
+  header), ``0`` for a driver).  Embedded pointers are therefore rendered
+  ``symbol - IMAGE_BASE``.
+
+  The ``cseg_<file>`` round-trip depends on this: the raw displacement is a
+  *file* offset minus ``IMAGE_BASE``, so the symbol's ``equ`` value is
+  ``disp + IMAGE_BASE`` (``start_offset + disp``).  Overlay jump-table
+  *entry values*, by contrast, are ``o_corg``-based; those are converted with
+  ``SegmentModel.code_offset`` when the table is injected, not here.  Keeping
+  the two conventions apart is what lets ``name - IMAGE_BASE`` reassemble
+  byte-exactly (7E.5/7C).
 * **DATA** - the program's data segment.  ``DS:o`` addresses file
   ``hdr + e_ss*16 + o``, which is yet another offset from F and L.  Part of
   this segment is file-backed and part is BSS (beyond the BSS boundary
@@ -25,6 +34,12 @@ conflated them:
 * **PSP** - the Program Segment Prefix.  ``DS:o`` before the CRT reassigns
   DS addresses the PSP, not the data segment (e.g. ``[2]`` is top-of-memory,
   ``[0x2c]`` the environment segment, ``[0x80]`` the command tail).
+
+An *overlay* executes inside its host's data segment, so its DATA is layered:
+host file-backed data (``dseg_``), host BSS (``bss_``), then the overlay's
+own initialized data at ``o_dorg`` (``dseg_``) and its BSS above
+``o_dorg + o_dsize`` (``bss_``).  ``SegmentModel.data_space`` implements the
+split; the address inventory records it per binary.
 
 Callers therefore pass three separate namespaces: code labels for flow
 (``label_map``/``local_labels``/``foreign_label_map``), the data namespace

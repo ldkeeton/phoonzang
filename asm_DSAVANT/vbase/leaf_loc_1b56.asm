@@ -81,13 +81,13 @@ jumptable_1b5a:
     dw leaf_loc_1b4e - IMAGE_BASE + 0x5055     ; 0x1bf2
     dw leaf_loc_1b52 - IMAGE_BASE + 0x5055     ; 0x1bf4
     dw leaf_loc_1b56 - IMAGE_BASE + 0x5055     ; 0x1bf6
-@..local.l60:
+@..local.l56:
     cmp ax, strict word 0x4f         ; 0x1bf8
-    jae short @..local.l61           ; 0x1bfb
+    jae short @..local.l57           ; 0x1bfb
     xchg bx, ax                      ; 0x1bfd
     shl bx, 1                        ; 0x1bfe
     jmp [cs:bx + 0x6ba1]             ; 0x1c00
-@..local.l61:
+@..local.l57:
     mov ax, 0xffff                   ; 0x1c05
     ret                              ; 0x1c08
 loc_1c09:
@@ -97,9 +97,9 @@ loc_1c09:
     push ax                          ; 0x1c12
     cmp ax, strict word 1            ; 0x1c13
     pop ax                           ; 0x1c16
-    jge short @..local.l62           ; 0x1c17
+    jge short @..local.l58           ; 0x1c17
     mov ax, 1                        ; 0x1c19
-@..local.l62:
+@..local.l58:
     push ax                          ; 0x1c1c
     mov ax, 0x248                    ; 0x1c1d
     imul word [bp + 0x4]             ; 0x1c20
@@ -110,40 +110,40 @@ loc_1c09:
     push ax                          ; 0x1c2d
     cmp ax, strict word 1            ; 0x1c2e
     pop ax                           ; 0x1c31
-    jge short @..local.l63           ; 0x1c32
+    jge short @..local.l59           ; 0x1c32
     mov ax, 1                        ; 0x1c34
-@..local.l63:
+@..local.l59:
     mov byte [bx + 0x5d55], al       ; 0x1c37
     mov ax, word [bp + 0xa]          ; 0x1c3b
     push ax                          ; 0x1c3e
     cmp ax, strict word 1            ; 0x1c3f
     pop ax                           ; 0x1c42
-    jge short @..local.l64           ; 0x1c43
+    jge short @..local.l60           ; 0x1c43
     mov ax, 1                        ; 0x1c45
-@..local.l64:
+@..local.l60:
     mov byte [bx + 0x5d56], al       ; 0x1c48
     mov ax, word [bp + 0xc]          ; 0x1c4c
     push ax                          ; 0x1c4f
     cmp ax, strict word 1            ; 0x1c50
     pop ax                           ; 0x1c53
-    jge short @..local.l65           ; 0x1c54
+    jge short @..local.l61           ; 0x1c54
     mov ax, 1                        ; 0x1c56
-@..local.l65:
+@..local.l61:
     mov byte [bx + 0x5d57], al       ; 0x1c59
     mov ax, word [bp + 0xe]          ; 0x1c5d
     push ax                          ; 0x1c60
     cmp ax, strict word 1            ; 0x1c61
     pop ax                           ; 0x1c64
-    jge short @..local.l66           ; 0x1c65
+    jge short @..local.l62           ; 0x1c65
     mov ax, 1                        ; 0x1c67
-@..local.l66:
+@..local.l62:
     mov byte [bx + 0x5d58], al       ; 0x1c6a
     mov ax, word [bp + 0x10]         ; 0x1c6e
     push ax                          ; 0x1c71
     cmp ax, strict word 1            ; 0x1c72
     pop ax                           ; 0x1c75
-    jge short @..local.l67           ; 0x1c76
+    jge short @..local.l63           ; 0x1c76
     mov ax, 1                        ; 0x1c78
-@..local.l67:
+@..local.l63:
     mov byte [bx + 0x5d59], al       ; 0x1c7b
     ret                              ; 0x1c7f

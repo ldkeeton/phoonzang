@@ -1,5 +1,6 @@
 """``make elf-rebuild`` — ELF/DWARF symbol output and C-fragment resplicing."""
 
+import json
 import os
 import re
 import shutil

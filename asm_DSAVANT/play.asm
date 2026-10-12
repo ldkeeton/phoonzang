@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_0a13.inc"
+%include "inc/structs/play.inc"
 org 0
 bits 16
 %ifndef IMAGE_BASE

@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_33fa.inc"
+%include "inc/structs/vmaze.inc"
 org 0
 bits 16
 %include "inc/labels/vmaze_foreign_labels.inc"

@@ -5,6 +5,12 @@ Lines that don't reassemble to the exact original bytes are kept as
 ``db`` with a comment.  Data blocks are grouped under block headers
 when a classification bitmap is provided.
 
+Inline data misdecoded as a **direct** far transfer (``EA``/``9A``) is
+reclassified here: the compiler emits far calls only indirectly
+(``call far [mem]``), so a direct far jump/call is table data.  Its bytes are
+dropped from the code stream, marked DATA, and re-emitted as a literal ``dw``
+table (no target resolution) so no bare ``far`` operand survives (7E.4).
+
 Address spaces
 --------------
 See ``lib.format`` for the F/L/DATA/PSP model.  Within this module:
@@ -16,6 +22,9 @@ See ``lib.format`` for the F/L/DATA/PSP model.  Within this module:
   code map.
 * ``immediate_labels`` is the sidecar namespace for proven address
   immediates.
+* ``external_data`` is the sidecar namespace for fixed external-segment
+  fields (e.g. the BIOS Data Area); such an operand is named only when its
+  segment matches the sidecar entry.
 * A C/compiler-recovered routine (``c_overrides``) owns exactly its
   original ``length`` bytes.  Its split range and its replacement span are
   both capped there so following non-C data (strings, jump tables, lookup
@@ -27,7 +36,9 @@ import struct
 import time
 from bisect import bisect_left, bisect_right
 
-from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_MEM
+from capstone import (
+    Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_MEM, CS_OP_IMM, CS_OP_REG,
+)
 
 from lib.model import IS_CODE, IS_DATA
 from lib.mz import parse_relocs as _parse_mz_relocs
@@ -69,6 +80,90 @@ from lib.compare.symbols import (
 )
 
 
+def _is_direct_far(insn):
+    """True for a direct far transfer (``EA``/``9A`` immediate seg:off).
+
+    The Aztec C compiler emits far calls only *indirectly* (``call far
+    [mem]``); it never emits a direct far jump/call.  A decoded direct far
+    transfer is therefore inline table/data misread by linear descent (its
+    ``far`` operands are not real addresses).  Such bytes are reclassified as
+    data and rendered as a small literal ``dw`` table so no bare ``far``
+    operand survives.
+
+    Note capstone names the *indirect* ``call far [mem]`` (``FF /3``)
+    mnemonic ``lcall`` too, so the immediate-operand shape -- never a memory
+    operand -- is what distinguishes a real transfer from inline data.
+    """
+    if insn.mnemonic not in ('ljmp', 'lcall'):
+        return False
+    for op in insn.operands:
+        if op.type == CS_OP_MEM:
+            return False
+    return any(op.type == CS_OP_IMM for op in insn.operands)
+
+
+def _looks_like_dispatch_trampoline(binary_data, target, total, window=48):
+    """True when ``target`` is a ``pop``-then-``jmp reg`` dispatch helper.
+
+    The Aztec switch lookup idiom is ``mov cx, N; call helper`` where the
+    helper pops the return address (the inline table base) and ends in
+    ``jmp cx``/``jmp reg`` -- it never returns, so the bytes after the call
+    are table data, not fall-through code.
+    """
+    if not 0 <= target < total:
+        return False
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    md.detail = True
+    first = True
+    for insn in md.disasm(binary_data[target:min(target + window, total)], target):
+        if first:
+            if insn.mnemonic != 'pop':
+                return False
+            first = False
+        if insn.mnemonic in ('jmp', 'ljmp'):
+            return any(op.type == CS_OP_REG for op in insn.operands)
+        if insn.mnemonic in ('ret', 'retf', 'iret', 'hlt', 'call', 'lcall'):
+            return False
+    return False
+
+
+def _find_trampoline_tables(instructions, binary_data, total):
+    """Find inline lookup tables read by the ``mov cx, N; call helper`` idiom.
+
+    Returns ``[(table_start, length, count), ...]``.  The table immediately
+    follows the call (it is the return address the helper pops) and holds
+    ``N + 1`` words.  Gated on the helper's proven non-returning dispatch
+    shape so an ordinary ``mov cx, n; call`` is never reclassified.
+    """
+    by_addr = {insn.address: insn for insn in instructions}
+    tables = []
+    seen = set()
+    for insn in instructions:
+        if insn.mnemonic != 'mov' or len(insn.operands) != 2:
+            continue
+        op0, op1 = insn.operands
+        if op0.type != CS_OP_REG or op1.type != CS_OP_IMM:
+            continue
+        if insn.reg_name(op0.reg) != 'cx':
+            continue
+        call = by_addr.get(insn.address + insn.size)
+        if call is None or call.mnemonic != 'call' or len(call.operands) != 1:
+            continue
+        if call.operands[0].type != CS_OP_IMM or call.bytes[:1] != b'\xe8':
+            continue
+        target = call.operands[0].imm & 0xFFFF
+        if not _looks_like_dispatch_trampoline(binary_data, target, total):
+            continue
+        count = (op1.imm & 0xFFFF) + 1
+        table_start = call.address + call.size
+        length = 2 * count
+        if table_start + length > total or table_start in seen:
+            continue
+        seen.add(table_start)
+        tables.append((table_start, length, count))
+    return tables
+
+
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False, show_offsets=True,
            structs=None, asm_dir=None, cascade_promoted=None,
@@ -78,7 +173,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            function_roots=None, branch_targets=None, branch_edges=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None,
            jump_tables=None, jump_table_overrides=None,
-           segment_flow=None, segments=None):
+           segment_flow=None, segments=None, external_data=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -93,6 +188,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     code_targets : set | None
     hard_data : bytearray | None
         Explicit sidecar data bytes that may not be promoted or labeled as code.
+    external_data : dict | None
+        Sidecar ``external_data`` map (``{offset: {'name', 'segment'?}}``)
+        naming fixed external-segment fields (e.g. the BIOS Data Area).  A
+        field is named only when the operand's segment matches the entry's.
     structs : list | None
     asm_dir : str | None
     cascade_promoted : set | None
@@ -107,6 +206,40 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     else:
         hard_data = bytearray(hard_data[:total])
         hard_data.extend([0] * (total - len(hard_data)))
+    # Direct far transfers are never real (see ``_is_direct_far``): their
+    # bytes are inline data.  Collect them so they are dropped from the code
+    # stream, marked DATA, and re-emitted as literal ``dw`` tables.
+    far_insns = []
+    for insn in instructions:
+        if not _is_direct_far(insn):
+            continue
+        start = insn.address
+        end = start + insn.size
+        if 0 <= start and end <= total and not any(hard_data[start:end]):
+            far_insns.append(insn)
+
+    # ``mov cx, N; call <jmp-reg dispatch helper>`` introduces an inline
+    # lookup table of N+1 words (7E.4).  It is data, even though linear
+    # descent decodes it as instructions.
+    tramp_tables = [
+        (table_start, length, count)
+        for table_start, length, count in _find_trampoline_tables(
+            instructions, binary_data, total)
+        if not any(hard_data[table_start:table_start + length])
+    ]
+
+    data_offsets = bytearray(total)
+    for table_start, length, _ in tramp_tables:
+        for off in range(table_start, table_start + length):
+            if bitmap is not None:
+                bitmap[off] = IS_DATA
+            data_offsets[off] = 1
+    for insn in far_insns:
+        for off in range(insn.address, insn.address + insn.size):
+            if bitmap is not None:
+                bitmap[off] = IS_DATA
+            data_offsets[off] = 1
+
     # Classification may be refined after the instruction list was decoded.
     # The final bitmap is authoritative for emission: stale instructions over
     # bytes now classified as DATA must be rendered as data, not mnemonics.
@@ -115,6 +248,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         start = insn.address
         end = start + insn.size
         if start < 0 or end > total or any(hard_data[start:end]):
+            continue
+        if data_offsets[start]:
             continue
         if bitmap is not None and any(
                 bitmap[off] != IS_CODE for off in range(start, end)):
@@ -244,9 +379,14 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         insns, segment_flow, segments, label_map, mem_equ, start_offset))
 
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
-    data_refs = set()
+    # ``data_refs`` maps each absolute displacement to the set of segment
+    # registers that reached it, so a fixed external-segment field (e.g. the
+    # BIOS Data Area at ``es:0x0410``) is named only when the operand's
+    # segment matches the sidecar assertion.
+    data_refs = {}
     if reloc_targets:
-        data_refs.update(reloc_targets)
+        for addr in reloc_targets:
+            data_refs.setdefault(addr, set())
     for insn in insns:
         for idx, op in enumerate(insn.operands):
             if op.type == CS_OP_MEM and op.mem.base == 0 and op.mem.index == 0:
@@ -254,7 +394,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                     continue
                 addr = op.mem.disp & 0xFFFF
                 if addr != 0:
-                    data_refs.add(addr)
+                    seg = insn.reg_name(op.mem.segment).lower() if op.mem.segment else 'ds'
+                    data_refs.setdefault(addr, set()).add(seg)
     covered = bytearray(total)
     for addr, insn in insn_by_addr.items():
         for i in range(addr, addr + insn.size):
@@ -270,7 +411,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             for off in range(0, len(raw) - 1, 2):
                 val = struct.unpack_from('<H', raw, off)[0]
                 if val in known_addrs and val != 0:
-                    data_refs.add(val)
+                    data_refs.setdefault(val, set())
         else:
             i += 1
     # A data reference is only symbolized when its data-space name is actually
@@ -279,10 +420,15 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # and reusing the code label would conflate the spaces.  Fall back to a raw
     # displacement in that case.
     data_labels = {}
+    from lib.segments import external_data_name
     for addr in sorted(data_refs):
         if addr == 0:
             continue
-        dname = f'data_{addr:04x}'
+        segs = data_refs[addr]
+        dname = None
+        if external_data and len(segs) == 1:
+            dname = external_data_name(addr, external_data, next(iter(segs)))
+        dname = dname or f'data_{addr:04x}'
         if label_map is None:
             data_labels[addr] = dname
             continue
@@ -299,6 +445,38 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     table_specs = _merge_jump_table_specs(
         jump_tables, jump_table_overrides, start_offset, total,
     )
+    # Inline data misdecoded as instructions is emitted as literal ``dw``
+    # tables (no target resolution -- the words are not code pointers).
+    # Registering each range also stops the postprocessor from promoting the
+    # bytes back to instructions.
+    def _literal_spec(start, length, source, note):
+        return {
+            'table_addr': start,
+            'table_end': start + length,
+            'jmp_addr': -1,
+            'count': length // 2,
+            'entry_size': 2,
+            'label': f'jumptable_{start:04x}',
+            'source': source,
+            'note': note,
+            'literal': True,
+        }
+
+    covered = []
+    for table_start, length, _ in tramp_tables:
+        table_specs.append(_literal_spec(
+            table_start, length, 'trampoline_lookup',
+            'inline lookup table (mov cx; call dispatch)'))
+        covered.append((table_start, table_start + length))
+    for insn in far_insns:
+        start = insn.address
+        if any(s <= start < e for s, e in covered):
+            continue
+        table_specs.append(_literal_spec(
+            start, insn.size, 'far_data',
+            'inline data (direct far decode)'))
+    if tramp_tables or far_insns:
+        table_specs.sort(key=lambda spec: spec['table_addr'])
     table_ranges = [
         (spec['table_addr'], spec['table_end'])
         for spec in table_specs
@@ -685,8 +863,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     code_loss = 0
     if label_map:
-        for off, name in label_map.items():
-            if name.startswith('loc_') and off < total and emit_class[off] == IS_DATA:
+        for off, lname in label_map.items():
+            if lname.startswith('loc_') and off < total and emit_class[off] == IS_DATA:
                 code_loss += 1
 
     struct_count = 0

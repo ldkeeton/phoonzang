@@ -74,6 +74,25 @@ def psp_field(offset):
     return PSP_FIELDS.get(offset)
 
 
+def external_data_name(offset, fields, segment=None):
+    """Return the symbolic name for a fixed external-segment field.
+
+    *fields* is the per-binary sidecar ``external_data`` mapping
+    (``{int_offset: {'name', 'segment'?}}``).  These fields live in a fixed
+    absolute segment outside this image (e.g. the BIOS Data Area reached
+    through ``ES``).  When an entry names a *segment* the operand's segment
+    must match, so an ``es:0x0410`` access is distinguished from a plain
+    DS-relative ``[0x0410]``.
+    """
+    entry = (fields or {}).get(offset)
+    if entry is None:
+        return None
+    want = entry.get('segment')
+    if want and segment and want != segment:
+        return None
+    return entry['name']
+
+
 class SegmentModel:
     """Resolved segment geometry for a single image.
 

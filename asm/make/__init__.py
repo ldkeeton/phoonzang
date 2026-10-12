@@ -31,7 +31,6 @@ from .common import (
     _prepare_cross_ref_sources,
     _run,
 )
-from .delta import cmd_delta
 from .elf import cmd_elf_rebuild, resplice_c
 from .prebuild import _ensure_prebuild, cmd_prebuild
 from .run import DEFAULT_CHECK_SECONDS, _parse_check_args, cmd_check, cmd_run
@@ -54,7 +53,6 @@ __all__ = [
     'cmd_verify',
     'cmd_check',
     'cmd_run',
-    'cmd_delta',
     'cmd_elf_rebuild',
     'cmd_charts',
     'cmd_set_baseline',

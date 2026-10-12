@@ -90,10 +90,10 @@ loc_97ee:
     mov cx, 0x96f0                   ; 0x9807
     sub cx, di                       ; 0x980a
     shr cx, 1                        ; 0x980c
-    je short @..local.l67            ; 0x980e
+    je short @..local.l75            ; 0x980e
     sub ax, ax                       ; 0x9810
     rep stosw                        ; 0x9812
-@..local.l67:
+@..local.l75:
     call loc_000e                    ; 0x9814
     mov bp, word [dseg_93dc]         ; 0x9817
     mov sp, word [dseg_93da]         ; 0x981b

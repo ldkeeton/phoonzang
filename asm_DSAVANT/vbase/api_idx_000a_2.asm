@@ -42,13 +42,13 @@ loc_73bc:
     pop dx                           ; 0x73df
     pop ax                           ; 0x73e0
     cmp dx, bx                       ; 0x73e1
-    jl short @..local.l135           ; 0x73e3
-    jne short @..local.l136          ; 0x73e5
+    jl short @..local.l131           ; 0x73e3
+    jne short @..local.l132          ; 0x73e5
     cmp ax, cx                       ; 0x73e7
-    jae short @..local.l136          ; 0x73e9
-@..local.l135:
-    jmp short @..local.l137          ; 0x73eb
-@..local.l136:
+    jae short @..local.l132          ; 0x73e9
+@..local.l131:
+    jmp short @..local.l133          ; 0x73eb
+@..local.l132:
     mov ax, word [bss_a5b0]          ; 0x73ed
     inc ax                           ; 0x73f0
     mov cx, 0xc                      ; 0x73f1
@@ -62,6 +62,6 @@ loc_73bc:
     mov word [bss_908a], ax          ; 0x740a
     mov ax, 1                        ; 0x740d
     ret                              ; 0x7410
-@..local.l137:
+@..local.l133:
     mov ax, 0                        ; 0x7411
     ret                              ; 0x7414

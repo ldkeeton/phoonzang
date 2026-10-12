@@ -29,6 +29,21 @@ _SOFT_CODE = 0.3
 
 def _find_jump_table_bounds(data, jmp_addr, md, jt_addr=None):
     if jt_addr is not None:
+        # The ``cmp ax, N; jcc`` bounds check belongs to *this* dispatcher and
+        # sits just before the ``xchg bx, ax; shl bx, 1; jmp [cs:bx+table]``
+        # tail.  Search backwards from the jmp so an earlier, unrelated
+        # switch's cmp (which a forward window would hit first) cannot bound
+        # this table.
+        lo = max(0, jmp_addr - 16)
+        for i in range(jmp_addr - 1, lo - 1, -1):
+            if (data[i] == 0x3D and i + 3 < len(data)
+                    and data[i + 3] in (0x73, 0x77, 0x72, 0x76)):
+                imm = struct.unpack_from('<H', data, i + 1)[0]
+                if data[i + 3] in (0x77, 0x72):
+                    return imm
+                return max(imm - 1, 0)
+
+        # Fallback: a forward scan around the table (historical behaviour).
         lo = max(0, min(jt_addr, jmp_addr) - 64)
         hi = min(len(data) - 4, max(jmp_addr, jt_addr) + 5)
         for i in range(lo, hi):

@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/data_b0cb.inc"
+%include "inc/structs/vmexe.inc"
 org 0
 bits 16
 %include "inc/labels/vmexe_foreign_labels.inc"
@@ -18,16 +18,14 @@ IMAGE_BASE equ 0x000e
     dw 0xf511      ; o_entry: overlay entry offset (CS)
 
 loc_735e equ 0x735e
+loc_81ba equ 0x81ba
+loc_81bc equ 0x81bc
 data_b0cb equ 0xb0cb
 dseg_0002 equ 0x0002
 bss_0e2a equ 0x0e2a
 bss_0e2c equ 0x0e2c
 bss_0e36 equ 0x0e36
-bss_0f00 equ 0x0f00
-bss_3300 equ 0x3300
-bss_3700 equ 0x3700
 bss_3ed1 equ 0x3ed1
-bss_46d1 equ 0x46d1
 bss_56d1 equ 0x56d1
 bss_5962 equ 0x5962
 bss_5963 equ 0x5963

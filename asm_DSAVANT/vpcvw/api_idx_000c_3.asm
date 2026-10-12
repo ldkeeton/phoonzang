@@ -83,13 +83,13 @@ loc_2bf3:
     mov ax, word [bss_9092]          ; 0x2c29
     mov dx, word [bss_9094]          ; 0x2c2c
     cmp bx, dx                       ; 0x2c30
-    jg short @..local.l39            ; 0x2c32
-    jne short @..local.l40           ; 0x2c34
+    jg short @..local.l47            ; 0x2c32
+    jne short @..local.l48           ; 0x2c34
     cmp cx, ax                       ; 0x2c36
-    jbe short @..local.l40           ; 0x2c38
-@..local.l39:
-    jmp short @..local.l41           ; 0x2c3a
-@..local.l40:
+    jbe short @..local.l48           ; 0x2c38
+@..local.l47:
+    jmp short @..local.l49           ; 0x2c3a
+@..local.l48:
     mov ax, word [bss_908e]          ; 0x2c3c
     mov dx, word [bss_9090]          ; 0x2c3f
     mov word [bss_908c], dx          ; 0x2c43
@@ -119,5 +119,5 @@ loc_2bf3:
     push ax                          ; 0x2c7c
     call ds_loc_3b21                 ; 0x2c7d
     add sp, byte 8                   ; 0x2c80
-@..local.l41:
+@..local.l49:
     ret                              ; 0x2c83

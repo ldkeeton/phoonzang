@@ -1,4 +1,4 @@
-"""Address inventory schema shared by the build report and ``make delta``.
+"""Address inventory schema and writer for the build report.
 
 Phase 4 resolves every address-bearing operand to a namespace symbol
 (``cseg_``/``dseg_``/``bss_``/``psp_``) or leaves it in the generic
@@ -6,7 +6,26 @@ Phase 4 resolves every address-bearing operand to a namespace symbol
 ``<binary>_addresses.json`` schema: each entry carries the *space* it lives
 in, its *kind*, the *source* that identified it, its *confidence* tier, and
 the load-image addresses that reference it.
+
+Residual ``unknown`` candidates (8b) are expected and documented:
+
+* ``data_*`` in the raw drivers (``ega``/``play``/``vga``) - the driver
+  establishes its data segment at run time, so DS-relative operands cannot be
+  resolved statically; these are waived.
+* ``bios_data_*`` (``ds``) - a fixed external BIOS Data Area field reached
+  through ``ES``, declared per binary in the sidecar ``external_data`` block;
+  not an address space of this image.
+* ``data_*`` that fall out of inline table data misdecoded as instructions
+  (e.g. ``vmexe``'s ``data_b0cb``) - candidate words in a data gap.
 """
+
+import json
+import os
+
+
+_ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_PROJECT_ROOT = os.path.dirname(_ASM_DIR)
+
 
 # Prefix -> (space, kind)
 _NAMESPACE = (
@@ -32,6 +51,10 @@ def classify(name, nm_kind=None):
             return space, kind, source, confidence
     if name.startswith('string_loc_'):
         return 'cs', 'code', 'relative_flow', CERTAIN
+    if name.startswith('bios_data_'):
+        # External BIOS Data Area field addressed through ES; its space is
+        # not this image's, so it stays a documented candidate.
+        return 'unknown', 'candidate', 'candidate', CANDIDATE
     if name.startswith(('loc_', 'leaf_loc_')):
         return 'cs', 'code', 'relative_flow', CERTAIN
     upper = (nm_kind or '').upper()
@@ -109,3 +132,42 @@ def merge_inventory(symbols, records=None):
         if refs:
             entry['referenced_by'] = sorted(set(refs))
     return sorted(entries.values(), key=lambda item: (item['address'], item['name']))
+
+
+def address_inventory_dir(project):
+    """Return the ``.cache`` directory holding *project*'s inventories.
+
+    The inventory is a build report, not source, so it lives under
+    ``.cache/addresses/<project>/`` rather than in the ``asm_<project>`` tree
+    (where it is neither assembled nor included).
+    """
+    return os.path.join(_PROJECT_ROOT, '.cache', 'addresses', project)
+
+
+def address_inventory_path(project, binary):
+    """Return the ``.cache`` path of *binary*'s address inventory."""
+    return os.path.join(address_inventory_dir(project), f'{binary}_addresses.json')
+
+
+def write_address_inventory(path, binary, symbols, records=None):
+    """Write the address inventory, fed from Phase 4 records when available.
+
+    Each entry carries the address space (``cs``/``ds``/``bss``/``psp``/
+    ``unknown``), kind, identifying source, confidence tier, and the load
+    addresses that reference it.  ``records`` is the Phase 4 resolver output
+    (``report['addresses']``); without it the inventory still classifies the
+    ``nm`` symbols by namespace.
+    """
+    inventory = {
+        'schema_version': 2,
+        'binary': binary,
+        'address_kind': 'load_image_offset',
+        'spaces': ['cs', 'ds', 'bss', 'psp', 'unknown'],
+        'confidence_tiers': ['certain', 'strong', 'candidate'],
+        'conflicts': find_conflicts(symbols, records),
+        'symbols': merge_inventory(symbols, records),
+    }
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as output_file:
+        json.dump(inventory, output_file, indent=2)
+        output_file.write('\n')

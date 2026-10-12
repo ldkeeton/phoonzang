@@ -242,7 +242,8 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
             continue
         r_start = spec['table_addr']
         r_end = spec['table_end']
-        if r_start < 0 or r_end > total or r_end - r_start < 6:
+        floor = 2 if spec.get('literal') else 6
+        if r_start < 0 or r_end > total or r_end - r_start < floor:
             continue
         if (r_end - r_start) % 2:
             r_end -= 1
@@ -258,9 +259,11 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
     for spec in specs:
         if spec.get('entry_size') != 2:
             continue
+        literal = bool(spec.get('literal'))
         start = spec['table_addr']
         end = spec['table_end']
-        if start < 0 or end > total or end - start < 6:
+        floor = 2 if literal else 6
+        if start < 0 or end > total or end - start < floor:
             continue
         if (end - start) % 2:
             end -= 1
@@ -275,6 +278,10 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
         resolved = []
         for index in range(count):
             value = struct.unpack_from('<H', binary_data, start + index * 2)[0]
+            if literal:
+                # Inline data, not a code-pointer table: keep every word raw.
+                resolved.append((value, None))
+                continue
             target = None
             if value != 0:
                 target = _entry_target(value)
@@ -295,6 +302,9 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
             if value == 0:
                 entries.append(None)
                 continue
+            if literal:
+                entries.append(value)
+                continue
             name = None
             if target is not None:
                 name = _usable_jump_label(target, label_map)
@@ -310,7 +320,8 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
             entries.append(name if name is not None else value)
 
         records = _replace_jump_span(records, binary_data, spec, entries)
-        injected[spec['table_addr']] = spec['label']
+        if not literal:
+            injected[spec['table_addr']] = spec['label']
         synthesized[spec['label']] = spec['table_addr']
     return records, injected, synthesized
 

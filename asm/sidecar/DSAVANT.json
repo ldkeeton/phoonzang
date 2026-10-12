@@ -38,7 +38,14 @@
         {"table": "2edc", "jmp": "2f24", "entry_size": 2, "count": 32, "note": "Switch table for the 0x2f24 cs:[bx+0x2cdc] indirect jump"},
         {"table": "4822", "jmp": "490a", "entry_size": 2, "count": 21, "note": "Switch table for the 0x490a cs:[di+0x4622] indirect jump"}
       ],
-      "ghidra_base_offset": -512
+      "ghidra_base_offset": -512,
+      "external_data": {
+        "0x0410": {
+          "name": "bios_data_0410",
+          "segment": "es",
+          "note": "BIOS Data Area equipment word low byte at absolute 0x0410 (0040:0010); accessed as es:0x0410 with es=0. Bits 4-5 hold the initial video mode, saved/cleared/restored by the video-init code around a mode set."
+        }
+      }
     },
     "vinit": {
       "file": "VINIT.OVR",

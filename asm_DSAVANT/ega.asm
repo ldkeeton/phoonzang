@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/data_3705.inc"
+%include "inc/structs/ega.inc"
 org 0
 bits 16
 %ifndef IMAGE_BASE

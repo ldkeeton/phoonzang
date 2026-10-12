@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_1feb.inc"
+%include "inc/structs/vmext.inc"
 org 0
 bits 16
 %include "inc/labels/vmext_foreign_labels.inc"

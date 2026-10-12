@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/data_0410.inc"
+%include "inc/structs/ds.inc"
 org 0
 bits 16
 %ifndef IMAGE_BASE
@@ -26,7 +26,7 @@ IMAGE_BASE equ 0x0200
     db 0x3b, 0x4b
     times 478 db 0
 
-data_0410 equ 0x0410
+bios_data_0410 equ 0x0410
 leaf_loc_10108 equ 0x10108
 dseg_0002 equ 0x0002
 psp_top_of_memory equ 0x0002

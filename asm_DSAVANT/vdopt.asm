@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_238c.inc"
+%include "inc/structs/vdopt.inc"
 org 0
 bits 16
 %include "inc/labels/vdopt_foreign_labels.inc"

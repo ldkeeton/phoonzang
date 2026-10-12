@@ -11,7 +11,6 @@ Usage (from asm/):
   make clean [PROJECT...]  clean one or all projects (incl. .cache/asm_prebuild_*)
   make rebuild PROJECT BIN nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
-  make delta PROJECT BIN          compare original and edited assembly layouts
   make set-baseline        pin current stats (.cache/stats) as local baseline
   make stats-diff          current-vs-baseline KPI delta
   make charts              render PNG charts from existing stats

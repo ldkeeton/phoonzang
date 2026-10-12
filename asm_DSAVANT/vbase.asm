@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_73bc.inc"
+%include "inc/structs/vbase.inc"
 org 0
 bits 16
 %include "inc/labels/vbase_foreign_labels.inc"
@@ -19,6 +19,7 @@ IMAGE_BASE equ 0x000e
 
 loc_0d04 equ 0x0d04
 loc_14d6 equ 0x14d6
+loc_1795 equ 0x1795
 leaf_loc_185e equ 0x185e
 loc_18c8 equ 0x18c8
 loc_18ca equ 0x18ca

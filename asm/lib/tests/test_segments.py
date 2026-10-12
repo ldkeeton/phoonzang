@@ -7,6 +7,7 @@ import unittest
 from lib.segments import (
     SegmentError,
     check_bss_boundary,
+    external_data_name,
     find_crt_bss_zero_range,
     from_binary,
     psp_field,
@@ -85,6 +86,30 @@ class PspCatalogueTest(unittest.TestCase):
         self.assertEqual(psp_field(0x6c), 'psp_fcb2')
         self.assertEqual(psp_field(0x80), 'psp_cmd_tail_len')
         self.assertIsNone(psp_field(0x1234))
+
+
+class ExternalDataNameTest(unittest.TestCase):
+    _FIELDS = {
+        0x410: {'name': 'bios_data_0410', 'segment': 'es'},
+        0x500: {'name': 'some_field'},
+    }
+
+    def test_names_when_segment_matches(self):
+        self.assertEqual(
+            external_data_name(0x410, self._FIELDS, 'es'), 'bios_data_0410')
+
+    def test_segment_mismatch_is_not_named(self):
+        self.assertIsNone(external_data_name(0x410, self._FIELDS, 'ds'))
+
+    def test_segmentless_entry_matches_any_segment(self):
+        self.assertEqual(
+            external_data_name(0x500, self._FIELDS, 'ds'), 'some_field')
+        self.assertEqual(
+            external_data_name(0x500, self._FIELDS, 'es'), 'some_field')
+
+    def test_unknown_offset_is_none(self):
+        self.assertIsNone(external_data_name(0x999, self._FIELDS, 'es'))
+        self.assertIsNone(external_data_name(0x410, None, 'es'))
 
 
 class RealBinaryTest(unittest.TestCase):

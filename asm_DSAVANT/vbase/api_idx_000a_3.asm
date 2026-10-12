@@ -2038,9 +2038,9 @@ loc_8634:
     mov word [bss_a4a4], 1           ; 0x86b2
     mov ax, 0                        ; 0x86b8
     cmp word [bp + 0x8], byte 0      ; 0x86bb
-    jne short @..local.l138          ; 0x86bf
+    jne short @..local.l134          ; 0x86bf
     mov ax, 0x14                     ; 0x86c1
-@..local.l138:
+@..local.l134:
     mov word [bss_a5ce], ax          ; 0x86c4
     mov ax, 0x9151                   ; 0x86c7
     push ax                          ; 0x86ca

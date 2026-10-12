@@ -181,12 +181,12 @@ loc_4d0e:
     add sp, byte 4                   ; 0x4d37
     mov word [bp - 0x0006], ax       ; 0x4d3a
     cmp ax, strict word 0xffff       ; 0x4d3d
-    jne short @..local.l74           ; 0x4d40
+    jne short @..local.l70           ; 0x4d40
     mov ax, 0x1a                     ; 0x4d42
     push ax                          ; 0x4d45
     call ds_app_03b8                 ; 0x4d46
     pop cx                           ; 0x4d49
-@..local.l74:
+@..local.l70:
     mov ax, 0x300                    ; 0x4d4a
     push ax                          ; 0x4d4d
     mov ax, 0x9c94                   ; 0x4d4e
@@ -275,7 +275,7 @@ loc_4d0e:
     idiv cx                          ; 0x4e19
     mov word [bp - 0x0002], dx       ; 0x4e1b
     cmp dx, byte 0x0a                ; 0x4e1e
-    jge short @..local.l75           ; 0x4e21
+    jge short @..local.l71           ; 0x4e21
     mov ax, 0                        ; 0x4e23
     push ax                          ; 0x4e26
     mov ax, 0x30                     ; 0x4e27
@@ -289,8 +289,8 @@ loc_4d0e:
     push word [bp - 0x0002]          ; 0x4e39
     call ds_app_052e                 ; 0x4e3c
     add sp, byte 6                   ; 0x4e3f
-    jmp short @..local.l76           ; 0x4e42
-@..local.l75:
+    jmp short @..local.l72           ; 0x4e42
+@..local.l71:
     mov ax, 0                        ; 0x4e44
     push ax                          ; 0x4e47
     mov ax, 2                        ; 0x4e48
@@ -298,7 +298,7 @@ loc_4d0e:
     push word [bp - 0x0002]          ; 0x4e4c
     call ds_app_052e                 ; 0x4e4f
     add sp, byte 6                   ; 0x4e52
-@..local.l76:
+@..local.l72:
     mov ax, 0x5f                     ; 0x4e55
     push ax                          ; 0x4e58
     mov ax, word [bp - 0x000a]       ; 0x4e59
@@ -668,7 +668,7 @@ loc_4d0e:
     call ds_app_string_1308          ; 0x51a5
     add sp, byte 0x0c                ; 0x51a8
     mov word [bp - 0x0002], 0        ; 0x51ab
-@..local.l77:
+@..local.l73:
     push word [bp - 0x000a]          ; 0x51b0
     push word [bp - 0x0008]          ; 0x51b3
     push word [bp - 0x0002]          ; 0x51b6
@@ -677,7 +677,7 @@ loc_4d0e:
     inc word [bp - 0x0002]           ; 0x51bf
     mov ax, word [bp - 0x0002]       ; 0x51c2
     cmp ax, strict word 0x11         ; 0x51c5
-    jl short @..local.l77            ; 0x51c8
+    jl short @..local.l73            ; 0x51c8
     mov ax, 0                        ; 0x51ca
     push ax                          ; 0x51cd
     push ax                          ; 0x51ce

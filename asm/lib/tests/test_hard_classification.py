@@ -336,6 +336,39 @@ class HardClassificationTests(unittest.TestCase):
         self.assertEqual(per_binary(sidecar, 'unlisted')['force_data'],
                          [{'start': '10', 'end': '14'}])
 
+    def test_external_data_is_validated_and_normalized(self):
+        sidecar = {
+            'app': 'TEST',
+            'binaries': {
+                'sample': {
+                    'external_data': {
+                        '0x410': {'name': 'bios_data_0410', 'segment': 'es'},
+                    },
+                },
+            },
+        }
+        _validate(sidecar)
+        self.assertEqual(
+            per_binary(sidecar, 'sample')['external_data'],
+            {0x410: {'name': 'bios_data_0410', 'segment': 'es'}},
+        )
+
+    def test_external_data_defaults_empty(self):
+        sidecar = {'app': 'TEST', 'binaries': {'sample': {'file': 'SAMPLE.DRV'}}}
+        self.assertEqual(per_binary(sidecar, 'sample')['external_data'], {})
+
+    def test_external_data_rejects_unknown_segment(self):
+        sidecar = {
+            'app': 'TEST',
+            'binaries': {
+                'sample': {
+                    'external_data': {'0x410': {'name': 'x', 'segment': 'zz'}},
+                },
+            },
+        }
+        with self.assertRaisesRegex(SidecarError, 'segment'):
+            _validate(sidecar)
+
 
 if __name__ == '__main__':
     unittest.main()

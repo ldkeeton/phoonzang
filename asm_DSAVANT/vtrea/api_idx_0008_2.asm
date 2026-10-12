@@ -2,7 +2,7 @@ api_idx_0008_2:
     mov ax, 0xfff8                   ; 0x4368
     call ds_aztec_csav               ; 0x436b
     mov ax, word [bp + 0x6]          ; 0x436e
-    jmp near @..api_idx_0008_2.l3    ; 0x4371
+    jmp near @..api_idx_0008_2.l1    ; 0x4371
     mov ax, 0x32                     ; 0x4374
     imul word [bp + 0x8]             ; 0x4377
     add word [bss_82fe], ax          ; 0x437a
@@ -310,17 +310,13 @@ loc_4a07:
     mov bx, ax                       ; 0x4a44
     pop ax                           ; 0x4a46
     add word [bx + 0x5c1c], ax       ; 0x4a47
-    db 0x8b, 0x87
-@..api_idx_0008_2.l1:
-    db 0x1c, 0x5c
+    mov ax, word [bx + 0x5c1c]       ; 0x4a4b
     cmp ax, word [bx + 0x5c1e]       ; 0x4a4f
     jle short @..local.l74           ; 0x4a53
     mov ax, word [bx + 0x5c1e]       ; 0x4a55
     mov word [bx + 0x5c1c], ax       ; 0x4a59
 @..local.l74:
-    db 0xff
-@..api_idx_0008_2.l2:
-    db 0x46, 0xfe
+    inc word [bp - 0x0002]           ; 0x4a5d
     mov ax, word [bp - 0x0002]       ; 0x4a60
     cmp ax, strict word 6            ; 0x4a63
     jl short loc_4a07                ; 0x4a66
@@ -330,42 +326,46 @@ loc_4a07:
     call ds_app_1d81                 ; 0x4a6f
     add sp, byte 4                   ; 0x4a72
     jmp short loc_4ad7               ; 0x4a75
-@..api_idx_0008_2.l3:
+@..api_idx_0008_2.l1:
     mov cx, 0x17                     ; 0x4a77
     call leaf_loc_9a03               ; 0x4a7a
-    or al, 0                         ; 0x4a7d
-    adc word [bx + si], ax           ; 0x4a7f
-    adc ax, word [bx + si]           ; 0x4a81
-    sbb word [bx + si], ax           ; 0x4a83
-    and word [bx + si], ax           ; 0x4a85
-    and ax, 0x2e00                   ; 0x4a87
-    add byte [bx], ch                ; 0x4a8a
-    add byte [bx + di], dh           ; 0x4a8c
-    add byte [bx + si], bh           ; 0x4a8e
-    add byte [di], bh                ; 0x4a90
-    add byte [bss_3f00], bh          ; 0x4a92
-    db 0x00, 0x42, 0x00 ; add byte [bp + si], al
-    inc bp                           ; 0x4a99
-    add byte [bp], cl                ; 0x4a9a
-    push dx                          ; 0x4a9d
-    db 0x00, 0x54, 0x00 ; add byte [si], dl
-    pop ax                           ; 0x4aa1
-    add byte [bp], bl                ; 0x4aa2
-    popaw                            ; 0x4aa5
-    db 0x00, 0x62, 0x00 ; add byte [bp + si], ah
-    and word [di - 0x6a2c], dx       ; 0x4aa9
+jumptable_4a7d:
+    dw 0x000c                                  ; 0x4a7d
+    dw 0x0011                                  ; 0x4a7f
+    dw 0x0013                                  ; 0x4a81
+    dw 0x0019                                  ; 0x4a83
+    dw 0x0021                                  ; 0x4a85
+    dw 0x0025                                  ; 0x4a87
+    dw 0x002e                                  ; 0x4a89
+    dw 0x002f                                  ; 0x4a8b
+    dw 0x0031                                  ; 0x4a8d
+    dw 0x0038                                  ; 0x4a8f
+    dw 0x003d                                  ; 0x4a91
+    dw 0x003e                                  ; 0x4a93
+    dw 0x003f                                  ; 0x4a95
+    dw 0x0042                                  ; 0x4a97
+    dw 0x0045                                  ; 0x4a99
+    dw 0x004e                                  ; 0x4a9b
+    dw 0x0052                                  ; 0x4a9d
+    dw 0x0054                                  ; 0x4a9f
+    dw 0x0058                                  ; 0x4aa1
+    dw 0x005e                                  ; 0x4aa3
+    dw 0x0061                                  ; 0x4aa5
+    dw 0x0062                                  ; 0x4aa7
+    dw 0x9521                                  ; 0x4aa9
+    dw 0x95d4                                  ; 0x4aab
     and word [di - 0x68b6], dx       ; 0x4aad
     adc dl, byte [bp - 0x6bc9]       ; 0x4ab1
     inc sp                           ; 0x4ab5
     xchg sp, ax                      ; 0x4ab6
-    jbe short @..api_idx_0008_2.l1   ; 0x4ab7
+    jbe short loc_4a4d               ; 0x4ab7
     or ax, 0x7794                    ; 0x4ab9
     xchg si, ax                      ; 0x4abc
     aad 0x97                         ; 0x4abd
     test word [si - 0x6c45], dx      ; 0x4abf
     adc byte [bx - 0x68f4], 0x4a     ; 0x4ac3
     cbw                              ; 0x4ac8
-    jcxz @..api_idx_0008_2.l2        ; 0x4ac9
+    jcxz loc_4a5e                    ; 0x4ac9
     push cx                          ; 0x4acb
     xchg sp, ax                      ; 0x4acc
     dec dx                           ; 0x4acd
@@ -375,7 +375,10 @@ loc_4a07:
     movsb                            ; 0x4ad1
     cwd                              ; 0x4ad2
     dec cx                           ; 0x4ad3
-    call far 0xb8c3:0x9b1e           ; 0x4ad4
+jumptable_4ad4:
+    dw 0x1e9a                                  ; 0x4ad4
+    dw 0xc39b                                  ; 0x4ad6
+    db 0xb8
     cld                              ; 0x4ad9
 
     db 0xff, 0xe8, 0x2d, 0xa9, 0xb8, 0x01, 0x00, 0x50, 0x50, 0xb8, 0xea, 0x07, 0x50, 0xff, 0x76, 0x04

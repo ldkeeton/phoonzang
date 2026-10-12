@@ -96,10 +96,10 @@ loc_343e:
     push es                          ; 0x3456
     sub ax, ax                       ; 0x3457
     mov es, ax                       ; 0x3459
-    mov dl, byte [es:data_0410]      ; 0x345b
+    mov dl, byte [es:bios_data_0410] ; 0x345b
     mov byte [cs:cseg_2f37 - IMAGE_BASE], dl ; 0x3460
     and dl, 0xcf                     ; 0x3465
-    mov byte [es:data_0410], dl      ; 0x3468
+    mov byte [es:bios_data_0410], dl ; 0x3468
     pop es                           ; 0x346d
     mov ax, 0x13                     ; 0x346e
     int 0x10 ; BIOS video
@@ -135,10 +135,10 @@ loc_3490:
     push es                          ; 0x34c1
     sub ax, ax                       ; 0x34c2
     mov es, ax                       ; 0x34c4
-    mov dl, byte [es:data_0410]      ; 0x34c6
+    mov dl, byte [es:bios_data_0410] ; 0x34c6
     mov byte [cs:cseg_2f37 - IMAGE_BASE], dl ; 0x34cb
     and dl, 0xcf                     ; 0x34d0
-    mov byte [es:data_0410], dl      ; 0x34d3
+    mov byte [es:bios_data_0410], dl ; 0x34d3
     pop es                           ; 0x34d8
     mov ax, 0xe                      ; 0x34d9
     int 0x10 ; BIOS video

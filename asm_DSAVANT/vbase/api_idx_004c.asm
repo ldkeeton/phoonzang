@@ -120,43 +120,46 @@ loc_168e:
 @..local.l20:
     mov cx, 0x26                     ; 0x1692
     call leaf_loc_936e               ; 0x1695
-    sbb al, 0                        ; 0x1698
-    add byte [es:0x3800], dh         ; 0x169a
-    add byte [bx + di], bh           ; 0x169f
-    add byte [di], bh                ; 0x16a1
-    db 0x00, 0x42, 0x00 ; add byte [bp + si], al
-    inc bx                           ; 0x16a6
-    add byte [bp], al                ; 0x16a7
-    inc di                           ; 0x16aa
-    db 0x00, 0x48, 0x00 ; add byte [bx + si], cl
-    dec cx                           ; 0x16ae
-    db 0x00, 0x4a, 0x00 ; add byte [bp + si], cl
-    dec si                           ; 0x16b2
-    db 0x00, 0x4f, 0x00 ; add byte [bx], cl
-    push dx                          ; 0x16b6
-    db 0x00, 0x54, 0x00 ; add byte [si], dl
-    pop dx                           ; 0x16ba
-    db 0x00, 0x5c, 0x00 ; add byte [si], bl
-    bound ax, dword [bx + si]        ; 0x16be
-    db 0x64, 0x00, 0x65, 0x00 ; add byte [fs:di], ah
-    jne short @..local.l21           ; 0x16c4
-@..local.l21:
-    jbe short @..local.l22           ; 0x16c6
-@..local.l22:
-    ja short @..local.l23            ; 0x16c8
-@..local.l23:
-    xchg di, ax                      ; 0x16ca
-    add byte [bp - 0x4e00], ch       ; 0x16cb
-    add byte [di - 0x4300], dh       ; 0x16cf
-    add dl, al                       ; 0x16d3
-    add ch, al                       ; 0x16d5
-    add dl, cl                       ; 0x16d7
-    add bl, cl                       ; 0x16d9
-    add dl, dl                       ; 0x16db
-    add bl, dl                       ; 0x16dd
-    add byte [bp + di + 0x1], cl     ; 0x16df
-    aad 0x66                         ; 0x16e2
-    aad 0x66                         ; 0x16e4
+jumptable_1698:
+    dw 0x001c                                  ; 0x1698
+    dw 0x0026                                  ; 0x169a
+    dw 0x0036                                  ; 0x169c
+    dw 0x0038                                  ; 0x169e
+    dw 0x0039                                  ; 0x16a0
+    dw 0x003d                                  ; 0x16a2
+    dw 0x0042                                  ; 0x16a4
+    dw 0x0043                                  ; 0x16a6
+    dw 0x0046                                  ; 0x16a8
+    dw 0x0047                                  ; 0x16aa
+    dw 0x0048                                  ; 0x16ac
+    dw 0x0049                                  ; 0x16ae
+    dw 0x004a                                  ; 0x16b0
+    dw 0x004e                                  ; 0x16b2
+    dw 0x004f                                  ; 0x16b4
+    dw 0x0052                                  ; 0x16b6
+    dw 0x0054                                  ; 0x16b8
+    dw 0x005a                                  ; 0x16ba
+    dw 0x005c                                  ; 0x16bc
+    dw 0x0062                                  ; 0x16be
+    dw 0x0064                                  ; 0x16c0
+    dw 0x0065                                  ; 0x16c2
+    dw 0x0075                                  ; 0x16c4
+    dw 0x0076                                  ; 0x16c6
+    dw 0x0077                                  ; 0x16c8
+    dw 0x0097                                  ; 0x16ca
+    dw 0x00ae                                  ; 0x16cc
+    dw 0x00b2                                  ; 0x16ce
+    dw 0x00b5                                  ; 0x16d0
+    dw 0x00bd                                  ; 0x16d2
+    dw 0x00c2                                  ; 0x16d4
+    dw 0x00c5                                  ; 0x16d6
+    dw 0x00ca                                  ; 0x16d8
+    dw 0x00cb                                  ; 0x16da
+    dw 0x00d2                                  ; 0x16dc
+    dw 0x00d3                                  ; 0x16de
+    dw 0x014b                                  ; 0x16e0
+    dw 0x66d5                                  ; 0x16e2
+    dw 0x66d5                                  ; 0x16e4
     aad 0x66                         ; 0x16e6
     aad 0x66                         ; 0x16e8
     aad 0x66                         ; 0x16ea
@@ -192,89 +195,106 @@ loc_168e:
     aad 0x66                         ; 0x1726
     aad 0x66                         ; 0x1728
     aad 0x66                         ; 0x172a
-    jne short @..local.l31           ; 0x172c
+    jne short loc_1795               ; 0x172c
     cmp word [bp + 0x4], byte 0x3c   ; 0x172e
-    jl short @..local.l24            ; 0x1732
+    jl short @..local.l21            ; 0x1732
     cmp word [bp + 0x4], byte 0x78   ; 0x1734
-    jge short @..local.l24           ; 0x1738
+    jge short @..local.l21           ; 0x1738
     mov ax, 0                        ; 0x173a
     sub ax, word [bp + 0x4]          ; 0x173d
     ret                              ; 0x1740
-@..local.l24:
+@..local.l21:
     cmp word [bp + 0x4], strict word 0xb8 ; 0x1741
-    jl short @..local.l25            ; 0x1746
+    jl short @..local.l22            ; 0x1746
     cmp word [bp + 0x4], strict word 0xe3 ; 0x1748
-    jge short @..local.l25           ; 0x174d
+    jge short @..local.l22           ; 0x174d
     mov ax, 0                        ; 0x174f
     sub ax, word [bp + 0x4]          ; 0x1752
     ret                              ; 0x1755
-@..local.l25:
+@..local.l22:
     cmp word [bp + 0x4], strict word 0xe3 ; 0x1756
-    jge short @..local.l26           ; 0x175b
+    jge short @..local.l23           ; 0x175b
     mov ax, word [bp + 0x4]          ; 0x175d
     ret                              ; 0x1760
-@..local.l26:
+@..local.l23:
     cmp word [bp + 0x4], strict word 0x145 ; 0x1761
-    jne short @..local.l27           ; 0x1766
+    jne short @..local.l24           ; 0x1766
     mov ax, 0x13a                    ; 0x1768
     ret                              ; 0x176b
-@..local.l27:
+@..local.l24:
     cmp word [bp + 0x4], strict word 0x146 ; 0x176c
-    jne short @..local.l28           ; 0x1771
+    jne short @..local.l25           ; 0x1771
     mov ax, 0x14b                    ; 0x1773
     ret                              ; 0x1776
-@..local.l28:
+@..local.l25:
     cmp word [bp + 0x4], strict word 0x13c ; 0x1777
-    jl short @..local.l29            ; 0x177c
+    jl short @..local.l26            ; 0x177c
     cmp word [bp + 0x4], strict word 0x14c ; 0x177e
-    jg short @..local.l29            ; 0x1783
+    jg short @..local.l26            ; 0x1783
     mov ax, word [bp + 0x4]          ; 0x1785
     ret                              ; 0x1788
-@..local.l29:
+@..local.l26:
     cmp word [bp + 0x4], strict word 0x1ab ; 0x1789
-    jne short @..local.l30           ; 0x178e
+    jne short @..local.l27           ; 0x178e
     mov ax, 0xffae                   ; 0x1790
     ret                              ; 0x1793
-@..local.l30:
-    db 0x81
-@..local.l31:
-    db 0x7e, 0x04, 0xd8, 0x01
-    jne short @..local.l32           ; 0x1799
+@..local.l27:
+    cmp word [bp + 0x4], strict word 0x1d8 ; 0x1794
+    jne short @..local.l28           ; 0x1799
 loc_179b:
     mov ax, 0xf5                     ; 0x179b
     ret                              ; 0x179e
-@..local.l32:
+@..local.l28:
     cmp word [bp + 0x4], strict word 0x1d9 ; 0x179f
-    jne short @..local.l33           ; 0x17a4
+    jne short @..local.l29           ; 0x17a4
     mov ax, 0xf4                     ; 0x17a6
     ret                              ; 0x17a9
-@..local.l33:
+@..local.l29:
     mov ax, word [bp + 0x4]          ; 0x17aa
-    jmp short @..local.l35           ; 0x17ad
+    jmp short @..local.l31           ; 0x17ad
 loc_17af:
     cmp word [bp + 0x4], strict word 0xe3 ; 0x17af
-    jl short @..local.l34            ; 0x17b4
+    jl short @..local.l30            ; 0x17b4
     cmp word [bp + 0x4], strict word 0xfe ; 0x17b6
-    jge short @..local.l34           ; 0x17bb
+    jge short @..local.l30           ; 0x17bb
     mov ax, 0                        ; 0x17bd
     sub ax, word [bp + 0x4]          ; 0x17c0
     ret                              ; 0x17c3
-@..local.l34:
+@..local.l30:
     mov ax, word [bp + 0x4]          ; 0x17c4
     ret                              ; 0x17c7
-@..local.l35:
+@..local.l31:
     mov cx, 0x14                     ; 0x17c8
     call leaf_loc_936e               ; 0x17cb
-    jmp far 0xf100:0xec00            ; 0x17ce
+jumptable_17ce:
+    dw 0x00ea                                  ; 0x17ce
+    dw 0x00ec                                  ; 0x17d0
+    dw 0x00f1                                  ; 0x17d2
+    dw 0x00f5                                  ; 0x17d4
+    dw 0x00fc                                  ; 0x17d6
+    dw 0x00fd                                  ; 0x17d8
+    dw 0x0104                                  ; 0x17da
+    dw 0x0105                                  ; 0x17dc
+    dw 0x0106                                  ; 0x17de
+    dw 0x0107                                  ; 0x17e0
+    dw 0x0116                                  ; 0x17e2
+    dw 0x011c                                  ; 0x17e4
+    dw 0x012d                                  ; 0x17e6
+    dw 0x0131                                  ; 0x17e8
+    dw 0x0132                                  ; 0x17ea
+    dw 0x0133                                  ; 0x17ec
+    dw 0x0134                                  ; 0x17ee
+    dw 0x0135                                  ; 0x17f0
+    dw 0x0139                                  ; 0x17f2
+    dw 0x67f6                                  ; 0x17f4
+    dw 0x67f6                                  ; 0x17f6
 
-    db 0x00, 0xf5, 0x00, 0xfc, 0x00, 0xfd, 0x00, 0x04, 0x01, 0x05, 0x01, 0x06, 0x01, 0x07, 0x01, 0x16
-    db 0x01, 0x1c, 0x01, 0x2d, 0x01, 0x31, 0x01, 0x32, 0x01, 0x33, 0x01, 0x34, 0x01, 0x35, 0x01, 0x39
-    db 0x01, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6
-    db 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6
-    db 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0x63, 0x68, 0xb8, 0x00, 0x00, 0xc3
+    db 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67
+    db 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67, 0xf6, 0x67
+    db 0xf6, 0x67, 0x63, 0x68, 0xb8, 0x00, 0x00, 0xc3
 
 loc_1820:
     mov ax, 0                        ; 0x1820
     call ds_aztec_csav               ; 0x1823
     mov ax, word [bp + 0x4]          ; 0x1826
-    jmp short @..local.l36           ; 0x1829
+    jmp short @..local.l32           ; 0x1829

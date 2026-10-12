@@ -19,7 +19,6 @@ def cmd_clean(apps, keep_prebuild=False):
     def _targets(app):
         outs = [
             os.path.join(PROJECT, f'asm_{app}'),
-            os.path.join(PROJECT, f'asm_{app}_orig'),
         ]
         if not keep_prebuild:
             outs.append(prebuild_dir(app))

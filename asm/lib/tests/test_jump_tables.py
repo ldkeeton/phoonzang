@@ -14,6 +14,7 @@ from lib.compare import (
     _partition_function_records,
     _render_records,
 )
+from lib.compare.verify import _is_direct_far, _find_trampoline_tables
 
 
 def _disassemble(data, address=0):
@@ -292,6 +293,56 @@ class IncludeOffsetTests(unittest.TestCase):
             line.startswith('%include "demo/foo.asm"')
             and line.rstrip().endswith('; 0x0210') for line in lines))
         self.assertIn('demo/foo.asm', sources)
+
+
+class DirectFarClassificationTest(unittest.TestCase):
+    """Only *direct* far transfers are inline data (7E.4).
+
+    The Aztec compiler emits far calls indirectly; capstone names both the
+    direct ``9A``/``EA`` forms and the indirect ``FF /3`` form ``lcall``, so
+    the immediate-operand shape must gate the reclassification.
+    """
+
+    def _insn(self, raw, address=0):
+        return _disassemble(bytes.fromhex(raw), address)[0]
+
+    def test_direct_lcall_is_data(self):
+        self.assertTrue(_is_direct_far(self._insn('9a1e9bc3b8')))
+
+    def test_direct_ljmp_is_data(self):
+        self.assertTrue(_is_direct_far(self._insn('ea00ec00f1')))
+
+    def test_indirect_far_call_is_not_data(self):
+        self.assertFalse(_is_direct_far(self._insn('2eff1ebf2f')))
+
+    def test_near_call_is_not_data(self):
+        self.assertFalse(_is_direct_far(self._insn('e80000')))
+
+
+class TrampolineLookupTableTest(unittest.TestCase):
+    """``mov cx, N; call <pop...jmp reg>`` introduces N+1 inline words (7E.4).
+
+    The table immediately follows the call -- it is the return address the
+    helper pops -- and a returning callee must never trigger the rule.
+    """
+
+    def _data(self, callee):
+        data = bytearray(0x120)
+        data[0x100:0x106] = bytes.fromhex('b90200e80a00')  # mov cx,2; call 0x110
+        data[0x106:0x10c] = bytes.fromhex('110022003300')  # 3 table words
+        data[0x110:0x110 + len(callee) // 2] = bytes.fromhex(callee)
+        return bytes(data)
+
+    def _find(self, callee):
+        data = self._data(callee)
+        insns = _disassemble(data[0x100:], 0x100)
+        return _find_trampoline_tables(insns, data, len(data))
+
+    def test_detects_lookup_table(self):
+        self.assertEqual(self._find('5bffe1'), [(0x106, 6, 3)])
+
+    def test_ignores_returning_helper(self):
+        self.assertEqual(self._find('5bc3'), [])
 
 
 if __name__ == '__main__':

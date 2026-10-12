@@ -2,7 +2,7 @@ api_idx_0008_2:
     mov ax, 0xfff8                   ; 0x21fd
     call ds_aztec_csav               ; 0x2200
     mov ax, word [bp + 0x6]          ; 0x2203
-    jmp near @..api_idx_0008_2.l12   ; 0x2206
+    jmp near @..api_idx_0008_2.l1    ; 0x2206
     mov ax, 0x32                     ; 0x2209
     imul word [bp + 0x8]             ; 0x220c
     add word [bss_82fe], ax          ; 0x220f
@@ -16,7 +16,7 @@ api_idx_0008_2:
     call loc_21ad                    ; 0x2225
     add sp, byte 6                   ; 0x2228
     mov word [bss_8300], ax          ; 0x222b
-    jmp near @..api_idx_0008_2.l24   ; 0x222e
+    jmp near loc_297d                ; 0x222e
     mov ax, 0x23                     ; 0x2231
     imul word [bp + 0x8]             ; 0x2234
     add word [bss_82f2], ax          ; 0x2237
@@ -33,7 +33,7 @@ api_idx_0008_2:
     call loc_21ad                    ; 0x224f
     add sp, byte 6                   ; 0x2252
     mov word [bss_82f4], ax          ; 0x2255
-    jmp near @..api_idx_0008_2.l24   ; 0x2258
+    jmp near loc_297d                ; 0x2258
     mov ax, 0x32                     ; 0x225b
     imul word [bp + 0x8]             ; 0x225e
     add word [bss_82f6], ax          ; 0x2261
@@ -50,15 +50,15 @@ api_idx_0008_2:
     call loc_21ad                    ; 0x2279
     add sp, byte 6                   ; 0x227c
     mov word [bss_82f8], ax          ; 0x227f
-    jmp near @..api_idx_0008_2.l24   ; 0x2282
+    jmp near loc_297d                ; 0x2282
     mov ax, 5                        ; 0x2285
     imul word [bp + 0x8]             ; 0x2288
     add word [bss_8306], ax          ; 0x228b
-    jmp near @..api_idx_0008_2.l24   ; 0x228f
+    jmp near loc_297d                ; 0x228f
     mov ax, 0x64                     ; 0x2292
     imul word [bp + 0x8]             ; 0x2295
     add word [bss_8302], ax          ; 0x2298
-    jmp near @..api_idx_0008_2.l24   ; 0x229c
+    jmp near loc_297d                ; 0x229c
     mov ax, 0x32                     ; 0x229f
     imul word [bp + 0x8]             ; 0x22a2
     add word [bss_82fa], ax          ; 0x22a5
@@ -71,34 +71,34 @@ api_idx_0008_2:
     call loc_21ad                    ; 0x22b8
     add sp, byte 6                   ; 0x22bb
     mov word [bss_82fc], ax          ; 0x22be
-    jmp near @..api_idx_0008_2.l24   ; 0x22c1
+    jmp near loc_297d                ; 0x22c1
     mov ax, 0                        ; 0x22c4
     cmp word [bp + 0x6], byte 0x13   ; 0x22c7
-    je short @..api_idx_0008_2.l1    ; 0x22cb
+    je short @..local.l34            ; 0x22cb
     mov ax, word [bp + 0xa]          ; 0x22cd
-@..api_idx_0008_2.l1:
+@..local.l34:
     mov word [bp - 0x0002], ax       ; 0x22d0
     mov ax, word [bss_69c8]          ; 0x22d3
     cmp word [bp + 0x6], byte 0x13   ; 0x22d6
-    je short @..api_idx_0008_2.l2    ; 0x22da
+    je short @..local.l35            ; 0x22da
     mov ax, word [bp + 0xa]          ; 0x22dc
     inc ax                           ; 0x22df
-@..api_idx_0008_2.l2:
+@..local.l35:
     mov word [bp - 0x0004], ax       ; 0x22e0
     mov ax, word [bp + 0x8]          ; 0x22e3
     cmp word [bp + 0x6], byte 0x13   ; 0x22e6
-    je short @..api_idx_0008_2.l3    ; 0x22ea
+    je short @..local.l36            ; 0x22ea
     shl ax, 1                        ; 0x22ec
-@..api_idx_0008_2.l3:
+@..local.l36:
     mov word [bp - 0x0006], ax       ; 0x22ee
     mov ax, 0                        ; 0x22f1
     cmp word [bp + 0x6], byte 0x13   ; 0x22f4
-    je short @..api_idx_0008_2.l4    ; 0x22f8
+    je short @..local.l37            ; 0x22f8
     mov ax, word [bp + 0x8]          ; 0x22fa
-@..api_idx_0008_2.l4:
+@..local.l37:
     mov word [bp - 0x0008], ax       ; 0x22fd
-    jmp short @..api_idx_0008_2.l7   ; 0x2300
-@..api_idx_0008_2.l5:
+    jmp short @..local.l40           ; 0x2300
+@..local.l38:
     mov ax, 0x248                    ; 0x2302
     imul word [bp - 0x0002]          ; 0x2305
     mov bx, ax                       ; 0x2308
@@ -138,17 +138,17 @@ api_idx_0008_2:
     pop ax                           ; 0x2357
     mov word [bx + 0x5c10], ax       ; 0x2358
     cmp word [bp + 0x6], byte 0x13   ; 0x235c
-    je short @..api_idx_0008_2.l6    ; 0x2360
+    je short @..local.l39            ; 0x2360
     push word [bp - 0x0002]          ; 0x2362
     call loc_2190                    ; 0x2365
     pop cx                           ; 0x2368
-@..api_idx_0008_2.l6:
+@..local.l39:
     inc word [bp - 0x0002]           ; 0x2369
-@..api_idx_0008_2.l7:
+@..local.l40:
     mov ax, word [bp - 0x0002]       ; 0x236c
     cmp ax, word [bp - 0x0004]       ; 0x236f
-    jl short @..api_idx_0008_2.l5    ; 0x2372
-    jmp near @..api_idx_0008_2.l24   ; 0x2374
+    jl short @..local.l38            ; 0x2372
+    jmp near loc_297d                ; 0x2374
     mov ax, 0x248                    ; 0x2377
     imul word [bp + 0xa]             ; 0x237a
     mov bx, ax                       ; 0x237d
@@ -162,15 +162,15 @@ api_idx_0008_2:
     sub ax, cx                       ; 0x238f
     mov word [bp - 0x0002], ax       ; 0x2391
     cmp ax, strict word 0            ; 0x2394
-    jge short @..api_idx_0008_2.l8   ; 0x2397
+    jge short @..local.l41           ; 0x2397
     mov word [bp - 0x0002], 0        ; 0x2399
-@..api_idx_0008_2.l8:
+@..local.l41:
     mov al, byte [bp - 0x0002]       ; 0x239e
     mov byte [bx + 0x5d5d], al       ; 0x23a1
     push word [bp + 0xa]             ; 0x23a5
     call loc_2190                    ; 0x23a8
     pop cx                           ; 0x23ab
-    jmp near @..api_idx_0008_2.l24   ; 0x23ac
+    jmp near loc_297d                ; 0x23ac
     mov ax, 0x248                    ; 0x23af
     imul word [bp + 0xa]             ; 0x23b2
     mov bx, ax                       ; 0x23b5
@@ -179,10 +179,10 @@ api_idx_0008_2:
     sub ax, word [bp + 0x8]          ; 0x23bd
     mov word [bp - 0x0002], ax       ; 0x23c0
     cmp ax, strict word 0            ; 0x23c3
-    jg short @..local.l34            ; 0x23c6
+    jg short @..local.l42            ; 0x23c6
     mov word [bp - 0x0002], 0        ; 0x23c8
     mov byte [bx + 0x5d5f], 0        ; 0x23cd
-@..local.l34:
+@..local.l42:
     mov al, byte [bp - 0x0002]       ; 0x23d2
     mov byte [bx + 0x5e32], al       ; 0x23d5
     mov al, byte [bx + 0x5d5f]       ; 0x23d9
@@ -280,13 +280,13 @@ api_idx_0008_2:
     db 0x39, 0xb8, 0x48, 0x02, 0xf7, 0x6e, 0x04, 0x50, 0xb8, 0x78, 0x00, 0xf7, 0x2e, 0x34, 0x94, 0x8b
     db 0xc8, 0x58, 0x03, 0xc1, 0x50, 0xb8, 0x0c, 0x00, 0xf7, 0x2e, 0xee, 0x8a, 0x8b, 0xc8
 
-@..api_idx_0008_2.l9:
+@..api_idx_0004_4.l1:
     pop ax                           ; 0x28fb
     add ax, cx                       ; 0x28fc
-@..api_idx_0008_2.l10:
+@..api_idx_0004_4.l2:
     mov bx, ax                       ; 0x28fe
     cmp word [bx + 0x5c34], byte 0   ; 0x2900
-    jle short @..api_idx_0008_2.l11  ; 0x2905
+    jle short @..api_idx_0004_4.l3   ; 0x2905
     push word [bp + 0x8]             ; 0x2907
     add ax, 0x5c34                   ; 0x290a
     push ax                          ; 0x290d
@@ -294,75 +294,61 @@ loc_290e:
     push word [bp + 0x4]             ; 0x290e
     call api_idx_009a                ; 0x2911
     add sp, byte 6                   ; 0x2914
-@..api_idx_0008_2.l11:
-    jmp short @..api_idx_0008_2.l24  ; 0x2917
-@..api_idx_0008_2.l12:
+@..api_idx_0004_4.l3:
+    jmp short loc_297d               ; 0x2917
+@..api_idx_0008_2.l1:
     mov cx, 0x18                     ; 0x2919
     call leaf_loc_982c               ; 0x291c
-    or al, 0                         ; 0x291f
-    adc word [bx + si], ax           ; 0x2921
-    db 0x13
-@..api_idx_0008_2.l13:
-    db 0x00
-    sbb word [bx + si], ax           ; 0x2925
-    and word [bx + si], ax           ; 0x2927
-    and ax, 0x2e00                   ; 0x2929
-    add byte [bx + di], dh           ; 0x292c
-    add byte [bx + si], bh           ; 0x292e
-    add byte [di], bh                ; 0x2930
-    db 0x00
-@..api_idx_0008_2.l14:
-    db 0x3f
-    db 0x00, 0x40, 0x00 ; add byte [bx + si], al
-    inc dx                           ; 0x2937
-    db 0x00, 0x45, 0x00 ; add byte [di], al
-    dec si                           ; 0x293b
-    db 0x00
-@..api_idx_0008_2.l15:
-    db 0x52
-    db 0x00
-    push sp                          ; 0x293f
-@..api_idx_0008_2.l16:
-    db 0x00
-@..api_idx_0008_2.l17:
-    db 0x57
-    db 0x00
-    pop ax                           ; 0x2943
-    db 0x00, 0x5c, 0x00 ; add byte [si], bl
-    pop si                           ; 0x2947
-    db 0x00, 0x61, 0x00 ; add byte [bx + di], ah
-    db 0x62
-@..api_idx_0008_2.l18:
-    db 0x00
-    or si, word [bp + di - 0x0042]   ; 0x294d
-    jae short @..api_idx_0008_2.l20  ; 0x2950
-    jae short @..api_idx_0008_2.l21  ; 0x2952
-@..api_idx_0008_2.l19:
-    jne short @..api_idx_0008_2.l18  ; 0x2954
-    jae short @..api_idx_0008_2.l13  ; 0x2956
-    jb short @..api_idx_0008_2.l14   ; 0x2958
-    jb short @..api_idx_0008_2.l10   ; 0x295a
-    db 0x72
-@..api_idx_0008_2.l20:
-    db 0x55
-    je short @..api_idx_0008_2.l9    ; 0x295e
-    jne short @..api_idx_0008_2.l25  ; 0x2960
-    jb short @..api_idx_0008_2.l27   ; 0x2962
-    js short @..api_idx_0008_2.l25   ; 0x2964
-    jne short @..api_idx_0008_2.l18  ; 0x2966
-    je short @..api_idx_0008_2.l22   ; 0x2968
-    jbe short @..api_idx_0008_2.l29  ; 0x296a
-    jb short @..api_idx_0008_2.l19   ; 0x296c
-    jb short @..api_idx_0008_2.l13   ; 0x296e
-@..api_idx_0008_2.l21:
-    js short @..api_idx_0008_2.l23   ; 0x2970
+jumptable_291f:
+    dw 0x000c                                  ; 0x291f
+    dw 0x0011                                  ; 0x2921
+    dw 0x0013                                  ; 0x2923
+    dw 0x0019                                  ; 0x2925
+    dw 0x0021                                  ; 0x2927
+    dw 0x0025                                  ; 0x2929
+    dw 0x002e                                  ; 0x292b
+    dw 0x0031                                  ; 0x292d
+    dw 0x0038                                  ; 0x292f
+    dw 0x003d                                  ; 0x2931
+    dw 0x003f                                  ; 0x2933
+    dw 0x0040                                  ; 0x2935
+    dw 0x0042                                  ; 0x2937
+    dw 0x0045                                  ; 0x2939
+    dw 0x004e                                  ; 0x293b
+    dw 0x0052                                  ; 0x293d
+    dw 0x0054                                  ; 0x293f
+    dw 0x0057                                  ; 0x2941
+    dw 0x0058                                  ; 0x2943
+    dw 0x005c                                  ; 0x2945
+    dw 0x005e                                  ; 0x2947
+    dw 0x0061                                  ; 0x2949
+    dw 0x0062                                  ; 0x294b
+    dw 0x730b                                  ; 0x294d
+    dw 0x73be                                  ; 0x294f
+    db 0x0b
+    jae short @..api_idx_0004_4.l5   ; 0x2952
+@..api_idx_0004_4.l4:
+    jne short loc_294c               ; 0x2954
+    jae short loc_2924               ; 0x2956
+    jb short loc_2933                ; 0x2958
+    jb short @..api_idx_0004_4.l2    ; 0x295a
+    jb short loc_29b3                ; 0x295c
+    je short @..api_idx_0004_4.l1    ; 0x295e
+    jne short loc_29b2               ; 0x2960
+    jb short loc_29c3                ; 0x2962
+    js short loc_29b2                ; 0x2964
+    jne short loc_294c               ; 0x2966
+    je short @..api_idx_0004_4.l6    ; 0x2968
+    jbe short loc_29e4               ; 0x296a
+    jb short @..api_idx_0004_4.l4    ; 0x296c
+    jb short loc_2924                ; 0x296e
+@..api_idx_0004_4.l5:
+    js short @..api_idx_0004_4.l7    ; 0x2970
     jbe short loc_298e               ; 0x2972
-@..api_idx_0008_2.l22:
-    jns short @..api_idx_0008_2.l15  ; 0x2974
-    jbe short @..api_idx_0008_2.l28  ; 0x2976
-    ja short @..api_idx_0008_2.l21   ; 0x2978
-    ja short @..api_idx_0008_2.l16   ; 0x297a
-@..api_idx_0008_2.l23:
-    db 0x79
-@..api_idx_0008_2.l24:
-    db 0xc3
+@..api_idx_0004_4.l6:
+    jns short loc_293d               ; 0x2974
+    jbe short loc_29d6               ; 0x2976
+    ja short @..api_idx_0004_4.l5    ; 0x2978
+    ja short loc_2940                ; 0x297a
+@..api_idx_0004_4.l7:
+    jns short loc_2941               ; 0x297c

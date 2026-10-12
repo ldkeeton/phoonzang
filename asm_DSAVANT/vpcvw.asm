@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_23fd.inc"
+%include "inc/structs/vpcvw.inc"
 org 0
 bits 16
 %include "inc/labels/vpcvw_foreign_labels.inc"
@@ -18,6 +18,20 @@ IMAGE_BASE equ 0x000e
     dw 0xe835      ; o_entry: overlay entry offset (CS)
 
 loc_23fd equ 0x23fd
+loc_2924 equ 0x2924
+loc_2933 equ 0x2933
+loc_293d equ 0x293d
+loc_2940 equ 0x2940
+loc_2941 equ 0x2941
+loc_294c equ 0x294c
+loc_297d equ 0x297d
+loc_29b2 equ 0x29b2
+loc_29b3 equ 0x29b3
+loc_29c3 equ 0x29c3
+loc_29d6 equ 0x29d6
+loc_29e4 equ 0x29e4
+loc_7736 equ 0x7736
+loc_7738 equ 0x7738
 dseg_0002 equ 0x0002
 dseg_001e equ 0x001e
 dseg_0022 equ 0x0022
@@ -36,9 +50,6 @@ bss_0e28 equ 0x0e28
 bss_0e2e equ 0x0e2e
 bss_0e30 equ 0x0e30
 bss_0e32 equ 0x0e32
-bss_0f00 equ 0x0f00
-bss_3300 equ 0x3300
-bss_3700 equ 0x3700
 bss_5216 equ 0x5216
 bss_5218 equ 0x5218
 bss_5910 equ 0x5910

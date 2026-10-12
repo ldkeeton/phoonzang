@@ -6,7 +6,6 @@ from .build import _build_projects, cmd_build_binary, cmd_rebuild
 from .charts import cmd_charts, cmd_set_baseline
 from .clean import cmd_clean
 from .common import _apps, _asm_one
-from .delta import cmd_delta
 from .elf import cmd_elf_rebuild
 from .prebuild import cmd_prebuild
 from .run import _parse_check_args, cmd_check, cmd_run
@@ -26,7 +25,6 @@ Commands (space-separated):
   make clean [PROJECT...]   clean one or all projects (incl. .cache/asm_prebuild_*)
   make rebuild PROJECT BIN  nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN recompile edited .c (no verify) + rebuild EXE + ELF/DWARF
-  make delta PROJECT BIN          compare original and edited assembly layouts
   make decompile PROJECT BIN  disassemble + decompile binary to .c
   make set-baseline         pin current stats as the local baseline
   make stats-diff           current-vs-baseline KPI delta (+ delta.json)
@@ -144,18 +142,6 @@ def main():
             print(f'Unknown project: {project}')
             sys.exit(1)
         cmd_rebuild(project, binary)
-        return
-
-    if '--delta' in flags:
-        if len(args) != 2:
-            print('Usage: make delta PROJECT BINARY')
-            sys.exit(1)
-        project, binary = args
-        if project not in all_projects:
-            print(f'Unknown project: {project}')
-            print(f'Known: {", ".join(all_projects)}')
-            sys.exit(1)
-        cmd_delta(project, binary)
         return
 
     if '--elf-rebuild' in flags:

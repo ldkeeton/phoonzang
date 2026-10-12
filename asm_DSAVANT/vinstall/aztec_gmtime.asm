@@ -28,27 +28,27 @@ loc_2bfe:
     call aztec_fclose                ; 0x2c06
     pop cx                           ; 0x2c09
     mov si, dseg_231c                ; 0x2c0a
-@..local.l105:
+@..local.l117:
     cmp byte [si], 0                 ; 0x2c0d
-    jne short @..local.l107          ; 0x2c10
+    jne short @..local.l119          ; 0x2c10
     mov word [dseg_24d6], 1          ; 0x2c12
     mov ax, 0                        ; 0x2c18
-@..local.l106:
+@..local.l118:
     pop si                           ; 0x2c1b
     pop di                           ; 0x2c1c
     mov sp, bp                       ; 0x2c1d
     pop bp                           ; 0x2c1f
     ret                              ; 0x2c20
-@..local.l107:
+@..local.l119:
     push word [bp + 0x6]             ; 0x2c21
     push si                          ; 0x2c24
     call aztec_strcmp                ; 0x2c25
     add sp, byte 4                   ; 0x2c28
     test ax, ax                      ; 0x2c2b
-    je short @..local.l108           ; 0x2c2d
+    je short @..local.l120           ; 0x2c2d
     add si, byte 5                   ; 0x2c2f
-    jmp short @..local.l105          ; 0x2c32
-@..local.l108:
+    jmp short @..local.l117          ; 0x2c32
+@..local.l120:
     push word [si + 0x3]             ; 0x2c34
     push word [bp + 0x4]             ; 0x2c37
     call aztec_open                  ; 0x2c3a
@@ -56,17 +56,17 @@ loc_2bfe:
     mov di, ax                       ; 0x2c40
     mov ax, di                       ; 0x2c42
     cmp ax, strict word 0xffff       ; 0x2c44
-    jne short @..local.l109          ; 0x2c47
+    jne short @..local.l121          ; 0x2c47
     mov ax, 0                        ; 0x2c49
-    jmp short @..local.l106          ; 0x2c4c
-@..local.l109:
+    jmp short @..local.l118          ; 0x2c4c
+@..local.l121:
     mov ax, di                       ; 0x2c4e
     mov bx, word [bp + 0x8]          ; 0x2c50
     mov byte [bx + 0x7], al          ; 0x2c53
     mov bx, word [bp + 0x8]          ; 0x2c56
     mov byte [bx + 0x6], 1           ; 0x2c59
     mov ax, word [bp + 0x8]          ; 0x2c5d
-    jmp short @..local.l106          ; 0x2c60
+    jmp short @..local.l118          ; 0x2c60
 loc_2c62:
     push bp                          ; 0x2c62
     mov bp, sp                       ; 0x2c63

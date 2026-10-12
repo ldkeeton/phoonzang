@@ -33,7 +33,15 @@ Schema
           "jump_tables": [
             { "table": "08D4", "jmp": "08ED", "entry_size": 2, "count": 7,
               "note": "switch table for the indirect jump" }
-          ]
+          ],
+
+          "external_data": {
+            "<hex_offset>": {
+              "name": "bios_data_0410",
+              "segment": "es",
+              "note": "fixed external field, e.g. BIOS Data Area"
+            }
+          }
         }
       },
 
@@ -57,6 +65,7 @@ ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file
 SIDECAR_DIR = os.path.join(ASM_DIR, 'sidecar')
 
 _BINARY_TYPES = {'mz', 'aztec_overlay', 'raw_drv'}
+_SEGMENT_NAMES = {'es', 'ds', 'cs', 'ss', 'fs', 'gs'}
 
 
 class SidecarError(Exception):
@@ -196,6 +205,31 @@ def validate_force_ranges(force_data, force_code, owner='sidecar'):
     _reject_range_conflicts(force_data, force_code, owner)
 
 
+def _validate_external_data(data, description):
+    """Validate a sidecar ``external_data`` block.
+
+    Maps a hexadecimal offset to a fixed external-segment field entry with a
+    symbolic ``name`` and optional ``segment`` override.
+    """
+    if not isinstance(data, dict):
+        raise SidecarError(f'{description} must be an object')
+    for key, entry in data.items():
+        where = f'{description}["{key}"]'
+        _parse_offset(key, f'{where} offset')
+        if not isinstance(entry, dict) or not isinstance(entry.get('name'), str):
+            raise SidecarError(f'{where} must be an object with a string "name"')
+        segment = entry.get('segment')
+        if segment is not None and segment not in _SEGMENT_NAMES:
+            raise SidecarError(
+                f'{where}.segment must be one of {sorted(_SEGMENT_NAMES)}')
+
+
+def _external_data_map(raw):
+    """Normalize a sidecar ``external_data`` block to ``{int_offset: entry}``."""
+    return {_parse_offset(key, f'external_data["{key}"]'): entry
+            for key, entry in (raw or {}).items()}
+
+
 def _validate_binary(name, info):
     if not isinstance(info, dict):
         raise SidecarError(f'binaries.{name}: must be an object')
@@ -215,13 +249,17 @@ def _validate_binary(name, info):
     if 'jump_tables' in info:
         _validate_jump_tables(info['jump_tables'], f'binaries.{name}.jump_tables')
 
+    if 'external_data' in info:
+        _validate_external_data(info['external_data'],
+                                f'binaries.{name}.external_data')
+
 
 def per_binary(sidecar, short_name):
     """Return the sidecar data for *short_name* within this project sidecar.
 
     Returns a dict with keys:
         file, type, start_offset, function_names, force_data, force_code,
-        fingerprint-start, fingerprint-end
+        external_data, fingerprint-start, fingerprint-end
 
     Missing optional fields default to ``None`` / empty dict.
     """
@@ -232,6 +270,7 @@ def per_binary(sidecar, short_name):
         'function_names': {},
         'dispatch_table': None,
         'immediate_labels': {},
+        'external_data': {},
         'jump_tables': [],
         'ghidra_base_offset': 0,
         'fingerprint-start': None,
@@ -247,6 +286,7 @@ def per_binary(sidecar, short_name):
             result['function_names'] = b.get('function_names', {})
             result['dispatch_table'] = b.get('dispatch_table')
             result['immediate_labels'] = b.get('immediate_labels', {})
+            result['external_data'] = _external_data_map(b.get('external_data', {}))
             result['jump_tables'] = b.get('jump_tables', [])
             result['ghidra_base_offset'] = b.get('ghidra_base_offset', 0)
             result['fingerprint-start'] = b.get('fingerprint-start')

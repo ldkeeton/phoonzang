@@ -14,7 +14,7 @@ jumptable_883a:
     dw leaf_loc_8800 - IMAGE_BASE + 0x5055     ; 0x8846
     dw leaf_loc_8813 - IMAGE_BASE + 0x5055     ; 0x8848
     dw leaf_loc_8827 - IMAGE_BASE + 0x5055     ; 0x884a
-@..api_idx_00ac.l78:
+@..api_idx_00ac.l74:
     cmp ax, strict word 9            ; 0x884c
     jae short loc_8859               ; 0x884f
     xchg bx, ax                      ; 0x8851

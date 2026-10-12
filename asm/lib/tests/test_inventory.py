@@ -7,9 +7,13 @@ import unittest
 
 from lib.inventory import (
     classify, merge_inventory, find_conflicts, CERTAIN, STRONG, CANDIDATE,
+    address_inventory_dir, write_address_inventory,
 )
-from lib.delta import write_address_inventory
 from lib.compare import _build_address_records
+
+# Inventories are build reports under ``.cache/addresses/<project>/`` (not in
+# the ``asm_<project>`` tree).
+_ADDRESS_DIR = address_inventory_dir('DSAVANT')
 
 
 class ClassifyTest(unittest.TestCase):
@@ -24,6 +28,12 @@ class ClassifyTest(unittest.TestCase):
         self.assertEqual(classify('string_loc_088e', 'T'), ('cs', 'code', 'relative_flow', CERTAIN))
         self.assertEqual(classify('entry_point', 'T'), ('cs', 'code', 'relative_flow', CERTAIN))
         self.assertEqual(classify('mystery', 'A'), ('unknown', 'constant', 'label', CANDIDATE))
+
+    def test_external_bios_data_is_a_candidate(self):
+        self.assertEqual(
+            classify('bios_data_0410'),
+            ('unknown', 'candidate', 'candidate', CANDIDATE),
+        )
 
 
 class MergeInventoryTest(unittest.TestCase):
@@ -116,6 +126,73 @@ class WriteInventoryTest(unittest.TestCase):
         entry = next(e for e in report['symbols'] if e['name'] == 'psp_top_of_memory')
         self.assertEqual(entry['space'], 'psp')
         self.assertEqual(entry['referenced_by'], [0x4d48])
+
+
+class CrossInventoryConsistencyTest(unittest.TestCase):
+    """8d: conflicts and cross-space symbol collisions are empty.
+
+    These assertions run against the generated per-binary address
+    inventories (``.cache/addresses/DSAVANT``); they are skipped when the
+    build output is not present (e.g. a clean checkout).
+    """
+
+    def setUp(self):
+        if not os.path.isdir(_ADDRESS_DIR):
+            self.skipTest('generated address inventories not present')
+        self.reports = []
+        for entry in sorted(os.listdir(_ADDRESS_DIR)):
+            if entry.endswith('_addresses.json'):
+                with open(os.path.join(_ADDRESS_DIR, entry),
+                          encoding='utf-8') as handle:
+                    self.reports.append(json.load(handle))
+        if not self.reports:
+            self.skipTest('no address inventories found')
+
+    def test_no_inventory_reports_conflicts(self):
+        for report in self.reports:
+            self.assertEqual(report.get('conflicts', []), [],
+                             report.get('binary', '?'))
+
+    def test_no_symbol_resolves_to_two_spaces(self):
+        spaces = {}
+        for report in self.reports:
+            for entry in report.get('symbols', []):
+                space = entry.get('space')
+                if space == 'unknown':
+                    continue
+                spaces.setdefault(entry['name'], set()).add(space)
+        collisions = {name: sorted(found)
+                      for name, found in spaces.items() if len(found) > 1}
+        self.assertEqual(collisions, {})
+
+
+class OverlayLayeredDataTest(unittest.TestCase):
+    """9a: an overlay's DATA is layered into file-backed vs BSS symbols.
+
+    ``o_dorg = 0x9098`` and ``o_dsize = 0x12e`` for every recovered overlay,
+    so its own initialized data is ``[0x9098, 0x91c6)`` (``dseg_``) and its
+    BSS is at/above ``0x91c6`` (``bss_``).
+    """
+
+    def _load(self, binary):
+        path = os.path.join(_ADDRESS_DIR, f'{binary}_addresses.json')
+        if not os.path.exists(path):
+            self.skipTest(f'{binary} address inventory not present')
+        with open(path, encoding='utf-8') as handle:
+            return json.load(handle)
+
+    def test_overlay_data_is_layered(self):
+        report = self._load('vbase')
+        dseg = [e['address'] for e in report['symbols']
+                if e['name'].startswith('dseg_')]
+        bss = [e['address'] for e in report['symbols']
+               if e['name'].startswith('bss_')]
+        self.assertTrue(dseg)
+        self.assertTrue(bss)
+        overlay_init = [a for a in dseg if 0x9098 <= a < 0x9098 + 0x12e]
+        overlay_bss = [a for a in bss if a >= 0x9098 + 0x12e]
+        self.assertTrue(overlay_init, 'no overlay file-backed data symbols')
+        self.assertTrue(overlay_bss, 'no overlay BSS symbols')
 
 
 if __name__ == '__main__':

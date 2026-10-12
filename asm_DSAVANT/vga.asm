@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_43e1.inc"
+%include "inc/structs/vga.inc"
 org 0
 bits 16
 %ifndef IMAGE_BASE

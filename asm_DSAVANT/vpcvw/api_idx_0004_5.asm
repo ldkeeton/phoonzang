@@ -113,12 +113,12 @@ loc_3a6a:
     call ds_loc_3b21                 ; 0x3a80
     add sp, byte 8                   ; 0x3a83
     call ds_bios_kbd_check           ; 0x3a86
-@..local.l42:
+@..local.l50:
     call ds_app_0d36                 ; 0x3a89
     test ax, ax                      ; 0x3a8c
-    jne short @..local.l43           ; 0x3a8e
-    jmp short @..local.l42           ; 0x3a90
-@..local.l43:
+    jne short @..local.l51           ; 0x3a8e
+    jmp short @..local.l50           ; 0x3a90
+@..local.l51:
     mov ax, 0                        ; 0x3a92
     push ax                          ; 0x3a95
     push ax                          ; 0x3a96

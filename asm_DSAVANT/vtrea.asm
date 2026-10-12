@@ -1,5 +1,5 @@
 %include "inc/structs/structs.inc"
-%include "inc/structs/loc_4582.inc"
+%include "inc/structs/vtrea.inc"
 org 0
 bits 16
 %include "inc/labels/vtrea_foreign_labels.inc"
@@ -19,7 +19,10 @@ IMAGE_BASE equ 0x000e
 
 loc_34f1 equ 0x34f1
 loc_4582 equ 0x4582
+loc_4a4d equ 0x4a4d
+loc_4a5e equ 0x4a5e
 loc_4ad7 equ 0x4ad7
+api_idx_0004_8 equ 0x4ad8
 loc_4af7 equ 0x4af7
 loc_4b1f equ 0x4b1f
 loc_4b28 equ 0x4b28
@@ -76,7 +79,6 @@ bss_0e12 equ 0x0e12
 bss_0e2a equ 0x0e2a
 bss_0e2c equ 0x0e2c
 bss_0e32 equ 0x0e32
-bss_3f00 equ 0x3f00
 bss_5216 equ 0x5216
 bss_590e equ 0x590e
 bss_5910 equ 0x5910

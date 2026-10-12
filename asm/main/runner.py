@@ -391,6 +391,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         c_overrides=c_overrides,
         jump_tables=ctx.jump_tables,
         jump_table_overrides=(ctx.sidecar_entry or {}).get('jump_tables', []),
+        external_data=(ctx.sidecar_entry or {}).get('external_data', {}),
         segment_flow=ctx.segment_flow,
         segments=ctx.segments,
     )
@@ -479,7 +480,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         'bare_dbc': stats.get('bare_dbc', 0),
     }
     ctx.report['addresses'] = stats.get('address_records', [])
-    _write_address_inventory(out_dir, name, label_map, ctx.report['addresses'])
+    _write_address_inventory(project, name, label_map, ctx.report['addresses'])
     if STATS:
         write_report(ctx, asm_text)
         write_layers(ctx)
