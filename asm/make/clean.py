@@ -4,6 +4,7 @@ import os
 import shutil
 
 from lib.aztec.cache import prebuild_dir
+from lib.renderctx import context_dir
 from main import clean_all
 
 from .common import APPS, PROJECT
@@ -22,6 +23,7 @@ def cmd_clean(apps, keep_prebuild=False):
         ]
         if not keep_prebuild:
             outs.append(prebuild_dir(app))
+            outs.append(context_dir(app))
         return outs
 
     if not apps:

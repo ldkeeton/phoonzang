@@ -345,15 +345,39 @@ def _synthesize_locals(code, base, length, label):
             for i, addr in enumerate(sorted(targets))}
 
 
+def _load_render_context(app, binary):
+    """Load the persisted build render maps, or ``None`` when absent.
+
+    An older build tree has no context; resplice then falls back to the
+    per-fragment synthesis it used before the maps were persisted.
+    """
+    from lib.renderctx import context_path, decode
+    path = context_path(app, binary)
+    if not os.path.isfile(path):
+        return None
+    with open(path) as context_file:
+        return decode(json.load(context_file))
+
+
+def _fragment_labels(label_records, start, end):
+    """Select the build's label lines owned by a fragment span."""
+    return [{'type': 'label', 'text': text, 'offset': offset}
+            for offset, text in label_records if start <= offset < end]
+
+
 def resplice_c(app, binary):
     """Recompile the C routine fragments of an already-built binary.
 
     This is the debug hot loop, not a verification pass: every routine that has
     a ``.c`` seed is recompiled with its recorded Aztec provenance and its
     ``<binary>/<label>.asm`` fragment is rewritten to match the C as it stands
-    now.  C and ASM edits are expected before a resplice, so an edited routine
-    is *meant* to differ from the recovered original; ``make verify`` only
-    matters once a full ``make build`` completes.
+    now.  The rewrite reuses the build's persisted render context
+    (``.cache/render``, see :mod:`lib.renderctx`) so an unedited routine comes
+    back byte-for-byte identical instead of dropping its resolved operand
+    symbols (``bss_0d00``) and renumbering its local labels.  C and ASM edits
+    are expected before a resplice, so an edited routine is *meant* to differ
+    from the recovered original; ``make verify`` only matters once a full
+    ``make build`` completes.
 
     The sole constraint is image layout: the routine's byte span is fixed (the
     master listing addresses code absolutely), so a compile that no longer fits
@@ -385,6 +409,7 @@ def resplice_c(app, binary):
         entries = json.load(f)['functions']
     with open(labels_path) as f:
         label_map = {int(k): v for k, v in json.load(f).items()}
+    context = _load_render_context(app, binary)
     bins = discover_binaries(os.path.join(APPS, app))
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:
         data = f.read()
@@ -442,18 +467,40 @@ def resplice_c(app, binary):
         if write_len < code_len:
             final[write_len:code_len] = b'\x90' * (code_len - write_len)
 
-        local_labels = _synthesize_locals(bytes(final), start, code_len, label)
+        if context is not None:
+            # Re-render with the build's own maps so an unedited fragment comes
+            # back byte-for-byte identical (resolved operand symbols and local
+            # label numbering included), and an edited one keeps that fidelity.
+            local_labels = context['local_labels']
+            label_records = _fragment_labels(
+                context['label_records'], start, end)
+            data_labels = context['data_labels']
+            mem_symbols = context['mem_symbols']
+            mem_equ = context['mem_equ']
+            foreign_label_map = context['foreign_label_map']
+            immediate_labels = context['immediate_labels']
+            exact_bytes = context['exact_bytes']
+        else:
+            # No persisted context (e.g. an older build tree): fall back to the
+            # per-fragment synthesis this hot loop used before the maps existed.
+            local_labels = _synthesize_locals(
+                bytes(final), start, code_len, label)
+            label_records = [{'type': 'label', 'text': f'{label}:',
+                              'offset': start}]
+            label_records.extend(
+                {'type': 'label', 'text': f'{name}:', 'offset': addr}
+                for addr, name in sorted(label_map.items())
+                if start < addr < end and isinstance(name, str))
+            label_records.extend(
+                {'type': 'label', 'text': f'{name}:', 'offset': addr}
+                for addr, name in sorted(local_labels.items()))
+            data_labels = mem_symbols = mem_equ = None
+            foreign_label_map = immediate_labels = None
+            exact_bytes = False
         records = _c_bytes_to_records(
-            bytes(final), start, label_map, local_labels, None, None)
-        label_records = [{'type': 'label', 'text': f'{label}:',
-                          'offset': start}]
-        label_records.extend(
-            {'type': 'label', 'text': f'{name}:', 'offset': addr}
-            for addr, name in sorted(label_map.items())
-            if start < addr < end and isinstance(name, str))
-        label_records.extend(
-            {'type': 'label', 'text': f'{name}:', 'offset': addr}
-            for addr, name in sorted(local_labels.items()))
+            bytes(final), start, label_map, local_labels, foreign_label_map,
+            immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
+            mem_symbols=mem_symbols, mem_equ=mem_equ)
         records = _merge_label_records(records, label_records)
         fragment = '\n'.join(_render_records(records, data, True)) + '\n'
         with open(os.path.join(dest, f'{label}.asm'), 'w') as f:

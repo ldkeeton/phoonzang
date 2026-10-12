@@ -41,7 +41,7 @@ from lib.cross_ref import overlay_host_aliases
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_c_overrides
-from .emit import _write_address_inventory
+from .emit import _write_address_inventory, _write_render_context
 from .options import (
     ASM_DIR,
     AZTEC_PREBUILD_ONLY,
@@ -481,6 +481,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     }
     ctx.report['addresses'] = stats.get('address_records', [])
     _write_address_inventory(project, name, label_map, ctx.report['addresses'])
+    render_context = stats.pop('render_context', None)
+    if project and render_context:
+        _write_render_context(project, name, render_context)
     if STATS:
         write_report(ctx, asm_text)
         write_layers(ctx)

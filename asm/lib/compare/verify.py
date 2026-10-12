@@ -902,6 +902,20 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             insns, mem_symbols, mem_equ, segment_flow, label_map, start_offset,
             data_labels=data_labels, reloc_targets=reloc_targets,
             immediate_labels=immediate_labels),
+        # Rendering context for ``make elf-rebuild``'s C-fragment resplice:
+        # without these maps a recompiled fragment loses the resolved operand
+        # symbols (e.g. ``bss_0d00``) and the binary's local-label numbering.
+        'render_context': {
+            'local_labels': local_labels,
+            'mem_symbols': mem_symbols,
+            'mem_equ': mem_equ,
+            'data_labels': data_labels,
+            'foreign_label_map': foreign_label_map,
+            'immediate_labels': immediate_labels,
+            'exact_bytes': bool(exact_bytes),
+            'label_records': [(rec['offset'], rec['text'])
+                              for rec in records if rec['type'] == 'label'],
+        },
         'status': 'OK',
         'timing_func_boundaries': t1 - t0,
         'timing_local_labels': t2 - t1,
