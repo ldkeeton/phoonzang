@@ -77,6 +77,21 @@ def normalize(name):
     return name or 'aztec_func'
 
 
+def _collapse_aliases(funcs):
+    """Keep one symbol per entry point.
+
+    Several publics can share a segment offset (``$longs``/``$ldv`` in
+    LSUBS).  Their bytes are identical, so every window would have two names
+    and fail the uniqueness test, leaving the routine without a signature.
+    Prefer the shortest name, then the last one defined.
+    """
+    groups = collections.OrderedDict()
+    for f in funcs:
+        groups.setdefault((f['module'], f['seg'], f['offset']), []).append(f)
+    for group in groups.values():
+        yield min(reversed(group), key=lambda f: len(normalize(f['name'])))
+
+
 def load_functions(here):
     by_name = collections.defaultdict(list)
     for rel in LIB_DIRS:
@@ -86,7 +101,7 @@ def load_functions(here):
                 funcs = omflib.public_functions(open(path, 'rb').read())
             except Exception:
                 continue
-            for f in funcs:
+            for f in _collapse_aliases(funcs):
                 if f['length'] >= 6:
                     by_name[normalize(f['name'])].append(f)
     return by_name

@@ -5,7 +5,7 @@ api_idx_0024:
     mov dx, word [bss_8f1e]          ; 0x3b8c
     mov cx, 0x5a0                    ; 0x3b90
     mov bx, 0                        ; 0x3b93
-    call ds_loc_4be6                 ; 0x3b96
+    call ds_aztec_ldv                ; 0x3b96
     add ax, strict word 1            ; 0x3b99
     adc dx, byte 0                   ; 0x3b9c
     mov word [bp - 0x0004], ax       ; 0x3b9f
@@ -21,7 +21,7 @@ api_idx_0024:
     call ds_aztec_lrm                ; 0x3bbb
     mov cx, 0x3c                     ; 0x3bbe
     mov bx, 0                        ; 0x3bc1
-    call ds_loc_4be6                 ; 0x3bc4
+    call ds_aztec_ldv                ; 0x3bc4
     cmp dx, byte 0                   ; 0x3bc7
     jg short @..api_idx_0024.l1      ; 0x3bca
     jne short @..api_idx_0024.l2     ; 0x3bcc

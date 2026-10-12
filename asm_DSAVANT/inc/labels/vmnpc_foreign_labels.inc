@@ -71,7 +71,7 @@ ds_aztec_strcpy equ 0xf364
 ds_aztec_csav equ 0xf40b
 ds_aztec_malloc equ 0xf4a3
 ds_aztec_free equ 0xf5a1
-ds_loc_4be6 equ 0xf99f
+ds_aztec_ldv equ 0xf99f
 ds_aztec_lrm equ 0xf9cd
 ds_aztec_strlen equ 0xfa90
 ds_aztec_movmem equ 0xfedc

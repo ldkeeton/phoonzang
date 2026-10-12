@@ -496,7 +496,7 @@ jumptable_4822:
 
 %include "ds/aztec_open.asm"               ; 0x4b50
 
-%include "ds/loc_4be6.asm"                 ; 0x4be6
+%include "ds/aztec_ldv.asm"                ; 0x4be6
 
 %include "ds/aztec_lrm.asm"                ; 0x4c14
 

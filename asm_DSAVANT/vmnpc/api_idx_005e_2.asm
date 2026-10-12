@@ -111,7 +111,7 @@ api_idx_005e_2:
     mov bx, dx                       ; 0x58d6
     pop dx                           ; 0x58d8
     pop ax                           ; 0x58d9
-    call ds_loc_4be6                 ; 0x58da
+    call ds_aztec_ldv                ; 0x58da
     push ax                          ; 0x58dd
     push dx                          ; 0x58de
     mov ax, word [bp - 0x0006]       ; 0x58df
@@ -132,7 +132,7 @@ api_idx_005e_2:
     add dx, bx                       ; 0x58f7
     mov cx, 0x64                     ; 0x58f9
     mov bx, 0                        ; 0x58fc
-    call ds_loc_4be6                 ; 0x58ff
+    call ds_aztec_ldv                ; 0x58ff
     mov word [bp - 0x003c], dx       ; 0x5902
     mov word [bp - 0x003e], ax       ; 0x5905
 @..api_idx_005e_2.l4:
@@ -159,7 +159,7 @@ api_idx_005e_2:
     add dx, cx                       ; 0x5930
     mov cx, 0x64                     ; 0x5932
     mov bx, 0                        ; 0x5935
-    call ds_loc_4be6                 ; 0x5938
+    call ds_aztec_ldv                ; 0x5938
 @..api_idx_005e_2.l6:
     mov word [bp - 0x003c], dx       ; 0x593b
     mov word [bp - 0x003e], ax       ; 0x593e

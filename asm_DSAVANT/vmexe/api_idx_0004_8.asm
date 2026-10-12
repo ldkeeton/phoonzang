@@ -20,7 +20,7 @@ api_idx_0004_8:
     imul bx                          ; 0x2520
     mov cx, 0x64                     ; 0x2522
     mov bx, 0                        ; 0x2525
-    call ds_loc_4be6                 ; 0x2528
+    call ds_aztec_ldv                ; 0x2528
     mov word [bp - 0x0004], ax       ; 0x252b
 @..api_idx_0004_8.l1:
     cmp word [bp - 0x0004], byte 0   ; 0x252e

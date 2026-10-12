@@ -223,9 +223,6 @@ ds_aztec_movblock equ 0x4517
 ds_aztec_setmem equ 0x454d
 ds_string_loc_4574 equ 0x4574
 ds_aztec_strncat equ 0x457c
-ds_loc_4582 equ 0x4582
-ds_loc_4599 equ 0x4599
-ds_loc_45a4 equ 0x45a4
 ds_aztec_strcpy equ 0x45ab
 ds_aztec_lmalloc equ 0x45d7
 ds_aztec_lfree equ 0x460d
@@ -294,9 +291,7 @@ ds_leaf_loc_4aed equ 0x4aed
 ds_string_loc_4b07 equ 0x4b07
 ds_aztec_creat equ 0x4b39
 ds_aztec_open equ 0x4b50
-ds_loc_4be6 equ 0x4be6
-ds_loc_4c07 equ 0x4c07
-ds_loc_4c12 equ 0x4c12
+ds_aztec_ldv equ 0x4be6
 ds_aztec_lrm equ 0x4c14
 ds_aztec_lum equ 0x4c38
 ds_aztec_lud equ 0x4c40
@@ -313,10 +308,6 @@ ds_aztec_read equ 0x4fa2
 ds_leaf_loc_4fac equ 0x4fac
 ds_leaf_loc_4fb6 equ 0x4fb6
 ds_aztec_write equ 0x4fbd
-ds_loc_4fc2 equ 0x4fc2
-ds_loc_4fd6 equ 0x4fd6
-ds_loc_4fda equ 0x4fda
-ds_loc_4fea equ 0x4fea
 ds_aztec_close equ 0x4fec
 ds_aztec_lseek equ 0x5004
 ds_aztec_unlink equ 0x5023

@@ -889,7 +889,7 @@ jumptable_6ea7_case_1:
     imul bx                          ; 0x6d9b
     mov cx, 0x64                     ; 0x6d9d
     mov bx, 0                        ; 0x6da0
-    call ds_loc_4be6                 ; 0x6da3
+    call ds_aztec_ldv                ; 0x6da3
     mov word [bp - 0x0004], ax       ; 0x6da6
     push ax                          ; 0x6da9
     call ds_app_09f0                 ; 0x6daa

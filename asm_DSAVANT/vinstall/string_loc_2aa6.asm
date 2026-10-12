@@ -2,4 +2,4 @@ string_loc_2aa6:
     push bp                          ; 0x2aa6
     mov bp, sp                       ; 0x2aa7
     mov dx, 0x7fff                   ; 0x2aa9
-    jmp short loc_2ab4               ; 0x2aac
+    jmp short @..aztec_strncat.catcommon ; 0x2aac

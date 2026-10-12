@@ -73,5 +73,5 @@ ds_aztec_setmem equ 0xf306
 ds_string_loc_4574 equ 0xf32d
 ds_aztec_strcpy equ 0xf364
 ds_aztec_csav equ 0xf40b
-ds_loc_4be6 equ 0xf99f
+ds_aztec_ldv equ 0xf99f
 ds_aztec_strlen equ 0xfa90

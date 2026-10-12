@@ -543,8 +543,11 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         os.makedirs(labels_dir, exist_ok=True)
         json_path = os.path.join(labels_dir, f'{name}_labels.json')
         inc_path = os.path.join(labels_dir, f'{name}_labels.inc')
-        write_label_json(label_map, json_path)
-        write_label_inc(label_map, inc_path, prefix=name)
+        from lib.compare.vendor import _vendor_named_tails
+        renamed = _vendor_named_tails(label_map, asm_annotations)
+        exported = {a: n for a, n in label_map.items() if a not in renamed}
+        write_label_json(exported, json_path)
+        write_label_inc(exported, inc_path, prefix=name)
 
     if _DECOMPILE:
         from lib.decompile import decompile

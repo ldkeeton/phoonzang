@@ -16,7 +16,7 @@ api_idx_0002_3:
     imul bx                          ; 0x1f26
     mov cx, 0x64                     ; 0x1f28
     mov bx, 0                        ; 0x1f2b
-    call ds_loc_4be6                 ; 0x1f2e
+    call ds_aztec_ldv                ; 0x1f2e
     mov word [bp - 0x0002], ax       ; 0x1f31
     cmp ax, strict word 0            ; 0x1f34
     jge short @..api_idx_0002_3.l1   ; 0x1f37

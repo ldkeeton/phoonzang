@@ -75,7 +75,7 @@ api_idx_0086:
     mov dx, word [bss_8f1e]          ; 0x6ec6
     mov cx, 0x5a0                    ; 0x6eca
     mov bx, 0                        ; 0x6ecd
-    call ds_loc_4be6                 ; 0x6ed0
+    call ds_aztec_ldv                ; 0x6ed0
     push ax                          ; 0x6ed3
     mov ax, 6                        ; 0x6ed4
     imul word [bp - 0x0002]          ; 0x6ed7
@@ -234,7 +234,7 @@ api_idx_0086:
     add dx, cx                       ; 0x7043
     mov cx, 0x64                     ; 0x7045
     mov bx, 0                        ; 0x7048
-    call ds_loc_4be6                 ; 0x704b
+    call ds_aztec_ldv                ; 0x704b
 @..api_idx_0086.l17:
     mov cx, word [bp - 0x0002]       ; 0x704e
     shl cx, 1                        ; 0x7051

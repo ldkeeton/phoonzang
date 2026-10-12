@@ -317,7 +317,7 @@ loc_1a16:
     imul bx                          ; 0x1b60
     mov cx, 0x64                     ; 0x1b62
     mov bx, 0                        ; 0x1b65
-    call ds_loc_4be6                 ; 0x1b68
+    call ds_aztec_ldv                ; 0x1b68
     push ax                          ; 0x1b6b
     push dx                          ; 0x1b6c
     mov ax, word [bp - 0x0002]       ; 0x1b6d
@@ -360,7 +360,7 @@ loc_1a16:
     imul bx                          ; 0x1bc0
     mov cx, 0x64                     ; 0x1bc2
     mov bx, 0                        ; 0x1bc5
-    call ds_loc_4be6                 ; 0x1bc8
+    call ds_aztec_ldv                ; 0x1bc8
     push ax                          ; 0x1bcb
     push dx                          ; 0x1bcc
     mov ax, word [bp - 0x0002]       ; 0x1bcd

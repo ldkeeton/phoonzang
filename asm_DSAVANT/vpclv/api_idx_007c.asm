@@ -171,12 +171,12 @@ api_idx_007c:
     mov dx, word [bx + 0x5bfe]       ; 0x070f
     mov cx, 0x16d                    ; 0x0713
     mov bx, 0                        ; 0x0716
-    call ds_loc_4be6                 ; 0x0719
+    call ds_aztec_ldv                ; 0x0719
     add ax, strict word 0xffee       ; 0x071c
     adc dx, byte 0xff                ; 0x071f
     mov cx, 4                        ; 0x0722
     mov bx, 0                        ; 0x0725
-    call ds_loc_4be6                 ; 0x0728
+    call ds_aztec_ldv                ; 0x0728
     push ax                          ; 0x072b
     push dx                          ; 0x072c
     mov ax, 0x248                    ; 0x072d
@@ -224,7 +224,7 @@ api_idx_007c:
     add dx, bx                       ; 0x0781
     mov cx, 0x12                     ; 0x0783
     mov bx, 0                        ; 0x0786
-    call ds_loc_4be6                 ; 0x0789
+    call ds_aztec_ldv                ; 0x0789
     mov word [bss_9436], ax          ; 0x078c
     mov ax, 0x14                     ; 0x078f
     push ax                          ; 0x0792

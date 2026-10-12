@@ -343,7 +343,7 @@ loc_5789:
     mov bx, dx                       ; 0x5a0b
     pop dx                           ; 0x5a0d
     pop ax                           ; 0x5a0e
-    call ds_loc_4be6                 ; 0x5a0f
+    call ds_aztec_ldv                ; 0x5a0f
     mov word [bp - 0x0086], dx       ; 0x5a12
     mov word [bp - 0x0088], ax       ; 0x5a16
     push word [bss_0e2c]             ; 0x5a1a

@@ -29,7 +29,7 @@ api_idx_0012:
     mov bx, dx                       ; 0x00d9
     pop dx                           ; 0x00db
     pop ax                           ; 0x00dc
-    call ds_loc_4be6                 ; 0x00dd
+    call ds_aztec_ldv                ; 0x00dd
     mov word [bp - 0x0010], dx       ; 0x00e0
     mov word [bp - 0x0012], ax       ; 0x00e3
     cmp dx, byte 0                   ; 0x00e6

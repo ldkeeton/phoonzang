@@ -2,13 +2,13 @@ aztec_mkdir:
     push bp                          ; 0x29fe
     mov bp, sp                       ; 0x29ff
     mov ah, 0x39 ; char *mkdir(name) / char *name; ; 0x2a01
-loc_2a03:
+@..aztec_mkdir.dircommon:
     mov dx, word [bp + 0x4]          ; 0x2a03
     int 0x21 ; DOS create directory
     mov ax, 0                        ; 0x2a08
-    jae short loc_2a13               ; 0x2a0b
+    jae short @..aztec_mkdir.ok      ; 0x2a0b
     mov word [dseg_24d6], ax         ; 0x2a0d
     mov ax, 0xffff                   ; 0x2a10
-loc_2a13:
+@..aztec_mkdir.ok:
     pop bp                           ; 0x2a13
     ret                              ; 0x2a14

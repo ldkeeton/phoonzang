@@ -402,7 +402,7 @@ api_idx_0074:
     mov bx, dx                       ; 0x6a90
     pop dx                           ; 0x6a92
     pop ax                           ; 0x6a93
-    call ds_loc_4be6                 ; 0x6a94
+    call ds_aztec_ldv                ; 0x6a94
     push ax                          ; 0x6a97
     push dx                          ; 0x6a98
     mov ax, 0x248                    ; 0x6a99
@@ -427,7 +427,7 @@ api_idx_0074:
     add dx, bx                       ; 0x6abc
     mov cx, 0x64                     ; 0x6abe
     mov bx, 0                        ; 0x6ac1
-    call ds_loc_4be6                 ; 0x6ac4
+    call ds_aztec_ldv                ; 0x6ac4
     mov word [bp - 0x0020], ax       ; 0x6ac7
     mov ax, 0x248                    ; 0x6aca
     imul word [bp - 0x0002]          ; 0x6acd

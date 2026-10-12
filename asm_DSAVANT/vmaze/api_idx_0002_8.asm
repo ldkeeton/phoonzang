@@ -8,7 +8,7 @@ api_idx_0002_8:
     call ds_aztec_lrm                ; 0x0e70
     mov cx, 0x3c                     ; 0x0e73
     mov bx, 0                        ; 0x0e76
-    call ds_loc_4be6                 ; 0x0e79
+    call ds_aztec_ldv                ; 0x0e79
     mov word [bp - 0x0002], ax       ; 0x0e7c
     mov cx, 3                        ; 0x0e7f
     imul cx                          ; 0x0e82

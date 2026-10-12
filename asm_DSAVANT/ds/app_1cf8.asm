@@ -20,12 +20,12 @@ app_1cf8: ; Aztec csav frame=0x0002
     mov bx, dx                       ; 0x1d23
     pop dx                           ; 0x1d25
     pop ax                           ; 0x1d26
-    call loc_4be6                    ; 0x1d27
+    call aztec_ldv                   ; 0x1d27
     mov cx, ax                       ; 0x1d2a
     mov bx, dx                       ; 0x1d2c
     pop ax                           ; 0x1d2e
     pop dx                           ; 0x1d2f
-    call loc_4be6                    ; 0x1d30
+    call aztec_ldv                   ; 0x1d30
     add ax, strict word 1            ; 0x1d33
     adc dx, byte 0                   ; 0x1d36
     mov word [bp - 0x0002], ax       ; 0x1d39

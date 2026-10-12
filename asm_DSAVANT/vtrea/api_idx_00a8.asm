@@ -21,7 +21,7 @@ api_idx_00a8:
     mov dx, word [bss_84a4]          ; 0x5db3
     mov cx, 0x14                     ; 0x5db7
     mov bx, 0                        ; 0x5dba
-    call ds_loc_4be6                 ; 0x5dbd
+    call ds_aztec_ldv                ; 0x5dbd
     push ax                          ; 0x5dc0
     push dx                          ; 0x5dc1
     mov ax, word [bss_69c8]          ; 0x5dc2
@@ -57,7 +57,7 @@ api_idx_00a8:
     mov bx, dx                       ; 0x5e02
     pop dx                           ; 0x5e04
     pop ax                           ; 0x5e05
-    call ds_loc_4be6                 ; 0x5e06
+    call ds_aztec_ldv                ; 0x5e06
     mov word [bp - 0x0006], dx       ; 0x5e09
     mov word [bp - 0x0008], ax       ; 0x5e0c
     lea ax, word [bp - 0x0058]       ; 0x5e0f

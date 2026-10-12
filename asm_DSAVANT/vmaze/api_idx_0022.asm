@@ -208,7 +208,7 @@ api_idx_0022:
     call ds_aztec_lrm                ; 0x242d
     mov cx, 0xa                      ; 0x2430
     mov bx, 0                        ; 0x2433
-    call ds_loc_4be6                 ; 0x2436
+    call ds_aztec_ldv                ; 0x2436
     push ax                          ; 0x2439
     push dx                          ; 0x243a
     mov ax, word [bp - 0x0004]       ; 0x243b

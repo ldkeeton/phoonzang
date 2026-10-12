@@ -36,7 +36,7 @@ app_0422: ; Aztec csav frame=0x0006
     mov dx, word [bp + 0x6]          ; 0x0477
     mov cx, 0xa                      ; 0x047a
     mov bx, 0                        ; 0x047d
-    call loc_4be6                    ; 0x0480
+    call aztec_ldv                   ; 0x0480
     mov word [bp + 0x6], dx          ; 0x0483
     mov word [bp + 0x4], ax          ; 0x0486
     cmp dx, byte 0                   ; 0x0489

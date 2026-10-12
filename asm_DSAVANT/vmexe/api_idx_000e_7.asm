@@ -39,7 +39,7 @@ api_idx_000e_7:
     mov bx, dx                       ; 0x9217
     pop dx                           ; 0x9219
     pop ax                           ; 0x921a
-    call ds_loc_4be6                 ; 0x921b
+    call ds_aztec_ldv                ; 0x921b
     inc ax                           ; 0x921e
     mov word [bp - 0x0006], ax       ; 0x921f
     cmp ax, strict word 1            ; 0x9222

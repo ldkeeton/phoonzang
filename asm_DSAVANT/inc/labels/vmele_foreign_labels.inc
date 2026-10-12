@@ -47,7 +47,7 @@ ds_aztec_csav equ 0xf40b
 ds_aztec_malloc equ 0xf4a3
 ds_aztec_free equ 0xf5a1
 ds_aztec_open equ 0xf909
-ds_loc_4be6 equ 0xf99f
+ds_aztec_ldv equ 0xf99f
 ds_aztec_strlen equ 0xfa90
 ds_aztec_close equ 0xfda5
 ds_aztec_lseek equ 0xfdbd

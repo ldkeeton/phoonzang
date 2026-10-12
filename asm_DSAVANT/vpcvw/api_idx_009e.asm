@@ -72,7 +72,7 @@ api_idx_009e:
     mov dx, word [bx + 0x5bfe]       ; 0x1944
     mov cx, 0x16d                    ; 0x1948
     mov bx, 0                        ; 0x194b
-    call ds_loc_4be6                 ; 0x194e
+    call ds_aztec_ldv                ; 0x194e
     push ax                          ; 0x1951
     call ds_app_04c4                 ; 0x1952
     add sp, byte 4                   ; 0x1955

@@ -2741,7 +2741,7 @@ jumptable_5eb8_case_96:
     mov bx, dx                       ; 0x538b
     pop dx                           ; 0x538d
     pop ax                           ; 0x538e
-    call ds_loc_4be6                 ; 0x538f
+    call ds_aztec_ldv                ; 0x538f
     mov word [bp - 0x0004], ax       ; 0x5392
     cmp ax, strict word 2            ; 0x5395
     jge short @..api_idx_000e_5.l69  ; 0x5398

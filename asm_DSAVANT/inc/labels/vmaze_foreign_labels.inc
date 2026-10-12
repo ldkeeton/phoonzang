@@ -59,7 +59,7 @@ ds_string_loc_4574 equ 0xf32d
 ds_aztec_strcpy equ 0xf364
 ds_aztec_csav equ 0xf40b
 ds_aztec_open equ 0xf909
-ds_loc_4be6 equ 0xf99f
+ds_aztec_ldv equ 0xf99f
 ds_aztec_lrm equ 0xf9cd
 ds_aztec_strlen equ 0xfa90
 ds_aztec_close equ 0xfda5

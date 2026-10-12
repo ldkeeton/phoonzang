@@ -37,7 +37,7 @@ api_idx_0018:
     mov dx, word [bss_8f16]          ; 0x1cf5
     mov cx, 0x3c                     ; 0x1cf9
     mov bx, 0                        ; 0x1cfc
-    call ds_loc_4be6                 ; 0x1cff
+    call ds_aztec_ldv                ; 0x1cff
     mov word [bp - 0x000c], ax       ; 0x1d02
     mov word [bp - 0x000e], 0        ; 0x1d05
 @..api_idx_0018.l2:

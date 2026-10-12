@@ -17,4 +17,4 @@ aztec_lrm:
     call aztec_lud                   ; 0x3460
     mov ax, cx                       ; 0x3463
     mov dx, bx                       ; 0x3465
-    jmp short @..aztec_lrm.l1        ; 0x3467
+    jmp short @..aztec_ldv.chksign   ; 0x3467

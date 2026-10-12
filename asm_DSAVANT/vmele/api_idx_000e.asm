@@ -19,7 +19,7 @@ api_idx_000e:
     imul bx                          ; 0x12dd
     mov cx, 0x64                     ; 0x12df
     mov bx, 0                        ; 0x12e2
-    call ds_loc_4be6                 ; 0x12e5
+    call ds_aztec_ldv                ; 0x12e5
     mov word [bp - 0x0002], ax       ; 0x12e8
     push ax                          ; 0x12eb
     call ds_app_09f0                 ; 0x12ec

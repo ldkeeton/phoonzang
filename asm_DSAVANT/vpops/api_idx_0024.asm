@@ -93,10 +93,10 @@ api_idx_0024:
     add dx, cx                       ; 0x46de
     mov cx, word [bp - 0x0020]       ; 0x46e0
     mov bx, word [bp - 0x001e]       ; 0x46e3
-    call ds_loc_4be6                 ; 0x46e6
+    call ds_aztec_ldv                ; 0x46e6
     mov cx, 0x19                     ; 0x46e9
     mov bx, 0                        ; 0x46ec
-    call ds_loc_4be6                 ; 0x46ef
+    call ds_aztec_ldv                ; 0x46ef
     push ax                          ; 0x46f2
     xchg dx, ax                      ; 0x46f3
     mov bx, 5                        ; 0x46f4
@@ -122,10 +122,10 @@ api_idx_0024:
     add dx, cx                       ; 0x471d
     mov cx, word [bp - 0x0024]       ; 0x471f
     mov bx, word [bp - 0x0022]       ; 0x4722
-    call ds_loc_4be6                 ; 0x4725
+    call ds_aztec_ldv                ; 0x4725
     mov cx, 0x19                     ; 0x4728
     mov bx, 0                        ; 0x472b
-    call ds_loc_4be6                 ; 0x472e
+    call ds_aztec_ldv                ; 0x472e
     push ax                          ; 0x4731
     xchg dx, ax                      ; 0x4732
     mov bx, 5                        ; 0x4733

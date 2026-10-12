@@ -844,7 +844,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             )
 
     if asm_annotations:
-        records = _apply_asm_annotations(records, asm_annotations)
+        records = _apply_asm_annotations(
+            records, asm_annotations, label_map)
 
     if c_overrides:
         records = _apply_c_overrides(
