@@ -18,7 +18,7 @@ HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
   make init                 sparse-clone only the dos_compilers folders listed in sidecars
-  make all                  all projects serially
+  make all                  clean, build, then verify all projects
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
   make prebuild PROJECT [BIN]  wipe .cache/PROJECT, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
@@ -58,6 +58,12 @@ def main():
 
     if '--help' in flags:
         print(HELP)
+        return
+
+    if '--all' in flags:
+        cmd_clean([])
+        _build_projects(all_projects, all_projects)
+        cmd_verify([])
         return
 
     if '--init' in flags:
