@@ -7,6 +7,7 @@ from .charts import cmd_charts, cmd_set_baseline
 from .clean import cmd_clean
 from .common import _apps, _asm_one
 from .elf import cmd_elf_rebuild
+from .init import cmd_init
 from .prebuild import cmd_prebuild
 from .run import _parse_check_args, cmd_check, cmd_run
 from .stats_diff import cmd_stats_diff
@@ -16,13 +17,14 @@ from .verify import cmd_verify
 HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
+  make init                 sparse-clone only the dos_compilers folders listed in sidecars
   make all                  all projects serially
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
-  make prebuild PROJECT [BIN]  run the slow Aztec C mux and cache extracted seeds
+  make prebuild PROJECT [BIN]  wipe .cache/PROJECT, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
-  make clean [PROJECT...]   clean one or all projects (incl. .cache/asm_prebuild_*)
+  make clean [PROJECT...]   clean one or all projects (incl. .cache/<project>/prebuild)
   make rebuild PROJECT BIN  nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN recompile edited .c (no verify) + rebuild EXE + ELF/DWARF
   make decompile PROJECT BIN  disassemble + decompile binary to .c
@@ -56,6 +58,10 @@ def main():
 
     if '--help' in flags:
         print(HELP)
+        return
+
+    if '--init' in flags:
+        cmd_init()
         return
 
     if '--verify' in flags:

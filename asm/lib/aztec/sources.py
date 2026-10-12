@@ -25,7 +25,7 @@ import re
 
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))))
-_DOSCOMP = os.path.join(_ASM_DIR, 'tools', 'dos_compilers')
+_DOSCOMP = os.path.join(_ASM_DIR, 'dos_compilers')
 
 VERSIONS = {
     'v340a': os.path.join(_DOSCOMP, 'Manx Aztec C86 v340a'),

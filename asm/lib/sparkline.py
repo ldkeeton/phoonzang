@@ -7,9 +7,9 @@ import warnings
 import numpy as np
 import polars as pl
 
+from lib import cachedirs
 from lib.model import IS_CODE, IS_DATA, IS_UNKNOWN
 from lib.report import (
-    STATS_DIR,
     layers_path, baseline_layers_path, list_project_dirs,
     images_dir, images_csv_dir,
     layers_images_dir, layers_images_csv_dir,
@@ -184,7 +184,7 @@ def _binary_keys(project=None):
     else:
         dirs = list_project_dirs()
     for g in dirs:
-        stats_g = os.path.join(STATS_DIR, g)
+        stats_g = cachedirs.stats_dir(g)
         if not os.path.isdir(stats_g):
             continue
         prefix = f'{g}_'

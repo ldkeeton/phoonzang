@@ -128,6 +128,8 @@ bss_2af8 equ (__zimage_end - __zdataseg_start) + 0x05c4
 bss_2afa equ (__zimage_end - __zdataseg_start) + 0x05c6
 bss_2afc equ (__zimage_end - __zdataseg_start) + 0x05c8
 bss_2afe equ (__zimage_end - __zdataseg_start) + 0x05ca
+__zbss_size equ 0x05ca
+__zdataseg_end equ (__zimage_end - __zdataseg_start) + __zbss_size
 
 loc_0200:
     push bp                          ; 0x0200

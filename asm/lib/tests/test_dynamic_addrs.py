@@ -83,18 +83,20 @@ def _mz_header(e_ss):
 
 # Snapshot taken from the committed tree after the F1/F2/F3/F5 work
 # (2026-10-11), the D0 census split and D1's data-label binding (2026-10-12),
-# and the D7.0a shared-geometry counters (2026-10-12).  ``total`` is the
+# the D7.0a shared-geometry counters (2026-10-12), and D7.0b's binding of the
+# DS-size immediates to ``__zdataseg_end`` (2026-10-12).  ``total`` is the
 # *gated* sum (``code_shift + data_shift``); ``inert`` values (``psp_`` fields,
 # ``bios_data_0410``, literal data tables) are reported but excluded from the
-# gate.  D7.0a *raised* the baseline by 33: it made the previously invisible
-# shared host/overlay geometry countable (13 ``o_corg`` + 13 ``o_dorg`` +
-# 7 ``ds_size_imm``).  That is a one-time honesty correction, not a regression.
-# Every count may only go down from here.
+# gate.  D7.0a *raised* the baseline by 33 (it made the previously invisible
+# shared host/overlay geometry countable: 13 ``o_corg`` + 13 ``o_dorg`` +
+# 7 ``ds_size_imm``); D7.0b then bound the 7 immediates, dropping
+# ``ds_size_imm`` to 0 and ``code_shift`` with it.  Every count may only go down
+# from here.
 BASELINE_TOTALS = {
-    'code_shift': 172, 'data_shift': 1244, 'inert': 248,
+    'code_shift': 165, 'data_shift': 1244, 'inert': 248,
     'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1231, 'f5': 3, 'f6': 241, 'f7': 0,
-    'o_corg': 13, 'o_dorg': 13, 'ds_size_imm': 7,
-    'total': 1416,
+    'o_corg': 13, 'o_dorg': 13, 'ds_size_imm': 0,
+    'total': 1409,
 }
 
 
@@ -311,6 +313,57 @@ class DataSegmentLabelBindingTests(unittest.TestCase):
         self.assertEqual(built[0x203:0x207], b'\x8b\x1e\x13\x00')
 
 
+class DsSizeSymbolTests(unittest.TestCase):
+    """D7.0b: a code immediate equal to the DS size is bound to ``__zdataseg_end``.
+
+    The synthetic MZ has one instruction ``mov cx, 0x0018`` where ``0x18`` is
+    the total data-segment size (0x10 file-backed bytes + 0x08 reserved BSS).
+    The immediate must render as the symbol (not a literal), reassemble byte for
+    byte, and follow an inserted data byte.
+    """
+
+    DATA_ORIGIN = 0x210
+    CODE = b'\xb9\x18\x00'                    # mov cx, 0x0018
+    DATA = bytes(range(0x10, 0x20))           # 0x10 file-backed bytes
+
+    def _image(self):
+        header = _mz_header(e_ss=1)
+        gap = bytes(self.DATA_ORIGIN - (0x200 + len(self.CODE)))
+        binary = bytearray(header + self.CODE + gap + self.DATA)
+        struct.pack_into('<HH', binary, 2, len(binary) % 512,
+                         (len(binary) + 511) // 512)
+        return bytes(binary)
+
+    def _source(self, binary):
+        records = [
+            {'type': 'mnem', 'text': 'mov cx, 0x0018',
+             'offset': 0x200, 'size': 3},
+            {'type': 'data_block', 'start': 0x203, 'end': len(binary),
+             'bytes': []},
+        ]
+        src, _ = _build_source(records, 0x200, binary, label_map={},
+                               ds_size=0x18)
+        return src
+
+    def test_immediate_becomes_the_symbol(self):
+        src = self._source(self._image())
+        self.assertIn('__zbss_size equ 0x0008', src)
+        self.assertIn(
+            '__zdataseg_end equ (__zimage_end - __zdataseg_start) '
+            '+ __zbss_size', src)
+        self.assertIn('mov cx, __zdataseg_end', src)
+        self.assertNotIn('mov cx, 0x0018', src)
+        self.assertEqual(count_frozen_addrs(src)['ds_size_imm'], 0)
+        self.assertEqual(_nasm(src), self._image())
+
+    def test_immediate_follows_an_inserted_data_byte(self):
+        src = self._source(self._image())
+        grown = src.replace('__zdataseg_start:',
+                            '__zdataseg_start:\n    db 0xee', 1)
+        built = _nasm(grown)
+        self.assertEqual(built[0x200:0x203], b'\xb9\x19\x00')
+
+
 class DataStringAnchorTests(unittest.TestCase):
     """D1: a reference *inside* a string anchors to the string start.
 
@@ -406,6 +459,41 @@ class InsertBytePropertyTests(unittest.TestCase):
             g_cblp, g_cp = struct.unpack_from('<HH', grown, 2)
             self.assertEqual(g_cblp, len(grown) % 512)
             self.assertEqual(g_cp, (len(grown) + 511) // 512)
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'ds.asm').exists(),
+                         'generated asm_DSAVANT tree not present')
+    def test_ds_data_insert_moves_the_ds_size_immediates(self):
+        """D7.0b: a code immediate hard-coding the DS size follows a data edit.
+
+        ``aztec_begin`` stores the DS size (``0x9098``) three ways: into a
+        register, the stack pointer and a DS word.  Inserting one file-backed
+        data byte grows the segment by one, so every stored size must read
+        ``0x9099``.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'ds.asm')
+            original = _nasm_file(master, d)
+            self.assertEqual(original[0x4d89:0x4d8d], b'\x81\xc3\x98\x90')
+            self.assertEqual(original[0x4de3:0x4de6], b'\xb9\x98\x90')
+            self.assertEqual(original[0x4e46:0x4e4c],
+                             b'\xc7\x06\x7a\x0c\x98\x90')
+
+            with open(master) as f:
+                src = f.read()
+            grown_src = src.replace('__zdataseg_start:\n',
+                                    '__zdataseg_start:\n    db 0xee\n', 1)
+            self.assertNotEqual(grown_src, src)
+            with open(master, 'w') as f:
+                f.write(grown_src)
+            grown = _nasm_file(master, d)
+
+            self.assertEqual(grown[0x4d89:0x4d8d], b'\x81\xc3\x99\x90')
+            self.assertEqual(grown[0x4de3:0x4de6], b'\xb9\x99\x90')
+            # dseg_0c7a is a DS offset past the inserted byte, so it moves too,
+            # and its stored size grows with the segment.
+            self.assertEqual(grown[0x4e46:0x4e4c],
+                             b'\xc7\x06\x7b\x0c\x99\x90')
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
                          'generated asm_DSAVANT tree not present')

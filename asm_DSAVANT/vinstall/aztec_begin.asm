@@ -30,7 +30,7 @@ aztec_begin:
     ja short @..aztec_begin.l3       ; 0x361d
     mov bx, ax                       ; 0x361f
 @..aztec_begin.l3:
-    add bx, strict word 0x2afe       ; 0x3621 ; dssize
+    add bx, strict word __zdataseg_end ; 0x3621
 @..aztec_begin.l4:
     cli                              ; 0x3625
     mov ss, bp                       ; 0x3626
@@ -70,7 +70,7 @@ aztec_begin:
     mov es, bp                       ; 0x3675
     cld                              ; 0x3677
     mov di, bss_2534                 ; 0x3678
-    mov cx, 0x2afe                   ; 0x367b ; dssize
+    mov cx, __zdataseg_end           ; 0x367b
     sub cx, di                       ; 0x367e
     inc cx                           ; 0x3680
     shr cx, 1                        ; 0x3681
@@ -121,7 +121,7 @@ aztec_begin:
     and di, strict word 0xfffe       ; 0x36d2
     mov word [dseg_24d4], di         ; 0x36d6
     mov word [dseg_24dc], di         ; 0x36da
-    mov word [dseg_24de], 0x2afe     ; 0x36de ; dssize
+    mov word [dseg_24de], __zdataseg_end ; 0x36de
     cmp word [dseg_2518], byte 0     ; 0x36e4
     jne short @..aztec_begin.l15     ; 0x36e9
     mov word [dseg_24de], di         ; 0x36eb

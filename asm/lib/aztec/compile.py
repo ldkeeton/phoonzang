@@ -13,7 +13,7 @@ Pipeline inside DOSBox::
     objms MODULE.O             -> MODULE.OBJ  (Aztec -> MS OMF)
     obd MODULE.O > OBD.TXT     -> relocation records
 
-``MODULE.OBJ`` yields the per-symbol code ranges (via :mod:`types.omflib`)
+``MODULE.OBJ`` yields the per-symbol code ranges (via :mod:`.omflib`)
 and ``OBD.TXT`` yields the relocations; the two share the same segment
 offsets, so relocations can be attributed to each function.
 """
@@ -22,7 +22,6 @@ import contextlib
 import os
 import shutil
 import subprocess
-import sys
 import tempfile
 
 try:
@@ -32,11 +31,12 @@ except ImportError:  # pragma: no cover - non-POSIX
 
 from ..dosbox import DOSBOX
 from .objread import parse_obd, fixup_width
+from .omflib import public_functions
 from . import sources
 
 _DOSCOMP = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-    'tools', 'dos_compilers')
+    'dos_compilers')
 
 _COMPILER_DIRS = {
     'v340a': os.path.join(_DOSCOMP, 'Manx Aztec C86 v340a'),
@@ -409,15 +409,7 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
             shutil.rmtree(work, ignore_errors=True)
 
 
-_ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
-    os.path.abspath(__file__))))
-if os.path.join(_ASM_DIR, 'tools') not in sys.path:
-    sys.path.insert(0, os.path.join(_ASM_DIR, 'tools'))
-
-
 def _build_module(module, omf_path, dump):
-    from omflib import public_functions
-
     result = CompiledModule()
     if not os.path.exists(omf_path):
         return result

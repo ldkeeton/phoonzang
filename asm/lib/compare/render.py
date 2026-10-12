@@ -10,6 +10,10 @@ from lib.compare.splitting import _partition_function_records
 # sliced at the exact byte (cheap, and nothing readable is lost).
 _MIN_STRING_ANCHOR = 6
 
+# The shared host/overlay data-segment size, emitted as a real symbol so a code
+# immediate that hard-codes it follows a resized data segment (plan.md D7.0b).
+_DSSIZE_SYMBOL = '__zdataseg_end'
+
 
 def _group_db_lines(hex_bytes):
     """Group hex bytes into db lines, 16 bytes per line."""
@@ -76,7 +80,7 @@ def _render_data_block(raw):
 
 
 def _render_records(records, binary_data, show_offsets=True, gap=None,
-                    ds_size=None):
+                    ds_size=None, ds_end_symbol=None):
     """Render ordered body records, including textual NASM include directives.
 
     *gap* is an optional ``(block_start, gap_end, header_size, gap_len)`` tuple
@@ -85,9 +89,11 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
     zero pad, so the data segment follows a relocated image.
 
     *ds_size* is the image's data-segment size.  A code immediate equal to it
-    is the shared host/overlay geometry value (plan.md D7.0); such a line is
-    tagged ``; dssize`` so the frozen-address census can count it as form-based
-    rather than by a magic number.
+    is the shared host/overlay geometry value (plan.md D7.0).  When
+    *ds_end_symbol* is given the immediate is rewritten to that symbol (D7.0b),
+    so it follows a resized data segment; otherwise the literal is tagged
+    ``; dssize`` so the frozen-address census counts it as form-based rather
+    than by a magic number (the regression guard for D7.0b).
     """
     out = []
     i = 0
@@ -175,17 +181,28 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
 
         elif rec['type'] == 'mnem':
             annotation = rec.get('annotation')
-            # Tag an immediate equal to the data-segment size (plan.md D7.0).
+            text = rec['text']
             tag = ''
+            # Tag (or bind) an immediate equal to the data-segment size
+            # (plan.md D7.0).
             if ds_size is not None and re.search(
-                    rf'\b0x{ds_size:04x}\b', rec.get('text') or ''):
-                tag = ' ; dssize'
+                    rf'\b0x{ds_size:04x}\b', text):
+                if ds_end_symbol:
+                    # D7.0b: the DS size is the shared host/overlay geometry
+                    # value; bind it to the symbol so it follows a resized data
+                    # segment instead of standing as a frozen literal.
+                    text = re.sub(
+                        rf'\b0x{ds_size:04x}\b', ds_end_symbol, text)
+                else:
+                    # No symbol in scope: keep the literal, tag it so the
+                    # census still counts it.
+                    tag = ' ; dssize'
             if annotation:
-                out.append(f'    {rec["text"]} ; {annotation}{tag}')
+                out.append(f'    {text} ; {annotation}{tag}')
             elif show_offsets:
-                out.append(f'    {rec["text"]:<32s} ; 0x{rec["offset"]:04x}{tag}')
+                out.append(f'    {text:<32s} ; 0x{rec["offset"]:04x}{tag}')
             else:
-                out.append(f'    {rec["text"]}{tag}')
+                out.append(f'    {text}{tag}')
 
         elif rec['type'] == 'db_with_comment':
             annotation = rec.get('annotation')
@@ -390,6 +407,17 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     gap = mz_data_gap(records, binary_data, start_offset)
     if gap is not None:
         data_origin = gap[1]
+    # D7.0b: the total data-segment size (file-backed data + reserved BSS) is the
+    # shared host/overlay geometry value.  When it is known and the MZ anchors
+    # exist, emit it as ``__zdataseg_end`` and rewrite the code immediates that
+    # hard-code it (``_render_records``); ``ds_end_symbol`` stays ``None`` when
+    # there is no symbol in scope, so those immediates are tagged instead.
+    ds_end_symbol = None
+    bss_boundary = None
+    if is_mz and gap is not None:
+        bss_boundary = len(binary_data) - gap[1]
+        if ds_size is not None:
+            ds_end_symbol = _DSSIZE_SYMBOL
     # The symbolic ``e_ip`` rewrite references IMAGE_BASE; force the definition
     # even when no record does (a load offset of 0 would otherwise skip it).
     bound_entry = _mz_entry_symbol(hdr, label_map, entry_symbol) if is_mz else None
@@ -469,7 +497,6 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         if data_anchored:
             from lib.compare.jumptables import _ensure_global_label
             from lib.compare.regions import string_run
-            bss_boundary = len(binary_data) - data_origin
             placed_anchors = set()
         for name in sorted(mem_equ, key=lambda n: (mem_equ[n], n)):
             if _defined(name):
@@ -516,18 +543,27 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                 out.append(f'{name} equ {expr}')
             else:
                 out.append(f'{name} equ 0x{value:04x}')
-    if label_map or immediate_labels or mem_equ:
+    if ds_end_symbol is not None:
+        # D7.0b: total data-segment size = file-backed data + reserved BSS.
+        # ``__zbss_size`` is the invariant BSS reservation (it never moves under
+        # an edit); the sum follows a resized data segment, because
+        # ``__zimage_end - __zdataseg_start`` is the file-backed data size.
+        out.append(f'__zbss_size equ 0x{ds_size - bss_boundary:04x}')
+        out.append(f'{ds_end_symbol} equ '
+                   f'(__zimage_end - __zdataseg_start) + __zbss_size')
+    if label_map or immediate_labels or mem_equ or ds_end_symbol is not None:
         out.append('')
 
     main_records, split_records = _partition_function_records(
         records, split_ranges, split_dir,
     )
     out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap,
-                               ds_size=ds_size))
+                               ds_size=ds_size, ds_end_symbol=ds_end_symbol))
 
     split_sources = {
         path: '\n'.join(_render_records(fragment, binary_data, show_offsets,
-                                        ds_size=ds_size)) + '\n'
+                                        ds_size=ds_size,
+                                        ds_end_symbol=ds_end_symbol)) + '\n'
         for path, fragment in split_records.items()
     }
     if is_mz or (start_offset >= 14 and len(binary_data) >= 14

@@ -129,6 +129,8 @@ bss_830a equ (__zimage_end - __zdataseg_start) + 0x7614
 bss_830c equ (__zimage_end - __zdataseg_start) + 0x7616
 bss_9096 equ (__zimage_end - __zdataseg_start) + 0x83a0
 bss_b198 equ (__zimage_end - __zdataseg_start) + 0xa4a2
+__zbss_size equ 0x83a2
+__zdataseg_end equ (__zimage_end - __zdataseg_start) + __zbss_size
 
 %include "ds/app_malloc.asm"               ; 0x0200
 

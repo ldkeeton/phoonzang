@@ -15,13 +15,15 @@ resplice step.
 
 import os
 
+from lib.cachedirs import render_dir
+
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _PROJECT_ROOT = os.path.dirname(_ASM_DIR)
 
 
 def context_dir(project):
     """Return the ``.cache`` directory holding *project*'s render contexts."""
-    return os.path.join(_PROJECT_ROOT, '.cache', 'render', project)
+    return render_dir(project)
 
 
 def context_path(project, binary):

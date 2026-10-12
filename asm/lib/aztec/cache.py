@@ -2,7 +2,7 @@
 
 Compiling through DOSBox is slow, so ``make prebuild <project>`` resolves every
 ``aztec_*`` routine once and stores the winners under
-``.cache/asm_prebuild_<project>/``:
+``.cache/<project>/prebuild/``:
 
 ``<binary>_aztec_mux.json``
     Winners with provenance (source version/file, compiler, includes, byte
@@ -24,6 +24,8 @@ A build that finds ``aztec_*`` labels but no prebuild data fails loudly with
 import json
 import os
 
+from lib.cachedirs import prebuild_dir
+
 from . import listing, objcache, sources
 from .mux import MuxEngine, is_asm, tool_flags
 from .objread import fixup_width
@@ -37,10 +39,6 @@ _ROOT = os.path.dirname(_ASM_DIR)
 
 class PrebuildMissing(RuntimeError):
     """Raised when a build needs prebuild data that has not been generated."""
-
-
-def prebuild_dir(project):
-    return os.path.join(_ROOT, '.cache', f'asm_prebuild_{project}')
 
 
 def manifest_path(project, binary):

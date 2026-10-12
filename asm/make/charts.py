@@ -3,31 +3,30 @@
 import os
 import shutil
 
-from lib.report import (
-    BASELINE_DIR,
-    STATS_DIR,
-    list_project_dirs,
-)
+from lib import cachedirs
+from lib.report import list_project_dirs
 
 
 def cmd_set_baseline():
     """Pin the current stats as the local baseline (JSON + layers only)."""
-    if not os.path.isdir(STATS_DIR):
-        print(f'No stats at {STATS_DIR}; build with EXTRA_FLAGS=--stats first')
+    projects = list_project_dirs()
+    if not projects:
+        print(f'No stats under {cachedirs.CACHE_ROOT}/<project>/stats; '
+              'build with EXTRA_FLAGS=--stats first')
         return
-    if os.path.isdir(BASELINE_DIR):
-        shutil.rmtree(BASELINE_DIR)
     count = 0
-    for project in list_project_dirs():
-        src = os.path.join(STATS_DIR, project)
-        dst = os.path.join(BASELINE_DIR, project)
+    for project in projects:
+        src = cachedirs.stats_dir(project)
+        dst = cachedirs.baseline_dir(project)
+        if os.path.isdir(dst):
+            shutil.rmtree(dst)
         os.makedirs(dst, exist_ok=True)
         for fn in os.listdir(src):
             if fn.endswith('.json') or fn.endswith('.layers.parquet'):
                 shutil.copy2(os.path.join(src, fn), os.path.join(dst, fn))
                 if fn.endswith('.json') and not fn.endswith('.summary.json'):
                     count += 1
-    print(f'Baseline set: {count} binaries -> {BASELINE_DIR}')
+    print(f'Baseline set: {count} binaries -> {cachedirs.CACHE_ROOT}/<project>/stats_baseline')
 
 
 def _charts(app):

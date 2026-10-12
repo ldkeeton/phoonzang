@@ -5,11 +5,12 @@ import os
 import re
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from lib.cachedirs import stats_dir, trace_dir  # noqa: E402
+
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(ASM_DIR)
 APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
-STATS_DIR = os.path.join(PROJECT_ROOT, '.cache', 'stats')
-DETAILED_DIR = os.path.join(STATS_DIR, 'detailed')
 FLOW_DIR = os.path.dirname(os.path.abspath(__file__))
 BUILD_OUT = os.path.join(FLOW_DIR, 'build_out')
 
@@ -57,14 +58,14 @@ def load_binary(project, binary_name, start_offset):
 
 
 def find_detailed_jsonl(project, binary_name):
-    path = os.path.join(DETAILED_DIR, f'{project}_{binary_name}.jsonl')
+    path = os.path.join(trace_dir(project), f'{project}_{binary_name}.jsonl')
     if os.path.exists(path):
         return path
     return None
 
 
 def find_json_report(project, binary_name):
-    path = os.path.join(STATS_DIR, project, f'{project}_{binary_name}.json')
+    path = os.path.join(stats_dir(project), f'{project}_{binary_name}.json')
     if os.path.exists(path):
         return path
     return None

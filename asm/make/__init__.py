@@ -32,6 +32,7 @@ from .common import (
     _run,
 )
 from .elf import cmd_elf_rebuild, resplice_c
+from .init import cmd_init
 from .prebuild import _ensure_prebuild, cmd_prebuild
 from .run import DEFAULT_CHECK_SECONDS, _parse_check_args, cmd_check, cmd_run
 from .stats_diff import cmd_stats_diff
@@ -54,6 +55,7 @@ __all__ = [
     'cmd_check',
     'cmd_run',
     'cmd_elf_rebuild',
+    'cmd_init',
     'cmd_charts',
     'cmd_set_baseline',
     'cmd_stats_diff',

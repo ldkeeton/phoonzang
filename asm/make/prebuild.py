@@ -1,21 +1,31 @@
 """``make prebuild`` — run the slow Aztec C mux and cache extracted seeds."""
 
 import os
+import shutil
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from lib.aztec.cache import prebuild_dir
+from lib.aztec import build_db
+from lib.cachedirs import aztec_funcs_path, prebuild_dir, project_cache
 from main import discover_binaries
 
 from .common import APPS, JOBS, _asm_one
 
 
-def cmd_prebuild(app, binary=None):
-    """Resolve the Aztec C mux and persist it under .cache/asm_prebuild_<app>/.
+def cmd_prebuild(app, binary=None, wipe=True):
+    """Rebuild everything the Aztec C mux needs under ``.cache/<app>/``.
 
-    This intentionally stops the pipeline right after the mux manifest is written:
-    no verify/emit and no NASM, and asm_<app>/ is left untouched.  Re-run
-    after deleting .cache/asm_prebuild_<app>/ to force a full re-search.
+    A full-project prebuild (``binary`` is None) first removes ``.cache/<app>``
+    so nothing stale survives, then regenerates, in order:
+
+    1. ``aztec_lib_obj/``    runtime-library OMF from the vendor ``.LIB`` files
+    2. ``aztec_funcs.json``  signature DB built from those objects
+    3. ``prebuild/``         the mux manifests, C seeds and compiled-module cache
+
+    ``make build`` calls this with ``wipe=False`` and only when the data is
+    missing.  This intentionally stops the pipeline right after the mux
+    manifest is written: no verify/emit and no NASM, and asm_<app>/ is left
+    untouched.
     """
     app_dir = os.path.join(APPS, app)
     bins = discover_binaries(app_dir)
@@ -24,8 +34,16 @@ def cmd_prebuild(app, binary=None):
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
 
+    cache = project_cache(app)
+    if wipe and binary is None and os.path.isdir(cache):
+        shutil.rmtree(cache)
+        print(f'Removed {cache}')
     out_dir = prebuild_dir(app)
     os.makedirs(out_dir, exist_ok=True)
+    # The signature DB feeds the disassembly (main/seeding.py), so it must
+    # exist before any binary is processed.  Both steps are no-ops once built.
+    if not os.path.exists(aztec_funcs_path(app)):
+        build_db.build_for_project(app)
     os.environ['ASM_AZTEC_PREBUILD'] = '1'
     os.environ['ASM_AZTEC_PREBUILD_ONLY'] = '1'
     # Binaries disassemble in parallel (CPU-bound); the emulator is serialized
@@ -68,8 +86,10 @@ def cmd_prebuild(app, binary=None):
 
 
 def _ensure_prebuild(app):
-    """Run the prebuild only when ``.cache/asm_prebuild_<app>/`` is absent."""
-    if os.path.isdir(prebuild_dir(app)):
+    """Run the prebuild only when its ``.cache/<app>/`` data is incomplete."""
+    if (os.path.isdir(prebuild_dir(app))
+            and (os.path.exists(aztec_funcs_path(app))
+                 or app not in build_db.PROJECT_BINARIES)):
         return
     print(f'{app}: prebuild cache missing; running the Aztec C mux first...')
-    cmd_prebuild(app)
+    cmd_prebuild(app, wipe=False)

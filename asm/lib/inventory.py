@@ -22,6 +22,7 @@ Residual ``unknown`` candidates (8b) are expected and documented:
 import json
 import os
 
+from lib.cachedirs import addresses_dir
 
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _PROJECT_ROOT = os.path.dirname(_ASM_DIR)
@@ -138,10 +139,10 @@ def address_inventory_dir(project):
     """Return the ``.cache`` directory holding *project*'s inventories.
 
     The inventory is a build report, not source, so it lives under
-    ``.cache/addresses/<project>/`` rather than in the ``asm_<project>`` tree
+    ``.cache/<project>/addresses/`` rather than in the ``asm_<project>`` tree
     (where it is neither assembled nor included).
     """
-    return os.path.join(_PROJECT_ROOT, '.cache', 'addresses', project)
+    return addresses_dir(project)
 
 
 def address_inventory_path(project, binary):

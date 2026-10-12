@@ -2,7 +2,7 @@
 
 Each ``(source version, file, compiler, flags, source text)`` combination is
 compiled at most once and stored as JSON under a cache directory.  Prebuild
-uses ``.cache/asm_prebuild_<project>/objs`` so the long DOSBox work is never
+uses ``.cache/<project>/prebuild/objs`` so the long DOSBox work is never
 repeated for an unchanged module.
 
 Failures are cached too: some ``(source, compiler)`` pairings make the DOS

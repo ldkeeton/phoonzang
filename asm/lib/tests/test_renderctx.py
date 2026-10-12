@@ -41,7 +41,7 @@ class EncodeDecodeTest(unittest.TestCase):
         path = context_path('DSAVANT', 'ds')
         self.assertEqual(context_dir('DSAVANT'), os.path.dirname(path))
         self.assertEqual(path.split(os.sep)[-4:],
-                         ['.cache', 'render', 'DSAVANT', 'ds.json'])
+                         ['.cache', 'DSAVANT', 'render', 'ds.json'])
 
 
 if __name__ == '__main__':

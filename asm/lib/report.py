@@ -10,13 +10,12 @@ import time
 
 import polars as pl
 
+from lib import cachedirs
 from lib.model import PhaseContext
 
 
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(ASM_DIR)
-STATS_DIR = os.path.join(PROJECT_ROOT, '.cache', 'stats')
-BASELINE_DIR = os.path.join(PROJECT_ROOT, '.cache', 'stats_baseline')
 
 
 # Metrics where an increase is an improvement (for delta rendering). Anything
@@ -36,43 +35,38 @@ def _ensure(dirpath):
 
 
 def report_path(project, binary):
-    return os.path.join(STATS_DIR, project, f'{project}_{binary}.json')
+    return os.path.join(cachedirs.stats_dir(project), f'{project}_{binary}.json')
 
 
 def summary_path(project, binary):
-    return os.path.join(STATS_DIR, project, f'{project}_{binary}.summary.json')
+    return os.path.join(cachedirs.stats_dir(project), f'{project}_{binary}.summary.json')
 
 
 def layers_path(project, binary):
-    return os.path.join(STATS_DIR, project, f'{project}_{binary}.layers.parquet')
+    return os.path.join(cachedirs.stats_dir(project), f'{project}_{binary}.layers.parquet')
 
 
 def baseline_layers_path(project, binary):
-    return os.path.join(BASELINE_DIR, project, f'{project}_{binary}.layers.parquet')
+    return os.path.join(cachedirs.baseline_dir(project), f'{project}_{binary}.layers.parquet')
 
 
 def clear_project_stats(project):
-    p = os.path.join(STATS_DIR, project)
+    p = cachedirs.stats_dir(project)
     if os.path.exists(p):
         shutil.rmtree(p)
     os.makedirs(p, exist_ok=True)
 
 
 def list_project_dirs():
-    dirs = []
-    if not os.path.isdir(STATS_DIR):
-        return dirs
-    for name in os.listdir(STATS_DIR):
-        p = os.path.join(STATS_DIR, name)
-        if os.path.isdir(p) and not name.startswith('image') and name != 'detailed':
-            dirs.append(name)
-    return sorted(dirs)
+    """Projects that currently have a ``.cache/<project>/stats`` directory."""
+    return [p for p in cachedirs.list_cached_projects()
+            if os.path.isdir(cachedirs.stats_dir(p))]
 
 
 # ── chart / image layout ──────────────────────────────────────────────────────
 
 def images_dir():
-    p = os.path.join(STATS_DIR, 'images')
+    p = os.path.join(cachedirs.ALL_DIR, 'images')
     os.makedirs(p, exist_ok=True)
     return p
 
@@ -84,7 +78,7 @@ def images_csv_dir():
 
 
 def layers_images_dir():
-    p = os.path.join(STATS_DIR, 'images_layers')
+    p = os.path.join(cachedirs.ALL_DIR, 'images_layers')
     os.makedirs(p, exist_ok=True)
     return p
 
@@ -157,7 +151,7 @@ def generate_report(ctx):
 
 
 def write_report(ctx, asm_text=''):
-    _ensure(os.path.join(STATS_DIR, ctx.report.get('project', 'unknown')))
+    _ensure(cachedirs.stats_dir(ctx.report.get('project', 'unknown')))
     report = generate_report(ctx)
     report['asm_hash'] = asm_hash(asm_text) if asm_text else ''
     path = report_path(ctx.report.get('project', 'unknown'), ctx.name)
@@ -168,7 +162,7 @@ def write_report(ctx, asm_text=''):
 
 def write_layers(ctx):
     project = ctx.report.get('project', 'unknown')
-    _ensure(os.path.join(STATS_DIR, project))
+    _ensure(cachedirs.stats_dir(project))
     path = layers_path(project, ctx.name)
     ctx.layers.write_parquet(path, compression='zstd')
     return path
@@ -235,7 +229,7 @@ def summarize(ctx):
 
 def write_summary(ctx, asm_text=''):
     project = ctx.report.get('project', 'unknown')
-    _ensure(os.path.join(STATS_DIR, project))
+    _ensure(cachedirs.stats_dir(project))
     summary = summarize(ctx)
     summary['asm_hash'] = asm_hash(asm_text) if asm_text else ''
     path = summary_path(project, ctx.name)
@@ -244,18 +238,18 @@ def write_summary(ctx, asm_text=''):
     return path
 
 
-def load_summaries(stats_dir):
-    """Aggregate all per-binary *.summary.json under stats_dir.
+def load_summaries(baseline=False):
+    """Aggregate all per-binary *.summary.json under every project's cache.
 
-    Returns {binary: kpi} across every project dir, plus a `totals` entry.
+    Reads ``.cache/<project>/stats`` (or ``stats_baseline`` when *baseline*).
+    Returns {binary: kpi} across every project, plus a `totals` entry.
     """
     binaries = {}
     totals = {}
-    if not os.path.isdir(stats_dir):
-        return {'binaries': binaries, 'totals': totals}
-    for entry in sorted(os.listdir(stats_dir)):
-        pdir = os.path.join(stats_dir, entry)
-        if not os.path.isdir(pdir) or entry.startswith('image') or entry == 'detailed':
+    for entry in cachedirs.list_cached_projects():
+        pdir = (cachedirs.baseline_dir(entry) if baseline
+                else cachedirs.stats_dir(entry))
+        if not os.path.isdir(pdir):
             continue
         for fn in sorted(os.listdir(pdir)):
             if not fn.endswith('.summary.json'):

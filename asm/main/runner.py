@@ -116,7 +116,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     if project:
         ctx.report['project'] = project
 
-    known_db = _load_known_funcs()
+    # orig_dir is apps/<project>, so the signature DB resolves even when the
+    # caller did not name the project.
+    known_db = _load_known_funcs(project or os.path.basename(os.path.normpath(orig_dir)))
     if sidecar_entry and sidecar_entry.get('api_dispatch'):
         known_db = dict(known_db)
         known_db.setdefault('api_dispatch', {}).update(sidecar_entry['api_dispatch'])

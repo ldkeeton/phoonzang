@@ -10,19 +10,23 @@ import os
 
 from lib.model import CONF_CODE, SeedInfo, TargetInfo
 
-from .options import AZTEC_FUNCS_PATH, KNOWN_FUNCS_PATH
+from lib.cachedirs import aztec_funcs_path
+
+from .options import KNOWN_FUNCS_PATH
 
 
-def _load_known_funcs():
+def _load_known_funcs(project=None):
     import json
     db = {'signatures': []}
     if os.path.exists(KNOWN_FUNCS_PATH):
         with open(KNOWN_FUNCS_PATH) as f:
             db = json.load(f)
     # Exact compiler-runtime signatures (Manx Aztec C86 v5.2a) take precedence
-    # over the generic heuristic signatures in known_funcs.json.
-    if os.path.exists(AZTEC_FUNCS_PATH):
-        with open(AZTEC_FUNCS_PATH) as f:
+    # over the generic heuristic signatures in known_funcs.json.  The DB is
+    # built per project by ``make prebuild`` (.cache/<project>/aztec_funcs.json).
+    funcs_path = aztec_funcs_path(project) if project else None
+    if funcs_path and os.path.exists(funcs_path):
+        with open(funcs_path) as f:
             aztec = json.load(f)
         db['signatures'] = (
             list(aztec.get('signatures', []))

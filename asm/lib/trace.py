@@ -2,15 +2,14 @@ import json
 import os
 import time
 
-from lib.report import STATS_DIR
-
-TRACE_DIR = os.path.join(STATS_DIR, 'detailed')
+from lib.cachedirs import trace_dir
 
 
 class TraceWriter:
     def __init__(self, project, binary, watched_addresses=None):
-        os.makedirs(TRACE_DIR, exist_ok=True)
-        self.path = os.path.join(TRACE_DIR, f'{project}_{binary}.jsonl')
+        out = trace_dir(project)
+        os.makedirs(out, exist_ok=True)
+        self.path = os.path.join(out, f'{project}_{binary}.jsonl')
         self.f = open(self.path, 'w')
         self._start = time.perf_counter()
         self.watched_addresses = set(watched_addresses or ())

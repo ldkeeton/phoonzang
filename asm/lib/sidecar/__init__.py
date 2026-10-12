@@ -14,6 +14,8 @@ Schema
       "title": "Wizardry 7: Crusaders of the Dark Savant",
       "version": 1,
 
+      "dos_compilers": ["Manx Aztec C86 v52a"],
+
       "binaries": {
         "<short_name>": {
           "file": "FILENAME.EXT",
@@ -114,6 +116,11 @@ def _validate(data):
 
     if not isinstance(data.get('app'), str):
         raise SidecarError('"app" must be a string')
+
+    folders = data.get('dos_compilers', [])
+    if not isinstance(folders, list) or not all(
+            isinstance(f, str) and f for f in folders):
+        raise SidecarError('"dos_compilers" must be a list of non-empty strings')
 
     if 'binaries' in data:
         if not isinstance(data['binaries'], dict):

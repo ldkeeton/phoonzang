@@ -22,7 +22,7 @@ Design constraints recorded for later:
 * Feed the result back through :func:`lib.aztec.mux.compare` -- never trust
   Ghidra output on its own; it is a *candidate generator*, not a verifier.
 * Keep the same prebuild manifest
-  (``.cache/asm_prebuild_<project>/<binary>_aztec_mux.json``) so the build sees
+  (``.cache/<project>/prebuild/<binary>_aztec_mux.json``) so the build sees
   Ghidra-recovered routines exactly like mux-recovered ones.
 """
 

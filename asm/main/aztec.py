@@ -18,7 +18,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
     winning provenance.
 
     ``ASM_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
-    ``.cache/asm_prebuild_<project>/``; otherwise the prebuilt manifest is read and a
+    ``.cache/<project>/prebuild/``; otherwise the prebuilt manifest is read and a
     missing prebuild is a hard error.  The seed ``.c`` files live in
     ``<out_dir>/<binary>/`` and are written only when absent, so a no-clean
     debug rebuild respects hand edits.

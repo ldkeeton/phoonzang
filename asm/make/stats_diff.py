@@ -1,19 +1,18 @@
 """``make stats-diff`` — compact current-vs-baseline KPI delta.
 
-Reads the flat per-binary ``*.summary.json`` files under ``.cache/stats`` and
-``.cache/stats_baseline`` and prints a polarity-annotated delta for LLM/human
-consumption. Also writes ``.cache/stats/summary.json`` (current snapshot) and
-``.cache/stats/delta.json`` (machine-readable result).
+Reads the per-binary ``*.summary.json`` files under ``.cache/<project>/stats``
+and ``.cache/<project>/stats_baseline`` and prints a polarity-annotated delta
+for LLM/human consumption. Also writes ``.cache/_all/summary.json`` (current
+snapshot) and ``.cache/_all/delta.json`` (machine-readable result).
 """
 
 import json
 import os
 
+from lib import cachedirs
 from lib.report import (
-    BASELINE_DIR,
     GOOD_DOWN,
     GOOD_UP,
-    STATS_DIR,
     baseline_layers_path,
     layers_path,
     load_summaries,
@@ -65,11 +64,10 @@ def _diff_binary(cur, base):
     return deltas
 
 
-def _first_run(stats_dir):
-    if not os.path.isdir(stats_dir):
-        return {}
-    for entry in sorted(os.listdir(stats_dir)):
-        pdir = os.path.join(stats_dir, entry)
+def _first_run(baseline=False):
+    for entry in cachedirs.list_cached_projects():
+        pdir = (cachedirs.baseline_dir(entry) if baseline
+                else cachedirs.stats_dir(entry))
         if not os.path.isdir(pdir):
             continue
         for fn in sorted(os.listdir(pdir)):
@@ -93,11 +91,9 @@ def _binary_warnings():
     """Per-binary layer warnings, only where both current and baseline exist."""
     from lib.sparkline import binary_warnings
     warnings = []
-    if not os.path.isdir(STATS_DIR) or not os.path.isdir(BASELINE_DIR):
-        return warnings
-    for entry in sorted(os.listdir(STATS_DIR)):
-        pdir = os.path.join(STATS_DIR, entry)
-        if not os.path.isdir(pdir) or entry.startswith('image') or entry == 'detailed':
+    for entry in cachedirs.list_cached_projects():
+        pdir = cachedirs.stats_dir(entry)
+        if not os.path.isdir(pdir) or not os.path.isdir(cachedirs.baseline_dir(entry)):
             continue
         prefix = f'{entry}_'
         for fn in sorted(os.listdir(pdir)):
@@ -113,19 +109,22 @@ def _binary_warnings():
 
 
 def cmd_stats_diff():
-    if not os.path.isdir(STATS_DIR):
-        print(f'No stats at {STATS_DIR}; build with EXTRA_FLAGS=--stats first')
+    if not any(os.path.isdir(cachedirs.stats_dir(p))
+               for p in cachedirs.list_cached_projects()):
+        print(f'No stats under {cachedirs.CACHE_ROOT}/<project>/stats; '
+              'build with EXTRA_FLAGS=--stats first')
         return
-    current = load_summaries(STATS_DIR)
-    baseline = load_summaries(BASELINE_DIR)
+    current = load_summaries()
+    baseline = load_summaries(baseline=True)
 
-    with open(os.path.join(STATS_DIR, 'summary.json'), 'w') as f:
+    os.makedirs(cachedirs.ALL_DIR, exist_ok=True)
+    with open(os.path.join(cachedirs.ALL_DIR, 'summary.json'), 'w') as f:
         json.dump(current, f, indent=2, sort_keys=True, default=str)
 
-    cur_run = _first_run(STATS_DIR)
-    base_run = _first_run(BASELINE_DIR)
-    print(f'Stats diff: current={STATS_DIR}')
-    print(f'            baseline={BASELINE_DIR}')
+    cur_run = _first_run()
+    base_run = _first_run(baseline=True)
+    print(f'Stats diff: current={cachedirs.CACHE_ROOT}/<project>/stats')
+    print(f'            baseline={cachedirs.CACHE_ROOT}/<project>/stats_baseline')
     if cur_run:
         print(f'  current run:  rev {cur_run.get("git_rev", "?")[:12]} '
               f'(dirty={cur_run.get("git_dirty")})  '
@@ -199,6 +198,6 @@ def cmd_stats_diff():
     else:
         print('\nWARNINGS: none')
 
-    with open(os.path.join(STATS_DIR, 'delta.json'), 'w') as f:
+    with open(os.path.join(cachedirs.ALL_DIR, 'delta.json'), 'w') as f:
         json.dump(result, f, indent=2, sort_keys=True, default=str)
-    print(f'\nWrote {os.path.join(STATS_DIR, "summary.json")} and delta.json')
+    print(f'\nWrote {os.path.join(cachedirs.ALL_DIR, "summary.json")} and delta.json')
