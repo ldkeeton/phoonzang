@@ -170,10 +170,39 @@ def _render_records(records, binary_data, show_offsets=True):
     return out
 
 
-def _render_mz_header(header):
-    """Render the fixed MZ fields with a shared comment column."""
+def _mz_entry_file_offset(header):
+    """Return the file offset of the MZ header's CS:IP entry point."""
+    _, _, _, _, cparhdr, _, _, _, _, _, ip, cs, _, _ = \
+        struct.unpack_from('<2s13H', header, 0)
+    return cparhdr * 16 + cs * 16 + ip
+
+
+def _mz_entry_symbol(header, label_map, entry_symbol):
+    """Return *entry_symbol* when it labels the MZ header's CS:IP entry.
+
+    ``e_ip`` is the entry's load-image offset, so a symbolic rewrite is only
+    valid when the declared entry symbol really sits at the header's entry
+    file offset; anything else falls back to the literal value.
+    """
+    if not entry_symbol or not label_map:
+        return None
+    return (entry_symbol
+            if label_map.get(_mz_entry_file_offset(header)) == entry_symbol
+            else None)
+
+
+def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None):
+    """Render the fixed MZ fields with a shared comment column.
+
+    When *entry_symbol* is the label at the header's CS:IP entry offset, the
+    ``e_ip`` field is rendered ``dw <entry_symbol> - IMAGE_BASE`` so it tracks
+    the recoverable entry point instead of freezing its original constant.
+    """
     _, cblp, cp, crlc, cparhdr, minalloc, maxalloc, ss, sp, \
         csum, ip, cs, lfarlc, ovno = struct.unpack_from('<2s13H', header, 0)
+    bound_entry = _mz_entry_symbol(header, label_map, entry_symbol)
+    ip_text = (f'dw {bound_entry} - IMAGE_BASE' if bound_entry
+               else f'dw 0x{ip:04x}')
     fields = [
         ('db "MZ"', 'e_magic: DOS MZ signature'),
         (f'dw 0x{cblp:04x}', 'e_cblp: bytes in final 512-byte page (0 means full)'),
@@ -185,7 +214,7 @@ def _render_mz_header(header):
         (f'dw 0x{ss:04x}', 'e_ss: initial stack segment, relative to load module'),
         (f'dw 0x{sp:04x}', 'e_sp: initial stack pointer'),
         (f'dw 0x{csum:04x}', 'e_csum: file checksum (often unused)'),
-        (f'dw 0x{ip:04x}', 'e_ip: initial instruction pointer'),
+        (ip_text, 'e_ip: initial instruction pointer'),
         (f'dw 0x{cs:04x}', 'e_cs: initial code segment, relative to load module'),
         (f'dw 0x{lfarlc:04x}', 'e_lfarlc: file offset of relocation table'),
         (f'dw 0x{ovno:04x}', 'e_ovno: overlay number (0 for main executable)'),
@@ -219,7 +248,7 @@ def _render_ovr_header(header):
 
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
-                  split_dir='ds', mem_equ=None, image_base=None):
+                  split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None):
     """Render the master NASM source and any generated function includes."""
     out = ['org 0', 'bits 16']
     if consumer_inc:
@@ -227,7 +256,14 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append('')
 
     base = start_offset if image_base is None else image_base
-    uses_image_base = base > 0 or any(
+
+    is_mz = (start_offset == 0x200 and len(binary_data) >= 0x200
+             and binary_data[:2] == b'MZ')
+    hdr = binary_data[:start_offset] if is_mz else None
+    # The symbolic ``e_ip`` rewrite references IMAGE_BASE; force the definition
+    # even when no record does (a load offset of 0 would otherwise skip it).
+    bound_entry = _mz_entry_symbol(hdr, label_map, entry_symbol) if is_mz else None
+    uses_image_base = base > 0 or bool(bound_entry) or any(
         'IMAGE_BASE' in rec.get('text', '') for rec in records
     )
     if uses_image_base:
@@ -238,10 +274,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append('%endif')
         out.append('')
 
-    if (start_offset == 0x200 and len(binary_data) >= 0x200
-            and binary_data[:2] == b'MZ'):
-        hdr = binary_data[:start_offset]
-        out.extend(_render_mz_header(hdr))
+    if is_mz:
+        out.extend(_render_mz_header(hdr, label_map, base, entry_symbol))
         out.append('')
         out.extend(_render_data_block(hdr[28:]))
         out.append('')

@@ -369,6 +369,24 @@ class HardClassificationTests(unittest.TestCase):
         with self.assertRaisesRegex(SidecarError, 'segment'):
             _validate(sidecar)
 
+    def test_entry_symbol_is_validated_and_exposed_per_binary(self):
+        sidecar = {
+            'app': 'TEST',
+            'binaries': {'sample': {'entry_symbol': 'aztec_begin'}},
+        }
+        _validate(sidecar)
+        self.assertEqual(
+            per_binary(sidecar, 'sample')['entry_symbol'], 'aztec_begin')
+        self.assertIsNone(per_binary(sidecar, 'unlisted')['entry_symbol'])
+
+    def test_entry_symbol_rejects_non_identifier(self):
+        sidecar = {
+            'app': 'TEST',
+            'binaries': {'sample': {'entry_symbol': 'not a symbol'}},
+        }
+        with self.assertRaisesRegex(SidecarError, 'entry_symbol'):
+            _validate(sidecar)
+
 
 if __name__ == '__main__':
     unittest.main()

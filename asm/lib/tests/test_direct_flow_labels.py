@@ -310,6 +310,38 @@ class MZHeaderRenderingTests(unittest.TestCase):
         comment_columns = {line.index(';') for line in field_lines}
         self.assertEqual(len(comment_columns), 1)
 
+    def test_mz_entry_symbol_renders_dynamic_e_ip(self):
+        header = bytearray(0x200)
+        struct.pack_into(
+            '<2s13H', header, 0,
+            b'MZ', 0x0056, 0x0088, 1, 0x0020, 0x0e4b, 0xffff,
+            0x0ff6, 0xf198, 0, 0x4b3a, 0, 0x0020, 0,
+        )
+        # The header's CS:IP entry (cs=0, ip=0x4b3a) lands at file offset
+        # header_size + ip == 0x200 + 0x4b3a, which is where the entry lives.
+        label_map = {0x4d3a: 'aztec_begin'}
+
+        source, _ = _build_source(
+            [], 0x200, bytes(header), label_map=label_map,
+            entry_symbol='aztec_begin',
+        )
+        self.assertIn('IMAGE_BASE equ 0x0200', source)
+        self.assertIn(
+            'dw aztec_begin - IMAGE_BASE ; e_ip: initial instruction pointer',
+            source,
+        )
+
+        # A declared entry that does not label CS:IP keeps the literal value.
+        literal, _ = _build_source(
+            [], 0x200, bytes(header), label_map=label_map,
+            entry_symbol='somewhere_else',
+        )
+        self.assertIn('dw 0x4b3a', literal)
+        self.assertNotIn('dw somewhere_else', literal)
+
+        # ``_render_mz_header`` stays literal without a bound entry symbol.
+        self.assertIn('dw 0x4b3a', '\n'.join(_render_mz_header(bytes(header))))
+
     def test_non_mz_header_keeps_generic_header_rendering(self):
         source, _ = _build_source(
             [], 0x200, bytes.fromhex('00 01') + bytes(0x1fe), label_map={},

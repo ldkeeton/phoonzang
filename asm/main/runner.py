@@ -254,6 +254,17 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         if off not in label_map:
             label_map[off] = f'loc_{off:04x}'
 
+    # A sidecar ``entry_symbol`` names the true entry point for this binary
+    # (project-specific; e.g. DSAVANT's ``aztec_begin``).  Make it
+    # authoritative so the MZ header's ``e_ip`` renders symbolically
+    # (``dw <entry_symbol> - IMAGE_BASE``) instead of freezing the original
+    # constant or falling back to the generic ``entry_point`` label.
+    entry_symbol = (ctx.sidecar_entry or {}).get('entry_symbol')
+    if (entry_symbol and mz_entry_point is not None
+            and mz_entry_point in ctx.code_targets):
+        label_targets.add(mz_entry_point)
+        label_map[mz_entry_point] = entry_symbol
+
     ctx.label_map = label_map
 
     if _ITERATIVE:
@@ -394,6 +405,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         external_data=(ctx.sidecar_entry or {}).get('external_data', {}),
         segment_flow=ctx.segment_flow,
         segments=ctx.segments,
+        entry_symbol=entry_symbol,
     )
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))

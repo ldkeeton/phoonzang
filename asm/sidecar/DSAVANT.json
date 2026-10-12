@@ -7,6 +7,7 @@
       "file": "DS.EXE",
       "type": "mz",
       "start_offset": 512,
+      "entry_symbol": "aztec_begin",
       "fingerprint-start": "9e68e13368a5e977af6f4921d01938b5d8932faa7c4a526c5a2dc1c7082dd9fa",
       "fingerprint-end": "b94811b8e00674347f4917bc5eda18025b74473bed7ed5aadc3638184285f0de",
       "function_names": {
@@ -46,6 +47,14 @@
           "note": "BIOS Data Area equipment word low byte at absolute 0x0410 (0040:0010); accessed as es:0x0410 with es=0. Bits 4-5 hold the initial video mode, saved/cleared/restored by the video-init code around a mode set."
         }
       }
+    },
+    "vinstall": {
+      "file": "VINSTALL.EXE",
+      "type": "mz",
+      "start_offset": 512,
+      "entry_symbol": "aztec_begin",
+      "fingerprint-start": "fb5d5fd11d5fdc063d401656b35c0a397e10e3e236f8f29430d4e25ff30bb79d",
+      "fingerprint-end": "105b0e1220f2cd4aaf5875f0e21b57df404a94b71a00ea33ebdb80066e129e0b"
     },
     "vinit": {
       "file": "VINIT.OVR",

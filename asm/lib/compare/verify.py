@@ -173,7 +173,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            function_roots=None, branch_targets=None, branch_edges=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None,
            jump_tables=None, jump_table_overrides=None,
-           segment_flow=None, segments=None, external_data=None):
+           segment_flow=None, segments=None, external_data=None,
+           entry_symbol=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -852,6 +853,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         show_offsets=show_offsets, consumer_inc=consumer_inc,
         immediate_labels=immediate_labels, split_ranges=split_ranges,
         split_dir=name, mem_equ=mem_equ, image_base=start_offset,
+        entry_symbol=entry_symbol,
     )
     t6 = time.perf_counter()
 

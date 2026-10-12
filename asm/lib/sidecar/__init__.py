@@ -19,6 +19,7 @@ Schema
           "file": "FILENAME.EXT",
           "type": "mz | aztec_overlay | raw_drv",
           "start_offset": 512,
+          "entry_symbol": "aztec_begin",
 
           "fingerprint-start": "sha256_of_first_512_bytes",
           "fingerprint-end": "sha256_of_last_512_bytes",
@@ -59,6 +60,7 @@ Schema
 
 import json
 import os
+import re
 
 
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -66,6 +68,7 @@ SIDECAR_DIR = os.path.join(ASM_DIR, 'sidecar')
 
 _BINARY_TYPES = {'mz', 'aztec_overlay', 'raw_drv'}
 _SEGMENT_NAMES = {'es', 'ds', 'cs', 'ss', 'fs', 'gs'}
+_IDENTIFIER = re.compile(r'^[A-Za-z_@.$?][A-Za-z0-9_@.$?]*$')
 
 
 class SidecarError(Exception):
@@ -242,6 +245,12 @@ def _validate_binary(name, info):
     if so is not None and not isinstance(so, int):
         raise SidecarError(f'binaries.{name}: start_offset must be an int')
 
+    entry_symbol = info.get('entry_symbol')
+    if entry_symbol is not None and not (
+            isinstance(entry_symbol, str) and _IDENTIFIER.match(entry_symbol)):
+        raise SidecarError(
+            f'binaries.{name}.entry_symbol must be a NASM identifier string')
+
     for key in ('force_data', 'force_code'):
         if key in info:
             _validate_ranges(info[key], f'binaries.{name}.{key}')
@@ -258,8 +267,8 @@ def per_binary(sidecar, short_name):
     """Return the sidecar data for *short_name* within this project sidecar.
 
     Returns a dict with keys:
-        file, type, start_offset, function_names, force_data, force_code,
-        external_data, fingerprint-start, fingerprint-end
+        file, type, start_offset, entry_symbol, function_names, force_data,
+        force_code, external_data, fingerprint-start, fingerprint-end
 
     Missing optional fields default to ``None`` / empty dict.
     """
@@ -273,6 +282,7 @@ def per_binary(sidecar, short_name):
         'external_data': {},
         'jump_tables': [],
         'ghidra_base_offset': 0,
+        'entry_symbol': None,
         'fingerprint-start': None,
         'fingerprint-end': None,
     }
@@ -283,6 +293,7 @@ def per_binary(sidecar, short_name):
             result['file'] = b.get('file')
             result['type'] = b.get('type')
             result['start_offset'] = b.get('start_offset')
+            result['entry_symbol'] = b.get('entry_symbol')
             result['function_names'] = b.get('function_names', {})
             result['dispatch_table'] = b.get('dispatch_table')
             result['immediate_labels'] = b.get('immediate_labels', {})

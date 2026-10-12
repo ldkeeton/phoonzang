@@ -17,7 +17,7 @@ IMAGE_BASE equ 0x0200
     dw 0x0ff6      ; e_ss: initial stack segment, relative to load module
     dw 0xf198      ; e_sp: initial stack pointer
     dw 0x0000      ; e_csum: file checksum (often unused)
-    dw 0x4b3a      ; e_ip: initial instruction pointer
+    dw aztec_begin - IMAGE_BASE ; e_ip: initial instruction pointer
     dw 0x0000      ; e_cs: initial code segment, relative to load module
     dw 0x0020      ; e_lfarlc: file offset of relocation table
     dw 0x0000      ; e_ovno: overlay number (0 for main executable)
