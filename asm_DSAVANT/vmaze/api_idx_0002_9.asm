@@ -1,6 +1,6 @@
 api_idx_0002_9:
     mov ax, 0xfffe                   ; 0x110e
-    call ds_dispatch_f40b            ; 0x1111
+    call ds_aztec_csav               ; 0x1111
     call loc_676c                    ; 0x1114
     push word [bp + 0x4]             ; 0x1117
     call api_idx_0050                ; 0x111a
@@ -31,13 +31,13 @@ api_idx_0002_9:
     push ax                          ; 0x1153
     mov ax, 0                        ; 0x1154
     push ax                          ; 0x1157
-    call ds_dispatch_e8da            ; 0x1158
+    call ds_loc_3b21                 ; 0x1158
     add sp, byte 8                   ; 0x115b
     mov word [bss_830a], 8           ; 0x115e
     ret                              ; 0x1164
 loc_1165:
     mov ax, 0                        ; 0x1165
-    call ds_dispatch_f40b            ; 0x1168
+    call ds_aztec_csav               ; 0x1168
     mov ax, word [bp + 0x4]          ; 0x116b
     jmp short @..local.l25           ; 0x116e
 @..local.l21:
@@ -56,7 +56,7 @@ loc_1165:
     mov ax, word [bss_0e14]          ; 0x118b
     add ax, 0x90                     ; 0x118e
     push ax                          ; 0x1191
-    call ds_dispatch_ecf6            ; 0x1192
+    call ds_leaf_loc_3f3d            ; 0x1192
     add sp, byte 6                   ; 0x1195
     ret                              ; 0x1198
 @..local.l22:
@@ -75,7 +75,7 @@ loc_1165:
     mov ax, word [bss_0e14]          ; 0x11b4
     add ax, 0x290                    ; 0x11b7
     push ax                          ; 0x11ba
-    call ds_dispatch_ecf6            ; 0x11bb
+    call ds_leaf_loc_3f3d            ; 0x11bb
     add sp, byte 6                   ; 0x11be
     ret                              ; 0x11c1
 @..local.l23:

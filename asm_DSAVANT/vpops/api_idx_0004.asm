@@ -1,6 +1,6 @@
 api_idx_0004:
     mov ax, 0xfffc                   ; 0x0a27
-    call ds_dispatch_f40b            ; 0x0a2a
+    call ds_aztec_csav               ; 0x0a2a
     mov word [bp - 0x0002], 0        ; 0x0a2d
 @..api_idx_0004.l1:
     mov ax, word [bp - 0x0002]       ; 0x0a32
@@ -39,7 +39,7 @@ api_idx_0004:
 @..api_idx_0004.l5:
     mov ax, 0                        ; 0x0a83
     push ax                          ; 0x0a86
-    call ds_dispatch_b7e0            ; 0x0a87
+    call ds_app_0a27                 ; 0x0a87
     pop cx                           ; 0x0a8a
     jmp short @..api_idx_0004.l5     ; 0x0a8b
 @..api_idx_0004.l6:
@@ -98,7 +98,7 @@ api_idx_0004:
     mov ax, word [bx - 0x7b96]       ; 0x0b1e
     add ax, strict word 8            ; 0x0b22
     push ax                          ; 0x0b25
-    call ds_dispatch_f364            ; 0x0b26
+    call ds_aztec_strcpy             ; 0x0b26
     add sp, byte 4                   ; 0x0b29
     inc word [bss_8468]              ; 0x0b2c
     ret                              ; 0x0b30

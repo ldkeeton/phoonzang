@@ -1,6 +1,6 @@
 api_idx_000e_3:
     mov ax, 0xfff2                   ; 0x96d5
-    call ds_dispatch_f40b            ; 0x96d8
+    call ds_aztec_csav               ; 0x96d8
     mov ax, 0xc7                     ; 0x96db
     push ax                          ; 0x96de
     mov ax, 0x13f                    ; 0x96df
@@ -8,7 +8,7 @@ api_idx_000e_3:
     mov ax, 0                        ; 0x96e3
     push ax                          ; 0x96e6
     push ax                          ; 0x96e7
-    call ds_dispatch_e8da            ; 0x96e8
+    call ds_loc_3b21                 ; 0x96e8
     add sp, byte 8                   ; 0x96eb
     mov ax, 0x248                    ; 0x96ee
     imul word [bp + 0x4]             ; 0x96f1
@@ -16,7 +16,7 @@ api_idx_000e_3:
     push ax                          ; 0x96f7
     lea ax, word [bp - 0x000a]       ; 0x96f8
     push ax                          ; 0x96fb
-    call ds_dispatch_f364            ; 0x96fc
+    call ds_aztec_strcpy             ; 0x96fc
     add sp, byte 4                   ; 0x96ff
     lea ax, word [bp - 0x000a]       ; 0x9702
     push ax                          ; 0x9705
@@ -35,7 +35,7 @@ api_idx_000e_3:
 @..api_idx_000e_3.l1:
     lea ax, word [bp - 0x000a]       ; 0x971f
     push ax                          ; 0x9722
-    call ds_dispatch_fa90            ; 0x9723
+    call ds_aztec_strlen             ; 0x9723
     pop cx                           ; 0x9726
     test ax, ax                      ; 0x9727
     je short @..api_idx_000e_3.l2    ; 0x9729
@@ -45,7 +45,7 @@ api_idx_000e_3:
     imul word [bp + 0x4]             ; 0x9732
     add ax, 0x5bf4                   ; 0x9735
     push ax                          ; 0x9738
-    call ds_dispatch_f364            ; 0x9739
+    call ds_aztec_strcpy             ; 0x9739
     add sp, byte 4                   ; 0x973c
 @..api_idx_000e_3.l2:
     ret                              ; 0x973f

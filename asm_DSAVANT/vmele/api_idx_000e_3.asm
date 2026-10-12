@@ -1,6 +1,6 @@
 api_idx_000e_3:
     mov ax, 0xfff2                   ; 0x27ab
-    call ds_dispatch_f40b            ; 0x27ae
+    call ds_aztec_csav               ; 0x27ae
     cmp word [bss_8f20], byte 0      ; 0x27b1
     jg short @..api_idx_000e_3.l1    ; 0x27b6
     jmp near @..api_idx_000e_3.l8    ; 0x27b8
@@ -108,7 +108,7 @@ api_idx_000e_3:
     ret                              ; 0x289f
 loc_28a0:
     mov ax, 0                        ; 0x28a0
-    call ds_dispatch_f40b            ; 0x28a3
+    call ds_aztec_csav               ; 0x28a3
     mov ax, word [bp + 0x4]          ; 0x28a6
     shl ax, 1                        ; 0x28a9
     mov bx, ax                       ; 0x28ab
@@ -143,7 +143,7 @@ loc_28a0:
     mov al, byte [bx + 0x15]         ; 0x28ef
     sub ah, ah                       ; 0x28f2
     push ax                          ; 0x28f4
-    call ds_dispatch_efd1            ; 0x28f5
+    call ds_loc_4218                 ; 0x28f5
     add sp, byte 0x16                ; 0x28f8
 @..local.l58:
     ret                              ; 0x28fb

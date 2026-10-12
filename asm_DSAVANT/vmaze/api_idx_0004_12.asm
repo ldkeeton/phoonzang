@@ -1,11 +1,11 @@
 api_idx_0004_12:
     mov ax, 0xfffc                   ; 0x7542
-    call ds_dispatch_f40b            ; 0x7545
+    call ds_aztec_csav               ; 0x7545
     cmp word [bss_82fe], byte 0      ; 0x7548
     jle short @..api_idx_0004_12.l1  ; 0x754d
     mov ax, 0x64                     ; 0x754f
     push ax                          ; 0x7552
-    call ds_dispatch_b7a9            ; 0x7553
+    call ds_app_09f0                 ; 0x7553
     pop cx                           ; 0x7556
     cmp ax, word [bss_8300]          ; 0x7557
     jge short @..api_idx_0004_12.l1  ; 0x755b
@@ -15,13 +15,13 @@ api_idx_0004_12:
     jmp short @..api_idx_0004_12.l4  ; 0x7568
 @..api_idx_0004_12.l2:
     push word [bp - 0x0002]          ; 0x756a
-    call ds_dispatch_ca85            ; 0x756d
+    call ds_app_1ccc                 ; 0x756d
     pop cx                           ; 0x7570
     test ax, ax                      ; 0x7571
     je short @..api_idx_0004_12.l3   ; 0x7573
     mov ax, 0xc8                     ; 0x7575
     push ax                          ; 0x7578
-    call ds_dispatch_b7a9            ; 0x7579
+    call ds_app_09f0                 ; 0x7579
     pop cx                           ; 0x757c
     push ax                          ; 0x757d
     mov ax, 0x248                    ; 0x757e

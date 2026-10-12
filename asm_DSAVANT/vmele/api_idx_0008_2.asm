@@ -1,6 +1,6 @@
 api_idx_0008_2:
     mov ax, 0xfff8                   ; 0x0164
-    call ds_dispatch_f40b            ; 0x0167
+    call ds_aztec_csav               ; 0x0167
     mov ax, 6                        ; 0x016a
     imul word [bp + 0x6]             ; 0x016d
     add ax, 0x98                     ; 0x0170
@@ -13,10 +13,10 @@ api_idx_0008_2:
     push ax                          ; 0x0181
     mov ax, 0                        ; 0x0182
     push ax                          ; 0x0185
-    call ds_dispatch_e8da            ; 0x0186
+    call ds_loc_3b21                 ; 0x0186
     add sp, byte 8                   ; 0x0189
     push word [bp + 0x4]             ; 0x018c
-    call ds_dispatch_fa90            ; 0x018f
+    call ds_aztec_strlen             ; 0x018f
     pop cx                           ; 0x0192
     mov cx, 6                        ; 0x0193
     imul cx                          ; 0x0196
@@ -28,7 +28,7 @@ api_idx_0008_2:
     sub ax, cx                       ; 0x01a3
     mov word [bp - 0x0002], ax       ; 0x01a5
     push word [bp + 0x4]             ; 0x01a8
-    call ds_dispatch_fa90            ; 0x01ab
+    call ds_aztec_strlen             ; 0x01ab
     pop cx                           ; 0x01ae
     mov cx, 6                        ; 0x01af
     imul cx                          ; 0x01b2
@@ -46,7 +46,7 @@ api_idx_0008_2:
     add ax, 0x92                     ; 0x01cf
     push ax                          ; 0x01d2
     push word [bp - 0x0002]          ; 0x01d3
-    call ds_dispatch_e928            ; 0x01d6
+    call ds_loc_3b6f                 ; 0x01d6
     add sp, byte 8                   ; 0x01d9
     mov word [bp - 0x0006], dx       ; 0x01dc
     mov word [bp - 0x0008], ax       ; 0x01df
@@ -54,19 +54,19 @@ api_idx_0008_2:
     push ax                          ; 0x01e5
     mov ax, 0x16                     ; 0x01e6
     push ax                          ; 0x01e9
-    call ds_dispatch_e823            ; 0x01ea
+    call ds_loc_3a6a                 ; 0x01ea
     add sp, byte 4                   ; 0x01ed
     mov ax, 6                        ; 0x01f0
     imul word [bp + 0x6]             ; 0x01f3
     add ax, 0x92                     ; 0x01f6
     push ax                          ; 0x01f9
     push word [bp - 0x0002]          ; 0x01fa
-    call ds_dispatch_e809            ; 0x01fd
+    call ds_loc_3a50                 ; 0x01fd
     add sp, byte 4                   ; 0x0200
     mov ax, 0                        ; 0x0203
     push ax                          ; 0x0206
     push word [bp + 0x4]             ; 0x0207
-    call ds_dispatch_e84e            ; 0x020a
+    call ds_string_loc_3a95          ; 0x020a
     add sp, byte 4                   ; 0x020d
     mov ax, 6                        ; 0x0210
     imul word [bp + 0x6]             ; 0x0213
@@ -78,13 +78,13 @@ api_idx_0008_2:
     add ax, 0x92                     ; 0x0223
     push ax                          ; 0x0226
     push word [bp - 0x0002]          ; 0x0227
-    call ds_dispatch_e8da            ; 0x022a
+    call ds_loc_3b21                 ; 0x022a
     add sp, byte 8                   ; 0x022d
     mov ax, 1                        ; 0x0230
     push ax                          ; 0x0233
     push word [bp - 0x0006]          ; 0x0234
     push word [bp - 0x0008]          ; 0x0237
-    call ds_dispatch_e94f            ; 0x023a
+    call ds_loc_3b96                 ; 0x023a
     add sp, byte 6                   ; 0x023d
-    call ds_dispatch_ec17            ; 0x0240
+    call ds_bios_kbd_check           ; 0x0240
     ret                              ; 0x0243

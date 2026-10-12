@@ -1,6 +1,6 @@
 api_idx_0056:
     mov ax, 0xffaa                   ; 0x12cc
-    call ds_dispatch_f40b            ; 0x12cf
+    call ds_aztec_csav               ; 0x12cf
     mov ax, 0x248                    ; 0x12d2
     imul word [bp + 0x4]             ; 0x12d5
     mov bx, ax                       ; 0x12d8
@@ -11,7 +11,7 @@ api_idx_0056:
     push word [bp + 0x10]            ; 0x12e2
     push word [bp + 0xe]             ; 0x12e5
     push word [bp + 0xc]             ; 0x12e8
-    call ds_dispatch_d0ea            ; 0x12eb
+    call ds_app_2331                 ; 0x12eb
     add sp, byte 6                   ; 0x12ee
     mov cx, ax                       ; 0x12f1
     sub sp, byte 4                   ; 0x12f3
@@ -22,14 +22,14 @@ api_idx_0056:
     mov di, ax                       ; 0x12fe
     movsw                            ; 0x1300
     movsw                            ; 0x1301
-    call ds_dispatch_d0be            ; 0x1302
+    call ds_app_2305                 ; 0x1302
     add sp, byte 4                   ; 0x1305
     mov word [bp - 0x0006], ax       ; 0x1308
     cmp word [bp + 0x8], byte 0      ; 0x130b
     je short @..api_idx_0056.l2      ; 0x130f
     mov ax, 0x64                     ; 0x1311
     push ax                          ; 0x1314
-    call ds_dispatch_b7a9            ; 0x1315
+    call ds_app_09f0                 ; 0x1315
     pop cx                           ; 0x1318
     push ax                          ; 0x1319
     mov ax, 0x248                    ; 0x131a
@@ -87,7 +87,7 @@ api_idx_0056:
     lea ax, word [bp - 0x0056]       ; 0x139b
     push ax                          ; 0x139e
     push word [bp + 0x6]             ; 0x139f
-    call ds_dispatch_b53b            ; 0x13a2
+    call ds_app_mem_0782             ; 0x13a2
     add sp, byte 4                   ; 0x13a5
     mov ax, 0                        ; 0x13a8
     push ax                          ; 0x13ab
@@ -108,7 +108,7 @@ api_idx_0056:
     mov ax, 1                        ; 0x13ca
     push ax                          ; 0x13cd
     push word [bp + 0x4]             ; 0x13ce
-    call ds_dispatch_cb3a            ; 0x13d1
+    call ds_app_1d81                 ; 0x13d1
     add sp, byte 4                   ; 0x13d4
     push word [bss_905a]             ; 0x13d7
     call api_idx_0004                ; 0x13db

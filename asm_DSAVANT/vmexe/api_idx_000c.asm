@@ -1,6 +1,6 @@
 api_idx_000c:
     mov ax, 0xfff4                   ; 0x6f33
-    call ds_dispatch_f40b            ; 0x6f36
+    call ds_aztec_csav               ; 0x6f36
     mov word [bss_90e2], 5           ; 0x6f39
     mov word [bp - 0x0002], 0        ; 0x6f3f
 @..api_idx_000c.l1:
@@ -26,7 +26,7 @@ api_idx_000c:
     jbe short @..api_idx_000c.l3     ; 0x6f7d
     mov ax, 0x10                     ; 0x6f7f
     push ax                          ; 0x6f82
-    call ds_dispatch_b7e0            ; 0x6f83
+    call ds_app_0a27                 ; 0x6f83
     pop cx                           ; 0x6f86
 @..api_idx_000c.l3:
     mov word [bss_8460], 0x64        ; 0x6f87
@@ -104,7 +104,7 @@ api_idx_000c:
 @..api_idx_000c.l12:
     mov ax, 0xa                      ; 0x7039
     push ax                          ; 0x703c
-    call ds_dispatch_b7a9            ; 0x703d
+    call ds_app_09f0                 ; 0x703d
     pop cx                           ; 0x7040
     mov cx, ax                       ; 0x7041
     mov ax, word [bss_8460]          ; 0x7043

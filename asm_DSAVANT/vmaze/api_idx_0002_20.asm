@@ -1,6 +1,6 @@
 api_idx_0002_20:
     mov ax, 0xfffe                   ; 0x8f1a
-    call ds_dispatch_f40b            ; 0x8f1d
+    call ds_aztec_csav               ; 0x8f1d
     mov bx, word [bss_0e12]          ; 0x8f20
     mov si, word [bss_8f3e]          ; 0x8f24
     mov al, byte [bx + si + 0xb40]   ; 0x8f28
@@ -36,7 +36,7 @@ api_idx_0002_20:
     jne short @..api_idx_0002_20.l3  ; 0x8f7c
     mov ax, 8                        ; 0x8f7e
     push ax                          ; 0x8f81
-    call ds_dispatch_b7e0            ; 0x8f82
+    call ds_app_0a27                 ; 0x8f82
     pop cx                           ; 0x8f85
 @..api_idx_0002_20.l3:
     push word [bp - 0x0002]          ; 0x8f86

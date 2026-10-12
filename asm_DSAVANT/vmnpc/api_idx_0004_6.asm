@@ -1,6 +1,6 @@
 api_idx_0004_6:
     mov ax, 0xfffc                   ; 0x11f8
-    call ds_dispatch_f40b            ; 0x11fb
+    call ds_aztec_csav               ; 0x11fb
     mov ax, word [bp + 0x6]          ; 0x11fe
     add ax, 0x98                     ; 0x1201
     push ax                          ; 0x1204
@@ -11,10 +11,10 @@ api_idx_0004_6:
     push ax                          ; 0x120f
     mov ax, 0                        ; 0x1210
     push ax                          ; 0x1213
-    call ds_dispatch_e8da            ; 0x1214
+    call ds_loc_3b21                 ; 0x1214
     add sp, byte 8                   ; 0x1217
     push word [bp + 0x4]             ; 0x121a
-    call ds_dispatch_fa90            ; 0x121d
+    call ds_aztec_strlen             ; 0x121d
     pop cx                           ; 0x1220
     mov cx, 6                        ; 0x1221
     imul cx                          ; 0x1224
@@ -26,7 +26,7 @@ api_idx_0004_6:
     sub ax, cx                       ; 0x1231
     mov word [bp - 0x0002], ax       ; 0x1233
     push word [bp + 0x4]             ; 0x1236
-    call ds_dispatch_fa90            ; 0x1239
+    call ds_aztec_strlen             ; 0x1239
     pop cx                           ; 0x123c
     mov cx, 6                        ; 0x123d
     imul cx                          ; 0x1240
@@ -59,7 +59,7 @@ api_idx_0004_6:
     je short @..api_idx_0004_6.l1    ; 0x1281
     mov ax, 0                        ; 0x1283
     push ax                          ; 0x1286
-    call ds_dispatch_b7e0            ; 0x1287
+    call ds_app_0a27                 ; 0x1287
     pop cx                           ; 0x128a
 @..api_idx_0004_6.l1:
     ret                              ; 0x128b

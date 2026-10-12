@@ -1,6 +1,6 @@
 api_idx_0004_6:
     mov ax, 0xfffc                   ; 0x35de
-    call ds_dispatch_f40b            ; 0x35e1
+    call ds_aztec_csav               ; 0x35e1
     mov ax, 0                        ; 0x35e4
     push ax                          ; 0x35e7
     call api_idx_0008                ; 0x35e8
@@ -20,7 +20,7 @@ api_idx_0004_6:
 @..api_idx_0004_6.l1:
     mov ax, 0                        ; 0x360b
     push ax                          ; 0x360e
-    call ds_dispatch_b7e0            ; 0x360f
+    call ds_app_0a27                 ; 0x360f
     pop cx                           ; 0x3612
     jmp short @..api_idx_0004_6.l1   ; 0x3613
 @..api_idx_0004_6.l2:
@@ -81,6 +81,6 @@ api_idx_0004_6:
     push ax                          ; 0x36a3
     mov ax, 0x8bfe                   ; 0x36a4
     push ax                          ; 0x36a7
-    call ds_dispatch_ec41            ; 0x36a8
+    call ds_leaf_loc_3e88            ; 0x36a8
     add sp, byte 6                   ; 0x36ab
     ret                              ; 0x36ae

@@ -182,6 +182,6 @@ jumptable_19de_case_0:
     ret                              ; 0x1a11
 loc_1a12:
     mov ax, 0                        ; 0x1a12
-    call ds_dispatch_f40b            ; 0x1a15
+    call ds_aztec_csav               ; 0x1a15
     mov ax, word [bp + 0x4]          ; 0x1a18
     jmp near @..local.l60            ; 0x1a1b

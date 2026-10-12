@@ -1,8 +1,8 @@
 api_idx_0002_2:
     mov ax, 0xfffe                   ; 0x1642
-    call ds_dispatch_f40b            ; 0x1645
+    call ds_aztec_csav               ; 0x1645
     push word [bp + 0x4]             ; 0x1648
-    call ds_dispatch_fa90            ; 0x164b
+    call ds_aztec_strlen             ; 0x164b
     pop cx                           ; 0x164e
     mov cx, 6                        ; 0x164f
     imul cx                          ; 0x1652
@@ -33,6 +33,6 @@ api_idx_0002_2:
     push ax                          ; 0x1691
     mov ax, 8                        ; 0x1692
     push ax                          ; 0x1695
-    call ds_dispatch_e8da            ; 0x1696
+    call ds_loc_3b21                 ; 0x1696
     add sp, byte 8                   ; 0x1699
     ret                              ; 0x169c

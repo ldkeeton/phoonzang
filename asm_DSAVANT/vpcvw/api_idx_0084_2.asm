@@ -1,6 +1,6 @@
 api_idx_0084_2:
     mov ax, 0xff7c                   ; 0x40ef
-    call ds_dispatch_f40b            ; 0x40f2
+    call ds_aztec_csav               ; 0x40f2
     mov word [bp - 0x0004], 0        ; 0x40f5
     mov word [bp - 0x0008], 0        ; 0x40fa
     mov ax, word [dseg_0040]         ; 0x40ff
@@ -84,7 +84,7 @@ api_idx_0084_2:
     mov ax, word [bp - 0x0004]       ; 0x41c4
     add ax, 0x258                    ; 0x41c7
     push ax                          ; 0x41ca
-    call ds_dispatch_b53b            ; 0x41cb
+    call ds_app_mem_0782             ; 0x41cb
     add sp, byte 4                   ; 0x41ce
     mov ax, 0x1a                     ; 0x41d1
     push ax                          ; 0x41d4
@@ -113,7 +113,7 @@ api_idx_0084_2:
     mov ax, word [bp - 0x000a]       ; 0x4209
     add ax, 0x258                    ; 0x420c
     push ax                          ; 0x420f
-    call ds_dispatch_b53b            ; 0x4210
+    call ds_app_mem_0782             ; 0x4210
     add sp, byte 4                   ; 0x4213
     mov ax, 1                        ; 0x4216
     push ax                          ; 0x4219

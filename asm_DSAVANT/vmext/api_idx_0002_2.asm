@@ -1,6 +1,6 @@
 api_idx_0002_2:
     mov ax, 0xfffe                   ; 0x01ac
-    call ds_dispatch_f40b            ; 0x01af
+    call ds_aztec_csav               ; 0x01af
     mov ax, word [bp + 0xa]          ; 0x01b2
     mov word [bp - 0x0002], ax       ; 0x01b5
     jmp short @..api_idx_0002_2.l4   ; 0x01b8
@@ -32,7 +32,7 @@ api_idx_0002_2:
     shl ax, cl                       ; 0x01fa
     add ax, 0x8d14                   ; 0x01fc
     push ax                          ; 0x01ff
-    call ds_dispatch_ec74            ; 0x0200
+    call ds_leaf_loc_3ebb            ; 0x0200
     add sp, byte 4                   ; 0x0203
     test ax, ax                      ; 0x0206
     jne short @..api_idx_0002_2.l3   ; 0x0208

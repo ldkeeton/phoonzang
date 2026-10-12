@@ -1,6 +1,6 @@
 api_idx_004e:
     mov ax, 0xffb2                   ; 0x4b05
-    call ds_dispatch_f40b            ; 0x4b08
+    call ds_aztec_csav               ; 0x4b08
     mov ax, 0                        ; 0x4b0b
     push ax                          ; 0x4b0e
     push word [bp + 0x6]             ; 0x4b0f
@@ -8,7 +8,7 @@ api_idx_004e:
     push ax                          ; 0x4b15
     mov ax, 1                        ; 0x4b16
     push ax                          ; 0x4b19
-    call ds_dispatch_b63c            ; 0x4b1a
+    call ds_app_file_0883            ; 0x4b1a
     add sp, byte 8                   ; 0x4b1d
     mov word [bp - 0x0002], 0        ; 0x4b20
 @..api_idx_004e.l1:
@@ -109,12 +109,12 @@ api_idx_004e:
     or byte [bx + 0x7], 0x40         ; 0x4c15
 @..api_idx_004e.l7:
     push word [bp + 0x4]             ; 0x4c19
-    call ds_dispatch_c58f            ; 0x4c1c
+    call ds_app_17d6                 ; 0x4c1c
     pop cx                           ; 0x4c1f
     ret                              ; 0x4c20
 loc_4c21:
     mov ax, 0                        ; 0x4c21
-    call ds_dispatch_f40b            ; 0x4c24
+    call ds_aztec_csav               ; 0x4c24
     cmp word [bp + 0x6], byte 0      ; 0x4c27
     je short @..local.l48            ; 0x4c2b
     push word [bp + 0x6]             ; 0x4c2d
@@ -153,7 +153,7 @@ loc_4c21:
     ret                              ; 0x4c81
 loc_4c82:
     mov ax, 0                        ; 0x4c82
-    call ds_dispatch_f40b            ; 0x4c85
+    call ds_aztec_csav               ; 0x4c85
     mov ax, 0x248                    ; 0x4c88
     imul word [bp + 0x4]             ; 0x4c8b
     mov bx, ax                       ; 0x4c8e
@@ -415,7 +415,7 @@ jumptable_4e83:
     ret                              ; 0x4eac
 loc_4ead:
     mov ax, 0                        ; 0x4ead
-    call ds_dispatch_f40b            ; 0x4eb0
+    call ds_aztec_csav               ; 0x4eb0
     mov ax, 0x7d                     ; 0x4eb3
     push ax                          ; 0x4eb6
     mov ax, 0                        ; 0x4eb7
@@ -434,7 +434,7 @@ loc_4ead:
     sub ah, ah                       ; 0x4ed6
     add ax, word [bp + 0xa]          ; 0x4ed8
     push ax                          ; 0x4edb
-    call ds_dispatch_b7c2            ; 0x4edc
+    call ds_app_0a09                 ; 0x4edc
     add sp, byte 6                   ; 0x4edf
     push ax                          ; 0x4ee2
     mov ax, 0x248                    ; 0x4ee3

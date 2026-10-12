@@ -75,6 +75,48 @@ def detect(project_dir, bins):
     return cross_refs
 
 
+def overlay_host_aliases(foreign_label_map, segments, instructions,
+                         start_offset, file_size, prefix=None):
+    """Rebuild a consumer's foreign-label map from real recovered flow targets.
+
+    Overlay near call/jmp targets are computed by the disassembler in the
+    overlay's *file-offset* space, but they resolve to host functions.  For each
+    recovered out-of-range flow target, translate it to the host file offset
+    (``SegmentModel.host_code_offset``) and reuse the host label's name.
+
+    The returned map is keyed by the *overlay-space* target so the emitted
+    ``equ`` keeps the original value and the encoding round-trips byte-exactly.
+    A target whose translated host offset has no label falls back to a generic
+    ``<prefix>dispatch_<target>`` alias.  Non-overlay models are returned
+    unchanged.
+    """
+    if not foreign_label_map or segments is None or segments.kind != 'overlay':
+        return foreign_label_map
+    host = getattr(segments, 'host', None)
+    if host is None:
+        return foreign_label_map
+
+    aliases = {}
+    for insn in instructions:
+        if insn.mnemonic not in _FLOW_OPS:
+            continue
+        for op in insn.operands:
+            if op.type != 2:  # CS_OP_IMM
+                continue
+            target = op.imm & 0xFFFF
+            if start_offset <= target < file_size:
+                continue  # internal branch, resolved by the local label map
+            host_off = segments.host_code_offset(target)
+            if host_off is None or not (0 <= host_off < host.file_size):
+                continue
+            name = foreign_label_map.get(host_off)
+            if name is None:
+                name = (f'{prefix}_dispatch_{target:04x}' if prefix
+                        else f'dispatch_{target:04x}')
+            aliases[target] = name
+    return aliases
+
+
 def write_label_inc(label_map, path, prefix=''):
     """Write a NASM ``.inc`` file with ``equ`` definitions.
 

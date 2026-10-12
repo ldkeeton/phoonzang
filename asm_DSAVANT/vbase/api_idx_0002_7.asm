@@ -1,6 +1,6 @@
 api_idx_0002_7:
     mov ax, 0xfffe                   ; 0x8756
-    call ds_dispatch_f40b            ; 0x8759
+    call ds_aztec_csav               ; 0x8759
     mov ax, 0xf                      ; 0x875c
     push ax                          ; 0x875f
     mov ax, 4                        ; 0x8760
@@ -45,7 +45,7 @@ api_idx_0002_7:
     mov word [bx - 0x5a26], 0x140    ; 0x87c5
     mov ax, 0x3c                     ; 0x87cb
     push ax                          ; 0x87ce
-    call ds_dispatch_b7a9            ; 0x87cf
+    call ds_app_09f0                 ; 0x87cf
     pop cx                           ; 0x87d2
     add ax, strict word 0x28         ; 0x87d3
     mov cx, word [bp - 0x0002]       ; 0x87d6
@@ -74,7 +74,7 @@ api_idx_0002_7:
     push ax                          ; 0x8834
     push ax                          ; 0x8835
     push ax                          ; 0x8836
-    call ds_dispatch_f0d7            ; 0x8837
+    call ds_loc_431e                 ; 0x8837
     add sp, byte 6                   ; 0x883a
     mov ax, 0xc7                     ; 0x883d
     push ax                          ; 0x8840
@@ -83,11 +83,11 @@ api_idx_0002_7:
     mov ax, 0                        ; 0x8845
     push ax                          ; 0x8848
     push ax                          ; 0x8849
-    call ds_dispatch_e8da            ; 0x884a
+    call ds_loc_3b21                 ; 0x884a
     add sp, byte 8                   ; 0x884d
     mov ax, 0                        ; 0x8850
     push ax                          ; 0x8853
-    call ds_dispatch_f0bd            ; 0x8854
+    call ds_loc_4304                 ; 0x8854
     pop cx                           ; 0x8857
     mov ax, 0                        ; 0x8858
     push ax                          ; 0x885b

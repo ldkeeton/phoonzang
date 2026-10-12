@@ -1,6 +1,6 @@
 api_idx_0002_10:
     mov ax, 0xfffe                   ; 0x8fb8
-    call ds_dispatch_f40b            ; 0x8fbb
+    call ds_aztec_csav               ; 0x8fbb
     mov ax, word [bp + 0x6]          ; 0x8fbe
     shl ax, 1                        ; 0x8fc1
     mov bx, ax                       ; 0x8fc3
@@ -50,7 +50,7 @@ api_idx_0002_10:
     ret                              ; 0x902d
 loc_902e:
     mov ax, 0                        ; 0x902e
-    call ds_dispatch_f40b            ; 0x9031
+    call ds_aztec_csav               ; 0x9031
     mov ax, word [bp + 0x6]          ; 0x9034
     jmp near @..local.l63            ; 0x9037
 jumptable_9188_case_0:

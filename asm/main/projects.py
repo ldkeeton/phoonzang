@@ -157,8 +157,11 @@ def process_project(project_name):
         sc_entry = sidecar_per_binary(sidecar, name) if sidecar else None
 
         foreign_label_map = None
+        foreign_prefix = None
         if name in cross_refs:
             foreign_label_map = {}
+            sources = {src_name for _, src_name in cross_refs[name]}
+            foreign_prefix = next(iter(sources)) if len(sources) == 1 else None
             for _, src_name in cross_refs[name]:
                 if src_name in source_label_maps:
                     for addr, lbl in source_label_maps[src_name].items():
@@ -168,7 +171,8 @@ def process_project(project_name):
                 exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
                 output_dir=out_dir,
                 project=project_name, sidecar_entry=sc_entry,
-                foreign_label_map=foreign_label_map, host_model=host_model)
+                foreign_label_map=foreign_label_map,
+                foreign_prefix=foreign_prefix, host_model=host_model)
 
     processed = set(bins.keys())
 

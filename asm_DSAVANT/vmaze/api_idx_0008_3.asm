@@ -1,6 +1,6 @@
 api_idx_0008_3:
     mov ax, 0xfff8                   ; 0x2f8e
-    call ds_dispatch_f40b            ; 0x2f91
+    call ds_aztec_csav               ; 0x2f91
     cmp word [bp + 0xe], byte 0      ; 0x2f94
     jne short @..api_idx_0008_3.l1   ; 0x2f98
     jmp near @..api_idx_0008_3.l4    ; 0x2f9a
@@ -77,7 +77,7 @@ jumptable_3000:
     mov ax, word [bss_0e14]          ; 0x3033
     add ax, 0x9b0                    ; 0x3036
     push ax                          ; 0x3039
-    call ds_dispatch_ec74            ; 0x303a
+    call ds_leaf_loc_3ebb            ; 0x303a
     add sp, byte 4                   ; 0x303d
     test ax, ax                      ; 0x3040
     je short @..api_idx_0008_3.l6    ; 0x3042
@@ -122,7 +122,7 @@ jumptable_3082:
     mov ax, word [bss_0e14]          ; 0x309e
     add ax, 0x8b0                    ; 0x30a1
     push ax                          ; 0x30a4
-    call ds_dispatch_ec74            ; 0x30a5
+    call ds_leaf_loc_3ebb            ; 0x30a5
     add sp, byte 4                   ; 0x30a8
     test ax, ax                      ; 0x30ab
     jne short @..api_idx_0008_3.l7   ; 0x30ad
@@ -181,7 +181,7 @@ jumptable_3111:
     mov ax, word [bss_0e14]          ; 0x312d
     add ax, 0x930                    ; 0x3130
     push ax                          ; 0x3133
-    call ds_dispatch_ec74            ; 0x3134
+    call ds_leaf_loc_3ebb            ; 0x3134
     add sp, byte 4                   ; 0x3137
     test ax, ax                      ; 0x313a
     je short @..api_idx_0008_3.l15   ; 0x313c
@@ -226,7 +226,7 @@ jumptable_3111:
     mov ax, word [bss_0e14]          ; 0x319a
     add ax, 0x90                     ; 0x319d
     push ax                          ; 0x31a0
-    call ds_dispatch_ecf6            ; 0x31a1
+    call ds_leaf_loc_3f3d            ; 0x31a1
     add sp, byte 6                   ; 0x31a4
     mov word [bp - 0x0004], ax       ; 0x31a7
     jmp short @..api_idx_0008_3.l21  ; 0x31aa
@@ -237,7 +237,7 @@ jumptable_3111:
     mov ax, word [bss_0e14]          ; 0x31b3
     add ax, 0x290                    ; 0x31b6
     push ax                          ; 0x31b9
-    call ds_dispatch_ecf6            ; 0x31ba
+    call ds_leaf_loc_3f3d            ; 0x31ba
     add sp, byte 6                   ; 0x31bd
     mov word [bp - 0x0004], ax       ; 0x31c0
     jmp short @..api_idx_0008_3.l21  ; 0x31c3

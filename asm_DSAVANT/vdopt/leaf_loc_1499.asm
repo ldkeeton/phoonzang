@@ -94,7 +94,7 @@ leaf_loc_1499:
     push ax                          ; 0x1584
     push word [bss_9b0a]             ; 0x1585
     push word [bss_9b0c]             ; 0x1589
-    call ds_dispatch_e901            ; 0x158d
+    call ds_loc_3b48                 ; 0x158d
     add sp, byte 0x0a                ; 0x1590
     mov word [bp - 0x0004], 1        ; 0x1593
     jmp short @..leaf_loc_1499.l65   ; 0x1598
@@ -308,7 +308,7 @@ leaf_loc_1499:
     push ax                          ; 0x176c
     push word [bss_9b0a]             ; 0x176d
     push word [bss_9b0c]             ; 0x1771
-    call 0xbbbc                      ; 0x1775
+    call ds_app_0e03                 ; 0x1775
     add sp, byte 8                   ; 0x1778
     mov ax, 0x8d                     ; 0x177b
     push ax                          ; 0x177e
@@ -318,9 +318,9 @@ leaf_loc_1499:
     push ax                          ; 0x1786
     mov ax, 0x48                     ; 0x1787
     push ax                          ; 0x178a
-    call ds_dispatch_e8da            ; 0x178b
+    call ds_loc_3b21                 ; 0x178b
     add sp, byte 8                   ; 0x178e
-    call ds_dispatch_ec17            ; 0x1791
+    call ds_bios_kbd_check           ; 0x1791
     mov ax, word [bp - 0x0008]       ; 0x1794
     mov cx, 2                        ; 0x1797
     cwd                              ; 0x179a
@@ -355,12 +355,12 @@ leaf_loc_1499:
     imul cx                          ; 0x17df
     add ax, word [bss_9b0c]          ; 0x17e1
     push ax                          ; 0x17e5
-    call ds_dispatch_e928            ; 0x17e6
+    call ds_loc_3b6f                 ; 0x17e6
     add sp, byte 8                   ; 0x17e9
     mov word [bp - 0x0010], dx       ; 0x17ec
     mov word [bp - 0x0012], ax       ; 0x17ef
 @..leaf_loc_1499.l88:
-    call ds_dispatch_baef            ; 0x17f2
+    call ds_app_0d36                 ; 0x17f2
     test ax, ax                      ; 0x17f5
     je short @..leaf_loc_1499.l89    ; 0x17f7
     jmp near @..leaf_loc_1499.l90    ; 0x17f9
@@ -416,17 +416,17 @@ leaf_loc_1499:
     imul cx                          ; 0x186a
     add ax, word [bss_9b0c]          ; 0x186c
     push ax                          ; 0x1870
-    call ds_dispatch_e8da            ; 0x1871
+    call ds_loc_3b21                 ; 0x1871
     add sp, byte 8                   ; 0x1874
     mov ax, 0x12c                    ; 0x1877
     push ax                          ; 0x187a
-    call ds_dispatch_e489            ; 0x187b
+    call ds_leaf_loc_36d0            ; 0x187b
     pop cx                           ; 0x187e
     mov ax, 0                        ; 0x187f
     push ax                          ; 0x1882
     push word [bp - 0x0010]          ; 0x1883
     push word [bp - 0x0012]          ; 0x1886
-    call ds_dispatch_e94f            ; 0x1889
+    call ds_loc_3b96                 ; 0x1889
     add sp, byte 6                   ; 0x188c
     mov ax, word [bp - 0x0008]       ; 0x188f
     mov cx, 2                        ; 0x1892
@@ -462,11 +462,11 @@ leaf_loc_1499:
     imul cx                          ; 0x18da
     add ax, word [bss_9b0c]          ; 0x18dc
     push ax                          ; 0x18e0
-    call ds_dispatch_e8da            ; 0x18e1
+    call ds_loc_3b21                 ; 0x18e1
     add sp, byte 8                   ; 0x18e4
     mov ax, 0x12c                    ; 0x18e7
     push ax                          ; 0x18ea
-    call ds_dispatch_e489            ; 0x18eb
+    call ds_leaf_loc_36d0            ; 0x18eb
     pop cx                           ; 0x18ee
     jmp near @..leaf_loc_1499.l88    ; 0x18ef
 @..leaf_loc_1499.l90:
@@ -474,10 +474,10 @@ leaf_loc_1499:
     push ax                          ; 0x18f5
     push word [bp - 0x0010]          ; 0x18f6
     push word [bp - 0x0012]          ; 0x18f9
-    call ds_dispatch_e94f            ; 0x18fc
+    call ds_loc_3b96                 ; 0x18fc
     add sp, byte 6                   ; 0x18ff
     mov ax, 0xf                      ; 0x1902
     push ax                          ; 0x1905
-    call ds_dispatch_c12a            ; 0x1906
+    call ds_app_1371                 ; 0x1906
     pop cx                           ; 0x1909
     ret                              ; 0x190a

@@ -1,6 +1,6 @@
 api_idx_0002_13:
     mov ax, 0xfffe                   ; 0x73b6
-    call ds_dispatch_f40b            ; 0x73b9
+    call ds_aztec_csav               ; 0x73b9
     mov ax, word [bss_8d12]          ; 0x73bc
     shl ax, 1                        ; 0x73bf
     mov si, ax                       ; 0x73c1
@@ -25,7 +25,7 @@ loc_73e0:
     pop cx                           ; 0x73e7
     mov ax, 8                        ; 0x73e8
     push ax                          ; 0x73eb
-    call ds_dispatch_b7e0            ; 0x73ec
+    call ds_app_0a27                 ; 0x73ec
     pop cx                           ; 0x73ef
     mov ax, 8                        ; 0x73f0
     push ax                          ; 0x73f3
@@ -39,7 +39,7 @@ loc_73e0:
 loc_7408:
     mov ax, 8                        ; 0x7408
     push ax                          ; 0x740b
-    call ds_dispatch_b7e0            ; 0x740c
+    call ds_app_0a27                 ; 0x740c
     pop cx                           ; 0x740f
     push word [bss_8d12]             ; 0x7410
     call api_idx_0004_10             ; 0x7414
@@ -64,7 +64,7 @@ jumptable_741a_case_3:
     ret                              ; 0x7435
 loc_7436:
     mov ax, 0                        ; 0x7436
-    call ds_dispatch_f40b            ; 0x7439
+    call ds_aztec_csav               ; 0x7439
     mov bx, word [bss_0e12]          ; 0x743c
     mov si, word [bss_8d12]          ; 0x7440
     mov al, byte [bx + si + 0xa50]   ; 0x7444

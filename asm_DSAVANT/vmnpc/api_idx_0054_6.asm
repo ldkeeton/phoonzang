@@ -1,6 +1,6 @@
 api_idx_0054_6:
     mov ax, 0xffac                   ; 0x9d30
-    call ds_dispatch_f40b            ; 0x9d33
+    call ds_aztec_csav               ; 0x9d33
     mov ax, word [bss_9e42]          ; 0x9d36
     mov word [bp - 0x0002], ax       ; 0x9d39
     mov cx, 0x14                     ; 0x9d3c
@@ -627,7 +627,7 @@ jumptable_a27d:
     ret                              ; 0xa29e
 loc_a29f:
     mov ax, 0                        ; 0xa29f
-    call ds_dispatch_f40b            ; 0xa2a2
+    call ds_aztec_csav               ; 0xa2a2
     cmp word [bss_9e48], byte 0xff   ; 0xa2a5
     je short @..local.l150           ; 0xa2aa
     cmp word [bss_9e46], byte 0xff   ; 0xa2ac

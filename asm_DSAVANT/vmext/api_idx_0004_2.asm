@@ -1,7 +1,7 @@
 api_idx_0004_2:
     mov ax, 0xfffc                   ; 0x05e6
-    call ds_dispatch_f40b            ; 0x05e9
-    call ds_dispatch_ec17            ; 0x05ec
+    call ds_aztec_csav               ; 0x05e9
+    call ds_bios_kbd_check           ; 0x05ec
     mov ax, word [bp + 0x4]          ; 0x05ef
     cwd                              ; 0x05f2
     les bx, word [dseg_0002]         ; 0x05f3
@@ -23,7 +23,7 @@ api_idx_0004_2:
 @..api_idx_0004_2.l2:
     jmp short @..api_idx_0004_2.l6   ; 0x061f
 @..api_idx_0004_2.l3:
-    call ds_dispatch_baef            ; 0x0621
+    call ds_app_0d36                 ; 0x0621
     test ax, ax                      ; 0x0624
     je short @..api_idx_0004_2.l4    ; 0x0626
     ret                              ; 0x0628
@@ -38,14 +38,14 @@ api_idx_0004_2:
     ret                              ; 0x0635
 loc_0636:
     mov ax, 0                        ; 0x0636
-    call ds_dispatch_f40b            ; 0x0639
+    call ds_aztec_csav               ; 0x0639
     mov ax, 0                        ; 0x063c
     push ax                          ; 0x063f
     mov ax, 8                        ; 0x0640
     push ax                          ; 0x0643
     mov ax, 0x8cfe                   ; 0x0644
     push ax                          ; 0x0647
-    call ds_dispatch_f306            ; 0x0648
+    call ds_aztec_setmem             ; 0x0648
     add sp, byte 6                   ; 0x064b
     mov word [bss_82ea], 0           ; 0x064e
     mov ax, word [bp + 0x4]          ; 0x0654
@@ -79,7 +79,7 @@ loc_0636:
     ret                              ; 0x0691
 loc_0692:
     mov ax, 0                        ; 0x0692
-    call ds_dispatch_f40b            ; 0x0695
+    call ds_aztec_csav               ; 0x0695
     mov ax, word [bss_8f46]          ; 0x0698
     mov word [bss_8f3a], ax          ; 0x069b
     mov ax, word [bss_8f44]          ; 0x069e
@@ -97,7 +97,7 @@ loc_0692:
     ret                              ; 0x06c2
 loc_06c3:
     mov ax, 0                        ; 0x06c3
-    call ds_dispatch_f40b            ; 0x06c6
+    call ds_aztec_csav               ; 0x06c6
     mov ax, word [bp + 0x4]          ; 0x06c9
     jmp short @..local.l18           ; 0x06cc
 @..local.l14:
@@ -116,7 +116,7 @@ loc_06c3:
     mov ax, word [bss_0e14]          ; 0x06e9
     add ax, 0x90                     ; 0x06ec
     push ax                          ; 0x06ef
-    call ds_dispatch_ecf6            ; 0x06f0
+    call ds_leaf_loc_3f3d            ; 0x06f0
     add sp, byte 6                   ; 0x06f3
     ret                              ; 0x06f6
 @..local.l15:
@@ -135,7 +135,7 @@ loc_06c3:
     mov ax, word [bss_0e14]          ; 0x0712
     add ax, 0x290                    ; 0x0715
     push ax                          ; 0x0718
-    call ds_dispatch_ecf6            ; 0x0719
+    call ds_leaf_loc_3f3d            ; 0x0719
     add sp, byte 6                   ; 0x071c
     ret                              ; 0x071f
 @..local.l16:

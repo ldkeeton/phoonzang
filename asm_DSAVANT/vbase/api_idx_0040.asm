@@ -1,6 +1,6 @@
 api_idx_0040:
     mov ax, 0xffc0                   ; 0x1f6f
-    call ds_dispatch_f40b            ; 0x1f72
+    call ds_aztec_csav               ; 0x1f72
     mov ax, 0                        ; 0x1f75
     push ax                          ; 0x1f78
     push word [bp + 0x4]             ; 0x1f79
@@ -8,7 +8,7 @@ api_idx_0040:
     push ax                          ; 0x1f7f
     mov ax, 0                        ; 0x1f80
     push ax                          ; 0x1f83
-    call ds_dispatch_b63c            ; 0x1f84
+    call ds_app_file_0883            ; 0x1f84
     add sp, byte 8                   ; 0x1f87
     cmp word [bp + 0x6], byte 1      ; 0x1f8a
     jle short @..api_idx_0040.l1     ; 0x1f8e

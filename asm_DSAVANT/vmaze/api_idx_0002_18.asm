@@ -1,6 +1,6 @@
 api_idx_0002_18:
     mov ax, 0xfffe                   ; 0x8de9
-    call ds_dispatch_f40b            ; 0x8dec
+    call ds_aztec_csav               ; 0x8dec
     mov ax, word [bp + 0x4]          ; 0x8def
     shl ax, 1                        ; 0x8df2
     mov si, ax                       ; 0x8df4
@@ -12,7 +12,7 @@ api_idx_0002_18:
     mov ax, 0xe                      ; 0x8e05
     push ax                          ; 0x8e08
     push word [bp - 0x0002]          ; 0x8e09
-    call ds_dispatch_ed3a            ; 0x8e0c
+    call ds_dos_con_loc_3f81         ; 0x8e0c
     add sp, byte 6                   ; 0x8e0f
     cmp ax, strict word 1            ; 0x8e12
     jne short @..api_idx_0002_18.l1  ; 0x8e15
@@ -21,7 +21,7 @@ api_idx_0002_18:
     mov ax, 0xc                      ; 0x8e1b
     push ax                          ; 0x8e1e
     push word [bp - 0x0002]          ; 0x8e1f
-    call ds_dispatch_ed3a            ; 0x8e22
+    call ds_dos_con_loc_3f81         ; 0x8e22
     add sp, byte 6                   ; 0x8e25
     cmp ax, word [bss_82ee]          ; 0x8e28
     je short @..api_idx_0002_18.l1   ; 0x8e2c
@@ -33,7 +33,7 @@ api_idx_0002_18:
     mov ax, 8                        ; 0x8e36
     push ax                          ; 0x8e39
     push word [bp - 0x0002]          ; 0x8e3a
-    call ds_dispatch_ed3a            ; 0x8e3d
+    call ds_dos_con_loc_3f81         ; 0x8e3d
     add sp, byte 6                   ; 0x8e40
     test ax, ax                      ; 0x8e43
     jne short @..api_idx_0002_18.l2  ; 0x8e45

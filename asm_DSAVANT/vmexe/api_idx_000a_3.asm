@@ -1,6 +1,6 @@
 api_idx_000a_3:
     mov ax, 0xfff6                   ; 0x28e1
-    call ds_dispatch_f40b            ; 0x28e4
+    call ds_aztec_csav               ; 0x28e4
     cmp word [bp + 0x8], byte 0      ; 0x28e7
     jle short @..api_idx_000a_3.l1   ; 0x28eb
     push word [bp + 0x8]             ; 0x28ed

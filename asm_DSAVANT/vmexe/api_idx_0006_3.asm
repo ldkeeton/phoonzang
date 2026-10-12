@@ -1,6 +1,6 @@
 api_idx_0006_3:
     mov ax, 0xfffa                   ; 0x25d0
-    call ds_dispatch_f40b            ; 0x25d3
+    call ds_aztec_csav               ; 0x25d3
     cmp word [bp + 0x6], byte 0      ; 0x25d6
     jl short @..api_idx_0006_3.l1    ; 0x25da
     mov ax, word [bp + 0x6]          ; 0x25dc
@@ -33,7 +33,7 @@ api_idx_0006_3:
     mov ax, word [bp - 0x0002]       ; 0x261c
     sub ax, word [bp - 0x0004]       ; 0x261f
     push ax                          ; 0x2622
-    call ds_dispatch_b7a9            ; 0x2623
+    call ds_app_09f0                 ; 0x2623
     pop cx                           ; 0x2626
     mov word [bp - 0x0006], ax       ; 0x2627
 @..api_idx_0006_3.l4:

@@ -1,6 +1,6 @@
 api_idx_000c:
     mov ax, 0xfff4                   ; 0x178a
-    call ds_dispatch_f40b            ; 0x178d
+    call ds_aztec_csav               ; 0x178d
     mov word [bp - 0x000c], 1        ; 0x1790
     mov word [bp - 0x0006], 0        ; 0x1795
     jmp short @..api_idx_000c.l3     ; 0x179a

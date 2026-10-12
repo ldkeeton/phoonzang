@@ -1,6 +1,6 @@
 api_idx_000c:
     mov ax, 0xfff4                   ; 0x09be
-    call ds_dispatch_f40b            ; 0x09c1
+    call ds_aztec_csav               ; 0x09c1
     call loc_0860                    ; 0x09c4
     mov ax, word [bss_8f3e]          ; 0x09c7
     mov cx, 6                        ; 0x09ca
@@ -18,7 +18,7 @@ api_idx_000c:
     mov ax, word [bss_0e14]          ; 0x09e9
     add ax, 0x4b0                    ; 0x09ec
     push ax                          ; 0x09ef
-    call ds_dispatch_ecf6            ; 0x09f0
+    call ds_leaf_loc_3f3d            ; 0x09f0
     add sp, byte 6                   ; 0x09f3
     mov word [bp - 0x0008], ax       ; 0x09f6
     cmp ax, strict word 1            ; 0x09f9
@@ -32,7 +32,7 @@ api_idx_000c:
     mov ax, word [bss_0e14]          ; 0x0a0a
     add ax, 0x7b0                    ; 0x0a0d
     push ax                          ; 0x0a10
-    call ds_dispatch_ecf6            ; 0x0a11
+    call ds_leaf_loc_3f3d            ; 0x0a11
     add sp, byte 6                   ; 0x0a14
     cmp ax, word [bp + 0x4]          ; 0x0a17
     jne short @..api_idx_000c.l2     ; 0x0a1a
@@ -79,14 +79,14 @@ api_idx_000c:
     mov word [bp - 0x0002], ax       ; 0x0a7f
     push ax                          ; 0x0a82
     push word [bp + 0x6]             ; 0x0a83
-    call ds_dispatch_ec74            ; 0x0a86
+    call ds_leaf_loc_3ebb            ; 0x0a86
     add sp, byte 4                   ; 0x0a89
     cmp ax, strict word 1            ; 0x0a8c
     je short @..api_idx_000c.l4      ; 0x0a8f
     push word [bp - 0x0002]          ; 0x0a91
     mov ax, 0x8b7e                   ; 0x0a94
     push ax                          ; 0x0a97
-    call ds_dispatch_ec74            ; 0x0a98
+    call ds_leaf_loc_3ebb            ; 0x0a98
     add sp, byte 4                   ; 0x0a9b
     cmp ax, strict word 1            ; 0x0a9e
     jne short @..api_idx_000c.l5     ; 0x0aa1
@@ -102,14 +102,14 @@ api_idx_000c:
     mov ax, word [bss_0e14]          ; 0x0ab6
     add ax, 0x8b0                    ; 0x0ab9
     push ax                          ; 0x0abc
-    call ds_dispatch_ec74            ; 0x0abd
+    call ds_leaf_loc_3ebb            ; 0x0abd
     add sp, byte 4                   ; 0x0ac0
     mov word [bp - 0x0004], ax       ; 0x0ac3
     push word [bp - 0x0002]          ; 0x0ac6
     mov ax, word [bss_0e14]          ; 0x0ac9
     add ax, 0x930                    ; 0x0acc
     push ax                          ; 0x0acf
-    call ds_dispatch_ec74            ; 0x0ad0
+    call ds_leaf_loc_3ebb            ; 0x0ad0
     add sp, byte 4                   ; 0x0ad3
     mov word [bp - 0x0006], ax       ; 0x0ad6
     cmp word [bss_918a], byte 0      ; 0x0ad9

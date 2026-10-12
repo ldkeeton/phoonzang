@@ -1,6 +1,6 @@
 api_idx_0010:
     mov ax, 0xfff0                   ; 0x2291
-    call ds_dispatch_f40b            ; 0x2294
+    call ds_aztec_csav               ; 0x2294
     mov ax, 4                        ; 0x2297
     cmp word [bss_91a8], byte 0      ; 0x229a
     jne short @..api_idx_0010.l1     ; 0x229f

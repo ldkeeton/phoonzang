@@ -1,6 +1,6 @@
 api_idx_0002_19:
     mov ax, 0xfffe                   ; 0x8e6a
-    call ds_dispatch_f40b            ; 0x8e6d
+    call ds_aztec_csav               ; 0x8e6d
     mov bx, word [bss_0e12]          ; 0x8e70
     mov si, word [bss_8f3e]          ; 0x8e74
     mov al, byte [bx + si + 0xb40]   ; 0x8e78
@@ -40,7 +40,7 @@ api_idx_0002_19:
     push ax                          ; 0x8ed0
     shl si, 1                        ; 0x8ed1
     push word [bx + si + 0x3c0]      ; 0x8ed3
-    call ds_dispatch_ed3a            ; 0x8ed7
+    call ds_dos_con_loc_3f81         ; 0x8ed7
     add sp, byte 6                   ; 0x8eda
     cmp ax, strict word 1            ; 0x8edd
     je short @..api_idx_0002_19.l4   ; 0x8ee0
@@ -54,7 +54,7 @@ api_idx_0002_19:
     mov si, ax                       ; 0x8ef1
     mov bx, word [bss_0e12]          ; 0x8ef3
     push word [bx + si + 0x3c0]      ; 0x8ef7
-    call ds_dispatch_ed3a            ; 0x8efb
+    call ds_dos_con_loc_3f81         ; 0x8efb
     add sp, byte 6                   ; 0x8efe
     cmp ax, strict word 2            ; 0x8f01
     jne short @..api_idx_0002_19.l5  ; 0x8f04

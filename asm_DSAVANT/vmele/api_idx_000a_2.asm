@@ -1,6 +1,6 @@
 api_idx_000a_2:
     mov ax, 0xfff6                   ; 0x0f95
-    call ds_dispatch_f40b            ; 0x0f98
+    call ds_aztec_csav               ; 0x0f98
     mov ax, word [bp + 0x4]          ; 0x0f9b
     shl ax, 1                        ; 0x0f9e
     mov bx, ax                       ; 0x0fa0
@@ -91,7 +91,7 @@ api_idx_000a_2:
     mov al, byte [bx + 0x6a2c]       ; 0x1086
     sub ah, ah                       ; 0x108a
     push ax                          ; 0x108c
-    call ds_dispatch_b7a9            ; 0x108d
+    call ds_app_09f0                 ; 0x108d
     pop cx                           ; 0x1090
     add word [bp - 0x0006], ax       ; 0x1091
     mov ax, 0x15e                    ; 0x1094
@@ -106,7 +106,7 @@ api_idx_000a_2:
     mov al, byte [bx + 0x6a4a]       ; 0x10ae
     sub ah, ah                       ; 0x10b2
     push ax                          ; 0x10b4
-    call ds_dispatch_b7a9            ; 0x10b5
+    call ds_app_09f0                 ; 0x10b5
     pop cx                           ; 0x10b8
     add word [bp - 0x0008], ax       ; 0x10b9
 @..api_idx_000a_2.l9:
@@ -175,7 +175,7 @@ api_idx_000a_2:
     mov al, byte [bx + 0x6ac2]       ; 0x1155
     sub ah, ah                       ; 0x1159
     push ax                          ; 0x115b
-    call ds_dispatch_b7a9            ; 0x115c
+    call ds_app_09f0                 ; 0x115c
     pop cx                           ; 0x115f
     pop cx                           ; 0x1160
     add ax, cx                       ; 0x1161

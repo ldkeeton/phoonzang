@@ -1,6 +1,6 @@
 api_idx_0004_2:
     mov ax, 0xfffc                   ; 0x0e15
-    call ds_dispatch_f40b            ; 0x0e18
+    call ds_aztec_csav               ; 0x0e18
     cmp word [bss_93d4], byte 2      ; 0x0e1b
     jle short @..api_idx_0004_2.l1   ; 0x0e20
     call api_idx_0002                ; 0x0e22
@@ -26,7 +26,7 @@ api_idx_0004_2:
     shl ax, cl                       ; 0x0e50
     add ax, 0x91cc                   ; 0x0e52
     push ax                          ; 0x0e55
-    call ds_dispatch_e883            ; 0x0e56
+    call ds_loc_3aca                 ; 0x0e56
     add sp, byte 4                   ; 0x0e59
     inc ax                           ; 0x0e5c
     mov cx, 2                        ; 0x0e5d
@@ -55,7 +55,7 @@ api_idx_0004_2:
     add ax, cx                       ; 0x0e90
     push ax                          ; 0x0e92
     push word [bp - 0x0002]          ; 0x0e93
-    call ds_dispatch_e809            ; 0x0e96
+    call ds_loc_3a50                 ; 0x0e96
     add sp, byte 4                   ; 0x0e99
     mov ax, 0                        ; 0x0e9c
     push ax                          ; 0x0e9f
@@ -70,7 +70,7 @@ api_idx_0004_2:
     mov ax, 1                        ; 0x0eb3
 @..api_idx_0004_2.l9:
     push ax                          ; 0x0eb6
-    call ds_dispatch_e823            ; 0x0eb7
+    call ds_loc_3a6a                 ; 0x0eb7
     add sp, byte 4                   ; 0x0eba
     mov ax, word [bp - 0x0004]       ; 0x0ebd
     shl ax, 1                        ; 0x0ec0
@@ -81,7 +81,7 @@ api_idx_0004_2:
     shl ax, cl                       ; 0x0ece
     add ax, 0x91cc                   ; 0x0ed0
     push ax                          ; 0x0ed3
-    call ds_dispatch_e84e            ; 0x0ed4
+    call ds_string_loc_3a95          ; 0x0ed4
     add sp, byte 4                   ; 0x0ed7
     inc word [bp - 0x0004]           ; 0x0eda
     mov ax, word [bp - 0x0004]       ; 0x0edd
@@ -96,7 +96,7 @@ api_idx_0004_2:
     ret                              ; 0x0ef0
 loc_0ef1:
     mov ax, 0                        ; 0x0ef1
-    call ds_dispatch_f40b            ; 0x0ef4
+    call ds_aztec_csav               ; 0x0ef4
     les bx, word [dseg_0002]         ; 0x0ef7
     mov ax, word [es:bx]             ; 0x0efb
     mov dx, word [es:bx + 0x2]       ; 0x0efe

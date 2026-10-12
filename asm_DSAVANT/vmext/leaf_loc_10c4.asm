@@ -56,7 +56,7 @@ loc_1143:
     mov ax, word [bx + 0x5c10]       ; 0x1153
     sub ax, word [bp - 0x000e]       ; 0x1157
     push ax                          ; 0x115a
-    call ds_dispatch_b7c2            ; 0x115b
+    call ds_app_0a09                 ; 0x115b
     add sp, byte 6                   ; 0x115e
     push ax                          ; 0x1161
     mov ax, 0x248                    ; 0x1162
@@ -72,7 +72,7 @@ loc_1143:
     push cx                          ; 0x117c
     mov ax, 6                        ; 0x117d
     push ax                          ; 0x1180
-    call ds_dispatch_b7a9            ; 0x1181
+    call ds_app_09f0                 ; 0x1181
     pop cx                           ; 0x1184
     pop cx                           ; 0x1185
     add ax, cx                       ; 0x1186

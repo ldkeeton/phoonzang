@@ -1,6 +1,6 @@
 api_idx_0002_12:
     mov ax, 0xfffe                   ; 0x8e6b
-    call ds_dispatch_f40b            ; 0x8e6e
+    call ds_aztec_csav               ; 0x8e6e
     mov ax, 0                        ; 0x8e71
     push ax                          ; 0x8e74
     mov ax, 0x919a                   ; 0x8e75
@@ -18,7 +18,7 @@ api_idx_0002_12:
     mov ax, 0                        ; 0x8e8f
     push ax                          ; 0x8e92
     push ax                          ; 0x8e93
-    call ds_dispatch_e935            ; 0x8e94
+    call ds_loc_3b7c                 ; 0x8e94
     add sp, byte 0x0c                ; 0x8e97
     mov word [bss_a5b4], dx          ; 0x8e9a
     mov word [bss_a5b2], ax          ; 0x8e9e
@@ -42,7 +42,7 @@ api_idx_0002_12:
     push ax                          ; 0x8ecc
     mov ax, 0xa5c6                   ; 0x8ecd
     push ax                          ; 0x8ed0
-    call ds_dispatch_f364            ; 0x8ed1
+    call ds_aztec_strcpy             ; 0x8ed1
     add sp, byte 4                   ; 0x8ed4
     mov word [bss_a5ce], 0           ; 0x8ed7
     mov word [bss_a5fa], 0           ; 0x8edd
@@ -61,7 +61,7 @@ api_idx_0002_12:
     push ax                          ; 0x8f19
     push ax                          ; 0x8f1a
     push ax                          ; 0x8f1b
-    call ds_dispatch_f0d7            ; 0x8f1c
+    call ds_loc_431e                 ; 0x8f1c
     add sp, byte 6                   ; 0x8f1f
     mov ax, 0xc7                     ; 0x8f22
     push ax                          ; 0x8f25
@@ -70,11 +70,11 @@ api_idx_0002_12:
     mov ax, 0                        ; 0x8f2a
     push ax                          ; 0x8f2d
     push ax                          ; 0x8f2e
-    call ds_dispatch_e8da            ; 0x8f2f
+    call ds_loc_3b21                 ; 0x8f2f
     add sp, byte 8                   ; 0x8f32
     mov ax, 0                        ; 0x8f35
     push ax                          ; 0x8f38
-    call ds_dispatch_f0bd            ; 0x8f39
+    call ds_loc_4304                 ; 0x8f39
     pop cx                           ; 0x8f3c
     mov ax, 0                        ; 0x8f3d
     push ax                          ; 0x8f40
@@ -95,7 +95,7 @@ api_idx_0002_12:
     push ax                          ; 0x8f61
     push word [bss_a5b4]             ; 0x8f62
     push word [bss_a5b2]             ; 0x8f66
-    call ds_dispatch_e942            ; 0x8f6a
+    call ds_loc_3b89                 ; 0x8f6a
     add sp, byte 8                   ; 0x8f6d
     call loc_85f0                    ; 0x8f70
     ret                              ; 0x8f73

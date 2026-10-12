@@ -1,6 +1,6 @@
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x067b
-    call ds_dispatch_f40b            ; 0x067e
+    call ds_aztec_csav               ; 0x067e
     cmp word [bss_8f20], byte 0      ; 0x0681
     jg short @..api_idx_000e.l1      ; 0x0686
     jmp near @..api_idx_000e.l8      ; 0x0688
@@ -79,7 +79,7 @@ api_idx_000e:
     push ax                          ; 0x072f
     mov ax, 3                        ; 0x0730
     push ax                          ; 0x0733
-    call ds_dispatch_efd1            ; 0x0734
+    call ds_loc_4218                 ; 0x0734
     add sp, byte 0x16                ; 0x0737
 @..api_idx_000e.l8:
     ret                              ; 0x073a

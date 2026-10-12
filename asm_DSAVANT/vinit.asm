@@ -85,7 +85,7 @@ bss_91b8 equ 0x91b8
 
 loc_000e:
     mov ax, 0                        ; 0x000e
-    call ds_dispatch_f40b            ; 0x0011
+    call ds_aztec_csav               ; 0x0011
     mov ax, word [bss_830a]          ; 0x0014
     jmp short @..local.l5            ; 0x0017
 @..local.l1:

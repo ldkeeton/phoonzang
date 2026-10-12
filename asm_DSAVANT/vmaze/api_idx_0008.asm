@@ -1,6 +1,6 @@
 api_idx_0008:
     mov ax, 0xfff8                   ; 0x01c9
-    call ds_dispatch_f40b            ; 0x01cc
+    call ds_aztec_csav               ; 0x01cc
     mov word [bp - 0x0008], 0        ; 0x01cf
     call loc_13c0                    ; 0x01d4
     cmp word [bss_919e], byte 0      ; 0x01d7
@@ -35,7 +35,7 @@ api_idx_0008:
     mov ax, word [bss_0e14]          ; 0x021c
     add ax, 0x8b0                    ; 0x021f
     push ax                          ; 0x0222
-    call ds_dispatch_ec74            ; 0x0223
+    call ds_leaf_loc_3ebb            ; 0x0223
     add sp, byte 4                   ; 0x0226
     test ax, ax                      ; 0x0229
     je short @..api_idx_0008.l4      ; 0x022b
@@ -43,7 +43,7 @@ api_idx_0008:
     mov ax, word [bss_0e14]          ; 0x0230
     add ax, 0x9b0                    ; 0x0233
     push ax                          ; 0x0236
-    call ds_dispatch_ec74            ; 0x0237
+    call ds_leaf_loc_3ebb            ; 0x0237
     add sp, byte 4                   ; 0x023a
     test ax, ax                      ; 0x023d
     je short @..api_idx_0008.l4      ; 0x023f
@@ -70,7 +70,7 @@ api_idx_0008:
     sbb dx, bx                       ; 0x0268
     mov cx, 0x5a0                    ; 0x026a
     mov bx, 0                        ; 0x026d
-    call ds_dispatch_f9cd            ; 0x0270
+    call ds_aztec_lrm                ; 0x0270
     mov word [bp - 0x0006], ax       ; 0x0273
     cmp ax, strict word 0            ; 0x0276
     jl short @..api_idx_0008.l7      ; 0x0279

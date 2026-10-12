@@ -1,6 +1,6 @@
 api_idx_0004_4:
     mov ax, 0xfffc                   ; 0x4528
-    call ds_dispatch_f40b            ; 0x452b
+    call ds_aztec_csav               ; 0x452b
     mov word [bp - 0x0004], 0        ; 0x452e
     mov word [bp - 0x0002], 0        ; 0x4533
     jmp short @..api_idx_0004_4.l3   ; 0x4538
@@ -19,7 +19,7 @@ api_idx_0004_4:
     jle short @..api_idx_0004_4.l2   ; 0x4558
     mov ax, 2                        ; 0x455a
     push ax                          ; 0x455d
-    call ds_dispatch_b7a9            ; 0x455e
+    call ds_app_09f0                 ; 0x455e
     pop cx                           ; 0x4561
     test ax, ax                      ; 0x4562
     jne short @..api_idx_0004_4.l2   ; 0x4564

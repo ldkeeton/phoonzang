@@ -1,8 +1,8 @@
 api_idx_0002_7:
     mov ax, 0xfffe                   ; 0x5006
-    call ds_dispatch_f40b            ; 0x5009
+    call ds_aztec_csav               ; 0x5009
     push word [bp + 0xa]             ; 0x500c
-    call ds_dispatch_b7a9            ; 0x500f
+    call ds_app_09f0                 ; 0x500f
     pop cx                           ; 0x5012
     add ax, word [bp + 0x8]          ; 0x5013
     mov word [bp - 0x0002], ax       ; 0x5016
@@ -18,7 +18,7 @@ api_idx_0002_7:
     sub ah, ah                       ; 0x5030
     add ax, word [bp - 0x0002]       ; 0x5032
     push ax                          ; 0x5035
-    call ds_dispatch_b7c2            ; 0x5036
+    call ds_app_0a09                 ; 0x5036
     add sp, byte 6                   ; 0x5039
     push ax                          ; 0x503c
     mov ax, 0x248                    ; 0x503d

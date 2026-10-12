@@ -1,6 +1,6 @@
 api_idx_002c:
     mov ax, 0xffd4                   ; 0x6738
-    call ds_dispatch_f40b            ; 0x673b
+    call ds_aztec_csav               ; 0x673b
     push word [bp + 0x4]             ; 0x673e
     mov ax, 0                        ; 0x6741
     push ax                          ; 0x6744
@@ -44,7 +44,7 @@ api_idx_002c:
     mov byte [bx - 0x6f8a], 0        ; 0x67a0
     mov ax, 0                        ; 0x67a5
     push ax                          ; 0x67a8
-    call ds_dispatch_ef14            ; 0x67a9
+    call ds_loc_415b                 ; 0x67a9
     pop cx                           ; 0x67ac
     mov ax, 2                        ; 0x67ad
     push ax                          ; 0x67b0
@@ -52,10 +52,10 @@ api_idx_002c:
     push ax                          ; 0x67b4
     mov ax, 0x9501                   ; 0x67b5
     push ax                          ; 0x67b8
-    call ds_dispatch_d161            ; 0x67b9
+    call ds_app_23a8                 ; 0x67b9
     add sp, byte 4                   ; 0x67bc
     push ax                          ; 0x67bf
-    call ds_dispatch_f909            ; 0x67c0
+    call ds_aztec_open               ; 0x67c0
     add sp, byte 4                   ; 0x67c3
     mov word [bp - 0x0004], ax       ; 0x67c6
     mov ax, 0x18                     ; 0x67c9
@@ -63,23 +63,23 @@ api_idx_002c:
     mov ax, 0x906e                   ; 0x67cd
     push ax                          ; 0x67d0
     push word [bp - 0x0004]          ; 0x67d1
-    call ds_dispatch_fd76            ; 0x67d4
+    call ds_aztec_write              ; 0x67d4
     add sp, byte 6                   ; 0x67d7
     push word [bp - 0x0004]          ; 0x67da
-    call ds_dispatch_fda5            ; 0x67dd
+    call ds_aztec_close              ; 0x67dd
     pop cx                           ; 0x67e0
 @..api_idx_002c.l1:
     ret                              ; 0x67e1
 loc_67e2:
     mov ax, 0                        ; 0x67e2
-    call ds_dispatch_f40b            ; 0x67e5
+    call ds_aztec_csav               ; 0x67e5
     push word [bp + 0x4]             ; 0x67e8
     mov ax, 0                        ; 0x67eb
     push ax                          ; 0x67ee
     call loc_66c3                    ; 0x67ef
     add sp, byte 4                   ; 0x67f2
 @..local.l75:
-    call ds_dispatch_baef            ; 0x67f5
+    call ds_app_0d36                 ; 0x67f5
     test ax, ax                      ; 0x67f8
     jne short @..local.l76           ; 0x67fa
     jmp short @..local.l75           ; 0x67fc

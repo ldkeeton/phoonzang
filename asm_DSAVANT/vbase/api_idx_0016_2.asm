@@ -1,15 +1,15 @@
 api_idx_0016_2:
     mov ax, 0xffea                   ; 0x72d0
-    call ds_dispatch_f40b            ; 0x72d3
+    call ds_aztec_csav               ; 0x72d3
     mov ax, 0                        ; 0x72d6
     push ax                          ; 0x72d9
-    call ds_dispatch_ef14            ; 0x72da
+    call ds_loc_415b                 ; 0x72da
     pop cx                           ; 0x72dd
     mov ax, 0x9138                   ; 0x72de
     push ax                          ; 0x72e1
     lea ax, word [bp - 0x0016]       ; 0x72e2
     push ax                          ; 0x72e5
-    call ds_dispatch_f364            ; 0x72e6
+    call ds_aztec_strcpy             ; 0x72e6
     add sp, byte 4                   ; 0x72e9
     mov ax, word [bp + 0x4]          ; 0x72ec
     mov cx, 0xa                      ; 0x72ef
@@ -26,24 +26,24 @@ api_idx_0016_2:
     push ax                          ; 0x730a
     lea ax, word [bp - 0x0016]       ; 0x730b
     push ax                          ; 0x730e
-    call ds_dispatch_d161            ; 0x730f
+    call ds_app_23a8                 ; 0x730f
     add sp, byte 4                   ; 0x7312
     push ax                          ; 0x7315
-    call ds_dispatch_f909            ; 0x7316
+    call ds_aztec_open               ; 0x7316
     add sp, byte 4                   ; 0x7319
     mov word [bp - 0x0002], ax       ; 0x731c
     cmp ax, strict word 0xffff       ; 0x731f
     jne short @..api_idx_0016_2.l1   ; 0x7322
     mov ax, 0x12                     ; 0x7324
     push ax                          ; 0x7327
-    call ds_dispatch_b171            ; 0x7328
+    call ds_app_03b8                 ; 0x7328
     pop cx                           ; 0x732b
 @..api_idx_0016_2.l1:
     push word [bp + 0x6]             ; 0x732c
     push word [bp - 0x0002]          ; 0x732f
-    call 0xefaa                      ; 0x7332
+    call ds_loc_41f1                 ; 0x7332
     add sp, byte 4                   ; 0x7335
     push word [bp - 0x0002]          ; 0x7338
-    call ds_dispatch_fda5            ; 0x733b
+    call ds_aztec_close              ; 0x733b
     pop cx                           ; 0x733e
     ret                              ; 0x733f

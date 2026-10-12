@@ -1,6 +1,6 @@
 api_idx_0004_11:
     mov ax, 0xfffc                   ; 0x6ead
-    call ds_dispatch_f40b            ; 0x6eb0
+    call ds_aztec_csav               ; 0x6eb0
     mov cx, word [bp + 0x4]          ; 0x6eb3
     shl cx, 1                        ; 0x6eb6
     mov ax, word [bss_0e12]          ; 0x6eb8
@@ -70,7 +70,7 @@ api_idx_0004_11:
     ret                              ; 0x6f40
 loc_6f41:
     mov ax, 0                        ; 0x6f41
-    call ds_dispatch_f40b            ; 0x6f44
+    call ds_aztec_csav               ; 0x6f44
     mov ax, word [bss_82ee]          ; 0x6f47
     shl ax, 1                        ; 0x6f4a
     mov bx, ax                       ; 0x6f4c
@@ -116,7 +116,7 @@ loc_6f41:
     shl ax, cl                       ; 0x6fb0
     add ax, 0x8d14                   ; 0x6fb2
     push ax                          ; 0x6fb5
-    call ds_dispatch_ec41            ; 0x6fb6
+    call ds_leaf_loc_3e88            ; 0x6fb6
     add sp, byte 6                   ; 0x6fb9
     mov ax, 0                        ; 0x6fbc
     push ax                          ; 0x6fbf
@@ -130,7 +130,7 @@ loc_6f41:
     shl ax, cl                       ; 0x6fd3
     add ax, 0x5642                   ; 0x6fd5
     push ax                          ; 0x6fd8
-    call ds_dispatch_ec41            ; 0x6fd9
+    call ds_leaf_loc_3e88            ; 0x6fd9
     add sp, byte 6                   ; 0x6fdc
     mov ax, word [bp + 0x4]          ; 0x6fdf
     inc ax                           ; 0x6fe2
@@ -140,7 +140,7 @@ loc_6f41:
     je short @..local.l134           ; 0x6fea
     mov ax, 1                        ; 0x6fec
     push ax                          ; 0x6fef
-    call ds_dispatch_b7e0            ; 0x6ff0
+    call ds_app_0a27                 ; 0x6ff0
     pop cx                           ; 0x6ff3
 @..local.l134:
     ret                              ; 0x6ff4

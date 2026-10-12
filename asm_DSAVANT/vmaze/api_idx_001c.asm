@@ -1,6 +1,6 @@
 api_idx_001c:
     mov ax, 0xffe4                   ; 0x764d
-    call ds_dispatch_f40b            ; 0x7650
+    call ds_aztec_csav               ; 0x7650
     mov ax, word [bss_8d12]          ; 0x7653
     shl ax, 1                        ; 0x7656
     mov si, ax                       ; 0x7658
@@ -12,14 +12,14 @@ api_idx_001c:
     mov ax, 0                        ; 0x7669
     push ax                          ; 0x766c
     push word [bp - 0x0006]          ; 0x766d
-    call ds_dispatch_ed3a            ; 0x7670
+    call ds_dos_con_loc_3f81         ; 0x7670
     add sp, byte 6                   ; 0x7673
     mov word [bp - 0x000e], ax       ; 0x7676
     mov ax, 3                        ; 0x7679
     push ax                          ; 0x767c
     push ax                          ; 0x767d
     push word [bp - 0x0006]          ; 0x767e
-    call ds_dispatch_ed3a            ; 0x7681
+    call ds_dos_con_loc_3f81         ; 0x7681
     add sp, byte 6                   ; 0x7684
     mov word [bp - 0x0010], ax       ; 0x7687
     mov ax, 4                        ; 0x768a
@@ -27,7 +27,7 @@ api_idx_001c:
     mov ax, 6                        ; 0x768e
     push ax                          ; 0x7691
     push word [bp - 0x0006]          ; 0x7692
-    call ds_dispatch_ed3a            ; 0x7695
+    call ds_dos_con_loc_3f81         ; 0x7695
     add sp, byte 6                   ; 0x7698
     mov word [bp - 0x000c], ax       ; 0x769b
     mov ax, 1                        ; 0x769e
@@ -35,7 +35,7 @@ api_idx_001c:
     mov ax, 0xa                      ; 0x76a2
     push ax                          ; 0x76a5
     push word [bp - 0x0006]          ; 0x76a6
-    call ds_dispatch_ed3a            ; 0x76a9
+    call ds_dos_con_loc_3f81         ; 0x76a9
     add sp, byte 6                   ; 0x76ac
     mov word [bp - 0x0012], ax       ; 0x76af
     mov ax, 2                        ; 0x76b2
@@ -43,7 +43,7 @@ api_idx_001c:
     mov ax, 0xb                      ; 0x76b6
     push ax                          ; 0x76b9
     push word [bp - 0x0006]          ; 0x76ba
-    call ds_dispatch_ed3a            ; 0x76bd
+    call ds_dos_con_loc_3f81         ; 0x76bd
     add sp, byte 6                   ; 0x76c0
     mov word [bp - 0x0014], ax       ; 0x76c3
     mov bx, word [bss_0e14]          ; 0x76c6
@@ -81,7 +81,7 @@ api_idx_001c:
     shl ax, 1                        ; 0x771d
     push ax                          ; 0x771f
     push word [bp - 0x0006]          ; 0x7720
-    call ds_dispatch_ed3a            ; 0x7723
+    call ds_dos_con_loc_3f81         ; 0x7723
     add sp, byte 6                   ; 0x7726
     mov cx, word [bp - 0x0002]       ; 0x7729
     shl cx, 1                        ; 0x772c
@@ -111,7 +111,7 @@ api_idx_001c:
     mov ax, word [bss_0e14]          ; 0x776d
     add ax, 0x90                     ; 0x7770
     push ax                          ; 0x7773
-    call ds_dispatch_eca4            ; 0x7774
+    call ds_leaf_loc_3eeb            ; 0x7774
     add sp, byte 8                   ; 0x7777
     push word [bp - 0x001a]          ; 0x777a
     mov ax, 4                        ; 0x777d
@@ -120,7 +120,7 @@ api_idx_001c:
     mov ax, word [bss_0e14]          ; 0x7784
     add ax, 0x290                    ; 0x7787
     push ax                          ; 0x778a
-    call ds_dispatch_eca4            ; 0x778b
+    call ds_leaf_loc_3eeb            ; 0x778b
     add sp, byte 8                   ; 0x778e
     mov ax, word [bp - 0x000a]       ; 0x7791
     dec ax                           ; 0x7794
@@ -153,7 +153,7 @@ api_idx_001c:
     mov ax, word [bss_0e14]          ; 0x77d2
     add ax, 0x90                     ; 0x77d5
     push ax                          ; 0x77d8
-    call ds_dispatch_eca4            ; 0x77d9
+    call ds_leaf_loc_3eeb            ; 0x77d9
     add sp, byte 8                   ; 0x77dc
 @..api_idx_001c.l2:
     push word [bp - 0x000a]          ; 0x77df
@@ -187,7 +187,7 @@ api_idx_001c:
     mov ax, word [bss_0e14]          ; 0x7820
     add ax, 0x290                    ; 0x7823
     push ax                          ; 0x7826
-    call ds_dispatch_eca4            ; 0x7827
+    call ds_leaf_loc_3eeb            ; 0x7827
     add sp, byte 8                   ; 0x782a
 @..api_idx_001c.l3:
     mov ax, word [bss_8d12]          ; 0x782d

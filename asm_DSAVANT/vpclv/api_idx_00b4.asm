@@ -1,6 +1,6 @@
 api_idx_00b4:
     mov ax, 0xff4c                   ; 0x4cc5
-    call ds_dispatch_f40b            ; 0x4cc8
+    call ds_aztec_csav               ; 0x4cc8
     mov word [bp - 0x0002], 0        ; 0x4ccb
 @..api_idx_00b4.l1:
     mov ax, word [bp - 0x0002]       ; 0x4cd0
@@ -17,7 +17,7 @@ api_idx_00b4:
 @..api_idx_00b4.l3:
     mov ax, 7                        ; 0x4cee
     push ax                          ; 0x4cf1
-    call ds_dispatch_b7a9            ; 0x4cf2
+    call ds_app_09f0                 ; 0x4cf2
     pop cx                           ; 0x4cf5
     mov word [bp - 0x0002], ax       ; 0x4cf6
     inc word [bp - 0x0004]           ; 0x4cf9
@@ -89,14 +89,14 @@ api_idx_00b4:
     push ax                          ; 0x4d9b
     mov ax, 0x1396                   ; 0x4d9c
     push ax                          ; 0x4d9f
-    call ds_dispatch_b53b            ; 0x4da0
+    call ds_app_mem_0782             ; 0x4da0
     add sp, byte 4                   ; 0x4da3
     lea ax, word [bp - 0x00b4]       ; 0x4da6
     push ax                          ; 0x4daa
     mov ax, word [bp - 0x0002]       ; 0x4dab
     add ax, 0x13ba                   ; 0x4dae
     push ax                          ; 0x4db1
-    call ds_dispatch_b53b            ; 0x4db2
+    call ds_app_mem_0782             ; 0x4db2
     add sp, byte 4                   ; 0x4db5
     mov ax, 0x24                     ; 0x4db8
     push ax                          ; 0x4dbb
@@ -104,7 +104,7 @@ api_idx_00b4:
     push ax                          ; 0x4dc0
     lea ax, word [bp - 0x0064]       ; 0x4dc1
     push ax                          ; 0x4dc4
-    call ds_dispatch_b300            ; 0x4dc5
+    call ds_app_string_0547          ; 0x4dc5
     add sp, byte 6                   ; 0x4dc8
     mov ax, 1                        ; 0x4dcb
     push ax                          ; 0x4dce
@@ -122,12 +122,12 @@ api_idx_00b4:
     mov ax, 6                        ; 0x4de8
     push ax                          ; 0x4deb
     push ax                          ; 0x4dec
-    call ds_dispatch_e8da            ; 0x4ded
+    call ds_loc_3b21                 ; 0x4ded
     add sp, byte 8                   ; 0x4df0
 @..api_idx_00b4.l8:
     mov ax, 2                        ; 0x4df3
     push ax                          ; 0x4df6
-    call ds_dispatch_b7a9            ; 0x4df7
+    call ds_app_09f0                 ; 0x4df7
     pop cx                           ; 0x4dfa
     test ax, ax                      ; 0x4dfb
     je short @..api_idx_00b4.l9      ; 0x4dfd

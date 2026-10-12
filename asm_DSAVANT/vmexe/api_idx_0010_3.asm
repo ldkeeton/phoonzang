@@ -1,6 +1,6 @@
 api_idx_0010_3:
     mov ax, 0xfff0                   ; 0x9a2f
-    call ds_dispatch_f40b            ; 0x9a32
+    call ds_aztec_csav               ; 0x9a32
     push word [bss_8462]             ; 0x9a35
     push word [bss_8464]             ; 0x9a39
     mov ax, 0x90e6                   ; 0x9a3d
@@ -11,7 +11,7 @@ api_idx_0010_3:
     push ax                          ; 0x9a4a
     mov ax, 0xdbd                    ; 0x9a4b
     push ax                          ; 0x9a4e
-    call ds_dispatch_b53b            ; 0x9a4f
+    call ds_app_mem_0782             ; 0x9a4f
     add sp, byte 4                   ; 0x9a52
     mov byte [bss_9186], 0           ; 0x9a55
     mov bx, word [bp + 0x4]          ; 0x9a5a
@@ -113,7 +113,7 @@ api_idx_0010_3:
     push ax                          ; 0x9b48
     mov ax, 0xdc5                    ; 0x9b49
     push ax                          ; 0x9b4c
-    call ds_dispatch_b53b            ; 0x9b4d
+    call ds_app_mem_0782             ; 0x9b4d
     add sp, byte 4                   ; 0x9b50
 @..api_idx_0010_3.l4:
     cmp word [bss_845a], byte 1      ; 0x9b53
@@ -148,7 +148,7 @@ api_idx_0010_3:
     pop cx                           ; 0x9b95
     mov ax, 0x64                     ; 0x9b96
     push ax                          ; 0x9b99
-    call ds_dispatch_b7a9            ; 0x9b9a
+    call ds_app_09f0                 ; 0x9b9a
     pop cx                           ; 0x9b9d
     cmp ax, word [bp - 0x000e]       ; 0x9b9e
     jl short @..api_idx_0010_3.l7    ; 0x9ba1
@@ -276,7 +276,7 @@ api_idx_0010_3:
     jmp near @..api_idx_0010_3.l11   ; 0x9ccc
 @..api_idx_0010_3.l19:
     call api_idx_000e_2              ; 0x9ccf
-    call ds_dispatch_da22            ; 0x9cd2
+    call ds_app_2c69                 ; 0x9cd2
     mov word [bss_845e], 0           ; 0x9cd5
 @..api_idx_0010_3.l20:
     call api_idx_0006                ; 0x9cdb
@@ -361,7 +361,7 @@ api_idx_0010_3:
     ret                              ; 0x9d8c
 loc_9d8d:
     mov ax, 0xfd8a                   ; 0x9d8d
-    call ds_dispatch_f40b            ; 0x9d90
+    call ds_aztec_csav               ; 0x9d90
     mov ax, 0x248                    ; 0x9d93
     push ax                          ; 0x9d96
     mov ax, 0x248                    ; 0x9d97

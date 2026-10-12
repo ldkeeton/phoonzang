@@ -1,6 +1,6 @@
 api_idx_0002_27:
     mov ax, 0xfffe                   ; 0xa9a4
-    call ds_dispatch_f40b            ; 0xa9a7
+    call ds_aztec_csav               ; 0xa9a7
     mov ax, 0x26                     ; 0xa9aa
     imul word [bp + 0x4]             ; 0xa9ad
     mov bx, ax                       ; 0xa9b0
@@ -11,7 +11,7 @@ api_idx_0002_27:
     mov al, byte [bx - 0x7b13]       ; 0xa9bf
     sub ah, ah                       ; 0xa9c3
     push ax                          ; 0xa9c5
-    call ds_dispatch_b7a9            ; 0xa9c6
+    call ds_app_09f0                 ; 0xa9c6
     pop cx                           ; 0xa9c9
     cmp ax, strict word 0x18         ; 0xa9ca
     jle short @..api_idx_0002_27.l1  ; 0xa9cd
@@ -36,7 +36,7 @@ api_idx_0002_27:
     imul word [bp + 0x4]             ; 0xa9fc
     add ax, 0x850a                   ; 0xa9ff
     push ax                          ; 0xaa02
-    call ds_dispatch_ec41            ; 0xaa03
+    call ds_leaf_loc_3e88            ; 0xaa03
     add sp, byte 6                   ; 0xaa06
     mov ax, 0x26                     ; 0xaa09
     imul word [bp + 0x4]             ; 0xaa0c
@@ -61,10 +61,10 @@ api_idx_0002_27:
     ret                              ; 0xaa3e
 loc_aa3f:
     mov ax, 0                        ; 0xaa3f
-    call ds_dispatch_f40b            ; 0xaa42
+    call ds_aztec_csav               ; 0xaa42
     mov ax, 0x10                     ; 0xaa45
     push ax                          ; 0xaa48
-    call ds_dispatch_b7a9            ; 0xaa49
+    call ds_app_09f0                 ; 0xaa49
     pop cx                           ; 0xaa4c
     push ax                          ; 0xaa4d
     mov ax, 0x26                     ; 0xaa4e
@@ -77,7 +77,7 @@ loc_aa3f:
     jne short @..local.l83           ; 0xaa63
     mov ax, 0xa                      ; 0xaa65
     push ax                          ; 0xaa68
-    call ds_dispatch_b7a9            ; 0xaa69
+    call ds_app_09f0                 ; 0xaa69
     pop cx                           ; 0xaa6c
     test ax, ax                      ; 0xaa6d
     jne short @..local.l83           ; 0xaa6f
@@ -88,7 +88,7 @@ loc_aa3f:
     mov byte [bx - 0x7b00], al       ; 0xaa7d
     mov ax, 0xa                      ; 0xaa81
     push ax                          ; 0xaa84
-    call ds_dispatch_b7a9            ; 0xaa85
+    call ds_app_09f0                 ; 0xaa85
     pop cx                           ; 0xaa88
     test ax, ax                      ; 0xaa89
     jne short @..local.l82           ; 0xaa8b
@@ -124,7 +124,7 @@ loc_aa3f:
     ret                              ; 0xaad2
 loc_aad3:
     mov ax, 0                        ; 0xaad3
-    call ds_dispatch_f40b            ; 0xaad6
+    call ds_aztec_csav               ; 0xaad6
     mov ax, 0x26                     ; 0xaad9
     imul word [bp + 0x4]             ; 0xaadc
     mov bx, ax                       ; 0xaadf

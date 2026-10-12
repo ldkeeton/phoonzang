@@ -28,13 +28,13 @@ loc_6c37:
     jl short loc_6c52                ; 0x6c44
     mov ax, 4                        ; 0x6c46
     push ax                          ; 0x6c49
-    call ds_dispatch_b7a9            ; 0x6c4a
+    call ds_app_09f0                 ; 0x6c4a
     pop cx                           ; 0x6c4d
     test ax, ax                      ; 0x6c4e
     jne short loc_6c5d               ; 0x6c50
 loc_6c52:
     push word [bss_69c8]             ; 0x6c52
-    call ds_dispatch_b7a9            ; 0x6c56
+    call ds_app_09f0                 ; 0x6c56
     pop cx                           ; 0x6c59
     mov word [bp - 0x000c], ax       ; 0x6c5a
 loc_6c5d:
@@ -71,7 +71,7 @@ loc_6c5d:
 loc_6cae:
     mov ax, 0x64                     ; 0x6cae
     push ax                          ; 0x6cb1
-    call ds_dispatch_b7a9            ; 0x6cb2
+    call ds_app_09f0                 ; 0x6cb2
     pop cx                           ; 0x6cb5
     add ax, strict word 0xff9c       ; 0x6cb6
     mov word [bp - 0x0008], ax       ; 0x6cb9
@@ -82,7 +82,7 @@ loc_6cae:
 loc_6cc6:
     mov ax, 2                        ; 0x6cc6
     push ax                          ; 0x6cc9
-    call ds_dispatch_b7a9            ; 0x6cca
+    call ds_app_09f0                 ; 0x6cca
     pop cx                           ; 0x6ccd
     cmp ax, strict word 1            ; 0x6cce
     jne short loc_6ce2               ; 0x6cd1
@@ -118,7 +118,7 @@ loc_6d19:
     jne short loc_6d40               ; 0x6d1e
     mov ax, 5                        ; 0x6d20
     push ax                          ; 0x6d23
-    call ds_dispatch_b7a9            ; 0x6d24
+    call ds_app_09f0                 ; 0x6d24
     pop cx                           ; 0x6d27
     mov cx, ax                       ; 0x6d28
     add ax, strict word 5            ; 0x6d2a
@@ -174,14 +174,14 @@ loc_6d9c:
     ret                              ; 0x6d9c
 loc_6d9d:
     mov ax, 0                        ; 0x6d9d
-    call ds_dispatch_f40b            ; 0x6da0
+    call ds_aztec_csav               ; 0x6da0
     mov word [bss_93da], 0           ; 0x6da3
     cmp byte [bss_91ca], 0           ; 0x6da9
     jle short @..local.l82           ; 0x6dae
     mov al, byte [bss_91ca]          ; 0x6db0
     cbw                              ; 0x6db3
     push ax                          ; 0x6db4
-    call ds_dispatch_d7aa            ; 0x6db5
+    call ds_app_29f1                 ; 0x6db5
     pop cx                           ; 0x6db8
     mov word [bss_93da], 0x10        ; 0x6db9
 @..local.l82:
@@ -192,7 +192,7 @@ loc_6d9d:
     mov al, byte [bss_91c3]          ; 0x6dca
     sub ah, ah                       ; 0x6dcd
     push ax                          ; 0x6dcf
-    call ds_dispatch_d61c            ; 0x6dd0
+    call ds_app_file_2863            ; 0x6dd0
     add sp, byte 4                   ; 0x6dd3
     mov word [bss_843a], 0xf         ; 0x6dd6
     mov ax, 0xffff                   ; 0x6ddc

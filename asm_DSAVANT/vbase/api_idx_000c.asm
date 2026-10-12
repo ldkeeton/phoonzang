@@ -1,6 +1,6 @@
 api_idx_000c:
     mov ax, 0xfff4                   ; 0x4060
-    call ds_dispatch_f40b            ; 0x4063
+    call ds_aztec_csav               ; 0x4063
     mov word [bp - 0x0002], 0        ; 0x4066
 @..api_idx_000c.l1:
     mov word [bp - 0x0004], 0        ; 0x406b
@@ -17,7 +17,7 @@ api_idx_000c:
     sub ah, ah                       ; 0x4087
     add ax, word [bp + 0x4]          ; 0x4089
     push ax                          ; 0x408c
-    call ds_dispatch_b7c2            ; 0x408d
+    call ds_app_0a09                 ; 0x408d
     add sp, byte 6                   ; 0x4090
     push ax                          ; 0x4093
     mov ax, 3                        ; 0x4094
@@ -44,7 +44,7 @@ api_idx_000c:
     sub ah, ah                       ; 0x40c7
     add ax, word [bp - 0x0006]       ; 0x40c9
     push ax                          ; 0x40cc
-    call ds_dispatch_b7c2            ; 0x40cd
+    call ds_app_0a09                 ; 0x40cd
     add sp, byte 6                   ; 0x40d0
     push ax                          ; 0x40d3
     mov ax, 3                        ; 0x40d4
@@ -80,7 +80,7 @@ api_idx_000c:
     sub ah, ah                       ; 0x411f
     sub ax, word [bp - 0x0006]       ; 0x4121
     push ax                          ; 0x4124
-    call ds_dispatch_b7c2            ; 0x4125
+    call ds_app_0a09                 ; 0x4125
     add sp, byte 6                   ; 0x4128
     push ax                          ; 0x412b
     mov ax, 3                        ; 0x412c
@@ -109,7 +109,7 @@ api_idx_000c:
     push ax                          ; 0x4161
     mov ax, 0xa294                   ; 0x4162
     push ax                          ; 0x4165
-    call ds_dispatch_f306            ; 0x4166
+    call ds_aztec_setmem             ; 0x4166
     add sp, byte 6                   ; 0x4169
     mov word [bp - 0x0002], 0        ; 0x416c
 @..api_idx_000c.l7:
@@ -153,12 +153,12 @@ api_idx_000c:
     push ax                          ; 0x41cf
     mov ax, 0x9f94                   ; 0x41d0
     push ax                          ; 0x41d3
-    call ds_dispatch_f10b            ; 0x41d4
+    call ds_loc_4352                 ; 0x41d4
     add sp, byte 4                   ; 0x41d7
     mov ax, 0xffff                   ; 0x41da
     push ax                          ; 0x41dd
     push ax                          ; 0x41de
     push ax                          ; 0x41df
-    call ds_dispatch_f0d7            ; 0x41e0
+    call ds_loc_431e                 ; 0x41e0
     add sp, byte 6                   ; 0x41e3
     ret                              ; 0x41e6

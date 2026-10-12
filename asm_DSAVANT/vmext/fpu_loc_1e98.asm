@@ -29,7 +29,7 @@ jumptable_1e9c:
     mov ax, word [bss_0e14]          ; 0x1ecf
     add ax, 0x8b0                    ; 0x1ed2
     push ax                          ; 0x1ed5
-    call ds_dispatch_ec74            ; 0x1ed6
+    call ds_leaf_loc_3ebb            ; 0x1ed6
     add sp, byte 4                   ; 0x1ed9
     test ax, ax                      ; 0x1edc
     je short @..api_idx_0008_4.l5    ; 0x1ede
@@ -68,7 +68,7 @@ jumptable_1e9c:
     mov ax, word [bss_0e14]          ; 0x1f24
     add ax, 0x90                     ; 0x1f27
     push ax                          ; 0x1f2a
-    call ds_dispatch_ecf6            ; 0x1f2b
+    call ds_leaf_loc_3f3d            ; 0x1f2b
     add sp, byte 6                   ; 0x1f2e
     mov word [bp - 0x0004], ax       ; 0x1f31
     jmp short @..api_idx_0008_4.l11  ; 0x1f34
@@ -79,7 +79,7 @@ jumptable_1e9c:
     mov ax, word [bss_0e14]          ; 0x1f3d
     add ax, 0x290                    ; 0x1f40
     push ax                          ; 0x1f43
-    call ds_dispatch_ecf6            ; 0x1f44
+    call ds_leaf_loc_3f3d            ; 0x1f44
     add sp, byte 6                   ; 0x1f47
     mov word [bp - 0x0004], ax       ; 0x1f4a
     jmp short @..api_idx_0008_4.l11  ; 0x1f4d

@@ -1,8 +1,8 @@
 api_idx_0002_10:
     mov ax, 0xfffe                   ; 0x8bb0
-    call ds_dispatch_f40b            ; 0x8bb3
+    call ds_aztec_csav               ; 0x8bb3
     push word [bp + 0x6]             ; 0x8bb6
-    call ds_dispatch_fa90            ; 0x8bb9
+    call ds_aztec_strlen             ; 0x8bb9
     pop cx                           ; 0x8bbc
     push ax                          ; 0x8bbd
     push word [bp + 0x6]             ; 0x8bbe
@@ -12,7 +12,7 @@ api_idx_0002_10:
     test ax, ax                      ; 0x8bca
     jne short @..api_idx_0002_10.l1  ; 0x8bcc
     push word [bp + 0x6]             ; 0x8bce
-    call ds_dispatch_fa90            ; 0x8bd1
+    call ds_aztec_strlen             ; 0x8bd1
     pop cx                           ; 0x8bd4
     dec ax                           ; 0x8bd5
     push ax                          ; 0x8bd6

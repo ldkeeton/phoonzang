@@ -1,6 +1,6 @@
 api_idx_007a:
     mov ax, 0xff86                   ; 0x43bb
-    call ds_dispatch_f40b            ; 0x43be
+    call ds_aztec_csav               ; 0x43be
     mov word [bp - 0x0002], 0        ; 0x43c1
 @..api_idx_007a.l1:
     mov ax, word [bp - 0x0002]       ; 0x43c6
@@ -51,13 +51,13 @@ api_idx_007a:
     push ax                          ; 0x442f
     mov ax, 1                        ; 0x4430
     push ax                          ; 0x4433
-    call ds_dispatch_e823            ; 0x4434
+    call ds_loc_3a6a                 ; 0x4434
     add sp, byte 4                   ; 0x4437
     mov ax, 6                        ; 0x443a
     push ax                          ; 0x443d
     mov ax, 0x66                     ; 0x443e
     push ax                          ; 0x4441
-    call ds_dispatch_e809            ; 0x4442
+    call ds_loc_3a50                 ; 0x4442
     add sp, byte 4                   ; 0x4445
     lea ax, word [bp - 0x0052]       ; 0x4448
     push ax                          ; 0x444b
@@ -68,13 +68,13 @@ api_idx_007a:
     sub ah, ah                       ; 0x4458
     add ax, strict word 0x64         ; 0x445a
     push ax                          ; 0x445d
-    call ds_dispatch_b53b            ; 0x445e
+    call ds_app_mem_0782             ; 0x445e
     add sp, byte 4                   ; 0x4461
     mov ax, 0                        ; 0x4464
     push ax                          ; 0x4467
     lea ax, word [bp - 0x0052]       ; 0x4468
     push ax                          ; 0x446b
-    call ds_dispatch_e84e            ; 0x446c
+    call ds_string_loc_3a95          ; 0x446c
     add sp, byte 4                   ; 0x446f
     mov ax, 0x248                    ; 0x4472
     imul word [bp + 0x4]             ; 0x4475

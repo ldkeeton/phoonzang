@@ -1,6 +1,6 @@
 api_idx_0004_2:
     mov ax, 0xfffc                   ; 0x0e3b
-    call ds_dispatch_f40b            ; 0x0e3e
+    call ds_aztec_csav               ; 0x0e3e
     mov word [bp - 0x0004], 0        ; 0x0e41
     mov word [bp - 0x0002], 0        ; 0x0e46
 @..api_idx_0004_2.l1:
@@ -16,7 +16,7 @@ api_idx_0004_2:
     imul word [bp + 0x4]             ; 0x0e64
     add ax, 0x5e12                   ; 0x0e67
     push ax                          ; 0x0e6a
-    call ds_dispatch_ec74            ; 0x0e6b
+    call ds_leaf_loc_3ebb            ; 0x0e6b
     add sp, byte 4                   ; 0x0e6e
     test ax, ax                      ; 0x0e71
     je short @..api_idx_0004_2.l2    ; 0x0e73
@@ -27,7 +27,7 @@ api_idx_0004_2:
     mov ax, word [bp - 0x0002]       ; 0x0e7f
     add ax, 0xfa0                    ; 0x0e82
     push ax                          ; 0x0e85
-    call ds_dispatch_b53b            ; 0x0e86
+    call ds_app_mem_0782             ; 0x0e86
     add sp, byte 4                   ; 0x0e89
     mov ax, word [bp - 0x0002]       ; 0x0e8c
     mov cx, word [bp - 0x0004]       ; 0x0e8f

@@ -1,6 +1,6 @@
 api_idx_0050:
     mov ax, 0xffb0                   ; 0x13e0
-    call ds_dispatch_f40b            ; 0x13e3
+    call ds_aztec_csav               ; 0x13e3
     cmp word [bp + 0x6], byte 0      ; 0x13e6
     jl short @..api_idx_0050.l1      ; 0x13ea
     mov word [bss_911a], 1           ; 0x13ec
@@ -17,7 +17,7 @@ api_idx_0050:
     push ax                          ; 0x140f
     mov ax, 0x146b                   ; 0x1410
     push ax                          ; 0x1413
-    call ds_dispatch_b53b            ; 0x1414
+    call ds_app_mem_0782             ; 0x1414
     add sp, byte 4                   ; 0x1417
     mov ax, 1                        ; 0x141a
     push ax                          ; 0x141d

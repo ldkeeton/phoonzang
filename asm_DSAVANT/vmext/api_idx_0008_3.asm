@@ -1,6 +1,6 @@
 api_idx_0008_3:
     mov ax, 0xfff8                   ; 0x1a1d
-    call ds_dispatch_f40b            ; 0x1a20
+    call ds_aztec_csav               ; 0x1a20
     cmp word [bp + 0xe], byte 0      ; 0x1a23
     jne short @..api_idx_0008_3.l1   ; 0x1a27
     jmp near @..api_idx_0008_3.l4    ; 0x1a29
@@ -77,7 +77,7 @@ jumptable_1a8f:
     mov ax, word [bss_0e14]          ; 0x1ac2
     add ax, 0x9b0                    ; 0x1ac5
     push ax                          ; 0x1ac8
-    call ds_dispatch_ec74            ; 0x1ac9
+    call ds_leaf_loc_3ebb            ; 0x1ac9
     add sp, byte 4                   ; 0x1acc
     test ax, ax                      ; 0x1acf
     je short @..api_idx_0008_3.l6    ; 0x1ad1
@@ -122,7 +122,7 @@ jumptable_1b11:
     mov ax, word [bss_0e14]          ; 0x1b2d
     add ax, 0x8b0                    ; 0x1b30
     push ax                          ; 0x1b33
-    call ds_dispatch_ec74            ; 0x1b34
+    call ds_leaf_loc_3ebb            ; 0x1b34
     add sp, byte 4                   ; 0x1b37
     test ax, ax                      ; 0x1b3a
     jne short @..api_idx_0008_3.l7   ; 0x1b3c

@@ -1,11 +1,11 @@
 api_idx_0004_3:
     mov ax, 0xfffc                   ; 0x6665
-    call ds_dispatch_f40b            ; 0x6668
+    call ds_aztec_csav               ; 0x6668
     mov word [bss_95b2], 0           ; 0x666b
     cmp word [bss_904c], byte 0      ; 0x6671
     jne short @..api_idx_0004_3.l3   ; 0x6676
     call api_idx_00aa                ; 0x6678
-    call 0xd9ca                      ; 0x667b
+    call ds_app_2c11                 ; 0x667b
     mov word [bss_a494], ax          ; 0x667e
     test ax, ax                      ; 0x6681
     jne short @..api_idx_0004_3.l1   ; 0x6683
@@ -14,7 +14,7 @@ api_idx_0004_3:
 @..api_idx_0004_3.l1:
     mov ax, 0xc                      ; 0x668c
     push ax                          ; 0x668f
-    call ds_dispatch_b75e            ; 0x6690
+    call ds_app_09a5                 ; 0x6690
     pop cx                           ; 0x6693
     push word [bp + 0x4]             ; 0x6694
     call api_idx_0038_2              ; 0x6697
@@ -39,14 +39,14 @@ api_idx_0004_3:
     push ax                          ; 0x66c1
     mov ax, 0x36                     ; 0x66c2
     push ax                          ; 0x66c5
-    call ds_dispatch_e8da            ; 0x66c6
+    call ds_loc_3b21                 ; 0x66c6
     add sp, byte 8                   ; 0x66c9
     ret                              ; 0x66cc
 @..api_idx_0004_3.l5:
     push word [bss_830c]             ; 0x66cd
     mov ax, 0                        ; 0x66d1
     push ax                          ; 0x66d4
-    call ds_dispatch_d5a2            ; 0x66d5
+    call ds_app_27e9                 ; 0x66d5
     add sp, byte 4                   ; 0x66d8
     mov ax, 0                        ; 0x66db
     push ax                          ; 0x66de
@@ -54,7 +54,7 @@ api_idx_0004_3:
     push ax                          ; 0x66e2
     mov ax, 0x8cfe                   ; 0x66e3
     push ax                          ; 0x66e6
-    call ds_dispatch_f306            ; 0x66e7
+    call ds_aztec_setmem             ; 0x66e7
     add sp, byte 6                   ; 0x66ea
     mov word [bss_82ea], 0           ; 0x66ed
     mov ax, word [bss_82ee]          ; 0x66f3
@@ -75,7 +75,7 @@ api_idx_0004_3:
     mov word [bss_5b6c], 0xffff      ; 0x672a
     cmp word [bss_904c], byte 2      ; 0x6730
     je short @..api_idx_0004_3.l7    ; 0x6735
-    call 0xb389                      ; 0x6737
+    call ds_app_string_05d0          ; 0x6737
     mov word [bss_904c], 2           ; 0x673a
 @..api_idx_0004_3.l7:
     cmp word [bss_95b2], byte 0      ; 0x6740

@@ -1,6 +1,6 @@
 api_idx_0010_2:
     mov ax, 0xfff0                   ; 0x3802
-    call ds_dispatch_f40b            ; 0x3805
+    call ds_aztec_csav               ; 0x3805
     mov ax, 4                        ; 0x3808
     cmp word [bss_91d4], byte 0      ; 0x380b
     jne short @..api_idx_0010_2.l1   ; 0x3810

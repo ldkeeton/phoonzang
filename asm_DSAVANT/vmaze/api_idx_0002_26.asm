@@ -1,6 +1,6 @@
 api_idx_0002_26:
     mov ax, 0xfffe                   ; 0xa7b2
-    call ds_dispatch_f40b            ; 0xa7b5
+    call ds_aztec_csav               ; 0xa7b5
     mov ax, 0x26                     ; 0xa7b8
     imul word [bp + 0x4]             ; 0xa7bb
     mov bx, ax                       ; 0xa7be
@@ -61,7 +61,7 @@ api_idx_0002_26:
 @..api_idx_0002_26.l4:
     mov ax, 0x10                     ; 0xa847
     push ax                          ; 0xa84a
-    call ds_dispatch_b7a9            ; 0xa84b
+    call ds_app_09f0                 ; 0xa84b
     pop cx                           ; 0xa84e
     push ax                          ; 0xa84f
     mov ax, 0x26                     ; 0xa850

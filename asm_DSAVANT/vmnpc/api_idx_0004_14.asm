@@ -1,6 +1,6 @@
 api_idx_0004_14:
     mov ax, 0xfffc                   ; 0x8738
-    call ds_dispatch_f40b            ; 0x873b
+    call ds_aztec_csav               ; 0x873b
     mov word [bss_9e84], 0           ; 0x873e
     mov word [bp - 0x0002], 0        ; 0x8744
     jmp short @..api_idx_0004_14.l5  ; 0x8749
@@ -31,7 +31,7 @@ api_idx_0004_14:
     inc word [bp - 0x0002]           ; 0x8783
 @..api_idx_0004_14.l5:
     push word [bp + 0x4]             ; 0x8786
-    call ds_dispatch_fa90            ; 0x8789
+    call ds_aztec_strlen             ; 0x8789
     pop cx                           ; 0x878c
     cmp ax, word [bp - 0x0002]       ; 0x878d
     jg short @..api_idx_0004_14.l1   ; 0x8790

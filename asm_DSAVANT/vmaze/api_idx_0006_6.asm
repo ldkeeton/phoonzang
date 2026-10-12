@@ -1,6 +1,6 @@
 api_idx_0006_6:
     mov ax, 0xfffa                   ; 0x75ae
-    call ds_dispatch_f40b            ; 0x75b1
+    call ds_aztec_csav               ; 0x75b1
     mov word [bp - 0x0004], 0        ; 0x75b4
     mov word [bp - 0x0002], 0        ; 0x75b9
 @..api_idx_0006_6.l1:
@@ -14,7 +14,7 @@ api_idx_0006_6:
     mov si, ax                       ; 0x75cd
     mov bx, word [bss_0e12]          ; 0x75cf
     push word [bx + si + 0x3c0]      ; 0x75d3
-    call ds_dispatch_ed3a            ; 0x75d7
+    call ds_dos_con_loc_3f81         ; 0x75d7
     add sp, byte 6                   ; 0x75da
     mov cx, word [bp - 0x0002]       ; 0x75dd
     shl cx, 1                        ; 0x75e0
@@ -30,7 +30,7 @@ api_idx_0006_6:
     mov si, ax                       ; 0x75f7
     mov bx, word [bss_0e12]          ; 0x75f9
     push word [bx + si + 0x3c0]      ; 0x75fd
-    call ds_dispatch_ed3a            ; 0x7601
+    call ds_dos_con_loc_3f81         ; 0x7601
     add sp, byte 6                   ; 0x7604
     cmp ax, strict word 2            ; 0x7607
     jne short @..api_idx_0006_6.l2   ; 0x760a
@@ -54,7 +54,7 @@ api_idx_0006_6:
     mov ax, 5                        ; 0x763a
     push ax                          ; 0x763d
     push word [bp - 0x0006]          ; 0x763e
-    call ds_dispatch_ed3a            ; 0x7641
+    call ds_dos_con_loc_3f81         ; 0x7641
     add sp, byte 6                   ; 0x7644
     push ax                          ; 0x7647
     call loc_7242                    ; 0x7648

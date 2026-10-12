@@ -1,6 +1,6 @@
 api_idx_0004:
     mov ax, 0xfffc                   ; 0x0034
-    call ds_dispatch_f40b            ; 0x0037
+    call ds_aztec_csav               ; 0x0037
     mov ax, word [bp + 0x6]          ; 0x003a
     mov bx, 0x64                     ; 0x003d
     imul bx                          ; 0x0040
@@ -12,7 +12,7 @@ api_idx_0004:
     mov bx, dx                       ; 0x004a
     pop dx                           ; 0x004c
     pop ax                           ; 0x004d
-    call ds_dispatch_f99f            ; 0x004e
+    call ds_loc_4be6                 ; 0x004e
     mov cx, ax                       ; 0x0051
     mov bx, dx                       ; 0x0053
     mov ax, 0x64                     ; 0x0055

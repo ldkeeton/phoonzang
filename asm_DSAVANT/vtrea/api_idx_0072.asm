@@ -1,6 +1,6 @@
 api_idx_0072:
     mov ax, 0xff8e                   ; 0x7151
-    call ds_dispatch_f40b            ; 0x7154
+    call ds_aztec_csav               ; 0x7154
     mov ax, word [bp + 0x4]          ; 0x7157
     shl ax, 1                        ; 0x715a
     mov si, ax                       ; 0x715c
@@ -16,7 +16,7 @@ api_idx_0072:
     mov ax, 0                        ; 0x7179
     push ax                          ; 0x717c
     push word [bp - 0x001e]          ; 0x717d
-    call ds_dispatch_ed3a            ; 0x7180
+    call ds_dos_con_loc_3f81         ; 0x7180
     add sp, byte 6                   ; 0x7183
     mov word [bp - 0x0020], ax       ; 0x7186
     mov word [bp - 0x0002], 0        ; 0x7189
@@ -30,7 +30,7 @@ api_idx_0072:
 @..api_idx_0072.l2:
     mov ax, 5                        ; 0x71a2
     push ax                          ; 0x71a5
-    call ds_dispatch_b7a9            ; 0x71a6
+    call ds_app_09f0                 ; 0x71a6
     pop cx                           ; 0x71a9
     mov cx, word [bp - 0x0002]       ; 0x71aa
     shl cx, 1                        ; 0x71ad
@@ -49,7 +49,7 @@ api_idx_0072:
     shl ax, 1                        ; 0x71cb
     mov bx, ax                       ; 0x71cd
     push word [bx - 0x69a2]          ; 0x71cf
-    call ds_dispatch_b7c2            ; 0x71d3
+    call ds_app_0a09                 ; 0x71d3
     add sp, byte 6                   ; 0x71d6
     mov cx, word [bp - 0x0002]       ; 0x71d9
     shl cx, 1                        ; 0x71dc
@@ -112,7 +112,7 @@ api_idx_0072:
     mov ax, word [bp - 0x001c]       ; 0x7267
     add ax, 0x834                    ; 0x726a
     push ax                          ; 0x726d
-    call ds_dispatch_b53b            ; 0x726e
+    call ds_app_mem_0782             ; 0x726e
     add sp, byte 4                   ; 0x7271
     mov ax, 0x1a                     ; 0x7274
     push ax                          ; 0x7277
@@ -147,12 +147,12 @@ api_idx_0072:
     call api_idx_000a_2              ; 0x72b6
     pop cx                           ; 0x72b9
 @..api_idx_0072.l7:
-    call ds_dispatch_ceb1            ; 0x72ba
+    call ds_app_20f8                 ; 0x72ba
     mov word [bp - 0x0006], ax       ; 0x72bd
     cmp ax, strict word 0xffff       ; 0x72c0
     je short @..api_idx_0072.l8      ; 0x72c3
     push ax                          ; 0x72c5
-    call ds_dispatch_ca85            ; 0x72c6
+    call ds_app_1ccc                 ; 0x72c6
     pop cx                           ; 0x72c9
     test ax, ax                      ; 0x72ca
     je short @..api_idx_0072.l8      ; 0x72cc

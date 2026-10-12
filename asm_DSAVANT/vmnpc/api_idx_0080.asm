@@ -1,17 +1,17 @@
 api_idx_0080:
     mov ax, 0xff80                   ; 0x96c7
-    call ds_dispatch_f40b            ; 0x96ca
+    call ds_aztec_csav               ; 0x96ca
     lea ax, word [bp - 0x0080]       ; 0x96cd
     push ax                          ; 0x96d0
     push word [bp + 0x4]             ; 0x96d1
-    call ds_dispatch_b53b            ; 0x96d4
+    call ds_app_mem_0782             ; 0x96d4
     add sp, byte 4                   ; 0x96d7
     mov ax, 0x5e                     ; 0x96da
     push ax                          ; 0x96dd
     push word [bp + 0x6]             ; 0x96de
     lea ax, word [bp - 0x0080]       ; 0x96e1
     push ax                          ; 0x96e4
-    call ds_dispatch_b300            ; 0x96e5
+    call ds_app_string_0547          ; 0x96e5
     add sp, byte 6                   ; 0x96e8
     mov ax, word [bss_93d4]          ; 0x96eb
     mov cx, 7                        ; 0x96ee
@@ -24,7 +24,7 @@ api_idx_0080:
     add bx, strict word 0x91cc       ; 0x9700
     mov ax, bx                       ; 0x9704
     push ax                          ; 0x9706
-    call ds_dispatch_f32d            ; 0x9707
+    call ds_string_loc_4574          ; 0x9707
     add sp, byte 4                   ; 0x970a
 @..api_idx_0080.l1:
     lea ax, word [bp - 0x0080]       ; 0x970d
@@ -34,7 +34,7 @@ api_idx_0080:
     shl ax, cl                       ; 0x9717
     add ax, 0x91cc                   ; 0x9719
     push ax                          ; 0x971c
-    call ds_dispatch_f32d            ; 0x971d
+    call ds_string_loc_4574          ; 0x971d
     add sp, byte 4                   ; 0x9720
     mov ax, word [bss_93d4]          ; 0x9723
     mov cx, 7                        ; 0x9726
@@ -43,7 +43,7 @@ api_idx_0080:
     push ax                          ; 0x972e
     lea ax, word [bp - 0x0080]       ; 0x972f
     push ax                          ; 0x9732
-    call ds_dispatch_f364            ; 0x9733
+    call ds_aztec_strcpy             ; 0x9733
     add sp, byte 4                   ; 0x9736
     lea ax, word [bp - 0x0080]       ; 0x9739
     push ax                          ; 0x973c

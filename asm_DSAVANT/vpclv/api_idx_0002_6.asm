@@ -1,6 +1,6 @@
 api_idx_0002_6:
     mov ax, 0xfffe                   ; 0x4270
-    call ds_dispatch_f40b            ; 0x4273
+    call ds_aztec_csav               ; 0x4273
     mov ax, word [bp + 0x6]          ; 0x4276
     shl ax, 1                        ; 0x4279
     mov bx, ax                       ; 0x427b
@@ -67,7 +67,7 @@ api_idx_0002_6:
     ret                              ; 0x430f
 loc_4310:
     mov ax, 0                        ; 0x4310
-    call ds_dispatch_f40b            ; 0x4313
+    call ds_aztec_csav               ; 0x4313
     mov ax, 0x248                    ; 0x4316
     imul word [bp + 0x4]             ; 0x4319
     mov bx, ax                       ; 0x431c

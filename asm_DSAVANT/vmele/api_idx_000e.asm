@@ -1,6 +1,6 @@
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x12ac
-    call ds_dispatch_f40b            ; 0x12af
+    call ds_aztec_csav               ; 0x12af
     mov ax, 0x2c                     ; 0x12b2
     imul word [bp + 0x6]             ; 0x12b5
     mov cx, ax                       ; 0x12b8
@@ -19,10 +19,10 @@ api_idx_000e:
     imul bx                          ; 0x12dd
     mov cx, 0x64                     ; 0x12df
     mov bx, 0                        ; 0x12e2
-    call ds_dispatch_f99f            ; 0x12e5
+    call ds_loc_4be6                 ; 0x12e5
     mov word [bp - 0x0002], ax       ; 0x12e8
     push ax                          ; 0x12eb
-    call ds_dispatch_b7a9            ; 0x12ec
+    call ds_app_09f0                 ; 0x12ec
     pop cx                           ; 0x12ef
     mov bx, word [bp - 0x0004]       ; 0x12f0
     mov cx, word [bx + 0x6]          ; 0x12f3
@@ -41,7 +41,7 @@ api_idx_000e:
     mov word [bx + 0x6], 0           ; 0x1313
     mov ax, 6                        ; 0x1318
     push ax                          ; 0x131b
-    call ds_dispatch_b7a9            ; 0x131c
+    call ds_app_09f0                 ; 0x131c
     pop cx                           ; 0x131f
     add ax, strict word 6            ; 0x1320
     mov bx, word [bp - 0x0004]       ; 0x1323
@@ -134,7 +134,7 @@ api_idx_000e:
     push ax                          ; 0x1406
     mov ax, 0x5842                   ; 0x1407
     push ax                          ; 0x140a
-    call ds_dispatch_ec41            ; 0x140b
+    call ds_leaf_loc_3e88            ; 0x140b
     add sp, byte 6                   ; 0x140e
 @..api_idx_000e.l8:
     mov word [bp - 0x0008], 0        ; 0x1411

@@ -1,6 +1,6 @@
 api_idx_0002_10:
     mov ax, 0xfffe                   ; 0x1206
-    call ds_dispatch_f40b            ; 0x1209
+    call ds_aztec_csav               ; 0x1209
     mov word [bp - 0x0002], 0        ; 0x120c
 @..api_idx_0002_10.l1:
     mov ax, word [bp + 0x4]          ; 0x1211
@@ -21,7 +21,7 @@ api_idx_0002_10:
     ret                              ; 0x123f
 loc_1240:
     mov ax, 0                        ; 0x1240
-    call ds_dispatch_f40b            ; 0x1243
+    call ds_aztec_csav               ; 0x1243
     mov word [bss_91a8], 1           ; 0x1246
     mov ax, 0                        ; 0x124c
     push ax                          ; 0x124f
@@ -29,7 +29,7 @@ loc_1240:
     push ax                          ; 0x1253
     mov ax, 0x8cfe                   ; 0x1254
     push ax                          ; 0x1257
-    call ds_dispatch_f306            ; 0x1258
+    call ds_aztec_setmem             ; 0x1258
     add sp, byte 6                   ; 0x125b
     mov word [bss_82ea], 0           ; 0x125e
     mov ax, word [bp + 0x4]          ; 0x1264
@@ -63,7 +63,7 @@ loc_1240:
     ret                              ; 0x12a1
 loc_12a2:
     mov ax, 0                        ; 0x12a2
-    call ds_dispatch_f40b            ; 0x12a5
+    call ds_aztec_csav               ; 0x12a5
     mov ax, word [bss_8f46]          ; 0x12a8
     mov word [bss_8f3a], ax          ; 0x12ab
     mov ax, word [bss_8f44]          ; 0x12ae
@@ -81,13 +81,13 @@ loc_12a2:
     ret                              ; 0x12d2
 loc_12d3:
     mov ax, 0                        ; 0x12d3
-    call ds_dispatch_f40b            ; 0x12d6
+    call ds_aztec_csav               ; 0x12d6
     push word [bp + 0x4]             ; 0x12d9
     call api_idx_0050                ; 0x12dc
     pop cx                           ; 0x12df
-    call ds_dispatch_ec17            ; 0x12e0
+    call ds_bios_kbd_check           ; 0x12e0
     push word [bp + 0x6]             ; 0x12e3
-    call ds_dispatch_b7e0            ; 0x12e6
+    call ds_app_0a27                 ; 0x12e6
     pop cx                           ; 0x12e9
     push word [bp + 0x8]             ; 0x12ea
     call api_idx_0006_2              ; 0x12ed
@@ -100,6 +100,6 @@ loc_12d3:
     push ax                          ; 0x12fc
     mov ax, 0                        ; 0x12fd
     push ax                          ; 0x1300
-    call ds_dispatch_e8da            ; 0x1301
+    call ds_loc_3b21                 ; 0x1301
     add sp, byte 8                   ; 0x1304
     ret                              ; 0x1307

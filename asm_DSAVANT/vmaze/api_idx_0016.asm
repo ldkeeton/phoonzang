@@ -1,6 +1,6 @@
 api_idx_0016:
     mov ax, 0xffea                   ; 0x4f53
-    call ds_dispatch_f40b            ; 0x4f56
+    call ds_aztec_csav               ; 0x4f56
     mov bx, word [bp + 0x4]          ; 0x4f59
     mov al, byte [bx + 0xb]          ; 0x4f5c
     sub ah, ah                       ; 0x4f5f
@@ -87,7 +87,7 @@ loc_5004:
     mov al, byte [bx + 0xc]          ; 0x501a
     sub ah, ah                       ; 0x501d
     push ax                          ; 0x501f
-    call ds_dispatch_efd1            ; 0x5020
+    call ds_loc_4218                 ; 0x5020
     add sp, byte 0x16                ; 0x5023
     mov bx, word [bp + 0x4]          ; 0x5026
     mov al, byte [bx + 0xd]          ; 0x5029
@@ -164,7 +164,7 @@ loc_5004:
     mov al, byte [bx + 0xc]          ; 0x50c9
     sub ah, ah                       ; 0x50cc
     push ax                          ; 0x50ce
-    call ds_dispatch_efd1            ; 0x50cf
+    call ds_loc_4218                 ; 0x50cf
     add sp, byte 0x16                ; 0x50d2
     mov bx, word [bp + 0x4]          ; 0x50d5
     mov al, byte [bx + 0xd]          ; 0x50d8

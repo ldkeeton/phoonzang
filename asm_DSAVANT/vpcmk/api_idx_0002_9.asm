@@ -1,6 +1,6 @@
 api_idx_0002_9:
     mov ax, 0xfffe                   ; 0x4ade
-    call ds_dispatch_f40b            ; 0x4ae1
+    call ds_aztec_csav               ; 0x4ae1
     mov word [bp - 0x0002], 0        ; 0x4ae4
 @..api_idx_0002_9.l1:
     mov ax, 9                        ; 0x4ae9

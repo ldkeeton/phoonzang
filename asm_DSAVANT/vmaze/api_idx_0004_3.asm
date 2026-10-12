@@ -1,6 +1,6 @@
 api_idx_0004_3:
     mov ax, 0xfffc                   ; 0x1504
-    call ds_dispatch_f40b            ; 0x1507
+    call ds_aztec_csav               ; 0x1507
     mov ax, word [bss_8f3e]          ; 0x150a
     mov cx, 6                        ; 0x150d
     shl ax, cl                       ; 0x1510
@@ -16,7 +16,7 @@ api_idx_0004_3:
     mov ax, word [bss_0e14]          ; 0x152b
     add ax, 0x9b0                    ; 0x152e
     push ax                          ; 0x1531
-    call ds_dispatch_ec74            ; 0x1532
+    call ds_leaf_loc_3ebb            ; 0x1532
     add sp, byte 4                   ; 0x1535
     test ax, ax                      ; 0x1538
     je short @..api_idx_0004_3.l3    ; 0x153a
@@ -61,7 +61,7 @@ jumptable_1556_case_1:
     mov ax, word [bss_0e14]          ; 0x1589
     add ax, 0x8b0                    ; 0x158c
     push ax                          ; 0x158f
-    call ds_dispatch_ec74            ; 0x1590
+    call ds_leaf_loc_3ebb            ; 0x1590
     add sp, byte 4                   ; 0x1593
     test ax, ax                      ; 0x1596
     je short @..api_idx_0004_3.l7    ; 0x1598
@@ -91,7 +91,7 @@ jumptable_1556_case_1:
     mov ax, word [bss_0e14]          ; 0x15ce
     add ax, 0x930                    ; 0x15d1
     push ax                          ; 0x15d4
-    call ds_dispatch_ec74            ; 0x15d5
+    call ds_leaf_loc_3ebb            ; 0x15d5
     add sp, byte 4                   ; 0x15d8
     test ax, ax                      ; 0x15db
     je short @..api_idx_0004_3.l14   ; 0x15dd

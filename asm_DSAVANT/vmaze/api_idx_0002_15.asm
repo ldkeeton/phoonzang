@@ -1,6 +1,6 @@
 api_idx_0002_15:
     mov ax, 0xfffe                   ; 0x86f9
-    call ds_dispatch_f40b            ; 0x86fc
+    call ds_aztec_csav               ; 0x86fc
     mov ax, 2                        ; 0x86ff
     push ax                          ; 0x8702
     mov ax, 0                        ; 0x8703
@@ -10,7 +10,7 @@ api_idx_0002_15:
     mov si, ax                       ; 0x870c
     mov bx, word [bss_0e12]          ; 0x870e
     push word [bx + si + 0x3c0]      ; 0x8712
-    call ds_dispatch_ed3a            ; 0x8716
+    call ds_dos_con_loc_3f81         ; 0x8716
     add sp, byte 6                   ; 0x8719
     mov word [bp - 0x0002], ax       ; 0x871c
     mov ax, 1                        ; 0x871f
@@ -22,7 +22,7 @@ api_idx_0002_15:
     mov si, ax                       ; 0x872c
     mov bx, word [bss_0e12]          ; 0x872e
     push word [bx + si + 0x3c0]      ; 0x8732
-    call ds_dispatch_ed3a            ; 0x8736
+    call ds_dos_con_loc_3f81         ; 0x8736
     add sp, byte 6                   ; 0x8739
     test ax, ax                      ; 0x873c
     jne short @..api_idx_0002_15.l1  ; 0x873e
@@ -34,7 +34,7 @@ api_idx_0002_15:
     push ax                          ; 0x8751
     mov ax, 0x5842                   ; 0x8752
     push ax                          ; 0x8755
-    call ds_dispatch_ec74            ; 0x8756
+    call ds_leaf_loc_3ebb            ; 0x8756
     add sp, byte 4                   ; 0x8759
     push ax                          ; 0x875c
     call loc_8540                    ; 0x875d

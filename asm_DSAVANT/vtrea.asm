@@ -166,7 +166,7 @@ bss_95e4 equ 0x95e4
 
 loc_000e:
     mov ax, 0                        ; 0x000e
-    call ds_dispatch_f40b            ; 0x0011
+    call ds_aztec_csav               ; 0x0011
     mov word [bss_9114], 0           ; 0x0014
     mov word [bss_9116], 0xffff      ; 0x001a
     mov word [bss_9118], 0           ; 0x0020

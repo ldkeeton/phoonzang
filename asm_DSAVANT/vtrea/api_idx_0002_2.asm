@@ -1,11 +1,11 @@
 api_idx_0002_2:
     mov ax, 0xfffe                   ; 0x251a
-    call ds_dispatch_f40b            ; 0x251d
+    call ds_aztec_csav               ; 0x251d
     mov ax, 0xc3                     ; 0x2520
     push ax                          ; 0x2523
     mov ax, 0xb4                     ; 0x2524
     push ax                          ; 0x2527
-    call ds_dispatch_e823            ; 0x2528
+    call ds_loc_3a6a                 ; 0x2528
     add sp, byte 4                   ; 0x252b
     mov word [bp - 0x0002], 0        ; 0x252e
 @..api_idx_0002_2.l1:
@@ -26,7 +26,7 @@ api_idx_0002_2:
     imul cx                          ; 0x2553
     add ax, word [bp + 0x6]          ; 0x2555
     push ax                          ; 0x2558
-    call ds_dispatch_e809            ; 0x2559
+    call ds_loc_3a50                 ; 0x2559
     add sp, byte 4                   ; 0x255c
     cmp word [bp + 0xa], byte 0      ; 0x255f
     je short @..api_idx_0002_2.l2    ; 0x2563
@@ -39,7 +39,7 @@ api_idx_0002_2:
     mov al, byte [bx - 0x6c8e]       ; 0x2574
     sub ah, ah                       ; 0x2578
     push ax                          ; 0x257a
-    call ds_dispatch_e830            ; 0x257b
+    call ds_loc_3a77                 ; 0x257b
     add sp, byte 4                   ; 0x257e
     jmp short @..api_idx_0002_2.l3   ; 0x2581
 @..api_idx_0002_2.l2:
@@ -52,7 +52,7 @@ api_idx_0002_2:
     mov al, byte [bx - 0x6dae]       ; 0x2592
     sub ah, ah                       ; 0x2596
     push ax                          ; 0x2598
-    call ds_dispatch_e830            ; 0x2599
+    call ds_loc_3a77                 ; 0x2599
     add sp, byte 4                   ; 0x259c
 @..api_idx_0002_2.l3:
     inc word [bp - 0x0002]           ; 0x259f

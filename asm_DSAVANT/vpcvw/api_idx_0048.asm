@@ -1,6 +1,6 @@
 api_idx_0048:
     mov ax, 0xffb8                   ; 0x4253
-    call ds_dispatch_f40b            ; 0x4256
+    call ds_aztec_csav               ; 0x4256
     mov ax, 0                        ; 0x4259
     push ax                          ; 0x425c
     push word [bp + 0x4]             ; 0x425d
@@ -8,12 +8,12 @@ api_idx_0048:
     push ax                          ; 0x4263
     mov ax, 1                        ; 0x4264
     push ax                          ; 0x4267
-    call ds_dispatch_b63c            ; 0x4268
+    call ds_app_file_0883            ; 0x4268
     add sp, byte 8                   ; 0x426b
     lea ax, word [bp - 0x0048]       ; 0x426e
     push ax                          ; 0x4271
     push word [bp + 0xa]             ; 0x4272
-    call ds_dispatch_f364            ; 0x4275
+    call ds_aztec_strcpy             ; 0x4275
     add sp, byte 4                   ; 0x4278
     mov ax, word [bp + 0x4]          ; 0x427b
     mov bx, word [bp + 0x6]          ; 0x427e
@@ -31,7 +31,7 @@ api_idx_0048:
     mov byte [bx + 0x7], 0x80        ; 0x42a1
     push word [bp - 0x002c]          ; 0x42a5
     push word [bp - 0x002e]          ; 0x42a8
-    call ds_dispatch_d0be            ; 0x42ab
+    call ds_app_2305                 ; 0x42ab
     add sp, byte 4                   ; 0x42ae
     mov bx, word [bp + 0x6]          ; 0x42b1
     mov byte [bx + 0x6], al          ; 0x42b4

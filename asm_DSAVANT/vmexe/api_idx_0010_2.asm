@@ -1,6 +1,6 @@
 api_idx_0010_2:
     mov ax, 0xfff0                   ; 0x2e59
-    call ds_dispatch_f40b            ; 0x2e5c
+    call ds_aztec_csav               ; 0x2e5c
     lea ax, word [bp - 0x000c]       ; 0x2e5f
     push ax                          ; 0x2e62
     lea ax, word [bp - 0x000a]       ; 0x2e63
@@ -70,7 +70,7 @@ api_idx_0010_2:
 @..api_idx_0010_2.l5:
     mov ax, 0x64                     ; 0x2f02
     push ax                          ; 0x2f05
-    call ds_dispatch_b7a9            ; 0x2f06
+    call ds_app_09f0                 ; 0x2f06
     pop cx                           ; 0x2f09
     push ax                          ; 0x2f0a
     mov ax, word [bp + 0x4]          ; 0x2f0b

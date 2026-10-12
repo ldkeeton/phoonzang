@@ -1,6 +1,6 @@
 api_idx_0054:
     mov ax, 0xffac                   ; 0x4254
-    call ds_dispatch_f40b            ; 0x4257
+    call ds_aztec_csav               ; 0x4257
     mov ax, 0xa                      ; 0x425a
     imul word [bp + 0x6]             ; 0x425d
     add ax, strict word 0x32         ; 0x4260
@@ -21,7 +21,7 @@ api_idx_0054:
 @..api_idx_0054.l2:
     mov ax, 0x64                     ; 0x4288
     push ax                          ; 0x428b
-    call ds_dispatch_b7a9            ; 0x428c
+    call ds_app_09f0                 ; 0x428c
     pop cx                           ; 0x428f
     mov word [bp - 0x0002], ax       ; 0x4290
     cmp ax, word [bp - 0x0004]       ; 0x4293
@@ -33,7 +33,7 @@ api_idx_0054:
     push ax                          ; 0x42ad
     mov ax, 0x1472                   ; 0x42ae
     push ax                          ; 0x42b1
-    call ds_dispatch_b53b            ; 0x42b2
+    call ds_app_mem_0782             ; 0x42b2
     add sp, byte 4                   ; 0x42b5
     mov ax, 1                        ; 0x42b8
     push ax                          ; 0x42bb
@@ -64,7 +64,7 @@ api_idx_0054:
     push ax                          ; 0x42f9
     mov ax, 0x1473                   ; 0x42fa
     push ax                          ; 0x42fd
-    call ds_dispatch_b53b            ; 0x42fe
+    call ds_app_mem_0782             ; 0x42fe
     add sp, byte 4                   ; 0x4301
     mov ax, 1                        ; 0x4304
     push ax                          ; 0x4307
@@ -78,7 +78,7 @@ api_idx_0054:
     ret                              ; 0x4317
 loc_4318:
     mov ax, 0                        ; 0x4318
-    call ds_dispatch_f40b            ; 0x431b
+    call ds_aztec_csav               ; 0x431b
     cmp word [bp + 0x8], byte 1      ; 0x431e
     jne short @..local.l58           ; 0x4322
     cmp word [bp + 0x6], byte 0      ; 0x4324

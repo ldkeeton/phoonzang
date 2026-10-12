@@ -24,7 +24,7 @@ loc_6ac6:
     ret                              ; 0x6ac6
 loc_6ac7:
     mov ax, 0                        ; 0x6ac7
-    call ds_dispatch_f40b            ; 0x6aca
+    call ds_aztec_csav               ; 0x6aca
     cmp word [bp + 0x4], byte 0      ; 0x6acd
     jle short @..local.l57           ; 0x6ad1
     mov ax, word [bp + 0x4]          ; 0x6ad3
@@ -36,20 +36,20 @@ loc_6ac7:
     jne short @..local.l56           ; 0x6ae3
 @..local.l55:
     push ax                          ; 0x6ae5
-    call ds_dispatch_b7e0            ; 0x6ae6
+    call ds_app_0a27                 ; 0x6ae6
     pop cx                           ; 0x6ae9
     jmp short @..local.l57           ; 0x6aea
 @..local.l56:
     push word [bp + 0x4]             ; 0x6aec
-    call ds_dispatch_d7aa            ; 0x6aef
+    call ds_app_29f1                 ; 0x6aef
     pop cx                           ; 0x6af2
     mov ax, 0x10                     ; 0x6af3
     push ax                          ; 0x6af6
-    call ds_dispatch_b7e0            ; 0x6af7
+    call ds_app_0a27                 ; 0x6af7
     pop cx                           ; 0x6afa
     mov ax, 0x10                     ; 0x6afb
     push ax                          ; 0x6afe
-    call ds_dispatch_d6c6            ; 0x6aff
+    call ds_app_290d                 ; 0x6aff
     pop cx                           ; 0x6b02
     mov word [bss_598e], 0xffff      ; 0x6b03
 @..local.l57:

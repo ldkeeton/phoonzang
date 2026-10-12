@@ -1,11 +1,11 @@
 api_idx_0004_3:
     mov ax, 0xfffc                   ; 0x0d24
-    call ds_dispatch_f40b            ; 0x0d27
+    call ds_aztec_csav               ; 0x0d27
 @..api_idx_0004_3.l1:
     mov ax, 0x20                     ; 0x0d2a
     push ax                          ; 0x0d2d
     push word [bp + 0x4]             ; 0x0d2e
-    call ds_dispatch_ee4a            ; 0x0d31
+    call ds_strlen                   ; 0x0d31
     add sp, byte 4                   ; 0x0d34
     mov word [bp - 0x0002], ax       ; 0x0d37
     cmp ax, strict word 0xffff       ; 0x0d3a
@@ -17,7 +17,7 @@ api_idx_0004_3:
     mov ax, 0x5f                     ; 0x0d47
     push ax                          ; 0x0d4a
     push word [bp + 0x4]             ; 0x0d4b
-    call ds_dispatch_ee4a            ; 0x0d4e
+    call ds_strlen                   ; 0x0d4e
     add sp, byte 4                   ; 0x0d51
     mov word [bp - 0x0004], ax       ; 0x0d54
     cmp ax, strict word 0xffff       ; 0x0d57
@@ -45,7 +45,7 @@ api_idx_0004_3:
     ret                              ; 0x0d86
 loc_0d87:
     mov ax, 0xfefa                   ; 0x0d87
-    call ds_dispatch_f40b            ; 0x0d8a
+    call ds_aztec_csav               ; 0x0d8a
     mov ax, 0                        ; 0x0d8d
     push ax                          ; 0x0d90
     call api_idx_000a_2              ; 0x0d91
@@ -57,7 +57,7 @@ loc_0d87:
     lea ax, word [bp - 0x0105]       ; 0x0da6
     push ax                          ; 0x0daa
     push word [bp + 0x4]             ; 0x0dab
-    call ds_dispatch_b53b            ; 0x0dae
+    call ds_app_mem_0782             ; 0x0dae
     add sp, byte 4                   ; 0x0db1
     cmp word [bss_5216], byte 0      ; 0x0db4
     jne short @..local.l44           ; 0x0db9
@@ -91,6 +91,6 @@ loc_0d87:
     push ax                          ; 0x0df7
     mov ax, 0x37                     ; 0x0df8
     push ax                          ; 0x0dfb
-    call ds_dispatch_bb33            ; 0x0dfc
+    call ds_app_io_0d7a              ; 0x0dfc
     add sp, byte 8                   ; 0x0dff
     ret                              ; 0x0e02

@@ -1,6 +1,6 @@
 api_idx_0002_23:
     mov ax, 0xfffe                   ; 0x98cc
-    call ds_dispatch_f40b            ; 0x98cf
+    call ds_aztec_csav               ; 0x98cf
     mov ax, 0x26                     ; 0x98d2
     imul word [bp + 0x4]             ; 0x98d5
     mov bx, ax                       ; 0x98d8
@@ -14,7 +14,7 @@ api_idx_0002_23:
     je short @..api_idx_0002_23.l1   ; 0x98ee
     mov ax, 4                        ; 0x98f0
     push ax                          ; 0x98f3
-    call ds_dispatch_b7a9            ; 0x98f4
+    call ds_app_09f0                 ; 0x98f4
     pop cx                           ; 0x98f7
     test ax, ax                      ; 0x98f8
     jne short @..api_idx_0002_23.l1  ; 0x98fa
@@ -31,7 +31,7 @@ api_idx_0002_23:
     imul word [bp + 0x4]             ; 0x9912
     add ax, 0x8504                   ; 0x9915
     push ax                          ; 0x9918
-    call ds_dispatch_ec41            ; 0x9919
+    call ds_leaf_loc_3e88            ; 0x9919
     add sp, byte 6                   ; 0x991c
 @..api_idx_0002_23.l1:
     ret                              ; 0x991f

@@ -1,6 +1,6 @@
 api_idx_0002_5:
     mov ax, 0xfffe                   ; 0x6e69
-    call ds_dispatch_f40b            ; 0x6e6c
+    call ds_aztec_csav               ; 0x6e6c
     mov ax, word [bp + 0x6]          ; 0x6e6f
     mov word [bp - 0x0002], ax       ; 0x6e72
     jmp short @..api_idx_0002_5.l2   ; 0x6e75

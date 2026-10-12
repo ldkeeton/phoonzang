@@ -121,7 +121,7 @@ bss_96d0 equ 0x96d0
 
 loc_000e:
     mov ax, 0                        ; 0x000e
-    call ds_dispatch_f40b            ; 0x0011
+    call ds_aztec_csav               ; 0x0011
     cmp word [bss_830a], byte 0x11   ; 0x0014
     jne short @..local.l1            ; 0x0019
     push word [bss_8af0]             ; 0x001b

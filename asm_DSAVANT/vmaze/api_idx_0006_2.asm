@@ -1,7 +1,7 @@
 api_idx_0006_2:
     mov ax, 0xfffa                   ; 0x0f8e
-    call ds_dispatch_f40b            ; 0x0f91
-    call ds_dispatch_ec17            ; 0x0f94
+    call ds_aztec_csav               ; 0x0f91
+    call ds_bios_kbd_check           ; 0x0f94
     mov ax, word [bp + 0x4]          ; 0x0f97
     cwd                              ; 0x0f9a
     les bx, word [dseg_0002]         ; 0x0f9b
@@ -23,7 +23,7 @@ api_idx_0006_2:
 @..api_idx_0006_2.l2:
     jmp short @..api_idx_0006_2.l5   ; 0x0fc7
 @..api_idx_0006_2.l3:
-    call ds_dispatch_baef            ; 0x0fc9
+    call ds_app_0d36                 ; 0x0fc9
     test ax, ax                      ; 0x0fcc
     je short @..api_idx_0006_2.l4    ; 0x0fce
     ret                              ; 0x0fd0

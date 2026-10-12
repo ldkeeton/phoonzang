@@ -1,6 +1,6 @@
 api_idx_0004_4:
     mov ax, 0xfffc                   ; 0x297e
-    call ds_dispatch_f40b            ; 0x2981
+    call ds_aztec_csav               ; 0x2981
     mov word [bp - 0x0004], 0        ; 0x2984
     mov word [bp - 0x0002], 0        ; 0x2989
 loc_298e:
@@ -16,7 +16,7 @@ loc_298e:
     imul word [bp + 0x4]             ; 0x29a7
     add ax, 0x5e12                   ; 0x29aa
     push ax                          ; 0x29ad
-    call ds_dispatch_ec74            ; 0x29ae
+    call ds_leaf_loc_3ebb            ; 0x29ae
     db 0x83
 @..api_idx_0008_2.l25:
     db 0xc4
@@ -33,7 +33,7 @@ loc_298e:
     db 0x46, 0xfe
     add ax, 0xfa0                    ; 0x29c5
     push ax                          ; 0x29c8
-    call ds_dispatch_b53b            ; 0x29c9
+    call ds_app_mem_0782             ; 0x29c9
     add sp, byte 4                   ; 0x29cc
     mov ax, word [bp - 0x0002]       ; 0x29cf
     mov cx, word [bp - 0x0004]       ; 0x29d2

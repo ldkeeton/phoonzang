@@ -1,6 +1,6 @@
 api_idx_0046:
     mov ax, 0xffba                   ; 0x4fca
-    call ds_dispatch_f40b            ; 0x4fcd
+    call ds_aztec_csav               ; 0x4fcd
     mov ax, 0                        ; 0x4fd0
     push ax                          ; 0x4fd3
     mov ax, 0x248                    ; 0x4fd4
@@ -13,7 +13,7 @@ api_idx_0046:
     push ax                          ; 0x4fe6
     mov ax, 0                        ; 0x4fe7
     push ax                          ; 0x4fea
-    call ds_dispatch_b63c            ; 0x4feb
+    call ds_app_file_0883            ; 0x4feb
     add sp, byte 8                   ; 0x4fee
     mov word [bss_9492], 0           ; 0x4ff1
 @..api_idx_0046.l1:

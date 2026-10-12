@@ -42,7 +42,7 @@ loc_1333:
     mov ax, 1                        ; 0x1333
     push ax                          ; 0x1336
     push word [bp - 0x0006]          ; 0x1337
-    call ds_dispatch_cb3a            ; 0x133a
+    call ds_app_1d81                 ; 0x133a
     add sp, byte 4                   ; 0x133d
     mov ax, word [bp - 0x0010]       ; 0x1340
     add ax, word [bp - 0x0012]       ; 0x1343

@@ -1,9 +1,9 @@
 api_idx_0002_6:
     mov ax, 0xfffe                   ; 0x0acc
-    call ds_dispatch_f40b            ; 0x0acf
+    call ds_aztec_csav               ; 0x0acf
     mov ax, 0x64                     ; 0x0ad2
     push ax                          ; 0x0ad5
-    call ds_dispatch_b7a9            ; 0x0ad6
+    call ds_app_09f0                 ; 0x0ad6
     pop cx                           ; 0x0ad9
     push ax                          ; 0x0ada
     mov bx, word [bss_0e14]          ; 0x0adb
@@ -29,16 +29,16 @@ api_idx_0002_6:
     add bx, strict word 0xab0        ; 0x0b06
     mov ax, bx                       ; 0x0b0a
     push ax                          ; 0x0b0c
-    call ds_dispatch_ecf6            ; 0x0b0d
+    call ds_leaf_loc_3f3d            ; 0x0b0d
     add sp, byte 6                   ; 0x0b10
     ret                              ; 0x0b13
 loc_0b14:
     mov ax, 0                        ; 0x0b14
-    call ds_dispatch_f40b            ; 0x0b17
+    call ds_aztec_csav               ; 0x0b17
     call loc_0140                    ; 0x0b1a
     cmp word [bp + 0x8], byte 0      ; 0x0b1d
     je short @..local.l7             ; 0x0b21
-    call ds_dispatch_d9a6            ; 0x0b23
+    call ds_app_2bed                 ; 0x0b23
     mov word [bss_8450], ax          ; 0x0b26
     test ax, ax                      ; 0x0b29
     je short @..local.l7             ; 0x0b2b
@@ -46,7 +46,7 @@ loc_0b14:
     push ax                          ; 0x0b30
     mov ax, 3                        ; 0x0b31
     push ax                          ; 0x0b34
-    call ds_dispatch_d7e7            ; 0x0b35
+    call ds_app_file_2a2e            ; 0x0b35
     add sp, byte 4                   ; 0x0b38
     mov ax, word [dseg_0112]         ; 0x0b3b
     mov word [bss_844e], ax          ; 0x0b3e
@@ -54,7 +54,7 @@ loc_0b14:
     push ax                          ; 0x0b44
     push word [bss_844e]             ; 0x0b45
     push ax                          ; 0x0b49
-    call ds_dispatch_d964            ; 0x0b4a
+    call ds_app_2bab                 ; 0x0b4a
     add sp, byte 6                   ; 0x0b4d
     mov word [bss_844c], ax          ; 0x0b50
 @..local.l7:

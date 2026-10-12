@@ -83,7 +83,7 @@ bss_978a equ 0x978a
 
 loc_000e:
     mov ax, 0                        ; 0x000e
-    call ds_dispatch_f40b            ; 0x0011
+    call ds_aztec_csav               ; 0x0011
     call api_idx_002c_2              ; 0x0014
     mov word [bss_830a], 4           ; 0x0017
     mov ax, 0                        ; 0x001d

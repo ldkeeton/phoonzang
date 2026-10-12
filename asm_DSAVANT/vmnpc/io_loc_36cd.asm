@@ -2,7 +2,7 @@ io_loc_36cd:
     push word [bp - 0x0026]          ; 0x36cd
     mov ax, 0x5842                   ; 0x36d0
     push ax                          ; 0x36d3
-    call ds_dispatch_ec74            ; 0x36d4
+    call ds_leaf_loc_3ebb            ; 0x36d4
     add sp, byte 4                   ; 0x36d7
     cmp ax, word [bp - 0x0028]       ; 0x36da
     jne short @..io_loc_36cd.l1      ; 0x36dd

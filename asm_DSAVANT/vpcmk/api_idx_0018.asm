@@ -1,6 +1,6 @@
 api_idx_0018:
     mov ax, 0xffe8                   ; 0x67ff
-    call ds_dispatch_f40b            ; 0x6802
+    call ds_aztec_csav               ; 0x6802
     push word [bp + 0x4]             ; 0x6805
     mov ax, 0                        ; 0x6808
     push ax                          ; 0x680b
@@ -8,13 +8,13 @@ api_idx_0018:
     add sp, byte 4                   ; 0x680f
     mov ax, 8                        ; 0x6812
     push ax                          ; 0x6815
-    call ds_dispatch_b75e            ; 0x6816
+    call ds_app_09a5                 ; 0x6816
     pop cx                           ; 0x6819
     mov ax, 0x5bf4                   ; 0x681a
     push ax                          ; 0x681d
     lea ax, word [bp - 0x0014]       ; 0x681e
     push ax                          ; 0x6821
-    call ds_dispatch_f364            ; 0x6822
+    call ds_aztec_strcpy             ; 0x6822
     add sp, byte 4                   ; 0x6825
     lea ax, word [bp - 0x0014]       ; 0x6828
     push ax                          ; 0x682b
@@ -33,7 +33,7 @@ api_idx_0018:
 @..api_idx_0018.l1:
     lea ax, word [bp - 0x0014]       ; 0x6845
     push ax                          ; 0x6848
-    call ds_dispatch_fa90            ; 0x6849
+    call ds_aztec_strlen             ; 0x6849
     pop cx                           ; 0x684c
     test ax, ax                      ; 0x684d
     je short @..api_idx_0018.l3      ; 0x684f
@@ -49,7 +49,7 @@ api_idx_0018:
     push ax                          ; 0x6863
     mov ax, 0x5bf4                   ; 0x6864
     push ax                          ; 0x6867
-    call ds_dispatch_f364            ; 0x6868
+    call ds_aztec_strcpy             ; 0x6868
     add sp, byte 4                   ; 0x686b
     mov ax, 1                        ; 0x686e
     push ax                          ; 0x6871

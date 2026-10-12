@@ -1,12 +1,12 @@
 api_idx_004c:
     mov ax, 0xffb4                   ; 0x27e3
-    call ds_dispatch_f40b            ; 0x27e6
+    call ds_aztec_csav               ; 0x27e6
     mov ax, 0                        ; 0x27e9
     push ax                          ; 0x27ec
     push ax                          ; 0x27ed
     push word [bss_9420]             ; 0x27ee
     push word [bss_941e]             ; 0x27f2
-    call ds_dispatch_e942            ; 0x27f6
+    call ds_loc_3b89                 ; 0x27f6
     add sp, byte 8                   ; 0x27f9
     cmp word [bss_948e], byte 0      ; 0x27fc
     je short @..api_idx_004c.l1      ; 0x2801
@@ -14,13 +14,13 @@ api_idx_004c:
     push ax                          ; 0x2806
     mov ax, 0xa0                     ; 0x2807
     push ax                          ; 0x280a
-    call ds_dispatch_e809            ; 0x280b
+    call ds_loc_3a50                 ; 0x280b
     add sp, byte 4                   ; 0x280e
     mov ax, 4                        ; 0x2811
     push ax                          ; 0x2814
     mov ax, 0x63                     ; 0x2815
     push ax                          ; 0x2818
-    call ds_dispatch_e830            ; 0x2819
+    call ds_loc_3a77                 ; 0x2819
     add sp, byte 4                   ; 0x281c
 @..api_idx_004c.l1:
     cmp word [bss_9490], byte 0      ; 0x281f
@@ -44,7 +44,7 @@ api_idx_004c:
     push ax                          ; 0x284d
     mov ax, 1                        ; 0x284e
     push ax                          ; 0x2851
-    call ds_dispatch_e901            ; 0x2852
+    call ds_loc_3b48                 ; 0x2852
     add sp, byte 0x0a                ; 0x2855
     inc word [bp - 0x0002]           ; 0x2858
     mov ax, word [bp - 0x0002]       ; 0x285b
@@ -66,7 +66,7 @@ api_idx_004c:
     imul word [bp - 0x0002]          ; 0x287f
     inc ax                           ; 0x2882
     push ax                          ; 0x2883
-    call ds_dispatch_e901            ; 0x2884
+    call ds_loc_3b48                 ; 0x2884
     add sp, byte 0x0a                ; 0x2887
     inc word [bp - 0x0002]           ; 0x288a
     mov ax, word [bp - 0x0002]       ; 0x288d
@@ -105,7 +105,7 @@ api_idx_004c:
     push ax                          ; 0x28da
     mov ax, 1                        ; 0x28db
     push ax                          ; 0x28de
-    call ds_dispatch_b63c            ; 0x28df
+    call ds_app_file_0883            ; 0x28df
     add sp, byte 8                   ; 0x28e2
     mov ax, 0x248                    ; 0x28e5
     imul word [bp + 0x4]             ; 0x28e8
@@ -132,7 +132,7 @@ api_idx_004c:
     imul word [bp - 0x0002]          ; 0x2918
     add ax, 0x9494                   ; 0x291b
     push ax                          ; 0x291e
-    call ds_dispatch_f364            ; 0x291f
+    call ds_aztec_strcpy             ; 0x291f
     add sp, byte 4                   ; 0x2922
     jmp short @..api_idx_004c.l10    ; 0x2925
 @..api_idx_004c.l9:
@@ -144,7 +144,7 @@ api_idx_004c:
     sub ah, ah                       ; 0x2934
     add ax, 0x1770                   ; 0x2936
     push ax                          ; 0x2939
-    call ds_dispatch_b53b            ; 0x293a
+    call ds_app_mem_0782             ; 0x293a
     add sp, byte 4                   ; 0x293d
 @..api_idx_004c.l10:
     mov al, byte [bp - 0x0012]       ; 0x2940
@@ -247,7 +247,7 @@ api_idx_004c:
     ret                              ; 0x2a31
 loc_2a32:
     mov ax, 0                        ; 0x2a32
-    call ds_dispatch_f40b            ; 0x2a35
+    call ds_aztec_csav               ; 0x2a35
     mov ax, 0x7d                     ; 0x2a38
     push ax                          ; 0x2a3b
     mov ax, 0                        ; 0x2a3c
@@ -266,7 +266,7 @@ loc_2a32:
     sub ah, ah                       ; 0x2a5b
     add ax, word [bp + 0xa]          ; 0x2a5d
     push ax                          ; 0x2a60
-    call ds_dispatch_b7c2            ; 0x2a61
+    call ds_app_0a09                 ; 0x2a61
     add sp, byte 6                   ; 0x2a64
     push ax                          ; 0x2a67
     mov ax, 0x248                    ; 0x2a68

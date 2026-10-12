@@ -1,6 +1,6 @@
 api_idx_0014:
     mov ax, 0xffec                   ; 0x6673
-    call ds_dispatch_f40b            ; 0x6676
+    call ds_aztec_csav               ; 0x6676
     mov byte [bp - 0x0014], 0        ; 0x6679
     lea ax, word [bp - 0x0014]       ; 0x667d
     push ax                          ; 0x6680
@@ -37,7 +37,7 @@ api_idx_0014:
     ret                              ; 0x66c2
 loc_66c3:
     mov ax, 0                        ; 0x66c3
-    call ds_dispatch_f40b            ; 0x66c6
+    call ds_aztec_csav               ; 0x66c6
     mov ax, 0                        ; 0x66c9
     push ax                          ; 0x66cc
     push word [bp + 0x6]             ; 0x66cd
@@ -80,6 +80,6 @@ loc_66c3:
     mov ax, 0                        ; 0x672c
     push ax                          ; 0x672f
     push ax                          ; 0x6730
-    call ds_dispatch_e8da            ; 0x6731
+    call ds_loc_3b21                 ; 0x6731
     add sp, byte 8                   ; 0x6734
     ret                              ; 0x6737

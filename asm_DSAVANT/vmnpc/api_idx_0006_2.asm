@@ -1,6 +1,6 @@
 api_idx_0006_2:
     mov ax, 0xfffa                   ; 0x0f50
-    call ds_dispatch_f40b            ; 0x0f53
+    call ds_aztec_csav               ; 0x0f53
     mov ax, word [bss_845e]          ; 0x0f56
     jmp near @..api_idx_0006_2.l12   ; 0x0f59
 @..api_idx_0006_2.l1:
@@ -11,7 +11,7 @@ api_idx_0006_2:
     push ax                          ; 0x0f67
     mov ax, 0x48                     ; 0x0f68
     push ax                          ; 0x0f6b
-    call ds_dispatch_e8da            ; 0x0f6c
+    call ds_loc_3b21                 ; 0x0f6c
     add sp, byte 8                   ; 0x0f6f
     jmp near @..api_idx_0006_2.l16   ; 0x0f72
 @..api_idx_0006_2.l2:
@@ -52,7 +52,7 @@ api_idx_0006_2:
     mov bx, ax                       ; 0x0fba
     push word [bx - 0x6f9e]          ; 0x0fbc
     push word [bx - 0x6fa0]          ; 0x0fc0
-    call ds_dispatch_e942            ; 0x0fc4
+    call ds_loc_3b89                 ; 0x0fc4
     add sp, byte 8                   ; 0x0fc7
     mov word [bp - 0x0002], 0        ; 0x0fca
 @..api_idx_0006_2.l6:
@@ -113,7 +113,7 @@ api_idx_0006_2:
     idiv cx                          ; 0x105d
     mov word [bss_82e8], dx          ; 0x105f
 @..api_idx_0006_2.l10:
-    call ds_dispatch_da22            ; 0x1063
+    call ds_app_2c69                 ; 0x1063
     jmp short @..api_idx_0006_2.l16  ; 0x1066
 @..api_idx_0006_2.l11:
     push word [bss_845e]             ; 0x1068
@@ -144,7 +144,7 @@ api_idx_0006_2:
     ret                              ; 0x109e
 loc_109f:
     mov ax, 0                        ; 0x109f
-    call ds_dispatch_f40b            ; 0x10a2
+    call ds_aztec_csav               ; 0x10a2
     mov word [bss_845e], 0xfffe      ; 0x10a5
 @..local.l12:
     call api_idx_0006_2              ; 0x10ab
@@ -153,7 +153,7 @@ loc_109f:
     ret                              ; 0x10b5
 loc_10b6:
     mov ax, 0                        ; 0x10b6
-    call ds_dispatch_f40b            ; 0x10b9
+    call ds_aztec_csav               ; 0x10b9
 @..local.l13:
     cmp word [bss_845e], byte 0xfe   ; 0x10bc
     je short @..local.l14            ; 0x10c1

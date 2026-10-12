@@ -58,18 +58,18 @@ loc_65c5:
     idiv cx                          ; 0x6611
     add ax, word [bp - 0x0002]       ; 0x6613
     push ax                          ; 0x6616
-    call ds_dispatch_b7c2            ; 0x6617
+    call ds_app_0a09                 ; 0x6617
     add sp, byte 6                   ; 0x661a
     mov word [bp - 0x0002], ax       ; 0x661d
     mov ax, 0x64                     ; 0x6620
     push ax                          ; 0x6623
-    call ds_dispatch_b7a9            ; 0x6624
+    call ds_app_09f0                 ; 0x6624
     pop cx                           ; 0x6627
     add ax, word [bss_9d64]          ; 0x6628
     mov word [bp - 0x0004], ax       ; 0x662c
     mov ax, 5                        ; 0x662f
     push ax                          ; 0x6632
-    call ds_dispatch_b7a9            ; 0x6633
+    call ds_app_09f0                 ; 0x6633
     pop cx                           ; 0x6636
     add ax, word [bss_9d64]          ; 0x6637
     add ax, strict word 0xa          ; 0x663b
@@ -78,7 +78,7 @@ loc_65c5:
     push ax                          ; 0x6644
     mov ax, 0x637                    ; 0x6645
     push ax                          ; 0x6648
-    call ds_dispatch_b53b            ; 0x6649
+    call ds_app_mem_0782             ; 0x6649
     add sp, byte 4                   ; 0x664c
     mov ax, 0x5e                     ; 0x664f
     push ax                          ; 0x6652
@@ -88,7 +88,7 @@ loc_65c5:
     push ax                          ; 0x665c
     lea ax, word [bp - 0x005a]       ; 0x665d
     push ax                          ; 0x6660
-    call ds_dispatch_b300            ; 0x6661
+    call ds_app_string_0547          ; 0x6661
     add sp, byte 6                   ; 0x6664
     mov ax, 0x55                     ; 0x6667
     push ax                          ; 0x666a
@@ -125,13 +125,13 @@ loc_66a2:
     add sp, byte 8                   ; 0x66b2
     mov ax, 0xa                      ; 0x66b5
     push ax                          ; 0x66b8
-    call ds_dispatch_b7a9            ; 0x66b9
+    call ds_app_09f0                 ; 0x66b9
     pop cx                           ; 0x66bc
     add ax, strict word 5            ; 0x66bd
     mov word [bp - 0x0006], ax       ; 0x66c0
     mov ax, 0xa                      ; 0x66c3
     push ax                          ; 0x66c6
-    call ds_dispatch_b7a9            ; 0x66c7
+    call ds_app_09f0                 ; 0x66c7
     pop cx                           ; 0x66ca
     add ax, strict word 5            ; 0x66cb
     mov word [bp - 0x0008], ax       ; 0x66ce
@@ -156,7 +156,7 @@ loc_66eb:
     add sp, byte 8                   ; 0x66fb
     mov ax, 0xa                      ; 0x66fe
     push ax                          ; 0x6701
-    call ds_dispatch_b7a9            ; 0x6702
+    call ds_app_09f0                 ; 0x6702
     pop cx                           ; 0x6705
     mov cx, ax                       ; 0x6706
     add ax, strict word 0xa          ; 0x6708
@@ -166,7 +166,7 @@ loc_66eb:
     mov word [bp - 0x0006], ax       ; 0x6712
     mov ax, 0xa                      ; 0x6715
     push ax                          ; 0x6718
-    call ds_dispatch_b7a9            ; 0x6719
+    call ds_app_09f0                 ; 0x6719
     pop cx                           ; 0x671c
     mov cx, ax                       ; 0x671d
     add ax, strict word 0xa          ; 0x671f
@@ -188,13 +188,13 @@ loc_6733:
     add sp, byte 8                   ; 0x6743
     mov ax, 0xa                      ; 0x6746
     push ax                          ; 0x6749
-    call ds_dispatch_b7a9            ; 0x674a
+    call ds_app_09f0                 ; 0x674a
     pop cx                           ; 0x674d
     add ax, strict word 0xfffb       ; 0x674e
     mov word [bp - 0x0006], ax       ; 0x6751
     mov ax, 0xa                      ; 0x6754
     push ax                          ; 0x6757
-    call ds_dispatch_b7a9            ; 0x6758
+    call ds_app_09f0                 ; 0x6758
     pop cx                           ; 0x675b
     add ax, strict word 0xfffb       ; 0x675c
     mov word [bp - 0x0008], ax       ; 0x675f

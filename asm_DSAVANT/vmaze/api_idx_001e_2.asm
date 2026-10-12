@@ -1,6 +1,6 @@
 api_idx_001e_2:
     mov ax, 0xffe2                   ; 0x7034
-    call ds_dispatch_f40b            ; 0x7037
+    call ds_aztec_csav               ; 0x7037
     mov ax, word [bss_8d12]          ; 0x703a
     shl ax, 1                        ; 0x703d
     mov si, ax                       ; 0x703f
@@ -21,7 +21,7 @@ api_idx_001e_2:
     push ax                          ; 0x7063
     mov ax, 0                        ; 0x7064
     push ax                          ; 0x7067
-    call ds_dispatch_e8da            ; 0x7068
+    call ds_loc_3b21                 ; 0x7068
     add sp, byte 8                   ; 0x706b
 @..api_idx_001e_2.l1:
     mov ax, word [bss_8d12]          ; 0x706e
@@ -40,7 +40,7 @@ api_idx_001e_2:
     add ax, strict word 8            ; 0x7093
     push ax                          ; 0x7096
     push word [bp - 0x000e]          ; 0x7097
-    call ds_dispatch_ed3a            ; 0x709a
+    call ds_dos_con_loc_3f81         ; 0x709a
     add sp, byte 6                   ; 0x709d
     mov cx, word [bp - 0x0002]       ; 0x70a0
     shl cx, 1                        ; 0x70a3
@@ -56,7 +56,7 @@ api_idx_001e_2:
     mov ax, 0                        ; 0x70bb
     push ax                          ; 0x70be
     push word [bp - 0x000e]          ; 0x70bf
-    call ds_dispatch_ed3a            ; 0x70c2
+    call ds_dos_con_loc_3f81         ; 0x70c2
     add sp, byte 6                   ; 0x70c5
     mov word [bp - 0x0010], ax       ; 0x70c8
     mov bx, word [bss_0e12]          ; 0x70cb
@@ -69,7 +69,7 @@ api_idx_001e_2:
     mov ax, 0xc                      ; 0x70e0
     push ax                          ; 0x70e3
     push word [bp - 0x000e]          ; 0x70e4
-    call ds_dispatch_ed3a            ; 0x70e7
+    call ds_dos_con_loc_3f81         ; 0x70e7
     add sp, byte 6                   ; 0x70ea
     mov word [bp - 0x0018], ax       ; 0x70ed
     mov ax, 1                        ; 0x70f0
@@ -77,7 +77,7 @@ api_idx_001e_2:
     mov ax, 0xd                      ; 0x70f4
     push ax                          ; 0x70f7
     push word [bp - 0x000e]          ; 0x70f8
-    call ds_dispatch_ed3a            ; 0x70fb
+    call ds_dos_con_loc_3f81         ; 0x70fb
     add sp, byte 6                   ; 0x70fe
     cmp ax, strict word 1            ; 0x7101
     jne short @..api_idx_001e_2.l3   ; 0x7104
@@ -92,7 +92,7 @@ api_idx_001e_2:
     mov ax, 0xe                      ; 0x7115
     push ax                          ; 0x7118
     push word [bp - 0x000e]          ; 0x7119
-    call ds_dispatch_ed3a            ; 0x711c
+    call ds_dos_con_loc_3f81         ; 0x711c
     add sp, byte 6                   ; 0x711f
     mov word [bp - 0x001c], ax       ; 0x7122
     mov word [bp - 0x0002], 0        ; 0x7125
@@ -160,7 +160,7 @@ api_idx_001e_2:
     cmp word [bp - 0x001c], byte 1   ; 0x71bc
     jne short @..api_idx_001e_2.l12  ; 0x71c0
     push word [bp - 0x0012]          ; 0x71c2
-    call ds_dispatch_b7a9            ; 0x71c5
+    call ds_app_09f0                 ; 0x71c5
     pop cx                           ; 0x71c8
     inc ax                           ; 0x71c9
     push ax                          ; 0x71ca
@@ -215,7 +215,7 @@ api_idx_001e_2:
     ret                              ; 0x7241
 loc_7242:
     mov ax, 0                        ; 0x7242
-    call ds_dispatch_f40b            ; 0x7245
+    call ds_aztec_csav               ; 0x7245
     cmp word [bp + 0x4], byte 0      ; 0x7248
     jle short @..local.l69           ; 0x724c
     mov bx, word [bss_0e12]          ; 0x724e
@@ -232,7 +232,7 @@ loc_7242:
     shl ax, cl                       ; 0x726e
     add ax, 0x8d14                   ; 0x7270
     push ax                          ; 0x7273
-    call ds_dispatch_ec41            ; 0x7274
+    call ds_leaf_loc_3e88            ; 0x7274
     add sp, byte 6                   ; 0x7277
     cmp word [bp + 0x4], byte 1      ; 0x727a
     jle short @..local.l69           ; 0x727e
@@ -248,7 +248,7 @@ loc_7242:
     shl ax, cl                       ; 0x7299
     add ax, 0x5642                   ; 0x729b
     push ax                          ; 0x729e
-    call ds_dispatch_ec41            ; 0x729f
+    call ds_leaf_loc_3e88            ; 0x729f
     add sp, byte 6                   ; 0x72a2
 @..local.l69:
     ret                              ; 0x72a5

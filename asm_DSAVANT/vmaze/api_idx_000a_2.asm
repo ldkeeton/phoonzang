@@ -1,11 +1,11 @@
 api_idx_000a_2:
     mov ax, 0xfff6                   ; 0x6b0a
-    call ds_dispatch_f40b            ; 0x6b0d
+    call ds_aztec_csav               ; 0x6b0d
     mov ax, 0                        ; 0x6b10
     push ax                          ; 0x6b13
     push word [bss_8d10]             ; 0x6b14
     push word [bss_8d0e]             ; 0x6b18
-    call ds_dispatch_e94f            ; 0x6b1c
+    call ds_loc_3b96                 ; 0x6b1c
     add sp, byte 6                   ; 0x6b1f
     mov byte [bp - 0x000a], 1        ; 0x6b22
     mov byte [bp - 0x0009], 0        ; 0x6b26
@@ -30,12 +30,12 @@ api_idx_000a_2:
     push ax                          ; 0x6b4e
     mov ax, 0xe                      ; 0x6b4f
     push ax                          ; 0x6b52
-    call ds_dispatch_efd1            ; 0x6b53
+    call ds_loc_4218                 ; 0x6b53
     add sp, byte 0x16                ; 0x6b56
     ret                              ; 0x6b59
 loc_6b5a:
     mov ax, 0                        ; 0x6b5a
-    call ds_dispatch_f40b            ; 0x6b5d
+    call ds_aztec_csav               ; 0x6b5d
     cmp word [bss_9b48], byte 0      ; 0x6b60
     je short @..local.l58            ; 0x6b65
     ret                              ; 0x6b67
@@ -48,11 +48,11 @@ loc_6b5a:
     push ax                          ; 0x6b73
     mov ax, 0x37                     ; 0x6b74
     push ax                          ; 0x6b77
-    call ds_dispatch_bb33            ; 0x6b78
+    call ds_app_io_0d7a              ; 0x6b78
     add sp, byte 8                   ; 0x6b7b
     mov ax, 0x3c                     ; 0x6b7e
     push ax                          ; 0x6b81
-    call ds_dispatch_b7a9            ; 0x6b82
+    call ds_app_09f0                 ; 0x6b82
     pop cx                           ; 0x6b85
     cwd                              ; 0x6b86
     les bx, word [dseg_0002]         ; 0x6b87
@@ -76,7 +76,7 @@ loc_6b5a:
     pop cx                           ; 0x6bb9
     jmp short @..local.l62           ; 0x6bba
 @..local.l60:
-    call ds_dispatch_baef            ; 0x6bbc
+    call ds_app_0d36                 ; 0x6bbc
     test ax, ax                      ; 0x6bbf
     jne short @..local.l62           ; 0x6bc1
     call loc_0f1d                    ; 0x6bc3

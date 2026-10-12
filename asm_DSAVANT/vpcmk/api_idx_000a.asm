@@ -1,12 +1,12 @@
 api_idx_000a:
     mov ax, 0xfff6                   ; 0x1a98
-    call ds_dispatch_f40b            ; 0x1a9b
+    call ds_aztec_csav               ; 0x1a9b
     mov ax, 0                        ; 0x1a9e
     push ax                          ; 0x1aa1
     push ax                          ; 0x1aa2
     push word [bss_9542]             ; 0x1aa3
     push word [bss_9540]             ; 0x1aa7
-    call ds_dispatch_e942            ; 0x1aab
+    call ds_loc_3b89                 ; 0x1aab
     add sp, byte 8                   ; 0x1aae
     cmp word [bss_95aa], byte 0      ; 0x1ab1
     jle short @..api_idx_000a.l1     ; 0x1ab6
@@ -34,7 +34,7 @@ api_idx_000a:
     push ax                          ; 0x1ae8
     mov ax, 0xf                      ; 0x1ae9
     push ax                          ; 0x1aec
-    call ds_dispatch_efd1            ; 0x1aed
+    call ds_loc_4218                 ; 0x1aed
     add sp, byte 0x16                ; 0x1af0
 @..api_idx_000a.l1:
     mov ax, 5                        ; 0x1af3
@@ -69,6 +69,6 @@ api_idx_000a:
     push ax                          ; 0x1b34
     mov ax, 0xf                      ; 0x1b35
     push ax                          ; 0x1b38
-    call ds_dispatch_efd1            ; 0x1b39
+    call ds_loc_4218                 ; 0x1b39
     add sp, byte 0x16                ; 0x1b3c
     ret                              ; 0x1b3f

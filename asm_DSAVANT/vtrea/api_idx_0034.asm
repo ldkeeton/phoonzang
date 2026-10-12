@@ -1,7 +1,7 @@
 api_idx_0034:
     mov ax, 0xffcc                   ; 0x6ff5
-    call ds_dispatch_f40b            ; 0x6ff8
-    call ds_dispatch_ec17            ; 0x6ffb
+    call ds_aztec_csav               ; 0x6ff8
+    call ds_bios_kbd_check           ; 0x6ffb
     mov ax, word [bp + 0x6]          ; 0x6ffe
     shl ax, 1                        ; 0x7001
     mov si, ax                       ; 0x7003
@@ -17,7 +17,7 @@ api_idx_0034:
     mov ax, 0                        ; 0x7020
     push ax                          ; 0x7023
     push word [bp - 0x0002]          ; 0x7024
-    call ds_dispatch_ed3a            ; 0x7027
+    call ds_dos_con_loc_3f81         ; 0x7027
     add sp, byte 6                   ; 0x702a
     mov word [bp - 0x0004], ax       ; 0x702d
     mov cx, 3                        ; 0x7030
@@ -42,7 +42,7 @@ api_idx_0034:
     shl ax, 1                        ; 0x7062
     push ax                          ; 0x7064
     push word [bp - 0x0002]          ; 0x7065
-    call ds_dispatch_ed3a            ; 0x7068
+    call ds_dos_con_loc_3f81         ; 0x7068
     add sp, byte 6                   ; 0x706b
     cmp ax, strict word 2            ; 0x706e
     jne short @..api_idx_0034.l2     ; 0x7071
@@ -114,7 +114,7 @@ api_idx_0034:
     mov ax, word [bp - 0x0008]       ; 0x710f
     add ax, 0x841                    ; 0x7112
     push ax                          ; 0x7115
-    call ds_dispatch_b53b            ; 0x7116
+    call ds_app_mem_0782             ; 0x7116
     add sp, byte 4                   ; 0x7119
     cmp word [bp - 0x0008], byte 0   ; 0x711c
     jne short @..api_idx_0034.l9     ; 0x7120

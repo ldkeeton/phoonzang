@@ -37,6 +37,7 @@ from lib.segdataflow import (
     analyze as analyze_segments,
     operand_space_counts,
 )
+from lib.cross_ref import overlay_host_aliases
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_c_overrides
@@ -62,7 +63,8 @@ from .seeding import (
 
 
 def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
-            foreign_label_map=None, export_labels=False, host_model=None):
+            foreign_label_map=None, export_labels=False, host_model=None,
+            foreign_prefix=None):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -361,6 +363,14 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         if isinstance(root_name, str)
         and not root_name.startswith(('loc_', 'data_'))
     )
+    # Overlay near calls resolve to host functions: translate each recovered
+    # out-of-range target to the host label map so it is symbolized by name
+    # (the alias keeps the overlay-space value, so bytes round-trip).
+    if foreign_label_map:
+        foreign_label_map = overlay_host_aliases(
+            foreign_label_map, ctx.segments, instructions,
+            start_offset, len(data), foreign_prefix,
+        )
     asm_text, stats, emit_bytes, label_positions, split_sources = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,

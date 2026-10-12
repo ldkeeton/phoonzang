@@ -1,6 +1,6 @@
 api_idx_0004_4:
     mov ax, 0xfffc                   ; 0x0c67
-    call ds_dispatch_f40b            ; 0x0c6a
+    call ds_aztec_csav               ; 0x0c6a
     mov word [bp - 0x0004], 0        ; 0x0c6d
     mov al, byte [bss_69c8]          ; 0x0c72
     mov cx, word [bp - 0x0004]       ; 0x0c75
@@ -144,7 +144,7 @@ api_idx_0004_4:
     imul word [bp - 0x0002]          ; 0x0de2
     add ax, 0x5d5a                   ; 0x0de5
     push ax                          ; 0x0de8
-    call ds_dispatch_fedc            ; 0x0de9
+    call ds_aztec_movmem             ; 0x0de9
     add sp, byte 6                   ; 0x0dec
     mov ax, 0x248                    ; 0x0def
     imul word [bp - 0x0002]          ; 0x0df2

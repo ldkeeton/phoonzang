@@ -1,6 +1,6 @@
 api_idx_0012:
     mov ax, 0xffee                   ; 0x00db
-    call ds_dispatch_f40b            ; 0x00de
+    call ds_aztec_csav               ; 0x00de
     mov word [bp - 0x000e], 0        ; 0x00e1
     mov word [bp - 0x000c], 0        ; 0x00e6
     mov word [bp - 0x000a], 0        ; 0x00eb
@@ -29,7 +29,7 @@ api_idx_0012:
     mov bx, dx                       ; 0x012e
     pop dx                           ; 0x0130
     pop ax                           ; 0x0131
-    call ds_dispatch_f99f            ; 0x0132
+    call ds_loc_4be6                 ; 0x0132
     mov word [bp - 0x0010], dx       ; 0x0135
     mov word [bp - 0x0012], ax       ; 0x0138
     cmp dx, byte 0                   ; 0x013b

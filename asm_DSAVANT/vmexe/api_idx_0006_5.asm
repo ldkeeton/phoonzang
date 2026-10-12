@@ -1,6 +1,6 @@
 api_idx_0006_5:
     mov ax, 0xfffa                   ; 0x312e
-    call ds_dispatch_f40b            ; 0x3131
+    call ds_aztec_csav               ; 0x3131
     lea ax, word [bp - 0x0006]       ; 0x3134
     push ax                          ; 0x3137
     lea ax, word [bp - 0x0004]       ; 0x3138
@@ -26,7 +26,7 @@ api_idx_0006_5:
 @..api_idx_0006_5.l2:
     mov ax, 0x64                     ; 0x316d
     push ax                          ; 0x3170
-    call ds_dispatch_b7a9            ; 0x3171
+    call ds_app_09f0                 ; 0x3171
     pop cx                           ; 0x3174
     push ax                          ; 0x3175
     mov ax, word [bp + 0x4]          ; 0x3176
@@ -45,7 +45,7 @@ api_idx_0006_5:
 @..api_idx_0006_5.l3:
     mov ax, 0xa                      ; 0x3196
     push ax                          ; 0x3199
-    call ds_dispatch_b7a9            ; 0x319a
+    call ds_app_09f0                 ; 0x319a
     pop cx                           ; 0x319d
     jmp near @..api_idx_0006_5.l4    ; 0x319e
 jumptable_3341_case_0:

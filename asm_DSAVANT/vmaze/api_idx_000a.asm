@@ -1,6 +1,6 @@
 api_idx_000a:
     mov ax, 0xfff6                   ; 0x195c
-    call ds_dispatch_f40b            ; 0x195f
+    call ds_aztec_csav               ; 0x195f
     mov ax, 0x248                    ; 0x1962
     imul word [bp + 0x4]             ; 0x1965
     mov bx, ax                       ; 0x1968
@@ -14,7 +14,7 @@ api_idx_000a:
 @..api_idx_000a.l2:
     mov ax, 0x64                     ; 0x197e
     push ax                          ; 0x1981
-    call ds_dispatch_b7a9            ; 0x1982
+    call ds_app_09f0                 ; 0x1982
     pop cx                           ; 0x1985
     test ax, ax                      ; 0x1986
     je short @..api_idx_000a.l3      ; 0x1988
@@ -22,6 +22,6 @@ api_idx_000a:
 @..api_idx_000a.l3:
     mov ax, 6                        ; 0x198d
     push ax                          ; 0x1990
-    call ds_dispatch_b7a9            ; 0x1991
+    call ds_app_09f0                 ; 0x1991
     pop cx                           ; 0x1994
     jmp short @..api_idx_000a.l4     ; 0x1995

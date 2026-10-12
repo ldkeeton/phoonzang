@@ -1,6 +1,6 @@
 api_idx_0002_4:
     mov ax, 0xfffe                   ; 0x2b1a
-    call ds_dispatch_f40b            ; 0x2b1d
+    call ds_aztec_csav               ; 0x2b1d
     mov ax, 0x248                    ; 0x2b20
     imul word [bp + 0x4]             ; 0x2b23
     mov bx, ax                       ; 0x2b26
@@ -33,7 +33,7 @@ api_idx_0002_4:
     mov ax, 1                        ; 0x2b5a
     push ax                          ; 0x2b5d
     push word [bp + 0x6]             ; 0x2b5e
-    call ds_dispatch_b7c2            ; 0x2b61
+    call ds_app_0a09                 ; 0x2b61
     add sp, byte 6                   ; 0x2b64
     mov word [bp + 0x6], ax          ; 0x2b67
     mov ax, 0x248                    ; 0x2b6a
@@ -61,7 +61,7 @@ api_idx_0002_4:
     mov al, byte [bx + 0x5e37]       ; 0x2b9d
     sub ah, ah                       ; 0x2ba1
     push ax                          ; 0x2ba3
-    call ds_dispatch_b7c2            ; 0x2ba4
+    call ds_app_0a09                 ; 0x2ba4
     add sp, byte 6                   ; 0x2ba7
     push ax                          ; 0x2baa
     mov ax, 0x248                    ; 0x2bab
@@ -91,7 +91,7 @@ api_idx_0002_4:
     mov al, byte [bx + 0x5e38]       ; 0x2be3
     sub ah, ah                       ; 0x2be7
     push ax                          ; 0x2be9
-    call ds_dispatch_b7c2            ; 0x2bea
+    call ds_app_0a09                 ; 0x2bea
     add sp, byte 6                   ; 0x2bed
     push ax                          ; 0x2bf0
     mov ax, 0x248                    ; 0x2bf1

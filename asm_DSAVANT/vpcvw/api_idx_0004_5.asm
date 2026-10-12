@@ -1,6 +1,6 @@
 api_idx_0004_5:
     mov ax, 0xfffc                   ; 0x3974
-    call ds_dispatch_f40b            ; 0x3977
+    call ds_aztec_csav               ; 0x3977
     push word [bp + 0x6]             ; 0x397a
     push word [bp + 0x6]             ; 0x397d
     mov ax, 0x7f1                    ; 0x3980
@@ -58,7 +58,7 @@ api_idx_0004_5:
     pop ax                           ; 0x39ff
     sub word [bx + 0x5c1c], ax       ; 0x3a00
     push word [bp - 0x0004]          ; 0x3a04
-    call ds_dispatch_b7a9            ; 0x3a07
+    call ds_app_09f0                 ; 0x3a07
     pop cx                           ; 0x3a0a
     push ax                          ; 0x3a0b
     mov ax, 6                        ; 0x3a0c
@@ -81,7 +81,7 @@ api_idx_0004_5:
     mov word [bx + 0x5c10], 0        ; 0x3a37
     mov ax, 6                        ; 0x3a3d
     push ax                          ; 0x3a40
-    call ds_dispatch_b7a9            ; 0x3a41
+    call ds_app_09f0                 ; 0x3a41
     pop cx                           ; 0x3a44
     add ax, strict word 6            ; 0x3a45
     push ax                          ; 0x3a48
@@ -101,7 +101,7 @@ api_idx_0004_5:
     ret                              ; 0x3a69
 loc_3a6a:
     mov ax, 0                        ; 0x3a6a
-    call ds_dispatch_f40b            ; 0x3a6d
+    call ds_aztec_csav               ; 0x3a6d
     mov ax, 0xbb                     ; 0x3a70
     push ax                          ; 0x3a73
     mov ax, 0xab                     ; 0x3a74
@@ -110,11 +110,11 @@ loc_3a6a:
     push ax                          ; 0x3a7b
     mov ax, 1                        ; 0x3a7c
     push ax                          ; 0x3a7f
-    call ds_dispatch_e8da            ; 0x3a80
+    call ds_loc_3b21                 ; 0x3a80
     add sp, byte 8                   ; 0x3a83
-    call ds_dispatch_ec17            ; 0x3a86
+    call ds_bios_kbd_check           ; 0x3a86
 @..local.l42:
-    call ds_dispatch_baef            ; 0x3a89
+    call ds_app_0d36                 ; 0x3a89
     test ax, ax                      ; 0x3a8c
     jne short @..local.l43           ; 0x3a8e
     jmp short @..local.l42           ; 0x3a90
@@ -124,7 +124,7 @@ loc_3a6a:
     push ax                          ; 0x3a96
     push word [bss_93f8]             ; 0x3a97
     push word [bss_93f6]             ; 0x3a9b
-    call ds_dispatch_e942            ; 0x3a9f
+    call ds_loc_3b89                 ; 0x3a9f
     add sp, byte 8                   ; 0x3aa2
     mov word [bss_9566], 0           ; 0x3aa5
     ret                              ; 0x3aab

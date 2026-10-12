@@ -178,5 +178,33 @@ class CodeOffsetTest(unittest.TestCase):
         self.assertIsNone(drv.code_offset(0x10))
 
 
+class HostCodeOffsetTest(unittest.TestCase):
+    def _model(self):
+        from lib.segments import SegmentModel
+        host = SegmentModel(kind='mz', file_size=0x11000, cs_origin=0x200)
+        overlay = {'o_corg': 0x5055, 'o_csize': 0x524b, 'o_dorg': 0x9098}
+        return SegmentModel(
+            kind='overlay', file_size=0x5341, cs_origin=14,
+            overlay=overlay, host=host,
+        )
+
+    def test_overlay_flow_target_maps_to_host_file(self):
+        model = self._model()
+        self.assertEqual(model.host_code_offset(0xf01f), 0x4266)
+        self.assertEqual(model.host_code_offset(0xafb9), 0x0200)
+
+    def test_mz_and_driver_have_no_host_mapping(self):
+        mz = from_binary(_synthetic_mz(bss_start=0x100, bss_end=0x400), 'mz')
+        self.assertIsNone(mz.host_code_offset(0x10))
+        drv = from_binary(b'\xe9\x00\x00', 'raw_drv')
+        self.assertIsNone(drv.host_code_offset(0x10))
+
+    def test_overlay_without_host_has_no_mapping(self):
+        from lib.segments import SegmentModel
+        model = SegmentModel(kind='overlay', file_size=0x1000,
+                             overlay={'o_corg': 0x5055})
+        self.assertIsNone(model.host_code_offset(0xf01f))
+
+
 if __name__ == '__main__':
     unittest.main()

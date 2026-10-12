@@ -1,17 +1,17 @@
 api_idx_000a_2:
     mov ax, 0xfff6                   ; 0x0954
-    call ds_dispatch_f40b            ; 0x0957
+    call ds_aztec_csav               ; 0x0957
     mov ax, 0                        ; 0x095a
     push ax                          ; 0x095d
     push word [bss_8d10]             ; 0x095e
     push word [bss_8d0e]             ; 0x0962
-    call ds_dispatch_e94f            ; 0x0966
+    call ds_loc_3b96                 ; 0x0966
     add sp, byte 6                   ; 0x0969
     mov ax, 0                        ; 0x096c
     push ax                          ; 0x096f
     push word [bss_8d0c]             ; 0x0970
     push word [bss_8d0a]             ; 0x0974
-    call ds_dispatch_e94f            ; 0x0978
+    call ds_loc_3b96                 ; 0x0978
     add sp, byte 6                   ; 0x097b
     mov byte [bp - 0x000a], 1        ; 0x097e
     mov byte [bp - 0x0009], 0        ; 0x0982
@@ -36,7 +36,7 @@ api_idx_000a_2:
     push ax                          ; 0x09aa
     mov ax, 0xe                      ; 0x09ab
     push ax                          ; 0x09ae
-    call ds_dispatch_efd1            ; 0x09af
+    call ds_loc_4218                 ; 0x09af
     add sp, byte 0x16                ; 0x09b2
     cmp word [bss_9126], byte 0      ; 0x09b5
     je short @..api_idx_000a_2.l1    ; 0x09ba
@@ -44,7 +44,7 @@ api_idx_000a_2:
     push ax                          ; 0x09bf
     mov ax, 0x9128                   ; 0x09c0
     push ax                          ; 0x09c3
-    call ds_dispatch_fa90            ; 0x09c4
+    call ds_aztec_strlen             ; 0x09c4
     pop cx                           ; 0x09c7
     mov cx, 6                        ; 0x09c8
     imul cx                          ; 0x09cb
@@ -55,19 +55,19 @@ api_idx_000a_2:
     mov ax, 0xa1                     ; 0x09d5
     sub ax, cx                       ; 0x09d8
     push ax                          ; 0x09da
-    call ds_dispatch_e809            ; 0x09db
+    call ds_loc_3a50                 ; 0x09db
     add sp, byte 4                   ; 0x09de
     mov ax, 0                        ; 0x09e1
     push ax                          ; 0x09e4
     mov ax, 0x17                     ; 0x09e5
     push ax                          ; 0x09e8
-    call ds_dispatch_e823            ; 0x09e9
+    call ds_loc_3a6a                 ; 0x09e9
     add sp, byte 4                   ; 0x09ec
     mov ax, 0                        ; 0x09ef
     push ax                          ; 0x09f2
     mov ax, 0x9128                   ; 0x09f3
     push ax                          ; 0x09f6
-    call ds_dispatch_e84e            ; 0x09f7
+    call ds_string_loc_3a95          ; 0x09f7
     add sp, byte 4                   ; 0x09fa
 @..api_idx_000a_2.l1:
     cmp word [bp + 0x4], byte 0      ; 0x09fd
@@ -80,13 +80,13 @@ api_idx_000a_2:
     push ax                          ; 0x0a0e
     mov ax, 0x19                     ; 0x0a0f
     push ax                          ; 0x0a12
-    call ds_dispatch_e8da            ; 0x0a13
+    call ds_loc_3b21                 ; 0x0a13
     add sp, byte 8                   ; 0x0a16
 @..api_idx_000a_2.l2:
     ret                              ; 0x0a19
 loc_0a1a:
     mov ax, 0                        ; 0x0a1a
-    call ds_dispatch_f40b            ; 0x0a1d
+    call ds_aztec_csav               ; 0x0a1d
     mov ax, 0xc6                     ; 0x0a20
     push ax                          ; 0x0a23
     mov ax, 0x109                    ; 0x0a24
@@ -95,7 +95,7 @@ loc_0a1a:
     push ax                          ; 0x0a2b
     mov ax, 0x37                     ; 0x0a2c
     push ax                          ; 0x0a2f
-    call ds_dispatch_bb33            ; 0x0a30
+    call ds_app_io_0d7a              ; 0x0a30
     add sp, byte 8                   ; 0x0a33
     cmp word [bp + 0x4], byte 0      ; 0x0a36
     je short @..local.l41            ; 0x0a3a
@@ -109,7 +109,7 @@ loc_0a1a:
     pop cx                           ; 0x0a4c
     jmp short @..local.l42           ; 0x0a4d
 @..local.l41:
-    call ds_dispatch_baef            ; 0x0a4f
+    call ds_app_0d36                 ; 0x0a4f
     test ax, ax                      ; 0x0a52
     jne short @..local.l42           ; 0x0a54
     call loc_086b                    ; 0x0a56

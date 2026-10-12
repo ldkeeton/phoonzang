@@ -1,6 +1,6 @@
 api_idx_0004_14:
     mov ax, 0xfffc                   ; 0x83b3
-    call ds_dispatch_f40b            ; 0x83b6
+    call ds_aztec_csav               ; 0x83b6
     mov ax, word [bp + 0x6]          ; 0x83b9
     cmp word [bp + 0x8], byte 0      ; 0x83bc
     jne short @..api_idx_0004_14.l1  ; 0x83c0
@@ -23,7 +23,7 @@ api_idx_0004_14:
     shl ax, cl                       ; 0x83ea
     add ax, 0x8d14                   ; 0x83ec
     push ax                          ; 0x83ef
-    call ds_dispatch_ec41            ; 0x83f0
+    call ds_leaf_loc_3e88            ; 0x83f0
     add sp, byte 6                   ; 0x83f3
     mov ax, 0                        ; 0x83f6
     push ax                          ; 0x83f9
@@ -33,7 +33,7 @@ api_idx_0004_14:
     shl ax, cl                       ; 0x8403
     add ax, 0x5642                   ; 0x8405
     push ax                          ; 0x8408
-    call ds_dispatch_ec41            ; 0x8409
+    call ds_leaf_loc_3e88            ; 0x8409
     add sp, byte 6                   ; 0x840c
 @..api_idx_0004_14.l3:
     cmp word [bp - 0x0004], byte 0   ; 0x840f
@@ -46,7 +46,7 @@ api_idx_0004_14:
     shl ax, cl                       ; 0x8422
     add ax, 0x8d14                   ; 0x8424
     push ax                          ; 0x8427
-    call ds_dispatch_ec41            ; 0x8428
+    call ds_leaf_loc_3e88            ; 0x8428
     add sp, byte 6                   ; 0x842b
     mov ax, 1                        ; 0x842e
     push ax                          ; 0x8431
@@ -56,7 +56,7 @@ api_idx_0004_14:
     shl ax, cl                       ; 0x843b
     add ax, 0x5642                   ; 0x843d
     push ax                          ; 0x8440
-    call ds_dispatch_ec41            ; 0x8441
+    call ds_leaf_loc_3e88            ; 0x8441
     add sp, byte 6                   ; 0x8444
 @..api_idx_0004_14.l4:
     ret                              ; 0x8447

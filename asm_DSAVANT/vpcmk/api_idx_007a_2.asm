@@ -1,6 +1,6 @@
 api_idx_007a_2:
     mov ax, 0xff86                   ; 0x4498
-    call ds_dispatch_f40b            ; 0x449b
+    call ds_aztec_csav               ; 0x449b
     mov word [bp - 0x0002], 0        ; 0x449e
 @..api_idx_007a_2.l1:
     mov ax, word [bp - 0x0002]       ; 0x44a3
@@ -51,13 +51,13 @@ api_idx_007a_2:
     push ax                          ; 0x450c
     mov ax, 1                        ; 0x450d
     push ax                          ; 0x4510
-    call ds_dispatch_e823            ; 0x4511
+    call ds_loc_3a6a                 ; 0x4511
     add sp, byte 4                   ; 0x4514
     mov ax, 6                        ; 0x4517
     push ax                          ; 0x451a
     mov ax, 0x5a                     ; 0x451b
     push ax                          ; 0x451e
-    call ds_dispatch_e809            ; 0x451f
+    call ds_loc_3a50                 ; 0x451f
     add sp, byte 4                   ; 0x4522
     lea ax, word [bp - 0x0052]       ; 0x4525
     push ax                          ; 0x4528
@@ -68,20 +68,20 @@ api_idx_007a_2:
     sub ah, ah                       ; 0x4535
     add ax, 0x8c                     ; 0x4537
     push ax                          ; 0x453a
-    call ds_dispatch_b53b            ; 0x453b
+    call ds_app_mem_0782             ; 0x453b
     add sp, byte 4                   ; 0x453e
     mov ax, 0                        ; 0x4541
     push ax                          ; 0x4544
     mov al, byte [bp - 0x0052]       ; 0x4545
     sub ah, ah                       ; 0x4548
     push ax                          ; 0x454a
-    call ds_dispatch_e830            ; 0x454b
+    call ds_loc_3a77                 ; 0x454b
     add sp, byte 4                   ; 0x454e
     mov ax, 0                        ; 0x4551
     push ax                          ; 0x4554
     mov ax, 0x2d                     ; 0x4555
     push ax                          ; 0x4558
-    call ds_dispatch_e830            ; 0x4559
+    call ds_loc_3a77                 ; 0x4559
     add sp, byte 4                   ; 0x455c
     mov ax, 0x248                    ; 0x455f
     imul word [bp + 0x4]             ; 0x4562

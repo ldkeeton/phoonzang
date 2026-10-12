@@ -14,7 +14,7 @@ string_loc_119c:
     push word [bp - 0x000a]          ; 0x11ba
     push word [bp - 0x000c]          ; 0x11bd
     push word [bp - 0x000a]          ; 0x11c0
-    call ds_dispatch_d0ea            ; 0x11c3
+    call ds_app_2331                 ; 0x11c3
     add sp, byte 6                   ; 0x11c6
     mov cx, ax                       ; 0x11c9
     sub sp, byte 4                   ; 0x11cb
@@ -25,7 +25,7 @@ string_loc_119c:
     mov di, ax                       ; 0x11d6
     movsw                            ; 0x11d8
     movsw                            ; 0x11d9
-    call ds_dispatch_d0be            ; 0x11da
+    call ds_app_2305                 ; 0x11da
     add sp, byte 4                   ; 0x11dd
     mov cx, ax                       ; 0x11e0
     mov ax, 0x248                    ; 0x11e2
@@ -38,7 +38,7 @@ string_loc_119c:
     mov ax, word [bx + 0x5c1c]       ; 0x11f3
     sub ax, cx                       ; 0x11f7
     push ax                          ; 0x11f9
-    call ds_dispatch_b7c2            ; 0x11fa
+    call ds_app_0a09                 ; 0x11fa
     add sp, byte 6                   ; 0x11fd
     push ax                          ; 0x1200
     mov ax, 0x248                    ; 0x1201
@@ -68,7 +68,7 @@ loc_122a:
     mov ax, word [bx + 0x5c0c]       ; 0x123a
     sub ax, word [bp - 0x000e]       ; 0x123e
     push ax                          ; 0x1241
-    call ds_dispatch_b7c2            ; 0x1242
+    call ds_app_0a09                 ; 0x1242
     add sp, byte 6                   ; 0x1245
     push ax                          ; 0x1248
     mov ax, 0x248                    ; 0x1249
@@ -85,7 +85,7 @@ loc_122a:
     sub ah, ah                       ; 0x1270
     add ax, strict word 8            ; 0x1272
     push ax                          ; 0x1275
-    call ds_dispatch_b7e0            ; 0x1276
+    call ds_app_0a27                 ; 0x1276
     pop cx                           ; 0x1279
 loc_127a:
     jmp near loc_1325                ; 0x127a

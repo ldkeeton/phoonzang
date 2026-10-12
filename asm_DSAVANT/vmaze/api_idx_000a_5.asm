@@ -1,6 +1,6 @@
 api_idx_000a_5:
     mov ax, 0xfff6                   ; 0x8c47
-    call ds_dispatch_f40b            ; 0x8c4a
+    call ds_aztec_csav               ; 0x8c4a
     mov ax, word [bss_8f3e]          ; 0x8c4d
     mov cx, 6                        ; 0x8c50
     shl ax, cl                       ; 0x8c53
@@ -55,7 +55,7 @@ api_idx_000a_5:
     push ax                          ; 0x8ccc
     mov ax, 0                        ; 0x8ccd
     push ax                          ; 0x8cd0
-    call ds_dispatch_e8da            ; 0x8cd1
+    call ds_loc_3b21                 ; 0x8cd1
     add sp, byte 8                   ; 0x8cd4
     mov bx, word [bss_0e12]          ; 0x8cd7
     mov si, word [bss_8f3e]          ; 0x8cdb
@@ -86,7 +86,7 @@ api_idx_000a_5:
     push ax                          ; 0x8d21
     shl si, 1                        ; 0x8d22
     push word [bx + si + 0x3c0]      ; 0x8d24
-    call ds_dispatch_ed3a            ; 0x8d28
+    call ds_dos_con_loc_3f81         ; 0x8d28
     add sp, byte 6                   ; 0x8d2b
     cmp ax, strict word 2            ; 0x8d2e
     jne short @..api_idx_000a_5.l7   ; 0x8d31
@@ -139,7 +139,7 @@ api_idx_000a_5:
     push ax                          ; 0x8da3
     mov ax, 0                        ; 0x8da4
     push ax                          ; 0x8da7
-    call ds_dispatch_e8da            ; 0x8da8
+    call ds_loc_3b21                 ; 0x8da8
     add sp, byte 8                   ; 0x8dab
 @..api_idx_000a_5.l11:
     cmp word [bp - 0x000a], byte 0   ; 0x8dae
@@ -150,7 +150,7 @@ api_idx_000a_5:
     pop cx                           ; 0x8dbb
     mov ax, 0                        ; 0x8dbc
     push ax                          ; 0x8dbf
-    call ds_dispatch_b7e0            ; 0x8dc0
+    call ds_app_0a27                 ; 0x8dc0
     pop cx                           ; 0x8dc3
     mov ax, word [bss_905a]          ; 0x8dc4
     mov cx, 2                        ; 0x8dc7
@@ -168,6 +168,6 @@ api_idx_000a_5:
     push ax                          ; 0x8ddd
     mov ax, 0                        ; 0x8dde
     push ax                          ; 0x8de1
-    call ds_dispatch_e8da            ; 0x8de2
+    call ds_loc_3b21                 ; 0x8de2
     add sp, byte 8                   ; 0x8de5
     ret                              ; 0x8de8

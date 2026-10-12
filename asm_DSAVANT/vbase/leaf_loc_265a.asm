@@ -55,7 +55,7 @@ loc_26b4:
     push cx                          ; 0x26d7
     mov ax, 3                        ; 0x26d8
     push ax                          ; 0x26db
-    call ds_dispatch_b7a9            ; 0x26dc
+    call ds_app_09f0                 ; 0x26dc
     pop cx                           ; 0x26df
     pop cx                           ; 0x26e0
     add ax, cx                       ; 0x26e1
@@ -106,7 +106,7 @@ loc_275a:
     push word [bp - 0x0004]          ; 0x275a
     mov ax, 0x958a                   ; 0x275d
     push ax                          ; 0x2760
-    call ds_dispatch_ec74            ; 0x2761
+    call ds_leaf_loc_3ebb            ; 0x2761
     add sp, byte 4                   ; 0x2764
     test ax, ax                      ; 0x2767
     je short loc_27b7                ; 0x2769
@@ -122,7 +122,7 @@ loc_275a:
     cmp byte [bx + 0x621], 4         ; 0x2781
     jae short loc_27b7               ; 0x2786
     push cx                          ; 0x2788
-    call ds_dispatch_b7a9            ; 0x2789
+    call ds_app_09f0                 ; 0x2789
     pop cx                           ; 0x278c
     push ax                          ; 0x278d
     mov ax, 6                        ; 0x278e
@@ -140,7 +140,7 @@ loc_275a:
     mov ax, word [bp - 0x0014]       ; 0x27aa
     add ax, 0x21e                    ; 0x27ad
     push ax                          ; 0x27b0
-    call ds_dispatch_ec41            ; 0x27b1
+    call ds_leaf_loc_3e88            ; 0x27b1
     add sp, byte 6                   ; 0x27b4
 loc_27b7:
     inc word [bp - 0x0004]           ; 0x27b7
@@ -245,7 +245,7 @@ loc_27c7:
     jle short loc_28f5               ; 0x28d5
     mov ax, 5                        ; 0x28d7
     push ax                          ; 0x28da
-    call ds_dispatch_b7a9            ; 0x28db
+    call ds_app_09f0                 ; 0x28db
     pop cx                           ; 0x28de
     mov cx, 0x64                     ; 0x28df
     mov bx, word [bp - 0x0014]       ; 0x28e2
@@ -268,7 +268,7 @@ loc_2900:
 loc_290f:
     push word [bp - 0x0004]          ; 0x290f
     push word [bss_69c8]             ; 0x2912
-    call ds_dispatch_c608            ; 0x2916
+    call ds_app_mem_184f             ; 0x2916
     add sp, byte 4                   ; 0x2919
     inc word [bp - 0x0004]           ; 0x291c
     mov ax, word [bp - 0x0004]       ; 0x291f

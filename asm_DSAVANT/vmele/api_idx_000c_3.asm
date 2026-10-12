@@ -1,6 +1,6 @@
 api_idx_000c_3:
     mov ax, 0xfff4                   ; 0x29c5
-    call ds_dispatch_f40b            ; 0x29c8
+    call ds_aztec_csav               ; 0x29c8
     mov word [bp - 0x0002], 0        ; 0x29cb
     jmp near @..api_idx_000c_3.l19   ; 0x29d0
 @..api_idx_000c_3.l1:
@@ -24,7 +24,7 @@ api_idx_000c_3:
 @..api_idx_000c_3.l3:
     mov ax, 3                        ; 0x2a06
     push ax                          ; 0x2a09
-    call ds_dispatch_b7a9            ; 0x2a0a
+    call ds_app_09f0                 ; 0x2a0a
     pop cx                           ; 0x2a0d
     mov word [bp - 0x0004], ax       ; 0x2a0e
     mov ax, word [bp - 0x0004]       ; 0x2a11
@@ -142,7 +142,7 @@ api_idx_000c_3:
     ret                              ; 0x2b18
 loc_2b19:
     mov ax, 0                        ; 0x2b19
-    call ds_dispatch_f40b            ; 0x2b1c
+    call ds_aztec_csav               ; 0x2b1c
     les bx, word [dseg_0002]         ; 0x2b1f
     mov ax, word [es:bx]             ; 0x2b23
     mov dx, word [es:bx + 0x2]       ; 0x2b26

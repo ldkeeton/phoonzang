@@ -1,6 +1,6 @@
 api_idx_0006_2:
     mov ax, 0xfffa                   ; 0x4e03
-    call ds_dispatch_f40b            ; 0x4e06
+    call ds_aztec_csav               ; 0x4e06
     mov word [bp - 0x0004], 0        ; 0x4e09
     mov word [bp - 0x0002], 0        ; 0x4e0e
 loc_4e13:

@@ -59,7 +59,7 @@ loc_461f:
     mov ax, word [bp + 0x6]          ; 0x462e
     add ax, strict word 0x32         ; 0x4631
     push ax                          ; 0x4634
-    call ds_dispatch_ec74            ; 0x4635
+    call ds_leaf_loc_3ebb            ; 0x4635
     add sp, byte 4                   ; 0x4638
     cmp ax, strict word 1            ; 0x463b
     jne short loc_4682               ; 0x463e
@@ -72,7 +72,7 @@ loc_461f:
     mov ax, word [bp + 0x6]          ; 0x464f
     add ax, strict word 0x34         ; 0x4652
     push ax                          ; 0x4655
-    call ds_dispatch_ec74            ; 0x4656
+    call ds_leaf_loc_3ebb            ; 0x4656
     add sp, byte 4                   ; 0x4659
     cmp ax, strict word 1            ; 0x465c
     jne short loc_4682               ; 0x465f
@@ -85,7 +85,7 @@ loc_461f:
     mov ax, word [bp + 0x6]          ; 0x4670
     add ax, strict word 0x36         ; 0x4673
     push ax                          ; 0x4676
-    call ds_dispatch_ec74            ; 0x4677
+    call ds_leaf_loc_3ebb            ; 0x4677
     add sp, byte 4                   ; 0x467a
     cmp ax, strict word 1            ; 0x467d
     je short loc_4687                ; 0x4680

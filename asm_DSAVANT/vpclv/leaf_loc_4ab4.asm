@@ -111,7 +111,7 @@ loc_4bb0:
     imul word [bp + 0x4]             ; 0x4bc9
     add ax, 0x5e12                   ; 0x4bcc
     push ax                          ; 0x4bcf
-    call ds_dispatch_ec74            ; 0x4bd0
+    call ds_leaf_loc_3ebb            ; 0x4bd0
     add sp, byte 4                   ; 0x4bd3
     cmp ax, strict word 1            ; 0x4bd6
     jne short loc_4bde               ; 0x4bd9
@@ -160,7 +160,7 @@ loc_4c33:
     mov al, byte [bx + 0x5d54]       ; 0x4c3e
     sub ah, ah                       ; 0x4c42
     push ax                          ; 0x4c44
-    call ds_dispatch_b7a9            ; 0x4c45
+    call ds_app_09f0                 ; 0x4c45
     pop cx                           ; 0x4c48
     push ax                          ; 0x4c49
     mov ax, 0x248                    ; 0x4c4a
@@ -173,7 +173,7 @@ loc_4c33:
     cwd                              ; 0x4c5e
     idiv cx                          ; 0x4c5f
     push ax                          ; 0x4c61
-    call ds_dispatch_b7a9            ; 0x4c62
+    call ds_app_09f0                 ; 0x4c62
     pop cx                           ; 0x4c65
     mov cx, ax                       ; 0x4c66
     pop ax                           ; 0x4c68

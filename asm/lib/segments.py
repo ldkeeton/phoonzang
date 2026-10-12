@@ -163,6 +163,27 @@ class SegmentModel:
             return None
         return _OVR_HEADER_SIZE + (disp - o_corg)
 
+    def host_code_offset(self, target):
+        """Map an overlay near-flow target to a host file offset.
+
+        The disassembler computes a near call/jmp target in the overlay's
+        *file-offset* space, but the code executes at host ``CS:o_corg``.  An
+        overlay file offset ``a`` is host CS ``o_corg + (a - start_offset)``, so
+        a target ``target`` is host file offset
+        ``host.cs_origin + o_corg + (target - start_offset)`` (mod 16 bits).
+
+        Returns ``None`` for MZ/driver models or when the host geometry is not
+        known.  See :meth:`code_offset` for the inverse mapping.
+        """
+        if self.kind != 'overlay' or not self.overlay or self.host is None:
+            return None
+        o_corg = self.overlay.get('o_corg')
+        host_cs_origin = self.host.cs_origin
+        if o_corg is None or host_cs_origin is None:
+            return None
+        host_cs = (target + o_corg - self.cs_origin) & 0xFFFF
+        return host_cs_origin + host_cs
+
     def data_space(self, offset):
         """Classify a data-segment offset as ``'dseg'`` or ``'bss'``.
 

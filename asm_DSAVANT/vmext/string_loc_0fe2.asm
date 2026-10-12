@@ -14,7 +14,7 @@ string_loc_0fe2:
     push word [bp - 0x000a]          ; 0x1000
     push word [bp - 0x000c]          ; 0x1003
     push word [bp - 0x000a]          ; 0x1006
-    call ds_dispatch_d0ea            ; 0x1009
+    call ds_app_2331                 ; 0x1009
     add sp, byte 6                   ; 0x100c
     mov cx, ax                       ; 0x100f
     sub sp, byte 4                   ; 0x1011
@@ -25,7 +25,7 @@ string_loc_0fe2:
     mov di, ax                       ; 0x101c
     movsw                            ; 0x101e
     movsw                            ; 0x101f
-    call ds_dispatch_d0be            ; 0x1020
+    call ds_app_2305                 ; 0x1020
     add sp, byte 4                   ; 0x1023
     push ax                          ; 0x1026
     mov ax, 0x248                    ; 0x1027
@@ -39,7 +39,7 @@ string_loc_0fe2:
     pop ax                           ; 0x103a
     add ax, word [bx + 0x5c1c]       ; 0x103b
     push ax                          ; 0x103f
-    call ds_dispatch_b7c2            ; 0x1040
+    call ds_app_0a09                 ; 0x1040
     add sp, byte 6                   ; 0x1043
     push ax                          ; 0x1046
     mov ax, 0x248                    ; 0x1047
@@ -69,7 +69,7 @@ loc_1070:
     mov ax, word [bx + 0x5c0c]       ; 0x1080
     add ax, word [bp - 0x000e]       ; 0x1084
     push ax                          ; 0x1087
-    call ds_dispatch_b7c2            ; 0x1088
+    call ds_app_0a09                 ; 0x1088
     add sp, byte 6                   ; 0x108b
     push ax                          ; 0x108e
     mov ax, 0x248                    ; 0x108f

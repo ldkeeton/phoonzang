@@ -265,7 +265,7 @@ jumptable_4471_case_1:
     push ax                          ; 0x4156
     mov ax, 0                        ; 0x4157
     push ax                          ; 0x415a
-    call 0xf01f                      ; 0x415b
+    call ds_bios_mouse_loc_4266      ; 0x415b
     add sp, byte 8                   ; 0x415e
 @..api_idx_0030.l10:
     mov ax, 0x20                     ; 0x4161
@@ -283,7 +283,7 @@ jumptable_4471_case_1:
     push ax                          ; 0x4179
     mov ax, 0                        ; 0x417a
     push ax                          ; 0x417d
-    call 0xf01f                      ; 0x417e
+    call ds_bios_mouse_loc_4266      ; 0x417e
     add sp, byte 8                   ; 0x4181
     jmp near @..api_idx_0030.l25     ; 0x4184
 jumptable_4471_case_2:
@@ -298,7 +298,7 @@ jumptable_4471_case_2:
     push ax                          ; 0x419c
     mov ax, 0x48                     ; 0x419d
     push ax                          ; 0x41a0
-    call ds_dispatch_e901            ; 0x41a1
+    call ds_loc_3b48                 ; 0x41a1
     add sp, byte 0x0a                ; 0x41a4
     call api_idx_001e                ; 0x41a7
     call api_idx_0024                ; 0x41aa
@@ -317,7 +317,7 @@ jumptable_4471_case_2:
     push ax                          ; 0x41c5
     mov ax, 1                        ; 0x41c6
     push ax                          ; 0x41c9
-    call 0xf01f                      ; 0x41ca
+    call ds_bios_mouse_loc_4266      ; 0x41ca
     add sp, byte 8                   ; 0x41cd
     mov ax, 0x3e                     ; 0x41d0
     push ax                          ; 0x41d3
@@ -334,7 +334,7 @@ jumptable_4471_case_2:
     push ax                          ; 0x41e8
     mov ax, 1                        ; 0x41e9
     push ax                          ; 0x41ec
-    call 0xf01f                      ; 0x41ed
+    call ds_bios_mouse_loc_4266      ; 0x41ed
     add sp, byte 8                   ; 0x41f0
     jmp near @..api_idx_0030.l25     ; 0x41f3
 jumptable_4471_case_3:
@@ -349,7 +349,7 @@ jumptable_4471_case_3:
     push ax                          ; 0x420b
     mov ax, 0x48                     ; 0x420c
     push ax                          ; 0x420f
-    call ds_dispatch_e901            ; 0x4210
+    call ds_loc_3b48                 ; 0x4210
     add sp, byte 0x0a                ; 0x4213
     call api_idx_001e                ; 0x4216
     call api_idx_0024                ; 0x4219
@@ -376,7 +376,7 @@ jumptable_4471_case_3:
     mov ax, 0x48                     ; 0x4253
     push ax                          ; 0x4256
     push ax                          ; 0x4257
-    call ds_dispatch_e901            ; 0x4258
+    call ds_loc_3b48                 ; 0x4258
     add sp, byte 0x0a                ; 0x425b
     jmp short @..api_idx_0030.l13    ; 0x425e
 @..api_idx_0030.l12:
@@ -395,7 +395,7 @@ jumptable_4471_case_3:
     push ax                          ; 0x4278
     mov ax, 4                        ; 0x4279
     push ax                          ; 0x427c
-    call 0xf01f                      ; 0x427d
+    call ds_bios_mouse_loc_4266      ; 0x427d
     add sp, byte 8                   ; 0x4280
     mov ax, 0xad                     ; 0x4283
     push ax                          ; 0x4286
@@ -412,7 +412,7 @@ jumptable_4471_case_3:
     push ax                          ; 0x429b
     mov ax, 2                        ; 0x429c
     push ax                          ; 0x429f
-    call 0xf01f                      ; 0x42a0
+    call ds_bios_mouse_loc_4266      ; 0x42a0
     add sp, byte 8                   ; 0x42a3
 @..api_idx_0030.l13:
     jmp near @..api_idx_0030.l25     ; 0x42a6
@@ -432,7 +432,7 @@ jumptable_4471_case_4:
     push ax                          ; 0x42c8
     mov ax, 0x48                     ; 0x42c9
     push ax                          ; 0x42cc
-    call ds_dispatch_e901            ; 0x42cd
+    call ds_loc_3b48                 ; 0x42cd
     add sp, byte 0x0a                ; 0x42d0
     call api_idx_001e                ; 0x42d3
     call api_idx_0024                ; 0x42d6
@@ -451,7 +451,7 @@ jumptable_4471_case_4:
     push ax                          ; 0x42f1
     mov ax, 1                        ; 0x42f2
     push ax                          ; 0x42f5
-    call 0xf01f                      ; 0x42f6
+    call ds_bios_mouse_loc_4266      ; 0x42f6
     add sp, byte 8                   ; 0x42f9
     cmp word [bss_9188], byte 0      ; 0x42fc
     jne short @..api_idx_0030.l15    ; 0x4301
@@ -470,7 +470,7 @@ jumptable_4471_case_4:
     push ax                          ; 0x431b
     mov ax, 4                        ; 0x431c
     push ax                          ; 0x431f
-    call 0xf01f                      ; 0x4320
+    call ds_bios_mouse_loc_4266      ; 0x4320
     add sp, byte 8                   ; 0x4323
 @..api_idx_0030.l15:
     jmp near @..api_idx_0030.l25     ; 0x4326
@@ -486,7 +486,7 @@ jumptable_4471_case_5:
     push ax                          ; 0x433e
     mov ax, 0x48                     ; 0x433f
     push ax                          ; 0x4342
-    call ds_dispatch_e901            ; 0x4343
+    call ds_loc_3b48                 ; 0x4343
     add sp, byte 0x0a                ; 0x4346
     call api_idx_001e                ; 0x4349
     call api_idx_0024                ; 0x434c
@@ -500,7 +500,7 @@ jumptable_4471_case_5:
     push ax                          ; 0x435e
     mov ax, 0x48                     ; 0x435f
     push ax                          ; 0x4362
-    call ds_dispatch_e901            ; 0x4363
+    call ds_loc_3b48                 ; 0x4363
     add sp, byte 0x0a                ; 0x4366
     mov ax, 0x2a                     ; 0x4369
     push ax                          ; 0x436c
@@ -517,7 +517,7 @@ jumptable_4471_case_5:
     push ax                          ; 0x4381
     mov ax, 4                        ; 0x4382
     push ax                          ; 0x4385
-    call 0xf01f                      ; 0x4386
+    call ds_bios_mouse_loc_4266      ; 0x4386
     add sp, byte 8                   ; 0x4389
     jmp near @..api_idx_0030.l25     ; 0x438c
 jumptable_4471_case_6:
@@ -532,7 +532,7 @@ jumptable_4471_case_6:
     push ax                          ; 0x43a4
     mov ax, 0x48                     ; 0x43a5
     push ax                          ; 0x43a8
-    call ds_dispatch_e901            ; 0x43a9
+    call ds_loc_3b48                 ; 0x43a9
     add sp, byte 0x0a                ; 0x43ac
     call api_idx_001e                ; 0x43af
     call api_idx_0024                ; 0x43b2
@@ -551,7 +551,7 @@ jumptable_4471_case_6:
     push ax                          ; 0x43cd
     mov ax, 1                        ; 0x43ce
     push ax                          ; 0x43d1
-    call 0xf01f                      ; 0x43d2
+    call ds_bios_mouse_loc_4266      ; 0x43d2
     add sp, byte 8                   ; 0x43d5
     cmp word [bss_830c], byte 8      ; 0x43d8
     jne short @..api_idx_0030.l20    ; 0x43dd
@@ -590,7 +590,7 @@ jumptable_4471_case_6:
     mov ax, 0x48                     ; 0x4425
     push ax                          ; 0x4428
     push ax                          ; 0x4429
-    call ds_dispatch_e901            ; 0x442a
+    call ds_loc_3b48                 ; 0x442a
     add sp, byte 0x0a                ; 0x442d
 @..api_idx_0030.l21:
     cmp word [bss_830c], byte 8      ; 0x4430
@@ -617,7 +617,7 @@ jumptable_4471_case_6:
     push ax                          ; 0x4464
     mov ax, 1                        ; 0x4465
     push ax                          ; 0x4468
-    call 0xf01f                      ; 0x4469
+    call ds_bios_mouse_loc_4266      ; 0x4469
     add sp, byte 8                   ; 0x446c
 @..api_idx_0030.l23:
     jmp short @..api_idx_0030.l25    ; 0x446f
@@ -1745,7 +1745,7 @@ jumptable_4471_case_0:
     mov al, byte [bx + 0xe]          ; 0x4db7
     sub ah, ah                       ; 0x4dba
     push ax                          ; 0x4dbc
-    call 0xf01f                      ; 0x4dbd
+    call ds_bios_mouse_loc_4266      ; 0x4dbd
     add sp, byte 8                   ; 0x4dc0
 @..api_idx_0030.l43:
     mov bx, word [bp - 0x0026]       ; 0x4dc3
@@ -1759,7 +1759,7 @@ jumptable_4471_case_0:
     mov al, byte [bx + 0xe]          ; 0x4dd8
     sub ah, ah                       ; 0x4ddb
     push ax                          ; 0x4ddd
-    call 0xf01f                      ; 0x4dde
+    call ds_bios_mouse_loc_4266      ; 0x4dde
     add sp, byte 8                   ; 0x4de1
 @..api_idx_0030.l44:
     dec word [bp - 0x0002]           ; 0x4de4
@@ -1849,7 +1849,7 @@ jumptable_4471_case_0:
     mov al, byte [bx + 0xc]          ; 0x4ead
     sub ah, ah                       ; 0x4eb0
     push ax                          ; 0x4eb2
-    call ds_dispatch_efd1            ; 0x4eb3
+    call ds_loc_4218                 ; 0x4eb3
     add sp, byte 0x16                ; 0x4eb6
 @..api_idx_0030.l53:
     dec word [bp - 0x0002]           ; 0x4eb9
@@ -1936,7 +1936,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x4f80
     mov ax, 0xd                      ; 0x4f81
     push ax                          ; 0x4f84
-    call ds_dispatch_efd1            ; 0x4f85
+    call ds_loc_4218                 ; 0x4f85
     add sp, byte 0x16                ; 0x4f88
     mov ax, word [bp - 0x0006]       ; 0x4f8b
     shl ax, 1                        ; 0x4f8e
@@ -1962,7 +1962,7 @@ jumptable_4471_case_0:
 @..api_idx_0030.l67:
     mov ax, 0x64                     ; 0x4fc1
     push ax                          ; 0x4fc4
-    call ds_dispatch_b7a9            ; 0x4fc5
+    call ds_app_09f0                 ; 0x4fc5
     pop cx                           ; 0x4fc8
     cmp ax, word [bp - 0x0006]       ; 0x4fc9
     jle short @..api_idx_0030.l68    ; 0x4fcc
@@ -1970,7 +1970,7 @@ jumptable_4471_case_0:
 @..api_idx_0030.l68:
     mov ax, 2                        ; 0x4fd1
     push ax                          ; 0x4fd4
-    call ds_dispatch_b7a9            ; 0x4fd5
+    call ds_app_09f0                 ; 0x4fd5
     pop cx                           ; 0x4fd8
     mov cx, word [bp - 0x0006]       ; 0x4fd9
     shl cx, 1                        ; 0x4fdc
@@ -1984,7 +1984,7 @@ jumptable_4471_case_0:
     test ax, ax                      ; 0x4fef
     je short @..api_idx_0030.l69     ; 0x4ff1
     push cx                          ; 0x4ff3
-    call ds_dispatch_b7a9            ; 0x4ff4
+    call ds_app_09f0                 ; 0x4ff4
     pop cx                           ; 0x4ff7
     jmp short @..api_idx_0030.l70    ; 0x4ff8
 @..api_idx_0030.l69:
@@ -2017,12 +2017,12 @@ jumptable_4471_case_0:
     cmp word [bx - 0x6e62], byte 0   ; 0x5035
     je short @..api_idx_0030.l74     ; 0x503a
     push ax                          ; 0x503c
-    call ds_dispatch_b7a9            ; 0x503d
+    call ds_app_09f0                 ; 0x503d
     pop cx                           ; 0x5040
     jmp short @..api_idx_0030.l75    ; 0x5041
 @..api_idx_0030.l74:
     push word [bp - 0x0002]          ; 0x5043
-    call ds_dispatch_b7a9            ; 0x5046
+    call ds_app_09f0                 ; 0x5046
     pop cx                           ; 0x5049
     mov cx, ax                       ; 0x504a
     mov ax, 0                        ; 0x504c
@@ -2034,7 +2034,7 @@ jumptable_4471_case_0:
     mov word [bx - 0x6e6e], ax       ; 0x5058
     mov ax, 5                        ; 0x505c
     push ax                          ; 0x505f
-    call ds_dispatch_b7a9            ; 0x5060
+    call ds_app_09f0                 ; 0x5060
     pop cx                           ; 0x5063
     mov cx, word [bp - 0x0006]       ; 0x5064
     shl cx, 1                        ; 0x5067
@@ -2102,7 +2102,7 @@ jumptable_4471_case_0:
     push word [bx + 0x2aa]           ; 0x5100
     push word [bx + 0x2a8]           ; 0x5104
     push word [bx + 0x2a6]           ; 0x5108
-    call ds_dispatch_e901            ; 0x510c
+    call ds_loc_3b48                 ; 0x510c
     add sp, byte 0x0a                ; 0x510f
     jmp near @..api_idx_0030.l89     ; 0x5112
 @..api_idx_0030.l84:
@@ -2122,7 +2122,7 @@ jumptable_4471_case_0:
 @..api_idx_0030.l86:
     mov ax, 2                        ; 0x5138
     push ax                          ; 0x513b
-    call ds_dispatch_b7a9            ; 0x513c
+    call ds_app_09f0                 ; 0x513c
     pop cx                           ; 0x513f
     add ax, word [bss_8f46]          ; 0x5140
     add ax, word [bss_8f44]          ; 0x5144
@@ -2179,7 +2179,7 @@ jumptable_4471_case_0:
     push word [bp - 0x0006]          ; 0x51c1
     mov ax, 9                        ; 0x51c4
     push ax                          ; 0x51c7
-    call ds_dispatch_efd1            ; 0x51c8
+    call ds_loc_4218                 ; 0x51c8
     add sp, byte 0x16                ; 0x51cb
 @..api_idx_0030.l89:
     cmp word [bss_9188], byte 0      ; 0x51ce
@@ -2199,11 +2199,11 @@ jumptable_4471_case_0:
     jl short @..api_idx_0030.l93     ; 0x51f2
     jmp near @..api_idx_0030.l40     ; 0x51f4
 @..api_idx_0030.l93:
-    call ds_dispatch_da22            ; 0x51f7
+    call ds_app_2c69                 ; 0x51f7
     ret                              ; 0x51fa
 loc_51fb:
     mov ax, 0                        ; 0x51fb
-    call ds_dispatch_f40b            ; 0x51fe
+    call ds_aztec_csav               ; 0x51fe
     call api_idx_0030                ; 0x5201
     mov ax, 0x8f                     ; 0x5204
     push ax                          ; 0x5207
@@ -2213,7 +2213,7 @@ loc_51fb:
     push ax                          ; 0x520f
     mov ax, 0x48                     ; 0x5210
     push ax                          ; 0x5213
-    call ds_dispatch_e8da            ; 0x5214
+    call ds_loc_3b21                 ; 0x5214
     add sp, byte 8                   ; 0x5217
     ret                              ; 0x521a
 loc_521b:

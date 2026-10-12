@@ -1,11 +1,11 @@
 api_idx_0040:
     mov ax, 0xffc0                   ; 0x5348
-    call ds_dispatch_f40b            ; 0x534b
+    call ds_aztec_csav               ; 0x534b
     lea ax, word [bp - 0x0034]       ; 0x534e
     push ax                          ; 0x5351
     mov ax, 0x13ec                   ; 0x5352
     push ax                          ; 0x5355
-    call ds_dispatch_b53b            ; 0x5356
+    call ds_app_mem_0782             ; 0x5356
     add sp, byte 4                   ; 0x5359
 @..api_idx_0040.l1:
     lea ax, word [bp - 0x0034]       ; 0x535c
@@ -54,10 +54,10 @@ api_idx_0040:
     push ax                          ; 0x53c4
     mov ax, 0x36                     ; 0x53c5
     push ax                          ; 0x53c8
-    call ds_dispatch_e8da            ; 0x53c9
+    call ds_loc_3b21                 ; 0x53c9
     add sp, byte 8                   ; 0x53cc
 @..api_idx_0040.l3:
-    call ds_dispatch_ceb1            ; 0x53cf
+    call ds_app_20f8                 ; 0x53cf
     mov word [bp - 0x0008], ax       ; 0x53d2
     cmp ax, strict word 0xffff       ; 0x53d5
     je short @..api_idx_0040.l6      ; 0x53d8
@@ -70,7 +70,7 @@ api_idx_0040:
     mov word [bp - 0x0002], 0xffff   ; 0x53e7
     mov ax, 0                        ; 0x53ec
     push ax                          ; 0x53ef
-    call ds_dispatch_b7e0            ; 0x53f0
+    call ds_app_0a27                 ; 0x53f0
     pop cx                           ; 0x53f3
     jmp short @..api_idx_0040.l5     ; 0x53f4
 @..api_idx_0040.l4:
@@ -147,7 +147,7 @@ api_idx_0040:
     imul word [bp - 0x0004]          ; 0x549d
     add ax, 0x93fe                   ; 0x54a0
     push ax                          ; 0x54a3
-    call ds_dispatch_f364            ; 0x54a4
+    call ds_aztec_strcpy             ; 0x54a4
     add sp, byte 4                   ; 0x54a7
     mov ax, word [bp - 0x0004]       ; 0x54aa
     shl ax, 1                        ; 0x54ad
@@ -182,6 +182,6 @@ api_idx_0040:
     push ax                          ; 0x5502
     mov ax, 0x36                     ; 0x5503
     push ax                          ; 0x5506
-    call ds_dispatch_e8da            ; 0x5507
+    call ds_loc_3b21                 ; 0x5507
     add sp, byte 8                   ; 0x550a
     ret                              ; 0x550d

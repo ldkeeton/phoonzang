@@ -1,6 +1,6 @@
 api_idx_0002_17:
     mov ax, 0xfffe                   ; 0x8a14
-    call ds_dispatch_f40b            ; 0x8a17
+    call ds_aztec_csav               ; 0x8a17
     mov ax, word [bss_8f3e]          ; 0x8a1a
     mov cx, 6                        ; 0x8a1d
     shl ax, cl                       ; 0x8a20
@@ -18,7 +18,7 @@ api_idx_0002_17:
     mov ax, word [bss_0e14]          ; 0x8a3d
     add ax, 0x4b0                    ; 0x8a40
     push ax                          ; 0x8a43
-    call ds_dispatch_eca4            ; 0x8a44
+    call ds_leaf_loc_3eeb            ; 0x8a44
     add sp, byte 8                   ; 0x8a47
     push word [bss_82ee]             ; 0x8a4a
     mov ax, 2                        ; 0x8a4e
@@ -27,7 +27,7 @@ api_idx_0002_17:
     mov ax, word [bss_0e14]          ; 0x8a55
     add ax, 0x7b0                    ; 0x8a58
     push ax                          ; 0x8a5b
-    call ds_dispatch_eca4            ; 0x8a5c
+    call ds_leaf_loc_3eeb            ; 0x8a5c
     add sp, byte 8                   ; 0x8a5f
     call loc_676c                    ; 0x8a62
     mov ax, 0x7fc                    ; 0x8a65
@@ -36,7 +36,7 @@ api_idx_0002_17:
     pop cx                           ; 0x8a6c
     mov ax, 4                        ; 0x8a6d
     push ax                          ; 0x8a70
-    call ds_dispatch_b7e0            ; 0x8a71
+    call ds_app_0a27                 ; 0x8a71
     pop cx                           ; 0x8a74
     mov ax, 2                        ; 0x8a75
     push ax                          ; 0x8a78
@@ -50,7 +50,7 @@ api_idx_0002_17:
     push ax                          ; 0x8a88
     mov ax, 0                        ; 0x8a89
     push ax                          ; 0x8a8c
-    call ds_dispatch_e8da            ; 0x8a8d
+    call ds_loc_3b21                 ; 0x8a8d
     add sp, byte 8                   ; 0x8a90
     push word [bss_8f40]             ; 0x8a93
     push word [bss_8f42]             ; 0x8a97
@@ -81,7 +81,7 @@ api_idx_0002_17:
     mov ax, word [bss_0e14]          ; 0x8ad9
     add ax, 0x4b0                    ; 0x8adc
     push ax                          ; 0x8adf
-    call ds_dispatch_eca4            ; 0x8ae0
+    call ds_leaf_loc_3eeb            ; 0x8ae0
     add sp, byte 8                   ; 0x8ae3
     mov ax, 0                        ; 0x8ae6
     push ax                          ; 0x8ae9
@@ -91,7 +91,7 @@ api_idx_0002_17:
     mov ax, word [bss_0e14]          ; 0x8af1
     add ax, 0x7b0                    ; 0x8af4
     push ax                          ; 0x8af7
-    call ds_dispatch_eca4            ; 0x8af8
+    call ds_leaf_loc_3eeb            ; 0x8af8
     add sp, byte 8                   ; 0x8afb
     mov ax, 0x12                     ; 0x8afe
     push ax                          ; 0x8b01

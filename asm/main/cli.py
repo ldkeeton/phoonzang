@@ -73,6 +73,7 @@ def main():
                 output_dir=out_dir,
                 project=p, sidecar_entry=sc_entry,
                 foreign_label_map=foreign_label_map,
+                foreign_prefix=prefix if FOREIGN_LABELS_PATH else None,
                 export_labels=EXPORT_LABELS, host_model=host_model)
         return
 

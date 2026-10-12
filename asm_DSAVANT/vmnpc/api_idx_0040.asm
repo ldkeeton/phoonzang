@@ -1,6 +1,6 @@
 api_idx_0040:
     mov ax, 0xffc0                   ; 0x2b8e
-    call ds_dispatch_f40b            ; 0x2b91
+    call ds_aztec_csav               ; 0x2b91
     mov ax, word [bp + 0x6]          ; 0x2b94
     shl ax, 1                        ; 0x2b97
     mov bx, ax                       ; 0x2b99
@@ -13,7 +13,7 @@ api_idx_0040:
     push ax                          ; 0x2bac
     mov ax, 6                        ; 0x2bad
     push ax                          ; 0x2bb0
-    call ds_dispatch_b63c            ; 0x2bb1
+    call ds_app_file_0883            ; 0x2bb1
     add sp, byte 8                   ; 0x2bb4
     mov word [bp - 0x0002], 0        ; 0x2bb7
 loc_2bbc:
@@ -110,15 +110,15 @@ loc_2c8a:
     je short loc_2ca7                ; 0x2c96
     mov ax, 1                        ; 0x2c98
     push ax                          ; 0x2c9b
-    call ds_dispatch_ef14            ; 0x2c9c
+    call ds_loc_415b                 ; 0x2c9c
     pop cx                           ; 0x2c9f
     push word [bp - 0x002c]          ; 0x2ca0
-    call ds_dispatch_c12a            ; 0x2ca3
+    call ds_app_1371                 ; 0x2ca3
     pop cx                           ; 0x2ca6
 loc_2ca7:
     push word [bp - 0x002c]          ; 0x2ca7
     push word [bp - 0x0028]          ; 0x2caa
-    call ds_dispatch_d61c            ; 0x2cad
+    call ds_app_file_2863            ; 0x2cad
     add sp, byte 4                   ; 0x2cb0
     mov ax, word [bp - 0x002c]       ; 0x2cb3
     push ax                          ; 0x2cb6
@@ -222,11 +222,11 @@ loc_2da2:
     mov ax, word [bp - 0x0026]       ; 0x2da6
     inc ax                           ; 0x2da9
     push ax                          ; 0x2daa
-    call ds_dispatch_b53b            ; 0x2dab
+    call ds_app_mem_0782             ; 0x2dab
     add sp, byte 4                   ; 0x2dae
     mov ax, 0x95a8                   ; 0x2db1
     push ax                          ; 0x2db4
-    call ds_dispatch_fa90            ; 0x2db5
+    call ds_aztec_strlen             ; 0x2db5
     pop cx                           ; 0x2db8
     cmp ax, strict word 0            ; 0x2db9
     jle short loc_2dcc               ; 0x2dbc
@@ -239,7 +239,7 @@ loc_2da2:
 loc_2dcc:
     jmp near loc_3769                ; 0x2dcc
 loc_2dcf:
-    call ds_dispatch_baef            ; 0x2dcf
+    call ds_app_0d36                 ; 0x2dcf
     test ax, ax                      ; 0x2dd2
     jne short loc_2ddb               ; 0x2dd4
     call api_idx_0006_2              ; 0x2dd6
@@ -318,7 +318,7 @@ loc_2e94:
     push word [bp - 0x002c]          ; 0x2e94
     push word [bp - 0x002a]          ; 0x2e97
     push word [bp + 0x4]             ; 0x2e9a
-    call ds_dispatch_c9e8            ; 0x2e9d
+    call ds_app_1c2f                 ; 0x2e9d
     add sp, byte 6                   ; 0x2ea0
 loc_2ea3:
     inc word [bp + 0x4]              ; 0x2ea3

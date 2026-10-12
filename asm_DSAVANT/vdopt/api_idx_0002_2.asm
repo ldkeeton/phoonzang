@@ -1,6 +1,6 @@
 api_idx_0002_2:
     mov ax, 0xfffe                   ; 0x0473
-    call ds_dispatch_f40b            ; 0x0476
+    call ds_aztec_csav               ; 0x0476
     mov ax, word [bp + 0x6]          ; 0x0479
     mov word [bp - 0x0002], ax       ; 0x047c
     jmp short @..api_idx_0002_2.l2   ; 0x047f
@@ -35,7 +35,7 @@ api_idx_0002_2:
     ret                              ; 0x04b6
 loc_04b7:
     mov ax, 0                        ; 0x04b7
-    call ds_dispatch_f40b            ; 0x04ba
+    call ds_aztec_csav               ; 0x04ba
     mov ax, word [bss_82ee]          ; 0x04bd
     shl ax, 1                        ; 0x04c0
     mov bx, ax                       ; 0x04c2
@@ -81,7 +81,7 @@ loc_04b7:
     shl ax, cl                       ; 0x0526
     add ax, 0x8d14                   ; 0x0528
     push ax                          ; 0x052b
-    call ds_dispatch_ec41            ; 0x052c
+    call ds_leaf_loc_3e88            ; 0x052c
     add sp, byte 6                   ; 0x052f
     mov ax, 0                        ; 0x0532
     push ax                          ; 0x0535
@@ -95,7 +95,7 @@ loc_04b7:
     shl ax, cl                       ; 0x0549
     add ax, 0x5642                   ; 0x054b
     push ax                          ; 0x054e
-    call ds_dispatch_ec41            ; 0x054f
+    call ds_leaf_loc_3e88            ; 0x054f
     add sp, byte 6                   ; 0x0552
     mov ax, word [bp + 0x4]          ; 0x0555
     inc ax                           ; 0x0558
@@ -103,6 +103,6 @@ loc_04b7:
 @..local.l5:
     mov ax, 1                        ; 0x055c
     push ax                          ; 0x055f
-    call ds_dispatch_b7e0            ; 0x0560
+    call ds_app_0a27                 ; 0x0560
     pop cx                           ; 0x0563
     ret                              ; 0x0564

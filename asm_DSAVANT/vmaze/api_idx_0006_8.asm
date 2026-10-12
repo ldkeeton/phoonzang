@@ -1,13 +1,13 @@
 api_idx_0006_8:
     mov ax, 0xfffa                   ; 0x920f
-    call ds_dispatch_f40b            ; 0x9212
+    call ds_aztec_csav               ; 0x9212
     mov ax, 0                        ; 0x9215
     push ax                          ; 0x9218
     mov ax, 0x14                     ; 0x9219
     push ax                          ; 0x921c
     mov ax, 0x9bd2                   ; 0x921d
     push ax                          ; 0x9220
-    call ds_dispatch_f306            ; 0x9221
+    call ds_aztec_setmem             ; 0x9221
     add sp, byte 6                   ; 0x9224
     mov word [bp - 0x0002], 0        ; 0x9227
 @..api_idx_0006_8.l1:
@@ -23,7 +23,7 @@ api_idx_0006_8:
     imul word [bp + 0x4]             ; 0x9245
     add ax, 0x850a                   ; 0x9248
     push ax                          ; 0x924b
-    call ds_dispatch_ec74            ; 0x924c
+    call ds_leaf_loc_3ebb            ; 0x924c
     add sp, byte 4                   ; 0x924f
     test ax, ax                      ; 0x9252
     je short @..api_idx_0006_8.l2    ; 0x9254
@@ -46,7 +46,7 @@ api_idx_0006_8:
     imul word [bp + 0x4]             ; 0x927f
     add ax, 0x8506                   ; 0x9282
     push ax                          ; 0x9285
-    call ds_dispatch_ec74            ; 0x9286
+    call ds_leaf_loc_3ebb            ; 0x9286
     add sp, byte 4                   ; 0x9289
     test ax, ax                      ; 0x928c
     je short @..api_idx_0006_8.l3    ; 0x928e
@@ -59,7 +59,7 @@ api_idx_0006_8:
     imul word [bp + 0x4]             ; 0x92a2
     add ax, 0x8506                   ; 0x92a5
     push ax                          ; 0x92a8
-    call ds_dispatch_ec74            ; 0x92a9
+    call ds_leaf_loc_3ebb            ; 0x92a9
     add sp, byte 4                   ; 0x92ac
     test ax, ax                      ; 0x92af
     je short @..api_idx_0006_8.l4    ; 0x92b1
@@ -110,7 +110,7 @@ api_idx_0006_8:
     push ax                          ; 0x9326
     mov ax, 0x9c02                   ; 0x9327
     push ax                          ; 0x932a
-    call ds_dispatch_f306            ; 0x932b
+    call ds_aztec_setmem             ; 0x932b
     add sp, byte 6                   ; 0x932e
     inc word [bss_9c00]              ; 0x9331
     mov ax, 0                        ; 0x9335

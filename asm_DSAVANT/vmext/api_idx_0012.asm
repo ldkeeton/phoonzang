@@ -1,6 +1,6 @@
 api_idx_0012:
     mov ax, 0xffee                   ; 0x0ee0
-    call ds_dispatch_f40b            ; 0x0ee3
+    call ds_aztec_csav               ; 0x0ee3
     mov ax, word [bss_8d12]          ; 0x0ee6
     shl ax, 1                        ; 0x0ee9
     mov si, ax                       ; 0x0eeb
@@ -17,7 +17,7 @@ api_idx_0012:
     idiv cx                          ; 0x0f0a
     mov word [bp - 0x000c], dx       ; 0x0f0c
 loc_0f0f:
-    call ds_dispatch_ceb1            ; 0x0f0f
+    call ds_app_20f8                 ; 0x0f0f
     mov word [bp - 0x0006], ax       ; 0x0f12
     cmp ax, strict word 0xffff       ; 0x0f15
     jne short loc_0f1d               ; 0x0f18
@@ -35,7 +35,7 @@ loc_0f1d:
     mov ax, 7                        ; 0x0f39
     push ax                          ; 0x0f3c
     push word [bp - 0x0008]          ; 0x0f3d
-    call ds_dispatch_ed3a            ; 0x0f40
+    call ds_dos_con_loc_3f81         ; 0x0f40
     add sp, byte 6                   ; 0x0f43
     test ax, ax                      ; 0x0f46
     jne short loc_0f4d               ; 0x0f48
@@ -44,7 +44,7 @@ loc_0f4d:
     push word [bp - 0x000a]          ; 0x0f4d
     push word [bp - 0x000c]          ; 0x0f50
     push word [bp - 0x000a]          ; 0x0f53
-    call ds_dispatch_d0ea            ; 0x0f56
+    call ds_app_2331                 ; 0x0f56
     add sp, byte 6                   ; 0x0f59
     mov cx, ax                       ; 0x0f5c
     sub sp, byte 4                   ; 0x0f5e
@@ -55,7 +55,7 @@ loc_0f4d:
     mov di, ax                       ; 0x0f69
     movsw                            ; 0x0f6b
     movsw                            ; 0x0f6c
-    call ds_dispatch_d0be            ; 0x0f6d
+    call ds_app_2305                 ; 0x0f6d
     add sp, byte 4                   ; 0x0f70
     mov word [bp - 0x000e], ax       ; 0x0f73
     mov word [bp - 0x0002], 0        ; 0x0f76
@@ -64,7 +64,7 @@ loc_0f7b:
     push ax                          ; 0x0f7e
     push word [bp - 0x0002]          ; 0x0f7f
     push word [bp - 0x0008]          ; 0x0f82
-    call ds_dispatch_ed3a            ; 0x0f85
+    call ds_dos_con_loc_3f81         ; 0x0f85
     add sp, byte 6                   ; 0x0f88
     cmp ax, strict word 1            ; 0x0f8b
     je short loc_0f93                ; 0x0f8e

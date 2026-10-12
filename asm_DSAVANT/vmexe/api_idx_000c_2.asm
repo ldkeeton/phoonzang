@@ -1,6 +1,6 @@
 api_idx_000c_2:
     mov ax, 0xfff4                   ; 0x7911
-    call ds_dispatch_f40b            ; 0x7914
+    call ds_aztec_csav               ; 0x7914
     mov ax, 0xc                      ; 0x7917
     imul word [bp + 0x4]             ; 0x791a
     mov si, ax                       ; 0x791d
@@ -19,7 +19,7 @@ api_idx_000c_2:
     pop ax                           ; 0x793c
     add word [bx + 0x557e], ax       ; 0x793d
     push word [bp + 0x4]             ; 0x7941
-    call ds_dispatch_b7e0            ; 0x7944
+    call ds_app_0a27                 ; 0x7944
     pop cx                           ; 0x7947
     lea si, word [bp - 0x000c]       ; 0x7948
     mov ax, 0xc                      ; 0x794b

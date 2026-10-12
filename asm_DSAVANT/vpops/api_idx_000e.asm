@@ -1,6 +1,6 @@
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x0704
-    call ds_dispatch_f40b            ; 0x0707
+    call ds_aztec_csav               ; 0x0707
     mov bx, word [bp + 0xe]          ; 0x070a
     mov byte [bx], 0                 ; 0x070d
     mov ax, word [bp + 0x4]          ; 0x0710
@@ -160,7 +160,7 @@ api_idx_000e:
     mov al, byte [bx + 0x6a2c]       ; 0x088c
     sub ah, ah                       ; 0x0890
     push ax                          ; 0x0892
-    call ds_dispatch_b7a9            ; 0x0893
+    call ds_app_09f0                 ; 0x0893
     pop cx                           ; 0x0896
     push ax                          ; 0x0897
     mov ax, 0x15e                    ; 0x0898
@@ -223,7 +223,7 @@ api_idx_000e:
     mov al, byte [bx + 0x6ac2]       ; 0x0924
     sub ah, ah                       ; 0x0928
     push ax                          ; 0x092a
-    call ds_dispatch_b7a9            ; 0x092b
+    call ds_app_09f0                 ; 0x092b
     pop cx                           ; 0x092e
     push ax                          ; 0x092f
     mov ax, 0x15e                    ; 0x0930

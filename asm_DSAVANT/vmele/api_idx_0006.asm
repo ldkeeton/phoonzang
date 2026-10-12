@@ -1,6 +1,6 @@
 api_idx_0006:
     mov ax, 0xfffa                   ; 0x1713
-    call ds_dispatch_f40b            ; 0x1716
+    call ds_aztec_csav               ; 0x1716
     mov word [bp - 0x0002], 1        ; 0x1719
     jmp near @..api_idx_0006.l6      ; 0x171e
 @..api_idx_0006.l1:
@@ -9,7 +9,7 @@ api_idx_0006:
 @..api_idx_0006.l2:
     mov ax, 0x64                     ; 0x1728
     push ax                          ; 0x172b
-    call ds_dispatch_b7a9            ; 0x172c
+    call ds_app_09f0                 ; 0x172c
     pop cx                           ; 0x172f
     mov word [bp - 0x0006], ax       ; 0x1730
     mov ax, word [bp - 0x0002]       ; 0x1733

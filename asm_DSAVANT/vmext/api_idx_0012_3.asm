@@ -1,6 +1,6 @@
 api_idx_0012_3:
     mov ax, 0xffee                   ; 0x30f4
-    call ds_dispatch_f40b            ; 0x30f7
+    call ds_aztec_csav               ; 0x30f7
     cmp word [bp + 0x4], byte 4      ; 0x30fa
     jge short @..api_idx_0012_3.l1   ; 0x30fe
     cmp word [bp + 0x6], byte 0      ; 0x3100
@@ -443,7 +443,7 @@ api_idx_0012_3:
     add sp, byte 4                   ; 0x34c3
     push ax                          ; 0x34c6
     push word [bp + 0x10]            ; 0x34c7
-    call 0xf01f                      ; 0x34ca
+    call ds_bios_mouse_loc_4266      ; 0x34ca
     add sp, byte 8                   ; 0x34cd
     mov ax, word [bp + 0x4]          ; 0x34d0
     cmp ax, strict word 2            ; 0x34d3
@@ -520,7 +520,7 @@ loc_3545:
     add sp, byte 4                   ; 0x356c
     push ax                          ; 0x356f
     push word [bp + 0xa]             ; 0x3570
-    call 0xf01f                      ; 0x3573
+    call ds_bios_mouse_loc_4266      ; 0x3573
     add sp, byte 8                   ; 0x3576
 @..api_idx_0012_3.l38:
     jmp near @..api_idx_0012_3.l46   ; 0x3579
@@ -545,7 +545,7 @@ loc_357c:
     add sp, byte 4                   ; 0x35a3
     push ax                          ; 0x35a6
     push word [bp + 0x16]            ; 0x35a7
-    call 0xf01f                      ; 0x35aa
+    call ds_bios_mouse_loc_4266      ; 0x35aa
     add sp, byte 8                   ; 0x35ad
 @..api_idx_0012_3.l39:
     jmp short @..api_idx_0012_3.l46  ; 0x35b0
@@ -579,7 +579,7 @@ loc_35b2:
 @..api_idx_0012_3.l43:
     push ax                          ; 0x35ea
     push word [bp + 0x14]            ; 0x35eb
-    call 0xf01f                      ; 0x35ee
+    call ds_bios_mouse_loc_4266      ; 0x35ee
     add sp, byte 8                   ; 0x35f1
 @..api_idx_0012_3.l44:
     jmp short @..api_idx_0012_3.l46  ; 0x35f4
@@ -637,7 +637,7 @@ jumptable_35fa:
     push ax                          ; 0x3664
     mov ax, 3                        ; 0x3665
     push ax                          ; 0x3668
-    call 0xf01f                      ; 0x3669
+    call ds_bios_mouse_loc_4266      ; 0x3669
     add sp, byte 8                   ; 0x366c
     jmp short @..api_idx_0012_3.l53  ; 0x366f
 @..api_idx_0012_3.l49:
@@ -664,7 +664,7 @@ jumptable_35fa:
     push ax                          ; 0x369f
     mov ax, 3                        ; 0x36a0
     push ax                          ; 0x36a3
-    call 0xf01f                      ; 0x36a4
+    call ds_bios_mouse_loc_4266      ; 0x36a4
     add sp, byte 8                   ; 0x36a7
 @..api_idx_0012_3.l53:
     mov ax, 0xa                      ; 0x36aa

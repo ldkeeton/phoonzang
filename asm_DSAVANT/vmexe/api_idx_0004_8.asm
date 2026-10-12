@@ -1,6 +1,6 @@
 api_idx_0004_8:
     mov ax, 0xfffc                   ; 0x24f0
-    call ds_dispatch_f40b            ; 0x24f3
+    call ds_aztec_csav               ; 0x24f3
     mov ax, word [bp + 0x4]          ; 0x24f6
     shl ax, 1                        ; 0x24f9
     mov bx, ax                       ; 0x24fb
@@ -10,7 +10,7 @@ api_idx_0004_8:
     sub ah, ah                       ; 0x2508
     mov word [bp - 0x0002], ax       ; 0x250a
     push word [bp + 0xa]             ; 0x250d
-    call ds_dispatch_b7a9            ; 0x2510
+    call ds_app_09f0                 ; 0x2510
     pop cx                           ; 0x2513
     mov cx, ax                       ; 0x2514
     mov ax, word [bp - 0x0002]       ; 0x2516
@@ -20,14 +20,14 @@ api_idx_0004_8:
     imul bx                          ; 0x2520
     mov cx, 0x64                     ; 0x2522
     mov bx, 0                        ; 0x2525
-    call ds_dispatch_f99f            ; 0x2528
+    call ds_loc_4be6                 ; 0x2528
     mov word [bp - 0x0004], ax       ; 0x252b
 @..api_idx_0004_8.l1:
     cmp word [bp - 0x0004], byte 0   ; 0x252e
     jle short @..api_idx_0004_8.l2   ; 0x2532
     mov ax, 2                        ; 0x2534
     push ax                          ; 0x2537
-    call ds_dispatch_b7a9            ; 0x2538
+    call ds_app_09f0                 ; 0x2538
     pop cx                           ; 0x253b
     sub word [bp + 0x8], ax          ; 0x253c
     dec word [bp - 0x0004]           ; 0x253f
@@ -41,7 +41,7 @@ api_idx_0004_8:
     ret                              ; 0x2552
 loc_2553:
     mov ax, 0                        ; 0x2553
-    call ds_dispatch_f40b            ; 0x2556
+    call ds_aztec_csav               ; 0x2556
     mov ax, word [bp + 0x6]          ; 0x2559
     jmp short @..local.l60           ; 0x255c
 @..local.l57:

@@ -1,6 +1,6 @@
 api_idx_0018_2:
     mov ax, 0xffe8                   ; 0x7b53
-    call ds_dispatch_f40b            ; 0x7b56
+    call ds_aztec_csav               ; 0x7b56
     mov ax, word [bp + 0x6]          ; 0x7b59
     inc ax                           ; 0x7b5c
     mov word [bp - 0x000c], ax       ; 0x7b5d
@@ -99,7 +99,7 @@ api_idx_0018_2:
     push ax                          ; 0x7c41
     mov ax, 5                        ; 0x7c42
     push ax                          ; 0x7c45
-    call ds_dispatch_efd1            ; 0x7c46
+    call ds_loc_4218                 ; 0x7c46
     add sp, byte 0x16                ; 0x7c49
     mov ax, 0xffff                   ; 0x7c4c
     cmp word [bp - 0x000a], byte 0   ; 0x7c4f
@@ -121,7 +121,7 @@ api_idx_0018_2:
     push ax                          ; 0x7c76
     mov ax, 0                        ; 0x7c77
     push ax                          ; 0x7c7a
-    call 0xf01f                      ; 0x7c7b
+    call ds_bios_mouse_loc_4266      ; 0x7c7b
     add sp, byte 8                   ; 0x7c7e
     mov ax, 0x8f                     ; 0x7c81
     push ax                          ; 0x7c84
@@ -131,13 +131,13 @@ api_idx_0018_2:
     push ax                          ; 0x7c8c
     mov ax, 0x48                     ; 0x7c8d
     push ax                          ; 0x7c90
-    call ds_dispatch_e8da            ; 0x7c91
+    call ds_loc_3b21                 ; 0x7c91
     add sp, byte 8                   ; 0x7c94
     cmp word [bp + 0xa], byte 0      ; 0x7c97
     je short @..api_idx_0018_2.l5    ; 0x7c9b
     mov ax, 0x10                     ; 0x7c9d
     push ax                          ; 0x7ca0
-    call ds_dispatch_b7e0            ; 0x7ca1
+    call ds_app_0a27                 ; 0x7ca1
     pop cx                           ; 0x7ca4
 @..api_idx_0018_2.l5:
     inc word [bp - 0x0002]           ; 0x7ca5
@@ -149,7 +149,7 @@ api_idx_0018_2:
     ret                              ; 0x7cb3
 loc_7cb4:
     mov ax, 0                        ; 0x7cb4
-    call ds_dispatch_f40b            ; 0x7cb7
+    call ds_aztec_csav               ; 0x7cb7
 @..local.l72:
     cmp word [bp + 0x4], byte 0      ; 0x7cba
     jle short @..local.l74           ; 0x7cbe
@@ -164,7 +164,7 @@ loc_7cb4:
     call loc_676c                    ; 0x7cd4
     mov ax, 0x10                     ; 0x7cd7
     push ax                          ; 0x7cda
-    call ds_dispatch_b7e0            ; 0x7cdb
+    call ds_app_0a27                 ; 0x7cdb
     pop cx                           ; 0x7cde
 @..local.l73:
     dec word [bp + 0x4]              ; 0x7cdf

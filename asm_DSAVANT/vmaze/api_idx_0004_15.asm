@@ -1,6 +1,6 @@
 api_idx_0004_15:
     mov ax, 0xfffc                   ; 0x96ce
-    call ds_dispatch_f40b            ; 0x96d1
+    call ds_aztec_csav               ; 0x96d1
     mov ax, 0x26                     ; 0x96d4
     imul word [bp + 0x4]             ; 0x96d7
     mov bx, ax                       ; 0x96da
@@ -21,7 +21,7 @@ api_idx_0004_15:
     add bx, strict word 0x8506       ; 0x96ff
     mov ax, bx                       ; 0x9703
     push ax                          ; 0x9705
-    call ds_dispatch_ec74            ; 0x9706
+    call ds_leaf_loc_3ebb            ; 0x9706
     add sp, byte 4                   ; 0x9709
     test ax, ax                      ; 0x970c
     jne short @..api_idx_0004_15.l1  ; 0x970e
@@ -60,7 +60,7 @@ api_idx_0004_15:
     imul word [bp + 0x4]             ; 0x975d
     add ax, 0x850a                   ; 0x9760
     push ax                          ; 0x9763
-    call ds_dispatch_ec74            ; 0x9764
+    call ds_leaf_loc_3ebb            ; 0x9764
     add sp, byte 4                   ; 0x9767
     test ax, ax                      ; 0x976a
     je short @..api_idx_0004_15.l6   ; 0x976c
@@ -71,7 +71,7 @@ api_idx_0004_15:
     imul word [bp + 0x4]             ; 0x9778
     add ax, 0x850a                   ; 0x977b
     push ax                          ; 0x977e
-    call ds_dispatch_ec74            ; 0x977f
+    call ds_leaf_loc_3ebb            ; 0x977f
     add sp, byte 4                   ; 0x9782
     test ax, ax                      ; 0x9785
     jne short @..api_idx_0004_15.l5  ; 0x9787
@@ -117,7 +117,7 @@ api_idx_0004_15:
     imul word [bp + 0x4]             ; 0x97e6
     add ax, 0x8504                   ; 0x97e9
     push ax                          ; 0x97ec
-    call ds_dispatch_ec74            ; 0x97ed
+    call ds_leaf_loc_3ebb            ; 0x97ed
     add sp, byte 4                   ; 0x97f0
     test ax, ax                      ; 0x97f3
     jne short @..api_idx_0004_15.l7  ; 0x97f5

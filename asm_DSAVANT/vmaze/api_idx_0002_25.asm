@@ -1,14 +1,14 @@
 api_idx_0002_25:
     mov ax, 0xfffe                   ; 0xa28c
-    call ds_dispatch_f40b            ; 0xa28f
+    call ds_aztec_csav               ; 0xa28f
     mov ax, 0x18                     ; 0xa292
     push ax                          ; 0xa295
-    call ds_dispatch_b7a9            ; 0xa296
+    call ds_app_09f0                 ; 0xa296
     pop cx                           ; 0xa299
     cmp ax, strict word 0xf          ; 0xa29a
     jle short @..api_idx_0002_25.l2  ; 0xa29d
     push word [bp + 0x8]             ; 0xa29f
-    call ds_dispatch_b7a9            ; 0xa2a2
+    call ds_app_09f0                 ; 0xa2a2
     pop cx                           ; 0xa2a5
     push ax                          ; 0xa2a6
     mov ax, 0x26                     ; 0xa2a7

@@ -1,6 +1,6 @@
 api_idx_000a:
     mov ax, 0xfff6                   ; 0x0f7f
-    call ds_dispatch_f40b            ; 0x0f82
+    call ds_aztec_csav               ; 0x0f82
     mov al, byte [bp + 0x8]          ; 0x0f85
     mov byte [bp - 0x000a], al       ; 0x0f88
     mov byte [bp - 0x0009], 0        ; 0x0f8b
@@ -31,6 +31,6 @@ api_idx_000a:
     push ax                          ; 0x0fc7
     mov ax, 0xf                      ; 0x0fc8
     push ax                          ; 0x0fcb
-    call ds_dispatch_efd1            ; 0x0fcc
+    call ds_loc_4218                 ; 0x0fcc
     add sp, byte 0x16                ; 0x0fcf
     ret                              ; 0x0fd2

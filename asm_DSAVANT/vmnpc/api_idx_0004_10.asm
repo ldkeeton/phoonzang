@@ -1,6 +1,6 @@
 api_idx_0004_10:
     mov ax, 0xfffc                   ; 0x3a96
-    call ds_dispatch_f40b            ; 0x3a99
+    call ds_aztec_csav               ; 0x3a99
     mov ax, 0                        ; 0x3a9c
     push ax                          ; 0x3a9f
     call api_idx_0006                ; 0x3aa0
@@ -29,7 +29,7 @@ api_idx_0004_10:
     mov bx, ax                       ; 0x3ad4
     cmp byte [bx + 0x624], 1         ; 0x3ad6
     jne short @..api_idx_0004_10.l2  ; 0x3adb
-    call ds_dispatch_ceb1            ; 0x3add
+    call ds_app_20f8                 ; 0x3add
     mov word [bss_9650], ax          ; 0x3ae0
     cmp ax, strict word 0xffff       ; 0x3ae3
     jne short @..api_idx_0004_10.l2  ; 0x3ae6
@@ -66,7 +66,7 @@ api_idx_0004_10:
     call api_idx_0008_3              ; 0x3b34
     add sp, byte 8                   ; 0x3b37
     push word [bp - 0x0004]          ; 0x3b3a
-    call ds_dispatch_b7a9            ; 0x3b3d
+    call ds_app_09f0                 ; 0x3b3d
     pop cx                           ; 0x3b40
     push ax                          ; 0x3b41
     mov ax, 6                        ; 0x3b42
@@ -89,7 +89,7 @@ api_idx_0004_10:
     mov word [bx + 0x5c10], 0        ; 0x3b6d
     mov ax, 6                        ; 0x3b73
     push ax                          ; 0x3b76
-    call ds_dispatch_b7a9            ; 0x3b77
+    call ds_app_09f0                 ; 0x3b77
     pop cx                           ; 0x3b7a
     add ax, strict word 6            ; 0x3b7b
     push ax                          ; 0x3b7e
@@ -102,7 +102,7 @@ api_idx_0004_10:
     mov ax, 1                        ; 0x3b8c
     push ax                          ; 0x3b8f
     push word [bp + 0x4]             ; 0x3b90
-    call ds_dispatch_cb3a            ; 0x3b93
+    call ds_app_1d81                 ; 0x3b93
     add sp, byte 4                   ; 0x3b96
 @..api_idx_0004_10.l5:
     ret                              ; 0x3b99

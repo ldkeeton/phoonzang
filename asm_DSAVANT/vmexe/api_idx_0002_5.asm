@@ -1,6 +1,6 @@
 api_idx_0002_5:
     mov ax, 0xfffe                   ; 0x2bf2
-    call ds_dispatch_f40b            ; 0x2bf5
+    call ds_aztec_csav               ; 0x2bf5
     cmp word [bp + 0x4], byte 0      ; 0x2bf8
     jle short @..api_idx_0002_5.l3   ; 0x2bfc
     cmp word [bp + 0x4], byte 6      ; 0x2bfe

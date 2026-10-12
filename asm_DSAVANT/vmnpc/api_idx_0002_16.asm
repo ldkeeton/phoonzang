@@ -1,6 +1,6 @@
 api_idx_0002_16:
     mov ax, 0xfffe                   ; 0xa3dd
-    call ds_dispatch_f40b            ; 0xa3e0
+    call ds_aztec_csav               ; 0xa3e0
     mov word [bp - 0x0002], 0        ; 0xa3e3
     jmp short @..api_idx_0002_16.l2  ; 0xa3e8
 @..api_idx_0002_16.l1:
@@ -13,7 +13,7 @@ api_idx_0002_16:
     mov ax, word [bp + 0x4]          ; 0xa3f8
     add ax, word [bp - 0x0002]       ; 0xa3fb
     push ax                          ; 0xa3fe
-    call ds_dispatch_b53b            ; 0xa3ff
+    call ds_app_mem_0782             ; 0xa3ff
     add sp, byte 4                   ; 0xa402
     inc word [bp - 0x0002]           ; 0xa405
 @..api_idx_0002_16.l2:

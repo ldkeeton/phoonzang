@@ -1,6 +1,6 @@
 api_idx_0004_2:
     mov ax, 0xfffc                   ; 0x0a6a
-    call ds_dispatch_f40b            ; 0x0a6d
+    call ds_aztec_csav               ; 0x0a6d
     cmp word [bss_9150], byte 3      ; 0x0a70
     jle short @..api_idx_0004_2.l1   ; 0x0a75
     mov ax, 0                        ; 0x0a77
@@ -17,7 +17,7 @@ api_idx_0004_2:
     mov ax, 2                        ; 0x0a8c
     push ax                          ; 0x0a8f
     push bx                          ; 0x0a90
-    call ds_dispatch_e883            ; 0x0a91
+    call ds_loc_3aca                 ; 0x0a91
     add sp, byte 4                   ; 0x0a94
     inc ax                           ; 0x0a97
     mov cx, 2                        ; 0x0a98
@@ -28,7 +28,7 @@ api_idx_0004_2:
     sub ax, cx                       ; 0x0aa3
     mov word [bp - 0x0002], ax       ; 0x0aa5
     push word [bp + 0x4]             ; 0x0aa8
-    call ds_dispatch_fa90            ; 0x0aab
+    call ds_aztec_strlen             ; 0x0aab
     pop cx                           ; 0x0aae
     dec ax                           ; 0x0aaf
     mov word [bp - 0x0004], ax       ; 0x0ab0
@@ -61,18 +61,18 @@ api_idx_0004_2:
     add ax, 0x92                     ; 0x0af0
     push ax                          ; 0x0af3
     push word [bp - 0x0002]          ; 0x0af4
-    call ds_dispatch_e809            ; 0x0af7
+    call ds_loc_3a50                 ; 0x0af7
     add sp, byte 4                   ; 0x0afa
     mov ax, 0                        ; 0x0afd
     push ax                          ; 0x0b00
     mov ax, 0x55                     ; 0x0b01
     push ax                          ; 0x0b04
-    call ds_dispatch_e823            ; 0x0b05
+    call ds_loc_3a6a                 ; 0x0b05
     add sp, byte 4                   ; 0x0b08
     mov ax, 2                        ; 0x0b0b
     push ax                          ; 0x0b0e
     push word [bp + 0x4]             ; 0x0b0f
-    call ds_dispatch_e84e            ; 0x0b12
+    call ds_string_loc_3a95          ; 0x0b12
     add sp, byte 4                   ; 0x0b15
     mov bx, word [bp + 0x4]          ; 0x0b18
     mov byte [bx], 0                 ; 0x0b1b

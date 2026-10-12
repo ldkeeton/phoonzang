@@ -1,6 +1,6 @@
 api_idx_0004:
     mov ax, 0xfffc                   ; 0x0988
-    call ds_dispatch_f40b            ; 0x098b
+    call ds_aztec_csav               ; 0x098b
     mov ax, word [bp + 0x4]          ; 0x098e
     cwd                              ; 0x0991
     les bx, word [dseg_0002]         ; 0x0992
@@ -29,7 +29,7 @@ api_idx_0004:
 @..api_idx_0004.l4:
     mov ax, 0xa                      ; 0x09c8
     push ax                          ; 0x09cb
-    call ds_dispatch_e489            ; 0x09cc
+    call ds_leaf_loc_36d0            ; 0x09cc
     pop cx                           ; 0x09cf
     jmp short @..api_idx_0004.l1     ; 0x09d0
 @..api_idx_0004.l5:

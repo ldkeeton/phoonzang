@@ -1,16 +1,16 @@
 api_idx_00ba:
     mov ax, 0xff46                   ; 0xaa93
-    call ds_dispatch_f40b            ; 0xaa96
+    call ds_aztec_csav               ; 0xaa96
     lea ax, word [bp - 0x00b6]       ; 0xaa99
     push ax                          ; 0xaa9d
     push word [bp + 0x6]             ; 0xaa9e
-    call ds_dispatch_b53b            ; 0xaaa1
+    call ds_app_mem_0782             ; 0xaaa1
     add sp, byte 4                   ; 0xaaa4
     lea ax, word [bp - 0x0066]       ; 0xaaa7
     push ax                          ; 0xaaaa
     mov ax, 0x5e9                    ; 0xaaab
     push ax                          ; 0xaaae
-    call ds_dispatch_b53b            ; 0xaaaf
+    call ds_app_mem_0782             ; 0xaaaf
     add sp, byte 4                   ; 0xaab2
     mov ax, 0x5e                     ; 0xaab5
     push ax                          ; 0xaab8
@@ -20,7 +20,7 @@ api_idx_00ba:
     push ax                          ; 0xaac2
     lea ax, word [bp - 0x0066]       ; 0xaac3
     push ax                          ; 0xaac6
-    call ds_dispatch_b300            ; 0xaac7
+    call ds_app_string_0547          ; 0xaac7
     add sp, byte 6                   ; 0xaaca
 @..api_idx_00ba.l1:
     mov ax, 0                        ; 0xaacd
@@ -39,7 +39,7 @@ api_idx_00ba:
     add sp, byte 4                   ; 0xaae8
     lea ax, word [bp - 0x0052]       ; 0xaaeb
     push ax                          ; 0xaaee
-    call ds_dispatch_fa90            ; 0xaaef
+    call ds_aztec_strlen             ; 0xaaef
     pop cx                           ; 0xaaf2
     mov word [bp - 0x00b8], ax       ; 0xaaf3
     mov bx, ax                       ; 0xaaf7
@@ -58,7 +58,7 @@ api_idx_00ba:
     lea cx, word [bp - 0x00b5]       ; 0xab19
     add ax, cx                       ; 0xab1d
     push ax                          ; 0xab1f
-    call ds_dispatch_ee4a            ; 0xab20
+    call ds_strlen                   ; 0xab20
     add sp, byte 4                   ; 0xab23
     mov word [bp - 0x00ba], ax       ; 0xab26
     lea ax, word [bp - 0x0052]       ; 0xab2a

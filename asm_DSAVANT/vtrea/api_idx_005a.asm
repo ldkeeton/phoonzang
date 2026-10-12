@@ -1,11 +1,11 @@
 api_idx_005a:
     mov ax, 0xffa6                   ; 0x10fb
-    call ds_dispatch_f40b            ; 0x10fe
+    call ds_aztec_csav               ; 0x10fe
     cmp word [bp + 0x8], byte 0      ; 0x1101
     je short @..api_idx_005a.l1      ; 0x1105
     mov ax, 0x64                     ; 0x1107
     push ax                          ; 0x110a
-    call ds_dispatch_b7a9            ; 0x110b
+    call ds_app_09f0                 ; 0x110b
     pop cx                           ; 0x110e
     push ax                          ; 0x110f
     mov ax, 0x248                    ; 0x1110
@@ -39,7 +39,7 @@ api_idx_005a:
     lea ax, word [bp - 0x0050]       ; 0x115a
     push ax                          ; 0x115d
     push word [bp + 0x6]             ; 0x115e
-    call ds_dispatch_b53b            ; 0x1161
+    call ds_app_mem_0782             ; 0x1161
     add sp, byte 4                   ; 0x1164
     mov ax, 0                        ; 0x1167
     push ax                          ; 0x116a
@@ -66,13 +66,13 @@ api_idx_005a:
     sub ah, ah                       ; 0x119c
     add ax, strict word 8            ; 0x119e
     push ax                          ; 0x11a1
-    call ds_dispatch_b7e0            ; 0x11a2
+    call ds_app_0a27                 ; 0x11a2
     pop cx                           ; 0x11a5
 @..api_idx_005a.l4:
     mov ax, 1                        ; 0x11a6
     push ax                          ; 0x11a9
     push word [bp + 0x4]             ; 0x11aa
-    call ds_dispatch_cb3a            ; 0x11ad
+    call ds_app_1d81                 ; 0x11ad
     add sp, byte 4                   ; 0x11b0
     push word [bss_905a]             ; 0x11b3
     call api_idx_0004                ; 0x11b7

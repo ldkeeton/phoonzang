@@ -1,6 +1,6 @@
 api_idx_0002_3:
     mov ax, 0xfffe                   ; 0x065b
-    call ds_dispatch_f40b            ; 0x065e
+    call ds_aztec_csav               ; 0x065e
     mov bx, word [bss_0e12]          ; 0x0661
     mov si, word [bss_8f3e]          ; 0x0665
     mov al, byte [bx + si + 0xb40]   ; 0x0669
@@ -27,7 +27,7 @@ api_idx_0002_3:
     push ax                          ; 0x06a5
     shl si, 1                        ; 0x06a6
     push word [bx + si + 0x3c0]      ; 0x06a8
-    call ds_dispatch_ed3a            ; 0x06ac
+    call ds_dos_con_loc_3f81         ; 0x06ac
     add sp, byte 6                   ; 0x06af
     cmp ax, strict word 1            ; 0x06b2
     je short @..api_idx_0002_3.l2    ; 0x06b5
@@ -41,7 +41,7 @@ api_idx_0002_3:
     mov si, ax                       ; 0x06c6
     mov bx, word [bss_0e12]          ; 0x06c8
     push word [bx + si + 0x3c0]      ; 0x06cc
-    call ds_dispatch_ed3a            ; 0x06d0
+    call ds_dos_con_loc_3f81         ; 0x06d0
     add sp, byte 6                   ; 0x06d3
     cmp ax, strict word 2            ; 0x06d6
     jne short @..api_idx_0002_3.l3   ; 0x06d9

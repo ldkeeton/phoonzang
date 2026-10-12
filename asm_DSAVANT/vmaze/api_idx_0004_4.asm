@@ -1,6 +1,6 @@
 api_idx_0004_4:
     mov ax, 0xfffc                   ; 0x17ee
-    call ds_dispatch_f40b            ; 0x17f1
+    call ds_aztec_csav               ; 0x17f1
     mov word [bss_91ac], 0x7e4       ; 0x17f4
     mov ax, word [bss_82ee]          ; 0x17fa
     add ax, word [bp + 0x4]          ; 0x17fd
@@ -45,32 +45,32 @@ api_idx_0004_4:
     jne short @..api_idx_0004_4.l5   ; 0x185f
     mov ax, 0xf                      ; 0x1861
     push ax                          ; 0x1864
-    call ds_dispatch_d7aa            ; 0x1865
+    call ds_app_29f1                 ; 0x1865
     pop cx                           ; 0x1868
     mov ax, 1                        ; 0x1869
     push ax                          ; 0x186c
-    call ds_dispatch_b7e0            ; 0x186d
+    call ds_app_0a27                 ; 0x186d
     pop cx                           ; 0x1870
     mov word [bss_831a], 1           ; 0x1871
     call loc_676c                    ; 0x1877
     mov ax, 0x10                     ; 0x187a
     push ax                          ; 0x187d
-    call ds_dispatch_b7e0            ; 0x187e
+    call ds_app_0a27                 ; 0x187e
     pop cx                           ; 0x1881
     mov ax, 0x10                     ; 0x1882
     push ax                          ; 0x1885
-    call ds_dispatch_d6c6            ; 0x1886
+    call ds_app_290d                 ; 0x1886
     pop cx                           ; 0x1889
     mov word [bss_598e], 0xffff      ; 0x188a
     mov ax, 2                        ; 0x1890
     push ax                          ; 0x1893
-    call ds_dispatch_b75e            ; 0x1894
+    call ds_app_09a5                 ; 0x1894
     pop cx                           ; 0x1897
     mov word [bss_831a], 2           ; 0x1898
     call loc_676c                    ; 0x189e
     mov ax, 2                        ; 0x18a1
     push ax                          ; 0x18a4
-    call ds_dispatch_b75e            ; 0x18a5
+    call ds_app_09a5                 ; 0x18a5
     pop cx                           ; 0x18a8
     mov word [bss_831a], 0           ; 0x18a9
     push word [bp - 0x0004]          ; 0x18af

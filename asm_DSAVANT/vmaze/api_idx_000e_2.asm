@@ -1,6 +1,6 @@
 api_idx_000e_2:
     mov ax, 0xfff2                   ; 0x804e
-    call ds_dispatch_f40b            ; 0x8051
+    call ds_aztec_csav               ; 0x8051
     mov ax, 5                        ; 0x8054
     push ax                          ; 0x8057
     call api_idx_0006_2              ; 0x8058
@@ -16,7 +16,7 @@ api_idx_000e_2:
     mov ax, 0                        ; 0x8072
     push ax                          ; 0x8075
     push word [bp - 0x0002]          ; 0x8076
-    call ds_dispatch_ed3a            ; 0x8079
+    call ds_dos_con_loc_3f81         ; 0x8079
     add sp, byte 6                   ; 0x807c
     mov word [bp - 0x0006], ax       ; 0x807f
     mov bx, word [bss_0e12]          ; 0x8082
@@ -27,12 +27,12 @@ api_idx_000e_2:
     cmp word [bp - 0x000a], byte 0   ; 0x8093
     jne short @..api_idx_000e_2.l4   ; 0x8097
 @..api_idx_000e_2.l1:
-    call ds_dispatch_ceb1            ; 0x8099
+    call ds_app_20f8                 ; 0x8099
     mov word [bp - 0x0004], ax       ; 0x809c
     cmp ax, strict word 0xffff       ; 0x809f
     je short @..api_idx_000e_2.l2    ; 0x80a2
     push ax                          ; 0x80a4
-    call ds_dispatch_ca85            ; 0x80a5
+    call ds_app_1ccc                 ; 0x80a5
     pop cx                           ; 0x80a8
     test ax, ax                      ; 0x80a9
     jne short @..api_idx_000e_2.l3   ; 0x80ab
@@ -44,7 +44,7 @@ api_idx_000e_2:
     mov ax, 0xb                      ; 0x80b3
     push ax                          ; 0x80b6
     push word [bp - 0x0002]          ; 0x80b7
-    call ds_dispatch_ed3a            ; 0x80ba
+    call ds_dos_con_loc_3f81         ; 0x80ba
     add sp, byte 6                   ; 0x80bd
     push ax                          ; 0x80c0
     mov ax, 0x248                    ; 0x80c1
@@ -97,7 +97,7 @@ api_idx_000e_2:
     jmp short @..api_idx_000e_2.l9   ; 0x8136
 @..api_idx_000e_2.l7:
     push word [bp - 0x0004]          ; 0x8138
-    call ds_dispatch_ca85            ; 0x813b
+    call ds_app_1ccc                 ; 0x813b
     pop cx                           ; 0x813e
     test ax, ax                      ; 0x813f
     je short @..api_idx_000e_2.l8    ; 0x8141
@@ -126,7 +126,7 @@ api_idx_000e_2:
     mov word [bp - 0x000a], ax       ; 0x8179
 @..api_idx_000e_2.l10:
     push word [bp - 0x0006]          ; 0x817c
-    call ds_dispatch_b7a9            ; 0x817f
+    call ds_app_09f0                 ; 0x817f
     pop cx                           ; 0x8182
     mov word [bp - 0x000c], ax       ; 0x8183
     cmp ax, word [bp - 0x000a]       ; 0x8186
@@ -153,14 +153,14 @@ api_idx_000e_2:
     shl ax, cl                       ; 0x81b9
     add ax, 0x8d14                   ; 0x81bb
     push ax                          ; 0x81be
-    call ds_dispatch_ec41            ; 0x81bf
+    call ds_leaf_loc_3e88            ; 0x81bf
     add sp, byte 6                   ; 0x81c2
     mov ax, 1                        ; 0x81c5
     push ax                          ; 0x81c8
     mov ax, 8                        ; 0x81c9
     push ax                          ; 0x81cc
     push word [bp - 0x0002]          ; 0x81cd
-    call ds_dispatch_ed3a            ; 0x81d0
+    call ds_dos_con_loc_3f81         ; 0x81d0
     add sp, byte 6                   ; 0x81d3
     cmp ax, strict word 1            ; 0x81d6
     jne short @..api_idx_000e_2.l13  ; 0x81d9
@@ -172,7 +172,7 @@ api_idx_000e_2:
     shl ax, cl                       ; 0x81e8
     add ax, 0x5642                   ; 0x81ea
     push ax                          ; 0x81ed
-    call ds_dispatch_ec41            ; 0x81ee
+    call ds_leaf_loc_3e88            ; 0x81ee
     add sp, byte 6                   ; 0x81f1
 @..api_idx_000e_2.l13:
     mov ax, 2                        ; 0x81f4
@@ -180,7 +180,7 @@ api_idx_000e_2:
     mov ax, 9                        ; 0x81f8
     push ax                          ; 0x81fb
     push word [bp - 0x0002]          ; 0x81fc
-    call ds_dispatch_ed3a            ; 0x81ff
+    call ds_dos_con_loc_3f81         ; 0x81ff
     add sp, byte 6                   ; 0x8202
     push ax                          ; 0x8205
     call loc_7242                    ; 0x8206

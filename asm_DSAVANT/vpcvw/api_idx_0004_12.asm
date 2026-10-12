@@ -1,6 +1,6 @@
 api_idx_0004_12:
     mov ax, 0xfffc                   ; 0x8421
-    call ds_dispatch_f40b            ; 0x8424
+    call ds_aztec_csav               ; 0x8424
     mov ax, 0x248                    ; 0x8427
     imul word [bp + 0x4]             ; 0x842a
     mov bx, ax                       ; 0x842d
@@ -241,7 +241,7 @@ jumptable_85bc:
     mov ax, word [bp - 0x0002]       ; 0x8630
     add ax, 0x157c                   ; 0x8633
     push ax                          ; 0x8636
-    call ds_dispatch_b53b            ; 0x8637
+    call ds_app_mem_0782             ; 0x8637
     add sp, byte 4                   ; 0x863a
     mov ax, word [bp - 0x0002]       ; 0x863d
     mov cx, word [bp - 0x0004]       ; 0x8640
@@ -264,7 +264,7 @@ jumptable_85bc:
     push ax                          ; 0x8667
     mov ax, 0x159e                   ; 0x8668
     push ax                          ; 0x866b
-    call ds_dispatch_b53b            ; 0x866c
+    call ds_app_mem_0782             ; 0x866c
     add sp, byte 4                   ; 0x866f
     mov ax, word [bp - 0x0004]       ; 0x8672
     ret                              ; 0x8675

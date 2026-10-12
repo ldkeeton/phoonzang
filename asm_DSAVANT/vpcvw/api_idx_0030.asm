@@ -1,6 +1,6 @@
 api_idx_0030:
     mov ax, 0xffd0                   ; 0x92b3
-    call ds_dispatch_f40b            ; 0x92b6
+    call ds_aztec_csav               ; 0x92b6
     push word [bp + 0x4]             ; 0x92b9
     call api_idx_0002_11             ; 0x92bc
     pop cx                           ; 0x92bf
@@ -140,7 +140,7 @@ api_idx_0030:
     jne short @..api_idx_0030.l10    ; 0x940d
     push word [bp - 0x0008]          ; 0x940f
     push word [bp + 0x4]             ; 0x9412
-    call ds_dispatch_c7dc            ; 0x9415
+    call ds_app_1a23                 ; 0x9415
     add sp, byte 4                   ; 0x9418
 @..api_idx_0030.l10:
     inc word [bp - 0x0008]           ; 0x941b

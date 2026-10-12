@@ -1,11 +1,11 @@
 api_idx_0004_7:
     mov ax, 0xfffc                   ; 0x3c18
-    call ds_dispatch_f40b            ; 0x3c1b
+    call ds_aztec_csav               ; 0x3c1b
 @..api_idx_0004_7.l1:
     mov ax, 0x20                     ; 0x3c1e
     push ax                          ; 0x3c21
     push word [bp + 0x4]             ; 0x3c22
-    call ds_dispatch_ee4a            ; 0x3c25
+    call ds_strlen                   ; 0x3c25
     add sp, byte 4                   ; 0x3c28
     mov word [bp - 0x0002], ax       ; 0x3c2b
     cmp ax, strict word 0xffff       ; 0x3c2e
@@ -17,7 +17,7 @@ api_idx_0004_7:
     mov ax, 0x5f                     ; 0x3c3b
     push ax                          ; 0x3c3e
     push word [bp + 0x4]             ; 0x3c3f
-    call ds_dispatch_ee4a            ; 0x3c42
+    call ds_strlen                   ; 0x3c42
     add sp, byte 4                   ; 0x3c45
     mov word [bp - 0x0004], ax       ; 0x3c48
     cmp ax, strict word 0xffff       ; 0x3c4b

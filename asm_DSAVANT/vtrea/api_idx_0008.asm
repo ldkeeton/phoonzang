@@ -1,6 +1,6 @@
 api_idx_0008:
     mov ax, 0xfff8                   ; 0x3552
-    call ds_dispatch_f40b            ; 0x3555
+    call ds_aztec_csav               ; 0x3555
     mov word [bp - 0x0006], 0xffff   ; 0x3558
     mov word [bp - 0x0008], 0xffff   ; 0x355d
     mov ax, word [bss_0e0e]          ; 0x3562
@@ -24,7 +24,7 @@ api_idx_0008:
     je short @..api_idx_0008.l3      ; 0x358d
     mov ax, 7                        ; 0x358f
     push ax                          ; 0x3592
-    call ds_dispatch_b7a9            ; 0x3593
+    call ds_app_09f0                 ; 0x3593
     pop cx                           ; 0x3596
     test ax, ax                      ; 0x3597
     jne short @..api_idx_0008.l5     ; 0x3599

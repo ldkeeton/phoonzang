@@ -84,7 +84,7 @@ bss_90bc equ 0x90bc
 
 loc_000e:
     mov ax, 0                        ; 0x000e
-    call ds_dispatch_f40b            ; 0x0011
+    call ds_aztec_csav               ; 0x0011
     mov word [bss_90b6], 5           ; 0x0014
     mov word [bss_90b8], 0           ; 0x001a
     mov word [bss_90ba], 0           ; 0x0020

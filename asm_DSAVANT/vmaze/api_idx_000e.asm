@@ -1,6 +1,6 @@
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x162b
-    call ds_dispatch_f40b            ; 0x162e
+    call ds_aztec_csav               ; 0x162e
     call loc_13c0                    ; 0x1631
     call loc_12a2                    ; 0x1634
     mov ax, word [bss_8f3e]          ; 0x1637
@@ -88,7 +88,7 @@ api_idx_000e:
     jne short @..api_idx_000e.l9     ; 0x1704
     mov ax, 0x64                     ; 0x1706
     push ax                          ; 0x1709
-    call ds_dispatch_b7a9            ; 0x170a
+    call ds_app_09f0                 ; 0x170a
     pop cx                           ; 0x170d
     push ax                          ; 0x170e
     mov ax, 0x248                    ; 0x170f
@@ -106,7 +106,7 @@ api_idx_000e:
     push ax                          ; 0x172b
     mov ax, 5                        ; 0x172c
     push ax                          ; 0x172f
-    call ds_dispatch_b7a9            ; 0x1730
+    call ds_app_09f0                 ; 0x1730
     pop cx                           ; 0x1733
     push ax                          ; 0x1734
     mov ax, 0x248                    ; 0x1735
@@ -119,7 +119,7 @@ api_idx_000e:
     add ax, cx                       ; 0x1746
     add ax, strict word 5            ; 0x1748
     push ax                          ; 0x174b
-    call ds_dispatch_b7c2            ; 0x174c
+    call ds_app_0a09                 ; 0x174c
     add sp, byte 6                   ; 0x174f
     push ax                          ; 0x1752
     mov ax, 0x248                    ; 0x1753
@@ -130,7 +130,7 @@ api_idx_000e:
     mov ax, 1                        ; 0x1760
     push ax                          ; 0x1763
     push word [bp - 0x000e]          ; 0x1764
-    call ds_dispatch_cb3a            ; 0x1767
+    call ds_app_1d81                 ; 0x1767
     add sp, byte 4                   ; 0x176a
 @..api_idx_000e.l9:
     inc word [bp - 0x000e]           ; 0x176d
@@ -181,7 +181,7 @@ api_idx_000e:
     push word [bp - 0x0002]          ; 0x17cc
     mov ax, 0x8afe                   ; 0x17cf
     push ax                          ; 0x17d2
-    call ds_dispatch_ec41            ; 0x17d3
+    call ds_leaf_loc_3e88            ; 0x17d3
     add sp, byte 6                   ; 0x17d6
     mov bx, word [bss_0e12]          ; 0x17d9
     mov si, word [bss_8f3e]          ; 0x17dd

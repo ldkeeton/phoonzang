@@ -1,10 +1,10 @@
 api_idx_0084:
     mov ax, 0xff7c                   ; 0x8c72
-    call ds_dispatch_f40b            ; 0x8c75
+    call ds_aztec_csav               ; 0x8c75
     lea ax, word [bp - 0x0050]       ; 0x8c78
     push ax                          ; 0x8c7b
     push word [bss_91a8]             ; 0x8c7c
-    call ds_dispatch_b53b            ; 0x8c80
+    call ds_app_mem_0782             ; 0x8c80
     add sp, byte 4                   ; 0x8c83
     mov al, byte [bp - 0x0050]       ; 0x8c86
     sub ah, ah                       ; 0x8c89
@@ -22,7 +22,7 @@ api_idx_0084:
     lea cx, word [bp - 0x0050]       ; 0x8caa
     add ax, cx                       ; 0x8cad
     push ax                          ; 0x8caf
-    call ds_dispatch_ee4a            ; 0x8cb0
+    call ds_strlen                   ; 0x8cb0
     add sp, byte 4                   ; 0x8cb3
     mov word [bp - 0x0052], ax       ; 0x8cb6
     cmp ax, strict word 0xffff       ; 0x8cb9
@@ -54,7 +54,7 @@ api_idx_0084:
     mov word [bp - 0x0054], ax       ; 0x8cfb
 @..api_idx_0084.l3:
     push word [bp - 0x0054]          ; 0x8cfe
-    call ds_dispatch_b7a9            ; 0x8d01
+    call ds_app_09f0                 ; 0x8d01
     pop cx                           ; 0x8d04
     mov word [bp - 0x0080], ax       ; 0x8d05
     jmp short @..api_idx_0084.l5     ; 0x8d08
@@ -62,7 +62,7 @@ api_idx_0084:
     mov ax, word [bp - 0x0084]       ; 0x8d0a
     sub word [bp - 0x0054], ax       ; 0x8d0e
     push word [bp - 0x0054]          ; 0x8d11
-    call ds_dispatch_b7a9            ; 0x8d14
+    call ds_app_09f0                 ; 0x8d14
     pop cx                           ; 0x8d17
     mov cx, ax                       ; 0x8d18
     mov ax, word [bp - 0x0084]       ; 0x8d1a
@@ -91,7 +91,7 @@ api_idx_0084:
     push word [bp + 0x4]             ; 0x8d53
     lea ax, word [bp - 0x0050]       ; 0x8d56
     push ax                          ; 0x8d59
-    call ds_dispatch_f364            ; 0x8d5a
+    call ds_aztec_strcpy             ; 0x8d5a
     add sp, byte 4                   ; 0x8d5d
     mov bx, word [bp - 0x0052]       ; 0x8d60
     add bx, bp                       ; 0x8d63

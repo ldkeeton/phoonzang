@@ -1,6 +1,6 @@
 api_idx_0004_6:
     mov ax, 0xfffc                   ; 0x5087
-    call ds_dispatch_f40b            ; 0x508a
+    call ds_aztec_csav               ; 0x508a
     mov ax, 0x248                    ; 0x508d
     imul word [bp + 0x4]             ; 0x5090
     mov bx, ax                       ; 0x5093
@@ -479,7 +479,7 @@ jumptable_547c:
 @..api_idx_0004_6.l11:
     push word [bp - 0x0002]          ; 0x54aa
     push word [bp + 0x4]             ; 0x54ad
-    call ds_dispatch_c608            ; 0x54b0
+    call ds_app_mem_184f             ; 0x54b0
     add sp, byte 4                   ; 0x54b3
     inc word [bp - 0x0002]           ; 0x54b6
     mov ax, word [bp - 0x0002]       ; 0x54b9

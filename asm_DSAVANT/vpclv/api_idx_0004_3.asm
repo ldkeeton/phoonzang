@@ -1,6 +1,6 @@
 api_idx_0004_3:
     mov ax, 0xfffc                   ; 0x21be
-    call ds_dispatch_f40b            ; 0x21c1
+    call ds_aztec_csav               ; 0x21c1
     mov bx, word [bp + 0x8]          ; 0x21c4
     mov al, byte [bx + 0x44]         ; 0x21c7
     push ax                          ; 0x21ca

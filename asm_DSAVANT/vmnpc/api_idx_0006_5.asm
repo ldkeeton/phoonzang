@@ -1,6 +1,6 @@
 api_idx_0006_5:
     mov ax, 0xfffa                   ; 0x5d0e
-    call ds_dispatch_f40b            ; 0x5d11
+    call ds_aztec_csav               ; 0x5d11
     call loc_10b6                    ; 0x5d14
     mov ax, 0x248                    ; 0x5d17
     imul word [bp + 0x4]             ; 0x5d1a
@@ -47,7 +47,7 @@ api_idx_0006_5:
     push ax                          ; 0x5d84
     mov ax, 0x36                     ; 0x5d85
     push ax                          ; 0x5d88
-    call ds_dispatch_e8da            ; 0x5d89
+    call ds_loc_3b21                 ; 0x5d89
     add sp, byte 8                   ; 0x5d8c
     mov ax, word [bp - 0x0004]       ; 0x5d8f
     ret                              ; 0x5d92

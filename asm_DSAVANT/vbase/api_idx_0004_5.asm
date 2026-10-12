@@ -1,6 +1,6 @@
 api_idx_0004_5:
     mov ax, 0xfffc                   ; 0x6cd0
-    call ds_dispatch_f40b            ; 0x6cd3
+    call ds_aztec_csav               ; 0x6cd3
     call loc_6c3f                    ; 0x6cd6
     les bx, word [dseg_0002]         ; 0x6cd9
     mov ax, word [es:bx]             ; 0x6cdd
@@ -10,7 +10,7 @@ api_idx_0004_5:
     mov word [bp - 0x0002], dx       ; 0x6cea
     mov word [bp - 0x0004], ax       ; 0x6ced
 @..api_idx_0004_5.l1:
-    call ds_dispatch_baef            ; 0x6cf0
+    call ds_app_0d36                 ; 0x6cf0
     test ax, ax                      ; 0x6cf3
     jne short @..api_idx_0004_5.l4   ; 0x6cf5
     les bx, word [dseg_0002]         ; 0x6cf7

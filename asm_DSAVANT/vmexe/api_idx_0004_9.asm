@@ -1,6 +1,6 @@
 api_idx_0004_9:
     mov ax, 0xfffc                   ; 0x33e2
-    call ds_dispatch_f40b            ; 0x33e5
+    call ds_aztec_csav               ; 0x33e5
     cmp word [bss_91d8], byte 1      ; 0x33e8
     jne short @..api_idx_0004_9.l1   ; 0x33ed
     ret                              ; 0x33ef
@@ -73,7 +73,7 @@ api_idx_0004_9:
     mov ax, 0                        ; 0x3488
     push ax                          ; 0x348b
     push word [bp - 0x0004]          ; 0x348c
-    call ds_dispatch_b7c2            ; 0x348f
+    call ds_app_0a09                 ; 0x348f
     add sp, byte 6                   ; 0x3492
     mov word [bp - 0x0004], ax       ; 0x3495
     mov ax, word [bp + 0xc]          ; 0x3498

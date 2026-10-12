@@ -92,7 +92,7 @@ jumptable_1b5a:
     ret                              ; 0x1c08
 loc_1c09:
     mov ax, 0                        ; 0x1c09
-    call ds_dispatch_f40b            ; 0x1c0c
+    call ds_aztec_csav               ; 0x1c0c
     mov ax, word [bp + 0x6]          ; 0x1c0f
     push ax                          ; 0x1c12
     cmp ax, strict word 1            ; 0x1c13

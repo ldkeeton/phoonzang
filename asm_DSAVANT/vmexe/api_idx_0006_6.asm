@@ -1,6 +1,6 @@
 api_idx_0006_6:
     mov ax, 0xfffa                   ; 0x908d
-    call ds_dispatch_f40b            ; 0x9090
+    call ds_aztec_csav               ; 0x9090
     cmp word [bp + 0xc], byte 0      ; 0x9093
     je short @..api_idx_0006_6.l1    ; 0x9097
     cmp word [bss_8464], byte 0      ; 0x9099
@@ -49,7 +49,7 @@ api_idx_0006_6:
     mov ax, 0x9136                   ; 0x9105
     push ax                          ; 0x9108
     push word [bp + 0x4]             ; 0x9109
-    call ds_dispatch_b53b            ; 0x910c
+    call ds_app_mem_0782             ; 0x910c
     add sp, byte 4                   ; 0x910f
     mov byte [bss_9186], 0           ; 0x9112
     cmp word [bp + 0x6], byte 0      ; 0x9117
@@ -57,7 +57,7 @@ api_idx_0006_6:
     mov ax, 0x9186                   ; 0x911d
     push ax                          ; 0x9120
     push word [bp + 0x6]             ; 0x9121
-    call ds_dispatch_b53b            ; 0x9124
+    call ds_app_mem_0782             ; 0x9124
     add sp, byte 4                   ; 0x9127
 @..api_idx_0006_6.l2:
     push word [bp + 0x8]             ; 0x912a

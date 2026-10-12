@@ -1,6 +1,6 @@
 api_idx_0004_4:
     mov ax, 0xfffc                   ; 0x2717
-    call ds_dispatch_f40b            ; 0x271a
+    call ds_aztec_csav               ; 0x271a
     mov ax, word [bp + 0x6]          ; 0x271d
     mov cx, 5                        ; 0x2720
     cwd                              ; 0x2723
@@ -36,7 +36,7 @@ api_idx_0004_4:
     mov word [bp - 0x0004], ax       ; 0x2762
     push ax                          ; 0x2765
     push word [bp - 0x0002]          ; 0x2766
-    call ds_dispatch_e809            ; 0x2769
+    call ds_loc_3a50                 ; 0x2769
     add sp, byte 4                   ; 0x276c
     mov ax, 4                        ; 0x276f
     push ax                          ; 0x2772
@@ -44,7 +44,7 @@ api_idx_0004_4:
     mov al, byte [bx + 0x5]          ; 0x2776
     sub ah, ah                       ; 0x2779
     push ax                          ; 0x277b
-    call ds_dispatch_e830            ; 0x277c
+    call ds_loc_3a77                 ; 0x277c
     add sp, byte 4                   ; 0x277f
     push word [bp + 0xc]             ; 0x2782
     push word [bp - 0x0004]          ; 0x2785
@@ -66,13 +66,13 @@ api_idx_0004_4:
     mov ax, word [bp - 0x0002]       ; 0x27b0
     add ax, strict word 0x38         ; 0x27b3
     push ax                          ; 0x27b6
-    call ds_dispatch_e809            ; 0x27b7
+    call ds_loc_3a50                 ; 0x27b7
     add sp, byte 4                   ; 0x27ba
     mov ax, 0                        ; 0x27bd
     push ax                          ; 0x27c0
     mov ax, 2                        ; 0x27c1
     push ax                          ; 0x27c4
-    call ds_dispatch_e823            ; 0x27c5
+    call ds_loc_3a6a                 ; 0x27c5
     add sp, byte 4                   ; 0x27c8
     mov ax, 0                        ; 0x27cb
     push ax                          ; 0x27ce
@@ -82,7 +82,7 @@ api_idx_0004_4:
     mov al, byte [bx + 0x6]          ; 0x27d6
     sub ah, ah                       ; 0x27d9
     push ax                          ; 0x27db
-    call ds_dispatch_b2e7            ; 0x27dc
+    call ds_app_052e                 ; 0x27dc
     add sp, byte 6                   ; 0x27df
 @..api_idx_0004_4.l1:
     ret                              ; 0x27e2

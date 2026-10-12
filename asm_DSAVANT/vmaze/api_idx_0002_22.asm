@@ -1,6 +1,6 @@
 api_idx_0002_22:
     mov ax, 0xfffe                   ; 0x93ab
-    call ds_dispatch_f40b            ; 0x93ae
+    call ds_aztec_csav               ; 0x93ae
     mov word [bp - 0x0002], 0        ; 0x93b1
 @..api_idx_0002_22.l1:
     mov ax, 0xf                      ; 0x93b6
@@ -65,7 +65,7 @@ api_idx_0002_22:
     ret                              ; 0x9447
 loc_9448:
     mov ax, 0                        ; 0x9448
-    call ds_dispatch_f40b            ; 0x944b
+    call ds_aztec_csav               ; 0x944b
     mov ax, 0x26                     ; 0x944e
     imul word [bp + 0x4]             ; 0x9451
     mov bx, ax                       ; 0x9454
@@ -81,7 +81,7 @@ loc_9448:
     ret                              ; 0x9469
 loc_946a:
     mov ax, 0                        ; 0x946a
-    call ds_dispatch_f40b            ; 0x946d
+    call ds_aztec_csav               ; 0x946d
     mov ax, 0x26                     ; 0x9470
     imul word [bp + 0x4]             ; 0x9473
     mov bx, ax                       ; 0x9476
@@ -105,10 +105,10 @@ loc_946a:
     ret                              ; 0x94a5
 loc_94a6:
     mov ax, 0                        ; 0x94a6
-    call ds_dispatch_f40b            ; 0x94a9
+    call ds_aztec_csav               ; 0x94a9
     mov ax, 3                        ; 0x94ac
     push ax                          ; 0x94af
-    call ds_dispatch_b7a9            ; 0x94b0
+    call ds_app_09f0                 ; 0x94b0
     pop cx                           ; 0x94b3
     test ax, ax                      ; 0x94b4
     je short @..local.l80            ; 0x94b6

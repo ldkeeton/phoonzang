@@ -90,7 +90,7 @@ jumptable_5e7f_case_2:
 @..local.l79:
     jmp near loc_5ebe                ; 0x5943
 jumptable_5e7f_case_3:
-    call ds_dispatch_ec17            ; 0x5946
+    call ds_bios_kbd_check           ; 0x5946
     mov ax, 0x12                     ; 0x5949
     push ax                          ; 0x594c
     mov ax, word [bp - 0x000a]       ; 0x594d
@@ -129,7 +129,7 @@ jumptable_5e7f_case_3:
     add sp, byte 6                   ; 0x599a
     jmp near loc_5ebe                ; 0x599d
 jumptable_5e7f_case_4:
-    call ds_dispatch_ec17            ; 0x59a0
+    call ds_bios_kbd_check           ; 0x59a0
     mov ax, 0x12                     ; 0x59a3
     push ax                          ; 0x59a6
     mov ax, word [bp - 0x000a]       ; 0x59a7
@@ -435,7 +435,7 @@ jumptable_5e7f_case_17:
     mov ax, word [bp - 0x0008]       ; 0x5c63
     dec ax                           ; 0x5c66
     push ax                          ; 0x5c67
-    call ds_dispatch_e8da            ; 0x5c68
+    call ds_loc_3b21                 ; 0x5c68
     add sp, byte 8                   ; 0x5c6b
 jumptable_5e7f_case_18:
     cmp word [bp - 0x0014], byte 0x12 ; 0x5c6e
@@ -444,12 +444,12 @@ jumptable_5e7f_case_18:
     jne short @..local.l94           ; 0x5c79
     mov ax, 0x5964                   ; 0x5c7b
     push ax                          ; 0x5c7e
-    call ds_dispatch_fa90            ; 0x5c7f
+    call ds_aztec_strlen             ; 0x5c7f
     pop cx                           ; 0x5c82
     test ax, ax                      ; 0x5c83
     jne short @..local.l94           ; 0x5c85
 @..local.l93:
-    call ds_dispatch_ec17            ; 0x5c87
+    call ds_bios_kbd_check           ; 0x5c87
     mov ax, 0xa                      ; 0x5c8a
     push ax                          ; 0x5c8d
     mov ax, word [bp - 0x000a]       ; 0x5c8e
@@ -595,7 +595,7 @@ jumptable_5e7f_case_23:
     mov ax, word [bp - 0x0008]       ; 0x5dc2
     add ax, 0xb2                     ; 0x5dc5
     push ax                          ; 0x5dc8
-    call ds_dispatch_be5f            ; 0x5dc9
+    call ds_app_10a6                 ; 0x5dc9
     add sp, byte 0x0a                ; 0x5dcc
     mov ax, 0                        ; 0x5dcf
     push ax                          ; 0x5dd2
@@ -609,7 +609,7 @@ jumptable_5e7f_case_23:
     mov ax, word [bp - 0x0008]       ; 0x5de2
     add ax, 0xb2                     ; 0x5de5
     push ax                          ; 0x5de8
-    call ds_dispatch_be5f            ; 0x5de9
+    call ds_app_10a6                 ; 0x5de9
     add sp, byte 0x0a                ; 0x5dec
     mov al, byte [bss_5984]          ; 0x5def
     cmp al, byte [bp - 0x0074]       ; 0x5df2
@@ -639,7 +639,7 @@ jumptable_5e7f_case_24:
     mov ax, word [bp - 0x0008]       ; 0x5e25
     add ax, 0xe6                     ; 0x5e28
     push ax                          ; 0x5e2b
-    call ds_dispatch_be5f            ; 0x5e2c
+    call ds_app_10a6                 ; 0x5e2c
     add sp, byte 0x0a                ; 0x5e2f
     mov ax, 0                        ; 0x5e32
     push ax                          ; 0x5e35
@@ -653,7 +653,7 @@ jumptable_5e7f_case_24:
     mov ax, word [bp - 0x0008]       ; 0x5e45
     add ax, 0xe6                     ; 0x5e48
     push ax                          ; 0x5e4b
-    call ds_dispatch_be5f            ; 0x5e4c
+    call ds_app_10a6                 ; 0x5e4c
     add sp, byte 0x0a                ; 0x5e4f
     mov word [bss_9050], 0           ; 0x5e52
     mov word [bp - 0x0018], 0        ; 0x5e58
@@ -727,7 +727,7 @@ loc_5eda:
     mov ax, word [bp - 0x0008]       ; 0x5ee9
     dec ax                           ; 0x5eec
     push ax                          ; 0x5eed
-    call ds_dispatch_e8da            ; 0x5eee
+    call ds_loc_3b21                 ; 0x5eee
     add sp, byte 8                   ; 0x5ef1
 loc_5ef4:
     cmp word [bp - 0x0018], byte 0   ; 0x5ef4
@@ -737,7 +737,7 @@ loc_5efd:
     mov ax, 1                        ; 0x5efd
     push ax                          ; 0x5f00
     push word [bp - 0x006a]          ; 0x5f01
-    call ds_dispatch_c459            ; 0x5f04
+    call ds_app_file_16a0            ; 0x5f04
     add sp, byte 4                   ; 0x5f07
     mov ax, word [bp - 0x000e]       ; 0x5f0a
     inc ax                           ; 0x5f0d
@@ -751,13 +751,13 @@ loc_5efd:
     mov ax, word [bp - 0x0008]       ; 0x5f19
     dec ax                           ; 0x5f1c
     push ax                          ; 0x5f1d
-    call ds_dispatch_e8da            ; 0x5f1e
+    call ds_loc_3b21                 ; 0x5f1e
     add sp, byte 8                   ; 0x5f21
     mov ax, word [bss_9050]          ; 0x5f24
     ret                              ; 0x5f27
 loc_5f28:
     mov ax, 0xfd40                   ; 0x5f28
-    call ds_dispatch_f40b            ; 0x5f2b
+    call ds_aztec_csav               ; 0x5f2b
     mov word [bp - 0x0008], 0        ; 0x5f2e
     mov word [bp - 0x0002], 0        ; 0x5f33
     jmp near @..local.l104           ; 0x5f38
@@ -780,13 +780,13 @@ loc_5f28:
     imul word [bp - 0x0008]          ; 0x5f60
     add ax, 0xe38                    ; 0x5f63
     push ax                          ; 0x5f66
-    call ds_dispatch_f364            ; 0x5f67
+    call ds_aztec_strcpy             ; 0x5f67
     add sp, byte 4                   ; 0x5f6a
     mov ax, 0x14                     ; 0x5f6d
     imul word [bp - 0x0008]          ; 0x5f70
     add ax, 0xe38                    ; 0x5f73
     push ax                          ; 0x5f76
-    call ds_dispatch_fa90            ; 0x5f77
+    call ds_aztec_strlen             ; 0x5f77
     pop cx                           ; 0x5f7a
     mov word [bp - 0x0004], ax       ; 0x5f7b
 @..local.l100:
@@ -806,7 +806,7 @@ loc_5f28:
     sub ah, ah                       ; 0x5fa1
     add ax, 0x8c                     ; 0x5fa3
     push ax                          ; 0x5fa6
-    call ds_dispatch_b53b            ; 0x5fa7
+    call ds_app_mem_0782             ; 0x5fa7
     add sp, byte 4                   ; 0x5faa
     mov al, byte [bp - 0x02a0]       ; 0x5fad
     push ax                          ; 0x5fb1
@@ -822,7 +822,7 @@ loc_5f28:
     sub ah, ah                       ; 0x5fcc
     add ax, strict word 0x78         ; 0x5fce
     push ax                          ; 0x5fd1
-    call ds_dispatch_b53b            ; 0x5fd2
+    call ds_app_mem_0782             ; 0x5fd2
     add sp, byte 4                   ; 0x5fd5
     mov word [bp - 0x0004], 0        ; 0x5fd8
 @..local.l102:
@@ -887,7 +887,7 @@ loc_5f28:
     ret                              ; 0x606c
 loc_606d:
     mov ax, 0xfdb2                   ; 0x606d
-    call ds_dispatch_f40b            ; 0x6070
+    call ds_aztec_csav               ; 0x6070
 @..local.l107:
     cmp word [bss_69c8], byte 6      ; 0x6073
     jl short @..local.l108           ; 0x6078
@@ -940,7 +940,7 @@ loc_606d:
     mov ax, 0                        ; 0x60f0
     push ax                          ; 0x60f3
     push word [bss_69c8]             ; 0x60f4
-    call ds_dispatch_cb3a            ; 0x60f8
+    call ds_app_1d81                 ; 0x60f8
     add sp, byte 4                   ; 0x60fb
     mov ax, word [bss_69c8]          ; 0x60fe
     mov cx, 2                        ; 0x6101
@@ -969,7 +969,7 @@ loc_606d:
     push ax                          ; 0x6138
     push word [bp - 0x0006]          ; 0x6139
     push word [bp - 0x0004]          ; 0x613c
-    call ds_dispatch_e8da            ; 0x613f
+    call ds_loc_3b21                 ; 0x613f
     add sp, byte 8                   ; 0x6142
     mov ax, word [bp - 0x0006]       ; 0x6145
     add ax, strict word 0x2b         ; 0x6148
@@ -978,7 +978,7 @@ loc_606d:
     push ax                          ; 0x614f
     push word [bp - 0x0006]          ; 0x6150
     push word [bp - 0x0004]          ; 0x6153
-    call ds_dispatch_e8da            ; 0x6156
+    call ds_loc_3b21                 ; 0x6156
     add sp, byte 8                   ; 0x6159
     jmp short @..local.l115          ; 0x615c
 @..local.l111:
@@ -989,7 +989,7 @@ loc_606d:
     push ax                          ; 0x6168
     push word [bp - 0x0006]          ; 0x6169
     push word [bp - 0x0004]          ; 0x616c
-    call ds_dispatch_e8da            ; 0x616f
+    call ds_loc_3b21                 ; 0x616f
     add sp, byte 8                   ; 0x6172
     mov ax, word [bp - 0x0006]       ; 0x6175
     add ax, strict word 0x2b         ; 0x6178
@@ -1000,7 +1000,7 @@ loc_606d:
     push word [bp - 0x0006]          ; 0x6183
     mov ax, 0x10a                    ; 0x6186
     push ax                          ; 0x6189
-    call ds_dispatch_e8da            ; 0x618a
+    call ds_loc_3b21                 ; 0x618a
     add sp, byte 8                   ; 0x618d
     jmp short @..local.l115          ; 0x6190
 @..local.l112:
@@ -1012,7 +1012,7 @@ loc_606d:
     push ax                          ; 0x619f
     push word [bp - 0x0006]          ; 0x61a0
     push word [bp - 0x0004]          ; 0x61a3
-    call ds_dispatch_e8da            ; 0x61a6
+    call ds_loc_3b21                 ; 0x61a6
     add sp, byte 8                   ; 0x61a9
     jmp short @..local.l115          ; 0x61ac
 @..local.l113:
@@ -1035,6 +1035,6 @@ loc_606d:
     push ax                          ; 0x61cf
     mov ax, 0x36                     ; 0x61d0
     push ax                          ; 0x61d3
-    call ds_dispatch_e8da            ; 0x61d4
+    call ds_loc_3b21                 ; 0x61d4
     add sp, byte 8                   ; 0x61d7
     ret                              ; 0x61da

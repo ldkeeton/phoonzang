@@ -1,9 +1,9 @@
 api_idx_0002:
     mov ax, 0xfffe                   ; 0x0036
-    call ds_dispatch_f40b            ; 0x0039
+    call ds_aztec_csav               ; 0x0039
     mov ax, 0                        ; 0x003c
     push ax                          ; 0x003f
-    call ds_dispatch_ef14            ; 0x0040
+    call ds_loc_415b                 ; 0x0040
     pop cx                           ; 0x0043
     mov ax, 2                        ; 0x0044
     push ax                          ; 0x0047
@@ -11,10 +11,10 @@ api_idx_0002:
     push ax                          ; 0x004b
     mov ax, 0x9098                   ; 0x004c
     push ax                          ; 0x004f
-    call ds_dispatch_d161            ; 0x0050
+    call ds_app_23a8                 ; 0x0050
     add sp, byte 4                   ; 0x0053
     push ax                          ; 0x0056
-    call ds_dispatch_f909            ; 0x0057
+    call ds_aztec_open               ; 0x0057
     add sp, byte 4                   ; 0x005a
     mov word [bp - 0x0002], ax       ; 0x005d
     mov ax, 0                        ; 0x0060
@@ -27,14 +27,14 @@ api_idx_0002:
     push dx                          ; 0x0074
     push ax                          ; 0x0075
     push word [bp - 0x0002]          ; 0x0076
-    call ds_dispatch_fdbd            ; 0x0079
+    call ds_aztec_lseek              ; 0x0079
     add sp, byte 8                   ; 0x007c
     cmp word [bp + 0x8], byte 0      ; 0x007f
     jne short @..api_idx_0002.l1     ; 0x0083
     push word [bss_906e]             ; 0x0085
     push word [bp + 0x4]             ; 0x0089
     push word [bp - 0x0002]          ; 0x008c
-    call ds_dispatch_fd6f            ; 0x008f
+    call ds_leaf_loc_4fb6            ; 0x008f
     add sp, byte 6                   ; 0x0092
     jmp short @..api_idx_0002.l2     ; 0x0095
 @..api_idx_0002.l1:
@@ -43,10 +43,10 @@ api_idx_0002:
     push word [bss_906e]             ; 0x009d
     push word [bp + 0x4]             ; 0x00a1
     push word [bp - 0x0002]          ; 0x00a4
-    call ds_dispatch_fd76            ; 0x00a7
+    call ds_aztec_write              ; 0x00a7
     add sp, byte 6                   ; 0x00aa
 @..api_idx_0002.l2:
     push word [bp - 0x0002]          ; 0x00ad
-    call ds_dispatch_fda5            ; 0x00b0
+    call ds_aztec_close              ; 0x00b0
     pop cx                           ; 0x00b3
     ret                              ; 0x00b4
