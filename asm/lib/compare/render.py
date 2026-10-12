@@ -5,6 +5,11 @@ import struct
 from lib.compare.splitting import _partition_function_records
 
 
+# Minimum printable-run length for the D1 string anchor.  Shorter runs are
+# sliced at the exact byte (cheap, and nothing readable is lost).
+_MIN_STRING_ANCHOR = 6
+
+
 def _group_db_lines(hex_bytes):
     """Group hex bytes into db lines, 16 bytes per line."""
     lines = []
@@ -125,6 +130,16 @@ def _render_records(records, binary_data, show_offsets=True, gap=None):
             out.extend(_render_data_block(binary_data[rec['start']:rec['end']]))
             if not is_tiny:
                 out.append('')
+
+        elif rec['type'] == 'data_ptr':
+            # D5: an accepted data-pointer word.  ``text`` is an assembler
+            # expression that reproduces the original value at the original
+            # layout and follows the data segment when it is resized.
+            text = f'dw {rec["text"]}'
+            if show_offsets:
+                out.append(f'    {text:<42s} ; 0x{rec["offset"]:04x}')
+            else:
+                out.append(f'    {text}')
 
         elif rec['type'] == 'jump_table':
             out.append(f'{rec["label"]}:')
@@ -316,6 +331,31 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
     ]
 
 
+def mz_data_gap(records, binary_data, start_offset):
+    """Locate the MZ code->data gap, or return ``None``.
+
+    The data segment sits at ``header + e_ss*16``.  When the bytes between the
+    last code record and that origin are all zero, they are emitted as a
+    dynamic pad instead of a frozen ``times N db 0``, which is what binds the
+    ``dseg_``/``bss_`` symbols to real bytes (plan.md D1).  Returns
+    ``(block_start, gap_end, header_size, gap_len)``.
+    """
+    if not (start_offset == 0x200 and len(binary_data) >= 0x200
+            and binary_data[:2] == b'MZ' and start_offset >= 16):
+        return None
+    e_ss = struct.unpack_from('<H', binary_data, 14)[0]
+    data_origin = start_offset + e_ss * 16
+    for rec in records:
+        if rec['type'] != 'data_block':
+            continue
+        if rec['start'] < data_origin <= rec['end']:
+            if not any(binary_data[rec['start']:data_origin]):
+                return (rec['start'], data_origin, start_offset,
+                        data_origin - rec['start'])
+            break
+    return None
+
+
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
@@ -335,18 +375,9 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     # The MZ data segment sits at ``header + e_ss*16``; locate the zero gap
     # before it so it can be emitted as a dynamic pad instead of a frozen
     # ``times N db 0``.
-    gap = None
-    if is_mz and len(hdr) >= 16:
-        e_ss = struct.unpack_from('<H', hdr, 14)[0]
-        data_origin = start_offset + e_ss * 16
-        for rec in records:
-            if rec['type'] != 'data_block':
-                continue
-            if rec['start'] < data_origin <= rec['end']:
-                if not any(binary_data[rec['start']:data_origin]):
-                    gap = (rec['start'], data_origin, start_offset,
-                           data_origin - rec['start'])
-                break
+    gap = mz_data_gap(records, binary_data, start_offset)
+    if gap is not None:
+        data_origin = gap[1]
     # The symbolic ``e_ip`` rewrite references IMAGE_BASE; force the definition
     # even when no record does (a load offset of 0 would otherwise skip it).
     bound_entry = _mz_entry_symbol(hdr, label_map, entry_symbol) if is_mz else None
@@ -414,10 +445,65 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     if mem_equ:
         # Segment-resolved operand symbols (Phase 4): cseg_ (code segment file
         # offset), dseg_/bss_ (data segment offset), psp_ (PSP field).
+        #
+        # D1 (plan.md): a data-segment symbol is bound to the byte it names so
+        # the operand follows a resized data segment.  ``dseg_<off>`` gets a
+        # label at the file-backed byte and becomes the DS offset relative to
+        # ``__zdataseg_start``; ``bss_<off>`` sits past ``bss_boundary``, so it
+        # is the (dynamic) file-backed data size plus its offset into BSS.
+        # ``psp_``/``cseg_`` stay literal (the PSP is fixed; code symbols are
+        # already labels or load offsets).  Only the MZ image has the anchors.
+        data_anchored = is_mz and gap is not None
+        if data_anchored:
+            from lib.compare.jumptables import _ensure_global_label
+            from lib.compare.regions import string_run
+            bss_boundary = len(binary_data) - data_origin
+            placed_anchors = set()
         for name in sorted(mem_equ, key=lambda n: (mem_equ[n], n)):
             if _defined(name):
                 continue
-            out.append(f'{name} equ 0x{mem_equ[name]:04x}')
+            value = mem_equ[name]
+            expr = None
+            if data_anchored and name.startswith('dseg_'):
+                file_off = data_origin + value
+                if file_off < len(binary_data):
+                    # A reference strictly inside a string is not a data
+                    # symbol: anchor it to the string's start (and keep the
+                    # delta) so the literal stays readable instead of being
+                    # sliced into hex fragments.  Everything else gets a label
+                    # at the exact byte so the operand tracks inserted bytes.
+                    run = string_run(binary_data, file_off, data_origin)
+                    anchor = None
+                    if (run is not None and run[0] < file_off
+                            and run[1] - run[0] >= _MIN_STRING_ANCHOR):
+                        anchor_off = run[0]
+                        anchor_ds = anchor_off - data_origin
+                        anchor = f'__zstr_{anchor_ds:04x}'
+                        if anchor not in placed_anchors:
+                            if _ensure_global_label(
+                                    records, binary_data, anchor_off, anchor):
+                                placed_anchors.add(anchor)
+                            else:
+                                anchor = None
+                    if anchor is not None:
+                        delta = value - anchor_ds
+                        expr = f'{anchor} - __zdataseg_start'
+                        if delta:
+                            expr += f' + 0x{delta:04x}'
+                    else:
+                        label = f'__z{name}'
+                        if _ensure_global_label(records, binary_data,
+                                                file_off, label):
+                            expr = f'{label} - __zdataseg_start'
+            elif (data_anchored and name.startswith('bss_')
+                    and value >= bss_boundary):
+                delta = value - bss_boundary
+                base = '(__zimage_end - __zdataseg_start)'
+                expr = base if delta == 0 else f'{base} + 0x{delta:04x}'
+            if expr is not None:
+                out.append(f'{name} equ {expr}')
+            else:
+                out.append(f'{name} equ 0x{value:04x}')
     if label_map or immediate_labels or mem_equ:
         out.append('')
 

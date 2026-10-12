@@ -176,7 +176,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None,
            jump_tables=None, jump_table_overrides=None,
            segment_flow=None, segments=None, external_data=None,
-           entry_symbol=None):
+           entry_symbol=None, data_pointers=(), not_pointers=()):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -876,6 +876,39 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     t5 = time.perf_counter()
 
+    # Resource/region carving pre-pass (plan.md D2): classify the image's byte
+    # ranges so the data-pointer scorer (D4) can attach its "inside a
+    # string/resource" soft negative.  Pure analysis — it never changes the
+    # emitted source.
+    from lib.compare.regions import (
+        carve, deprioritised_bytes, iter_ranges, summarize_regions,
+    )
+    regions = carve(binary_data,
+                    code_ranges=list(iter_ranges(emit_class, IS_CODE)))
+    region_counts = summarize_regions(regions)
+
+    # Data-pointer candidate scorer (plan.md D4/Sections 8-10): pure analysis,
+    # it never changes the emitted source.  The accepted set would be promoted
+    # in D5; here we only classify and measure precision against the corpus.
+    from lib.compare.pointers import score_candidates as _score_candidates
+    pointer_report = _score_candidates(
+        binary_data, segments, emit_class,
+        instructions=insns, segment_flow=segment_flow, known_addrs=known_addrs,
+        regions=regions, reloc_targets=reloc_targets,
+        data_pointers=data_pointers, not_pointers=not_pointers,
+    )
+
+    # D5 promotion (plan.md Section 13): the accepted set is emitted as symbolic
+    # ``dw`` words.  The corpus is the authority (step 1/E0): an asserted word is
+    # promoted even when the scorer found no anchor.  This changes records, not
+    # ``emit_class`` (the scorer already ran on the raw bytes).
+    from lib.compare.promote import merge_promotions, promote_data_pointers
+    promoted_words = merge_promotions(pointer_report['promoted'], data_pointers)
+    records, promotion_report = promote_data_pointers(
+        records, binary_data, start_offset, segments, promoted_words,
+        mem_equ, label_map=label_map,
+    )
+
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
     split_ranges = _extend_split_ranges_with_local_tails(split_ranges, records)
@@ -969,6 +1002,25 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 if isinstance(n, str) and n.startswith('aztec_'))
             if label_map else 0
         ),
+        # Region carving pre-pass (D2): the byte map D4 scores candidates
+        # against.  ``file`` offsets, gap-free.
+        'regions': [
+            {'start': r.start, 'end': r.end, 'kind': r.kind, 'note': r.note}
+            for r in regions
+        ],
+        'region_counts': region_counts,
+        'region_deprioritised_bytes': deprioritised_bytes(regions),
+        # Data-pointer scorer (D4): the accepted set (which D5 will promote),
+        # the backlog, and the precision/recall against the sidecar corpus.
+        'pointer_counts': pointer_report['counts'],
+        'pointer_precision': pointer_report['precision'],
+        'pointer_recall': pointer_report['recall'],
+        'promoted_pointers': pointer_report['promoted'],
+        'unproven_data_words': pointer_report['unproven'],
+        # D5: the words actually spliced into the emitted source, and anything
+        # the promotion pass declined (with a reason) so the corpus can grow.
+        'promoted_data_words': promotion_report['promoted'],
+        'promotion_skipped': promotion_report['skipped'],
         'address_records': _build_address_records(
             insns, mem_symbols, mem_equ, segment_flow, label_map, start_offset,
             data_labels=data_labels, reloc_targets=reloc_targets,

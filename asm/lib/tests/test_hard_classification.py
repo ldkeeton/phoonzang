@@ -388,5 +388,73 @@ class HardClassificationTests(unittest.TestCase):
             _validate(sidecar)
 
 
+class SidecarDataPointerCorpusTests(unittest.TestCase):
+    """D3: the ``data_pointers`` / ``not_pointers`` corpus (plan Section 14).
+
+    The corpus is the ground-truth calibration set for the F7 scorer: positive
+    entries assert a word is a pointer, negatives pin the false-positive
+    direction.  The schema exists now; the scorer (D4) consumes it later.
+    """
+
+    def test_pointers_are_validated_and_normalized(self):
+        sidecar = {
+            'app': 'TEST',
+            'binaries': {
+                'sample': {
+                    'data_pointers': [
+                        {'offset': '10162', 'space': 'ds',
+                         'target': 'dseg_0c6c'},
+                    ],
+                    'not_pointers': [{'offset': '3140', 'note': 'palette'}],
+                },
+            },
+        }
+        _validate(sidecar)
+        sample = per_binary(sidecar, 'sample')
+        self.assertEqual(sample['data_pointers'],
+                         [{'offset': 0x10162, 'space': 'ds',
+                           'target': 'dseg_0c6c'}])
+        self.assertEqual(sample['not_pointers'],
+                         [{'offset': 0x3140, 'note': 'palette'}])
+
+    def test_project_corpus_is_inherited_by_each_binary(self):
+        sidecar = {
+            'app': 'TEST',
+            'data_pointers': [{'offset': '10', 'space': 'ds'}],
+            'binaries': {'sample': {'file': 'SAMPLE.DRV'}},
+        }
+        _validate(sidecar)
+        inherited = [{'offset': 0x10, 'space': 'ds'}]
+        self.assertEqual(per_binary(sidecar, 'sample')['data_pointers'],
+                         inherited)
+        self.assertEqual(per_binary(sidecar, 'unlisted')['data_pointers'],
+                         inherited)
+
+    def test_corpus_defaults_empty(self):
+        sidecar = {'app': 'TEST', 'binaries': {'sample': {'file': 'S'}}}
+        sample = per_binary(sidecar, 'sample')
+        self.assertEqual(sample['data_pointers'], [])
+        self.assertEqual(sample['not_pointers'], [])
+
+    def test_pointer_without_offset_is_rejected(self):
+        sidecar = {'app': 'TEST',
+                   'binaries': {'s': {'data_pointers': [{'space': 'ds'}]}}}
+        with self.assertRaisesRegex(SidecarError, 'offset'):
+            _validate(sidecar)
+
+    def test_pointer_with_unknown_space_is_rejected(self):
+        sidecar = {'app': 'TEST', 'binaries': {'s': {
+            'data_pointers': [{'offset': '10', 'space': 'zz'}]}}}
+        with self.assertRaisesRegex(SidecarError, 'space'):
+            _validate(sidecar)
+
+    def test_offset_asserted_both_ways_is_rejected(self):
+        sidecar = {'app': 'TEST', 'binaries': {'s': {
+            'data_pointers': [{'offset': '10'}],
+            'not_pointers': [{'offset': '10'}]}}}
+        with self.assertRaisesRegex(SidecarError, 'both'):
+            _validate(sidecar)
+
+
 if __name__ == '__main__':
     unittest.main()

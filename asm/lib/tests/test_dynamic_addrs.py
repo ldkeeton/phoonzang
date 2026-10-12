@@ -17,6 +17,7 @@ import unittest
 
 from lib.compare.render import _build_source
 from lib.compare.records import count_frozen_addrs
+from lib.sidecar import load as load_sidecar, per_binary
 
 
 _ASM_DIR = pathlib.Path(__file__).resolve().parents[2]
@@ -81,14 +82,15 @@ def _mz_header(e_ss):
 
 
 # Snapshot taken from the committed tree after the F1/F2/F3/F5 work
-# (2026-10-11) and the D0 census split (2026-10-12).  ``total`` is now the
-# *gated* sum (``code_shift + data_shift``); ``inert`` values (``psp_`` fields,
-# ``bios_data_0410``, literal data tables) are reported but excluded from the
-# gate.  Every count may only go down from here.
+# (2026-10-11), the D0 census split (2026-10-12), and D1's data-label binding
+# (2026-10-12).  ``total`` is the *gated* sum (``code_shift + data_shift``);
+# ``inert`` values (``psp_`` fields, ``bios_data_0410``, literal data tables)
+# are reported but excluded from the gate.  Every count may only go down from
+# here.
 BASELINE_TOTALS = {
-    'code_shift': 152, 'data_shift': 1401, 'inert': 248,
-    'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1401, 'f5': 3, 'f6': 241, 'f7': 0,
-    'total': 1553,
+    'code_shift': 152, 'data_shift': 1231, 'inert': 248,
+    'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1231, 'f5': 3, 'f6': 241, 'f7': 0,
+    'total': 1383,
 }
 
 
@@ -216,6 +218,118 @@ class DynamicDataAnchorTests(unittest.TestCase):
         self.assertEqual(e_cp, (len(built) + 511) // 512)
 
 
+class DataSegmentLabelBindingTests(unittest.TestCase):
+    """D1: ``dseg_``/``bss_`` operands follow a resized data segment.
+
+    The synthetic MZ has ``e_ss=1`` (data origin 0x210) and two instructions:
+    ``mov ax, [dseg_0004]`` (``a1 04 00``) and ``mov bx, [bss_0012]``
+    (``8b 1e 12 00``).  A data symbol must be anchored to the byte it names, so
+    inserting a data byte moves the label and the encoded displacement together;
+    a BSS symbol must track the (dynamic) file-backed data size.
+    """
+
+    CODE = b'\xa1\x04\x00\x8b\x1e\x12\x00'    # mov ax,[dseg_0004]; mov bx,[bss_0012]
+    DATA = bytes(range(0x10, 0x20))           # DS 0x00..0x0f
+    DATA_ORIGIN = 0x210
+
+    def _image(self):
+        header = _mz_header(e_ss=1)
+        gap = bytes(self.DATA_ORIGIN - (0x200 + len(self.CODE)))
+        binary = bytearray(header + self.CODE + gap + self.DATA)
+        struct.pack_into('<HH', binary, 2, len(binary) % 512,
+                         (len(binary) + 511) // 512)
+        return bytes(binary)
+
+    def _source(self, binary, mem_equ):
+        records = [
+            {'type': 'mnem', 'text': 'mov ax, [dseg_0004]',
+             'offset': 0x200, 'size': 3},
+            {'type': 'mnem', 'text': 'mov bx, [bss_0012]',
+             'offset': 0x203, 'size': 4},
+            {'type': 'data_block', 'start': 0x207, 'end': len(binary),
+             'bytes': []},
+        ]
+        src, _ = _build_source(records, 0x200, binary, label_map={},
+                               mem_equ=mem_equ)
+        return src
+
+    def test_data_symbols_become_expressions(self):
+        src = self._source(self._image(),
+                           {'dseg_0004': 0x04, 'bss_0012': 0x12})
+        self.assertIn('dseg_0004 equ __zdseg_0004 - __zdataseg_start', src)
+        self.assertIn(
+            'bss_0012 equ (__zimage_end - __zdataseg_start) + 0x0002', src)
+        self.assertEqual(count_frozen_addrs(src)['data_shift'], 0)
+
+    def test_original_layout_reassembles_byte_for_byte(self):
+        binary = self._image()
+        src = self._source(binary, {'dseg_0004': 0x04, 'bss_0012': 0x12})
+        self.assertEqual(_nasm(src), binary)
+
+    def test_operand_follows_an_inserted_data_byte(self):
+        binary = self._image()
+        src = self._source(binary, {'dseg_0004': 0x04, 'bss_0012': 0x12})
+        grown = src.replace('__zdataseg_start:',
+                            '__zdataseg_start:\n    db 0xee', 1)
+        built = _nasm(grown)
+        # A file-backed byte: the target that was at DS:4 is now at DS:5, so
+        # the operand follows it.
+        self.assertEqual(built[0x200:0x203], b'\xa1\x05\x00')
+        self.assertEqual(built[self.DATA_ORIGIN + 5], self.DATA[4])
+        # A BSS byte: offset 0x12 is one byte further into the segment (0x13),
+        # because the file-backed data grew by one.
+        self.assertEqual(built[0x203:0x207], b'\x8b\x1e\x13\x00')
+
+
+class DataStringAnchorTests(unittest.TestCase):
+    """D1: a reference *inside* a string anchors to the string start.
+
+    A word read from the middle of an Aztec string (e.g. the ``push word
+    [0x2e]`` PSP-stack idiom) is not a data symbol.  The label must not slice
+    the literal, but the reference must still move with the data before it.
+    """
+
+    def _image(self):
+        header = _mz_header(e_ss=1)
+        code = b'\xa1\x02\x00'                 # mov ax, [dseg_0002]
+        gap = bytes(0x210 - (0x200 + len(code)))
+        data = b'ABCDEFGH' + b'\x00' + bytes([0, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77])
+        binary = bytearray(header + code + gap + data)
+        struct.pack_into('<HH', binary, 2, len(binary) % 512,
+                         (len(binary) + 511) // 512)
+        return bytes(binary)
+
+    def _source(self, binary):
+        records = [
+            {'type': 'mnem', 'text': 'mov ax, [dseg_0002]',
+             'offset': 0x200, 'size': 3},
+            {'type': 'data_block', 'start': 0x203, 'end': len(binary),
+             'bytes': []},
+        ]
+        src, _ = _build_source(records, 0x200, binary, label_map={},
+                               mem_equ={'dseg_0002': 0x02})
+        return src
+
+    def test_reference_anchors_to_string_start(self):
+        binary = self._image()
+        src = self._source(binary)
+        self.assertIn('dseg_0002 equ __zstr_0000 - __zdataseg_start + 0x0002',
+                      src)
+        self.assertIn('__zstr_0000:', src)
+        self.assertNotIn('__zdseg_0002:', src)
+        self.assertIn("db 'ABCDEFGH'", src)
+        self.assertEqual(_nasm(src), binary)
+
+    def test_anchor_survives_an_inserted_string_byte(self):
+        src = self._source(self._image())
+        # Insert a byte before the string: the start label moves, so the
+        # anchored reference (string start + 2) moves with it.
+        grown = src.replace('__zdataseg_start:',
+                            '__zdataseg_start:\n    db 0xee', 1)
+        built = _nasm(grown)
+        self.assertEqual(built[0x200:0x203], b'\xa1\x03\x00')
+
+
 class InsertBytePropertyTests(unittest.TestCase):
     """Acceptance test: editing a fragment keeps the image consistent.
 
@@ -262,6 +376,140 @@ class InsertBytePropertyTests(unittest.TestCase):
             g_cblp, g_cp = struct.unpack_from('<HH', grown, 2)
             self.assertEqual(g_cblp, len(grown) % 512)
             self.assertEqual(g_cp, (len(grown) + 511) // 512)
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
+                         'generated asm_DSAVANT tree not present')
+    def test_vinstall_data_insert_moves_promoted_pointers(self):
+        """D5: a promoted pointer word follows an edit inside the data segment.
+
+        The graphics-board menu is a ``char *`` array at DS 0x02 (file 0x3ae2);
+        entry ``dseg_000e`` names the '0-NO GRAPHICS BOARD' string.  Inserting a
+        byte between the array and that string must move both the label and the
+        stored word by one, so the word still names the same byte content.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'vinstall.asm')
+            original = _nasm_file(master, d)
+            data_origin = 0x200 + struct.unpack_from('<H', original, 14)[0] * 16
+            word_off = 0x3ae2
+            start = struct.unpack_from('<H', original, word_off)[0]
+            target = data_origin + start
+            content = original[target:target + 23]
+            self.assertEqual(content, b'0-NO GRAPHICS BOARD   \x00')
+
+            with open(master) as f:
+                src = f.read()
+            grown_src = src.replace('__zdseg_000e:',
+                                    '    db 0xee\n__zdseg_000e:', 1)
+            self.assertNotEqual(grown_src, src)
+            with open(master, 'w') as f:
+                f.write(grown_src)
+            grown = _nasm_file(master, d)
+
+            new_origin = 0x200 + struct.unpack_from('<H', grown, 14)[0] * 16
+            new_start = struct.unpack_from('<H', grown, word_off)[0]
+            self.assertEqual(new_origin, data_origin)
+            self.assertEqual(new_start, start + 1)
+            self.assertEqual(
+                grown[new_origin + new_start:new_origin + new_start + 23],
+                content)
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
+                         'generated asm_DSAVANT tree not present')
+    def test_vinstall_data_delete_moves_promoted_pointers(self):
+        """D5: the same property for a deletion (array stays word-aligned)."""
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'vinstall.asm')
+            original = _nasm_file(master, d)
+            data_origin = 0x200 + struct.unpack_from('<H', original, 14)[0] * 16
+            start = struct.unpack_from('<H', original, 0x3ae2)[0]
+            content = original[data_origin + start:data_origin + start + 23]
+
+            with open(master) as f:
+                src = f.read()
+            shrunk_src = src.replace('__zdataseg_start:\n    db 0x00, 0x00\n',
+                                     '__zdataseg_start:\n', 1)
+            self.assertNotEqual(shrunk_src, src)
+            with open(master, 'w') as f:
+                f.write(shrunk_src)
+            shrunk = _nasm_file(master, d)
+
+            new_origin = 0x200 + struct.unpack_from('<H', shrunk, 14)[0] * 16
+            # The array moved back by two bytes; its first entry is now at the
+            # data origin and still names the same string.
+            self.assertEqual(new_origin, data_origin)
+            new_start = struct.unpack_from('<H', shrunk, 0x3ae0)[0]
+            self.assertEqual(new_start, start - 2)
+            self.assertEqual(
+                shrunk[new_origin + new_start:new_origin + new_start + 23],
+                content)
+
+
+class DataPointerCorpusTests(unittest.TestCase):
+    """D3: the seed ``data_pointers`` corpus matches the real binaries.
+
+    The corpus is deliberately small — it is the calibration set for the D4
+    scorer and the pin for the false-positive direction (plan Section 14).
+    These tests keep the seed honest against the binaries it describes.
+    """
+
+    _FILES = {'ds': 'DS.EXE', 'vinstall': 'VINSTALL.EXE'}
+
+    @classmethod
+    def setUpClass(cls):
+        cls.sidecar = load_sidecar('DSAVANT')
+
+    def _read(self, binary):
+        path = _PROJECT_ROOT / 'apps' / 'DSAVANT' / self._FILES[binary]
+        with open(path, 'rb') as f:
+            return f.read()
+
+    def _image_start(self, binary):
+        data = self._read(binary)
+        return struct.unpack_from('<H', data, 8)[0] * 16
+
+    def test_corpus_targets_match_the_stored_words(self):
+        seen = 0
+        for binary in self._FILES:
+            data = self._read(binary)
+            for entry in per_binary(self.sidecar, binary)['data_pointers']:
+                target = entry.get('target', '')
+                if not target.startswith('dseg_'):
+                    continue
+                value = struct.unpack_from('<H', data, entry['offset'])[0]
+                self.assertEqual(
+                    value, int(target[len('dseg_'):], 16),
+                    f'{binary}: word at {entry["offset"]:#x} is {value:#06x}, '
+                    f'not {target}')
+                seen += 1
+        self.assertGreater(seen, 0, 'the seed corpus is empty')
+
+    def test_corpus_offsets_lie_in_the_loaded_image(self):
+        # The F7 candidate space is every non-code span of the image, not only
+        # the DS data segment: e.g. vinstall 0x113c/0x1b44 are DS-pointer tables
+        # stored in the code segment, and ds 0x30dc/0x3672 are code-segment data
+        # words read through cs:.  Corpus words may live anywhere in the image.
+        for binary in self._FILES:
+            origin = self._image_start(binary)
+            size = len(self._read(binary))
+            result = per_binary(self.sidecar, binary)
+            for entry in result['data_pointers'] + result['not_pointers']:
+                self.assertGreaterEqual(
+                    entry['offset'], origin,
+                    f'{binary}: {entry["offset"]:#x} precedes the loaded image')
+                self.assertLessEqual(
+                    entry['offset'] + 2, size,
+                    f'{binary}: {entry["offset"]:#x} runs past EOF')
+
+    def test_no_offset_is_asserted_both_ways(self):
+        for binary in self._FILES:
+            result = per_binary(self.sidecar, binary)
+            asserted = {e['offset'] for e in result['data_pointers']}
+            denied = {e['offset'] for e in result['not_pointers']}
+            self.assertFalse(asserted & denied,
+                             f'{binary}: offset asserted both ways')
 
 
 class CommittedTreeBaselineTests(unittest.TestCase):

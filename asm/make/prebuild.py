@@ -32,26 +32,44 @@ def cmd_prebuild(app, binary=None):
     # behind one inter-process lock (see lib/aztec/compile._dosbox_lock).
     os.environ['ASM_DOSBOX_LOCK'] = os.path.join(out_dir, '.dosbox.lock')
     targets = [binary] if binary else sorted(bins)
+    outputs = {name: [] for name in targets}
+    failures = []
     try:
         with ThreadPoolExecutor(max_workers=JOBS) as ex:
-            futures = {ex.submit(_asm_one, app, name): name
+            futures = {ex.submit(_asm_one, app, name, None, outputs[name]): name
                        for name in targets}
             for future in as_completed(futures):
                 rc = future.result()
                 if rc != 0:
-                    sys.exit(rc)
+                    failures.append(futures[future])
     finally:
         os.environ.pop('ASM_AZTEC_PREBUILD', None)
         os.environ.pop('ASM_AZTEC_PREBUILD_ONLY', None)
         os.environ.pop('ASM_DOSBOX_LOCK', None)
 
+    # Binaries run in parallel, so their completion order is arbitrary.  Group
+    # the captured output by binary name (empty output for binaries with no
+    # aztec_* labels is skipped) so the run reads top-to-bottom.
+    print(f'prebuild {app}: resolving Aztec C routines '
+          f'({len(targets)} binaries)...')
+    for name in targets:
+        if not outputs[name]:
+            continue
+        print(f'\n{name}')
+        for line in outputs[name]:
+            print(line)
+
+    if failures:
+        print(f'prebuild {app}: {len(set(failures))} binary(ies) failed')
+        sys.exit(1)
+
     target = f'{app}/{binary}' if binary else app
-    print(f'prebuild {target} -> {out_dir}  [OK]')
+    print(f'\nprebuild {target} -> {out_dir}  [OK]')
 
 
 def _ensure_prebuild(app):
     """Run the prebuild only when ``.cache/asm_prebuild_<app>/`` is absent."""
     if os.path.isdir(prebuild_dir(app)):
         return
-    print(f'{app}: .cache/asm_prebuild_{app}/ missing; running prebuild first')
+    print(f'{app}: prebuild cache missing; running the Aztec C mux first...')
     cmd_prebuild(app)

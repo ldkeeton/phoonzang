@@ -29,81 +29,105 @@ IMAGE_BASE equ 0x0200
 loc_1fb2 equ 0x1fb2
 leaf_loc_5fe5 equ 0x5fe5
 psp_top_of_memory equ 0x0002
-dseg_0004 equ 0x0004
-dseg_0006 equ 0x0006
+dseg_0004 equ __zdseg_0004 - __zdataseg_start
+dseg_0006 equ __zdseg_0006 - __zdataseg_start
+dseg_000e equ __zdseg_000e - __zdataseg_start
+dseg_0025 equ __zdseg_0025 - __zdataseg_start
 psp_env_segment equ 0x002c
-dseg_002e equ 0x002e
-dseg_0030 equ 0x0030
+dseg_002e equ __zstr_0025 - __zdataseg_start + 0x0009
+dseg_0030 equ __zstr_0025 - __zdataseg_start + 0x000b
+dseg_003c equ __zdseg_003c - __zdataseg_start
+dseg_0053 equ __zdseg_0053 - __zdataseg_start
+dseg_006a equ __zdseg_006a - __zdataseg_start
 psp_cmd_tail_len equ 0x0080
-dseg_230e equ 0x230e
-dseg_2310 equ 0x2310
-dseg_2312 equ 0x2312
-dseg_2314 equ 0x2314
-dseg_2316 equ 0x2316
-dseg_2318 equ 0x2318
-dseg_231a equ 0x231a
-dseg_231c equ 0x231c
-dseg_234a equ 0x234a
-dseg_244e equ 0x244e
-dseg_24d4 equ 0x24d4
-dseg_24d6 equ 0x24d6
-dseg_24d8 equ 0x24d8
-dseg_24da equ 0x24da
-dseg_24dc equ 0x24dc
-dseg_24de equ 0x24de
-dseg_24e0 equ 0x24e0
-dseg_24e4 equ 0x24e4
-dseg_2500 equ 0x2500
-dseg_2512 equ 0x2512
-dseg_2514 equ 0x2514
-dseg_2516 equ 0x2516
-dseg_2518 equ 0x2518
-dseg_251a equ 0x251a
-dseg_251b equ 0x251b
-dseg_251c equ 0x251c
-dseg_252e equ 0x252e
-dseg_2530 equ 0x2530
-dseg_2532 equ 0x2532
-bss_2534 equ 0x2534
-bss_2536 equ 0x2536
-bss_2538 equ 0x2538
-bss_253a equ 0x253a
-bss_253c equ 0x253c
-bss_2642 equ 0x2642
-bss_2644 equ 0x2644
-bss_2645 equ 0x2645
-bss_2646 equ 0x2646
-bss_2647 equ 0x2647
-bss_2698 equ 0x2698
-bss_29ba equ 0x29ba
-bss_29bb equ 0x29bb
-bss_29d0 equ 0x29d0
-bss_29d1 equ 0x29d1
-bss_29d2 equ 0x29d2
-bss_29d4 equ 0x29d4
-bss_29d5 equ 0x29d5
-bss_29d6 equ 0x29d6
-bss_29d7 equ 0x29d7
-bss_29d8 equ 0x29d8
-bss_29da equ 0x29da
-bss_29dc equ 0x29dc
-bss_29dd equ 0x29dd
-bss_29df equ 0x29df
-bss_29e1 equ 0x29e1
-bss_29e2 equ 0x29e2
-bss_29e3 equ 0x29e3
-bss_29e6 equ 0x29e6
-bss_29e8 equ 0x29e8
-bss_29ea equ 0x29ea
-bss_29ec equ 0x29ec
-bss_29ee equ 0x29ee
-bss_2af0 equ 0x2af0
-bss_2af2 equ 0x2af2
-bss_2af4 equ 0x2af4
-bss_2af6 equ 0x2af6
-bss_2af8 equ 0x2af8
-bss_2afa equ 0x2afa
-bss_2afc equ 0x2afc
+dseg_0081 equ __zdseg_0081 - __zdataseg_start
+dseg_009c equ __zdseg_009c - __zdataseg_start
+dseg_00a0 equ __zdseg_00a0 - __zdataseg_start
+dseg_00b4 equ __zdseg_00b4 - __zdataseg_start
+dseg_00c8 equ __zdseg_00c8 - __zdataseg_start
+dseg_00dc equ __zdseg_00dc - __zdataseg_start
+dseg_00f0 equ __zdseg_00f0 - __zdataseg_start
+dseg_0104 equ __zdseg_0104 - __zdataseg_start
+dseg_0118 equ __zdseg_0118 - __zdataseg_start
+dseg_012c equ __zdseg_012c - __zdataseg_start
+dseg_0140 equ __zdseg_0140 - __zdataseg_start
+dseg_0158 equ __zdseg_0158 - __zdataseg_start
+dseg_015c equ __zdseg_015c - __zdataseg_start
+dseg_016a equ __zdseg_016a - __zdataseg_start
+dseg_0181 equ __zdseg_0181 - __zdataseg_start
+dseg_0198 equ __zdseg_0198 - __zdataseg_start
+dseg_01af equ __zdseg_01af - __zdataseg_start
+dseg_01c6 equ __zdseg_01c6 - __zdataseg_start
+dseg_230e equ __zdseg_230e - __zdataseg_start
+dseg_2310 equ __zdseg_2310 - __zdataseg_start
+dseg_2312 equ __zdseg_2312 - __zdataseg_start
+dseg_2314 equ __zdseg_2314 - __zdataseg_start
+dseg_2316 equ __zdseg_2316 - __zdataseg_start
+dseg_2318 equ __zdseg_2318 - __zdataseg_start
+dseg_231a equ __zdseg_231a - __zdataseg_start
+dseg_231c equ __zdseg_231c - __zdataseg_start
+dseg_234a equ __zdseg_234a - __zdataseg_start
+dseg_244e equ __zdseg_244e - __zdataseg_start
+dseg_24d4 equ __zdseg_24d4 - __zdataseg_start
+dseg_24d6 equ __zdseg_24d6 - __zdataseg_start
+dseg_24d8 equ __zdseg_24d8 - __zdataseg_start
+dseg_24da equ __zdseg_24da - __zdataseg_start
+dseg_24dc equ __zdseg_24dc - __zdataseg_start
+dseg_24de equ __zdseg_24de - __zdataseg_start
+dseg_24e0 equ __zdseg_24e0 - __zdataseg_start
+dseg_24e4 equ __zdseg_24e4 - __zdataseg_start
+dseg_2500 equ __zdseg_2500 - __zdataseg_start
+dseg_2512 equ __zdseg_2512 - __zdataseg_start
+dseg_2514 equ __zdseg_2514 - __zdataseg_start
+dseg_2516 equ __zdseg_2516 - __zdataseg_start
+dseg_2518 equ __zdseg_2518 - __zdataseg_start
+dseg_251a equ __zdseg_251a - __zdataseg_start
+dseg_251b equ __zdseg_251b - __zdataseg_start
+dseg_251c equ __zdseg_251c - __zdataseg_start
+dseg_252e equ __zdseg_252e - __zdataseg_start
+dseg_2530 equ __zdseg_2530 - __zdataseg_start
+dseg_2532 equ __zdseg_2532 - __zdataseg_start
+bss_2534 equ (__zimage_end - __zdataseg_start)
+bss_2536 equ (__zimage_end - __zdataseg_start) + 0x0002
+bss_2538 equ (__zimage_end - __zdataseg_start) + 0x0004
+bss_253a equ (__zimage_end - __zdataseg_start) + 0x0006
+bss_253c equ (__zimage_end - __zdataseg_start) + 0x0008
+bss_2642 equ (__zimage_end - __zdataseg_start) + 0x010e
+bss_2644 equ (__zimage_end - __zdataseg_start) + 0x0110
+bss_2645 equ (__zimage_end - __zdataseg_start) + 0x0111
+bss_2646 equ (__zimage_end - __zdataseg_start) + 0x0112
+bss_2647 equ (__zimage_end - __zdataseg_start) + 0x0113
+bss_2698 equ (__zimage_end - __zdataseg_start) + 0x0164
+bss_29ba equ (__zimage_end - __zdataseg_start) + 0x0486
+bss_29bb equ (__zimage_end - __zdataseg_start) + 0x0487
+bss_29d0 equ (__zimage_end - __zdataseg_start) + 0x049c
+bss_29d1 equ (__zimage_end - __zdataseg_start) + 0x049d
+bss_29d2 equ (__zimage_end - __zdataseg_start) + 0x049e
+bss_29d4 equ (__zimage_end - __zdataseg_start) + 0x04a0
+bss_29d5 equ (__zimage_end - __zdataseg_start) + 0x04a1
+bss_29d6 equ (__zimage_end - __zdataseg_start) + 0x04a2
+bss_29d7 equ (__zimage_end - __zdataseg_start) + 0x04a3
+bss_29d8 equ (__zimage_end - __zdataseg_start) + 0x04a4
+bss_29da equ (__zimage_end - __zdataseg_start) + 0x04a6
+bss_29dc equ (__zimage_end - __zdataseg_start) + 0x04a8
+bss_29dd equ (__zimage_end - __zdataseg_start) + 0x04a9
+bss_29df equ (__zimage_end - __zdataseg_start) + 0x04ab
+bss_29e1 equ (__zimage_end - __zdataseg_start) + 0x04ad
+bss_29e2 equ (__zimage_end - __zdataseg_start) + 0x04ae
+bss_29e3 equ (__zimage_end - __zdataseg_start) + 0x04af
+bss_29e6 equ (__zimage_end - __zdataseg_start) + 0x04b2
+bss_29e8 equ (__zimage_end - __zdataseg_start) + 0x04b4
+bss_29ea equ (__zimage_end - __zdataseg_start) + 0x04b6
+bss_29ec equ (__zimage_end - __zdataseg_start) + 0x04b8
+bss_29ee equ (__zimage_end - __zdataseg_start) + 0x04ba
+bss_2af0 equ (__zimage_end - __zdataseg_start) + 0x05bc
+bss_2af2 equ (__zimage_end - __zdataseg_start) + 0x05be
+bss_2af4 equ (__zimage_end - __zdataseg_start) + 0x05c0
+bss_2af6 equ (__zimage_end - __zdataseg_start) + 0x05c2
+bss_2af8 equ (__zimage_end - __zdataseg_start) + 0x05c4
+bss_2afa equ (__zimage_end - __zdataseg_start) + 0x05c6
+bss_2afc equ (__zimage_end - __zdataseg_start) + 0x05c8
+bss_2afe equ (__zimage_end - __zdataseg_start) + 0x05ca
 
 loc_0200:
     push bp                          ; 0x0200
@@ -419,29 +443,116 @@ jumptable_3053:
     __zdataseg_para equ (0x3ae0 - 0x200) / 16
 %endif
 __zdataseg_start:
-    db 0x00, 0x00, 0x0e, 0x00, 0x25, 0x00, 0x3c, 0x00, 0x53, 0x00, 0x6a, 0x00, 0x81, 0x00
+    db 0x00, 0x00
+
+    dw dseg_000e                               ; 0x3ae2
+__zdseg_0004:
+    dw dseg_0025                               ; 0x3ae4
+__zdseg_0006:
+    dw dseg_003c                               ; 0x3ae6
+    dw dseg_0053                               ; 0x3ae8
+    dw dseg_006a                               ; 0x3aea
+    dw dseg_0081                               ; 0x3aec
+__zdseg_000e:
+
     db '0-NO GRAPHICS BOARD   ', 0
+
+__zstr_0025:
+__zdseg_0025:
+
     db '1-VGA/MCGA (256 Color)', 0
+
+__zdseg_003c:
+
     db '2-EGA      (16 Color) ', 0
+
+__zdseg_0053:
+
     db '3-CGA      (4 Color)  ', 0
+
+__zdseg_006a:
+
     db '4-HERCULES B/W Mono   ', 0
+
+__zdseg_0081:
+
     db '5-TANDY    (16 Color) ', 0
-    db 0x9c, 0x00, 0xa0, 0x00, 0x4f, 0x4e, 0x20, 0x00, 0x4f, 0x46, 0x46, 0x00, 0xb4, 0x00, 0xc8, 0x00
-    db 0xdc, 0x00, 0xf0, 0x00, 0x04, 0x01, 0x18, 0x01, 0x2c, 0x01, 0x40, 0x01
+
+    dw dseg_009c                               ; 0x3b78
+    dw dseg_00a0                               ; 0x3b7a
+__zdseg_009c:
+    db 0x4f, 0x4e, 0x20, 0x00
+__zdseg_00a0:
+    db 0x4f, 0x46, 0x46, 0x00
+    dw dseg_00b4                               ; 0x3b84
+    dw dseg_00c8                               ; 0x3b86
+    dw dseg_00dc                               ; 0x3b88
+    dw dseg_00f0                               ; 0x3b8a
+    dw dseg_0104                               ; 0x3b8c
+    dw dseg_0118                               ; 0x3b8e
+    dw dseg_012c                               ; 0x3b90
+    dw dseg_0140                               ; 0x3b92
+__zdseg_00b4:
+
     db 'PC INTERNAL SPEAKER', 0
+
+__zdseg_00c8:
+
     db 'AD LIB BOARD       ', 0
+
+__zdseg_00dc:
+
     db 'COVOX SOUNDMASTER  ', 0
+
+__zdseg_00f0:
+
     db 'COVOX VOICEMASTER  ', 0
+
+__zdseg_0104:
+
     db 'SOUND BLASTER      ', 0
+
+__zdseg_0118:
+
     db 'ROLAND LAPC-1/MT-32', 0
+
+__zdseg_012c:
+
     db 'COVOX SMII         ', 0
+
+__zdseg_0140:
+
     db 'NONE               ', 0
-    db 0x58, 0x01, 0x5c, 0x01, 0x4e, 0x4f, 0x20, 0x00, 0x59, 0x45, 0x53, 0x00, 0x6a, 0x01, 0x81, 0x01
-    db 0x98, 0x01, 0xaf, 0x01, 0xc6, 0x01
+
+    dw dseg_0158                               ; 0x3c34
+    dw dseg_015c                               ; 0x3c36
+__zdseg_0158:
+    db 0x4e, 0x4f, 0x20, 0x00
+__zdseg_015c:
+    db 0x59, 0x45, 0x53, 0x00
+    dw dseg_016a                               ; 0x3c40
+    dw dseg_0181                               ; 0x3c42
+    dw dseg_0198                               ; 0x3c44
+    dw dseg_01af                               ; 0x3c46
+    dw dseg_01c6                               ; 0x3c48
+__zdseg_016a:
+
     db 'Floppy 5.25L (360k)   ', 0
+
+__zdseg_0181:
+
     db 'Floppy 5.25H (1.2Meg) ', 0
+
+__zdseg_0198:
+
     db 'Floppy 3.5L  (720k)   ', 0
+
+__zdseg_01af:
+
     db 'Floppy 3.5H  (1.44Meg)', 0
+
+__zdseg_01c6:
+
     db 'Hard (Fixed) Drive    ', 0
     times 4 db 0
     db 0x01, 0x00, 0x03, 0x00, 0x03, 0x00, 0x04, 0x00, 0x06, 0x00, 0x06, 0x00, 0x07, 0x00, 0x09, 0x00
@@ -1054,14 +1165,34 @@ __zdataseg_start:
     db 'UNABLE TO COMPLETE INSTALLATION - Press <RETURN>', 0
     db 'CRUSADERS OF THE DARK SAVANT INSTALLATION COMPLETE!', 0
     db 'To Play The Game, Type: WIZARDRY <cr>', 0
-    db 0x00, 0x2e, 0x00, 0x2e
-    times 15 db 0
+    db 0x00, 0x2e, 0x00, 0x2e, 0x00
+
+__zdseg_230e:
+    db 0x00, 0x00
+__zdseg_2310:
+    db 0x00, 0x00
+__zdseg_2312:
+    db 0x00, 0x00
+__zdseg_2314:
+    db 0x00, 0x00
+__zdseg_2316:
+    db 0x00, 0x00
+__zdseg_2318:
+    db 0x00, 0x00
+__zdseg_231a:
+    db 0x00, 0x00
+__zdseg_231c:
+
     db 0x72
     times 4 db 0
     db 0x72, 0x2b, 0x00, 0x02, 0x00, 0x77, 0x00, 0x00, 0x01, 0x03, 0x77, 0x2b, 0x00, 0x02, 0x03, 0x61
     db 0x00, 0x00, 0x01, 0x09, 0x61, 0x2b, 0x00, 0x02, 0x09, 0x78, 0x00, 0x00, 0x01, 0x05, 0x78, 0x2b
     db 0x00, 0x02, 0x05
-    times 12 db 0
+    times 6 db 0
+
+__zdseg_234a:
+
+    times 6 db 0
     db 0x01, 0x00, 0x00, 0x01
     times 9 db 0
     db 0x01, 0x01, 0x00, 0x01
@@ -1072,6 +1203,9 @@ __zdataseg_start:
     times 9 db 0
     db 0x01, 0x04, 0x00, 0x01
     times 198 db 0
+
+__zdseg_244e:
+
     db 0x38, 0x25, 0x38, 0x25, 0x00
     db '         00000                  '
     db 0x90
@@ -1084,15 +1218,53 @@ __zdataseg_start:
     db 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02
     db 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02
     db '@@@@ ', 0
-    db 0xfe, 0x2a
-    times 12 db 0
-    db 0xff, 0xff, 0x00, 0x00
-    db '8087/80287 is required!'
-    db 0x0d, 0x0a, 0x24, 0x3b, 0x35, 0x00
-    db 'Too many args.', 0
-    db 0x00, 0x01, 0x00, 0x08, 0x00, 0x01
-    times 22 db 0
-    db 0xd9, 0x36, 0x3e, 0x37, 0x0a, 0x0d
 
+__zdseg_24d4:
+    dw bss_2afe                                ; 0x5fb4
+__zdseg_24d6:
+    db 0x00, 0x00
+__zdseg_24d8:
+    db 0x00, 0x00
+__zdseg_24da:
+    db 0x00, 0x00
+__zdseg_24dc:
+    db 0x00, 0x00
+__zdseg_24de:
+    db 0x00, 0x00
+__zdseg_24e0:
+    db 0x00, 0x00, 0xff, 0xff
+__zdseg_24e4:
+
+    db 0x00, 0x00
+    db '8087/80287 is required!'
+    db 0x0d, 0x0a, 0x24
+
+__zdseg_2500:
+
+    db 0x3b, 0x35, 0x00
+    db 'Too many args.', 0
+
+__zdseg_2512:
+    db 0x00, 0x01
+__zdseg_2514:
+    db 0x00, 0x08
+__zdseg_2516:
+    db 0x00, 0x01
+__zdseg_2518:
+    db 0x00, 0x00
+__zdseg_251a:
+    db 0x00
+__zdseg_251b:
+    db 0x00
+__zdseg_251c:
+
+    times 18 db 0
+
+__zdseg_252e:
+    db 0xd9, 0x36
+__zdseg_2530:
+    db 0x3e, 0x37
+__zdseg_2532:
+    db 0x0a, 0x0d
 
 __zimage_end:

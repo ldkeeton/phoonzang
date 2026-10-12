@@ -68,15 +68,26 @@ def _extra_flags():
     return flags
 
 
-def _asm_one(app, binary, extra_args=None):
+def _asm_one(app, binary, extra_args=None, sink=None):
+    """Run ``python -m main <app> <binary>`` and report its output.
+
+    Empty stdout is normal (e.g. a prebuild binary with no ``aztec_*`` labels),
+    so blank lines are dropped rather than reprinted.  When *sink* is a list the
+    non-empty lines are appended to it instead of printed, letting callers group
+    and order parallel output deterministically.
+    """
     cmd = [sys.executable, '-m', 'main', app]
     cmd.extend(_extra_flags())
     cmd.append(binary)
     if extra_args:
         cmd.extend(extra_args)
     r = subprocess.run(cmd, capture_output=True, text=True, cwd=ASM)
-    for line in r.stdout.strip().split('\n'):
-        print(line)
+    lines = [line for line in r.stdout.splitlines() if line.strip()]
+    if sink is not None:
+        sink.extend(lines)
+    else:
+        for line in lines:
+            print(line)
     if r.returncode != 0 and r.stderr.strip():
         for line in r.stderr.strip().split('\n'):
             print(f'  {line}', file=sys.stderr)

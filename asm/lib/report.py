@@ -217,6 +217,13 @@ def summarize(ctx):
         'code_shift': _int(frozen.get('code_shift')),
         'data_shift': _int(frozen.get('data_shift')),
         'inert': _int(frozen.get('inert')),
+        'region_deprioritised_bytes': _int(
+            verify.get('region_deprioritised_bytes')),
+        'promoted_pointers': _int(
+            (verify.get('pointer_counts') or {}).get('promoted')),
+        'promoted_data_words': len(verify.get('promoted_data_words') or ()),
+        'unproven_data_words': _int(
+            (verify.get('pointer_counts') or {}).get('unproven')),
         'iterations': _int(it.get('iterations')),
         'converged': bool(it.get('converged', False)),
         'asm_hash': report.get('asm_hash', ''),

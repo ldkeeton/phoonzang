@@ -196,8 +196,14 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose):
     _save(path, binary, functions)
     if verbose:
         extracted = sum(1 for e in functions.values() if e.get('extracted'))
-        print(f'  aztec mux: {len(functions)} exact routines '
-              f'({extracted} extracted, {engine.compile_count} late compiles)')
+        if functions:
+            summary = (f'{len(functions)} routines recovered '
+                       f'({extracted} extracted)')
+            if engine.compile_count:
+                summary += f', {engine.compile_count} extra compiles'
+            print(f'  aztec mux: {summary}')
+        else:
+            print('  aztec mux: no routines recovered')
         for version, filename, compiler, error in engine.errors:
             print(f'    !  {version}/{filename} via {compiler}: {error}')
     return functions

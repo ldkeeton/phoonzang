@@ -28,106 +28,107 @@ IMAGE_BASE equ 0x0200
 
 bios_data_0410 equ 0x0410
 leaf_loc_10108 equ 0x10108
-dseg_0002 equ 0x0002
+dseg_0002 equ __zdseg_0002 - __zdataseg_start
 psp_top_of_memory equ 0x0002
-dseg_000a equ 0x000a
+dseg_000a equ __zdseg_000a - __zdataseg_start
 psp_env_segment equ 0x002c
 psp_cmd_tail_len equ 0x0080
-dseg_0c6c equ 0x0c6c
-dseg_0c70 equ 0x0c70
-dseg_0c72 equ 0x0c72
-dseg_0c74 equ 0x0c74
-dseg_0c76 equ 0x0c76
-dseg_0c78 equ 0x0c78
-dseg_0c7a equ 0x0c7a
-dseg_0c7c equ 0x0c7c
-dseg_0c7e equ 0x0c7e
-dseg_0c80 equ 0x0c80
-dseg_0c9c equ 0x0c9c
-dseg_0cd4 equ 0x0cd4
-dseg_0cd6 equ 0x0cd6
-dseg_0cd8 equ 0x0cd8
-dseg_0cda equ 0x0cda
-dseg_0cdc equ 0x0cdc
-dseg_0cdd equ 0x0cdd
-dseg_0cde equ 0x0cde
-dseg_0cf0 equ 0x0cf0
-dseg_0cf2 equ 0x0cf2
-dseg_0cf4 equ 0x0cf4
-bss_0cf6 equ 0x0cf6
-bss_0cf8 equ 0x0cf8
-bss_0cfa equ 0x0cfa
-bss_0cfc equ 0x0cfc
-bss_0cfe equ 0x0cfe
-bss_0d00 equ 0x0d00
-bss_0d02 equ 0x0d02
-bss_0d04 equ 0x0d04
-bss_0d06 equ 0x0d06
-bss_0e0c equ 0x0e0c
-bss_0e0e equ 0x0e0e
-bss_0e10 equ 0x0e10
-bss_0e12 equ 0x0e12
-bss_0e14 equ 0x0e14
-bss_0e16 equ 0x0e16
-bss_0e18 equ 0x0e18
-bss_0e1a equ 0x0e1a
-bss_0e1c equ 0x0e1c
-bss_0e1e equ 0x0e1e
-bss_0e20 equ 0x0e20
-bss_0e22 equ 0x0e22
-bss_0e24 equ 0x0e24
-bss_0e26 equ 0x0e26
-bss_0e28 equ 0x0e28
-bss_0e2a equ 0x0e2a
-bss_0e2c equ 0x0e2c
-bss_0e2e equ 0x0e2e
-bss_0e30 equ 0x0e30
-bss_0e32 equ 0x0e32
-bss_0e34 equ 0x0e34
-bss_0fd5 equ 0x0fd5
-bss_0fd6 equ 0x0fd6
-bss_1008 equ 0x1008
-bss_100a equ 0x100a
-bss_100c equ 0x100c
-bss_2d40 equ 0x2d40
-bss_2d58 equ 0x2d58
-bss_5212 equ 0x5212
-bss_5214 equ 0x5214
-bss_5216 equ 0x5216
-bss_5218 equ 0x5218
-bss_5962 equ 0x5962
-bss_5963 equ 0x5963
-bss_5964 equ 0x5964
-bss_597f equ 0x597f
-bss_5984 equ 0x5984
-bss_5985 equ 0x5985
-bss_5987 equ 0x5987
-bss_598c equ 0x598c
-bss_598e equ 0x598e
-bss_5990 equ 0x5990
-bss_59f4 equ 0x59f4
-bss_59f6 equ 0x59f6
-bss_59f8 equ 0x59f8
-bss_59fa equ 0x59fa
-bss_59fc equ 0x59fc
-bss_5b3e equ 0x5b3e
-bss_5b40 equ 0x5b40
-bss_5b42 equ 0x5b42
-bss_5b44 equ 0x5b44
-bss_5b46 equ 0x5b46
-bss_5b6c equ 0x5b6c
-bss_5b6e equ 0x5b6e
-bss_5b70 equ 0x5b70
-bss_69c8 equ 0x69c8
-bss_82b6 equ 0x82b6
-bss_82e8 equ 0x82e8
-bss_82ea equ 0x82ea
-bss_82ec equ 0x82ec
-bss_82ee equ 0x82ee
-bss_82f0 equ 0x82f0
-bss_830a equ 0x830a
-bss_830c equ 0x830c
-bss_9096 equ 0x9096
+dseg_0c6c equ __zdseg_0c6c - __zdataseg_start
+dseg_0c70 equ __zdseg_0c70 - __zdataseg_start
+dseg_0c72 equ __zdseg_0c72 - __zdataseg_start
+dseg_0c74 equ __zdseg_0c74 - __zdataseg_start
+dseg_0c76 equ __zdseg_0c76 - __zdataseg_start
+dseg_0c78 equ __zdseg_0c78 - __zdataseg_start
+dseg_0c7a equ __zdseg_0c7a - __zdataseg_start
+dseg_0c7c equ __zdseg_0c7c - __zdataseg_start
+dseg_0c7e equ __zdseg_0c7e - __zdataseg_start
+dseg_0c80 equ __zdseg_0c80 - __zdataseg_start
+dseg_0c9c equ __zdseg_0c9c - __zdataseg_start
+dseg_0cd4 equ __zdseg_0cd4 - __zdataseg_start
+dseg_0cd6 equ __zdseg_0cd6 - __zdataseg_start
+dseg_0cd8 equ __zdseg_0cd8 - __zdataseg_start
+dseg_0cda equ __zdseg_0cda - __zdataseg_start
+dseg_0cdc equ __zdseg_0cdc - __zdataseg_start
+dseg_0cdd equ __zdseg_0cdd - __zdataseg_start
+dseg_0cde equ __zdseg_0cde - __zdataseg_start
+dseg_0cf0 equ __zdseg_0cf0 - __zdataseg_start
+dseg_0cf2 equ __zdseg_0cf2 - __zdataseg_start
+dseg_0cf4 equ __zdseg_0cf4 - __zdataseg_start
+bss_0cf6 equ (__zimage_end - __zdataseg_start)
+bss_0cf8 equ (__zimage_end - __zdataseg_start) + 0x0002
+bss_0cfa equ (__zimage_end - __zdataseg_start) + 0x0004
+bss_0cfc equ (__zimage_end - __zdataseg_start) + 0x0006
+bss_0cfe equ (__zimage_end - __zdataseg_start) + 0x0008
+bss_0d00 equ (__zimage_end - __zdataseg_start) + 0x000a
+bss_0d02 equ (__zimage_end - __zdataseg_start) + 0x000c
+bss_0d04 equ (__zimage_end - __zdataseg_start) + 0x000e
+bss_0d06 equ (__zimage_end - __zdataseg_start) + 0x0010
+bss_0e0c equ (__zimage_end - __zdataseg_start) + 0x0116
+bss_0e0e equ (__zimage_end - __zdataseg_start) + 0x0118
+bss_0e10 equ (__zimage_end - __zdataseg_start) + 0x011a
+bss_0e12 equ (__zimage_end - __zdataseg_start) + 0x011c
+bss_0e14 equ (__zimage_end - __zdataseg_start) + 0x011e
+bss_0e16 equ (__zimage_end - __zdataseg_start) + 0x0120
+bss_0e18 equ (__zimage_end - __zdataseg_start) + 0x0122
+bss_0e1a equ (__zimage_end - __zdataseg_start) + 0x0124
+bss_0e1c equ (__zimage_end - __zdataseg_start) + 0x0126
+bss_0e1e equ (__zimage_end - __zdataseg_start) + 0x0128
+bss_0e20 equ (__zimage_end - __zdataseg_start) + 0x012a
+bss_0e22 equ (__zimage_end - __zdataseg_start) + 0x012c
+bss_0e24 equ (__zimage_end - __zdataseg_start) + 0x012e
+bss_0e26 equ (__zimage_end - __zdataseg_start) + 0x0130
+bss_0e28 equ (__zimage_end - __zdataseg_start) + 0x0132
+bss_0e2a equ (__zimage_end - __zdataseg_start) + 0x0134
+bss_0e2c equ (__zimage_end - __zdataseg_start) + 0x0136
+bss_0e2e equ (__zimage_end - __zdataseg_start) + 0x0138
+bss_0e30 equ (__zimage_end - __zdataseg_start) + 0x013a
+bss_0e32 equ (__zimage_end - __zdataseg_start) + 0x013c
+bss_0e34 equ (__zimage_end - __zdataseg_start) + 0x013e
+bss_0fd5 equ (__zimage_end - __zdataseg_start) + 0x02df
+bss_0fd6 equ (__zimage_end - __zdataseg_start) + 0x02e0
+bss_1008 equ (__zimage_end - __zdataseg_start) + 0x0312
+bss_100a equ (__zimage_end - __zdataseg_start) + 0x0314
+bss_100c equ (__zimage_end - __zdataseg_start) + 0x0316
+bss_2d40 equ (__zimage_end - __zdataseg_start) + 0x204a
+bss_2d58 equ (__zimage_end - __zdataseg_start) + 0x2062
+bss_5212 equ (__zimage_end - __zdataseg_start) + 0x451c
+bss_5214 equ (__zimage_end - __zdataseg_start) + 0x451e
+bss_5216 equ (__zimage_end - __zdataseg_start) + 0x4520
+bss_5218 equ (__zimage_end - __zdataseg_start) + 0x4522
+bss_5962 equ (__zimage_end - __zdataseg_start) + 0x4c6c
+bss_5963 equ (__zimage_end - __zdataseg_start) + 0x4c6d
+bss_5964 equ (__zimage_end - __zdataseg_start) + 0x4c6e
+bss_597f equ (__zimage_end - __zdataseg_start) + 0x4c89
+bss_5984 equ (__zimage_end - __zdataseg_start) + 0x4c8e
+bss_5985 equ (__zimage_end - __zdataseg_start) + 0x4c8f
+bss_5987 equ (__zimage_end - __zdataseg_start) + 0x4c91
+bss_598c equ (__zimage_end - __zdataseg_start) + 0x4c96
+bss_598e equ (__zimage_end - __zdataseg_start) + 0x4c98
+bss_5990 equ (__zimage_end - __zdataseg_start) + 0x4c9a
+bss_59f4 equ (__zimage_end - __zdataseg_start) + 0x4cfe
+bss_59f6 equ (__zimage_end - __zdataseg_start) + 0x4d00
+bss_59f8 equ (__zimage_end - __zdataseg_start) + 0x4d02
+bss_59fa equ (__zimage_end - __zdataseg_start) + 0x4d04
+bss_59fc equ (__zimage_end - __zdataseg_start) + 0x4d06
+bss_5b3e equ (__zimage_end - __zdataseg_start) + 0x4e48
+bss_5b40 equ (__zimage_end - __zdataseg_start) + 0x4e4a
+bss_5b42 equ (__zimage_end - __zdataseg_start) + 0x4e4c
+bss_5b44 equ (__zimage_end - __zdataseg_start) + 0x4e4e
+bss_5b46 equ (__zimage_end - __zdataseg_start) + 0x4e50
+bss_5b6c equ (__zimage_end - __zdataseg_start) + 0x4e76
+bss_5b6e equ (__zimage_end - __zdataseg_start) + 0x4e78
+bss_5b70 equ (__zimage_end - __zdataseg_start) + 0x4e7a
+bss_69c8 equ (__zimage_end - __zdataseg_start) + 0x5cd2
+bss_82b6 equ (__zimage_end - __zdataseg_start) + 0x75c0
+bss_82e8 equ (__zimage_end - __zdataseg_start) + 0x75f2
+bss_82ea equ (__zimage_end - __zdataseg_start) + 0x75f4
+bss_82ec equ (__zimage_end - __zdataseg_start) + 0x75f6
+bss_82ee equ (__zimage_end - __zdataseg_start) + 0x75f8
+bss_82f0 equ (__zimage_end - __zdataseg_start) + 0x75fa
+bss_830a equ (__zimage_end - __zdataseg_start) + 0x7614
+bss_830c equ (__zimage_end - __zdataseg_start) + 0x7616
+bss_9096 equ (__zimage_end - __zdataseg_start) + 0x83a0
+bss_b198 equ (__zimage_end - __zdataseg_start) + 0xa4a2
 
 %include "ds/app_malloc.asm"               ; 0x0200
 
@@ -556,11 +557,16 @@ jumptable_4822:
     __zdataseg_para equ (0x10160 - 0x200) / 16
 %endif
 __zdataseg_start:
-    db 0x00, 0x00, 0x6c, 0x04, 0x00, 0x00, 0x15, 0x00, 0x18, 0x00, 0x84, 0x00, 0x88, 0x00, 0xf7, 0x00
-    db 0xf8, 0x00, 0x32, 0x00, 0x34, 0x00, 0x4b, 0x00, 0x4c, 0x00, 0xb3, 0x00, 0xb7, 0x00, 0x35, 0x00
-    db 0x35, 0x00, 0xab, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x09, 0x00
-    db 0x5f, 0x00, 0x35, 0x00, 0x1c, 0x00, 0xab, 0x00, 0x00, 0x00, 0x09, 0x00, 0x0a, 0x00, 0x11, 0x00
-    db 0x12, 0x00, 0x17, 0x00, 0x18, 0x00, 0x21
+    db 0x00, 0x00
+
+__zdseg_0002:
+    db 0x6c, 0x04, 0x00, 0x00, 0x15, 0x00, 0x18, 0x00
+__zdseg_000a:
+
+    db 0x84, 0x00, 0x88, 0x00, 0xf7, 0x00, 0xf8, 0x00, 0x32, 0x00, 0x34, 0x00, 0x4b, 0x00, 0x4c, 0x00
+    db 0xb3, 0x00, 0xb7, 0x00, 0x35, 0x00, 0x35, 0x00, 0xab, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00
+    db 0x5e, 0x00, 0x5e, 0x00, 0x09, 0x00, 0x5f, 0x00, 0x35, 0x00, 0x1c, 0x00, 0xab, 0x00, 0x00, 0x00
+    db 0x09, 0x00, 0x0a, 0x00, 0x11, 0x00, 0x12, 0x00, 0x17, 0x00, 0x18, 0x00, 0x21
     times 5 db 0
     db 0x01, 0x00, 0x0f, 0x00, 0x10, 0x00, 0x23, 0x00, 0x24, 0x00, 0x2b, 0x00, 0x2c, 0x00, 0x2f, 0x00
     db 0x30, 0x00, 0x3a, 0x00, 0x3b, 0x00, 0x3f, 0x00, 0x40, 0x00, 0x4a, 0x00, 0x4b, 0x00, 0x4f, 0x00
@@ -789,16 +795,60 @@ __zdataseg_start:
     db 'VMNPC', 0
     db 0x2e, 0x6f, 0x76, 0x72, 0x00
     db 'Error %d loading overlay: %s$', 0
-    db 0x00, 0x02, 0x0d, 0x02, 0x0d, 0x98, 0xb1
-    times 12 db 0
-    db 0xff, 0xff, 0x00, 0x00
+    db 0x00
+
+__zdseg_0c6c:
+    db 0x02, 0x0d, 0x02, 0x0d
+__zdseg_0c70:
+    dw bss_b198                                ; 0x10dd0
+__zdseg_0c72:
+    db 0x00, 0x00
+__zdseg_0c74:
+    db 0x00, 0x00
+__zdseg_0c76:
+    db 0x00, 0x00
+__zdseg_0c78:
+    db 0x00, 0x00
+__zdseg_0c7a:
+    db 0x00, 0x00
+__zdseg_0c7c:
+    db 0x00, 0x00
+__zdseg_0c7e:
+    db 0xff, 0xff
+__zdseg_0c80:
+
+    db 0x00, 0x00
     db '8087/80287 is required!'
-    db 0x0d, 0x0a, 0x24, 0xa3, 0x4c, 0x00
+    db 0x0d, 0x0a, 0x24
+
+__zdseg_0c9c:
+
+    db 0xa3, 0x4c, 0x00
     db 'Too many args.', 0
     db 'STACK OVERFLOW, INCREASE STACK SIZE'
-    db 0x0a, 0x00, 0x00, 0x00, 0x01, 0x00, 0x08, 0x00, 0x01
-    times 22 db 0
-    db 0x5c, 0x4e, 0xc1, 0x4e, 0x0a, 0x0d
+    db 0x0a, 0x00, 0x00
 
+__zdseg_0cd4:
+    db 0x00, 0x01
+__zdseg_0cd6:
+    db 0x00, 0x08
+__zdseg_0cd8:
+    db 0x00, 0x01
+__zdseg_0cda:
+    db 0x00, 0x00
+__zdseg_0cdc:
+    db 0x00
+__zdseg_0cdd:
+    db 0x00
+__zdseg_0cde:
+
+    times 18 db 0
+
+__zdseg_0cf0:
+    db 0x5c, 0x4e
+__zdseg_0cf2:
+    db 0xc1, 0x4e
+__zdseg_0cf4:
+    db 0x0a, 0x0d
 
 __zimage_end:

@@ -408,6 +408,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         segment_flow=ctx.segment_flow,
         segments=ctx.segments,
         entry_symbol=entry_symbol,
+        data_pointers=(ctx.sidecar_entry or {}).get('data_pointers', []),
+        not_pointers=(ctx.sidecar_entry or {}).get('not_pointers', []),
     )
     # Hard gate: a decoded instruction that could not be re-encoded is emitted
     # as ``db 0x.. ; <disassembly>``.  In the default semantic mode every
@@ -509,6 +511,16 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         'bare_dbc': stats.get('bare_dbc', 0),
         'frozen_addr': stats.get('frozen_addr', 0),
         'frozen_addr_detail': stats.get('frozen_addr_detail', {}),
+        'region_counts': stats.get('region_counts', {}),
+        'region_deprioritised_bytes': stats.get('region_deprioritised_bytes', 0),
+        'regions': stats.get('regions', []),
+        'pointer_counts': stats.get('pointer_counts', {}),
+        'pointer_precision': stats.get('pointer_precision'),
+        'pointer_recall': stats.get('pointer_recall'),
+        'promoted_pointers': stats.get('promoted_pointers', []),
+        'unproven_data_words': stats.get('unproven_data_words', []),
+        'promoted_data_words': stats.get('promoted_data_words', []),
+        'promotion_skipped': stats.get('promotion_skipped', []),
     }
     ctx.report['addresses'] = stats.get('address_records', [])
     _write_address_inventory(project, name, label_map, ctx.report['addresses'])
