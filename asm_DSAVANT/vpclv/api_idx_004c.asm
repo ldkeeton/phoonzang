@@ -173,7 +173,7 @@ api_idx_004c:
     mov ax, word [bp - 0x0004]       ; 0x297f
     shl ax, 1                        ; 0x2982
     mov bx, ax                       ; 0x2984
-    db 0x8b, 0x87, 0x1e, 0x00 ; mov ax, word [bx + 0x1e]
+    mov ax, word [word bx + 0x1e]    ; 0x2986
     mov cx, word [bp - 0x0002]       ; 0x298a
     shl cx, 1                        ; 0x298d
     mov bx, cx                       ; 0x298f

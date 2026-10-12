@@ -7,7 +7,7 @@ api_idx_0002_4:
     shl ax, 1                        ; 0x1882
     shl ax, 1                        ; 0x1884
     mov bx, ax                       ; 0x1886
-    db 0x8b, 0x87, 0x4a, 0x00 ; mov ax, word [bx + 0x4a]
+    mov ax, word [word bx + 0x4a]    ; 0x1888
     cmp ax, word [bp + 0x4]          ; 0x188c
     jge short @..api_idx_0002_4.l2   ; 0x188f
     inc word [bp - 0x0002]           ; 0x1891
@@ -17,8 +17,8 @@ api_idx_0002_4:
     shl ax, 1                        ; 0x1899
     shl ax, 1                        ; 0x189b
     mov bx, ax                       ; 0x189d
-    db 0xff, 0xb7, 0x4a, 0x00 ; push word [bx + 0x4a]
-    db 0xff, 0xb7, 0x48, 0x00 ; push word [bx + 0x48]
+    push word [word bx + 0x4a]       ; 0x189f
+    push word [word bx + 0x48]       ; 0x18a3
     mov ax, word [bp + 0x4]          ; 0x18a7
     add ax, word [bp + 0x6]          ; 0x18aa
     push ax                          ; 0x18ad

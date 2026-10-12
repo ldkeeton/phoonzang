@@ -15,10 +15,10 @@ leaf_loc_077b:
     jb short loc_07a2                ; 0x079a
     sub al, 0x49                     ; 0x079c
     shr al, 1                        ; 0x079e
-    db 0x8a, 0xe0 ; mov ah, al
+    mov ah, al                       ; 0x07a0
     mov byte [cs:data_0b93], ah      ; 0x07a2
     mov bx, 0x1a3a                   ; 0x07a7
-    db 0x32, 0xc9 ; xor cl, cl
+    xor cl, cl                       ; 0x07aa
     mov al, byte [bp + 0x12]         ; 0x07ac
     mov byte [cs:data_0b92], al      ; 0x07af
     mov al, byte [bp + 0x12]         ; 0x07b3
@@ -37,12 +37,12 @@ leaf_loc_077b:
     jne short loc_07b3               ; 0x07d8
     ret                              ; 0x07da
     mov bx, 0x1a3a                   ; 0x07db
-    db 0x32, 0xc9 ; xor cl, cl
+    xor cl, cl                       ; 0x07de
     mov al, byte [bp + 0x12]         ; 0x07e0
-    db 0x8a, 0xd0 ; mov dl, al
+    mov dl, al                       ; 0x07e3
     shr al, 1                        ; 0x07e5
     shr al, 1                        ; 0x07e7
-    db 0x8a, 0xc2 ; mov al, dl
+    mov al, dl                       ; 0x07e9
     mul cl                           ; 0x07eb
     mov byte [cs:bx], ah             ; 0x07ed
     inc bx                           ; 0x07f0
@@ -51,18 +51,18 @@ leaf_loc_077b:
     ret                              ; 0x07f5
     push bx                          ; 0x07f6
     push dx                          ; 0x07f7
-    db 0x32, 0xff ; xor bh, bh
-    db 0x8a, 0xdc ; mov bl, ah
+    xor bh, bh                       ; 0x07f8
+    mov bl, ah                       ; 0x07fa
     mov byte [cs:bx + 0x1529], al    ; 0x07fc
     mov dx, 0x388                    ; 0x0801
-    db 0x86, 0xc4 ; xchg ah, al
+    xchg ah, al                      ; 0x0804
     pushf                            ; 0x0806
     cli                              ; 0x0807
     call loc_0821                    ; 0x0808
     out dx, al                       ; 0x080b
     call loc_0831                    ; 0x080c
     inc dx                           ; 0x080f
-    db 0x86, 0xc4 ; xchg ah, al
+    xchg ah, al                      ; 0x0810
     out dx, al                       ; 0x0812
     call loc_0821                    ; 0x0813
     dec dx                           ; 0x0816
@@ -164,7 +164,7 @@ leaf_loc_077b:
     cs xlatb                         ; 0x08cc
     out dx, al                       ; 0x08ce
     add byte [cs:data_0b95], 0x80    ; 0x08cf
-    db 0x2e, 0x83, 0x16, 0xc4, 0x09, 0x00 ; adc word [cs:data_09c4], 0
+    adc word [cs:data_09c4], byte 0  ; 0x08d5
     jb short loc_08ff                ; 0x08db
     dec word [cs:data_0b81]          ; 0x08dd
     je short loc_08ed                ; 0x08e2
@@ -282,7 +282,7 @@ cseg_096e:
     cs xlatb                         ; 0x09b3
     out dx, al                       ; 0x09b5
     add byte [cs:data_0b95], 0x80    ; 0x09b6
-    db 0x2e, 0x83, 0x16, 0xa9, 0x0a, 0x00 ; adc word [cs:0x0aa9], 0
+    adc word [cs:data_0aa9], byte 0  ; 0x09bc
     jb short loc_0969                ; 0x09c2
 data_09c4:
 cseg_09c4:
@@ -304,7 +304,7 @@ cseg_09d4:
     mov ax, word [cs:data_0ba6]      ; 0x09e1
     mov bl, 0x48                     ; 0x09e5
     mul bl                           ; 0x09e7
-    db 0x8b, 0xd8 ; mov bx, ax
+    mov bx, ax                       ; 0x09e9
     mov ax, cs                       ; 0x09eb
     mov ds, ax                       ; 0x09ed
     mov dx, 0xbb4                    ; 0x09ef
@@ -320,10 +320,10 @@ cseg_09d4:
     mov al, 0x36                     ; 0x0a16
     out 0x43, al                     ; 0x0a18
     call leaf_loc_0610               ; 0x0a1a
-    db 0x8b, 0xc3 ; mov ax, bx
+    mov ax, bx                       ; 0x0a1d
     out 0x40, al                     ; 0x0a1f
     call leaf_loc_0610               ; 0x0a21
-    db 0x8a, 0xc4 ; mov al, ah
+    mov al, ah                       ; 0x0a24
     out 0x40, al                     ; 0x0a26
     pop dx                           ; 0x0a28
     ret                              ; 0x0a29

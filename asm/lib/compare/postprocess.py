@@ -157,7 +157,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                                       if i.address - start < safe_end_offset]
                         inline = _generate_inline_code(
                             safe_insns, raw[:safe_end_offset], start,
-                            binary_data, label_map, local_labels, exact_bytes=True,
+                            binary_data, label_map, local_labels, exact_bytes=exact_bytes,
                             foreign_label_map=foreign_label_map,
                             immediate_labels=immediate_labels,
                             data_labels=data_labels,
@@ -186,7 +186,7 @@ def _postprocess_data_blocks(records, binary_data, known_addrs, label_map, exact
                     # fall through to normal promotion
 
             if all_decoded or (0 < gap <= 3):
-                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, local_labels, exact_bytes=True,
+                inline = _generate_inline_code(insns, raw, start, binary_data, label_map, local_labels, exact_bytes=exact_bytes,
                                                foreign_label_map=foreign_label_map,
                                                immediate_labels=immediate_labels,
                                                data_labels=data_labels,

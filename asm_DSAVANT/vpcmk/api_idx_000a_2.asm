@@ -105,7 +105,7 @@ loc_2e9e:
     shl ax, 1                        ; 0x2ec1
     shl ax, 1                        ; 0x2ec3
     mov bx, ax                       ; 0x2ec5
-    db 0xff, 0xb7, 0x08, 0x00 ; push word [bx + 0x8]
+    push word [word bx + 0x8]        ; 0x2ec7
     mov ax, word [bp + 0x6]          ; 0x2ecb
     add ax, strict word 6            ; 0x2ece
     push ax                          ; 0x2ed1

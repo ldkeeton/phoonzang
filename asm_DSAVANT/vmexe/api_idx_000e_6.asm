@@ -47,7 +47,7 @@ api_idx_000e_6:
     shl ax, 1                        ; 0x6019
     shl ax, 1                        ; 0x601b
     mov bx, ax                       ; 0x601d
-    db 0xff, 0xb7, 0x06, 0x00 ; push word [bx + 0x6]
+    push word [word bx + 0x6]        ; 0x601f
     mov ax, 0x43                     ; 0x6023
     push ax                          ; 0x6026
     cmp word [bss_8464], byte 0      ; 0x6027

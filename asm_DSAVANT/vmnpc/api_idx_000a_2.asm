@@ -105,7 +105,7 @@ loc_7667:
     shl ax, 1                        ; 0x768a
     shl ax, 1                        ; 0x768c
     mov bx, ax                       ; 0x768e
-    db 0xff, 0xb7, 0x08, 0x00 ; push word [bx + 0x8]
+    push word [word bx + 0x8]        ; 0x7690
     mov ax, word [bp + 0x6]          ; 0x7694
     add ax, strict word 6            ; 0x7697
     push ax                          ; 0x769a

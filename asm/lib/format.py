@@ -80,10 +80,34 @@ _STANDALONE_PREFIX = {0x26, 0x2E, 0x36, 0x3E, 0xF0, 0xF2, 0xF3}
 # Segment override first bytes
 _SEG_PREFIXES = {0x26, 0x2E, 0x36, 0x3E}
 
+# Legacy prefixes that may precede the opcode byte.  The opcode-dependent
+# encoding decisions below (group-1 immediate width, accumulator ALU forms)
+# must look past these, otherwise a segment override hides the opcode.
+_PREFIX_BYTES = {0x26, 0x2E, 0x36, 0x3E, 0x66, 0x67, 0xF0, 0xF2, 0xF3}
+
+# x87 FPU memory-operand size by escape opcode byte, for the escapes whose
+# memory forms all share one size: D8/DA -> dword, DC -> qword, DE -> word.
+# 0xD9/0xDB/0xDD are omitted because their memory forms mix sizes (dword,
+# qword, tbyte, control word); those already carry a capstone size when
+# unambiguous.  Capstone omits the size for the arithmetic forms, which is
+# what leaves `fadd [si]` (0xDC) unencodable in NASM without a hint.
+_FPU_MEM_SIZE = {
+    0xD8: 'dword', 0xDA: 'dword', 0xDC: 'qword', 0xDE: 'word',
+}
+
 # Ops that need implicit count=1 in NASM  (capstone drops it)
 _OPS_NEED_IMPLICIT_ONE = {
     'rcl','rcr','rol','ror','sal','sar','shl','shr',
 }
+
+
+def _opcode_byte(insn):
+    """Return the opcode byte, skipping any leading legacy prefixes."""
+    b = insn.bytes
+    i = 0
+    while i < len(b) - 1 and b[i] in _PREFIX_BYTES:
+        i += 1
+    return b[i]
 
 
 def _is_far(insn):
@@ -137,6 +161,11 @@ def _fmt_mem(op, insn, op_index=None, data_labels=None, foreign_label_map=None,
     if idx:
         regs.append(idx)
     inner = ' + '.join(regs) if regs else ''
+    if inner and getattr(insn, 'disp_size', 0) == 2 and -128 <= disp <= 127:
+        # The original encodes a 16-bit displacement whose value also fits in
+        # a signed byte; NASM would shorten it to disp8, changing the
+        # instruction length.  Force the word-sized form: [word bx + 0x4a].
+        inner = 'word ' + inner
 
     # displacement
     addr = disp & 0xFFFF
@@ -297,9 +326,23 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
 
     ops = ', '.join(parts)
 
+    # — x87 FPU memory operand needs an explicit size for NASM ------------
+    # Capstone omits it; without e.g. ``qword`` NASM guesses dword and the
+    # encoding (and length) changes.
+    if has_mem and mnem.startswith('f'):
+        fsz = _FPU_MEM_SIZE.get(_opcode_byte(insn))
+        if fsz and not ops.startswith(('byte ', 'word ', 'dword ', 'qword ',
+                                        'tword ')):
+            ops = f'{fsz} {ops}'
+
     # — jmp/call indirect: strip size tag from memory operand ---------------
-    if mnem in ('jmp','call'):
-        ops = ops.replace('dword ', '').replace('word ', '').replace('byte ', '')
+    # Only the leading operand-size tag is implied; a ``word`` inside the
+    # brackets forces a 16-bit displacement and must be preserved.
+    if mnem in ('jmp', 'call'):
+        for tag in ('dword ', 'word ', 'byte '):
+            if ops.startswith(tag):
+                ops = ops[len(tag):]
+                break
 
     # — Jump / call distance keywords ---------------------------------------
     if mnem == 'jmp':
@@ -345,7 +388,9 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
 
     # — Encoding overrides (match exact opcode bytes) -----------------------
     # Group 1 opcodes: 0x83 = sign-extended imm8 (5-byte), 0x81 = imm16 (6-byte)
-    if b0 == 0x83:
+    # Look past any segment/operand-size prefix (e.g. ``26 83 3e …``).
+    op_b0 = _opcode_byte(insn)
+    if op_b0 == 0x83:
         # Force 'byte' on the immediate so NASM emits the 0x83 encoding
         # Format the immediate as a byte value (last byte of insn.bytes)
         imm_byte = b[-1]
@@ -354,7 +399,7 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
             parts_list[-1] = f' byte {_fmt_imm(imm_byte, 8)}'
             ops = ','.join(parts_list)
 
-    if b0 == 0x81:
+    if op_b0 == 0x81:
         # Full imm16 — with -O0 NASM uses this, but ensure strict word
         # to prevent future optimizer surprises
         parts_list = ops.split(',')
@@ -364,7 +409,7 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
             ops = ','.join(parts_list)
 
     # — Accumulator ALU: strict word ----------------------------------------
-    if b0 in _AX_ALU:
+    if op_b0 in _AX_ALU:
         m = list(insn.operands)
         if len(m) == 2 and m[0].type == CS_OP_REG and m[1].type == CS_OP_IMM:
             val = m[1].imm & 0xFFFF

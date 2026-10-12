@@ -21,7 +21,7 @@ api_idx_000c_3:
     shl ax, 1                        ; 0x1ba9
     shl ax, 1                        ; 0x1bab
     mov bx, ax                       ; 0x1bad
-    db 0xff, 0xb7, 0x06, 0x00 ; push word [bx + 0x6]
+    push word [word bx + 0x6]        ; 0x1baf
     call ds_loc_3a6a                 ; 0x1bb3
     add sp, byte 4                   ; 0x1bb6
     mov ax, word [bp - 0x0002]       ; 0x1bb9

@@ -13,7 +13,7 @@ io_loc_2f70:
     mov al, 8                        ; 0x2f8e
     out dx, al                       ; 0x2f90
     inc dx                           ; 0x2f91
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word [cs:cseg_1bf9 - IMAGE_BASE], 0
+    cmp word [cs:cseg_1bf9 - IMAGE_BASE], byte 0 ; 0x2f92
     je short @..io_loc_2f70.l1       ; 0x2f98
     jmp short @..io_loc_2f70.l3      ; 0x2f9a
 @..io_loc_2f70.l1:
@@ -76,7 +76,7 @@ io_loc_2f70:
     dec ax                           ; 0x3003
     jne short @..io_loc_2f70.l4      ; 0x3004
 @..io_loc_2f70.l5:
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:cseg_1bfb - IMAGE_BASE], 0
+    cmp word [cs:cseg_1bfb - IMAGE_BASE], byte 0 ; 0x3006
     jne short @..io_loc_2f70.l6      ; 0x300c
     mov ah, byte [bx]                ; 0x300e
     xor al, al                       ; 0x3010

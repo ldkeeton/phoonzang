@@ -225,7 +225,7 @@ jumptable_3797:
     shl ax, 1                        ; 0x37e4
     shl ax, 1                        ; 0x37e6
     mov bx, ax                       ; 0x37e8
-    db 0x8b, 0x87, 0x38, 0x00 ; mov ax, word [bx + 0x38]
+    mov ax, word [word bx + 0x38]    ; 0x37ea
     mov word [bp - 0x0002], ax       ; 0x37ee
     jmp short @..api_idx_0004_7.l6   ; 0x37f1
 @..api_idx_0004_7.l4:
@@ -257,7 +257,7 @@ jumptable_3797:
     shl ax, 1                        ; 0x3830
     shl ax, 1                        ; 0x3832
     mov bx, ax                       ; 0x3834
-    db 0x8b, 0x87, 0x3a, 0x00 ; mov ax, word [bx + 0x3a]
+    mov ax, word [word bx + 0x3a]    ; 0x3836
     cmp ax, word [bp - 0x0002]       ; 0x383a
     jge short @..api_idx_0004_7.l4   ; 0x383d
     mov ax, 0x95dc                   ; 0x383f

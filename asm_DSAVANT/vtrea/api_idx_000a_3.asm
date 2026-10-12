@@ -105,7 +105,7 @@ loc_8b53:
     shl ax, 1                        ; 0x8b76
     shl ax, 1                        ; 0x8b78
     mov bx, ax                       ; 0x8b7a
-    db 0xff, 0xb7, 0x08, 0x00 ; push word [bx + 0x8]
+    push word [word bx + 0x8]        ; 0x8b7c
     mov ax, word [bp + 0x6]          ; 0x8b80
     add ax, strict word 6            ; 0x8b83
     push ax                          ; 0x8b86

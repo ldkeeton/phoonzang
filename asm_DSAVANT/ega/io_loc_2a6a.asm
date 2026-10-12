@@ -37,9 +37,9 @@ io_loc_2a6a:
     mov cl, 2                        ; 0x2ad7
     shr ax, cl                       ; 0x2ad9
     mov word [cs:cseg_1bf1 - IMAGE_BASE], ax ; 0x2adb
-    db 0x2e, 0x83, 0x3e, 0xfb, 0x1b, 0x00 ; cmp word [cs:cseg_1bfb - IMAGE_BASE], 0
+    cmp word [cs:cseg_1bfb - IMAGE_BASE], byte 0 ; 0x2adf
     jne short @..io_loc_2a6a.l4      ; 0x2ae5
-    db 0x2e, 0x83, 0x3e, 0xf9, 0x1b, 0x00 ; cmp word [cs:cseg_1bf9 - IMAGE_BASE], 0
+    cmp word [cs:cseg_1bf9 - IMAGE_BASE], byte 0 ; 0x2ae7
     je short @..io_loc_2a6a.l4       ; 0x2aed
     inc ax                           ; 0x2aef
 @..io_loc_2a6a.l4:

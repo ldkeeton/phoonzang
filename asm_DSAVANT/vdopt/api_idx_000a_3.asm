@@ -105,7 +105,7 @@ loc_27bd:
     shl ax, 1                        ; 0x27e0
     shl ax, 1                        ; 0x27e2
     mov bx, ax                       ; 0x27e4
-    db 0xff, 0xb7, 0x08, 0x00 ; push word [bx + 0x8]
+    push word [word bx + 0x8]        ; 0x27e6
     mov ax, word [bp + 0x6]          ; 0x27ea
     add ax, strict word 6            ; 0x27ed
     push ax                          ; 0x27f0

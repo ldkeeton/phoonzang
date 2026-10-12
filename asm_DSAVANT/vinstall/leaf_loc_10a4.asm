@@ -592,7 +592,7 @@ loc_12b5:
     mov ax, word [bp - 0x0196]       ; 0x168a
     shl ax, 1                        ; 0x168e
     mov bx, ax                       ; 0x1690
-    db 0xff, 0xb7, 0x02, 0x00 ; push word [bx + 0x2]
+    push word [word bx + 0x2]        ; 0x1692
     mov ax, 0x10                     ; 0x1696
     push ax                          ; 0x1699
     mov ax, 0xd                      ; 0x169a
@@ -819,7 +819,7 @@ jumptable_1969_case_10:
     mov ax, word [bp - 0x0196]       ; 0x18ab
     shl ax, 1                        ; 0x18af
     mov bx, ax                       ; 0x18b1
-    db 0xff, 0xb7, 0x02, 0x00 ; push word [bx + 0x2]
+    push word [word bx + 0x2]        ; 0x18b3
     mov ax, 0x10                     ; 0x18b7
     push ax                          ; 0x18ba
     mov ax, 0xd                      ; 0x18bb
@@ -1032,7 +1032,7 @@ jumptable_1b3c_case_9:
     mov ax, word [bp - 0x0196]       ; 0x1a80
     shl ax, 1                        ; 0x1a84
     mov bx, ax                       ; 0x1a86
-    db 0xff, 0xb7, 0x02, 0x00 ; push word [bx + 0x2]
+    push word [word bx + 0x2]        ; 0x1a88
     mov ax, 0x10                     ; 0x1a8c
     push ax                          ; 0x1a8f
     mov ax, 0xd                      ; 0x1a90

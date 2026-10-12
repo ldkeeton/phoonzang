@@ -105,7 +105,7 @@ loc_1ad7:
     shl ax, 1                        ; 0x1afa
     shl ax, 1                        ; 0x1afc
     mov bx, ax                       ; 0x1afe
-    db 0xff, 0xb7, 0x08, 0x00 ; push word [bx + 0x8]
+    push word [word bx + 0x8]        ; 0x1b00
     mov ax, word [bp + 0x6]          ; 0x1b04
     add ax, strict word 6            ; 0x1b07
     push ax                          ; 0x1b0a

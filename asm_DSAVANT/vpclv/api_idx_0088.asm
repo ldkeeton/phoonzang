@@ -103,7 +103,7 @@ api_idx_0088:
     shl ax, 1                        ; 0x40a9
     shl ax, 1                        ; 0x40ab
     mov bx, ax                       ; 0x40ad
-    db 0x8b, 0x87, 0x38, 0x00 ; mov ax, word [bx + 0x38]
+    mov ax, word [word bx + 0x38]    ; 0x40af
     mov word [bp - 0x0002], ax       ; 0x40b3
     jmp short @..api_idx_0088.l11    ; 0x40b6
 @..api_idx_0088.l8:
@@ -131,7 +131,7 @@ api_idx_0088:
     shl ax, 1                        ; 0x40ec
     shl ax, 1                        ; 0x40ee
     mov bx, ax                       ; 0x40f0
-    db 0x8b, 0x87, 0x3a, 0x00 ; mov ax, word [bx + 0x3a]
+    mov ax, word [word bx + 0x3a]    ; 0x40f2
     cmp ax, word [bp - 0x0002]       ; 0x40f6
     jge short @..api_idx_0088.l8     ; 0x40f9
     inc word [bp - 0x0004]           ; 0x40fb

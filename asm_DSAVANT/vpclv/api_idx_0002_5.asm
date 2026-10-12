@@ -16,7 +16,7 @@ api_idx_0002_5:
     mov ax, word [bp + 0x6]          ; 0x3876
     shl ax, 1                        ; 0x3879
     mov bx, ax                       ; 0x387b
-    db 0xff, 0xb7, 0x30, 0x00 ; push word [bx + 0x30]
+    push word [word bx + 0x30]       ; 0x387d
     call ds_loc_3a6a                 ; 0x3881
     add sp, byte 4                   ; 0x3884
     mov ax, 6                        ; 0x3887

@@ -16,7 +16,7 @@ api_idx_0002_8:
     mov ax, word [bp + 0x6]          ; 0x869b
     shl ax, 1                        ; 0x869e
     mov bx, ax                       ; 0x86a0
-    db 0xff, 0xb7, 0x30, 0x00 ; push word [bx + 0x30]
+    push word [word bx + 0x30]       ; 0x86a2
     call ds_loc_3a6a                 ; 0x86a6
     add sp, byte 4                   ; 0x86a9
     mov ax, 6                        ; 0x86ac

@@ -15,6 +15,8 @@ from lib.decode import disassemble
 from lib.compare import (
     verify,
     clear_assemble_cache,
+    find_db_with_comment_lines,
+    UnencodedInstructionError,
     _function_roots,
     _compute_branch_ownership,
     _local_branch_targets,
@@ -407,6 +409,21 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         segments=ctx.segments,
         entry_symbol=entry_symbol,
     )
+    # Hard gate: a decoded instruction that could not be re-encoded is emitted
+    # as ``db 0x.. ; <disassembly>``.  In the default semantic mode every
+    # instruction must encode (exactly or semantically); these fallbacks are
+    # regressions, not acceptable output.  ``--exact-bytes`` may legitimately
+    # keep a few (NASM has no byte-exact spelling for every form).
+    if stats.get('with_comment') and not exact_bytes:
+        combined = asm_text + '\n' + '\n'.join(split_sources.values())
+        lines = find_db_with_comment_lines(combined)
+        sample = '\n'.join(f'    {line.strip()}' for line in lines[:10])
+        if len(lines) > 10:
+            sample += f'\n    ... and {len(lines) - 10} more'
+        raise UnencodedInstructionError(
+            f'{name}: {stats["with_comment"]} instruction(s) could not be '
+            f're-encoded and were emitted as raw db bytes:\n{sample}')
+
     ctx.layers = ctx.layers.with_columns(pl.Series('emit', emit_bytes, dtype=pl.UInt8))
     ctx.layers = ctx.layers.with_columns(pl.Series('label_positions', label_positions, dtype=pl.UInt8))
 

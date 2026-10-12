@@ -21,7 +21,7 @@ api_idx_0004:
     shl cx, 1                        ; 0x02b2
     add ax, cx                       ; 0x02b4
     mov bx, ax                       ; 0x02b6
-    db 0xff, 0xb7, 0x06, 0x00 ; push word [bx + 0x6]
+    push word [word bx + 0x6]        ; 0x02b8
     call ds_loc_3a6a                 ; 0x02bc
     add sp, byte 4                   ; 0x02bf
     mov ax, word [bp - 0x0002]       ; 0x02c2

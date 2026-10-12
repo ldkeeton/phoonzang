@@ -138,6 +138,29 @@ def count_frozen_addrs(src_text):
     return counts
 
 
+class UnencodedInstructionError(RuntimeError):
+    """A decoded instruction could not be re-encoded and fell back to ``db``.
+
+    Raised by the build when a non-``--exact-bytes`` run still emits
+    ``db 0x.. ; <disassembly>`` records: every such line is a decoded
+    instruction the formatter could not reproduce, which the project now
+    treats as a hard error (see ``asm/lib/format.py``).
+    """
+
+
+# Emitted ``db 0x.., 0x.. ; <disassembly>`` lines produced by a
+# ``db_with_comment`` record.  A plain data block renders without the ``;``.
+_DB_COMMENT_LINE_RE = re.compile(
+    r'^\s*db\s+0x[0-9a-f]{2}(?:\s*,\s*0x[0-9a-f]{2})*\s*;'
+)
+
+
+def find_db_with_comment_lines(text):
+    """Return emitted ``db … ; <disassembly>`` lines (unencoded instructions)."""
+    return [line for line in (text or '').splitlines()
+            if _DB_COMMENT_LINE_RE.match(line)]
+
+
 def _count_bare_addrs(records):
     bare_mem = 0
     bare_call = 0

@@ -130,10 +130,12 @@ def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
         for name in sorted(source_names):
             print(f'  Source binary: {name}')
 
+    failed = []
     for src_name in sorted(source_names & set(bins.keys()) & process_sources):
         print(f'  Processing source: {src_name}')
         if _asm_one(app, src_name, ['--export-labels']) != 0:
             print(f'  FAILED: {src_name}')
+            failed.append(src_name)
 
     # Inject synthetic dispatch labels for cross-binary targets.
     if cross_refs:
@@ -165,6 +167,8 @@ def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
                             changed = True
             if changed:
                 write_label_json(labels, json_path)
+
+    return failed
 
 
 def _foreign_args(out_dir, name, cross_refs):

@@ -268,7 +268,7 @@ loc_0c21:
     mov ax, word [bp + 0x4]          ; 0x0cb6
     shl ax, 1                        ; 0x0cb9
     mov bx, ax                       ; 0x0cbb
-    db 0xff, 0xb7, 0x02, 0x00 ; push word [bx + 0x2]
+    push word [word bx + 0x2]        ; 0x0cbd
     mov ax, 0x10                     ; 0x0cc1
     push ax                          ; 0x0cc4
     mov ax, 0xd                      ; 0x0cc5

@@ -68,7 +68,7 @@ io_loc_02ba:
     jmp [cs:bx + 0x45e]              ; 0x0359
     xchg dx, ax                      ; 0x035e
     push es                          ; 0x035f
-    db 0xdc, 0x04 ; fadd [si]
+    fadd qword [si]                  ; 0x0360
     push 0x6804                      ; 0x0362
     add al, 0xca                     ; 0x0365
     add al, 0x8b                     ; 0x0367

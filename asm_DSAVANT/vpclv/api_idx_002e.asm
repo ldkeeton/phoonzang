@@ -127,7 +127,7 @@ api_idx_002e:
     mov ax, word [bp - 0x0002]       ; 0x3a42
     shl ax, 1                        ; 0x3a45
     mov bx, ax                       ; 0x3a47
-    db 0xff, 0xb7, 0x30, 0x00 ; push word [bx + 0x30]
+    push word [word bx + 0x30]       ; 0x3a49
     call ds_loc_3a6a                 ; 0x3a4d
     add sp, byte 4                   ; 0x3a50
     mov ax, 0                        ; 0x3a53

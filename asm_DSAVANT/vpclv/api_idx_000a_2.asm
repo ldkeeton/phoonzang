@@ -105,7 +105,7 @@ loc_0f76:
     shl ax, 1                        ; 0x0f99
     shl ax, 1                        ; 0x0f9b
     mov bx, ax                       ; 0x0f9d
-    db 0xff, 0xb7, 0x08, 0x00 ; push word [bx + 0x8]
+    push word [word bx + 0x8]        ; 0x0f9f
     mov ax, word [bp + 0x6]          ; 0x0fa3
     add ax, strict word 6            ; 0x0fa6
     push ax                          ; 0x0fa9

@@ -80,11 +80,17 @@ def is_semantically_equivalent(orig_bytes, nasm_bytes, address):
         _sem_eq_cache[key] = False
         return False
 
-    if o.mnemonic == n.mnemonic and o.op_str == n.op_str:
+    # SAL and SHL are the same operation; NASM canonicalises to SHL (opcode
+    # /4) while the original may use SAL (/6).  Treat them as equivalent.
+    o_mnem, n_mnem = o.mnemonic, n.mnemonic
+    if {o_mnem, n_mnem} == {'sal', 'shl'}:
+        o_mnem = n_mnem = 'shl'
+
+    if o_mnem == n_mnem and o.op_str == n.op_str:
         _sem_eq_cache[key] = True
         return True
 
-    if o.mnemonic != n.mnemonic:
+    if o_mnem != n_mnem:
         _sem_eq_cache[key] = False
         return False
 

@@ -58,6 +58,8 @@ from lib.compare.records import (
     _BARE_FLOW_RE,
     _count_bare_addrs,
     count_frozen_addrs,
+    find_db_with_comment_lines,
+    UnencodedInstructionError,
 )
 from lib.compare.analysis import (
     _compute_func_boundaries,

@@ -20,7 +20,7 @@ aztec_begin:
     mov word [es:dseg_0c80], ds      ; 0x4d65
     mov cl, 4                        ; 0x4d6a
     shl bx, cl                       ; 0x4d6c
-    db 0x26, 0x83, 0x3e, 0xda, 0x0c, 0x00 ; cmp word [es:dseg_0cda], 0
+    cmp word [es:dseg_0cda], byte 0  ; 0x4d6e
     je short @..aztec_begin.l4       ; 0x4d74
     mov ax, word [es:dseg_0cd6]      ; 0x4d76
     shl ax, 1                        ; 0x4d7a
@@ -41,7 +41,7 @@ aztec_begin:
     mov bx, 0xffff                   ; 0x4d97
 @..aztec_begin.l5:
     mov word [es:dseg_0c7c], bx      ; 0x4d9a
-    db 0x26, 0x83, 0x3e, 0xda, 0x0c, 0x00 ; cmp word [es:dseg_0cda], 0
+    cmp word [es:dseg_0cda], byte 0  ; 0x4d9f
     je short @..aztec_begin.l7       ; 0x4da5
     mov si, word [es:dseg_0cd8]      ; 0x4da7
     mov ax, bx                       ; 0x4dac

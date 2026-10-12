@@ -767,11 +767,11 @@ loc_81b0:
     ror word [ds:bp - 0x002f], 1     ; 0x81cf
     push si                          ; 0x81d3
     sar word [bss_3ed1], 1           ; 0x81d4
-    db 0xd1, 0x36, 0xd1, 0x56 ; sal word [bss_56d1], 1
-    db 0xd1, 0x76, 0xd1 ; sal word [bp - 0x002f], 1
+    sal word [bss_56d1], 1           ; 0x81d8
+    sal word [bp - 0x002f], 1        ; 0x81dc
     push si                          ; 0x81df
     rcl word [bp - 0x002f], 1        ; 0x81e0
-    db 0x3e, 0xd1, 0x76, 0xd1 ; sal word [ds:bp - 0x002f], 1
+    sal word [ds:bp - 0x002f], 1     ; 0x81e3
     jbe short loc_81ba               ; 0x81e7
     jle short loc_81bc               ; 0x81e9
     jmp short @..api_idx_00ac.l34    ; 0x81eb
