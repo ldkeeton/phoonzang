@@ -69,8 +69,14 @@ def _render_data_block(raw):
     return lines
 
 
-def _render_records(records, binary_data, show_offsets=True):
-    """Render ordered body records, including textual NASM include directives."""
+def _render_records(records, binary_data, show_offsets=True, gap=None):
+    """Render ordered body records, including textual NASM include directives.
+
+    *gap* is an optional ``(block_start, gap_end, header_size, gap_len)`` tuple
+    naming the MZ code→data gap.  The data block starting at ``block_start``
+    is emitted with a dynamic ``__zdataseg_para`` prologue instead of a frozen
+    zero pad, so the data segment follows a relocated image.
+    """
     out = []
     i = 0
     while i < len(records):
@@ -88,6 +94,25 @@ def _render_records(records, binary_data, show_offsets=True):
             out.append(f'{rec["text"]}')
 
         elif rec['type'] == 'data_block':
+            if gap is not None and rec['start'] == gap[0]:
+                block_start, gap_end, header_size, gap_len = gap
+                out.append('')
+                out.append(f'%if ($ - $$) > 0x{gap_end:x}')
+                out.append('    align 16, db 0')
+                out.append(f'    __zdataseg_para equ ($ - $$ - 0x{header_size:x}) / 16')
+                out.append('%else')
+                out.append(
+                    f'    times (0x{gap_end:x} - ($ - $$)) db 0 ; 0x{gap_len:x}'
+                )
+                out.append(
+                    f'    __zdataseg_para equ (0x{gap_end:x} - 0x{header_size:x}) / 16'
+                )
+                out.append('%endif')
+                out.append('__zdataseg_start:')
+                out.extend(_render_data_block(binary_data[gap_end:rec['end']]))
+                out.append('')
+                i += 1
+                continue
             blk_size = rec['end'] - rec['start']
             fmt = rec.get('format_hint', '')
             is_tiny = blk_size < 16
@@ -191,65 +216,106 @@ def _mz_entry_symbol(header, label_map, entry_symbol):
             else None)
 
 
-def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None):
+def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None,
+                      dynamic_e_ss=False):
     """Render the fixed MZ fields with a shared comment column.
 
     When *entry_symbol* is the label at the header's CS:IP entry offset, the
     ``e_ip`` field is rendered ``dw <entry_symbol> - IMAGE_BASE`` so it tracks
     the recoverable entry point instead of freezing its original constant.
+    ``e_cblp``/``e_cp`` are always computed from ``__zimage_end``; when
+    *dynamic_e_ss* is set (the code→data gap was located) ``e_ss`` is drawn
+    from ``__zdataseg_para`` so it follows a relocated data segment.
     """
     _, cblp, cp, crlc, cparhdr, minalloc, maxalloc, ss, sp, \
         csum, ip, cs, lfarlc, ovno = struct.unpack_from('<2s13H', header, 0)
     bound_entry = _mz_entry_symbol(header, label_map, entry_symbol)
     ip_text = (f'dw {bound_entry} - IMAGE_BASE' if bound_entry
                else f'dw 0x{ip:04x}')
+    ss_text = 'dw __zdataseg_para' if dynamic_e_ss else f'dw 0x{ss:04x}'
+
+    def _field(text, value, comment):
+        """Pair an instruction with its comment, adding the original value as a
+        leading comment when *text* is a formula rather than the literal."""
+        if text == f'dw 0x{value:04x}':
+            return (text, comment)
+        return (text, f'0x{value:04x} ; {comment}')
+
     fields = [
         ('db "MZ"', 'e_magic: DOS MZ signature'),
-        (f'dw 0x{cblp:04x}', 'e_cblp: bytes in final 512-byte page (0 means full)'),
-        (f'dw 0x{cp:04x}', 'e_cp: total 512-byte pages in the file'),
+        _field('dw (__zimage_end - $$) % 512', cblp,
+               'e_cblp: bytes in final 512-byte page (0 means full)'),
+        _field('dw ((__zimage_end - $$) + 511) // 512', cp,
+               'e_cp: total 512-byte pages in the file'),
         (f'dw 0x{crlc:04x}', 'e_crlc: number of relocation entries'),
         (f'dw 0x{cparhdr:04x}', 'e_cparhdr: header size in 16-byte paragraphs'),
         (f'dw 0x{minalloc:04x}', 'e_minalloc: minimum extra memory paragraphs'),
         (f'dw 0x{maxalloc:04x}', 'e_maxalloc: maximum extra memory paragraphs'),
-        (f'dw 0x{ss:04x}', 'e_ss: initial stack segment, relative to load module'),
+        _field(ss_text, ss, 'e_ss: initial stack segment, relative to load module'),
         (f'dw 0x{sp:04x}', 'e_sp: initial stack pointer'),
         (f'dw 0x{csum:04x}', 'e_csum: file checksum (often unused)'),
-        (ip_text, 'e_ip: initial instruction pointer'),
+        _field(ip_text, ip, 'e_ip: initial instruction pointer'),
         (f'dw 0x{cs:04x}', 'e_cs: initial code segment, relative to load module'),
         (f'dw 0x{lfarlc:04x}', 'e_lfarlc: file offset of relocation table'),
         (f'dw 0x{ovno:04x}', 'e_ovno: overlay number (0 for main executable)'),
     ]
+    width = max(len(instruction) for instruction, _ in fields)
     return [
         '    ; DOS MZ executable header (512 bytes)',
-        *(f'    {instruction:<14} ; {comment}'
+        *(f'    {instruction:<{width}} ; {comment}'
           for instruction, comment in fields),
     ]
 
 
-def _render_ovr_header(header):
-    """Render the Aztec overlay header fields with a shared comment column."""
+def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
+                       dynamic_dsize=False):
+    """Render the Aztec overlay header fields with a shared comment column.
+
+    The overlay file is ``header + code(o_csize) + data(o_dsize)``.  When the
+    ``__zdata_start`` anchor is available (*dynamic_csize*/*dynamic_dsize*),
+    ``o_csize`` and ``o_dsize`` are computed so both follow a resized overlay.
+    ``o_entry`` is rendered from *entry_symbol* when one labels the entry.
+    Rewritten fields keep their original value as a leading comment.
+    """
     (o_magic, o_corg, o_csize, o_dorg, o_dsize, o_bss, o_entry) = \
         struct.unpack_from('<7H', header, 0)
+    csize_text = ('dw (__zdata_start - __zcode_start)' if dynamic_csize
+                  else f'dw 0x{o_csize:04x}')
+    dsize_text = ('dw (__zimage_end - __zdata_start)' if dynamic_dsize
+                  else f'dw 0x{o_dsize:04x}')
+    if entry_symbol:
+        entry_text = f'dw {entry_symbol} - IMAGE_BASE + 0x{o_corg:04x}'
+    else:
+        entry_text = f'dw 0x{o_entry:04x}'
+
+    def _field(text, value, comment):
+        if text == f'dw 0x{value:04x}':
+            return (text, comment)
+        return (text, f'0x{value:04x} ; {comment}')
+
     fields = [
         (f'dw 0x{o_magic:04x}', 'o_magic: overlay signature (0x00f2)'),
         (f'dw 0x{o_corg:04x}', 'o_corg: code load origin (memory offset)'),
-        (f'dw 0x{o_csize:04x}', 'o_csize: code size in bytes'),
+        _field(csize_text, o_csize, 'o_csize: code size in bytes'),
         (f'dw 0x{o_dorg:04x}', 'o_dorg: data load origin (memory offset)'),
-        (f'dw 0x{o_dsize:04x}', 'o_dsize: initialized data size'),
+        _field(dsize_text, o_dsize, 'o_dsize: initialized data size'),
         (f'dw 0x{o_bss:04x}', 'o_bss: uninitialized data size'),
-        (f'dw 0x{o_entry:04x}', 'o_entry: overlay entry offset (CS)'),
+        _field(entry_text, o_entry, 'o_entry: overlay entry offset (CS)'),
     ]
+    width = max(len(instruction) for instruction, _ in fields)
     return [
         '    ; Aztec C86 overlay header (14 bytes)',
-        *(f'    {instruction:<14} ; {comment}'
+        *(f'    {instruction:<{width}} ; {comment}'
           for instruction, comment in fields),
     ]
 
 
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
-                  split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None):
+                  split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
+                  label_defined=None):
     """Render the master NASM source and any generated function includes."""
+    label_defined = label_defined or ()
     out = ['org 0', 'bits 16']
     if consumer_inc:
         out.append(f'%include "{consumer_inc}"')
@@ -260,6 +326,21 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     is_mz = (start_offset == 0x200 and len(binary_data) >= 0x200
              and binary_data[:2] == b'MZ')
     hdr = binary_data[:start_offset] if is_mz else None
+    # The MZ data segment sits at ``header + e_ss*16``; locate the zero gap
+    # before it so it can be emitted as a dynamic pad instead of a frozen
+    # ``times N db 0``.
+    gap = None
+    if is_mz and len(hdr) >= 16:
+        e_ss = struct.unpack_from('<H', hdr, 14)[0]
+        data_origin = start_offset + e_ss * 16
+        for rec in records:
+            if rec['type'] != 'data_block':
+                continue
+            if rec['start'] < data_origin <= rec['end']:
+                if not any(binary_data[rec['start']:data_origin]):
+                    gap = (rec['start'], data_origin, start_offset,
+                           data_origin - rec['start'])
+                break
     # The symbolic ``e_ip`` rewrite references IMAGE_BASE; force the definition
     # even when no record does (a load offset of 0 would otherwise skip it).
     bound_entry = _mz_entry_symbol(hdr, label_map, entry_symbol) if is_mz else None
@@ -275,37 +356,61 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append('')
 
     if is_mz:
-        out.extend(_render_mz_header(hdr, label_map, base, entry_symbol))
+        out.extend(_render_mz_header(hdr, label_map, base, entry_symbol,
+                                     dynamic_e_ss=gap is not None))
         out.append('')
         out.extend(_render_data_block(hdr[28:]))
         out.append('')
     elif (start_offset >= 14 and len(binary_data) >= 14
             and binary_data[:2] == b'\xf2\x00'):
-        out.extend(_render_ovr_header(binary_data[:14]))
+        # The overlay file is header + code + data; anchor the code/data
+        # boundary so o_csize/o_dsize follow a resized overlay.
+        dynamic_ovr_size = False
+        if len(binary_data) >= 14:
+            o_csize = struct.unpack_from('<H', binary_data, 4)[0]
+            data_start = start_offset + o_csize
+            if data_start < len(binary_data):
+                from lib.compare.jumptables import _ensure_global_label
+                dynamic_ovr_size = _ensure_global_label(
+                    records, binary_data, data_start, '__zdata_start')
+        out.extend(_render_ovr_header(
+            binary_data[:14], entry_symbol=entry_symbol,
+            dynamic_csize=dynamic_ovr_size, dynamic_dsize=dynamic_ovr_size))
         out.append('')
+        out.append('__zcode_start:')
     elif start_offset > 0:
         hdr = binary_data[:start_offset]
         out.append(f'    ; header ({start_offset} bytes)')
         out.extend(_render_data_block(hdr))
         out.append('')
 
+    defined_names = set()
+    for r in records:
+        if r['type'] == 'label':
+            defined_names.add(r['text'].split(':', 1)[0].strip())
+
+    def _defined(name):
+        return name in label_defined or name in defined_names
+
     if label_map:
-        label_offsets = {r['offset'] for r in records if r['type'] == 'label'}
         for addr in sorted(label_map):
             name = label_map[addr]
-            if name.startswith('data_'):
-                out.append(f'{name} equ 0x{addr:04x}')
-            elif addr not in label_offsets:
-                out.append(f'{name} equ 0x{addr:04x}')
+            if _defined(name):
+                continue
+            out.append(f'{name} equ 0x{addr:04x}')
     if immediate_labels:
         for addr in sorted(immediate_labels):
             name = immediate_labels[addr]
+            if _defined(name):
+                continue
             if not label_map or addr not in label_map or label_map[addr] != name:
                 out.append(f'{name} equ 0x{addr:04x}')
     if mem_equ:
         # Segment-resolved operand symbols (Phase 4): cseg_ (code segment file
         # offset), dseg_/bss_ (data segment offset), psp_ (PSP field).
         for name in sorted(mem_equ, key=lambda n: (mem_equ[n], n)):
+            if _defined(name):
+                continue
             out.append(f'{name} equ 0x{mem_equ[name]:04x}')
     if label_map or immediate_labels or mem_equ:
         out.append('')
@@ -313,11 +418,17 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     main_records, split_records = _partition_function_records(
         records, split_ranges, split_dir,
     )
-    out.extend(_render_records(main_records, binary_data, show_offsets))
+    out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap))
 
     split_sources = {
         path: '\n'.join(_render_records(fragment, binary_data, show_offsets)) + '\n'
         for path, fragment in split_records.items()
     }
+    if is_mz or (start_offset >= 14 and len(binary_data) >= 14
+                 and binary_data[:2] == b'\xf2\x00'):
+        # End-of-image anchor for the dynamic header fields (e_cblp/e_cp,
+        # o_csize).  Must sit after every emitted byte, including includes.
+        out.append('')
+        out.append('__zimage_end:')
     out.append('')
     return '\n'.join(out), split_sources

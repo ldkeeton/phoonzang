@@ -7,20 +7,20 @@ IMAGE_BASE equ 0x0200
 %endif
 
     ; DOS MZ executable header (512 bytes)
-    db "MZ"        ; e_magic: DOS MZ signature
-    dw 0x0014      ; e_cblp: bytes in final 512-byte page (0 means full)
-    dw 0x0031      ; e_cp: total 512-byte pages in the file
-    dw 0x0001      ; e_crlc: number of relocation entries
-    dw 0x0020      ; e_cparhdr: header size in 16-byte paragraphs
-    dw 0x045d      ; e_minalloc: minimum extra memory paragraphs
-    dw 0xffff      ; e_maxalloc: maximum extra memory paragraphs
-    dw 0x038e      ; e_ss: initial stack segment, relative to load module
-    dw 0x6afe      ; e_sp: initial stack pointer
-    dw 0x0000      ; e_csum: file checksum (often unused)
-    dw aztec_begin - IMAGE_BASE ; e_ip: initial instruction pointer
-    dw 0x0000      ; e_cs: initial code segment, relative to load module
-    dw 0x0020      ; e_lfarlc: file offset of relocation table
-    dw 0x0000      ; e_ovno: overlay number (0 for main executable)
+    db "MZ"                               ; e_magic: DOS MZ signature
+    dw (__zimage_end - $$) % 512          ; 0x0014 ; e_cblp: bytes in final 512-byte page (0 means full)
+    dw ((__zimage_end - $$) + 511) // 512 ; 0x0031 ; e_cp: total 512-byte pages in the file
+    dw 0x0001                             ; e_crlc: number of relocation entries
+    dw 0x0020                             ; e_cparhdr: header size in 16-byte paragraphs
+    dw 0x045d                             ; e_minalloc: minimum extra memory paragraphs
+    dw 0xffff                             ; e_maxalloc: maximum extra memory paragraphs
+    dw __zdataseg_para                    ; 0x038e ; e_ss: initial stack segment, relative to load module
+    dw 0x6afe                             ; e_sp: initial stack pointer
+    dw 0x0000                             ; e_csum: file checksum (often unused)
+    dw aztec_begin - IMAGE_BASE           ; 0x33d2 ; e_ip: initial instruction pointer
+    dw 0x0000                             ; e_cs: initial code segment, relative to load module
+    dw 0x0020                             ; e_lfarlc: file offset of relocation table
+    dw 0x0000                             ; e_ovno: overlay number (0 for main executable)
 
     times 4 db 0
     db 0xd3, 0x33
@@ -45,7 +45,6 @@ dseg_231a equ 0x231a
 dseg_231c equ 0x231c
 dseg_234a equ 0x234a
 dseg_244e equ 0x244e
-cseg_2479 equ 0x2479
 dseg_24d4 equ 0x24d4
 dseg_24d6 equ 0x24d6
 dseg_24d8 equ 0x24d8
@@ -98,8 +97,6 @@ bss_29e8 equ 0x29e8
 bss_29ea equ 0x29ea
 bss_29ec equ 0x29ec
 bss_29ee equ 0x29ee
-cseg_2a23 equ 0x2a23
-cseg_2a25 equ 0x2a25
 bss_2af0 equ 0x2af0
 bss_2af2 equ 0x2af2
 bss_2af4 equ 0x2af4
@@ -107,7 +104,6 @@ bss_2af6 equ 0x2af6
 bss_2af8 equ 0x2af8
 bss_2afa equ 0x2afa
 bss_2afc equ 0x2afc
-cseg_35d0 equ 0x35d0
 
 loc_0200:
     push bp                          ; 0x0200
@@ -415,8 +411,15 @@ jumptable_3053:
 %include "vinstall/aztec_rsvstk.asm"       ; 0x3ac5
 
 
-    times 16 db 0
-    db 0x0e, 0x00, 0x25, 0x00, 0x3c, 0x00, 0x53, 0x00, 0x6a, 0x00, 0x81, 0x00
+%if ($ - $$) > 0x3ae0
+    align 16, db 0
+    __zdataseg_para equ ($ - $$ - 0x200) / 16
+%else
+    times (0x3ae0 - ($ - $$)) db 0 ; 0xe
+    __zdataseg_para equ (0x3ae0 - 0x200) / 16
+%endif
+__zdataseg_start:
+    db 0x00, 0x00, 0x0e, 0x00, 0x25, 0x00, 0x3c, 0x00, 0x53, 0x00, 0x6a, 0x00, 0x81, 0x00
     db '0-NO GRAPHICS BOARD   ', 0
     db '1-VGA/MCGA (256 Color)', 0
     db '2-EGA      (16 Color) ', 0
@@ -1091,3 +1094,5 @@ jumptable_3053:
     times 22 db 0
     db 0xd9, 0x36, 0x3e, 0x37, 0x0a, 0x0d
 
+
+__zimage_end:

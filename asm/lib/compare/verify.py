@@ -61,12 +61,14 @@ from lib.compare.jumptables import (
     _merge_jump_table_specs,
     _inject_jump_tables,
     _rewrite_jump_dispatchers,
+    _ensure_global_label,
 )
 from lib.compare.postprocess import _postprocess_data_blocks
 from lib.compare.records import (
     _flush_data_block,
     _emit_label_record,
     _count_bare_addrs,
+    count_frozen_addrs,
 )
 from lib.compare.render import _build_source
 from lib.compare.splitting import (
@@ -739,6 +741,57 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 mem_symbols=mem_symbols, mem_equ=mem_equ,
             )
 
+    # ── Dynamic-address rewrite (plan.md F3) ───────────────────────────────
+    # ``cseg_``/``data_`` and unreached ``loc_``-style symbols are emitted as
+    # top-of-file ``equ 0x<offset>`` constants.  Where the target offset is a
+    # real record boundary, place a label at the byte instead so the symbol
+    # tracks a relocatable layout; mid-instruction or header offsets fall back
+    # to the ``equ``.  ``org 0`` means a label at file offset *off* has value
+    # *off*, so every reference re-encodes identically.
+    label_defined = set()
+    existing_labels = {r['text'] for r in records if r['type'] == 'label'}
+    label_offsets_now = {r['offset'] for r in records if r['type'] == 'label'}
+    # Symbols whose address falls inside the MZ code→data zero gap must stay
+    # ``equ`` constants: a label there would split the dynamic pad.  Locate the
+    # gap now, before any F3 label is inserted.
+    gap_lo = gap_hi = None
+    if (segments is not None and getattr(segments, 'kind', None) == 'mz'
+            and getattr(segments, 'data_origin', None) is not None):
+        do = segments.data_origin
+        for rec in records:
+            if rec['type'] != 'data_block':
+                continue
+            if rec['start'] < do <= rec['end']:
+                if not any(binary_data[rec['start']:do]):
+                    gap_lo, gap_hi = rec['start'], do
+                break
+
+    def _in_gap(addr):
+        return gap_lo is not None and gap_lo <= addr < gap_hi
+
+    f3_candidates = []
+    for cname, caddr in (mem_equ or {}).items():
+        if cname.startswith('cseg_') and not _in_gap(caddr):
+            f3_candidates.append((cname, caddr))
+    for caddr, cname in (label_map or {}).items():
+        if _in_gap(caddr):
+            continue
+        if cname.startswith('data_'):
+            f3_candidates.append((cname, caddr))
+        elif (caddr not in label_offsets_now
+              and not cname.startswith(('dseg_', 'bss_', 'psp_'))):
+            # A stale flow target sitting in data must not become a code label.
+            if (bitmap is not None and 0 <= caddr < len(bitmap)
+                    and bitmap[caddr] != IS_CODE):
+                continue
+            f3_candidates.append((cname, caddr))
+    for cname, caddr in sorted(f3_candidates, key=lambda t: (t[1], t[0])):
+        if f'{cname}:' in existing_labels:
+            label_defined.add(cname)
+            continue
+        if _ensure_global_label(records, binary_data, caddr, cname):
+            label_defined.add(cname)
+
     if trace is not None and trace.watched_addresses:
         for addr in sorted(trace.watched_addresses):
             if not 0 <= addr < total:
@@ -848,15 +901,29 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 selected_ranges=nearby_ranges,
             )
 
+    # Overlay entry: bind ``o_entry`` to a label at the entry's file offset when
+    # one exists (value ``foff - IMAGE_BASE + o_corg`` reproduces ``o_entry``).
+    source_entry_symbol = entry_symbol
+    if (segments is not None and getattr(segments, 'kind', None) == 'overlay'
+            and getattr(segments, 'overlay', None) and label_map):
+        o_corg = segments.overlay.get('o_corg')
+        o_entry = segments.overlay.get('o_entry')
+        if o_corg is not None and o_entry is not None:
+            foff = start_offset + (o_entry - o_corg)
+            source_entry_symbol = label_map.get(foff) or entry_symbol
+
     src_lines, split_sources = _build_source(
         records, start_offset, binary_data, label_map,
         show_offsets=show_offsets, consumer_inc=consumer_inc,
         immediate_labels=immediate_labels, split_ranges=split_ranges,
         split_dir=name, mem_equ=mem_equ, image_base=start_offset,
-        entry_symbol=entry_symbol,
+        entry_symbol=source_entry_symbol, label_defined=label_defined,
     )
     t6 = time.perf_counter()
 
+    frozen = count_frozen_addrs(
+        src_lines + '\n' + '\n'.join(split_sources.values())
+    )
     mnem_count = sum(1 for r in records if r['type'] == 'mnem')
     db_count = sum(1 for r in records if r['type'] == 'db')
     dbc_count = sum(1 for r in records if r['type'] == 'db_with_comment')
@@ -890,6 +957,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'bare_mem': bare_mem,
         'bare_call': bare_call,
         'bare_dbc': bare_dbc,
+        'frozen_addr': frozen['total'],
+        'frozen_addr_detail': {k: v for k, v in frozen.items() if k != 'total'},
         'code_loss': code_loss,
         'aztec_spans': {
             name: [start, end] for start, end, name in split_ranges

@@ -9,14 +9,15 @@ IMAGE_BASE equ 0x000e
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
-    dw 0x5055      ; o_corg: code load origin (memory offset)
-    dw 0xaecf      ; o_csize: code size in bytes
-    dw 0x9098      ; o_dorg: data load origin (memory offset)
-    dw 0x009c      ; o_dsize: initialized data size
-    dw 0x1f22      ; o_bss: uninitialized data size
-    dw 0xfe57      ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw 0x5055                                ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0xaecf ; o_csize: code size in bytes
+    dw 0x9098                                ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x009c ; o_dsize: initialized data size
+    dw 0x1f22                                ; o_bss: uninitialized data size
+    dw string_loc_ae10 - IMAGE_BASE + 0x5055 ; 0xfe57 ; o_entry: overlay entry offset (CS)
 
+__zcode_start:
 loc_44d9 equ 0x44d9
 io_loc_4fa9 equ 0x4fa9
 dseg_0002 equ 0x0002
@@ -397,6 +398,7 @@ loc_aed6:
     js short loc_aec5                ; 0xaed8
     inc ax                           ; 0xaeda
     jmp short loc_aec5               ; 0xaedb
+__zdata_start:
 
     db 'V1.$$$', 0
     db 'V1.$$$', 0
@@ -416,3 +418,5 @@ loc_aed6:
     db 'PHOONZANG', 0
     times 10 db 0
 
+
+__zimage_end:

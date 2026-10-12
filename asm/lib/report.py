@@ -26,7 +26,7 @@ GOOD_UP = {
     'code_pct',
 }
 GOOD_DOWN = {
-    'unknown_bytes', 'code_loss', 'bare_mem', 'bare_call',
+    'unknown_bytes', 'code_loss', 'bare_mem', 'bare_call', 'frozen_addr',
 }
 
 
@@ -211,6 +211,7 @@ def summarize(ctx):
         'code_loss': _int(targets.get('code_loss', verify.get('code_loss', 0))),
         'bare_mem': _int(verify.get('bare_mem')),
         'bare_call': _int(verify.get('bare_call')),
+        'frozen_addr': _int(verify.get('frozen_addr')),
         'iterations': _int(it.get('iterations')),
         'converged': bool(it.get('converged', False)),
         'asm_hash': report.get('asm_hash', ''),

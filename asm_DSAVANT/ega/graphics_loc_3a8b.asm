@@ -73,6 +73,7 @@ graphics_loc_3a8b:
     cmp di, word [bp - 0x0022]       ; 0x3b2d
     jb short @..graphics_loc_3a8b.l10 ; 0x3b30
     jmp near @..graphics_loc_3a8b.l22 ; 0x3b32
+cseg_3b35:
 @..graphics_loc_3a8b.l10:
     mov bx, word [bp - 0x0036]       ; 0x3b35
     mov al, byte [cs:bx]             ; 0x3b38

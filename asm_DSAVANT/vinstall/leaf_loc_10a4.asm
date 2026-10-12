@@ -2141,4 +2141,5 @@ loc_245e:
     mov sp, bp                       ; 0x2475
     pop bp                           ; 0x2477
     ret                              ; 0x2478
+cseg_2479:
     db 0x00

@@ -53,6 +53,7 @@ leaf_loc_3c0d:
     pop bx                           ; 0x3c7c
     pop ax                           ; 0x3c7d
     ret                              ; 0x3c7e
+cseg_3c7f:
 
     times 24 db 0
 

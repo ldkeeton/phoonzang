@@ -2,8 +2,10 @@ leaf_loc_0293:
     push bp                          ; 0x0293
     mov bp, sp                       ; 0x0294
     sub sp, byte 0x0c                ; 0x0296
+cseg_0299:
     push ds                          ; 0x0299
     push es                          ; 0x029a
+cseg_029b:
     push si                          ; 0x029b
     push di                          ; 0x029c
     mov es, ax                       ; 0x029d
@@ -20,6 +22,7 @@ leaf_loc_0293:
     mov word [bp - 0x0002], ax       ; 0x02ba
     mov al, byte [bx + 0x1]          ; 0x02bd
     mov word [bp - 0x0004], ax       ; 0x02c0
+cseg_02c3:
     mov cx, word [bx + 0xa]          ; 0x02c3
     add bx, byte 0x10                ; 0x02c6
     mov ax, word [bp + 0xc]          ; 0x02c9
@@ -28,6 +31,7 @@ leaf_loc_0293:
     mov al, byte [bx]                ; 0x02d0
     xor ah, ah                       ; 0x02d2
     mov word [bp - 0x000a], ax       ; 0x02d4
+cseg_02d7:
     mul cx                           ; 0x02d7
     add ax, 0x110                    ; 0x02d9
     mov si, ax                       ; 0x02dc
@@ -105,6 +109,7 @@ leaf_loc_0293:
     mov dh, al                       ; 0x0387
     mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0389
     mov es, ax                       ; 0x038d
+cseg_038f:
 @..leaf_loc_0293.l10:
     mov cx, word [bp - 0x0002]       ; 0x038f
 @..leaf_loc_0293.l11:

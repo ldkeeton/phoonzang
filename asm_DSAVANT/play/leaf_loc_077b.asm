@@ -242,6 +242,8 @@ leaf_loc_077b:
     iret                             ; 0x0968
     call loc_09d4                    ; 0x0969
     mov al, 0x20                     ; 0x096c
+data_096e:
+cseg_096e:
     out 0x20, al                     ; 0x096e
     pop bx                           ; 0x0970
     pop dx                           ; 0x0971
@@ -282,6 +284,8 @@ leaf_loc_077b:
     add byte [cs:data_0b95], 0x80    ; 0x09b6
     db 0x2e, 0x83, 0x16, 0xa9, 0x0a, 0x00 ; adc word [cs:0x0aa9], 0
     jb short loc_0969                ; 0x09c2
+data_09c4:
+cseg_09c4:
     dec word [cs:data_0b81]          ; 0x09c4
     je short loc_095d                ; 0x09c9
     mov al, 0x20                     ; 0x09cb
@@ -291,6 +295,7 @@ leaf_loc_077b:
     pop ds                           ; 0x09d1
     pop ax                           ; 0x09d2
     iret                             ; 0x09d3
+cseg_09d4:
     push dx                          ; 0x09d4
     in al, 0x61                      ; 0x09d5
     and al, 0xfe                     ; 0x09d7

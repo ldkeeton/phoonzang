@@ -90,6 +90,7 @@ graphics_loc_0949:
     shl bx, 1                        ; 0x0a41
     mov cx, 6                        ; 0x0a43
     sub cx, bx                       ; 0x0a46
+cseg_0a48:
     mov word [bp - 0x0020], cx       ; 0x0a48
     mov dx, 3                        ; 0x0a4b
     shl dx, cl                       ; 0x0a4e

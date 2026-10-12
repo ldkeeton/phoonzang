@@ -13,6 +13,7 @@ leaf_loc_4717:
     pop es                           ; 0x472b
     pop di                           ; 0x472c
     jmp cx                           ; 0x472d
+__zdata_start:
 
     db 0x00, 0x00, 0x2a, 0x2a, 0x2a, 0x00
     db 'V.$$$', 0

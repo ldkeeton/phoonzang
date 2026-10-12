@@ -104,6 +104,8 @@ loc_361e:
     mov cx, ax                       ; 0x36d6
     mov bx, word [bp + 0x20]         ; 0x36d8
     mul bx                           ; 0x36db
+data_36dd:
+cseg_36dd:
     mov bx, 0x64                     ; 0x36dd
     div bx                           ; 0x36e0
     cmp dx, byte 0x32                ; 0x36e2
@@ -123,6 +125,8 @@ loc_361e:
     mov word [bp - 0x003c], bx       ; 0x36ff
     mov si, ax                       ; 0x3702
     dec si                           ; 0x3704
+data_3705:
+cseg_3705:
     mov word [bp - 0x0030], ax       ; 0x3705
     mov word [bp - 0x0032], cx       ; 0x3708
     call leaf_loc_3a51               ; 0x370b

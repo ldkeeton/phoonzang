@@ -159,5 +159,6 @@ loc_3490:
     db 'cga.drv', 0
     db 'herc.drv', 0
     db 'tandy.drv', 0
-    db 0x00, 0x00
 
+cseg_3532:
+    db 0x00, 0x00

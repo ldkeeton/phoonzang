@@ -13,6 +13,7 @@ leaf_loc_9a03:
     pop es                           ; 0x9a17
     pop di                           ; 0x9a18
     jmp cx                           ; 0x9a19
+__zdata_start:
 
     db '!%&]@#~', 0
     db 0x20, 0x00

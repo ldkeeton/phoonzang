@@ -6,6 +6,7 @@ loc_93e6:
     js short loc_93d5                ; 0x93e8
     inc ax                           ; 0x93ea
     jmp short loc_93d5               ; 0x93eb
+__zdata_start:
 
     db 'PCFILE.DBS', 0
     db 'V.$$$', 0

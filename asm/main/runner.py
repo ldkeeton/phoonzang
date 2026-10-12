@@ -490,6 +490,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         'bare_mem': stats.get('bare_mem', 0),
         'bare_call': stats.get('bare_call', 0),
         'bare_dbc': stats.get('bare_dbc', 0),
+        'frozen_addr': stats.get('frozen_addr', 0),
+        'frozen_addr_detail': stats.get('frozen_addr_detail', {}),
     }
     ctx.report['addresses'] = stats.get('address_records', [])
     _write_address_inventory(project, name, label_map, ctx.report['addresses'])

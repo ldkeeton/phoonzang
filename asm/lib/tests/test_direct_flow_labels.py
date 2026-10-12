@@ -299,8 +299,12 @@ class MZHeaderRenderingTests(unittest.TestCase):
         )
         self.assertIn('; e_magic: DOS MZ signature', source)
         self.assertIn(
-            'dw 0x0056      ; e_cblp: bytes in final 512-byte page (0 means full)',
+            'dw (__zimage_end - $$) % 512          ; 0x0056 ; '
+            'e_cblp: bytes in final 512-byte page (0 means full)',
             source,
+        )
+        self.assertIn(
+            '; 0x0088 ; e_cp: total 512-byte pages in the file', source,
         )
         self.assertIn('e_cparhdr: header size in 16-byte paragraphs', source)
         self.assertIn('e_ip: initial instruction pointer', source)
@@ -326,9 +330,9 @@ class MZHeaderRenderingTests(unittest.TestCase):
             entry_symbol='aztec_begin',
         )
         self.assertIn('IMAGE_BASE equ 0x0200', source)
+        self.assertIn('dw aztec_begin - IMAGE_BASE', source)
         self.assertIn(
-            'dw aztec_begin - IMAGE_BASE ; e_ip: initial instruction pointer',
-            source,
+            '0x4b3a ; e_ip: initial instruction pointer', source,
         )
 
         # A declared entry that does not label CS:IP keeps the literal value.

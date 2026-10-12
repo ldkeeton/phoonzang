@@ -47,6 +47,7 @@ jumptable_4b3c_case_0:
 @..api_idx_0018.l1:
     mov word [bp - 0x0018], 0        ; 0x4b35
     jmp short loc_4b67               ; 0x4b3a
+loc_4b3c:
 jumptable_4b3c:
     dw jumptable_4b3c_case_0 - IMAGE_BASE + 0x5055 ; 0x4b3c
     dw leaf_loc_4990 - IMAGE_BASE + 0x5055     ; 0x4b3e

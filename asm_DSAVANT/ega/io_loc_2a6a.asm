@@ -49,9 +49,11 @@ io_loc_2a6a:
     mov es, ax                       ; 0x2afb
     mov ax, 0xa000                   ; 0x2afd
     mov ds, ax                       ; 0x2b00
+cseg_2b02:
     mov dx, 0x3ce                    ; 0x2b02
     mov al, 5                        ; 0x2b05
     out dx, al                       ; 0x2b07
+cseg_2b08:
     inc dx                           ; 0x2b08
     mov al, 0                        ; 0x2b09
     out dx, al                       ; 0x2b0b

@@ -146,6 +146,18 @@ def _ensure_jump_case_label(records, binary_data, off, name):
     return False
 
 
+def _ensure_global_label(records, binary_data, off, name):
+    """Insert a global label at *off*, splitting a data block if needed.
+
+    Shared by jump-table case synthesis and the dynamic-address rewrite of
+    ``equ`` symbols (plan.md F3): placing the label at the byte makes the
+    symbol's value follow a relocatable layout.  Returns True when the label is
+    in place; a mid-instruction or out-of-range offset returns False so the
+    caller keeps the literal ``equ``.
+    """
+    return _ensure_jump_case_label(records, binary_data, off, name)
+
+
 def _jump_table_record(spec, entries):
     return {
         'type': 'jump_table',

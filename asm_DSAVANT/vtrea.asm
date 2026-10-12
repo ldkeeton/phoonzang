@@ -9,67 +9,21 @@ IMAGE_BASE equ 0x000e
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
-    dw 0x5055      ; o_corg: code load origin (memory offset)
-    dw 0x9a0d      ; o_csize: code size in bytes
-    dw 0x9098      ; o_dorg: data load origin (memory offset)
-    dw 0x007c      ; o_dsize: initialized data size
-    dw 0x05a6      ; o_bss: uninitialized data size
-    dw 0xea0c      ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                          ; o_magic: overlay signature (0x00f2)
+    dw 0x5055                          ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start) ; 0x9a0d ; o_csize: code size in bytes
+    dw 0x9098                          ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)  ; 0x007c ; o_dsize: initialized data size
+    dw 0x05a6                          ; o_bss: uninitialized data size
+    dw loc_99c5 - IMAGE_BASE + 0x5055  ; 0xea0c ; o_entry: overlay entry offset (CS)
 
+__zcode_start:
 loc_34f1 equ 0x34f1
 loc_4582 equ 0x4582
 loc_4a4d equ 0x4a4d
 loc_4a5e equ 0x4a5e
 loc_4ad7 equ 0x4ad7
 api_idx_0004_8 equ 0x4ad8
-loc_4af7 equ 0x4af7
-loc_4b1f equ 0x4b1f
-loc_4b28 equ 0x4b28
-loc_4bbe equ 0x4bbe
-loc_4bcb equ 0x4bcb
-api_idx_0092 equ 0x4bcc
-loc_4bdd equ 0x4bdd
-loc_4be2 equ 0x4be2
-loc_4c0c equ 0x4c0c
-loc_4c64 equ 0x4c64
-loc_4c7e equ 0x4c7e
-loc_4cf9 equ 0x4cf9
-loc_4d07 equ 0x4d07
-loc_4d23 equ 0x4d23
-loc_4d31 equ 0x4d31
-loc_4d3f equ 0x4d3f
-loc_4d47 equ 0x4d47
-loc_4d73 equ 0x4d73
-loc_4d8a equ 0x4d8a
-loc_4dcc equ 0x4dcc
-loc_4e35 equ 0x4e35
-loc_4e73 equ 0x4e73
-loc_4e75 equ 0x4e75
-loc_4eb0 equ 0x4eb0
-loc_4ee5 equ 0x4ee5
-api_idx_007a equ 0x4f0c
-loc_4f2b equ 0x4f2b
-loc_4f69 equ 0x4f69
-loc_4f6e equ 0x4f6e
-loc_4f8c equ 0x4f8c
-loc_501e equ 0x501e
-loc_502d equ 0x502d
-loc_5069 equ 0x5069
-loc_506c equ 0x506c
-loc_507b equ 0x507b
-loc_5089 equ 0x5089
-loc_5095 equ 0x5095
-loc_50f2 equ 0x50f2
-loc_5120 equ 0x5120
-loc_5123 equ 0x5123
-loc_5132 equ 0x5132
-loc_5140 equ 0x5140
-loc_5169 equ 0x5169
-loc_5176 equ 0x5176
-loc_5187 equ 0x5187
-loc_51b6 equ 0x51b6
-loc_51b8 equ 0x51b8
 dseg_0002 equ 0x0002
 dseg_0110 equ 0x0110
 dseg_0112 equ 0x0112
@@ -329,3 +283,5 @@ loc_000e:
 
 %include "vtrea/leaf_loc_9a03.asm"         ; 0x9a03
 
+
+__zimage_end:

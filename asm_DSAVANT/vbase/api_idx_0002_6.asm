@@ -127,6 +127,7 @@ jumptable_7185_case_5:
     call loc_6f79                    ; 0x717d
     add sp, byte 4                   ; 0x7180
     jmp short @..api_idx_0002_6.l6   ; 0x7183
+io_loc_7185:
 jumptable_7185:
     dw jumptable_7185_case_0 - IMAGE_BASE + 0x5055 ; 0x7185
     dw jumptable_7185_case_1 - IMAGE_BASE + 0x5055 ; 0x7187

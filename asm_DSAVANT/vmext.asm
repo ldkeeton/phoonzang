@@ -9,14 +9,15 @@ IMAGE_BASE equ 0x000e
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
-    dw 0x5055      ; o_corg: code load origin (memory offset)
-    dw 0x524b      ; o_csize: code size in bytes
-    dw 0x9098      ; o_dorg: data load origin (memory offset)
-    dw 0x00e8      ; o_dsize: initialized data size
-    dw 0x099c      ; o_bss: uninitialized data size
-    dw 0xa262      ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                          ; o_magic: overlay signature (0x00f2)
+    dw 0x5055                          ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start) ; 0x524b ; o_csize: code size in bytes
+    dw 0x9098                          ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)  ; 0x00e8 ; o_dsize: initialized data size
+    dw 0x099c                          ; o_bss: uninitialized data size
+    dw loc_521b - IMAGE_BASE + 0x5055  ; 0xa262 ; o_entry: overlay entry offset (CS)
 
+__zcode_start:
 loc_4471 equ 0x4471
 dseg_0002 equ 0x0002
 dseg_03ae equ 0x03ae
@@ -2239,6 +2240,7 @@ loc_521b:
     mov di, word [dseg_9178]         ; 0x5250
     push cx                          ; 0x5254
     jmp [dseg_917e]                  ; 0x5255
+__zdata_start:
 
     db 'MAZEDATA.VGA', 0
     db 'WATRDATA.VGA', 0
@@ -2259,3 +2261,5 @@ loc_521b:
     db 'WATRDATA.VGA', 0
     times 11 db 0
 
+
+__zimage_end:

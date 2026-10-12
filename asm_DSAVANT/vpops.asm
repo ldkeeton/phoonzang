@@ -9,14 +9,15 @@ IMAGE_BASE equ 0x000e
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
-    dw 0x5055      ; o_corg: code load origin (memory offset)
-    dw 0x4ecd      ; o_csize: code size in bytes
-    dw 0x9098      ; o_dorg: data load origin (memory offset)
-    dw 0x003e      ; o_dsize: initialized data size
-    dw 0x02b8      ; o_bss: uninitialized data size
-    dw 0x9ee4      ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                          ; o_magic: overlay signature (0x00f2)
+    dw 0x5055                          ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start) ; 0x4ecd ; o_csize: code size in bytes
+    dw 0x9098                          ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)  ; 0x003e ; o_dsize: initialized data size
+    dw 0x02b8                          ; o_bss: uninitialized data size
+    dw loc_4e9d - IMAGE_BASE + 0x5055  ; 0x9ee4 ; o_entry: overlay entry offset (CS)
 
+__zcode_start:
 dseg_0002 equ 0x0002
 bss_0e32 equ 0x0e32
 bss_0e36 equ 0x0e36
@@ -151,6 +152,7 @@ loc_4e9d:
     mov di, word [dseg_90ce]         ; 0x4ed2
     push cx                          ; 0x4ed6
     jmp [dseg_90d4]                  ; 0x4ed7
+__zdata_start:
 
     db 'V1.$$$', 0
     db 'V1.$$$', 0
@@ -162,3 +164,5 @@ loc_4e9d:
     db 'V.$$$', 0
     times 11 db 0
 
+
+__zimage_end:

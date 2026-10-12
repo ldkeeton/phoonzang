@@ -9,14 +9,15 @@ IMAGE_BASE equ 0x000e
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
-    dw 0x5055      ; o_corg: code load origin (memory offset)
-    dw 0x9836      ; o_csize: code size in bytes
-    dw 0x9098      ; o_dorg: data load origin (memory offset)
-    dw 0x0348      ; o_dsize: initialized data size
-    dw 0x0310      ; o_bss: uninitialized data size
-    dw 0xe835      ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                          ; o_magic: overlay signature (0x00f2)
+    dw 0x5055                          ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start) ; 0x9836 ; o_csize: code size in bytes
+    dw 0x9098                          ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)  ; 0x0348 ; o_dsize: initialized data size
+    dw 0x0310                          ; o_bss: uninitialized data size
+    dw loc_97ee - IMAGE_BASE + 0x5055  ; 0xe835 ; o_entry: overlay entry offset (CS)
 
+__zcode_start:
 loc_23fd equ 0x23fd
 loc_2924 equ 0x2924
 loc_2933 equ 0x2933
@@ -342,3 +343,5 @@ loc_000e:
     db 'PORTDATA.VGA', 0
     times 10 db 0
 
+
+__zimage_end:

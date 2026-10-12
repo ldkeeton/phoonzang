@@ -9,14 +9,15 @@ IMAGE_BASE equ 0x000e
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
-    dw 0x5055      ; o_corg: code load origin (memory offset)
-    dw 0x7023      ; o_csize: code size in bytes
-    dw 0x9098      ; o_dorg: data load origin (memory offset)
-    dw 0x048c      ; o_dsize: initialized data size
-    dw 0x0268      ; o_bss: uninitialized data size
-    dw 0xbfd3      ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw 0x5055                                ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0x7023 ; o_csize: code size in bytes
+    dw 0x9098                                ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x048c ; o_dsize: initialized data size
+    dw 0x0268                                ; o_bss: uninitialized data size
+    dw string_loc_6f8c - IMAGE_BASE + 0x5055 ; 0xbfd3 ; o_entry: overlay entry offset (CS)
 
+__zcode_start:
 loc_4267 equ 0x4267
 string_loc_436e equ 0x436e
 string_loc_5a60 equ 0x5a60
@@ -215,6 +216,7 @@ loc_702a:
     js short loc_7019                ; 0x702c
     inc ax                           ; 0x702e
     jmp short loc_7019               ; 0x702f
+__zdata_start:
 
     db 'PCFILE.DBS', 0
     db 'V.$$$', 0
@@ -331,3 +333,5 @@ loc_702a:
     db 'PCVWSCRN.VGA', 0
     times 11 db 0
 
+
+__zimage_end:

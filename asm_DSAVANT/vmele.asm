@@ -9,14 +9,15 @@ IMAGE_BASE equ 0x000e
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
-    dw 0x5055      ; o_corg: code load origin (memory offset)
-    dw 0x3765      ; o_csize: code size in bytes
-    dw 0x9098      ; o_dorg: data load origin (memory offset)
-    dw 0x001e      ; o_dsize: initialized data size
-    dw 0x001a      ; o_bss: uninitialized data size
-    dw 0x8757      ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw 0x5055                                ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0x3765 ; o_csize: code size in bytes
+    dw 0x9098                                ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x001e ; o_dsize: initialized data size
+    dw 0x001a                                ; o_bss: uninitialized data size
+    dw string_loc_3710 - IMAGE_BASE + 0x5055 ; 0x8757 ; o_entry: overlay entry offset (CS)
 
+__zcode_start:
 dseg_0002 equ 0x0002
 bss_0e36 equ 0x0e36
 bss_5962 equ 0x5962
@@ -181,9 +182,12 @@ loc_000e:
 
 %include "vmele/string_loc_374e.asm"       ; 0x374e
 
+__zdata_start:
 
     db 'MON00.PIC', 0
     db 0x20, 0x00
     db 'VM1.$$$', 0
     times 10 db 0
 
+
+__zimage_end:

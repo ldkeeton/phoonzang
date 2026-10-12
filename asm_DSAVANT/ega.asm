@@ -6,86 +6,20 @@ bits 16
 IMAGE_BASE equ 0x0000
 %endif
 
-data_36dd equ 0x36dd
-data_3705 equ 0x3705
-cseg_01e1 equ 0x01e1
-cseg_01e5 equ 0x01e5
-cseg_01e9 equ 0x01e9
-cseg_01f7 equ 0x01f7
-cseg_01fb equ 0x01fb
-cseg_01ff equ 0x01ff
-cseg_0201 equ 0x0201
-cseg_0203 equ 0x0203
-cseg_0205 equ 0x0205
-cseg_0206 equ 0x0206
-cseg_020e equ 0x020e
-cseg_0212 equ 0x0212
-cseg_0216 equ 0x0216
-cseg_021a equ 0x021a
-cseg_021e equ 0x021e
-cseg_0222 equ 0x0222
-cseg_0226 equ 0x0226
-cseg_0227 equ 0x0227
-cseg_0228 equ 0x0228
-cseg_0229 equ 0x0229
-cseg_0251 equ 0x0251
-cseg_025b equ 0x025b
-cseg_027b equ 0x027b
-cseg_0291 equ 0x0291
 cseg_0295 equ 0x0295
 cseg_0297 equ 0x0297
-cseg_0299 equ 0x0299
-cseg_029b equ 0x029b
-cseg_02c3 equ 0x02c3
-cseg_02d7 equ 0x02d7
-cseg_038f equ 0x038f
 cseg_0391 equ 0x0391
-cseg_0a48 equ 0x0a48
 cseg_10e7 equ 0x10e7
 cseg_11cb equ 0x11cb
 cseg_11cd equ 0x11cd
 cseg_148e equ 0x148e
-cseg_1bd5 equ 0x1bd5
-cseg_1bd7 equ 0x1bd7
-cseg_1bd9 equ 0x1bd9
-cseg_1bdb equ 0x1bdb
-cseg_1bdd equ 0x1bdd
-cseg_1be1 equ 0x1be1
-cseg_1be3 equ 0x1be3
-cseg_1be5 equ 0x1be5
-cseg_1beb equ 0x1beb
-cseg_1bed equ 0x1bed
-cseg_1bef equ 0x1bef
-cseg_1bf1 equ 0x1bf1
-cseg_1bf3 equ 0x1bf3
-cseg_1bf5 equ 0x1bf5
-cseg_1bf7 equ 0x1bf7
-cseg_1bf9 equ 0x1bf9
-cseg_1bfb equ 0x1bfb
-cseg_24fd equ 0x24fd
 dseg_24fd equ 0x24fd
-cseg_257d equ 0x257d
-cseg_258d equ 0x258d
-cseg_258f equ 0x258f
-cseg_2591 equ 0x2591
-cseg_2593 equ 0x2593
-cseg_2599 equ 0x2599
-cseg_259b equ 0x259b
-cseg_259d equ 0x259d
-cseg_2602 equ 0x2602
-cseg_2a02 equ 0x2a02
-cseg_2b02 equ 0x2b02
 cseg_2b04 equ 0x2b04
 cseg_2b06 equ 0x2b06
-cseg_2b08 equ 0x2b08
-cseg_3296 equ 0x3296
 cseg_3297 equ 0x3297
-cseg_36dd equ 0x36dd
-cseg_3705 equ 0x3705
 cseg_3b21 equ 0x3b21
 cseg_3b22 equ 0x3b22
 cseg_3b34 equ 0x3b34
-cseg_3b35 equ 0x3b35
 cseg_4540 equ 0x4540
 cseg_4ab4 equ 0x4ab4
 cseg_4f8b equ 0x4f8b
@@ -118,8 +52,62 @@ loc_0000:
     db 0x04
     times 23 db 0
     db 0x01
-    times 255 db 0
+    times 77 db 0
 
+cseg_01e1:
+    times 4 db 0
+cseg_01e5:
+    times 4 db 0
+cseg_01e9:
+    times 14 db 0
+cseg_01f7:
+    times 4 db 0
+cseg_01fb:
+    times 4 db 0
+cseg_01ff:
+    db 0x00, 0x00
+cseg_0201:
+    db 0x00, 0x00
+cseg_0203:
+    db 0x00, 0x00
+cseg_0205:
+    db 0x00
+cseg_0206:
+    times 8 db 0
+cseg_020e:
+    times 4 db 0
+cseg_0212:
+    times 4 db 0
+cseg_0216:
+    times 4 db 0
+cseg_021a:
+    times 4 db 0
+cseg_021e:
+    times 4 db 0
+cseg_0222:
+    times 4 db 0
+cseg_0226:
+    db 0x00
+cseg_0227:
+    db 0x00
+cseg_0228:
+    db 0x00
+cseg_0229:
+
+    times 40 db 0
+
+cseg_0251:
+    times 10 db 0
+cseg_025b:
+
+    times 32 db 0
+
+cseg_027b:
+
+    times 22 db 0
+
+cseg_0291:
+    db 0x00, 0x00
 %include "ega/leaf_loc_0293.asm"           ; 0x0293
 
 %include "ega/leaf_loc_0439.asm"           ; 0x0439

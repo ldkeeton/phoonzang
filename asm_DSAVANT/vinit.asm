@@ -9,14 +9,15 @@ IMAGE_BASE equ 0x000e
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
-    dw 0x5055      ; o_corg: code load origin (memory offset)
-    dw 0x1609      ; o_csize: code size in bytes
-    dw 0x9098      ; o_dorg: data load origin (memory offset)
-    dw 0x0120      ; o_dsize: initialized data size
-    dw 0x0002      ; o_bss: uninitialized data size
-    dw 0x6620      ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                          ; o_magic: overlay signature (0x00f2)
+    dw 0x5055                          ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start) ; 0x1609 ; o_csize: code size in bytes
+    dw 0x9098                          ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)  ; 0x0120 ; o_dsize: initialized data size
+    dw 0x0002                          ; o_bss: uninitialized data size
+    dw loc_15d9 - IMAGE_BASE + 0x5055  ; 0x6620 ; o_entry: overlay entry offset (CS)
 
+__zcode_start:
 dseg_0002 equ 0x0002
 dseg_010c equ 0x010c
 bss_0e0e equ 0x0e0e
@@ -159,6 +160,7 @@ loc_15d9:
     mov di, word [dseg_91b0]         ; 0x160e
     push cx                          ; 0x1612
     jmp [dseg_91b6]                  ; 0x1613
+__zdata_start:
 
     db 'SCENARIO.HDR', 0
     db 'VBFONT0.VGA', 0
@@ -186,3 +188,5 @@ loc_15d9:
     db 'MAINSCRN.VGA', 0
     times 10 db 0
 
+
+__zimage_end:

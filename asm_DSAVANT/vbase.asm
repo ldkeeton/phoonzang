@@ -9,14 +9,15 @@ IMAGE_BASE equ 0x000e
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2      ; o_magic: overlay signature (0x00f2)
-    dw 0x5055      ; o_corg: code load origin (memory offset)
-    dw 0x93df      ; o_csize: code size in bytes
-    dw 0x9098      ; o_dorg: data load origin (memory offset)
-    dw 0x012e      ; o_dsize: initialized data size
-    dw 0x143c      ; o_bss: uninitialized data size
-    dw 0xe377      ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
+    dw 0x5055                                ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)       ; 0x93df ; o_csize: code size in bytes
+    dw 0x9098                                ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)        ; 0x012e ; o_dsize: initialized data size
+    dw 0x143c                                ; o_bss: uninitialized data size
+    dw string_loc_9330 - IMAGE_BASE + 0x5055 ; 0xe377 ; o_entry: overlay entry offset (CS)
 
+__zcode_start:
 loc_0d04 equ 0x0d04
 loc_14d6 equ 0x14d6
 loc_1795 equ 0x1795
@@ -25,7 +26,6 @@ loc_18c8 equ 0x18c8
 loc_18ca equ 0x18ca
 leaf_loc_1949 equ 0x1949
 loc_6e77 equ 0x6e77
-io_loc_7185 equ 0x7185
 dseg_0002 equ 0x0002
 dseg_0114 equ 0x0114
 dseg_0116 equ 0x0116
@@ -652,3 +652,5 @@ loc_000e:
 
 %include "vbase/string_loc_93e3.asm"       ; 0x93e3
 
+
+__zimage_end:

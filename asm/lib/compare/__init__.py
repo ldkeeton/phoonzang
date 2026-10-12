@@ -43,6 +43,7 @@ from lib.compare.jumptables import (
     _usable_jump_label,
     _records_overlapping,
     _ensure_jump_case_label,
+    _ensure_global_label,
     _jump_table_record,
     _replace_jump_span,
     _inject_jump_tables,
@@ -56,6 +57,7 @@ from lib.compare.records import (
     _BARE_MEM_RE,
     _BARE_FLOW_RE,
     _count_bare_addrs,
+    count_frozen_addrs,
 )
 from lib.compare.analysis import (
     _compute_func_boundaries,

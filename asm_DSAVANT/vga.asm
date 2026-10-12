@@ -9,30 +9,20 @@ IMAGE_BASE equ 0x0000
 dos_con_loc_07fd equ 0x07fd
 dos_con_loc_088f equ 0x088f
 dos_con_loc_0a4f equ 0x0a4f
-dos_con_loc_0a8d equ 0x0a8d
 dos_con_loc_0be4 equ 0x0be4
 dos_con_loc_0cf6 equ 0x0cf6
 dos_con_loc_0d06 equ 0x0d06
 dos_con_loc_0fda equ 0x0fda
-dos_con_loc_147d equ 0x147d
 dos_con_loc_22be equ 0x22be
-dos_con_loc_22ee equ 0x22ee
 bios_video_loc_28ba equ 0x28ba
 dos_mem_loc_29bf equ 0x29bf
 dos_con_loc_2a97 equ 0x2a97
 dos_con_loc_3153 equ 0x3153
-dos_con_loc_3822 equ 0x3822
 dos_con_loc_3ab7 equ 0x3ab7
 dos_con_loc_3aee equ 0x3aee
-dos_con_loc_3b1f equ 0x3b1f
 dos_con_loc_3b5c equ 0x3b5c
 dos_con_loc_3d39 equ 0x3d39
 dos_con_loc_3efb equ 0x3efb
-dos_con_loc_3f45 equ 0x3f45
-dos_con_loc_4088 equ 0x4088
-dos_con_loc_40d2 equ 0x40d2
-dos_con_loc_422f equ 0x422f
-dos_con_loc_426b equ 0x426b
 data_0229 equ 0x0229
 data_0251 equ 0x0251
 data_025b equ 0x025b
@@ -50,20 +40,6 @@ data_381b equ 0x381b
 data_4202 equ 0x4202
 data_46d9 equ 0x46d9
 data_46f1 equ 0x46f1
-cseg_01e1 equ 0x01e1
-cseg_0206 equ 0x0206
-cseg_020e equ 0x020e
-cseg_0212 equ 0x0212
-cseg_0216 equ 0x0216
-cseg_021a equ 0x021a
-cseg_021e equ 0x021e
-cseg_0229 equ 0x0229
-cseg_0251 equ 0x0251
-cseg_025b equ 0x025b
-cseg_0bc6 equ 0x0bc6
-cseg_0caa equ 0x0caa
-cseg_0cac equ 0x0cac
-cseg_4202 equ 0x4202
 cseg_46d9 equ 0x46d9
 
 loc_0000:
@@ -92,7 +68,33 @@ loc_0000:
     db 0x04
     times 23 db 0
     db 0x01
-    times 255 db 0
+    times 77 db 0
+
+cseg_01e1:
+
+    times 37 db 0
+
+cseg_0206:
+    times 8 db 0
+cseg_020e:
+    times 4 db 0
+cseg_0212:
+    times 4 db 0
+cseg_0216:
+    times 4 db 0
+cseg_021a:
+    times 4 db 0
+cseg_021e:
+    times 11 db 0
+cseg_0229:
+
+    times 40 db 0
+
+cseg_0251:
+    times 10 db 0
+cseg_025b:
+
+    times 56 db 0
     db 0x55, 0x8b, 0xec, 0x83, 0xec, 0x0c, 0x1e, 0x06, 0x56, 0x57, 0x8e, 0xc0, 0x8e, 0xd8, 0x33, 0xdb
     db 0x2e, 0xa1, 0x97, 0x02, 0xb9, 0x40, 0x01, 0xf7, 0xe1, 0x2e, 0x03, 0x06, 0x95, 0x02, 0x8b, 0xf8
     db 0x89, 0x46, 0xfa, 0x33, 0xc0, 0x8a, 0x07, 0x89, 0x46, 0xfe, 0x8a, 0x47, 0x01, 0x89, 0x46, 0xfc

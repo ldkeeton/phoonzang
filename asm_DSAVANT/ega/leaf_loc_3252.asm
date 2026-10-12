@@ -35,6 +35,7 @@ loc_3253:
     mov cl, 5                        ; 0x3290
     shr al, cl                       ; 0x3292
     or bl, al                        ; 0x3294
+cseg_3296:
     mov al, ah                       ; 0x3296
     and al, 0x80                     ; 0x3298
     mov cl, 6                        ; 0x329a

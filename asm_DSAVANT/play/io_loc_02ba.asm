@@ -139,6 +139,8 @@ io_loc_02ba:
     mov di, 0x20                     ; 0x0417
     cli                              ; 0x041a
     cmp byte [cs:cseg_0421 - IMAGE_BASE], 0 ; 0x041b
+data_0421:
+cseg_0421:
     jne short @..bios_disk_loc_0294.l10 ; 0x0421
     mov byte [cs:cseg_0421 - IMAGE_BASE], 1 ; 0x0423
     in al, 0x21                      ; 0x0429
