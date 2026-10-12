@@ -129,6 +129,7 @@ def _render_records(records, binary_data, show_offsets=True, gap=None):
         elif rec['type'] == 'jump_table':
             out.append(f'{rec["label"]}:')
             adjust = rec.get('adjust', 0)
+            literal = bool(rec.get('literal'))
             addr = rec['start']
             entry_size = rec.get('entry_size', 2)
             for entry in rec['entries']:
@@ -140,7 +141,12 @@ def _render_records(records, binary_data, show_offsets=True, gap=None):
                 else:
                     text = f'dw 0x{entry:04x}'
                 if show_offsets:
-                    out.append(f'    {text:<42s} ; 0x{addr:04x}')
+                    line = f'    {text:<42s} ; 0x{addr:04x}'
+                    if literal and entry is not None:
+                        # Tag deliberate data (plan.md F6) so the census can
+                        # tell it apart from an unresolved pointer word (F7).
+                        line += ' ; literal'
+                    out.append(line)
                 else:
                     out.append(f'    {text}')
                 addr += entry_size

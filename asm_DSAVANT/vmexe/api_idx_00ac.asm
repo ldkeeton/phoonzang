@@ -192,23 +192,23 @@ api_idx_00ac:
     call leaf_loc_a508               ; 0x7c0b
 jumptable_7c0e:
     dw 0                                       ; 0x7c0e
-    dw 0x0012                                  ; 0x7c10
-    dw 0x0015                                  ; 0x7c12
-    dw 0x0016                                  ; 0x7c14
-    dw 0x0017                                  ; 0x7c16
-    dw 0x0020                                  ; 0x7c18
-    dw 0x0022                                  ; 0x7c1a
-    dw 0x0053                                  ; 0x7c1c
-    dw 0x0064                                  ; 0x7c1e
-    dw 0x0065                                  ; 0x7c20
-    dw 0x0066                                  ; 0x7c22
-    dw 0x0067                                  ; 0x7c24
-    dw 0x0068                                  ; 0x7c26
-    dw 0x006e                                  ; 0x7c28
-    dw 0x0070                                  ; 0x7c2a
-    dw 0x0072                                  ; 0x7c2c
-    dw 0xcb80                                  ; 0x7c2e
-    dw 0xcb88                                  ; 0x7c30
+    dw 0x0012                                  ; 0x7c10 ; literal
+    dw 0x0015                                  ; 0x7c12 ; literal
+    dw 0x0016                                  ; 0x7c14 ; literal
+    dw 0x0017                                  ; 0x7c16 ; literal
+    dw 0x0020                                  ; 0x7c18 ; literal
+    dw 0x0022                                  ; 0x7c1a ; literal
+    dw 0x0053                                  ; 0x7c1c ; literal
+    dw 0x0064                                  ; 0x7c1e ; literal
+    dw 0x0065                                  ; 0x7c20 ; literal
+    dw 0x0066                                  ; 0x7c22 ; literal
+    dw 0x0067                                  ; 0x7c24 ; literal
+    dw 0x0068                                  ; 0x7c26 ; literal
+    dw 0x006e                                  ; 0x7c28 ; literal
+    dw 0x0070                                  ; 0x7c2a ; literal
+    dw 0x0072                                  ; 0x7c2c ; literal
+    dw 0xcb80                                  ; 0x7c2e ; literal
+    dw 0xcb88                                  ; 0x7c30 ; literal
 loc_7c32:
     nop                              ; 0x7c32
     retf                             ; 0x7c33
@@ -700,48 +700,48 @@ jumptable_7e61_case_0:
     call leaf_loc_a508               ; 0x8142
 jumptable_8145:
     dw 0                                       ; 0x8145
-    dw 0x0001                                  ; 0x8147
-    dw 0x0002                                  ; 0x8149
-    dw 0x0003                                  ; 0x814b
-    dw 0x0004                                  ; 0x814d
-    dw 0x0005                                  ; 0x814f
-    dw 0x0006                                  ; 0x8151
-    dw 0x0007                                  ; 0x8153
-    dw 0x0008                                  ; 0x8155
-    dw 0x0009                                  ; 0x8157
-    dw 0x000a                                  ; 0x8159
-    dw 0x000b                                  ; 0x815b
-    dw 0x000c                                  ; 0x815d
-    dw 0x000d                                  ; 0x815f
-    dw 0x000e                                  ; 0x8161
-    dw 0x000f                                  ; 0x8163
-    dw 0x0010                                  ; 0x8165
-    dw 0x0011                                  ; 0x8167
-    dw 0x0012                                  ; 0x8169
-    dw 0x0013                                  ; 0x816b
-    dw 0x0014                                  ; 0x816d
-    dw 0x0018                                  ; 0x816f
-    dw 0x0025                                  ; 0x8171
-    dw 0x0026                                  ; 0x8173
-    dw 0x0033                                  ; 0x8175
-    dw 0x0034                                  ; 0x8177
-    dw 0x0035                                  ; 0x8179
-    dw 0x0036                                  ; 0x817b
-    dw 0x0037                                  ; 0x817d
-    dw 0x0038                                  ; 0x817f
-    dw 0x0039                                  ; 0x8181
-    dw 0x003a                                  ; 0x8183
-    dw 0x003b                                  ; 0x8185
-    dw 0x0058                                  ; 0x8187
-    dw 0x005a                                  ; 0x8189
-    dw 0x0068                                  ; 0x818b
-    dw 0x0069                                  ; 0x818d
-    dw 0x006a                                  ; 0x818f
-    dw 0x006c                                  ; 0x8191
-    dw 0x006e                                  ; 0x8193
-    dw 0x0072                                  ; 0x8195
-    dw 0xd136                                  ; 0x8197
-    dw 0xd13e                                  ; 0x8199
+    dw 0x0001                                  ; 0x8147 ; literal
+    dw 0x0002                                  ; 0x8149 ; literal
+    dw 0x0003                                  ; 0x814b ; literal
+    dw 0x0004                                  ; 0x814d ; literal
+    dw 0x0005                                  ; 0x814f ; literal
+    dw 0x0006                                  ; 0x8151 ; literal
+    dw 0x0007                                  ; 0x8153 ; literal
+    dw 0x0008                                  ; 0x8155 ; literal
+    dw 0x0009                                  ; 0x8157 ; literal
+    dw 0x000a                                  ; 0x8159 ; literal
+    dw 0x000b                                  ; 0x815b ; literal
+    dw 0x000c                                  ; 0x815d ; literal
+    dw 0x000d                                  ; 0x815f ; literal
+    dw 0x000e                                  ; 0x8161 ; literal
+    dw 0x000f                                  ; 0x8163 ; literal
+    dw 0x0010                                  ; 0x8165 ; literal
+    dw 0x0011                                  ; 0x8167 ; literal
+    dw 0x0012                                  ; 0x8169 ; literal
+    dw 0x0013                                  ; 0x816b ; literal
+    dw 0x0014                                  ; 0x816d ; literal
+    dw 0x0018                                  ; 0x816f ; literal
+    dw 0x0025                                  ; 0x8171 ; literal
+    dw 0x0026                                  ; 0x8173 ; literal
+    dw 0x0033                                  ; 0x8175 ; literal
+    dw 0x0034                                  ; 0x8177 ; literal
+    dw 0x0035                                  ; 0x8179 ; literal
+    dw 0x0036                                  ; 0x817b ; literal
+    dw 0x0037                                  ; 0x817d ; literal
+    dw 0x0038                                  ; 0x817f ; literal
+    dw 0x0039                                  ; 0x8181 ; literal
+    dw 0x003a                                  ; 0x8183 ; literal
+    dw 0x003b                                  ; 0x8185 ; literal
+    dw 0x0058                                  ; 0x8187 ; literal
+    dw 0x005a                                  ; 0x8189 ; literal
+    dw 0x0068                                  ; 0x818b ; literal
+    dw 0x0069                                  ; 0x818d ; literal
+    dw 0x006a                                  ; 0x818f ; literal
+    dw 0x006c                                  ; 0x8191 ; literal
+    dw 0x006e                                  ; 0x8193 ; literal
+    dw 0x0072                                  ; 0x8195 ; literal
+    dw 0xd136                                  ; 0x8197 ; literal
+    dw 0xd13e                                  ; 0x8199 ; literal
     db 0x46
     rol word [bp - 0x002f], 1        ; 0x819c
     dec si                           ; 0x819f

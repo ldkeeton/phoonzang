@@ -330,30 +330,30 @@ loc_4a07:
     mov cx, 0x17                     ; 0x4a77
     call leaf_loc_9a03               ; 0x4a7a
 jumptable_4a7d:
-    dw 0x000c                                  ; 0x4a7d
-    dw 0x0011                                  ; 0x4a7f
-    dw 0x0013                                  ; 0x4a81
-    dw 0x0019                                  ; 0x4a83
-    dw 0x0021                                  ; 0x4a85
-    dw 0x0025                                  ; 0x4a87
-    dw 0x002e                                  ; 0x4a89
-    dw 0x002f                                  ; 0x4a8b
-    dw 0x0031                                  ; 0x4a8d
-    dw 0x0038                                  ; 0x4a8f
-    dw 0x003d                                  ; 0x4a91
-    dw 0x003e                                  ; 0x4a93
-    dw 0x003f                                  ; 0x4a95
-    dw 0x0042                                  ; 0x4a97
-    dw 0x0045                                  ; 0x4a99
-    dw 0x004e                                  ; 0x4a9b
-    dw 0x0052                                  ; 0x4a9d
-    dw 0x0054                                  ; 0x4a9f
-    dw 0x0058                                  ; 0x4aa1
-    dw 0x005e                                  ; 0x4aa3
-    dw 0x0061                                  ; 0x4aa5
-    dw 0x0062                                  ; 0x4aa7
-    dw 0x9521                                  ; 0x4aa9
-    dw 0x95d4                                  ; 0x4aab
+    dw 0x000c                                  ; 0x4a7d ; literal
+    dw 0x0011                                  ; 0x4a7f ; literal
+    dw 0x0013                                  ; 0x4a81 ; literal
+    dw 0x0019                                  ; 0x4a83 ; literal
+    dw 0x0021                                  ; 0x4a85 ; literal
+    dw 0x0025                                  ; 0x4a87 ; literal
+    dw 0x002e                                  ; 0x4a89 ; literal
+    dw 0x002f                                  ; 0x4a8b ; literal
+    dw 0x0031                                  ; 0x4a8d ; literal
+    dw 0x0038                                  ; 0x4a8f ; literal
+    dw 0x003d                                  ; 0x4a91 ; literal
+    dw 0x003e                                  ; 0x4a93 ; literal
+    dw 0x003f                                  ; 0x4a95 ; literal
+    dw 0x0042                                  ; 0x4a97 ; literal
+    dw 0x0045                                  ; 0x4a99 ; literal
+    dw 0x004e                                  ; 0x4a9b ; literal
+    dw 0x0052                                  ; 0x4a9d ; literal
+    dw 0x0054                                  ; 0x4a9f ; literal
+    dw 0x0058                                  ; 0x4aa1 ; literal
+    dw 0x005e                                  ; 0x4aa3 ; literal
+    dw 0x0061                                  ; 0x4aa5 ; literal
+    dw 0x0062                                  ; 0x4aa7 ; literal
+    dw 0x9521                                  ; 0x4aa9 ; literal
+    dw 0x95d4                                  ; 0x4aab ; literal
     and word [di - 0x68b6], dx       ; 0x4aad
     adc dl, byte [bp - 0x6bc9]       ; 0x4ab1
     inc sp                           ; 0x4ab5
@@ -376,8 +376,8 @@ jumptable_4a7d:
     cwd                              ; 0x4ad2
     dec cx                           ; 0x4ad3
 jumptable_4ad4:
-    dw 0x1e9a                                  ; 0x4ad4
-    dw 0xc39b                                  ; 0x4ad6
+    dw 0x1e9a                                  ; 0x4ad4 ; literal
+    dw 0xc39b                                  ; 0x4ad6 ; literal
     db 0xb8
     cld                              ; 0x4ad9
 

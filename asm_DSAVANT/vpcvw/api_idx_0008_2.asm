@@ -300,31 +300,31 @@ loc_290e:
     mov cx, 0x18                     ; 0x2919
     call leaf_loc_982c               ; 0x291c
 jumptable_291f:
-    dw 0x000c                                  ; 0x291f
-    dw 0x0011                                  ; 0x2921
-    dw 0x0013                                  ; 0x2923
-    dw 0x0019                                  ; 0x2925
-    dw 0x0021                                  ; 0x2927
-    dw 0x0025                                  ; 0x2929
-    dw 0x002e                                  ; 0x292b
-    dw 0x0031                                  ; 0x292d
-    dw 0x0038                                  ; 0x292f
-    dw 0x003d                                  ; 0x2931
-    dw 0x003f                                  ; 0x2933
-    dw 0x0040                                  ; 0x2935
-    dw 0x0042                                  ; 0x2937
-    dw 0x0045                                  ; 0x2939
-    dw 0x004e                                  ; 0x293b
-    dw 0x0052                                  ; 0x293d
-    dw 0x0054                                  ; 0x293f
-    dw 0x0057                                  ; 0x2941
-    dw 0x0058                                  ; 0x2943
-    dw 0x005c                                  ; 0x2945
-    dw 0x005e                                  ; 0x2947
-    dw 0x0061                                  ; 0x2949
-    dw 0x0062                                  ; 0x294b
-    dw 0x730b                                  ; 0x294d
-    dw 0x73be                                  ; 0x294f
+    dw 0x000c                                  ; 0x291f ; literal
+    dw 0x0011                                  ; 0x2921 ; literal
+    dw 0x0013                                  ; 0x2923 ; literal
+    dw 0x0019                                  ; 0x2925 ; literal
+    dw 0x0021                                  ; 0x2927 ; literal
+    dw 0x0025                                  ; 0x2929 ; literal
+    dw 0x002e                                  ; 0x292b ; literal
+    dw 0x0031                                  ; 0x292d ; literal
+    dw 0x0038                                  ; 0x292f ; literal
+    dw 0x003d                                  ; 0x2931 ; literal
+    dw 0x003f                                  ; 0x2933 ; literal
+    dw 0x0040                                  ; 0x2935 ; literal
+    dw 0x0042                                  ; 0x2937 ; literal
+    dw 0x0045                                  ; 0x2939 ; literal
+    dw 0x004e                                  ; 0x293b ; literal
+    dw 0x0052                                  ; 0x293d ; literal
+    dw 0x0054                                  ; 0x293f ; literal
+    dw 0x0057                                  ; 0x2941 ; literal
+    dw 0x0058                                  ; 0x2943 ; literal
+    dw 0x005c                                  ; 0x2945 ; literal
+    dw 0x005e                                  ; 0x2947 ; literal
+    dw 0x0061                                  ; 0x2949 ; literal
+    dw 0x0062                                  ; 0x294b ; literal
+    dw 0x730b                                  ; 0x294d ; literal
+    dw 0x73be                                  ; 0x294f ; literal
     db 0x0b
     jae short @..api_idx_0004_4.l5   ; 0x2952
 @..api_idx_0004_4.l4:

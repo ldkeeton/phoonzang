@@ -168,6 +168,7 @@ def _jump_table_record(spec, entries):
         'entry_size': spec.get('entry_size', 2),
         'entries': list(entries),
         'adjust': spec.get('adjust', 0),
+        'literal': bool(spec.get('literal', False)),
         'note': spec.get('note', ''),
     }
 

@@ -272,33 +272,33 @@ api_idx_0008:
     mov cx, 0x1a                     ; 0x2320
     call leaf_loc_4717               ; 0x2323
 jumptable_2326:
-    dw 0x000c                                  ; 0x2326
-    dw 0x0011                                  ; 0x2328
-    dw 0x0013                                  ; 0x232a
-    dw 0x0019                                  ; 0x232c
-    dw 0x0021                                  ; 0x232e
-    dw 0x0025                                  ; 0x2330
-    dw 0x002e                                  ; 0x2332
-    dw 0x002f                                  ; 0x2334
-    dw 0x0031                                  ; 0x2336
-    dw 0x0038                                  ; 0x2338
-    dw 0x003d                                  ; 0x233a
-    dw 0x003f                                  ; 0x233c
-    dw 0x0042                                  ; 0x233e
-    dw 0x0045                                  ; 0x2340
-    dw 0x0048                                  ; 0x2342
-    dw 0x004b                                  ; 0x2344
-    dw 0x004d                                  ; 0x2346
-    dw 0x004e                                  ; 0x2348
-    dw 0x0052                                  ; 0x234a
-    dw 0x0054                                  ; 0x234c
-    dw 0x0058                                  ; 0x234e
-    dw 0x005e                                  ; 0x2350
-    dw 0x0061                                  ; 0x2352
-    dw 0x0062                                  ; 0x2354
-    dw 0x0063                                  ; 0x2356
-    dw 0x6ddd                                  ; 0x2358
-    dw 0x6e83                                  ; 0x235a
+    dw 0x000c                                  ; 0x2326 ; literal
+    dw 0x0011                                  ; 0x2328 ; literal
+    dw 0x0013                                  ; 0x232a ; literal
+    dw 0x0019                                  ; 0x232c ; literal
+    dw 0x0021                                  ; 0x232e ; literal
+    dw 0x0025                                  ; 0x2330 ; literal
+    dw 0x002e                                  ; 0x2332 ; literal
+    dw 0x002f                                  ; 0x2334 ; literal
+    dw 0x0031                                  ; 0x2336 ; literal
+    dw 0x0038                                  ; 0x2338 ; literal
+    dw 0x003d                                  ; 0x233a ; literal
+    dw 0x003f                                  ; 0x233c ; literal
+    dw 0x0042                                  ; 0x233e ; literal
+    dw 0x0045                                  ; 0x2340 ; literal
+    dw 0x0048                                  ; 0x2342 ; literal
+    dw 0x004b                                  ; 0x2344 ; literal
+    dw 0x004d                                  ; 0x2346 ; literal
+    dw 0x004e                                  ; 0x2348 ; literal
+    dw 0x0052                                  ; 0x234a ; literal
+    dw 0x0054                                  ; 0x234c ; literal
+    dw 0x0058                                  ; 0x234e ; literal
+    dw 0x005e                                  ; 0x2350 ; literal
+    dw 0x0061                                  ; 0x2352 ; literal
+    dw 0x0062                                  ; 0x2354 ; literal
+    dw 0x0063                                  ; 0x2356 ; literal
+    dw 0x6ddd                                  ; 0x2358 ; literal
+    dw 0x6e83                                  ; 0x235a ; literal
 
     db 0xdd, 0x6d, 0xc2, 0x6f, 0xb4, 0x6e, 0x9e, 0x6d, 0xab, 0x6d, 0xdb, 0x71, 0x74, 0x6d, 0x0c
     db 'o3p"m'

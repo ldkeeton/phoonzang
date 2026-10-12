@@ -27,6 +27,7 @@ GOOD_UP = {
 }
 GOOD_DOWN = {
     'unknown_bytes', 'code_loss', 'bare_mem', 'bare_call', 'frozen_addr',
+    'code_shift', 'data_shift',
 }
 
 
@@ -187,6 +188,7 @@ def summarize(ctx):
     targets = report.get('code_targets', {}) or {}
     it = report.get('iterative', {}) or {}
     binary = report.get('binary', {}) or {}
+    frozen = verify.get('frozen_addr_detail', {}) or {}
 
     def _int(v):
         try:
@@ -212,6 +214,9 @@ def summarize(ctx):
         'bare_mem': _int(verify.get('bare_mem')),
         'bare_call': _int(verify.get('bare_call')),
         'frozen_addr': _int(verify.get('frozen_addr')),
+        'code_shift': _int(frozen.get('code_shift')),
+        'data_shift': _int(frozen.get('data_shift')),
+        'inert': _int(frozen.get('inert')),
         'iterations': _int(it.get('iterations')),
         'converged': bool(it.get('converged', False)),
         'asm_hash': report.get('asm_hash', ''),

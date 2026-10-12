@@ -95,10 +95,22 @@ _FROZEN_PAD_RE = re.compile(r'^\s*times\s+(\d+)\s+db\s+0\b')
 _FROZEN_JT_WORD_RE = re.compile(
     r'^\s*dw\s+0x[0-9a-f]{1,4}\s*;\s*0x[0-9a-f]{4}\s*$'
 )
+# A deliberately-literal data word carries an extra ``; literal`` tag so the
+# census can tell it apart from an unresolved pointer word in a real jump
+# table, which otherwise renders identically (plan.md section 10.2).
+_FROZEN_LITERAL_WORD_RE = re.compile(
+    r'^\s*dw\s+0x[0-9a-f]{1,4}\s*;\s*0x[0-9a-f]{4}\s*;\s*literal\s*$'
+)
 
 _F3_PREFIXES = ('cseg_', 'data_', 'loc_', 'leaf_', 'io_', 'dos_', 'string_',
                 'api_', 'fpu_')
-_F4_PREFIXES = ('dseg_', 'bss_', 'psp_')
+# F4 splits into relocatable data symbols (they move when the data segment
+# resizes) and fixed DOS-segment fields (they never do).
+_F4_DATA_PREFIXES = ('dseg_', 'bss_')
+_F4_INERT_PREFIXES = ('psp_',)
+# Fixed external-segment fields named by the sidecar ``external_data`` block
+# (``segments.external_data_name``), e.g. the BIOS Data Area.
+_EXTERNAL_PREFIXES = ('bios_data_', 'external_')
 
 # A literal ``times N db 0`` is treated as a layout pad (F5) only when it is
 # large enough to be the code→data gap rather than an inline zero run.
@@ -108,34 +120,62 @@ _F5_PAD_MIN = 1000
 def count_frozen_addrs(src_text):
     """Classify residual frozen address/size values in emitted source text.
 
-    Returns a dict with per-taxonomy counts (``f1``..``f6``) plus ``total``.
-    See ``plan.md`` section 3 for the taxonomy.  Rewriting a value as an
-    assembler expression removes it from the count.
+    Returns the per-taxonomy counts (``f1``..``f7``) plus the three gate
+    classes of ``plan.md`` section 10.2:
+
+    * ``code_shift`` -- breaks when code before it resizes; **must reach 0**.
+    * ``data_shift`` -- breaks when the data segment resizes; **must reach 0**.
+    * ``inert`` -- can never change (``psp_`` fields, ``external_data``, and the
+      deliberately-literal data tables counted as ``f6``); excluded from the
+      gate but reported for review.
+
+    ``total`` is the gated sum (``code_shift + data_shift``); ``inert`` values
+    are reported but not counted against the goal.  ``f7`` is an unresolved
+    pointer word -- a numeric ``dw`` in a jump table *without* the ``; literal``
+    tag that marks a deliberate data table.  See ``plan.md`` section 3 for the
+    taxonomy; rewriting a value as an assembler expression removes it.
     """
-    counts = {'f1': 0, 'f2': 0, 'f3': 0, 'f4': 0, 'f5': 0, 'f6': 0}
+    f = {'f1': 0, 'f2': 0, 'f3': 0, 'f4': 0, 'f5': 0, 'f6': 0, 'f7': 0}
+    f4_inert = 0
+    external = 0
     for line in (src_text or '').splitlines():
         if _FROZEN_MZ_FIELD_RE.match(line):
-            counts['f1'] += 1
+            f['f1'] += 1
             continue
         if _FROZEN_OVR_FIELD_RE.match(line):
-            counts['f2'] += 1
+            f['f2'] += 1
             continue
         m = _FROZEN_EQU_RE.match(line)
         if m:
             name = m.group(1)
             if name.startswith(_F3_PREFIXES):
-                counts['f3'] += 1
-            elif name.startswith(_F4_PREFIXES):
-                counts['f4'] += 1
+                f['f3'] += 1
+            elif name.startswith(_F4_DATA_PREFIXES):
+                f['f4'] += 1
+            elif name.startswith(_F4_INERT_PREFIXES):
+                f4_inert += 1
+            elif name.startswith(_EXTERNAL_PREFIXES):
+                external += 1
             continue
         m = _FROZEN_PAD_RE.match(line)
         if m and int(m.group(1)) >= _F5_PAD_MIN:
-            counts['f5'] += 1
+            f['f5'] += 1
+            continue
+        if _FROZEN_LITERAL_WORD_RE.match(line):
+            f['f6'] += 1
             continue
         if _FROZEN_JT_WORD_RE.match(line):
-            counts['f6'] += 1
-    counts['total'] = sum(counts.values())
-    return counts
+            f['f7'] += 1
+    code_shift = f['f1'] + f['f2'] + f['f3'] + f['f5']
+    data_shift = f['f4'] + f['f7']
+    inert = f4_inert + f['f6'] + external
+    return {
+        **f,
+        'code_shift': code_shift,
+        'data_shift': data_shift,
+        'inert': inert,
+        'total': code_shift + data_shift,
+    }
 
 
 class UnencodedInstructionError(RuntimeError):

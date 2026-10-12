@@ -80,11 +80,15 @@ def _mz_header(e_ss):
     return header
 
 
-# Snapshot taken from the committed tree after the F1/F2/F3/F5 work (2026-10-11).
-# ``frozen_addr`` may only go down from here.
+# Snapshot taken from the committed tree after the F1/F2/F3/F5 work
+# (2026-10-11) and the D0 census split (2026-10-12).  ``total`` is now the
+# *gated* sum (``code_shift + data_shift``); ``inert`` values (``psp_`` fields,
+# ``bios_data_0410``, literal data tables) are reported but excluded from the
+# gate.  Every count may only go down from here.
 BASELINE_TOTALS = {
-    'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1407, 'f5': 3, 'f6': 241,
-    'total': 1800,
+    'code_shift': 152, 'data_shift': 1401, 'inert': 248,
+    'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1401, 'f5': 3, 'f6': 241, 'f7': 0,
+    'total': 1553,
 }
 
 
@@ -109,19 +113,38 @@ class CountFrozenAddrsTests(unittest.TestCase):
             'cseg_2f36 equ 0x2f36',
             'dseg_0002 equ 0x0002',
             'bss_0cf6 equ 0x0cf6',
+            'psp_env_segment equ 0x002c',
+            'bios_data_0410 equ 0x0410',
             '    times 44813 db 0',
             '    times 4 db 0',
-            '    dw 0x490f ; 0x4822',
+            '    dw 0x490f ; 0x4822',              # unresolved pointer -> f7
+            '    dw 0x001c ; 0x1698 ; literal',    # literal data word -> f6
             'IMAGE_BASE equ 0x0200',
         ])
         counts = count_frozen_addrs(text)
         self.assertEqual(counts['f1'], 2)
         self.assertEqual(counts['f2'], 1)
         self.assertEqual(counts['f3'], 1)
-        self.assertEqual(counts['f4'], 2)
-        self.assertEqual(counts['f5'], 1)  # the 44813 pad, not the 4-byte run
-        self.assertEqual(counts['f6'], 1)
-        self.assertEqual(counts['total'], 8)
+        self.assertEqual(counts['f4'], 2)   # dseg_ + bss_
+        self.assertEqual(counts['f5'], 1)   # the 44813 pad, not the 4-byte run
+        self.assertEqual(counts['f6'], 1)   # the tagged literal word
+        self.assertEqual(counts['f7'], 1)   # the untagged pointer word
+        # Gate classes (plan.md section 10.2); inert is reported, not gated.
+        self.assertEqual(counts['code_shift'], 2 + 1 + 1 + 1)
+        self.assertEqual(counts['data_shift'], 2 + 1)
+        self.assertEqual(counts['inert'], 1 + 1 + 1)  # psp_ + bios_ + f6
+        self.assertEqual(counts['total'],
+                         counts['code_shift'] + counts['data_shift'])
+
+    def test_literal_tag_separates_f6_from_f7(self):
+        literal = count_frozen_addrs('    dw 0x001c ; 0x1698 ; literal')
+        self.assertEqual((literal['f6'], literal['f7']), (1, 0))
+        self.assertEqual(literal['inert'], 1)
+        self.assertEqual(literal['total'], 0)
+        pointer = count_frozen_addrs('    dw 0x490f ; 0x4822')
+        self.assertEqual((pointer['f6'], pointer['f7']), (0, 1))
+        self.assertEqual(pointer['data_shift'], 1)
+        self.assertEqual(pointer['total'], 1)
 
     def test_dynamic_expressions_are_not_counted(self):
         text = '\n'.join([
