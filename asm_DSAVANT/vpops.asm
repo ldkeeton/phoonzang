@@ -6,6 +6,8 @@ bits 16
 
 %include "labels/host_values.inc"
 
+%include "labels/host_data.inc"
+
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x000e
 %endif
@@ -20,49 +22,6 @@ IMAGE_BASE equ 0x000e
     dw loc_4e9d - IMAGE_BASE + 0x5055  ; 0x9ee4 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-dseg_0002 equ 0x0002
-bss_0e32 equ 0x0e32
-bss_0e36 equ 0x0e36
-bss_59fc equ 0x59fc
-bss_5b3e equ 0x5b3e
-bss_69c8 equ 0x69c8
-bss_7abc equ 0x7abc
-bss_7b04 equ 0x7b04
-bss_82e8 equ 0x82e8
-bss_82ee equ 0x82ee
-bss_830a equ 0x830a
-bss_8454 equ 0x8454
-bss_845e equ 0x845e
-bss_8466 equ 0x8466
-bss_8468 equ 0x8468
-bss_8482 equ 0x8482
-bss_8484 equ 0x8484
-bss_848e equ 0x848e
-bss_8d0a equ 0x8d0a
-bss_8d0c equ 0x8d0c
-bss_8d0e equ 0x8d0e
-bss_8d10 equ 0x8d10
-bss_8f20 equ 0x8f20
-bss_904e equ 0x904e
-bss_9050 equ 0x9050
-bss_9052 equ 0x9052
-bss_906c equ 0x906c
-bss_908a equ 0x908a
-bss_908c equ 0x908c
-bss_908e equ 0x908e
-bss_9090 equ 0x9090
-bss_9092 equ 0x9092
-bss_9094 equ 0x9094
-dseg_90cc equ 0x90cc
-dseg_90ce equ 0x90ce
-dseg_90d0 equ 0x90d0
-dseg_90d2 equ 0x90d2
-dseg_90d4 equ 0x90d4
-bss_90d6 equ 0x90d6
-bss_9386 equ 0x9386
-bss_9388 equ 0x9388
-bss_938a equ 0x938a
-bss_938c equ 0x938c
 
 loc_000e:
     mov ax, 0                        ; 0x000e

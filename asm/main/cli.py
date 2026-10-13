@@ -16,6 +16,7 @@ from .options import (
     EXPORT_LABELS,
     FOREIGN_LABELS_PATH,
     FOREIGN_PREFIX,
+    HOST_DATA_OFFSETS_PATH,
     PROJECT_ROOT,
     _SHOW_OFFSETS,
 )
@@ -68,13 +69,21 @@ def main():
                 addr: f'{prefix}_{name}' if prefix else name
                 for addr, name in raw.items()
             }
+        host_data_offsets = None
+        if HOST_DATA_OFFSETS_PATH:
+            import json
+            with open(HOST_DATA_OFFSETS_PATH) as f:
+                host_data_offsets = {
+                    k: int(v) for k, v in json.load(f).items()
+                }
         process(binary, project_dir, rel_path, start_offset,
                 exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
                 output_dir=out_dir,
                 project=p, sidecar_entry=sc_entry,
                 foreign_label_map=foreign_label_map,
                 foreign_prefix=prefix if FOREIGN_LABELS_PATH else None,
-                export_labels=EXPORT_LABELS, host_model=host_model)
+                export_labels=EXPORT_LABELS, host_model=host_model,
+                host_data_offsets=host_data_offsets)
         return
 
     target = args[0] if args else None

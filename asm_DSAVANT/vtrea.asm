@@ -6,6 +6,8 @@ bits 16
 
 %include "labels/host_values.inc"
 
+%include "labels/host_data.inc"
+
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x000e
 %endif
@@ -26,101 +28,6 @@ loc_4a4d equ 0x4a4d
 loc_4a5e equ 0x4a5e
 loc_4ad7 equ 0x4ad7
 api_idx_0004_8 equ 0x4ad8
-dseg_0002 equ 0x0002
-dseg_0110 equ 0x0110
-dseg_0112 equ 0x0112
-bss_0e0e equ 0x0e0e
-bss_0e10 equ 0x0e10
-bss_0e12 equ 0x0e12
-bss_0e2a equ 0x0e2a
-bss_0e2c equ 0x0e2c
-bss_0e32 equ 0x0e32
-bss_5216 equ 0x5216
-bss_590e equ 0x590e
-bss_5910 equ 0x5910
-bss_598c equ 0x598c
-bss_598e equ 0x598e
-bss_59fc equ 0x59fc
-bss_5b3e equ 0x5b3e
-bss_5b6e equ 0x5b6e
-bss_69c8 equ 0x69c8
-bss_82e8 equ 0x82e8
-bss_82ee equ 0x82ee
-bss_82f2 equ 0x82f2
-bss_82f4 equ 0x82f4
-bss_82f6 equ 0x82f6
-bss_82f8 equ 0x82f8
-bss_82fa equ 0x82fa
-bss_82fc equ 0x82fc
-bss_82fe equ 0x82fe
-bss_8300 equ 0x8300
-bss_8302 equ 0x8302
-bss_8306 equ 0x8306
-bss_830a equ 0x830a
-bss_830c equ 0x830c
-bss_844c equ 0x844c
-bss_844e equ 0x844e
-bss_8450 equ 0x8450
-bss_849e equ 0x849e
-bss_84a0 equ 0x84a0
-bss_84a2 equ 0x84a2
-bss_84a4 equ 0x84a4
-bss_8d06 equ 0x8d06
-bss_8d08 equ 0x8d08
-bss_8d0a equ 0x8d0a
-bss_8d0c equ 0x8d0c
-bss_8d0e equ 0x8d0e
-bss_8d10 equ 0x8d10
-bss_8d12 equ 0x8d12
-bss_8f20 equ 0x8f20
-bss_8f3e equ 0x8f3e
-bss_8f40 equ 0x8f40
-bss_8f42 equ 0x8f42
-bss_8f44 equ 0x8f44
-bss_8f46 equ 0x8f46
-bss_904e equ 0x904e
-bss_9050 equ 0x9050
-bss_9052 equ 0x9052
-bss_905a equ 0x905a
-bss_905e equ 0x905e
-bss_9060 equ 0x9060
-bss_9062 equ 0x9062
-bss_9064 equ 0x9064
-bss_9066 equ 0x9066
-bss_9068 equ 0x9068
-bss_906a equ 0x906a
-bss_906c equ 0x906c
-bss_908a equ 0x908a
-bss_908c equ 0x908c
-bss_908e equ 0x908e
-bss_9090 equ 0x9090
-bss_9092 equ 0x9092
-bss_9094 equ 0x9094
-dseg_910a equ 0x910a
-dseg_910c equ 0x910c
-dseg_910e equ 0x910e
-dseg_9110 equ 0x9110
-dseg_9112 equ 0x9112
-bss_9114 equ 0x9114
-bss_9116 equ 0x9116
-bss_9118 equ 0x9118
-bss_911a equ 0x911a
-bss_911c equ 0x911c
-bss_911e equ 0x911e
-bss_9120 equ 0x9120
-bss_9122 equ 0x9122
-bss_9124 equ 0x9124
-bss_9126 equ 0x9126
-bss_9150 equ 0x9150
-bss_9152 equ 0x9152
-bss_9154 equ 0x9154
-bss_91d4 equ 0x91d4
-bss_91fe equ 0x91fe
-bss_9200 equ 0x9200
-bss_9250 equ 0x9250
-bss_95de equ 0x95de
-bss_95e0 equ 0x95e0
-bss_95e4 equ 0x95e4
 
 loc_000e:
     mov ax, 0                        ; 0x000e

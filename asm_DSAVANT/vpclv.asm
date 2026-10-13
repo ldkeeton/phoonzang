@@ -6,6 +6,8 @@ bits 16
 
 %include "labels/host_values.inc"
 
+%include "labels/host_data.inc"
+
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x000e
 %endif
@@ -21,63 +23,6 @@ IMAGE_BASE equ 0x000e
 
 __zcode_start:
 fpu_loc_45b6 equ 0x45b6
-dseg_0002 equ 0x0002
-dseg_0038 equ 0x0038
-dseg_003c equ 0x003c
-dseg_0040 equ 0x0040
-dseg_0042 equ 0x0042
-dseg_0044 equ 0x0044
-dseg_010c equ 0x010c
-bss_0e32 equ 0x0e32
-bss_59fc equ 0x59fc
-bss_5b3e equ 0x5b3e
-bss_69c8 equ 0x69c8
-bss_82ee equ 0x82ee
-bss_830a equ 0x830a
-bss_844c equ 0x844c
-bss_844e equ 0x844e
-bss_8450 equ 0x8450
-bss_8f20 equ 0x8f20
-bss_904e equ 0x904e
-bss_9050 equ 0x9050
-bss_905a equ 0x905a
-bss_905e equ 0x905e
-bss_908a equ 0x908a
-bss_908c equ 0x908c
-bss_908e equ 0x908e
-bss_9090 equ 0x9090
-bss_9092 equ 0x9092
-bss_9094 equ 0x9094
-dseg_93fe equ 0x93fe
-dseg_9400 equ 0x9400
-dseg_9402 equ 0x9402
-dseg_9404 equ 0x9404
-dseg_9406 equ 0x9406
-bss_9408 equ 0x9408
-bss_9416 equ 0x9416
-bss_9418 equ 0x9418
-bss_941a equ 0x941a
-bss_941c equ 0x941c
-bss_941e equ 0x941e
-bss_9420 equ 0x9420
-bss_9422 equ 0x9422
-bss_9424 equ 0x9424
-bss_9426 equ 0x9426
-bss_9428 equ 0x9428
-bss_942a equ 0x942a
-bss_942c equ 0x942c
-bss_9432 equ 0x9432
-bss_9434 equ 0x9434
-bss_9436 equ 0x9436
-bss_9438 equ 0x9438
-bss_943a equ 0x943a
-bss_948c equ 0x948c
-bss_948e equ 0x948e
-bss_9490 equ 0x9490
-bss_9492 equ 0x9492
-bss_95d0 equ 0x95d0
-bss_95f4 equ 0x95f4
-bss_9704 equ 0x9704
 
 loc_000e:
     mov ax, 0                        ; 0x000e

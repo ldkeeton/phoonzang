@@ -124,6 +124,15 @@ def process_project(project_name):
     source_names = {src for refs in cross_refs.values() for _, src in refs}
     source_label_maps = {}
 
+    # D7.1: clear the previous build's per-overlay DS exports so the union the
+    # host declares is exactly this build's references.
+    from lib.cachedirs import labels_dir
+    target_dir = labels_dir(project_name)
+    if os.path.isdir(target_dir):
+        for entry in os.listdir(target_dir):
+            if entry.endswith('_hostdata.json'):
+                os.remove(os.path.join(target_dir, entry))
+
     for name in sorted(source_names & set(bins.keys())):
         sc_entry = sidecar_per_binary(sidecar, name) if sidecar else None
         _, lm = process(name, project_dir, bins[name][0], bins[name][1],
@@ -155,6 +164,23 @@ def process_project(project_name):
                 project=project_name, sidecar_entry=sc_entry,
                 foreign_label_map=foreign_label_map,
                 foreign_prefix=foreign_prefix, host_model=host_model)
+
+    # D7.1: regenerate the host with the union of the DS offsets the overlays
+    # referenced, so it declares one recipe-based equ per offset before the
+    # link step probes the shared ``host_data.inc`` table.
+    from lib.link import (
+        collect_host_data, host_name, write_host_data_offsets,
+    )
+    host = host_name(bins)
+    union = collect_host_data(labels_dir(project_name))
+    if union and host is not None:
+        write_host_data_offsets(project_name, union)
+        sc_entry = sidecar_per_binary(sidecar, host) if sidecar else None
+        process(host, project_dir, bins[host][0], bins[host][1],
+                exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
+                output_dir=out_dir, project=project_name, sidecar_entry=sc_entry,
+                export_labels=True, host_model=host_model,
+                host_data_offsets=union)
 
     processed = set(bins.keys())
 

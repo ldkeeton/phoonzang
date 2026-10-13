@@ -177,7 +177,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None, asm_annotations=None,
            jump_tables=None, jump_table_overrides=None,
            segment_flow=None, segments=None, external_data=None,
-           entry_symbol=None, data_pointers=(), not_pointers=()):
+           entry_symbol=None, data_pointers=(), not_pointers=(),
+           host_data_offsets=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -490,25 +491,14 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
     consumer_inc = None
     if foreign_label_map and asm_dir and name:
+        # One shared table serves every overlay (D7.0e); the link step writes
+        # and re-probes it (D7.1), so the source always names it.
         from lib.cachedirs import labels_dir, project_of_asm_dir
-        from lib.cross_ref import (
-            HOST_CALLS_INCLUDE, HOST_CALLS_NAME, write_label_inc,
-        )
+        from lib.cross_ref import HOST_CALLS_INCLUDE
         project = project_of_asm_dir(asm_dir)
         if project is not None:
-            target_dir = labels_dir(project)
-            os.makedirs(target_dir, exist_ok=True)
-            if os.path.exists(os.path.join(target_dir, HOST_CALLS_NAME)):
-                # One shared table serves every overlay (plan D7.1 step 1); the
-                # make layer wrote it from the source's exported labels.
-                consumer_inc = HOST_CALLS_INCLUDE
-            else:
-                # Standalone generation without the make layer: keep the
-                # per-consumer subset file so the overlay still assembles.
-                inc_name = f'{name}_foreign_labels.inc'
-                write_label_inc(foreign_label_map,
-                                os.path.join(target_dir, inc_name))
-                consumer_inc = f'labels/{inc_name}'
+            os.makedirs(labels_dir(project), exist_ok=True)
+            consumer_inc = HOST_CALLS_INCLUDE
 
     # Assemble every candidate instruction in a single NASM round-trip rather
     # than spawning a subprocess per instruction.  Falls back to per-instruction
@@ -969,10 +959,21 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # link step writes into ``.cache``; the overlay's own assembly cannot see
     # the host's labels.
     host_inc = None
+    # D7.1: the data segment is shared and the host owns it.  An overlay with a
+    # host names its ``dseg_``/``bss_`` operands through the one shared
+    # ``host_data.inc`` table instead of re-declaring them, and exports the
+    # (name -> offset) set it references so the host can declare it.
+    host_data_inc = None
+    host_data_refs = {}
     if (segments is not None and getattr(segments, 'kind', None) == 'overlay'
             and getattr(segments, 'host', None) is not None):
-        from lib.link import HOST_VALUES_INCLUDE
+        from lib.link import HOST_DATA_INCLUDE, HOST_VALUES_INCLUDE
         host_inc = HOST_VALUES_INCLUDE
+        host_data_inc = HOST_DATA_INCLUDE
+        host_data_refs = {
+            name: value for name, value in (mem_equ or {}).items()
+            if name.startswith(('dseg_', 'bss_'))
+        }
 
     src_lines, split_sources = _build_source(
         records, start_offset, binary_data, label_map,
@@ -982,6 +983,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         entry_symbol=source_entry_symbol, label_defined=label_defined,
         ds_size=getattr(segments, 'ds_size', None),
         host_inc=host_inc,
+        host_data_inc=host_data_inc,
+        host_data_offsets=host_data_offsets,
     )
     t6 = time.perf_counter()
 
@@ -1052,6 +1055,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         # the promotion pass declined (with a reason) so the corpus can grow.
         'promoted_data_words': promotion_report['promoted'],
         'promotion_skipped': promotion_report['skipped'],
+        # D7.1: the host-owned DS names this overlay references (empty unless
+        # the binary is an overlay with a host).  ``main``/``runner`` exports
+        # them so the host can declare one ``equ`` per offset.
+        'host_data_refs': host_data_refs,
         'address_records': _build_address_records(
             insns, mem_symbols, mem_equ, segment_flow, label_map, start_offset,
             data_labels=data_labels, reloc_targets=reloc_targets,

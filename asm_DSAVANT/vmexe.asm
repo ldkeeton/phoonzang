@@ -6,6 +6,8 @@ bits 16
 
 %include "labels/host_values.inc"
 
+%include "labels/host_data.inc"
+
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x000e
 %endif
@@ -24,85 +26,6 @@ loc_735e equ 0x735e
 loc_81ba equ 0x81ba
 loc_81bc equ 0x81bc
 data_b0cb equ 0xb0cb
-dseg_0002 equ 0x0002
-bss_0e2a equ 0x0e2a
-bss_0e2c equ 0x0e2c
-bss_0e36 equ 0x0e36
-bss_3ed1 equ 0x3ed1
-bss_56d1 equ 0x56d1
-bss_5962 equ 0x5962
-bss_5963 equ 0x5963
-bss_5964 equ 0x5964
-bss_5988 equ 0x5988
-bss_598e equ 0x598e
-bss_69c8 equ 0x69c8
-bss_7abc equ 0x7abc
-bss_7b04 equ 0x7b04
-bss_82e8 equ 0x82e8
-bss_82ee equ 0x82ee
-bss_82f2 equ 0x82f2
-bss_82f4 equ 0x82f4
-bss_82f6 equ 0x82f6
-bss_82f8 equ 0x82f8
-bss_82fa equ 0x82fa
-bss_82fc equ 0x82fc
-bss_82fe equ 0x82fe
-bss_8300 equ 0x8300
-bss_8302 equ 0x8302
-bss_8306 equ 0x8306
-bss_830a equ 0x830a
-bss_830c equ 0x830c
-bss_8320 equ 0x8320
-bss_8454 equ 0x8454
-bss_8458 equ 0x8458
-bss_845a equ 0x845a
-bss_845e equ 0x845e
-bss_8460 equ 0x8460
-bss_8462 equ 0x8462
-bss_8464 equ 0x8464
-bss_8466 equ 0x8466
-bss_8468 equ 0x8468
-bss_8482 equ 0x8482
-bss_8484 equ 0x8484
-bss_848e equ 0x848e
-bss_8490 equ 0x8490
-bss_8492 equ 0x8492
-bss_849e equ 0x849e
-bss_84a0 equ 0x84a0
-bss_84a2 equ 0x84a2
-bss_84a4 equ 0x84a4
-bss_8af0 equ 0x8af0
-bss_8d0a equ 0x8d0a
-bss_8d0c equ 0x8d0c
-bss_8d0e equ 0x8d0e
-bss_8d10 equ 0x8d10
-bss_8f20 equ 0x8f20
-bss_9058 equ 0x9058
-bss_905c equ 0x905c
-bss_905e equ 0x905e
-bss_906c equ 0x906c
-bss_908a equ 0x908a
-bss_908c equ 0x908c
-bss_908e equ 0x908e
-bss_9090 equ 0x9090
-bss_9092 equ 0x9092
-bss_9094 equ 0x9094
-dseg_90b2 equ 0x90b2
-dseg_90b4 equ 0x90b4
-dseg_90b6 equ 0x90b6
-dseg_90b8 equ 0x90b8
-dseg_90ba equ 0x90ba
-bss_90bc equ 0x90bc
-bss_90dc equ 0x90dc
-bss_90de equ 0x90de
-bss_90e0 equ 0x90e0
-bss_90e2 equ 0x90e2
-bss_90e4 equ 0x90e4
-bss_9136 equ 0x9136
-bss_9186 equ 0x9186
-bss_91d6 equ 0x91d6
-bss_91d8 equ 0x91d8
-bss_91da equ 0x91da
 
 %include "vmexe/api_idx_0002.asm"          ; 0x000e
 

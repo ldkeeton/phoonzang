@@ -84,20 +84,23 @@ def _mz_header(e_ss):
 # Snapshot taken from the committed tree after the F1/F2/F3/F5 work
 # (2026-10-11), the D0 census split and D1's data-label binding (2026-10-12),
 # the D7.0a shared-geometry counters (2026-10-12), D7.0b's binding of the
-# DS-size immediates to ``__zdataseg_end`` (2026-10-12), and D7.0c's pre-NASM
+# DS-size immediates to ``__zdataseg_end`` (2026-10-12), D7.0c's pre-NASM
 # link step binding the 13 overlay ``o_dorg`` origins to the same host symbol
-# (2026-10-12).  ``total`` is the *gated* sum (``code_shift + data_shift``);
-# ``inert`` values (``psp_`` fields, ``bios_data_0410``, literal data tables) are
-# reported but excluded from the gate.  D7.0a *raised* the baseline by 33 (it
-# made the previously invisible shared host/overlay geometry countable: 13
-# ``o_corg`` + 13 ``o_dorg`` + 7 ``ds_size_imm``); D7.0b then bound the 7
-# immediates and D7.0c the 13 ``o_dorg``, dropping ``ds_size_imm`` and
-# ``o_dorg`` to 0.  Every count may only go down from here.
+# (2026-10-12), and D7.1's host-owned shared DS name map (2026-10-13: the 13
+# overlay masters' ~1230 ``dseg_``/``bss_`` literals are replaced by one
+# ``host_data.inc`` include).  ``total`` is the *gated* sum (``code_shift +
+# data_shift``); ``inert`` values (``psp_`` fields, ``bios_data_0410``, literal
+# data tables) are reported but excluded from the gate.  D7.0a *raised* the
+# baseline by 33 (it made the previously invisible shared host/overlay geometry
+# countable); D7.0b/D7.0c then bound the DS-size immediates and the ``o_dorg``
+# origins, and D7.1 drops ``data_shift`` from 1231 to its single residual -- a
+# raw-driver (``ega``) DS reference whose segment is only known at run time
+# (Appendix C).  Every count may only go down from here.
 BASELINE_TOTALS = {
-    'code_shift': 165, 'data_shift': 1231, 'inert': 248,
-    'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1231, 'f5': 3, 'f6': 241, 'f7': 0,
+    'code_shift': 165, 'data_shift': 1, 'inert': 248,
+    'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
     'o_corg': 13, 'o_dorg': 0, 'ds_size_imm': 0,
-    'total': 1396,
+    'total': 166,
 }
 
 
@@ -427,6 +430,62 @@ class LinkStepTests(unittest.TestCase):
             self.assertEqual(values['__zdataseg_end'], 0x9099)
             self.assertEqual(grown[6:8], b'\x99\x90')
 
+    def _link_and_build_with_data(self, root):
+        """Stage labels, resolve host_values + host_data, build ``vbase``."""
+        from lib.link import (
+            HOST_DATA_NAME, HOST_GEOMETRY_SYMBOLS, host_data_names,
+            probe_symbols, render_values,
+        )
+        self._stage_label_dir(root)
+        values = probe_symbols(root, 'ds.asm', HOST_GEOMETRY_SYMBOLS)
+        with open(os.path.join(root, 'labels', 'host_values.inc'), 'w') as f:
+            f.write(render_values(values))
+        names = host_data_names(os.path.join(root, 'ds.asm'))
+        data = probe_symbols(root, 'ds.asm', names)
+        with open(os.path.join(root, 'labels', HOST_DATA_NAME), 'w') as f:
+            f.write(render_values(data))
+        built = _nasm_file(os.path.join(root, 'vbase.asm'), root)
+        return built, values, data
+
+    @unittest.skipUnless(
+        _TREE.is_dir() and (_TREE / 'ds.asm').exists()
+        and (_TREE / 'vbase.asm').exists(),
+        'generated asm_DSAVANT tree not present',
+    )
+    def test_overlay_data_name_follows_a_host_data_edit(self):
+        """D7.1: a shared DS name in an overlay follows a host data edit.
+
+        ``vbase`` reads the host's file-backed word at DS:2 (``les bx, word
+        [dseg_0002]`` -> ``c4 1e 02 00``).  Inserting one byte into the host's
+        initialized data moves ``dseg_0002`` (and every encoded reference in
+        the rebuilt overlay) by one, resolved entirely from ``ds.asm``.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+
+            original, _, data = self._link_and_build_with_data(d)
+            self.assertEqual(data['dseg_0002'], 0x0002)
+            count = original.count(b'\xc4\x1e\x02\x00')
+            self.assertGreater(count, 0)
+
+            master = os.path.join(d, 'ds.asm')
+            with open(master) as f:
+                src = f.read()
+            grown_src = src.replace('__zdataseg_start:\n',
+                                    '__zdataseg_start:\n    db 0xee\n', 1)
+            self.assertNotEqual(grown_src, src)
+            with open(master, 'w') as f:
+                f.write(grown_src)
+
+            grown, values, data = self._link_and_build_with_data(d)
+            self.assertEqual(values['__zdataseg_end'], 0x9099)
+            # The shared DS name moved by one...
+            self.assertEqual(data['dseg_0002'], 0x0003)
+            # ...and so did every encoded reference in the rebuilt overlay.
+            self.assertEqual(len(grown), len(original))
+            self.assertEqual(grown.count(b'\xc4\x1e\x03\x00'), count)
+            self.assertEqual(grown.count(b'\xc4\x1e\x02\x00'), 0)
+
 
 class HostCallsTableTests(unittest.TestCase):
     """The overlays share one host-call table (plan D7.1 step 1).
@@ -471,6 +530,77 @@ class HostCallsTableTests(unittest.TestCase):
         self.assertEqual(
             sorted(p.name for p in d.glob('*_foreign_labels.inc')), [])
         self.assertFalse((d / 'ds_labels.inc').exists())
+
+    def test_table_is_reprobed_from_the_current_host_source(self):
+        # D7.1: the link step re-derives the handles by probing ``ds.asm``, so
+        # the stored table must equal a fresh probe of the current tree.
+        from lib.link import build_host_calls
+        from main import discover_binaries
+        path = self._table_path()
+        if not path.exists():
+            self.skipTest('no host_calls.inc; run "make build DSAVANT"')
+        stored = {line.split(' equ ')[0]: int(line.split(' equ ')[1], 16)
+                  for line in path.read_text().splitlines() if ' equ ' in line}
+        bins = discover_binaries(str(_PROJECT_ROOT / 'apps' / 'DSAVANT'))
+        self.assertEqual(
+            build_host_calls('DSAVANT', str(_TREE), bins), stored)
+
+
+#: The 13 Aztec overlay masters -- the consumers of the shared host DS table.
+_OVERLAY_MASTERS = (
+    'vbase', 'vdopt', 'vinit', 'vmaze', 'vmele', 'vmexe', 'vmext',
+    'vmnpc', 'vpclv', 'vpcmk', 'vpcvw', 'vpops', 'vtrea',
+)
+
+
+class HostDataTableTests(unittest.TestCase):
+    """D7.1: the overlays share one host DS name table.
+
+    A data name the host owns (``dseg_``/``bss_``) is declared once in
+    ``ds.asm`` with a host recipe and probed into
+    ``.cache/<project>/labels/host_data.inc``; the 13 overlay masters no longer
+    re-declare ~1230 literals but ``%include`` that one table.  (The two MZ
+    images own their data names via in-place labels, and a raw driver's
+    ``dseg_`` is run-time DS -- both stay out of this table; Appendix C.)
+    """
+
+    def _table_path(self):
+        from lib.cachedirs import labels_dir
+        from lib.link import HOST_DATA_NAME
+        return pathlib.Path(labels_dir('DSAVANT')) / HOST_DATA_NAME
+
+    def test_every_overlay_ds_name_is_defined_by_the_one_table(self):
+        import re
+        path = self._table_path()
+        if not path.exists():
+            self.skipTest('no host_data.inc; run "make build DSAVANT"')
+        defined = {line.split(' equ ')[0]
+                   for line in path.read_text().splitlines()
+                   if ' equ ' in line}
+        self.assertTrue(defined)
+        name_re = re.compile(r'\b(?:bss|dseg)_[0-9a-fA-F]{4}\b')
+        missing = []
+        for master in _OVERLAY_MASTERS:
+            paths = [_TREE / f'{master}.asm']
+            directory = _TREE / master
+            if directory.is_dir():
+                paths.extend(sorted(directory.rglob('*.asm')))
+            for p in paths:
+                for name in sorted(set(name_re.findall(
+                        p.read_text(errors='ignore')))):
+                    if name not in defined:
+                        missing.append(f'{p.relative_to(_TREE)}:{name}')
+        self.assertEqual(missing, [])
+
+    def test_no_overlay_master_defines_a_ds_equ(self):
+        import re
+        pat = re.compile(r'^\s*(bss_|dseg_)[0-9a-fA-F]+\s+equ\b')
+        offenders = []
+        for master in _OVERLAY_MASTERS:
+            for line in (_TREE / f'{master}.asm').read_text().splitlines():
+                if pat.match(line):
+                    offenders.append(f'{master}.asm:{line.strip()}')
+        self.assertEqual(offenders, [])
 
 
 class DataStringAnchorTests(unittest.TestCase):

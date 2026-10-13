@@ -66,7 +66,7 @@ from .seeding import (
 
 def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
             foreign_label_map=None, export_labels=False, host_model=None,
-            foreign_prefix=None):
+            foreign_prefix=None, host_data_offsets=None):
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -414,7 +414,17 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         entry_symbol=entry_symbol,
         data_pointers=(ctx.sidecar_entry or {}).get('data_pointers', []),
         not_pointers=(ctx.sidecar_entry or {}).get('not_pointers', []),
+        host_data_offsets=host_data_offsets,
     )
+    # D7.1: export the host-owned DS names this overlay references so the make
+    # layer can hand the union to the host (which declares one recipe per
+    # offset).  This is the data analogue of ``--export-labels``.
+    if project and stats.get('host_data_refs'):
+        from lib.cachedirs import labels_dir
+        target_dir = labels_dir(project)
+        os.makedirs(target_dir, exist_ok=True)
+        with open(os.path.join(target_dir, f'{name}_hostdata.json'), 'w') as f:
+            json.dump(stats['host_data_refs'], f, indent=1, sort_keys=True)
     # Hard gate: a decoded instruction that could not be re-encoded is emitted
     # as ``db 0x.. ; <disassembly>``.  In the default semantic mode every
     # instruction must encode (exactly or semantically); these fallbacks are

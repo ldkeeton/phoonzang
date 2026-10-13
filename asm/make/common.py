@@ -130,60 +130,46 @@ def _copy_assets(app_dir, build_out):
             shutil.copytree(src, dst, dirs_exist_ok=True)
 
 
-def _write_host_call_table(app, app_dir, out_dir, bins, cross_refs):
-    """Write the one shared overlay-handle table (plan D7.1 step 1).
+def _clear_host_data_exports(app):
+    """Remove the previous build's per-overlay DS export files (D7.1)."""
+    target_dir = labels_dir(app)
+    if not os.path.isdir(target_dir):
+        return
+    for entry in os.listdir(target_dir):
+        if entry.endswith('_hostdata.json'):
+            os.remove(os.path.join(target_dir, entry))
 
-    The per-consumer ``<name>_foreign_labels.inc`` files were subset copies of
-    the same names with the same values: an overlay's handle for a host routine
-    is one affine map of the host offset (``SegmentModel.host_code_target``),
-    because every overlay shares ``o_corg`` / ``cs_origin``.  So the source's
-    exported label map is the single source of truth and one table serves every
-    overlay.
 
-    Returns True when the table was written; False leaves the per-consumer
-    files in charge (standalone generation, or geometry we cannot place).
+def _aggregate_host_data(app):
+    """Merge every overlay's exported DS refs into the host's union (D7.1).
+
+    Each overlay generation writes ``<name>_hostdata.json`` (a ``{DS name:
+    offset}`` map) when it has a host; this returns the union the host must
+    declare, written to ``.cache/<project>/labels/host_data_offsets.json``.  A
+    name whose value disagrees across consumers is a hard error, not a guess.
+    Returns the path, or ``None`` when no overlay references host data.
     """
-    from lib.cross_ref import (
-        HOST_CALLS_NAME, host_call_table, read_label_json, write_equ_table,
+    from lib.link import (
+        LinkError, collect_host_data, write_host_data_offsets,
     )
-    from lib.segments import SegmentError, from_binary
+    try:
+        union = collect_host_data(labels_dir(app))
+    except LinkError as exc:
+        print(f'  LINK WARN: {exc}')
+        return None
+    if not union:
+        return None
+    return write_host_data_offsets(app, union)
 
-    source_names = sorted({src for refs in cross_refs.values()
-                           for _, src in refs})
-    table = {}
-    for src_name in source_names:
-        if src_name not in bins:
-            continue
-        json_path = os.path.join(labels_dir(app), f'{src_name}_labels.json')
-        src_path = os.path.join(app_dir, bins[src_name][0])
-        if not (os.path.exists(json_path) and os.path.exists(src_path)):
-            continue
-        consumer = next(
-            (n for n in sorted(cross_refs)
-             if n in bins and any(s == src_name for _, s in cross_refs[n])),
-            None)
-        if consumer is None:
-            continue
-        try:
-            with open(src_path, 'rb') as f:
-                host = from_binary(f.read(), start_offset=bins[src_name][1])
-            with open(os.path.join(app_dir, bins[consumer][0]), 'rb') as f:
-                model = from_binary(f.read(), start_offset=bins[consumer][1],
-                                    host=host)
-        except (OSError, SegmentError):
-            return False
-        part = host_call_table(src_name, read_label_json(json_path), model)
-        if part is None:
-            return False
-        for name, value in part.items():
-            if name in table and table[name] != value:
-                print(f'  LINK WARN: conflicting handle for {name}')
-                return False
-            table[name] = value
-    if not table:
-        return False
-    write_equ_table(table, os.path.join(labels_dir(app), HOST_CALLS_NAME))
-    return True
+
+def _remove_foreign_label_copies(app):
+    """Delete any stale per-consumer ``*_foreign_labels.inc`` files (D7.0e)."""
+    target = labels_dir(app)
+    if not os.path.isdir(target):
+        return
+    for entry in os.listdir(target):
+        if entry.endswith('_foreign_labels.inc'):
+            os.remove(os.path.join(target, entry))
 
 
 def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
@@ -204,14 +190,10 @@ def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
             print(f'  FAILED: {src_name}')
             failed.append(src_name)
 
-    # One shared overlay-handle table keyed by the source's exported labels
-    # (plan D7.1 step 1).  It supersedes the per-consumer subset copies, which
-    # are removed so only one convention is live.
-    if _write_host_call_table(app, app_dir, out_dir, bins, cross_refs):
-        target = labels_dir(app)
-        for entry in os.listdir(target):
-            if entry.endswith('_foreign_labels.inc'):
-                os.remove(os.path.join(target, entry))
+    # The one shared overlay-handle table is re-probed by the link step
+    # (``lib.link.write_host_calls``, D7.1); remove any stale per-consumer
+    # subset copies so only one convention is live.
+    _remove_foreign_label_copies(app)
 
     return failed
 

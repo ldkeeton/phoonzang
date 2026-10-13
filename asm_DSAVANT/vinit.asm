@@ -6,6 +6,8 @@ bits 16
 
 %include "labels/host_values.inc"
 
+%include "labels/host_data.inc"
+
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x000e
 %endif
@@ -20,71 +22,6 @@ IMAGE_BASE equ 0x000e
     dw loc_15d9 - IMAGE_BASE + 0x5055  ; 0x6620 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-dseg_0002 equ 0x0002
-dseg_010c equ 0x010c
-bss_0e0e equ 0x0e0e
-bss_0e10 equ 0x0e10
-bss_0e12 equ 0x0e12
-bss_0e14 equ 0x0e14
-bss_0e16 equ 0x0e16
-bss_0e18 equ 0x0e18
-bss_0e1a equ 0x0e1a
-bss_0e1c equ 0x0e1c
-bss_0e1e equ 0x0e1e
-bss_0e20 equ 0x0e20
-bss_0e22 equ 0x0e22
-bss_0e24 equ 0x0e24
-bss_0e26 equ 0x0e26
-bss_0e28 equ 0x0e28
-bss_0e2a equ 0x0e2a
-bss_0e2c equ 0x0e2c
-bss_0e2e equ 0x0e2e
-bss_0e30 equ 0x0e30
-bss_0e32 equ 0x0e32
-bss_0e34 equ 0x0e34
-bss_0e36 equ 0x0e36
-bss_1008 equ 0x1008
-bss_100a equ 0x100a
-bss_5212 equ 0x5212
-bss_5214 equ 0x5214
-bss_5216 equ 0x5216
-bss_5528 equ 0x5528
-bss_552a equ 0x552a
-bss_5978 equ 0x5978
-bss_5979 equ 0x5979
-bss_5980 equ 0x5980
-bss_5984 equ 0x5984
-bss_5986 equ 0x5986
-bss_5989 equ 0x5989
-bss_598a equ 0x598a
-bss_598e equ 0x598e
-bss_59f8 equ 0x59f8
-bss_5b3e equ 0x5b3e
-bss_5b6c equ 0x5b6c
-bss_5b6e equ 0x5b6e
-bss_5b70 equ 0x5b70
-bss_69c8 equ 0x69c8
-bss_82b6 equ 0x82b6
-bss_830a equ 0x830a
-bss_844c equ 0x844c
-bss_844e equ 0x844e
-bss_8450 equ 0x8450
-bss_8d06 equ 0x8d06
-bss_8d08 equ 0x8d08
-bss_904c equ 0x904c
-bss_9056 equ 0x9056
-bss_9058 equ 0x9058
-bss_905a equ 0x905a
-bss_905c equ 0x905c
-bss_9068 equ 0x9068
-bss_906a equ 0x906a
-bss_9088 equ 0x9088
-dseg_91ae equ 0x91ae
-dseg_91b0 equ 0x91b0
-dseg_91b2 equ 0x91b2
-dseg_91b4 equ 0x91b4
-dseg_91b6 equ 0x91b6
-bss_91b8 equ 0x91b8
 
 loc_000e:
     mov ax, 0                        ; 0x000e

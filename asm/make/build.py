@@ -13,7 +13,9 @@ from .common import (
     APPS,
     JOBS,
     PROJECT,
+    _aggregate_host_data,
     _asm_one,
+    _clear_host_data_exports,
     _copy_assets,
     _extra_flags,
     _foreign_args,
@@ -22,6 +24,7 @@ from .common import (
 )
 from .link import write_link_values
 from .prebuild import _ensure_prebuild
+from lib.link import host_name
 
 
 def _stats_enabled():
@@ -49,6 +52,10 @@ def asm_app(app):
 
     consumers = [n for n in sorted(bins) if n not in source_names]
 
+    # Drop the previous build's per-overlay DS exports so the union below is
+    # exactly this build's references (the labels dir survives `make build`).
+    _clear_host_data_exports(app)
+
     with ThreadPoolExecutor(max_workers=JOBS) as ex:
         futures = {}
         for name in consumers:
@@ -58,6 +65,20 @@ def asm_app(app):
             if f.result() != 0:
                 print(f'  FAILED: {futures[f]}')
                 failed.append(futures[f])
+
+    # D7.1: the overlays just exported the host-DS offsets they reference; give
+    # the union back to the host so it declares one recipe-based ``equ`` per
+    # offset.  The host is regenerated *in place* (its code labels are
+    # unchanged, so the consumers' foreign maps stay valid), and the link step
+    # below re-probes the result.
+    host = host_name(bins)
+    offsets_path = _aggregate_host_data(app)
+    if offsets_path and host is not None:
+        print(f'  Host data map: {host}.asm declares the overlay DS union')
+        if _asm_one(app, host, ['--export-labels',
+                                f'--host-data-offsets={offsets_path}']) != 0:
+            print(f'  FAILED: {host} (host data map)')
+            failed.append(host)
 
     # D7.0c: resolve the host geometry the overlays/drivers name before any
     # binary is assembled.  The host source is complete by now.

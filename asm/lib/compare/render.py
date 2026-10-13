@@ -395,7 +395,8 @@ def mz_data_gap(records, binary_data, start_offset):
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
-                  label_defined=None, ds_size=None, host_inc=None):
+                  label_defined=None, ds_size=None, host_inc=None,
+                  host_data_inc=None, host_data_offsets=None):
     """Render the master NASM source and any generated function includes.
 
     *host_inc* is the include directive (relative to the ``.cache/<project>/``
@@ -403,6 +404,13 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     host, so the overlay can name host geometry (``__zdataseg_end``) that its
     own assembly cannot see; the value is resolved by the link step into
     ``.cache`` and never stands as a literal in ``asm_<project>``.
+
+    *host_data_inc* (D7.1) is the include directive naming the shared host DS
+    name map.  When set (an overlay with a host), the overlay's ``dseg_``/``bss_``
+    names are **not** re-declared here -- they come from the one table.  The host
+    itself receives *host_data_offsets* (the union of the offsets the overlays
+    reference) and declares one recipe-based ``equ`` per offset so the link step
+    can probe them.
     """
     label_defined = label_defined or ()
     out = ['org 0', 'bits 16']
@@ -411,6 +419,9 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append('')
     if host_inc:
         out.append(f'%include "{host_inc}"')
+        out.append('')
+    if host_data_inc:
+        out.append(f'%include "{host_data_inc}"')
         out.append('')
 
     base = start_offset if image_base is None else image_base
@@ -503,7 +514,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                 continue
             if not label_map or addr not in label_map or label_map[addr] != name:
                 out.append(f'{name} equ 0x{addr:04x}')
-    if mem_equ:
+    data_anchored = is_mz and gap is not None
+    if mem_equ or (data_anchored and host_data_offsets):
         # Segment-resolved operand symbols (Phase 4): cseg_ (code segment file
         # offset), dseg_/bss_ (data segment offset), psp_ (PSP field).
         #
@@ -514,52 +526,81 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # is the (dynamic) file-backed data size plus its offset into BSS.
         # ``psp_``/``cseg_`` stay literal (the PSP is fixed; code symbols are
         # already labels or load offsets).  Only the MZ image has the anchors.
-        data_anchored = is_mz and gap is not None
+        #
+        # D7.1: the data segment is shared and the *host* owns it.  An overlay
+        # with a host does not re-declare its ``dseg_``/``bss_`` names here
+        # (they come from ``host_data.inc``); the host instead declares one
+        # recipe per offset in *host_data_offsets* so the link step can probe
+        # the whole union.
+        data_names = {}
+        for name, value in (mem_equ or {}).items():
+            if host_data_inc and name.startswith(('dseg_', 'bss_')):
+                continue  # the one shared host table declares it
+            data_names[name] = (value, False)
+        if data_anchored and host_data_offsets:
+            for name, value in host_data_offsets.items():
+                data_names.setdefault(name, (value, True))
         if data_anchored:
             from lib.compare.jumptables import _ensure_global_label
             from lib.compare.regions import string_run
             placed_anchors = set()
-        for name in sorted(mem_equ, key=lambda n: (mem_equ[n], n)):
+        for name in sorted(data_names, key=lambda n: (data_names[n][0], n)):
             if _defined(name):
                 continue
-            value = mem_equ[name]
+            value, from_host_data = data_names[name]
+            # Overlay-own data (``>= __zdataseg_end``) is not file-backed in the
+            # host, so it hangs off the shared data-segment end instead of a
+            # label; its delta stays frozen (plan.md D7.1 "Known residual").
+            # Only a union name (``host_data_offsets``) can be overlay-own -- an
+            # MZ image's own ``mem_equ`` never reaches past its segment end.
+            own = from_host_data and ds_size is not None and value >= ds_size
             expr = None
             if data_anchored and name.startswith('dseg_'):
-                file_off = data_origin + value
-                if file_off < len(binary_data):
-                    # A reference strictly inside a string is not a data
-                    # symbol: anchor it to the string's start (and keep the
-                    # delta) so the literal stays readable instead of being
-                    # sliced into hex fragments.  Everything else gets a label
-                    # at the exact byte so the operand tracks inserted bytes.
-                    run = string_run(binary_data, file_off, data_origin)
-                    anchor = None
-                    if (run is not None and run[0] < file_off
-                            and run[1] - run[0] >= _MIN_STRING_ANCHOR):
-                        anchor_off = run[0]
-                        anchor_ds = anchor_off - data_origin
-                        anchor = f'__zstr_{anchor_ds:04x}'
-                        if anchor not in placed_anchors:
-                            if _ensure_global_label(
-                                    records, binary_data, anchor_off, anchor):
-                                placed_anchors.add(anchor)
-                            else:
-                                anchor = None
-                    if anchor is not None:
-                        delta = value - anchor_ds
-                        expr = f'{anchor} - __zdataseg_start'
-                        if delta:
-                            expr += f' + 0x{delta:04x}'
-                    else:
-                        label = f'__z{name}'
-                        if _ensure_global_label(records, binary_data,
-                                                file_off, label):
-                            expr = f'{label} - __zdataseg_start'
-            elif (data_anchored and name.startswith('bss_')
-                    and value >= bss_boundary):
-                delta = value - bss_boundary
-                base = '(__zimage_end - __zdataseg_start)'
-                expr = base if delta == 0 else f'{base} + 0x{delta:04x}'
+                if own:
+                    delta = value - ds_size
+                    expr = _DSSIZE_SYMBOL if delta == 0 else (
+                        f'{_DSSIZE_SYMBOL} + 0x{delta:04x}')
+                else:
+                    file_off = data_origin + value
+                    if file_off < len(binary_data):
+                        # A reference strictly inside a string is not a data
+                        # symbol: anchor it to the string's start (and keep the
+                        # delta) so the literal stays readable instead of being
+                        # sliced into hex fragments.  Everything else gets a
+                        # label at the exact byte so the operand tracks inserted
+                        # bytes.
+                        run = string_run(binary_data, file_off, data_origin)
+                        anchor = None
+                        if (run is not None and run[0] < file_off
+                                and run[1] - run[0] >= _MIN_STRING_ANCHOR):
+                            anchor_off = run[0]
+                            anchor_ds = anchor_off - data_origin
+                            anchor = f'__zstr_{anchor_ds:04x}'
+                            if anchor not in placed_anchors:
+                                if _ensure_global_label(
+                                        records, binary_data, anchor_off, anchor):
+                                    placed_anchors.add(anchor)
+                                else:
+                                    anchor = None
+                        if anchor is not None:
+                            delta = value - anchor_ds
+                            expr = f'{anchor} - __zdataseg_start'
+                            if delta:
+                                expr += f' + 0x{delta:04x}'
+                        else:
+                            label = f'__z{name}'
+                            if _ensure_global_label(records, binary_data,
+                                                    file_off, label):
+                                expr = f'{label} - __zdataseg_start'
+            elif data_anchored and name.startswith('bss_'):
+                if own:
+                    delta = value - ds_size
+                    expr = _DSSIZE_SYMBOL if delta == 0 else (
+                        f'{_DSSIZE_SYMBOL} + 0x{delta:04x}')
+                elif value >= bss_boundary:
+                    delta = value - bss_boundary
+                    base = '(__zimage_end - __zdataseg_start)'
+                    expr = base if delta == 0 else f'{base} + 0x{delta:04x}'
             if expr is not None:
                 out.append(f'{name} equ {expr}')
             else:

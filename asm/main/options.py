@@ -22,12 +22,15 @@ EXACT_BYTES = '--exact-bytes' in sys.argv
 EXPORT_LABELS = '--export-labels' in sys.argv
 FOREIGN_LABELS_PATH = None
 FOREIGN_PREFIX = None
+HOST_DATA_OFFSETS_PATH = None
 _MAX_FUNC_SIZE = None
 for a in sys.argv:
     if a.startswith('--foreign-labels='):
         FOREIGN_LABELS_PATH = a.split('=', 1)[1]
     elif a.startswith('--foreign-prefix='):
         FOREIGN_PREFIX = a.split('=', 1)[1]
+    elif a.startswith('--host-data-offsets='):
+        HOST_DATA_OFFSETS_PATH = a.split('=', 1)[1]
     elif a.startswith('--max-func-size='):
         try:
             _MAX_FUNC_SIZE = int(a.split('=', 1)[1])

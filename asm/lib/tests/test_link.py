@@ -10,10 +10,14 @@ import tempfile
 import unittest
 
 from lib.link import (
+    HOST_DATA_INCLUDE,
     HOST_GEOMETRY_SYMBOLS,
     HOST_VALUES_INCLUDE,
     LinkError,
+    collect_host_data,
+    host_data_names,
     include_args,
+    probe_labels,
     probe_symbols,
     project_of_asm_dir,
     render_values,
@@ -63,6 +67,87 @@ class RenderValuesTests(unittest.TestCase):
     def test_deterministic(self):
         values = {'x': 0x1234, 'y': 0x0001}
         self.assertEqual(render_values(values), render_values(values))
+
+    def test_custom_header(self):
+        text = render_values({'x': 0x1}, header=['; hello'])
+        self.assertTrue(text.startswith('; hello\n'))
+
+
+class HostDataMapTests(unittest.TestCase):
+    """D7.1: the one shared host DS name map (``host_data.inc``)."""
+
+    def test_include_directive_is_cache_relative(self):
+        self.assertEqual(HOST_DATA_INCLUDE, 'labels/host_data.inc')
+
+    def test_host_data_names_reads_only_ds_declarations(self):
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, 'ds.asm')
+            with open(path, 'w') as f:
+                f.write(
+                    'dseg_0002 equ __zdseg_0002 - __zdataseg_start\n'
+                    'bss_5218 equ (__zimage_end - __zdataseg_start) + 0x4522\n'
+                    'bss_9abc equ __zdataseg_end + 0x1\n'
+                    'IMAGE_BASE equ 0x0200\n'
+                    '__zdataseg_end equ '
+                    '(__zimage_end - __zdataseg_start) + __zbss_size\n'
+                    '    mov ax, [dseg_0002]\n'
+                )
+            self.assertEqual(
+                host_data_names(path),
+                ['bss_5218', 'bss_9abc', 'dseg_0002'],
+            )
+
+    def test_collect_host_data_merges_exports(self):
+        import json
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, 'vbase_hostdata.json'), 'w') as f:
+                json.dump({'bss_1': 0x1, 'dseg_2': 0x2}, f)
+            with open(os.path.join(d, 'vmaze_hostdata.json'), 'w') as f:
+                json.dump({'bss_1': 0x1, 'bss_3': 0x3}, f)
+            self.assertEqual(collect_host_data(d),
+                             {'bss_1': 0x1, 'dseg_2': 0x2, 'bss_3': 0x3})
+
+    def test_collect_host_data_conflict_is_a_link_error(self):
+        import json
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, 'a_hostdata.json'), 'w') as f:
+                json.dump({'bss_1': 0x1}, f)
+            with open(os.path.join(d, 'b_hostdata.json'), 'w') as f:
+                json.dump({'bss_1': 0x2}, f)
+            with self.assertRaises(LinkError):
+                collect_host_data(d)
+
+    def test_collect_host_data_empty_when_no_exports(self):
+        with tempfile.TemporaryDirectory() as d:
+            self.assertEqual(collect_host_data(d), {})
+
+
+class ProbeLabelsTests(unittest.TestCase):
+    """D7.1: host code labels are re-probed by name for the handle table."""
+
+    def _host(self, path, body='    nop\n'):
+        with open(path, 'w') as f:
+            f.write('org 0\nbits 16\n' + body)
+
+    def test_probe_reprobes_offsets_by_name(self):
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, 'host.asm')
+            self._host(path, 'start:\n    nop\nroutine:\n    nop\n')
+            self.assertEqual(
+                probe_labels(d, 'host.asm', {0: 'start', 1: 'routine'}),
+                {'start': 0, 'routine': 1})
+            # A code byte inserted before ``routine`` moves it by one.
+            self._host(path, 'start:\n    nop\n    nop\nroutine:\n    nop\n')
+            self.assertEqual(
+                probe_labels(d, 'host.asm', {0: 'start', 1: 'routine'}),
+                {'start': 0, 'routine': 2})
+
+    def test_undefined_name_keeps_its_recorded_offset(self):
+        with tempfile.TemporaryDirectory() as d:
+            self._host(os.path.join(d, 'host.asm'), 'start:\n    nop\n')
+            self.assertEqual(
+                probe_labels(d, 'host.asm', {0: 'start', 9: 'ghost'}),
+                {'start': 0, 'ghost': 9})
 
 
 class IncludeArgsTests(unittest.TestCase):

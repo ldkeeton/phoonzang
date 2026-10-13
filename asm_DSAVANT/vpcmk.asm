@@ -6,6 +6,8 @@ bits 16
 
 %include "labels/host_values.inc"
 
+%include "labels/host_data.inc"
+
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x000e
 %endif
@@ -25,64 +27,6 @@ string_loc_436e equ 0x436e
 string_loc_5a60 equ 0x5a60
 string_loc_5cb4 equ 0x5cb4
 loc_6e5f equ 0x6e5f
-dseg_0002 equ 0x0002
-dseg_0038 equ 0x0038
-dseg_003c equ 0x003c
-dseg_0040 equ 0x0040
-dseg_0042 equ 0x0042
-dseg_0044 equ 0x0044
-dseg_010e equ 0x010e
-bss_0e32 equ 0x0e32
-bss_59fc equ 0x59fc
-bss_5b3e equ 0x5b3e
-bss_5e2a equ 0x5e2a
-bss_830a equ 0x830a
-bss_844c equ 0x844c
-bss_844e equ 0x844e
-bss_8450 equ 0x8450
-bss_904e equ 0x904e
-bss_9050 equ 0x9050
-bss_9052 equ 0x9052
-bss_905a equ 0x905a
-bss_906e equ 0x906e
-bss_9070 equ 0x9070
-bss_9072 equ 0x9072
-bss_9074 equ 0x9074
-bss_908a equ 0x908a
-bss_908c equ 0x908c
-bss_908e equ 0x908e
-bss_9090 equ 0x9090
-bss_9092 equ 0x9092
-bss_9094 equ 0x9094
-dseg_951a equ 0x951a
-dseg_951c equ 0x951c
-dseg_951e equ 0x951e
-dseg_9520 equ 0x9520
-dseg_9522 equ 0x9522
-bss_9524 equ 0x9524
-bss_9526 equ 0x9526
-bss_9528 equ 0x9528
-bss_952a equ 0x952a
-bss_952c equ 0x952c
-bss_952e equ 0x952e
-bss_9530 equ 0x9530
-bss_9532 equ 0x9532
-bss_9534 equ 0x9534
-bss_9536 equ 0x9536
-bss_9538 equ 0x9538
-bss_953a equ 0x953a
-bss_953c equ 0x953c
-bss_953e equ 0x953e
-bss_9540 equ 0x9540
-bss_9542 equ 0x9542
-bss_9594 equ 0x9594
-bss_95aa equ 0x95aa
-bss_95ac equ 0x95ac
-bss_95ae equ 0x95ae
-bss_95e8 equ 0x95e8
-bss_960c equ 0x960c
-bss_976c equ 0x976c
-bss_978a equ 0x978a
 
 loc_000e:
     mov ax, 0                        ; 0x000e
