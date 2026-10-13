@@ -116,7 +116,7 @@ loc_0dbe:
     mov al, byte [bx + 0x14]         ; 0x0dcf
     sub ah, ah                       ; 0x0dd2
     cmp ax, 0xff                     ; 0x0dd4
-    je short @..local.l1             ; 0x0dd7
+    je short @..loc_0dbe.l1          ; 0x0dd7
     mov al, byte [bx + 0x17]         ; 0x0dd9
     sub ah, ah                       ; 0x0ddc
     push ax                          ; 0x0dde
@@ -145,5 +145,5 @@ loc_0dbe:
     push ax                          ; 0x0e12
     call ds_loc_4218                 ; 0x0e13
     add sp, byte 0x16                ; 0x0e16
-@..local.l1:
+@..loc_0dbe.l1:
     ret                              ; 0x0e19

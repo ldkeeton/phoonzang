@@ -37,11 +37,11 @@ loc_0b14:
     call ds_aztec_csav               ; 0x0b17
     call loc_0140                    ; 0x0b1a
     cmp word [bp + 0x8], byte 0      ; 0x0b1d
-    je short @..local.l7             ; 0x0b21
+    je short @..loc_0b14.l1          ; 0x0b21
     call ds_app_2bed                 ; 0x0b23
     mov word [bss_8450], ax          ; 0x0b26
     test ax, ax                      ; 0x0b29
-    je short @..local.l7             ; 0x0b2b
+    je short @..loc_0b14.l1          ; 0x0b2b
     mov ax, 0                        ; 0x0b2d
     push ax                          ; 0x0b30
     mov ax, 3                        ; 0x0b31
@@ -57,7 +57,7 @@ loc_0b14:
     call ds_app_2bab                 ; 0x0b4a
     add sp, byte 6                   ; 0x0b4d
     mov word [bss_844c], ax          ; 0x0b50
-@..local.l7:
+@..loc_0b14.l1:
     mov ax, word [bp + 0x4]          ; 0x0b53
     mov word [bss_8452], ax          ; 0x0b56
     mov ax, word [bp + 0x6]          ; 0x0b59

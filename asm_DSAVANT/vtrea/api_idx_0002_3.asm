@@ -20,12 +20,12 @@ loc_56af:
     mov ax, 0                        ; 0x56af
     call ds_aztec_csav               ; 0x56b2
     cmp word [bp + 0x4], strict word 0x190 ; 0x56b5
-    jl short @..local.l76            ; 0x56ba
+    jl short @..loc_56af.l1          ; 0x56ba
     cmp word [bp + 0x4], strict word 0x19b ; 0x56bc
-    jge short @..local.l76           ; 0x56c1
+    jge short @..loc_56af.l1         ; 0x56c1
     mov ax, 1                        ; 0x56c3
-    jmp short @..local.l77           ; 0x56c6
-@..local.l76:
+    jmp short @..loc_56af.l2         ; 0x56c6
+@..loc_56af.l1:
     mov ax, 0                        ; 0x56c8
-@..local.l77:
+@..loc_56af.l2:
     ret                              ; 0x56cb

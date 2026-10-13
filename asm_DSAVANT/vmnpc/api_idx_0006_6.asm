@@ -150,11 +150,11 @@ loc_742e:
     call ds_aztec_csav               ; 0x7431
     mov ax, word [bss_598e]          ; 0x7434
     cmp ax, word [bp + 0x4]          ; 0x7437
-    je short @..local.l85            ; 0x743a
+    je short @..loc_742e.l1          ; 0x743a
     push word [bp + 0x4]             ; 0x743c
     call ds_app_29f1                 ; 0x743f
     pop cx                           ; 0x7442
-@..local.l85:
+@..loc_742e.l1:
     mov word [bss_93da], 0x10        ; 0x7443
     push word [bss_93da]             ; 0x7449
     call ds_app_0a27                 ; 0x744d

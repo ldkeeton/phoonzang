@@ -166,14 +166,22 @@ class FunctionIncludeTests(unittest.TestCase):
         self.assertEqual(labels[0x120], '@..loc_4be6.l1')
         self.assertEqual(labels[0x124], '@..loc_4be6.l2')
 
-    def test_loc_owner_without_fragment_stays_generic(self):
+    def test_unnamed_owner_locals_independent_of_other_owners(self):
+        targets = {0x120, 0x220}
+        owners = {0x120: {0x100}, 0x220: {0x200}}
+        both = _compute_local_labels(targets, owners, {}, {}, set())
+        alone = _compute_local_labels({0x220}, {0x220: {0x200}}, {}, {}, set())
+        self.assertEqual(both[0x220], '@..loc_0200.l1')
+        self.assertEqual(alone[0x220], both[0x220])
+
+    def test_loc_owner_without_fragment_is_scoped_by_address(self):
         local_targets = {0x120}
         owners = {0x120: {0x100}}
         label_map = {0x100: 'loc_4be6'}
         labels = _compute_local_labels(
             local_targets, owners, {}, label_map, set(),
         )
-        self.assertEqual(labels[0x120], '@..local.l1')
+        self.assertEqual(labels[0x120], '@..loc_4be6.l1')
 
     def test_named_function_include_starts_at_its_call_target_prefix(self):
         records = [

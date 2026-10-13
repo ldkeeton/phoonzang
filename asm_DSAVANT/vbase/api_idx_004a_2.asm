@@ -247,10 +247,10 @@ loc_6c5c:
     mov ax, 0                        ; 0x6c5c
     call ds_aztec_csav               ; 0x6c5f
     cmp word [bss_a4a4], byte 0      ; 0x6c62
-    jle short @..local.l115          ; 0x6c67
+    jle short @..loc_6c5c.l1         ; 0x6c67
     call loc_73bc                    ; 0x6c69
     test ax, ax                      ; 0x6c6c
-    je short @..local.l115           ; 0x6c6e
+    je short @..loc_6c5c.l1          ; 0x6c6e
     call api_idx_000a_3              ; 0x6c70
     mov ax, 0x91                     ; 0x6c73
     push ax                          ; 0x6c76
@@ -261,5 +261,5 @@ loc_6c5c:
     push ax                          ; 0x6c7f
     call ds_loc_3b21                 ; 0x6c80
     add sp, byte 8                   ; 0x6c83
-@..local.l115:
+@..loc_6c5c.l1:
     ret                              ; 0x6c86

@@ -109,33 +109,33 @@ loc_04b1:
     sub ax, bx                       ; 0x052d
     inc ax                           ; 0x052f
     and dx, 3                        ; 0x0530
-    je short @..local.l2             ; 0x0534
+    je short @..loc_04b1.l1          ; 0x0534
     inc word [bp - 0x0026]           ; 0x0536
-@..local.l2:
+@..loc_04b1.l1:
     mov bx, 4                        ; 0x0539
     sub bx, dx                       ; 0x053c
     and bl, 3                        ; 0x053e
     mov dx, bx                       ; 0x0541
     mov word [bp - 0x0028], dx       ; 0x0543
     sub ax, dx                       ; 0x0546
-    jae short @..local.l3            ; 0x0548
+    jae short @..loc_04b1.l2         ; 0x0548
     add ax, dx                       ; 0x054a
     mov word [bp - 0x0028], ax       ; 0x054c
     mov byte [bp - 0x0036], 1        ; 0x054f
-    jmp near @..local.l5             ; 0x0553
-@..local.l3:
+    jmp near @..loc_04b1.l4          ; 0x0553
+@..loc_04b1.l2:
     mov dx, ax                       ; 0x0556
     shr ax, 1                        ; 0x0558
     shr ax, 1                        ; 0x055a
     add word [bp - 0x0026], ax       ; 0x055c
     mov word [bp - 0x002e], ax       ; 0x055f
     and dx, 3                        ; 0x0562
-    je short @..local.l4             ; 0x0566
+    je short @..loc_04b1.l3          ; 0x0566
     inc word [bp - 0x0026]           ; 0x0568
-@..local.l4:
+@..loc_04b1.l3:
     shl dx, 1                        ; 0x056b
     mov word [bp - 0x002a], dx       ; 0x056d
-@..local.l5:
+@..loc_04b1.l4:
     mov ax, word [bp - 0x0016]       ; 0x0570
     mov bx, word [bp - 0x0026]       ; 0x0573
     mul bx                           ; 0x0576
@@ -150,13 +150,13 @@ loc_04b1:
     shr ax, cl                       ; 0x058e
     add ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x0590
     cmp ax, 0x4180                   ; 0x0595
-    jae short @..local.l6            ; 0x0598
+    jae short @..loc_04b1.l5         ; 0x0598
     cmp byte [bp - 0x0036], 0        ; 0x059a
-    jne short @..local.l6            ; 0x059e
-    jmp near @..local.l12            ; 0x05a0
-@..local.l6:
-    jmp near @..local.l7             ; 0x05a3
-@..local.l7:
+    jne short @..loc_04b1.l5         ; 0x059e
+    jmp near @..loc_04b1.l11         ; 0x05a0
+@..loc_04b1.l5:
+    jmp near @..loc_04b1.l6          ; 0x05a3
+@..loc_04b1.l6:
     shl word [bp - 0x0004], 1        ; 0x05a6
     mov dx, 0x3ce                    ; 0x05a9
     mov al, 5                        ; 0x05ac
@@ -168,26 +168,26 @@ loc_04b1:
     mov al, 8                        ; 0x05b6
     out dx, al                       ; 0x05b8
     inc dx                           ; 0x05b9
-@..local.l8:
+@..loc_04b1.l7:
     mov di, word [bp - 0x0002]       ; 0x05ba
     mov si, word [bp - 0x0012]       ; 0x05bd
     mov bx, 0x33b3                   ; 0x05c0
     mov cl, 4                        ; 0x05c3
     test byte [bp - 0x0014], 0xaa    ; 0x05c5
-    jne short @..local.l9            ; 0x05c9
+    jne short @..loc_04b1.l8         ; 0x05c9
     xor cl, cl                       ; 0x05cb
     inc word [bp - 0x0012]           ; 0x05cd
-@..local.l9:
+@..loc_04b1.l8:
     mov dx, 0x3cf                    ; 0x05d0
     mov al, byte [bp - 0x0014]       ; 0x05d3
     out dx, al                       ; 0x05d6
     ror byte [bp - 0x0014], 1        ; 0x05d7
     cmp byte [bp - 0x0014], 0x80     ; 0x05da
-    jne short @..local.l10           ; 0x05de
+    jne short @..loc_04b1.l9         ; 0x05de
     inc word [bp - 0x0002]           ; 0x05e0
-@..local.l10:
+@..loc_04b1.l9:
     mov dx, word [bp - 0x0016]       ; 0x05e3
-@..local.l11:
+@..loc_04b1.l10:
     lodsb                            ; 0x05e6
     add si, strict word 0x13f        ; 0x05e7
     cs xlatb                         ; 0x05eb
@@ -196,9 +196,9 @@ loc_04b1:
     mov byte [es:di], al             ; 0x05f2
     add di, byte 0x50                ; 0x05f5
     dec dx                           ; 0x05f8
-    jne short @..local.l11           ; 0x05f9
+    jne short @..loc_04b1.l10        ; 0x05f9
     dec word [bp - 0x0004]           ; 0x05fb
-    jne short @..local.l8            ; 0x05fe
+    jne short @..loc_04b1.l7         ; 0x05fe
     mov al, 0xff                     ; 0x0600
     mov dx, 0x3cf                    ; 0x0602
     out dx, al                       ; 0x0605
@@ -217,7 +217,7 @@ loc_04b1:
     mov sp, bp                       ; 0x061a
     pop bp                           ; 0x061c
     ret                              ; 0x061d
-@..local.l12:
+@..loc_04b1.l11:
     mov ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x061e
     add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x0622
     mov es, ax                       ; 0x0627
@@ -235,9 +235,9 @@ loc_04b1:
     out dx, al                       ; 0x0640
     mov cx, word [bp - 0x0028]       ; 0x0641
     or cx, cx                        ; 0x0644
-    jne short @..local.l13           ; 0x0646
-    jmp near @..local.l18            ; 0x0648
-@..local.l13:
+    jne short @..loc_04b1.l12        ; 0x0646
+    jmp near @..loc_04b1.l17         ; 0x0648
+@..loc_04b1.l12:
     shl cx, 1                        ; 0x064b
     mov dx, 0x3ce                    ; 0x064d
     mov al, 4                        ; 0x0650
@@ -248,14 +248,14 @@ loc_04b1:
     xor di, di                       ; 0x0657
     mov si, word [bp - 0x0002]       ; 0x0659
     mov bx, word [bp - 0x0016]       ; 0x065c
-@..local.l14:
+@..loc_04b1.l13:
     mov al, byte [si]                ; 0x065f
     shr al, cl                       ; 0x0661
     mov byte [es:di], al             ; 0x0663
     add si, byte 0x50                ; 0x0666
     add di, word [bp - 0x0026]       ; 0x0669
     dec bx                           ; 0x066c
-    jne short @..local.l14           ; 0x066d
+    jne short @..loc_04b1.l13        ; 0x066d
     mov dx, 0x3ce                    ; 0x066f
     mov al, 4                        ; 0x0672
     out dx, al                       ; 0x0674
@@ -265,14 +265,14 @@ loc_04b1:
     mov di, word [bp - 0x0024]       ; 0x0679
     mov si, word [bp - 0x0002]       ; 0x067c
     mov bx, word [bp - 0x0016]       ; 0x067f
-@..local.l15:
+@..loc_04b1.l14:
     mov al, byte [si]                ; 0x0682
     shr al, cl                       ; 0x0684
     mov byte [es:di], al             ; 0x0686
     add si, byte 0x50                ; 0x0689
     add di, word [bp - 0x0026]       ; 0x068c
     dec bx                           ; 0x068f
-    jne short @..local.l15           ; 0x0690
+    jne short @..loc_04b1.l14        ; 0x0690
     mov dx, 0x3ce                    ; 0x0692
     mov al, 4                        ; 0x0695
     out dx, al                       ; 0x0697
@@ -282,14 +282,14 @@ loc_04b1:
     mov di, word [bp - 0x0032]       ; 0x069c
     mov si, word [bp - 0x0002]       ; 0x069f
     mov bx, word [bp - 0x0016]       ; 0x06a2
-@..local.l16:
+@..loc_04b1.l15:
     mov al, byte [si]                ; 0x06a5
     shr al, cl                       ; 0x06a7
     mov byte [es:di], al             ; 0x06a9
     add si, byte 0x50                ; 0x06ac
     add di, word [bp - 0x0026]       ; 0x06af
     dec bx                           ; 0x06b2
-    jne short @..local.l16           ; 0x06b3
+    jne short @..loc_04b1.l15        ; 0x06b3
     mov dx, 0x3ce                    ; 0x06b5
     mov al, 4                        ; 0x06b8
     out dx, al                       ; 0x06ba
@@ -299,20 +299,20 @@ loc_04b1:
     mov di, word [bp - 0x0034]       ; 0x06bf
     mov si, word [bp - 0x0002]       ; 0x06c2
     mov bx, word [bp - 0x0016]       ; 0x06c5
-@..local.l17:
+@..loc_04b1.l16:
     mov al, byte [si]                ; 0x06c8
     shr al, cl                       ; 0x06ca
     mov byte [es:di], al             ; 0x06cc
     add si, byte 0x50                ; 0x06cf
     add di, word [bp - 0x0026]       ; 0x06d2
     dec bx                           ; 0x06d5
-    jne short @..local.l17           ; 0x06d6
-@..local.l18:
+    jne short @..loc_04b1.l16        ; 0x06d6
+@..loc_04b1.l17:
     mov cx, word [bp - 0x002a]       ; 0x06d8
     or cx, cx                        ; 0x06db
-    jne short @..local.l19           ; 0x06dd
-    jmp near @..local.l24            ; 0x06df
-@..local.l19:
+    jne short @..loc_04b1.l18        ; 0x06dd
+    jmp near @..loc_04b1.l23         ; 0x06df
+@..loc_04b1.l18:
     mov di, word [bp - 0x0026]       ; 0x06e2
     dec di                           ; 0x06e5
     mov si, word [bp - 0x0002]       ; 0x06e6
@@ -327,14 +327,14 @@ loc_04b1:
     pop si                           ; 0x06f6
     push si                          ; 0x06f7
     mov bx, word [bp - 0x0016]       ; 0x06f8
-@..local.l20:
+@..loc_04b1.l19:
     mov al, byte [si]                ; 0x06fb
     shl al, cl                       ; 0x06fd
     mov byte [es:di], al             ; 0x06ff
     add si, byte 0x50                ; 0x0702
     add di, word [bp - 0x0026]       ; 0x0705
     dec bx                           ; 0x0708
-    jne short @..local.l20           ; 0x0709
+    jne short @..loc_04b1.l19        ; 0x0709
     mov dx, 0x3ce                    ; 0x070b
     mov al, 4                        ; 0x070e
     out dx, al                       ; 0x0710
@@ -347,14 +347,14 @@ loc_04b1:
     pop si                           ; 0x071c
     push si                          ; 0x071d
     mov bx, word [bp - 0x0016]       ; 0x071e
-@..local.l21:
+@..loc_04b1.l20:
     mov al, byte [si]                ; 0x0721
     shl al, cl                       ; 0x0723
     mov byte [es:di], al             ; 0x0725
     add si, byte 0x50                ; 0x0728
     add di, word [bp - 0x0026]       ; 0x072b
     dec bx                           ; 0x072e
-    jne short @..local.l21           ; 0x072f
+    jne short @..loc_04b1.l20        ; 0x072f
     mov dx, 0x3ce                    ; 0x0731
     mov al, 4                        ; 0x0734
     out dx, al                       ; 0x0736
@@ -367,14 +367,14 @@ loc_04b1:
     pop si                           ; 0x0742
     push si                          ; 0x0743
     mov bx, word [bp - 0x0016]       ; 0x0744
-@..local.l22:
+@..loc_04b1.l21:
     mov al, byte [si]                ; 0x0747
     shl al, cl                       ; 0x0749
     mov byte [es:di], al             ; 0x074b
     add si, byte 0x50                ; 0x074e
     add di, word [bp - 0x0026]       ; 0x0751
     dec bx                           ; 0x0754
-    jne short @..local.l22           ; 0x0755
+    jne short @..loc_04b1.l21        ; 0x0755
     mov dx, 0x3ce                    ; 0x0757
     mov al, 4                        ; 0x075a
     out dx, al                       ; 0x075c
@@ -386,26 +386,26 @@ loc_04b1:
     add di, word [bp - 0x0034]       ; 0x0765
     pop si                           ; 0x0768
     mov bx, word [bp - 0x0016]       ; 0x0769
-@..local.l23:
+@..loc_04b1.l22:
     mov al, byte [si]                ; 0x076c
     shl al, cl                       ; 0x076e
     mov byte [es:di], al             ; 0x0770
     add si, byte 0x50                ; 0x0773
     add di, word [bp - 0x0026]       ; 0x0776
     dec bx                           ; 0x0779
-    jne short @..local.l23           ; 0x077a
-@..local.l24:
+    jne short @..loc_04b1.l22        ; 0x077a
+@..loc_04b1.l23:
     mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x077c
     mov ds, ax                       ; 0x0780
     xor di, di                       ; 0x0782
     mov cx, word [bp - 0x0016]       ; 0x0784
-@..local.l25:
+@..loc_04b1.l24:
     push cx                          ; 0x0787
     mov si, word [bp - 0x0012]       ; 0x0788
     add word [bp - 0x0012], strict word 0x140 ; 0x078b
     mov cx, word [bp - 0x0028]       ; 0x0790
     or cx, cx                        ; 0x0793
-    je short @..local.l27            ; 0x0795
+    je short @..loc_04b1.l26         ; 0x0795
     mov byte [bp - 0x002c], cl       ; 0x0797
     mov cl, byte [es:di]             ; 0x079a
     mov bx, word [bp - 0x0024]       ; 0x079d
@@ -414,7 +414,7 @@ loc_04b1:
     mov dl, byte [es:bx + di]        ; 0x07a6
     add bx, word [bp - 0x0024]       ; 0x07a9
     mov dh, byte [es:bx + di]        ; 0x07ac
-@..local.l26:
+@..loc_04b1.l25:
     mov bx, 0x33b3                   ; 0x07af
     lodsb                            ; 0x07b2
     cs xlatb                         ; 0x07b3
@@ -435,7 +435,7 @@ loc_04b1:
     rcl al, 1                        ; 0x07d1
     rcl cl, 1                        ; 0x07d3
     dec byte [bp - 0x002c]           ; 0x07d5
-    jne short @..local.l26           ; 0x07d8
+    jne short @..loc_04b1.l25        ; 0x07d8
     mov byte [es:di], cl             ; 0x07da
     mov bx, word [bp - 0x0024]       ; 0x07dd
     mov byte [es:bx + di], ch        ; 0x07e0
@@ -444,16 +444,16 @@ loc_04b1:
     add bx, word [bp - 0x0024]       ; 0x07e9
     mov byte [es:bx + di], dh        ; 0x07ec
     inc di                           ; 0x07ef
-@..local.l27:
+@..loc_04b1.l26:
     mov ax, word [bp - 0x002e]       ; 0x07f0
     or ax, ax                        ; 0x07f3
-    je short @..local.l30            ; 0x07f5
+    je short @..loc_04b1.l29         ; 0x07f5
     mov word [bp - 0x002c], ax       ; 0x07f7
-@..local.l28:
+@..loc_04b1.l27:
     xor cx, cx                       ; 0x07fa
     xor dx, dx                       ; 0x07fc
     mov byte [bp - 0x0030], 4        ; 0x07fe
-@..local.l29:
+@..loc_04b1.l28:
     mov bx, 0x33b3                   ; 0x0802
     lodsb                            ; 0x0805
     cs xlatb                         ; 0x0806
@@ -474,7 +474,7 @@ loc_04b1:
     rcl al, 1                        ; 0x0824
     rcl cl, 1                        ; 0x0826
     dec byte [bp - 0x0030]           ; 0x0828
-    jne short @..local.l29           ; 0x082b
+    jne short @..loc_04b1.l28        ; 0x082b
     mov byte [es:di], cl             ; 0x082d
     mov bx, word [bp - 0x0024]       ; 0x0830
     mov byte [es:bx + di], ch        ; 0x0833
@@ -484,12 +484,12 @@ loc_04b1:
     mov byte [es:bx + di], dh        ; 0x083f
     inc di                           ; 0x0842
     dec word [bp - 0x002c]           ; 0x0843
-    jne short @..local.l28           ; 0x0846
-@..local.l30:
+    jne short @..loc_04b1.l27        ; 0x0846
+@..loc_04b1.l29:
     mov ax, word [bp - 0x002a]       ; 0x0848
     mov byte [bp - 0x002c], al       ; 0x084b
     or al, al                        ; 0x084e
-    je short @..local.l32            ; 0x0850
+    je short @..loc_04b1.l31         ; 0x0850
     xor ah, ah                       ; 0x0852
     shr ax, 1                        ; 0x0854
     dec ax                           ; 0x0856
@@ -501,7 +501,7 @@ loc_04b1:
     mov dl, byte [es:bx + di]        ; 0x0865
     add bx, word [bp - 0x0024]       ; 0x0868
     mov dh, byte [es:bx + di]        ; 0x086b
-@..local.l31:
+@..loc_04b1.l30:
     mov bx, 0x33b3                   ; 0x086e
     mov al, byte [si]                ; 0x0871
     dec si                           ; 0x0873
@@ -523,7 +523,7 @@ loc_04b1:
     rcr al, 1                        ; 0x0892
     rcr dh, 1                        ; 0x0894
     sub byte [bp - 0x002c], 2        ; 0x0896
-    jne short @..local.l31           ; 0x089a
+    jne short @..loc_04b1.l30        ; 0x089a
     mov byte [es:di], cl             ; 0x089c
     mov bx, word [bp - 0x0024]       ; 0x089f
     mov byte [es:bx + di], ch        ; 0x08a2
@@ -532,12 +532,12 @@ loc_04b1:
     add bx, word [bp - 0x0024]       ; 0x08ab
     mov byte [es:bx + di], dh        ; 0x08ae
     inc di                           ; 0x08b1
-@..local.l32:
+@..loc_04b1.l31:
     pop cx                           ; 0x08b2
     dec cx                           ; 0x08b3
-    je short @..local.l33            ; 0x08b4
-    jmp near @..local.l25            ; 0x08b6
-@..local.l33:
+    je short @..loc_04b1.l32         ; 0x08b4
+    jmp near @..loc_04b1.l24         ; 0x08b6
+@..loc_04b1.l32:
     mov ax, 0xa000                   ; 0x08b9
     mov es, ax                       ; 0x08bc
     mov ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x08be
@@ -546,7 +546,7 @@ loc_04b1:
     xor si, si                       ; 0x08c9
     mov di, word [bp - 0x0002]       ; 0x08cb
     mov cx, word [bp - 0x0016]       ; 0x08ce
-@..local.l34:
+@..loc_04b1.l33:
     push cx                          ; 0x08d1
     mov dx, 0x3c4                    ; 0x08d2
     mov al, 2                        ; 0x08d5
@@ -602,7 +602,7 @@ loc_04b1:
     add di, byte 0x50                ; 0x0927
     add si, word [bp - 0x0026]       ; 0x092a
     pop cx                           ; 0x092d
-    loop @..local.l34                ; 0x092e
+    loop @..loc_04b1.l33             ; 0x092e
     mov dx, 0x3c4                    ; 0x0930
     mov al, 2                        ; 0x0933
     out dx, al                       ; 0x0935

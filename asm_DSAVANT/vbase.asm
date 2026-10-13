@@ -35,17 +35,17 @@ loc_000e:
     mov ax, 0                        ; 0x000e
     call ds_aztec_csav               ; 0x0011
     cmp word [bss_830a], byte 7      ; 0x0014
-    jne short @..local.l1            ; 0x0019
+    jne short @..loc_000e.l1         ; 0x0019
     call api_idx_0002_3              ; 0x001b
-@..local.l1:
+@..loc_000e.l1:
     cmp word [bss_830a], byte 4      ; 0x001e
-    jne short @..local.l2            ; 0x0023
+    jne short @..loc_000e.l2         ; 0x0023
     call api_idx_004a_2              ; 0x0025
-@..local.l2:
+@..loc_000e.l2:
     cmp word [bss_830a], byte 0x18   ; 0x0028
-    jne short @..local.l3            ; 0x002d
+    jne short @..loc_000e.l3         ; 0x002d
     call api_idx_004a                ; 0x002f
-@..local.l3:
+@..loc_000e.l3:
     mov ax, 0                        ; 0x0032
     ret                              ; 0x0035
 %include "vbase/api_idx_0002.asm"          ; 0x0036

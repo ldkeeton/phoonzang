@@ -147,8 +147,8 @@ loc_2cc7:
     mov ax, 0                        ; 0x2cc7
     call ds_aztec_csav               ; 0x2cca
     mov word [bss_845e], 0xfffe      ; 0x2ccd
-@..local.l65:
+@..loc_2cc7.l1:
     call api_idx_0006_2              ; 0x2cd3
     cmp word [bss_845e], byte 0xfe   ; 0x2cd6
-    jne short @..local.l65           ; 0x2cdb
+    jne short @..loc_2cc7.l1         ; 0x2cdb
     ret                              ; 0x2cdd

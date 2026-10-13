@@ -65,19 +65,19 @@ api_idx_0002:
 loc_299f:
     mov ax, 0                        ; 0x299f
     call ds_aztec_csav               ; 0x29a2
-    jmp short @..local.l61           ; 0x29a5
-@..local.l59:
+    jmp short @..loc_299f.l3         ; 0x29a5
+@..loc_299f.l1:
     push word [bp + 0x8]             ; 0x29a7
     push word [bp + 0x6]             ; 0x29aa
     push word [bp + 0x4]             ; 0x29ad
     call api_idx_0002                ; 0x29b0
     add sp, byte 6                   ; 0x29b3
     test ax, ax                      ; 0x29b6
-    jne short @..local.l60           ; 0x29b8
+    jne short @..loc_299f.l2         ; 0x29b8
     ret                              ; 0x29ba
-@..local.l60:
+@..loc_299f.l2:
     inc word [bp + 0x4]              ; 0x29bb
-@..local.l61:
+@..loc_299f.l3:
     cmp word [bp + 0x4], byte 3      ; 0x29be
-    jle short @..local.l59           ; 0x29c2
+    jle short @..loc_299f.l1         ; 0x29c2
     ret                              ; 0x29c4

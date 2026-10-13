@@ -33,33 +33,33 @@ loc_1240:
     add sp, byte 6                   ; 0x125b
     mov word [bss_82ea], 0           ; 0x125e
     mov ax, word [bp + 0x4]          ; 0x1264
-    jmp short @..local.l31           ; 0x1267
-@..local.l27:
+    jmp short @..loc_1240.l5         ; 0x1267
+@..loc_1240.l1:
     mov ax, word [bp + 0x6]          ; 0x1269
     add word [bss_8f44], ax          ; 0x126c
-    jmp short @..local.l32           ; 0x1270
-@..local.l28:
+    jmp short @..loc_1240.l6         ; 0x1270
+@..loc_1240.l2:
     mov ax, word [bp + 0x6]          ; 0x1272
     add word [bss_8f46], ax          ; 0x1275
-    jmp short @..local.l32           ; 0x1279
-@..local.l29:
+    jmp short @..loc_1240.l6         ; 0x1279
+@..loc_1240.l3:
     mov ax, word [bp + 0x6]          ; 0x127b
     sub word [bss_8f44], ax          ; 0x127e
-    jmp short @..local.l32           ; 0x1282
-@..local.l30:
+    jmp short @..loc_1240.l6         ; 0x1282
+@..loc_1240.l4:
     mov ax, word [bp + 0x6]          ; 0x1284
     sub word [bss_8f46], ax          ; 0x1287
-    jmp short @..local.l32           ; 0x128b
-@..local.l31:
+    jmp short @..loc_1240.l6         ; 0x128b
+@..loc_1240.l5:
     cmp ax, strict word 0            ; 0x128d
-    je short @..local.l27            ; 0x1290
+    je short @..loc_1240.l1          ; 0x1290
     cmp ax, strict word 1            ; 0x1292
-    je short @..local.l28            ; 0x1295
+    je short @..loc_1240.l2          ; 0x1295
     cmp ax, strict word 2            ; 0x1297
-    je short @..local.l29            ; 0x129a
+    je short @..loc_1240.l3          ; 0x129a
     cmp ax, strict word 3            ; 0x129c
-    je short @..local.l30            ; 0x129f
-@..local.l32:
+    je short @..loc_1240.l4          ; 0x129f
+@..loc_1240.l6:
     ret                              ; 0x12a1
 loc_12a2:
     mov ax, 0                        ; 0x12a2

@@ -39,8 +39,8 @@ loc_1165:
     mov ax, 0                        ; 0x1165
     call ds_aztec_csav               ; 0x1168
     mov ax, word [bp + 0x4]          ; 0x116b
-    jmp short @..local.l25           ; 0x116e
-@..local.l21:
+    jmp short @..loc_1165.l5         ; 0x116e
+@..loc_1165.l1:
     mov ax, 4                        ; 0x1170
     push ax                          ; 0x1173
     mov ax, word [bp + 0x6]          ; 0x1174
@@ -59,7 +59,7 @@ loc_1165:
     call ds_leaf_loc_3f3d            ; 0x1192
     add sp, byte 6                   ; 0x1195
     ret                              ; 0x1198
-@..local.l22:
+@..loc_1165.l2:
     mov ax, 4                        ; 0x1199
     push ax                          ; 0x119c
     mov ax, word [bp + 0x6]          ; 0x119d
@@ -78,7 +78,7 @@ loc_1165:
     call ds_leaf_loc_3f3d            ; 0x11bb
     add sp, byte 6                   ; 0x11be
     ret                              ; 0x11c1
-@..local.l23:
+@..loc_1165.l3:
     push word [bp + 0x6]             ; 0x11c2
     push word [bp + 0xa]             ; 0x11c5
     push word [bp + 0x8]             ; 0x11c8
@@ -87,7 +87,7 @@ loc_1165:
     call loc_2d94                    ; 0x11d1
     add sp, byte 0x0a                ; 0x11d4
     ret                              ; 0x11d7
-@..local.l24:
+@..loc_1165.l4:
     push word [bp + 0x6]             ; 0x11d8
     push word [bp + 0xa]             ; 0x11db
     push word [bp + 0x8]             ; 0x11de
@@ -96,15 +96,15 @@ loc_1165:
     call loc_2e0c                    ; 0x11e7
     add sp, byte 0x0a                ; 0x11ea
     ret                              ; 0x11ed
-@..local.l25:
+@..loc_1165.l5:
     cmp ax, strict word 0            ; 0x11ee
-    jne short @..local.l26           ; 0x11f1
-    jmp near @..local.l21            ; 0x11f3
-@..local.l26:
+    jne short @..loc_1165.l6         ; 0x11f1
+    jmp near @..loc_1165.l1          ; 0x11f3
+@..loc_1165.l6:
     cmp ax, strict word 1            ; 0x11f6
-    je short @..local.l22            ; 0x11f9
+    je short @..loc_1165.l2          ; 0x11f9
     cmp ax, strict word 2            ; 0x11fb
-    je short @..local.l23            ; 0x11fe
+    je short @..loc_1165.l3          ; 0x11fe
     cmp ax, strict word 3            ; 0x1200
-    je short @..local.l24            ; 0x1203
+    je short @..loc_1165.l4          ; 0x1203
     ret                              ; 0x1205

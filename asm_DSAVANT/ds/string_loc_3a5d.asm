@@ -24,9 +24,9 @@ loc_3a77:
     add bx, ax                       ; 0x3a83
     mov ax, word [cs:bx]             ; 0x3a85
     or ax, ax                        ; 0x3a88
-    je short @..local.l3             ; 0x3a8a
+    je short @..loc_3a77.l1          ; 0x3a8a
     call far [cs:cseg_2fb3 - IMAGE_BASE] ; 0x3a8c
-@..local.l3:
+@..loc_3a77.l1:
     mov sp, bp                       ; 0x3a91
     pop bp                           ; 0x3a93
     ret                              ; 0x3a94

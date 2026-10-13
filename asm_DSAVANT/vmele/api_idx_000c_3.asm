@@ -161,19 +161,19 @@ loc_2b19:
     mov ax, word [bss_9092]          ; 0x2b4f
     mov dx, word [bss_9094]          ; 0x2b52
     cmp bx, dx                       ; 0x2b56
-    jg short @..local.l62            ; 0x2b58
-    jne short @..local.l63           ; 0x2b5a
+    jg short @..loc_2b19.l1          ; 0x2b58
+    jne short @..loc_2b19.l2         ; 0x2b5a
     cmp cx, ax                       ; 0x2b5c
-    jbe short @..local.l63           ; 0x2b5e
-@..local.l62:
-    jmp short @..local.l64           ; 0x2b60
-@..local.l63:
+    jbe short @..loc_2b19.l2         ; 0x2b5e
+@..loc_2b19.l1:
+    jmp short @..loc_2b19.l3         ; 0x2b60
+@..loc_2b19.l2:
     mov ax, word [bss_908e]          ; 0x2b62
     mov dx, word [bss_9090]          ; 0x2b65
     mov word [bss_908c], dx          ; 0x2b69
     mov word [bss_908a], ax          ; 0x2b6d
     mov ax, 1                        ; 0x2b70
     ret                              ; 0x2b73
-@..local.l64:
+@..loc_2b19.l3:
     mov ax, 0                        ; 0x2b74
     ret                              ; 0x2b77

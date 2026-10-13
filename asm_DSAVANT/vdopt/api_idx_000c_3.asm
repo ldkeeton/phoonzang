@@ -83,13 +83,13 @@ loc_28f7:
     mov ax, word [bss_9092]          ; 0x292d
     mov dx, word [bss_9094]          ; 0x2930
     cmp bx, dx                       ; 0x2934
-    jg short @..local.l45            ; 0x2936
-    jne short @..local.l46           ; 0x2938
+    jg short @..loc_28f7.l1          ; 0x2936
+    jne short @..loc_28f7.l2         ; 0x2938
     cmp cx, ax                       ; 0x293a
-    jbe short @..local.l46           ; 0x293c
-@..local.l45:
-    jmp short @..local.l47           ; 0x293e
-@..local.l46:
+    jbe short @..loc_28f7.l2         ; 0x293c
+@..loc_28f7.l1:
+    jmp short @..loc_28f7.l3         ; 0x293e
+@..loc_28f7.l2:
     mov ax, word [bss_908e]          ; 0x2940
     mov dx, word [bss_9090]          ; 0x2943
     mov word [bss_908c], dx          ; 0x2947
@@ -119,5 +119,5 @@ loc_28f7:
     push ax                          ; 0x2980
     call ds_loc_3b21                 ; 0x2981
     add sp, byte 8                   ; 0x2984
-@..local.l47:
+@..loc_28f7.l3:
     ret                              ; 0x2987

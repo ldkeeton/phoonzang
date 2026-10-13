@@ -122,12 +122,12 @@ loc_3490:
     mov al, byte [bx]                ; 0x3499
     pop ds                           ; 0x349b
     or al, al                        ; 0x349c
-    je short @..local.l1             ; 0x349e
-    jmp near @..local.l2             ; 0x34a0
-@..local.l1:
+    je short @..loc_3490.l1          ; 0x349e
+    jmp near @..loc_3490.l2          ; 0x34a0
+@..loc_3490.l1:
     mov word [bp - 0x0002], 0        ; 0x34a3
     ret                              ; 0x34a8
-@..local.l2:
+@..loc_3490.l2:
     mov byte [cs:cseg_2f3a - IMAGE_BASE], 0 ; 0x34a9
     mov byte [cs:cseg_2f3b - IMAGE_BASE], 0 ; 0x34af
     mov byte [cs:cseg_2f38 - IMAGE_BASE], 1 ; 0x34b5

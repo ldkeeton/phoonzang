@@ -83,13 +83,13 @@ loc_8c8d:
     mov ax, word [bss_9092]          ; 0x8cc3
     mov dx, word [bss_9094]          ; 0x8cc6
     cmp bx, dx                       ; 0x8cca
-    jg short @..local.l177           ; 0x8ccc
-    jne short @..local.l178          ; 0x8cce
+    jg short @..loc_8c8d.l1          ; 0x8ccc
+    jne short @..loc_8c8d.l2         ; 0x8cce
     cmp cx, ax                       ; 0x8cd0
-    jbe short @..local.l178          ; 0x8cd2
-@..local.l177:
-    jmp short @..local.l179          ; 0x8cd4
-@..local.l178:
+    jbe short @..loc_8c8d.l2         ; 0x8cd2
+@..loc_8c8d.l1:
+    jmp short @..loc_8c8d.l3         ; 0x8cd4
+@..loc_8c8d.l2:
     mov ax, word [bss_908e]          ; 0x8cd6
     mov dx, word [bss_9090]          ; 0x8cd9
     mov word [bss_908c], dx          ; 0x8cdd
@@ -119,5 +119,5 @@ loc_8c8d:
     push ax                          ; 0x8d16
     call ds_loc_3b21                 ; 0x8d17
     add sp, byte 8                   ; 0x8d1a
-@..local.l179:
+@..loc_8c8d.l3:
     ret                              ; 0x8d1d

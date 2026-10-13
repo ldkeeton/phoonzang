@@ -88,28 +88,28 @@ loc_07de:
     call ds_loc_3b89                 ; 0x07fa
     add sp, byte 8                   ; 0x07fd
     cmp word [bss_9114], byte 1      ; 0x0800
-    jne short @..local.l31           ; 0x0805
+    jne short @..loc_07de.l1         ; 0x0805
     call api_idx_000a                ; 0x0807
-    jmp short @..local.l32           ; 0x080a
-@..local.l31:
+    jmp short @..loc_07de.l2         ; 0x080a
+@..loc_07de.l1:
     call api_idx_000e                ; 0x080c
-@..local.l32:
+@..loc_07de.l2:
     call ds_app_2c69                 ; 0x080f
     cmp word [bss_911a], byte 0      ; 0x0812
-    jl short @..local.l33            ; 0x0817
+    jl short @..loc_07de.l3          ; 0x0817
     push word [bss_9120]             ; 0x0819
     push word [bss_9122]             ; 0x081d
     call loc_0111                    ; 0x0821
     add sp, byte 4                   ; 0x0824
     mov word [bss_911a], 0xffff      ; 0x0827
-@..local.l33:
+@..loc_07de.l3:
     cmp word [bss_9116], byte 0      ; 0x082d
-    jl short @..local.l34            ; 0x0832
+    jl short @..loc_07de.l4          ; 0x0832
     push word [bss_9116]             ; 0x0834
     call api_idx_0010                ; 0x0838
     pop cx                           ; 0x083b
     mov word [bss_9116], ax          ; 0x083c
-@..local.l34:
+@..loc_07de.l4:
     push word [bss_911c]             ; 0x083f
     mov ax, 0xf7                     ; 0x0843
     push ax                          ; 0x0846
@@ -120,13 +120,13 @@ loc_07de:
     call ds_loc_3b21                 ; 0x084f
     add sp, byte 8                   ; 0x0852
     cmp word [bss_9118], byte 0      ; 0x0855
-    je short @..local.l35            ; 0x085a
+    je short @..loc_07de.l5          ; 0x085a
     mov ax, 5                        ; 0x085c
     push ax                          ; 0x085f
     call ds_app_0a27                 ; 0x0860
     pop cx                           ; 0x0863
     mov word [bss_9118], 0           ; 0x0864
-@..local.l35:
+@..loc_07de.l5:
     ret                              ; 0x086a
 loc_086b:
     mov ax, 0                        ; 0x086b
@@ -145,13 +145,13 @@ loc_086b:
     pop dx                           ; 0x088e
     pop ax                           ; 0x088f
     cmp dx, bx                       ; 0x0890
-    jl short @..local.l36            ; 0x0892
-    jne short @..local.l37           ; 0x0894
+    jl short @..loc_086b.l1          ; 0x0892
+    jne short @..loc_086b.l2         ; 0x0894
     cmp ax, cx                       ; 0x0896
-    jae short @..local.l37           ; 0x0898
-@..local.l36:
-    jmp short @..local.l39           ; 0x089a
-@..local.l37:
+    jae short @..loc_086b.l2         ; 0x0898
+@..loc_086b.l1:
+    jmp short @..loc_086b.l4         ; 0x089a
+@..loc_086b.l2:
     mov ax, word [bss_906c]          ; 0x089c
     inc ax                           ; 0x089f
     mov cx, 2                        ; 0x08a0
@@ -170,9 +170,9 @@ loc_086b:
     idiv cx                          ; 0x08bd
     mov word [bss_911e], dx          ; 0x08bf
     cmp word [bss_9116], byte 0      ; 0x08c3
-    jl short @..local.l38            ; 0x08c8
+    jl short @..loc_086b.l3          ; 0x08c8
     inc word [bss_9116]              ; 0x08ca
-@..local.l38:
+@..loc_086b.l3:
     les bx, word [dseg_0002]         ; 0x08ce
     mov ax, word [es:bx]             ; 0x08d2
     mov dx, word [es:bx + 0x2]       ; 0x08d5
@@ -181,6 +181,6 @@ loc_086b:
     call loc_07de                    ; 0x08e0
     mov ax, 1                        ; 0x08e3
     ret                              ; 0x08e6
-@..local.l39:
+@..loc_086b.l4:
     mov ax, 0                        ; 0x08e7
     ret                              ; 0x08ea

@@ -150,11 +150,11 @@ api_idx_0018_2:
 loc_7cb4:
     mov ax, 0                        ; 0x7cb4
     call ds_aztec_csav               ; 0x7cb7
-@..local.l72:
+@..loc_7cb4.l1:
     cmp word [bp + 0x4], byte 0      ; 0x7cba
-    jle short @..local.l74           ; 0x7cbe
+    jle short @..loc_7cb4.l3         ; 0x7cbe
     cmp word [bp + 0x6], byte 0      ; 0x7cc0
-    je short @..local.l73            ; 0x7cc4
+    je short @..loc_7cb4.l2          ; 0x7cc4
     mov ax, word [bss_82e8]          ; 0x7cc6
     inc ax                           ; 0x7cc9
     mov cx, 2                        ; 0x7cca
@@ -166,8 +166,8 @@ loc_7cb4:
     push ax                          ; 0x7cda
     call ds_app_0a27                 ; 0x7cdb
     pop cx                           ; 0x7cde
-@..local.l73:
+@..loc_7cb4.l2:
     dec word [bp + 0x4]              ; 0x7cdf
-    jmp short @..local.l72           ; 0x7ce2
-@..local.l74:
+    jmp short @..loc_7cb4.l1         ; 0x7ce2
+@..loc_7cb4.l3:
     ret                              ; 0x7ce4

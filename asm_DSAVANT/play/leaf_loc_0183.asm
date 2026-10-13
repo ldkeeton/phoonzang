@@ -23,17 +23,17 @@ leaf_loc_0183:
 loc_01b0:
     push bx                          ; 0x01b0
     cmp byte [cs:cseg_0b9a - IMAGE_BASE], 0 ; 0x01b1
-    je short @..local.l5             ; 0x01b7
+    je short @..loc_01b0.l2          ; 0x01b7
     mov byte [cs:cseg_0b9a - IMAGE_BASE], 0 ; 0x01b9
     cmp byte [cs:cseg_0b94 - IMAGE_BASE], 0 ; 0x01bf
-    je short @..local.l4             ; 0x01c5
+    je short @..loc_01b0.l1          ; 0x01c5
     call io_loc_0c97                 ; 0x01c7
-@..local.l4:
+@..loc_01b0.l1:
     mov bl, byte [cs:cseg_0b7c - IMAGE_BASE] ; 0x01ca
     xor bh, bh                       ; 0x01cf
     shl bx, 1                        ; 0x01d1
     call [cs:bx + 0x2da]             ; 0x01d3
-@..local.l5:
+@..loc_01b0.l2:
     pop bx                           ; 0x01d8
     ret                              ; 0x01d9
 

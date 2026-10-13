@@ -542,14 +542,14 @@ loc_7d99:
     mov word [bss_9062], dx          ; 0x7deb
     mov word [bss_9060], ax          ; 0x7def
     cmp word [bss_906a], byte 0      ; 0x7df2
-    je short @..local.l138           ; 0x7df7
+    je short @..loc_7d99.l1          ; 0x7df7
     mov ax, 1                        ; 0x7df9
     push ax                          ; 0x7dfc
     push word [bss_9068]             ; 0x7dfd
     call ds_app_file_16a0            ; 0x7e01
     add sp, byte 4                   ; 0x7e04
     mov word [bss_906a], 0           ; 0x7e07
-@..local.l138:
+@..loc_7d99.l1:
     mov ax, 0                        ; 0x7e0d
     push ax                          ; 0x7e10
     mov ax, 2                        ; 0x7e11
@@ -609,13 +609,13 @@ loc_7d99:
     call ds_bios_kbd_check           ; 0x7e9d
     mov word [bss_9126], 0           ; 0x7ea0
     cmp word [bp + 0x4], byte 0      ; 0x7ea6
-    jle short @..local.l139          ; 0x7eaa
+    jle short @..loc_7d99.l2         ; 0x7eaa
     mov ax, 0x9128                   ; 0x7eac
     push ax                          ; 0x7eaf
     push word [bp + 0x4]             ; 0x7eb0
     call ds_app_mem_0782             ; 0x7eb3
     add sp, byte 4                   ; 0x7eb6
-@..local.l139:
+@..loc_7d99.l2:
     ret                              ; 0x7eb9
 loc_7eba:
     mov ax, 0                        ; 0x7eba

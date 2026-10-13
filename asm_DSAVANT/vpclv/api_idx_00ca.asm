@@ -301,13 +301,13 @@ loc_20e3:
     mov ax, word [bss_9092]          ; 0x2119
     mov dx, word [bss_9094]          ; 0x211c
     cmp bx, dx                       ; 0x2120
-    jg short @..local.l9             ; 0x2122
-    jne short @..local.l10           ; 0x2124
+    jg short @..loc_20e3.l1          ; 0x2122
+    jne short @..loc_20e3.l2         ; 0x2124
     cmp cx, ax                       ; 0x2126
-    jbe short @..local.l10           ; 0x2128
-@..local.l9:
-    jmp short @..local.l11           ; 0x212a
-@..local.l10:
+    jbe short @..loc_20e3.l2         ; 0x2128
+@..loc_20e3.l1:
+    jmp short @..loc_20e3.l3         ; 0x212a
+@..loc_20e3.l2:
     mov ax, word [bss_908e]          ; 0x212c
     mov dx, word [bss_9090]          ; 0x212f
     mov word [bss_908c], dx          ; 0x2133
@@ -348,7 +348,7 @@ loc_20e3:
     push ax                          ; 0x2181
     call ds_loc_3b21                 ; 0x2182
     add sp, byte 8                   ; 0x2185
-@..local.l11:
+@..loc_20e3.l3:
     ret                              ; 0x2188
 loc_2189:
     mov ax, 0                        ; 0x2189
@@ -360,7 +360,7 @@ loc_2189:
     call api_idx_0080                ; 0x2199
     pop cx                           ; 0x219c
     cmp word [bp + 0x6], byte 0      ; 0x219d
-    jne short @..local.l12           ; 0x21a1
+    jne short @..loc_2189.l1         ; 0x21a1
     push word [bp + 0x4]             ; 0x21a3
     call api_idx_004c                ; 0x21a6
     pop cx                           ; 0x21a9
@@ -373,5 +373,5 @@ loc_2189:
     push ax                          ; 0x21b6
     call ds_loc_3b21                 ; 0x21b7
     add sp, byte 8                   ; 0x21ba
-@..local.l12:
+@..loc_2189.l1:
     ret                              ; 0x21bd

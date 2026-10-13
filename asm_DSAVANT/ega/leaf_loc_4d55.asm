@@ -63,9 +63,9 @@ loc_4dd9:
     mov es, ax                       ; 0x4de5
     mov ax, word [bp + 0xc]          ; 0x4de7
     cmp ax, strict word 0x14         ; 0x4dea
-    jb short @..local.l127           ; 0x4ded
-    jmp near @..local.l129           ; 0x4def
-@..local.l127:
+    jb short @..loc_4dd9.l1          ; 0x4ded
+    jmp near @..loc_4dd9.l3          ; 0x4def
+@..loc_4dd9.l1:
     shl ax, 1                        ; 0x4df2
     shl ax, 1                        ; 0x4df4
     mov bx, 0x4ab4                   ; 0x4df6
@@ -74,9 +74,9 @@ loc_4dd9:
     mov word [bp - 0x0002], ax       ; 0x4dff
     mov ax, word [cs:bx]             ; 0x4e02
     or ax, ax                        ; 0x4e05
-    jne short @..local.l128          ; 0x4e07
-    jmp near @..local.l129           ; 0x4e09
-@..local.l128:
+    jne short @..loc_4dd9.l2         ; 0x4e07
+    jmp near @..loc_4dd9.l3          ; 0x4e09
+@..loc_4dd9.l2:
     dec ax                           ; 0x4e0c
     mov word [bp - 0x0004], ax       ; 0x4e0d
     push word [bp + 0x12]            ; 0x4e10
@@ -98,7 +98,7 @@ loc_4dd9:
     push ax                          ; 0x4e37
     call far [cs:cseg_021a - IMAGE_BASE] ; 0x4e38
     add sp, byte 0x0e                ; 0x4e3d
-@..local.l129:
+@..loc_4dd9.l3:
     pop di                           ; 0x4e40
     pop si                           ; 0x4e41
     pop es                           ; 0x4e42

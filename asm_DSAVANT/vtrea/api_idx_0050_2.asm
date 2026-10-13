@@ -147,11 +147,11 @@ loc_809e:
     call api_idx_000a_2              ; 0x80b6
     pop cx                           ; 0x80b9
     cmp word [bss_84a0], byte 0xff   ; 0x80ba
-    je short @..local.l141           ; 0x80bf
+    je short @..loc_809e.l2          ; 0x80bf
     call ds_app_2bed                 ; 0x80c1
     mov word [bss_8450], ax          ; 0x80c4
     test ax, ax                      ; 0x80c7
-    je short @..local.l140           ; 0x80c9
+    je short @..loc_809e.l1          ; 0x80c9
     mov ax, 1                        ; 0x80cb
     push ax                          ; 0x80ce
     mov ax, 2                        ; 0x80cf
@@ -167,11 +167,11 @@ loc_809e:
     call ds_app_2bab                 ; 0x80e8
     add sp, byte 6                   ; 0x80eb
     mov word [bss_844c], ax          ; 0x80ee
-@..local.l140:
+@..loc_809e.l1:
     mov word [bss_905e], 0x15        ; 0x80f1
     call loc_5789                    ; 0x80f7
     cmp word [bss_8450], byte 0      ; 0x80fa
-    je short @..local.l141           ; 0x80ff
+    je short @..loc_809e.l2          ; 0x80ff
     push word [bss_844c]             ; 0x8101
     push word [bss_844e]             ; 0x8105
     call ds_app_2b62                 ; 0x8109
@@ -180,7 +180,7 @@ loc_809e:
     push ax                          ; 0x8112
     call ds_app_2b4e                 ; 0x8113
     pop cx                           ; 0x8116
-@..local.l141:
+@..loc_809e.l2:
     inc word [bss_8d12]              ; 0x8117
     call loc_7eba                    ; 0x811b
     ret                              ; 0x811e
@@ -189,9 +189,9 @@ loc_811f:
     call ds_aztec_csav               ; 0x8122
     mov ax, 0x138e                   ; 0x8125
     cmp word [bss_5b6e], byte 1      ; 0x8128
-    jne short @..local.l142          ; 0x812d
+    jne short @..loc_811f.l1         ; 0x812d
     mov ax, 0x138f                   ; 0x812f
-@..local.l142:
+@..loc_811f.l1:
     push ax                          ; 0x8132
     call loc_7d99                    ; 0x8133
     pop cx                           ; 0x8136
@@ -212,7 +212,7 @@ loc_811f:
     call ds_app_2bed                 ; 0x8155
     mov word [bss_8450], ax          ; 0x8158
     test ax, ax                      ; 0x815b
-    je short @..local.l143           ; 0x815d
+    je short @..loc_811f.l2          ; 0x815d
     mov ax, 1                        ; 0x815f
     push ax                          ; 0x8162
     mov ax, 2                        ; 0x8163
@@ -228,7 +228,7 @@ loc_811f:
     call ds_app_2bab                 ; 0x817c
     add sp, byte 6                   ; 0x817f
     mov word [bss_844c], ax          ; 0x8182
-@..local.l143:
+@..loc_811f.l2:
     push word [bss_84a0]             ; 0x8185
     call api_idx_0072                ; 0x8189
     pop cx                           ; 0x818c
@@ -237,7 +237,7 @@ loc_811f:
     call api_idx_000a_2              ; 0x8191
     pop cx                           ; 0x8194
     cmp word [bss_8450], byte 0      ; 0x8195
-    je short @..local.l144           ; 0x819a
+    je short @..loc_811f.l3          ; 0x819a
     push word [bss_844c]             ; 0x819c
     push word [bss_844e]             ; 0x81a0
     call ds_app_2b62                 ; 0x81a4
@@ -246,7 +246,7 @@ loc_811f:
     push ax                          ; 0x81ad
     call ds_app_2b4e                 ; 0x81ae
     pop cx                           ; 0x81b1
-@..local.l144:
+@..loc_811f.l3:
     call loc_7eba                    ; 0x81b2
     ret                              ; 0x81b5
 loc_81b6:

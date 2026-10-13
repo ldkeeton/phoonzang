@@ -83,13 +83,13 @@ loc_77a1:
     mov ax, word [bss_9092]          ; 0x77d7
     mov dx, word [bss_9094]          ; 0x77da
     cmp bx, dx                       ; 0x77de
-    jg short @..local.l90            ; 0x77e0
-    jne short @..local.l91           ; 0x77e2
+    jg short @..loc_77a1.l1          ; 0x77e0
+    jne short @..loc_77a1.l2         ; 0x77e2
     cmp cx, ax                       ; 0x77e4
-    jbe short @..local.l91           ; 0x77e6
-@..local.l90:
-    jmp short @..local.l92           ; 0x77e8
-@..local.l91:
+    jbe short @..loc_77a1.l2         ; 0x77e6
+@..loc_77a1.l1:
+    jmp short @..loc_77a1.l3         ; 0x77e8
+@..loc_77a1.l2:
     mov ax, word [bss_908e]          ; 0x77ea
     mov dx, word [bss_9090]          ; 0x77ed
     mov word [bss_908c], dx          ; 0x77f1
@@ -119,21 +119,21 @@ loc_77a1:
     push ax                          ; 0x782a
     call ds_loc_3b21                 ; 0x782b
     add sp, byte 8                   ; 0x782e
-@..local.l92:
+@..loc_77a1.l3:
     ret                              ; 0x7831
 loc_7832:
     mov ax, 0                        ; 0x7832
     call ds_aztec_csav               ; 0x7835
     mov ax, word [bp + 0x4]          ; 0x7838
     cmp ax, word [bp + 0x6]          ; 0x783b
-    jl short @..local.l93            ; 0x783e
+    jl short @..loc_7832.l1          ; 0x783e
     inc word [bp + 0x4]              ; 0x7840
-@..local.l93:
+@..loc_7832.l1:
     mov ax, word [bp + 0x4]          ; 0x7843
     cmp ax, strict word 0xffff       ; 0x7846
-    je short @..local.l94            ; 0x7849
+    je short @..loc_7832.l2          ; 0x7849
     cmp ax, word [bp + 0x6]          ; 0x784b
-    jl short @..local.l94            ; 0x784e
+    jl short @..loc_7832.l2          ; 0x784e
     mov ax, word [bp + 0x6]          ; 0x7850
     add ax, word [bp + 0x8]          ; 0x7853
     mov cx, ax                       ; 0x7856
@@ -141,10 +141,10 @@ loc_7832:
     mov cx, ax                       ; 0x7859
     mov ax, word [bp + 0x4]          ; 0x785b
     cmp cx, ax                       ; 0x785e
-    jge short @..local.l95           ; 0x7860
-@..local.l94:
+    jge short @..loc_7832.l3         ; 0x7860
+@..loc_7832.l2:
     mov ax, word [bp + 0x6]          ; 0x7862
     mov word [bp + 0x4], ax          ; 0x7865
-@..local.l95:
+@..loc_7832.l3:
     mov ax, word [bp + 0x4]          ; 0x7868
     ret                              ; 0x786b

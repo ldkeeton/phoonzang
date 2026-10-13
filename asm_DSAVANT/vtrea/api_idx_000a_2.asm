@@ -98,23 +98,23 @@ loc_0a1a:
     call ds_app_io_0d7a              ; 0x0a30
     add sp, byte 8                   ; 0x0a33
     cmp word [bp + 0x4], byte 0      ; 0x0a36
-    je short @..local.l41            ; 0x0a3a
+    je short @..loc_0a1a.l2          ; 0x0a3a
     mov ax, word [bss_905a]          ; 0x0a3c
     cmp byte [bss_598c], 0           ; 0x0a3f
-    je short @..local.l40            ; 0x0a44
+    je short @..loc_0a1a.l1          ; 0x0a44
     shl ax, 1                        ; 0x0a46
-@..local.l40:
+@..loc_0a1a.l1:
     push ax                          ; 0x0a48
     call api_idx_0004                ; 0x0a49
     pop cx                           ; 0x0a4c
-    jmp short @..local.l42           ; 0x0a4d
-@..local.l41:
+    jmp short @..loc_0a1a.l3         ; 0x0a4d
+@..loc_0a1a.l2:
     call ds_app_0d36                 ; 0x0a4f
     test ax, ax                      ; 0x0a52
-    jne short @..local.l42           ; 0x0a54
+    jne short @..loc_0a1a.l3         ; 0x0a54
     call loc_086b                    ; 0x0a56
-    jmp short @..local.l41           ; 0x0a59
-@..local.l42:
+    jmp short @..loc_0a1a.l2         ; 0x0a59
+@..loc_0a1a.l3:
     mov ax, 0                        ; 0x0a5b
     push ax                          ; 0x0a5e
     call api_idx_000a_2              ; 0x0a5f

@@ -23,7 +23,7 @@ loc_a441:
     mov ax, 0                        ; 0xa441
     call ds_aztec_csav               ; 0xa444
     mov word [bss_93d4], 0           ; 0xa447
-@..local.l152:
+@..loc_a441.l1:
     mov ax, word [bss_93d4]          ; 0xa44d
     mov cx, 7                        ; 0xa450
     shl ax, cl                       ; 0xa453
@@ -36,7 +36,7 @@ loc_a441:
     inc word [bss_93d4]              ; 0xa469
     mov ax, word [bss_93d4]          ; 0xa46d
     cmp ax, strict word 4            ; 0xa470
-    jl short @..local.l152           ; 0xa473
+    jl short @..loc_a441.l1          ; 0xa473
     mov word [bss_93d4], 0           ; 0xa475
     mov word [bss_b052], 0x1f40      ; 0xa47b
     mov ax, word [bss_91a0]          ; 0xa481

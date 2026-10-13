@@ -333,10 +333,10 @@ loc_ac30:
     mov cx, 0x9e26                   ; 0xac49
     sub cx, di                       ; 0xac4c
     shr cx, 1                        ; 0xac4e
-    je short @..local.l89            ; 0xac50
+    je short @..loc_ac30.l1          ; 0xac50
     sub ax, ax                       ; 0xac52
     rep stosw                        ; 0xac54
-@..local.l89:
+@..loc_ac30.l1:
     call api_idx_0002                ; 0xac56
     mov bp, word [dseg_918e]         ; 0xac59
     mov sp, word [dseg_918c]         ; 0xac5d

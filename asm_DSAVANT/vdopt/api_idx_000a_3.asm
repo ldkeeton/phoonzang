@@ -42,9 +42,9 @@ loc_2731:
     push ax                          ; 0x274e
     mov ax, 0                        ; 0x274f
     cmp word [bp + 0xa], byte 0      ; 0x2752
-    je short @..local.l41            ; 0x2756
+    je short @..loc_2731.l1          ; 0x2756
     mov ax, 1                        ; 0x2758
-@..local.l41:
+@..loc_2731.l1:
     add ax, strict word 0x10         ; 0x275b
     sub ah, ah                       ; 0x275e
     push ax                          ; 0x2760
@@ -71,9 +71,9 @@ loc_2731:
     call ds_loc_3a77                 ; 0x2790
     add sp, byte 4                   ; 0x2793
     cmp word [bp + 0x8], byte 0      ; 0x2796
-    jne short @..local.l42           ; 0x279a
+    jne short @..loc_2731.l2         ; 0x279a
     cmp word [bp + 0xa], byte 0      ; 0x279c
-    jne short @..local.l42           ; 0x27a0
+    jne short @..loc_2731.l2         ; 0x27a0
     mov ax, 0xc2                     ; 0x27a2
     push ax                          ; 0x27a5
     mov ax, word [bp + 0x6]          ; 0x27a6
@@ -86,7 +86,7 @@ loc_2731:
     push ax                          ; 0x27b5
     call ds_loc_3b48                 ; 0x27b6
     add sp, byte 0x0a                ; 0x27b9
-@..local.l42:
+@..loc_2731.l2:
     ret                              ; 0x27bc
 loc_27bd:
     mov ax, 0                        ; 0x27bd
@@ -126,10 +126,10 @@ loc_27bd:
     call ds_loc_3a50                 ; 0x280f
     add sp, byte 4                   ; 0x2812
     cmp word [bp + 0xa], byte 0      ; 0x2815
-    jle short @..local.l43           ; 0x2819
+    jle short @..loc_27bd.l1         ; 0x2819
     mov ax, word [bp + 0xa]          ; 0x281b
     cmp ax, word [bp + 0xc]          ; 0x281e
-    jg short @..local.l43            ; 0x2821
+    jg short @..loc_27bd.l1          ; 0x2821
     mov ax, 0                        ; 0x2823
     push ax                          ; 0x2826
     mov ax, 1                        ; 0x2827
@@ -143,8 +143,8 @@ loc_27bd:
     push word [bp + 0xa]             ; 0x2839
     call ds_app_052e                 ; 0x283c
     add sp, byte 6                   ; 0x283f
-    jmp short @..local.l44           ; 0x2842
-@..local.l43:
+    jmp short @..loc_27bd.l2         ; 0x2842
+@..loc_27bd.l1:
     mov ax, 0                        ; 0x2844
     push ax                          ; 0x2847
     push ax                          ; 0x2848
@@ -156,5 +156,5 @@ loc_27bd:
     push ax                          ; 0x2856
     call ds_string_loc_3a95          ; 0x2857
     add sp, byte 4                   ; 0x285a
-@..local.l44:
+@..loc_27bd.l2:
     ret                              ; 0x285d

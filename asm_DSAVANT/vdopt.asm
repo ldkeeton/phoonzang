@@ -28,18 +28,18 @@ loc_000e:
     mov ax, 0                        ; 0x000e
     call ds_aztec_csav               ; 0x0011
     cmp word [bss_906a], byte 0      ; 0x0014
-    je short @..local.l1             ; 0x0019
+    je short @..loc_000e.l1          ; 0x0019
     mov ax, 1                        ; 0x001b
     push ax                          ; 0x001e
     push word [bss_9068]             ; 0x001f
     call ds_app_file_16a0            ; 0x0023
     add sp, byte 4                   ; 0x0026
     mov word [bss_906a], 0           ; 0x0029
-@..local.l1:
+@..loc_000e.l1:
     mov word [bss_90b6], 0           ; 0x002f
     mov word [bss_90b8], 0           ; 0x0035
     cmp word [bss_830a], byte 0x13   ; 0x003b
-    jne short @..local.l2            ; 0x0040
+    jne short @..loc_000e.l2         ; 0x0040
     mov ax, 0xe                      ; 0x0042
     push ax                          ; 0x0045
     call ds_app_1371                 ; 0x0046
@@ -73,13 +73,13 @@ loc_000e:
     push ax                          ; 0x0085
     call ds_app_file_2863            ; 0x0086
     add sp, byte 4                   ; 0x0089
-@..local.l2:
+@..loc_000e.l2:
     cmp word [bss_830a], byte 0x14   ; 0x008c
-    jne short @..local.l3            ; 0x0091
+    jne short @..loc_000e.l3         ; 0x0091
     push word [bss_8af0]             ; 0x0093
     call api_idx_0094                ; 0x0097
     pop cx                           ; 0x009a
-@..local.l3:
+@..loc_000e.l3:
     mov word [bss_830a], 5           ; 0x009b
     mov ax, 0                        ; 0x00a1
     ret                              ; 0x00a4
@@ -91,20 +91,20 @@ loc_00a5:
     mov al, byte [bx + si + 0x490]   ; 0x00b2
     sub ah, ah                       ; 0x00b6
     cmp ax, word [bp + 0x6]          ; 0x00b8
-    jg short @..local.l4             ; 0x00bb
+    jg short @..loc_00a5.l1          ; 0x00bb
     add ax, strict word 7            ; 0x00bd
     cmp ax, word [bp + 0x6]          ; 0x00c0
-    jl short @..local.l4             ; 0x00c3
+    jl short @..loc_00a5.l1          ; 0x00c3
     mov al, byte [bx + si + 0x4a0]   ; 0x00c5
     sub ah, ah                       ; 0x00c9
     cmp ax, word [bp + 0x8]          ; 0x00cb
-    jg short @..local.l4             ; 0x00ce
+    jg short @..loc_00a5.l1          ; 0x00ce
     add ax, strict word 7            ; 0x00d0
     cmp ax, word [bp + 0x8]          ; 0x00d3
-    jl short @..local.l4             ; 0x00d6
+    jl short @..loc_00a5.l1          ; 0x00d6
     mov ax, si                       ; 0x00d8
     ret                              ; 0x00da
-@..local.l4:
+@..loc_00a5.l1:
     mov ax, 0xffff                   ; 0x00db
     ret                              ; 0x00de
 %include "vdopt/api_idx_0004.asm"          ; 0x00df

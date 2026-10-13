@@ -239,12 +239,10 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map,
 
     Owners are normally scoped by their function-root name.  A root without a
     friendly name (for example a bare ``loc_`` helper that is a call target)
-    only gets scoped labels when its own label is being split into a fragment,
-    so its locals read as ``@..loc_4be6.l1`` inside ``loc_4be6.asm``.
+    is scoped by its own address, so its locals read as ``@..loc_4be6.l1``.
     """
     local_labels = {}
     named_counts = {}
-    generic_targets = []
     for off in sorted(local_targets or ()):
         if off in (label_map or {}):
             continue
@@ -258,12 +256,13 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map,
             if (fragment_names and isinstance(candidate, str)
                     and candidate in fragment_names):
                 name = candidate
-        if name and not name.startswith('data_'):
-            named_counts[owner] = named_counts.get(owner, 0) + 1
-            local_labels[off] = f'@..{name}.l{named_counts[owner]}'
-        else:
-            generic_targets.append(off)
-
-    for index, off in enumerate(generic_targets, 1):
-        local_labels[off] = f'@..local.l{index}'
+        if not name or name.startswith(('loc_', 'data_')):
+            # Scope by the owner's own address, never a binary-wide counter,
+            # so adding or naming another routine cannot renumber these.
+            candidate = (label_map or {}).get(owner)
+            name = (candidate if isinstance(candidate, str)
+                    and candidate.startswith('loc_')
+                    else f'loc_{owner:04x}')
+        named_counts[owner] = named_counts.get(owner, 0) + 1
+        local_labels[off] = f'@..{name}.l{named_counts[owner]}'
     return local_labels

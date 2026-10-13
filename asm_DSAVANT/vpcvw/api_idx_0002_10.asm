@@ -52,7 +52,7 @@ loc_902e:
     mov ax, 0                        ; 0x902e
     call ds_aztec_csav               ; 0x9031
     mov ax, word [bp + 0x6]          ; 0x9034
-    jmp near @..local.l71            ; 0x9037
+    jmp near @..loc_902e.l3          ; 0x9037
 jumptable_9188_case_0:
     push word [bp + 0x8]             ; 0x903a
     mov ax, 0x92e8                   ; 0x903d
@@ -61,7 +61,7 @@ jumptable_9188_case_0:
     push word [bp + 0x4]             ; 0x9044
     call api_idx_0002_10             ; 0x9047
     add sp, byte 8                   ; 0x904a
-    jmp near @..local.l72            ; 0x904d
+    jmp near @..loc_902e.l4          ; 0x904d
 jumptable_9188_case_1:
     push word [bp + 0x8]             ; 0x9050
     mov ax, 0x92f1                   ; 0x9053
@@ -70,7 +70,7 @@ jumptable_9188_case_1:
     push word [bp + 0x4]             ; 0x905a
     call api_idx_0002_10             ; 0x905d
     add sp, byte 8                   ; 0x9060
-    jmp near @..local.l72            ; 0x9063
+    jmp near @..loc_902e.l4          ; 0x9063
 jumptable_9188_case_2:
     push word [bp + 0x8]             ; 0x9066
     mov ax, 0x92fa                   ; 0x9069
@@ -79,7 +79,7 @@ jumptable_9188_case_2:
     push word [bp + 0x4]             ; 0x9070
     call api_idx_0002_10             ; 0x9073
     add sp, byte 8                   ; 0x9076
-    jmp near @..local.l72            ; 0x9079
+    jmp near @..loc_902e.l4          ; 0x9079
 jumptable_9188_case_3:
     push word [bp + 0x8]             ; 0x907c
     mov ax, 0x9303                   ; 0x907f
@@ -88,7 +88,7 @@ jumptable_9188_case_3:
     push word [bp + 0x4]             ; 0x9086
     call api_idx_0002_10             ; 0x9089
     add sp, byte 8                   ; 0x908c
-    jmp near @..local.l72            ; 0x908f
+    jmp near @..loc_902e.l4          ; 0x908f
 jumptable_9188_case_4:
     push word [bp + 0x8]             ; 0x9092
     mov ax, 0x930c                   ; 0x9095
@@ -97,7 +97,7 @@ jumptable_9188_case_4:
     push word [bp + 0x4]             ; 0x909c
     call api_idx_0002_10             ; 0x909f
     add sp, byte 8                   ; 0x90a2
-    jmp near @..local.l72            ; 0x90a5
+    jmp near @..loc_902e.l4          ; 0x90a5
 jumptable_9188_case_5:
     push word [bp + 0x8]             ; 0x90a8
     mov ax, 0x9315                   ; 0x90ab
@@ -106,7 +106,7 @@ jumptable_9188_case_5:
     push word [bp + 0x4]             ; 0x90b2
     call api_idx_0002_10             ; 0x90b5
     add sp, byte 8                   ; 0x90b8
-    jmp near @..local.l72            ; 0x90bb
+    jmp near @..loc_902e.l4          ; 0x90bb
 jumptable_9188_case_6:
     push word [bp + 0x8]             ; 0x90be
     mov ax, 0x931e                   ; 0x90c1
@@ -115,7 +115,7 @@ jumptable_9188_case_6:
     push word [bp + 0x4]             ; 0x90c8
     call api_idx_0002_10             ; 0x90cb
     add sp, byte 8                   ; 0x90ce
-    jmp near @..local.l72            ; 0x90d1
+    jmp near @..loc_902e.l4          ; 0x90d1
 jumptable_9188_case_7:
     push word [bp + 0x8]             ; 0x90d4
     mov ax, 0x9327                   ; 0x90d7
@@ -124,13 +124,13 @@ jumptable_9188_case_7:
     push word [bp + 0x4]             ; 0x90de
     call api_idx_0002_10             ; 0x90e1
     add sp, byte 8                   ; 0x90e4
-    jmp near @..local.l72            ; 0x90e7
+    jmp near @..loc_902e.l4          ; 0x90e7
 jumptable_9188_case_8:
     mov ax, 0x248                    ; 0x90ea
     imul word [bp + 0x4]             ; 0x90ed
     mov bx, ax                       ; 0x90f0
     cmp byte [bx + 0x5e2c], 1        ; 0x90f2
-    jne short @..local.l69           ; 0x90f7
+    jne short @..loc_902e.l1         ; 0x90f7
     push word [bp + 0x8]             ; 0x90f9
     mov ax, 0x9330                   ; 0x90fc
     push ax                          ; 0x90ff
@@ -138,14 +138,14 @@ jumptable_9188_case_8:
     push word [bp + 0x4]             ; 0x9103
     call api_idx_0002_10             ; 0x9106
     add sp, byte 8                   ; 0x9109
-    jmp short @..local.l70           ; 0x910c
-@..local.l69:
+    jmp short @..loc_902e.l2         ; 0x910c
+@..loc_902e.l1:
     mov ax, word [bp + 0x6]          ; 0x910e
     shl ax, 1                        ; 0x9111
     mov bx, ax                       ; 0x9113
     mov word [bx - 0x6984], 0        ; 0x9115
-@..local.l70:
-    jmp near @..local.l72            ; 0x911b
+@..loc_902e.l2:
+    jmp near @..loc_902e.l4          ; 0x911b
 jumptable_9188_case_9:
     push word [bp + 0x8]             ; 0x911e
     mov ax, 0x9339                   ; 0x9121
@@ -154,7 +154,7 @@ jumptable_9188_case_9:
     push word [bp + 0x4]             ; 0x9128
     call api_idx_0002_10             ; 0x912b
     add sp, byte 8                   ; 0x912e
-    jmp near @..local.l72            ; 0x9131
+    jmp near @..loc_902e.l4          ; 0x9131
 jumptable_9188_case_10:
     push word [bp + 0x8]             ; 0x9134
     mov ax, 0x9342                   ; 0x9137
@@ -163,7 +163,7 @@ jumptable_9188_case_10:
     push word [bp + 0x4]             ; 0x913e
     call api_idx_0002_10             ; 0x9141
     add sp, byte 8                   ; 0x9144
-    jmp short @..local.l72           ; 0x9147
+    jmp short @..loc_902e.l4         ; 0x9147
 jumptable_9188_case_11:
     push word [bp + 0x8]             ; 0x9149
     mov ax, 0x934b                   ; 0x914c
@@ -172,7 +172,7 @@ jumptable_9188_case_11:
     push word [bp + 0x4]             ; 0x9153
     call api_idx_0002_10             ; 0x9156
     add sp, byte 8                   ; 0x9159
-    jmp short @..local.l72           ; 0x915c
+    jmp short @..loc_902e.l4         ; 0x915c
 jumptable_9188_case_12:
     push word [bp + 0x8]             ; 0x915e
     mov ax, 0x9354                   ; 0x9161
@@ -181,7 +181,7 @@ jumptable_9188_case_12:
     push word [bp + 0x4]             ; 0x9168
     call api_idx_0002_10             ; 0x916b
     add sp, byte 8                   ; 0x916e
-    jmp short @..local.l72           ; 0x9171
+    jmp short @..loc_902e.l4         ; 0x9171
 jumptable_9188_case_13:
     push word [bp + 0x8]             ; 0x9173
     mov ax, 0x935d                   ; 0x9176
@@ -190,7 +190,7 @@ jumptable_9188_case_13:
     push word [bp + 0x4]             ; 0x917d
     call api_idx_0002_10             ; 0x9180
     add sp, byte 8                   ; 0x9183
-    jmp short @..local.l72           ; 0x9186
+    jmp short @..loc_902e.l4         ; 0x9186
 jumptable_9188:
     dw jumptable_9188_case_0 - IMAGE_BASE + 0x5055 ; 0x9188
     dw jumptable_9188_case_1 - IMAGE_BASE + 0x5055 ; 0x918a
@@ -206,11 +206,11 @@ jumptable_9188:
     dw jumptable_9188_case_11 - IMAGE_BASE + 0x5055 ; 0x919e
     dw jumptable_9188_case_12 - IMAGE_BASE + 0x5055 ; 0x91a0
     dw jumptable_9188_case_13 - IMAGE_BASE + 0x5055 ; 0x91a2
-@..local.l71:
+@..loc_902e.l3:
     cmp ax, strict word 0xe          ; 0x91a4
-    jae short @..local.l72           ; 0x91a7
+    jae short @..loc_902e.l4         ; 0x91a7
     xchg bx, ax                      ; 0x91a9
     shl bx, 1                        ; 0x91aa
     jmp [cs:bx - 0x1e31]             ; 0x91ac
-@..local.l72:
+@..loc_902e.l4:
     ret                              ; 0x91b1

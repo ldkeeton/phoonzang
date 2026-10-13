@@ -116,7 +116,7 @@ loc_0e6c:
     mov al, byte [bx + 0x14]         ; 0x0e7d
     sub ah, ah                       ; 0x0e80
     cmp ax, 0xff                     ; 0x0e82
-    je short @..local.l9             ; 0x0e85
+    je short @..loc_0e6c.l1          ; 0x0e85
     mov al, byte [bx + 0x17]         ; 0x0e87
     sub ah, ah                       ; 0x0e8a
     push ax                          ; 0x0e8c
@@ -145,7 +145,7 @@ loc_0e6c:
     push ax                          ; 0x0ec0
     call ds_loc_4218                 ; 0x0ec1
     add sp, byte 0x16                ; 0x0ec4
-@..local.l9:
+@..loc_0e6c.l1:
     ret                              ; 0x0ec7
 loc_0ec8:
     mov ax, 0                        ; 0x0ec8
@@ -168,19 +168,19 @@ loc_0ec8:
     mov ax, word [bss_9092]          ; 0x0efe
     mov dx, word [bss_9094]          ; 0x0f01
     cmp bx, dx                       ; 0x0f05
-    jg short @..local.l10            ; 0x0f07
-    jne short @..local.l11           ; 0x0f09
+    jg short @..loc_0ec8.l1          ; 0x0f07
+    jne short @..loc_0ec8.l2         ; 0x0f09
     cmp cx, ax                       ; 0x0f0b
-    jbe short @..local.l11           ; 0x0f0d
-@..local.l10:
-    jmp short @..local.l12           ; 0x0f0f
-@..local.l11:
+    jbe short @..loc_0ec8.l2         ; 0x0f0d
+@..loc_0ec8.l1:
+    jmp short @..loc_0ec8.l3         ; 0x0f0f
+@..loc_0ec8.l2:
     mov ax, word [bss_908e]          ; 0x0f11
     mov dx, word [bss_9090]          ; 0x0f14
     mov word [bss_908c], dx          ; 0x0f18
     mov word [bss_908a], ax          ; 0x0f1c
     mov ax, 1                        ; 0x0f1f
     ret                              ; 0x0f22
-@..local.l12:
+@..loc_0ec8.l3:
     mov ax, 0                        ; 0x0f23
     ret                              ; 0x0f26

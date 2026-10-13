@@ -37,37 +37,37 @@ loc_000e:
     mov word [bss_9118], 0           ; 0x0020
     mov word [bss_911a], 0xffff      ; 0x0026
     cmp word [bss_830a], byte 0x0f   ; 0x002c
-    jne short @..local.l1            ; 0x0031
+    jne short @..loc_000e.l1         ; 0x0031
     mov word [bss_830a], 0x16        ; 0x0033
     call api_idx_0050_2              ; 0x0039
-    jmp short @..local.l6            ; 0x003c
-@..local.l1:
+    jmp short @..loc_000e.l6         ; 0x003c
+@..loc_000e.l1:
     cmp word [bss_830a], byte 0x15   ; 0x003e
-    jne short @..local.l2            ; 0x0043
+    jne short @..loc_000e.l2         ; 0x0043
     mov word [bss_830a], 0x16        ; 0x0045
     call loc_809e                    ; 0x004b
-    jmp short @..local.l6            ; 0x004e
-@..local.l2:
+    jmp short @..loc_000e.l6         ; 0x004e
+@..loc_000e.l2:
     cmp word [bss_830a], byte 0x1a   ; 0x0050
-    jne short @..local.l3            ; 0x0055
+    jne short @..loc_000e.l3         ; 0x0055
     mov word [bss_830a], 5           ; 0x0057
     call loc_811f                    ; 0x005d
-    jmp short @..local.l6            ; 0x0060
-@..local.l3:
+    jmp short @..loc_000e.l6         ; 0x0060
+@..loc_000e.l3:
     cmp word [bss_830a], byte 0x1c   ; 0x0062
-    jne short @..local.l4            ; 0x0067
+    jne short @..loc_000e.l4         ; 0x0067
     mov word [bss_830a], 5           ; 0x0069
     call loc_81b6                    ; 0x006f
-    jmp short @..local.l6            ; 0x0072
-@..local.l4:
+    jmp short @..loc_000e.l6         ; 0x0072
+@..loc_000e.l4:
     cmp word [bss_830a], byte 0x1d   ; 0x0074
-    jne short @..local.l5            ; 0x0079
+    jne short @..loc_000e.l5         ; 0x0079
     mov word [bss_830a], 5           ; 0x007b
     call loc_81db                    ; 0x0081
-    jmp short @..local.l6            ; 0x0084
-@..local.l5:
+    jmp short @..loc_000e.l6         ; 0x0084
+@..loc_000e.l5:
     mov word [bss_830a], 0x16        ; 0x0086
-@..local.l6:
+@..loc_000e.l6:
     mov ax, 0                        ; 0x008c
     ret                              ; 0x008f
 %include "vtrea/api_idx_0010.asm"          ; 0x0090

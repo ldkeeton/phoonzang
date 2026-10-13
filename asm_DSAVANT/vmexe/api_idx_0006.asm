@@ -171,18 +171,18 @@ loc_1a35:
     mov ax, 0                        ; 0x1a35
     call ds_aztec_csav               ; 0x1a38
     mov word [bss_845e], 0xfffe      ; 0x1a3b
-@..local.l44:
+@..loc_1a35.l1:
     call api_idx_0006                ; 0x1a41
     cmp word [bss_845e], byte 0xfe   ; 0x1a44
-    jne short @..local.l44           ; 0x1a49
+    jne short @..loc_1a35.l1         ; 0x1a49
     ret                              ; 0x1a4b
 loc_1a4c:
     mov ax, 0                        ; 0x1a4c
     call ds_aztec_csav               ; 0x1a4f
-@..local.l45:
+@..loc_1a4c.l1:
     cmp word [bss_845e], byte 0xfe   ; 0x1a52
-    je short @..local.l46            ; 0x1a57
+    je short @..loc_1a4c.l2          ; 0x1a57
     call api_idx_0006                ; 0x1a59
-    jmp short @..local.l45           ; 0x1a5c
-@..local.l46:
+    jmp short @..loc_1a4c.l1         ; 0x1a5c
+@..loc_1a4c.l2:
     ret                              ; 0x1a5e

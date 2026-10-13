@@ -217,11 +217,11 @@ loc_7242:
     mov ax, 0                        ; 0x7242
     call ds_aztec_csav               ; 0x7245
     cmp word [bp + 0x4], byte 0      ; 0x7248
-    jle short @..local.l69           ; 0x724c
+    jle short @..loc_7242.l1         ; 0x724c
     mov bx, word [bss_0e12]          ; 0x724e
     mov si, word [bss_8d12]          ; 0x7252
     cmp byte [bx + si + 0x960], 0    ; 0x7256
-    jbe short @..local.l69           ; 0x725b
+    jbe short @..loc_7242.l1         ; 0x725b
     mov ax, 1                        ; 0x725d
     push ax                          ; 0x7260
     mov al, byte [bx + si + 0x960]   ; 0x7261
@@ -235,7 +235,7 @@ loc_7242:
     call ds_leaf_loc_3e88            ; 0x7274
     add sp, byte 6                   ; 0x7277
     cmp word [bp + 0x4], byte 1      ; 0x727a
-    jle short @..local.l69           ; 0x727e
+    jle short @..loc_7242.l1         ; 0x727e
     mov ax, 1                        ; 0x7280
     push ax                          ; 0x7283
     mov bx, word [bss_0e12]          ; 0x7284
@@ -250,5 +250,5 @@ loc_7242:
     push ax                          ; 0x729e
     call ds_leaf_loc_3e88            ; 0x729f
     add sp, byte 6                   ; 0x72a2
-@..local.l69:
+@..loc_7242.l1:
     ret                              ; 0x72a5

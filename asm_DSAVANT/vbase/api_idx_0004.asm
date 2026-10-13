@@ -199,19 +199,19 @@ loc_023a:
     mov word [bp - 0x0154], ax       ; 0x027c
     mov word [bp - 0x0002], 0        ; 0x0280
     mov word [bp - 0x0004], 0        ; 0x0285
-@..local.l4:
+@..loc_023a.l1:
     mov ax, word [bp - 0x0004]       ; 0x028a
     shl ax, 1                        ; 0x028d
     mov si, ax                       ; 0x028f
     mov bx, word [bp + 0x12]         ; 0x0291
     cmp word [bx + si], byte 0xff    ; 0x0294
-    jne short @..local.l5            ; 0x0297
-    jmp near @..local.l8             ; 0x0299
-@..local.l5:
+    jne short @..loc_023a.l2         ; 0x0297
+    jmp near @..loc_023a.l5          ; 0x0299
+@..loc_023a.l2:
     cmp word [bx + si], byte 1       ; 0x029c
-    je short @..local.l6             ; 0x029f
-    jmp near @..local.l7             ; 0x02a1
-@..local.l6:
+    je short @..loc_023a.l3          ; 0x029f
+    jmp near @..loc_023a.l4          ; 0x02a1
+@..loc_023a.l3:
     mov ax, 0x14                     ; 0x02a4
     imul word [bp - 0x0002]          ; 0x02a7
     lea cx, word [bp - 0x0152]       ; 0x02aa
@@ -314,10 +314,10 @@ loc_023a:
     add bx, bp                       ; 0x039d
     mov word [bx - 0x0026], ax       ; 0x039f
     inc word [bp - 0x0002]           ; 0x03a2
-@..local.l7:
+@..loc_023a.l4:
     inc word [bp - 0x0004]           ; 0x03a5
-    jmp near @..local.l4             ; 0x03a8
-@..local.l8:
+    jmp near @..loc_023a.l1          ; 0x03a8
+@..loc_023a.l5:
     mov ax, 0                        ; 0x03ab
     push ax                          ; 0x03ae
     push ax                          ; 0x03af
@@ -344,19 +344,19 @@ loc_023a:
     call ds_loc_3b21                 ; 0x03d4
     add sp, byte 8                   ; 0x03d7
     cmp word [bss_0e32], byte 0      ; 0x03da
-    je short @..local.l10            ; 0x03df
-@..local.l9:
+    je short @..loc_023a.l7          ; 0x03df
+@..loc_023a.l6:
     mov ax, 0x59fe                   ; 0x03e1
     push ax                          ; 0x03e4
     call ds_app_io_0b54              ; 0x03e5
     pop cx                           ; 0x03e8
     mov word [bp - 0x0004], ax       ; 0x03e9
     cmp word [bss_5b3e], byte 0      ; 0x03ec
-    je short @..local.l9             ; 0x03f1
-    jmp near @..local.l19            ; 0x03f3
-@..local.l10:
+    je short @..loc_023a.l6          ; 0x03f1
+    jmp near @..loc_023a.l16         ; 0x03f3
+@..loc_023a.l7:
     mov word [bp - 0x0004], 0        ; 0x03f6
-@..local.l11:
+@..loc_023a.l8:
     mov ax, 0x16                     ; 0x03fb
     push ax                          ; 0x03fe
     mov ax, word [bp - 0x0004]       ; 0x03ff
@@ -415,47 +415,47 @@ loc_023a:
     push ax                          ; 0x047e
     call loc_01bf                    ; 0x047f
     add sp, byte 0x0a                ; 0x0482
-@..local.l12:
+@..loc_023a.l9:
     mov ax, 1                        ; 0x0485
     push ax                          ; 0x0488
     call ds_dos_con_in_noecho        ; 0x0489
     pop cx                           ; 0x048c
     test ax, ax                      ; 0x048d
-    jne short @..local.l13           ; 0x048f
-    jmp short @..local.l12           ; 0x0491
-@..local.l13:
+    jne short @..loc_023a.l10        ; 0x048f
+    jmp short @..loc_023a.l9         ; 0x0491
+@..loc_023a.l10:
     mov ax, 1                        ; 0x0493
     push ax                          ; 0x0496
     call ds_dos_con_in_noecho_2      ; 0x0497
     pop cx                           ; 0x049a
     sub ah, ah                       ; 0x049b
     mov word [bp - 0x0156], ax       ; 0x049d
-    jmp short @..local.l16           ; 0x04a1
-@..local.l14:
+    jmp short @..loc_023a.l13        ; 0x04a1
+@..loc_023a.l11:
     mov ax, word [bp - 0x0004]       ; 0x04a3
     add ax, word [bp - 0x0002]       ; 0x04a6
     dec ax                           ; 0x04a9
     cwd                              ; 0x04aa
     idiv word [bp - 0x0002]          ; 0x04ab
     mov word [bp - 0x0004], dx       ; 0x04ae
-    jmp short @..local.l17           ; 0x04b1
-@..local.l15:
+    jmp short @..loc_023a.l14        ; 0x04b1
+@..loc_023a.l12:
     mov ax, word [bp - 0x0004]       ; 0x04b3
     inc ax                           ; 0x04b6
     cwd                              ; 0x04b7
     idiv word [bp - 0x0002]          ; 0x04b8
     mov word [bp - 0x0004], dx       ; 0x04bb
-    jmp short @..local.l17           ; 0x04be
-@..local.l16:
+    jmp short @..loc_023a.l14        ; 0x04be
+@..loc_023a.l13:
     cmp ax, strict word 9            ; 0x04c0
-    je short @..local.l14            ; 0x04c3
+    je short @..loc_023a.l11         ; 0x04c3
     cmp ax, strict word 0xb          ; 0x04c5
-    je short @..local.l15            ; 0x04c8
-@..local.l17:
+    je short @..loc_023a.l12         ; 0x04c8
+@..loc_023a.l14:
     cmp word [bp - 0x0156], byte 0x0d ; 0x04ca
-    je short @..local.l18            ; 0x04cf
-    jmp near @..local.l11            ; 0x04d1
-@..local.l18:
+    je short @..loc_023a.l15         ; 0x04cf
+    jmp near @..loc_023a.l8          ; 0x04d1
+@..loc_023a.l15:
     inc word [bp - 0x0004]           ; 0x04d4
     mov ax, word [bp - 0x0008]       ; 0x04d7
     inc ax                           ; 0x04da
@@ -471,7 +471,7 @@ loc_023a:
     push ax                          ; 0x04ea
     call ds_loc_3b21                 ; 0x04eb
     add sp, byte 8                   ; 0x04ee
-@..local.l19:
+@..loc_023a.l16:
     dec word [bp - 0x0004]           ; 0x04f1
     mov ax, 1                        ; 0x04f4
     push ax                          ; 0x04f7

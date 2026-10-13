@@ -2251,19 +2251,19 @@ loc_678c:
     mov al, byte [bx + si + 0x490]   ; 0x6799
     sub ah, ah                       ; 0x679d
     cmp ax, word [bp + 0x6]          ; 0x679f
-    jg short @..local.l54            ; 0x67a2
+    jg short @..loc_678c.l1          ; 0x67a2
     add ax, strict word 7            ; 0x67a4
     cmp ax, word [bp + 0x6]          ; 0x67a7
-    jl short @..local.l54            ; 0x67aa
+    jl short @..loc_678c.l1          ; 0x67aa
     mov al, byte [bx + si + 0x4a0]   ; 0x67ac
     sub ah, ah                       ; 0x67b0
     cmp ax, word [bp + 0x8]          ; 0x67b2
-    jg short @..local.l54            ; 0x67b5
+    jg short @..loc_678c.l1          ; 0x67b5
     add ax, strict word 7            ; 0x67b7
     cmp ax, word [bp + 0x8]          ; 0x67ba
-    jl short @..local.l54            ; 0x67bd
+    jl short @..loc_678c.l1          ; 0x67bd
     mov ax, si                       ; 0x67bf
     ret                              ; 0x67c1
-@..local.l54:
+@..loc_678c.l1:
     mov ax, 0xffff                   ; 0x67c2
     ret                              ; 0x67c5

@@ -114,35 +114,35 @@ loc_62fb:
     call ds_app_09f0                 ; 0x63a1
     pop cx                           ; 0x63a4
     test ax, ax                      ; 0x63a5
-    jne short @..local.l63           ; 0x63a7
+    jne short @..loc_62fb.l1         ; 0x63a7
     add word [bss_9594], byte 8      ; 0x63a9
-@..local.l63:
+@..loc_62fb.l1:
     mov ax, 0x14                     ; 0x63ae
     push ax                          ; 0x63b1
     call ds_app_09f0                 ; 0x63b2
     pop cx                           ; 0x63b5
     test ax, ax                      ; 0x63b6
-    jne short @..local.l64           ; 0x63b8
+    jne short @..loc_62fb.l2         ; 0x63b8
     add word [bss_9594], byte 8      ; 0x63ba
-@..local.l64:
+@..loc_62fb.l2:
     cmp word [bss_9594], byte 9      ; 0x63bf
-    jge short @..local.l65           ; 0x63c4
+    jge short @..loc_62fb.l3         ; 0x63c4
     mov ax, 4                        ; 0x63c6
     push ax                          ; 0x63c9
     call ds_app_09f0                 ; 0x63ca
     pop cx                           ; 0x63cd
     add ax, strict word 8            ; 0x63ce
     mov word [bss_9594], ax          ; 0x63d1
-@..local.l65:
+@..loc_62fb.l3:
     cmp word [bss_978a], byte 1      ; 0x63d4
-    jne short @..local.l66           ; 0x63d9
+    jne short @..loc_62fb.l4         ; 0x63d9
     mov ax, 0xa                      ; 0x63db
     push ax                          ; 0x63de
     call ds_app_09f0                 ; 0x63df
     pop cx                           ; 0x63e2
     add ax, strict word 0x15         ; 0x63e3
     mov word [bss_9594], ax          ; 0x63e6
-@..local.l66:
+@..loc_62fb.l4:
     mov ax, 1                        ; 0x63e9
     push ax                          ; 0x63ec
     push word [bp - 0x0006]          ; 0x63ed
@@ -223,7 +223,7 @@ loc_62fb:
     add sp, byte 6                   ; 0x64ae
     mov word [bp - 0x0004], 0        ; 0x64b1
     mov word [bp - 0x0002], 0        ; 0x64b6
-@..local.l67:
+@..loc_62fb.l5:
     mov ax, word [bp - 0x0002]       ; 0x64bb
     shl ax, 1                        ; 0x64be
     mov bx, ax                       ; 0x64c0
@@ -232,9 +232,9 @@ loc_62fb:
     inc word [bp - 0x0002]           ; 0x64c9
     mov ax, word [bp - 0x0002]       ; 0x64cc
     cmp ax, strict word 4            ; 0x64cf
-    jl short @..local.l67            ; 0x64d2
+    jl short @..loc_62fb.l5          ; 0x64d2
     cmp word [bp - 0x0004], byte 0   ; 0x64d4
-    jle short @..local.l68           ; 0x64d8
+    jle short @..loc_62fb.l6         ; 0x64d8
     mov ax, 0x25e                    ; 0x64da
     push ax                          ; 0x64dd
     push word [bp - 0x0006]          ; 0x64de
@@ -257,25 +257,25 @@ loc_62fb:
     push ax                          ; 0x6509
     call ds_loc_3b21                 ; 0x650a
     add sp, byte 8                   ; 0x650d
-@..local.l68:
+@..loc_62fb.l6:
     mov word [bp - 0x0002], 0        ; 0x6510
-@..local.l69:
+@..loc_62fb.l7:
     mov ax, 0x248                    ; 0x6515
     imul word [bp - 0x0006]          ; 0x6518
     add ax, word [bp - 0x0002]       ; 0x651b
     mov bx, ax                       ; 0x651e
     cmp byte [bx + 0x5d50], 0        ; 0x6520
-    jbe short @..local.l70           ; 0x6525
+    jbe short @..loc_62fb.l8         ; 0x6525
     push word [bp - 0x0002]          ; 0x6527
     push word [bp - 0x0006]          ; 0x652a
     call api_idx_006e                ; 0x652d
     add sp, byte 4                   ; 0x6530
-    jmp short @..local.l69           ; 0x6533
-@..local.l70:
+    jmp short @..loc_62fb.l7         ; 0x6533
+@..loc_62fb.l8:
     inc word [bp - 0x0002]           ; 0x6535
     mov ax, word [bp - 0x0002]       ; 0x6538
     cmp ax, strict word 4            ; 0x653b
-    jl short @..local.l69            ; 0x653e
+    jl short @..loc_62fb.l7          ; 0x653e
     push word [bp - 0x0006]          ; 0x6540
     call api_idx_0008_3              ; 0x6543
     pop cx                           ; 0x6546
@@ -315,7 +315,7 @@ loc_62fb:
     add sp, byte 0x1a                ; 0x6594
     mov word [bp - 0x0004], ax       ; 0x6597
     cmp word [bp - 0x0004], byte 0   ; 0x659a
-    jne short @..local.l71           ; 0x659e
+    jne short @..loc_62fb.l9         ; 0x659e
     mov ax, 1                        ; 0x65a0
     push ax                          ; 0x65a3
     push word [bp + 0x6]             ; 0x65a4
@@ -353,5 +353,5 @@ loc_62fb:
     push word [bp - 0x0008]          ; 0x65f4
     call ds_aztec_close              ; 0x65f7
     pop cx                           ; 0x65fa
-@..local.l71:
+@..loc_62fb.l9:
     ret                              ; 0x65fb

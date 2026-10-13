@@ -136,8 +136,8 @@ loc_0c96:
     mov ax, 0                        ; 0x0c96
     call ds_aztec_csav               ; 0x0c99
     mov ax, word [bp + 0x4]          ; 0x0c9c
-    jmp near @..local.l6             ; 0x0c9f
-@..local.l2:
+    jmp near @..loc_0c96.l5          ; 0x0c9f
+@..loc_0c96.l1:
     mov ax, 0x9f                     ; 0x0ca2
     push ax                          ; 0x0ca5
     mov ax, 0xcd                     ; 0x0ca6
@@ -168,8 +168,8 @@ loc_0c96:
     push ax                          ; 0x0cdd
     call ds_loc_3b21                 ; 0x0cde
     add sp, byte 8                   ; 0x0ce1
-    jmp short @..local.l8            ; 0x0ce4
-@..local.l3:
+    jmp short @..loc_0c96.l7         ; 0x0ce4
+@..loc_0c96.l2:
     mov ax, 0xc2                     ; 0x0ce6
     push ax                          ; 0x0ce9
     mov ax, 0xe0                     ; 0x0cea
@@ -180,8 +180,8 @@ loc_0c96:
     push ax                          ; 0x0cf5
     call ds_loc_3b21                 ; 0x0cf6
     add sp, byte 8                   ; 0x0cf9
-    jmp short @..local.l8            ; 0x0cfc
-@..local.l4:
+    jmp short @..loc_0c96.l7         ; 0x0cfc
+@..loc_0c96.l3:
     mov ax, 0x9f                     ; 0x0cfe
     push ax                          ; 0x0d01
     mov ax, 0xcd                     ; 0x0d02
@@ -192,8 +192,8 @@ loc_0c96:
     push ax                          ; 0x0d0d
     call ds_loc_3b21                 ; 0x0d0e
     add sp, byte 8                   ; 0x0d11
-    jmp short @..local.l8            ; 0x0d14
-@..local.l5:
+    jmp short @..loc_0c96.l7         ; 0x0d14
+@..loc_0c96.l4:
     mov ax, 0xc2                     ; 0x0d16
     push ax                          ; 0x0d19
     mov ax, 0x13a                    ; 0x0d1a
@@ -204,17 +204,17 @@ loc_0c96:
     push ax                          ; 0x0d25
     call ds_loc_3b21                 ; 0x0d26
     add sp, byte 8                   ; 0x0d29
-    jmp short @..local.l8            ; 0x0d2c
-@..local.l6:
+    jmp short @..loc_0c96.l7         ; 0x0d2c
+@..loc_0c96.l5:
     cmp ax, strict word 0            ; 0x0d2e
-    jne short @..local.l7            ; 0x0d31
-    jmp near @..local.l2             ; 0x0d33
-@..local.l7:
+    jne short @..loc_0c96.l6         ; 0x0d31
+    jmp near @..loc_0c96.l1          ; 0x0d33
+@..loc_0c96.l6:
     cmp ax, strict word 1            ; 0x0d36
-    je short @..local.l3             ; 0x0d39
+    je short @..loc_0c96.l2          ; 0x0d39
     cmp ax, strict word 2            ; 0x0d3b
-    je short @..local.l4             ; 0x0d3e
+    je short @..loc_0c96.l3          ; 0x0d3e
     cmp ax, strict word 3            ; 0x0d40
-    je short @..local.l5             ; 0x0d43
-@..local.l8:
+    je short @..loc_0c96.l4          ; 0x0d43
+@..loc_0c96.l7:
     ret                              ; 0x0d45

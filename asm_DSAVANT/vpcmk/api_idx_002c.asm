@@ -78,10 +78,10 @@ loc_67e2:
     push ax                          ; 0x67ee
     call loc_66c3                    ; 0x67ef
     add sp, byte 4                   ; 0x67f2
-@..local.l75:
+@..loc_67e2.l1:
     call ds_app_0d36                 ; 0x67f5
     test ax, ax                      ; 0x67f8
-    jne short @..local.l76           ; 0x67fa
-    jmp short @..local.l75           ; 0x67fc
-@..local.l76:
+    jne short @..loc_67e2.l2         ; 0x67fa
+    jmp short @..loc_67e2.l1         ; 0x67fc
+@..loc_67e2.l2:
     ret                              ; 0x67fe

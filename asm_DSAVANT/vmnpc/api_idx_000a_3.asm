@@ -185,12 +185,12 @@ loc_9587:
     mov si, ax                       ; 0x959e
     mov byte [bx + si + 0x1], 0      ; 0x95a0
     mov byte [bp - 0x0088], 0        ; 0x95a4
-@..local.l101:
+@..loc_9587.l1:
     mov bx, word [bp - 0x0008]       ; 0x95a9
     cmp byte [bx], 0                 ; 0x95ac
-    jne short @..local.l102          ; 0x95af
-    jmp near @..local.l107           ; 0x95b1
-@..local.l102:
+    jne short @..loc_9587.l2         ; 0x95af
+    jmp near @..loc_9587.l7          ; 0x95b1
+@..loc_9587.l2:
     mov ax, 0x20                     ; 0x95b4
     push ax                          ; 0x95b7
     push bx                          ; 0x95b8
@@ -200,11 +200,11 @@ loc_9587:
     push ax                          ; 0x95c2
     cmp ax, strict word 0            ; 0x95c3
     pop ax                           ; 0x95c6
-    jge short @..local.l103          ; 0x95c7
+    jge short @..loc_9587.l3         ; 0x95c7
     push word [bp - 0x0008]          ; 0x95c9
     call ds_aztec_strlen             ; 0x95cc
     pop cx                           ; 0x95cf
-@..local.l103:
+@..loc_9587.l3:
     mov word [bp - 0x0006], ax       ; 0x95d0
     push ax                          ; 0x95d3
     push word [bp - 0x0008]          ; 0x95d4
@@ -228,14 +228,14 @@ loc_9587:
     call ds_aztec_strcpy             ; 0x9606
     add sp, byte 4                   ; 0x9609
     cmp byte [bp - 0x0088], 0        ; 0x960c
-    je short @..local.l104           ; 0x9611
+    je short @..loc_9587.l4          ; 0x9611
     mov ax, 0x90ee                   ; 0x9613
     push ax                          ; 0x9616
     lea ax, word [bp - 0x0108]       ; 0x9617
     push ax                          ; 0x961b
     call ds_string_loc_4574          ; 0x961c
     add sp, byte 4                   ; 0x961f
-@..local.l104:
+@..loc_9587.l4:
     lea ax, word [bp - 0x0158]       ; 0x9622
     push ax                          ; 0x9626
     lea ax, word [bp - 0x0108]       ; 0x9627
@@ -250,7 +250,7 @@ loc_9587:
     add sp, byte 4                   ; 0x963e
     mov word [bp - 0x0004], ax       ; 0x9641
     cmp ax, 0xb8                     ; 0x9644
-    jle short @..local.l105          ; 0x9647
+    jle short @..loc_9587.l5         ; 0x9647
     lea ax, word [bp - 0x0088]       ; 0x9649
     push ax                          ; 0x964d
     mov ax, word [bss_93d4]          ; 0x964e
@@ -272,20 +272,20 @@ loc_9587:
     push ax                          ; 0x967c
     call ds_aztec_strcpy             ; 0x967d
     add sp, byte 4                   ; 0x9680
-    jmp short @..local.l106          ; 0x9683
-@..local.l105:
+    jmp short @..loc_9587.l6         ; 0x9683
+@..loc_9587.l5:
     lea ax, word [bp - 0x0108]       ; 0x9685
     push ax                          ; 0x9689
     lea ax, word [bp - 0x0088]       ; 0x968a
     push ax                          ; 0x968e
     call ds_aztec_strcpy             ; 0x968f
     add sp, byte 4                   ; 0x9692
-@..local.l106:
+@..loc_9587.l6:
     mov ax, word [bp - 0x0006]       ; 0x9695
     add word [bp - 0x0008], ax       ; 0x9698
     add word [bp - 0x0008], byte 1   ; 0x969b
-    jmp near @..local.l101           ; 0x969f
-@..local.l107:
+    jmp near @..loc_9587.l1          ; 0x969f
+@..loc_9587.l7:
     lea ax, word [bp - 0x0088]       ; 0x96a2
     push ax                          ; 0x96a6
     mov ax, word [bss_93d4]          ; 0x96a7

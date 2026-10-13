@@ -63,32 +63,32 @@ loc_6f14:
     mov word [bss_9b4e], 0x44        ; 0x6f40
     mov word [bss_9b4c], 0           ; 0x6f46
     mov byte [bss_9b50], 0           ; 0x6f4c
-@..local.l64:
+@..loc_6f14.l1:
     lea ax, word [bp - 0x0105]       ; 0x6f51
     push ax                          ; 0x6f55
     push word [bp + 0x4]             ; 0x6f56
     call ds_app_mem_0782             ; 0x6f59
     add sp, byte 4                   ; 0x6f5c
     cmp word [bss_5216], byte 0      ; 0x6f5f
-    jne short @..local.l66           ; 0x6f64
+    jne short @..loc_6f14.l3         ; 0x6f64
     cmp word [bss_9b48], byte 0      ; 0x6f66
-    jne short @..local.l65           ; 0x6f6b
+    jne short @..loc_6f14.l2         ; 0x6f6b
     lea ax, word [bp - 0x0105]       ; 0x6f6d
     push ax                          ; 0x6f71
     call api_idx_0004_9              ; 0x6f72
     pop cx                           ; 0x6f75
-@..local.l65:
+@..loc_6f14.l2:
     inc word [bp + 0x4]              ; 0x6f76
-@..local.l66:
+@..loc_6f14.l3:
     cmp word [bss_5216], byte 0      ; 0x6f79
-    je short @..local.l64            ; 0x6f7e
+    je short @..loc_6f14.l1          ; 0x6f7e
     cmp byte [bss_9b50], 0           ; 0x6f80
-    je short @..local.l67            ; 0x6f85
+    je short @..loc_6f14.l4          ; 0x6f85
     mov ax, 0x9b50                   ; 0x6f87
     push ax                          ; 0x6f8a
     call api_idx_0004_8              ; 0x6f8b
     pop cx                           ; 0x6f8e
-@..local.l67:
+@..loc_6f14.l4:
     push word [bp + 0x6]             ; 0x6f8f
     call loc_6b5a                    ; 0x6f92
     pop cx                           ; 0x6f95
@@ -117,7 +117,7 @@ loc_6fbf:
     add ax, word [bp + 0x6]          ; 0x6fcb
     mov bx, ax                       ; 0x6fce
     cmp byte [bx + 0x5d6c], 0x64     ; 0x6fd0
-    jae short @..local.l68           ; 0x6fd5
+    jae short @..loc_6fbf.l1         ; 0x6fd5
     mov al, byte [bx + 0x5d6c]       ; 0x6fd7
     sub ah, ah                       ; 0x6fdb
     push ax                          ; 0x6fdd
@@ -132,8 +132,8 @@ loc_6fbf:
     mov cx, ax                       ; 0x6ff2
     pop ax                           ; 0x6ff4
     sub ax, cx                       ; 0x6ff5
-    jg short @..local.l68            ; 0x6ff7
+    jg short @..loc_6fbf.l1          ; 0x6ff7
     add bx, word [bp + 0x6]          ; 0x6ff9
     inc byte [bx + 0x5d6c]           ; 0x6ffc
-@..local.l68:
+@..loc_6fbf.l1:
     ret                              ; 0x7000

@@ -28,9 +28,9 @@ loc_000e:
     mov ax, 0                        ; 0x000e
     call ds_aztec_csav               ; 0x0011
     cmp word [bss_830a], byte 0x16   ; 0x0014
-    jne short @..local.l1            ; 0x0019
+    jne short @..loc_000e.l1         ; 0x0019
     call api_idx_000c_3              ; 0x001b
-@..local.l1:
+@..loc_000e.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
 %include "vpclv/api_idx_0002.asm"          ; 0x0022
@@ -258,10 +258,10 @@ loc_5472:
     mov cx, 0x97ac                   ; 0x548b
     sub cx, di                       ; 0x548e
     shr cx, 1                        ; 0x5490
-    je short @..local.l15            ; 0x5492
+    je short @..loc_5472.l1          ; 0x5492
     sub ax, ax                       ; 0x5494
     rep stosw                        ; 0x5496
-@..local.l15:
+@..loc_5472.l1:
     call loc_000e                    ; 0x5498
     mov bp, word [dseg_9404]         ; 0x549b
     mov sp, word [dseg_9402]         ; 0x549f

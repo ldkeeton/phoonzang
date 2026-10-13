@@ -31,17 +31,17 @@ loc_000e:
     mov word [bss_90ba], 0           ; 0x0020
     mov word [bss_90bc], 0           ; 0x0026
     cmp word [bss_830a], byte 0x0a   ; 0x002c
-    jne short @..local.l1            ; 0x0031
+    jne short @..loc_000e.l1         ; 0x0031
     call loc_33df                    ; 0x0033
-@..local.l1:
+@..loc_000e.l1:
     cmp word [bss_830a], byte 0x0e   ; 0x0036
-    jne short @..local.l2            ; 0x003b
+    jne short @..loc_000e.l2         ; 0x003b
     call api_idx_0056                ; 0x003d
-@..local.l2:
+@..loc_000e.l2:
     cmp word [bss_830a], byte 0x0b   ; 0x0040
-    jne short @..local.l3            ; 0x0045
+    jne short @..loc_000e.l3         ; 0x0045
     call api_idx_0002_2              ; 0x0047
-@..local.l3:
+@..loc_000e.l3:
     mov ax, 0                        ; 0x004a
     ret                              ; 0x004d
 %include "vmele/api_idx_0008.asm"          ; 0x004e

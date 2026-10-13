@@ -108,12 +108,12 @@ loc_130b:
     call ds_loc_3b21                 ; 0x1381
     add sp, byte 8                   ; 0x1384
     cmp word [bp + 0x8], byte 0      ; 0x1387
-    je short @..local.l15            ; 0x138b
+    je short @..loc_130b.l1          ; 0x138b
     mov ax, 0                        ; 0x138d
     push ax                          ; 0x1390
     call ds_app_0a27                 ; 0x1391
     pop cx                           ; 0x1394
-@..local.l15:
+@..loc_130b.l1:
     mov ax, 0                        ; 0x1395
     push ax                          ; 0x1398
     push word [bss_905a]             ; 0x1399

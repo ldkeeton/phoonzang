@@ -58,12 +58,12 @@ loc_0992:
     call loc_040f                    ; 0x09c4
     add sp, byte 6                   ; 0x09c7
     call loc_0452                    ; 0x09ca
-@..local.l26:
+@..loc_0992.l1:
     call dos_con_in_noecho           ; 0x09cd
     cmp ax, strict word 0xd          ; 0x09d0
-    je short @..local.l27            ; 0x09d3
-    jmp short @..local.l26           ; 0x09d5
-@..local.l27:
+    je short @..loc_0992.l2          ; 0x09d3
+    jmp short @..loc_0992.l1         ; 0x09d5
+@..loc_0992.l2:
     mov ax, 0x149f                   ; 0x09d7
     push ax                          ; 0x09da
     mov ax, 0                        ; 0x09db

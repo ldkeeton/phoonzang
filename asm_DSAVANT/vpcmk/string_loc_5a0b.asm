@@ -50,7 +50,7 @@ jumptable_5a60:
     dw jumptable_5a60_case_11 - IMAGE_BASE + 0x5055 ; 0x5a76
     dw jumptable_5a60_case_12 - IMAGE_BASE + 0x5055 ; 0x5a78
     dw string_loc_5a0b - IMAGE_BASE + 0x5055   ; 0x5a7a
-@..local.l56:
+@..loc_5706.l1:
     cmp ax, strict word 0xe          ; 0x5a7c
     jae short loc_5a89               ; 0x5a7f
     xchg bx, ax                      ; 0x5a81

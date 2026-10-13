@@ -116,7 +116,7 @@ loc_28a0:
     mov al, byte [bx + 0x14]         ; 0x28b1
     sub ah, ah                       ; 0x28b4
     cmp ax, 0xff                     ; 0x28b6
-    je short @..local.l58            ; 0x28b9
+    je short @..loc_28a0.l1          ; 0x28b9
     mov al, byte [bx + 0x17]         ; 0x28bb
     sub ah, ah                       ; 0x28be
     push ax                          ; 0x28c0
@@ -145,5 +145,5 @@ loc_28a0:
     push ax                          ; 0x28f4
     call ds_loc_4218                 ; 0x28f5
     add sp, byte 0x16                ; 0x28f8
-@..local.l58:
+@..loc_28a0.l1:
     ret                              ; 0x28fb

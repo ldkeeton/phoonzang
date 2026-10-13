@@ -1376,10 +1376,10 @@ loc_99c5:
     mov cx, 0x96ba                   ; 0x99de
     sub cx, di                       ; 0x99e1
     shr cx, 1                        ; 0x99e3
-    je short @..local.l180           ; 0x99e5
+    je short @..loc_99c5.l1          ; 0x99e5
     sub ax, ax                       ; 0x99e7
     rep stosw                        ; 0x99e9
-@..local.l180:
+@..loc_99c5.l1:
     call loc_000e                    ; 0x99eb
     mov bp, word [dseg_9110]         ; 0x99ee
     mov sp, word [dseg_910e]         ; 0x99f2

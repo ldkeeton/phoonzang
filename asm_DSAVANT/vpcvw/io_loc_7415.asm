@@ -22,7 +22,7 @@ jumptable_742b:
     dw io_loc_7410 - IMAGE_BASE + 0x5055       ; 0x7447
     dw io_loc_7415 - IMAGE_BASE + 0x5055       ; 0x7449
     dw io_loc_73dd - IMAGE_BASE + 0x5055       ; 0x744b
-@..local.l68:
+@..loc_70ca.l11:
     cmp ax, strict word 0x11         ; 0x744d
     jae short loc_745a               ; 0x7450
     xchg bx, ax                      ; 0x7452

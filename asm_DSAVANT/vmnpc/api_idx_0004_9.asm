@@ -91,7 +91,7 @@ loc_2963:
     call ds_loc_415b                 ; 0x296d
     pop cx                           ; 0x2970
     cmp word [bp + 0x4], byte 0      ; 0x2971
-    je short @..local.l79            ; 0x2975
+    je short @..loc_2963.l1          ; 0x2975
     mov ax, 0x55                     ; 0x2977
     push ax                          ; 0x297a
     mov ax, 1                        ; 0x297b
@@ -101,7 +101,7 @@ loc_2963:
     push ax                          ; 0x2983
     call api_idx_0050                ; 0x2984
     add sp, byte 8                   ; 0x2987
-@..local.l79:
+@..loc_2963.l1:
     mov al, byte [bss_91c2]          ; 0x298a
     sub ah, ah                       ; 0x298d
     mov word [bss_0e36], ax          ; 0x298f

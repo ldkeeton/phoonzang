@@ -107,7 +107,7 @@ loc_6f41:
     mov si, ax                       ; 0x6f99
     mov bx, word [bss_0e12]          ; 0x6f9b
     cmp word [bx + si], byte 0       ; 0x6f9f
-    jle short @..local.l133          ; 0x6fa2
+    jle short @..loc_6f41.l1         ; 0x6fa2
     mov ax, 0                        ; 0x6fa4
     push ax                          ; 0x6fa7
     push word [bx + si]              ; 0x6fa8
@@ -135,12 +135,12 @@ loc_6f41:
     mov ax, word [bp + 0x4]          ; 0x6fdf
     inc ax                           ; 0x6fe2
     mov word [bss_8d12], ax          ; 0x6fe3
-@..local.l133:
+@..loc_6f41.l1:
     cmp word [bp + 0x6], byte 0      ; 0x6fe6
-    je short @..local.l134           ; 0x6fea
+    je short @..loc_6f41.l2          ; 0x6fea
     mov ax, 1                        ; 0x6fec
     push ax                          ; 0x6fef
     call ds_app_0a27                 ; 0x6ff0
     pop cx                           ; 0x6ff3
-@..local.l134:
+@..loc_6f41.l2:
     ret                              ; 0x6ff4

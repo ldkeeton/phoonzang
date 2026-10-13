@@ -31,7 +31,7 @@ loc_17d1:
     call ds_aztec_csav               ; 0x17d4
     mov word [bss_90e0], 0           ; 0x17d7
     cmp word [bss_830a], byte 0x0d   ; 0x17dd
-    jne short @..local.l39           ; 0x17e2
+    jne short @..loc_17d1.l1         ; 0x17e2
     push word [bss_0e2c]             ; 0x17e4
     push word [bss_0e2a]             ; 0x17e8
     call ds_app_io_0af6              ; 0x17ec
@@ -59,7 +59,7 @@ loc_17d1:
     push ax                          ; 0x1820
     call ds_app_io_0af6              ; 0x1821
     add sp, byte 4                   ; 0x1824
-@..local.l39:
+@..loc_17d1.l1:
     mov ax, 0                        ; 0x1827
     ret                              ; 0x182a
 loc_182b:
@@ -70,9 +70,9 @@ loc_182b:
     sub word [bx + 0x6], ax          ; 0x1837
     mov bx, word [bp + 0x4]          ; 0x183a
     cmp word [bx + 0x6], byte 0      ; 0x183d
-    jge short @..local.l40           ; 0x1841
+    jge short @..loc_182b.l1         ; 0x1841
     mov word [bx + 0x6], 0           ; 0x1843
-@..local.l40:
+@..loc_182b.l1:
     ret                              ; 0x1848
 loc_1849:
     mov ax, 0                        ; 0x1849
@@ -95,19 +95,19 @@ loc_1849:
     mov ax, word [bss_9092]          ; 0x187f
     mov dx, word [bss_9094]          ; 0x1882
     cmp bx, dx                       ; 0x1886
-    jg short @..local.l41            ; 0x1888
-    jne short @..local.l42           ; 0x188a
+    jg short @..loc_1849.l1          ; 0x1888
+    jne short @..loc_1849.l2         ; 0x188a
     cmp cx, ax                       ; 0x188c
-    jbe short @..local.l42           ; 0x188e
-@..local.l41:
-    jmp short @..local.l43           ; 0x1890
-@..local.l42:
+    jbe short @..loc_1849.l2         ; 0x188e
+@..loc_1849.l1:
+    jmp short @..loc_1849.l3         ; 0x1890
+@..loc_1849.l2:
     mov ax, word [bss_908e]          ; 0x1892
     mov dx, word [bss_9090]          ; 0x1895
     mov word [bss_908c], dx          ; 0x1899
     mov word [bss_908a], ax          ; 0x189d
     mov ax, 1                        ; 0x18a0
     ret                              ; 0x18a3
-@..local.l43:
+@..loc_1849.l3:
     mov ax, 0                        ; 0x18a4
     ret                              ; 0x18a7

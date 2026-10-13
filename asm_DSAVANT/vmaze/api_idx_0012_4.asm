@@ -327,7 +327,7 @@ loc_a215:
     call ds_app_09f0                 ; 0xa21f
     pop cx                           ; 0xa222
     test ax, ax                      ; 0xa223
-    jne short @..local.l81           ; 0xa225
+    jne short @..loc_a215.l1         ; 0xa225
     mov ax, 0xffff                   ; 0xa227
     push ax                          ; 0xa22a
     mov ax, 5                        ; 0xa22b
@@ -356,7 +356,7 @@ loc_a215:
     push word [bp + 0x6]             ; 0xa262
     call loc_9658                    ; 0xa265
     add sp, byte 6                   ; 0xa268
-@..local.l81:
+@..loc_a215.l1:
     mov ax, 0x16                     ; 0xa26b
     imul word [bp + 0x4]             ; 0xa26e
     add ax, word [bp + 0x6]          ; 0xa271

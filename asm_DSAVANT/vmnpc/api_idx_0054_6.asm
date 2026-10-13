@@ -320,43 +320,43 @@ jumptable_a27d_case_1:
     jmp near @..api_idx_0054_6.l35   ; 0xa01c
 jumptable_a27d_case_4:
     cmp word [bss_9e62], byte 1      ; 0xa01f
-    jne short @..local.l125          ; 0xa024
+    jne short @..loc_a01f.l6         ; 0xa024
     cmp word [bss_9e78], byte 0      ; 0xa026
-    jne short @..local.l124          ; 0xa02b
+    jne short @..loc_a01f.l5         ; 0xa02b
     cmp word [bss_9e54], byte 1      ; 0xa02d
-    jne short @..local.l120          ; 0xa032
+    jne short @..loc_a01f.l1         ; 0xa032
     mov ax, 0x910b                   ; 0xa034
     push ax                          ; 0xa037
     mov ax, 0x667                    ; 0xa038
     push ax                          ; 0xa03b
     call api_idx_0080                ; 0xa03c
     add sp, byte 4                   ; 0xa03f
-    jmp short @..local.l123          ; 0xa042
-@..local.l120:
+    jmp short @..loc_a01f.l4         ; 0xa042
+@..loc_a01f.l1:
     cmp word [bss_9e58], byte 1      ; 0xa044
-    je short @..local.l121           ; 0xa049
+    je short @..loc_a01f.l2          ; 0xa049
     cmp word [bss_9e5c], byte 1      ; 0xa04b
-    je short @..local.l121           ; 0xa050
+    je short @..loc_a01f.l2          ; 0xa050
     cmp word [bss_9e5e], byte 1      ; 0xa052
-    jne short @..local.l122          ; 0xa057
-@..local.l121:
+    jne short @..loc_a01f.l3         ; 0xa057
+@..loc_a01f.l2:
     mov ax, 0x910c                   ; 0xa059
     push ax                          ; 0xa05c
     mov ax, 0x66b                    ; 0xa05d
     push ax                          ; 0xa060
     call api_idx_0080                ; 0xa061
     add sp, byte 4                   ; 0xa064
-    jmp short @..local.l123          ; 0xa067
-@..local.l122:
+    jmp short @..loc_a01f.l4         ; 0xa067
+@..loc_a01f.l3:
     mov ax, 0x910d                   ; 0xa069
     push ax                          ; 0xa06c
     mov ax, 0x65f                    ; 0xa06d
     push ax                          ; 0xa070
     call api_idx_0080                ; 0xa071
     add sp, byte 4                   ; 0xa074
-@..local.l123:
+@..loc_a01f.l4:
     ret                              ; 0xa077
-@..local.l124:
+@..loc_a01f.l5:
     mov ax, 0x910e                   ; 0xa078
     push ax                          ; 0xa07b
     mov ax, 0x65b                    ; 0xa07c
@@ -364,9 +364,9 @@ jumptable_a27d_case_4:
     call api_idx_0080                ; 0xa080
     add sp, byte 4                   ; 0xa083
     ret                              ; 0xa086
-@..local.l125:
+@..loc_a01f.l6:
     cmp word [bp - 0x0002], byte 0   ; 0xa087
-    jne short @..local.l126          ; 0xa08b
+    jne short @..loc_a01f.l7         ; 0xa08b
     mov ax, 0x910f                   ; 0xa08d
     push ax                          ; 0xa090
     mov ax, 0x660                    ; 0xa091
@@ -374,7 +374,7 @@ jumptable_a27d_case_4:
     call api_idx_0080                ; 0xa095
     add sp, byte 4                   ; 0xa098
     ret                              ; 0xa09b
-@..local.l126:
+@..loc_a01f.l7:
     mov ax, 0x9110                   ; 0xa09c
     push ax                          ; 0xa09f
     mov ax, 0x65b                    ; 0xa0a0
@@ -384,28 +384,28 @@ jumptable_a27d_case_4:
     ret                              ; 0xa0aa
 jumptable_a27d_case_5:
     cmp word [bss_9e62], byte 1      ; 0xa0ab
-    jne short @..local.l130          ; 0xa0b0
+    jne short @..loc_a0ab.l4         ; 0xa0b0
     cmp word [bss_9e78], byte 0      ; 0xa0b2
-    jne short @..local.l129          ; 0xa0b7
+    jne short @..loc_a0ab.l3         ; 0xa0b7
     cmp word [bss_9e54], byte 1      ; 0xa0b9
-    jne short @..local.l127          ; 0xa0be
+    jne short @..loc_a0ab.l1         ; 0xa0be
     mov ax, 0x9111                   ; 0xa0c0
     push ax                          ; 0xa0c3
     mov ax, 0x668                    ; 0xa0c4
     push ax                          ; 0xa0c7
     call api_idx_0080                ; 0xa0c8
     add sp, byte 4                   ; 0xa0cb
-    jmp short @..local.l128          ; 0xa0ce
-@..local.l127:
+    jmp short @..loc_a0ab.l2         ; 0xa0ce
+@..loc_a0ab.l1:
     mov ax, 0x9112                   ; 0xa0d0
     push ax                          ; 0xa0d3
     mov ax, 0x65f                    ; 0xa0d4
     push ax                          ; 0xa0d7
     call api_idx_0080                ; 0xa0d8
     add sp, byte 4                   ; 0xa0db
-@..local.l128:
+@..loc_a0ab.l2:
     ret                              ; 0xa0de
-@..local.l129:
+@..loc_a0ab.l3:
     mov ax, 0x9113                   ; 0xa0df
     push ax                          ; 0xa0e2
     mov ax, 0x65b                    ; 0xa0e3
@@ -413,9 +413,9 @@ jumptable_a27d_case_5:
     call api_idx_0080                ; 0xa0e7
     add sp, byte 4                   ; 0xa0ea
     ret                              ; 0xa0ed
-@..local.l130:
+@..loc_a0ab.l4:
     cmp word [bss_9e78], byte 0      ; 0xa0ee
-    jle short @..local.l131          ; 0xa0f3
+    jle short @..loc_a0ab.l5         ; 0xa0f3
     mov ax, 0x659                    ; 0xa0f5
     push ax                          ; 0xa0f8
     mov ax, word [bp - 0x0004]       ; 0xa0f9
@@ -426,7 +426,7 @@ jumptable_a27d_case_5:
     call loc_9c7a                    ; 0xa100
     add sp, byte 4                   ; 0xa103
     ret                              ; 0xa106
-@..local.l131:
+@..loc_a0ab.l5:
     mov ax, 0x9114                   ; 0xa107
     push ax                          ; 0xa10a
     mov ax, 0x664                    ; 0xa10b
@@ -436,26 +436,26 @@ jumptable_a27d_case_5:
     ret                              ; 0xa115
 jumptable_a27d_case_6:
     cmp word [bss_9e62], byte 1      ; 0xa116
-    jne short @..local.l134          ; 0xa11b
+    jne short @..loc_a116.l3         ; 0xa11b
     cmp word [bss_9e54], byte 1      ; 0xa11d
-    jne short @..local.l132          ; 0xa122
+    jne short @..loc_a116.l1         ; 0xa122
     mov ax, 0x9115                   ; 0xa124
     push ax                          ; 0xa127
     mov ax, 0x667                    ; 0xa128
     push ax                          ; 0xa12b
     call api_idx_0080                ; 0xa12c
     add sp, byte 4                   ; 0xa12f
-    jmp short @..local.l133          ; 0xa132
-@..local.l132:
+    jmp short @..loc_a116.l2         ; 0xa132
+@..loc_a116.l1:
     mov ax, 0x9116                   ; 0xa134
     push ax                          ; 0xa137
     mov ax, 0x65f                    ; 0xa138
     push ax                          ; 0xa13b
     call api_idx_0080                ; 0xa13c
     add sp, byte 4                   ; 0xa13f
-@..local.l133:
+@..loc_a116.l2:
     ret                              ; 0xa142
-@..local.l134:
+@..loc_a116.l3:
     mov ax, 0x9117                   ; 0xa143
     push ax                          ; 0xa146
     mov ax, 0x665                    ; 0xa147
@@ -465,11 +465,11 @@ jumptable_a27d_case_6:
     ret                              ; 0xa151
 jumptable_a27d_case_8:
     cmp word [bss_9e62], byte 1      ; 0xa152
-    je short @..local.l135           ; 0xa157
-    jmp near @..local.l141           ; 0xa159
-@..local.l135:
+    je short @..loc_a152.l1          ; 0xa157
+    jmp near @..loc_a152.l7          ; 0xa159
+@..loc_a152.l1:
     cmp word [bss_9e52], byte 1      ; 0xa15c
-    jne short @..local.l136          ; 0xa161
+    jne short @..loc_a152.l2         ; 0xa161
     mov ax, 0x9118                   ; 0xa163
     push ax                          ; 0xa166
     mov ax, 0x65e                    ; 0xa167
@@ -477,9 +477,9 @@ jumptable_a27d_case_8:
     call api_idx_0080                ; 0xa16b
     add sp, byte 4                   ; 0xa16e
     ret                              ; 0xa171
-@..local.l136:
+@..loc_a152.l2:
     cmp word [bss_9e54], byte 1      ; 0xa172
-    jne short @..local.l137          ; 0xa177
+    jne short @..loc_a152.l3         ; 0xa177
     mov ax, 0x654                    ; 0xa179
     push ax                          ; 0xa17c
     mov ax, word [bp - 0x0004]       ; 0xa17d
@@ -489,9 +489,9 @@ jumptable_a27d_case_8:
     call loc_9c7a                    ; 0xa183
     add sp, byte 4                   ; 0xa186
     ret                              ; 0xa189
-@..local.l137:
+@..loc_a152.l3:
     cmp word [bss_9e58], byte 1      ; 0xa18a
-    jne short @..local.l138          ; 0xa18f
+    jne short @..loc_a152.l4         ; 0xa18f
     mov ax, 0x656                    ; 0xa191
     push ax                          ; 0xa194
     mov ax, word [bp - 0x0004]       ; 0xa195
@@ -500,9 +500,9 @@ jumptable_a27d_case_8:
     call loc_9c7a                    ; 0xa19c
     add sp, byte 4                   ; 0xa19f
     ret                              ; 0xa1a2
-@..local.l138:
+@..loc_a152.l4:
     cmp word [bss_9e5a], byte 1      ; 0xa1a3
-    jne short @..local.l139          ; 0xa1a8
+    jne short @..loc_a152.l5         ; 0xa1a8
     mov ax, 0x9119                   ; 0xa1aa
     push ax                          ; 0xa1ad
     mov ax, 0x657                    ; 0xa1ae
@@ -510,9 +510,9 @@ jumptable_a27d_case_8:
     call api_idx_0080                ; 0xa1b2
     add sp, byte 4                   ; 0xa1b5
     ret                              ; 0xa1b8
-@..local.l139:
+@..loc_a152.l5:
     cmp word [bss_9e56], byte 1      ; 0xa1b9
-    jne short @..local.l140          ; 0xa1be
+    jne short @..loc_a152.l6         ; 0xa1be
     mov ax, 0x911a                   ; 0xa1c0
     push ax                          ; 0xa1c3
     mov ax, 0x655                    ; 0xa1c4
@@ -520,7 +520,7 @@ jumptable_a27d_case_8:
     call api_idx_0080                ; 0xa1c8
     add sp, byte 4                   ; 0xa1cb
     ret                              ; 0xa1ce
-@..local.l140:
+@..loc_a152.l6:
     mov ax, 0x659                    ; 0xa1cf
     push ax                          ; 0xa1d2
     mov ax, word [bp - 0x0004]       ; 0xa1d3
@@ -531,7 +531,7 @@ jumptable_a27d_case_8:
     call loc_9c7a                    ; 0xa1da
     add sp, byte 4                   ; 0xa1dd
     ret                              ; 0xa1e0
-@..local.l141:
+@..loc_a152.l7:
     mov ax, 0x911b                   ; 0xa1e1
     push ax                          ; 0xa1e4
     mov ax, 0x661                    ; 0xa1e5
@@ -541,14 +541,14 @@ jumptable_a27d_case_8:
     ret                              ; 0xa1ef
 jumptable_a27d_case_9:
     cmp word [bss_9e62], byte 1      ; 0xa1f0
-    je short @..local.l142           ; 0xa1f5
-    jmp near @..local.l148           ; 0xa1f7
-@..local.l142:
+    je short @..loc_a1f0.l1          ; 0xa1f5
+    jmp near @..loc_a1f0.l7          ; 0xa1f7
+@..loc_a1f0.l1:
     cmp word [bss_9e52], byte 1      ; 0xa1fa
-    je short @..local.l143           ; 0xa1ff
+    je short @..loc_a1f0.l2          ; 0xa1ff
     cmp word [bss_9e5a], byte 1      ; 0xa201
-    jne short @..local.l144          ; 0xa206
-@..local.l143:
+    jne short @..loc_a1f0.l3         ; 0xa206
+@..loc_a1f0.l2:
     mov ax, 0x911c                   ; 0xa208
     push ax                          ; 0xa20b
     mov ax, 0x65e                    ; 0xa20c
@@ -556,9 +556,9 @@ jumptable_a27d_case_9:
     call api_idx_0080                ; 0xa210
     add sp, byte 4                   ; 0xa213
     ret                              ; 0xa216
-@..local.l144:
+@..loc_a1f0.l3:
     cmp word [bss_9e54], byte 1      ; 0xa217
-    jne short @..local.l145          ; 0xa21c
+    jne short @..loc_a1f0.l4         ; 0xa21c
     mov ax, 0x911d                   ; 0xa21e
     push ax                          ; 0xa221
     mov ax, 0x662                    ; 0xa222
@@ -566,9 +566,9 @@ jumptable_a27d_case_9:
     call api_idx_0080                ; 0xa226
     add sp, byte 4                   ; 0xa229
     ret                              ; 0xa22c
-@..local.l145:
+@..loc_a1f0.l4:
     cmp word [bss_9e58], byte 1      ; 0xa22d
-    jne short @..local.l146          ; 0xa232
+    jne short @..loc_a1f0.l5         ; 0xa232
     mov ax, 0x656                    ; 0xa234
     push ax                          ; 0xa237
     mov ax, word [bp - 0x0004]       ; 0xa238
@@ -577,9 +577,9 @@ jumptable_a27d_case_9:
     call loc_9c7a                    ; 0xa23f
     add sp, byte 4                   ; 0xa242
     ret                              ; 0xa245
-@..local.l146:
+@..loc_a1f0.l5:
     cmp word [bss_9e56], byte 1      ; 0xa246
-    jne short @..local.l147          ; 0xa24b
+    jne short @..loc_a1f0.l6         ; 0xa24b
     mov ax, 0x911e                   ; 0xa24d
     push ax                          ; 0xa250
     mov ax, 0x655                    ; 0xa251
@@ -587,7 +587,7 @@ jumptable_a27d_case_9:
     call api_idx_0080                ; 0xa255
     add sp, byte 4                   ; 0xa258
     ret                              ; 0xa25b
-@..local.l147:
+@..loc_a1f0.l6:
     mov ax, 0x659                    ; 0xa25c
     push ax                          ; 0xa25f
     mov ax, word [bp - 0x0004]       ; 0xa260
@@ -598,7 +598,7 @@ jumptable_a27d_case_9:
     call loc_9c7a                    ; 0xa267
     add sp, byte 4                   ; 0xa26a
     ret                              ; 0xa26d
-@..local.l148:
+@..loc_a1f0.l7:
     mov ax, 0x911f                   ; 0xa26e
     push ax                          ; 0xa271
     mov ax, 0x663                    ; 0xa272
@@ -629,18 +629,18 @@ loc_a29f:
     mov ax, 0                        ; 0xa29f
     call ds_aztec_csav               ; 0xa2a2
     cmp word [bss_9e48], byte 0xff   ; 0xa2a5
-    je short @..local.l150           ; 0xa2aa
+    je short @..loc_a29f.l2          ; 0xa2aa
     cmp word [bss_9e46], byte 0xff   ; 0xa2ac
-    je short @..local.l149           ; 0xa2b1
+    je short @..loc_a29f.l1          ; 0xa2b1
     cmp word [bss_9e42], byte 0xff   ; 0xa2b3
-    jne short @..local.l150          ; 0xa2b8
-@..local.l149:
+    jne short @..loc_a29f.l2         ; 0xa2b8
+@..loc_a29f.l1:
     call loc_9a04                    ; 0xa2ba
-@..local.l150:
+@..loc_a29f.l2:
     cmp word [bss_9e46], byte 0xff   ; 0xa2bd
-    je short @..local.l151           ; 0xa2c2
+    je short @..loc_a29f.l3          ; 0xa2c2
     cmp word [bss_9e42], byte 0xff   ; 0xa2c4
-    je short @..local.l151           ; 0xa2c9
+    je short @..loc_a29f.l3          ; 0xa2c9
     call api_idx_0054_6              ; 0xa2cb
     mov ax, word [bss_9e42]          ; 0xa2ce
     mov word [bss_9e4a], ax          ; 0xa2d1
@@ -649,5 +649,5 @@ loc_a29f:
     mov ax, word [bss_9e46]          ; 0xa2da
     mov word [bss_9e4e], ax          ; 0xa2dd
     mov word [bss_9e50], 0xffff      ; 0xa2e0
-@..local.l151:
+@..loc_a29f.l3:
     ret                              ; 0xa2e6

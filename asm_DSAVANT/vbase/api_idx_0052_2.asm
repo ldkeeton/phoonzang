@@ -349,45 +349,45 @@ loc_4b29:
     mov ax, 0                        ; 0x4b29
     call ds_aztec_csav               ; 0x4b2c
     cmp word [bp + 0x6], byte 0      ; 0x4b2f
-    jge short @..local.l65           ; 0x4b33
+    jge short @..loc_4b29.l2         ; 0x4b33
     mov bx, word [bp + 0x4]          ; 0x4b35
     cmp byte [bx + 0x597c], 0        ; 0x4b38
-    jbe short @..local.l64           ; 0x4b3d
+    jbe short @..loc_4b29.l1         ; 0x4b3d
     dec byte [bx + 0x597c]           ; 0x4b3f
-@..local.l64:
-    jmp short @..local.l66           ; 0x4b43
-@..local.l65:
+@..loc_4b29.l1:
+    jmp short @..loc_4b29.l3         ; 0x4b43
+@..loc_4b29.l2:
     cmp word [bp + 0x6], byte 0      ; 0x4b45
-    jle short @..local.l66           ; 0x4b49
+    jle short @..loc_4b29.l3         ; 0x4b49
     mov bx, word [bp + 0x4]          ; 0x4b4b
     mov al, byte [bx + 0x597c]       ; 0x4b4e
     sub ah, ah                       ; 0x4b52
     cmp ax, word [bp + 0x8]          ; 0x4b54
-    jge short @..local.l66           ; 0x4b57
+    jge short @..loc_4b29.l3         ; 0x4b57
     inc byte [bx + 0x597c]           ; 0x4b59
-@..local.l66:
+@..loc_4b29.l3:
     ret                              ; 0x4b5d
 loc_4b5e:
     mov ax, 0                        ; 0x4b5e
     call ds_aztec_csav               ; 0x4b61
     cmp word [bp + 0x6], byte 0      ; 0x4b64
-    jge short @..local.l68           ; 0x4b68
+    jge short @..loc_4b5e.l2         ; 0x4b68
     mov bx, word [bp + 0x4]          ; 0x4b6a
     mov al, byte [bx + 0x5978]       ; 0x4b6d
     cbw                              ; 0x4b71
     cmp ax, word [bp + 0x8]          ; 0x4b72
-    jle short @..local.l67           ; 0x4b75
+    jle short @..loc_4b5e.l1         ; 0x4b75
     dec byte [bx + 0x5978]           ; 0x4b77
-@..local.l67:
-    jmp short @..local.l69           ; 0x4b7b
-@..local.l68:
+@..loc_4b5e.l1:
+    jmp short @..loc_4b5e.l3         ; 0x4b7b
+@..loc_4b5e.l2:
     cmp word [bp + 0x6], byte 0      ; 0x4b7d
-    jle short @..local.l69           ; 0x4b81
+    jle short @..loc_4b5e.l3         ; 0x4b81
     mov bx, word [bp + 0x4]          ; 0x4b83
     mov al, byte [bx + 0x5978]       ; 0x4b86
     cbw                              ; 0x4b8a
     cmp ax, word [bp + 0x8]          ; 0x4b8b
-    jge short @..local.l69           ; 0x4b8e
+    jge short @..loc_4b5e.l3         ; 0x4b8e
     inc byte [bx + 0x5978]           ; 0x4b90
-@..local.l69:
+@..loc_4b5e.l3:
     ret                              ; 0x4b94

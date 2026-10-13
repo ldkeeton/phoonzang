@@ -82,7 +82,7 @@ loc_1bf4:
     add ax, word [bp + 0x6]          ; 0x1c00
     mov bx, ax                       ; 0x1c03
     cmp byte [bx + 0x5d6c], 0x64     ; 0x1c05
-    jae short @..local.l47           ; 0x1c0a
+    jae short @..loc_1bf4.l1         ; 0x1c0a
     mov al, byte [bx + 0x5d6c]       ; 0x1c0c
     sub ah, ah                       ; 0x1c10
     push ax                          ; 0x1c12
@@ -97,10 +97,10 @@ loc_1bf4:
     mov cx, ax                       ; 0x1c27
     pop ax                           ; 0x1c29
     sub ax, cx                       ; 0x1c2a
-    jg short @..local.l47            ; 0x1c2c
+    jg short @..loc_1bf4.l1          ; 0x1c2c
     add bx, word [bp + 0x6]          ; 0x1c2e
     inc byte [bx + 0x5d6c]           ; 0x1c31
-@..local.l47:
+@..loc_1bf4.l1:
     ret                              ; 0x1c35
 loc_1c36:
     mov ax, 0                        ; 0x1c36

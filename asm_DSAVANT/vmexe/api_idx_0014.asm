@@ -1045,22 +1045,22 @@ loc_6edc:
     call api_idx_0050                ; 0x6eec
     add sp, byte 6                   ; 0x6eef
     cmp word [bss_8464], byte 0      ; 0x6ef2
-    je short @..local.l69            ; 0x6ef7
+    je short @..loc_6edc.l2          ; 0x6ef7
     mov ax, word [bss_8464]          ; 0x6ef9
     cmp ax, strict word 6            ; 0x6efc
-    je short @..local.l69            ; 0x6eff
+    je short @..loc_6edc.l2          ; 0x6eff
     mov ax, 1                        ; 0x6f01
     cmp word [bss_8464], byte 3      ; 0x6f04
-    jge short @..local.l68           ; 0x6f09
+    jge short @..loc_6edc.l1         ; 0x6f09
     mov ax, 0                        ; 0x6f0b
-@..local.l68:
+@..loc_6edc.l1:
     mov cx, 6                        ; 0x6f0e
     imul cx                          ; 0x6f11
     mov bx, ax                       ; 0x6f13
     mov word [bx - 0x6f36], 0        ; 0x6f15
     mov word [bss_8320], 0           ; 0x6f1b
     call loc_1a35                    ; 0x6f21
-@..local.l69:
+@..loc_6edc.l2:
     mov ax, word [bss_9058]          ; 0x6f24
     mov cx, 2                        ; 0x6f27
     cwd                              ; 0x6f2a

@@ -365,13 +365,13 @@ loc_4011:
     mov ax, word [bss_9092]          ; 0x4047
     mov dx, word [bss_9094]          ; 0x404a
     cmp bx, dx                       ; 0x404e
-    jg short @..local.l53            ; 0x4050
-    jne short @..local.l54           ; 0x4052
+    jg short @..loc_4011.l1          ; 0x4050
+    jne short @..loc_4011.l2         ; 0x4052
     cmp cx, ax                       ; 0x4054
-    jbe short @..local.l54           ; 0x4056
-@..local.l53:
-    jmp short @..local.l55           ; 0x4058
-@..local.l54:
+    jbe short @..loc_4011.l2         ; 0x4056
+@..loc_4011.l1:
+    jmp short @..loc_4011.l3         ; 0x4058
+@..loc_4011.l2:
     mov ax, word [bss_908e]          ; 0x405a
     mov dx, word [bss_9090]          ; 0x405d
     mov word [bss_908c], dx          ; 0x4061
@@ -412,7 +412,7 @@ loc_4011:
     push ax                          ; 0x40af
     call ds_loc_3b21                 ; 0x40b0
     add sp, byte 8                   ; 0x40b3
-@..local.l55:
+@..loc_4011.l3:
     ret                              ; 0x40b6
 loc_40b7:
     mov ax, 0                        ; 0x40b7
@@ -424,7 +424,7 @@ loc_40b7:
     call api_idx_0080                ; 0x40c7
     pop cx                           ; 0x40ca
     cmp word [bp + 0x6], byte 0      ; 0x40cb
-    jne short @..local.l56           ; 0x40cf
+    jne short @..loc_40b7.l1         ; 0x40cf
     push word [bp + 0x4]             ; 0x40d1
     call api_idx_004c                ; 0x40d4
     pop cx                           ; 0x40d7
@@ -438,5 +438,5 @@ loc_40b7:
     push ax                          ; 0x40e7
     call ds_loc_3b21                 ; 0x40e8
     add sp, byte 8                   ; 0x40eb
-@..local.l56:
+@..loc_40b7.l1:
     ret                              ; 0x40ee

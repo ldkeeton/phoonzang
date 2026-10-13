@@ -314,13 +314,13 @@ loc_054f:
     pop dx                           ; 0x0572
     pop ax                           ; 0x0573
     cmp dx, bx                       ; 0x0574
-    jl short @..local.l2             ; 0x0576
-    jne short @..local.l3            ; 0x0578
+    jl short @..loc_054f.l1          ; 0x0576
+    jne short @..loc_054f.l2         ; 0x0578
     cmp ax, cx                       ; 0x057a
-    jae short @..local.l3            ; 0x057c
-@..local.l2:
-    jmp short @..local.l4            ; 0x057e
-@..local.l3:
+    jae short @..loc_054f.l2         ; 0x057c
+@..loc_054f.l1:
+    jmp short @..loc_054f.l3         ; 0x057e
+@..loc_054f.l2:
     les bx, word [dseg_0002]         ; 0x0580
     mov ax, word [es:bx]             ; 0x0584
     mov dx, word [es:bx + 0x2]       ; 0x0587
@@ -328,7 +328,7 @@ loc_054f:
     mov word [bss_908a], ax          ; 0x058f
     mov ax, 1                        ; 0x0592
     ret                              ; 0x0595
-@..local.l4:
+@..loc_054f.l3:
     mov ax, 0                        ; 0x0596
     ret                              ; 0x0599
 loc_059a:
@@ -336,7 +336,7 @@ loc_059a:
     call ds_aztec_csav               ; 0x059d
     call loc_054f                    ; 0x05a0
     test ax, ax                      ; 0x05a3
-    je short @..local.l5             ; 0x05a5
+    je short @..loc_059a.l1          ; 0x05a5
     mov ax, word [bss_82e8]          ; 0x05a7
     inc ax                           ; 0x05aa
     mov cx, 2                        ; 0x05ab
@@ -346,7 +346,7 @@ loc_059a:
     call loc_51fb                    ; 0x05b5
     mov ax, 1                        ; 0x05b8
     ret                              ; 0x05bb
-@..local.l5:
+@..loc_059a.l1:
     mov ax, 0                        ; 0x05bc
     ret                              ; 0x05bf
 loc_05c0:
@@ -357,16 +357,16 @@ loc_05c0:
     call ds_app_09f0                 ; 0x05ca
     pop cx                           ; 0x05cd
     cmp ax, strict word 0            ; 0x05ce
-    jle short @..local.l6            ; 0x05d1
+    jle short @..loc_05c0.l1         ; 0x05d1
     mov ax, 0xa                      ; 0x05d3
     push ax                          ; 0x05d6
     call ds_leaf_loc_36d0            ; 0x05d7
     pop cx                           ; 0x05da
-    jmp short @..local.l7            ; 0x05db
-@..local.l6:
+    jmp short @..loc_05c0.l2         ; 0x05db
+@..loc_05c0.l1:
     mov ax, 0xa                      ; 0x05dd
     push ax                          ; 0x05e0
     call ds_leaf_loc_36d0            ; 0x05e1
     pop cx                           ; 0x05e4
-@..local.l7:
+@..loc_05c0.l2:
     ret                              ; 0x05e5

@@ -164,17 +164,17 @@ loc_4aa1:
     mov al, byte [bx + 0x5d6b]       ; 0x4aaf
     sub ah, ah                       ; 0x4ab3
     sub ax, word [bp + 0x8]          ; 0x4ab5
-    jge short @..local.l46           ; 0x4ab8
+    jge short @..loc_4aa1.l1         ; 0x4ab8
     neg ax                           ; 0x4aba
     mov cx, ax                       ; 0x4abc
-    jmp short @..local.l47           ; 0x4abe
-@..local.l46:
+    jmp short @..loc_4aa1.l2         ; 0x4abe
+@..loc_4aa1.l1:
     mov al, byte [bx + 0x5d6b]       ; 0x4ac0
     sub ah, ah                       ; 0x4ac4
     mov cx, ax                       ; 0x4ac6
     sub ax, word [bp + 0x8]          ; 0x4ac8
     mov cx, ax                       ; 0x4acb
-@..local.l47:
+@..loc_4aa1.l2:
     shl cx, 1                        ; 0x4acd
     shl cx, 1                        ; 0x4acf
     mov ax, 0x28                     ; 0x4ad1

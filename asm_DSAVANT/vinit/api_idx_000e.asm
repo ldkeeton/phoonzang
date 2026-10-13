@@ -72,21 +72,21 @@ loc_0a56:
     call api_idx_000e                ; 0x0a7a
     add sp, byte 4                   ; 0x0a7d
     cmp word [bp + 0x6], byte 0      ; 0x0a80
-    je short @..local.l45            ; 0x0a84
+    je short @..loc_0a56.l1          ; 0x0a84
     mov ax, 0                        ; 0x0a86
     push ax                          ; 0x0a89
     push word [bp + 0x6]             ; 0x0a8a
     call api_idx_000e                ; 0x0a8d
     add sp, byte 4                   ; 0x0a90
-@..local.l45:
+@..loc_0a56.l1:
     cmp word [bp + 0x8], byte 0      ; 0x0a93
-    je short @..local.l46            ; 0x0a97
+    je short @..loc_0a56.l2          ; 0x0a97
     mov ax, 0                        ; 0x0a99
     push ax                          ; 0x0a9c
     push word [bp + 0x8]             ; 0x0a9d
     call api_idx_000e                ; 0x0aa0
     add sp, byte 4                   ; 0x0aa3
-@..local.l46:
+@..loc_0a56.l2:
     mov ax, 0xc7                     ; 0x0aa6
     push ax                          ; 0x0aa9
     mov ax, 0x13f                    ; 0x0aaa
@@ -97,9 +97,9 @@ loc_0a56:
     call ds_loc_3b21                 ; 0x0ab3
     add sp, byte 8                   ; 0x0ab6
     cmp word [bp + 0xa], byte 0      ; 0x0ab9
-    je short @..local.l47            ; 0x0abd
+    je short @..loc_0a56.l3          ; 0x0abd
     push word [bp + 0xa]             ; 0x0abf
     call api_idx_0004                ; 0x0ac2
     pop cx                           ; 0x0ac5
-@..local.l47:
+@..loc_0a56.l3:
     ret                              ; 0x0ac6

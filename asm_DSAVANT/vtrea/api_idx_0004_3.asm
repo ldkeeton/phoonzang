@@ -53,29 +53,29 @@ loc_0d87:
     mov word [bss_9152], 0x44        ; 0x0d95
     mov word [bss_9150], 0           ; 0x0d9b
     mov byte [bss_9154], 0           ; 0x0da1
-@..local.l43:
+@..loc_0d87.l1:
     lea ax, word [bp - 0x0105]       ; 0x0da6
     push ax                          ; 0x0daa
     push word [bp + 0x4]             ; 0x0dab
     call ds_app_mem_0782             ; 0x0dae
     add sp, byte 4                   ; 0x0db1
     cmp word [bss_5216], byte 0      ; 0x0db4
-    jne short @..local.l44           ; 0x0db9
+    jne short @..loc_0d87.l2         ; 0x0db9
     lea ax, word [bp - 0x0105]       ; 0x0dbb
     push ax                          ; 0x0dbf
     call api_idx_0004_3              ; 0x0dc0
     pop cx                           ; 0x0dc3
     inc word [bp + 0x4]              ; 0x0dc4
-@..local.l44:
+@..loc_0d87.l2:
     cmp word [bss_5216], byte 0      ; 0x0dc7
-    je short @..local.l43            ; 0x0dcc
+    je short @..loc_0d87.l1          ; 0x0dcc
     cmp byte [bss_9154], 0           ; 0x0dce
-    je short @..local.l45            ; 0x0dd3
+    je short @..loc_0d87.l3          ; 0x0dd3
     mov ax, 0x9154                   ; 0x0dd5
     push ax                          ; 0x0dd8
     call api_idx_0004_2              ; 0x0dd9
     pop cx                           ; 0x0ddc
-@..local.l45:
+@..loc_0d87.l3:
     push word [bp + 0x6]             ; 0x0ddd
     call loc_0a1a                    ; 0x0de0
     pop cx                           ; 0x0de3

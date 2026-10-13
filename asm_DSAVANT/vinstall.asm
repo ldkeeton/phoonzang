@@ -144,9 +144,9 @@ loc_0200:
     add ax, strict word 0xffbf       ; 0x0211
     mov word [bp - 0x0012], ax       ; 0x0214
     cmp ax, strict word 0            ; 0x0217
-    jl short @..local.l3             ; 0x021a
+    jl short @..loc_0200.l3          ; 0x021a
     cmp ax, strict word 0x19         ; 0x021c
-    jg short @..local.l3             ; 0x021f
+    jg short @..loc_0200.l3          ; 0x021f
     mov ax, word [bp - 0x0012]       ; 0x0221
     mov word [bp - 0x000a], ax       ; 0x0224
     mov word [bp - 0x0010], 0xe00    ; 0x0227
@@ -168,20 +168,20 @@ loc_0200:
     mov ax, word [bp - 0x0010]       ; 0x024f
     and ax, 0xff                     ; 0x0252
     cmp ax, word [bp - 0x0012]       ; 0x0255
-    je short @..local.l2             ; 0x0258
+    je short @..loc_0200.l2          ; 0x0258
     mov ax, 0xffff                   ; 0x025a
-@..local.l1:
+@..loc_0200.l1:
     mov sp, bp                       ; 0x025d
     pop bp                           ; 0x025f
     ret                              ; 0x0260
-@..local.l2:
-    jmp short @..local.l4            ; 0x0261
-@..local.l3:
+@..loc_0200.l2:
+    jmp short @..loc_0200.l4         ; 0x0261
+@..loc_0200.l3:
     mov ax, 0xffff                   ; 0x0263
-    jmp short @..local.l1            ; 0x0266
-@..local.l4:
+    jmp short @..loc_0200.l1         ; 0x0266
+@..loc_0200.l4:
     mov ax, 0                        ; 0x0268
-    jmp short @..local.l1            ; 0x026b
+    jmp short @..loc_0200.l1         ; 0x026b
 loc_026d:
     push bp                          ; 0x026d
     mov bp, sp                       ; 0x026e
@@ -194,8 +194,8 @@ loc_026d:
     pop cx                           ; 0x027e
     dec ax                           ; 0x027f
     mov word [bp - 0x0002], ax       ; 0x0280
-    jmp short @..local.l6            ; 0x0283
-@..local.l5:
+    jmp short @..loc_026d.l2         ; 0x0283
+@..loc_026d.l1:
     mov bx, word [bp + 0x4]          ; 0x0285
     mov al, byte [bx + di]           ; 0x0288
     cbw                              ; 0x028a
@@ -211,9 +211,9 @@ loc_026d:
     mov byte [bx], al                ; 0x02a1
     dec word [bp - 0x0002]           ; 0x02a3
     inc di                           ; 0x02a6
-@..local.l6:
+@..loc_026d.l2:
     cmp di, word [bp - 0x0002]       ; 0x02a7
-    jl short @..local.l5             ; 0x02aa
+    jl short @..loc_026d.l1          ; 0x02aa
     pop si                           ; 0x02ac
     pop di                           ; 0x02ad
     mov sp, bp                       ; 0x02ae

@@ -210,7 +210,7 @@ loc_16d1:
     add ax, word [bp + 0x6]          ; 0x16dd
     mov bx, ax                       ; 0x16e0
     cmp byte [bx + 0x5d6c], 0x64     ; 0x16e2
-    jae short @..local.l4            ; 0x16e7
+    jae short @..loc_16d1.l1         ; 0x16e7
     mov al, byte [bx + 0x5d6c]       ; 0x16e9
     sub ah, ah                       ; 0x16ed
     push ax                          ; 0x16ef
@@ -225,8 +225,8 @@ loc_16d1:
     mov cx, ax                       ; 0x1704
     pop ax                           ; 0x1706
     sub ax, cx                       ; 0x1707
-    jg short @..local.l4             ; 0x1709
+    jg short @..loc_16d1.l1          ; 0x1709
     add bx, word [bp + 0x6]          ; 0x170b
     inc byte [bx + 0x5d6c]           ; 0x170e
-@..local.l4:
+@..loc_16d1.l1:
     ret                              ; 0x1712

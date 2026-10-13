@@ -41,7 +41,7 @@ loc_70ca:
     call ds_aztec_csav               ; 0x70cd
     mov word [bp - 0x0194], 0        ; 0x70d0
     cmp word [bss_0e32], byte 0      ; 0x70d6
-    je short @..local.l58            ; 0x70db
+    je short @..loc_70ca.l1          ; 0x70db
     lea ax, word [bp - 0x000c]       ; 0x70dd
     push ax                          ; 0x70e0
     lea ax, word [bp - 0x000a]       ; 0x70e1
@@ -49,7 +49,7 @@ loc_70ca:
     call ds_loc_429a                 ; 0x70e5
     add sp, byte 4                   ; 0x70e8
     mov word [bp - 0x0194], ax       ; 0x70eb
-@..local.l58:
+@..loc_70ca.l1:
     mov ax, 0                        ; 0x70ef
     push ax                          ; 0x70f2
     mov bx, word [bp + 0x6]          ; 0x70f3
@@ -61,7 +61,7 @@ loc_70ca:
     call ds_app_file_0883            ; 0x7100
     add sp, byte 8                   ; 0x7103
     cmp word [bp + 0xa], byte 0      ; 0x7106
-    je short @..local.l61            ; 0x710a
+    je short @..loc_70ca.l4          ; 0x710a
     mov ax, 3                        ; 0x710c
     imul word [bp + 0xa]             ; 0x710f
     push ax                          ; 0x7112
@@ -70,14 +70,14 @@ loc_70ca:
     mov cx, ax                       ; 0x7118
     pop ax                           ; 0x711a
     cmp ax, cx                       ; 0x711b
-    jl short @..local.l59            ; 0x711d
+    jl short @..loc_70ca.l2          ; 0x711d
     mov bx, word [bp + 0x6]          ; 0x711f
     mov al, byte [bx + 0x7]          ; 0x7122
     sub ah, ah                       ; 0x7125
     or ax, 0x80                      ; 0x7127
     mov byte [bx + 0x7], al          ; 0x712a
-    jmp short @..local.l60           ; 0x712d
-@..local.l59:
+    jmp short @..loc_70ca.l3         ; 0x712d
+@..loc_70ca.l2:
     lea ax, word [bp - 0x00f2]       ; 0x712f
     push ax                          ; 0x7133
     mov ax, 0x1d1                    ; 0x7134
@@ -92,9 +92,9 @@ loc_70ca:
     add sp, byte 4                   ; 0x714a
     mov ax, 0                        ; 0x714d
     ret                              ; 0x7150
-@..local.l60:
-    jmp short @..local.l62           ; 0x7151
-@..local.l61:
+@..loc_70ca.l3:
+    jmp short @..loc_70ca.l5         ; 0x7151
+@..loc_70ca.l4:
     mov ax, 0x248                    ; 0x7153
     imul word [bp + 0x4]             ; 0x7156
     mov bx, ax                       ; 0x7159
@@ -109,21 +109,21 @@ loc_70ca:
     mov cx, ax                       ; 0x716d
     pop ax                           ; 0x716f
     cmp ax, cx                       ; 0x7170
-    jl short @..local.l62            ; 0x7172
+    jl short @..loc_70ca.l5          ; 0x7172
     mov bx, word [bp + 0x6]          ; 0x7174
     mov al, byte [bx + 0x7]          ; 0x7177
     sub ah, ah                       ; 0x717a
     or ax, 0x80                      ; 0x717c
     mov byte [bx + 0x7], al          ; 0x717f
-@..local.l62:
+@..loc_70ca.l5:
     mov bx, word [bp + 0x6]          ; 0x7182
     mov al, byte [bx + 0x7]          ; 0x7185
     sub ah, ah                       ; 0x7188
     test ax, 0x80                    ; 0x718a
-    jne short @..local.l63           ; 0x718d
+    jne short @..loc_70ca.l6         ; 0x718d
     mov ax, 0xffff                   ; 0x718f
     ret                              ; 0x7192
-@..local.l63:
+@..loc_70ca.l6:
     lea ax, word [bp - 0x007a]       ; 0x7193
     push ax                          ; 0x7196
     push word [bp + 0x8]             ; 0x7197
@@ -196,32 +196,32 @@ loc_70ca:
     add sp, byte 4                   ; 0x7247
     mov word [bp - 0x0006], ax       ; 0x724a
     cmp ax, strict word 0xffff       ; 0x724d
-    jne short @..local.l64           ; 0x7250
+    jne short @..loc_70ca.l7         ; 0x7250
     lea ax, word [bp - 0x00a2]       ; 0x7252
     push ax                          ; 0x7256
     call ds_aztec_strlen             ; 0x7257
     pop cx                           ; 0x725a
     mov word [bp - 0x0006], ax       ; 0x725b
-@..local.l64:
+@..loc_70ca.l7:
     cmp word [bp - 0x0006], byte 0x0a ; 0x725e
-    jle short @..local.l65           ; 0x7262
+    jle short @..loc_70ca.l8         ; 0x7262
     mov word [bp - 0x0006], 0xa      ; 0x7264
-@..local.l65:
+@..loc_70ca.l8:
     mov bx, word [bp - 0x0006]       ; 0x7269
     add bx, bp                       ; 0x726c
     mov byte [bx - 0x00a2], 0        ; 0x726e
     mov byte [bx - 0x0097], 0        ; 0x7273
-@..local.l66:
+@..loc_70ca.l9:
     mov ax, word [bp - 0x0004]       ; 0x7278
     cmp ax, word [bp - 0x0006]       ; 0x727b
-    jle short @..local.l67           ; 0x727e
+    jle short @..loc_70ca.l10        ; 0x727e
     mov bx, ax                       ; 0x7280
     add bx, bp                       ; 0x7282
     cmp byte [bx - 0x00a2], 0x20     ; 0x7284
-    jne short @..local.l67           ; 0x7289
+    jne short @..loc_70ca.l10        ; 0x7289
     dec word [bp - 0x0004]           ; 0x728b
-    jmp short @..local.l66           ; 0x728e
-@..local.l67:
+    jmp short @..loc_70ca.l9         ; 0x728e
+@..loc_70ca.l10:
     mov ax, word [bp - 0x0006]       ; 0x7290
     sub word [bp - 0x0004], ax       ; 0x7293
     push word [bp - 0x000c]          ; 0x7296
@@ -282,4 +282,4 @@ loc_70ca:
     mov word [bp - 0x0024], ax       ; 0x733e
     mov al, byte [bp - 0x0042]       ; 0x7341
     sub ah, ah                       ; 0x7344
-    jmp near @..local.l68            ; 0x7346
+    jmp near @..loc_70ca.l11         ; 0x7346

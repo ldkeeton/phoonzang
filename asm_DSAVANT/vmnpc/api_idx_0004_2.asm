@@ -115,19 +115,19 @@ loc_0ef1:
     mov ax, word [bss_9092]          ; 0x0f27
     mov dx, word [bss_9094]          ; 0x0f2a
     cmp bx, dx                       ; 0x0f2e
-    jg short @..local.l9             ; 0x0f30
-    jne short @..local.l10           ; 0x0f32
+    jg short @..loc_0ef1.l1          ; 0x0f30
+    jne short @..loc_0ef1.l2         ; 0x0f32
     cmp cx, ax                       ; 0x0f34
-    jbe short @..local.l10           ; 0x0f36
-@..local.l9:
-    jmp short @..local.l11           ; 0x0f38
-@..local.l10:
+    jbe short @..loc_0ef1.l2         ; 0x0f36
+@..loc_0ef1.l1:
+    jmp short @..loc_0ef1.l3         ; 0x0f38
+@..loc_0ef1.l2:
     mov ax, word [bss_908e]          ; 0x0f3a
     mov dx, word [bss_9090]          ; 0x0f3d
     mov word [bss_908c], dx          ; 0x0f41
     mov word [bss_908a], ax          ; 0x0f45
     mov ax, 1                        ; 0x0f48
     ret                              ; 0x0f4b
-@..local.l11:
+@..loc_0ef1.l3:
     mov ax, 0                        ; 0x0f4c
     ret                              ; 0x0f4f

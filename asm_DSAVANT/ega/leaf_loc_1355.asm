@@ -43,7 +43,7 @@ loc_1392:
     mov ax, word [cs:bx + 0x2]       ; 0x139f
     sub word [cs:cseg_0391 - IMAGE_BASE], ax ; 0x13a3
     mov word [bp - 0x0006], ax       ; 0x13a8
-@..local.l35:
+@..loc_1392.l1:
     mov bx, word [bp - 0x0004]       ; 0x13ab
     mov di, word [cs:bx]             ; 0x13ae
     mov dx, word [cs:cseg_0203 - IMAGE_BASE] ; 0x13b1
@@ -53,9 +53,9 @@ loc_1392:
     add dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x13be
     mov cx, word [cs:bx + 0x6]       ; 0x13c3
     or cx, cx                        ; 0x13c7
-    jne short @..local.l36           ; 0x13c9
-    jmp near @..local.l42            ; 0x13cb
-@..local.l36:
+    jne short @..loc_1392.l2         ; 0x13c9
+    jmp near @..loc_1392.l8          ; 0x13cb
+@..loc_1392.l2:
     push cx                          ; 0x13ce
     mov ax, si                       ; 0x13cf
     mov cl, 0xa                      ; 0x13d1
@@ -73,30 +73,30 @@ loc_1392:
     shl di, cl                       ; 0x13f1
     call leaf_loc_145c               ; 0x13f3
     pop cx                           ; 0x13f6
-@..local.l37:
+@..loc_1392.l3:
     push cx                          ; 0x13f7
     mov cx, 0x10                     ; 0x13f8
     rep movsb                        ; 0x13fb
     xor dx, dx                       ; 0x13fd
     cmp di, strict word 0x4000       ; 0x13ff
-    jne short @..local.l38           ; 0x1403
+    jne short @..loc_1392.l4         ; 0x1403
     inc word [cs:dos_con_loc_1490 - IMAGE_BASE] ; 0x1405
     inc dx                           ; 0x140a
-@..local.l38:
+@..loc_1392.l4:
     cmp si, strict word 0x4000       ; 0x140b
-    je short @..local.l39            ; 0x140f
+    je short @..loc_1392.l5          ; 0x140f
     cmp si, strict word 0x8000       ; 0x1411
-    jne short @..local.l40           ; 0x1415
-@..local.l39:
+    jne short @..loc_1392.l6         ; 0x1415
+@..loc_1392.l5:
     inc word [cs:cseg_148e - IMAGE_BASE] ; 0x1417
     inc dx                           ; 0x141c
-@..local.l40:
+@..loc_1392.l6:
     or dx, dx                        ; 0x141d
-    je short @..local.l41            ; 0x141f
+    je short @..loc_1392.l7          ; 0x141f
     call leaf_loc_145c               ; 0x1421
-@..local.l41:
+@..loc_1392.l7:
     pop cx                           ; 0x1424
-    loop @..local.l37                ; 0x1425
+    loop @..loc_1392.l3              ; 0x1425
     mov bx, word [bp - 0x0004]       ; 0x1427
     mov cx, word [bp - 0x0006]       ; 0x142a
     mov ax, word [cs:bx + 0x4]       ; 0x142d
@@ -108,8 +108,8 @@ loc_1392:
     mov word [cs:bx + 0x2], ax       ; 0x1442
     add bx, byte 4                   ; 0x1446
     mov word [bp - 0x0004], bx       ; 0x1449
-    jmp near @..local.l35            ; 0x144c
-@..local.l42:
+    jmp near @..loc_1392.l1          ; 0x144c
+@..loc_1392.l8:
     mov bx, word [bp - 0x0004]       ; 0x144f
     xor ax, ax                       ; 0x1452
     mov word [cs:bx], ax             ; 0x1454

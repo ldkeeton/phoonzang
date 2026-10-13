@@ -21,11 +21,11 @@ loc_6626:
     mov ax, 0xfdb6                   ; 0x6626
     call ds_aztec_csav               ; 0x6629
     mov word [bp - 0x0002], 0        ; 0x662c
-    jmp short @..local.l74           ; 0x6631
-@..local.l72:
+    jmp short @..loc_6626.l3         ; 0x6631
+@..loc_6626.l1:
     mov bx, word [bp - 0x0002]       ; 0x6633
     cmp byte [bx - 0x6f8a], 0        ; 0x6636
-    jbe short @..local.l73           ; 0x663b
+    jbe short @..loc_6626.l2         ; 0x663b
     mov ax, 0                        ; 0x663d
     push ax                          ; 0x6640
     push bx                          ; 0x6641
@@ -39,14 +39,14 @@ loc_6626:
     call aztec_strcmp                ; 0x6655
     add sp, byte 4                   ; 0x6658
     test ax, ax                      ; 0x665b
-    jne short @..local.l73           ; 0x665d
+    jne short @..loc_6626.l2         ; 0x665d
     mov ax, 0xffff                   ; 0x665f
     ret                              ; 0x6662
-@..local.l73:
+@..loc_6626.l2:
     inc word [bp - 0x0002]           ; 0x6663
-@..local.l74:
+@..loc_6626.l3:
     mov ax, word [bp - 0x0002]       ; 0x6666
     cmp ax, word [bss_9070]          ; 0x6669
-    jl short @..local.l72            ; 0x666d
+    jl short @..loc_6626.l1          ; 0x666d
     mov ax, 0                        ; 0x666f
     ret                              ; 0x6672

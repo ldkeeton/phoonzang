@@ -492,9 +492,9 @@ loc_3aa3:
     push word [bp + 0xa]             ; 0x3ad8
     mov ax, 0x43                     ; 0x3adb
     cmp word [bp + 0x4], byte 0      ; 0x3ade
-    jne short @..local.l67           ; 0x3ae2
+    jne short @..loc_3aa3.l1         ; 0x3ae2
     mov ax, 1                        ; 0x3ae4
-@..local.l67:
+@..loc_3aa3.l1:
     push ax                          ; 0x3ae7
     mov ax, 0x90b0                   ; 0x3ae8
     push ax                          ; 0x3aeb

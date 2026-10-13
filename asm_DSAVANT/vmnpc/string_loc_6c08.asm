@@ -177,16 +177,16 @@ loc_6d9d:
     call ds_aztec_csav               ; 0x6da0
     mov word [bss_93da], 0           ; 0x6da3
     cmp byte [bss_91ca], 0           ; 0x6da9
-    jle short @..local.l82           ; 0x6dae
+    jle short @..loc_6d9d.l1         ; 0x6dae
     mov al, byte [bss_91ca]          ; 0x6db0
     cbw                              ; 0x6db3
     push ax                          ; 0x6db4
     call ds_app_29f1                 ; 0x6db5
     pop cx                           ; 0x6db8
     mov word [bss_93da], 0x10        ; 0x6db9
-@..local.l82:
+@..loc_6d9d.l1:
     cmp byte [bss_91c3], 0           ; 0x6dbf
-    je short @..local.l83            ; 0x6dc4
+    je short @..loc_6d9d.l2          ; 0x6dc4
     mov ax, 0xf                      ; 0x6dc6
     push ax                          ; 0x6dc9
     mov al, byte [bss_91c3]          ; 0x6dca
@@ -204,10 +204,10 @@ loc_6d9d:
     push ax                          ; 0x6de8
     call api_idx_0008                ; 0x6de9
     add sp, byte 8                   ; 0x6dec
-    jmp short @..local.l84           ; 0x6def
-@..local.l83:
+    jmp short @..loc_6d9d.l3         ; 0x6def
+@..loc_6d9d.l2:
     mov word [bss_843a], 0           ; 0x6df1
-@..local.l84:
+@..loc_6d9d.l3:
     mov word [bss_93dc], 1           ; 0x6df7
     mov ax, 1                        ; 0x6dfd
     push ax                          ; 0x6e00

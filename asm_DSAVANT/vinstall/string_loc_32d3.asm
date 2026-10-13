@@ -12,22 +12,22 @@ loc_32eb:
     test al, al                      ; 0x32ee
     je short loc_331d                ; 0x32f0
     cmp al, 0x78                     ; 0x32f2
-    jne short @..local.l121          ; 0x32f4
+    jne short @..loc_32eb.l1         ; 0x32f4
     mov al, 0x30                     ; 0x32f6
     call loc_3301                    ; 0x32f8
     mov al, 0x78                     ; 0x32fb
-@..local.l121:
+@..loc_32eb.l1:
     mov byte [bp - 0x000d], 0        ; 0x32fd
 loc_3301:
     inc word [bp - 0x0002]           ; 0x3301
     test byte [bp - 0x000b], 0x20    ; 0x3304
-    je short @..local.l122           ; 0x3308
+    je short @..loc_3301.l1          ; 0x3308
     cmp al, 0x61                     ; 0x330a
-    jb short @..local.l122           ; 0x330c
+    jb short @..loc_3301.l1          ; 0x330c
     cmp al, 0x7a                     ; 0x330e
-    ja short @..local.l122           ; 0x3310
+    ja short @..loc_3301.l1          ; 0x3310
     sub al, 0x20                     ; 0x3312
-@..local.l122:
+@..loc_3301.l1:
     push es                          ; 0x3314
     sub ah, ah                       ; 0x3315
     push ax                          ; 0x3317

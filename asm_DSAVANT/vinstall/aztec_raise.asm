@@ -179,9 +179,9 @@ loc_0584:
     mov word [bp - 0x0004], ax       ; 0x058d
     mov ax, 0x20                     ; 0x0590
     cmp word [bp + 0x4], byte 1      ; 0x0593
-    jne short @..local.l7            ; 0x0597
+    jne short @..loc_0584.l1         ; 0x0597
     mov ax, 0x11                     ; 0x0599
-@..local.l7:
+@..loc_0584.l1:
     mov byte [bp - 0x0002], al       ; 0x059c
     mov byte [bp - 0x0001], 0        ; 0x059f
     lea ax, word [bp - 0x0002]       ; 0x05a3
@@ -214,27 +214,27 @@ loc_05b6:
     push ax                          ; 0x05e1
     call loc_0584                    ; 0x05e2
     pop cx                           ; 0x05e5
-@..local.l8:
+@..loc_05b6.l1:
     call dos_con_in_noecho           ; 0x05e6
     push ax                          ; 0x05e9
     call loc_06a6                    ; 0x05ea
     pop cx                           ; 0x05ed
     mov word [bp - 0x0004], ax       ; 0x05ee
     cmp ax, strict word 0xd          ; 0x05f1
-    jne short @..local.l9            ; 0x05f4
-    jmp near @..local.l16            ; 0x05f6
-@..local.l9:
+    jne short @..loc_05b6.l2         ; 0x05f4
+    jmp near @..loc_05b6.l9          ; 0x05f6
+@..loc_05b6.l2:
     mov ax, 0                        ; 0x05f9
     push ax                          ; 0x05fc
     call loc_0584                    ; 0x05fd
     pop cx                           ; 0x0600
     cmp word [bp - 0x0004], byte 8   ; 0x0601
-    je short @..local.l10            ; 0x0605
+    je short @..loc_05b6.l3          ; 0x0605
     cmp word [bp - 0x0004], byte 8   ; 0x0607
-    jne short @..local.l13           ; 0x060b
-@..local.l10:
+    jne short @..loc_05b6.l6         ; 0x060b
+@..loc_05b6.l3:
     cmp word [bp - 0x0006], byte 0   ; 0x060d
-    jle short @..local.l11           ; 0x0611
+    jle short @..loc_05b6.l4         ; 0x0611
     dec word [bp - 0x0006]           ; 0x0613
     mov bx, word [bp + 0x8]          ; 0x0616
     mov si, word [bp - 0x0006]       ; 0x0619
@@ -253,22 +253,22 @@ loc_05b6:
     push word [bp + 0x4]             ; 0x063d
     call bios_video_loc_2551         ; 0x0640
     add sp, byte 4                   ; 0x0643
-    jmp short @..local.l12           ; 0x0646
-@..local.l11:
+    jmp short @..loc_05b6.l5         ; 0x0646
+@..loc_05b6.l4:
     call loc_0452                    ; 0x0648
-@..local.l12:
-    jmp short @..local.l15           ; 0x064b
-@..local.l13:
+@..loc_05b6.l5:
+    jmp short @..loc_05b6.l8         ; 0x064b
+@..loc_05b6.l6:
     mov ax, word [bp - 0x0006]       ; 0x064d
     cmp ax, word [bp + 0xa]          ; 0x0650
-    jl short @..local.l14            ; 0x0653
+    jl short @..loc_05b6.l7          ; 0x0653
     call loc_0452                    ; 0x0655
-    jmp short @..local.l15           ; 0x0658
-@..local.l14:
+    jmp short @..loc_05b6.l8         ; 0x0658
+@..loc_05b6.l7:
     cmp word [bp - 0x0004], byte 0x20 ; 0x065a
-    jl short @..local.l15            ; 0x065e
+    jl short @..loc_05b6.l8          ; 0x065e
     cmp word [bp - 0x0004], byte 0x7f ; 0x0660
-    jg short @..local.l15            ; 0x0664
+    jg short @..loc_05b6.l8          ; 0x0664
     mov al, byte [bp - 0x0004]       ; 0x0666
     mov bx, word [bp + 0x8]          ; 0x0669
     mov si, word [bp - 0x0006]       ; 0x066c
@@ -284,13 +284,13 @@ loc_05b6:
     call bios_video_loc_2621         ; 0x0687
     pop cx                           ; 0x068a
     inc word [bp + 0x6]              ; 0x068b
-@..local.l15:
+@..loc_05b6.l8:
     mov ax, 1                        ; 0x068e
     push ax                          ; 0x0691
     call loc_0584                    ; 0x0692
     pop cx                           ; 0x0695
-    jmp near @..local.l8             ; 0x0696
-@..local.l16:
+    jmp near @..loc_05b6.l1          ; 0x0696
+@..loc_05b6.l9:
     mov ax, 0                        ; 0x0699
     push ax                          ; 0x069c
     call loc_0584                    ; 0x069d
@@ -304,42 +304,42 @@ loc_06a6:
     mov bp, sp                       ; 0x06a7
     add sp, byte 0xfe                ; 0x06a9
     cmp word [bp + 0x4], byte 0      ; 0x06ac
-    jne short @..local.l23           ; 0x06b0
+    jne short @..loc_06a6.l7         ; 0x06b0
     call dos_con_in_noecho           ; 0x06b2
     mov word [bp - 0x0002], ax       ; 0x06b5
-    jmp short @..local.l22           ; 0x06b8
-@..local.l17:
+    jmp short @..loc_06a6.l6         ; 0x06b8
+@..loc_06a6.l1:
     mov ax, 8                        ; 0x06ba
-@..local.l18:
+@..loc_06a6.l2:
     mov sp, bp                       ; 0x06bd
     pop bp                           ; 0x06bf
     ret                              ; 0x06c0
-@..local.l19:
+@..loc_06a6.l3:
     mov ax, 9                        ; 0x06c1
-    jmp short @..local.l18           ; 0x06c4
-@..local.l20:
+    jmp short @..loc_06a6.l2         ; 0x06c4
+@..loc_06a6.l4:
     mov ax, 0xa                      ; 0x06c6
-    jmp short @..local.l18           ; 0x06c9
-@..local.l21:
+    jmp short @..loc_06a6.l2         ; 0x06c9
+@..loc_06a6.l5:
     mov ax, 0xb                      ; 0x06cb
-    jmp short @..local.l18           ; 0x06ce
-@..local.l22:
+    jmp short @..loc_06a6.l2         ; 0x06ce
+@..loc_06a6.l6:
     cmp ax, strict word 0x48         ; 0x06d0
-    je short @..local.l19            ; 0x06d3
+    je short @..loc_06a6.l3          ; 0x06d3
     cmp ax, strict word 0x4b         ; 0x06d5
-    je short @..local.l17            ; 0x06d8
+    je short @..loc_06a6.l1          ; 0x06d8
     cmp ax, strict word 0x4d         ; 0x06da
-    je short @..local.l20            ; 0x06dd
+    je short @..loc_06a6.l4          ; 0x06dd
     cmp ax, strict word 0x50         ; 0x06df
-    je short @..local.l21            ; 0x06e2
-    jmp short @..local.l24           ; 0x06e4
-@..local.l23:
+    je short @..loc_06a6.l5          ; 0x06e2
+    jmp short @..loc_06a6.l8         ; 0x06e4
+@..loc_06a6.l7:
     push word [bp + 0x4]             ; 0x06e6
     call aztec_toupper               ; 0x06e9
     pop cx                           ; 0x06ec
-    jmp short @..local.l18           ; 0x06ed
-@..local.l24:
-    jmp short @..local.l18           ; 0x06ef
+    jmp short @..loc_06a6.l2         ; 0x06ed
+@..loc_06a6.l8:
+    jmp short @..loc_06a6.l2         ; 0x06ef
 loc_06f1:
     push bp                          ; 0x06f1
     mov bp, sp                       ; 0x06f2
@@ -399,7 +399,7 @@ loc_0823:
     add sp, strict word 0xfefe       ; 0x0826
     mov ax, word [bp + 0x4]          ; 0x082a
     mov word [bp - 0x0002], ax       ; 0x082d
-@..local.l25:
+@..loc_0823.l1:
     push word [bp + 0x8]             ; 0x0830
     push word [bp + 0x6]             ; 0x0833
     call bios_video_loc_2551         ; 0x0836
@@ -431,9 +431,9 @@ loc_0823:
     mov word [bp - 0x0002], ax       ; 0x0878
     mov ax, word [bp - 0x0002]       ; 0x087b
     cmp ax, word [bp + 0xe]          ; 0x087e
-    jl short @..local.l25            ; 0x0881
+    jl short @..loc_0823.l1          ; 0x0881
     cmp ax, word [bp + 0xc]          ; 0x0883
-    jg short @..local.l25            ; 0x0886
+    jg short @..loc_0823.l1          ; 0x0886
     mov ax, word [bp - 0x0002]       ; 0x0888
     mov sp, bp                       ; 0x088b
     pop bp                           ; 0x088d

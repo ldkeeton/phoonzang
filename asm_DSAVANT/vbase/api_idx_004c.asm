@@ -113,11 +113,11 @@ loc_1683:
     mov ax, 0                        ; 0x1683
     call ds_aztec_csav               ; 0x1686
     mov ax, word [bp + 0x4]          ; 0x1689
-    jmp short @..local.l20           ; 0x168c
+    jmp short @..loc_1683.l1         ; 0x168c
 loc_168e:
     mov ax, 0                        ; 0x168e
     ret                              ; 0x1691
-@..local.l20:
+@..loc_1683.l1:
     mov cx, 0x26                     ; 0x1692
     call leaf_loc_936e               ; 0x1695
 jumptable_1698:
@@ -197,73 +197,73 @@ jumptable_1698:
     aad 0x66                         ; 0x172a
     jne short loc_1795               ; 0x172c
     cmp word [bp + 0x4], byte 0x3c   ; 0x172e
-    jl short @..local.l21            ; 0x1732
+    jl short @..loc_16e6.l1          ; 0x1732
     cmp word [bp + 0x4], byte 0x78   ; 0x1734
-    jge short @..local.l21           ; 0x1738
+    jge short @..loc_16e6.l1         ; 0x1738
     mov ax, 0                        ; 0x173a
     sub ax, word [bp + 0x4]          ; 0x173d
     ret                              ; 0x1740
-@..local.l21:
+@..loc_16e6.l1:
     cmp word [bp + 0x4], strict word 0xb8 ; 0x1741
-    jl short @..local.l22            ; 0x1746
+    jl short @..loc_16e6.l2          ; 0x1746
     cmp word [bp + 0x4], strict word 0xe3 ; 0x1748
-    jge short @..local.l22           ; 0x174d
+    jge short @..loc_16e6.l2         ; 0x174d
     mov ax, 0                        ; 0x174f
     sub ax, word [bp + 0x4]          ; 0x1752
     ret                              ; 0x1755
-@..local.l22:
+@..loc_16e6.l2:
     cmp word [bp + 0x4], strict word 0xe3 ; 0x1756
-    jge short @..local.l23           ; 0x175b
+    jge short @..loc_16e6.l3         ; 0x175b
     mov ax, word [bp + 0x4]          ; 0x175d
     ret                              ; 0x1760
-@..local.l23:
+@..loc_16e6.l3:
     cmp word [bp + 0x4], strict word 0x145 ; 0x1761
-    jne short @..local.l24           ; 0x1766
+    jne short @..loc_16e6.l4         ; 0x1766
     mov ax, 0x13a                    ; 0x1768
     ret                              ; 0x176b
-@..local.l24:
+@..loc_16e6.l4:
     cmp word [bp + 0x4], strict word 0x146 ; 0x176c
-    jne short @..local.l25           ; 0x1771
+    jne short @..loc_16e6.l5         ; 0x1771
     mov ax, 0x14b                    ; 0x1773
     ret                              ; 0x1776
-@..local.l25:
+@..loc_16e6.l5:
     cmp word [bp + 0x4], strict word 0x13c ; 0x1777
-    jl short @..local.l26            ; 0x177c
+    jl short @..loc_16e6.l6          ; 0x177c
     cmp word [bp + 0x4], strict word 0x14c ; 0x177e
-    jg short @..local.l26            ; 0x1783
+    jg short @..loc_16e6.l6          ; 0x1783
     mov ax, word [bp + 0x4]          ; 0x1785
     ret                              ; 0x1788
-@..local.l26:
+@..loc_16e6.l6:
     cmp word [bp + 0x4], strict word 0x1ab ; 0x1789
-    jne short @..local.l27           ; 0x178e
+    jne short @..loc_16e6.l7         ; 0x178e
     mov ax, 0xffae                   ; 0x1790
     ret                              ; 0x1793
-@..local.l27:
+@..loc_16e6.l7:
     cmp word [bp + 0x4], strict word 0x1d8 ; 0x1794
-    jne short @..local.l28           ; 0x1799
+    jne short @..loc_16e6.l8         ; 0x1799
 loc_179b:
     mov ax, 0xf5                     ; 0x179b
     ret                              ; 0x179e
-@..local.l28:
+@..loc_16e6.l8:
     cmp word [bp + 0x4], strict word 0x1d9 ; 0x179f
-    jne short @..local.l29           ; 0x17a4
+    jne short @..loc_16e6.l9         ; 0x17a4
     mov ax, 0xf4                     ; 0x17a6
     ret                              ; 0x17a9
-@..local.l29:
+@..loc_16e6.l9:
     mov ax, word [bp + 0x4]          ; 0x17aa
-    jmp short @..local.l31           ; 0x17ad
+    jmp short @..loc_16e6.l10        ; 0x17ad
 loc_17af:
     cmp word [bp + 0x4], strict word 0xe3 ; 0x17af
-    jl short @..local.l30            ; 0x17b4
+    jl short @..loc_17af.l1          ; 0x17b4
     cmp word [bp + 0x4], strict word 0xfe ; 0x17b6
-    jge short @..local.l30           ; 0x17bb
+    jge short @..loc_17af.l1         ; 0x17bb
     mov ax, 0                        ; 0x17bd
     sub ax, word [bp + 0x4]          ; 0x17c0
     ret                              ; 0x17c3
-@..local.l30:
+@..loc_17af.l1:
     mov ax, word [bp + 0x4]          ; 0x17c4
     ret                              ; 0x17c7
-@..local.l31:
+@..loc_16e6.l10:
     mov cx, 0x14                     ; 0x17c8
     call leaf_loc_936e               ; 0x17cb
 jumptable_17ce:
@@ -297,4 +297,4 @@ loc_1820:
     mov ax, 0                        ; 0x1820
     call ds_aztec_csav               ; 0x1823
     mov ax, word [bp + 0x4]          ; 0x1826
-    jmp short @..local.l32           ; 0x1829
+    jmp short @..loc_1820.l1         ; 0x1829

@@ -2158,10 +2158,10 @@ loc_521b:
     mov cx, 0x9b1c                   ; 0x5234
     sub cx, di                       ; 0x5237
     shr cx, 1                        ; 0x5239
-    je short @..local.l43            ; 0x523b
+    je short @..loc_521b.l1          ; 0x523b
     sub ax, ax                       ; 0x523d
     rep stosw                        ; 0x523f
-@..local.l43:
+@..loc_521b.l1:
     call api_idx_0002                ; 0x5241
     mov bp, word [dseg_917c]         ; 0x5244
     mov sp, word [dseg_917a]         ; 0x5248

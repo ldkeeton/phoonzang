@@ -66,19 +66,19 @@ loc_00b6:
     mov al, byte [bx + si + 0x490]   ; 0x00c3
     sub ah, ah                       ; 0x00c7
     cmp ax, word [bp + 0x6]          ; 0x00c9
-    jg short @..local.l1             ; 0x00cc
+    jg short @..loc_00b6.l1          ; 0x00cc
     add ax, strict word 7            ; 0x00ce
     cmp ax, word [bp + 0x6]          ; 0x00d1
-    jl short @..local.l1             ; 0x00d4
+    jl short @..loc_00b6.l1          ; 0x00d4
     mov al, byte [bx + si + 0x4a0]   ; 0x00d6
     sub ah, ah                       ; 0x00da
     cmp ax, word [bp + 0x8]          ; 0x00dc
-    jg short @..local.l1             ; 0x00df
+    jg short @..loc_00b6.l1          ; 0x00df
     add ax, strict word 7            ; 0x00e1
     cmp ax, word [bp + 0x8]          ; 0x00e4
-    jl short @..local.l1             ; 0x00e7
+    jl short @..loc_00b6.l1          ; 0x00e7
     mov ax, si                       ; 0x00e9
     ret                              ; 0x00eb
-@..local.l1:
+@..loc_00b6.l1:
     mov ax, 0xffff                   ; 0x00ec
     ret                              ; 0x00ef

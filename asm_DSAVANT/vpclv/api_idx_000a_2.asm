@@ -42,9 +42,9 @@ loc_0eea:
     push ax                          ; 0x0f07
     mov ax, 0                        ; 0x0f08
     cmp word [bp + 0xa], byte 0      ; 0x0f0b
-    je short @..local.l2             ; 0x0f0f
+    je short @..loc_0eea.l1          ; 0x0f0f
     mov ax, 1                        ; 0x0f11
-@..local.l2:
+@..loc_0eea.l1:
     add ax, strict word 0x10         ; 0x0f14
     sub ah, ah                       ; 0x0f17
     push ax                          ; 0x0f19
@@ -71,9 +71,9 @@ loc_0eea:
     call ds_loc_3a77                 ; 0x0f49
     add sp, byte 4                   ; 0x0f4c
     cmp word [bp + 0x8], byte 0      ; 0x0f4f
-    jne short @..local.l3            ; 0x0f53
+    jne short @..loc_0eea.l2         ; 0x0f53
     cmp word [bp + 0xa], byte 0      ; 0x0f55
-    jne short @..local.l3            ; 0x0f59
+    jne short @..loc_0eea.l2         ; 0x0f59
     mov ax, 0xc2                     ; 0x0f5b
     push ax                          ; 0x0f5e
     mov ax, word [bp + 0x6]          ; 0x0f5f
@@ -86,7 +86,7 @@ loc_0eea:
     push ax                          ; 0x0f6e
     call ds_loc_3b48                 ; 0x0f6f
     add sp, byte 0x0a                ; 0x0f72
-@..local.l3:
+@..loc_0eea.l2:
     ret                              ; 0x0f75
 loc_0f76:
     mov ax, 0                        ; 0x0f76
@@ -126,10 +126,10 @@ loc_0f76:
     call ds_loc_3a50                 ; 0x0fc8
     add sp, byte 4                   ; 0x0fcb
     cmp word [bp + 0xa], byte 0      ; 0x0fce
-    jle short @..local.l4            ; 0x0fd2
+    jle short @..loc_0f76.l1         ; 0x0fd2
     mov ax, word [bp + 0xa]          ; 0x0fd4
     cmp ax, word [bp + 0xc]          ; 0x0fd7
-    jg short @..local.l4             ; 0x0fda
+    jg short @..loc_0f76.l1          ; 0x0fda
     mov ax, 0                        ; 0x0fdc
     push ax                          ; 0x0fdf
     mov ax, 1                        ; 0x0fe0
@@ -143,8 +143,8 @@ loc_0f76:
     push word [bp + 0xa]             ; 0x0ff2
     call ds_app_052e                 ; 0x0ff5
     add sp, byte 6                   ; 0x0ff8
-    jmp short @..local.l5            ; 0x0ffb
-@..local.l4:
+    jmp short @..loc_0f76.l2         ; 0x0ffb
+@..loc_0f76.l1:
     mov ax, 0                        ; 0x0ffd
     push ax                          ; 0x1000
     push ax                          ; 0x1001
@@ -156,5 +156,5 @@ loc_0f76:
     push ax                          ; 0x100f
     call ds_string_loc_3a95          ; 0x1010
     add sp, byte 4                   ; 0x1013
-@..local.l5:
+@..loc_0f76.l2:
     ret                              ; 0x1016

@@ -163,7 +163,7 @@ loc_331c:
     call ds_aztec_setmem             ; 0x332e
     add sp, byte 6                   ; 0x3331
     mov word [bp - 0x0002], 0        ; 0x3334
-@..local.l66:
+@..loc_331c.l1:
     mov ax, 0                        ; 0x3339
     push ax                          ; 0x333c
     mov ax, 0x1a4                    ; 0x333d
@@ -177,9 +177,9 @@ loc_331c:
     inc word [bp - 0x0002]           ; 0x3352
     mov ax, word [bp - 0x0002]       ; 0x3355
     cmp ax, strict word 7            ; 0x3358
-    jl short @..local.l66            ; 0x335b
+    jl short @..loc_331c.l1          ; 0x335b
     mov word [bp - 0x0002], 0        ; 0x335d
-@..local.l67:
+@..loc_331c.l2:
     mov ax, word [bp - 0x0002]       ; 0x3362
     shl ax, 1                        ; 0x3365
     mov bx, ax                       ; 0x3367
@@ -188,7 +188,7 @@ loc_331c:
     inc word [bp - 0x0002]           ; 0x3372
     mov ax, word [bp - 0x0002]       ; 0x3375
     cmp ax, strict word 7            ; 0x3378
-    jl short @..local.l67            ; 0x337b
+    jl short @..loc_331c.l2          ; 0x337b
     mov word [bss_8466], 0           ; 0x337d
     mov word [bss_845c], 0           ; 0x3383
     mov word [bss_845e], 0xfffe      ; 0x3389

@@ -42,8 +42,8 @@ cseg_09ae equ 0x09ae
 cseg_09bf equ 0x09bf
 
 loc_0000:
-    jmp near @..local.l1             ; 0x0000
-@..local.l1:
+    jmp near @..loc_0000.l1          ; 0x0000
+@..loc_0000.l1:
     call loc_0023                    ; 0x0003
     retf                             ; 0x0006
     call strlen                      ; 0x0007
@@ -76,23 +76,23 @@ loc_0023:
     mov word [cs:cseg_0b81 - IMAGE_BASE], 1 ; 0x004a
     mov word [cs:cseg_0b7f - IMAGE_BASE], 1 ; 0x0051
     mov bx, cseg_0e03 - IMAGE_BASE   ; 0x0058
-@..local.l2:
+@..loc_0023.l1:
     mov byte [cs:bx], 0              ; 0x005b
     mov byte [cs:bx + 0x1], 0        ; 0x005f
     mov byte [cs:bx + 0x2], 0xff     ; 0x0064
     mov word [cs:bx + 0x3], 0        ; 0x0069
     add bx, byte 5                   ; 0x006f
     cmp bx, strict word 0xe3a        ; 0x0072
-    jb short @..local.l2             ; 0x0076
+    jb short @..loc_0023.l1          ; 0x0076
     mov al, byte [cs:cseg_0b7c - IMAGE_BASE] ; 0x0078
     mov ax, word [cs:cseg_0b83 - IMAGE_BASE] ; 0x007c
     mov word [cs:cseg_0b85 - IMAGE_BASE], ax ; 0x0080
     call loc_0098                    ; 0x0084
     cmp ax, strict word 0            ; 0x0087
-    jne short @..local.l3            ; 0x008a
+    jne short @..loc_0023.l2         ; 0x008a
     call io_loc_02ba                 ; 0x008c
     mov byte [cs:cseg_0b9a - IMAGE_BASE], 1 ; 0x008f
-@..local.l3:
+@..loc_0023.l2:
     pop bx                           ; 0x0095
     pop bp                           ; 0x0096
     ret                              ; 0x0097
