@@ -442,10 +442,11 @@ def resplice_c(app, binary):
         # Overlay the compiled code onto the original span.  The fragment's
         # span is fixed because the master listing addresses code absolutely.
         # A routine whose recovered code is *longer* than its own fragment (its
-        # tail shares a leaf block with the next split -- e.g. malloc's epilogue
-        # jump) keeps that tail in the neighbouring fragment, exactly as
-        # ``make build`` laid it out, so only the part inside this fragment is
-        # rewritten.  Otherwise the routine's recorded code length is NOP-padded
+        # tail lies in a neighbouring fragment) keeps that tail there, so only
+        # the part inside this fragment is rewritten.  This is defensive only:
+        # ``_select_split_ranges`` gives a C routine its full recovered extent,
+        # so it should not fire (an old build tree can still trigger it).
+        # Otherwise the routine's recorded code length is NOP-padded
         # so an edited-but-shorter routine keeps its byte count, while the tail
         # beyond it (data, padding) survives untouched.
         original = entry.get('original_length') or len(compiled)

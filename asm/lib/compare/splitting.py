@@ -28,6 +28,16 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
         and not re.fullmatch(r'loc_[0-9a-fA-F]+', name)
     )
 
+    # A split root strictly inside a C routine's own recovered extent (e.g. the
+    # one-instruction ``jmp`` exit tail a routine's branches share) is part of
+    # that routine, not a neighbour; it must not truncate the fragment.
+    covered = [(off, off + c_override_lengths[off])
+               for off, _ in selected if off in c_override_lengths]
+    selected = [
+        (off, name) for off, name in selected
+        if not any(lo < off < hi for lo, hi in covered)
+    ]
+
     ranges = []
     for index, (start, name) in enumerate(selected):
         if index + 1 < len(selected):

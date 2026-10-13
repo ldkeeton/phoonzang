@@ -106,3 +106,5 @@ loc_474d:
     and ax, strict word 0xfffe       ; 0x47dd
     mov si, ax                       ; 0x47e0
     jmp near @..aztec_malloc.l2      ; 0x47e2
+leaf_loc_47e5:
+    jmp near loc_474d                ; 0x47e5

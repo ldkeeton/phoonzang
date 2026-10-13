@@ -1021,8 +1021,6 @@ __zdataseg_end equ (__zimage_end - __zdataseg_start) + __zbss_size
 
 %include "ds/aztec_malloc.asm"             ; 0x46ea
 
-%include "ds/leaf_loc_47e5.asm"            ; 0x47e5
-
 %include "ds/aztec_free.asm"               ; 0x47e8
 
 

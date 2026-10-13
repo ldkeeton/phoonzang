@@ -301,8 +301,6 @@ loc_026d:
 
 %include "vinstall/aztec_malloc.asm"       ; 0x2f1b
 
-%include "vinstall/leaf_loc_3016.asm"      ; 0x3016
-
 %include "vinstall/aztec_free.asm"         ; 0x3019
 
 
