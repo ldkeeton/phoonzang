@@ -96,10 +96,23 @@ _FROZEN_OVR_FIELD_RE = re.compile(
 _FROZEN_OVR_ORIGIN_RE = re.compile(
     r'^\s*dw\s+0x[0-9a-f]{1,4}\s*;\s*o_(corg|dorg)\b'
 )
+# The ``o_entry`` field is ``<entry> - IMAGE_BASE + o_corg``: the same host
+# code-region anchor as the ``o_corg`` field, written inside a formula so the
+# bare-literal rule above misses it (plan.md D7.2).
+_FROZEN_OVR_ENTRY_LITERAL_RE = re.compile(
+    r'^\s*dw\s+\S+.*\+\s*0x[0-9a-f]{4}\s*;.*\bo_entry\b'
+)
+# ``VBASE`` (the assembler's ``vstart``) **is** ``o_corg - start_offset`` for an
+# overlay, so it is a third spelling of the same anchor (plan.md D7.2); the
+# counter recognises it by name in the ``equ`` branch below.
 # A code immediate equal to the image's data-segment size -- the shared
 # host/overlay geometry constant (plan.md D7.0).  Tagged ``; dssize`` at emit
 # time (``render.py``) so the census matches a *form*, not a magic number.
-_FROZEN_DSSIZE_RE = re.compile(r';\s*dssize\s*$')
+_FROZEN_DSSIZE_RE = re.compile(r';\s*dssize\b')
+# A code immediate equal to the *host's resident-code end* (the overlay load
+# address, ``o_corg``).  Tagged ``; ocorg`` at emit time so the counter exists
+# before the binding does (plan.md D7.2).
+_FROZEN_OCORG_IMM_RE = re.compile(r';\s*ocorg\b')
 _FROZEN_EQU_RE = re.compile(r'^\s*(\w+)\s+equ\s+0x')
 _FROZEN_PAD_RE = re.compile(r'^\s*times\s+(\d+)\s+db\s+0\b')
 # A numeric word in a jump table renders as ``dw 0x<value> ; 0x<slot>``; header
@@ -147,15 +160,19 @@ def count_frozen_addrs(src_text):
     tag that marks a deliberate data table.  See ``plan.md`` section 3 for the
     taxonomy; rewriting a value as an assembler expression removes it.
 
-    Three extra buckets cover the shared host/overlay segment geometry
-    (``plan.md`` D7.0): ``o_corg`` (overlay code origin -> ``code_shift``),
-    ``o_dorg`` (overlay data origin, i.e. the host DS size -> ``data_shift``),
-    and ``ds_size_imm`` (a code immediate equal to the DS size -> ``code_shift``).
+    Four extra buckets cover the shared host/overlay segment geometry
+    (``plan.md`` D7.0/D7.2): ``o_corg`` (overlay code origin -> ``code_shift``,
+    counted in all three spellings -- the header field, the ``VBASE`` and the
+    ``o_entry`` addend), ``o_corg_imm`` (a host code immediate equal to it, the
+    overlay load address -> ``code_shift``), ``o_dorg`` (overlay data origin,
+    i.e. the host DS size -> ``data_shift``), and ``ds_size_imm`` (a code
+    immediate equal to the DS size -> ``code_shift``).
     """
     f = {'f1': 0, 'f2': 0, 'f3': 0, 'f4': 0, 'f5': 0, 'f6': 0, 'f7': 0}
     f4_inert = 0
     external = 0
     o_corg = 0
+    o_corg_imm = 0
     o_dorg = 0
     ds_size_imm = 0
     for line in (src_text or '').splitlines():
@@ -172,10 +189,15 @@ def count_frozen_addrs(src_text):
             else:
                 o_dorg += 1
             continue
+        if _FROZEN_OVR_ENTRY_LITERAL_RE.match(line):
+            o_corg += 1
+            continue
         m = _FROZEN_EQU_RE.match(line)
         if m:
             name = stem(m.group(1))
-            if name.startswith(_F3_PREFIXES):
+            if name == 'VBASE':
+                o_corg += 1
+            elif name.startswith(_F3_PREFIXES):
                 f['f3'] += 1
             elif name.startswith(_F4_DATA_PREFIXES):
                 f['f4'] += 1
@@ -196,12 +218,16 @@ def count_frozen_addrs(src_text):
             continue
         if _FROZEN_DSSIZE_RE.search(line):
             ds_size_imm += 1
-    code_shift = f['f1'] + f['f2'] + f['f3'] + f['f5'] + o_corg + ds_size_imm
+        if _FROZEN_OCORG_IMM_RE.search(line):
+            o_corg_imm += 1
+    code_shift = (f['f1'] + f['f2'] + f['f3'] + f['f5'] + o_corg
+                  + o_corg_imm + ds_size_imm)
     data_shift = f['f4'] + f['f7'] + o_dorg
     inert = f4_inert + f['f6'] + external
     return {
         **f,
         'o_corg': o_corg,
+        'o_corg_imm': o_corg_imm,
         'o_dorg': o_dorg,
         'ds_size_imm': ds_size_imm,
         'code_shift': code_shift,

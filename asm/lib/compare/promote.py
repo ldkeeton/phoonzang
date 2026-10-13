@@ -10,7 +10,7 @@ layout and (b) follows the data segment when it is resized:
   whose label the ``mem_equ`` machinery places at that byte -- anchored to a
   string start when the target lands inside a literal);
 * a **BSS/heap** DS target is the dynamic data size plus its offset
-  (``bss_<off>`` = ``(__zimage_end - __zdataseg_start) + delta``);
+  (``bss_<off>`` = ``(__zimage_end - __zdseg_start) + delta``);
 * a **CS** target names the code label (``<label> - IMAGE_BASE``).
 
 Only bytes that a data block still owns are replaced: a word the disassembly

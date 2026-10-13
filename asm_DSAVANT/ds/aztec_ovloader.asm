@@ -66,9 +66,9 @@ ds_loc_4386:
     call ds_loc_4462                 ; 0x4408
     pop cx                           ; 0x440b
 @..ds_loc_4386.l4:
-    cmp word [bp - 0x0010], strict word 0x5055 ; 0x440c
+    cmp word [bp - 0x0010], strict word __zres_end ; 0x440c
     jb short @..ds_loc_4386.l5       ; 0x4411
-    cmp word [bp - 0x000c], strict word __zdataseg_end ; 0x4413
+    cmp word [bp - 0x000c], strict word __zdseg_end ; 0x4413
     jae short @..ds_loc_4386.l6      ; 0x4418
 @..ds_loc_4386.l5:
     mov ax, 0x3c                     ; 0x441a

@@ -8,7 +8,7 @@ import unittest
 from lib.compare.render import (
     _label_equ_value, _signed_hex, _virtual_base,
 )
-from make.elf import _elf_source_text
+from make.elf import _elf_source_text, _force_origin_zero
 
 
 def _overlay(o_corg=0x5055):
@@ -64,6 +64,31 @@ class ElfSourceTest(unittest.TestCase):
         self.assertIn('global foo', joined)
         self.assertNotIn('VBASE,', joined)
         self.assertNotIn('global VBASE', joined)
+        # The origin is zeroed in place: ELF has no ``vstart``, so the section is
+        # laid out from 0 and the ``+ VBASE`` equ values must agree with it.
+        self.assertIn('VBASE equ 0', out)
+        self.assertNotIn('VBASE equ -0x0200', out)
+
+    def test_origin_rewrite_leaves_the_host_includes_definition_alone(self):
+        """An overlay's derived origin is zeroed; the host include's is not.
+
+        The include defines ``VBASE`` for the *host's* frame while the host
+        source is assembled and clears it again, so a command-line ``-DVBASE=0``
+        could never reach the overlay's own definition afterwards -- which is
+        why the rewrite happens in the prepared source instead.
+        """
+        lines = [
+            '%ifndef VBASE',
+            'VBASE equ __zres_end - 0x000e',
+            '%endif',
+            'section .text vstart=VBASE',
+            '%define VBASE (-0x0200)',
+        ]
+        self.assertEqual(
+            _force_origin_zero(lines),
+            ['%ifndef VBASE', 'VBASE equ 0', '%endif',
+             'section .text vstart=VBASE', '%define VBASE (-0x0200)'],
+        )
 
 
 if __name__ == '__main__':

@@ -13,7 +13,13 @@ _MIN_STRING_ANCHOR = 6
 
 # The shared host/overlay data-segment size, emitted as a real symbol so a code
 # immediate that hard-codes it follows a resized data segment (plan.md D7.0b).
-_DSSIZE_SYMBOL = '__zdataseg_end'
+_DSSIZE_SYMBOL = '__zdseg_end'
+
+# The host's resident-code end -- the overlay load address ``o_corg`` (plan.md
+# D7.2).  Emitted by the host at the start of the code->data zero gap, and the
+# anchor the overlays derive their load origin (``VBASE``/``o_corg``) from, so a
+# host code edit moves the overlays out of its way.
+_RESIDENT_END_SYMBOL = '__zres_end'
 
 
 def _group_db_lines(hex_bytes):
@@ -81,12 +87,13 @@ def _render_data_block(raw):
 
 
 def _render_records(records, binary_data, show_offsets=True, gap=None,
-                    ds_size=None, ds_end_symbol=None):
+                    ds_size=None, ds_end_symbol=None, resident_end=None,
+                    resident_end_symbol=None):
     """Render ordered body records, including textual NASM include directives.
 
     *gap* is an optional ``(block_start, gap_end, header_size, gap_len)`` tuple
     naming the MZ code→data gap.  The data block starting at ``block_start``
-    is emitted with a dynamic ``__zdataseg_para`` prologue instead of a frozen
+    is emitted with a dynamic ``__zdseg_para`` prologue instead of a frozen
     zero pad, so the data segment follows a relocated image.
 
     *ds_size* is the image's data-segment size.  A code immediate equal to it
@@ -95,6 +102,11 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
     so it follows a resized data segment; otherwise the literal is tagged
     ``; dssize`` so the frozen-address census counts it as form-based rather
     than by a magic number (the regression guard for D7.0b).
+
+    *resident_end* is the host's resident-code end (the overlay load address,
+    ``o_corg``) and follows the same pattern (D7.2): rewritten to
+    *resident_end_symbol* when the anchor is in scope, otherwise tagged
+    ``; ocorg`` so the census sees it.
     """
     out = []
     i = 0
@@ -116,18 +128,30 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
             if gap is not None and rec['start'] == gap[0]:
                 block_start, gap_end, header_size, gap_len = gap
                 out.append('')
+                if resident_end is not None:
+                    # End of the host's resident code -- the CS offset the
+                    # overlay loader loads overlays at (the header ``o_corg``).
+                    # An absolute ``equ`` (``$ - $$`` is a section-local
+                    # difference), so an overlay can use it as its ``vstart``,
+                    # which nasm requires to be a critical expression.
+                    out.append(
+                        '; End of host resident code'
+                    )
+                    out.append('; address, o_corg in an overlay header).')
+                    out.append(
+                        f'{_RESIDENT_END_SYMBOL} equ ($ - $$) + VBASE')
                 out.append(f'%if ($ - $$) > 0x{gap_end:x}')
                 out.append('    align 16, db 0')
-                out.append(f'    __zdataseg_para equ ($ - $$ - 0x{header_size:x}) / 16')
+                out.append(f'    __zdseg_para equ ($ - $$ - 0x{header_size:x}) / 16')
                 out.append('%else')
                 out.append(
                     f'    times (0x{gap_end:x} - ($ - $$)) db 0 ; 0x{gap_len:x}'
                 )
                 out.append(
-                    f'    __zdataseg_para equ (0x{gap_end:x} - 0x{header_size:x}) / 16'
+                    f'    __zdseg_para equ (0x{gap_end:x} - 0x{header_size:x}) / 16'
                 )
                 out.append('%endif')
-                out.append('__zdataseg_start:')
+                out.append('__zdseg_start:')
                 out.extend(_render_data_block(binary_data[gap_end:rec['end']]))
                 out.append('')
                 i += 1
@@ -183,7 +207,7 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
         elif rec['type'] == 'mnem':
             annotation = rec.get('annotation')
             text = rec['text']
-            tag = ''
+            tag = None
             # Tag (or bind) an immediate equal to the data-segment size
             # (plan.md D7.0).
             if ds_size is not None and re.search(
@@ -196,14 +220,26 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
                         rf'\b0x{ds_size:04x}\b', ds_end_symbol, text)
                 else:
                     # No symbol in scope: keep the literal, tag it so the
-                    # census still counts it.
-                    tag = ' ; dssize'
+                    # census still counts it.  The tag leads the comment so the
+                    # ``; 0x<offset>`` slot stays last (``make/elf.py`` reads it).
+                    tag = 'dssize'
+            # Tag (or bind) an immediate equal to the host's resident-code end
+            # -- the overlay load address ``o_corg`` (plan.md D7.2).
+            if resident_end is not None and re.search(
+                    rf'\b0x{resident_end:04x}\b', text):
+                if resident_end_symbol:
+                    text = re.sub(
+                        rf'\b0x{resident_end:04x}\b', resident_end_symbol, text)
+                else:
+                    tag = 'ocorg'
+            lead = f'{tag} ; ' if tag else ''
+            trailing = f' ; {tag}' if tag else ''
             if annotation:
-                out.append(f'    {text} ; {annotation}{tag}')
+                out.append(f'    {text} ; {annotation}{trailing}')
             elif show_offsets:
-                out.append(f'    {text:<32s} ; 0x{rec["offset"]:04x}{tag}')
+                out.append(f'    {text:<32s} ; {lead}0x{rec["offset"]:04x}')
             else:
-                out.append(f'    {text}{tag}')
+                out.append(f'    {text}{trailing}')
 
         elif rec['type'] == 'db_with_comment':
             annotation = rec.get('annotation')
@@ -276,14 +312,14 @@ def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None
     the recoverable entry point instead of freezing its original constant.
     ``e_cblp``/``e_cp`` are always computed from ``__zimage_end``; when
     *dynamic_e_ss* is set (the code→data gap was located) ``e_ss`` is drawn
-    from ``__zdataseg_para`` so it follows a relocated data segment.
+    from ``__zdseg_para`` so it follows a relocated data segment.
     """
     _, cblp, cp, crlc, cparhdr, minalloc, maxalloc, ss, sp, \
         csum, ip, cs, lfarlc, ovno = struct.unpack_from('<2s13H', header, 0)
     bound_entry = _mz_entry_symbol(header, label_map, entry_symbol)
     ip_text = (f'dw {bound_entry} - IMAGE_BASE' if bound_entry
                else f'dw 0x{ip:04x}')
-    ss_text = 'dw __zdataseg_para' if dynamic_e_ss else f'dw 0x{ss:04x}'
+    ss_text = 'dw __zdseg_para' if dynamic_e_ss else f'dw 0x{ss:04x}'
 
     def _field(text, value, comment):
         """Pair an instruction with its comment, adding the original value as a
@@ -319,7 +355,8 @@ def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None
 
 
 def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
-                       dynamic_dsize=False, ds_end_symbol=None):
+                       dynamic_dsize=False, ds_end_symbol=None,
+                       corg_symbol=None):
     """Render the Aztec overlay header fields with a shared comment column.
 
     The overlay file is ``header + code(o_csize) + data(o_dsize)``.  When the
@@ -331,6 +368,11 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
     given (D7.0c, an overlay with a host) it is rendered as that symbol, which
     the link step resolves into ``.cache``; otherwise it stays the literal.
 
+    ``o_corg`` *is* the host's resident-code end, so when *corg_symbol* is given
+    (D7.2, an overlay with a host) it -- and the ``o_corg`` addend inside
+    ``o_entry`` -- is rendered as that symbol so a host code edit moves the
+    overlay out of the way.
+
     Rewritten fields keep their original value as a leading comment.
     """
     (o_magic, o_corg, o_csize, o_dorg, o_dsize, o_bss, o_entry) = \
@@ -341,8 +383,10 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
                   else f'dw 0x{o_dsize:04x}')
     dorg_text = (f'dw {ds_end_symbol}' if ds_end_symbol
                  else f'dw 0x{o_dorg:04x}')
+    corg_text = f'dw {corg_symbol}' if corg_symbol else f'dw 0x{o_corg:04x}'
     if entry_symbol:
-        entry_text = f'dw {entry_symbol} - IMAGE_BASE + 0x{o_corg:04x}'
+        origin = corg_symbol if corg_symbol else f'0x{o_corg:04x}'
+        entry_text = f'dw {entry_symbol} - IMAGE_BASE + {origin}'
     else:
         entry_text = f'dw 0x{o_entry:04x}'
 
@@ -353,7 +397,7 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
 
     fields = [
         (f'dw 0x{o_magic:04x}', 'o_magic: overlay signature (0x00f2)'),
-        (f'dw 0x{o_corg:04x}', 'o_corg: code load origin (memory offset)'),
+        _field(corg_text, o_corg, 'o_corg: code load origin (memory offset)'),
         _field(csize_text, o_csize, 'o_csize: code size in bytes'),
         _field(dorg_text, o_dorg, 'o_dorg: data load origin (memory offset)'),
         _field(dsize_text, o_dsize, 'o_dsize: initialized data size'),
@@ -428,29 +472,98 @@ def mz_data_gap(records, binary_data, start_offset):
     return None
 
 
+#: The include an overlay pulls the host's labels in through.  The block is the
+#: *host's* frame -- the same for every overlay of it -- so it is emitted once
+#: per tree, as a ``split_sources`` entry, not once per master (plan.md E2).
+HOST_SYMBOLS_INC = 'inc/host_symbols.inc'
+
+
+def host_symbols_inc_lines(master, host_vbase):
+    """The host-frame block shared by every overlay of a host (plan.md D7.5/E2).
+
+    The host source is included into a section that occupies no space, so the
+    host's labels carry the addresses the overlays call and the shared
+    ``__zdseg_end``/``dseg_``/``bss_`` names, with no generated table.
+
+    The overlay's own origin (``VBASE``) is shadowed for the duration of the
+    include exactly like ``IMAGE_BASE``: defined here for the host's frame,
+    consumed by the host, then cleared, so the overlay's own origin takes effect
+    after it.  Nothing outside needs to be saved and restored: ``make
+    elf-rebuild`` no longer passes ``-DVBASE=0``, it rewrites the origin in the
+    prepared source instead (``make/elf.py``, ``_force_origin_zero``).
+
+    ``%include "{master}"`` resolves through the ``-I`` of the generated tree
+    (``lib.link.include_args``), so this file may sit at any depth.
+    """
+    host_stem = master.rsplit('.', 1)[0]
+    return [
+        '; Host symbols for every overlay of this tree (plan.md E2).',
+        ';',
+        '; The host is included in a section that occupies no bytes, so its labels',
+        '; carry the addresses the overlays call and the shared ``__zdseg_end``/',
+        '; ``dseg_``/``bss_`` names.  This is the *host\'s* frame -- the same for',
+        '; every overlay of it -- so it is emitted once here, not in each master.',
+        '; The overlay\'s own ``VBASE``/``IMAGE_BASE`` are shadowed for the',
+        '; duration of the include and cleared after it, so its own follow.',
+        '%define HOST_SYMS_ONLY',
+        f'%define VBASE ({_signed_hex(host_vbase)})',
+        '%define IMAGE_BASE 0',
+        f'%define __zimage_end {host_stem}___zimage_end',
+        f'section .host nobits vstart={_signed_hex(host_vbase)}',
+        f'%include "{master}"',
+        '%undef __zimage_end',
+        '%undef IMAGE_BASE',
+        '%undef HOST_SYMS_ONLY',
+        '%undef VBASE',
+    ]
+
+
+def _host_include_lines():
+    """The overlay-side line that pulls in the shared host block (plan.md E2)."""
+    return [
+        f'%include "{HOST_SYMBOLS_INC}"',
+    ]
+
+
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
                   label_defined=None, ds_size=None, host_symbols=None,
                   host_data_offsets=None):
-    """Render the master NASM source and any generated function includes.
+    """Render the master NASM source and any generated includes.
 
     *host_symbols* is ``(master_file, host_vbase)`` for an overlay with a host:
-    the host source is included at the very end in a section that occupies no
-    space, so the overlay names host routines, geometry (``__zdataseg_end``) and
-    DS names (``dseg_``/``bss_``) by the host's own labels.  The host itself
+    the master pulls the host source in through ``HOST_SYMBOLS_INC`` -- which is
+    emitted here, once, because the block is the host's own frame (plan.md E2) --
+    in a section that occupies no space, so the overlay names host routines,
+    geometry (``__zdseg_end``) and DS names (``dseg_``/``bss_``) by the host's
+    own labels.  The include comes *first*, because the ``vstart`` directive
+    needs the host's anchor already known (plan.md D7.2).  The host itself
     receives *host_data_offsets* (the union of the offsets the overlays
     reference) and declares one recipe-based ``equ`` per offset.
     """
     label_defined = label_defined or ()
     vbase = _virtual_base(binary_data, start_offset)
+    # D7.2: an overlay with a host derives its load origin from the host's
+    # resident-code end instead of freezing ``o_corg`` -- ``VBASE`` (the
+    # assembler's ``vstart``) is ``o_corg - start_offset``.  NASM resolves the
+    # forward reference, which lives in the host source included at the end.
+    corg_symbol = _RESIDENT_END_SYMBOL if host_symbols else None
     if vbase:
         # The image is assembled at the address it runs at (``vstart``), so a
         # label's value is its real CS offset and a host/overlay call needs no
         # coordinate shift.  ``VBASE`` is the virtual address of file offset 0;
         # ``make elf-rebuild`` redefines it as 0 because ELF has no ``vstart``.
-        out = ['bits 16', '%ifndef VBASE', f'VBASE equ {_signed_hex(vbase)}',
-               '%endif']
+        vbase_text = (f'{corg_symbol} - 0x{start_offset:04x}' if corg_symbol
+                      else _signed_hex(vbase))
+        out = ['bits 16']
+        if host_symbols:
+            # The host source comes *first*: it defines the absolute anchor the
+            # overlay's load origin derives from, and ``section ... vstart=``
+            # needs that value already known (plan.md D7.2).  The block itself is
+            # shared by every overlay (plan.md E2), so this is one include line.
+            out.extend(_host_include_lines())
+        out += ['%ifndef VBASE', f'VBASE equ {vbase_text}', '%endif']
         if generic_prefix():
             # The exported host is also included by overlays purely for its
             # symbols (``HOST_SYMS_ONLY``); its own section line must not run.
@@ -474,9 +587,20 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     gap = mz_data_gap(records, binary_data, start_offset)
     if gap is not None:
         data_origin = gap[1]
+    # D7.2: the host's *resident code* ends where the code->data zero gap
+    # begins, and that is exactly the overlay load address (``o_corg``).  Only a
+    # non-empty gap is a boundary (``vinstall`` has a zero-length one); the value
+    # is in the image's own coordinate frame, so a code immediate equal to it is
+    # that anchor (tagged ``; ocorg`` when the symbol is not in scope).
+    has_resident_end = gap is not None and gap[3] > 0
+    resident_end = gap[0] + vbase if has_resident_end else None
+    # The anchor is emitted by the gap branch below, in this same file, so the
+    # symbol is always in scope when the value is known.
+    resident_end_symbol = (None if resident_end is None
+                           else _RESIDENT_END_SYMBOL)
     # D7.0b: the total data-segment size (file-backed data + reserved BSS) is the
     # shared host/overlay geometry value.  When it is known and the MZ anchors
-    # exist, emit it as ``__zdataseg_end`` and rewrite the code immediates that
+    # exist, emit it as ``__zdseg_end`` and rewrite the code immediates that
     # hard-code it (``_render_records``); ``ds_end_symbol`` stays ``None`` when
     # there is no symbol in scope, so those immediates are tagged instead.
     ds_end_symbol = None
@@ -524,7 +648,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.extend(_render_ovr_header(
             binary_data[:14], entry_symbol=entry_symbol,
             dynamic_csize=dynamic_ovr_size, dynamic_dsize=dynamic_ovr_size,
-            ds_end_symbol=(_DSSIZE_SYMBOL if host_symbols else None)))
+            ds_end_symbol=(_DSSIZE_SYMBOL if host_symbols else None),
+            corg_symbol=corg_symbol))
         out.append('')
         out.append('__zcode_start:')
     elif start_offset > 0:
@@ -562,7 +687,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # D1 (plan.md): a data-segment symbol is bound to the byte it names so
         # the operand follows a resized data segment.  ``dseg_<off>`` gets a
         # label at the file-backed byte and becomes the DS offset relative to
-        # ``__zdataseg_start``; ``bss_<off>`` sits past ``bss_boundary``, so it
+        # ``__zdseg_start``; ``bss_<off>`` sits past ``bss_boundary``, so it
         # is the (dynamic) file-backed data size plus its offset into BSS.
         # ``psp_``/``cseg_`` stay literal (the PSP is fixed; code symbols are
         # already labels or load offsets).  Only the MZ image has the anchors.
@@ -588,7 +713,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             if _defined(name):
                 continue
             value, from_host_data = data_names[name]
-            # Overlay-own data (``>= __zdataseg_end``) is not file-backed in the
+            # Overlay-own data (``>= __zdseg_end``) is not file-backed in the
             # host, so it hangs off the shared data-segment end instead of a
             # label; its delta stays frozen (plan.md D7.1 "Known residual").
             # Only a union name (``host_data_offsets``) can be overlay-own -- an
@@ -624,14 +749,14 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                                     anchor = None
                         if anchor is not None:
                             delta = value - anchor_ds
-                            expr = f'{anchor} - __zdataseg_start'
+                            expr = f'{anchor} - __zdseg_start'
                             if delta:
                                 expr += f' + 0x{delta:04x}'
                         else:
                             label = f'__z{name}'
                             if _ensure_global_label(records, binary_data,
                                                     file_off, label):
-                                expr = f'{label} - __zdataseg_start'
+                                expr = f'{label} - __zdseg_start'
             elif data_anchored and name.startswith('bss_'):
                 if own:
                     delta = value - ds_size
@@ -639,7 +764,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                         f'{_DSSIZE_SYMBOL} + 0x{delta:04x}')
                 elif value >= bss_boundary:
                     delta = value - bss_boundary
-                    base = '(__zimage_end - __zdataseg_start)'
+                    base = '(__zimage_end - __zdseg_start)'
                     expr = base if delta == 0 else f'{base} + 0x{delta:04x}'
             if expr is not None:
                 out.append(f'{name} equ {expr}')
@@ -651,10 +776,10 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # D7.0b: total data-segment size = file-backed data + reserved BSS.
         # ``__zbss_size`` is the invariant BSS reservation (it never moves under
         # an edit); the sum follows a resized data segment, because
-        # ``__zimage_end - __zdataseg_start`` is the file-backed data size.
+        # ``__zimage_end - __zdseg_start`` is the file-backed data size.
         out.append(f'__zbss_size equ 0x{ds_size - bss_boundary:04x}')
         out.append(f'{ds_end_symbol} equ '
-                   f'(__zimage_end - __zdataseg_start) + __zbss_size')
+                   f'(__zimage_end - __zdseg_start) + __zbss_size')
     if label_map or immediate_labels or mem_equ or ds_end_symbol is not None:
         out.append('')
 
@@ -662,36 +787,32 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         records, split_ranges, split_dir,
     )
     out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap,
-                               ds_size=ds_size, ds_end_symbol=ds_end_symbol))
+                               ds_size=ds_size, ds_end_symbol=ds_end_symbol,
+                               resident_end=resident_end,
+                               resident_end_symbol=resident_end_symbol))
 
     split_sources = {
         path: '\n'.join(_render_records(fragment, binary_data, show_offsets,
                                         ds_size=ds_size,
-                                        ds_end_symbol=ds_end_symbol)) + '\n'
+                                        ds_end_symbol=ds_end_symbol,
+                                        resident_end=resident_end,
+                                        resident_end_symbol=resident_end_symbol)
+                        ) + '\n'
         for path, fragment in split_records.items()
     }
+    if host_symbols:
+        # E2: the host-frame block belongs to the *host*, so it is written to the
+        # tree once; every overlay master carries ``%include "inc/host_symbols.inc"``
+        # instead of its own copy.  It is a pure function of the host, so the
+        # overlays' (identical) writes agree.
+        split_sources[HOST_SYMBOLS_INC] = (
+            '\n'.join(host_symbols_inc_lines(*host_symbols)) + '\n'
+        )
     if is_mz or (start_offset >= 14 and len(binary_data) >= 14
                  and binary_data[:2] == b'\xf2\x00'):
         # End-of-image anchor for the dynamic header fields (e_cblp/e_cp,
         # o_csize).  Must sit after every emitted byte, including includes.
         out.append('')
         out.append('__zimage_end:')
-    if host_symbols:
-        master, host_vbase = host_symbols
-        host_stem = master.rsplit('.', 1)[0]
-        out.extend([
-            '',
-            '; Host symbols: the host is included in a section that occupies no',
-            '; space, so its labels carry the addresses this overlay calls.',
-            '%define HOST_SYMS_ONLY',
-            f'%define VBASE ({_signed_hex(host_vbase)})',
-            '%define IMAGE_BASE 0',
-            f'%define __zimage_end {host_stem}___zimage_end',
-            f'section .host nobits vstart={_signed_hex(host_vbase)}',
-            f'%include "{master}"',
-            '%undef __zimage_end',
-            '%undef IMAGE_BASE',
-            '%undef VBASE',
-        ])
     out.append('')
     return '\n'.join(out), split_sources

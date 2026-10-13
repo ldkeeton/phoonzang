@@ -946,7 +946,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     # An overlay with a host sees the host's own symbols: the host source is
     # included in a section that occupies no space, so ``call dos_con_in_noecho``
-    # and the geometry/data names (``__zdataseg_end``, ``dseg_``/``bss_``)
+    # and the geometry/data names (``__zdseg_end``, ``dseg_``/``bss_``)
     # resolve to the host's real labels instead of a generated table.  The
     # overlay exports the (name -> offset) set of DS names it references so the
     # host can declare them.

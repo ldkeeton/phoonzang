@@ -9,6 +9,7 @@ from .common import _apps, _asm_one
 from .elf import cmd_elf_rebuild
 from .init import cmd_init
 from .prebuild import cmd_prebuild
+from .readme import cmd_readme
 from .run import _parse_check_args, cmd_check, cmd_run
 from .stats_diff import cmd_stats_diff
 from .testing import cmd_test
@@ -32,6 +33,7 @@ Commands (space-separated):
   make set-baseline         pin current stats as the local baseline
   make stats-diff           current-vs-baseline KPI delta (+ delta.json)
   make charts               regenerate all PNGs + CSVs from existing stats
+  make readme               regenerate README.md + readme/heatmap.svg
   make test [TEST...]       run the unit test suite in lib/tests (optionally
                             only the named dotted tests)
 
@@ -136,6 +138,10 @@ def main():
 
     if '--stats-diff' in flags:
         cmd_stats_diff()
+        return
+
+    if '--readme' in flags:
+        cmd_readme()
         return
 
     if '--test' in flags:

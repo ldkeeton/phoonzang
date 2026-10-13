@@ -3,7 +3,10 @@
 import unittest
 
 from lib import names
-from lib.compare.render import _build_source
+from lib.compare.render import (
+    HOST_SYMBOLS_INC, _build_source, host_symbols_inc_lines,
+)
+from lib.compare.records import count_frozen_addrs
 
 
 class GenericNameTests(unittest.TestCase):
@@ -59,18 +62,36 @@ class HostSymbolsBlockTests(unittest.TestCase):
 
     def test_overlay_includes_the_host_without_a_table(self):
         records = [{'type': 'mnem', 'text': 'nop', 'offset': 14, 'size': 1}]
-        src, _ = _build_source(records, 14, self._overlay(), label_map={},
-                               host_symbols=('ds.asm', -0x200))
+        src, includes = _build_source(records, 14, self._overlay(), label_map={},
+                                      host_symbols=('ds.asm', -0x200))
         self.assertNotIn('host_calls.inc', src)
         self.assertNotIn('host_values.inc', src)
         self.assertNotIn('host_data.inc', src)
         self.assertIn('section .text vstart=VBASE', src)
-        self.assertIn('VBASE equ 0x5047', src)
-        self.assertIn('%define HOST_SYMS_ONLY', src)
-        self.assertIn('section .host nobits vstart=-0x0200', src)
-        self.assertLess(src.index('__zimage_end:'),
-                        src.index('%include "ds.asm"'))
-        self.assertIn('%undef VBASE', src)
+        # D7.2: the overlay's load origin is the host's own anchor, not a
+        # literal; the host source must therefore come first, because nasm
+        # needs the value at the ``section`` directive.
+        self.assertIn('VBASE equ __zres_end - 0x000e', src)
+        self.assertLess(src.index(f'%include "{HOST_SYMBOLS_INC}"'),
+                        src.index('section .text vstart=VBASE'))
+        # E2: the host's frame is the same for every overlay of it, so the
+        # master carries one include line and the block is emitted once per tree.
+        self.assertNotIn('%define HOST_SYMS_ONLY', src)
+        block = includes[HOST_SYMBOLS_INC]
+        self.assertIn('%define HOST_SYMS_ONLY', block)
+        self.assertIn('section .host nobits vstart=-0x0200', block)
+        self.assertIn('%include "ds.asm"', block)
+        self.assertIn('%undef VBASE', block)
+        self.assertIn('%undef HOST_SYMS_ONLY', block)
+
+    def test_host_block_carries_no_frozen_address(self):
+        """The shared include sits outside the census, which scans ``*.asm``.
+
+        Every value the block needs is symbolic or derived, so the guard is
+        explicit rather than an accident of the file glob (plan.md E2).
+        """
+        block = '\n'.join(host_symbols_inc_lines('ds.asm', -0x200))
+        self.assertEqual(count_frozen_addrs(block)['total'], 0)
 
     def test_host_guards_its_own_section_line(self):
         names.set_generic_prefix('ds_')

@@ -26,7 +26,7 @@ GOOD_UP = {
 }
 GOOD_DOWN = {
     'unknown_bytes', 'code_loss', 'bare_mem', 'bare_call', 'frozen_addr',
-    'code_shift', 'data_shift', 'o_corg', 'o_dorg', 'ds_size_imm',
+    'code_shift', 'data_shift', 'o_corg', 'o_corg_imm', 'o_dorg', 'ds_size_imm',
 }
 
 
@@ -212,6 +212,7 @@ def summarize(ctx):
         'data_shift': _int(frozen.get('data_shift')),
         'inert': _int(frozen.get('inert')),
         'o_corg': _int(frozen.get('o_corg')),
+        'o_corg_imm': _int(frozen.get('o_corg_imm')),
         'o_dorg': _int(frozen.get('o_dorg')),
         'ds_size_imm': _int(frozen.get('ds_size_imm')),
         'region_deprioritised_bytes': _int(

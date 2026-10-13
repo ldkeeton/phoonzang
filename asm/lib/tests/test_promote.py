@@ -161,7 +161,7 @@ class SyntheticPromotionTests(unittest.TestCase):
         src, promotion = self._source(binary)
         self.assertEqual([w['offset'] for w in promotion['promoted']], [0x210])
         self.assertIn('dw dseg_0008', src)
-        self.assertIn('dseg_0008 equ __zdseg_0008 - __zdataseg_start', src)
+        self.assertIn('dseg_0008 equ __zdseg_0008 - __zdseg_start', src)
         self.assertEqual(promotion['skipped'], [])
 
     def test_original_layout_reassembles_byte_for_byte(self):
@@ -187,8 +187,8 @@ class SyntheticPromotionTests(unittest.TestCase):
     def test_word_follows_an_inserted_data_byte_before_it(self):
         binary = _synthetic()
         src, _ = self._source(binary)
-        grown = src.replace('__zdataseg_start:',
-                            '__zdataseg_start:\n    db 0xee', 1)
+        grown = src.replace('__zdseg_start:',
+                            '__zdseg_start:\n    db 0xee', 1)
         built = _nasm(grown)
         # Both the word and its target shifted by one, so the pointer still
         # names the same byte content (DS:9 = file 0x219).
@@ -208,13 +208,13 @@ class SyntheticPromotionTests(unittest.TestCase):
         binary = _synthetic(data)
         src, _ = self._source(binary)
         self.assertIn(
-            'bss_0030 equ (__zimage_end - __zdataseg_start) + 0x0020', src)
+            'bss_0030 equ (__zimage_end - __zdseg_start) + 0x0020', src)
         self.assertIn('dw bss_0030', src)
         self.assertEqual(_nasm(src), binary)
 
     def test_no_data_anchor_leaves_the_word_raw(self):
         # A non-zero byte before the data origin means there is no dynamic pad,
-        # so there is no ``__zdataseg_start`` to bind to and the promotion
+        # so there is no ``__zdseg_start`` to bind to and the promotion
         # declines rather than freezing the value.
         binary = bytearray(_synthetic())
         binary[0x205] = 0x7f

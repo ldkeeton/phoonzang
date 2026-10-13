@@ -15,9 +15,10 @@ import subprocess
 import tempfile
 import unittest
 
-from lib.compare.render import _build_source
+from lib.compare.render import HOST_SYMBOLS_INC, _build_source
 from lib.compare.records import count_frozen_addrs
 from lib.sidecar import load as load_sidecar, per_binary
+from make.elf import _force_origin_zero
 
 
 _ASM_DIR = pathlib.Path(__file__).resolve().parents[2]
@@ -84,7 +85,7 @@ def _mz_header(e_ss):
 # Snapshot taken from the committed tree after the F1/F2/F3/F5 work
 # (2026-10-11), the D0 census split and D1's data-label binding (2026-10-12),
 # the D7.0a shared-geometry counters (2026-10-12), D7.0b's binding of the
-# DS-size immediates to ``__zdataseg_end`` (2026-10-12), D7.0c's pre-NASM
+# DS-size immediates to ``__zdseg_end`` (2026-10-12), D7.0c's pre-NASM
 # link step binding the 13 overlay ``o_dorg`` origins to the same host symbol
 # (2026-10-12), and D7.1's host-owned shared DS name map (2026-10-13: the 13
 # overlay masters' ~1230 ``dseg_``/``bss_`` literals are replaced by one
@@ -95,12 +96,17 @@ def _mz_header(e_ss):
 # countable); D7.0b/D7.0c then bound the DS-size immediates and the ``o_dorg``
 # origins, and D7.1 drops ``data_shift`` from 1231 to its single residual -- a
 # raw-driver (``ega``) DS reference whose segment is only known at run time
-# (Appendix C).  Every count may only go down from here.
+# (Appendix C).  D7.2a *raised* the baseline by 27 (like D7.0a): the ``o_corg``
+# bucket now counts all three spellings of the overlay load address (the header
+# field, the ``VBASE`` and the ``o_entry`` addend -- 39, not 13) and a host code
+# immediate equal to it (``o_corg_imm``); D7.2b then bound all 40 to the host's
+# resident-code end (``__zresident_end``), 192 -> 152.  Every count may only go
+# down from here.
 BASELINE_TOTALS = {
-    'code_shift': 165, 'data_shift': 1, 'inert': 248,
+    'code_shift': 152, 'data_shift': 1, 'inert': 248,
     'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
-    'o_corg': 13, 'o_dorg': 0, 'ds_size_imm': 0,
-    'total': 166,
+    'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
+    'total': 153,
 }
 
 
@@ -158,11 +164,39 @@ class CountFrozenAddrsTests(unittest.TestCase):
         self.assertEqual(pointer['data_shift'], 1)
         self.assertEqual(pointer['total'], 1)
 
+    def test_ocorg_family_is_counted_in_every_spelling(self):
+        """D7.2: the overlay load origin is one value written three ways.
+
+        The header field, the ``VBASE`` macro and the addend inside ``o_entry``
+        are the same host quantity, and the host's own loader immediate is a
+        fourth.  All four are counted so the binding can be shown to remove them.
+        """
+        text = '\n'.join([
+            '    dw 0x5055 ; o_corg: code load origin (memory offset)',
+            'VBASE equ 0x5047',
+            '    dw string_loc_9330 - IMAGE_BASE + 0x5055 ; 0xe377 ; o_entry:'
+            ' overlay entry offset (CS)',
+            '    cmp word [bp - 0x0010], strict word 0x5055 ; ocorg ; 0x440c',
+            '    dw __zresident_end ; 0x5055 ; o_corg: code load origin',
+            'VBASE equ __zresident_end - 0x000e',
+            '    dw string_loc_9330 - IMAGE_BASE + __zresident_end ; 0xe377'
+            ' ; o_entry: overlay entry offset (CS)',
+            '    cmp word [bp - 0x0010], strict word __zresident_end ; 0x440c',
+        ])
+        counts = count_frozen_addrs(text)
+        self.assertEqual(counts['o_corg'], 3)
+        self.assertEqual(counts['o_corg_imm'], 1)
+        self.assertEqual(counts['code_shift'], 4)
+        self.assertEqual(counts['total'], 4)
+        # The bound spellings are assembler expressions, so they fall out.
+        bound = '\n'.join(text.splitlines()[4:])
+        self.assertEqual(count_frozen_addrs(bound)['total'], 0)
+
     def test_dynamic_expressions_are_not_counted(self):
         text = '\n'.join([
             '    dw (__zimage_end - $$) % 512 ; 0x0056 ; e_cblp: bytes',
-            '    dw __zdataseg_para ; 0x0ff6 ; e_ss: stack',
-            '    times (__zdataseg_start - ($ - $$)) db 0 ; 0xaf0d',
+            '    dw __zdseg_para ; 0x0ff6 ; e_ss: stack',
+            '    times (__zdseg_start - ($ - $$)) db 0 ; 0xaf0d',
             '    dw string_loc_490f - IMAGE_BASE ; 0x490f ; 0x4822',
             'cseg_490f:',
         ])
@@ -224,8 +258,8 @@ class DynamicDataAnchorTests(unittest.TestCase):
         binary, records = self._original()
         src, _ = _build_source(records, 0x200, binary, label_map={})
         self.assertIn('%if ($ - $$) > 0x210', src)
-        self.assertIn('__zdataseg_start:', src)
-        self.assertIn('dw __zdataseg_para', src)
+        self.assertIn('__zdseg_start:', src)
+        self.assertIn('dw __zdseg_para', src)
         self.assertIn('__zimage_end:', src)
         self.assertIn('dw (__zimage_end - $$) % 512', src)
         # Original values are preserved as comments.
@@ -292,9 +326,9 @@ class DataSegmentLabelBindingTests(unittest.TestCase):
     def test_data_symbols_become_expressions(self):
         src = self._source(self._image(),
                            {'dseg_0004': 0x04, 'bss_0012': 0x12})
-        self.assertIn('dseg_0004 equ __zdseg_0004 - __zdataseg_start', src)
+        self.assertIn('dseg_0004 equ __zdseg_0004 - __zdseg_start', src)
         self.assertIn(
-            'bss_0012 equ (__zimage_end - __zdataseg_start) + 0x0002', src)
+            'bss_0012 equ (__zimage_end - __zdseg_start) + 0x0002', src)
         self.assertEqual(count_frozen_addrs(src)['data_shift'], 0)
 
     def test_original_layout_reassembles_byte_for_byte(self):
@@ -305,8 +339,8 @@ class DataSegmentLabelBindingTests(unittest.TestCase):
     def test_operand_follows_an_inserted_data_byte(self):
         binary = self._image()
         src = self._source(binary, {'dseg_0004': 0x04, 'bss_0012': 0x12})
-        grown = src.replace('__zdataseg_start:',
-                            '__zdataseg_start:\n    db 0xee', 1)
+        grown = src.replace('__zdseg_start:',
+                            '__zdseg_start:\n    db 0xee', 1)
         built = _nasm(grown)
         # A file-backed byte: the target that was at DS:4 is now at DS:5, so
         # the operand follows it.
@@ -318,7 +352,7 @@ class DataSegmentLabelBindingTests(unittest.TestCase):
 
 
 class DsSizeSymbolTests(unittest.TestCase):
-    """D7.0b: a code immediate equal to the DS size is bound to ``__zdataseg_end``.
+    """D7.0b: a code immediate equal to the DS size is bound to ``__zdseg_end``.
 
     The synthetic MZ has one instruction ``mov cx, 0x0018`` where ``0x18`` is
     the total data-segment size (0x10 file-backed bytes + 0x08 reserved BSS).
@@ -353,17 +387,17 @@ class DsSizeSymbolTests(unittest.TestCase):
         src = self._source(self._image())
         self.assertIn('__zbss_size equ 0x0008', src)
         self.assertIn(
-            '__zdataseg_end equ (__zimage_end - __zdataseg_start) '
+            '__zdseg_end equ (__zimage_end - __zdseg_start) '
             '+ __zbss_size', src)
-        self.assertIn('mov cx, __zdataseg_end', src)
+        self.assertIn('mov cx, __zdseg_end', src)
         self.assertNotIn('mov cx, 0x0018', src)
         self.assertEqual(count_frozen_addrs(src)['ds_size_imm'], 0)
         self.assertEqual(_nasm(src), self._image())
 
     def test_immediate_follows_an_inserted_data_byte(self):
         src = self._source(self._image())
-        grown = src.replace('__zdataseg_start:',
-                            '__zdataseg_start:\n    db 0xee', 1)
+        grown = src.replace('__zdseg_start:',
+                            '__zdseg_start:\n    db 0xee', 1)
         built = _nasm(grown)
         self.assertEqual(built[0x200:0x203], b'\xb9\x19\x00')
 
@@ -405,8 +439,8 @@ class HostIncludeTests(unittest.TestCase):
             self.assertEqual(original[:2], b'\xf2\x00')
 
             # Grow the host's file-backed data by one byte.
-            self._edit_host(d, '__zdataseg_start:\n',
-                            '__zdataseg_start:\n    db 0xee\n')
+            self._edit_host(d, '__zdseg_start:\n',
+                            '__zdseg_start:\n    db 0xee\n')
             self.assertEqual(self._build_overlay(d)[6:8], b'\x99\x90')
 
     @unittest.skipUnless(
@@ -428,34 +462,67 @@ class HostIncludeTests(unittest.TestCase):
             count = original.count(b'\xc4\x1e\x02\x00')
             self.assertGreater(count, 0)
 
-            self._edit_host(d, '__zdataseg_start:\n',
-                            '__zdataseg_start:\n    db 0xee\n')
+            self._edit_host(d, '__zdseg_start:\n',
+                            '__zdseg_start:\n    db 0xee\n')
             grown = self._build_overlay(d)
             self.assertEqual(len(grown), len(original))
             self.assertEqual(grown.count(b'\xc4\x1e\x03\x00'), count)
             self.assertEqual(grown.count(b'\xc4\x1e\x02\x00'), 0)
 
     @unittest.skipUnless(
+        _TREE.is_dir() and (_TREE / 'vbase.asm').exists(),
+        'generated asm_DSAVANT tree not present',
+    )
+    def test_overlay_origin_is_what_the_elf_prep_zeroes(self):
+        """The emitted origin is the form ``make elf-rebuild`` rewrites.
+
+        The ELF build has no ``vstart``, so the origin must be 0 there; the prep
+        zeroes the image's own ``VBASE equ`` line in the prepared source rather
+        than passing ``-DVBASE=0``, because an overlay's host include defines
+        ``VBASE`` for its own frame and clears it, so a command-line definition
+        never reaches the overlay's own line.
+        """
+        lines = (_TREE / 'vbase.asm').read_text().splitlines()
+        rewritten = _force_origin_zero(lines)
+        self.assertEqual(len(rewritten), len(lines))
+        self.assertIn('VBASE equ 0', rewritten)
+        self.assertNotIn('VBASE equ __zresident_end - 0x000e', rewritten)
+        # The host's own frame definition is no longer in the master at all (E2
+        # moved it to the shared include, which the ELF prep leaves alone), so
+        # the overlay's own origin is the only ``VBASE`` left to rewrite.
+        self.assertNotIn('%define VBASE', rewritten)
+        self.assertIn(f'%include "{HOST_SYMBOLS_INC}"', rewritten)
+
+    @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists()
         and (_TREE / 'vbase.asm').exists(),
         'generated asm_DSAVANT tree not present',
     )
-    def test_overlay_call_follows_a_host_code_edit(self):
-        """The near-call displacement to a host routine tracks that routine.
+    def test_overlay_corg_follows_a_host_code_edit(self):
+        """D7.2: the overlay load origin tracks the host's resident code end.
 
-        ``vbase`` begins ``call aztec_csav`` (``e8 50 f3``).  Inserting a byte
-        in the host *before* ``aztec_csav`` moves the routine, so the overlay's
-        displacement shrinks by one -- with no table regenerated.
+        ``o_corg`` (the 2nd header field, file offset 2) *is* the host CS offset
+        at which the host's resident code ends -- where the overlay loader loads
+        the overlay.  Inserting one byte in the host before ``aztec_csav`` moves
+        it by one, and the overlay's whole frame moves with it: the near-call
+        displacement to the host routine (and every other byte) is unchanged,
+        so only the load origin moves.
         """
         with tempfile.TemporaryDirectory() as d:
             _copy_source_tree(d)
             original = self._build_overlay(d)
-            self.assertEqual(original[0xb8:0xbb], b'\xe8\x50\xf3')
+            self.assertEqual(original[2:4], b'\x55\x50')            # o_corg 0x5055
+            self.assertEqual(original[0xb8:0xbb], b'\xe8\x50\xf3')  # call aztec_csav
 
             self._edit_host(d, '%include "ds/aztec_csav.asm"',
                             '    db 0xee\n%include "ds/aztec_csav.asm"')
-            self.assertEqual(self._build_overlay(d)[0xb8:0xbb],
-                             b'\xe8\x51\xf3')
+            grown = self._build_overlay(d)
+            self.assertEqual(len(grown), len(original))
+            self.assertEqual(grown[2:4], b'\x56\x50')               # o_corg 0x5056
+            self.assertEqual(grown[0xb8:0xbb], b'\xe8\x50\xf3')
+            # ``o_entry`` (the entry's host CS offset) is drawn from the frame,
+            # so it follows the host code edit too.
+            self.assertEqual(grown[0xc:0xe], b'\x78\xe3')
 
 
 class HostCallNamesTests(unittest.TestCase):
@@ -591,7 +658,7 @@ class DataStringAnchorTests(unittest.TestCase):
     def test_reference_anchors_to_string_start(self):
         binary = self._image()
         src = self._source(binary)
-        self.assertIn('dseg_0002 equ __zstr_0000 - __zdataseg_start + 0x0002',
+        self.assertIn('dseg_0002 equ __zstr_0000 - __zdseg_start + 0x0002',
                       src)
         self.assertIn('__zstr_0000:', src)
         self.assertNotIn('__zdseg_0002:', src)
@@ -602,8 +669,8 @@ class DataStringAnchorTests(unittest.TestCase):
         src = self._source(self._image())
         # Insert a byte before the string: the start label moves, so the
         # anchored reference (string start + 2) moves with it.
-        grown = src.replace('__zdataseg_start:',
-                            '__zdataseg_start:\n    db 0xee', 1)
+        grown = src.replace('__zdseg_start:',
+                            '__zdseg_start:\n    db 0xee', 1)
         built = _nasm(grown)
         self.assertEqual(built[0x200:0x203], b'\xa1\x03\x00')
 
@@ -676,8 +743,8 @@ class InsertBytePropertyTests(unittest.TestCase):
 
             with open(master) as f:
                 src = f.read()
-            grown_src = src.replace('__zdataseg_start:\n',
-                                    '__zdataseg_start:\n    db 0xee\n', 1)
+            grown_src = src.replace('__zdseg_start:\n',
+                                    '__zdseg_start:\n    db 0xee\n', 1)
             self.assertNotEqual(grown_src, src)
             with open(master, 'w') as f:
                 f.write(grown_src)
@@ -742,8 +809,8 @@ class InsertBytePropertyTests(unittest.TestCase):
 
             with open(master) as f:
                 src = f.read()
-            shrunk_src = src.replace('__zdataseg_start:\n    db 0x00, 0x00\n',
-                                     '__zdataseg_start:\n', 1)
+            shrunk_src = src.replace('__zdseg_start:\n    db 0x00, 0x00\n',
+                                     '__zdseg_start:\n', 1)
             self.assertNotEqual(shrunk_src, src)
             with open(master, 'w') as f:
                 f.write(shrunk_src)

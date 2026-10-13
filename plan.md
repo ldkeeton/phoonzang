@@ -2,8 +2,9 @@
 
 **This is the single plan.** It merges the former `plan-data.md` (F7 data-pointer
 detection) into the original dynamic-address plan. It is written so a *fresh
-context* can pick up at **D7.2** (Pass 1 + D0–D5 + D7.0a–e + D7.1 done; §17 has
-each step's measurements and outcome) without re-deriving anything.
+context* can pick up at **D7.2c** (Pass 1 + D0–D5 + D7.0a–e + D7.1 + D7.5 +
+D7.2a/b + E + E2 done; §17 has each step's measurements and outcome) without
+re-deriving anything.
 
 Plain-language goal: a user may add or remove bytes anywhere in the generated
 assembler and it must **still assemble into a working EXE**. The only tolerated
@@ -30,11 +31,15 @@ lives in `asm/lib`, not in the generated assembly.
 | D4 — static scorer | **none** (pure analysis) | 0 |
 | D5 — promotion | 25 data words in the same two files | 0 (invisible to the census) |
 | D7.0a — shared-geometry counters | **7 `; dssize` tags** in 3 files | **+33** (one-time re-baseline †) |
-| D7.0b — bind the DS-size immediates | 7 immediates → `__zdataseg_end`; 2 `equ` lines per MZ image | **−7** |
-| D7.0c — pre-NASM link step | 13 `o_dorg` → `__zdataseg_end`; 13 overlays `%include` the `.cache` values file; `inc/labels` + `inc/spans` → `.cache` | **−13** |
+| D7.0b — bind the DS-size immediates | 7 immediates → `__zdseg_end`; 2 `equ` lines per MZ image | **−7** |
+| D7.0c — pre-NASM link step | 13 `o_dorg` → `__zdseg_end`; 13 overlays `%include` the `.cache` values file; `inc/labels` + `inc/spans` → `.cache` | **−13** |
 | D7.0e — one shared host-call table | 13 per-overlay `*_foreign_labels.inc` → one `.cache` `host_calls.inc` (322 entries); dead `ds_labels.inc` deleted; 121 bogus `dispatch_` entries dropped | **0** |
 | D7.1 — host-owned shared DS name map | 13 overlays: ~1230 `dseg_`/`bss_` `equ`s → one `%include "labels/host_data.inc"`; `ds.asm` declares one recipe per offset (689 names); the link step re-probes all three tables; the code-handle table moves onto the link step too | **−1230** (`data_shift` 1231 → 1) |
 | D7.5 — `vstart` + host include (supersedes the D7.0c/D7.0e/D7.1 tables) | generated source assembles at its runtime address (`section .text vstart=VBASE`); overlays include the host source in a `nobits` section for its symbols; `host_calls.inc`, `host_values.inc`, `host_data.inc` and the link step deleted; the host's address-derived labels carry a `ds_` prefix | **0** (bytes identical) |
+| D7.2a — count the `o_corg` family | **none** (emit-time tags only) | **+27** (one-time re-baseline ‡) |
+| D7.2b — bind the overlay load origin | 13 overlays: the `o_corg` field, `VBASE` and the `o_entry` addend → the host's `__zresident_end`; the host's own loader check bound to it | **−40** |
+| E — the ELF build owns the origin | `-DVBASE=0` dropped; the ELF prep rewrites the image's own `VBASE equ` line to 0, so the 9-line `VBASE` save/restore in each overlay master goes away | **0** (bytes identical) |
+| E2 — the host block is emitted once | the 13 identical host-frame blocks move to a generated `inc/host_symbols.inc`; each overlay master keeps only its own `VBASE`/`vstart`/`IMAGE_BASE` around a one-line include | **0** (bytes identical) |
 
 † D7.0a did not *create* 33 new problems — it made 33 already-frozen values
 **visible**. A host EXE and its overlays share one data segment: every overlay's
@@ -42,6 +47,12 @@ lives in `asm/lib`, not in the generated assembly.
 loader hard-code that same size as a plain immediate. The census counted none of
 them (`_FROZEN_OVR_FIELD_RE` matched only `o_csize`/`o_dsize`/`o_bss`/`o_entry`),
 so the previous 1383 was an under-count, not a target. See §0.2 and Section 17.
+
+‡ D7.2a did not *create* 27 new problems either — the overlay load origin `o_corg`
+was written **three** ways per overlay (the header field, the `VBASE` `vstart`
+macro, and the addend inside `o_entry`) plus **once** in the host's own loader
+(`cmp …, strict word 0x5055`). Only the first was counted, so the class read as
+13 when it was 40. Like †, this is a correction, not a regression.
 
 D1 is the step that moved the metric before D7; **D7.0b is the first D7 step to
 lower it**. D5's 25 words are real correctness work — they are `db` bytes that
@@ -55,55 +66,57 @@ so the count does not move (Section 18). The detail of each step is in Section
 
 | class | value | meaning |
 |-------|------:|---------|
-| `code_shift` | 165 | breaks when code resizes — **must reach 0** (15 of them are reclassified `inert`, D7.3) |
+| `code_shift` | 152 | breaks when code resizes — **must reach 0** (15 of them are reclassified `inert`, D7.3) |
 | `data_shift` | 1 | breaks when data resizes — **must reach 0** (one raw-driver residual; see §17 D7.1) |
 | `inert` | 248 | can never change — **excluded** |
-| `total` (gated) | 166 | `code_shift + data_shift` |
+| `total` (gated) | 153 | `code_shift + data_shift` |
 
 Per-taxonomy breakdown: `f1=2 f2=13 f3=134 f4=1 f5=3 f6=241 f7=0`, plus the
-shared-geometry buckets: `o_corg=13 o_dorg=0 ds_size_imm=0` (D7.0b bound the 7
-DS-size immediates and D7.0c bound the 13 `o_dorg`, so both buckets are empty).
-D7.1 bound the overlay `dseg_`/`bss_` family (`f4` 1231 → 1; §17 D7.1).
+shared-geometry buckets: `o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0` (D7.0b
+bound the 7 DS-size immediates, D7.0c bound the 13 `o_dorg`, and **D7.2 bound the
+whole 40-item `o_corg` family** — the overlay load origin — §17 D7.2). D7.1 bound
+the overlay `dseg_`/`bss_` family (`f4` 1231 → 1).
 
-Where the 166 live, per emitted file:
+Where the 153 live, per emitted file:
 
 | binary | gated | of which F4 (`dseg_`/`bss_` `equ`) |
 |--------|------:|-----------------------------------:|
 | `ds.asm` | 2 | 0 |
 | `vinstall.asm` | 3 | 0 |
-| `vbase` | 10 | 0 |
-| `vpcvw` | 17 | 0 |
-| `vtrea` | 8 | 0 |
-| `vdopt` | 3 | 0 |
-| `vmaze` | 6 | 0 |
-| `vmexe` | 6 | 0 |
-| `vmext` | 3 | 0 |
-| `vinit` | 2 | 0 |
-| `vmele` | 2 | 0 |
-| `vmnpc` | 4 | 0 |
-| `vpcmk` / `vpclv` / `vpops` | 7 / 3 / 2 | 0 / 0 / 0 |
+| `vbase` | 9 | 0 |
+| `vpcvw` | 16 | 0 |
+| `vtrea` | 7 | 0 |
+| `vdopt` | 2 | 0 |
+| `vmaze` | 5 | 0 |
+| `vmexe` | 5 | 0 |
+| `vmext` | 2 | 0 |
+| `vinit` | 1 | 0 |
+| `vmele` | 1 | 0 |
+| `vmnpc` | 3 | 0 |
+| `vpcmk` / `vpclv` / `vpops` | 6 / 2 / 1 | 0 / 0 / 0 |
 | `vga` / `play` / `ega` (+ subfiles) | 35 / 34 / 19 | 0 / 0 / **1** |
 
 **`data_shift` is now 1** — a single raw-driver (``ega``) DS reference whose
 segment is established at run time (Appendix C); every other one of the former
 1231 is host-resolved (§17 D7.1). `code_shift` decomposes as overlay F3 `equ`
-(134) + overlay `o_bss` (13) + MZ `e_sp` (2) + overlay zero pads (3) + overlay
-`o_corg` (13) = 165; the host DS-size immediates are bound (D7.0b), and the 15
-`o_bss`/`e_sp` values are declared waivers (Appendix C) that are nevertheless
-*counted* today — D7.3 reconciles that. Two of the `vinstall` "data" words
-(`0x2e`/`0x30`) are still inert PSP slots mis-bound as `dseg_` (Section 5d);
-that is a naming bug that does not move the census.
+(134) + overlay `o_bss` (13) + MZ `e_sp` (2) + overlay zero pads (3) = 152; the
+host DS-size immediates and the whole `o_corg` family are bound (D7.0b/D7.2),
+and the 15 `o_bss`/`e_sp` values are declared waivers (Appendix C) that are
+nevertheless *counted* today — D7.3 reconciles that. Two of the `vinstall`
+"data" words (`0x2e`/`0x30`) are still inert PSP slots mis-bound as `dseg_`
+(Section 5d); that is a naming bug that does not move the census.
 
 *(The per-step "Outcome" figures below D1/D5, e.g. `total 1383`, predate D7.0a
 and describe the state at that step, not today's.)*
 
 *(**D7.0c done:** the 13 `o_dorg` origins are **link-resolved**.  The pre-NASM
-link step probes the freshly assembled host and writes `__zdataseg_end` to
+link step probes the freshly assembled host and writes `__zdseg_end` to
 `.cache/<project>/labels/host_values.inc`, which every overlay now `%include` by
 name.  **D7.0e done:** the 13 per-overlay foreign-label files collapsed into the
 single `.cache/<project>/labels/host_calls.inc`.  **D7.1 done:** the host-owned
 shared DS name map (`host_data.inc`) and the code-handle table both move onto the
-link step — seen §17.)*
+link step — seen §17.  **D7.2b done:** the overlay load origin is the host's own
+`__zresident_end`.)*
 
 *(**D7.5 supersedes the three `.cache` tables above:** overlays now see the host's
 labels by including `ds.asm` in a section that emits no bytes, so nothing is
@@ -115,7 +128,7 @@ probed or generated; see §17 D7.5.)*
   `vinstall/leaf_loc_10a4.asm` does `mov ax, 0x1806` then `call loc_040f`. This
   is the same "moves under an edit" class as F7, and the census cannot see it
   at all. **D7.0a gave the host DS-size slice of this class a counter**
-  (`ds_size_imm`), and **D7.0b bound those 7 immediates to `__zdataseg_end`**;
+  (`ds_size_imm`), and **D7.0b bound those 7 immediates to `__zdseg_end`**;
   the general DS-address immediate still has neither a counter nor a binding.
 - **Odd-aligned pointer tables.** The scorer collects even offsets only.
 
@@ -128,11 +141,12 @@ probed or generated; see §17 D7.5.)*
   only help F7, and F7's backlog is empty (100% precision, no real miss). It
   stays documented (Section 12) as the escape hatch if a future class needs it.
 - **D7 — overlays and raw drivers: NEXT.** The only step that moves the gate.
-  **D7.0c (the pre-NASM link step), D7.0e (one shared host-call table) and
-  D7.1 (the host-owned shared DS name map) are DONE**; **D7.2 (overlay F3 +
-  `o_corg`, still blocked on `o_corg`'s base) is the next gate-moving step**.
-  Then D7.3/D7.4.  D7.0d (ELF/DWARF for overlays) is tooling-only and can slot
-  in anywhere.
+  **D7.0c (the pre-NASM link step), D7.0e (one shared host-call table), D7.1 (the
+  host-owned shared DS name map), D7.2b (the overlay load origin, `o_corg`,
+  bound to the host's resident-code end), E (the ELF build owns the origin) and
+  E2 (the host block is emitted once) are DONE**; what remains of D7.2 is
+  **D7.2c (the overlay F3 `equ`s → in-place labels, 134)**. Then D7.3/D7.4.  D7.0d (ELF/DWARF for overlays) is
+  tooling-only, is unblocked by E, and can slot in anywhere.
 
 **Gate, after every step:** `make verify DSAVANT` = **18/18**, unit suite green.
 
@@ -262,7 +276,7 @@ validates it with an edit-property test (Section 15), not with `make verify`.
 | F4 | `dseg_<o>`, `bss_<o>` `equ` (MZ images) | `_build_source` | **dynamic ✅** (D1; `f4=0`) |
 | F4 | `dseg_<o>`, `bss_<o>` `equ` (overlays) | `_build_source` | **dynamic ✅ (D7.1):** the 1231 lines / 647 names collapse into one `%include "labels/host_data.inc"`; the host declares one recipe per offset and the link step probes it (`f4` 1231 → 1). The lone residual is a raw-driver `dseg_` (Appendix C) |
 | F4 | `psp_<o>` `equ` | `_build_source` | **inert ✅** (D0) |
-| F4 | host DS-size immediate (`0x9098` in `ds`, `0x2afe` in `vinstall`) | `_build_source` | **dynamic ✅ (D7.0b):** rewritten to `__zdataseg_end` (`ds_size_imm` 7 → 0); the `; dssize` tag remains the regression guard |
+| F4 | host DS-size immediate (`0x9098` in `ds`, `0x2afe` in `vinstall`) | `_build_source` | **dynamic ✅ (D7.0b):** rewritten to `__zdseg_end` (`ds_size_imm` 7 → 0); the `; dssize` tag remains the regression guard |
 | F5 | `times <N> db 0` gap to `data_origin` | `_render_data_block` | **dynamic ✅** (MZ images); 3 overlay pads remain (D7.3) |
 | F5 | trailing pads | `_render_data_block` | literal (unless an anchor exists) |
 | F6 | numeric `dw 0x<value>` inside a `literal` table | `_inject_jump_tables` | **inert ✅** (D0; tagged) |
@@ -276,7 +290,7 @@ the resulting file to be loadable. F6 is inert; F8 is in scope. F4 is done for
 the MZ images (D1) **and for the overlays (D7.1 — the host-owned shared DS name
 map, `f4` 1231 → 1)**; F3 for the overlays is **D7.2**. F7 is done for the MZ
 images; its only open extension is the code-immediate class — D7.0b bound the
-host DS-size slice of it (`__zdataseg_end`), while the general F4-immediate class
+host DS-size slice of it (`__zdseg_end`), while the general F4-immediate class
 still has no counter and therefore no scheduled work (§0.3).
 
 ---
@@ -299,7 +313,7 @@ not counted against the goal.
 step from the *edited host* is not a hand-typed constant, so the gate does not
 count it — it is **reported separately** (informational only).  The values live
 in `.cache/<project>/labels/host_values.inc`; the sources carry only *names*
-(e.g. the 13 overlay headers emit `dw __zdataseg_end`, whose value
+(e.g. the 13 overlay headers emit `dw __zdseg_end`, whose value
 `.cache/<project>/labels/host_values.inc` supplies).  This is how the 13
 `o_dorg` origins left the gate honestly.  **D7.1 (done)** extends the same route
 to the whole overlay data family: the host exports the shared DS name map
@@ -350,16 +364,16 @@ bytes they name instead of freezing the offset. `_build_source` (`render.py`)
 splits the target `data_block` with `_ensure_global_label` and emits:
 
 ```nasm
-dseg_0c6c equ __zdseg_0c6c - __zdataseg_start
-bss_0cf6 equ (__zimage_end - __zdataseg_start)
-bss_830c equ (__zimage_end - __zdataseg_start) + 0x7616
+dseg_0c6c equ __zdseg_0c6c - __zdseg_start
+bss_0cf6 equ (__zimage_end - __zdseg_start)
+bss_830c equ (__zimage_end - __zdseg_start) + 0x7616
 ```
 
 - `dseg_<o>` — a label `__zdseg_<o>` sits at file offset `data_origin + o`, so
-  the symbol is the byte's DS offset relative to `__zdataseg_start`. It follows
+  the symbol is the byte's DS offset relative to `__zdseg_start`. It follows
   the byte when data is inserted before it (and stays put when only code grows).
 - `bss_<o>` — BSS is not file-backed, so there is no byte to label. The symbol is
-  the (dynamic) file-backed data size `__zimage_end - __zdataseg_start` plus its
+  the (dynamic) file-backed data size `__zimage_end - __zdseg_start` plus its
   offset into BSS. This tracks both code growth (no change) and data growth
   (same variable, further into the segment).
 - `psp_<o>`/`cseg_<o>` are untouched (PSP is fixed; code symbols are already
@@ -370,7 +384,7 @@ bss_830c equ (__zimage_end - __zdataseg_start) + 0x7616
   prelude.
 - **String anchor.** A reference that lands *strictly inside* a printable run is
   not treated as a data symbol: the label goes at the run's start and the symbol
-  becomes `run_start - __zdataseg_start + delta`, so the literal stays whole
+  becomes `run_start - __zdseg_start + delta`, so the literal stays whole
   instead of being sliced into hex fragments. This is a **rendering fix only** —
   such a reference is not really a data object (root cause in Section 5d). Only
   two references need it in the whole corpus (`vinstall` `push/pop word
@@ -378,8 +392,8 @@ bss_830c equ (__zimage_end - __zdataseg_start) + 0x7616
   `'1-VGA/MCGA (256 Color)'`):
 
   ```nasm
-  dseg_002e equ __zstr_0025 - __zdataseg_start + 0x0009
-  dseg_0030 equ __zstr_0025 - __zdataseg_start + 0x000b
+  dseg_002e equ __zstr_0025 - __zdseg_start + 0x0009
+  dseg_0030 equ __zstr_0025 - __zdseg_start + 0x000b
   __zstr_0025:
       db '1-VGA/MCGA (256 Color)', 0
   ```
@@ -538,7 +552,7 @@ adds/subtracts weighted points, accepting at a total ≥ 0. We adopt that model.
 | relocation table | `_parse_mz_relocs` (`lib/compare/verify.py`) | exact file offsets of segment words needing fix-up |
 | cross-binary refs | `cross_ref.detect` (`lib/cross_ref.py`) | targets shared between binary images |
 | re-encode check | `micro_assemble` (`lib/verify/assemble.py`) | round-trip a candidate line to its original bytes |
-| data anchors | `__zdataseg_start` / `__zimage_end` / `__zdataseg_para` (`lib/compare/render.py`) | the labels DS-offset expressions will hang off (D1) |
+| data anchors | `__zdseg_start` / `__zimage_end` / `__zdataseg_para` (`lib/compare/render.py`) | the labels DS-offset expressions will hang off (D1) |
 
 The jump-table path already does most of what F7 needs for CS/`LOAD` tables; F7
 is the *stray* word — a pointer that is not part of a recognised code table.
@@ -965,7 +979,7 @@ the census.** **D6 is dropped** (§0.4).
 | D5 | promote accepted; backlog the rest; round-trip + edit-property tests | ✅ DONE (2026-10-12) | 0 |
 | D6 | dynamic confirmation (one capture, offline replay) | ❌ **DROPPED** (§0.4) | (F7 only) |
 | D7.0a | shared host/overlay geometry counters (`o_corg`/`o_dorg`/`ds_size_imm`) | ✅ DONE (2026-10-12) | **+33** (re-baseline) |
-| D7.0b | bind the 7 DS-size immediates to `__zdataseg_end` | ✅ DONE (2026-10-12) | **−7** |
+| D7.0b | bind the 7 DS-size immediates to `__zdseg_end` | ✅ DONE (2026-10-12) | **−7** |
 | D7.0c | pre-NASM link step: host values → `.cache`; `elf-rebuild` = full rebuild | ✅ DONE (2026-10-12) | **−13** (`o_dorg`) |
 | D7.0d | ELF/DWARF for overlays + drivers (debug tooling) | ▶️ **NEXT** | 0 |
 | D7.0e | one shared host-call table (13 per-overlay copies → 1) | ✅ DONE (2026-10-12) | 0 |
@@ -979,9 +993,9 @@ separate column so effort and effect cannot be confused (§0.1, Section 21).
 
 **What it did.** `_build_source` (`render.py`) now binds every MZ data-segment
 operand to the byte it names (details in Section 5b). `dseg_<o>` becomes
-`__zdseg_<o> - __zdataseg_start` with a label placed at file offset
+`__zdseg_<o> - __zdseg_start` with a label placed at file offset
 `data_origin + o`; `bss_<o>` becomes
-`(__zimage_end - __zdataseg_start) + (o - bss_boundary)`. Only the MZ branch
+`(__zimage_end - __zdseg_start) + (o - bss_boundary)`. Only the MZ branch
 (`is_mz and gap is not None`) anchors, so overlays are untouched until D7.
 
 **Outcome.** `data_shift` 1401 → 1231, `total` → 1383; `ds` and `vinstall`
@@ -1131,7 +1145,7 @@ word's two bytes -- splitting the owning `data_block` (or two adjacent one-byte
 * DS below `bss_boundary` -> `dseg_<off>` (its label is placed by the existing
   `mem_equ` machinery, so a mid-string target anchors to the string start);
 * DS at/above `bss_boundary` -> `bss_<off>` =
-  `(__zimage_end - __zdataseg_start) + delta` (the heap-base pointers);
+  `(__zimage_end - __zdseg_start) + delta` (the heap-base pointers);
 * CS -> `<label> - IMAGE_BASE`;
 * `es`/external -> skipped (those are corpus negatives; Section 9).
 
@@ -1238,10 +1252,10 @@ host DS size — is established in §0.1/§0.2 and Section 18.
     1383 → **1416**; `make verify DSAVANT` 18/18; unit suite 247 OK.
   - **D7.0b — bind the 7 DS-size immediates.** ✅ DONE (2026-10-12).
     `ds.asm`/`vinstall.asm` now emit `__zbss_size equ <reserved BSS size>` and
-    `__zdataseg_end equ (__zimage_end - __zdataseg_start) + __zbss_size`
+    `__zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size`
     (the total data-segment size: file-backed data + reserved BSS), and
     `_render_records` rewrites any code immediate equal to the DS size to
-    `__zdataseg_end` (the `; dssize` tag stays only as the regression guard, so
+    `__zdseg_end` (the `; dssize` tag stays only as the regression guard, so
     the bucket can rise again if a future image lacks the anchor). `ds_size_imm`
     7 → 0; `code_shift` 172 → 165; `total` 1416 → 1409; `make verify DSAVANT`
     18/18; unit suite 250 OK; a data byte now grows every stored size by one
@@ -1258,10 +1272,10 @@ host DS size — is established in §0.1/§0.2 and Section 18.
 
   **The split, as implemented.**
   - `asm_<project>/` — **source**, hand-editable, **names only**.  The 13
-    overlay headers now emit `dw __zdataseg_end`; the symbol is a name, not a
+    overlay headers now emit `dw __zdseg_end`; the symbol is a name, not a
     number.
   - `.cache/<project>/labels/host_values.inc` — `; AUTO-GENERATED`, **numbers
-    only**: `__zdataseg_end equ 0x9098`.  Every overlay `%include`s it by name
+    only**: `__zdseg_end equ 0x9098`.  Every overlay `%include`s it by name
     (`%include "labels/host_values.inc"`, through the `.cache` include root —
     `lib/link.py::include_args`).
 
@@ -1280,7 +1294,7 @@ host DS size — is established in §0.1/§0.2 and Section 18.
      writes a throwaway probe (`%include "ds.asm"` + a tail of `dw <symbol>`
      stamps), assembles it with the tree root on the include path, and reads the
      tail words little-endian — fully tool-independent (NASM only; no listing
-     parser).  Verified: `__zdataseg_end` = `0x9098`.
+     parser).  Verified: `__zdseg_end` = `0x9098`.
   2. Write `.cache/<project>/labels/host_values.inc`; then assemble all
      binaries, which resolve the symbols from it.  A probe failure is a hard
      `SystemExit` — the build must not fall through to NASM with a missing or
@@ -1320,10 +1334,10 @@ host DS size — is established in §0.1/§0.2 and Section 18.
   0x9098`), **462** the overlay's own data (`≥ 0x9098` = `o_dorg`).
 
   **The host already derives this name family.**  `ds.asm:31` is
-  `dseg_0002 equ __zdseg_0002 - __zdataseg_start`, and `ds.asm:97` is
-  `bss_5218 equ (__zimage_end - __zdataseg_start) + 0x4522`.  Measured:
+  `dseg_0002 equ __zdseg_0002 - __zdseg_start`, and `ds.asm:97` is
+  `bss_5218 equ (__zimage_end - __zdseg_start) + 0x4522`.  Measured:
   `probe_symbols(asm_DSAVANT, ds.asm, [bss_5218])` → `0x5218`;
-  `__zimage_end - __zdataseg_start` = `0x0cf6`; `__zdataseg_end` = `0x9098`.
+  `__zimage_end - __zdseg_start` = `0x0cf6`; `__zdseg_end` = `0x9098`.
   So the link step can already resolve this family — but the host declares only
   **98** of the 647 names (56 overlap with the overlays'), so the overlays invent
   the rest as literals.  Closing that gap is D7.1.
@@ -1331,7 +1345,7 @@ host DS size — is established in §0.1/§0.2 and Section 18.
   **Outcome.**  `o_dorg` 13 → 0; `data_shift` 1244 → 1231; `total` 1409 → **1396**;
   `make verify DSAVANT` **18/18**; unit suite **268 OK**.  The acceptance property
   is tested end-to-end: inserting one byte into the host's data makes the link
-  step write `__zdataseg_end equ 0x9099` and the rebuilt `VBASE.OVR` carry
+  step write `__zdseg_end equ 0x9099` and the rebuilt `VBASE.OVR` carry
   `o_dorg = 0x9099`
   (`LinkStepTests::test_overlay_o_dorg_follows_a_host_data_edit`).  `make build`
   stays a fixed point, and `make elf-rebuild` reproduces the tree byte-for-byte
@@ -1349,13 +1363,15 @@ host DS size — is established in §0.1/§0.2 and Section 18.
      14`, MZ `-start_offset`; drivers keep `org 0`) and starts with `section
      .text vstart=VBASE`.  `IMAGE_BASE equ start_offset + VBASE`, so every
      `label - IMAGE_BASE [+ o_corg]` is unchanged text.  Code-target `equ`s are
-     `0x<off> + VBASE`.  `make elf-rebuild` blanks the section line and defines
-     `VBASE` as 0 (ELF has no `vstart`).  Answers the §18 "`o_corg`" question:
+     `0x<off> + VBASE`.  `make elf-rebuild` blanks the section line and rewrites
+     the image's own `VBASE equ` to 0 (ELF has no `vstart`; plan.md E).  Answers
+     the §18 "`o_corg`" question:
      `o_corg` is the load address inside the host CS (verified: `VBASE.OVR`'s
      `call` at file 0xb8 lands exactly on `aztec_csav`, CS `0x4452`).
-  2. An overlay ends with the host source included under `nobits` (`%define
-     HOST_SYMS_ONLY`, the host's own `VBASE`, `__zimage_end` renamed), so host
-     routines, `__zdataseg_end` and the shared `dseg_`/`bss_` names resolve to
+  2. An overlay pulls the host source in, under `nobits`, through the generated
+     `inc/host_symbols.inc` (`%define HOST_SYMS_ONLY`, the host's own `VBASE`,
+     `__zimage_end` renamed; plan.md E2), so host routines, `__zdseg_end` and
+     the shared `dseg_`/`bss_` names resolve to
      the host's real labels.  The three `.cache` tables (`host_calls.inc`,
      `host_values.inc`, `host_data.inc`) and the pre-NASM link step are gone;
      `lib/link.py` keeps only the include args, `host_name` and the union of the
@@ -1425,12 +1441,12 @@ host DS size — is established in §0.1/§0.2 and Section 18.
 
   | region | occ. | names | before | host recipe |
   |---|---:|---:|---|---|
-  | host file-backed data (`< 0x0cf6`) | 45 | 17 | `dseg_X equ 0xX` | `__zdseg_X - __zdataseg_start` (a host label at `X`) |
-  | host BSS (`0x0cf6 … 0x9098`) | 723 | 211 | `bss_X equ 0xX` | `(__zimage_end - __zdataseg_start) + delta` |
-  | overlay-own data (`≥ 0x9098`) | 462 | 419 | `bss_X equ 0xX` | `__zdataseg_end + delta` |
+  | host file-backed data (`< 0x0cf6`) | 45 | 17 | `dseg_X equ 0xX` | `__zdseg_X - __zdseg_start` (a host label at `X`) |
+  | host BSS (`0x0cf6 … 0x9098`) | 723 | 211 | `bss_X equ 0xX` | `(__zimage_end - __zdseg_start) + delta` |
+  | overlay-own data (`≥ 0x9098`) | 462 | 419 | `bss_X equ 0xX` | `__zdseg_end + delta` |
 
   Both `delta`s are **stable under exactly the edits that matter**: grow the
-  host's initialized data and `__zimage_end` / `__zdataseg_end` move while the
+  host's initialized data and `__zimage_end` / `__zdseg_end` move while the
   `delta` stays.  This is the same form `ds.asm` already uses for its own BSS
   names, so the overlays end up *exactly as derived as the host*.
 
@@ -1457,7 +1473,7 @@ host DS size — is established in §0.1/§0.2 and Section 18.
      consumers' foreign maps stay valid.
   3. `render.py::_build_source` gives the host one recipe-based `equ` per offset
      (`dseg_X` → a placed label or string anchor; host BSS → the file-backed
-     size + delta; overlay-own → `__zdataseg_end` + delta).  The host declares
+     size + delta; overlay-own → `__zdseg_end` + delta).  The host declares
      **689** names = the 647 overlay-referenced ∪ its own 98 (56 overlap).
   4. The link step (`lib.link.write_link_values`) scans `ds.asm` for the
      `dseg_`/`bss_` declarations (`host_data_names`), probes them, and writes one
@@ -1508,13 +1524,188 @@ host DS size — is established in §0.1/§0.2 and Section 18.
 
 - **D7.1 (the 13 `o_dorg` fields)** — ✅ DONE (via D7.0c); *this half carried the
   label D7.1b before D7.1a/D7.1b were reassigned above.*  Each `o_dorg` *is* the
-  host DS size, so the overlay header emits `dw __zdataseg_end`, resolved by the
+  host DS size, so the overlay header emits `dw __zdseg_end`, resolved by the
   link step into `.cache`.  (`dw` → a *name*; the value left the tree.)
-- **D7.2 — bind F3 and `o_corg` for the overlays.** The 134 remaining
-  `cseg_`/`loc_`/`leaf_`/`string_`/`api_` `equ` lines → in-place labels — the
-  Pass 1 Phase 3 transform, which was applied to the MZ images only — and the 13
-  `o_corg` fields once the host code-region origin is pinned (see Section 18,
-  "Overlay DATA"; the base is still unproven).
+- **D7.2 — bind F3 and `o_corg` for the overlays.**
+
+  **D7.2a/D7.2b — the overlay load origin (`o_corg`): ✅ DONE (2026-10-13).**
+  `code_shift` 165 → 152 (net −13; the family was 40 items, §0.1 ‡).
+
+  **What `o_corg` actually is (measured).** The host's last resident routine is
+  `aztec_rsvstk` (`ds.asm`, included at file offset 0x5248, 13 bytes), so the
+  host's resident code ends at **file 0x5255**, and the 44 KB of zeros that
+  follow (`times (0x10160 - ($ - $$)) db 0`, the pad that puts the data segment
+  at `__zdseg_start`) begin exactly there: `0x10160 − 0x5255 = 0xaf0b`, the
+  pad's own count.  In the host's coordinate frame (its labels are
+  `file − cs_origin`, `cs_origin = 0x200`) that is **0x5055 — exactly the
+  overlays' `o_corg`** and exactly what the host's own loader demands:
+  `ds/aztec_ovloader.asm` does `cmp word [bp-0x10], strict word 0x5055` and
+  rejects an overlay whose `o_corg` is below it.  So `o_corg` is not a magic
+  number: it is the end of the host's resident code, and an overlay loads
+  immediately after it.
+
+  **The class was under-counted: 13, really 40.** `0x5055` was written **three**
+  ways per overlay -- the header field (counted), the `VBASE` macro that feeds
+  `section .text vstart=` (not counted: no `f*` prefix), and the addend inside
+  `o_entry` (`dw <entry> - IMAGE_BASE + 0x5055`, not counted: the field rule
+  wants a bare literal) -- plus once in the host's loader.  D7.2a therefore added
+  the counter (and the `; ocorg` emit-time tag, the D7.0a pattern) *before*
+  binding: the census rose 165 → 192 as a documented correction, and D7.2b
+  removed all 40.
+
+  **The binding.** The host emits its resident-code end at the gap as an
+  **absolute** `equ`, so an overlay can use it where nasm demands a value known
+  before layout:
+
+  ```asm
+  ; End of the host resident code (the overlay load
+  ; address, o_corg in an overlay header).
+  __zresident_end equ ($ - $$) + VBASE
+  ```
+
+  `$ - $$` is a section-local difference (absolute), which is why this works:
+  a *label* there is section-relative and nasm rejects it as
+  `section attribute value must be a critical expression` for `vstart`.  The
+  overlays then read (each of the 13):
+
+  ```asm
+  %ifndef VBASE
+  VBASE equ __zresident_end - 0x000e
+  %endif
+  section .text vstart=VBASE
+  ...
+      dw __zresident_end                                ; 0x5055 ; o_corg
+      dw string_loc_9330 - IMAGE_BASE + __zresident_end ; 0xe377 ; o_entry
+  ```
+
+  and the host's loader becomes `cmp …, strict word __zresident_end`.  Because
+  `vstart` needs the anchor *before* the section directive, the host include
+  moved from the end of each overlay master to just after `bits 16`; the block
+  shadows `VBASE` for its own duration and clears it, exactly like `IMAGE_BASE`
+  (see **E** below for how `make elf-rebuild` then supplies its own origin).
+  `__zresident_end` is emitted only for a **non-empty** code→data gap,
+  so `vinstall` (gap length 0) is untouched.
+
+  **Acceptance and gate.** `HostIncludeTests::test_overlay_corg_follows_a_host_code_edit`
+  inserts one byte in the host before `aztec_csav` and shows the overlay's
+  `o_corg` field move 0x5055 → 0x5056 and its `o_entry` follow, while the
+  near-call displacement to the host routine stays put (the overlay's whole frame
+  moved with the host -- so a host *code* edit changes the load origins and
+  nothing else).  `make verify DSAVANT` **18/18**, unit suite green, all
+  13 overlay headers byte-identical to the originals, `make elf-rebuild`
+  reproduces.  `code_shift` 165 → **152**, `total` 166 → **153**.
+
+  **D7.2c — the F3 `equ`s: REMAINING.** 134 `cseg_`/`loc_`/`leaf_`/`string_`/`api_`
+  `equ` lines (overlays 47, drivers 84, MZ residuals 3) → in-place labels, i.e.
+  the Pass 1 Phase 3 transform, which was applied to the MZ images only.  Under
+  `vstart=VBASE` / `org 0` a label at file offset `X` has exactly the `equ`'s
+  value, so the transform is value-preserving.
+- **E — the ELF build owns the origin (`make elf-rebuild`; D7.2b/D7.5 follow-up).
+  ✅ DONE (2026-10-13).** Tooling-only: **no census change, no binary change**
+  (verified), and it removes the last part of D7.2b that existed only for a build
+  tool's sake.
+
+  **Why.** `make elf-rebuild` assembles with `-f elf32`, which has **no
+  `vstart`** (measured: `unknown section attribute 'vstart' ignored`, and `start=`
+  is not supported either), so the section is laid out from 0 and the image's own
+  origin must be 0 for the `+ VBASE` equ values to agree with the
+  section-relative labels.  D7.5 supplied that with `-DVBASE=0`; D7.2b then had
+  to save and restore `VBASE` (`%xdefine`) around the host include, which needs
+  its own `VBASE` -- 9 emitted lines in each of the 13 overlay masters.  The prep
+  already rewrites the prepared *mirror* source (it blanks the `vstart` line), so
+  it now rewrites the origin there too (`make/elf.py`):
+
+  ```python
+  _ORIGIN_EQU_RE = re.compile(r'^(\s*)VBASE\s+equ\b.*$')
+  def _force_origin_zero(lines):
+      return [_ORIGIN_EQU_RE.sub(r'\1VBASE equ 0', line) for line in lines]
+  ```
+
+  **Effect.** `-DVBASE=0` is gone from the nasm command line, and `VBASE` is now
+  handled exactly like `IMAGE_BASE`: defined in the host block for the host's
+  frame, `%undef`ed, then the overlay's own
+  `VBASE equ __zresident_end - 0x000e` below takes effect.  The block's
+  `%define VBASE (-0x0200)` is a different spelling and a different frame, and
+  the regex leaves it alone -- nothing else needed saving.
+
+  **Verification.** `make build DSAVANT` ×2 byte-identical and a fixed point; all
+  19 built `.EXE`/`.OVR`/`.DRV` byte-identical to the pre-E build;
+  `make verify DSAVANT` **18/18**; census unchanged (**152 / 1 / 248 / 153**);
+  unit suite **293 OK**.  For the ELF path the two mechanisms were A/B'd on
+  `ds.asm` (old: unrewritten origin + `-DVBASE=0`; new: rewritten origin, no
+  `-D`): **identical symbol tables and identical decoded line tables** once the
+  harness's artifact filename is normalised, with one extra local
+  `NOTYPE ABS VBASE` symbol -- it is an `equ` now rather than a `-D` macro, and it
+  stays unexported.  Symbol addresses confirm the frame: `aztec_csav` `0x4452`,
+  `aztec_creat` `0x4939`, `aztec_begin` `0x4b3a`.  Tests:
+  `test_vstart_origin.py::ElfSourceTest::test_origin_rewrite_leaves_the_host_includes_definition_alone`
+  and `HostIncludeTests::test_overlay_origin_is_what_the_elf_prep_zeroes`.
+
+  **Why it matters for D7.0d.** The overlay ELF needs exactly this -- origin 0
+  with the 14-byte header dropped -- so an overlay's equ values and its
+  section-relative labels agree.  E is the mechanism; D7.0d's remaining work is
+  the kind-aware prep (header bound, symbol/address scoping, `-w-other`), the
+  `o_entry - o_corg + _OVR_HEADER_SIZE` entry mapping, and the cross-section
+  decision.  `make/elf.py` also holds C-fragment resplicing (`resplice_c`), so E
+  lands **before** that rework rather than after.
+- **E2 — the host block is the host's, so it is emitted once. ✅ DONE
+  (2026-10-13).** Rendering-only: **no census change, no binary change**
+  (verified byte-identical).
+
+  **Why.** Every one of the 13 overlays carried the same 12-line host-frame block
+  (`%define HOST_SYMS_ONLY` … `%undef VBASE`) at the top of its master, byte for
+  byte: `vstart=-0x0200` is the *host's* origin and `__zimage_end` is the
+  *host's* symbol, so the block is a property of the host, not of the overlay.
+  It now lives in one generated **`inc/host_symbols.inc`**, and the master carries
+  a single line:
+
+  ```asm
+  bits 16
+  %include "inc/host_symbols.inc"
+  %ifndef VBASE
+  VBASE equ __zresident_end - 0x000e
+  %endif
+  section .text vstart=VBASE
+  %ifndef IMAGE_BASE
+  IMAGE_BASE equ 0x000e + VBASE
+  %endif
+  ```
+
+  The master's head drops 19 → 11 lines and the tree loses the 13 copies.
+
+  **What deliberately stayed in the master.** The overlay's own origin
+  (`VBASE equ __zresident_end - 0x000e`), `section .text vstart=VBASE` and
+  `IMAGE_BASE` — because that is *this* overlay's frame (and the D7.2b result),
+  and because E's `_force_origin_zero` rewrites `VBASE equ` **in the root file's
+  lines only**: an origin moved into an include would silently give the overlay
+  ELF (D7.0d) a non-zero origin, and fixing that would mean preparing a second
+  copy of the include for the ELF build and ordering `-I` paths — undoing what E
+  simplified.
+
+  **Emission point.** `render._build_source` returns the block as a
+  ``split_sources`` entry, so the ordinary tree writer (`main/runner.py`) writes
+  it and the include line and the file can never drift apart; it is a pure
+  function of `(host master, host vbase)`, so the overlays' identical writes
+  agree.  NASM resolves the inc's own `%include "ds.asm"` through
+  `-I<tree>/` (`lib.link.include_args`, passed by both `make build` and
+  `make elf-rebuild`) — measured with a decoy `inc/ds.asm`, which NASM ignored:
+  relative-to-the-including-file is *not* its rule, so the file may sit at any
+  depth.
+
+  **Gate.** The block counts **0** frozen addresses (`count_frozen_addrs` on it
+  is empty), so E2 is census-neutral: **152 / 1 / 248 / 153** unchanged.  All 19
+  built `.EXE`/`.OVR`/`.DRV` byte-identical; `make verify DSAVANT` **18/18**;
+  unit suite **294 OK**; `make build` a fixed point; `DS.elf` identical
+  (`ds.asm` is untouched by E2).
+
+  **The one hazard, declared.** The census scans `*.asm` (`lib/tests/
+  test_dynamic_addrs.py::_scan_tree`), and `inc` is already in `_SKIP_DIRS`, so
+  the new include is outside the counter.  That is only safe because it carries
+  no literal — asserted by `test_names.HostSymbolsBlockTests::
+  test_host_block_carries_no_frozen_address`, so the blind spot is explicit
+  rather than an accident of the glob.  `test_overlay_includes_the_host_without_a_table`
+  now checks the master carries the include before `section .text` and that the
+  block lives in `includes[HOST_SYMBOLS_INC]`.
 - **D7.3 — reclassify the declared waivers and the pads.** Overlay `o_bss` (13)
   and MZ `e_sp` (2) are permanent per Appendix C but are currently counted in
   `code_shift`; move them to `inert`. Resolve the 3 overlay zero pads (or
@@ -1530,22 +1721,22 @@ host DS size — is established in §0.1/§0.2 and Section 18.
 Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
 (no measured demand) or **[DONE]**, and says whether it moves the gate.
 
-- **[D7] Overlay DATA — the anchor (D7.0).** Overlay data offsets resolve
+- **[DONE] Overlay DATA — the anchor (D7.0/D7.2).** Overlay data offsets resolve
   against the *host* model, so a bound `dseg_<o>` (or a promoted DS word) in an
-  overlay must use the host's `__zdataseg_start` — and every overlay's `o_dorg`
-  **is** the host DS size. D7.0a answered the *measurement* half: both are now
-  counted (13 `o_dorg` + 13 `o_corg`). **Still open:** whether `o_corg` is the
-  host CS offset at which overlay code is linked — `segments.host_code_offset()`
-  implies it, yet host routines the overlays call sit at CS `0xafcc`+ (above
-  `0x5055`). D7.0b/D7.1 need only the *data* anchor, so they are unblocked;
-  **D7.2 waits on this.** **Moves the gate: yes — the whole overlay `data_shift`
-  plus the 13 `o_corg`.**
-  **Resolved (2026-10-12):** the anchor *mechanism* is the **D7.0c pre-NASM
-  link step** — the host is the single source of truth; overlay host-references
-  become *names* in `asm_DSAVANT` whose values the link step writes to
-  `.cache`.  So the *data* anchor is no longer open (`o_dorg` →
-  `__zdataseg_end`).  The **`o_corg` question above remains open** and still
-  gates D7.2.
+  overlay must use the host's `__zdseg_start` — and every overlay's `o_dorg`
+  **is** the host DS size. D7.0a answered the *measurement* half; D7.0c bound the
+  *data* anchor (`o_dorg` → `__zdseg_end`).
+  **`o_corg` is now settled too (D7.2, 2026-10-13):** it is the host CS offset at
+  which the host's *resident code* ends — file `0x5255`, frame `0x5055`, exactly
+  where the 44 KB code→data zero pad begins — and the host's own loader enforces
+  it (`cmp word [bp-0x10], strict word 0x5055` in `ds/aztec_ovloader.asm`).  The
+  older note that "host routines the overlays call sit at CS `0xafcc`+ (above
+  `0x5055`)" was an artifact of the pre-D7.5 `org 0` model: in the host frame the
+  routines are `aztec_csav` at CS `0x4452` (file `0x4652`) and the Aztec library
+  at CS `0x4d73`+, all *below* `0x5055` ✓.  The mechanism is to **include the
+  host source** (D7.5) and read the absolute anchor `__zresident_end` the host
+  emits at the gap; there is no `.cache` and no probe.  **Moves the gate: yes —
+  it removed all 40 `o_corg`-family items (§17 D7.2).**
 - **[D7] The census did not count data-block words or code immediates.**
   `count_frozen_addrs` matches only MZ/OVR header `dw`, `equ 0x` lines,
   `times N db 0`, and `dw 0x… ; 0x…` data words. Two classes were invisible: a
@@ -1554,7 +1745,7 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
   `mov ax, 0x1806` then `call loc_040f`, a DS string pointer emitted as a bare
   number. D7.0a closed the *geometry* slice of the second class — the 7 host
   DS-size immediates became tagged and counted — and D7.0b *bound* them to
-  `__zdataseg_end`, so they now move with a resized data segment. The general
+  `__zdseg_end`, so they now move with a resized data segment. The general
   DS-address immediate (and the pre-promotion `db` pair) is still invisible, so
   D5's effect is still **not** visible in the census (it did not move: 1244) and
   the acceptance gate remains the edit-property test (Section 3.1) plus
@@ -1585,8 +1776,8 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
 - **[DEFERRED] Weight calibration.** ddisasm's weights are empirical. Treat ours
   as defaults and let the corpus set them; only the total's sign matters.
 - **[DONE] D1 DS-base expression.** `dseg_<o>` is
-  `__zdseg_<o> - __zdataseg_start` (label at file offset `data_origin + o`);
-  `bss_<o>` is `(__zimage_end - __zdataseg_start) + (o - bss_boundary)`. Both
+  `__zdseg_<o> - __zdseg_start` (label at file offset `data_origin + o`);
+  `bss_<o>` is `(__zimage_end - __zdseg_start) + (o - bss_boundary)`. Both
   reproduce the original bytes at the original layout (Section 5b).
 - **[DONE] BSS-offset pointers + consumption anchor (D4/E1).** The Aztec
   **heap-base pointers** (`vinstall 0x5fb4` = `dseg_24d4`, `ds 0x10dd0` =
@@ -1672,7 +1863,7 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
   `make verify DSAVANT` 18/18; unit suite 247 OK; regeneration is a fixed point
   (re-running `make build` changes nothing). ✅
 - **D7.0b:** the 7 host DS-size immediates are bound — `ds.asm`/`vinstall.asm`
-  emit `__zbss_size` + `__zdataseg_end` and `_render_records` rewrites any code
+  emit `__zbss_size` + `__zdseg_end` and `_render_records` rewrites any code
   immediate equal to the DS size; `ds_size_imm` 7 → 0, `code_shift` 172 → 165,
   `total` 1416 → 1409; `make verify DSAVANT` 18/18; unit suite 250 OK; a data
   insert moves every stored size (`test_ds_data_insert_moves_the_ds_size_immediates`);
@@ -1699,18 +1890,48 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
   raw-driver `ega` `dseg_`, Appendix C); `total` 1396 → **166**; `build_out`
   byte-identical, `make verify DSAVANT` 18/18, unit suite 287 OK, `make build` a
   fixed point, `make elf-rebuild` reproduces. ✅
+- **D7.2:** the overlay load origin (`o_corg`) bound to the host's resident-code
+  end.  The counter first (D7.2a): the family is **40** items, not 13 — the
+  header field, the `VBASE` `vstart` macro and the `o_entry` addend per overlay,
+  plus the host loader's own check — so `code_shift` rose 165 → 192 as a
+  documented correction.  Then (D7.2b) the host emits `__zresident_end equ
+  ($ - $$) + VBASE` at the code→data gap (absolute, so an overlay can use it for
+  `vstart`), every overlay derives `VBASE`/`o_corg`/`o_entry` from it and the
+  loader checks against it: all 40 gone, `code_shift` 192 → **152**, `total`
+  **153**.  `make verify DSAVANT` 18/18; unit suite green; all 13 overlay
+  headers byte-identical to the originals.  Acceptance:
+  `HostIncludeTests::test_overlay_corg_follows_a_host_code_edit`. ✅
+  **D7.2c (the 134 F3 `equ`s → in-place labels) remains.** ⏳
+- **E:** the ELF build owns the image origin (the prep rewrites `VBASE equ` to 0
+  instead of `-DVBASE=0`), so D7.2b's `VBASE` save/restore is gone. Tooling-only,
+  gate-neutral: census **153**, all 19 built binaries byte-identical, unit suite
+  **293 OK**, and an A/B on `ds.asm` gives identical ELF symbols and line tables.
+  This is D7.0d's mechanism. ✅
+- **E2:** the host block is the host's, not the overlay's — 13 byte-identical
+  copies collapse to one generated `inc/host_symbols.inc` plus a one-line
+  `%include` per master.  Rendering-only and census-neutral (the block counts
+  **0**), so `total` stays **153**; all 19 built binaries byte-identical, suite
+  **294 OK**, `make build` a fixed point.  The overlay's own origin/`vstart`/
+  `IMAGE_BASE` stay in the master, so E's origin rewrite (D7.0d's mechanism)
+  keeps working.  The include is outside the census — guarded by a test. ✅
 - **D7.0d:** overlays get ELF/DWARF (drivers only if their load base is found),
-  so `make elf-rebuild` yields a debuggable ELF for an overlay. ⏳
+  so `make elf-rebuild` yields a debuggable ELF for an overlay.  **Unblocked**:
+  nasm already assembles an overlay as `elf32`/dwarf, and E supplies the origin;
+  the remaining work is the kind-aware prep (the `o_*` header block, symbol and
+  address-walk scoping, `-w-other`), the
+  `o_entry - o_corg + _OVR_HEADER_SIZE` entry mapping, and the cross-section
+  placement decision. ⏳
 - **REMAINING — D7 (overlays and raw drivers).** The overall goal is **not**
   met. Exit criteria:
   - `data_shift` 1 → 0: reclassify the raw-driver `ega` `dseg_24fd` as `inert`
     (Appendix C) — the last non-host DS reference.
-  - `code_shift` 165 → 0: overlay F3 `equ` 134 → in-place labels + `o_corg`
-    13 → 0 (D7.2, still blocked on `o_corg`'s base).  The 13 `o_dorg` and the
-    whole overlay data family are already bound (D7.0c/D7.1).
+  - `code_shift` 152 → 0: **D7.2c** — the overlay F3 `equ` 134 → in-place labels
+    (overlays 47, drivers 84, MZ residuals 3).  The whole overlay load-origin and
+    data families are already bound (D7.0c/D7.1/D7.2b).
   - overlay `o_bss` (13) + MZ `e_sp` (2) reclassified `inert`, overlay pads
     resolved (D7.3), so `code_shift + data_shift` → **0**.
-  - an overlay is covered by the edit-property test (D7.4) and
+  - an overlay is covered by the edit-property test (D7.4 — partly done:
+    `HostIncludeTests` now covers a host *code* edit and a host *data* edit) and
     `BASELINE_TOTALS` is lowered to the new floor.
   - `make verify DSAVANT` 18/18, unit suite green, after every sub-step.
 - **F7 leftovers (unmeasured — do not start without a counter, §0.3).**
@@ -1740,24 +1961,26 @@ Local copies (git-ignored, not dependencies): `asm/tools/reference/README.md`.
 
 The campaign is large in `asm/lib` and small in the generated assembly. That is
 expected for an analysis-heavy phase, but it means **effort is not evidence of
-progress** — only the census is. Ledger as of 2026-10-13.  `8965d977 fix
-includes` landed **D7.0e** (history below); the working tree on top of it lands
-**D7.1** — the first step since D1 to move the census, and the largest
-emitted-source change of the campaign.
+progress** — only the census is. Ledger as of 2026-10-13.  `2a72c3e5 clean up
+make all` landed **D7.5** (which superseded the D7.0c/D7.0e/D7.1 `.cache`
+tables with the host include); the working tree on top of it lands **D7.2** —
+the first step since D7.1 to move the census — plus **E** and **E2**, two
+census-neutral follow-ups (§17).
 
-Landed by the working tree (D7.1):
+Landed by the working tree (D7.2 + E + E2):
 
 | area | change | note |
 |------|-------:|------|
-| `asm/lib/link.py` | +253/−7 | `host_data.inc` (`host_data_names`/`write_host_data`), the overlay-export union (`collect_host_data`/`write_host_data_offsets`), and the re-probed handle table (`probe_labels`/`build_host_calls`/`write_host_calls`) |
-| `asm/lib/compare/render.py` | +81/−40 | `_build_source`: skip host-owned `dseg_`/`bss_` on an overlay; the three host recipes (label / file-backed size / `__zdataseg_end`) |
-| `asm/lib/compare/verify.py` | +25/−18 | an overlay exports its host-owned DS names in `stats`; the one shared call table is always named |
-| `asm/make` | +63/−60 | `build.py` aggregates the exports and regenerates the host with `--host-data-offsets`; `common.py` drops the generation-time call table |
-| `asm/main` | +52/−? | `runner.py`/`cli.py`/`options.py`/`projects.py` thread the offsets through and write the per-overlay export |
-| `asm/lib/tests` | +237 | the DS-table guard, the overlay data-edit property, and the re-probe tests |
-| `asm_DSAVANT/ds.asm` | +~560 | one recipe-based `equ` per union offset (689 names) |
-| `asm_DSAVANT/v{base,…}.asm` (13) | −~1230 | the `dseg_`/`bss_` `equ`s → one `%include "labels/host_data.inc"` |
-| **census** | **166** | `data_shift` 1231 → 1; campaign 1553 → 166 (D1 **−170**; D7.0a **+33** re-baseline; D7.0b **−7**; D7.0c **−13**; **D7.1 −1230**) |
+| `asm/lib/compare/records.py` | +33/−7 | D7.2: `o_corg` counts all three spellings (+ the `o_entry` addend); new `o_corg_imm` (the `; ocorg` tag); `_FROZEN_DSSIZE_RE`/`_FROZEN_OCORG_IMM_RE` no longer anchor at end-of-line (the offset comment stays last for `make/elf.py`) |
+| `asm/lib/compare/render.py` | +158/−36 | D7.2: `_RESIDENT_END_SYMBOL` + the absolute `__zresident_end equ ($ - $$) + VBASE` at the gap, the `; ocorg` tag/rewrite, the host include moved to the top of an overlay, `_render_ovr_header` takes `corg_symbol`.  E: the `VBASE` save/restore deleted.  E2: `HOST_SYMBOLS_INC` + `host_symbols_inc_lines`, emitted through `split_sources` |
+| `asm/make/elf.py` | +26/−4 | E: `_force_origin_zero` + the `VBASE equ` rewrite in the prepared source, `-DVBASE=0` dropped, comments |
+| `asm/lib/report.py` | +2/−1 | the `o_corg_imm` KPI |
+| `asm/lib/tests` | +137/−24 in 3 files | D7.2: the `o_corg`-family counter test, the code-edit acceptance test, updated expectations.  E: `test_vstart_origin.py` (new here).  E2: the shared-include assertions + the no-frozen-address guard |
+| `asm_DSAVANT/ds.asm` | +3 | the `__zresident_end` anchor |
+| `asm_DSAVANT/v{base,…}.asm` (13) | +10/−20 each | D7.2: the host include to the top + the derived load origin.  E: the save/restore out.  E2: the block (12 lines) → one include line |
+| `asm_DSAVANT/inc/host_symbols.inc` | new | E2: the host-frame block, once per tree |
+| `asm_DSAVANT/ds/aztec_ovloader.asm` | +1/−1 | the loader's `o_corg` floor → `__zresident_end` |
+| **census** | **153** | `code_shift` 165 → **152** (via a +27 re-baseline, §0.1 ‡); campaign 1553 → 153; **E and E2 are gate-neutral** (all 19 built binaries byte-identical before and after) |
 
 History — landed by `8965d977` (D7.0e):
 
@@ -1769,8 +1992,9 @@ History — landed by `8965d977` (D7.0e):
 | `asm/make` | +64/−32 in 1 file | `common.py` (`_write_host_call_table`, injection gone) |
 | **census** | **1396** | unchanged by D7.0e (plumbing only) |
 
-*(Not in this ledger: `asm/lib/aztec/build_db.py` + `asm/make/prebuild.py` — the
-sidecar-driven binary list, a concurrent change on another channel.)*
+*(Not in this ledger: `asm/lib/aztec/build_db.py`, `asm/make/prebuild.py` and
+`asm/make/cli.py` — the sidecar-driven binary list, a concurrent change on
+another channel.)*
 
 Two disciplines follow, and they are the point of this section:
 
@@ -1804,7 +2028,7 @@ Whenever a literal is replaced by a formula, the original value is printed as a
     dw (__zimage_end - $$) % 512 ; 0x0056 ; e_cblp: bytes in final 512-byte page (0 means full)
     dw ((__zimage_end - $$) + 511) // 512 ; 0x0088 ; e_cp: total 512-byte pages in the file
     dw __zdataseg_para           ; 0x0ff6 ; e_ss: initial stack segment, relative to load module
-    times (__zdataseg_start - ($ - $$)) db 0 ; 0xaf0d
+    times (__zdseg_start - ($ - $$)) db 0 ; 0xaf0d
     dw (__zimage_end - __zcode_start) ; 0x93df ; o_csize: code size in bytes
 ```
 
@@ -1834,7 +2058,7 @@ gap where `$` is known:
     times (ORIG - ($ - $$)) db 0
     __zdataseg_para equ (ORIG - HEADER) / 16
 %endif
-__zdataseg_start:
+__zdseg_start:
     ... data ...
 __zimage_end:
 ```
@@ -1848,7 +2072,7 @@ SS == DS and data/BSS/stack are segment-relative.
 - **Phase 0 — instrumentation:** `count_frozen_addrs` + baseline test. (Extended
   by D0 into the three-class census.)
 - **Phase 1 — F5:** dynamic code→data anchor (`%if … __zdataseg_para … %endif`,
-  `__zdataseg_start:`, `__zimage_end:`).
+  `__zdseg_start:`, `__zimage_end:`).
 - **Phase 2 — F1:** MZ `e_cblp`/`e_cp` from `__zimage_end`; `e_ss` from
   `__zdataseg_para`; `e_sp` literal.
 - **Phase 3 — F3:** generalize `_ensure_jump_case_label` into
@@ -1877,12 +2101,13 @@ here and reclassified in D7.3.
   `code_shift` (f1=2); reclassified `inert` in D7.3.**
 - Overlay `o_bss` — uninitialized data size (host/runtime). **Currently still
   counted in `code_shift` (f2=13); reclassified `inert` in D7.3.**
-- Overlay `o_corg`/`o_dorg` — code/data load origin. **Now counted (D7.0a):**
-  `o_corg` → `code_shift`, `o_dorg` → `data_shift`. `o_dorg` **is** the host DS
-  size, so it is bound in D7.0c (as D7.1b); `o_corg` is bound in D7.2 once the
-  host code base is pinned.
+- Overlay `o_corg`/`o_dorg` — code/data load origin. **Both bound.**
+  `o_dorg` **is** the host DS size (`__zdseg_end`, D7.0c); `o_corg` **is** the
+  host's resident-code end (`__zresident_end`, D7.2) — and that is where the
+  overlay loader loads the overlay, enforced by the host's own
+  `cmp …, strict word __zresident_end`.
 - `__zbss_size` (the MZ reserved-BSS size introduced by D7.0b) — a *size*, so it
-  is invariant under every source edit (a data insert moves `__zdataseg_end`, not
+  is invariant under every source edit (a data insert moves `__zdseg_end`, not
   this); like `o_bss` it is legitimately inert and the census never sees it (its
   `equ` has a computed RHS and an unprefixed name).
 - `bios_data_0410` and any `external_data` field — fixed external segment

@@ -14,6 +14,26 @@ from main import discover_binaries
 from .common import APPS, PROJECT, _main_exe, _nasm_build
 
 
+# An image defines its own origin -- the virtual address of file offset 0 -- as
+# ``VBASE``.  ELF has no ``vstart``, so the ELF build lays the section out from 0
+# and the origin must be 0 for the ``+ VBASE`` equ values to agree with the
+# section-relative labels.
+_ORIGIN_EQU_RE = re.compile(r'^(\s*)VBASE\s+equ\b.*$')
+
+
+def _force_origin_zero(lines):
+    """Rewrite an image's own ``VBASE`` definition to 0 for the ELF build.
+
+    This used to be a ``-DVBASE=0`` on the nasm command line, but an overlay
+    includes the host source for its symbols and that include defines ``VBASE``
+    for its own frame and clears it afterwards, so a command-line definition
+    never reaches the overlay's own origin line.  Rewriting the prepared source
+    is the same place the ``vstart`` line is blanked, and it leaves the host
+    include's ``%define`` (a different spelling, and a different frame) alone.
+    """
+    return [_ORIGIN_EQU_RE.sub(r'\1VBASE equ 0', line) for line in lines]
+
+
 def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
     """Prepare generated MZ assembly for ELF/DWARF symbol output."""
     with open(asm_path) as f:
@@ -50,8 +70,8 @@ def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
 
     # The origin line is ``org 0`` (drivers) or ``section .text vstart=VBASE``
     # (images with a known load address); ELF has no ``vstart``, so it is
-    # blanked and ``_nasm_elf_build`` defines ``VBASE`` as 0 (labels stay file
-    # offsets).
+    # blanked and the image's own ``VBASE`` is rewritten to 0 (the section is
+    # laid out from 0, so the labels end up in the load image's own frame).
     org_line = next(
         (i for i, line in enumerate(lines)
          if line.strip().lower() in ('org 0', 'section .text vstart=vbase')),
@@ -79,7 +99,8 @@ def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
         match = re.match(r'\s*([A-Za-z_][A-Za-z0-9_]*)\s*:', line)
         if not match:
             match = re.match(r'\s*([A-Za-z_][A-Za-z0-9_]*)\s+equ\b', line)
-        # ``VBASE`` is a ``-D`` macro in the ELF build (0), not a symbol.
+        # ``VBASE`` is the ELF build's origin (rewritten to 0), not a symbol to
+        # export.
         if match and match.group(1) not in symbols and match.group(1) != 'VBASE':
             symbols.append(match.group(1))
     needs_entry_symbol = (
@@ -102,6 +123,7 @@ def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
         )
 
     lines[org_line] = ''
+    lines = _force_origin_zero(lines)
     lines[header_line:header_end] = declarations + [
         '' for _ in range(header_slots - len(declarations))
     ]
@@ -218,7 +240,7 @@ def _nasm_elf_build(out_dir, name, entry_ip, load_offset=0x200):
     try:
         cmd = [
             'nasm', '-O0', '-w-number-overflow', '-f', 'elf32', '-F', 'dwarf',
-            '-DVBASE=0', *include_args(out_dir), '-o', tmp_elf, f'{name}.asm',
+            *include_args(out_dir), '-o', tmp_elf, f'{name}.asm',
         ]
 
         def assemble(source_text):

@@ -1,8 +1,9 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vmaze.inc"
 bits 16
+%include "inc/host_symbols.inc"
 %ifndef VBASE
-VBASE equ 0x5047
+VBASE equ __zres_end - 0x000e
 %endif
 section .text vstart=VBASE
 %ifndef IMAGE_BASE
@@ -10,13 +11,13 @@ IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
-    dw 0x00f2                          ; o_magic: overlay signature (0x00f2)
-    dw 0x5055                          ; o_corg: code load origin (memory offset)
-    dw (__zdata_start - __zcode_start) ; 0xac60 ; o_csize: code size in bytes
-    dw __zdataseg_end                  ; 0x9098 ; o_dorg: data load origin (memory offset)
-    dw (__zimage_end - __zdata_start)  ; 0x00fa ; o_dsize: initialized data size
-    dw 0x0c94                          ; o_bss: uninitialized data size
-    dw loc_ac30 - IMAGE_BASE + 0x5055  ; 0xfc77 ; o_entry: overlay entry offset (CS)
+    dw 0x00f2                             ; o_magic: overlay signature (0x00f2)
+    dw __zres_end                         ; 0x5055 ; o_corg: code load origin (memory offset)
+    dw (__zdata_start - __zcode_start)    ; 0xac60 ; o_csize: code size in bytes
+    dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
+    dw (__zimage_end - __zdata_start)     ; 0x00fa ; o_dsize: initialized data size
+    dw 0x0c94                             ; o_bss: uninitialized data size
+    dw loc_ac30 - IMAGE_BASE + __zres_end ; 0xfc77 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 fpu_loc_06b5 equ 0x06b5 + VBASE
@@ -368,15 +369,3 @@ __zdata_start:
 
 
 __zimage_end:
-
-; Host symbols: the host is included in a section that occupies no
-; space, so its labels carry the addresses this overlay calls.
-%define HOST_SYMS_ONLY
-%define VBASE (-0x0200)
-%define IMAGE_BASE 0
-%define __zimage_end ds___zimage_end
-section .host nobits vstart=-0x0200
-%include "ds.asm"
-%undef __zimage_end
-%undef IMAGE_BASE
-%undef VBASE
