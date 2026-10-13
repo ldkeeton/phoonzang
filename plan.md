@@ -2,7 +2,8 @@
 
 **This is the single plan.** It merges the former `plan-data.md` (F7 data-pointer
 detection) into the original dynamic-address plan. It is written so a *fresh
-context* can pick up at **D7.0d** (D7.0a–c done) without re-deriving anything.
+context* can pick up at **D7.0d** (D7.0a–c and e done) without re-deriving
+anything.
 
 Plain-language goal: a user may add or remove bytes anywhere in the generated
 assembler and it must **still assemble into a working EXE**. The only tolerated
@@ -31,6 +32,7 @@ lives in `asm/lib`, not in the generated assembly.
 | D7.0a — shared-geometry counters | **7 `; dssize` tags** in 3 files | **+33** (one-time re-baseline †) |
 | D7.0b — bind the DS-size immediates | 7 immediates → `__zdataseg_end`; 2 `equ` lines per MZ image | **−7** |
 | D7.0c — pre-NASM link step | 13 `o_dorg` → `__zdataseg_end`; 13 overlays `%include` the `.cache` values file; `inc/labels` + `inc/spans` → `.cache` | **−13** |
+| D7.0e — one shared host-call table | 13 per-overlay `*_foreign_labels.inc` → one `.cache` `host_calls.inc` (322 entries); dead `ds_labels.inc` deleted; 121 bogus `dispatch_` entries dropped | **0** |
 
 † D7.0a did not *create* 33 new problems — it made 33 already-frozen values
 **visible**. A host EXE and its overlays share one data segment: every overlay's
@@ -117,9 +119,9 @@ name.  The 769 host-resident overlay `equ`s move the same way in D7.1.)*
   only help F7, and F7's backlog is empty (100% precision, no real miss). It
   stays documented (Section 12) as the escape hatch if a future class needs it.
 - **D7 — overlays and raw drivers: NEXT.** The only step that moves the gate.
-  **D7.0c (the pre-NASM link step) is DONE**; **D7.0d (ELF/DWARF for overlays) is
-  next**, then D7.1/D7.1b/D7.2 (the overlay F4/F3/`o_corg` bindings) move the
-  gate.
+  **D7.0c (the pre-NASM link step) and D7.0e (one shared host-call table) are
+  DONE**; **D7.0d (ELF/DWARF for overlays) is next**, then D7.1a/D7.1b/D7.2 (the
+  overlay F4/F3/`o_corg` bindings) move the gate.
 
 **Gate, after every step:** `make verify DSAVANT` = **18/18**, unit suite green.
 
@@ -936,9 +938,9 @@ therefore **open**, and the gap is exactly D7 (§0.2).
 
 ## 17. Sequencing
 
-Pass 1 and D0–D5 are complete, and D7 is under way (D7.0a–c done; D7.0d next).
-**D7 is the only step that moves the census** (1391 of the 1396 gated values are
-overlays/drivers). **D6 is dropped** (§0.4).
+Pass 1 and D0–D5 are complete, and D7 is under way (D7.0a–c and e done; D7.0d
+next). **D7 is the only step that moves the census** (1391 of the 1396 gated
+values are overlays/drivers). **D6 is dropped** (§0.4).
 
 | step | meaning | status | gate impact |
 |------|---------|--------|------------:|
@@ -953,6 +955,7 @@ overlays/drivers). **D6 is dropped** (§0.4).
 | D7.0b | bind the 7 DS-size immediates to `__zdataseg_end` | ✅ DONE (2026-10-12) | **−7** |
 | D7.0c | pre-NASM link step: host values → `.cache`; `elf-rebuild` = full rebuild | ✅ DONE (2026-10-12) | **−13** (`o_dorg`) |
 | D7.0d | ELF/DWARF for overlays + drivers (debug tooling) | ▶️ **NEXT** | 0 |
+| D7.0e | one shared host-call table (13 per-overlay copies → 1) | ✅ DONE (2026-10-12) | 0 |
 | D7 | overlays and raw drivers (incl. overlay `dseg_`/`bss_` + F3) | ▶️ after D7.0d | **−1396 (→ 0)** |
 
 `gate impact` is the change in `code_shift + data_shift`; it is deliberately a
@@ -1291,12 +1294,12 @@ host DS size — is established in §0.1/§0.2 and Section 18.
   `make/common.py`, `make/elf.py`) use `lib.cachedirs`, and `nasm` gets the
   `.cache` root as a second `-I`.
 
-  **Volume (for D7.1).**  **828** host-code names (the phone books,
-  `ds_*`-prefixed) + **769** host-resident data names (still
-  `bss_5218 equ 0x5218` in the overlay masters) + **462** overlay-own data names
-  (become `o_dorg + delta`, no host needed).  Dropping the `ds_` prefix would
-  collide in exactly **1** place (`vpcvw`: `ds_loc_3a6a` vs its own `loc_3a6a`),
-  so the friendly aliases stay.
+  **Volume (measured).**  The host exports **322** code labels
+  (`.cache/<project>/labels/ds_labels.json`); the overlays call **131** of them
+  (moved into one shared table by D7.0e below).  Still to bind in D7.1:
+  **769** host-resident data names (today `bss_5218 equ 0x5218` in the overlay
+  masters) and **462** overlay-own data names (become `o_dorg + delta`, no host
+  needed).
 
   **Outcome.**  `o_dorg` 13 → 0; `data_shift` 1244 → 1231; `total` 1409 → **1396**;
   `make verify DSAVANT` **18/18**; unit suite **268 OK**.  The acceptance property
@@ -1306,6 +1309,35 @@ host DS size — is established in §0.1/§0.2 and Section 18.
   (`LinkStepTests::test_overlay_o_dorg_follows_a_host_data_edit`).  `make build`
   stays a fixed point, and `make elf-rebuild` reproduces the tree byte-for-byte
   (no drift).
+
+- **D7.0e — one shared host-call table.** ✅ DONE (2026-10-12).  Closes a failed
+  start: every overlay used to get its own `<overlay>_foreign_labels.inc`, and
+  they were **subset copies of one table** (13 files, 131 names, **0** value
+  conflicts) — while the dead `ds_labels.inc` was a 14th copy holding the *host
+  offset* instead of the overlay handle (same name, different quantity, one
+  `%include` away from a silently wrong encoding).
+
+  **Why one table is enough.**  An overlay's handle for a host routine is
+  `host_off → (host_off - host.cs_origin - o_corg + cs_origin) & 0xFFFF`
+  (`SegmentModel.host_code_target`, the inverse of `host_code_offset`).  All 13
+  overlays share `o_corg = 0x5055` and `cs_origin = 14`, so it is **one affine
+  map** — measured: `handle - host_offset` is the single constant **`0xADB9`**
+  across all 131 entries.
+
+  **What changed.**  `make/common.py::_write_host_call_table` builds
+  `.cache/<project>/labels/host_calls.inc` from the source's exported labels plus
+  one overlay model, so the source is the single source of truth; every overlay
+  `%include`s it.  `verify.py` prefers the shared table and keeps the
+  per-consumer file only as a standalone-generation fallback.  The dead
+  `ds_labels.inc` writer (`main/runner.py`) and `write_label_inc`'s `prefix`
+  argument are gone, and so are the 121 bogus `dispatch_*` entries the old
+  cross-ref injection wrote at *handle* offsets (the real fallback lives in
+  `overlay_host_aliases`, so the injection was redundant).
+
+  **Outcome.**  **0** census change (`code_shift` 165, `data_shift` 1231,
+  `total` 1396) with `build_out` **byte-identical**; `make verify DSAVANT` 18/18;
+  unit suite 275 OK; `make build` a fixed point.  The table's values are still
+  frozen host offsets — **D7.1** makes them derived.
 
 - **D7.0d — ELF/DWARF for overlays and drivers.** ▶️ **NEXT.**  After D7.0c.
   `_elf_source_text` is MZ-shaped and raises for the others (verified:
@@ -1507,6 +1539,12 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
   13 → 0 as link-resolved (reported, not scored) and `data_shift` 1244 → 1231,
   `total` 1409 → 1396; `make verify DSAVANT` 18/18 and the unit suite 268 OK;
   `make build` is a fixed point and `make elf-rebuild` reproduces the tree. ✅
+- **D7.0e:** one shared host-call table — the 13 per-overlay
+  `*_foreign_labels.inc` subset copies collapse into one derived
+  `.cache/<project>/labels/host_calls.inc` keyed by the source's exported labels
+  (`handle = host_offset + 0xADB9`, one affine map because all overlays share
+  `o_corg`/`cs_origin`); the dead `ds_labels.inc` and the redundant `dispatch_`
+  injection are gone; output byte-identical, census unchanged. ✅
 - **D7.0d:** overlays get ELF/DWARF (drivers only if their load base is found),
   so `make elf-rebuild` yields a debuggable ELF for an overlay. ⏳
 - **REMAINING — D7 (overlays and raw drivers).** The overall goal is **not**
@@ -1547,17 +1585,17 @@ Local copies (git-ignored, not dependencies): `asm/tools/reference/README.md`.
 The campaign is large in `asm/lib` and small in the generated assembly. That is
 expected for an analysis-heavy phase, but it means **effort is not evidence of
 progress** — only the census is. Ledger as of 2026-10-12 (working tree vs
-`HEAD`, `fix make all`, which already contains D0–D7.0b, so the delta below is
-exactly D7.0c):
+`HEAD`, `chkpoint`, which already contains D0–D7.0c, so the delta below is
+exactly D7.0e):
 
 | area | change | note |
 |------|-------:|------|
-| overlay masters (`asm_DSAVANT/*.asm`) | **+52/−26 in 13 files** | D7.0c: each overlay gains `%include "labels/host_values.inc"` and emits `dw __zdataseg_end` for `o_dorg` |
-| derived files deleted from the tree | **−1545 in 20 files** | `asm_DSAVANT/inc/labels/` + `inc/spans/` moved to `.cache` (git-ignored, regenerated) |
-| `asm/lib` + `asm/main` | **+176/−37 in 8 files** | `link.py` (new), `cachedirs.py`, `render.py`, `compare/verify.py`, `runner.py`, `main/verify.py`, `projects.py`, tests |
-| `asm/make` | **+90/−34 in 5 files** | `link.py` (new), `build.py`, `elf.py`, `common.py`, `clean.py`, `cli.py` |
-| `plan.md` | **+115/−103** | this document |
-| **census** | **1396** | campaign: 1553 → 1396 (D1 **−170**; D7.0a **+33** re-baseline; D7.0b **−7**; D7.0c **−13**) |
+| overlay masters (`asm_DSAVANT/*.asm`) | **+13/−13 in 13 files** | D7.0e: each overlay's `%include` switches from its own `<name>_foreign_labels.inc` to the shared `labels/host_calls.inc` |
+| `asm/lib` | **+162/−15 in 6 files** | `segments.py` (`host_code_target`), `cross_ref.py` (table + writer), `compare/verify.py`, 3 test files |
+| `asm/main` | **+1/−23 in 2 files** | `runner.py` (dead `ds_labels.inc` writer gone), `projects.py` (redundant `dispatch_` injection gone) |
+| `asm/make` | **+64/−32 in 1 file** | `common.py` (`_write_host_call_table`, injection gone) |
+| `plan.md` | **+51/−13** | this document |
+| **census** | **1396** | unchanged by D7.0e (plumbing only); campaign 1553 → 1396 (D1 **−170**; D7.0a **+33** re-baseline; D7.0b **−7**; D7.0c **−13**) |
 
 *(Not in this ledger: `asm/lib/aztec/build_db.py` + `asm/make/prebuild.py` — the
 sidecar-driven binary list, a concurrent change on another channel.)*

@@ -117,19 +117,46 @@ def overlay_host_aliases(foreign_label_map, segments, instructions,
     return aliases
 
 
-def write_label_inc(label_map, path, prefix=''):
-    """Write a NASM ``.inc`` file with ``equ`` definitions.
-
-    If *prefix* is given (e.g. ``"ds"``) each name is prefixed
-    (``ds_loc_f40b equ 0xf40b``) to avoid collisions when the
-    file is included by another binary.
-    """
+def write_label_inc(label_map, path):
+    """Write a NASM ``.inc`` file with ``equ`` definitions."""
     with open(path, 'w') as f:
         for addr in sorted(label_map):
-            name = label_map[addr]
-            if prefix:
-                name = f'{prefix}_{name}'
-            f.write(f'{name} equ 0x{addr:04x}\n')
+            f.write(f'{label_map[addr]} equ 0x{addr:04x}\n')
+
+
+#: Name of the single shared overlay-handle table inside ``.cache/<p>/labels/``.
+HOST_CALLS_NAME = 'host_calls.inc'
+
+#: The include directive the generated overlay sources carry for that table,
+#: relative to the ``.cache/<project>/`` include root.
+HOST_CALLS_INCLUDE = f'labels/{HOST_CALLS_NAME}'
+
+
+def host_call_table(prefix, host_labels, model):
+    """Return ``{nasm_name: overlay_handle}`` for one source's exported labels.
+
+    *host_labels* is the source's exported map ``{host_file_offset: name}``;
+    *model* is an overlay :class:`SegmentModel` whose host is that source.  Each
+    host label becomes ``<prefix>_<name>`` valued at the overlay-space handle
+    the overlay encodes (:meth:`SegmentModel.host_code_target`).
+
+    Returns ``None`` when the model cannot place the source (non-overlay, or
+    unknown host geometry) so the caller can fall back to per-consumer tables.
+    """
+    table = {}
+    for off in sorted(host_labels):
+        target = model.host_code_target(off)
+        if target is None:
+            return None
+        table[f'{prefix}_{host_labels[off]}'] = target
+    return table
+
+
+def write_equ_table(table, path):
+    """Write a deterministic ``name equ 0xNNNN`` table, sorted by name."""
+    with open(path, 'w') as f:
+        for name in sorted(table):
+            f.write(f'{name} equ 0x{table[name]:04x}\n')
 
 
 def write_label_json(label_map, path):

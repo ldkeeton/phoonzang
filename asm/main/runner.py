@@ -540,16 +540,14 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
 
     if export_labels and label_map and project:
         from lib.cachedirs import labels_dir
-        from lib.cross_ref import write_label_json, write_label_inc
+        from lib.cross_ref import write_label_json
         target_dir = labels_dir(project)
         os.makedirs(target_dir, exist_ok=True)
         json_path = os.path.join(target_dir, f'{name}_labels.json')
-        inc_path = os.path.join(target_dir, f'{name}_labels.inc')
         from lib.compare.vendor import _vendor_named_tails
         renamed = _vendor_named_tails(label_map, asm_annotations)
         exported = {a: n for a, n in label_map.items() if a not in renamed}
         write_label_json(exported, json_path)
-        write_label_inc(exported, inc_path, prefix=name)
 
     if _DECOMPILE:
         from lib.decompile import decompile

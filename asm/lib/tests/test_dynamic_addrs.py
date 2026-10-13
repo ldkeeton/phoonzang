@@ -428,6 +428,51 @@ class LinkStepTests(unittest.TestCase):
             self.assertEqual(grown[6:8], b'\x99\x90')
 
 
+class HostCallsTableTests(unittest.TestCase):
+    """The overlays share one host-call table (plan D7.1 step 1).
+
+    Each overlay used to carry its own ``<name>_foreign_labels.inc`` subset copy
+    of the same names with the same values.  The handle is one affine map of the
+    host label offset (``SegmentModel.host_code_target``), so a single table in
+    ``.cache`` serves every overlay, keyed by the source's exported labels.
+    """
+
+    def _table_path(self):
+        from lib.cachedirs import labels_dir
+        from lib.cross_ref import HOST_CALLS_NAME
+        return pathlib.Path(labels_dir('DSAVANT')) / HOST_CALLS_NAME
+
+    def test_every_referenced_host_name_is_defined_by_the_one_table(self):
+        import re
+        path = self._table_path()
+        if not path.exists():
+            self.skipTest('no host_calls.inc; run "make build DSAVANT"')
+        defined = {line.split(' equ ')[0]
+                   for line in path.read_text().splitlines()
+                   if ' equ ' in line}
+        self.assertTrue(defined)
+        name_re = re.compile(r'\bds_[0-9A-Za-z_]+')
+        missing = []
+        for p in sorted(_TREE.rglob('*.asm')):
+            rel = p.relative_to(_TREE)
+            if rel.parts[0] in _SKIP_DIRS:
+                continue
+            for name in sorted(set(name_re.findall(
+                    p.read_text(errors='ignore')))):
+                if name not in defined:
+                    missing.append(f'{rel}:{name}')
+        self.assertEqual(missing, [])
+
+    def test_no_per_overlay_copies_and_no_dead_ds_labels_inc(self):
+        from lib.cachedirs import labels_dir
+        d = pathlib.Path(labels_dir('DSAVANT'))
+        if not d.is_dir():
+            self.skipTest('no .cache label dir; run "make build DSAVANT"')
+        self.assertEqual(
+            sorted(p.name for p in d.glob('*_foreign_labels.inc')), [])
+        self.assertFalse((d / 'ds_labels.inc').exists())
+
+
 class DataStringAnchorTests(unittest.TestCase):
     """D1: a reference *inside* a string anchors to the string start.
 

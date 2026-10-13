@@ -60,5 +60,37 @@ class OverlayHostAliasesTest(unittest.TestCase):
         )
 
 
+class HostCallTableTest(unittest.TestCase):
+    """The one shared overlay-handle table (plan D7.1 step 1).
+
+    Every overlay used to carry its own subset copy of the same names/values;
+    the handle is one affine map of the host offset, so a single table serves
+    them all, keyed by the source's exported labels.
+    """
+
+    def test_table_covers_every_label_at_the_inverse_handle(self):
+        from lib.cross_ref import host_call_table
+        labels = {0x0200: 'app_malloc', 0x4266: 'loc_4266'}
+        self.assertEqual(
+            host_call_table('ds', labels, _overlay()),
+            {'ds_app_malloc': 0xafb9, 'ds_loc_4266': 0xf01f},
+        )
+
+    def test_non_overlay_model_has_no_table(self):
+        from lib.cross_ref import host_call_table
+        mz = SegmentModel(kind='mz', file_size=0x1000)
+        self.assertIsNone(host_call_table('ds', {0x100: 'x'}, mz))
+
+    def test_equ_table_is_deterministic(self):
+        import os
+        import tempfile
+        from lib.cross_ref import write_equ_table
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, 'host_calls.inc')
+            write_equ_table({'b_2': 0x2, 'a_1': 0x1}, path)
+            with open(path) as f:
+                self.assertEqual(f.read(), 'a_1 equ 0x0001\nb_2 equ 0x0002\n')
+
+
 if __name__ == '__main__':
     unittest.main()

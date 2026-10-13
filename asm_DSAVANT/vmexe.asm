@@ -2,7 +2,7 @@
 %include "inc/structs/vmexe.inc"
 org 0
 bits 16
-%include "labels/vmexe_foreign_labels.inc"
+%include "labels/host_calls.inc"
 
 %include "labels/host_values.inc"
 

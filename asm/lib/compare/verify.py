@@ -491,15 +491,24 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     consumer_inc = None
     if foreign_label_map and asm_dir and name:
         from lib.cachedirs import labels_dir, project_of_asm_dir
-        from lib.cross_ref import write_label_inc
+        from lib.cross_ref import (
+            HOST_CALLS_INCLUDE, HOST_CALLS_NAME, write_label_inc,
+        )
         project = project_of_asm_dir(asm_dir)
         if project is not None:
             target_dir = labels_dir(project)
             os.makedirs(target_dir, exist_ok=True)
-            inc_name = f'{name}_foreign_labels.inc'
-            write_label_inc(foreign_label_map,
-                            os.path.join(target_dir, inc_name))
-            consumer_inc = f'labels/{inc_name}'
+            if os.path.exists(os.path.join(target_dir, HOST_CALLS_NAME)):
+                # One shared table serves every overlay (plan D7.1 step 1); the
+                # make layer wrote it from the source's exported labels.
+                consumer_inc = HOST_CALLS_INCLUDE
+            else:
+                # Standalone generation without the make layer: keep the
+                # per-consumer subset file so the overlay still assembles.
+                inc_name = f'{name}_foreign_labels.inc'
+                write_label_inc(foreign_label_map,
+                                os.path.join(target_dir, inc_name))
+                consumer_inc = f'labels/{inc_name}'
 
     # Assemble every candidate instruction in a single NASM round-trip rather
     # than spawning a subprocess per instruction.  Falls back to per-instruction

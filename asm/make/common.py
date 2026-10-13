@@ -24,7 +24,6 @@ Env:
   EXACT_FLAG (deprecated)  same as EXTRA_FLAGS=--exact-bytes
 """
 
-import json
 import os
 import shutil
 import subprocess
@@ -39,7 +38,6 @@ if ASM not in sys.path:
     sys.path.insert(0, ASM)
 from main import load_whitelist
 from lib.cachedirs import labels_dir, project_of_asm_dir
-from lib.cross_ref import write_label_json
 from lib.link import include_args
 
 
@@ -132,6 +130,62 @@ def _copy_assets(app_dir, build_out):
             shutil.copytree(src, dst, dirs_exist_ok=True)
 
 
+def _write_host_call_table(app, app_dir, out_dir, bins, cross_refs):
+    """Write the one shared overlay-handle table (plan D7.1 step 1).
+
+    The per-consumer ``<name>_foreign_labels.inc`` files were subset copies of
+    the same names with the same values: an overlay's handle for a host routine
+    is one affine map of the host offset (``SegmentModel.host_code_target``),
+    because every overlay shares ``o_corg`` / ``cs_origin``.  So the source's
+    exported label map is the single source of truth and one table serves every
+    overlay.
+
+    Returns True when the table was written; False leaves the per-consumer
+    files in charge (standalone generation, or geometry we cannot place).
+    """
+    from lib.cross_ref import (
+        HOST_CALLS_NAME, host_call_table, read_label_json, write_equ_table,
+    )
+    from lib.segments import SegmentError, from_binary
+
+    source_names = sorted({src for refs in cross_refs.values()
+                           for _, src in refs})
+    table = {}
+    for src_name in source_names:
+        if src_name not in bins:
+            continue
+        json_path = os.path.join(labels_dir(app), f'{src_name}_labels.json')
+        src_path = os.path.join(app_dir, bins[src_name][0])
+        if not (os.path.exists(json_path) and os.path.exists(src_path)):
+            continue
+        consumer = next(
+            (n for n in sorted(cross_refs)
+             if n in bins and any(s == src_name for _, s in cross_refs[n])),
+            None)
+        if consumer is None:
+            continue
+        try:
+            with open(src_path, 'rb') as f:
+                host = from_binary(f.read(), start_offset=bins[src_name][1])
+            with open(os.path.join(app_dir, bins[consumer][0]), 'rb') as f:
+                model = from_binary(f.read(), start_offset=bins[consumer][1],
+                                    host=host)
+        except (OSError, SegmentError):
+            return False
+        part = host_call_table(src_name, read_label_json(json_path), model)
+        if part is None:
+            return False
+        for name, value in part.items():
+            if name in table and table[name] != value:
+                print(f'  LINK WARN: conflicting handle for {name}')
+                return False
+            table[name] = value
+    if not table:
+        return False
+    write_equ_table(table, os.path.join(labels_dir(app), HOST_CALLS_NAME))
+    return True
+
+
 def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
                                process_sources=None):
     source_names = {src for refs in cross_refs.values() for _, src in refs}
@@ -150,36 +204,14 @@ def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
             print(f'  FAILED: {src_name}')
             failed.append(src_name)
 
-    # Inject synthetic dispatch labels for cross-binary targets.
-    if cross_refs:
-        for src_name in source_names & set(bins.keys()):
-            json_path = os.path.join(labels_dir(app),
-                                     f'{src_name}_labels.json')
-            if not os.path.exists(json_path):
-                continue
-            src_rel_path = bins[src_name][0]
-            src_path = os.path.join(app_dir, src_rel_path)
-            if not os.path.exists(src_path):
-                continue
-            try:
-                with open(json_path) as f:
-                    labels = json.load(f)
-                with open(src_path, 'rb') as f:
-                    src_data = f.read()
-            except (OSError, json.JSONDecodeError):
-                continue
-            labels = {int(k): v for k, v in labels.items()}
-            changed = False
-            for consumer_name, refs in cross_refs.items():
-                consumer_start = bins[consumer_name][1] if consumer_name in bins else 0
-                for target, src in refs:
-                    if src == src_name:
-                        abs_target = target + consumer_start
-                        if abs_target not in labels and abs_target < len(src_data):
-                            labels[abs_target] = f'dispatch_{abs_target:04x}'
-                            changed = True
-            if changed:
-                write_label_json(labels, json_path)
+    # One shared overlay-handle table keyed by the source's exported labels
+    # (plan D7.1 step 1).  It supersedes the per-consumer subset copies, which
+    # are removed so only one convention is live.
+    if _write_host_call_table(app, app_dir, out_dir, bins, cross_refs):
+        target = labels_dir(app)
+        for entry in os.listdir(target):
+            if entry.endswith('_foreign_labels.inc'):
+                os.remove(os.path.join(target, entry))
 
     return failed
 

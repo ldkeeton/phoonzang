@@ -2,7 +2,7 @@
 %include "inc/structs/vpcvw.inc"
 org 0
 bits 16
-%include "labels/vpcvw_foreign_labels.inc"
+%include "labels/host_calls.inc"
 
 %include "labels/host_values.inc"
 

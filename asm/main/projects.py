@@ -133,26 +133,6 @@ def process_project(project_name):
                         export_labels=True, host_model=host_model)
         source_label_maps[name] = lm
 
-    # inject synthetic dispatch labels for cross-binary targets
-    if cross_refs:
-        for src_name in source_names & set(bins.keys()):
-            if src_name not in source_label_maps:
-                continue
-            src_path = os.path.join(project_dir, bins[src_name][0])
-            try:
-                with open(src_path, 'rb') as f:
-                    src_data = f.read()
-            except OSError:
-                continue
-            lm = source_label_maps[src_name]
-            for consumer_name, refs in cross_refs.items():
-                consumer_start = bins[consumer_name][1] if consumer_name in bins else 0
-                for t, src in refs:
-                    if src == src_name:
-                        abs_t = t + consumer_start
-                        if abs_t not in lm and abs_t < len(src_data):
-                            lm[abs_t] = f'dispatch_{abs_t:04x}'
-
     for name, (rel_path, start_offset) in sorted(bins.items()):
         if name in source_names:
             continue
