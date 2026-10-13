@@ -24,6 +24,12 @@ def _have_toolchain():
         sources.version_root('v340a'))
 
 
+def _ds_labels_path():
+    """The host's generated label map (derived source, lives in ``.cache``)."""
+    return os.path.join(PROJECT, '.cache', 'DSAVANT', 'labels',
+                        'ds_labels.json')
+
+
 class SourceCatalogTest(unittest.TestCase):
     def test_v340a_open_is_plaintext(self):
         text = sources.catalog('v340a').get('open.c')
@@ -43,8 +49,10 @@ class CacheTest(unittest.TestCase):
             return f.read()
 
     def _labels(self):
-        with open(os.path.join(PROJECT, 'asm_DSAVANT', 'inc', 'labels',
-                               'ds_labels.json')) as f:
+        path = _ds_labels_path()
+        if not os.path.exists(path):
+            self.skipTest('no generated label map; run "make build DSAVANT"')
+        with open(path) as f:
             return {v: int(k) for k, v in json.load(f).items()}
 
     def test_cached_routines_are_byte_exact(self):
@@ -72,8 +80,10 @@ class MuxCompileTest(unittest.TestCase):
         with open(os.path.join(PROJECT, 'apps', 'DSAVANT', 'DS.EXE'),
                   'rb') as f:
             data = f.read()
-        with open(os.path.join(PROJECT, 'asm_DSAVANT', 'inc', 'labels',
-                               'ds_labels.json')) as f:
+        labels_path = _ds_labels_path()
+        if not os.path.exists(labels_path):
+            self.skipTest('no generated label map; run "make build DSAVANT"')
+        with open(labels_path) as f:
             labels = {v: int(k) for k, v in json.load(f).items()}
         engine = MuxEngine()
         matches = engine.resolve('open', data, labels['aztec_open'])

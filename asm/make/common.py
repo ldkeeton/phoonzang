@@ -38,7 +38,9 @@ JOBS = os.cpu_count() or 4
 if ASM not in sys.path:
     sys.path.insert(0, ASM)
 from main import load_whitelist
+from lib.cachedirs import labels_dir, project_of_asm_dir
 from lib.cross_ref import write_label_json
+from lib.link import include_args
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -99,7 +101,7 @@ def _nasm_build(out_dir, name, rel_path):
     bin_path = os.path.join(out_dir, 'build_out', rel_path)
     os.makedirs(os.path.dirname(bin_path), exist_ok=True)
     r = _run('nasm', '-O0', '-f', 'bin', '-w-number-overflow',
-             f'-I{out_dir}/', '-o', bin_path, asm_path)
+             *include_args(out_dir), '-o', bin_path, asm_path)
     if r.returncode != 0:
         print(f'  BUILD FAIL: {name}.asm -> {rel_path}')
         for line in r.stderr.strip().split('\n'):
@@ -151,7 +153,7 @@ def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
     # Inject synthetic dispatch labels for cross-binary targets.
     if cross_refs:
         for src_name in source_names & set(bins.keys()):
-            json_path = os.path.join(out_dir, 'inc', 'labels',
+            json_path = os.path.join(labels_dir(app),
                                      f'{src_name}_labels.json')
             if not os.path.exists(json_path):
                 continue
@@ -186,8 +188,10 @@ def _foreign_args(out_dir, name, cross_refs):
     if name not in cross_refs:
         return None
     prefix = next(iter(set(src for _, src in cross_refs[name])), '')
-    json_path = os.path.join(out_dir, 'inc', 'labels',
-                             f'{prefix}_labels.json')
+    project = project_of_asm_dir(out_dir)
+    if project is None:
+        return None
+    json_path = os.path.join(labels_dir(project), f'{prefix}_labels.json')
     if not os.path.exists(json_path):
         return None
     return [

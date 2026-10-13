@@ -2,7 +2,9 @@
 %include "inc/structs/vinit.inc"
 org 0
 bits 16
-%include "inc/labels/vinit_foreign_labels.inc"
+%include "labels/vinit_foreign_labels.inc"
+
+%include "labels/host_values.inc"
 
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x000e
@@ -12,7 +14,7 @@ IMAGE_BASE equ 0x000e
     dw 0x00f2                          ; o_magic: overlay signature (0x00f2)
     dw 0x5055                          ; o_corg: code load origin (memory offset)
     dw (__zdata_start - __zcode_start) ; 0x1609 ; o_csize: code size in bytes
-    dw 0x9098                          ; o_dorg: data load origin (memory offset)
+    dw __zdataseg_end                  ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)  ; 0x0120 ; o_dsize: initialized data size
     dw 0x0002                          ; o_bss: uninitialized data size
     dw loc_15d9 - IMAGE_BASE + 0x5055  ; 0x6620 ; o_entry: overlay entry offset (CS)

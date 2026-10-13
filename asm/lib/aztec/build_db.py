@@ -30,6 +30,7 @@ import re
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
+from lib import sidecar
 from lib.cachedirs import aztec_funcs_path
 
 from . import libobjs, omflib
@@ -61,11 +62,6 @@ LIB_DIRS = [
     's',
     'ovl',
 ]
-# Binaries whose bytes the uniqueness search runs against, per project.  A
-# project without an entry has no Aztec signature DB.
-PROJECT_BINARIES = {
-    'DSAVANT': ['DS.EXE', 'VINSTALL.EXE'],
-}
 LENGTHS = (32, 28, 24, 20, 18, 16, 14, 12, 10, 8, 6)
 MAX_START = 48
 MIN_ZEROS = 2  # strict pass rejects windows with this many zero bytes
@@ -208,9 +204,19 @@ def build(here, apps_dir, out_path, exes):
     return len(by_name), len(signatures)
 
 
+def project_binaries(project):
+    """MZ executables listed in the project's sidecar (the uniqueness-search
+    corpus).  Empty when there is no sidecar, i.e. no Aztec signature DB."""
+    data = sidecar.load(project)
+    if not data:
+        return []
+    return [b['file'] for b in data['binaries'].values()
+            if b.get('type') == 'mz']
+
+
 def build_for_project(project):
     """Write ``.cache/<project>/aztec_funcs.json``; returns its path or None."""
-    exes = PROJECT_BINARIES.get(project)
+    exes = project_binaries(project)
     if not exes:
         print(f'  aztec db: no binaries configured for {project}; skipped')
         return None

@@ -2,7 +2,9 @@
 %include "inc/structs/vpops.inc"
 org 0
 bits 16
-%include "inc/labels/vpops_foreign_labels.inc"
+%include "labels/vpops_foreign_labels.inc"
+
+%include "labels/host_values.inc"
 
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x000e
@@ -12,7 +14,7 @@ IMAGE_BASE equ 0x000e
     dw 0x00f2                          ; o_magic: overlay signature (0x00f2)
     dw 0x5055                          ; o_corg: code load origin (memory offset)
     dw (__zdata_start - __zcode_start) ; 0x4ecd ; o_csize: code size in bytes
-    dw 0x9098                          ; o_dorg: data load origin (memory offset)
+    dw __zdataseg_end                  ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)  ; 0x003e ; o_dsize: initialized data size
     dw 0x02b8                          ; o_bss: uninitialized data size
     dw loc_4e9d - IMAGE_BASE + 0x5055  ; 0x9ee4 ; o_entry: overlay entry offset (CS)

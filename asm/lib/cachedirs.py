@@ -6,6 +6,8 @@ Layout::
     .cache/<project>/aztec_lib_obj/     runtime-library OMF (c m ms s ovl)
     .cache/<project>/aztec_funcs.json   runtime signature DB built from those
     .cache/<project>/render/            render contexts
+    .cache/<project>/labels/            derived host/foreign label values
+    .cache/<project>/spans/             Aztec routine span sidecars
     .cache/<project>/addresses/         address inventories
     .cache/<project>/stats/             per-binary stats
     .cache/<project>/traces/            detailed phase traces (.jsonl)
@@ -42,6 +44,22 @@ def aztec_funcs_path(project):
 
 def render_dir(project):
     return os.path.join(project_cache(project), 'render')
+
+
+def labels_dir(project):
+    return os.path.join(project_cache(project), 'labels')
+
+
+def spans_dir(project):
+    return os.path.join(project_cache(project), 'spans')
+
+
+def project_of_asm_dir(asm_dir):
+    """Return the project name for a generated ``asm_<project>`` directory."""
+    base = os.path.basename(os.path.normpath(asm_dir))
+    if base.startswith('asm_'):
+        return base[len('asm_'):]
+    return None
 
 
 def addresses_dir(project):

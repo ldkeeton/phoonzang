@@ -449,10 +449,11 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         with open(path, 'w') as f:
             f.write(include_text)
     spans = stats.get('aztec_spans') or {}
-    if spans:
-        spans_dir = os.path.join(out_dir, 'inc', 'spans')
-        os.makedirs(spans_dir, exist_ok=True)
-        with open(os.path.join(spans_dir, f'{name}_aztec_spans.json'), 'w') as f:
+    if spans and project:
+        from lib.cachedirs import spans_dir
+        target_dir = spans_dir(project)
+        os.makedirs(target_dir, exist_ok=True)
+        with open(os.path.join(target_dir, f'{name}_aztec_spans.json'), 'w') as f:
             json.dump(spans, f, indent=1, sort_keys=True)
     asm_path = os.path.join(out_dir, f'{name}.asm')
     with open(asm_path, 'w') as f:
@@ -537,12 +538,13 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         write_summary(ctx, asm_text)
     print_short_report(ctx)
 
-    if export_labels and label_map:
+    if export_labels and label_map and project:
+        from lib.cachedirs import labels_dir
         from lib.cross_ref import write_label_json, write_label_inc
-        labels_dir = os.path.join(out_dir, 'inc', 'labels')
-        os.makedirs(labels_dir, exist_ok=True)
-        json_path = os.path.join(labels_dir, f'{name}_labels.json')
-        inc_path = os.path.join(labels_dir, f'{name}_labels.inc')
+        target_dir = labels_dir(project)
+        os.makedirs(target_dir, exist_ok=True)
+        json_path = os.path.join(target_dir, f'{name}_labels.json')
+        inc_path = os.path.join(target_dir, f'{name}_labels.inc')
         from lib.compare.vendor import _vendor_named_tails
         renamed = _vendor_named_tails(label_map, asm_annotations)
         exported = {a: n for a, n in label_map.items() if a not in renamed}

@@ -26,7 +26,8 @@ Commands (space-separated):
   make verify [PROJECT...]  verify one or all projects
   make clean [PROJECT...]   clean one or all projects (incl. .cache/<project>/prebuild)
   make rebuild PROJECT BIN  nasm-only rebuild of one binary
-  make elf-rebuild PROJECT BIN recompile edited .c (no verify) + rebuild EXE + ELF/DWARF
+  make elf-rebuild PROJECT [BIN]  full rebuild from current sources (C resplice +
+                            link + all binaries); ELF/DWARF for BIN (default host)
   make decompile PROJECT BIN  disassemble + decompile binary to .c
   make set-baseline         pin current stats as the local baseline
   make stats-diff           current-vs-baseline KPI delta (+ delta.json)
@@ -157,10 +158,11 @@ def main():
         return
 
     if '--elf-rebuild' in flags:
-        if len(args) < 2:
-            print('Usage: make elf-rebuild PROJECT BINARY')
+        if not args:
+            print('Usage: make elf-rebuild PROJECT [BINARY]')
             sys.exit(1)
-        project, binary = args[0], args[1]
+        project = args[0]
+        binary = args[1] if len(args) > 1 else None
         if project not in all_projects:
             print(f'Unknown project: {project}')
             sys.exit(1)

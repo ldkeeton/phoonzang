@@ -490,12 +490,16 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
     consumer_inc = None
     if foreign_label_map and asm_dir and name:
+        from lib.cachedirs import labels_dir, project_of_asm_dir
         from lib.cross_ref import write_label_inc
-        labels_dir = os.path.join(asm_dir, 'inc', 'labels')
-        os.makedirs(labels_dir, exist_ok=True)
-        inc_name = f'{name}_foreign_labels.inc'
-        write_label_inc(foreign_label_map, os.path.join(labels_dir, inc_name))
-        consumer_inc = f'inc/labels/{inc_name}'
+        project = project_of_asm_dir(asm_dir)
+        if project is not None:
+            target_dir = labels_dir(project)
+            os.makedirs(target_dir, exist_ok=True)
+            inc_name = f'{name}_foreign_labels.inc'
+            write_label_inc(foreign_label_map,
+                            os.path.join(target_dir, inc_name))
+            consumer_inc = f'labels/{inc_name}'
 
     # Assemble every candidate instruction in a single NASM round-trip rather
     # than spawning a subprocess per instruction.  Falls back to per-instruction
@@ -951,6 +955,16 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             foff = start_offset + (o_entry - o_corg)
             source_entry_symbol = label_map.get(foff) or entry_symbol
 
+    # D7.0c: an overlay with a host names host geometry (``__zdataseg_end``,
+    # the value ``o_dorg`` carries) through the link values file the pre-NASM
+    # link step writes into ``.cache``; the overlay's own assembly cannot see
+    # the host's labels.
+    host_inc = None
+    if (segments is not None and getattr(segments, 'kind', None) == 'overlay'
+            and getattr(segments, 'host', None) is not None):
+        from lib.link import HOST_VALUES_INCLUDE
+        host_inc = HOST_VALUES_INCLUDE
+
     src_lines, split_sources = _build_source(
         records, start_offset, binary_data, label_map,
         show_offsets=show_offsets, consumer_inc=consumer_inc,
@@ -958,6 +972,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         split_dir=name, mem_equ=mem_equ, image_base=start_offset,
         entry_symbol=source_entry_symbol, label_defined=label_defined,
         ds_size=getattr(segments, 'ds_size', None),
+        host_inc=host_inc,
     )
     t6 = time.perf_counter()
 

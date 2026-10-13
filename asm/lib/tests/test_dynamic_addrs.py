@@ -83,20 +83,21 @@ def _mz_header(e_ss):
 
 # Snapshot taken from the committed tree after the F1/F2/F3/F5 work
 # (2026-10-11), the D0 census split and D1's data-label binding (2026-10-12),
-# the D7.0a shared-geometry counters (2026-10-12), and D7.0b's binding of the
-# DS-size immediates to ``__zdataseg_end`` (2026-10-12).  ``total`` is the
-# *gated* sum (``code_shift + data_shift``); ``inert`` values (``psp_`` fields,
-# ``bios_data_0410``, literal data tables) are reported but excluded from the
-# gate.  D7.0a *raised* the baseline by 33 (it made the previously invisible
-# shared host/overlay geometry countable: 13 ``o_corg`` + 13 ``o_dorg`` +
-# 7 ``ds_size_imm``); D7.0b then bound the 7 immediates, dropping
-# ``ds_size_imm`` to 0 and ``code_shift`` with it.  Every count may only go down
-# from here.
+# the D7.0a shared-geometry counters (2026-10-12), D7.0b's binding of the
+# DS-size immediates to ``__zdataseg_end`` (2026-10-12), and D7.0c's pre-NASM
+# link step binding the 13 overlay ``o_dorg`` origins to the same host symbol
+# (2026-10-12).  ``total`` is the *gated* sum (``code_shift + data_shift``);
+# ``inert`` values (``psp_`` fields, ``bios_data_0410``, literal data tables) are
+# reported but excluded from the gate.  D7.0a *raised* the baseline by 33 (it
+# made the previously invisible shared host/overlay geometry countable: 13
+# ``o_corg`` + 13 ``o_dorg`` + 7 ``ds_size_imm``); D7.0b then bound the 7
+# immediates and D7.0c the 13 ``o_dorg``, dropping ``ds_size_imm`` and
+# ``o_dorg`` to 0.  Every count may only go down from here.
 BASELINE_TOTALS = {
-    'code_shift': 165, 'data_shift': 1244, 'inert': 248,
+    'code_shift': 165, 'data_shift': 1231, 'inert': 248,
     'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1231, 'f5': 3, 'f6': 241, 'f7': 0,
-    'o_corg': 13, 'o_dorg': 13, 'ds_size_imm': 0,
-    'total': 1409,
+    'o_corg': 13, 'o_dorg': 0, 'ds_size_imm': 0,
+    'total': 1396,
 }
 
 
@@ -362,6 +363,69 @@ class DsSizeSymbolTests(unittest.TestCase):
                             '__zdataseg_start:\n    db 0xee', 1)
         built = _nasm(grown)
         self.assertEqual(built[0x200:0x203], b'\xb9\x19\x00')
+
+
+class LinkStepTests(unittest.TestCase):
+    """D7.0c: the pre-NASM link step resolves host geometry for an overlay.
+
+    An overlay's ``o_dorg`` *is* the host data-segment size -- geometry its own
+    assembly cannot see, because it is a separate NASM run.  The link step
+    assembles the host, reads ``__zdataseg_end`` and writes it to ``.cache``;
+    the overlay source names the symbol and carries no literal.  Editing the
+    host's data must therefore move the assembled ``o_dorg``.
+    """
+
+    def _stage_label_dir(self, root):
+        """Lay out ``.cache``'s derived label files the way a build does."""
+        import shutil
+        from lib.cachedirs import labels_dir
+        src = labels_dir('DSAVANT')
+        if not os.path.isdir(src):
+            self.skipTest('no .cache label dir; run "make build DSAVANT"')
+        dst = os.path.join(root, 'labels')
+        os.makedirs(dst, exist_ok=True)
+        for entry in os.listdir(src):
+            if entry.endswith('.inc'):
+                shutil.copy2(os.path.join(src, entry),
+                             os.path.join(dst, entry))
+
+    def _link_and_build_overlay(self, root):
+        from lib.link import HOST_GEOMETRY_SYMBOLS, probe_symbols, render_values
+        self._stage_label_dir(root)
+        values = probe_symbols(root, 'ds.asm', HOST_GEOMETRY_SYMBOLS)
+        with open(os.path.join(root, 'labels', 'host_values.inc'), 'w') as f:
+            f.write(render_values(values))
+        built = _nasm_file(os.path.join(root, 'vbase.asm'), root)
+        return built, values
+
+    @unittest.skipUnless(
+        _TREE.is_dir() and (_TREE / 'ds.asm').exists()
+        and (_TREE / 'vbase.asm').exists(),
+        'generated asm_DSAVANT tree not present',
+    )
+    def test_overlay_o_dorg_follows_a_host_data_edit(self):
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+
+            original, values = self._link_and_build_overlay(d)
+            self.assertEqual(values['__zdataseg_end'], 0x9098)
+            # o_dorg is the 4th 16-bit overlay-header field (file offset 6).
+            self.assertEqual(original[6:8], b'\x98\x90')
+            self.assertEqual(original[:2], b'\xf2\x00')
+
+            # Grow the host's file-backed data by one byte.
+            master = os.path.join(d, 'ds.asm')
+            with open(master) as f:
+                src = f.read()
+            grown_src = src.replace('__zdataseg_start:\n',
+                                    '__zdataseg_start:\n    db 0xee\n', 1)
+            self.assertNotEqual(grown_src, src)
+            with open(master, 'w') as f:
+                f.write(grown_src)
+
+            grown, values = self._link_and_build_overlay(d)
+            self.assertEqual(values['__zdataseg_end'], 0x9099)
+            self.assertEqual(grown[6:8], b'\x99\x90')
 
 
 class DataStringAnchorTests(unittest.TestCase):

@@ -2,7 +2,9 @@
 %include "inc/structs/vmnpc.inc"
 org 0
 bits 16
-%include "inc/labels/vmnpc_foreign_labels.inc"
+%include "labels/vmnpc_foreign_labels.inc"
+
+%include "labels/host_values.inc"
 
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x000e
@@ -12,7 +14,7 @@ IMAGE_BASE equ 0x000e
     dw 0x00f2                                ; o_magic: overlay signature (0x00f2)
     dw 0x5055                                ; o_corg: code load origin (memory offset)
     dw (__zdata_start - __zcode_start)       ; 0xaecf ; o_csize: code size in bytes
-    dw 0x9098                                ; o_dorg: data load origin (memory offset)
+    dw __zdataseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)        ; 0x009c ; o_dsize: initialized data size
     dw 0x1f22                                ; o_bss: uninitialized data size
     dw string_loc_ae10 - IMAGE_BASE + 0x5055 ; 0xfe57 ; o_entry: overlay entry offset (CS)

@@ -89,7 +89,7 @@ def _ensure_prebuild(app):
     """Run the prebuild only when its ``.cache/<app>/`` data is incomplete."""
     if (os.path.isdir(prebuild_dir(app))
             and (os.path.exists(aztec_funcs_path(app))
-                 or app not in build_db.PROJECT_BINARIES)):
+                 or not build_db.project_binaries(app))):
         return
     print(f'{app}: prebuild cache missing; running the Aztec C mux first...')
     cmd_prebuild(app, wipe=False)

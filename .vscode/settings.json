@@ -2,5 +2,6 @@
     "files.associations": {
         "*.asm": "asm-intel-x86-generic"
     },
-    "debug.allowBreakpointsEverywhere": true
+    "debug.allowBreakpointsEverywhere": true,
+    "search.useIgnoreFiles": false
 }

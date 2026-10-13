@@ -318,13 +318,18 @@ def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None
 
 
 def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
-                       dynamic_dsize=False):
+                       dynamic_dsize=False, ds_end_symbol=None):
     """Render the Aztec overlay header fields with a shared comment column.
 
     The overlay file is ``header + code(o_csize) + data(o_dsize)``.  When the
     ``__zdata_start`` anchor is available (*dynamic_csize*/*dynamic_dsize*),
     ``o_csize`` and ``o_dsize`` are computed so both follow a resized overlay.
     ``o_entry`` is rendered from *entry_symbol* when one labels the entry.
+
+    ``o_dorg`` *is* the host's data-segment size, so when *ds_end_symbol* is
+    given (D7.0c, an overlay with a host) it is rendered as that symbol, which
+    the link step resolves into ``.cache``; otherwise it stays the literal.
+
     Rewritten fields keep their original value as a leading comment.
     """
     (o_magic, o_corg, o_csize, o_dorg, o_dsize, o_bss, o_entry) = \
@@ -333,6 +338,8 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
                   else f'dw 0x{o_csize:04x}')
     dsize_text = ('dw (__zimage_end - __zdata_start)' if dynamic_dsize
                   else f'dw 0x{o_dsize:04x}')
+    dorg_text = (f'dw {ds_end_symbol}' if ds_end_symbol
+                 else f'dw 0x{o_dorg:04x}')
     if entry_symbol:
         entry_text = f'dw {entry_symbol} - IMAGE_BASE + 0x{o_corg:04x}'
     else:
@@ -347,7 +354,7 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
         (f'dw 0x{o_magic:04x}', 'o_magic: overlay signature (0x00f2)'),
         (f'dw 0x{o_corg:04x}', 'o_corg: code load origin (memory offset)'),
         _field(csize_text, o_csize, 'o_csize: code size in bytes'),
-        (f'dw 0x{o_dorg:04x}', 'o_dorg: data load origin (memory offset)'),
+        _field(dorg_text, o_dorg, 'o_dorg: data load origin (memory offset)'),
         _field(dsize_text, o_dsize, 'o_dsize: initialized data size'),
         (f'dw 0x{o_bss:04x}', 'o_bss: uninitialized data size'),
         _field(entry_text, o_entry, 'o_entry: overlay entry offset (CS)'),
@@ -388,12 +395,22 @@ def mz_data_gap(records, binary_data, start_offset):
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   consumer_inc=None, immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
-                  label_defined=None, ds_size=None):
-    """Render the master NASM source and any generated function includes."""
+                  label_defined=None, ds_size=None, host_inc=None):
+    """Render the master NASM source and any generated function includes.
+
+    *host_inc* is the include directive (relative to the ``.cache/<project>/``
+    root) naming the D7.0c link values file.  It is set for overlays with a
+    host, so the overlay can name host geometry (``__zdataseg_end``) that its
+    own assembly cannot see; the value is resolved by the link step into
+    ``.cache`` and never stands as a literal in ``asm_<project>``.
+    """
     label_defined = label_defined or ()
     out = ['org 0', 'bits 16']
     if consumer_inc:
         out.append(f'%include "{consumer_inc}"')
+        out.append('')
+    if host_inc:
+        out.append(f'%include "{host_inc}"')
         out.append('')
 
     base = start_offset if image_base is None else image_base
@@ -450,9 +467,13 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                 from lib.compare.jumptables import _ensure_global_label
                 dynamic_ovr_size = _ensure_global_label(
                     records, binary_data, data_start, '__zdata_start')
+        # D7.0c: ``o_dorg`` is the host data-segment size, so bind it to the
+        # host symbol the link step resolves (only when the host values file is
+        # in scope -- ``host_inc``).
         out.extend(_render_ovr_header(
             binary_data[:14], entry_symbol=entry_symbol,
-            dynamic_csize=dynamic_ovr_size, dynamic_dsize=dynamic_ovr_size))
+            dynamic_csize=dynamic_ovr_size, dynamic_dsize=dynamic_ovr_size,
+            ds_end_symbol=(_DSSIZE_SYMBOL if host_inc else None)))
         out.append('')
         out.append('__zcode_start:')
     elif start_offset > 0:

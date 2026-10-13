@@ -3,7 +3,7 @@
 import os
 import shutil
 
-from lib.cachedirs import prebuild_dir, render_dir
+from lib.cachedirs import labels_dir, prebuild_dir, render_dir, spans_dir
 from main import clean_all
 
 from .common import APPS, PROJECT
@@ -23,6 +23,8 @@ def cmd_clean(apps, keep_prebuild=False):
         if not keep_prebuild:
             outs.append(prebuild_dir(app))
             outs.append(render_dir(app))
+            outs.append(labels_dir(app))
+            outs.append(spans_dir(app))
         return outs
 
     if not apps:

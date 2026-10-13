@@ -26,8 +26,10 @@ def byte_verify(name, orig_dir, rel_path, asm_dir, start_offset,
         return False
 
     with tempfile.NamedTemporaryFile(suffix='.bin') as tmp:
+        from lib.link import include_args
         r = subprocess.run(
-            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', f'-I{asm_dir}/', '-o', tmp.name, asm_path],
+            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow',
+             *include_args(asm_dir), '-o', tmp.name, asm_path],
             capture_output=True, text=True,
         )
 

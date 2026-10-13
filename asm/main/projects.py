@@ -55,13 +55,15 @@ def copy_assets(orig_dir, output_dir, processed_names):
 
 
 def build_binaries(asm_dir, bins, out_dir):
+    from lib.link import include_args
     os.makedirs(out_dir, exist_ok=True)
     all_ok = True
     for name, (rel_path, _start_offset) in sorted(bins.items()):
         asm_path = os.path.join(asm_dir, f'{name}.asm')
         bin_path = os.path.join(out_dir, rel_path)
         r = subprocess.run(
-            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', f'-I{asm_dir}/', '-o', bin_path, asm_path],
+            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow',
+             *include_args(asm_dir), '-o', bin_path, asm_path],
             capture_output=True, text=True,
         )
         if r.returncode != 0:
@@ -175,6 +177,11 @@ def process_project(project_name):
                 foreign_prefix=foreign_prefix, host_model=host_model)
 
     processed = set(bins.keys())
+
+    # D7.0c: resolve the host geometry the overlays/drivers name before any
+    # binary is assembled.
+    from lib.link import write_link_values
+    write_link_values(project_name, out_dir, bins)
 
     build_out = os.path.join(out_dir, 'build_out')
     copy_assets(project_dir, build_out, set())

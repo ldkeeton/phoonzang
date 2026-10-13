@@ -8,9 +8,11 @@ import subprocess
 import sys
 
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
+from lib.link import include_args
 from main import discover_binaries
 
-from .common import APPS, PROJECT, _nasm_build
+from .common import APPS, PROJECT, _main_exe, _nasm_build
+from .link import write_link_values
 
 
 def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
@@ -211,7 +213,7 @@ def _nasm_elf_build(out_dir, name, entry_ip, load_offset=0x200):
     try:
         cmd = [
             'nasm', '-O0', '-w-number-overflow', '-f', 'elf32', '-F', 'dwarf',
-            f'-I{out_dir}/', '-o', tmp_elf, f'{name}.asm',
+            *include_args(out_dir), '-o', tmp_elf, f'{name}.asm',
         ]
 
         def assemble(source_text):
@@ -395,9 +397,10 @@ def resplice_c(app, binary):
 
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     dest = os.path.join(out_dir, binary)
-    spans_path = os.path.join(out_dir, 'inc', 'spans',
+    from lib.cachedirs import labels_dir, spans_dir
+    spans_path = os.path.join(spans_dir(app),
                               f'{binary}_aztec_spans.json')
-    labels_path = os.path.join(out_dir, 'inc', 'labels',
+    labels_path = os.path.join(labels_dir(app),
                                f'{binary}_labels.json')
     manifest = cache.manifest_path(app, binary)
     if not all(os.path.isfile(p) for p in
@@ -510,35 +513,73 @@ def resplice_c(app, binary):
         print(f'  resplice {app}/{binary}: {count} C routine(s) from .c')
 
 
-def cmd_elf_rebuild(app, binary):
+def cmd_elf_rebuild(app, binary=None):
+    """Full rebuild of the whole game from the current sources, then ELF.
+
+    ``asm_<project>`` is the source of truth: this does *not* regenerate it from
+    the original binaries (that would discard edits).  Instead it recompiles the
+    edited C seeds, runs the pre-NASM link step, and assembles **every** binary
+    -- so editing the host moves the overlays too -- before emitting DWARF for
+    *binary* (or the MZ host when *binary* is omitted).  See ``plan.md`` D7.0c.
+    """
     app_dir = os.path.join(APPS, app)
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     bins = discover_binaries(app_dir)
-    if binary not in bins:
-        print(f'Unknown binary "{binary}" in {app}')
-        print(f'Known: {", ".join(sorted(bins))}')
+    if not bins:
+        print(f'{app}: no binaries found')
         sys.exit(1)
-    rel_path, start_offset = bins[binary]
-    if not rel_path.upper().endswith('.EXE') or start_offset != 0x200:
-        print(f'elf-rebuild currently supports generated MZ EXEs only: {app}/{binary}')
-        sys.exit(1)
+    if binary is None:
+        binary, _ = _main_exe(out_dir, bins)
+        if binary is None:
+            print(f'{app}: no binary to emit ELF for')
+            sys.exit(1)
+        targets = sorted(bins)
+    else:
+        if binary not in bins:
+            print(f'Unknown binary "{binary}" in {app}')
+            print(f'Known: {", ".join(sorted(bins))}')
+            sys.exit(1)
+        targets = [binary]
 
     asm_path = os.path.join(out_dir, f'{binary}.asm')
     if not os.path.isfile(asm_path):
         print(f'{asm_path} not found; run "make build {app}" first')
         sys.exit(1)
 
-    resplice_c(app, binary)
-    if _nasm_build(out_dir, binary, rel_path) != 0:
+    # 1) Recompile the edited C seeds.  A binary with no ``.c`` is a no-op.
+    for name in targets:
+        resplice_c(app, name)
+
+    # 2) Link: resolve the host geometry the overlays/drivers name by symbol.
+    write_link_values(app, out_dir, bins)
+
+    # 3) Assemble every binary from the current sources (host edits reach the
+    #    overlays through the link values file).
+    failed = []
+    for name, (rel_path, _start_offset) in sorted(bins.items()):
+        if _nasm_build(out_dir, name, rel_path) != 0:
+            failed.append(name)
+    if failed:
+        print(f'elf-rebuild {app}: {len(set(failed))} binary(ies) failed to build')
         sys.exit(1)
-    exe_path = os.path.join(out_dir, 'build_out', rel_path)
-    with open(exe_path, 'rb') as f:
-        header = f.read(0x18)
-    entry_ip = int.from_bytes(header[0x14:0x16], 'little')
-    load_offset = int.from_bytes(header[0x08:0x0a], 'little') * 16
-    if _nasm_elf_build(out_dir, binary, entry_ip, load_offset) != 0:
-        sys.exit(1)
-    print(
-        f'elf-rebuild {app}/{binary} -> {rel_path} + '
-        f'{binary.upper()}.elf  [OK]'
-    )
+
+    # 4) Emit ELF/DWARF for the selected binary.
+    rel_path, start_offset = bins[binary]
+    if rel_path.upper().endswith('.EXE') and start_offset == 0x200:
+        exe_path = os.path.join(out_dir, 'build_out', rel_path)
+        with open(exe_path, 'rb') as f:
+            header = f.read(0x18)
+        entry_ip = int.from_bytes(header[0x14:0x16], 'little')
+        load_offset = int.from_bytes(header[0x08:0x0a], 'little') * 16
+        if _nasm_elf_build(out_dir, binary, entry_ip, load_offset) != 0:
+            sys.exit(1)
+        print(
+            f'elf-rebuild {app}/{binary} -> {rel_path} + '
+            f'{binary.upper()}.elf  [OK]'
+        )
+    else:
+        # Full rebuild done; overlay/driver DWARF is D7.0d.
+        print(
+            f'elf-rebuild {app}/{binary} -> {rel_path}  [OK]  '
+            f'(no ELF yet: overlay/driver DWARF is D7.0d)'
+        )
