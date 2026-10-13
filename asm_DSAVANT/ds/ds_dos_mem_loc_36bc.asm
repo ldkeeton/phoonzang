@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_mem_loc_36bc:
     push bp                          ; 0x36bc
     mov bp, sp                       ; 0x36bd

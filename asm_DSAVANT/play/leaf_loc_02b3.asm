@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_02b3:
     cmp al, 6                        ; 0x02b3
     jb short @..leaf_loc_02b3.l1     ; 0x02b5

@@ -1,9 +1,4 @@
-/* Aztec runtime routine: aztec_atoi
- * source: Manx Aztec C86 v340a atoi.c (extracted function)
- * compiled with: Aztec C86 v52a (includes v340a)
- * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocation bytes are supplied by the original image.
- */
+/* auto-generated */
 /* Copyright (C) 1981,1982 by Manx Software Systems */
 #include <ctype.h>
 

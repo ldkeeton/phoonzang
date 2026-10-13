@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_2f46:
     mov si, word [cs:cseg_1bf7 - IMAGE_BASE] ; 0x2f46
     add di, word [cs:cseg_1bd7 - IMAGE_BASE] ; 0x2f4b

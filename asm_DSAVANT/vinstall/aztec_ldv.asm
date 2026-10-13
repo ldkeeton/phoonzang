@@ -1,3 +1,4 @@
+; auto-generated
 aztec_ldv:
     push di ; long divide	(primary = primary/secondary) ; 0x3417
     sub di, di ; mark result as positive ; 0x3418

@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_45f2:
     mov ah, 9                        ; 0x45f2
     int 0x21 ; DOS string output

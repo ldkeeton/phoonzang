@@ -1,3 +1,4 @@
+; auto-generated
 dos_read_file_2:
     push bp                          ; 0x10cf
     mov bp, sp                       ; 0x10d0

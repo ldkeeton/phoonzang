@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_1aea:
     mov ax, 0x248                    ; 0x1aea
     imul word [bp + 0x4]             ; 0x1aed

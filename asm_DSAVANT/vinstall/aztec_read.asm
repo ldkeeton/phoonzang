@@ -1,3 +1,4 @@
+; auto-generated
 aztec_read:
     push bp ; } / #asm ; 0x381f
     mov bp, sp                       ; 0x3820

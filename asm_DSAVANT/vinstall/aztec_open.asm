@@ -1,3 +1,4 @@
+; auto-generated
 aztec_open:
     push bp                          ; 0x3381
     mov bp, sp                       ; 0x3382

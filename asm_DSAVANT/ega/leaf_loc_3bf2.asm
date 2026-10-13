@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_3bf2:
     mov al, 0x80                     ; 0x3bf2
     mov dl, al                       ; 0x3bf4

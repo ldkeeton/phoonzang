@@ -1,3 +1,4 @@
+; auto-generated
 ds_bios_mouse_loc_4266:
     push bp                          ; 0x4266
     mov bp, sp                       ; 0x4267

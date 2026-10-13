@@ -1,3 +1,4 @@
+; auto-generated
 %include "inc/structs/structs.inc"
 %include "inc/structs/vtrea.inc"
 bits 16

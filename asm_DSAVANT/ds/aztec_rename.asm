@@ -1,3 +1,4 @@
+; auto-generated
 aztec_rename:
     push bp                          ; 0x503b
     mov bp, sp                       ; 0x503c

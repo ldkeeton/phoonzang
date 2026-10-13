@@ -1,3 +1,4 @@
+; auto-generated
 aztec_utime:
     push bp                          ; 0x2bfe
     mov bp, sp                       ; 0x2bff

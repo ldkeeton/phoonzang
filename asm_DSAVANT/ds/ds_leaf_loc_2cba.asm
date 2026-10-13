@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_2cba:
     mov ax, word [bss_82e8]          ; 0x2cba
     inc ax                           ; 0x2cbd

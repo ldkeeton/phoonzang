@@ -1,3 +1,4 @@
+; auto-generated
 aztec_lmalloc:
     push bp                          ; 0x45d7
     mov bp, sp                       ; 0x45d8

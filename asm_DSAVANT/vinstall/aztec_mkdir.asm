@@ -1,3 +1,4 @@
+; auto-generated
 aztec_mkdir:
     push bp                          ; 0x29fe
     mov bp, sp                       ; 0x29ff

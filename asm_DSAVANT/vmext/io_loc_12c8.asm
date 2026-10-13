@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_12c8:
     mov ax, 0x248                    ; 0x12c8
     imul word [bp - 0x0006]          ; 0x12cb

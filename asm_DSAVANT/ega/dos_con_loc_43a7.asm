@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_43a7:
     mov ah, 9                        ; 0x43a7
     int 0x21 ; DOS string output

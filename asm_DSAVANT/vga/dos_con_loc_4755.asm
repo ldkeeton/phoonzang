@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_4755:
     mov ah, 9                        ; 0x4755
     int 0x21 ; DOS string output

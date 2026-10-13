@@ -1,3 +1,4 @@
+; auto-generated
 bios_mouse_loc_1992:
     push bp                          ; 0x1992
     mov bp, sp                       ; 0x1993

@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_023f:
     push bp                          ; 0x023f
     mov bp, sp                       ; 0x0240

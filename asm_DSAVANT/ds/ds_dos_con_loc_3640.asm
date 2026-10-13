@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_con_loc_3640:
     mov ax, cs                       ; 0x3640
     mov ds, ax                       ; 0x3642

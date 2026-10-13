@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_30b3:
     test al, al                      ; 0x30b3
     je short @..string_loc_30b3.l1   ; 0x30b5

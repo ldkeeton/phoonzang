@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_0b91:
     cmp byte [cs:cseg_0a48 - IMAGE_BASE], 0 ; 0x0b91
     je short @..leaf_loc_0b91.l2     ; 0x0b97

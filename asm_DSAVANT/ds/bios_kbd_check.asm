@@ -1,3 +1,4 @@
+; auto-generated
 bios_kbd_check:
     push bp                          ; 0x3e5e
     mov bp, sp                       ; 0x3e5f

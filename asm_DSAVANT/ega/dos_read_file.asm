@@ -1,3 +1,4 @@
+; auto-generated
 dos_read_file:
     push bp                          ; 0x0df3
     mov bp, sp                       ; 0x0df4

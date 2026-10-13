@@ -1,3 +1,4 @@
+; auto-generated
 aztec_strlen:
     push bp                          ; 0x356f
     mov bp, sp                       ; 0x3570

@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_40d4:
     mov ah, 9                        ; 0x40d4
     int 0x21 ; DOS string output

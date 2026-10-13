@@ -1,3 +1,4 @@
+; auto-generated
 aztec_unlink:
     push bp                          ; 0x5023
     mov bp, sp                       ; 0x5024

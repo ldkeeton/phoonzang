@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_73f9:
     mov word [bp - 0x0022], 0        ; 0x73f9
     mov word [bp - 0x0012], 1        ; 0x73fe

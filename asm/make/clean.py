@@ -5,8 +5,8 @@ import shutil
 
 from lib.cachedirs import CACHE_ROOT, project_cache
 from main import clean_all
+from main.clean import clean_project
 
-from .common import PROJECT
 
 
 def cmd_clean(apps, keep_prebuild=False):
@@ -18,12 +18,7 @@ def cmd_clean(apps, keep_prebuild=False):
     repeated builds (it is created first only when absent).
     """
     def _targets(app):
-        outs = [
-            os.path.join(PROJECT, f'asm_{app}'),
-        ]
-        if not keep_prebuild:
-            outs.append(project_cache(app))
-        return outs
+        return [] if keep_prebuild else [project_cache(app)]
 
     if not apps:
         clean_all()
@@ -32,7 +27,7 @@ def cmd_clean(apps, keep_prebuild=False):
             print(f'Removed {CACHE_ROOT}')
         return
     for app in apps:
-        removed = False
+        removed = clean_project(app)
         for out in _targets(app):
             if os.path.isdir(out):
                 shutil.rmtree(out)

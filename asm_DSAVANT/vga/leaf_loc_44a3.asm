@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_44a3:
     dec ax                           ; 0x44a3
     mov cl, 2                        ; 0x44a4

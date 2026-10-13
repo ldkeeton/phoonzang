@@ -1,3 +1,4 @@
+; auto-generated
 fpu_loc_19ba:
     mov word [bp - 0x0008], 9        ; 0x19ba
     jmp short loc_19da               ; 0x19bf

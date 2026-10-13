@@ -1,3 +1,4 @@
+; auto-generated
 fpu_loc_6a97:
     mov ax, word [bp + 0x8]          ; 0x6a97
     mov bx, word [bp - 0x0004]       ; 0x6a9a

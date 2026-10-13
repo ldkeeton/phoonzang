@@ -1,3 +1,4 @@
+; auto-generated
 aztec_atol:
     push bp                          ; 0x2877
     mov bp, sp                       ; 0x2878

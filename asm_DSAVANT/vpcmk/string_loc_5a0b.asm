@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_5a0b:
     mov ax, 4                        ; 0x5a0b
     push ax                          ; 0x5a0e

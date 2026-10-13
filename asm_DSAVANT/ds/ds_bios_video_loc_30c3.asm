@@ -1,3 +1,4 @@
+; auto-generated
 ds_bios_video_loc_30c3:
     push es                          ; 0x30c3
     sub ax, ax                       ; 0x30c4

@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_file_2863: ; Aztec csav frame=0x0018
     mov ax, 0xffe8                   ; 0x2863
     call aztec_csav                  ; 0x2866

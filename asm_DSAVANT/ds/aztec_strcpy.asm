@@ -1,3 +1,4 @@
+; auto-generated
 aztec_strcpy:
     push bp                          ; 0x45ab
     mov bp, sp                       ; 0x45ac

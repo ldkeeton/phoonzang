@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_493a:
     mov ah, 9                        ; 0x493a
     int 0x21 ; DOS string output

@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_3140:
     or byte [bp - 0x000b], 1         ; 0x3140
     lodsb                            ; 0x3144

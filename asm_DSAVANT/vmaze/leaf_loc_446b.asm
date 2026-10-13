@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_446b:
     mov word [bp - 0x000c], 9        ; 0x446b
     mov ax, word [bp + 0x4]          ; 0x4470

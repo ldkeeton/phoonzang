@@ -167,7 +167,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertFalse((output / 'ds' / 'leaf_loc_4652.asm').exists())
         self.assertNotIn('loc_4653:', stack_include)
         self.assertIn('call aztec_csav', all_text)
-        self.assertTrue(stack_include.startswith('aztec_csav:'))
+        self.assertTrue(stack_include.split('\n', 1)[1].startswith('aztec_csav:'))
         self.assertIn('pop bx                           ; 0x4652', stack_include)
 
     def test_stack_check_local_error_tail_is_in_function_include(self):

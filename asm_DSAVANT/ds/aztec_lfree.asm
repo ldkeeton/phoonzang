@@ -1,3 +1,4 @@
+; auto-generated
 aztec_lfree:
     push bp                          ; 0x460d
     mov bp, sp                       ; 0x460e

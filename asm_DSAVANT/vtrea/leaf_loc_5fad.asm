@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_5fad:
     mov ax, word [bp + 0xe]          ; 0x5fad
     xchg al, ah                      ; 0x5fb0

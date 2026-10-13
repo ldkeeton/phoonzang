@@ -1,3 +1,4 @@
+; auto-generated
 aztec_lseek:
     push bp                          ; 0x3881
     mov bp, sp                       ; 0x3882

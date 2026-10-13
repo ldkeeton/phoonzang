@@ -1,3 +1,4 @@
+; auto-generated
 aztec_realloc:
     push bp                          ; 0x467b
     mov bp, sp                       ; 0x467c

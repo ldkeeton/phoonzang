@@ -1,3 +1,4 @@
+; auto-generated
 bios_disk_loc_0294:
     push bp                          ; 0x0294
     mov bp, sp                       ; 0x0295

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_tty_rd:
     push bp                          ; 0x505c
     mov bp, sp                       ; 0x505d

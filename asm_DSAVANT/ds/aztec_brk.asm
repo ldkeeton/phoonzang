@@ -1,3 +1,4 @@
+; auto-generated
 aztec_brk:
     push bp ; brk(addr):	set current top address to addr / returns 0 if ok, -1 if error ; 0x51bc
     mov bp, sp                       ; 0x51bd

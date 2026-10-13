@@ -1,3 +1,4 @@
+; auto-generated
 dos_alloc_mem:
     push bp                          ; 0x3860
     mov bp, sp                       ; 0x3861

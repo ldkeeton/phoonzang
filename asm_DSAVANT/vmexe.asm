@@ -1,3 +1,4 @@
+; auto-generated
 %include "inc/structs/structs.inc"
 %include "inc/structs/vmexe.inc"
 bits 16

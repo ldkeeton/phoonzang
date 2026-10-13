@@ -1,3 +1,4 @@
+; auto-generated
 aztec_fcbinit:
     push bp                          ; 0x29d9
     mov bp, sp                       ; 0x29da

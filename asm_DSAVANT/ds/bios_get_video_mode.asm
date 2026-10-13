@@ -1,3 +1,4 @@
+; auto-generated
 bios_get_video_mode:
     mov ah, 0xf                      ; 0x30f7
     int 0x10 ; BIOS video: get video mode

@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_2efa:
     mov word [bp - 0x000c], 9        ; 0x2efa
     mov ax, word [bp + 0x4]          ; 0x2eff

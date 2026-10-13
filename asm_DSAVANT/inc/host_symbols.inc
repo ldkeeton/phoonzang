@@ -1,3 +1,4 @@
+; auto-generated
 ; Host symbols for every overlay of this tree (plan.md E2).
 ;
 ; The host is included in a section that occupies no bytes, so its labels

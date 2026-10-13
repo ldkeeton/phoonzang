@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_5f7f:
     mov ax, word [bp + 0xe]          ; 0x5f7f
     mov cx, 4                        ; 0x5f82

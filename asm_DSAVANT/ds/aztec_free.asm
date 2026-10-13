@@ -1,3 +1,4 @@
+; auto-generated
 aztec_free:
     push bp                          ; 0x47e8
     mov bp, sp                       ; 0x47e9

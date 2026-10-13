@@ -1,3 +1,4 @@
+; auto-generated
 aztec_ovloader:
     mov bx, sp                       ; 0x4379
     mov ax, word [bx + 0x2]          ; 0x437b

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_sysint:
     push bp                          ; 0x2b31
     mov bp, sp                       ; 0x2b32

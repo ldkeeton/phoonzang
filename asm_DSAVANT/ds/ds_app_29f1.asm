@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_29f1: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x29f1
     call aztec_csav                  ; 0x29f4

@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_87ba:
     dec word [bp - 0x005a]           ; 0x87ba
     dec word [bp - 0x005a]           ; 0x87bd

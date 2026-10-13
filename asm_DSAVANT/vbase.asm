@@ -1,3 +1,4 @@
+; auto-generated
 %include "inc/structs/structs.inc"
 %include "inc/structs/vbase.inc"
 bits 16

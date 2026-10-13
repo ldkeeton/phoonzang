@@ -1,3 +1,4 @@
+; auto-generated
 aztec_begin:
     mov bp, 0x38e                    ; 0x35d2
     test bp, bp                      ; 0x35d5

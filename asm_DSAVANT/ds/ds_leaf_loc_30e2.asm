@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_30e2:
     push es                          ; 0x30e2
     mov ax, 0                        ; 0x30e3

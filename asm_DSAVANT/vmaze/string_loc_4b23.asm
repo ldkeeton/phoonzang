@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_4b23:
     cmp word [bp + 0x4], byte 5      ; 0x4b23
     jge short @..string_loc_4b23.l5  ; 0x4b27

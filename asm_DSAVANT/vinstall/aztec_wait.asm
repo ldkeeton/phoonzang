@@ -1,3 +1,4 @@
+; auto-generated
 aztec_wait:
     mov ah, 0x4d                     ; 0x2a9d
     int 0x21 ; DOS get return code

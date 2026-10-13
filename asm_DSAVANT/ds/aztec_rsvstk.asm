@@ -1,3 +1,4 @@
+; auto-generated
 aztec_rsvstk:
     push bp ; rsvstk(size):		set safety margin for stack / this will make sure that at least size / bytes of st... ; 0x5248
     mov bp, sp                       ; 0x5249

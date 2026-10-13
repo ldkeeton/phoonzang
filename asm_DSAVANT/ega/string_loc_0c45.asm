@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_0c45:
     push bp                          ; 0x0c45
     mov bp, sp                       ; 0x0c46

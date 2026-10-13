@@ -1,3 +1,4 @@
+; auto-generated
 dos_read_file_6:
     push bp                          ; 0x4a08
     mov bp, sp                       ; 0x4a09

@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_4b1d:
     mov ah, 9                        ; 0x4b1d
     int 0x21 ; DOS string output

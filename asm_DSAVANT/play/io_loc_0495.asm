@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_0495:
     in al, 0x19                      ; 0x0495
     scasw                            ; 0x0497

@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_7349:
     mov word [bp - 0x0010], 1        ; 0x7349
     mov word [bp - 0x0016], 1        ; 0x734e

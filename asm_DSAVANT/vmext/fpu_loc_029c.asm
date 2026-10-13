@@ -1,3 +1,4 @@
+; auto-generated
 fpu_loc_029c:
     mov word [bp - 0x0002], 6        ; 0x029c
     jmp short loc_02f0               ; 0x02a1

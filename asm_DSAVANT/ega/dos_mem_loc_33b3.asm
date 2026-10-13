@@ -1,3 +1,4 @@
+; auto-generated
 dos_mem_loc_33b3:
     push bp                          ; 0x33b3
     mov bp, sp                       ; 0x33b4

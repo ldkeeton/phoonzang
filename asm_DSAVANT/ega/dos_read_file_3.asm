@@ -1,3 +1,4 @@
+; auto-generated
 dos_read_file_3:
     push bp                          ; 0x3085
     mov bp, sp                       ; 0x3086

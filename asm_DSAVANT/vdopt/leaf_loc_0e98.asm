@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_0e98:
     mov ax, word [bss_9b04]          ; 0x0e98
     mov word [bp - 0x0010], ax       ; 0x0e9b

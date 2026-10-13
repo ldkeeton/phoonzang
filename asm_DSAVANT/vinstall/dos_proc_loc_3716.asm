@@ -1,3 +1,4 @@
+; auto-generated
 dos_proc_loc_3716:
     pop ax                           ; 0x3716
     pop ax                           ; 0x3717

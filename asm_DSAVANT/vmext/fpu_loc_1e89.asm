@@ -1,3 +1,4 @@
+; auto-generated
 fpu_loc_1e89:
     cmp word [bss_9188], byte 0      ; 0x1e89
     je short fpu_loc_1e94            ; 0x1e8e

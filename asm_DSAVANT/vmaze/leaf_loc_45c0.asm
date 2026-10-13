@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_45c0:
     mov word [bp - 0x000c], 0xa      ; 0x45c0
     mov ax, word [bp + 0x4]          ; 0x45c5

@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_44ad:
     mov word [bp - 0x000c], 9        ; 0x44ad
     mov ax, word [bp + 0x4]          ; 0x44b2

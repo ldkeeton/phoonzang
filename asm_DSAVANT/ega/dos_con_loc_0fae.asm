@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_0fae:
     mov ax, cs                       ; 0x0fae
     mov ds, ax                       ; 0x0fb0

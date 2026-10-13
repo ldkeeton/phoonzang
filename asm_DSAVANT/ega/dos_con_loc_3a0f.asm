@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_3a0f:
     mov ah, 9                        ; 0x3a0f
     int 0x21 ; DOS string output

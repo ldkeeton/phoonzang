@@ -1,3 +1,4 @@
+; auto-generated
 bios_video_loc_247a:
     mov ah, 0xf                      ; 0x247a
     int 0x10 ; BIOS video: get video mode

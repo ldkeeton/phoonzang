@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_3338:
     cmp al, 0x2a                     ; 0x3338
     jne short @..string_loc_3338.l1  ; 0x333a

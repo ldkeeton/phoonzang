@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_088e:
     mov bx, word [bp + 0x8]          ; 0x088e
     mov al, byte [bx + 0x5244]       ; 0x0891

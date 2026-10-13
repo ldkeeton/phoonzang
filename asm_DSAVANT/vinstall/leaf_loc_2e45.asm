@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_2e45:
     push si                          ; 0x2e45
     mov si, dseg_234a                ; 0x2e46

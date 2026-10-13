@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_87c9:
     dec word [bp - 0x005c]           ; 0x87c9
     mov ax, word [bp - 0x0080]       ; 0x87cc

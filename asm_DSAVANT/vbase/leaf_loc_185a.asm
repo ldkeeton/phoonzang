@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_185a:
     mov ax, 0x16                     ; 0x185a
     ret                              ; 0x185d

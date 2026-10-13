@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_36b4:
     mov ax, 1                        ; 0x36b4
     push ax                          ; 0x36b7

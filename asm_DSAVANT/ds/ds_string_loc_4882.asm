@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_4882:
     test al, al                      ; 0x4882
     je short @..ds_string_loc_4882.l1 ; 0x4884

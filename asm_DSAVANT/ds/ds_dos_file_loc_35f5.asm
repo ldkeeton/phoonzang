@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_file_loc_35f5:
     push ds                          ; 0x35f5
     push es                          ; 0x35f6

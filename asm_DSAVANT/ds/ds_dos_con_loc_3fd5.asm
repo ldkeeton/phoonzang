@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_con_loc_3fd5:
     mov ah, 9                        ; 0x3fd5
     int 0x21 ; DOS string output

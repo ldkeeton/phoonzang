@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_145c:
     and di, strict word 0x3fff       ; 0x145c
     and si, strict word 0x3fff       ; 0x1460

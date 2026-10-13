@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_31ad:
     mov ah, 9                        ; 0x31ad
     int 0x21 ; DOS string output

@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_17d6: ; Aztec csav frame=0x0004
     mov ax, 0xfffc                   ; 0x17d6
     call aztec_csav                  ; 0x17d9

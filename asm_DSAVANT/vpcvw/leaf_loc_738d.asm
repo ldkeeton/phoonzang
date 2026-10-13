@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_738d:
     mov word [bp - 0x0014], 1        ; 0x738d
     mov ax, word [dseg_0022]         ; 0x7392

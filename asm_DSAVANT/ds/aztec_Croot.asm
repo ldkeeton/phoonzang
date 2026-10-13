@@ -1,3 +1,4 @@
+; auto-generated
 aztec_Croot:
     push bp                          ; 0x4ea7
     mov bp, sp                       ; 0x4ea8

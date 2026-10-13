@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_6c08:
     mov word [bss_95a6], 0           ; 0x6c08
     mov word [bss_830a], 0x17        ; 0x6c0e

@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_8813:
     inc word [bp - 0x005a]           ; 0x8813
     inc word [bp - 0x005a]           ; 0x8816

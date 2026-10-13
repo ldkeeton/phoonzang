@@ -24,6 +24,7 @@ A build that finds ``aztec_*`` labels but no prebuild data fails loudly with
 import json
 import os
 
+from lib.autogen import MARKER_C
 from lib.cachedirs import prebuild_dir
 
 from . import listing, objcache, sources
@@ -66,17 +67,8 @@ def is_asm_entry(entry):
 
 
 def source_header(label, entry):
-    """Comment banner shared by prebuild seeds and build-time seeding."""
-    kind = 'extracted function' if entry.get('extracted') else 'whole module'
-    return (
-        f'/* Aztec runtime routine: {label}\n'
-        f' * source: Manx Aztec C86 {entry["source_version"]} '
-        f'{entry["file"]} ({kind})\n'
-        f' * compiled with: Aztec C86 {entry["compiler"]} '
-        f'(includes {entry["includes"]})\n'
-        f' * recovered byte-exact by the C mux (lib/aztec/mux.py);\n'
-        f' * relocation bytes are supplied by the original image.\n'
-        f' */\n')
+    """Header of a build-time seed: just the auto-generated marker."""
+    return MARKER_C + '\n'
 
 
 def _entry_from_match(match):

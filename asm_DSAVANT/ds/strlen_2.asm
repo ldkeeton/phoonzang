@@ -1,3 +1,4 @@
+; auto-generated
 strlen_2:
     push bp                          ; 0x40ca
     mov bp, sp                       ; 0x40cb

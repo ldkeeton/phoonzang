@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_7415:
     mov word [bp - 0x0012], 1        ; 0x7415
     mov word [bp - 0x001c], 1        ; 0x741a

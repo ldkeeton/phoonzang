@@ -1,3 +1,4 @@
+; auto-generated
 bios_video_loc_2551:
     push bp                          ; 0x2551
     mov bp, sp                       ; 0x2552

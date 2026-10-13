@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_49b1:
     mov ax, word [bp - 0x0006]       ; 0x49b1
     add ax, word [bp - 0x0008]       ; 0x49b4

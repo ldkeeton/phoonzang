@@ -1,3 +1,4 @@
+; auto-generated
 ds_bios_video_loc_3067:
     push bp                          ; 0x3067
     mov bp, sp                       ; 0x3068

@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_8800:
     dec word [bp - 0x005a]           ; 0x8800
     dec word [bp - 0x005a]           ; 0x8803

@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_3620:
     mov ax, 0xfe52                   ; 0x3620
     call aztec_csav                  ; 0x3623

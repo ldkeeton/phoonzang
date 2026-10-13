@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_file_loc_3534:
     push ds                          ; 0x3534
     push es                          ; 0x3535

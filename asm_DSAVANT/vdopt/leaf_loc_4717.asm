@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_4717:
     pop bx                           ; 0x4717
     push di                          ; 0x4718

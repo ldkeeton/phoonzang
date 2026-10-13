@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_02ba:
     push di                          ; 0x02ba
     push es                          ; 0x02bb

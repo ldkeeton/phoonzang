@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_052e: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x052e
     call aztec_csav                  ; 0x0531

@@ -1,3 +1,4 @@
+; auto-generated
 main: ; Aztec csav frame=0x0002
     mov ax, 0xfffe                   ; 0x2dd5
     call aztec_csav                  ; 0x2dd8

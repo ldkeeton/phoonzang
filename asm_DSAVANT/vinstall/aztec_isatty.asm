@@ -1,3 +1,4 @@
+; auto-generated
 aztec_isatty:
     push bp                          ; 0x39e5
     mov bp, sp                       ; 0x39e6

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_strcmp:
     push bp                          ; 0xae76
     mov bp, sp                       ; 0xae77

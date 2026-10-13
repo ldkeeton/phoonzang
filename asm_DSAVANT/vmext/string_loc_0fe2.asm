@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_0fe2:
     mov word [bp - 0x0004], 0        ; 0x0fe2
 @..string_loc_0fe2.l1:

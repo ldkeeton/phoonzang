@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_3168:
     mov cx, 0xff0a                   ; 0x3168
 loc_316b:

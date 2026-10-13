@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_32e8:
     mov ax, 5                        ; 0x32e8
     imul word [bss_91d6]             ; 0x32eb

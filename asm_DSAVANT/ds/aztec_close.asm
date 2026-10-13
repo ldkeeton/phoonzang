@@ -1,3 +1,4 @@
+; auto-generated
 aztec_close:
     push bp                          ; 0x4fec
     mov bp, sp                       ; 0x4fed

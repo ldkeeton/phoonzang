@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_3674:
     push ds                          ; 0x3674
     push si                          ; 0x3675

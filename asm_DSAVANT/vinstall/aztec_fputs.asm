@@ -1,3 +1,4 @@
+; auto-generated
 aztec_fputs:
     push bp                          ; 0x2c8e
     mov bp, sp                       ; 0x2c8f

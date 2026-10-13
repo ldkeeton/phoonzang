@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_09a5: ; Aztec csav frame=0x0004
     mov ax, 0xfffc                   ; 0x09a5
     call aztec_csav                  ; 0x09a8

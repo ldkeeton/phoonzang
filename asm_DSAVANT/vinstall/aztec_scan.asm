@@ -1,3 +1,4 @@
+; auto-generated
 aztec_scan:
     push bp                          ; 0x0a0f
     mov bp, sp                       ; 0x0a10

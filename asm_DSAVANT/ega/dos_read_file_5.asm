@@ -1,3 +1,4 @@
+; auto-generated
 dos_read_file_5:
     push bp                          ; 0x4624
     mov bp, sp                       ; 0x4625

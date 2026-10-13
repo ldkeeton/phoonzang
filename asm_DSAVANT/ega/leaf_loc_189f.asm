@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_189f:
     mov di, word [cs:cseg_1be5 - IMAGE_BASE] ; 0x189f
     mov cx, word [cs:cseg_1be3 - IMAGE_BASE] ; 0x18a4

@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_1b46:
     mov ax, 5                        ; 0x1b46
     imul word [bss_91aa]             ; 0x1b49

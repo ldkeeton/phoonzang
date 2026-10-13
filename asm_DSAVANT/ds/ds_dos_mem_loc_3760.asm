@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_mem_loc_3760:
     push es                          ; 0x3760
 @..ds_dos_mem_loc_3760.l1:

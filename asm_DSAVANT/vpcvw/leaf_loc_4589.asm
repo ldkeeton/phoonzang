@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_4589:
     mov word [bp - 0x0002], 0        ; 0x4589
     mov bx, word [bp + 0x6]          ; 0x458e

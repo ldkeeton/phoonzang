@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_0ee1: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x0ee1
     call aztec_csav                  ; 0x0ee4

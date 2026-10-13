@@ -46,6 +46,7 @@ from lib.names import (
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_asm_annotations, _aztec_c_overrides
+from lib.autogen import write_text
 from .emit import _write_address_inventory, _write_render_context
 from .options import (
     ASM_DIR,
@@ -469,8 +470,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     for include_path, include_text in split_sources.items():
         path = os.path.join(out_dir, include_path)
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        with open(path, 'w') as f:
-            f.write(include_text)
+        write_text(path, include_text)
     spans = stats.get('aztec_spans') or {}
     if spans and project:
         from lib.cachedirs import spans_dir
@@ -479,8 +479,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         with open(os.path.join(target_dir, f'{name}_aztec_spans.json'), 'w') as f:
             json.dump(spans, f, indent=1, sort_keys=True)
     asm_path = os.path.join(out_dir, f'{name}.asm')
-    with open(asm_path, 'w') as f:
-        f.write(asm_text)
+    write_text(asm_path, asm_text)
     t_end = time.perf_counter()
 
     if immediate_labels:
@@ -578,8 +577,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         c_text = decompile(bin_data, start_offset, instructions, label_map,
                           ctx.code_target_set, structs, name)
         c_path = os.path.join(out_dir, f'{name}.c')
-        with open(c_path, 'w') as f:
-            f.write(c_text)
+        write_text(c_path, c_text)
         print(f'  decompile: {len(instructions)} insns -> {c_path}')
 
     if trace_writer:

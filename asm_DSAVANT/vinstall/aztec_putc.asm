@@ -1,3 +1,4 @@
+; auto-generated
 aztec_putc:
     push bp                          ; 0x2cc1
     mov bp, sp                       ; 0x2cc2

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_bdos:
     push bp                          ; 0x4497
     mov bp, sp                       ; 0x4498

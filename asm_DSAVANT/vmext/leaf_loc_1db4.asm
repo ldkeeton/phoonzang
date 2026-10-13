@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_1db4:
     cmp word [bp - 0x0006], byte 0x0e ; 0x1db4
     je short @..leaf_loc_1db4.l1     ; 0x1db8

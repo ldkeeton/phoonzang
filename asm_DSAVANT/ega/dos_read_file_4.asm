@@ -1,3 +1,4 @@
+; auto-generated
 dos_read_file_4:
     push bp                          ; 0x4457
     mov bp, sp                       ; 0x4458

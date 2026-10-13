@@ -1,3 +1,4 @@
+; auto-generated
 aztec_gmtime:
     push bp                          ; 0x2bda
     mov bp, sp                       ; 0x2bdb

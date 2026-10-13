@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_4ce8:
     push ax                          ; 0x4ce8
     mov bx, cseg_0251 - IMAGE_BASE   ; 0x4ce9

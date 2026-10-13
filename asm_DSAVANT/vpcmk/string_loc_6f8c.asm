@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_6f8c:
     pop word [dseg_9522]             ; 0x6f8c
     pop cx                           ; 0x6f90

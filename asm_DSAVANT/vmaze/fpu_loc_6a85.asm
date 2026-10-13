@@ -1,3 +1,4 @@
+; auto-generated
 fpu_loc_6a85:
     mov ax, word [bp + 0xe]          ; 0x6a85
     xchg al, ah                      ; 0x6a88

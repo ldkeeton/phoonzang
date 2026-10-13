@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_3245:
     push bx                          ; 0x3245
     cmp al, 0xff                     ; 0x3246

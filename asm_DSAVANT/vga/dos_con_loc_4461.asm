@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_4461:
     push ax                          ; 0x4461
     mov bx, data_46d9                ; 0x4462

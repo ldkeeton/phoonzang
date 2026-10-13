@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_10ff:
     mov ax, cs                       ; 0x10ff
     mov ds, ax                       ; 0x1101

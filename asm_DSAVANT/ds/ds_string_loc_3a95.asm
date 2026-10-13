@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_3a95:
     push bp                          ; 0x3a95
     mov bp, sp                       ; 0x3a96

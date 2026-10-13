@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_127d:
     mov ax, 0x248                    ; 0x127d
     imul word [bp - 0x0006]          ; 0x1280

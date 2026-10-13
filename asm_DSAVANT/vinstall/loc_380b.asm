@@ -1,3 +1,4 @@
+; auto-generated
 loc_380b:
     push bp                          ; 0x380b
     mov bp, sp                       ; 0x380c

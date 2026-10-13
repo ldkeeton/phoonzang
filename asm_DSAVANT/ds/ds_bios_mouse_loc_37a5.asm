@@ -1,3 +1,4 @@
+; auto-generated
 ds_bios_mouse_loc_37a5:
     mov ax, word [bp + 0x4]          ; 0x37a5
     cmp ax, strict word 4            ; 0x37a8

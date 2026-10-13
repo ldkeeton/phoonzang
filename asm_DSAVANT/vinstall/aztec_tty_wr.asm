@@ -1,3 +1,4 @@
+; auto-generated
 aztec_tty_wr:
     push bp                          ; 0x393e
     mov bp, sp                       ; 0x393f

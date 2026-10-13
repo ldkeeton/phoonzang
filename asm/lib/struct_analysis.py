@@ -9,6 +9,8 @@ No project-specific knowledge — everything is derived from the code itself.
 
 import json
 import os
+
+from lib.autogen import write_text
 from collections import defaultdict
 from capstone import CS_OP_MEM
 from capstone.x86 import X86_REG_BP, X86_REG_SP, X86_REG_BX, X86_REG_SI
@@ -319,8 +321,7 @@ def write_struct_inc_files(structs, name, structs_dir):
         'endstruc',
         '',
     ])
-    with open(prim_path, 'w') as f:
-        f.write(primitives)
+    write_text(prim_path, primitives)
 
     if not structs:
         return None
@@ -328,10 +329,8 @@ def write_struct_inc_files(structs, name, structs_dir):
     inc_path = os.path.join(structs_dir, f'{name}.inc')
     struct_text = format_nasm_structs(structs)
 
-    with open(inc_path, 'w') as f:
-        f.write(struct_text)
-        if not struct_text.endswith('\n'):
-            f.write('\n')
+    write_text(inc_path, struct_text if struct_text.endswith('\n')
+               else struct_text + '\n')
 
     return f'%include "inc/structs/{name}.inc"'
 

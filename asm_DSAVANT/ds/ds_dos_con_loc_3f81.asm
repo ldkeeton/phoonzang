@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_con_loc_3f81:
     push bp                          ; 0x3f81
     mov bp, sp                       ; 0x3f82

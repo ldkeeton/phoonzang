@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_9330:
     pop word [dseg_91c4]             ; 0x9330
     pop cx                           ; 0x9334

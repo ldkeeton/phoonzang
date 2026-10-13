@@ -1,3 +1,4 @@
+; auto-generated
 aztec_rename:
     push bp                          ; 0x38b8
     mov bp, sp                       ; 0x38b9

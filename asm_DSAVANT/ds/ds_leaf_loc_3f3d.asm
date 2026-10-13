@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_3f3d:
     push bp                          ; 0x3f3d
     mov bp, sp                       ; 0x3f3e

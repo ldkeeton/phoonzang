@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_374e:
     push bp                          ; 0x374e
     mov bp, sp                       ; 0x374f

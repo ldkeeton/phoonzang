@@ -1,3 +1,4 @@
+; auto-generated
 aztec_csav:
     pop bx                           ; 0x4652
     push bp                          ; 0x4653

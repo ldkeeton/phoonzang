@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_5784:
     cmp word [bp - 0x0014], byte 0xff ; 0x5784
     je short @..string_loc_5784.l1   ; 0x5788

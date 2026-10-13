@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_0154:
     push bp                          ; 0x0154
     mov bp, sp                       ; 0x0155

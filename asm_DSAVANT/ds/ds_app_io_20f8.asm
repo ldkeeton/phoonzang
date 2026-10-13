@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_io_20f8: ; Aztec csav frame=0x0012
     mov ax, 0xffee                   ; 0x20f8
     call aztec_csav                  ; 0x20fb

@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_a520:
     push bp                          ; 0xa520
     mov bp, sp                       ; 0xa521

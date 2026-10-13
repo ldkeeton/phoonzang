@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_383e:
     push bp                          ; 0x383e
     mov bp, sp                       ; 0x383f

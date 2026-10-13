@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_4370:
     mov ah, 9                        ; 0x4370
     int 0x21 ; DOS string output

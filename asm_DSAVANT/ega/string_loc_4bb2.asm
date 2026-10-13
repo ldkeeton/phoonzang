@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_4bb2:
     mov word [bp - 0x0002], 8        ; 0x4bb2
     lodsb                            ; 0x4bb7

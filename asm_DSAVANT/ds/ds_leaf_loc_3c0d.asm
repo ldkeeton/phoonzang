@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_3c0d:
     push ax                          ; 0x3c0d
     push bx                          ; 0x3c0e

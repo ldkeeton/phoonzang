@@ -1,3 +1,4 @@
+; auto-generated
 ; ── auto-discovered structs ─────────────────────────────────────
 
 ; @struct s_bx_0001 size=5 reg=bx disp=0x0001

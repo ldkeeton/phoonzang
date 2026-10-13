@@ -1,3 +1,4 @@
+; auto-generated
 bios_mouse_loc_18c1:
     push ds                          ; 0x18c1
     push es                          ; 0x18c2

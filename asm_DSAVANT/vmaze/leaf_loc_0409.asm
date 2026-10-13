@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_0409:
     mov word [bp - 0x0002], 3        ; 0x0409
     jmp short loc_0478               ; 0x040e

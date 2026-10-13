@@ -1,3 +1,4 @@
+; auto-generated
 aztec_atoi:
     push bp                          ; 0x2806
     mov bp, sp                       ; 0x2807

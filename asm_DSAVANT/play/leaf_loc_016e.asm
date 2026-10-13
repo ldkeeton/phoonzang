@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_016e:
     mov al, byte [cs:cseg_0b9a - IMAGE_BASE] ; 0x016e
     cmp al, 0                        ; 0x0172

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_strncat:
     push bp                          ; 0x2aae
     mov bp, sp                       ; 0x2aaf

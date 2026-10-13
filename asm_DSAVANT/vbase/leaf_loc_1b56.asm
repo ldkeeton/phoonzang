@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_1b56:
     mov ax, 0x5f                     ; 0x1b56
     ret                              ; 0x1b59

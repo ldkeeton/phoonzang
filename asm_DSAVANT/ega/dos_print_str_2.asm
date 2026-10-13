@@ -1,3 +1,4 @@
+; auto-generated
 dos_print_str_2:
     push bp                          ; 0x19c1
     mov bp, sp                       ; 0x19c2

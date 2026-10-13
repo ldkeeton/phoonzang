@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_47af:
     mov ah, 9                        ; 0x47af
     int 0x21 ; DOS string output

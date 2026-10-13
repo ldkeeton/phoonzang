@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_44ff:
     push bp                          ; 0x44ff
     mov bp, sp                       ; 0x4500

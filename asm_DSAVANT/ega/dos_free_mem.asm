@@ -1,3 +1,4 @@
+; auto-generated
 dos_free_mem:
     push bp                          ; 0x0d57
     mov bp, sp                       ; 0x0d58

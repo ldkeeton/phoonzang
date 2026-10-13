@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_mem_loc_377b:
     push es                          ; 0x377b
     mov si, cseg_384a - IMAGE_BASE   ; 0x377c

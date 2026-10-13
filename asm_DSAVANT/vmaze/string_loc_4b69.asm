@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_4b69:
     jmp short loc_4b82               ; 0x4b69
 jumptable_4b6b:

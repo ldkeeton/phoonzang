@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_3a51:
     jmp short @..leaf_loc_3a51.l2    ; 0x3a51
 @..leaf_loc_3a51.l1:

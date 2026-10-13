@@ -1,3 +1,4 @@
+; auto-generated
 graphics_loc_3a8b:
     push es                          ; 0x3a8b
     mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x3a8c

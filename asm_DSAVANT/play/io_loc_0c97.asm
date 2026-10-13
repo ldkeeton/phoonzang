@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_0c97:
     push ax                          ; 0x0c97
     push ds                          ; 0x0c98

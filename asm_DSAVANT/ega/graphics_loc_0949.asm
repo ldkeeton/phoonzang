@@ -1,3 +1,4 @@
+; auto-generated
 graphics_loc_0949:
     cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x0949
     jne short @..graphics_loc_0949.l1 ; 0x094f

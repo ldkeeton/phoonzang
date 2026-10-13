@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_2aa6:
     push bp                          ; 0x2aa6
     mov bp, sp                       ; 0x2aa7

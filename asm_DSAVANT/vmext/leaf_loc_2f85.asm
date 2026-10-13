@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_2f85:
     mov word [bp - 0x000c], 0xa      ; 0x2f85
     cmp word [bss_91a8], byte 0      ; 0x2f8a

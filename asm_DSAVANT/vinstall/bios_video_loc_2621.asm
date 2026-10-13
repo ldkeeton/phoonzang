@@ -1,3 +1,4 @@
+; auto-generated
 bios_video_loc_2621:
     push bp                          ; 0x2621
     mov bp, sp                       ; 0x2622

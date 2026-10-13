@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_331e:
     push ds                          ; 0x331e
     pop es                           ; 0x331f

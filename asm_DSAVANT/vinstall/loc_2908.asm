@@ -1,3 +1,4 @@
+; auto-generated
 loc_2908:
     push bp                          ; 0x2908
     mov bp, sp                       ; 0x2909

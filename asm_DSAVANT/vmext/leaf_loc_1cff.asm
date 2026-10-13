@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_1cff:
     cmp word [bss_91aa], byte 0      ; 0x1cff
     jne short @..leaf_loc_1cff.l1    ; 0x1d04

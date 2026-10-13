@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_2cec:
     mov ax, word [bss_82e8]          ; 0x2cec
     add ax, strict word 9            ; 0x2cef

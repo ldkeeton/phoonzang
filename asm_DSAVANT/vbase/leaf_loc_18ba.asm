@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_18ba:
     mov ax, 0xf                      ; 0x18ba
     cmp word [bp + 0x6], byte 0      ; 0x18bd

@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_4421:
     push ax                          ; 0x4421
     mov bx, data_025b                ; 0x4422

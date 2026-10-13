@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_a4ca:
     pop word [dseg_90ba]             ; 0xa4ca
     pop cx                           ; 0xa4ce

@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_2359: ; Aztec csav frame=0x0004
     mov ax, 0xfffc                   ; 0x2359
     call aztec_csav                  ; 0x235c

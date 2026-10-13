@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_10b4:
     mov ax, 0x248                    ; 0x10b4
     imul word [bp - 0x0006]          ; 0x10b7

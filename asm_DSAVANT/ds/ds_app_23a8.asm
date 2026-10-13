@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_23a8: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x23a8
     call aztec_csav                  ; 0x23ab

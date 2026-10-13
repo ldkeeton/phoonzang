@@ -1,3 +1,4 @@
+; auto-generated
 aztec_free:
     push bp                          ; 0x3019
     mov bp, sp                       ; 0x301a

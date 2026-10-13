@@ -1,3 +1,4 @@
+; auto-generated
 aztec_movblock:
     push bp                          ; 0x4517
     mov bp, sp                       ; 0x4518

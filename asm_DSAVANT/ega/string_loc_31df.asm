@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_31df:
     jmp near loc_04b1                ; 0x31df
 

@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_382c:
     push ds                          ; 0x382c
     push es                          ; 0x382d

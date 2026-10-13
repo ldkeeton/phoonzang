@@ -1,3 +1,4 @@
+; auto-generated
 ; ── shared data layout primitives ───────────────────────────────
 
 struc BytePair

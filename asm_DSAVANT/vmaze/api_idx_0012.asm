@@ -1,3 +1,4 @@
+; auto-generated
 api_idx_0012:
     mov ax, 0xffee                   ; 0x3f56
     call aztec_csav                  ; 0x3f59

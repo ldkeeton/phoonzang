@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_119c:
     mov word [bp - 0x0004], 0        ; 0x119c
 @..string_loc_119c.l1:

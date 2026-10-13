@@ -1,10 +1,4 @@
-/* Aztec runtime routine: aztec_putc
- * source: Manx Aztec C86 v340a putc.c (whole module)
- * compiled with: Aztec C86 v52a (includes v340a)
- * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocations are linked against asm labels (lib/aztec/relink.py);
- * the identifiers below are the asm label names.
- */
+/* auto-generated */
 /* Copyright (C) 1981,1982,1983,1984 by Manx Software Systems */
 /* asm label names for identifiers the headers declare */
 #define Cbuffs dseg_234a

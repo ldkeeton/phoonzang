@@ -1,3 +1,4 @@
+; auto-generated
 aztec_vfprintf:
     push bp                          ; 0x0944
     mov bp, sp                       ; 0x0945

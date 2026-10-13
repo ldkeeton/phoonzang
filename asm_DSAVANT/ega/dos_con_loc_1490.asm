@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_1490:
     push bp                          ; 0x1490
     mov bp, sp                       ; 0x1491

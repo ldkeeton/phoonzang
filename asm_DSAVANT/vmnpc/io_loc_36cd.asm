@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_36cd:
     push word [bp - 0x0026]          ; 0x36cd
     mov ax, 0x5842                   ; 0x36d0

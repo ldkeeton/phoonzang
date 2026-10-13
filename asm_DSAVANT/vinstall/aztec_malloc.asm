@@ -1,3 +1,4 @@
+; auto-generated
 aztec_malloc:
     push bp                          ; 0x2f1b
     mov bp, sp                       ; 0x2f1c

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_calloc:
     push bp                          ; 0x26f6
     mov bp, sp                       ; 0x26f7

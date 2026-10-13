@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_string_05d0: ; Aztec csav frame=0x0054
     mov ax, 0xffac                   ; 0x05d0
     call aztec_csav                  ; 0x05d3

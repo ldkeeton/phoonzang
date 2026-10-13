@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_44f6:
     mov word [bp - 0x000c], 0xa      ; 0x44f6
     cmp word [bss_91d4], byte 0      ; 0x44fb

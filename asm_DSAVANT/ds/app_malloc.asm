@@ -1,3 +1,4 @@
+; auto-generated
 app_malloc: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x0200
     call aztec_csav                  ; 0x0203

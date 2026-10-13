@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_39e3:
     dec ax                           ; 0x39e3
     cmp ax, word [bp - 0x0012]       ; 0x39e4

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_write:
     push bp                          ; 0x4fbd
     mov bp, sp                       ; 0x4fbe

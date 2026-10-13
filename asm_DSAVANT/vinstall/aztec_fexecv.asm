@@ -1,3 +1,4 @@
+; auto-generated
 aztec_fexecv:
     push bp                          ; 0x291c
     mov bp, sp                       ; 0x291d

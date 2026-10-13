@@ -1,3 +1,4 @@
+; auto-generated
 fpu_loc_8976:
     jmp short loc_89b9               ; 0x8976
 jumptable_8978:

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_fexec:
     push bp                          ; 0x2a27
     mov bp, sp                       ; 0x2a28

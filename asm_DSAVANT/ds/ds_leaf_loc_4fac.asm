@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_4fac:
     push bp                          ; 0x4fac
     mov bp, sp                       ; 0x4fad

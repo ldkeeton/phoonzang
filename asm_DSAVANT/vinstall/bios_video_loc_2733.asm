@@ -1,3 +1,4 @@
+; auto-generated
 bios_video_loc_2733:
     push bp                          ; 0x2733
     mov bp, sp                       ; 0x2734

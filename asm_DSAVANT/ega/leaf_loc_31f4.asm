@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_31f4:
     push bp                          ; 0x31f4
     mov bp, sp                       ; 0x31f5

@@ -1,3 +1,4 @@
+; auto-generated
 bios_mouse_loc_190f:
     push bp                          ; 0x190f
     mov bp, sp                       ; 0x1910

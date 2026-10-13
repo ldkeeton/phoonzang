@@ -1,3 +1,4 @@
+; auto-generated
 dos_file_loc_45bd:
     push ds                          ; 0x45bd
     push es                          ; 0x45be

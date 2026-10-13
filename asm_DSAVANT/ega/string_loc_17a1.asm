@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_17a1:
     push es                          ; 0x17a1
     push di                          ; 0x17a2

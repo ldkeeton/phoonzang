@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_317d:
     mov ah, 9                        ; 0x317d
     int 0x21 ; DOS string output

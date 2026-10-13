@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_4d55:
     dec ax                           ; 0x4d55
     mov cl, 2                        ; 0x4d56

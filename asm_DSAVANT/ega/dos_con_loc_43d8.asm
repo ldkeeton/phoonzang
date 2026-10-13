@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_43d8:
     mov ah, 9                        ; 0x43d8
     int 0x21 ; DOS string output

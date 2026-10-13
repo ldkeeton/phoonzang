@@ -1,3 +1,4 @@
+; auto-generated
 bios_video_loc_252e:
     push bp                          ; 0x252e
     mov bp, sp                       ; 0x252f

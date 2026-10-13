@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_2e7d:
     mov dx, 0x3c4                    ; 0x2e7d
     mov al, 2                        ; 0x2e80

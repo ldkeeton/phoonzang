@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_27e9: ; Aztec csav frame=0x0018
     mov ax, 0xffe8                   ; 0x27e9
     call aztec_csav                  ; 0x27ec

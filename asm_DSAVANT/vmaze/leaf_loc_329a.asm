@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_329a:
     mov ax, word [bp - 0x0008]       ; 0x329a
     inc ax                           ; 0x329d

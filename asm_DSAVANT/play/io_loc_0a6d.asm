@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_0a6d:
     in al, 0x61                      ; 0x0a6d
     and al, 0xfe                     ; 0x0a6f

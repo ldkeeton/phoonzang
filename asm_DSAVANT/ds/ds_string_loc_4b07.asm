@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_4b07:
     cmp al, 0x2a                     ; 0x4b07
     jne short @..ds_string_loc_4b07.l1 ; 0x4b09

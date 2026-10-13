@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_proc_loc_4e7e:
     pop ax                           ; 0x4e7e
     pop ax                           ; 0x4e7f

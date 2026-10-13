@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_265a:
     mov word [bp - 0x001a], 0x20     ; 0x265a
     jmp short loc_269e               ; 0x265f

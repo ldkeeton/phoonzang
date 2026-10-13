@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_330f:
     mov ax, 0xa                      ; 0x330f
     imul word [bss_91d6]             ; 0x3312

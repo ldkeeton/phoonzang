@@ -1,3 +1,4 @@
+; auto-generated
 aztec_creat:
     push bp                          ; 0x4b39
     mov bp, sp                       ; 0x4b3a

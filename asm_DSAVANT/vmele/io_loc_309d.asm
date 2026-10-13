@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_309d:
     mov ax, word [bp - 0x0008]       ; 0x309d
     mov cx, 0xa                      ; 0x30a0

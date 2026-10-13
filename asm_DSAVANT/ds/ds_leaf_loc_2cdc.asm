@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_2cdc:
     mov ax, word [bss_82e8]          ; 0x2cdc
     imul word [bss_82ea]             ; 0x2cdf

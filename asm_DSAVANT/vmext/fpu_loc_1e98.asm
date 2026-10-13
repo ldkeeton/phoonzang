@@ -1,3 +1,4 @@
+; auto-generated
 fpu_loc_1e98:
     mov ax, 0                        ; 0x1e98
     ret                              ; 0x1e9b

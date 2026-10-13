@@ -1,3 +1,4 @@
+; auto-generated
 dos_print_str:
     push bp                          ; 0x14d8
     mov bp, sp                       ; 0x14d9

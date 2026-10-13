@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_a508:
     pop bx                           ; 0xa508
     push di                          ; 0xa509

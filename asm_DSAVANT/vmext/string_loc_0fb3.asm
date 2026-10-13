@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_0fb3:
     mov ax, 0x248                    ; 0x0fb3
     imul word [bp - 0x0006]          ; 0x0fb6

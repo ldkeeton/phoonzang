@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_3c12:
     xor ax, ax                       ; 0x3c12
     mov word [bp - 0x003c], ax       ; 0x3c14

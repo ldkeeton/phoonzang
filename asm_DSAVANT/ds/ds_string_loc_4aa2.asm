@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_4aa2:
     call ds_leaf_loc_4aed            ; 0x4aa2
     mov ax, word [bp - 0x0002]       ; 0x4aa5

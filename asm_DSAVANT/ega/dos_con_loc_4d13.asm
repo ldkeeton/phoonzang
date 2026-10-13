@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_4d13:
     push ax                          ; 0x4d13
     mov bx, cseg_4f8b - IMAGE_BASE   ; 0x4d14

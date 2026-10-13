@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_2ebe:
     mov ax, word [bp - 0x0026]       ; 0x2ebe
     mov cx, word [bp - 0x0028]       ; 0x2ec1

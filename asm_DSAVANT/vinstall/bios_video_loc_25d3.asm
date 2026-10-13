@@ -1,3 +1,4 @@
+; auto-generated
 bios_video_loc_25d3:
     push bp                          ; 0x25d3
     mov bp, sp                       ; 0x25d4

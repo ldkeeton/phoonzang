@@ -1,3 +1,4 @@
+; auto-generated
 dos_write_file_2:
     push bp                          ; 0x4111
     mov bp, sp                       ; 0x4112

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_csread:
     push bp                          ; 0x44b4
     mov bp, sp                       ; 0x44b5

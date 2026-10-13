@@ -1,3 +1,4 @@
+; auto-generated
 aztec_raise:
     push bp                          ; 0x02b2
     mov bp, sp                       ; 0x02b3

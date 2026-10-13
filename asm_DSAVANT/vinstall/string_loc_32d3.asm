@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_32d3:
     call leaf_loc_331e               ; 0x32d3
     mov ax, word [bp - 0x0002]       ; 0x32d6

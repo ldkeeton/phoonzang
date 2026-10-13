@@ -1,3 +1,4 @@
+; auto-generated
 dos_file_loc_4bcb:
     mov cx, word [bp - 0x0002]       ; 0x4bcb
     xor bx, bx                       ; 0x4bce

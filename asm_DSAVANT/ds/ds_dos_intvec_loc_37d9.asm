@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_intvec_loc_37d9:
     push ds                          ; 0x37d9
     push es                          ; 0x37da

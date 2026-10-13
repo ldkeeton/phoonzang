@@ -1,3 +1,4 @@
+; auto-generated
 bios_kbd_check:
     push bp                          ; 0x2709
     mov bp, sp                       ; 0x270a

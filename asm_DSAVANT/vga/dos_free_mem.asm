@@ -1,3 +1,4 @@
+; auto-generated
 dos_free_mem:
     mov ah, 0x49                     ; 0x28ae
     int 0x21 ; DOS free memory

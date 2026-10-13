@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_574a:
     mov word [bp - 0x0014], 0x18     ; 0x574a
     jmp short string_loc_5784        ; 0x574f

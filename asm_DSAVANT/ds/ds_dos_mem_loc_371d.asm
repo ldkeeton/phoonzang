@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_mem_loc_371d:
     mov ax, cs                       ; 0x371d
     mov ds, ax                       ; 0x371f

@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_in_noecho_2:
     push bp                          ; 0x3d79
     mov bp, sp                       ; 0x3d7a

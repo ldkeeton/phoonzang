@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_93e3:
     mov al, ah                       ; 0x93e3
     scasb                            ; 0x93e5

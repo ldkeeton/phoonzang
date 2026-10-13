@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_2a6a:
     push bp                          ; 0x2a6a
     mov bp, sp                       ; 0x2a6b

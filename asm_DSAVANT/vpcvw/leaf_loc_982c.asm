@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_982c:
     pop bx                           ; 0x982c
     push di                          ; 0x982d

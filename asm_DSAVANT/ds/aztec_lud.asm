@@ -1,3 +1,4 @@
+; auto-generated
 aztec_lud:
     test bx, bx ; unsigned long divide	(primary = primary/secondary) / fall thru into common divide routine if not ... ; 0x4c40
     jne short @..aztec_lud.hardldv   ; 0x4c42

@@ -1,3 +1,4 @@
+; auto-generated
 bios_mouse_loc_341e:
     push bp                          ; 0x341e
     mov bp, sp                       ; 0x341f

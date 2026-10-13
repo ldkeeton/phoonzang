@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_4046:
     mov cx, word [bp - 0x0002]       ; 0x4046
     xor bx, bx                       ; 0x4049

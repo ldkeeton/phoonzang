@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_1a9f:
     mov ax, cs                       ; 0x1a9f
     mov ds, ax                       ; 0x1aa1

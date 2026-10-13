@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_1aa7:
     push word [bp - 0x0002]          ; 0x1aa7
     push word [bp + 0x4]             ; 0x1aaa

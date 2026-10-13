@@ -1,3 +1,4 @@
+; auto-generated
 dos_con_loc_0f70:
     mov ax, cs                       ; 0x0f70
     mov ds, ax                       ; 0x0f72

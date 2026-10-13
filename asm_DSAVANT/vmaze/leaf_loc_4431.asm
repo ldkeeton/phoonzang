@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_4431:
     cmp word [bp + 0x4], byte 4      ; 0x4431
     jl short @..leaf_loc_4431.l34    ; 0x4435

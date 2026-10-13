@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_4937:
     mov cx, 0xff0a                   ; 0x4937
 ds_loc_493a:

@@ -1,3 +1,4 @@
+; auto-generated
 aztec_isatty:
     push bp                          ; 0x5168
     mov bp, sp                       ; 0x5169

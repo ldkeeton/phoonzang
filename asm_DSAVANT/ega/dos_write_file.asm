@@ -1,3 +1,4 @@
+; auto-generated
 dos_write_file:
     push bp                          ; 0x0ebd
     mov bp, sp                       ; 0x0ebe

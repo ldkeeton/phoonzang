@@ -1,3 +1,4 @@
+; auto-generated
 bios_video_loc_2720:
     push bp                          ; 0x2720
     mov bp, sp                       ; 0x2721

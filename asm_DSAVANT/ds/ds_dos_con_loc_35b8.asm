@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_con_loc_35b8:
     mov ax, cs                       ; 0x35b8
     mov ds, ax                       ; 0x35ba

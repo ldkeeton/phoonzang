@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_30e3:
     mov word [bp - 0x0006], 1        ; 0x30e3
     jmp short loc_3103               ; 0x30e8

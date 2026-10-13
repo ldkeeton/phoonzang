@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_4aed:
     push ds                          ; 0x4aed
     pop es                           ; 0x4aee

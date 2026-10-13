@@ -1,3 +1,4 @@
+; auto-generated
 aztec_tolower:
     push bp                          ; 0x2bc6
     mov bp, sp                       ; 0x2bc7

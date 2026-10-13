@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_077b:
     mov bl, byte [cs:cseg_0b7d - IMAGE_BASE] ; 0x077b
     shl bl, 1                        ; 0x0780

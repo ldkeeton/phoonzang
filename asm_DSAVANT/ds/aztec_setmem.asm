@@ -1,3 +1,4 @@
+; auto-generated
 aztec_setmem:
     push bp                          ; 0x454d
     mov bp, sp                       ; 0x454e

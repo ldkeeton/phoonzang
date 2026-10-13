@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_87d5:
     add word [bp - 0x005a], byte 0xfc ; 0x87d5
     add word [bp - 0x005c], byte 0xfc ; 0x87d9

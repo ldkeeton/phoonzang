@@ -1,3 +1,4 @@
+; auto-generated
 aztec_sys:
     push bp                          ; 0x358c
     mov bp, sp                       ; 0x358d

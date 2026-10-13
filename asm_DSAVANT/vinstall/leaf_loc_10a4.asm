@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_10a4:
     push bp                          ; 0x10a4
     mov bp, sp                       ; 0x10a5

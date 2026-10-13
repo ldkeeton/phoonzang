@@ -1,3 +1,4 @@
+; auto-generated
 string_loc_0a2a:
     pushf                            ; 0x0a2a
     push di                          ; 0x0a2b

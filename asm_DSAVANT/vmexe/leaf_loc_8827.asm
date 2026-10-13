@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_8827:
     mov word [bp - 0x0064], 1        ; 0x8827
     mov word [bp - 0x009a], 1        ; 0x882c

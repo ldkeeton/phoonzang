@@ -1,3 +1,4 @@
+; auto-generated
 aztec_begin:
     mov bp, 0xff6                    ; 0x4d3a
     test bp, bp                      ; 0x4d3d

@@ -1,3 +1,4 @@
+; auto-generated
 ds_leaf_loc_4fb6:
     push bp                          ; 0x4fb6
     mov bp, sp                       ; 0x4fb7

@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_73a8:
     mov word [bp - 0x0014], 1        ; 0x73a8
     mov word [bp - 0x0018], 1        ; 0x73ad

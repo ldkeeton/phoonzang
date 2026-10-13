@@ -1,3 +1,4 @@
+; auto-generated
 ds_string_loc_4002:
     push bp                          ; 0x4002
     mov bp, sp                       ; 0x4003

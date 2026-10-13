@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_35ba:
     push bp                          ; 0x35ba
     mov bp, sp                       ; 0x35bb

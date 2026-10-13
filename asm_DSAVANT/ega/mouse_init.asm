@@ -1,3 +1,4 @@
+; auto-generated
 mouse_init:
     push bp                          ; 0x1719
     mov bp, sp                       ; 0x171a

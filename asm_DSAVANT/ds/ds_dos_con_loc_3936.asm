@@ -1,3 +1,4 @@
+; auto-generated
 ds_dos_con_loc_3936:
     mov ah, 9                        ; 0x3936
     int 0x21 ; DOS string output

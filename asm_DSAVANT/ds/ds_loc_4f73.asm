@@ -1,3 +1,4 @@
+; auto-generated
 ds_loc_4f73:
     push bp                          ; 0x4f73
     mov bp, sp                       ; 0x4f74

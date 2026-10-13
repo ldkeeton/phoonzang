@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_mem_184f: ; Aztec csav frame=0x0016
     mov ax, 0xffea                   ; 0x184f
     call aztec_csav                  ; 0x1852

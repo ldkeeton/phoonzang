@@ -1,3 +1,4 @@
+; auto-generated
 dos_read_file_7:
     push bp                          ; 0x4ead
     mov bp, sp                       ; 0x4eae

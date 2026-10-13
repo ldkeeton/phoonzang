@@ -84,11 +84,6 @@ def data_names(data_labels, mem_equ):
     return {addr: sorted(set(names)) for addr, names in at.items()}
 
 
-_OLD_NOTE = ' * relocation bytes are supplied by the original image.\n'
-_NEW_NOTE = (' * relocations are linked against asm labels (lib/aztec/relink.py);\n'
-             ' * the identifiers below are the asm label names.\n')
-
-
 def _normalize(name):
     return name.strip('_$').lower()
 
@@ -137,7 +132,6 @@ def upgrade(label, own_key, start, text, original, index, names_at, compile_):
         direct = {k: v for k, v in mapping.items() if k not in macros}
         new_text = _with_defines(rewrite_identifiers(text, direct),
                                  {k: mapping[k] for k in macros})
-        new_text = new_text.replace(_OLD_NOTE, _NEW_NOTE)
         try:
             new_func = compile_(new_text)
             break

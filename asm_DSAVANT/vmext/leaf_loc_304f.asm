@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_304f:
     mov word [bp - 0x000c], 0xa      ; 0x304f
     mov ax, word [bp + 0x4]          ; 0x3054

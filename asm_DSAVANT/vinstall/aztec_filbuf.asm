@@ -1,3 +1,4 @@
+; auto-generated
 aztec_filbuf:
     push bp                          ; 0x2d86
     mov bp, sp                       ; 0x2d87

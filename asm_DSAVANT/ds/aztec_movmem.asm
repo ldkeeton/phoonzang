@@ -1,3 +1,4 @@
+; auto-generated
 aztec_movmem:
     push bp                          ; 0x5123
     mov bp, sp                       ; 0x5124

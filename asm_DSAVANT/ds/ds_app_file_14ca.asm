@@ -1,3 +1,4 @@
+; auto-generated
 ds_app_file_14ca: ; Aztec csav frame=0x000c
     mov ax, 0xfff4                   ; 0x14ca
     call aztec_csav                  ; 0x14cd

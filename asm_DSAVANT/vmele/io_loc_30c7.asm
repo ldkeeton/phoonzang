@@ -1,3 +1,4 @@
+; auto-generated
 io_loc_30c7:
     mov ax, word [bp - 0x0008]       ; 0x30c7
     mov cx, 0xc                      ; 0x30ca

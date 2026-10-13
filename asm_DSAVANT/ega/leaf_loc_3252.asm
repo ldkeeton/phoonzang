@@ -1,3 +1,4 @@
+; auto-generated
 leaf_loc_3252:
     push bx                          ; 0x3252
 loc_3253:

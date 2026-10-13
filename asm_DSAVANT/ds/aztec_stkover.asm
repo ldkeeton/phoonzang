@@ -1,3 +1,4 @@
+; auto-generated
 aztec_stkover:
     mov ax, 0x24                     ; 0x4f87
     push ax                          ; 0x4f8a
