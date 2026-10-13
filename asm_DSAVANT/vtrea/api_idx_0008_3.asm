@@ -450,7 +450,7 @@ loc_8441:
 @..local.l154:
     mov ax, 0x59fe                   ; 0x86b8
     push ax                          ; 0x86bb
-    call ds_app_0b54                 ; 0x86bc
+    call ds_app_io_0b54              ; 0x86bc
     pop cx                           ; 0x86bf
     mov word [bp - 0x0004], ax       ; 0x86c0
     cmp word [bss_5b3e], byte 0      ; 0x86c3
@@ -529,7 +529,7 @@ loc_8441:
 @..local.l158:
     mov ax, 1                        ; 0x8770
     push ax                          ; 0x8773
-    call ds_bios_kbd_loc_3c97        ; 0x8774
+    call ds_dos_con_in_noecho        ; 0x8774
     pop cx                           ; 0x8777
     test ax, ax                      ; 0x8778
     jne short @..local.l159          ; 0x877a
@@ -538,7 +538,7 @@ loc_8441:
 @..local.l159:
     mov ax, 1                        ; 0x8781
     push ax                          ; 0x8784
-    call ds_dos_con_loc_3d79         ; 0x8785
+    call ds_dos_con_in_noecho_2      ; 0x8785
     pop cx                           ; 0x8788
     sub ah, ah                       ; 0x8789
     mov word [bp - 0x01aa], ax       ; 0x878b

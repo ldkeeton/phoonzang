@@ -452,7 +452,7 @@ loc_111b:
 @..local.l26:
     mov ax, 0x59fe                   ; 0x132e
     push ax                          ; 0x1331
-    call ds_app_0b54                 ; 0x1332
+    call ds_app_io_0b54              ; 0x1332
     pop cx                           ; 0x1335
     mov word [bp - 0x0004], ax       ; 0x1336
     call api_idx_0006_2              ; 0x1339
@@ -541,7 +541,7 @@ loc_111b:
 @..local.l31:
     mov ax, 1                        ; 0x1401
     push ax                          ; 0x1404
-    call ds_bios_kbd_loc_3c97        ; 0x1405
+    call ds_dos_con_in_noecho        ; 0x1405
     pop cx                           ; 0x1408
     test ax, ax                      ; 0x1409
     jne short @..local.l32           ; 0x140b
@@ -550,7 +550,7 @@ loc_111b:
 @..local.l32:
     mov ax, 1                        ; 0x1412
     push ax                          ; 0x1415
-    call ds_dos_con_loc_3d79         ; 0x1416
+    call ds_dos_con_in_noecho_2      ; 0x1416
     pop cx                           ; 0x1419
     sub ah, ah                       ; 0x141a
     mov word [bp - 0x01ae], ax       ; 0x141c

@@ -656,7 +656,7 @@ api_idx_0074:
 @..api_idx_0074.l23:
     mov ax, 0x59fe                   ; 0x6cd3
     push ax                          ; 0x6cd6
-    call ds_app_0b54                 ; 0x6cd7
+    call ds_app_io_0b54              ; 0x6cd7
     pop cx                           ; 0x6cda
     dec ax                           ; 0x6cdb
     mov word [bp - 0x0016], ax       ; 0x6cdc

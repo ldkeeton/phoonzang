@@ -17,7 +17,7 @@ api_idx_0012:
     idiv cx                          ; 0x0f0a
     mov word [bp - 0x000c], dx       ; 0x0f0c
 loc_0f0f:
-    call ds_app_20f8                 ; 0x0f0f
+    call ds_app_io_20f8              ; 0x0f0f
     mov word [bp - 0x0006], ax       ; 0x0f12
     cmp ax, strict word 0xffff       ; 0x0f15
     jne short loc_0f1d               ; 0x0f18

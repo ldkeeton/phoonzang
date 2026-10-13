@@ -321,7 +321,7 @@ api_idx_0038:
 @..api_idx_0038.l5:
     mov ax, 0x59fe                   ; 0x0db1
     push ax                          ; 0x0db4
-    call ds_app_0b54                 ; 0x0db5
+    call ds_app_io_0b54              ; 0x0db5
     pop cx                           ; 0x0db8
     dec ax                           ; 0x0db9
     mov word [bp - 0x0018], ax       ; 0x0dba

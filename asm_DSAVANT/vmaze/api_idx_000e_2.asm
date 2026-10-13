@@ -27,7 +27,7 @@ api_idx_000e_2:
     cmp word [bp - 0x000a], byte 0   ; 0x8093
     jne short @..api_idx_000e_2.l4   ; 0x8097
 @..api_idx_000e_2.l1:
-    call ds_app_20f8                 ; 0x8099
+    call ds_app_io_20f8              ; 0x8099
     mov word [bp - 0x0004], ax       ; 0x809c
     cmp ax, strict word 0xffff       ; 0x809f
     je short @..api_idx_000e_2.l2    ; 0x80a2

@@ -31,13 +31,13 @@ api_idx_0004_5:
 @..api_idx_0004_5.l4:
     mov ax, 1                        ; 0x1aa8
     push ax                          ; 0x1aab
-    call ds_bios_kbd_loc_3c97        ; 0x1aac
+    call ds_dos_con_in_noecho        ; 0x1aac
     pop cx                           ; 0x1aaf
     test ax, ax                      ; 0x1ab0
     je short @..api_idx_0004_5.l5    ; 0x1ab2
     mov ax, 1                        ; 0x1ab4
     push ax                          ; 0x1ab7
-    call ds_dos_con_loc_3d79         ; 0x1ab8
+    call ds_dos_con_in_noecho_2      ; 0x1ab8
     pop cx                           ; 0x1abb
     cmp al, 0xd                      ; 0x1abc
     jne short @..api_idx_0004_5.l5   ; 0x1abe

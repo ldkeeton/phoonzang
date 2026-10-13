@@ -147,7 +147,7 @@ api_idx_0072:
     call api_idx_000a_2              ; 0x72b6
     pop cx                           ; 0x72b9
 @..api_idx_0072.l7:
-    call ds_app_20f8                 ; 0x72ba
+    call ds_app_io_20f8              ; 0x72ba
     mov word [bp - 0x0006], ax       ; 0x72bd
     cmp ax, strict word 0xffff       ; 0x72c0
     je short @..api_idx_0072.l8      ; 0x72c3

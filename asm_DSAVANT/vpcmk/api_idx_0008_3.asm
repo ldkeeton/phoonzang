@@ -99,7 +99,7 @@ api_idx_0008_3:
     add sp, byte 8                   ; 0x4a1a
     mov ax, 0x59fe                   ; 0x4a1d
     push ax                          ; 0x4a20
-    call ds_app_0b54                 ; 0x4a21
+    call ds_app_io_0b54              ; 0x4a21
     pop cx                           ; 0x4a24
     cmp word [bss_5b3e], byte 0      ; 0x4a25
     jne short @..api_idx_0008_3.l3   ; 0x4a2a

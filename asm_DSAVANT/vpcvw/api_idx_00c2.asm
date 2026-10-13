@@ -458,7 +458,7 @@ api_idx_00c2:
 @..api_idx_00c2.l16:
     mov ax, 0x59fe                   ; 0x5942
     push ax                          ; 0x5945
-    call ds_app_0b54                 ; 0x5946
+    call ds_app_io_0b54              ; 0x5946
     pop cx                           ; 0x5949
     dec ax                           ; 0x594a
     mov word [bp - 0x0004], ax       ; 0x594b
@@ -536,7 +536,7 @@ api_idx_00c2:
 @..api_idx_00c2.l20:
     mov ax, 1                        ; 0x59f5
     push ax                          ; 0x59f8
-    call ds_bios_kbd_loc_3c97        ; 0x59f9
+    call ds_dos_con_in_noecho        ; 0x59f9
     pop cx                           ; 0x59fc
     test ax, ax                      ; 0x59fd
     jne short @..api_idx_00c2.l21    ; 0x59ff
@@ -544,7 +544,7 @@ api_idx_00c2:
 @..api_idx_00c2.l21:
     mov ax, 1                        ; 0x5a03
     push ax                          ; 0x5a06
-    call ds_dos_con_loc_3d79         ; 0x5a07
+    call ds_dos_con_in_noecho_2      ; 0x5a07
     pop cx                           ; 0x5a0a
     sub ah, ah                       ; 0x5a0b
     mov word [bp - 0x009a], ax       ; 0x5a0d
@@ -636,7 +636,7 @@ api_idx_00c2:
 @..api_idx_00c2.l35:
     mov ax, 1                        ; 0x5acb
     push ax                          ; 0x5ace
-    call ds_bios_kbd_loc_3c97        ; 0x5acf
+    call ds_dos_con_in_noecho        ; 0x5acf
     pop cx                           ; 0x5ad2
     test ax, ax                      ; 0x5ad3
     jne short @..api_idx_00c2.l36    ; 0x5ad5
@@ -644,7 +644,7 @@ api_idx_00c2:
 @..api_idx_00c2.l36:
     mov ax, 1                        ; 0x5ad9
     push ax                          ; 0x5adc
-    call ds_dos_con_loc_3d79         ; 0x5add
+    call ds_dos_con_in_noecho_2      ; 0x5add
     pop cx                           ; 0x5ae0
     sub ah, ah                       ; 0x5ae1
     mov word [bp - 0x009a], ax       ; 0x5ae3

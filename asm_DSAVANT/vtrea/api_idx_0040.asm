@@ -57,7 +57,7 @@ api_idx_0040:
     call ds_loc_3b21                 ; 0x53c9
     add sp, byte 8                   ; 0x53cc
 @..api_idx_0040.l3:
-    call ds_app_20f8                 ; 0x53cf
+    call ds_app_io_20f8              ; 0x53cf
     mov word [bp - 0x0008], ax       ; 0x53d2
     cmp ax, strict word 0xffff       ; 0x53d5
     je short @..api_idx_0040.l6      ; 0x53d8

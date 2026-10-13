@@ -145,7 +145,7 @@ api_idx_0012_2:
     jne short @..api_idx_0012_2.l7   ; 0x0673
     mov ax, 1                        ; 0x0675
     push ax                          ; 0x0678
-    call ds_dos_con_loc_3d79         ; 0x0679
+    call ds_dos_con_in_noecho_2      ; 0x0679
     pop cx                           ; 0x067c
     sub ah, ah                       ; 0x067d
     mov word [bp - 0x0002], ax       ; 0x067f
@@ -214,7 +214,7 @@ api_idx_0012_2:
     pop cx                           ; 0x0716
     mov ax, 0x59fe                   ; 0x0717
     push ax                          ; 0x071a
-    call ds_app_0b54                 ; 0x071b
+    call ds_app_io_0b54              ; 0x071b
     pop cx                           ; 0x071e
     dec ax                           ; 0x071f
     mov word [bp - 0x0004], ax       ; 0x0720

@@ -325,7 +325,7 @@ api_idx_0032:
 @..api_idx_0032.l18:
     mov ax, 0x59fe                   ; 0x29ea
     push ax                          ; 0x29ed
-    call ds_app_0b54                 ; 0x29ee
+    call ds_app_io_0b54              ; 0x29ee
     pop cx                           ; 0x29f1
     dec ax                           ; 0x29f2
     mov word [bp - 0x0008], ax       ; 0x29f3
@@ -378,7 +378,7 @@ api_idx_0032:
 @..api_idx_0032.l21:
     mov ax, 1                        ; 0x2a65
     push ax                          ; 0x2a68
-    call ds_bios_kbd_loc_3c97        ; 0x2a69
+    call ds_dos_con_in_noecho        ; 0x2a69
     pop cx                           ; 0x2a6c
     test ax, ax                      ; 0x2a6d
     jne short @..api_idx_0032.l22    ; 0x2a6f
@@ -386,7 +386,7 @@ api_idx_0032:
 @..api_idx_0032.l22:
     mov ax, 1                        ; 0x2a73
     push ax                          ; 0x2a76
-    call ds_dos_con_loc_3d79         ; 0x2a77
+    call ds_dos_con_in_noecho_2      ; 0x2a77
     pop cx                           ; 0x2a7a
     sub ah, ah                       ; 0x2a7b
     mov word [bp - 0x0030], ax       ; 0x2a7d

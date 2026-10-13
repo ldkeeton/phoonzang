@@ -327,7 +327,7 @@ api_idx_0038_2:
 @..api_idx_0038_2.l7:
     mov ax, 0x59fe                   ; 0x4141
     push ax                          ; 0x4144
-    call ds_app_0b54                 ; 0x4145
+    call ds_app_io_0b54              ; 0x4145
     pop cx                           ; 0x4148
     dec ax                           ; 0x4149
     mov word [bp - 0x0018], ax       ; 0x414a

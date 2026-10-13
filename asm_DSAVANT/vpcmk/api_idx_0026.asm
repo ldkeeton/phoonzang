@@ -324,7 +324,7 @@ api_idx_0026:
 @..api_idx_0026.l1:
     mov ax, 0x59fe                   ; 0x14d7
     push ax                          ; 0x14da
-    call ds_app_0b54                 ; 0x14db
+    call ds_app_io_0b54              ; 0x14db
     pop cx                           ; 0x14de
     dec ax                           ; 0x14df
     mov word [bp - 0x000e], ax       ; 0x14e0

@@ -27,7 +27,7 @@ loc_44d4:
     push word [bp + 0x6]             ; 0x44e2
     mov ax, 0x42ff                   ; 0x44e5
     push ax                          ; 0x44e8
-    call string_loc_4867             ; 0x44e9
+    call strlen_3                    ; 0x44e9
     add sp, byte 6                   ; 0x44ec
     mov si, ax                       ; 0x44ef
     mov bx, word [bss_0cfc]          ; 0x44f1

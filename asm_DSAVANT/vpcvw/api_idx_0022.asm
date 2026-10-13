@@ -146,7 +146,7 @@ api_idx_0022:
 @..api_idx_0022.l5:
     mov ax, 0x59fe                   ; 0x95e0
     push ax                          ; 0x95e3
-    call ds_app_0b54                 ; 0x95e4
+    call ds_app_io_0b54              ; 0x95e4
     pop cx                           ; 0x95e7
     dec ax                           ; 0x95e8
     mov word [bp - 0x0002], ax       ; 0x95e9

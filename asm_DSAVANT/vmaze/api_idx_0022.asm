@@ -928,7 +928,7 @@ jumptable_2a3c_case_3:
 @..api_idx_0022.l59:
     mov ax, 0x59fe                   ; 0x2a9a
     push ax                          ; 0x2a9d
-    call ds_app_0b54                 ; 0x2a9e
+    call ds_app_io_0b54              ; 0x2a9e
     pop cx                           ; 0x2aa1
     dec ax                           ; 0x2aa2
     mov word [bp - 0x0002], ax       ; 0x2aa3
@@ -1104,7 +1104,7 @@ jumptable_2d1b_case_7:
     pop cx                           ; 0x2c77
     jmp near @..api_idx_0022.l82     ; 0x2c78
 jumptable_2d1b_case_8:
-    call ds_app_20f8                 ; 0x2c7b
+    call ds_app_io_20f8              ; 0x2c7b
     mov word [bss_8af0], ax          ; 0x2c7e
     cmp ax, strict word 0xffff       ; 0x2c81
     je short @..api_idx_0022.l76     ; 0x2c84
@@ -1165,7 +1165,7 @@ jumptable_2d1b_case_9:
 jumptable_2d1b_case_24:
     cmp word [bp - 0x001a], byte 0   ; 0x2cf9
     je short @..api_idx_0022.l80     ; 0x2cfd
-    call ds_app_20f8                 ; 0x2cff
+    call ds_app_io_20f8              ; 0x2cff
     mov word [bss_8af0], ax          ; 0x2d02
     cmp ax, strict word 0xffff       ; 0x2d05
     je short @..api_idx_0022.l80     ; 0x2d08

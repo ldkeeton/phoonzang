@@ -65,7 +65,7 @@ api_idx_0016:
 @..api_idx_0016.l2:
     mov ax, 1                        ; 0xa5f3
     push ax                          ; 0xa5f6
-    call ds_bios_kbd_loc_3c97        ; 0xa5f7
+    call ds_dos_con_in_noecho        ; 0xa5f7
     pop cx                           ; 0xa5fa
     test ax, ax                      ; 0xa5fb
     jne short @..api_idx_0016.l6     ; 0xa5fd
@@ -136,7 +136,7 @@ api_idx_0016:
     add sp, byte 8                   ; 0xa69a
     mov ax, 1                        ; 0xa69d
     push ax                          ; 0xa6a0
-    call ds_dos_con_loc_3d79         ; 0xa6a1
+    call ds_dos_con_in_noecho_2      ; 0xa6a1
     pop cx                           ; 0xa6a4
     sub ah, ah                       ; 0xa6a5
     mov word [bp - 0x0002], ax       ; 0xa6a7

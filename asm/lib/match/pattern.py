@@ -67,6 +67,43 @@ def _func_extent(data, func_start, max_func_size, md):
     return max_end
 
 
+def _branch_target(insn):
+    """Direct jump/loop target of *insn*, or None."""
+    mnemonic = insn.mnemonic
+    if not (mnemonic.startswith('j') or mnemonic.startswith('loop')):
+        return None
+    if mnemonic in ('ljmp',):
+        return None
+    try:
+        return int(insn.op_str, 0)
+    except ValueError:
+        return None
+
+
+def _func_extent_multi(data, func_start, max_func_size, md):
+    """Like :func:`_func_extent`, but a ``ret`` that an earlier forward branch
+    jumps past does not end the function.
+
+    Compilers emit early-return paths (``jb`` over an inlined ``ret``), so the
+    first terminator is often not the routine's end.  The function ends at the
+    first terminator that no pending forward branch reaches beyond.
+    """
+    max_end = min(func_start + max_func_size, len(data))
+    try:
+        insns = list(md.disasm(data[func_start:max_end], func_start))
+    except Exception:
+        insns = []
+    reach = func_start
+    for insn in insns:
+        end = insn.address + insn.size
+        target = _branch_target(insn)
+        if target is not None and target > end and target < max_end:
+            reach = max(reach, target)
+        if insn.mnemonic in _TERMINATORS and end > reach:
+            return end
+    return max_end
+
+
 _PUSH_BP_MOV_BP_SP = b'\x55\x8b\xec'
 
 _DETAIL_MD = None
@@ -158,7 +195,7 @@ def anchor_signature(data, idx, sig, known_targets, md, max_func_size=256,
                 or _plausible_start(data, entry, known)
             )
             if prefix_ok and prologue_ok:
-                func_end = _func_extent(data, entry, max_func_size, md)
+                func_end = _func_extent_multi(data, entry, max_func_size, md)
                 if entry <= idx < func_end and func_end <= entry + max_func_size:
                     return entry, func_end
         # The reference symbol may be a secondary entry (shared prologue).
@@ -185,7 +222,7 @@ def anchor_signature(data, idx, sig, known_targets, md, max_func_size=256,
                 func_start = p
             else:
                 continue
-        func_end = _func_extent(data, func_start, max_func_size, md)
+        func_end = _func_extent_multi(data, func_start, max_func_size, md)
         if func_start <= idx < func_end and func_end <= func_start + max_func_size:
             return func_start, func_end
 

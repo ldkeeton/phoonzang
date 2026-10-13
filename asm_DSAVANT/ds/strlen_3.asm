@@ -1,4 +1,4 @@
-string_loc_4867:
+strlen_3:
     push bp                          ; 0x4867
     mov bp, sp                       ; 0x4868
     sub sp, strict word 0x154        ; 0x486a

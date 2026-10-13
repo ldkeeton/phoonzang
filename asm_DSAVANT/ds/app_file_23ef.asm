@@ -219,7 +219,7 @@ app_file_23ef: ; Aztec csav frame=0x00ba
 @..app_file_23ef.l6:
     mov ax, 0x59fe                   ; 0x260c
     push ax                          ; 0x260f
-    call app_0b54                    ; 0x2610
+    call app_io_0b54                 ; 0x2610
     pop cx                           ; 0x2613
     cmp word [bss_5b3e], byte 1      ; 0x2614
     jne short @..app_file_23ef.l7    ; 0x2619

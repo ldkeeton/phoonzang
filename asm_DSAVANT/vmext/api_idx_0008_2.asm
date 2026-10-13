@@ -153,7 +153,7 @@ loc_15af:
     push ax                          ; 0x1675
     call ds_loc_3b21                 ; 0x1676
     add sp, byte 8                   ; 0x1679
-    call ds_app_20f8                 ; 0x167c
+    call ds_app_io_20f8              ; 0x167c
     mov word [bp - 0x0002], ax       ; 0x167f
     cmp ax, strict word 0xffff       ; 0x1682
     je short @..local.l21            ; 0x1685

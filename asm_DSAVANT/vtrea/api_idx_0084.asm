@@ -677,7 +677,7 @@ api_idx_0084:
 @..api_idx_0084.l18:
     mov ax, 0x59fe                   ; 0x2bfd
     push ax                          ; 0x2c00
-    call ds_app_0b54                 ; 0x2c01
+    call ds_app_io_0b54              ; 0x2c01
     pop cx                           ; 0x2c04
     dec ax                           ; 0x2c05
     mov word [bp - 0x001a], ax       ; 0x2c06
@@ -1172,7 +1172,7 @@ jumptable_34f1_case_3:
 @..api_idx_0084.l31:
     mov ax, 1                        ; 0x3088
     push ax                          ; 0x308b
-    call ds_dos_con_loc_3d79         ; 0x308c
+    call ds_dos_con_in_noecho_2      ; 0x308c
     pop cx                           ; 0x308f
 @..api_idx_0084.l32:
     mov ax, word [bp - 0x0008]       ; 0x3090

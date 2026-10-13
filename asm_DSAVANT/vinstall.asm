@@ -285,9 +285,11 @@ loc_026d:
 
 %include "vinstall/aztec_gmtime.asm"       ; 0x2bda
 
+%include "vinstall/aztec_utime.asm"        ; 0x2bfe
+
 %include "vinstall/aztec_fputs.asm"        ; 0x2c8e
 
-%include "vinstall/aztec_putc.asm"         ; 0x2ce2
+%include "vinstall/aztec_putc.asm"         ; 0x2cc1
 
 %include "vinstall/aztec_fclose.asm"       ; 0x2d0b
 
@@ -332,7 +334,7 @@ jumptable_3053:
 
     db '23456789abcdef -lm first', 0
 
-%include "vinstall/string_loc_3098.asm"    ; 0x3098
+%include "vinstall/strlen.asm"             ; 0x3098
 
 %include "vinstall/string_loc_30b3.asm"    ; 0x30b3
 

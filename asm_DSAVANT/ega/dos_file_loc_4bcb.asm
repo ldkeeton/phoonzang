@@ -81,24 +81,24 @@ loc_4c4c:
     mov es, ax                       ; 0x4c58
     mov ax, word [bp + 0xc]          ; 0x4c5a
     cmp ax, strict word 0x14         ; 0x4c5d
-    jb short @..local.l132           ; 0x4c60
-    jmp near @..local.l134           ; 0x4c62
-@..local.l132:
+    jb short @..local.l124           ; 0x4c60
+    jmp near @..local.l126           ; 0x4c62
+@..local.l124:
     shl ax, 1                        ; 0x4c65
     shl ax, 1                        ; 0x4c67
     mov bx, 0x4ab4                   ; 0x4c69
     add bx, ax                       ; 0x4c6c
     mov ax, word [cs:bx]             ; 0x4c6e
     or ax, ax                        ; 0x4c71
-    jne short @..local.l133          ; 0x4c73
-    jmp near @..local.l134           ; 0x4c75
-@..local.l133:
+    jne short @..local.l125          ; 0x4c73
+    jmp near @..local.l126           ; 0x4c75
+@..local.l125:
     mov word [cs:bx], 0              ; 0x4c78
     mov cx, word [cs:cseg_11cb - IMAGE_BASE] ; 0x4c7d
     dec cx                           ; 0x4c82
     mov word [cs:cseg_11cb - IMAGE_BASE], cx ; 0x4c83
     call loc_4c93                    ; 0x4c88
-@..local.l134:
+@..local.l126:
     pop di                           ; 0x4c8b
     pop si                           ; 0x4c8c
     pop es                           ; 0x4c8d

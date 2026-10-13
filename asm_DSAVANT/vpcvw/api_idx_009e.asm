@@ -257,7 +257,7 @@ api_idx_009e:
 @..api_idx_009e.l6:
     mov ax, 1                        ; 0x1afd
     push ax                          ; 0x1b00
-    call ds_dos_con_loc_3d79         ; 0x1b01
+    call ds_dos_con_in_noecho_2      ; 0x1b01
     pop cx                           ; 0x1b04
     sub ah, ah                       ; 0x1b05
     mov word [bp - 0x0002], ax       ; 0x1b07

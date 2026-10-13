@@ -527,7 +527,7 @@ api_idx_006a:
 @..api_idx_006a.l21:
     mov ax, 0x59fe                   ; 0x64ca
     push ax                          ; 0x64cd
-    call ds_app_0b54                 ; 0x64ce
+    call ds_app_io_0b54              ; 0x64ce
     pop cx                           ; 0x64d1
     dec ax                           ; 0x64d2
     mov word [bp - 0x0012], ax       ; 0x64d3

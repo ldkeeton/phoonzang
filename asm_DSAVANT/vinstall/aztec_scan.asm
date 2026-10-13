@@ -583,7 +583,7 @@ loc_0ed8:
     push ax                          ; 0x0f88
     mov ax, 0x1630                   ; 0x0f89
     push ax                          ; 0x0f8c
-    call loc_2bfe                    ; 0x0f8d
+    call aztec_utime                 ; 0x0f8d
     add sp, byte 6                   ; 0x0f90
     mov word [bss_29ee], ax          ; 0x0f93
     mov ax, 0                        ; 0x0f96
@@ -606,7 +606,7 @@ loc_0ed8:
     push ax                          ; 0x0fc2
     mov ax, 0x1636                   ; 0x0fc3
     push ax                          ; 0x0fc6
-    call loc_2bfe                    ; 0x0fc7
+    call aztec_utime                 ; 0x0fc7
     add sp, byte 6                   ; 0x0fca
     mov word [bss_29ee], ax          ; 0x0fcd
     cmp word [bp - 0x01c9], byte 0xff ; 0x0fd0

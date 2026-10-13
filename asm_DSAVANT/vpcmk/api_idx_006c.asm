@@ -177,7 +177,7 @@ api_idx_006c:
 @..api_idx_006c.l8:
     mov ax, 0x59fe                   ; 0x4820
     push ax                          ; 0x4823
-    call ds_app_0b54                 ; 0x4824
+    call ds_app_io_0b54              ; 0x4824
     pop cx                           ; 0x4827
     dec ax                           ; 0x4828
     mov word [bp - 0x0004], ax       ; 0x4829

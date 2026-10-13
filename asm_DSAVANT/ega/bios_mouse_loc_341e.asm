@@ -84,9 +84,9 @@ loc_34c0:
     mov ax, ds                       ; 0x34ca
     mov es, ax                       ; 0x34cc
     cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x34ce
-    je short @..local.l54            ; 0x34d4
-    jmp near @..local.l62            ; 0x34d6
-@..local.l54:
+    je short @..local.l46            ; 0x34d4
+    jmp near @..local.l54            ; 0x34d6
+@..local.l46:
     mov ax, word [bp + 0xc]          ; 0x34d9
     shl ax, 1                        ; 0x34dc
     mov word [bp - 0x0002], ax       ; 0x34de
@@ -97,32 +97,32 @@ loc_34c0:
     mov dx, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x34ee
     mov word [bp - 0x0006], cx       ; 0x34f3
     mov word [bp - 0x0008], dx       ; 0x34f6
-@..local.l55:
+@..local.l47:
     mov cx, word [bp - 0x0006]       ; 0x34f9
     mov dx, word [bp - 0x0008]       ; 0x34fc
     cmp cx, word [bp - 0x0002]       ; 0x34ff
-    jne short @..local.l56           ; 0x3502
+    jne short @..local.l48           ; 0x3502
     cmp dx, word [bp - 0x0004]       ; 0x3504
-    jne short @..local.l56           ; 0x3507
-    jmp short @..local.l61           ; 0x3509
-@..local.l56:
+    jne short @..local.l48           ; 0x3507
+    jmp short @..local.l53           ; 0x3509
+@..local.l48:
     cmp cx, word [bp - 0x0002]       ; 0x350b
-    je short @..local.l58            ; 0x350e
-    js short @..local.l57            ; 0x3510
+    je short @..local.l50            ; 0x350e
+    js short @..local.l49            ; 0x3510
     sub word [bp - 0x0006], byte 2   ; 0x3512
-    jmp short @..local.l58           ; 0x3516
-@..local.l57:
+    jmp short @..local.l50           ; 0x3516
+@..local.l49:
     add word [bp - 0x0006], byte 2   ; 0x3518
-@..local.l58:
+@..local.l50:
     mov cx, word [bp - 0x0006]       ; 0x351c
     cmp dx, word [bp - 0x0004]       ; 0x351f
-    je short @..local.l60            ; 0x3522
-    js short @..local.l59            ; 0x3524
+    je short @..local.l52            ; 0x3522
+    js short @..local.l51            ; 0x3524
     sub word [bp - 0x0008], byte 1   ; 0x3526
-    jmp short @..local.l60           ; 0x352a
-@..local.l59:
+    jmp short @..local.l52           ; 0x352a
+@..local.l51:
     add word [bp - 0x0008], byte 1   ; 0x352c
-@..local.l60:
+@..local.l52:
     mov dx, word [bp - 0x0008]       ; 0x3530
     mov ax, cs                       ; 0x3533
     push ax                          ; 0x3535
@@ -134,18 +134,18 @@ loc_34c0:
     int 0x33 ; BIOS mouse
     mov ax, word [bp + 0x10]         ; 0x3547
     or ax, ax                        ; 0x354a
-    je short @..local.l55            ; 0x354c
+    je short @..local.l47            ; 0x354c
     push ax                          ; 0x354e
     call far [cs:cseg_01fb - IMAGE_BASE] ; 0x354f
     pop ax                           ; 0x3554
-    jmp short @..local.l55           ; 0x3555
-@..local.l61:
+    jmp short @..local.l47           ; 0x3555
+@..local.l53:
     mov cx, word [bp - 0x0002]       ; 0x3557
     mov dx, word [bp - 0x0004]       ; 0x355a
     mov ax, 4                        ; 0x355d
     int 0x33 ; BIOS mouse
     mov byte [cs:cseg_0226 - IMAGE_BASE], 0 ; 0x3562
-@..local.l62:
+@..local.l54:
     pop di                           ; 0x3568
     pop si                           ; 0x3569
     pop es                           ; 0x356a
@@ -166,24 +166,24 @@ loc_3570:
     mov ax, word [bp + 0xc]          ; 0x357e
     neg ax                           ; 0x3581
     cmp ax, strict word 5            ; 0x3583
-    jb short @..local.l63            ; 0x3586
-    jmp near @..local.l65            ; 0x3588
-@..local.l63:
+    jb short @..local.l55            ; 0x3586
+    jmp near @..local.l57            ; 0x3588
+@..local.l55:
     shl ax, 1                        ; 0x358b
     mov word [bp - 0x0008], ax       ; 0x358d
     mov bx, 0x251                    ; 0x3590
     add bx, ax                       ; 0x3593
     mov ax, word [cs:bx]             ; 0x3595
     or ax, ax                        ; 0x3598
-    jne short @..local.l64           ; 0x359a
-    jmp near @..local.l65            ; 0x359c
-@..local.l64:
+    jne short @..local.l56           ; 0x359a
+    jmp near @..local.l57            ; 0x359c
+@..local.l56:
     mov word [cs:bx], 0              ; 0x359f
     mov cx, word [cs:cseg_11cb - IMAGE_BASE] ; 0x35a4
     dec cx                           ; 0x35a9
     mov word [cs:cseg_11cb - IMAGE_BASE], cx ; 0x35aa
     call loc_4c93                    ; 0x35af
-@..local.l65:
+@..local.l57:
     pop si                           ; 0x35b2
     pop di                           ; 0x35b3
     pop es                           ; 0x35b4

@@ -225,7 +225,7 @@ loc_690b:
     mov ax, word [bp - 0x0006]       ; 0x69c6
     jmp near loc_6c2a                ; 0x69c9
 loc_69cc:
-    call ds_app_20f8                 ; 0x69cc
+    call ds_app_io_20f8              ; 0x69cc
     mov word [bp - 0x000c], ax       ; 0x69cf
     cmp ax, strict word 0            ; 0x69d2
     jge short loc_69da               ; 0x69d5
@@ -294,7 +294,7 @@ loc_6a2f:
 loc_6a63:
     jmp near loc_6c37                ; 0x6a63
 loc_6a66:
-    call ds_app_20f8                 ; 0x6a66
+    call ds_app_io_20f8              ; 0x6a66
     mov word [bp - 0x000c], ax       ; 0x6a69
     cmp ax, strict word 0            ; 0x6a6c
     jl short loc_6ad3                ; 0x6a6f

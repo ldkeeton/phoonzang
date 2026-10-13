@@ -30,13 +30,13 @@ api_idx_0004:
 @..api_idx_0004.l4:
     mov ax, 1                        ; 0x092e
     push ax                          ; 0x0931
-    call ds_bios_kbd_loc_3c97        ; 0x0932
+    call ds_dos_con_in_noecho        ; 0x0932
     pop cx                           ; 0x0935
     test ax, ax                      ; 0x0936
     je short @..api_idx_0004.l5      ; 0x0938
     mov ax, 1                        ; 0x093a
     push ax                          ; 0x093d
-    call ds_dos_con_loc_3d79         ; 0x093e
+    call ds_dos_con_in_noecho_2      ; 0x093e
     pop cx                           ; 0x0941
     cmp al, 0xd                      ; 0x0942
     jne short @..api_idx_0004.l5     ; 0x0944

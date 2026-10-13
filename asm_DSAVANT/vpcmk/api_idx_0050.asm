@@ -514,7 +514,7 @@ api_idx_0050:
     add sp, byte 4                   ; 0x353a
     mov ax, 0x59fe                   ; 0x353d
     push ax                          ; 0x3540
-    call ds_app_0b54                 ; 0x3541
+    call ds_app_io_0b54              ; 0x3541
     pop cx                           ; 0x3544
     dec ax                           ; 0x3545
     mov word [bp - 0x001a], ax       ; 0x3546

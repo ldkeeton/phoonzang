@@ -270,7 +270,7 @@ api_idx_0094:
     mov bx, ax                       ; 0x364b
     cmp byte [bx + 0x624], 1         ; 0x364d
     jne short @..api_idx_0094.l15    ; 0x3652
-    call ds_app_20f8                 ; 0x3654
+    call ds_app_io_20f8              ; 0x3654
     mov word [bp - 0x0094], ax       ; 0x3657
     cmp ax, strict word 0xffff       ; 0x365b
     jne short @..api_idx_0094.l14    ; 0x365e

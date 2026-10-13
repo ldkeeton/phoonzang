@@ -332,7 +332,7 @@ api_idx_0038:
 @..api_idx_0038.l7:
     mov ax, 0x59fe                   ; 0x3d3a
     push ax                          ; 0x3d3d
-    call ds_app_0b54                 ; 0x3d3e
+    call ds_app_io_0b54              ; 0x3d3e
     pop cx                           ; 0x3d41
     dec ax                           ; 0x3d42
     mov word [bp - 0x0018], ax       ; 0x3d43

@@ -1187,7 +1187,7 @@ loc_563a:
     je short loc_5650                ; 0x563f
     mov ax, 0x59fe                   ; 0x5641
     push ax                          ; 0x5644
-    call ds_app_0b54                 ; 0x5645
+    call ds_app_io_0b54              ; 0x5645
     pop cx                           ; 0x5648
     dec ax                           ; 0x5649
     mov word [bp - 0x0014], ax       ; 0x564a
@@ -1201,7 +1201,7 @@ loc_5650:
     add sp, byte 6                   ; 0x5662
     mov ax, 1                        ; 0x5665
     push ax                          ; 0x5668
-    call ds_dos_con_loc_3d79         ; 0x5669
+    call ds_dos_con_in_noecho_2      ; 0x5669
     pop cx                           ; 0x566c
     sub ah, ah                       ; 0x566d
     mov word [bp - 0x0004], ax       ; 0x566f

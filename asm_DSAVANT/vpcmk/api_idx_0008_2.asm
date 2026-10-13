@@ -450,7 +450,7 @@ loc_0445:
 @..local.l10:
     mov ax, 0x59fe                   ; 0x06bc
     push ax                          ; 0x06bf
-    call ds_app_0b54                 ; 0x06c0
+    call ds_app_io_0b54              ; 0x06c0
     pop cx                           ; 0x06c3
     mov word [bp - 0x0004], ax       ; 0x06c4
     cmp word [bss_5b3e], byte 0      ; 0x06c7
@@ -525,7 +525,7 @@ loc_0445:
 @..local.l13:
     mov ax, 1                        ; 0x076a
     push ax                          ; 0x076d
-    call ds_bios_kbd_loc_3c97        ; 0x076e
+    call ds_dos_con_in_noecho        ; 0x076e
     pop cx                           ; 0x0771
     test ax, ax                      ; 0x0772
     jne short @..local.l14           ; 0x0774
@@ -533,7 +533,7 @@ loc_0445:
 @..local.l14:
     mov ax, 1                        ; 0x0778
     push ax                          ; 0x077b
-    call ds_dos_con_loc_3d79         ; 0x077c
+    call ds_dos_con_in_noecho_2      ; 0x077c
     pop cx                           ; 0x077f
     sub ah, ah                       ; 0x0780
     mov word [bp - 0x01aa], ax       ; 0x0782

@@ -607,7 +607,7 @@ api_idx_0014:
     pop cx                           ; 0x66c6
     mov ax, 0x59fe                   ; 0x66c7
     push ax                          ; 0x66ca
-    call ds_app_0b54                 ; 0x66cb
+    call ds_app_io_0b54              ; 0x66cb
     pop cx                           ; 0x66ce
     dec ax                           ; 0x66cf
     mov word [bp - 0x0004], ax       ; 0x66d0

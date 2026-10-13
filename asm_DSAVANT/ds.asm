@@ -781,7 +781,7 @@ __zdataseg_end equ (__zimage_end - __zdataseg_start) + __zbss_size
 
 %include "ds/app_io_0af6.asm"              ; 0x0af6
 
-%include "ds/app_0b54.asm"                 ; 0x0b54
+%include "ds/app_io_0b54.asm"              ; 0x0b54
 
 %include "ds/app_string_0c0b.asm"          ; 0x0c0b
 
@@ -849,7 +849,7 @@ __zdataseg_end equ (__zimage_end - __zdataseg_start) + __zbss_size
 
 %include "ds/app_1d81.asm"                 ; 0x1d81
 
-%include "ds/app_20f8.asm"                 ; 0x20f8
+%include "ds/app_io_20f8.asm"              ; 0x20f8
 
 %include "ds/app_2305.asm"                 ; 0x2305
 
@@ -953,9 +953,9 @@ __zdataseg_end equ (__zimage_end - __zdataseg_start) + __zbss_size
 
 %include "ds/leaf_loc_3c0d.asm"            ; 0x3c0d
 
-%include "ds/bios_kbd_loc_3c97.asm"        ; 0x3c97
+%include "ds/dos_con_in_noecho.asm"        ; 0x3c97
 
-%include "ds/dos_con_loc_3d79.asm"         ; 0x3d79
+%include "ds/dos_con_in_noecho_2.asm"      ; 0x3d79
 
 %include "ds/bios_kbd_check.asm"           ; 0x3e5e
 
@@ -1053,7 +1053,7 @@ jumptable_4822:
 
     db '0123456789abcdef -lm first', 0
 
-%include "ds/string_loc_4867.asm"          ; 0x4867
+%include "ds/strlen_3.asm"                 ; 0x4867
 
 %include "ds/string_loc_4882.asm"          ; 0x4882
 

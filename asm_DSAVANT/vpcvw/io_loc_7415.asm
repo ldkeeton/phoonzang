@@ -1438,7 +1438,7 @@ loc_82bb:
 loc_82bd:
     mov ax, 1                        ; 0x82bd
     push ax                          ; 0x82c0
-    call ds_dos_con_loc_3d79         ; 0x82c1
+    call ds_dos_con_in_noecho_2      ; 0x82c1
     pop cx                           ; 0x82c4
     sub ah, ah                       ; 0x82c5
     mov word [bp - 0x0008], ax       ; 0x82c7

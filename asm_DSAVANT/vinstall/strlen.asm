@@ -1,4 +1,4 @@
-string_loc_3098:
+strlen:
     push bp                          ; 0x3098
     mov bp, sp                       ; 0x3099
     sub sp, strict word 0x154        ; 0x309b

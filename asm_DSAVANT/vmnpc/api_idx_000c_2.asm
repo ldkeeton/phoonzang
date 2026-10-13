@@ -370,7 +370,7 @@ loc_1821:
 @..local.l23:
     mov ax, 0x59fe                   ; 0x19cc
     push ax                          ; 0x19cf
-    call ds_app_0b54                 ; 0x19d0
+    call ds_app_io_0b54              ; 0x19d0
     pop cx                           ; 0x19d3
     mov word [bp - 0x0004], ax       ; 0x19d4
     call api_idx_0006_2              ; 0x19d7
@@ -459,7 +459,7 @@ loc_1821:
 @..local.l28:
     mov ax, 1                        ; 0x1a9f
     push ax                          ; 0x1aa2
-    call ds_bios_kbd_loc_3c97        ; 0x1aa3
+    call ds_dos_con_in_noecho        ; 0x1aa3
     pop cx                           ; 0x1aa6
     test ax, ax                      ; 0x1aa7
     jne short @..local.l29           ; 0x1aa9
@@ -468,7 +468,7 @@ loc_1821:
 @..local.l29:
     mov ax, 1                        ; 0x1ab0
     push ax                          ; 0x1ab3
-    call ds_dos_con_loc_3d79         ; 0x1ab4
+    call ds_dos_con_in_noecho_2      ; 0x1ab4
     pop cx                           ; 0x1ab7
     sub ah, ah                       ; 0x1ab8
     mov word [bp - 0x01ae], ax       ; 0x1aba
@@ -1030,7 +1030,7 @@ loc_1d39:
 @..local.l62:
     mov ax, 0x59fe                   ; 0x1fd7
     push ax                          ; 0x1fda
-    call ds_app_0b54                 ; 0x1fdb
+    call ds_app_io_0b54              ; 0x1fdb
     pop cx                           ; 0x1fde
     mov word [bp - 0x0004], ax       ; 0x1fdf
     cmp word [bss_5b3e], byte 0      ; 0x1fe2
@@ -1105,7 +1105,7 @@ loc_1d39:
 @..local.l65:
     mov ax, 1                        ; 0x2085
     push ax                          ; 0x2088
-    call ds_bios_kbd_loc_3c97        ; 0x2089
+    call ds_dos_con_in_noecho        ; 0x2089
     pop cx                           ; 0x208c
     test ax, ax                      ; 0x208d
     jne short @..local.l66           ; 0x208f
@@ -1113,7 +1113,7 @@ loc_1d39:
 @..local.l66:
     mov ax, 1                        ; 0x2093
     push ax                          ; 0x2096
-    call ds_dos_con_loc_3d79         ; 0x2097
+    call ds_dos_con_in_noecho_2      ; 0x2097
     pop cx                           ; 0x209a
     sub ah, ah                       ; 0x209b
     mov word [bp - 0x015a], ax       ; 0x209d

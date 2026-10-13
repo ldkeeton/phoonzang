@@ -87,7 +87,7 @@ api_idx_0006_3:
 @..api_idx_0006_3.l2:
     mov ax, 0x59fe                   ; 0x61a1
     push ax                          ; 0x61a4
-    call ds_app_0b54                 ; 0x61a5
+    call ds_app_io_0b54              ; 0x61a5
     pop cx                           ; 0x61a8
     dec ax                           ; 0x61a9
     mov word [bp - 0x0002], ax       ; 0x61aa

@@ -117,7 +117,7 @@ jumptable_6bfb_case_1:
     call loc_606d                    ; 0x6b42
     jmp near @..api_idx_004a_2.l19   ; 0x6b45
 jumptable_6bfb_case_2:
-    call ds_app_20f8                 ; 0x6b48
+    call ds_app_io_20f8              ; 0x6b48
     mov word [bss_8af0], ax          ; 0x6b4b
     cmp ax, strict word 0xffff       ; 0x6b4e
     je short @..api_idx_004a_2.l13   ; 0x6b51
@@ -126,7 +126,7 @@ jumptable_6bfb_case_2:
 @..api_idx_004a_2.l13:
     jmp near @..api_idx_004a_2.l19   ; 0x6b5f
 jumptable_6bfb_case_3:
-    call ds_app_20f8                 ; 0x6b62
+    call ds_app_io_20f8              ; 0x6b62
     mov word [bss_8af0], ax          ; 0x6b65
     cmp ax, strict word 0xffff       ; 0x6b68
     je short @..api_idx_004a_2.l14   ; 0x6b6b

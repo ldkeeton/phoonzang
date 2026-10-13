@@ -348,7 +348,7 @@ loc_023a:
 @..local.l9:
     mov ax, 0x59fe                   ; 0x03e1
     push ax                          ; 0x03e4
-    call ds_app_0b54                 ; 0x03e5
+    call ds_app_io_0b54              ; 0x03e5
     pop cx                           ; 0x03e8
     mov word [bp - 0x0004], ax       ; 0x03e9
     cmp word [bss_5b3e], byte 0      ; 0x03ec
@@ -418,7 +418,7 @@ loc_023a:
 @..local.l12:
     mov ax, 1                        ; 0x0485
     push ax                          ; 0x0488
-    call ds_bios_kbd_loc_3c97        ; 0x0489
+    call ds_dos_con_in_noecho        ; 0x0489
     pop cx                           ; 0x048c
     test ax, ax                      ; 0x048d
     jne short @..local.l13           ; 0x048f
@@ -426,7 +426,7 @@ loc_023a:
 @..local.l13:
     mov ax, 1                        ; 0x0493
     push ax                          ; 0x0496
-    call ds_dos_con_loc_3d79         ; 0x0497
+    call ds_dos_con_in_noecho_2      ; 0x0497
     pop cx                           ; 0x049a
     sub ah, ah                       ; 0x049b
     mov word [bp - 0x0156], ax       ; 0x049d

@@ -25,7 +25,7 @@ api_idx_0004_7:
     mov bx, ax                       ; 0x4616
     cmp byte [bx + 0x624], 1         ; 0x4618
     jne short @..api_idx_0004_7.l2   ; 0x461d
-    call ds_app_20f8                 ; 0x461f
+    call ds_app_io_20f8              ; 0x461f
     mov word [bss_9d90], ax          ; 0x4622
     cmp ax, strict word 0xffff       ; 0x4625
     jne short @..api_idx_0004_7.l2   ; 0x4628

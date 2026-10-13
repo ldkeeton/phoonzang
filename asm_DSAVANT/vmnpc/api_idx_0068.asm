@@ -112,7 +112,7 @@ api_idx_0068:
     mov bx, ax                       ; 0x52ba
     cmp byte [bx + 0x624], 1         ; 0x52bc
     jne short @..api_idx_0068.l5     ; 0x52c1
-    call ds_app_20f8                 ; 0x52c3
+    call ds_app_io_20f8              ; 0x52c3
     mov word [bss_9650], ax          ; 0x52c6
     cmp ax, strict word 0xffff       ; 0x52c9
     jne short @..api_idx_0068.l5     ; 0x52cc

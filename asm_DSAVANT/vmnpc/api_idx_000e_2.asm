@@ -118,13 +118,13 @@ api_idx_000e_2:
     call api_idx_0006_2              ; 0x93a0
     mov ax, 1                        ; 0x93a3
     push ax                          ; 0x93a6
-    call ds_bios_kbd_loc_3c97        ; 0x93a7
+    call ds_dos_con_in_noecho        ; 0x93a7
     pop cx                           ; 0x93aa
     test ax, ax                      ; 0x93ab
     je short @..api_idx_000e_2.l10   ; 0x93ad
     mov ax, 1                        ; 0x93af
     push ax                          ; 0x93b2
-    call ds_dos_con_loc_3d79         ; 0x93b3
+    call ds_dos_con_in_noecho_2      ; 0x93b3
     pop cx                           ; 0x93b6
     sub ah, ah                       ; 0x93b7
     mov word [bp - 0x0008], ax       ; 0x93b9

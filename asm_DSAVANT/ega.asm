@@ -166,6 +166,8 @@ cseg_0291:
 
 %include "ega/bios_mouse_loc_1992.asm"     ; 0x1992
 
+%include "ega/dos_print_str_2.asm"         ; 0x19c1
+
 %include "ega/dos_con_loc_1a9f.asm"        ; 0x1a9f
 
 %include "ega/leaf_loc_2a4f.asm"           ; 0x2a4f
@@ -326,7 +328,7 @@ loc_503c:
     mov word [bp - 0x0006], ax       ; 0x506b
     mov ax, word [cs:bx]             ; 0x506e
     or ax, ax                        ; 0x5071
-    je short @..local.l139           ; 0x5073
+    je short @..local.l131           ; 0x5073
     dec ax                           ; 0x5075
     shl ax, 1                        ; 0x5076
     shl ax, 1                        ; 0x5078
@@ -336,10 +338,10 @@ loc_503c:
     push word [bp - 0x0008]          ; 0x5082
     xor ax, ax                       ; 0x5085
     cmp word [bp - 0x0006], byte 0   ; 0x5087
-    je short @..local.l138           ; 0x508b
+    je short @..local.l130           ; 0x508b
     mov ax, word [cs:bx]             ; 0x508d
     add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x5090
-@..local.l138:
+@..local.l130:
     push ax                          ; 0x5095
     xor ax, ax                       ; 0x5096
     push ax                          ; 0x5098
@@ -357,7 +359,7 @@ loc_503c:
     push word [bp - 0x0006]          ; 0x50be
     call far [cs:cseg_0206 - IMAGE_BASE] ; 0x50c1
     add sp, byte 6                   ; 0x50c6
-@..local.l139:
+@..local.l131:
     pop di                           ; 0x50c9
     pop si                           ; 0x50ca
     pop es                           ; 0x50cb
@@ -377,24 +379,24 @@ loc_50d1:
     mov es, ax                       ; 0x50dd
     mov ax, word [bp + 0xc]          ; 0x50df
     cmp ax, strict word 5            ; 0x50e2
-    jb short @..local.l140           ; 0x50e5
-    jmp near @..local.l142           ; 0x50e7
-@..local.l140:
+    jb short @..local.l132           ; 0x50e5
+    jmp near @..local.l134           ; 0x50e7
+@..local.l132:
     shl ax, 1                        ; 0x50ea
     shl ax, 1                        ; 0x50ec
     mov bx, 0x4f8b                   ; 0x50ee
     add bx, ax                       ; 0x50f1
     mov ax, word [cs:bx]             ; 0x50f3
     or ax, ax                        ; 0x50f6
-    jne short @..local.l141          ; 0x50f8
-    jmp near @..local.l142           ; 0x50fa
-@..local.l141:
+    jne short @..local.l133          ; 0x50f8
+    jmp near @..local.l134           ; 0x50fa
+@..local.l133:
     mov word [cs:bx], 0              ; 0x50fd
     mov cx, word [cs:cseg_11cb - IMAGE_BASE] ; 0x5102
     dec cx                           ; 0x5107
     mov word [cs:cseg_11cb - IMAGE_BASE], cx ; 0x5108
     call loc_4c93                    ; 0x510d
-@..local.l142:
+@..local.l134:
     pop di                           ; 0x5110
     pop si                           ; 0x5111
     pop es                           ; 0x5112
