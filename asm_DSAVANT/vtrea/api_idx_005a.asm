@@ -1,6 +1,6 @@
 api_idx_005a:
     mov ax, 0xffa6                   ; 0x10fb
-    call ds_aztec_csav               ; 0x10fe
+    call aztec_csav                  ; 0x10fe
     cmp word [bp + 0x8], byte 0      ; 0x1101
     je short @..api_idx_005a.l1      ; 0x1105
     mov ax, 0x64                     ; 0x1107

@@ -1,6 +1,6 @@
 api_idx_0002_2:
     mov ax, 0xfffe                   ; 0x0084
-    call ds_aztec_csav               ; 0x0087
+    call aztec_csav                  ; 0x0087
     mov ax, 0                        ; 0x008a
     push ax                          ; 0x008d
     mov ax, 1                        ; 0x008e
@@ -9,7 +9,7 @@ api_idx_0002_2:
     call ds_app_23a8                 ; 0x0095
     add sp, byte 4                   ; 0x0098
     push ax                          ; 0x009b
-    call ds_aztec_open               ; 0x009c
+    call aztec_open                  ; 0x009c
     add sp, byte 4                   ; 0x009f
     mov word [bp - 0x0002], ax       ; 0x00a2
     cmp ax, strict word 0xffff       ; 0x00a5
@@ -26,6 +26,6 @@ api_idx_0002_2:
     call ds_bios_mouse_loc_4259      ; 0x00bc
     add sp, byte 6                   ; 0x00bf
     push word [bp - 0x0002]          ; 0x00c2
-    call ds_aztec_close              ; 0x00c5
+    call aztec_close                 ; 0x00c5
     pop cx                           ; 0x00c8
     ret                              ; 0x00c9

@@ -1,6 +1,6 @@
 api_idx_0008_2:
     mov ax, 0xfff8                   ; 0x0fde
-    call ds_aztec_csav               ; 0x0fe1
+    call aztec_csav                  ; 0x0fe1
     mov ax, 0x98                     ; 0x0fe4
     push ax                          ; 0x0fe7
     mov ax, 0x13f                    ; 0x0fe8
@@ -12,7 +12,7 @@ api_idx_0008_2:
     call ds_loc_3b21                 ; 0x0ff4
     add sp, byte 8                   ; 0x0ff7
     push word [bp + 0x4]             ; 0x0ffa
-    call ds_aztec_strlen             ; 0x0ffd
+    call aztec_strlen                ; 0x0ffd
     pop cx                           ; 0x1000
     mov cx, 6                        ; 0x1001
     imul cx                          ; 0x1004
@@ -24,7 +24,7 @@ api_idx_0008_2:
     sub ax, cx                       ; 0x1011
     mov word [bp - 0x0002], ax       ; 0x1013
     push word [bp + 0x4]             ; 0x1016
-    call ds_aztec_strlen             ; 0x1019
+    call aztec_strlen                ; 0x1019
     pop cx                           ; 0x101c
     mov cx, 6                        ; 0x101d
     imul cx                          ; 0x1020
@@ -72,5 +72,5 @@ api_idx_0008_2:
     push word [bp - 0x0008]          ; 0x1087
     call ds_loc_3b96                 ; 0x108a
     add sp, byte 6                   ; 0x108d
-    call ds_bios_kbd_check           ; 0x1090
+    call bios_kbd_check              ; 0x1090
     ret                              ; 0x1093

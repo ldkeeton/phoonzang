@@ -65,7 +65,7 @@ strlen_2:
     mov sp, bp                       ; 0x4130
     pop bp                           ; 0x4132
     ret                              ; 0x4133
-loc_4134:
+ds_loc_4134:
     push bp                          ; 0x4134
     mov bp, sp                       ; 0x4135
     cld                              ; 0x4137
@@ -73,7 +73,7 @@ loc_4134:
     mov sp, bp                       ; 0x413d
     pop bp                           ; 0x413f
     ret                              ; 0x4140
-loc_4141:
+ds_loc_4141:
     push bp                          ; 0x4141
     mov bp, sp                       ; 0x4142
     cld                              ; 0x4144
@@ -81,7 +81,7 @@ loc_4141:
     mov sp, bp                       ; 0x414a
     pop bp                           ; 0x414c
     ret                              ; 0x414d
-loc_414e:
+ds_loc_414e:
     push bp                          ; 0x414e
     mov bp, sp                       ; 0x414f
     cld                              ; 0x4151
@@ -89,7 +89,7 @@ loc_414e:
     mov sp, bp                       ; 0x4157
     pop bp                           ; 0x4159
     ret                              ; 0x415a
-loc_415b:
+ds_loc_415b:
     push bp                          ; 0x415b
     mov bp, sp                       ; 0x415c
     cld                              ; 0x415e
@@ -97,7 +97,7 @@ loc_415b:
     mov sp, bp                       ; 0x4164
     pop bp                           ; 0x4166
     ret                              ; 0x4167
-loc_4168:
+ds_loc_4168:
     push bp                          ; 0x4168
     mov bp, sp                       ; 0x4169
     cld                              ; 0x416b
@@ -105,7 +105,7 @@ loc_4168:
     mov sp, bp                       ; 0x4171
     pop bp                           ; 0x4173
     ret                              ; 0x4174
-loc_4175:
+ds_loc_4175:
     push bp                          ; 0x4175
     mov bp, sp                       ; 0x4176
     cld                              ; 0x4178
@@ -135,7 +135,7 @@ loc_4175:
     mov sp, bp                       ; 0x419f
     pop bp                           ; 0x41a1
     ret                              ; 0x41a2
-loc_41a3:
+ds_loc_41a3:
     push bp                          ; 0x41a3
     mov bp, sp                       ; 0x41a4
     cld                              ; 0x41a6
@@ -143,7 +143,7 @@ loc_41a3:
     mov sp, bp                       ; 0x41ac
     pop bp                           ; 0x41ae
     ret                              ; 0x41af
-loc_41b0:
+ds_loc_41b0:
     push bp                          ; 0x41b0
     mov bp, sp                       ; 0x41b1
     cld                              ; 0x41b3
@@ -151,7 +151,7 @@ loc_41b0:
     mov sp, bp                       ; 0x41b9
     pop bp                           ; 0x41bb
     ret                              ; 0x41bc
-loc_41bd:
+ds_loc_41bd:
     push bp                          ; 0x41bd
     mov bp, sp                       ; 0x41be
     cld                              ; 0x41c0
@@ -159,7 +159,7 @@ loc_41bd:
     mov sp, bp                       ; 0x41c6
     pop bp                           ; 0x41c8
     ret                              ; 0x41c9
-loc_41ca:
+ds_loc_41ca:
     push bp                          ; 0x41ca
     mov bp, sp                       ; 0x41cb
     cld                              ; 0x41cd
@@ -167,7 +167,7 @@ loc_41ca:
     mov sp, bp                       ; 0x41d3
     pop bp                           ; 0x41d5
     ret                              ; 0x41d6
-loc_41d7:
+ds_loc_41d7:
     push bp                          ; 0x41d7
     mov bp, sp                       ; 0x41d8
     cld                              ; 0x41da
@@ -175,7 +175,7 @@ loc_41d7:
     mov sp, bp                       ; 0x41e0
     pop bp                           ; 0x41e2
     ret                              ; 0x41e3
-loc_41e4:
+ds_loc_41e4:
     push bp                          ; 0x41e4
     mov bp, sp                       ; 0x41e5
     cld                              ; 0x41e7
@@ -183,7 +183,7 @@ loc_41e4:
     mov sp, bp                       ; 0x41ed
     pop bp                           ; 0x41ef
     ret                              ; 0x41f0
-loc_41f1:
+ds_loc_41f1:
     push bp                          ; 0x41f1
     mov bp, sp                       ; 0x41f2
     cld                              ; 0x41f4
@@ -191,7 +191,7 @@ loc_41f1:
     mov sp, bp                       ; 0x41fa
     pop bp                           ; 0x41fc
     ret                              ; 0x41fd
-loc_41fe:
+ds_loc_41fe:
     push bp                          ; 0x41fe
     mov bp, sp                       ; 0x41ff
     cld                              ; 0x4201
@@ -199,7 +199,7 @@ loc_41fe:
     mov sp, bp                       ; 0x4207
     pop bp                           ; 0x4209
     ret                              ; 0x420a
-loc_420b:
+ds_loc_420b:
     push bp                          ; 0x420b
     mov bp, sp                       ; 0x420c
     cld                              ; 0x420e
@@ -207,7 +207,7 @@ loc_420b:
     mov sp, bp                       ; 0x4214
     pop bp                           ; 0x4216
     ret                              ; 0x4217
-loc_4218:
+ds_loc_4218:
     push bp                          ; 0x4218
     mov bp, sp                       ; 0x4219
     cld                              ; 0x421b
@@ -215,7 +215,7 @@ loc_4218:
     mov sp, bp                       ; 0x4221
     pop bp                           ; 0x4223
     ret                              ; 0x4224
-loc_4225:
+ds_loc_4225:
     push bp                          ; 0x4225
     mov bp, sp                       ; 0x4226
     cld                              ; 0x4228
@@ -223,7 +223,7 @@ loc_4225:
     mov sp, bp                       ; 0x422e
     pop bp                           ; 0x4230
     ret                              ; 0x4231
-loc_4232:
+ds_loc_4232:
     push bp                          ; 0x4232
     mov bp, sp                       ; 0x4233
     cld                              ; 0x4235
@@ -231,7 +231,7 @@ loc_4232:
     mov sp, bp                       ; 0x423b
     pop bp                           ; 0x423d
     ret                              ; 0x423e
-loc_423f:
+ds_loc_423f:
     push bp                          ; 0x423f
     mov bp, sp                       ; 0x4240
     cld                              ; 0x4242
@@ -239,7 +239,7 @@ loc_423f:
     mov sp, bp                       ; 0x4248
     pop bp                           ; 0x424a
     ret                              ; 0x424b
-loc_424c:
+ds_loc_424c:
     push bp                          ; 0x424c
     mov bp, sp                       ; 0x424d
     cld                              ; 0x424f

@@ -1,6 +1,6 @@
 api_idx_0018_2:
     mov ax, 0xffe8                   ; 0x3b9a
-    call ds_aztec_csav               ; 0x3b9d
+    call aztec_csav                  ; 0x3b9d
     mov ax, word [bp + 0x6]          ; 0x3ba0
     imul word [bp + 0xe]             ; 0x3ba3
     add ax, word [bp + 0xa]          ; 0x3ba6
@@ -54,7 +54,7 @@ api_idx_0018_2:
     push ax                          ; 0x3c1a
     lea ax, word [bp - 0x0014]       ; 0x3c1b
     push ax                          ; 0x3c1e
-    call ds_aztec_strlen             ; 0x3c1f
+    call aztec_strlen                ; 0x3c1f
     pop cx                           ; 0x3c22
     mov cx, ax                       ; 0x3c23
     mov ax, word [bp + 0xc]          ; 0x3c25

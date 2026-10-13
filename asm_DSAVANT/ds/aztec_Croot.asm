@@ -66,7 +66,7 @@ aztec_Croot:
     add sp, byte 6                   ; 0x4f2e
     mov ax, 0xc8                     ; 0x4f31
     push ax                          ; 0x4f34
-    call dos_proc_loc_4e7e           ; 0x4f35
+    call ds_dos_proc_loc_4e7e        ; 0x4f35
     pop cx                           ; 0x4f38
 @..aztec_Croot.l4:
     inc si                           ; 0x4f39
@@ -93,7 +93,7 @@ aztec_Croot:
     add sp, byte 4                   ; 0x4f62
     mov ax, 0                        ; 0x4f65
     push ax                          ; 0x4f68
-    call loc_4f73                    ; 0x4f69
+    call ds_loc_4f73                 ; 0x4f69
     pop cx                           ; 0x4f6c
     pop si                           ; 0x4f6d
     pop di                           ; 0x4f6e

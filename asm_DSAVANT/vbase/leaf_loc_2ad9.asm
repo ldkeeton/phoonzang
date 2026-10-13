@@ -314,7 +314,7 @@ loc_2db5:
     jmp near loc_2339                ; 0x2dbe
 loc_2dc1:
     push word [bp - 0x000a]          ; 0x2dc1
-    call ds_aztec_close              ; 0x2dc4
+    call aztec_close                 ; 0x2dc4
     pop cx                           ; 0x2dc7
     mov word [bp - 0x001a], 0xffff   ; 0x2dc8
     mov word [bp - 0x0004], 0        ; 0x2dcd

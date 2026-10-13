@@ -1,6 +1,6 @@
 api_idx_000c:
     mov ax, 0xfff4                   ; 0x030a
-    call ds_aztec_csav               ; 0x030d
+    call aztec_csav                  ; 0x030d
     mov ax, 1                        ; 0x0310
     push ax                          ; 0x0313
     call api_idx_000a                ; 0x0314
@@ -71,5 +71,5 @@ api_idx_000c:
     push ax                          ; 0x03b0
     call api_idx_000a                ; 0x03b1
     pop cx                           ; 0x03b4
-    call ds_bios_kbd_check           ; 0x03b5
+    call bios_kbd_check              ; 0x03b5
     ret                              ; 0x03b8

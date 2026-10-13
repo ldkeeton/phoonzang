@@ -1,7 +1,7 @@
 api_idx_0004_4:
     mov ax, 0xfffc                   ; 0x6c87
-    call ds_aztec_csav               ; 0x6c8a
-    call ds_bios_kbd_check           ; 0x6c8d
+    call aztec_csav                  ; 0x6c8a
+    call bios_kbd_check              ; 0x6c8d
     mov ax, word [bp + 0x4]          ; 0x6c90
     cwd                              ; 0x6c93
     les bx, word [dseg_0002]         ; 0x6c94

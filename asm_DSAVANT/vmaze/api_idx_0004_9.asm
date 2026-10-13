@@ -1,11 +1,11 @@
 api_idx_0004_9:
     mov ax, 0xfffc                   ; 0x6eb1
-    call ds_aztec_csav               ; 0x6eb4
+    call aztec_csav                  ; 0x6eb4
 @..api_idx_0004_9.l1:
     mov ax, 0x20                     ; 0x6eb7
     push ax                          ; 0x6eba
     push word [bp + 0x4]             ; 0x6ebb
-    call ds_strlen                   ; 0x6ebe
+    call strlen                      ; 0x6ebe
     add sp, byte 4                   ; 0x6ec1
     mov word [bp - 0x0002], ax       ; 0x6ec4
     cmp ax, strict word 0xffff       ; 0x6ec7
@@ -17,7 +17,7 @@ api_idx_0004_9:
     mov ax, 0x5f                     ; 0x6ed4
     push ax                          ; 0x6ed7
     push word [bp + 0x4]             ; 0x6ed8
-    call ds_strlen                   ; 0x6edb
+    call strlen                      ; 0x6edb
     add sp, byte 4                   ; 0x6ede
     mov word [bp - 0x0004], ax       ; 0x6ee1
     cmp ax, strict word 0xffff       ; 0x6ee4
@@ -45,7 +45,7 @@ api_idx_0004_9:
     ret                              ; 0x6f13
 loc_6f14:
     mov ax, 0xfefa                   ; 0x6f14
-    call ds_aztec_csav               ; 0x6f17
+    call aztec_csav                  ; 0x6f17
     mov word [bss_9b48], 0           ; 0x6f1a
     mov ax, 0xc6                     ; 0x6f20
     push ax                          ; 0x6f23
@@ -111,7 +111,7 @@ loc_6f14:
     ret                              ; 0x6fbe
 loc_6fbf:
     mov ax, 0                        ; 0x6fbf
-    call ds_aztec_csav               ; 0x6fc2
+    call aztec_csav                  ; 0x6fc2
     mov ax, 0x248                    ; 0x6fc5
     imul word [bp + 0x4]             ; 0x6fc8
     add ax, word [bp + 0x6]          ; 0x6fcb

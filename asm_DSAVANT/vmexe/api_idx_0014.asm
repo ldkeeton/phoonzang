@@ -1,6 +1,6 @@
 api_idx_0014:
     mov ax, 0xffec                   ; 0x6476
-    call ds_aztec_csav               ; 0x6479
+    call aztec_csav                  ; 0x6479
     mov bx, word [bss_8490]          ; 0x647c
     mov byte [bx + 0xe2], 0          ; 0x6480
     mov word [bss_90de], 6           ; 0x6485
@@ -551,7 +551,7 @@ api_idx_0014:
     imul word [bss_8462]             ; 0x6a37
     add ax, 0x5d9c                   ; 0x6a3b
     push ax                          ; 0x6a3e
-    call ds_aztec_movmem             ; 0x6a3f
+    call aztec_movmem                ; 0x6a3f
     add sp, byte 6                   ; 0x6a42
     mov ax, 8                        ; 0x6a45
     push ax                          ; 0x6a48
@@ -562,7 +562,7 @@ api_idx_0014:
     imul word [bss_8462]             ; 0x6a53
     add ax, 0x5daa                   ; 0x6a57
     push ax                          ; 0x6a5a
-    call ds_aztec_movmem             ; 0x6a5b
+    call aztec_movmem                ; 0x6a5b
     add sp, byte 6                   ; 0x6a5e
     mov bx, word [bss_8490]          ; 0x6a61
     mov al, byte [bx + 0xc4]         ; 0x6a65
@@ -660,7 +660,7 @@ api_idx_0014:
     imul cx                          ; 0x6b6f
     add ax, 0x5d9c                   ; 0x6b71
     push ax                          ; 0x6b74
-    call ds_aztec_movmem             ; 0x6b75
+    call aztec_movmem                ; 0x6b75
     add sp, byte 6                   ; 0x6b78
     mov ax, 8                        ; 0x6b7b
     push ax                          ; 0x6b7e
@@ -674,7 +674,7 @@ api_idx_0014:
     imul cx                          ; 0x6b91
     add ax, 0x5daa                   ; 0x6b93
     push ax                          ; 0x6b96
-    call ds_aztec_movmem             ; 0x6b97
+    call aztec_movmem                ; 0x6b97
     add sp, byte 6                   ; 0x6b9a
     mov word [bp - 0x0004], 0        ; 0x6b9d
 @..api_idx_0014.l36:
@@ -889,7 +889,7 @@ jumptable_6ea7_case_1:
     imul bx                          ; 0x6d9b
     mov cx, 0x64                     ; 0x6d9d
     mov bx, 0                        ; 0x6da0
-    call ds_aztec_ldv                ; 0x6da3
+    call aztec_ldv                   ; 0x6da3
     mov word [bp - 0x0004], ax       ; 0x6da6
     push ax                          ; 0x6da9
     call ds_app_09f0                 ; 0x6daa
@@ -1037,7 +1037,7 @@ jumptable_6ea7:
     ret                              ; 0x6edb
 loc_6edc:
     mov ax, 0                        ; 0x6edc
-    call ds_aztec_csav               ; 0x6edf
+    call aztec_csav                  ; 0x6edf
     mov ax, 0                        ; 0x6ee2
     push ax                          ; 0x6ee5
     push word [bp + 0x6]             ; 0x6ee6

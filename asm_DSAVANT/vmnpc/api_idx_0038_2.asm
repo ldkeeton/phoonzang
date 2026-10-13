@@ -1,6 +1,6 @@
 api_idx_0038_2:
     mov ax, 0xffc8                   ; 0x3e3a
-    call ds_aztec_csav               ; 0x3e3d
+    call aztec_csav                  ; 0x3e3d
     mov word [bss_904e], 0xffff      ; 0x3e40
     mov word [bp - 0x0004], 0x37     ; 0x3e46
     mov word [bp - 0x0006], 0x8f     ; 0x3e4b
@@ -48,7 +48,7 @@ api_idx_0038_2:
     push word [bp + 0xe]             ; 0x3eb6
     lea ax, word [bp - 0x0036]       ; 0x3eb9
     push ax                          ; 0x3ebc
-    call ds_aztec_strcpy             ; 0x3ebd
+    call aztec_strcpy                ; 0x3ebd
     add sp, byte 4                   ; 0x3ec0
 @..api_idx_0038_2.l3:
     lea ax, word [bp - 0x0036]       ; 0x3ec3

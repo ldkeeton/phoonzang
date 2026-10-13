@@ -1,6 +1,6 @@
 api_idx_00c2:
     mov ax, 0xff3e                   ; 0x54fb
-    call ds_aztec_csav               ; 0x54fe
+    call aztec_csav                  ; 0x54fe
     mov ax, 0x248                    ; 0x5501
     imul word [bp + 0x4]             ; 0x5504
     push ax                          ; 0x5507
@@ -84,7 +84,7 @@ api_idx_00c2:
     push ax                          ; 0x55c0
     lea ax, word [bp - 0x004e]       ; 0x55c1
     push ax                          ; 0x55c4
-    call ds_aztec_strcpy             ; 0x55c5
+    call aztec_strcpy                ; 0x55c5
     add sp, byte 4                   ; 0x55c8
     mov ax, word [bp + 0x6]          ; 0x55cb
     shl ax, 1                        ; 0x55ce
@@ -355,7 +355,7 @@ api_idx_00c2:
     imul word [bp - 0x0018]          ; 0x5859
     add ax, 0x9616                   ; 0x585c
     push ax                          ; 0x585f
-    call ds_aztec_strlen             ; 0x5860
+    call aztec_strlen                ; 0x5860
     pop cx                           ; 0x5863
     mov cx, ax                       ; 0x5864
     mov ax, word [bp - 0x000e]       ; 0x5866
@@ -536,7 +536,7 @@ api_idx_00c2:
 @..api_idx_00c2.l20:
     mov ax, 1                        ; 0x59f5
     push ax                          ; 0x59f8
-    call ds_dos_con_in_noecho        ; 0x59f9
+    call dos_con_in_noecho           ; 0x59f9
     pop cx                           ; 0x59fc
     test ax, ax                      ; 0x59fd
     jne short @..api_idx_00c2.l21    ; 0x59ff
@@ -544,7 +544,7 @@ api_idx_00c2:
 @..api_idx_00c2.l21:
     mov ax, 1                        ; 0x5a03
     push ax                          ; 0x5a06
-    call ds_dos_con_in_noecho_2      ; 0x5a07
+    call dos_con_in_noecho_2         ; 0x5a07
     pop cx                           ; 0x5a0a
     sub ah, ah                       ; 0x5a0b
     mov word [bp - 0x009a], ax       ; 0x5a0d
@@ -636,7 +636,7 @@ api_idx_00c2:
 @..api_idx_00c2.l35:
     mov ax, 1                        ; 0x5acb
     push ax                          ; 0x5ace
-    call ds_dos_con_in_noecho        ; 0x5acf
+    call dos_con_in_noecho           ; 0x5acf
     pop cx                           ; 0x5ad2
     test ax, ax                      ; 0x5ad3
     jne short @..api_idx_00c2.l36    ; 0x5ad5
@@ -644,7 +644,7 @@ api_idx_00c2:
 @..api_idx_00c2.l36:
     mov ax, 1                        ; 0x5ad9
     push ax                          ; 0x5adc
-    call ds_dos_con_in_noecho_2      ; 0x5add
+    call dos_con_in_noecho_2         ; 0x5add
     pop cx                           ; 0x5ae0
     sub ah, ah                       ; 0x5ae1
     mov word [bp - 0x009a], ax       ; 0x5ae3
@@ -739,7 +739,7 @@ api_idx_00c2:
     push ax                          ; 0x5bc6
     lea ax, word [bp - 0x0064]       ; 0x5bc7
     push ax                          ; 0x5bca
-    call ds_aztec_strcpy             ; 0x5bcb
+    call aztec_strcpy                ; 0x5bcb
     add sp, byte 4                   ; 0x5bce
     mov ax, word [bp + 0x6]          ; 0x5bd1
     shl ax, 1                        ; 0x5bd4
@@ -814,7 +814,7 @@ api_idx_00c2:
     imul word [bp + 0x6]             ; 0x5c7a
     add ax, 0x9436                   ; 0x5c7d
     push ax                          ; 0x5c80
-    call ds_aztec_strcpy             ; 0x5c81
+    call aztec_strcpy                ; 0x5c81
     add sp, byte 4                   ; 0x5c84
     mov ax, word [bp - 0x0066]       ; 0x5c87
     mov cx, word [bp + 0x6]          ; 0x5c8a
@@ -833,7 +833,7 @@ api_idx_00c2:
     push ax                          ; 0x5cae
     lea ax, word [bp - 0x004e]       ; 0x5caf
     push ax                          ; 0x5cb2
-    call ds_aztec_strcpy             ; 0x5cb3
+    call aztec_strcpy                ; 0x5cb3
     add sp, byte 4                   ; 0x5cb6
     mov ax, word [bp - 0x0068]       ; 0x5cb9
     mov word [bp - 0x0066], ax       ; 0x5cbc

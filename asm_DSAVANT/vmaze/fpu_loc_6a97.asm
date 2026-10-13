@@ -24,7 +24,7 @@ loc_6ac6:
     ret                              ; 0x6ac6
 loc_6ac7:
     mov ax, 0                        ; 0x6ac7
-    call ds_aztec_csav               ; 0x6aca
+    call aztec_csav                  ; 0x6aca
     cmp word [bp + 0x4], byte 0      ; 0x6acd
     jle short @..loc_6ac7.l3         ; 0x6ad1
     mov ax, word [bp + 0x4]          ; 0x6ad3

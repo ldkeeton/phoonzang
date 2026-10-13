@@ -1,15 +1,12 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vtrea.inc"
-org 0
 bits 16
-%include "labels/host_calls.inc"
-
-%include "labels/host_values.inc"
-
-%include "labels/host_data.inc"
-
+%ifndef VBASE
+VBASE equ 0x5047
+%endif
+section .text vstart=VBASE
 %ifndef IMAGE_BASE
-IMAGE_BASE equ 0x000e
+IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
@@ -22,16 +19,16 @@ IMAGE_BASE equ 0x000e
     dw loc_99c5 - IMAGE_BASE + 0x5055  ; 0xea0c ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-loc_34f1 equ 0x34f1
-loc_4582 equ 0x4582
-loc_4a4d equ 0x4a4d
-loc_4a5e equ 0x4a5e
-loc_4ad7 equ 0x4ad7
-api_idx_0004_8 equ 0x4ad8
+loc_34f1 equ 0x34f1 + VBASE
+loc_4582 equ 0x4582 + VBASE
+loc_4a4d equ 0x4a4d + VBASE
+loc_4a5e equ 0x4a5e + VBASE
+loc_4ad7 equ 0x4ad7 + VBASE
+api_idx_0004_8 equ 0x4ad8 + VBASE
 
 loc_000e:
     mov ax, 0                        ; 0x000e
-    call ds_aztec_csav               ; 0x0011
+    call aztec_csav                  ; 0x0011
     mov word [bss_9114], 0           ; 0x0014
     mov word [bss_9116], 0xffff      ; 0x001a
     mov word [bss_9118], 0           ; 0x0020
@@ -194,3 +191,15 @@ loc_000e:
 
 
 __zimage_end:
+
+; Host symbols: the host is included in a section that occupies no
+; space, so its labels carry the addresses this overlay calls.
+%define HOST_SYMS_ONLY
+%define VBASE (-0x0200)
+%define IMAGE_BASE 0
+%define __zimage_end ds___zimage_end
+section .host nobits vstart=-0x0200
+%include "ds.asm"
+%undef __zimage_end
+%undef IMAGE_BASE
+%undef VBASE

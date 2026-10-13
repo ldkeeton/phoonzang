@@ -65,7 +65,7 @@ aztec_begin:
     int 0x21 ; DOS resize memory block
     jae short @..aztec_begin.l7      ; 0x4dd6
     mov al, 0xfe                     ; 0x4dd8
-    jmp near loc_4e80                ; 0x4dda
+    jmp near ds_loc_4e80             ; 0x4dda
 @..aztec_begin.l7:
     mov es, bp                       ; 0x4ddd
     cld                              ; 0x4ddf
@@ -131,13 +131,13 @@ aztec_begin:
     mov word [dseg_0c7a], ax         ; 0x4e5e
     mov word [dseg_0c74], ds         ; 0x4e61
     mov word [dseg_0c76], cs         ; 0x4e65
-    call leaf_loc_4f85               ; 0x4e69
+    call ds_leaf_loc_4f85            ; 0x4e69
     jb short @..aztec_begin.l16      ; 0x4e6c
     call aztec_Croot                 ; 0x4e6e
-    jmp short loc_4e80               ; 0x4e71
+    jmp short ds_loc_4e80            ; 0x4e71
 @..aztec_begin.l16:
     mov ah, 9                        ; 0x4e73
     mov dx, 0xc82                    ; 0x4e75
     int 0x21 ; DOS string output
     mov al, 0xfd                     ; 0x4e7a
-    jmp short loc_4e80               ; 0x4e7c
+    jmp short ds_loc_4e80            ; 0x4e7c

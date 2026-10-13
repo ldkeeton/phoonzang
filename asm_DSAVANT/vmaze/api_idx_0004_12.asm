@@ -1,6 +1,6 @@
 api_idx_0004_12:
     mov ax, 0xfffc                   ; 0x7542
-    call ds_aztec_csav               ; 0x7545
+    call aztec_csav                  ; 0x7545
     cmp word [bss_82fe], byte 0      ; 0x7548
     jle short @..api_idx_0004_12.l1  ; 0x754d
     mov ax, 0x64                     ; 0x754f

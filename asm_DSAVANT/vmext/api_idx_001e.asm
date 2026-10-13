@@ -1,6 +1,6 @@
 api_idx_001e:
     mov ax, 0xffe2                   ; 0x3d29
-    call ds_aztec_csav               ; 0x3d2c
+    call aztec_csav                  ; 0x3d2c
     mov word [bp - 0x0004], 0x14a    ; 0x3d2f
     mov ax, word [bss_8f1c]          ; 0x3d34
     mov dx, word [bss_8f1e]          ; 0x3d37
@@ -16,7 +16,7 @@ api_idx_001e:
     sbb dx, bx                       ; 0x3d49
     mov cx, 0x5a0                    ; 0x3d4b
     mov bx, 0                        ; 0x3d4e
-    call ds_aztec_lrm                ; 0x3d51
+    call aztec_lrm                   ; 0x3d51
     mov word [bp - 0x0006], ax       ; 0x3d54
     cmp ax, strict word 0            ; 0x3d57
     jl short @..api_idx_001e.l1      ; 0x3d5a

@@ -1,6 +1,6 @@
 api_idx_0016:
     mov ax, 0xffea                   ; 0x0e1a
-    call ds_aztec_csav               ; 0x0e1d
+    call aztec_csav                  ; 0x0e1d
     mov ax, 6                        ; 0x0e20
     imul word [bp + 0x4]             ; 0x0e23
     mov cx, word [bp + 0x6]          ; 0x0e26
@@ -133,7 +133,7 @@ api_idx_0016:
     ret                              ; 0x0f66
 loc_0f67:
     mov ax, 0xfee2                   ; 0x0f67
-    call ds_aztec_csav               ; 0x0f6a
+    call aztec_csav                  ; 0x0f6a
     cmp word [bp + 0x4], byte 0      ; 0x0f6d
     jne short @..loc_0f67.l1         ; 0x0f71
     mov ax, 0x2c                     ; 0x0f73
@@ -630,7 +630,7 @@ loc_0f67:
     ret                              ; 0x15aa
 loc_15ab:
     mov ax, 0                        ; 0x15ab
-    call ds_aztec_csav               ; 0x15ae
+    call aztec_csav                  ; 0x15ae
     cmp word [bp + 0x6], byte 0      ; 0x15b1
     jne short @..loc_15ab.l1         ; 0x15b5
     mov ax, 0x248                    ; 0x15b7
@@ -638,7 +638,7 @@ loc_15ab:
     add ax, 0x5bf4                   ; 0x15bd
     push ax                          ; 0x15c0
     push word [bp + 0x4]             ; 0x15c1
-    call ds_aztec_strcpy             ; 0x15c4
+    call aztec_strcpy                ; 0x15c4
     add sp, byte 4                   ; 0x15c7
     jmp short @..loc_15ab.l2         ; 0x15ca
 @..loc_15ab.l1:
@@ -658,13 +658,13 @@ loc_15ab:
     add ax, cx                       ; 0x15ec
     push ax                          ; 0x15ee
     push word [bp + 0x4]             ; 0x15ef
-    call ds_aztec_strcpy             ; 0x15f2
+    call aztec_strcpy                ; 0x15f2
     add sp, byte 4                   ; 0x15f5
 @..loc_15ab.l2:
     ret                              ; 0x15f8
 loc_15f9:
     mov ax, 0                        ; 0x15f9
-    call ds_aztec_csav               ; 0x15fc
+    call aztec_csav                  ; 0x15fc
     mov ax, 7                        ; 0x15ff
     imul word [bp + 0x6]             ; 0x1602
     add ax, 0x9c                     ; 0x1605
@@ -675,7 +675,7 @@ loc_15f9:
     ret                              ; 0x1612
 loc_1613:
     mov ax, 0                        ; 0x1613
-    call ds_aztec_csav               ; 0x1616
+    call aztec_csav                  ; 0x1616
     mov ax, 0                        ; 0x1619
     push ax                          ; 0x161c
     push word [bp + 0x6]             ; 0x161d

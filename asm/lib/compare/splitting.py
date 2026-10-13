@@ -3,6 +3,7 @@
 import re
 
 from lib.compare.records import _record_span
+from lib.names import startswith_stem, stem
 
 
 def _select_split_ranges(label_map, split_functions, func_boundaries=None,
@@ -24,8 +25,8 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
         (off, name)
         for off, name in (label_map or {}).items()
         if name in requested
-        and not name.startswith('data_')
-        and not re.fullmatch(r'loc_[0-9a-fA-F]+', name)
+        and not startswith_stem(name, 'data_')
+        and not re.fullmatch(r'loc_[0-9a-fA-F]+', stem(name))
     )
 
     # A split root strictly inside a C routine's own recovered extent (e.g. the
@@ -65,7 +66,7 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
             tail_end = original_end if original_end is not None else binary_size
             tail_name = (label_map or {}).get(capped)
             if (isinstance(tail_name, str) and tail_name not in requested
-                    and not tail_name.startswith('data_')
+                    and not startswith_stem(tail_name, 'data_')
                     and tail_end is not None and tail_end > capped):
                 ranges.append((capped, tail_end, tail_name))
     return ranges

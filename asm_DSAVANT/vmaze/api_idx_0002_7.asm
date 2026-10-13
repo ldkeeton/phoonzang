@@ -1,6 +1,6 @@
 api_idx_0002_7:
     mov ax, 0xfffe                   ; 0x0b66
-    call ds_aztec_csav               ; 0x0b69
+    call aztec_csav                  ; 0x0b69
     mov ax, word [bp + 0x6]          ; 0x0b6c
     add ax, strict word 8            ; 0x0b6f
     mov cx, 8                        ; 0x0b72

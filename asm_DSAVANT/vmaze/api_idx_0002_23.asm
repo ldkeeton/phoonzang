@@ -1,6 +1,6 @@
 api_idx_0002_23:
     mov ax, 0xfffe                   ; 0x98cc
-    call ds_aztec_csav               ; 0x98cf
+    call aztec_csav                  ; 0x98cf
     mov ax, 0x26                     ; 0x98d2
     imul word [bp + 0x4]             ; 0x98d5
     mov bx, ax                       ; 0x98d8

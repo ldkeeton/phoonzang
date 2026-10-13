@@ -1,6 +1,6 @@
 string_loc_3620:
     mov ax, 0xfe52                   ; 0x3620
-    call ds_aztec_csav               ; 0x3623
+    call aztec_csav                  ; 0x3623
     mov ax, word [bss_9058]          ; 0x3626
     mov cx, 2                        ; 0x3629
     cwd                              ; 0x362c
@@ -61,7 +61,7 @@ string_loc_3620:
     shl ax, 1                        ; 0x36ac
     mov bx, ax                       ; 0x36ae
     push word [bx - 0x7b7e]          ; 0x36b0
-    call ds_aztec_setmem             ; 0x36b4
+    call aztec_setmem                ; 0x36b4
     add sp, byte 6                   ; 0x36b7
     mov word [bp - 0x01ac], 0        ; 0x36ba
 @..string_loc_3620.l6:
@@ -415,7 +415,7 @@ jumptable_372d:
     push ax                          ; 0x3a2c
     mov ax, 0x9136                   ; 0x3a2d
     push ax                          ; 0x3a30
-    call ds_aztec_strcpy             ; 0x3a31
+    call aztec_strcpy                ; 0x3a31
     add sp, byte 4                   ; 0x3a34
     mov ax, 0x9186                   ; 0x3a37
     push ax                          ; 0x3a3a
@@ -468,7 +468,7 @@ jumptable_372d:
     ret                              ; 0x3aa2
 loc_3aa3:
     mov ax, 0                        ; 0x3aa3
-    call ds_aztec_csav               ; 0x3aa6
+    call aztec_csav                  ; 0x3aa6
     mov ax, word [bss_9058]          ; 0x3aa9
     mov cx, 4                        ; 0x3aac
     cwd                              ; 0x3aaf

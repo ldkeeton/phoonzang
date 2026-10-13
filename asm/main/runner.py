@@ -40,6 +40,9 @@ from lib.segdataflow import (
     operand_space_counts,
 )
 from lib.cross_ref import overlay_host_aliases
+from lib.names import (
+    rename_generics, set_generic_prefix, startswith_stem,
+)
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_asm_annotations, _aztec_c_overrides
@@ -67,6 +70,7 @@ from .seeding import (
 def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
             foreign_label_map=None, export_labels=False, host_model=None,
             foreign_prefix=None, host_data_offsets=None):
+    set_generic_prefix('')
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -302,8 +306,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         diag_emit('code_bytes', int((squashed_arr == IS_CODE).sum()))
 
     if diag_enabled():
-        loc_count = sum(1 for v in label_map.values() if v.startswith('loc_'))
-        data_count = sum(1 for v in label_map.values() if v.startswith('data_'))
+        loc_count = sum(1 for v in label_map.values() if startswith_stem(v, 'loc_'))
+        data_count = sum(1 for v in label_map.values() if startswith_stem(v, 'data_'))
         named = len(label_map) - loc_count - data_count
         diag_phase('label_map')
         diag_emit('total', len(label_map))
@@ -377,8 +381,17 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         root_name
         for root_name in function_roots.values()
         if isinstance(root_name, str)
-        and not root_name.startswith(('loc_', 'data_'))
+        and not startswith_stem(root_name, ('loc_', 'data_'))
     )
+    # The exported host's address-derived names (``loc_08f2``) get its name as a
+    # prefix (``ds_loc_08f2``): an overlay includes the host's symbols to call
+    # into it, and would otherwise clash with its own ``loc_08f2``.  Named
+    # routines keep their names.  Everything downstream (verify, the label
+    # export, spans, the overlay's foreign map) sees the prefixed names.
+    if export_labels:
+        set_generic_prefix(f'{name}_')
+        rename_generics(ctx.label_map, function_roots, split_functions,
+                        prefix=f'{name}_')
     # Overlay near calls resolve to host functions: translate each recovered
     # out-of-range target to the host label map so it is symbolized by name
     # (the alias keeps the overlay-space value, so bytes round-trip).

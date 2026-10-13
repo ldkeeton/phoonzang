@@ -1,13 +1,13 @@
 api_idx_008a:
     mov ax, 0xff76                   ; 0x0c1f
-    call ds_aztec_csav               ; 0x0c22
+    call aztec_csav                  ; 0x0c22
     mov ax, 0                        ; 0x0c25
     push ax                          ; 0x0c28
     mov ax, 0x80                     ; 0x0c29
     push ax                          ; 0x0c2c
     lea ax, word [bp - 0x008a]       ; 0x0c2d
     push ax                          ; 0x0c31
-    call ds_aztec_setmem             ; 0x0c32
+    call aztec_setmem                ; 0x0c32
     add sp, byte 6                   ; 0x0c35
     mov word [bss_905e], 0x17        ; 0x0c38
     mov word [bss_830a], 5           ; 0x0c3e
@@ -291,7 +291,7 @@ api_idx_008a:
     ret                              ; 0x0eab
 loc_0eac:
     mov ax, 0                        ; 0x0eac
-    call ds_aztec_csav               ; 0x0eaf
+    call aztec_csav                  ; 0x0eaf
     push word [bp + 0x4]             ; 0x0eb2
     call api_idx_0050                ; 0x0eb5
     pop cx                           ; 0x0eb8

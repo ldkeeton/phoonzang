@@ -1,15 +1,12 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vpcvw.inc"
-org 0
 bits 16
-%include "labels/host_calls.inc"
-
-%include "labels/host_values.inc"
-
-%include "labels/host_data.inc"
-
+%ifndef VBASE
+VBASE equ 0x5047
+%endif
+section .text vstart=VBASE
 %ifndef IMAGE_BASE
-IMAGE_BASE equ 0x000e
+IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
@@ -22,25 +19,25 @@ IMAGE_BASE equ 0x000e
     dw loc_97ee - IMAGE_BASE + 0x5055  ; 0xe835 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-loc_23fd equ 0x23fd
-loc_2924 equ 0x2924
-loc_2933 equ 0x2933
-loc_293d equ 0x293d
-loc_2940 equ 0x2940
-loc_2941 equ 0x2941
-loc_294c equ 0x294c
-loc_297d equ 0x297d
-loc_29b2 equ 0x29b2
-loc_29b3 equ 0x29b3
-loc_29c3 equ 0x29c3
-loc_29d6 equ 0x29d6
-loc_29e4 equ 0x29e4
-loc_7736 equ 0x7736
-loc_7738 equ 0x7738
+loc_23fd equ 0x23fd + VBASE
+loc_2924 equ 0x2924 + VBASE
+loc_2933 equ 0x2933 + VBASE
+loc_293d equ 0x293d + VBASE
+loc_2940 equ 0x2940 + VBASE
+loc_2941 equ 0x2941 + VBASE
+loc_294c equ 0x294c + VBASE
+loc_297d equ 0x297d + VBASE
+loc_29b2 equ 0x29b2 + VBASE
+loc_29b3 equ 0x29b3 + VBASE
+loc_29c3 equ 0x29c3 + VBASE
+loc_29d6 equ 0x29d6 + VBASE
+loc_29e4 equ 0x29e4 + VBASE
+loc_7736 equ 0x7736 + VBASE
+loc_7738 equ 0x7738 + VBASE
 
 loc_000e:
     mov ax, 0                        ; 0x000e
-    call ds_aztec_csav               ; 0x0011
+    call aztec_csav                  ; 0x0011
     cmp word [bss_830a], byte 0x11   ; 0x0014
     jne short @..loc_000e.l1         ; 0x0019
     push word [bss_8af0]             ; 0x001b
@@ -252,3 +249,15 @@ loc_000e:
 
 
 __zimage_end:
+
+; Host symbols: the host is included in a section that occupies no
+; space, so its labels carry the addresses this overlay calls.
+%define HOST_SYMS_ONLY
+%define VBASE (-0x0200)
+%define IMAGE_BASE 0
+%define __zimage_end ds___zimage_end
+section .host nobits vstart=-0x0200
+%include "ds.asm"
+%undef __zimage_end
+%undef IMAGE_BASE
+%undef VBASE

@@ -1,6 +1,6 @@
 api_idx_000c_2:
     mov ax, 0xfff4                   ; 0x1676
-    call ds_aztec_csav               ; 0x1679
+    call aztec_csav                  ; 0x1679
     mov ax, word [bp + 0x14]         ; 0x167c
     shl ax, 1                        ; 0x167f
     mov word [bp - 0x0008], ax       ; 0x1681
@@ -79,7 +79,7 @@ api_idx_000c_2:
     inc ax                           ; 0x1731
     push ax                          ; 0x1732
     push word [bp + 0x4]             ; 0x1733
-    call ds_aztec_strlen             ; 0x1736
+    call aztec_strlen                ; 0x1736
     pop cx                           ; 0x1739
     mov cx, ax                       ; 0x173a
     mov ax, word [bp + 0xe]          ; 0x173c
@@ -129,7 +129,7 @@ api_idx_000c_2:
     ret                              ; 0x17a5
 loc_17a6:
     mov ax, 0                        ; 0x17a6
-    call ds_aztec_csav               ; 0x17a9
+    call aztec_csav                  ; 0x17a9
     push word [bp + 0xc]             ; 0x17ac
     mov ax, word [bp + 0x6]          ; 0x17af
     dec ax                           ; 0x17b2
@@ -193,7 +193,7 @@ loc_17a6:
     ret                              ; 0x1820
 loc_1821:
     mov ax, 0xfe30                   ; 0x1821
-    call ds_aztec_csav               ; 0x1824
+    call aztec_csav                  ; 0x1824
     mov word [bss_9052], 0xffff      ; 0x1827
     mov ax, word [bp + 0x14]         ; 0x182d
     shl ax, 1                        ; 0x1830
@@ -286,7 +286,7 @@ loc_1821:
     lea cx, word [bp - 0x015a]       ; 0x1905
     add ax, cx                       ; 0x1909
     push ax                          ; 0x190b
-    call ds_aztec_strlen             ; 0x190c
+    call aztec_strlen                ; 0x190c
     pop cx                           ; 0x190f
     mov cx, ax                       ; 0x1910
     mov ax, word [bp + 0xe]          ; 0x1912
@@ -459,7 +459,7 @@ loc_1821:
 @..loc_1821.l13:
     mov ax, 1                        ; 0x1a9f
     push ax                          ; 0x1aa2
-    call ds_dos_con_in_noecho        ; 0x1aa3
+    call dos_con_in_noecho           ; 0x1aa3
     pop cx                           ; 0x1aa6
     test ax, ax                      ; 0x1aa7
     jne short @..loc_1821.l14        ; 0x1aa9
@@ -468,7 +468,7 @@ loc_1821:
 @..loc_1821.l14:
     mov ax, 1                        ; 0x1ab0
     push ax                          ; 0x1ab3
-    call ds_dos_con_in_noecho_2      ; 0x1ab4
+    call dos_con_in_noecho_2         ; 0x1ab4
     pop cx                           ; 0x1ab7
     sub ah, ah                       ; 0x1ab8
     mov word [bp - 0x01ae], ax       ; 0x1aba
@@ -741,7 +741,7 @@ loc_1821:
     ret                              ; 0x1d38
 loc_1d39:
     mov ax, 0xfea6                   ; 0x1d39
-    call ds_aztec_csav               ; 0x1d3c
+    call aztec_csav                  ; 0x1d3c
     mov ax, word [bp + 0x16]         ; 0x1d3f
     dec ax                           ; 0x1d42
     cwd                              ; 0x1d43
@@ -811,7 +811,7 @@ loc_1d39:
     add ax, strict word 0xfff0       ; 0x1dde
     push ax                          ; 0x1de1
     push word [bp + 0x4]             ; 0x1de2
-    call ds_aztec_strlen             ; 0x1de5
+    call aztec_strlen                ; 0x1de5
     pop cx                           ; 0x1de8
     mov cx, 6                        ; 0x1de9
     imul cx                          ; 0x1dec
@@ -833,7 +833,7 @@ loc_1d39:
     add ax, strict word 0xfff6       ; 0x1e12
     push ax                          ; 0x1e15
     push word [bp + 0x6]             ; 0x1e16
-    call ds_aztec_strlen             ; 0x1e19
+    call aztec_strlen                ; 0x1e19
     pop cx                           ; 0x1e1c
     mov cx, 6                        ; 0x1e1d
     imul cx                          ; 0x1e20
@@ -947,7 +947,7 @@ loc_1d39:
     lea cx, word [bp - 0x0156]       ; 0x1f18
     add ax, cx                       ; 0x1f1c
     push ax                          ; 0x1f1e
-    call ds_aztec_strlen             ; 0x1f1f
+    call aztec_strlen                ; 0x1f1f
     pop cx                           ; 0x1f22
     mov cx, ax                       ; 0x1f23
     mov ax, word [bp + 0xe]          ; 0x1f25
@@ -1105,7 +1105,7 @@ loc_1d39:
 @..loc_1d39.l13:
     mov ax, 1                        ; 0x2085
     push ax                          ; 0x2088
-    call ds_dos_con_in_noecho        ; 0x2089
+    call dos_con_in_noecho           ; 0x2089
     pop cx                           ; 0x208c
     test ax, ax                      ; 0x208d
     jne short @..loc_1d39.l14        ; 0x208f
@@ -1113,7 +1113,7 @@ loc_1d39:
 @..loc_1d39.l14:
     mov ax, 1                        ; 0x2093
     push ax                          ; 0x2096
-    call ds_dos_con_in_noecho_2      ; 0x2097
+    call dos_con_in_noecho_2         ; 0x2097
     pop cx                           ; 0x209a
     sub ah, ah                       ; 0x209b
     mov word [bp - 0x015a], ax       ; 0x209d
@@ -1250,7 +1250,7 @@ loc_1d39:
     ret                              ; 0x21be
 loc_21bf:
     mov ax, 0                        ; 0x21bf
-    call ds_aztec_csav               ; 0x21c2
+    call aztec_csav                  ; 0x21c2
     mov ax, word [bss_0e36]          ; 0x21c5
     mov word [bss_9136], ax          ; 0x21c8
     call loc_7400                    ; 0x21cb

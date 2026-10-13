@@ -1,6 +1,6 @@
 api_idx_0004_12:
     mov ax, 0xfffc                   ; 0x7319
-    call ds_aztec_csav               ; 0x731c
+    call aztec_csav                  ; 0x731c
     mov ax, word [bp + 0x6]          ; 0x731f
     cmp word [bp + 0x8], byte 0      ; 0x7322
     jne short @..api_idx_0004_12.l1  ; 0x7326

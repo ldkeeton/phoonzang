@@ -58,6 +58,7 @@ from lib.compare.analysis import (
 from lib.compare.coverrides import _apply_c_overrides
 from lib.compare.vendor import _apply_asm_annotations
 from lib.compare.interrupts import _set_insn_fields, _annotate_interrupts
+from lib.names import generic_prefix, loc_name, startswith_stem
 from lib.compare.jumptables import (
     _merge_jump_table_specs,
     _inject_jump_tables,
@@ -489,17 +490,6 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     ]
 
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
-    consumer_inc = None
-    if foreign_label_map and asm_dir and name:
-        # One shared table serves every overlay (D7.0e); the link step writes
-        # and re-probes it (D7.1), so the source always names it.
-        from lib.cachedirs import labels_dir, project_of_asm_dir
-        from lib.cross_ref import HOST_CALLS_INCLUDE
-        project = project_of_asm_dir(asm_dir)
-        if project is not None:
-            os.makedirs(labels_dir(project), exist_ok=True)
-            consumer_inc = HOST_CALLS_INCLUDE
-
     # Assemble every candidate instruction in a single NASM round-trip rather
     # than spawning a subprocess per instruction.  Falls back to per-instruction
     # assembly when the batch cannot be processed structurally.
@@ -547,7 +537,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if off in known_addrs and (
                 off in insn_by_addr
                 or (label_map and off in label_map
-                    and label_map[off].startswith('data_'))
+                    and startswith_stem(label_map[off], 'data_'))
                 or (local_labels and off in local_labels)):
             data_block_start, pending_data = _flush_data_block(
                 records, pending_data, data_block_start, off,
@@ -565,7 +555,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                     bisect_left(known_addr_sorted, insn_end)]
                 if (a in insn_by_addr
                     or (label_map and a in label_map
-                        and label_map[a].startswith('data_'))
+                        and startswith_stem(label_map[a], 'data_'))
                     or (local_labels and a in local_labels))
             ]
 
@@ -706,9 +696,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 # Header destinations cannot be emitted as body labels, but a
                 # global equ keeps direct-flow references symbolic without
                 # making them local code labels.
-                label_map[target] = f'loc_{target:04x}'
+                label_map[target] = loc_name(target)
             elif target not in local_labels and target not in label_map:
-                label_map[target] = f'loc_{target:04x}'
+                label_map[target] = loc_name(target)
         formatted = format_instruction(
             insn, label_map, local_labels, foreign_label_map,
             immediate_labels=immediate_labels, data_labels=data_labels,
@@ -780,7 +770,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     for caddr, cname in (label_map or {}).items():
         if _in_gap(caddr):
             continue
-        if cname.startswith('data_'):
+        if startswith_stem(cname, 'data_'):
             f3_candidates.append((cname, caddr))
         elif (caddr not in label_offsets_now
               and not cname.startswith(('dseg_', 'bss_', 'psp_'))):
@@ -954,22 +944,18 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             foff = start_offset + (o_entry - o_corg)
             source_entry_symbol = label_map.get(foff) or entry_symbol
 
-    # D7.0c: an overlay with a host names host geometry (``__zdataseg_end``,
-    # the value ``o_dorg`` carries) through the link values file the pre-NASM
-    # link step writes into ``.cache``; the overlay's own assembly cannot see
-    # the host's labels.
-    host_inc = None
-    # D7.1: the data segment is shared and the host owns it.  An overlay with a
-    # host names its ``dseg_``/``bss_`` operands through the one shared
-    # ``host_data.inc`` table instead of re-declaring them, and exports the
-    # (name -> offset) set it references so the host can declare it.
-    host_data_inc = None
+    # An overlay with a host sees the host's own symbols: the host source is
+    # included in a section that occupies no space, so ``call dos_con_in_noecho``
+    # and the geometry/data names (``__zdataseg_end``, ``dseg_``/``bss_``)
+    # resolve to the host's real labels instead of a generated table.  The
+    # overlay exports the (name -> offset) set of DS names it references so the
+    # host can declare them.
+    host_symbols = None
     host_data_refs = {}
     if (segments is not None and getattr(segments, 'kind', None) == 'overlay'
             and getattr(segments, 'host', None) is not None):
-        from lib.link import HOST_DATA_INCLUDE, HOST_VALUES_INCLUDE
-        host_inc = HOST_VALUES_INCLUDE
-        host_data_inc = HOST_DATA_INCLUDE
+        host = segments.host
+        host_symbols = (f'{host.name}.asm', -(host.cs_origin or 0))
         host_data_refs = {
             name: value for name, value in (mem_equ or {}).items()
             if name.startswith(('dseg_', 'bss_'))
@@ -977,13 +963,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     src_lines, split_sources = _build_source(
         records, start_offset, binary_data, label_map,
-        show_offsets=show_offsets, consumer_inc=consumer_inc,
+        show_offsets=show_offsets,
         immediate_labels=immediate_labels, split_ranges=split_ranges,
         split_dir=name, mem_equ=mem_equ, image_base=start_offset,
         entry_symbol=source_entry_symbol, label_defined=label_defined,
         ds_size=getattr(segments, 'ds_size', None),
-        host_inc=host_inc,
-        host_data_inc=host_data_inc,
+        host_symbols=host_symbols,
         host_data_offsets=host_data_offsets,
     )
     t6 = time.perf_counter()
@@ -1000,7 +985,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     code_loss = 0
     if label_map:
         for off, lname in label_map.items():
-            if lname.startswith('loc_') and off < total and emit_class[off] == IS_DATA:
+            if startswith_stem(lname, 'loc_') and off < total and emit_class[off] == IS_DATA:
                 code_loss += 1
 
     struct_count = 0
@@ -1011,7 +996,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         structs_dir = os.path.join(asm_dir, 'inc', 'structs')
         inc_line = write_struct_inc_files(structs, name, structs_dir)
         if inc_line:
-            src_lines = '%include "inc/structs/structs.inc"\n' + inc_line + '\n' + src_lines
+            includes = '%include "inc/structs/structs.inc"\n' + inc_line + '\n'
+            if generic_prefix():
+                # An overlay includes the host only for its symbols; the host's
+                # struct layouts would clash with the overlay's own.
+                includes = f'%ifndef HOST_SYMS_ONLY\n{includes}%endif\n'
+            src_lines = includes + src_lines
             struct_count = len(structs)
 
     return src_lines, {

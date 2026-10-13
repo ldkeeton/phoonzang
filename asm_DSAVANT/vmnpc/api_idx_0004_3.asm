@@ -1,6 +1,6 @@
 api_idx_0004_3:
     mov ax, 0xfffc                   ; 0x10c9
-    call ds_aztec_csav               ; 0x10cc
+    call aztec_csav                  ; 0x10cc
     push word [bp + 0xa]             ; 0x10cf
     push word [bp + 0x8]             ; 0x10d2
     push word [bp + 0x6]             ; 0x10d5
@@ -44,5 +44,5 @@ api_idx_0004_3:
     push word [bp - 0x0004]          ; 0x1140
     call ds_loc_3b96                 ; 0x1143
     add sp, byte 6                   ; 0x1146
-    call ds_bios_kbd_check           ; 0x1149
+    call bios_kbd_check              ; 0x1149
     ret                              ; 0x114c

@@ -1,6 +1,6 @@
 api_idx_0094:
     mov ax, 0xff6c                   ; 0x33db
-    call ds_aztec_csav               ; 0x33de
+    call aztec_csav                  ; 0x33de
     mov word [bp - 0x006a], 0        ; 0x33e1
     mov word [bp - 0x004e], 0        ; 0x33e6
 @..api_idx_0094.l1:
@@ -59,7 +59,7 @@ api_idx_0094:
     imul word [bp - 0x006a]          ; 0x3462
     add ax, 0x91a6                   ; 0x3465
     push ax                          ; 0x3468
-    call ds_aztec_strcpy             ; 0x3469
+    call aztec_strcpy                ; 0x3469
     add sp, byte 4                   ; 0x346c
     jmp short @..api_idx_0094.l5     ; 0x346f
 @..api_idx_0094.l4:

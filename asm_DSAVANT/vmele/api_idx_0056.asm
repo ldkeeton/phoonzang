@@ -1,6 +1,6 @@
 api_idx_0056:
     mov ax, 0xffaa                   ; 0x31a1
-    call ds_aztec_csav               ; 0x31a4
+    call aztec_csav                  ; 0x31a4
     call loc_1f39                    ; 0x31a7
     call api_idx_0014                ; 0x31aa
     mov ax, 6                        ; 0x31ad
@@ -87,7 +87,7 @@ api_idx_0056:
     push ax                          ; 0x3285
     lea ax, word [bp - 0x0056]       ; 0x3286
     push ax                          ; 0x3289
-    call ds_aztec_strcpy             ; 0x328a
+    call aztec_strcpy                ; 0x328a
     add sp, byte 4                   ; 0x328d
     lea ax, word [bp - 0x0056]       ; 0x3290
     push ax                          ; 0x3293
@@ -95,7 +95,7 @@ api_idx_0056:
     pop cx                           ; 0x3297
     lea ax, word [bp - 0x0056]       ; 0x3298
     push ax                          ; 0x329b
-    call ds_aztec_strlen             ; 0x329c
+    call aztec_strlen                ; 0x329c
     pop cx                           ; 0x329f
     mov word [bp - 0x0006], ax       ; 0x32a0
     mov bx, ax                       ; 0x32a3
@@ -153,14 +153,14 @@ api_idx_0056:
     ret                              ; 0x331b
 loc_331c:
     mov ax, 0xfe5a                   ; 0x331c
-    call ds_aztec_csav               ; 0x331f
+    call aztec_csav                  ; 0x331f
     mov ax, 0                        ; 0x3322
     push ax                          ; 0x3325
     mov ax, 0x12                     ; 0x3326
     push ax                          ; 0x3329
     mov ax, 0x843a                   ; 0x332a
     push ax                          ; 0x332d
-    call ds_aztec_setmem             ; 0x332e
+    call aztec_setmem                ; 0x332e
     add sp, byte 6                   ; 0x3331
     mov word [bp - 0x0002], 0        ; 0x3334
 @..loc_331c.l1:
@@ -172,7 +172,7 @@ loc_331c:
     shl ax, 1                        ; 0x3344
     mov bx, ax                       ; 0x3346
     push word [bx - 0x7b7e]          ; 0x3348
-    call ds_aztec_setmem             ; 0x334c
+    call aztec_setmem                ; 0x334c
     add sp, byte 6                   ; 0x334f
     inc word [bp - 0x0002]           ; 0x3352
     mov ax, word [bp - 0x0002]       ; 0x3355

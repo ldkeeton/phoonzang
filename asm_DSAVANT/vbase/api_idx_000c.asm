@@ -1,6 +1,6 @@
 api_idx_000c:
     mov ax, 0xfff4                   ; 0x4060
-    call ds_aztec_csav               ; 0x4063
+    call aztec_csav                  ; 0x4063
     mov word [bp - 0x0002], 0        ; 0x4066
 @..api_idx_000c.l1:
     mov word [bp - 0x0004], 0        ; 0x406b
@@ -109,7 +109,7 @@ api_idx_000c:
     push ax                          ; 0x4161
     mov ax, 0xa294                   ; 0x4162
     push ax                          ; 0x4165
-    call ds_aztec_setmem             ; 0x4166
+    call aztec_setmem                ; 0x4166
     add sp, byte 6                   ; 0x4169
     mov word [bp - 0x0002], 0        ; 0x416c
 @..api_idx_000c.l7:

@@ -1,6 +1,6 @@
 api_idx_0028:
     mov ax, 0xffd8                   ; 0x0ef7
-    call ds_aztec_csav               ; 0x0efa
+    call aztec_csav                  ; 0x0efa
     mov word [bss_904e], 0xffff      ; 0x0efd
     mov word [bp - 0x0028], 0xffff   ; 0x0f03
     mov word [bp - 0x0002], 0x37     ; 0x0f08
@@ -112,7 +112,7 @@ api_idx_0028:
     push ax                          ; 0x1006
     lea ax, word [bp - 0x0024]       ; 0x1007
     push ax                          ; 0x100a
-    call ds_aztec_strlen             ; 0x100b
+    call aztec_strlen                ; 0x100b
     pop cx                           ; 0x100e
     mov cx, ax                       ; 0x100f
     mov ax, 0x11                     ; 0x1011
@@ -138,7 +138,7 @@ api_idx_0028:
     push word [bp + 0xc]             ; 0x103e
     mov ax, 0xe38                    ; 0x1041
     push ax                          ; 0x1044
-    call ds_aztec_strcpy             ; 0x1045
+    call aztec_strcpy                ; 0x1045
     add sp, byte 4                   ; 0x1048
     mov ax, 1                        ; 0x104b
     push ax                          ; 0x104e
@@ -195,7 +195,7 @@ api_idx_0028:
     push ax                          ; 0x10c3
     lea ax, word [bp - 0x0024]       ; 0x10c4
     push ax                          ; 0x10c7
-    call ds_aztec_strlen             ; 0x10c8
+    call aztec_strlen                ; 0x10c8
     pop cx                           ; 0x10cb
     mov cx, ax                       ; 0x10cc
     mov ax, 0x11                     ; 0x10ce
@@ -221,7 +221,7 @@ api_idx_0028:
     push word [bp + 0xe]             ; 0x10fb
     mov ax, 0xe4c                    ; 0x10fe
     push ax                          ; 0x1101
-    call ds_aztec_strcpy             ; 0x1102
+    call aztec_strcpy                ; 0x1102
     add sp, byte 4                   ; 0x1105
     mov ax, 1                        ; 0x1108
     push ax                          ; 0x110b
@@ -372,7 +372,7 @@ api_idx_0028:
     mov ax, word [bp - 0x000e]       ; 0x1250
     jmp near @..api_idx_0028.l8      ; 0x1253
 jumptable_14d6_case_0:
-    call ds_bios_kbd_check           ; 0x1256
+    call bios_kbd_check              ; 0x1256
     mov ax, 1                        ; 0x1259
     push ax                          ; 0x125c
     mov ax, 0                        ; 0x125d
@@ -425,7 +425,7 @@ jumptable_14d6_case_0:
     mov ax, 0xe38                    ; 0x12c8
     push ax                          ; 0x12cb
     push word [bp + 0xc]             ; 0x12cc
-    call ds_aztec_strcpy             ; 0x12cf
+    call aztec_strcpy                ; 0x12cf
     add sp, byte 4                   ; 0x12d2
     mov ax, 1                        ; 0x12d5
     push ax                          ; 0x12d8
@@ -461,7 +461,7 @@ jumptable_14d6_case_0:
     add sp, byte 8                   ; 0x131c
     jmp near @..api_idx_0028.l9      ; 0x131f
 jumptable_14d6_case_1:
-    call ds_bios_kbd_check           ; 0x1322
+    call bios_kbd_check              ; 0x1322
     mov ax, 1                        ; 0x1325
     push ax                          ; 0x1328
     push ax                          ; 0x1329
@@ -512,7 +512,7 @@ jumptable_14d6_case_1:
     mov ax, 0xe4c                    ; 0x138e
     push ax                          ; 0x1391
     push word [bp + 0xe]             ; 0x1392
-    call ds_aztec_strcpy             ; 0x1395
+    call aztec_strcpy                ; 0x1395
     add sp, byte 4                   ; 0x1398
     mov ax, 1                        ; 0x139b
     push ax                          ; 0x139e
@@ -675,7 +675,7 @@ jumptable_14d6:
     ret                              ; 0x150c
 loc_150d:
     mov ax, 0                        ; 0x150d
-    call ds_aztec_csav               ; 0x1510
+    call aztec_csav                  ; 0x1510
     mov ax, 0xc7                     ; 0x1513
     push ax                          ; 0x1516
     mov ax, 0x13f                    ; 0x1517
@@ -700,7 +700,7 @@ loc_150d:
     push word [bp + 0x4]             ; 0x153e
     call api_idx_0004                ; 0x1541
     add sp, byte 0x0e                ; 0x1544
-    call ds_bios_kbd_check           ; 0x1547
+    call bios_kbd_check              ; 0x1547
     mov ax, 0                        ; 0x154a
     push ax                          ; 0x154d
     call ds_app_0a27                 ; 0x154e

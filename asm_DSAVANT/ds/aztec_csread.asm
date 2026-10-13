@@ -16,7 +16,7 @@ aztec_csread:
 @..aztec_csread.ret_ok:
     pop bp                           ; 0x44d2
     ret                              ; 0x44d3
-loc_44d4:
+ds_loc_44d4:
     push bp                          ; 0x44d4
     mov bp, sp                       ; 0x44d5
     push si                          ; 0x44d7

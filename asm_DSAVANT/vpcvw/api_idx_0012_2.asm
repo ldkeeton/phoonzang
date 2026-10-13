@@ -1,6 +1,6 @@
 api_idx_0012_2:
     mov ax, 0xffee                   ; 0x0521
-    call ds_aztec_csav               ; 0x0524
+    call aztec_csav                  ; 0x0524
     mov ax, 0                        ; 0x0527
     push ax                          ; 0x052a
     push ax                          ; 0x052b
@@ -145,7 +145,7 @@ api_idx_0012_2:
     jne short @..api_idx_0012_2.l7   ; 0x0673
     mov ax, 1                        ; 0x0675
     push ax                          ; 0x0678
-    call ds_dos_con_in_noecho_2      ; 0x0679
+    call dos_con_in_noecho_2         ; 0x0679
     pop cx                           ; 0x067c
     sub ah, ah                       ; 0x067d
     mov word [bp - 0x0002], ax       ; 0x067f

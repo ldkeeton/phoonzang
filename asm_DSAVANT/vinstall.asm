@@ -1,9 +1,12 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vinstall.inc"
-org 0
 bits 16
+%ifndef VBASE
+VBASE equ -0x0200
+%endif
+section .text vstart=VBASE
 %ifndef IMAGE_BASE
-IMAGE_BASE equ 0x0200
+IMAGE_BASE equ 0x0200 + VBASE
 %endif
 
     ; DOS MZ executable header (512 bytes)
@@ -26,8 +29,8 @@ IMAGE_BASE equ 0x0200
     db 0xd3, 0x33
     times 478 db 0
 
-loc_1fb2 equ 0x1fb2
-leaf_loc_5fe5 equ 0x5fe5
+loc_1fb2 equ 0x1fb2 + VBASE
+leaf_loc_5fe5 equ 0x5fe5 + VBASE
 psp_top_of_memory equ 0x0002
 dseg_0004 equ __zdseg_0004 - __zdataseg_start
 dseg_0006 equ __zdseg_0006 - __zdataseg_start

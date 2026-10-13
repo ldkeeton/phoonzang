@@ -1,0 +1,70 @@
+"""Generated images are assembled at their runtime address (``vstart``)."""
+
+import os
+import struct
+import tempfile
+import unittest
+
+from lib.compare.render import (
+    _label_equ_value, _signed_hex, _virtual_base,
+)
+from make.elf import _elf_source_text
+
+
+def _overlay(o_corg=0x5055):
+    return b'\xf2\x00' + struct.pack('<H', o_corg) + bytes(10) + b'\x90' * 4
+
+
+class VirtualBaseTest(unittest.TestCase):
+    def test_overlay_file_offset_zero_sits_header_bytes_below_o_corg(self):
+        self.assertEqual(_virtual_base(_overlay(), 14), 0x5047)
+
+    def test_mz_image_starts_after_its_header(self):
+        data = b'MZ' + bytes(0x200 - 2) + b'\x90'
+        self.assertEqual(_virtual_base(data, 0x200), -0x200)
+
+    def test_driver_has_no_known_load_address(self):
+        self.assertEqual(_virtual_base(b'\xe9\x00\x00', 0), 0)
+
+    def test_signed_hex(self):
+        self.assertEqual(_signed_hex(-0x200), '-0x0200')
+        self.assertEqual(_signed_hex(0x5047), '0x5047')
+
+
+class EquValueTest(unittest.TestCase):
+    def test_code_labels_follow_the_origin_but_data_offsets_do_not(self):
+        code = lambda addr: f'0x{addr:04x} + VBASE'
+        self.assertEqual(_label_equ_value('loc_0d04', 0xd04, code),
+                         '0x0d04 + VBASE')
+        for name in ('dseg_0002', 'bss_0e1e', 'psp_env_segment', 'data_0438'):
+            self.assertEqual(_label_equ_value(name, 0x2, code), '0x0002')
+
+
+class ElfSourceTest(unittest.TestCase):
+    def test_vstart_line_is_blanked_for_elf(self):
+        text = '\n'.join([
+            'bits 16',
+            '%ifndef VBASE',
+            'VBASE equ -0x0200',
+            '%endif',
+            'section .text vstart=VBASE',
+            '    ; DOS MZ executable header (512 bytes)',
+            '    db "MZ"',
+            'foo equ 0x1',
+            'bar:',
+        ]) + '\n'
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, 'x.asm')
+            with open(path, 'w') as f:
+                f.write(text)
+            out = _elf_source_text(path).splitlines()
+        self.assertNotIn('section .text vstart=VBASE', out)
+        self.assertEqual(len(out), len(text.splitlines()))
+        joined = '\n'.join(out)
+        self.assertIn('global foo', joined)
+        self.assertNotIn('VBASE,', joined)
+        self.assertNotIn('global VBASE', joined)
+
+
+if __name__ == '__main__':
+    unittest.main()

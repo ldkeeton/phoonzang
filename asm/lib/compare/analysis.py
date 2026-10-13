@@ -1,6 +1,7 @@
 """Function/branch ownership analysis and local-label assignment."""
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_IMM
+from lib.names import loc_name, startswith_stem, stem
 
 
 def _compute_func_boundaries(label_map, binary_data):
@@ -12,7 +13,7 @@ def _compute_func_boundaries(label_map, binary_data):
     boundaries = {}
     for off in sorted(label_map.keys()):
         name = label_map[off]
-        if name == f'loc_{off:04x}':
+        if stem(name) == f'loc_{off:04x}':
             continue
         func_start = off
         current = list(md.disasm(binary_data[off:min(off + 8, len(binary_data))], off))
@@ -85,7 +86,7 @@ def _function_roots(label_map, instructions, entry_points=(),
     """Find function roots from named labels, entries and direct calls."""
     roots = {}
     for address, name in (label_map or {}).items():
-        if name.startswith(('loc_', 'data_')):
+        if startswith_stem(name, ('loc_', 'data_')):
             continue
         roots[address] = name
 
@@ -98,7 +99,7 @@ def _function_roots(label_map, instructions, entry_points=(),
             continue
         for address in _direct_flow_targets(insn, size, start_offset):
             name = (label_map or {}).get(address)
-            if name and name.startswith(('loc_', 'data_')):
+            if name and startswith_stem(name, ('loc_', 'data_')):
                 name = None
             roots.setdefault(address, name)
     return roots
@@ -251,18 +252,18 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map,
             continue
         owner = next(iter(owner_set))
         name = (function_roots or {}).get(owner)
-        if not name or name.startswith(('loc_', 'data_')):
+        if not name or startswith_stem(name, ('loc_', 'data_')):
             candidate = (label_map or {}).get(owner)
             if (fragment_names and isinstance(candidate, str)
                     and candidate in fragment_names):
                 name = candidate
-        if not name or name.startswith(('loc_', 'data_')):
+        if not name or startswith_stem(name, ('loc_', 'data_')):
             # Scope by the owner's own address, never a binary-wide counter,
             # so adding or naming another routine cannot renumber these.
             candidate = (label_map or {}).get(owner)
             name = (candidate if isinstance(candidate, str)
-                    and candidate.startswith('loc_')
-                    else f'loc_{owner:04x}')
+                    and startswith_stem(candidate, 'loc_')
+                    else loc_name(owner))
         named_counts[owner] = named_counts.get(owner, 0) + 1
         local_labels[off] = f'@..{name}.l{named_counts[owner]}'
     return local_labels

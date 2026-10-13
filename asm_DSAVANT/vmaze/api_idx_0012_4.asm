@@ -1,6 +1,6 @@
 api_idx_0012_4:
     mov ax, 0xffee                   ; 0x9ef7
-    call ds_aztec_csav               ; 0x9efa
+    call aztec_csav                  ; 0x9efa
     mov ax, 0xf                      ; 0x9efd
     push ax                          ; 0x9f00
     call ds_app_09f0                 ; 0x9f01
@@ -321,7 +321,7 @@ api_idx_0012_4:
     ret                              ; 0xa214
 loc_a215:
     mov ax, 0                        ; 0xa215
-    call ds_aztec_csav               ; 0xa218
+    call aztec_csav                  ; 0xa218
     mov ax, 3                        ; 0xa21b
     push ax                          ; 0xa21e
     call ds_app_09f0                 ; 0xa21f

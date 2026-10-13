@@ -1,6 +1,6 @@
 api_idx_0054_3:
     mov ax, 0xffac                   ; 0x4514
-    call ds_aztec_csav               ; 0x4517
+    call aztec_csav                  ; 0x4517
     mov word [bp - 0x0002], 0        ; 0x451a
     jmp near @..api_idx_0054_3.l10   ; 0x451f
 @..api_idx_0054_3.l1:
@@ -258,7 +258,7 @@ api_idx_0054_3:
     ret                              ; 0x4774
 loc_4775:
     mov ax, 0                        ; 0x4775
-    call ds_aztec_csav               ; 0x4778
+    call aztec_csav                  ; 0x4778
     mov ax, 6                        ; 0x477b
     imul word [bp + 0xc]             ; 0x477e
     add ax, word [bp + 0x8]          ; 0x4781
@@ -285,7 +285,7 @@ loc_4775:
     ret                              ; 0x47b8
 loc_47b9:
     mov ax, 0                        ; 0x47b9
-    call ds_aztec_csav               ; 0x47bc
+    call aztec_csav                  ; 0x47bc
     call loc_109f                    ; 0x47bf
     mov ax, 0xc6                     ; 0x47c2
     push ax                          ; 0x47c5

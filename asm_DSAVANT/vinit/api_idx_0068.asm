@@ -1,6 +1,6 @@
 api_idx_0068:
     mov ax, 0xff98                   ; 0x0ac7
-    call ds_aztec_csav               ; 0x0aca
+    call aztec_csav                  ; 0x0aca
     call ds_app_2bed                 ; 0x0acd
     mov word [bss_8450], ax          ; 0x0ad0
     test ax, ax                      ; 0x0ad3
@@ -662,7 +662,7 @@ api_idx_0068:
     cmp word [bp - 0x0062], byte 3   ; 0x107f
     jne short @..api_idx_0068.l38    ; 0x1083
     push word [bp - 0x005e]          ; 0x1085
-    call ds_aztec_strlen             ; 0x1088
+    call aztec_strlen                ; 0x1088
     pop cx                           ; 0x108b
     mov cx, 6                        ; 0x108c
     imul cx                          ; 0x108f
@@ -905,7 +905,7 @@ api_idx_0068:
     jne short @..api_idx_0068.l56    ; 0x12ca
     jmp short @..api_idx_0068.l55    ; 0x12cc
 @..api_idx_0068.l56:
-    call ds_bios_kbd_check           ; 0x12ce
+    call bios_kbd_check              ; 0x12ce
     mov ax, 0                        ; 0x12d1
     push ax                          ; 0x12d4
     push ax                          ; 0x12d5

@@ -1,6 +1,6 @@
 api_idx_004c:
     mov ax, 0xffb4                   ; 0x27e3
-    call ds_aztec_csav               ; 0x27e6
+    call aztec_csav                  ; 0x27e6
     mov ax, 0                        ; 0x27e9
     push ax                          ; 0x27ec
     push ax                          ; 0x27ed
@@ -132,7 +132,7 @@ api_idx_004c:
     imul word [bp - 0x0002]          ; 0x2918
     add ax, 0x9494                   ; 0x291b
     push ax                          ; 0x291e
-    call ds_aztec_strcpy             ; 0x291f
+    call aztec_strcpy                ; 0x291f
     add sp, byte 4                   ; 0x2922
     jmp short @..api_idx_004c.l10    ; 0x2925
 @..api_idx_004c.l9:
@@ -247,7 +247,7 @@ api_idx_004c:
     ret                              ; 0x2a31
 loc_2a32:
     mov ax, 0                        ; 0x2a32
-    call ds_aztec_csav               ; 0x2a35
+    call aztec_csav                  ; 0x2a35
     mov ax, 0x7d                     ; 0x2a38
     push ax                          ; 0x2a3b
     mov ax, 0                        ; 0x2a3c

@@ -1,6 +1,6 @@
 api_idx_00ca:
     mov ax, 0xff36                   ; 0x1e31
-    call ds_aztec_csav               ; 0x1e34
+    call aztec_csav                  ; 0x1e34
     mov ax, word [bp + 0x6]          ; 0x1e37
     jmp short @..api_idx_00ca.l5     ; 0x1e3a
 @..api_idx_00ca.l1:
@@ -37,7 +37,7 @@ api_idx_00ca:
     imul word [bp + 0x4]             ; 0x1e8b
     add ax, 0x5e12                   ; 0x1e8e
     push ax                          ; 0x1e91
-    call ds_aztec_movmem             ; 0x1e92
+    call aztec_movmem                ; 0x1e92
     add sp, byte 6                   ; 0x1e95
     mov ax, 0                        ; 0x1e98
     push ax                          ; 0x1e9b
@@ -47,7 +47,7 @@ api_idx_00ca:
     imul word [bp + 0x4]             ; 0x1ea3
     add ax, 0x5e12                   ; 0x1ea6
     push ax                          ; 0x1ea9
-    call ds_aztec_setmem             ; 0x1eaa
+    call aztec_setmem                ; 0x1eaa
     add sp, byte 6                   ; 0x1ead
     mov ax, 0x248                    ; 0x1eb0
     imul word [bp + 0x4]             ; 0x1eb3
@@ -115,7 +115,7 @@ api_idx_00ca:
     push ax                          ; 0x1f58
     lea ax, word [bp - 0x001e]       ; 0x1f59
     push ax                          ; 0x1f5c
-    call ds_aztec_movmem             ; 0x1f5d
+    call aztec_movmem                ; 0x1f5d
     add sp, byte 6                   ; 0x1f60
     ret                              ; 0x1f63
 @..api_idx_00ca.l10:
@@ -168,7 +168,7 @@ api_idx_00ca:
     push ax                          ; 0x1fd5
     lea ax, word [bp - 0x001e]       ; 0x1fd6
     push ax                          ; 0x1fd9
-    call ds_aztec_movmem             ; 0x1fda
+    call aztec_movmem                ; 0x1fda
     add sp, byte 6                   ; 0x1fdd
     cmp word [bp - 0x0004], byte 0   ; 0x1fe0
     je short @..api_idx_00ca.l11     ; 0x1fe4
@@ -282,7 +282,7 @@ api_idx_00ca:
     ret                              ; 0x20e2
 loc_20e3:
     mov ax, 0                        ; 0x20e3
-    call ds_aztec_csav               ; 0x20e6
+    call aztec_csav                  ; 0x20e6
     les bx, word [dseg_0002]         ; 0x20e9
     mov ax, word [es:bx]             ; 0x20ed
     mov dx, word [es:bx + 0x2]       ; 0x20f0
@@ -352,7 +352,7 @@ loc_20e3:
     ret                              ; 0x2188
 loc_2189:
     mov ax, 0                        ; 0x2189
-    call ds_aztec_csav               ; 0x218c
+    call aztec_csav                  ; 0x218c
     push word [bp + 0x4]             ; 0x218f
     call api_idx_007c                ; 0x2192
     pop cx                           ; 0x2195

@@ -1,6 +1,6 @@
 api_idx_00a8:
     mov ax, 0xff58                   ; 0x041d
-    call ds_aztec_csav               ; 0x0420
+    call aztec_csav                  ; 0x0420
     mov ax, word [bp + 0x4]          ; 0x0423
     shl ax, 1                        ; 0x0426
     mov bx, ax                       ; 0x0428
@@ -109,7 +109,7 @@ api_idx_00a8:
     push ax                          ; 0x05a8
     lea ax, word [bp - 0x00a8]       ; 0x05a9
     push ax                          ; 0x05ad
-    call ds_aztec_setmem             ; 0x05ae
+    call aztec_setmem                ; 0x05ae
     add sp, byte 6                   ; 0x05b1
     mov bx, word [bp - 0x000a]       ; 0x05b4
     add bx, bp                       ; 0x05b7

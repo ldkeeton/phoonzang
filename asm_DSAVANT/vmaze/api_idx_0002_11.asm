@@ -1,6 +1,6 @@
 api_idx_0002_11:
     mov ax, 0xfffe                   ; 0x6882
-    call ds_aztec_csav               ; 0x6885
+    call aztec_csav                  ; 0x6885
     mov ax, word [bp + 0xa]          ; 0x6888
     mov word [bp - 0x0002], ax       ; 0x688b
     jmp short @..api_idx_0002_11.l4  ; 0x688e
@@ -47,7 +47,7 @@ api_idx_0002_11:
     ret                              ; 0x68f1
 loc_68f2:
     mov ax, 0                        ; 0x68f2
-    call ds_aztec_csav               ; 0x68f5
+    call aztec_csav                  ; 0x68f5
     mov ax, 0x10                     ; 0x68f8
     push ax                          ; 0x68fb
     mov ax, word [bss_830c]          ; 0x68fc
@@ -59,7 +59,7 @@ loc_68f2:
     shl ax, cl                       ; 0x690b
     add ax, 0x8d14                   ; 0x690d
     push ax                          ; 0x6910
-    call ds_aztec_movmem             ; 0x6911
+    call aztec_movmem                ; 0x6911
     add sp, byte 6                   ; 0x6914
     mov ax, 0x80                     ; 0x6917
     push ax                          ; 0x691a
@@ -75,7 +75,7 @@ loc_68f2:
     push ds                          ; 0x6930
     mov ax, 0x8b7e                   ; 0x6931
     push ax                          ; 0x6934
-    call ds_app_memmove              ; 0x6935
+    call app_memmove                 ; 0x6935
     add sp, byte 0x0a                ; 0x6938
     mov ax, 0x80                     ; 0x693b
     push ax                          ; 0x693e
@@ -91,6 +91,6 @@ loc_68f2:
     push ds                          ; 0x6954
     mov ax, 0x8afe                   ; 0x6955
     push ax                          ; 0x6958
-    call ds_app_memmove              ; 0x6959
+    call app_memmove                 ; 0x6959
     add sp, byte 0x0a                ; 0x695c
     ret                              ; 0x695f

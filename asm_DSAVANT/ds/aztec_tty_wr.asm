@@ -16,14 +16,14 @@ aztec_tty_wr:
     push ax                          ; 0x50db
     push word [bp + 0x6]             ; 0x50dc
     push word [bp + 0x4]             ; 0x50df
-    call leaf_loc_4fac               ; 0x50e2
+    call ds_leaf_loc_4fac            ; 0x50e2
     add sp, byte 6                   ; 0x50e5
     mov ax, 1                        ; 0x50e8
     push ax                          ; 0x50eb
     mov ax, 0xcf5                    ; 0x50ec
     push ax                          ; 0x50ef
     push word [bp + 0x4]             ; 0x50f0
-    call leaf_loc_4fac               ; 0x50f3
+    call ds_leaf_loc_4fac            ; 0x50f3
     add sp, byte 6                   ; 0x50f6
     mov word [bp + 0x6], di          ; 0x50f9
 @..aztec_tty_wr.l2:
@@ -38,7 +38,7 @@ aztec_tty_wr:
     push ax                          ; 0x510d
     push word [bp + 0x6]             ; 0x510e
     push word [bp + 0x4]             ; 0x5111
-    call leaf_loc_4fac               ; 0x5114
+    call ds_leaf_loc_4fac            ; 0x5114
     add sp, byte 6                   ; 0x5117
 @..aztec_tty_wr.l3:
     mov ax, word [bp + 0x8]          ; 0x511a

@@ -1,8 +1,8 @@
 api_idx_0004_5:
     mov ax, 0xfffc                   ; 0x1a5f
-    call ds_aztec_csav               ; 0x1a62
+    call aztec_csav                  ; 0x1a62
     mov word [bss_90e4], 1           ; 0x1a65
-    call ds_bios_kbd_check           ; 0x1a6b
+    call bios_kbd_check              ; 0x1a6b
     mov ax, word [bp + 0x4]          ; 0x1a6e
     cwd                              ; 0x1a71
     les bx, word [dseg_0002]         ; 0x1a72
@@ -31,13 +31,13 @@ api_idx_0004_5:
 @..api_idx_0004_5.l4:
     mov ax, 1                        ; 0x1aa8
     push ax                          ; 0x1aab
-    call ds_dos_con_in_noecho        ; 0x1aac
+    call dos_con_in_noecho           ; 0x1aac
     pop cx                           ; 0x1aaf
     test ax, ax                      ; 0x1ab0
     je short @..api_idx_0004_5.l5    ; 0x1ab2
     mov ax, 1                        ; 0x1ab4
     push ax                          ; 0x1ab7
-    call ds_dos_con_in_noecho_2      ; 0x1ab8
+    call dos_con_in_noecho_2         ; 0x1ab8
     pop cx                           ; 0x1abb
     cmp al, 0xd                      ; 0x1abc
     jne short @..api_idx_0004_5.l5   ; 0x1abe

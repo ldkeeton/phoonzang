@@ -1,6 +1,6 @@
 api_idx_000c:
     mov ax, 0xfff4                   ; 0x0146
-    call ds_aztec_csav               ; 0x0149
+    call aztec_csav                  ; 0x0149
     mov ax, 0                        ; 0x014c
     push ax                          ; 0x014f
     push ax                          ; 0x0150
@@ -8,7 +8,7 @@ api_idx_000c:
     call ds_app_23a8                 ; 0x0154
     add sp, byte 4                   ; 0x0157
     push ax                          ; 0x015a
-    call ds_aztec_open               ; 0x015b
+    call aztec_open                  ; 0x015b
     add sp, byte 4                   ; 0x015e
     mov word [bp - 0x0002], ax       ; 0x0161
     cmp ax, strict word 0xffff       ; 0x0164
@@ -25,18 +25,18 @@ api_idx_000c:
     push dx                          ; 0x017b
     push ax                          ; 0x017c
     push word [bp - 0x0002]          ; 0x017d
-    call ds_aztec_lseek              ; 0x0180
+    call aztec_lseek                 ; 0x0180
     add sp, byte 8                   ; 0x0183
     mov word [bp - 0x0004], dx       ; 0x0186
     mov word [bp - 0x0006], ax       ; 0x0189
     push word [bp - 0x0004]          ; 0x018c
     push word [bp - 0x0006]          ; 0x018f
-    call ds_app_malloc               ; 0x0192
+    call app_malloc                  ; 0x0192
     add sp, byte 4                   ; 0x0195
     mov word [bp - 0x0008], dx       ; 0x0198
     mov word [bp - 0x000a], ax       ; 0x019b
     push word [bp - 0x0006]          ; 0x019e
-    call ds_aztec_malloc             ; 0x01a1
+    call aztec_malloc                ; 0x01a1
     pop cx                           ; 0x01a4
     mov word [bp - 0x000c], ax       ; 0x01a5
     cmp word [bp - 0x0008], byte 0   ; 0x01a8
@@ -59,7 +59,7 @@ api_idx_000c:
     push dx                          ; 0x01cc
     push ax                          ; 0x01cd
     push word [bp - 0x0002]          ; 0x01ce
-    call ds_aztec_lseek              ; 0x01d1
+    call aztec_lseek                 ; 0x01d1
     add sp, byte 8                   ; 0x01d4
     push word [bp - 0x0006]          ; 0x01d7
     push word [bp - 0x000c]          ; 0x01da
@@ -67,7 +67,7 @@ api_idx_000c:
     call ds_leaf_loc_4fb6            ; 0x01e0
     add sp, byte 6                   ; 0x01e3
     push word [bp - 0x0002]          ; 0x01e6
-    call ds_aztec_close              ; 0x01e9
+    call aztec_close                 ; 0x01e9
     pop cx                           ; 0x01ec
     push word [bp - 0x0006]          ; 0x01ed
     push word [bp - 0x0008]          ; 0x01f0
@@ -76,17 +76,17 @@ api_idx_000c:
     mov dx, ds                       ; 0x01f9
     push dx                          ; 0x01fb
     push ax                          ; 0x01fc
-    call ds_app_memmove              ; 0x01fd
+    call app_memmove                 ; 0x01fd
     add sp, byte 0x0a                ; 0x0200
     push word [bp - 0x000c]          ; 0x0203
-    call ds_aztec_free               ; 0x0206
+    call aztec_free                  ; 0x0206
     pop cx                           ; 0x0209
     mov ax, word [bp - 0x000a]       ; 0x020a
     mov dx, word [bp - 0x0008]       ; 0x020d
     ret                              ; 0x0210
 loc_0211:
     mov ax, 0xfaf4                   ; 0x0211
-    call ds_aztec_csav               ; 0x0214
+    call aztec_csav                  ; 0x0214
     mov word [bp - 0x0002], 0        ; 0x0217
 @..loc_0211.l1:
     mov word [bp - 0x0004], 0        ; 0x021c
@@ -200,7 +200,7 @@ loc_0211:
     push ax                          ; 0x031b
     lea ax, word [bp - 0x050c]       ; 0x031c
     push ax                          ; 0x0320
-    call ds_aztec_setmem             ; 0x0321
+    call aztec_setmem                ; 0x0321
     add sp, byte 6                   ; 0x0324
     mov word [bp - 0x0002], 0        ; 0x0327
 @..loc_0211.l7:
@@ -257,7 +257,7 @@ loc_0211:
     ret                              ; 0x03a7
 loc_03a8:
     mov ax, 0xfce6                   ; 0x03a8
-    call ds_aztec_csav               ; 0x03ab
+    call aztec_csav                  ; 0x03ab
     mov word [bss_905c], 0           ; 0x03ae
     mov word [bss_0e30], 0           ; 0x03b4
     mov word [bss_0e2e], 0           ; 0x03ba
@@ -269,7 +269,7 @@ loc_03a8:
     push ax                          ; 0x03db
     mov ax, 0x9098                   ; 0x03dc
     push ax                          ; 0x03df
-    call ds_aztec_open               ; 0x03e0
+    call aztec_open                  ; 0x03e0
     add sp, byte 4                   ; 0x03e3
     mov word [bss_9088], ax          ; 0x03e6
     cmp ax, strict word 0xffff       ; 0x03e9
@@ -287,7 +287,7 @@ loc_03a8:
     call ds_leaf_loc_4fb6            ; 0x0402
     add sp, byte 6                   ; 0x0405
     push word [bss_9088]             ; 0x0408
-    call ds_aztec_close              ; 0x040c
+    call aztec_close                 ; 0x040c
     pop cx                           ; 0x040f
     mov word [bss_905a], 0x36        ; 0x0410
     mov al, byte [bss_5986]          ; 0x0416
@@ -509,7 +509,7 @@ loc_03a8:
     call ds_app_23a8                 ; 0x0609
     add sp, byte 4                   ; 0x060c
     push ax                          ; 0x060f
-    call ds_aztec_open               ; 0x0610
+    call aztec_open                  ; 0x0610
     add sp, byte 4                   ; 0x0613
     mov word [bss_0e24], ax          ; 0x0616
     cmp ax, strict word 0xffff       ; 0x0619
@@ -559,7 +559,7 @@ loc_03a8:
     call ds_app_23a8                 ; 0x0699
     add sp, byte 4                   ; 0x069c
     push ax                          ; 0x069f
-    call ds_aztec_open               ; 0x06a0
+    call aztec_open                  ; 0x06a0
     add sp, byte 4                   ; 0x06a3
     mov word [bss_0e22], ax          ; 0x06a6
     cmp ax, strict word 0xffff       ; 0x06a9
@@ -635,7 +635,7 @@ loc_03a8:
     mov dx, 0                        ; 0x0770
     push dx                          ; 0x0773
     push ax                          ; 0x0774
-    call ds_app_malloc               ; 0x0775
+    call app_malloc                  ; 0x0775
     add sp, byte 4                   ; 0x0778
     mov word [bss_0e20], dx          ; 0x077b
     mov word [bss_0e1e], ax          ; 0x077f
@@ -653,7 +653,7 @@ loc_03a8:
     mov dx, 0                        ; 0x079b
     push dx                          ; 0x079e
     push ax                          ; 0x079f
-    call ds_app_malloc               ; 0x07a0
+    call app_malloc                  ; 0x07a0
     add sp, byte 4                   ; 0x07a3
     mov word [bss_0e1c], dx          ; 0x07a6
     mov word [bss_0e1a], ax          ; 0x07aa
@@ -671,7 +671,7 @@ loc_03a8:
     mov dx, 0                        ; 0x07c6
     push dx                          ; 0x07c9
     push ax                          ; 0x07ca
-    call ds_app_malloc               ; 0x07cb
+    call app_malloc                  ; 0x07cb
     add sp, byte 4                   ; 0x07ce
     mov word [bss_0e18], dx          ; 0x07d1
     mov word [bss_0e16], ax          ; 0x07d5
@@ -686,7 +686,7 @@ loc_03a8:
     pop cx                           ; 0x07ed
 @..loc_03a8.l26:
     push word [bss_5528]             ; 0x07ee
-    call ds_aztec_malloc             ; 0x07f2
+    call aztec_malloc                ; 0x07f2
     pop cx                           ; 0x07f5
     mov word [bss_0e14], ax          ; 0x07f6
     cmp word [bss_0e14], byte 0      ; 0x07f9
@@ -697,7 +697,7 @@ loc_03a8:
     pop cx                           ; 0x0807
 @..loc_03a8.l27:
     push word [bss_552a]             ; 0x0808
-    call ds_aztec_malloc             ; 0x080c
+    call aztec_malloc                ; 0x080c
     pop cx                           ; 0x080f
     mov word [bss_0e12], ax          ; 0x0810
     cmp word [bss_0e12], byte 0      ; 0x0813
@@ -709,7 +709,7 @@ loc_03a8:
 @..loc_03a8.l28:
     mov ax, 0xc00                    ; 0x0822
     push ax                          ; 0x0825
-    call ds_aztec_malloc             ; 0x0826
+    call aztec_malloc                ; 0x0826
     pop cx                           ; 0x0829
     mov word [bss_0e10], ax          ; 0x082a
     cmp word [bss_0e10], byte 0      ; 0x082d
@@ -721,7 +721,7 @@ loc_03a8:
 @..loc_03a8.l29:
     mov ax, 0x400                    ; 0x083c
     push ax                          ; 0x083f
-    call ds_aztec_malloc             ; 0x0840
+    call aztec_malloc                ; 0x0840
     pop cx                           ; 0x0843
     mov word [bss_0e0e], ax          ; 0x0844
     cmp word [bss_0e0e], byte 0      ; 0x0847
@@ -740,7 +740,7 @@ loc_03a8:
     call ds_app_23a8                 ; 0x0865
     add sp, byte 4                   ; 0x0868
     push ax                          ; 0x086b
-    call ds_aztec_open               ; 0x086c
+    call aztec_open                  ; 0x086c
     add sp, byte 4                   ; 0x086f
     mov word [bp - 0x0004], ax       ; 0x0872
     cmp ax, strict word 0xffff       ; 0x0875
@@ -758,7 +758,7 @@ loc_03a8:
     call ds_leaf_loc_4fb6            ; 0x088e
     add sp, byte 6                   ; 0x0891
     push word [bp - 0x0004]          ; 0x0894
-    call ds_aztec_close              ; 0x0897
+    call aztec_close                 ; 0x0897
     pop cx                           ; 0x089a
     lea ax, word [bp - 0x031a]       ; 0x089b
     push ax                          ; 0x089f

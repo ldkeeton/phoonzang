@@ -1,6 +1,6 @@
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x067b
-    call ds_aztec_csav               ; 0x067e
+    call aztec_csav                  ; 0x067e
     cmp word [bss_8f20], byte 0      ; 0x0681
     jg short @..api_idx_000e.l1      ; 0x0686
     jmp near @..api_idx_000e.l8      ; 0x0688

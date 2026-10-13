@@ -1,6 +1,6 @@
 api_idx_0002:
     mov ax, 0xfffe                   ; 0x000e
-    call ds_aztec_csav               ; 0x0011
+    call aztec_csav                  ; 0x0011
     mov word [bss_8f22], 0           ; 0x0014
     mov word [bss_9180], 5           ; 0x001a
     les bx, word [dseg_0002]         ; 0x0020
@@ -60,7 +60,7 @@ api_idx_0002:
     ret                              ; 0x00b5
 loc_00b6:
     mov ax, 0                        ; 0x00b6
-    call ds_aztec_csav               ; 0x00b9
+    call aztec_csav                  ; 0x00b9
     mov bx, word [bss_0e14]          ; 0x00bc
     mov si, word [bp + 0x4]          ; 0x00c0
     mov al, byte [bx + si + 0x490]   ; 0x00c3

@@ -1,6 +1,6 @@
 api_idx_0004_6:
     mov ax, 0xfffc                   ; 0x6d1f
-    call ds_aztec_csav               ; 0x6d22
+    call aztec_csav                  ; 0x6d22
     cmp word [bss_a4a6], byte 3      ; 0x6d25
     jle short @..api_idx_0004_6.l1   ; 0x6d2a
     call api_idx_0004_5              ; 0x6d2c
@@ -25,7 +25,7 @@ api_idx_0004_6:
     sub ax, cx                       ; 0x6d53
     mov word [bp - 0x0002], ax       ; 0x6d55
     push word [bp + 0x4]             ; 0x6d58
-    call ds_aztec_strlen             ; 0x6d5b
+    call aztec_strlen                ; 0x6d5b
     pop cx                           ; 0x6d5e
     dec ax                           ; 0x6d5f
     mov word [bp - 0x0004], ax       ; 0x6d60
@@ -79,7 +79,7 @@ api_idx_0004_6:
     ret                              ; 0x6dd8
 loc_6dd9:
     mov ax, 0xfefa                   ; 0x6dd9
-    call ds_aztec_csav               ; 0x6ddc
+    call aztec_csav                  ; 0x6ddc
 @..loc_6dd9.l1:
     mov bx, word [bp + 0x4]          ; 0x6ddf
     mov al, byte [bx]                ; 0x6de2
@@ -87,7 +87,7 @@ loc_6dd9:
     push ax                          ; 0x6de6
     mov ax, 0x9114                   ; 0x6de7
     push ax                          ; 0x6dea
-    call ds_strlen                   ; 0x6deb
+    call strlen                      ; 0x6deb
     add sp, byte 4                   ; 0x6dee
     mov word [bp - 0x0004], ax       ; 0x6df1
     cmp ax, strict word 0            ; 0x6df4
@@ -173,7 +173,7 @@ jumptable_6e77:
     push ax                          ; 0x6e9f
     lea ax, word [bp - 0x0105]       ; 0x6ea0
     push ax                          ; 0x6ea4
-    call ds_aztec_strcpy             ; 0x6ea5
+    call aztec_strcpy                ; 0x6ea5
     add sp, byte 4                   ; 0x6ea8
     mov ax, 0x911c                   ; 0x6eab
     push ax                          ; 0x6eae
@@ -191,7 +191,7 @@ jumptable_6e77:
     push word [bp + 0x4]             ; 0x6eca
     lea ax, word [bp - 0x0105]       ; 0x6ecd
     push ax                          ; 0x6ed1
-    call ds_aztec_strcpy             ; 0x6ed2
+    call aztec_strcpy                ; 0x6ed2
     add sp, byte 4                   ; 0x6ed5
 @..loc_6dd9.l9:
     mov ax, 2                        ; 0x6ed8
@@ -210,7 +210,7 @@ jumptable_6e77:
     push word [bp + 0x4]             ; 0x6ef7
     mov ax, 0xa4aa                   ; 0x6efa
     push ax                          ; 0x6efd
-    call ds_aztec_strcpy             ; 0x6efe
+    call aztec_strcpy                ; 0x6efe
     add sp, byte 4                   ; 0x6f01
     jmp short @..loc_6dd9.l11        ; 0x6f04
 @..loc_6dd9.l10:
@@ -218,7 +218,7 @@ jumptable_6e77:
     push ax                          ; 0x6f0a
     mov ax, 0xa4aa                   ; 0x6f0b
     push ax                          ; 0x6f0e
-    call ds_aztec_strcpy             ; 0x6f0f
+    call aztec_strcpy                ; 0x6f0f
     add sp, byte 4                   ; 0x6f12
 @..loc_6dd9.l11:
     ret                              ; 0x6f15

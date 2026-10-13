@@ -1,12 +1,12 @@
 api_idx_0008:
     mov ax, 0xfff8                   ; 0x0104
-    call ds_aztec_csav               ; 0x0107
+    call aztec_csav                  ; 0x0107
     push word [bp + 0xe]             ; 0x010a
     push word [bp + 0xc]             ; 0x010d
     call ds_loc_3a6a                 ; 0x0110
     add sp, byte 4                   ; 0x0113
     push word [bp + 0x4]             ; 0x0116
-    call ds_aztec_strlen             ; 0x0119
+    call aztec_strlen                ; 0x0119
     pop cx                           ; 0x011c
     mov word [bp - 0x0004], ax       ; 0x011d
     mov cx, 6                        ; 0x0120
@@ -18,7 +18,7 @@ api_idx_0008:
 @..api_idx_0008.l2:
     mov ax, 1                        ; 0x0132
     push ax                          ; 0x0135
-    call ds_dos_con_in_noecho        ; 0x0136
+    call dos_con_in_noecho           ; 0x0136
     pop cx                           ; 0x0139
     test ax, ax                      ; 0x013a
     je short @..api_idx_0008.l3      ; 0x013c
@@ -79,7 +79,7 @@ api_idx_0008:
 @..api_idx_0008.l7:
     mov ax, 1                        ; 0x01c0
     push ax                          ; 0x01c3
-    call ds_dos_con_in_noecho_2      ; 0x01c4
+    call dos_con_in_noecho_2         ; 0x01c4
     pop cx                           ; 0x01c7
     sub ah, ah                       ; 0x01c8
     mov word [bp - 0x0002], ax       ; 0x01ca
@@ -109,7 +109,7 @@ api_idx_0008:
     mov bx, word [bp + 0x4]          ; 0x020a
     mov si, word [bp - 0x0004]       ; 0x020d
     mov byte [bx + si], 0            ; 0x0210
-    call ds_bios_kbd_check           ; 0x0213
+    call bios_kbd_check              ; 0x0213
     ret                              ; 0x0216
 @..api_idx_0008.l8:
     cmp word [bp - 0x0002], byte 8   ; 0x0217

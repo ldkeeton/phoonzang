@@ -1,6 +1,6 @@
 api_idx_0002_4:
     mov ax, 0xfffe                   ; 0x02fe
-    call ds_aztec_csav               ; 0x0301
+    call aztec_csav                  ; 0x0301
     mov ax, 0                        ; 0x0304
     push ax                          ; 0x0307
     mov ax, 1                        ; 0x0308
@@ -9,7 +9,7 @@ api_idx_0002_4:
     call ds_app_23a8                 ; 0x030f
     add sp, byte 4                   ; 0x0312
     push ax                          ; 0x0315
-    call ds_aztec_open               ; 0x0316
+    call aztec_open                  ; 0x0316
     add sp, byte 4                   ; 0x0319
     mov word [bp - 0x0002], ax       ; 0x031c
     cmp ax, strict word 0xffff       ; 0x031f
@@ -26,12 +26,12 @@ api_idx_0002_4:
     call ds_bios_mouse_loc_4259      ; 0x0336
     add sp, byte 6                   ; 0x0339
     push word [bp - 0x0002]          ; 0x033c
-    call ds_aztec_close              ; 0x033f
+    call aztec_close                 ; 0x033f
     pop cx                           ; 0x0342
     ret                              ; 0x0343
 loc_0344:
     mov ax, 0                        ; 0x0344
-    call ds_aztec_csav               ; 0x0347
+    call aztec_csav                  ; 0x0347
     mov ax, word [bss_5b6e]          ; 0x034a
     jmp near @..loc_0344.l1          ; 0x034d
 jumptable_03ce_case_1:

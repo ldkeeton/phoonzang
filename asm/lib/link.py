@@ -1,54 +1,21 @@
-"""Host-derived link values for overlay/driver assembly (plan.md D7.0c).
+"""Host helpers for overlay assembly (plan.md D7.0c / D7.1).
 
-An overlay or a raw driver is a *separate* NASM assembly, so it cannot see the
-host program's labels.  Values that really describe the *host* geometry -- the
-data-segment size, and (later) every host DS/CS offset an overlay references --
-therefore used to be frozen as literals in the overlay source and never followed
-a host edit.
-
-The link step makes them derived.  It assembles the host as it stands, reads the
-wanted symbol values out of the result, and writes them to ``.cache`` where the
-overlay sources pick them up by name.  ``asm_<project>/`` keeps only names; the
-numbers live in ``.cache`` (see ``plan.md`` section 5, "Link-resolved values").
-
-Nothing here is a verification pass: it is a build step that runs before NASM on
-every build/rebuild/elf-rebuild.
+An overlay is a *separate* NASM assembly.  It sees the host program's labels by
+including the host source in a section that emits no bytes (see
+``lib.compare.render``), so no table of host-derived numbers is generated any
+more.  What remains here is the host's name, the include arguments for a
+generated ``asm_*`` tree, and the union of the host DS offsets the overlays
+reference (the host declares one recipe per offset).
 """
 
 import json
 import os
-import re
-import subprocess
-import tempfile
 
-from lib.cachedirs import PROJECT_ROOT, labels_dir, project_cache, project_of_asm_dir
+from lib.cachedirs import labels_dir, project_cache, project_of_asm_dir
 
 
 class LinkError(RuntimeError):
-    """Raised when the host cannot be assembled to resolve link values."""
-
-
-#: The host geometry an overlay may reference by name.  ``__zdataseg_end`` is
-#: the total data-segment size (file-backed data + reserved BSS): the value each
-#: overlay's ``o_dorg`` field carries, and the base of the overlay's own data.
-HOST_GEOMETRY_SYMBOLS = ('__zdataseg_end',)
-
-#: Name of the generated values file inside ``.cache/<project>/labels/``.
-HOST_VALUES_NAME = 'host_values.inc'
-
-#: The include directive the generated overlay sources carry.  Relative to the
-#: ``.cache/<project>/`` include root (see :func:`cache_include_arg`).
-HOST_VALUES_INCLUDE = f'labels/{HOST_VALUES_NAME}'
-
-#: The shared DS name map (plan.md D7.1).  The data segment is shared and the
-#: host owns it, so the overlays name their data references through this one
-#: table instead of re-declaring ~1230 literal ``equ`` lines.  Every ``name`` is
-#: declared once in ``ds.asm`` (using the host recipes) and probed here.
-HOST_DATA_NAME = 'host_data.inc'
-HOST_DATA_INCLUDE = f'labels/{HOST_DATA_NAME}'
-
-#: A host DS symbol declaration: ``dseg_<hex> equ …`` / ``bss_<hex> equ …``.
-_HOST_DATA_DECL_RE = re.compile(r'^(bss_|dseg_)[0-9a-fA-F]+\s+equ\b')
+    """Raised when overlay-exported host data disagrees."""
 
 
 def cache_include_arg(asm_dir):
@@ -60,113 +27,12 @@ def cache_include_arg(asm_dir):
 
 
 def include_args(asm_dir):
-    """Return the ``-I`` arguments for assembling a generated ``asm_*`` tree.
-
-    Besides the tree root (structs, fragments, phone books) this exposes
-    ``.cache/<project>/`` so a generated overlay can ``%include`` the link
-    values and foreign-label phone books the build wrote there (D7.0c).
-    """
+    """Return the ``-I`` arguments for assembling a generated ``asm_*`` tree."""
     args = [f'-I{asm_dir}/']
     cache_arg = cache_include_arg(asm_dir)
     if cache_arg:
         args.append(cache_arg)
     return args
-
-
-def host_values_path(project):
-    """Return the ``.cache/<project>/labels/host_values.inc`` path."""
-    return os.path.join(labels_dir(project), HOST_VALUES_NAME)
-
-
-def probe_symbols(asm_dir, master, names):
-    """Return ``{name: value}`` by assembling *master* and reading *names*.
-
-    A throwaway probe ``%include``s *master* (so NASM lays the host image out
-    exactly as a real build would) and appends one ``dw <name>`` stamp per
-    wanted symbol.  The stamps are the tail words of the flat output, read back
-    little-endian.  This is fully tool-independent -- it needs only NASM, no
-    listing parser.
-    """
-    names = tuple(names)
-    if not names:
-        return {}
-    master_path = os.path.join(asm_dir, master)
-    if not os.path.isfile(master_path):
-        raise LinkError(f'{master} not found in {asm_dir}')
-    with tempfile.TemporaryDirectory() as tmp:
-        probe = os.path.join(tmp, '_link_probe.asm')
-        binary = os.path.join(tmp, '_link_probe.bin')
-        with open(probe, 'w') as f:
-            f.write(f'%include "{master}"\n')
-            for name in names:
-                f.write(f'dw {name}\n')
-        cmd = ['nasm', '-O0', '-f', 'bin', '-w-number-overflow',
-               *include_args(asm_dir), '-o', binary, probe]
-        r = subprocess.run(cmd, capture_output=True, text=True, cwd=asm_dir)
-        if r.returncode != 0:
-            detail = r.stderr.strip() or r.stdout.strip()
-            raise LinkError(f'{master}: probe assembly failed:\n{detail}')
-        with open(binary, 'rb') as f:
-            data = f.read()
-    tail = data[-2 * len(names):]
-    if len(tail) < 2 * len(names):
-        raise LinkError(f'{master}: probe output too short')
-    return {name: int.from_bytes(tail[2 * i:2 * i + 2], 'little')
-            for i, name in enumerate(names)}
-
-
-def render_values(values, header=None):
-    """Return the deterministic text of a values file for *values*."""
-    if header is None:
-        header = [
-            '; AUTO-GENERATED by the pre-NASM link step (plan.md D7.0c).',
-            '; Host-derived values; do not edit.  The names live in asm_<project>.',
-        ]
-    lines = [*header, '']
-    for name in sorted(values):
-        lines.append(f'{name} equ 0x{values[name]:04x}')
-    return '\n'.join(lines) + '\n'
-
-
-def write_host_values(project, values):
-    """Write *values* to ``.cache/<project>/labels/host_values.inc``."""
-    path = host_values_path(project)
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w') as f:
-        f.write(render_values(values))
-    return path
-
-
-def host_data_path(project):
-    """Return the ``.cache/<project>/labels/host_data.inc`` path."""
-    return os.path.join(labels_dir(project), HOST_DATA_NAME)
-
-
-def host_data_names(master_path):
-    """Return the sorted ``dseg_``/``bss_`` names a host source declares.
-
-    The host emits one ``equ`` per offset the overlays reference (plan.md D7.1
-    step 2), so the union is exactly the set of such declarations in ``ds.asm``.
-    """
-    names = set()
-    with open(master_path) as f:
-        for line in f:
-            if _HOST_DATA_DECL_RE.match(line):
-                names.add(line.split(None, 1)[0])
-    return sorted(names)
-
-
-def write_host_data(project, values):
-    """Write the shared host DS name map to ``.cache/…/labels/host_data.inc``."""
-    path = host_data_path(project)
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    header = [
-        '; AUTO-GENERATED by the pre-NASM link step (plan.md D7.1).',
-        '; Shared host DS name map; do not edit.  The names live in asm_<project>.',
-    ]
-    with open(path, 'w') as f:
-        f.write(render_values(values, header=header))
-    return path
 
 
 #: The internal build artifact naming the overlay-referenced DS offsets.
@@ -203,158 +69,6 @@ def write_host_data_offsets(project, union):
     return path
 
 
-#: An ``%include`` directive in a generated master.
-_INCLUDE_RE = re.compile(r'^\s*%include\s+["\']([^"\']+)["\']')
-
-
-def _master_label_names(asm_dir, master):
-    """Return the label/``equ`` names defined in *master* and its includes.
-
-    The exported host label map (``ds_labels.json``) is a superset of what the
-    source still defines: a label can be swallowed by a string/data block, so it
-    cannot be re-probed.  Scanning the source's own definitions lets the link
-    step probe only the names NASM will accept, in one run.
-    """
-    names = set()
-    seen = set()
-
-    def visit(path):
-        path = os.path.realpath(path)
-        if path in seen or not os.path.isfile(path):
-            return
-        seen.add(path)
-        base = os.path.dirname(path)
-        with open(path) as f:
-            for line in f:
-                match = re.match(r'^\s*([A-Za-z_][A-Za-z0-9_]*)\s*:', line)
-                if match is None:
-                    match = re.match(
-                        r'^\s*([A-Za-z_][A-Za-z0-9_]*)\s+equ\b', line)
-                if match is not None:
-                    names.add(match.group(1))
-                include = _INCLUDE_RE.match(line)
-                if include is None:
-                    continue
-                for candidate in (os.path.join(asm_dir, include.group(1)),
-                                  os.path.join(base, include.group(1))):
-                    if os.path.isfile(candidate):
-                        visit(candidate)
-                        break
-
-    visit(os.path.join(asm_dir, master))
-    return names
-
-
-def _probe_tolerant(asm_dir, master, names):
-    """Probe *names* in one NASM run, isolating any the master does not define.
-
-    The exported host label map is a superset of what the master source still
-    defines (a label can be swallowed by a string/data block), so a batch probe
-    that hits an undefined symbol is bisected rather than failing the build.
-    """
-    try:
-        return probe_symbols(asm_dir, master, names), []
-    except LinkError:
-        if len(names) == 1:
-            return {}, list(names)
-        mid = len(names) // 2
-        left, miss_left = _probe_tolerant(asm_dir, master, names[:mid])
-        right, miss_right = _probe_tolerant(asm_dir, master, names[mid:])
-        left.update(right)
-        return left, miss_left + miss_right
-
-
-def probe_labels(asm_dir, master, label_map):
-    """Return ``{name: current_offset}`` for the names in *label_map*.
-
-    *label_map* is ``{recorded_offset: name}`` (the exported host label map).
-    Each name is re-probed out of *master*, so a host code edit moves every
-    handle; a name the master no longer defines keeps its recorded offset
-    (it has no better source, and it is normally unreferenced anyway).
-    """
-    names = set(label_map.values())
-    if not names:
-        return {}
-    # Drop names the source no longer defines before spending a NASM run: the
-    # exported map is a superset (see ``_master_label_names``).
-    defined = _master_label_names(asm_dir, master)
-    candidates = sorted(names & defined)
-    resolved, _ = _probe_tolerant(asm_dir, master, candidates)
-    return {name: resolved.get(name, off) for off, name in label_map.items()}
-
-
-def _first_overlay_model(app_dir, bins, host, host_model):
-    """Return an overlay :class:`SegmentModel` whose host is *host*, or ``None``."""
-    from lib.segments import SegmentError, from_binary
-    for name in sorted(bins):
-        if name == host:
-            continue
-        rel_path, start_offset = bins[name]
-        path = os.path.join(app_dir, rel_path)
-        if not os.path.isfile(path):
-            continue
-        try:
-            with open(path, 'rb') as f:
-                model = from_binary(f.read(), 'aztec_overlay', start_offset,
-                                    host=host_model)
-        except (OSError, SegmentError):
-            continue
-        if model.kind == 'overlay' and model.overlay:
-            return model
-    return None
-
-
-def build_host_calls(project, asm_dir, bins):
-    """Return the overlay-handle table re-derived from the current host source.
-
-    ``host_calls.inc`` (D7.0e) used to be baked at generation time from
-    ``ds_labels.json``, so a host edit without regeneration left it stale while
-    ``host_values.inc``/``host_data.inc`` were re-probed.  The link step now
-    probes the host's code labels by name and applies
-    :meth:`SegmentModel.host_code_target`, so all three tables refresh on the
-    ``elf-rebuild`` loop.  Returns ``None`` when there is nothing to build.
-    """
-    from lib.cross_ref import host_call_table, read_label_json
-    from lib.segments import SegmentError, from_binary
-    host = host_name(bins)
-    if host is None:
-        return None
-    json_path = os.path.join(labels_dir(project), f'{host}_labels.json')
-    if not os.path.isfile(json_path):
-        return None
-    host_labels = read_label_json(json_path)
-    if not host_labels:
-        return None
-    app_dir = os.path.join(PROJECT_ROOT, 'apps', project)
-    host_path = os.path.join(app_dir, bins[host][0])
-    if not os.path.isfile(host_path):
-        return None
-    try:
-        with open(host_path, 'rb') as f:
-            host_model = from_binary(f.read(), 'mz')
-    except (OSError, SegmentError):
-        return None
-    model = _first_overlay_model(app_dir, bins, host, host_model)
-    if model is None:
-        return None
-    current = probe_labels(asm_dir, f'{host}.asm', host_labels)
-    table = host_call_table(
-        host, {current[name]: name for name in current}, model)
-    return table or None
-
-
-def write_host_calls(project, asm_dir, bins):
-    """Write the re-derived overlay-handle table; returns its path or ``None``."""
-    from lib.cross_ref import HOST_CALLS_NAME, write_equ_table
-    table = build_host_calls(project, asm_dir, bins)
-    if not table:
-        return None
-    path = os.path.join(labels_dir(project), HOST_CALLS_NAME)
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    write_equ_table(table, path)
-    return path
-
-
 def host_name(bins):
     """Return the MZ host binary's name (``ds`` when present), or ``None``."""
     if 'ds' in bins:
@@ -363,40 +77,3 @@ def host_name(bins):
         if bins[name][1] == 0x200:
             return name
     return None
-
-
-def write_link_values(project, asm_dir, bins, verbose=False):
-    """Resolve the host geometry into the link values file.
-
-    Returns the resolved ``{name: value}`` map, or ``None`` when the project has
-    no MZ host (nothing to resolve).  Raises :class:`LinkError` when the host
-    cannot be assembled, so the caller must not proceed to NASM with a
-    missing/stale values file.
-    """
-    host = host_name(bins)
-    if host is None:
-        return None
-    master = f'{host}.asm'
-    if not os.path.isfile(os.path.join(asm_dir, master)):
-        return None
-    values = probe_symbols(asm_dir, master, HOST_GEOMETRY_SYMBOLS)
-    path = write_host_values(project, values)
-    # D7.1: probe the shared DS name map the host declares (step 2) and write
-    # the one numbers file the overlays include.  Re-probed on every build, so a
-    # host data edit moves every overlay reference (like ``host_values.inc``).
-    data_names = host_data_names(os.path.join(asm_dir, master))
-    data_values = probe_symbols(asm_dir, master, data_names) if data_names else {}
-    if data_values:
-        write_host_data(project, data_values)
-    # D7.1: re-probe the shared overlay-handle table too, so a host code edit
-    # reaches the overlays on the ``elf-rebuild`` loop (all three tables).
-    calls_path = write_host_calls(project, asm_dir, bins)
-    if verbose:
-        pretty = ' '.join(f'{k}=0x{v:04x}' for k, v in sorted(values.items()))
-        print(f'  Link values: {pretty} -> {os.path.relpath(path)}')
-        if data_values:
-            print(f'  Link data: {len(data_values)} DS names -> '
-                  f'{os.path.relpath(host_data_path(project))}')
-        if calls_path:
-            print(f'  Link calls: -> {os.path.relpath(calls_path)}')
-    return values

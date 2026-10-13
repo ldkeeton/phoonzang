@@ -1,6 +1,6 @@
 api_idx_001a:
     mov ax, 0xffe6                   ; 0x706c
-    call ds_aztec_csav               ; 0x706f
+    call aztec_csav                  ; 0x706f
     lea ax, word [bp - 0x001a]       ; 0x7072
     push ax                          ; 0x7075
     mov ax, 0x1d7                    ; 0x7076
@@ -38,7 +38,7 @@ api_idx_001a:
     ret                              ; 0x70c9
 loc_70ca:
     mov ax, 0xfe6c                   ; 0x70ca
-    call ds_aztec_csav               ; 0x70cd
+    call aztec_csav                  ; 0x70cd
     mov word [bp - 0x0194], 0        ; 0x70d0
     cmp word [bss_0e32], byte 0      ; 0x70d6
     je short @..loc_70ca.l1          ; 0x70db
@@ -127,7 +127,7 @@ loc_70ca:
     lea ax, word [bp - 0x007a]       ; 0x7193
     push ax                          ; 0x7196
     push word [bp + 0x8]             ; 0x7197
-    call ds_aztec_strcpy             ; 0x719a
+    call aztec_strcpy                ; 0x719a
     add sp, byte 4                   ; 0x719d
     mov ax, 0                        ; 0x71a0
     push ax                          ; 0x71a3
@@ -174,17 +174,17 @@ loc_70ca:
     push ax                          ; 0x7213
     lea ax, word [bp - 0x00a2]       ; 0x7214
     push ax                          ; 0x7218
-    call ds_aztec_setmem             ; 0x7219
+    call aztec_setmem                ; 0x7219
     add sp, byte 6                   ; 0x721c
     lea ax, word [bp - 0x007a]       ; 0x721f
     push ax                          ; 0x7222
     lea ax, word [bp - 0x00a2]       ; 0x7223
     push ax                          ; 0x7227
-    call ds_aztec_strcpy             ; 0x7228
+    call aztec_strcpy                ; 0x7228
     add sp, byte 4                   ; 0x722b
     lea ax, word [bp - 0x00a2]       ; 0x722e
     push ax                          ; 0x7232
-    call ds_aztec_strlen             ; 0x7233
+    call aztec_strlen                ; 0x7233
     pop cx                           ; 0x7236
     dec ax                           ; 0x7237
     mov word [bp - 0x0004], ax       ; 0x7238
@@ -192,14 +192,14 @@ loc_70ca:
     push ax                          ; 0x723e
     lea ax, word [bp - 0x00a2]       ; 0x723f
     push ax                          ; 0x7243
-    call ds_strlen                   ; 0x7244
+    call strlen                      ; 0x7244
     add sp, byte 4                   ; 0x7247
     mov word [bp - 0x0006], ax       ; 0x724a
     cmp ax, strict word 0xffff       ; 0x724d
     jne short @..loc_70ca.l7         ; 0x7250
     lea ax, word [bp - 0x00a2]       ; 0x7252
     push ax                          ; 0x7256
-    call ds_aztec_strlen             ; 0x7257
+    call aztec_strlen                ; 0x7257
     pop cx                           ; 0x725a
     mov word [bp - 0x0006], ax       ; 0x725b
 @..loc_70ca.l7:

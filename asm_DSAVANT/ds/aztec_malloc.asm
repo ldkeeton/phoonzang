@@ -36,7 +36,7 @@ aztec_malloc:
     cmp ax, strict word 0xffff       ; 0x4745
     jne short @..aztec_malloc.l3     ; 0x4748
     mov ax, 0                        ; 0x474a
-loc_474d:
+ds_loc_474d:
     pop si                           ; 0x474d
     pop di                           ; 0x474e
     mov sp, bp                       ; 0x474f
@@ -100,11 +100,11 @@ loc_474d:
     or word [si], 1                  ; 0x47cf
     mov ax, si                       ; 0x47d3
     add ax, strict word 2            ; 0x47d5
-    jmp near loc_474d                ; 0x47d8
+    jmp near ds_loc_474d             ; 0x47d8
 @..aztec_malloc.l9:
     mov ax, word [si]                ; 0x47db
     and ax, strict word 0xfffe       ; 0x47dd
     mov si, ax                       ; 0x47e0
     jmp near @..aztec_malloc.l2      ; 0x47e2
-leaf_loc_47e5:
-    jmp near loc_474d                ; 0x47e5
+ds_leaf_loc_47e5:
+    jmp near ds_loc_474d             ; 0x47e5

@@ -1,6 +1,6 @@
 api_idx_0038_2:
     mov ax, 0xffc8                   ; 0x2fef
-    call ds_aztec_csav               ; 0x2ff2
+    call aztec_csav                  ; 0x2ff2
     mov word [bp - 0x000c], 0        ; 0x2ff5
     mov ax, word [bss_5218]          ; 0x2ffa
     mov word [bp - 0x000e], ax       ; 0x2ffd
@@ -48,7 +48,7 @@ api_idx_0038_2:
     push ax                          ; 0x3061
     mov ax, 0x91ee                   ; 0x3062
     push ax                          ; 0x3065
-    call ds_aztec_strcpy             ; 0x3066
+    call aztec_strcpy                ; 0x3066
     add sp, byte 4                   ; 0x3069
     jmp near @..api_idx_0038_2.l13   ; 0x306c
 @..api_idx_0038_2.l4:
@@ -91,17 +91,17 @@ api_idx_0038_2:
     push ax                          ; 0x30c0
     mov ax, 0x91ee                   ; 0x30c1
     push ax                          ; 0x30c4
-    call ds_aztec_strcpy             ; 0x30c5
+    call aztec_strcpy                ; 0x30c5
     add sp, byte 4                   ; 0x30c8
     mov ax, 0x91ee                   ; 0x30cb
     push ax                          ; 0x30ce
-    call ds_aztec_strlen             ; 0x30cf
+    call aztec_strlen                ; 0x30cf
     pop cx                           ; 0x30d2
     cmp ax, strict word 0            ; 0x30d3
     jle short @..api_idx_0038_2.l6   ; 0x30d6
     mov ax, 0x91ee                   ; 0x30d8
     push ax                          ; 0x30db
-    call ds_aztec_strlen             ; 0x30dc
+    call aztec_strlen                ; 0x30dc
     pop cx                           ; 0x30df
     dec ax                           ; 0x30e0
     mov word [bp - 0x0002], ax       ; 0x30e1
@@ -131,7 +131,7 @@ api_idx_0038_2:
 @..api_idx_0038_2.l7:
     mov ax, 0x91da                   ; 0x3121
     push ax                          ; 0x3124
-    call ds_aztec_strlen             ; 0x3125
+    call aztec_strlen                ; 0x3125
     pop cx                           ; 0x3128
     cmp ax, strict word 0            ; 0x3129
     jle short @..api_idx_0038_2.l11  ; 0x312c
@@ -200,7 +200,7 @@ api_idx_0038_2:
     push ax                          ; 0x31be
     mov ax, 0x91ee                   ; 0x31bf
     push ax                          ; 0x31c2
-    call ds_aztec_open               ; 0x31c3
+    call aztec_open                  ; 0x31c3
     add sp, byte 4                   ; 0x31c6
     mov word [bp - 0x000a], ax       ; 0x31c9
     cmp ax, strict word 0xffff       ; 0x31cc
@@ -270,7 +270,7 @@ api_idx_0038_2:
     push dx                          ; 0x3255
     push ax                          ; 0x3256
     push word [bp - 0x000a]          ; 0x3257
-    call ds_aztec_lseek              ; 0x325a
+    call aztec_lseek                 ; 0x325a
     add sp, byte 8                   ; 0x325d
     mov ax, 0x34c                    ; 0x3260
     push ax                          ; 0x3263
@@ -287,7 +287,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x327d
     pop cx                           ; 0x3280
     push word [bp - 0x000a]          ; 0x3281
-    call ds_aztec_close              ; 0x3284
+    call aztec_close                 ; 0x3284
     pop cx                           ; 0x3287
     cmp word [bp - 0x000c], byte 0   ; 0x3288
     je short @..api_idx_0038_2.l20   ; 0x328c
@@ -313,7 +313,7 @@ api_idx_0038_2:
     imul word [bp - 0x0002]          ; 0x32b8
     add ax, 0x5912                   ; 0x32bb
     push ax                          ; 0x32be
-    call ds_aztec_strcpy             ; 0x32bf
+    call aztec_strcpy                ; 0x32bf
     add sp, byte 4                   ; 0x32c2
     inc word [bp - 0x0002]           ; 0x32c5
     mov ax, word [bp - 0x0002]       ; 0x32c8
@@ -327,7 +327,7 @@ api_idx_0038_2:
     push ax                          ; 0x32df
     mov ax, 0x5964                   ; 0x32e0
     push ax                          ; 0x32e3
-    call ds_aztec_strcpy             ; 0x32e4
+    call aztec_strcpy                ; 0x32e4
     add sp, byte 4                   ; 0x32e7
     mov al, byte [bss_98ea]          ; 0x32ea
     mov byte [bss_5978], al          ; 0x32ed
@@ -385,7 +385,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x3384
     pop cx                           ; 0x3387
     push word [bp - 0x000a]          ; 0x3388
-    call ds_aztec_close              ; 0x338b
+    call aztec_close                 ; 0x338b
     pop cx                           ; 0x338e
     cmp word [bp - 0x000c], byte 0   ; 0x338f
     je short @..api_idx_0038_2.l24   ; 0x3393
@@ -421,7 +421,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x33d8
     pop cx                           ; 0x33db
     push word [bp - 0x000a]          ; 0x33dc
-    call ds_aztec_close              ; 0x33df
+    call aztec_close                 ; 0x33df
     pop cx                           ; 0x33e2
     cmp word [bp - 0x000c], byte 0   ; 0x33e3
     je short @..api_idx_0038_2.l26   ; 0x33e7
@@ -454,7 +454,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x3423
     pop cx                           ; 0x3426
     push word [bp - 0x000a]          ; 0x3427
-    call ds_aztec_close              ; 0x342a
+    call aztec_close                 ; 0x342a
     pop cx                           ; 0x342d
     cmp word [bp - 0x000c], byte 0   ; 0x342e
     je short @..api_idx_0038_2.l29   ; 0x3432
@@ -485,7 +485,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x3469
     pop cx                           ; 0x346c
     push word [bp - 0x000a]          ; 0x346d
-    call ds_aztec_close              ; 0x3470
+    call aztec_close                 ; 0x3470
     pop cx                           ; 0x3473
     cmp word [bp - 0x000c], byte 0   ; 0x3474
     je short @..api_idx_0038_2.l31   ; 0x3478
@@ -515,7 +515,7 @@ api_idx_0038_2:
     push ds                          ; 0x34ab
     mov ax, 0x9900                   ; 0x34ac
     push ax                          ; 0x34af
-    call ds_app_memmove              ; 0x34b0
+    call app_memmove                 ; 0x34b0
     add sp, byte 0x0a                ; 0x34b3
     mov ax, 0x80                     ; 0x34b6
     push ax                          ; 0x34b9
@@ -531,7 +531,7 @@ api_idx_0038_2:
     push ds                          ; 0x34cf
     mov ax, 0x9980                   ; 0x34d0
     push ax                          ; 0x34d3
-    call ds_app_memmove              ; 0x34d4
+    call app_memmove                 ; 0x34d4
     add sp, byte 0x0a                ; 0x34d7
     inc word [bp - 0x0004]           ; 0x34da
     mov ax, word [bp - 0x0004]       ; 0x34dd
@@ -554,7 +554,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x3505
     pop cx                           ; 0x3508
     push word [bp - 0x000a]          ; 0x3509
-    call ds_aztec_close              ; 0x350c
+    call aztec_close                 ; 0x350c
     pop cx                           ; 0x350f
     cmp word [bp - 0x000c], byte 0   ; 0x3510
     je short @..api_idx_0038_2.l34   ; 0x3514
@@ -577,7 +577,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x3539
     pop cx                           ; 0x353c
     push word [bp - 0x000a]          ; 0x353d
-    call ds_aztec_close              ; 0x3540
+    call aztec_close                 ; 0x3540
     pop cx                           ; 0x3543
     cmp word [bp - 0x000c], byte 0   ; 0x3544
     je short @..api_idx_0038_2.l36   ; 0x3548
@@ -712,7 +712,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x36a8
     pop cx                           ; 0x36ab
     push word [bp - 0x000a]          ; 0x36ac
-    call ds_aztec_close              ; 0x36af
+    call aztec_close                 ; 0x36af
     pop cx                           ; 0x36b2
     cmp word [bp - 0x000c], byte 0   ; 0x36b3
     je short @..api_idx_0038_2.l39   ; 0x36b7
@@ -759,7 +759,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x3716
     pop cx                           ; 0x3719
     push word [bp - 0x000a]          ; 0x371a
-    call ds_aztec_close              ; 0x371d
+    call aztec_close                 ; 0x371d
     pop cx                           ; 0x3720
     cmp word [bp - 0x000c], byte 0   ; 0x3721
     je short @..api_idx_0038_2.l43   ; 0x3725
@@ -794,7 +794,7 @@ api_idx_0038_2:
     call loc_150d                    ; 0x376a
     pop cx                           ; 0x376d
     push word [bp - 0x000a]          ; 0x376e
-    call ds_aztec_close              ; 0x3771
+    call aztec_close                 ; 0x3771
     pop cx                           ; 0x3774
     cmp word [bp - 0x000c], byte 0   ; 0x3775
     je short @..api_idx_0038_2.l46   ; 0x3779
@@ -836,7 +836,7 @@ api_idx_0038_2:
     jmp near @..api_idx_0038_2.l45   ; 0x37d1
 @..api_idx_0038_2.l49:
     push word [bp - 0x000a]          ; 0x37d4
-    call ds_aztec_close              ; 0x37d7
+    call aztec_close                 ; 0x37d7
     pop cx                           ; 0x37da
     cmp word [bp - 0x000c], byte 0   ; 0x37db
     je short @..api_idx_0038_2.l50   ; 0x37df
@@ -861,7 +861,7 @@ api_idx_0038_2:
     imul word [bp - 0x0002]          ; 0x380b
     add ax, 0x5bf4                   ; 0x380e
     push ax                          ; 0x3811
-    call ds_aztec_setmem             ; 0x3812
+    call aztec_setmem                ; 0x3812
     add sp, byte 6                   ; 0x3815
     inc word [bp - 0x0002]           ; 0x3818
     mov ax, word [bp - 0x0002]       ; 0x381b

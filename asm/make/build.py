@@ -22,7 +22,6 @@ from .common import (
     _nasm_build,
     _prepare_cross_ref_sources,
 )
-from .link import write_link_values
 from .prebuild import _ensure_prebuild
 from lib.link import host_name
 
@@ -80,9 +79,6 @@ def asm_app(app):
             print(f'  FAILED: {host} (host data map)')
             failed.append(host)
 
-    # D7.0c: resolve the host geometry the overlays/drivers name before any
-    # binary is assembled.  The host source is complete by now.
-    write_link_values(app, out_dir, bins)
 
     build_out = os.path.join(out_dir, 'build_out')
     _copy_assets(app_dir, build_out)
@@ -134,7 +130,6 @@ def cmd_build_binary(app, binary):
 
     rel_path = bins[binary][0]
     _copy_assets(app_dir, os.path.join(out_dir, 'build_out'))
-    write_link_values(app, out_dir, bins)
     if _nasm_build(out_dir, binary, rel_path) != 0:
         sys.exit(1)
     print(f'build {app}/{binary} -> {rel_path}  [OK]')
@@ -149,7 +144,6 @@ def cmd_rebuild(app, binary):
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
     rel_path = bins[binary][0]
-    write_link_values(app, out_dir, bins)
     r = _nasm_build(out_dir, binary, rel_path)
     if r != 0:
         sys.exit(1)

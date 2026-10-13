@@ -1,6 +1,6 @@
 api_idx_0018:
     mov ax, 0xffe8                   ; 0x0727
-    call ds_aztec_csav               ; 0x072a
+    call aztec_csav                  ; 0x072a
     mov byte [bp - 0x0018], 0        ; 0x072d
     mov ax, 6                        ; 0x0731
     imul word [bp + 0x4]             ; 0x0734

@@ -1,6 +1,6 @@
 api_idx_00a2:
     mov ax, 0xff5e                   ; 0x9844
-    call ds_aztec_csav               ; 0x9847
+    call aztec_csav                  ; 0x9847
     cmp word [bss_9e46], byte 0xff   ; 0x984a
     jne short @..api_idx_00a2.l1     ; 0x984f
     cmp word [bss_9e60], byte 1      ; 0x9851
@@ -78,7 +78,7 @@ api_idx_00a2:
     push ax                          ; 0x9908
     lea ax, word [bp - 0x0052]       ; 0x9909
     push ax                          ; 0x990c
-    call ds_aztec_strcpy             ; 0x990d
+    call aztec_strcpy                ; 0x990d
     add sp, byte 4                   ; 0x9910
     lea ax, word [bp - 0x0052]       ; 0x9913
     push ax                          ; 0x9916
@@ -184,7 +184,7 @@ api_idx_00a2:
     ret                              ; 0x9a03
 loc_9a04:
     mov ax, 0                        ; 0x9a04
-    call ds_aztec_csav               ; 0x9a07
+    call aztec_csav                  ; 0x9a07
     mov word [bss_9e46], 0xffff      ; 0x9a0a
     mov word [bss_9e42], 0xffff      ; 0x9a10
     mov word [bss_9e44], 0           ; 0x9a16

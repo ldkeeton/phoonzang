@@ -3,6 +3,7 @@
 import re
 
 from lib.compare.records import _record_span
+from lib.names import stem
 
 
 _SHARED_TAIL_RE = re.compile(r'loc_[0-9a-f]+')
@@ -14,7 +15,7 @@ def _vendor_named_tails(label_map, annotations):
         addr for note in (annotations or {}).values()
         for addr in note['labels']
         if note['start'] < addr < note['end']
-        and _SHARED_TAIL_RE.fullmatch(label_map.get(addr) or '')
+        and _SHARED_TAIL_RE.fullmatch(stem(label_map.get(addr) or ''))
     }
 
 

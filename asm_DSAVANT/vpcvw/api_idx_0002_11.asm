@@ -1,6 +1,6 @@
 api_idx_0002_11:
     mov ax, 0xfffe                   ; 0x91b2
-    call ds_aztec_csav               ; 0x91b5
+    call aztec_csav                  ; 0x91b5
     mov word [bp - 0x0002], 0        ; 0x91b8
 @..api_idx_0002_11.l1:
     mov ax, 0                        ; 0x91bd
@@ -16,7 +16,7 @@ api_idx_0002_11:
     ret                              ; 0x91d8
 loc_91d9:
     mov ax, 0                        ; 0x91d9
-    call ds_aztec_csav               ; 0x91dc
+    call aztec_csav                  ; 0x91dc
     mov ax, word [bp + 0x6]          ; 0x91df
     jmp near @..loc_91d9.l1          ; 0x91e2
 jumptable_928f_case_0:

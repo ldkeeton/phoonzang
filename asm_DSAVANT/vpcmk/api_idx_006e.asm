@@ -1,6 +1,6 @@
 api_idx_006e:
     mov ax, 0xff92                   ; 0x3d59
-    call ds_aztec_csav               ; 0x3d5c
+    call aztec_csav                  ; 0x3d5c
     mov ax, word [bp + 0x6]          ; 0x3d5f
     jmp short @..api_idx_006e.l5     ; 0x3d62
 @..api_idx_006e.l1:
@@ -37,7 +37,7 @@ api_idx_006e:
     imul word [bp + 0x4]             ; 0x3db3
     add ax, 0x5e12                   ; 0x3db6
     push ax                          ; 0x3db9
-    call ds_aztec_movmem             ; 0x3dba
+    call aztec_movmem                ; 0x3dba
     add sp, byte 6                   ; 0x3dbd
     mov ax, 0                        ; 0x3dc0
     push ax                          ; 0x3dc3
@@ -47,7 +47,7 @@ api_idx_006e:
     imul word [bp + 0x4]             ; 0x3dcb
     add ax, 0x5e12                   ; 0x3dce
     push ax                          ; 0x3dd1
-    call ds_aztec_setmem             ; 0x3dd2
+    call aztec_setmem                ; 0x3dd2
     add sp, byte 6                   ; 0x3dd5
     mov word [bp - 0x000a], 1        ; 0x3dd8
     mov word [bp - 0x0004], 0        ; 0x3ddd
@@ -96,7 +96,7 @@ api_idx_006e:
     push ax                          ; 0x3e4e
     lea ax, word [bp - 0x001e]       ; 0x3e4f
     push ax                          ; 0x3e52
-    call ds_aztec_movmem             ; 0x3e53
+    call aztec_movmem                ; 0x3e53
     add sp, byte 6                   ; 0x3e56
     ret                              ; 0x3e59
 @..api_idx_006e.l9:
@@ -130,7 +130,7 @@ api_idx_006e:
     push ax                          ; 0x3e9b
     lea ax, word [bp - 0x001e]       ; 0x3e9c
     push ax                          ; 0x3e9f
-    call ds_aztec_movmem             ; 0x3ea0
+    call aztec_movmem                ; 0x3ea0
     add sp, byte 6                   ; 0x3ea3
     cmp word [bp - 0x0004], byte 0   ; 0x3ea6
     je short @..api_idx_006e.l10     ; 0x3eaa
@@ -228,7 +228,7 @@ api_idx_006e:
     ret                              ; 0x3f86
 loc_3f87:
     mov ax, 0                        ; 0x3f87
-    call ds_aztec_csav               ; 0x3f8a
+    call aztec_csav                  ; 0x3f8a
     les bx, word [dseg_0002]         ; 0x3f8d
     mov ax, word [es:bx]             ; 0x3f91
     mov dx, word [es:bx + 0x2]       ; 0x3f94

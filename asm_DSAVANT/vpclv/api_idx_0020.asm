@@ -1,6 +1,6 @@
 api_idx_0020:
     mov ax, 0xffe0                   ; 0x333c
-    call ds_aztec_csav               ; 0x333f
+    call aztec_csav                  ; 0x333f
     cmp word [bp + 0x4], byte 0      ; 0x3342
     je short @..api_idx_0020.l1      ; 0x3346
     jmp near @..api_idx_0020.l2      ; 0x3348
@@ -22,19 +22,19 @@ api_idx_0020:
     add sp, byte 4                   ; 0x336f
     lea ax, word [bp - 0x000c]       ; 0x3372
     push ax                          ; 0x3375
-    call ds_aztec_strlen             ; 0x3376
+    call aztec_strlen                ; 0x3376
     pop cx                           ; 0x3379
     push ax                          ; 0x337a
     lea ax, word [bp - 0x0016]       ; 0x337b
     push ax                          ; 0x337e
-    call ds_aztec_strlen             ; 0x337f
+    call aztec_strlen                ; 0x337f
     pop cx                           ; 0x3382
     mov cx, ax                       ; 0x3383
     pop ax                           ; 0x3385
     add ax, cx                       ; 0x3386
     push ax                          ; 0x3388
     push word [bp + 0x10]            ; 0x3389
-    call ds_aztec_strlen             ; 0x338c
+    call aztec_strlen                ; 0x338c
     pop cx                           ; 0x338f
     mov cx, ax                       ; 0x3390
     pop ax                           ; 0x3392
@@ -42,14 +42,14 @@ api_idx_0020:
     push ax                          ; 0x3395
     lea ax, word [bp - 0x0020]       ; 0x3396
     push ax                          ; 0x3399
-    call ds_aztec_strlen             ; 0x339a
+    call aztec_strlen                ; 0x339a
     pop cx                           ; 0x339d
     mov cx, ax                       ; 0x339e
     pop ax                           ; 0x33a0
     add ax, cx                       ; 0x33a1
     push ax                          ; 0x33a3
     push word [bp + 0x12]            ; 0x33a4
-    call ds_aztec_strlen             ; 0x33a7
+    call aztec_strlen                ; 0x33a7
     pop cx                           ; 0x33aa
     mov cx, ax                       ; 0x33ab
     pop ax                           ; 0x33ad

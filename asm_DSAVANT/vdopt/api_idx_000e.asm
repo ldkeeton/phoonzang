@@ -1,6 +1,6 @@
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x06e8
-    call ds_aztec_csav               ; 0x06eb
+    call aztec_csav                  ; 0x06eb
     call api_idx_0002_3              ; 0x06ee
     mov word [bp - 0x000e], ax       ; 0x06f1
     cmp ax, strict word 0xffff       ; 0x06f4
@@ -101,7 +101,7 @@ api_idx_000e:
     ret                              ; 0x07d8
 loc_07d9:
     mov ax, 0                        ; 0x07d9
-    call ds_aztec_csav               ; 0x07dc
+    call aztec_csav                  ; 0x07dc
     mov ax, word [bp + 0x6]          ; 0x07df
     dec ax                           ; 0x07e2
     push ax                          ; 0x07e3
@@ -154,7 +154,7 @@ loc_07d9:
     ret                              ; 0x0848
 loc_0849:
     mov ax, 0                        ; 0x0849
-    call ds_aztec_csav               ; 0x084c
+    call aztec_csav                  ; 0x084c
     push word [bp + 0x6]             ; 0x084f
     mov ax, word [bp + 0x4]          ; 0x0852
     dec ax                           ; 0x0855
@@ -207,7 +207,7 @@ loc_0849:
     ret                              ; 0x08b8
 loc_08b9:
     mov ax, 0                        ; 0x08b9
-    call ds_aztec_csav               ; 0x08bc
+    call aztec_csav                  ; 0x08bc
     mov ax, word [bp + 0x4]          ; 0x08bf
     jmp short @..loc_08b9.l5         ; 0x08c2
 @..loc_08b9.l1:
@@ -280,7 +280,7 @@ loc_08b9:
     ret                              ; 0x0959
 loc_095a:
     mov ax, 0                        ; 0x095a
-    call ds_aztec_csav               ; 0x095d
+    call aztec_csav                  ; 0x095d
     mov ax, word [bp + 0x4]          ; 0x0960
     jmp short @..loc_095a.l5         ; 0x0963
 @..loc_095a.l1:

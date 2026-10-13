@@ -1,6 +1,6 @@
 api_idx_0002_4:
     mov ax, 0xfffe                   ; 0x56cc
-    call ds_aztec_csav               ; 0x56cf
+    call aztec_csav                  ; 0x56cf
     mov al, byte [bp + 0x4]          ; 0x56d2
     push ax                          ; 0x56d5
     mov ax, 6                        ; 0x56d6
@@ -75,7 +75,7 @@ api_idx_0002_4:
     ret                              ; 0x5788
 loc_5789:
     mov ax, 0xfe5c                   ; 0x5789
-    call ds_aztec_csav               ; 0x578c
+    call aztec_csav                  ; 0x578c
     mov ax, 0                        ; 0x578f
     push ax                          ; 0x5792
     push word [bss_84a0]             ; 0x5793
@@ -343,7 +343,7 @@ loc_5789:
     mov bx, dx                       ; 0x5a0b
     pop dx                           ; 0x5a0d
     pop ax                           ; 0x5a0e
-    call ds_aztec_ldv                ; 0x5a0f
+    call aztec_ldv                   ; 0x5a0f
     mov word [bp - 0x0086], dx       ; 0x5a12
     mov word [bp - 0x0088], ax       ; 0x5a16
     push word [bss_0e2c]             ; 0x5a1a
@@ -393,7 +393,7 @@ loc_5789:
     imul word [bp - 0x0002]          ; 0x5a8b
     add ax, 0x93fe                   ; 0x5a8e
     push ax                          ; 0x5a91
-    call ds_aztec_strcpy             ; 0x5a92
+    call aztec_strcpy                ; 0x5a92
     add sp, byte 4                   ; 0x5a95
     jmp short @..loc_5789.l28        ; 0x5a98
 @..loc_5789.l27:
@@ -414,7 +414,7 @@ loc_5789:
     push ax                          ; 0x5abc
     lea ax, word [bp - 0x01a4]       ; 0x5abd
     push ax                          ; 0x5ac1
-    call ds_aztec_strcpy             ; 0x5ac2
+    call aztec_strcpy                ; 0x5ac2
     add sp, byte 4                   ; 0x5ac5
     lea ax, word [bp - 0x01a4]       ; 0x5ac8
     push ax                          ; 0x5acc
@@ -472,7 +472,7 @@ loc_5789:
     push ax                          ; 0x5b4d
     lea ax, word [bp - 0x0104]       ; 0x5b4e
     push ax                          ; 0x5b52
-    call ds_aztec_strcpy             ; 0x5b53
+    call aztec_strcpy                ; 0x5b53
     add sp, byte 4                   ; 0x5b56
     lea ax, word [bp - 0x0154]       ; 0x5b59
     push ax                          ; 0x5b5d
@@ -517,7 +517,7 @@ loc_5789:
     je short @..loc_5789.l42         ; 0x5bbb
     lea ax, word [bp - 0x0104]       ; 0x5bbd
     push ax                          ; 0x5bc1
-    call ds_aztec_strlen             ; 0x5bc2
+    call aztec_strlen                ; 0x5bc2
     pop cx                           ; 0x5bc5
     mov word [bp - 0x0004], ax       ; 0x5bc6
     mov al, byte [bp - 0x004a]       ; 0x5bc9

@@ -1,6 +1,6 @@
 api_idx_0060:
     mov ax, 0xffa0                   ; 0x1fd5
-    call ds_aztec_csav               ; 0x1fd8
+    call aztec_csav                  ; 0x1fd8
     mov word [bss_91fe], 0           ; 0x1fdb
     mov ax, 0x64                     ; 0x1fe1
     push ax                          ; 0x1fe4
@@ -46,7 +46,7 @@ api_idx_0060:
     push ax                          ; 0x2045
     mov ax, 0x9200                   ; 0x2046
     push ax                          ; 0x2049
-    call ds_aztec_setmem             ; 0x204a
+    call aztec_setmem                ; 0x204a
     add sp, byte 6                   ; 0x204d
     mov ax, word [bss_91fe]          ; 0x2050
     shl ax, 1                        ; 0x2053
@@ -58,7 +58,7 @@ api_idx_0060:
     push ax                          ; 0x2064
     mov ax, 0x9230                   ; 0x2065
     push ax                          ; 0x2068
-    call ds_aztec_setmem             ; 0x2069
+    call aztec_setmem                ; 0x2069
     add sp, byte 6                   ; 0x206c
     mov word [bp - 0x002e], 0        ; 0x206f
     mov ax, 0                        ; 0x2074
@@ -67,7 +67,7 @@ api_idx_0060:
     push ax                          ; 0x207b
     lea ax, word [bp - 0x002c]       ; 0x207c
     push ax                          ; 0x207f
-    call ds_aztec_setmem             ; 0x2080
+    call aztec_setmem                ; 0x2080
     add sp, byte 6                   ; 0x2083
     mov word [bp - 0x0002], 0        ; 0x2086
 @..api_idx_0060.l5:
@@ -261,7 +261,7 @@ api_idx_0060:
     imul word [bp - 0x0008]          ; 0x2270
     add ax, 0x9252                   ; 0x2273
     push ax                          ; 0x2276
-    call ds_aztec_strcpy             ; 0x2277
+    call aztec_strcpy                ; 0x2277
     add sp, byte 4                   ; 0x227a
     mov word [bp - 0x0004], 0        ; 0x227d
 @..api_idx_0060.l27:
@@ -337,7 +337,7 @@ api_idx_0060:
     imul word [bp - 0x0002]          ; 0x232d
     add ax, 0x9372                   ; 0x2330
     push ax                          ; 0x2333
-    call ds_aztec_strcpy             ; 0x2334
+    call aztec_strcpy                ; 0x2334
     add sp, byte 4                   ; 0x2337
     mov word [bp - 0x0006], 0xfffb   ; 0x233a
     mov ax, 0x248                    ; 0x233f
@@ -442,7 +442,7 @@ api_idx_0060:
     ret                              ; 0x242b
 loc_242c:
     mov ax, 0                        ; 0x242c
-    call ds_aztec_csav               ; 0x242f
+    call aztec_csav                  ; 0x242f
     mov ax, 0xc0                     ; 0x2432
     cmp word [bp + 0xc], byte 0      ; 0x2435
     je short @..loc_242c.l1          ; 0x2439

@@ -65,10 +65,7 @@ def main():
             from lib.cross_ref import read_label_json
             raw = read_label_json(FOREIGN_LABELS_PATH)
             prefix = FOREIGN_PREFIX or ''
-            foreign_label_map = {
-                addr: f'{prefix}_{name}' if prefix else name
-                for addr, name in raw.items()
-            }
+            foreign_label_map = dict(raw)
         host_data_offsets = None
         if HOST_DATA_OFFSETS_PATH:
             import json

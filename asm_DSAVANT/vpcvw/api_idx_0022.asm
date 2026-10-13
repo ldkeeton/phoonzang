@@ -1,6 +1,6 @@
 api_idx_0022:
     mov ax, 0xffde                   ; 0x9491
-    call ds_aztec_csav               ; 0x9494
+    call aztec_csav                  ; 0x9494
     mov word [bp - 0x000c], 0        ; 0x9497
     mov ax, word [bss_5218]          ; 0x949c
     mov word [bp - 0x000e], ax       ; 0x949f
@@ -106,7 +106,7 @@ api_idx_0022:
     add sp, byte 0x0c                ; 0x957d
     mov word [bp - 0x0004], dx       ; 0x9580
     mov word [bp - 0x0006], ax       ; 0x9583
-    call ds_bios_kbd_check           ; 0x9586
+    call bios_kbd_check              ; 0x9586
 @..api_idx_0022.l4:
     mov ax, 0                        ; 0x9589
     push ax                          ; 0x958c

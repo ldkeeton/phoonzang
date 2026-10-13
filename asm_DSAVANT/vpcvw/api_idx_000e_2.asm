@@ -1,6 +1,6 @@
 api_idx_000e_2:
     mov ax, 0xfff2                   ; 0x4505
-    call ds_aztec_csav               ; 0x4508
+    call aztec_csav                  ; 0x4508
     mov bx, word [bp + 0x4]          ; 0x450b
     mov al, byte [bx + 0x4]          ; 0x450e
     sub ah, ah                       ; 0x4511
@@ -14,11 +14,11 @@ api_idx_000e_2:
     push ax                          ; 0x4528
     push word [bp + 0x6]             ; 0x4529
     push bx                          ; 0x452c
-    call ds_aztec_movmem             ; 0x452d
+    call aztec_movmem                ; 0x452d
     add sp, byte 6                   ; 0x4530
     push word [bp + 0x8]             ; 0x4533
     push word [bp + 0xa]             ; 0x4536
-    call ds_aztec_strcpy             ; 0x4539
+    call aztec_strcpy                ; 0x4539
     add sp, byte 4                   ; 0x453c
     mov bx, word [bp + 0x4]          ; 0x453f
     mov al, byte [bx + 0x6]          ; 0x4542

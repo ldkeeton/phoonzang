@@ -1,6 +1,6 @@
 api_idx_00d4:
     mov ax, 0xff2c                   ; 0x3710
-    call ds_aztec_csav               ; 0x3713
+    call aztec_csav                  ; 0x3713
     lea ax, word [bp - 0x00d4]       ; 0x3716
     push ax                          ; 0x371a
     mov ax, 0xdaf                    ; 0x371b
@@ -164,10 +164,10 @@ api_idx_00d4:
     push ax                          ; 0x38b8
     mov ax, 0x90d8                   ; 0x38b9
     push ax                          ; 0x38bc
-    call ds_aztec_setmem             ; 0x38bd
+    call aztec_setmem                ; 0x38bd
     add sp, byte 6                   ; 0x38c0
     mov word [bp - 0x00b4], 0        ; 0x38c3
-    call ds_bios_kbd_check           ; 0x38c9
+    call bios_kbd_check              ; 0x38c9
     mov word [bp - 0x0006], 0        ; 0x38cc
 @..api_idx_00d4.l13:
     mov ax, word [bp - 0x0006]       ; 0x38d1
@@ -885,7 +885,7 @@ loc_3fba:
     push ax                          ; 0x3fc1
     mov ax, 0x90d8                   ; 0x3fc2
     push ax                          ; 0x3fc5
-    call ds_aztec_setmem             ; 0x3fc6
+    call aztec_setmem                ; 0x3fc6
     add sp, byte 6                   ; 0x3fc9
     mov word [bp - 0x009a], 0        ; 0x3fcc
     jmp short @..api_idx_00d4.l65    ; 0x3fd2
@@ -933,7 +933,7 @@ loc_4033:
     push ax                          ; 0x403a
     mov ax, 0x90d8                   ; 0x403b
     push ax                          ; 0x403e
-    call ds_aztec_setmem             ; 0x403f
+    call aztec_setmem                ; 0x403f
     add sp, byte 6                   ; 0x4042
     mov word [bp - 0x0006], 0xffff   ; 0x4045
     mov word [bp - 0x00a0], 1        ; 0x404a
@@ -1216,7 +1216,7 @@ jumptable_4058:
     mov word [bp - 0x0026], 0        ; 0x42f8
 @..api_idx_00d4.l85:
     mov word [bp - 0x0022], 0xffff   ; 0x42fd
-    call ds_bios_kbd_check           ; 0x4302
+    call bios_kbd_check              ; 0x4302
     lea ax, word [bp - 0x0028]       ; 0x4305
     push ax                          ; 0x4308
     mov ax, 1                        ; 0x4309
@@ -1315,7 +1315,7 @@ jumptable_4058:
     push ax                          ; 0x43f3
     mov ax, 0x90d8                   ; 0x43f4
     push ax                          ; 0x43f7
-    call ds_aztec_setmem             ; 0x43f8
+    call aztec_setmem                ; 0x43f8
     add sp, byte 6                   ; 0x43fb
     mov word [bp - 0x009a], 0        ; 0x43fe
     jmp short @..api_idx_00d4.l94    ; 0x4404

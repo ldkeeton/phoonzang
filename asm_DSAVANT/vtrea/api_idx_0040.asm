@@ -1,6 +1,6 @@
 api_idx_0040:
     mov ax, 0xffc0                   ; 0x5348
-    call ds_aztec_csav               ; 0x534b
+    call aztec_csav                  ; 0x534b
     lea ax, word [bp - 0x0034]       ; 0x534e
     push ax                          ; 0x5351
     mov ax, 0x13ec                   ; 0x5352
@@ -147,7 +147,7 @@ api_idx_0040:
     imul word [bp - 0x0004]          ; 0x549d
     add ax, 0x93fe                   ; 0x54a0
     push ax                          ; 0x54a3
-    call ds_aztec_strcpy             ; 0x54a4
+    call aztec_strcpy                ; 0x54a4
     add sp, byte 4                   ; 0x54a7
     mov ax, word [bp - 0x0004]       ; 0x54aa
     shl ax, 1                        ; 0x54ad

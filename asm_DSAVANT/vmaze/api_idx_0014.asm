@@ -1,6 +1,6 @@
 api_idx_0014:
     mov ax, 0xffec                   ; 0x06da
-    call ds_aztec_csav               ; 0x06dd
+    call aztec_csav                  ; 0x06dd
     mov ax, word [bss_0e10]          ; 0x06e0
     mov word [bp - 0x0004], ax       ; 0x06e3
     mov word [bp - 0x0002], 0        ; 0x06e6
@@ -326,7 +326,7 @@ jumptable_099e:
     ret                              ; 0x09ca
 loc_09cb:
     mov ax, 0                        ; 0x09cb
-    call ds_aztec_csav               ; 0x09ce
+    call aztec_csav                  ; 0x09ce
     mov ax, 0                        ; 0x09d1
     push ax                          ; 0x09d4
     push word [bss_830c]             ; 0x09d5
@@ -357,7 +357,7 @@ loc_09cb:
     add ax, cx                       ; 0x0a17
     push dx                          ; 0x0a19
     push ax                          ; 0x0a1a
-    call ds_app_memmove              ; 0x0a1b
+    call app_memmove                 ; 0x0a1b
     add sp, byte 0x0a                ; 0x0a1e
     mov ax, 0x80                     ; 0x0a21
     push ax                          ; 0x0a24
@@ -373,7 +373,7 @@ loc_09cb:
     add ax, cx                       ; 0x0a3b
     push dx                          ; 0x0a3d
     push ax                          ; 0x0a3e
-    call ds_app_memmove              ; 0x0a3f
+    call app_memmove                 ; 0x0a3f
     add sp, byte 0x0a                ; 0x0a42
     call api_idx_0014                ; 0x0a45
     mov bx, word [bss_0e14]          ; 0x0a48

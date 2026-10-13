@@ -1,13 +1,13 @@
 api_idx_0038:
     mov ax, 0xffc8                   ; 0x24ae
-    call ds_aztec_csav               ; 0x24b1
+    call aztec_csav                  ; 0x24b1
     mov ax, 0                        ; 0x24b4
     push ax                          ; 0x24b7
     mov ax, 0x2c                     ; 0x24b8
     push ax                          ; 0x24bb
     lea ax, word [bp - 0x0038]       ; 0x24bc
     push ax                          ; 0x24bf
-    call ds_aztec_setmem             ; 0x24c0
+    call aztec_setmem                ; 0x24c0
     add sp, byte 6                   ; 0x24c3
     mov word [bp - 0x0004], 0        ; 0x24c6
     mov word [bp - 0x0002], 0        ; 0x24cb

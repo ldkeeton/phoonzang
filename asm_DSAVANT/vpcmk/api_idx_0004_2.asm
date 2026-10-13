@@ -1,6 +1,6 @@
 api_idx_0004_2:
     mov ax, 0xfffc                   ; 0x2090
-    call ds_aztec_csav               ; 0x2093
+    call aztec_csav                  ; 0x2093
     mov ax, 0xc2                     ; 0x2096
     push ax                          ; 0x2099
     mov ax, 0x13f                    ; 0x209a
@@ -16,7 +16,7 @@ api_idx_0004_2:
     mov ax, 0xbc                     ; 0x20b2
     push ax                          ; 0x20b5
     push word [bp + 0x4]             ; 0x20b6
-    call ds_aztec_strlen             ; 0x20b9
+    call aztec_strlen                ; 0x20b9
     pop cx                           ; 0x20bc
     mov cx, 6                        ; 0x20bd
     imul cx                          ; 0x20c0

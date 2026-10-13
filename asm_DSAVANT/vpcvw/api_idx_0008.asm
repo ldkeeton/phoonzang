@@ -1,6 +1,6 @@
 api_idx_0008:
     mov ax, 0xfff8                   ; 0x1b17
-    call ds_aztec_csav               ; 0x1b1a
+    call aztec_csav                  ; 0x1b1a
     mov ax, word [bp + 0x6]          ; 0x1b1d
     cwd                              ; 0x1b20
     idiv word [bp + 0x12]            ; 0x1b21
@@ -64,7 +64,7 @@ api_idx_0008:
     inc ax                           ; 0x1bb0
     push ax                          ; 0x1bb1
     push word [bp + 0x4]             ; 0x1bb2
-    call ds_aztec_strlen             ; 0x1bb5
+    call aztec_strlen                ; 0x1bb5
     pop cx                           ; 0x1bb8
     mov cx, ax                       ; 0x1bb9
     mov ax, word [bp + 0xc]          ; 0x1bbb
@@ -114,7 +114,7 @@ api_idx_0008:
     ret                              ; 0x1c24
 loc_1c25:
     mov ax, 0                        ; 0x1c25
-    call ds_aztec_csav               ; 0x1c28
+    call aztec_csav                  ; 0x1c28
     push word [bp + 0xc]             ; 0x1c2b
     mov ax, word [bp + 0x6]          ; 0x1c2e
     dec ax                           ; 0x1c31
@@ -178,7 +178,7 @@ loc_1c25:
     ret                              ; 0x1c9f
 loc_1ca0:
     mov ax, 0xfe56                   ; 0x1ca0
-    call ds_aztec_csav               ; 0x1ca3
+    call aztec_csav                  ; 0x1ca3
     mov ax, word [bp + 0x14]         ; 0x1ca6
     dec ax                           ; 0x1ca9
     cwd                              ; 0x1caa
@@ -253,7 +253,7 @@ loc_1ca0:
     push ax                          ; 0x1d54
     lea ax, word [bp - 0x01a6]       ; 0x1d55
     push ax                          ; 0x1d59
-    call ds_aztec_strlen             ; 0x1d5a
+    call aztec_strlen                ; 0x1d5a
     pop cx                           ; 0x1d5d
     mov cx, 6                        ; 0x1d5e
     imul cx                          ; 0x1d61
@@ -368,7 +368,7 @@ loc_1ca0:
     lea cx, word [bp - 0x0156]       ; 0x1e5b
     add ax, cx                       ; 0x1e5f
     push ax                          ; 0x1e61
-    call ds_aztec_strlen             ; 0x1e62
+    call aztec_strlen                ; 0x1e62
     pop cx                           ; 0x1e65
     mov cx, ax                       ; 0x1e66
     mov ax, word [bp + 0xc]          ; 0x1e68
@@ -525,7 +525,7 @@ loc_1ca0:
 @..loc_1ca0.l13:
     mov ax, 1                        ; 0x1fc5
     push ax                          ; 0x1fc8
-    call ds_dos_con_in_noecho        ; 0x1fc9
+    call dos_con_in_noecho           ; 0x1fc9
     pop cx                           ; 0x1fcc
     test ax, ax                      ; 0x1fcd
     jne short @..loc_1ca0.l14        ; 0x1fcf
@@ -533,7 +533,7 @@ loc_1ca0:
 @..loc_1ca0.l14:
     mov ax, 1                        ; 0x1fd3
     push ax                          ; 0x1fd6
-    call ds_dos_con_in_noecho_2      ; 0x1fd7
+    call dos_con_in_noecho_2         ; 0x1fd7
     pop cx                           ; 0x1fda
     sub ah, ah                       ; 0x1fdb
     mov word [bp - 0x01aa], ax       ; 0x1fdd
@@ -739,7 +739,7 @@ loc_1ca0:
     ret                              ; 0x218f
 loc_2190:
     mov ax, 0                        ; 0x2190
-    call ds_aztec_csav               ; 0x2193
+    call aztec_csav                  ; 0x2193
     mov ax, 1                        ; 0x2196
     push ax                          ; 0x2199
     push ax                          ; 0x219a
@@ -753,7 +753,7 @@ loc_2190:
     ret                              ; 0x21ac
 loc_21ad:
     mov ax, 0                        ; 0x21ad
-    call ds_aztec_csav               ; 0x21b0
+    call aztec_csav                  ; 0x21b0
     cmp word [bp + 0x8], byte 1      ; 0x21b3
     jne short @..loc_21ad.l3         ; 0x21b7
     cmp word [bp + 0x6], byte 0      ; 0x21b9

@@ -174,7 +174,7 @@ loc_6d9c:
     ret                              ; 0x6d9c
 loc_6d9d:
     mov ax, 0                        ; 0x6d9d
-    call ds_aztec_csav               ; 0x6da0
+    call aztec_csav                  ; 0x6da0
     mov word [bss_93da], 0           ; 0x6da3
     cmp byte [bss_91ca], 0           ; 0x6da9
     jle short @..loc_6d9d.l1         ; 0x6dae

@@ -1,6 +1,6 @@
 api_idx_000a_3:
     mov ax, 0xfff6                   ; 0x8a89
-    call ds_aztec_csav               ; 0x8a8c
+    call aztec_csav                  ; 0x8a8c
     mov byte [bp - 0x000a], 1        ; 0x8a8f
     mov byte [bp - 0x0009], 0        ; 0x8a93
     mov ax, 0                        ; 0x8a97
@@ -29,7 +29,7 @@ api_idx_000a_3:
     ret                              ; 0x8ac6
 loc_8ac7:
     mov ax, 0                        ; 0x8ac7
-    call ds_aztec_csav               ; 0x8aca
+    call aztec_csav                  ; 0x8aca
     push word [bp + 0x6]             ; 0x8acd
     mov ax, 0xa                      ; 0x8ad0
     imul word [bp + 0x8]             ; 0x8ad3
@@ -90,7 +90,7 @@ loc_8ac7:
     ret                              ; 0x8b52
 loc_8b53:
     mov ax, 0                        ; 0x8b53
-    call ds_aztec_csav               ; 0x8b56
+    call aztec_csav                  ; 0x8b56
     mov ax, word [bp + 0x6]          ; 0x8b59
     add ax, strict word 6            ; 0x8b5c
     push ax                          ; 0x8b5f

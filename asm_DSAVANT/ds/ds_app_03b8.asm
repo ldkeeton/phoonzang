@@ -1,0 +1,10 @@
+ds_app_03b8: ; Aztec csav frame=0x0000
+    mov ax, 0                        ; 0x03b8
+    call aztec_csav                  ; 0x03bb
+    push word [bp + 0x4]             ; 0x03be
+    call ds_app_file_0242            ; 0x03c1
+    pop cx                           ; 0x03c4
+    push word [bp + 0x4]             ; 0x03c5
+    call ds_loc_4f73                 ; 0x03c8
+    pop cx                           ; 0x03cb
+    ret                              ; 0x03cc

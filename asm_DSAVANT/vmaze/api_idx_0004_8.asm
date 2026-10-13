@@ -1,6 +1,6 @@
 api_idx_0004_8:
     mov ax, 0xfffc                   ; 0x6c0a
-    call ds_aztec_csav               ; 0x6c0d
+    call aztec_csav                  ; 0x6c0d
     cmp word [bss_9b4c], byte 3      ; 0x6c10
     jle short @..api_idx_0004_8.l1   ; 0x6c15
     mov ax, 0                        ; 0x6c17
@@ -28,7 +28,7 @@ api_idx_0004_8:
     sub ax, cx                       ; 0x6c43
     mov word [bp - 0x0002], ax       ; 0x6c45
     push word [bp + 0x4]             ; 0x6c48
-    call ds_aztec_strlen             ; 0x6c4b
+    call aztec_strlen                ; 0x6c4b
     pop cx                           ; 0x6c4e
     dec ax                           ; 0x6c4f
     mov word [bp - 0x0004], ax       ; 0x6c50

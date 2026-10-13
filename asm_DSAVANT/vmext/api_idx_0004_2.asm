@@ -1,7 +1,7 @@
 api_idx_0004_2:
     mov ax, 0xfffc                   ; 0x05e6
-    call ds_aztec_csav               ; 0x05e9
-    call ds_bios_kbd_check           ; 0x05ec
+    call aztec_csav                  ; 0x05e9
+    call bios_kbd_check              ; 0x05ec
     mov ax, word [bp + 0x4]          ; 0x05ef
     cwd                              ; 0x05f2
     les bx, word [dseg_0002]         ; 0x05f3
@@ -38,14 +38,14 @@ api_idx_0004_2:
     ret                              ; 0x0635
 loc_0636:
     mov ax, 0                        ; 0x0636
-    call ds_aztec_csav               ; 0x0639
+    call aztec_csav                  ; 0x0639
     mov ax, 0                        ; 0x063c
     push ax                          ; 0x063f
     mov ax, 8                        ; 0x0640
     push ax                          ; 0x0643
     mov ax, 0x8cfe                   ; 0x0644
     push ax                          ; 0x0647
-    call ds_aztec_setmem             ; 0x0648
+    call aztec_setmem                ; 0x0648
     add sp, byte 6                   ; 0x064b
     mov word [bss_82ea], 0           ; 0x064e
     mov ax, word [bp + 0x4]          ; 0x0654
@@ -79,7 +79,7 @@ loc_0636:
     ret                              ; 0x0691
 loc_0692:
     mov ax, 0                        ; 0x0692
-    call ds_aztec_csav               ; 0x0695
+    call aztec_csav                  ; 0x0695
     mov ax, word [bss_8f46]          ; 0x0698
     mov word [bss_8f3a], ax          ; 0x069b
     mov ax, word [bss_8f44]          ; 0x069e
@@ -97,7 +97,7 @@ loc_0692:
     ret                              ; 0x06c2
 loc_06c3:
     mov ax, 0                        ; 0x06c3
-    call ds_aztec_csav               ; 0x06c6
+    call aztec_csav                  ; 0x06c6
     mov ax, word [bp + 0x4]          ; 0x06c9
     jmp short @..loc_06c3.l5         ; 0x06cc
 @..loc_06c3.l1:

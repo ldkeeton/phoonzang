@@ -1,11 +1,11 @@
 api_idx_0004_3:
     mov ax, 0xfffc                   ; 0x0d24
-    call ds_aztec_csav               ; 0x0d27
+    call aztec_csav                  ; 0x0d27
 @..api_idx_0004_3.l1:
     mov ax, 0x20                     ; 0x0d2a
     push ax                          ; 0x0d2d
     push word [bp + 0x4]             ; 0x0d2e
-    call ds_strlen                   ; 0x0d31
+    call strlen                      ; 0x0d31
     add sp, byte 4                   ; 0x0d34
     mov word [bp - 0x0002], ax       ; 0x0d37
     cmp ax, strict word 0xffff       ; 0x0d3a
@@ -17,7 +17,7 @@ api_idx_0004_3:
     mov ax, 0x5f                     ; 0x0d47
     push ax                          ; 0x0d4a
     push word [bp + 0x4]             ; 0x0d4b
-    call ds_strlen                   ; 0x0d4e
+    call strlen                      ; 0x0d4e
     add sp, byte 4                   ; 0x0d51
     mov word [bp - 0x0004], ax       ; 0x0d54
     cmp ax, strict word 0xffff       ; 0x0d57
@@ -45,7 +45,7 @@ api_idx_0004_3:
     ret                              ; 0x0d86
 loc_0d87:
     mov ax, 0xfefa                   ; 0x0d87
-    call ds_aztec_csav               ; 0x0d8a
+    call aztec_csav                  ; 0x0d8a
     mov ax, 0                        ; 0x0d8d
     push ax                          ; 0x0d90
     call api_idx_000a_2              ; 0x0d91

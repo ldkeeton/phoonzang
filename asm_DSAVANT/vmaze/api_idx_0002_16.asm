@@ -1,6 +1,6 @@
 api_idx_0002_16:
     mov ax, 0xfffe                   ; 0x89d0
-    call ds_aztec_csav               ; 0x89d3
+    call aztec_csav                  ; 0x89d3
     mov ax, word [bp + 0x6]          ; 0x89d6
     mov word [bp - 0x0002], ax       ; 0x89d9
     jmp short @..api_idx_0002_16.l2  ; 0x89dc

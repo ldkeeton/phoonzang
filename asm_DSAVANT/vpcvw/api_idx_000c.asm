@@ -1,6 +1,6 @@
 api_idx_000c:
     mov ax, 0xfff4                   ; 0x037b
-    call ds_aztec_csav               ; 0x037e
+    call aztec_csav                  ; 0x037e
     mov ax, word [bp + 0x4]          ; 0x0381
     mov cx, 3                        ; 0x0384
     cwd                              ; 0x0387
@@ -43,7 +43,7 @@ api_idx_000c:
     imul word [bp + 0x4]             ; 0x03e1
     add ax, 0x5bf4                   ; 0x03e4
     push ax                          ; 0x03e7
-    call ds_aztec_strlen             ; 0x03e8
+    call aztec_strlen                ; 0x03e8
     pop cx                           ; 0x03eb
     mov cx, 6                        ; 0x03ec
     imul cx                          ; 0x03ef

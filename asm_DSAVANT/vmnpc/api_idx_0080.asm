@@ -1,6 +1,6 @@
 api_idx_0080:
     mov ax, 0xff80                   ; 0x96c7
-    call ds_aztec_csav               ; 0x96ca
+    call aztec_csav                  ; 0x96ca
     lea ax, word [bp - 0x0080]       ; 0x96cd
     push ax                          ; 0x96d0
     push word [bp + 0x4]             ; 0x96d1
@@ -43,7 +43,7 @@ api_idx_0080:
     push ax                          ; 0x972e
     lea ax, word [bp - 0x0080]       ; 0x972f
     push ax                          ; 0x9732
-    call ds_aztec_strcpy             ; 0x9733
+    call aztec_strcpy                ; 0x9733
     add sp, byte 4                   ; 0x9736
     lea ax, word [bp - 0x0080]       ; 0x9739
     push ax                          ; 0x973c

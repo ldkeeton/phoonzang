@@ -1,6 +1,6 @@
 api_idx_0006_6:
     mov ax, 0xfffa                   ; 0x72bf
-    call ds_aztec_csav               ; 0x72c2
+    call aztec_csav                  ; 0x72c2
     mov ax, 3                        ; 0x72c5
     push ax                          ; 0x72c8
     call api_idx_0006                ; 0x72c9
@@ -55,7 +55,7 @@ api_idx_0006_6:
     shl ax, 1                        ; 0x733d
     mov bx, ax                       ; 0x733f
     push word [bx - 0x7b96]          ; 0x7341
-    call ds_aztec_free               ; 0x7345
+    call aztec_free                  ; 0x7345
     pop cx                           ; 0x7348
     inc word [bp - 0x0002]           ; 0x7349
     mov ax, word [bp - 0x0002]       ; 0x734c
@@ -82,7 +82,7 @@ api_idx_0006_6:
     push ax                          ; 0x737e
     mov ax, 0x843a                   ; 0x737f
     push ax                          ; 0x7382
-    call ds_aztec_setmem             ; 0x7383
+    call aztec_setmem                ; 0x7383
     add sp, byte 6                   ; 0x7386
     mov ax, 0                        ; 0x7389
     push ax                          ; 0x738c
@@ -90,7 +90,7 @@ api_idx_0006_6:
     push ax                          ; 0x7390
     mov ax, 0x93dc                   ; 0x7391
     push ax                          ; 0x7394
-    call ds_aztec_setmem             ; 0x7395
+    call aztec_setmem                ; 0x7395
     add sp, byte 6                   ; 0x7398
     cmp word [bss_598e], byte 0xff   ; 0x739b
     je short @..api_idx_0006_6.l6    ; 0x73a0
@@ -133,7 +133,7 @@ api_idx_0006_6:
     ret                              ; 0x73ff
 loc_7400:
     mov ax, 0                        ; 0x7400
-    call ds_aztec_csav               ; 0x7403
+    call aztec_csav                  ; 0x7403
     mov word [bss_9d6c], 3           ; 0x7406
     mov word [bss_93d8], 0x8f        ; 0x740c
     mov word [bss_9d62], 3           ; 0x7412
@@ -147,7 +147,7 @@ loc_7400:
     ret                              ; 0x742d
 loc_742e:
     mov ax, 0                        ; 0x742e
-    call ds_aztec_csav               ; 0x7431
+    call aztec_csav                  ; 0x7431
     mov ax, word [bss_598e]          ; 0x7434
     cmp ax, word [bp + 0x4]          ; 0x7437
     je short @..loc_742e.l1          ; 0x743a

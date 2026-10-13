@@ -1,31 +1,31 @@
 api_idx_002a:
     mov ax, 0xffd6                   ; 0x2447
-    call ds_aztec_csav               ; 0x244a
+    call aztec_csav                  ; 0x244a
     mov ax, 0                        ; 0x244d
     push ax                          ; 0x2450
     mov ax, 0x28                     ; 0x2451
     push ax                          ; 0x2454
     lea ax, word [bp - 0x002a]       ; 0x2455
     push ax                          ; 0x2458
-    call ds_aztec_setmem             ; 0x2459
+    call aztec_setmem                ; 0x2459
     add sp, byte 6                   ; 0x245c
     push word [bp + 0x4]             ; 0x245f
     lea ax, word [bp - 0x002a]       ; 0x2462
     push ax                          ; 0x2465
-    call ds_aztec_strcpy             ; 0x2466
+    call aztec_strcpy                ; 0x2466
     add sp, byte 4                   ; 0x2469
     mov ax, 0x2f                     ; 0x246c
     push ax                          ; 0x246f
     lea ax, word [bp - 0x002a]       ; 0x2470
     push ax                          ; 0x2473
-    call ds_strlen                   ; 0x2474
+    call strlen                      ; 0x2474
     add sp, byte 4                   ; 0x2477
     mov word [bp - 0x0002], ax       ; 0x247a
     cmp ax, strict word 0xffff       ; 0x247d
     jne short @..api_idx_002a.l1     ; 0x2480
     lea ax, word [bp - 0x002a]       ; 0x2482
     push ax                          ; 0x2485
-    call ds_aztec_strlen             ; 0x2486
+    call aztec_strlen                ; 0x2486
     pop cx                           ; 0x2489
     mov word [bp - 0x0002], ax       ; 0x248a
 @..api_idx_002a.l1:

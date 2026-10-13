@@ -1,6 +1,6 @@
 api_idx_0038:
     mov ax, 0xffc8                   ; 0x0abb
-    call ds_aztec_csav               ; 0x0abe
+    call aztec_csav                  ; 0x0abe
     mov word [bss_904e], 0xffff      ; 0x0ac1
     mov word [bp - 0x0004], 0x37     ; 0x0ac7
     mov word [bp - 0x0006], 0x8f     ; 0x0acc

@@ -1,6 +1,6 @@
 api_idx_0012_4:
     mov ax, 0xffee                   ; 0x0a96
-    call ds_aztec_csav               ; 0x0a99
+    call aztec_csav                  ; 0x0a99
     mov word [bss_940e], 0xffff      ; 0x0a9c
     mov ax, word [bp + 0x6]          ; 0x0aa2
     push ax                          ; 0x0aa5
@@ -76,7 +76,7 @@ api_idx_0012_4:
     push ax                          ; 0x0b35
     call ds_loc_42a7                 ; 0x0b36
     add sp, byte 0x0c                ; 0x0b39
-    call ds_bios_kbd_check           ; 0x0b3c
+    call bios_kbd_check              ; 0x0b3c
     jmp near @..api_idx_0012_4.l5    ; 0x0b3f
 @..api_idx_0012_4.l4:
     mov ax, word [bp - 0x000a]       ; 0x0b42
@@ -146,7 +146,7 @@ api_idx_0012_4:
     add ax, strict word 0xc          ; 0x0bec
     push dx                          ; 0x0bef
     push ax                          ; 0x0bf0
-    call ds_app_memmove              ; 0x0bf1
+    call app_memmove                 ; 0x0bf1
     add sp, byte 0x0a                ; 0x0bf4
     mov ax, 1                        ; 0x0bf7
     push ax                          ; 0x0bfa
@@ -198,7 +198,7 @@ api_idx_0012_4:
     push word [bss_0e1e]             ; 0x0c6b
     call ds_loc_42a7                 ; 0x0c6f
     add sp, byte 0x0c                ; 0x0c72
-    call ds_bios_kbd_check           ; 0x0c75
+    call bios_kbd_check              ; 0x0c75
 @..api_idx_0012_4.l5:
     jmp short @..api_idx_0012_4.l8   ; 0x0c78
 @..api_idx_0012_4.l6:
@@ -212,7 +212,7 @@ api_idx_0012_4:
     push word [bp + 0xa]             ; 0x0c8e
     mov ax, 0x9414                   ; 0x0c91
     push ax                          ; 0x0c94
-    call ds_aztec_strcpy             ; 0x0c95
+    call aztec_strcpy                ; 0x0c95
     add sp, byte 4                   ; 0x0c98
     mov bx, word [bp + 0x8]          ; 0x0c9b
     mov al, byte [bx + 0x5]          ; 0x0c9e

@@ -1,11 +1,11 @@
 api_idx_0024:
     mov ax, 0xffdc                   ; 0x50f4
-    call ds_aztec_csav               ; 0x50f7
+    call aztec_csav                  ; 0x50f7
     mov ax, word [bss_8f1c]          ; 0x50fa
     mov dx, word [bss_8f1e]          ; 0x50fd
     mov cx, 0x5a0                    ; 0x5101
     mov bx, 0                        ; 0x5104
-    call ds_aztec_ldv                ; 0x5107
+    call aztec_ldv                   ; 0x5107
     add ax, strict word 1            ; 0x510a
     adc dx, byte 0                   ; 0x510d
     mov word [bp - 0x0004], ax       ; 0x5110
@@ -18,10 +18,10 @@ api_idx_0024:
     mov dx, word [bss_8f1e]          ; 0x5122
     mov cx, 0x5a0                    ; 0x5126
     mov bx, 0                        ; 0x5129
-    call ds_aztec_lrm                ; 0x512c
+    call aztec_lrm                   ; 0x512c
     mov cx, 0x3c                     ; 0x512f
     mov bx, 0                        ; 0x5132
-    call ds_aztec_ldv                ; 0x5135
+    call aztec_ldv                   ; 0x5135
     cmp dx, byte 0                   ; 0x5138
     jg short @..api_idx_0024.l1      ; 0x513b
     jne short @..api_idx_0024.l2     ; 0x513d
@@ -51,7 +51,7 @@ api_idx_0024:
     sbb dx, bx                       ; 0x5172
     mov cx, 0x5a0                    ; 0x5174
     mov bx, 0                        ; 0x5177
-    call ds_aztec_lrm                ; 0x517a
+    call aztec_lrm                   ; 0x517a
     mov word [bp - 0x0008], ax       ; 0x517d
     cmp ax, strict word 0            ; 0x5180
     jl short @..api_idx_0024.l4      ; 0x5183

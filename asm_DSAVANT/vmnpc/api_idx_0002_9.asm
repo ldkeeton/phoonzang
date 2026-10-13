@@ -1,13 +1,13 @@
 api_idx_0002_9:
     mov ax, 0xfffe                   ; 0x8793
-    call ds_aztec_csav               ; 0x8796
+    call aztec_csav                  ; 0x8796
     mov ax, 0x25                     ; 0x8799
     push ax                          ; 0x879c
     mov ax, 0x14                     ; 0x879d
     imul word [bp + 0x4]             ; 0x87a0
     add ax, 0x9e88                   ; 0x87a3
     push ax                          ; 0x87a6
-    call ds_strlen                   ; 0x87a7
+    call strlen                      ; 0x87a7
     add sp, byte 4                   ; 0x87aa
     mov word [bp - 0x0002], ax       ; 0x87ad
     cmp ax, strict word 0            ; 0x87b0
@@ -31,7 +31,7 @@ api_idx_0002_9:
     imul word [bp + 0x4]             ; 0x87db
     add ax, 0x9e88                   ; 0x87de
     push ax                          ; 0x87e1
-    call ds_strlen                   ; 0x87e2
+    call strlen                      ; 0x87e2
     add sp, byte 4                   ; 0x87e5
     mov word [bp - 0x0002], ax       ; 0x87e8
     cmp ax, strict word 0            ; 0x87eb
@@ -55,7 +55,7 @@ api_idx_0002_9:
     imul word [bp + 0x4]             ; 0x8816
     add ax, 0x9e88                   ; 0x8819
     push ax                          ; 0x881c
-    call ds_strlen                   ; 0x881d
+    call strlen                      ; 0x881d
     add sp, byte 4                   ; 0x8820
     mov word [bp - 0x0002], ax       ; 0x8823
     cmp ax, strict word 0            ; 0x8826

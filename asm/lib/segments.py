@@ -126,6 +126,9 @@ class SegmentModel:
         # overlay's ``o_dorg`` (see plan.md D7.0).  ``None`` when the idiom is
         # absent (raw drivers, or capstone unavailable).
         self.ds_size = ds_size
+        # Name of the binary this model describes (set for a host, whose
+        # source overlays include for its symbols).
+        self.name = None
 
     def resolve(self, segment, offset):
         """Resolve *segment*:*offset* to a concrete location.
@@ -209,26 +212,6 @@ class SegmentModel:
             return None
         host_cs = (target + o_corg - self.cs_origin) & 0xFFFF
         return host_cs_origin + host_cs
-
-    def host_code_target(self, host_off):
-        """Inverse of :meth:`host_code_offset`.
-
-        Maps a *host file offset* back to the overlay-space near-flow handle the
-        overlay actually encodes for it.  Every overlay of a host shares the
-        same ``o_corg`` and ``cs_origin``, so this is one affine map
-        (``host_off - host.cs_origin - o_corg + cs_origin``, mod 16 bits) and a
-        single table of handles serves them all.
-
-        Returns ``None`` for MZ/driver models or when the host geometry is not
-        known.
-        """
-        if self.kind != 'overlay' or not self.overlay or self.host is None:
-            return None
-        o_corg = self.overlay.get('o_corg')
-        host_cs_origin = self.host.cs_origin
-        if o_corg is None or host_cs_origin is None:
-            return None
-        return (host_off - host_cs_origin - o_corg + self.cs_origin) & 0xFFFF
 
     def data_space(self, offset):
         """Classify a data-segment offset as ``'dseg'`` or ``'bss'``.

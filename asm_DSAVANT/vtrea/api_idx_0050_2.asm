@@ -1,6 +1,6 @@
 api_idx_0050_2:
     mov ax, 0xffb0                   ; 0x7f5a
-    call ds_aztec_csav               ; 0x7f5d
+    call aztec_csav                  ; 0x7f5d
     mov ax, 0x138c                   ; 0x7f60
     push ax                          ; 0x7f63
     call loc_7d99                    ; 0x7f64
@@ -136,7 +136,7 @@ api_idx_0050_2:
     ret                              ; 0x809d
 loc_809e:
     mov ax, 0                        ; 0x809e
-    call ds_aztec_csav               ; 0x80a1
+    call aztec_csav                  ; 0x80a1
     mov word [bss_849e], 0xffff      ; 0x80a4
     mov ax, 0x138c                   ; 0x80aa
     push ax                          ; 0x80ad
@@ -186,7 +186,7 @@ loc_809e:
     ret                              ; 0x811e
 loc_811f:
     mov ax, 0                        ; 0x811f
-    call ds_aztec_csav               ; 0x8122
+    call aztec_csav                  ; 0x8122
     mov ax, 0x138e                   ; 0x8125
     cmp word [bss_5b6e], byte 1      ; 0x8128
     jne short @..loc_811f.l1         ; 0x812d
@@ -251,7 +251,7 @@ loc_811f:
     ret                              ; 0x81b5
 loc_81b6:
     mov ax, 0                        ; 0x81b6
-    call ds_aztec_csav               ; 0x81b9
+    call aztec_csav                  ; 0x81b9
     mov ax, 0x7f6                    ; 0x81bc
     push ax                          ; 0x81bf
     call loc_7d99                    ; 0x81c0
@@ -269,7 +269,7 @@ loc_81b6:
     ret                              ; 0x81da
 loc_81db:
     mov ax, 0                        ; 0x81db
-    call ds_aztec_csav               ; 0x81de
+    call aztec_csav                  ; 0x81de
     mov ax, 0                        ; 0x81e1
     push ax                          ; 0x81e4
     call loc_7d99                    ; 0x81e5

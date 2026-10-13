@@ -1,13 +1,13 @@
 api_idx_0032:
     mov ax, 0xffce                   ; 0xab9b
-    call ds_aztec_csav               ; 0xab9e
+    call aztec_csav                  ; 0xab9e
     mov ax, 0                        ; 0xaba1
     push ax                          ; 0xaba4
     mov ax, 0x1e4                    ; 0xaba5
     push ax                          ; 0xaba8
     mov ax, 0x9c42                   ; 0xaba9
     push ax                          ; 0xabac
-    call ds_aztec_setmem             ; 0xabad
+    call aztec_setmem                ; 0xabad
     add sp, byte 6                   ; 0xabb0
     mov ax, 0                        ; 0xabb3
     push ax                          ; 0xabb6
@@ -15,7 +15,7 @@ api_idx_0032:
     push ax                          ; 0xabba
     lea ax, word [bp - 0x0032]       ; 0xabbb
     push ax                          ; 0xabbe
-    call ds_aztec_setmem             ; 0xabbf
+    call aztec_setmem                ; 0xabbf
     add sp, byte 6                   ; 0xabc2
     mov word [bp - 0x0004], 0        ; 0xabc5
 @..api_idx_0032.l1:

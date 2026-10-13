@@ -1,6 +1,6 @@
 api_idx_000a_3:
     mov ax, 0xfff6                   ; 0x5a8a
-    call ds_aztec_csav               ; 0x5a8d
+    call aztec_csav                  ; 0x5a8d
     mov ax, 0x248                    ; 0x5a90
     imul word [bp + 0x4]             ; 0x5a93
     mov bx, ax                       ; 0x5a96
@@ -330,7 +330,7 @@ jumptable_5cb4:
     ret                              ; 0x5d7d
 loc_5d7e:
     mov ax, 0                        ; 0x5d7e
-    call ds_aztec_csav               ; 0x5d81
+    call aztec_csav                  ; 0x5d81
     mov ax, word [bp + 0x6]          ; 0x5d84
     push ax                          ; 0x5d87
     cmp ax, strict word 1            ; 0x5d88

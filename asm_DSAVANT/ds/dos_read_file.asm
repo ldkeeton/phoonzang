@@ -53,7 +53,7 @@ dos_read_file:
     mov sp, bp                       ; 0x39f2
     pop bp                           ; 0x39f4
     ret                              ; 0x39f5
-loc_39f6:
+ds_loc_39f6:
     push bp                          ; 0x39f6
     mov bp, sp                       ; 0x39f7
     cld                              ; 0x39f9
@@ -99,7 +99,7 @@ loc_39f6:
     mov sp, bp                       ; 0x3a4c
     pop bp                           ; 0x3a4e
     ret                              ; 0x3a4f
-loc_3a50:
+ds_loc_3a50:
     push bp                          ; 0x3a50
     mov bp, sp                       ; 0x3a51
     cld                              ; 0x3a53

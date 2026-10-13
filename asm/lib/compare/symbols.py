@@ -1,6 +1,7 @@
 """Segment-aware operand symbolization and address inventory records."""
 
 from capstone import CS_OP_MEM
+from lib.names import startswith_stem
 
 
 def _data_prefix(segments, offset):
@@ -160,7 +161,7 @@ def _build_address_records(insns, mem_symbols, mem_equ, segment_flow,
     for addr, name in (data_labels or {}).items():
         if name in records:
             continue
-        if name.startswith('data_') and addr in reloc_targets:
+        if startswith_stem(name, 'data_') and addr in reloc_targets:
             space, kind, source, confidence = 'ds', 'data', 'relocation', CERTAIN
         else:
             space, kind, source, confidence = classify(name)

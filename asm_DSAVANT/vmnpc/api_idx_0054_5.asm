@@ -1,6 +1,6 @@
 api_idx_0054_5:
     mov ax, 0xffac                   ; 0x8a81
-    call ds_aztec_csav               ; 0x8a84
+    call aztec_csav                  ; 0x8a84
     mov word [bp - 0x0002], 0        ; 0x8a87
     jmp near @..api_idx_0054_5.l5    ; 0x8a8c
 @..api_idx_0054_5.l1:
@@ -14,7 +14,7 @@ jumptable_8b35_case_1:
     push ax                          ; 0x8aa2
     lea ax, word [bp - 0x0052]       ; 0x8aa3
     push ax                          ; 0x8aa6
-    call ds_aztec_strcpy             ; 0x8aa7
+    call aztec_strcpy                ; 0x8aa7
     add sp, byte 4                   ; 0x8aaa
     jmp near @..api_idx_0054_5.l3    ; 0x8aad
 jumptable_8b35_case_2:
@@ -24,7 +24,7 @@ jumptable_8b35_case_2:
     push ax                          ; 0x8ab9
     lea ax, word [bp - 0x0052]       ; 0x8aba
     push ax                          ; 0x8abd
-    call ds_aztec_strcpy             ; 0x8abe
+    call aztec_strcpy                ; 0x8abe
     add sp, byte 4                   ; 0x8ac1
     jmp near @..api_idx_0054_5.l3    ; 0x8ac4
 jumptable_8b35_case_3:
@@ -34,7 +34,7 @@ jumptable_8b35_case_3:
     push ax                          ; 0x8ad0
     lea ax, word [bp - 0x0052]       ; 0x8ad1
     push ax                          ; 0x8ad4
-    call ds_aztec_strcpy             ; 0x8ad5
+    call aztec_strcpy                ; 0x8ad5
     add sp, byte 4                   ; 0x8ad8
     jmp short @..api_idx_0054_5.l3   ; 0x8adb
 jumptable_8b35_case_4:
@@ -44,7 +44,7 @@ jumptable_8b35_case_4:
     push ax                          ; 0x8ae6
     lea ax, word [bp - 0x0052]       ; 0x8ae7
     push ax                          ; 0x8aea
-    call ds_aztec_strcpy             ; 0x8aeb
+    call aztec_strcpy                ; 0x8aeb
     add sp, byte 4                   ; 0x8aee
     jmp short @..api_idx_0054_5.l3   ; 0x8af1
 jumptable_8b35_case_7:
@@ -54,7 +54,7 @@ jumptable_8b35_case_7:
     push ax                          ; 0x8afc
     lea ax, word [bp - 0x0052]       ; 0x8afd
     push ax                          ; 0x8b00
-    call ds_aztec_strcpy             ; 0x8b01
+    call aztec_strcpy                ; 0x8b01
     add sp, byte 4                   ; 0x8b04
     jmp short @..api_idx_0054_5.l3   ; 0x8b07
 jumptable_8b35_case_8:
@@ -64,7 +64,7 @@ jumptable_8b35_case_8:
     push ax                          ; 0x8b12
     lea ax, word [bp - 0x0052]       ; 0x8b13
     push ax                          ; 0x8b16
-    call ds_aztec_strcpy             ; 0x8b17
+    call aztec_strcpy                ; 0x8b17
     add sp, byte 4                   ; 0x8b1a
     jmp short @..api_idx_0054_5.l3   ; 0x8b1d
 jumptable_8b35_case_9:
@@ -74,7 +74,7 @@ jumptable_8b35_case_9:
     push ax                          ; 0x8b28
     lea ax, word [bp - 0x0052]       ; 0x8b29
     push ax                          ; 0x8b2c
-    call ds_aztec_strcpy             ; 0x8b2d
+    call aztec_strcpy                ; 0x8b2d
     add sp, byte 4                   ; 0x8b30
     jmp short @..api_idx_0054_5.l3   ; 0x8b33
 jumptable_8b35:
@@ -98,7 +98,7 @@ jumptable_8b35_case_0:
 @..api_idx_0054_5.l3:
     lea ax, word [bp - 0x0052]       ; 0x8b56
     push ax                          ; 0x8b59
-    call ds_aztec_strlen             ; 0x8b5a
+    call aztec_strlen                ; 0x8b5a
     pop cx                           ; 0x8b5d
     mov word [bp - 0x0054], ax       ; 0x8b5e
     mov bx, ax                       ; 0x8b61
@@ -107,7 +107,7 @@ jumptable_8b35_case_0:
     mov byte [bx - 0x0051], 0        ; 0x8b69
     lea ax, word [bp - 0x0052]       ; 0x8b6d
     push ax                          ; 0x8b70
-    call ds_aztec_strlen             ; 0x8b71
+    call aztec_strlen                ; 0x8b71
     pop cx                           ; 0x8b74
     push ax                          ; 0x8b75
     lea ax, word [bp - 0x0052]       ; 0x8b76
@@ -119,7 +119,7 @@ jumptable_8b35_case_0:
     jne short @..api_idx_0054_5.l4   ; 0x8b85
     lea ax, word [bp - 0x0052]       ; 0x8b87
     push ax                          ; 0x8b8a
-    call ds_aztec_strlen             ; 0x8b8b
+    call aztec_strlen                ; 0x8b8b
     pop cx                           ; 0x8b8e
     dec ax                           ; 0x8b8f
     push ax                          ; 0x8b90

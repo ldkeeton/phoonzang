@@ -1,6 +1,6 @@
 api_idx_0084:
     mov ax, 0xff7c                   ; 0x8c72
-    call ds_aztec_csav               ; 0x8c75
+    call aztec_csav                  ; 0x8c75
     lea ax, word [bp - 0x0050]       ; 0x8c78
     push ax                          ; 0x8c7b
     push word [bss_91a8]             ; 0x8c7c
@@ -22,7 +22,7 @@ api_idx_0084:
     lea cx, word [bp - 0x0050]       ; 0x8caa
     add ax, cx                       ; 0x8cad
     push ax                          ; 0x8caf
-    call ds_strlen                   ; 0x8cb0
+    call strlen                      ; 0x8cb0
     add sp, byte 4                   ; 0x8cb3
     mov word [bp - 0x0052], ax       ; 0x8cb6
     cmp ax, strict word 0xffff       ; 0x8cb9
@@ -91,7 +91,7 @@ api_idx_0084:
     push word [bp + 0x4]             ; 0x8d53
     lea ax, word [bp - 0x0050]       ; 0x8d56
     push ax                          ; 0x8d59
-    call ds_aztec_strcpy             ; 0x8d5a
+    call aztec_strcpy                ; 0x8d5a
     add sp, byte 4                   ; 0x8d5d
     mov bx, word [bp - 0x0052]       ; 0x8d60
     add bx, bp                       ; 0x8d63

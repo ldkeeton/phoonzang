@@ -1,6 +1,6 @@
 api_idx_0004_5:
     mov ax, 0xfffc                   ; 0x36bb
-    call ds_aztec_csav               ; 0x36be
+    call aztec_csav                  ; 0x36be
     mov ax, 0                        ; 0x36c1
     push ax                          ; 0x36c4
     call api_idx_0008_2              ; 0x36c5

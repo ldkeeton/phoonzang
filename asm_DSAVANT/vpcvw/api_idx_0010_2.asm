@@ -1,6 +1,6 @@
 api_idx_0010_2:
     mov ax, 0xfff0                   ; 0x5050
-    call ds_aztec_csav               ; 0x5053
+    call aztec_csav                  ; 0x5053
     mov word [bp - 0x0010], 1        ; 0x5056
     mov word [bp - 0x000e], 1        ; 0x505b
     mov word [bp - 0x000c], 0xffff   ; 0x5060
@@ -107,7 +107,7 @@ jumptable_532e_case_3:
     mov dx, word [bx + 0x5bfe]       ; 0x5160
     mov cx, 0x16d                    ; 0x5164
     mov bx, 0                        ; 0x5167
-    call ds_aztec_ldv                ; 0x516a
+    call aztec_ldv                   ; 0x516a
     cmp dx, byte 0                   ; 0x516d
     jl short @..api_idx_0010_2.l7    ; 0x5170
     jne short @..api_idx_0010_2.l8   ; 0x5172

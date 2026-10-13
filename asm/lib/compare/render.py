@@ -4,6 +4,7 @@ import re
 import struct
 
 from lib.compare.splitting import _partition_function_records
+from lib.names import generic_prefix, stem
 
 
 # Minimum printable-run length for the D1 string anchor.  Shorter runs are
@@ -367,6 +368,41 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
     ]
 
 
+# Names whose ``equ`` value is a data-segment or PSP offset, not a code address,
+# so the code origin (``VBASE``) must not be added to it.
+_RAW_EQU_PREFIXES = ('data_', 'dseg_', 'bss_', 'psp_', 'bios_data_',
+                     'external_')
+
+
+def _virtual_base(binary_data, start_offset):
+    """Virtual address of file offset 0 (``vstart``), or 0 when unknown.
+
+    An Aztec overlay runs in the host's code segment from ``o_corg``, and its
+    code begins after the 14-byte header, so file offset 0 is ``o_corg - 14``.
+    An MZ image's CS:0 is its first byte after the header, so file offset 0 is
+    ``-start_offset``.  Raw drivers have no known load address (plan.md D7.0d).
+    """
+    if (start_offset >= 14 and len(binary_data) >= 14
+            and binary_data[:2] == b'\xf2\x00'):
+        o_corg = struct.unpack_from('<H', binary_data, 2)[0]
+        return o_corg - start_offset
+    if (start_offset == 0x200 and len(binary_data) >= 0x200
+            and binary_data[:2] == b'MZ'):
+        return -start_offset
+    return 0
+
+
+def _signed_hex(value):
+    return f'-0x{-value:04x}' if value < 0 else f'0x{value:04x}'
+
+
+def _label_equ_value(name, addr, code_value):
+    """``equ`` right-hand side for a label that could not be placed in line."""
+    if stem(name).startswith(_RAW_EQU_PREFIXES):
+        return f'0x{addr:04x}'
+    return code_value(addr)
+
+
 def mz_data_gap(records, binary_data, start_offset):
     """Locate the MZ code->data gap, or return ``None``.
 
@@ -393,36 +429,39 @@ def mz_data_gap(records, binary_data, start_offset):
 
 
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
-                  consumer_inc=None, immediate_labels=None, split_ranges=None,
+                  immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
-                  label_defined=None, ds_size=None, host_inc=None,
-                  host_data_inc=None, host_data_offsets=None):
+                  label_defined=None, ds_size=None, host_symbols=None,
+                  host_data_offsets=None):
     """Render the master NASM source and any generated function includes.
 
-    *host_inc* is the include directive (relative to the ``.cache/<project>/``
-    root) naming the D7.0c link values file.  It is set for overlays with a
-    host, so the overlay can name host geometry (``__zdataseg_end``) that its
-    own assembly cannot see; the value is resolved by the link step into
-    ``.cache`` and never stands as a literal in ``asm_<project>``.
-
-    *host_data_inc* (D7.1) is the include directive naming the shared host DS
-    name map.  When set (an overlay with a host), the overlay's ``dseg_``/``bss_``
-    names are **not** re-declared here -- they come from the one table.  The host
-    itself receives *host_data_offsets* (the union of the offsets the overlays
-    reference) and declares one recipe-based ``equ`` per offset so the link step
-    can probe them.
+    *host_symbols* is ``(master_file, host_vbase)`` for an overlay with a host:
+    the host source is included at the very end in a section that occupies no
+    space, so the overlay names host routines, geometry (``__zdataseg_end``) and
+    DS names (``dseg_``/``bss_``) by the host's own labels.  The host itself
+    receives *host_data_offsets* (the union of the offsets the overlays
+    reference) and declares one recipe-based ``equ`` per offset.
     """
     label_defined = label_defined or ()
-    out = ['org 0', 'bits 16']
-    if consumer_inc:
-        out.append(f'%include "{consumer_inc}"')
-        out.append('')
-    if host_inc:
-        out.append(f'%include "{host_inc}"')
-        out.append('')
-    if host_data_inc:
-        out.append(f'%include "{host_data_inc}"')
-        out.append('')
+    vbase = _virtual_base(binary_data, start_offset)
+    if vbase:
+        # The image is assembled at the address it runs at (``vstart``), so a
+        # label's value is its real CS offset and a host/overlay call needs no
+        # coordinate shift.  ``VBASE`` is the virtual address of file offset 0;
+        # ``make elf-rebuild`` redefines it as 0 because ELF has no ``vstart``.
+        out = ['bits 16', '%ifndef VBASE', f'VBASE equ {_signed_hex(vbase)}',
+               '%endif']
+        if generic_prefix():
+            # The exported host is also included by overlays purely for its
+            # symbols (``HOST_SYMS_ONLY``); its own section line must not run.
+            out += ['%ifndef HOST_SYMS_ONLY', 'section .text vstart=VBASE',
+                    '%endif']
+        else:
+            out.append('section .text vstart=VBASE')
+    else:
+        out = ['org 0', 'bits 16']
+    code_value = (lambda addr: f'0x{addr:04x} + VBASE') if vbase else (
+        lambda addr: f'0x{addr:04x}')
 
     base = start_offset if image_base is None else image_base
 
@@ -456,7 +495,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # ``label - IMAGE_BASE`` renders embedded CS pointers as their load
         # offset; IMAGE_BASE is the binary's load offset (header size for MZ).
         out.append('%ifndef IMAGE_BASE')
-        out.append(f'IMAGE_BASE equ 0x{base:04x}')
+        out.append(f'IMAGE_BASE equ 0x{base:04x} + VBASE' if vbase
+                   else f'IMAGE_BASE equ 0x{base:04x}')
         out.append('%endif')
         out.append('')
 
@@ -480,11 +520,11 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                     records, binary_data, data_start, '__zdata_start')
         # D7.0c: ``o_dorg`` is the host data-segment size, so bind it to the
         # host symbol the link step resolves (only when the host values file is
-        # in scope -- ``host_inc``).
+        # in scope -- ``host_symbols``).
         out.extend(_render_ovr_header(
             binary_data[:14], entry_symbol=entry_symbol,
             dynamic_csize=dynamic_ovr_size, dynamic_dsize=dynamic_ovr_size,
-            ds_end_symbol=(_DSSIZE_SYMBOL if host_inc else None)))
+            ds_end_symbol=(_DSSIZE_SYMBOL if host_symbols else None)))
         out.append('')
         out.append('__zcode_start:')
     elif start_offset > 0:
@@ -506,7 +546,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             name = label_map[addr]
             if _defined(name):
                 continue
-            out.append(f'{name} equ 0x{addr:04x}')
+            out.append(f'{name} equ {_label_equ_value(name, addr, code_value)}')
     if immediate_labels:
         for addr in sorted(immediate_labels):
             name = immediate_labels[addr]
@@ -534,7 +574,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # the whole union.
         data_names = {}
         for name, value in (mem_equ or {}).items():
-            if host_data_inc and name.startswith(('dseg_', 'bss_')):
+            if host_symbols and name.startswith(('dseg_', 'bss_')):
                 continue  # the one shared host table declares it
             data_names[name] = (value, False)
         if data_anchored and host_data_offsets:
@@ -603,6 +643,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                     expr = base if delta == 0 else f'{base} + 0x{delta:04x}'
             if expr is not None:
                 out.append(f'{name} equ {expr}')
+            elif name.startswith('cseg_'):
+                out.append(f'{name} equ {code_value(value)}')
             else:
                 out.append(f'{name} equ 0x{value:04x}')
     if ds_end_symbol is not None:
@@ -634,5 +676,22 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # o_csize).  Must sit after every emitted byte, including includes.
         out.append('')
         out.append('__zimage_end:')
+    if host_symbols:
+        master, host_vbase = host_symbols
+        host_stem = master.rsplit('.', 1)[0]
+        out.extend([
+            '',
+            '; Host symbols: the host is included in a section that occupies no',
+            '; space, so its labels carry the addresses this overlay calls.',
+            '%define HOST_SYMS_ONLY',
+            f'%define VBASE ({_signed_hex(host_vbase)})',
+            '%define IMAGE_BASE 0',
+            f'%define __zimage_end {host_stem}___zimage_end',
+            f'section .host nobits vstart={_signed_hex(host_vbase)}',
+            f'%include "{master}"',
+            '%undef __zimage_end',
+            '%undef IMAGE_BASE',
+            '%undef VBASE',
+        ])
     out.append('')
     return '\n'.join(out), split_sources

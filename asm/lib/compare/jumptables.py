@@ -6,6 +6,7 @@ from capstone import CS_OP_MEM
 
 from lib.verify.assemble import micro_assemble
 from lib.compare.records import _record_span, _emit_label
+from lib.names import startswith_stem
 
 
 def _parse_hex_offset(value):
@@ -92,7 +93,7 @@ def _usable_jump_label(off, label_map):
     name = label_map.get(off)
     if not name:
         return None
-    if name.startswith('data_') or name.startswith('@..'):
+    if startswith_stem(name, 'data_') or name.startswith('@..'):
         return None
     return name
 

@@ -1,13 +1,13 @@
 api_idx_006c:
     mov ax, 0xff94                   ; 0x4697
-    call ds_aztec_csav               ; 0x469a
+    call aztec_csav                  ; 0x469a
     mov ax, 0                        ; 0x469d
     push ax                          ; 0x46a0
     mov ax, 0x10                     ; 0x46a1
     push ax                          ; 0x46a4
     lea ax, word [bp - 0x0018]       ; 0x46a5
     push ax                          ; 0x46a8
-    call ds_aztec_setmem             ; 0x46a9
+    call aztec_setmem                ; 0x46a9
     add sp, byte 6                   ; 0x46ac
     mov word [bp - 0x0006], 0        ; 0x46af
     mov ax, 8                        ; 0x46b4
@@ -26,7 +26,7 @@ api_idx_006c:
     add sp, byte 0x0c                ; 0x46cf
     mov word [bp - 0x006a], dx       ; 0x46d2
     mov word [bp - 0x006c], ax       ; 0x46d5
-    call ds_bios_kbd_check           ; 0x46d8
+    call bios_kbd_check              ; 0x46d8
 @..api_idx_006c.l1:
     mov ax, 0                        ; 0x46db
     push ax                          ; 0x46de

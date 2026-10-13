@@ -1,15 +1,12 @@
 %include "inc/structs/structs.inc"
 %include "inc/structs/vmaze.inc"
-org 0
 bits 16
-%include "labels/host_calls.inc"
-
-%include "labels/host_values.inc"
-
-%include "labels/host_data.inc"
-
+%ifndef VBASE
+VBASE equ 0x5047
+%endif
+section .text vstart=VBASE
 %ifndef IMAGE_BASE
-IMAGE_BASE equ 0x000e
+IMAGE_BASE equ 0x000e + VBASE
 %endif
 
     ; Aztec C86 overlay header (14 bytes)
@@ -22,10 +19,10 @@ IMAGE_BASE equ 0x000e
     dw loc_ac30 - IMAGE_BASE + 0x5055  ; 0xfc77 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-fpu_loc_06b5 equ 0x06b5
-leaf_loc_4404 equ 0x4404
-string_loc_4b6b equ 0x4b6b
-loc_ab7d equ 0xab7d
+fpu_loc_06b5 equ 0x06b5 + VBASE
+leaf_loc_4404 equ 0x4404 + VBASE
+string_loc_4b6b equ 0x4b6b + VBASE
+loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0002.asm"          ; 0x000e
 
@@ -371,3 +368,15 @@ __zdata_start:
 
 
 __zimage_end:
+
+; Host symbols: the host is included in a section that occupies no
+; space, so its labels carry the addresses this overlay calls.
+%define HOST_SYMS_ONLY
+%define VBASE (-0x0200)
+%define IMAGE_BASE 0
+%define __zimage_end ds___zimage_end
+section .host nobits vstart=-0x0200
+%include "ds.asm"
+%undef __zimage_end
+%undef IMAGE_BASE
+%undef VBASE

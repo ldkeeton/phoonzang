@@ -1,6 +1,6 @@
 api_idx_0040:
     mov ax, 0xffc0                   ; 0x2b8e
-    call ds_aztec_csav               ; 0x2b91
+    call aztec_csav                  ; 0x2b91
     mov ax, word [bp + 0x6]          ; 0x2b94
     shl ax, 1                        ; 0x2b97
     mov bx, ax                       ; 0x2b99
@@ -226,7 +226,7 @@ loc_2da2:
     add sp, byte 4                   ; 0x2dae
     mov ax, 0x95a8                   ; 0x2db1
     push ax                          ; 0x2db4
-    call ds_aztec_strlen             ; 0x2db5
+    call aztec_strlen                ; 0x2db5
     pop cx                           ; 0x2db8
     cmp ax, strict word 0            ; 0x2db9
     jle short loc_2dcc               ; 0x2dbc

@@ -1,6 +1,6 @@
 api_idx_0006_2:
     mov ax, 0xfffa                   ; 0x0f27
-    call ds_aztec_csav               ; 0x0f2a
+    call aztec_csav                  ; 0x0f2a
     mov ax, word [bss_845e]          ; 0x0f2d
     jmp near @..api_idx_0006_2.l12   ; 0x0f30
 @..api_idx_0006_2.l1:
@@ -145,7 +145,7 @@ api_idx_0006_2:
     ret                              ; 0x1075
 loc_1076:
     mov ax, 0                        ; 0x1076
-    call ds_aztec_csav               ; 0x1079
+    call aztec_csav                  ; 0x1079
     mov word [bss_845e], 0xfffe      ; 0x107c
 @..loc_1076.l1:
     call api_idx_0006_2              ; 0x1082
@@ -154,7 +154,7 @@ loc_1076:
     ret                              ; 0x108c
 loc_108d:
     mov ax, 0                        ; 0x108d
-    call ds_aztec_csav               ; 0x1090
+    call aztec_csav                  ; 0x1090
 @..loc_108d.l1:
     cmp word [bss_845e], byte 0xfe   ; 0x1093
     je short @..loc_108d.l2          ; 0x1098
@@ -164,7 +164,7 @@ loc_108d:
     ret                              ; 0x109f
 loc_10a0:
     mov ax, 0                        ; 0x10a0
-    call ds_aztec_csav               ; 0x10a3
+    call aztec_csav                  ; 0x10a3
     push word [bp + 0xc]             ; 0x10a6
     mov ax, word [bp + 0x6]          ; 0x10a9
     dec ax                           ; 0x10ac
@@ -228,7 +228,7 @@ loc_10a0:
     ret                              ; 0x111a
 loc_111b:
     mov ax, 0xfe32                   ; 0x111b
-    call ds_aztec_csav               ; 0x111e
+    call aztec_csav                  ; 0x111e
     mov word [bss_9052], 0xffff      ; 0x1121
     mov ax, word [bp + 0x14]         ; 0x1127
     shl ax, 1                        ; 0x112a
@@ -321,7 +321,7 @@ loc_111b:
     lea cx, word [bp - 0x015a]       ; 0x11ff
     add ax, cx                       ; 0x1203
     push ax                          ; 0x1205
-    call ds_aztec_strlen             ; 0x1206
+    call aztec_strlen                ; 0x1206
     pop cx                           ; 0x1209
     mov cx, ax                       ; 0x120a
     mov ax, word [bp + 0xe]          ; 0x120c
@@ -541,7 +541,7 @@ loc_111b:
 @..loc_111b.l16:
     mov ax, 1                        ; 0x1401
     push ax                          ; 0x1404
-    call ds_dos_con_in_noecho        ; 0x1405
+    call dos_con_in_noecho           ; 0x1405
     pop cx                           ; 0x1408
     test ax, ax                      ; 0x1409
     jne short @..loc_111b.l17        ; 0x140b
@@ -550,7 +550,7 @@ loc_111b:
 @..loc_111b.l17:
     mov ax, 1                        ; 0x1412
     push ax                          ; 0x1415
-    call ds_dos_con_in_noecho_2      ; 0x1416
+    call dos_con_in_noecho_2         ; 0x1416
     pop cx                           ; 0x1419
     sub ah, ah                       ; 0x141a
     mov word [bp - 0x01ae], ax       ; 0x141c

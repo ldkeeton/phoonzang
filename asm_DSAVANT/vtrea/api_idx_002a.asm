@@ -1,31 +1,31 @@
 api_idx_002a:
     mov ax, 0xffd6                   ; 0x8200
-    call ds_aztec_csav               ; 0x8203
+    call aztec_csav                  ; 0x8203
     mov ax, 0                        ; 0x8206
     push ax                          ; 0x8209
     mov ax, 0x28                     ; 0x820a
     push ax                          ; 0x820d
     lea ax, word [bp - 0x002a]       ; 0x820e
     push ax                          ; 0x8211
-    call ds_aztec_setmem             ; 0x8212
+    call aztec_setmem                ; 0x8212
     add sp, byte 6                   ; 0x8215
     push word [bp + 0x4]             ; 0x8218
     lea ax, word [bp - 0x002a]       ; 0x821b
     push ax                          ; 0x821e
-    call ds_aztec_strcpy             ; 0x821f
+    call aztec_strcpy                ; 0x821f
     add sp, byte 4                   ; 0x8222
     mov ax, 0x2f                     ; 0x8225
     push ax                          ; 0x8228
     lea ax, word [bp - 0x002a]       ; 0x8229
     push ax                          ; 0x822c
-    call ds_strlen                   ; 0x822d
+    call strlen                      ; 0x822d
     add sp, byte 4                   ; 0x8230
     mov word [bp - 0x0002], ax       ; 0x8233
     cmp ax, strict word 0xffff       ; 0x8236
     jne short @..api_idx_002a.l1     ; 0x8239
     lea ax, word [bp - 0x002a]       ; 0x823b
     push ax                          ; 0x823e
-    call ds_aztec_strlen             ; 0x823f
+    call aztec_strlen                ; 0x823f
     pop cx                           ; 0x8242
     mov word [bp - 0x0002], ax       ; 0x8243
 @..api_idx_002a.l1:
@@ -69,7 +69,7 @@ api_idx_002a:
     ret                              ; 0x82a8
 loc_82a9:
     mov ax, 0                        ; 0x82a9
-    call ds_aztec_csav               ; 0x82ac
+    call aztec_csav                  ; 0x82ac
     mov ax, 0xa                      ; 0x82af
     push ax                          ; 0x82b2
     call ds_leaf_loc_36d0            ; 0x82b3

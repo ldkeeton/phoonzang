@@ -1,6 +1,6 @@
 api_idx_0002_2:
     mov ax, 0xfffe                   ; 0x3fac
-    call ds_aztec_csav               ; 0x3faf
+    call aztec_csav                  ; 0x3faf
     mov ax, 2                        ; 0x3fb2
     push ax                          ; 0x3fb5
     mov ax, 0                        ; 0x3fb6
@@ -10,7 +10,7 @@ api_idx_0002_2:
     call ds_app_23a8                 ; 0x3fbe
     add sp, byte 4                   ; 0x3fc1
     push ax                          ; 0x3fc4
-    call ds_aztec_open               ; 0x3fc5
+    call aztec_open                  ; 0x3fc5
     add sp, byte 4                   ; 0x3fc8
     mov word [bss_9088], ax          ; 0x3fcb
     cmp ax, strict word 0xffff       ; 0x3fce
@@ -27,14 +27,14 @@ api_idx_0002_2:
     push dx                          ; 0x3fe5
     push ax                          ; 0x3fe6
     push word [bss_9088]             ; 0x3fe7
-    call ds_aztec_lseek              ; 0x3feb
+    call aztec_lseek                 ; 0x3feb
     add sp, byte 8                   ; 0x3fee
     mov ax, 0x34c                    ; 0x3ff1
     push ax                          ; 0x3ff4
     mov ax, 0x5642                   ; 0x3ff5
     push ax                          ; 0x3ff8
     push word [bss_9088]             ; 0x3ff9
-    call ds_aztec_write              ; 0x3ffd
+    call aztec_write                 ; 0x3ffd
     add sp, byte 6                   ; 0x4000
     mov word [bp - 0x0002], ax       ; 0x4003
     cmp ax, strict word 0xffff       ; 0x4006
@@ -45,7 +45,7 @@ api_idx_0002_2:
     pop cx                           ; 0x4012
 @..api_idx_0002_2.l2:
     push word [bss_9088]             ; 0x4013
-    call ds_aztec_close              ; 0x4017
+    call aztec_close                 ; 0x4017
     pop cx                           ; 0x401a
     mov al, byte [bss_5986]          ; 0x401b
     sub ah, ah                       ; 0x401e
@@ -71,5 +71,5 @@ api_idx_0002_2:
 @..api_idx_0002_2.l5:
     mov word [bss_0e32], 0           ; 0x4056
 @..api_idx_0002_2.l6:
-    call ds_bios_kbd_check           ; 0x405c
+    call bios_kbd_check              ; 0x405c
     ret                              ; 0x405f

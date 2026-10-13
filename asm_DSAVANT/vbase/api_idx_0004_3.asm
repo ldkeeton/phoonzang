@@ -1,6 +1,6 @@
 api_idx_0004_3:
     mov ax, 0xfffc                   ; 0x6665
-    call ds_aztec_csav               ; 0x6668
+    call aztec_csav                  ; 0x6668
     mov word [bss_95b2], 0           ; 0x666b
     cmp word [bss_904c], byte 0      ; 0x6671
     jne short @..api_idx_0004_3.l3   ; 0x6676
@@ -54,7 +54,7 @@ api_idx_0004_3:
     push ax                          ; 0x66e2
     mov ax, 0x8cfe                   ; 0x66e3
     push ax                          ; 0x66e6
-    call ds_aztec_setmem             ; 0x66e7
+    call aztec_setmem                ; 0x66e7
     add sp, byte 6                   ; 0x66ea
     mov word [bss_82ea], 0           ; 0x66ed
     mov ax, word [bss_82ee]          ; 0x66f3

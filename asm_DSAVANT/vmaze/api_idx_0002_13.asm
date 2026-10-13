@@ -1,6 +1,6 @@
 api_idx_0002_13:
     mov ax, 0xfffe                   ; 0x73b6
-    call ds_aztec_csav               ; 0x73b9
+    call aztec_csav                  ; 0x73b9
     mov ax, word [bss_8d12]          ; 0x73bc
     shl ax, 1                        ; 0x73bf
     mov si, ax                       ; 0x73c1
@@ -64,7 +64,7 @@ jumptable_741a_case_3:
     ret                              ; 0x7435
 loc_7436:
     mov ax, 0                        ; 0x7436
-    call ds_aztec_csav               ; 0x7439
+    call aztec_csav                  ; 0x7439
     mov bx, word [bss_0e12]          ; 0x743c
     mov si, word [bss_8d12]          ; 0x7440
     mov al, byte [bx + si + 0xa50]   ; 0x7444

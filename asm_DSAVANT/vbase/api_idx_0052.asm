@@ -1,6 +1,6 @@
 api_idx_0052:
     mov ax, 0xffae                   ; 0x4335
-    call ds_aztec_csav               ; 0x4338
+    call aztec_csav                  ; 0x4338
     mov ax, word [bp + 0x4]          ; 0x433b
     jmp near @..api_idx_0052.l2      ; 0x433e
 jumptable_4688_case_0:
@@ -399,7 +399,7 @@ jumptable_4688:
     ret                              ; 0x46b7
 loc_46b8:
     mov ax, 0                        ; 0x46b8
-    call ds_aztec_csav               ; 0x46bb
+    call aztec_csav                  ; 0x46bb
     mov ax, 1                        ; 0x46be
     push ax                          ; 0x46c1
     mov ax, word [bp + 0x8]          ; 0x46c2
@@ -447,7 +447,7 @@ loc_46b8:
     ret                              ; 0x4726
 loc_4727:
     mov ax, 0                        ; 0x4727
-    call ds_aztec_csav               ; 0x472a
+    call aztec_csav                  ; 0x472a
     mov ax, word [bp + 0x8]          ; 0x472d
     add ax, strict word 6            ; 0x4730
     push ax                          ; 0x4733
@@ -512,7 +512,7 @@ loc_4727:
     ret                              ; 0x47ba
 loc_47bb:
     mov ax, 0                        ; 0x47bb
-    call ds_aztec_csav               ; 0x47be
+    call aztec_csav                  ; 0x47be
     mov ax, 0x16                     ; 0x47c1
     push ax                          ; 0x47c4
     mov ax, word [bp + 0x6]          ; 0x47c5

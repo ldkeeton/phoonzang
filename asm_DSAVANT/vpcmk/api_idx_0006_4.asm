@@ -1,6 +1,6 @@
 api_idx_0006_4:
     mov ax, 0xfffa                   ; 0x6887
-    call ds_aztec_csav               ; 0x688a
+    call aztec_csav                  ; 0x688a
     mov ax, 0x4a                     ; 0x688d
     push ax                          ; 0x6890
     mov ax, 0x42                     ; 0x6891
@@ -48,7 +48,7 @@ api_idx_0006_4:
     ret                              ; 0x68f9
 loc_68fa:
     mov ax, 0xfd40                   ; 0x68fa
-    call ds_aztec_csav               ; 0x68fd
+    call aztec_csav                  ; 0x68fd
     mov word [bp - 0x0008], 0        ; 0x6900
     mov word [bp - 0x0002], 0        ; 0x6905
     jmp near @..loc_68fa.l7          ; 0x690a
@@ -71,13 +71,13 @@ loc_68fa:
     imul word [bp - 0x0008]          ; 0x6932
     add ax, 0xe38                    ; 0x6935
     push ax                          ; 0x6938
-    call ds_aztec_strcpy             ; 0x6939
+    call aztec_strcpy                ; 0x6939
     add sp, byte 4                   ; 0x693c
     mov ax, 0x14                     ; 0x693f
     imul word [bp - 0x0008]          ; 0x6942
     add ax, 0xe38                    ; 0x6945
     push ax                          ; 0x6948
-    call ds_aztec_strlen             ; 0x6949
+    call aztec_strlen                ; 0x6949
     pop cx                           ; 0x694c
     mov word [bp - 0x0004], ax       ; 0x694d
 @..loc_68fa.l3:

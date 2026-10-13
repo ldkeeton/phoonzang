@@ -1,6 +1,6 @@
 api_idx_0004_6:
     mov ax, 0xfffc                   ; 0x3889
-    call ds_aztec_csav               ; 0x388c
+    call aztec_csav                  ; 0x388c
     mov word [bp - 0x0002], 0        ; 0x388f
     jmp near @..api_idx_0004_6.l8    ; 0x3894
 @..api_idx_0004_6.l1:
@@ -151,7 +151,7 @@ api_idx_0004_6:
     ret                              ; 0x39ea
 loc_39eb:
     mov ax, 0                        ; 0x39eb
-    call ds_aztec_csav               ; 0x39ee
+    call aztec_csav                  ; 0x39ee
     mov ax, 6                        ; 0x39f1
     imul word [bp + 0xa]             ; 0x39f4
     add ax, word [bp + 0x6]          ; 0x39f7

@@ -1,6 +1,6 @@
 api_idx_0002_3:
     mov ax, 0xfffe                   ; 0x00ca
-    call ds_aztec_csav               ; 0x00cd
+    call aztec_csav                  ; 0x00cd
     mov ax, 0                        ; 0x00d0
     push ax                          ; 0x00d3
     push ax                          ; 0x00d4
@@ -8,7 +8,7 @@ api_idx_0002_3:
     call ds_app_23a8                 ; 0x00d8
     add sp, byte 4                   ; 0x00db
     push ax                          ; 0x00de
-    call ds_aztec_open               ; 0x00df
+    call aztec_open                  ; 0x00df
     add sp, byte 4                   ; 0x00e2
     mov word [bp - 0x0002], ax       ; 0x00e5
     cmp ax, strict word 0xffff       ; 0x00e8
@@ -24,6 +24,6 @@ api_idx_0002_3:
     call ds_leaf_loc_4fb6            ; 0x00fe
     add sp, byte 6                   ; 0x0101
     push word [bp - 0x0002]          ; 0x0104
-    call ds_aztec_close              ; 0x0107
+    call aztec_close                 ; 0x0107
     pop cx                           ; 0x010a
     ret                              ; 0x010b

@@ -1,13 +1,13 @@
 api_idx_0006_8:
     mov ax, 0xfffa                   ; 0x8849
-    call ds_aztec_csav               ; 0x884c
+    call aztec_csav                  ; 0x884c
     mov ax, 0x25                     ; 0x884f
     push ax                          ; 0x8852
     mov ax, 0x14                     ; 0x8853
     imul word [bp + 0x4]             ; 0x8856
     add ax, 0x9e88                   ; 0x8859
     push ax                          ; 0x885c
-    call ds_strlen                   ; 0x885d
+    call strlen                      ; 0x885d
     add sp, byte 4                   ; 0x8860
     mov word [bp - 0x0006], ax       ; 0x8863
     cmp ax, strict word 0            ; 0x8866
@@ -35,7 +35,7 @@ api_idx_0006_8:
     imul word [bp + 0x4]             ; 0x889d
     add ax, 0x9e88                   ; 0x88a0
     push ax                          ; 0x88a3
-    call ds_strlen                   ; 0x88a4
+    call strlen                      ; 0x88a4
     add sp, byte 4                   ; 0x88a7
     mov word [bp - 0x0006], ax       ; 0x88aa
     cmp ax, strict word 0            ; 0x88ad
@@ -59,7 +59,7 @@ api_idx_0006_8:
     imul word [bp + 0x4]             ; 0x88d9
     add ax, 0x9e88                   ; 0x88dc
     push ax                          ; 0x88df
-    call ds_strlen                   ; 0x88e0
+    call strlen                      ; 0x88e0
     add sp, byte 4                   ; 0x88e3
     mov word [bp - 0x0006], ax       ; 0x88e6
     cmp ax, strict word 0            ; 0x88e9
@@ -99,7 +99,7 @@ api_idx_0006_8:
     jmp short @..api_idx_0006_8.l5   ; 0x893d
 @..api_idx_0006_8.l4:
     push word [bp + 0x6]             ; 0x893f
-    call ds_aztec_strlen             ; 0x8942
+    call aztec_strlen                ; 0x8942
     pop cx                           ; 0x8945
     mov word [bp - 0x0004], ax       ; 0x8946
     mov ax, 0x14                     ; 0x8949
@@ -119,7 +119,7 @@ api_idx_0006_8:
     imul word [bp + 0x4]             ; 0x8970
     add ax, 0x9e88                   ; 0x8973
     push ax                          ; 0x8976
-    call ds_aztec_strlen             ; 0x8977
+    call aztec_strlen                ; 0x8977
     pop cx                           ; 0x897a
     cmp ax, word [bp - 0x0002]       ; 0x897b
     jg short @..api_idx_0006_8.l4    ; 0x897e
@@ -127,7 +127,7 @@ api_idx_0006_8:
     ret                              ; 0x8980
 loc_8981:
     mov ax, 0                        ; 0x8981
-    call ds_aztec_csav               ; 0x8984
+    call aztec_csav                  ; 0x8984
     cmp word [bp + 0x6], byte 0      ; 0x8987
     jne short @..loc_8981.l1         ; 0x898b
     push word [bp + 0x8]             ; 0x898d

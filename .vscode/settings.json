@@ -3,5 +3,5 @@
         "*.asm": "asm-intel-x86-generic"
     },
     "debug.allowBreakpointsEverywhere": true,
-    "search.useIgnoreFiles": false
+    //"search.useIgnoreFiles": false
 }

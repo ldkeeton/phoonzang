@@ -61,7 +61,7 @@ loc_2f38:
     mov bx, dx                       ; 0x2f56
     pop dx                           ; 0x2f58
     pop ax                           ; 0x2f59
-    call ds_aztec_ldv                ; 0x2f5a
+    call aztec_ldv                   ; 0x2f5a
     mov word [bp - 0x0034], dx       ; 0x2f5d
     mov word [bp - 0x0036], ax       ; 0x2f60
     mov ax, word [bp - 0x0036]       ; 0x2f63

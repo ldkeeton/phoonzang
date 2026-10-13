@@ -1,6 +1,6 @@
 api_idx_0008_3:
     mov ax, 0xfff8                   ; 0x4934
-    call ds_aztec_csav               ; 0x4937
+    call aztec_csav                  ; 0x4937
     mov ax, 0                        ; 0x493a
     push ax                          ; 0x493d
     push ax                          ; 0x493e
@@ -41,7 +41,7 @@ api_idx_0008_3:
     add sp, byte 0x0c                ; 0x4991
     mov word [bp - 0x0006], dx       ; 0x4994
     mov word [bp - 0x0008], ax       ; 0x4997
-    call ds_bios_kbd_check           ; 0x499a
+    call bios_kbd_check              ; 0x499a
 @..api_idx_0008_3.l1:
     mov ax, 0x13                     ; 0x499d
     push ax                          ; 0x49a0
@@ -157,7 +157,7 @@ api_idx_0008_3:
     ret                              ; 0x4aa0
 loc_4aa1:
     mov ax, 0                        ; 0x4aa1
-    call ds_aztec_csav               ; 0x4aa4
+    call aztec_csav                  ; 0x4aa4
     mov ax, 0x248                    ; 0x4aa7
     imul word [bp + 0x4]             ; 0x4aaa
     mov bx, ax                       ; 0x4aad

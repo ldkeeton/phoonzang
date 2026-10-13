@@ -1,6 +1,6 @@
 api_idx_0006_2:
     mov ax, 0xfffa                   ; 0x209c
-    call ds_aztec_csav               ; 0x209f
+    call aztec_csav                  ; 0x209f
     mov ax, 0x2c                     ; 0x20a2
     imul word [bp + 0x6]             ; 0x20a5
     mov si, ax                       ; 0x20a8
@@ -30,7 +30,7 @@ api_idx_0006_2:
     imul word [bp + 0x6]             ; 0x20e0
     add ax, 0x5d9c                   ; 0x20e3
     push ax                          ; 0x20e6
-    call ds_aztec_movmem             ; 0x20e7
+    call aztec_movmem                ; 0x20e7
     add sp, byte 6                   ; 0x20ea
     cmp word [bp + 0xa], byte 1      ; 0x20ed
     je short @..api_idx_0006_2.l3    ; 0x20f1

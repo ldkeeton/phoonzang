@@ -299,7 +299,7 @@ loc_0548:
     ret                              ; 0x054e
 loc_054f:
     mov ax, 0                        ; 0x054f
-    call ds_aztec_csav               ; 0x0552
+    call aztec_csav                  ; 0x0552
     les bx, word [dseg_0002]         ; 0x0555
     mov ax, word [es:bx]             ; 0x0559
     mov dx, word [es:bx + 0x2]       ; 0x055c
@@ -333,7 +333,7 @@ loc_054f:
     ret                              ; 0x0599
 loc_059a:
     mov ax, 0                        ; 0x059a
-    call ds_aztec_csav               ; 0x059d
+    call aztec_csav                  ; 0x059d
     call loc_054f                    ; 0x05a0
     test ax, ax                      ; 0x05a3
     je short @..loc_059a.l1          ; 0x05a5
@@ -351,7 +351,7 @@ loc_059a:
     ret                              ; 0x05bf
 loc_05c0:
     mov ax, 0                        ; 0x05c0
-    call ds_aztec_csav               ; 0x05c3
+    call aztec_csav                  ; 0x05c3
     mov ax, 0x50                     ; 0x05c6
     push ax                          ; 0x05c9
     call ds_app_09f0                 ; 0x05ca

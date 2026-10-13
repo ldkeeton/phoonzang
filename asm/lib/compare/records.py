@@ -1,6 +1,7 @@
 """Shared record helpers: spans, labels, data-block flushing."""
 
 import re
+from lib.names import loc_name, startswith_stem, stem
 
 
 def _record_span(rec):
@@ -34,7 +35,7 @@ def _emit_label_record(records, off, label_map, local_labels=None,
                        insn_by_addr=None, label_comments=None):
     if label_map and off in label_map:
         name = label_map[off]
-        if name.startswith('data_'):
+        if startswith_stem(name, 'data_'):
             if local_labels and off in local_labels:
                 records.append({
                     'type': 'label',
@@ -42,7 +43,7 @@ def _emit_label_record(records, off, label_map, local_labels=None,
                     'offset': off,
                 })
             return
-        if name.startswith('loc_') and local_labels and off in local_labels:
+        if startswith_stem(name, 'loc_') and local_labels and off in local_labels:
             records.append({
                 'type': 'label',
                 'text': _emit_label(local_labels[off]),
@@ -66,7 +67,7 @@ def _emit_label_record(records, off, label_map, local_labels=None,
     else:
         records.append({
             'type': 'label',
-            'text': _emit_label(f'loc_{off:04x}'),
+            'text': _emit_label(loc_name(off)),
             'offset': off,
         })
 
@@ -173,7 +174,7 @@ def count_frozen_addrs(src_text):
             continue
         m = _FROZEN_EQU_RE.match(line)
         if m:
-            name = m.group(1)
+            name = stem(m.group(1))
             if name.startswith(_F3_PREFIXES):
                 f['f3'] += 1
             elif name.startswith(_F4_DATA_PREFIXES):

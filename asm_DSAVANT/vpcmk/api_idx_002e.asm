@@ -1,6 +1,6 @@
 api_idx_002e:
     mov ax, 0xffd2                   ; 0x2582
-    call ds_aztec_csav               ; 0x2585
+    call aztec_csav                  ; 0x2585
     mov ax, 0                        ; 0x2588
     push ax                          ; 0x258b
     mov ax, 0x16                     ; 0x258c
@@ -76,7 +76,7 @@ api_idx_002e:
     lea cx, word [bp - 0x002e]       ; 0x2640
     add ax, cx                       ; 0x2643
     push ax                          ; 0x2645
-    call ds_aztec_strlen             ; 0x2646
+    call aztec_strlen                ; 0x2646
     pop cx                           ; 0x2649
     add word [bp - 0x0004], ax       ; 0x264a
     inc word [bp - 0x0002]           ; 0x264d
@@ -103,7 +103,7 @@ api_idx_002e:
     lea cx, word [bp - 0x002e]       ; 0x2684
     add ax, cx                       ; 0x2687
     push ax                          ; 0x2689
-    call ds_aztec_strlen             ; 0x268a
+    call aztec_strlen                ; 0x268a
     pop cx                           ; 0x268d
     cmp ax, strict word 0            ; 0x268e
     jle short @..api_idx_002e.l10    ; 0x2691

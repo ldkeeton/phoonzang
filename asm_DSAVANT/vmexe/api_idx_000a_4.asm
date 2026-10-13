@@ -1,6 +1,6 @@
 api_idx_000a_4:
     mov ax, 0xfff6                   ; 0x2998
-    call ds_aztec_csav               ; 0x299b
+    call aztec_csav                  ; 0x299b
     mov word [bss_91d6], 2           ; 0x299e
     cmp word [bp + 0x12], byte 0     ; 0x29a4
     jle short @..api_idx_000a_4.l1   ; 0x29a8

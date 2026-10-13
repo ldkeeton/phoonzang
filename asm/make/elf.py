@@ -12,7 +12,6 @@ from lib.link import include_args
 from main import discover_binaries
 
 from .common import APPS, PROJECT, _main_exe, _nasm_build
-from .link import write_link_values
 
 
 def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
@@ -49,8 +48,13 @@ def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
 
     collect_symbols(asm_path)
 
+    # The origin line is ``org 0`` (drivers) or ``section .text vstart=VBASE``
+    # (images with a known load address); ELF has no ``vstart``, so it is
+    # blanked and ``_nasm_elf_build`` defines ``VBASE`` as 0 (labels stay file
+    # offsets).
     org_line = next(
-        (i for i, line in enumerate(lines) if line.strip().lower() == 'org 0'),
+        (i for i, line in enumerate(lines)
+         if line.strip().lower() in ('org 0', 'section .text vstart=vbase')),
         None,
     )
     header_line = next(
@@ -58,7 +62,7 @@ def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
         None,
     )
     if org_line is None or header_line is None:
-        raise ValueError(f'{asm_path}: expected generated MZ header and org 0')
+        raise ValueError(f'{asm_path}: expected generated MZ header and origin line')
 
     header_end = next(
         (
@@ -75,7 +79,8 @@ def _elf_source_text(asm_path, entry_line=None, add_entry_symbol=False):
         match = re.match(r'\s*([A-Za-z_][A-Za-z0-9_]*)\s*:', line)
         if not match:
             match = re.match(r'\s*([A-Za-z_][A-Za-z0-9_]*)\s+equ\b', line)
-        if match and match.group(1) not in symbols:
+        # ``VBASE`` is a ``-D`` macro in the ELF build (0), not a symbol.
+        if match and match.group(1) not in symbols and match.group(1) != 'VBASE':
             symbols.append(match.group(1))
     needs_entry_symbol = (
         (entry_line is not None or add_entry_symbol) and '_start' not in symbols
@@ -213,7 +218,7 @@ def _nasm_elf_build(out_dir, name, entry_ip, load_offset=0x200):
     try:
         cmd = [
             'nasm', '-O0', '-w-number-overflow', '-f', 'elf32', '-F', 'dwarf',
-            *include_args(out_dir), '-o', tmp_elf, f'{name}.asm',
+            '-DVBASE=0', *include_args(out_dir), '-o', tmp_elf, f'{name}.asm',
         ]
 
         def assemble(source_text):
@@ -551,11 +556,8 @@ def cmd_elf_rebuild(app, binary=None):
     for name in targets:
         resplice_c(app, name)
 
-    # 2) Link: resolve the host geometry the overlays/drivers name by symbol.
-    write_link_values(app, out_dir, bins)
-
-    # 3) Assemble every binary from the current sources (host edits reach the
-    #    overlays through the link values file).
+    # 2) Assemble every binary from the current sources (overlays include the
+    #    host source for its symbols, so host edits reach them directly).
     failed = []
     for name, (rel_path, _start_offset) in sorted(bins.items()):
         if _nasm_build(out_dir, name, rel_path) != 0:

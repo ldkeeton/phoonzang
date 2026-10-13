@@ -1,6 +1,6 @@
 api_idx_0084:
     mov ax, 0xff7c                   ; 0x3b66
-    call ds_aztec_csav               ; 0x3b69
+    call aztec_csav                  ; 0x3b69
     mov bx, word [bp + 0x4]          ; 0x3b6c
     cmp byte [bx], 0x21              ; 0x3b6f
     jne short @..api_idx_0084.l1     ; 0x3b72
@@ -27,7 +27,7 @@ api_idx_0084:
     push ax                          ; 0x3ba1
     lea ax, word [bp - 0x0084]       ; 0x3ba2
     push ax                          ; 0x3ba6
-    call ds_aztec_strcpy             ; 0x3ba7
+    call aztec_strcpy                ; 0x3ba7
     add sp, byte 4                   ; 0x3baa
     mov ax, 0x90b1                   ; 0x3bad
     push ax                          ; 0x3bb0
@@ -45,7 +45,7 @@ api_idx_0084:
     push word [bp + 0x4]             ; 0x3bcc
     lea ax, word [bp - 0x0084]       ; 0x3bcf
     push ax                          ; 0x3bd3
-    call ds_aztec_strcpy             ; 0x3bd4
+    call aztec_strcpy                ; 0x3bd4
     add sp, byte 4                   ; 0x3bd7
 @..api_idx_0084.l4:
     mov ax, 2                        ; 0x3bda
@@ -64,7 +64,7 @@ api_idx_0084:
     push word [bp + 0x4]             ; 0x3bf9
     mov ax, 0x956a                   ; 0x3bfc
     push ax                          ; 0x3bff
-    call ds_aztec_strcpy             ; 0x3c00
+    call aztec_strcpy                ; 0x3c00
     add sp, byte 4                   ; 0x3c03
     jmp short @..api_idx_0084.l6     ; 0x3c06
 @..api_idx_0084.l5:
@@ -72,7 +72,7 @@ api_idx_0084:
     push ax                          ; 0x3c0c
     mov ax, 0x956a                   ; 0x3c0d
     push ax                          ; 0x3c10
-    call ds_aztec_strcpy             ; 0x3c11
+    call aztec_strcpy                ; 0x3c11
     add sp, byte 4                   ; 0x3c14
 @..api_idx_0084.l6:
     ret                              ; 0x3c17

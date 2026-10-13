@@ -1,6 +1,6 @@
 api_idx_0004_12:
     mov ax, 0xfffc                   ; 0x5371
-    call ds_aztec_csav               ; 0x5374
+    call aztec_csav                  ; 0x5374
     mov word [bss_9cd2], 0           ; 0x5377
     mov word [bp - 0x0002], 0        ; 0x537d
 @..api_idx_0004_12.l1:
@@ -24,7 +24,7 @@ api_idx_0004_12:
     imul word [bss_9cd2]             ; 0x53b0
     add ax, 0x99d6                   ; 0x53b4
     push ax                          ; 0x53b7
-    call ds_aztec_strcpy             ; 0x53b8
+    call aztec_strcpy                ; 0x53b8
     add sp, byte 4                   ; 0x53bb
     mov ax, word [bp - 0x0002]       ; 0x53be
     shl ax, 1                        ; 0x53c1
@@ -104,7 +104,7 @@ api_idx_0004_12:
     ret                              ; 0x5496
 loc_5497:
     mov ax, 0                        ; 0x5497
-    call ds_aztec_csav               ; 0x549a
+    call aztec_csav                  ; 0x549a
     cmp word [bp + 0x4], strict word 0x190 ; 0x549d
     jl short @..loc_5497.l1          ; 0x54a2
     cmp word [bp + 0x4], strict word 0x19b ; 0x54a4

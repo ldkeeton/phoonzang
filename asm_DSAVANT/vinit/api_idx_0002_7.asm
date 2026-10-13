@@ -1,6 +1,6 @@
 api_idx_0002_7:
     mov ax, 0xfffe                   ; 0x133d
-    call ds_aztec_csav               ; 0x1340
+    call aztec_csav                  ; 0x1340
     cmp word [bss_906a], byte 0      ; 0x1343
     je short @..api_idx_0002_7.l1    ; 0x1348
     mov ax, 1                        ; 0x134a
@@ -75,5 +75,5 @@ api_idx_0002_7:
     call ds_app_1371                 ; 0x13fb
     pop cx                           ; 0x13fe
     mov word [bss_830a], 2           ; 0x13ff
-    call ds_bios_kbd_check           ; 0x1405
+    call bios_kbd_check              ; 0x1405
     ret                              ; 0x1408

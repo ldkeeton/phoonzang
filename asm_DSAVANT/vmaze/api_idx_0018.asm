@@ -1,6 +1,6 @@
 api_idx_0018:
     mov ax, 0xffe8                   ; 0x1c94
-    call ds_aztec_csav               ; 0x1c97
+    call aztec_csav                  ; 0x1c97
     call loc_0140                    ; 0x1c9a
     call ds_app_2bed                 ; 0x1c9d
     mov word [bss_8450], ax          ; 0x1ca0
@@ -37,7 +37,7 @@ api_idx_0018:
     mov dx, word [bss_8f16]          ; 0x1cf5
     mov cx, 0x3c                     ; 0x1cf9
     mov bx, 0                        ; 0x1cfc
-    call ds_aztec_ldv                ; 0x1cff
+    call aztec_ldv                   ; 0x1cff
     mov word [bp - 0x000c], ax       ; 0x1d02
     mov word [bp - 0x000e], 0        ; 0x1d05
 @..api_idx_0018.l2:

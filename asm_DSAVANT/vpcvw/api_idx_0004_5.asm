@@ -1,6 +1,6 @@
 api_idx_0004_5:
     mov ax, 0xfffc                   ; 0x3974
-    call ds_aztec_csav               ; 0x3977
+    call aztec_csav                  ; 0x3977
     push word [bp + 0x6]             ; 0x397a
     push word [bp + 0x6]             ; 0x397d
     mov ax, 0x7f1                    ; 0x3980
@@ -101,7 +101,7 @@ api_idx_0004_5:
     ret                              ; 0x3a69
 loc_3a6a:
     mov ax, 0                        ; 0x3a6a
-    call ds_aztec_csav               ; 0x3a6d
+    call aztec_csav                  ; 0x3a6d
     mov ax, 0xbb                     ; 0x3a70
     push ax                          ; 0x3a73
     mov ax, 0xab                     ; 0x3a74
@@ -112,7 +112,7 @@ loc_3a6a:
     push ax                          ; 0x3a7f
     call ds_loc_3b21                 ; 0x3a80
     add sp, byte 8                   ; 0x3a83
-    call ds_bios_kbd_check           ; 0x3a86
+    call bios_kbd_check              ; 0x3a86
 @..loc_3a6a.l1:
     call ds_app_0d36                 ; 0x3a89
     test ax, ax                      ; 0x3a8c

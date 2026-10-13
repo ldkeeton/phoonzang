@@ -1,6 +1,6 @@
 api_idx_0010:
     mov ax, 0xfff0                   ; 0x265f
-    call ds_aztec_csav               ; 0x2662
+    call aztec_csav                  ; 0x2662
     cmp word [bp + 0x8], byte 0      ; 0x2665
     jle short @..api_idx_0010.l1     ; 0x2669
     push word [bp + 0x8]             ; 0x266b
@@ -63,7 +63,7 @@ api_idx_0010:
     imul word [bp - 0x0002]          ; 0x26f4
     add ax, 0x5d9c                   ; 0x26f7
     push ax                          ; 0x26fa
-    call ds_aztec_movmem             ; 0x26fb
+    call aztec_movmem                ; 0x26fb
     add sp, byte 6                   ; 0x26fe
 @..api_idx_0010.l8:
     mov ax, 0x2c                     ; 0x2701

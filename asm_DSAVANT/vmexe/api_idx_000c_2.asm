@@ -1,6 +1,6 @@
 api_idx_000c_2:
     mov ax, 0xfff4                   ; 0x7911
-    call ds_aztec_csav               ; 0x7914
+    call aztec_csav                  ; 0x7914
     mov ax, 0xc                      ; 0x7917
     imul word [bp + 0x4]             ; 0x791a
     mov si, ax                       ; 0x791d

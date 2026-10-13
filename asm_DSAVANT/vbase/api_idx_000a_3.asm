@@ -1,6 +1,6 @@
 api_idx_000a_3:
     mov ax, 0xfff6                   ; 0x7415
-    call ds_aztec_csav               ; 0x7418
+    call aztec_csav                  ; 0x7418
     mov ax, word [bss_a4a4]          ; 0x741b
     jmp near @..api_idx_000a_3.l111  ; 0x741e
 jumptable_85d0_case_1:
@@ -1954,7 +1954,7 @@ jumptable_85d0_case_0:
     ret                              ; 0x85ef
 loc_85f0:
     mov ax, 0                        ; 0x85f0
-    call ds_aztec_csav               ; 0x85f3
+    call aztec_csav                  ; 0x85f3
     mov word [bss_a5aa], 1           ; 0x85f6
     mov ax, 0                        ; 0x85fc
     push ax                          ; 0x85ff
@@ -1986,7 +1986,7 @@ loc_85f0:
     ret                              ; 0x8633
 loc_8634:
     mov ax, 0                        ; 0x8634
-    call ds_aztec_csav               ; 0x8637
+    call aztec_csav                  ; 0x8637
     mov ax, 0                        ; 0x863a
     push ax                          ; 0x863d
     mov ax, 0x9144                   ; 0x863e
@@ -2046,7 +2046,7 @@ loc_8634:
     push ax                          ; 0x86ca
     mov ax, 0xa5c6                   ; 0x86cb
     push ax                          ; 0x86ce
-    call ds_aztec_strcpy             ; 0x86cf
+    call aztec_strcpy                ; 0x86cf
     add sp, byte 4                   ; 0x86d2
     mov word [bss_a5ae], 5           ; 0x86d5
     les bx, word [dseg_0002]         ; 0x86db

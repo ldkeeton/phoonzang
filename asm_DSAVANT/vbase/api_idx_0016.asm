@@ -1,11 +1,11 @@
 api_idx_0016:
     mov ax, 0xffea                   ; 0x0559
-    call ds_aztec_csav               ; 0x055c
+    call aztec_csav                  ; 0x055c
     mov ax, 0x90a9                   ; 0x055f
     push ax                          ; 0x0562
     lea ax, word [bp - 0x0016]       ; 0x0563
     push ax                          ; 0x0566
-    call ds_aztec_strcpy             ; 0x0567
+    call aztec_strcpy                ; 0x0567
     add sp, byte 4                   ; 0x056a
     mov ax, 0                        ; 0x056d
     push ax                          ; 0x0570
@@ -19,7 +19,7 @@ api_idx_0016:
     call ds_app_23a8                 ; 0x057e
     add sp, byte 4                   ; 0x0581
     push ax                          ; 0x0584
-    call ds_aztec_open               ; 0x0585
+    call aztec_open                  ; 0x0585
     add sp, byte 4                   ; 0x0588
     mov word [bp - 0x0002], ax       ; 0x058b
     cmp ax, strict word 0xffff       ; 0x058e
@@ -34,9 +34,9 @@ api_idx_0016:
     mov ax, 5                        ; 0x05a1
     push ax                          ; 0x05a4
     push word [bp - 0x0002]          ; 0x05a5
-    call ds_dos_read_file            ; 0x05a8
+    call dos_read_file               ; 0x05a8
     add sp, byte 8                   ; 0x05ab
     push word [bp - 0x0002]          ; 0x05ae
-    call ds_aztec_close              ; 0x05b1
+    call aztec_close                 ; 0x05b1
     pop cx                           ; 0x05b4
     ret                              ; 0x05b5

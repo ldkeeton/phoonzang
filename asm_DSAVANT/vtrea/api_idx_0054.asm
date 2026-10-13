@@ -1,6 +1,6 @@
 api_idx_0054:
     mov ax, 0xffac                   ; 0x4254
-    call ds_aztec_csav               ; 0x4257
+    call aztec_csav                  ; 0x4257
     mov ax, 0xa                      ; 0x425a
     imul word [bp + 0x6]             ; 0x425d
     add ax, strict word 0x32         ; 0x4260
@@ -78,7 +78,7 @@ api_idx_0054:
     ret                              ; 0x4317
 loc_4318:
     mov ax, 0                        ; 0x4318
-    call ds_aztec_csav               ; 0x431b
+    call aztec_csav                  ; 0x431b
     cmp word [bp + 0x8], byte 1      ; 0x431e
     jne short @..loc_4318.l3         ; 0x4322
     cmp word [bp + 0x6], byte 0      ; 0x4324

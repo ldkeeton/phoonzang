@@ -1,6 +1,6 @@
 api_idx_0006_5:
     mov ax, 0xfffa                   ; 0x5d0e
-    call ds_aztec_csav               ; 0x5d11
+    call aztec_csav                  ; 0x5d11
     call loc_10b6                    ; 0x5d14
     mov ax, 0x248                    ; 0x5d17
     imul word [bp + 0x4]             ; 0x5d1a

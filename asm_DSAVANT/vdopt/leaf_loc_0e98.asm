@@ -35,7 +35,7 @@ loc_0edd:
     ret                              ; 0x0edd
 loc_0ede:
     mov ax, 0                        ; 0x0ede
-    call ds_aztec_csav               ; 0x0ee1
+    call aztec_csav                  ; 0x0ee1
     mov ax, 0x24                     ; 0x0ee4
     imul word [bp + 0x4]             ; 0x0ee7
     mov cx, word [bp + 0x6]          ; 0x0eea
@@ -75,7 +75,7 @@ loc_0ede:
     ret                              ; 0x0f51
 loc_0f52:
     mov ax, 0                        ; 0x0f52
-    call ds_aztec_csav               ; 0x0f55
+    call aztec_csav                  ; 0x0f55
     mov ax, 0x55                     ; 0x0f58
     push ax                          ; 0x0f5b
     mov ax, 7                        ; 0x0f5c

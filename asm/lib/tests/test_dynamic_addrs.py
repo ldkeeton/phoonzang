@@ -47,7 +47,7 @@ def _nasm_file(path, inc_dir):
     """Assemble a source file with include root *inc_dir*; return the bytes."""
     with tempfile.NamedTemporaryFile(suffix='.bin') as out:
         r = subprocess.run(
-            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow',
+            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-w-other',
              f'-I{inc_dir}/', '-o', out.name, path],
             capture_output=True, text=True,
         )
@@ -368,38 +368,28 @@ class DsSizeSymbolTests(unittest.TestCase):
         self.assertEqual(built[0x200:0x203], b'\xb9\x19\x00')
 
 
-class LinkStepTests(unittest.TestCase):
-    """D7.0c: the pre-NASM link step resolves host geometry for an overlay.
+class HostIncludeTests(unittest.TestCase):
+    """An overlay sees the host's own symbols (plan.md D7.0c / D7.1).
 
-    An overlay's ``o_dorg`` *is* the host data-segment size -- geometry its own
-    assembly cannot see, because it is a separate NASM run.  The link step
-    assembles the host, reads ``__zdataseg_end`` and writes it to ``.cache``;
-    the overlay source names the symbol and carries no literal.  Editing the
-    host's data must therefore move the assembled ``o_dorg``.
+    An overlay is a separate NASM assembly, so it cannot see the host's labels
+    by itself.  It includes the host source in a section that emits no bytes,
+    so ``o_dorg`` (the host data-segment size), the shared ``dseg_``/``bss_``
+    names and the near-call handles all follow a host edit with no generated
+    table in between.
     """
 
-    def _stage_label_dir(self, root):
-        """Lay out ``.cache``'s derived label files the way a build does."""
-        import shutil
-        from lib.cachedirs import labels_dir
-        src = labels_dir('DSAVANT')
-        if not os.path.isdir(src):
-            self.skipTest('no .cache label dir; run "make build DSAVANT"')
-        dst = os.path.join(root, 'labels')
-        os.makedirs(dst, exist_ok=True)
-        for entry in os.listdir(src):
-            if entry.endswith('.inc'):
-                shutil.copy2(os.path.join(src, entry),
-                             os.path.join(dst, entry))
+    def _build_overlay(self, root):
+        return _nasm_file(os.path.join(root, 'vbase.asm'), root)
 
-    def _link_and_build_overlay(self, root):
-        from lib.link import HOST_GEOMETRY_SYMBOLS, probe_symbols, render_values
-        self._stage_label_dir(root)
-        values = probe_symbols(root, 'ds.asm', HOST_GEOMETRY_SYMBOLS)
-        with open(os.path.join(root, 'labels', 'host_values.inc'), 'w') as f:
-            f.write(render_values(values))
-        built = _nasm_file(os.path.join(root, 'vbase.asm'), root)
-        return built, values
+    @staticmethod
+    def _edit_host(root, old, new):
+        master = os.path.join(root, 'ds.asm')
+        with open(master) as f:
+            src = f.read()
+        edited = src.replace(old, new, 1)
+        assert edited != src
+        with open(master, 'w') as f:
+            f.write(edited)
 
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists()
@@ -409,43 +399,15 @@ class LinkStepTests(unittest.TestCase):
     def test_overlay_o_dorg_follows_a_host_data_edit(self):
         with tempfile.TemporaryDirectory() as d:
             _copy_source_tree(d)
-
-            original, values = self._link_and_build_overlay(d)
-            self.assertEqual(values['__zdataseg_end'], 0x9098)
+            original = self._build_overlay(d)
             # o_dorg is the 4th 16-bit overlay-header field (file offset 6).
             self.assertEqual(original[6:8], b'\x98\x90')
             self.assertEqual(original[:2], b'\xf2\x00')
 
             # Grow the host's file-backed data by one byte.
-            master = os.path.join(d, 'ds.asm')
-            with open(master) as f:
-                src = f.read()
-            grown_src = src.replace('__zdataseg_start:\n',
-                                    '__zdataseg_start:\n    db 0xee\n', 1)
-            self.assertNotEqual(grown_src, src)
-            with open(master, 'w') as f:
-                f.write(grown_src)
-
-            grown, values = self._link_and_build_overlay(d)
-            self.assertEqual(values['__zdataseg_end'], 0x9099)
-            self.assertEqual(grown[6:8], b'\x99\x90')
-
-    def _link_and_build_with_data(self, root):
-        """Stage labels, resolve host_values + host_data, build ``vbase``."""
-        from lib.link import (
-            HOST_DATA_NAME, HOST_GEOMETRY_SYMBOLS, host_data_names,
-            probe_symbols, render_values,
-        )
-        self._stage_label_dir(root)
-        values = probe_symbols(root, 'ds.asm', HOST_GEOMETRY_SYMBOLS)
-        with open(os.path.join(root, 'labels', 'host_values.inc'), 'w') as f:
-            f.write(render_values(values))
-        names = host_data_names(os.path.join(root, 'ds.asm'))
-        data = probe_symbols(root, 'ds.asm', names)
-        with open(os.path.join(root, 'labels', HOST_DATA_NAME), 'w') as f:
-            f.write(render_values(data))
-        built = _nasm_file(os.path.join(root, 'vbase.asm'), root)
-        return built, values, data
+            self._edit_host(d, '__zdataseg_start:\n',
+                            '__zdataseg_start:\n    db 0xee\n')
+            self.assertEqual(self._build_overlay(d)[6:8], b'\x99\x90')
 
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists()
@@ -462,88 +424,90 @@ class LinkStepTests(unittest.TestCase):
         """
         with tempfile.TemporaryDirectory() as d:
             _copy_source_tree(d)
-
-            original, _, data = self._link_and_build_with_data(d)
-            self.assertEqual(data['dseg_0002'], 0x0002)
+            original = self._build_overlay(d)
             count = original.count(b'\xc4\x1e\x02\x00')
             self.assertGreater(count, 0)
 
-            master = os.path.join(d, 'ds.asm')
-            with open(master) as f:
-                src = f.read()
-            grown_src = src.replace('__zdataseg_start:\n',
-                                    '__zdataseg_start:\n    db 0xee\n', 1)
-            self.assertNotEqual(grown_src, src)
-            with open(master, 'w') as f:
-                f.write(grown_src)
-
-            grown, values, data = self._link_and_build_with_data(d)
-            self.assertEqual(values['__zdataseg_end'], 0x9099)
-            # The shared DS name moved by one...
-            self.assertEqual(data['dseg_0002'], 0x0003)
-            # ...and so did every encoded reference in the rebuilt overlay.
+            self._edit_host(d, '__zdataseg_start:\n',
+                            '__zdataseg_start:\n    db 0xee\n')
+            grown = self._build_overlay(d)
             self.assertEqual(len(grown), len(original))
             self.assertEqual(grown.count(b'\xc4\x1e\x03\x00'), count)
             self.assertEqual(grown.count(b'\xc4\x1e\x02\x00'), 0)
 
+    @unittest.skipUnless(
+        _TREE.is_dir() and (_TREE / 'ds.asm').exists()
+        and (_TREE / 'vbase.asm').exists(),
+        'generated asm_DSAVANT tree not present',
+    )
+    def test_overlay_call_follows_a_host_code_edit(self):
+        """The near-call displacement to a host routine tracks that routine.
 
-class HostCallsTableTests(unittest.TestCase):
-    """The overlays share one host-call table (plan D7.1 step 1).
+        ``vbase`` begins ``call aztec_csav`` (``e8 50 f3``).  Inserting a byte
+        in the host *before* ``aztec_csav`` moves the routine, so the overlay's
+        displacement shrinks by one -- with no table regenerated.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            original = self._build_overlay(d)
+            self.assertEqual(original[0xb8:0xbb], b'\xe8\x50\xf3')
 
-    Each overlay used to carry its own ``<name>_foreign_labels.inc`` subset copy
-    of the same names with the same values.  The handle is one affine map of the
-    host label offset (``SegmentModel.host_code_target``), so a single table in
-    ``.cache`` serves every overlay, keyed by the source's exported labels.
+            self._edit_host(d, '%include "ds/aztec_csav.asm"',
+                            '    db 0xee\n%include "ds/aztec_csav.asm"')
+            self.assertEqual(self._build_overlay(d)[0xb8:0xbb],
+                             b'\xe8\x51\xf3')
+
+
+class HostCallNamesTests(unittest.TestCase):
+    """Overlays name host routines by the host's own labels.
+
+    A named routine keeps its name (``call dos_con_in_noecho``); the host's
+    address-derived names carry the host prefix (``ds_loc_08f2``) so they cannot
+    clash with an overlay's own.  Either way the name is defined in the host
+    source, not in a generated table.
     """
 
-    def _table_path(self):
-        from lib.cachedirs import labels_dir
-        from lib.cross_ref import HOST_CALLS_NAME
-        return pathlib.Path(labels_dir('DSAVANT')) / HOST_CALLS_NAME
-
-    def test_every_referenced_host_name_is_defined_by_the_one_table(self):
+    @staticmethod
+    def _host_definitions():
         import re
-        path = self._table_path()
-        if not path.exists():
-            self.skipTest('no host_calls.inc; run "make build DSAVANT"')
-        defined = {line.split(' equ ')[0]
-                   for line in path.read_text().splitlines()
-                   if ' equ ' in line}
+        defined = set()
+        paths = [_TREE / 'ds.asm', *sorted((_TREE / 'ds').rglob('*.asm'))]
+        for p in paths:
+            for line in p.read_text(errors='ignore').splitlines():
+                m = re.match(r'^([A-Za-z_][\w]*)(?::|\s+equ\b)', line)
+                if m:
+                    defined.add(m.group(1))
+        return defined
+
+    @unittest.skipUnless(
+        _TREE.is_dir() and (_TREE / 'ds.asm').exists(),
+        'generated asm_DSAVANT tree not present',
+    )
+    def test_every_referenced_host_prefixed_name_is_defined_by_the_host(self):
+        import re
+        defined = self._host_definitions()
         self.assertTrue(defined)
         name_re = re.compile(r'\bds_[0-9A-Za-z_]+')
         missing = []
         for p in sorted(_TREE.rglob('*.asm')):
             rel = p.relative_to(_TREE)
-            if rel.parts[0] in _SKIP_DIRS:
-                continue
+            if rel.parts[0] in _SKIP_DIRS or rel.parts[0] in ('ds', 'ds.asm'):
+                continue  # the host itself defines its ``ds_`` names
             for name in sorted(set(name_re.findall(
                     p.read_text(errors='ignore')))):
-                if name not in defined:
+                # ``ds___zimage_end`` only exists inside the include.
+                if name not in defined and name != 'ds___zimage_end':
                     missing.append(f'{rel}:{name}')
         self.assertEqual(missing, [])
 
-    def test_no_per_overlay_copies_and_no_dead_ds_labels_inc(self):
+    def test_no_generated_host_tables_are_written(self):
         from lib.cachedirs import labels_dir
         d = pathlib.Path(labels_dir('DSAVANT'))
         if not d.is_dir():
             self.skipTest('no .cache label dir; run "make build DSAVANT"')
-        self.assertEqual(
-            sorted(p.name for p in d.glob('*_foreign_labels.inc')), [])
-        self.assertFalse((d / 'ds_labels.inc').exists())
-
-    def test_table_is_reprobed_from_the_current_host_source(self):
-        # D7.1: the link step re-derives the handles by probing ``ds.asm``, so
-        # the stored table must equal a fresh probe of the current tree.
-        from lib.link import build_host_calls
-        from main import discover_binaries
-        path = self._table_path()
-        if not path.exists():
-            self.skipTest('no host_calls.inc; run "make build DSAVANT"')
-        stored = {line.split(' equ ')[0]: int(line.split(' equ ')[1], 16)
-                  for line in path.read_text().splitlines() if ' equ ' in line}
-        bins = discover_binaries(str(_PROJECT_ROOT / 'apps' / 'DSAVANT'))
-        self.assertEqual(
-            build_host_calls('DSAVANT', str(_TREE), bins), stored)
+        # Overlays include the host source, so a stale table cannot be read.
+        for name in ('host_calls.inc', 'host_values.inc', 'host_data.inc'):
+            self.assertFalse((d / name).exists(), name)
 
 
 #: The 13 Aztec overlay masters -- the consumers of the shared host DS table.
@@ -557,26 +521,18 @@ class HostDataTableTests(unittest.TestCase):
     """D7.1: the overlays share one host DS name table.
 
     A data name the host owns (``dseg_``/``bss_``) is declared once in
-    ``ds.asm`` with a host recipe and probed into
-    ``.cache/<project>/labels/host_data.inc``; the 13 overlay masters no longer
-    re-declare ~1230 literals but ``%include`` that one table.  (The two MZ
+    ``ds.asm`` with a host recipe; the 13 overlay masters no longer re-declare
+    ~1230 literals, they see the host's declarations through the include.  (The two MZ
     images own their data names via in-place labels, and a raw driver's
     ``dseg_`` is run-time DS -- both stay out of this table; Appendix C.)
     """
 
-    def _table_path(self):
-        from lib.cachedirs import labels_dir
-        from lib.link import HOST_DATA_NAME
-        return pathlib.Path(labels_dir('DSAVANT')) / HOST_DATA_NAME
-
-    def test_every_overlay_ds_name_is_defined_by_the_one_table(self):
+    def test_every_overlay_ds_name_is_defined_by_the_host(self):
         import re
-        path = self._table_path()
-        if not path.exists():
-            self.skipTest('no host_data.inc; run "make build DSAVANT"')
-        defined = {line.split(' equ ')[0]
-                   for line in path.read_text().splitlines()
-                   if ' equ ' in line}
+        pat = re.compile(r'^((?:bss|dseg)_[0-9a-fA-F]+)\s+equ\b')
+        defined = {m.group(1)
+                   for line in (_TREE / 'ds.asm').read_text().splitlines()
+                   if (m := pat.match(line))}
         self.assertTrue(defined)
         name_re = re.compile(r'\b(?:bss|dseg)_[0-9a-fA-F]{4}\b')
         missing = []

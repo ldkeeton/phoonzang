@@ -1,6 +1,6 @@
 api_idx_0002_5:
     mov ax, 0xfffe                   ; 0x4421
-    call ds_aztec_csav               ; 0x4424
+    call aztec_csav                  ; 0x4424
     mov bx, word [bp + 0x4]          ; 0x4427
     mov ax, word [bx]                ; 0x442a
     mov bx, word [bp + 0x6]          ; 0x442c
@@ -40,7 +40,7 @@ api_idx_0002_5:
     mov byte [bx + 0x7], al          ; 0x447d
     push word [bp + 0x8]             ; 0x4480
     push word [bp + 0xa]             ; 0x4483
-    call ds_aztec_strcpy             ; 0x4486
+    call aztec_strcpy                ; 0x4486
     add sp, byte 4                   ; 0x4489
 @..api_idx_0002_5.l3:
     mov bx, word [bp + 0x6]          ; 0x448c
@@ -55,7 +55,7 @@ api_idx_0002_5:
     mov byte [bx + 0x7], al          ; 0x44a4
     push word [bp + 0xa]             ; 0x44a7
     push word [bp + 0x8]             ; 0x44aa
-    call ds_aztec_strcpy             ; 0x44ad
+    call aztec_strcpy                ; 0x44ad
     add sp, byte 4                   ; 0x44b0
 @..api_idx_0002_5.l4:
     cmp word [bp - 0x0002], strict word 0xfa ; 0x44b3

@@ -1,6 +1,6 @@
 api_idx_0080:
     mov ax, 0xff80                   ; 0x6a20
-    call ds_aztec_csav               ; 0x6a23
+    call aztec_csav                  ; 0x6a23
     mov ax, 0                        ; 0x6a26
     push ax                          ; 0x6a29
     push ax                          ; 0x6a2a
@@ -49,7 +49,7 @@ api_idx_0080:
     add sp, byte 4                   ; 0x6a98
     lea ax, word [bp - 0x0068]       ; 0x6a9b
     push ax                          ; 0x6a9e
-    call ds_aztec_strlen             ; 0x6a9f
+    call aztec_strlen                ; 0x6a9f
     pop cx                           ; 0x6aa2
     mov word [bp - 0x0004], ax       ; 0x6aa3
     mov bx, ax                       ; 0x6aa6
@@ -72,7 +72,7 @@ api_idx_0080:
     add sp, byte 4                   ; 0x6ad2
     lea ax, word [bp - 0x0068]       ; 0x6ad5
     push ax                          ; 0x6ad8
-    call ds_aztec_strlen             ; 0x6ad9
+    call aztec_strlen                ; 0x6ad9
     pop cx                           ; 0x6adc
     mov word [bp - 0x0004], ax       ; 0x6add
     mov bx, ax                       ; 0x6ae0
@@ -99,7 +99,7 @@ api_idx_0080:
     add sp, byte 4                   ; 0x6b18
     lea ax, word [bp - 0x0068]       ; 0x6b1b
     push ax                          ; 0x6b1e
-    call ds_aztec_strlen             ; 0x6b1f
+    call aztec_strlen                ; 0x6b1f
     pop cx                           ; 0x6b22
     mov word [bp - 0x0004], ax       ; 0x6b23
     mov bx, ax                       ; 0x6b26
@@ -119,7 +119,7 @@ api_idx_0080:
     push ax                          ; 0x6b4b
     lea ax, word [bp - 0x0068]       ; 0x6b4c
     push ax                          ; 0x6b4f
-    call ds_aztec_strlen             ; 0x6b50
+    call aztec_strlen                ; 0x6b50
     pop cx                           ; 0x6b53
     mov cx, 6                        ; 0x6b54
     imul cx                          ; 0x6b57

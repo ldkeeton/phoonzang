@@ -1,6 +1,6 @@
 api_idx_0008_2:
     mov ax, 0xfff8                   ; 0x29b1
-    call ds_aztec_csav               ; 0x29b4
+    call aztec_csav                  ; 0x29b4
     mov ax, 0                        ; 0x29b7
     push ax                          ; 0x29ba
     push word [bp + 0x4]             ; 0x29bb
@@ -165,7 +165,7 @@ api_idx_0008_2:
     add sp, byte 4                   ; 0x2b38
     mov ax, 0x95a8                   ; 0x2b3b
     push ax                          ; 0x2b3e
-    call ds_aztec_strlen             ; 0x2b3f
+    call aztec_strlen                ; 0x2b3f
     pop cx                           ; 0x2b42
     mov cx, ax                       ; 0x2b43
     mov ax, 0x1e                     ; 0x2b45

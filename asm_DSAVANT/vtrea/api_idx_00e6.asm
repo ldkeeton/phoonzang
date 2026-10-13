@@ -1,6 +1,6 @@
 api_idx_00e6:
     mov ax, 0xff1a                   ; 0x73ae
-    call ds_aztec_csav               ; 0x73b1
+    call aztec_csav                  ; 0x73b1
     mov bx, word [bss_0e12]          ; 0x73b4
     mov si, word [bss_8d12]          ; 0x73b8
     cmp byte [bx + si + 0xa50], 0    ; 0x73bc
@@ -144,7 +144,7 @@ api_idx_00e6:
     add sp, byte 4                   ; 0x7519
     lea ax, word [bp - 0x0072]       ; 0x751c
     push ax                          ; 0x751f
-    call ds_aztec_strlen             ; 0x7520
+    call aztec_strlen                ; 0x7520
     pop cx                           ; 0x7523
     mov word [bp - 0x000c], ax       ; 0x7524
     lea ax, word [bp - 0x00e2]       ; 0x7527
@@ -272,7 +272,7 @@ api_idx_00e6:
     add sp, byte 4                   ; 0x7646
     lea ax, word [bp - 0x0072]       ; 0x7649
     push ax                          ; 0x764c
-    call ds_aztec_strlen             ; 0x764d
+    call aztec_strlen                ; 0x764d
     pop cx                           ; 0x7650
     mov word [bp - 0x000c], ax       ; 0x7651
     cmp word [bp - 0x000e], byte 6   ; 0x7654
@@ -415,7 +415,7 @@ api_idx_00e6:
     push ax                          ; 0x7792
     lea ax, word [bp - 0x00c2]       ; 0x7793
     push ax                          ; 0x7797
-    call ds_strlen                   ; 0x7798
+    call strlen                      ; 0x7798
     add sp, byte 4                   ; 0x779b
     mov word [bp - 0x0004], ax       ; 0x779e
     cmp ax, strict word 0xffff       ; 0x77a1
@@ -475,7 +475,7 @@ api_idx_00e6:
     ret                              ; 0x782a
 loc_782b:
     mov ax, 0                        ; 0x782b
-    call ds_aztec_csav               ; 0x782e
+    call aztec_csav                  ; 0x782e
     cmp word [bp + 0x4], byte 0      ; 0x7831
     jle short @..loc_782b.l1         ; 0x7835
     mov bx, word [bss_0e12]          ; 0x7837
@@ -514,7 +514,7 @@ loc_782b:
     ret                              ; 0x788e
 loc_788f:
     mov ax, 0                        ; 0x788f
-    call ds_aztec_csav               ; 0x7892
+    call aztec_csav                  ; 0x7892
     mov ax, 0x248                    ; 0x7895
     imul word [bp + 0x4]             ; 0x7898
     mov bx, ax                       ; 0x789b

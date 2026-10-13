@@ -1,6 +1,6 @@
 api_idx_0032:
     mov ax, 0xffce                   ; 0x3a7a
-    call ds_aztec_csav               ; 0x3a7d
+    call aztec_csav                  ; 0x3a7d
     mov ax, word [bp + 0x6]          ; 0x3a80
     shl ax, 1                        ; 0x3a83
     mov bx, ax                       ; 0x3a85
@@ -223,7 +223,7 @@ api_idx_0032:
     imul word [bp - 0x0002]          ; 0x3c8d
     add ax, 0x95f8                   ; 0x3c90
     push ax                          ; 0x3c93
-    call ds_aztec_strlen             ; 0x3c94
+    call aztec_strlen                ; 0x3c94
     pop cx                           ; 0x3c97
     mov cx, ax                       ; 0x3c98
     mov ax, 9                        ; 0x3c9a
@@ -378,7 +378,7 @@ api_idx_0032:
 @..api_idx_0032.l21:
     mov ax, 1                        ; 0x3dee
     push ax                          ; 0x3df1
-    call ds_dos_con_in_noecho        ; 0x3df2
+    call dos_con_in_noecho           ; 0x3df2
     pop cx                           ; 0x3df5
     test ax, ax                      ; 0x3df6
     jne short @..api_idx_0032.l22    ; 0x3df8
@@ -386,7 +386,7 @@ api_idx_0032:
 @..api_idx_0032.l22:
     mov ax, 1                        ; 0x3dfc
     push ax                          ; 0x3dff
-    call ds_dos_con_in_noecho_2      ; 0x3e00
+    call dos_con_in_noecho_2         ; 0x3e00
     pop cx                           ; 0x3e03
     sub ah, ah                       ; 0x3e04
     mov word [bp - 0x0030], ax       ; 0x3e06

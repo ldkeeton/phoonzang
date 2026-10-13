@@ -188,7 +188,7 @@ loc_1ac8:
     imul bx                          ; 0x1b79
     mov cx, 0x64                     ; 0x1b7b
     mov bx, 0                        ; 0x1b7e
-    call ds_aztec_ldv                ; 0x1b81
+    call aztec_ldv                   ; 0x1b81
     mov word [bp - 0x0006], ax       ; 0x1b84
     mov cx, 2                        ; 0x1b87
     cwd                              ; 0x1b8a

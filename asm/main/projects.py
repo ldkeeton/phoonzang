@@ -62,7 +62,7 @@ def build_binaries(asm_dir, bins, out_dir):
         asm_path = os.path.join(asm_dir, f'{name}.asm')
         bin_path = os.path.join(out_dir, rel_path)
         r = subprocess.run(
-            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow',
+            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-w-other',
              *include_args(asm_dir), '-o', bin_path, asm_path],
             capture_output=True, text=True,
         )
@@ -93,9 +93,11 @@ def _build_host_model(project_dir, bins, sidecar):
         with open(os.path.join(project_dir, rel_path), 'rb') as f:
             data = f.read()
         entry = sidecar_per_binary(sidecar, ds_name) if sidecar else None
-        return build_segment_model(data, (entry or {}).get('type') or 'mz')
+        model = build_segment_model(data, (entry or {}).get('type') or 'mz')
     except (OSError, SegmentError):
         return None
+    model.name = ds_name
+    return model
 
 
 def process_project(project_name):
@@ -156,7 +158,7 @@ def process_project(project_name):
             for _, src_name in cross_refs[name]:
                 if src_name in source_label_maps:
                     for addr, lbl in source_label_maps[src_name].items():
-                        foreign_label_map[addr] = f'{src_name}_{lbl}'
+                        foreign_label_map[addr] = lbl
 
         process(name, project_dir, rel_path, start_offset,
                 exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
@@ -183,11 +185,6 @@ def process_project(project_name):
                 host_data_offsets=union)
 
     processed = set(bins.keys())
-
-    # D7.0c: resolve the host geometry the overlays/drivers name before any
-    # binary is assembled.
-    from lib.link import write_link_values
-    write_link_values(project_name, out_dir, bins)
 
     build_out = os.path.join(out_dir, 'build_out')
     copy_assets(project_dir, build_out, set())

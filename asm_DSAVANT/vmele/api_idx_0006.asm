@@ -1,6 +1,6 @@
 api_idx_0006:
     mov ax, 0xfffa                   ; 0x1713
-    call ds_aztec_csav               ; 0x1716
+    call aztec_csav                  ; 0x1716
     mov word [bp - 0x0002], 1        ; 0x1719
     jmp near @..api_idx_0006.l6      ; 0x171e
 @..api_idx_0006.l1:

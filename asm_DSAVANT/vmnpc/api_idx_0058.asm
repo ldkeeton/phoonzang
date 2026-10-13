@@ -1,6 +1,6 @@
 api_idx_0058:
     mov ax, 0xffa8                   ; 0x89a8
-    call ds_aztec_csav               ; 0x89ab
+    call aztec_csav                  ; 0x89ab
     mov word [bp - 0x0002], 0        ; 0x89ae
     jmp near @..api_idx_0058.l4      ; 0x89b3
 @..api_idx_0058.l1:
@@ -16,7 +16,7 @@ api_idx_0058:
     add sp, byte 4                   ; 0x89cd
     lea ax, word [bp - 0x002c]       ; 0x89d0
     push ax                          ; 0x89d3
-    call ds_aztec_strlen             ; 0x89d4
+    call aztec_strlen                ; 0x89d4
     pop cx                           ; 0x89d7
     mov word [bp - 0x0058], ax       ; 0x89d8
     mov bx, ax                       ; 0x89db
@@ -25,7 +25,7 @@ api_idx_0058:
     mov byte [bx - 0x002b], 0        ; 0x89e3
     lea ax, word [bp - 0x0054]       ; 0x89e7
     push ax                          ; 0x89ea
-    call ds_aztec_strlen             ; 0x89eb
+    call aztec_strlen                ; 0x89eb
     pop cx                           ; 0x89ee
     mov word [bp - 0x0058], ax       ; 0x89ef
     mov bx, ax                       ; 0x89f2
@@ -34,7 +34,7 @@ api_idx_0058:
     mov byte [bx - 0x0053], 0        ; 0x89fa
     lea ax, word [bp - 0x002c]       ; 0x89fe
     push ax                          ; 0x8a01
-    call ds_aztec_strlen             ; 0x8a02
+    call aztec_strlen                ; 0x8a02
     pop cx                           ; 0x8a05
     push ax                          ; 0x8a06
     lea ax, word [bp - 0x002c]       ; 0x8a07
@@ -46,7 +46,7 @@ api_idx_0058:
     jne short @..api_idx_0058.l2     ; 0x8a16
     lea ax, word [bp - 0x002c]       ; 0x8a18
     push ax                          ; 0x8a1b
-    call ds_aztec_strlen             ; 0x8a1c
+    call aztec_strlen                ; 0x8a1c
     pop cx                           ; 0x8a1f
     dec ax                           ; 0x8a20
     push ax                          ; 0x8a21
@@ -60,7 +60,7 @@ api_idx_0058:
 @..api_idx_0058.l2:
     lea ax, word [bp - 0x0054]       ; 0x8a36
     push ax                          ; 0x8a39
-    call ds_aztec_strlen             ; 0x8a3a
+    call aztec_strlen                ; 0x8a3a
     pop cx                           ; 0x8a3d
     push ax                          ; 0x8a3e
     lea ax, word [bp - 0x0054]       ; 0x8a3f
@@ -72,7 +72,7 @@ api_idx_0058:
     jne short @..api_idx_0058.l3     ; 0x8a4e
     lea ax, word [bp - 0x0054]       ; 0x8a50
     push ax                          ; 0x8a53
-    call ds_aztec_strlen             ; 0x8a54
+    call aztec_strlen                ; 0x8a54
     pop cx                           ; 0x8a57
     dec ax                           ; 0x8a58
     push ax                          ; 0x8a59

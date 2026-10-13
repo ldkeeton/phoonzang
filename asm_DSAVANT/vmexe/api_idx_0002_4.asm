@@ -1,6 +1,6 @@
 api_idx_0002_4:
     mov ax, 0xfffe                   ; 0x1f98
-    call ds_aztec_csav               ; 0x1f9b
+    call aztec_csav                  ; 0x1f9b
     mov ax, 0x2c                     ; 0x1f9e
     imul word [bp + 0x6]             ; 0x1fa1
     mov si, ax                       ; 0x1fa4
@@ -32,7 +32,7 @@ api_idx_0002_4:
     imul word [bp + 0x6]             ; 0x1fe0
     add ax, 0x5d9c                   ; 0x1fe3
     push ax                          ; 0x1fe6
-    call ds_aztec_movmem             ; 0x1fe7
+    call aztec_movmem                ; 0x1fe7
     add sp, byte 6                   ; 0x1fea
 @..api_idx_0002_4.l3:
     mov word [bp - 0x0002], 0        ; 0x1fed

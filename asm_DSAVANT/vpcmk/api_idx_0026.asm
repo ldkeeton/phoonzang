@@ -1,6 +1,6 @@
 api_idx_0026:
     mov ax, 0xffda                   ; 0x11f4
-    call ds_aztec_csav               ; 0x11f7
+    call aztec_csav                  ; 0x11f7
     mov word [bss_904e], 0xffff      ; 0x11fa
     mov word [bp - 0x0002], 0x37     ; 0x1200
     mov word [bp - 0x0004], 0x8f     ; 0x1205
@@ -114,7 +114,7 @@ api_idx_0026:
     push ax                          ; 0x1301
     lea ax, word [bp - 0x0024]       ; 0x1302
     push ax                          ; 0x1305
-    call ds_aztec_strlen             ; 0x1306
+    call aztec_strlen                ; 0x1306
     pop cx                           ; 0x1309
     mov cx, ax                       ; 0x130a
     mov ax, 0x11                     ; 0x130c
@@ -140,7 +140,7 @@ api_idx_0026:
     push word [bp + 0xc]             ; 0x1339
     mov ax, 0xe38                    ; 0x133c
     push ax                          ; 0x133f
-    call ds_aztec_strcpy             ; 0x1340
+    call aztec_strcpy                ; 0x1340
     add sp, byte 4                   ; 0x1343
     mov ax, 1                        ; 0x1346
     push ax                          ; 0x1349
@@ -264,7 +264,7 @@ api_idx_0026:
     push ax                          ; 0x1449
     call ds_loc_3b21                 ; 0x144a
     add sp, byte 8                   ; 0x144d
-    call ds_bios_kbd_check           ; 0x1450
+    call bios_kbd_check              ; 0x1450
     mov ax, 0                        ; 0x1453
     push ax                          ; 0x1456
     mov ax, 1                        ; 0x1457
@@ -286,7 +286,7 @@ api_idx_0026:
     mov ax, 0xe38                    ; 0x147b
     push ax                          ; 0x147e
     push word [bp + 0xc]             ; 0x147f
-    call ds_aztec_strcpy             ; 0x1482
+    call aztec_strcpy                ; 0x1482
     add sp, byte 4                   ; 0x1485
     mov ax, 1                        ; 0x1488
     push ax                          ; 0x148b
@@ -334,7 +334,7 @@ api_idx_0026:
 @..api_idx_0026.l2:
     jmp near @..api_idx_0026.l10     ; 0x14ed
 @..api_idx_0026.l3:
-    call ds_bios_kbd_check           ; 0x14f0
+    call bios_kbd_check              ; 0x14f0
     mov ax, 1                        ; 0x14f3
     push ax                          ; 0x14f6
     mov ax, 0                        ; 0x14f7
@@ -387,7 +387,7 @@ api_idx_0026:
     mov ax, 0xe38                    ; 0x1562
     push ax                          ; 0x1565
     push word [bp + 0xc]             ; 0x1566
-    call ds_aztec_strcpy             ; 0x1569
+    call aztec_strcpy                ; 0x1569
     add sp, byte 4                   ; 0x156c
     mov ax, 1                        ; 0x156f
     push ax                          ; 0x1572

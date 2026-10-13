@@ -1,6 +1,6 @@
 api_idx_0002_19:
     mov ax, 0xfffe                   ; 0x8e6a
-    call ds_aztec_csav               ; 0x8e6d
+    call aztec_csav                  ; 0x8e6d
     mov bx, word [bss_0e12]          ; 0x8e70
     mov si, word [bss_8f3e]          ; 0x8e74
     mov al, byte [bx + si + 0xb40]   ; 0x8e78

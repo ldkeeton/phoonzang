@@ -1,6 +1,6 @@
 api_idx_000a_2:
     mov ax, 0xfff6                   ; 0x6b0a
-    call ds_aztec_csav               ; 0x6b0d
+    call aztec_csav                  ; 0x6b0d
     mov ax, 0                        ; 0x6b10
     push ax                          ; 0x6b13
     push word [bss_8d10]             ; 0x6b14
@@ -35,7 +35,7 @@ api_idx_000a_2:
     ret                              ; 0x6b59
 loc_6b5a:
     mov ax, 0                        ; 0x6b5a
-    call ds_aztec_csav               ; 0x6b5d
+    call aztec_csav                  ; 0x6b5d
     cmp word [bss_9b48], byte 0      ; 0x6b60
     je short @..loc_6b5a.l1          ; 0x6b65
     ret                              ; 0x6b67

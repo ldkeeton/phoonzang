@@ -1,6 +1,6 @@
 api_idx_0006:
     mov ax, 0xfffa                   ; 0x030c
-    call ds_aztec_csav               ; 0x030f
+    call aztec_csav                  ; 0x030f
     mov ax, word [bp + 0x8]          ; 0x0312
     xchg al, ah                      ; 0x0315
     sub al, al                       ; 0x0317

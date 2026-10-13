@@ -1,6 +1,6 @@
 api_idx_0002_3:
     mov ax, 0xfffe                   ; 0x1819
-    call ds_aztec_csav               ; 0x181c
+    call aztec_csav                  ; 0x181c
     mov word [bp - 0x0002], 0        ; 0x181f
 @..api_idx_0002_3.l1:
     cmp word [bp + 0x4], byte 0      ; 0x1824

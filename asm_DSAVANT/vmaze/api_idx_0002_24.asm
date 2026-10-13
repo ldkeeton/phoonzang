@@ -1,6 +1,6 @@
 api_idx_0002_24:
     mov ax, 0xfffe                   ; 0x9920
-    call ds_aztec_csav               ; 0x9923
+    call aztec_csav                  ; 0x9923
     mov al, byte [bp + 0x4]          ; 0x9926
     push ax                          ; 0x9929
     mov ax, 6                        ; 0x992a

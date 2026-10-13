@@ -1,6 +1,6 @@
 api_idx_0006:
     mov ax, 0xfffa                   ; 0x18a8
-    call ds_aztec_csav               ; 0x18ab
+    call aztec_csav                  ; 0x18ab
     mov ax, word [bss_845e]          ; 0x18ae
     jmp near @..api_idx_0006.l13     ; 0x18b1
 @..api_idx_0006.l1:
@@ -169,7 +169,7 @@ api_idx_0006:
     ret                              ; 0x1a34
 loc_1a35:
     mov ax, 0                        ; 0x1a35
-    call ds_aztec_csav               ; 0x1a38
+    call aztec_csav                  ; 0x1a38
     mov word [bss_845e], 0xfffe      ; 0x1a3b
 @..loc_1a35.l1:
     call api_idx_0006                ; 0x1a41
@@ -178,7 +178,7 @@ loc_1a35:
     ret                              ; 0x1a4b
 loc_1a4c:
     mov ax, 0                        ; 0x1a4c
-    call ds_aztec_csav               ; 0x1a4f
+    call aztec_csav                  ; 0x1a4f
 @..loc_1a4c.l1:
     cmp word [bss_845e], byte 0xfe   ; 0x1a52
     je short @..loc_1a4c.l2          ; 0x1a57

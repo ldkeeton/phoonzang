@@ -1,6 +1,6 @@
 api_idx_0004:
     mov ax, 0xfffc                   ; 0x00b5
-    call ds_aztec_csav               ; 0x00b8
+    call aztec_csav                  ; 0x00b8
     mov ax, word [bp + 0x6]          ; 0x00bb
     imul word [bp + 0xe]             ; 0x00be
     add ax, word [bp + 0xa]          ; 0x00c1
@@ -56,7 +56,7 @@ api_idx_0004:
     add ax, strict word 9            ; 0x0143
     push ax                          ; 0x0146
     push word [bp + 0x4]             ; 0x0147
-    call ds_aztec_strlen             ; 0x014a
+    call aztec_strlen                ; 0x014a
     pop cx                           ; 0x014d
     mov cx, ax                       ; 0x014e
     mov ax, word [bp + 0xc]          ; 0x0150
@@ -105,7 +105,7 @@ api_idx_0004:
     ret                              ; 0x01be
 loc_01bf:
     mov ax, 0                        ; 0x01bf
-    call ds_aztec_csav               ; 0x01c2
+    call aztec_csav                  ; 0x01c2
     push word [bp + 0xc]             ; 0x01c5
     mov ax, word [bp + 0x6]          ; 0x01c8
     dec ax                           ; 0x01cb
@@ -169,7 +169,7 @@ loc_01bf:
     ret                              ; 0x0239
 loc_023a:
     mov ax, 0xfeaa                   ; 0x023a
-    call ds_aztec_csav               ; 0x023d
+    call aztec_csav                  ; 0x023d
     mov ax, 6                        ; 0x0240
     imul word [bp + 0xa]             ; 0x0243
     add ax, word [bp + 0x6]          ; 0x0246
@@ -259,7 +259,7 @@ loc_023a:
     lea cx, word [bp - 0x0152]       ; 0x0316
     add ax, cx                       ; 0x031a
     push ax                          ; 0x031c
-    call ds_aztec_strlen             ; 0x031d
+    call aztec_strlen                ; 0x031d
     pop cx                           ; 0x0320
     mov cx, ax                       ; 0x0321
     mov ax, word [bp + 0xa]          ; 0x0323
@@ -418,7 +418,7 @@ loc_023a:
 @..loc_023a.l9:
     mov ax, 1                        ; 0x0485
     push ax                          ; 0x0488
-    call ds_dos_con_in_noecho        ; 0x0489
+    call dos_con_in_noecho           ; 0x0489
     pop cx                           ; 0x048c
     test ax, ax                      ; 0x048d
     jne short @..loc_023a.l10        ; 0x048f
@@ -426,7 +426,7 @@ loc_023a:
 @..loc_023a.l10:
     mov ax, 1                        ; 0x0493
     push ax                          ; 0x0496
-    call ds_dos_con_in_noecho_2      ; 0x0497
+    call dos_con_in_noecho_2         ; 0x0497
     pop cx                           ; 0x049a
     sub ah, ah                       ; 0x049b
     mov word [bp - 0x0156], ax       ; 0x049d

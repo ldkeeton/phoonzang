@@ -1,6 +1,6 @@
 api_idx_009e:
     mov ax, 0xff62                   ; 0x1894
-    call ds_aztec_csav               ; 0x1897
+    call aztec_csav                  ; 0x1897
     mov word [bp - 0x0004], 0        ; 0x189a
     cmp word [bss_0e32], byte 0      ; 0x189f
     je short @..api_idx_009e.l1      ; 0x18a4
@@ -72,7 +72,7 @@ api_idx_009e:
     mov dx, word [bx + 0x5bfe]       ; 0x1944
     mov cx, 0x16d                    ; 0x1948
     mov bx, 0                        ; 0x194b
-    call ds_aztec_ldv                ; 0x194e
+    call aztec_ldv                   ; 0x194e
     push ax                          ; 0x1951
     call ds_app_04c4                 ; 0x1952
     add sp, byte 4                   ; 0x1955
@@ -257,7 +257,7 @@ api_idx_009e:
 @..api_idx_009e.l6:
     mov ax, 1                        ; 0x1afd
     push ax                          ; 0x1b00
-    call ds_dos_con_in_noecho_2      ; 0x1b01
+    call dos_con_in_noecho_2         ; 0x1b01
     pop cx                           ; 0x1b04
     sub ah, ah                       ; 0x1b05
     mov word [bp - 0x0002], ax       ; 0x1b07

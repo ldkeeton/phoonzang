@@ -1,6 +1,6 @@
 api_idx_0090:
     mov ax, 0xff70                   ; 0x6cc9
-    call ds_aztec_csav               ; 0x6ccc
+    call aztec_csav                  ; 0x6ccc
 @..api_idx_0090.l1:
     mov bx, word [bp + 0x4]          ; 0x6ccf
     mov al, byte [bx]                ; 0x6cd2
@@ -8,7 +8,7 @@ api_idx_0090:
     push ax                          ; 0x6cd6
     mov ax, 0x917e                   ; 0x6cd7
     push ax                          ; 0x6cda
-    call ds_strlen                   ; 0x6cdb
+    call strlen                      ; 0x6cdb
     add sp, byte 4                   ; 0x6cde
     mov word [bp - 0x0004], ax       ; 0x6ce1
     cmp ax, strict word 0            ; 0x6ce4
@@ -165,7 +165,7 @@ jumptable_6e12:
     push ax                          ; 0x6e3a
     lea ax, word [bp - 0x0086]       ; 0x6e3b
     push ax                          ; 0x6e3f
-    call ds_aztec_strcpy             ; 0x6e40
+    call aztec_strcpy                ; 0x6e40
     add sp, byte 4                   ; 0x6e43
     mov ax, 0x9186                   ; 0x6e46
     push ax                          ; 0x6e49
@@ -183,7 +183,7 @@ jumptable_6e12:
     push word [bp + 0x4]             ; 0x6e65
     lea ax, word [bp - 0x0086]       ; 0x6e68
     push ax                          ; 0x6e6c
-    call ds_aztec_strcpy             ; 0x6e6d
+    call aztec_strcpy                ; 0x6e6d
     add sp, byte 4                   ; 0x6e70
 @..api_idx_0090.l10:
     mov ax, 2                        ; 0x6e73
@@ -202,7 +202,7 @@ jumptable_6e12:
     push word [bp + 0x4]             ; 0x6e92
     mov ax, 0x9b50                   ; 0x6e95
     push ax                          ; 0x6e98
-    call ds_aztec_strcpy             ; 0x6e99
+    call aztec_strcpy                ; 0x6e99
     add sp, byte 4                   ; 0x6e9c
     jmp short @..api_idx_0090.l12    ; 0x6e9f
 @..api_idx_0090.l11:
@@ -210,7 +210,7 @@ jumptable_6e12:
     push ax                          ; 0x6ea5
     mov ax, 0x9b50                   ; 0x6ea6
     push ax                          ; 0x6ea9
-    call ds_aztec_strcpy             ; 0x6eaa
+    call aztec_strcpy                ; 0x6eaa
     add sp, byte 4                   ; 0x6ead
 @..api_idx_0090.l12:
     ret                              ; 0x6eb0

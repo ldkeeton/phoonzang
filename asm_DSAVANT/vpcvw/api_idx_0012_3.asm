@@ -1,6 +1,6 @@
 api_idx_0012_3:
     mov ax, 0xffee                   ; 0x0781
-    call ds_aztec_csav               ; 0x0784
+    call aztec_csav                  ; 0x0784
     cmp word [bss_0e32], byte 0      ; 0x0787
     je short @..api_idx_0012_3.l1    ; 0x078c
     jmp near @..api_idx_0012_3.l6    ; 0x078e
@@ -69,7 +69,7 @@ api_idx_0012_3:
     jne short @..api_idx_0012_3.l5   ; 0x0820
     mov ax, 1                        ; 0x0822
     push ax                          ; 0x0825
-    call ds_dos_con_in_noecho_2      ; 0x0826
+    call dos_con_in_noecho_2         ; 0x0826
     pop cx                           ; 0x0829
     sub ah, ah                       ; 0x082a
     mov word [bp - 0x0002], ax       ; 0x082c

@@ -1,6 +1,6 @@
 api_idx_0002_5:
     mov ax, 0xfffe                   ; 0x08b7
-    call ds_aztec_csav               ; 0x08ba
+    call aztec_csav                  ; 0x08ba
     mov ax, 0                        ; 0x08bd
     push ax                          ; 0x08c0
     call ds_loc_415b                 ; 0x08c1
@@ -13,7 +13,7 @@ api_idx_0002_5:
     call ds_app_23a8                 ; 0x08d0
     add sp, byte 4                   ; 0x08d3
     push ax                          ; 0x08d6
-    call ds_aztec_open               ; 0x08d7
+    call aztec_open                  ; 0x08d7
     add sp, byte 4                   ; 0x08da
     mov word [bp - 0x0002], ax       ; 0x08dd
     cmp ax, strict word 0xffff       ; 0x08e0
@@ -29,7 +29,7 @@ api_idx_0002_5:
     call ds_loc_4225                 ; 0x08f4
     add sp, byte 4                   ; 0x08f7
     push word [bp - 0x0002]          ; 0x08fa
-    call ds_aztec_close              ; 0x08fd
+    call aztec_close                 ; 0x08fd
     pop cx                           ; 0x0900
     cmp word [bp + 0x6], byte 1      ; 0x0901
     jne short @..api_idx_0002_5.l2   ; 0x0905

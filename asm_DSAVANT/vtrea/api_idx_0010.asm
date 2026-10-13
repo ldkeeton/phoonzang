@@ -1,6 +1,6 @@
 api_idx_0010:
     mov ax, 0xfff0                   ; 0x0090
-    call ds_aztec_csav               ; 0x0093
+    call aztec_csav                  ; 0x0093
     cmp word [bp + 0x4], byte 0      ; 0x0096
     jl short @..api_idx_0010.l1      ; 0x009a
     cmp word [bp + 0x4], byte 6      ; 0x009c
@@ -55,7 +55,7 @@ api_idx_0010:
     ret                              ; 0x0110
 loc_0111:
     mov ax, 0xfee8                   ; 0x0111
-    call ds_aztec_csav               ; 0x0114
+    call aztec_csav                  ; 0x0114
     mov word [bp - 0x00f6], 7        ; 0x0117
     mov ax, 6                        ; 0x011d
     imul word [bp + 0x6]             ; 0x0120

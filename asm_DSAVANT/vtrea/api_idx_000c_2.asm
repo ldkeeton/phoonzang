@@ -1,6 +1,6 @@
 api_idx_000c_2:
     mov ax, 0xfff4                   ; 0x8bf4
-    call ds_aztec_csav               ; 0x8bf7
+    call aztec_csav                  ; 0x8bf7
     mov word [bp - 0x0002], 0        ; 0x8bfa
 @..api_idx_000c_2.l1:
     lea ax, word [bp - 0x000c]       ; 0x8bff
@@ -31,7 +31,7 @@ api_idx_000c_2:
     push word [bx + 0x18e]           ; 0x8c3e
     lea ax, word [bp - 0x000c]       ; 0x8c42
     push ax                          ; 0x8c45
-    call ds_aztec_strlen             ; 0x8c46
+    call aztec_strlen                ; 0x8c46
     pop cx                           ; 0x8c49
     mov cx, 6                        ; 0x8c4a
     imul cx                          ; 0x8c4d
@@ -64,7 +64,7 @@ api_idx_000c_2:
     ret                              ; 0x8c8c
 loc_8c8d:
     mov ax, 0                        ; 0x8c8d
-    call ds_aztec_csav               ; 0x8c90
+    call aztec_csav                  ; 0x8c90
     les bx, word [dseg_0002]         ; 0x8c93
     mov ax, word [es:bx]             ; 0x8c97
     mov dx, word [es:bx + 0x2]       ; 0x8c9a

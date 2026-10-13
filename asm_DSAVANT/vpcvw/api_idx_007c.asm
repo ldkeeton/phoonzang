@@ -1,6 +1,6 @@
 api_idx_007c:
     mov ax, 0xff84                   ; 0x1046
-    call ds_aztec_csav               ; 0x1049
+    call aztec_csav                  ; 0x1049
     mov ax, 0                        ; 0x104c
     push ax                          ; 0x104f
     push ax                          ; 0x1050
@@ -33,7 +33,7 @@ api_idx_007c:
     imul word [bp + 0x4]             ; 0x1095
     add ax, 0x5bf4                   ; 0x1098
     push ax                          ; 0x109b
-    call ds_aztec_strlen             ; 0x109c
+    call aztec_strlen                ; 0x109c
     pop cx                           ; 0x109f
     mov cx, 6                        ; 0x10a0
     imul cx                          ; 0x10a3
@@ -171,12 +171,12 @@ api_idx_007c:
     mov dx, word [bx + 0x5bfe]       ; 0x11e3
     mov cx, 0x16d                    ; 0x11e7
     mov bx, 0                        ; 0x11ea
-    call ds_aztec_ldv                ; 0x11ed
+    call aztec_ldv                   ; 0x11ed
     add ax, strict word 0xffee       ; 0x11f0
     adc dx, byte 0xff                ; 0x11f3
     mov cx, 4                        ; 0x11f6
     mov bx, 0                        ; 0x11f9
-    call ds_aztec_ldv                ; 0x11fc
+    call aztec_ldv                   ; 0x11fc
     push ax                          ; 0x11ff
     push dx                          ; 0x1200
     mov ax, 0x248                    ; 0x1201
@@ -224,7 +224,7 @@ api_idx_007c:
     add dx, bx                       ; 0x1255
     mov cx, 0x12                     ; 0x1257
     mov bx, 0                        ; 0x125a
-    call ds_aztec_ldv                ; 0x125d
+    call aztec_ldv                   ; 0x125d
     mov word [bss_942e], ax          ; 0x1260
     mov ax, 0x14                     ; 0x1263
     push ax                          ; 0x1266
@@ -342,7 +342,7 @@ api_idx_007c:
     push ax                          ; 0x1379
     lea ax, word [bp - 0x0058]       ; 0x137a
     push ax                          ; 0x137d
-    call ds_aztec_strlen             ; 0x137e
+    call aztec_strlen                ; 0x137e
     pop cx                           ; 0x1381
     mov cx, 0x34                     ; 0x1382
     sub cx, ax                       ; 0x1385

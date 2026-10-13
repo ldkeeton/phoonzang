@@ -1,6 +1,6 @@
 api_idx_0030:
     mov ax, 0xffd0                   ; 0x53fd
-    call ds_aztec_csav               ; 0x5400
+    call aztec_csav                  ; 0x5400
     mov word [bp - 0x0024], 0        ; 0x5403
     mov word [bp - 0x0022], 4        ; 0x5408
     mov word [bp - 0x0020], 1        ; 0x540d
@@ -157,7 +157,7 @@ api_idx_0030:
     push ax                          ; 0x5585
     mov ax, 0x920a                   ; 0x5586
     push ax                          ; 0x5589
-    call ds_aztec_setmem             ; 0x558a
+    call aztec_setmem                ; 0x558a
     add sp, byte 6                   ; 0x558d
     mov ax, 0                        ; 0x5590
     push ax                          ; 0x5593
@@ -165,7 +165,7 @@ api_idx_0030:
     push ax                          ; 0x5597
     mov ax, 0x91f1                   ; 0x5598
     push ax                          ; 0x559b
-    call ds_aztec_setmem             ; 0x559c
+    call aztec_setmem                ; 0x559c
     add sp, byte 6                   ; 0x559f
     mov ax, 0                        ; 0x55a2
     push ax                          ; 0x55a5
@@ -173,7 +173,7 @@ api_idx_0030:
     push ax                          ; 0x55a9
     mov ax, 0x91d8                   ; 0x55aa
     push ax                          ; 0x55ad
-    call ds_aztec_setmem             ; 0x55ae
+    call aztec_setmem                ; 0x55ae
     add sp, byte 6                   ; 0x55b1
     mov ax, 0                        ; 0x55b4
     push ax                          ; 0x55b7
@@ -181,7 +181,7 @@ api_idx_0030:
     push ax                          ; 0x55bb
     mov ax, 0x9b1a                   ; 0x55bc
     push ax                          ; 0x55bf
-    call ds_aztec_setmem             ; 0x55c0
+    call aztec_setmem                ; 0x55c0
     add sp, byte 6                   ; 0x55c3
     mov ax, 0                        ; 0x55c6
     push ax                          ; 0x55c9
@@ -189,7 +189,7 @@ api_idx_0030:
     push ax                          ; 0x55cd
     mov ax, 0x9223                   ; 0x55ce
     push ax                          ; 0x55d1
-    call ds_aztec_setmem             ; 0x55d2
+    call aztec_setmem                ; 0x55d2
     add sp, byte 6                   ; 0x55d5
     mov ax, 0                        ; 0x55d8
     push ax                          ; 0x55db
@@ -197,7 +197,7 @@ api_idx_0030:
     push ax                          ; 0x55df
     mov ax, 0x92ba                   ; 0x55e0
     push ax                          ; 0x55e3
-    call ds_aztec_setmem             ; 0x55e4
+    call aztec_setmem                ; 0x55e4
     add sp, byte 6                   ; 0x55e7
     mov ax, 0                        ; 0x55ea
     push ax                          ; 0x55ed
@@ -205,7 +205,7 @@ api_idx_0030:
     push ax                          ; 0x55f1
     mov ax, 0x92a0                   ; 0x55f2
     push ax                          ; 0x55f5
-    call ds_aztec_setmem             ; 0x55f6
+    call aztec_setmem                ; 0x55f6
     add sp, byte 6                   ; 0x55f9
     mov ax, 0                        ; 0x55fc
     push ax                          ; 0x55ff
@@ -213,7 +213,7 @@ api_idx_0030:
     push ax                          ; 0x5603
     mov ax, 0x923c                   ; 0x5604
     push ax                          ; 0x5607
-    call ds_aztec_setmem             ; 0x5608
+    call aztec_setmem                ; 0x5608
     add sp, byte 6                   ; 0x560b
     mov ax, 0                        ; 0x560e
     push ax                          ; 0x5611
@@ -221,7 +221,7 @@ api_idx_0030:
     push ax                          ; 0x5615
     mov ax, 0x92ec                   ; 0x5616
     push ax                          ; 0x5619
-    call ds_aztec_setmem             ; 0x561a
+    call aztec_setmem                ; 0x561a
     add sp, byte 6                   ; 0x561d
     mov ax, 0                        ; 0x5620
     push ax                          ; 0x5623
@@ -229,7 +229,7 @@ api_idx_0030:
     push ax                          ; 0x5627
     mov ax, 0x926e                   ; 0x5628
     push ax                          ; 0x562b
-    call ds_aztec_setmem             ; 0x562c
+    call aztec_setmem                ; 0x562c
     add sp, byte 6                   ; 0x562f
     mov ax, 0                        ; 0x5632
     push ax                          ; 0x5635
@@ -237,7 +237,7 @@ api_idx_0030:
     push ax                          ; 0x5639
     mov ax, 0x9320                   ; 0x563a
     push ax                          ; 0x563d
-    call ds_aztec_setmem             ; 0x563e
+    call aztec_setmem                ; 0x563e
     add sp, byte 6                   ; 0x5641
     mov word [bss_931e], 0           ; 0x5644
     mov ax, word [bp - 0x0012]       ; 0x564a
@@ -2230,7 +2230,7 @@ jumptable_59e2_case_0:
     ret                              ; 0x676b
 loc_676c:
     mov ax, 0                        ; 0x676c
-    call ds_aztec_csav               ; 0x676f
+    call aztec_csav                  ; 0x676f
     call api_idx_0030                ; 0x6772
     mov ax, 0x8f                     ; 0x6775
     push ax                          ; 0x6778
@@ -2245,7 +2245,7 @@ loc_676c:
     ret                              ; 0x678b
 loc_678c:
     mov ax, 0                        ; 0x678c
-    call ds_aztec_csav               ; 0x678f
+    call aztec_csav                  ; 0x678f
     mov bx, word [bss_0e14]          ; 0x6792
     mov si, word [bp + 0x4]          ; 0x6796
     mov al, byte [bx + si + 0x490]   ; 0x6799

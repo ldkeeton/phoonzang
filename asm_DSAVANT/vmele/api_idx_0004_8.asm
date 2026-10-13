@@ -1,6 +1,6 @@
 api_idx_0004_8:
     mov ax, 0xfffc                   ; 0x3390
-    call ds_aztec_csav               ; 0x3393
+    call aztec_csav                  ; 0x3393
     mov word [bss_84a4], 0           ; 0x3396
     mov word [bss_84a2], 0           ; 0x339c
     cmp word [bss_0e36], strict word 0xe1 ; 0x33a2
@@ -24,7 +24,7 @@ api_idx_0004_8:
     ret                              ; 0x33de
 loc_33df:
     mov ax, 0xfd06                   ; 0x33df
-    call ds_aztec_csav               ; 0x33e2
+    call aztec_csav                  ; 0x33e2
     mov word [bss_90bc], 1           ; 0x33e5
     mov ax, 2                        ; 0x33eb
     push ax                          ; 0x33ee
@@ -160,7 +160,7 @@ loc_33df:
 @..loc_33df.l5:
     mov ax, 0xe8                     ; 0x3519
     push ax                          ; 0x351c
-    call ds_aztec_malloc             ; 0x351d
+    call aztec_malloc                ; 0x351d
     pop cx                           ; 0x3520
     mov cx, word [bp - 0x0002]       ; 0x3521
     shl cx, 1                        ; 0x3524
@@ -168,7 +168,7 @@ loc_33df:
     mov word [bx - 0x7b70], ax       ; 0x3528
     mov ax, 0x1a4                    ; 0x352c
     push ax                          ; 0x352f
-    call ds_aztec_malloc             ; 0x3530
+    call aztec_malloc                ; 0x3530
     pop cx                           ; 0x3533
     mov cx, word [bp - 0x0002]       ; 0x3534
     shl cx, 1                        ; 0x3537
@@ -192,7 +192,7 @@ loc_33df:
 @..loc_33df.l8:
     mov ax, 0x18                     ; 0x3565
     push ax                          ; 0x3568
-    call ds_aztec_malloc             ; 0x3569
+    call aztec_malloc                ; 0x3569
     pop cx                           ; 0x356c
     mov cx, word [bp - 0x0002]       ; 0x356d
     shl cx, 1                        ; 0x3570
@@ -291,7 +291,7 @@ loc_33df:
     push word [bss_8492]             ; 0x365d
     lea ax, word [bp - 0x0056]       ; 0x3661
     push ax                          ; 0x3664
-    call ds_aztec_strcpy             ; 0x3665
+    call aztec_strcpy                ; 0x3665
     add sp, byte 4                   ; 0x3668
     lea ax, word [bp - 0x0056]       ; 0x366b
     push ax                          ; 0x366e
@@ -299,7 +299,7 @@ loc_33df:
     pop cx                           ; 0x3672
     lea ax, word [bp - 0x0056]       ; 0x3673
     push ax                          ; 0x3676
-    call ds_aztec_strlen             ; 0x3677
+    call aztec_strlen                ; 0x3677
     pop cx                           ; 0x367a
     mov word [bp - 0x0004], ax       ; 0x367b
     lea cx, word [bp - 0x0056]       ; 0x367e

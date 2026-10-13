@@ -1,6 +1,6 @@
 api_idx_0004_2:
     mov ax, 0xfffc                   ; 0x1c80
-    call ds_aztec_csav               ; 0x1c83
+    call aztec_csav                  ; 0x1c83
     mov ax, 0x248                    ; 0x1c86
     imul word [bp + 0x4]             ; 0x1c89
     mov bx, ax                       ; 0x1c8c
@@ -353,7 +353,7 @@ jumptable_1ee4:
     ret                              ; 0x1f0d
 loc_1f0e:
     mov ax, 0                        ; 0x1f0e
-    call ds_aztec_csav               ; 0x1f11
+    call aztec_csav                  ; 0x1f11
     mov al, byte [bp + 0x4]          ; 0x1f14
     mov byte [bss_89df], al          ; 0x1f17
     mov byte [bss_89ea], al          ; 0x1f1a

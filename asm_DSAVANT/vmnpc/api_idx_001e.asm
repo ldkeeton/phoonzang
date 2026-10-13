@@ -1,6 +1,6 @@
 api_idx_001e:
     mov ax, 0xffe2                   ; 0x70b7
-    call ds_aztec_csav               ; 0x70ba
+    call aztec_csav                  ; 0x70ba
     mov word [bss_830a], 5           ; 0x70bd
     cmp word [bss_82b6], byte 0xff   ; 0x70c3
     je short @..api_idx_001e.l3      ; 0x70c8
@@ -61,7 +61,7 @@ api_idx_001e:
 @..api_idx_001e.l5:
     mov ax, 0x18                     ; 0x7148
     push ax                          ; 0x714b
-    call ds_aztec_malloc             ; 0x714c
+    call aztec_malloc                ; 0x714c
     pop cx                           ; 0x714f
     mov cx, word [bp - 0x0002]       ; 0x7150
     shl cx, 1                        ; 0x7153
@@ -91,7 +91,7 @@ api_idx_001e:
     push ax                          ; 0x7197
     mov ax, 0x843a                   ; 0x7198
     push ax                          ; 0x719b
-    call ds_aztec_setmem             ; 0x719c
+    call aztec_setmem                ; 0x719c
     add sp, byte 6                   ; 0x719f
     mov ax, 0                        ; 0x71a2
     push ax                          ; 0x71a5
@@ -99,7 +99,7 @@ api_idx_001e:
     push ax                          ; 0x71a9
     mov ax, 0x93dc                   ; 0x71aa
     push ax                          ; 0x71ad
-    call ds_aztec_setmem             ; 0x71ae
+    call aztec_setmem                ; 0x71ae
     add sp, byte 6                   ; 0x71b1
     mov word [bp - 0x0002], 0xf      ; 0x71b4
 @..api_idx_001e.l7:
@@ -184,7 +184,7 @@ api_idx_001e:
     shl ax, 1                        ; 0x7294
     add ax, 0x584e                   ; 0x7296
     push ax                          ; 0x7299
-    call ds_aztec_movmem             ; 0x729a
+    call aztec_movmem                ; 0x729a
     add sp, byte 6                   ; 0x729d
     mov word [bss_964c], 0           ; 0x72a0
     mov word [bss_964a], 0           ; 0x72a6
@@ -194,6 +194,6 @@ api_idx_001e:
     push ax                          ; 0x72b3
     mov ax, 0x94f0                   ; 0x72b4
     push ax                          ; 0x72b7
-    call ds_aztec_setmem             ; 0x72b8
+    call aztec_setmem                ; 0x72b8
     add sp, byte 6                   ; 0x72bb
     ret                              ; 0x72be

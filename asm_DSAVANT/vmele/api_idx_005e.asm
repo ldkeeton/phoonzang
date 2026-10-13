@@ -1,6 +1,6 @@
 api_idx_005e:
     mov ax, 0xffa2                   ; 0x0649
-    call ds_aztec_csav               ; 0x064c
+    call aztec_csav                  ; 0x064c
     mov word [bp - 0x0002], 0xf      ; 0x064f
 @..api_idx_005e.l1:
     mov bx, word [bp - 0x0002]       ; 0x0654
@@ -19,7 +19,7 @@ api_idx_005e:
     push ax                          ; 0x0674
     lea ax, word [bp - 0x005e]       ; 0x0675
     push ax                          ; 0x0678
-    call ds_aztec_strcpy             ; 0x0679
+    call aztec_strcpy                ; 0x0679
     add sp, byte 4                   ; 0x067c
     mov ax, word [bp + 0x4]          ; 0x067f
     mov cx, 0xa                      ; 0x0682
@@ -39,7 +39,7 @@ api_idx_005e:
     call ds_app_23a8                 ; 0x06a2
     add sp, byte 4                   ; 0x06a5
     push ax                          ; 0x06a8
-    call ds_aztec_open               ; 0x06a9
+    call aztec_open                  ; 0x06a9
     add sp, byte 4                   ; 0x06ac
     mov word [bp - 0x0004], ax       ; 0x06af
     cmp ax, strict word 0xffff       ; 0x06b2
@@ -54,12 +54,12 @@ api_idx_005e:
     push dx                          ; 0x06c5
     push ax                          ; 0x06c6
     push word [bp - 0x0004]          ; 0x06c7
-    call ds_aztec_lseek              ; 0x06ca
+    call aztec_lseek                 ; 0x06ca
     add sp, byte 8                   ; 0x06cd
     mov word [bp - 0x0006], dx       ; 0x06d0
     mov word [bp - 0x0008], ax       ; 0x06d3
     push word [bp - 0x0004]          ; 0x06d6
-    call ds_aztec_close              ; 0x06d9
+    call aztec_close                 ; 0x06d9
     pop cx                           ; 0x06dc
     mov word [bp - 0x000a], 0        ; 0x06dd
     mov word [bp - 0x000c], 0x2800   ; 0x06e2

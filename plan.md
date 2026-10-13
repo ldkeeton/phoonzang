@@ -34,6 +34,7 @@ lives in `asm/lib`, not in the generated assembly.
 | D7.0c — pre-NASM link step | 13 `o_dorg` → `__zdataseg_end`; 13 overlays `%include` the `.cache` values file; `inc/labels` + `inc/spans` → `.cache` | **−13** |
 | D7.0e — one shared host-call table | 13 per-overlay `*_foreign_labels.inc` → one `.cache` `host_calls.inc` (322 entries); dead `ds_labels.inc` deleted; 121 bogus `dispatch_` entries dropped | **0** |
 | D7.1 — host-owned shared DS name map | 13 overlays: ~1230 `dseg_`/`bss_` `equ`s → one `%include "labels/host_data.inc"`; `ds.asm` declares one recipe per offset (689 names); the link step re-probes all three tables; the code-handle table moves onto the link step too | **−1230** (`data_shift` 1231 → 1) |
+| D7.5 — `vstart` + host include (supersedes the D7.0c/D7.0e/D7.1 tables) | generated source assembles at its runtime address (`section .text vstart=VBASE`); overlays include the host source in a `nobits` section for its symbols; `host_calls.inc`, `host_values.inc`, `host_data.inc` and the link step deleted; the host's address-derived labels carry a `ds_` prefix | **0** (bytes identical) |
 
 † D7.0a did not *create* 33 new problems — it made 33 already-frozen values
 **visible**. A host EXE and its overlays share one data segment: every overlay's
@@ -103,6 +104,10 @@ name.  **D7.0e done:** the 13 per-overlay foreign-label files collapsed into the
 single `.cache/<project>/labels/host_calls.inc`.  **D7.1 done:** the host-owned
 shared DS name map (`host_data.inc`) and the code-handle table both move onto the
 link step — seen §17.)*
+
+*(**D7.5 supersedes the three `.cache` tables above:** overlays now see the host's
+labels by including `ds.asm` in a section that emits no bytes, so nothing is
+probed or generated; see §17 D7.5.)*
 
 ### 0.3 Not measured by any metric
 
@@ -1332,6 +1337,41 @@ host DS size — is established in §0.1/§0.2 and Section 18.
   stays a fixed point, and `make elf-rebuild` reproduces the tree byte-for-byte
   (no drift).
 
+- **D7.5 — assemble at the runtime address (`vstart`); overlays include the
+  host.** ✅ DONE (2026-10-13).  Bytes unchanged (all 18 binaries `cmp`-identical
+  to the pre-change build; `make verify` 18/18).  The generated source used
+  `org 0`, so a label's value was its file offset and an overlay's near call to a
+  host routine needed a coordinate-shifted fake value (`host_off - cs_origin -
+  o_corg + 14`, mod 64K -- e.g. `ds_dos_con_in_noecho equ 0xea50` for a routine
+  at CS `0x3a97`).  An overlay runs in the host's code segment from `o_corg`, so
+  its file offset 0 is `o_corg - 14`.  Now:
+  1. Each image has `VBASE` (virtual address of file offset 0: overlay `o_corg -
+     14`, MZ `-start_offset`; drivers keep `org 0`) and starts with `section
+     .text vstart=VBASE`.  `IMAGE_BASE equ start_offset + VBASE`, so every
+     `label - IMAGE_BASE [+ o_corg]` is unchanged text.  Code-target `equ`s are
+     `0x<off> + VBASE`.  `make elf-rebuild` blanks the section line and defines
+     `VBASE` as 0 (ELF has no `vstart`).  Answers the §18 "`o_corg`" question:
+     `o_corg` is the load address inside the host CS (verified: `VBASE.OVR`'s
+     `call` at file 0xb8 lands exactly on `aztec_csav`, CS `0x4452`).
+  2. An overlay ends with the host source included under `nobits` (`%define
+     HOST_SYMS_ONLY`, the host's own `VBASE`, `__zimage_end` renamed), so host
+     routines, `__zdataseg_end` and the shared `dseg_`/`bss_` names resolve to
+     the host's real labels.  The three `.cache` tables (`host_calls.inc`,
+     `host_values.inc`, `host_data.inc`) and the pre-NASM link step are gone;
+     `lib/link.py` keeps only the include args, `host_name` and the union of the
+     DS offsets the overlays reference (the host still declares one recipe per
+     offset).  NASM needs `-w-other` for the nobits include.
+  3. The host's address-derived names (`loc_08f2`, `app_03b8`, ...) are
+     prefixed with the host name (`ds_loc_08f2`) so they cannot clash with an
+     overlay's own generic names (`lib/names.py`; applied by `main/runner.py`
+     just before the host is emitted).  Named routines keep their names, so an
+     overlay's `call dos_con_in_noecho` finds `dos_con_in_noecho:` in
+     `ds/dos_con_in_noecho.asm`.
+  Edit propagation is tested without any table: a host data edit moves
+  `o_dorg` and every `dseg_` operand; a host code edit moves an overlay's call
+  displacement (`lib/tests/test_dynamic_addrs.py::HostIncludeTests`).
+  Supersedes D7.0c's "values live in `.cache`" for host geometry, D7.0e's table
+  and D7.1's probed `host_data.inc`; D7.0d (ELF for overlays) can reuse `VBASE`.
 - **D7.0e — one shared host-call table.** ✅ DONE (2026-10-12).  Closes a failed
   start: every overlay used to get its own `<overlay>_foreign_labels.inc`, and
   they were **subset copies of one table** (13 files, 131 names, **0** value

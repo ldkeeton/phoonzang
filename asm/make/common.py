@@ -98,7 +98,7 @@ def _nasm_build(out_dir, name, rel_path):
     asm_path = os.path.join(out_dir, f'{name}.asm')
     bin_path = os.path.join(out_dir, 'build_out', rel_path)
     os.makedirs(os.path.dirname(bin_path), exist_ok=True)
-    r = _run('nasm', '-O0', '-f', 'bin', '-w-number-overflow',
+    r = _run('nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-w-other',
              *include_args(out_dir), '-o', bin_path, asm_path)
     if r.returncode != 0:
         print(f'  BUILD FAIL: {name}.asm -> {rel_path}')
@@ -190,9 +190,7 @@ def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
             print(f'  FAILED: {src_name}')
             failed.append(src_name)
 
-    # The one shared overlay-handle table is re-probed by the link step
-    # (``lib.link.write_host_calls``, D7.1); remove any stale per-consumer
-    # subset copies so only one convention is live.
+    # Remove any stale per-consumer subset copies of the old foreign tables.
     _remove_foreign_label_copies(app)
 
     return failed

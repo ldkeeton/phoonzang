@@ -1,6 +1,6 @@
 api_idx_0006_3:
     mov ax, 0xfffa                   ; 0x60e0
-    call ds_aztec_csav               ; 0x60e3
+    call aztec_csav                  ; 0x60e3
     mov ax, 8                        ; 0x60e6
     push ax                          ; 0x60e9
     mov ax, 0xb                      ; 0x60ea
@@ -49,7 +49,7 @@ api_idx_0006_3:
     add sp, byte 0x0c                ; 0x6145
     mov word [bp - 0x0004], dx       ; 0x6148
     mov word [bp - 0x0006], ax       ; 0x614b
-    call ds_bios_kbd_check           ; 0x614e
+    call bios_kbd_check              ; 0x614e
 @..api_idx_0006_3.l1:
     mov ax, 0                        ; 0x6151
     push ax                          ; 0x6154

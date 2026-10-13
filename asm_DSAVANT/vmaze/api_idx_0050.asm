@@ -1,6 +1,6 @@
 api_idx_0050:
     mov ax, 0xffb0                   ; 0x1094
-    call ds_aztec_csav               ; 0x1097
+    call aztec_csav                  ; 0x1097
     lea ax, word [bp - 0x0050]       ; 0x109a
     push ax                          ; 0x109d
     push word [bp + 0x4]             ; 0x109e
@@ -13,7 +13,7 @@ api_idx_0050:
     ret                              ; 0x10af
 loc_10b0:
     mov ax, 0                        ; 0x10b0
-    call ds_aztec_csav               ; 0x10b3
+    call aztec_csav                  ; 0x10b3
     mov ax, 0x248                    ; 0x10b6
     imul word [bp + 0x4]             ; 0x10b9
     mov bx, ax                       ; 0x10bc

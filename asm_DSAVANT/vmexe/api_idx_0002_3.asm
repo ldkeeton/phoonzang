@@ -1,6 +1,6 @@
 api_idx_0002_3:
     mov ax, 0xfffe                   ; 0x1f00
-    call ds_aztec_csav               ; 0x1f03
+    call aztec_csav                  ; 0x1f03
     mov ax, word [bp + 0x4]          ; 0x1f06
     shl ax, 1                        ; 0x1f09
     mov bx, ax                       ; 0x1f0b
@@ -16,7 +16,7 @@ api_idx_0002_3:
     imul bx                          ; 0x1f26
     mov cx, 0x64                     ; 0x1f28
     mov bx, 0                        ; 0x1f2b
-    call ds_aztec_ldv                ; 0x1f2e
+    call aztec_ldv                   ; 0x1f2e
     mov word [bp - 0x0002], ax       ; 0x1f31
     cmp ax, strict word 0            ; 0x1f34
     jge short @..api_idx_0002_3.l1   ; 0x1f37
@@ -39,7 +39,7 @@ api_idx_0002_3:
     ret                              ; 0x1f5c
 loc_1f5d:
     mov ax, 0                        ; 0x1f5d
-    call ds_aztec_csav               ; 0x1f60
+    call aztec_csav                  ; 0x1f60
     mov ax, 0x2c                     ; 0x1f63
     imul word [bp + 0x6]             ; 0x1f66
     mov si, ax                       ; 0x1f69

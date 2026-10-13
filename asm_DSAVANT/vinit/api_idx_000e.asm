@@ -1,6 +1,6 @@
 api_idx_000e:
     mov ax, 0xfff2                   ; 0x09d3
-    call ds_aztec_csav               ; 0x09d6
+    call aztec_csav                  ; 0x09d6
     mov al, byte [bp + 0x4]          ; 0x09d9
     mov byte [bp - 0x000e], al       ; 0x09dc
     mov byte [bp - 0x000d], 0        ; 0x09df
@@ -54,7 +54,7 @@ api_idx_000e:
     ret                              ; 0x0a55
 loc_0a56:
     mov ax, 0                        ; 0x0a56
-    call ds_aztec_csav               ; 0x0a59
+    call aztec_csav                  ; 0x0a59
     mov ax, 0                        ; 0x0a5c
     push ax                          ; 0x0a5f
     mov ax, 0xc7                     ; 0x0a60

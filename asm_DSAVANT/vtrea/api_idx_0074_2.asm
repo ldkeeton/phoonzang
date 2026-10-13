@@ -1,6 +1,6 @@
 api_idx_0074_2:
     mov ax, 0xff8c                   ; 0x78ed
-    call ds_aztec_csav               ; 0x78f0
+    call aztec_csav                  ; 0x78f0
     mov ax, word [bss_8d12]          ; 0x78f3
     shl ax, 1                        ; 0x78f6
     mov si, ax                       ; 0x78f8
@@ -103,7 +103,7 @@ api_idx_0074_2:
     add sp, byte 4                   ; 0x79e9
     lea ax, word [bp - 0x0074]       ; 0x79ec
     push ax                          ; 0x79ef
-    call ds_aztec_strlen             ; 0x79f0
+    call aztec_strlen                ; 0x79f0
     pop cx                           ; 0x79f3
     mov cx, 6                        ; 0x79f4
     imul cx                          ; 0x79f7
@@ -135,7 +135,7 @@ api_idx_0074_2:
     push ax                          ; 0x7a35
     lea ax, word [bp - 0x0074]       ; 0x7a36
     push ax                          ; 0x7a39
-    call ds_aztec_strlen             ; 0x7a3a
+    call aztec_strlen                ; 0x7a3a
     pop cx                           ; 0x7a3d
     mov cx, 6                        ; 0x7a3e
     imul cx                          ; 0x7a41
@@ -504,7 +504,7 @@ api_idx_0074_2:
     ret                              ; 0x7d98
 loc_7d99:
     mov ax, 0                        ; 0x7d99
-    call ds_aztec_csav               ; 0x7d9c
+    call aztec_csav                  ; 0x7d9c
     call ds_app_138c                 ; 0x7d9f
     mov ax, 1                        ; 0x7da2
     push ax                          ; 0x7da5
@@ -606,7 +606,7 @@ loc_7d99:
     mov word [bss_91d4], 1           ; 0x7e8b
     mov word [bss_9124], 5           ; 0x7e91
     mov word [bss_911c], 0x8f        ; 0x7e97
-    call ds_bios_kbd_check           ; 0x7e9d
+    call bios_kbd_check              ; 0x7e9d
     mov word [bss_9126], 0           ; 0x7ea0
     cmp word [bp + 0x4], byte 0      ; 0x7ea6
     jle short @..loc_7d99.l2         ; 0x7eaa
@@ -619,7 +619,7 @@ loc_7d99:
     ret                              ; 0x7eb9
 loc_7eba:
     mov ax, 0                        ; 0x7eba
-    call ds_aztec_csav               ; 0x7ebd
+    call aztec_csav                  ; 0x7ebd
     mov ax, 0                        ; 0x7ec0
     push ax                          ; 0x7ec3
     mov ax, 1                        ; 0x7ec4

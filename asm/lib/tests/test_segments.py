@@ -230,20 +230,6 @@ class HostCodeOffsetTest(unittest.TestCase):
                              overlay={'o_corg': 0x5055})
         self.assertIsNone(model.host_code_offset(0xf01f))
 
-    def test_host_code_target_is_the_inverse(self):
-        model = self._model()
-        self.assertEqual(model.host_code_target(0x4266), 0xf01f)
-        self.assertEqual(model.host_code_target(0x0200), 0xafb9)
-        for target in (0x0000, 0x1234, 0xafb9, 0xf01f, 0xffff):
-            self.assertEqual(model.host_code_target(
-                model.host_code_offset(target)), target)
-
-    def test_mz_and_driver_have_no_host_target(self):
-        mz = from_binary(_synthetic_mz(bss_start=0x100, bss_end=0x400), 'mz')
-        self.assertIsNone(mz.host_code_target(0x10))
-        drv = from_binary(b'\xe9\x00\x00', 'raw_drv')
-        self.assertIsNone(drv.host_code_target(0x10))
-
 
 if __name__ == '__main__':
     unittest.main()

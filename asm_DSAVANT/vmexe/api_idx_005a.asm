@@ -1,6 +1,6 @@
 api_idx_005a:
     mov ax, 0xffa6                   ; 0x9f4f
-    call ds_aztec_csav               ; 0x9f52
+    call aztec_csav                  ; 0x9f52
     mov bx, word [bp + 0x4]          ; 0x9f55
     mov al, byte [bx + 0x1f]         ; 0x9f58
     sub ah, ah                       ; 0x9f5b
@@ -78,7 +78,7 @@ api_idx_005a:
     push ax                          ; 0xa011
     mov ax, 0x9186                   ; 0xa012
     push ax                          ; 0xa015
-    call ds_aztec_strcpy             ; 0xa016
+    call aztec_strcpy                ; 0xa016
     add sp, byte 4                   ; 0xa019
     jmp short @..api_idx_005a.l3     ; 0xa01c
 @..api_idx_005a.l2:

@@ -1,6 +1,6 @@
 api_idx_0084:
     mov ax, 0xff7c                   ; 0x25ab
-    call ds_aztec_csav               ; 0x25ae
+    call aztec_csav                  ; 0x25ae
     mov word [bp - 0x0002], 0        ; 0x25b1
     jmp short @..api_idx_0084.l2     ; 0x25b6
 @..api_idx_0084.l1:
@@ -83,7 +83,7 @@ api_idx_0084:
     imul word [bp + 0x4]             ; 0x2689
     add ax, 0x5bf4                   ; 0x268c
     push ax                          ; 0x268f
-    call ds_aztec_strlen             ; 0x2690
+    call aztec_strlen                ; 0x2690
     pop cx                           ; 0x2693
     mov cx, 6                        ; 0x2694
     imul cx                          ; 0x2697
@@ -109,7 +109,7 @@ api_idx_0084:
     push ax                          ; 0x26c7
     lea ax, word [bp - 0x0074]       ; 0x26c8
     push ax                          ; 0x26cb
-    call ds_aztec_strcpy             ; 0x26cc
+    call aztec_strcpy                ; 0x26cc
     add sp, byte 4                   ; 0x26cf
     lea ax, word [bp - 0x0073]       ; 0x26d2
     push ax                          ; 0x26d5
@@ -132,7 +132,7 @@ api_idx_0084:
     push ax                          ; 0x26ff
     lea ax, word [bp - 0x0074]       ; 0x2700
     push ax                          ; 0x2703
-    call ds_aztec_strlen             ; 0x2704
+    call aztec_strlen                ; 0x2704
     pop cx                           ; 0x2707
     mov cx, 6                        ; 0x2708
     imul cx                          ; 0x270b
@@ -1062,7 +1062,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x2f87
     lea ax, word [bp - 0x0074]       ; 0x2f88
     push ax                          ; 0x2f8b
-    call ds_aztec_strcpy             ; 0x2f8c
+    call aztec_strcpy                ; 0x2f8c
     add sp, byte 4                   ; 0x2f8f
     lea ax, word [bp - 0x004c]       ; 0x2f92
     push ax                          ; 0x2f95
@@ -1081,7 +1081,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x2fb4
     lea ax, word [bp - 0x0074]       ; 0x2fb5
     push ax                          ; 0x2fb8
-    call ds_aztec_strlen             ; 0x2fb9
+    call aztec_strlen                ; 0x2fb9
     pop cx                           ; 0x2fbc
     mov cx, ax                       ; 0x2fbd
     mov ax, 0xc                      ; 0x2fbf
@@ -1172,7 +1172,7 @@ jumptable_34f1_case_3:
 @..api_idx_0084.l31:
     mov ax, 1                        ; 0x3088
     push ax                          ; 0x308b
-    call ds_dos_con_in_noecho_2      ; 0x308c
+    call dos_con_in_noecho_2         ; 0x308c
     pop cx                           ; 0x308f
 @..api_idx_0084.l32:
     mov ax, word [bp - 0x0008]       ; 0x3090
@@ -1241,7 +1241,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x3129
     lea ax, word [bp - 0x004c]       ; 0x312a
     push ax                          ; 0x312d
-    call ds_aztec_strlen             ; 0x312e
+    call aztec_strlen                ; 0x312e
     pop cx                           ; 0x3131
     mov cx, ax                       ; 0x3132
     mov ax, 0xc                      ; 0x3134

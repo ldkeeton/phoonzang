@@ -1,6 +1,6 @@
 api_idx_001e_3:
     mov ax, 0xffe2                   ; 0x7e46
-    call ds_aztec_csav               ; 0x7e49
+    call aztec_csav                  ; 0x7e49
     mov ax, word [bss_8d12]          ; 0x7e4c
     shl ax, 1                        ; 0x7e4f
     mov si, ax                       ; 0x7e51

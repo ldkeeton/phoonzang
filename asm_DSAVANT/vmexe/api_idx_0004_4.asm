@@ -1,6 +1,6 @@
 api_idx_0004_4:
     mov ax, 0xfffc                   ; 0x16c1
-    call ds_aztec_csav               ; 0x16c4
+    call aztec_csav                  ; 0x16c4
     mov bx, word [bp + 0x8]          ; 0x16c7
     cmp byte [bx], 0                 ; 0x16ca
     je short @..api_idx_0004_4.l1    ; 0x16cd
@@ -20,18 +20,18 @@ api_idx_0004_4:
     add ax, cx                       ; 0x16e7
     mov word [bp - 0x0004], ax       ; 0x16e9
     push word [bp + 0x6]             ; 0x16ec
-    call ds_aztec_strlen             ; 0x16ef
+    call aztec_strlen                ; 0x16ef
     pop cx                           ; 0x16f2
     push ax                          ; 0x16f3
     push word [bp + 0x8]             ; 0x16f4
-    call ds_aztec_strlen             ; 0x16f7
+    call aztec_strlen                ; 0x16f7
     pop cx                           ; 0x16fa
     mov cx, ax                       ; 0x16fb
     pop ax                           ; 0x16fd
     add ax, cx                       ; 0x16fe
     push ax                          ; 0x1700
     push word [bp + 0xa]             ; 0x1701
-    call ds_aztec_strlen             ; 0x1704
+    call aztec_strlen                ; 0x1704
     pop cx                           ; 0x1707
     mov cx, ax                       ; 0x1708
     pop ax                           ; 0x170a

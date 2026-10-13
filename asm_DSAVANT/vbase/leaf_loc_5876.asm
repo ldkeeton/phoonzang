@@ -90,7 +90,7 @@ jumptable_5e7f_case_2:
 @..loc_5928.l1:
     jmp near loc_5ebe                ; 0x5943
 jumptable_5e7f_case_3:
-    call ds_bios_kbd_check           ; 0x5946
+    call bios_kbd_check              ; 0x5946
     mov ax, 0x12                     ; 0x5949
     push ax                          ; 0x594c
     mov ax, word [bp - 0x000a]       ; 0x594d
@@ -129,7 +129,7 @@ jumptable_5e7f_case_3:
     add sp, byte 6                   ; 0x599a
     jmp near loc_5ebe                ; 0x599d
 jumptable_5e7f_case_4:
-    call ds_bios_kbd_check           ; 0x59a0
+    call bios_kbd_check              ; 0x59a0
     mov ax, 0x12                     ; 0x59a3
     push ax                          ; 0x59a6
     mov ax, word [bp - 0x000a]       ; 0x59a7
@@ -444,12 +444,12 @@ jumptable_5e7f_case_18:
     jne short @..loc_5bfa.l7         ; 0x5c79
     mov ax, 0x5964                   ; 0x5c7b
     push ax                          ; 0x5c7e
-    call ds_aztec_strlen             ; 0x5c7f
+    call aztec_strlen                ; 0x5c7f
     pop cx                           ; 0x5c82
     test ax, ax                      ; 0x5c83
     jne short @..loc_5bfa.l7         ; 0x5c85
 @..loc_5bfa.l6:
-    call ds_bios_kbd_check           ; 0x5c87
+    call bios_kbd_check              ; 0x5c87
     mov ax, 0xa                      ; 0x5c8a
     push ax                          ; 0x5c8d
     mov ax, word [bp - 0x000a]       ; 0x5c8e
@@ -757,7 +757,7 @@ loc_5efd:
     ret                              ; 0x5f27
 loc_5f28:
     mov ax, 0xfd40                   ; 0x5f28
-    call ds_aztec_csav               ; 0x5f2b
+    call aztec_csav                  ; 0x5f2b
     mov word [bp - 0x0008], 0        ; 0x5f2e
     mov word [bp - 0x0002], 0        ; 0x5f33
     jmp near @..loc_5f28.l7          ; 0x5f38
@@ -780,13 +780,13 @@ loc_5f28:
     imul word [bp - 0x0008]          ; 0x5f60
     add ax, 0xe38                    ; 0x5f63
     push ax                          ; 0x5f66
-    call ds_aztec_strcpy             ; 0x5f67
+    call aztec_strcpy                ; 0x5f67
     add sp, byte 4                   ; 0x5f6a
     mov ax, 0x14                     ; 0x5f6d
     imul word [bp - 0x0008]          ; 0x5f70
     add ax, 0xe38                    ; 0x5f73
     push ax                          ; 0x5f76
-    call ds_aztec_strlen             ; 0x5f77
+    call aztec_strlen                ; 0x5f77
     pop cx                           ; 0x5f7a
     mov word [bp - 0x0004], ax       ; 0x5f7b
 @..loc_5f28.l3:
@@ -887,7 +887,7 @@ loc_5f28:
     ret                              ; 0x606c
 loc_606d:
     mov ax, 0xfdb2                   ; 0x606d
-    call ds_aztec_csav               ; 0x6070
+    call aztec_csav                  ; 0x6070
 @..loc_606d.l1:
     cmp word [bss_69c8], byte 6      ; 0x6073
     jl short @..loc_606d.l2          ; 0x6078

@@ -1,6 +1,6 @@
 api_idx_0006_7:
     mov ax, 0xfffa                   ; 0x989b
-    call ds_aztec_csav               ; 0x989e
+    call aztec_csav                  ; 0x989e
     cmp word [bss_8464], byte 0      ; 0x98a1
     jne short @..api_idx_0006_7.l3   ; 0x98a6
     mov ax, 0x248                    ; 0x98a8

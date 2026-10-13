@@ -1,6 +1,6 @@
 api_idx_0002_13:
     mov ax, 0xfffe                   ; 0x9bcc
-    call ds_aztec_csav               ; 0x9bcf
+    call aztec_csav                  ; 0x9bcf
     mov al, byte [bss_91c7]          ; 0x9bd2
     sub ah, ah                       ; 0x9bd5
     cmp ax, word [bp + 0x4]          ; 0x9bd7
@@ -75,7 +75,7 @@ api_idx_0002_13:
     ret                              ; 0x9c79
 loc_9c7a:
     mov ax, 0                        ; 0x9c7a
-    call ds_aztec_csav               ; 0x9c7d
+    call aztec_csav                  ; 0x9c7d
     mov ax, 0x95fa                   ; 0x9c80
     push ax                          ; 0x9c83
     push word [bp + 0x4]             ; 0x9c84
@@ -135,7 +135,7 @@ loc_9c7a:
     ret                              ; 0x9d05
 loc_9d06:
     mov ax, 0                        ; 0x9d06
-    call ds_aztec_csav               ; 0x9d09
+    call aztec_csav                  ; 0x9d09
     mov ax, word [bp + 0x4]          ; 0x9d0c
     cmp ax, word [bss_b046]          ; 0x9d0f
     jge short @..loc_9d06.l1         ; 0x9d13

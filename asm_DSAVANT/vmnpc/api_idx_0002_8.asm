@@ -1,6 +1,6 @@
 api_idx_0002_8:
     mov ax, 0xfffe                   ; 0x86a4
-    call ds_aztec_csav               ; 0x86a7
+    call aztec_csav                  ; 0x86a7
     mov word [bp - 0x0002], 0        ; 0x86aa
     jmp short @..api_idx_0002_8.l2   ; 0x86af
 @..api_idx_0002_8.l1:
@@ -15,7 +15,7 @@ api_idx_0002_8:
     ret                              ; 0x86c5
 loc_86c6:
     mov ax, 0                        ; 0x86c6
-    call ds_aztec_csav               ; 0x86c9
+    call aztec_csav                  ; 0x86c9
     mov word [bss_9e62], 1           ; 0x86cc
     mov ax, word [bp + 0x4]          ; 0x86d2
     jmp short @..loc_86c6.l1         ; 0x86d5

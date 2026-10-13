@@ -1,6 +1,6 @@
 api_idx_0006_3:
     mov ax, 0xfffa                   ; 0x25d0
-    call ds_aztec_csav               ; 0x25d3
+    call aztec_csav                  ; 0x25d3
     cmp word [bp + 0x6], byte 0      ; 0x25d6
     jl short @..api_idx_0006_3.l1    ; 0x25da
     mov ax, word [bp + 0x6]          ; 0x25dc

@@ -101,7 +101,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         wrong = {
             offset: self.label_map.get(offset)
             for offset in _SHARED_OR_CROSS_FUNCTION_TARGETS
-            if self.label_map.get(offset) != f'loc_{offset:04x}'
+            if self.label_map.get(offset) != f'ds_loc_{offset:04x}'
         }
         self.assertEqual(wrong, {})
 
@@ -146,12 +146,12 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         output = pathlib.Path(self._output.name)
         master = (output / 'ds.asm').read_text()
 
-        for function_name in ('main', 'bios_video_loc_3067'):
+        for function_name in ('main', 'ds_bios_video_loc_3067'):
             with self.subTest(function=function_name):
                 self.assertTrue((output / 'ds' / f'{function_name}.asm').is_file())
                 self.assertIn(f'%include "ds/{function_name}.asm"', master)
 
-        self.assertFalse((output / 'ds' / 'loc_23ef.asm').exists())
+        self.assertFalse((output / 'ds' / 'ds_loc_23ef.asm').exists())
 
     def test_stack_check_name_owns_its_call_target_prefix(self):
         output = pathlib.Path(self._output.name)
@@ -209,8 +209,8 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
             path.read_text()
             for path in pathlib.Path(self._output.name).rglob('*.asm')
         )
-        self.assertIn('dos_proc_loc_4e7e:', asm_text)
-        self.assertEqual(asm_text.count('call dos_proc_loc_4e7e'), 3)
+        self.assertIn('ds_dos_proc_loc_4e7e:', asm_text)
+        self.assertEqual(asm_text.count('call ds_dos_proc_loc_4e7e'), 3)
 
 
 if __name__ == '__main__':
