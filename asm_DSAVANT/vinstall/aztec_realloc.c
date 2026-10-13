@@ -2,7 +2,8 @@
  * source: Manx Aztec C86 v340a malloc.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocation bytes are supplied by the original image.
+ * relocations are linked against asm labels (lib/aztec/relink.py);
+ * the identifiers below are the asm label names.
  */
 /* Copyright (C) 1985 by Manx Software Systems, Inc. */
 
@@ -21,9 +22,9 @@ typedef unsigned size_t;
 typedef struct list {
 	struct list *next;
 } l_t;
-static l_t first, *current;
+static l_t first, *bss_2536;
 static l_t *endmarker = &first, *restart = &first;
-static size_t keep;
+static size_t bss_2534;
 
 #define INUSE	1
 #define inuse(p) (*(size_t *)(p)&INUSE)
@@ -34,23 +35,23 @@ static size_t keep;
 #define BLOCK	(512*sizeof(l_t))	/* # of bytes to ask sbrk for */
 
 char *
-realloc(area, size)
+aztec_realloc(area, size)
 register char *area; unsigned size;
 {
 	register char *cp, *end;
 	size_t osize;
-	char *malloc();
+	char *aztec_malloc();
 
 	end = (char *)chain((l_t *)area-1);
 	if ((osize = ptrdiff(end, area)) > size) {
 		osize = size;
 		end = (char *)bump(area, osize);
 	}
-	free(area);
-	if ((cp = malloc(size)) != 0 && cp != area) {
-		movmem(area, cp, osize);
-		if ((char *)current >= area && (char *)current < end)
-			*(size_t *)bump(cp, ptrdiff(current,area)) = keep;
+	aztec_free(area);
+	if ((cp = aztec_malloc(size)) != 0 && cp != area) {
+		aztec_movmem(area, cp, osize);
+		if ((char *)bss_2536 >= area && (char *)bss_2536 < end)
+			*(size_t *)bump(cp, ptrdiff(bss_2536,area)) = bss_2534;
 	}
 	return cp;
 }

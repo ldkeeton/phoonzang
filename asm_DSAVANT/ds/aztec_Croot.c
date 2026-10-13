@@ -2,14 +2,15 @@
  * source: Manx Aztec C86 v340a croot.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocation bytes are supplied by the original image.
+ * relocations are linked against asm labels (lib/aztec/relink.py);
+ * the identifiers below are the asm label names.
  */
 /* Copyright (C) 1981,1982, 1983 by Manx Software Systems */
 #include "errno.h"
 #include "fcntl.h"
 
-static char **Argv;
-static int Argc;
+static char **bss_0d06;
+static int bss_0d04;
 
 noper()
 {
@@ -17,25 +18,25 @@ noper()
 }
 
 int (*cls_)() = noper;
-extern char _ioflg[];
+extern char dseg_0cdc[];
 
-Croot(cp, first)
+aztec_Croot(cp, first)
 register char *cp;
 {
 	register char **cpp;
-	char *sbrk();
+	char *aztec_sbrk();
 #ifdef REDIR
 	register int k;
 	register char *fname;
 #endif
 
-	_ioflg[0] = isatty(0);	/* set flag for i/o routines */
-	_ioflg[1] = isatty(1);	/* set flag for i/o routines */
-	_ioflg[2] = isatty(2);	/* set flag for i/o routines */
+	dseg_0cdc[0] = aztec_isatty(0);	/* set flag for i/o routines */
+	dseg_0cdc[1] = aztec_isatty(1);	/* set flag for i/o routines */
+	dseg_0cdc[2] = aztec_isatty(2);	/* set flag for i/o routines */
 
-	Argv = (char **)sbrk((first+1)*sizeof(char *));
-	Argv[0] = "";
-	cpp = &Argv[Argc = first];
+	bss_0d06 = (char **)aztec_sbrk((first+1)*sizeof(char *));
+	bss_0d06[0] = "";
+	cpp = &bss_0d06[bss_0d04 = first];
 	for (;;) {
 		while (*cp == ' ' || *cp == '\t')
 			++cp;
@@ -67,10 +68,10 @@ redirect:
 #endif
 		{
 			*cpp++ = cp;
-			Argc++;
-			if (sbrk(sizeof(char *)) == (char *)-1) {
-				write(2, "Too many args.", 14);
-				_exit(200);
+			bss_0d04++;
+			if (aztec_sbrk(sizeof(char *)) == (char *)-1) {
+				aztec_write(2, "Too many args.", 14);
+				ds_dos_proc_loc_4e7e(200);
 			}
 			while (*++cp)
 				if (*cp == ' ' || *cp == '\t') {
@@ -80,7 +81,7 @@ redirect:
 		}
 	}
 	*cpp = 0;
-	main(Argc,Argv);
-	exit(0);
+	main(bss_0d04,bss_0d06);
+	ds_loc_4f73(0);
 }
 

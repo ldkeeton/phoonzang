@@ -229,6 +229,15 @@ def _label_comment(insn, label_map):
     return ''
 
 
+class LinkedSymbol(str):
+    """Operand text chosen by the C linker (``lib.aztec.relink``).
+
+    Distinguishes a relocation's symbol from the segment-dataflow symbols in
+    ``mem_symbols`` so the encoding fix-ups only treat the former specially.
+    """
+    __slots__ = ()
+
+
 def format_instruction(insn, label_map=None, local_labels=None, foreign_label_map=None,
                        immediate_labels=None, disp_labels=None, data_labels=None,
                        mem_symbols=None):
@@ -298,7 +307,12 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
             parts.append(insn.reg_name(op.reg))
         elif op.type == CS_OP_IMM:
             target = op.imm & 0xFFFF
-            if is_flow and local_labels and target in local_labels:
+            if is_flow and mem_symbols and (insn.address, op_idx) in mem_symbols:
+                # A call/jump whose target the linker named explicitly (a
+                # C-compiled routine's relocation) -- not inferred from the
+                # displacement.
+                parts.append(mem_symbols[(insn.address, op_idx)])
+            elif is_flow and local_labels and target in local_labels:
                 parts.append(local_labels[target])
             elif is_flow and label_map and target in label_map:
                 parts.append(label_map[target])
@@ -325,6 +339,13 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
             has_mem = True
 
     ops = ', '.join(parts)
+
+    # An immediate the linker (or segment dataflow) replaced with a symbol must
+    # not be re-expanded to a number by the encoding fix-ups below.
+    sym_imm = bool(mem_symbols) and any(
+        op.type == CS_OP_IMM
+        and isinstance(mem_symbols.get((insn.address, i)), LinkedSymbol)
+        for i, op in enumerate(insn.operands))
 
     # — x87 FPU memory operand needs an explicit size for NASM ------------
     # Capstone omits it; without e.g. ``qword`` NASM guesses dword and the
@@ -403,7 +424,8 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
         # Full imm16 — with -O0 NASM uses this, but ensure strict word
         # to prevent future optimizer surprises
         parts_list = ops.split(',')
-        if len(parts_list) >= 2 and parts_list[-1].strip().startswith('0x'):
+        if len(parts_list) >= 2 and (parts_list[-1].strip().startswith('0x')
+                                     or sym_imm):
             val_str = parts_list[-1].strip()
             parts_list[-1] = f' strict word {val_str}'
             ops = ','.join(parts_list)
@@ -411,10 +433,15 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
     # — Accumulator ALU: strict word ----------------------------------------
     if op_b0 in _AX_ALU:
         m = list(insn.operands)
-        if len(m) == 2 and m[0].type == CS_OP_REG and m[1].type == CS_OP_IMM:
-            val = m[1].imm & 0xFFFF
-            if 0 <= val <= 0x7F or 0xFF80 <= val <= 0xFFFF:
-                ops = f'ax, strict word {_fmt_imm(val)}'
+        if (len(m) == 2 and m[0].type == CS_OP_REG and m[1].type == CS_OP_IMM):
+            if sym_imm:
+                # The opcode is the imm16 form; a small symbol value must not
+                # let NASM pick the sign-extended short one.
+                ops = f'{insn.reg_name(m[0].reg)}, strict word {parts[1]}'
+            else:
+                val = m[1].imm & 0xFFFF
+                if 0 <= val <= 0x7F or 0xFF80 <= val <= 0xFFFF:
+                    ops = f'ax, strict word {_fmt_imm(val)}'
 
     # — Rotate/shift with implicit count=1 ----------------------------------
     if mnem in _OPS_NEED_IMPLICIT_ONE:

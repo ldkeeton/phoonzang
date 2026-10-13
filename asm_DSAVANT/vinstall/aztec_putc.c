@@ -2,16 +2,19 @@
  * source: Manx Aztec C86 v340a putc.c (whole module)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocation bytes are supplied by the original image.
+ * relocations are linked against asm labels (lib/aztec/relink.py);
+ * the identifiers below are the asm label names.
  */
 /* Copyright (C) 1981,1982,1983,1984 by Manx Software Systems */
+/* asm label names for identifiers the headers declare */
+#define Cbuffs dseg_234a
 #include "stdio.h"
 
-putc(c,ptr)
+aztec_putc(c,ptr)
 int c; register FILE *ptr;
 {
 	if (ptr->_bp >= ptr->_bend)
-		return flsh_(ptr,c&0xff);
+		return aztec_filbuf(ptr,c&0xff);
 	return (*ptr->_bp++ = c) & 0xff;
 }
 
@@ -20,10 +23,10 @@ static closall()		/* called by exit to close any open files */
 	register FILE *fp;
 
 	for ( fp = Cbuffs ; fp < Cbuffs+MAXSTREAM ; )
-		fclose(fp++);
+		aztec_fclose(fp++);
 }
 
-fclose(ptr)
+aztec_fclose(ptr)
 register FILE *ptr;
 {
 	register int err;
@@ -33,7 +36,7 @@ register FILE *ptr;
 		return -1;
 	if ( ptr->_flags ) {
 		if (ptr->_flags&_DIRTY)	/* if modifed flush buffer */
-			err = flsh_(ptr,-1);
+			err = aztec_filbuf(ptr,-1);
 		err |= close(ptr->_unit);
 		if (ptr->_flags&_ALLBUF)
 			free(ptr->_buff);
@@ -50,7 +53,7 @@ register FILE *ptr;
 	return err;
 }
 
-flsh_(ptr,data)
+aztec_filbuf(ptr,data)
 register FILE *ptr;
 {
 	register int size;

@@ -13,9 +13,9 @@ aztec_malloc:
     mov word [bp + 0x4], ax          ; 0x2f2d
     cmp word [bss_2536], byte 0      ; 0x2f30
     jne short @..aztec_malloc.l1     ; 0x2f35
-    mov word [bss_2538], 0x2538      ; 0x2f37
+    mov word [bss_2538], bss_2538    ; 0x2f37
     or word [bss_2538], 1            ; 0x2f3d
-    mov word [bss_2536], 0x2538      ; 0x2f43
+    mov word [bss_2536], bss_2538    ; 0x2f43
 @..aztec_malloc.l1:
     mov word [bp - 0x0006], 0        ; 0x2f49
     mov si, word [bss_2536]          ; 0x2f4e
@@ -56,7 +56,7 @@ loc_2f7e:
     mov di, si                       ; 0x2f9b
     add di, word [bp - 0x0004]       ; 0x2f9d
     mov word [si], di                ; 0x2fa0
-    mov word [di], 0x2538            ; 0x2fa2
+    mov word [di], bss_2538          ; 0x2fa2
     or word [di], 1                  ; 0x2fa6
     mov word [dseg_244e], di         ; 0x2faa
     mov bx, word [bp - 0x0002]       ; 0x2fae

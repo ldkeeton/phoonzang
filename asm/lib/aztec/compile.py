@@ -30,7 +30,7 @@ except ImportError:  # pragma: no cover - non-POSIX
     fcntl = None
 
 from ..dosbox import DOSBOX
-from .objread import parse_obd, fixup_width
+from .objread import attach_locals, fixup_width, parse_obd
 from .omflib import public_functions
 from . import sources
 
@@ -103,14 +103,16 @@ class AztecCompileError(RuntimeError):
 class Func:
     """A public function recovered from a compiled module."""
 
-    __slots__ = ('name', 'module', 'offset', 'code', 'fixups')
+    __slots__ = ('name', 'module', 'offset', 'code', 'fixups', 'locals')
 
-    def __init__(self, name, module, offset, code, fixups):
+    def __init__(self, name, module, offset, code, fixups, locals_=None):
         self.name = name
         self.module = module
         self.offset = offset
         self.code = bytes(code)
         self.fixups = fixups  # Fixup with offsets relative to *code*
+        # ``.N`` local label -> offset relative to *code*.
+        self.locals = dict(locals_ or {})
 
     @property
     def key(self):
@@ -131,22 +133,17 @@ class Func:
             'module': self.module,
             'offset': self.offset,
             'code': self.code.hex(),
-            'fixups': [
-                [fx.offset, fx.kind, fx.symbol_kind, fx.symbol_index, fx.symbol]
-                for fx in self.fixups
-            ],
+            'fixups': [fx.to_list() for fx in self.fixups],
+            'locals': self.locals,
         }
 
     @classmethod
     def from_dict(cls, blob):
         from .objread import Fixup
-        fixups = [
-            Fixup(offset, kind, symbol_kind, symbol_index, symbol)
-            for offset, kind, symbol_kind, symbol_index, symbol
-            in blob.get('fixups', ())
-        ]
+        fixups = [Fixup.from_list(row) for row in blob.get('fixups', ())]
         return cls(blob['name'], blob.get('module'),
-                   blob.get('offset', 0), bytes.fromhex(blob['code']), fixups)
+                   blob.get('offset', 0), bytes.fromhex(blob['code']), fixups,
+                   blob.get('locals'))
 
     def __repr__(self):
         return (f'Func({self.name!r}, off=0x{self.offset:x}, '
@@ -263,7 +260,7 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
             raise AztecCompileError(
                 f'compiler produced no object for {module}:\n{cc_log[-2000:]}')
 
-        dump = parse_obd(_read(obd_path))
+        dump = attach_locals(parse_obd(_read(obd_path)), _read_bytes(obj_path))
         result = _build_module(module, omf_path, dump)
         result.listing = _read(os.path.join(work, f'{module}.LST'))
         result.log = log + cc_log
@@ -274,6 +271,14 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
     finally:
         if work is not None:
             shutil.rmtree(work, ignore_errors=True)
+
+
+def _read_bytes(path):
+    try:
+        with open(path, 'rb') as f:
+            return f.read()
+    except OSError:
+        return b''
 
 
 def _read(path):
@@ -392,7 +397,8 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
             if os.path.exists(obj_path):
                 omf_path = os.path.join(work, f'{dos}.OBJ')
                 obd_path = os.path.join(work, f'{dos}.OBD')
-                dump = parse_obd(_read(obd_path))
+                dump = attach_locals(parse_obd(_read(obd_path)),
+                                     _read_bytes(obj_path))
                 results[key] = _build_module(dos, omf_path, dump)
                 results[key].listing = _read(os.path.join(work, f'{dos}.LST'))
             elif os.path.exists(cc_path) and os.path.getsize(cc_path) > 0:
@@ -438,7 +444,12 @@ def _build_module(module, omf_path, dump):
             if off <= fx.offset < end:
                 from .objread import Fixup
                 fixups.append(Fixup(fx.offset - off, fx.kind, fx.symbol_kind,
-                                    fx.symbol_index, fx.symbol))
+                                    fx.symbol_index, fx.symbol, fx.addend,
+                                    fx.expr))
+        # A local label belongs to the function whose body contains it.
+        local_names = {fx.symbol for fx in fixups if fx.symbol_kind == 'LCLSYM'}
+        locals_ = {name: dump.locals[name] - off for name in local_names
+                   if name in dump.locals}
         result.functions[pf['name'].strip('_$').lower()] = Func(
-            pf['name'], pf['module'] or module, off, seg, fixups)
+            pf['name'], pf['module'] or module, off, seg, fixups, locals_)
     return result

@@ -2,7 +2,8 @@
  * source: Manx Aztec C86 v340a ttyio.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocation bytes are supplied by the original image.
+ * relocations are linked against asm labels (lib/aztec/relink.py);
+ * the identifiers below are the asm label names.
  */
 /* Copyright (C) 1983, 1984 by Manx Software Systems */
 #include "errno.h"
@@ -12,7 +13,7 @@ extern int errno;
 char _Eol = '\n';
 int _TTrem;			/* # of bytes remaining in tty buffer */
 
-__tty_wr(fd, buff, len)
+aztec_tty_wr(fd, buff, len)
 char *buff;
 {
 	register int count;
@@ -22,12 +23,12 @@ char *buff;
 	cp = buff;
 	for (count = len ; count-- ; ) {
 		if (*cp++ == '\n') {
-			_write(fd, buff, cp-buff);
-			_write(fd, &crbuf, 1);
+			ds_leaf_loc_4fac(fd, buff, cp-buff);
+			ds_leaf_loc_4fac(fd, &crbuf, 1);
 			buff = cp;
 		}
 	}
 	if (cp != buff)
-		_write(fd, buff, cp-buff);
+		ds_leaf_loc_4fac(fd, buff, cp-buff);
 	return len;
 }

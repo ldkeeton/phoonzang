@@ -252,6 +252,12 @@ def _symbol(label):
     return label[len('aztec_'):] if label.startswith('aztec_') else label
 
 
+def own_key(label):
+    """The normalized C name a routine's seed defines (``aztec_creat`` -> ``creat``)."""
+    from .mux import normalize
+    return normalize(_symbol(label))
+
+
 def _module_key(entry, source_text):
     return objcache.module_key(entry['includes'], entry['file'],
                                entry['compiler'], _flags_for(entry),
@@ -363,9 +369,13 @@ def compile_source(project, label, entry, source_text):
         module = azc.compile_module(
             source_text, label, compiler=entry['compiler'],
             includes=entry['includes'], flags=_flags_for(entry))
+        # Keep it: an unedited seed hits this cache on every later build.
+        objcache.save(objs_dir(project), key, module)
     if isinstance(module, Exception):
         raise module
-    func = module.get(normalize(_symbol(label)))
+    # A seed relabelled to asm names defines ``aztec_open``; a recovered Manx
+    # seed still defines ``open``.
+    func = module.get(normalize(label)) or module.get(normalize(_symbol(label)))
     if func is None:
         raise RuntimeError(
             f'{label}: compiled {entry["file"]} defines no such function')

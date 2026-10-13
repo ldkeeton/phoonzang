@@ -53,7 +53,16 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
         except Exception as exc:
             print(f'  aztec mux: {label}: compile failed ({exc})')
             continue
+        path = os.path.join(dest, f'{label}.c')
         overrides[label] = {
+            # The linker resolves the routine's relocations against the build's
+            # label maps once those exist (lib.compare.coverrides).
+            'func': func, 'text': text, 'path': path,
+            'own_key': cache.own_key(label),
+            'pristine': text == cache.seed_source_text(
+                project, name, label, entry),
+            'compile': (lambda t, _l=label, _e=entry:
+                        cache.compile_source(project, _l, _e, t)),
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],

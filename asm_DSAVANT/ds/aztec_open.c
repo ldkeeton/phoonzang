@@ -2,16 +2,17 @@
  * source: Manx Aztec C86 v340a open.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocation bytes are supplied by the original image.
+ * relocations are linked against asm labels (lib/aztec/relink.py);
+ * the identifiers below are the asm label names.
  */
 /* Copyright (C) 1982 1983 1984 by Manx Software Systems */
 #include "errno.h"
 #include "fcntl.h"
 
-extern int errno;
-extern char _ioflg[];
+extern int dseg_0c72;
+extern char dseg_0cdc[];
 
-open(name, flag, mode)
+aztec_open(name, flag, mode)
 char *name;
 {
 	register int fd, m;
@@ -20,18 +21,18 @@ char *name;
 	if ((flag&O_TRUNC) != 0)
 		m = 0x3c00;
 
-	if ((fd = _sys(m,name,0)) == -1) {
+	if ((fd = aztec_sys(m,name,0)) == -1) {
 		if ((flag&O_CREAT) != 0)
-			fd = _sys(0x3c,name,0);
+			fd = aztec_sys(0x3c,name,0);
 	} else if ((flag&O_EXCL) != 0) {
-		close(fd);
-		errno = EEXIST;
+		aztec_close(fd);
+		dseg_0c72 = EEXIST;
 		return -1;
 	}
 	if (fd >= 0) {
 		if (flag&O_APPEND)
-			(void)lseek(fd, 0L, 2);
-		_ioflg[fd] = isatty(fd);	/* set flag for i/o routines */
+			(void)aztec_lseek(fd, 0L, 2);
+		dseg_0cdc[fd] = aztec_isatty(fd);	/* set flag for i/o routines */
 	}
 	return fd;
 }

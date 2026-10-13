@@ -2,36 +2,37 @@
  * source: Manx Aztec C86 v340a ttyio.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocation bytes are supplied by the original image.
+ * relocations are linked against asm labels (lib/aztec/relink.py);
+ * the identifiers below are the asm label names.
  */
 /* Copyright (C) 1983, 1984 by Manx Software Systems */
 #include "errno.h"
 
 extern int errno;
 
-char _Eol = '\n';
-int _TTrem;			/* # of bytes remaining in tty buffer */
+char dseg_0cf4 = '\n';
+int bss_9096;			/* # of bytes remaining in tty buffer */
 
-__tty_rd(fd,buff,len)
+aztec_tty_rd(fd,buff,len)
 char *buff;
 {
 	static char buffer[260], *bp;
 	register int l;
 
-	if ((l = _TTrem) == 0) {
-		if ((l = _read(fd, buffer, 260)) != 0 && buffer[l-1]=='\n') {
+	if ((l = bss_9096) == 0) {
+		if ((l = aztec_read(fd, buffer, 260)) != 0 && buffer[l-1]=='\n') {
 			--l;
-			buffer[l-1] = _Eol;
+			buffer[l-1] = dseg_0cf4;
 		}
 		bp = buffer;
-		_TTrem = l;
+		bss_9096 = l;
 	}
 	if (l > len)
 		l = len;
 	if (l)
-		movmem(bp, buff, l);
+		aztec_movmem(bp, buff, l);
 	bp += l;
-	_TTrem -= l;
+	bss_9096 -= l;
 	return l;
 }
 

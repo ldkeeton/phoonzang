@@ -2,7 +2,8 @@
  * source: Manx Aztec C86 v340a malloc.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocation bytes are supplied by the original image.
+ * relocations are linked against asm labels (lib/aztec/relink.py);
+ * the identifiers below are the asm label names.
  */
 /* Copyright (C) 1985 by Manx Software Systems, Inc. */
 
@@ -21,9 +22,9 @@ typedef unsigned size_t;
 typedef struct list {
 	struct list *next;
 } l_t;
-static l_t first, *current;
-static l_t *endmarker = &first, *restart = &first;
-static size_t keep;
+static l_t bss_0d02, *bss_0d00;
+static l_t *dseg_0c6c = &bss_0d02, *restart = &bss_0d02;
+static size_t bss_0cfe;
 
 #define INUSE	1
 #define inuse(p) (*(size_t *)(p)&INUSE)
@@ -34,25 +35,25 @@ static size_t keep;
 #define BLOCK	(512*sizeof(l_t))	/* # of bytes to ask sbrk for */
 
 char *
-malloc(size)
+aztec_malloc(size)
 unsigned size;
 {
 	register l_t *ptr, *temp, *lastfree;
 	register size_t len;
 	int times;
-	char *sbrk();
+	char *aztec_sbrk();
 
 	size = ((size+sizeof(l_t)*2-1)/sizeof(l_t))*sizeof(l_t);
-	if (current == 0) {
-		first.next = &first;
-		markblk(&first);
-		current = &first;
+	if (bss_0d00 == 0) {
+		bss_0d02.next = &bss_0d02;
+		markblk(&bss_0d02);
+		bss_0d00 = &bss_0d02;
 	}
-	for (times = 0, lastfree = ptr = current ; ; ptr = chain(ptr)) {
-		if (ptr == endmarker) {
+	for (times = 0, lastfree = ptr = bss_0d00 ; ; ptr = chain(ptr)) {
+		if (ptr == dseg_0c6c) {
 			if (++times > 1) {
 				len = BLOCK;
-				if ((temp = (l_t *)sbrk((int)len)) == (l_t *)-1)
+				if ((temp = (l_t *)aztec_sbrk((int)len)) == (l_t *)-1)
 					return 0;
 				if (temp != bump(ptr,sizeof(l_t))) {
 					/* non-contiguous allocation */
@@ -63,9 +64,9 @@ unsigned size;
 				}
 				temp = bump(ptr, len);
 				ptr->next = temp;
-				temp->next = &first;	/* new end marker */
+				temp->next = &bss_0d02;	/* new end marker */
 				markblk(temp);
-				endmarker = temp;
+				dseg_0c6c = temp;
 				if (chain(lastfree) == ptr)
 					ptr = lastfree;
 			}
@@ -79,10 +80,10 @@ unsigned size;
 		if (len >= size) {
 			if (len > size) {
 				ptr->next = bump(ptr, size);
-				keep = *(size_t *)ptr->next;
+				bss_0cfe = *(size_t *)ptr->next;
 				ptr->next->next = temp;
 			}
-			current = ptr->next;
+			bss_0d00 = ptr->next;
 			markblk(ptr);
 			return (char *)(ptr+1);
 		}

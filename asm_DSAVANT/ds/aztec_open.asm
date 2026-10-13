@@ -66,7 +66,7 @@ aztec_open:
     push si                          ; 0x4bd9
     call aztec_isatty                ; 0x4bda
     pop cx                           ; 0x4bdd
-    mov byte [si + 0xcdc], al        ; 0x4bde
+    mov byte [si + dseg_0cdc], al    ; 0x4bde
 @..aztec_open.l7:
     mov ax, si                       ; 0x4be2
     jmp short @..aztec_open.l4       ; 0x4be4

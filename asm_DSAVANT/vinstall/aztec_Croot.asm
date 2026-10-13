@@ -13,12 +13,12 @@ aztec_Croot:
     push ax                          ; 0x3755
     call aztec_isatty                ; 0x3756
     pop cx                           ; 0x3759
-    mov byte [dseg_251b], al         ; 0x375a
+    mov byte [dseg_251a + 0x1], al   ; 0x375a
     mov ax, 2                        ; 0x375d
     push ax                          ; 0x3760
     call aztec_isatty                ; 0x3761
     pop cx                           ; 0x3764
-    mov byte [dseg_251c], al         ; 0x3765
+    mov byte [dseg_251a + 0x2], al   ; 0x3765
     mov ax, word [bp + 0x6]          ; 0x3768
     shl ax, 1                        ; 0x376b
     inc ax                           ; 0x376d

@@ -40,6 +40,7 @@ lives in `asm/lib`, not in the generated assembly.
 | D7.2b — bind the overlay load origin | 13 overlays: the `o_corg` field, `VBASE` and the `o_entry` addend → the host's `__zresident_end`; the host's own loader check bound to it | **−40** |
 | E — the ELF build owns the origin | `-DVBASE=0` dropped; the ELF prep rewrites the image's own `VBASE equ` line to 0, so the 9-line `VBASE` save/restore in each overlay master goes away | **0** (bytes identical) |
 | E2 — the host block is emitted once | the 13 identical host-frame blocks move to a generated `inc/host_symbols.inc`; each overlay master keeps only its own `VBASE`/`vstart`/`IMAGE_BASE` around a one-line include | **0** (bytes identical) |
+| E3 — symbolic C references | a C-compiled routine's calls, data references and branches are resolved against the asm labels instead of copied from the original image; the 22 recovered `.c` seeds now name asm labels (`aztec_open`, `dseg_0c72`); 7 fragments swap frozen literals for symbols (`0xd02` → `bss_0d02`, `[si + 0xcdc]` → `[si + dseg_0cdc]`) | **0** (bytes identical; the literals were invisible to the census) |
 
 † D7.0a did not *create* 33 new problems — it made 33 already-frozen values
 **visible**. A host EXE and its overlays share one data segment: every overlay's
@@ -1648,6 +1649,54 @@ host DS size — is established in §0.1/§0.2 and Section 18.
   `o_entry - o_corg + _OVR_HEADER_SIZE` entry mapping, and the cross-section
   decision.  `make/elf.py` also holds C-fragment resplicing (`resplice_c`), so E
   lands **before** that rework rather than after.
+- **E3 — a C routine's references are symbols, not bytes copied from the
+  original. ✅ DONE (2026-10-13).** `make verify DSAVANT` 18/18; unit suite 315
+  OK; `make build` is a fixed point and `make elf-rebuild` reproduces the tree.
+
+  **Why.** `cc` produces an *object*: every call, data reference and branch is a
+  placeholder plus a relocation record, and nothing links it. Both splice paths
+  (`make/elf.py:resplice_c`, `lib/compare/coverrides.py:_apply_c_overrides`)
+  copied the bytes at each relocation site from the original image, then let the
+  disassembler re-derive the operand name from that value. So the C never
+  controlled a reference: edit `creat` to call `close` and it still emitted
+  `call aztec_open`; a new routine (`aztec_ovloader.c`) could only call what sat
+  at the original displacement. This is the same *frozen address* class as the
+  rest of this plan, just hidden inside the C path.
+
+  **What now happens.** `lib/aztec/relink.py` is the linker step:
+  - **externals** (`WREL`/`WABS` to a `GBLSYM`): the C identifier *is* the asm
+    label (`aztec_open_` → `aztec_open`; Aztec appends exactly one `_`, and
+    does not truncate long names). It is looked up in the build's own maps
+    (`label_map`, `foreign_label_map`, `data_labels`, `mem_equ`); an unknown name
+    is a hard error, never a zero fill. The operand is emitted as the symbol
+    (`call aztec_open`, `[dseg_0cdc + 0x1]`) and verified by assembling its numeric
+    form, so NASM remains the linker.
+  - **local branches** (`BREL`/`WREL` to `.N`): the object's own local-label
+    table (the trailing `02 80 lo hi` records of the `.O`, which OBD does not
+    print; validated against all 134 branch sites of the current seeds) places
+    the labels, so they follow the compiled code instead of the original offsets.
+  - anything not modelled (module-local data/string `Expr`/`LCLSYM` references,
+    `Long` far refs, a `WABS` to a code label) keeps the old original-bytes copy and
+    is reported (`aztec link: … copied from the original image`).
+
+  **Naming.** The asm labels are canonical; the C is rewritten to them
+  (`lib/aztec/relabel.py`). A *pristine* seed is rewritten once per build, learning
+  each name from the original image at the relocation (every external in the 22
+  seeds mapped to exactly one label); a header-declared name (`Cbuffs` in
+  `stdio.h`) gets a `#define old new` ahead of the includes instead. The rewritten
+  seed must compile to the identical code and relocations. Hand-edited C is taken
+  as written.
+
+  **Parser fixes found on the way** (`lib/aztec/objread.py`): `BREL LCLSYM .0` was
+  read as kind `LCLSYM` (width 2 instead of 1, so a copy overwrote the next
+  opcode byte); `Expr ADD` operands (`tbl + 4`) were dropped; the object cache
+  version was bumped.
+
+  **Not done / still true.** The routine's byte span is still fixed (a longer
+  compile is an error, a shorter one is NOP-padded); module-local data in a C
+  routine still comes from the original image; and an overlay C routine calling a
+  host label would use `foreign_label_map`, which no current seed exercises.
+
 - **E2 — the host block is the host's, so it is emitted once. ✅ DONE
   (2026-10-13).** Rendering-only: **no census change, no binary change**
   (verified byte-identical).

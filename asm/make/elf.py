@@ -394,6 +394,21 @@ def _fragment_labels(label_records, start, end):
             for offset, text in label_records if start <= offset < end]
 
 
+def _report_linked(app, binary, label, linked):
+    """Print what the linker could not place symbolically."""
+    where = f'resplice {app}/{binary}: {label}'
+    for addr, text, built, want in linked.failed:
+        print(f'  {where}: 0x{addr:x} {text!r} assembles to {built}, '
+              f'compiled bytes are {want}')
+    for site in linked.unmatched:
+        print(f'  {where}: relocation at +0x{site:x} matched no operand')
+    if linked.legacy:
+        kinds = ', '.join(sorted({f'{fx.kind} {fx.symbol_kind}'
+                                  for fx in linked.legacy}))
+        print(f'  {where}: {len(linked.legacy)} relocation(s) copied from the '
+              f'original image ({kinds})')
+
+
 def resplice_c(app, binary):
     """Recompile the C routine fragments of an already-built binary.
 
@@ -416,7 +431,7 @@ def resplice_c(app, binary):
     needs the span/label sidecars a prior ``make build`` wrote, and is a no-op
     without them.
     """
-    from lib.aztec import cache
+    from lib.aztec import cache, relink
     from lib.aztec.objread import fixup_width
     from lib.compare import (
         _c_bytes_to_records, _merge_label_records, _render_records,
@@ -440,6 +455,9 @@ def resplice_c(app, binary):
     with open(labels_path) as f:
         label_map = {int(k): v for k, v in json.load(f).items()}
     context = _load_render_context(app, binary)
+    index = (relink.SymbolIndex(label_map, context['foreign_label_map'],
+                                context['data_labels'], context['mem_equ'])
+             if context is not None else None)
     bins = discover_binaries(os.path.join(APPS, app))
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:
         data = f.read()
@@ -456,15 +474,29 @@ def resplice_c(app, binary):
             text = f.read()
         func = cache.compile_source(app, label, entry, text)
 
-        compiled = bytearray(func.code)
-        for fx in func.fixups:
-            n = min(fixup_width(fx.kind), len(compiled) - fx.offset)
-            if n <= 0:
-                continue
-            chunk = data[start + fx.offset:start + fx.offset + n]
-            if len(chunk) < n:
-                chunk = chunk + bytes(n - len(chunk))
-            compiled[fx.offset:fx.offset + n] = chunk
+        linked = None
+        if index is not None:
+            # Resolve the C's own relocations against the asm namespace; the
+            # original image supplies only the ones the linker does not model.
+            labels_in = [(offset, text)
+                         for offset, text in context['label_records']
+                         if start <= offset < end]
+            try:
+                linked = relink.link(label, start, func, index, data,
+                                     labels_in)
+            except relink.RelinkError as exc:
+                raise SystemExit(f'error: {exc}')
+            compiled = linked.code
+        else:
+            compiled = bytearray(func.code)
+            for fx in func.fixups:
+                n = min(fixup_width(fx.kind), len(compiled) - fx.offset)
+                if n <= 0:
+                    continue
+                chunk = data[start + fx.offset:start + fx.offset + n]
+                if len(chunk) < n:
+                    chunk = chunk + bytes(n - len(chunk))
+                compiled[fx.offset:fx.offset + n] = chunk
 
         # Overlay the compiled code onto the original span.  The fragment's
         # span is fixed because the master listing addresses code absolutely.
@@ -505,6 +537,12 @@ def resplice_c(app, binary):
             local_labels = context['local_labels']
             label_records = _fragment_labels(
                 context['label_records'], start, end)
+            if linked is not None:
+                # Branch labels follow the code the compiler produced.
+                label_records = ([r for r in label_records
+                                  if not r['text'].startswith(
+                                      relink.LOCAL_PREFIX)]
+                                 + linked.local_records)
             data_labels = context['data_labels']
             mem_symbols = context['mem_symbols']
             mem_equ = context['mem_equ']
@@ -531,7 +569,9 @@ def resplice_c(app, binary):
         records = _c_bytes_to_records(
             bytes(final), start, label_map, local_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
-            mem_symbols=mem_symbols, mem_equ=mem_equ)
+            mem_symbols=mem_symbols, mem_equ=mem_equ, linked=linked)
+        if linked is not None:
+            _report_linked(app, binary, label, linked)
         records = _merge_label_records(records, label_records)
         fragment = '\n'.join(_render_records(records, data, True)) + '\n'
         with open(os.path.join(dest, f'{label}.asm'), 'w') as f:

@@ -2,7 +2,8 @@
  * source: Manx Aztec C86 v340a malloc.c (extracted function)
  * compiled with: Aztec C86 v52a (includes v340a)
  * recovered byte-exact by the C mux (lib/aztec/mux.py);
- * relocation bytes are supplied by the original image.
+ * relocations are linked against asm labels (lib/aztec/relink.py);
+ * the identifiers below are the asm label names.
  */
 /* Copyright (C) 1985 by Manx Software Systems, Inc. */
 
@@ -21,7 +22,7 @@ typedef unsigned size_t;
 typedef struct list {
 	struct list *next;
 } l_t;
-static l_t first, *current;
+static l_t first, *bss_0d00;
 static l_t *endmarker = &first, *restart = &first;
 static size_t keep;
 
@@ -33,7 +34,7 @@ static size_t keep;
 
 #define BLOCK	(512*sizeof(l_t))	/* # of bytes to ask sbrk for */
 
-free(p)
+aztec_free(p)
 char *p;
 {
 	register l_t *ptr;
@@ -42,6 +43,6 @@ char *p;
 	if (!inuse(ptr))
 		return -1;
 	unmark(ptr);
-	current = ptr;
+	bss_0d00 = ptr;
 	return 0;
 }
