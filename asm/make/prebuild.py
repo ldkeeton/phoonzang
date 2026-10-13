@@ -1,28 +1,27 @@
 """``make prebuild`` — run the slow Aztec C mux and cache extracted seeds."""
 
 import os
-import shutil
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from lib.aztec import build_db
-from lib.cachedirs import aztec_funcs_path, prebuild_dir, project_cache
+from lib.cachedirs import aztec_funcs_path, prebuild_dir
 from main import discover_binaries
 
 from .common import APPS, JOBS, _asm_one
 
 
-def cmd_prebuild(app, binary=None, wipe=True):
+def cmd_prebuild(app, binary=None):
     """Rebuild everything the Aztec C mux needs under ``.cache/<app>/``.
 
-    A full-project prebuild (``binary`` is None) first removes ``.cache/<app>``
-    so nothing stale survives, then regenerates, in order:
+    It does not clean anything (run ``make clean`` first for a fresh start);
+    it regenerates, in order:
 
     1. ``aztec_lib_obj/``    runtime-library OMF from the vendor ``.LIB`` files
     2. ``aztec_funcs.json``  signature DB built from those objects
     3. ``prebuild/``         the mux manifests, C seeds and compiled-module cache
 
-    ``make build`` calls this with ``wipe=False`` and only when the data is
+    ``make build`` calls this only when the data is
     missing.  This intentionally stops the pipeline right after the mux
     manifest is written: no verify/emit and no NASM, and asm_<app>/ is left
     untouched.
@@ -34,10 +33,6 @@ def cmd_prebuild(app, binary=None, wipe=True):
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
 
-    cache = project_cache(app)
-    if wipe and binary is None and os.path.isdir(cache):
-        shutil.rmtree(cache)
-        print(f'Removed {cache}')
     out_dir = prebuild_dir(app)
     os.makedirs(out_dir, exist_ok=True)
     # The signature DB feeds the disassembly (main/seeding.py), so it must
@@ -92,4 +87,4 @@ def _ensure_prebuild(app):
                  or not build_db.project_binaries(app))):
         return
     print(f'{app}: prebuild cache missing; running the Aztec C mux first...')
-    cmd_prebuild(app, wipe=False)
+    cmd_prebuild(app)

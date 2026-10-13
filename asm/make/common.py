@@ -4,11 +4,11 @@ Usage (from asm/):
   make                     show help
   make all                 all projects serially
   make build PROJECT [BIN] asm + nasm + assets (prebuilds first if missing)
-  make prebuild PROJECT [BIN] wipe .cache/PROJECT, rebuild aztec libs + DB + mux
+  make prebuild PROJECT [BIN] rebuild aztec libs + DB + mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT         run game in dosbox-x
   make verify [PROJECT...] verify one or all projects
-  make clean [PROJECT...]  clean one or all projects (incl. .cache/<project>/prebuild)
+  make clean [PROJECT...]  clean one or all projects (no args: delete .cache)
   make rebuild PROJECT BIN nasm-only rebuild of one binary
   make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
   make set-baseline        pin current stats (.cache/stats) as local baseline

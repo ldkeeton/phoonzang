@@ -3,16 +3,17 @@
 import os
 import shutil
 
-from lib.cachedirs import labels_dir, prebuild_dir, render_dir, spans_dir
+from lib.cachedirs import CACHE_ROOT, project_cache
 from main import clean_all
 
-from .common import APPS, PROJECT
+from .common import PROJECT
 
 
 def cmd_clean(apps, keep_prebuild=False):
     """Remove generated trees.
 
-    ``make clean`` removes ``.cache/<app>/prebuild`` as well.  ``make
+    ``make clean`` deletes the whole ``.cache`` folder (``.cache/<app>`` when
+    apps are given).  ``make
     build`` passes ``keep_prebuild=True`` so the expensive prebuild survives
     repeated builds (it is created first only when absent).
     """
@@ -21,22 +22,14 @@ def cmd_clean(apps, keep_prebuild=False):
             os.path.join(PROJECT, f'asm_{app}'),
         ]
         if not keep_prebuild:
-            outs.append(prebuild_dir(app))
-            outs.append(render_dir(app))
-            outs.append(labels_dir(app))
-            outs.append(spans_dir(app))
+            outs.append(project_cache(app))
         return outs
 
     if not apps:
         clean_all()
-        for app in os.listdir(APPS):
-            if not os.path.isdir(os.path.join(APPS, app)):
-                continue
-            # asm_<app> is handled by clean_all(); keep the old no-arg scope.
-            for out in _targets(app)[1:]:
-                if os.path.isdir(out):
-                    shutil.rmtree(out)
-                    print(f'Removed {out}')
+        if not keep_prebuild and os.path.isdir(CACHE_ROOT):
+            shutil.rmtree(CACHE_ROOT)
+            print(f'Removed {CACHE_ROOT}')
         return
     for app in apps:
         removed = False
@@ -45,5 +38,5 @@ def cmd_clean(apps, keep_prebuild=False):
                 shutil.rmtree(out)
                 print(f'Removed {out}')
                 removed = True
-        if not removed:
+        if not removed and not keep_prebuild:
             print(f'Nothing to clean for {app}')

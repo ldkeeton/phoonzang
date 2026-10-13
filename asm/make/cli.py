@@ -20,11 +20,11 @@ Commands (space-separated):
   make init                 sparse-clone only the dos_compilers folders listed in sidecars
   make all                  clean, build, then verify all projects
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
-  make prebuild PROJECT [BIN]  wipe .cache/PROJECT, rebuild aztec libs + signature DB, run the Aztec C mux
+  make prebuild PROJECT [BIN]  rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
-  make clean [PROJECT...]   clean one or all projects (incl. .cache/<project>/prebuild)
+  make clean [PROJECT...]   clean one or all projects (no args: delete .cache)
   make rebuild PROJECT BIN  nasm-only rebuild of one binary
   make elf-rebuild PROJECT [BIN]  full rebuild from current sources (C resplice +
                             link + all binaries); ELF/DWARF for BIN (default host)
