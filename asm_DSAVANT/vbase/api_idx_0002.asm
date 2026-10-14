@@ -4,7 +4,7 @@ api_idx_0002:
     call aztec_csav                  ; 0x0039
     mov ax, 0                        ; 0x003c
     push ax                          ; 0x003f
-    call ds_loc_415b                 ; 0x0040
+    call thunk_17                    ; 0x0040
     pop cx                           ; 0x0043
     mov ax, 2                        ; 0x0044
     push ax                          ; 0x0047

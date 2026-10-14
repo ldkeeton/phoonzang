@@ -46,7 +46,8 @@ from lib.names import (
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_asm_annotations, _aztec_c_overrides
-from lib.autogen import write_text
+from lib import asm_only
+from lib.autogen import is_generated, stamp, write_text
 from .emit import _write_address_inventory, _write_render_context
 from .options import (
     ALLOW_DIFF,
@@ -477,6 +478,33 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         diag_flush()
 
     os.makedirs(out_dir, exist_ok=True)
+    # Asm-only routines (lib.asm_only) live in an ``asm_only`` subfolder so they
+    # are not mixed with the routines that can become C.  A routine with a
+    # hand-written .c stays where its .c is.
+    moved = {}
+    for include_path in list(split_sources):
+        if not include_path.endswith('.asm'):
+            continue
+        text = asm_only.stamp(stamp(split_sources[include_path], include_path))
+        folder, filename = os.path.split(include_path)
+        has_c = os.path.exists(os.path.join(
+            out_dir, folder, filename[:-4] + '.c'))
+        target = include_path
+        if text.split('\n', 2)[1:2] == [asm_only.MARKER] and not has_c:
+            target = f'{folder}/{asm_only.FOLDER}/{filename}'
+            moved[include_path] = target
+        split_sources[include_path] = text
+        # Drop a stale generated copy from the other location.
+        other = (include_path if target != include_path else
+                 f'{folder}/{asm_only.FOLDER}/{filename}')
+        if other != target and is_generated(os.path.join(out_dir, other)):
+            os.unlink(os.path.join(out_dir, other))
+    for old_path, new_path in moved.items():
+        split_sources[new_path] = split_sources.pop(old_path)
+        old_inc, new_inc = f'%include "{old_path}"', f'%include "{new_path}"'
+        asm_text = asm_text.replace(old_inc, new_inc)
+        for key in split_sources:
+            split_sources[key] = split_sources[key].replace(old_inc, new_inc)
     for include_path, include_text in split_sources.items():
         path = os.path.join(out_dir, include_path)
         os.makedirs(os.path.dirname(path), exist_ok=True)

@@ -227,7 +227,7 @@ loc_6c1e:
     push ax                          ; 0x6c33
     mov ax, 0                        ; 0x6c34
     push ax                          ; 0x6c37
-    call ds_loc_3b48                 ; 0x6c38
+    call thunk_7                     ; 0x6c38
     add sp, byte 0x0a                ; 0x6c3b
     ret                              ; 0x6c3e
 loc_6c3f:
@@ -260,7 +260,7 @@ loc_6c5c:
     mov ax, 0                        ; 0x6c7b
     push ax                          ; 0x6c7e
     push ax                          ; 0x6c7f
-    call ds_loc_3b21                 ; 0x6c80
+    call thunk_4                     ; 0x6c80
     add sp, byte 8                   ; 0x6c83
 @..loc_6c5c.l1:
     ret                              ; 0x6c86

@@ -14,7 +14,7 @@ ds_app_10a6: ; Aztec csav frame=0x0000
     push ax                          ; 0x10c1
     push word [bp + 0x6]             ; 0x10c2
     push word [bp + 0x4]             ; 0x10c5
-    call ds_loc_3b55                 ; 0x10c8
+    call thunk_8                     ; 0x10c8
     add sp, byte 8                   ; 0x10cb
     mov ax, 6                        ; 0x10ce
     imul word [bp + 0xa]             ; 0x10d1
@@ -28,7 +28,7 @@ ds_app_10a6: ; Aztec csav frame=0x0000
     push ax                          ; 0x10e3
     push word [bp + 0x6]             ; 0x10e4
     push word [bp + 0x4]             ; 0x10e7
-    call ds_loc_3b21                 ; 0x10ea
+    call thunk_4                     ; 0x10ea
     add sp, byte 8                   ; 0x10ed
     cmp word [bp + 0xc], byte 0      ; 0x10f0
     je short @..ds_app_10a6.l1       ; 0x10f4

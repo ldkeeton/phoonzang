@@ -153,7 +153,7 @@ api_idx_0010_3:
     push ax                          ; 0x8375
     mov ax, 0                        ; 0x8376
     push ax                          ; 0x8379
-    call ds_loc_3b21                 ; 0x837a
+    call thunk_4                     ; 0x837a
     add sp, byte 8                   ; 0x837d
 @..api_idx_0010_3.l10:
     cmp word [bp - 0x0010], byte 0   ; 0x8380

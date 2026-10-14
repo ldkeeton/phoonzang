@@ -69,7 +69,7 @@ loc_130b:
     mov ax, 0                        ; 0x1321
     push ax                          ; 0x1324
     push word [bp + 0xa]             ; 0x1325
-    call ds_loc_3a6a                 ; 0x1328
+    call thunk_3                     ; 0x1328
     add sp, byte 4                   ; 0x132b
     mov ax, 7                        ; 0x132e
     imul word [bp + 0x6]             ; 0x1331
@@ -87,7 +87,7 @@ loc_130b:
     mov ax, 0xa0                     ; 0x134c
     sub ax, cx                       ; 0x134f
     push ax                          ; 0x1351
-    call ds_loc_3a50                 ; 0x1352
+    call thunk                       ; 0x1352
     add sp, byte 4                   ; 0x1355
     mov ax, 0                        ; 0x1358
     push ax                          ; 0x135b
@@ -106,7 +106,7 @@ loc_130b:
     push ax                          ; 0x137c
     mov ax, 0x19                     ; 0x137d
     push ax                          ; 0x1380
-    call ds_loc_3b21                 ; 0x1381
+    call thunk_4                     ; 0x1381
     add sp, byte 8                   ; 0x1384
     cmp word [bp + 0x8], byte 0      ; 0x1387
     je short @..loc_130b.l1          ; 0x138b

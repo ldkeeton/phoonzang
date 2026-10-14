@@ -51,7 +51,7 @@ api_idx_000c_3:
     mov ax, 0                        ; 0x51e9
     push ax                          ; 0x51ec
     push ax                          ; 0x51ed
-    call ds_loc_3b7c                 ; 0x51ee
+    call thunk_11                    ; 0x51ee
     add sp, byte 0x0c                ; 0x51f1
     mov word [bp - 0x000a], dx       ; 0x51f4
     mov word [bp - 0x000c], ax       ; 0x51f7
@@ -72,7 +72,7 @@ api_idx_000c_3:
     mov ax, 6                        ; 0x5218
     push ax                          ; 0x521b
     push ax                          ; 0x521c
-    call ds_loc_3b7c                 ; 0x521d
+    call thunk_11                    ; 0x521d
     add sp, byte 0x0c                ; 0x5220
     mov word [bss_9418], dx          ; 0x5223
     mov word [bss_9416], ax          ; 0x5227
@@ -88,7 +88,7 @@ api_idx_000c_3:
     push ax                          ; 0x523d
     mov ax, 0xe4                     ; 0x523e
     push ax                          ; 0x5241
-    call ds_loc_3b7c                 ; 0x5242
+    call thunk_11                    ; 0x5242
     add sp, byte 0x0c                ; 0x5245
     mov word [bss_941c], dx          ; 0x5248
     mov word [bss_941a], ax          ; 0x524c
@@ -104,7 +104,7 @@ api_idx_000c_3:
     push ax                          ; 0x5262
     mov ax, 1                        ; 0x5263
     push ax                          ; 0x5266
-    call ds_loc_3b7c                 ; 0x5267
+    call thunk_11                    ; 0x5267
     add sp, byte 0x0c                ; 0x526a
     mov word [bss_9420], dx          ; 0x526d
     mov word [bss_941e], ax          ; 0x5271
@@ -120,7 +120,7 @@ api_idx_000c_3:
     push ax                          ; 0x5287
     mov ax, 0xdc                     ; 0x5288
     push ax                          ; 0x528b
-    call ds_loc_3b7c                 ; 0x528c
+    call thunk_11                    ; 0x528c
     add sp, byte 0x0c                ; 0x528f
     mov word [bss_9424], dx          ; 0x5292
     mov word [bss_9422], ax          ; 0x5296
@@ -136,7 +136,7 @@ api_idx_000c_3:
     push ax                          ; 0x52ac
     mov ax, 0x114                    ; 0x52ad
     push ax                          ; 0x52b0
-    call ds_loc_3b7c                 ; 0x52b1
+    call thunk_11                    ; 0x52b1
     add sp, byte 0x0c                ; 0x52b4
     mov word [bss_9428], dx          ; 0x52b7
     mov word [bss_9426], ax          ; 0x52bb
@@ -152,7 +152,7 @@ api_idx_000c_3:
     push ax                          ; 0x52d1
     mov ax, 0xb8                     ; 0x52d2
     push ax                          ; 0x52d5
-    call ds_loc_3b7c                 ; 0x52d6
+    call thunk_11                    ; 0x52d6
     add sp, byte 0x0c                ; 0x52d9
     mov word [bss_942c], dx          ; 0x52dc
     mov word [bss_942a], ax          ; 0x52e0
@@ -168,7 +168,7 @@ api_idx_000c_3:
     push ax                          ; 0x52f6
     mov ax, 0x5a                     ; 0x52f7
     push ax                          ; 0x52fa
-    call ds_loc_3b7c                 ; 0x52fb
+    call thunk_11                    ; 0x52fb
     add sp, byte 0x0c                ; 0x52fe
     mov word [bss_9434], dx          ; 0x5301
     mov word [bss_9432], ax          ; 0x5305

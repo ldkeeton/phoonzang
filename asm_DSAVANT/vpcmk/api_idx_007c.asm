@@ -77,13 +77,13 @@ api_idx_007c:
     push ax                          ; 0x462a
     mov ax, 0x84                     ; 0x462b
     push ax                          ; 0x462e
-    call ds_loc_3a6a                 ; 0x462f
+    call thunk_3                     ; 0x462f
     add sp, byte 4                   ; 0x4632
     mov ax, 0xc                      ; 0x4635
     push ax                          ; 0x4638
     mov ax, 0x5a                     ; 0x4639
     push ax                          ; 0x463c
-    call ds_loc_3a50                 ; 0x463d
+    call thunk                       ; 0x463d
     add sp, byte 4                   ; 0x4640
     lea ax, word [bp - 0x0054]       ; 0x4643
     push ax                          ; 0x4646

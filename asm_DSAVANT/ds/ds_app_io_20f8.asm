@@ -14,7 +14,7 @@ ds_app_io_20f8: ; Aztec csav frame=0x0012
     push ax                          ; 0x2113
     mov ax, 0x9a                     ; 0x2114
     push ax                          ; 0x2117
-    call ds_loc_3b6f                 ; 0x2118
+    call thunk_10                    ; 0x2118
     add sp, byte 8                   ; 0x211b
     mov word [bp - 0x0010], dx       ; 0x211e
     mov word [bp - 0x0012], ax       ; 0x2121
@@ -22,7 +22,7 @@ ds_app_io_20f8: ; Aztec csav frame=0x0012
     push ax                          ; 0x2127
     mov ax, 0x9a                     ; 0x2128
     push ax                          ; 0x212b
-    call ds_loc_3a50                 ; 0x212c
+    call thunk                       ; 0x212c
     add sp, byte 4                   ; 0x212f
     mov ax, 7                        ; 0x2132
     push ax                          ; 0x2135
@@ -34,7 +34,7 @@ ds_app_io_20f8: ; Aztec csav frame=0x0012
     push ax                          ; 0x2143
     mov ax, 0x9a                     ; 0x2144
     push ax                          ; 0x2147
-    call ds_loc_3a50                 ; 0x2148
+    call thunk                       ; 0x2148
     add sp, byte 4                   ; 0x214b
     mov ax, 7                        ; 0x214e
     push ax                          ; 0x2151
@@ -46,7 +46,7 @@ ds_app_io_20f8: ; Aztec csav frame=0x0012
     push ax                          ; 0x215f
     mov ax, 0xa6                     ; 0x2160
     push ax                          ; 0x2163
-    call ds_loc_3a50                 ; 0x2164
+    call thunk                       ; 0x2164
     add sp, byte 4                   ; 0x2167
     mov ax, 7                        ; 0x216a
     push ax                          ; 0x216d
@@ -62,7 +62,7 @@ ds_app_io_20f8: ; Aztec csav frame=0x0012
     push ax                          ; 0x2183
     mov ax, 0x9a                     ; 0x2184
     push ax                          ; 0x2187
-    call ds_loc_3b21                 ; 0x2188
+    call thunk_4                     ; 0x2188
     add sp, byte 8                   ; 0x218b
     mov word [bp - 0x0004], 0xfffe   ; 0x218e
 @..ds_app_io_20f8.l2:
@@ -93,7 +93,7 @@ ds_app_io_20f8: ; Aztec csav frame=0x0012
     push ax                          ; 0x21cb
     push word [bp - 0x0010]          ; 0x21cc
     push word [bp - 0x0012]          ; 0x21cf
-    call ds_loc_3b96                 ; 0x21d2
+    call thunk_13                    ; 0x21d2
     add sp, byte 6                   ; 0x21d5
     mov ax, 0xa3                     ; 0x21d8
     push ax                          ; 0x21db
@@ -103,7 +103,7 @@ ds_app_io_20f8: ; Aztec csav frame=0x0012
     push ax                          ; 0x21e3
     mov ax, 0x9a                     ; 0x21e4
     push ax                          ; 0x21e7
-    call ds_loc_3b21                 ; 0x21e8
+    call thunk_4                     ; 0x21e8
     add sp, byte 8                   ; 0x21eb
     mov ax, word [bp - 0x0004]       ; 0x21ee
     ret                              ; 0x21f1
@@ -171,7 +171,7 @@ ds_app_io_20f8: ; Aztec csav frame=0x0012
     push ax                          ; 0x2284
     lea ax, word [bp - 0x000a]       ; 0x2285
     push ax                          ; 0x2288
-    call ds_loc_429a                 ; 0x2289
+    call thunk_38                    ; 0x2289
     add sp, byte 4                   ; 0x228c
     mov word [bp - 0x0006], ax       ; 0x228f
     mov ax, 0                        ; 0x2292

@@ -8,7 +8,7 @@ ds_app_0f2a: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0f37
     push word [bp + 0x6]             ; 0x0f3a
     push word [bp + 0x4]             ; 0x0f3d
-    call ds_loc_3b48                 ; 0x0f40
+    call thunk_7                     ; 0x0f40
     add sp, byte 0x0a                ; 0x0f43
     push word [bp + 0xa]             ; 0x0f46
     push word [bp + 0x8]             ; 0x0f49
@@ -55,24 +55,24 @@ ds_app_0f2a: ; Aztec csav frame=0x0000
     push ax                          ; 0x0fa1
     push word [bp + 0x6]             ; 0x0fa2
     push word [bp + 0x4]             ; 0x0fa5
-    call ds_loc_3b3b                 ; 0x0fa8
+    call thunk_6                     ; 0x0fa8
     add sp, byte 6                   ; 0x0fab
     mov ax, 0xb6                     ; 0x0fae
     push ax                          ; 0x0fb1
     push word [bp + 0x6]             ; 0x0fb2
     push word [bp + 0x8]             ; 0x0fb5
-    call ds_loc_3b3b                 ; 0x0fb8
+    call thunk_6                     ; 0x0fb8
     add sp, byte 6                   ; 0x0fbb
     mov ax, 0xb6                     ; 0x0fbe
     push ax                          ; 0x0fc1
     push word [bp + 0xa]             ; 0x0fc2
     push word [bp + 0x4]             ; 0x0fc5
-    call ds_loc_3b3b                 ; 0x0fc8
+    call thunk_6                     ; 0x0fc8
     add sp, byte 6                   ; 0x0fcb
     mov ax, 0xc6                     ; 0x0fce
     push ax                          ; 0x0fd1
     push word [bp + 0xa]             ; 0x0fd2
     push word [bp + 0x8]             ; 0x0fd5
-    call ds_loc_3b3b                 ; 0x0fd8
+    call thunk_6                     ; 0x0fd8
     add sp, byte 6                   ; 0x0fdb
     ret                              ; 0x0fde

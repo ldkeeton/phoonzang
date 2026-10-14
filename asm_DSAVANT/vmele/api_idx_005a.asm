@@ -185,7 +185,7 @@ api_idx_005a:
     push ax                          ; 0x2eb2
     mov ax, 0x37                     ; 0x2eb3
     push ax                          ; 0x2eb6
-    call ds_loc_3b21                 ; 0x2eb7
+    call thunk_4                     ; 0x2eb7
     add sp, byte 8                   ; 0x2eba
     mov word [bss_90b8], 0           ; 0x2ebd
 @..api_idx_005a.l19:

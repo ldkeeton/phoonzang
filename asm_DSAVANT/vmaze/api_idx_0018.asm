@@ -88,7 +88,7 @@ api_idx_0018:
     mov ax, word [bp - 0x0008]       ; 0x1d86
     cmp ax, word [bp - 0x0012]       ; 0x1d89
     jl short @..api_idx_0018.l7      ; 0x1d8c
-    call ds_loc_41ca                 ; 0x1d8e
+    call thunk_22                    ; 0x1d8e
     test ax, ax                      ; 0x1d91
     jne short @..api_idx_0018.l7     ; 0x1d93
     jmp near @..api_idx_0018.l32     ; 0x1d95
@@ -296,10 +296,10 @@ api_idx_0018:
     jl short @..api_idx_0018.l31     ; 0x1f75
     cmp word [bss_8450], byte 0      ; 0x1f77
     je short @..api_idx_0018.l30     ; 0x1f7c
-    call ds_loc_41d7                 ; 0x1f7e
+    call thunk_23                    ; 0x1f7e
     mov ax, 0                        ; 0x1f81
     push ax                          ; 0x1f84
-    call ds_app_2b4e                 ; 0x1f85
+    call ds_app_thunk_21_2b4e        ; 0x1f85
     pop cx                           ; 0x1f88
 @..api_idx_0018.l30:
     mov ax, 1                        ; 0x1f89
@@ -315,7 +315,7 @@ api_idx_0018:
     push ax                          ; 0x1f9b
     mov ax, 0                        ; 0x1f9c
     push ax                          ; 0x1f9f
-    call ds_loc_3b21                 ; 0x1fa0
+    call thunk_4                     ; 0x1fa0
     add sp, byte 8                   ; 0x1fa3
     mov ax, 2                        ; 0x1fa6
     push ax                          ; 0x1fa9
@@ -367,7 +367,7 @@ api_idx_0018:
     add sp, byte 4                   ; 0x2021
     mov ax, 0                        ; 0x2024
     push ax                          ; 0x2027
-    call ds_app_2b4e                 ; 0x2028
+    call ds_app_thunk_21_2b4e        ; 0x2028
     pop cx                           ; 0x202b
 @..api_idx_0018.l37:
     call loc_0344                    ; 0x202c

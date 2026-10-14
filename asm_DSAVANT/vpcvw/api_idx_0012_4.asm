@@ -60,7 +60,7 @@ api_idx_0012_4:
     push ax                          ; 0x0b10
     lea ax, word [bp - 0x0004]       ; 0x0b11
     push ax                          ; 0x0b14
-    call ds_loc_429a                 ; 0x0b15
+    call thunk_38                    ; 0x0b15
     add sp, byte 4                   ; 0x0b18
     mov ax, word [bp - 0x0006]       ; 0x0b1b
     add ax, word [bp + 0x10]         ; 0x0b1e
@@ -75,7 +75,7 @@ api_idx_0012_4:
     mov dx, 0                        ; 0x0b31
     push dx                          ; 0x0b34
     push ax                          ; 0x0b35
-    call ds_loc_42a7                 ; 0x0b36
+    call thunk_39                    ; 0x0b36
     add sp, byte 0x0c                ; 0x0b39
     call bios_kbd_check              ; 0x0b3c
     jmp near @..api_idx_0012_4.l5    ; 0x0b3f
@@ -88,7 +88,7 @@ api_idx_0012_4:
     push ax                          ; 0x0b4f
     push word [bp - 0x000a]          ; 0x0b50
     push word [bp - 0x0008]          ; 0x0b53
-    call ds_loc_3b6f                 ; 0x0b56
+    call thunk_10                    ; 0x0b56
     add sp, byte 8                   ; 0x0b59
     mov word [bp - 0x000c], dx       ; 0x0b5c
     mov word [bp - 0x000e], ax       ; 0x0b5f
@@ -102,7 +102,7 @@ api_idx_0012_4:
     push ax                          ; 0x0b73
     push word [bp - 0x000a]          ; 0x0b74
     push word [bp - 0x0008]          ; 0x0b77
-    call ds_loc_3b48                 ; 0x0b7a
+    call thunk_7                     ; 0x0b7a
     add sp, byte 0x0a                ; 0x0b7d
     push word [bp + 0xc]             ; 0x0b80
     push word [bp + 0xa]             ; 0x0b83
@@ -115,11 +115,11 @@ api_idx_0012_4:
     push ax                          ; 0x0b98
     mov ax, 0x15                     ; 0x0b99
     push ax                          ; 0x0b9c
-    call ds_loc_3a6a                 ; 0x0b9d
+    call thunk_3                     ; 0x0b9d
     add sp, byte 4                   ; 0x0ba0
     push word [bp - 0x000a]          ; 0x0ba3
     push word [bp - 0x0008]          ; 0x0ba6
-    call ds_loc_3a50                 ; 0x0ba9
+    call thunk                       ; 0x0ba9
     add sp, byte 4                   ; 0x0bac
     mov ax, 0                        ; 0x0baf
     push ax                          ; 0x0bb2
@@ -135,7 +135,7 @@ api_idx_0012_4:
     push ax                          ; 0x0bca
     push word [bp - 0x000a]          ; 0x0bcb
     push word [bp - 0x0008]          ; 0x0bce
-    call ds_loc_3b6f                 ; 0x0bd1
+    call thunk_10                    ; 0x0bd1
     add sp, byte 8                   ; 0x0bd4
     mov word [bp - 0x0010], dx       ; 0x0bd7
     mov word [bp - 0x0012], ax       ; 0x0bda
@@ -153,19 +153,19 @@ api_idx_0012_4:
     push ax                          ; 0x0bfa
     push word [bp - 0x0010]          ; 0x0bfb
     push word [bp - 0x0012]          ; 0x0bfe
-    call ds_loc_3b96                 ; 0x0c01
+    call thunk_13                    ; 0x0c01
     add sp, byte 6                   ; 0x0c04
     mov ax, 1                        ; 0x0c07
     push ax                          ; 0x0c0a
     push word [bp - 0x000c]          ; 0x0c0b
     push word [bp - 0x000e]          ; 0x0c0e
-    call ds_loc_3b96                 ; 0x0c11
+    call thunk_13                    ; 0x0c11
     add sp, byte 6                   ; 0x0c14
     lea ax, word [bp - 0x0006]       ; 0x0c17
     push ax                          ; 0x0c1a
     lea ax, word [bp - 0x0004]       ; 0x0c1b
     push ax                          ; 0x0c1e
-    call ds_loc_429a                 ; 0x0c1f
+    call thunk_38                    ; 0x0c1f
     add sp, byte 4                   ; 0x0c22
     mov ax, 0x13f                    ; 0x0c25
     push ax                          ; 0x0c28
@@ -197,7 +197,7 @@ api_idx_0012_4:
     push ax                          ; 0x0c66
     push word [bss_0e20]             ; 0x0c67
     push word [bss_0e1e]             ; 0x0c6b
-    call ds_loc_42a7                 ; 0x0c6f
+    call thunk_39                    ; 0x0c6f
     add sp, byte 0x0c                ; 0x0c72
     call bios_kbd_check              ; 0x0c75
 @..api_idx_0012_4.l5:
@@ -236,6 +236,6 @@ api_idx_0012_4:
     push ax                          ; 0x0cca
     mov ax, 1                        ; 0x0ccb
     push ax                          ; 0x0cce
-    call ds_loc_3b21                 ; 0x0ccf
+    call thunk_4                     ; 0x0ccf
     add sp, byte 8                   ; 0x0cd2
     ret                              ; 0x0cd5

@@ -404,7 +404,7 @@ loc_0f67:
     push ax                          ; 0x1372
     mov ax, 2                        ; 0x1373
     push ax                          ; 0x1376
-    call ds_loc_3b62                 ; 0x1377
+    call thunk_9                     ; 0x1377
     add sp, byte 4                   ; 0x137a
     cmp dx, byte 0                   ; 0x137d
     jl short @..loc_0f67.l22         ; 0x1380
@@ -426,7 +426,7 @@ loc_0f67:
     push ax                          ; 0x139f
     mov ax, 0x48                     ; 0x13a0
     push ax                          ; 0x13a3
-    call ds_loc_3b7c                 ; 0x13a4
+    call thunk_11                    ; 0x13a4
     add sp, byte 0x0c                ; 0x13a7
     mov word [bp - 0x011a], dx       ; 0x13aa
     mov word [bp - 0x011c], ax       ; 0x13ae
@@ -486,7 +486,7 @@ loc_0f67:
     push ax                          ; 0x1446
     push word [bp - 0x011a]          ; 0x1447
     push word [bp - 0x011c]          ; 0x144b
-    call ds_loc_3b89                 ; 0x144f
+    call thunk_12                    ; 0x144f
     add sp, byte 8                   ; 0x1452
     mov ax, 0x18                     ; 0x1455
     imul word [bp - 0x0010]          ; 0x1458
@@ -527,7 +527,7 @@ loc_0f67:
     push word [bp - 0x00f6]          ; 0x14b0
     push word [bp - 0x00f4]          ; 0x14b4
     push word [bp - 0x00f8]          ; 0x14b8
-    call ds_loc_4218                 ; 0x14bc
+    call thunk_28                    ; 0x14bc
     add sp, byte 0x16                ; 0x14bf
     mov ax, 0x90                     ; 0x14c2
     push ax                          ; 0x14c5
@@ -537,7 +537,7 @@ loc_0f67:
     push ax                          ; 0x14cd
     mov ax, 0x48                     ; 0x14ce
     push ax                          ; 0x14d1
-    call ds_loc_3b21                 ; 0x14d2
+    call thunk_4                     ; 0x14d2
     add sp, byte 8                   ; 0x14d5
     mov ax, word [bp - 0x000a]       ; 0x14d8
     add word [bp - 0x0102], ax       ; 0x14db
@@ -578,12 +578,12 @@ loc_0f67:
     push ax                          ; 0x1532
     push word [bp - 0x011a]          ; 0x1533
     push word [bp - 0x011c]          ; 0x1537
-    call ds_loc_3b89                 ; 0x153b
+    call thunk_12                    ; 0x153b
     add sp, byte 8                   ; 0x153e
 @..loc_0f67.l31:
     mov ax, 1                        ; 0x1541
     push ax                          ; 0x1544
-    call ds_loc_415b                 ; 0x1545
+    call thunk_17                    ; 0x1545
     pop cx                           ; 0x1548
     cmp word [bp + 0x10], byte 0     ; 0x1549
     je short @..loc_0f67.l34         ; 0x154d
@@ -598,7 +598,7 @@ loc_0f67:
     push ax                          ; 0x1566
     mov ax, 0x48                     ; 0x1567
     push ax                          ; 0x156a
-    call ds_loc_3b21                 ; 0x156b
+    call thunk_4                     ; 0x156b
     add sp, byte 8                   ; 0x156e
     jmp short @..loc_0f67.l33        ; 0x1571
 @..loc_0f67.l32:
@@ -625,7 +625,7 @@ loc_0f67:
     push ax                          ; 0x159f
     mov ax, 0x48                     ; 0x15a0
     push ax                          ; 0x15a3
-    call ds_loc_3b21                 ; 0x15a4
+    call thunk_4                     ; 0x15a4
     add sp, byte 8                   ; 0x15a7
 @..loc_0f67.l35:
     ret                              ; 0x15aa
@@ -671,7 +671,7 @@ loc_15f9:
     add ax, 0x9c                     ; 0x1605
     push ax                          ; 0x1608
     push word [bp + 0x4]             ; 0x1609
-    call ds_loc_3a50                 ; 0x160c
+    call thunk                       ; 0x160c
     add sp, byte 4                   ; 0x160f
     ret                              ; 0x1612
 loc_1613:
@@ -680,7 +680,7 @@ loc_1613:
     mov ax, 0                        ; 0x1619
     push ax                          ; 0x161c
     push word [bp + 0x6]             ; 0x161d
-    call ds_loc_3a6a                 ; 0x1620
+    call thunk_3                     ; 0x1620
     add sp, byte 4                   ; 0x1623
     mov ax, 0                        ; 0x1626
     push ax                          ; 0x1629

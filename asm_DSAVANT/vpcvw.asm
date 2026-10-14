@@ -52,7 +52,7 @@ loc_000e:
 
 %include "vpcvw/api_idx_000e.asm"          ; 0x008b
 
-%include "vpcvw/api_idx_0012.asm"          ; 0x014b
+%include "vpcvw/asm_only/api_idx_0012.asm"          ; 0x014b
 
 %include "vpcvw/api_idx_0004.asm"          ; 0x02c7
 
@@ -78,13 +78,13 @@ loc_000e:
 
 %include "vpcvw/api_idx_000a.asm"          ; 0x0f9e
 
-%include "vpcvw/api_idx_007c.asm"          ; 0x1046
+%include "vpcvw/asm_only/api_idx_007c.asm"          ; 0x1046
 
 %include "vpcvw/api_idx_009e.asm"          ; 0x1894
 
 %include "vpcvw/api_idx_0008.asm"          ; 0x1b17
 
-%include "vpcvw/api_idx_0008_2.asm"        ; 0x21fd
+%include "vpcvw/asm_only/api_idx_0008_2.asm"        ; 0x21fd
 
 %include "vpcvw/api_idx_0004_4.asm"        ; 0x297e
 
@@ -130,11 +130,11 @@ loc_000e:
 
 %include "vpcvw/api_idx_0056_2.asm"        ; 0x468b
 
-%include "vpcvw/api_idx_0004_8.asm"        ; 0x4793
+%include "vpcvw/asm_only/api_idx_0004_8.asm"        ; 0x4793
 
 %include "vpcvw/api_idx_0048_2.asm"        ; 0x4a1c
 
-%include "vpcvw/api_idx_0072.asm"          ; 0x4a3f
+%include "vpcvw/asm_only/api_idx_0072.asm"          ; 0x4a3f
 
 %include "vpcvw/api_idx_0002_7.asm"        ; 0x5006
 
@@ -144,13 +144,13 @@ loc_000e:
 
 %include "vpcvw/api_idx_0004_9.asm"        ; 0x542a
 
-%include "vpcvw/api_idx_00c2.asm"          ; 0x54fb
+%include "vpcvw/asm_only/api_idx_00c2.asm"          ; 0x54fb
 
 %include "vpcvw/api_idx_0014.asm"          ; 0x616c
 
 %include "vpcvw/api_idx_002a.asm"          ; 0x6977
 
-%include "vpcvw/api_idx_0080.asm"          ; 0x6a20
+%include "vpcvw/asm_only/api_idx_0080.asm"          ; 0x6a20
 
 %include "vpcvw/api_idx_0004_10.asm"       ; 0x6c47
 
@@ -204,9 +204,9 @@ loc_000e:
 
 %include "vpcvw/api_idx_000e_3.asm"        ; 0x96d5
 
-%include "vpcvw/api_idx_0018.asm"          ; 0x9740
+%include "vpcvw/asm_only/api_idx_0018.asm"          ; 0x9740
 
-%include "vpcvw/leaf_loc_982c.asm"         ; 0x982c
+%include "vpcvw/asm_only/leaf_loc_982c.asm"         ; 0x982c
 
 
     db 0x31, 0x30, 0x30, 0x30, 0x00

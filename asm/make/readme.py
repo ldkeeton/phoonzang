@@ -3,6 +3,8 @@
 import os
 import re
 
+from lib.asm_only import FOLDER, is_marked
+
 from .common import PROJECT
 
 README_DIR = os.path.join(PROJECT, 'readme')
@@ -12,11 +14,22 @@ STYLE = (
     '@media(prefers-color-scheme:dark){:root{--c:#3fb950;--n:#30363d;--t:#8b949e}}'
     'text{font:11px sans-serif;fill:var(--t)}'
     '.c{fill:var(--c)}.n{fill:var(--n)}'
+    '.a{fill:none;stroke:var(--n);stroke-width:1}'
 )
 
 
+def _state(path, filename, stems):
+    if filename[:-4] in stems:
+        return 'c'
+    return 'asm' if is_marked(os.path.join(path, filename)) else 'todo'
+
+
 def _scan(src):
-    """Return {binary: [(asm_stem, has_c)]} for a generated asm_<PROJECT> tree."""
+    """Return {binary: [(asm_stem, state)]} for a generated asm_<PROJECT> tree.
+
+    ``state`` is ``'c'`` (has a .c), ``'asm'`` (in the asm_only folder: never
+    C) or ``'todo'``.
+    """
     groups = {}
     for name in sorted(os.listdir(src)):
         path = os.path.join(src, name)
@@ -24,11 +37,16 @@ def _scan(src):
             groups.setdefault(name, [])
             files = os.listdir(path)
             stems = {f[:-2] for f in files if f.endswith('.c')}
-            groups[name] += [(f[:-4], f[:-4] in stems)
+            groups[name] += [(f[:-4], _state(path, f, stems))
                              for f in sorted(files) if f.endswith('.asm')]
+            only = os.path.join(path, FOLDER)
+            if os.path.isdir(only):
+                groups[name] += [(f[:-4], 'asm')
+                                 for f in sorted(os.listdir(only))
+                                 if f.endswith('.asm')]
     for name in sorted(os.listdir(src)):
         if name.endswith('.asm') and name[:-4] in groups:
-            groups[name[:-4]].append((name[:-4], False))
+            groups[name[:-4]].append((name[:-4], 'todo'))
     return {k: v for k, v in groups.items() if v}
 
 
@@ -37,11 +55,13 @@ def _svg(groups):
     y, out = 4, []
     for name, cells in groups.items():
         out.append(f'<text x="0" y="{y + CELL + 1}">{name}</text>')
-        for i, (stem, has_c) in enumerate(cells):
+        for i, (stem, state) in enumerate(cells):
             x = LABEL_W + (i % COLS) * step
             cy = y + (i // COLS) * step
-            out.append(f'<rect class="{"c" if has_c else "n"}" x="{x}" y="{cy}" '
-                       f'width="{CELL}" height="{CELL}"><title>{stem}</title></rect>')
+            cls = {'c': 'c', 'asm': 'a'}.get(state, 'n')
+            out.append(f'<rect class="{cls}" x="{x}" y="{cy}" '
+                       f'width="{CELL}" height="{CELL}"><title>{stem}'
+                       f'{" (asm only)" if state == "asm" else ""}</title></rect>')
         y += ((len(cells) - 1) // COLS + 1) * step + ROW_H - step
     w = LABEL_W + COLS * step
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{y}" '
@@ -59,10 +79,13 @@ def _make_table():
 
 def cmd_readme():
     groups = _scan(os.path.join(PROJECT, 'asm_DSAVANT'))
-    asm_total = sum(len(v) for v in groups.values())
-    c_total = sum(h for v in groups.values() for _, h in v)
-    table = ['| binary | ASM | C |', '|---|--:|--:|']
-    table += [f'| {k} | {len(v)} | {sum(h for _, h in v)} |' for k, v in groups.items()]
+    # Asm-only routines can never be C, so they are not counted at all.
+    counted = {k: [c for c in v if c[1] != 'asm'] for k, v in groups.items()}
+    asm_total = sum(len(v) for v in counted.values())
+    c_total = sum(s == 'c' for v in counted.values() for _, s in v)
+    table = ['| binary | ASM | C | asm only |', '|---|--:|--:|--:|']
+    table += [f'| {k} | {len(counted[k])} | {sum(s == "c" for _, s in counted[k])}'
+              f' | {len(v) - len(counted[k])} |' for k, v in groups.items()]
     subs = {
         'asm_total': asm_total,
         'c_total': c_total,

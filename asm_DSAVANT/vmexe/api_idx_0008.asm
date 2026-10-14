@@ -46,7 +46,7 @@ api_idx_0008:
     mov ax, word [bp - 0x0006]       ; 0x02c1
     add ax, strict word 0x1c         ; 0x02c4
     push ax                          ; 0x02c7
-    call ds_loc_3a50                 ; 0x02c8
+    call thunk                       ; 0x02c8
     add sp, byte 4                   ; 0x02cb
     mov ax, 6                        ; 0x02ce
     push ax                          ; 0x02d1
@@ -64,7 +64,7 @@ api_idx_0008:
     push ax                          ; 0x02ef
     push word [bp - 0x0008]          ; 0x02f0
     push word [bp - 0x0006]          ; 0x02f3
-    call ds_loc_3b21                 ; 0x02f6
+    call thunk_4                     ; 0x02f6
     add sp, byte 8                   ; 0x02f9
 @..api_idx_0008.l3:
     jmp short @..api_idx_0008.l5     ; 0x02fc

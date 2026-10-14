@@ -144,7 +144,7 @@ loc_0dbe:
     mov al, byte [bx + 0x15]         ; 0x0e0d
     sub ah, ah                       ; 0x0e10
     push ax                          ; 0x0e12
-    call ds_loc_4218                 ; 0x0e13
+    call thunk_28                    ; 0x0e13
     add sp, byte 0x16                ; 0x0e16
 @..loc_0dbe.l1:
     ret                              ; 0x0e19

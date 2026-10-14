@@ -316,7 +316,7 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0002_26.asm"       ; 0xa7b2
 
-%include "vmaze/api_idx_0002_27.asm"       ; 0xa9a4
+%include "vmaze/asm_only/api_idx_0002_27.asm"       ; 0xa9a4
 
 %include "vmaze/api_idx_0032.asm"          ; 0xab9b
 

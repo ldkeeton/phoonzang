@@ -59,7 +59,7 @@ api_idx_00ba:
     lea cx, word [bp - 0x00b5]       ; 0xab19
     add ax, cx                       ; 0xab1d
     push ax                          ; 0xab1f
-    call strlen                      ; 0xab20
+    call strpos                      ; 0xab20
     add sp, byte 4                   ; 0xab23
     mov word [bp - 0x00ba], ax       ; 0xab26
     lea ax, word [bp - 0x0052]       ; 0xab2a

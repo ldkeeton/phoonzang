@@ -103,12 +103,12 @@ jumptable_0363_case_4:
     mov word [bp - 0x0002], 1        ; 0x0347
     mov ax, 1                        ; 0x034c
     push ax                          ; 0x034f
-    call ds_loc_415b                 ; 0x0350
+    call thunk_17                    ; 0x0350
     pop cx                           ; 0x0353
-    call ds_loc_4168                 ; 0x0354
+    call thunk_18                    ; 0x0354
     cmp word [bss_0e32], byte 0      ; 0x0357
     je short @..ds_app_file_0242.l17 ; 0x035c
-    call ds_loc_4280                 ; 0x035e
+    call thunk_36                    ; 0x035e
 jumptable_0363_case_1:
 @..ds_app_file_0242.l17:
     jmp short @..ds_app_file_0242.l19 ; 0x0361

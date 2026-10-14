@@ -59,13 +59,13 @@ api_idx_0004_6:
     add ax, 0x92                     ; 0x6da0
     push ax                          ; 0x6da3
     push word [bp - 0x0002]          ; 0x6da4
-    call ds_loc_3a50                 ; 0x6da7
+    call thunk                       ; 0x6da7
     add sp, byte 4                   ; 0x6daa
     mov ax, 0                        ; 0x6dad
     push ax                          ; 0x6db0
     mov ax, 0x55                     ; 0x6db1
     push ax                          ; 0x6db4
-    call ds_loc_3a6a                 ; 0x6db5
+    call thunk_3                     ; 0x6db5
     add sp, byte 4                   ; 0x6db8
     mov ax, 2                        ; 0x6dbb
     push ax                          ; 0x6dbe
@@ -88,7 +88,7 @@ loc_6dd9:
     push ax                          ; 0x6de6
     mov ax, 0x9114                   ; 0x6de7
     push ax                          ; 0x6dea
-    call strlen                      ; 0x6deb
+    call strpos                      ; 0x6deb
     add sp, byte 4                   ; 0x6dee
     mov word [bp - 0x0004], ax       ; 0x6df1
     cmp ax, strict word 0            ; 0x6df4

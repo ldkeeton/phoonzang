@@ -12,7 +12,7 @@ ds_loc_2c74:
     mov bx, ax                       ; 0x2c7f
     push word [bx - 0x7d2e]          ; 0x2c81
     push word [bx - 0x7d30]          ; 0x2c85
-    call ds_loc_3b96                 ; 0x2c89
+    call thunk_13                    ; 0x2c89
     add sp, byte 6                   ; 0x2c8c
     mov ax, word [bp - 0x0002]       ; 0x2c8f
     mov cx, 3                        ; 0x2c92

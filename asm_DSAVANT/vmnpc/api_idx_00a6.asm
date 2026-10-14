@@ -12,7 +12,7 @@ api_idx_00a6:
     add ax, word [bp - 0x0004]       ; 0x8dd7
     add ax, 0xa8c4                   ; 0x8dda
     push ax                          ; 0x8ddd
-    call strlen                      ; 0x8dde
+    call strpos                      ; 0x8dde
     add sp, byte 4                   ; 0x8de1
     mov word [bp - 0x0006], ax       ; 0x8de4
     push ax                          ; 0x8de7
@@ -40,7 +40,7 @@ api_idx_00a6:
     add ax, word [bp - 0x0004]       ; 0x8e1d
     add ax, 0xa8c4                   ; 0x8e20
     push ax                          ; 0x8e23
-    call strlen                      ; 0x8e24
+    call strpos                      ; 0x8e24
     add sp, byte 4                   ; 0x8e27
     mov word [bp - 0x0006], ax       ; 0x8e2a
     push ax                          ; 0x8e2d

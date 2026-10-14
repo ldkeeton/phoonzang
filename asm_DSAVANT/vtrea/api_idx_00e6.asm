@@ -416,7 +416,7 @@ api_idx_00e6:
     push ax                          ; 0x7792
     lea ax, word [bp - 0x00c2]       ; 0x7793
     push ax                          ; 0x7797
-    call strlen                      ; 0x7798
+    call strpos                      ; 0x7798
     add sp, byte 4                   ; 0x779b
     mov word [bp - 0x0004], ax       ; 0x779e
     cmp ax, strict word 0xffff       ; 0x77a1

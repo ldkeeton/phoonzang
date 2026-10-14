@@ -10,7 +10,7 @@ api_idx_0008:
     push ax                          ; 0x0775
     mov ax, 0                        ; 0x0776
     push ax                          ; 0x0779
-    call ds_loc_3b21                 ; 0x077a
+    call thunk_4                     ; 0x077a
     add sp, byte 8                   ; 0x077d
     push word [bp + 0x4]             ; 0x0780
     call aztec_strlen                ; 0x0783
@@ -39,7 +39,7 @@ api_idx_0008:
     mov ax, 0x92                     ; 0x07b7
     push ax                          ; 0x07ba
     push word [bp - 0x0002]          ; 0x07bb
-    call ds_loc_3b6f                 ; 0x07be
+    call thunk_10                    ; 0x07be
     add sp, byte 8                   ; 0x07c1
     mov word [bp - 0x0006], dx       ; 0x07c4
     mov word [bp - 0x0008], ax       ; 0x07c7
@@ -47,12 +47,12 @@ api_idx_0008:
     push ax                          ; 0x07cd
     mov ax, 0x16                     ; 0x07ce
     push ax                          ; 0x07d1
-    call ds_loc_3a6a                 ; 0x07d2
+    call thunk_3                     ; 0x07d2
     add sp, byte 4                   ; 0x07d5
     mov ax, 0x92                     ; 0x07d8
     push ax                          ; 0x07db
     push word [bp - 0x0002]          ; 0x07dc
-    call ds_loc_3a50                 ; 0x07df
+    call thunk                       ; 0x07df
     add sp, byte 4                   ; 0x07e2
     mov ax, 0                        ; 0x07e5
     push ax                          ; 0x07e8
@@ -65,13 +65,13 @@ api_idx_0008:
     mov ax, 0x92                     ; 0x07f9
     push ax                          ; 0x07fc
     push word [bp - 0x0002]          ; 0x07fd
-    call ds_loc_3b21                 ; 0x0800
+    call thunk_4                     ; 0x0800
     add sp, byte 8                   ; 0x0803
     mov ax, 1                        ; 0x0806
     push ax                          ; 0x0809
     push word [bp - 0x0006]          ; 0x080a
     push word [bp - 0x0008]          ; 0x080d
-    call ds_loc_3b96                 ; 0x0810
+    call thunk_13                    ; 0x0810
     add sp, byte 6                   ; 0x0813
     call bios_kbd_check              ; 0x0816
     ret                              ; 0x0819

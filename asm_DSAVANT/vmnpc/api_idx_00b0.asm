@@ -29,13 +29,13 @@ api_idx_00b0:
     push ax                          ; 0xa87f
     mov ax, 0x44                     ; 0xa880
     push ax                          ; 0xa883
-    call ds_loc_3a50                 ; 0xa884
+    call thunk                       ; 0xa884
     add sp, byte 4                   ; 0xa887
     mov ax, 0                        ; 0xa88a
     push ax                          ; 0xa88d
     mov ax, 1                        ; 0xa88e
     push ax                          ; 0xa891
-    call ds_loc_3a6a                 ; 0xa892
+    call thunk_3                     ; 0xa892
     add sp, byte 4                   ; 0xa895
     mov ax, 0                        ; 0xa898
     push ax                          ; 0xa89b
@@ -84,7 +84,7 @@ api_idx_00b0:
     mov ax, 0x20                     ; 0xa905
     push ax                          ; 0xa908
     push word [bp + 0x4]             ; 0xa909
-    call strlen                      ; 0xa90c
+    call strpos                      ; 0xa90c
     add sp, byte 4                   ; 0xa90f
     cmp ax, strict word 0xffff       ; 0xa912
     je short @..api_idx_00b0.l5      ; 0xa915

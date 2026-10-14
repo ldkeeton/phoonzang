@@ -6,7 +6,7 @@ api_idx_0002:
     mov ax, 0x2f                     ; 0x0014
     push ax                          ; 0x0017
     push word [bp + 0x4]             ; 0x0018
-    call strlen                      ; 0x001b
+    call strpos                      ; 0x001b
     add sp, byte 4                   ; 0x001e
     mov word [bp - 0x0002], ax       ; 0x0021
     cmp ax, strict word 0xffff       ; 0x0024

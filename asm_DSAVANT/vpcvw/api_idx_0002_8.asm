@@ -7,7 +7,7 @@ api_idx_0002_8:
     push ax                          ; 0x8680
     push word [bss_93f8]             ; 0x8681
     push word [bss_93f6]             ; 0x8685
-    call ds_loc_3b89                 ; 0x8689
+    call thunk_12                    ; 0x8689
     add sp, byte 8                   ; 0x868c
     mov word [bp - 0x0002], 0        ; 0x868f
     jmp near @..api_idx_0002_8.l2    ; 0x8694
@@ -18,7 +18,7 @@ api_idx_0002_8:
     shl ax, 1                        ; 0x869e
     mov bx, ax                       ; 0x86a0
     push word [word bx + 0x30]       ; 0x86a2
-    call ds_loc_3a6a                 ; 0x86a6
+    call thunk_3                     ; 0x86a6
     add sp, byte 4                   ; 0x86a9
     mov ax, 6                        ; 0x86ac
     imul word [bp - 0x0002]          ; 0x86af
@@ -26,7 +26,7 @@ api_idx_0002_8:
     push ax                          ; 0x86b5
     mov ax, 6                        ; 0x86b6
     push ax                          ; 0x86b9
-    call ds_loc_3a50                 ; 0x86ba
+    call thunk                       ; 0x86ba
     add sp, byte 4                   ; 0x86bd
     mov ax, 0                        ; 0x86c0
     push ax                          ; 0x86c3
@@ -42,13 +42,13 @@ api_idx_0002_8:
     push ax                          ; 0x86dd
     mov ax, 0x85                     ; 0x86de
     push ax                          ; 0x86e1
-    call ds_loc_3a50                 ; 0x86e2
+    call thunk                       ; 0x86e2
     add sp, byte 4                   ; 0x86e5
     mov ax, 0                        ; 0x86e8
     push ax                          ; 0x86eb
     mov ax, 1                        ; 0x86ec
     push ax                          ; 0x86ef
-    call ds_loc_3a6a                 ; 0x86f0
+    call thunk_3                     ; 0x86f0
     add sp, byte 4                   ; 0x86f3
     mov ax, 0                        ; 0x86f6
     push ax                          ; 0x86f9

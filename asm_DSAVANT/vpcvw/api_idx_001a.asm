@@ -47,7 +47,7 @@ loc_70ca:
     push ax                          ; 0x70e0
     lea ax, word [bp - 0x000a]       ; 0x70e1
     push ax                          ; 0x70e4
-    call ds_loc_429a                 ; 0x70e5
+    call thunk_38                    ; 0x70e5
     add sp, byte 4                   ; 0x70e8
     mov word [bp - 0x0194], ax       ; 0x70eb
 @..loc_70ca.l1:
@@ -135,13 +135,13 @@ loc_70ca:
     push ax                          ; 0x71a4
     push word [bss_93f8]             ; 0x71a5
     push word [bss_93f6]             ; 0x71a9
-    call ds_loc_3b89                 ; 0x71ad
+    call thunk_12                    ; 0x71ad
     add sp, byte 8                   ; 0x71b0
     mov word [bp - 0x000c], 0x72     ; 0x71b3
     mov word [bp - 0x000a], 0x1a     ; 0x71b8
     push word [bp - 0x000c]          ; 0x71bd
     push word [bp - 0x000a]          ; 0x71c0
-    call ds_loc_3a50                 ; 0x71c3
+    call thunk                       ; 0x71c3
     add sp, byte 4                   ; 0x71c6
     mov ax, 4                        ; 0x71c9
     push ax                          ; 0x71cc
@@ -153,7 +153,7 @@ loc_70ca:
     add word [bp - 0x000a], byte 0x60 ; 0x71d9
     push word [bp - 0x000c]          ; 0x71dd
     push word [bp - 0x000a]          ; 0x71e0
-    call ds_loc_3a50                 ; 0x71e3
+    call thunk                       ; 0x71e3
     add sp, byte 4                   ; 0x71e6
     mov ax, 4                        ; 0x71e9
     push ax                          ; 0x71ec
@@ -167,7 +167,7 @@ loc_70ca:
     push ax                          ; 0x7201
     mov ax, 1                        ; 0x7202
     push ax                          ; 0x7205
-    call ds_loc_3a6a                 ; 0x7206
+    call thunk_3                     ; 0x7206
     add sp, byte 4                   ; 0x7209
     mov ax, 0                        ; 0x720c
     push ax                          ; 0x720f
@@ -193,7 +193,7 @@ loc_70ca:
     push ax                          ; 0x723e
     lea ax, word [bp - 0x00a2]       ; 0x723f
     push ax                          ; 0x7243
-    call strlen                      ; 0x7244
+    call strpos                      ; 0x7244
     add sp, byte 4                   ; 0x7247
     mov word [bp - 0x0006], ax       ; 0x724a
     cmp ax, strict word 0xffff       ; 0x724d
@@ -235,7 +235,7 @@ loc_70ca:
     mov ax, word [bp - 0x000a]       ; 0x72a6
     sub ax, cx                       ; 0x72a9
     push ax                          ; 0x72ab
-    call ds_loc_3a50                 ; 0x72ac
+    call thunk                       ; 0x72ac
     add sp, byte 4                   ; 0x72af
     mov ax, 0                        ; 0x72b2
     push ax                          ; 0x72b5
@@ -255,7 +255,7 @@ loc_70ca:
     mov ax, word [bp - 0x000a]       ; 0x72d6
     sub ax, cx                       ; 0x72d9
     push ax                          ; 0x72db
-    call ds_loc_3a50                 ; 0x72dc
+    call thunk                       ; 0x72dc
     add sp, byte 4                   ; 0x72df
     mov ax, 0                        ; 0x72e2
     push ax                          ; 0x72e5

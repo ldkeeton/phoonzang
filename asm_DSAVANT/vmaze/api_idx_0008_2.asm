@@ -10,7 +10,7 @@ api_idx_0008_2:
     push ax                          ; 0x0fef
     mov ax, 0                        ; 0x0ff0
     push ax                          ; 0x0ff3
-    call ds_loc_3b21                 ; 0x0ff4
+    call thunk_4                     ; 0x0ff4
     add sp, byte 8                   ; 0x0ff7
     push word [bp + 0x4]             ; 0x0ffa
     call aztec_strlen                ; 0x0ffd
@@ -39,7 +39,7 @@ api_idx_0008_2:
     mov ax, 0x92                     ; 0x1031
     push ax                          ; 0x1034
     push word [bp - 0x0002]          ; 0x1035
-    call ds_loc_3b6f                 ; 0x1038
+    call thunk_10                    ; 0x1038
     add sp, byte 8                   ; 0x103b
     mov word [bp - 0x0006], dx       ; 0x103e
     mov word [bp - 0x0008], ax       ; 0x1041
@@ -47,12 +47,12 @@ api_idx_0008_2:
     push ax                          ; 0x1047
     mov ax, 0x16                     ; 0x1048
     push ax                          ; 0x104b
-    call ds_loc_3a6a                 ; 0x104c
+    call thunk_3                     ; 0x104c
     add sp, byte 4                   ; 0x104f
     mov ax, 0x92                     ; 0x1052
     push ax                          ; 0x1055
     push word [bp - 0x0002]          ; 0x1056
-    call ds_loc_3a50                 ; 0x1059
+    call thunk                       ; 0x1059
     add sp, byte 4                   ; 0x105c
     mov ax, 0                        ; 0x105f
     push ax                          ; 0x1062
@@ -65,13 +65,13 @@ api_idx_0008_2:
     mov ax, 0x92                     ; 0x1073
     push ax                          ; 0x1076
     push word [bp - 0x0002]          ; 0x1077
-    call ds_loc_3b21                 ; 0x107a
+    call thunk_4                     ; 0x107a
     add sp, byte 8                   ; 0x107d
     mov ax, 1                        ; 0x1080
     push ax                          ; 0x1083
     push word [bp - 0x0006]          ; 0x1084
     push word [bp - 0x0008]          ; 0x1087
-    call ds_loc_3b96                 ; 0x108a
+    call thunk_13                    ; 0x108a
     add sp, byte 6                   ; 0x108d
     call bios_kbd_check              ; 0x1090
     ret                              ; 0x1093

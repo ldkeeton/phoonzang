@@ -149,6 +149,6 @@ api_idx_001e:
     push ax                          ; 0x3e80
     mov ax, 6                        ; 0x3e81
     push ax                          ; 0x3e84
-    call ds_loc_4218                 ; 0x3e85
+    call thunk_28                    ; 0x3e85
     add sp, byte 0x16                ; 0x3e88
     ret                              ; 0x3e8b

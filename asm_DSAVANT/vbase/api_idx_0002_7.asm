@@ -75,7 +75,7 @@ api_idx_0002_7:
     push ax                          ; 0x8834
     push ax                          ; 0x8835
     push ax                          ; 0x8836
-    call ds_loc_431e                 ; 0x8837
+    call thunk_45                    ; 0x8837
     add sp, byte 6                   ; 0x883a
     mov ax, 0xc7                     ; 0x883d
     push ax                          ; 0x8840
@@ -84,11 +84,11 @@ api_idx_0002_7:
     mov ax, 0                        ; 0x8845
     push ax                          ; 0x8848
     push ax                          ; 0x8849
-    call ds_loc_3b21                 ; 0x884a
+    call thunk_4                     ; 0x884a
     add sp, byte 8                   ; 0x884d
     mov ax, 0                        ; 0x8850
     push ax                          ; 0x8853
-    call ds_loc_4304                 ; 0x8854
+    call thunk_43                    ; 0x8854
     pop cx                           ; 0x8857
     mov ax, 0                        ; 0x8858
     push ax                          ; 0x885b

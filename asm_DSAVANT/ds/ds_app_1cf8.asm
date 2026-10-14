@@ -57,7 +57,7 @@ ds_app_1cf8: ; Aztec csav frame=0x0002
     sub ax, word [bp - 0x0002]       ; 0x1d73
     push ax                          ; 0x1d76
     push word [bp + 0x4]             ; 0x1d77
-    call ds_loc_3b48                 ; 0x1d7a
+    call thunk_7                     ; 0x1d7a
     add sp, byte 0x0a                ; 0x1d7d
 @..ds_app_1cf8.l3:
     ret                              ; 0x1d80

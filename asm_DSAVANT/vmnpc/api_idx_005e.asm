@@ -37,7 +37,7 @@ api_idx_005e:
     push ax                          ; 0x144a
     mov ax, 0x37                     ; 0x144b
     push ax                          ; 0x144e
-    call ds_loc_3b21                 ; 0x144f
+    call thunk_4                     ; 0x144f
     add sp, byte 8                   ; 0x1452
 @..api_idx_005e.l4:
     call loc_109f                    ; 0x1455
@@ -258,7 +258,7 @@ api_idx_005e:
     push ax                          ; 0x166a
     mov ax, 0x37                     ; 0x166b
     push ax                          ; 0x166e
-    call ds_loc_3b21                 ; 0x166f
+    call thunk_4                     ; 0x166f
     add sp, byte 8                   ; 0x1672
 @..api_idx_005e.l27:
     ret                              ; 0x1675

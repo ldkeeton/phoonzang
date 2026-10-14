@@ -111,7 +111,7 @@ loc_3a6a:
     push ax                          ; 0x3a7b
     mov ax, 1                        ; 0x3a7c
     push ax                          ; 0x3a7f
-    call ds_loc_3b21                 ; 0x3a80
+    call thunk_4                     ; 0x3a80
     add sp, byte 8                   ; 0x3a83
     call bios_kbd_check              ; 0x3a86
 @..loc_3a6a.l1:
@@ -125,7 +125,7 @@ loc_3a6a:
     push ax                          ; 0x3a96
     push word [bss_93f8]             ; 0x3a97
     push word [bss_93f6]             ; 0x3a9b
-    call ds_loc_3b89                 ; 0x3a9f
+    call thunk_12                    ; 0x3a9f
     add sp, byte 8                   ; 0x3aa2
     mov word [bss_9566], 0           ; 0x3aa5
     ret                              ; 0x3aab

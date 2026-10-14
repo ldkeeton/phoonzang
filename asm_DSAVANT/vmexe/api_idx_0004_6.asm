@@ -68,7 +68,7 @@ api_idx_0004_6:
     push ax                          ; 0x1be0
     mov ax, 8                        ; 0x1be1
     push ax                          ; 0x1be4
-    call ds_loc_3b21                 ; 0x1be5
+    call thunk_4                     ; 0x1be5
     add sp, byte 8                   ; 0x1be8
     mov ax, 2                        ; 0x1beb
     push ax                          ; 0x1bee

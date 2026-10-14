@@ -10,7 +10,7 @@ jumptable_85d0_case_1:
     push ax                          ; 0x7425
     push word [bss_a5b4]             ; 0x7426
     push word [bss_a5b2]             ; 0x742a
-    call ds_loc_3b89                 ; 0x742e
+    call thunk_12                    ; 0x742e
     add sp, byte 8                   ; 0x7431
     mov ax, word [bss_a5bc]          ; 0x7434
     cmp ax, word [bss_a5aa]          ; 0x7437
@@ -550,7 +550,7 @@ jumptable_85d0_case_3:
     push ax                          ; 0x790a
     push word [bss_a5b4]             ; 0x790b
     push word [bss_a5b2]             ; 0x790f
-    call ds_loc_3b89                 ; 0x7913
+    call thunk_12                    ; 0x7913
     add sp, byte 8                   ; 0x7916
     mov word [bp - 0x0002], 0        ; 0x7919
 @..api_idx_000a_3.l32:
@@ -921,7 +921,7 @@ jumptable_85d0_case_4:
     push ax                          ; 0x7c8b
     push word [bss_a5b4]             ; 0x7c8c
     push word [bss_a5b2]             ; 0x7c90
-    call ds_loc_3b89                 ; 0x7c94
+    call thunk_12                    ; 0x7c94
     add sp, byte 8                   ; 0x7c97
     mov ax, 0x12                     ; 0x7c9a
     push ax                          ; 0x7c9d
@@ -994,7 +994,7 @@ jumptable_85d0_case_5:
     push ax                          ; 0x7d4f
     push word [bss_a5b4]             ; 0x7d50
     push word [bss_a5b2]             ; 0x7d54
-    call ds_loc_3b89                 ; 0x7d58
+    call thunk_12                    ; 0x7d58
     add sp, byte 8                   ; 0x7d5b
     mov ax, 0                        ; 0x7d5e
     push ax                          ; 0x7d61
@@ -1193,7 +1193,7 @@ jumptable_85d0_case_6:
     push ax                          ; 0x7f4b
     push word [bss_a5b4]             ; 0x7f4c
     push word [bss_a5b2]             ; 0x7f50
-    call ds_loc_3b89                 ; 0x7f54
+    call thunk_12                    ; 0x7f54
     add sp, byte 8                   ; 0x7f57
     mov ax, word [bss_a5b6]          ; 0x7f5a
     cmp ax, word [bss_a5aa]          ; 0x7f5d
@@ -1347,7 +1347,7 @@ jumptable_85d0_case_7:
     push ax                          ; 0x80ac
     push word [bss_a5b4]             ; 0x80ad
     push word [bss_a5b2]             ; 0x80b1
-    call ds_loc_3b89                 ; 0x80b5
+    call thunk_12                    ; 0x80b5
     add sp, byte 8                   ; 0x80b8
     mov ax, 3                        ; 0x80bb
     push ax                          ; 0x80be
@@ -1677,7 +1677,7 @@ jumptable_85d0_case_8:
     push ax                          ; 0x8391
     push word [bss_a5b4]             ; 0x8392
     push word [bss_a5b2]             ; 0x8396
-    call ds_loc_3b89                 ; 0x839a
+    call thunk_12                    ; 0x839a
     add sp, byte 8                   ; 0x839d
     mov ax, word [bss_a5b8]          ; 0x83a0
     cmp ax, word [bss_a5aa]          ; 0x83a3
@@ -1962,7 +1962,7 @@ loc_85f0:
     push ax                          ; 0x8600
     push ax                          ; 0x8601
     push ax                          ; 0x8602
-    call ds_loc_4311                 ; 0x8603
+    call thunk_44                    ; 0x8603
     add sp, byte 8                   ; 0x8606
     mov ax, 0                        ; 0x8609
     push ax                          ; 0x860c
@@ -1973,7 +1973,7 @@ loc_85f0:
     mov ax, 0                        ; 0x8615
     push ax                          ; 0x8618
     push ax                          ; 0x8619
-    call ds_loc_3b48                 ; 0x861a
+    call thunk_7                     ; 0x861a
     add sp, byte 0x0a                ; 0x861d
     mov ax, 0xc7                     ; 0x8620
     push ax                          ; 0x8623
@@ -1982,7 +1982,7 @@ loc_85f0:
     mov ax, 0                        ; 0x8628
     push ax                          ; 0x862b
     push ax                          ; 0x862c
-    call ds_loc_3b21                 ; 0x862d
+    call thunk_4                     ; 0x862d
     add sp, byte 8                   ; 0x8630
     ret                              ; 0x8633
 loc_8634:
@@ -2005,7 +2005,7 @@ loc_8634:
     mov ax, 0                        ; 0x8658
     push ax                          ; 0x865b
     push ax                          ; 0x865c
-    call ds_loc_3b7c                 ; 0x865d
+    call thunk_11                    ; 0x865d
     add sp, byte 0x0c                ; 0x8660
     mov word [bss_a5b4], dx          ; 0x8663
     mov word [bss_a5b2], ax          ; 0x8667
@@ -2060,7 +2060,7 @@ loc_8634:
     push ax                          ; 0x86f3
     push ax                          ; 0x86f4
     push ax                          ; 0x86f5
-    call ds_loc_431e                 ; 0x86f6
+    call thunk_45                    ; 0x86f6
     add sp, byte 6                   ; 0x86f9
     mov ax, 0xc7                     ; 0x86fc
     push ax                          ; 0x86ff
@@ -2069,11 +2069,11 @@ loc_8634:
     mov ax, 0                        ; 0x8704
     push ax                          ; 0x8707
     push ax                          ; 0x8708
-    call ds_loc_3b21                 ; 0x8709
+    call thunk_4                     ; 0x8709
     add sp, byte 8                   ; 0x870c
     mov ax, 0                        ; 0x870f
     push ax                          ; 0x8712
-    call ds_loc_4304                 ; 0x8713
+    call thunk_43                    ; 0x8713
     pop cx                           ; 0x8716
     mov ax, 0                        ; 0x8717
     push ax                          ; 0x871a
@@ -2098,7 +2098,7 @@ loc_8634:
     push ax                          ; 0x8743
     push word [bss_a5b4]             ; 0x8744
     push word [bss_a5b2]             ; 0x8748
-    call ds_loc_3b89                 ; 0x874c
+    call thunk_12                    ; 0x874c
     add sp, byte 8                   ; 0x874f
     call loc_85f0                    ; 0x8752
     ret                              ; 0x8755

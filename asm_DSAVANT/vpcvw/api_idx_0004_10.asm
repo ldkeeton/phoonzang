@@ -37,7 +37,7 @@ api_idx_0004_10:
     mov word [bp - 0x0004], ax       ; 0x6c92
     push ax                          ; 0x6c95
     push word [bp - 0x0002]          ; 0x6c96
-    call ds_loc_3a50                 ; 0x6c99
+    call thunk                       ; 0x6c99
     add sp, byte 4                   ; 0x6c9c
     mov ax, 4                        ; 0x6c9f
     push ax                          ; 0x6ca2
@@ -67,13 +67,13 @@ api_idx_0004_10:
     mov ax, word [bp - 0x0002]       ; 0x6ce0
     add ax, strict word 0x38         ; 0x6ce3
     push ax                          ; 0x6ce6
-    call ds_loc_3a50                 ; 0x6ce7
+    call thunk                       ; 0x6ce7
     add sp, byte 4                   ; 0x6cea
     mov ax, 0                        ; 0x6ced
     push ax                          ; 0x6cf0
     mov ax, 2                        ; 0x6cf1
     push ax                          ; 0x6cf4
-    call ds_loc_3a6a                 ; 0x6cf5
+    call thunk_3                     ; 0x6cf5
     add sp, byte 4                   ; 0x6cf8
     mov ax, 0                        ; 0x6cfb
     push ax                          ; 0x6cfe

@@ -216,7 +216,7 @@ loc_4679:
     mov ax, 6                        ; 0x47e2
     push ax                          ; 0x47e5
     push ax                          ; 0x47e6
-    call ds_loc_3b21                 ; 0x47e7
+    call thunk_4                     ; 0x47e7
     add sp, byte 8                   ; 0x47ea
     mov ax, 1                        ; 0x47ed
     push ax                          ; 0x47f0
@@ -280,6 +280,6 @@ loc_4679:
     mov ax, 6                        ; 0x4878
     push ax                          ; 0x487b
     push ax                          ; 0x487c
-    call ds_loc_3b21                 ; 0x487d
+    call thunk_4                     ; 0x487d
     add sp, byte 8                   ; 0x4880
     ret                              ; 0x4883

@@ -111,7 +111,7 @@ api_idx_000c:
     push ax                          ; 0x24a1
     mov ax, 0x36                     ; 0x24a2
     push ax                          ; 0x24a5
-    call ds_loc_3b21                 ; 0x24a6
+    call thunk_4                     ; 0x24a6
     add sp, byte 8                   ; 0x24a9
     mov bx, word [bss_0e12]          ; 0x24ac
     mov si, word [bp - 0x0008]       ; 0x24b0

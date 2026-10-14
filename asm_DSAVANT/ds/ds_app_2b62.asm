@@ -2,13 +2,13 @@
 ds_app_2b62: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x2b62
     call aztec_csav                  ; 0x2b65
-    call ds_loc_41ca                 ; 0x2b68
+    call thunk_22                    ; 0x2b68
     test ax, ax                      ; 0x2b6b
     je short @..ds_app_2b62.l3       ; 0x2b6d
 @..ds_app_2b62.l1:
     cmp word [bp + 0x6], byte 0      ; 0x2b6f
     jle short @..ds_app_2b62.l2      ; 0x2b73
-    call ds_loc_41ca                 ; 0x2b75
+    call thunk_22                    ; 0x2b75
     test ax, ax                      ; 0x2b78
     je short @..ds_app_2b62.l2       ; 0x2b7a
     push word [bp + 0x6]             ; 0x2b7c
@@ -22,7 +22,7 @@ ds_app_2b62: ; Aztec csav frame=0x0000
     mov word [bp + 0x6], ax          ; 0x2b90
     push ax                          ; 0x2b93
     push word [bp + 0x4]             ; 0x2b94
-    call ds_loc_41e4                 ; 0x2b97
+    call thunk_24                    ; 0x2b97
     add sp, byte 4                   ; 0x2b9a
     mov ax, 0x19                     ; 0x2b9d
     push ax                          ; 0x2ba0
@@ -30,6 +30,6 @@ ds_app_2b62: ; Aztec csav frame=0x0000
     pop cx                           ; 0x2ba4
     jmp short @..ds_app_2b62.l1      ; 0x2ba5
 @..ds_app_2b62.l2:
-    call ds_loc_41d7                 ; 0x2ba7
+    call thunk_23                    ; 0x2ba7
 @..ds_app_2b62.l3:
     ret                              ; 0x2baa

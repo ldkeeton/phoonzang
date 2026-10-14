@@ -44,7 +44,7 @@ api_idx_0068:
     push ax                          ; 0x521b
     mov ax, 0x36                     ; 0x521c
     push ax                          ; 0x521f
-    call ds_loc_3b21                 ; 0x5220
+    call thunk_4                     ; 0x5220
     add sp, byte 8                   ; 0x5223
     ret                              ; 0x5226
 @..api_idx_0068.l3:
@@ -129,7 +129,7 @@ api_idx_0068:
     push ax                          ; 0x52e4
     mov ax, 0x36                     ; 0x52e5
     push ax                          ; 0x52e8
-    call ds_loc_3b21                 ; 0x52e9
+    call thunk_4                     ; 0x52e9
     add sp, byte 8                   ; 0x52ec
     push word [bp - 0x0050]          ; 0x52ef
     push word [bp - 0x004e]          ; 0x52f2
@@ -151,7 +151,7 @@ api_idx_0068:
     push ax                          ; 0x531c
     mov ax, 0x36                     ; 0x531d
     push ax                          ; 0x5320
-    call ds_loc_3b21                 ; 0x5321
+    call thunk_4                     ; 0x5321
     add sp, byte 8                   ; 0x5324
     mov ax, 1                        ; 0x5327
     push ax                          ; 0x532a

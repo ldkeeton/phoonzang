@@ -12,7 +12,7 @@ api_idx_0006_2:
     push ax                          ; 0x0f67
     mov ax, 0x48                     ; 0x0f68
     push ax                          ; 0x0f6b
-    call ds_loc_3b21                 ; 0x0f6c
+    call thunk_4                     ; 0x0f6c
     add sp, byte 8                   ; 0x0f6f
     jmp near @..api_idx_0006_2.l16   ; 0x0f72
 @..api_idx_0006_2.l2:
@@ -53,7 +53,7 @@ api_idx_0006_2:
     mov bx, ax                       ; 0x0fba
     push word [bx - 0x6f9e]          ; 0x0fbc
     push word [bx - 0x6fa0]          ; 0x0fc0
-    call ds_loc_3b89                 ; 0x0fc4
+    call thunk_12                    ; 0x0fc4
     add sp, byte 8                   ; 0x0fc7
     mov word [bp - 0x0002], 0        ; 0x0fca
 @..api_idx_0006_2.l6:

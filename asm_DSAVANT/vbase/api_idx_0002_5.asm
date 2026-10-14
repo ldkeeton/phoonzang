@@ -4,7 +4,7 @@ api_idx_0002_5:
     call aztec_csav                  ; 0x6fdd
     mov ax, 0                        ; 0x6fe0
     push ax                          ; 0x6fe3
-    call ds_loc_415b                 ; 0x6fe4
+    call thunk_17                    ; 0x6fe4
     pop cx                           ; 0x6fe7
     mov ax, 0                        ; 0x6fe8
     push ax                          ; 0x6feb
@@ -27,7 +27,7 @@ api_idx_0002_5:
     mov ax, 0                        ; 0x7010
     push ax                          ; 0x7013
     push word [bp - 0x0002]          ; 0x7014
-    call ds_loc_4225                 ; 0x7017
+    call thunk_29                    ; 0x7017
     add sp, byte 4                   ; 0x701a
     push word [bp - 0x0002]          ; 0x701d
     call aztec_close                 ; 0x7020
@@ -41,7 +41,7 @@ api_idx_0002_5:
     mov ax, 0                        ; 0x7032
     push ax                          ; 0x7035
     push ax                          ; 0x7036
-    call ds_loc_3b21                 ; 0x7037
+    call thunk_4                     ; 0x7037
     add sp, byte 8                   ; 0x703a
     jmp short @..api_idx_0002_5.l3   ; 0x703d
 @..api_idx_0002_5.l2:
@@ -51,7 +51,7 @@ api_idx_0002_5:
     push ax                          ; 0x7048
     push ax                          ; 0x7049
     push ax                          ; 0x704a
-    call ds_loc_431e                 ; 0x704b
+    call thunk_45                    ; 0x704b
     add sp, byte 6                   ; 0x704e
     mov ax, 0xc7                     ; 0x7051
     push ax                          ; 0x7054
@@ -60,11 +60,11 @@ api_idx_0002_5:
     mov ax, 0                        ; 0x7059
     push ax                          ; 0x705c
     push ax                          ; 0x705d
-    call ds_loc_3b21                 ; 0x705e
+    call thunk_4                     ; 0x705e
     add sp, byte 8                   ; 0x7061
     mov ax, 0                        ; 0x7064
     push ax                          ; 0x7067
-    call ds_loc_4304                 ; 0x7068
+    call thunk_43                    ; 0x7068
     pop cx                           ; 0x706b
 @..api_idx_0002_5.l3:
     ret                              ; 0x706c

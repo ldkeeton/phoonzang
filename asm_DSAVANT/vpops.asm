@@ -43,7 +43,7 @@ loc_000e:
 
 %include "vpops/api_idx_000e.asm"          ; 0x0704
 
-%include "vpops/api_idx_0004.asm"          ; 0x0a27
+%include "vpops/asm_only/api_idx_0004.asm"          ; 0x0a27
 
 %include "vpops/api_idx_001c.asm"          ; 0x0b31
 

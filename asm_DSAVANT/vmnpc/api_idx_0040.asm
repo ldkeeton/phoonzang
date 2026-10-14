@@ -111,10 +111,10 @@ loc_2c8a:
     je short loc_2ca7                ; 0x2c96
     mov ax, 1                        ; 0x2c98
     push ax                          ; 0x2c9b
-    call ds_loc_415b                 ; 0x2c9c
+    call thunk_17                    ; 0x2c9c
     pop cx                           ; 0x2c9f
     push word [bp - 0x002c]          ; 0x2ca0
-    call ds_app_1371                 ; 0x2ca3
+    call ds_app_thunk_26_1371        ; 0x2ca3
     pop cx                           ; 0x2ca6
 loc_2ca7:
     push word [bp - 0x002c]          ; 0x2ca7

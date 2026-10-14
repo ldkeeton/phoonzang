@@ -276,7 +276,7 @@ loc_3f87:
     push ax                          ; 0x3ffc
     mov ax, 0x5a                     ; 0x3ffd
     push ax                          ; 0x4000
-    call ds_loc_3b21                 ; 0x4001
+    call thunk_4                     ; 0x4001
     add sp, byte 8                   ; 0x4004
     mov ax, 0xffff                   ; 0x4007
     push ax                          ; 0x400a
@@ -293,7 +293,7 @@ loc_3f87:
     push ax                          ; 0x4021
     mov ax, 0xb8                     ; 0x4022
     push ax                          ; 0x4025
-    call ds_loc_3b21                 ; 0x4026
+    call thunk_4                     ; 0x4026
     add sp, byte 8                   ; 0x4029
 @..loc_3f87.l3:
     ret                              ; 0x402c

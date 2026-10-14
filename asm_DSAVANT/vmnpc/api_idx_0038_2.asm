@@ -322,7 +322,7 @@ api_idx_0038_2:
     push ax                          ; 0x4131
     mov ax, 9                        ; 0x4132
     push ax                          ; 0x4135
-    call ds_loc_3b21                 ; 0x4136
+    call thunk_4                     ; 0x4136
     add sp, byte 8                   ; 0x4139
     mov word [bp - 0x001a], 1        ; 0x413c
 @..api_idx_0038_2.l7:
@@ -356,7 +356,7 @@ loc_4185:
     push ax                          ; 0x4188
     lea ax, word [bp - 0x000c]       ; 0x4189
     push ax                          ; 0x418c
-    call ds_loc_429a                 ; 0x418d
+    call thunk_38                    ; 0x418d
     add sp, byte 4                   ; 0x4190
     mov ax, 4                        ; 0x4193
     push ax                          ; 0x4196
@@ -376,7 +376,7 @@ loc_4185:
     push ax                          ; 0x41b6
     lea ax, word [bp - 0x000c]       ; 0x41b7
     push ax                          ; 0x41ba
-    call ds_loc_429a                 ; 0x41bb
+    call thunk_38                    ; 0x41bb
     add sp, byte 4                   ; 0x41be
     mov word [bp - 0x001c], ax       ; 0x41c1
     push word [bp - 0x0012]          ; 0x41c4
@@ -471,7 +471,7 @@ loc_4185:
     mov ax, word [bp - 0x0004]       ; 0x4292
     add ax, strict word 0x5d         ; 0x4295
     push ax                          ; 0x4298
-    call ds_loc_3b21                 ; 0x4299
+    call thunk_4                     ; 0x4299
     add sp, byte 8                   ; 0x429c
     cmp word [bp - 0x001c], byte 0   ; 0x429f
     je short @..api_idx_0038_2.l12   ; 0x42a3
@@ -611,7 +611,7 @@ loc_42ab:
     mov ax, word [bp - 0x0004]       ; 0x43d2
     add ax, strict word 0x5d         ; 0x43d5
     push ax                          ; 0x43d8
-    call ds_loc_3b21                 ; 0x43d9
+    call thunk_4                     ; 0x43d9
     add sp, byte 8                   ; 0x43dc
     jmp near @..api_idx_0038_2.l22   ; 0x43df
 loc_43e2:
@@ -717,7 +717,7 @@ loc_4479:
     mov ax, word [bp - 0x0004]       ; 0x44ca
     add ax, strict word 0x5d         ; 0x44cd
     push ax                          ; 0x44d0
-    call ds_loc_3b21                 ; 0x44d1
+    call thunk_4                     ; 0x44d1
     add sp, byte 8                   ; 0x44d4
     jmp short @..api_idx_0038_2.l22  ; 0x44d7
 jumptable_44d9:

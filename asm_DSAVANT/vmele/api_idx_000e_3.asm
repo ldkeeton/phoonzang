@@ -144,7 +144,7 @@ loc_28a0:
     mov al, byte [bx + 0x15]         ; 0x28ef
     sub ah, ah                       ; 0x28f2
     push ax                          ; 0x28f4
-    call ds_loc_4218                 ; 0x28f5
+    call thunk_28                    ; 0x28f5
     add sp, byte 0x16                ; 0x28f8
 @..loc_28a0.l1:
     ret                              ; 0x28fb

@@ -12,7 +12,7 @@ make all
 
 ## Wizardry 7 coverage
 
-Decompiled C: **22 / 1377** (1.6%).
+Decompiled C: **23 / 1114** (2.1%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -29,7 +29,7 @@ Run from `asm/`.
 | `make run PROJECT` | run game in dosbox-x |
 | `make verify [PROJECT...]` | verify one or all projects |
 | `make clean [PROJECT...]` | clean one or all projects (no args: delete .cache) |
-| `make rebuild PROJECT BIN` | nasm-only rebuild of one binary |
+| `make rebuild [PROJECT [BIN]]` | recompile .c (must match the original bytes; |
 | `make elf-rebuild PROJECT [BIN]` | full rebuild from current sources (C resplice + |
 | `make decompile PROJECT BIN` | disassemble + decompile binary to .c |
 | `make set-baseline` | pin current stats as the local baseline |

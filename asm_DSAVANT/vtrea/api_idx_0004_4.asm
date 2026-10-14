@@ -68,7 +68,7 @@ api_idx_0004_4:
     push ax                          ; 0x0e9e
     mov ax, 0x19                     ; 0x0e9f
     push ax                          ; 0x0ea2
-    call ds_loc_3b21                 ; 0x0ea3
+    call thunk_4                     ; 0x0ea3
     add sp, byte 8                   ; 0x0ea6
     mov ax, 1                        ; 0x0ea9
     push ax                          ; 0x0eac
@@ -85,7 +85,7 @@ loc_0eb2:
     mov ax, 0                        ; 0x0ec4
     push ax                          ; 0x0ec7
     push word [bp + 0xa]             ; 0x0ec8
-    call ds_loc_3a6a                 ; 0x0ecb
+    call thunk_3                     ; 0x0ecb
     add sp, byte 4                   ; 0x0ece
     mov ax, 7                        ; 0x0ed1
     imul word [bp + 0x6]             ; 0x0ed4
@@ -103,7 +103,7 @@ loc_0eb2:
     mov ax, 0xa0                     ; 0x0eef
     sub ax, cx                       ; 0x0ef2
     push ax                          ; 0x0ef4
-    call ds_loc_3a50                 ; 0x0ef5
+    call thunk                       ; 0x0ef5
     add sp, byte 4                   ; 0x0ef8
     mov ax, 0                        ; 0x0efb
     push ax                          ; 0x0efe
@@ -122,7 +122,7 @@ loc_0eb2:
     push ax                          ; 0x0f1f
     mov ax, 0x19                     ; 0x0f20
     push ax                          ; 0x0f23
-    call ds_loc_3b21                 ; 0x0f24
+    call thunk_4                     ; 0x0f24
     add sp, byte 8                   ; 0x0f27
     cmp word [bp + 0x8], byte 0      ; 0x0f2a
     jle short @..loc_0eb2.l1         ; 0x0f2e

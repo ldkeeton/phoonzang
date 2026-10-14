@@ -71,10 +71,28 @@
       "patterns": ["B4 09 CD 21"]
     },
     {
-      "name": "strlen",
-      "notes": "16-bit near strlen (repne scasb)",
+      "name": "strpos",
+      "notes": "char index in string; 0xFFFF if absent; repne scasb",
       "entries": [],
-      "patterns": ["F2 AE"]
+      "patterns": ["55 8B EC FC 06 57"]
+    },
+    {
+      "name": "strstr",
+      "notes": "substring offset; 0xFFFF if absent; repne scasb",
+      "entries": [],
+      "patterns": ["55 8B EC FC 83 EC 06 1E"]
+    },
+    {
+      "name": "sprintf",
+      "notes": "printf-family formatter; scans format for '%'",
+      "entries": [],
+      "patterns": ["55 8B EC 81 EC 54 01"]
+    },
+    {
+      "name": "thunk",
+      "notes": "linker far-call trampoline",
+      "entries": [],
+      "patterns": ["55 8B EC FC 2E FF 1E"]
     },
     {
       "name": "strcmp",
@@ -212,7 +230,7 @@
     },
     {
       "name": "aztec_begin",
-      "notes": "Aztec C86 small-model startup ($begin, SBEGIN.ASM) as linked here; the C.LIB sbegin.o is patched with an extra CS:PSP save, so the library bytes differ",
+      "notes": "Aztec C86 small-model startup ($begin, SBEGIN.ASM) as linked here; the C.LIB sbegin.o is patched with an extra CS:PSP save, so the library bytes differ; the sidecar's vendor_patches.aztec_begin records the edits that make SBEGIN.ASM match",
       "entries": [],
       "entry_offset": 0,
       "patterns": ["BD F6 0F 85 ED 75 02 8C DD 2E 8C 1E 38 4B 8B 1E 02 00 2B DD 81 FB 00 10"]

@@ -12,7 +12,7 @@ api_idx_0004_6:
     push ax                          ; 0x120f
     mov ax, 0                        ; 0x1210
     push ax                          ; 0x1213
-    call ds_loc_3b21                 ; 0x1214
+    call thunk_4                     ; 0x1214
     add sp, byte 8                   ; 0x1217
     push word [bp + 0x4]             ; 0x121a
     call aztec_strlen                ; 0x121d

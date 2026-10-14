@@ -91,9 +91,9 @@ loc_000e:
 
 %include "vtrea/api_idx_005a.asm"          ; 0x10fb
 
-%include "vtrea/api_idx_003e.asm"          ; 0x11bc
+%include "vtrea/asm_only/api_idx_003e.asm"          ; 0x11bc
 
-%include "vtrea/api_idx_0056.asm"          ; 0x12cc
+%include "vtrea/asm_only/api_idx_0056.asm"          ; 0x12cc
 
 %include "vtrea/api_idx_0050.asm"          ; 0x13e0
 
@@ -101,7 +101,7 @@ loc_000e:
 
 %include "vtrea/api_idx_0006.asm"          ; 0x148d
 
-%include "vtrea/api_idx_00b8.asm"          ; 0x14e7
+%include "vtrea/asm_only/api_idx_00b8.asm"          ; 0x14e7
 
 %include "vtrea/api_idx_0060.asm"          ; 0x1fd5
 
@@ -125,7 +125,7 @@ loc_000e:
 
 %include "vtrea/api_idx_0054.asm"          ; 0x4254
 
-%include "vtrea/api_idx_0008_2.asm"        ; 0x4368
+%include "vtrea/asm_only/api_idx_0008_2.asm"        ; 0x4368
 
 %include "vtrea/api_idx_004c.asm"          ; 0x51d7
 
@@ -169,7 +169,7 @@ loc_000e:
 
 %include "vtrea/api_idx_00e6.asm"          ; 0x73ae
 
-%include "vtrea/api_idx_0074_2.asm"        ; 0x78ed
+%include "vtrea/asm_only/api_idx_0074_2.asm"        ; 0x78ed
 
 %include "vtrea/api_idx_0050_2.asm"        ; 0x7f5a
 
@@ -187,9 +187,9 @@ loc_000e:
 
 %include "vtrea/api_idx_000c_2.asm"        ; 0x8bf4
 
-%include "vtrea/api_idx_0044.asm"          ; 0x8d1e
+%include "vtrea/asm_only/api_idx_0044.asm"          ; 0x8d1e
 
-%include "vtrea/leaf_loc_9a03.asm"         ; 0x9a03
+%include "vtrea/asm_only/leaf_loc_9a03.asm"         ; 0x9a03
 
 
 __zimage_end:

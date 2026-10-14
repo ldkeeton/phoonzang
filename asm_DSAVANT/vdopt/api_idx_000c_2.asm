@@ -45,7 +45,7 @@ api_idx_000c_2:
     push ax                          ; 0x2610
     mov ax, 2                        ; 0x2611
     push ax                          ; 0x2614
-    call ds_loc_4218                 ; 0x2615
+    call thunk_28                    ; 0x2615
     add sp, byte 0x16                ; 0x2618
     inc word [bp - 0x0002]           ; 0x261b
     mov ax, word [bp - 0x0002]       ; 0x261e

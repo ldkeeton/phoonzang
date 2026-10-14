@@ -51,7 +51,7 @@ loc_4bab:
     push ax                          ; 0x4bd5
     mov ax, 3                        ; 0x4bd6
     push ax                          ; 0x4bd9
-    call ds_bios_mouse_loc_4266      ; 0x4bda
+    call thunk_34                    ; 0x4bda
     add sp, byte 8                   ; 0x4bdd
     jmp short loc_4c1b               ; 0x4be0
 loc_4be2:
@@ -78,7 +78,7 @@ loc_4c10:
     push ax                          ; 0x4c10
     mov ax, 3                        ; 0x4c11
     push ax                          ; 0x4c14
-    call ds_bios_mouse_loc_4266      ; 0x4c15
+    call thunk_34                    ; 0x4c15
     add sp, byte 8                   ; 0x4c18
 loc_4c1b:
     mov ax, 0xa                      ; 0x4c1b

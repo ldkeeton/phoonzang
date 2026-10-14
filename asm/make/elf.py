@@ -1,5 +1,6 @@
 """``make elf-rebuild`` — ELF/DWARF symbol output and C-fragment resplicing."""
 
+import hashlib
 import json
 import os
 import re
@@ -443,7 +444,8 @@ def resplice_c(app, binary):
 
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     dest = os.path.join(out_dir, binary)
-    from lib.cachedirs import labels_dir, spans_dir
+    from lib.cachedirs import labels_dir, render_dir, spans_dir
+    from lib.renderctx import context_path
     spans_path = os.path.join(spans_dir(app),
                               f'{binary}_aztec_spans.json')
     labels_path = os.path.join(labels_dir(app),
@@ -480,6 +482,19 @@ def resplice_c(app, binary):
     lenient = '--allow-diff' in _extra_flags()
     failures = []
     count = 0
+    # A routine whose inputs and output fragment are unchanged since its last
+    # resplice is skipped (no compile, gate or rewrite).
+    stamps_path = os.path.join(render_dir(app), f'{binary}_resplice.json')
+    try:
+        with open(stamps_path) as f:
+            stamps = json.load(f)
+    except (OSError, ValueError):
+        stamps = {}
+    env = hashlib.sha1(repr((exact_here, lenient)).encode())
+    for path in (labels_path, spans_path, manifest, context_path(app, binary)):
+        if os.path.isfile(path):
+            with open(path, 'rb') as f:
+                env.update(f.read())
     for label in c_labels:
         cpath = os.path.join(dest, f'{label}.c')
         start, end = spans[label]
@@ -489,6 +504,15 @@ def resplice_c(app, binary):
         entry = entries.get(label)
         if entry is None or cache.is_asm_entry(entry):
             entry = cache.default_entry(label, app)
+        apath = os.path.join(dest, f'{label}.asm')
+        in_stamp = hashlib.sha1(
+            (env.hexdigest() + json.dumps(entry, sort_keys=True) + text)
+            .encode('utf-8', 'replace')).hexdigest()
+        prev = stamps.get(label)
+        if prev and prev['in'] == in_stamp and os.path.isfile(apath):
+            with open(apath, 'rb') as f:
+                if hashlib.sha1(f.read()).hexdigest() == prev['out']:
+                    continue
         func = cache.compile_source(app, label, entry, text)
 
         linked = None
@@ -602,8 +626,14 @@ def resplice_c(app, binary):
         fragment = '\n'.join(_render_records(records, data, True)) + '\n'
         # Regenerated from the C, so it stays an auto-generated file
         # (``make clean`` removes it, a human takeover would not be rewritten).
-        write_text(os.path.join(dest, f'{label}.asm'), fragment)
+        write_text(apath, fragment)
+        with open(apath, 'rb') as f:
+            stamps[label] = {'in': in_stamp,
+                             'out': hashlib.sha1(f.read()).hexdigest()}
         count += 1
+    os.makedirs(os.path.dirname(stamps_path), exist_ok=True)
+    with open(stamps_path, 'w') as f:
+        json.dump(stamps, f)
     if failures:
         print(f'resplice {app}/{binary}: C does not reproduce the original:',
               file=sys.stderr)

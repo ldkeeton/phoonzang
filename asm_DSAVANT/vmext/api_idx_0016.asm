@@ -87,7 +87,7 @@ api_idx_0016:
     mov al, byte [bx + 0xc]          ; 0x3aa9
     sub ah, ah                       ; 0x3aac
     push ax                          ; 0x3aae
-    call ds_loc_4218                 ; 0x3aaf
+    call thunk_28                    ; 0x3aaf
     add sp, byte 0x16                ; 0x3ab2
     mov bx, word [bp + 0x4]          ; 0x3ab5
     mov al, byte [bx + 0xd]          ; 0x3ab8
@@ -164,7 +164,7 @@ api_idx_0016:
     mov al, byte [bx + 0xc]          ; 0x3b58
     sub ah, ah                       ; 0x3b5b
     push ax                          ; 0x3b5d
-    call ds_loc_4218                 ; 0x3b5e
+    call thunk_28                    ; 0x3b5e
     add sp, byte 0x16                ; 0x3b61
     mov bx, word [bp + 0x4]          ; 0x3b64
     mov al, byte [bx + 0xd]          ; 0x3b67

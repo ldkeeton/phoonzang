@@ -24,7 +24,7 @@ api_idx_0002_4:
     push ax                          ; 0x032f
     push word [bp + 0x6]             ; 0x0330
     push word [bp - 0x0002]          ; 0x0333
-    call ds_bios_mouse_loc_4259      ; 0x0336
+    call thunk_33                    ; 0x0336
     add sp, byte 6                   ; 0x0339
     push word [bp - 0x0002]          ; 0x033c
     call aztec_close                 ; 0x033f

@@ -231,27 +231,27 @@ loc_026d:
 
 %include "vinstall/leaf_loc_10a4.asm"      ; 0x10a4
 
-%include "vinstall/bios_video_loc_247a.asm" ; 0x247a
+%include "vinstall/asm_only/bios_video_loc_247a.asm" ; 0x247a
 
-%include "vinstall/bios_mouse_loc_2501.asm" ; 0x2501
+%include "vinstall/asm_only/bios_mouse_loc_2501.asm" ; 0x2501
 
-%include "vinstall/dos_con_in_noecho.asm"  ; 0x2521
+%include "vinstall/asm_only/dos_con_in_noecho.asm"  ; 0x2521
 
-%include "vinstall/bios_video_loc_252e.asm" ; 0x252e
+%include "vinstall/asm_only/bios_video_loc_252e.asm" ; 0x252e
 
-%include "vinstall/bios_video_loc_2551.asm" ; 0x2551
+%include "vinstall/asm_only/bios_video_loc_2551.asm" ; 0x2551
 
-%include "vinstall/bios_video_loc_25d3.asm" ; 0x25d3
+%include "vinstall/asm_only/bios_video_loc_25d3.asm" ; 0x25d3
 
-%include "vinstall/bios_video_loc_2621.asm" ; 0x2621
+%include "vinstall/asm_only/bios_video_loc_2621.asm" ; 0x2621
 
-%include "vinstall/aztec_calloc.asm"       ; 0x26f6
+%include "vinstall/asm_only/aztec_calloc.asm"       ; 0x26f6
 
-%include "vinstall/bios_kbd_check.asm"     ; 0x2709
+%include "vinstall/asm_only/bios_kbd_check.asm"     ; 0x2709
 
-%include "vinstall/bios_video_loc_2720.asm" ; 0x2720
+%include "vinstall/asm_only/bios_video_loc_2720.asm" ; 0x2720
 
-%include "vinstall/bios_video_loc_2733.asm" ; 0x2733
+%include "vinstall/asm_only/bios_video_loc_2733.asm" ; 0x2733
 
 %include "vinstall/aztec_atoi.asm"         ; 0x2806
 
@@ -261,27 +261,27 @@ loc_026d:
 
 %include "vinstall/aztec_fexecv.asm"       ; 0x291c
 
-%include "vinstall/aztec_fcbinit.asm"      ; 0x29d9
+%include "vinstall/asm_only/aztec_fcbinit.asm"      ; 0x29d9
 
-%include "vinstall/aztec_mkdir.asm"        ; 0x29fe
+%include "vinstall/asm_only/aztec_mkdir.asm"        ; 0x29fe
 
 %include "vinstall/leaf_loc_2a15.asm"      ; 0x2a15
 
 %include "vinstall/leaf_loc_2a1c.asm"      ; 0x2a1c
 
-%include "vinstall/aztec_fexec.asm"        ; 0x2a27
+%include "vinstall/asm_only/aztec_fexec.asm"        ; 0x2a27
 
-%include "vinstall/aztec_wait.asm"         ; 0x2a9d
+%include "vinstall/asm_only/aztec_wait.asm"         ; 0x2a9d
 
 %include "vinstall/string_loc_2aa6.asm"    ; 0x2aa6
 
-%include "vinstall/aztec_strncat.asm"      ; 0x2aae
+%include "vinstall/asm_only/aztec_strncat.asm"      ; 0x2aae
 
-%include "vinstall/aztec_strcpy.asm"       ; 0x2add
+%include "vinstall/asm_only/aztec_strcpy.asm"       ; 0x2add
 
-%include "vinstall/aztec_strncpy.asm"      ; 0x2b09
+%include "vinstall/asm_only/aztec_strncpy.asm"      ; 0x2b09
 
-%include "vinstall/aztec_sysint.asm"       ; 0x2b31
+%include "vinstall/asm_only/aztec_sysint.asm"       ; 0x2b31
 
 %include "vinstall/aztec_toupper.asm"      ; 0x2bb2
 
@@ -336,17 +336,17 @@ jumptable_3053:
 
     db '23456789abcdef -lm first', 0
 
-%include "vinstall/strlen.asm"             ; 0x3098
+%include "vinstall/asm_only/sprintf.asm"            ; 0x3098
 
-%include "vinstall/string_loc_30b3.asm"    ; 0x30b3
+%include "vinstall/asm_only/string_loc_30b3.asm"    ; 0x30b3
 
-%include "vinstall/string_loc_3140.asm"    ; 0x3140
+%include "vinstall/asm_only/string_loc_3140.asm"    ; 0x3140
 
 %include "vinstall/string_loc_3147.asm"    ; 0x3147
 
-%include "vinstall/string_loc_314b.asm"    ; 0x314b
+%include "vinstall/asm_only/string_loc_314b.asm"    ; 0x314b
 
-%include "vinstall/string_loc_314e.asm"    ; 0x314e
+%include "vinstall/asm_only/string_loc_314e.asm"    ; 0x314e
 
 %include "vinstall/leaf_loc_3155.asm"      ; 0x3155
 
@@ -356,7 +356,7 @@ jumptable_3053:
 
 %include "vinstall/leaf_loc_3163.asm"      ; 0x3163
 
-%include "vinstall/leaf_loc_3168.asm"      ; 0x3168
+%include "vinstall/asm_only/leaf_loc_3168.asm"      ; 0x3168
 
 %include "vinstall/string_loc_32d0.asm"    ; 0x32d0
 
@@ -366,7 +366,7 @@ jumptable_3053:
 
 %include "vinstall/string_loc_3330.asm"    ; 0x3330
 
-%include "vinstall/string_loc_3338.asm"    ; 0x3338
+%include "vinstall/asm_only/string_loc_3338.asm"    ; 0x3338
 
 %include "vinstall/aztec_creat.asm"        ; 0x336a
 
@@ -378,19 +378,19 @@ jumptable_3053:
 
 %include "vinstall/aztec_lum.asm"          ; 0x3469
 
-%include "vinstall/aztec_lud.asm"          ; 0x3471
+%include "vinstall/asm_only/aztec_lud.asm"          ; 0x3471
 
-%include "vinstall/aztec_strcmp.asm"       ; 0x3508
+%include "vinstall/asm_only/aztec_strcmp.asm"       ; 0x3508
 
-%include "vinstall/aztec_strncmp.asm"      ; 0x3526
+%include "vinstall/asm_only/aztec_strncmp.asm"      ; 0x3526
 
-%include "vinstall/aztec_strlen.asm"       ; 0x356f
+%include "vinstall/asm_only/aztec_strlen.asm"       ; 0x356f
 
-%include "vinstall/aztec_sys.asm"          ; 0x358c
+%include "vinstall/asm_only/aztec_sys.asm"          ; 0x358c
 
-%include "vinstall/aztec_begin.asm"        ; 0x35d2
+%include "vinstall/asm_only/aztec_begin.asm"        ; 0x35d2
 
-%include "vinstall/dos_proc_loc_3716.asm"  ; 0x3716
+%include "vinstall/asm_only/dos_proc_loc_3716.asm"  ; 0x3716
 
 %include "vinstall/aztec_Croot.asm"        ; 0x373f
 
@@ -404,27 +404,27 @@ jumptable_3053:
 
 %include "vinstall/leaf_loc_3833.asm"      ; 0x3833
 
-%include "vinstall/aztec_write.asm"        ; 0x383a
+%include "vinstall/asm_only/aztec_write.asm"        ; 0x383a
 
-%include "vinstall/aztec_close.asm"        ; 0x3869
+%include "vinstall/asm_only/aztec_close.asm"        ; 0x3869
 
-%include "vinstall/aztec_lseek.asm"        ; 0x3881
+%include "vinstall/asm_only/aztec_lseek.asm"        ; 0x3881
 
-%include "vinstall/aztec_unlink.asm"       ; 0x38a0
+%include "vinstall/asm_only/aztec_unlink.asm"       ; 0x38a0
 
-%include "vinstall/aztec_rename.asm"       ; 0x38b8
+%include "vinstall/asm_only/aztec_rename.asm"       ; 0x38b8
 
 %include "vinstall/aztec_tty_rd.asm"       ; 0x38d9
 
 %include "vinstall/aztec_tty_wr.asm"       ; 0x393e
 
-%include "vinstall/aztec_movmem.asm"       ; 0x39a0
+%include "vinstall/asm_only/aztec_movmem.asm"       ; 0x39a0
 
-%include "vinstall/aztec_isatty.asm"       ; 0x39e5
+%include "vinstall/asm_only/aztec_isatty.asm"       ; 0x39e5
 
 %include "vinstall/aztec_sbrk.asm"         ; 0x3a05
 
-%include "vinstall/aztec_brk.asm"          ; 0x3a39
+%include "vinstall/asm_only/aztec_brk.asm"          ; 0x3a39
 
 %include "vinstall/aztec_rsvstk.asm"       ; 0x3ac5
 

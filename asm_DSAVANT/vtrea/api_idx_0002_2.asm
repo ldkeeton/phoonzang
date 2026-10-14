@@ -6,7 +6,7 @@ api_idx_0002_2:
     push ax                          ; 0x2523
     mov ax, 0xb4                     ; 0x2524
     push ax                          ; 0x2527
-    call ds_loc_3a6a                 ; 0x2528
+    call thunk_3                     ; 0x2528
     add sp, byte 4                   ; 0x252b
     mov word [bp - 0x0002], 0        ; 0x252e
 @..api_idx_0002_2.l1:
@@ -27,7 +27,7 @@ api_idx_0002_2:
     imul cx                          ; 0x2553
     add ax, word [bp + 0x6]          ; 0x2555
     push ax                          ; 0x2558
-    call ds_loc_3a50                 ; 0x2559
+    call thunk                       ; 0x2559
     add sp, byte 4                   ; 0x255c
     cmp word [bp + 0xa], byte 0      ; 0x255f
     je short @..api_idx_0002_2.l2    ; 0x2563

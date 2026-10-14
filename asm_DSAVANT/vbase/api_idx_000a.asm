@@ -23,6 +23,6 @@ api_idx_000a:
     push word [bp + 0xa]             ; 0x736d
     push word [bp + 0x8]             ; 0x7370
     push word [bp + 0x4]             ; 0x7373
-    call ds_loc_4218                 ; 0x7376
+    call thunk_28                    ; 0x7376
     add sp, byte 0x16                ; 0x7379
     ret                              ; 0x737c

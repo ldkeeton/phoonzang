@@ -37,6 +37,6 @@ api_idx_0004_4:
     push ax                          ; 0x1192
     mov ax, 1                        ; 0x1193
     push ax                          ; 0x1196
-    call ds_loc_3b21                 ; 0x1197
+    call thunk_4                     ; 0x1197
     add sp, byte 8                   ; 0x119a
     ret                              ; 0x119d

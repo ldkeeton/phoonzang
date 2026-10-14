@@ -45,7 +45,7 @@ api_idx_002c:
     mov byte [bx - 0x6f8a], 0        ; 0x67a0
     mov ax, 0                        ; 0x67a5
     push ax                          ; 0x67a8
-    call ds_loc_415b                 ; 0x67a9
+    call thunk_17                    ; 0x67a9
     pop cx                           ; 0x67ac
     mov ax, 2                        ; 0x67ad
     push ax                          ; 0x67b0

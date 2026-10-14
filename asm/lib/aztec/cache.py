@@ -145,7 +145,9 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose):
     from . import compile as azc
     objcache_dir = os.path.join(prebuild_dir(project), 'objs')
     os.makedirs(objcache_dir, exist_ok=True)
-    engine = MuxEngine(objcache_dir=objcache_dir)
+    from lib import sidecar
+    engine = MuxEngine(objcache_dir=objcache_dir,
+                       patches=sidecar.vendor_patches(project))
 
     # Phase 1: batch-compile every candidate module not already cached.  One
     # DOSBox session per (compiler, includes) pair instead of one per module.
@@ -216,7 +218,7 @@ def _annotate_entry(engine, match, entry):
     The hand-written routine's bytes are reproduced by the generated disassembly
     already; the vendor listing only adds what the disassembly cannot know.
     """
-    source = sources.catalog(match.version)[match.filename]
+    source = engine.source(match.version, match.filename)
     module = engine._compile(match.version, match.filename, source,
                              match.compiler)
     notes = listing.annotate(getattr(module, 'listing', ''), match.func)

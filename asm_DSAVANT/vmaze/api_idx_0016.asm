@@ -88,7 +88,7 @@ loc_5004:
     mov al, byte [bx + 0xc]          ; 0x501a
     sub ah, ah                       ; 0x501d
     push ax                          ; 0x501f
-    call ds_loc_4218                 ; 0x5020
+    call thunk_28                    ; 0x5020
     add sp, byte 0x16                ; 0x5023
     mov bx, word [bp + 0x4]          ; 0x5026
     mov al, byte [bx + 0xd]          ; 0x5029
@@ -165,7 +165,7 @@ loc_5004:
     mov al, byte [bx + 0xc]          ; 0x50c9
     sub ah, ah                       ; 0x50cc
     push ax                          ; 0x50ce
-    call ds_loc_4218                 ; 0x50cf
+    call thunk_28                    ; 0x50cf
     add sp, byte 0x16                ; 0x50d2
     mov bx, word [bp + 0x4]          ; 0x50d5
     mov al, byte [bx + 0xd]          ; 0x50d8

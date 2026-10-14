@@ -8,7 +8,7 @@ api_idx_0006_8:
     imul word [bp + 0x4]             ; 0x8856
     add ax, 0x9e88                   ; 0x8859
     push ax                          ; 0x885c
-    call strlen                      ; 0x885d
+    call strpos                      ; 0x885d
     add sp, byte 4                   ; 0x8860
     mov word [bp - 0x0006], ax       ; 0x8863
     cmp ax, strict word 0            ; 0x8866
@@ -36,7 +36,7 @@ api_idx_0006_8:
     imul word [bp + 0x4]             ; 0x889d
     add ax, 0x9e88                   ; 0x88a0
     push ax                          ; 0x88a3
-    call strlen                      ; 0x88a4
+    call strpos                      ; 0x88a4
     add sp, byte 4                   ; 0x88a7
     mov word [bp - 0x0006], ax       ; 0x88aa
     cmp ax, strict word 0            ; 0x88ad
@@ -60,7 +60,7 @@ api_idx_0006_8:
     imul word [bp + 0x4]             ; 0x88d9
     add ax, 0x9e88                   ; 0x88dc
     push ax                          ; 0x88df
-    call strlen                      ; 0x88e0
+    call strpos                      ; 0x88e0
     add sp, byte 4                   ; 0x88e3
     mov word [bp - 0x0006], ax       ; 0x88e6
     cmp ax, strict word 0            ; 0x88e9

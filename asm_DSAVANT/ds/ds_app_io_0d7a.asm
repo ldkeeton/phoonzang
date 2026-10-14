@@ -16,7 +16,7 @@ ds_app_io_0d7a: ; Aztec csav frame=0x0000
     push ax                          ; 0x0da3
     mov ax, 0x12e                    ; 0x0da4
     push ax                          ; 0x0da7
-    call ds_loc_432b                 ; 0x0da8
+    call thunk_46                    ; 0x0da8
     add sp, byte 6                   ; 0x0dab
 @..ds_app_io_0d7a.l1:
     mov ax, 0                        ; 0x0dae
@@ -25,7 +25,7 @@ ds_app_io_0d7a: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0db5
     push word [bp + 0x6]             ; 0x0db8
     push word [bp + 0x4]             ; 0x0dbb
-    call ds_loc_424c                 ; 0x0dbe
+    call thunk_32                    ; 0x0dbe
     add sp, byte 0x0a                ; 0x0dc1
     cmp word [bss_0e32], byte 0      ; 0x0dc4
     je short @..ds_app_io_0d7a.l2    ; 0x0dc9
@@ -35,7 +35,7 @@ ds_app_io_0d7a: ; Aztec csav frame=0x0000
     push ax                          ; 0x0dd2
     mov ax, 0x12e                    ; 0x0dd3
     push ax                          ; 0x0dd6
-    call ds_loc_4338                 ; 0x0dd7
+    call thunk_47                    ; 0x0dd7
     add sp, byte 6                   ; 0x0dda
     mov ax, 0                        ; 0x0ddd
     mov dx, 0                        ; 0x0de0
@@ -50,7 +50,7 @@ ds_app_io_0d7a: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0df0
     push word [bp + 0x6]             ; 0x0df3
     push word [bp + 0x4]             ; 0x0df6
-    call ds_loc_3b21                 ; 0x0df9
+    call thunk_4                     ; 0x0df9
     add sp, byte 8                   ; 0x0dfc
 @..ds_app_io_0d7a.l4:
     call bios_kbd_check              ; 0x0dff

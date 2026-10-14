@@ -101,7 +101,7 @@ ds_app_file_2a2e: ; Aztec csav frame=0x00a8
     push word [bp - 0x00a8]          ; 0x2b16
     push word [bp - 0x0004]          ; 0x2b1a
     push word [bp - 0x0002]          ; 0x2b1d
-    call ds_loc_41a3                 ; 0x2b20
+    call thunk_19                    ; 0x2b20
     add sp, byte 8                   ; 0x2b23
     mov word [bp - 0x00a6], ax       ; 0x2b26
     cmp word [bp - 0x00a6], byte 0   ; 0x2b2a

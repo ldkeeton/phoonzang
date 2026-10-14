@@ -144,7 +144,7 @@ loc_0a56:
     mov al, byte [bx + 0x15]         ; 0x0aa5
     sub ah, ah                       ; 0x0aa8
     push ax                          ; 0x0aaa
-    call ds_loc_4218                 ; 0x0aab
+    call thunk_28                    ; 0x0aab
     add sp, byte 0x16                ; 0x0aae
 @..loc_0a56.l1:
     ret                              ; 0x0ab1

@@ -13,7 +13,7 @@ api_idx_0006:
     push ax                          ; 0x18bf
     mov ax, 0x48                     ; 0x18c0
     push ax                          ; 0x18c3
-    call ds_loc_3b21                 ; 0x18c4
+    call thunk_4                     ; 0x18c4
     add sp, byte 8                   ; 0x18c7
     cmp word [bss_90dc], byte 0      ; 0x18ca
     je short @..api_idx_0006.l2      ; 0x18cf
@@ -25,7 +25,7 @@ api_idx_0006:
     jne short @..api_idx_0006.l2     ; 0x18de
     mov ax, 1                        ; 0x18e0
     push ax                          ; 0x18e3
-    call ds_loc_415b                 ; 0x18e4
+    call thunk_17                    ; 0x18e4
     pop cx                           ; 0x18e7
 @..api_idx_0006.l2:
     mov word [bss_90dc], 0           ; 0x18e8
@@ -74,7 +74,7 @@ api_idx_0006:
     mov bx, ax                       ; 0x1944
     push word [bx - 0x6f9e]          ; 0x1946
     push word [bx - 0x6fa0]          ; 0x194a
-    call ds_loc_3b89                 ; 0x194e
+    call thunk_12                    ; 0x194e
     add sp, byte 8                   ; 0x1951
     mov word [bp - 0x0002], 0        ; 0x1954
 @..api_idx_0006.l7:

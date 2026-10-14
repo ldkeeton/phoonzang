@@ -51,7 +51,7 @@ api_idx_0002_17:
     push ax                          ; 0x8a88
     mov ax, 0                        ; 0x8a89
     push ax                          ; 0x8a8c
-    call ds_loc_3b21                 ; 0x8a8d
+    call thunk_4                     ; 0x8a8d
     add sp, byte 8                   ; 0x8a90
     push word [bss_8f40]             ; 0x8a93
     push word [bss_8f42]             ; 0x8a97

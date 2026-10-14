@@ -32,7 +32,7 @@ api_idx_0002_9:
     push ax                          ; 0x1153
     mov ax, 0                        ; 0x1154
     push ax                          ; 0x1157
-    call ds_loc_3b21                 ; 0x1158
+    call thunk_4                     ; 0x1158
     add sp, byte 8                   ; 0x115b
     mov word [bss_830a], 8           ; 0x115e
     ret                              ; 0x1164

@@ -80,7 +80,7 @@ api_idx_000e:
     push ax                          ; 0x5155
     mov ax, 3                        ; 0x5156
     push ax                          ; 0x5159
-    call ds_loc_4218                 ; 0x515a
+    call thunk_28                    ; 0x515a
     add sp, byte 0x16                ; 0x515d
 @..api_idx_000e.l8:
     ret                              ; 0x5160

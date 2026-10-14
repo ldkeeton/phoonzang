@@ -205,7 +205,7 @@ api_idx_0094:
     push ax                          ; 0x35b3
     mov ax, 0x36                     ; 0x35b4
     push ax                          ; 0x35b7
-    call ds_loc_3b21                 ; 0x35b8
+    call thunk_4                     ; 0x35b8
     add sp, byte 8                   ; 0x35bb
     mov ax, 0xffff                   ; 0x35be
     ret                              ; 0x35c1
@@ -283,7 +283,7 @@ api_idx_0094:
     push ax                          ; 0x366b
     mov ax, 0x36                     ; 0x366c
     push ax                          ; 0x366f
-    call ds_loc_3b21                 ; 0x3670
+    call thunk_4                     ; 0x3670
     add sp, byte 8                   ; 0x3673
     mov ax, 0xffff                   ; 0x3676
     ret                              ; 0x3679
@@ -310,7 +310,7 @@ api_idx_0094:
     push ax                          ; 0x36aa
     mov ax, 0x36                     ; 0x36ab
     push ax                          ; 0x36ae
-    call ds_loc_3b21                 ; 0x36af
+    call thunk_4                     ; 0x36af
     add sp, byte 8                   ; 0x36b2
     mov ax, word [bp - 0x004e]       ; 0x36b5
     xchg al, ah                      ; 0x36b8

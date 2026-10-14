@@ -1,0 +1,10 @@
+; auto-generated
+; asm only
+thunk_28:
+    push bp                          ; 0x4218
+    mov bp, sp                       ; 0x4219
+    cld                              ; 0x421b
+    call far [cs:cseg_2f9f - IMAGE_BASE] ; 0x421c
+    mov sp, bp                       ; 0x4221
+    pop bp                           ; 0x4223
+    ret                              ; 0x4224

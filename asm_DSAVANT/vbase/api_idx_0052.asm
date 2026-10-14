@@ -111,7 +111,7 @@ jumptable_4688_case_5:
     push ax                          ; 0x442a
     mov ax, 0xb4                     ; 0x442b
     push ax                          ; 0x442e
-    call ds_loc_3a6a                 ; 0x442f
+    call thunk_3                     ; 0x442f
     add sp, byte 4                   ; 0x4432
     mov ax, word [bp + 0x8]          ; 0x4435
     add ax, strict word 0x63         ; 0x4438
@@ -119,7 +119,7 @@ jumptable_4688_case_5:
     mov ax, word [bp + 0x6]          ; 0x443c
     add ax, strict word 0x6b         ; 0x443f
     push ax                          ; 0x4442
-    call ds_loc_3a50                 ; 0x4443
+    call thunk                       ; 0x4443
     add sp, byte 4                   ; 0x4446
     mov ax, 0                        ; 0x4449
     push ax                          ; 0x444c
@@ -136,7 +136,7 @@ jumptable_4688_case_5:
     mov ax, word [bp + 0x6]          ; 0x4464
     add ax, strict word 0x6b         ; 0x4467
     push ax                          ; 0x446a
-    call ds_loc_3a50                 ; 0x446b
+    call thunk                       ; 0x446b
     add sp, byte 4                   ; 0x446e
     mov ax, 0                        ; 0x4471
     push ax                          ; 0x4474
@@ -153,7 +153,7 @@ jumptable_4688_case_5:
     mov ax, word [bp + 0x6]          ; 0x448c
     add ax, strict word 0x6b         ; 0x448f
     push ax                          ; 0x4492
-    call ds_loc_3a50                 ; 0x4493
+    call thunk                       ; 0x4493
     add sp, byte 4                   ; 0x4496
     mov ax, 0                        ; 0x4499
     push ax                          ; 0x449c
@@ -335,7 +335,7 @@ jumptable_4688_case_15:
     push ax                          ; 0x462d
     mov ax, 0xb4                     ; 0x462e
     push ax                          ; 0x4631
-    call ds_loc_3a6a                 ; 0x4632
+    call thunk_3                     ; 0x4632
     add sp, byte 4                   ; 0x4635
     mov ax, word [bp + 0x8]          ; 0x4638
     add ax, strict word 0x63         ; 0x463b
@@ -343,7 +343,7 @@ jumptable_4688_case_15:
     mov ax, word [bp + 0x6]          ; 0x463f
     add ax, 0xe9                     ; 0x4642
     push ax                          ; 0x4645
-    call ds_loc_3a50                 ; 0x4646
+    call thunk                       ; 0x4646
     add sp, byte 4                   ; 0x4649
     mov ax, 0                        ; 0x464c
     push ax                          ; 0x464f
@@ -360,7 +360,7 @@ jumptable_4688_case_15:
     mov ax, word [bp + 0x6]          ; 0x4666
     add ax, 0xe9                     ; 0x4669
     push ax                          ; 0x466c
-    call ds_loc_3a50                 ; 0x466d
+    call thunk                       ; 0x466d
     add sp, byte 4                   ; 0x4670
     mov ax, 0                        ; 0x4673
     push ax                          ; 0x4676
@@ -411,7 +411,7 @@ loc_46b8:
     push ax                          ; 0x46cf
     push word [bp + 0x8]             ; 0x46d0
     push word [bp + 0x6]             ; 0x46d3
-    call ds_loc_3b48                 ; 0x46d6
+    call thunk_7                     ; 0x46d6
     add sp, byte 0x0a                ; 0x46d9
     mov ax, word [bp + 0x8]          ; 0x46dc
     inc ax                           ; 0x46df
@@ -420,13 +420,13 @@ loc_46b8:
     inc ax                           ; 0x46e4
     inc ax                           ; 0x46e5
     push ax                          ; 0x46e6
-    call ds_loc_3a50                 ; 0x46e7
+    call thunk                       ; 0x46e7
     add sp, byte 4                   ; 0x46ea
     mov ax, 1                        ; 0x46ed
     push ax                          ; 0x46f0
     mov ax, 0                        ; 0x46f1
     push ax                          ; 0x46f4
-    call ds_loc_3a6a                 ; 0x46f5
+    call thunk_3                     ; 0x46f5
     add sp, byte 4                   ; 0x46f8
     mov ax, 0                        ; 0x46fb
     push ax                          ; 0x46fe
@@ -443,7 +443,7 @@ loc_46b8:
     push ax                          ; 0x4719
     push word [bp + 0x8]             ; 0x471a
     push word [bp + 0x6]             ; 0x471d
-    call ds_loc_3b21                 ; 0x4720
+    call thunk_4                     ; 0x4720
     add sp, byte 8                   ; 0x4723
     ret                              ; 0x4726
 loc_4727:
@@ -475,7 +475,7 @@ loc_4727:
     push ax                          ; 0x4762
     push word [bp + 0x8]             ; 0x4763
     push word [bp + 0x6]             ; 0x4766
-    call ds_loc_3b48                 ; 0x4769
+    call thunk_7                     ; 0x4769
     add sp, byte 0x0a                ; 0x476c
     mov ax, word [bp + 0x8]          ; 0x476f
     inc ax                           ; 0x4772
@@ -484,13 +484,13 @@ loc_4727:
     inc ax                           ; 0x4777
     inc ax                           ; 0x4778
     push ax                          ; 0x4779
-    call ds_loc_3a50                 ; 0x477a
+    call thunk                       ; 0x477a
     add sp, byte 4                   ; 0x477d
     mov ax, 1                        ; 0x4780
     push ax                          ; 0x4783
     mov ax, 0                        ; 0x4784
     push ax                          ; 0x4787
-    call ds_loc_3a6a                 ; 0x4788
+    call thunk_3                     ; 0x4788
     add sp, byte 4                   ; 0x478b
     mov ax, 0                        ; 0x478e
     push ax                          ; 0x4791
@@ -508,7 +508,7 @@ loc_4727:
     push ax                          ; 0x47ad
     push word [bp + 0x8]             ; 0x47ae
     push word [bp + 0x6]             ; 0x47b1
-    call ds_loc_3b21                 ; 0x47b4
+    call thunk_4                     ; 0x47b4
     add sp, byte 8                   ; 0x47b7
     ret                              ; 0x47ba
 loc_47bb:
@@ -541,7 +541,7 @@ loc_47bb:
     mov ax, word [bp + 0x4]          ; 0x47f9
     dec ax                           ; 0x47fc
     push ax                          ; 0x47fd
-    call ds_loc_3b21                 ; 0x47fe
+    call thunk_4                     ; 0x47fe
     add sp, byte 8                   ; 0x4801
     mov ax, 0                        ; 0x4804
     push ax                          ; 0x4807

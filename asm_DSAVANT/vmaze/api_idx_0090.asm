@@ -9,7 +9,7 @@ api_idx_0090:
     push ax                          ; 0x6cd6
     mov ax, 0x917e                   ; 0x6cd7
     push ax                          ; 0x6cda
-    call strlen                      ; 0x6cdb
+    call strpos                      ; 0x6cdb
     add sp, byte 4                   ; 0x6cde
     mov word [bp - 0x0004], ax       ; 0x6ce1
     cmp ax, strict word 0            ; 0x6ce4
@@ -120,11 +120,11 @@ jumptable_6e12_case_5:
     push ax                          ; 0x6dd7
     mov ax, 0x10                     ; 0x6dd8
     push ax                          ; 0x6ddb
-    call ds_loc_4218                 ; 0x6ddc
+    call thunk_28                    ; 0x6ddc
     add sp, byte 0x16                ; 0x6ddf
     mov ax, 0x10                     ; 0x6de2
     push ax                          ; 0x6de5
-    call ds_app_1371                 ; 0x6de6
+    call ds_app_thunk_26_1371        ; 0x6de6
     pop cx                           ; 0x6de9
     call loc_0344                    ; 0x6dea
     jmp short @..api_idx_0090.l7     ; 0x6ded

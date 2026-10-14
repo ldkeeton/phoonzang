@@ -4,7 +4,7 @@ ds_app_file_2863: ; Aztec csav frame=0x0018
     call aztec_csav                  ; 0x2866
     mov ax, 0                        ; 0x2869
     push ax                          ; 0x286c
-    call ds_loc_415b                 ; 0x286d
+    call thunk_17                    ; 0x286d
     pop cx                           ; 0x2870
     mov bx, word [bp + 0x6]          ; 0x2871
     mov al, byte [bx + 0x5b48]       ; 0x2874
@@ -60,7 +60,7 @@ ds_app_file_2863: ; Aztec csav frame=0x0018
 @..ds_app_file_2863.l2:
     push word [bp + 0x6]             ; 0x28ea
     push word [bp - 0x0004]          ; 0x28ed
-    call ds_loc_41f1                 ; 0x28f0
+    call thunk_25                    ; 0x28f0
     add sp, byte 4                   ; 0x28f3
     push word [bp - 0x0004]          ; 0x28f6
     call aztec_close                 ; 0x28f9

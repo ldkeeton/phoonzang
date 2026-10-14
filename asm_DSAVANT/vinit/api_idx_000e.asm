@@ -50,7 +50,7 @@ api_idx_000e:
     push word [bp - 0x0002]          ; 0x0a48
     mov ax, 0xf                      ; 0x0a4b
     push ax                          ; 0x0a4e
-    call ds_loc_4218                 ; 0x0a4f
+    call thunk_28                    ; 0x0a4f
     add sp, byte 0x16                ; 0x0a52
     ret                              ; 0x0a55
 loc_0a56:
@@ -65,7 +65,7 @@ loc_0a56:
     mov ax, 0                        ; 0x0a68
     push ax                          ; 0x0a6b
     push ax                          ; 0x0a6c
-    call ds_loc_3b48                 ; 0x0a6d
+    call thunk_7                     ; 0x0a6d
     add sp, byte 0x0a                ; 0x0a70
     mov ax, 0                        ; 0x0a73
     push ax                          ; 0x0a76
@@ -95,7 +95,7 @@ loc_0a56:
     mov ax, 0                        ; 0x0aae
     push ax                          ; 0x0ab1
     push ax                          ; 0x0ab2
-    call ds_loc_3b21                 ; 0x0ab3
+    call thunk_4                     ; 0x0ab3
     add sp, byte 8                   ; 0x0ab6
     cmp word [bp + 0xa], byte 0      ; 0x0ab9
     je short @..loc_0a56.l3          ; 0x0abd

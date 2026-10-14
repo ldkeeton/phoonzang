@@ -92,11 +92,15 @@ class Match:
 class MuxEngine:
     def __init__(self, source_versions=SOURCE_VERSIONS,
                  compiler_versions=COMPILER_VERSIONS, flags=('-n', '+y'),
-                 objcache_dir=None):
+                 objcache_dir=None, patches=None):
         self.source_versions = source_versions
         self.compiler_versions = compiler_versions
         self.flags = tuple(flags)
         self.objcache_dir = objcache_dir
+        # Sidecar ``vendor_patches``: how the game's copy of a library asm
+        # routine differs from the vendor source, keyed by (version, file).
+        self._patches = {(p.get('version'), p['file'].lower()): p
+                         for p in (patches or {}).values()}
         self._modules = {}
         self.compile_count = 0
         self.errors = []
@@ -132,6 +136,15 @@ class MuxEngine:
             objcache.save(self.objcache_dir, disk_key, compiled)
         return compiled
 
+    def source(self, version, filename):
+        """The vendor source of *filename*, with any sidecar patch applied."""
+        text = sources.catalog(version).get(filename)
+        patch = self._patches.get((version, filename))
+        if text is None or patch is None:
+            return text
+        return sources.apply_edits(text, patch['edits'],
+                                   f'{version}/{filename}')
+
     def candidates(self, symbol):
         """Yield ``(version, filename, source, compiler)`` for *symbol*.
 
@@ -148,7 +161,7 @@ class MuxEngine:
                     yield version, filename, source, compiler
         for version in ASM_VERSIONS:
             for filename in sources.asm_definition_files(version, name):
-                source = sources.catalog(version).get(filename)
+                source = self.source(version, filename)
                 if source is not None:
                     yield version, filename, source, version
 

@@ -176,6 +176,6 @@ api_idx_0024:
     push ax                          ; 0x3d1d
     mov ax, 6                        ; 0x3d1e
     push ax                          ; 0x3d21
-    call ds_loc_4218                 ; 0x3d22
+    call thunk_28                    ; 0x3d22
     add sp, byte 0x16                ; 0x3d25
     ret                              ; 0x3d28

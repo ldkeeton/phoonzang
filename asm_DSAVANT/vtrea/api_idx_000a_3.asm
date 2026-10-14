@@ -25,7 +25,7 @@ api_idx_000a_3:
     push ax                          ; 0x8abb
     mov ax, 1                        ; 0x8abc
     push ax                          ; 0x8abf
-    call ds_loc_4218                 ; 0x8ac0
+    call thunk_28                    ; 0x8ac0
     add sp, byte 0x16                ; 0x8ac3
     ret                              ; 0x8ac6
 loc_8ac7:
@@ -37,7 +37,7 @@ loc_8ac7:
     add ax, word [bp + 0x4]          ; 0x8ad6
     dec ax                           ; 0x8ad9
     push ax                          ; 0x8ada
-    call ds_loc_3a50                 ; 0x8adb
+    call thunk                       ; 0x8adb
     add sp, byte 4                   ; 0x8ade
     mov ax, 7                        ; 0x8ae1
     push ax                          ; 0x8ae4
@@ -56,12 +56,12 @@ loc_8ac7:
     imul word [bp + 0x8]             ; 0x8b03
     add ax, word [bp + 0x4]          ; 0x8b06
     push ax                          ; 0x8b09
-    call ds_loc_3a50                 ; 0x8b0a
+    call thunk                       ; 0x8b0a
     add sp, byte 4                   ; 0x8b0d
     mov ax, 0                        ; 0x8b10
     push ax                          ; 0x8b13
     push ax                          ; 0x8b14
-    call ds_loc_3a6a                 ; 0x8b15
+    call thunk_3                     ; 0x8b15
     add sp, byte 4                   ; 0x8b18
     mov ax, 2                        ; 0x8b1b
     push ax                          ; 0x8b1e
@@ -85,7 +85,7 @@ loc_8ac7:
     push ax                          ; 0x8b47
     push word [bp + 0x6]             ; 0x8b48
     push ax                          ; 0x8b4b
-    call ds_loc_3b48                 ; 0x8b4c
+    call thunk_7                     ; 0x8b4c
     add sp, byte 0x0a                ; 0x8b4f
 @..loc_8ac7.l2:
     ret                              ; 0x8b52
@@ -115,7 +115,7 @@ loc_8b53:
     push ax                          ; 0x8b8d
     push word [bp + 0x6]             ; 0x8b8e
     push word [bp + 0x4]             ; 0x8b91
-    call ds_loc_3b48                 ; 0x8b94
+    call thunk_7                     ; 0x8b94
     add sp, byte 0x0a                ; 0x8b97
     mov ax, word [bp + 0x6]          ; 0x8b9a
     inc ax                           ; 0x8b9d
@@ -124,7 +124,7 @@ loc_8b53:
     inc ax                           ; 0x8ba2
     inc ax                           ; 0x8ba3
     push ax                          ; 0x8ba4
-    call ds_loc_3a50                 ; 0x8ba5
+    call thunk                       ; 0x8ba5
     add sp, byte 4                   ; 0x8ba8
     cmp word [bp + 0xa], byte 0      ; 0x8bab
     jle short @..loc_8b53.l1         ; 0x8baf
@@ -135,7 +135,7 @@ loc_8b53:
     push ax                          ; 0x8bbc
     mov ax, 1                        ; 0x8bbd
     push ax                          ; 0x8bc0
-    call ds_loc_3a6a                 ; 0x8bc1
+    call thunk_3                     ; 0x8bc1
     add sp, byte 4                   ; 0x8bc4
     mov ax, 0                        ; 0x8bc7
     push ax                          ; 0x8bca
@@ -149,7 +149,7 @@ loc_8b53:
     mov ax, 0                        ; 0x8bda
     push ax                          ; 0x8bdd
     push ax                          ; 0x8bde
-    call ds_loc_3a6a                 ; 0x8bdf
+    call thunk_3                     ; 0x8bdf
     add sp, byte 4                   ; 0x8be2
     mov ax, 0                        ; 0x8be5
     push ax                          ; 0x8be8

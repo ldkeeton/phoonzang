@@ -30,7 +30,7 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0004.asm"          ; 0x0034
 
-%include "vmexe/api_idx_0012.asm"          ; 0x00db
+%include "vmexe/asm_only/api_idx_0012.asm"          ; 0x00db
 
 %include "vmexe/api_idx_0008.asm"          ; 0x0257
 
@@ -40,7 +40,7 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_000e.asm"          ; 0x0656
 
-%include "vmexe/api_idx_0004_3.asm"        ; 0x0979
+%include "vmexe/asm_only/api_idx_0004_3.asm"        ; 0x0979
 
 %include "vmexe/api_idx_001c.asm"          ; 0x0a83
 
@@ -54,7 +54,7 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0004_4.asm"        ; 0x16c1
 
-%include "vmexe/api_idx_000e_3.asm"        ; 0x178e
+%include "vmexe/asm_only/api_idx_000e_3.asm"        ; 0x178e
 
 %include "vmexe/api_idx_0006.asm"          ; 0x18a8
 
@@ -70,7 +70,7 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0002_4.asm"        ; 0x1f98
 
-%include "vmexe/api_idx_0006_2.asm"        ; 0x209c
+%include "vmexe/asm_only/api_idx_0006_2.asm"        ; 0x209c
 
 %include "vmexe/api_idx_0022.asm"          ; 0x2242
 
@@ -100,9 +100,9 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_005e.asm"          ; 0x34bc
 
-%include "vmexe/string_loc_3620.asm"       ; 0x3620
+%include "vmexe/asm_only/string_loc_3620.asm"       ; 0x3620
 
-%include "vmexe/api_idx_000e_5.asm"        ; 0x3b07
+%include "vmexe/asm_only/api_idx_000e_5.asm"        ; 0x3b07
 
 %include "vmexe/api_idx_000e_6.asm"        ; 0x5fa1
 
@@ -116,11 +116,11 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0004_11.asm"       ; 0x73f6
 
-%include "vmexe/api_idx_000a_5.asm"        ; 0x7434
+%include "vmexe/asm_only/api_idx_000a_5.asm"        ; 0x7434
 
-%include "vmexe/api_idx_000c_2.asm"        ; 0x7911
+%include "vmexe/asm_only/api_idx_000c_2.asm"        ; 0x7911
 
-%include "vmexe/api_idx_00ac.asm"          ; 0x7962
+%include "vmexe/asm_only/api_idx_00ac.asm"          ; 0x7962
 
 %include "vmexe/leaf_loc_87b7.asm"         ; 0x87b7
 
@@ -152,11 +152,11 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_005a.asm"          ; 0x9f4f
 
-%include "vmexe/string_loc_a4ca.asm"       ; 0xa4ca
+%include "vmexe/asm_only/string_loc_a4ca.asm"       ; 0xa4ca
 
-%include "vmexe/leaf_loc_a508.asm"         ; 0xa508
+%include "vmexe/asm_only/leaf_loc_a508.asm"         ; 0xa508
 
-%include "vmexe/string_loc_a520.asm"       ; 0xa520
+%include "vmexe/asm_only/string_loc_a520.asm"       ; 0xa520
 
 __zdata_start:
 

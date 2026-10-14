@@ -40,7 +40,7 @@ api_idx_0004_3:
     push ax                          ; 0x66c1
     mov ax, 0x36                     ; 0x66c2
     push ax                          ; 0x66c5
-    call ds_loc_3b21                 ; 0x66c6
+    call thunk_4                     ; 0x66c6
     add sp, byte 8                   ; 0x66c9
     ret                              ; 0x66cc
 @..api_idx_0004_3.l5:

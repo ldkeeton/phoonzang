@@ -45,7 +45,7 @@ jumptable_1aa5_case_0:
 @..api_idx_00fa.l2:
     mov ax, 2                        ; 0x1ac2
     push ax                          ; 0x1ac5
-    call ds_app_1371                 ; 0x1ac6
+    call ds_app_thunk_26_1371        ; 0x1ac6
     pop cx                           ; 0x1ac9
     mov ax, 0xe                      ; 0x1aca
     push ax                          ; 0x1acd
@@ -61,7 +61,7 @@ jumptable_1aa5_case_0:
     push ax                          ; 0x1ae3
     mov ax, 0x37                     ; 0x1ae4
     push ax                          ; 0x1ae7
-    call ds_loc_3b6f                 ; 0x1ae8
+    call thunk_10                    ; 0x1ae8
     add sp, byte 8                   ; 0x1aeb
     mov word [bss_8d10], dx          ; 0x1aee
     mov word [bss_8d0e], ax          ; 0x1af2
@@ -206,7 +206,7 @@ jumptable_1aa5_case_0:
     push ax                          ; 0x1c43
     push word [bss_8d10]             ; 0x1c44
     push word [bss_8d0e]             ; 0x1c48
-    call ds_loc_3b96                 ; 0x1c4c
+    call thunk_13                    ; 0x1c4c
     add sp, byte 6                   ; 0x1c4f
     mov ax, 0xc6                     ; 0x1c52
     push ax                          ; 0x1c55
@@ -220,7 +220,7 @@ jumptable_1aa5_case_0:
     add sp, byte 8                   ; 0x1c65
     mov ax, 0xe                      ; 0x1c68
     push ax                          ; 0x1c6b
-    call ds_app_1371                 ; 0x1c6c
+    call ds_app_thunk_26_1371        ; 0x1c6c
     pop cx                           ; 0x1c6f
     mov ax, 2                        ; 0x1c70
     push ax                          ; 0x1c73

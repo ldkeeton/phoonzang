@@ -52,7 +52,7 @@ ds_app_27e9: ; Aztec csav frame=0x0018
     mov ax, 0                        ; 0x2857
     push ax                          ; 0x285a
     push ax                          ; 0x285b
-    call ds_loc_3b21                 ; 0x285c
+    call thunk_4                     ; 0x285c
     add sp, byte 8                   ; 0x285f
 @..ds_app_27e9.l6:
     ret                              ; 0x2862

@@ -61,7 +61,7 @@ loc_000e:
 
 %include "vmele/api_idx_005e.asm"          ; 0x0649
 
-%include "vmele/api_idx_0008_3.asm"        ; 0x07ad
+%include "vmele/asm_only/api_idx_0008_3.asm"        ; 0x07ad
 
 %include "vmele/api_idx_0004_4.asm"        ; 0x0c67
 
@@ -71,17 +71,17 @@ loc_000e:
 
 %include "vmele/api_idx_000e.asm"          ; 0x12ac
 
-%include "vmele/api_idx_005c.asm"          ; 0x14e6
+%include "vmele/asm_only/api_idx_005c.asm"          ; 0x14e6
 
 %include "vmele/api_idx_0006.asm"          ; 0x1713
 
 %include "vmele/api_idx_0004_5.asm"        ; 0x17ad
 
-%include "vmele/api_idx_0014.asm"          ; 0x1844
+%include "vmele/asm_only/api_idx_0014.asm"          ; 0x1844
 
 %include "vmele/api_idx_000e_2.asm"        ; 0x2138
 
-%include "vmele/api_idx_0004_6.asm"        ; 0x245b
+%include "vmele/asm_only/api_idx_0004_6.asm"        ; 0x245b
 
 %include "vmele/api_idx_001c.asm"          ; 0x2565
 
@@ -117,9 +117,9 @@ loc_000e:
 
 %include "vmele/api_idx_0002_2.asm"        ; 0x36b8
 
-%include "vmele/string_loc_3710.asm"       ; 0x3710
+%include "vmele/asm_only/string_loc_3710.asm"       ; 0x3710
 
-%include "vmele/string_loc_374e.asm"       ; 0x374e
+%include "vmele/asm_only/string_loc_374e.asm"       ; 0x374e
 
 __zdata_start:
 

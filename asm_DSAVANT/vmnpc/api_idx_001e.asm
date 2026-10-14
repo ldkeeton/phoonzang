@@ -6,14 +6,14 @@ api_idx_001e:
     cmp word [bss_82b6], byte 0xff   ; 0x70c3
     je short @..api_idx_001e.l3      ; 0x70c8
 @..api_idx_001e.l1:
-    call ds_loc_41ca                 ; 0x70ca
+    call thunk_22                    ; 0x70ca
     test ax, ax                      ; 0x70cd
     je short @..api_idx_001e.l2      ; 0x70cf
     jmp short @..api_idx_001e.l1     ; 0x70d1
 @..api_idx_001e.l2:
     mov ax, 0                        ; 0x70d3
     push ax                          ; 0x70d6
-    call ds_app_2b4e                 ; 0x70d7
+    call ds_app_thunk_21_2b4e        ; 0x70d7
     pop cx                           ; 0x70da
 @..api_idx_001e.l3:
     call ds_app_138c                 ; 0x70db
@@ -29,7 +29,7 @@ api_idx_001e:
     push ax                          ; 0x70f1
     mov ax, 0x48                     ; 0x70f2
     push ax                          ; 0x70f5
-    call ds_loc_3b7c                 ; 0x70f6
+    call thunk_11                    ; 0x70f6
     add sp, byte 0x0c                ; 0x70f9
     mov word [bss_9062], dx          ; 0x70fc
     mov word [bss_9060], ax          ; 0x7100
@@ -54,7 +54,7 @@ api_idx_001e:
     push ax                          ; 0x7131
     mov ax, 0x48                     ; 0x7132
     push ax                          ; 0x7135
-    call ds_loc_3b7c                 ; 0x7136
+    call thunk_11                    ; 0x7136
     add sp, byte 0x0c                ; 0x7139
     mov word [bss_9066], dx          ; 0x713c
     mov word [bss_9064], ax          ; 0x7140
@@ -125,7 +125,7 @@ api_idx_001e:
     push ax                          ; 0x71f4
     mov ax, 8                        ; 0x71f5
     push ax                          ; 0x71f8
-    call ds_loc_3b6f                 ; 0x71f9
+    call thunk_10                    ; 0x71f9
     add sp, byte 8                   ; 0x71fc
     mov word [bss_8d10], dx          ; 0x71ff
     mov word [bss_8d0e], ax          ; 0x7203
@@ -137,7 +137,7 @@ api_idx_001e:
     push ax                          ; 0x7211
     mov ax, 0x41                     ; 0x7212
     push ax                          ; 0x7215
-    call ds_loc_3b6f                 ; 0x7216
+    call thunk_10                    ; 0x7216
     add sp, byte 8                   ; 0x7219
     mov word [bss_8d0c], dx          ; 0x721c
     mov word [bss_8d0a], ax          ; 0x7220

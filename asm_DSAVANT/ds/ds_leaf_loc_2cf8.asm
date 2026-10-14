@@ -78,7 +78,7 @@ ds_loc_2d69:
     push word [bp - 0x0008]          ; 0x2da3
     mov ax, 8                        ; 0x2da6
     push ax                          ; 0x2da9
-    call ds_loc_4218                 ; 0x2daa
+    call thunk_28                    ; 0x2daa
     add sp, byte 0x16                ; 0x2dad
 ds_loc_2db0:
     inc word [bp - 0x0002]           ; 0x2db0
@@ -95,6 +95,6 @@ ds_loc_2dbe:
     push ax                          ; 0x2dc9
     mov ax, 0x44                     ; 0x2dca
     push ax                          ; 0x2dcd
-    call ds_loc_3b21                 ; 0x2dce
+    call thunk_4                     ; 0x2dce
     add sp, byte 8                   ; 0x2dd1
     ret                              ; 0x2dd4

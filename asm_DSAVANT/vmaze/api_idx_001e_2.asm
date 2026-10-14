@@ -22,7 +22,7 @@ api_idx_001e_2:
     push ax                          ; 0x7063
     mov ax, 0                        ; 0x7064
     push ax                          ; 0x7067
-    call ds_loc_3b21                 ; 0x7068
+    call thunk_4                     ; 0x7068
     add sp, byte 8                   ; 0x706b
 @..api_idx_001e_2.l1:
     mov ax, word [bss_8d12]          ; 0x706e

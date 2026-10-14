@@ -61,7 +61,7 @@ loc_000e:
 
 %include "vbase/api_idx_0028.asm"          ; 0x0ef7
 
-%include "vbase/api_idx_004c.asm"          ; 0x156e
+%include "vbase/asm_only/api_idx_004c.asm"          ; 0x156e
 
 %include "vbase/leaf_loc_182b.asm"         ; 0x182b
 
@@ -307,9 +307,9 @@ loc_000e:
 
 %include "vbase/leaf_loc_2ad9.asm"         ; 0x2ad9
 
-%include "vbase/api_idx_0038_2.asm"        ; 0x2fef
+%include "vbase/asm_only/api_idx_0038_2.asm"        ; 0x2fef
 
-%include "vbase/api_idx_004e.asm"          ; 0x388c
+%include "vbase/asm_only/api_idx_004e.asm"          ; 0x388c
 
 %include "vbase/api_idx_0002_2.asm"        ; 0x3fac
 
@@ -321,7 +321,7 @@ loc_000e:
 
 %include "vbase/api_idx_0052_2.asm"        ; 0x4826
 
-%include "vbase/api_idx_0062.asm"          ; 0x4b95
+%include "vbase/asm_only/api_idx_0062.asm"          ; 0x4b95
 
 %include "vbase/string_loc_5703.asm"       ; 0x5703
 
@@ -377,9 +377,9 @@ loc_000e:
 
 %include "vbase/leaf_loc_5840.asm"         ; 0x5840
 
-%include "vbase/leaf_loc_5876.asm"         ; 0x5876
+%include "vbase/asm_only/leaf_loc_5876.asm"         ; 0x5876
 
-%include "vbase/api_idx_0006_2.asm"        ; 0x61db
+%include "vbase/asm_only/api_idx_0006_2.asm"        ; 0x61db
 
 %include "vbase/api_idx_00aa.asm"          ; 0x62e5
 
@@ -427,15 +427,15 @@ loc_000e:
 
 %include "vbase/api_idx_0002_13.asm"       ; 0x8f74
 
-%include "vbase/string_loc_9330.asm"       ; 0x9330
+%include "vbase/asm_only/string_loc_9330.asm"       ; 0x9330
 
-%include "vbase/leaf_loc_936e.asm"         ; 0x936e
+%include "vbase/asm_only/leaf_loc_936e.asm"         ; 0x936e
 
-%include "vbase/aztec_strcmp.asm"          ; 0x9386
+%include "vbase/asm_only/aztec_strcmp.asm"          ; 0x9386
 
-%include "vbase/aztec_strncmp.asm"         ; 0x93a4
+%include "vbase/asm_only/aztec_strncmp.asm"         ; 0x93a4
 
-%include "vbase/string_loc_93e3.asm"       ; 0x93e3
+%include "vbase/asm_only/string_loc_93e3.asm"       ; 0x93e3
 
 
 __zimage_end:

@@ -22,7 +22,7 @@ api_idx_000a_3:
     push ax                          ; 0x9417
     mov ax, 0x12e                    ; 0x9418
     push ax                          ; 0x941b
-    call ds_loc_4338                 ; 0x941c
+    call thunk_47                    ; 0x941c
     add sp, byte 6                   ; 0x941f
     mov ax, 0                        ; 0x9422
     mov dx, 0                        ; 0x9425
@@ -47,7 +47,7 @@ api_idx_000a_3:
     push ax                          ; 0x9451
     mov ax, 0x12e                    ; 0x9452
     push ax                          ; 0x9455
-    call ds_loc_432b                 ; 0x9456
+    call thunk_46                    ; 0x9456
     add sp, byte 6                   ; 0x9459
     mov bx, word [bp - 0x000a]       ; 0x945c
     cmp byte [bx], 0x40              ; 0x945f
@@ -195,7 +195,7 @@ loc_9587:
     mov ax, 0x20                     ; 0x95b4
     push ax                          ; 0x95b7
     push bx                          ; 0x95b8
-    call strlen                      ; 0x95b9
+    call strpos                      ; 0x95b9
     add sp, byte 4                   ; 0x95bc
     mov word [bp - 0x0002], ax       ; 0x95bf
     push ax                          ; 0x95c2

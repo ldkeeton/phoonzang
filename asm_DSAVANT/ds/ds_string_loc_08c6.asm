@@ -23,7 +23,7 @@ jumptable_08d4:
 ds_loc_08f2:
     mov ax, 0                        ; 0x08f2
     push ax                          ; 0x08f5
-    call ds_loc_415b                 ; 0x08f6
+    call thunk_17                    ; 0x08f6
     pop cx                           ; 0x08f9
     mov ax, 0                        ; 0x08fa
     push ax                          ; 0x08fd

@@ -29,7 +29,7 @@ string_loc_4b23:
 @..string_loc_4b23.l4:
     push ax                          ; 0x4b5b
     push word [bp + 0x14]            ; 0x4b5c
-    call ds_bios_mouse_loc_4266      ; 0x4b5f
+    call thunk_34                    ; 0x4b5f
     add sp, byte 8                   ; 0x4b62
 @..string_loc_4b23.l5:
     jmp short loc_4b82               ; 0x4b65

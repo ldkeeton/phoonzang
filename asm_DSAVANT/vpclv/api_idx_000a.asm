@@ -7,7 +7,7 @@ api_idx_000a:
     push ax                          ; 0x04d4
     push word [bss_9434]             ; 0x04d5
     push word [bss_9432]             ; 0x04d9
-    call ds_loc_3b89                 ; 0x04dd
+    call thunk_12                    ; 0x04dd
     add sp, byte 8                   ; 0x04e0
     cmp word [bss_9436], byte 0      ; 0x04e3
     jle short @..api_idx_000a.l1     ; 0x04e8
@@ -35,7 +35,7 @@ api_idx_000a:
     push ax                          ; 0x051a
     mov ax, 0xf                      ; 0x051b
     push ax                          ; 0x051e
-    call ds_loc_4218                 ; 0x051f
+    call thunk_28                    ; 0x051f
     add sp, byte 0x16                ; 0x0522
 @..api_idx_000a.l1:
     mov ax, 5                        ; 0x0525
@@ -70,6 +70,6 @@ api_idx_000a:
     push ax                          ; 0x0566
     mov ax, 0xf                      ; 0x0567
     push ax                          ; 0x056a
-    call ds_loc_4218                 ; 0x056b
+    call thunk_28                    ; 0x056b
     add sp, byte 0x16                ; 0x056e
     ret                              ; 0x0571

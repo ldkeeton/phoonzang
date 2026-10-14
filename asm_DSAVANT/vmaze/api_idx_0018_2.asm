@@ -100,7 +100,7 @@ api_idx_0018_2:
     push ax                          ; 0x7c41
     mov ax, 5                        ; 0x7c42
     push ax                          ; 0x7c45
-    call ds_loc_4218                 ; 0x7c46
+    call thunk_28                    ; 0x7c46
     add sp, byte 0x16                ; 0x7c49
     mov ax, 0xffff                   ; 0x7c4c
     cmp word [bp - 0x000a], byte 0   ; 0x7c4f
@@ -122,7 +122,7 @@ api_idx_0018_2:
     push ax                          ; 0x7c76
     mov ax, 0                        ; 0x7c77
     push ax                          ; 0x7c7a
-    call ds_bios_mouse_loc_4266      ; 0x7c7b
+    call thunk_34                    ; 0x7c7b
     add sp, byte 8                   ; 0x7c7e
     mov ax, 0x8f                     ; 0x7c81
     push ax                          ; 0x7c84
@@ -132,7 +132,7 @@ api_idx_0018_2:
     push ax                          ; 0x7c8c
     mov ax, 0x48                     ; 0x7c8d
     push ax                          ; 0x7c90
-    call ds_loc_3b21                 ; 0x7c91
+    call thunk_4                     ; 0x7c91
     add sp, byte 8                   ; 0x7c94
     cmp word [bp + 0xa], byte 0      ; 0x7c97
     je short @..api_idx_0018_2.l5    ; 0x7c9b

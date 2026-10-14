@@ -6,7 +6,7 @@ api_idx_0004_3:
     mov ax, 0x20                     ; 0x0d2a
     push ax                          ; 0x0d2d
     push word [bp + 0x4]             ; 0x0d2e
-    call strlen                      ; 0x0d31
+    call strpos                      ; 0x0d31
     add sp, byte 4                   ; 0x0d34
     mov word [bp - 0x0002], ax       ; 0x0d37
     cmp ax, strict word 0xffff       ; 0x0d3a
@@ -18,7 +18,7 @@ api_idx_0004_3:
     mov ax, 0x5f                     ; 0x0d47
     push ax                          ; 0x0d4a
     push word [bp + 0x4]             ; 0x0d4b
-    call strlen                      ; 0x0d4e
+    call strpos                      ; 0x0d4e
     add sp, byte 4                   ; 0x0d51
     mov word [bp - 0x0004], ax       ; 0x0d54
     cmp ax, strict word 0xffff       ; 0x0d57

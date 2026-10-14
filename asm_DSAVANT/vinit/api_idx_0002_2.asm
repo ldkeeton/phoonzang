@@ -24,7 +24,7 @@ api_idx_0002_2:
     push ax                          ; 0x00b5
     push word [bp + 0x6]             ; 0x00b6
     push word [bp - 0x0002]          ; 0x00b9
-    call ds_bios_mouse_loc_4259      ; 0x00bc
+    call thunk_33                    ; 0x00bc
     add sp, byte 6                   ; 0x00bf
     push word [bp - 0x0002]          ; 0x00c2
     call aztec_close                 ; 0x00c5

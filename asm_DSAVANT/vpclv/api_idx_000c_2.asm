@@ -23,7 +23,7 @@ api_idx_000c_2:
     shl ax, 1                        ; 0x104a
     mov bx, ax                       ; 0x104c
     push word [word bx + 0x6]        ; 0x104e
-    call ds_loc_3a6a                 ; 0x1052
+    call thunk_3                     ; 0x1052
     add sp, byte 4                   ; 0x1055
     mov ax, word [bp - 0x0002]       ; 0x1058
     shl ax, 1                        ; 0x105b
@@ -48,7 +48,7 @@ api_idx_000c_2:
     add ax, strict word 9            ; 0x1087
     sub ax, cx                       ; 0x108a
     push ax                          ; 0x108c
-    call ds_loc_3a50                 ; 0x108d
+    call thunk                       ; 0x108d
     add sp, byte 4                   ; 0x1090
     mov ax, 0                        ; 0x1093
     push ax                          ; 0x1096
@@ -118,7 +118,7 @@ loc_10b0:
     push ax                          ; 0x1135
     mov ax, 0x32                     ; 0x1136
     push ax                          ; 0x1139
-    call ds_loc_3b21                 ; 0x113a
+    call thunk_4                     ; 0x113a
     add sp, byte 8                   ; 0x113d
 @..loc_10b0.l3:
     ret                              ; 0x1140

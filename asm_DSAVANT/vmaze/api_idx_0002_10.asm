@@ -101,6 +101,6 @@ loc_12d3:
     push ax                          ; 0x12fc
     mov ax, 0                        ; 0x12fd
     push ax                          ; 0x1300
-    call ds_loc_3b21                 ; 0x1301
+    call thunk_4                     ; 0x1301
     add sp, byte 8                   ; 0x1304
     ret                              ; 0x1307

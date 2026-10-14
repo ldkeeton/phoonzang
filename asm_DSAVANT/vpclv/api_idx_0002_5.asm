@@ -7,7 +7,7 @@ api_idx_0002_5:
     push ax                          ; 0x385b
     push word [bss_9420]             ; 0x385c
     push word [bss_941e]             ; 0x3860
-    call ds_loc_3b89                 ; 0x3864
+    call thunk_12                    ; 0x3864
     add sp, byte 8                   ; 0x3867
     mov word [bp - 0x0002], 0        ; 0x386a
     jmp near @..api_idx_0002_5.l2    ; 0x386f
@@ -18,7 +18,7 @@ api_idx_0002_5:
     shl ax, 1                        ; 0x3879
     mov bx, ax                       ; 0x387b
     push word [word bx + 0x30]       ; 0x387d
-    call ds_loc_3a6a                 ; 0x3881
+    call thunk_3                     ; 0x3881
     add sp, byte 4                   ; 0x3884
     mov ax, 6                        ; 0x3887
     imul word [bp - 0x0002]          ; 0x388a
@@ -26,7 +26,7 @@ api_idx_0002_5:
     push ax                          ; 0x3890
     mov ax, 6                        ; 0x3891
     push ax                          ; 0x3894
-    call ds_loc_3a50                 ; 0x3895
+    call thunk                       ; 0x3895
     add sp, byte 4                   ; 0x3898
     mov ax, 0                        ; 0x389b
     push ax                          ; 0x389e
@@ -42,13 +42,13 @@ api_idx_0002_5:
     push ax                          ; 0x38b8
     mov ax, 0x85                     ; 0x38b9
     push ax                          ; 0x38bc
-    call ds_loc_3a50                 ; 0x38bd
+    call thunk                       ; 0x38bd
     add sp, byte 4                   ; 0x38c0
     mov ax, 0                        ; 0x38c3
     push ax                          ; 0x38c6
     mov ax, 1                        ; 0x38c7
     push ax                          ; 0x38ca
-    call ds_loc_3a6a                 ; 0x38cb
+    call thunk_3                     ; 0x38cb
     add sp, byte 4                   ; 0x38ce
     mov ax, 0                        ; 0x38d1
     push ax                          ; 0x38d4

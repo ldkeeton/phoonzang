@@ -62,13 +62,13 @@ api_idx_0004_2:
     add ax, 0x92                     ; 0x0af0
     push ax                          ; 0x0af3
     push word [bp - 0x0002]          ; 0x0af4
-    call ds_loc_3a50                 ; 0x0af7
+    call thunk                       ; 0x0af7
     add sp, byte 4                   ; 0x0afa
     mov ax, 0                        ; 0x0afd
     push ax                          ; 0x0b00
     mov ax, 0x55                     ; 0x0b01
     push ax                          ; 0x0b04
-    call ds_loc_3a6a                 ; 0x0b05
+    call thunk_3                     ; 0x0b05
     add sp, byte 4                   ; 0x0b08
     mov ax, 2                        ; 0x0b0b
     push ax                          ; 0x0b0e

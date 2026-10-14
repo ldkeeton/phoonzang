@@ -247,13 +247,13 @@ loc_0211:
     push ax                          ; 0x038f
     lea ax, word [bp - 0x030c]       ; 0x0390
     push ax                          ; 0x0394
-    call ds_loc_4352                 ; 0x0395
+    call thunk_49                    ; 0x0395
     add sp, byte 4                   ; 0x0398
     mov ax, 0xffff                   ; 0x039b
     push ax                          ; 0x039e
     push ax                          ; 0x039f
     push ax                          ; 0x03a0
-    call ds_loc_431e                 ; 0x03a1
+    call thunk_45                    ; 0x03a1
     add sp, byte 6                   ; 0x03a4
     ret                              ; 0x03a7
 loc_03a8:
@@ -377,7 +377,7 @@ loc_03a8:
     mov ax, 0                        ; 0x04db
     push ax                          ; 0x04de
     push ax                          ; 0x04df
-    call ds_loc_3b62                 ; 0x04e0
+    call thunk_9                     ; 0x04e0
     add sp, byte 4                   ; 0x04e3
     cmp dx, byte 1                   ; 0x04e6
     jg short @..loc_03a8.l14         ; 0x04e9

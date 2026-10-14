@@ -394,7 +394,7 @@ loc_4011:
     push ax                          ; 0x4086
     mov ax, 0x5a                     ; 0x4087
     push ax                          ; 0x408a
-    call ds_loc_3b21                 ; 0x408b
+    call thunk_4                     ; 0x408b
     add sp, byte 8                   ; 0x408e
     mov ax, 0xffff                   ; 0x4091
     push ax                          ; 0x4094
@@ -411,7 +411,7 @@ loc_4011:
     push ax                          ; 0x40ab
     mov ax, 0xb8                     ; 0x40ac
     push ax                          ; 0x40af
-    call ds_loc_3b21                 ; 0x40b0
+    call thunk_4                     ; 0x40b0
     add sp, byte 8                   ; 0x40b3
 @..loc_4011.l3:
     ret                              ; 0x40b6
@@ -437,7 +437,7 @@ loc_40b7:
     mov ax, 0                        ; 0x40e3
     push ax                          ; 0x40e6
     push ax                          ; 0x40e7
-    call ds_loc_3b21                 ; 0x40e8
+    call thunk_4                     ; 0x40e8
     add sp, byte 8                   ; 0x40eb
 @..loc_40b7.l1:
     ret                              ; 0x40ee

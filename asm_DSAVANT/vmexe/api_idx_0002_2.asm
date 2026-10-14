@@ -34,6 +34,6 @@ api_idx_0002_2:
     push ax                          ; 0x1691
     mov ax, 8                        ; 0x1692
     push ax                          ; 0x1695
-    call ds_loc_3b21                 ; 0x1696
+    call thunk_4                     ; 0x1696
     add sp, byte 8                   ; 0x1699
     ret                              ; 0x169c

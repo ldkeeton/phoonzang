@@ -444,7 +444,7 @@ api_idx_0012_2:
     add sp, byte 4                   ; 0x4a34
     push ax                          ; 0x4a37
     push word [bp + 0x10]            ; 0x4a38
-    call ds_bios_mouse_loc_4266      ; 0x4a3b
+    call thunk_34                    ; 0x4a3b
     add sp, byte 8                   ; 0x4a3e
     mov ax, word [bp + 0x4]          ; 0x4a41
     cmp ax, strict word 2            ; 0x4a44
@@ -521,7 +521,7 @@ loc_4ab6:
     add sp, byte 4                   ; 0x4add
     push ax                          ; 0x4ae0
     push word [bp + 0xa]             ; 0x4ae1
-    call ds_bios_mouse_loc_4266      ; 0x4ae4
+    call thunk_34                    ; 0x4ae4
     add sp, byte 8                   ; 0x4ae7
 @..api_idx_0012_2.l38:
     jmp near loc_4b82                ; 0x4aea
@@ -546,7 +546,7 @@ loc_4aed:
     add sp, byte 4                   ; 0x4b14
     push ax                          ; 0x4b17
     push word [bp + 0x16]            ; 0x4b18
-    call ds_bios_mouse_loc_4266      ; 0x4b1b
+    call thunk_34                    ; 0x4b1b
     add sp, byte 8                   ; 0x4b1e
 @..api_idx_0012_2.l39:
     jmp short loc_4b82               ; 0x4b21

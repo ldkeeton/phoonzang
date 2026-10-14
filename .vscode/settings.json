@@ -1,4 +1,4 @@
-{
+{   "C_Cpp.default.cStandard": "c89",
     "files.associations": {
         "*.asm": "asm-intel-x86-generic"
     },

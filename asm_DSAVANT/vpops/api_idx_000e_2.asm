@@ -144,7 +144,7 @@ loc_0e6c:
     mov al, byte [bx + 0x15]         ; 0x0ebb
     sub ah, ah                       ; 0x0ebe
     push ax                          ; 0x0ec0
-    call ds_loc_4218                 ; 0x0ec1
+    call thunk_28                    ; 0x0ec1
     add sp, byte 0x16                ; 0x0ec4
 @..loc_0e6c.l1:
     ret                              ; 0x0ec7

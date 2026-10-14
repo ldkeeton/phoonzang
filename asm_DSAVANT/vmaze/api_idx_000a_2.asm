@@ -6,7 +6,7 @@ api_idx_000a_2:
     push ax                          ; 0x6b13
     push word [bss_8d10]             ; 0x6b14
     push word [bss_8d0e]             ; 0x6b18
-    call ds_loc_3b96                 ; 0x6b1c
+    call thunk_13                    ; 0x6b1c
     add sp, byte 6                   ; 0x6b1f
     mov byte [bp - 0x000a], 1        ; 0x6b22
     mov byte [bp - 0x0009], 0        ; 0x6b26
@@ -31,7 +31,7 @@ api_idx_000a_2:
     push ax                          ; 0x6b4e
     mov ax, 0xe                      ; 0x6b4f
     push ax                          ; 0x6b52
-    call ds_loc_4218                 ; 0x6b53
+    call thunk_28                    ; 0x6b53
     add sp, byte 0x16                ; 0x6b56
     ret                              ; 0x6b59
 loc_6b5a:

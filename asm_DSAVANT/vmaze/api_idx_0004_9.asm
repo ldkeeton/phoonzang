@@ -6,7 +6,7 @@ api_idx_0004_9:
     mov ax, 0x20                     ; 0x6eb7
     push ax                          ; 0x6eba
     push word [bp + 0x4]             ; 0x6ebb
-    call strlen                      ; 0x6ebe
+    call strpos                      ; 0x6ebe
     add sp, byte 4                   ; 0x6ec1
     mov word [bp - 0x0002], ax       ; 0x6ec4
     cmp ax, strict word 0xffff       ; 0x6ec7
@@ -18,7 +18,7 @@ api_idx_0004_9:
     mov ax, 0x5f                     ; 0x6ed4
     push ax                          ; 0x6ed7
     push word [bp + 0x4]             ; 0x6ed8
-    call strlen                      ; 0x6edb
+    call strpos                      ; 0x6edb
     add sp, byte 4                   ; 0x6ede
     mov word [bp - 0x0004], ax       ; 0x6ee1
     cmp ax, strict word 0xffff       ; 0x6ee4
@@ -56,7 +56,7 @@ loc_6f14:
     push ax                          ; 0x6f2b
     mov ax, 0x37                     ; 0x6f2c
     push ax                          ; 0x6f2f
-    call ds_loc_3b6f                 ; 0x6f30
+    call thunk_10                    ; 0x6f30
     add sp, byte 8                   ; 0x6f33
     mov word [bss_8d10], dx          ; 0x6f36
     mov word [bss_8d0e], ax          ; 0x6f3a
@@ -97,7 +97,7 @@ loc_6f14:
     push ax                          ; 0x6f99
     push word [bss_8d10]             ; 0x6f9a
     push word [bss_8d0e]             ; 0x6f9e
-    call ds_loc_3b96                 ; 0x6fa2
+    call thunk_13                    ; 0x6fa2
     add sp, byte 6                   ; 0x6fa5
     mov ax, 0xc6                     ; 0x6fa8
     push ax                          ; 0x6fab

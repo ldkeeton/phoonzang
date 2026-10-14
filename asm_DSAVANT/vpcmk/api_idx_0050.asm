@@ -115,13 +115,13 @@ api_idx_0050:
     mov ax, word [bp - 0x000c]       ; 0x3189
     add ax, strict word 0x48         ; 0x318c
     push ax                          ; 0x318f
-    call ds_loc_3a50                 ; 0x3190
+    call thunk                       ; 0x3190
     add sp, byte 4                   ; 0x3193
     mov ax, 0                        ; 0x3196
     push ax                          ; 0x3199
     mov ax, 0xcd                     ; 0x319a
     push ax                          ; 0x319d
-    call ds_loc_3a6a                 ; 0x319e
+    call thunk_3                     ; 0x319e
     add sp, byte 4                   ; 0x31a1
     mov ax, 2                        ; 0x31a4
     push ax                          ; 0x31a7
@@ -499,7 +499,7 @@ api_idx_0050:
     mov ax, word [bp - 0x0004]       ; 0x3509
     dec ax                           ; 0x350c
     push ax                          ; 0x350d
-    call ds_loc_3b21                 ; 0x350e
+    call thunk_4                     ; 0x350e
     add sp, byte 8                   ; 0x3511
     mov word [bss_976c], 7           ; 0x3514
     les bx, word [dseg_0002]         ; 0x351a
@@ -560,7 +560,7 @@ jumptable_3cc2_case_0:
     push ax                          ; 0x35a5
     lea ax, word [bp - 0x000e]       ; 0x35a6
     push ax                          ; 0x35a9
-    call ds_loc_429a                 ; 0x35aa
+    call thunk_38                    ; 0x35aa
     add sp, byte 4                   ; 0x35ad
     mov ax, 4                        ; 0x35b0
     push ax                          ; 0x35b3
@@ -580,7 +580,7 @@ jumptable_3cc2_case_0:
     push ax                          ; 0x35d3
     lea ax, word [bp - 0x000e]       ; 0x35d4
     push ax                          ; 0x35d7
-    call ds_loc_429a                 ; 0x35d8
+    call thunk_38                    ; 0x35d8
     add sp, byte 4                   ; 0x35db
     mov word [bp - 0x001e], ax       ; 0x35de
     push word [bp - 0x0014]          ; 0x35e1
@@ -674,7 +674,7 @@ jumptable_3cc2_case_0:
     mov ax, word [bp - 0x000c]       ; 0x36b0
     add ax, strict word 6            ; 0x36b3
     push ax                          ; 0x36b6
-    call ds_loc_3b21                 ; 0x36b7
+    call thunk_4                     ; 0x36b7
     add sp, byte 8                   ; 0x36ba
     cmp word [bp - 0x001e], byte 0   ; 0x36bd
     je short @..api_idx_0050.l16     ; 0x36c1
@@ -810,7 +810,7 @@ jumptable_3cc2_case_1:
     mov ax, word [bp - 0x000c]       ; 0x37f0
     add ax, strict word 6            ; 0x37f3
     push ax                          ; 0x37f6
-    call ds_loc_3b21                 ; 0x37f7
+    call thunk_4                     ; 0x37f7
     add sp, byte 8                   ; 0x37fa
     jmp near @..api_idx_0050.l50     ; 0x37fd
 jumptable_3cc2_case_3:
@@ -1053,7 +1053,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3a25
     add ax, strict word 0xb          ; 0x3a28
     push ax                          ; 0x3a2b
-    call ds_loc_3b21                 ; 0x3a2c
+    call thunk_4                     ; 0x3a2c
     add sp, byte 8                   ; 0x3a2f
     mov ax, word [bp - 0x0006]       ; 0x3a32
     add ax, strict word 0x1b         ; 0x3a35
@@ -1067,7 +1067,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3a47
     add ax, strict word 0x5e         ; 0x3a4a
     push ax                          ; 0x3a4d
-    call ds_loc_3b21                 ; 0x3a4e
+    call thunk_4                     ; 0x3a4e
     add sp, byte 8                   ; 0x3a51
     jmp near @..api_idx_0050.l47     ; 0x3a54
 @..api_idx_0050.l36:
@@ -1176,7 +1176,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3b57
     add ax, strict word 6            ; 0x3b5a
     push ax                          ; 0x3b5d
-    call ds_loc_3b21                 ; 0x3b5e
+    call thunk_4                     ; 0x3b5e
     add sp, byte 8                   ; 0x3b61
     mov ax, word [bp - 0x0006]       ; 0x3b64
     add ax, strict word 0x1b         ; 0x3b67
@@ -1190,7 +1190,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3b79
     add ax, strict word 0x5e         ; 0x3b7c
     push ax                          ; 0x3b7f
-    call ds_loc_3b21                 ; 0x3b80
+    call thunk_4                     ; 0x3b80
     add sp, byte 8                   ; 0x3b83
     jmp near @..api_idx_0050.l47     ; 0x3b86
 @..api_idx_0050.l41:
@@ -1307,7 +1307,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3c91
     add ax, strict word 6            ; 0x3c94
     push ax                          ; 0x3c97
-    call ds_loc_3b21                 ; 0x3c98
+    call thunk_4                     ; 0x3c98
     add sp, byte 8                   ; 0x3c9b
     mov ax, word [bp - 0x0006]       ; 0x3c9e
     add ax, strict word 0x1b         ; 0x3ca1
@@ -1321,7 +1321,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3cb3
     add ax, strict word 0x5e         ; 0x3cb6
     push ax                          ; 0x3cb9
-    call ds_loc_3b21                 ; 0x3cba
+    call thunk_4                     ; 0x3cba
     add sp, byte 8                   ; 0x3cbd
 @..api_idx_0050.l47:
     jmp short @..api_idx_0050.l50    ; 0x3cc0
@@ -1361,7 +1361,7 @@ jumptable_3cc2:
     mov ax, word [bp - 0x0004]       ; 0x3d01
     dec ax                           ; 0x3d04
     push ax                          ; 0x3d05
-    call ds_loc_3b21                 ; 0x3d06
+    call thunk_4                     ; 0x3d06
     add sp, byte 8                   ; 0x3d09
     mov word [bp - 0x0002], 0        ; 0x3d0c
 @..api_idx_0050.l52:

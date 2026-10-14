@@ -120,6 +120,27 @@ def find_source(version, name):
     return None
 
 
+class PatchError(ValueError):
+    """A sidecar ``vendor_patches`` edit does not apply to its source."""
+
+
+def apply_edits(text, edits, where='vendor patch'):
+    """Return *text* with each ``{"find", "replace"}`` edit applied in order.
+
+    A ``find`` must occur exactly once: the edits record how the game's copy
+    of a library routine differs from the vendor source, so one that no longer
+    applies (or applies twice) is an error rather than a silent no-op.
+    """
+    for index, edit in enumerate(edits):
+        find, replace = edit['find'], edit['replace']
+        count = text.count(find)
+        if count != 1:
+            raise PatchError(f'{where}: edit {index} {find!r} occurs {count} '
+                             f'times (expected once)')
+        text = text.replace(find, replace)
+    return text
+
+
 _DEF_CACHE = {}
 
 _KEYWORDS = {

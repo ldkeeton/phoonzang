@@ -4,7 +4,7 @@ ds_app_file_2923: ; Aztec csav frame=0x0018
     call aztec_csav                  ; 0x2926
     mov ax, 0                        ; 0x2929
     push ax                          ; 0x292c
-    call ds_loc_415b                 ; 0x292d
+    call thunk_17                    ; 0x292d
     pop cx                           ; 0x2930
     mov ax, 0                        ; 0x2931
     push ax                          ; 0x2934
@@ -73,7 +73,7 @@ ds_app_file_2923: ; Aztec csav frame=0x0018
 @..ds_app_file_2923.l4:
     push word [bp + 0x6]             ; 0x29d1
     push word [bp - 0x0004]          ; 0x29d4
-    call ds_loc_4141                 ; 0x29d7
+    call thunk_15                    ; 0x29d7
     add sp, byte 4                   ; 0x29da
     test ax, ax                      ; 0x29dd
     je short @..ds_app_file_2923.l5  ; 0x29df

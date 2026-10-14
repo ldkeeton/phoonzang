@@ -7,6 +7,43 @@
     "default": ["-n", "+y", "+b"],
     "prefixes": { "aztec_": ["-n", "+y"] }
   },
+  "vendor_patches": {
+    "aztec_begin": {
+      "version": "v52a",
+      "file": "sbegin.asm",
+      "note": "DS.EXE's $begin saves CS:PSP in a code-segment word instead of calling _exitinit_, and ends by jumping to a DOS-exit routine with AL set instead of pushing the code and calling _exit_; the debugger entry ($dbgentry) is not linked in.",
+      "edits": [
+        {
+          "find": "\textrn\t_PSP_:word\n",
+          "replace": "\textrn\t_PSP_:word\n\textrn\tcseg_4d38_:word\n"
+        },
+        {
+          "find": "notcom:\n",
+          "replace": "notcom:\n\tmov\tcs:cseg_4d38_,ds\n"
+        },
+        {
+          "find": "\tcall\t_exitinit_\t\n",
+          "replace": ""
+        },
+        {
+          "find": "\tmov\tax,254\n\tpush\tax\n\tcall\t_exit_\n",
+          "replace": "\tmov\tal,254\n\tjmp\t_exit_\n"
+        },
+        {
+          "find": "\txor\tax,ax\n\tpush\tax\t\t;Croot or caller should call _exit\n\tcall\t_exit_\t\t;but just in case...\n",
+          "replace": "\tjmp\tshort _exit_\n"
+        },
+        {
+          "find": "\tmov\tax,253\n\tpush\tax\n\tcall\t_exit_\n",
+          "replace": "\tmov\tal,253\n\tjmp\tshort _exit_\n"
+        },
+        {
+          "find": "retip\tdw\t0\nretcs\tdw\t0\n\n\tpublic $dbgentry\n$dbgentry proc far\n\tpop\tcs:retip\n\tpop\tcs:retcs\t; save return address into debugger\n\tpop\tds\t\t;set DS\n\tcall\tcaller\n\tjmp\tdword ptr cs:retip ; return to debugger\n$dbgentry endp\n\ncaller\tproc\n\tpush\tdi\t\t;CS value of local function\n\tpush\tsi\t\t;IP value call local function\n\tdb\t0cbH\t\t;far return instruction\ncaller\tendp\n\n",
+          "replace": ""
+        }
+      ]
+    }
+  },
   "binaries": {
     "ds": {
       "file": "DS.EXE",

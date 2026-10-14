@@ -330,7 +330,7 @@ loc_20e3:
     push ax                          ; 0x2158
     mov ax, 0x5a                     ; 0x2159
     push ax                          ; 0x215c
-    call ds_loc_3b21                 ; 0x215d
+    call thunk_4                     ; 0x215d
     add sp, byte 8                   ; 0x2160
     mov ax, 0xffff                   ; 0x2163
     push ax                          ; 0x2166
@@ -347,7 +347,7 @@ loc_20e3:
     push ax                          ; 0x217d
     mov ax, 0xb8                     ; 0x217e
     push ax                          ; 0x2181
-    call ds_loc_3b21                 ; 0x2182
+    call thunk_4                     ; 0x2182
     add sp, byte 8                   ; 0x2185
 @..loc_20e3.l3:
     ret                              ; 0x2188
@@ -372,7 +372,7 @@ loc_2189:
     mov ax, 0                        ; 0x21b2
     push ax                          ; 0x21b5
     push ax                          ; 0x21b6
-    call ds_loc_3b21                 ; 0x21b7
+    call thunk_4                     ; 0x21b7
     add sp, byte 8                   ; 0x21ba
 @..loc_2189.l1:
     ret                              ; 0x21bd

@@ -28,7 +28,7 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/api_idx_000c.asm"          ; 0x01d2
 
-%include "vmnpc/api_idx_0004.asm"          ; 0x062d
+%include "vmnpc/asm_only/api_idx_0004.asm"          ; 0x062d
 
 %include "vmnpc/api_idx_0018.asm"          ; 0x0727
 
@@ -88,7 +88,7 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/api_idx_0002_3.asm"        ; 0x38c1
 
-%include "vmnpc/api_idx_0008_3.asm"        ; 0x3900
+%include "vmnpc/asm_only/api_idx_0008_3.asm"        ; 0x3900
 
 %include "vmnpc/api_idx_0004_10.asm"       ; 0x3a96
 
@@ -220,13 +220,13 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/api_idx_006a.asm"          ; 0xab8d
 
-%include "vmnpc/string_loc_ae10.asm"       ; 0xae10
+%include "vmnpc/asm_only/string_loc_ae10.asm"       ; 0xae10
 
-%include "vmnpc/aztec_strncpy.asm"         ; 0xae4e
+%include "vmnpc/asm_only/aztec_strncpy.asm"         ; 0xae4e
 
-%include "vmnpc/aztec_strcmp.asm"          ; 0xae76
+%include "vmnpc/asm_only/aztec_strcmp.asm"          ; 0xae76
 
-%include "vmnpc/aztec_strncmp.asm"         ; 0xae94
+%include "vmnpc/asm_only/aztec_strncmp.asm"         ; 0xae94
 
 loc_aec9:
     sub di, byte 2                   ; 0xaec9

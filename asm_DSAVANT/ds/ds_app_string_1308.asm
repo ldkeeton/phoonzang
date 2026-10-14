@@ -17,7 +17,7 @@ ds_app_string_1308: ; Aztec csav frame=0x0000
     push ax                          ; 0x132e
     mov ax, 1                        ; 0x132f
     push ax                          ; 0x1332
-    call ds_loc_3a6a                 ; 0x1333
+    call thunk_3                     ; 0x1333
     add sp, byte 4                   ; 0x1336
     mov ax, word [bp + 0x6]          ; 0x1339
     inc ax                           ; 0x133c
@@ -37,7 +37,7 @@ ds_app_string_1308: ; Aztec csav frame=0x0000
     add ax, word [bp + 0x4]          ; 0x1358
     inc ax                           ; 0x135b
     push ax                          ; 0x135c
-    call ds_loc_3a50                 ; 0x135d
+    call thunk                       ; 0x135d
     add sp, byte 4                   ; 0x1360
     mov ax, 0                        ; 0x1363
     push ax                          ; 0x1366

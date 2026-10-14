@@ -10,7 +10,7 @@ api_idx_0016:
     add sp, byte 4                   ; 0x9445
     mov ax, 0                        ; 0x9448
     push ax                          ; 0x944b
-    call ds_loc_415b                 ; 0x944c
+    call thunk_17                    ; 0x944c
     pop cx                           ; 0x944f
     mov ax, 0                        ; 0x9450
     push ax                          ; 0x9453

@@ -4,7 +4,7 @@ api_idx_0002:
     call aztec_csav                  ; 0x0024
     mov ax, 0                        ; 0x0027
     push ax                          ; 0x002a
-    call ds_loc_415b                 ; 0x002b
+    call thunk_17                    ; 0x002b
     pop cx                           ; 0x002e
     mov ax, 0                        ; 0x002f
     push ax                          ; 0x0032
@@ -27,7 +27,7 @@ api_idx_0002:
     mov ax, 0                        ; 0x0057
     push ax                          ; 0x005a
     push word [bp - 0x0002]          ; 0x005b
-    call ds_loc_4225                 ; 0x005e
+    call thunk_29                    ; 0x005e
     add sp, byte 4                   ; 0x0061
     push word [bp - 0x0002]          ; 0x0064
     call aztec_close                 ; 0x0067
@@ -41,7 +41,7 @@ api_idx_0002:
     mov ax, 0                        ; 0x0079
     push ax                          ; 0x007c
     push ax                          ; 0x007d
-    call ds_loc_3b21                 ; 0x007e
+    call thunk_4                     ; 0x007e
     add sp, byte 8                   ; 0x0081
 @..api_idx_0002.l2:
     ret                              ; 0x0084

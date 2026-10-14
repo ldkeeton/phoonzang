@@ -31,7 +31,7 @@ ds_app_file_06c6: ; Aztec csav frame=0x0002
     jl short @..ds_app_file_06c6.l1  ; 0x070b
     mov ax, 0                        ; 0x070d
     push ax                          ; 0x0710
-    call ds_loc_415b                 ; 0x0711
+    call thunk_17                    ; 0x0711
     pop cx                           ; 0x0714
     mov ax, 0                        ; 0x0715
     push ax                          ; 0x0718

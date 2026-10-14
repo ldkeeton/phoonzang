@@ -142,11 +142,11 @@ loc_000e:
 
 %include "vpcmk/api_idx_002c_2.asm"        ; 0x6a3f
 
-%include "vpcmk/string_loc_6f8c.asm"       ; 0x6f8c
+%include "vpcmk/asm_only/string_loc_6f8c.asm"       ; 0x6f8c
 
-%include "vpcmk/aztec_strcmp.asm"          ; 0x6fca
+%include "vpcmk/asm_only/aztec_strcmp.asm"          ; 0x6fca
 
-%include "vpcmk/aztec_strncmp.asm"         ; 0x6fe8
+%include "vpcmk/asm_only/aztec_strncmp.asm"         ; 0x6fe8
 
 loc_701d:
     sub di, byte 2                   ; 0x701d

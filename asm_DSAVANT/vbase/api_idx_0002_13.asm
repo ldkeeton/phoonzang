@@ -5,7 +5,7 @@ api_idx_0002_13:
     call loc_85f0                    ; 0x8f7a
     cmp word [bss_0e32], byte 1      ; 0x8f7d
     jne short @..api_idx_0002_13.l1  ; 0x8f82
-    call ds_loc_4280                 ; 0x8f84
+    call thunk_36                    ; 0x8f84
 @..api_idx_0002_13.l1:
     mov word [bss_0e32], 0           ; 0x8f87
     call ds_app_2bed                 ; 0x8f8d
@@ -378,7 +378,7 @@ api_idx_0002_13:
     add sp, byte 4                   ; 0x92b0
     mov ax, 0                        ; 0x92b3
     push ax                          ; 0x92b6
-    call ds_app_2b4e                 ; 0x92b7
+    call ds_app_thunk_21_2b4e        ; 0x92b7
     pop cx                           ; 0x92ba
 @..api_idx_0002_13.l14:
     test word [bss_9056], 0x1000     ; 0x92bb
@@ -387,7 +387,7 @@ api_idx_0002_13:
     jne short @..api_idx_0002_13.l16 ; 0x92c8
     cmp word [bss_0e32], byte 0      ; 0x92ca
     jne short @..api_idx_0002_13.l15 ; 0x92cf
-    call ds_bios_mouse_loc_4273      ; 0x92d1
+    call thunk_35                    ; 0x92d1
 @..api_idx_0002_13.l15:
     mov word [bss_0e32], 1           ; 0x92d4
 @..api_idx_0002_13.l16:
@@ -414,7 +414,7 @@ api_idx_0002_13:
     push ax                          ; 0x930b
     push ax                          ; 0x930c
     push ax                          ; 0x930d
-    call ds_loc_431e                 ; 0x930e
+    call thunk_45                    ; 0x930e
     add sp, byte 6                   ; 0x9311
     mov ax, 0xc7                     ; 0x9314
     push ax                          ; 0x9317
@@ -423,10 +423,10 @@ api_idx_0002_13:
     mov ax, 0                        ; 0x931c
     push ax                          ; 0x931f
     push ax                          ; 0x9320
-    call ds_loc_3b21                 ; 0x9321
+    call thunk_4                     ; 0x9321
     add sp, byte 8                   ; 0x9324
     mov ax, 0                        ; 0x9327
     push ax                          ; 0x932a
-    call ds_loc_4304                 ; 0x932b
+    call thunk_43                    ; 0x932b
     pop cx                           ; 0x932e
     ret                              ; 0x932f

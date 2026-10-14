@@ -9,7 +9,7 @@ api_idx_0090:
     push ax                          ; 0x0b36
     mov ax, 0x9098                   ; 0x0b37
     push ax                          ; 0x0b3a
-    call strlen                      ; 0x0b3b
+    call strpos                      ; 0x0b3b
     add sp, byte 4                   ; 0x0b3e
     mov word [bp - 0x0004], ax       ; 0x0b41
     cmp ax, strict word 0            ; 0x0b44
@@ -105,11 +105,11 @@ api_idx_0090:
     push ax                          ; 0x0c17
     mov ax, 0x10                     ; 0x0c18
     push ax                          ; 0x0c1b
-    call ds_loc_4218                 ; 0x0c1c
+    call thunk_28                    ; 0x0c1c
     add sp, byte 0x16                ; 0x0c1f
     mov ax, 0x10                     ; 0x0c22
     push ax                          ; 0x0c25
-    call ds_app_1371                 ; 0x0c26
+    call ds_app_thunk_26_1371        ; 0x0c26
     pop cx                           ; 0x0c29
     jmp near @..api_idx_0090.l8      ; 0x0c2a
     inc word [bp + 0x4]              ; 0x0c2d

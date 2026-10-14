@@ -166,7 +166,7 @@ api_idx_004e:
     push ax                          ; 0x5ce0
     mov ax, 0x36                     ; 0x5ce1
     push ax                          ; 0x5ce4
-    call ds_loc_3b21                 ; 0x5ce5
+    call thunk_4                     ; 0x5ce5
     add sp, byte 8                   ; 0x5ce8
     mov ax, 1                        ; 0x5ceb
     push ax                          ; 0x5cee

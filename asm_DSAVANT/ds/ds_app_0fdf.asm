@@ -8,7 +8,7 @@ ds_app_0fdf: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0fec
     push word [bp + 0x6]             ; 0x0fef
     push word [bp + 0x4]             ; 0x0ff2
-    call ds_loc_3b48                 ; 0x0ff5
+    call thunk_7                     ; 0x0ff5
     add sp, byte 0x0a                ; 0x0ff8
     push word [bp + 0xa]             ; 0x0ffb
     push word [bp + 0x8]             ; 0x0ffe

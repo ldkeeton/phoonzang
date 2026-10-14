@@ -53,7 +53,7 @@ api_idx_0002_2:
     mov word [bss_9058], ax          ; 0x4020
     mov ax, 1                        ; 0x4023
     push ax                          ; 0x4026
-    call ds_loc_415b                 ; 0x4027
+    call thunk_17                    ; 0x4027
     pop cx                           ; 0x402a
     test word [bss_9056], 0x1000     ; 0x402b
     je short @..api_idx_0002_2.l4    ; 0x4031
@@ -61,14 +61,14 @@ api_idx_0002_2:
     jne short @..api_idx_0002_2.l4   ; 0x4038
     cmp word [bss_0e32], byte 0      ; 0x403a
     jne short @..api_idx_0002_2.l3   ; 0x403f
-    call ds_bios_mouse_loc_4273      ; 0x4041
+    call thunk_35                    ; 0x4041
 @..api_idx_0002_2.l3:
     mov word [bss_0e32], 1           ; 0x4044
     jmp short @..api_idx_0002_2.l6   ; 0x404a
 @..api_idx_0002_2.l4:
     cmp word [bss_0e32], byte 1      ; 0x404c
     jne short @..api_idx_0002_2.l5   ; 0x4051
-    call ds_loc_4280                 ; 0x4053
+    call thunk_36                    ; 0x4053
 @..api_idx_0002_2.l5:
     mov word [bss_0e32], 0           ; 0x4056
 @..api_idx_0002_2.l6:

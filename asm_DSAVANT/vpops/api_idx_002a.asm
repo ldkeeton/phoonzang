@@ -19,7 +19,7 @@ api_idx_002a:
     push ax                          ; 0x004a
     lea ax, word [bp - 0x002a]       ; 0x004b
     push ax                          ; 0x004e
-    call strlen                      ; 0x004f
+    call strpos                      ; 0x004f
     add sp, byte 4                   ; 0x0052
     mov word [bp - 0x0002], ax       ; 0x0055
     cmp ax, strict word 0xffff       ; 0x0058
@@ -41,11 +41,11 @@ api_idx_002a:
     mov ax, 0                        ; 0x0080
     push ax                          ; 0x0083
     push word [bp + 0xa]             ; 0x0084
-    call ds_loc_3a6a                 ; 0x0087
+    call thunk_3                     ; 0x0087
     add sp, byte 4                   ; 0x008a
     push word [bp + 0x8]             ; 0x008d
     push word [bp + 0x6]             ; 0x0090
-    call ds_loc_3a50                 ; 0x0093
+    call thunk                       ; 0x0093
     add sp, byte 4                   ; 0x0096
     mov ax, 0                        ; 0x0099
     push ax                          ; 0x009c
@@ -57,7 +57,7 @@ api_idx_002a:
     add ax, strict word 6            ; 0x00aa
     push ax                          ; 0x00ad
     push word [bp + 0x6]             ; 0x00ae
-    call ds_loc_3a50                 ; 0x00b1
+    call thunk                       ; 0x00b1
     add sp, byte 4                   ; 0x00b4
     mov ax, 0                        ; 0x00b7
     push ax                          ; 0x00ba

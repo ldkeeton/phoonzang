@@ -97,7 +97,7 @@ loc_5789:
     push ax                          ; 0x57bc
     mov ax, 0x37                     ; 0x57bd
     push ax                          ; 0x57c0
-    call ds_loc_3b21                 ; 0x57c1
+    call thunk_4                     ; 0x57c1
     add sp, byte 8                   ; 0x57c4
     lea ax, word [bp - 0x003a]       ; 0x57c7
     push ax                          ; 0x57ca
@@ -357,7 +357,7 @@ loc_5789:
     push ax                          ; 0x5a2f
     mov ax, 0x12e                    ; 0x5a30
     push ax                          ; 0x5a33
-    call ds_loc_432b                 ; 0x5a34
+    call thunk_46                    ; 0x5a34
     add sp, byte 6                   ; 0x5a37
     lea ax, word [bp - 0x00b4]       ; 0x5a3a
     push ax                          ; 0x5a3e
@@ -660,7 +660,7 @@ loc_5789:
     push ax                          ; 0x5d09
     mov ax, 0x12e                    ; 0x5d0a
     push ax                          ; 0x5d0d
-    call ds_loc_4338                 ; 0x5d0e
+    call thunk_47                    ; 0x5d0e
     add sp, byte 6                   ; 0x5d11
     mov ax, 0                        ; 0x5d14
     mov dx, 0                        ; 0x5d17

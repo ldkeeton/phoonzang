@@ -89,7 +89,7 @@ loc_2963:
     call aztec_csav                  ; 0x2966
     mov ax, 1                        ; 0x2969
     push ax                          ; 0x296c
-    call ds_loc_415b                 ; 0x296d
+    call thunk_17                    ; 0x296d
     pop cx                           ; 0x2970
     cmp word [bp + 0x4], byte 0      ; 0x2971
     je short @..loc_2963.l1          ; 0x2975

@@ -20,7 +20,7 @@ api_idx_008a:
     push ax                          ; 0x0c4f
     mov ax, 0                        ; 0x0c50
     push ax                          ; 0x0c53
-    call ds_loc_3b21                 ; 0x0c54
+    call thunk_4                     ; 0x0c54
     add sp, byte 8                   ; 0x0c57
     mov word [bp - 0x0006], 0        ; 0x0c5a
     mov ax, 1                        ; 0x0c5f
@@ -222,7 +222,7 @@ api_idx_008a:
     push ax                          ; 0x0e12
     mov ax, 0                        ; 0x0e13
     push ax                          ; 0x0e16
-    call ds_loc_3b21                 ; 0x0e17
+    call thunk_4                     ; 0x0e17
     add sp, byte 8                   ; 0x0e1a
     ret                              ; 0x0e1d
 @..api_idx_008a.l21:
@@ -270,7 +270,7 @@ api_idx_008a:
     push ax                          ; 0x0e7d
     mov ax, 0                        ; 0x0e7e
     push ax                          ; 0x0e81
-    call ds_loc_3b21                 ; 0x0e82
+    call thunk_4                     ; 0x0e82
     add sp, byte 8                   ; 0x0e85
     mov ax, 2                        ; 0x0e88
     push ax                          ; 0x0e8b
@@ -311,6 +311,6 @@ loc_0eac:
     push ax                          ; 0x0ed4
     mov ax, 0                        ; 0x0ed5
     push ax                          ; 0x0ed8
-    call ds_loc_3b21                 ; 0x0ed9
+    call thunk_4                     ; 0x0ed9
     add sp, byte 8                   ; 0x0edc
     ret                              ; 0x0edf

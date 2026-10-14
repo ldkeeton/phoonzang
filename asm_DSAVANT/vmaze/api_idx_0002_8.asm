@@ -25,7 +25,7 @@ api_idx_0002_8:
     push ax                          ; 0x0e9a
     mov ax, 0xff                     ; 0x0e9b
     push ax                          ; 0x0e9e
-    call ds_loc_42ea                 ; 0x0e9f
+    call thunk_41                    ; 0x0e9f
     add sp, byte 8                   ; 0x0ea2
     ret                              ; 0x0ea5
 loc_0ea6:

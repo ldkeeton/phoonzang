@@ -15,27 +15,27 @@ api_idx_0006_6:
 @..api_idx_0006_6.l1:
     mov ax, 1                        ; 0x72dc
     push ax                          ; 0x72df
-    call ds_app_1371                 ; 0x72e0
+    call ds_app_thunk_26_1371        ; 0x72e0
     pop cx                           ; 0x72e3
     mov ax, 2                        ; 0x72e4
     push ax                          ; 0x72e7
-    call ds_app_1371                 ; 0x72e8
+    call ds_app_thunk_26_1371        ; 0x72e8
     pop cx                           ; 0x72eb
     mov ax, 0xc                      ; 0x72ec
     push ax                          ; 0x72ef
-    call ds_app_1371                 ; 0x72f0
+    call ds_app_thunk_26_1371        ; 0x72f0
     pop cx                           ; 0x72f3
     mov ax, 1                        ; 0x72f4
     push ax                          ; 0x72f7
     push word [bss_8d0c]             ; 0x72f8
     push word [bss_8d0a]             ; 0x72fc
-    call ds_loc_3b96                 ; 0x7300
+    call thunk_13                    ; 0x7300
     add sp, byte 6                   ; 0x7303
     mov ax, 1                        ; 0x7306
     push ax                          ; 0x7309
     push word [bss_8d10]             ; 0x730a
     push word [bss_8d0e]             ; 0x730e
-    call ds_loc_3b96                 ; 0x7312
+    call thunk_13                    ; 0x7312
     add sp, byte 6                   ; 0x7315
     cmp word [bss_830a], byte 0x0a   ; 0x7318
     je short @..api_idx_0006_6.l2    ; 0x731d
@@ -70,7 +70,7 @@ api_idx_0006_6:
     cmp ax, 0xff                     ; 0x7362
     je short @..api_idx_0006_6.l5    ; 0x7365
     push bx                          ; 0x7367
-    call ds_app_1371                 ; 0x7368
+    call ds_app_thunk_26_1371        ; 0x7368
     pop cx                           ; 0x736b
 @..api_idx_0006_6.l5:
     inc word [bp - 0x0002]           ; 0x736c
@@ -107,7 +107,7 @@ api_idx_0006_6:
     push ax                          ; 0x73b7
     push word [bss_9066]             ; 0x73b8
     push word [bss_9064]             ; 0x73bc
-    call ds_loc_3b89                 ; 0x73c0
+    call thunk_12                    ; 0x73c0
     add sp, byte 8                   ; 0x73c3
     mov ax, 0x90dc                   ; 0x73c6
     push ax                          ; 0x73c9
@@ -129,7 +129,7 @@ api_idx_0006_6:
     push ax                          ; 0x73f0
     push word [bss_9062]             ; 0x73f1
     push word [bss_9060]             ; 0x73f5
-    call ds_loc_3b89                 ; 0x73f9
+    call thunk_12                    ; 0x73f9
     add sp, byte 8                   ; 0x73fc
     ret                              ; 0x73ff
 loc_7400:

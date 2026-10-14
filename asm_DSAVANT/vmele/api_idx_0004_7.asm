@@ -4,7 +4,7 @@ api_idx_0004_7:
     call aztec_csav                  ; 0x2ec7
     mov ax, 1                        ; 0x2eca
     push ax                          ; 0x2ecd
-    call ds_loc_415b                 ; 0x2ece
+    call thunk_17                    ; 0x2ece
     pop cx                           ; 0x2ed1
     mov ax, 0                        ; 0x2ed2
     push ax                          ; 0x2ed5
@@ -12,7 +12,7 @@ api_idx_0004_7:
     push ax                          ; 0x2ed9
     push word [bss_9066]             ; 0x2eda
     push word [bss_9064]             ; 0x2ede
-    call ds_loc_3b89                 ; 0x2ee2
+    call thunk_12                    ; 0x2ee2
     add sp, byte 8                   ; 0x2ee5
     mov ax, 0x90a4                   ; 0x2ee8
     push ax                          ; 0x2eeb
@@ -34,15 +34,15 @@ api_idx_0004_7:
     push ax                          ; 0x2f12
     push word [bss_9062]             ; 0x2f13
     push word [bss_9060]             ; 0x2f17
-    call ds_loc_3b89                 ; 0x2f1b
+    call thunk_12                    ; 0x2f1b
     add sp, byte 8                   ; 0x2f1e
     mov ax, 0xc                      ; 0x2f21
     push ax                          ; 0x2f24
-    call ds_app_1371                 ; 0x2f25
+    call ds_app_thunk_26_1371        ; 0x2f25
     pop cx                           ; 0x2f28
     mov ax, 7                        ; 0x2f29
     push ax                          ; 0x2f2c
-    call ds_app_1371                 ; 0x2f2d
+    call ds_app_thunk_26_1371        ; 0x2f2d
     pop cx                           ; 0x2f30
     mov ax, 5                        ; 0x2f31
     push ax                          ; 0x2f34
@@ -82,23 +82,23 @@ api_idx_0004_7:
     pop cx                           ; 0x2f7d
     mov ax, 1                        ; 0x2f7e
     push ax                          ; 0x2f81
-    call ds_app_1371                 ; 0x2f82
+    call ds_app_thunk_26_1371        ; 0x2f82
     pop cx                           ; 0x2f85
     mov ax, 2                        ; 0x2f86
     push ax                          ; 0x2f89
-    call ds_app_1371                 ; 0x2f8a
+    call ds_app_thunk_26_1371        ; 0x2f8a
     pop cx                           ; 0x2f8d
     mov ax, 1                        ; 0x2f8e
     push ax                          ; 0x2f91
     push word [bss_8d0c]             ; 0x2f92
     push word [bss_8d0a]             ; 0x2f96
-    call ds_loc_3b96                 ; 0x2f9a
+    call thunk_13                    ; 0x2f9a
     add sp, byte 6                   ; 0x2f9d
     mov ax, 1                        ; 0x2fa0
     push ax                          ; 0x2fa3
     push word [bss_8d10]             ; 0x2fa4
     push word [bss_8d0e]             ; 0x2fa8
-    call ds_loc_3b96                 ; 0x2fac
+    call thunk_13                    ; 0x2fac
     add sp, byte 6                   ; 0x2faf
     cmp word [bss_905e], byte 0x17   ; 0x2fb2
     jne short @..api_idx_0004_7.l2   ; 0x2fb7
@@ -151,7 +151,7 @@ api_idx_0004_7:
     cmp ax, 0xff                     ; 0x302a
     je short @..api_idx_0004_7.l6    ; 0x302d
     push bx                          ; 0x302f
-    call ds_app_1371                 ; 0x3030
+    call ds_app_thunk_26_1371        ; 0x3030
     pop cx                           ; 0x3033
 @..api_idx_0004_7.l6:
     inc word [bp - 0x0004]           ; 0x3034

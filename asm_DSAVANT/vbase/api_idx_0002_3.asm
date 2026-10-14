@@ -22,13 +22,13 @@ api_idx_0002_3:
     push ax                          ; 0x6789
     mov ax, 0x48                     ; 0x678a
     push ax                          ; 0x678d
-    call ds_loc_3b48                 ; 0x678e
+    call thunk_7                     ; 0x678e
     add sp, byte 0x0a                ; 0x6791
     mov ax, 0                        ; 0x6794
     push ax                          ; 0x6797
     push word [bss_8d08]             ; 0x6798
     push word [bss_8d06]             ; 0x679c
-    call ds_loc_3b96                 ; 0x67a0
+    call thunk_13                    ; 0x67a0
     add sp, byte 6                   ; 0x67a3
     mov word [bp - 0x0002], 0        ; 0x67a6
 @..api_idx_0002_3.l2:
@@ -40,7 +40,7 @@ api_idx_0002_3:
     mov bx, ax                       ; 0x67b6
     push word [bx + 0x69a6]          ; 0x67b8
     push word [bx + 0x69a4]          ; 0x67bc
-    call ds_loc_3b96                 ; 0x67c0
+    call thunk_13                    ; 0x67c0
     add sp, byte 6                   ; 0x67c3
     inc word [bp - 0x0002]           ; 0x67c6
     mov ax, word [bp - 0x0002]       ; 0x67c9
@@ -59,7 +59,7 @@ api_idx_0002_3:
     mov ax, 0                        ; 0x67e8
     push ax                          ; 0x67eb
     push ax                          ; 0x67ec
-    call ds_loc_3b21                 ; 0x67ed
+    call thunk_4                     ; 0x67ed
     add sp, byte 8                   ; 0x67f0
     mov word [bss_69c8], 0           ; 0x67f3
     mov word [bss_830a], 4           ; 0x67f9

@@ -69,7 +69,7 @@ loc_23d0:
     push ax                          ; 0x241f
     mov ax, 0x12e                    ; 0x2420
     push ax                          ; 0x2423
-    call ds_loc_432b                 ; 0x2424
+    call thunk_46                    ; 0x2424
     add sp, byte 6                   ; 0x2427
     mov ax, 3                        ; 0x242a
     push ax                          ; 0x242d
@@ -97,7 +97,7 @@ loc_243b:
     push ax                          ; 0x2458
     mov ax, 0x12e                    ; 0x2459
     push ax                          ; 0x245c
-    call ds_loc_4338                 ; 0x245d
+    call thunk_47                    ; 0x245d
     add sp, byte 6                   ; 0x2460
     mov ax, 0                        ; 0x2463
     mov dx, 0                        ; 0x2466

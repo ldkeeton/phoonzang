@@ -55,7 +55,7 @@ api_idx_0040:
     push ax                          ; 0x53c4
     mov ax, 0x36                     ; 0x53c5
     push ax                          ; 0x53c8
-    call ds_loc_3b21                 ; 0x53c9
+    call thunk_4                     ; 0x53c9
     add sp, byte 8                   ; 0x53cc
 @..api_idx_0040.l3:
     call ds_app_io_20f8              ; 0x53cf
@@ -183,6 +183,6 @@ api_idx_0040:
     push ax                          ; 0x5502
     mov ax, 0x36                     ; 0x5503
     push ax                          ; 0x5506
-    call ds_loc_3b21                 ; 0x5507
+    call thunk_4                     ; 0x5507
     add sp, byte 8                   ; 0x550a
     ret                              ; 0x550d

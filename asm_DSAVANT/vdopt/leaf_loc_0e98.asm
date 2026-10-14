@@ -93,6 +93,6 @@ loc_0f52:
     inc ax                           ; 0x0f75
     inc ax                           ; 0x0f76
     push ax                          ; 0x0f77
-    call ds_loc_3b3b                 ; 0x0f78
+    call thunk_6                     ; 0x0f78
     add sp, byte 6                   ; 0x0f7b
     ret                              ; 0x0f7e

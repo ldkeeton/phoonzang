@@ -10,7 +10,7 @@ api_idx_0004_5:
     push ax                          ; 0x3299
     mov ax, 0                        ; 0x329a
     push ax                          ; 0x329d
-    call ds_loc_3b6f                 ; 0x329e
+    call thunk_10                    ; 0x329e
     add sp, byte 8                   ; 0x32a1
     mov word [bp - 0x0002], dx       ; 0x32a4
     mov word [bp - 0x0004], ax       ; 0x32a7
@@ -28,13 +28,13 @@ api_idx_0004_5:
     mov ax, 0xa0                     ; 0x32c2
     sub ax, cx                       ; 0x32c5
     push ax                          ; 0x32c7
-    call ds_loc_3a50                 ; 0x32c8
+    call thunk                       ; 0x32c8
     add sp, byte 4                   ; 0x32cb
     mov ax, 0                        ; 0x32ce
     push ax                          ; 0x32d1
     mov ax, 0x55                     ; 0x32d2
     push ax                          ; 0x32d5
-    call ds_loc_3a6a                 ; 0x32d6
+    call thunk_3                     ; 0x32d6
     add sp, byte 4                   ; 0x32d9
     mov ax, 0                        ; 0x32dc
     push ax                          ; 0x32df
@@ -49,7 +49,7 @@ api_idx_0004_5:
     push ax                          ; 0x32f4
     mov ax, 0                        ; 0x32f5
     push ax                          ; 0x32f8
-    call ds_loc_3b21                 ; 0x32f9
+    call thunk_4                     ; 0x32f9
     add sp, byte 8                   ; 0x32fc
     cmp word [bp + 0x6], byte 0      ; 0x32ff
     jle short @..api_idx_0004_5.l1   ; 0x3303
@@ -65,7 +65,7 @@ api_idx_0004_5:
     push ax                          ; 0x3318
     push word [bp - 0x0002]          ; 0x3319
     push word [bp - 0x0004]          ; 0x331c
-    call ds_loc_3b96                 ; 0x331f
+    call thunk_13                    ; 0x331f
     add sp, byte 6                   ; 0x3322
     mov ax, 0xc2                     ; 0x3325
     push ax                          ; 0x3328
@@ -75,6 +75,6 @@ api_idx_0004_5:
     push ax                          ; 0x3330
     mov ax, 0                        ; 0x3331
     push ax                          ; 0x3334
-    call ds_loc_3b21                 ; 0x3335
+    call thunk_4                     ; 0x3335
     add sp, byte 8                   ; 0x3338
     ret                              ; 0x333b

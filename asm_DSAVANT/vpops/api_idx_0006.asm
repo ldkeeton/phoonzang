@@ -147,7 +147,7 @@ loc_02af:
     push ax                          ; 0x02c6
     mov ax, 0x73                     ; 0x02c7
     push ax                          ; 0x02ca
-    call ds_loc_3b21                 ; 0x02cb
+    call thunk_4                     ; 0x02cb
     add sp, byte 8                   ; 0x02ce
     mov ax, 0xc2                     ; 0x02d1
     push ax                          ; 0x02d4
@@ -157,7 +157,7 @@ loc_02af:
     push ax                          ; 0x02dc
     mov ax, 8                        ; 0x02dd
     push ax                          ; 0x02e0
-    call ds_loc_3b21                 ; 0x02e1
+    call thunk_4                     ; 0x02e1
     add sp, byte 8                   ; 0x02e4
     mov ax, 0xc2                     ; 0x02e7
     push ax                          ; 0x02ea
@@ -167,7 +167,7 @@ loc_02af:
     push ax                          ; 0x02f2
     mov ax, 0xe7                     ; 0x02f3
     push ax                          ; 0x02f6
-    call ds_loc_3b21                 ; 0x02f7
+    call thunk_4                     ; 0x02f7
     add sp, byte 8                   ; 0x02fa
     jmp short @..loc_02af.l7         ; 0x02fd
 @..loc_02af.l2:
@@ -179,7 +179,7 @@ loc_02af:
     push ax                          ; 0x030a
     mov ax, 0x62                     ; 0x030b
     push ax                          ; 0x030e
-    call ds_loc_3b21                 ; 0x030f
+    call thunk_4                     ; 0x030f
     add sp, byte 8                   ; 0x0312
     jmp short @..loc_02af.l7         ; 0x0315
 @..loc_02af.l3:
@@ -191,7 +191,7 @@ loc_02af:
     push ax                          ; 0x0322
     mov ax, 0x73                     ; 0x0323
     push ax                          ; 0x0326
-    call ds_loc_3b21                 ; 0x0327
+    call thunk_4                     ; 0x0327
     add sp, byte 8                   ; 0x032a
     jmp short @..loc_02af.l7         ; 0x032d
 @..loc_02af.l4:
@@ -203,7 +203,7 @@ loc_02af:
     push ax                          ; 0x033a
     mov ax, 8                        ; 0x033b
     push ax                          ; 0x033e
-    call ds_loc_3b21                 ; 0x033f
+    call thunk_4                     ; 0x033f
     add sp, byte 8                   ; 0x0342
     jmp short @..loc_02af.l7         ; 0x0345
 @..loc_02af.l5:

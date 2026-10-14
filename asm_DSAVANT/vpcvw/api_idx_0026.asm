@@ -108,7 +108,7 @@ api_idx_0026:
     push ax                          ; 0x8b6a
     mov ax, 0x9b                     ; 0x8b6b
     push ax                          ; 0x8b6e
-    call ds_loc_3a6a                 ; 0x8b6f
+    call thunk_3                     ; 0x8b6f
     add sp, byte 4                   ; 0x8b72
     mov ax, word [bp - 0x0004]       ; 0x8b75
     add ax, strict word 0x16         ; 0x8b78
@@ -130,7 +130,7 @@ api_idx_0026:
     add ax, word [bp - 0x0002]       ; 0x8b98
     add ax, strict word 0x5d         ; 0x8b9b
     push ax                          ; 0x8b9e
-    call ds_loc_3a50                 ; 0x8b9f
+    call thunk                       ; 0x8b9f
     add sp, byte 4                   ; 0x8ba2
     mov ax, 0                        ; 0x8ba5
     push ax                          ; 0x8ba8
@@ -263,7 +263,7 @@ api_idx_0026:
     mov ax, word [bp - 0x0002]       ; 0x8cbf
     dec ax                           ; 0x8cc2
     push ax                          ; 0x8cc3
-    call ds_loc_3b21                 ; 0x8cc4
+    call thunk_4                     ; 0x8cc4
     add sp, byte 8                   ; 0x8cc7
     call bios_kbd_check              ; 0x8cca
     mov ax, 0                        ; 0x8ccd
@@ -319,7 +319,7 @@ api_idx_0026:
     mov ax, word [bp - 0x0002]       ; 0x8d3f
     add ax, strict word 0x5d         ; 0x8d42
     push ax                          ; 0x8d45
-    call ds_loc_3b21                 ; 0x8d46
+    call thunk_4                     ; 0x8d46
     add sp, byte 8                   ; 0x8d49
     mov word [bp - 0x0010], 1        ; 0x8d4c
 @..api_idx_0026.l1:
@@ -365,7 +365,7 @@ api_idx_0026:
     mov ax, word [bp - 0x0002]       ; 0x8da7
     add ax, strict word 0x5d         ; 0x8daa
     push ax                          ; 0x8dad
-    call ds_loc_3b21                 ; 0x8dae
+    call thunk_4                     ; 0x8dae
     add sp, byte 8                   ; 0x8db1
     mov ax, 0                        ; 0x8db4
     push ax                          ; 0x8db7
@@ -420,7 +420,7 @@ api_idx_0026:
     mov ax, word [bp - 0x0002]       ; 0x8e26
     add ax, strict word 0x5d         ; 0x8e29
     push ax                          ; 0x8e2c
-    call ds_loc_3b21                 ; 0x8e2d
+    call thunk_4                     ; 0x8e2d
     add sp, byte 8                   ; 0x8e30
     jmp near @..api_idx_0026.l14     ; 0x8e33
 @..api_idx_0026.l4:

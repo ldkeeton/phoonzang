@@ -4,7 +4,7 @@ api_idx_0008_4:
     call aztec_csav                  ; 0x88b9
     push word [bp + 0xe]             ; 0x88bc
     push word [bp + 0xc]             ; 0x88bf
-    call ds_loc_3a6a                 ; 0x88c2
+    call thunk_3                     ; 0x88c2
     add sp, byte 4                   ; 0x88c5
     push word [bp + 0x4]             ; 0x88c8
     call aztec_strlen                ; 0x88cb
@@ -36,13 +36,13 @@ api_idx_0008_4:
     push ax                          ; 0x8909
     push word [bp + 0x8]             ; 0x890a
     push word [bp + 0x6]             ; 0x890d
-    call ds_loc_3b48                 ; 0x8910
+    call thunk_7                     ; 0x8910
     add sp, byte 0x0a                ; 0x8913
     cmp word [bp - 0x0006], byte 0   ; 0x8916
     je short @..api_idx_0008_4.l4    ; 0x891a
     push word [bp + 0x8]             ; 0x891c
     push word [bp + 0x6]             ; 0x891f
-    call ds_loc_3a50                 ; 0x8922
+    call thunk                       ; 0x8922
     add sp, byte 4                   ; 0x8925
     mov ax, 0                        ; 0x8928
     push ax                          ; 0x892b
@@ -59,7 +59,7 @@ api_idx_0008_4:
     push ax                          ; 0x8943
     push word [bp + 0x8]             ; 0x8944
     push word [bp + 0x6]             ; 0x8947
-    call ds_loc_3b21                 ; 0x894a
+    call thunk_4                     ; 0x894a
     add sp, byte 8                   ; 0x894d
     mov ax, word [bp - 0x0006]       ; 0x8950
     inc ax                           ; 0x8953
@@ -93,7 +93,7 @@ api_idx_0008_4:
     push ax                          ; 0x898f
     push word [bp + 0x8]             ; 0x8990
     push word [bp + 0x6]             ; 0x8993
-    call ds_loc_3b48                 ; 0x8996
+    call thunk_7                     ; 0x8996
     add sp, byte 0x0a                ; 0x8999
     mov ax, word [bp + 0x8]          ; 0x899c
     add ax, strict word 5            ; 0x899f
@@ -103,7 +103,7 @@ api_idx_0008_4:
     push ax                          ; 0x89a9
     push word [bp + 0x8]             ; 0x89aa
     push word [bp + 0x6]             ; 0x89ad
-    call ds_loc_3b21                 ; 0x89b0
+    call thunk_4                     ; 0x89b0
     add sp, byte 8                   ; 0x89b3
     cmp word [bp - 0x0002], byte 0x0d ; 0x89b6
     jne short @..api_idx_0008_4.l8   ; 0x89ba
@@ -160,7 +160,7 @@ api_idx_0008_4:
     inc word [bp - 0x0004]           ; 0x8a2d
     push word [bp + 0x8]             ; 0x8a30
     push word [bp + 0x6]             ; 0x8a33
-    call ds_loc_3a50                 ; 0x8a36
+    call thunk                       ; 0x8a36
     add sp, byte 4                   ; 0x8a39
     mov ax, 0                        ; 0x8a3c
     push ax                          ; 0x8a3f
@@ -177,7 +177,7 @@ api_idx_0008_4:
     push ax                          ; 0x8a59
     push word [bp + 0x8]             ; 0x8a5a
     push word [bp + 0x6]             ; 0x8a5d
-    call ds_loc_3b21                 ; 0x8a60
+    call thunk_4                     ; 0x8a60
     add sp, byte 8                   ; 0x8a63
     add word [bp + 0x6], byte 6      ; 0x8a66
 @..api_idx_0008_4.l15:

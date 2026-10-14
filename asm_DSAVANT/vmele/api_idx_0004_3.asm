@@ -30,7 +30,7 @@ api_idx_0004_3:
     cmp ax, 0xff                     ; 0x0403
     je short @..api_idx_0004_3.l4    ; 0x0406
     push bx                          ; 0x0408
-    call ds_app_1371                 ; 0x0409
+    call ds_app_thunk_26_1371        ; 0x0409
     pop cx                           ; 0x040c
 @..api_idx_0004_3.l4:
     push word [bp - 0x0004]          ; 0x040d

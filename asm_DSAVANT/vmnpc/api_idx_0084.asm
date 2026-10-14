@@ -23,7 +23,7 @@ api_idx_0084:
     lea cx, word [bp - 0x0050]       ; 0x8caa
     add ax, cx                       ; 0x8cad
     push ax                          ; 0x8caf
-    call strlen                      ; 0x8cb0
+    call strpos                      ; 0x8cb0
     add sp, byte 4                   ; 0x8cb3
     mov word [bp - 0x0052], ax       ; 0x8cb6
     cmp ax, strict word 0xffff       ; 0x8cb9
