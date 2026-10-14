@@ -22,16 +22,36 @@ _TOKEN = re.compile(
     r'[A-Za-z_][A-Za-z0-9_]*', re.S)
 
 
+_ASM_BLOCK = re.compile(r'^[ \t]*#asm\b.*?^[ \t]*#endasm\b', re.S | re.M)
+_ASM_IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_]*')
+
+
 def rewrite_identifiers(text, mapping):
     """Return *text* with every identifier in *mapping* renamed.
 
     Comments and literals are left alone; ``#include "x.h"`` is a literal.
+    Inside ``#asm`` blocks a C name appears with the compiler's trailing ``_``
+    (``ovname_``), so that spelling is renamed to ``<new>_``.
     """
     def sub(match):
         token = match.group(0)
         return mapping.get(token, token) if token[0].isalpha() or \
             token[0] == '_' else token
-    return _TOKEN.sub(sub, text)
+
+    def asm_sub(match):
+        token = match.group(0)
+        if token.endswith('_') and token[:-1] in mapping:
+            return mapping[token[:-1]] + '_'
+        return token
+
+    out = []
+    pos = 0
+    for block in _ASM_BLOCK.finditer(text):
+        out.append(_TOKEN.sub(sub, text[pos:block.start()]))
+        out.append(_ASM_IDENT.sub(asm_sub, block.group(0)))
+        pos = block.end()
+    out.append(_TOKEN.sub(sub, text[pos:]))
+    return ''.join(out)
 
 
 def learn_names(label, start, func, original, index, names_at, image_base=0):

@@ -21,6 +21,21 @@ class DefinitionNameTest(unittest.TestCase):
                          sources.definition_files('v340a', 'putc'))
 
 
+    def test_asm_block_routine_is_defined_by_its_c_file(self):
+        self.assertIn('ovloader.c',
+                      sources.definition_files('v340a', 'ovloader_'))
+
+
+class AsmBlockRenameTest(unittest.TestCase):
+    def test_asm_spelling_of_a_renamed_c_name_follows_it(self):
+        from lib.aztec import relabel
+        text = 'static char *ovname;\n#asm\n\tmov ovname_,ax\n#endasm\nf(){ovname=0;}\n'
+        out = relabel.rewrite_identifiers(text, {'ovname': 'bss_0cfa'})
+        self.assertIn('mov bss_0cfa_,ax', out)
+        self.assertIn('static char *bss_0cfa;', out)
+        self.assertIn('bss_0cfa=0', out)
+
+
 class FillerWindowTest(unittest.TestCase):
     def test_epilogue_is_filler(self):
         self.assertTrue(pattern._is_filler_window(EPILOGUE))

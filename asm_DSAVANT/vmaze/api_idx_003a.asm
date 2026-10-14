@@ -173,7 +173,7 @@ loc_9658:
     cbw                              ; 0x9693
     add ax, word [bp + 0x8]          ; 0x9694
     push ax                          ; 0x9697
-    call ds_app_0a09                 ; 0x9698
+    call clamp                       ; 0x9698
     add sp, byte 6                   ; 0x969b
     push ax                          ; 0x969e
     mov ax, 0x26                     ; 0x969f

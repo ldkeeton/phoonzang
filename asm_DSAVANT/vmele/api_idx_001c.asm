@@ -101,7 +101,7 @@ api_idx_001c:
     mov ax, word [bp - 0x000c]       ; 0x2656
     sub ax, cx                       ; 0x2659
     push ax                          ; 0x265b
-    call ds_app_0a09                 ; 0x265c
+    call clamp                       ; 0x265c
     add sp, byte 6                   ; 0x265f
     mov word [bp - 0x000c], ax       ; 0x2662
 @..api_idx_001c.l8:
@@ -139,7 +139,7 @@ api_idx_001c:
     pop ax                           ; 0x26a9
     add ax, cx                       ; 0x26aa
     push ax                          ; 0x26ac
-    call ds_app_0a09                 ; 0x26ad
+    call clamp                       ; 0x26ad
     add sp, byte 6                   ; 0x26b0
     mov word [bp - 0x000e], ax       ; 0x26b3
     mov ax, 0x15e                    ; 0x26b6
@@ -218,7 +218,7 @@ api_idx_001c:
     mov ax, word [bp - 0x000e]       ; 0x2766
     add ax, word [bp + 0x8]          ; 0x2769
     push ax                          ; 0x276c
-    call ds_app_0a09                 ; 0x276d
+    call clamp                       ; 0x276d
     add sp, byte 6                   ; 0x2770
     mov word [bp - 0x000e], ax       ; 0x2773
     mov ax, 0x3d                     ; 0x2776

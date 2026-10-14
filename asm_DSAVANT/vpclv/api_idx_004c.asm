@@ -267,7 +267,7 @@ loc_2a32:
     sub ah, ah                       ; 0x2a5b
     add ax, word [bp + 0xa]          ; 0x2a5d
     push ax                          ; 0x2a60
-    call ds_app_0a09                 ; 0x2a61
+    call clamp                       ; 0x2a61
     add sp, byte 6                   ; 0x2a64
     push ax                          ; 0x2a67
     mov ax, 0x248                    ; 0x2a68

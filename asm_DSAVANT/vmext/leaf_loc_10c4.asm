@@ -57,7 +57,7 @@ loc_1143:
     mov ax, word [bx + 0x5c10]       ; 0x1153
     sub ax, word [bp - 0x000e]       ; 0x1157
     push ax                          ; 0x115a
-    call ds_app_0a09                 ; 0x115b
+    call clamp                       ; 0x115b
     add sp, byte 6                   ; 0x115e
     push ax                          ; 0x1161
     mov ax, 0x248                    ; 0x1162

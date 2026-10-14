@@ -59,7 +59,7 @@ loc_65c5:
     idiv cx                          ; 0x6611
     add ax, word [bp - 0x0002]       ; 0x6613
     push ax                          ; 0x6616
-    call ds_app_0a09                 ; 0x6617
+    call clamp                       ; 0x6617
     add sp, byte 6                   ; 0x661a
     mov word [bp - 0x0002], ax       ; 0x661d
     mov ax, 0x64                     ; 0x6620

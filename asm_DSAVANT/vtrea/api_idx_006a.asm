@@ -363,7 +363,7 @@ api_idx_006a:
     mov ax, 2                        ; 0x634f
     push ax                          ; 0x6352
     push word [bp - 0x001a]          ; 0x6353
-    call ds_app_0a09                 ; 0x6356
+    call clamp                       ; 0x6356
     add sp, byte 6                   ; 0x6359
     mov word [bp - 0x001a], ax       ; 0x635c
     mov ax, word [bp + 0xa]          ; 0x635f

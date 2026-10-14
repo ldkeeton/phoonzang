@@ -40,7 +40,7 @@ string_loc_119c:
     mov ax, word [bx + 0x5c1c]       ; 0x11f3
     sub ax, cx                       ; 0x11f7
     push ax                          ; 0x11f9
-    call ds_app_0a09                 ; 0x11fa
+    call clamp                       ; 0x11fa
     add sp, byte 6                   ; 0x11fd
     push ax                          ; 0x1200
     mov ax, 0x248                    ; 0x1201
@@ -70,7 +70,7 @@ loc_122a:
     mov ax, word [bx + 0x5c0c]       ; 0x123a
     sub ax, word [bp - 0x000e]       ; 0x123e
     push ax                          ; 0x1241
-    call ds_app_0a09                 ; 0x1242
+    call clamp                       ; 0x1242
     add sp, byte 6                   ; 0x1245
     push ax                          ; 0x1248
     mov ax, 0x248                    ; 0x1249

@@ -32,7 +32,7 @@ loc_33df:
     mov ax, 0                        ; 0x33ef
     push ax                          ; 0x33f2
     push word [bss_8456]             ; 0x33f3
-    call ds_app_0a09                 ; 0x33f7
+    call clamp                       ; 0x33f7
     add sp, byte 6                   ; 0x33fa
     mov word [bss_8454], ax          ; 0x33fd
     mov word [bss_8458], 0           ; 0x3400

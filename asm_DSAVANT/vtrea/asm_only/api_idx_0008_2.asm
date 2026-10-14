@@ -201,7 +201,7 @@ api_idx_0008_2:
     pop ax                           ; 0x4558
     add ax, word [bx + 0x5c10]       ; 0x4559
     push ax                          ; 0x455d
-    call ds_app_0a09                 ; 0x455e
+    call clamp                       ; 0x455e
     add sp, byte 6                   ; 0x4561
     push ax                          ; 0x4564
     mov ax, 0x248                    ; 0x4565

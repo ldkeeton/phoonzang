@@ -120,7 +120,7 @@ api_idx_000e:
     add ax, cx                       ; 0x1746
     add ax, strict word 5            ; 0x1748
     push ax                          ; 0x174b
-    call ds_app_0a09                 ; 0x174c
+    call clamp                       ; 0x174c
     add sp, byte 6                   ; 0x174f
     push ax                          ; 0x1752
     mov ax, 0x248                    ; 0x1753

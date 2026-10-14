@@ -363,7 +363,7 @@ api_idx_0018:
     je short @..api_idx_0018.l37     ; 0x2014
     push word [bss_844c]             ; 0x2016
     push word [bss_844e]             ; 0x201a
-    call ds_app_2b62                 ; 0x201e
+    call animate_sprite_up           ; 0x201e
     add sp, byte 4                   ; 0x2021
     mov ax, 0                        ; 0x2024
     push ax                          ; 0x2027

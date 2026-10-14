@@ -72,7 +72,7 @@ from lib.compare.records import (
     _count_bare_addrs,
     count_frozen_addrs,
 )
-from lib.compare.render import _build_source
+from lib.compare.render import _build_source, image_geometry
 from lib.compare.splitting import (
     _select_split_ranges,
     _extend_split_ranges_with_local_tails,
@@ -849,6 +849,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ,
             image_base=start_offset, allow_diff=allow_diff,
+            geometry=image_geometry(
+                records, binary_data, start_offset,
+                getattr(segments, 'ds_size', None)),
         )
 
     _annotate_interrupts(records)

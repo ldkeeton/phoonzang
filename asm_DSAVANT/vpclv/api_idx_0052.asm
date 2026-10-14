@@ -489,7 +489,7 @@ jumptable_2ebe:
     sub ah, ah                       ; 0x305f
     add ax, word [bp - 0x0008]       ; 0x3061
     push ax                          ; 0x3064
-    call ds_app_0a09                 ; 0x3065
+    call clamp                       ; 0x3065
     add sp, byte 6                   ; 0x3068
     push ax                          ; 0x306b
     mov ax, 0x248                    ; 0x306c

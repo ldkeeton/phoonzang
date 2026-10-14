@@ -97,7 +97,8 @@ def _dosbox_lock():
 
 
 class AztecCompileError(RuntimeError):
-    pass
+    #: The compiler's own output (``CC.LOG``), untruncated, when it ran.
+    cc_log = ''
 
 
 class Func:
@@ -154,6 +155,7 @@ class CompiledModule:
     def __init__(self):
         self.functions = {}
         self.log = ''
+        self.cc_log = ''
         # Assembler listing (``as -l``) of a hand-written module, else ''.
         self.listing = ''
 
@@ -257,13 +259,16 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
         obd_path = os.path.join(work, 'OBD.TXT')
         cc_log = _read(os.path.join(work, 'CC.LOG'))
         if not os.path.exists(obj_path):
-            raise AztecCompileError(
+            err = AztecCompileError(
                 f'compiler produced no object for {module}:\n{cc_log[-2000:]}')
+            err.cc_log = cc_log
+            raise err
 
         dump = attach_locals(parse_obd(_read(obd_path)), _read_bytes(obj_path))
         result = _build_module(module, omf_path, dump)
         result.listing = _read(os.path.join(work, f'{module}.LST'))
         result.log = log + cc_log
+        result.cc_log = cc_log
         if keep:
             result._work = work
             work = None

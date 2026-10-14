@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Aztec-Manx-DOSBox",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/asm/dos_compilers/Manx Aztec C86 v340a/INCLUDE"
+            ],
+            "defines": [
+                "_DOS",
+                "__MSDOS__",
+                "AZTEC_C"
+            ],
+            "compilerPath": "",
+            "intelliSenseMode": "windows-gcc-x86",
+            "cStandard": "c89"
+        }
+    ],
+    "version": 4
+}

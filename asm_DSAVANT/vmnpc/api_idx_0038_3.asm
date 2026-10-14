@@ -238,7 +238,7 @@ api_idx_0038_3:
     cwd                              ; 0x4a17
     idiv cx                          ; 0x4a18
     push ax                          ; 0x4a1a
-    call ds_app_0a09                 ; 0x4a1b
+    call clamp                       ; 0x4a1b
     add sp, byte 6                   ; 0x4a1e
     mov word [bp - 0x0010], ax       ; 0x4a21
 @..api_idx_0038_3.l4:
@@ -482,7 +482,7 @@ loc_4c2e:
     add cx, byte 0x0e                ; 0x4c4d
     sub ax, cx                       ; 0x4c50
     push ax                          ; 0x4c52
-    call ds_app_0a09                 ; 0x4c53
+    call clamp                       ; 0x4c53
     add sp, byte 6                   ; 0x4c56
     mov word [bp - 0x0014], ax       ; 0x4c59
 @..api_idx_0038_3.l11:
@@ -502,7 +502,7 @@ loc_4c2e:
     sub ax, cx                       ; 0x4c7d
     sub ax, word [bp - 0x0014]       ; 0x4c7f
     push ax                          ; 0x4c82
-    call ds_app_0a09                 ; 0x4c83
+    call clamp                       ; 0x4c83
     add sp, byte 6                   ; 0x4c86
     mov word [bp - 0x0010], ax       ; 0x4c89
     cmp word [bp + 0xc], byte 3      ; 0x4c8c
@@ -670,7 +670,7 @@ loc_4d68:
     cwd                              ; 0x4dfa
     idiv cx                          ; 0x4dfb
     push ax                          ; 0x4dfd
-    call ds_app_0a09                 ; 0x4dfe
+    call clamp                       ; 0x4dfe
     add sp, byte 6                   ; 0x4e01
     mov word [bp - 0x0010], ax       ; 0x4e04
 @..api_idx_0038_3.l17:

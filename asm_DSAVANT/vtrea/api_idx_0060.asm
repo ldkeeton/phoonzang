@@ -386,7 +386,7 @@ api_idx_0060:
     sub ax, cx                       ; 0x239f
     add ax, word [bp - 0x0006]       ; 0x23a1
     push ax                          ; 0x23a4
-    call ds_app_0a09                 ; 0x23a5
+    call clamp                       ; 0x23a5
     add sp, byte 6                   ; 0x23a8
     mov word [bp - 0x0060], ax       ; 0x23ab
     mov word [bp - 0x0004], 0        ; 0x23ae

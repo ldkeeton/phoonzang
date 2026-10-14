@@ -151,7 +151,7 @@ loc_000e:
     je short @..api_idx_000c_3.l7    ; 0x537d
     push word [bss_844c]             ; 0x537f
     push word [bss_844e]             ; 0x5383
-    call ds_app_2b62                 ; 0x5387
+    call animate_sprite_up           ; 0x5387
     add sp, byte 4                   ; 0x538a
     mov ax, 0                        ; 0x538d
     push ax                          ; 0x5390

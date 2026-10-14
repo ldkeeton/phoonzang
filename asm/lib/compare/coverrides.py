@@ -190,7 +190,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        local_labels, foreign_label_map, immediate_labels,
                        exact_bytes=False, data_labels=None,
                        mem_symbols=None, mem_equ=None, image_base=None,
-                       allow_diff=False):
+                       allow_diff=False, geometry=None):
     """Replace disassembled records with code compiled from C.
 
     ``c_overrides`` maps a function label to ``{'code': bytes,
@@ -212,9 +212,13 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         linked = None
         if override.get('func') is not None:
             if sym_index is None:
+                # ``geometry`` (``__zres_end``, ``__zdseg_end``) are the
+                # image-size symbols the renderer defines; a C external such
+                # as ``_Cend``/``_Uend`` names them.
+                sym_equ = {**(mem_equ or {}), **(geometry or {})}
                 sym_index = relink.SymbolIndex(label_map, foreign_label_map,
-                                               data_labels, mem_equ)
-                names_at = relabel.data_names(data_labels, mem_equ)
+                                               data_labels, sym_equ)
+                names_at = relabel.data_names(data_labels, sym_equ)
             linked = _link_override(label, start, override, records,
                                     binary_data, sym_index, names_at,
                                     image_base)

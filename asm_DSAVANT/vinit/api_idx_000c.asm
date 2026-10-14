@@ -105,7 +105,7 @@ loc_0211:
     sub ah, ah                       ; 0x0239
     add ax, word [bp + 0x4]          ; 0x023b
     push ax                          ; 0x023e
-    call ds_app_0a09                 ; 0x023f
+    call clamp                       ; 0x023f
     add sp, byte 6                   ; 0x0242
     push ax                          ; 0x0245
     mov ax, 3                        ; 0x0246
@@ -133,7 +133,7 @@ loc_0211:
     sub ah, ah                       ; 0x027b
     add ax, word [bp - 0x0006]       ; 0x027d
     push ax                          ; 0x0280
-    call ds_app_0a09                 ; 0x0281
+    call clamp                       ; 0x0281
     add sp, byte 6                   ; 0x0284
     push ax                          ; 0x0287
     mov ax, 3                        ; 0x0288
@@ -171,7 +171,7 @@ loc_0211:
     sub ah, ah                       ; 0x02d7
     sub ax, word [bp - 0x0006]       ; 0x02d9
     push ax                          ; 0x02dc
-    call ds_app_0a09                 ; 0x02dd
+    call clamp                       ; 0x02dd
     add sp, byte 6                   ; 0x02e0
     push ax                          ; 0x02e3
     mov ax, 3                        ; 0x02e4

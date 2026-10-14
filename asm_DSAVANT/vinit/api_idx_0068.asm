@@ -893,7 +893,7 @@ api_idx_0068:
 @..api_idx_0068.l54:
     push word [bss_844c]             ; 0x12ad
     push word [bss_844e]             ; 0x12b1
-    call ds_app_2b62                 ; 0x12b5
+    call animate_sprite_up           ; 0x12b5
     add sp, byte 4                   ; 0x12b8
     mov ax, 0                        ; 0x12bb
     push ax                          ; 0x12be

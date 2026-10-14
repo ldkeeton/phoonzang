@@ -50,7 +50,7 @@ api_idx_0072:
     shl ax, 1                        ; 0x71cb
     mov bx, ax                       ; 0x71cd
     push word [bx - 0x69a2]          ; 0x71cf
-    call ds_app_0a09                 ; 0x71d3
+    call clamp                       ; 0x71d3
     add sp, byte 6                   ; 0x71d6
     mov cx, word [bp - 0x0002]       ; 0x71d9
     shl cx, 1                        ; 0x71dc

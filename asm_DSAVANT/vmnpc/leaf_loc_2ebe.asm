@@ -526,7 +526,7 @@ loc_3368:
     cbw                              ; 0x3383
     add ax, word [bp - 0x003a]       ; 0x3384
     push ax                          ; 0x3387
-    call ds_app_0a09                 ; 0x3388
+    call clamp                       ; 0x3388
     add sp, byte 6                   ; 0x338b
     push ax                          ; 0x338e
     mov al, byte [bss_91c7]          ; 0x338f

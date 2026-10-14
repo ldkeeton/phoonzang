@@ -525,6 +525,25 @@ def mz_data_gap(records, binary_data, start_offset):
     return None
 
 
+def image_geometry(records, binary_data, start_offset, ds_size):
+    """``{symbol: value}`` for the image-size symbols the renderer defines.
+
+    ``__zres_end`` (resident code end, the overlay ``o_corg``) and
+    ``__zdseg_end`` (data-segment size): the values C code sees as
+    ``_Cend``/``_Uend``.  Same conditions as :func:`_build_source`.
+    """
+    gap = mz_data_gap(records, binary_data, start_offset)
+    out = {}
+    if gap is None:
+        return out
+    if gap[3] > 0:
+        out[_RESIDENT_END_SYMBOL] = gap[0] + _virtual_base(
+            binary_data, start_offset)
+    if ds_size is not None:
+        out[_DSSIZE_SYMBOL] = ds_size
+    return out
+
+
 #: The include an overlay pulls the host's labels in through.  The block is the
 #: *host's* frame -- the same for every overlay of it -- so it is emitted once
 #: per tree, as a ``split_sources`` entry, not once per master (plan.md E2).

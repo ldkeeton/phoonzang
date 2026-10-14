@@ -74,7 +74,7 @@ api_idx_0004_9:
     mov ax, 0                        ; 0x3488
     push ax                          ; 0x348b
     push word [bp - 0x0004]          ; 0x348c
-    call ds_app_0a09                 ; 0x348f
+    call clamp                       ; 0x348f
     add sp, byte 6                   ; 0x3492
     mov word [bp - 0x0004], ax       ; 0x3495
     mov ax, word [bp + 0xc]          ; 0x3498

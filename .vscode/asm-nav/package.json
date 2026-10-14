@@ -1,0 +1,48 @@
+{
+    "name": "wiz7-asm-nav",
+    "displayName": "Wiz7 asm navigation",
+    "description": "Navigation, hover, sidecar naming and Manx cc diagnostics for the generated C and NASM trees.",
+    "publisher": "local",
+    "version": "0.0.2",
+    "engines": { "vscode": "^1.60.0" },
+    "activationEvents": ["onStartupFinished"],
+    "main": "./extension.js",
+    "contributes": {
+        "commands": [
+            { "command": "wiz7AsmNav.reindex", "title": "Wiz7: Reindex asm labels" },
+            { "command": "wiz7AsmNav.goToAddress", "title": "Wiz7: Go to address" },
+            { "command": "wiz7AsmNav.nameRoutine", "title": "Wiz7: Name this routine (sidecar)" },
+            { "command": "wiz7AsmNav.diffVendor", "title": "Wiz7: Diff against vendor seed" },
+            { "command": "wiz7AsmNav.check", "title": "Wiz7: Check with Manx cc" }
+        ],
+        "menus": {
+            "editor/context": [
+                { "command": "wiz7AsmNav.nameRoutine", "when": "resourcePath =~ /asm_[^/]+\\//", "group": "wiz7@1" },
+                { "command": "wiz7AsmNav.diffVendor", "when": "resourcePath =~ /asm_[^/]+\\/.*\\.c$/", "group": "wiz7@2" }
+            ]
+        },
+        "keybindings": [
+            { "command": "wiz7AsmNav.goToAddress", "key": "ctrl+alt+g" }
+        ],
+        "configuration": {
+            "title": "Wiz7 asm navigation",
+            "properties": {
+                "wiz7AsmNav.checkOnSave": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Compile a generated .c file with the real Manx cc on save and show its errors and warnings."
+                },
+                "wiz7AsmNav.checkOnOpen": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Also run the Manx cc check when a generated .c file is opened (and for files already open at start-up)."
+                },
+                "wiz7AsmNav.python": {
+                    "type": "string",
+                    "default": "python3",
+                    "description": "Python used to run .vscode/cccheck.py."
+                }
+            }
+        }
+    }
+}

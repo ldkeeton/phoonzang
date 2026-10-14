@@ -19,7 +19,7 @@ api_idx_0002_7:
     sub ah, ah                       ; 0x5030
     add ax, word [bp - 0x0002]       ; 0x5032
     push ax                          ; 0x5035
-    call ds_app_0a09                 ; 0x5036
+    call clamp                       ; 0x5036
     add sp, byte 6                   ; 0x5039
     push ax                          ; 0x503c
     mov ax, 0x248                    ; 0x503d

@@ -758,7 +758,7 @@ jumptable_67c3_case_15:
     je short @..api_idx_0014.l22     ; 0x6812
     push word [bss_844c]             ; 0x6814
     push word [bss_844e]             ; 0x6818
-    call ds_app_2b62                 ; 0x681c
+    call animate_sprite_up           ; 0x681c
     add sp, byte 4                   ; 0x681f
     mov ax, 0                        ; 0x6822
     push ax                          ; 0x6825

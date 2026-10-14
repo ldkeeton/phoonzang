@@ -463,7 +463,7 @@ jumptable_6e5f:
     je short @..api_idx_002c_2.l17   ; 0x6e84
     push word [bss_844c]             ; 0x6e86
     push word [bss_844e]             ; 0x6e8a
-    call ds_app_2b62                 ; 0x6e8e
+    call animate_sprite_up           ; 0x6e8e
     add sp, byte 4                   ; 0x6e91
     mov ax, 0                        ; 0x6e94
     push ax                          ; 0x6e97

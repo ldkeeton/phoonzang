@@ -131,7 +131,7 @@ api_idx_0008:
     pop ax                           ; 0x1e14
     add ax, word [bx + 0x5c10]       ; 0x1e15
     push ax                          ; 0x1e19
-    call ds_app_0a09                 ; 0x1e1a
+    call clamp                       ; 0x1e1a
     add sp, byte 6                   ; 0x1e1d
     push ax                          ; 0x1e20
     mov ax, 0x248                    ; 0x1e21

@@ -23,6 +23,6 @@ api_idx_0002_3:
     mov ax, word [bp + 0x4]          ; 0x03bf
     add ax, word [bp + 0x6]          ; 0x03c2
     push ax                          ; 0x03c5
-    call ds_app_0a09                 ; 0x03c6
+    call clamp                       ; 0x03c6
     add sp, byte 6                   ; 0x03c9
     ret                              ; 0x03cc

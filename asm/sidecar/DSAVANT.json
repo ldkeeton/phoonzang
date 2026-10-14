@@ -70,12 +70,22 @@
         {"offset": "10e38", "note": "stack/heap size constant 0x0100; read as `mov si, word es:[dseg_0cd8]; shl si, cl` (0x4da7) - a number"}
       ],
       "function_names": {
+        "0a09": {
+          "name": "clamp"
+        },
+        "2b62": {
+          "name": "animate_sprite_up"
+        },
         "2dd5": {
           "name": "main"
         },
         "3e88": {
           "name": "set_bitmap_bit",
           "note": "hand-written asm: set or clear bit [bp+6] of the bitmap at [bp+4] per [bp+8]"
+        },
+        "4462": {
+          "name": "aztec_loadabort",
+          "note": "Manx OVLOADER.C loadabort(code): prints 'Error %d loading overlay: %s$' and exits 100"
         }
       },
       "force_data": [

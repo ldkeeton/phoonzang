@@ -374,7 +374,7 @@ api_idx_0002_13:
     je short @..api_idx_0002_13.l14  ; 0x92a3
     push word [bss_844c]             ; 0x92a5
     push word [bss_844e]             ; 0x92a9
-    call ds_app_2b62                 ; 0x92ad
+    call animate_sprite_up           ; 0x92ad
     add sp, byte 4                   ; 0x92b0
     mov ax, 0                        ; 0x92b3
     push ax                          ; 0x92b6

@@ -175,7 +175,7 @@ api_idx_0012_4:
     add ax, word [bp + 0xe]          ; 0x0c30
     add ax, strict word 0xffdc       ; 0x0c33
     push ax                          ; 0x0c36
-    call ds_app_0a09                 ; 0x0c37
+    call clamp                       ; 0x0c37
     add sp, byte 6                   ; 0x0c3a
     mov word [bp - 0x0004], ax       ; 0x0c3d
     mov ax, 0xc7                     ; 0x0c40
@@ -186,7 +186,7 @@ api_idx_0012_4:
     add ax, word [bp + 0x10]         ; 0x0c4b
     add ax, strict word 0xfffa       ; 0x0c4e
     push ax                          ; 0x0c51
-    call ds_app_0a09                 ; 0x0c52
+    call clamp                       ; 0x0c52
     add sp, byte 6                   ; 0x0c55
     mov word [bp - 0x0006], ax       ; 0x0c58
     push ax                          ; 0x0c5b

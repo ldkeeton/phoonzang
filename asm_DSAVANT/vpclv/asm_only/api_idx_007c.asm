@@ -233,7 +233,7 @@ api_idx_007c:
     mov ax, 0                        ; 0x0793
     push ax                          ; 0x0796
     push word [bss_9436]             ; 0x0797
-    call ds_app_0a09                 ; 0x079b
+    call clamp                       ; 0x079b
     add sp, byte 6                   ; 0x079e
     mov word [bss_9436], ax          ; 0x07a1
     mov ax, 0x248                    ; 0x07a4

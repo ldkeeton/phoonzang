@@ -179,6 +179,11 @@ def _definition_files(version):
             index.setdefault(name, [])
             if fn not in index[name]:
                 index[name].append(fn)
+        # ``#asm`` blocks define routines too (``ovloader_ proc near``).
+        for m in _ASM_PROC_RE.finditer(text):
+            name = _key(m.group(1))
+            if name and fn not in index.setdefault(name, []):
+                index[name].append(fn)
     _DEF_CACHE[version] = index
     return index
 

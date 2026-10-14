@@ -435,7 +435,7 @@ loc_4ead:
     sub ah, ah                       ; 0x4ed6
     add ax, word [bp + 0xa]          ; 0x4ed8
     push ax                          ; 0x4edb
-    call ds_app_0a09                 ; 0x4edc
+    call clamp                       ; 0x4edc
     add sp, byte 6                   ; 0x4edf
     push ax                          ; 0x4ee2
     mov ax, 0x248                    ; 0x4ee3

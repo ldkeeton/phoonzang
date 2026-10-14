@@ -9,7 +9,7 @@ string_loc_0fb3:
     mov ax, word [bx + 0x5c10]       ; 0x0fc3
     add ax, word [bp - 0x000e]       ; 0x0fc7
     push ax                          ; 0x0fca
-    call ds_app_0a09                 ; 0x0fcb
+    call clamp                       ; 0x0fcb
     add sp, byte 6                   ; 0x0fce
     push ax                          ; 0x0fd1
     mov ax, 0x248                    ; 0x0fd2

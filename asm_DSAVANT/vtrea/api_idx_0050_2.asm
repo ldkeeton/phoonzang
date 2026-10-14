@@ -122,7 +122,7 @@ api_idx_0050_2:
     je short @..api_idx_0050_2.l9    ; 0x807a
     push word [bss_844c]             ; 0x807c
     push word [bss_844e]             ; 0x8080
-    call ds_app_2b62                 ; 0x8084
+    call animate_sprite_up           ; 0x8084
     add sp, byte 4                   ; 0x8087
     mov ax, 1                        ; 0x808a
     push ax                          ; 0x808d
@@ -175,7 +175,7 @@ loc_809e:
     je short @..loc_809e.l2          ; 0x80ff
     push word [bss_844c]             ; 0x8101
     push word [bss_844e]             ; 0x8105
-    call ds_app_2b62                 ; 0x8109
+    call animate_sprite_up           ; 0x8109
     add sp, byte 4                   ; 0x810c
     mov ax, 1                        ; 0x810f
     push ax                          ; 0x8112
@@ -241,7 +241,7 @@ loc_811f:
     je short @..loc_811f.l3          ; 0x819a
     push word [bss_844c]             ; 0x819c
     push word [bss_844e]             ; 0x81a0
-    call ds_app_2b62                 ; 0x81a4
+    call animate_sprite_up           ; 0x81a4
     add sp, byte 4                   ; 0x81a7
     mov ax, 1                        ; 0x81aa
     push ax                          ; 0x81ad

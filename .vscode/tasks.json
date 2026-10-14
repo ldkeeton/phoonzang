@@ -94,6 +94,30 @@
                 "reveal": "always",
                 "panel": "dedicated"
             }
+        },
+        {
+            "label": "Manx cc: check current file",
+            "type": "shell",
+            "command": "python3",
+            "args": ["${workspaceFolder}/.vscode/cccheck.py", "${file}"],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": {
+                "owner": "manx-cc",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.+?):(\\d+):(\\d+): (error|warning): (.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
         }
     ]
 }

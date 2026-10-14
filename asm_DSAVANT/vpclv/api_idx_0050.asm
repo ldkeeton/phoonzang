@@ -572,7 +572,7 @@ jumptable_1d9a_case_0:
     add cx, byte 0x2a                ; 0x1699
     sub ax, cx                       ; 0x169c
     push ax                          ; 0x169e
-    call ds_app_0a09                 ; 0x169f
+    call clamp                       ; 0x169f
     add sp, byte 6                   ; 0x16a2
     mov word [bp - 0x0016], ax       ; 0x16a5
 @..api_idx_0050.l14:
@@ -592,7 +592,7 @@ jumptable_1d9a_case_0:
     sub ax, cx                       ; 0x16c9
     sub ax, word [bp - 0x0016]       ; 0x16cb
     push ax                          ; 0x16ce
-    call ds_app_0a09                 ; 0x16cf
+    call clamp                       ; 0x16cf
     add sp, byte 6                   ; 0x16d2
     mov word [bp - 0x0012], ax       ; 0x16d5
     cmp word [bp - 0x0044], byte 7   ; 0x16d8
@@ -745,7 +745,7 @@ jumptable_1d9a_case_1:
     cwd                              ; 0x1831
     idiv cx                          ; 0x1832
     push ax                          ; 0x1834
-    call ds_app_0a09                 ; 0x1835
+    call clamp                       ; 0x1835
     add sp, byte 6                   ; 0x1838
     mov word [bp - 0x0012], ax       ; 0x183b
 @..api_idx_0050.l20:
@@ -976,7 +976,7 @@ jumptable_1d9a_case_4:
     pop ax                           ; 0x1a4f
     sub ax, cx                       ; 0x1a50
     push ax                          ; 0x1a52
-    call ds_app_0a09                 ; 0x1a53
+    call clamp                       ; 0x1a53
     add sp, byte 6                   ; 0x1a56
     mov word [bp - 0x0040], ax       ; 0x1a59
     mov ax, 6                        ; 0x1a5c
@@ -1245,7 +1245,7 @@ jumptable_1d9a_case_4:
     pop ax                           ; 0x1cd9
     sub ax, cx                       ; 0x1cda
     push ax                          ; 0x1cdc
-    call ds_app_0a09                 ; 0x1cdd
+    call clamp                       ; 0x1cdd
     add sp, byte 6                   ; 0x1ce0
     mov word [bp - 0x0040], ax       ; 0x1ce3
     mov ax, 6                        ; 0x1ce6

@@ -34,7 +34,7 @@ api_idx_0002_10:
     mov ax, 1                        ; 0x4fd5
     push ax                          ; 0x4fd8
     push word [bp + 0x6]             ; 0x4fd9
-    call ds_app_0a09                 ; 0x4fdc
+    call clamp                       ; 0x4fdc
     add sp, byte 6                   ; 0x4fdf
     mov word [bp + 0x6], ax          ; 0x4fe2
     mov ax, 0x248                    ; 0x4fe5
@@ -62,7 +62,7 @@ api_idx_0002_10:
     mov al, byte [bx + 0x5e37]       ; 0x5018
     sub ah, ah                       ; 0x501c
     push ax                          ; 0x501e
-    call ds_app_0a09                 ; 0x501f
+    call clamp                       ; 0x501f
     add sp, byte 6                   ; 0x5022
     push ax                          ; 0x5025
     mov ax, 0x248                    ; 0x5026
@@ -92,7 +92,7 @@ api_idx_0002_10:
     mov al, byte [bx + 0x5e38]       ; 0x505e
     sub ah, ah                       ; 0x5062
     push ax                          ; 0x5064
-    call ds_app_0a09                 ; 0x5065
+    call clamp                       ; 0x5065
     add sp, byte 6                   ; 0x5068
     push ax                          ; 0x506b
     mov ax, 0x248                    ; 0x506c

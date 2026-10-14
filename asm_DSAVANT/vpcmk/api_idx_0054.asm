@@ -231,7 +231,7 @@ api_idx_0054:
     mov ax, 0                        ; 0x1d5e
     push ax                          ; 0x1d61
     push word [bss_95aa]             ; 0x1d62
-    call ds_app_0a09                 ; 0x1d66
+    call clamp                       ; 0x1d66
     add sp, byte 6                   ; 0x1d69
     mov word [bss_95aa], ax          ; 0x1d6c
     mov ax, 0x248                    ; 0x1d6f

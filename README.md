@@ -12,7 +12,7 @@ make all
 
 ## Wizardry 7 coverage
 
-Progress: **25 / 1098** (2.3%).
+Progress: **27 / 1098** (2.5%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -49,4 +49,21 @@ asm_DSAVANT/    generated NASM (+ C) for Wizardry 7
 debugger/       16 bit TSR dbg proxy for inside dosbox
 ```
  
- 
+## VS Code extension
+
+`.vscode/asm-nav/` is a small local extension for the generated C and NASM
+(`asm_<PROJECT>/`). Install once, then reload the window:
+
+```
+ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.wiz7-asm-nav-0.0.1
+```
+
+- **F12 / Shift+F12** from C into the NASM labels (and `equ` constants), scoped
+  to the current binary; `name_` inside `#asm` blocks resolves to `name`
+- **Hover**: address, sidecar name/note, vendor source, size
+- **Ctrl+Alt+G** go to address (`4b46` or `vinstall:2d86`)
+- **Name this routine** (right-click): writes the sidecar `function_names` entry
+- **Diff against vendor seed**: what relabelling changed (also via the CodeLens)
+- **Manx `cc` check on save**: the real compiler's errors and warnings as
+  squiggles (`wiz7AsmNav.checkOnSave`), via `.vscode/cccheck.py`; the
+  "Manx cc: watch" task does the same from the terminal

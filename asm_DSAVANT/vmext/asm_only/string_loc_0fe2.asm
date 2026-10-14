@@ -41,7 +41,7 @@ string_loc_0fe2:
     pop ax                           ; 0x103a
     add ax, word [bx + 0x5c1c]       ; 0x103b
     push ax                          ; 0x103f
-    call ds_app_0a09                 ; 0x1040
+    call clamp                       ; 0x1040
     add sp, byte 6                   ; 0x1043
     push ax                          ; 0x1046
     mov ax, 0x248                    ; 0x1047
@@ -71,7 +71,7 @@ loc_1070:
     mov ax, word [bx + 0x5c0c]       ; 0x1080
     add ax, word [bp - 0x000e]       ; 0x1084
     push ax                          ; 0x1087
-    call ds_app_0a09                 ; 0x1088
+    call clamp                       ; 0x1088
     add sp, byte 6                   ; 0x108b
     push ax                          ; 0x108e
     mov ax, 0x248                    ; 0x108f

@@ -372,7 +372,7 @@ api_idx_0008_3:
     mov ax, 1                        ; 0x0b5e
     push ax                          ; 0x0b61
     push word [bp - 0x0006]          ; 0x0b62
-    call ds_app_0a09                 ; 0x0b65
+    call clamp                       ; 0x0b65
     add sp, byte 6                   ; 0x0b68
     mov word [bp - 0x0006], ax       ; 0x0b6b
     mov ax, 0x96                     ; 0x0b6e

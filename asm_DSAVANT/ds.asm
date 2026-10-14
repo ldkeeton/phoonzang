@@ -781,7 +781,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/ds_app_09f0.asm"              ; 0x09f0
 
-%include "ds/ds_app_0a09.asm"              ; 0x0a09
+%include "ds/clamp.asm"                    ; 0x0a09
 
 %include "ds/ds_app_0a27.asm"              ; 0x0a27
 
@@ -883,7 +883,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/ds_app_thunk_21_2b4e.asm"     ; 0x2b4e
 
-%include "ds/ds_app_2b62.asm"              ; 0x2b62
+%include "ds/animate_sprite_up.asm"        ; 0x2b62
 
 %include "ds/ds_app_2bab.asm"              ; 0x2bab
 
