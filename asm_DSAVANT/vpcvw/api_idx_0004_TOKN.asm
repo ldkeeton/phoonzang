@@ -68,6 +68,6 @@ api_idx_0004_TOKN:
     push ax                          ; 0x0dfb
     push ax                          ; 0x0dfc
     push ax                          ; 0x0dfd
-    call api_idx_000c_JKJK           ; 0x0dfe
+    call draw_party_slot_letters     ; 0x0dfe
     add sp, byte 6                   ; 0x0e01
     ret                              ; 0x0e04

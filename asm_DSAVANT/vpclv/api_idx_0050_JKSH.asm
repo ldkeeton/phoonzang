@@ -65,7 +65,7 @@ api_idx_0050_JKSH:
     push ax                          ; 0x11ef
     mov ax, 0x32                     ; 0x11f0
     push ax                          ; 0x11f3
-    call api_idx_000c_JKJK           ; 0x11f4
+    call draw_party_slot_letters     ; 0x11f4
     add sp, byte 6                   ; 0x11f7
     lea ax, word [bp - 0x0038]       ; 0x11fa
     push ax                          ; 0x11fd

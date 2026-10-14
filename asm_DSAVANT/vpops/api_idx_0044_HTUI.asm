@@ -59,7 +59,7 @@ api_idx_0044_HTUI:
     push ax                          ; 0x1d40
     mov ax, 0x32                     ; 0x1d41
     push ax                          ; 0x1d44
-    call api_idx_000c_JKJK           ; 0x1d45
+    call draw_party_slot_letters     ; 0x1d45
     add sp, byte 6                   ; 0x1d48
     lea ax, word [bp - 0x0038]       ; 0x1d4b
     push ax                          ; 0x1d4e

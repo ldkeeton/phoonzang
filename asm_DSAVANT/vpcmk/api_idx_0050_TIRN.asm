@@ -65,7 +65,7 @@ api_idx_0050_TIRN:
     push ax                          ; 0x3117
     mov ax, 0x32                     ; 0x3118
     push ax                          ; 0x311b
-    call api_idx_000c_JKJK           ; 0x311c
+    call draw_party_slot_letters     ; 0x311c
     add sp, byte 6                   ; 0x311f
     lea ax, word [bp - 0x0038]       ; 0x3122
     push ax                          ; 0x3125

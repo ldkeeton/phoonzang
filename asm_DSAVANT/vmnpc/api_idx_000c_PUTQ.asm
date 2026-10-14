@@ -108,7 +108,7 @@ loc_77a1:
     push ax                          ; 0x7810
     mov ax, 0x32                     ; 0x7811
     push ax                          ; 0x7814
-    call api_idx_000c_JKJK           ; 0x7815
+    call draw_party_slot_letters     ; 0x7815
     add sp, byte 6                   ; 0x7818
     mov ax, 0xc5                     ; 0x781b
     push ax                          ; 0x781e

@@ -108,7 +108,7 @@ loc_1c11:
     push ax                          ; 0x1c80
     mov ax, 0x32                     ; 0x1c81
     push ax                          ; 0x1c84
-    call api_idx_000c_JKJK           ; 0x1c85
+    call draw_party_slot_letters     ; 0x1c85
     add sp, byte 6                   ; 0x1c88
     mov ax, 0xc5                     ; 0x1c8b
     push ax                          ; 0x1c8e

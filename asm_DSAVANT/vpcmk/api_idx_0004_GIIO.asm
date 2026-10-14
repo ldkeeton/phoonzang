@@ -68,6 +68,6 @@ api_idx_0004_GIIO:
     push ax                          ; 0x180f
     push ax                          ; 0x1810
     push ax                          ; 0x1811
-    call api_idx_000c_JKJK           ; 0x1812
+    call draw_party_slot_letters     ; 0x1812
     add sp, byte 6                   ; 0x1815
     ret                              ; 0x1818

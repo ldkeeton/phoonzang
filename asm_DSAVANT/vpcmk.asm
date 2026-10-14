@@ -48,7 +48,7 @@ loc_000e:
 
 %include "vpcmk/api_idx_0026_QGVL.asm"     ; 0x11f4
 
-%include "lib/api_idx_000c_JKJK.asm"     ; 0x16ea
+%include "lib/draw_party_slot_letters.asm" ; 0x16ea
 
 %include "vpcmk/api_idx_0004_GIIO.asm"     ; 0x1769
 

@@ -108,7 +108,7 @@ loc_2bf3:
     push ax                          ; 0x2c62
     mov ax, 0x32                     ; 0x2c63
     push ax                          ; 0x2c66
-    call api_idx_000c_JKJK           ; 0x2c67
+    call draw_party_slot_letters     ; 0x2c67
     add sp, byte 6                   ; 0x2c6a
     mov ax, 0xc5                     ; 0x2c6d
     push ax                          ; 0x2c70

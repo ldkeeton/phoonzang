@@ -160,7 +160,7 @@ loc_00a5:
 
 %include "vdopt/api_idx_000c_JQSL.asm"     ; 0x238d
 
-%include "lib/api_idx_000c_JKJK.asm"     ; 0x25a8
+%include "lib/draw_party_slot_letters.asm" ; 0x25a8
 
 %include "lib/api_idx_0002_PGOV.asm"     ; 0x2627
 

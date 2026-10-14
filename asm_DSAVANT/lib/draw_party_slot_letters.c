@@ -3,7 +3,7 @@ extern int dseg_830e[];
 extern int dseg_01a4[][6];
 extern int dseg_01bc[][6];
 
-api_idx_000c_JKJK(x, y, row)
+draw_party_slot_letters(x, y, row)
 int x, y, row;
 {
 	int i;

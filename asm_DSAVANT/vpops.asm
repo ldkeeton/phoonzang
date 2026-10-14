@@ -53,7 +53,7 @@ loc_000e:
 
 %include "vpops/api_idx_000c_UHNR.asm"     ; 0x178a
 
-%include "lib/api_idx_000c_JKJK.asm"     ; 0x18c2
+%include "lib/draw_party_slot_letters.asm" ; 0x18c2
 
 %include "lib/api_idx_0002_PGOV.asm"     ; 0x1941
 

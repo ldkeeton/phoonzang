@@ -36,7 +36,7 @@ loc_000e:
 
 %include "vpclv/asm_only/api_idx_0012_URNN.asm"     ; 0x0086
 
-%include "lib/api_idx_000c_JKJK.asm"     ; 0x0202
+%include "lib/draw_party_slot_letters.asm" ; 0x0202
 
 %include "vpclv/api_idx_0004_RIKH.asm"     ; 0x0281
 

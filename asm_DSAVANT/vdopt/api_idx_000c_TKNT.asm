@@ -108,7 +108,7 @@ loc_28f7:
     push ax                          ; 0x2966
     mov ax, 0x32                     ; 0x2967
     push ax                          ; 0x296a
-    call api_idx_000c_JKJK           ; 0x296b
+    call draw_party_slot_letters     ; 0x296b
     add sp, byte 6                   ; 0x296e
     mov ax, 0xc5                     ; 0x2971
     push ax                          ; 0x2974

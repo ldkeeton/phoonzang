@@ -4,8 +4,8 @@
   "version": 1,
   "dos_compilers": ["Manx Aztec C86 v52a", "Manx Aztec C86 v340a"],
   "compiler_flags": {
-    "default": ["-n", "+y", "+b"],
-    "prefixes": { "aztec_": ["-n", "+y"], "api_idx_000c_JKJK": ["-n", "+y", "+b", "+m"] }
+    "default": ["-n", "+y", "+b", "+m"],
+    "prefixes": { "aztec_": ["-n", "+y"] }
   },
   "vendor_patches": {
     "aztec_begin": {
@@ -42,6 +42,12 @@
           "replace": ""
         }
       ]
+    }
+  },
+  "routines": {
+    "api_idx_000c_JKJK": {
+      "name": "draw_party_slot_letters",
+      "note": "overlay stub 0x0c: draws one letter per party slot (six of them) via thunk_28, from the host's tables at ds:01d4/01a4/01bc/830e"
     }
   },
   "binaries": {

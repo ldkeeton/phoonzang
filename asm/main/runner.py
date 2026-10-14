@@ -318,6 +318,14 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         stubs={off for off, lbl in trampoline_map.items()
                if label_map.get(off) == lbl},
     )
+    # A sidecar ``routines`` entry names code by its content tag, so one entry
+    # covers every binary that carries that routine.
+    routines = (sidecar_entry or {}).get('routines') or {}
+    for off, label in list(label_map.items()):
+        if isinstance(label, str) and label in routines:
+            label_map[off] = routines[label]['name']
+            if function_roots.get(off) == label:
+                function_roots[off] = routines[label]['name']
 
     if diag_enabled() and _ITERATIVE:
         squashed_arr = ctx.layers['squashed'].to_numpy()

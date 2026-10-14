@@ -56,6 +56,13 @@ Schema
         }
       },
 
+      "routines": {
+        "<content-tagged label>": {
+          "name": "human_readable_name",
+          "note": "free text"
+        }
+      },
+
       "force_data": [
         { "start": "1A3F", "end": "1A4F" }
       ],
@@ -124,6 +131,7 @@ def _validate(data):
 
     _validate_compiler_flags(data.get('compiler_flags'))
     _validate_vendor_patches(data.get('vendor_patches'))
+    _validate_routines(data.get('routines'))
 
     if 'binaries' in data:
         if not isinstance(data['binaries'], dict):
@@ -148,6 +156,10 @@ def _validate(data):
     _validate_corpus(data, 'project')
 
 
+#: A generic label's content tag (see :func:`lib.names.tag_generics`).
+_TAGGED_LABEL = re.compile(r'_[G-V]{4}(?:_[0-9a-f]{4,5})?$')
+
+
 def _validate_compiler_flags(block):
     if block is None:
         return
@@ -162,6 +174,20 @@ def _validate_compiler_flags(block):
                        for k, v in prefixes.items())):
         raise SidecarError('"compiler_flags" must be an object with a '
                            '"default" list and a "prefixes" map of lists')
+
+
+def _validate_routines(block):
+    """``routines``: names for code shared between binaries, by content tag."""
+    if block is None:
+        return
+    if not isinstance(block, dict):
+        raise SidecarError('"routines" must be an object')
+    for label, info in block.items():
+        if (not _TAGGED_LABEL.search(label) or not isinstance(info, dict)
+                or not isinstance(info.get('name'), str) or not info['name']):
+            raise SidecarError(
+                f'routines.{label}: key must be a content-tagged label '
+                '(ending _GHIJ) and the value an object with a "name"')
 
 
 def _validate_vendor_patches(block):
@@ -419,6 +445,7 @@ def per_binary(sidecar, short_name):
         'force_code': sidecar.get('force_code', []),
         'api_dispatch': sidecar.get('api_dispatch', {}),
         'function_names': {},
+        'routines': sidecar.get('routines', {}),
         'dispatch_table': None,
         'immediate_labels': {},
         'external_data': {},

@@ -65,7 +65,7 @@ api_idx_0050_MNJK:
     push ax                          ; 0x2d32
     mov ax, 0x32                     ; 0x2d33
     push ax                          ; 0x2d36
-    call api_idx_000c_JKJK           ; 0x2d37
+    call draw_party_slot_letters     ; 0x2d37
     add sp, byte 6                   ; 0x2d3a
     lea ax, word [bp - 0x0038]       ; 0x2d3d
     push ax                          ; 0x2d40

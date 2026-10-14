@@ -59,7 +59,7 @@ api_idx_0044_LMKL:
     push ax                          ; 0x790a
     mov ax, 0x32                     ; 0x790b
     push ax                          ; 0x790e
-    call api_idx_000c_JKJK           ; 0x790f
+    call draw_party_slot_letters     ; 0x790f
     add sp, byte 6                   ; 0x7912
     lea ax, word [bp - 0x0038]       ; 0x7915
     push ax                          ; 0x7918

@@ -108,7 +108,7 @@ loc_8c8d:
     push ax                          ; 0x8cfc
     mov ax, 0x32                     ; 0x8cfd
     push ax                          ; 0x8d00
-    call api_idx_000c_JKJK           ; 0x8d01
+    call draw_party_slot_letters     ; 0x8d01
     add sp, byte 6                   ; 0x8d04
     mov ax, 0xc5                     ; 0x8d07
     push ax                          ; 0x8d0a

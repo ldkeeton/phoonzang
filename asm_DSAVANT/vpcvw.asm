@@ -66,7 +66,7 @@ loc_000e:
 
 %include "vpcvw/api_idx_0012_RMPH.asm"     ; 0x0a96
 
-%include "lib/api_idx_000c_JKJK.asm"     ; 0x0cd6
+%include "lib/draw_party_slot_letters.asm" ; 0x0cd6
 
 %include "vpcvw/api_idx_0004_TOKN.asm"     ; 0x0d55
 

@@ -146,7 +146,7 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/api_idx_0006_IING.asm"     ; 0x72bf
 
-%include "lib/api_idx_000c_JKJK.asm"     ; 0x7452
+%include "lib/draw_party_slot_letters.asm" ; 0x7452
 
 %include "lib/api_idx_0002_PGOV.asm"     ; 0x74d1
 

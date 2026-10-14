@@ -1,9 +1,9 @@
 ; auto-generated
-api_idx_000c_JKJK:
+draw_party_slot_letters:
     mov ax, 0xfff4
     call aztec_csav
     mov word [bp - 0x0002], 0
-@..api_idx_000c_JKJK.l1:
+@..draw_party_slot_letters.l1:
     mov ax, 0x14
     imul word [bp - 0x0002]
     mov cx, word [bp - 0x0002]
@@ -50,5 +50,5 @@ api_idx_000c_JKJK:
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]
     cmp ax, strict word 6
-    jl short @..api_idx_000c_JKJK.l1
+    jl short @..draw_party_slot_letters.l1
     ret

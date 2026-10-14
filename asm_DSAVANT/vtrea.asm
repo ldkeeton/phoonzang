@@ -177,7 +177,7 @@ loc_000e:
 
 %include "vtrea/api_idx_0008_OOGG.asm"     ; 0x82b8
 
-%include "lib/api_idx_000c_JKJK.asm"     ; 0x893e
+%include "lib/draw_party_slot_letters.asm" ; 0x893e
 
 %include "lib/api_idx_0002_PGOV.asm"     ; 0x89bd
 

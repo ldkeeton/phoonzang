@@ -68,6 +68,6 @@ api_idx_0004_RIKH:
     push ax                          ; 0x0327
     push ax                          ; 0x0328
     push ax                          ; 0x0329
-    call api_idx_000c_JKJK           ; 0x032a
+    call draw_party_slot_letters     ; 0x032a
     add sp, byte 6                   ; 0x032d
     ret                              ; 0x0330

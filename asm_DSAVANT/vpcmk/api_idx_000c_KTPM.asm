@@ -108,7 +108,7 @@ loc_2fd8:
     push ax                          ; 0x3047
     mov ax, 0x32                     ; 0x3048
     push ax                          ; 0x304b
-    call api_idx_000c_JKJK           ; 0x304c
+    call draw_party_slot_letters     ; 0x304c
     add sp, byte 6                   ; 0x304f
     mov ax, 0xc5                     ; 0x3052
     push ax                          ; 0x3055

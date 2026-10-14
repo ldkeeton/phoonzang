@@ -59,7 +59,7 @@ api_idx_0044_VUKV:
     push ax                          ; 0x2a26
     mov ax, 0x32                     ; 0x2a27
     push ax                          ; 0x2a2a
-    call api_idx_000c_JKJK           ; 0x2a2b
+    call draw_party_slot_letters     ; 0x2a2b
     add sp, byte 6                   ; 0x2a2e
     lea ax, word [bp - 0x0038]       ; 0x2a31
     push ax                          ; 0x2a34

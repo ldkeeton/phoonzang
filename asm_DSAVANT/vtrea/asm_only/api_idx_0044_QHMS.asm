@@ -60,7 +60,7 @@ api_idx_0044_QHMS:
     push ax                          ; 0x8dbc
     mov ax, 0x32                     ; 0x8dbd
     push ax                          ; 0x8dc0
-    call api_idx_000c_JKJK           ; 0x8dc1
+    call draw_party_slot_letters     ; 0x8dc1
     add sp, byte 6                   ; 0x8dc4
     lea ax, word [bp - 0x0038]       ; 0x8dc7
     push ax                          ; 0x8dca
