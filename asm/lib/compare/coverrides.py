@@ -143,6 +143,49 @@ def _merge_label_records(new_records, label_records):
     return out
 
 
+def _override_local_labels(data, start, end, label_map, local_labels, linked,
+                           label, taken):
+    """``(name_by_offset, label_records)`` for a C override's own branches.
+
+    *data* is the routine's bytes, *start*/*end* its span, and *taken* the
+    offsets that already carry a label record.  Names come from the disassembly
+    when it has the offset (so the file reads as it did before the override),
+    from ``linked`` when relink derived one, and are numbered after them
+    otherwise.  Only relative branches need a name: an absolute operand is a
+    value, not a location, so a bare number assembles correctly for those.
+    """
+    named = dict(linked.local_names) if linked is not None else {}
+    for off, name in (local_labels or {}).items():
+        if start <= off < end:
+            named.setdefault(off, name)
+    global_offsets = {off for off, name in (label_map or {}).items()
+                      if isinstance(name, str)}
+    numbers = [int(m.group(1))
+               for m in (re.search(r'\.l(\d+)$', name)
+                         for name in named.values()) if m is not None]
+    number = max(numbers, default=0) + 1
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    md.detail = True
+    targets = set()
+    for insn in md.disasm(bytes(data), start):
+        if not insn.operands or insn.operands[0].type != CS_OP_IMM:
+            continue
+        if not (insn.mnemonic == 'call' or insn.mnemonic.startswith('j')
+                or insn.mnemonic.startswith('loop')):
+            continue
+        target = insn.operands[0].imm
+        if not (start <= target < end) or target in global_offsets:
+            continue
+        targets.add(target)
+    names = {off: named[off] for off in targets if off in named}
+    for target in sorted(targets - names.keys()):
+        names[target] = f'{relink.LOCAL_PREFIX}{label}.l{number}'
+        number += 1
+    records = [{'type': 'label', 'text': f'{names[off]}:', 'offset': off}
+               for off in sorted(targets) if off not in taken]
+    return names, records
+
+
 def _link_override(label, start, override, records, binary_data, index,
                    names_at, image_base=0):
     """Link one routine's relocations, upgrading a pristine seed first.
@@ -176,14 +219,23 @@ def _report_linked(label, linked):
     for addr, text, built, want in linked.failed:
         print(f'  aztec link: {label}: 0x{addr:x} {text!r} assembles to '
               f'{built}, compiled bytes are {want}')
-    for site in linked.unmatched:
-        print(f'  aztec link: {label}: relocation at +0x{site:x} matched no '
-              f'operand')
+    if linked.unmatched:
+        sites = ', '.join(f'+0x{site:x}' for site in linked.unmatched[:3])
+        if len(linked.unmatched) > 3:
+            sites += f', +{len(linked.unmatched) - 3} more'
+        print(f'  aztec link: {label}: {len(linked.unmatched)} relocation(s) '
+              f'matched no operand ({sites})')
     if linked.legacy:
         kinds = ', '.join(sorted({f'{fx.kind} {fx.symbol_kind}'
                                   for fx in linked.legacy}))
         print(f'  aztec link: {label}: {len(linked.legacy)} relocation(s) '
               f'copied from the original image ({kinds})')
+    if linked.raw:
+        names = ', '.join(sorted({name for _, name in linked.raw}))
+        print(f'  aztec link: {label}: {len(linked.raw)} data reference(s) '
+              f'taken as written from the C name, not a build symbol ({names})')
+        print(f'  aztec link: {label}:   the operand is emitted as a literal; '
+              f'the C must name a symbol the build defines (plan.md section 18)')
 
 
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
@@ -291,11 +343,6 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         final[:len(compiled)] = compiled
         if len(compiled) < length:
             final[len(compiled):length] = b'\x90' * (length - len(compiled))
-        new_records = _c_bytes_to_records(
-            bytes(final), start, label_map, local_labels, foreign_label_map,
-            immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
-            mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
-            linked=linked)
         labels_in = [r for r in records
                      if r['type'] == 'label' and start < r['offset'] < end]
         if linked is not None:
@@ -304,6 +351,27 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             labels_in = ([r for r in labels_in
                           if not r['text'].startswith(relink.LOCAL_PREFIX)]
                          + linked.local_records)
+        # Every branch the override's code makes *inside* the routine must name
+        # a label this override defines.  The disassembly's ``local_labels``
+        # names bytes of the original routine -- including targets this code
+        # does not branch to -- and ``relink`` only sees relocations, while the
+        # Aztec compiler resolves some short forward branches itself.  Decoding
+        # the bytes we are about to emit closes both holes: a target keeps the
+        # disassembly's name when it has one (so the file reads as before) and
+        # gets a fresh ``@..<label>.lN`` otherwise.
+        record_labels, derived = _override_local_labels(
+            bytes(final), start, end, label_map, local_labels, linked, label,
+            {r['offset'] for r in labels_in})
+        if linked is None:
+            # No relinking: the bytes *are* the original routine's, so its own
+            # local labels stay valid for every operand, not just branches.
+            record_labels = {**(local_labels or {}), **record_labels}
+        labels_in = labels_in + derived
+        new_records = _c_bytes_to_records(
+            bytes(final), start, label_map, record_labels, foreign_label_map,
+            immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
+            mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
+            linked=linked)
         replacements.append((start, end,
                              _merge_label_records(new_records, labels_in)))
 

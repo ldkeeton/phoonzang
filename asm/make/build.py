@@ -1,116 +1,69 @@
-"""``make build`` / ``make rebuild`` — assembly generation and NASM builds."""
+"""``make build`` / ``make rebuild`` — assembly generation and NASM builds.
+
+The generation order itself lives in :mod:`main.build`, so ``make build`` and
+``python -m main`` cannot drift apart.  What ``make`` adds is the process
+model: every binary is generated as its own ``python -m main`` subprocess, and
+both that step and the NASM step run on a thread pool.
+"""
 
 import os
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from main import discover_binaries
+from main.build import build_project, nasm_binary
 from lib.report import clear_project_stats
-from lib.cross_ref import detect as detect_cross_refs
 
 from .clean import cmd_clean
-from .common import (
-    APPS,
-    JOBS,
-    PROJECT,
-    _aggregate_host_data,
-    _asm_one,
-    _clear_host_data_exports,
-    _copy_assets,
-    _extra_flags,
-    _foreign_args,
-    _nasm_build,
-    _prepare_cross_ref_sources,
-)
+from .common import APPS, JOBS, PROJECT, _asm_one, _extra_flags
 from .prebuild import _ensure_prebuild
-from lib.link import host_name
-from lib.shared import share_identical
 
 
 def _stats_enabled():
     return '--stats' in _extra_flags()
 
 
+def _generate(app):
+    """A ``run_batch``: one subprocess per binary, on a thread pool."""
+    def run(items):
+        failed = []
+        with ThreadPoolExecutor(max_workers=JOBS) as ex:
+            futures = {ex.submit(_asm_one, app, name, flags): name
+                       for name, flags in items}
+            for f in as_completed(futures):
+                if f.result() != 0:
+                    print(f'  FAILED: {futures[f]}')
+                    failed.append(futures[f])
+                    # A failed consumer poisons the project; stop the batch.
+                    ex.shutdown(wait=False, cancel_futures=True)
+                    break
+        return failed
+    return run
+
+
+def _assemble(out_dir):
+    """A ``nasm_batch``: assemble the given binaries on a thread pool."""
+    def run(items):
+        failed = []
+        with ThreadPoolExecutor(max_workers=JOBS) as ex:
+            futures = {ex.submit(nasm_binary, out_dir, name, rel): name
+                       for name, rel in items}
+            for f in as_completed(futures):
+                if f.result() != 0:
+                    failed.append(futures[f])
+        return failed
+    return run
+
+
 def asm_app(app):
     if _stats_enabled():
         clear_project_stats(app)
-    app_dir = os.path.join(APPS, app)
     out_dir = os.path.join(PROJECT, f'asm_{app}')
-    os.makedirs(out_dir, exist_ok=True)
-
-    bins = discover_binaries(app_dir)
-    if not bins:
-        print(f'{app}: no binaries found')
-        return
-
-    print(f'\n=== {app} ({len(bins)} binaries) ===')
-
-    cross_refs = detect_cross_refs(app_dir, bins)
-    failed = _prepare_cross_ref_sources(
-        app, app_dir, out_dir, bins, cross_refs)
-    if failed:
-        # A failed source binary poisons every consumer; stop on the real error.
-        print(f'{app}: source binary(ies) failed: '
-              f'{", ".join(sorted(set(failed)))}')
-        sys.exit(1)
-    source_names = {src for refs in cross_refs.values() for _, src in refs}
-
-    consumers = [n for n in sorted(bins) if n not in source_names]
-
-    # Drop the previous build's per-overlay DS exports so the union below is
-    # exactly this build's references (the labels dir survives `make build`).
-    _clear_host_data_exports(app)
-
-    with ThreadPoolExecutor(max_workers=JOBS) as ex:
-        futures = {}
-        for name in consumers:
-            extra = _foreign_args(out_dir, name, cross_refs)
-            futures[ex.submit(_asm_one, app, name, extra)] = name
-        for f in as_completed(futures):
-            if f.result() != 0:
-                print(f'  FAILED: {futures[f]}')
-                failed.append(futures[f])
-                ex.shutdown(wait=False, cancel_futures=True)
-                break
-
-    if failed:
-        print(f'{app}: asm generation failed: '
-              f'{", ".join(sorted(set(failed)))}')
-        sys.exit(1)
-
-    # D7.1: the overlays just exported the host-DS offsets they reference; give
-    # the union back to the host so it declares one recipe-based ``equ`` per
-    # offset.  The host is regenerated *in place* (its code labels are
-    # unchanged, so the consumers' foreign maps stay valid), and the link step
-    # below re-probes the result.
-    host = host_name(bins)
-    offsets_path = _aggregate_host_data(app)
-    if offsets_path and host is not None:
-        print(f'  Host data map: {host}.asm declares the overlay DS union')
-        if _asm_one(app, host, ['--export-labels',
-                                f'--host-data-offsets={offsets_path}']) != 0:
-            print(f'  FAILED: {host} (host data map)')
-            failed.append(host)
-    if not failed:
-        shared = share_identical(out_dir)
-        if shared:
-            print(f'  Shared lib: {sum(len(v) for v in shared.values())} '
-                  f'fragments -> {len(shared)} files in lib/')
-
-    build_out = os.path.join(out_dir, 'build_out')
-    _copy_assets(app_dir, build_out)
-
-    with ThreadPoolExecutor(max_workers=JOBS) as ex:
-        futures = {ex.submit(_nasm_build, out_dir, name, rel_path): name
-                   for name, (rel_path, _) in sorted(bins.items())}
-        for f in as_completed(futures):
-            if f.result() != 0:
-                print(f'  BUILD FAIL: {futures[f]}')
-                failed.append(futures[f])
-
+    failed = build_project(app, _generate(app), _assemble(out_dir))
     if failed:
         print(f'{app}: {len(set(failed))} binary(ies) failed to build')
         sys.exit(1)
+    print(f'{app}: build OK')
 
 
 def cmd_build_binary(app, binary):
@@ -126,30 +79,10 @@ def cmd_build_binary(app, binary):
     _ensure_prebuild(app)
     if _stats_enabled():
         clear_project_stats(app)
-    os.makedirs(out_dir, exist_ok=True)
-    cross_refs = detect_cross_refs(app_dir, bins)
-    source_names = {src for refs in cross_refs.values() for _, src in refs}
-    required_sources = {src for _, src in cross_refs.get(binary, [])}
-    if binary in source_names:
-        required_sources.add(binary)
-    source_failed = _prepare_cross_ref_sources(
-        app, app_dir, out_dir, bins, cross_refs, required_sources,
-    )
-    if source_failed:
+    failed = build_project(app, _generate(app), _assemble(out_dir), only=binary)
+    if failed:
         sys.exit(1)
-
-    if binary in source_names:
-        result = 0
-    else:
-        result = _asm_one(app, binary, _foreign_args(out_dir, binary, cross_refs))
-    if result != 0:
-        sys.exit(result)
-
-    rel_path = bins[binary][0]
-    _copy_assets(app_dir, os.path.join(out_dir, 'build_out'))
-    if _nasm_build(out_dir, binary, rel_path) != 0:
-        sys.exit(1)
-    print(f'build {app}/{binary} -> {rel_path}  [OK]')
+    print(f'build {app}/{binary} -> {bins[binary][0]}  [OK]')
 
 
 def _rebuild_project(app, binary=None):
@@ -166,7 +99,7 @@ def _rebuild_project(app, binary=None):
         resplice_c(app, name)
     targets = [binary] if binary else sorted(bins)
     for name in targets:
-        if _nasm_build(out_dir, name, bins[name][0]) != 0:
+        if nasm_binary(out_dir, name, bins[name][0]) != 0:
             sys.exit(1)
         print(f'rebuild {app}/{name} -> {bins[name][0]}  [OK]')
 

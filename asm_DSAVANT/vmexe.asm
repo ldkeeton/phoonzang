@@ -36,7 +36,7 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0004_RIUU.asm"     ; 0x030b
 
-%include "lib/api_idx_000a_JKVP.asm"     ; 0x0456
+%include "lib/fill_action_slot_table.asm" ; 0x0456
 
 %include "lib/api_idx_000e_TGQN.asm"     ; 0x0656
 

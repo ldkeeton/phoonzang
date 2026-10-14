@@ -10,8 +10,8 @@ produced the bytes).  This package:
   (:mod:`mux`, cached in :mod:`cache`),
 
 so an Aztec runtime routine can be emitted as ``.c`` instead of disassembly.
-Routines without a matching source stay as generated ``.asm``.  The seam for
-a future Ghidra-assisted decompiler lives in :mod:`ghidra`.
+A routine the code generator cannot reproduce (or that has no source) stays as
+generated ``.asm``, or is hand-written (``; asm only``; see :mod:`lib.asm_only`).
 """
 
 from . import sources  # noqa: F401

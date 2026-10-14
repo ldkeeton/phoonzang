@@ -34,7 +34,7 @@ api_idx_0006_NPVH:
     push dx                          ; 0x90dd
     push word [bp - 0x0004]          ; 0x90de
     push word [bss_8464]             ; 0x90e1
-    call api_idx_000a_JKVP           ; 0x90e5
+    call fill_action_slot_table      ; 0x90e5
     add sp, byte 8                   ; 0x90e8
     mov ax, 5                        ; 0x90eb
     push ax                          ; 0x90ee

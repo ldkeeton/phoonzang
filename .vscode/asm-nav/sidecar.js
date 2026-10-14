@@ -66,4 +66,38 @@ function setFunctionName(text, binary, key, entry) {
     return text.slice(0, open) + body + text.slice(close + 1);
 }
 
-module.exports = { functionNames, keyFor, setFunctionName };
+// Top-level ``routines`` object (shared by every binary, keyed by the
+// content-tagged label).  Returns null when absent.
+function routineSpan(text) {
+    const end = text.indexOf('"binaries"');
+    const m = /"routines"\s*:\s*\{/.exec(end < 0 ? text : text.slice(0, end));
+    if (!m) return null;
+    const open = m.index + m[0].length - 1;
+    return { open, close: closeOf(text, open) };
+}
+
+function routines(text) {
+    const s = routineSpan(text);
+    return s ? JSON.parse(text.slice(s.open, s.close + 1)) : {};
+}
+
+function setRoutine(text, key, entry) {
+    let s = routineSpan(text);
+    if (!s) {
+        // Insert as the first top-level member.
+        const open = text.indexOf('{');
+        const indent = /\n([ \t]*)\S/.exec(text.slice(open))[1];
+        text = text.slice(0, open + 1) + `\n${indent}"routines": {},` + text.slice(open + 1);
+        s = routineSpan(text);
+    }
+    const names = JSON.parse(text.slice(s.open, s.close + 1));
+    names[key] = entry;
+    const lineStart = text.lastIndexOf('\n', s.open) + 1;
+    const base = /^\s*/.exec(text.slice(lineStart))[0];
+    const rows = Object.keys(names).sort().map((k) =>
+        `${base}  ${JSON.stringify(k)}: ` +
+        JSON.stringify(names[k], null, 2).split('\n').join('\n' + base + '  '));
+    return text.slice(0, s.open) + `{\n${rows.join(',\n')}\n${base}}` + text.slice(s.close + 1);
+}
+
+module.exports = { functionNames, keyFor, setFunctionName, routines, setRoutine };

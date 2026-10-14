@@ -112,12 +112,12 @@ def _mz_header(e_ss):
 # data block -- a code label there would put code back into bytes the arbiter
 # removed, which ``verify.code_loss`` counts and ``test_hard_classification``
 # pins), 15 are strictly inside a decoded instruction, 2 are outside every
-# record.  Another 38 are never routed through the placement call at all: the 21
+# record.  Another 44 are never routed through the placement call at all: the 27
 # ``cseg_``/``data_`` *operand* symbols the ``mem_equ`` block spells literally,
 # and ``vga``'s 17 ``immediate_labels``, whose value is a raw offset immediate
 # that a label (``VBASE + off``) would change for a ``vstart`` image.
-# 26 placed + 70 refused + 38 never routed = the original 134.  Every count may
-# only go down from here.
+# 26 placed + 70 refused + 44 never routed = 140 (the original 134 plus the six
+# ``cseg_`` globals D7.2c-2c revealed).  Every count may only go down from here.
 #
 # Two further counters split what the census *counts* from what it *means* (they
 # are the measurement D7.2c-2 starts from):
@@ -149,6 +149,15 @@ def _mz_header(e_ss):
 # *reveals* six ``cseg_`` code-segment globals that vga code addresses -- the same
 # class ega already carries, and the class item (ii) exists to resolve -- so the
 # census floor rose once, to 133, and the classes below it only fall from here.
+#
+# Two counters fell afterwards with the hand-written C (the C workstream, plan.md
+# section 17 "C"): a C-overridden routine is re-rendered from the compiler's bytes,
+# so its instructions carry ``; 0x`` offsets where the disassembly had emitted the
+# same bytes as ``db`` -- no longer a site ``hidden_flow`` can see.  Measured:
+# ``hidden_flow`` 98 -> **87** (``vinstall`` 38 -> 26, the binary with the most
+# ``.c`` overrides), ``names_used`` 84 -> **83** and ``names_inert`` 32 -> **33**
+# (one name the C spelling no longer mentions).  Both are decrease-only baselines;
+# they were lowered here after measuring HEAD's own tree, not the working tree.
 BASELINE_TOTALS = {
     'code_shift': 132, 'data_shift': 1, 'inert': 248,
     'f1': 2, 'f2': 13, 'f3': 114, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
@@ -156,7 +165,7 @@ BASELINE_TOTALS = {
     # vtrea's trampoline stub 0x4ad8 sits in data, so it stays an ``equ``; it
     # was ``api_idx_0004_8`` (outside the name families) and is now
     # ``api_idx_0004_4ad8``, which the census counts: one inert name more.
-    'names_used': 83, 'names_inert': 33, 'hidden_flow': 98,
+    'names_used': 83, 'names_inert': 33, 'hidden_flow': 87,
     'total': 133,
 }
 
@@ -192,11 +201,14 @@ _LABEL_OFFSET_RE = re.compile(r';\s*0x([0-9a-f]{4})\b')
 
 
 def _tree_labels(binary):
-    """``{offset: (label, filename, is_first_label_in_file)}`` for *binary*.
+    """``{offset: (label, relpath, is_first_label_in_file)}`` for *binary*.
 
     A label line carries no offset comment of its own; it names the next emitted
     record, whose ``; 0x<hex>`` comment gives the address.  Local (``@..``)
-    labels never displace a global one and never start a file.
+    labels never displace a global one and never start a file.  The path is
+    relative to the tree root because a fragment no longer has to sit beside its
+    master: ``asm_only/`` holds the hand-written ones and ``lib/`` the shared
+    ones (`asm/lib/asm_only.py`), so a bare basename would not resolve.
     """
     out = {}
     for path in _binary_sources(binary):
@@ -215,7 +227,8 @@ def _tree_labels(binary):
                 continue
             offset = int(m.group(1), 16)
             if offset not in out or not pending.startswith('@'):
-                out[offset] = (pending, path.name, pending == first)
+                out[offset] = (pending, str(path.relative_to(_TREE)),
+                               pending == first)
             pending = None
     return out
 
@@ -228,6 +241,11 @@ _STRING_MNEMONICS = {'movs', 'movsb', 'movsw', 'movsd', 'cmps', 'cmpsb', 'cmpsw'
 _BIOS_INTS = {'bios_disk': 'int 0x13', 'bios_video': 'int 0x10',
               'bios_mouse': 'int 0x33'}
 _LABEL_LINE_RE = re.compile(r'^[A-Za-z_@][\w.@]*:$')
+#: A categorized label is ``<category>_loc_<tag>``.  The tag is four ``G``-``V``
+#: letters derived from the routine's *content* (`asm/lib/names.py`), optionally
+#: followed by the address that separates identical copies in one binary; a bare
+#: ``loc_<hex>`` claims no category and a signature name is not this pass's call.
+_CATEGORY_RE = re.compile(r'([a-z_]+)_loc_[G-V]{4}(?:_[0-9a-f]{4,5})?$')
 
 
 def _fragment_instructions(text):
@@ -289,8 +307,11 @@ def _scan_declared_handlers():
     decision and are skipped; a bare ``loc_<addr>`` claims no category at all.
     The check reads the fragment the label owns, so a routine a *later* entry
     interleaves into another fragment can still report (a documented backlog):
-    ``play``'s ``bios_disk_loc_0294`` reaches its ``int 0x13`` past ``0x02b3``,
-    and ``ega``'s ``graphics_loc_31df`` is a ``jmp`` thunk into handler ``0x04b1``.
+    ``play``'s ``bios_disk_loc_RVRG`` reaches its ``int 0x13`` past ``0x02b3``,
+    and ``ega``'s ``graphics_loc_UVTQ`` is a ``jmp`` thunk into handler ``0x04b1``.
+    Names carry a *content* tag now (`asm/lib/names.py`), so a name says nothing
+    about an address -- and ``_CATEGORY_RE`` has to follow that shape, or this
+    counter silently reads zero (which is how the rename first disabled it).
     """
     app_dir = _PROJECT_ROOT / 'apps' / 'DSAVANT'
     if not _TREE.is_dir() or not app_dir.is_dir():
@@ -308,13 +329,13 @@ def _scan_declared_handlers():
         for handler in dispatch_handlers(data, table):
             if handler not in labels:
                 continue
-            name, filename, first = labels[handler]
+            name, relpath, first = labels[handler]
             if not first:
-                buried.append((binary, handler, name, filename))
-            m = re.fullmatch(r'([a-z_]+)_loc_[0-9a-f]+', name)
+                buried.append((binary, handler, name, relpath))
+            m = _CATEGORY_RE.fullmatch(name)
             if not m:
                 continue          # a signature/pattern name, or the bare loc_
-            path = _TREE / binary / filename
+            path = _TREE / relpath
             if not path.is_file():
                 continue
             text = path.read_text(errors='ignore')
@@ -322,7 +343,7 @@ def _scan_declared_handlers():
             evidence = _category_evidence(m.group(1), insns, data,
                                           instruction_offsets(text))
             if evidence is False:
-                unsupported.append((binary, handler, name, filename))
+                unsupported.append((binary, handler, name, relpath))
     return buried, unsupported
 
 
@@ -660,6 +681,35 @@ class DriverHandlerPlacementTests(unittest.TestCase):
             'declared handlers named with a category their own fragment does '
             f'not evidence: {len(unsupported)} '
             f'(baseline {HANDLER_BASELINE["unsupported"]})',
+        )
+
+
+class EmittedTreeCoherenceTests(unittest.TestCase):
+    """Every local label the emitted tree references must be defined in it.
+
+    A reference with no definition is not a rendering nit: NASM fails the whole
+    binary with ``symbol ... not defined``, and the pipeline's own checks do not
+    assemble, so ``make build`` is where it surfaces -- as a wall of
+    ``label-redef-late`` cascade errors that hides the one real line.  The
+    C-override path produced exactly one (D7.2c-2e): a short forward branch the
+    Aztec compiler resolved itself carries no relocation, so the override's
+    label table had no entry for its target, while the text named one taken from
+    the *disassembly*'s table -- a label that override never defines.
+    """
+
+    def test_every_referenced_local_label_is_defined(self):
+        if not _TREE.is_dir():
+            self.skipTest('generated asm_DSAVANT tree not present')
+        referenced, defined = set(), set()
+        for path in sorted(_TREE.rglob('*.asm')):
+            if path.relative_to(_TREE).parts[0] in _SKIP_DIRS:
+                continue
+            text = path.read_text(errors='ignore')
+            referenced |= set(re.findall(r'@\.\.[\w.@]+\.l\d+', text))
+            defined |= set(re.findall(r'^(@\.\.[\w.@]+\.l\d+):', text, re.M))
+        self.assertEqual(
+            sorted(referenced - defined), [],
+            'local labels referenced but never defined (NASM fails the binary)',
         )
 
 

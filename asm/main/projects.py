@@ -3,7 +3,6 @@
 import json
 import os
 import shutil
-import subprocess
 
 from lib.sidecar import (
     load as load_sidecar,
@@ -14,8 +13,7 @@ from lib.segments import (
     SegmentError,
 )
 
-from .options import APPS_DIR, EXACT_BYTES, PROJECT_ROOT, _SHOW_OFFSETS
-from .runner import process
+from .options import APPS_DIR
 
 
 def discover_binaries(directory):
@@ -54,26 +52,6 @@ def copy_assets(orig_dir, output_dir, processed_names):
             shutil.copytree(src, dst, dirs_exist_ok=True)
 
 
-def build_binaries(asm_dir, bins, out_dir):
-    from lib.link import include_args
-    os.makedirs(out_dir, exist_ok=True)
-    all_ok = True
-    for name, (rel_path, _start_offset) in sorted(bins.items()):
-        asm_path = os.path.join(asm_dir, f'{name}.asm')
-        bin_path = os.path.join(out_dir, rel_path)
-        r = subprocess.run(
-            ['nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-w-other',
-             *include_args(asm_dir), '-o', bin_path, asm_path],
-            capture_output=True, text=True,
-        )
-        if r.returncode != 0:
-            print(f'  BUILD FAIL: {name}.asm -> {rel_path}')
-            for line in r.stderr.strip().split('\n'):
-                print(f'    {line}')
-            all_ok = False
-    return all_ok
-
-
 def _build_host_model(project_dir, bins, sidecar):
     """SegmentModel for the MZ host (``DS.EXE``).
 
@@ -101,94 +79,20 @@ def _build_host_model(project_dir, bins, sidecar):
 
 
 def process_project(project_name):
+    """Generate every binary of *project_name* (the one sequence, in process).
+
+    The whole order lives in :mod:`main.build`; this is the ``python -m main``
+    entry point to it, so it does exactly what ``make build`` does -- including
+    the ``lib/`` placement, which it used to skip.
+    """
+    from .build import build_project, inprocess_runners
+
     project_dir = os.path.join(APPS_DIR, project_name)
     if not os.path.isdir(project_dir):
         print(f'{project_name}: SKIP (not found in apps/)')
         return
-
-    sidecar = load_sidecar(project_name)
-
-    out_dir = os.path.join(PROJECT_ROOT, f'asm_{project_name}')
-    os.makedirs(out_dir, exist_ok=True)
-
-    bins = discover_binaries(project_dir)
-    if not bins:
-        print(f'{project_name}: no binaries found')
-        return
-
-    print(f'\n=== {project_name} ({len(bins)} binaries) ===')
-
-    host_model = _build_host_model(project_dir, bins, sidecar)
-
-    from lib.cross_ref import detect as detect_cross_refs
-    cross_refs = detect_cross_refs(project_dir, bins)
-
-    source_names = {src for refs in cross_refs.values() for _, src in refs}
-    source_label_maps = {}
-
-    # D7.1: clear the previous build's per-overlay DS exports so the union the
-    # host declares is exactly this build's references.
-    from lib.cachedirs import labels_dir
-    target_dir = labels_dir(project_name)
-    if os.path.isdir(target_dir):
-        for entry in os.listdir(target_dir):
-            if entry.endswith('_hostdata.json'):
-                os.remove(os.path.join(target_dir, entry))
-
-    for name in sorted(source_names & set(bins.keys())):
-        sc_entry = sidecar_per_binary(sidecar, name) if sidecar else None
-        _, lm = process(name, project_dir, bins[name][0], bins[name][1],
-                        exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
-                        output_dir=out_dir,
-                        project=project_name, sidecar_entry=sc_entry,
-                        export_labels=True, host_model=host_model)
-        source_label_maps[name] = lm
-
-    for name, (rel_path, start_offset) in sorted(bins.items()):
-        if name in source_names:
-            continue
-        sc_entry = sidecar_per_binary(sidecar, name) if sidecar else None
-
-        foreign_label_map = None
-        foreign_prefix = None
-        if name in cross_refs:
-            foreign_label_map = {}
-            sources = {src_name for _, src_name in cross_refs[name]}
-            foreign_prefix = next(iter(sources)) if len(sources) == 1 else None
-            for _, src_name in cross_refs[name]:
-                if src_name in source_label_maps:
-                    for addr, lbl in source_label_maps[src_name].items():
-                        foreign_label_map[addr] = lbl
-
-        process(name, project_dir, rel_path, start_offset,
-                exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
-                output_dir=out_dir,
-                project=project_name, sidecar_entry=sc_entry,
-                foreign_label_map=foreign_label_map,
-                foreign_prefix=foreign_prefix, host_model=host_model)
-
-    # D7.1: regenerate the host with the union of the DS offsets the overlays
-    # referenced, so it declares one recipe-based equ per offset before the
-    # link step probes the shared ``host_data.inc`` table.
-    from lib.link import (
-        collect_host_data, host_name, write_host_data_offsets,
-    )
-    host = host_name(bins)
-    union = collect_host_data(labels_dir(project_name))
-    if union and host is not None:
-        write_host_data_offsets(project_name, union)
-        sc_entry = sidecar_per_binary(sidecar, host) if sidecar else None
-        process(host, project_dir, bins[host][0], bins[host][1],
-                exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
-                output_dir=out_dir, project=project_name, sidecar_entry=sc_entry,
-                export_labels=True, host_model=host_model,
-                host_data_offsets=union)
-
-    processed = set(bins.keys())
-
-    build_out = os.path.join(out_dir, 'build_out')
-    copy_assets(project_dir, build_out, set())
-    build_binaries(out_dir, bins, build_out)
+    run_batch, nasm_batch = inprocess_runners(project_name)
+    build_project(project_name, run_batch, nasm_batch)
 
 
 def load_whitelist():

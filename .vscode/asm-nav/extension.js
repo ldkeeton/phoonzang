@@ -136,7 +136,15 @@ function describe(name, doc) {
     if (addr === null) {
         md.appendCodeblock(text.split('\n')[hit.row].trim(), 'asm');
     }
-    if (where) {
+    if (where && where.binary === 'lib') {
+        const key = routineKey(where);
+        const data = readJson(sidecarPath(where.project));
+        const entry = key && data && data.routines && data.routines[key];
+        if (entry) {
+            md.appendMarkdown(`\n\nsidecar routine \`${key}\`: **${entry.name}**`);
+            if (entry.note) md.appendMarkdown(`\n\n_${entry.note}_`);
+        }
+    } else if (where) {
         const named = sidecarName(where, addr);
         if (named.entry) {
             md.appendMarkdown(`\n\nsidecar \`${named.key}\`: **${named.entry.name}**`);
@@ -181,6 +189,38 @@ async function goToAddress() {
 
 // ------------------------------------------------- name this routine
 
+const TAGGED_LABEL = /_[G-V]{4}(?:_[0-9a-f]{4,5})?$/;
+
+// Sidecar ``routines`` key for a lib routine: its content-tagged label, or the
+// key it was already named under (the file is then called by that name).
+function routineKey(where) {
+    if (TAGGED_LABEL.test(where.label)) return where.label;
+    const data = readJson(sidecarPath(where.project));
+    const routines = (data && data.routines) || {};
+    return Object.keys(routines).find((k) => routines[k].name === where.label) || null;
+}
+
+async function nameSharedRoutine(where, suggestion) {
+    const key = routineKey(where);
+    if (!key) return vscode.window.showErrorMessage(`${where.label} has no content tag; cannot key it in routines`);
+    const file = sidecarPath(where.project);
+    if (!fs.existsSync(file)) return vscode.window.showErrorMessage(`cannot read ${file}`);
+    const text = fs.readFileSync(file, 'utf8');
+    const entry = sidecar.routines(text)[key];
+    const newName = await vscode.window.showInputBox({
+        prompt: `Name for shared routine ${key}`,
+        value: suggestion || (entry ? entry.name : ''),
+        validateInput: (v) => /^[A-Za-z_]\w*$/.test(v) ? null : 'a C-style identifier',
+    });
+    if (!newName) return;
+    const note = await vscode.window.showInputBox({
+        prompt: 'Note (optional)', value: entry && entry.note ? entry.note : '' });
+    if (note === undefined) return;
+    fs.writeFileSync(file, sidecar.setRoutine(text, key, note ? { name: newName, note } : { name: newName }));
+    vscode.window.showInformationMessage(
+        `${key} → ${newName} in ${path.basename(file)}. Rebuild (make build ${where.project}) to apply.`);
+}
+
 async function nameRoutine(uri, suggestion) {
     let doc;
     let name;
@@ -196,6 +236,7 @@ async function nameRoutine(uri, suggestion) {
     if (!name) return vscode.window.showErrorMessage('put the cursor on a routine label');
     const hit = hitsFor(name, doc)[0];
     const where = locate(hit.uri.fsPath);
+    if (where && where.binary === 'lib') return nameSharedRoutine(where, suggestion);
     const addr = routineStart(texts.get(hit.uri.toString()), hit.row);
     if (!where || addr === null) return vscode.window.showErrorMessage(`${name} has no listing address`);
     const data = readJson(sidecarPath(where.project));
@@ -312,10 +353,9 @@ async function makeC(uri) {
     }
     const rel = (f) => path.relative(root(), f);
     const prompt = `Convert ${rel(asmFile)} to K&R syntax C, writing ${rel(cFile)}. ` +
-        `It has to compile to byte exact matching asm, use make rebuild ${where.project} ${where.binary} ` +
-        `(run as \`make -C asm rebuild ${where.project} ${where.binary}\`) to check. ` +
-        `Your final message should just be a recommended name for this routine, in lowercase_underscore ` +
-        `style like the rest of the project.`;
+        `It must compile to byte-exact matching asm; do not modify the asm. ` +
+        `Check with \`make rebuild\`. ` +
+        `Your final message: only a recommended lowercase_underscore name for this routine.`;
     // --allowedTools is variadic: a trailing prompt would be swallowed as another tool name
     // (the session then starts empty), so the prompt goes first and the value is attached.
     const args = [prompt, '--permission-mode', 'acceptEdits', '--allowedTools=Read,Write,Edit,Bash(make:*)'];

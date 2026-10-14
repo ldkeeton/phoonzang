@@ -23,12 +23,9 @@ from .common import (
     PROJECT,
     _apps,
     _asm_one,
-    _copy_assets,
     _extra_flags,
-    _foreign_args,
     _main_exe,
     _nasm_build,
-    _prepare_cross_ref_sources,
     _run,
 )
 from .elf import cmd_elf_rebuild, resplice_c
@@ -67,9 +64,6 @@ __all__ = [
     '_asm_one',
     '_nasm_build',
     '_main_exe',
-    '_copy_assets',
-    '_prepare_cross_ref_sources',
-    '_foreign_args',
     '_ensure_prebuild',
     '_charts',
     '_charts_all',

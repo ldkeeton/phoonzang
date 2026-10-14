@@ -4,10 +4,13 @@ import json
 import os
 
 from .binary import _validate_binary
+from .compiler import _validate_compiler_flags
 from .constants import SIDECAR_DIR
 from .errors import SidecarError
 from .pointers import _validate_corpus
 from .ranges import _reject_range_conflicts, _validate_ranges
+from .routines import _validate_routines
+from .vendor import _validate_vendor_patches
 
 
 def load(project):
@@ -54,6 +57,10 @@ def _validate(data):
                  for k in ('flags', 'app_flags')):
         raise SidecarError('"aztec" must be an object with string '
                            '"compiler"/"sources" and list "flags"/"app_flags"')
+
+    _validate_compiler_flags(data.get('compiler_flags'))
+    _validate_vendor_patches(data.get('vendor_patches'))
+    _validate_routines(data.get('routines'))
 
     if 'binaries' in data:
         if not isinstance(data['binaries'], dict):

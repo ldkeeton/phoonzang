@@ -55,6 +55,7 @@ def per_binary(sidecar, short_name):
         'force_code': sidecar.get('force_code', []),
         'api_dispatch': sidecar.get('api_dispatch', {}),
         'function_names': {},
+        'routines': sidecar.get('routines', {}),
         'dispatch_table': None,
         'immediate_labels': {},
         'external_data': {},

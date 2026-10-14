@@ -3,8 +3,8 @@
 **This is the single plan.** It merges the former `plan-data.md` (F7 data-pointer
 detection) into the original dynamic-address plan. It is written so a *fresh
 context* can pick up at **D7.2c-2** (Pass 1 + D0–D5 + D7.0a–e + D7.1 + D7.5 +
-D7.2a/b + D7.2c + E + E2 done; §17 has each step's measurements and outcome)
-without re-deriving anything.
+D7.2a/b + D7.2c/2a–2e + E + E2 + the C workstream done; §17 has each step's
+measurements and outcome) without re-deriving anything.
 
 Plain-language goal: a user may add or remove bytes anywhere in the generated
 assembler and it must **still assemble into a working EXE**. The only tolerated
@@ -47,6 +47,9 @@ lives in `asm/lib`, not in the generated assembly.
 | D7.2c-2b — the driver-entry ABI is pinned | the `DRV` probe: `DS.EXE` loads `play.drv` and a mode-chosen display driver to `segment:0x100` and calls entry *k* through a far pointer `seg:0x100 + 3 + 4k`; the host's two ladders (8 and 56 slots) are the references, so the entries are a declared ABI, not inert names; pinned by `DriverDispatchAbiTests` | **0** (measurement only) |
 | D7.2c-2c — vga decoded to ega's depth | VGA's dispatch `force_data` tripped `DispatchTablePhase`'s `hard_data` guard, so 48 handler targets were never seeded (VGA 452 offsets vs EGA's 5830, same construct). Dropped it, declared the data *after* the table (`00df..0292`), and made the declared table seed its **entries** too — `call handler; retf`, play's form. VGA → 79 fragments / 5462 offsets; `hidden_flow` **161 → 98** (ega and vga both → 0); `names_used` 61 → **84** | **+6 census, re-baselined once** — six revealed `cseg_` globals, the class of item (ii); only VGA.DRV re-encodes (to ega's fidelity) |
 | D7.2c-2d — a declared handler owns its fragment and its name | The entry seeding left play's handlers without the `direct_call` that chose their categorization, so they fell to a raw 128-byte window that reads the following data: `leaf_loc_0154` → bare `loc_0154` (hence `strlen.asm` swallowed it), `io_loc_016e`/`io_loc_0183`/`io_loc_0294` borrowed names from bytes 100 on. `ctx.dispatch_handlers` now drives both the body walk and the split roots, so a declared handler is its own file under a name from its own body — bare `loc_` if its body genuinely claims no category | **0** (binaries byte-identical, census unchanged); buried handlers 43 → **0**, fragment-unsupported names 11 → **2** |
+| C — hand-written C replaces routines | 27 `.c` sources (ds 12, vinstall 13, `lib/` 2) compiled by the Aztec toolchain and checked byte-for-byte against the original (`lib/compare/cgate.py`); a covered routine is rendered from the compiled bytes, not the disassembly, and a `.c` is shared with its fragment where every copy is identical (`lib/shared.py`). A routine the code generator can never reproduce (port I/O, `int`, far return/call…) is stamped `; asm only` and filed under `<binary>/asm_only/` (`lib/asm_only.py`: 383 fragments) | `hidden_flow` **98 → 87** (`vinstall` 38 → 26), `names_used` 84 → **83**, `names_inert` 32 → **33** |
+| N — a name tags content, not an address | a generic routine's name is `<category>_loc_<TAG>`, the tag a four-letter digest of the routine's own decoded body (`lib/names.py:content_tag`); two binaries never collide and adding a routine shifts nothing. Fragments byte-identical across binaries collapse into `asm_DSAVANT/lib/` (60 files), each master `%include`ing them | **0** (bytes identical) |
+| D7.2c-2e — a C override defines every label it names | the override renderer derives its own branch targets from the bytes it emits (`_override_local_labels`, `lib/compare/coverrides.py`) instead of borrowing the disassembly's table; before, a short forward branch the Aztec compiler had resolved itself carried a relocation but *no* label record, so the text named a label the override never defined and NASM failed the whole binary (1153-error cascade) | **0** (bytes identical) |
 
 † D7.0a did not *create* 33 new problems — it made 33 already-frozen values
 **visible**. A host EXE and its overlays share one data segment: every overlay's
@@ -73,23 +76,24 @@ so the count does not move (Section 18). The detail of each step is in Section
 
 | class | value | meaning |
 |-------|------:|---------|
-| `code_shift` | 126 | breaks when code resizes — **must reach 0** (15 of them are reclassified `inert`, D7.3) |
+| `code_shift` | 132 | breaks when code resizes — **must reach 0** (15 of them are reclassified `inert`, D7.3) |
 | `data_shift` | 1 | breaks when data resizes — **must reach 0** (one raw-driver residual; see §17 D7.1) |
 | `inert` | 248 | can never change — **excluded** |
-| `total` (gated) | 127 | `code_shift + data_shift` |
+| `total` (gated) | 133 | `code_shift + data_shift` |
 
-Per-taxonomy breakdown: `f1=2 f2=13 f3=108 f4=1 f5=3 f6=241 f7=0`, plus the
+Per-taxonomy breakdown: `f1=2 f2=13 f3=114 f4=1 f5=3 f6=241 f7=0`, plus the
 shared-geometry buckets: `o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0` (D7.0b
 bound the 7 DS-size immediates, D7.0c bound the 13 `o_dorg`, **D7.2 bound the
 whole 40-item `o_corg` family** — the overlay load origin — and **D7.2c gave 26 of
-the 134 F3 names a label in place**, §17 D7.2). D7.1 bound the overlay
-`dseg_`/`bss_` family (`f4` 1231 → 1).
+the 134 F3 names a label in place**; D7.2c-2c then *revealed* six more `cseg_`
+globals when it decoded vga to ega's depth, so the floor is 133 — §17 D7.2). D7.1
+bound the overlay `dseg_`/`bss_` family (`f4` 1231 → 1).
 
-Where the 127 live, per emitted file:
+Where the 133 live, per emitted file:
 
 | binary | gated | of which F4 (`dseg_`/`bss_` `equ`) |
 |--------|------:|-----------------------------------:|
-| `vga` | 34 | 0 |
+| `vga` | 40 | 0 |
 | `ega` | 19 | **1** |
 | `vpcvw` | 16 | 0 |
 | `play` / `vbase` | 9 / 9 | 0 / 0 |
@@ -109,25 +113,33 @@ segment is established at run time (Appendix C); every other one of the former
 that are nevertheless *counted* today — D7.3 reconciles that. The 114 F3 `equ`s
 are themselves named and counted as D7.2c-2 (§17): 70 names refused a label
 (55 on bytes that render as data, 15 mid-instruction, 2 outside every record) +
-the `mem_equ` operand symbols (21 before D7.2c-2c, six more now) + 17 `vga`
-`immediate_labels`. Two of the `vinstall`
+the 27 `mem_equ` operand symbols (21 before D7.2c-2c) + 17 `vga`
+`immediate_labels`.  By prefix they are `cseg_` 44 + `loc_` 38 + `data_` 19 +
+`leaf_` 5 + `string_` 4 + `fpu_` 2 + `io_` 1 + `api_idx` 1 = 114; the bare
+`loc_` 38 are the declared drivers' handlers whose own bodies claim no category
+(D7.2c-2d), and the `cseg_`/`data_` lines carry 60 distinct names (55 used,
+5 inert).  Two of the `vinstall`
 "data" words (`0x2e`/`0x30`) are still inert PSP slots mis-bound as `dseg_`
 (Section 5d); that is a naming bug that does not move the census.
 
 **Two counters keep the census honest** (D7.2c-2a): of the 116 *named* frozen
-addresses, **84 are used** (the tree refers to them, so they must follow an edit)
-and **32 are inert** — nothing refers to them at all (`loc_0007`,
+addresses, **83 are used** (the tree refers to them, so they must follow an edit)
+and **33 are inert** — nothing refers to them at all (`loc_0007`,
 `ds_leaf_loc_10108`, every one of `vga`'s 17 `immediate_labels`).  Converting an
 inert name to a label moves the census without making anything follow an edit.
-Separately, **`hidden_flow` = 98**: near call/jmp references whose *target* the
+Separately, **`hidden_flow` = 87**: near call/jmp references whose *target* the
 source shows as code while their *site* is emitted as bytes — real address
 references no source line spells, so neither the census nor a label can reach them
-(`vinstall` 38, `vmexe` 21, `play` 20, `vpcvw` 11, `vdopt` 5, then 1s; e.g. play's
+(`vinstall` 26, `vmexe` 21, `play` 20, `vpcvw` 11, `vdopt` 5, then 1s; e.g. play's
 `call 0x07f6` at 0x00e2, emitted `db 0xe8, 0x11, 0x07` on `play.asm:93`; `ega` and
 `vga`, whose tables were the whole of it, are now **0**).  It is a *lower bound*
 and it is gated, so it may only fall; decoding a region can *raise* it (more
 targets become shown), which is why D7.2c-2c re-baselined it once, deliberately —
-and it fell by 63.
+and it fell by 63.  It has since fallen again, to 87: the hand-written C (the C
+workstream, §17) re-renders a covered routine from the compiler's bytes, so its
+instructions carry offsets where the disassembly had emitted the same bytes as
+`db` (`vinstall` 38 → 26).  Both baselines were lowered after measuring **HEAD's
+own tree**, not the working tree.
 
 **A third pair keeps the declared drivers honest** (D7.2c-2d): of the 118 handlers
 the three declared dispatch tables name, **43 used to share a neighbour's
@@ -164,6 +176,20 @@ probed or generated; see §17 D7.5.)*
   (`ds_size_imm`), and **D7.0b bound those 7 immediates to `__zdseg_end`**;
   the general DS-address immediate still has neither a counter nor a binding.
 - **Odd-aligned pointer tables.** The scorer collects even offsets only.
+- **A C data reference that no symbol names** (found 2026-10-14). When a
+  hand-written `.c` references `<dseg|bss>_<4 hex>` and the build has no such
+  symbol, the linker parses the offset *out of the identifier*
+  (`lib/aztec/relink.py:179`, `_RAW_DATA = r'dseg_[0-9a-f]{4}'`: `int(name[-4:], 16)`)
+  and writes it as a bare literal. So the C compiles and the bytes must still
+  match the original (the C gate compares them, `lib/compare/cgate.py`), but the
+  emitted operand is a frozen number where the tree would have emitted a name —
+  and a wrong *prefix* is invisible to every check, because the value is what
+  matters: the tree names DS:0x8482 `bss_8482` (it is past `bss_boundary` 0xcf6)
+  while the C writes `dseg_8482`, and both render the same bytes. Measured: 16
+  such references (all in the hand-written `lib/` sources); the two whose offset
+  *is* named (`dseg_8482`, `dseg_8490`) are also what makes the C arm print
+  `+ 0x8482` where the disassembly arm prints capstone's signed `- 0x7b7e`.
+  **No counter** — so, per the rule below, no renderer work starts on it yet.
 
 **Rule:** no work starts on a class that has no counter (Section 21). F7
 (§0.1) is the cautionary tale — correct work that the gate could not show.
@@ -177,9 +203,12 @@ probed or generated; see §17 D7.5.)*
   **D7.0c (the pre-NASM link step), D7.0e (one shared host-call table), D7.1 (the
   host-owned shared DS name map), D7.2b (the overlay load origin, `o_corg`,
   bound to the host's resident-code end), D7.2c (a named byte gets a label, not an
-  `equ`: 26 of 134), E (the ELF build owns the origin) and E2 (the host block is
-  emitted once) are DONE**; what remains of D7.2 is **D7.2c-2**, the 70 refused
-  names + the 21 `mem_equ` operand symbols (§17). Then D7.3/D7.4.  D7.0d
+  `equ`: 26 of 134), E (the ELF build owns the origin), E2 (the host block is
+  emitted once) and D7.2c-2a–2e (the census counters, the driver-entry ABI, vga
+  decoded to ega's depth, a declared handler owning its fragment, a C override
+  defining every label it names) are DONE**; what remains of D7.2 is **D7.2c-2**,
+  the 70 refused names + the 27 `mem_equ` operand symbols (§17). Then D7.3/D7.4.
+  D7.0d
   (ELF/DWARF for overlays) is tooling-only, is unblocked by E, and can slot in
   anywhere.
 
@@ -1859,6 +1888,85 @@ host DS size — is established in §0.1/§0.2 and Section 18.
   its ``int 0x13`` past the entry at 0x02b3, and ``ega``'s ``graphics_loc_31df``
   is a ``jmp`` thunk into handler 0x04b1).
 
+- **D7.2c-2e — a C override defines every label it names. ✅ DONE (2026-10-14).**
+  **Why.** A C override is rendered from the compiler's bytes, and its operands are
+  resolved against the object's own label table (``relink``) *plus* the
+  disassembly's ``local_labels`` -- a table that names bytes of the **original**
+  routine, including targets this code does not branch to. The Aztec compiler
+  resolves a short forward branch *itself*, so that target carries no relocation,
+  while the emitted text still named a label from the disassembly's table.
+  Measured: ``lib/api_idx_000a_JKVP.asm`` ended with
+  ``jle short @..api_idx_000a_JKVP.l9`` and never defined ``.l9``; NASM then
+  reported the one real line plus a **1152-error** ``label-redef-late`` cascade
+  (one undefined symbol destabilizes every later offset). Because the fragment is
+  *shared*, both consumers failed (vmexe 1153, vpops 514).
+  **The fix.** ``_override_local_labels`` (``lib/compare/coverrides.py``) decodes
+  the bytes being emitted and derives the branch targets from them: a target keeps
+  the disassembly's name when the offset matches (so the file reads as it did
+  before the override), then ``relink``'s derived names, then fresh
+  ``@..<label>.lN`` numbered **ascending by target offset**; only relative branches
+  need a name at all (an absolute operand is a value, and a bare number assembles
+  correctly for it). Any target with no label record gets one defined.
+  **Measured.** ``make build DSAVANT`` clean; ``make verify DSAVANT`` **18/18**;
+  suite **392 OK**; the emitted fragment is byte-identical to the pre-fix output
+  except that ``.l9`` is defined again. Tree-wide guard:
+  ``EmittedTreeCoherenceTests::test_every_referenced_local_label_is_defined``
+  (``lib/tests/test_dynamic_addrs.py``) checks every ``@..*.lN`` the tree
+  references is defined in it (8727/8727), so the class cannot return silently:
+  the pipeline's own checks do not assemble, so without it ``make build`` is where
+  a dangling reference surfaces -- as the cascade above.
+
+- **C — hand-written C replaces routines (the C workstream). ▶️ IN PROGRESS
+  (2026-10-14).** Not a census step: the covered routines' bytes must be
+  **identical**, so the census does not move (it moved only where a routine's
+  instructions stop being emitted as ``db``; see below).
+
+  **What it is.** ``asm_DSAVANT/**/*.c`` is *input* and the routine it names is
+  rendered from the Aztec compiler's bytes instead of the disassembly. 27 sources
+  today (ds 12, vinstall 13, ``lib/`` 2). The wiring is by convention, not by the
+  sidecar: ``main/aztec.py:_aztec_c_overrides`` collects ``*.c`` whose stem is a
+  label the binary has, ``c_path()`` prefers the shared ``lib/`` copy, and
+  ``lib/compare/coverrides.py`` splices the compiled bytes over the routine's
+  recorded span (a hand-written ``.c`` with no manifest entry takes its length
+  from the spans sidecar -- vmexe ``[1110,1622]``). A compile failure and a C-gate
+  failure are both hard errors; ``lib/compare/cgate.py`` compares the compiled
+  bytes against the original instruction by instruction, so a mistyped offset
+  cannot pass (it changes the bytes).
+
+  **Splitting.** A routine the Aztec generator can never reproduce (port I/O,
+  ``int``, ``cli``/``sti``, ``rep``, far ``ret``/``call``, ...) is stamped
+  ``; asm only`` on line 2 and filed under ``<binary>/asm_only/``
+  (``lib/asm_only.py:blockers``; 383 fragments); ``make readme`` reads the marker
+  to leave those out of the C-coverage count.
+
+  **Sharing.** Byte-identical routines collapse into ``asm_<project>/lib/`` and
+  each master ``%include``s them (``lib/shared.py``; 60 shared fragments); a shared
+  routine's ``.c`` is shared with it, and a C override **un-shares** its fragment
+  as soon as the two binaries' renderings differ.
+
+  **Names.** A generic routine's name is ``<category>_loc_<TAG>``, the tag a
+  four-letter digest of its own decoded body (``lib/names.py:content_tag``) --
+  address-independent, so adding a routine shifts nothing and two binaries never
+  collide; only copies of the *same* code inside one binary keep an address
+  suffix. ``rename_generics`` prefixes the *host's* generics (``ds_loc_...``) so
+  an overlay's own names cannot collide with the host's.
+
+  **Census effect.** ``hidden_flow`` 98 -> **87** (``vinstall`` 38 -> 26: a covered
+  routine's instructions now carry ``; 0x`` offsets where the disassembly emitted
+  the same bytes as ``db``, so they are no longer sites no source line spells),
+  ``names_used`` 84 -> **83**, ``names_inert`` 32 -> **33**. Census itself
+  unchanged (132 / 1 / 248 / 133).
+
+  **Open — the resolution contract (see §0.3, §18).** A C reference to a
+  ``dseg_``/``bss_`` offset that no symbol names is currently *taken as written*
+  (``lib/aztec/relink.py:179``), so it renders as a frozen literal and a wrong
+  *prefix* is invisible -- the tree names DS:0x8482 ``bss_8482`` (past
+  ``bss_boundary`` 0xcf6) while the C spells it ``dseg_8482``. That is the one
+  place the C path emits a bare number where the disassembly emits a name, and it
+  is *also* why the same instruction reads ``+ 0x8482`` in the C arm and
+  ``- 0x7b7e`` (capstone's signed spelling) in the disassembly arm. It has no
+  counter yet, so no renderer work has started.
+
 - **E — the ELF build owns the origin (`make elf-rebuild`; D7.2b/D7.5 follow-up).
   ✅ DONE (2026-10-13).** Tooling-only: **no census change, no binary change**
   (verified), and it removes the last part of D7.2b that existed only for a build
@@ -2067,6 +2175,22 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
   **Partly addressed (D4):** the scorer no longer counts a fixed-slot DS access
   as pointer evidence; the *naming/emission* fix (render `[0x2e]`, not
   `dseg_002e`) is still open. **Moves the gate: no (`f4=0` in both MZ images).**
+- **[OPEN] The C data-reference contract (2026-10-14, §0.3).** A hand-written
+  `.c` may name a DS offset the build has no symbol for (`dseg_<4 hex>`), and
+  `lib/aztec/relink.py:179` takes it *as written* — `int(name[-4:], 16)` — and
+  emits a bare literal. So a wrong `dseg_`/`bss_` prefix is invisible (the tree's
+  name for DS:0x8482 is `bss_8482`, since it is past `bss_boundary` 0xcf6), and
+  the C arm prints `+ 0x8482` where the disassembly arm prints capstone's signed
+  `- 0x7b7e`. The intent is that a C reference must **resolve**: (a) make the
+  fallback a hard error, so a name that is not a build symbol fails the build
+  instead of silently becoming a number; (b) decide what a hand-written C does for
+  an offset the tree never named — either the build *declares* the canonical name
+  for an in-segment offset (a recipe in `host_data_offsets`, so the operand is
+  symbolic and follows a resize), or the offset must be declared in the sidecar.
+  Either way both arms must render one spelling. **Moves the gate: no** (the
+  census cannot see it), but it is the C path's instance of the plan's own goal —
+  a frozen literal that cannot follow an edit. 16 references today, all in the
+  hand-written `lib/` sources. **No counter yet, so no work started.**
 - **[OPEN] Recall cost.** Every real pointer left in `unproven_data_words` still
   fails the "arbitrary edits" bar — the bucket is the measure of that gap; do
   not hide it by promoting on weak evidence.

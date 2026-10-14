@@ -53,6 +53,7 @@ from .options import (
     ALLOW_DIFF,
     ASM_DIR,
     AZTEC_PREBUILD_ONLY,
+    DETAILED_TIMINGS,
     STATS,
     _DIAG,
     _ITERATIVE,
@@ -97,6 +98,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         name=name,
         trace=trace_writer,
         sidecar_entry=sidecar_entry,
+        detailed_timings=DETAILED_TIMINGS,
     )
 
     binary_type = (sidecar_entry or {}).get('type')
@@ -559,34 +561,42 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     if imm_fail:
         dbc = f'{stats["with_comment"]}[immfail={imm_fail}]'
 
-    print(f'{name}: {len(instructions)} insns -> {asm_path}  '
-          f'mnem={stats["mnemonic"]} db={stats["data"]} '
-          f'dbc={dbc} blocks={stats["data_blocks"]} '
-          f'lbl={stats["labels"]}  structs={stats["structs"]}  '
-          f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
-          f'bare=[mem:{stats["bare_mem"]} call:{stats["bare_call"]} dbc:{stats["bare_dbc"]}]  '
-          f'loss={stats.get("code_loss", 0)}  '
-          f'aztec={stats.get("aztec_labels", 0)}  '
-          f'[{stats["status"]}]')
-    a_stats = assemble_stats()
-    print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
-          f'disasm: {t_disasm-t_flow_disasm_start:.1f}s  '
-          f'aztec: {t_aztec_end-t_aztec:.1f}s  '
-          f'verify+emit: {t_end-t_aztec_end:.1f}s  '
-          f'(func_bounds={stats.get("timing_func_boundaries",0):.3f}s '
-          f'local_lbl={stats.get("timing_local_labels",0):.3f}s '
-          f'main_loop={stats.get("timing_main_loop",0):.3f}s '
-          f'format={stats.get("timing_format",0):.3f}s '
-          f'postproc={stats.get("timing_postprocess",0):.3f}s '
-          f'emit_class={stats.get("timing_emit_class",0):.3f}s '
-          f'build_src={stats.get("timing_build_source",0):.3f}s) '
-          f'nasm={a_stats["spawns"]}sp+{a_stats["hits"]}c/{a_stats["time"]:.1f}s '
-          f'total: {t_end-t_total:.1f}s')
-    print(f'  classify phases:')
-    print(classify_timing)
-    if ctx.report.get('iterative'):
-        it = ctx.report['iterative']
-        print(f'  iterative: {it["iterations"]} iters, converged={it["converged"]}')
+    if DETAILED_TIMINGS:
+        print(f'{name}: {len(instructions)} insns -> {asm_path}  '
+              f'mnem={stats["mnemonic"]} db={stats["data"]} '
+              f'dbc={dbc} blocks={stats["data_blocks"]} '
+              f'lbl={stats["labels"]}  structs={stats["structs"]}  '
+              f'code={code_bytes}({pct:.0f}%) data={data_bytes}  '
+              f'bare=[mem:{stats["bare_mem"]} call:{stats["bare_call"]} '
+              f'dbc:{stats["bare_dbc"]}]  '
+              f'loss={stats.get("code_loss", 0)}  '
+              f'aztec={stats.get("aztec_labels", 0)}  '
+              f'[{stats["status"]}]')
+    else:
+        print(f'{name}: {len(instructions)} insns -> '
+              f'{os.path.basename(asm_path)}  [{stats["status"]}]')
+    if DETAILED_TIMINGS:
+        a_stats = assemble_stats()
+        print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '
+              f'disasm: {t_disasm-t_flow_disasm_start:.1f}s  '
+              f'aztec: {t_aztec_end-t_aztec:.1f}s  '
+              f'verify+emit: {t_end-t_aztec_end:.1f}s  '
+              f'(func_bounds={stats.get("timing_func_boundaries",0):.3f}s '
+              f'local_lbl={stats.get("timing_local_labels",0):.3f}s '
+              f'main_loop={stats.get("timing_main_loop",0):.3f}s '
+              f'format={stats.get("timing_format",0):.3f}s '
+              f'postproc={stats.get("timing_postprocess",0):.3f}s '
+              f'emit_class={stats.get("timing_emit_class",0):.3f}s '
+              f'build_src={stats.get("timing_build_source",0):.3f}s) '
+              f'nasm={a_stats["spawns"]}sp+{a_stats["hits"]}c/'
+              f'{a_stats["time"]:.1f}s '
+              f'total: {t_end-t_total:.1f}s')
+        print(f'  classify phases:')
+        print(classify_timing)
+        if ctx.report.get('iterative'):
+            it = ctx.report['iterative']
+            print(f'  iterative: {it["iterations"]} iters, '
+                  f'converged={it["converged"]}')
 
     ctx.report['verify'] = {
         'status': stats['status'],

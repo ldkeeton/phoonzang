@@ -25,7 +25,7 @@ Env:
 """
 
 import os
-import shutil
+import re
 import subprocess
 import sys
 
@@ -37,7 +37,6 @@ JOBS = os.cpu_count() or 4
 if ASM not in sys.path:
     sys.path.insert(0, ASM)
 from main import load_whitelist
-from lib.cachedirs import labels_dir, project_of_asm_dir
 from lib.link import include_args
 
 
@@ -68,21 +67,43 @@ def _extra_flags():
     return flags
 
 
+#: Kept even from a successful worker: the binary's own summary, plus anything
+#: that reads like a warning (``aztec link``/``LINK WARN``/tracebacks) and the
+#: C data-reference contract violations (plan.md section 18).
+_WARN_LINE = re.compile(r'WARN|warn|FAIL|fail|Error|error:|Exception|Traceback'
+                        r'|taken as written|not a build symbol')
+
+
+def _verbose():
+    """``EXTRA_FLAGS=--verbose`` or ``VERBOSE=1`` prints every worker line."""
+    return bool(os.environ.get('VERBOSE')) or '--verbose' in _extra_flags()
+
+
 def _asm_one(app, binary, extra_args=None, sink=None):
     """Run ``python -m main <app> <binary>`` and report its output.
 
     Empty stdout is normal (e.g. a prebuild binary with no ``aztec_*`` labels),
-    so blank lines are dropped rather than reprinted.  When *sink* is a list the
-    non-empty lines are appended to it instead of printed, letting callers group
-    and order parallel output deterministically.
+    so blank lines are dropped rather than reprinted.  A worker that succeeds
+    prints only its own one-line summary (plus anything that looks like a
+    warning); a worker that fails prints everything.  ``EXTRA_FLAGS=--verbose``
+    or ``VERBOSE=1`` prints it all either way.  When *sink* is a list the kept
+    lines are appended to it instead of printed, letting callers group and order
+    parallel output deterministically.
     """
     cmd = [sys.executable, '-m', 'main', app]
     cmd.extend(_extra_flags())
+    if _verbose() and '--verbose' not in cmd:
+        # The worker then prints its full stats line and phase timings.
+        cmd.append('--verbose')
     cmd.append(binary)
     if extra_args:
         cmd.extend(extra_args)
     r = subprocess.run(cmd, capture_output=True, text=True, cwd=ASM)
     lines = [line for line in r.stdout.splitlines() if line.strip()]
+    if r.returncode == 0 and not _verbose():
+        prefix = f'{binary}: '
+        lines = [line for line in lines
+                 if line.startswith(prefix) or _WARN_LINE.search(line)]
     if sink is not None:
         sink.extend(lines)
     else:
@@ -118,95 +139,3 @@ def _main_exe(out_dir, bins):
         return name, bins[name][0]
     return None, None
 
-
-def _copy_assets(app_dir, build_out):
-    os.makedirs(build_out, exist_ok=True)
-    for entry in sorted(os.listdir(app_dir)):
-        src = os.path.join(app_dir, entry)
-        dst = os.path.join(build_out, entry)
-        if os.path.isfile(src):
-            shutil.copy2(src, dst)
-        elif os.path.isdir(src):
-            shutil.copytree(src, dst, dirs_exist_ok=True)
-
-
-def _clear_host_data_exports(app):
-    """Remove the previous build's per-overlay DS export files (D7.1)."""
-    target_dir = labels_dir(app)
-    if not os.path.isdir(target_dir):
-        return
-    for entry in os.listdir(target_dir):
-        if entry.endswith('_hostdata.json'):
-            os.remove(os.path.join(target_dir, entry))
-
-
-def _aggregate_host_data(app):
-    """Merge every overlay's exported DS refs into the host's union (D7.1).
-
-    Each overlay generation writes ``<name>_hostdata.json`` (a ``{DS name:
-    offset}`` map) when it has a host; this returns the union the host must
-    declare, written to ``.cache/<project>/labels/host_data_offsets.json``.  A
-    name whose value disagrees across consumers is a hard error, not a guess.
-    Returns the path, or ``None`` when no overlay references host data.
-    """
-    from lib.link import (
-        LinkError, collect_host_data, write_host_data_offsets,
-    )
-    try:
-        union = collect_host_data(labels_dir(app))
-    except LinkError as exc:
-        print(f'  LINK WARN: {exc}')
-        return None
-    if not union:
-        return None
-    return write_host_data_offsets(app, union)
-
-
-def _remove_foreign_label_copies(app):
-    """Delete any stale per-consumer ``*_foreign_labels.inc`` files (D7.0e)."""
-    target = labels_dir(app)
-    if not os.path.isdir(target):
-        return
-    for entry in os.listdir(target):
-        if entry.endswith('_foreign_labels.inc'):
-            os.remove(os.path.join(target, entry))
-
-
-def _prepare_cross_ref_sources(app, app_dir, out_dir, bins, cross_refs,
-                               process_sources=None):
-    source_names = {src for refs in cross_refs.values() for _, src in refs}
-    if process_sources is None:
-        process_sources = source_names
-
-    if cross_refs:
-        print(f'  Cross-binary references detected: {len(cross_refs)} consumers')
-        for name in sorted(source_names):
-            print(f'  Source binary: {name}')
-
-    failed = []
-    for src_name in sorted(source_names & set(bins.keys()) & process_sources):
-        print(f'  Processing source: {src_name}')
-        if _asm_one(app, src_name, ['--export-labels']) != 0:
-            print(f'  FAILED: {src_name}')
-            failed.append(src_name)
-
-    # Remove any stale per-consumer subset copies of the old foreign tables.
-    _remove_foreign_label_copies(app)
-
-    return failed
-
-
-def _foreign_args(out_dir, name, cross_refs):
-    if name not in cross_refs:
-        return None
-    prefix = next(iter(set(src for _, src in cross_refs[name])), '')
-    project = project_of_asm_dir(out_dir)
-    if project is None:
-        return None
-    json_path = os.path.join(labels_dir(project), f'{prefix}_labels.json')
-    if not os.path.exists(json_path):
-        return None
-    return [
-        f'--foreign-labels={json_path}',
-        f'--foreign-prefix={prefix}',
-    ]

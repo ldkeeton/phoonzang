@@ -78,6 +78,7 @@ class Linked:
         self.local_records = []     # label records for derived local labels
         self.local_names = {}       # absolute address -> local label name
         self.legacy = []            # Fixups left on the original-bytes path
+        self.raw = []               # (site, name) taken as written from a C name
         self.failed = []            # refs whose operand text did not verify
         self.consumed = set()       # fixup offsets matched to an operand
 
@@ -183,6 +184,7 @@ def link(label, start, func, index, original, labels_in=()):
                 _put(code, site, 2, value + fx.addend)
                 out.refs[site] = Ref(site, 2, f'0x{value + fx.addend:04x}',
                                      False, {})
+                out.raw.append((site, name))
             else:
                 raise RelinkError(
                     f'{label}: reference to unknown symbol {name!r} '

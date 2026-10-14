@@ -39,7 +39,7 @@ loc_000e:
 
 %include "vpops/api_idx_0054_OMTV.asm"     ; 0x035f
 
-%include "lib/api_idx_000a_JKVP.asm"     ; 0x0504
+%include "lib/fill_action_slot_table.asm" ; 0x0504
 
 %include "lib/api_idx_000e_TGQN.asm"     ; 0x0704
 
