@@ -68,7 +68,7 @@ loc_1392:
     mov ax, di                       ; 0x13e1
     mov cl, 0xa                      ; 0x13e3
     shr ax, cl                       ; 0x13e5
-    mov word [cs:dos_con_loc_1490 - IMAGE_BASE], ax ; 0x13e7
+    mov word [cs:loc_1490 - IMAGE_BASE], ax ; 0x13e7
     and di, strict word 0x3ff        ; 0x13eb
     mov cl, 4                        ; 0x13ef
     shl di, cl                       ; 0x13f1
@@ -81,7 +81,7 @@ loc_1392:
     xor dx, dx                       ; 0x13fd
     cmp di, strict word 0x4000       ; 0x13ff
     jne short @..loc_1392.l4         ; 0x1403
-    inc word [cs:dos_con_loc_1490 - IMAGE_BASE] ; 0x1405
+    inc word [cs:loc_1490 - IMAGE_BASE] ; 0x1405
     inc dx                           ; 0x140a
 @..loc_1392.l4:
     cmp si, strict word 0x4000       ; 0x140b

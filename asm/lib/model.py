@@ -93,6 +93,12 @@ class PhaseContext:
                                 f'force_data[{index}].end') + 1
             self.hard_data[start:min(end, n)] = True
         self.seeds: list[SeedInfo] = []
+        #: Handler offsets a declared ``dispatch_table`` names (D7.2c-2d).  The
+        #: table is a contract, not a guess: each handler is a function entry,
+        #: so the label pass categorizes it from its own body and the splitter
+        #: gives it its own fragment even when its label stays a bare
+        #: ``loc_<addr>``.
+        self.dispatch_handlers: set[int] = set()
         seed_addresses = set()
         mz_entry = parse_mz_entrypoint(binary_data)
         if mz_entry is not None:

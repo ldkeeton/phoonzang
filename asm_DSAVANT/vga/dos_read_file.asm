@@ -1,123 +1,93 @@
 ; auto-generated
 dos_read_file:
-    push bp                          ; 0x45fb
-    mov bp, sp                       ; 0x45fc
-    sub sp, byte 0x0e                ; 0x45fe
-    push ds                          ; 0x4601
-    push es                          ; 0x4602
-    push si                          ; 0x4603
-    push di                          ; 0x4604
-    mov ax, ds                       ; 0x4605
-    mov es, ax                       ; 0x4607
-    mov bx, word [bp + 0x12]         ; 0x4609
-    shl bx, 1                        ; 0x460c
-    shl bx, 1                        ; 0x460e
-    add bx, data_46d9                ; 0x4610
-    mov word [bp - 0x0002], bx       ; 0x4614
-    mov ax, word [cs:bx]             ; 0x4617
-    or ax, ax                        ; 0x461a
-    je short @..dos_read_file.l1     ; 0x461c
-    jmp near @..dos_read_file.l5     ; 0x461e
+    push bp                          ; 0x08d2
+    mov bp, sp                       ; 0x08d3
+    push ds                          ; 0x08d5
+    push es                          ; 0x08d6
+    push si                          ; 0x08d7
+    push di                          ; 0x08d8
+    mov ax, ds                       ; 0x08d9
+    mov es, ax                       ; 0x08db
+    mov ax, word [bp + 0xe]          ; 0x08dd
+    cmp ax, strict word 2            ; 0x08e0
+    je short @..dos_read_file.l2     ; 0x08e3
+    cmp ax, strict word 1            ; 0x08e5
+    je short @..dos_read_file.l1     ; 0x08e8
+    jmp near @..dos_read_file.l4     ; 0x08ea
 @..dos_read_file.l1:
-    mov bx, word [bp + 0x12]         ; 0x4621
-    shl bx, 1                        ; 0x4624
-    add bx, data_46f1                ; 0x4626
-    mov ax, word [bp + 0x10]         ; 0x462a
-    mov word [cs:bx], ax             ; 0x462d
-    mov ax, word [cs:cseg_0caa - IMAGE_BASE] ; 0x4630
-    inc ax                           ; 0x4634
-    mov word [cs:cseg_0caa - IMAGE_BASE], ax ; 0x4635
-    mov bx, word [bp - 0x0002]       ; 0x4639
-    mov word [cs:bx], ax             ; 0x463c
-    dec ax                           ; 0x463f
-    mov cl, 2                        ; 0x4640
-    shl ax, cl                       ; 0x4642
-    mov bx, data_0bda                ; 0x4644
-    add bx, ax                       ; 0x4647
-    mov word [bp - 0x000a], bx       ; 0x4649
-    mov ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x464c
-    mov word [cs:bx], ax             ; 0x4650
-    xor ax, ax                       ; 0x4653
-    mov word [bp - 0x000c], ax       ; 0x4655
-    mov word [bp - 0x000e], ax       ; 0x4658
-    mov bx, word [bp - 0x0002]       ; 0x465b
-    mov word [cs:bx + 0x2], ax       ; 0x465e
-    mov bx, word [bp + 0xe]          ; 0x4662
-    cmp bx, byte 0xff                ; 0x4665
-    je short @..dos_read_file.l2     ; 0x4668
-    mov ah, 0x42                     ; 0x466a
-    mov al, 2                        ; 0x466c
-    xor cx, cx                       ; 0x466e
-    mov dx, cx                       ; 0x4670
-    int 0x21 ; DOS seek file (lseek)
-    mov word [bp - 0x000c], ax       ; 0x4674
-    mov bx, word [bp - 0x0002]       ; 0x4677
-    mov word [cs:bx + 0x2], ax       ; 0x467a
-    add ax, strict word 0xf          ; 0x467e
-    mov cl, 4                        ; 0x4681
-    shr ax, cl                       ; 0x4683
-    mov word [bp - 0x000e], ax       ; 0x4685
-    mov ah, 0x42                     ; 0x4688
-    mov al, 0                        ; 0x468a
-    mov bx, word [bp + 0xe]          ; 0x468c
-    xor cx, cx                       ; 0x468f
-    mov dx, cx                       ; 0x4691
-    int 0x21 ; DOS seek file (lseek)
+    mov ax, word [bp + 0xc]          ; 0x08ed
+    shl ax, 1                        ; 0x08f0
+    mov bx, data_0251                ; 0x08f2
+    add bx, ax                       ; 0x08f5
+    mov ax, word [cs:bx]             ; 0x08f7
+    dec ax                           ; 0x08fa
+    mov cl, 2                        ; 0x08fb
+    shl ax, cl                       ; 0x08fd
+    mov bx, data_0bda                ; 0x08ff
+    add bx, ax                       ; 0x0902
+    mov ax, word [cs:bx]             ; 0x0904
+    mov bx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x0907
+    add bx, ax                       ; 0x090c
+    mov ds, bx                       ; 0x090e
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0910
+    mov es, ax                       ; 0x0914
+    xor di, di                       ; 0x0916
+    xor si, si                       ; 0x0918
+    mov cx, 0xfa00                   ; 0x091a
+    rep movsb                        ; 0x091d
+    jmp short @..dos_read_file.l5    ; 0x091f
 @..dos_read_file.l2:
-    mov ah, 0x42                     ; 0x4695
-    mov al, 2                        ; 0x4697
-    mov bx, word [bp + 0xc]          ; 0x4699
-    xor cx, cx                       ; 0x469c
-    mov dx, cx                       ; 0x469e
-    int 0x21 ; DOS seek file (lseek)
-    mov word [bp - 0x0004], ax       ; 0x46a2
-    mov word [bp - 0x0006], dx       ; 0x46a5
-    mov ah, 0x42                     ; 0x46a8
-    mov al, 0                        ; 0x46aa
-    mov bx, word [bp + 0xc]          ; 0x46ac
-    xor cx, cx                       ; 0x46af
-    mov dx, cx                       ; 0x46b1
-    int 0x21 ; DOS seek file (lseek)
-    mov ax, word [bp - 0x0004]       ; 0x46b5
-    add ax, strict word 0xf          ; 0x46b8
-    mov cl, 4                        ; 0x46bb
-    shr ax, cl                       ; 0x46bd
-    mov bx, word [bp - 0x000a]       ; 0x46bf
-    add ax, word [bp - 0x000e]       ; 0x46c2
-    mov word [cs:bx + 0x2], ax       ; 0x46c5
-    add ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x46c9
-    cmp ax, 0x4180                   ; 0x46ce
-    jb short @..dos_read_file.l3     ; 0x46d1
-    jmp near @..dos_read_file.l6     ; 0x46d3
+    mov ax, word [bp + 0xc]          ; 0x0921
+    shl ax, 1                        ; 0x0924
+    mov bx, data_02d7                ; 0x0926
+    add bx, ax                       ; 0x0929
+    mov ax, word [cs:bx]             ; 0x092b
+    dec ax                           ; 0x092e
+    mov cl, 2                        ; 0x092f
+    shl ax, cl                       ; 0x0931
+    mov bx, 0x2eb                    ; 0x0933
+    add bx, ax                       ; 0x0936
+    mov si, word [cs:bx]             ; 0x0938
+    mov ax, si                       ; 0x093b
+    mov cl, 0xa                      ; 0x093d
+    shr ax, cl                       ; 0x093f
+    mov word [cs:cseg_3c8e - IMAGE_BASE], ax ; 0x0941
+    call leaf_loc_3b90               ; 0x0945
+    and si, strict word 0x3ff        ; 0x0948
+    mov cl, 4                        ; 0x094c
+    shl si, cl                       ; 0x094e
+    mov bx, word [cs:cseg_0203 - IMAGE_BASE] ; 0x0950
+    mov ds, bx                       ; 0x0955
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0957
+    mov es, ax                       ; 0x095b
+    xor di, di                       ; 0x095d
+    mov cx, 3                        ; 0x095f
 @..dos_read_file.l3:
-    mov word [cs:cseg_0cac - IMAGE_BASE], ax ; 0x46d6
-    mov ax, word [cs:bx]             ; 0x46da
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x46dd
-    mov ds, ax                       ; 0x46e2
-    mov bx, word [bp + 0xe]          ; 0x46e4
-    cmp bx, byte 0xff                ; 0x46e7
-    je short @..dos_read_file.l4     ; 0x46ea
-    xor dx, dx                       ; 0x46ec
-    mov cx, word [bp - 0x000c]       ; 0x46ee
-    mov ah, 0x3f                     ; 0x46f1
-    int 0x21 ; DOS read file (handle)
+    push cx                          ; 0x0962
+    mov cx, 0x4000                   ; 0x0963
+    rep movsb                        ; 0x0966
+    and si, strict word 0x3fff       ; 0x0968
+    inc word [cs:cseg_3c8e - IMAGE_BASE] ; 0x096c
+    mov ax, word [cs:cseg_3c8e - IMAGE_BASE] ; 0x0971
+    call leaf_loc_3b90               ; 0x0975
+    pop cx                           ; 0x0978
+    loop @..dos_read_file.l3         ; 0x0979
+    mov cx, 0x3a00                   ; 0x097b
+    rep movsb                        ; 0x097e
+    jmp short @..dos_read_file.l5    ; 0x0980
 @..dos_read_file.l4:
-    mov bx, word [bp - 0x0002]       ; 0x46f5
-    mov bx, word [cs:bx + 0x2]       ; 0x46f8
-    mov dx, bx                       ; 0x46fc
-    mov bx, word [bp + 0xc]          ; 0x46fe
-    mov cx, word [bp - 0x0004]       ; 0x4701
-    mov ah, 0x3f                     ; 0x4704
+    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0982
+    mov ds, ax                       ; 0x0986
+    xor dx, dx                       ; 0x0988
+    mov bx, word [bp + 0xc]          ; 0x098a
+    mov cx, 0xfa00                   ; 0x098d
+    mov ah, 0x3f                     ; 0x0990
     int 0x21 ; DOS read file (handle)
-    xor ax, ax                       ; 0x4708
-    pop di                           ; 0x470a
-    pop si                           ; 0x470b
-    pop es                           ; 0x470c
-    pop ds                           ; 0x470d
-    mov sp, bp                       ; 0x470e
-    pop bp                           ; 0x4710
-    ret                              ; 0x4711
 @..dos_read_file.l5:
-    mov ax, cs                       ; 0x4712
-    mov ds, ax                       ; 0x4714
-    mov dx, 0x4822                   ; 0x4716
+    pop di                           ; 0x0994
+    pop si                           ; 0x0995
+    pop es                           ; 0x0996
+    pop ds                           ; 0x0997
+    mov sp, bp                       ; 0x0998
+    pop bp                           ; 0x099a
+    ret                              ; 0x099b

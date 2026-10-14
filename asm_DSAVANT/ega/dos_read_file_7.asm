@@ -117,3 +117,29 @@ dos_read_file_7:
     mov sp, bp                       ; 0x4fc0
     pop bp                           ; 0x4fc2
     ret                              ; 0x4fc3
+@..dos_read_file_7.l5:
+    mov ax, cs                       ; 0x4fc4
+    mov ds, ax                       ; 0x4fc6
+    mov dx, 0x50d4                   ; 0x4fc8
+    mov ah, 9                        ; 0x4fcb
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x4fcf
+    int 0x21 ; DOS function dispatcher
+
+    db 0x0d, 0x0a, 0x07
+    db 'In LOAD_SCORE() ... slot already used.', 0
+    db 0x0a, 0x24
+
+@..dos_read_file_7.l6:
+    mov ax, cs                       ; 0x5000
+    mov ds, ax                       ; 0x5002
+    mov dx, 0x5110                   ; 0x5004
+    mov ah, 9                        ; 0x5007
+    int 0x21 ; DOS string output
+    mov ax, 0x4c01                   ; 0x500b
+    int 0x21 ; DOS function dispatcher
+
+    db 0x0d, 0x0a, 0x07
+    db 'In LOAD_SCORE() ... not enough memory.', 0
+    db 0x0a, 0x24
+

@@ -2,9 +2,9 @@
 
 **This is the single plan.** It merges the former `plan-data.md` (F7 data-pointer
 detection) into the original dynamic-address plan. It is written so a *fresh
-context* can pick up at **D7.2c** (Pass 1 + D0–D5 + D7.0a–e + D7.1 + D7.5 +
-D7.2a/b + E + E2 done; §17 has each step's measurements and outcome) without
-re-deriving anything.
+context* can pick up at **D7.2c-2** (Pass 1 + D0–D5 + D7.0a–e + D7.1 + D7.5 +
+D7.2a/b + D7.2c + E + E2 done; §17 has each step's measurements and outcome)
+without re-deriving anything.
 
 Plain-language goal: a user may add or remove bytes anywhere in the generated
 assembler and it must **still assemble into a working EXE**. The only tolerated
@@ -41,6 +41,12 @@ lives in `asm/lib`, not in the generated assembly.
 | E — the ELF build owns the origin | `-DVBASE=0` dropped; the ELF prep rewrites the image's own `VBASE equ` line to 0, so the 9-line `VBASE` save/restore in each overlay master goes away | **0** (bytes identical) |
 | E2 — the host block is emitted once | the 13 identical host-frame blocks move to a generated `inc/host_symbols.inc`; each overlay master keeps only its own `VBASE`/`vstart`/`IMAGE_BASE` around a one-line include | **0** (bytes identical) |
 | E3 — symbolic C references | a C-compiled routine's calls, data references and branches are resolved against the asm labels instead of copied from the original image; the 22 recovered `.c` seeds now name asm labels (`aztec_open`, `dseg_0c72`); 7 fragments swap frozen literals for symbols (`0xd02` → `bss_0d02`, `[si + 0xcdc]` → `[si + dseg_0cdc]`) | **0** (bytes identical; the literals were invisible to the census) |
+| D7.2c — a named byte gets a label, not an `equ` | every `label_map` name goes through `_ensure_global_label`; 26 of the 134 names now sit on their byte as a label (the other 70 are refused by construction, `mem_equ`/`immediate_labels` untouched) | **−26** (`code_shift` 152 → 126, `total` 153 → 127) |
+| D7.2c-2a — the census says what it *means* | two counters: `names_used`/`names_inert` (which frozen names the tree actually refers to) and `hidden_flow` (call/jmp targets the source emits as bytes; the scan walks only the bytes between the source's instruction offsets, so an operand byte cannot be mistaken for a site) | **0** (measurement only) |
+| A — the driver dispatch tables are declared | `dispatch_table` for `play` (8 entries), `ega` (55) and `vga` (**55** — the declaration said 48, seven entries short); the forced-region variants are *not* byte-neutral (measured) and move to the decode step | **0** (bytes identical) |
+| D7.2c-2b — the driver-entry ABI is pinned | the `DRV` probe: `DS.EXE` loads `play.drv` and a mode-chosen display driver to `segment:0x100` and calls entry *k* through a far pointer `seg:0x100 + 3 + 4k`; the host's two ladders (8 and 56 slots) are the references, so the entries are a declared ABI, not inert names; pinned by `DriverDispatchAbiTests` | **0** (measurement only) |
+| D7.2c-2c — vga decoded to ega's depth | VGA's dispatch `force_data` tripped `DispatchTablePhase`'s `hard_data` guard, so 48 handler targets were never seeded (VGA 452 offsets vs EGA's 5830, same construct). Dropped it, declared the data *after* the table (`00df..0292`), and made the declared table seed its **entries** too — `call handler; retf`, play's form. VGA → 79 fragments / 5462 offsets; `hidden_flow` **161 → 98** (ega and vga both → 0); `names_used` 61 → **84** | **+6 census, re-baselined once** — six revealed `cseg_` globals, the class of item (ii); only VGA.DRV re-encodes (to ega's fidelity) |
+| D7.2c-2d — a declared handler owns its fragment and its name | The entry seeding left play's handlers without the `direct_call` that chose their categorization, so they fell to a raw 128-byte window that reads the following data: `leaf_loc_0154` → bare `loc_0154` (hence `strlen.asm` swallowed it), `io_loc_016e`/`io_loc_0183`/`io_loc_0294` borrowed names from bytes 100 on. `ctx.dispatch_handlers` now drives both the body walk and the split roots, so a declared handler is its own file under a name from its own body — bare `loc_` if its body genuinely claims no category | **0** (binaries byte-identical, census unchanged); buried handlers 43 → **0**, fragment-unsupported names 11 → **2** |
 
 † D7.0a did not *create* 33 new problems — it made 33 already-frozen values
 **visible**. A host EXE and its overlays share one data segment: every overlay's
@@ -67,45 +73,71 @@ so the count does not move (Section 18). The detail of each step is in Section
 
 | class | value | meaning |
 |-------|------:|---------|
-| `code_shift` | 152 | breaks when code resizes — **must reach 0** (15 of them are reclassified `inert`, D7.3) |
+| `code_shift` | 126 | breaks when code resizes — **must reach 0** (15 of them are reclassified `inert`, D7.3) |
 | `data_shift` | 1 | breaks when data resizes — **must reach 0** (one raw-driver residual; see §17 D7.1) |
 | `inert` | 248 | can never change — **excluded** |
-| `total` (gated) | 153 | `code_shift + data_shift` |
+| `total` (gated) | 127 | `code_shift + data_shift` |
 
-Per-taxonomy breakdown: `f1=2 f2=13 f3=134 f4=1 f5=3 f6=241 f7=0`, plus the
+Per-taxonomy breakdown: `f1=2 f2=13 f3=108 f4=1 f5=3 f6=241 f7=0`, plus the
 shared-geometry buckets: `o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0` (D7.0b
-bound the 7 DS-size immediates, D7.0c bound the 13 `o_dorg`, and **D7.2 bound the
-whole 40-item `o_corg` family** — the overlay load origin — §17 D7.2). D7.1 bound
-the overlay `dseg_`/`bss_` family (`f4` 1231 → 1).
+bound the 7 DS-size immediates, D7.0c bound the 13 `o_dorg`, **D7.2 bound the
+whole 40-item `o_corg` family** — the overlay load origin — and **D7.2c gave 26 of
+the 134 F3 names a label in place**, §17 D7.2). D7.1 bound the overlay
+`dseg_`/`bss_` family (`f4` 1231 → 1).
 
-Where the 153 live, per emitted file:
+Where the 127 live, per emitted file:
 
 | binary | gated | of which F4 (`dseg_`/`bss_` `equ`) |
 |--------|------:|-----------------------------------:|
-| `ds.asm` | 2 | 0 |
-| `vinstall.asm` | 3 | 0 |
-| `vbase` | 9 | 0 |
+| `vga` | 34 | 0 |
+| `ega` | 19 | **1** |
 | `vpcvw` | 16 | 0 |
+| `play` / `vbase` | 9 / 9 | 0 / 0 |
 | `vtrea` | 7 | 0 |
-| `vdopt` | 2 | 0 |
-| `vmaze` | 5 | 0 |
-| `vmexe` | 5 | 0 |
-| `vmext` | 2 | 0 |
-| `vinit` | 1 | 0 |
-| `vmele` | 1 | 0 |
-| `vmnpc` | 3 | 0 |
-| `vpcmk` / `vpclv` / `vpops` | 6 / 2 / 1 | 0 / 0 / 0 |
-| `vga` / `play` / `ega` (+ subfiles) | 35 / 34 / 19 | 0 / 0 / **1** |
+| `vpcmk` | 6 | 0 |
+| `vmaze` / `vmexe` | 5 / 5 | 0 / 0 |
+| `vinstall` / `vmnpc` | 3 / 3 | 0 / 0 |
+| `ds` / `vdopt` / `vmext` / `vpclv` | 2 / 2 / 2 / 2 | 0 |
+| `vinit` / `vmele` / `vpops` | 1 / 1 / 1 | 0 |
 
 **`data_shift` is now 1** — a single raw-driver (``ega``) DS reference whose
 segment is established at run time (Appendix C); every other one of the former
-1231 is host-resolved (§17 D7.1). `code_shift` decomposes as overlay F3 `equ`
-(134) + overlay `o_bss` (13) + MZ `e_sp` (2) + overlay zero pads (3) = 152; the
-host DS-size immediates and the whole `o_corg` family are bound (D7.0b/D7.2),
-and the 15 `o_bss`/`e_sp` values are declared waivers (Appendix C) that are
-nevertheless *counted* today — D7.3 reconciles that. Two of the `vinstall`
+1231 is host-resolved (§17 D7.1). `code_shift` decomposes as the remaining F3
+`equ`s (114) + overlay `o_bss` (13) + MZ `e_sp` (2) + overlay zero pads (3) =
+132; the host DS-size immediates and the whole `o_corg` family are bound
+(D7.0b/D7.2), and the 15 `o_bss`/`e_sp` values are declared waivers (Appendix C)
+that are nevertheless *counted* today — D7.3 reconciles that. The 114 F3 `equ`s
+are themselves named and counted as D7.2c-2 (§17): 70 names refused a label
+(55 on bytes that render as data, 15 mid-instruction, 2 outside every record) +
+the `mem_equ` operand symbols (21 before D7.2c-2c, six more now) + 17 `vga`
+`immediate_labels`. Two of the `vinstall`
 "data" words (`0x2e`/`0x30`) are still inert PSP slots mis-bound as `dseg_`
 (Section 5d); that is a naming bug that does not move the census.
+
+**Two counters keep the census honest** (D7.2c-2a): of the 116 *named* frozen
+addresses, **84 are used** (the tree refers to them, so they must follow an edit)
+and **32 are inert** — nothing refers to them at all (`loc_0007`,
+`ds_leaf_loc_10108`, every one of `vga`'s 17 `immediate_labels`).  Converting an
+inert name to a label moves the census without making anything follow an edit.
+Separately, **`hidden_flow` = 98**: near call/jmp references whose *target* the
+source shows as code while their *site* is emitted as bytes — real address
+references no source line spells, so neither the census nor a label can reach them
+(`vinstall` 38, `vmexe` 21, `play` 20, `vpcvw` 11, `vdopt` 5, then 1s; e.g. play's
+`call 0x07f6` at 0x00e2, emitted `db 0xe8, 0x11, 0x07` on `play.asm:93`; `ega` and
+`vga`, whose tables were the whole of it, are now **0**).  It is a *lower bound*
+and it is gated, so it may only fall; decoding a region can *raise* it (more
+targets become shown), which is why D7.2c-2c re-baselined it once, deliberately —
+and it fell by 63.
+
+**A third pair keeps the declared drivers honest** (D7.2c-2d): of the 118 handlers
+the three declared dispatch tables name, **43 used to share a neighbour's
+fragment** and **11 used to carry a category their own fragment evidences nothing
+for** -- the label pass had fallen back to a raw 128-byte window that reads the
+following bytes (`play`'s `leaf_loc_0154` became bare `loc_0154`, which is how
+`strlen.asm` came to swallow it; `io_loc_016e`'s `out` lived 100 bytes away).
+`ctx.dispatch_handlers` now drives both the body walk and the split roots, so the
+pair reads **0 / 2**; it lives in `HANDLER_BASELINE` and is decrease-only like the
+census.
 
 *(The per-step "Outcome" figures below D1/D5, e.g. `total 1383`, predate D7.0a
 and describe the state at that step, not today's.)*
@@ -144,10 +176,12 @@ probed or generated; see §17 D7.5.)*
 - **D7 — overlays and raw drivers: NEXT.** The only step that moves the gate.
   **D7.0c (the pre-NASM link step), D7.0e (one shared host-call table), D7.1 (the
   host-owned shared DS name map), D7.2b (the overlay load origin, `o_corg`,
-  bound to the host's resident-code end), E (the ELF build owns the origin) and
-  E2 (the host block is emitted once) are DONE**; what remains of D7.2 is
-  **D7.2c (the overlay F3 `equ`s → in-place labels, 134)**. Then D7.3/D7.4.  D7.0d (ELF/DWARF for overlays) is
-  tooling-only, is unblocked by E, and can slot in anywhere.
+  bound to the host's resident-code end), D7.2c (a named byte gets a label, not an
+  `equ`: 26 of 134), E (the ELF build owns the origin) and E2 (the host block is
+  emitted once) are DONE**; what remains of D7.2 is **D7.2c-2**, the 70 refused
+  names + the 21 `mem_equ` operand symbols (§17). Then D7.3/D7.4.  D7.0d
+  (ELF/DWARF for overlays) is tooling-only, is unblocked by E, and can slot in
+  anywhere.
 
 **Gate, after every step:** `make verify DSAVANT` = **18/18**, unit suite green.
 
@@ -1596,11 +1630,235 @@ host DS size — is established in §0.1/§0.2 and Section 18.
   13 overlay headers byte-identical to the originals, `make elf-rebuild`
   reproduces.  `code_shift` 165 → **152**, `total` 166 → **153**.
 
-  **D7.2c — the F3 `equ`s: REMAINING.** 134 `cseg_`/`loc_`/`leaf_`/`string_`/`api_`
-  `equ` lines (overlays 47, drivers 84, MZ residuals 3) → in-place labels, i.e.
-  the Pass 1 Phase 3 transform, which was applied to the MZ images only.  Under
-  `vstart=VBASE` / `org 0` a label at file offset `X` has exactly the `equ`'s
-  value, so the transform is value-preserving.
+  **D7.2c — the F3 `equ`s → in-place labels. ✅ DONE for the renderer half
+  (2026-10-13); the residue is measured and named (D7.2c-2, below).**
+  `code_shift` 152 → **126**, `f3` 134 → **108**, `total` 153 → **127**.
+
+  **Mechanism.** A sidecar name names a *byte*, so the master should carry a label
+  there -- and the value then follows an edit -- instead of an absolute `equ` that
+  breaks the moment the code above it moves.  `render._place_label` routes every
+  `label_map` name through `_ensure_global_label`, the splitter the D1 data anchors
+  already use (its docstring names this rewrite), and falls back to the literal
+  only where the byte cannot hold a label.  `immediate_labels` is deliberately
+  *not* routed: its value is a raw offset immediate (`vga`'s
+  `data_46d9 equ 0x46d9` under `org 0`), which a label (`VBASE + off`) would
+  change for any `vstart` image -- 17 lines, kept on purpose.
+
+  **Outcome, exactly.** 26 of the 134 names now sit on their byte as a label:
+  `26 placed + 70 refused + 38 never routed = 134`.  The 38 are the 21
+  `cseg_`/`data_` *operand* symbols the `mem_equ` block spells literally plus
+  `vga`'s 17 `immediate_labels`.  The 70 refusals are structural:
+
+  | reason | count |
+  |---|---:|
+  | the byte renders as **data** (a code label there would put code back into bytes the arbiter removed) | 55 |
+  | strictly inside a decoded instruction | 15 |
+  | outside every record | 2 |
+
+  Of the 55, 31 are inside a `jump_table` record (the driver dispatch tables) and
+  24 inside a data block.
+
+  **Why the data rule.** `verify` already refuses to reintroduce code into bytes
+  the arbiter ruled data -- `code_loss` counts exactly those names and
+  `test_hard_classification.test_verify_respects_final_data_bitmap_for_stale_instructions`
+  pins it (`loc_0010` must not appear as a label).  Placing the label regressed
+  that test, which is how the rule was found; `_place_label` now refuses when the
+  covering record renders as data *and* the name is not a raw data name
+  (`data_`/`dseg_`/`bss_`/... may anchor data -- that is the D1 path).
+
+  **Discovery — the `vga` decode gap.** 15 of the 70 refusals are `vga` names on
+  bytes `0x0004`-`0xa8d`, which the renderer emits as raw `db`: the driver's
+  dispatch table (a run of `e8 .. cb` = `call ...; retf` stubs) *followed by real
+  code* (at `0x7fd`: `mov ax, cs` / `mov ds, ax` / `mov dx, "SAVEAREAS out of ..."`
+  / `int 21h` / `int 21h`) and strings.  The sidecar calls those addresses
+  `dos_con_loc_*` (code); the arbiter says data.  That disagreement is pre-existing
+  and is the single biggest reason the residue is 108 rather than ~84 -- it is a
+  *decoding* question, not a naming one, so it belongs to D7.2c-2.
+
+  **What it buys.** A name that is a real code target now moves with an edit.
+  `InsertBytePropertyTests.test_driver_branch_follows_an_inserted_byte` copies the
+  tree, inserts one byte *between* `play`'s `jb` at `0x079a` and its `loc_07a2`
+  target, and asserts the displacement grows by exactly one while the opcode stays
+  put -- with the old `equ` the jump would have landed a byte short.  That is the
+  acceptance bar ("insert a byte, still a coherent image") measured at a real site.
+
+  **Verification.** All 19 built `.EXE`/`.OVR`/`.DRV` byte-identical to before the
+  step; `make verify DSAVANT` **18/18**; unit suite **322 OK**; `make build` a fixed
+  point; `make elf-rebuild DSAVANT` unchanged.  New unit tests:
+  `test_dynamic_addrs.NamedAddressPlacementTests` (a named record start becomes a
+  label; a code name inside a data block keeps its `equ`; a data name inside one is
+  placed; a name inside an instruction keeps its `equ`).
+
+  **D7.2c-2 — the residue (70 + 38), still open.** In the order the numbers
+  suggest: (i) the `vga` decode gap above (15 names, a real decoding question);
+  (ii) the 21 `mem_equ` `cseg_`/`data_` operand symbols -- code-segment *variables*
+  read as `[cs:cseg_0295 - IMAGE_BASE]`, i.e. data living in the code stream, which
+  wants carving as data rather than a label; (iii) the 15 mid-instruction names;
+  (iv) the 2 outside every record.  None is a rendering trick away: each needs the
+  byte's *kind* decided upstream.
+
+  **D7.2c-2a — the counters, and what they say. ✅ (2026-10-13).** Census-neutral
+  (127) and byte-identical, so the next step can be judged on *meaning*.  Of the
+  113 named frozen addresses **61 are used, 52 inert**; **`hidden_flow` = 161**
+  (per binary: `ega` 54, `vinstall` 38, `vmexe` 21, `play` 20, `vpcvw` 11, `vga` 9,
+  `vdopt` 5, then 1s).  Both live in `BASELINE_TOTALS` and may only fall.  The
+  library side is `records.count_name_use` (whole-tree, because a name declared in
+  a master is used in a fragment; comments, `%` directives and `%include` paths are
+  not references — a fragment is named after the label it defines) and
+  `records.count_hidden_flow` (walks only the bytes between the source's
+  instruction offsets, so a displacement inside a rendered instruction can never be
+  a site; a lower bound, since the walk stops at the first byte that does not
+  decode).
+
+  **A — the driver dispatch tables are declared. ✅ (2026-10-13).** `play` (8
+  entries), `ega` (55) and `vga` (**55** — the declaration said 48, seven entries
+  short, so entries 48..54 were neither declared nor forced).  Byte-identical and
+  census-neutral: it is a *declaration*; seeding the handler targets changes
+  nothing, because those handlers are decoded anyway.  What it buys is the
+  structure (entry *k* is at `3 + 4k`, with a count) that the entry naming and the
+  `DRV` probe below need.
+
+  **Measured, and deliberately *not* landed here: the forced-region variants are
+  not neutral.**  Forcing `vga`'s table to code — or extending its `force_data` to
+  the true 55-entry extent, or declaring `ega`'s — perturbs the decode *cascade*:
+  ~1150 changed lines across 17 `vga` files; 824 bytes differ by
+  semantically-equivalent encodings (`mov bp, sp` re-encodes as `89 e5`), which
+  `make verify` accepts (still 18/18); and the counters move both ways — names
+  *used* 61 → **84** and inert 52 → **32** (the goal's direction), but the census
+  127 → **133** and `hidden_flow` 161 → **206**.  That is the `vga`/`ega` decode
+  step (D7.2c-2's item (i)) arriving early, and it needs its own review of the
+  newly decoded regions — not a side effect of a table declaration.
+
+  **The `DRV` probe: answered — the host both loads the modules and references
+  their entries.**  `DS.EXE` reads each module to `segment:0x100` and calls it:
+
+  * `ds/ds_dos_file_loc_35f5` (0x35f5) opens **`play.drv`** (a hardcoded name
+    pointer, image 0x33ec), reads 0x1d00 bytes to `[cs:cseg_2f56]:0x100`, closes,
+    then writes the module's segment into **8** far-pointer slots at `cs:0x2d67`.
+  * `ds/ds_dos_file_loc_3534` (0x3534) does the same for the **display driver**,
+    whose name comes from the table at 0x3507 — `vga.drv`, `ega.drv`, `cga.drv`,
+    `herc.drv`, `tandy.drv`, picked by BIOS video mode in `bios_get_video_mode`
+    (0x30f7), with `ds/dos_con_loc_35b8` ("Unable to load display driver") as the
+    failure path.  It reads 0x5300 bytes to `[cs:cseg_2f52]:0x100` and patches
+    **55** segment words at `cs:0x2d87`.
+  * The *offset* halves are pre-set in the host's image to `0x100 + 3 + 4k`:
+    play's ladder is `0x103, 0x107, …, 0x11f` (8 slots), the display table
+    `0x103 … 0x1df` (**56** — the drivers ship 55 entries and the loader patches
+    55, so the last slot is a spare the host never calls).
+  * And the host calls through them: `call far [cs:cseg_2f87 - IMAGE_BASE]` and
+    friends.  The "far-call table" I had taken for cached BIOS/DOS vectors is, in
+    this range, the **driver dispatch table** — that reading was wrong.
+
+  So entry *k* of a loaded module sits at module offset `3 + 4k`, the host holds
+  `seg:0x100 + 3 + 4k`, and the module is `org 0`: the entry offsets are
+  **layout-derived only because the host pins them** — the module cannot derive
+  them from anything inside itself.  That is exactly the "explicitly declared ABI"
+  half of the criterion, so the honest end state for `loc_0007` (and the other
+  inert entry names) is a *declared pin plus an assertion*, not a label.  The pin
+  is now a test: `DriverDispatchAbiTests` compares each declared `dispatch_table`
+  count with the thunks actually at `3 + 4k` — which is what the old `count: 48`
+  failed — and checks the host's ladders carry the declared offsets.  The host is
+  therefore a *consumer* of every driver (its two ladders are the symbols the entry
+  naming would bind to), and the loader also copies a callback table into the
+  module's segment, so the relation runs both ways.
+
+  **D7.2c-2c — vga decoded to ega's depth: the dispatch `force_data` was
+  self-defeating. ✅ (2026-10-13).**  The decode gap was not a decoder limitation
+  but a sidecar/phase interaction.  VGA carried `force_data 0003..00c2` ("VGA API
+  dispatch table (48 × E8 rel16 CB)"), and `DispatchTablePhase` skipped every entry
+  whose bytes are `hard_data` (`lib/phases/dispatch.py:64`) — so the 48 entries it
+  forced to data were exactly the 48 whose *handlers* it then never seeded.  EGA,
+  with no `force_data`, decoded all 55 because its handler targets were seeded.
+  Measured before: VGA 23 fragments / **452** instruction offsets, EGA 85 / **5830**
+  — the same construct.
+
+  **The change — three parts.**
+  (1) Drop VGA's `force_data` over the table.
+  (2) Declare the data *after* the table: `force_data 00df..0292` — the
+      (value,size) pairs and the 8-entry host callback ladder up to the first
+      routine at 0x0293 (both drivers are byte-identical there) — because once the
+      entries are code the decoder runs past the last one into it (`80 41 00 00`
+      decodes as `add byte [bx + di], 0`, which cannot be re-encoded; the
+      renderer's guard caught it and refused to write the tree).
+  (3) `DispatchTablePhase` now seeds the *entry* address as well as the handler it
+      calls.  An entry is an executable `call handler; retf` thunk — play's table
+      has always rendered that way — and the `rel16` is read from the image, so the
+      encoding is unchanged.  The handler is seeded regardless of `force_data`,
+      since it is code whatever the table bytes are rendered as.
+
+  **Measured effect.**  VGA 23 fragments → **79**, 452 offsets → **5462**; EGA
+  5830 → **5938** (+108 = 2 instructions per entry, the 54 entries).  `hidden_flow`
+  **161 → 98**: ega 54 → **0** and vga 9 → **0** — the two tables' entries were the
+  whole of it, at identical offsets — with the other 98 (`play` 20, `vinstall` 38,
+  `vmexe` 21, `vpcvw` 11, `vdopt` 5, `vmaze`/`vpclv`/`vpcmk` 1) unchanged.
+  `names_used` 61 → **84**, `names_inert` 52 → **32**.  Census **127 → 133**
+  (`code_shift` 126 → 132, `f3` 108 → 114, `total` 133): the decoding *reveals* six
+  `cseg_` code-segment globals that VGA code addresses (`cseg_0cac`, read at three
+  sites) — the class EGA already carries and the class item (ii) exists to resolve.
+  That is the one deliberate re-baseline: the census floor rises once, the classes
+  below it only fall.
+
+  **Verification.**  `make build DSAVANT` ×2, the second an exact fixed point (no
+  file differs); `make verify DSAVANT` **18/18**; suite **332 OK**.  Only VGA.DRV's
+  assembled bytes move (753 against the pre-change assembly), and its distance from
+  the original becomes **824** — EGA.DRV's is 862.  The toolchain re-encodes
+  `8b ec` → `89 e5` and friends everywhere (19 910 bytes across the tree, 1373 in
+  DS.EXE alone), so this is VGA reaching its twin's accepted fidelity, not a new
+  class of drift.
+
+  **D7.2c-2d — a declared handler owns its fragment and its name. ✅
+  (2026-10-13).**  Decoding the drivers exposed a *rendering* regression from
+  D7.2c-2c and a pre-existing fragility behind it.  Two facts had to be true of
+  every declared handler and neither was: (i) it owns its fragment, (ii) its name
+  is the category of its own body.  Both are ABI facts -- the table says these
+  addresses are entries -- so both are layout-derived, not heuristics.
+
+  **What broke.**  In ``play``, D7.2c-2c's entry seeding turned the 32-byte entry
+  block into known code, so ``CascadeTargetPhase`` no longer promoted it
+  (``cascade.py:88-125``: a *DATA*-follows-*CODE* candidate) and
+  ``RecursiveDescentPhase``'s worklist skips a dispatch seed that still looks like
+  data (``recursive.py:372-378``: ``hard_path`` false, ``data_boundary`` low).
+  The eight handlers therefore lost the ``direct_call`` attribution their
+  categorization depended on -- ``bounded_targets`` is
+  ``{reason == 'direct_call'}`` (``runner.py:202``) -- and fell to
+  ``categorize_call_targets``'s fallback: a **raw 128-byte window**
+  (``categorize.py:243-252``) that is bounded by neither code nor functions and
+  reads straight into the following data.  Measured on the image, that window is
+  what renames ``leaf_loc_0154`` → bare ``loc_0154`` (it sees calls past the
+  ``ret``), ``leaf_loc_016e``/``leaf_loc_0183`` → ``io_loc_*`` (the stray
+  ``out 0x43/0x40`` bytes live in ``io_loc_023f``, 100-odd bytes away) and
+  ``bios_disk_loc_0294`` → ``io_loc_0294``.  A name-less handler is not a split
+  root (``splitting.py:29``, ``analysis.py:16``), so ``strlen.asm`` swallowed
+  ``loc_0154`` -- the user's report.  Only ``play`` changed (ega/vga fragments:
+  **0** added, renamed or removed by D7.2c-2c), which is the fingerprint of the
+  cascade path: only play's table region was ever promoted from data.
+
+  **The fix, both halves declared.**  ``DispatchTablePhase`` now records the
+  handler offsets it declares (``ctx.dispatch_handlers``, ``model.py``), and
+  ``runner`` uses that one set twice: (i) as ``bounded_targets``, so a declared
+  handler is categorized by **walking its own body** (``_function_instructions``,
+  bounded by the classifier's code and the function roots) rather than by the
+  window; (ii) as ``declared_roots`` threaded to ``_select_split_ranges``
+  (``splitting.py``), so it is a split root **even when its label stays a bare
+  ``loc_<addr>``**.  The gate stays on the name shape for *undeclared* roots: the
+  tree holds ~1600 bare ``loc_`` branch targets, and one file each is not the
+  point.
+
+  **Measured.**  Declared handlers 118 (play 8, ega 55, vga 55):
+  **buried 43 → 0**, **category unsupported by the fragment it names 11 → 2**.
+  27 names changed, all toward their own body's evidence (play's four above;
+  ``ega``/``vga`` 0x0293 ``leaf_loc_0293`` → ``graphics_loc_0293``, whose body the
+  window had cut off; ``ega``'s ``dos_con_loc_1490`` → bare ``loc_1490``, an
+  ``int 0x21`` it had borrowed from the routine after its ``ret``).  +54 / -11
+  fragments (``play/loc_4527``'s ``vga`` siblings included).  **All 19 built
+  binaries byte-identical**, census unchanged (132/114/133, ``names_used`` 84,
+  ``names_inert`` 32, ``hidden_flow`` 98), ``make verify DSAVANT`` **18/18**, suite
+  **336 OK**, and ``make build`` an exact fixed point.  The two counter baselines
+  moved once, downward, inside the fix: ``HANDLER_BASELINE`` 43 → **0** and
+  11 → **2** (the documented backlog: ``play``'s ``bios_disk_loc_0294`` reaches
+  its ``int 0x13`` past the entry at 0x02b3, and ``ega``'s ``graphics_loc_31df``
+  is a ``jmp`` thunk into handler 0x04b1).
+
 - **E — the ELF build owns the origin (`make elf-rebuild`; D7.2b/D7.5 follow-up).
   ✅ DONE (2026-10-13).** Tooling-only: **no census change, no binary change**
   (verified), and it removes the last part of D7.2b that existed only for a build
@@ -1950,7 +2208,46 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
   **153**.  `make verify DSAVANT` 18/18; unit suite green; all 13 overlay
   headers byte-identical to the originals.  Acceptance:
   `HostIncludeTests::test_overlay_corg_follows_a_host_code_edit`. ✅
-  **D7.2c (the 134 F3 `equ`s → in-place labels) remains.** ⏳
+- **D7.2c:** a sidecar name now gets a label *on the byte it names* wherever that
+  byte can hold one (`render._place_label` → `_ensure_global_label`, the D1
+  splitter).  26 of the 134 F3 names converted, so `code_shift` 152 → **126**,
+  `f3` 134 → **108**, `total` **127**.  The other 70 are refused by construction
+  (55 on bytes that render as data — a code label there regressed
+  `test_hard_classification`, so the guard mirrors `verify.code_loss`; 15
+  mid-instruction; 2 outside every record), and `mem_equ`'s 21 operand symbols and
+  `vga`'s 17 raw-offset `immediate_labels` are never routed.  All 19 binaries
+  byte-identical, `make verify DSAVANT` 18/18, suite **322 OK**, fixed point. ✅
+  **D7.2c-2 (the 70 + 21, and the `vga` decode gap the refusals exposed) remains.**
+  **D7.2c-2a — the used/inert and `hidden_flow` counters — and A (the driver
+  dispatch tables declared: `play` 8, `ega` 55, `vga` 48 → 55) are DONE and
+  gate-neutral**: census 127, all 19 binaries byte-identical, `make verify
+  DSAVANT` 18/18, suite **332 OK**.  The forced-region variants were measured *not*
+  neutral and belong to the decode step.  **D7.2c-2b — the `DRV` probe — is also
+  DONE**: the entries are referenced by the host's far-pointer ladders
+  (`cs:0x2d67` for `play.drv`, `cs:0x2d87` for the display driver, offsets
+  `0x100 + 3 + 4k`), and `DriverDispatchAbiTests` now pins both the declarations
+  and the host ladders.  **D7.2c-2c — the decode gap — is DONE for the drivers**:
+  VGA's `force_data` over its dispatch table made `DispatchTablePhase`'s
+  `hard_data` guard skip all 48 of its entries, so their handlers were never
+  seeded and vga sat at 452 instruction offsets against ega's 5830 for the same
+  construct.  Dropping it, declaring the data *after* the table (`00df..0292`) and
+  seeding the *entries* as well takes vga to **5462** offsets / 79 fragments and
+  **`hidden_flow` 161 → 98** (ega 54 → 0, vga 9 → 0) with `names_used` 61 → **84**
+  and `names_inert` 52 → **32**.  The census rose **once, deliberately**, 127 →
+  **133**, for six `cseg_` globals the newly decoded code addresses.  So the driver
+  halves of D7.2c-2 are **resolved as declared ABI** and item (i) is closed for
+  them.  **D7.2c-2d — the declared handler's fragment and name — is DONE**: the
+  entry seeding had cost play's handlers the `direct_call` that drove their
+  categorization, so the 128-byte fallback window named them out of the
+  neighbouring data (`leaf_loc_0154` → bare `loc_0154`, which is how `strlen.asm`
+  came to swallow it; `io_loc_016e`/`io_loc_0183`/`io_loc_0294` borrowed an `out`
+  and an `int 0x13` 100 bytes on).  `ctx.dispatch_handlers` now feeds both the
+  body walk and the split roots: **buried handlers 43 → 0**, names unsupported by
+  their own fragment **11 → 2**, 27 names corrected, +54/−11 fragments, all 19
+  binaries byte-identical, census unchanged, `make verify DSAVANT` 18/18, suite
+  **336 OK**, fixed point.  What remains open is item (ii) — the `mem_equ`
+  `cseg_`/`data_` operand symbols, six more of them now — plus the 15
+  mid-instruction names and the 2 outside every record.  ⏳
 - **E:** the ELF build owns the image origin (the prep rewrites `VBASE equ` to 0
   instead of `-DVBASE=0`), so D7.2b's `VBASE` save/restore is gone. Tooling-only,
   gate-neutral: census **153**, all 19 built binaries byte-identical, unit suite
@@ -1974,9 +2271,12 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
   met. Exit criteria:
   - `data_shift` 1 → 0: reclassify the raw-driver `ega` `dseg_24fd` as `inert`
     (Appendix C) — the last non-host DS reference.
-  - `code_shift` 152 → 0: **D7.2c** — the overlay F3 `equ` 134 → in-place labels
-    (overlays 47, drivers 84, MZ residuals 3).  The whole overlay load-origin and
-    data families are already bound (D7.0c/D7.1/D7.2b).
+  - `code_shift` 126 → 0: **D7.2c-2** — the 70 names refused a label (55 on bytes
+    that render as data — 31 inside a `jump_table`, 24 inside a data block — plus
+    15 mid-instruction and 2 outside every record) and the 21 `mem_equ`
+    `cseg_`/`data_` operand symbols.  D7.2c gave 26 of the original 134 a label in
+    place; the whole overlay load-origin and data families are already bound
+    (D7.0c/D7.1/D7.2b).
   - overlay `o_bss` (13) + MZ `e_sp` (2) reclassified `inert`, overlay pads
     resolved (D7.3), so `code_shift + data_shift` → **0**.
   - an overlay is covered by the edit-property test (D7.4 — partly done:
@@ -2012,24 +2312,46 @@ The campaign is large in `asm/lib` and small in the generated assembly. That is
 expected for an analysis-heavy phase, but it means **effort is not evidence of
 progress** — only the census is. Ledger as of 2026-10-13.  `2a72c3e5 clean up
 make all` landed **D7.5** (which superseded the D7.0c/D7.0e/D7.1 `.cache`
-tables with the host include); the working tree on top of it lands **D7.2** —
-the first step since D7.1 to move the census — plus **E** and **E2**, two
-census-neutral follow-ups (§17).
+tables with the host include); `5c2a1e84`/`8477b13a` added the shared
+`inc/host_symbols.inc` (E2) and the C-symbolic references (E3); the working tree on
+top of that lands **D7.2c** — a named byte gets a label, not an `equ` (§17).
 
-Landed by the working tree (D7.2 + E + E2):
+Landed by the working tree (D7.2c):
 
 | area | change | note |
 |------|-------:|------|
-| `asm/lib/compare/records.py` | +33/−7 | D7.2: `o_corg` counts all three spellings (+ the `o_entry` addend); new `o_corg_imm` (the `; ocorg` tag); `_FROZEN_DSSIZE_RE`/`_FROZEN_OCORG_IMM_RE` no longer anchor at end-of-line (the offset comment stays last for `make/elf.py`) |
-| `asm/lib/compare/render.py` | +158/−36 | D7.2: `_RESIDENT_END_SYMBOL` + the absolute `__zresident_end equ ($ - $$) + VBASE` at the gap, the `; ocorg` tag/rewrite, the host include moved to the top of an overlay, `_render_ovr_header` takes `corg_symbol`.  E: the `VBASE` save/restore deleted.  E2: `HOST_SYMBOLS_INC` + `host_symbols_inc_lines`, emitted through `split_sources` |
-| `asm/make/elf.py` | +26/−4 | E: `_force_origin_zero` + the `VBASE equ` rewrite in the prepared source, `-DVBASE=0` dropped, comments |
-| `asm/lib/report.py` | +2/−1 | the `o_corg_imm` KPI |
-| `asm/lib/tests` | +137/−24 in 3 files | D7.2: the `o_corg`-family counter test, the code-edit acceptance test, updated expectations.  E: `test_vstart_origin.py` (new here).  E2: the shared-include assertions + the no-frozen-address guard |
-| `asm_DSAVANT/ds.asm` | +3 | the `__zresident_end` anchor |
-| `asm_DSAVANT/v{base,…}.asm` (13) | +10/−20 each | D7.2: the host include to the top + the derived load origin.  E: the save/restore out.  E2: the block (12 lines) → one include line |
-| `asm_DSAVANT/inc/host_symbols.inc` | new | E2: the host-frame block, once per tree |
-| `asm_DSAVANT/ds/aztec_ovloader.asm` | +1/−1 | the loader's `o_corg` floor → `__zresident_end` |
-| **census** | **153** | `code_shift` 165 → **152** (via a +27 re-baseline, §0.1 ‡); campaign 1553 → 153; **E and E2 are gate-neutral** (all 19 built binaries byte-identical before and after) |
+| `asm/lib/compare/render.py` | +63/−1 | `_covering_record` + `_place_label` (the placement rule and its three refusals, including the data guard that mirrors `verify.code_loss`), `_DATA_RECORD_TYPES`; the `label_map` loop routes through it, `immediate_labels` is documented as deliberately *not* routed |
+| `asm/lib/tests/test_dynamic_addrs.py` | +112/−4 | `NamedAddressPlacementTests` (4: record start → label; code name in data → `equ`; data name in data → label; inside an instruction → `equ`) and `InsertBytePropertyTests::test_driver_branch_follows_an_inserted_byte` (the insert-byte acceptance test); `BASELINE_TOTALS` `code_shift`/`f3`/`total` 152/134/153 → **126/108/127** |
+| `asm_DSAVANT/play.asm` | +1/−25 | 24 `loc_*` `equ`s give way to labels in place |
+| `asm_DSAVANT/play/{leaf_loc_077b,io_loc_02ba}.asm` | +23 / +1 | the labels land in the fragment that owns the byte |
+| `asm_DSAVANT/vga.asm` / `vga/dos_free_mem_3.asm` | −1 / +1 | `dos_con_loc_2a97` likewise, into its own fragment |
+| **census** | **127** | `code_shift` 152 → **126**, `f3` 134 → **108**; 26 placed, 70 refused, 38 never routed; **all 19 built binaries byte-identical** |
+| *not this step* | 9 files | `asm_DSAVANT/ds/aztec_*.asm` lost their `; auto-generated` marker: `lib/compare/coverrides.py:166` writes the C-override fragment with a plain `open(...,'w')` while `main/runner.py` uses `autogen.write_text`.  A plain `make build` therefore drops what `239d21d7`'s migration had added — pre-existing, in the C-symbolic channel's writer, so left alone |
+
+Landed on top (D7.2c-2a counters + A + the driver decode and handler rendering, D7.2c-2b/c/d):
+
+| area | change | note |
+|------|-------:|------|
+| `asm/lib/compare/records.py` | +143 | `count_name_use` (whole-tree used/inert split of the census's named families) and `instruction_offsets` + `count_hidden_flow` (call/jmp targets the source emits as bytes, walked between the source's instruction offsets; a lower bound) |
+| `asm/lib/compare/records.py` | +52 | `thunk_entry_count` + `far_entry_runs`: the dispatch-entry contract (module thunks at `3 + 4k`; the host's far-pointer ladders at `0x100 + 3 + 4k`) |
+| `asm/lib/tests/test_dynamic_addrs.py` | +300/−11 | `CensusMeaningCounterTests` (6 unit tests), `DriverDispatchAbiTests` (4: the helper, the declared counts against the module bytes — what `count: 48` failed — and the host ladders), and the three new `BASELINE_TOTALS` keys; the D7.2c comment's stale "62 of the 134" corrected to the measured 26/70/38 |
+| `asm/sidecar/DSAVANT.json` | +15/−3 | `dispatch_table` for `play` (8) and `ega` (55); `vga`'s `count` 48 → **55** (measured: the run is 55 entries, ending 0x00de) |
+| **counters** | — | `names_used` **61** / `names_inert` **52** of 113 named addresses; `hidden_flow` **161** (lower bound) |
+| **DRV probe** | — | `DS.EXE`'s loaders read each module to `segment:0x100` and call entry *k* at `0x100 + 3 + 4k` (ladders of 8 and 56 slots at `cs:0x2d67`/`cs:0x2d87`); entry *k* is at module offset `3 + 4k`, so the entries are a host-fixed ABI |
+| **census / binaries** | **unchanged** | 127 and all 19 binaries byte-identical; `make verify DSAVANT` 18/18; suite **332 OK**; `make build` a fixed point |
+| `asm/lib/phases/dispatch.py` | +39/−30 | `DispatchTablePhase` seeds the *entry* address as well as the handler it calls, and extracts the handler regardless of `force_data` (the guard skipped both, which is what left VGA at 452 offsets); docstring corrected — it claimed the table bytes are data, but an entry is an executable `call handler; retf` thunk |
+| `asm/sidecar/DSAVANT.json` | vga −3 / +3, ega +3 | drop vga's `force_data 0003..00c2` (it suppressed 48 handler seeds); declare `force_data 00df..0292` for vga and ega — the (value,size) pairs and the host callback ladder after the table |
+| `asm/lib/tests/test_dynamic_addrs.py` | re-baseline | `hidden_flow` 161 → **98**, `names_used` 61 → **84**, `names_inert` 52 → **32**, census **127 → 133** (one deliberate rise: six `cseg_` globals the decoding revealed); the `hidden_flow` docstring example moves from vga's now-decoded `0x2a3c` to play's `0x00e2` (`play.asm:93`) |
+| **vga decode** | — | 23 fragments → **79**, 452 instruction offsets → **5462** (ega 5830 → 5938, +2 per entry × 54); `hidden_flow` ega 54 → 0 and vga 9 → 0 |
+| **binary impact** | VGA.DRV only | 753 bytes against the pre-change assembly; its distance from the original becomes **824** vs EGA.DRV's 862 (the toolchain re-encodes `8b ec` → `89 e5` everywhere — 19 910 bytes across the tree); `make verify DSAVANT` 18/18, suite **332 OK**, `make build` an exact fixed point |
+| `asm/lib/model.py` | +7 | `ctx.dispatch_handlers`: the handler offsets a declared table names, so the declaration is available to the label pass and the splitter, not only to the seeding phase |
+| `asm/lib/phases/dispatch.py` | +5/−1 | `DispatchTablePhase` records each handler it decodes (and its contract declares the write) |
+| `asm/main/runner.py` | +8/−2 | `bounded_targets = direct_call_targets | ctx.dispatch_handlers` (a declared handler is categorized from its own body, not the 128-byte window) and `declared_roots=ctx.dispatch_handlers` into `verify` |
+| `asm/lib/compare/verify.py` | +3/−1 | `declared_roots` parameter, forwarded to `_select_split_ranges` |
+| `asm/lib/compare/splitting.py` | +18/−9 | a declared root splits even when its label is a bare `loc_<addr>`; undeclared bare names still do not (~1600 internal branch targets) |
+| `asm/lib/compare/records.py` | +20 | `dispatch_handlers(data, table)`: the handler each declared `e8 rel16 cb` names, shared by the test that has to check the tree independently |
+| `asm/lib/tests/test_dynamic_addrs.py` | +120 | `HANDLER_BASELINE` + `_tree_labels`/`_fragment_instructions`/`_category_evidence`/`_scan_declared_handlers` and `DriverHandlerPlacementTests` (the declaration count, and the two decrease-only counters); `test_direct_flow_labels.py` +28 for the declared-root split rule |
+| **handler rendering** | play +6/−3, ega +23/−4, vga +25/−4 | buried declared handlers **43 → 0**, names unsupported by their own fragment **11 → 2**, 27 names corrected; **all 19 built binaries byte-identical**, census unchanged (132/114/133), `make verify DSAVANT` 18/18, suite **336 OK**, fixed point |
 
 History — landed by `8965d977` (D7.0e):
 

@@ -7,33 +7,8 @@ bits 16
 IMAGE_BASE equ 0x0000
 %endif
 
-loc_0007 equ 0x0007
-loc_0381 equ 0x0381
-loc_07a2 equ 0x07a2
-loc_07b3 equ 0x07b3
-loc_07ce equ 0x07ce
-loc_07d0 equ 0x07d0
-loc_07e9 equ 0x07e9
-loc_0821 equ 0x0821
-loc_082a equ 0x082a
-loc_0831 equ 0x0831
-loc_083a equ 0x083a
-loc_0856 equ 0x0856
-loc_0863 equ 0x0863
-loc_0875 equ 0x0875
-loc_089e equ 0x089e
-loc_08ed equ 0x08ed
-loc_08ff equ 0x08ff
-loc_091f equ 0x091f
-loc_0945 equ 0x0945
-loc_095d equ 0x095d
-loc_0969 equ 0x0969
 data_096f equ 0x096f
-loc_098a equ 0x098a
-loc_0997 equ 0x0997
 data_09ae equ 0x09ae
-loc_09d4 equ 0x09d4
-loc_0a13 equ 0x0a13
 loc_0af6 equ 0x0af6
 loc_121d equ 0x121d
 data_89a3 equ 0x89a3
@@ -43,74 +18,32 @@ cseg_09ae equ 0x09ae
 cseg_09bf equ 0x09bf
 
 loc_0000:
-    jmp near @..loc_0000.l1          ; 0x0000
-@..loc_0000.l1:
+    jmp near loc_0003                ; 0x0000
+loc_0003:
     call loc_0023                    ; 0x0003
     retf                             ; 0x0006
+loc_0007:
     call strlen                      ; 0x0007
     retf                             ; 0x000a
+loc_000b:
     call leaf_loc_0154               ; 0x000b
     retf                             ; 0x000e
+loc_000f:
     call loc_01b0                    ; 0x000f
     retf                             ; 0x0012
+loc_0013:
     call io_loc_023f                 ; 0x0013
     retf                             ; 0x0016
+loc_0017:
     call bios_disk_loc_0294          ; 0x0017
     retf                             ; 0x001a
+loc_001b:
     call leaf_loc_016e               ; 0x001b
     retf                             ; 0x001e
+loc_001f:
     call leaf_loc_0183               ; 0x001f
     retf                             ; 0x0022
-loc_0023:
-    push bp                          ; 0x0023
-    mov bp, sp                       ; 0x0024
-    push bx                          ; 0x0026
-    mov byte [cs:cseg_0b9a - IMAGE_BASE], 0 ; 0x0027
-    mov ax, word [bp + 0x8]          ; 0x002d
-    mov word [cs:cseg_0ba4 - IMAGE_BASE], ax ; 0x0030
-    mov word [cs:cseg_0b9e - IMAGE_BASE], ax ; 0x0034
-    mov ax, word [bp + 0xa]          ; 0x0038
-    mov word [cs:cseg_0ba2 - IMAGE_BASE], ax ; 0x003b
-    mov word [cs:cseg_0ba0 - IMAGE_BASE], ax ; 0x003f
-    mov ax, word [bp + 0xc]          ; 0x0043
-    mov byte [cs:cseg_0b9d - IMAGE_BASE], al ; 0x0046
-    mov word [cs:cseg_0b81 - IMAGE_BASE], 1 ; 0x004a
-    mov word [cs:cseg_0b7f - IMAGE_BASE], 1 ; 0x0051
-    mov bx, cseg_0e03 - IMAGE_BASE   ; 0x0058
-@..loc_0023.l1:
-    mov byte [cs:bx], 0              ; 0x005b
-    mov byte [cs:bx + 0x1], 0        ; 0x005f
-    mov byte [cs:bx + 0x2], 0xff     ; 0x0064
-    mov word [cs:bx + 0x3], 0        ; 0x0069
-    add bx, byte 5                   ; 0x006f
-    cmp bx, strict word 0xe3a        ; 0x0072
-    jb short @..loc_0023.l1          ; 0x0076
-    mov al, byte [cs:cseg_0b7c - IMAGE_BASE] ; 0x0078
-    mov ax, word [cs:cseg_0b83 - IMAGE_BASE] ; 0x007c
-    mov word [cs:cseg_0b85 - IMAGE_BASE], ax ; 0x0080
-    call loc_0098                    ; 0x0084
-    cmp ax, strict word 0            ; 0x0087
-    jne short @..loc_0023.l2         ; 0x008a
-    call io_loc_02ba                 ; 0x008c
-    mov byte [cs:cseg_0b9a - IMAGE_BASE], 1 ; 0x008f
-@..loc_0023.l2:
-    pop bx                           ; 0x0095
-    pop bp                           ; 0x0096
-    ret                              ; 0x0097
-loc_0098:
-    mov bl, byte [cs:cseg_0b7c - IMAGE_BASE] ; 0x0098
-    xor bh, bh                       ; 0x009d
-    shl bx, 1                        ; 0x009f
-    mov ax, 0                        ; 0x00a1
-    call [cs:bx + 0x1aa]             ; 0x00a4
-    ret                              ; 0x00a9
-
-    db 0x84, 0x12, 0xc4, 0x01, 0x84, 0x12, 0x84, 0x12, 0xc4, 0x01, 0xb6, 0x01, 0x51, 0xb9, 0x0a, 0x00
-    db 0xe8, 0x5a, 0x11, 0x3d, 0x00, 0x00, 0xe0, 0xf8, 0x59, 0xc3, 0xb0, 0x08, 0x2e, 0x80, 0x3e, 0x7d
-    db 0x0b, 0x01, 0x74, 0x08, 0x2e, 0x80, 0x3e, 0x7d, 0x0b, 0x04, 0x74, 0x00, 0x2e, 0xa2, 0x3a, 0x0e
-    db 0xe8, 0x09, 0x01, 0x9c, 0xfa, 0xb8, 0x20, 0x01, 0xe8, 0x11, 0x07, 0xb8, 0x00, 0xbd, 0xe8, 0x0b
-    db 0x07, 0xb8, 0x06, 0x04, 0xe8, 0x05, 0x07, 0x9d, 0x52, 0xba, 0x88, 0x03, 0xb0, 0x40, 0xee, 0x5a
-    db 0xb8, 0x00, 0x00, 0xc3
+%include "play/loc_0023.asm"               ; 0x0023
 
 %include "play/strlen.asm"                 ; 0x00fe
 
@@ -119,6 +52,8 @@ loc_0098:
 %include "play/leaf_loc_016e.asm"          ; 0x016e
 
 %include "play/leaf_loc_0183.asm"          ; 0x0183
+
+%include "play/loc_01b0.asm"               ; 0x01b0
 
 %include "play/io_loc_023f.asm"            ; 0x023f
 

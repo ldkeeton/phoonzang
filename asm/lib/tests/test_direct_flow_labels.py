@@ -156,6 +156,39 @@ class FunctionIncludeTests(unittest.TestCase):
             ],
         )
 
+    def test_a_declared_root_splits_even_with_a_bare_loc_name(self):
+        """A declared dispatch handler owns its fragment (D7.2c-2d).
+
+        ``0x120`` is what ``_select_split_ranges`` refuses on the name alone; a
+        declaration that says it is a function entry must override that, because
+        the declared table *is* the layout.
+        """
+        label_map = {
+            0x100: 'main',
+            0x110: 'io_loc_016e',
+            0x120: 'loc_0154',
+            0x140: 'leaf_loc_02b3',
+        }
+        requested = {'main', 'io_loc_016e', 'leaf_loc_02b3'}
+        self.assertEqual(
+            _select_split_ranges(label_map, requested, binary_size=0x200),
+            [
+                (0x100, 0x110, 'main'),
+                (0x110, 0x140, 'io_loc_016e'),
+                (0x140, 0x200, 'leaf_loc_02b3'),
+            ],
+        )
+        self.assertEqual(
+            _select_split_ranges(label_map, requested, binary_size=0x200,
+                                 declared_roots={0x120}),
+            [
+                (0x100, 0x110, 'main'),
+                (0x110, 0x120, 'io_loc_016e'),
+                (0x120, 0x140, 'loc_0154'),
+                (0x140, 0x200, 'leaf_loc_02b3'),
+            ],
+        )
+
     def test_loc_fragment_scopes_local_labels(self):
         local_targets = {0x120, 0x124}
         owners = {0x120: {0x100}, 0x124: {0x100}}

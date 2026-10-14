@@ -203,9 +203,16 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         address for address, info in ctx.code_targets.items()
         if info.reason == 'direct_call'
     }
+    # A declared dispatch table's handlers are function entries by contract, so
+    # their category must come from walking their own body.  Left to the fallback
+    # they are read out of a raw 128-byte window that runs past the routine into
+    # whatever bytes follow (play's `loc_0154` lost its `leaf_` name to a call in
+    # the neighbouring data; `io_loc_016e`/`io_loc_0183` borrowed an `out` from a
+    # data blob 100 bytes away).  D7.2c-2d.
+    bounded_targets = direct_call_targets | ctx.dispatch_handlers
     label_map = categorize_call_targets(
         data, label_targets, label_map, instructions=instructions,
-        function_roots=label_targets, bounded_targets=direct_call_targets,
+        function_roots=label_targets, bounded_targets=bounded_targets,
         trace=ctx.trace,
     )
     function_roots = _function_roots(
@@ -412,6 +419,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         foreign_label_map=foreign_label_map,
         immediate_labels=immediate_labels,
         split_functions=split_functions,
+        declared_roots=ctx.dispatch_handlers,
         hard_data=ctx.hard_data,
         function_roots=function_roots,
         branch_targets=ctx.branch_targets,

@@ -1,22 +1,24 @@
-"""Seed dispatch-table handler targets from sidecar config.
+"""Seed dispatch-table entry and handler addresses from sidecar config.
 
-The dispatch table bytes are data (``force_data`` in sidecar), not code.
-This phase only extracts the handler addresses encoded inside each entry
-and seeds those as code targets. The table bytes themselves are left for
-the ``SidecarPhase`` to mark as ``CONF_DATA``.
+A declared dispatch table is `count` entries of ``E8 <rel16_le> CB`` at
+``base_offset + entry_size*i``: executable ``call handler; retf`` thunks.  Both
+halves are code, so this phase seeds both -- the entry address *and* the handler
+it calls.  The entry bytes then render as ``call handler`` / ``retf`` exactly as
+``play``'s table always has, which keeps the encoding identical (the ``rel16`` is
+read from the image) and stops the handler references counting as hidden flow.
+
+A ``force_data`` range covering an entry still wins: the entry then stays data,
+but its handler is seeded regardless -- the handler is code whatever the table
+bytes are rendered as.
 
 Sidecar format::
 
     "dispatch_table": {
         "base_offset": 3,
         "entry_size": 4,
-        "count": 48,
+        "count": 55,
         "format": "e8_rel16_cb",
-        "name_pattern": "vga_api_{:02d}"
     }
-
-Each entry is decoded as: E8 <rel16_le> CB → ``call near <handler> ; retf``.
-Only the handler target is added as a code seed — the entry bytes are data.
 """
 
 import struct
@@ -36,7 +38,7 @@ class DispatchTablePhase(Phase):
         writes_columns=['dispatch_table'],
         reads_ctx=['sidecar_entry', 'binary_data', 'seeds', 'code_targets',
                    'hard_data'],
-        writes_ctx=['seeds', 'code_targets'],
+        writes_ctx=['seeds', 'code_targets', 'dispatch_handlers'],
         requires_binary=True,
     )
 
@@ -57,29 +59,36 @@ class DispatchTablePhase(Phase):
         esize = dt['entry_size']
         count = dt['count']
 
+        def seed(address, reason, source_offset):
+            if (0 <= address < n and not ctx.is_hard_data(address)
+                    and address not in ctx.code_targets):
+                ctx.code_targets[address] = TargetInfo(
+                    address=address, reason=reason,
+                    confidence=CONF_CODE, source_offset=source_offset,
+                )
+                ctx.seeds.append(SeedInfo(
+                    address=address, source_phase='dispatch_table',
+                    confidence=CONF_CODE, reason=reason,
+                ))
+
         for i in range(count):
             addr = base + i * esize
             if addr + 3 >= n:
                 break
-            if ctx.hard_data[addr:addr + 4].any():
-                continue
-
             if data[addr] != 0xE8 or data[addr + 3] != 0xCB:
                 continue
 
+            # The entry is an executable thunk, so its own address is a code
+            # target too -- but a `force_data` range over the entry wins.
+            if not ctx.hard_data[addr:addr + 4].any():
+                seed(addr, f'dispatch entry {i}', addr)
+
             rel16 = struct.unpack_from('<h', data, addr + 1)[0]
             target = (addr + 3 + rel16) & 0xFFFF
-
-            if (0 <= target < n and not ctx.is_hard_data(target)
-                    and target not in ctx.code_targets):
-                ctx.code_targets[target] = TargetInfo(
-                    address=target, reason='dispatch_handler',
-                    confidence=CONF_CODE, source_offset=addr,
-                )
-                ctx.seeds.append(SeedInfo(
-                    address=target, source_phase='dispatch_table',
-                    confidence=CONF_CODE,
-                    reason=f'dispatch handler {i} from entry {addr:04x}',
-                ))
+            seed(target, f'dispatch handler {i} from entry {addr:04x}', addr)
+            # The handler is a function entry by contract whether or not it was
+            # newly seeded (a force_data range can leave it unseeded).
+            if not ctx.is_hard_data(target):
+                ctx.dispatch_handlers.add(target)
 
         return pl.Series(self.output_slot, result, dtype=pl.Float32)

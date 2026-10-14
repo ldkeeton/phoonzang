@@ -7,7 +7,8 @@ from lib.names import startswith_stem, stem
 
 
 def _select_split_ranges(label_map, split_functions, func_boundaries=None,
-                         binary_size=None, c_override_lengths=None):
+                         binary_size=None, c_override_lengths=None,
+                         declared_roots=None):
     """Select named function boundaries, ending each at the next split root.
 
     Starts come straight from the label offsets so a function's file always
@@ -15,18 +16,27 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
     scan was unreliable: the 512-byte cap truncated long functions and the
     backward push-bp scan pulled starts into the preceding function.
 
+    A *declared* root (``declared_roots``) splits even when its label is a bare
+    ``loc_<addr>``: a declared dispatch table names a function entry, so the
+    entry owns its fragment whatever name a categorization heuristic left it
+    with (D7.2c-2d).  Undeclared bare ``loc_`` names stay address labels and keep
+    sharing their neighbour's fragment -- otherwise the ~1600 internal branch
+    targets in the tree would each become a file.
+
     Functions that have a C override own exactly ``length`` bytes; their split
     range is capped there so non-C data after the routine stays in the master
     file instead of being absorbed into the C fragment.
     """
     requested = set(split_functions or ())
+    declared = set(declared_roots or ())
     c_override_lengths = c_override_lengths or {}
     selected = sorted(
         (off, name)
         for off, name in (label_map or {}).items()
-        if name in requested
-        and not startswith_stem(name, 'data_')
-        and not re.fullmatch(r'loc_[0-9a-fA-F]+', stem(name))
+        if not startswith_stem(name, 'data_')
+        and (off in declared
+             or (name in requested
+                 and not re.fullmatch(r'loc_[0-9a-fA-F]+', stem(name))))
     )
 
     # A split root strictly inside a C routine's own recovered extent (e.g. the

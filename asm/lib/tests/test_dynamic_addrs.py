@@ -10,13 +10,17 @@ Two layers:
 
 import os
 import pathlib
+import re
 import struct
 import subprocess
 import tempfile
 import unittest
 
 from lib.compare.render import HOST_SYMBOLS_INC, _build_source
-from lib.compare.records import count_frozen_addrs
+from lib.compare.records import (
+    DISPATCH_STRIDE, count_frozen_addrs, count_hidden_flow, count_name_use,
+    dispatch_handlers, far_entry_runs, instruction_offsets, thunk_entry_count,
+)
 from lib.sidecar import load as load_sidecar, per_binary
 from make.elf import _force_origin_zero
 
@@ -100,26 +104,256 @@ def _mz_header(e_ss):
 # bucket now counts all three spellings of the overlay load address (the header
 # field, the ``VBASE`` and the ``o_entry`` addend -- 39, not 13) and a host code
 # immediate equal to it (``o_corg_imm``); D7.2b then bound all 40 to the host's
-# resident-code end (``__zresident_end``), 192 -> 152.  Every count may only go
-# down from here.
+# resident-code end (``__zresident_end``), 192 -> 152.  D7.2c then gave the
+# sidecar's names a label on the byte they name (``_ensure_global_label``, the
+# same splitter the D1 data anchors use) wherever the byte can hold one: 26 of
+# the 134, so 152 -> 126.  The other 70 stay literals *by construction*: 55 name
+# a byte the renderer emits as data (31 inside a jump-table record, 24 inside a
+# data block -- a code label there would put code back into bytes the arbiter
+# removed, which ``verify.code_loss`` counts and ``test_hard_classification``
+# pins), 15 are strictly inside a decoded instruction, 2 are outside every
+# record.  Another 38 are never routed through the placement call at all: the 21
+# ``cseg_``/``data_`` *operand* symbols the ``mem_equ`` block spells literally,
+# and ``vga``'s 17 ``immediate_labels``, whose value is a raw offset immediate
+# that a label (``VBASE + off``) would change for a ``vstart`` image.
+# 26 placed + 70 refused + 38 never routed = the original 134.  Every count may
+# only go down from here.
+#
+# Two further counters split what the census *counts* from what it *means* (they
+# are the measurement D7.2c-2 starts from):
+#
+# * ``names_used``/``names_inert`` -- of the named frozen addresses above, how
+#   many the tree actually refers to.  An inert name costs nothing and converting
+#   it to a label only moves the census; only a used name has to follow an edit.
+#   Measured over the whole tree, because a name declared in a master is normally
+#   used in a fragment.
+# * ``hidden_flow`` -- near call/jmp displacements in the original image that the
+#   source emits as *data* while their target *is* shown as code: real address
+#   references no source line spells, so neither the census nor a label can reach
+#   them (play's ``call 0x07f6`` at 0x00e2, emitted as ``db 0xe8, 0x11, 0x07`` on
+#   ``play.asm:93``).  A *lower bound*: the scan walks only the bytes between the
+#   source's instruction offsets and stops at the first byte that does not decode,
+#   so it is trustworthy as a falling signal, not as an exact population.  It needs
+#   ``apps/DSAVANT`` (which the tree cannot exist without).
+#
+# The census floor was re-baselined **once**, in D7.2c-2b.  VGA's sidecar carried
+# a ``force_data`` range over its dispatch table (0x0003..0x00c2) whose only real
+# effect was to trip the ``hard_data`` guard in ``DispatchTablePhase``: 48 handler
+# targets were never seeded, so vga sat ~90% undecoded (452 instruction offsets
+# against ega's 5830 for the same construct).  Removing it, declaring the data
+# *after* the table (0x00df..0x0292), and letting a declared table seed its
+# *entries* as well as its handlers -- ``call handler; retf``, which is how play's
+# table always rendered -- decodes vga to ega's depth.  Measured: ``hidden_flow``
+# 161 -> **98** (ega 54 -> 0 and vga 9 -> 0 -- the two tables' entries were all of
+# it), ``names_used`` 61 -> **84**, ``names_inert`` 52 -> **32**.  The decoding
+# *reveals* six ``cseg_`` code-segment globals that vga code addresses -- the same
+# class ega already carries, and the class item (ii) exists to resolve -- so the
+# census floor rose once, to 133, and the classes below it only fall from here.
 BASELINE_TOTALS = {
-    'code_shift': 152, 'data_shift': 1, 'inert': 248,
-    'f1': 2, 'f2': 13, 'f3': 134, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
+    'code_shift': 132, 'data_shift': 1, 'inert': 248,
+    'f1': 2, 'f2': 13, 'f3': 114, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
     'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
-    'total': 153,
+    'names_used': 84, 'names_inert': 32, 'hidden_flow': 98,
+    'total': 133,
 }
 
 
+#: Declared dispatch-table handlers (D7.2c-2d): 118 of them (play 8, ega 55, vga 55).
+#: Before the change 43 carried a bare ``loc_`` name and shared a neighbour's
+#: fragment, and 11 carried a category their own fragment evidences nothing for
+#: (``play``'s ``io_loc_016e`` borrowed an ``out`` from a data blob 100 bytes on,
+#: ``ega``'s ``dos_con_loc_1490`` an ``int 0x21`` from the routine after its
+#: ``ret``).  Both count the *rendering's* faithfulness to the declared ABI, so,
+#: like the census, they may only fall.
+HANDLER_BASELINE = {'buried': 0, 'unsupported': 2}
+
+
+def _binary_sources(binary):
+    """The generated files belonging to *binary*: its master plus fragments."""
+    out = []
+    master = _TREE / f'{binary}.asm'
+    if master.is_file():
+        out.append(master)
+    frag_dir = _TREE / binary
+    if frag_dir.is_dir():
+        out += sorted(frag_dir.glob('*.asm'))
+    return out
+
+
+_LABEL_RE = re.compile(r'^([A-Za-z_@][\w.@]*):')
+_LABEL_OFFSET_RE = re.compile(r';\s*0x([0-9a-f]{4})\b')
+
+
+def _tree_labels(binary):
+    """``{offset: (label, filename, is_first_label_in_file)}`` for *binary*.
+
+    A label line carries no offset comment of its own; it names the next emitted
+    record, whose ``; 0x<hex>`` comment gives the address.  Local (``@..``)
+    labels never displace a global one and never start a file.
+    """
+    out = {}
+    for path in _binary_sources(binary):
+        pending, first = None, None
+        for line in path.read_text(errors='ignore').splitlines():
+            m = _LABEL_RE.match(line)
+            if m:
+                pending = m.group(1)
+                if first is None and not pending.startswith('@'):
+                    first = pending
+                continue
+            if pending is None:
+                continue
+            m = _LABEL_OFFSET_RE.search(line)
+            if not m:
+                continue
+            offset = int(m.group(1), 16)
+            if offset not in out or not pending.startswith('@'):
+                out[offset] = (pending, path.name, pending == first)
+            pending = None
+    return out
+
+
+#: Evidence a categorized name has to show in the fragment it names.
+_IO_MNEMONICS = {'in', 'out', 'insb', 'insw', 'insd', 'outsb', 'outsw', 'outsd'}
+_STRING_MNEMONICS = {'movs', 'movsb', 'movsw', 'movsd', 'cmps', 'cmpsb', 'cmpsw',
+                     'scas', 'scasb', 'scasw', 'lods', 'lodsb', 'lodsw',
+                     'stos', 'stosb', 'stosw'}
+_BIOS_INTS = {'bios_disk': 'int 0x13', 'bios_video': 'int 0x10',
+              'bios_mouse': 'int 0x33'}
+_LABEL_LINE_RE = re.compile(r'^[A-Za-z_@][\w.@]*:$')
+
+
+def _fragment_instructions(text):
+    """The instruction texts of an emitted source file (labels/data dropped)."""
+    out = []
+    for line in text.splitlines():
+        body = line.split(';', 1)[0].strip()
+        if not body or body.startswith(('%', 'db ', 'dw ', 'times ', 'dd ')):
+            continue
+        if _LABEL_LINE_RE.match(body):
+            continue
+        out.append(body)
+    return out
+
+
+def _category_evidence(category, insns, image, offsets):
+    """Whether *insns* show *category*'s evidence; None when unknowable."""
+    mnemonics = [text.split(' ', 1)[0] for text in insns]
+    if category == 'leaf':
+        return not any(m in ('call', 'lcall') for m in mnemonics)
+    if category == 'io':
+        return any(m in _IO_MNEMONICS for m in mnemonics)
+    if category == 'string':
+        return any(m in _STRING_MNEMONICS for m in mnemonics)
+    if category == 'fpu':
+        return any(m.startswith('f') for m in mnemonics)
+    if category in _BIOS_INTS:
+        return _BIOS_INTS[category] in insns
+    if category.startswith('bios'):
+        return any(text.startswith('int 0x1') for text in insns)
+    if category.startswith('dos'):
+        return 'int 0x21' in insns
+    if category == 'graphics':
+        from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+        from lib.match.categorize import _has_graphics_rendering_pattern
+        md = Cs(CS_ARCH_X86, CS_MODE_16)
+        md.detail = True
+        decoded = [next(iter(md.disasm(image[o:o + 16], o)), None)
+                   for o in sorted(offsets)]
+        return _has_graphics_rendering_pattern(
+            [insn for insn in decoded if insn is not None])
+    return None
+
+
+def _scan_declared_handlers():
+    """Placement and naming of every declared dispatch-table handler (D7.2c-2d).
+
+    A declared handler is a function entry by contract, so two things must hold
+    of the emitted tree and neither is a rendering heuristic:
+
+    * it is the first label of **its own fragment** -- ``buried`` counts the
+      handlers that share their neighbour's file instead;
+    * its name is a category **its own fragment evidences** -- ``unsupported``
+      counts names that only a window reading the following bytes could have
+      produced (``play``'s ``io_loc_016e`` borrowed an ``out`` from a data blob
+      100 bytes on; ``ega``'s ``string_loc_31df`` borrowed a string op).
+
+    Signature names (``strlen``, ``mouse_init``) are not the label pass's
+    decision and are skipped; a bare ``loc_<addr>`` claims no category at all.
+    The check reads the fragment the label owns, so a routine a *later* entry
+    interleaves into another fragment can still report (a documented backlog):
+    ``play``'s ``bios_disk_loc_0294`` reaches its ``int 0x13`` past ``0x02b3``,
+    and ``ega``'s ``graphics_loc_31df`` is a ``jmp`` thunk into handler ``0x04b1``.
+    """
+    app_dir = _PROJECT_ROOT / 'apps' / 'DSAVANT'
+    if not _TREE.is_dir() or not app_dir.is_dir():
+        return [], []
+    sidecar = load_sidecar('DSAVANT')
+    buried, unsupported = [], []
+    for binary in sorted(sidecar['binaries']):
+        entry = per_binary(sidecar, binary)
+        table = entry.get('dispatch_table')
+        image = app_dir / entry['file']
+        if not table or not image.is_file():
+            continue
+        data = image.read_bytes()
+        labels = _tree_labels(binary)
+        for handler in dispatch_handlers(data, table):
+            if handler not in labels:
+                continue
+            name, filename, first = labels[handler]
+            if not first:
+                buried.append((binary, handler, name, filename))
+            m = re.fullmatch(r'([a-z_]+)_loc_[0-9a-f]+', name)
+            if not m:
+                continue          # a signature/pattern name, or the bare loc_
+            path = _TREE / binary / filename
+            if not path.is_file():
+                continue
+            text = path.read_text(errors='ignore')
+            insns = _fragment_instructions(text)
+            evidence = _category_evidence(m.group(1), insns, data,
+                                          instruction_offsets(text))
+            if evidence is False:
+                unsupported.append((binary, handler, name, filename))
+    return buried, unsupported
+
+
+def _scan_hidden_flow():
+    """``(site, target)`` pairs the source emits as bytes, over every binary."""
+    app_dir = _PROJECT_ROOT / 'apps' / 'DSAVANT'
+    if not _TREE.is_dir() or not app_dir.is_dir():
+        return []
+    sidecar = load_sidecar('DSAVANT')
+    hits = []
+    for binary in sorted(sidecar['binaries']):
+        image = app_dir / per_binary(sidecar, binary)['file']
+        if not image.is_file():
+            continue
+        offsets = set()
+        for path in _binary_sources(binary):
+            offsets |= instruction_offsets(path.read_text(errors='ignore'))
+        hits += count_hidden_flow(image.read_bytes(), offsets)
+    return hits
+
+
 def _scan_tree():
-    totals = {k: 0 for k in BASELINE_TOTALS}
+    census = count_frozen_addrs('')      # the per-file keys, all zero
+    sources = []
     for path in sorted(_TREE.rglob('*.asm')):
         rel = path.relative_to(_TREE)
         if rel.parts[0] in _SKIP_DIRS:
             continue
-        counts = count_frozen_addrs(path.read_text(errors='ignore'))
-        for key in totals:
-            totals[key] += counts[key]
-    return totals
+        text = path.read_text(errors='ignore')
+        sources.append((path, text))
+        counts = count_frozen_addrs(text)
+        for key in census:
+            census[key] += counts[key]
+    use = count_name_use(sources)
+    census['names_used'] = use['names_used']
+    census['names_inert'] = use['names_inert']
+    census['hidden_flow'] = len(_scan_hidden_flow())
+    return census
 
 
 class CountFrozenAddrsTests(unittest.TestCase):
@@ -231,6 +465,195 @@ class CountFrozenAddrsTests(unittest.TestCase):
         counts = count_frozen_addrs('    mov cx, 0x9098                   ; 0x4de3')
         self.assertEqual(counts['ds_size_imm'], 0)
         self.assertEqual(counts['total'], 0)
+
+
+class CensusMeaningCounterTests(unittest.TestCase):
+    """D7.2c-2 counters: what the census's names and bytes actually cost."""
+
+    def test_name_use_splits_used_from_inert(self):
+        sources = [
+            ('play.asm',
+             'loc_0007 equ 0x0007\n'
+             'loc_0008 equ 0x0008\n'
+             'cseg_0100 equ 0x0100\n'),
+            ('play/leaf_loc_077b.asm',
+             '    call loc_0008\n'
+             '    mov al, [cs:cseg_0100]\n'),
+        ]
+        counts = count_name_use(sources)
+        self.assertEqual(counts['names_used'], 2)
+        self.assertEqual(counts['names_inert'], 1)
+        self.assertEqual(counts['inert_names'], ['loc_0007'])
+
+    def test_include_paths_and_comments_are_not_references(self):
+        """A fragment is named after its label, so its include must not count."""
+        sources = [
+            ('vga.asm',
+             'loc_1000 equ 0x1000\n'
+             '%include "vga/loc_2000.asm"          ; 0x2000\n'),
+            ('vga/loc_2000.asm',
+             'loc_2000 equ 0x2000  ; is loc_1000 live?\n'),
+        ]
+        counts = count_name_use(sources)
+        self.assertEqual(counts['names_inert'], 2)
+        self.assertEqual(sorted(counts['inert_names']),
+                         ['loc_1000', 'loc_2000'])
+
+    def test_geometry_macros_are_not_names_for_a_byte(self):
+        counts = count_name_use([
+            ('ds.asm', 'VBASE equ 0x5047\nIMAGE_BASE equ 0x0200\n'),
+        ])
+        self.assertEqual((counts['names_used'], counts['names_inert']), (0, 0))
+
+    def test_hidden_flow_finds_a_call_the_source_hides(self):
+        data = bytearray(b'\x00' * 0x20)
+        data[0x10:0x13] = b'\xb8\x00\x00'      # mov ax, 0  (shown as code)
+        data[0x13:0x16] = b'\xe8\x04\x00'      # call 0x13 + 3 + 4 = 0x1a
+        data[0x1a:0x1c] = b'\x90\xc3'
+        self.assertEqual(count_hidden_flow(bytes(data), {0x10, 0x1a}),
+                         [(0x13, 0x1a)])
+
+    def test_bytes_inside_a_rendered_instruction_are_not_sites(self):
+        # ``mov bx, 0xe8`` is ``bb e8 00``: the ``e8`` is an operand byte of an
+        # instruction the source shows, so nothing is hidden here.
+        data = b'\xbb\xe8\x00' + b'\x90' * 4
+        self.assertEqual(count_hidden_flow(data, {0x00, 0x03}), [])
+
+    def test_instruction_offsets_skips_data_and_directives(self):
+        text = '\n'.join([
+            '    mov ax, 0                       ; 0x0000',
+            '    add bx, strict word 0x9098       ; 0x0003 ; dssize',
+            'loc_0005:',
+            '    db 0x90, 0x90',
+            '    dw 0x490f ; 0x4822',
+            '    times 4 db 0',
+            '%include "vga/x.asm"                 ; 0x0200',
+        ])
+        self.assertEqual(instruction_offsets(text), {0x0000, 0x0003})
+        self.assertEqual(instruction_offsets(''), set())
+
+
+class DriverDispatchAbiTests(unittest.TestCase):
+    """The driver dispatch tables are a contract the *host* holds (D7.2c-2).
+
+    ``DS.EXE``'s loaders read each module to ``segment:0x100`` and call entry *k*
+    through a far pointer whose offset half is ``0x100 + 3 + 4k`` -- the module's
+    ``call handler; retf`` thunk at ``3 + 4k`` -- with the segment half patched in
+    at load time.  So the entry offsets are pinned from outside the module, which
+    is exactly why the census's used/inert split calls some of them inert and why
+    they want a declared pin rather than a label.
+    """
+
+    def _image(self, name):
+        path = _PROJECT_ROOT / 'apps' / 'DSAVANT' / name
+        if not path.is_file():
+            self.skipTest('needs apps/DSAVANT')
+        return path.read_bytes()
+
+    def test_thunk_entry_count_reads_the_head_of_a_module(self):
+        # A module begins with a 3-byte jump to entry 0 (``e9 00 00``), then the
+        # ``call handler; retf`` thunks.
+        head = b'\xe9\x00\x00'
+        self.assertEqual(thunk_entry_count(head + b'\xe8\x01\x00\xcb' * 3), 3)
+        self.assertEqual(thunk_entry_count(b''), 0)
+        # A run stops at the first entry that is not `call …; retf`.
+        self.assertEqual(thunk_entry_count(head + b'\xe8\x01\x00\xcb'
+                                           + b'\x90' * 4), 1)
+
+    def test_far_entry_runs_finds_the_offset_ladder(self):
+        # Two slots at file 0x10, then the ladder broken by an unrelated word.
+        data = bytearray(b'\x00' * 0x20)
+        data[0x10:0x14] = b'\x03\x01\x00\x00'
+        data[0x14:0x18] = b'\x07\x01\x00\x00'
+        self.assertEqual(far_entry_runs(bytes(data)), [(0x10, 2)])
+
+    def test_declared_handler_offset_decodes_an_entry(self):
+        """``dispatch_handlers`` reads the handler each ``e8 rel16 cb`` names."""
+        table = {'base_offset': 0, 'entry_size': 4, 'count': 3}
+        # entry 0 at 0x00 -> target 0x03 + 0x20 = 0x23; entry 1 at 0x04 ->
+        # target 0x07 + 0x10 = 0x17; entry 2 is not the declared shape and is
+        # skipped, not the run.
+        data = (b'\xe8\x20\x00\xcb' + b'\xe8\x10\x00\xcb' + b'\x90\x90\x90\x90')
+        self.assertEqual(dispatch_handlers(data, table), [0x23, 0x17])
+        self.assertEqual(dispatch_handlers(b'', table), [])
+
+    def test_declared_counts_match_the_module_bytes(self):
+        """A declared count must equal the thunks actually at 3 + 4k.
+
+        This is what the old ``count: 48`` for ``vga`` got wrong: the run is 55
+        entries long, so seven entries were neither declared nor forced.
+        """
+        sidecar = load_sidecar('DSAVANT')
+        declared = {}
+        for binary in sorted(sidecar['binaries']):
+            entry = per_binary(sidecar, binary)
+            table = entry.get('dispatch_table')
+            if not table:
+                continue
+            data = self._image(entry['file'])
+            got = thunk_entry_count(data, table.get('base_offset', 3),
+                                    table.get('entry_size', 4))
+            self.assertEqual(got, table['count'],
+                             f'{binary}: dispatch_table says {table["count"]} '
+                             f'entries, the image has {got}')
+            declared[binary] = table['count']
+        self.assertEqual(declared, {'play': 8, 'ega': 55, 'vga': 55})
+
+    def test_host_pins_every_declared_entry(self):
+        """``DS.EXE`` holds a far pointer to every declared entry."""
+        runs = sorted(c for _, c in far_entry_runs(self._image('DS.EXE')))
+        # 8 slots for play.drv and 56 for the display driver: the display driver
+        # ships 55 entries, and its loader patches 55 segment words, so the 56th
+        # slot is a spare the host never calls.
+        self.assertEqual(runs, [8, 56])
+        sidecar = load_sidecar('DSAVANT')
+        for binary in ('play', 'ega', 'vga'):
+            table = per_binary(sidecar, binary)['dispatch_table']
+            self.assertEqual(table['entry_size'], DISPATCH_STRIDE)
+            self.assertEqual(table['format'], 'e8_rel16_cb')
+            self.assertTrue(any(count >= table['count'] for count in runs),
+                            f'{binary}: {table["count"]} entries, '
+                            f'host runs {runs}')
+
+
+class DriverHandlerPlacementTests(unittest.TestCase):
+    """A declared table's handlers are function entries, not stray addresses.
+
+    ``dispatch_table`` names where each module's host-called entries jump; every
+    handler it points at is a routine with its own body.  Two counters keep the
+    rendering honest about that (D7.2c-2d): a handler owns its fragment, and its
+    name is the category of its own body -- not whatever a raw window over the
+    following bytes happened to look like.
+    """
+
+    def test_declared_handler_count_is_the_sidecar_declaration(self):
+        app_dir = _PROJECT_ROOT / 'apps' / 'DSAVANT'
+        sidecar = load_sidecar('DSAVANT')
+        total = 0
+        for binary in ('play', 'ega', 'vga'):
+            entry = per_binary(sidecar, binary)
+            image = app_dir / entry['file']
+            if not image.is_file():
+                self.skipTest('needs apps/DSAVANT')
+            handlers = dispatch_handlers(image.read_bytes(), entry['dispatch_table'])
+            self.assertEqual(len(handlers), entry['dispatch_table']['count'])
+            total += len(handlers)
+        self.assertEqual(total, 118)
+
+    @unittest.skipUnless(_TREE.is_dir(), 'generated asm_DSAVANT tree not present')
+    def test_handler_placement_only_improves(self):
+        buried, unsupported = _scan_declared_handlers()
+        self.assertLessEqual(
+            len(buried), HANDLER_BASELINE['buried'],
+            'declared handlers buried in a neighbour fragment: '
+            f'{len(buried)} (baseline {HANDLER_BASELINE["buried"]})',
+        )
+        self.assertLessEqual(
+            len(unsupported), HANDLER_BASELINE['unsupported'],
+            'declared handlers named with a category their own fragment does '
+            f'not evidence: {len(unsupported)} '
+            f'(baseline {HANDLER_BASELINE["unsupported"]})',
+        )
 
 
 class DynamicDataAnchorTests(unittest.TestCase):
@@ -675,6 +1098,64 @@ class DataStringAnchorTests(unittest.TestCase):
         self.assertEqual(built[0x200:0x203], b'\xa1\x03\x00')
 
 
+class NamedAddressPlacementTests(unittest.TestCase):
+    """D7.2c: a name the sidecar gives a byte becomes a label *on* the byte.
+
+    An absolute ``equ`` (``loc_1795 equ 0x1795 + VBASE``) is only right until the
+    code above it moves; a label moves with the byte.  The literal is now the
+    fallback, kept only where the byte cannot carry a label -- strictly inside an
+    instruction or a jump table, or inside the MZ code->data gap.
+    """
+
+    def _overlay(self, n):
+        header = b'\xf2\x00' + (0x5055).to_bytes(2, 'little') + bytes(10)
+        return header + b'\x90' * n
+
+    def _source(self, records, label_map, n):
+        src, _ = _build_source(records, 14, self._overlay(n),
+                               label_map=label_map,
+                               host_symbols=('ds.asm', -0x200))
+        return src
+
+    def test_a_named_record_start_becomes_a_label(self):
+        records = [{'type': 'mnem', 'text': 'nop', 'offset': 14, 'size': 1},
+                   {'type': 'mnem', 'text': 'nop', 'offset': 15, 'size': 1}]
+        src = self._source(records, {14: 'app_start', 15: 'app_next'}, 2)
+        self.assertIn('app_start:', src)
+        self.assertIn('app_next:', src)
+        self.assertNotIn('app_start equ', src)
+        self.assertNotIn('app_next equ', src)
+
+    def test_a_code_name_inside_a_data_block_keeps_its_equ(self):
+        """A code name on data must not become a label.
+
+        The arbiter decides which bytes are data; a label there would put code
+        back (``verify.code_loss`` counts exactly these).  ``verify`` already
+        covers this for the final bitmap -- this is the same rule at the
+        placement site.
+        """
+        records = [{'type': 'data_block', 'start': 14, 'end': 18,
+                    'bytes': ['0x11', '0x22', '0x33', '0x44']}]
+        src = self._source(records, {16: 'loc_0010'}, 4)
+        self.assertIn('loc_0010 equ 0x0010 + VBASE', src)
+        self.assertNotIn('loc_0010:', src)
+
+    def test_a_data_name_inside_a_data_block_is_placed(self):
+        """A data name may anchor data -- the D1 pattern, one name form over."""
+        records = [{'type': 'data_block', 'start': 14, 'end': 18,
+                    'bytes': ['0x11', '0x22', '0x33', '0x44']}]
+        src = self._source(records, {16: 'data_0010'}, 4)
+        self.assertIn('data_0010:', src)
+        self.assertNotIn('data_0010 equ', src)
+
+    def test_a_name_inside_an_instruction_keeps_its_equ(self):
+        records = [{'type': 'mnem', 'text': 'mov ax, 0', 'offset': 14,
+                    'size': 3}]
+        src = self._source(records, {15: 'app_inside'}, 3)
+        self.assertIn('app_inside equ 0x000f + VBASE', src)
+        self.assertNotIn('app_inside:', src)
+
+
 class InsertBytePropertyTests(unittest.TestCase):
     """Acceptance test: editing a fragment keeps the image consistent.
 
@@ -825,6 +1306,45 @@ class InsertBytePropertyTests(unittest.TestCase):
             self.assertEqual(
                 shrunk[new_origin + new_start:new_origin + new_start + 23],
                 content)
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'play.asm').exists(),
+                         'generated asm_DSAVANT tree not present')
+    def test_driver_branch_follows_an_inserted_byte(self):
+        """D7.2c: a named branch target is a label, so an edit moves it.
+
+        ``loc_07a2`` names the byte at 0x07a2, spelled ``loc_07a2 equ 0x07a2``
+        before this step.  Inserting one byte *between* the ``jb`` at 0x079a and
+        that target must lengthen the branch by exactly one: the target moved
+        with the byte.  Under the old ``equ`` the displacement would have stayed
+        put and the jump would have landed one byte short.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'play.asm')
+            original = _nasm_file(master, d)
+            self.assertEqual(original[0x79a:0x79c], b'\x72\x06')  # jb +6 -> 0x07a2
+            frag = os.path.join(d, 'play', 'leaf_loc_077b.asm')
+            with open(frag) as f:
+                text = f.read()
+            needle = '    jb short loc_07a2'
+            self.assertIn(needle, text)
+            with open(frag, 'w') as f:
+                f.write(text.replace(needle, needle + '\n    db 0x90', 1))
+            grown = _nasm_file(master, d)
+
+        self.assertEqual(len(grown), len(original) + 1)
+        # The branch itself did not move (the byte went in after it) ...
+        self.assertEqual(grown[0x79a], original[0x79a])
+        # ... and its displacement grew by exactly one, because the label it
+        # names moved with the inserted byte.
+        self.assertEqual(grown[0x79a:0x79c], b'\x72\x07')
+        self.assertEqual(original[0x79a:0x79c], b'\x72\x06')
+        # The instruction at the target is the same one, one byte later.  (Its
+        # embedded ``mov word [0x0b93], ax`` operand grows too: that absolute
+        # address is still a frozen ``data_`` immediate -- D7.2c-2.)
+        self.assertEqual(original[0x7a2:0x7a6], b'\x2e\x88\x26\x93')
+        self.assertEqual(grown[0x7a3:0x7a6], b'\x2e\x88\x26')
+        self.assertEqual(grown[0x7a6:0x7a8], b'\x94\x0b')
 
 
 class DataPointerCorpusTests(unittest.TestCase):

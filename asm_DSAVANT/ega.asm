@@ -26,26 +26,175 @@ cseg_4ab4 equ 0x4ab4
 cseg_4f8b equ 0x4f8b
 
 loc_0000:
-    jmp near @..loc_0000.l1          ; 0x0000
-@..loc_0000.l1:
+    jmp near loc_0003                ; 0x0000
+loc_0003:
     call mouse_init                  ; 0x0003
     retf                             ; 0x0006
+loc_0007:
+    call mouse_init_2                ; 0x0007
+    retf                             ; 0x000a
+loc_000b:
+    call bios_mouse_loc_190f         ; 0x000b
+    retf                             ; 0x000e
+loc_000f:
+    call leaf_loc_1900               ; 0x000f
+    retf                             ; 0x0012
+loc_0013:
+    call bios_mouse_loc_18c1         ; 0x0013
+    retf                             ; 0x0016
+loc_0017:
+    call dos_read_file_3             ; 0x0017
+    retf                             ; 0x001a
+loc_001b:
+    call graphics_loc_361e           ; 0x001b
+    retf                             ; 0x001e
+loc_001f:
+    call dos_read_file               ; 0x001f
+    retf                             ; 0x0022
+loc_0023:
+    call dos_read_file_2             ; 0x0023
+    retf                             ; 0x0026
+loc_0027:
+    call dos_print_str               ; 0x0027
+    retf                             ; 0x002a
+loc_002b:
+    call leaf_loc_3035               ; 0x002b
+    retf                             ; 0x002e
+loc_002f:
+    call graphics_loc_0293           ; 0x002f
+    retf                             ; 0x0032
+loc_0033:
+    call leaf_loc_0447               ; 0x0033
+    retf                             ; 0x0036
+loc_0037:
+    call leaf_loc_0462               ; 0x0037
+    retf                             ; 0x003a
+loc_003b:
+    call leaf_loc_047d               ; 0x003b
+    retf                             ; 0x003e
+loc_003f:
+    call leaf_loc_0496               ; 0x003f
+    retf                             ; 0x0042
+loc_0043:
+    call loc_04b1                    ; 0x0043
+    retf                             ; 0x0046
+loc_0047:
+    call leaf_loc_0bcf               ; 0x0047
+    retf                             ; 0x004a
+loc_004b:
+    call leaf_loc_0bf6               ; 0x004b
+    retf                             ; 0x004e
+loc_004f:
+    call string_loc_0c45             ; 0x004f
+    retf                             ; 0x0052
+loc_0053:
+    call dos_alloc_mem               ; 0x0053
+    retf                             ; 0x0056
+loc_0057:
+    call dos_free_mem                ; 0x0057
+    retf                             ; 0x005a
+loc_005b:
+    call loc_303d                    ; 0x005b
+    retf                             ; 0x005e
+loc_005f:
+    call bios_mouse_loc_1992         ; 0x005f
+    retf                             ; 0x0062
+loc_0063:
+    call dos_print_str_2             ; 0x0063
+    retf                             ; 0x0066
+loc_0067:
+    call leaf_loc_0439               ; 0x0067
+    retf                             ; 0x006a
+loc_006b:
+    call dos_write_file              ; 0x006b
+    retf                             ; 0x006e
+loc_006f:
+    call graphics_loc_31df           ; 0x006f
+    retf                             ; 0x0072
+loc_0073:
+    call leaf_loc_31f4               ; 0x0073
+    retf                             ; 0x0076
+loc_0077:
+    call leaf_loc_3240               ; 0x0077
+    retf                             ; 0x007a
+loc_007b:
+    call leaf_loc_3241               ; 0x007b
+    retf                             ; 0x007e
+loc_007f:
+    call leaf_loc_3242               ; 0x007f
+    retf                             ; 0x0082
+loc_0083:
+    call leaf_loc_3243               ; 0x0083
+    retf                             ; 0x0086
+loc_0087:
+    call bios_mouse_loc_341e         ; 0x0087
+    retf                             ; 0x008a
+loc_008b:
+    call bios_mouse_loc_34c0         ; 0x008b
+    retf                             ; 0x008e
+loc_008f:
+    call loc_1490                    ; 0x008f
+    retf                             ; 0x0092
+loc_0093:
+    call loc_3570                    ; 0x0093
+    retf                             ; 0x0096
+loc_0097:
+    call leaf_loc_35ba               ; 0x0097
+    retf                             ; 0x009a
+loc_009b:
+    call leaf_loc_3244               ; 0x009b
+    retf                             ; 0x009e
+loc_009f:
+    call dos_write_file_2            ; 0x009f
+    retf                             ; 0x00a2
+loc_00a3:
+    call dos_mem_loc_33b3            ; 0x00a3
+    retf                             ; 0x00a6
+loc_00a7:
+    call dos_read_file_4             ; 0x00a7
+    retf                             ; 0x00aa
+loc_00ab:
+    call dos_read_file_5             ; 0x00ab
+    retf                             ; 0x00ae
+loc_00af:
+    call dos_file_loc_4825           ; 0x00af
+    retf                             ; 0x00b2
+loc_00b3:
+    call dos_read_file_6             ; 0x00b3
+    retf                             ; 0x00b6
+loc_00b7:
+    call loc_4c4c                    ; 0x00b7
+    retf                             ; 0x00ba
+loc_00bb:
+    call loc_4dd9                    ; 0x00bb
+    retf                             ; 0x00be
+loc_00bf:
+    call loc_4e48                    ; 0x00bf
+    retf                             ; 0x00c2
+loc_00c3:
+    call loc_4e64                    ; 0x00c3
+    retf                             ; 0x00c6
+loc_00c7:
+    call dos_read_file_7             ; 0x00c7
+    retf                             ; 0x00ca
+loc_00cb:
+    call loc_503c                    ; 0x00cb
+    retf                             ; 0x00ce
+loc_00cf:
+    call loc_50d1                    ; 0x00cf
+    retf                             ; 0x00d2
+loc_00d3:
+    call loc_5118                    ; 0x00d3
+    retf                             ; 0x00d6
+loc_00d7:
+    call loc_5130                    ; 0x00d7
+    retf                             ; 0x00da
+loc_00db:
+    call loc_5148                    ; 0x00db
+    retf                             ; 0x00de
 
-    db 0xe8, 0x06, 0x18, 0xcb, 0xe8, 0x01, 0x19, 0xcb, 0xe8, 0xee, 0x18, 0xcb, 0xe8, 0xab, 0x18, 0xcb
-    db 0xe8, 0x6b, 0x30, 0xcb, 0xe8, 0x00, 0x36, 0xcb, 0xe8, 0xd1, 0x0d, 0xcb, 0xe8, 0xa9, 0x10, 0xcb
-    db 0xe8, 0xae, 0x14, 0xcb, 0xe8, 0x07, 0x30, 0xcb, 0xe8, 0x61, 0x02, 0xcb, 0xe8, 0x11, 0x04, 0xcb
-    db 0xe8, 0x28, 0x04, 0xcb, 0xe8, 0x3f, 0x04, 0xcb, 0xe8, 0x54, 0x04, 0xcb, 0xe8, 0x6b, 0x04, 0xcb
-    db 0xe8, 0x85, 0x0b, 0xcb, 0xe8, 0xa8, 0x0b, 0xcb, 0xe8, 0xf3, 0x0b, 0xcb, 0xe8, 0x45, 0x0c, 0xcb
-    db 0xe8, 0xfd, 0x0c, 0xcb, 0xe8, 0xdf, 0x2f, 0xcb, 0xe8, 0x30, 0x19, 0xcb, 0xe8, 0x5b, 0x19, 0xcb
-    db 0xe8, 0xcf, 0x03, 0xcb, 0xe8, 0x4f, 0x0e, 0xcb, 0xe8, 0x6d, 0x31, 0xcb, 0xe8, 0x7e, 0x31, 0xcb
-    db 0xe8, 0xc6, 0x31, 0xcb, 0xe8, 0xc3, 0x31, 0xcb, 0xe8, 0xc0, 0x31, 0xcb, 0xe8, 0xbd, 0x31, 0xcb
-    db 0xe8, 0x94, 0x33, 0xcb, 0xe8, 0x32, 0x34, 0xcb, 0xe8, 0xfe, 0x13, 0xcb, 0xe8, 0xda, 0x34, 0xcb
-    db 0xe8, 0x20, 0x35, 0xcb, 0xe8, 0xa6, 0x31, 0xcb, 0xe8, 0x6f, 0x40, 0xcb, 0xe8, 0x0d, 0x33, 0xcb
-    db 0xe8, 0xad, 0x43, 0xcb, 0xe8, 0x76, 0x45, 0xcb, 0xe8, 0x73, 0x47, 0xcb, 0xe8, 0x52, 0x49, 0xcb
-    db 0xe8, 0x92, 0x4b, 0xcb, 0xe8, 0x1b, 0x4d, 0xcb, 0xe8, 0x86, 0x4d, 0xcb, 0xe8, 0x9e, 0x4d, 0xcb
-    db 0xe8, 0xe3, 0x4d, 0xcb, 0xe8, 0x6e, 0x4f, 0xcb, 0xe8, 0xff, 0x4f, 0xcb, 0xe8, 0x42, 0x50, 0xcb
-    db 0xe8, 0x56, 0x50, 0xcb, 0xe8, 0x6a, 0x50, 0xcb, 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00
-    db 0x40, 0x01, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01
+    db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00
+    db 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01
     times 17 db 0
     db 0x03, 0x01, 0x00, 0x00, 0x07, 0x01, 0x00, 0x00, 0x0b, 0x01, 0x00, 0x00, 0x0f, 0x01, 0x00, 0x00
     db 0x13, 0x01, 0x00, 0x00, 0x17, 0x01, 0x00, 0x00, 0x1b, 0x01, 0x00, 0x00, 0x1f, 0x01
@@ -109,11 +258,19 @@ cseg_027b:
 
 cseg_0291:
     db 0x00, 0x00
-%include "ega/leaf_loc_0293.asm"           ; 0x0293
+%include "ega/graphics_loc_0293.asm"       ; 0x0293
 
 %include "ega/leaf_loc_0439.asm"           ; 0x0439
 
 %include "ega/leaf_loc_0447.asm"           ; 0x0447
+
+%include "ega/leaf_loc_0462.asm"           ; 0x0462
+
+%include "ega/leaf_loc_047d.asm"           ; 0x047d
+
+%include "ega/leaf_loc_0496.asm"           ; 0x0496
+
+%include "ega/loc_04b1.asm"                ; 0x04b1
 
 %include "ega/graphics_loc_0949.asm"       ; 0x0949
 
@@ -147,7 +304,7 @@ cseg_0291:
 
 %include "ega/leaf_loc_145c.asm"           ; 0x145c
 
-%include "ega/dos_con_loc_1490.asm"        ; 0x1490
+%include "ega/loc_1490.asm"                ; 0x1490
 
 %include "ega/dos_print_str.asm"           ; 0x14d8
 
@@ -183,13 +340,17 @@ cseg_0291:
 
 %include "ega/io_loc_2f70.asm"             ; 0x2f70
 
+%include "ega/leaf_loc_3035.asm"           ; 0x3035
+
+%include "ega/loc_303d.asm"                ; 0x303d
+
 %include "ega/dos_read_file_3.asm"         ; 0x3085
 
 %include "ega/dos_con_loc_317d.asm"        ; 0x317d
 
 %include "ega/dos_con_loc_31ad.asm"        ; 0x31ad
 
-%include "ega/string_loc_31df.asm"         ; 0x31df
+%include "ega/graphics_loc_31df.asm"       ; 0x31df
 
 %include "ega/leaf_loc_31f4.asm"           ; 0x31f4
 
@@ -211,7 +372,13 @@ cseg_0291:
 
 %include "ega/bios_mouse_loc_341e.asm"     ; 0x341e
 
-%include "ega/io_loc_35ba.asm"             ; 0x35ba
+%include "ega/bios_mouse_loc_34c0.asm"     ; 0x34c0
+
+%include "ega/loc_3570.asm"                ; 0x3570
+
+%include "ega/leaf_loc_35ba.asm"           ; 0x35ba
+
+%include "ega/graphics_loc_361e.asm"       ; 0x361e
 
 %include "ega/leaf_loc_39e3.asm"           ; 0x39e3
 
@@ -249,6 +416,8 @@ cseg_0291:
 
 %include "ega/dos_con_loc_47f7.asm"        ; 0x47f7
 
+%include "ega/dos_file_loc_4825.asm"       ; 0x4825
+
 %include "ega/dos_con_loc_493a.asm"        ; 0x493a
 
 %include "ega/dos_con_loc_4984.asm"        ; 0x4984
@@ -262,6 +431,8 @@ cseg_0291:
 %include "ega/string_loc_4bb2.asm"         ; 0x4bb2
 
 %include "ega/dos_file_loc_4bcb.asm"       ; 0x4bcb
+
+%include "ega/loc_4c4c.asm"                ; 0x4c4c
 
 %include "ega/leaf_loc_4ca9.asm"           ; 0x4ca9
 
@@ -277,186 +448,21 @@ cseg_0291:
 
 %include "ega/leaf_loc_4d55.asm"           ; 0x4d55
 
+%include "ega/loc_4dd9.asm"                ; 0x4dd9
+
+%include "ega/loc_4e48.asm"                ; 0x4e48
+
+%include "ega/loc_4e64.asm"                ; 0x4e64
+
 %include "ega/dos_read_file_7.asm"         ; 0x4ead
 
-@..dos_read_file_7.l5:
-    mov ax, cs                       ; 0x4fc4
-    mov ds, ax                       ; 0x4fc6
-    mov dx, 0x50d4                   ; 0x4fc8
-    mov ah, 9                        ; 0x4fcb
-    int 0x21 ; DOS string output
-    mov ax, 0x4c01                   ; 0x4fcf
-    int 0x21 ; DOS function dispatcher
+%include "ega/loc_503c.asm"                ; 0x503c
 
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SCORE() ... slot already used.', 0
-    db 0x0a, 0x24
+%include "ega/loc_50d1.asm"                ; 0x50d1
 
-@..dos_read_file_7.l6:
-    mov ax, cs                       ; 0x5000
-    mov ds, ax                       ; 0x5002
-    mov dx, 0x5110                   ; 0x5004
-    mov ah, 9                        ; 0x5007
-    int 0x21 ; DOS string output
-    mov ax, 0x4c01                   ; 0x500b
-    int 0x21 ; DOS function dispatcher
+%include "ega/loc_5118.asm"                ; 0x5118
 
-    db 0x0d, 0x0a, 0x07
-    db 'In LOAD_SCORE() ... not enough memory.', 0
-    db 0x0a, 0x24
+%include "ega/loc_5130.asm"                ; 0x5130
 
-loc_503c:
-    push bp                          ; 0x503c
-    mov bp, sp                       ; 0x503d
-    sub sp, byte 0x0a                ; 0x503f
-    push ds                          ; 0x5042
-    push es                          ; 0x5043
-    push si                          ; 0x5044
-    push di                          ; 0x5045
-    mov ax, ds                       ; 0x5046
-    mov es, ax                       ; 0x5048
-    mov bx, word [bp + 0xc]          ; 0x504a
-    shl bx, 1                        ; 0x504d
-    add bx, strict word 0x4fa3       ; 0x504f
-    mov ax, word [cs:bx]             ; 0x5053
-    mov word [bp - 0x0008], ax       ; 0x5056
-    mov bx, word [bp + 0xc]          ; 0x5059
-    shl bx, 1                        ; 0x505c
-    shl bx, 1                        ; 0x505e
-    add bx, strict word 0x4f8b       ; 0x5060
-    mov word [bp - 0x0002], bx       ; 0x5064
-    mov ax, word [cs:bx + 0x2]       ; 0x5067
-    mov word [bp - 0x0006], ax       ; 0x506b
-    mov ax, word [cs:bx]             ; 0x506e
-    or ax, ax                        ; 0x5071
-    je short @..loc_503c.l2          ; 0x5073
-    dec ax                           ; 0x5075
-    shl ax, 1                        ; 0x5076
-    shl ax, 1                        ; 0x5078
-    mov bx, 0x10fb                   ; 0x507a
-    add bx, ax                       ; 0x507d
-    mov word [bp - 0x0004], bx       ; 0x507f
-    push word [bp - 0x0008]          ; 0x5082
-    xor ax, ax                       ; 0x5085
-    cmp word [bp - 0x0006], byte 0   ; 0x5087
-    je short @..loc_503c.l1          ; 0x508b
-    mov ax, word [cs:bx]             ; 0x508d
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x5090
-@..loc_503c.l1:
-    push ax                          ; 0x5095
-    xor ax, ax                       ; 0x5096
-    push ax                          ; 0x5098
-    call far [cs:cseg_020e - IMAGE_BASE] ; 0x5099
-    add sp, byte 6                   ; 0x509e
-    push word [bp + 0x10]            ; 0x50a1
-    push word [bp + 0xe]             ; 0x50a4
-    call far [cs:cseg_0216 - IMAGE_BASE] ; 0x50a7
-    add sp, byte 4                   ; 0x50ac
-    push word [bp + 0x12]            ; 0x50af
-    mov bx, word [bp - 0x0004]       ; 0x50b2
-    mov ax, word [cs:bx]             ; 0x50b5
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x50b8
-    push ax                          ; 0x50bd
-    push word [bp - 0x0006]          ; 0x50be
-    call far [cs:cseg_0206 - IMAGE_BASE] ; 0x50c1
-    add sp, byte 6                   ; 0x50c6
-@..loc_503c.l2:
-    pop di                           ; 0x50c9
-    pop si                           ; 0x50ca
-    pop es                           ; 0x50cb
-    pop ds                           ; 0x50cc
-    mov sp, bp                       ; 0x50cd
-    pop bp                           ; 0x50cf
-    ret                              ; 0x50d0
-loc_50d1:
-    push bp                          ; 0x50d1
-    mov bp, sp                       ; 0x50d2
-    sub sp, byte 0x0a                ; 0x50d4
-    push ds                          ; 0x50d7
-    push es                          ; 0x50d8
-    push si                          ; 0x50d9
-    push di                          ; 0x50da
-    mov ax, ds                       ; 0x50db
-    mov es, ax                       ; 0x50dd
-    mov ax, word [bp + 0xc]          ; 0x50df
-    cmp ax, strict word 5            ; 0x50e2
-    jb short @..loc_50d1.l1          ; 0x50e5
-    jmp near @..loc_50d1.l3          ; 0x50e7
-@..loc_50d1.l1:
-    shl ax, 1                        ; 0x50ea
-    shl ax, 1                        ; 0x50ec
-    mov bx, 0x4f8b                   ; 0x50ee
-    add bx, ax                       ; 0x50f1
-    mov ax, word [cs:bx]             ; 0x50f3
-    or ax, ax                        ; 0x50f6
-    jne short @..loc_50d1.l2         ; 0x50f8
-    jmp near @..loc_50d1.l3          ; 0x50fa
-@..loc_50d1.l2:
-    mov word [cs:bx], 0              ; 0x50fd
-    mov cx, word [cs:cseg_11cb - IMAGE_BASE] ; 0x5102
-    dec cx                           ; 0x5107
-    mov word [cs:cseg_11cb - IMAGE_BASE], cx ; 0x5108
-    call loc_4c93                    ; 0x510d
-@..loc_50d1.l3:
-    pop di                           ; 0x5110
-    pop si                           ; 0x5111
-    pop es                           ; 0x5112
-    pop ds                           ; 0x5113
-    mov sp, bp                       ; 0x5114
-    pop bp                           ; 0x5116
-    ret                              ; 0x5117
-loc_5118:
-    push bp                          ; 0x5118
-    mov bp, sp                       ; 0x5119
-    push ds                          ; 0x511b
-    push es                          ; 0x511c
-    push si                          ; 0x511d
-    push di                          ; 0x511e
-    mov ax, ds                       ; 0x511f
-    mov es, ax                       ; 0x5121
-    call far [cs:cseg_021e - IMAGE_BASE] ; 0x5123
-    pop di                           ; 0x5128
-    pop si                           ; 0x5129
-    pop es                           ; 0x512a
-    pop ds                           ; 0x512b
-    mov sp, bp                       ; 0x512c
-    pop bp                           ; 0x512e
-    ret                              ; 0x512f
-loc_5130:
-    push bp                          ; 0x5130
-    mov bp, sp                       ; 0x5131
-    push ds                          ; 0x5133
-    push es                          ; 0x5134
-    push si                          ; 0x5135
-    push di                          ; 0x5136
-    mov ax, ds                       ; 0x5137
-    mov es, ax                       ; 0x5139
-    call far [cs:cseg_0212 - IMAGE_BASE] ; 0x513b
-    pop di                           ; 0x5140
-    pop si                           ; 0x5141
-    pop es                           ; 0x5142
-    pop ds                           ; 0x5143
-    mov sp, bp                       ; 0x5144
-    pop bp                           ; 0x5146
-    ret                              ; 0x5147
-loc_5148:
-    push bp                          ; 0x5148
-    mov bp, sp                       ; 0x5149
-    push ds                          ; 0x514b
-    push es                          ; 0x514c
-    push si                          ; 0x514d
-    push di                          ; 0x514e
-    mov ax, ds                       ; 0x514f
-    mov es, ax                       ; 0x5151
-    push word [bp + 0xe]             ; 0x5153
-    push word [bp + 0xc]             ; 0x5156
-    call far [cs:cseg_0216 - IMAGE_BASE] ; 0x5159
-    add sp, byte 4                   ; 0x515e
-    pop di                           ; 0x5161
-    pop si                           ; 0x5162
-    pop es                           ; 0x5163
-    pop ds                           ; 0x5164
-    mov sp, bp                       ; 0x5165
-    pop bp                           ; 0x5167
-    ret                              ; 0x5168
-    db 0x00
+%include "ega/loc_5148.asm"                ; 0x5148
+

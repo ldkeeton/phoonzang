@@ -82,6 +82,7 @@ io_loc_02ba:
     je short loc_0381                ; 0x0379
     add ax, strict word 0xd          ; 0x037b
     dec byte [bp + 0x15]             ; 0x037e
+loc_0381:
     mov word [cs:data_0b8d], ax      ; 0x0381
     mov dx, word [cs:data_0b89]      ; 0x0385
     mov al, 7                        ; 0x038a

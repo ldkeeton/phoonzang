@@ -4,7 +4,7 @@ leaf_loc_145c:
     and si, strict word 0x3fff       ; 0x1460
     mov ah, 0x44                     ; 0x1464
     mov al, 0                        ; 0x1466
-    mov bx, word [cs:dos_con_loc_1490 - IMAGE_BASE] ; 0x1468
+    mov bx, word [cs:loc_1490 - IMAGE_BASE] ; 0x1468
     mov dx, word [cs:cseg_0201 - IMAGE_BASE] ; 0x146d
     int 0x67 ; EMS (Expanded Memory)
     cmp bx, word [cs:cseg_148e - IMAGE_BASE] ; 0x1474

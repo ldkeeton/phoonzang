@@ -17,11 +17,13 @@ leaf_loc_077b:
     sub al, 0x49                     ; 0x079c
     shr al, 1                        ; 0x079e
     mov ah, al                       ; 0x07a0
+loc_07a2:
     mov byte [cs:data_0b93], ah      ; 0x07a2
     mov bx, 0x1a3a                   ; 0x07a7
     xor cl, cl                       ; 0x07aa
     mov al, byte [bp + 0x12]         ; 0x07ac
     mov byte [cs:data_0b92], al      ; 0x07af
+loc_07b3:
     mov al, byte [bp + 0x12]         ; 0x07b3
     mul cl                           ; 0x07b6
     sub ah, byte [cs:data_0b93]      ; 0x07b8
@@ -30,7 +32,9 @@ leaf_loc_077b:
     jb short loc_07d0                ; 0x07c4
     mov ah, byte [cs:data_0b92]      ; 0x07c6
     jmp near loc_07d0                ; 0x07cb
+loc_07ce:
     mov ah, 0                        ; 0x07ce
+loc_07d0:
     inc ah                           ; 0x07d0
     mov byte [cs:bx], ah             ; 0x07d2
     inc bx                           ; 0x07d5
@@ -43,6 +47,7 @@ leaf_loc_077b:
     mov dl, al                       ; 0x07e3
     shr al, 1                        ; 0x07e5
     shr al, 1                        ; 0x07e7
+loc_07e9:
     mov al, dl                       ; 0x07e9
     mul cl                           ; 0x07eb
     mov byte [cs:bx], ah             ; 0x07ed
@@ -74,22 +79,26 @@ leaf_loc_077b:
     pop dx                           ; 0x081e
     pop bx                           ; 0x081f
     ret                              ; 0x0820
+loc_0821:
     push ax                          ; 0x0821
     push cx                          ; 0x0822
     push dx                          ; 0x0823
     mov dx, 0x388                    ; 0x0824
     mov cx, 0x17                     ; 0x0827
+loc_082a:
     in al, dx                        ; 0x082a
     loop loc_082a                    ; 0x082b
     pop dx                           ; 0x082d
     pop cx                           ; 0x082e
     pop ax                           ; 0x082f
     ret                              ; 0x0830
+loc_0831:
     push ax                          ; 0x0831
     push cx                          ; 0x0832
     push dx                          ; 0x0833
     mov dx, 0x388                    ; 0x0834
     mov cx, 4                        ; 0x0837
+loc_083a:
     in al, dx                        ; 0x083a
     loop loc_083a                    ; 0x083b
     pop dx                           ; 0x083d
@@ -107,11 +116,13 @@ leaf_loc_077b:
     mov al, 0x20                     ; 0x0851
     out 0x20, al                     ; 0x0853
     iret                             ; 0x0855
+loc_0856:
     call loc_0af6                    ; 0x0856
     mov si, word [cs:data_0b81]      ; 0x0859
     mov al, 0x20                     ; 0x085e
     out 0x20, al                     ; 0x0860
     iret                             ; 0x0862
+loc_0863:
     call loc_09d4                    ; 0x0863
     mov al, 0x20                     ; 0x0866
     out 0x20, al                     ; 0x0868
@@ -123,6 +134,7 @@ leaf_loc_077b:
     push ds                          ; 0x0872
     push dx                          ; 0x0873
     push bx                          ; 0x0874
+loc_0875:
     mov al, byte [cs:data_096e]      ; 0x0875
     cmp al, byte [cs:data_096f]      ; 0x0879
     je short loc_089e                ; 0x087e
@@ -140,6 +152,7 @@ leaf_loc_077b:
     pop ds                           ; 0x089b
     pop ax                           ; 0x089c
     iret                             ; 0x089d
+loc_089e:
     mov byte [cs:data_09ae], 0       ; 0x089e
     mov al, 0x20                     ; 0x08a4
     out 0x20, al                     ; 0x08a6
@@ -176,6 +189,7 @@ leaf_loc_077b:
     pop ds                           ; 0x08ea
     pop ax                           ; 0x08eb
     iret                             ; 0x08ec
+loc_08ed:
     call loc_0af6                    ; 0x08ed
     mov dx, 0x388                    ; 0x08f0
     mov al, 0x40                     ; 0x08f3
@@ -187,6 +201,7 @@ leaf_loc_077b:
     pop ds                           ; 0x08fc
     pop ax                           ; 0x08fd
     iret                             ; 0x08fe
+loc_08ff:
     mov bx, word [cs:data_09c4]      ; 0x08ff
     dec bx                           ; 0x0904
     mov al, byte [bx]                ; 0x0905
@@ -204,6 +219,7 @@ leaf_loc_077b:
     push ds                          ; 0x091c
     push dx                          ; 0x091d
     push bx                          ; 0x091e
+loc_091f:
     mov al, byte [cs:data_096e]      ; 0x091f
     cmp al, 0                        ; 0x0923
     je short loc_0945                ; 0x0925
@@ -221,6 +237,7 @@ leaf_loc_077b:
     pop ds                           ; 0x0942
     pop ax                           ; 0x0943
     iret                             ; 0x0944
+loc_0945:
     mov byte [cs:data_096e], 0       ; 0x0945
     mov al, 0x3f                     ; 0x094b
     mov dx, 0x388                    ; 0x094d
@@ -233,6 +250,7 @@ leaf_loc_077b:
     pop ds                           ; 0x095a
     pop ax                           ; 0x095b
     iret                             ; 0x095c
+loc_095d:
     call loc_0af6                    ; 0x095d
     mov al, 0x20                     ; 0x0960
     out 0x20, al                     ; 0x0962
@@ -241,6 +259,7 @@ leaf_loc_077b:
     pop ds                           ; 0x0966
     pop ax                           ; 0x0967
     iret                             ; 0x0968
+loc_0969:
     call loc_09d4                    ; 0x0969
     mov al, 0x20                     ; 0x096c
 data_096e:
@@ -262,11 +281,13 @@ cseg_096e:
     mov al, 0x20                     ; 0x0985
     out 0x20, al                     ; 0x0987
     iret                             ; 0x0989
+loc_098a:
     call loc_0af6                    ; 0x098a
     mov si, word [cs:data_0b81]      ; 0x098d
     mov al, 0x20                     ; 0x0992
     out 0x20, al                     ; 0x0994
     iret                             ; 0x0996
+loc_0997:
     call loc_09d4                    ; 0x0997
     mov al, 0x20                     ; 0x099a
     out 0x20, al                     ; 0x099c
@@ -296,6 +317,7 @@ cseg_09c4:
     pop ds                           ; 0x09d1
     pop ax                           ; 0x09d2
     iret                             ; 0x09d3
+loc_09d4:
 cseg_09d4:
     push dx                          ; 0x09d4
     in al, 0x61                      ; 0x09d5
@@ -317,6 +339,7 @@ cseg_09d4:
     mov ds, word [cs:data_0c12]      ; 0x0a03
     mov dx, word [cs:data_0c10]      ; 0x0a08
     mov byte [cs:data_0421], 0       ; 0x0a0d
+loc_0a13:
     call string_loc_0a2a             ; 0x0a13
     mov al, 0x36                     ; 0x0a16
     out 0x43, al                     ; 0x0a18

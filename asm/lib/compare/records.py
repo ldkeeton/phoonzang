@@ -1,6 +1,8 @@
 """Shared record helpers: spans, labels, data-block flushing."""
 
 import re
+import struct
+
 from lib.names import loc_name, startswith_stem, stem
 
 
@@ -140,6 +142,225 @@ _EXTERNAL_PREFIXES = ('bios_data_', 'external_')
 # A literal ``times N db 0`` is treated as a layout pad (F5) only when it is
 # large enough to be the code→data gap rather than an inline zero run.
 _F5_PAD_MIN = 1000
+
+
+#: The census's *named* address families: an ``equ`` in one of these prefixes
+#: declares a name for a byte (the ``f3``/``f4`` buckets and the inert-by-name
+#: ones).  The geometry macros are deliberately absent -- ``VBASE``/``IMAGE_BASE``
+#: are not names for a byte, so no label could carry them.
+_NAME_FAMILIES = (_F3_PREFIXES + _F4_DATA_PREFIXES + _F4_INERT_PREFIXES
+                  + _EXTERNAL_PREFIXES)
+
+#: Identifier occurrences, and the ``; 0x<hex>`` offset comment of an instruction
+#: line (census tags such as ``; dssize`` follow it).
+_IDENT_RE = re.compile(r'[A-Za-z_][A-Za-z0-9_]*')
+_ANCHOR_RE = re.compile(r';\s*0x([0-9a-f]{4})\b')
+_MNEMONIC_RE = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)')
+#: First tokens that are data or directives, not instructions.
+_DIRECTIVE_KEYWORDS = frozenset((
+    'db', 'dw', 'dd', 'times', 'equ', 'section', 'org', 'bits', 'incbin',
+))
+
+
+def count_name_use(sources):
+    """Split the census's frozen address *names* into used and inert (D7.2c).
+
+    *sources* is an iterable of ``(path, text)`` covering the whole emitted
+    tree.  The unit is the tree rather than one file on purpose: a name declared
+    in a master is normally used in a fragment.  Returns ``{'names_used',
+    'names_inert', 'inert_names'}``.
+
+    A name is **used** when the tree mentions it anywhere other than the ``equ``
+    that declares it -- the frozen literal is then a real dependency, and binding
+    it to a label is what makes it follow an edit.  An **inert** name is one
+    nothing refers to: the literal costs nothing, and converting it to a label
+    only moves the census (``loc_0007`` names offset 7 of ``play``'s dispatch
+    table, which nothing in the tree calls).
+
+    A comment is not a reference, and neither is a ``%`` directive or an
+    ``%include`` path: an emitted fragment is named after the label it defines,
+    so its include line would otherwise make every fragment-rooted name look
+    used.
+    """
+    texts = [(str(path), text or '') for path, text in sources]
+    defined = {}
+    for path, text in texts:
+        for lineno, line in enumerate(text.splitlines()):
+            m = _FROZEN_EQU_RE.match(line)
+            if m and stem(m.group(1)).startswith(_NAME_FAMILIES):
+                defined.setdefault(m.group(1), set()).add((path, lineno))
+    if not defined:
+        return {'names_used': 0, 'names_inert': 0, 'inert_names': []}
+    used = set()
+    for path, text in texts:
+        for lineno, line in enumerate(text.splitlines()):
+            code = line.split(';', 1)[0]
+            if not code.strip() or code.lstrip()[0] == '%':
+                continue
+            for ident in _IDENT_RE.findall(code):
+                if ident in defined and (path, lineno) not in defined[ident]:
+                    used.add(ident)
+    inert = sorted(set(defined) - used)
+    return {
+        'names_used': len(defined) - len(inert),
+        'names_inert': len(inert),
+        'inert_names': inert,
+    }
+
+
+def instruction_offsets(text):
+    """Emitted file offsets of the instruction lines in *text* (D7.2c-2).
+
+    The emitted convention is that an instruction line carries the
+    ``; 0x<hex>`` file offset in its comment slot while a data line
+    (``db``/``dw``/``times``) carries none -- so this is the set of addresses the
+    source *shows* as code, which is what ``count_hidden_flow`` measures against.
+    """
+    offsets = set()
+    for line in (text or '').splitlines():
+        stripped = line.strip()
+        if not stripped or stripped[0] in ';%':
+            continue
+        m = _MNEMONIC_RE.match(stripped)
+        if m is None or m.group(1).lower() in _DIRECTIVE_KEYWORDS:
+            continue
+        semi = line.find(';')
+        if semi < 0:
+            continue
+        anchor = _ANCHOR_RE.search(line, semi)
+        if anchor:
+            offsets.add(int(anchor.group(1), 16))
+    return offsets
+
+
+def _walk_gap(data, lo, hi, code_offsets, md, max_insn):
+    """Near call/jmp sites in ``data[lo:hi]`` that target a shown code offset.
+
+    The gap is a run the source does not show as code, walked linearly from its
+    start so an ``e8`` byte inside some other construct is not mistaken for a
+    site.  The walk stops at the first byte that does not decode, which is what
+    makes the caller's count a lower bound.
+    """
+    hits = []
+    pos = lo
+    while pos < hi:
+        insn = next(md.disasm(data[pos:min(pos + max_insn, hi)], pos), None)
+        if insn is None or insn.address + insn.size > hi:
+            break
+        if data[pos] in (0xE8, 0xE9) and pos + 3 <= hi:
+            rel = data[pos + 1] | (data[pos + 2] << 8)
+            if rel > 0x7FFF:
+                rel -= 0x10000
+            target = (pos + 3 + rel) & 0xFFFF
+            if target in code_offsets:
+                hits.append((pos, target))
+        pos = insn.address + insn.size
+    return hits
+
+
+#: A loaded module is called at entry *k* through a far pointer whose offset half
+#: is ``MODULE_LOAD_OFFSET + DISPATCH_BASE + DISPATCH_STRIDE * k``.  The host's
+#: loader reads the module to ``segment:0x100`` and the module's entry *k* is the
+#: ``call handler; retf`` thunk at ``3 + 4k``; the far pointer's segment half is
+#: patched in at load time, so only the offsets live in the image (plan.md, the
+#: ``DRV`` probe).  That makes the entry offsets the *host's* contract, not an
+#: internal choice of the module -- which is why the census's used/inert split
+#: reports some of them inert and why they want a declared pin, not a label.
+MODULE_LOAD_OFFSET = 0x100
+DISPATCH_BASE = 3
+DISPATCH_STRIDE = 4
+
+
+def thunk_entry_count(data, base=DISPATCH_BASE, stride=DISPATCH_STRIDE):
+    """The number of ``call handler; retf`` thunks at the head of a module image.
+
+    The dispatch table is ``e8 rel16 cb`` at ``base + stride*k`` starting at
+    *base*; the run ends at the first entry that is not one.  This is the count a
+    ``dispatch_table`` declaration claims, so comparing the two is what pins the
+    declaration to the bytes.
+    """
+    count = 0
+    a = base
+    while a + 4 <= len(data) and data[a] == 0xE8 and data[a + 3] == 0xCB:
+        count += 1
+        a += stride
+    return count
+
+
+def far_entry_runs(data, base=MODULE_LOAD_OFFSET, first=DISPATCH_BASE,
+                   stride=DISPATCH_STRIDE, min_slots=2):
+    """Maximal runs of the host's far pointers into a loaded module.
+
+    Each slot is ``(offset, segment)`` with the offset half at
+    ``base + first + stride*k`` and the segment half patched in at load time (0
+    in the image, and the slots are not word-aligned).  Returns
+    ``[(byte_offset, count), ...]`` for the runs of at least *min_slots* slots.
+    """
+    runs = []
+    n = len(data)
+    for i in range(0, n - stride + 1):
+        if struct.unpack_from('<H', data, i)[0] != base + first:
+            continue
+        count = 1
+        while (i + stride * count + 2 <= n
+               and struct.unpack_from('<H', data, i + stride * count)[0]
+               == base + first + stride * count):
+            count += 1
+        if count >= min_slots:
+            runs.append((i, count))
+    return runs
+
+
+def dispatch_handlers(data, table):
+    """The handler offsets a declared ``dispatch_table`` names in *data*.
+
+    Each entry is ``e8 rel16 cb`` at ``base_offset + entry_size*k`` -- an
+    executable ``call handler; retf`` thunk -- so entry *k*'s handler is
+    ``addr + 3 + rel16``.  Returns the handler offsets in entry order, in the
+    same shape and with the same entry filter as ``DispatchTablePhase`` (an
+    entry whose bytes are not the declared form is skipped, not the run).
+    """
+    base = table.get('base_offset', DISPATCH_BASE)
+    stride = table.get('entry_size', DISPATCH_STRIDE)
+    out = []
+    for k in range(int(table.get('count', 0))):
+        addr = base + k * stride
+        if addr + 4 > len(data):
+            break
+        if data[addr] != 0xE8 or data[addr + 3] != 0xCB:
+            continue
+        rel = struct.unpack_from('<h', data, addr + 1)[0]
+        out.append((addr + 3 + rel) & 0xFFFF)
+    return out
+
+
+def count_hidden_flow(data, code_offsets, max_insn=16):
+    """Near call/jmp displacements that the source emits as *data* (D7.2c-2).
+
+    Returns ``[(site, target), ...]``: a near ``call``/``jmp`` in the image whose
+    site the source does not show as code but whose target it *does* -- a real
+    address reference no source line spells, so neither the census nor a label
+    can reach it.  The measured example is VGA's ``jmp near`` at ``0x2a3c`` into
+    ``0x2a97``, emitted as ``db 0xe9, 0x58, 0x00``.
+
+    The scan walks only the bytes *between* the source's instruction offsets, so
+    a displacement can never be found inside a rendered instruction, and the walk
+    stops at the first byte that does not decode: the count is a **lower bound**.
+    """
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    n = len(data)
+    anchors = sorted(o for o in code_offsets if 0 <= o < n)
+    hits = []
+    pos = 0
+    for anchor in anchors:
+        if anchor > pos:
+            hits += _walk_gap(data, pos, anchor, code_offsets, md, max_insn)
+        insn = next(md.disasm(data[anchor:anchor + max_insn], anchor), None)
+        pos = max(pos, anchor + (insn.size if insn is not None else 1))
+    if n > pos:
+        hits += _walk_gap(data, pos, n, code_offsets, md, max_insn)
+    return hits
 
 
 def count_frozen_addrs(src_text):

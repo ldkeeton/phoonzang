@@ -174,6 +174,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            carve_1=None, trace=None,
            foreign_label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
+           declared_roots=None,
            function_roots=None, branch_targets=None, branch_edges=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None, asm_annotations=None,
            jump_tables=None, jump_table_overrides=None,
@@ -340,7 +341,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     split_ranges = _select_split_ranges(
         label_map, split_functions, func_boundaries, binary_size=total,
-        c_override_lengths=c_override_lengths,
+        c_override_lengths=c_override_lengths, declared_roots=declared_roots,
     )
     fragment_names = {range_name for _, _, range_name in split_ranges}
     local_labels = _compute_local_labels(

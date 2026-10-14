@@ -417,6 +417,12 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
 _RAW_EQU_PREFIXES = ('data_', 'dseg_', 'bss_', 'psp_', 'bios_data_',
                      'external_')
 
+#: Record kinds that emit bytes rather than instructions (``verify.emit_class``
+#: marks these ``IS_DATA``).  A *code* name carrying a label on one of these
+#: bytes would put code back where the arbiter removed it, so the placement is
+#: refused and the literal kept (plan.md D7.2c).
+_DATA_RECORD_TYPES = ('data_block', 'db', 'db_with_comment', 'jump_table')
+
 
 def _virtual_base(binary_data, start_offset):
     """Virtual address of file offset 0 (``vstart``), or 0 when unknown.
@@ -445,6 +451,53 @@ def _label_equ_value(name, addr, code_value):
     if stem(name).startswith(_RAW_EQU_PREFIXES):
         return f'0x{addr:04x}'
     return code_value(addr)
+
+
+def _covering_record(records, addr):
+    """The record that emits the byte at *addr*, or ``None`` when none does."""
+    from lib.compare.records import _record_span
+    for rec in records:
+        if rec['type'] == 'label':
+            continue
+        start, end = _record_span(rec)
+        if start == addr or start < addr < end:
+            return rec
+    return None
+
+
+def _place_label(records, binary_data, addr, name, gap=None):
+    """Put a real label on the byte the sidecar names (plan.md D7.2c).
+
+    A name is a name *for a byte*, so the tree carries a label there -- and its
+    value then follows any edit above it -- instead of an absolute ``equ`` that
+    silently breaks as soon as the code moves (``_ensure_global_label``, whose
+    docstring names this rewrite, plan.md F3).  Returns False, so the caller
+    keeps the literal, when the byte cannot carry a label:
+
+    * outside every rendered record, or strictly inside an instruction or a jump
+      table -- ``_ensure_global_label``'s own rule, since only a ``data_block``
+      may be split;
+    * inside the MZ code->data gap, which is emitted as one dynamic
+      ``times ... db 0`` pad: splitting it would explode into explicit bytes and
+      duplicate the pad;
+    * a byte the renderer emits as **data** while the name is a *code* name: the
+      name is stale there, and a label would put code back into bytes the
+      arbiter decided are data (``verify.code_loss`` counts exactly those).  A
+      data name (``data_``/``dseg_``/``bss_``/...) may anchor data -- that is the
+      D1 path, which binds its own labels.
+    """
+    if gap is not None and gap[0] <= addr < gap[1]:
+        return False
+    covering = _covering_record(records, addr)
+    if covering is None:
+        return False
+    if (covering['type'] in _DATA_RECORD_TYPES
+            and not stem(name).startswith(_RAW_EQU_PREFIXES)):
+        return False
+    # Local import: ``jumptables`` pulls in the assembler, so the dependency
+    # stays inside the function like the other callers in this module.
+    from lib.compare.jumptables import _ensure_global_label
+    return _ensure_global_label(records, binary_data, addr, name)
 
 
 def mz_data_gap(records, binary_data, start_offset):
@@ -671,8 +724,17 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             name = label_map[addr]
             if _defined(name):
                 continue
-            out.append(f'{name} equ {_label_equ_value(name, addr, code_value)}')
+            # D7.2c: prefer a label on the byte itself, so the name follows an
+            # edit instead of freezing the address.  The literal is the
+            # fallback, kept only where the byte cannot carry a label.
+            if not _place_label(records, binary_data, addr, name, gap):
+                out.append(
+                    f'{name} equ {_label_equ_value(name, addr, code_value)}')
     if immediate_labels:
+        # Deliberately *not* placed as a label: the sidecar's ``immediate_labels``
+        # value is a raw offset immediate (e.g. ``data_46d9 equ 0x46d9`` under
+        # ``org 0``), not a virtual address, so a label -- ``VBASE + off`` --
+        # would change the operand of any image with a non-zero ``vstart``.
         for addr in sorted(immediate_labels):
             name = immediate_labels[addr]
             if _defined(name):

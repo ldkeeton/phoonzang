@@ -231,11 +231,11 @@
       "dispatch_table": {
         "base_offset": 3,
         "entry_size": 4,
-        "count": 48,
+        "count": 55,
         "format": "e8_rel16_cb"
       },
       "force_data": [
-        {"start": "0003", "end": "00c2", "note": "VGA API dispatch table (48 × E8 rel16 CB)"}
+        {"start": "00df", "end": "0292", "note": "(value,size) pairs + the 8-entry host callback ladder up to the first routine at 0x0293 -- not code"}
       ],
       "immediate_labels": {
         "0xbda": "data_0bda",
@@ -262,14 +262,29 @@
       "type": "raw_drv",
       "start_offset": 0,
       "fingerprint-start": "0e2101c909f4ddf72bfe7de7aaaf0f9334b035448ebc7bca5866085f348feeec",
-      "fingerprint-end": "b52f3769ec25f3ff6d83cf3d5fd7af6f233f8b4f40a3778fbc870eb318491da9"
+      "fingerprint-end": "b52f3769ec25f3ff6d83cf3d5fd7af6f233f8b4f40a3778fbc870eb318491da9",
+      "dispatch_table": {
+        "base_offset": 3,
+        "entry_size": 4,
+        "count": 55,
+        "format": "e8_rel16_cb"
+      },
+      "force_data": [
+        {"start": "00df", "end": "0292", "note": "(value,size) pairs + the 8-entry host callback ladder up to the first routine at 0x0293 -- not code"}
+      ]
     },
     "play": {
       "file": "PLAY.DRV",
       "type": "raw_drv",
       "start_offset": 0,
       "fingerprint-start": "9cc2fc2f8e9f58802c43cb34c6f057c1a790b1b726db1d14ad0780851913dc5c",
-      "fingerprint-end": "8102976c244eea46e819abbc0e50058304900b238543529c58a2b4a92e15b431"
+      "fingerprint-end": "8102976c244eea46e819abbc0e50058304900b238543529c58a2b4a92e15b431",
+      "dispatch_table": {
+        "base_offset": 3,
+        "entry_size": 4,
+        "count": 8,
+        "format": "e8_rel16_cb"
+      }
     }
   },
   "force_data": [],
