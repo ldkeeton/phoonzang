@@ -143,6 +143,15 @@ def apply_edits(text, edits, where='vendor patch'):
 
 _DEF_CACHE = {}
 
+
+def _key(name):
+    """Index key for a vendor symbol: ``_open``, ``flsh_`` and ``$csav`` fold alike.
+
+    Matches :func:`lib.aztec.mux.normalize`, which the lookups are made with.
+    """
+    return name.strip('_$').lower()
+
+
 _KEYWORDS = {
     'if', 'for', 'while', 'switch', 'return', 'sizeof', 'do', 'else',
 }
@@ -164,8 +173,8 @@ def _definition_files(version):
         if not fn.endswith('.c'):
             continue
         for m in _DEF_RE.finditer(text):
-            name = m.group(1).lstrip('_').lower()
-            if name in _KEYWORDS:
+            name = _key(m.group(1))
+            if name in _KEYWORDS or not name:
                 continue
             index.setdefault(name, [])
             if fn not in index[name]:
@@ -176,7 +185,7 @@ def _definition_files(version):
 
 def definition_files(version, name):
     """Files in *version* whose text defines *name* at column zero."""
-    return list(_definition_files(version).get(name.lstrip('_').lower(), []))
+    return list(_definition_files(version).get(_key(name), []))
 
 
 _ASM_DEF_CACHE = {}
@@ -214,7 +223,7 @@ def _asm_definition_files(version):
         if not fn.endswith('.asm'):
             continue
         for raw in _asm_names(text):
-            name = raw.strip('_$').lower()
+            name = _key(raw)
             if not name:
                 continue
             index.setdefault(name, [])
@@ -226,4 +235,4 @@ def _asm_definition_files(version):
 
 def asm_definition_files(version, name):
     """Hand-written ``.asm`` files in *version* that define *name*."""
-    return list(_asm_definition_files(version).get(name.strip('_$').lower(), []))
+    return list(_asm_definition_files(version).get(_key(name), []))

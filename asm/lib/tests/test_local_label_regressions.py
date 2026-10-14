@@ -148,8 +148,13 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
 
         for function_name in ('main', 'ds_bios_video_loc_3067'):
             with self.subTest(function=function_name):
-                self.assertTrue((output / 'ds' / f'{function_name}.asm').is_file())
-                self.assertIn(f'%include "ds/{function_name}.asm"', master)
+                # A hand-only routine (``int``, port I/O...) is filed under
+                # ``ds/asm_only/``; the split itself is what is under test.
+                folder = next(
+                    (d for d in ('ds', 'ds/asm_only')
+                     if (output / d / f'{function_name}.asm').is_file()), None)
+                self.assertIsNotNone(folder, function_name)
+                self.assertIn(f'%include "{folder}/{function_name}.asm"', master)
 
         self.assertFalse((output / 'ds' / 'ds_loc_23ef.asm').exists())
 

@@ -297,7 +297,7 @@ loc_026d:
 
 %include "vinstall/aztec_fclose.asm"       ; 0x2d0b
 
-%include "vinstall/aztec_filbuf.asm"       ; 0x2d86
+%include "vinstall/aztec_flsh_.asm"        ; 0x2d86
 
 %include "vinstall/leaf_loc_2e45.asm"      ; 0x2e45
 

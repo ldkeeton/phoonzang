@@ -112,6 +112,12 @@
       "type": "mz",
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
+      "function_names": {
+        "2b86": {
+          "name": "aztec_flsh_",
+          "note": "v3.40 putc.c output flush; the v5.2a _filbuf signature matched it on a shared 10-byte epilogue only"
+        }
+      },
       "fingerprint-start": "fb5d5fd11d5fdc063d401656b35c0a397e10e3e236f8f29430d4e25ff30bb79d",
       "fingerprint-end": "105b0e1220f2cd4aaf5875f0e21b57df404a94b71a00ea33ebdb80066e129e0b",
       "data_pointers": [

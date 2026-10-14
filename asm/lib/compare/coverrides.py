@@ -144,7 +144,7 @@ def _merge_label_records(new_records, label_records):
 
 
 def _link_override(label, start, override, records, binary_data, index,
-                   names_at):
+                   names_at, image_base=0):
     """Link one routine's relocations, upgrading a pristine seed first.
 
     A seed recovered from the Manx sources names Manx identifiers (``open``);
@@ -163,7 +163,7 @@ def _link_override(label, start, override, records, binary_data, index,
             raise ValueError(str(exc)) from exc
     text, func = relabel.upgrade(
         label, override['own_key'], start, override['text'], binary_data,
-        index, names_at, override['compile'])
+        index, names_at, override['compile'], image_base or 0)
     with open(override['path'], 'w') as f:
         f.write(text)
     override.update(text=text, func=func, pristine=False)
@@ -216,7 +216,8 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                                                data_labels, mem_equ)
                 names_at = relabel.data_names(data_labels, mem_equ)
             linked = _link_override(label, start, override, records,
-                                    binary_data, sym_index, names_at)
+                                    binary_data, sym_index, names_at,
+                                    image_base)
             compiled = linked.code
         else:
             compiled = bytearray(override['code'])

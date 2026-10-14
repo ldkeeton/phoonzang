@@ -6,6 +6,16 @@ from lib.compare.records import _record_span
 from lib.names import startswith_stem, stem
 
 
+def _file_stem(name):
+    """Include-file stem for a function label.
+
+    A trailing ``_`` is part of the label (``aztec_flsh_``) and a hand-written
+    ``<label>.c`` is found by that exact name, so only leading ``.``/``_`` and
+    trailing ``.`` are trimmed.
+    """
+    return re.sub(r'[^A-Za-z0-9_.-]+', '_', name).lstrip('._').rstrip('.')
+
+
 def _select_split_ranges(label_map, split_functions, func_boundaries=None,
                          binary_size=None, c_override_lengths=None,
                          declared_roots=None):
@@ -235,7 +245,7 @@ def _partition_function_records(records, split_ranges, split_dir):
 
         start, end, name = owner
         if name not in include_inserted:
-            filename = re.sub(r'[^A-Za-z0-9_.-]+', '_', name).strip('._')
+            filename = _file_stem(name)
             if not filename:
                 raise ValueError(f'cannot make include filename for function {name!r}')
             main_records.append({
@@ -259,6 +269,6 @@ def _partition_function_records(records, split_ranges, split_dir):
 
     split_sources = {}
     for _, _, name in ranges:
-        filename = re.sub(r'[^A-Za-z0-9_.-]+', '_', name).strip('._')
+        filename = _file_stem(name)
         split_sources[f'{split_dir}/{filename}.asm'] = split_records[name]
     return main_records, split_sources

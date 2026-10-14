@@ -34,12 +34,15 @@ def rewrite_identifiers(text, mapping):
     return _TOKEN.sub(sub, text)
 
 
-def learn_names(label, start, func, original, index, names_at):
+def learn_names(label, start, func, original, index, names_at, image_base=0):
     """Map each C external of *func* to the asm label the original used.
 
     ``index`` is a :class:`lib.aztec.relink.SymbolIndex`; ``names_at`` maps a
-    data-segment offset to the names defined there.  An external whose target
-    has no name, or more than one, is an error rather than a guess.
+    data-segment offset to the names defined there.  An absolute address with
+    no data name may be a code pointer (``cls_ = closall``): code labels sit at
+    file offsets, so it is looked up at ``target + image_base``.  An external
+    whose target has no name, or more than one, is an error rather than a
+    guess.
     """
     code_at = {}
     for name, addr in index.code.items():
@@ -59,6 +62,10 @@ def learn_names(label, start, func, original, index, names_at):
             target = (raw - fx.addend) & 0xFFFF
             candidates = names_at.get(target, [])
             what = f'data address 0x{target:04x}'
+            if not candidates:
+                candidates = code_at.get(target + image_base, [])
+                what = (f'data or code address 0x{target:04x} '
+                        f'(file 0x{target + image_base:04x})')
         else:
             continue
         if len(candidates) != 1:
@@ -116,7 +123,8 @@ def _with_defines(text, defines):
     return text[:pos] + block + text[pos:]
 
 
-def upgrade(label, own_key, start, text, original, index, names_at, compile_):
+def upgrade(label, own_key, start, text, original, index, names_at, compile_,
+            image_base=0):
     """Return ``(new_text, new_func)`` with asm names in place of Manx ones.
 
     *own_key* is the normalized name the routine defines (``creat``); every
@@ -125,7 +133,8 @@ def upgrade(label, own_key, start, text, original, index, names_at, compile_):
     identical code and relocations.
     """
     func = compile_(text)
-    mapping = learn_names(label, start, func, original, index, names_at)
+    mapping = learn_names(label, start, func, original, index, names_at,
+                          image_base)
     mapping.update(_own_names(text, label, own_key))
     macros = {}
     for _attempt in range(4):

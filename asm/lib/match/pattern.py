@@ -157,6 +157,37 @@ def _same_structure(reference, candidate):
     return all(_insn_shape(a) == _insn_shape(b) for a, b in zip(ref, cand))
 
 
+_FILLER_MNEMONICS = {'pop', 'push', 'ret', 'retf', 'nop', 'cld', 'clc', 'stc'}
+
+
+def _is_filler_window(window):
+    """True when *window* is only generic glue: epilogue, early-out, constants.
+
+    Branches, ``push``/``pop``, ``ret`` and register/immediate ``mov``/``xor``
+    appear in every compiled routine's frame teardown and early exits, so a
+    window made of nothing else says nothing about *which* routine it is (the
+    v5.2a ``_filbuf`` window ``je +9; mov ax,-1; pop si; pop di; mov sp,bp;
+    pop bp`` also ends the v3.40 flush routine).  No call, compare, arithmetic
+    or memory operand appears in such a window.
+    """
+    md = _detail_md()
+    try:
+        insns = list(md.disasm(window, 0))
+    except Exception:
+        return False
+    if not insns or sum(i.size for i in insns) != len(window):
+        return False
+    for insn in insns:
+        mnemonic = insn.mnemonic
+        if mnemonic in _FILLER_MNEMONICS or mnemonic.startswith('j'):
+            continue
+        if mnemonic in ('mov', 'xor') and not any(
+                op.type == X86_OP_MEM for op in insn.operands):
+            continue
+        return False
+    return True
+
+
 def _plausible_start(data, entry, known_targets):
     """Stricter check for functions known to have a ``push bp`` prologue.
 
@@ -201,7 +232,7 @@ def anchor_signature(data, idx, sig, known_targets, md, max_func_size=256,
         # The reference symbol may be a secondary entry (shared prologue).
         # Only long windows are specific enough to fall back to the prologue
         # heuristic; short windows are exact-only to avoid mislabels.
-        if window_len < 10:
+        if window_len < 10 or _is_filler_window(data[idx:idx + window_len]):
             return None
 
     # Nearest preceding push-bp prologue (including the match offset itself).

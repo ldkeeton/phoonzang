@@ -8,7 +8,7 @@ aztec_putc(c,ptr)
 int c; register FILE *ptr;
 {
 	if (ptr->_bp >= ptr->_bend)
-		return aztec_filbuf(ptr,c&0xff);
+		return aztec_flsh_(ptr,c&0xff);
 	return (*ptr->_bp++ = c) & 0xff;
 }
 
@@ -30,7 +30,7 @@ register FILE *ptr;
 		return -1;
 	if ( ptr->_flags ) {
 		if (ptr->_flags&_DIRTY)	/* if modifed flush buffer */
-			err = aztec_filbuf(ptr,-1);
+			err = aztec_flsh_(ptr,-1);
 		err |= close(ptr->_unit);
 		if (ptr->_flags&_ALLBUF)
 			free(ptr->_buff);
@@ -47,7 +47,7 @@ register FILE *ptr;
 	return err;
 }
 
-aztec_filbuf(ptr,data)
+aztec_flsh_(ptr,data)
 register FILE *ptr;
 {
 	register int size;

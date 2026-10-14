@@ -11,7 +11,7 @@ aztec_putc:
     and ax, 0xff                     ; 0x2cd2
     push ax                          ; 0x2cd5
     push si                          ; 0x2cd6
-    call aztec_filbuf                ; 0x2cd7
+    call aztec_flsh_                 ; 0x2cd7
     add sp, byte 4                   ; 0x2cda
 @..aztec_putc.l1:
     pop si                           ; 0x2cdd

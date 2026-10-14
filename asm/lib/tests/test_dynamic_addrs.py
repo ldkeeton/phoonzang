@@ -176,7 +176,7 @@ def _binary_sources(binary):
         out.append(master)
     frag_dir = _TREE / binary
     if frag_dir.is_dir():
-        out += sorted(frag_dir.glob('*.asm'))
+        out += sorted(frag_dir.rglob('*.asm'))   # incl. asm_only/
     return out
 
 
@@ -937,8 +937,8 @@ class HostIncludeTests(unittest.TestCase):
             self.assertEqual(original[2:4], b'\x55\x50')            # o_corg 0x5055
             self.assertEqual(original[0xb8:0xbb], b'\xe8\x50\xf3')  # call aztec_csav
 
-            self._edit_host(d, '%include "ds/aztec_csav.asm"',
-                            '    db 0xee\n%include "ds/aztec_csav.asm"')
+            self._edit_host(d, '%include "ds/asm_only/aztec_csav.asm"',
+                            '    db 0xee\n%include "ds/asm_only/aztec_csav.asm"')
             grown = self._build_overlay(d)
             self.assertEqual(len(grown), len(original))
             self.assertEqual(grown[2:4], b'\x56\x50')               # o_corg 0x5056
@@ -1323,7 +1323,7 @@ class InsertBytePropertyTests(unittest.TestCase):
             master = os.path.join(d, 'play.asm')
             original = _nasm_file(master, d)
             self.assertEqual(original[0x79a:0x79c], b'\x72\x06')  # jb +6 -> 0x07a2
-            frag = os.path.join(d, 'play', 'leaf_loc_077b.asm')
+            frag = os.path.join(d, 'play', 'asm_only', 'leaf_loc_077b.asm')
             with open(frag) as f:
                 text = f.read()
             needle = '    jb short loc_07a2'

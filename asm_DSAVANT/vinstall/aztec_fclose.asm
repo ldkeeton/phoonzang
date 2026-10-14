@@ -25,7 +25,7 @@ aztec_fclose:
     mov ax, 0xffff                   ; 0x2d32
     push ax                          ; 0x2d35
     push si                          ; 0x2d36
-    call aztec_filbuf                ; 0x2d37
+    call aztec_flsh_                 ; 0x2d37
     add sp, byte 4                   ; 0x2d3a
     mov di, ax                       ; 0x2d3d
 @..aztec_fclose.l3:

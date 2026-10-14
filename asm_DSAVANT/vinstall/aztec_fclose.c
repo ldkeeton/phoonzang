@@ -12,7 +12,7 @@ register FILE *ptr;
 		return -1;
 	if ( ptr->_flags ) {
 		if (ptr->_flags&_DIRTY)	/* if modifed flush buffer */
-			err = aztec_filbuf(ptr,-1);
+			err = aztec_flsh_(ptr,-1);
 		err |= aztec_close(ptr->_unit);
 		if (ptr->_flags&_ALLBUF)
 			aztec_free(ptr->_buff);
