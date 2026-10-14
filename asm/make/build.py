@@ -135,19 +135,29 @@ def cmd_build_binary(app, binary):
     print(f'build {app}/{binary} -> {rel_path}  [OK]')
 
 
-def cmd_rebuild(app, binary):
+def _rebuild_project(app, binary=None):
+    """Recompile every ``.c`` (gated against the original) then NASM-assemble."""
+    from .elf import resplice_c
     app_dir = os.path.join(APPS, app)
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     bins = discover_binaries(app_dir)
-    if binary not in bins:
+    if binary is not None and binary not in bins:
         print(f'Unknown binary "{binary}" in {app}')
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
-    rel_path = bins[binary][0]
-    r = _nasm_build(out_dir, binary, rel_path)
-    if r != 0:
-        sys.exit(1)
-    print(f'rebuild {app}/{binary} -> {rel_path}  [OK]')
+    for name in sorted(bins):
+        resplice_c(app, name)
+    targets = [binary] if binary else sorted(bins)
+    for name in targets:
+        if _nasm_build(out_dir, name, bins[name][0]) != 0:
+            sys.exit(1)
+        print(f'rebuild {app}/{name} -> {bins[name][0]}  [OK]')
+
+
+def cmd_rebuild(app=None, binary=None, all_projects=()):
+    """``make rebuild [PROJECT [BIN]]``: all projects, one, or one binary."""
+    for project in ([app] if app else all_projects):
+        _rebuild_project(project, binary)
 
 
 def _build_projects(targets, all_projects):

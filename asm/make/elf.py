@@ -7,11 +7,12 @@ import shutil
 import subprocess
 import sys
 
+from lib.autogen import write_text
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
 from main import discover_binaries
 
-from .common import APPS, PROJECT, _main_exe, _nasm_build
+from .common import APPS, PROJECT, _extra_flags, _main_exe, _nasm_build
 
 
 # An image defines its own origin -- the virtual address of file offset 0 -- as
@@ -412,16 +413,18 @@ def _report_linked(app, binary, label, linked):
 def resplice_c(app, binary):
     """Recompile the C routine fragments of an already-built binary.
 
-    This is the debug hot loop, not a verification pass: every routine that has
-    a ``.c`` seed is recompiled with its recorded Aztec provenance and its
-    ``<binary>/<label>.asm`` fragment is rewritten to match the C as it stands
-    now.  The rewrite reuses the build's persisted render context
-    (``.cache/render``, see :mod:`lib.renderctx`) so an unedited routine comes
-    back byte-for-byte identical instead of dropping its resolved operand
-    symbols (``bss_0d00``) and renumbering its local labels.  C and ASM edits
-    are expected before a resplice, so an edited routine is *meant* to differ
-    from the recovered original; ``make verify`` only matters once a full
-    ``make build`` completes.
+    Every ``<binary>/<label>.c`` is recompiled (with its recorded Aztec
+    provenance, or the binary's default for a routine with none) and its
+    ``<binary>/<label>.asm`` fragment is rewritten to match.  The rewrite
+    reuses the build's persisted render context (``.cache/render``, see
+    :mod:`lib.renderctx`) so an unedited routine comes back byte-for-byte
+    identical.
+
+    The C is gated (:mod:`lib.compare.cgate`): it must reproduce the original
+    routine's bytes -- same length, every instruction identical or, unless
+    ``--exact-bytes``, semantically equivalent.  A mismatch prints a per-byte
+    report, leaves that fragment as it was and exits 1; ``--allow-diff``
+    restores the old lenient splice.  A ``.c`` with no matching asm is an error.
 
     The sole constraint is image layout: the routine's byte span is fixed (the
     master listing addresses code absolutely), so a compile that no longer fits
@@ -433,6 +436,7 @@ def resplice_c(app, binary):
     """
     from lib.aztec import cache, relink
     from lib.aztec.objread import fixup_width
+    from lib.compare.cgate import check_against_original
     from lib.compare import (
         _c_bytes_to_records, _merge_label_records, _render_records,
     )
@@ -462,16 +466,29 @@ def resplice_c(app, binary):
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:
         data = f.read()
 
+    c_labels = sorted(name[:-2] for name in os.listdir(dest)
+                      if name.endswith('.c')) if os.path.isdir(dest) else []
+    orphans = [f'{dest}/{label}.c' for label in c_labels
+               if label not in spans
+               or not os.path.isfile(os.path.join(dest, f'{label}.asm'))]
+    if orphans:
+        raise SystemExit('error: C file(s) with no matching asm routine: '
+                         + ', '.join(orphans))
+
+    exact_here = ('--exact-bytes' in _extra_flags()
+                  or bool(context and context['exact_bytes']))
+    lenient = '--allow-diff' in _extra_flags()
+    failures = []
     count = 0
-    for label, entry in entries.items():
+    for label in c_labels:
         cpath = os.path.join(dest, f'{label}.c')
-        span = spans.get(label)
-        if not os.path.isfile(cpath) or not span:
-            continue
-        start, end = span
+        start, end = spans[label]
         span_len = end - start
         with open(cpath) as f:
             text = f.read()
+        entry = entries.get(label)
+        if entry is None or cache.is_asm_entry(entry):
+            entry = cache.default_entry(label, app)
         func = cache.compile_source(app, label, entry, text)
 
         linked = None
@@ -497,6 +514,15 @@ def resplice_c(app, binary):
                 if len(chunk) < n:
                     chunk = chunk + bytes(n - len(chunk))
                 compiled[fx.offset:fx.offset + n] = chunk
+
+        if not lenient:
+            expected = entry.get('original_length') or span_len
+            report = check_against_original(
+                label, start, data[start:start + expected], compiled,
+                exact=exact_here)
+            if report:
+                failures.extend(report)
+                continue
 
         # Overlay the compiled code onto the original span.  The fragment's
         # span is fixed because the master listing addresses code absolutely.
@@ -574,9 +600,15 @@ def resplice_c(app, binary):
             _report_linked(app, binary, label, linked)
         records = _merge_label_records(records, label_records)
         fragment = '\n'.join(_render_records(records, data, True)) + '\n'
-        with open(os.path.join(dest, f'{label}.asm'), 'w') as f:
-            f.write(fragment)
+        # Regenerated from the C, so it stays an auto-generated file
+        # (``make clean`` removes it, a human takeover would not be rewritten).
+        write_text(os.path.join(dest, f'{label}.asm'), fragment)
         count += 1
+    if failures:
+        print(f'resplice {app}/{binary}: C does not reproduce the original:',
+              file=sys.stderr)
+        print('\n'.join(failures), file=sys.stderr)
+        raise SystemExit(1)
     if count:
         print(f'  resplice {app}/{binary}: {count} C routine(s) from .c')
 

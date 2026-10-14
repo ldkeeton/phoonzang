@@ -1,5 +1,6 @@
 """Resolve Aztec runtime routines to C and compile the current seeds."""
 
+import json
 import os
 
 from .options import (
@@ -27,22 +28,33 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
         return {}, {}
     labels = [(addr, nm) for addr, nm in label_map.items()
               if isinstance(nm, str) and nm.startswith('aztec_')]
-    if not labels:
+    dest = os.path.join(out_dir, name)
+    known = {nm for nm in label_map.values() if isinstance(nm, str)}
+    hand_c = sorted(f[:-2] for f in (os.listdir(dest) if os.path.isdir(dest)
+                                     else ()) if f.endswith('.c'))
+    if not labels and not hand_c:
         return {}, {}
     from lib.aztec import cache
     from lib.aztec.objread import fixup_width
-    mode = 'prebuild' if (AZTEC_PREBUILD or AZTEC_MUX_REFRESH) else 'build'
-    try:
-        entries = cache.load_or_build(project, name, data, labels, mode=mode)
-    except cache.PrebuildMissing as exc:
-        raise SystemExit(f'error: {exc}')
-    except Exception as exc:  # never let C recovery break the build
-        print(f'  aztec mux: skipped ({exc})')
-        return {}, {}
+    from lib.cachedirs import spans_dir
+    entries = {}
+    if labels:
+        mode = 'prebuild' if (AZTEC_PREBUILD or AZTEC_MUX_REFRESH) else 'build'
+        try:
+            entries = cache.load_or_build(project, name, data, labels,
+                                          mode=mode)
+        except cache.PrebuildMissing as exc:
+            raise SystemExit(f'error: {exc}')
+        except Exception as exc:  # never let C recovery break the build
+            print(f'  aztec mux: skipped ({exc})')
+            return {}, {}
     if AZTEC_PREBUILD_ONLY:
         return {}, entries
 
-    dest = os.path.join(out_dir, name)
+    orphans = sorted(f'{label}.c' for label in hand_c if label not in known)
+    if orphans:
+        raise SystemExit(f'error: C file(s) in {dest} with no matching asm '
+                         f'routine: {", ".join(orphans)}')
     overrides = {}
     for label, entry in entries.items():
         if cache.is_asm_entry(entry):
@@ -67,6 +79,40 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
             'length': entry.get('original_length') or len(func.code),
+            'source_version': entry['source_version'],
+            'file': entry['file'], 'compiler': entry['compiler'],
+        }
+    # A hand-written <label>.c with no compiled manifest entry (an application
+    # routine, a miss, or a vendor-asm routine) replaces that routine too.  Its
+    # original length comes from the span the previous build recorded.
+    spans = {}
+    spans_path = os.path.join(spans_dir(project),
+                              f'{name}_aztec_spans.json')
+    if os.path.isfile(spans_path):
+        with open(spans_path) as f:
+            spans = json.load(f)
+    for label in hand_c:
+        entry = entries.get(label)
+        if entry is not None and not cache.is_asm_entry(entry):
+            continue
+        path = os.path.join(dest, f'{label}.c')
+        with open(path) as f:
+            text = f.read()
+        entry = cache.default_entry(label, project)
+        try:
+            func = cache.compile_source(project, label, entry, text)
+        except Exception as exc:
+            raise SystemExit(f'error: {label}.c: compile failed ({exc})')
+        span = spans.get(label)
+        overrides[label] = {
+            'func': func, 'text': text, 'path': path,
+            'own_key': cache.own_key(label), 'pristine': False,
+            'compile': (lambda t, _l=label, _e=entry:
+                        cache.compile_source(project, _l, _e, t)),
+            'code': func.code,
+            'fixups': [(fx.offset, fixup_width(fx.kind))
+                       for fx in func.fixups],
+            'length': (span[1] - span[0]) if span else len(func.code),
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
         }

@@ -67,13 +67,3 @@ def remove_generated(root):
     if os.path.isdir(root) and not os.listdir(root):
         os.rmdir(root)
     return removed, sorted(kept)
-
-
-def describe_kept(kept, root):
-    """One-line-per-file note about files clean left alone."""
-    shown = [os.path.relpath(p, root) for p in kept[:_MAX_LISTED]]
-    more = len(kept) - len(shown)
-    lines = [f'  kept (no auto-generated marker): {p}' for p in shown]
-    if more > 0:
-        lines.append(f'  ... and {more} more unmarked files')
-    return lines

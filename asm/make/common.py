@@ -9,7 +9,7 @@ Usage (from asm/):
   make run PROJECT         run game in dosbox-x
   make verify [PROJECT...] verify one or all projects
   make clean [PROJECT...]  clean one or all projects (no args: delete .cache)
-  make rebuild PROJECT BIN nasm-only rebuild of one binary
+  make rebuild [PROJECT [BIN]] recompile .c (gated vs original bytes) + nasm
   make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
   make set-baseline        pin current stats (.cache/stats) as local baseline
   make stats-diff          current-vs-baseline KPI delta

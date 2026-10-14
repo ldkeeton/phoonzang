@@ -42,8 +42,11 @@ def external_label(symbol):
     """The assembler label an Aztec external names (``aztec_open_`` -> ``aztec_open``).
 
     The compiler appends exactly one ``_`` to every external reference; the
-    asm label is the rest, verbatim.
+    asm label is the rest, verbatim.  Runtime helpers carry a ``$`` instead
+    (``$csav``, ``$cret``) and are the library's ``aztec_`` labels.
     """
+    if symbol and symbol.startswith('$'):
+        return 'aztec_' + symbol[1:]
     if not symbol or not symbol.endswith('_'):
         return symbol
     return symbol[:-1]

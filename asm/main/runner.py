@@ -49,6 +49,7 @@ from .aztec import _aztec_asm_annotations, _aztec_c_overrides
 from lib.autogen import write_text
 from .emit import _write_address_inventory, _write_render_context
 from .options import (
+    ALLOW_DIFF,
     ASM_DIR,
     AZTEC_PREBUILD_ONLY,
     STATS,
@@ -427,6 +428,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         extra_flow_edges=extra_flow_edges,
         label_comments=label_comments,
         c_overrides=c_overrides,
+        allow_diff=ALLOW_DIFF,
         asm_annotations=asm_annotations,
         jump_tables=ctx.jump_tables,
         jump_table_overrides=(ctx.sidecar_entry or {}).get('jump_tables', []),

@@ -28,7 +28,8 @@ from lib.autogen import MARKER_C
 from lib.cachedirs import prebuild_dir
 
 from . import listing, objcache, sources
-from .mux import MuxEngine, is_asm, tool_flags
+from .mux import (COMPILER_VERSIONS, SOURCE_VERSIONS, MuxEngine, is_asm,
+                  tool_flags)
 from .objread import fixup_width
 
 PREBUILD_VERSION = 1
@@ -235,7 +236,26 @@ def _miss_status(matches):
             f'{len(best.diffs)} of {best.length} bytes differ')
 
 
+def default_entry(label, project):
+    """Provenance for a hand-written ``<label>.c`` with no manifest entry.
+
+    The same compiler/source pairing every recovered C routine uses
+    (:mod:`.mux`); the flags come from the sidecar's ``compiler_flags``,
+    chosen by the routine's name.
+    """
+    from lib import sidecar
+    compiler, sources_version = COMPILER_VERSIONS[0], SOURCE_VERSIONS[0]
+    entry = {'compiler': compiler, 'includes': sources_version,
+             'source_version': sources_version, 'file': f'{label}.c'}
+    flags = sidecar.compiler_flags(project, label)
+    if flags is not None:
+        entry['flags'] = flags
+    return entry
+
+
 def _flags_for(entry):
+    if entry.get('flags') is not None:
+        return tuple(entry['flags'])
     return tool_flags(entry['file'], entry['compiler'])
 
 

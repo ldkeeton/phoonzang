@@ -3,6 +3,10 @@
   "title": "Wizardry 7: Crusaders of the Dark Savant",
   "version": 1,
   "dos_compilers": ["Manx Aztec C86 v52a", "Manx Aztec C86 v340a"],
+  "compiler_flags": {
+    "default": ["-n", "+y", "+b"],
+    "prefixes": { "aztec_": ["-n", "+y"] }
+  },
   "binaries": {
     "ds": {
       "file": "DS.EXE",

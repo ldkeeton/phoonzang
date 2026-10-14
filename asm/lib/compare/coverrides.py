@@ -9,6 +9,7 @@ from lib.aztec import relabel, relink
 from lib.format import LinkedSymbol
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent
 from lib.compare.interrupts import _set_insn_fields
+from lib.compare.cgate import check_against_original
 from lib.compare.records import _record_span
 
 
@@ -188,7 +189,8 @@ def _report_linked(label, linked):
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        local_labels, foreign_label_map, immediate_labels,
                        exact_bytes=False, data_labels=None,
-                       mem_symbols=None, mem_equ=None, image_base=None):
+                       mem_symbols=None, mem_equ=None, image_base=None,
+                       allow_diff=False):
     """Replace disassembled records with code compiled from C.
 
     ``c_overrides`` maps a function label to ``{'code': bytes,
@@ -226,6 +228,13 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             raise ValueError(
                 f'C override: {label!r} compiled to {len(compiled)} bytes, '
                 f'exceeds the original {length} bytes')
+
+        if not allow_diff:
+            report = check_against_original(
+                label, start, binary_data[start:start + length], compiled,
+                exact=exact_bytes)
+            if report:
+                raise ValueError('\n'.join(report))
 
         # Overlay the original relocation bytes.  A relocation may start on the
         # routine's last byte and run one byte past it; clamp to the code so the

@@ -3,7 +3,7 @@
 import os
 import shutil
 
-from lib.autogen import describe_kept, remove_generated
+from lib.autogen import  remove_generated
 
 from .options import PROJECT_ROOT
 from .projects import get_projects
@@ -22,8 +22,6 @@ def clean_project(project):
     shutil.rmtree(os.path.join(out_dir, 'build_out'), ignore_errors=True)
     removed, kept = remove_generated(out_dir)
     print(f'Removed {removed} generated files from {out_dir}')
-    for line in describe_kept(kept, out_dir):
-        print(line)
     return True
 
 

@@ -26,7 +26,8 @@ Commands (space-separated):
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
   make clean [PROJECT...]   clean one or all projects (no args: delete .cache)
-  make rebuild PROJECT BIN  nasm-only rebuild of one binary
+  make rebuild [PROJECT [BIN]]  recompile .c (must match the original bytes;
+                            --allow-diff to relax) + nasm; default: everything
   make elf-rebuild PROJECT [BIN]  full rebuild from current sources (C resplice +
                             link + all binaries); ELF/DWARF for BIN (default host)
   make decompile PROJECT BIN  disassemble + decompile binary to .c
@@ -41,6 +42,7 @@ Env:
   EXTRA_FLAGS               space-separated flags forwarded to python -m main:
                               --stats             write stats (.cache/stats)
                               --exact-bytes       strict byte-accurate mode
+                              --allow-diff        rebuild: don't require .c to match the original
                               --detailed-timings  full-precision phase timings
                               --no-show-offsets   suppress instruction offsets
   EXACT_FLAG (deprecated)   same as EXTRA_FLAGS=--exact-bytes
@@ -153,14 +155,12 @@ def main():
         return
 
     if '--rebuild' in flags:
-        if len(args) < 2:
-            print('Usage: make rebuild PROJECT BINARY')
-            sys.exit(1)
-        project, binary = args[0], args[1]
-        if project not in all_projects:
+        project = args[0] if args else None
+        binary = args[1] if len(args) > 1 else None
+        if project is not None and project not in all_projects:
             print(f'Unknown project: {project}')
             sys.exit(1)
-        cmd_rebuild(project, binary)
+        cmd_rebuild(project, binary, all_projects)
         return
 
     if '--elf-rebuild' in flags:

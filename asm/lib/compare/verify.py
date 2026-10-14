@@ -177,6 +177,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            declared_roots=None,
            function_roots=None, branch_targets=None, branch_edges=None,
            extra_flow_edges=None, label_comments=None, c_overrides=None, asm_annotations=None,
+           allow_diff=False,
            jump_tables=None, jump_table_overrides=None,
            segment_flow=None, segments=None, external_data=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
@@ -847,7 +848,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             foreign_label_map, immediate_labels, exact_bytes=exact_bytes,
             data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ,
-            image_base=start_offset,
+            image_base=start_offset, allow_diff=allow_diff,
         )
 
     _annotate_interrupts(records)
@@ -1020,7 +1021,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'code_loss': code_loss,
         'aztec_spans': {
             name: [start, end] for start, end, name in split_ranges
-            if isinstance(name, str) and name.startswith('aztec_')
+            if isinstance(name, str)
         },
         'aztec_labels': (
             sum(1 for n in label_map.values()

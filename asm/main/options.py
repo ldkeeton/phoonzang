@@ -19,6 +19,8 @@ AZTEC_PREBUILD = bool(os.environ.get('ASM_AZTEC_PREBUILD'))
 AZTEC_PREBUILD_ONLY = bool(os.environ.get('ASM_AZTEC_PREBUILD_ONLY'))
 
 EXACT_BYTES = '--exact-bytes' in sys.argv
+# Restore the lenient C splice: no byte-for-byte gate, short compiles NOP-padded.
+ALLOW_DIFF = '--allow-diff' in sys.argv
 EXPORT_LABELS = '--export-labels' in sys.argv
 FOREIGN_LABELS_PATH = None
 FOREIGN_PREFIX = None
