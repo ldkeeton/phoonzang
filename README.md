@@ -12,7 +12,7 @@ make all
 
 ## Wizardry 7 coverage
 
-Decompiled C: **23 / 1114** (2.1%).
+Progress: **25 / 1098** (2.3%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -48,4 +48,5 @@ asm/            decoder, phases, emitter, verifier, disassembler
 asm_DSAVANT/    generated NASM (+ C) for Wizardry 7 
 debugger/       16 bit TSR dbg proxy for inside dosbox
 ```
+ 
  

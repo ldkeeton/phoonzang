@@ -10,11 +10,11 @@ from .common import PROJECT
 README_DIR = os.path.join(PROJECT, 'readme')
 CELL, GAP, COLS, LABEL_W, ROW_H = 6, 2, 100, 70, 14
 STYLE = (
-    ':root{--c:#2da44e;--n:#d0d7de;--t:#57606a}'
-    '@media(prefers-color-scheme:dark){:root{--c:#3fb950;--n:#30363d;--t:#8b949e}}'
+    ':root{--c:#2da44e;--a:#9be9a8;--n:#d0d7de;--t:#57606a}'
+    '@media(prefers-color-scheme:dark){:root{--c:#3fb950;--a:#2a6b3a;--n:#30363d;--t:#8b949e}}'
     'text{font:11px sans-serif;fill:var(--t)}'
     '.c{fill:var(--c)}.n{fill:var(--n)}'
-    '.a{fill:none;stroke:var(--n);stroke-width:1}'
+    '.a{fill:var(--a)}'
 )
 
 

@@ -283,9 +283,9 @@ loc_026d:
 
 %include "vinstall/asm_only/aztec_sysint.asm"       ; 0x2b31
 
-%include "vinstall/aztec_toupper.asm"      ; 0x2bb2
+%include "vinstall/asm_only/aztec_toupper.asm"      ; 0x2bb2
 
-%include "vinstall/aztec_tolower.asm"      ; 0x2bc6
+%include "vinstall/asm_only/aztec_tolower.asm"      ; 0x2bc6
 
 %include "vinstall/aztec_gmtime.asm"       ; 0x2bda
 
@@ -372,11 +372,11 @@ jumptable_3053:
 
 %include "vinstall/aztec_open.asm"         ; 0x3381
 
-%include "vinstall/aztec_ldv.asm"          ; 0x3417
+%include "vinstall/asm_only/aztec_ldv.asm"          ; 0x3417
 
-%include "vinstall/aztec_lrm.asm"          ; 0x3445
+%include "vinstall/asm_only/aztec_lrm.asm"          ; 0x3445
 
-%include "vinstall/aztec_lum.asm"          ; 0x3469
+%include "vinstall/asm_only/aztec_lum.asm"          ; 0x3469
 
 %include "vinstall/asm_only/aztec_lud.asm"          ; 0x3471
 
@@ -398,7 +398,7 @@ jumptable_3053:
 
 %include "vinstall/leaf_loc_381d.asm"      ; 0x381d
 
-%include "vinstall/aztec_read.asm"         ; 0x381f
+%include "vinstall/asm_only/aztec_read.asm"         ; 0x381f
 
 %include "vinstall/leaf_loc_3829.asm"      ; 0x3829
 
@@ -422,11 +422,11 @@ jumptable_3053:
 
 %include "vinstall/asm_only/aztec_isatty.asm"       ; 0x39e5
 
-%include "vinstall/aztec_sbrk.asm"         ; 0x3a05
+%include "vinstall/asm_only/aztec_sbrk.asm"         ; 0x3a05
 
 %include "vinstall/asm_only/aztec_brk.asm"          ; 0x3a39
 
-%include "vinstall/aztec_rsvstk.asm"       ; 0x3ac5
+%include "vinstall/asm_only/aztec_rsvstk.asm"       ; 0x3ac5
 
 
 ; End of host resident code

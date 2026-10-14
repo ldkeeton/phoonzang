@@ -29,12 +29,17 @@ def blockers(asm_text):
     return sorted({m.group(0).split()[0] for m in _BLOCKERS.finditer(code)})
 
 
-def stamp(text):
-    """Put :data:`MARKER` on the second line of an asm-only routine's *text*."""
+def stamp(text, force=False):
+    """Put :data:`MARKER` on the second line of an asm-only routine's *text*.
+
+    *force* marks the routine regardless of its instructions: used when the
+    vendor's own source for it is assembly (the mux manifest says so), which is
+    stronger evidence than any mnemonic scan.
+    """
     lines = text.split('\n')
     if len(lines) > 1 and lines[1].rstrip() == MARKER:
         return text
-    if not blockers(text):
+    if not force and not blockers(text):
         return text
     return '\n'.join(lines[:1] + [MARKER] + lines[1:])
 

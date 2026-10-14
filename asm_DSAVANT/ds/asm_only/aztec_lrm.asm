@@ -1,4 +1,5 @@
 ; auto-generated
+; asm only
 aztec_lrm:
     push di ; long remainder	(primary = primary%secondary) ; 0x4c14
     mov di, 0 ; mark result as positive ; 0x4c15

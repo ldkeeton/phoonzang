@@ -3,5 +3,10 @@
         "*.asm": "asm-intel-x86-generic"
     },
     "debug.allowBreakpointsEverywhere": true,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        "*.c": "$(capture).asm"
+    }
     //"search.useIgnoreFiles": false
 }

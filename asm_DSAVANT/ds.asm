@@ -1115,9 +1115,9 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/asm_only/aztec_lrealloc.asm"           ; 0x4625
 
-%include "ds/aztec_csav.asm"               ; 0x4652
+%include "ds/asm_only/aztec_csav.asm"               ; 0x4652
 
-%include "ds/aztec_cret.asm"               ; 0x4670
+%include "ds/asm_only/aztec_cret.asm"               ; 0x4670
 
 %include "ds/aztec_realloc.asm"            ; 0x467b
 
@@ -1187,11 +1187,11 @@ jumptable_4822:
 
 %include "ds/aztec_open.asm"               ; 0x4b50
 
-%include "ds/aztec_ldv.asm"                ; 0x4be6
+%include "ds/asm_only/aztec_ldv.asm"                ; 0x4be6
 
-%include "ds/aztec_lrm.asm"                ; 0x4c14
+%include "ds/asm_only/aztec_lrm.asm"                ; 0x4c14
 
-%include "ds/aztec_lum.asm"                ; 0x4c38
+%include "ds/asm_only/aztec_lum.asm"                ; 0x4c38
 
 %include "ds/asm_only/aztec_lud.asm"                ; 0x4c40
 
@@ -1211,7 +1211,7 @@ jumptable_4822:
 
 %include "ds/aztec_stkover.asm"            ; 0x4f87
 
-%include "ds/aztec_read.asm"               ; 0x4fa2
+%include "ds/asm_only/aztec_read.asm"               ; 0x4fa2
 
 %include "ds/ds_leaf_loc_4fac.asm"         ; 0x4fac
 
@@ -1235,11 +1235,11 @@ jumptable_4822:
 
 %include "ds/asm_only/aztec_isatty.asm"             ; 0x5168
 
-%include "ds/aztec_sbrk.asm"               ; 0x5188
+%include "ds/asm_only/aztec_sbrk.asm"               ; 0x5188
 
 %include "ds/asm_only/aztec_brk.asm"                ; 0x51bc
 
-%include "ds/aztec_rsvstk.asm"             ; 0x5248
+%include "ds/asm_only/aztec_rsvstk.asm"             ; 0x5248
 
 
 ; End of host resident code

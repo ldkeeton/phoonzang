@@ -1,4 +1,5 @@
 ; auto-generated
+; asm only
 aztec_toupper:
     push bp                          ; 0x2bb2
     mov bp, sp                       ; 0x2bb3

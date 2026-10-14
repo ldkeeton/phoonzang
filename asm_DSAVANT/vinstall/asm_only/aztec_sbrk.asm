@@ -1,4 +1,5 @@
 ; auto-generated
+; asm only
 aztec_sbrk:
     push bp ; sbrk(size): return address of current top & bump by size bytes ; 0x3a05
     mov bp, sp                       ; 0x3a06

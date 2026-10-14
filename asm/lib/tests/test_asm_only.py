@@ -33,6 +33,11 @@ class StampTest(unittest.TestCase):
     def test_plain_routine_is_untouched(self):
         self.assertEqual(asm_only.stamp(PLAIN), PLAIN)
 
+    def test_force_marks_a_plain_routine_once(self):
+        text = asm_only.stamp(PLAIN, force=True)
+        self.assertEqual(text.split('\n')[1], asm_only.MARKER)
+        self.assertEqual(asm_only.stamp(text, force=True), text)
+
 
 if __name__ == '__main__':
     unittest.main()

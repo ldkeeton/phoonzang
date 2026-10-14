@@ -1,4 +1,5 @@
 ; auto-generated
+; asm only
 aztec_cret:
     pop si                           ; 0x4670
     pop di                           ; 0x4671

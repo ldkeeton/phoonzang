@@ -47,6 +47,11 @@ def asm_app(app):
     cross_refs = detect_cross_refs(app_dir, bins)
     failed = _prepare_cross_ref_sources(
         app, app_dir, out_dir, bins, cross_refs)
+    if failed:
+        # A failed source binary poisons every consumer; stop on the real error.
+        print(f'{app}: source binary(ies) failed: '
+              f'{", ".join(sorted(set(failed)))}')
+        sys.exit(1)
     source_names = {src for refs in cross_refs.values() for _, src in refs}
 
     consumers = [n for n in sorted(bins) if n not in source_names]
@@ -64,6 +69,13 @@ def asm_app(app):
             if f.result() != 0:
                 print(f'  FAILED: {futures[f]}')
                 failed.append(futures[f])
+                ex.shutdown(wait=False, cancel_futures=True)
+                break
+
+    if failed:
+        print(f'{app}: asm generation failed: '
+              f'{", ".join(sorted(set(failed)))}')
+        sys.exit(1)
 
     # D7.1: the overlays just exported the host-DS offsets they reference; give
     # the union back to the host so it declares one recipe-based ``equ`` per

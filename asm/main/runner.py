@@ -482,11 +482,19 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     # are not mixed with the routines that can become C.  A routine with a
     # hand-written .c stays where its .c is.
     moved = {}
+    # Routines the compiler vendor wrote in assembly (per the mux manifest) can
+    # never become C, whatever instructions they happen to contain.
+    vendor_asm = set()
+    if _entries:
+        from lib.aztec.cache import is_asm_entry
+        vendor_asm = {label for label, entry in _entries.items()
+                      if is_asm_entry(entry)}
     for include_path in list(split_sources):
         if not include_path.endswith('.asm'):
             continue
-        text = asm_only.stamp(stamp(split_sources[include_path], include_path))
         folder, filename = os.path.split(include_path)
+        text = asm_only.stamp(stamp(split_sources[include_path], include_path),
+                              force=filename[:-4] in vendor_asm)
         has_c = os.path.exists(os.path.join(
             out_dir, folder, filename[:-4] + '.c'))
         target = include_path
