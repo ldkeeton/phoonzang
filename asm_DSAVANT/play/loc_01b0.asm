@@ -6,7 +6,7 @@ loc_01b0:
     mov byte [cs:cseg_0b9a - IMAGE_BASE], 0 ; 0x01b9
     cmp byte [cs:cseg_0b94 - IMAGE_BASE], 0 ; 0x01bf
     je short @..loc_01b0.l1          ; 0x01c5
-    call io_loc_0c97                 ; 0x01c7
+    call io_loc_OGKU                 ; 0x01c7
 @..loc_01b0.l1:
     mov bl, byte [cs:cseg_0b7c - IMAGE_BASE] ; 0x01ca
     xor bh, bh                       ; 0x01cf

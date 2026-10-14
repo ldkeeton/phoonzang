@@ -10,8 +10,8 @@ loc_2528:
     push di                          ; 0x2531
     mov ax, ds                       ; 0x2532
     mov es, ax                       ; 0x2534
-    call leaf_loc_1308               ; 0x2536
-    call graphics_loc_0516           ; 0x2539
+    call leaf_loc_NMVG               ; 0x2536
+    call graphics_loc_RJST           ; 0x2539
 @..loc_2528.l1:
     xor ax, ax                       ; 0x253c
     mov word [bp - 0x0022], ax       ; 0x253e
@@ -267,8 +267,8 @@ loc_2528:
 @..loc_2528.l35:
     jmp near @..loc_2528.l1          ; 0x276e
 @..loc_2528.l36:
-    call leaf_loc_067f               ; 0x2771
-    call bios_mouse_loc_12c9         ; 0x2774
+    call leaf_loc_QKGQ               ; 0x2771
+    call bios_mouse_loc_TKVN         ; 0x2774
     pop di                           ; 0x2777
     pop si                           ; 0x2778
     pop es                           ; 0x2779

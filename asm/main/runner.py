@@ -41,7 +41,7 @@ from lib.segdataflow import (
 )
 from lib.cross_ref import overlay_host_aliases
 from lib.names import (
-    rename_generics, set_generic_prefix, startswith_stem,
+    rename_generics, set_generic_prefix, startswith_stem, tag_generics,
 )
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
@@ -309,6 +309,15 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         )
         ctx.report['segment_flow'] = operand_space_counts(
             instructions, ctx.segment_flow)
+
+    # Name each address-derived routine after its code (see lib.names): the
+    # same name then means the same code in every binary.  Done on the final
+    # instruction stream, before anything keys on a routine's name.
+    tag_generics(
+        label_map, function_roots, instructions, data, len(data),
+        stubs={off for off, lbl in trampoline_map.items()
+               if label_map.get(off) == lbl},
+    )
 
     if diag_enabled() and _ITERATIVE:
         squashed_arr = ctx.layers['squashed'].to_numpy()

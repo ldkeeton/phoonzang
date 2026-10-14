@@ -18,7 +18,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                               ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)            ; 0x048c ; o_dsize: initialized data size
     dw 0x0268                                    ; o_bss: uninitialized data size
-    dw string_loc_6f8c - IMAGE_BASE + __zres_end ; 0xbfd3 ; o_entry: overlay entry offset (CS)
+    dw string_loc_LNMQ - IMAGE_BASE + __zres_end ; 0xbfd3 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 loc_4267 equ 0x4267 + VBASE
@@ -30,119 +30,119 @@ loc_6e5f equ 0x6e5f + VBASE
 loc_000e:
     mov ax, 0                        ; 0x000e
     call aztec_csav                  ; 0x0011
-    call api_idx_002c_2              ; 0x0014
+    call api_idx_002c_HTOM           ; 0x0014
     mov word [bss_830a], 4           ; 0x0017
     mov ax, 0                        ; 0x001d
     ret                              ; 0x0020
-%include "lib/api_idx_0002.asm"          ; 0x0021
+%include "lib/api_idx_0002_UKHK.asm"     ; 0x0021
 
-%include "vpcmk/api_idx_0002_2.asm"        ; 0x0085
+%include "lib/api_idx_0002_LTOL.asm"     ; 0x0085
 
-%include "lib/api_idx_0008_4b83.asm"          ; 0x0104
+%include "lib/api_idx_0008_IGKQ.asm"     ; 0x0104
 
-%include "vpcmk/api_idx_0008_2.asm"        ; 0x02bc
+%include "vpcmk/api_idx_0008_JMRO.asm"     ; 0x02bc
 
-%include "lib/api_idx_0058.asm"          ; 0x0935
+%include "lib/api_idx_0058_LOPH.asm"     ; 0x0935
 
-%include "vpcmk/api_idx_0038.asm"          ; 0x0abb
+%include "vpcmk/api_idx_0038_MRUQ.asm"     ; 0x0abb
 
-%include "vpcmk/api_idx_0026.asm"          ; 0x11f4
+%include "vpcmk/api_idx_0026_QGVL.asm"     ; 0x11f4
 
-%include "lib/api_idx_000c.asm"          ; 0x16ea
+%include "lib/api_idx_000c_JKJK.asm"     ; 0x16ea
 
-%include "vpcmk/api_idx_0004.asm"          ; 0x1769
+%include "vpcmk/api_idx_0004_GIIO.asm"     ; 0x1769
 
-%include "vpcmk/api_idx_0002_3.asm"        ; 0x1819
+%include "lib/api_idx_0002_PGOV.asm"     ; 0x1819
 
-%include "vpcmk/api_idx_0002_4.asm"        ; 0x1874
+%include "lib/api_idx_0002_GLLG.asm"     ; 0x1874
 
-%include "vpcmk/api_idx_0010.asm"          ; 0x18b5
+%include "vpcmk/api_idx_0010_LUQQ.asm"     ; 0x18b5
 
-%include "vpcmk/api_idx_0002_5.asm"        ; 0x19ab
+%include "vpcmk/api_idx_0002_NSOV.asm"     ; 0x19ab
 
-%include "vpcmk/api_idx_000a.asm"          ; 0x1a98
+%include "vpcmk/api_idx_000a_SRST.asm"     ; 0x1a98
 
-%include "vpcmk/api_idx_0054.asm"          ; 0x1b40
+%include "vpcmk/api_idx_0054_TMMO.asm"     ; 0x1b40
 
-%include "vpcmk/api_idx_0004_2.asm"        ; 0x2090
+%include "lib/api_idx_0004_VPLS.asm"     ; 0x2090
 
-%include "vpcmk/api_idx_0004_3.asm"        ; 0x2144
+%include "vpcmk/api_idx_0004_IHOP.asm"     ; 0x2144
 
-%include "vpcmk/api_idx_0004_4.asm"        ; 0x2273
+%include "vpcmk/api_idx_0004_QION.asm"     ; 0x2273
 
-%include "vpcmk/api_idx_0002_6.asm"        ; 0x24c8
+%include "vpcmk/api_idx_0002_KIMK.asm"     ; 0x24c8
 
-%include "vpcmk/api_idx_002e.asm"          ; 0x2582
+%include "vpcmk/api_idx_002e_UMSL.asm"     ; 0x2582
 
-%include "vpcmk/api_idx_0032.asm"          ; 0x26f1
+%include "vpcmk/api_idx_0032_VMQI.asm"     ; 0x26f1
 
-%include "vpcmk/api_idx_0088.asm"          ; 0x2c15
+%include "vpcmk/api_idx_0088_IPPO.asm"     ; 0x2c15
 
-%include "vpcmk/api_idx_0004_5.asm"        ; 0x2d63
+%include "vpcmk/api_idx_0004_HOKP.asm"     ; 0x2d63
 
-%include "vpcmk/api_idx_000a_2.asm"        ; 0x2dd4
+%include "vpcmk/api_idx_000a_JTUO.asm"     ; 0x2dd4
 
-%include "vpcmk/api_idx_000c_2.asm"        ; 0x2f3f
+%include "vpcmk/api_idx_000c_KTPM.asm"     ; 0x2f3f
 
-%include "vpcmk/api_idx_0050.asm"          ; 0x3069
+%include "vpcmk/api_idx_0050_TIRN.asm"     ; 0x3069
 
-%include "vpcmk/api_idx_006e.asm"          ; 0x3d59
+%include "vpcmk/api_idx_006e_TRSM.asm"     ; 0x3d59
 
-%include "vpcmk/api_idx_0002_7.asm"        ; 0x402d
+%include "vpcmk/api_idx_0002_NIVJ.asm"     ; 0x402d
 
-%include "vpcmk/api_idx_0006.asm"          ; 0x4081
+%include "vpcmk/api_idx_0006_PGVT.asm"     ; 0x4081
 
-%include "vpcmk/api_idx_0002_8.asm"        ; 0x4291
+%include "vpcmk/api_idx_0002_TTLK.asm"     ; 0x4291
 
-%include "vpcmk/api_idx_007a.asm"          ; 0x43bb
+%include "vpcmk/api_idx_007a_PLMI.asm"     ; 0x43bb
 
-%include "vpcmk/api_idx_007a_2.asm"        ; 0x4498
+%include "vpcmk/api_idx_007a_OUNL.asm"     ; 0x4498
 
-%include "vpcmk/api_idx_007c.asm"          ; 0x4585
+%include "vpcmk/api_idx_007c_SUHO.asm"     ; 0x4585
 
-%include "vpcmk/api_idx_006c.asm"          ; 0x4697
+%include "vpcmk/api_idx_006c_PMVV.asm"     ; 0x4697
 
-%include "vpcmk/api_idx_0008_3.asm"        ; 0x4934
+%include "vpcmk/api_idx_0008_NGUL.asm"     ; 0x4934
 
-%include "vpcmk/api_idx_0002_9.asm"        ; 0x4ade
+%include "vpcmk/api_idx_0002_LVON.asm"     ; 0x4ade
 
-%include "vpcmk/api_idx_004e.asm"          ; 0x4b05
+%include "vpcmk/api_idx_004e_TOQI.asm"     ; 0x4b05
 
-%include "vpcmk/api_idx_0006_2.asm"        ; 0x4f00
+%include "vpcmk/api_idx_0006_VRUK.asm"     ; 0x4f00
 
-%include "vpcmk/api_idx_0002_10.asm"       ; 0x4f95
+%include "lib/api_idx_0002_KOUO.asm"     ; 0x4f95
 
-%include "vpcmk/api_idx_0004_6.asm"        ; 0x5087
+%include "vpcmk/api_idx_0004_MIHU.asm"     ; 0x5087
 
-%include "vpcmk/api_idx_001c.asm"          ; 0x5580
+%include "vpcmk/api_idx_001c_QHOU.asm"     ; 0x5580
 
-%include "vpcmk/api_idx_0002_11.asm"       ; 0x56b0
+%include "vpcmk/api_idx_0002_LPJP.asm"     ; 0x56b0
 
-%include "vpcmk/string_loc_5a0b.asm"       ; 0x5a0b
+%include "vpcmk/string_loc_OVJU.asm"       ; 0x5a0b
 
-%include "vpcmk/api_idx_000a_3.asm"        ; 0x5a8a
+%include "vpcmk/api_idx_000a_VGVO.asm"     ; 0x5a8a
 
-%include "vpcmk/api_idx_0004_7.asm"        ; 0x5df5
+%include "vpcmk/api_idx_0004_OPUJ.asm"     ; 0x5df5
 
-%include "vpcmk/api_idx_0016.asm"          ; 0x6083
+%include "vpcmk/api_idx_0016_RPII.asm"     ; 0x6083
 
-%include "vpcmk/api_idx_0006_3.asm"        ; 0x60e0
+%include "vpcmk/api_idx_0006_PSVO.asm"     ; 0x60e0
 
-%include "vpcmk/api_idx_0002_12.asm"       ; 0x626e
+%include "vpcmk/api_idx_0002_MMHU.asm"     ; 0x626e
 
-%include "vpcmk/api_idx_0002_13.asm"       ; 0x65fc
+%include "vpcmk/api_idx_0002_UOTV.asm"     ; 0x65fc
 
-%include "vpcmk/api_idx_0014.asm"          ; 0x6673
+%include "vpcmk/api_idx_0014_OTOR.asm"     ; 0x6673
 
-%include "vpcmk/api_idx_002c.asm"          ; 0x6738
+%include "vpcmk/api_idx_002c_THSG.asm"     ; 0x6738
 
-%include "vpcmk/api_idx_0018.asm"          ; 0x67ff
+%include "vpcmk/api_idx_0018_GPMP.asm"     ; 0x67ff
 
-%include "vpcmk/api_idx_0006_4.asm"        ; 0x6887
+%include "vpcmk/api_idx_0006_GMOS.asm"     ; 0x6887
 
-%include "vpcmk/api_idx_002c_2.asm"        ; 0x6a3f
+%include "vpcmk/api_idx_002c_HTOM.asm"     ; 0x6a3f
 
-%include "vpcmk/asm_only/string_loc_6f8c.asm"       ; 0x6f8c
+%include "vpcmk/asm_only/string_loc_LNMQ.asm"       ; 0x6f8c
 
 %include "vpcmk/asm_only/aztec_strcmp.asm"          ; 0x6fca
 

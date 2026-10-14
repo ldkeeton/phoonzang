@@ -86,7 +86,7 @@ dos_write_file_2:
     add ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x391b
     cmp ax, 0x4180                   ; 0x3920
     jbe short @..dos_write_file_2.l8 ; 0x3923
-    jmp near dos_con_loc_3b1f        ; 0x3925
+    jmp near dos_con_loc_PVVP        ; 0x3925
 @..dos_write_file_2.l8:
     mov bx, word [cs:cseg_0cac - IMAGE_BASE] ; 0x3928
     mov word [bp - 0x000e], bx       ; 0x392d
@@ -101,7 +101,7 @@ dos_write_file_2:
     inc dx                           ; 0x3943
     add bx, byte 2                   ; 0x3944
     loop @..dos_write_file_2.l9      ; 0x3947
-    jmp near dos_con_loc_3b5c        ; 0x3949
+    jmp near dos_con_loc_USIL        ; 0x3949
 @..dos_write_file_2.l10:
     mov word [bp - 0x000c], dx       ; 0x394c
     mov ax, word [cs:cseg_0caa - IMAGE_BASE] ; 0x394f
@@ -168,7 +168,7 @@ dos_write_file_2:
     add ax, word [cs:cseg_0391 - IMAGE_BASE] ; 0x39e7
     cmp ax, word [cs:cseg_01ff - IMAGE_BASE] ; 0x39ec
     jbe short @..dos_write_file_2.l13 ; 0x39f1
-    jmp near dos_con_loc_3ab7        ; 0x39f3
+    jmp near dos_con_loc_SKJM        ; 0x39f3
 @..dos_write_file_2.l13:
     mov bx, word [cs:cseg_0391 - IMAGE_BASE] ; 0x39f6
     mov word [bp - 0x000e], bx       ; 0x39fb
@@ -183,7 +183,7 @@ dos_write_file_2:
     inc dx                           ; 0x3a11
     add bx, byte 2                   ; 0x3a12
     loop @..dos_write_file_2.l14     ; 0x3a15
-    jmp near dos_con_loc_3aee        ; 0x3a17
+    jmp near dos_con_loc_NGOQ        ; 0x3a17
 @..dos_write_file_2.l15:
     mov word [bp - 0x000c], dx       ; 0x3a1a
     mov ax, word [cs:cseg_038f - IMAGE_BASE] ; 0x3a1d
@@ -209,7 +209,7 @@ dos_write_file_2:
     mov cl, 0xa                      ; 0x3a53
     shr ax, cl                       ; 0x3a55
     mov word [cs:cseg_3c8e - IMAGE_BASE], ax ; 0x3a57
-    call leaf_loc_3b90               ; 0x3a5b
+    call leaf_loc_NIKG               ; 0x3a5b
     mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x3a5e
     mov ds, ax                       ; 0x3a62
     mov ax, word [bp + 0xe]          ; 0x3a64
@@ -237,7 +237,7 @@ dos_write_file_2:
     je short @..dos_write_file_2.l17 ; 0x3a97
     inc word [cs:cseg_3c8e - IMAGE_BASE] ; 0x3a99
     mov ax, word [cs:cseg_3c8e - IMAGE_BASE] ; 0x3a9e
-    call leaf_loc_3b90               ; 0x3aa2
+    call leaf_loc_NIKG               ; 0x3aa2
     and di, strict word 0x3fff       ; 0x3aa5
 @..dos_write_file_2.l17:
     dec word [bp - 0x0004]           ; 0x3aa9

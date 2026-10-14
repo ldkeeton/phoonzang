@@ -10,6 +10,6 @@ aztec_stkover:
     add sp, byte 6                   ; 0x4f96
     mov ax, 0x64                     ; 0x4f99
     push ax                          ; 0x4f9c
-    call ds_dos_proc_loc_4e7e        ; 0x4f9d
+    call ds_dos_proc_loc_TPJT        ; 0x4f9d
     pop cx                           ; 0x4fa0
     ret                              ; 0x4fa1

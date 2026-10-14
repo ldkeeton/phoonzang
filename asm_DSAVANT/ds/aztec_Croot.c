@@ -65,7 +65,7 @@ redirect:
 			bss_0d04++;
 			if (aztec_sbrk(sizeof(char *)) == (char *)-1) {
 				aztec_write(2, "Too many args.", 14);
-				ds_dos_proc_loc_4e7e(200);
+				ds_dos_proc_loc_TPJT(200);
 			}
 			while (*++cp)
 				if (*cp == ' ' || *cp == '\t') {

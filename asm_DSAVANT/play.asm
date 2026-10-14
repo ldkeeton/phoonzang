@@ -23,57 +23,57 @@ loc_0003:
     call loc_0023                    ; 0x0003
     retf                             ; 0x0006
 loc_0007:
-    call string_loc_00fe             ; 0x0007
+    call string_loc_QTHS             ; 0x0007
     retf                             ; 0x000a
 loc_000b:
-    call leaf_loc_0154               ; 0x000b
+    call leaf_loc_PLJH               ; 0x000b
     retf                             ; 0x000e
 loc_000f:
     call loc_01b0                    ; 0x000f
     retf                             ; 0x0012
 loc_0013:
-    call io_loc_023f                 ; 0x0013
+    call io_loc_JHUI                 ; 0x0013
     retf                             ; 0x0016
 loc_0017:
-    call bios_disk_loc_0294          ; 0x0017
+    call bios_disk_loc_RVRG          ; 0x0017
     retf                             ; 0x001a
 loc_001b:
-    call leaf_loc_016e               ; 0x001b
+    call leaf_loc_VNQL               ; 0x001b
     retf                             ; 0x001e
 loc_001f:
-    call leaf_loc_0183               ; 0x001f
+    call leaf_loc_NSGK               ; 0x001f
     retf                             ; 0x0022
 %include "play/loc_0023.asm"               ; 0x0023
 
-%include "play/asm_only/string_loc_00fe.asm"        ; 0x00fe
+%include "play/asm_only/string_loc_QTHS.asm"        ; 0x00fe
 
-%include "play/leaf_loc_0154.asm"          ; 0x0154
+%include "play/leaf_loc_PLJH.asm"          ; 0x0154
 
-%include "play/leaf_loc_016e.asm"          ; 0x016e
+%include "play/leaf_loc_VNQL.asm"          ; 0x016e
 
-%include "play/leaf_loc_0183.asm"          ; 0x0183
+%include "play/leaf_loc_NSGK.asm"          ; 0x0183
 
 %include "play/loc_01b0.asm"               ; 0x01b0
 
-%include "play/asm_only/io_loc_023f.asm"            ; 0x023f
+%include "play/asm_only/io_loc_JHUI.asm"            ; 0x023f
 
-%include "play/bios_disk_loc_0294.asm"     ; 0x0294
+%include "play/bios_disk_loc_RVRG.asm"     ; 0x0294
 
-%include "play/leaf_loc_02b3.asm"          ; 0x02b3
+%include "play/leaf_loc_RLRO.asm"          ; 0x02b3
 
-%include "play/asm_only/io_loc_02ba.asm"            ; 0x02ba
+%include "play/asm_only/io_loc_GJPH.asm"            ; 0x02ba
 
-%include "play/asm_only/io_loc_0495.asm"            ; 0x0495
+%include "play/asm_only/io_loc_KURR.asm"            ; 0x0495
 
-%include "play/asm_only/leaf_loc_0610.asm"          ; 0x0610
+%include "play/asm_only/leaf_loc_KROT.asm"          ; 0x0610
 
-%include "play/asm_only/leaf_loc_077b.asm"          ; 0x077b
+%include "play/asm_only/leaf_loc_QNLL.asm"          ; 0x077b
 
-%include "play/asm_only/string_loc_0a2a.asm"        ; 0x0a2a
+%include "play/asm_only/string_loc_OPLR.asm"        ; 0x0a2a
 
-%include "play/asm_only/io_loc_0a6d.asm"            ; 0x0a6d
+%include "play/asm_only/io_loc_GSLI.asm"            ; 0x0a6d
 
-%include "play/asm_only/io_loc_0c97.asm"            ; 0x0c97
+%include "play/asm_only/io_loc_OGKU.asm"            ; 0x0c97
 
 
     db 0xad, 0x3d, 0x00, 0x00, 0x75, 0x03, 0xe9, 0x71, 0xfe, 0x2e, 0xa3, 0x7f, 0x0b, 0x2e, 0x89, 0x36

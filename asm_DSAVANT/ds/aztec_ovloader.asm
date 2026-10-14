@@ -20,7 +20,7 @@ ds_loc_4386:
     push ax                          ; 0x439f
     lea ax, word [bp - 0x0052]       ; 0x43a0
     push ax                          ; 0x43a3
-    call ds_string_loc_4574          ; 0x43a4
+    call ds_string_loc_VOPH          ; 0x43a4
     add sp, byte 4                   ; 0x43a7
     mov ax, 0                        ; 0x43aa
     push ax                          ; 0x43ad
@@ -41,7 +41,7 @@ ds_loc_4386:
     lea ax, word [bp - 0x0012]       ; 0x43cc
     push ax                          ; 0x43cf
     push word [bp - 0x0002]          ; 0x43d0
-    call ds_leaf_loc_4fb6            ; 0x43d3
+    call ds_leaf_loc_JKTJ            ; 0x43d3
     add sp, byte 6                   ; 0x43d6
     cmp ax, strict word 0xe          ; 0x43d9
     je short @..aztec_ovloader.l2    ; 0x43dc
@@ -87,7 +87,7 @@ ds_loc_4386:
     push word [bp - 0x000a]          ; 0x4436
     push word [bp - 0x000c]          ; 0x4439
     push word [bp - 0x0002]          ; 0x443c
-    call ds_leaf_loc_4fb6            ; 0x443f
+    call ds_leaf_loc_JKTJ            ; 0x443f
     add sp, byte 6                   ; 0x4442
     cmp ax, word [bp - 0x000a]       ; 0x4445
     jae short @..aztec_ovloader.l8   ; 0x4448

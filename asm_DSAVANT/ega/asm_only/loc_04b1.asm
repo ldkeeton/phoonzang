@@ -14,8 +14,8 @@ loc_04b1:
     mov word [bp - 0x0036], ax       ; 0x04c3
     mov ax, ds                       ; 0x04c6
     mov es, ax                       ; 0x04c8
-    call leaf_loc_1900               ; 0x04ca
-    call graphics_loc_0949           ; 0x04cd
+    call leaf_loc_NMVG               ; 0x04ca
+    call graphics_loc_IUVI           ; 0x04cd
     mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x04d0
     mov ds, ax                       ; 0x04d4
     mov ax, 0xa000                   ; 0x04d6
@@ -154,8 +154,8 @@ loc_04b1:
     inc dx                           ; 0x060c
     mov al, 0                        ; 0x060d
     out dx, al                       ; 0x060f
-    call leaf_loc_0b91               ; 0x0610
-    call bios_mouse_loc_18c1         ; 0x0613
+    call leaf_loc_TUKK               ; 0x0610
+    call bios_mouse_loc_NHLG         ; 0x0613
     pop si                           ; 0x0616
     pop di                           ; 0x0617
     pop es                           ; 0x0618
@@ -555,8 +555,8 @@ loc_04b1:
     inc dx                           ; 0x0936
     mov al, 0xf                      ; 0x0937
     out dx, al                       ; 0x0939
-    call leaf_loc_0b91               ; 0x093a
-    call bios_mouse_loc_18c1         ; 0x093d
+    call leaf_loc_TUKK               ; 0x093a
+    call bios_mouse_loc_NHLG         ; 0x093d
     pop si                           ; 0x0940
     pop di                           ; 0x0941
     pop es                           ; 0x0942

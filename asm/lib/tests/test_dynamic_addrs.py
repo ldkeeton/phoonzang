@@ -153,7 +153,10 @@ BASELINE_TOTALS = {
     'code_shift': 132, 'data_shift': 1, 'inert': 248,
     'f1': 2, 'f2': 13, 'f3': 114, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
     'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
-    'names_used': 84, 'names_inert': 32, 'hidden_flow': 98,
+    # vtrea's trampoline stub 0x4ad8 sits in data, so it stays an ``equ``; it
+    # was ``api_idx_0004_8`` (outside the name families) and is now
+    # ``api_idx_0004_4ad8``, which the census counts: one inert name more.
+    'names_used': 83, 'names_inert': 33, 'hidden_flow': 98,
     'total': 133,
 }
 
@@ -1327,7 +1330,12 @@ class InsertBytePropertyTests(unittest.TestCase):
             master = os.path.join(d, 'play.asm')
             original = _nasm_file(master, d)
             self.assertEqual(original[0x79a:0x79c], b'\x72\x06')  # jb +6 -> 0x07a2
-            frag = os.path.join(d, 'play', 'asm_only', 'leaf_loc_077b.asm')
+            # Named by its code, not its address: find it by where play.asm
+            # includes it.
+            with open(master) as f:
+                included = re.findall(r'%include "([^"]+)"\s*; 0x077b\b', f.read())
+            self.assertEqual(len(included), 1, included)
+            frag = os.path.join(d, included[0])
             with open(frag) as f:
                 text = f.read()
             needle = '    jb short loc_07a2'

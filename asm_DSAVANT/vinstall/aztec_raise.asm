@@ -67,7 +67,7 @@ loc_03b3:
     add sp, strict word 0xff00       ; 0x03b6
     push word [bp + 0x6]             ; 0x03ba
     push word [bp + 0x4]             ; 0x03bd
-    call bios_video_loc_2551         ; 0x03c0
+    call bios_video_loc_LRTV         ; 0x03c0
     add sp, byte 4                   ; 0x03c3
     lea ax, word [bp - 0x00ff]       ; 0x03c6
     push ax                          ; 0x03ca
@@ -76,7 +76,7 @@ loc_03b3:
     add sp, byte 4                   ; 0x03d1
     lea ax, word [bp - 0x00ff]       ; 0x03d4
     push ax                          ; 0x03d8
-    call bios_video_loc_2621         ; 0x03d9
+    call bios_video_loc_RGPO         ; 0x03d9
     pop cx                           ; 0x03dc
     mov sp, bp                       ; 0x03dd
     pop bp                           ; 0x03df
@@ -87,7 +87,7 @@ loc_03e1:
     add sp, strict word 0xff00       ; 0x03e4
     push word [bp + 0x6]             ; 0x03e8
     push word [bp + 0x4]             ; 0x03eb
-    call bios_video_loc_2551         ; 0x03ee
+    call bios_video_loc_LRTV         ; 0x03ee
     add sp, byte 4                   ; 0x03f1
     lea ax, word [bp - 0x00ff]       ; 0x03f4
     push ax                          ; 0x03f8
@@ -96,7 +96,7 @@ loc_03e1:
     add sp, byte 4                   ; 0x03ff
     lea ax, word [bp - 0x00ff]       ; 0x0402
     push ax                          ; 0x0406
-    call bios_video_loc_25d3         ; 0x0407
+    call bios_video_loc_MIHP         ; 0x0407
     pop cx                           ; 0x040a
     mov sp, bp                       ; 0x040b
     pop bp                           ; 0x040d
@@ -106,10 +106,10 @@ loc_040f:
     mov bp, sp                       ; 0x0410
     push word [bp + 0x6]             ; 0x0412
     push word [bp + 0x4]             ; 0x0415
-    call bios_video_loc_2551         ; 0x0418
+    call bios_video_loc_LRTV         ; 0x0418
     add sp, byte 4                   ; 0x041b
     push word [bp + 0x8]             ; 0x041e
-    call bios_video_loc_2621         ; 0x0421
+    call bios_video_loc_RGPO         ; 0x0421
     pop cx                           ; 0x0424
     mov sp, bp                       ; 0x0425
     pop bp                           ; 0x0427
@@ -119,27 +119,27 @@ loc_0429:
     mov bp, sp                       ; 0x042a
     push word [bp + 0x6]             ; 0x042c
     push word [bp + 0x4]             ; 0x042f
-    call bios_video_loc_2551         ; 0x0432
+    call bios_video_loc_LRTV         ; 0x0432
     add sp, byte 4                   ; 0x0435
     push word [bp + 0x8]             ; 0x0438
-    call bios_video_loc_25d3         ; 0x043b
+    call bios_video_loc_MIHP         ; 0x043b
     pop cx                           ; 0x043e
     mov sp, bp                       ; 0x043f
     pop bp                           ; 0x0441
     ret                              ; 0x0442
 loc_0443:
-    call bios_video_loc_252e         ; 0x0443
+    call bios_video_loc_UMOO         ; 0x0443
     mov ax, 0                        ; 0x0446
     push ax                          ; 0x0449
     push ax                          ; 0x044a
-    call bios_video_loc_2551         ; 0x044b
+    call bios_video_loc_LRTV         ; 0x044b
     add sp, byte 4                   ; 0x044e
     ret                              ; 0x0451
 loc_0452:
     push bp                          ; 0x0452
     mov bp, sp                       ; 0x0453
     add sp, byte 0xfe                ; 0x0455
-    call bios_video_loc_2720         ; 0x0458
+    call bios_video_loc_KLVI         ; 0x0458
     mov word [bp - 0x0002], ax       ; 0x045b
     mov ax, 7                        ; 0x045e
     push ax                          ; 0x0461
@@ -148,7 +148,7 @@ loc_0452:
     call loc_2c62                    ; 0x0466
     add sp, byte 4                   ; 0x0469
     push word [bp - 0x0002]          ; 0x046c
-    call bios_video_loc_2733         ; 0x046f
+    call bios_video_loc_JNLT         ; 0x046f
     pop cx                           ; 0x0472
     mov sp, bp                       ; 0x0473
     pop bp                           ; 0x0475
@@ -176,7 +176,7 @@ loc_0584:
     push bp                          ; 0x0584
     mov bp, sp                       ; 0x0585
     add sp, byte 0xfc                ; 0x0587
-    call bios_video_loc_2720         ; 0x058a
+    call bios_video_loc_KLVI         ; 0x058a
     mov word [bp - 0x0004], ax       ; 0x058d
     mov ax, 0x20                     ; 0x0590
     cmp word [bp + 0x4], byte 1      ; 0x0593
@@ -187,10 +187,10 @@ loc_0584:
     mov byte [bp - 0x0001], 0        ; 0x059f
     lea ax, word [bp - 0x0002]       ; 0x05a3
     push ax                          ; 0x05a6
-    call bios_video_loc_2621         ; 0x05a7
+    call bios_video_loc_RGPO         ; 0x05a7
     pop cx                           ; 0x05aa
     push word [bp - 0x0004]          ; 0x05ab
-    call bios_video_loc_2733         ; 0x05ae
+    call bios_video_loc_JNLT         ; 0x05ae
     pop cx                           ; 0x05b1
     mov sp, bp                       ; 0x05b2
     pop bp                           ; 0x05b4
@@ -209,7 +209,7 @@ loc_05b6:
     add word [bp + 0x6], ax          ; 0x05cf
     push word [bp + 0x6]             ; 0x05d2
     push word [bp + 0x4]             ; 0x05d5
-    call bios_video_loc_2551         ; 0x05d8
+    call bios_video_loc_LRTV         ; 0x05d8
     add sp, byte 4                   ; 0x05db
     mov ax, 1                        ; 0x05de
     push ax                          ; 0x05e1
@@ -243,16 +243,16 @@ loc_05b6:
     dec word [bp + 0x6]              ; 0x061f
     push word [bp + 0x6]             ; 0x0622
     push word [bp + 0x4]             ; 0x0625
-    call bios_video_loc_2551         ; 0x0628
+    call bios_video_loc_LRTV         ; 0x0628
     add sp, byte 4                   ; 0x062b
     mov byte [bp - 0x0002], 0x20     ; 0x062e
     lea ax, word [bp - 0x0002]       ; 0x0632
     push ax                          ; 0x0635
-    call bios_video_loc_2621         ; 0x0636
+    call bios_video_loc_RGPO         ; 0x0636
     pop cx                           ; 0x0639
     push word [bp + 0x6]             ; 0x063a
     push word [bp + 0x4]             ; 0x063d
-    call bios_video_loc_2551         ; 0x0640
+    call bios_video_loc_LRTV         ; 0x0640
     add sp, byte 4                   ; 0x0643
     jmp short @..loc_05b6.l5         ; 0x0646
 @..loc_05b6.l4:
@@ -282,7 +282,7 @@ loc_05b6:
     mov byte [bp - 0x0002], al       ; 0x0680
     lea ax, word [bp - 0x0002]       ; 0x0683
     push ax                          ; 0x0686
-    call bios_video_loc_2621         ; 0x0687
+    call bios_video_loc_RGPO         ; 0x0687
     pop cx                           ; 0x068a
     inc word [bp + 0x6]              ; 0x068b
 @..loc_05b6.l8:
@@ -403,7 +403,7 @@ loc_0823:
 @..loc_0823.l1:
     push word [bp + 0x8]             ; 0x0830
     push word [bp + 0x6]             ; 0x0833
-    call bios_video_loc_2551         ; 0x0836
+    call bios_video_loc_LRTV         ; 0x0836
     add sp, byte 4                   ; 0x0839
     lea ax, word [bp - 0x0101]       ; 0x083c
     push ax                          ; 0x0840
@@ -412,11 +412,11 @@ loc_0823:
     add sp, byte 4                   ; 0x0847
     lea ax, word [bp - 0x0101]       ; 0x084a
     push ax                          ; 0x084e
-    call bios_video_loc_25d3         ; 0x084f
+    call bios_video_loc_MIHP         ; 0x084f
     pop cx                           ; 0x0852
     mov ax, 0x144b                   ; 0x0853
     push ax                          ; 0x0856
-    call bios_video_loc_2621         ; 0x0857
+    call bios_video_loc_RGPO         ; 0x0857
     pop cx                           ; 0x085a
     push word [bp + 0xa]             ; 0x085b
     lea ax, word [bp - 0x0101]       ; 0x085e

@@ -146,7 +146,12 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         output = pathlib.Path(self._output.name)
         master = (output / 'ds.asm').read_text()
 
-        for function_name in ('main', 'ds_bios_video_loc_3067'):
+        # A generic name carries its code's tag, not its address: find the
+        # routine by where the master includes it.
+        generic = re.findall(r'%include "(?:\w+/)+(\w+)\.asm"\s*; 0x3067\b',
+                             master)
+        self.assertEqual(len(generic), 1, generic)
+        for function_name in ('main', generic[0]):
             with self.subTest(function=function_name):
                 # A hand-only routine (``int``, port I/O...) is filed under
                 # ``ds/asm_only/``; the split itself is what is under test.
@@ -214,8 +219,14 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
             path.read_text()
             for path in pathlib.Path(self._output.name).rglob('*.asm')
         )
-        self.assertIn('ds_dos_proc_loc_4e7e:', asm_text)
-        self.assertEqual(asm_text.count('call ds_dos_proc_loc_4e7e'), 3)
+        master = (pathlib.Path(self._output.name) / 'ds.asm').read_text()
+        names = re.findall(r'%include "(?:\w+/)+(\w+)\.asm"\s*; 0x4e7e\b',
+                           master)
+        self.assertEqual(len(names), 1, names)
+        name = names[0]
+        self.assertRegex(name, r'^ds_dos_proc_loc_[G-V]{4}$')
+        self.assertIn(f'{name}:', asm_text)
+        self.assertEqual(asm_text.count(f'call {name}'), 3)
 
 
 if __name__ == '__main__':

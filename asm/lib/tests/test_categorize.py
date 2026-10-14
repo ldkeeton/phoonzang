@@ -78,7 +78,8 @@ class DSAVANTEgaNamingTests(unittest.TestCase):
         cls._output.cleanup()
 
     def test_masked_renderer_is_categorized_as_graphics(self):
-        self.assertEqual(self.label_map[0x3a8b], 'graphics_loc_3a8b')
+        # A generic routine name ends in the tag of its own code (lib.names).
+        self.assertRegex(self.label_map[0x3a8b], r'^graphics_loc_[G-V]{4}$')
 
 
 if __name__ == '__main__':

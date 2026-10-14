@@ -28,139 +28,139 @@ loc_000e:
     call aztec_csav                  ; 0x0011
     cmp word [bss_830a], byte 0x16   ; 0x0014
     jne short @..loc_000e.l1         ; 0x0019
-    call api_idx_000c_3              ; 0x001b
+    call api_idx_000c_KJVL           ; 0x001b
 @..loc_000e.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
-%include "lib/api_idx_0002.asm"          ; 0x0022
+%include "lib/api_idx_0002_UKHK.asm"     ; 0x0022
 
-%include "vpclv/asm_only/api_idx_0012.asm"          ; 0x0086
+%include "vpclv/asm_only/api_idx_0012_URNN.asm"     ; 0x0086
 
-%include "lib/api_idx_000c.asm"          ; 0x0202
+%include "lib/api_idx_000c_JKJK.asm"     ; 0x0202
 
-%include "vpclv/api_idx_0004.asm"          ; 0x0281
+%include "vpclv/api_idx_0004_RIKH.asm"     ; 0x0281
 
-%include "lib/api_idx_0002_2.asm"        ; 0x0331
+%include "lib/api_idx_0002_PGOV.asm"     ; 0x0331
 
-%include "lib/api_idx_0002_3.asm"        ; 0x038c
+%include "lib/api_idx_0002_GLLG.asm"     ; 0x038c
 
-%include "lib/api_idx_0010.asm"          ; 0x03cd
+%include "lib/api_idx_0010_TIQJ.asm"     ; 0x03cd
 
-%include "vpclv/api_idx_000a.asm"          ; 0x04ca
+%include "vpclv/api_idx_000a_RVMG.asm"     ; 0x04ca
 
-%include "vpclv/asm_only/api_idx_007c.asm"          ; 0x0572
+%include "vpclv/asm_only/api_idx_007c_KMHO.asm"     ; 0x0572
 
-%include "vpclv/api_idx_0004_2.asm"        ; 0x0e3b
+%include "vpclv/api_idx_0004_ROHR.asm"     ; 0x0e3b
 
-%include "vpclv/api_idx_000a_2.asm"        ; 0x0eac
+%include "vpclv/api_idx_000a_QMKR.asm"     ; 0x0eac
 
-%include "vpclv/api_idx_000c_2.asm"        ; 0x1017
+%include "vpclv/api_idx_000c_NNIM.asm"     ; 0x1017
 
-%include "vpclv/api_idx_0050.asm"          ; 0x1141
+%include "vpclv/api_idx_0050_JKSH.asm"     ; 0x1141
 
-%include "vpclv/api_idx_00ca.asm"          ; 0x1e31
+%include "vpclv/api_idx_00ca_LIQK.asm"     ; 0x1e31
 
-%include "vpclv/asm_only/api_idx_0004_3.asm"        ; 0x21be
+%include "lib/api_idx_0004_VKIV.asm"     ; 0x21be
 
-%include "lib/api_idx_002a.asm"          ; 0x2447
+%include "lib/api_idx_002a_IHRK.asm"     ; 0x2447
 
-%include "vpclv/asm_only/api_idx_0080.asm"          ; 0x24f0
+%include "vpclv/asm_only/api_idx_0080_RPOR.asm"     ; 0x24f0
 
-%include "vpclv/api_idx_0004_4.asm"        ; 0x2717
+%include "lib/api_idx_0004_SSHG.asm"     ; 0x2717
 
-%include "vpclv/api_idx_004c.asm"          ; 0x27e3
+%include "vpclv/api_idx_004c_QHGO.asm"     ; 0x27e3
 
-%include "vpclv/api_idx_0006.asm"          ; 0x2a85
+%include "vpclv/api_idx_0006_VRUK.asm"     ; 0x2a85
 
-%include "vpclv/api_idx_0002_4.asm"        ; 0x2b1a
+%include "lib/api_idx_0002_KOUO.asm"     ; 0x2b1a
 
-%include "vpclv/api_idx_0052.asm"          ; 0x2c0c
+%include "vpclv/api_idx_0052_LVIU.asm"     ; 0x2c0c
 
-%include "vpclv/api_idx_0004_5.asm"        ; 0x3288
+%include "lib/api_idx_0004_VPLS.asm"     ; 0x3288
 
-%include "vpclv/api_idx_0020.asm"          ; 0x333c
+%include "vpclv/api_idx_0020_RPUV.asm"     ; 0x333c
 
-%include "vpclv/api_idx_0004_6.asm"        ; 0x34cd
+%include "vpclv/api_idx_0004_UPGK.asm"     ; 0x34cd
 
-%include "vpclv/api_idx_0004_7.asm"        ; 0x35fc
+%include "vpclv/api_idx_0004_ULTV.asm"     ; 0x35fc
 
-%include "vpclv/api_idx_0002_5.asm"        ; 0x3851
+%include "vpclv/api_idx_0002_NSNU.asm"     ; 0x3851
 
-%include "vpclv/api_idx_002e.asm"          ; 0x390b
+%include "vpclv/api_idx_002e_LGPN.asm"     ; 0x390b
 
-%include "vpclv/api_idx_0032.asm"          ; 0x3a7a
+%include "vpclv/api_idx_0032_PTTL.asm"     ; 0x3a7a
 
-%include "vpclv/api_idx_0088.asm"          ; 0x3f9e
+%include "vpclv/api_idx_0088_PMVU.asm"     ; 0x3f9e
 
-%include "vpclv/api_idx_001c.asm"          ; 0x4140
+%include "vpclv/api_idx_001c_OTIM.asm"     ; 0x4140
 
-%include "vpclv/api_idx_0002_6.asm"        ; 0x4270
+%include "vpclv/api_idx_0002_NOHM.asm"     ; 0x4270
 
-%include "vpclv/api_idx_00ac.asm"          ; 0x45e0
+%include "vpclv/api_idx_00ac_HIUM.asm"     ; 0x45e0
 
-%include "vpclv/api_idx_0004_8.asm"        ; 0x4884
+%include "vpclv/api_idx_0004_IKQO.asm"     ; 0x4884
 
-%include "vpclv/api_idx_0018.asm"          ; 0x4955
+%include "vpclv/api_idx_0018_NLSO.asm"     ; 0x4955
 
-%include "vpclv/leaf_loc_4990.asm"         ; 0x4990
+%include "vpclv/leaf_loc_VOLM.asm"         ; 0x4990
 
-%include "vpclv/leaf_loc_49b1.asm"         ; 0x49b1
+%include "vpclv/leaf_loc_TVLO.asm"         ; 0x49b1
 
-%include "vpclv/leaf_loc_49d2.asm"         ; 0x49d2
+%include "vpclv/leaf_loc_RUVP.asm"         ; 0x49d2
 
-%include "vpclv/leaf_loc_49f3.asm"         ; 0x49f3
+%include "vpclv/leaf_loc_GOTN.asm"         ; 0x49f3
 
-%include "vpclv/leaf_loc_4a14.asm"         ; 0x4a14
+%include "vpclv/leaf_loc_JVRQ.asm"         ; 0x4a14
 
-%include "vpclv/leaf_loc_4a35.asm"         ; 0x4a35
+%include "vpclv/leaf_loc_JVKS.asm"         ; 0x4a35
 
-%include "vpclv/leaf_loc_4a56.asm"         ; 0x4a56
+%include "vpclv/leaf_loc_SLHJ.asm"         ; 0x4a56
 
-%include "vpclv/leaf_loc_4a77.asm"         ; 0x4a77
+%include "vpclv/leaf_loc_RJJT.asm"         ; 0x4a77
 
-%include "vpclv/leaf_loc_4ab4.asm"         ; 0x4ab4
+%include "vpclv/leaf_loc_PJRP.asm"         ; 0x4ab4
 
-%include "vpclv/api_idx_00b4.asm"          ; 0x4cc5
+%include "vpclv/api_idx_00b4_LLNK.asm"     ; 0x4cc5
 
-%include "vpclv/api_idx_0006_2.asm"        ; 0x4e03
+%include "vpclv/api_idx_0006_OHMR.asm"     ; 0x4e03
 
-%include "vpclv/leaf_loc_4e18.asm"         ; 0x4e18
+%include "vpclv/leaf_loc_SRNV.asm"         ; 0x4e18
 
-%include "vpclv/leaf_loc_4e1f.asm"         ; 0x4e1f
+%include "vpclv/leaf_loc_QLLN.asm"         ; 0x4e1f
 
-%include "vpclv/api_idx_00a4.asm"          ; 0x4e9e
+%include "vpclv/api_idx_00a4_LKSN.asm"     ; 0x4e9e
 
-%include "vpclv/api_idx_0046.asm"          ; 0x4fca
+%include "vpclv/api_idx_0046_LKOQ.asm"     ; 0x4fca
 
-%include "lib/api_idx_000e.asm"          ; 0x50a1
+%include "lib/api_idx_000e_QTQU.asm"     ; 0x50a1
 
-%include "vpclv/api_idx_000c_3.asm"        ; 0x5161
+%include "vpclv/api_idx_000c_KJVL.asm"     ; 0x5161
 
-@..api_idx_000c_3.l5:
+@..api_idx_000c_KJVL.l5:
     mov ax, 1                        ; 0x535f
     push ax                          ; 0x5362
     push word [bp - 0x0002]          ; 0x5363
-    call api_idx_0046                ; 0x5366
+    call api_idx_0046_LKOQ           ; 0x5366
     add sp, byte 4                   ; 0x5369
     inc word [bp - 0x0002]           ; 0x536c
-@..api_idx_000c_3.l6:
+@..api_idx_000c_KJVL.l6:
     mov ax, word [bp - 0x0002]       ; 0x536f
     cmp ax, word [bss_69c8]          ; 0x5372
-    jl short @..api_idx_000c_3.l5    ; 0x5376
+    jl short @..api_idx_000c_KJVL.l5 ; 0x5376
     cmp word [bss_8450], byte 0      ; 0x5378
-    je short @..api_idx_000c_3.l7    ; 0x537d
+    je short @..api_idx_000c_KJVL.l7 ; 0x537d
     push word [bss_844c]             ; 0x537f
     push word [bss_844e]             ; 0x5383
     call animate_sprite_up           ; 0x5387
     add sp, byte 4                   ; 0x538a
     mov ax, 0                        ; 0x538d
     push ax                          ; 0x5390
-    call ds_app_thunk_21_2b4e        ; 0x5391
+    call ds_app_thunk_21_HUMJ        ; 0x5391
     pop cx                           ; 0x5394
-@..api_idx_000c_3.l7:
+@..api_idx_000c_KJVL.l7:
     mov ax, 0xf                      ; 0x5395
     push ax                          ; 0x5398
-    call ds_app_thunk_26_1371        ; 0x5399
+    call ds_app_thunk_26_RNMG        ; 0x5399
     pop cx                           ; 0x539c
     mov ax, 0                        ; 0x539d
     push ax                          ; 0x53a0
@@ -228,13 +228,13 @@ loc_000e:
     add sp, byte 8                   ; 0x5448
     mov ax, 1                        ; 0x544b
     push ax                          ; 0x544e
-    call ds_app_thunk_26_1371        ; 0x544f
+    call ds_app_thunk_26_RNMG        ; 0x544f
     pop cx                           ; 0x5452
     mov ax, 2                        ; 0x5453
     push ax                          ; 0x5456
-    call ds_app_thunk_26_1371        ; 0x5457
+    call ds_app_thunk_26_RNMG        ; 0x5457
     pop cx                           ; 0x545a
-    call api_idx_000e                ; 0x545b
+    call api_idx_000e_QTQU           ; 0x545b
     mov ax, 0xc7                     ; 0x545e
     push ax                          ; 0x5461
     mov ax, 0x13f                    ; 0x5462

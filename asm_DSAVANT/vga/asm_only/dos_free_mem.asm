@@ -14,7 +14,7 @@ dos_free_mem:
     mov ds, ax                       ; 0x0847
     mov si, word [bp + 0xc]          ; 0x0849
     or ax, si                        ; 0x084c
-    je short dos_con_loc_088f        ; 0x084e
+    je short dos_con_loc_VHTS        ; 0x084e
     mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0850
     mov es, ax                       ; 0x0854
     lodsw                            ; 0x0856

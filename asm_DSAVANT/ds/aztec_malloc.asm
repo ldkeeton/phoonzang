@@ -107,5 +107,5 @@ ds_loc_474d:
     and ax, strict word 0xfffe       ; 0x47dd
     mov si, ax                       ; 0x47e0
     jmp near @..aztec_malloc.l2      ; 0x47e2
-ds_leaf_loc_47e5:
+ds_leaf_loc_QIRU:
     jmp near ds_loc_474d             ; 0x47e5

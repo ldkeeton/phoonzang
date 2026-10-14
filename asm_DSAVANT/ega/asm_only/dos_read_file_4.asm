@@ -99,7 +99,7 @@ dos_read_file_4:
     mov cl, 0xa                      ; 0x4533
     shr ax, cl                       ; 0x4535
     mov word [cs:cseg_4540 - IMAGE_BASE], ax ; 0x4537
-    call leaf_loc_4442               ; 0x453b
+    call leaf_loc_NIKG               ; 0x453b
     mov si, word [bp - 0x0002]       ; 0x453e
     and si, strict word 0x3ff        ; 0x4541
     mov cl, 4                        ; 0x4545
@@ -126,7 +126,7 @@ dos_read_file_4:
     je short @..dos_read_file_4.l8   ; 0x4575
     inc word [cs:cseg_4540 - IMAGE_BASE] ; 0x4577
     mov ax, word [cs:cseg_4540 - IMAGE_BASE] ; 0x457c
-    call leaf_loc_4442               ; 0x4580
+    call leaf_loc_NIKG               ; 0x4580
     and si, strict word 0x3fff       ; 0x4583
 @..dos_read_file_4.l8:
     dec word [bp - 0x0004]           ; 0x4587
@@ -142,7 +142,7 @@ dos_read_file_4:
     add bx, ax                       ; 0x45a5
     mov ax, word [cs:bx]             ; 0x45a7
     mov word [cs:bx], 0              ; 0x45aa
-    call leaf_loc_1355               ; 0x45af
+    call leaf_loc_IMUV               ; 0x45af
     call loc_1392                    ; 0x45b2
 @..dos_read_file_4.l9:
     pop si                           ; 0x45b5

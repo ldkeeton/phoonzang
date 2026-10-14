@@ -31,13 +31,13 @@ loc_000e:
     call loc_03a8                    ; 0x0019
     jmp short @..loc_000e.l6         ; 0x001c
 @..loc_000e.l2:
-    call api_idx_0068                ; 0x001e
+    call api_idx_0068_VUVP           ; 0x001e
     jmp short @..loc_000e.l6         ; 0x0021
 @..loc_000e.l3:
-    call api_idx_0002_7              ; 0x0023
+    call api_idx_0002_LIOI           ; 0x0023
     jmp short @..loc_000e.l6         ; 0x0026
 @..loc_000e.l4:
-    call api_idx_0008                ; 0x0028
+    call api_idx_0008_LUSR           ; 0x0028
     jmp short @..loc_000e.l6         ; 0x002b
 @..loc_000e.l5:
     cmp ax, strict word 0            ; 0x002d
@@ -51,29 +51,29 @@ loc_000e:
 @..loc_000e.l6:
     mov ax, 0                        ; 0x0041
     ret                              ; 0x0044
-%include "vinit/api_idx_0002.asm"          ; 0x0045
+%include "vinit/api_idx_0002_MPHG.asm"     ; 0x0045
 
-%include "vinit/api_idx_0002_2.asm"        ; 0x0084
+%include "vinit/api_idx_0002_VSKI.asm"     ; 0x0084
 
-%include "vinit/api_idx_0002_3.asm"        ; 0x00ca
+%include "vinit/api_idx_0002_IMLG.asm"     ; 0x00ca
 
-%include "vinit/api_idx_0002_4.asm"        ; 0x010c
+%include "vinit/api_idx_0002_OILV.asm"     ; 0x010c
 
-%include "vinit/api_idx_000c.asm"          ; 0x0146
+%include "vinit/api_idx_000c_POHU.asm"     ; 0x0146
 
-%include "lib/api_idx_0002_5.asm"        ; 0x08b7
+%include "lib/api_idx_0002_VTPK.asm"     ; 0x08b7
 
-%include "vinit/api_idx_0002_6.asm"        ; 0x094a
+%include "vinit/api_idx_0002_NJSO.asm"     ; 0x094a
 
-%include "vinit/api_idx_0004.asm"          ; 0x0988
+%include "vinit/api_idx_0004_JPMO.asm"     ; 0x0988
 
-%include "vinit/api_idx_000e.asm"          ; 0x09d3
+%include "vinit/api_idx_000e_KUPL.asm"     ; 0x09d3
 
-%include "vinit/api_idx_0068.asm"          ; 0x0ac7
+%include "vinit/api_idx_0068_VUVP.asm"     ; 0x0ac7
 
-%include "vinit/api_idx_0002_7.asm"        ; 0x133d
+%include "vinit/api_idx_0002_LIOI.asm"     ; 0x133d
 
-%include "vinit/api_idx_0008.asm"          ; 0x1409
+%include "vinit/api_idx_0008_LUSR.asm"     ; 0x1409
 
 loc_15d9:
     pop word [dseg_91b6]             ; 0x15d9

@@ -10,7 +10,9 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 def match_trampolines(data, call_targets, known_db=None):
     """Detect trampoline-dispatch stubs.
 
-    Returns a dict of {offset: label_name} with automatic _N dedup.
+    Returns ``{offset: '<name>_<offset>'}``: the offset keeps the names unique
+    until :func:`lib.names.tag_generics` replaces it with a content tag (a
+    running ``_N`` count would shift whenever a stub is added).
     """
     md = Cs(CS_ARCH_X86, CS_MODE_16)
     md.detail = True
@@ -26,7 +28,6 @@ def match_trampolines(data, call_targets, known_db=None):
                 pass
 
     label_map = {}
-    name_count = {}
 
     for off in sorted(call_targets):
         if off + 6 > n:
@@ -46,9 +47,7 @@ def match_trampolines(data, call_targets, known_db=None):
                     name = dispatch_names.get(idx)
                     if name is None:
                         name = f'api_idx_{idx:04x}'
-                    n_ = name_count.get(name, 0) + 1
-                    name_count[name] = n_
-                    label_map[off] = name if n_ == 1 else f'{name}_{n_}'
+                    label_map[off] = f'{name}_{off:04x}'
                 break
             elif data[j] in (0xC3, 0xCB, 0xCF, 0xEB, 0xE9):
                 break

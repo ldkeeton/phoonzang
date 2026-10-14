@@ -22,7 +22,7 @@ dos_write_file:
     mov ax, word [cs:bx]             ; 0x0edf
     or ax, ax                        ; 0x0ee2
     je short @..dos_write_file.l2    ; 0x0ee4
-    jmp near dos_con_loc_0f70        ; 0x0ee6
+    jmp near dos_con_loc_TRGT        ; 0x0ee6
 @..dos_write_file.l2:
     mov ax, word [cs:cseg_11cb - IMAGE_BASE] ; 0x0ee9
     inc ax                           ; 0x0eed
@@ -42,7 +42,7 @@ dos_write_file:
     mov word [cs:cseg_11cd - IMAGE_BASE], dx ; 0x0f14
     cmp dx, strict word 0x4180       ; 0x0f19
     jb short @..dos_write_file.l3    ; 0x0f1d
-    jmp near dos_con_loc_0fae        ; 0x0f1f
+    jmp near dos_con_loc_GHKP        ; 0x0f1f
 @..dos_write_file.l3:
     mov ax, word [bp + 0xc]          ; 0x0f22
     neg ax                           ; 0x0f25

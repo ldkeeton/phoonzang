@@ -38,7 +38,7 @@ dos_free_mem_4:
     mov bx, 0x30                     ; 0x2a35
     int 0x21 ; DOS allocate memory
     jae short @..dos_free_mem_4.l4   ; 0x2a3a
-    jmp near dos_con_loc_2a97        ; 0x2a3c
+    jmp near dos_con_loc_NOVS        ; 0x2a3c
 @..dos_free_mem_4.l4:
     mov word [bp - 0x0002], ax       ; 0x2a3f
     mov ds, ax                       ; 0x2a42

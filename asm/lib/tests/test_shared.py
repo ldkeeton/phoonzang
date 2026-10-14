@@ -45,16 +45,16 @@ class ShareIdenticalTest(unittest.TestCase):
             shared.share_identical(root)
             self.assertTrue(os.path.exists(os.path.join(root, 'c', 'f.asm')))
 
-    def test_same_name_different_bodies_get_distinct_files(self):
+    def test_same_name_different_bodies_share_only_the_largest_group(self):
         with tempfile.TemporaryDirectory() as root:
-            self._tree(root)
-            for b in ('c', 'd'):
+            self._tree(root)                      # a, b: push bp
+            for b in ('c', 'd', 'e'):
                 _put(root, f'{b}/f.asm', BODY.format(name='f', a='1', b='2', c='3')
                      .replace('push bp', 'push si'))
                 _put(root, f'{b}.asm', f'%include "{b}/f.asm"\n')
             result = shared.share_identical(root)
-            self.assertEqual(len(result), 2)
-            self.assertTrue(all(k.startswith('lib/f_') for k in result))
+            self.assertEqual(result, {'lib/f.asm': ['c/f.asm', 'd/f.asm', 'e/f.asm']})
+            self.assertTrue(os.path.exists(os.path.join(root, 'a', 'f.asm')))
 
     def test_hand_owned_fragment_is_untouched(self):
         with tempfile.TemporaryDirectory() as root:

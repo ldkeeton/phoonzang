@@ -17,12 +17,12 @@ char *buff;
 	cp = buff;
 	for (count = len ; count-- ; ) {
 		if (*cp++ == '\n') {
-			leaf_loc_3829(fd, buff, cp-buff);
-			leaf_loc_3829(fd, &crbuf, 1);
+			leaf_loc_JRQS(fd, buff, cp-buff);
+			leaf_loc_JRQS(fd, &crbuf, 1);
 			buff = cp;
 		}
 	}
 	if (cp != buff)
-		leaf_loc_3829(fd, buff, cp-buff);
+		leaf_loc_JRQS(fd, buff, cp-buff);
 	return len;
 }

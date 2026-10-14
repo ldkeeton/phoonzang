@@ -20,7 +20,11 @@ The result carries the relocated bytes *and* the operand text to emit
 linker and the emitted source stays valid when layout moves.
 """
 
+import re
+
 from .objread import external_label
+
+_RAW_DATA = re.compile(r'dseg_[0-9a-f]{4}')
 
 LOCAL_PREFIX = '@..'
 
@@ -172,6 +176,13 @@ def link(label, start, func, index, original, labels_in=()):
                                      False, {name: value})
             elif name in index.code:
                 legacy(fx)      # address of code needs the image base
+            elif _RAW_DATA.fullmatch(name):
+                # ``dseg_01d4``: a data-segment offset no label names (an
+                # overlay's reach into the host's data), taken as written.
+                value = int(name[-4:], 16)
+                _put(code, site, 2, value + fx.addend)
+                out.refs[site] = Ref(site, 2, f'0x{value + fx.addend:04x}',
+                                     False, {})
             else:
                 raise RelinkError(
                     f'{label}: reference to unknown symbol {name!r} '

@@ -56,19 +56,19 @@ loc_0007:
     call mouse_init_2                ; 0x0007
     retf                             ; 0x000a
 loc_000b:
-    call bios_mouse_loc_1317         ; 0x000b
+    call bios_mouse_loc_NSSJ         ; 0x000b
     retf                             ; 0x000e
 loc_000f:
-    call leaf_loc_1308               ; 0x000f
+    call leaf_loc_NMVG               ; 0x000f
     retf                             ; 0x0012
 loc_0013:
-    call bios_mouse_loc_12c9         ; 0x0013
+    call bios_mouse_loc_TKVN         ; 0x0013
     retf                             ; 0x0016
 loc_0017:
     call dos_read_file_3             ; 0x0017
     retf                             ; 0x001a
 loc_001b:
-    call graphics_loc_2d6c           ; 0x001b
+    call graphics_loc_RHSL           ; 0x001b
     retf                             ; 0x001e
 loc_001f:
     call dos_read_file               ; 0x001f
@@ -80,34 +80,34 @@ loc_0027:
     call dos_print_str               ; 0x0027
     retf                             ; 0x002a
 loc_002b:
-    call leaf_loc_217d               ; 0x002b
+    call leaf_loc_SRJS               ; 0x002b
     retf                             ; 0x002e
 loc_002f:
-    call graphics_loc_0293           ; 0x002f
+    call graphics_loc_VIRI           ; 0x002f
     retf                             ; 0x0032
 loc_0033:
-    call leaf_loc_0447               ; 0x0033
+    call leaf_loc_GLGG               ; 0x0033
     retf                             ; 0x0036
 loc_0037:
-    call leaf_loc_045c               ; 0x0037
+    call leaf_loc_NONR               ; 0x0037
     retf                             ; 0x003a
 loc_003b:
-    call leaf_loc_0477               ; 0x003b
+    call leaf_loc_UIHG               ; 0x003b
     retf                             ; 0x003e
 loc_003f:
-    call leaf_loc_0496               ; 0x003f
+    call leaf_loc_LUNP               ; 0x003f
     retf                             ; 0x0042
 loc_0043:
     call loc_04b5                    ; 0x0043
     retf                             ; 0x0046
 loc_0047:
-    call leaf_loc_06b2               ; 0x0047
+    call leaf_loc_VSTU               ; 0x0047
     retf                             ; 0x004a
 loc_004b:
-    call leaf_loc_06d9               ; 0x004b
+    call leaf_loc_RUJV               ; 0x004b
     retf                             ; 0x004e
 loc_004f:
-    call string_loc_0728             ; 0x004f
+    call string_loc_NJGU             ; 0x004f
     retf                             ; 0x0052
 loc_0053:
     call dos_alloc_mem               ; 0x0053
@@ -119,13 +119,13 @@ loc_005b:
     call loc_2185                    ; 0x005b
     retf                             ; 0x005e
 loc_005f:
-    call bios_mouse_loc_139a         ; 0x005f
+    call bios_mouse_loc_NUQU         ; 0x005f
     retf                             ; 0x0062
 loc_0063:
     call dos_print_str_2             ; 0x0063
     retf                             ; 0x0066
 loc_0067:
-    call leaf_loc_0439               ; 0x0067
+    call leaf_loc_VQIT               ; 0x0067
     retf                             ; 0x006a
 loc_006b:
     call dos_write_file              ; 0x006b
@@ -134,10 +134,10 @@ loc_006f:
     call loc_2528                    ; 0x006f
     retf                             ; 0x0072
 loc_0073:
-    call bios_video_loc_277f         ; 0x0073
+    call bios_video_loc_NHNV         ; 0x0073
     retf                             ; 0x0076
 loc_0077:
-    call bios_video_loc_27d0         ; 0x0077
+    call bios_video_loc_PUJP         ; 0x0077
     retf                             ; 0x007a
 loc_007b:
     call dos_free_mem_2              ; 0x007b
@@ -149,10 +149,10 @@ loc_0083:
     call dos_free_mem_4              ; 0x0083
     retf                             ; 0x0086
 loc_0087:
-    call bios_mouse_loc_2b6c         ; 0x0087
+    call bios_mouse_loc_IISN         ; 0x0087
     retf                             ; 0x008a
 loc_008b:
-    call bios_mouse_loc_2c0e         ; 0x008b
+    call bios_mouse_loc_PHIN         ; 0x008b
     retf                             ; 0x008e
 loc_008f:
     call loc_0f6f                    ; 0x008f
@@ -161,16 +161,16 @@ loc_0093:
     call loc_2cbe                    ; 0x0093
     retf                             ; 0x0096
 loc_0097:
-    call leaf_loc_2d08               ; 0x0097
+    call leaf_loc_JKPU               ; 0x0097
     retf                             ; 0x009a
 loc_009b:
-    call leaf_loc_2acf               ; 0x009b
+    call leaf_loc_ITSQ               ; 0x009b
     retf                             ; 0x009e
 loc_009f:
     call dos_write_file_2            ; 0x009f
     retf                             ; 0x00a2
 loc_00a3:
-    call dos_mem_loc_2b01            ; 0x00a3
+    call dos_mem_loc_MOUN            ; 0x00a3
     retf                             ; 0x00a6
 loc_00a7:
     call dos_read_file_4             ; 0x00a7
@@ -179,7 +179,7 @@ loc_00ab:
     call dos_read_file_5             ; 0x00ab
     retf                             ; 0x00ae
 loc_00af:
-    call dos_file_loc_3f73           ; 0x00af
+    call dos_file_loc_QVOO           ; 0x00af
     retf                             ; 0x00b2
 loc_00b3:
     call dos_read_file_6             ; 0x00b3
@@ -280,51 +280,51 @@ cseg_027b:
 
 cseg_0291:
     db 0x00, 0x00
-%include "lib/graphics_loc_0293.asm"       ; 0x0293
+%include "lib/graphics_loc_VIRI.asm"       ; 0x0293
 
-%include "lib/leaf_loc_0439.asm"           ; 0x0439
+%include "lib/leaf_loc_VQIT.asm"           ; 0x0439
 
-%include "vga/leaf_loc_0447.asm"           ; 0x0447
+%include "vga/leaf_loc_GLGG.asm"           ; 0x0447
 
-%include "vga/asm_only/leaf_loc_045c.asm"           ; 0x045c
+%include "lib/leaf_loc_NONR.asm"           ; 0x045c
 
-%include "vga/asm_only/leaf_loc_0477.asm"           ; 0x0477
+%include "vga/asm_only/leaf_loc_UIHG.asm"           ; 0x0477
 
-%include "vga/asm_only/leaf_loc_0496.asm"           ; 0x0496
+%include "vga/asm_only/leaf_loc_LUNP.asm"           ; 0x0496
 
 %include "vga/asm_only/loc_04b5.asm"                ; 0x04b5
 
-%include "vga/asm_only/graphics_loc_0516.asm"       ; 0x0516
+%include "vga/asm_only/graphics_loc_RJST.asm"       ; 0x0516
 
-%include "vga/asm_only/leaf_loc_067f.asm"           ; 0x067f
+%include "vga/asm_only/leaf_loc_QKGQ.asm"           ; 0x067f
 
-%include "vga/asm_only/leaf_loc_06b2.asm"           ; 0x06b2
+%include "lib/leaf_loc_VSTU.asm"           ; 0x06b2
 
-%include "vga/asm_only/leaf_loc_06d9.asm"           ; 0x06d9
+%include "lib/leaf_loc_RUJV.asm"           ; 0x06d9
 
-%include "vga/asm_only/string_loc_0728.asm"         ; 0x0728
+%include "vga/asm_only/string_loc_NJGU.asm"         ; 0x0728
 
 %include "vga/asm_only/dos_alloc_mem.asm"           ; 0x077a
 
-%include "vga/asm_only/dos_con_loc_07fd.asm"        ; 0x07fd
+%include "vga/asm_only/dos_con_loc_RGLV.asm"        ; 0x07fd
 
 %include "vga/asm_only/dos_free_mem.asm"            ; 0x0836
 
-%include "vga/asm_only/dos_con_loc_088f.asm"        ; 0x088f
+%include "vga/asm_only/dos_con_loc_VHTS.asm"        ; 0x088f
 
 %include "vga/asm_only/dos_read_file.asm"           ; 0x08d2
 
 %include "vga/asm_only/dos_write_file.asm"          ; 0x099c
 
-%include "vga/asm_only/dos_con_loc_0a4f.asm"        ; 0x0a4f
+%include "vga/asm_only/dos_con_loc_TGKV.asm"        ; 0x0a4f
 
-%include "vga/asm_only/dos_con_loc_0a8d.asm"        ; 0x0a8d
+%include "vga/asm_only/dos_con_loc_RHKN.asm"        ; 0x0a8d
 
 %include "vga/asm_only/dos_read_file_2.asm"         ; 0x0bae
 
-%include "vga/asm_only/leaf_loc_0e34.asm"           ; 0x0e34
+%include "vga/asm_only/leaf_loc_KGRV.asm"           ; 0x0e34
 
-%include "vga/asm_only/leaf_loc_0f3b.asm"           ; 0x0f3b
+%include "vga/asm_only/leaf_loc_NKPG.asm"           ; 0x0f3b
 
 %include "vga/asm_only/loc_0f6f.asm"                ; 0x0f6f
 
@@ -334,129 +334,129 @@ cseg_0291:
 
 %include "vga/asm_only/mouse_init_2.asm"            ; 0x126c
 
-%include "vga/asm_only/bios_mouse_loc_12c9.asm"     ; 0x12c9
+%include "vga/asm_only/bios_mouse_loc_TKVN.asm"     ; 0x12c9
 
-%include "vga/leaf_loc_1308.asm"           ; 0x1308
+%include "lib/leaf_loc_NMVG.asm"           ; 0x1308
 
-%include "vga/asm_only/bios_mouse_loc_1317.asm"     ; 0x1317
+%include "vga/asm_only/bios_mouse_loc_NSSJ.asm"     ; 0x1317
 
-%include "vga/asm_only/bios_mouse_loc_139a.asm"     ; 0x139a
+%include "lib/bios_mouse_loc_NUQU.asm"     ; 0x139a
 
 %include "vga/asm_only/dos_print_str_2.asm"         ; 0x13c9
 
-%include "vga/asm_only/dos_con_loc_147d.asm"        ; 0x147d
+%include "vga/asm_only/dos_con_loc_NUJP.asm"        ; 0x147d
 
-%include "vga/asm_only/leaf_loc_1e1a.asm"           ; 0x1e1a
+%include "vga/asm_only/leaf_loc_MKQV.asm"           ; 0x1e1a
 
-%include "vga/asm_only/graphics_loc_1e35.asm"       ; 0x1e35
+%include "vga/asm_only/graphics_loc_HJIV.asm"       ; 0x1e35
 
-%include "vga/leaf_loc_217d.asm"           ; 0x217d
+%include "vga/leaf_loc_SRJS.asm"           ; 0x217d
 
 %include "vga/asm_only/loc_2185.asm"                ; 0x2185
 
 %include "vga/asm_only/dos_read_file_3.asm"         ; 0x21cd
 
-%include "vga/asm_only/dos_con_loc_22be.asm"        ; 0x22be
+%include "vga/asm_only/dos_con_loc_UUHT.asm"        ; 0x22be
 
-%include "vga/asm_only/dos_con_loc_22ee.asm"        ; 0x22ee
+%include "vga/asm_only/dos_con_loc_LHPI.asm"        ; 0x22ee
 
 %include "vga/asm_only/loc_2528.asm"                ; 0x2528
 
-%include "vga/asm_only/bios_video_loc_277f.asm"     ; 0x277f
+%include "vga/asm_only/bios_video_loc_NHNV.asm"     ; 0x277f
 
-%include "vga/asm_only/bios_video_loc_27d0.asm"     ; 0x27d0
+%include "vga/asm_only/bios_video_loc_PUJP.asm"     ; 0x27d0
 
 %include "vga/asm_only/dos_free_mem_2.asm"          ; 0x2802
 
-%include "vga/asm_only/bios_video_loc_28ba.asm"     ; 0x28ba
+%include "vga/asm_only/bios_video_loc_VJVR.asm"     ; 0x28ba
 
 %include "vga/asm_only/dos_free_mem_3.asm"          ; 0x28f0
 
-%include "vga/asm_only/dos_mem_loc_29bf.asm"        ; 0x29bf
+%include "vga/asm_only/dos_mem_loc_KKIK.asm"        ; 0x29bf
 
 %include "vga/asm_only/dos_free_mem_4.asm"          ; 0x29f6
 
-%include "vga/asm_only/dos_con_loc_2a97.asm"        ; 0x2a97
+%include "vga/asm_only/dos_con_loc_NOVS.asm"        ; 0x2a97
 
-%include "vga/asm_only/leaf_loc_2acf.asm"           ; 0x2acf
+%include "vga/asm_only/leaf_loc_ITSQ.asm"           ; 0x2acf
 
-%include "vga/asm_only/dos_mem_loc_2b01.asm"        ; 0x2b01
+%include "vga/asm_only/dos_mem_loc_MOUN.asm"        ; 0x2b01
 
-%include "vga/asm_only/bios_mouse_loc_2b6c.asm"     ; 0x2b6c
+%include "vga/asm_only/bios_mouse_loc_IISN.asm"     ; 0x2b6c
 
-%include "vga/asm_only/bios_mouse_loc_2c0e.asm"     ; 0x2c0e
+%include "vga/asm_only/bios_mouse_loc_PHIN.asm"     ; 0x2c0e
 
 %include "vga/asm_only/loc_2cbe.asm"                ; 0x2cbe
 
-%include "vga/asm_only/leaf_loc_2d08.asm"           ; 0x2d08
+%include "lib/leaf_loc_JKPU.asm"           ; 0x2d08
 
-%include "vga/asm_only/graphics_loc_2d6c.asm"       ; 0x2d6c
+%include "vga/asm_only/graphics_loc_RHSL.asm"       ; 0x2d6c
 
-%include "vga/asm_only/dos_con_loc_3131.asm"        ; 0x3131
+%include "vga/asm_only/dos_con_loc_IJTI.asm"        ; 0x3131
 
-%include "vga/leaf_loc_319f.asm"           ; 0x319f
+%include "lib/leaf_loc_GSNR.asm"           ; 0x319f
 
-%include "vga/asm_only/graphics_loc_31d9.asm"       ; 0x31d9
+%include "vga/asm_only/graphics_loc_OGUJ.asm"       ; 0x31d9
 
-%include "vga/leaf_loc_3340.asm"           ; 0x3340
+%include "lib/leaf_loc_PPVV.asm"           ; 0x3340
 
-%include "vga/asm_only/leaf_loc_3360.asm"           ; 0x3360
+%include "vga/asm_only/leaf_loc_HLOL.asm"           ; 0x3360
 
-%include "vga/asm_only/dos_con_loc_3822.asm"        ; 0x3822
+%include "lib/dos_con_loc_RIVS.asm"        ; 0x3822
 
 %include "vga/asm_only/dos_write_file_2.asm"        ; 0x385f
 
-%include "vga/asm_only/dos_con_loc_3ab7.asm"        ; 0x3ab7
+%include "vga/asm_only/dos_con_loc_SKJM.asm"        ; 0x3ab7
 
-%include "vga/asm_only/dos_con_loc_3aee.asm"        ; 0x3aee
+%include "vga/asm_only/dos_con_loc_NGOQ.asm"        ; 0x3aee
 
-%include "vga/asm_only/dos_con_loc_3b1f.asm"        ; 0x3b1f
+%include "vga/asm_only/dos_con_loc_PVVP.asm"        ; 0x3b1f
 
-%include "vga/asm_only/dos_con_loc_3b5c.asm"        ; 0x3b5c
+%include "vga/asm_only/dos_con_loc_USIL.asm"        ; 0x3b5c
 
-%include "vga/asm_only/leaf_loc_3b90.asm"           ; 0x3b90
+%include "lib/leaf_loc_NIKG.asm"           ; 0x3b90
 
 %include "vga/asm_only/dos_read_file_4.asm"         ; 0x3ba5
 
-%include "vga/asm_only/dos_file_loc_3d0b.asm"       ; 0x3d0b
+%include "vga/asm_only/dos_file_loc_IIUJ.asm"       ; 0x3d0b
 
-%include "vga/asm_only/dos_con_loc_3d39.asm"        ; 0x3d39
+%include "vga/asm_only/dos_con_loc_KSIP.asm"        ; 0x3d39
 
 %include "vga/asm_only/dos_read_file_5.asm"         ; 0x3d72
 
-%include "vga/asm_only/dos_con_loc_3f45.asm"        ; 0x3f45
+%include "lib/dos_con_loc_KMVS.asm"        ; 0x3f45
 
-%include "vga/asm_only/dos_file_loc_3f73.asm"       ; 0x3f73
+%include "vga/asm_only/dos_file_loc_QVOO.asm"       ; 0x3f73
 
-%include "vga/asm_only/dos_con_loc_4088.asm"        ; 0x4088
+%include "vga/asm_only/dos_con_loc_TLRV.asm"        ; 0x4088
 
-%include "vga/asm_only/dos_con_loc_40d2.asm"        ; 0x40d2
+%include "lib/dos_con_loc_TUTH.asm"        ; 0x40d2
 
 %include "vga/asm_only/dos_read_file_6.asm"         ; 0x4156
 
-%include "vga/asm_only/dos_con_loc_422f.asm"        ; 0x422f
+%include "vga/asm_only/dos_con_loc_SSKH.asm"        ; 0x422f
 
-%include "vga/asm_only/dos_con_loc_426b.asm"        ; 0x426b
+%include "vga/asm_only/dos_con_loc_PTOV.asm"        ; 0x426b
 
-%include "vga/asm_only/string_loc_4300.asm"         ; 0x4300
+%include "vga/asm_only/string_loc_LUMH.asm"         ; 0x4300
 
-%include "vga/asm_only/dos_file_loc_4319.asm"       ; 0x4319
+%include "vga/asm_only/dos_file_loc_JKRG.asm"       ; 0x4319
 
 %include "vga/asm_only/loc_439a.asm"                ; 0x439a
 
-%include "vga/leaf_loc_43f7.asm"           ; 0x43f7
+%include "vga/leaf_loc_MGRT.asm"           ; 0x43f7
 
-%include "vga/leaf_loc_440c.asm"           ; 0x440c
+%include "vga/leaf_loc_IKRU.asm"           ; 0x440c
 
-%include "vga/leaf_loc_4421.asm"           ; 0x4421
+%include "vga/leaf_loc_OUNM.asm"           ; 0x4421
 
-%include "vga/leaf_loc_4436.asm"           ; 0x4436
+%include "vga/leaf_loc_UGTM.asm"           ; 0x4436
 
-%include "vga/leaf_loc_444b.asm"           ; 0x444b
+%include "vga/leaf_loc_MQGG.asm"           ; 0x444b
 
-%include "vga/asm_only/dos_con_loc_4461.asm"        ; 0x4461
+%include "vga/asm_only/dos_con_loc_GIQJ.asm"        ; 0x4461
 
-%include "vga/asm_only/leaf_loc_44a3.asm"           ; 0x44a3
+%include "vga/asm_only/leaf_loc_IPQV.asm"           ; 0x44a3
 
 %include "vga/asm_only/loc_4527.asm"                ; 0x4527
 
@@ -466,9 +466,9 @@ cseg_0291:
 
 %include "vga/asm_only/dos_read_file_7.asm"         ; 0x45fb
 
-%include "vga/asm_only/dos_con_loc_4719.asm"        ; 0x4719
+%include "vga/asm_only/dos_con_loc_SLMO.asm"        ; 0x4719
 
-%include "vga/asm_only/dos_con_loc_4755.asm"        ; 0x4755
+%include "vga/asm_only/dos_con_loc_MLHI.asm"        ; 0x4755
 
 %include "vga/asm_only/loc_478a.asm"                ; 0x478a
 

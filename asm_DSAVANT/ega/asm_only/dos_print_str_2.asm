@@ -14,7 +14,7 @@ dos_print_str_2:
     cmp ax, strict word 0x51         ; 0x19d2
     jb short @..dos_print_str_2.l2   ; 0x19d5
 @..dos_print_str_2.l1:
-    jmp near dos_con_loc_1a9f        ; 0x19d7
+    jmp near dos_con_loc_JKSU        ; 0x19d7
 @..dos_print_str_2.l2:
     mov bx, word [bp + 0x12]         ; 0x19da
     mul bx                           ; 0x19dd
@@ -22,7 +22,7 @@ dos_print_str_2:
     jne short @..dos_print_str_2.l1  ; 0x19e1
     cmp ax, 0x401                    ; 0x19e3
     jae short @..dos_print_str_2.l1  ; 0x19e6
-    call leaf_loc_1900               ; 0x19e8
+    call leaf_loc_NMVG               ; 0x19e8
     mov ax, word [bp + 0xc]          ; 0x19eb
     mov word [cs:cseg_2599 - IMAGE_BASE], ax ; 0x19ee
     mov ax, word [bp + 0xe]          ; 0x19f2
@@ -46,7 +46,7 @@ dos_print_str_2:
     mov si, 0x259e                   ; 0x1a25
     mov ax, cs                       ; 0x1a28
     mov ds, ax                       ; 0x1a2a
-    call string_loc_17a1             ; 0x1a2c
+    call string_loc_PJIS             ; 0x1a2c
     pop si                           ; 0x1a2f
     pop ds                           ; 0x1a30
     jmp short @..dos_print_str_2.l4  ; 0x1a31
@@ -61,7 +61,7 @@ dos_print_str_2:
     mov si, word [bp + 0xc]          ; 0x1a44
     mov ax, word [bp + 0xe]          ; 0x1a47
     mov ds, ax                       ; 0x1a4a
-    call string_loc_17a1             ; 0x1a4c
+    call string_loc_PJIS             ; 0x1a4c
     pop si                           ; 0x1a4f
     pop ds                           ; 0x1a50
 @..dos_print_str_2.l4:
@@ -89,7 +89,7 @@ dos_print_str_2:
 @..dos_print_str_2.l7:
     mov ax, cs                       ; 0x1a8b
     push ax                          ; 0x1a8d
-    call leaf_loc_2a4f               ; 0x1a8e
+    call leaf_loc_KVRQ               ; 0x1a8e
     mov byte [cs:cseg_0227 - IMAGE_BASE], 0 ; 0x1a91
 @..dos_print_str_2.l8:
     pop di                           ; 0x1a97

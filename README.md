@@ -12,7 +12,7 @@ make all
 
 ## Wizardry 7 coverage
 
-Progress: **27 / 1073** (2.5%).
+Progress: **27 / 1035** (2.6%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  

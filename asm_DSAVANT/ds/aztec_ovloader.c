@@ -41,7 +41,7 @@ ds_loc_4386()
 	xp = path;
 	for (;;) {
 		aztec_strcpy(xp, bss_0cfa);
-		ds_string_loc_4574(path, ".ovr");
+		ds_string_loc_VOPH(path, ".ovr");
 		if ((fd = aztec_open(path, 0)) != -1)
 			break;
 		do {
@@ -61,12 +61,12 @@ ds_loc_4386()
 
 #else
 	aztec_strcpy(path, bss_0cfa);
-	ds_string_loc_4574(path, ".ovr");
+	ds_string_loc_VOPH(path, ".ovr");
 	if ((fd = aztec_open(path, 0)) == -1)
 		aztec_loadabort(10);
 #endif
 
-	if (ds_leaf_loc_4fb6(fd, &hdr, sizeof hdr) != sizeof hdr)
+	if (ds_leaf_loc_JKTJ(fd, &hdr, sizeof hdr) != sizeof hdr)
 		aztec_loadabort(20);
 
 	/* safety check overlay header */
@@ -78,7 +78,7 @@ ds_loc_4386()
 		aztec_loadabort(60);
 
 	if (aztec_csread(fd, hdr.o_corg, hdr.o_csize) < hdr.o_csize
-			|| ds_leaf_loc_4fb6(fd, hdr.o_dorg, hdr.o_dsize) < hdr.o_dsize)
+			|| ds_leaf_loc_JKTJ(fd, hdr.o_dorg, hdr.o_dsize) < hdr.o_dsize)
 		aztec_loadabort(50);
 	aztec_close(fd);
 	return hdr.o_entry;

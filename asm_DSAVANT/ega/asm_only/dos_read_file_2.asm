@@ -22,5 +22,5 @@ dos_read_file_2:
     mov word [bp - 0x0002], bx       ; 0x10f2
     mov ax, word [cs:bx]             ; 0x10f5
     or ax, ax                        ; 0x10f8
-    jne short dos_con_loc_10ff       ; 0x10fa
+    jne short dos_con_loc_UQTL       ; 0x10fa
     jmp near loc_110f                ; 0x10fc

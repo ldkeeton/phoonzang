@@ -29,7 +29,7 @@ dos_alloc_mem:
     mov ah, 0x48                     ; 0x07b0
     int 0x21 ; DOS allocate memory
     jae short @..dos_alloc_mem.l1    ; 0x07b4
-    jmp near dos_con_loc_07fd        ; 0x07b6
+    jmp near dos_con_loc_RGLV        ; 0x07b6
 @..dos_alloc_mem.l1:
     mov es, ax                       ; 0x07b9
     xor di, di                       ; 0x07bb

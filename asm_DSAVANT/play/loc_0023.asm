@@ -29,7 +29,7 @@ loc_0023:
     call loc_0098                    ; 0x0084
     cmp ax, strict word 0            ; 0x0087
     jne short @..loc_0023.l2         ; 0x008a
-    call io_loc_02ba                 ; 0x008c
+    call io_loc_GJPH                 ; 0x008c
     mov byte [cs:cseg_0b9a - IMAGE_BASE], 1 ; 0x008f
 @..loc_0023.l2:
     pop bx                           ; 0x0095

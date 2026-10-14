@@ -38,11 +38,11 @@ loc_439a:
     pop bp                           ; 0x43df
     ret                              ; 0x43e0
 loc_43e1:
-    call leaf_loc_43f7               ; 0x43e1
-    call leaf_loc_440c               ; 0x43e4
-    call leaf_loc_4436               ; 0x43e7
-    call leaf_loc_4421               ; 0x43ea
-    call leaf_loc_444b               ; 0x43ed
-    call dos_con_loc_4461            ; 0x43f0
-    call leaf_loc_44a3               ; 0x43f3
+    call leaf_loc_MGRT               ; 0x43e1
+    call leaf_loc_IKRU               ; 0x43e4
+    call leaf_loc_UGTM               ; 0x43e7
+    call leaf_loc_OUNM               ; 0x43ea
+    call leaf_loc_MQGG               ; 0x43ed
+    call dos_con_loc_GIQJ            ; 0x43f0
+    call leaf_loc_IPQV               ; 0x43f3
     ret                              ; 0x43f6

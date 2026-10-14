@@ -13,7 +13,6 @@ differ only in the addresses their symbols embed are not shared (their file
 names differ too).
 """
 
-import hashlib
 import os
 import re
 from collections import defaultdict
@@ -105,32 +104,31 @@ def share_identical(out_dir):
     groups = {k: v for k, v in groups.items()
               if len({p.split(os.sep)[0] for p in v}) > 1}
 
-    by_stem = defaultdict(list)
-    for key in sorted(groups, key=lambda k: k[:3]):
-        by_stem[key[0]].append(key)
+    # Names carry a content tag (lib.names), so one stem is one body.  Where a
+    # stem still has several (a label whose callee differs only by an
+    # address-named ``loc_``), the largest group is shared and the rest stay.
+    best = {}
+    for key in sorted(groups):
+        stem = key[0]
+        if stem not in best or len(groups[key]) > len(groups[best[stem]]):
+            best[stem] = key
 
     shared = {}
-    for stem, keys in by_stem.items():
-        for key in keys:
-            if key[3] is not None and len(keys) > 1:
-                continue            # a .c must keep the routine's own name
-            members = sorted(groups[key])
-            name = stem
-            if len(keys) > 1:
-                name += '_' + hashlib.md5(key[2].encode()).hexdigest()[:4]
-            lib_rel = f'{FOLDER}/{name}.asm'
-            lib_path = os.path.join(out_dir, lib_rel)
-            os.makedirs(os.path.dirname(lib_path), exist_ok=True)
-            with open(lib_path, 'w', encoding='utf-8',
-                      errors='surrogateescape') as f:
-                f.write(_text_for(fragments, members))
-            if key[3] is not None:
-                c_path = lib_path[:-4] + '.c'
-                if not os.path.exists(c_path):
-                    with open(c_path, 'w', encoding='utf-8',
-                              errors='surrogateescape') as f:
-                        f.write(key[3])
-            shared[lib_rel] = members
+    for stem, key in best.items():
+        members = sorted(groups[key])
+        lib_rel = f'{FOLDER}/{stem}.asm'
+        lib_path = os.path.join(out_dir, lib_rel)
+        os.makedirs(os.path.dirname(lib_path), exist_ok=True)
+        with open(lib_path, 'w', encoding='utf-8',
+                  errors='surrogateescape') as f:
+            f.write(_text_for(fragments, members))
+        if key[3] is not None:
+            c_path = lib_path[:-4] + '.c'
+            if not os.path.exists(c_path):
+                with open(c_path, 'w', encoding='utf-8',
+                          errors='surrogateescape') as f:
+                    f.write(key[3])
+        shared[lib_rel] = members
 
     _rewrite_includes(out_dir, shared)
     for members in shared.values():

@@ -12,7 +12,7 @@ aztec_scan:
     push ax                          ; 0x0a26
     lea ax, word [bp - 0x0050]       ; 0x0a27
     push ax                          ; 0x0a2a
-    call string_loc_2aa6             ; 0x0a2b
+    call string_loc_VOPH             ; 0x0a2b
     add sp, byte 4                   ; 0x0a2e
     mov ax, 2                        ; 0x0a31
     push ax                          ; 0x0a34
@@ -33,13 +33,13 @@ aztec_scan:
     push ax                          ; 0x0a59
     lea ax, word [bp - 0x00a0]       ; 0x0a5a
     push ax                          ; 0x0a5e
-    call string_loc_2aa6             ; 0x0a5f
+    call string_loc_VOPH             ; 0x0a5f
     add sp, byte 4                   ; 0x0a62
     mov ax, 0x151a                   ; 0x0a65
     push ax                          ; 0x0a68
     lea ax, word [bp - 0x00a0]       ; 0x0a69
     push ax                          ; 0x0a6d
-    call string_loc_2aa6             ; 0x0a6e
+    call string_loc_VOPH             ; 0x0a6e
     add sp, byte 4                   ; 0x0a71
     lea ax, word [bp - 0x00a0]       ; 0x0a74
     push ax                          ; 0x0a78
@@ -65,7 +65,7 @@ aztec_scan:
     mov ax, 0x269a                   ; 0x0a9e
     push ax                          ; 0x0aa1
     push word [bss_2698]             ; 0x0aa2
-    call leaf_loc_3833               ; 0x0aa6
+    call leaf_loc_SSLH               ; 0x0aa6
     add sp, byte 6                   ; 0x0aa9
     mov ax, word [bp + 0x1c]         ; 0x0aac
     cmp ax, word [bss_29d2]          ; 0x0aaf
@@ -177,7 +177,7 @@ aztec_scan:
     push ax                          ; 0x0bcd
     mov ax, 0x297e                   ; 0x0bce
     push ax                          ; 0x0bd1
-    call string_loc_2aa6             ; 0x0bd2
+    call string_loc_VOPH             ; 0x0bd2
     add sp, byte 4                   ; 0x0bd5
     mov byte [bss_29e3], 1           ; 0x0bd8
 @..aztec_scan.l13:
@@ -421,7 +421,7 @@ loc_0dda:
     push ax                          ; 0x0df9
     lea ax, word [bp - 0x00a2]       ; 0x0dfa
     push ax                          ; 0x0dfe
-    call string_loc_2aa6             ; 0x0dff
+    call string_loc_VOPH             ; 0x0dff
     add sp, byte 4                   ; 0x0e02
     mov ax, 0                        ; 0x0e05
     sub ax, word [bp + 0x8]          ; 0x0e08
@@ -432,7 +432,7 @@ loc_0dda:
     push ax                          ; 0x0e13
     lea ax, word [bp - 0x00a2]       ; 0x0e14
     push ax                          ; 0x0e18
-    call string_loc_2aa6             ; 0x0e19
+    call string_loc_VOPH             ; 0x0e19
     add sp, byte 4                   ; 0x0e1c
     call loc_0452                    ; 0x0e1f
 @..loc_0dda.l2:
@@ -440,7 +440,7 @@ loc_0dda:
     push ax                          ; 0x0e25
     lea ax, word [bp - 0x00a2]       ; 0x0e26
     push ax                          ; 0x0e2a
-    call string_loc_2aa6             ; 0x0e2b
+    call string_loc_VOPH             ; 0x0e2b
     add sp, byte 4                   ; 0x0e2e
     mov ax, word [bp + 0x8]          ; 0x0e31
     add ax, strict word 0x40         ; 0x0e34
@@ -450,24 +450,24 @@ loc_0dda:
     push ax                          ; 0x0e41
     lea ax, word [bp - 0x00a2]       ; 0x0e42
     push ax                          ; 0x0e46
-    call string_loc_2aa6             ; 0x0e47
+    call string_loc_VOPH             ; 0x0e47
     add sp, byte 4                   ; 0x0e4a
     mov ax, 0x15e9                   ; 0x0e4d
     push ax                          ; 0x0e50
     lea ax, word [bp - 0x00a2]       ; 0x0e51
     push ax                          ; 0x0e55
-    call string_loc_2aa6             ; 0x0e56
+    call string_loc_VOPH             ; 0x0e56
     add sp, byte 4                   ; 0x0e59
     push word [bp + 0x4]             ; 0x0e5c
     lea ax, word [bp - 0x00a2]       ; 0x0e5f
     push ax                          ; 0x0e63
-    call string_loc_2aa6             ; 0x0e64
+    call string_loc_VOPH             ; 0x0e64
     add sp, byte 4                   ; 0x0e67
     mov ax, 0x15f7                   ; 0x0e6a
     push ax                          ; 0x0e6d
     lea ax, word [bp - 0x00a2]       ; 0x0e6e
     push ax                          ; 0x0e72
-    call string_loc_2aa6             ; 0x0e73
+    call string_loc_VOPH             ; 0x0e73
     add sp, byte 4                   ; 0x0e76
     push word [bp + 0xa]             ; 0x0e79
     call aztec_strlen                ; 0x0e7c
@@ -482,7 +482,7 @@ loc_0dda:
     push word [bp + 0xa]             ; 0x0e92
     lea ax, word [bp - 0x0052]       ; 0x0e95
     push ax                          ; 0x0e98
-    call string_loc_2aa6             ; 0x0e99
+    call string_loc_VOPH             ; 0x0e99
     add sp, byte 4                   ; 0x0e9c
 @..loc_0dda.l3:
     lea ax, word [bp - 0x00a2]       ; 0x0e9f
@@ -524,7 +524,7 @@ loc_0ed8:
     push ax                          ; 0x0eef
     lea ax, word [bp - 0x0028]       ; 0x0ef0
     push ax                          ; 0x0ef3
-    call string_loc_2aa6             ; 0x0ef4
+    call string_loc_VOPH             ; 0x0ef4
     add sp, byte 4                   ; 0x0ef7
     mov ax, 0x1615                   ; 0x0efa
     push ax                          ; 0x0efd
@@ -540,7 +540,7 @@ loc_0ed8:
     push word [bp + 0x8]             ; 0x0f15
     lea ax, word [bp - 0x0078]       ; 0x0f18
     push ax                          ; 0x0f1b
-    call string_loc_2aa6             ; 0x0f1c
+    call string_loc_VOPH             ; 0x0f1c
     add sp, byte 4                   ; 0x0f1f
     push word [bp + 0x4]             ; 0x0f22
     lea ax, word [bp - 0x0177]       ; 0x0f25
@@ -551,28 +551,28 @@ loc_0ed8:
     push ax                          ; 0x0f33
     lea ax, word [bp - 0x0177]       ; 0x0f34
     push ax                          ; 0x0f38
-    call string_loc_2aa6             ; 0x0f39
+    call string_loc_VOPH             ; 0x0f39
     add sp, byte 4                   ; 0x0f3c
     push word [bp + 0x4]             ; 0x0f3f
     lea ax, word [bp - 0x0177]       ; 0x0f42
     push ax                          ; 0x0f46
-    call string_loc_2aa6             ; 0x0f47
+    call string_loc_VOPH             ; 0x0f47
     add sp, byte 4                   ; 0x0f4a
     push word [bp + 0x8]             ; 0x0f4d
     lea ax, word [bp - 0x0177]       ; 0x0f50
     push ax                          ; 0x0f54
-    call string_loc_2aa6             ; 0x0f55
+    call string_loc_VOPH             ; 0x0f55
     add sp, byte 4                   ; 0x0f58
     mov ax, 0x162e                   ; 0x0f5b
     push ax                          ; 0x0f5e
     lea ax, word [bp - 0x0177]       ; 0x0f5f
     push ax                          ; 0x0f63
-    call string_loc_2aa6             ; 0x0f64
+    call string_loc_VOPH             ; 0x0f64
     add sp, byte 4                   ; 0x0f67
     push word [bp + 0xa]             ; 0x0f6a
     lea ax, word [bp - 0x0177]       ; 0x0f6d
     push ax                          ; 0x0f71
-    call string_loc_2aa6             ; 0x0f72
+    call string_loc_VOPH             ; 0x0f72
     add sp, byte 4                   ; 0x0f75
     lea ax, word [bp - 0x0177]       ; 0x0f78
     push ax                          ; 0x0f7c
@@ -624,18 +624,18 @@ loc_0ed8:
     push word [bp + 0x4]             ; 0x0fed
     lea ax, word [bp - 0x01c7]       ; 0x0ff0
     push ax                          ; 0x0ff4
-    call string_loc_2aa6             ; 0x0ff5
+    call string_loc_VOPH             ; 0x0ff5
     add sp, byte 4                   ; 0x0ff8
     push word [bp + 0x8]             ; 0x0ffb
     lea ax, word [bp - 0x01c7]       ; 0x0ffe
     push ax                          ; 0x1002
-    call string_loc_2aa6             ; 0x1003
+    call string_loc_VOPH             ; 0x1003
     add sp, byte 4                   ; 0x1006
     mov ax, 0x1657                   ; 0x1009
     push ax                          ; 0x100c
     lea ax, word [bp - 0x01c7]       ; 0x100d
     push ax                          ; 0x1011
-    call string_loc_2aa6             ; 0x1012
+    call string_loc_VOPH             ; 0x1012
     add sp, byte 4                   ; 0x1015
     lea ax, word [bp - 0x01c7]       ; 0x1018
     push ax                          ; 0x101c

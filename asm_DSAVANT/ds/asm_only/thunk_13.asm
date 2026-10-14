@@ -17,7 +17,7 @@ ds_loc_3ba3:
     push es                          ; 0x3ba9
     mov ax, ds                       ; 0x3baa
     mov es, ax                       ; 0x3bac
-    call ds_leaf_loc_3c0d            ; 0x3bae
+    call ds_leaf_loc_RJOL            ; 0x3bae
     mov ax, word [cs:cseg_30dc - IMAGE_BASE] ; 0x3bb1
     xor dx, dx                       ; 0x3bb5
     mov bx, 0x763d                   ; 0x3bb7

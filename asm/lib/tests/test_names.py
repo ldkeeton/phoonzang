@@ -109,3 +109,78 @@ class HostSymbolsBlockTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+def _decode(code, base):
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    md.detail = True
+    return list(md.disasm(code, base))
+
+
+class ContentTagTests(unittest.TestCase):
+    #: ``push bp / jmp short +0 / ret`` placed at two different addresses.
+    CODE = bytes([0x55, 0xEB, 0x00, 0xC3])
+
+    def _tag(self, code, base):
+        return names.content_tag(_decode(code, base), code and
+                                 bytes(base) + code, base, base + len(code))
+
+    def test_tag_is_letters_a_reader_cannot_take_for_an_address(self):
+        tag = self._tag(self.CODE, 0x100)
+        self.assertRegex(tag, r'^[G-V]{4}$')
+
+    def test_same_code_at_another_address_has_the_same_tag(self):
+        self.assertEqual(self._tag(self.CODE, 0x100), self._tag(self.CODE, 0x900))
+
+    def test_different_code_has_a_different_tag(self):
+        other = bytes([0x56, 0xEB, 0x00, 0xC3])
+        self.assertNotEqual(self._tag(self.CODE, 0x100), self._tag(other, 0x100))
+
+    def test_generic_names_still_read_as_generic_with_a_tag(self):
+        self.assertTrue(names.is_generic('leaf_loc_HQRK'))
+        self.assertTrue(names.is_generic('api_idx_0008_HQRK_02e3'))
+        self.assertFalse(names.is_generic('aztec_open'))
+        self.assertFalse(names.is_generic('mouse_init'))
+
+
+class TagGenericsTests(unittest.TestCase):
+    def _run(self, blobs, stubs=()):
+        """Lay *blobs* ``{offset: code}`` out in one image and tag them."""
+        size = max(off + len(code) for off, code in blobs.items())
+        data = bytearray(size)
+        instructions = []
+        for off, code in blobs.items():
+            data[off:off + len(code)] = code
+            instructions += _decode(code, off)
+        label_map = {off: f'leaf_loc_{off:04x}' for off in blobs}
+        roots = dict(label_map)
+        for off in stubs:
+            label_map[off] = roots[off] = f'api_idx_0008_{off:04x}'
+        renames = names.tag_generics(label_map, roots, instructions,
+                                     bytes(data), size, stubs=stubs)
+        return label_map, renames
+
+    def test_generic_routine_gets_a_tag_and_keeps_its_address(self):
+        label_map, _ = self._run({0x10: bytes([0x55, 0xC3])})
+        self.assertRegex(label_map[0x10], r'^leaf_loc_[G-V]{4}$')
+
+    def test_plain_loc_labels_are_left_alone(self):
+        data = bytes([0x90, 0xC3])
+        label_map, roots = {0: 'loc_0000'}, {0: 'loc_0000'}
+        names.tag_generics(label_map, roots, _decode(data, 0), data, 2)
+        self.assertEqual(label_map[0], 'loc_0000')
+
+    def test_stub_drops_its_address_unless_copies_share_a_binary(self):
+        code = bytes([0x55, 0xC3])
+        single, _ = self._run({0x10: code}, stubs={0x10})
+        self.assertRegex(single[0x10], r'^api_idx_0008_[G-V]{4}$')
+        twin, _ = self._run({0x10: code, 0x20: code}, stubs={0x10, 0x20})
+        self.assertRegex(twin[0x10], r'^api_idx_0008_[G-V]{4}_0010$')
+        self.assertRegex(twin[0x20], r'^api_idx_0008_[G-V]{4}_0020$')
+
+    def test_adding_a_routine_does_not_rename_the_others(self):
+        code = bytes([0x55, 0xC3])
+        before, _ = self._run({0x10: code})
+        after, _ = self._run({0x08: bytes([0x56, 0xC3]), 0x10: code})
+        self.assertEqual(before[0x10], after[0x10])

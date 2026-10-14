@@ -38,11 +38,11 @@ loc_4c4c:
     pop bp                           ; 0x4c91
     ret                              ; 0x4c92
 loc_4c93:
-    call leaf_loc_4ca9               ; 0x4c93
-    call leaf_loc_4cbe               ; 0x4c96
-    call leaf_loc_4ce8               ; 0x4c99
-    call leaf_loc_4cd3               ; 0x4c9c
-    call leaf_loc_4cfd               ; 0x4c9f
-    call dos_con_loc_4d13            ; 0x4ca2
-    call leaf_loc_4d55               ; 0x4ca5
+    call leaf_loc_HKLI               ; 0x4c93
+    call leaf_loc_IKRU               ; 0x4c96
+    call leaf_loc_UGTM               ; 0x4c99
+    call leaf_loc_OUNM               ; 0x4c9c
+    call leaf_loc_HSSI               ; 0x4c9f
+    call dos_con_loc_PMSK            ; 0x4ca2
+    call leaf_loc_OLPI               ; 0x4ca5
     ret                              ; 0x4ca8

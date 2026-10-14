@@ -10,8 +10,8 @@ loc_04b5:
     push si                          ; 0x04be
     mov ax, ds                       ; 0x04bf
     mov es, ax                       ; 0x04c1
-    call leaf_loc_1308               ; 0x04c3
-    call graphics_loc_0516           ; 0x04c6
+    call leaf_loc_NMVG               ; 0x04c3
+    call graphics_loc_RJST           ; 0x04c6
     mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x04c9
     mov ds, ax                       ; 0x04cd
     mov ax, 0xa000                   ; 0x04cf
@@ -37,8 +37,8 @@ loc_04b5:
     rep movsb                        ; 0x0502
     dec dx                           ; 0x0504
     jne short @..loc_04b5.l1         ; 0x0505
-    call leaf_loc_067f               ; 0x0507
-    call bios_mouse_loc_12c9         ; 0x050a
+    call leaf_loc_QKGQ               ; 0x0507
+    call bios_mouse_loc_TKVN         ; 0x050a
     pop si                           ; 0x050d
     pop di                           ; 0x050e
     pop es                           ; 0x050f

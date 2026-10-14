@@ -5,7 +5,7 @@
   "dos_compilers": ["Manx Aztec C86 v52a", "Manx Aztec C86 v340a"],
   "compiler_flags": {
     "default": ["-n", "+y", "+b"],
-    "prefixes": { "aztec_": ["-n", "+y"] }
+    "prefixes": { "aztec_": ["-n", "+y"], "api_idx_000c_JKJK": ["-n", "+y", "+b", "+m"] }
   },
   "vendor_patches": {
     "aztec_begin": {

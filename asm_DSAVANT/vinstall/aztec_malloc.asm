@@ -107,5 +107,5 @@ loc_2f7e:
     and ax, strict word 0xfffe       ; 0x300e
     mov si, ax                       ; 0x3011
     jmp near @..aztec_malloc.l2      ; 0x3013
-leaf_loc_3016:
+leaf_loc_OPMK:
     jmp near loc_2f7e                ; 0x3016

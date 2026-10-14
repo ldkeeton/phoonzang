@@ -6,7 +6,6 @@
 //   * Manx ``cc`` diagnostics on save, and a provenance CodeLens
 const fs = require('fs');
 const path = require('path');
-const os = require('os');
 const { execFile } = require('child_process');
 const vscode = require('vscode');
 const { labels, occurrences, addresses, routineStart, locate } = require('./scan');
@@ -294,8 +293,7 @@ const isGeneratedC = (doc) => doc.uri.scheme === 'file' && /asm_[^/\\]+[/\\][^/\
 // ------------------------------------------------------- make C (Claude)
 
 // An interactive Claude session in its own terminal tab, so the conversation is
-// visible.  Claude's last step writes a suggested routine name to a temp file,
-// which is then offered through "Name this routine".
+// visible.  Claude ends with a suggested routine name; naming stays manual.
 const converting = new Map();   // asm path -> terminal
 
 async function makeC(uri) {
@@ -313,17 +311,16 @@ async function makeC(uri) {
         if (pick !== 'Redo') return;
     }
     const rel = (f) => path.relative(root(), f);
-    const suggestFile = path.join(os.tmpdir(), `wiz7-name-${process.pid}-${where.label}.txt`);
-    fs.rmSync(suggestFile, { force: true });
     const prompt = `Convert ${rel(asmFile)} to K&R syntax C, writing ${rel(cFile)}. ` +
         `It has to compile to byte exact matching asm, use make rebuild ${where.project} ${where.binary} ` +
         `(run as \`make -C asm rebuild ${where.project} ${where.binary}\`) to check. ` +
-        `As the final step, once it matches, suggest a name for this routine in lowercase_underscore ` +
-        `style like the rest of the project, and write only that name to ${suggestFile}.`;
-    const args = ['--permission-mode', 'acceptEdits', '--allowedTools', 'Read,Write,Edit,Bash(make:*)'];
+        `Your final message should just be a recommended name for this routine, in lowercase_underscore ` +
+        `style like the rest of the project.`;
+    // --allowedTools is variadic: a trailing prompt would be swallowed as another tool name
+    // (the session then starts empty), so the prompt goes first and the value is attached.
+    const args = [prompt, '--permission-mode', 'acceptEdits', '--allowedTools=Read,Write,Edit,Bash(make:*)'];
     const model = cfg().get('claudeModel');
     if (model) args.push('--model', model);
-    args.push(prompt);
 
     const term = vscode.window.createTerminal({
         name: `Claude: ${where.label}`, cwd: root(), shellPath: cfg().get('claude'), shellArgs: args,
@@ -331,21 +328,10 @@ async function makeC(uri) {
     });
     converting.set(asmFile, term);
     term.show();
-    let offered = false;
-    const poll = setInterval(() => {
-        if (offered || !fs.existsSync(suggestFile)) return;
-        const suggestion = fs.readFileSync(suggestFile, 'utf8').trim().split(/\s+/)[0];
-        if (!suggestion) return;
-        offered = true;
-        fs.rmSync(suggestFile, { force: true });
-        nameRoutine(vscode.Uri.file(asmFile), suggestion);
-    }, 1000);
     const sub = vscode.window.onDidCloseTerminal(async (t) => {
         if (t !== term) return;
-        clearInterval(poll);
         sub.dispose();
         converting.delete(asmFile);
-        fs.rmSync(suggestFile, { force: true });
         if (!fs.existsSync(cFile)) return;
         const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(cFile));
         await vscode.window.showTextDocument(doc, { preview: false });

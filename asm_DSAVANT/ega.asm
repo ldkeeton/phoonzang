@@ -34,19 +34,19 @@ loc_0007:
     call mouse_init_2                ; 0x0007
     retf                             ; 0x000a
 loc_000b:
-    call bios_mouse_loc_190f         ; 0x000b
+    call bios_mouse_loc_LOQT         ; 0x000b
     retf                             ; 0x000e
 loc_000f:
-    call leaf_loc_1900               ; 0x000f
+    call leaf_loc_NMVG               ; 0x000f
     retf                             ; 0x0012
 loc_0013:
-    call bios_mouse_loc_18c1         ; 0x0013
+    call bios_mouse_loc_NHLG         ; 0x0013
     retf                             ; 0x0016
 loc_0017:
     call dos_read_file_3             ; 0x0017
     retf                             ; 0x001a
 loc_001b:
-    call graphics_loc_361e           ; 0x001b
+    call graphics_loc_USUR           ; 0x001b
     retf                             ; 0x001e
 loc_001f:
     call dos_read_file               ; 0x001f
@@ -58,34 +58,34 @@ loc_0027:
     call dos_print_str               ; 0x0027
     retf                             ; 0x002a
 loc_002b:
-    call leaf_loc_3035               ; 0x002b
+    call leaf_loc_QIVT               ; 0x002b
     retf                             ; 0x002e
 loc_002f:
-    call graphics_loc_0293           ; 0x002f
+    call graphics_loc_VIRI           ; 0x002f
     retf                             ; 0x0032
 loc_0033:
-    call leaf_loc_0447               ; 0x0033
+    call leaf_loc_TVKN               ; 0x0033
     retf                             ; 0x0036
 loc_0037:
-    call leaf_loc_0462               ; 0x0037
+    call leaf_loc_NONR               ; 0x0037
     retf                             ; 0x003a
 loc_003b:
-    call leaf_loc_047d               ; 0x003b
+    call leaf_loc_LRIJ               ; 0x003b
     retf                             ; 0x003e
 loc_003f:
-    call leaf_loc_0496               ; 0x003f
+    call leaf_loc_HQRR               ; 0x003f
     retf                             ; 0x0042
 loc_0043:
     call loc_04b1                    ; 0x0043
     retf                             ; 0x0046
 loc_0047:
-    call leaf_loc_0bcf               ; 0x0047
+    call leaf_loc_VSTU               ; 0x0047
     retf                             ; 0x004a
 loc_004b:
-    call leaf_loc_0bf6               ; 0x004b
+    call leaf_loc_RUJV               ; 0x004b
     retf                             ; 0x004e
 loc_004f:
-    call string_loc_0c45             ; 0x004f
+    call string_loc_INQT             ; 0x004f
     retf                             ; 0x0052
 loc_0053:
     call dos_alloc_mem               ; 0x0053
@@ -97,40 +97,40 @@ loc_005b:
     call loc_303d                    ; 0x005b
     retf                             ; 0x005e
 loc_005f:
-    call bios_mouse_loc_1992         ; 0x005f
+    call bios_mouse_loc_NUQU         ; 0x005f
     retf                             ; 0x0062
 loc_0063:
     call dos_print_str_2             ; 0x0063
     retf                             ; 0x0066
 loc_0067:
-    call leaf_loc_0439               ; 0x0067
+    call leaf_loc_VQIT               ; 0x0067
     retf                             ; 0x006a
 loc_006b:
     call dos_write_file              ; 0x006b
     retf                             ; 0x006e
 loc_006f:
-    call graphics_loc_31df           ; 0x006f
+    call graphics_loc_UVTQ           ; 0x006f
     retf                             ; 0x0072
 loc_0073:
-    call leaf_loc_31f4               ; 0x0073
+    call leaf_loc_JRGJ               ; 0x0073
     retf                             ; 0x0076
 loc_0077:
-    call leaf_loc_3240               ; 0x0077
+    call leaf_loc_NUGN_3240          ; 0x0077
     retf                             ; 0x007a
 loc_007b:
-    call leaf_loc_3241               ; 0x007b
+    call leaf_loc_NUGN_3241          ; 0x007b
     retf                             ; 0x007e
 loc_007f:
-    call leaf_loc_3242               ; 0x007f
+    call leaf_loc_NUGN_3242          ; 0x007f
     retf                             ; 0x0082
 loc_0083:
-    call leaf_loc_3243               ; 0x0083
+    call leaf_loc_NUGN_3243          ; 0x0083
     retf                             ; 0x0086
 loc_0087:
-    call bios_mouse_loc_341e         ; 0x0087
+    call bios_mouse_loc_KUPR         ; 0x0087
     retf                             ; 0x008a
 loc_008b:
-    call bios_mouse_loc_34c0         ; 0x008b
+    call bios_mouse_loc_TGTG         ; 0x008b
     retf                             ; 0x008e
 loc_008f:
     call loc_1490                    ; 0x008f
@@ -139,16 +139,16 @@ loc_0093:
     call loc_3570                    ; 0x0093
     retf                             ; 0x0096
 loc_0097:
-    call leaf_loc_35ba               ; 0x0097
+    call leaf_loc_JKPU               ; 0x0097
     retf                             ; 0x009a
 loc_009b:
-    call leaf_loc_3244               ; 0x009b
+    call leaf_loc_NUGN_3244          ; 0x009b
     retf                             ; 0x009e
 loc_009f:
     call dos_write_file_2            ; 0x009f
     retf                             ; 0x00a2
 loc_00a3:
-    call dos_mem_loc_33b3            ; 0x00a3
+    call dos_mem_loc_HHRL            ; 0x00a3
     retf                             ; 0x00a6
 loc_00a7:
     call dos_read_file_4             ; 0x00a7
@@ -157,7 +157,7 @@ loc_00ab:
     call dos_read_file_5             ; 0x00ab
     retf                             ; 0x00ae
 loc_00af:
-    call dos_file_loc_4825           ; 0x00af
+    call dos_file_loc_SLHU           ; 0x00af
     retf                             ; 0x00b2
 loc_00b3:
     call dos_read_file_6             ; 0x00b3
@@ -258,29 +258,29 @@ cseg_027b:
 
 cseg_0291:
     db 0x00, 0x00
-%include "lib/graphics_loc_0293.asm"       ; 0x0293
+%include "lib/graphics_loc_VIRI.asm"       ; 0x0293
 
-%include "lib/leaf_loc_0439.asm"           ; 0x0439
+%include "lib/leaf_loc_VQIT.asm"           ; 0x0439
 
-%include "ega/asm_only/leaf_loc_0447.asm"           ; 0x0447
+%include "ega/asm_only/leaf_loc_TVKN.asm"           ; 0x0447
 
-%include "ega/asm_only/leaf_loc_0462.asm"           ; 0x0462
+%include "lib/leaf_loc_NONR.asm"           ; 0x0462
 
-%include "ega/leaf_loc_047d.asm"           ; 0x047d
+%include "ega/leaf_loc_LRIJ.asm"           ; 0x047d
 
-%include "ega/asm_only/leaf_loc_0496.asm"           ; 0x0496
+%include "ega/asm_only/leaf_loc_HQRR.asm"           ; 0x0496
 
 %include "ega/asm_only/loc_04b1.asm"                ; 0x04b1
 
-%include "ega/asm_only/graphics_loc_0949.asm"       ; 0x0949
+%include "ega/asm_only/graphics_loc_IUVI.asm"       ; 0x0949
 
-%include "ega/asm_only/leaf_loc_0b91.asm"           ; 0x0b91
+%include "ega/asm_only/leaf_loc_TUKK.asm"           ; 0x0b91
 
-%include "ega/asm_only/leaf_loc_0bcf.asm"           ; 0x0bcf
+%include "lib/leaf_loc_VSTU.asm"           ; 0x0bcf
 
-%include "ega/asm_only/leaf_loc_0bf6.asm"           ; 0x0bf6
+%include "lib/leaf_loc_RUJV.asm"           ; 0x0bf6
 
-%include "ega/asm_only/string_loc_0c45.asm"         ; 0x0c45
+%include "ega/asm_only/string_loc_INQT.asm"         ; 0x0c45
 
 %include "ega/asm_only/dos_alloc_mem.asm"           ; 0x0c9b
 
@@ -290,19 +290,19 @@ cseg_0291:
 
 %include "ega/asm_only/dos_write_file.asm"          ; 0x0ebd
 
-%include "ega/asm_only/dos_con_loc_0f70.asm"        ; 0x0f70
+%include "ega/asm_only/dos_con_loc_TRGT.asm"        ; 0x0f70
 
-%include "ega/asm_only/dos_con_loc_0fae.asm"        ; 0x0fae
+%include "ega/asm_only/dos_con_loc_GHKP.asm"        ; 0x0fae
 
 %include "ega/asm_only/dos_read_file_2.asm"         ; 0x10cf
 
-%include "ega/asm_only/dos_con_loc_10ff.asm"        ; 0x10ff
+%include "ega/asm_only/dos_con_loc_UQTL.asm"        ; 0x10ff
 
-%include "ega/asm_only/dos_con_loc_1218.asm"        ; 0x1218
+%include "ega/asm_only/dos_con_loc_IJPM.asm"        ; 0x1218
 
-%include "ega/asm_only/leaf_loc_1355.asm"           ; 0x1355
+%include "ega/asm_only/leaf_loc_IMUV.asm"           ; 0x1355
 
-%include "ega/asm_only/leaf_loc_145c.asm"           ; 0x145c
+%include "ega/asm_only/leaf_loc_MVLP.asm"           ; 0x145c
 
 %include "ega/asm_only/loc_1490.asm"                ; 0x1490
 
@@ -310,143 +310,143 @@ cseg_0291:
 
 %include "ega/asm_only/mouse_init.asm"              ; 0x1719
 
-%include "ega/asm_only/string_loc_17a1.asm"         ; 0x17a1
+%include "ega/asm_only/string_loc_PJIS.asm"         ; 0x17a1
 
 %include "ega/asm_only/mouse_init_2.asm"            ; 0x1810
 
-%include "ega/asm_only/leaf_loc_189f.asm"           ; 0x189f
+%include "ega/asm_only/leaf_loc_LNMT.asm"           ; 0x189f
 
-%include "ega/asm_only/bios_mouse_loc_18c1.asm"     ; 0x18c1
+%include "ega/asm_only/bios_mouse_loc_NHLG.asm"     ; 0x18c1
 
-%include "ega/leaf_loc_1900.asm"           ; 0x1900
+%include "lib/leaf_loc_NMVG.asm"           ; 0x1900
 
-%include "ega/asm_only/bios_mouse_loc_190f.asm"     ; 0x190f
+%include "ega/asm_only/bios_mouse_loc_LOQT.asm"     ; 0x190f
 
-%include "ega/asm_only/bios_mouse_loc_1992.asm"     ; 0x1992
+%include "lib/bios_mouse_loc_NUQU.asm"     ; 0x1992
 
 %include "ega/asm_only/dos_print_str_2.asm"         ; 0x19c1
 
-%include "ega/asm_only/dos_con_loc_1a9f.asm"        ; 0x1a9f
+%include "ega/asm_only/dos_con_loc_JKSU.asm"        ; 0x1a9f
 
-%include "ega/asm_only/leaf_loc_2a4f.asm"           ; 0x2a4f
+%include "ega/asm_only/leaf_loc_KVRQ.asm"           ; 0x2a4f
 
-%include "ega/asm_only/io_loc_2a6a.asm"             ; 0x2a6a
+%include "ega/asm_only/io_loc_LINQ.asm"             ; 0x2a6a
 
-%include "ega/asm_only/io_loc_2e35.asm"             ; 0x2e35
+%include "ega/asm_only/io_loc_RITP.asm"             ; 0x2e35
 
-%include "ega/asm_only/io_loc_2e7d.asm"             ; 0x2e7d
+%include "ega/asm_only/io_loc_TUMU.asm"             ; 0x2e7d
 
-%include "ega/asm_only/io_loc_2f46.asm"             ; 0x2f46
+%include "ega/asm_only/io_loc_QUGH.asm"             ; 0x2f46
 
-%include "ega/asm_only/io_loc_2f70.asm"             ; 0x2f70
+%include "ega/asm_only/io_loc_UONO.asm"             ; 0x2f70
 
-%include "ega/leaf_loc_3035.asm"           ; 0x3035
+%include "ega/leaf_loc_QIVT.asm"           ; 0x3035
 
 %include "ega/asm_only/loc_303d.asm"                ; 0x303d
 
 %include "ega/asm_only/dos_read_file_3.asm"         ; 0x3085
 
-%include "ega/asm_only/dos_con_loc_317d.asm"        ; 0x317d
+%include "ega/asm_only/dos_con_loc_UPUP.asm"        ; 0x317d
 
-%include "ega/asm_only/dos_con_loc_31ad.asm"        ; 0x31ad
+%include "ega/asm_only/dos_con_loc_PGGT.asm"        ; 0x31ad
 
-%include "ega/graphics_loc_31df.asm"       ; 0x31df
+%include "ega/graphics_loc_UVTQ.asm"       ; 0x31df
 
-%include "ega/asm_only/leaf_loc_31f4.asm"           ; 0x31f4
+%include "ega/asm_only/leaf_loc_JRGJ.asm"           ; 0x31f4
 
-%include "ega/leaf_loc_3240.asm"           ; 0x3240
+%include "ega/leaf_loc_NUGN_3240.asm"      ; 0x3240
 
-%include "ega/leaf_loc_3241.asm"           ; 0x3241
+%include "ega/leaf_loc_NUGN_3241.asm"      ; 0x3241
 
-%include "ega/leaf_loc_3242.asm"           ; 0x3242
+%include "ega/leaf_loc_NUGN_3242.asm"      ; 0x3242
 
-%include "ega/leaf_loc_3243.asm"           ; 0x3243
+%include "ega/leaf_loc_NUGN_3243.asm"      ; 0x3243
 
-%include "ega/leaf_loc_3244.asm"           ; 0x3244
+%include "ega/leaf_loc_NUGN_3244.asm"      ; 0x3244
 
-%include "ega/leaf_loc_3245.asm"           ; 0x3245
+%include "ega/leaf_loc_HGIH.asm"           ; 0x3245
 
-%include "ega/leaf_loc_3252.asm"           ; 0x3252
+%include "ega/leaf_loc_SMTO.asm"           ; 0x3252
 
-%include "ega/asm_only/dos_mem_loc_33b3.asm"        ; 0x33b3
+%include "ega/asm_only/dos_mem_loc_HHRL.asm"        ; 0x33b3
 
-%include "ega/asm_only/bios_mouse_loc_341e.asm"     ; 0x341e
+%include "ega/asm_only/bios_mouse_loc_KUPR.asm"     ; 0x341e
 
-%include "ega/asm_only/bios_mouse_loc_34c0.asm"     ; 0x34c0
+%include "ega/asm_only/bios_mouse_loc_TGTG.asm"     ; 0x34c0
 
 %include "ega/asm_only/loc_3570.asm"                ; 0x3570
 
-%include "ega/asm_only/leaf_loc_35ba.asm"           ; 0x35ba
+%include "lib/leaf_loc_JKPU.asm"           ; 0x35ba
 
-%include "ega/asm_only/graphics_loc_361e.asm"       ; 0x361e
+%include "ega/asm_only/graphics_loc_USUR.asm"       ; 0x361e
 
-%include "ega/asm_only/leaf_loc_39e3.asm"           ; 0x39e3
+%include "ega/asm_only/leaf_loc_PIVU.asm"           ; 0x39e3
 
-%include "ega/asm_only/dos_con_loc_3a0f.asm"        ; 0x3a0f
+%include "ega/asm_only/dos_con_loc_PTMN.asm"        ; 0x3a0f
 
-%include "ega/leaf_loc_3a51.asm"           ; 0x3a51
+%include "lib/leaf_loc_GSNR.asm"           ; 0x3a51
 
-%include "ega/asm_only/graphics_loc_3a8b.asm"       ; 0x3a8b
+%include "ega/asm_only/graphics_loc_HMTN.asm"       ; 0x3a8b
 
-%include "ega/leaf_loc_3bf2.asm"           ; 0x3bf2
+%include "lib/leaf_loc_PPVV.asm"           ; 0x3bf2
 
-%include "ega/asm_only/leaf_loc_3c12.asm"           ; 0x3c12
+%include "ega/asm_only/leaf_loc_KQLO.asm"           ; 0x3c12
 
-%include "ega/asm_only/dos_con_loc_40d4.asm"        ; 0x40d4
+%include "lib/dos_con_loc_RIVS.asm"        ; 0x40d4
 
 %include "ega/asm_only/dos_write_file_2.asm"        ; 0x4111
 
-%include "ega/asm_only/dos_con_loc_4370.asm"        ; 0x4370
+%include "ega/asm_only/dos_con_loc_OVKP.asm"        ; 0x4370
 
-%include "ega/asm_only/dos_con_loc_43a7.asm"        ; 0x43a7
+%include "ega/asm_only/dos_con_loc_SMNK.asm"        ; 0x43a7
 
-%include "ega/asm_only/dos_con_loc_43d8.asm"        ; 0x43d8
+%include "ega/asm_only/dos_con_loc_TKGI.asm"        ; 0x43d8
 
-%include "ega/asm_only/leaf_loc_4442.asm"           ; 0x4442
+%include "lib/leaf_loc_NIKG.asm"           ; 0x4442
 
 %include "ega/asm_only/dos_read_file_4.asm"         ; 0x4457
 
-%include "ega/asm_only/dos_file_loc_45bd.asm"       ; 0x45bd
+%include "ega/asm_only/dos_file_loc_QUNJ.asm"       ; 0x45bd
 
-%include "ega/asm_only/dos_con_loc_45f2.asm"        ; 0x45f2
+%include "ega/asm_only/dos_con_loc_NPTN.asm"        ; 0x45f2
 
 %include "ega/asm_only/dos_read_file_5.asm"         ; 0x4624
 
-%include "ega/asm_only/dos_con_loc_47af.asm"        ; 0x47af
+%include "ega/asm_only/dos_con_loc_QNMU.asm"        ; 0x47af
 
-%include "ega/asm_only/dos_con_loc_47f7.asm"        ; 0x47f7
+%include "lib/dos_con_loc_KMVS.asm"        ; 0x47f7
 
-%include "ega/asm_only/dos_file_loc_4825.asm"       ; 0x4825
+%include "ega/asm_only/dos_file_loc_SLHU.asm"       ; 0x4825
 
-%include "ega/asm_only/dos_con_loc_493a.asm"        ; 0x493a
+%include "ega/asm_only/dos_con_loc_MMQH.asm"        ; 0x493a
 
-%include "ega/asm_only/dos_con_loc_4984.asm"        ; 0x4984
+%include "lib/dos_con_loc_TUTH.asm"        ; 0x4984
 
 %include "ega/asm_only/dos_read_file_6.asm"         ; 0x4a08
 
-%include "ega/asm_only/dos_con_loc_4ae1.asm"        ; 0x4ae1
+%include "ega/asm_only/dos_con_loc_OOTH.asm"        ; 0x4ae1
 
-%include "ega/asm_only/dos_con_loc_4b1d.asm"        ; 0x4b1d
+%include "ega/asm_only/dos_con_loc_MIVG.asm"        ; 0x4b1d
 
-%include "ega/asm_only/string_loc_4bb2.asm"         ; 0x4bb2
+%include "ega/asm_only/string_loc_LUMH.asm"         ; 0x4bb2
 
-%include "ega/asm_only/dos_file_loc_4bcb.asm"       ; 0x4bcb
+%include "ega/asm_only/dos_file_loc_OSMR.asm"       ; 0x4bcb
 
 %include "ega/asm_only/loc_4c4c.asm"                ; 0x4c4c
 
-%include "ega/leaf_loc_4ca9.asm"           ; 0x4ca9
+%include "ega/leaf_loc_HKLI.asm"           ; 0x4ca9
 
-%include "ega/leaf_loc_4cbe.asm"           ; 0x4cbe
+%include "ega/leaf_loc_IKRU.asm"           ; 0x4cbe
 
-%include "ega/leaf_loc_4cd3.asm"           ; 0x4cd3
+%include "ega/leaf_loc_OUNM.asm"           ; 0x4cd3
 
-%include "ega/leaf_loc_4ce8.asm"           ; 0x4ce8
+%include "ega/leaf_loc_UGTM.asm"           ; 0x4ce8
 
-%include "ega/leaf_loc_4cfd.asm"           ; 0x4cfd
+%include "ega/leaf_loc_HSSI.asm"           ; 0x4cfd
 
-%include "ega/asm_only/dos_con_loc_4d13.asm"        ; 0x4d13
+%include "ega/asm_only/dos_con_loc_PMSK.asm"        ; 0x4d13
 
-%include "ega/asm_only/leaf_loc_4d55.asm"           ; 0x4d55
+%include "ega/asm_only/leaf_loc_OLPI.asm"           ; 0x4d55
 
 %include "ega/asm_only/loc_4dd9.asm"                ; 0x4dd9
 

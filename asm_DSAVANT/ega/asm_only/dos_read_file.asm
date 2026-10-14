@@ -53,7 +53,7 @@ dos_read_file:
     mov cl, 0xa                      ; 0x0e5e
     shr ax, cl                       ; 0x0e60
     mov word [cs:cseg_4540 - IMAGE_BASE], ax ; 0x0e62
-    call leaf_loc_4442               ; 0x0e66
+    call leaf_loc_NIKG               ; 0x0e66
     and si, strict word 0x3ff        ; 0x0e69
     mov cl, 4                        ; 0x0e6d
     shl si, cl                       ; 0x0e6f
@@ -70,7 +70,7 @@ dos_read_file:
     and si, strict word 0x3fff       ; 0x0e89
     inc word [cs:cseg_4540 - IMAGE_BASE] ; 0x0e8d
     mov ax, word [cs:cseg_4540 - IMAGE_BASE] ; 0x0e92
-    call leaf_loc_4442               ; 0x0e96
+    call leaf_loc_NIKG               ; 0x0e96
     pop cx                           ; 0x0e99
     loop @..dos_read_file.l3         ; 0x0e9a
     mov cx, 0x3a00                   ; 0x0e9c

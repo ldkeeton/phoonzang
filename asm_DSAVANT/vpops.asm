@@ -27,67 +27,67 @@ loc_000e:
     call aztec_csav                  ; 0x0011
     cmp word [bss_830a], byte 0x0c   ; 0x0014
     jne short @..loc_000e.l1         ; 0x0019
-    call api_idx_0004_5              ; 0x001b
+    call api_idx_0004_IPJL           ; 0x001b
 @..loc_000e.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
-%include "lib/api_idx_002a.asm"          ; 0x0022
+%include "lib/api_idx_002a_IHRK.asm"     ; 0x0022
 
-%include "vpops/api_idx_000a.asm"          ; 0x00cb
+%include "vpops/api_idx_000a_SPQS.asm"     ; 0x00cb
 
-%include "vpops/api_idx_0006.asm"          ; 0x018d
+%include "vpops/api_idx_0006_NSNR.asm"     ; 0x018d
 
-%include "vpops/api_idx_0054.asm"          ; 0x035f
+%include "vpops/api_idx_0054_OMTV.asm"     ; 0x035f
 
-%include "vpops/api_idx_000a_2.asm"        ; 0x0504
+%include "lib/api_idx_000a_JKVP.asm"     ; 0x0504
 
-%include "vpops/api_idx_000e.asm"          ; 0x0704
+%include "lib/api_idx_000e_TGQN.asm"     ; 0x0704
 
-%include "vpops/asm_only/api_idx_0004.asm"          ; 0x0a27
+%include "lib/api_idx_0004_HHQR.asm"     ; 0x0a27
 
-%include "vpops/api_idx_001c.asm"          ; 0x0b31
+%include "lib/api_idx_001c_TROI.asm"     ; 0x0b31
 
-%include "vpops/api_idx_000e_2.asm"        ; 0x0d77
+%include "vpops/api_idx_000e_GVON.asm"     ; 0x0d77
 
-%include "vpops/api_idx_0006_2.asm"        ; 0x0f27
+%include "vpops/api_idx_0006_LHQR.asm"     ; 0x0f27
 
-%include "vpops/api_idx_000c.asm"          ; 0x178a
+%include "vpops/api_idx_000c_UHNR.asm"     ; 0x178a
 
-%include "lib/api_idx_000c_2.asm"        ; 0x18c2
+%include "lib/api_idx_000c_JKJK.asm"     ; 0x18c2
 
-%include "vpops/api_idx_0002.asm"          ; 0x1941
+%include "lib/api_idx_0002_PGOV.asm"     ; 0x1941
 
-%include "vpops/api_idx_0004_2.asm"        ; 0x199c
+%include "vpops/api_idx_0004_JGSU.asm"     ; 0x199c
 
-%include "vpops/api_idx_000a_3.asm"        ; 0x1a0d
+%include "vpops/api_idx_000a_ULVM.asm"     ; 0x1a0d
 
-%include "vpops/api_idx_000c_3.asm"        ; 0x1b78
+%include "vpops/api_idx_000c_PVOR.asm"     ; 0x1b78
 
-%include "vpops/api_idx_0044.asm"          ; 0x1ca2
+%include "vpops/api_idx_0044_HTUI.asm"     ; 0x1ca2
 
-%include "vpops/api_idx_000a_4.asm"        ; 0x2947
+%include "vpops/api_idx_000a_PJMP.asm"     ; 0x2947
 
-%include "lib/api_idx_0018.asm"          ; 0x29f2
+%include "lib/api_idx_0018_IRSN.asm"     ; 0x29f2
 
-%include "vpops/api_idx_0004_3.asm"        ; 0x2aef
+%include "vpops/api_idx_0004_JRIG.asm"     ; 0x2aef
 
-%include "vpops/api_idx_0038.asm"          ; 0x2c92
+%include "vpops/api_idx_0038_NNPL.asm"     ; 0x2c92
 
-%include "vpops/api_idx_0094.asm"          ; 0x33db
+%include "vpops/api_idx_0094_USLJ.asm"     ; 0x33db
 
-%include "vpops/api_idx_0006_3.asm"        ; 0x36c0
+%include "vpops/api_idx_0006_IPTM.asm"     ; 0x36c0
 
-%include "vpops/api_idx_00d4.asm"          ; 0x3710
+%include "vpops/api_idx_00d4_GSJO.asm"     ; 0x3710
 
-%include "vpops/api_idx_0004_4.asm"        ; 0x4528
+%include "vpops/api_idx_0004_KVOL.asm"     ; 0x4528
 
-%include "vpops/api_idx_0002_2.asm"        ; 0x45b3
+%include "vpops/api_idx_0002_NTIP.asm"     ; 0x45b3
 
-%include "vpops/api_idx_0024.asm"          ; 0x45f3
+%include "vpops/api_idx_0024_HJTT.asm"     ; 0x45f3
 
-%include "vpops/api_idx_0002_3.asm"        ; 0x4d91
+%include "vpops/api_idx_0002_NMVG.asm"     ; 0x4d91
 
-%include "vpops/api_idx_0004_5.asm"        ; 0x4e3b
+%include "vpops/api_idx_0004_IPJL.asm"     ; 0x4e3b
 
 loc_4e9d:
     pop word [dseg_90d4]             ; 0x4e9d

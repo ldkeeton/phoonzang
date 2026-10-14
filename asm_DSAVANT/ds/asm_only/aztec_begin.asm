@@ -133,7 +133,7 @@ aztec_begin:
     mov word [dseg_0c7a], ax         ; 0x4e5e
     mov word [dseg_0c74], ds         ; 0x4e61
     mov word [dseg_0c76], cs         ; 0x4e65
-    call ds_leaf_loc_4f85            ; 0x4e69
+    call ds_leaf_loc_LSGN            ; 0x4e69
     jb short @..aztec_begin.no_8087  ; 0x4e6c
     call aztec_Croot ; Croot(argp, first) ; 0x4e6e
     jmp short ds_loc_4e80            ; 0x4e71

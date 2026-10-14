@@ -209,7 +209,7 @@ dos_write_file_2:
     mov cl, 0xa                      ; 0x4305
     shr ax, cl                       ; 0x4307
     mov word [cs:cseg_4540 - IMAGE_BASE], ax ; 0x4309
-    call leaf_loc_4442               ; 0x430d
+    call leaf_loc_NIKG               ; 0x430d
     mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x4310
     mov ds, ax                       ; 0x4314
     mov ax, word [bp + 0xe]          ; 0x4316
@@ -237,7 +237,7 @@ dos_write_file_2:
     je short @..dos_write_file_2.l17 ; 0x4349
     inc word [cs:cseg_4540 - IMAGE_BASE] ; 0x434b
     mov ax, word [cs:cseg_4540 - IMAGE_BASE] ; 0x4350
-    call leaf_loc_4442               ; 0x4354
+    call leaf_loc_NIKG               ; 0x4354
     and di, strict word 0x3fff       ; 0x4357
 @..dos_write_file_2.l17:
     dec word [bp - 0x0004]           ; 0x435b
