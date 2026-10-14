@@ -13,12 +13,17 @@
             { "command": "wiz7AsmNav.goToAddress", "title": "Wiz7: Go to address" },
             { "command": "wiz7AsmNav.nameRoutine", "title": "Wiz7: Name this routine (sidecar)" },
             { "command": "wiz7AsmNav.diffVendor", "title": "Wiz7: Diff against vendor seed" },
-            { "command": "wiz7AsmNav.check", "title": "Wiz7: Check with Manx cc" }
+            { "command": "wiz7AsmNav.check", "title": "Wiz7: Check with Manx cc" },
+            { "command": "wiz7AsmNav.makeC", "title": "Wiz7: Make C file (Claude)" }
         ],
         "menus": {
             "editor/context": [
                 { "command": "wiz7AsmNav.nameRoutine", "when": "resourcePath =~ /asm_[^/]+\\//", "group": "wiz7@1" },
-                { "command": "wiz7AsmNav.diffVendor", "when": "resourcePath =~ /asm_[^/]+\\/.*\\.c$/", "group": "wiz7@2" }
+                { "command": "wiz7AsmNav.diffVendor", "when": "resourcePath =~ /asm_[^/]+\\/.*\\.c$/", "group": "wiz7@2" },
+                { "command": "wiz7AsmNav.makeC", "when": "resourcePath =~ /asm_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "wiz7@3" }
+            ],
+            "explorer/context": [
+                { "command": "wiz7AsmNav.makeC", "when": "resourcePath =~ /asm_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "wiz7@3" }
             ]
         },
         "keybindings": [
@@ -36,6 +41,16 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Also run the Manx cc check when a generated .c file is opened (and for files already open at start-up)."
+                },
+                "wiz7AsmNav.claude": {
+                    "type": "string",
+                    "default": "claude",
+                    "description": "Claude Code CLI used by 'Make C file' (uses its existing OAuth login)."
+                },
+                "wiz7AsmNav.claudeModel": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Model for 'Make C file'; empty uses the CLI default."
                 },
                 "wiz7AsmNav.python": {
                     "type": "string",

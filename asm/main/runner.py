@@ -606,7 +606,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         write_summary(ctx, asm_text)
     print_short_report(ctx)
 
-    if export_labels and label_map and project:
+    # Every binary's labels are kept (not only an exported host's): resplice
+    # re-renders a binary's C routines against them.
+    if label_map and project:
         from lib.cachedirs import labels_dir
         from lib.cross_ref import write_label_json
         target_dir = labels_dir(project)

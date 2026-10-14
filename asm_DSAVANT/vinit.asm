@@ -61,7 +61,7 @@ loc_000e:
 
 %include "vinit/api_idx_000c.asm"          ; 0x0146
 
-%include "vinit/api_idx_0002_5.asm"        ; 0x08b7
+%include "lib/api_idx_0002_5.asm"        ; 0x08b7
 
 %include "vinit/api_idx_0002_6.asm"        ; 0x094a
 

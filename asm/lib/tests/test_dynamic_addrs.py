@@ -177,6 +177,10 @@ def _binary_sources(binary):
     frag_dir = _TREE / binary
     if frag_dir.is_dir():
         out += sorted(frag_dir.rglob('*.asm'))   # incl. asm_only/
+    if master.is_file():
+        # Fragments shared with other binaries live in lib/ (lib.shared).
+        for name in re.findall(r'%include "(lib/[^"]+)"', master.read_text()):
+            out.append(_TREE / name)
     return out
 
 

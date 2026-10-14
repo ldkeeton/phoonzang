@@ -34,21 +34,21 @@ loc_000e:
     mov word [bss_830a], 4           ; 0x0017
     mov ax, 0                        ; 0x001d
     ret                              ; 0x0020
-%include "vpcmk/api_idx_0002.asm"          ; 0x0021
+%include "lib/api_idx_0002.asm"          ; 0x0021
 
 %include "vpcmk/api_idx_0002_2.asm"        ; 0x0085
 
-%include "vpcmk/api_idx_0008.asm"          ; 0x0104
+%include "lib/api_idx_0008_4b83.asm"          ; 0x0104
 
 %include "vpcmk/api_idx_0008_2.asm"        ; 0x02bc
 
-%include "vpcmk/api_idx_0058.asm"          ; 0x0935
+%include "lib/api_idx_0058.asm"          ; 0x0935
 
 %include "vpcmk/api_idx_0038.asm"          ; 0x0abb
 
 %include "vpcmk/api_idx_0026.asm"          ; 0x11f4
 
-%include "vpcmk/api_idx_000c.asm"          ; 0x16ea
+%include "lib/api_idx_000c.asm"          ; 0x16ea
 
 %include "vpcmk/api_idx_0004.asm"          ; 0x1769
 

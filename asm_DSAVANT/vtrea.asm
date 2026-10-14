@@ -71,7 +71,7 @@ loc_000e:
     ret                              ; 0x008f
 %include "vtrea/api_idx_0010.asm"          ; 0x0090
 
-%include "vtrea/api_idx_000e.asm"          ; 0x067b
+%include "lib/api_idx_000e.asm"          ; 0x067b
 
 %include "vtrea/api_idx_000a.asm"          ; 0x073b
 
@@ -117,7 +117,7 @@ loc_000e:
 
 %include "vtrea/api_idx_0006_3.asm"        ; 0x3706
 
-%include "vtrea/api_idx_0018.asm"          ; 0x37b6
+%include "lib/api_idx_0018.asm"          ; 0x37b6
 
 %include "vtrea/api_idx_0004_7.asm"        ; 0x38b3
 
@@ -127,7 +127,7 @@ loc_000e:
 
 %include "vtrea/asm_only/api_idx_0008_2.asm"        ; 0x4368
 
-%include "vtrea/api_idx_004c.asm"          ; 0x51d7
+%include "lib/api_idx_004c.asm"          ; 0x51d7
 
 %include "vtrea/api_idx_0004_9.asm"        ; 0x52ec
 
@@ -141,7 +141,7 @@ loc_000e:
 
 %include "vtrea/api_idx_00a8.asm"          ; 0x5d80
 
-%include "vtrea/api_idx_0006_5.asm"        ; 0x5e88
+%include "lib/api_idx_0006_5.asm"        ; 0x5e88
 
 %include "vtrea/api_idx_0004_10.asm"       ; 0x5efe
 
@@ -177,7 +177,7 @@ loc_000e:
 
 %include "vtrea/api_idx_0008_3.asm"        ; 0x82b8
 
-%include "vtrea/api_idx_000c.asm"          ; 0x893e
+%include "lib/api_idx_000c.asm"          ; 0x893e
 
 %include "vtrea/api_idx_0002_6.asm"        ; 0x89bd
 

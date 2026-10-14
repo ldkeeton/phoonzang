@@ -62,7 +62,7 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/api_idx_000c_2.asm"        ; 0x1676
 
-%include "vmnpc/api_idx_004c.asm"          ; 0x21d2
+%include "lib/api_idx_004c.asm"          ; 0x21d2
 
 %include "vmnpc/api_idx_0004_7.asm"        ; 0x22e7
 
@@ -222,7 +222,7 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/asm_only/string_loc_ae10.asm"       ; 0xae10
 
-%include "vmnpc/asm_only/aztec_strncpy.asm"         ; 0xae4e
+%include "lib/aztec_strncpy.asm"         ; 0xae4e
 
 %include "vmnpc/asm_only/aztec_strcmp.asm"          ; 0xae76
 

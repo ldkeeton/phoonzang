@@ -1069,6 +1069,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             'foreign_label_map': foreign_label_map,
             'immediate_labels': immediate_labels,
             'exact_bytes': bool(exact_bytes),
+            # ``_Cend``/``_Uend`` as the C sees them (resplice has no records).
+            'geometry': image_geometry(
+                records, binary_data, start_offset,
+                getattr(segments, 'ds_size', None)),
             'label_records': [(rec['offset'], rec['text'])
                               for rec in records if rec['type'] == 'label'],
         },

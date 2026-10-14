@@ -160,7 +160,7 @@ loc_00a5:
 
 %include "vdopt/api_idx_000c.asm"          ; 0x238d
 
-%include "vdopt/api_idx_000c_2.asm"        ; 0x25a8
+%include "lib/api_idx_000c_2.asm"        ; 0x25a8
 
 %include "vdopt/api_idx_0002_5.asm"        ; 0x2627
 
@@ -176,7 +176,7 @@ loc_00a5:
 
 %include "vdopt/api_idx_0004_5.asm"        ; 0x36bb
 
-%include "vdopt/api_idx_0018.asm"          ; 0x378c
+%include "lib/api_idx_0018.asm"          ; 0x378c
 
 %include "vdopt/api_idx_0004_6.asm"        ; 0x3889
 

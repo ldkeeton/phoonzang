@@ -162,9 +162,9 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0016.asm"          ; 0x4f53
 
-%include "vmaze/api_idx_0024.asm"          ; 0x50f4
+%include "lib/api_idx_0024.asm"          ; 0x50f4
 
-%include "vmaze/api_idx_001e.asm"          ; 0x529a
+%include "lib/api_idx_001e.asm"          ; 0x529a
 
 %include "vmaze/api_idx_0030.asm"          ; 0x53fd
 
@@ -172,7 +172,7 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0002_11.asm"       ; 0x6882
 
-%include "vmaze/api_idx_0006_5.asm"        ; 0x6960
+%include "lib/api_idx_0006_5.asm"        ; 0x6960
 
 %include "vmaze/api_idx_0004_7.asm"        ; 0x69d6
 

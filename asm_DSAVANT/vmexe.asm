@@ -32,7 +32,7 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/asm_only/api_idx_0012.asm"          ; 0x00db
 
-%include "vmexe/api_idx_0008.asm"          ; 0x0257
+%include "lib/api_idx_0008_0f91.asm"          ; 0x0257
 
 %include "vmexe/api_idx_0004_2.asm"        ; 0x030b
 

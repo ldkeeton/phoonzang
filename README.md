@@ -12,7 +12,7 @@ make all
 
 ## Wizardry 7 coverage
 
-Progress: **27 / 1098** (2.5%).
+Progress: **27 / 1073** (2.5%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -65,5 +65,5 @@ ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.wiz7-asm-nav-0.0.1
 - **Name this routine** (right-click): writes the sidecar `function_names` entry
 - **Diff against vendor seed**: what relabelling changed (also via the CodeLens)
 - **Manx `cc` check on save**: the real compiler's errors and warnings as
-  squiggles (`wiz7AsmNav.checkOnSave`), via `.vscode/cccheck.py`; the
-  "Manx cc: watch" task does the same from the terminal
+  squiggles on save and open (`wiz7AsmNav.checkOnSave`, `checkOnOpen`), via `.vscode/cccheck.py`; the
+  "Manx cc: check current file" task does the same without the extension

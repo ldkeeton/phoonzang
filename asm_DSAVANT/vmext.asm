@@ -85,7 +85,7 @@ loc_4471 equ 0x4471 + VBASE
 
 %include "vmext/io_loc_12de.asm"           ; 0x12de
 
-%include "vmext/api_idx_004c.asm"          ; 0x1356
+%include "lib/api_idx_004c.asm"          ; 0x1356
 
 %include "vmext/api_idx_0004_4.asm"        ; 0x146b
 
@@ -165,9 +165,9 @@ loc_4471 equ 0x4471 + VBASE
 
 %include "vmext/api_idx_0016.asm"          ; 0x39e2
 
-%include "vmext/api_idx_0024.asm"          ; 0x3b83
+%include "lib/api_idx_0024.asm"          ; 0x3b83
 
-%include "vmext/api_idx_001e.asm"          ; 0x3d29
+%include "lib/api_idx_001e.asm"          ; 0x3d29
 
 %include "vmext/api_idx_0030.asm"          ; 0x3e8c
 

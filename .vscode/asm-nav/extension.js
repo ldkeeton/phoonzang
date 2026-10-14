@@ -6,7 +6,7 @@
 //   * Manx ``cc`` diagnostics on save, and a provenance CodeLens
 const fs = require('fs');
 const path = require('path');
-const { execFile } = require('child_process');
+const { execFile, spawn } = require('child_process');
 const vscode = require('vscode');
 const { labels, occurrences, addresses, routineStart, locate } = require('./scan');
 const sidecar = require('./sidecar');
@@ -229,6 +229,8 @@ async function diffVendor(uri) {
 
 let diagnostics;
 const running = new Map();   // fsPath -> rerun requested?
+const checked = new Map();   // fsPath -> document version last checked
+const shown = new Map();     // uri string -> signature of diagnostics last published
 
 function toDiagnostics(doc, stdout) {
     const out = [];
@@ -248,28 +250,97 @@ function toDiagnostics(doc, stdout) {
     return out;
 }
 
-function checkFile(doc) {
+function checkFile(doc, force) {
     const file = doc.fileName;
+    if (!force && checked.get(file) === doc.version) return;
+    checked.set(file, doc.version);
     if (running.has(file)) { running.set(file, true); return; }
     running.set(file, false);
     const done = new Promise((resolveRun) => {
         execFile(cfg().get('python'), [path.join(root(), '.vscode', 'cccheck.py'), file],
             { cwd: root(), timeout: 180000, maxBuffer: 1 << 24 }, (err, stdout, stderr) => {
                 const parsed = toDiagnostics(doc, stdout || '');
-                diagnostics.set(doc.uri, parsed);
+                // Republishing identical diagnostics still fires onDidChangeDiagnostics, which
+                // repaints open views (the References panel) and dismisses their context menus.
+                const sig = JSON.stringify(parsed.map((d) =>
+                    [d.range.start.line, d.range.start.character, d.severity, d.message]));
+                if (shown.get(doc.uri.toString()) !== sig) {
+                    shown.set(doc.uri.toString(), sig);
+                    diagnostics.set(doc.uri, parsed);
+                }
                 if (err && !parsed.length) {
                     vscode.window.showErrorMessage(`Manx cc check failed: ${(stderr || err.message).slice(-300)}`);
                 }
                 const again = running.get(file);
                 running.delete(file);
                 resolveRun();
-                if (again) checkFile(doc);
+                if (again) checkFile(doc, true);
             });
     });
     vscode.window.setStatusBarMessage('$(sync~spin) Manx cc…', done);
 }
 
 const isGeneratedC = (doc) => doc.uri.scheme === 'file' && /asm_[^/\\]+[/\\][^/\\]+[/\\][^/\\]+\.c$/.test(doc.fileName);
+
+// ------------------------------------------------------- make C (Claude)
+
+let claudeLog;
+const converting = new Set();   // asm paths with a Claude run in flight
+
+async function makeC(uri) {
+    uri = uri || (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri);
+    const where = uri && locate(uri.fsPath);
+    if (!where) return vscode.window.showErrorMessage('open a routine .asm under asm_<PROJECT>/<binary>/');
+    const dir = path.dirname(uri.fsPath);
+    const asmFile = path.join(dir, `${where.label}.asm`);
+    const cFile = path.join(dir, `${where.label}.c`);
+    if (!fs.existsSync(asmFile)) return vscode.window.showErrorMessage(`no ${asmFile}`);
+    if (converting.has(asmFile)) return vscode.window.showInformationMessage(`${where.label} is already being converted`);
+    if (fs.existsSync(cFile)) {
+        const pick = await vscode.window.showWarningMessage(
+            `${path.basename(cFile)} exists. Have Claude redo it?`, { modal: true }, 'Redo');
+        if (pick !== 'Redo') return;
+    }
+    const rel = (f) => path.relative(root(), f);
+    const prompt = `Convert ${rel(asmFile)} to K&R syntax C, writing ${rel(cFile)}. ` +
+        `It has to compile to byte exact matching asm, use make rebuild ${where.project} ${where.binary} ` +
+        `(run as \`make -C asm rebuild ${where.project} ${where.binary}\`) to check.`;
+    const args = ['-p', prompt, '--permission-mode', 'acceptEdits',
+        '--allowedTools', 'Read,Write,Edit,Bash(make:*)'];
+    const model = cfg().get('claudeModel');
+    if (model) args.push('--model', model);
+
+    claudeLog = claudeLog || vscode.window.createOutputChannel('Wiz7 Claude');
+    claudeLog.appendLine(`\n$ claude ${args.map((a) => JSON.stringify(a)).join(' ')}`);
+    converting.add(asmFile);
+    try {
+        const code = await vscode.window.withProgress({
+            location: vscode.ProgressLocation.Notification,
+            title: `Claude: converting ${where.label} to C…`,
+            cancellable: true,
+        }, (progress, token) => new Promise((resolveRun) => {
+            const child = spawn(cfg().get('claude'), args, { cwd: root(), stdio: ['ignore', 'pipe', 'pipe'] });
+            let tail = '';
+            const sink = (d) => { const s = d.toString(); tail = (tail + s).slice(-400); claudeLog.append(s); };
+            child.stdout.on('data', sink);
+            child.stderr.on('data', sink);
+            child.on('error', (e) => { claudeLog.appendLine(String(e)); tail = e.message; resolveRun({ code: -1, tail }); });
+            child.on('close', (c) => resolveRun({ code: c, tail }));
+            token.onCancellationRequested(() => child.kill());
+        }));
+        if (code.code === 0 && fs.existsSync(cFile)) {
+            const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(cFile));
+            await vscode.window.showTextDocument(doc);
+            if (isGeneratedC(doc)) checkFile(doc, true);
+            vscode.window.showInformationMessage(`Claude wrote ${path.basename(cFile)}`);
+        } else {
+            claudeLog.show(true);
+            vscode.window.showErrorMessage(`Claude conversion of ${where.label} failed (${code.code}): ${code.tail.trim().slice(-200)}`);
+        }
+    } finally {
+        converting.delete(asmFile);
+    }
+}
 
 // ---------------------------------------------------------------- lens
 
@@ -351,21 +422,24 @@ function activate(context) {
                 },
             }),
         vscode.workspace.onDidSaveTextDocument((doc) => {
-            if (cfg().get('checkOnSave') && isGeneratedC(doc)) checkFile(doc);
+            if (cfg().get('checkOnSave') && isGeneratedC(doc)) checkFile(doc, true);
         }),
         vscode.workspace.onDidOpenTextDocument((doc) => {
             if (cfg().get('checkOnOpen') && isGeneratedC(doc)) checkFile(doc);
         }),
-        vscode.workspace.onDidCloseTextDocument((doc) => diagnostics.delete(doc.uri)),
+        // The References panel opens and closes documents constantly, so don't clear
+        // diagnostics here (that would churn views too); just forget the checked version.
+        vscode.workspace.onDidCloseTextDocument((doc) => checked.delete(doc.fileName)),
         vscode.commands.registerCommand('wiz7AsmNav.reindex', rebuild),
         vscode.commands.registerCommand('wiz7AsmNav.goToAddress', async () => { await ready; return goToAddress(); }),
         vscode.commands.registerCommand('wiz7AsmNav.nameRoutine', async () => { await ready; return nameRoutine(); }),
         vscode.commands.registerCommand('wiz7AsmNav.diffVendor', diffVendor),
+        vscode.commands.registerCommand('wiz7AsmNav.makeC', makeC),
         vscode.commands.registerCommand('wiz7AsmNav.check', async (uri) => {
             const doc = uri
                 ? await vscode.workspace.openTextDocument(uri)
                 : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
-            if (doc && isGeneratedC(doc)) checkFile(doc);
+            if (doc && isGeneratedC(doc)) checkFile(doc, true);
             else vscode.window.showErrorMessage('open a generated .c file');
         }),
     );

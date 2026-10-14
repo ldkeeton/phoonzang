@@ -46,3 +46,13 @@ class EncodeDecodeTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class GeometryRoundTripTest(unittest.TestCase):
+    def test_image_geometry_survives_the_round_trip(self):
+        geometry = {'__zres_end': 0x440c, '__zdseg_end': 0x1234}
+        raw = json.loads(json.dumps(encode({'geometry': geometry})))
+        self.assertEqual(decode(raw)['geometry'], geometry)
+
+    def test_older_context_without_geometry_decodes_empty(self):
+        self.assertEqual(decode({})['geometry'], {})

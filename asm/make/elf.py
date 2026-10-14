@@ -462,17 +462,30 @@ def resplice_c(app, binary):
         label_map = {int(k): v for k, v in json.load(f).items()}
     context = _load_render_context(app, binary)
     index = (relink.SymbolIndex(label_map, context['foreign_label_map'],
-                                context['data_labels'], context['mem_equ'])
+                                context['data_labels'],
+                                {**context['mem_equ'], **context['geometry']})
              if context is not None else None)
     bins = discover_binaries(os.path.join(APPS, app))
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:
         data = f.read()
 
-    c_labels = sorted(name[:-2] for name in os.listdir(dest)
-                      if name.endswith('.c')) if os.path.isdir(dest) else []
-    orphans = [f'{dest}/{label}.c' for label in c_labels
+    c_labels = {name[:-2] for name in os.listdir(dest)
+                if name.endswith('.c')} if os.path.isdir(dest) else set()
+    # C shared between binaries lives in lib/ beside its .asm (lib.shared).
+    lib_dir = os.path.join(out_dir, 'lib')
+    c_labels |= {name[:-2] for name in (os.listdir(lib_dir)
+                                        if os.path.isdir(lib_dir) else ())
+                 if name.endswith('.c') and name[:-2] in spans}
+    c_labels = sorted(c_labels)
+
+    def where(label, suffix):
+        shared = os.path.join(lib_dir, label + suffix)
+        own = os.path.join(dest, label + suffix)
+        return shared if os.path.exists(shared) else own
+
+    orphans = [where(label, '.c') for label in c_labels
                if label not in spans
-               or not os.path.isfile(os.path.join(dest, f'{label}.asm'))]
+               or not os.path.isfile(where(label, '.asm'))]
     if orphans:
         raise SystemExit('error: C file(s) with no matching asm routine: '
                          + ', '.join(orphans))
@@ -482,6 +495,7 @@ def resplice_c(app, binary):
     lenient = '--allow-diff' in _extra_flags()
     failures = []
     count = 0
+    picked = []
     # A routine whose inputs and output fragment are unchanged since its last
     # resplice is skipped (no compile, gate or rewrite).
     stamps_path = os.path.join(render_dir(app), f'{binary}_resplice.json')
@@ -496,7 +510,7 @@ def resplice_c(app, binary):
             with open(path, 'rb') as f:
                 env.update(f.read())
     for label in c_labels:
-        cpath = os.path.join(dest, f'{label}.c')
+        cpath = where(label, '.c')
         start, end = spans[label]
         span_len = end - start
         with open(cpath) as f:
@@ -504,7 +518,7 @@ def resplice_c(app, binary):
         entry = entries.get(label)
         if entry is None or cache.is_asm_entry(entry):
             entry = cache.default_entry(label, app)
-        apath = os.path.join(dest, f'{label}.asm')
+        apath = where(label, '.asm')
         in_stamp = hashlib.sha1(
             (env.hexdigest() + json.dumps(entry, sort_keys=True) + text)
             .encode('utf-8', 'replace')).hexdigest()
@@ -624,6 +638,10 @@ def resplice_c(app, binary):
             _report_linked(app, binary, label, linked)
         records = _merge_label_records(records, label_records)
         fragment = '\n'.join(_render_records(records, data, True)) + '\n'
+        if os.path.dirname(apath) == lib_dir:
+            # Shared by several binaries: no one binary's addresses.
+            from lib.shared import neutral
+            fragment = neutral(fragment)
         # Regenerated from the C, so it stays an auto-generated file
         # (``make clean`` removes it, a human takeover would not be rewritten).
         write_text(apath, fragment)
@@ -631,6 +649,7 @@ def resplice_c(app, binary):
             stamps[label] = {'in': in_stamp,
                              'out': hashlib.sha1(f.read()).hexdigest()}
         count += 1
+        picked.append(os.path.relpath(cpath, out_dir))
     os.makedirs(os.path.dirname(stamps_path), exist_ok=True)
     with open(stamps_path, 'w') as f:
         json.dump(stamps, f)
@@ -641,6 +660,8 @@ def resplice_c(app, binary):
         raise SystemExit(1)
     if count:
         print(f'  resplice {app}/{binary}: {count} C routine(s) from .c')
+        for name in picked:
+            print(f'    {name}')
 
 
 def cmd_elf_rebuild(app, binary=None):

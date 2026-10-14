@@ -31,7 +31,7 @@ loc_000e:
 @..loc_000e.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
-%include "vpops/api_idx_002a.asm"          ; 0x0022
+%include "lib/api_idx_002a.asm"          ; 0x0022
 
 %include "vpops/api_idx_000a.asm"          ; 0x00cb
 
@@ -53,7 +53,7 @@ loc_000e:
 
 %include "vpops/api_idx_000c.asm"          ; 0x178a
 
-%include "vpops/api_idx_000c_2.asm"        ; 0x18c2
+%include "lib/api_idx_000c_2.asm"        ; 0x18c2
 
 %include "vpops/api_idx_0002.asm"          ; 0x1941
 
@@ -67,7 +67,7 @@ loc_000e:
 
 %include "vpops/api_idx_000a_4.asm"        ; 0x2947
 
-%include "vpops/api_idx_0018.asm"          ; 0x29f2
+%include "lib/api_idx_0018.asm"          ; 0x29f2
 
 %include "vpops/api_idx_0004_3.asm"        ; 0x2aef
 

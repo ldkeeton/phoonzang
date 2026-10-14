@@ -52,6 +52,7 @@ def encode(context):
         'foreign_label_map': _encode_addr_map(context.get('foreign_label_map')),
         'immediate_labels': _encode_addr_map(context.get('immediate_labels')),
         'exact_bytes': bool(context.get('exact_bytes', False)),
+        'geometry': dict(context.get('geometry') or {}),
         'label_records': [[offset, text]
                           for offset, text in context.get('label_records', ())],
     }
@@ -74,6 +75,7 @@ def decode(raw):
         'immediate_labels': ({int(k): v for k, v in immediate.items()}
                              if immediate else None),
         'exact_bytes': bool(raw.get('exact_bytes', False)),
+        'geometry': raw.get('geometry', {}),
         'label_records': [(int(offset), text)
                           for offset, text in raw.get('label_records', ())],
     }

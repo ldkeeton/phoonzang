@@ -258,9 +258,9 @@ cseg_027b:
 
 cseg_0291:
     db 0x00, 0x00
-%include "ega/asm_only/graphics_loc_0293.asm"       ; 0x0293
+%include "lib/graphics_loc_0293.asm"       ; 0x0293
 
-%include "ega/leaf_loc_0439.asm"           ; 0x0439
+%include "lib/leaf_loc_0439.asm"           ; 0x0439
 
 %include "ega/asm_only/leaf_loc_0447.asm"           ; 0x0447
 

@@ -57,7 +57,7 @@ loc_000e:
 
 %include "vbase/api_idx_0038.asm"          ; 0x0606
 
-%include "vbase/api_idx_0008.asm"          ; 0x0d3f
+%include "lib/api_idx_0008_4b83.asm"          ; 0x0d3f
 
 %include "vbase/api_idx_0028.asm"          ; 0x0ef7
 
@@ -401,7 +401,7 @@ loc_000e:
 
 %include "vbase/api_idx_0004_7.asm"        ; 0x6f16
 
-%include "vbase/api_idx_0002_5.asm"        ; 0x6fda
+%include "lib/api_idx_0002_5.asm"        ; 0x6fda
 
 %include "vbase/api_idx_0002_6.asm"        ; 0x706d
 

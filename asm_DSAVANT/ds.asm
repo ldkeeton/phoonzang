@@ -1107,7 +1107,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/asm_only/aztec_strncat.asm"            ; 0x457c
 
-%include "ds/asm_only/aztec_strcpy.asm"             ; 0x45ab
+%include "lib/aztec_strcpy.asm"             ; 0x45ab
 
 %include "ds/asm_only/aztec_lmalloc.asm"            ; 0x45d7
 
@@ -1183,7 +1183,7 @@ jumptable_4822:
 
 %include "ds/asm_only/ds_string_loc_4b07.asm"       ; 0x4b07
 
-%include "ds/aztec_creat.asm"              ; 0x4b39
+%include "lib/aztec_creat.asm"              ; 0x4b39
 
 %include "ds/aztec_open.asm"               ; 0x4b50
 
@@ -1191,11 +1191,11 @@ jumptable_4822:
 
 %include "ds/asm_only/aztec_lrm.asm"                ; 0x4c14
 
-%include "ds/asm_only/aztec_lum.asm"                ; 0x4c38
+%include "lib/aztec_lum.asm"                ; 0x4c38
 
-%include "ds/asm_only/aztec_lud.asm"                ; 0x4c40
+%include "lib/aztec_lud.asm"                ; 0x4c40
 
-%include "ds/asm_only/aztec_strlen.asm"             ; 0x4cd7
+%include "lib/aztec_strlen.asm"             ; 0x4cd7
 
 %include "ds/asm_only/aztec_sys.asm"                ; 0x4cf4
 
@@ -1231,9 +1231,9 @@ jumptable_4822:
 
 %include "ds/aztec_tty_wr.asm"             ; 0x50c1
 
-%include "ds/asm_only/aztec_movmem.asm"             ; 0x5123
+%include "lib/aztec_movmem.asm"             ; 0x5123
 
-%include "ds/asm_only/aztec_isatty.asm"             ; 0x5168
+%include "lib/aztec_isatty.asm"             ; 0x5168
 
 %include "ds/asm_only/aztec_sbrk.asm"               ; 0x5188
 

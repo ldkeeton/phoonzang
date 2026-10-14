@@ -48,9 +48,9 @@ loc_000e:
 @..loc_000e.l1:
     mov ax, 0                        ; 0x0023
     ret                              ; 0x0026
-%include "vpcvw/api_idx_0002.asm"          ; 0x0027
+%include "lib/api_idx_0002.asm"          ; 0x0027
 
-%include "vpcvw/api_idx_000e.asm"          ; 0x008b
+%include "lib/api_idx_000e.asm"          ; 0x008b
 
 %include "vpcvw/asm_only/api_idx_0012.asm"          ; 0x014b
 
@@ -66,15 +66,15 @@ loc_000e:
 
 %include "vpcvw/api_idx_0012_4.asm"        ; 0x0a96
 
-%include "vpcvw/api_idx_000c_2.asm"        ; 0x0cd6
+%include "lib/api_idx_000c_2.asm"        ; 0x0cd6
 
 %include "vpcvw/api_idx_0004_3.asm"        ; 0x0d55
 
-%include "vpcvw/api_idx_0002_2.asm"        ; 0x0e05
+%include "lib/api_idx_0002_2.asm"        ; 0x0e05
 
-%include "vpcvw/api_idx_0002_3.asm"        ; 0x0e60
+%include "lib/api_idx_0002_3.asm"        ; 0x0e60
 
-%include "vpcvw/api_idx_0010.asm"          ; 0x0ea1
+%include "lib/api_idx_0010.asm"          ; 0x0ea1
 
 %include "vpcvw/api_idx_000a.asm"          ; 0x0f9e
 
@@ -148,7 +148,7 @@ loc_000e:
 
 %include "vpcvw/api_idx_0014.asm"          ; 0x616c
 
-%include "vpcvw/api_idx_002a.asm"          ; 0x6977
+%include "lib/api_idx_002a.asm"          ; 0x6977
 
 %include "vpcvw/asm_only/api_idx_0080.asm"          ; 0x6a20
 
@@ -184,7 +184,7 @@ loc_000e:
 
 %include "vpcvw/api_idx_0002_8.asm"        ; 0x8676
 
-%include "vpcvw/api_idx_0058.asm"          ; 0x8730
+%include "lib/api_idx_0058.asm"          ; 0x8730
 
 %include "vpcvw/api_idx_0008_4.asm"        ; 0x88b6
 

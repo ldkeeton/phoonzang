@@ -43,7 +43,7 @@ loc_000e:
 @..loc_000e.l3:
     mov ax, 0                        ; 0x004a
     ret                              ; 0x004d
-%include "vmele/api_idx_0008.asm"          ; 0x004e
+%include "lib/api_idx_0008_0f91.asm"          ; 0x004e
 
 %include "vmele/api_idx_0004.asm"          ; 0x0102
 

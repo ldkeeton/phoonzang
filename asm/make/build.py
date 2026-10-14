@@ -24,6 +24,7 @@ from .common import (
 )
 from .prebuild import _ensure_prebuild
 from lib.link import host_name
+from lib.shared import share_identical
 
 
 def _stats_enabled():
@@ -90,7 +91,11 @@ def asm_app(app):
                                 f'--host-data-offsets={offsets_path}']) != 0:
             print(f'  FAILED: {host} (host data map)')
             failed.append(host)
-
+    if not failed:
+        shared = share_identical(out_dir)
+        if shared:
+            print(f'  Shared lib: {sum(len(v) for v in shared.values())} '
+                  f'fragments -> {len(shared)} files in lib/')
 
     build_out = os.path.join(out_dir, 'build_out')
     _copy_assets(app_dir, build_out)
