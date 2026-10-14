@@ -2,7 +2,7 @@ import polars as pl
 import numpy as np
 
 from lib.model import PhaseContext, CONF_DATA, SeedInfo, TargetInfo
-from lib.sidecar import _parse_offset
+from lib.sidecar.offsets import _parse_offset
 from lib.pipeline.phase import Phase, PhaseContract
 
 

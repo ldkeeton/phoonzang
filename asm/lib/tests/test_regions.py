@@ -112,7 +112,7 @@ class VerifyRegionWiringTests(unittest.TestCase):
     """The carve pre-pass is surfaced through ``verify()``'s stats dict."""
 
     def test_verify_returns_region_map(self):
-        from lib.compare import verify
+        from lib.compare.verify import verify
         from lib.decode import disassemble
         from lib.model import IS_CODE
 

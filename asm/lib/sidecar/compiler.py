@@ -24,7 +24,7 @@ def compiler_flags(project, label):
 
     The longest matching name prefix wins; no match uses ``default``.
     """
-    from . import load
+    from .loader import load
 
     block = (load(project) or {}).get('compiler_flags')
     if not block:

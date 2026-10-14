@@ -2,8 +2,9 @@
 
 import unittest
 
-from lib import sidecar
-from lib.sidecar import SidecarError, _validate_routines
+from lib.sidecar.binary import per_binary
+from lib.sidecar.errors import SidecarError
+from lib.sidecar.routines import _validate_routines
 
 
 class RoutinesTest(unittest.TestCase):
@@ -24,7 +25,7 @@ class RoutinesTest(unittest.TestCase):
         data = {'routines': {'a_JKJK': {'name': 'n'}},
                 'binaries': {'x': {}, 'y': {}}}
         for name in ('x', 'y'):
-            self.assertIn('a_JKJK', sidecar.per_binary(data, name)['routines'])
+            self.assertIn('a_JKJK', per_binary(data, name)['routines'])
 
 
 if __name__ == '__main__':

@@ -30,7 +30,7 @@ import re
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
-from lib import sidecar
+from lib.sidecar.loader import load as load_sidecar
 from lib.cachedirs import aztec_funcs_path
 
 from . import libobjs, omflib
@@ -207,7 +207,7 @@ def build(here, apps_dir, out_path, exes):
 def project_binaries(project):
     """MZ executables listed in the project's sidecar (the uniqueness-search
     corpus).  Empty when there is no sidecar, i.e. no Aztec signature DB."""
-    data = sidecar.load(project)
+    data = load_sidecar(project)
     if not data:
         return []
     return [b['file'] for b in data['binaries'].values()

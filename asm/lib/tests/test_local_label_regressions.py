@@ -6,7 +6,12 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-import main
+from lib.model import IS_CODE, IS_DATA
+from lib.sidecar.binary import per_binary as sidecar_per_binary
+from lib.sidecar.loader import load as load_sidecar
+from main.options import APPS_DIR
+from main.runner import process
+from main.verify import byte_verify
 
 
 _PREVIOUS_LOCAL_TARGETS = {
@@ -67,14 +72,14 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls._output = tempfile.TemporaryDirectory(prefix='ds-local-labels-')
-        project_dir = pathlib.Path(main.APPS_DIR) / 'DSAVANT'
-        sidecar = main.load_sidecar('DSAVANT')
-        sidecar_entry = main.sidecar_per_binary(sidecar, 'ds')
+        project_dir = pathlib.Path(APPS_DIR) / 'DSAVANT'
+        sidecar = load_sidecar('DSAVANT')
+        sidecar_entry = sidecar_per_binary(sidecar, 'ds')
         with (patch('main.runner.write_report', return_value=''),
               patch('main.runner.write_layers', return_value=''),
               patch('main.runner.print_short_report'),
               contextlib.redirect_stdout(io.StringIO())):
-            cls.bitmap, cls.label_map = main.process(
+            cls.bitmap, cls.label_map = process(
                 'ds', str(project_dir), 'DS.EXE', 0x200,
                 output_dir=cls._output.name,
                 export_labels=True,
@@ -121,13 +126,13 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         for start, end in data_ranges:
             with self.subTest(start=hex(start), end=hex(end)):
                 self.assertTrue(
-                    all(value == main.IS_DATA
+                    all(value == IS_DATA
                         for value in self.bitmap[start:end + 1]),
                 )
 
     def test_long_data_after_main_return_is_emitted_as_data(self):
-        self.assertEqual(self.bitmap[0x2f34], main.IS_CODE)
-        self.assertTrue(all(value == main.IS_DATA
+        self.assertEqual(self.bitmap[0x2f34], IS_CODE)
+        self.assertTrue(all(value == IS_DATA
                             for value in self.bitmap[0x2f35:0x3067]))
 
         asm_text = (pathlib.Path(self._output.name) / 'ds.asm').read_text()
@@ -195,20 +200,20 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         code_starts = (0x0fdf, 0x3067, 0x30f7, 0x343e, 0x3490, 0x457c)
         for address in code_starts:
             with self.subTest(address=hex(address)):
-                self.assertEqual(self.bitmap[address], main.IS_CODE)
+                self.assertEqual(self.bitmap[address], IS_CODE)
                 self.assertIn(address, self.label_map)
 
-        self.assertEqual(self.bitmap[0x1033], main.IS_CODE)
-        self.assertEqual(self.bitmap[0x30a2], main.IS_CODE)
-        self.assertEqual(self.bitmap[0x348f], main.IS_CODE)
-        self.assertEqual(self.bitmap[0x45aa], main.IS_CODE)
+        self.assertEqual(self.bitmap[0x1033], IS_CODE)
+        self.assertEqual(self.bitmap[0x30a2], IS_CODE)
+        self.assertEqual(self.bitmap[0x348f], IS_CODE)
+        self.assertEqual(self.bitmap[0x45aa], IS_CODE)
 
     def test_byte_verifier_uses_sidecar_data_boundaries(self):
-        project_dir = pathlib.Path(main.APPS_DIR) / 'DSAVANT'
-        sidecar = main.load_sidecar('DSAVANT')
-        sidecar_entry = main.sidecar_per_binary(sidecar, 'ds')
+        project_dir = pathlib.Path(APPS_DIR) / 'DSAVANT'
+        sidecar = load_sidecar('DSAVANT')
+        sidecar_entry = sidecar_per_binary(sidecar, 'ds')
         with contextlib.redirect_stdout(io.StringIO()):
-            verified = main.byte_verify(
+            verified = byte_verify(
                 'ds', str(project_dir), 'DS.EXE', self._output.name, 0x200,
                 sidecar_entry=sidecar_entry,
             )

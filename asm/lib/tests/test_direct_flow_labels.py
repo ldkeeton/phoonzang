@@ -4,13 +4,17 @@ import unittest
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.format import format_instruction
-from lib.compare import (
+from lib.compare.render import (
     _build_source,
+    _render_mz_header,
+)
+from lib.compare.analysis import (
     _compute_branch_ownership,
     _compute_local_labels,
     _local_branch_targets,
+)
+from lib.compare.splitting import (
     _extend_split_ranges_with_local_tails,
-    _render_mz_header,
     _select_split_ranges,
 )
 

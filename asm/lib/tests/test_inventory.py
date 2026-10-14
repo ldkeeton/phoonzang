@@ -9,7 +9,7 @@ from lib.inventory import (
     classify, merge_inventory, find_conflicts, CERTAIN, STRONG, CANDIDATE,
     address_inventory_dir, write_address_inventory,
 )
-from lib.compare import _build_address_records
+from lib.compare.symbols import _build_address_records
 
 # Inventories are build reports under ``.cache/addresses/<project>/`` (not in
 # the ``asm_<project>`` tree).

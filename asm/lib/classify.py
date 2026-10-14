@@ -1,14 +1,20 @@
 """Backward-compatibility shim — wraps the new functional pipeline."""
 
 from lib.model import PhaseContext, IS_UNKNOWN, IS_CODE, IS_DATA
-from lib.phases import (
-    SeedPhase, SidecarPhase, CarvePhase,
-    TrampolinePhase, ErrorHandlerPhase, RecursiveDescentPhase,
-    PruneDeadPhase, PruneZeroPhase,
-    SettlePhase, ArbiterPhase,
-    CascadeTargetPhase,
+from lib.phases.seed import SeedPhase
+from lib.phases.sidecar import SidecarPhase
+from lib.phases.carve import CarvePhase
+from lib.phases.trampoline import TrampolinePhase
+from lib.phases.error import ErrorHandlerPhase
+from lib.phases.recursive import RecursiveDescentPhase
+from lib.phases.prune import (
+    PruneDeadPhase,
+    PruneZeroPhase,
 )
-from lib.pipeline import run_functional
+from lib.phases.settle import SettlePhase
+from lib.phases.arbiter import ArbiterPhase
+from lib.phases.cascade import CascadeTargetPhase
+from lib.pipeline.functional import run_functional
 
 
 def _build_phases():

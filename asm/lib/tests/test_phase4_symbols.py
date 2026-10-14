@@ -6,7 +6,10 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_MEM
 
 from lib.segments import SegmentModel
 from lib.segdataflow import LOAD, DATA, PSP, UNKNOWN
-from lib.compare import _resolve_mem_symbols, _resolve_imm_symbols
+from lib.compare.symbols import (
+    _resolve_mem_symbols,
+    _resolve_imm_symbols,
+)
 from lib.format import format_instruction
 
 

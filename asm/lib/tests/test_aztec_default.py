@@ -3,8 +3,9 @@
 import unittest
 from unittest import mock
 
-from lib import sidecar
 from lib.aztec import cache
+from lib.sidecar.errors import SidecarError
+from lib.sidecar.loader import _validate
 
 BLOCK = {'compiler_flags': {
     'default': ['-n', '+y', '+b'],
@@ -12,7 +13,7 @@ BLOCK = {'compiler_flags': {
 
 
 def _flags(label, data=BLOCK):
-    with mock.patch.object(sidecar, 'load', return_value=data):
+    with mock.patch('lib.sidecar.loader.load', return_value=data):
         return cache.default_entry(label, 'P').get('flags')
 
 
@@ -30,7 +31,7 @@ class DefaultEntryTests(unittest.TestCase):
         self.assertIsNone(_flags('app_free', {}))
 
     def test_pairing_comes_from_mux(self):
-        with mock.patch.object(sidecar, 'load', return_value=BLOCK):
+        with mock.patch('lib.sidecar.loader.load', return_value=BLOCK):
             entry = cache.default_entry('app_free', 'P')
         self.assertEqual((entry['compiler'], entry['includes']),
                          ('v52a', 'v340a'))
@@ -39,8 +40,8 @@ class DefaultEntryTests(unittest.TestCase):
         for bad in ({'compiler_flags': {'default': 'x'}},
                     {'compiler_flags': {'prefixes': {'a': 'x'}}},
                     {'compiler_flags': []}):
-            with self.assertRaises(sidecar.SidecarError):
-                sidecar._validate({'app': 'X', **bad})
+            with self.assertRaises(SidecarError):
+                _validate({'app': 'X', **bad})
 
 
 if __name__ == '__main__':

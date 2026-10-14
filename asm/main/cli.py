@@ -3,10 +3,8 @@
 import os
 import sys
 
-from lib.sidecar import (
-    load as load_sidecar,
-    per_binary as sidecar_per_binary,
-)
+from lib.sidecar.loader import load as load_sidecar
+from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.report import print_compare
 
 from .clean import clean_all

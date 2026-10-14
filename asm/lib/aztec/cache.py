@@ -145,9 +145,9 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose):
     from . import compile as azc
     objcache_dir = os.path.join(prebuild_dir(project), 'objs')
     os.makedirs(objcache_dir, exist_ok=True)
-    from lib import sidecar
+    from lib.sidecar.vendor import vendor_patches
     engine = MuxEngine(objcache_dir=objcache_dir,
-                       patches=sidecar.vendor_patches(project))
+                       patches=vendor_patches(project))
 
     # Phase 1: batch-compile every candidate module not already cached.  One
     # DOSBox session per (compiler, includes) pair instead of one per module.
@@ -245,11 +245,11 @@ def default_entry(label, project):
     (:mod:`.mux`); the flags come from the sidecar's ``compiler_flags``,
     chosen by the routine's name.
     """
-    from lib import sidecar
+    from lib.sidecar.compiler import compiler_flags
     compiler, sources_version = COMPILER_VERSIONS[0], SOURCE_VERSIONS[0]
     entry = {'compiler': compiler, 'includes': sources_version,
              'source_version': sources_version, 'file': f'{label}.c'}
-    flags = sidecar.compiler_flags(project, label)
+    flags = compiler_flags(project, label)
     if flags is not None:
         entry['flags'] = flags
     return entry

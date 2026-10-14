@@ -17,7 +17,10 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-import main
+from lib.sidecar.binary import per_binary as sidecar_per_binary
+from lib.sidecar.loader import load as load_sidecar
+from main.options import APPS_DIR
+from main.runner import process
 
 from lib.compare import promote as PR
 from lib.compare.render import _build_source, mz_data_gap
@@ -236,9 +239,9 @@ class CorpusPromotionPipelineTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls._output = tempfile.TemporaryDirectory(prefix='ds-promote-')
-        project_dir = pathlib.Path(main.APPS_DIR) / 'DSAVANT'
-        cls.sidecar = main.load_sidecar('DSAVANT')
-        entry = main.sidecar_per_binary(cls.sidecar, 'vinstall')
+        project_dir = pathlib.Path(APPS_DIR) / 'DSAVANT'
+        cls.sidecar = load_sidecar('DSAVANT')
+        entry = sidecar_per_binary(cls.sidecar, 'vinstall')
         captured = {}
 
         def _capture(ctx, *args, **kwargs):
@@ -248,7 +251,7 @@ class CorpusPromotionPipelineTests(unittest.TestCase):
               patch('main.runner.write_layers', return_value=''),
               patch('main.runner.print_short_report', _capture),
               contextlib.redirect_stdout(io.StringIO())):
-            main.process(
+            process(
                 'vinstall', str(project_dir), 'VINSTALL.EXE', 0x200,
                 output_dir=cls._output.name, sidecar_entry=entry)
         cls.verify = captured['verify']
@@ -258,7 +261,7 @@ class CorpusPromotionPipelineTests(unittest.TestCase):
         cls._output.cleanup()
 
     def test_every_asserted_word_is_emitted(self):
-        entry = main.sidecar_per_binary(self.sidecar, 'vinstall')
+        entry = sidecar_per_binary(self.sidecar, 'vinstall')
         asserted = {e['offset'] for e in entry['data_pointers']}
         emitted = {w['offset'] for w in self.verify['promoted_data_words']}
         self.assertEqual(emitted, asserted)
@@ -267,7 +270,7 @@ class CorpusPromotionPipelineTests(unittest.TestCase):
         self.assertEqual(self.verify['promotion_skipped'], [])
 
     def test_no_not_pointer_is_emitted(self):
-        entry = main.sidecar_per_binary(self.sidecar, 'vinstall')
+        entry = sidecar_per_binary(self.sidecar, 'vinstall')
         negatives = {e['offset'] for e in entry['not_pointers']}
         emitted = {w['offset'] for w in self.verify['promoted_data_words']}
         self.assertFalse(negatives & emitted)

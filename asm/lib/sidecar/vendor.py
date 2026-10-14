@@ -30,6 +30,6 @@ def vendor_patches(project):
     Each patch names the vendor ``version``/``file`` and the ordered ``edits``
     that turn its text into the source of the bytes in the game binary.
     """
-    from . import load
+    from .loader import load
 
     return dict((load(project) or {}).get('vendor_patches') or {})

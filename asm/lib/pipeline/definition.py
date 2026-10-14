@@ -210,7 +210,8 @@ class PipelineDef:
                       refine_phases: list[Phase] | None = None):
         """Execute the iterative pipeline pattern."""
         from lib.pipeline.iterative import run_iterative
-        from lib.phases import SettlePhase, ArbiterPhase
+        from lib.phases.settle import SettlePhase
+        from lib.phases.arbiter import ArbiterPhase
 
         if classify_phases:
             all_iter = classify_phases + [

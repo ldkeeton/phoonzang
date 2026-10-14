@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from lib.aztec import build_db
 from lib.cachedirs import aztec_funcs_path, prebuild_dir
-from main import discover_binaries
+from main.projects import discover_binaries
 
 from .common import APPS, JOBS, _asm_one
 

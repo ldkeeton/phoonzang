@@ -11,7 +11,7 @@ import sys
 from lib.autogen import write_text
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
-from main import discover_binaries
+from main.projects import discover_binaries
 
 from .common import APPS, PROJECT, _extra_flags, _main_exe, _nasm_build
 
@@ -438,9 +438,11 @@ def resplice_c(app, binary):
     from lib.aztec import cache, relink
     from lib.aztec.objread import fixup_width
     from lib.compare.cgate import check_against_original
-    from lib.compare import (
-        _c_bytes_to_records, _merge_label_records, _render_records,
+    from lib.compare.coverrides import (
+        _c_bytes_to_records,
+        _merge_label_records,
     )
+    from lib.compare.render import _render_records
 
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     dest = os.path.join(out_dir, binary)

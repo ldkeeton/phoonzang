@@ -4,10 +4,8 @@ import json
 import os
 import shutil
 
-from lib.sidecar import (
-    load as load_sidecar,
-    per_binary as sidecar_per_binary,
-)
+from lib.sidecar.loader import load as load_sidecar
+from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.segments import (
     from_binary as build_segment_model,
     SegmentError,

@@ -3,6 +3,42 @@
 from .ir import Function, Instruction, Operand, StackVar
 
 
+def frame_skip(fn: Function) -> tuple[int, int]:
+    """Return ``(leading, trailing)`` instruction counts of the standard frame.
+
+    Recognises the prologue ``push bp; mov bp, sp [; sub sp, N]`` and the
+    epilogue ``[mov sp, bp;] pop bp; ret``.  Callers use the result to skip that
+    boilerplate, so the same counts drive both the inline-asm decision and the
+    pure-C emitter.
+    """
+    n = len(fn.instructions)
+
+    prologue_count = 0
+    if n >= 2:
+        i0, i1 = fn.instructions[0], fn.instructions[1]
+        if (i0.mnemonic == 'push' and len(i0.operands) == 1
+                and i0.operands[0].type == 'reg' and i0.operands[0].value == 'bp'):
+            if (i1.mnemonic == 'mov' and len(i1.operands) == 2
+                    and i1.operands[0].value == 'bp' and i1.operands[1].value == 'sp'):
+                prologue_count = 2
+                if n >= 3 and fn.instructions[2].mnemonic == 'sub':
+                    i2 = fn.instructions[2]
+                    if (len(i2.operands) == 2 and i2.operands[0].value == 'sp'
+                            and i2.operands[1].type == 'imm'):
+                        prologue_count = 3
+
+    epilogue_count = 0
+    if n >= 2:
+        if fn.instructions[-1].mnemonic in ('ret', 'retf'):
+            epilogue_count = 1
+            if fn.instructions[-2].mnemonic == 'pop' and fn.instructions[-2].operands[0].value == 'bp':
+                epilogue_count = 2
+                if n >= 3 and fn.instructions[-3].mnemonic == 'mov' and fn.instructions[-3].operands[0].value == 'sp' and fn.instructions[-3].operands[1].value == 'bp':
+                    epilogue_count = 3
+
+    return prologue_count, epilogue_count
+
+
 def analyze_frame(fn: Function) -> None:
     """Analyze stack frame for a function.
 
@@ -67,28 +103,7 @@ def analyze_frame(fn: Function) -> None:
     # Mark as inline asm if the function uses complex instructions
     # Determine prologue/epilogue instruction count
     n = len(fn.instructions)
-    prologue_count = 0
-    if n >= 2:
-        i0, i1 = fn.instructions[0], fn.instructions[1]
-        if (i0.mnemonic == 'push' and len(i0.operands) == 1
-                and i0.operands[0].type == 'reg' and i0.operands[0].value == 'bp'):
-            if (i1.mnemonic == 'mov' and len(i1.operands) == 2
-                    and i1.operands[0].value == 'bp' and i1.operands[1].value == 'sp'):
-                prologue_count = 2
-                if n >= 3 and fn.instructions[2].mnemonic == 'sub':
-                    i2 = fn.instructions[2]
-                    if (len(i2.operands) == 2 and i2.operands[0].value == 'sp'
-                            and i2.operands[1].type == 'imm'):
-                        prologue_count = 3
-
-    epilogue_count = 0
-    if n >= 2:
-        if fn.instructions[-1].mnemonic in ('ret', 'retf'):
-            epilogue_count = 1
-            if n >= 2 and fn.instructions[-2].mnemonic == 'pop' and fn.instructions[-2].operands[0].value == 'bp':
-                epilogue_count = 2
-                if n >= 3 and fn.instructions[-3].mnemonic == 'mov' and fn.instructions[-3].operands[0].value == 'sp' and fn.instructions[-3].operands[1].value == 'bp':
-                    epilogue_count = 3
+    prologue_count, epilogue_count = frame_skip(fn)
 
     for i, insn in enumerate(fn.instructions):
         if i < prologue_count or i >= n - epilogue_count:

@@ -17,7 +17,7 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.format import format_instruction
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent
-from lib.compare import (
+from lib.compare.records import (
     find_db_with_comment_lines,
     UnencodedInstructionError,
 )

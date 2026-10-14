@@ -4,7 +4,7 @@ import os
 import shutil
 
 from lib.cachedirs import CACHE_ROOT, project_cache
-from main import clean_all
+from main.clean import clean_all
 from main.clean import clean_project
 
 

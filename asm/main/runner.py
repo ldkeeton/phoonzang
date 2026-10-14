@@ -12,23 +12,31 @@ from lib.diagnostics import begin as diag_begin, flush as diag_flush
 from lib.diagnostics import phase as diag_phase, emit as diag_emit, enabled as diag_enabled
 
 from lib.decode import disassemble
-from lib.compare import (
-    verify,
-    clear_assemble_cache,
+from lib.compare.verify import verify
+from lib.verify.assemble import clear_assemble_cache
+from lib.compare.records import (
     find_db_with_comment_lines,
     UnencodedInstructionError,
+)
+from lib.compare.analysis import (
     _function_roots,
     _compute_branch_ownership,
     _local_branch_targets,
 )
 from lib.verify.assemble import assemble_stats, reset_assemble_stats
 from lib.struct_analysis import build_structs
-from lib.match import match_patterns, match_trampolines, categorize_call_targets
-from lib.phases import (
-    SettlePhase, ForceCodePhase, ArbiterPhase,
-)
+from lib.match.pattern import match_patterns
+from lib.match.trampoline import match_trampolines
+from lib.match.categorize import categorize_call_targets
+from lib.phases.settle import SettlePhase
+from lib.phases.forcecode import ForceCodePhase
+from lib.phases.arbiter import ArbiterPhase
 from lib.model import PhaseContext, IS_CODE, IS_DATA
-from lib.pipeline import run_functional, run_iterative, report_timings
+from lib.pipeline.functional import (
+    run_functional,
+    report_timings,
+)
+from lib.pipeline.iterative import run_iterative
 from lib.pipeline.definition import PipelineDef, Stage
 from lib.segments import (
     from_binary as build_segment_model,
@@ -647,10 +655,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         write_label_json(exported, json_path)
 
     if _DECOMPILE:
-        from lib.decompile import decompile
-        bin_data = ctx.binary_data
-        c_text = decompile(bin_data, start_offset, instructions, label_map,
-                          ctx.code_target_set, structs, name)
+        from lib.decompile.driver import decompile
+        c_text = decompile(instructions, label_map, ctx.code_target_set, name)
         c_path = os.path.join(out_dir, f'{name}.c')
         write_text(c_path, c_text)
         print(f'  decompile: {len(instructions)} insns -> {c_path}')

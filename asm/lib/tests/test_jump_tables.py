@@ -7,13 +7,15 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 from lib.model import JumpTableInfo
 from lib.phases.recursive import _code_off, _scan_jump_table
 from lib.verify.assemble import clear_assemble_cache, micro_assemble
-from lib.compare import (
+from lib.compare.render import (
     _build_source,
-    _inject_jump_tables,
-    _merge_jump_table_specs,
-    _partition_function_records,
     _render_records,
 )
+from lib.compare.jumptables import (
+    _inject_jump_tables,
+    _merge_jump_table_specs,
+)
+from lib.compare.splitting import _partition_function_records
 from lib.compare.verify import _is_direct_far, _find_trampoline_tables
 
 

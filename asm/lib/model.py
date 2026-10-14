@@ -5,7 +5,8 @@ import polars as pl
 import numpy as np
 
 from lib.mz import parse_entrypoint as parse_mz_entrypoint
-from lib.sidecar import _parse_offset, validate_force_ranges
+from lib.sidecar.offsets import _parse_offset
+from lib.sidecar.ranges import validate_force_ranges
 
 IS_UNKNOWN = 0
 IS_CODE = 1

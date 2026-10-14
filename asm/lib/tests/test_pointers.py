@@ -17,7 +17,10 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-import main
+from lib.sidecar.binary import per_binary as sidecar_per_binary
+from lib.sidecar.loader import load as load_sidecar
+from main.options import APPS_DIR
+from main.runner import process
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
@@ -322,10 +325,10 @@ class PointerCorpusPipelineTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls._output = tempfile.TemporaryDirectory(prefix='ds-pointers-')
-        project_dir = pathlib.Path(main.APPS_DIR) / 'DSAVANT'
-        sidecar = main.load_sidecar('DSAVANT')
+        project_dir = pathlib.Path(APPS_DIR) / 'DSAVANT'
+        sidecar = load_sidecar('DSAVANT')
         cls.sidecar = sidecar
-        entry = main.sidecar_per_binary(sidecar, 'vinstall')
+        entry = sidecar_per_binary(sidecar, 'vinstall')
         captured = {}
 
         def _capture(ctx, *args, **kwargs):
@@ -335,7 +338,7 @@ class PointerCorpusPipelineTests(unittest.TestCase):
               patch('main.runner.write_layers', return_value=''),
               patch('main.runner.print_short_report', _capture),
               contextlib.redirect_stdout(io.StringIO())):
-            main.process(
+            process(
                 'vinstall', str(project_dir), 'VINSTALL.EXE', 0x200,
                 output_dir=cls._output.name, sidecar_entry=entry,
             )
@@ -346,7 +349,7 @@ class PointerCorpusPipelineTests(unittest.TestCase):
         cls._output.cleanup()
 
     def _asserted_offsets(self):
-        entry = main.sidecar_per_binary(self.sidecar, 'vinstall')
+        entry = sidecar_per_binary(self.sidecar, 'vinstall')
         return {e['offset'] for e in entry['data_pointers']}
 
     def test_promoted_set_is_within_the_corpus(self):
@@ -374,7 +377,7 @@ class PointerCorpusPipelineTests(unittest.TestCase):
             f'{sorted(hex(o) for o in missed - backlog)}')
 
     def test_no_not_pointer_is_promoted(self):
-        entry = main.sidecar_per_binary(self.sidecar, 'vinstall')
+        entry = sidecar_per_binary(self.sidecar, 'vinstall')
         negatives = {e['offset'] for e in entry['not_pointers']}
         promoted = {c['offset'] for c in self.verify['promoted_pointers']}
         self.assertFalse(negatives & promoted)

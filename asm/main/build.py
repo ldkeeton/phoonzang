@@ -35,7 +35,8 @@ from lib.link import (
     LinkError, collect_host_data, host_name, write_host_data_offsets,
     include_args,
 )
-from lib.sidecar import load as load_sidecar, per_binary as sidecar_per_binary
+from lib.sidecar.loader import load as load_sidecar
+from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.shared import share_identical
 
 from .options import APPS_DIR, EXACT_BYTES, PROJECT_ROOT, _SHOW_OFFSETS

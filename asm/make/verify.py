@@ -2,7 +2,10 @@
 
 import sys
 
-from main import verify_all, verify_project
+from main.verify import (
+    verify_all,
+    verify_project,
+)
 
 
 def cmd_verify(apps):

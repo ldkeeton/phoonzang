@@ -21,7 +21,8 @@ from lib.compare.records import (
     DISPATCH_STRIDE, count_frozen_addrs, count_hidden_flow, count_name_use,
     dispatch_handlers, far_entry_runs, instruction_offsets, thunk_entry_count,
 )
-from lib.sidecar import load as load_sidecar, per_binary
+from lib.sidecar.loader import load as load_sidecar
+from lib.sidecar.binary import per_binary
 from make.elf import _force_origin_zero
 
 

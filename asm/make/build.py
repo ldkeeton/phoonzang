@@ -10,7 +10,7 @@ import os
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from main import discover_binaries
+from main.projects import discover_binaries
 from main.build import build_project, nasm_binary
 from lib.report import clear_project_stats
 

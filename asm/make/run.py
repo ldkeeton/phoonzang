@@ -6,7 +6,7 @@ import subprocess
 import sys
 
 from lib.dosbox import DOSBOX
-from main import discover_binaries
+from main.projects import discover_binaries
 
 from .common import APPS, PROJECT, _main_exe
 

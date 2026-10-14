@@ -36,7 +36,7 @@ JOBS = os.cpu_count() or 4
 
 if ASM not in sys.path:
     sys.path.insert(0, ASM)
-from main import load_whitelist
+from main.projects import load_whitelist
 from lib.link import include_args
 
 

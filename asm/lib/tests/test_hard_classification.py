@@ -8,14 +8,16 @@ from lib.model import IS_CODE, IS_DATA, PhaseContext
 from lib.phases.arbiter import ArbiterPhase
 from lib.phases.recursive import RecursiveDescentPhase
 from lib.phases.sidecar import SidecarPhase
-from lib.sidecar import SidecarError, _validate, per_binary
+from lib.sidecar.errors import SidecarError
+from lib.sidecar.loader import _validate
+from lib.sidecar.binary import per_binary
 from lib.decode import disassemble
-from lib.compare import (
-    verify,
+from lib.compare.verify import verify
+from lib.compare.analysis import (
     _compute_branch_ownership,
     _local_branch_targets,
-    _postprocess_data_blocks,
 )
+from lib.compare.postprocess import _postprocess_data_blocks
 
 
 def _branch_binary(opcode, target=16):

@@ -2,8 +2,8 @@
 
 import sys
 
-from lib.sidecar import SidecarError
-from lib.compare import UnencodedInstructionError
+from lib.sidecar.errors import SidecarError
+from lib.compare.records import UnencodedInstructionError
 
 from .cli import main
 

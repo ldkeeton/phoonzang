@@ -5,7 +5,10 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-import main
+from lib.sidecar.binary import per_binary as sidecar_per_binary
+from lib.sidecar.loader import load as load_sidecar
+from main.options import APPS_DIR
+from main.runner import process
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 from lib.match.categorize import categorize_call_targets
 from lib.match.pattern import match_patterns
@@ -60,14 +63,14 @@ class DSAVANTEgaNamingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls._output = tempfile.TemporaryDirectory(prefix='ds-ega-names-')
-        project_dir = pathlib.Path(main.APPS_DIR) / 'DSAVANT'
-        sidecar = main.load_sidecar('DSAVANT')
-        sidecar_entry = main.sidecar_per_binary(sidecar, 'ega')
+        project_dir = pathlib.Path(APPS_DIR) / 'DSAVANT'
+        sidecar = load_sidecar('DSAVANT')
+        sidecar_entry = sidecar_per_binary(sidecar, 'ega')
         with (patch('main.runner.write_report', return_value=''),
               patch('main.runner.write_layers', return_value=''),
               patch('main.runner.print_short_report'),
               contextlib.redirect_stdout(io.StringIO())):
-            _, cls.label_map = main.process(
+            _, cls.label_map = process(
                 'ega', str(project_dir), 'EGA.DRV', 0,
                 output_dir=cls._output.name,
                 sidecar_entry=sidecar_entry,

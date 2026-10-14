@@ -2,10 +2,10 @@
 
 import unittest
 
-from lib import sidecar
 from lib.aztec import sources
 from lib.aztec.mux import MuxEngine
-from lib.sidecar import SidecarError
+from lib.sidecar.errors import SidecarError
+from lib.sidecar.vendor import _validate_vendor_patches, vendor_patches
 
 
 class ApplyEditsTest(unittest.TestCase):
@@ -32,10 +32,10 @@ class ValidationTest(unittest.TestCase):
                       {'x': {'file': 'f', 'version': 'v',
                              'edits': [{'find': '', 'replace': 'b'}]}}):
             with self.assertRaises(SidecarError):
-                sidecar._validate_vendor_patches(block)
+                _validate_vendor_patches(block)
 
     def test_accepts_well_formed_block(self):
-        sidecar._validate_vendor_patches(
+        _validate_vendor_patches(
             {'x': {'file': 'f', 'version': 'v',
                    'edits': [{'find': 'a', 'replace': 'b'}]}})
 
@@ -55,7 +55,7 @@ class EngineSourceTest(unittest.TestCase):
 
 class DsavantPatchTest(unittest.TestCase):
     def test_shipped_patch_applies_to_the_vendor_source(self):
-        patches = sidecar.vendor_patches('DSAVANT')
+        patches = vendor_patches('DSAVANT')
         self.assertIn('aztec_begin', patches)
         text = MuxEngine(patches=patches).source('v52a', 'sbegin.asm')
         self.assertIn('mov\tcs:cseg_4d38_,ds', text)

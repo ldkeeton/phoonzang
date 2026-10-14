@@ -1,12 +1,23 @@
 """Construction of the classification and refinement phase pipelines."""
 
-from lib.phases import (
-    SeedPhase, SidecarPhase, AztecOverlayPhase, DispatchTablePhase,
-    PatternSeedPhase, CarvePhase, TrampolinePhase, ErrorHandlerPhase,
-    RecursiveDescentPhase, PruneDeadPhase, PruneDeadBeforePhase,
-    PruneZeroPhase, CascadeTargetPhase,
-    SettlePhase, ForceCodePhase, ArbiterPhase,
+from lib.phases.seed import SeedPhase
+from lib.phases.sidecar import SidecarPhase
+from lib.phases.aztec_overlay import AztecOverlayPhase
+from lib.phases.dispatch import DispatchTablePhase
+from lib.phases.pattern_seed import PatternSeedPhase
+from lib.phases.carve import CarvePhase
+from lib.phases.trampoline import TrampolinePhase
+from lib.phases.error import ErrorHandlerPhase
+from lib.phases.recursive import RecursiveDescentPhase
+from lib.phases.prune import (
+    PruneDeadPhase,
+    PruneDeadBeforePhase,
+    PruneZeroPhase,
 )
+from lib.phases.cascade import CascadeTargetPhase
+from lib.phases.settle import SettlePhase
+from lib.phases.forcecode import ForceCodePhase
+from lib.phases.arbiter import ArbiterPhase
 
 
 def _build_classify_phases(known_db=None):
