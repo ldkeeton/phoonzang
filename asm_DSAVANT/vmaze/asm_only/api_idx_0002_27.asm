@@ -38,7 +38,7 @@ api_idx_0002_27:
     imul word [bp + 0x4]             ; 0xa9fc
     add ax, 0x850a                   ; 0xa9ff
     push ax                          ; 0xaa02
-    call ds_leaf_loc_3e88            ; 0xaa03
+    call set_bitmap_bit              ; 0xaa03
     add sp, byte 6                   ; 0xaa06
     mov ax, 0x26                     ; 0xaa09
     imul word [bp + 0x4]             ; 0xaa0c

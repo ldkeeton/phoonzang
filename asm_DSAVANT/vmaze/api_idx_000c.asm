@@ -94,7 +94,7 @@ api_idx_000c:
     push ax                          ; 0x0daa
     mov ax, 0x8c7e                   ; 0x0dab
     push ax                          ; 0x0dae
-    call ds_leaf_loc_3e88            ; 0x0daf
+    call set_bitmap_bit              ; 0x0daf
     add sp, byte 6                   ; 0x0db2
 @..api_idx_000c.l4:
     inc word [bp - 0x0004]           ; 0x0db5
@@ -158,7 +158,7 @@ api_idx_000c:
     push ax                          ; 0x0e3b
     mov ax, 0x8bfe                   ; 0x0e3c
     push ax                          ; 0x0e3f
-    call ds_leaf_loc_3e88            ; 0x0e40
+    call set_bitmap_bit              ; 0x0e40
     add sp, byte 6                   ; 0x0e43
 @..api_idx_000c.l7:
     add word [bp - 0x000c], byte 8   ; 0x0e46

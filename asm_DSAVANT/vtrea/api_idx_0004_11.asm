@@ -117,7 +117,7 @@ loc_6f41:
     shl ax, cl                       ; 0x6fb0
     add ax, 0x8d14                   ; 0x6fb2
     push ax                          ; 0x6fb5
-    call ds_leaf_loc_3e88            ; 0x6fb6
+    call set_bitmap_bit              ; 0x6fb6
     add sp, byte 6                   ; 0x6fb9
     mov ax, 0                        ; 0x6fbc
     push ax                          ; 0x6fbf
@@ -131,7 +131,7 @@ loc_6f41:
     shl ax, cl                       ; 0x6fd3
     add ax, 0x5642                   ; 0x6fd5
     push ax                          ; 0x6fd8
-    call ds_leaf_loc_3e88            ; 0x6fd9
+    call set_bitmap_bit              ; 0x6fd9
     add sp, byte 6                   ; 0x6fdc
     mov ax, word [bp + 0x4]          ; 0x6fdf
     inc ax                           ; 0x6fe2

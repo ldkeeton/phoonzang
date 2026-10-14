@@ -455,7 +455,7 @@ api_idx_0022:
     push word [bp - 0x000a]          ; 0x2685
     mov ax, 0x8afe                   ; 0x2688
     push ax                          ; 0x268b
-    call ds_leaf_loc_3e88            ; 0x268c
+    call set_bitmap_bit              ; 0x268c
     add sp, byte 6                   ; 0x268f
     call api_idx_0004_3              ; 0x2692
     mov word [bp - 0x0010], ax       ; 0x2695

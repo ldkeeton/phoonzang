@@ -91,7 +91,7 @@ api_idx_000a_3:
     shl ax, cl                       ; 0x7929
     add ax, 0x8d14                   ; 0x792b
     push ax                          ; 0x792e
-    call ds_leaf_loc_3e88            ; 0x792f
+    call set_bitmap_bit              ; 0x792f
     add sp, byte 6                   ; 0x7932
     jmp short @..api_idx_000a_3.l6   ; 0x7935
 @..api_idx_000a_3.l4:
@@ -103,7 +103,7 @@ api_idx_000a_3:
     shl ax, cl                       ; 0x7944
     add ax, 0x8d14                   ; 0x7946
     push ax                          ; 0x7949
-    call ds_leaf_loc_3e88            ; 0x794a
+    call set_bitmap_bit              ; 0x794a
     add sp, byte 6                   ; 0x794d
     jmp short @..api_idx_000a_3.l6   ; 0x7950
 @..api_idx_000a_3.l5:
@@ -136,7 +136,7 @@ api_idx_000a_3:
     shl ax, cl                       ; 0x7991
     add ax, 0x5642                   ; 0x7993
     push ax                          ; 0x7996
-    call ds_leaf_loc_3e88            ; 0x7997
+    call set_bitmap_bit              ; 0x7997
     add sp, byte 6                   ; 0x799a
 @..api_idx_000a_3.l7:
     ret                              ; 0x799d

@@ -991,7 +991,7 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/asm_only/bios_kbd_check.asm"           ; 0x3e5e
 
-%include "ds/asm_only/ds_leaf_loc_3e88.asm"         ; 0x3e88
+%include "ds/asm_only/set_bitmap_bit.asm"           ; 0x3e88
 
 %include "ds/asm_only/ds_leaf_loc_3ebb.asm"         ; 0x3ebb
 

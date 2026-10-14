@@ -182,7 +182,7 @@ api_idx_000e:
     push word [bp - 0x0002]          ; 0x17cc
     mov ax, 0x8afe                   ; 0x17cf
     push ax                          ; 0x17d2
-    call ds_leaf_loc_3e88            ; 0x17d3
+    call set_bitmap_bit              ; 0x17d3
     add sp, byte 6                   ; 0x17d6
     mov bx, word [bss_0e12]          ; 0x17d9
     mov si, word [bss_8f3e]          ; 0x17dd

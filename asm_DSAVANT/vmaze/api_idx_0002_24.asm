@@ -17,7 +17,7 @@ api_idx_0002_24:
     imul word [bp + 0x4]             ; 0x9946
     add ax, 0x8502                   ; 0x9949
     push ax                          ; 0x994c
-    call ds_leaf_loc_3e88            ; 0x994d
+    call set_bitmap_bit              ; 0x994d
     add sp, byte 6                   ; 0x9950
     mov ax, 1                        ; 0x9953
     push ax                          ; 0x9956
@@ -26,7 +26,7 @@ api_idx_0002_24:
     imul word [bp + 0x4]             ; 0x995d
     add ax, 0x850a                   ; 0x9960
     push ax                          ; 0x9963
-    call ds_leaf_loc_3e88            ; 0x9964
+    call set_bitmap_bit              ; 0x9964
     add sp, byte 6                   ; 0x9967
     mov word [bp - 0x0002], 0        ; 0x996a
 @..api_idx_0002_24.l1:
@@ -37,7 +37,7 @@ api_idx_0002_24:
     imul word [bp - 0x0002]          ; 0x9979
     add ax, 0x8504                   ; 0x997c
     push ax                          ; 0x997f
-    call ds_leaf_loc_3e88            ; 0x9980
+    call set_bitmap_bit              ; 0x9980
     add sp, byte 6                   ; 0x9983
     inc word [bp - 0x0002]           ; 0x9986
     mov ax, word [bp - 0x0002]       ; 0x9989
@@ -50,7 +50,7 @@ api_idx_0002_24:
     imul word [bp + 0x4]             ; 0x999b
     add ax, 0x8504                   ; 0x999e
     push ax                          ; 0x99a1
-    call ds_leaf_loc_3e88            ; 0x99a2
+    call set_bitmap_bit              ; 0x99a2
     add sp, byte 6                   ; 0x99a5
     cmp word [bp + 0x6], byte 0xff   ; 0x99a8
     je short @..api_idx_0002_24.l2   ; 0x99ac
@@ -61,7 +61,7 @@ api_idx_0002_24:
     imul word [bp + 0x6]             ; 0x99b8
     add ax, 0x8502                   ; 0x99bb
     push ax                          ; 0x99be
-    call ds_leaf_loc_3e88            ; 0x99bf
+    call set_bitmap_bit              ; 0x99bf
     add sp, byte 6                   ; 0x99c2
     mov ax, 1                        ; 0x99c5
     push ax                          ; 0x99c8
@@ -70,7 +70,7 @@ api_idx_0002_24:
     imul word [bp + 0x6]             ; 0x99cf
     add ax, 0x8504                   ; 0x99d2
     push ax                          ; 0x99d5
-    call ds_leaf_loc_3e88            ; 0x99d6
+    call set_bitmap_bit              ; 0x99d6
     add sp, byte 6                   ; 0x99d9
 @..api_idx_0002_24.l2:
     ret                              ; 0x99dc

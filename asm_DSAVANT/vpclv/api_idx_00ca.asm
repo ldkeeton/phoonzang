@@ -93,7 +93,7 @@ api_idx_00ca:
     imul word [bp + 0x4]             ; 0x1f1a
     add ax, 0x5e12                   ; 0x1f1d
     push ax                          ; 0x1f20
-    call ds_leaf_loc_3e88            ; 0x1f21
+    call set_bitmap_bit              ; 0x1f21
     add sp, byte 6                   ; 0x1f24
     inc word [bp - 0x0004]           ; 0x1f27
 @..api_idx_00ca.l9:
@@ -188,7 +188,7 @@ api_idx_00ca:
     imul word [bp + 0x4]             ; 0x2000
     add ax, 0x5e12                   ; 0x2003
     push ax                          ; 0x2006
-    call ds_leaf_loc_3e88            ; 0x2007
+    call set_bitmap_bit              ; 0x2007
     add sp, byte 6                   ; 0x200a
     mov ax, 0x248                    ; 0x200d
     imul word [bp + 0x4]             ; 0x2010

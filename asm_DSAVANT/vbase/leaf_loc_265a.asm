@@ -141,7 +141,7 @@ loc_275a:
     mov ax, word [bp - 0x0014]       ; 0x27aa
     add ax, 0x21e                    ; 0x27ad
     push ax                          ; 0x27b0
-    call ds_leaf_loc_3e88            ; 0x27b1
+    call set_bitmap_bit              ; 0x27b1
     add sp, byte 6                   ; 0x27b4
 loc_27b7:
     inc word [bp - 0x0004]           ; 0x27b7

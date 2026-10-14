@@ -79,7 +79,7 @@ api_idx_006e:
     imul word [bp + 0x4]             ; 0x3e20
     add ax, 0x5e12                   ; 0x3e23
     push ax                          ; 0x3e26
-    call ds_leaf_loc_3e88            ; 0x3e27
+    call set_bitmap_bit              ; 0x3e27
     add sp, byte 6                   ; 0x3e2a
     inc word [bp - 0x0004]           ; 0x3e2d
 @..api_idx_006e.l8:
@@ -150,7 +150,7 @@ api_idx_006e:
     imul word [bp + 0x4]             ; 0x3ec6
     add ax, 0x5e12                   ; 0x3ec9
     push ax                          ; 0x3ecc
-    call ds_leaf_loc_3e88            ; 0x3ecd
+    call set_bitmap_bit              ; 0x3ecd
     add sp, byte 6                   ; 0x3ed0
     mov ax, 6                        ; 0x3ed3
     imul word [bp - 0x0006]          ; 0x3ed6

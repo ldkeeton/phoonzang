@@ -233,7 +233,7 @@ loc_7242:
     shl ax, cl                       ; 0x726e
     add ax, 0x8d14                   ; 0x7270
     push ax                          ; 0x7273
-    call ds_leaf_loc_3e88            ; 0x7274
+    call set_bitmap_bit              ; 0x7274
     add sp, byte 6                   ; 0x7277
     cmp word [bp + 0x4], byte 1      ; 0x727a
     jle short @..loc_7242.l1         ; 0x727e
@@ -249,7 +249,7 @@ loc_7242:
     shl ax, cl                       ; 0x7299
     add ax, 0x5642                   ; 0x729b
     push ax                          ; 0x729e
-    call ds_leaf_loc_3e88            ; 0x729f
+    call set_bitmap_bit              ; 0x729f
     add sp, byte 6                   ; 0x72a2
 @..loc_7242.l1:
     ret                              ; 0x72a5

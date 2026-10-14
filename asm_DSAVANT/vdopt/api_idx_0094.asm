@@ -322,7 +322,7 @@ api_idx_0094:
     shl ax, cl                       ; 0x4475
     add ax, 0x8d14                   ; 0x4477
     push ax                          ; 0x447a
-    call ds_leaf_loc_3e88            ; 0x447b
+    call set_bitmap_bit              ; 0x447b
     add sp, byte 6                   ; 0x447e
     mov ax, 0                        ; 0x4481
     push ax                          ; 0x4484
@@ -334,7 +334,7 @@ api_idx_0094:
     shl ax, cl                       ; 0x4491
     add ax, 0x5642                   ; 0x4493
     push ax                          ; 0x4496
-    call ds_leaf_loc_3e88            ; 0x4497
+    call set_bitmap_bit              ; 0x4497
     add sp, byte 6                   ; 0x449a
     mov ax, 1                        ; 0x449d
     push ax                          ; 0x44a0
@@ -346,7 +346,7 @@ api_idx_0094:
     shl ax, cl                       ; 0x44ad
     add ax, 0x8d14                   ; 0x44af
     push ax                          ; 0x44b2
-    call ds_leaf_loc_3e88            ; 0x44b3
+    call set_bitmap_bit              ; 0x44b3
     add sp, byte 6                   ; 0x44b6
     mov ax, 1                        ; 0x44b9
     push ax                          ; 0x44bc
@@ -358,7 +358,7 @@ api_idx_0094:
     shl ax, cl                       ; 0x44c9
     add ax, 0x5642                   ; 0x44cb
     push ax                          ; 0x44ce
-    call ds_leaf_loc_3e88            ; 0x44cf
+    call set_bitmap_bit              ; 0x44cf
     add sp, byte 6                   ; 0x44d2
     push word [bp - 0x0052]          ; 0x44d5
     push word [bp - 0x0050]          ; 0x44d8

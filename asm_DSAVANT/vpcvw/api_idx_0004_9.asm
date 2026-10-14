@@ -82,6 +82,6 @@ api_idx_0004_9:
     push ax                          ; 0x54ef
     mov ax, 0x8bfe                   ; 0x54f0
     push ax                          ; 0x54f3
-    call ds_leaf_loc_3e88            ; 0x54f4
+    call set_bitmap_bit              ; 0x54f4
     add sp, byte 6                   ; 0x54f7
     ret                              ; 0x54fa

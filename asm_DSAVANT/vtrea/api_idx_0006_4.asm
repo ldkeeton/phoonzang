@@ -91,7 +91,7 @@ api_idx_0006_4:
     shl ax, cl                       ; 0x55e4
     add ax, 0x8d14                   ; 0x55e6
     push ax                          ; 0x55e9
-    call ds_leaf_loc_3e88            ; 0x55ea
+    call set_bitmap_bit              ; 0x55ea
     add sp, byte 6                   ; 0x55ed
     mov ax, 1                        ; 0x55f0
     push ax                          ; 0x55f3
@@ -110,7 +110,7 @@ api_idx_0006_4:
     shl ax, cl                       ; 0x5613
     add ax, 0x5642                   ; 0x5615
     push ax                          ; 0x5618
-    call ds_leaf_loc_3e88            ; 0x5619
+    call set_bitmap_bit              ; 0x5619
     add sp, byte 6                   ; 0x561c
 @..api_idx_0006_4.l8:
     mov ax, 2                        ; 0x561f
@@ -135,7 +135,7 @@ api_idx_0006_4:
     shl ax, cl                       ; 0x5651
     add ax, 0x8d14                   ; 0x5653
     push ax                          ; 0x5656
-    call ds_leaf_loc_3e88            ; 0x5657
+    call set_bitmap_bit              ; 0x5657
     add sp, byte 6                   ; 0x565a
     cmp word [bp - 0x0006], byte 1   ; 0x565d
     jle short @..api_idx_0006_4.l9   ; 0x5661
@@ -151,7 +151,7 @@ api_idx_0006_4:
     shl ax, cl                       ; 0x567c
     add ax, 0x5642                   ; 0x567e
     push ax                          ; 0x5681
-    call ds_leaf_loc_3e88            ; 0x5682
+    call set_bitmap_bit              ; 0x5682
     add sp, byte 6                   ; 0x5685
 @..api_idx_0006_4.l9:
     ret                              ; 0x5688

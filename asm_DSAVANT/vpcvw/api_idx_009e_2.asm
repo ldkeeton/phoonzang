@@ -107,7 +107,7 @@ jumptable_3f96_case_3:
     imul word [bp + 0x4]             ; 0x3ded
     add ax, 0x5e12                   ; 0x3df0
     push ax                          ; 0x3df3
-    call ds_leaf_loc_3e88            ; 0x3df4
+    call set_bitmap_bit              ; 0x3df4
     add sp, byte 6                   ; 0x3df7
     lea ax, word [bp - 0x009e]       ; 0x3dfa
     push ax                          ; 0x3dfe
@@ -154,7 +154,7 @@ jumptable_3f96_case_4:
     shl ax, cl                       ; 0x3e5a
     add ax, 0x8d14                   ; 0x3e5c
     push ax                          ; 0x3e5f
-    call ds_leaf_loc_3e88            ; 0x3e60
+    call set_bitmap_bit              ; 0x3e60
     add sp, byte 6                   ; 0x3e63
     mov ax, 0                        ; 0x3e66
     push ax                          ; 0x3e69
@@ -166,7 +166,7 @@ jumptable_3f96_case_4:
     shl ax, cl                       ; 0x3e76
     add ax, 0x5642                   ; 0x3e78
     push ax                          ; 0x3e7b
-    call ds_leaf_loc_3e88            ; 0x3e7c
+    call set_bitmap_bit              ; 0x3e7c
     add sp, byte 6                   ; 0x3e7f
     mov ax, 1                        ; 0x3e82
     push ax                          ; 0x3e85
@@ -178,7 +178,7 @@ jumptable_3f96_case_4:
     shl ax, cl                       ; 0x3e92
     add ax, 0x8d14                   ; 0x3e94
     push ax                          ; 0x3e97
-    call ds_leaf_loc_3e88            ; 0x3e98
+    call set_bitmap_bit              ; 0x3e98
     add sp, byte 6                   ; 0x3e9b
     mov ax, 1                        ; 0x3e9e
     push ax                          ; 0x3ea1
@@ -190,7 +190,7 @@ jumptable_3f96_case_4:
     shl ax, cl                       ; 0x3eae
     add ax, 0x5642                   ; 0x3eb0
     push ax                          ; 0x3eb3
-    call ds_leaf_loc_3e88            ; 0x3eb4
+    call set_bitmap_bit              ; 0x3eb4
     add sp, byte 6                   ; 0x3eb7
     push word [bp + 0x6]             ; 0x3eba
     call loc_3cde                    ; 0x3ebd

@@ -21,7 +21,7 @@ api_idx_0004_9:
     imul cx                          ; 0x28d0
     add ax, 0x8504                   ; 0x28d2
     push ax                          ; 0x28d5
-    call ds_leaf_loc_3e88            ; 0x28d6
+    call set_bitmap_bit              ; 0x28d6
     add sp, byte 6                   ; 0x28d9
 @..api_idx_0004_9.l2:
     push word [bp - 0x0002]          ; 0x28dc
@@ -40,7 +40,7 @@ api_idx_0004_9:
     push word [bp - 0x0002]          ; 0x28fa
     mov ax, 0x8822                   ; 0x28fd
     push ax                          ; 0x2900
-    call ds_leaf_loc_3e88            ; 0x2901
+    call set_bitmap_bit              ; 0x2901
     add sp, byte 6                   ; 0x2904
 @..api_idx_0004_9.l3:
     push word [bp - 0x0002]          ; 0x2907

@@ -115,7 +115,7 @@ api_idx_0012_3:
     shl ax, cl                       ; 0x867c
     add ax, 0x8d14                   ; 0x867e
     push ax                          ; 0x8681
-    call ds_leaf_loc_3e88            ; 0x8682
+    call set_bitmap_bit              ; 0x8682
     add sp, byte 6                   ; 0x8685
     mov ax, 0                        ; 0x8688
     push ax                          ; 0x868b
@@ -125,7 +125,7 @@ api_idx_0012_3:
     shl ax, cl                       ; 0x8695
     add ax, 0x5642                   ; 0x8697
     push ax                          ; 0x869a
-    call ds_leaf_loc_3e88            ; 0x869b
+    call set_bitmap_bit              ; 0x869b
     add sp, byte 6                   ; 0x869e
 @..api_idx_0012_3.l10:
     push word [bp - 0x0010]          ; 0x86a1

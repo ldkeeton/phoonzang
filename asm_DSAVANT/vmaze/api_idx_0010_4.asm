@@ -76,7 +76,7 @@ api_idx_0010_4:
     imul word [bp + 0x6]             ; 0x9b3d
     add ax, 0x8504                   ; 0x9b40
     push ax                          ; 0x9b43
-    call ds_leaf_loc_3e88            ; 0x9b44
+    call set_bitmap_bit              ; 0x9b44
     add sp, byte 6                   ; 0x9b47
 @..api_idx_0010_4.l4:
     push word [bp - 0x0002]          ; 0x9b4a
@@ -95,7 +95,7 @@ api_idx_0010_4:
     imul word [bp + 0x4]             ; 0x9b6b
     add ax, 0x8504                   ; 0x9b6e
     push ax                          ; 0x9b71
-    call ds_leaf_loc_3e88            ; 0x9b72
+    call set_bitmap_bit              ; 0x9b72
     add sp, byte 6                   ; 0x9b75
 @..api_idx_0010_4.l5:
     mov ax, 0x26                     ; 0x9b78
@@ -128,7 +128,7 @@ api_idx_0010_4:
     imul word [bp + 0x6]             ; 0x9bba
     add ax, 0x850a                   ; 0x9bbd
     push ax                          ; 0x9bc0
-    call ds_leaf_loc_3e88            ; 0x9bc1
+    call set_bitmap_bit              ; 0x9bc1
     add sp, byte 6                   ; 0x9bc4
 @..api_idx_0010_4.l7:
     push word [bp - 0x0002]          ; 0x9bc7
@@ -147,7 +147,7 @@ api_idx_0010_4:
     imul word [bp + 0x4]             ; 0x9be8
     add ax, 0x850a                   ; 0x9beb
     push ax                          ; 0x9bee
-    call ds_leaf_loc_3e88            ; 0x9bef
+    call set_bitmap_bit              ; 0x9bef
     add sp, byte 6                   ; 0x9bf2
 @..api_idx_0010_4.l8:
     mov ax, word [bp - 0x0002]       ; 0x9bf5
@@ -170,7 +170,7 @@ api_idx_0010_4:
     imul word [bp + 0x6]             ; 0x9c1e
     add ax, 0x850a                   ; 0x9c21
     push ax                          ; 0x9c24
-    call ds_leaf_loc_3e88            ; 0x9c25
+    call set_bitmap_bit              ; 0x9c25
     add sp, byte 6                   ; 0x9c28
 @..api_idx_0010_4.l9:
     mov ax, word [bp - 0x0002]       ; 0x9c2b
@@ -193,7 +193,7 @@ api_idx_0010_4:
     imul word [bp + 0x4]             ; 0x9c54
     add ax, 0x850a                   ; 0x9c57
     push ax                          ; 0x9c5a
-    call ds_leaf_loc_3e88            ; 0x9c5b
+    call set_bitmap_bit              ; 0x9c5b
     add sp, byte 6                   ; 0x9c5e
 @..api_idx_0010_4.l10:
     dec word [bp - 0x0002]           ; 0x9c61

@@ -296,7 +296,7 @@ api_idx_0010_5:
     imul word [bp + 0x4]             ; 0xa585
     add ax, 0x8506                   ; 0xa588
     push ax                          ; 0xa58b
-    call ds_leaf_loc_3e88            ; 0xa58c
+    call set_bitmap_bit              ; 0xa58c
     add sp, byte 6                   ; 0xa58f
 @..api_idx_0010_5.l19:
     mov ax, 0x26                     ; 0xa592

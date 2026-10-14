@@ -72,7 +72,11 @@
       "function_names": {
         "2dd5": {
           "name": "main"
-        } 
+        },
+        "3e88": {
+          "name": "set_bitmap_bit",
+          "note": "hand-written asm: set or clear bit [bp+6] of the bitmap at [bp+4] per [bp+8]"
+        }
       },
       "force_data": [
         {"start": "08d4", "end": "08e1", "note": "Seven-entry switch table for the 0x08ed indirect jump"},

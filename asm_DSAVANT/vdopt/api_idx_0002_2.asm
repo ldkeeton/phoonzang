@@ -82,7 +82,7 @@ loc_04b7:
     shl ax, cl                       ; 0x0526
     add ax, 0x8d14                   ; 0x0528
     push ax                          ; 0x052b
-    call ds_leaf_loc_3e88            ; 0x052c
+    call set_bitmap_bit              ; 0x052c
     add sp, byte 6                   ; 0x052f
     mov ax, 0                        ; 0x0532
     push ax                          ; 0x0535
@@ -96,7 +96,7 @@ loc_04b7:
     shl ax, cl                       ; 0x0549
     add ax, 0x5642                   ; 0x054b
     push ax                          ; 0x054e
-    call ds_leaf_loc_3e88            ; 0x054f
+    call set_bitmap_bit              ; 0x054f
     add sp, byte 6                   ; 0x0552
     mov ax, word [bp + 0x4]          ; 0x0555
     inc ax                           ; 0x0558

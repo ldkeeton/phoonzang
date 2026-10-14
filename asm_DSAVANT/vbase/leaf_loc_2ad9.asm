@@ -468,7 +468,7 @@ loc_2f6c:
     push ax                          ; 0x2f70
     mov ax, 0x5642                   ; 0x2f71
     push ax                          ; 0x2f74
-    call ds_leaf_loc_3e88            ; 0x2f75
+    call set_bitmap_bit              ; 0x2f75
     add sp, byte 6                   ; 0x2f78
     mov ax, 1                        ; 0x2f7b
     push ax                          ; 0x2f7e
@@ -476,7 +476,7 @@ loc_2f6c:
     push ax                          ; 0x2f82
     mov ax, 0x5642                   ; 0x2f83
     push ax                          ; 0x2f86
-    call ds_leaf_loc_3e88            ; 0x2f87
+    call set_bitmap_bit              ; 0x2f87
     add sp, byte 6                   ; 0x2f8a
     mov ax, 0                        ; 0x2f8d
     push ax                          ; 0x2f90
@@ -487,7 +487,7 @@ loc_2f6c:
     shl ax, cl                       ; 0x2f9b
     add ax, 0x5642                   ; 0x2f9d
     push ax                          ; 0x2fa0
-    call ds_leaf_loc_3e88            ; 0x2fa1
+    call set_bitmap_bit              ; 0x2fa1
     add sp, byte 6                   ; 0x2fa4
     mov ax, 0                        ; 0x2fa7
     push ax                          ; 0x2faa
@@ -498,7 +498,7 @@ loc_2f6c:
     shl ax, cl                       ; 0x2fb5
     add ax, 0x5642                   ; 0x2fb7
     push ax                          ; 0x2fba
-    call ds_leaf_loc_3e88            ; 0x2fbb
+    call set_bitmap_bit              ; 0x2fbb
     add sp, byte 6                   ; 0x2fbe
     mov ax, word [bss_8f46]          ; 0x2fc1
     mov word [bss_8f3a], ax          ; 0x2fc4

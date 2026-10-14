@@ -32,7 +32,7 @@ api_idx_0002_23:
     imul word [bp + 0x4]             ; 0x9912
     add ax, 0x8504                   ; 0x9915
     push ax                          ; 0x9918
-    call ds_leaf_loc_3e88            ; 0x9919
+    call set_bitmap_bit              ; 0x9919
     add sp, byte 6                   ; 0x991c
 @..api_idx_0002_23.l1:
     ret                              ; 0x991f

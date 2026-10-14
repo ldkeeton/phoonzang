@@ -205,7 +205,7 @@ loc_3092:
     shl ax, cl                       ; 0x30a9
     add ax, 0x8d14                   ; 0x30ab
     push ax                          ; 0x30ae
-    call ds_leaf_loc_3e88            ; 0x30af
+    call set_bitmap_bit              ; 0x30af
     add sp, byte 6                   ; 0x30b2
 loc_30b5:
     jmp near loc_3769                ; 0x30b5
@@ -222,7 +222,7 @@ loc_30b8:
     shl ax, cl                       ; 0x30cf
     add ax, 0x8d14                   ; 0x30d1
     push ax                          ; 0x30d4
-    call ds_leaf_loc_3e88            ; 0x30d5
+    call set_bitmap_bit              ; 0x30d5
     add sp, byte 6                   ; 0x30d8
     push word [bp - 0x0028]          ; 0x30db
     push word [bp - 0x0026]          ; 0x30de
@@ -231,7 +231,7 @@ loc_30b8:
     shl ax, cl                       ; 0x30e7
     add ax, 0x5642                   ; 0x30e9
     push ax                          ; 0x30ec
-    call ds_leaf_loc_3e88            ; 0x30ed
+    call set_bitmap_bit              ; 0x30ed
     add sp, byte 6                   ; 0x30f0
 loc_30f3:
     jmp near loc_3769                ; 0x30f3
@@ -245,7 +245,7 @@ loc_30f6:
     push ax                          ; 0x3106
     mov ax, 0x95f8                   ; 0x3107
     push ax                          ; 0x310a
-    call ds_leaf_loc_3e88            ; 0x310b
+    call set_bitmap_bit              ; 0x310b
     add sp, byte 6                   ; 0x310e
 loc_3111:
     jmp near loc_3769                ; 0x3111
@@ -259,7 +259,7 @@ loc_3114:
     push ax                          ; 0x3124
     mov ax, 0x95f8                   ; 0x3125
     push ax                          ; 0x3128
-    call ds_leaf_loc_3e88            ; 0x3129
+    call set_bitmap_bit              ; 0x3129
     add sp, byte 6                   ; 0x312c
     push word [bp - 0x0028]          ; 0x312f
     push word [bp - 0x0026]          ; 0x3132
@@ -267,7 +267,7 @@ loc_3114:
     shl ax, 1                        ; 0x3138
     add ax, 0x584e                   ; 0x313a
     push ax                          ; 0x313d
-    call ds_leaf_loc_3e88            ; 0x313e
+    call set_bitmap_bit              ; 0x313e
     add sp, byte 6                   ; 0x3141
 loc_3144:
     jmp near loc_3769                ; 0x3144

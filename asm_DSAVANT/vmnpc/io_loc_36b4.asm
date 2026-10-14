@@ -7,6 +7,6 @@ io_loc_36b4:
     shl ax, 1                        ; 0x36be
     add ax, 0x584e                   ; 0x36c0
     push ax                          ; 0x36c3
-    call ds_leaf_loc_3e88            ; 0x36c4
+    call set_bitmap_bit              ; 0x36c4
     add sp, byte 6                   ; 0x36c7
     jmp near loc_3769                ; 0x36ca

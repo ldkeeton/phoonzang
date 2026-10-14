@@ -154,7 +154,7 @@ api_idx_000e_2:
     shl ax, cl                       ; 0x81b9
     add ax, 0x8d14                   ; 0x81bb
     push ax                          ; 0x81be
-    call ds_leaf_loc_3e88            ; 0x81bf
+    call set_bitmap_bit              ; 0x81bf
     add sp, byte 6                   ; 0x81c2
     mov ax, 1                        ; 0x81c5
     push ax                          ; 0x81c8
@@ -173,7 +173,7 @@ api_idx_000e_2:
     shl ax, cl                       ; 0x81e8
     add ax, 0x5642                   ; 0x81ea
     push ax                          ; 0x81ed
-    call ds_leaf_loc_3e88            ; 0x81ee
+    call set_bitmap_bit              ; 0x81ee
     add sp, byte 6                   ; 0x81f1
 @..api_idx_000e_2.l13:
     mov ax, 2                        ; 0x81f4

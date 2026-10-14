@@ -20,7 +20,7 @@ api_idx_0004_16:
     imul word [bp + 0x4]             ; 0x9ea5
     add ax, 0x8504                   ; 0x9ea8
     push ax                          ; 0x9eab
-    call ds_leaf_loc_3e88            ; 0x9eac
+    call set_bitmap_bit              ; 0x9eac
     add sp, byte 6                   ; 0x9eaf
 @..api_idx_0004_16.l2:
     push word [bp - 0x0002]          ; 0x9eb2

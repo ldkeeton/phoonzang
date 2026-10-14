@@ -225,7 +225,7 @@ jumptable_7185_case_0:
     imul word [bp - 0x0002]          ; 0x724d
     add ax, 0x5e26                   ; 0x7250
     push ax                          ; 0x7253
-    call ds_leaf_loc_3e88            ; 0x7254
+    call set_bitmap_bit              ; 0x7254
     add sp, byte 6                   ; 0x7257
     inc word [bp - 0x0002]           ; 0x725a
 @..api_idx_0002_6.l11:

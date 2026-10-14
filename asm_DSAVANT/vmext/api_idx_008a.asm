@@ -37,7 +37,7 @@ api_idx_008a:
     push ax                          ; 0x0c7b
     lea ax, word [bp - 0x008a]       ; 0x0c7c
     push ax                          ; 0x0c80
-    call ds_leaf_loc_3e88            ; 0x0c81
+    call set_bitmap_bit              ; 0x0c81
     add sp, byte 6                   ; 0x0c84
     mov ax, word [bss_82ee]          ; 0x0c87
     mov word [bp - 0x0002], ax       ; 0x0c8a
@@ -240,7 +240,7 @@ api_idx_008a:
     push ax                          ; 0x0e3a
     lea ax, word [bp - 0x008a]       ; 0x0e3b
     push ax                          ; 0x0e3f
-    call ds_leaf_loc_3e88            ; 0x0e40
+    call set_bitmap_bit              ; 0x0e40
     add sp, byte 6                   ; 0x0e43
     call loc_054f                    ; 0x0e46
     test ax, ax                      ; 0x0e49

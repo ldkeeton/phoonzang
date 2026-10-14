@@ -1,6 +1,6 @@
 ; auto-generated
 ; asm only
-ds_leaf_loc_3e88:
+set_bitmap_bit:
     push bp                          ; 0x3e88
     mov bp, sp                       ; 0x3e89
     cld                              ; 0x3e8b
@@ -21,9 +21,9 @@ ds_leaf_loc_3e88:
     not ah                           ; 0x3ea9
     and byte [bx + si], ah           ; 0x3eab
     cmp word [bp + 0x8], byte 0      ; 0x3ead
-    je short @..ds_leaf_loc_3e88.l1  ; 0x3eb1
+    je short @..set_bitmap_bit.l1    ; 0x3eb1
     or byte [bx + si], al            ; 0x3eb3
-@..ds_leaf_loc_3e88.l1:
+@..set_bitmap_bit.l1:
     pop si                           ; 0x3eb5
     pop es                           ; 0x3eb6
     mov sp, bp                       ; 0x3eb7
