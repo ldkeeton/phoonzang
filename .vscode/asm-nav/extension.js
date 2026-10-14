@@ -6,7 +6,8 @@
 //   * Manx ``cc`` diagnostics on save, and a provenance CodeLens
 const fs = require('fs');
 const path = require('path');
-const { execFile, spawn } = require('child_process');
+const os = require('os');
+const { execFile } = require('child_process');
 const vscode = require('vscode');
 const { labels, occurrences, addresses, routineStart, locate } = require('./scan');
 const sidecar = require('./sidecar');
@@ -181,12 +182,20 @@ async function goToAddress() {
 
 // ------------------------------------------------- name this routine
 
-async function nameRoutine() {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor) return;
-    const name = resolve(nameAt(editor.document, editor.selection.active));
+async function nameRoutine(uri, suggestion) {
+    let doc;
+    let name;
+    if (uri) {
+        doc = { fileName: uri.fsPath };
+        name = resolve(locate(uri.fsPath).label);
+    } else {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) return;
+        doc = editor.document;
+        name = resolve(nameAt(doc, editor.selection.active));
+    }
     if (!name) return vscode.window.showErrorMessage('put the cursor on a routine label');
-    const hit = hitsFor(name, editor.document)[0];
+    const hit = hitsFor(name, doc)[0];
     const where = locate(hit.uri.fsPath);
     const addr = routineStart(texts.get(hit.uri.toString()), hit.row);
     if (!where || addr === null) return vscode.window.showErrorMessage(`${name} has no listing address`);
@@ -196,7 +205,7 @@ async function nameRoutine() {
     if (!key) return vscode.window.showErrorMessage(`binary ${where.binary} not in the sidecar`);
     const newName = await vscode.window.showInputBox({
         prompt: `Name for ${where.binary} 0x${addr.toString(16)} (sidecar key ${key})`,
-        value: entry ? entry.name : '',
+        value: suggestion || (entry ? entry.name : ''),
         validateInput: (v) => /^[A-Za-z_]\w*$/.test(v) ? null : 'a C-style identifier',
     });
     if (!newName) return;
@@ -284,8 +293,10 @@ const isGeneratedC = (doc) => doc.uri.scheme === 'file' && /asm_[^/\\]+[/\\][^/\
 
 // ------------------------------------------------------- make C (Claude)
 
-let claudeLog;
-const converting = new Set();   // asm paths with a Claude run in flight
+// An interactive Claude session in its own terminal tab, so the conversation is
+// visible.  Claude's last step writes a suggested routine name to a temp file,
+// which is then offered through "Name this routine".
+const converting = new Map();   // asm path -> terminal
 
 async function makeC(uri) {
     uri = uri || (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri);
@@ -295,51 +306,51 @@ async function makeC(uri) {
     const asmFile = path.join(dir, `${where.label}.asm`);
     const cFile = path.join(dir, `${where.label}.c`);
     if (!fs.existsSync(asmFile)) return vscode.window.showErrorMessage(`no ${asmFile}`);
-    if (converting.has(asmFile)) return vscode.window.showInformationMessage(`${where.label} is already being converted`);
+    if (converting.has(asmFile)) { converting.get(asmFile).show(); return; }
     if (fs.existsSync(cFile)) {
         const pick = await vscode.window.showWarningMessage(
             `${path.basename(cFile)} exists. Have Claude redo it?`, { modal: true }, 'Redo');
         if (pick !== 'Redo') return;
     }
     const rel = (f) => path.relative(root(), f);
+    const suggestFile = path.join(os.tmpdir(), `wiz7-name-${process.pid}-${where.label}.txt`);
+    fs.rmSync(suggestFile, { force: true });
     const prompt = `Convert ${rel(asmFile)} to K&R syntax C, writing ${rel(cFile)}. ` +
         `It has to compile to byte exact matching asm, use make rebuild ${where.project} ${where.binary} ` +
-        `(run as \`make -C asm rebuild ${where.project} ${where.binary}\`) to check.`;
-    const args = ['-p', prompt, '--permission-mode', 'acceptEdits',
-        '--allowedTools', 'Read,Write,Edit,Bash(make:*)'];
+        `(run as \`make -C asm rebuild ${where.project} ${where.binary}\`) to check. ` +
+        `As the final step, once it matches, suggest a name for this routine in lowercase_underscore ` +
+        `style like the rest of the project, and write only that name to ${suggestFile}.`;
+    const args = ['--permission-mode', 'acceptEdits', '--allowedTools', 'Read,Write,Edit,Bash(make:*)'];
     const model = cfg().get('claudeModel');
     if (model) args.push('--model', model);
+    args.push(prompt);
 
-    claudeLog = claudeLog || vscode.window.createOutputChannel('Wiz7 Claude');
-    claudeLog.appendLine(`\n$ claude ${args.map((a) => JSON.stringify(a)).join(' ')}`);
-    converting.add(asmFile);
-    try {
-        const code = await vscode.window.withProgress({
-            location: vscode.ProgressLocation.Notification,
-            title: `Claude: converting ${where.label} to C…`,
-            cancellable: true,
-        }, (progress, token) => new Promise((resolveRun) => {
-            const child = spawn(cfg().get('claude'), args, { cwd: root(), stdio: ['ignore', 'pipe', 'pipe'] });
-            let tail = '';
-            const sink = (d) => { const s = d.toString(); tail = (tail + s).slice(-400); claudeLog.append(s); };
-            child.stdout.on('data', sink);
-            child.stderr.on('data', sink);
-            child.on('error', (e) => { claudeLog.appendLine(String(e)); tail = e.message; resolveRun({ code: -1, tail }); });
-            child.on('close', (c) => resolveRun({ code: c, tail }));
-            token.onCancellationRequested(() => child.kill());
-        }));
-        if (code.code === 0 && fs.existsSync(cFile)) {
-            const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(cFile));
-            await vscode.window.showTextDocument(doc);
-            if (isGeneratedC(doc)) checkFile(doc, true);
-            vscode.window.showInformationMessage(`Claude wrote ${path.basename(cFile)}`);
-        } else {
-            claudeLog.show(true);
-            vscode.window.showErrorMessage(`Claude conversion of ${where.label} failed (${code.code}): ${code.tail.trim().slice(-200)}`);
-        }
-    } finally {
+    const term = vscode.window.createTerminal({
+        name: `Claude: ${where.label}`, cwd: root(), shellPath: cfg().get('claude'), shellArgs: args,
+        location: vscode.TerminalLocation.Editor,
+    });
+    converting.set(asmFile, term);
+    term.show();
+    let offered = false;
+    const poll = setInterval(() => {
+        if (offered || !fs.existsSync(suggestFile)) return;
+        const suggestion = fs.readFileSync(suggestFile, 'utf8').trim().split(/\s+/)[0];
+        if (!suggestion) return;
+        offered = true;
+        fs.rmSync(suggestFile, { force: true });
+        nameRoutine(vscode.Uri.file(asmFile), suggestion);
+    }, 1000);
+    const sub = vscode.window.onDidCloseTerminal(async (t) => {
+        if (t !== term) return;
+        clearInterval(poll);
+        sub.dispose();
         converting.delete(asmFile);
-    }
+        fs.rmSync(suggestFile, { force: true });
+        if (!fs.existsSync(cFile)) return;
+        const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(cFile));
+        await vscode.window.showTextDocument(doc, { preview: false });
+        if (isGeneratedC(doc)) checkFile(doc, true);
+    });
 }
 
 // ---------------------------------------------------------------- lens

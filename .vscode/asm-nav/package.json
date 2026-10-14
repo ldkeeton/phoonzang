@@ -4,7 +4,7 @@
     "description": "Navigation, hover, sidecar naming and Manx cc diagnostics for the generated C and NASM trees.",
     "publisher": "local",
     "version": "0.0.2",
-    "engines": { "vscode": "^1.60.0" },
+    "engines": { "vscode": "^1.70.0" },
     "activationEvents": ["onStartupFinished"],
     "main": "./extension.js",
     "contributes": {

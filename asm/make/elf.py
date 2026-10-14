@@ -473,14 +473,22 @@ def resplice_c(app, binary):
                 if name.endswith('.c')} if os.path.isdir(dest) else set()
     # C shared between binaries lives in lib/ beside its .asm (lib.shared).
     lib_dir = os.path.join(out_dir, 'lib')
+    def has_own_asm(label):
+        # a same-named routine owned by this binary is not the shared one
+        return any(os.path.exists(os.path.join(dest, sub, label + '.asm'))
+                   for sub in ('', 'asm_only'))
+
     c_labels |= {name[:-2] for name in (os.listdir(lib_dir)
                                         if os.path.isdir(lib_dir) else ())
-                 if name.endswith('.c') and name[:-2] in spans}
+                 if name.endswith('.c') and name[:-2] in spans
+                 and not has_own_asm(name[:-2])}
     c_labels = sorted(c_labels)
 
     def where(label, suffix):
         shared = os.path.join(lib_dir, label + suffix)
         own = os.path.join(dest, label + suffix)
+        if has_own_asm(label):
+            return own
         return shared if os.path.exists(shared) else own
 
     orphans = [where(label, '.c') for label in c_labels
