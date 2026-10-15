@@ -1,35 +1,35 @@
 ; auto-generated
 ; asm only
 graphics_loc_RJST:
-    cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x0516
+    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x0516
     jne short @..graphics_loc_RJST.l1 ; 0x051c
-    mov cx, word [cs:cseg_15ac - IMAGE_BASE] ; 0x051e
-    mov dx, word [cs:cseg_15ae - IMAGE_BASE] ; 0x0523
+    mov cx, word [cs:cseg_14ac - IMAGE_BASE] ; 0x051e
+    mov dx, word [cs:cseg_14ae - IMAGE_BASE] ; 0x0523
     cmp word [bp + 0x10], cx         ; 0x0528
     jb short @..graphics_loc_RJST.l1 ; 0x052b
     cmp word [bp + 0x12], dx         ; 0x052d
     jb short @..graphics_loc_RJST.l1 ; 0x0530
-    add cx, word [cs:cseg_15b8 - IMAGE_BASE] ; 0x0532
+    add cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x0532
     dec cx                           ; 0x0537
-    add dx, word [cs:cseg_15ba - IMAGE_BASE] ; 0x0538
+    add dx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x0538
     dec dx                           ; 0x053d
     cmp cx, word [bp + 0xc]          ; 0x053e
     jb short @..graphics_loc_RJST.l1 ; 0x0541
     cmp dx, word [bp + 0xe]          ; 0x0543
     jae short @..graphics_loc_RJST.l2 ; 0x0546
 @..graphics_loc_RJST.l1:
-    mov byte [cs:cseg_0615 - IMAGE_BASE], 0 ; 0x0548
+    mov byte [cs:cseg_0515 - IMAGE_BASE], 0 ; 0x0548
     jmp near @..graphics_loc_RJST.l12 ; 0x054e
 @..graphics_loc_RJST.l2:
-    mov byte [cs:cseg_0615 - IMAGE_BASE], 1 ; 0x0551
-    mov cx, word [cs:cseg_15ac - IMAGE_BASE] ; 0x0557
+    mov byte [cs:cseg_0515 - IMAGE_BASE], 1 ; 0x0551
+    mov cx, word [cs:cseg_14ac - IMAGE_BASE] ; 0x0557
     mov ax, cx                       ; 0x055c
     cmp word [bp + 0xc], cx          ; 0x055e
     jb short @..graphics_loc_RJST.l3 ; 0x0561
     mov ax, word [bp + 0xc]          ; 0x0563
 @..graphics_loc_RJST.l3:
     mov word [bp - 0x0006], ax       ; 0x0566
-    mov dx, word [cs:cseg_15ae - IMAGE_BASE] ; 0x0569
+    mov dx, word [cs:cseg_14ae - IMAGE_BASE] ; 0x0569
     mov bx, dx                       ; 0x056e
     cmp word [bp + 0xe], dx          ; 0x0570
     jb short @..graphics_loc_RJST.l4 ; 0x0573
@@ -40,8 +40,8 @@ graphics_loc_RJST:
     sub bx, dx                       ; 0x057d
     mov word [bp - 0x000a], ax       ; 0x057f
     mov word [bp - 0x000c], bx       ; 0x0582
-    mov cx, word [cs:cseg_15b8 - IMAGE_BASE] ; 0x0585
-    mov dx, word [cs:cseg_15ba - IMAGE_BASE] ; 0x058a
+    mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x0585
+    mov dx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x058a
     sub cx, ax                       ; 0x058f
     mov word [bp - 0x000e], cx       ; 0x0591
     sub dx, bx                       ; 0x0594
@@ -72,12 +72,12 @@ graphics_loc_RJST:
     add ax, word [bp - 0x0006]       ; 0x05cd
     mov si, ax                       ; 0x05d0
     mov ax, word [bp - 0x000c]       ; 0x05d2
-    mov bx, word [cs:cseg_15b8 - IMAGE_BASE] ; 0x05d5
+    mov bx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x05d5
     mul bx                           ; 0x05da
     add ax, word [bp - 0x000a]       ; 0x05dc
-    add ax, word [cs:cseg_15b4 - IMAGE_BASE] ; 0x05df
+    add ax, word [cs:cseg_14b4 - IMAGE_BASE] ; 0x05df
     mov di, ax                       ; 0x05e4
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x05e6
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x05e6
     mov ds, ax                       ; 0x05ea
     mov ax, cs                       ; 0x05ec
     mov es, ax                       ; 0x05ee
@@ -89,34 +89,34 @@ graphics_loc_RJST:
     mov cx, word [bp - 0x000e]       ; 0x05f6
     rep movsb                        ; 0x05f9
     pop di                           ; 0x05fb
-    add di, word [cs:cseg_15b8 - IMAGE_BASE] ; 0x05fc
+    add di, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x05fc
     pop si                           ; 0x0601
     add si, strict word 0x140        ; 0x0602
     pop cx                           ; 0x0606
     loop @..graphics_loc_RJST.l7     ; 0x0607
     mov ax, cs                       ; 0x0609
     mov es, ax                       ; 0x060b
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x060d
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x060d
     mov ds, ax                       ; 0x0611
-    mov si, word [cs:cseg_15bc - IMAGE_BASE] ; 0x0613
-    mov di, word [cs:cseg_15b6 - IMAGE_BASE] ; 0x0618
-    mov cx, word [cs:cseg_15ba - IMAGE_BASE] ; 0x061d
+    mov si, word [cs:cseg_14bc - IMAGE_BASE] ; 0x0613
+    mov di, word [cs:cseg_14b6 - IMAGE_BASE] ; 0x0618
+    mov cx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x061d
 @..graphics_loc_RJST.l8:
     push cx                          ; 0x0622
     push si                          ; 0x0623
-    mov cx, word [cs:cseg_15b8 - IMAGE_BASE] ; 0x0624
+    mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x0624
     rep movsb                        ; 0x0629
     pop si                           ; 0x062b
     add si, strict word 0x140        ; 0x062c
     pop cx                           ; 0x0630
     loop @..graphics_loc_RJST.l8     ; 0x0631
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0633
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0633
     mov es, ax                       ; 0x0637
-    mov di, word [cs:cseg_15bc - IMAGE_BASE] ; 0x0639
-    mov ax, word [cs:cseg_1e66 - IMAGE_BASE] ; 0x063e
+    mov di, word [cs:cseg_14bc - IMAGE_BASE] ; 0x0639
+    mov ax, word [cs:cseg_1d66 - IMAGE_BASE] ; 0x063e
     mov ds, ax                       ; 0x0642
-    mov si, word [cs:cseg_1e64 - IMAGE_BASE] ; 0x0644
-    mov cx, word [cs:cseg_15ba - IMAGE_BASE] ; 0x0649
+    mov si, word [cs:cseg_1d64 - IMAGE_BASE] ; 0x0644
+    mov cx, word [cs:cseg_14ba - IMAGE_BASE] ; 0x0649
     mov ax, ds                       ; 0x064e
     or ax, si                        ; 0x0650
     jne short @..graphics_loc_RJST.l9 ; 0x0652
@@ -127,7 +127,7 @@ graphics_loc_RJST:
     push cx                          ; 0x065b
     push di                          ; 0x065c
     push si                          ; 0x065d
-    mov cx, word [cs:cseg_15b8 - IMAGE_BASE] ; 0x065e
+    mov cx, word [cs:cseg_14b8 - IMAGE_BASE] ; 0x065e
 @..graphics_loc_RJST.l10:
     mov al, byte [si]                ; 0x0663
     cmp al, 0xff                     ; 0x0665
@@ -138,7 +138,7 @@ graphics_loc_RJST:
     inc di                           ; 0x066d
     loop @..graphics_loc_RJST.l10    ; 0x066e
     pop si                           ; 0x0670
-    add si, word [cs:cseg_1e5c - IMAGE_BASE] ; 0x0671
+    add si, word [cs:cseg_1d5c - IMAGE_BASE] ; 0x0671
     pop di                           ; 0x0676
     add di, strict word 0x140        ; 0x0677
     pop cx                           ; 0x067b

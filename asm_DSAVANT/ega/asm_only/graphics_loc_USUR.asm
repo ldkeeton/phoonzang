@@ -32,7 +32,7 @@ graphics_loc_USUR:
     mov bx, 0x10fb                   ; 0x365c
     add bx, ax                       ; 0x365f
     mov ax, word [cs:bx]             ; 0x3661
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x3664
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x3664
     mov word [bp - 0x0008], ax       ; 0x3669
     mov ds, ax                       ; 0x366c
     xor bx, bx                       ; 0x366e
@@ -83,7 +83,6 @@ graphics_loc_USUR:
     mov bx, word [bp + 0x20]         ; 0x36d8
     mul bx                           ; 0x36db
 data_36dd:
-cseg_36dd:
     mov bx, 0x64                     ; 0x36dd
     div bx                           ; 0x36e0
     cmp dx, byte 0x32                ; 0x36e2
@@ -104,7 +103,6 @@ cseg_36dd:
     mov si, ax                       ; 0x3702
     dec si                           ; 0x3704
 data_3705:
-cseg_3705:
     mov word [bp - 0x0030], ax       ; 0x3705
     mov word [bp - 0x0032], cx       ; 0x3708
     call leaf_loc_GSNR               ; 0x370b
@@ -207,7 +205,7 @@ cseg_3705:
     mov bx, word [bp - 0x001e]       ; 0x37dd
     inc bx                           ; 0x37e0
     mov word [bp - 0x003e], bx       ; 0x37e1
-    mov bx, cseg_36dd - IMAGE_BASE   ; 0x37e4
+    mov bx, cseg_35dd - IMAGE_BASE   ; 0x37e4
     mov dl, 0x80                     ; 0x37e7
     xor ax, ax                       ; 0x37e9
     mov word [bp - 0x0030], ax       ; 0x37eb
@@ -289,7 +287,7 @@ cseg_3705:
     mov bx, word [bp - 0x001e]       ; 0x3883
     inc bx                           ; 0x3886
     mov word [bp - 0x003e], bx       ; 0x3887
-    mov bx, cseg_36dd - IMAGE_BASE   ; 0x388a
+    mov bx, cseg_35dd - IMAGE_BASE   ; 0x388a
     mov dl, 0x80                     ; 0x388d
     xor ax, ax                       ; 0x388f
     mov word [bp - 0x0030], ax       ; 0x3891
@@ -369,7 +367,7 @@ cseg_3705:
     mov ax, word [bp + 0x1a]         ; 0x3926
     and al, 2                        ; 0x3929
     jne short @..graphics_loc_USUR.l48 ; 0x392b
-    mov bx, cseg_3705 - IMAGE_BASE   ; 0x392d
+    mov bx, cseg_3605 - IMAGE_BASE   ; 0x392d
     mov dl, 0x80                     ; 0x3930
     xor ax, ax                       ; 0x3932
     mov word [bp - 0x0030], ax       ; 0x3934
@@ -406,7 +404,7 @@ cseg_3705:
 @..graphics_loc_USUR.l47:
     jmp short @..graphics_loc_USUR.l54 ; 0x3972
 @..graphics_loc_USUR.l48:
-    mov bx, cseg_3705 - IMAGE_BASE   ; 0x3974
+    mov bx, cseg_3605 - IMAGE_BASE   ; 0x3974
     mov dl, 0x80                     ; 0x3977
     xor ax, ax                       ; 0x3979
     mov word [bp - 0x0030], ax       ; 0x397b

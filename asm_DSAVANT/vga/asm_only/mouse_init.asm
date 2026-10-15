@@ -6,7 +6,7 @@ mouse_init:
     push es                          ; 0x11fb
     mov ax, ds                       ; 0x11fc
     mov es, ax                       ; 0x11fe
-    cmp byte [cs:cseg_0205 - IMAGE_BASE], 0 ; 0x1200
+    cmp byte [cs:cseg_0105 - IMAGE_BASE], 0 ; 0x1200
     je short @..mouse_init.l1        ; 0x1206
     mov ax, 0                        ; 0x1208
     int 0x33 ; BIOS mouse
@@ -29,18 +29,18 @@ mouse_init:
     mov ax, 3                        ; 0x122e
     int 0x33 ; BIOS mouse
     shr cx, 1                        ; 0x1233
-    mov word [cs:cseg_15b0 - IMAGE_BASE], cx ; 0x1235
-    mov word [cs:cseg_15b2 - IMAGE_BASE], dx ; 0x123a
+    mov word [cs:cseg_14b0 - IMAGE_BASE], cx ; 0x1235
+    mov word [cs:cseg_14b2 - IMAGE_BASE], dx ; 0x123a
     mov ax, cs                       ; 0x123f
     push ax                          ; 0x1241
     mov ax, 0xffff                   ; 0x1242
-    mov word [cs:cseg_15ae - IMAGE_BASE], ax ; 0x1245
+    mov word [cs:cseg_14ae - IMAGE_BASE], ax ; 0x1245
     call graphics_loc_HJIV           ; 0x1249
     pop si                           ; 0x124c
     pop di                           ; 0x124d
     pop es                           ; 0x124e
     pop ds                           ; 0x124f
-    mov byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x1250
+    mov byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x1250
     push es                          ; 0x1256
     mov ax, 0x14                     ; 0x1257
     mov bx, cs                       ; 0x125a

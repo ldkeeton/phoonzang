@@ -9,7 +9,7 @@ loc_487e:
     push di                          ; 0x4884
     mov ax, ds                       ; 0x4885
     mov es, ax                       ; 0x4887
-    call far [cs:cseg_0212 - IMAGE_BASE] ; 0x4889
+    call far [cs:cseg_0112 - IMAGE_BASE] ; 0x4889
     pop di                           ; 0x488e
     pop si                           ; 0x488f
     pop es                           ; 0x4890

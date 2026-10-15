@@ -33,7 +33,7 @@ dos_alloc_mem:
 @..dos_alloc_mem.l1:
     mov es, ax                       ; 0x07b9
     xor di, di                       ; 0x07bb
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x07bd
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x07bd
     mov ds, ax                       ; 0x07c1
     mov ax, word [bp + 0xe]          ; 0x07c3
     mov bx, 0x140                    ; 0x07c6

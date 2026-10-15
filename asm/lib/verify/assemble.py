@@ -107,6 +107,17 @@ def is_semantically_equivalent(orig_bytes, nasm_bytes, address):
     return False
 
 
+def _equ_hex(value):
+    """Format an integer for an ``equ`` right-hand side (width-4 hex).
+
+    A raw driver's ``IMAGE_BASE`` is the negative of its ``load_offset``
+    (plan.md D7.6), so negatives must round-trip through NASM.
+    """
+    if value < 0:
+        return f'-0x{-value:04x}'
+    return f'0x{value:04x}'
+
+
 def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediate_labels=None,
                        disp_labels=None, image_base=None, mem_equ=None):
     """Build and cache the EQU preamble string for a label_map+local_labels pair."""
@@ -132,11 +143,12 @@ def _build_equ_prelude(label_map, local_labels, foreign_label_map=None, immediat
     if (disp_labels or mem_equ) and image_base is not None:
         # Switch-table symbols and code-segment operand symbols are load-image
         # offsets; define each at its absolute file offset so `name -
-        # IMAGE_BASE` reproduces the disp.
-        lines.append(f'IMAGE_BASE equ 0x{image_base:04x}')
+        # IMAGE_BASE` reproduces the disp.  A raw driver's ``load_offset``
+        # enters as a negative base (plan.md D7.6).
+        lines.append(f'IMAGE_BASE equ {_equ_hex(image_base)}')
     if disp_labels and image_base is not None:
         for disp, lbl_name in disp_labels.items():
-            lines.append(f'{lbl_name} equ 0x{disp + image_base:04x}')
+            lines.append(f'{lbl_name} equ {_equ_hex(disp + image_base)}')
     if mem_equ:
         for name, value in mem_equ.items():
             lines.append(f'{name} equ 0x{value:04x}')

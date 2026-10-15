@@ -12,5 +12,12 @@ dos_con_loc_GHKP:
     db 0x0d, 0x0a, 0x07
     db 'SAVE_SCREEN called with table full.', 0
     db 0x0a, 0x24
-    times 232 db 0
 
+cseg_0fe7:
+
+    times 228 db 0
+
+cseg_10cb:
+    db 0x00, 0x00
+cseg_10cd:
+    db 0x00, 0x00

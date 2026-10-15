@@ -8,7 +8,7 @@ leaf_loc_RUJV:
     push di
     mov ax, ds
     mov es, ax
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE]
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE]
     mov es, ax
     mov ax, word [bp + 0xe]
     mov bx, 0x140

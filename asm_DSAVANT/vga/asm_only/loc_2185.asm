@@ -25,9 +25,9 @@ loc_2185:
     jmp near @..loc_2185.l3          ; 0x21af
 @..loc_2185.l2:
     mov word [cs:bx], 0              ; 0x21b2
-    mov cx, word [cs:cseg_0caa - IMAGE_BASE] ; 0x21b7
+    mov cx, word [cs:cseg_0baa - IMAGE_BASE] ; 0x21b7
     dec cx                           ; 0x21bc
-    mov word [cs:cseg_0caa - IMAGE_BASE], cx ; 0x21bd
+    mov word [cs:cseg_0baa - IMAGE_BASE], cx ; 0x21bd
     call loc_43e1                    ; 0x21c2
 @..loc_2185.l3:
     pop si                           ; 0x21c5

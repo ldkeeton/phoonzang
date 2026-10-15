@@ -2,7 +2,7 @@
 ; asm only
 dos_con_loc_PMSK:
     push ax                          ; 0x4d13
-    mov bx, cseg_4f8b - IMAGE_BASE   ; 0x4d14
+    mov bx, cseg_4e8b - IMAGE_BASE   ; 0x4d14
     mov cx, 5                        ; 0x4d17
 @..dos_con_loc_PMSK.l1:
     cmp ax, word [cs:bx]             ; 0x4d1a

@@ -4,58 +4,56 @@ io_loc_LINQ:
     push bp                          ; 0x2a6a
     mov bp, sp                       ; 0x2a6b
     sub sp, byte 0x10                ; 0x2a6d
-    mov ax, word [cs:cseg_1bed - IMAGE_BASE] ; 0x2a70
+    mov ax, word [cs:cseg_1aed - IMAGE_BASE] ; 0x2a70
     mov bx, 0xc8                     ; 0x2a74
     sub bx, ax                       ; 0x2a77
-    cmp bx, word [cs:cseg_2591 - IMAGE_BASE] ; 0x2a79
+    cmp bx, word [cs:cseg_2491 - IMAGE_BASE] ; 0x2a79
     jb short @..io_loc_LINQ.l1       ; 0x2a7e
-    mov bx, word [cs:cseg_2591 - IMAGE_BASE] ; 0x2a80
+    mov bx, word [cs:cseg_2491 - IMAGE_BASE] ; 0x2a80
 @..io_loc_LINQ.l1:
-    mov word [cs:cseg_1bf5 - IMAGE_BASE], bx ; 0x2a85
+    mov word [cs:cseg_1af5 - IMAGE_BASE], bx ; 0x2a85
     mov bx, 0x50                     ; 0x2a8a
     mul bx                           ; 0x2a8d
-    mov bx, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2a8f
+    mov bx, word [cs:cseg_1aeb - IMAGE_BASE] ; 0x2a8f
     mov cl, 2                        ; 0x2a94
     shr bx, cl                       ; 0x2a96
     add ax, bx                       ; 0x2a98
-    mov word [cs:cseg_1bf7 - IMAGE_BASE], ax ; 0x2a9a
-    mov ax, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2a9e
+    mov word [cs:cseg_1af7 - IMAGE_BASE], ax ; 0x2a9a
+    mov ax, word [cs:cseg_1aeb - IMAGE_BASE] ; 0x2a9e
     and ax, strict word 3            ; 0x2aa2
     shl ax, 1                        ; 0x2aa5
-    mov word [cs:cseg_1bf9 - IMAGE_BASE], ax ; 0x2aa7
+    mov word [cs:cseg_1af9 - IMAGE_BASE], ax ; 0x2aa7
     mov ax, 0x140                    ; 0x2aab
-    mov bx, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2aae
+    mov bx, word [cs:cseg_1aeb - IMAGE_BASE] ; 0x2aae
     sub ax, bx                       ; 0x2ab3
-    cmp ax, word [cs:cseg_258d - IMAGE_BASE] ; 0x2ab5
+    cmp ax, word [cs:cseg_248d - IMAGE_BASE] ; 0x2ab5
     jb short @..io_loc_LINQ.l2       ; 0x2aba
-    mov ax, word [cs:cseg_258d - IMAGE_BASE] ; 0x2abc
-    mov word [cs:cseg_1bfb - IMAGE_BASE], 0 ; 0x2ac0
+    mov ax, word [cs:cseg_248d - IMAGE_BASE] ; 0x2abc
+    mov word [cs:cseg_1afb - IMAGE_BASE], 0 ; 0x2ac0
     jmp short @..io_loc_LINQ.l3      ; 0x2ac7
 @..io_loc_LINQ.l2:
-    mov word [cs:cseg_1bfb - IMAGE_BASE], 0xff ; 0x2ac9
+    mov word [cs:cseg_1afb - IMAGE_BASE], 0xff ; 0x2ac9
 @..io_loc_LINQ.l3:
-    mov word [cs:cseg_1bef - IMAGE_BASE], ax ; 0x2ad0
+    mov word [cs:cseg_1aef - IMAGE_BASE], ax ; 0x2ad0
     add ax, strict word 3            ; 0x2ad4
     mov cl, 2                        ; 0x2ad7
     shr ax, cl                       ; 0x2ad9
-    mov word [cs:cseg_1bf1 - IMAGE_BASE], ax ; 0x2adb
-    cmp word [cs:cseg_1bfb - IMAGE_BASE], byte 0 ; 0x2adf
+    mov word [cs:cseg_1af1 - IMAGE_BASE], ax ; 0x2adb
+    cmp word [cs:cseg_1afb - IMAGE_BASE], byte 0 ; 0x2adf
     jne short @..io_loc_LINQ.l4      ; 0x2ae5
-    cmp word [cs:cseg_1bf9 - IMAGE_BASE], byte 0 ; 0x2ae7
+    cmp word [cs:cseg_1af9 - IMAGE_BASE], byte 0 ; 0x2ae7
     je short @..io_loc_LINQ.l4       ; 0x2aed
     inc ax                           ; 0x2aef
 @..io_loc_LINQ.l4:
-    mov word [cs:cseg_1bf3 - IMAGE_BASE], ax ; 0x2af0
-    mov di, word [cs:cseg_1bd7 - IMAGE_BASE] ; 0x2af4
+    mov word [cs:cseg_1af3 - IMAGE_BASE], ax ; 0x2af0
+    mov di, word [cs:cseg_1ad7 - IMAGE_BASE] ; 0x2af4
     mov ax, cs                       ; 0x2af9
     mov es, ax                       ; 0x2afb
     mov ax, 0xa000                   ; 0x2afd
     mov ds, ax                       ; 0x2b00
-cseg_2b02:
     mov dx, 0x3ce                    ; 0x2b02
     mov al, 5                        ; 0x2b05
     out dx, al                       ; 0x2b07
-cseg_2b08:
     inc dx                           ; 0x2b08
     mov al, 0                        ; 0x2b09
     out dx, al                       ; 0x2b0b
@@ -71,71 +69,71 @@ cseg_2b08:
     mov di, 0x360                    ; 0x2b23
     mov ah, 3                        ; 0x2b26
     call io_loc_QUGH                 ; 0x2b28
-    mov ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2b2b
+    mov ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x2b2b
     cmp ax, strict word 0xffff       ; 0x2b2f
     jne short @..io_loc_LINQ.l5      ; 0x2b32
     jmp near @..io_loc_LINQ.l13      ; 0x2b34
 @..io_loc_LINQ.l5:
-    add ax, word [cs:cseg_1be3 - IMAGE_BASE] ; 0x2b37
+    add ax, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x2b37
     dec ax                           ; 0x2b3c
     mov word [bp - 0x0002], ax       ; 0x2b3d
-    mov ax, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2b40
+    mov ax, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x2b40
     mov cl, 2                        ; 0x2b44
     shr ax, cl                       ; 0x2b46
-    add ax, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2b48
+    add ax, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2b48
     dec ax                           ; 0x2b4d
     mov word [bp - 0x0004], ax       ; 0x2b4e
-    mov cx, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2b51
+    mov cx, word [cs:cseg_1aeb - IMAGE_BASE] ; 0x2b51
     shr cx, 1                        ; 0x2b56
     shr cx, 1                        ; 0x2b58
-    mov dx, word [cs:cseg_1bed - IMAGE_BASE] ; 0x2b5a
+    mov dx, word [cs:cseg_1aed - IMAGE_BASE] ; 0x2b5a
     cmp word [bp - 0x0004], cx       ; 0x2b5f
     jb short @..io_loc_LINQ.l6       ; 0x2b62
     cmp word [bp - 0x0002], dx       ; 0x2b64
     jb short @..io_loc_LINQ.l6       ; 0x2b67
-    add cx, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2b69
+    add cx, word [cs:cseg_1af3 - IMAGE_BASE] ; 0x2b69
     dec cx                           ; 0x2b6e
-    add dx, word [cs:cseg_1bf5 - IMAGE_BASE] ; 0x2b6f
+    add dx, word [cs:cseg_1af5 - IMAGE_BASE] ; 0x2b6f
     dec dx                           ; 0x2b74
-    mov ax, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2b75
+    mov ax, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x2b75
     shr ax, 1                        ; 0x2b79
     shr ax, 1                        ; 0x2b7b
     cmp cx, ax                       ; 0x2b7d
     jb short @..io_loc_LINQ.l6       ; 0x2b7f
-    cmp dx, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2b81
+    cmp dx, word [cs:cseg_1adb - IMAGE_BASE] ; 0x2b81
     jae short @..io_loc_LINQ.l7      ; 0x2b86
 @..io_loc_LINQ.l6:
-    mov byte [cs:cseg_259d - IMAGE_BASE], 0 ; 0x2b88
+    mov byte [cs:cseg_249d - IMAGE_BASE], 0 ; 0x2b88
     jmp near @..io_loc_LINQ.l13      ; 0x2b8e
 @..io_loc_LINQ.l7:
-    mov byte [cs:cseg_259d - IMAGE_BASE], 1 ; 0x2b91
-    mov cx, word [cs:cseg_1beb - IMAGE_BASE] ; 0x2b97
+    mov byte [cs:cseg_249d - IMAGE_BASE], 1 ; 0x2b91
+    mov cx, word [cs:cseg_1aeb - IMAGE_BASE] ; 0x2b97
     shr cx, 1                        ; 0x2b9c
     shr cx, 1                        ; 0x2b9e
     mov ax, cx                       ; 0x2ba0
-    mov bx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2ba2
+    mov bx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x2ba2
     shr bx, 1                        ; 0x2ba7
     shr bx, 1                        ; 0x2ba9
     cmp bx, cx                       ; 0x2bab
     jb short @..io_loc_LINQ.l8       ; 0x2bad
-    mov ax, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2baf
+    mov ax, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x2baf
     shr ax, 1                        ; 0x2bb3
     shr ax, 1                        ; 0x2bb5
 @..io_loc_LINQ.l8:
     mov word [bp - 0x0006], ax       ; 0x2bb7
-    mov dx, word [cs:cseg_1bed - IMAGE_BASE] ; 0x2bba
+    mov dx, word [cs:cseg_1aed - IMAGE_BASE] ; 0x2bba
     mov bx, dx                       ; 0x2bbf
-    cmp word [cs:cseg_1bdb - IMAGE_BASE], dx ; 0x2bc1
+    cmp word [cs:cseg_1adb - IMAGE_BASE], dx ; 0x2bc1
     jb short @..io_loc_LINQ.l9       ; 0x2bc6
-    mov bx, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2bc8
+    mov bx, word [cs:cseg_1adb - IMAGE_BASE] ; 0x2bc8
 @..io_loc_LINQ.l9:
     mov word [bp - 0x0008], bx       ; 0x2bcd
     sub ax, cx                       ; 0x2bd0
     sub bx, dx                       ; 0x2bd2
     mov word [bp - 0x000a], ax       ; 0x2bd4
     mov word [bp - 0x000c], bx       ; 0x2bd7
-    mov cx, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2bda
-    mov dx, word [cs:cseg_1bf5 - IMAGE_BASE] ; 0x2bdf
+    mov cx, word [cs:cseg_1af3 - IMAGE_BASE] ; 0x2bda
+    mov dx, word [cs:cseg_1af5 - IMAGE_BASE] ; 0x2bdf
     sub cx, ax                       ; 0x2be4
     mov word [bp - 0x000e], cx       ; 0x2be6
     sub dx, bx                       ; 0x2be9
@@ -161,21 +159,21 @@ cseg_2b08:
     mov word [bp - 0x0010], ax       ; 0x2c17
 @..io_loc_LINQ.l11:
     mov ax, word [bp - 0x0008]       ; 0x2c1a
-    sub ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2c1d
-    mov bx, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2c22
+    sub ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x2c1d
+    mov bx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2c22
     mul bx                           ; 0x2c27
     add ax, word [bp - 0x0006]       ; 0x2c29
-    mov bx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2c2c
+    mov bx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x2c2c
     shr bx, 1                        ; 0x2c31
     shr bx, 1                        ; 0x2c33
     sub ax, bx                       ; 0x2c35
-    add ax, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2c37
+    add ax, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x2c37
     mov si, ax                       ; 0x2c3c
     mov ax, word [bp - 0x000c]       ; 0x2c3e
-    mov bx, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2c41
+    mov bx, word [cs:cseg_1af3 - IMAGE_BASE] ; 0x2c41
     mul bx                           ; 0x2c46
     add ax, word [bp - 0x000a]       ; 0x2c48
-    add ax, word [cs:cseg_1bd7 - IMAGE_BASE] ; 0x2c4b
+    add ax, word [cs:cseg_1ad7 - IMAGE_BASE] ; 0x2c4b
     mov di, ax                       ; 0x2c50
     mov ax, cs                       ; 0x2c52
     mov ds, ax                       ; 0x2c54
@@ -208,9 +206,9 @@ cseg_2b08:
     mov cx, word [bp - 0x000e]       ; 0x2c92
     rep movsb                        ; 0x2c95
     pop di                           ; 0x2c97
-    add di, word [cs:cseg_1bf3 - IMAGE_BASE] ; 0x2c98
+    add di, word [cs:cseg_1af3 - IMAGE_BASE] ; 0x2c98
     pop si                           ; 0x2c9d
-    add si, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2c9e
+    add si, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2c9e
     pop cx                           ; 0x2ca3
     loop @..io_loc_LINQ.l12          ; 0x2ca4
 @..io_loc_LINQ.l13:
@@ -243,7 +241,7 @@ cseg_2b08:
     inc dx                           ; 0x2ce1
     mov al, 0xf                      ; 0x2ce2
     out dx, al                       ; 0x2ce4
-    mov ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2ce5
+    mov ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x2ce5
     cmp ax, strict word 0xffff       ; 0x2ce9
     jne short @..io_loc_LINQ.l14     ; 0x2cec
     jmp near @..io_loc_LINQ.l23      ; 0x2cee
@@ -275,27 +273,27 @@ cseg_2b08:
     mov ax, cs                       ; 0x2d24
     mov es, ax                       ; 0x2d26
     mov ds, ax                       ; 0x2d28
-    mov di, cseg_24fd - IMAGE_BASE   ; 0x2d2a
+    mov di, cseg_23fd - IMAGE_BASE   ; 0x2d2a
     mov cx, 0x80                     ; 0x2d2d
     mov al, 0xff                     ; 0x2d30
     rep stosb                        ; 0x2d32
-    mov ax, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2d34
+    mov ax, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2d34
     add ax, strict word 7            ; 0x2d38
     mov cl, 3                        ; 0x2d3b
     shr ax, cl                       ; 0x2d3d
     mov word [bp - 0x0002], ax       ; 0x2d3f
-    cmp byte [cs:cseg_259d - IMAGE_BASE], 0 ; 0x2d42
+    cmp byte [cs:cseg_249d - IMAGE_BASE], 0 ; 0x2d42
     jne short @..io_loc_LINQ.l15     ; 0x2d48
     jmp near @..io_loc_LINQ.l22      ; 0x2d4a
 @..io_loc_LINQ.l15:
     mov ax, word [bp - 0x0008]       ; 0x2d4d
-    sub ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x2d50
+    sub ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x2d50
     mov bx, word [bp - 0x0002]       ; 0x2d55
     mul bx                           ; 0x2d58
     mov di, ax                       ; 0x2d5a
     add di, strict word 0x24fd       ; 0x2d5c
     mov ax, word [bp - 0x0006]       ; 0x2d60
-    mov bx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x2d63
+    mov bx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x2d63
     shr bx, 1                        ; 0x2d68
     shr bx, 1                        ; 0x2d6a
     sub ax, bx                       ; 0x2d6c
@@ -338,7 +336,7 @@ cseg_2b08:
 @..io_loc_LINQ.l21:
     push cx                          ; 0x2db4
     push di                          ; 0x2db5
-    mov si, cseg_257d - IMAGE_BASE   ; 0x2db6
+    mov si, cseg_247d - IMAGE_BASE   ; 0x2db6
     mov cx, word [bp - 0x0004]       ; 0x2db9
     rep movsb                        ; 0x2dbc
     pop di                           ; 0x2dbe
@@ -348,18 +346,18 @@ cseg_2b08:
 @..io_loc_LINQ.l22:
     mov ax, 0xa000                   ; 0x2dc5
     mov es, ax                       ; 0x2dc8
-    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2dca
+    mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x2dca
     mov ah, 1                        ; 0x2dcf
     call io_loc_RITP                 ; 0x2dd1
-    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2dd4
+    mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x2dd4
     add si, strict word 0x120        ; 0x2dd9
     mov ah, 2                        ; 0x2ddd
     call io_loc_RITP                 ; 0x2ddf
-    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2de2
+    mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x2de2
     add si, strict word 0x240        ; 0x2de7
     mov ah, 4                        ; 0x2deb
     call io_loc_RITP                 ; 0x2ded
-    mov si, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2df0
+    mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x2df0
     add si, strict word 0x360        ; 0x2df5
     mov ah, 8                        ; 0x2df9
     call io_loc_RITP                 ; 0x2dfb
@@ -370,19 +368,19 @@ cseg_2b08:
     mov al, 0xf                      ; 0x2e05
     out dx, al                       ; 0x2e07
 @..io_loc_LINQ.l23:
-    mov ax, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x2e08
-    mov bx, word [cs:cseg_1bd7 - IMAGE_BASE] ; 0x2e0c
-    mov word [cs:cseg_1bd7 - IMAGE_BASE], ax ; 0x2e11
-    mov word [cs:cseg_1bd5 - IMAGE_BASE], bx ; 0x2e15
+    mov ax, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x2e08
+    mov bx, word [cs:cseg_1ad7 - IMAGE_BASE] ; 0x2e0c
+    mov word [cs:cseg_1ad7 - IMAGE_BASE], ax ; 0x2e11
+    mov word [cs:cseg_1ad5 - IMAGE_BASE], bx ; 0x2e15
     mov ax, cs                       ; 0x2e1a
     mov ds, ax                       ; 0x2e1c
     mov es, ax                       ; 0x2e1e
-    mov si, cseg_1beb - IMAGE_BASE   ; 0x2e20
-    mov di, cseg_1bd9 - IMAGE_BASE   ; 0x2e23
+    mov si, cseg_1aeb - IMAGE_BASE   ; 0x2e20
+    mov di, cseg_1ad9 - IMAGE_BASE   ; 0x2e23
     mov cx, 9                        ; 0x2e26
     rep movsw                        ; 0x2e29
     mov sp, bp                       ; 0x2e2b
     pop bp                           ; 0x2e2d
     xor al, al                       ; 0x2e2e
-    mov byte [cs:cseg_2b08 - IMAGE_BASE], al ; 0x2e30
+    mov byte [cs:cseg_2a08 - IMAGE_BASE], al ; 0x2e30
     retf                             ; 0x2e34

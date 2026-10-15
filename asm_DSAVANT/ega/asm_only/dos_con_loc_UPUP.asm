@@ -7,9 +7,13 @@ dos_con_loc_UPUP:
     int 0x21 ; DOS function dispatcher
 
     db 0x0d, 0x0a, 0x07
-    db 'Picture slot 00 not freed.', 0
-    db 0x0a, 0x24
+    db 'Picture slot '
 
+cseg_3196:
+    db 0x30
+cseg_3197:
+    db '0 not freed.', 0
+    db 0x0a, 0x24
 @..dos_read_file_3.l8:
     mov ax, cs                       ; 0x31a6
     mov ds, ax                       ; 0x31a8

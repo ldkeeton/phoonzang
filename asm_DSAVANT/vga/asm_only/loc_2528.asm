@@ -33,9 +33,9 @@ loc_2528:
     mov cx, word [bp - 0x0004]       ; 0x2566
 @..loc_2528.l3:
     push cx                          ; 0x2569
-    les di, word [cs:cseg_01f7 - IMAGE_BASE] ; 0x256a
+    les di, word [cs:cseg_00f7 - IMAGE_BASE] ; 0x256a
     mov cl, 3                        ; 0x256f
-    mov dx, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x2571
+    mov dx, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x2571
     mov ds, dx                       ; 0x2576
     xor ax, ax                       ; 0x2578
     mov al, byte [si]                ; 0x257a
@@ -262,7 +262,7 @@ loc_2528:
     or ax, ax                        ; 0x2761
     je short @..loc_2528.l35         ; 0x2763
     push word [bp + 0x14]            ; 0x2765
-    call far [cs:cseg_01fb - IMAGE_BASE] ; 0x2768
+    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x2768
     pop ax                           ; 0x276d
 @..loc_2528.l35:
     jmp near @..loc_2528.l1          ; 0x276e

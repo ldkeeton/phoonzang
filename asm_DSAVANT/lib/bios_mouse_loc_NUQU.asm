@@ -7,7 +7,7 @@ bios_mouse_loc_NUQU:
     push es
     mov ax, ds
     mov es, ax
-    cmp byte [cs:cseg_0228 - IMAGE_BASE], 0
+    cmp byte [cs:cseg_0128 - IMAGE_BASE], 0
     je short @..bios_mouse_loc_NUQU.l1
     mov ax, 3
     int 0x33 ; BIOS mouse

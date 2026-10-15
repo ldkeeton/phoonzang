@@ -5,7 +5,7 @@ dos_file_loc_IIUJ:
     push es                          ; 0x3d0c
     push si                          ; 0x3d0d
     push di                          ; 0x3d0e
-    mov dx, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x3d0f
+    mov dx, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x3d0f
     mov ds, dx                       ; 0x3d14
 @..dos_file_loc_IIUJ.l1:
     xor dx, dx                       ; 0x3d16

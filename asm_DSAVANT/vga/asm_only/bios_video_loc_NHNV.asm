@@ -12,7 +12,7 @@ bios_video_loc_NHNV:
     mov ax, word [bp + 0xe]          ; 0x278a
     cmp ax, strict word 0xffff       ; 0x278d
     jne short @..bios_video_loc_NHNV.l1 ; 0x2790
-    les di, word [cs:cseg_01f7 - IMAGE_BASE] ; 0x2792
+    les di, word [cs:cseg_00f7 - IMAGE_BASE] ; 0x2792
     mov ax, word [bp + 0xc]          ; 0x2797
     mov bx, ax                       ; 0x279a
     shl ax, 1                        ; 0x279c

@@ -1,7 +1,7 @@
 ; auto-generated
 leaf_loc_HSSI:
     push ax                          ; 0x4cfd
-    mov bx, cseg_4ab4 - IMAGE_BASE   ; 0x4cfe
+    mov bx, cseg_49b4 - IMAGE_BASE   ; 0x4cfe
     mov cx, 0x14                     ; 0x4d01
 @..leaf_loc_HSSI.l1:
     cmp ax, word [cs:bx]             ; 0x4d04

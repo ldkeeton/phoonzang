@@ -160,14 +160,21 @@ def _mz_header(e_ss):
 # (one name the C spelling no longer mentions).  Both are decrease-only baselines;
 # they were lowered here after measuring HEAD's own tree, not the working tree.
 BASELINE_TOTALS = {
-    'code_shift': 132, 'data_shift': 1, 'inert': 248,
-    'f1': 2, 'f2': 13, 'f3': 114, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
+    'code_shift': 97, 'data_shift': 1, 'inert': 248,
+    'f1': 2, 'f2': 13, 'f3': 79, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
     'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
-    # vtrea's trampoline stub 0x4ad8 sits in data, so it stays an ``equ``; it
-    # was ``api_idx_0004_8`` (outside the name families) and is now
-    # ``api_idx_0004_4ad8``, which the census counts: one inert name more.
-    'names_used': 83, 'names_inert': 33, 'hidden_flow': 87,
-    'total': 133,
+    # D7.6 gave the raw drivers their true load origin (``CS:0x100``), so a
+    # ``[cs:disp]`` operand now resolves to ``disp - 0x100`` and the ``cseg_``
+    # names land on the bytes they really name.  ``f3`` 114 -> 79 and
+    # ``code_shift`` 132 -> 97 as 35 names that could not hold a label at their
+    # (0x100 too high) offset now do; ``names_used`` 83 -> 55 and
+    # ``names_inert`` 33 -> 29 for the same reason.  All 19 binaries stay
+    # byte-identical (the ``IMAGE_BASE`` base turns negative, so the encodings
+    # are unchanged).  ``play``'s own ``f3`` rises 9 -> 14 where an operand
+    # previously borrowed a (0x100-off) code label and now carries a real
+    # ``cseg_`` name -- the honest count, and the whole class only falls.
+    'names_used': 55, 'names_inert': 29, 'hidden_flow': 87,
+    'total': 98,
 }
 
 

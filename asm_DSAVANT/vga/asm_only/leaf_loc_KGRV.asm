@@ -12,7 +12,7 @@ leaf_loc_KGRV:
     inc bx                           ; 0x0e43
     inc bx                           ; 0x0e44
     loop @..leaf_loc_KGRV.l1         ; 0x0e45
-    mov bx, cseg_02c3 - IMAGE_BASE   ; 0x0e47
+    mov bx, cseg_01c3 - IMAGE_BASE   ; 0x0e47
     mov cx, 0xa                      ; 0x0e4a
 @..leaf_loc_KGRV.l3:
     cmp ax, word [cs:bx]             ; 0x0e4d
@@ -34,7 +34,10 @@ leaf_loc_KGRV:
     loop @..leaf_loc_KGRV.l5         ; 0x0e69
     pop ax                           ; 0x0e6b
     ret                              ; 0x0e6c
-    times 4 db 0
+cseg_0e6d:
+    db 0x00, 0x00
+cseg_0e6f:
+    db 0x00, 0x00
 loc_0e71:
     dec ax                           ; 0x0e71
     mov cl, 2                        ; 0x0e72
@@ -43,16 +46,16 @@ loc_0e71:
     add bx, ax                       ; 0x0e79
     mov word [bp - 0x0004], bx       ; 0x0e7b
     mov ax, word [cs:bx + 0x2]       ; 0x0e7e
-    sub word [cs:cseg_0391 - IMAGE_BASE], ax ; 0x0e82
+    sub word [cs:cseg_0291 - IMAGE_BASE], ax ; 0x0e82
     mov word [bp - 0x0006], ax       ; 0x0e87
 @..loc_0e71.l1:
     mov bx, word [bp - 0x0004]       ; 0x0e8a
     mov di, word [cs:bx]             ; 0x0e8d
-    mov dx, word [cs:cseg_0203 - IMAGE_BASE] ; 0x0e90
+    mov dx, word [cs:cseg_0103 - IMAGE_BASE] ; 0x0e90
     mov es, dx                       ; 0x0e95
     mov ds, dx                       ; 0x0e97
     mov si, word [cs:bx + 0x4]       ; 0x0e99
-    add dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x0e9d
+    add dx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x0e9d
     mov cx, word [cs:bx + 0x6]       ; 0x0ea2
     or cx, cx                        ; 0x0ea6
     jne short @..loc_0e71.l2         ; 0x0ea8
@@ -62,14 +65,14 @@ loc_0e71:
     mov ax, si                       ; 0x0eae
     mov cl, 0xa                      ; 0x0eb0
     shr ax, cl                       ; 0x0eb2
-    mov word [cs:cseg_0f6d - IMAGE_BASE], ax ; 0x0eb4
+    mov word [cs:cseg_0e6d - IMAGE_BASE], ax ; 0x0eb4
     and si, strict word 0x3ff        ; 0x0eb8
     mov cl, 4                        ; 0x0ebc
     shl si, cl                       ; 0x0ebe
     mov ax, di                       ; 0x0ec0
     mov cl, 0xa                      ; 0x0ec2
     shr ax, cl                       ; 0x0ec4
-    mov word [cs:loc_0f6f - IMAGE_BASE], ax ; 0x0ec6
+    mov word [cs:cseg_0e6f - IMAGE_BASE], ax ; 0x0ec6
     and di, strict word 0x3ff        ; 0x0eca
     mov cl, 4                        ; 0x0ece
     shl di, cl                       ; 0x0ed0
@@ -82,7 +85,7 @@ loc_0e71:
     xor dx, dx                       ; 0x0edc
     cmp di, strict word 0x4000       ; 0x0ede
     jne short @..loc_0e71.l4         ; 0x0ee2
-    inc word [cs:loc_0f6f - IMAGE_BASE] ; 0x0ee4
+    inc word [cs:cseg_0e6f - IMAGE_BASE] ; 0x0ee4
     inc dx                           ; 0x0ee9
 @..loc_0e71.l4:
     cmp si, strict word 0x4000       ; 0x0eea
@@ -90,7 +93,7 @@ loc_0e71:
     cmp si, strict word 0x8000       ; 0x0ef0
     jne short @..loc_0e71.l6         ; 0x0ef4
 @..loc_0e71.l5:
-    inc word [cs:cseg_0f6d - IMAGE_BASE] ; 0x0ef6
+    inc word [cs:cseg_0e6d - IMAGE_BASE] ; 0x0ef6
     inc dx                           ; 0x0efb
 @..loc_0e71.l6:
     or dx, dx                        ; 0x0efc

@@ -27,10 +27,10 @@ dos_read_file:
     mov bx, data_0bda                ; 0x08ff
     add bx, ax                       ; 0x0902
     mov ax, word [cs:bx]             ; 0x0904
-    mov bx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x0907
+    mov bx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x0907
     add bx, ax                       ; 0x090c
     mov ds, bx                       ; 0x090e
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0910
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0910
     mov es, ax                       ; 0x0914
     xor di, di                       ; 0x0916
     xor si, si                       ; 0x0918
@@ -52,14 +52,14 @@ dos_read_file:
     mov ax, si                       ; 0x093b
     mov cl, 0xa                      ; 0x093d
     shr ax, cl                       ; 0x093f
-    mov word [cs:cseg_3c8e - IMAGE_BASE], ax ; 0x0941
+    mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x0941
     call leaf_loc_NIKG               ; 0x0945
     and si, strict word 0x3ff        ; 0x0948
     mov cl, 4                        ; 0x094c
     shl si, cl                       ; 0x094e
-    mov bx, word [cs:cseg_0203 - IMAGE_BASE] ; 0x0950
+    mov bx, word [cs:cseg_0103 - IMAGE_BASE] ; 0x0950
     mov ds, bx                       ; 0x0955
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0957
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0957
     mov es, ax                       ; 0x095b
     xor di, di                       ; 0x095d
     mov cx, 3                        ; 0x095f
@@ -68,8 +68,8 @@ dos_read_file:
     mov cx, 0x4000                   ; 0x0963
     rep movsb                        ; 0x0966
     and si, strict word 0x3fff       ; 0x0968
-    inc word [cs:cseg_3c8e - IMAGE_BASE] ; 0x096c
-    mov ax, word [cs:cseg_3c8e - IMAGE_BASE] ; 0x0971
+    inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x096c
+    mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x0971
     call leaf_loc_NIKG               ; 0x0975
     pop cx                           ; 0x0978
     loop @..dos_read_file.l3         ; 0x0979
@@ -77,7 +77,7 @@ dos_read_file:
     rep movsb                        ; 0x097e
     jmp short @..dos_read_file.l5    ; 0x0980
 @..dos_read_file.l4:
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0982
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0982
     mov ds, ax                       ; 0x0986
     xor dx, dx                       ; 0x0988
     mov bx, word [bp + 0xc]          ; 0x098a

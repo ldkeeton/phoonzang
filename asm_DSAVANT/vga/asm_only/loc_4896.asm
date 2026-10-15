@@ -11,7 +11,7 @@ loc_4896:
     mov es, ax                       ; 0x489f
     push word [bp + 0xe]             ; 0x48a1
     push word [bp + 0xc]             ; 0x48a4
-    call far [cs:cseg_0216 - IMAGE_BASE] ; 0x48a7
+    call far [cs:cseg_0116 - IMAGE_BASE] ; 0x48a7
     add sp, byte 4                   ; 0x48ac
     pop di                           ; 0x48af
     pop si                           ; 0x48b0

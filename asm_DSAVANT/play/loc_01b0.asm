@@ -1,14 +1,14 @@
 ; auto-generated
 loc_01b0:
     push bx                          ; 0x01b0
-    cmp byte [cs:cseg_0b9a - IMAGE_BASE], 0 ; 0x01b1
+    cmp byte [cs:cseg_0a9a - IMAGE_BASE], 0 ; 0x01b1
     je short @..loc_01b0.l2          ; 0x01b7
-    mov byte [cs:cseg_0b9a - IMAGE_BASE], 0 ; 0x01b9
-    cmp byte [cs:cseg_0b94 - IMAGE_BASE], 0 ; 0x01bf
+    mov byte [cs:cseg_0a9a - IMAGE_BASE], 0 ; 0x01b9
+    cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x01bf
     je short @..loc_01b0.l1          ; 0x01c5
     call io_loc_OGKU                 ; 0x01c7
 @..loc_01b0.l1:
-    mov bl, byte [cs:cseg_0b7c - IMAGE_BASE] ; 0x01ca
+    mov bl, byte [cs:cseg_0a7c - IMAGE_BASE] ; 0x01ca
     xor bh, bh                       ; 0x01cf
     shl bx, 1                        ; 0x01d1
     call [cs:bx + 0x2da]             ; 0x01d3

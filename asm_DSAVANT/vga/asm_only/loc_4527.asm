@@ -41,11 +41,11 @@ loc_4527:
     shl ax, 1                        ; 0x4576
     add bx, ax                       ; 0x4578
     mov ax, word [cs:bx]             ; 0x457a
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x457d
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x457d
     push ax                          ; 0x4582
     xor ax, ax                       ; 0x4583
     push ax                          ; 0x4585
-    call far [cs:cseg_021a - IMAGE_BASE] ; 0x4586
+    call far [cs:cseg_011a - IMAGE_BASE] ; 0x4586
     add sp, byte 0x0e                ; 0x458b
 @..loc_4527.l3:
     pop di                           ; 0x458e

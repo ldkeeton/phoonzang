@@ -4,7 +4,7 @@
 org 0
 bits 16
 %ifndef IMAGE_BASE
-IMAGE_BASE equ 0x0000
+IMAGE_BASE equ -0x0100
 %endif
 
 data_0229 equ 0x0229
@@ -22,30 +22,6 @@ data_381b equ 0x381b
 data_4202 equ 0x4202
 data_46d9 equ 0x46d9
 data_46f1 equ 0x46f1
-cseg_0295 equ 0x0295
-cseg_0297 equ 0x0297
-cseg_0391 equ 0x0391
-cseg_0615 equ 0x0615
-cseg_0bc6 equ 0x0bc6
-cseg_0caa equ 0x0caa
-cseg_0cac equ 0x0cac
-cseg_0f6d equ 0x0f6d
-cseg_1e4c equ 0x1e4c
-cseg_1e5c equ 0x1e5c
-cseg_1e5e equ 0x1e5e
-cseg_1e60 equ 0x1e60
-cseg_1e64 equ 0x1e64
-cseg_1e66 equ 0x1e66
-cseg_1e68 equ 0x1e68
-cseg_1ecf equ 0x1ecf
-cseg_1ed1 equ 0x1ed1
-cseg_1ed3 equ 0x1ed3
-cseg_326f equ 0x326f
-cseg_3270 equ 0x3270
-cseg_3282 equ 0x3282
-cseg_3c8e equ 0x3c8e
-cseg_4202 equ 0x4202
-cseg_46d9 equ 0x46d9
 
 loc_0000:
     jmp near loc_0003                ; 0x0000
@@ -214,70 +190,84 @@ loc_00d7:
 loc_00db:
     call loc_4896                    ; 0x00db
     retf                             ; 0x00de
-
-    db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00
-    db 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01
-    times 17 db 0
-    db 0x03, 0x01, 0x00, 0x00, 0x07, 0x01, 0x00, 0x00, 0x0b, 0x01, 0x00, 0x00, 0x0f, 0x01, 0x00, 0x00
-    db 0x13, 0x01, 0x00, 0x00, 0x17, 0x01, 0x00, 0x00, 0x1b, 0x01, 0x00, 0x00, 0x1f, 0x01
-    times 87 db 0
-    db 0x04
-    times 23 db 0
-    db 0x01
-    times 77 db 0
-
-cseg_01e1:
+    db 0x80, 0x41
+cseg_00e1:
+    db 0x00, 0x00, 0x00, 0x10
+cseg_00e5:
+    db 0x00, 0x00, 0x40, 0x01
+cseg_00e9:
+    db 0x00, 0x00, 0x40, 0x00, 0x00, 0x00, 0x30, 0x05, 0x00, 0x00, 0xd0, 0x01, 0x00, 0x00
+cseg_00f7:
     times 4 db 0
-cseg_01e5:
+cseg_00fb:
     times 4 db 0
-cseg_01e9:
-    times 14 db 0
-cseg_01f7:
-    times 4 db 0
-cseg_01fb:
-    times 4 db 0
-cseg_01ff:
+cseg_00ff:
     db 0x00, 0x00
-cseg_0201:
+cseg_0101:
     db 0x00, 0x00
-cseg_0203:
+cseg_0103:
     db 0x00, 0x00
-cseg_0205:
+cseg_0105:
     db 0x00
-cseg_0206:
-    times 8 db 0
-cseg_020e:
-    times 4 db 0
-cseg_0212:
-    times 4 db 0
-cseg_0216:
-    times 4 db 0
-cseg_021a:
-    times 4 db 0
-cseg_021e:
-    times 4 db 0
-cseg_0222:
-    times 4 db 0
-cseg_0226:
+cseg_0106:
+    db 0x03, 0x01, 0x00, 0x00, 0x07, 0x01, 0x00, 0x00
+cseg_010e:
+    db 0x0b, 0x01, 0x00, 0x00
+cseg_0112:
+    db 0x0f, 0x01, 0x00, 0x00
+cseg_0116:
+    db 0x13, 0x01, 0x00, 0x00
+cseg_011a:
+    db 0x17, 0x01, 0x00, 0x00
+cseg_011e:
+    db 0x1b, 0x01, 0x00, 0x00
+cseg_0122:
+    db 0x1f, 0x01, 0x00, 0x00
+cseg_0126:
     db 0x00
-cseg_0227:
+cseg_0127:
     db 0x00
-cseg_0228:
+cseg_0128:
     db 0x00
-cseg_0229:
+cseg_0129:
 
     times 40 db 0
 
-cseg_0251:
+cseg_0151:
     times 10 db 0
-cseg_025b:
+cseg_015b:
 
     times 32 db 0
 
-cseg_027b:
+cseg_017b:
 
-    times 22 db 0
+    db 0x04
+    times 21 db 0
 
+cseg_0191:
+    db 0x00, 0x00
+cseg_0193:
+    db 0x01, 0x00
+cseg_0195:
+    db 0x00, 0x00
+cseg_0197:
+    db 0x00, 0x00
+cseg_0199:
+    db 0x00, 0x00
+cseg_019b:
+
+    times 40 db 0
+
+cseg_01c3:
+
+    times 20 db 0
+
+cseg_01d7:
+
+    times 184 db 0
+
+cseg_028f:
+    db 0x00, 0x00
 cseg_0291:
     db 0x00, 0x00
 %include "lib/graphics_loc_VIRI.asm"       ; 0x0293
@@ -388,7 +378,7 @@ cseg_0291:
 
 %include "vga/asm_only/loc_2cbe.asm"                ; 0x2cbe
 
-%include "lib/leaf_loc_JKPU.asm"           ; 0x2d08
+%include "vga/asm_only/leaf_loc_JKPU.asm"           ; 0x2d08
 
 %include "vga/asm_only/graphics_loc_RHSL.asm"       ; 0x2d6c
 
@@ -430,7 +420,7 @@ cseg_0291:
 
 %include "vga/asm_only/dos_con_loc_TLRV.asm"        ; 0x4088
 
-%include "lib/dos_con_loc_TUTH.asm"        ; 0x40d2
+%include "vga/asm_only/dos_con_loc_TUTH.asm"        ; 0x40d2
 
 %include "vga/asm_only/dos_read_file_6.asm"         ; 0x4156
 

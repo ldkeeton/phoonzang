@@ -1,7 +1,7 @@
 ; auto-generated
 leaf_loc_UGTM:
     push ax                          ; 0x4ce8
-    mov bx, cseg_0251 - IMAGE_BASE   ; 0x4ce9
+    mov bx, cseg_0151 - IMAGE_BASE   ; 0x4ce9
     mov cx, 5                        ; 0x4cec
 @..leaf_loc_UGTM.l1:
     cmp ax, word [cs:bx]             ; 0x4cef

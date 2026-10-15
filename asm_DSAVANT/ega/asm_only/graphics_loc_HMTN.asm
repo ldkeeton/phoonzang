@@ -2,7 +2,7 @@
 ; asm only
 graphics_loc_HMTN:
     push es                          ; 0x3a8b
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x3a8c
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x3a8c
     mov es, ax                       ; 0x3a90
     mov ax, 0x3705                   ; 0x3a92
     mov word [bp - 0x0036], ax       ; 0x3a95
@@ -75,7 +75,6 @@ graphics_loc_HMTN:
     cmp di, word [bp - 0x0022]       ; 0x3b2d
     jb short @..graphics_loc_HMTN.l10 ; 0x3b30
     jmp near @..graphics_loc_HMTN.l22 ; 0x3b32
-cseg_3b35:
 @..graphics_loc_HMTN.l10:
     mov bx, word [bp - 0x0036]       ; 0x3b35
     mov al, byte [cs:bx]             ; 0x3b38

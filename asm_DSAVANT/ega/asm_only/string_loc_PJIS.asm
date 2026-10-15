@@ -6,19 +6,19 @@ string_loc_PJIS:
     mov ax, cs                       ; 0x17a3
     mov es, ax                       ; 0x17a5
     mov cx, 0x100                    ; 0x17a7
-    mov di, cseg_2a02 - IMAGE_BASE   ; 0x17aa
+    mov di, cseg_2902 - IMAGE_BASE   ; 0x17aa
     xor al, al                       ; 0x17ad
     rep stosb                        ; 0x17af
     mov cx, 0x400                    ; 0x17b1
-    mov di, cseg_2602 - IMAGE_BASE   ; 0x17b4
+    mov di, cseg_2502 - IMAGE_BASE   ; 0x17b4
     xor al, al                       ; 0x17b7
     rep stosb                        ; 0x17b9
     xor di, di                       ; 0x17bb
     mov bx, 0x33b3                   ; 0x17bd
-    mov cx, word [cs:cseg_2591 - IMAGE_BASE] ; 0x17c0
+    mov cx, word [cs:cseg_2491 - IMAGE_BASE] ; 0x17c0
 @..string_loc_PJIS.l1:
     push cx                          ; 0x17c5
-    mov cx, word [cs:cseg_258d - IMAGE_BASE] ; 0x17c6
+    mov cx, word [cs:cseg_248d - IMAGE_BASE] ; 0x17c6
     mov word [bp - 0x0002], cx       ; 0x17cb
     mov al, 6                        ; 0x17ce
     mov byte [bp - 0x0004], al       ; 0x17d0

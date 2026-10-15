@@ -7,7 +7,7 @@ mouse_init:
     push es                          ; 0x171f
     mov ax, ds                       ; 0x1720
     mov es, ax                       ; 0x1722
-    cmp byte [cs:cseg_0205 - IMAGE_BASE], 0 ; 0x1724
+    cmp byte [cs:cseg_0105 - IMAGE_BASE], 0 ; 0x1724
     jne short @..mouse_init.l1       ; 0x172a
     jmp near @..mouse_init.l2        ; 0x172c
 @..mouse_init.l1:
@@ -36,8 +36,8 @@ mouse_init:
     mov ax, 3                        ; 0x175f
     int 0x33 ; BIOS mouse
     shr cx, 1                        ; 0x1764
-    mov word [cs:cseg_1beb - IMAGE_BASE], cx ; 0x1766
-    mov word [cs:cseg_1bed - IMAGE_BASE], dx ; 0x176b
+    mov word [cs:cseg_1aeb - IMAGE_BASE], cx ; 0x1766
+    mov word [cs:cseg_1aed - IMAGE_BASE], dx ; 0x176b
     push ds                          ; 0x1770
     push es                          ; 0x1771
     push di                          ; 0x1772
@@ -45,13 +45,13 @@ mouse_init:
     mov ax, cs                       ; 0x1774
     push ax                          ; 0x1776
     mov ax, 0xffff                   ; 0x1777
-    mov word [cs:cseg_1bdb - IMAGE_BASE], ax ; 0x177a
+    mov word [cs:cseg_1adb - IMAGE_BASE], ax ; 0x177a
     call io_loc_LINQ                 ; 0x177e
     pop si                           ; 0x1781
     pop di                           ; 0x1782
     pop es                           ; 0x1783
     pop ds                           ; 0x1784
-    mov byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x1785
+    mov byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x1785
     push es                          ; 0x178b
     mov ax, 0x14                     ; 0x178c
     mov bx, cs                       ; 0x178f

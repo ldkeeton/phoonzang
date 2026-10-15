@@ -25,7 +25,10 @@ Aztec overlays (``*.OVR``)
     is the code's memory origin.
 
 Raw drivers (``*.DRV``)
-    No header; the whole file is the load image.  The data segment is
+    No header; the whole file is the load image.  The host reads the module to
+    ``segment:0x100`` (``DS.EXE``'s loaders do ``mov dx, 0x100; int 21h``), so
+    file offset 0 runs at ``CS:0x100``: an absolute reference inside a driver
+    encodes ``file_offset + load_offset``.  The data segment is still
     established at run time and is not statically known here.
 """
 
@@ -43,6 +46,14 @@ _MZ_FIELDS = (
 
 _OVR_HEADER_SIZE = 14
 _OVR_MAGIC = b'\xf2\x00'
+
+#: Where the host loads a raw driver inside its segment: ``DS.EXE`` reads the
+#: module to ``segment:0x100``, so a driver's file offset ``f`` runs at
+#: ``CS:0x100 + f`` and its absolute references encode ``f + 0x100`` (plan.md
+#: D7.6).  The module's own entry ladder at file ``0x100`` confirms it, and the
+#: string immediates prove it (``mov dx, 0x451e`` names the ``CACHEAREA`` string
+#: at file ``0x441e``).
+_DRIVER_LOAD = 0x100
 
 # DOS PSP fields referenced by the Aztec CRT.  Only the offsets the
 # recovered programs actually touch are named; the rest stay offsets.
@@ -105,7 +116,7 @@ class SegmentModel:
                  cs_origin=None, data_origin=None, cs_base=0, data_base=0,
                  bss_boundary=None, psp=False, entry_offset=None,
                  relocations=(), header_size=0, overlay=None, host=None,
-                 ds_size=None):
+                 ds_size=None, load_offset=0):
         self.kind = kind
         self.file_size = file_size
         self.load_size = load_size
@@ -120,6 +131,10 @@ class SegmentModel:
         self.header_size = header_size
         self.overlay = overlay
         self.host = host
+        # Where file offset 0 runs, relative to the segment the code executes in
+        # (plan.md D7.6): 0x100 for a raw driver (the host loads it there), 0
+        # for the MZ/overlay images whose CS base is their own first byte.
+        self.load_offset = load_offset
         # Total data-segment size (file-backed data + BSS), recovered from the
         # CRT BSS zero-fill idiom.  For the main program this is the value the
         # startup code and the overlay loader hard-code, and it equals every
@@ -143,7 +158,7 @@ class SegmentModel:
         if segment == 'CS':
             if self.cs_origin is None:
                 return ('unknown',)
-            return self._in_file(self.cs_origin + offset)
+            return self._in_file(self.cs_origin - self.load_offset + offset)
 
         if segment in ('DS', 'SS', 'ES'):
             # Overlays execute inside the host program's data segment, which
@@ -351,6 +366,7 @@ def _from_driver(data, start_offset):
         psp=False,
         entry_offset=None,
         header_size=start_offset,
+        load_offset=_DRIVER_LOAD,
     )
 
 

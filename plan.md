@@ -50,6 +50,7 @@ lives in `asm/lib`, not in the generated assembly.
 | C — hand-written C replaces routines | 27 `.c` sources (ds 12, vinstall 13, `lib/` 2) compiled by the Aztec toolchain and checked byte-for-byte against the original (`lib/compare/cgate.py`); a covered routine is rendered from the compiled bytes, not the disassembly, and a `.c` is shared with its fragment where every copy is identical (`lib/shared.py`). A routine the code generator can never reproduce (port I/O, `int`, far return/call…) is stamped `; asm only` and filed under `<binary>/asm_only/` (`lib/asm_only.py`: 383 fragments) | `hidden_flow` **98 → 87** (`vinstall` 38 → 26), `names_used` 84 → **83**, `names_inert` 32 → **33** |
 | N — a name tags content, not an address | a generic routine's name is `<category>_loc_<TAG>`, the tag a four-letter digest of the routine's own decoded body (`lib/names.py:content_tag`); two binaries never collide and adding a routine shifts nothing. Fragments byte-identical across binaries collapse into `asm_DSAVANT/lib/` (60 files), each master `%include`ing them | **0** (bytes identical) |
 | D7.2c-2e — a C override defines every label it names | the override renderer derives its own branch targets from the bytes it emits (`_override_local_labels`, `lib/compare/coverrides.py`) instead of borrowing the disassembly's table; before, a short forward branch the Aztec compiler had resolved itself carried a relocation but *no* label record, so the text named a label the override never defined and NASM failed the whole binary (1153-error cascade) | **0** (bytes identical) |
+| D7.6 — the raw drivers get their load origin | a driver runs from `CS:0x100` (the host reads it to `segment:0x100`), so `[cs:disp]` names file `disp - 0x100`; `SegmentModel.load_offset` records it, `symbols._resolve_mem_symbols` subtracts it, and the master carries the bias as a negative `IMAGE_BASE equ -0x0100`. 35 `cseg_` names now land on the bytes they name and become labels | **−35** (`code_shift` 132 → 97, `f3` 114 → 79, `total` 133 → 98); bytes identical |
 
 † D7.0a did not *create* 33 new problems — it made 33 already-frozen values
 **visible**. A host EXE and its overlays share one data segment: every overlay's
@@ -76,57 +77,58 @@ so the count does not move (Section 18). The detail of each step is in Section
 
 | class | value | meaning |
 |-------|------:|---------|
-| `code_shift` | 132 | breaks when code resizes — **must reach 0** (15 of them are reclassified `inert`, D7.3) |
+| `code_shift` | 97 | breaks when code resizes — **must reach 0** (15 of them are reclassified `inert`, D7.3) |
 | `data_shift` | 1 | breaks when data resizes — **must reach 0** (one raw-driver residual; see §17 D7.1) |
 | `inert` | 248 | can never change — **excluded** |
-| `total` (gated) | 133 | `code_shift + data_shift` |
+| `total` (gated) | 98 | `code_shift + data_shift` |
 
-Per-taxonomy breakdown: `f1=2 f2=13 f3=114 f4=1 f5=3 f6=241 f7=0`, plus the
+Per-taxonomy breakdown: `f1=2 f2=13 f3=79 f4=1 f5=3 f6=241 f7=0`, plus the
 shared-geometry buckets: `o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0` (D7.0b
 bound the 7 DS-size immediates, D7.0c bound the 13 `o_dorg`, **D7.2 bound the
-whole 40-item `o_corg` family** — the overlay load origin — and **D7.2c gave 26 of
-the 134 F3 names a label in place**; D7.2c-2c then *revealed* six more `cseg_`
-globals when it decoded vga to ega's depth, so the floor is 133 — §17 D7.2). D7.1
+whole 40-item `o_corg` family** — the overlay load origin, **D7.2c gave 26 of
+the 134 F3 names a label in place**, and **D7.6 gave the raw drivers their true
+load origin**, which resolved 35 more `cseg_` names to labels — §17). D7.1
 bound the overlay `dseg_`/`bss_` family (`f4` 1231 → 1).
 
-Where the 133 live, per emitted file:
+Where the 98 live, per emitted file:
 
 | binary | gated | of which F4 (`dseg_`/`bss_` `equ`) |
 |--------|------:|-----------------------------------:|
-| `vga` | 40 | 0 |
-| `ega` | 19 | **1** |
-| `vpcvw` | 16 | 0 |
-| `play` / `vbase` | 9 / 9 | 0 / 0 |
+| `vpcvw` / `vga` | 16 / 16 | 0 / 0 |
+| `play` | 14 | 0 |
+| `vbase` | 9 | 0 |
 | `vtrea` | 7 | 0 |
 | `vpcmk` | 6 | 0 |
 | `vmaze` / `vmexe` | 5 / 5 | 0 / 0 |
 | `vinstall` / `vmnpc` | 3 / 3 | 0 / 0 |
-| `ds` / `vdopt` / `vmext` / `vpclv` | 2 / 2 / 2 / 2 | 0 |
+| `ds` / `ega` / `vdopt` / `vmext` / `vpclv` | 2 each | `ega` **1** |
 | `vinit` / `vmele` / `vpops` | 1 / 1 / 1 | 0 |
 
 **`data_shift` is now 1** — a single raw-driver (``ega``) DS reference whose
 segment is established at run time (Appendix C); every other one of the former
 1231 is host-resolved (§17 D7.1). `code_shift` decomposes as the remaining F3
-`equ`s (114) + overlay `o_bss` (13) + MZ `e_sp` (2) + overlay zero pads (3) =
-132; the host DS-size immediates and the whole `o_corg` family are bound
+`equ`s (**79**) + overlay `o_bss` (13) + MZ `e_sp` (2) + overlay zero pads (3) =
+97; the host DS-size immediates and the whole `o_corg` family are bound
 (D7.0b/D7.2), and the 15 `o_bss`/`e_sp` values are declared waivers (Appendix C)
-that are nevertheless *counted* today — D7.3 reconciles that. The 114 F3 `equ`s
-are themselves named and counted as D7.2c-2 (§17): 70 names refused a label
-(55 on bytes that render as data, 15 mid-instruction, 2 outside every record) +
-the 27 `mem_equ` operand symbols (21 before D7.2c-2c) + 17 `vga`
-`immediate_labels`.  By prefix they are `cseg_` 44 + `loc_` 38 + `data_` 19 +
-`leaf_` 5 + `string_` 4 + `fpu_` 2 + `io_` 1 + `api_idx` 1 = 114; the bare
-`loc_` 38 are the declared drivers' handlers whose own bodies claim no category
-(D7.2c-2d), and the `cseg_`/`data_` lines carry 60 distinct names (55 used,
-5 inert).  Two of the `vinstall`
+that are nevertheless *counted* today — D7.3 reconciles that. **D7.6 (this
+round)** gave the raw drivers their true load origin (``CS:0x100``), so a
+`[cs:disp]` operand resolves to `disp - 0x100` and 35 `cseg_` names that could
+not hold a label at their (0x100 too high) offset now do — `f3` 114 → **79**,
+`code_shift` 132 → **97**, all 19 binaries still byte-identical.  The remaining
+79 F3 `equ`s are named and counted as D7.2c-2 (§17): the overlay names refused a
+label (`loc_` 38 + `string_`/`leaf_`/`fpu_`/`io_`/`bios_`/`api_idx_`) + the
+`vga` `immediate_labels` (15 `data_`) + a handful of driver `cseg_`/`data_`
+names still on mid-instruction or data bytes.  Two of the `vinstall`
 "data" words (`0x2e`/`0x30`) are still inert PSP slots mis-bound as `dseg_`
 (Section 5d); that is a naming bug that does not move the census.
 
-**Two counters keep the census honest** (D7.2c-2a): of the 116 *named* frozen
-addresses, **83 are used** (the tree refers to them, so they must follow an edit)
-and **33 are inert** — nothing refers to them at all (`loc_0007`,
-`ds_leaf_loc_10108`, every one of `vga`'s 17 `immediate_labels`).  Converting an
+**Two counters keep the census honest** (D7.2c-2a): of the *named* frozen
+addresses, **55 are used** (the tree refers to them, so they must follow an edit)
+and **29 are inert** — nothing refers to them at all (`loc_0007`,
+`ds_leaf_loc_10108`, the `vga` `immediate_labels`).  Converting an
 inert name to a label moves the census without making anything follow an edit.
+D7.6 lowered both (83 → 55, 33 → 29) by turning the driver `cseg_` names into
+labels on the bytes they name.
 Separately, **`hidden_flow` = 87**: near call/jmp references whose *target* the
 source shows as code while their *site* is emitted as bytes — real address
 references no source line spells, so neither the census nor a label can reach them
@@ -190,6 +192,15 @@ probed or generated; see §17 D7.5.)*
   *is* named (`dseg_8482`, `dseg_8490`) are also what makes the C arm print
   `+ 0x8482` where the disassembly arm prints capstone's signed `- 0x7b7e`.
   **No counter** — so, per the rule below, no renderer work starts on it yet.
+- **Raw-driver absolute immediates** (found 2026-10-14, during D7.6). A driver's
+  *values* are CS offsets too: `vga/asm_only/dos_con_loc_RHKN.asm` does
+  `mov dx, 0xb9d` for the string at file `0xa9d`, `bios_video_loc_VJVR.asm` does
+  `mov dx, 0x29ca` for `"Memory unavailable in fade_in"` at file `0x28ca`.  The
+  census cannot see a `mov reg, 0x…` line, so this class (≳45 real references
+  across vga/ega/play once `mov bx, 0x140`/`mov ax, 0x4c01` are excluded) is
+  **unmeasured**.  D7.6 gave it the *coordinate* (`load_offset`) but not a
+  counter or a binding; that is the next deliverable before the class can be
+  scheduled.
 
 **Rule:** no work starts on a class that has no counter (Section 21). F7
 (§0.1) is the cautionary tale — correct work that the gate could not show.
@@ -206,11 +217,13 @@ probed or generated; see §17 D7.5.)*
   `equ`: 26 of 134), E (the ELF build owns the origin), E2 (the host block is
   emitted once) and D7.2c-2a–2e (the census counters, the driver-entry ABI, vga
   decoded to ega's depth, a declared handler owning its fragment, a C override
-  defining every label it names) are DONE**; what remains of D7.2 is **D7.2c-2**,
-  the 70 refused names + the 27 `mem_equ` operand symbols (§17). Then D7.3/D7.4.
-  D7.0d
+  defining every label it names) and **D7.6 (the raw drivers' load origin,
+  `CS:0x100`)** are DONE**; what remains of D7.2 is **D7.2c-2**, the names still
+  refused a label (the overlay `loc_`/`string_` set + `vga`'s `immediate_labels`
+  + a handful of driver `cseg_`/`data_`) and the driver DS half (§17 D7.6). Then
+  D7.3/D7.4. D7.0d
   (ELF/DWARF for overlays) is tooling-only, is unblocked by E, and can slot in
-  anywhere.
+  anywhere — D7.6 gives it the driver load base it was missing.
 
 **Gate, after every step:** `make verify DSAVANT` = **18/18**, unit suite green.
 
@@ -1029,9 +1042,9 @@ therefore **open**, and the gap is exactly D7 (§0.2).
 
 ## 17. Sequencing
 
-Pass 1 and D0–D5 are complete, and D7 is under way (D7.0a–e and **D7.1 done**;
-**D7.2, below, is the next gate-moving step**). **D7 is the only step that moves
-the census.** **D6 is dropped** (§0.4).
+Pass 1 and D0–D5 are complete, and D7 is under way (D7.0a–e, **D7.1**,
+D7.2a–e, E, E2, the C workstream and **D7.6 done**). **D7 is the only step that
+moves the census.** **D6 is dropped** (§0.4).
 
 | step | meaning | status | gate impact |
 |------|---------|--------|------------:|
@@ -1045,10 +1058,11 @@ the census.** **D6 is dropped** (§0.4).
 | D7.0a | shared host/overlay geometry counters (`o_corg`/`o_dorg`/`ds_size_imm`) | ✅ DONE (2026-10-12) | **+33** (re-baseline) |
 | D7.0b | bind the 7 DS-size immediates to `__zdseg_end` | ✅ DONE (2026-10-12) | **−7** |
 | D7.0c | pre-NASM link step: host values → `.cache`; `elf-rebuild` = full rebuild | ✅ DONE (2026-10-12) | **−13** (`o_dorg`) |
-| D7.0d | ELF/DWARF for overlays + drivers (debug tooling) | ▶️ **NEXT** | 0 |
+| D7.0d | ELF/DWARF for overlays + drivers (debug tooling) | ▶️ next (unblocked: D7.6 gives it the driver base) | 0 |
 | D7.0e | one shared host-call table (13 per-overlay copies → 1) | ✅ DONE (2026-10-12) | 0 |
 | D7.1 | host-owned shared DS name map + code handles on the link step | ✅ DONE (2026-10-13) | **−1230** |
-| D7 | overlays and raw drivers (incl. overlay F3 + `o_corg`) | ▶️ after D7.0d | **−166 (→ 0)** |
+| D7.6 | raw-driver load origin (`CS:0x100`): `load_offset` + negative `IMAGE_BASE` | ✅ DONE (2026-10-14) | **−35** |
+| D7 | overlays and raw drivers (remaining F3 + driver DS) | ▶️ **NEXT** | **−98 (→ 0)** |
 
 `gate impact` is the change in `code_shift + data_shift`; it is deliberately a
 separate column so effort and effect cannot be confused (§0.1, Section 21).
@@ -1916,6 +1930,59 @@ host DS size — is established in §0.1/§0.2 and Section 18.
   the pipeline's own checks do not assemble, so without it ``make build`` is where
   a dangling reference surfaces -- as the cascade above.
 
+- **D7.6 — the raw drivers' load origin (`CS:0x100`). ✅ DONE (2026-10-14).**
+  ``code_shift`` 132 → **97**, ``f3`` 114 → **79**, ``total`` 133 → **98**; all
+  19 binaries byte-identical.
+
+  **What the origin is (measured).** ``DS.EXE`` reads each module to
+  ``segment:0x100`` (``ds/asm_only/ds_dos_file_loc_RQIN.asm``: ``mov dx, 0x100;
+  int 21h``), so a driver's file offset ``f`` runs at ``CS:0x100 + f`` and an
+  absolute reference encodes ``f + 0x100``.  Two independent confirmations: the
+  driver's own entry ladder at file ``0x100`` holds ``0x103, 0x107, …`` (the
+  stubs at file ``3 + 4k`` in *runtime* coordinates), and the string immediates
+  are decisive — ``mov dx, 0x29ca`` names ``"Memory unavailable in fade_in"`` at
+  file **0x28ca**, ``mov dx, 0x451e`` names the ``CACHEAREA`` string at file
+  **0x441e**.  The tree previously assumed ``org 0`` (label = file offset) while
+  the code's displacements were runtime offsets, so a driver ``[cs:disp]``
+  operand named a byte **0x100 above** its true target (``[cs:0x0293]`` was
+  labelled ``graphics_loc_VIRI``, a code label at file 0x293, when it really
+  reads the variable at file 0x193).
+
+  **The fix, and why it is byte-neutral.** ``SegmentModel`` gained
+  ``load_offset`` (``_DRIVER_LOAD = 0x100``, set by ``_from_driver``; 0 for MZ
+  and overlays, so their geometry is untouched).  ``symbols._resolve_mem_symbols``
+  and ``_resolve_imm_symbols`` subtract it when computing a LOAD-space file
+  offset, so a driver ``cseg_`` name is the byte it really names.  The encoding
+  is unchanged because the driver master now carries the bias as a *negative*
+  ``IMAGE_BASE equ -0x0100`` (``render._build_source``): the label is still a
+  file offset (``org 0``), so ``label - IMAGE_BASE`` is ``file + 0x100``, the
+  original displacement.  ``disp < load_offset`` names no byte of the module and
+  is left numeric.  ``lib/verify/assemble._equ_hex`` formats the negative base,
+  and ``verify`` passes ``start_offset - load_offset`` as the micro-assembly
+  ``image_base`` (its prelude labels are file offsets too).
+
+  **Why the census moved.**  35 ``cseg_`` names now resolve to bytes that can
+  hold a label (``verify``'s F3 rewrite places them via
+  ``_ensure_global_label``) instead of to a 0x100-off code byte or a
+  mid-instruction byte that refused one, so they stop being ``equ`` constants —
+  ``f3`` 114 → 79, and the same names leave ``names_used``/``names_inert``
+  (83 → 55, 33 → 29).  ``play``'s own ``f3`` rises 9 → 14 (five operands that
+  previously borrowed a 0x100-off code label now carry a real ``cseg_`` name) —
+  the honest count, and the class only falls overall.
+
+  **Verification.**  ``make build DSAVANT`` ×2 byte-identical and a fixed point;
+  every one of the 19 built ``.EXE``/``.OVR``/``.DRV`` identical to the
+  pre-change build (``cmp``); ``make verify DSAVANT`` **18/18**; suite **400
+  OK** (new: ``DriverLoadOriginTest``, ``DriverOriginRenderTest``,
+  ``EquHexTest``).  Lowered ``BASELINE_TOTALS`` to the measured floor.
+
+  **Not done here — the driver DS half.**  The ``data_``/``dseg_`` names use the
+  *default* segment, which a driver establishes at run time (some routines do
+  ``mov ax, cs; mov ds, ax``, others run with the host's DS), so they are
+  deliberately left alone; the parked ``ega dseg_24fd`` (Appendix C) is the same
+  question.  Binding them needs a per-site DS decision (a D7.1-style host recipe
+  where DS is the host's) and is the next sub-step.
+
 - **C — hand-written C replaces routines (the C workstream). ▶️ IN PROGRESS
   (2026-10-14).** Not a census step: the covered routines' bytes must be
   **identical**, so the census does not move (it moved only where a routine's
@@ -2167,6 +2234,9 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
   `promoted_data_words`, not the census. **Moves the gate: it hides work — the
   general F4-immediate class still needs a counter before it can be scheduled
   (§0.3).**
+  *(D7.6 added the CS twin for raw drivers: `mov dx, 0x451e` names a string at
+  file `0x441e`.  The coordinate is now known — `disp - 0x100` — but the class
+  is still uncounted; see §0.3.)*
 - **[OPEN] Unrelocated absolute DS displacements (Section 5d).** `segdataflow`
   names a default-DS operand `dseg_` even when its displacement carries no
   relocation and is a hardcoded fixed address (e.g. `0x2E`/`0x30`). Decide a
@@ -2391,15 +2461,30 @@ Each item is tagged **[D7]** (on the critical path), **[OPEN]**, **[DEFERRED]**
   address-walk scoping, `-w-other`), the
   `o_entry - o_corg + _OVR_HEADER_SIZE` entry mapping, and the cross-section
   placement decision. ⏳
+- **D7.6:** the raw drivers' load origin — a driver runs from `CS:0x100` (the
+  host reads it to `segment:0x100`), so `[cs:disp]` names file `disp - 0x100`;
+  `SegmentModel.load_offset` (0x100 for `driver`, 0 otherwise),
+  `symbols._resolve_mem_symbols`/`_resolve_imm_symbols` subtract it, and the
+  driver master carries the bias as a negative `IMAGE_BASE equ -0x0100`, so
+  every byte is unchanged while the resolved `cseg_` names land on the bytes
+  they really name.  **35 `cseg_` names became labels: `f3` 114 → 79,
+  `code_shift` 132 → 97, `total` 133 → 98, `names_used` 83 → 55,
+  `names_inert` 33 → 29**; all 19 binaries byte-identical, `make verify DSAVANT`
+  18/18, suite **400 OK**, `make build` a fixed point. ✅
+  *(Open half: the driver `data_`/`dseg_` names use the default segment, which a
+  driver establishes at run time, so they need a per-site DS decision — see §17
+  D7.6.)*
 - **REMAINING — D7 (overlays and raw drivers).** The overall goal is **not**
   met. Exit criteria:
   - `data_shift` 1 → 0: reclassify the raw-driver `ega` `dseg_24fd` as `inert`
-    (Appendix C) — the last non-host DS reference.
-  - `code_shift` 126 → 0: **D7.2c-2** — the 70 names refused a label (55 on bytes
-    that render as data — 31 inside a `jump_table`, 24 inside a data block — plus
-    15 mid-instruction and 2 outside every record) and the 21 `mem_equ`
-    `cseg_`/`data_` operand symbols.  D7.2c gave 26 of the original 134 a label in
-    place; the whole overlay load-origin and data families are already bound
+    (Appendix C) — the last non-host DS reference; or bind it if a per-site
+    decision shows the driver's DS is the host's (D7.6's open half).
+  - `code_shift` 97 → 0: **D7.2c-2** — the overlay `loc_`/`string_`/`leaf_`/
+    `fpu_`/`io_`/`bios_`/`api_idx_` names still refused a label, the `vga`
+    `immediate_labels` (15 `data_`), and the handful of driver `cseg_`/`data_`
+    names still on data or mid-instruction bytes.  D7.2c gave 26 of the original
+    134 a label in place and D7.6 resolved 35 more (the driver `cseg_` family);
+    the whole overlay load-origin and data families are already bound
     (D7.0c/D7.1/D7.2b).
   - overlay `o_bss` (13) + MZ `e_sp` (2) reclassified `inert`, overlay pads
     resolved (D7.3), so `code_shift + data_shift` → **0**.
@@ -2434,11 +2519,25 @@ Local copies (git-ignored, not dependencies): `asm/tools/reference/README.md`.
 
 The campaign is large in `asm/lib` and small in the generated assembly. That is
 expected for an analysis-heavy phase, but it means **effort is not evidence of
-progress** — only the census is. Ledger as of 2026-10-13.  `2a72c3e5 clean up
+progress** — only the census is. Ledger as of 2026-10-14.  `2a72c3e5 clean up
 make all` landed **D7.5** (which superseded the D7.0c/D7.0e/D7.1 `.cache`
 tables with the host include); `5c2a1e84`/`8477b13a` added the shared
 `inc/host_symbols.inc` (E2) and the C-symbolic references (E3); the working tree on
-top of that lands **D7.2c** — a named byte gets a label, not an `equ` (§17).
+top of that lands **D7.2c** — a named byte gets a label, not an `equ` — and,
+separately, **D7.6** — the raw drivers' load origin (§17).
+
+Landed by the working tree (D7.6):
+
+| area | change | note |
+|------|-------:|------|
+| `asm/lib/segments.py` | +18/−3 | `_DRIVER_LOAD = 0x100`; `SegmentModel.load_offset` (set by `_from_driver`); `resolve('CS', …)` subtracts it; the driver docstring now states the `segment:0x100` load |
+| `asm/lib/compare/symbols.py` | +28/−4 | `_load_offset`/`_file_size` helpers; a LOAD operand's file offset is `disp + start_offset - load_offset`, with an out-of-range guard |
+| `asm/lib/compare/render.py` | +14/−2 | `_build_source(load_offset=…)` emits `IMAGE_BASE equ -0x0100` for a driver (the negative base that keeps the encoding identical) |
+| `asm/lib/compare/verify.py` | +11/−4 | `roundtrip_base = start_offset - load_offset` feeds the micro-assembly/`postprocess` sites (their prelude labels are file offsets too) |
+| `asm/lib/verify/assemble.py` | +16/−4 | `_equ_hex` formats the negative `IMAGE_BASE`/disp values |
+| `asm/lib/tests/*` | +90/−7 | `DriverLoadOriginTest`, `DriverOriginRenderTest`, `EquHexTest`; `BASELINE_TOTALS` `code_shift`/`f3`/`total` 132/114/133 → **97/79/98**, `names_used`/`names_inert` 83/33 → **55/29** |
+| `asm_DSAVANT/*.asm` (drivers) | 128/243/136 lines in ega/play/vga | the `cseg_` names move to their true file offsets and become labels; `IMAGE_BASE equ -0x0100`; two shared fragments un-share (140 → 58 files) |
+| **census** | **98** | `code_shift` 132 → **97**, `f3` 114 → **79**, `total` 133 → **98**; **all 19 built binaries byte-identical**; `make verify DSAVANT` 18/18; suite **400 OK**; `make build` a fixed point |
 
 Landed by the working tree (D7.2c):
 
@@ -2609,6 +2708,8 @@ here and reclassified in D7.3.
   (now counted `inert`, Section 5).
 - PSP fields not in `PSP_FIELDS` (now counted `inert`).
 - Unproven immediates (F9).
-- Raw-driver `data_*` (`ega`/`play`/`vga`) — DS established at run time.
+- Raw-driver `data_*` (`ega`/`play`/`vga`) — the *code* origin is now known
+  (`CS:0x100`, D7.6, so a `cseg_` operand resolves), but the **data** segment is
+  established at run time; the parked `ega dseg_24fd` (D7.1) is this case.
 - Pure data words in lookup tables that are not addresses.
 - `; 0x<F>` comments (F10) — documentation only.

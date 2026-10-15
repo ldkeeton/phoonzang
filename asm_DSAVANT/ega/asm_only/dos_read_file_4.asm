@@ -20,7 +20,7 @@ dos_read_file_4:
     mov bx, word [bp + 0x12]         ; 0x4477
     mov ah, 0x3f                     ; 0x447a
     int 0x21 ; DOS read file (handle)
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x447e
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x447e
     mov ds, ax                       ; 0x4482
     mov cx, word [bp - 0x0004]       ; 0x4484
 @..dos_read_file_4.l1:
@@ -50,9 +50,9 @@ dos_read_file_4:
     mov bx, 0x10fb                   ; 0x44bb
     add bx, ax                       ; 0x44be
     mov ax, word [cs:bx]             ; 0x44c0
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x44c3
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x44c3
     mov ds, ax                       ; 0x44c8
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x44ca
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x44ca
     mov es, ax                       ; 0x44ce
     xor si, si                       ; 0x44d0
     lodsw                            ; 0x44d2
@@ -79,7 +79,7 @@ dos_read_file_4:
     add bx, ax                       ; 0x4501
     mov ax, word [cs:bx]             ; 0x4503
     mov word [cs:bx], 0              ; 0x4506
-    dec word [cs:cseg_11cb - IMAGE_BASE] ; 0x450b
+    dec word [cs:cseg_10cb - IMAGE_BASE] ; 0x450b
     call loc_4c93                    ; 0x4510
 @..dos_read_file_4.l5:
     jmp near @..dos_read_file_4.l9   ; 0x4513
@@ -98,15 +98,15 @@ dos_read_file_4:
     mov word [bp - 0x0002], ax       ; 0x4530
     mov cl, 0xa                      ; 0x4533
     shr ax, cl                       ; 0x4535
-    mov word [cs:cseg_4540 - IMAGE_BASE], ax ; 0x4537
+    mov word [cs:cseg_4440 - IMAGE_BASE], ax ; 0x4537
     call leaf_loc_NIKG               ; 0x453b
     mov si, word [bp - 0x0002]       ; 0x453e
     and si, strict word 0x3ff        ; 0x4541
     mov cl, 4                        ; 0x4545
     shl si, cl                       ; 0x4547
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x4549
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x4549
     mov es, ax                       ; 0x454d
-    mov ax, word [cs:cseg_0203 - IMAGE_BASE] ; 0x454f
+    mov ax, word [cs:cseg_0103 - IMAGE_BASE] ; 0x454f
     mov ds, ax                       ; 0x4553
     lodsw                            ; 0x4555
     mov word [bp - 0x0002], ax       ; 0x4556
@@ -124,8 +124,8 @@ dos_read_file_4:
     rep movsb                        ; 0x456f
     test si, 0xc000                  ; 0x4571
     je short @..dos_read_file_4.l8   ; 0x4575
-    inc word [cs:cseg_4540 - IMAGE_BASE] ; 0x4577
-    mov ax, word [cs:cseg_4540 - IMAGE_BASE] ; 0x457c
+    inc word [cs:cseg_4440 - IMAGE_BASE] ; 0x4577
+    mov ax, word [cs:cseg_4440 - IMAGE_BASE] ; 0x457c
     call leaf_loc_NIKG               ; 0x4580
     and si, strict word 0x3fff       ; 0x4583
 @..dos_read_file_4.l8:
@@ -133,9 +133,9 @@ dos_read_file_4:
     jne short @..dos_read_file_4.l7  ; 0x458a
     cmp word [bp + 0x10], byte 0     ; 0x458c
     je short @..dos_read_file_4.l9   ; 0x4590
-    mov cx, word [cs:cseg_038f - IMAGE_BASE] ; 0x4592
+    mov cx, word [cs:cseg_028f - IMAGE_BASE] ; 0x4592
     dec cx                           ; 0x4597
-    mov word [cs:cseg_038f - IMAGE_BASE], cx ; 0x4598
+    mov word [cs:cseg_028f - IMAGE_BASE], cx ; 0x4598
     mov ax, word [bp + 0xc]          ; 0x459d
     shl ax, 1                        ; 0x45a0
     mov bx, 0x29b                    ; 0x45a2

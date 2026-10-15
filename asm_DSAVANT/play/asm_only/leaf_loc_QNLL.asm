@@ -1,7 +1,7 @@
 ; auto-generated
 ; asm only
 leaf_loc_QNLL:
-    mov bl, byte [cs:cseg_0b7d - IMAGE_BASE] ; 0x077b
+    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x077b
     shl bl, 1                        ; 0x0780
     xor bh, bh                       ; 0x0782
     jmp [cs:bx + 0x889]              ; 0x0784
@@ -129,7 +129,10 @@ loc_0863:
     out 0x20, al                     ; 0x0868
     iret                             ; 0x086a
     jmp near loc_121d                ; 0x086b
-    db 0x00, 0x00
+cseg_086e:
+    db 0x00
+cseg_086f:
+    db 0x00
     cli                              ; 0x0870
     push ax                          ; 0x0871
     push ds                          ; 0x0872
@@ -264,7 +267,6 @@ loc_0969:
     call loc_09d4                    ; 0x0969
     mov al, 0x20                     ; 0x096c
 data_096e:
-cseg_096e:
     out 0x20, al                     ; 0x096e
     pop bx                           ; 0x0970
     pop dx                           ; 0x0971
@@ -308,7 +310,6 @@ loc_0997:
     adc word [cs:data_0aa9], byte 0  ; 0x09bc
     jb short loc_0969                ; 0x09c2
 data_09c4:
-cseg_09c4:
     dec word [cs:data_0b81]          ; 0x09c4
     je short loc_095d                ; 0x09c9
     mov al, 0x20                     ; 0x09cb
@@ -319,7 +320,6 @@ cseg_09c4:
     pop ax                           ; 0x09d2
     iret                             ; 0x09d3
 loc_09d4:
-cseg_09d4:
     push dx                          ; 0x09d4
     in al, 0x61                      ; 0x09d5
     and al, 0xfe                     ; 0x09d7

@@ -11,6 +11,21 @@ def _data_prefix(segments, offset):
     return segments.data_space(offset) or 'dseg'
 
 
+def _load_offset(segments):
+    """Where file offset 0 runs inside a raw driver's segment (plan.md D7.6).
+
+    A ``[cs:disp]`` operand in a driver encodes ``file_offset + load_offset``
+    (the host reads the module to ``segment:0x100``), so the file offset is
+    ``disp - load_offset``.  ``0`` for the MZ/overlay images, whose CS base is
+    their own first byte.
+    """
+    return getattr(segments, 'load_offset', 0) or 0
+
+
+def _file_size(segments):
+    return getattr(segments, 'file_size', 0) or 0
+
+
 def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset):
     """Choose a segment-correct symbol for every absolute memory operand.
 
@@ -21,7 +36,9 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset)
 
     * **LOAD** (CS) - the displacement is a load-image offset; reuse a code
       label at ``disp + IMAGE_BASE`` if one exists, else create ``cseg_<file>``,
-      and render ``name - IMAGE_BASE``.
+      and render ``name - IMAGE_BASE``.  A raw driver runs at ``CS:0x100``
+      (``load_offset``), so its displacement is ``file + 0x100`` and the file
+      offset is ``disp - load_offset`` (plan.md D7.6).
     * **DATA** (DS/SS) - ``dseg_<off>`` when file-backed, ``bss_<off>`` past the
       BSS boundary.
     * **PSP** - ``psp_<field>`` for catalogued fields, else ``psp_<off>``.
@@ -43,7 +60,13 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset)
                 continue
             _, space = segment_flow.effective_segment(insn, op)
             if space == LOAD:
-                file_off = addr + start_offset
+                file_off = addr + start_offset - _load_offset(segments)
+                size = _file_size(segments)
+                if size and not 0 <= file_off < size:
+                    # A driver displacement below its load offset names no
+                    # byte of the module; leave it numeric rather than mint a
+                    # negative ``cseg_``.
+                    continue
                 name = (label_map or {}).get(file_off)
                 if name is None:
                     name = f'cseg_{file_off:04x}'
@@ -86,7 +109,7 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
         if value == 0:
             continue
         if space == LOAD:
-            file_off = value + start_offset
+            file_off = value + start_offset - _load_offset(segments)
             if not 0 <= file_off < file_size:
                 continue
             name = (label_map or {}).get(file_off)

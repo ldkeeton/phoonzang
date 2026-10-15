@@ -41,11 +41,11 @@ loc_4dd9:
     shl ax, 1                        ; 0x4e28
     add bx, ax                       ; 0x4e2a
     mov ax, word [cs:bx]             ; 0x4e2c
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4e2f
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4e2f
     push ax                          ; 0x4e34
     xor ax, ax                       ; 0x4e35
     push ax                          ; 0x4e37
-    call far [cs:cseg_021a - IMAGE_BASE] ; 0x4e38
+    call far [cs:cseg_011a - IMAGE_BASE] ; 0x4e38
     add sp, byte 0x0e                ; 0x4e3d
 @..loc_4dd9.l3:
     pop di                           ; 0x4e40

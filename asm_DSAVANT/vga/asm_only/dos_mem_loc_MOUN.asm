@@ -17,7 +17,7 @@ dos_mem_loc_MOUN:
     cmp word [bp + 0xc], byte 3      ; 0x2b1b
     je short @..dos_mem_loc_MOUN.l1  ; 0x2b1f
     mov ax, 0x4180                   ; 0x2b21
-    sub ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x2b24
+    sub ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x2b24
     mov bx, 0x10                     ; 0x2b29
     mul bx                           ; 0x2b2c
     jmp short @..dos_mem_loc_MOUN.l5 ; 0x2b2e
@@ -42,8 +42,8 @@ dos_mem_loc_MOUN:
     mul bx                           ; 0x2b52
     jmp short @..dos_mem_loc_MOUN.l5 ; 0x2b54
 @..dos_mem_loc_MOUN.l4:
-    mov ax, word [cs:cseg_01ff - IMAGE_BASE] ; 0x2b56
-    sub ax, word [cs:cseg_0391 - IMAGE_BASE] ; 0x2b5a
+    mov ax, word [cs:cseg_00ff - IMAGE_BASE] ; 0x2b56
+    sub ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x2b5a
     mov bx, 0x10                     ; 0x2b5f
     mul bx                           ; 0x2b62
 @..dos_mem_loc_MOUN.l5:

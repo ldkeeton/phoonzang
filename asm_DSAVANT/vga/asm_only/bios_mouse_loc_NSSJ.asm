@@ -11,15 +11,15 @@ bios_mouse_loc_NSSJ:
     mov es, ax                       ; 0x1322
     mov word [bp - 0x0004], 1        ; 0x1324
     xor ax, ax                       ; 0x1329
-    cmp byte [cs:cseg_0228 - IMAGE_BASE], 0 ; 0x132b
+    cmp byte [cs:cseg_0128 - IMAGE_BASE], 0 ; 0x132b
     je short @..bios_mouse_loc_NSSJ.l6 ; 0x1331
-    mov bx, word [cs:cseg_1ecd - IMAGE_BASE] ; 0x1333
+    mov bx, word [cs:cseg_1dcd - IMAGE_BASE] ; 0x1333
     or bx, bx                        ; 0x1338
     je short @..bios_mouse_loc_NSSJ.l1 ; 0x133a
-    mov word [cs:cseg_1ecd - IMAGE_BASE], 0 ; 0x133c
+    mov word [cs:cseg_1dcd - IMAGE_BASE], 0 ; 0x133c
     mov word [bp - 0x0002], bx       ; 0x1343
-    mov cx, word [cs:cseg_1ecf - IMAGE_BASE] ; 0x1346
-    mov dx, word [cs:cseg_1ed1 - IMAGE_BASE] ; 0x134b
+    mov cx, word [cs:cseg_1dcf - IMAGE_BASE] ; 0x1346
+    mov dx, word [cs:cseg_1dd1 - IMAGE_BASE] ; 0x134b
     jmp short @..bios_mouse_loc_NSSJ.l2 ; 0x1350
 @..bios_mouse_loc_NSSJ.l1:
     mov ax, 3                        ; 0x1352

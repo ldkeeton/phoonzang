@@ -10,13 +10,13 @@ leaf_loc_ITSQ:
     push si                          ; 0x2ad8
     mov ax, ds                       ; 0x2ad9
     mov es, ax                       ; 0x2adb
-    les di, word [cs:cseg_01f7 - IMAGE_BASE] ; 0x2add
+    les di, word [cs:cseg_00f7 - IMAGE_BASE] ; 0x2add
     mov si, word [bp + 0xc]          ; 0x2ae2
     mov cx, 0x300                    ; 0x2ae5
     rep movsb                        ; 0x2ae8
     mov ax, cs                       ; 0x2aea
     mov es, ax                       ; 0x2aec
-    mov di, cseg_2427 - IMAGE_BASE   ; 0x2aee
+    mov di, cseg_2327 - IMAGE_BASE   ; 0x2aee
     mov si, word [bp + 0xe]          ; 0x2af1
     mov cx, 0x200                    ; 0x2af4
     rep movsb                        ; 0x2af7

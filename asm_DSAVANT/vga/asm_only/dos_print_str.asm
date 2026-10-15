@@ -51,9 +51,9 @@ dos_con_loc_0fda:
     add bx, strict word 0x27d        ; 0x1024
     add ax, word [cs:bx]             ; 0x1028
     mov si, ax                       ; 0x102b
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x102d
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x102d
     mov es, ax                       ; 0x1031
-    mov ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x1033
+    mov ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x1033
     add ax, word [bp - 0x0002]       ; 0x1037
     mov ds, ax                       ; 0x103a
     xor ah, ah                       ; 0x103c
@@ -80,7 +80,7 @@ dos_con_loc_0fda:
     mov al, byte [si]                ; 0x106a
     mov bl, 6                        ; 0x106c
     mul bl                           ; 0x106e
-    add ax, word [cs:cseg_027b - IMAGE_BASE] ; 0x1070
+    add ax, word [cs:cseg_017b - IMAGE_BASE] ; 0x1070
     mov bx, ax                       ; 0x1075
     xor ax, ax                       ; 0x1077
     mov al, byte [bx + 0x4]          ; 0x1079
@@ -157,15 +157,15 @@ dos_con_loc_0fda:
     add bx, strict word 0x27d        ; 0x10fc
     add ax, word [cs:bx]             ; 0x1100
     mov si, ax                       ; 0x1103
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x1105
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x1105
     mov es, ax                       ; 0x1109
-    mov ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x110b
+    mov ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x110b
     add ax, word [bp - 0x0002]       ; 0x110f
     mov ds, ax                       ; 0x1112
     mov al, byte [si]                ; 0x1114
     mov bl, 6                        ; 0x1116
     mul bl                           ; 0x1118
-    add ax, word [cs:cseg_027b - IMAGE_BASE] ; 0x111a
+    add ax, word [cs:cseg_017b - IMAGE_BASE] ; 0x111a
     mov word [bp - 0x0002], ax       ; 0x111f
     mov ax, word [bp + 0x12]         ; 0x1122
     mov bx, 5                        ; 0x1125

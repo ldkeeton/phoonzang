@@ -2,7 +2,7 @@
 ; asm only
 graphics_loc_OGUJ:
     push es                          ; 0x31d9
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x31da
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x31da
     mov es, ax                       ; 0x31de
     mov ax, data_2e53                ; 0x31e0
     mov word [bp - 0x0036], ax       ; 0x31e3
@@ -75,7 +75,6 @@ graphics_loc_OGUJ:
     cmp di, word [bp - 0x0022]       ; 0x327b
     jb short @..graphics_loc_OGUJ.l10 ; 0x327e
     jmp near @..graphics_loc_OGUJ.l22 ; 0x3280
-cseg_3283:
 @..graphics_loc_OGUJ.l10:
     mov bx, word [bp - 0x0036]       ; 0x3283
     mov al, byte [cs:bx]             ; 0x3286

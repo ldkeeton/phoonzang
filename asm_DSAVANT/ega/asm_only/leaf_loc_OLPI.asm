@@ -8,15 +8,15 @@ leaf_loc_OLPI:
     add bx, ax                       ; 0x4d5d
     mov word [bp - 0x0004], bx       ; 0x4d5f
     mov ax, word [cs:bx + 0x2]       ; 0x4d62
-    sub word [cs:cseg_11cd - IMAGE_BASE], ax ; 0x4d66
+    sub word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x4d66
     mov word [bp - 0x0006], ax       ; 0x4d6b
 @..leaf_loc_OLPI.l1:
     mov bx, word [bp - 0x0004]       ; 0x4d6e
     mov dx, word [cs:bx]             ; 0x4d71
-    add dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4d74
+    add dx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4d74
     mov es, dx                       ; 0x4d79
     mov dx, word [cs:bx + 0x4]       ; 0x4d7b
-    add dx, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4d7f
+    add dx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4d7f
     mov ds, dx                       ; 0x4d84
     mov cx, word [cs:bx + 0x6]       ; 0x4d86
     or cx, cx                        ; 0x4d8a

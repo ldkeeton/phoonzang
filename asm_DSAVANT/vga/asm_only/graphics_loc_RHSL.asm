@@ -32,7 +32,7 @@ graphics_loc_RHSL:
     mov bx, data_0bda                ; 0x2daa
     add bx, ax                       ; 0x2dad
     mov ax, word [cs:bx]             ; 0x2daf
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x2db2
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x2db2
     mov word [bp - 0x0008], ax       ; 0x2db7
     mov ds, ax                       ; 0x2dba
     xor bx, bx                       ; 0x2dbc
@@ -83,7 +83,6 @@ graphics_loc_RHSL:
     mov bx, word [bp + 0x20]         ; 0x2e26
     mul bx                           ; 0x2e29
 data_2e2b:
-cseg_2e2b:
     mov bx, 0x64                     ; 0x2e2b
     div bx                           ; 0x2e2e
     cmp dx, byte 0x32                ; 0x2e30
@@ -104,7 +103,6 @@ cseg_2e2b:
     mov si, ax                       ; 0x2e50
     dec si                           ; 0x2e52
 data_2e53:
-cseg_2e53:
     mov word [bp - 0x0030], ax       ; 0x2e53
     mov word [bp - 0x0032], cx       ; 0x2e56
     call leaf_loc_GSNR               ; 0x2e59

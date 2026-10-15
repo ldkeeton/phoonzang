@@ -18,7 +18,7 @@ loc_45b2:
     push ax                          ; 0x45c6
     push ax                          ; 0x45c7
     push ax                          ; 0x45c8
-    call far [cs:cseg_021a - IMAGE_BASE] ; 0x45c9
+    call far [cs:cseg_011a - IMAGE_BASE] ; 0x45c9
     add sp, byte 0x0e                ; 0x45ce
     pop di                           ; 0x45d1
     pop si                           ; 0x45d2
@@ -27,6 +27,7 @@ loc_45b2:
     mov sp, bp                       ; 0x45d5
     pop bp                           ; 0x45d7
     ret                              ; 0x45d8
+cseg_45d9:
 
     times 34 db 0
 

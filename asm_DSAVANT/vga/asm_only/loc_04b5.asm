@@ -12,7 +12,7 @@ loc_04b5:
     mov es, ax                       ; 0x04c1
     call leaf_loc_NMVG               ; 0x04c3
     call graphics_loc_RJST           ; 0x04c6
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x04c9
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x04c9
     mov ds, ax                       ; 0x04cd
     mov ax, 0xa000                   ; 0x04cf
     mov es, ax                       ; 0x04d2
@@ -46,4 +46,5 @@ loc_04b5:
     mov sp, bp                       ; 0x0511
     pop bp                           ; 0x0513
     ret                              ; 0x0514
+cseg_0515:
     db 0x00

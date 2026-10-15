@@ -10,7 +10,7 @@ loc_4596:
     mov ax, ds                       ; 0x459d
     mov es, ax                       ; 0x459f
     push word [bp + 0xc]             ; 0x45a1
-    call far [cs:cseg_0222 - IMAGE_BASE] ; 0x45a4
+    call far [cs:cseg_0122 - IMAGE_BASE] ; 0x45a4
     pop cx                           ; 0x45a9
     pop di                           ; 0x45aa
     pop si                           ; 0x45ab

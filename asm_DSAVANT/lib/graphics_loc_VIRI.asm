@@ -4,19 +4,17 @@ graphics_loc_VIRI:
     push bp                          ; 0x0293
     mov bp, sp                       ; 0x0294
     sub sp, byte 0x0c                ; 0x0296
-cseg_0299:
     push ds                          ; 0x0299
     push es                          ; 0x029a
-cseg_029b:
     push si                          ; 0x029b
     push di                          ; 0x029c
     mov es, ax                       ; 0x029d
     mov ds, ax                       ; 0x029f
     xor bx, bx                       ; 0x02a1
-    mov ax, word [cs:cseg_0297 - IMAGE_BASE] ; 0x02a3
+    mov ax, word [cs:cseg_0197 - IMAGE_BASE] ; 0x02a3
     mov cx, 0x140                    ; 0x02a7
     mul cx                           ; 0x02aa
-    add ax, word [cs:cseg_0295 - IMAGE_BASE] ; 0x02ac
+    add ax, word [cs:cseg_0195 - IMAGE_BASE] ; 0x02ac
     mov di, ax                       ; 0x02b1
     mov word [bp - 0x0006], ax       ; 0x02b3
     xor ax, ax                       ; 0x02b6
@@ -24,7 +22,6 @@ cseg_029b:
     mov word [bp - 0x0002], ax       ; 0x02ba
     mov al, byte [bx + 0x1]          ; 0x02bd
     mov word [bp - 0x0004], ax       ; 0x02c0
-cseg_02c3:
     mov cx, word [bx + 0xa]          ; 0x02c3
     add bx, byte 0x10                ; 0x02c6
     mov ax, word [bp + 0xc]          ; 0x02c9
@@ -33,24 +30,23 @@ cseg_02c3:
     mov al, byte [bx]                ; 0x02d0
     xor ah, ah                       ; 0x02d2
     mov word [bp - 0x000a], ax       ; 0x02d4
-cseg_02d7:
     mul cx                           ; 0x02d7
     add ax, 0x110                    ; 0x02d9
     mov si, ax                       ; 0x02dc
     xor ah, ah                       ; 0x02de
     mov al, byte [bx + 0x1]          ; 0x02e0
-    add word [cs:cseg_0295 - IMAGE_BASE], ax ; 0x02e3
+    add word [cs:cseg_0195 - IMAGE_BASE], ax ; 0x02e3
     mov word [bp - 0x000c], ax       ; 0x02e8
     xor bx, bx                       ; 0x02eb
     mov al, byte [bx + 0x7]          ; 0x02ed
     cbw                              ; 0x02f0
-    add word [cs:cseg_0295 - IMAGE_BASE], ax ; 0x02f1
+    add word [cs:cseg_0195 - IMAGE_BASE], ax ; 0x02f1
     mov al, byte [bx + 0x2]          ; 0x02f6
     test al, 1                       ; 0x02f9
     je short @..graphics_loc_VIRI.l1 ; 0x02fb
     jmp near @..graphics_loc_VIRI.l17 ; 0x02fd
 @..graphics_loc_VIRI.l1:
-    mov ax, word [cs:cseg_0299 - IMAGE_BASE] ; 0x0300
+    mov ax, word [cs:cseg_0199 - IMAGE_BASE] ; 0x0300
     or ax, ax                        ; 0x0304
     jne short @..graphics_loc_VIRI.l2 ; 0x0306
     mov al, byte [bx + 0x6]          ; 0x0308
@@ -65,10 +61,10 @@ cseg_02d7:
     shr bx, cl                       ; 0x031c
     sub ax, bx                       ; 0x031e
     mov word [bp - 0x000a], ax       ; 0x0320
-    mov bx, word [cs:cseg_0291 - IMAGE_BASE] ; 0x0323
-    mov dx, word [cs:graphics_loc_VIRI - IMAGE_BASE] ; 0x0328
+    mov bx, word [cs:cseg_0191 - IMAGE_BASE] ; 0x0323
+    mov dx, word [cs:cseg_0193 - IMAGE_BASE] ; 0x0328
     mov dh, bl                       ; 0x032d
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x032f
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x032f
     mov es, ax                       ; 0x0333
 @..graphics_loc_VIRI.l3:
     mov cx, word [bp - 0x000c]       ; 0x0335
@@ -106,12 +102,11 @@ cseg_02d7:
     mul cx                           ; 0x0377
     add ax, word [bx + 0xc]          ; 0x0379
     mov bx, ax                       ; 0x037c
-    mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x037e
-    mov dx, word [cs:graphics_loc_VIRI - IMAGE_BASE] ; 0x0382
+    mov ax, word [cs:cseg_0191 - IMAGE_BASE] ; 0x037e
+    mov dx, word [cs:cseg_0193 - IMAGE_BASE] ; 0x0382
     mov dh, al                       ; 0x0387
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0389
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0389
     mov es, ax                       ; 0x038d
-cseg_038f:
 @..graphics_loc_VIRI.l10:
     mov cx, word [bp - 0x0002]       ; 0x038f
 @..graphics_loc_VIRI.l11:
@@ -156,7 +151,7 @@ cseg_038f:
     mov ax, word [bp - 0x0002]       ; 0x03db
     sub ax, word [bp - 0x000c]       ; 0x03de
     mov word [bp - 0x000a], ax       ; 0x03e1
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x03e4
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x03e4
     mov es, ax                       ; 0x03e8
 @..graphics_loc_VIRI.l18:
     mov cx, word [bp - 0x000c]       ; 0x03ea
@@ -171,7 +166,7 @@ cseg_038f:
     mov ax, word [bp - 0x0002]       ; 0x0402
     sub ax, word [bp - 0x000c]       ; 0x0405
     mov word [bp - 0x000a], ax       ; 0x0408
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x040b
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x040b
     mov es, ax                       ; 0x040f
 @..graphics_loc_VIRI.l20:
     mov cx, word [bp - 0x000c]       ; 0x0411

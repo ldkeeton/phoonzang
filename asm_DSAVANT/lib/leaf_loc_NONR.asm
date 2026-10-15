@@ -7,9 +7,9 @@ leaf_loc_NONR:
     mov ax, ds
     mov es, ax
     mov ax, word [bp + 0xc]
-    mov word [cs:cseg_0295 - IMAGE_BASE], ax
+    mov word [cs:cseg_0195 - IMAGE_BASE], ax
     mov ax, word [bp + 0xe]
-    mov word [cs:cseg_0297 - IMAGE_BASE], ax
+    mov word [cs:cseg_0197 - IMAGE_BASE], ax
     pop es
     mov sp, bp
     pop bp

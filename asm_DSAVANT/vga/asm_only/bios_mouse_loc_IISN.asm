@@ -10,11 +10,11 @@ bios_mouse_loc_IISN:
     push di                          ; 0x2b75
     mov ax, ds                       ; 0x2b76
     mov es, ax                       ; 0x2b78
-    cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x2b7a
+    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x2b7a
     je short @..bios_mouse_loc_IISN.l1 ; 0x2b80
     jmp near @..bios_mouse_loc_IISN.l8 ; 0x2b82
 @..bios_mouse_loc_IISN.l1:
-    mov byte [cs:cseg_0226 - IMAGE_BASE], 1 ; 0x2b85
+    mov byte [cs:cseg_0126 - IMAGE_BASE], 1 ; 0x2b85
     mov ax, word [bp + 0xc]          ; 0x2b8b
     shl ax, 1                        ; 0x2b8e
     mov word [bp - 0x0002], ax       ; 0x2b90
@@ -64,7 +64,7 @@ bios_mouse_loc_IISN:
     or ax, ax                        ; 0x2bf9
     je short @..bios_mouse_loc_IISN.l2 ; 0x2bfb
     push ax                          ; 0x2bfd
-    call far [cs:cseg_01fb - IMAGE_BASE] ; 0x2bfe
+    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x2bfe
     pop ax                           ; 0x2c03
     jmp short @..bios_mouse_loc_IISN.l2 ; 0x2c04
 @..bios_mouse_loc_IISN.l8:

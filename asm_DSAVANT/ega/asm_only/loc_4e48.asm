@@ -10,7 +10,7 @@ loc_4e48:
     mov ax, ds                       ; 0x4e4f
     mov es, ax                       ; 0x4e51
     push word [bp + 0xc]             ; 0x4e53
-    call far [cs:cseg_0222 - IMAGE_BASE] ; 0x4e56
+    call far [cs:cseg_0122 - IMAGE_BASE] ; 0x4e56
     pop cx                           ; 0x4e5b
     pop di                           ; 0x4e5c
     pop si                           ; 0x4e5d

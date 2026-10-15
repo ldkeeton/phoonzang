@@ -12,7 +12,7 @@ dos_con_loc_MIVG:
 
 @..dos_read_file_6.l6:
     mov cx, ax                       ; 0x4b52
-    mov ax, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x4b54
+    mov ax, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x4b54
     mov ds, ax                       ; 0x4b58
     xor dx, dx                       ; 0x4b5a
     mov bx, word [bp + 0xc]          ; 0x4b5c
@@ -34,14 +34,14 @@ dos_con_loc_MIVG:
     shr ax, cl                       ; 0x4b86
     mov bx, word [bp - 0x000a]       ; 0x4b88
     mov word [cs:bx + 0x2], ax       ; 0x4b8b
-    add ax, word [cs:cseg_11cd - IMAGE_BASE] ; 0x4b8f
+    add ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x4b8f
     cmp ax, 0x4180                   ; 0x4b94
     jb short @..dos_read_file_6.l7   ; 0x4b97
     jmp near @..dos_read_file_6.l5   ; 0x4b99
 @..dos_read_file_6.l7:
-    mov word [cs:cseg_11cd - IMAGE_BASE], ax ; 0x4b9c
+    mov word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x4b9c
     mov ax, word [cs:bx]             ; 0x4ba0
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4ba3
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4ba3
     mov es, ax                       ; 0x4ba8
     call string_loc_LUMH             ; 0x4baa
     xor ax, ax                       ; 0x4bad

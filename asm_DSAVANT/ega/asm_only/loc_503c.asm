@@ -36,24 +36,24 @@ loc_503c:
     cmp word [bp - 0x0006], byte 0   ; 0x5087
     je short @..loc_503c.l1          ; 0x508b
     mov ax, word [cs:bx]             ; 0x508d
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x5090
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x5090
 @..loc_503c.l1:
     push ax                          ; 0x5095
     xor ax, ax                       ; 0x5096
     push ax                          ; 0x5098
-    call far [cs:cseg_020e - IMAGE_BASE] ; 0x5099
+    call far [cs:cseg_010e - IMAGE_BASE] ; 0x5099
     add sp, byte 6                   ; 0x509e
     push word [bp + 0x10]            ; 0x50a1
     push word [bp + 0xe]             ; 0x50a4
-    call far [cs:cseg_0216 - IMAGE_BASE] ; 0x50a7
+    call far [cs:cseg_0116 - IMAGE_BASE] ; 0x50a7
     add sp, byte 4                   ; 0x50ac
     push word [bp + 0x12]            ; 0x50af
     mov bx, word [bp - 0x0004]       ; 0x50b2
     mov ax, word [cs:bx]             ; 0x50b5
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x50b8
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x50b8
     push ax                          ; 0x50bd
     push word [bp - 0x0006]          ; 0x50be
-    call far [cs:cseg_0206 - IMAGE_BASE] ; 0x50c1
+    call far [cs:cseg_0106 - IMAGE_BASE] ; 0x50c1
     add sp, byte 6                   ; 0x50c6
 @..loc_503c.l2:
     pop di                           ; 0x50c9

@@ -20,9 +20,9 @@ dos_read_file_3:
     je short @..dos_read_file_3.l1   ; 0x21ed
     jmp near @..dos_read_file_3.l7   ; 0x21ef
 @..dos_read_file_3.l1:
-    mov ax, word [cs:cseg_0caa - IMAGE_BASE] ; 0x21f2
+    mov ax, word [cs:cseg_0baa - IMAGE_BASE] ; 0x21f2
     inc ax                           ; 0x21f6
-    mov word [cs:cseg_0caa - IMAGE_BASE], ax ; 0x21f7
+    mov word [cs:cseg_0baa - IMAGE_BASE], ax ; 0x21f7
     mov bx, word [bp - 0x0002]       ; 0x21fb
     mov word [cs:bx], ax             ; 0x21fe
     dec ax                           ; 0x2201
@@ -31,9 +31,9 @@ dos_read_file_3:
     mov bx, data_0bda                ; 0x2206
     add bx, ax                       ; 0x2209
     mov word [bp - 0x0002], bx       ; 0x220b
-    mov ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x220e
+    mov ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x220e
     mov word [cs:bx], ax             ; 0x2212
-    mov ax, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x2215
+    mov ax, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x2215
     mov ds, ax                       ; 0x2219
     xor dx, dx                       ; 0x221b
     mov cx, 4                        ; 0x221d
@@ -51,17 +51,17 @@ dos_read_file_3:
     shr ax, cl                       ; 0x223c
     shl dl, cl                       ; 0x223e
     or ah, dl                        ; 0x2240
-    add word [cs:cseg_0cac - IMAGE_BASE], ax ; 0x2242
+    add word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x2242
     mov bx, word [bp - 0x0002]       ; 0x2247
     mov word [cs:bx + 0x2], ax       ; 0x224a
-    mov ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x224e
+    mov ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x224e
     cmp ax, 0x4180                   ; 0x2252
     jb short @..dos_read_file_3.l2   ; 0x2255
     jmp near dos_con_loc_LHPI        ; 0x2257
 @..dos_read_file_3.l2:
     mov bx, word [bp - 0x0002]       ; 0x225a
     mov ax, word [cs:bx]             ; 0x225d
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x2260
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x2260
     mov ds, ax                       ; 0x2265
 @..dos_read_file_3.l3:
     mov cx, word [bp - 0x0004]       ; 0x2267
@@ -102,5 +102,5 @@ dos_read_file_3:
     mov ax, word [bp + 0xe]          ; 0x22ac
     mov bx, 0xa                      ; 0x22af
     div bx                           ; 0x22b2
-    or byte [cs:cseg_23de - IMAGE_BASE], al ; 0x22b4
-    or byte [cs:cseg_23df - IMAGE_BASE], dl ; 0x22b9
+    or byte [cs:cseg_22de - IMAGE_BASE], al ; 0x22b4
+    or byte [cs:cseg_22df - IMAGE_BASE], dl ; 0x22b9

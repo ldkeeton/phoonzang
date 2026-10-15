@@ -1,32 +1,32 @@
 ; auto-generated
 ; asm only
 graphics_loc_IUVI:
-    cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x0949
+    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x0949
     jne short @..graphics_loc_IUVI.l1 ; 0x094f
-    mov cx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x0951
+    mov cx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x0951
     and cx, strict word 0xfffc       ; 0x0956
-    mov dx, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x095a
+    mov dx, word [cs:cseg_1adb - IMAGE_BASE] ; 0x095a
     cmp word [bp + 0x10], cx         ; 0x095f
     jb short @..graphics_loc_IUVI.l1 ; 0x0962
     cmp word [bp + 0x12], dx         ; 0x0964
     jb short @..graphics_loc_IUVI.l1 ; 0x0967
-    add cx, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x0969
-    add cx, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x096e
-    add cx, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x0973
-    add cx, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x0978
+    add cx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x0969
+    add cx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x096e
+    add cx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x0973
+    add cx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x0978
     dec cx                           ; 0x097d
-    add dx, word [cs:cseg_1be3 - IMAGE_BASE] ; 0x097e
+    add dx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x097e
     dec dx                           ; 0x0983
     cmp cx, word [bp + 0xc]          ; 0x0984
     jb short @..graphics_loc_IUVI.l1 ; 0x0987
     cmp dx, word [bp + 0xe]          ; 0x0989
     jae short @..graphics_loc_IUVI.l2 ; 0x098c
 @..graphics_loc_IUVI.l1:
-    mov byte [cs:cseg_0a48 - IMAGE_BASE], 0 ; 0x098e
+    mov byte [cs:cseg_0948 - IMAGE_BASE], 0 ; 0x098e
     jmp near @..graphics_loc_IUVI.l16 ; 0x0994
 @..graphics_loc_IUVI.l2:
-    mov byte [cs:cseg_0a48 - IMAGE_BASE], 1 ; 0x0997
-    mov cx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x099d
+    mov byte [cs:cseg_0948 - IMAGE_BASE], 1 ; 0x0997
+    mov cx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x099d
     and cx, strict word 0xfffc       ; 0x09a2
     mov ax, cx                       ; 0x09a6
     cmp word [bp + 0xc], cx          ; 0x09a8
@@ -34,7 +34,7 @@ graphics_loc_IUVI:
     mov ax, word [bp + 0xc]          ; 0x09ad
 @..graphics_loc_IUVI.l3:
     mov word [bp - 0x0006], ax       ; 0x09b0
-    mov dx, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x09b3
+    mov dx, word [cs:cseg_1adb - IMAGE_BASE] ; 0x09b3
     mov bx, dx                       ; 0x09b8
     cmp word [bp + 0xe], dx          ; 0x09ba
     jb short @..graphics_loc_IUVI.l4 ; 0x09bd
@@ -45,10 +45,10 @@ graphics_loc_IUVI:
     sub bx, dx                       ; 0x09c7
     mov word [bp - 0x000a], ax       ; 0x09c9
     mov word [bp - 0x000c], bx       ; 0x09cc
-    mov cx, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x09cf
+    mov cx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x09cf
     shl cx, 1                        ; 0x09d4
     shl cx, 1                        ; 0x09d6
-    mov dx, word [cs:cseg_1be3 - IMAGE_BASE] ; 0x09d8
+    mov dx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x09d8
     sub cx, ax                       ; 0x09dd
     mov word [bp - 0x000e], cx       ; 0x09df
     sub dx, bx                       ; 0x09e2
@@ -79,26 +79,25 @@ graphics_loc_IUVI:
     add ax, word [bp - 0x0006]       ; 0x0a1b
     mov si, ax                       ; 0x0a1e
     mov ax, word [bp - 0x000c]       ; 0x0a20
-    mov bx, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x0a23
+    mov bx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x0a23
     mul bx                           ; 0x0a28
     mov bx, word [bp - 0x000a]       ; 0x0a2a
     shr bx, 1                        ; 0x0a2d
     shr bx, 1                        ; 0x0a2f
     add ax, bx                       ; 0x0a31
-    add ax, word [cs:cseg_1bd5 - IMAGE_BASE] ; 0x0a33
+    add ax, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x0a33
     mov di, ax                       ; 0x0a38
     mov bx, word [bp - 0x000a]       ; 0x0a3a
     and bx, 3                        ; 0x0a3d
     shl bx, 1                        ; 0x0a41
     mov cx, 6                        ; 0x0a43
     sub cx, bx                       ; 0x0a46
-cseg_0a48:
     mov word [bp - 0x0020], cx       ; 0x0a48
     mov dx, 3                        ; 0x0a4b
     shl dx, cl                       ; 0x0a4e
     not dl                           ; 0x0a50
     mov byte [bp - 0x0022], dl       ; 0x0a52
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0a55
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0a55
     mov ds, ax                       ; 0x0a59
     mov ax, cs                       ; 0x0a5b
     mov es, ax                       ; 0x0a5d
@@ -139,12 +138,12 @@ cseg_0a48:
     pop cx                           ; 0x0abf
     loop @..graphics_loc_IUVI.l8     ; 0x0ac0
     pop di                           ; 0x0ac2
-    add di, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x0ac3
+    add di, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x0ac3
     pop si                           ; 0x0ac8
     add si, strict word 0x140        ; 0x0ac9
     pop cx                           ; 0x0acd
     loop @..graphics_loc_IUVI.l7     ; 0x0ace
-    mov cx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x0ad0
+    mov cx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x0ad0
     mov ax, cx                       ; 0x0ad5
     cmp word [bp + 0xc], cx          ; 0x0ad7
     jb short @..graphics_loc_IUVI.l10 ; 0x0ada
@@ -152,7 +151,7 @@ cseg_0a48:
 @..graphics_loc_IUVI.l10:
     mov word [bp - 0x0006], ax       ; 0x0adf
     mov ax, word [bp - 0x000a]       ; 0x0ae2
-    mov cx, word [cs:cseg_1bdd - IMAGE_BASE] ; 0x0ae5
+    mov cx, word [cs:cseg_1add - IMAGE_BASE] ; 0x0ae5
     sub cx, ax                       ; 0x0aea
     mov word [bp - 0x000e], cx       ; 0x0aec
     mov ax, word [bp - 0x0006]       ; 0x0aef
@@ -167,35 +166,35 @@ cseg_0a48:
 @..graphics_loc_IUVI.l11:
     mov ax, cs                       ; 0x0b05
     mov es, ax                       ; 0x0b07
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0b09
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0b09
     mov ds, ax                       ; 0x0b0d
-    mov ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x0b0f
+    mov ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x0b0f
     mov bx, 0x140                    ; 0x0b13
     mul bx                           ; 0x0b16
-    add ax, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x0b18
+    add ax, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x0b18
     mov si, ax                       ; 0x0b1d
-    mov di, word [cs:cseg_1bd7 - IMAGE_BASE] ; 0x0b1f
-    mov cx, word [cs:cseg_1be3 - IMAGE_BASE] ; 0x0b24
+    mov di, word [cs:cseg_1ad7 - IMAGE_BASE] ; 0x0b1f
+    mov cx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x0b24
 @..graphics_loc_IUVI.l12:
     push cx                          ; 0x0b29
     push si                          ; 0x0b2a
-    mov cx, word [cs:cseg_1bdd - IMAGE_BASE] ; 0x0b2b
+    mov cx, word [cs:cseg_1add - IMAGE_BASE] ; 0x0b2b
     rep movsb                        ; 0x0b30
     pop si                           ; 0x0b32
     add si, strict word 0x140        ; 0x0b33
     pop cx                           ; 0x0b37
     loop @..graphics_loc_IUVI.l12    ; 0x0b38
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x0b3a
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x0b3a
     mov es, ax                       ; 0x0b3e
-    mov ax, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x0b40
+    mov ax, word [cs:cseg_1adb - IMAGE_BASE] ; 0x0b40
     mov bx, 0x140                    ; 0x0b44
     mul bx                           ; 0x0b47
-    add ax, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x0b49
+    add ax, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x0b49
     mov di, ax                       ; 0x0b4e
-    mov ax, word [cs:cseg_259b - IMAGE_BASE] ; 0x0b50
+    mov ax, word [cs:cseg_249b - IMAGE_BASE] ; 0x0b50
     mov ds, ax                       ; 0x0b54
-    mov si, word [cs:cseg_2599 - IMAGE_BASE] ; 0x0b56
-    mov cx, word [cs:cseg_1be3 - IMAGE_BASE] ; 0x0b5b
+    mov si, word [cs:cseg_2499 - IMAGE_BASE] ; 0x0b56
+    mov cx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x0b5b
     mov ax, ds                       ; 0x0b60
     or ax, si                        ; 0x0b62
     jne short @..graphics_loc_IUVI.l13 ; 0x0b64
@@ -206,7 +205,7 @@ cseg_0a48:
     push cx                          ; 0x0b6d
     push di                          ; 0x0b6e
     push si                          ; 0x0b6f
-    mov cx, word [cs:cseg_1bdd - IMAGE_BASE] ; 0x0b70
+    mov cx, word [cs:cseg_1add - IMAGE_BASE] ; 0x0b70
 @..graphics_loc_IUVI.l14:
     mov al, byte [si]                ; 0x0b75
     cmp al, 0xff                     ; 0x0b77
@@ -217,7 +216,7 @@ cseg_0a48:
     inc di                           ; 0x0b7f
     loop @..graphics_loc_IUVI.l14    ; 0x0b80
     pop si                           ; 0x0b82
-    add si, word [cs:cseg_258d - IMAGE_BASE] ; 0x0b83
+    add si, word [cs:cseg_248d - IMAGE_BASE] ; 0x0b83
     pop di                           ; 0x0b88
     add di, strict word 0x140        ; 0x0b89
     pop cx                           ; 0x0b8d

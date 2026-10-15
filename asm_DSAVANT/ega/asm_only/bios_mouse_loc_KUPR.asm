@@ -10,11 +10,11 @@ bios_mouse_loc_KUPR:
     push di                          ; 0x3427
     mov ax, ds                       ; 0x3428
     mov es, ax                       ; 0x342a
-    cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x342c
+    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x342c
     je short @..bios_mouse_loc_KUPR.l1 ; 0x3432
     jmp near @..bios_mouse_loc_KUPR.l8 ; 0x3434
 @..bios_mouse_loc_KUPR.l1:
-    mov byte [cs:cseg_0226 - IMAGE_BASE], 1 ; 0x3437
+    mov byte [cs:cseg_0126 - IMAGE_BASE], 1 ; 0x3437
     mov ax, word [bp + 0xc]          ; 0x343d
     shl ax, 1                        ; 0x3440
     mov word [bp - 0x0002], ax       ; 0x3442
@@ -64,7 +64,7 @@ bios_mouse_loc_KUPR:
     or ax, ax                        ; 0x34ab
     je short @..bios_mouse_loc_KUPR.l2 ; 0x34ad
     push ax                          ; 0x34af
-    call far [cs:cseg_01fb - IMAGE_BASE] ; 0x34b0
+    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x34b0
     pop ax                           ; 0x34b5
     jmp short @..bios_mouse_loc_KUPR.l2 ; 0x34b6
 @..bios_mouse_loc_KUPR.l8:

@@ -9,7 +9,7 @@ loc_5118:
     push di                          ; 0x511e
     mov ax, ds                       ; 0x511f
     mov es, ax                       ; 0x5121
-    call far [cs:cseg_021e - IMAGE_BASE] ; 0x5123
+    call far [cs:cseg_011e - IMAGE_BASE] ; 0x5123
     pop di                           ; 0x5128
     pop si                           ; 0x5129
     pop es                           ; 0x512a

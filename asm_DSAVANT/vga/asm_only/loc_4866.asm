@@ -9,7 +9,7 @@ loc_4866:
     push di                          ; 0x486c
     mov ax, ds                       ; 0x486d
     mov es, ax                       ; 0x486f
-    call far [cs:cseg_021e - IMAGE_BASE] ; 0x4871
+    call far [cs:cseg_011e - IMAGE_BASE] ; 0x4871
     pop di                           ; 0x4876
     pop si                           ; 0x4877
     pop es                           ; 0x4878

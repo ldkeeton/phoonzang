@@ -11,7 +11,7 @@ loc_5148:
     mov es, ax                       ; 0x5151
     push word [bp + 0xe]             ; 0x5153
     push word [bp + 0xc]             ; 0x5156
-    call far [cs:cseg_0216 - IMAGE_BASE] ; 0x5159
+    call far [cs:cseg_0116 - IMAGE_BASE] ; 0x5159
     add sp, byte 4                   ; 0x515e
     pop di                           ; 0x5161
     pop si                           ; 0x5162

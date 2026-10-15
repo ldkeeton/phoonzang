@@ -10,7 +10,7 @@ bios_mouse_loc_PHIN:
     push di                          ; 0x2c17
     mov ax, ds                       ; 0x2c18
     mov es, ax                       ; 0x2c1a
-    cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x2c1c
+    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x2c1c
     je short @..bios_mouse_loc_PHIN.l1 ; 0x2c22
     jmp near @..bios_mouse_loc_PHIN.l9 ; 0x2c24
 @..bios_mouse_loc_PHIN.l1:
@@ -19,9 +19,9 @@ bios_mouse_loc_PHIN:
     mov word [bp - 0x0002], ax       ; 0x2c2c
     mov ax, word [bp + 0xe]          ; 0x2c2f
     mov word [bp - 0x0004], ax       ; 0x2c32
-    mov cx, word [cs:cseg_15ac - IMAGE_BASE] ; 0x2c35
+    mov cx, word [cs:cseg_14ac - IMAGE_BASE] ; 0x2c35
     shl cx, 1                        ; 0x2c3a
-    mov dx, word [cs:cseg_15ae - IMAGE_BASE] ; 0x2c3c
+    mov dx, word [cs:cseg_14ae - IMAGE_BASE] ; 0x2c3c
     mov word [bp - 0x0006], cx       ; 0x2c41
     mov word [bp - 0x0008], dx       ; 0x2c44
 @..bios_mouse_loc_PHIN.l2:
@@ -63,7 +63,7 @@ bios_mouse_loc_PHIN:
     or ax, ax                        ; 0x2c98
     je short @..bios_mouse_loc_PHIN.l2 ; 0x2c9a
     push ax                          ; 0x2c9c
-    call far [cs:cseg_01fb - IMAGE_BASE] ; 0x2c9d
+    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x2c9d
     pop ax                           ; 0x2ca2
     jmp short @..bios_mouse_loc_PHIN.l2 ; 0x2ca3
 @..bios_mouse_loc_PHIN.l8:
@@ -71,7 +71,7 @@ bios_mouse_loc_PHIN:
     mov dx, word [bp - 0x0004]       ; 0x2ca8
     mov ax, 4                        ; 0x2cab
     int 0x33 ; BIOS mouse
-    mov byte [cs:cseg_0226 - IMAGE_BASE], 0 ; 0x2cb0
+    mov byte [cs:cseg_0126 - IMAGE_BASE], 0 ; 0x2cb0
 @..bios_mouse_loc_PHIN.l9:
     pop di                           ; 0x2cb6
     pop si                           ; 0x2cb7

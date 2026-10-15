@@ -12,7 +12,7 @@ dos_con_loc_PTOV:
 
 @..dos_read_file_6.l6:
     mov cx, ax                       ; 0x42a0
-    mov ax, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x42a2
+    mov ax, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x42a2
     mov ds, ax                       ; 0x42a6
     xor dx, dx                       ; 0x42a8
     mov bx, word [bp + 0xc]          ; 0x42aa
@@ -34,14 +34,14 @@ dos_con_loc_PTOV:
     shr ax, cl                       ; 0x42d4
     mov bx, word [bp - 0x000a]       ; 0x42d6
     mov word [cs:bx + 0x2], ax       ; 0x42d9
-    add ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x42dd
+    add ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x42dd
     cmp ax, 0x4180                   ; 0x42e2
     jb short @..dos_read_file_6.l7   ; 0x42e5
     jmp near @..dos_read_file_6.l5   ; 0x42e7
 @..dos_read_file_6.l7:
-    mov word [cs:cseg_0cac - IMAGE_BASE], ax ; 0x42ea
+    mov word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x42ea
     mov ax, word [cs:bx]             ; 0x42ee
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x42f1
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x42f1
     mov es, ax                       ; 0x42f6
     call string_loc_LUMH             ; 0x42f8
     xor ax, ax                       ; 0x42fb

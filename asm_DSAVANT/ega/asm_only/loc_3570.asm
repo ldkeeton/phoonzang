@@ -26,9 +26,9 @@ loc_3570:
     jmp near @..loc_3570.l3          ; 0x359c
 @..loc_3570.l2:
     mov word [cs:bx], 0              ; 0x359f
-    mov cx, word [cs:cseg_11cb - IMAGE_BASE] ; 0x35a4
+    mov cx, word [cs:cseg_10cb - IMAGE_BASE] ; 0x35a4
     dec cx                           ; 0x35a9
-    mov word [cs:cseg_11cb - IMAGE_BASE], cx ; 0x35aa
+    mov word [cs:cseg_10cb - IMAGE_BASE], cx ; 0x35aa
     call loc_4c93                    ; 0x35af
 @..loc_3570.l3:
     pop si                           ; 0x35b2

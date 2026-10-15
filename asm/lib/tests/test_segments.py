@@ -78,6 +78,30 @@ class SyntheticMZTest(unittest.TestCase):
         self.assertIsNone(find_crt_bss_zero_range(data, None))
 
 
+class DriverLoadOriginTest(unittest.TestCase):
+    """A raw driver runs from ``segment:0x100`` (plan.md D7.6)."""
+
+    def _driver(self, size=0x400):
+        return bytes([0x90]) * size
+
+    def test_load_offset_is_recorded(self):
+        model = from_binary(self._driver(), 'raw_drv')
+        self.assertEqual(model.kind, 'driver')
+        self.assertEqual(model.load_offset, 0x100)
+
+    def test_cs_displacement_is_a_runtime_offset(self):
+        model = from_binary(self._driver(), 'raw_drv')
+        # ``disp 0x103`` names file offset 3: the module's first entry stub,
+        # which is exactly what the host calls (``seg:0x100 + 3 + 4k``).
+        self.assertEqual(model.resolve('CS', 0x103), ('file', 0x3))
+        # A displacement below the load offset names no byte of the module.
+        self.assertEqual(model.resolve('CS', 0x50), ('unknown',))
+
+    def test_mz_and_overlay_have_no_load_offset(self):
+        data = _synthetic_mz(bss_start=0x100, bss_end=0x400)
+        self.assertEqual(from_binary(data, 'mz').load_offset, 0)
+
+
 class PspCatalogueTest(unittest.TestCase):
     def test_known_fields(self):
         self.assertEqual(psp_field(0x02), 'psp_top_of_memory')

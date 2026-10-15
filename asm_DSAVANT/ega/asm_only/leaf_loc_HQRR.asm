@@ -5,7 +5,7 @@ leaf_loc_HQRR:
     mov bp, sp                       ; 0x0497
     push es                          ; 0x0499
     push di                          ; 0x049a
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x049b
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x049b
     mov es, ax                       ; 0x049f
     xor di, di                       ; 0x04a1
     mov ax, word [bp + 0xc]          ; 0x04a3

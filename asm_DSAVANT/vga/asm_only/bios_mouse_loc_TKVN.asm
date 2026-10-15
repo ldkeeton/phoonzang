@@ -5,9 +5,9 @@ bios_mouse_loc_TKVN:
     push es                          ; 0x12ca
     push si                          ; 0x12cb
     push di                          ; 0x12cc
-    cmp byte [cs:cseg_0226 - IMAGE_BASE], 1 ; 0x12cd
+    cmp byte [cs:cseg_0126 - IMAGE_BASE], 1 ; 0x12cd
     je short @..bios_mouse_loc_TKVN.l1 ; 0x12d3
-    cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x12d5
+    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x12d5
     je short @..bios_mouse_loc_TKVN.l2 ; 0x12db
 @..bios_mouse_loc_TKVN.l1:
     jmp near @..bios_mouse_loc_TKVN.l4 ; 0x12dd
@@ -15,9 +15,9 @@ bios_mouse_loc_TKVN:
     mov ax, 3                        ; 0x12e0
     int 0x33 ; BIOS mouse
     shr cx, 1                        ; 0x12e5
-    cmp word [cs:cseg_15ac - IMAGE_BASE], cx ; 0x12e7
+    cmp word [cs:cseg_14ac - IMAGE_BASE], cx ; 0x12e7
     jne short @..bios_mouse_loc_TKVN.l3 ; 0x12ec
-    cmp word [cs:cseg_15ae - IMAGE_BASE], dx ; 0x12ee
+    cmp word [cs:cseg_14ae - IMAGE_BASE], dx ; 0x12ee
     je short @..bios_mouse_loc_TKVN.l4 ; 0x12f3
 @..bios_mouse_loc_TKVN.l3:
     shl cx, 1                        ; 0x12f5
@@ -25,7 +25,7 @@ bios_mouse_loc_TKVN:
     push ax                          ; 0x12f9
     call leaf_loc_MKQV               ; 0x12fa
 @..bios_mouse_loc_TKVN.l4:
-    mov byte [cs:cseg_0227 - IMAGE_BASE], 0 ; 0x12fd
+    mov byte [cs:cseg_0127 - IMAGE_BASE], 0 ; 0x12fd
     pop di                           ; 0x1303
     pop si                           ; 0x1304
     pop es                           ; 0x1305

@@ -90,7 +90,7 @@ dos_free_mem_3:
     or ax, ax                        ; 0x29a1
     je short @..dos_free_mem_3.l2    ; 0x29a3
     push ax                          ; 0x29a5
-    call far [cs:cseg_01fb - IMAGE_BASE] ; 0x29a6
+    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x29a6
     pop ax                           ; 0x29ab
     jmp short @..dos_free_mem_3.l2   ; 0x29ac
 @..dos_free_mem_3.l9:

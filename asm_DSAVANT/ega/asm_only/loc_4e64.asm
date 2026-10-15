@@ -18,7 +18,7 @@ loc_4e64:
     push ax                          ; 0x4e78
     push ax                          ; 0x4e79
     push ax                          ; 0x4e7a
-    call far [cs:cseg_021a - IMAGE_BASE] ; 0x4e7b
+    call far [cs:cseg_011a - IMAGE_BASE] ; 0x4e7b
     add sp, byte 0x0e                ; 0x4e80
     pop di                           ; 0x4e83
     pop si                           ; 0x4e84
@@ -27,6 +27,7 @@ loc_4e64:
     mov sp, bp                       ; 0x4e87
     pop bp                           ; 0x4e89
     ret                              ; 0x4e8a
+cseg_4e8b:
 
     times 34 db 0
 

@@ -10,7 +10,7 @@ bios_mouse_loc_TGTG:
     push di                          ; 0x34c9
     mov ax, ds                       ; 0x34ca
     mov es, ax                       ; 0x34cc
-    cmp byte [cs:cseg_0228 - IMAGE_BASE], 1 ; 0x34ce
+    cmp byte [cs:cseg_0128 - IMAGE_BASE], 1 ; 0x34ce
     je short @..bios_mouse_loc_TGTG.l1 ; 0x34d4
     jmp near @..bios_mouse_loc_TGTG.l9 ; 0x34d6
 @..bios_mouse_loc_TGTG.l1:
@@ -19,9 +19,9 @@ bios_mouse_loc_TGTG:
     mov word [bp - 0x0002], ax       ; 0x34de
     mov ax, word [bp + 0xe]          ; 0x34e1
     mov word [bp - 0x0004], ax       ; 0x34e4
-    mov cx, word [cs:cseg_1bd9 - IMAGE_BASE] ; 0x34e7
+    mov cx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x34e7
     shl cx, 1                        ; 0x34ec
-    mov dx, word [cs:cseg_1bdb - IMAGE_BASE] ; 0x34ee
+    mov dx, word [cs:cseg_1adb - IMAGE_BASE] ; 0x34ee
     mov word [bp - 0x0006], cx       ; 0x34f3
     mov word [bp - 0x0008], dx       ; 0x34f6
 @..bios_mouse_loc_TGTG.l2:
@@ -63,7 +63,7 @@ bios_mouse_loc_TGTG:
     or ax, ax                        ; 0x354a
     je short @..bios_mouse_loc_TGTG.l2 ; 0x354c
     push ax                          ; 0x354e
-    call far [cs:cseg_01fb - IMAGE_BASE] ; 0x354f
+    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x354f
     pop ax                           ; 0x3554
     jmp short @..bios_mouse_loc_TGTG.l2 ; 0x3555
 @..bios_mouse_loc_TGTG.l8:
@@ -71,7 +71,7 @@ bios_mouse_loc_TGTG:
     mov dx, word [bp - 0x0004]       ; 0x355a
     mov ax, 4                        ; 0x355d
     int 0x33 ; BIOS mouse
-    mov byte [cs:cseg_0226 - IMAGE_BASE], 0 ; 0x3562
+    mov byte [cs:cseg_0126 - IMAGE_BASE], 0 ; 0x3562
 @..bios_mouse_loc_TGTG.l9:
     pop di                           ; 0x3568
     pop si                           ; 0x3569

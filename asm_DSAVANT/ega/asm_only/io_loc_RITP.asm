@@ -8,14 +8,14 @@ io_loc_RITP:
     mov al, ah                       ; 0x2e3c
     out dx, al                       ; 0x2e3e
     mov bx, dseg_24fd                ; 0x2e3f
-    mov di, word [cs:cseg_1be5 - IMAGE_BASE] ; 0x2e42
-    mov cx, word [cs:cseg_1be3 - IMAGE_BASE] ; 0x2e47
+    mov di, word [cs:cseg_1ae5 - IMAGE_BASE] ; 0x2e42
+    mov cx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x2e47
 @..io_loc_RITP.l1:
     push cx                          ; 0x2e4c
     push si                          ; 0x2e4d
     push bx                          ; 0x2e4e
     push di                          ; 0x2e4f
-    mov cx, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2e50
+    mov cx, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2e50
 @..io_loc_RITP.l2:
     mov ah, byte [bx]                ; 0x2e55
     inc bx                           ; 0x2e57
@@ -36,7 +36,7 @@ io_loc_RITP:
     pop bx                           ; 0x2e6f
     add bx, word [bp - 0x0002]       ; 0x2e70
     pop si                           ; 0x2e73
-    add si, word [cs:cseg_1be1 - IMAGE_BASE] ; 0x2e74
+    add si, word [cs:cseg_1ae1 - IMAGE_BASE] ; 0x2e74
     pop cx                           ; 0x2e79
     loop @..io_loc_RITP.l1           ; 0x2e7a
     ret                              ; 0x2e7c

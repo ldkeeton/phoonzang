@@ -5,7 +5,7 @@ dos_file_loc_QUNJ:
     push es                          ; 0x45be
     push si                          ; 0x45bf
     push di                          ; 0x45c0
-    mov dx, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x45c1
+    mov dx, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x45c1
     mov ds, dx                       ; 0x45c6
 @..dos_file_loc_QUNJ.l1:
     xor dx, dx                       ; 0x45c8

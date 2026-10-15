@@ -386,6 +386,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     mem_symbols.update(_resolve_imm_symbols(
         insns, segment_flow, segments, label_map, mem_equ, start_offset))
 
+    # ``micro_assemble``/``assemble_batch`` rebuild ``name - IMAGE_BASE`` from
+    # *file-offset* labels (``_build_equ_prelude``), so a raw driver's
+    # ``load_offset`` enters as a negative base: ``file - (-0x100) == file +
+    # 0x100``, which is what the driver encodes (plan.md D7.6).
+    roundtrip_base = start_offset - (getattr(segments, 'load_offset', 0) or 0)
+
     # ── Pre-collect data labels from insn operands, MZ relocs, and data gaps ──
     # ``data_refs`` maps each absolute displacement to the set of segment
     # registers that reached it, so a fixed external-segment field (e.g. the
@@ -510,7 +516,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     if batch_reqs:
         built_batch = assemble_batch(
             batch_reqs, label_map, local_labels, foreign_label_map,
-            immediate_labels=immediate_labels, image_base=start_offset,
+            immediate_labels=immediate_labels, image_base=roundtrip_base,
             mem_equ=mem_equ,
         )
         if built_batch is None:
@@ -519,7 +525,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                     text, addr, label_map, local_labels,
                     foreign_label_map=foreign_label_map,
                     immediate_labels=immediate_labels, mem_equ=mem_equ,
-                    image_base=start_offset,
+                    image_base=roundtrip_base,
                 )
                 for text, addr in batch_reqs
             ]
@@ -651,7 +657,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                                        hard_data=hard_data,
                                        data_labels=data_labels,
                                        mem_symbols=mem_symbols, mem_equ=mem_equ,
-                                       image_base=start_offset,
+                                       image_base=roundtrip_base,
                                        table_ranges=table_ranges)
 
     # Data-block promotion can reveal instructions after the first local-label
@@ -848,7 +854,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             foreign_label_map, immediate_labels, exact_bytes=exact_bytes,
             data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ,
-            image_base=start_offset, allow_diff=allow_diff,
+            image_base=roundtrip_base, allow_diff=allow_diff,
             geometry=image_geometry(
                 records, binary_data, start_offset,
                 getattr(segments, 'ds_size', None)),
@@ -975,6 +981,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         ds_size=getattr(segments, 'ds_size', None),
         host_symbols=host_symbols,
         host_data_offsets=host_data_offsets,
+        load_offset=getattr(segments, 'load_offset', 0) or 0,
     )
     t6 = time.perf_counter()
 

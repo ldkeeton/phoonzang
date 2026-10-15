@@ -6,8 +6,9 @@ import tempfile
 import unittest
 
 from lib.compare.render import (
-    _label_equ_value, _signed_hex, _virtual_base,
+    _build_source, _label_equ_value, _signed_hex, _virtual_base,
 )
+from lib.verify.assemble import _equ_hex
 from make.elf import _elf_source_text, _force_origin_zero
 
 
@@ -38,6 +39,44 @@ class EquValueTest(unittest.TestCase):
                          '0x0d04 + VBASE')
         for name in ('dseg_0002', 'bss_0e1e', 'psp_env_segment', 'data_0438'):
             self.assertEqual(_label_equ_value(name, 0x2, code), '0x0002')
+
+
+class DriverOriginRenderTest(unittest.TestCase):
+    """A driver keeps ``org 0`` and carries its origin as a negative base.
+
+    The label space is file offsets, so the encoded CS displacement
+    (``file + 0x100``) needs ``IMAGE_BASE`` to be ``-load_offset``.  This keeps
+    every byte identical while the resolved ``cseg_`` names land on the bytes
+    they actually name (plan.md D7.6).
+    """
+
+    def test_driver_image_base_is_the_negative_load_offset(self):
+        records = [
+            {'type': 'mnem',
+             'text': 'mov ax, word [cs:cseg_0003 - IMAGE_BASE]',
+             'offset': 0x103, 'size': 4},
+        ]
+        src, _ = _build_source(records, 0, bytes(0x200), label_map={},
+                               show_offsets=False, load_offset=0x100)
+        self.assertIn('IMAGE_BASE equ -0x0100', src)
+        self.assertIn('org 0', src)
+        self.assertNotIn('vstart', src)
+
+    def test_mz_image_base_is_still_header_plus_vbase(self):
+        records = [
+            {'type': 'mnem', 'text': 'mov ax, [cs:foo - IMAGE_BASE]',
+             'offset': 0x200, 'size': 4},
+        ]
+        src, _ = _build_source(
+            records, 0x200, b'MZ' + bytes(0x200 - 2) + b'\x90',
+            label_map={}, show_offsets=False)
+        self.assertIn('IMAGE_BASE equ 0x0200 + VBASE', src)
+
+
+class EquHexTest(unittest.TestCase):
+    def test_negative_base_round_trips_through_nasm(self):
+        self.assertEqual(_equ_hex(0x200), '0x0200')
+        self.assertEqual(_equ_hex(-0x100), '-0x0100')
 
 
 class ElfSourceTest(unittest.TestCase):

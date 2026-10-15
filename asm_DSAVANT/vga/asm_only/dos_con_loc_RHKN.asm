@@ -12,5 +12,12 @@ dos_con_loc_RHKN:
     db 0x0d, 0x0a, 0x07
     db 'SAVE_SCREEN called with table full.', 0
     db 0x0a, 0x24
-    times 232 db 0
 
+cseg_0ac6:
+
+    times 228 db 0
+
+cseg_0baa:
+    db 0x00, 0x00
+cseg_0bac:
+    db 0x00, 0x00

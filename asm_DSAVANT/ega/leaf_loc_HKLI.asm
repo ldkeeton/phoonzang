@@ -1,7 +1,7 @@
 ; auto-generated
 leaf_loc_HKLI:
     push ax                          ; 0x4ca9
-    mov bx, cseg_10e7 - IMAGE_BASE   ; 0x4caa
+    mov bx, cseg_0fe7 - IMAGE_BASE   ; 0x4caa
     mov cx, 0xa                      ; 0x4cad
 @..leaf_loc_HKLI.l1:
     cmp ax, word [cs:bx]             ; 0x4cb0

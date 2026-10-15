@@ -25,9 +25,9 @@ dos_read_file_7:
     add bx, data_46f1                ; 0x4626
     mov ax, word [bp + 0x10]         ; 0x462a
     mov word [cs:bx], ax             ; 0x462d
-    mov ax, word [cs:cseg_0caa - IMAGE_BASE] ; 0x4630
+    mov ax, word [cs:cseg_0baa - IMAGE_BASE] ; 0x4630
     inc ax                           ; 0x4634
-    mov word [cs:cseg_0caa - IMAGE_BASE], ax ; 0x4635
+    mov word [cs:cseg_0baa - IMAGE_BASE], ax ; 0x4635
     mov bx, word [bp - 0x0002]       ; 0x4639
     mov word [cs:bx], ax             ; 0x463c
     dec ax                           ; 0x463f
@@ -36,7 +36,7 @@ dos_read_file_7:
     mov bx, data_0bda                ; 0x4644
     add bx, ax                       ; 0x4647
     mov word [bp - 0x000a], bx       ; 0x4649
-    mov ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x464c
+    mov ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x464c
     mov word [cs:bx], ax             ; 0x4650
     xor ax, ax                       ; 0x4653
     mov word [bp - 0x000c], ax       ; 0x4655
@@ -86,14 +86,14 @@ dos_read_file_7:
     mov bx, word [bp - 0x000a]       ; 0x46bf
     add ax, word [bp - 0x000e]       ; 0x46c2
     mov word [cs:bx + 0x2], ax       ; 0x46c5
-    add ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x46c9
+    add ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x46c9
     cmp ax, 0x4180                   ; 0x46ce
     jb short @..dos_read_file_7.l3   ; 0x46d1
     jmp near @..dos_read_file_7.l6   ; 0x46d3
 @..dos_read_file_7.l3:
-    mov word [cs:cseg_0cac - IMAGE_BASE], ax ; 0x46d6
+    mov word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x46d6
     mov ax, word [cs:bx]             ; 0x46da
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x46dd
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x46dd
     mov ds, ax                       ; 0x46e2
     mov bx, word [bp + 0xe]          ; 0x46e4
     cmp bx, byte 0xff                ; 0x46e7

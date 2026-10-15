@@ -39,7 +39,7 @@ dos_write_file_2:
     jae short @..dos_write_file_2.l2 ; 0x38b0
     jmp near @..dos_write_file_2.l1  ; 0x38b2
 @..dos_write_file_2.l2:
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x38b5
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x38b5
     mov ds, ax                       ; 0x38b9
     mov cx, word [bp - 0x0004]       ; 0x38bb
 @..dos_write_file_2.l3:
@@ -83,14 +83,14 @@ dos_write_file_2:
     mov cl, 4                        ; 0x3914
     shr ax, cl                       ; 0x3916
     mov word [bp - 0x0002], ax       ; 0x3918
-    add ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x391b
+    add ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x391b
     cmp ax, 0x4180                   ; 0x3920
     jbe short @..dos_write_file_2.l8 ; 0x3923
     jmp near dos_con_loc_PVVP        ; 0x3925
 @..dos_write_file_2.l8:
-    mov bx, word [cs:cseg_0cac - IMAGE_BASE] ; 0x3928
+    mov bx, word [cs:cseg_0bac - IMAGE_BASE] ; 0x3928
     mov word [bp - 0x000e], bx       ; 0x392d
-    mov word [cs:cseg_0cac - IMAGE_BASE], ax ; 0x3930
+    mov word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x3930
     mov bx, data_025b                ; 0x3934
     mov cx, 0x10                     ; 0x3937
     xor dx, dx                       ; 0x393a
@@ -104,9 +104,9 @@ dos_write_file_2:
     jmp near dos_con_loc_USIL        ; 0x3949
 @..dos_write_file_2.l10:
     mov word [bp - 0x000c], dx       ; 0x394c
-    mov ax, word [cs:cseg_0caa - IMAGE_BASE] ; 0x394f
+    mov ax, word [cs:cseg_0baa - IMAGE_BASE] ; 0x394f
     inc ax                           ; 0x3953
-    mov word [cs:cseg_0caa - IMAGE_BASE], ax ; 0x3954
+    mov word [cs:cseg_0baa - IMAGE_BASE], ax ; 0x3954
     mov word [cs:bx], ax             ; 0x3958
     dec ax                           ; 0x395b
     mov cl, 2                        ; 0x395c
@@ -115,11 +115,11 @@ dos_write_file_2:
     add bx, ax                       ; 0x3963
     mov ax, word [bp - 0x000e]       ; 0x3965
     mov word [cs:bx], ax             ; 0x3968
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x396b
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x396b
     mov es, ax                       ; 0x3970
     mov ax, word [bp - 0x0002]       ; 0x3972
     mov word [cs:bx + 0x2], ax       ; 0x3975
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x3979
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x3979
     mov ds, ax                       ; 0x397d
     mov ax, word [bp + 0xe]          ; 0x397f
     mov bx, 0x140                    ; 0x3982
@@ -165,14 +165,14 @@ dos_write_file_2:
     mov cl, 4                        ; 0x39e0
     shr ax, cl                       ; 0x39e2
     mov word [bp - 0x0002], ax       ; 0x39e4
-    add ax, word [cs:cseg_0391 - IMAGE_BASE] ; 0x39e7
-    cmp ax, word [cs:cseg_01ff - IMAGE_BASE] ; 0x39ec
+    add ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x39e7
+    cmp ax, word [cs:cseg_00ff - IMAGE_BASE] ; 0x39ec
     jbe short @..dos_write_file_2.l13 ; 0x39f1
     jmp near dos_con_loc_SKJM        ; 0x39f3
 @..dos_write_file_2.l13:
-    mov bx, word [cs:cseg_0391 - IMAGE_BASE] ; 0x39f6
+    mov bx, word [cs:cseg_0291 - IMAGE_BASE] ; 0x39f6
     mov word [bp - 0x000e], bx       ; 0x39fb
-    mov word [cs:cseg_0391 - IMAGE_BASE], ax ; 0x39fe
+    mov word [cs:cseg_0291 - IMAGE_BASE], ax ; 0x39fe
     mov bx, data_029b                ; 0x3a02
     mov cx, 0x14                     ; 0x3a05
     xor dx, dx                       ; 0x3a08
@@ -186,9 +186,9 @@ dos_write_file_2:
     jmp near dos_con_loc_NGOQ        ; 0x3a17
 @..dos_write_file_2.l15:
     mov word [bp - 0x000c], dx       ; 0x3a1a
-    mov ax, word [cs:cseg_038f - IMAGE_BASE] ; 0x3a1d
+    mov ax, word [cs:cseg_028f - IMAGE_BASE] ; 0x3a1d
     inc ax                           ; 0x3a21
-    mov word [cs:cseg_038f - IMAGE_BASE], ax ; 0x3a22
+    mov word [cs:cseg_028f - IMAGE_BASE], ax ; 0x3a22
     mov word [cs:bx], ax             ; 0x3a26
     dec ax                           ; 0x3a29
     mov cl, 2                        ; 0x3a2a
@@ -199,7 +199,7 @@ dos_write_file_2:
     mov word [cs:bx], ax             ; 0x3a36
     mov ax, word [bp - 0x0002]       ; 0x3a39
     mov word [cs:bx + 0x2], ax       ; 0x3a3c
-    mov ax, word [cs:cseg_0203 - IMAGE_BASE] ; 0x3a40
+    mov ax, word [cs:cseg_0103 - IMAGE_BASE] ; 0x3a40
     mov es, ax                       ; 0x3a44
     mov ax, word [bp - 0x000e]       ; 0x3a46
     mov di, ax                       ; 0x3a49
@@ -208,9 +208,9 @@ dos_write_file_2:
     shl di, cl                       ; 0x3a51
     mov cl, 0xa                      ; 0x3a53
     shr ax, cl                       ; 0x3a55
-    mov word [cs:cseg_3c8e - IMAGE_BASE], ax ; 0x3a57
+    mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x3a57
     call leaf_loc_NIKG               ; 0x3a5b
-    mov ax, word [cs:cseg_01e5 - IMAGE_BASE] ; 0x3a5e
+    mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x3a5e
     mov ds, ax                       ; 0x3a62
     mov ax, word [bp + 0xe]          ; 0x3a64
     mov bx, 0x140                    ; 0x3a67
@@ -235,8 +235,8 @@ dos_write_file_2:
     rep movsb                        ; 0x3a91
     test di, 0xc000                  ; 0x3a93
     je short @..dos_write_file_2.l17 ; 0x3a97
-    inc word [cs:cseg_3c8e - IMAGE_BASE] ; 0x3a99
-    mov ax, word [cs:cseg_3c8e - IMAGE_BASE] ; 0x3a9e
+    inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3a99
+    mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3a9e
     call leaf_loc_NIKG               ; 0x3aa2
     and di, strict word 0x3fff       ; 0x3aa5
 @..dos_write_file_2.l17:

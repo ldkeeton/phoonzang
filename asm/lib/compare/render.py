@@ -430,7 +430,9 @@ def _virtual_base(binary_data, start_offset):
     An Aztec overlay runs in the host's code segment from ``o_corg``, and its
     code begins after the 14-byte header, so file offset 0 is ``o_corg - 14``.
     An MZ image's CS:0 is its first byte after the header, so file offset 0 is
-    ``-start_offset``.  Raw drivers have no known load address (plan.md D7.0d).
+    ``-start_offset``.  A raw driver keeps ``vstart`` 0 (it is loaded at
+    ``segment:0x100``, which the renderer expresses as a negative
+    ``IMAGE_BASE`` rather than a shifted label space; plan.md D7.6).
     """
     if (start_offset >= 14 and len(binary_data) >= 14
             and binary_data[:2] == b'\xf2\x00'):
@@ -601,7 +603,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                   immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
                   label_defined=None, ds_size=None, host_symbols=None,
-                  host_data_offsets=None):
+                  host_data_offsets=None, load_offset=0):
     """Render the master NASM source and any generated includes.
 
     *host_symbols* is ``(master_file, host_vbase)`` for an overlay with a host:
@@ -691,8 +693,16 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # ``label - IMAGE_BASE`` renders embedded CS pointers as their load
         # offset; IMAGE_BASE is the binary's load offset (header size for MZ).
         out.append('%ifndef IMAGE_BASE')
-        out.append(f'IMAGE_BASE equ 0x{base:04x} + VBASE' if vbase
-                   else f'IMAGE_BASE equ 0x{base:04x}')
+        if load_offset:
+            # A driver's file offset 0 runs at ``CS:0x100``, so the encoded CS
+            # offset is ``file + load_offset`` and ``label - IMAGE_BASE`` (the
+            # label still a file offset, ``org 0``) needs the negative base
+            # (plan.md D7.6).
+            out.append(f'IMAGE_BASE equ {_signed_hex(-load_offset)}')
+        elif vbase:
+            out.append(f'IMAGE_BASE equ 0x{base:04x} + VBASE')
+        else:
+            out.append(f'IMAGE_BASE equ 0x{base:04x}')
         out.append('%endif')
         out.append('')
 

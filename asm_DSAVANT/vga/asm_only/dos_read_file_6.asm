@@ -20,9 +20,9 @@ dos_read_file_6:
     je short @..dos_read_file_6.l1   ; 0x4177
     jmp near @..dos_read_file_6.l4   ; 0x4179
 @..dos_read_file_6.l1:
-    mov ax, word [cs:cseg_0caa - IMAGE_BASE] ; 0x417c
+    mov ax, word [cs:cseg_0baa - IMAGE_BASE] ; 0x417c
     inc ax                           ; 0x4180
-    mov word [cs:cseg_0caa - IMAGE_BASE], ax ; 0x4181
+    mov word [cs:cseg_0baa - IMAGE_BASE], ax ; 0x4181
     mov bx, word [bp - 0x0002]       ; 0x4185
     mov word [cs:bx], ax             ; 0x4188
     dec ax                           ; 0x418b
@@ -31,7 +31,7 @@ dos_read_file_6:
     mov bx, data_0bda                ; 0x4190
     add bx, ax                       ; 0x4193
     mov word [bp - 0x000a], bx       ; 0x4195
-    mov ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x4198
+    mov ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x4198
     mov word [cs:bx], ax             ; 0x419c
     mov ah, 0x42                     ; 0x419f
     mov al, 2                        ; 0x41a1
@@ -47,7 +47,7 @@ dos_read_file_6:
     xor cx, cx                       ; 0x41b9
     mov dx, cx                       ; 0x41bb
     int 0x21 ; DOS seek file (lseek)
-    mov ax, word [cs:cseg_01e9 - IMAGE_BASE] ; 0x41bf
+    mov ax, word [cs:cseg_00e9 - IMAGE_BASE] ; 0x41bf
     mov ds, ax                       ; 0x41c3
     xor dx, dx                       ; 0x41c5
     mov bx, word [bp + 0xc]          ; 0x41c7
@@ -69,12 +69,12 @@ dos_read_file_6:
     shr ax, cl                       ; 0x41ee
     mov bx, word [bp - 0x000a]       ; 0x41f0
     mov word [cs:bx + 0x2], ax       ; 0x41f3
-    add ax, word [cs:cseg_0cac - IMAGE_BASE] ; 0x41f7
+    add ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x41f7
     cmp ax, 0x4180                   ; 0x41fc
     jae short @..dos_read_file_6.l5  ; 0x41ff
-    mov word [cs:cseg_0cac - IMAGE_BASE], ax ; 0x4201
+    mov word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x4201
     mov ax, word [cs:bx]             ; 0x4205
-    add ax, word [cs:cseg_01e1 - IMAGE_BASE] ; 0x4208
+    add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4208
     mov ds, ax                       ; 0x420d
     xor dx, dx                       ; 0x420f
     mov bx, word [bp + 0xc]          ; 0x4211

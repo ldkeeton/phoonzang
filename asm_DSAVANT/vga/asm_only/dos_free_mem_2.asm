@@ -31,7 +31,7 @@ dos_free_mem_2:
     mov ax, word [bp - 0x0002]       ; 0x283a
     mov ds, ax                       ; 0x283d
     xor si, si                       ; 0x283f
-    les di, word [cs:cseg_01f7 - IMAGE_BASE] ; 0x2841
+    les di, word [cs:cseg_00f7 - IMAGE_BASE] ; 0x2841
     mov cx, 0x100                    ; 0x2846
 @..dos_free_mem_2.l3:
     push cx                          ; 0x2849
@@ -81,7 +81,7 @@ dos_free_mem_2:
     or ax, ax                        ; 0x289c
     je short @..dos_free_mem_2.l9    ; 0x289e
     push ax                          ; 0x28a0
-    call far [cs:cseg_01fb - IMAGE_BASE] ; 0x28a1
+    call far [cs:cseg_00fb - IMAGE_BASE] ; 0x28a1
     pop ax                           ; 0x28a6
 @..dos_free_mem_2.l9:
     jmp short @..dos_free_mem_2.l2   ; 0x28a7

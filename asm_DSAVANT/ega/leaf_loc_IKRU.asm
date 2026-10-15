@@ -1,7 +1,7 @@
 ; auto-generated
 leaf_loc_IKRU:
     push ax                          ; 0x4cbe
-    mov bx, cseg_0229 - IMAGE_BASE   ; 0x4cbf
+    mov bx, cseg_0129 - IMAGE_BASE   ; 0x4cbf
     mov cx, 0x14                     ; 0x4cc2
 @..leaf_loc_IKRU.l1:
     cmp ax, word [cs:bx]             ; 0x4cc5

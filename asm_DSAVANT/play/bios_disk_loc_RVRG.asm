@@ -12,7 +12,7 @@ bios_disk_loc_RVRG:
     jne short @..bios_disk_loc_RVRG.l1 ; 0x02a1
     jmp near @..bios_disk_loc_RVRG.l2 ; 0x02a3
 @..bios_disk_loc_RVRG.l1:
-    mov al, byte [cs:cseg_0b7d - IMAGE_BASE] ; 0x02a6
+    mov al, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x02a6
     call leaf_loc_RLRO               ; 0x02aa
     mov byte [bp + 0x15], al         ; 0x02ad
     jmp near @..bios_disk_loc_RVRG.l5 ; 0x02b0
