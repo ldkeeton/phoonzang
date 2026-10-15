@@ -1,0 +1,12 @@
+{
+ "recompute_ms": 7465,
+ "undeclared": 0,
+ "wasted_keys": 696,
+ "writers": {
+  "function_roots": 6,
+  "label_map": 10,
+  "labels": 4,
+  "owners": 2,
+  "split_ranges": 3
+ }
+}

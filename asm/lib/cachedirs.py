@@ -11,6 +11,7 @@ Layout::
     .cache/<project>/addresses/         address inventories
     .cache/<project>/stats/             per-binary stats
     .cache/<project>/traces/            detailed phase traces (.jsonl)
+    .cache/<project>/stages/            pipeline stage ledgers (.jsonl)
     .cache/<project>/stats_baseline/    pinned baseline for stats-diff
     .cache/_all/                        cross-project outputs only
                                         (images, images_layers, summary/delta)
@@ -76,6 +77,10 @@ def baseline_dir(project):
 
 def trace_dir(project):
     return os.path.join(project_cache(project), 'traces')
+
+
+def stages_dir(project):
+    return os.path.join(project_cache(project), 'stages')
 
 
 def list_cached_projects():

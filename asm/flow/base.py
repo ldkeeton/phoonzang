@@ -151,6 +151,7 @@ class MermaidBuilder:
     def __init__(self, title='', direction='TD'):
         self.lines = [f'flowchart {direction}', f'  %% {title}']
         self.node_ids = {}
+        self.n_edges = 0
 
     def _nid(self, key):
         if key not in self.node_ids:
@@ -164,7 +165,7 @@ class MermaidBuilder:
             'round': f'(["{label}"])',
             'stadium': f'(["{label}"])',
             'subroutine': f'[["{label}"]]',
-            'hex': f'{{"{label}"}}',
+            'hex': f'{{{{"{label}"}}}}',
             'diamond': f'{{"{label}"}}',
             'circle': f'(("{label}"))',
             'terminator': f'(["{label}"])',
@@ -182,6 +183,7 @@ class MermaidBuilder:
         dst_id = self.node_ids[dst]
         arrows = {'solid': '-->', 'dotted': '-.->', 'thick': '==>'}
         arrow = arrows.get(style, '-->')
+        self.n_edges += 1
         if label:
             self.lines.append(f'  {src_id} {arrow}|{label}| {dst_id}')
         else:
@@ -192,6 +194,16 @@ class MermaidBuilder:
 
     def subgraph_end(self):
         self.lines.append('  end')
+
+    def class_def(self, name, style):
+        self.lines.append(f'  classDef {name} {style}')
+
+    def assign_class(self, key, name):
+        self.lines.append(f'  class {self._nid(key)} {name}')
+
+    def link_style(self, index, style):
+        """Style the *index*-th edge drawn so far (0-based, in draw order)."""
+        self.lines.append(f'  linkStyle {index} {style}')
 
     def render(self):
         return '\n'.join(self.lines) + '\n'

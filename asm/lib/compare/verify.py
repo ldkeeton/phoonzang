@@ -73,6 +73,7 @@ from lib.compare.records import (
     count_frozen_addrs,
 )
 from lib.compare.render import _build_source, image_geometry
+from lib import stagelog
 from lib.compare.splitting import (
     _select_split_ranges,
     _extend_split_ranges_with_local_tails,
@@ -167,6 +168,11 @@ def _find_trampoline_tables(instructions, binary_data, total):
         seen.add(table_start)
         tables.append((table_start, length, count))
     return tables
+
+
+def _label_records(records):
+    """``{label text: offset}`` for the ledger: label records are what steps add."""
+    return {r['text']: r['offset'] for r in records if r['type'] == 'label'}
 
 
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
@@ -329,6 +335,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     local_targets = _local_branch_targets(
         branch_targets, owners, edge_sources, roots,
     )
+    stagelog.step('verify.ownership', 2, 'recompute', repairs='flow.ownership',
+                  why='runner already derived owners/roots; verify derives them again',
+                  track={'function_roots': roots, 'owners': owners,
+                         'label_map': label_map or {}})
     c_override_lengths = {}
     if c_overrides:
         override_name_to_addr = {}
@@ -345,6 +355,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         label_map, split_functions, func_boundaries, binary_size=total,
         c_override_lengths=c_override_lengths, declared_roots=declared_roots,
     )
+    stagelog.step('verify.split_select', 2,
+                  track={'split_ranges': stagelog.ranges_by_start(split_ranges)})
     fragment_names = {range_name for _, _, range_name in split_ranges}
     local_labels = _compute_local_labels(
         local_targets, owners, roots, label_map, fragment_names,
@@ -660,6 +672,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                                        mem_symbols=mem_symbols, mem_equ=mem_equ,
                                        image_base=roundtrip_base,
                                        table_ranges=table_ranges)
+    stagelog.step('verify.postprocess_data', 2, track={'labels': _label_records(records)},
+                  metrics={'records': len(records)})
 
     # Data-block promotion can reveal instructions after the first local-label
     # pass. Give their in-binary direct-flow destinations symbols too, then
@@ -743,6 +757,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 foreign_label_map, immediate_labels, data_labels=data_labels,
                 mem_symbols=mem_symbols, mem_equ=mem_equ,
             )
+
+    stagelog.step('verify.jump_tables', 2, track={'labels': _label_records(records)},
+                  metrics={'records': len(records)})
 
     # ── Dynamic-address rewrite (plan.md F3) ───────────────────────────────
     # ``cseg_``/``data_`` and unreached ``loc_``-style symbols are emitted as
@@ -845,6 +862,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 emitted_record=record_info,
             )
 
+    stagelog.step('verify.dynamic_addr', 2, 'repair', repairs='names.tag_generics',
+                  why='F3 places a label in the stream where a generic name was an equ',
+                  track={'labels': _label_records(records),
+                         'label_map': label_map or {}},
+                  metrics={'records': len(records)})
+
     if asm_annotations:
         records = _apply_asm_annotations(
             records, asm_annotations, label_map)
@@ -862,6 +885,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         )
 
     _annotate_interrupts(records)
+    stagelog.step('verify.overrides', 2, 'repair', repairs='verify.postprocess_data',
+                  why='a C-overridden routine replaces the asm records (and their local labels)',
+                  track={'labels': _label_records(records)},
+                  metrics={'records': len(records)})
     t4 = time.perf_counter()
 
     emit_class = bytearray(total)
@@ -920,10 +947,18 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         mem_equ, label_map=label_map,
     )
 
+    stagelog.step('verify.pointer_promotion', 2, track={'labels': _label_records(records)},
+                  metrics={'records': len(records)})
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
     split_ranges = _extend_split_ranges_with_local_tails(split_ranges, records)
+    stagelog.step('verify.split_local_tails', 2, 'repair', repairs='verify.split_select',
+                  why='a referenced @.. local block belongs to its root',
+                  track={'split_ranges': stagelog.ranges_by_start(split_ranges)})
     split_ranges = _split_off_foreign_objects(split_ranges, records, owners)
+    stagelog.step('verify.split_foreign', 2, 'repair', repairs='verify.split_select',
+                  why='an unnamed tail (data blob, bare loc_ callee) is not its routine',
+                  track={'split_ranges': stagelog.ranges_by_start(split_ranges)})
 
     if trace is not None and trace.watched_addresses:
         for addr in sorted(trace.watched_addresses):
@@ -986,6 +1021,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         load_offset=getattr(segments, 'load_offset', 0) or 0,
     )
     t6 = time.perf_counter()
+    stagelog.step('verify.build_source', 2,
+                  track={'label_map': label_map or {}},
+                  metrics={'lines': len(src_lines), 'files': len(split_sources)})
 
     frozen = count_frozen_addrs(
         src_lines + '\n' + '\n'.join(split_sources.values())

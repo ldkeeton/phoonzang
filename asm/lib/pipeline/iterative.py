@@ -5,6 +5,7 @@ import time
 import numpy as np
 import polars as pl
 
+from lib import stagelog
 from lib.model import PhaseContext
 from lib.pipeline.phase import Phase
 from lib.pipeline.functional import run_functional, _timings
@@ -53,6 +54,14 @@ def run_iterative(ctx: PhaseContext, phases: list[Phase],
             pos = int((arr > 0.3).sum())
             neg = int((arr < -0.3).sum())
             _timings.append((phase.output_slot, dt, nz, pos))
+            slot = phase.output_slot
+            stagelog.step(
+                f'phase.{slot}' if iteration == 0 else f'phase.{slot}.iter{iteration}',
+                1, 'produce' if iteration == 0 else 'recompute',
+                repairs=None if iteration == 0 else f'phase.{slot}',
+                why=None if iteration == 0 else 'squashed fed back as boundaries',
+                reads=[phase.input_slot], writes=[slot], ms=round(dt * 1000, 1),
+                metrics={'nz': nz, 'pos': pos, 'neg': neg})
             if phase.output_slot not in ctx.report.get('phases', {}):
                 ctx.report.setdefault('phases', {})[phase.output_slot] = {}
             ctx.report['phases'][phase.output_slot] = {

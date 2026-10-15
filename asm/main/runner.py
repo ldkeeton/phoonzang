@@ -51,6 +51,7 @@ from lib.cross_ref import overlay_host_aliases
 from lib.names import (
     rename_generics, set_generic_prefix, startswith_stem, tag_generics,
 )
+from lib import stagelog
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
 from .aztec import _aztec_asm_annotations, _aztec_c_overrides
@@ -79,7 +80,18 @@ from .seeding import (
 )
 
 
-def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
+def process(name, *args, **kwargs):
+    """Run one binary through the pipeline, recording its stage ledger."""
+    project = kwargs.get('project')
+    ledger = stagelog.begin(f'{project}/{name}')
+    try:
+        return _process(name, *args, **kwargs)
+    finally:
+        stagelog.end(ledger, stagelog.ledger_path(project, name)
+                     if project else None)
+
+
+def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
             foreign_label_map=None, export_labels=False, host_model=None,
             foreign_prefix=None, host_data_offsets=None):
     set_generic_prefix('')
@@ -175,6 +187,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     # to distinguish internal branches from function-entry transfers.
     t_flow_disasm_start = time.perf_counter()
     instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
+    stagelog.step('flow.disassemble', 1, metrics={'insns': len(instructions)})
 
     # ── Build label map ──
     label_targets = ctx.label_target_set
@@ -183,11 +196,13 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     if mz_entry_point is not None and mz_entry_point in ctx.code_targets:
         label_targets.add(mz_entry_point)
     label_map = match_patterns(data, label_targets, known_db, max_func_size)
+    stagelog.step('label.match_patterns', 1, track={'label_map': label_map})
 
     trampoline_map = match_trampolines(data, label_targets, known_db)
     for off, lbl in trampoline_map.items():
         if off not in label_map:
             label_map[off] = lbl
+    stagelog.step('label.trampolines', 1, track={'label_map': label_map})
 
     if sidecar_entry:
         fn_offset = sidecar_entry.get('ghidra_base_offset', 0)
@@ -198,6 +213,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
                 continue
             if off in ctx.code_targets:
                 label_map[off] = info.get('name', f'fn_{hex_off}')
+    stagelog.step('label.sidecar_names', 1, track={'label_map': label_map})
 
     # The MZ header determines the executable entry point. Prefer a name
     # discovered by pattern matching or the sidecar; otherwise fall back to
@@ -205,11 +221,13 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     if mz_entry_point is not None and mz_entry_point in ctx.code_targets:
         label_targets.add(mz_entry_point)
         label_map.setdefault(mz_entry_point, 'entry_point')
+    stagelog.step('label.entry_point', 1, track={'label_map': label_map})
 
     # Aztec stack-checked application functions: name pure runtime wrappers
     # after the routine they forward to, and everything else with a callee
     # affinity tag (or a bare app_<addr>).
     _label_app_functions(label_map, ctx, instructions)
+    stagelog.step('label.app_functions', 1, track={'label_map': label_map})
 
     direct_call_targets = {
         address for address, info in ctx.code_targets.items()
@@ -227,11 +245,13 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         function_roots=label_targets, bounded_targets=bounded_targets,
         trace=ctx.trace,
     )
+    stagelog.step('label.categorize', 1, track={'label_map': label_map})
     function_roots = _function_roots(
         label_map, instructions,
         entry_points=(seed.address for seed in ctx.seeds),
         binary_size=len(data), start_offset=start_offset,
     )
+    stagelog.step('flow.function_roots', 1, track={'function_roots': function_roots})
     extra_flow_edges = {
         (table.jmp_addr, target)
         for table in ctx.jump_tables
@@ -247,6 +267,10 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         instructions, function_roots, ctx.branch_edges, extra_flow_edges,
         binary_size=len(data), start_offset=start_offset,
     )
+    stagelog.step('flow.ownership', 1, 'repair', repairs='flow.function_roots',
+                  why='ownership adds and drops roots the first scan guessed',
+                  track={'function_roots': function_roots,
+                         'owners': owners})
     # For the segment dataflow every recovered switch-table arm is a real
     # code entry whose default segment (DS/CS) should be known, even when the
     # table itself failed the strict terminator-based validation.
@@ -261,6 +285,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     )
     ctx.report['segment_flow'] = operand_space_counts(
         instructions, ctx.segment_flow)
+    stagelog.step('flow.segments', 1)
     local_branch_targets = _local_branch_targets(
         ctx.branch_targets | {target for _, target in direct_edges},
         owners, edge_sources, function_roots,
@@ -281,6 +306,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     for off in label_targets:
         if off not in label_map:
             label_map[off] = f'loc_{off:04x}'
+    stagelog.step('label.branch_targets', 1, 'repair', repairs='label.categorize',
+        why='branch targets local to a routine are not labels; the rest get loc_',
+        track={'label_map': label_map})
 
     # A sidecar ``entry_symbol`` names the true entry point for this binary
     # (project-specific; e.g. DSAVANT's ``aztec_begin``).  Make it
@@ -292,6 +320,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
             and mz_entry_point in ctx.code_targets):
         label_targets.add(mz_entry_point)
         label_map[mz_entry_point] = entry_symbol
+    stagelog.step('label.entry_symbol', 1, 'repair', repairs='label.entry_point',
+        why='sidecar entry_symbol is authoritative', track={'label_map': label_map})
 
     ctx.label_map = label_map
 
@@ -312,6 +342,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         # generic ``data_`` namespace).  ``analyze_segments`` seeds any
         # promoted island the walk does not reach.
         instructions = list(disassemble(data, start_offset, bitmap=ctx.bitmap))
+        stagelog.step('flow.reflow', 1, 'recompute', repairs='flow.disassemble',
+            why='post-refine phases promote bytes to code',
+            metrics={'insns': len(instructions)})
         ctx.segment_flow = analyze_segments(
             instructions, ctx.segments, binary_data=data,
             function_roots=set(function_roots),
@@ -328,6 +361,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         stubs={off for off, lbl in trampoline_map.items()
                if label_map.get(off) == lbl},
     )
+    stagelog.step('names.tag_generics', 1, 'repair', repairs='label.categorize',
+        why='address-derived names become content tags',
+        track={'label_map': label_map, 'function_roots': function_roots})
     # A sidecar ``routines`` entry names code by its content tag, so one entry
     # covers every binary that carries that routine.
     routines = (sidecar_entry or {}).get('routines') or {}
@@ -336,6 +372,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
             label_map[off] = routines[label]['name']
             if function_roots.get(off) == label:
                 function_roots[off] = routines[label]['name']
+    stagelog.step('names.sidecar_routines', 1, 'repair', repairs='names.tag_generics',
+        why='sidecar routines rename content tags',
+        track={'label_map': label_map, 'function_roots': function_roots})
 
     if diag_enabled() and _ITERATIVE:
         squashed_arr = ctx.layers['squashed'].to_numpy()
@@ -392,6 +431,8 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
     c_overrides, _entries = _aztec_c_overrides(
         project, name, data, ctx.label_map, out_dir)
     asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map)
+    stagelog.step('aztec.overrides', 1, metrics={'c': len(c_overrides),
+                                         'asm': len(asm_annotations)})
     t_aztec_end = time.perf_counter()
 
     if AZTEC_PREBUILD_ONLY:
@@ -429,6 +470,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         set_generic_prefix(f'{name}_')
         rename_generics(ctx.label_map, function_roots, split_functions,
                         prefix=f'{name}_')
+        stagelog.step('names.export_prefix', 1, 'repair', repairs='names.tag_generics',
+            why='exported host generics get the host name as a prefix',
+            track={'label_map': ctx.label_map, 'function_roots': function_roots})
     # Overlay near calls resolve to host functions: translate each recovered
     # out-of-range target to the host label map so it is symbolized by name
     # (the alias keeps the overlay-space value, so bytes round-trip).
@@ -468,6 +512,7 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         not_pointers=(ctx.sidecar_entry or {}).get('not_pointers', []),
         host_data_offsets=host_data_offsets,
     )
+    stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
     # D7.1: export the host-owned DS names this overlay references so the make
     # layer can hand the union to the host (which declares one recipe per
     # offset).  This is the data analogue of ``--export-labels``.
@@ -652,6 +697,9 @@ def process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offs
         from lib.compare.vendor import _vendor_named_tails
         renamed = _vendor_named_tails(label_map, asm_annotations)
         exported = {a: n for a, n in label_map.items() if a not in renamed}
+        stagelog.step('export.labels', 1, 'cleanup', repairs='verify',
+            why='labels vendored into a C routine are not exported',
+            metrics={'renamed': len(renamed), 'exported': len(exported)})
         write_label_json(exported, json_path)
 
     if _DECOMPILE:

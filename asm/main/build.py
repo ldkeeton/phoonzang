@@ -29,6 +29,7 @@ import json
 import os
 import subprocess
 
+from lib import stagelog
 from lib.cachedirs import labels_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
@@ -114,6 +115,34 @@ def _batch(batch, items):
 
 
 def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
+    """Run the whole project build, recording its level-0 stage ledger."""
+    ledger = stagelog.begin(f'{project}/<project>')
+    try:
+        failed = _build_project(project, run_batch, nasm_batch,
+                                only=only, report=report)
+    finally:
+        from lib.cachedirs import stages_dir
+        stagelog.end(ledger, os.path.join(stages_dir(project),
+                                          f'{project}__project.jsonl'))
+    if only is None:
+        _report_pipeline(project, report)
+    return failed
+
+
+def _report_pipeline(project, report):
+    """Print the stage-ledger headline and refresh ``flow/build_out``."""
+    from flow import generate
+    from flow.graph_stages import headline, write
+    written = write(project)
+    if written is None:
+        return
+    for line in headline(written[1]):
+        report('  ' + line)
+    generate.process_arch(project)
+    generate.process_html(project)
+
+
+def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     """Generate *project*; return the names that failed (empty on success).
 
     *run_batch(items)* takes ``(name, extra_args)`` pairs, generates each binary
@@ -137,6 +166,7 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     report(f'\n=== {project} ({len(bins)} binaries) ===')
 
     cross_refs = detect_cross_refs(app_dir, bins)
+    stagelog.step('project.cross_refs', 0, metrics={'consumers': len(cross_refs)})
     source_names = {src for refs in cross_refs.values() for _, src in refs}
     if cross_refs and only is None:
         report(f'  Cross-binary references detected: {len(cross_refs)} consumers')
@@ -153,7 +183,10 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         report(f'  Processing source: {name}')
         items.append((name, ['--export-labels']))
     failed = _batch(run_batch, items)
+    stagelog.step('project.export_sources', 0, metrics={'sources': len(items)})
     remove_foreign_label_copies(project)
+    stagelog.step('project.remove_foreign_copies', 0, 'cleanup', repairs='project.export_sources',
+        why='a source binary must not keep its own foreign-label copy')
     if failed:
         report(f'{project}: source binary(ies) failed: '
                f'{", ".join(sorted(set(failed)))}')
@@ -161,6 +194,8 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
 
     # 2. so the union step below sees this build's references only
     clear_host_data_exports(project)
+    stagelog.step('project.clear_host_data', 0, 'cleanup', repairs='project.export_sources',
+        why='the union step must see this build\'s references only')
 
     # 3. the consumers
     targets = [n for n in sorted(bins) if n not in source_names]
@@ -173,6 +208,7 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
                f'{", ".join(sorted(set(failed)))}')
         return failed
 
+    stagelog.step('project.consumers', 0, metrics={'consumers': len(targets)})
     copy_assets(app_dir, os.path.join(out_dir, 'build_out'), set())
 
     if only is not None:
@@ -190,18 +226,29 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         if failed:
             report(f'{project}: regenerating {host} with the DS union failed')
             return failed
+        stagelog.step('project.host_regen', 0, 'recompute', repairs='project.export_sources',
+            why='the host is generated twice: once to export labels, again with the overlay DS union')
 
     # 5. one copy of every byte-identical routine, in lib/
     shared = share_identical(out_dir)
     if shared:
         report(f'  Shared lib: {sum(len(v) for v in shared.values())} '
                f'fragments -> {len(shared)} files in lib/')
+    stagelog.step('project.share_identical', 0, 'repair', repairs='project.consumers',
+        why='byte-identical fragments of different binaries collapse into lib/',
+        metrics={'lib_files': len(shared or {}),
+                 'fragments': sum(len(v) for v in (shared or {}).values())})
 
     # 5b. structure report: objects glued onto a routine's file (plan.md §7)
     from lib.compare.cotenancy import scan as scan_cotenancy, summarize
-    report('  ' + summarize(scan_cotenancy(out_dir)))
+    cotenancy = scan_cotenancy(out_dir)
+    report('  ' + summarize(cotenancy))
+    stagelog.step('project.cotenancy', 0, 'measure',
+        metrics={k: cotenancy[k] for k in ('files', 'glued_files', 'co_tenants',
+                                            'code', 'data')})
 
     # 6. assemble
+    stagelog.step('project.assemble', 0)
     return _batch(nasm_batch, [(name, rel) for name, (rel, _s)
                                in sorted(bins.items())])
 
