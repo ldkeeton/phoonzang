@@ -7,7 +7,7 @@ api_idx_0002_IMMM:
     jmp short @..api_idx_0002_IMMM.l2 ; 0x36c9
 @..api_idx_0002_IMMM.l1:
     push word [bp - 0x0002]          ; 0x36cb
-    call loc_1eb4                    ; 0x36ce
+    call loc_ONPP                    ; 0x36ce
     pop cx                           ; 0x36d1
     mov ax, 1                        ; 0x36d2
     push ax                          ; 0x36d5
@@ -24,10 +24,10 @@ api_idx_0002_IMMM:
     push ax                          ; 0x36f1
     call api_idx_005a_PGKO           ; 0x36f2
     pop cx                           ; 0x36f5
-    call loc_2cc7                    ; 0x36f6
+    call loc_RHMS                    ; 0x36f6
     cmp word [bss_90bc], byte 0      ; 0x36f9
     jne short @..api_idx_0002_IMMM.l3 ; 0x36fe
-    call loc_1a16                    ; 0x3700
+    call loc_VJRJ                    ; 0x3700
 @..api_idx_0002_IMMM.l3:
     mov word [bss_90bc], 0           ; 0x3703
     mov word [bss_830a], 0xc         ; 0x3709

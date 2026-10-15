@@ -45,7 +45,7 @@ api_idx_0006_NPVH:
     push word [bss_8464]             ; 0x90f7
     mov ax, 0x90e6                   ; 0x90fb
     push ax                          ; 0x90fe
-    call loc_15ab                    ; 0x90ff
+    call loc_QJUS                    ; 0x90ff
     add sp, byte 6                   ; 0x9102
     mov ax, 0x9136                   ; 0x9105
     push ax                          ; 0x9108

@@ -20,7 +20,7 @@ api_idx_0084_QUKH:
     push ax                          ; 0x3b8f
     call api_idx_0004_LHJI           ; 0x3b90
     pop cx                           ; 0x3b93
-    call loc_3a6a                    ; 0x3b94
+    call loc_VJPM                    ; 0x3b94
 @..api_idx_0084_QUKH.l2:
     cmp byte [bss_956a], 0           ; 0x3b97
     je short @..api_idx_0084_QUKH.l3 ; 0x3b9c
@@ -53,7 +53,7 @@ api_idx_0084_QUKH:
     push ax                          ; 0x3bdd
     lea ax, word [bp - 0x0084]       ; 0x3bde
     push ax                          ; 0x3be2
-    call ds_loc_3aca                 ; 0x3be3
+    call ds_loc_TILJ                 ; 0x3be3
     add sp, byte 4                   ; 0x3be6
     mov word [bp - 0x0002], ax       ; 0x3be9
     cmp ax, 0xa8                     ; 0x3bec

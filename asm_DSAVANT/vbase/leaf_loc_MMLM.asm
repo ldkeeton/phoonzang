@@ -20,9 +20,3 @@ jumptable_5847:
     dw leaf_loc_IPGP - IMAGE_BASE + 0x5055     ; 0x5863
     dw leaf_loc_JPLK - IMAGE_BASE + 0x5055     ; 0x5865
     dw leaf_loc_MMLM - IMAGE_BASE + 0x5055     ; 0x5867
-loc_5869:
-    cmp ax, strict word 0x11         ; 0x5869
-    jae short leaf_loc_IPGP          ; 0x586c
-    xchg bx, ax                      ; 0x586e
-    shl bx, 1                        ; 0x586f
-    jmp [cs:bx - 0x5772]             ; 0x5871

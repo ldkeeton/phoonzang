@@ -175,35 +175,35 @@ api_idx_0038_JORM:
     mov al, byte [bx - 0x77d3]       ; 0x2655
     cbw                              ; 0x2659
     jmp short @..api_idx_0038_JORM.l14 ; 0x265a
-loc_265c:
+loc_SOMS:
     mov word [bp - 0x000a], 0x6a4    ; 0x265c
     mov word [bp - 0x000c], 0x6ea    ; 0x2661
     jmp short @..api_idx_0038_JORM.l15 ; 0x2666
-loc_2668:
+loc_LTJR:
     mov word [bp - 0x000a], 0x708    ; 0x2668
     mov word [bp - 0x000c], 0x6a4    ; 0x266d
     jmp short @..api_idx_0038_JORM.l15 ; 0x2672
-loc_2674:
+loc_NKPL:
     mov word [bp - 0x000a], 0x708    ; 0x2674
     mov word [bp - 0x000c], 0x6ea    ; 0x2679
     jmp short @..api_idx_0038_JORM.l15 ; 0x267e
-loc_2680:
+loc_KUGN:
     mov word [bp - 0x000a], 0x6d6    ; 0x2680
     mov word [bp - 0x000c], 0x6ea    ; 0x2685
     jmp short @..api_idx_0038_JORM.l15 ; 0x268a
 jumptable_268c:
-    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x268c
-    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x268e
-    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x2690
-    dw loc_2668 - IMAGE_BASE + 0x5055          ; 0x2692
-    dw loc_2674 - IMAGE_BASE + 0x5055          ; 0x2694
-    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x2696
-    dw loc_265c - IMAGE_BASE + 0x5055          ; 0x2698
-    dw loc_2674 - IMAGE_BASE + 0x5055          ; 0x269a
-    dw loc_2680 - IMAGE_BASE + 0x5055          ; 0x269c
-    dw loc_2680 - IMAGE_BASE + 0x5055          ; 0x269e
-    dw loc_2668 - IMAGE_BASE + 0x5055          ; 0x26a0
-    dw loc_2680 - IMAGE_BASE + 0x5055          ; 0x26a2
+    dw loc_SOMS - IMAGE_BASE + 0x5055          ; 0x268c
+    dw loc_SOMS - IMAGE_BASE + 0x5055          ; 0x268e
+    dw loc_SOMS - IMAGE_BASE + 0x5055          ; 0x2690
+    dw loc_LTJR - IMAGE_BASE + 0x5055          ; 0x2692
+    dw loc_NKPL - IMAGE_BASE + 0x5055          ; 0x2694
+    dw loc_SOMS - IMAGE_BASE + 0x5055          ; 0x2696
+    dw loc_SOMS - IMAGE_BASE + 0x5055          ; 0x2698
+    dw loc_NKPL - IMAGE_BASE + 0x5055          ; 0x269a
+    dw loc_KUGN - IMAGE_BASE + 0x5055          ; 0x269c
+    dw loc_KUGN - IMAGE_BASE + 0x5055          ; 0x269e
+    dw loc_LTJR - IMAGE_BASE + 0x5055          ; 0x26a0
+    dw loc_KUGN - IMAGE_BASE + 0x5055          ; 0x26a2
 @..api_idx_0038_JORM.l14:
     cmp ax, strict word 0xc          ; 0x26a4
     jae short @..api_idx_0038_JORM.l15 ; 0x26a7
@@ -289,7 +289,7 @@ jumptable_268c:
     push word [bp + 0x6]             ; 0x2757
     mov ax, 0x93f0                   ; 0x275a
     push ax                          ; 0x275d
-    call loc_2472                    ; 0x275e
+    call loc_JJJH                    ; 0x275e
     add sp, byte 4                   ; 0x2761
     mov ax, 0                        ; 0x2764
     ret                              ; 0x2767

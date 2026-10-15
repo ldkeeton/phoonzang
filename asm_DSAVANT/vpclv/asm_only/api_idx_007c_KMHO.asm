@@ -84,13 +84,13 @@ api_idx_007c_KMHO:
     mov al, byte [bp - 0x0058]       ; 0x0635
     sub ah, ah                       ; 0x0638
     push ax                          ; 0x063a
-    call ds_loc_3a77                 ; 0x063b
+    call ds_loc_PQIO                 ; 0x063b
     add sp, byte 4                   ; 0x063e
     mov ax, 0                        ; 0x0641
     push ax                          ; 0x0644
     mov ax, 0x2d                     ; 0x0645
     push ax                          ; 0x0648
-    call ds_loc_3a77                 ; 0x0649
+    call ds_loc_PQIO                 ; 0x0649
     add sp, byte 4                   ; 0x064c
     lea ax, word [bp - 0x0058]       ; 0x064f
     push ax                          ; 0x0652
@@ -387,7 +387,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x0908
     mov ax, 0x20                     ; 0x0909
     push ax                          ; 0x090c
-    call ds_loc_3a77                 ; 0x090d
+    call ds_loc_PQIO                 ; 0x090d
     add sp, byte 4                   ; 0x0910
     mov ax, 0                        ; 0x0913
     push ax                          ; 0x0916
@@ -422,7 +422,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x095e
     mov ax, 0x20                     ; 0x095f
     push ax                          ; 0x0962
-    call ds_loc_3a77                 ; 0x0963
+    call ds_loc_PQIO                 ; 0x0963
     add sp, byte 4                   ; 0x0966
     mov ax, 0                        ; 0x0969
     push ax                          ; 0x096c
@@ -463,7 +463,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x09c2
     mov ax, 0x20                     ; 0x09c3
     push ax                          ; 0x09c6
-    call ds_loc_3a77                 ; 0x09c7
+    call ds_loc_PQIO                 ; 0x09c7
     add sp, byte 4                   ; 0x09ca
     mov ax, 0                        ; 0x09cd
     push ax                          ; 0x09d0
@@ -489,7 +489,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x0a02
     mov ax, 0x2f                     ; 0x0a03
     push ax                          ; 0x0a06
-    call ds_loc_3a77                 ; 0x0a07
+    call ds_loc_PQIO                 ; 0x0a07
     add sp, byte 4                   ; 0x0a0a
     lea ax, word [bp - 0x0058]       ; 0x0a0d
     push ax                          ; 0x0a10
@@ -533,7 +533,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x0a6c
     mov ax, 0x20                     ; 0x0a6d
     push ax                          ; 0x0a70
-    call ds_loc_3a77                 ; 0x0a71
+    call ds_loc_PQIO                 ; 0x0a71
     add sp, byte 4                   ; 0x0a74
     mov ax, 0                        ; 0x0a77
     push ax                          ; 0x0a7a
@@ -588,7 +588,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x0af1
     mov ax, 0x28                     ; 0x0af2
     push ax                          ; 0x0af5
-    call ds_loc_3a77                 ; 0x0af6
+    call ds_loc_PQIO                 ; 0x0af6
     add sp, byte 4                   ; 0x0af9
     lea ax, word [bp - 0x0058]       ; 0x0afc
     push ax                          ; 0x0aff
@@ -608,7 +608,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x0b23
     mov ax, 0x29                     ; 0x0b24
     push ax                          ; 0x0b27
-    call ds_loc_3a77                 ; 0x0b28
+    call ds_loc_PQIO                 ; 0x0b28
     add sp, byte 4                   ; 0x0b2b
     mov ax, 0                        ; 0x0b2e
     push ax                          ; 0x0b31
@@ -638,7 +638,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x0b69
     mov ax, 0x20                     ; 0x0b6a
     push ax                          ; 0x0b6d
-    call ds_loc_3a77                 ; 0x0b6e
+    call ds_loc_PQIO                 ; 0x0b6e
     add sp, byte 4                   ; 0x0b71
     lea ax, word [bp - 0x0058]       ; 0x0b74
     push ax                          ; 0x0b77
@@ -701,7 +701,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x0c03
     mov ax, 0x20                     ; 0x0c04
     push ax                          ; 0x0c07
-    call ds_loc_3a77                 ; 0x0c08
+    call ds_loc_PQIO                 ; 0x0c08
     add sp, byte 4                   ; 0x0c0b
     lea ax, word [bp - 0x0058]       ; 0x0c0e
     push ax                          ; 0x0c11
@@ -725,7 +725,7 @@ api_idx_007c_KMHO:
     push ax                          ; 0x0c3c
     mov ax, 0x2f                     ; 0x0c3d
     push ax                          ; 0x0c40
-    call ds_loc_3a77                 ; 0x0c41
+    call ds_loc_PQIO                 ; 0x0c41
     add sp, byte 4                   ; 0x0c44
     lea ax, word [bp - 0x0058]       ; 0x0c47
     push ax                          ; 0x0c4a
@@ -797,7 +797,7 @@ api_idx_007c_KMHO:
     mov al, byte [bp - 0x0006]       ; 0x0cec
     sub ah, ah                       ; 0x0cef
     push ax                          ; 0x0cf1
-    call ds_loc_3a77                 ; 0x0cf2
+    call ds_loc_PQIO                 ; 0x0cf2
     add sp, byte 4                   ; 0x0cf5
     inc word [bp - 0x0004]           ; 0x0cf8
 @..api_idx_007c_KMHO.l10:
@@ -857,7 +857,7 @@ api_idx_007c_KMHO:
     mov al, byte [bx + 0x92c]        ; 0x0d93
     sub ah, ah                       ; 0x0d97
     push ax                          ; 0x0d99
-    call ds_loc_3a77                 ; 0x0d9a
+    call ds_loc_PQIO                 ; 0x0d9a
     add sp, byte 4                   ; 0x0d9d
     mov ax, word [bp - 0x0008]       ; 0x0da0
     shl ax, 1                        ; 0x0da3
@@ -873,67 +873,3 @@ api_idx_007c_KMHO:
     jmp near @..api_idx_007c_KMHO.l11 ; 0x0dbc
 @..api_idx_007c_KMHO.l13:
     ret                              ; 0x0dbf
-loc_0dc0:
-    mov ax, 0                        ; 0x0dc0
-    call aztec_csav                  ; 0x0dc3
-    push word [bp + 0xc]             ; 0x0dc6
-    mov ax, word [bp + 0x6]          ; 0x0dc9
-    dec ax                           ; 0x0dcc
-    push ax                          ; 0x0dcd
-    mov ax, word [bp + 0x8]          ; 0x0dce
-    inc ax                           ; 0x0dd1
-    push ax                          ; 0x0dd2
-    mov ax, word [bp + 0x6]          ; 0x0dd3
-    dec ax                           ; 0x0dd6
-    push ax                          ; 0x0dd7
-    mov ax, word [bp + 0x4]          ; 0x0dd8
-    dec ax                           ; 0x0ddb
-    push ax                          ; 0x0ddc
-    call thunk_7                     ; 0x0ddd
-    add sp, byte 0x0a                ; 0x0de0
-    push word [bp + 0xc]             ; 0x0de3
-    mov ax, word [bp + 0xa]          ; 0x0de6
-    inc ax                           ; 0x0de9
-    push ax                          ; 0x0dea
-    mov ax, word [bp + 0x8]          ; 0x0deb
-    inc ax                           ; 0x0dee
-    push ax                          ; 0x0def
-    mov ax, word [bp + 0x6]          ; 0x0df0
-    dec ax                           ; 0x0df3
-    push ax                          ; 0x0df4
-    mov ax, word [bp + 0x8]          ; 0x0df5
-    inc ax                           ; 0x0df8
-    push ax                          ; 0x0df9
-    call thunk_7                     ; 0x0dfa
-    add sp, byte 0x0a                ; 0x0dfd
-    push word [bp + 0xc]             ; 0x0e00
-    mov ax, word [bp + 0xa]          ; 0x0e03
-    inc ax                           ; 0x0e06
-    push ax                          ; 0x0e07
-    mov ax, word [bp + 0x8]          ; 0x0e08
-    inc ax                           ; 0x0e0b
-    push ax                          ; 0x0e0c
-    mov ax, word [bp + 0xa]          ; 0x0e0d
-    inc ax                           ; 0x0e10
-    push ax                          ; 0x0e11
-    mov ax, word [bp + 0x4]          ; 0x0e12
-    dec ax                           ; 0x0e15
-    push ax                          ; 0x0e16
-    call thunk_7                     ; 0x0e17
-    add sp, byte 0x0a                ; 0x0e1a
-    push word [bp + 0xc]             ; 0x0e1d
-    mov ax, word [bp + 0xa]          ; 0x0e20
-    inc ax                           ; 0x0e23
-    push ax                          ; 0x0e24
-    mov ax, word [bp + 0x4]          ; 0x0e25
-    dec ax                           ; 0x0e28
-    push ax                          ; 0x0e29
-    mov ax, word [bp + 0x6]          ; 0x0e2a
-    dec ax                           ; 0x0e2d
-    push ax                          ; 0x0e2e
-    mov ax, word [bp + 0x4]          ; 0x0e2f
-    dec ax                           ; 0x0e32
-    push ax                          ; 0x0e33
-    call thunk_7                     ; 0x0e34
-    add sp, byte 0x0a                ; 0x0e37
-    ret                              ; 0x0e3a

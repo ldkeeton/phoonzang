@@ -10,4 +10,4 @@ leaf_loc_RPLN:
     mov bx, ax                       ; 0x3290
     pop ax                           ; 0x3292
     mov byte [bx - 0x6ddb], al       ; 0x3293
-    jmp near loc_3387                ; 0x3297
+    jmp near loc_JULJ                ; 0x3297

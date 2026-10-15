@@ -94,15 +94,15 @@ api_idx_0002_SMPQ:
     mov ax, 0                        ; 0x8c6c
     push ax                          ; 0x8c6f
     push word [bp + 0x4]             ; 0x8c70
-    call loc_6f79                    ; 0x8c73
+    call loc_HTNP                    ; 0x8c73
     add sp, byte 4                   ; 0x8c76
     mov ax, 0x11                     ; 0x8c79
     push ax                          ; 0x8c7c
-    call loc_72c2                    ; 0x8c7d
+    call loc_JJLM                    ; 0x8c7d
     pop cx                           ; 0x8c80
     mov ax, 0xf                      ; 0x8c81
     push ax                          ; 0x8c84
-    call loc_72c2                    ; 0x8c85
+    call loc_JJLM                    ; 0x8c85
     pop cx                           ; 0x8c88
     mov ax, 0                        ; 0x8c89
     push ax                          ; 0x8c8c
@@ -112,5 +112,5 @@ api_idx_0002_SMPQ:
     push word [bss_a5b2]             ; 0x8c95
     call thunk_12                    ; 0x8c99
     add sp, byte 8                   ; 0x8c9c
-    call loc_85f0                    ; 0x8c9f
+    call loc_SKUK                    ; 0x8c9f
     ret                              ; 0x8ca2

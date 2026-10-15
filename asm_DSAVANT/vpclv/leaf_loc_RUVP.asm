@@ -9,4 +9,4 @@ leaf_loc_RUVP:
     mov word [bp - 0x0014], 2        ; 0x49e1
     mov word [bp - 0x0016], 0x1d     ; 0x49e6
     mov word [bp - 0x0018], 3        ; 0x49eb
-    jmp near loc_4b67                ; 0x49f0
+    jmp near loc_KMTR                ; 0x49f0

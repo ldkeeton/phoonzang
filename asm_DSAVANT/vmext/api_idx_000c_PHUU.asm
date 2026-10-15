@@ -2,7 +2,7 @@
 api_idx_000c_PHUU:
     mov ax, 0xfff4                   ; 0x09be
     call aztec_csav                  ; 0x09c1
-    call loc_0860                    ; 0x09c4
+    call loc_VJUI                    ; 0x09c4
     mov ax, word [bss_8f3e]          ; 0x09c7
     mov cx, 6                        ; 0x09ca
     shl ax, cl                       ; 0x09cd
@@ -47,7 +47,7 @@ api_idx_000c_PHUU:
     mov ax, 1                        ; 0x0a2c
     push ax                          ; 0x0a2f
     push word [bp + 0x4]             ; 0x0a30
-    call loc_0636                    ; 0x0a33
+    call loc_GOOG                    ; 0x0a33
     add sp, byte 4                   ; 0x0a36
     push word [bss_8f44]             ; 0x0a39
     push word [bss_8f46]             ; 0x0a3d
@@ -63,7 +63,7 @@ api_idx_000c_PHUU:
     je short @..api_idx_000c_PHUU.l3 ; 0x0a55
     push word [bp - 0x000c]          ; 0x0a57
     push word [bp - 0x000a]          ; 0x0a5a
-    call loc_0836                    ; 0x0a5d
+    call loc_GNOT                    ; 0x0a5d
     add sp, byte 4                   ; 0x0a60
     mov ax, 1                        ; 0x0a63
     ret                              ; 0x0a66
@@ -94,7 +94,7 @@ api_idx_000c_PHUU:
 @..api_idx_000c_PHUU.l4:
     push word [bp - 0x000c]          ; 0x0aa3
     push word [bp - 0x000a]          ; 0x0aa6
-    call loc_0836                    ; 0x0aa9
+    call loc_GNOT                    ; 0x0aa9
     add sp, byte 4                   ; 0x0aac
     mov ax, 1                        ; 0x0aaf
     ret                              ; 0x0ab2
@@ -115,7 +115,7 @@ api_idx_000c_PHUU:
     mov word [bp - 0x0006], ax       ; 0x0ad6
     cmp word [bss_918a], byte 0      ; 0x0ad9
     jne short @..api_idx_000c_PHUU.l6 ; 0x0ade
-    call loc_0860                    ; 0x0ae0
+    call loc_VJUI                    ; 0x0ae0
 @..api_idx_000c_PHUU.l6:
     cmp word [bss_918a], byte 0      ; 0x0ae3
     jne short @..api_idx_000c_PHUU.l7 ; 0x0ae8
@@ -125,7 +125,7 @@ api_idx_000c_PHUU:
 @..api_idx_000c_PHUU.l7:
     push word [bp - 0x000c]          ; 0x0af1
     push word [bp - 0x000a]          ; 0x0af4
-    call loc_0836                    ; 0x0af7
+    call loc_GNOT                    ; 0x0af7
     add sp, byte 4                   ; 0x0afa
     mov ax, 1                        ; 0x0afd
     ret                              ; 0x0b00
@@ -144,7 +144,7 @@ api_idx_000c_PHUU:
     je short @..api_idx_000c_PHUU.l9 ; 0x0b22
     push word [bp - 0x000c]          ; 0x0b24
     push word [bp - 0x000a]          ; 0x0b27
-    call loc_0836                    ; 0x0b2a
+    call loc_GNOT                    ; 0x0b2a
     add sp, byte 4                   ; 0x0b2d
     mov ax, 1                        ; 0x0b30
     ret                              ; 0x0b33

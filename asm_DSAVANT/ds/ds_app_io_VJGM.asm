@@ -28,7 +28,7 @@ ds_app_io_VJGM: ; Aztec csav frame=0x0012
     push ax                          ; 0x2135
     mov ax, 0x12                     ; 0x2136
     push ax                          ; 0x2139
-    call ds_loc_3a77                 ; 0x213a
+    call ds_loc_PQIO                 ; 0x213a
     add sp, byte 4                   ; 0x213d
     mov ax, 0x9c                     ; 0x2140
     push ax                          ; 0x2143
@@ -40,7 +40,7 @@ ds_app_io_VJGM: ; Aztec csav frame=0x0012
     push ax                          ; 0x2151
     mov ax, 0x13                     ; 0x2152
     push ax                          ; 0x2155
-    call ds_loc_3a77                 ; 0x2156
+    call ds_loc_PQIO                 ; 0x2156
     add sp, byte 4                   ; 0x2159
     mov ax, 0x9c                     ; 0x215c
     push ax                          ; 0x215f
@@ -52,7 +52,7 @@ ds_app_io_VJGM: ; Aztec csav frame=0x0012
     push ax                          ; 0x216d
     mov ax, 0x14                     ; 0x216e
     push ax                          ; 0x2171
-    call ds_loc_3a77                 ; 0x2172
+    call ds_loc_PQIO                 ; 0x2172
     add sp, byte 4                   ; 0x2175
     mov ax, 0xa3                     ; 0x2178
     push ax                          ; 0x217b

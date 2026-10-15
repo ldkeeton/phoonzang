@@ -18,24 +18,28 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)     ; 0x003e ; o_dsize: initialized data size
     dw 0x02b8                             ; o_bss: uninitialized data size
-    dw loc_4e9d - IMAGE_BASE + __zres_end ; 0x9ee4 ; o_entry: overlay entry offset (CS)
+    dw loc_NPPP - IMAGE_BASE + __zres_end ; 0x9ee4 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
-loc_000e:
+loc_OOJT:
     mov ax, 0                        ; 0x000e
     call aztec_csav                  ; 0x0011
     cmp word [bss_830a], byte 0x0c   ; 0x0014
-    jne short @..loc_000e.l1         ; 0x0019
+    jne short @..loc_OOJT.l1         ; 0x0019
     call api_idx_0004_IPJL           ; 0x001b
-@..loc_000e.l1:
+@..loc_OOJT.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
 %include "lib/api_idx_002a_IHRK.asm"     ; 0x0022
 
-%include "vpops/api_idx_000a_SPQS.asm"     ; 0x00cb
+%include "lib/api_idx_000a_SPQS.asm"     ; 0x00cb
 
-%include "vpops/api_idx_0006_NSNR.asm"     ; 0x018d
+%include "lib/loc_LKKH.asm"              ; 0x0149
+
+%include "lib/api_idx_0006_NSNR.asm"     ; 0x018d
+
+%include "lib/loc_HGQP.asm"              ; 0x02af
 
 %include "vpops/api_idx_0054_OMTV.asm"     ; 0x035f
 
@@ -49,7 +53,17 @@ loc_000e:
 
 %include "vpops/api_idx_000e_GVON.asm"     ; 0x0d77
 
+%include "lib/loc_MLTS.asm"              ; 0x0e6c
+
+%include "vpops/loc_NTTP.asm"              ; 0x0ec8
+
 %include "vpops/api_idx_0006_LHQR.asm"     ; 0x0f27
+
+%include "vpops/loc_VVQL.asm"              ; 0x1076
+
+%include "vpops/loc_JRRT.asm"              ; 0x108d
+
+%include "vpops/loc_OSMV.asm"              ; 0x111b
 
 %include "vpops/api_idx_000c_UHNR.asm"     ; 0x178a
 
@@ -61,7 +75,13 @@ loc_000e:
 
 %include "vpops/api_idx_000a_ULVM.asm"     ; 0x1a0d
 
+%include "lib/loc_OOVL.asm"              ; 0x1a4b
+
+%include "vpops/loc_JIPH.asm"              ; 0x1ad7
+
 %include "vpops/api_idx_000c_PVOR.asm"     ; 0x1b78
+
+%include "vpops/loc_GVVJ.asm"              ; 0x1c11
 
 %include "vpops/api_idx_0044_HTUI.asm"     ; 0x1ca2
 
@@ -70,6 +90,8 @@ loc_000e:
 %include "lib/api_idx_0018_IRSN.asm"     ; 0x29f2
 
 %include "vpops/api_idx_0004_JRIG.asm"     ; 0x2aef
+
+%include "vpops/loc_TSPU.asm"              ; 0x2c51
 
 %include "vpops/api_idx_0038_NNPL.asm"     ; 0x2c92
 
@@ -89,7 +111,7 @@ loc_000e:
 
 %include "vpops/api_idx_0004_IPJL.asm"     ; 0x4e3b
 
-loc_4e9d:
+loc_NPPP:
     pop word [dseg_90d4]             ; 0x4e9d
     pop cx                           ; 0x4ea1
     mov word [dseg_90d0], sp         ; 0x4ea2
@@ -101,11 +123,11 @@ loc_4e9d:
     mov cx, 0x938e                   ; 0x4eb6
     sub cx, di                       ; 0x4eb9
     shr cx, 1                        ; 0x4ebb
-    je short @..loc_4e9d.l1          ; 0x4ebd
+    je short @..loc_NPPP.l1          ; 0x4ebd
     sub ax, ax                       ; 0x4ebf
     rep stosw                        ; 0x4ec1
-@..loc_4e9d.l1:
-    call loc_000e                    ; 0x4ec3
+@..loc_NPPP.l1:
+    call loc_OOJT                    ; 0x4ec3
     mov bp, word [dseg_90d2]         ; 0x4ec6
     mov sp, word [dseg_90d0]         ; 0x4eca
     mov si, word [dseg_90cc]         ; 0x4ece

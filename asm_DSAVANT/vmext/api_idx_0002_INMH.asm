@@ -8,7 +8,7 @@ api_idx_0002_INMH:
     push word [bss_8f42]             ; 0x0b5b
     push word [bss_8f3e]             ; 0x0b5f
     push word [bss_82ee]             ; 0x0b63
-    call loc_06c3                    ; 0x0b67
+    call loc_LKSR                    ; 0x0b67
     add sp, byte 0x0c                ; 0x0b6a
     mov word [bp - 0x0002], ax       ; 0x0b6d
     cmp ax, strict word 2            ; 0x0b70

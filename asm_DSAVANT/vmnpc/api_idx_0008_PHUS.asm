@@ -118,7 +118,7 @@ api_idx_0008_PHUS:
     call api_idx_0054_HSIQ           ; 0x5679
     add sp, byte 6                   ; 0x567c
     push word [bp - 0x0004]          ; 0x567f
-    call loc_5497                    ; 0x5682
+    call loc_JPTL                    ; 0x5682
     pop cx                           ; 0x5685
     test ax, ax                      ; 0x5686
     je short @..api_idx_0008_PHUS.l7 ; 0x5688

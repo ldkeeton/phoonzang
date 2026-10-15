@@ -174,7 +174,7 @@ api_idx_0094_USLJ:
     mov ax, 0xffff                   ; 0x356d
     ret                              ; 0x3570
 @..api_idx_0094_USLJ.l11:
-    call loc_108d                    ; 0x3571
+    call loc_JRRT                    ; 0x3571
     mov ax, 0x248                    ; 0x3574
     imul word [bp + 0x4]             ; 0x3577
     add ax, 0x5bf4                   ; 0x357a

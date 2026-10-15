@@ -7,4 +7,4 @@ io_loc_GJHR:
     jae short @..io_loc_GJHR.l1      ; 0x12d5
     mov byte [bx + 0x5e2f], 2        ; 0x12d7
 @..io_loc_GJHR.l1:
-    jmp short loc_1325               ; 0x12dc
+    jmp short loc_TNQQ               ; 0x12dc

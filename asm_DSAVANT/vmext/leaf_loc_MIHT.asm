@@ -12,4 +12,4 @@ leaf_loc_MIHT:
     mov bx, ax                       ; 0x1d5d
     pop ax                           ; 0x1d5f
     mov word [bx - 0x6dba], ax       ; 0x1d60
-    jmp near loc_1e16                ; 0x1d64
+    jmp near loc_SGRK                ; 0x1d64

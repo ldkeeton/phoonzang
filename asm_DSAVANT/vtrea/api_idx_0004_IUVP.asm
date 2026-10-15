@@ -6,7 +6,7 @@ api_idx_0004_IUVP:
     jle short @..api_idx_0004_IUVP.l1 ; 0x0a75
     mov ax, 0                        ; 0x0a77
     push ax                          ; 0x0a7a
-    call loc_0a1a                    ; 0x0a7b
+    call loc_RGHK                    ; 0x0a7b
     pop cx                           ; 0x0a7e
 @..api_idx_0004_IUVP.l1:
     mov bx, word [bp + 0x4]          ; 0x0a7f
@@ -18,7 +18,7 @@ api_idx_0004_IUVP:
     mov ax, 2                        ; 0x0a8c
     push ax                          ; 0x0a8f
     push bx                          ; 0x0a90
-    call ds_loc_3aca                 ; 0x0a91
+    call ds_loc_TILJ                 ; 0x0a91
     add sp, byte 4                   ; 0x0a94
     inc ax                           ; 0x0a97
     mov cx, 2                        ; 0x0a98

@@ -29,10 +29,10 @@ api_idx_0006_KLOT:
     je short @..api_idx_0006_KLOT.l4 ; 0x0fce
     ret                              ; 0x0fd0
 @..api_idx_0006_KLOT.l4:
-    call loc_0f68                    ; 0x0fd1
+    call loc_IPIR                    ; 0x0fd1
     not ax                           ; 0x0fd4
     push ax                          ; 0x0fd6
-    call loc_0ea6                    ; 0x0fd7
+    call loc_MSIQ                    ; 0x0fd7
     pop cx                           ; 0x0fda
     jmp short @..api_idx_0006_KLOT.l1 ; 0x0fdb
 @..api_idx_0006_KLOT.l5:

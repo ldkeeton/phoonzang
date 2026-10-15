@@ -22,7 +22,7 @@ api_idx_00b8_JIVQ:
     push word [bss_91d4]             ; 0x1511
     lea ax, word [bp - 0x0068]       ; 0x1515
     push ax                          ; 0x1518
-    call loc_0eb2                    ; 0x1519
+    call loc_UQVI                    ; 0x1519
     add sp, byte 8                   ; 0x151c
     ret                              ; 0x151f
 @..api_idx_00b8_JIVQ.l1:
@@ -238,7 +238,7 @@ jumptable_1fa3_case_4:
     push word [bss_91d4]             ; 0x16eb
     lea ax, word [bp - 0x0068]       ; 0x16ef
     push ax                          ; 0x16f2
-    call loc_0eb2                    ; 0x16f3
+    call loc_UQVI                    ; 0x16f3
     add sp, byte 8                   ; 0x16f6
     lea ax, word [bp - 0x0068]       ; 0x16f9
     push ax                          ; 0x16fc
@@ -367,7 +367,7 @@ jumptable_1fa3_case_4:
     push word [bss_91d4]             ; 0x1805
     lea ax, word [bp - 0x0068]       ; 0x1809
     push ax                          ; 0x180c
-    call loc_0eb2                    ; 0x180d
+    call loc_UQVI                    ; 0x180d
     add sp, byte 8                   ; 0x1810
 @..api_idx_00b8_JIVQ.l17:
     jmp near @..api_idx_00b8_JIVQ.l61 ; 0x1813

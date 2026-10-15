@@ -7,34 +7,34 @@ api_idx_00fa_HKNG:
     mov word [bp - 0x0008], 0        ; 0x1a6d
     mov ax, word [bp + 0x4]          ; 0x1a72
     jmp short @..api_idx_00fa_HKNG.l1 ; 0x1a75
-loc_1a77:
+loc_UJKK_1a77:
     add word [bp - 0x0008], byte 0x19 ; 0x1a77
-loc_1a7b:
+loc_UJKK_1a7b:
     add word [bp - 0x0008], byte 0x19 ; 0x1a7b
-loc_1a7f:
+loc_GUPV_1a7f:
     add word [bp - 0x0006], byte 0x19 ; 0x1a7f
     add word [bp - 0x0008], byte 0x19 ; 0x1a83
-loc_1a87:
+loc_GUPV_1a87:
     add word [bp - 0x0006], byte 0x19 ; 0x1a87
     add word [bp - 0x0008], byte 0x19 ; 0x1a8b
-loc_1a8f:
+loc_GQTI_1a8f:
     add word [bp - 0x0004], byte 0x19 ; 0x1a8f
     add word [bp - 0x0006], byte 0x19 ; 0x1a93
-loc_1a97:
+loc_GQTI_1a97:
     add word [bp - 0x0004], byte 0x19 ; 0x1a97
     add word [bp - 0x0006], byte 0x19 ; 0x1a9b
-loc_1a9f:
+loc_GNSS:
     add word [bp - 0x0004], byte 0x32 ; 0x1a9f
     jmp short @..api_idx_00fa_HKNG.l2 ; 0x1aa3
 jumptable_1aa5:
     dw jumptable_1aa5_case_0 - IMAGE_BASE + 0x5055 ; 0x1aa5
-    dw loc_1a9f - IMAGE_BASE + 0x5055          ; 0x1aa7
-    dw loc_1a97 - IMAGE_BASE + 0x5055          ; 0x1aa9
-    dw loc_1a8f - IMAGE_BASE + 0x5055          ; 0x1aab
-    dw loc_1a87 - IMAGE_BASE + 0x5055          ; 0x1aad
-    dw loc_1a7f - IMAGE_BASE + 0x5055          ; 0x1aaf
-    dw loc_1a7b - IMAGE_BASE + 0x5055          ; 0x1ab1
-    dw loc_1a77 - IMAGE_BASE + 0x5055          ; 0x1ab3
+    dw loc_GNSS - IMAGE_BASE + 0x5055          ; 0x1aa7
+    dw loc_GQTI_1a97 - IMAGE_BASE + 0x5055     ; 0x1aa9
+    dw loc_GQTI_1a8f - IMAGE_BASE + 0x5055     ; 0x1aab
+    dw loc_GUPV_1a87 - IMAGE_BASE + 0x5055     ; 0x1aad
+    dw loc_GUPV_1a7f - IMAGE_BASE + 0x5055     ; 0x1aaf
+    dw loc_UJKK_1a7b - IMAGE_BASE + 0x5055     ; 0x1ab1
+    dw loc_UJKK_1a77 - IMAGE_BASE + 0x5055     ; 0x1ab3
 @..api_idx_00fa_HKNG.l1:
     cmp ax, strict word 8            ; 0x1ab5
     jae short @..api_idx_00fa_HKNG.l2 ; 0x1ab8
@@ -229,38 +229,3 @@ jumptable_1aa5_case_0:
     call ds_app_file_UMGJ            ; 0x1c78
     add sp, byte 4                   ; 0x1c7b
     ret                              ; 0x1c7e
-loc_1c7f:
-    mov ax, 0                        ; 0x1c7f
-    call aztec_csav                  ; 0x1c82
-    cmp word [bp + 0x8], byte 1      ; 0x1c85
-    jne short @..loc_1c7f.l3         ; 0x1c89
-    cmp word [bp + 0x6], byte 0      ; 0x1c8b
-    jle short @..loc_1c7f.l1         ; 0x1c8f
-    mov ax, word [bp + 0x4]          ; 0x1c91
-    sub word [bp + 0x6], ax          ; 0x1c94
-    jmp short @..loc_1c7f.l2         ; 0x1c97
-@..loc_1c7f.l1:
-    mov ax, 0                        ; 0x1c99
-    sub ax, word [bp + 0x4]          ; 0x1c9c
-    cmp ax, word [bp + 0x6]          ; 0x1c9f
-    jge short @..loc_1c7f.l2         ; 0x1ca2
-    mov word [bp + 0x6], ax          ; 0x1ca4
-@..loc_1c7f.l2:
-    jmp short @..loc_1c7f.l5         ; 0x1ca7
-@..loc_1c7f.l3:
-    cmp word [bp + 0x8], byte 0      ; 0x1ca9
-    jne short @..loc_1c7f.l5         ; 0x1cad
-    cmp word [bp + 0x6], byte 0      ; 0x1caf
-    jge short @..loc_1c7f.l4         ; 0x1cb3
-    mov ax, word [bp + 0x4]          ; 0x1cb5
-    add word [bp + 0x6], ax          ; 0x1cb8
-    jmp short @..loc_1c7f.l5         ; 0x1cbb
-@..loc_1c7f.l4:
-    mov ax, word [bp + 0x6]          ; 0x1cbd
-    cmp ax, word [bp + 0x4]          ; 0x1cc0
-    jge short @..loc_1c7f.l5         ; 0x1cc3
-    mov ax, word [bp + 0x4]          ; 0x1cc5
-    mov word [bp + 0x6], ax          ; 0x1cc8
-@..loc_1c7f.l5:
-    mov ax, word [bp + 0x6]          ; 0x1ccb
-    ret                              ; 0x1cce

@@ -4,4 +4,4 @@ leaf_loc_JRQS:
     mov bp, sp                       ; 0x382a
     mov ah, 0x40                     ; 0x382c
     mov bx, word [bp + 0x4]          ; 0x382e
-    jmp short @..aztec_write.use_dos ; 0x3831
+    jmp short loc_NKTJ               ; 0x3831

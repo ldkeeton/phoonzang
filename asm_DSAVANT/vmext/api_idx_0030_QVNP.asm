@@ -257,7 +257,7 @@ api_idx_0030_QVNP:
     push ax                          ; 0x40f6
     lea ax, word [bp - 0x000a]       ; 0x40f7
     push ax                          ; 0x40fa
-    call loc_1963                    ; 0x40fb
+    call loc_UKLN                    ; 0x40fb
     add sp, byte 0x0e                ; 0x40fe
     mov word [bss_9b08], 5           ; 0x4101
     mov ax, word [bss_8f46]          ; 0x4107

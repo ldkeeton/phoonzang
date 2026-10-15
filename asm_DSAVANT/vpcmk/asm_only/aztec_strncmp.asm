@@ -17,20 +17,20 @@ aztec_strncmp:
 @..aztec_strncmp.l1:
     lodsw                            ; 0x7001
     scasw                            ; 0x7002
-    jne short loc_701d               ; 0x7003
+    jne short loc_NPKI               ; 0x7003
     test al, al                      ; 0x7005
-    je short loc_7017                ; 0x7007
+    je short loc_TSVL                ; 0x7007
     test ah, ah                      ; 0x7009
     loopne @..aztec_strncmp.l1       ; 0x700b
-    je short loc_7017                ; 0x700d
+    je short loc_TSVL                ; 0x700d
 @..aztec_strncmp.l2:
     test dl, 1                       ; 0x700f
-    je short loc_7017                ; 0x7012
+    je short loc_TSVL                ; 0x7012
     cmpsb                            ; 0x7014
-    jne short loc_702a               ; 0x7015
-loc_7017:
+    jne short loc_PJUL               ; 0x7015
+loc_TSVL:
     sub ax, ax                       ; 0x7017
-loc_7019:
+loc_HQUP:
     pop di                           ; 0x7019
     pop si                           ; 0x701a
     pop bp                           ; 0x701b

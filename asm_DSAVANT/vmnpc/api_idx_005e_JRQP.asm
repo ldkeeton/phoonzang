@@ -113,7 +113,7 @@ api_idx_005e_JRQP:
     push ax                          ; 0x60d8
     lea ax, word [bp - 0x005e]       ; 0x60d9
     push ax                          ; 0x60dc
-    call loc_130b                    ; 0x60dd
+    call loc_TJUO                    ; 0x60dd
     add sp, byte 8                   ; 0x60e0
     mov word [bp - 0x000a], 0        ; 0x60e3
 @..api_idx_005e_JRQP.l7:
@@ -170,7 +170,7 @@ api_idx_005e_JRQP:
     mov ax, 0xf                      ; 0x6152
     push ax                          ; 0x6155
     push word [bp + 0x4]             ; 0x6156
-    call loc_8662                    ; 0x6159
+    call loc_VRUN_8662               ; 0x6159
     add sp, byte 6                   ; 0x615c
     cmp word [bp - 0x0008], byte 0xff ; 0x615f
     je short @..api_idx_005e_JRQP.l13 ; 0x6163
@@ -180,7 +180,7 @@ api_idx_005e_JRQP:
     shl ax, 1                        ; 0x616f
     mov bx, ax                       ; 0x6171
     push word [bx - 0x632c]          ; 0x6173
-    call loc_5497                    ; 0x6177
+    call loc_JPTL                    ; 0x6177
     pop cx                           ; 0x617a
     test ax, ax                      ; 0x617b
     jne short @..api_idx_005e_JRQP.l13 ; 0x617d
@@ -302,7 +302,7 @@ api_idx_005e_JRQP:
     push ax                          ; 0x6285
     lea ax, word [bp - 0x005e]       ; 0x6286
     push ax                          ; 0x6289
-    call loc_130b                    ; 0x628a
+    call loc_TJUO                    ; 0x628a
     add sp, byte 8                   ; 0x628d
     cmp word [bss_9136], byte 0x30   ; 0x6290
     je short @..api_idx_005e_JRQP.l20 ; 0x6295
@@ -327,7 +327,7 @@ api_idx_005e_JRQP:
     sub ax, cx                       ; 0x62be
     push ax                          ; 0x62c0
     push word [bp + 0x4]             ; 0x62c1
-    call loc_85f9                    ; 0x62c4
+    call loc_MQOK                    ; 0x62c4
     add sp, byte 6                   ; 0x62c7
 @..api_idx_005e_JRQP.l20:
     mov ax, 0                        ; 0x62ca
@@ -366,7 +366,7 @@ api_idx_005e_JRQP:
     push ax                          ; 0x630f
     lea ax, word [bp - 0x005e]       ; 0x6310
     push ax                          ; 0x6313
-    call loc_130b                    ; 0x6314
+    call loc_TJUO                    ; 0x6314
     add sp, byte 8                   ; 0x6317
     mov ax, 0                        ; 0x631a
     ret                              ; 0x631d

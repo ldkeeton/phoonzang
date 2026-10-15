@@ -7,7 +7,7 @@ api_idx_000a_SUST:
     push word [bp + 0x8]             ; 0x28ed
     push word [bp + 0xe]             ; 0x28f0
     push word [bp + 0x4]             ; 0x28f3
-    call loc_2553                    ; 0x28f6
+    call loc_VOJJ                    ; 0x28f6
     add sp, byte 6                   ; 0x28f9
     mov word [bp - 0x0008], ax       ; 0x28fc
     jmp short @..api_idx_000a_SUST.l2 ; 0x28ff
@@ -20,7 +20,7 @@ api_idx_000a_SUST:
     push word [bp + 0xa]             ; 0x290d
     push word [bp + 0xe]             ; 0x2910
     push word [bp + 0x4]             ; 0x2913
-    call loc_2553                    ; 0x2916
+    call loc_VOJJ                    ; 0x2916
     add sp, byte 6                   ; 0x2919
     mov word [bp - 0x000a], ax       ; 0x291c
     jmp short @..api_idx_000a_SUST.l4 ; 0x291f
@@ -37,7 +37,7 @@ api_idx_000a_SUST:
 @..api_idx_000a_SUST.l5:
     mov ax, 0xc8d                    ; 0x2937
     push ax                          ; 0x293a
-    call loc_24c2                    ; 0x293b
+    call loc_VTRL                    ; 0x293b
     pop cx                           ; 0x293e
 @..api_idx_000a_SUST.l6:
     lea ax, word [bp - 0x0004]       ; 0x293f

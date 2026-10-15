@@ -31,7 +31,7 @@ api_idx_0010_MRKK:
     push ax                          ; 0x5094
     mov ax, 0x162                    ; 0x5095
     push ax                          ; 0x5098
-    call loc_1ca0                    ; 0x5099
+    call loc_JUMH                    ; 0x5099
     add sp, byte 0x1a                ; 0x509c
     mov word [bp - 0x0006], ax       ; 0x509f
     cmp word [bp - 0x0006], byte 0   ; 0x50a2

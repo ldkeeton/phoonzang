@@ -25,7 +25,7 @@ leaf_loc_JLRK:
     mov ax, 0xd                      ; 0x308e
 @..leaf_loc_JLRK.l1:
     mov word [bp - 0x000a], ax       ; 0x3091
-    jmp short loc_30b2               ; 0x3094
+    jmp short loc_PUVS               ; 0x3094
 jumptable_3096:
     dw leaf_loc_JPTP - IMAGE_BASE + 0x5055     ; 0x3096
     dw leaf_loc_JPOV - IMAGE_BASE + 0x5055     ; 0x3098
@@ -36,13 +36,13 @@ jumptable_3096:
 @..leaf_loc_LKSI.l39:
     sub ax, strict word 0xa          ; 0x30a2
     cmp ax, strict word 6            ; 0x30a5
-    jae short loc_30b2               ; 0x30a8
+    jae short loc_PUVS               ; 0x30a8
     xchg bx, ax                      ; 0x30aa
     shl bx, 1                        ; 0x30ab
     jmp [cs:bx - 0x7f23]             ; 0x30ad
-loc_30b2:
+loc_PUVS:
     cmp word [bp - 0x000c], byte 0xff ; 0x30b2
-    je short loc_30f3                ; 0x30b6
+    je short loc_NUGN                ; 0x30b6
     mov ax, 3                        ; 0x30b8
     push ax                          ; 0x30bb
     mov ax, 1                        ; 0x30bc
@@ -67,5 +67,5 @@ loc_30b2:
     push word [bp - 0x000c]          ; 0x30ea
     call api_idx_0004_NSSR           ; 0x30ed
     add sp, byte 0x1c                ; 0x30f0
-loc_30f3:
+loc_NUGN:
     ret                              ; 0x30f3

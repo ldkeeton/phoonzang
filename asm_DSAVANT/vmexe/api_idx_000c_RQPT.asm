@@ -279,7 +279,7 @@ jumptable_735e_case_0:
     push ax                          ; 0x71dd
     mov ax, 0xc94                    ; 0x71de
     push ax                          ; 0x71e1
-    call loc_6edc                    ; 0x71e2
+    call loc_ORPN                    ; 0x71e2
     add sp, byte 4                   ; 0x71e5
     mov ax, 5                        ; 0x71e8
     imul word [bp - 0x000a]          ; 0x71eb
@@ -303,7 +303,7 @@ jumptable_735e_case_4:
     push ax                          ; 0x7215
     mov ax, 0xc9b                    ; 0x7216
     push ax                          ; 0x7219
-    call loc_6edc                    ; 0x721a
+    call loc_ORPN                    ; 0x721a
     add sp, byte 4                   ; 0x721d
     mov ax, 5                        ; 0x7220
     imul word [bp - 0x000a]          ; 0x7223
@@ -327,7 +327,7 @@ jumptable_735e_case_1:
     push ax                          ; 0x724d
     mov ax, 0xc95                    ; 0x724e
     push ax                          ; 0x7251
-    call loc_6edc                    ; 0x7252
+    call loc_ORPN                    ; 0x7252
     add sp, byte 4                   ; 0x7255
     push word [bp - 0x000a]          ; 0x7258
     mov ax, 2                        ; 0x725b
@@ -363,7 +363,7 @@ jumptable_735e_case_2:
     push ax                          ; 0x729f
     mov ax, 0xc96                    ; 0x72a0
     push ax                          ; 0x72a3
-    call loc_6edc                    ; 0x72a4
+    call loc_ORPN                    ; 0x72a4
     add sp, byte 4                   ; 0x72a7
     push word [bp - 0x000a]          ; 0x72aa
     mov ax, 4                        ; 0x72ad
@@ -397,7 +397,7 @@ jumptable_735e_case_3:
     push ax                          ; 0x72ed
     mov ax, 0xc97                    ; 0x72ee
     push ax                          ; 0x72f1
-    call loc_6edc                    ; 0x72f2
+    call loc_ORPN                    ; 0x72f2
     add sp, byte 4                   ; 0x72f5
     mov ax, 5                        ; 0x72f8
     imul word [bp - 0x000a]          ; 0x72fb
@@ -421,7 +421,7 @@ jumptable_735e_case_5:
     push ax                          ; 0x7324
     mov ax, 0xc9c                    ; 0x7325
     push ax                          ; 0x7328
-    call loc_6edc                    ; 0x7329
+    call loc_ORPN                    ; 0x7329
     add sp, byte 4                   ; 0x732c
     push word [bp - 0x000a]          ; 0x732f
     push word [bp - 0x000a]          ; 0x7332
@@ -500,7 +500,7 @@ jumptable_735e:
     mov ax, word [bp - 0x0002]       ; 0x73de
     cmp ax, strict word 3            ; 0x73e1
     jl short @..api_idx_000c_RQPT.l35 ; 0x73e4
-    call loc_1a35                    ; 0x73e6
+    call loc_MGLK                    ; 0x73e6
     cmp word [bp - 0x000c], byte 0   ; 0x73e9
     jne short @..api_idx_000c_RQPT.l34 ; 0x73ed
     mov word [bss_830a], 0xe         ; 0x73ef

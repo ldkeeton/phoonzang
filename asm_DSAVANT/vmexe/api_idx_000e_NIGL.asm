@@ -25,7 +25,7 @@ api_idx_000e_NIGL:
     push word [bss_8464]             ; 0x5fde
     mov ax, 0x90e6                   ; 0x5fe2
     push ax                          ; 0x5fe5
-    call loc_15ab                    ; 0x5fe6
+    call loc_QJUS                    ; 0x5fe6
     add sp, byte 6                   ; 0x5fe9
     mov ax, 0x9136                   ; 0x5fec
     push ax                          ; 0x5fef
@@ -153,7 +153,7 @@ api_idx_000e_NIGL:
     mov ax, 0xe                      ; 0x6115
     push ax                          ; 0x6118
     push word [bss_8462]             ; 0x6119
-    call loc_1bf4                    ; 0x611d
+    call loc_VRUN                    ; 0x611d
     add sp, byte 6                   ; 0x6120
 @..api_idx_000e_NIGL.l6:
     mov ax, 0x64                     ; 0x6123

@@ -21,7 +21,7 @@ dos_file_loc_SLHU:
     mov ax, word [cs:bx]             ; 0x484a
     mov word [cs:bx], 0              ; 0x484d
     call leaf_loc_IMUV               ; 0x4852
-    call loc_1392                    ; 0x4855
+    call loc_PQGR                    ; 0x4855
     jmp near @..dos_file_loc_SLHU.l8 ; 0x4858
 @..dos_file_loc_SLHU.l1:
     mov word [bp - 0x0002], ax       ; 0x485b

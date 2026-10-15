@@ -23,5 +23,3 @@ dos_con_loc_TKGI:
     db 'CACHEAREA out of MAZE slots.', 0
     db 0x0a, 0x24
 
-cseg_4440:
-    db 0x00, 0x00

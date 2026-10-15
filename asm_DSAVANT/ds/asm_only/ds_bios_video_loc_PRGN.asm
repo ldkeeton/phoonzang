@@ -11,9 +11,3 @@ ds_bios_video_loc_PRGN:
     xor ah, ah                       ; 0x30d7
     int 0x10 ; BIOS video
     ret                              ; 0x30db
-cseg_30dc:
-    db 0xb8, 0x0b
-cseg_30de:
-    db 0x01, 0x00
-cseg_30e0:
-    db 0x2f, 0x75

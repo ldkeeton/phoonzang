@@ -2,7 +2,7 @@
 api_idx_000c_HVJT:
     mov ax, 0xfff4                   ; 0x0cb5
     call aztec_csav                  ; 0x0cb8
-    call loc_0140                    ; 0x0cbb
+    call loc_KNIO                    ; 0x0cbb
     les bx, word [dseg_0002]         ; 0x0cbe
     mov ax, word [es:bx]             ; 0x0cc2
     mov dx, word [es:bx + 0x2]       ; 0x0cc5
@@ -23,7 +23,7 @@ api_idx_000c_HVJT:
     mov word [bss_830a], 7           ; 0x0cf1
     ret                              ; 0x0cf7
 @..api_idx_000c_HVJT.l1:
-    call loc_09cb                    ; 0x0cf8
+    call loc_RKOS                    ; 0x0cf8
     mov ax, 0x10                     ; 0x0cfb
     push ax                          ; 0x0cfe
     mov ax, word [bss_830c]          ; 0x0cff

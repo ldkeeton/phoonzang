@@ -5,4 +5,4 @@ leaf_loc_ROLV:
     add ax, word [bp + 0xe]          ; 0x1d92
     mov bx, ax                       ; 0x1d95
     mov byte [bx - 0x6e52], 3        ; 0x1d97
-    jmp short loc_1e16               ; 0x1d9c
+    jmp short loc_SGRK               ; 0x1d9c

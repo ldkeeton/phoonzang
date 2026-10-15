@@ -134,7 +134,7 @@ jumptable_2ebe_case_0:
     mov ax, 0                        ; 0x2d28
     push ax                          ; 0x2d2b
     push word [bp + 0x4]             ; 0x2d2c
-    call loc_2a32                    ; 0x2d2f
+    call loc_PPJS                    ; 0x2d2f
     add sp, byte 8                   ; 0x2d32
     jmp near @..api_idx_0052_LVIU.l4 ; 0x2d35
 jumptable_2ebe_case_2:
@@ -153,7 +153,7 @@ jumptable_2ebe_case_2:
     mov ax, 0                        ; 0x2d53
     push ax                          ; 0x2d56
     push word [bp + 0x4]             ; 0x2d57
-    call loc_2a32                    ; 0x2d5a
+    call loc_PPJS                    ; 0x2d5a
     add sp, byte 8                   ; 0x2d5d
 jumptable_2ebe_case_3:
     mov ax, 0x248                    ; 0x2d60
@@ -171,7 +171,7 @@ jumptable_2ebe_case_3:
     mov ax, 0                        ; 0x2d7b
     push ax                          ; 0x2d7e
     push word [bp + 0x4]             ; 0x2d7f
-    call loc_2a32                    ; 0x2d82
+    call loc_PPJS                    ; 0x2d82
     add sp, byte 8                   ; 0x2d85
     jmp near @..api_idx_0052_LVIU.l4 ; 0x2d88
 jumptable_2ebe_case_1:
@@ -182,7 +182,7 @@ jumptable_2ebe_case_1:
     mov ax, 0                        ; 0x2d93
     push ax                          ; 0x2d96
     push word [bp + 0x4]             ; 0x2d97
-    call loc_2a32                    ; 0x2d9a
+    call loc_PPJS                    ; 0x2d9a
     add sp, byte 8                   ; 0x2d9d
     jmp near @..api_idx_0052_LVIU.l4 ; 0x2da0
 jumptable_2ebe_case_5:
@@ -193,7 +193,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dab
     push ax                          ; 0x2dae
     push word [bp + 0x4]             ; 0x2daf
-    call loc_2a32                    ; 0x2db2
+    call loc_PPJS                    ; 0x2db2
     add sp, byte 8                   ; 0x2db5
     mov ax, 0x19                     ; 0x2db8
     push ax                          ; 0x2dbb
@@ -202,7 +202,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dc0
     push ax                          ; 0x2dc3
     push word [bp + 0x4]             ; 0x2dc4
-    call loc_2a32                    ; 0x2dc7
+    call loc_PPJS                    ; 0x2dc7
     add sp, byte 8                   ; 0x2dca
     mov ax, 0x19                     ; 0x2dcd
     push ax                          ; 0x2dd0
@@ -211,7 +211,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dd5
     push ax                          ; 0x2dd8
     push word [bp + 0x4]             ; 0x2dd9
-    call loc_2a32                    ; 0x2ddc
+    call loc_PPJS                    ; 0x2ddc
     add sp, byte 8                   ; 0x2ddf
     mov ax, 0x19                     ; 0x2de2
     push ax                          ; 0x2de5
@@ -220,7 +220,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dea
     push ax                          ; 0x2ded
     push word [bp + 0x4]             ; 0x2dee
-    call loc_2a32                    ; 0x2df1
+    call loc_PPJS                    ; 0x2df1
     add sp, byte 8                   ; 0x2df4
     mov ax, 0x19                     ; 0x2df7
     push ax                          ; 0x2dfa
@@ -229,7 +229,7 @@ jumptable_2ebe_case_5:
     mov ax, 0                        ; 0x2dff
     push ax                          ; 0x2e02
     push word [bp + 0x4]             ; 0x2e03
-    call loc_2a32                    ; 0x2e06
+    call loc_PPJS                    ; 0x2e06
     add sp, byte 8                   ; 0x2e09
     jmp near @..api_idx_0052_LVIU.l4 ; 0x2e0c
 jumptable_2ebe_case_6:
@@ -240,7 +240,7 @@ jumptable_2ebe_case_6:
     mov ax, 0                        ; 0x2e17
     push ax                          ; 0x2e1a
     push word [bp + 0x4]             ; 0x2e1b
-    call loc_2a32                    ; 0x2e1e
+    call loc_PPJS                    ; 0x2e1e
     add sp, byte 8                   ; 0x2e21
     mov ax, 0xa                      ; 0x2e24
     push ax                          ; 0x2e27
@@ -249,7 +249,7 @@ jumptable_2ebe_case_6:
     mov ax, 0                        ; 0x2e2c
     push ax                          ; 0x2e2f
     push word [bp + 0x4]             ; 0x2e30
-    call loc_2a32                    ; 0x2e33
+    call loc_PPJS                    ; 0x2e33
     add sp, byte 8                   ; 0x2e36
     mov ax, 0xffec                   ; 0x2e39
     push ax                          ; 0x2e3c
@@ -258,7 +258,7 @@ jumptable_2ebe_case_6:
     mov ax, 0                        ; 0x2e41
     push ax                          ; 0x2e44
     push word [bp + 0x4]             ; 0x2e45
-    call loc_2a32                    ; 0x2e48
+    call loc_PPJS                    ; 0x2e48
     add sp, byte 8                   ; 0x2e4b
     jmp near @..api_idx_0052_LVIU.l4 ; 0x2e4e
 jumptable_2ebe_case_8:
@@ -269,7 +269,7 @@ jumptable_2ebe_case_8:
     mov ax, 0                        ; 0x2e59
     push ax                          ; 0x2e5c
     push word [bp + 0x4]             ; 0x2e5d
-    call loc_2a32                    ; 0x2e60
+    call loc_PPJS                    ; 0x2e60
     add sp, byte 8                   ; 0x2e63
     mov ax, 0x14                     ; 0x2e66
     push ax                          ; 0x2e69
@@ -278,7 +278,7 @@ jumptable_2ebe_case_8:
     mov ax, 0                        ; 0x2e6e
     push ax                          ; 0x2e71
     push word [bp + 0x4]             ; 0x2e72
-    call loc_2a32                    ; 0x2e75
+    call loc_PPJS                    ; 0x2e75
     add sp, byte 8                   ; 0x2e78
 jumptable_2ebe_case_9:
     mov ax, 0x14                     ; 0x2e7b
@@ -288,7 +288,7 @@ jumptable_2ebe_case_9:
     mov ax, 0                        ; 0x2e83
     push ax                          ; 0x2e86
     push word [bp + 0x4]             ; 0x2e87
-    call loc_2a32                    ; 0x2e8a
+    call loc_PPJS                    ; 0x2e8a
     add sp, byte 8                   ; 0x2e8d
     jmp short @..api_idx_0052_LVIU.l4 ; 0x2e90
 jumptable_2ebe_case_10:
@@ -299,7 +299,7 @@ jumptable_2ebe_case_10:
     mov ax, 0                        ; 0x2e9a
     push ax                          ; 0x2e9d
     push word [bp + 0x4]             ; 0x2e9e
-    call loc_2a32                    ; 0x2ea1
+    call loc_PPJS                    ; 0x2ea1
     add sp, byte 8                   ; 0x2ea4
     mov ax, 0xf                      ; 0x2ea7
     push ax                          ; 0x2eaa
@@ -308,7 +308,7 @@ jumptable_2ebe_case_10:
     mov ax, 0                        ; 0x2eaf
     push ax                          ; 0x2eb2
     push word [bp + 0x4]             ; 0x2eb3
-    call loc_2a32                    ; 0x2eb6
+    call loc_PPJS                    ; 0x2eb6
     add sp, byte 8                   ; 0x2eb9
     jmp short @..api_idx_0052_LVIU.l4 ; 0x2ebc
 jumptable_2ebe:
@@ -342,7 +342,7 @@ jumptable_2ebe:
     mov ax, 0                        ; 0x2ef8
     push ax                          ; 0x2efb
     push word [bp + 0x4]             ; 0x2efc
-    call loc_2a32                    ; 0x2eff
+    call loc_PPJS                    ; 0x2eff
     add sp, byte 8                   ; 0x2f02
     mov ax, 5                        ; 0x2f05
     push ax                          ; 0x2f08
@@ -351,7 +351,7 @@ jumptable_2ebe:
     mov ax, 0                        ; 0x2f0d
     push ax                          ; 0x2f10
     push word [bp + 0x4]             ; 0x2f11
-    call loc_2a32                    ; 0x2f14
+    call loc_PPJS                    ; 0x2f14
     add sp, byte 8                   ; 0x2f17
 @..api_idx_0052_LVIU.l5:
     mov ax, 0x248                    ; 0x2f1a
@@ -366,7 +366,7 @@ jumptable_2ebe:
     mov ax, 0                        ; 0x2f31
     push ax                          ; 0x2f34
     push word [bp + 0x4]             ; 0x2f35
-    call loc_2a32                    ; 0x2f38
+    call loc_PPJS                    ; 0x2f38
     add sp, byte 8                   ; 0x2f3b
 @..api_idx_0052_LVIU.l6:
     mov ax, 0x248                    ; 0x2f3e
@@ -381,7 +381,7 @@ jumptable_2ebe:
     mov ax, 0                        ; 0x2f55
     push ax                          ; 0x2f58
     push word [bp + 0x4]             ; 0x2f59
-    call loc_2a32                    ; 0x2f5c
+    call loc_PPJS                    ; 0x2f5c
     add sp, byte 8                   ; 0x2f5f
     mov ax, 5                        ; 0x2f62
     push ax                          ; 0x2f65
@@ -390,7 +390,7 @@ jumptable_2ebe:
     mov ax, 0                        ; 0x2f6a
     push ax                          ; 0x2f6d
     push word [bp + 0x4]             ; 0x2f6e
-    call loc_2a32                    ; 0x2f71
+    call loc_PPJS                    ; 0x2f71
     add sp, byte 8                   ; 0x2f74
 @..api_idx_0052_LVIU.l7:
     mov ax, 0x248                    ; 0x2f77
@@ -409,7 +409,7 @@ jumptable_2ebe:
     mov ax, 0                        ; 0x2f97
     push ax                          ; 0x2f9a
     push word [bp + 0x4]             ; 0x2f9b
-    call loc_2a32                    ; 0x2f9e
+    call loc_PPJS                    ; 0x2f9e
     add sp, byte 8                   ; 0x2fa1
     mov ax, 0x248                    ; 0x2fa4
     imul word [bp + 0x4]             ; 0x2fa7
@@ -425,7 +425,7 @@ jumptable_2ebe:
     mov ax, 0                        ; 0x2fbd
     push ax                          ; 0x2fc0
     push word [bp + 0x4]             ; 0x2fc1
-    call loc_2a32                    ; 0x2fc4
+    call loc_PPJS                    ; 0x2fc4
     add sp, byte 8                   ; 0x2fc7
 @..api_idx_0052_LVIU.l8:
     mov word [bp - 0x0004], 0        ; 0x2fca

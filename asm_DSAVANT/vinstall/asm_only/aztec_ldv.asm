@@ -18,12 +18,12 @@ aztec_ldv:
     xor di, 1 ; flip sign of result ; 0x3431
 @..aztec_ldv.sec_ok:
     call aztec_lud                   ; 0x3435
-@..aztec_ldv.chksign:
+loc_OMIK:
     test di, di                      ; 0x3438
-    je short @..aztec_ldv.posres     ; 0x343a
+    je short loc_SRRP                ; 0x343a
     neg dx                           ; 0x343c
     neg ax                           ; 0x343e
     sbb dx, byte 0                   ; 0x3440
-@..aztec_ldv.posres:
+loc_SRRP:
     pop di                           ; 0x3443
     ret                              ; 0x3444

@@ -495,7 +495,7 @@ api_idx_00c2_LINN:
     imul word [bp - 0x0002]          ; 0x5992
     add ax, word [bp - 0x000a]       ; 0x5995
     push ax                          ; 0x5998
-    call loc_1c25                    ; 0x5999
+    call loc_RIRS                    ; 0x5999
     add sp, byte 0x0a                ; 0x599c
     mov ax, word [bp - 0x000c]       ; 0x599f
     add ax, strict word 0xa          ; 0x59a2
@@ -533,7 +533,7 @@ api_idx_00c2_LINN:
     imul word [bp - 0x0002]          ; 0x59e8
     add ax, word [bp - 0x000a]       ; 0x59eb
     push ax                          ; 0x59ee
-    call loc_1c25                    ; 0x59ef
+    call loc_RIRS                    ; 0x59ef
     add sp, byte 0x0a                ; 0x59f2
 @..api_idx_00c2_LINN.l20:
     mov ax, 1                        ; 0x59f5
@@ -1048,7 +1048,7 @@ api_idx_00c2_LINN:
     lea ax, word [bp - 0x002c]       ; 0x5ead
     push ax                          ; 0x5eb0
     push word [bp + 0x4]             ; 0x5eb1
-    call loc_70ca                    ; 0x5eb4
+    call loc_KQMP                    ; 0x5eb4
     add sp, byte 8                   ; 0x5eb7
     cmp ax, strict word 0xffff       ; 0x5eba
     jne short @..api_idx_00c2_LINN.l58 ; 0x5ebd
@@ -1180,7 +1180,7 @@ api_idx_00c2_LINN:
     mov ax, 0                        ; 0x5fe3
     push ax                          ; 0x5fe6
     push dx                          ; 0x5fe7
-    call loc_40b7                    ; 0x5fe8
+    call loc_RPNL                    ; 0x5fe8
     add sp, byte 4                   ; 0x5feb
     mov word [bp - 0x001a], 2        ; 0x5fee
 @..api_idx_00c2_LINN.l69:
@@ -1200,7 +1200,7 @@ api_idx_00c2_LINN:
     mov ax, 0                        ; 0x601a
     push ax                          ; 0x601d
     push dx                          ; 0x601e
-    call loc_40b7                    ; 0x601f
+    call loc_RPNL                    ; 0x601f
     add sp, byte 4                   ; 0x6022
     mov word [bp - 0x001a], 2        ; 0x6025
 @..api_idx_00c2_LINN.l71:

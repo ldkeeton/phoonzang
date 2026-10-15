@@ -17,4 +17,4 @@ leaf_loc_TUPL:
     mov al, byte [bp - 0x000e]       ; 0x12a2
     mov byte [bx + 0x5d5f], al       ; 0x12a5
 @..leaf_loc_TUPL.l2:
-    jmp near loc_1325                ; 0x12a9
+    jmp near loc_TNQQ                ; 0x12a9

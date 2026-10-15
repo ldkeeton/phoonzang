@@ -93,19 +93,19 @@ api_idx_0002_PHMJ:
     mov ax, 0                        ; 0x8858
     push ax                          ; 0x885b
     push word [bp + 0x4]             ; 0x885c
-    call loc_6f79                    ; 0x885f
+    call loc_HTNP                    ; 0x885f
     add sp, byte 4                   ; 0x8862
     mov ax, 0x11                     ; 0x8865
     push ax                          ; 0x8868
-    call loc_72c2                    ; 0x8869
+    call loc_JJLM                    ; 0x8869
     pop cx                           ; 0x886c
     mov ax, 0x10                     ; 0x886d
     push ax                          ; 0x8870
-    call loc_72c2                    ; 0x8871
+    call loc_JJLM                    ; 0x8871
     pop cx                           ; 0x8874
     mov ax, 0xf                      ; 0x8875
     push ax                          ; 0x8878
-    call loc_72c2                    ; 0x8879
+    call loc_JJLM                    ; 0x8879
     pop cx                           ; 0x887c
-    call loc_85f0                    ; 0x887d
+    call loc_SKUK                    ; 0x887d
     ret                              ; 0x8880

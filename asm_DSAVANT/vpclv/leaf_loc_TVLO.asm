@@ -9,4 +9,4 @@ leaf_loc_TVLO:
     mov word [bp - 0x0014], 1        ; 0x49c0
     mov word [bp - 0x0016], 0x1e     ; 0x49c5
     mov word [bp - 0x0018], 1        ; 0x49ca
-    jmp near loc_4b67                ; 0x49cf
+    jmp near loc_KMTR                ; 0x49cf

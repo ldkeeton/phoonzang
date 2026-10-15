@@ -275,7 +275,7 @@ jumptable_3341:
     push word [bp + 0x4]             ; 0x338e
     mov ax, 0x90e6                   ; 0x3391
     push ax                          ; 0x3394
-    call loc_15ab                    ; 0x3395
+    call loc_QJUS                    ; 0x3395
     add sp, byte 6                   ; 0x3398
     mov ax, 2                        ; 0x339b
     push ax                          ; 0x339e

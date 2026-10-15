@@ -14,7 +14,7 @@ api_idx_0006_PJKL:
     jae short @..api_idx_0006_PJKL.l1 ; 0x20b9
     push word [bp + 0x6]             ; 0x20bb
     push word [bp + 0x4]             ; 0x20be
-    call loc_1f5d                    ; 0x20c1
+    call loc_QVNQ                    ; 0x20c1
     add sp, byte 4                   ; 0x20c4
     test ax, ax                      ; 0x20c7
     je short @..api_idx_0006_PJKL.l2 ; 0x20c9
@@ -161,7 +161,7 @@ api_idx_0006_PJKL:
     push word [bp + 0x8]             ; 0x2215
     push word [bp + 0x6]             ; 0x2218
     push word [bp + 0x4]             ; 0x221b
-    call loc_1e35                    ; 0x221e
+    call loc_UONR                    ; 0x221e
     add sp, byte 0x0a                ; 0x2221
     jmp short @..api_idx_0006_PJKL.l12 ; 0x2224
 @..api_idx_0006_PJKL.l11:
@@ -174,7 +174,7 @@ api_idx_0006_PJKL:
     push ax                          ; 0x2234
     push word [bp + 0x6]             ; 0x2235
     push word [bp + 0x4]             ; 0x2238
-    call loc_1e35                    ; 0x223b
+    call loc_UONR                    ; 0x223b
     add sp, byte 0x0a                ; 0x223e
 @..api_idx_0006_PJKL.l12:
     ret                              ; 0x2241

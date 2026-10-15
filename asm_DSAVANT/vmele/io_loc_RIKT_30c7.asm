@@ -5,4 +5,4 @@ io_loc_RIKT_30c7:
     cwd                              ; 0x30cd
     idiv cx                          ; 0x30ce
     mov word [bp - 0x0006], ax       ; 0x30d0
-    jmp short loc_3103               ; 0x30d3
+    jmp short loc_KRJJ               ; 0x30d3

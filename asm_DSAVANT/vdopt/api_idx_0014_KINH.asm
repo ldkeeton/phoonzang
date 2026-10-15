@@ -147,7 +147,7 @@ api_idx_0014_KINH:
     push word [bp + 0x8]             ; 0x0b30
     push word [bss_9ae2]             ; 0x0b33
     push ax                          ; 0x0b37
-    call loc_095a                    ; 0x0b38
+    call loc_NMIK                    ; 0x0b38
     add sp, byte 8                   ; 0x0b3b
 @..api_idx_0014_KINH.l11:
     cmp word [bp - 0x0004], byte 2   ; 0x0b3e
@@ -156,7 +156,7 @@ api_idx_0014_KINH:
     push word [bp + 0x8]             ; 0x0b47
     push word [bss_9ae4]             ; 0x0b4a
     push word [bp - 0x0006]          ; 0x0b4e
-    call loc_095a                    ; 0x0b51
+    call loc_NMIK                    ; 0x0b51
     add sp, byte 8                   ; 0x0b54
 @..api_idx_0014_KINH.l12:
     cmp word [bp - 0x0004], byte 8   ; 0x0b57
@@ -336,35 +336,35 @@ jumptable_0c0b_case_1:
     push word [bp - 0x000c]          ; 0x0cee
     mov ax, 0                        ; 0x0cf1
     push ax                          ; 0x0cf4
-    call loc_08b9                    ; 0x0cf5
+    call loc_RPVM                    ; 0x0cf5
     add sp, byte 0x0c                ; 0x0cf8
     mov word [bp - 0x0012], ax       ; 0x0cfb
     jmp short @..api_idx_0014_KINH.l32 ; 0x0cfe
-loc_0d00:
+loc_GURM:
     mov ax, word [bss_9af6]          ; 0x0d00
     mov word [bp - 0x0010], ax       ; 0x0d03
     jmp short @..api_idx_0014_KINH.l33 ; 0x0d06
-loc_0d08:
+loc_HLVQ:
     mov ax, word [bss_9af8]          ; 0x0d08
     mov word [bp - 0x0010], ax       ; 0x0d0b
     jmp short @..api_idx_0014_KINH.l33 ; 0x0d0e
-loc_0d10:
+loc_SRTM:
     mov ax, word [bss_9afa]          ; 0x0d10
     mov word [bp - 0x0010], ax       ; 0x0d13
     jmp short @..api_idx_0014_KINH.l33 ; 0x0d16
-loc_0d18:
+loc_VIGR:
     mov ax, word [bss_9afc]          ; 0x0d18
     mov word [bp - 0x0010], ax       ; 0x0d1b
     jmp short @..api_idx_0014_KINH.l33 ; 0x0d1e
 jumptable_0d20:
     dw jumptable_0d20_case_0 - IMAGE_BASE + 0x5055 ; 0x0d20
-    dw loc_0d00 - IMAGE_BASE + 0x5055          ; 0x0d22
-    dw loc_0d08 - IMAGE_BASE + 0x5055          ; 0x0d24
-    dw loc_0d10 - IMAGE_BASE + 0x5055          ; 0x0d26
-    dw loc_0d18 - IMAGE_BASE + 0x5055          ; 0x0d28
+    dw loc_GURM - IMAGE_BASE + 0x5055          ; 0x0d22
+    dw loc_HLVQ - IMAGE_BASE + 0x5055          ; 0x0d24
+    dw loc_SRTM - IMAGE_BASE + 0x5055          ; 0x0d26
+    dw loc_VIGR - IMAGE_BASE + 0x5055          ; 0x0d28
     dw jumptable_0d20_case_0 - IMAGE_BASE + 0x5055 ; 0x0d2a
-    dw loc_0d10 - IMAGE_BASE + 0x5055          ; 0x0d2c
-    dw loc_0d08 - IMAGE_BASE + 0x5055          ; 0x0d2e
+    dw loc_SRTM - IMAGE_BASE + 0x5055          ; 0x0d2c
+    dw loc_HLVQ - IMAGE_BASE + 0x5055          ; 0x0d2e
 @..api_idx_0014_KINH.l32:
     cmp ax, strict word 8            ; 0x0d30
     jae short @..api_idx_0014_KINH.l33 ; 0x0d33
@@ -395,7 +395,7 @@ jumptable_0d20_case_0:
     push word [bp - 0x000c]          ; 0x0d6e
     mov ax, 1                        ; 0x0d71
     push ax                          ; 0x0d74
-    call loc_08b9                    ; 0x0d75
+    call loc_RPVM                    ; 0x0d75
     add sp, byte 0x0c                ; 0x0d78
     mov word [bp - 0x0012], ax       ; 0x0d7b
     jmp short @..api_idx_0014_KINH.l35 ; 0x0d7e

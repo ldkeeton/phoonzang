@@ -72,7 +72,7 @@ api_idx_0090_KQNM:
     pop cx                           ; 0x0bcb
     mov ax, 0                        ; 0x0bcc
     push ax                          ; 0x0bcf
-    call loc_0a1a                    ; 0x0bd0
+    call loc_RGHK                    ; 0x0bd0
     pop cx                           ; 0x0bd3
     jmp near @..api_idx_0090_KQNM.l8 ; 0x0bd4
     inc word [bp + 0x4]              ; 0x0bd7
@@ -194,8 +194,8 @@ string_loc_0c85:
     push ax                          ; 0x0ce9
     lea ax, word [bp - 0x0086]       ; 0x0cea
     push ax                          ; 0x0cee
-loc_0cef:
-    call ds_loc_3aca                 ; 0x0cef
+loc_KMUJ:
+    call ds_loc_TILJ                 ; 0x0cef
     add sp, byte 4                   ; 0x0cf2
     mov word [bp - 0x0002], ax       ; 0x0cf5
     cmp ax, 0xb8                     ; 0x0cf8

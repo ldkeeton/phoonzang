@@ -127,7 +127,7 @@ api_idx_0050_MNJK:
     push ax                          ; 0x2dc2
     mov ax, 0xa                      ; 0x2dc3
     push ax                          ; 0x2dc6
-    call ds_loc_3a77                 ; 0x2dc7
+    call ds_loc_PQIO                 ; 0x2dc7
     add sp, byte 4                   ; 0x2dca
     mov word [bp - 0x003c], 0xffff   ; 0x2dcd
     mov word [bp - 0x003e], 0        ; 0x2dd2
@@ -148,7 +148,7 @@ api_idx_0050_MNJK:
     mov ax, word [bp - 0x000c]       ; 0x2df8
     add ax, strict word 0xc          ; 0x2dfb
     push ax                          ; 0x2dfe
-    call loc_2a2d                    ; 0x2dff
+    call loc_OOVL                    ; 0x2dff
     add sp, byte 8                   ; 0x2e02
     inc word [bp - 0x0002]           ; 0x2e05
     mov ax, word [bp - 0x0002]       ; 0x2e08
@@ -165,7 +165,7 @@ api_idx_0050_MNJK:
     mov ax, word [bp - 0x000c]       ; 0x2e24
     add ax, strict word 0x5e         ; 0x2e27
     push ax                          ; 0x2e2a
-    call loc_2ab9                    ; 0x2e2b
+    call loc_GLTV                    ; 0x2e2b
     add sp, byte 0x0a                ; 0x2e2e
     push word [bp - 0x0042]          ; 0x2e31
     push word [bp + 0x4]             ; 0x2e34
@@ -511,7 +511,7 @@ api_idx_0050_MNJK:
 @..api_idx_0050_MNJK.l8:
     push word [bp - 0x0042]          ; 0x314c
     push word [bp + 0x4]             ; 0x314f
-    call loc_2bf3                    ; 0x3152
+    call loc_GSKG                    ; 0x3152
     add sp, byte 4                   ; 0x3155
     mov ax, 0x59fe                   ; 0x3158
     push ax                          ; 0x315b
@@ -938,7 +938,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3533
     add ax, strict word 0xc          ; 0x3536
     push ax                          ; 0x3539
-    call loc_2a2d                    ; 0x353a
+    call loc_OOVL                    ; 0x353a
     add sp, byte 8                   ; 0x353d
     mov ax, word [bp - 0x001a]       ; 0x3540
     add ax, strict word 0xfffb       ; 0x3543
@@ -952,7 +952,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3557
     add ax, strict word 0xc          ; 0x355a
     push ax                          ; 0x355d
-    call loc_2a2d                    ; 0x355e
+    call loc_OOVL                    ; 0x355e
     add sp, byte 8                   ; 0x3561
     cmp word [bp - 0x003c], byte 0   ; 0x3564
     jge short @..api_idx_0050_MNJK.l30 ; 0x3568
@@ -1024,7 +1024,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3600
     add ax, strict word 0x5e         ; 0x3603
     push ax                          ; 0x3606
-    call loc_2ab9                    ; 0x3607
+    call loc_GLTV                    ; 0x3607
     add sp, byte 0x0a                ; 0x360a
     jmp short @..api_idx_0050_MNJK.l35 ; 0x360d
 @..api_idx_0050_MNJK.l34:
@@ -1038,7 +1038,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x361e
     add ax, strict word 0x5e         ; 0x3621
     push ax                          ; 0x3624
-    call loc_2ab9                    ; 0x3625
+    call loc_GLTV                    ; 0x3625
     add sp, byte 0x0a                ; 0x3628
 @..api_idx_0050_MNJK.l35:
     mov ax, word [bp - 0x0006]       ; 0x362b
@@ -1162,7 +1162,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3750
     add ax, strict word 0x5e         ; 0x3753
     push ax                          ; 0x3756
-    call loc_2ab9                    ; 0x3757
+    call loc_GLTV                    ; 0x3757
     add sp, byte 0x0a                ; 0x375a
     mov ax, word [bp - 0x0006]       ; 0x375d
     add ax, strict word 0x4c         ; 0x3760
@@ -1293,7 +1293,7 @@ jumptable_38dd_case_4:
     mov ax, word [bp - 0x000c]       ; 0x388a
     add ax, strict word 0x5e         ; 0x388d
     push ax                          ; 0x3890
-    call loc_2ab9                    ; 0x3891
+    call loc_GLTV                    ; 0x3891
     add sp, byte 0x0a                ; 0x3894
     mov ax, word [bp - 0x0006]       ; 0x3897
     add ax, strict word 0x4c         ; 0x389a

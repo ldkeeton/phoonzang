@@ -138,7 +138,7 @@ api_idx_005e_SJTI:
     mov word [bp - 0x003e], ax       ; 0x5905
 @..api_idx_005e_SJTI.l4:
     push word [bp - 0x0008]          ; 0x5908
-    call loc_5497                    ; 0x590b
+    call loc_JPTL                    ; 0x590b
     pop cx                           ; 0x590e
     test ax, ax                      ; 0x590f
     je short @..api_idx_005e_SJTI.l5 ; 0x5911
@@ -165,7 +165,7 @@ api_idx_005e_SJTI:
     mov word [bp - 0x003c], dx       ; 0x593b
     mov word [bp - 0x003e], ax       ; 0x593e
     push word [bp - 0x0008]          ; 0x5941
-    call loc_5497                    ; 0x5944
+    call loc_JPTL                    ; 0x5944
     pop cx                           ; 0x5947
     test ax, ax                      ; 0x5948
     je short @..api_idx_005e_SJTI.l7 ; 0x594a
@@ -173,7 +173,7 @@ api_idx_005e_SJTI:
     je short @..api_idx_005e_SJTI.l8 ; 0x5951
 @..api_idx_005e_SJTI.l7:
     push word [bp - 0x0008]          ; 0x5953
-    call loc_5497                    ; 0x5956
+    call loc_JPTL                    ; 0x5956
     pop cx                           ; 0x5959
     test ax, ax                      ; 0x595a
     jne short @..api_idx_005e_SJTI.l9 ; 0x595c
@@ -338,7 +338,7 @@ api_idx_005e_SJTI:
     push ax                          ; 0x5ac0
     mov ax, 0x95a8                   ; 0x5ac1
     push ax                          ; 0x5ac4
-    call loc_1d39                    ; 0x5ac5
+    call loc_HGOO                    ; 0x5ac5
     add sp, byte 0x1c                ; 0x5ac8
     mov word [bp - 0x0002], ax       ; 0x5acb
     cmp word [bp - 0x0002], byte 0   ; 0x5ace
@@ -363,7 +363,7 @@ api_idx_005e_SJTI:
     mov ax, word [bx + 0x5c34]       ; 0x5af7
     mov word [bp - 0x0008], ax       ; 0x5afb
     push ax                          ; 0x5afe
-    call loc_5497                    ; 0x5aff
+    call loc_JPTL                    ; 0x5aff
     pop cx                           ; 0x5b02
     test ax, ax                      ; 0x5b03
     je short @..api_idx_005e_SJTI.l18 ; 0x5b05

@@ -38,7 +38,7 @@ api_idx_004e_KQUP:
     call ds_app_file_GKHN            ; 0x5bc7
     add sp, byte 8                   ; 0x5bca
     push word [bp - 0x0002]          ; 0x5bcd
-    call loc_5497                    ; 0x5bd0
+    call loc_JPTL                    ; 0x5bd0
     pop cx                           ; 0x5bd3
     test ax, ax                      ; 0x5bd4
     je short @..api_idx_004e_KQUP.l1 ; 0x5bd6
@@ -46,7 +46,7 @@ api_idx_004e_KQUP:
     je short @..api_idx_004e_KQUP.l2 ; 0x5bdd
 @..api_idx_004e_KQUP.l1:
     push word [bp - 0x0002]          ; 0x5bdf
-    call loc_5497                    ; 0x5be2
+    call loc_JPTL                    ; 0x5be2
     pop cx                           ; 0x5be5
     test ax, ax                      ; 0x5be6
     jne short @..api_idx_004e_KQUP.l3 ; 0x5be8
@@ -124,10 +124,10 @@ api_idx_004e_KQUP:
     push dx                          ; 0x5c81
     push ax                          ; 0x5c82
     push word [bp + 0x4]             ; 0x5c83
-    call loc_85f9                    ; 0x5c86
+    call loc_MQOK                    ; 0x5c86
     add sp, byte 8                   ; 0x5c89
     push word [bp - 0x0002]          ; 0x5c8c
-    call loc_5497                    ; 0x5c8f
+    call loc_JPTL                    ; 0x5c8f
     pop cx                           ; 0x5c92
     test ax, ax                      ; 0x5c93
     je short @..api_idx_004e_KQUP.l5 ; 0x5c95

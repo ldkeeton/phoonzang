@@ -212,7 +212,7 @@ api_idx_0072_UKKH:
     jne short @..api_idx_0072_UKKH.l13 ; 0x2191
     lea ax, word [bp - 0x005e]       ; 0x2193
     push ax                          ; 0x2196
-    call loc_150d                    ; 0x2197
+    call loc_LJIJ                    ; 0x2197
     pop cx                           ; 0x219a
     cmp word [bp - 0x000e], byte 0   ; 0x219b
     je short @..api_idx_0072_UKKH.l12 ; 0x219f
@@ -249,7 +249,7 @@ api_idx_0072_UKKH:
     jg short @..api_idx_0072_UKKH.l15 ; 0x21e5
     lea ax, word [bp - 0x005e]       ; 0x21e7
     push ax                          ; 0x21ea
-    call loc_150d                    ; 0x21eb
+    call loc_LJIJ                    ; 0x21eb
     pop cx                           ; 0x21ee
     push word [bp - 0x000a]          ; 0x21ef
     call aztec_close                 ; 0x21f2
@@ -296,7 +296,7 @@ api_idx_0072_UKKH:
     pop cx                           ; 0x2253
     lea ax, word [bp - 0x005e]       ; 0x2254
     push ax                          ; 0x2257
-    call loc_150d                    ; 0x2258
+    call loc_LJIJ                    ; 0x2258
     pop cx                           ; 0x225b
     push word [bp - 0x000a]          ; 0x225c
     call aztec_close                 ; 0x225f
@@ -329,7 +329,7 @@ api_idx_0072_UKKH:
     pop cx                           ; 0x22a1
     lea ax, word [bp - 0x005e]       ; 0x22a2
     push ax                          ; 0x22a5
-    call loc_150d                    ; 0x22a6
+    call loc_LJIJ                    ; 0x22a6
     pop cx                           ; 0x22a9
     push word [bp - 0x000a]          ; 0x22aa
     call aztec_close                 ; 0x22ad
@@ -369,7 +369,7 @@ api_idx_0072_UKKH:
     jg short @..api_idx_0072_UKKH.l24 ; 0x22fc
     lea ax, word [bp - 0x005e]       ; 0x22fe
     push ax                          ; 0x2301
-    call loc_150d                    ; 0x2302
+    call loc_LJIJ                    ; 0x2302
     pop cx                           ; 0x2305
     push word [bp - 0x000a]          ; 0x2306
     call aztec_close                 ; 0x2309
@@ -390,8 +390,8 @@ api_idx_0072_UKKH:
 @..api_idx_0072_UKKH.l24:
     mov word [bss_69c8], 0           ; 0x232b
     mov word [bp - 0x0002], 0        ; 0x2331
-    jmp near loc_2db5                ; 0x2336
-loc_2339:
+    jmp near loc_QKRS                ; 0x2336
+loc_MNLU:
     mov ax, 0x1b0                    ; 0x2339
     push ax                          ; 0x233c
     mov ax, 0x9402                   ; 0x233d
@@ -401,16 +401,16 @@ loc_2339:
     add sp, byte 6                   ; 0x2347
     mov word [bp - 0x000c], ax       ; 0x234a
     cmp ax, strict word 0            ; 0x234d
-    jg short loc_237f                ; 0x2350
+    jg short loc_OGOR                ; 0x2350
     lea ax, word [bp - 0x005e]       ; 0x2352
     push ax                          ; 0x2355
-    call loc_150d                    ; 0x2356
+    call loc_LJIJ                    ; 0x2356
     pop cx                           ; 0x2359
     push word [bp - 0x000a]          ; 0x235a
     call aztec_close                 ; 0x235d
     pop cx                           ; 0x2360
     cmp word [bp - 0x000e], byte 0   ; 0x2361
-    je short loc_237b                ; 0x2365
+    je short loc_JIOP                ; 0x2365
     mov ax, 1                        ; 0x2367
     push ax                          ; 0x236a
     push word [bp - 0x0012]          ; 0x236b
@@ -419,10 +419,10 @@ loc_2339:
     push ax                          ; 0x2374
     call ds_app_file_QKJP            ; 0x2375
     add sp, byte 8                   ; 0x2378
-loc_237b:
+loc_JIOP:
     mov ax, 0xffff                   ; 0x237b
     ret                              ; 0x237e
-loc_237f:
+loc_OGOR:
     push word [bss_69c8]             ; 0x237f
     call api_idx_0006_SOSU           ; 0x2383
     pop cx                           ; 0x2386
@@ -438,9 +438,9 @@ loc_237f:
     push ax                          ; 0x23a3
     cmp ax, strict word 5            ; 0x23a4
     pop ax                           ; 0x23a7
-    jle short loc_23ad               ; 0x23a8
+    jle short loc_QPUN               ; 0x23a8
     mov ax, 5                        ; 0x23aa
-loc_23ad:
+loc_QPUN:
     mov bx, word [bp - 0x0014]       ; 0x23ad
     mov word [bx + 0x24], ax         ; 0x23b0
     mov ax, 0x9402                   ; 0x23b3
@@ -460,18 +460,18 @@ loc_23ad:
     mov word [bx + 0x16], 0          ; 0x23e0
     mov word [bx + 0x14], 0          ; 0x23e5
     mov word [bp - 0x0004], 0        ; 0x23ea
-loc_23ef:
+loc_JSLG:
     mov bx, word [bp - 0x0004]       ; 0x23ef
     mov al, byte [bx - 0x6ad2]       ; 0x23f2
     mov si, bx                       ; 0x23f6
     mov bx, word [bp - 0x0014]       ; 0x23f8
     mov byte [bx + si + 0x170], al   ; 0x23fb
     cmp word [bss_9426], byte 5      ; 0x23ff
-    jle short loc_2431               ; 0x2404
+    jle short loc_NJTJ               ; 0x2404
     mov bx, word [bp - 0x0014]       ; 0x2406
     mov si, word [bp - 0x0004]       ; 0x2409
     cmp byte [bx + si + 0x170], 0xe  ; 0x240c
-    jbe short loc_2431               ; 0x2411
+    jbe short loc_NJTJ               ; 0x2411
     mov al, byte [bx + si + 0x170]   ; 0x2413
     sub ah, ah                       ; 0x2417
     push ax                          ; 0x2419
@@ -485,11 +485,11 @@ loc_23ef:
     mov bx, word [bp - 0x0014]       ; 0x2427
     mov si, word [bp - 0x0004]       ; 0x242a
     mov byte [bx + si + 0x170], al   ; 0x242d
-loc_2431:
+loc_NJTJ:
     inc word [bp - 0x0004]           ; 0x2431
     mov ax, word [bp - 0x0004]       ; 0x2434
     cmp ax, strict word 8            ; 0x2437
-    jl short loc_23ef                ; 0x243a
+    jl short loc_JSLG                ; 0x243a
     mov ax, word [bss_941c]          ; 0x243c
     cwd                              ; 0x243f
     idiv word [bss_9426]             ; 0x2440
@@ -499,9 +499,9 @@ loc_2431:
     mov word [bx + 0x1a], ax         ; 0x244c
     mov bx, word [bp - 0x0014]       ; 0x244f
     cmp word [bx + 0x1a], byte 7     ; 0x2452
-    jge short loc_245d               ; 0x2456
+    jge short loc_GUVK               ; 0x2456
     mov word [bx + 0x1a], 7          ; 0x2458
-loc_245d:
+loc_GUVK:
     mov bx, word [bp - 0x0014]       ; 0x245d
     mov ax, word [bx + 0x24]         ; 0x2460
     shl ax, 1                        ; 0x2463
@@ -510,7 +510,7 @@ loc_245d:
     add ax, strict word 8            ; 0x2469
     mov cx, word [bx + 0x1a]         ; 0x246c
     cmp ax, cx                       ; 0x246f
-    jge short loc_248c               ; 0x2471
+    jge short loc_KNLJ               ; 0x2471
     mov ax, 8                        ; 0x2473
     push ax                          ; 0x2476
     call ds_app_GGUI                 ; 0x2477
@@ -522,7 +522,7 @@ loc_245d:
     shl cx, 1                        ; 0x2485
     add ax, cx                       ; 0x2487
     mov word [bx + 0x1a], ax         ; 0x2489
-loc_248c:
+loc_KNLJ:
     mov bx, word [bp - 0x0014]       ; 0x248c
     mov ax, word [bx + 0x1a]         ; 0x248f
     mov word [bx + 0x18], ax         ; 0x2492
@@ -544,25 +544,25 @@ loc_248c:
     imul cx                          ; 0x24bf
     mov word [bp - 0x0020], ax       ; 0x24c1
     cmp word [bp - 0x001c], byte 0x0f ; 0x24c4
-    jle short loc_24d0               ; 0x24c8
+    jle short loc_VUQN               ; 0x24c8
     mov ax, word [bp - 0x001c]       ; 0x24ca
     add word [bp - 0x001e], ax       ; 0x24cd
-loc_24d0:
+loc_VUQN:
     cmp word [bp - 0x001c], byte 0x11 ; 0x24d0
-    jle short loc_24dc               ; 0x24d4
+    jle short loc_UKLG               ; 0x24d4
     mov ax, word [bp - 0x001c]       ; 0x24d6
     add word [bp - 0x001e], ax       ; 0x24d9
-loc_24dc:
+loc_UKLG:
     cmp word [bp - 0x001a], byte 0x0f ; 0x24dc
-    jle short loc_24e8               ; 0x24e0
+    jle short loc_JTTI               ; 0x24e0
     mov ax, word [bp - 0x001a]       ; 0x24e2
     add word [bp - 0x0020], ax       ; 0x24e5
-loc_24e8:
+loc_JTTI:
     cmp word [bp - 0x001a], byte 0x11 ; 0x24e8
-    jle short loc_24f4               ; 0x24ec
+    jle short loc_HNRR               ; 0x24ec
     mov ax, word [bp - 0x001a]       ; 0x24ee
     add word [bp - 0x0020], ax       ; 0x24f1
-loc_24f4:
+loc_HNRR:
     mov ax, 5                        ; 0x24f4
     imul word [bx + 0x24]            ; 0x24f7
     add word [bp - 0x001e], ax       ; 0x24fa
@@ -579,18 +579,18 @@ loc_24f4:
     mov word [bx + 0x22], ax         ; 0x251d
     mov bx, word [bp - 0x0014]       ; 0x2520
     cmp byte [bx + 0x237], 5         ; 0x2523
-    jne short loc_2535               ; 0x2528
+    jne short loc_NPUL               ; 0x2528
     mov ax, word [bx + 0x22]         ; 0x252a
     shl ax, 1                        ; 0x252d
     cwd                              ; 0x252f
     idiv cx                          ; 0x2530
     mov word [bx + 0x22], ax         ; 0x2532
-loc_2535:
+loc_NPUL:
     mov ax, word [bss_9428]          ; 0x2535
     mov bx, word [bp - 0x0014]       ; 0x2538
     mov word [bx + 0x26], ax         ; 0x253b
     mov word [bp - 0x0004], 0        ; 0x253e
-loc_2543:
+loc_VHHQ:
     mov ax, word [bp - 0x0004]       ; 0x2543
     shl ax, 1                        ; 0x2546
     shl ax, 1                        ; 0x2548
@@ -617,7 +617,7 @@ loc_2543:
     mov si, cx                       ; 0x257e
     mov cx, word [bx + si + 0x2a]    ; 0x2580
     cmp ax, cx                       ; 0x2583
-    jge short loc_25ac               ; 0x2585
+    jge short loc_OKSO               ; 0x2585
     mov ax, 7                        ; 0x2587
     push ax                          ; 0x258a
     call ds_app_GGUI                 ; 0x258b
@@ -635,7 +635,7 @@ loc_2543:
     shl cx, 1                        ; 0x25a5
     mov si, cx                       ; 0x25a7
     mov word [bx + si + 0x2a], ax    ; 0x25a9
-loc_25ac:
+loc_OKSO:
     mov ax, word [bp - 0x0004]       ; 0x25ac
     shl ax, 1                        ; 0x25af
     shl ax, 1                        ; 0x25b1
@@ -646,11 +646,11 @@ loc_25ac:
     inc word [bp - 0x0004]           ; 0x25be
     mov ax, word [bp - 0x0004]       ; 0x25c1
     cmp ax, strict word 6            ; 0x25c4
-    jge short loc_25cc               ; 0x25c7
-    jmp near loc_2543                ; 0x25c9
-loc_25cc:
+    jge short loc_HJTJ_25cc          ; 0x25c7
+    jmp near loc_VHHQ                ; 0x25c9
+loc_HJTJ_25cc:
     mov word [bp - 0x0004], 0        ; 0x25cc
-loc_25d1:
+loc_UUHJ:
     mov ax, word [bp - 0x0004]       ; 0x25d1
     mov word [bp - 0x001a], ax       ; 0x25d4
-    jmp near loc_268e                ; 0x25d7
+    jmp near loc_MRPU                ; 0x25d7

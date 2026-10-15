@@ -76,6 +76,7 @@ from lib.compare.render import _build_source, image_geometry
 from lib.compare.splitting import (
     _select_split_ranges,
     _extend_split_ranges_with_local_tails,
+    _split_off_foreign_objects,
 )
 from lib.compare.symbols import (
     _resolve_mem_symbols,
@@ -922,6 +923,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     bare_mem, bare_call, bare_dbc = _count_bare_addrs(records)
 
     split_ranges = _extend_split_ranges_with_local_tails(split_ranges, records)
+    split_ranges = _split_off_foreign_objects(split_ranges, records, owners)
 
     if trace is not None and trace.watched_addresses:
         for addr in sorted(trace.watched_addresses):

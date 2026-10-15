@@ -17,20 +17,20 @@ aztec_strncmp:
 @..aztec_strncmp.l1:
     lodsw                            ; 0xaead
     scasw                            ; 0xaeae
-    jne short loc_aec9               ; 0xaeaf
+    jne short loc_NTPJ               ; 0xaeaf
     test al, al                      ; 0xaeb1
-    je short loc_aec3                ; 0xaeb3
+    je short loc_TSVL                ; 0xaeb3
     test ah, ah                      ; 0xaeb5
     loopne @..aztec_strncmp.l1       ; 0xaeb7
-    je short loc_aec3                ; 0xaeb9
+    je short loc_TSVL                ; 0xaeb9
 @..aztec_strncmp.l2:
     test dl, 1                       ; 0xaebb
-    je short loc_aec3                ; 0xaebe
+    je short loc_TSVL                ; 0xaebe
     cmpsb                            ; 0xaec0
-    jne short loc_aed6               ; 0xaec1
-loc_aec3:
+    jne short loc_PMSU               ; 0xaec1
+loc_TSVL:
     sub ax, ax                       ; 0xaec3
-loc_aec5:
+loc_HQUP:
     pop di                           ; 0xaec5
     pop si                           ; 0xaec6
     pop bp                           ; 0xaec7

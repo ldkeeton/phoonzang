@@ -1,0 +1,40 @@
+; auto-generated
+loc_VMLV:
+    mov ax, 0
+    call aztec_csav
+    cmp word [bp + 0x4], byte 0
+    jle short @..loc_VMLV.l1
+    mov bx, word [bss_0e12]
+    mov si, word [bss_8d12]
+    cmp byte [bx + si + 0x960], 0
+    jbe short @..loc_VMLV.l1
+    mov ax, 1
+    push ax
+    mov al, byte [bx + si + 0x960]
+    sub ah, ah
+    push ax
+    mov ax, word [bss_830c]
+    mov cx, 4
+    shl ax, cl
+    add ax, 0x8d14
+    push ax
+    call set_bitmap_bit
+    add sp, byte 6
+    cmp word [bp + 0x4], byte 1
+    jle short @..loc_VMLV.l1
+    mov ax, 1
+    push ax
+    mov bx, word [bss_0e12]
+    mov si, word [bss_8d12]
+    mov al, byte [bx + si + 0x960]
+    sub ah, ah
+    push ax
+    mov ax, word [bss_830c]
+    mov cx, 4
+    shl ax, cl
+    add ax, 0x5642
+    push ax
+    call set_bitmap_bit
+    add sp, byte 6
+@..loc_VMLV.l1:
+    ret

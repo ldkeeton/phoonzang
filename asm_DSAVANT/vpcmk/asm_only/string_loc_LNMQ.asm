@@ -16,7 +16,7 @@ string_loc_LNMQ:
     sub ax, ax                       ; 0x6fae
     rep stosw                        ; 0x6fb0
 @..string_loc_LNMQ.l1:
-    call loc_000e                    ; 0x6fb2
+    call loc_QQTV                    ; 0x6fb2
     mov bp, word [dseg_9520]         ; 0x6fb5
     mov sp, word [dseg_951e]         ; 0x6fb9
     mov si, word [dseg_951a]         ; 0x6fbd

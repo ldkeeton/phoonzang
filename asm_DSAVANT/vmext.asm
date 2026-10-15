@@ -18,14 +18,16 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)     ; 0x00e8 ; o_dsize: initialized data size
     dw 0x099c                             ; o_bss: uninitialized data size
-    dw loc_521b - IMAGE_BASE + __zres_end ; 0xa262 ; o_entry: overlay entry offset (CS)
+    dw loc_JNVV - IMAGE_BASE + __zres_end ; 0xa262 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-loc_4471 equ 0x4471 + VBASE
+loc_QQVN equ 0x4471 + VBASE
 
 %include "vmext/api_idx_0002_JGHN.asm"     ; 0x000e
 
-%include "vmext/api_idx_0004_HROJ.asm"     ; 0x00f0
+%include "lib/loc_LNMK.asm"              ; 0x00b6
+
+%include "lib/api_idx_0004_HROJ.asm"     ; 0x00f0
 
 %include "lib/api_idx_0002_QNVQ.asm"     ; 0x01ac
 
@@ -47,11 +49,25 @@ loc_4471 equ 0x4471 + VBASE
 
 %include "vmext/fpu_loc_JJOL.asm"          ; 0x029c
 
+%include "vmext/loc_JKVN.asm"              ; 0x059a
+
+%include "vmext/loc_STVU.asm"              ; 0x05c0
+
 %include "vmext/api_idx_0004_IVLG.asm"     ; 0x05e6
+
+%include "vmext/loc_GOOG.asm"              ; 0x0636
+
+%include "lib/loc_QOTJ.asm"              ; 0x0692
+
+%include "vmext/loc_LKSR.asm"              ; 0x06c3
 
 %include "lib/api_idx_0008_POHU.asm"     ; 0x0764
 
 %include "vmext/api_idx_0050_NNKM.asm"     ; 0x081a
+
+%include "vmext/loc_GNOT.asm"              ; 0x0836
+
+%include "vmext/loc_VJUI.asm"              ; 0x0860
 
 %include "vmext/api_idx_0004_JUSS.asm"     ; 0x0897
 
@@ -61,7 +77,11 @@ loc_4471 equ 0x4471 + VBASE
 
 %include "vmext/api_idx_000a_KKTV.asm"     ; 0x0b8c
 
+%include "vmext/loc_QTOG.asm"              ; 0x0c0d
+
 %include "vmext/api_idx_008a_IVUP.asm"     ; 0x0c1f
+
+%include "vmext/loc_GMJQ.asm"              ; 0x0eac
 
 %include "vmext/asm_only/api_idx_0012_TPHH.asm"     ; 0x0ee0
 
@@ -91,7 +111,25 @@ loc_4471 equ 0x4471 + VBASE
 
 %include "lib/api_idx_0006_HQVN.asm"     ; 0x14c7
 
-%include "vmext/asm_only/api_idx_0008_IRUL.asm"     ; 0x151e
+%include "vmext/api_idx_0008_IRUL.asm"     ; 0x151e
+
+%include "vmext/asm_only/loc_GTST.asm"              ; 0x15af
+
+%include "vmext/loc_HLHU.asm"              ; 0x1823
+
+%include "vmext/loc_INQQ.asm"              ; 0x189b
+
+%include "vmext/loc_TJMT.asm"              ; 0x1913
+
+%include "vmext/loc_TRGN.asm"              ; 0x1927
+
+%include "vmext/loc_HOHT.asm"              ; 0x193b
+
+%include "vmext/loc_UOMJ.asm"              ; 0x194f
+
+%include "vmext/loc_UKLN.asm"              ; 0x1963
+
+%include "vmext/loc_NMPG.asm"              ; 0x19e4
 
 %include "vmext/api_idx_0008_NHUL.asm"     ; 0x1a1d
 
@@ -145,6 +183,26 @@ loc_4471 equ 0x4471 + VBASE
 
 %include "vmext/fpu_loc_NGMR.asm"          ; 0x1e98
 
+%include "vmext/loc_JSJS.asm"              ; 0x1fac
+
+%include "vmext/loc_QIQL.asm"              ; 0x1fb3
+
+%include "vmext/loc_SIGN.asm"              ; 0x1fba
+
+%include "vmext/loc_NLJG.asm"              ; 0x1fc1
+
+%include "vmext/loc_NVJJ.asm"              ; 0x1fc8
+
+%include "vmext/loc_PNMJ.asm"              ; 0x1fd6
+
+%include "vmext/loc_HTJM.asm"              ; 0x1fe4
+
+%include "vmext/loc_PIGG.asm"              ; 0x1feb
+
+jumptable_1ff2_case_0:
+@..api_idx_0008_LPKU.l16:
+    mov ax, word [bp - 0x0004]       ; 0x2017
+    ret                              ; 0x201a
 %include "vmext/api_idx_0004_NSSR.asm"     ; 0x201b
 
 %include "vmext/api_idx_0010_JJHU.asm"     ; 0x2291
@@ -181,7 +239,7 @@ jumptable_4471_case_1:
 @..api_idx_0030_QVNP.l9:
     mov ax, 0x1f                     ; 0x413e
     push ax                          ; 0x4141
-    call loc_193b                    ; 0x4142
+    call loc_HOHT                    ; 0x4142
     pop cx                           ; 0x4145
     push ax                          ; 0x4146
     mov ax, 0                        ; 0x4147
@@ -189,7 +247,7 @@ jumptable_4471_case_1:
     mov ax, 0x1f                     ; 0x414b
     push ax                          ; 0x414e
     push ax                          ; 0x414f
-    call loc_194f                    ; 0x4150
+    call loc_UOMJ                    ; 0x4150
     add sp, byte 4                   ; 0x4153
     push ax                          ; 0x4156
     mov ax, 0                        ; 0x4157
@@ -199,7 +257,7 @@ jumptable_4471_case_1:
 @..api_idx_0030_QVNP.l10:
     mov ax, 0x20                     ; 0x4161
     push ax                          ; 0x4164
-    call loc_193b                    ; 0x4165
+    call loc_HOHT                    ; 0x4165
     pop cx                           ; 0x4168
     push ax                          ; 0x4169
     mov ax, 0                        ; 0x416a
@@ -207,7 +265,7 @@ jumptable_4471_case_1:
     mov ax, 0x20                     ; 0x416e
     push ax                          ; 0x4171
     push ax                          ; 0x4172
-    call loc_194f                    ; 0x4173
+    call loc_UOMJ                    ; 0x4173
     add sp, byte 4                   ; 0x4176
     push ax                          ; 0x4179
     mov ax, 0                        ; 0x417a
@@ -233,7 +291,7 @@ jumptable_4471_case_2:
     call api_idx_0024_SLHO           ; 0x41aa
     mov ax, 4                        ; 0x41ad
     push ax                          ; 0x41b0
-    call loc_193b                    ; 0x41b1
+    call loc_HOHT                    ; 0x41b1
     pop cx                           ; 0x41b4
     push ax                          ; 0x41b5
     mov ax, 2                        ; 0x41b6
@@ -241,7 +299,7 @@ jumptable_4471_case_2:
     mov ax, 4                        ; 0x41ba
     push ax                          ; 0x41bd
     push ax                          ; 0x41be
-    call loc_194f                    ; 0x41bf
+    call loc_UOMJ                    ; 0x41bf
     add sp, byte 4                   ; 0x41c2
     push ax                          ; 0x41c5
     mov ax, 1                        ; 0x41c6
@@ -250,7 +308,7 @@ jumptable_4471_case_2:
     add sp, byte 8                   ; 0x41cd
     mov ax, 0x3e                     ; 0x41d0
     push ax                          ; 0x41d3
-    call loc_193b                    ; 0x41d4
+    call loc_HOHT                    ; 0x41d4
     pop cx                           ; 0x41d7
     push ax                          ; 0x41d8
     mov ax, 0                        ; 0x41d9
@@ -258,7 +316,7 @@ jumptable_4471_case_2:
     mov ax, 0x3e                     ; 0x41dd
     push ax                          ; 0x41e0
     push ax                          ; 0x41e1
-    call loc_194f                    ; 0x41e2
+    call loc_UOMJ                    ; 0x41e2
     add sp, byte 4                   ; 0x41e5
     push ax                          ; 0x41e8
     mov ax, 1                        ; 0x41e9
@@ -311,7 +369,7 @@ jumptable_4471_case_3:
 @..api_idx_0030_QVNP.l12:
     mov ax, 4                        ; 0x4260
     push ax                          ; 0x4263
-    call loc_193b                    ; 0x4264
+    call loc_HOHT                    ; 0x4264
     pop cx                           ; 0x4267
     push ax                          ; 0x4268
     mov ax, 0                        ; 0x4269
@@ -319,7 +377,7 @@ jumptable_4471_case_3:
     mov ax, 4                        ; 0x426d
     push ax                          ; 0x4270
     push ax                          ; 0x4271
-    call loc_194f                    ; 0x4272
+    call loc_UOMJ                    ; 0x4272
     add sp, byte 4                   ; 0x4275
     push ax                          ; 0x4278
     mov ax, 4                        ; 0x4279
@@ -328,7 +386,7 @@ jumptable_4471_case_3:
     add sp, byte 8                   ; 0x4280
     mov ax, 0xad                     ; 0x4283
     push ax                          ; 0x4286
-    call loc_193b                    ; 0x4287
+    call loc_HOHT                    ; 0x4287
     pop cx                           ; 0x428a
     push ax                          ; 0x428b
     mov ax, 0                        ; 0x428c
@@ -336,7 +394,7 @@ jumptable_4471_case_3:
     mov ax, 0xad                     ; 0x4290
     push ax                          ; 0x4293
     push ax                          ; 0x4294
-    call loc_194f                    ; 0x4295
+    call loc_UOMJ                    ; 0x4295
     add sp, byte 4                   ; 0x4298
     push ax                          ; 0x429b
     mov ax, 2                        ; 0x429c
@@ -367,7 +425,7 @@ jumptable_4471_case_4:
     call api_idx_0024_SLHO           ; 0x42d6
     mov ax, 4                        ; 0x42d9
     push ax                          ; 0x42dc
-    call loc_193b                    ; 0x42dd
+    call loc_HOHT                    ; 0x42dd
     pop cx                           ; 0x42e0
     push ax                          ; 0x42e1
     mov ax, 2                        ; 0x42e2
@@ -375,7 +433,7 @@ jumptable_4471_case_4:
     mov ax, 4                        ; 0x42e6
     push ax                          ; 0x42e9
     push ax                          ; 0x42ea
-    call loc_194f                    ; 0x42eb
+    call loc_UOMJ                    ; 0x42eb
     add sp, byte 4                   ; 0x42ee
     push ax                          ; 0x42f1
     mov ax, 1                        ; 0x42f2
@@ -386,7 +444,7 @@ jumptable_4471_case_4:
     jne short @..api_idx_0030_QVNP.l15 ; 0x4301
     mov ax, 0x2a                     ; 0x4303
     push ax                          ; 0x4306
-    call loc_193b                    ; 0x4307
+    call loc_HOHT                    ; 0x4307
     pop cx                           ; 0x430a
     push ax                          ; 0x430b
     mov ax, 0                        ; 0x430c
@@ -394,7 +452,7 @@ jumptable_4471_case_4:
     mov ax, 0x2a                     ; 0x4310
     push ax                          ; 0x4313
     push ax                          ; 0x4314
-    call loc_194f                    ; 0x4315
+    call loc_UOMJ                    ; 0x4315
     add sp, byte 4                   ; 0x4318
     push ax                          ; 0x431b
     mov ax, 4                        ; 0x431c
@@ -433,7 +491,7 @@ jumptable_4471_case_5:
     add sp, byte 0x0a                ; 0x4366
     mov ax, 0x2a                     ; 0x4369
     push ax                          ; 0x436c
-    call loc_193b                    ; 0x436d
+    call loc_HOHT                    ; 0x436d
     pop cx                           ; 0x4370
     push ax                          ; 0x4371
     mov ax, 0                        ; 0x4372
@@ -441,7 +499,7 @@ jumptable_4471_case_5:
     mov ax, 0x2a                     ; 0x4376
     push ax                          ; 0x4379
     push ax                          ; 0x437a
-    call loc_194f                    ; 0x437b
+    call loc_UOMJ                    ; 0x437b
     add sp, byte 4                   ; 0x437e
     push ax                          ; 0x4381
     mov ax, 4                        ; 0x4382
@@ -467,7 +525,7 @@ jumptable_4471_case_6:
     call api_idx_0024_SLHO           ; 0x43b2
     mov ax, 0x3e                     ; 0x43b5
     push ax                          ; 0x43b8
-    call loc_193b                    ; 0x43b9
+    call loc_HOHT                    ; 0x43b9
     pop cx                           ; 0x43bc
     push ax                          ; 0x43bd
     mov ax, 0                        ; 0x43be
@@ -475,7 +533,7 @@ jumptable_4471_case_6:
     mov ax, 0x3e                     ; 0x43c2
     push ax                          ; 0x43c5
     push ax                          ; 0x43c6
-    call loc_194f                    ; 0x43c7
+    call loc_UOMJ                    ; 0x43c7
     add sp, byte 4                   ; 0x43ca
     push ax                          ; 0x43cd
     mov ax, 1                        ; 0x43ce
@@ -533,7 +591,7 @@ jumptable_4471_case_6:
 @..api_idx_0030_QVNP.l22:
     mov ax, 4                        ; 0x444c
     push ax                          ; 0x444f
-    call loc_193b                    ; 0x4450
+    call loc_HOHT                    ; 0x4450
     pop cx                           ; 0x4453
     push ax                          ; 0x4454
     mov ax, 2                        ; 0x4455
@@ -541,7 +599,7 @@ jumptable_4471_case_6:
     mov ax, 4                        ; 0x4459
     push ax                          ; 0x445c
     push ax                          ; 0x445d
-    call loc_194f                    ; 0x445e
+    call loc_UOMJ                    ; 0x445e
     add sp, byte 4                   ; 0x4461
     push ax                          ; 0x4464
     mov ax, 1                        ; 0x4465
@@ -598,7 +656,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x44d3
     lea ax, word [bp - 0x000a]       ; 0x44d4
     push ax                          ; 0x44d7
-    call loc_1963                    ; 0x44d8
+    call loc_UKLN                    ; 0x44d8
     add sp, byte 0x0e                ; 0x44db
     test ax, ax                      ; 0x44de
     je short @..api_idx_0030_QVNP.l34 ; 0x44e0
@@ -2130,7 +2188,7 @@ jumptable_4471_case_0:
 @..api_idx_0030_QVNP.l93:
     call ds_app_NLKG                 ; 0x51f7
     ret                              ; 0x51fa
-loc_51fb:
+loc_ULLV:
     mov ax, 0                        ; 0x51fb
     call aztec_csav                  ; 0x51fe
     call api_idx_0030_QVNP           ; 0x5201
@@ -2145,7 +2203,7 @@ loc_51fb:
     call thunk_4                     ; 0x5214
     add sp, byte 8                   ; 0x5217
     ret                              ; 0x521a
-loc_521b:
+loc_JNVV:
     pop word [dseg_917e]             ; 0x521b
     pop cx                           ; 0x521f
     mov word [dseg_917a], sp         ; 0x5220
@@ -2157,10 +2215,10 @@ loc_521b:
     mov cx, 0x9b1c                   ; 0x5234
     sub cx, di                       ; 0x5237
     shr cx, 1                        ; 0x5239
-    je short @..loc_521b.l1          ; 0x523b
+    je short @..loc_JNVV.l1          ; 0x523b
     sub ax, ax                       ; 0x523d
     rep stosw                        ; 0x523f
-@..loc_521b.l1:
+@..loc_JNVV.l1:
     call api_idx_0002_JGHN           ; 0x5241
     mov bp, word [dseg_917c]         ; 0x5244
     mov sp, word [dseg_917a]         ; 0x5248

@@ -48,7 +48,7 @@ api_idx_0004_KUMO:
     mov al, byte [bss_9410]          ; 0x0a05
     sub ah, ah                       ; 0x0a08
     push ax                          ; 0x0a0a
-    call ds_loc_3a77                 ; 0x0a0b
+    call ds_loc_PQIO                 ; 0x0a0b
     add sp, byte 4                   ; 0x0a0e
     push word [bss_9412]             ; 0x0a11
     push word [bp - 0x0004]          ; 0x0a15
@@ -103,6 +103,6 @@ api_idx_0004_KUMO:
     push ax                          ; 0x0a8a
     mov ax, 4                        ; 0x0a8b
     push ax                          ; 0x0a8e
-    call ds_loc_3a77                 ; 0x0a8f
+    call ds_loc_PQIO                 ; 0x0a8f
     add sp, byte 4                   ; 0x0a92
     ret                              ; 0x0a95

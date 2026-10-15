@@ -10,4 +10,4 @@ io_loc_NIJO:
     mov al, byte [bp - 0x000e]       ; 0x12bf
     mov byte [bx + 0x5d5d], al       ; 0x12c2
 @..io_loc_NIJO.l1:
-    jmp short loc_1325               ; 0x12c6
+    jmp short loc_TNQQ               ; 0x12c6

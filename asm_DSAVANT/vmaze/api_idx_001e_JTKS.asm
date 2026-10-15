@@ -143,7 +143,7 @@ api_idx_001e_JTKS:
     cwd                              ; 0x7191
     idiv cx                          ; 0x7192
     mov word [bss_82ee], dx          ; 0x7194
-    call loc_676c                    ; 0x7198
+    call loc_JGLI                    ; 0x7198
     inc word [bp - 0x0004]           ; 0x719b
 @..api_idx_001e_JTKS.l10:
     mov ax, word [bp - 0x0004]       ; 0x719e
@@ -157,7 +157,7 @@ api_idx_001e_JTKS:
     mov word [bss_82ee], ax          ; 0x71b0
     cmp word [bp - 0x0012], byte 0   ; 0x71b3
     jle short @..api_idx_001e_JTKS.l15 ; 0x71b7
-    call loc_12a2                    ; 0x71b9
+    call loc_QOTJ                    ; 0x71b9
     cmp word [bp - 0x001c], byte 1   ; 0x71bc
     jne short @..api_idx_001e_JTKS.l12 ; 0x71c0
     push word [bp - 0x0012]          ; 0x71c2
@@ -166,13 +166,13 @@ api_idx_001e_JTKS:
     inc ax                           ; 0x71c9
     push ax                          ; 0x71ca
     push word [bss_82ee]             ; 0x71cb
-    call loc_1240                    ; 0x71cf
+    call loc_GNQK                    ; 0x71cf
     add sp, byte 4                   ; 0x71d2
     jmp short @..api_idx_001e_JTKS.l13 ; 0x71d5
 @..api_idx_001e_JTKS.l12:
     push word [bp - 0x0012]          ; 0x71d7
     push word [bss_82ee]             ; 0x71da
-    call loc_1240                    ; 0x71de
+    call loc_GNQK                    ; 0x71de
     add sp, byte 4                   ; 0x71e1
 @..api_idx_001e_JTKS.l13:
     push word [bss_8f44]             ; 0x71e4
@@ -202,7 +202,7 @@ api_idx_001e_JTKS:
     mov word [bss_8d12], ax          ; 0x7220
     mov word [bss_9bd0], 0           ; 0x7223
 @..api_idx_001e_JTKS.l15:
-    call loc_676c                    ; 0x7229
+    call loc_JGLI                    ; 0x7229
     inc word [bp - 0x0002]           ; 0x722c
 @..api_idx_001e_JTKS.l16:
     mov ax, word [bp - 0x0002]       ; 0x722f
@@ -214,42 +214,3 @@ api_idx_001e_JTKS:
     call api_idx_0006_KLOT           ; 0x723d
     pop cx                           ; 0x7240
     ret                              ; 0x7241
-loc_7242:
-    mov ax, 0                        ; 0x7242
-    call aztec_csav                  ; 0x7245
-    cmp word [bp + 0x4], byte 0      ; 0x7248
-    jle short @..loc_7242.l1         ; 0x724c
-    mov bx, word [bss_0e12]          ; 0x724e
-    mov si, word [bss_8d12]          ; 0x7252
-    cmp byte [bx + si + 0x960], 0    ; 0x7256
-    jbe short @..loc_7242.l1         ; 0x725b
-    mov ax, 1                        ; 0x725d
-    push ax                          ; 0x7260
-    mov al, byte [bx + si + 0x960]   ; 0x7261
-    sub ah, ah                       ; 0x7265
-    push ax                          ; 0x7267
-    mov ax, word [bss_830c]          ; 0x7268
-    mov cx, 4                        ; 0x726b
-    shl ax, cl                       ; 0x726e
-    add ax, 0x8d14                   ; 0x7270
-    push ax                          ; 0x7273
-    call set_bitmap_bit              ; 0x7274
-    add sp, byte 6                   ; 0x7277
-    cmp word [bp + 0x4], byte 1      ; 0x727a
-    jle short @..loc_7242.l1         ; 0x727e
-    mov ax, 1                        ; 0x7280
-    push ax                          ; 0x7283
-    mov bx, word [bss_0e12]          ; 0x7284
-    mov si, word [bss_8d12]          ; 0x7288
-    mov al, byte [bx + si + 0x960]   ; 0x728c
-    sub ah, ah                       ; 0x7290
-    push ax                          ; 0x7292
-    mov ax, word [bss_830c]          ; 0x7293
-    mov cx, 4                        ; 0x7296
-    shl ax, cl                       ; 0x7299
-    add ax, 0x5642                   ; 0x729b
-    push ax                          ; 0x729e
-    call set_bitmap_bit              ; 0x729f
-    add sp, byte 6                   ; 0x72a2
-@..loc_7242.l1:
-    ret                              ; 0x72a5

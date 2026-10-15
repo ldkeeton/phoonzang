@@ -113,11 +113,11 @@ api_idx_0072_TMSV:
     push ax                          ; 0x5f9d
     lea ax, word [bp - 0x0068]       ; 0x5f9e
     push ax                          ; 0x5fa1
-    call loc_0b30                    ; 0x5fa2
+    call loc_LKKH                    ; 0x5fa2
     add sp, byte 8                   ; 0x5fa5
     mov ax, 2                        ; 0x5fa8
     push ax                          ; 0x5fab
-    call loc_0c96                    ; 0x5fac
+    call loc_HGQP                    ; 0x5fac
     pop cx                           ; 0x5faf
     jmp short @..api_idx_0072_TMSV.l13 ; 0x5fb0
 @..api_idx_0072_TMSV.l12:

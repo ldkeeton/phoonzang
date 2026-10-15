@@ -8,4 +8,4 @@ leaf_loc_RGNV:
     je short @..leaf_loc_RGNV.l1     ; 0x4599
     mov word [bp - 0x0002], 0xfffe   ; 0x459b
 @..leaf_loc_RGNV.l1:
-    jmp near loc_461f                ; 0x45a0
+    jmp near loc_IQMH                ; 0x45a0

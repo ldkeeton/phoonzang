@@ -4,23 +4,23 @@ ds_string_loc_PMSL:
     mov al, byte [bx + 0x54c4]       ; 0x08c9
     sub ah, ah                       ; 0x08cd
     mov word [bp + 0x8], ax          ; 0x08cf
-    jmp short ds_loc_08f2            ; 0x08d2
+    jmp short ds_loc_MMJO            ; 0x08d2
 jumptable_08d4:
     dw ds_string_loc_HIIH - IMAGE_BASE         ; 0x08d4
     dw ds_string_loc_HIIH - IMAGE_BASE         ; 0x08d6
     dw ds_string_loc_RGRL - IMAGE_BASE         ; 0x08d8
     dw ds_string_loc_HUTN - IMAGE_BASE         ; 0x08da
-    dw ds_loc_08f2 - IMAGE_BASE                ; 0x08dc
+    dw ds_loc_MMJO - IMAGE_BASE                ; 0x08dc
     dw ds_string_loc_IOQS - IMAGE_BASE         ; 0x08de
     dw ds_string_loc_PMSL - IMAGE_BASE         ; 0x08e0
 @..ds_app_file_GKHN.l1:
     sub ax, strict word 2            ; 0x08e2
     cmp ax, strict word 7            ; 0x08e5
-    jae short ds_loc_08f2            ; 0x08e8
+    jae short ds_loc_MMJO            ; 0x08e8
     xchg bx, ax                      ; 0x08ea
     shl bx, 1                        ; 0x08eb
     jmp [cs:bx + jumptable_08d4 - IMAGE_BASE] ; 0x08ed
-ds_loc_08f2:
+ds_loc_MMJO:
     mov ax, 0                        ; 0x08f2
     push ax                          ; 0x08f5
     call thunk_17                    ; 0x08f6
@@ -49,19 +49,19 @@ ds_loc_08f2:
     add sp, byte 8                   ; 0x092e
     mov bx, word [bp + 0x4]          ; 0x0931
     cmp byte [bx + 0x556c], 0        ; 0x0934
-    jne short ds_loc_0976            ; 0x0939
+    jne short ds_loc_MRMN            ; 0x0939
     cmp word [bp + 0xa], byte 0      ; 0x093b
-    jne short ds_loc_0956            ; 0x093f
+    jne short ds_loc_THVG            ; 0x093f
     shl bx, 1                        ; 0x0941
     push word [bx + 0x5524]          ; 0x0943
     push word [bp + 0x6]             ; 0x0947
     push word [bss_0e22]             ; 0x094a
     call ds_leaf_loc_JKTJ            ; 0x094e
     add sp, byte 6                   ; 0x0951
-    jmp short ds_loc_0974            ; 0x0954
-ds_loc_0956:
+    jmp short ds_loc_JTKP            ; 0x0954
+ds_loc_THVG:
     cmp word [bp + 0xa], byte 1      ; 0x0956
-    jne short ds_loc_0974            ; 0x095a
+    jne short ds_loc_JTKP            ; 0x095a
     mov ax, word [bp + 0x4]          ; 0x095c
     shl ax, 1                        ; 0x095f
     mov bx, ax                       ; 0x0961
@@ -70,11 +70,11 @@ ds_loc_0956:
     push word [bss_0e22]             ; 0x096a
     call aztec_write                 ; 0x096e
     add sp, byte 6                   ; 0x0971
-ds_loc_0974:
-    jmp short ds_loc_09a4            ; 0x0974
-ds_loc_0976:
+ds_loc_JTKP:
+    jmp short ds_loc_NUGN_09a4       ; 0x0974
+ds_loc_MRMN:
     cmp word [bp + 0xa], byte 0      ; 0x0976
-    jne short ds_loc_09a4            ; 0x097a
+    jne short ds_loc_NUGN_09a4       ; 0x097a
     mov ax, word [bp + 0x4]          ; 0x097c
     shl ax, 1                        ; 0x097f
     mov bx, ax                       ; 0x0981
@@ -89,5 +89,5 @@ ds_loc_0976:
     push ax                          ; 0x099d
     call ds_string_loc_UJSV          ; 0x099e
     add sp, byte 4                   ; 0x09a1
-ds_loc_09a4:
+ds_loc_NUGN_09a4:
     ret                              ; 0x09a4

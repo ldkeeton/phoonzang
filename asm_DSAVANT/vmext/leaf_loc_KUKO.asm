@@ -8,22 +8,22 @@ leaf_loc_KUKO:
     mov byte [bx + 0x5e2f], 0        ; 0x10d3
 @..leaf_loc_KUKO.l1:
     mov byte [bx + 0x5d60], 0        ; 0x10d8
-    jmp near loc_1325                ; 0x10dd
-loc_10e0:
+    jmp near loc_TNQQ                ; 0x10dd
+loc_PKPI:
     mov word [bp - 0x0004], 1        ; 0x10e0
-loc_10e5:
+loc_GIHR:
     mov ax, word [bp - 0x0004]       ; 0x10e5
     cmp ax, strict word 1            ; 0x10e8
-    je short loc_1101                ; 0x10eb
+    je short loc_OKQP                ; 0x10eb
     cmp ax, strict word 2            ; 0x10ed
-    je short loc_1101                ; 0x10f0
+    je short loc_OKQP                ; 0x10f0
     cmp ax, strict word 4            ; 0x10f2
-    je short loc_1101                ; 0x10f5
+    je short loc_OKQP                ; 0x10f5
     cmp ax, strict word 8            ; 0x10f7
-    je short loc_1101                ; 0x10fa
+    je short loc_OKQP                ; 0x10fa
     cmp ax, strict word 9            ; 0x10fc
-    jne short loc_1115               ; 0x10ff
-loc_1101:
+    jne short loc_MKPJ               ; 0x10ff
+loc_OKQP:
     mov ax, 0x248                    ; 0x1101
     imul word [bp - 0x0006]          ; 0x1104
     mov cx, ax                       ; 0x1107
@@ -31,13 +31,13 @@ loc_1101:
     add cx, ax                       ; 0x110c
     mov bx, cx                       ; 0x110e
     mov byte [bx + 0x5d5a], 0        ; 0x1110
-loc_1115:
+loc_MKPJ:
     inc word [bp - 0x0004]           ; 0x1115
     mov ax, word [bp - 0x0004]       ; 0x1118
     cmp ax, strict word 9            ; 0x111b
-    jle short loc_10e5               ; 0x111e
-    jmp near loc_1325                ; 0x1120
-loc_1123:
+    jle short loc_GIHR               ; 0x111e
+    jmp near loc_TNQQ                ; 0x1120
+loc_VVHU:
     mov ax, 0x248                    ; 0x1123
     imul word [bp - 0x0006]          ; 0x1126
     mov bx, ax                       ; 0x1129
@@ -46,8 +46,8 @@ loc_1123:
     mov word [bx + 0x5c0c], ax       ; 0x1134
     mov ax, word [bx + 0x5c12]       ; 0x1138
     mov word [bx + 0x5c10], ax       ; 0x113c
-    jmp near loc_1325                ; 0x1140
-loc_1143:
+    jmp near loc_TNQQ                ; 0x1140
+loc_RLMT:
     mov ax, 0x248                    ; 0x1143
     imul word [bp - 0x0006]          ; 0x1146
     mov bx, ax                       ; 0x1149
@@ -66,7 +66,7 @@ loc_1143:
     pop ax                           ; 0x116a
     mov word [bx + 0x5c10], ax       ; 0x116b
     cmp ax, strict word 0            ; 0x116f
-    jg short loc_1199                ; 0x1172
+    jg short loc_KORV_1199           ; 0x1172
     mov al, byte [bx + 0x5d5c]       ; 0x1174
     sub ah, ah                       ; 0x1178
     mov cx, ax                       ; 0x117a
@@ -84,5 +84,5 @@ loc_1143:
     mov bx, ax                       ; 0x1192
     pop ax                           ; 0x1194
     mov byte [bx + 0x5d5c], al       ; 0x1195
-loc_1199:
-    jmp near loc_1325                ; 0x1199
+loc_KORV_1199:
+    jmp near loc_TNQQ                ; 0x1199

@@ -87,7 +87,7 @@ api_idx_004a_QVSP:
     push ax                          ; 0x6afb
     mov ax, 0x3e8                    ; 0x6afc
     push ax                          ; 0x6aff
-    call loc_023a                    ; 0x6b00
+    call loc_QLQS                    ; 0x6b00
     add sp, byte 0x10                ; 0x6b03
     mov word [bp - 0x0004], ax       ; 0x6b06
     lea ax, word [bp - 0x004a]       ; 0x6b09
@@ -115,7 +115,7 @@ api_idx_004a_QVSP:
     mov ax, word [bp - 0x0004]       ; 0x6b3c
     jmp near @..api_idx_004a_QVSP.l18 ; 0x6b3f
 jumptable_6bfb_case_1:
-    call loc_606d                    ; 0x6b42
+    call loc_ORKU                    ; 0x6b42
     jmp near @..api_idx_004a_QVSP.l19 ; 0x6b45
 jumptable_6bfb_case_2:
     call ds_app_io_VJGM              ; 0x6b48
@@ -139,7 +139,7 @@ jumptable_6bfb_case_3:
 @..api_idx_004a_QVSP.l14:
     jmp near @..api_idx_004a_QVSP.l19 ; 0x6b7b
 jumptable_6bfb_case_0:
-    call loc_62c6                    ; 0x6b7e
+    call loc_POKM                    ; 0x6b7e
     mov word [bss_830a], 0x10        ; 0x6b81
     jmp near @..api_idx_004a_QVSP.l19 ; 0x6b87
 jumptable_6bfb_case_4:
@@ -170,7 +170,7 @@ jumptable_6bfb_case_5:
 jumptable_6bfb_case_6:
     mov ax, 0                        ; 0x6bc1
     push ax                          ; 0x6bc4
-    call loc_4d0e                    ; 0x6bc5
+    call loc_JUUJ                    ; 0x6bc5
     pop cx                           ; 0x6bc8
     test ax, ax                      ; 0x6bc9
     je short @..api_idx_004a_QVSP.l17 ; 0x6bcb
@@ -178,7 +178,7 @@ jumptable_6bfb_case_6:
     push ax                          ; 0x6bd0
     call api_idx_0062_QHSK           ; 0x6bd1
     pop cx                           ; 0x6bd4
-    call loc_62c6                    ; 0x6bd5
+    call loc_POKM                    ; 0x6bd5
     call api_idx_0002_ILPS           ; 0x6bd8
     mov word [bss_830a], 3           ; 0x6bdb
 @..api_idx_004a_QVSP.l17:
@@ -190,7 +190,7 @@ jumptable_6bfb_case_7:
     pop cx                           ; 0x6bea
     jmp short @..api_idx_004a_QVSP.l19 ; 0x6beb
 jumptable_6bfb_case_8:
-    call loc_62c6                    ; 0x6bed
+    call loc_POKM                    ; 0x6bed
     call api_idx_0002_ILPS           ; 0x6bf0
     mov word [bss_830a], 3           ; 0x6bf3
     jmp short @..api_idx_004a_QVSP.l19 ; 0x6bf9
@@ -214,53 +214,3 @@ jumptable_6bfb:
     jmp near @..api_idx_004a_QVSP.l3 ; 0x6c1a
 @..api_idx_004a_QVSP.l20:
     ret                              ; 0x6c1d
-loc_6c1e:
-    mov ax, 0                        ; 0x6c1e
-    call aztec_csav                  ; 0x6c21
-    mov ax, 0                        ; 0x6c24
-    push ax                          ; 0x6c27
-    mov ax, 0xc6                     ; 0x6c28
-    push ax                          ; 0x6c2b
-    mov ax, 0x13f                    ; 0x6c2c
-    push ax                          ; 0x6c2f
-    mov ax, 0x92                     ; 0x6c30
-    push ax                          ; 0x6c33
-    mov ax, 0                        ; 0x6c34
-    push ax                          ; 0x6c37
-    call thunk_7                     ; 0x6c38
-    add sp, byte 0x0a                ; 0x6c3b
-    ret                              ; 0x6c3e
-loc_6c3f:
-    mov ax, 0                        ; 0x6c3f
-    call aztec_csav                  ; 0x6c42
-    mov ax, 0xc6                     ; 0x6c45
-    push ax                          ; 0x6c48
-    mov ax, 0x13e                    ; 0x6c49
-    push ax                          ; 0x6c4c
-    mov ax, 0x92                     ; 0x6c4d
-    push ax                          ; 0x6c50
-    mov ax, 0xc                      ; 0x6c51
-    push ax                          ; 0x6c54
-    call ds_app_io_LUON              ; 0x6c55
-    add sp, byte 8                   ; 0x6c58
-    ret                              ; 0x6c5b
-loc_6c5c:
-    mov ax, 0                        ; 0x6c5c
-    call aztec_csav                  ; 0x6c5f
-    cmp word [bss_a4a4], byte 0      ; 0x6c62
-    jle short @..loc_6c5c.l1         ; 0x6c67
-    call loc_73bc                    ; 0x6c69
-    test ax, ax                      ; 0x6c6c
-    je short @..loc_6c5c.l1          ; 0x6c6e
-    call api_idx_000a_KPKK           ; 0x6c70
-    mov ax, 0x91                     ; 0x6c73
-    push ax                          ; 0x6c76
-    mov ax, 0x13f                    ; 0x6c77
-    push ax                          ; 0x6c7a
-    mov ax, 0                        ; 0x6c7b
-    push ax                          ; 0x6c7e
-    push ax                          ; 0x6c7f
-    call thunk_4                     ; 0x6c80
-    add sp, byte 8                   ; 0x6c83
-@..loc_6c5c.l1:
-    ret                              ; 0x6c86

@@ -31,7 +31,7 @@ api_idx_000c_PKKK:
     mov al, byte [bx + 0x69bc]       ; 0x03c0
     sub ah, ah                       ; 0x03c4
     push ax                          ; 0x03c6
-    call ds_loc_3a77                 ; 0x03c7
+    call ds_loc_PQIO                 ; 0x03c7
     add sp, byte 4                   ; 0x03ca
     cmp word [bp + 0x8], byte 0      ; 0x03cd
     je short @..api_idx_000c_PKKK.l1 ; 0x03d1

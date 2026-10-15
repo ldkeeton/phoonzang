@@ -127,7 +127,7 @@ api_idx_0038_PUQK:
     mov ax, word [bp - 0x0004]       ; 0x3b5f
     add ax, strict word 0x5d         ; 0x3b62
     push ax                          ; 0x3b65
-    call loc_39eb                    ; 0x3b66
+    call loc_QRQT                    ; 0x3b66
     add sp, byte 0x0e                ; 0x3b69
     mov word [bp - 0x0010], 0        ; 0x3b6c
     push word [bp - 0x0010]          ; 0x3b71
@@ -445,7 +445,7 @@ jumptable_4141_case_0:
     mov ax, word [bp - 0x0004]       ; 0x3e3a
     add ax, strict word 0x5d         ; 0x3e3d
     push ax                          ; 0x3e40
-    call loc_39eb                    ; 0x3e41
+    call loc_QRQT                    ; 0x3e41
     add sp, byte 0x0e                ; 0x3e44
     push word [bp - 0x0010]          ; 0x3e47
     mov ax, 7                        ; 0x3e4a
@@ -585,7 +585,7 @@ jumptable_4141_case_1:
     mov ax, word [bp - 0x0004]       ; 0x3f7a
     add ax, strict word 0x5d         ; 0x3f7d
     push ax                          ; 0x3f80
-    call loc_39eb                    ; 0x3f81
+    call loc_QRQT                    ; 0x3f81
     add sp, byte 0x0e                ; 0x3f84
     push word [bp - 0x0010]          ; 0x3f87
     mov ax, 7                        ; 0x3f8a
@@ -756,7 +756,7 @@ jumptable_4141_case_5:
     mov ax, word [bp - 0x0004]       ; 0x4110
     add ax, strict word 0x5d         ; 0x4113
     push ax                          ; 0x4116
-    call loc_39eb                    ; 0x4117
+    call loc_QRQT                    ; 0x4117
     add sp, byte 0x0e                ; 0x411a
     mov ax, word [bp - 0x0006]       ; 0x411d
     add ax, strict word 0x30         ; 0x4120

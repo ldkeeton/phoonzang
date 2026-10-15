@@ -60,8 +60,8 @@ string_loc_LSLP:
     jge short @..string_loc_LSLP.l2  ; 0x1068
     jmp near @..string_loc_LSLP.l1   ; 0x106a
 @..string_loc_LSLP.l2:
-    jmp near loc_1325                ; 0x106d
-loc_1070:
+    jmp near loc_TNQQ                ; 0x106d
+loc_SRRK:
     mov ax, 0x248                    ; 0x1070
     imul word [bp - 0x0006]          ; 0x1073
     mov bx, ax                       ; 0x1076
@@ -79,4 +79,4 @@ loc_1070:
     mov bx, ax                       ; 0x1095
     pop ax                           ; 0x1097
     mov word [bx + 0x5c0c], ax       ; 0x1098
-    jmp near loc_1325                ; 0x109c
+    jmp near loc_TNQQ                ; 0x109c

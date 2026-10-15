@@ -127,7 +127,7 @@ api_idx_0038_GSVG:
     mov ax, word [bp - 0x0004]       ; 0x3f6d
     add ax, strict word 0x5d         ; 0x3f70
     push ax                          ; 0x3f73
-    call loc_3df9                    ; 0x3f74
+    call loc_TPVV                    ; 0x3f74
     add sp, byte 0x0e                ; 0x3f77
     mov word [bp - 0x0010], 0        ; 0x3f7a
     push word [bp - 0x0010]          ; 0x3f7f
@@ -337,7 +337,7 @@ api_idx_0038_GSVG:
     push word [bp - 0x001e]          ; 0x4154
     push word [bp - 0x0016]          ; 0x4157
     push word [bp - 0x0020]          ; 0x415a
-    call loc_7832                    ; 0x415d
+    call loc_RRLK                    ; 0x415d
     add sp, byte 6                   ; 0x4160
     mov word [bp - 0x0020], ax       ; 0x4163
     mov word [bss_5b3e], 1           ; 0x4166
@@ -351,7 +351,7 @@ api_idx_0038_GSVG:
 @..api_idx_0038_GSVG.l9:
     mov ax, word [bp - 0x0018]       ; 0x417f
     jmp near @..api_idx_0038_GSVG.l20 ; 0x4182
-loc_4185:
+loc_IMJS:
     lea ax, word [bp - 0x000e]       ; 0x4185
     push ax                          ; 0x4188
     lea ax, word [bp - 0x000c]       ; 0x4189
@@ -423,7 +423,7 @@ loc_4185:
     mov ax, word [bp - 0x0004]       ; 0x4220
     add ax, strict word 0x5d         ; 0x4223
     push ax                          ; 0x4226
-    call loc_3df9                    ; 0x4227
+    call loc_TPVV                    ; 0x4227
     add sp, byte 0x0e                ; 0x422a
     push word [bp - 0x0010]          ; 0x422d
     mov ax, 7                        ; 0x4230
@@ -478,7 +478,7 @@ loc_4185:
     jmp near @..api_idx_0038_GSVG.l10 ; 0x42a5
 @..api_idx_0038_GSVG.l12:
     jmp near @..api_idx_0038_GSVG.l22 ; 0x42a8
-loc_42ab:
+loc_POIJ:
     cmp word [bp - 0x0018], byte 1   ; 0x42ab
     jne short @..api_idx_0038_GSVG.l14 ; 0x42af
     mov ax, 1                        ; 0x42b1
@@ -563,7 +563,7 @@ loc_42ab:
     mov ax, word [bp - 0x0004]       ; 0x4360
     add ax, strict word 0x5d         ; 0x4363
     push ax                          ; 0x4366
-    call loc_3df9                    ; 0x4367
+    call loc_TPVV                    ; 0x4367
     add sp, byte 0x0e                ; 0x436a
     push word [bp - 0x0010]          ; 0x436d
     mov ax, 7                        ; 0x4370
@@ -614,9 +614,9 @@ loc_42ab:
     call thunk_4                     ; 0x43d9
     add sp, byte 8                   ; 0x43dc
     jmp near @..api_idx_0038_GSVG.l22 ; 0x43df
-loc_43e2:
+loc_HHRJ:
     jmp near @..api_idx_0038_GSVG.l22 ; 0x43e2
-loc_43e5:
+loc_OKMN:
     cmp word [bp + 0x8], byte 0      ; 0x43e5
     je short @..api_idx_0038_GSVG.l17 ; 0x43e9
     mov ax, 1                        ; 0x43eb
@@ -650,7 +650,7 @@ loc_43e5:
     mov word [bp - 0x001a], 0        ; 0x442e
 @..api_idx_0038_GSVG.l17:
     jmp near @..api_idx_0038_GSVG.l22 ; 0x4433
-loc_4436:
+loc_MOJP:
     cmp word [bp + 0xa], byte 0      ; 0x4436
     je short @..api_idx_0038_GSVG.l18 ; 0x443a
     mov ax, 1                        ; 0x443c
@@ -680,7 +680,7 @@ loc_4436:
     push ax                          ; 0x4472
     call ds_app_JSSU                 ; 0x4473
     add sp, byte 0x0a                ; 0x4476
-loc_4479:
+loc_VHMK:
     mov word [bss_9050], 2           ; 0x4479
     mov word [bp - 0x001a], 0        ; 0x447f
 @..api_idx_0038_GSVG.l18:
@@ -703,7 +703,7 @@ loc_4479:
     mov ax, word [bp - 0x0004]       ; 0x44a8
     add ax, strict word 0x5d         ; 0x44ab
     push ax                          ; 0x44ae
-    call loc_3df9                    ; 0x44af
+    call loc_TPVV                    ; 0x44af
     add sp, byte 0x0e                ; 0x44b2
     mov ax, word [bp - 0x0006]       ; 0x44b5
     add ax, strict word 0x30         ; 0x44b8
@@ -721,12 +721,12 @@ loc_4479:
     add sp, byte 8                   ; 0x44d4
     jmp short @..api_idx_0038_GSVG.l22 ; 0x44d7
 jumptable_44d9:
-    dw loc_4185 - IMAGE_BASE + 0x5055          ; 0x44d9
-    dw loc_42ab - IMAGE_BASE + 0x5055          ; 0x44db
-    dw loc_42ab - IMAGE_BASE + 0x5055          ; 0x44dd
-    dw loc_43e2 - IMAGE_BASE + 0x5055          ; 0x44df
-    dw loc_43e5 - IMAGE_BASE + 0x5055          ; 0x44e1
-    dw loc_4436 - IMAGE_BASE + 0x5055          ; 0x44e3
+    dw loc_IMJS - IMAGE_BASE + 0x5055          ; 0x44d9
+    dw loc_POIJ - IMAGE_BASE + 0x5055          ; 0x44db
+    dw loc_POIJ - IMAGE_BASE + 0x5055          ; 0x44dd
+    dw loc_HHRJ - IMAGE_BASE + 0x5055          ; 0x44df
+    dw loc_OKMN - IMAGE_BASE + 0x5055          ; 0x44e1
+    dw loc_MOJP - IMAGE_BASE + 0x5055          ; 0x44e3
 @..api_idx_0038_GSVG.l20:
     cmp ax, strict word 6            ; 0x44e5
     jae short @..api_idx_0038_GSVG.l21 ; 0x44e8

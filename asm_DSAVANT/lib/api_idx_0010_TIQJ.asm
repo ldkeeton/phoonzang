@@ -12,7 +12,7 @@ api_idx_0010_TIQJ:
     push word [bx + 0x69bc]
     mov ax, 5
     push ax
-    call ds_loc_39f6
+    call ds_loc_IMOU
     add sp, byte 8
     mov word [bp - 0x0006], dx
     mov word [bp - 0x0008], ax

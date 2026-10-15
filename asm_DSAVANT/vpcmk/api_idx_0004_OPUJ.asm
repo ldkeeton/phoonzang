@@ -49,7 +49,7 @@ jumptable_6059_case_0:
     push ax                          ; 0x5e5c
     push ax                          ; 0x5e5d
     push word [bp + 0x4]             ; 0x5e5e
-    call loc_5d7e                    ; 0x5e61
+    call loc_LMIM                    ; 0x5e61
     add sp, byte 0x0e                ; 0x5e64
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5e67
 jumptable_6059_case_1:
@@ -75,7 +75,7 @@ jumptable_6059_case_1:
     push ax                          ; 0x5e8c
     push ax                          ; 0x5e8d
     push word [bp + 0x4]             ; 0x5e8e
-    call loc_5d7e                    ; 0x5e91
+    call loc_LMIM                    ; 0x5e91
     add sp, byte 0x0e                ; 0x5e94
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5e97
 jumptable_6059_case_2:
@@ -104,7 +104,7 @@ jumptable_6059_case_2:
     inc ax                           ; 0x5ec1
     push ax                          ; 0x5ec2
     push word [bp + 0x4]             ; 0x5ec3
-    call loc_5d7e                    ; 0x5ec6
+    call loc_LMIM                    ; 0x5ec6
     add sp, byte 0x0e                ; 0x5ec9
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5ecc
 jumptable_6059_case_4:
@@ -122,7 +122,7 @@ jumptable_6059_case_4:
     push ax                          ; 0x5ee0
     push ax                          ; 0x5ee1
     push word [bp + 0x4]             ; 0x5ee2
-    call loc_5d7e                    ; 0x5ee5
+    call loc_LMIM                    ; 0x5ee5
     add sp, byte 0x0e                ; 0x5ee8
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5eeb
 jumptable_6059_case_5:
@@ -151,7 +151,7 @@ jumptable_6059_case_5:
     inc ax                           ; 0x5f15
     push ax                          ; 0x5f16
     push word [bp + 0x4]             ; 0x5f17
-    call loc_5d7e                    ; 0x5f1a
+    call loc_LMIM                    ; 0x5f1a
     add sp, byte 0x0e                ; 0x5f1d
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5f20
 jumptable_6059_case_6:
@@ -172,7 +172,7 @@ jumptable_6059_case_6:
     push ax                          ; 0x5f39
     push ax                          ; 0x5f3a
     push word [bp + 0x4]             ; 0x5f3b
-    call loc_5d7e                    ; 0x5f3e
+    call loc_LMIM                    ; 0x5f3e
     add sp, byte 0x0e                ; 0x5f41
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5f44
 jumptable_6059_case_7:
@@ -199,7 +199,7 @@ jumptable_6059_case_7:
     inc ax                           ; 0x5f6e
     push ax                          ; 0x5f6f
     push word [bp + 0x4]             ; 0x5f70
-    call loc_5d7e                    ; 0x5f73
+    call loc_LMIM                    ; 0x5f73
     add sp, byte 0x0e                ; 0x5f76
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5f79
 jumptable_6059_case_8:
@@ -220,7 +220,7 @@ jumptable_6059_case_8:
     inc ax                           ; 0x5f92
     push ax                          ; 0x5f93
     push word [bp + 0x4]             ; 0x5f94
-    call loc_5d7e                    ; 0x5f97
+    call loc_LMIM                    ; 0x5f97
     add sp, byte 0x0e                ; 0x5f9a
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5f9d
 jumptable_6059_case_9:
@@ -243,7 +243,7 @@ jumptable_6059_case_9:
     push ax                          ; 0x5fc1
     push ax                          ; 0x5fc2
     push word [bp + 0x4]             ; 0x5fc3
-    call loc_5d7e                    ; 0x5fc6
+    call loc_LMIM                    ; 0x5fc6
     add sp, byte 0x0e                ; 0x5fc9
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5fcc
 jumptable_6059_case_10:
@@ -264,7 +264,7 @@ jumptable_6059_case_10:
     inc ax                           ; 0x5fe5
     push ax                          ; 0x5fe6
     push word [bp + 0x4]             ; 0x5fe7
-    call loc_5d7e                    ; 0x5fea
+    call loc_LMIM                    ; 0x5fea
     add sp, byte 0x0e                ; 0x5fed
     jmp near @..api_idx_0004_OPUJ.l6 ; 0x5ff0
 jumptable_6059_case_11:
@@ -283,7 +283,7 @@ jumptable_6059_case_11:
     push ax                          ; 0x6005
     push ax                          ; 0x6006
     push word [bp + 0x4]             ; 0x6007
-    call loc_5d7e                    ; 0x600a
+    call loc_LMIM                    ; 0x600a
     add sp, byte 0x0e                ; 0x600d
     jmp short @..api_idx_0004_OPUJ.l6 ; 0x6010
 jumptable_6059_case_12:
@@ -305,7 +305,7 @@ jumptable_6059_case_12:
     inc ax                           ; 0x6029
     push ax                          ; 0x602a
     push word [bp + 0x4]             ; 0x602b
-    call loc_5d7e                    ; 0x602e
+    call loc_LMIM                    ; 0x602e
     add sp, byte 0x0e                ; 0x6031
     jmp short @..api_idx_0004_OPUJ.l6 ; 0x6034
 jumptable_6059_case_13:
@@ -326,7 +326,7 @@ jumptable_6059_case_13:
     inc ax                           ; 0x604c
     push ax                          ; 0x604d
     push word [bp + 0x4]             ; 0x604e
-    call loc_5d7e                    ; 0x6051
+    call loc_LMIM                    ; 0x6051
     add sp, byte 0x0e                ; 0x6054
     jmp short @..api_idx_0004_OPUJ.l6 ; 0x6057
 jumptable_6059:

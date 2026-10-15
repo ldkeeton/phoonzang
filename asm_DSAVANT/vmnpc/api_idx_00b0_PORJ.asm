@@ -44,7 +44,7 @@ api_idx_00b0_PORJ:
     add sp, byte 4                   ; 0xa8a2
     mov ax, 3                        ; 0xa8a5
     push ax                          ; 0xa8a8
-    call loc_0c96                    ; 0xa8a9
+    call loc_HGQP                    ; 0xa8a9
     pop cx                           ; 0xa8ac
     mov word [bp - 0x0008], 0        ; 0xa8ad
     mov bx, word [bp + 0x4]          ; 0xa8b2

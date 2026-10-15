@@ -3,8 +3,4 @@ leaf_loc_GPVI:
     push bp                          ; 0x2a1c
     mov bp, sp                       ; 0x2a1d
     mov ah, 0x3b                     ; 0x2a1f
-    jmp short @..aztec_mkdir.dircommon ; 0x2a21
-cseg_2a23:
-    add byte [bx + si], al           ; 0x2a23
-cseg_2a25:
-    add byte [bx + si], al           ; 0x2a25
+    jmp short loc_JIGN               ; 0x2a21

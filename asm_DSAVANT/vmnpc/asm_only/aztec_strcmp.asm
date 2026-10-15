@@ -13,9 +13,9 @@ aztec_strcmp:
 @..aztec_strcmp.l1:
     lodsw                            ; 0xae86
     scasw                            ; 0xae87
-    jne short loc_aec9               ; 0xae88
+    jne short loc_NTPJ               ; 0xae88
     test al, al                      ; 0xae8a
-    je short loc_aec3                ; 0xae8c
+    je short loc_TSVL                ; 0xae8c
     test ah, ah                      ; 0xae8e
     jne short @..aztec_strcmp.l1     ; 0xae90
-    jmp short loc_aec3               ; 0xae92
+    jmp short loc_TSVL               ; 0xae92

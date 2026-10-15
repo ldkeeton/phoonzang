@@ -74,7 +74,7 @@ api_idx_0030_UJSL:
     push ax                          ; 0x9359
     mov ax, 0x78                     ; 0x935a
     push ax                          ; 0x935d
-    call loc_1ca0                    ; 0x935e
+    call loc_JUMH                    ; 0x935e
     add sp, byte 0x1a                ; 0x9361
     mov word [bp - 0x0004], ax       ; 0x9364
     cmp ax, strict word 0xd          ; 0x9367
@@ -109,7 +109,7 @@ api_idx_0030_UJSL:
     sub ah, ah                       ; 0x93be
     push ax                          ; 0x93c0
     push word [bp + 0x4]             ; 0x93c1
-    call loc_91d9                    ; 0x93c4
+    call loc_LTLV                    ; 0x93c4
     add sp, byte 4                   ; 0x93c7
     mov ax, 1                        ; 0x93ca
     push ax                          ; 0x93cd
@@ -120,7 +120,7 @@ api_idx_0030_UJSL:
     sub ah, ah                       ; 0x93da
     push ax                          ; 0x93dc
     push word [bp + 0x4]             ; 0x93dd
-    call loc_902e                    ; 0x93e0
+    call loc_SRLV                    ; 0x93e0
     add sp, byte 6                   ; 0x93e3
     mov word [bp - 0x0008], 0        ; 0x93e6
 @..api_idx_0030_UJSL.l9:
@@ -151,7 +151,7 @@ api_idx_0030_UJSL:
     mov ax, 0                        ; 0x9426
     push ax                          ; 0x9429
     push word [bp + 0x4]             ; 0x942a
-    call loc_40b7                    ; 0x942d
+    call loc_RPNL                    ; 0x942d
     add sp, byte 4                   ; 0x9430
 @..api_idx_0030_UJSL.l11:
     ret                              ; 0x9433

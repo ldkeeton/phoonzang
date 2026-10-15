@@ -59,4 +59,4 @@ ds_dos_file_loc_OUMU:
     pop ds                           ; 0x35b3
     ret                              ; 0x35b4
 @..ds_dos_file_loc_OUMU.l3:
-    call ds_loc_30a3                 ; 0x35b5
+    call ds_loc_LJPT                 ; 0x35b5

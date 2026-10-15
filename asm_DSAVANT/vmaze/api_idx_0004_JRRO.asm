@@ -38,7 +38,7 @@ api_idx_0004_JRRO:
     mov ax, 0                        ; 0x74a7
     push ax                          ; 0x74aa
     push word [bx + si]              ; 0x74ab
-    call loc_6f14                    ; 0x74ad
+    call loc_QKON                    ; 0x74ad
     add sp, byte 4                   ; 0x74b0
 @..api_idx_0004_JRRO.l2:
     mov ax, 1                        ; 0x74b3

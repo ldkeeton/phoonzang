@@ -12,4 +12,4 @@ leaf_loc_NKLO:
     mov bx, ax                       ; 0x32ce
     pop ax                           ; 0x32d0
     mov word [bx - 0x6d8e], ax       ; 0x32d1
-    jmp near loc_3387                ; 0x32d5
+    jmp near loc_JULJ                ; 0x32d5

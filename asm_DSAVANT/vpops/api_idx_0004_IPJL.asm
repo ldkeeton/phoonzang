@@ -13,7 +13,7 @@ api_idx_0004_IPJL:
     pop cx                           ; 0x4e66
     mov ax, 3                        ; 0x4e67
     push ax                          ; 0x4e6a
-    call loc_02af                    ; 0x4e6b
+    call loc_HGQP                    ; 0x4e6b
     pop cx                           ; 0x4e6e
     call api_idx_00d4_GSJO           ; 0x4e6f
     mov word [bp - 0x0004], ax       ; 0x4e72
@@ -23,7 +23,7 @@ api_idx_0004_IPJL:
     pop cx                           ; 0x4e7c
     mov ax, 3                        ; 0x4e7d
     push ax                          ; 0x4e80
-    call loc_02af                    ; 0x4e81
+    call loc_HGQP                    ; 0x4e81
     pop cx                           ; 0x4e84
     cmp word [bp - 0x0004], byte 0   ; 0x4e85
     je short @..api_idx_0004_IPJL.l1 ; 0x4e89

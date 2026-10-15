@@ -101,7 +101,7 @@ api_idx_0010_GJOV:
     je short @..api_idx_0010_GJOV.l2 ; 0x830a
     jmp near @..api_idx_0010_GJOV.l10 ; 0x830c
 @..api_idx_0010_GJOV.l2:
-    call loc_676c                    ; 0x830f
+    call loc_JGLI                    ; 0x830f
     mov ax, word [bp - 0x000c]       ; 0x8312
     cmp ax, strict word 5            ; 0x8315
     je short @..api_idx_0010_GJOV.l3 ; 0x8318
@@ -176,6 +176,6 @@ api_idx_0010_GJOV:
     call ds_dos_con_loc_RGTO         ; 0x83a7
     add sp, byte 6                   ; 0x83aa
     push ax                          ; 0x83ad
-    call loc_7242                    ; 0x83ae
+    call loc_VMLV                    ; 0x83ae
     pop cx                           ; 0x83b1
     ret                              ; 0x83b2

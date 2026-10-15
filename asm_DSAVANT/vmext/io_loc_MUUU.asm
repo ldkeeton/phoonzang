@@ -10,36 +10,36 @@ io_loc_MUUU:
     mov al, byte [bp - 0x000e]       ; 0x12f1
     mov byte [bx + 0x5d5c], al       ; 0x12f4
 @..io_loc_MUUU.l1:
-    jmp short loc_1325               ; 0x12f8
+    jmp short loc_TNQQ               ; 0x12f8
 jumptable_12fa:
     dw string_loc_MMKJ - IMAGE_BASE + 0x5055   ; 0x12fa
     dw string_loc_LSLP - IMAGE_BASE + 0x5055   ; 0x12fc
-    dw loc_1070 - IMAGE_BASE + 0x5055          ; 0x12fe
+    dw loc_SRRK - IMAGE_BASE + 0x5055          ; 0x12fe
     dw leaf_loc_MUNK - IMAGE_BASE + 0x5055     ; 0x1300
     dw leaf_loc_TQLO - IMAGE_BASE + 0x5055     ; 0x1302
     dw leaf_loc_KUKO - IMAGE_BASE + 0x5055     ; 0x1304
-    dw loc_10e0 - IMAGE_BASE + 0x5055          ; 0x1306
-    dw loc_1123 - IMAGE_BASE + 0x5055          ; 0x1308
-    dw loc_1143 - IMAGE_BASE + 0x5055          ; 0x130a
+    dw loc_PKPI - IMAGE_BASE + 0x5055          ; 0x1306
+    dw loc_VVHU - IMAGE_BASE + 0x5055          ; 0x1308
+    dw loc_RLMT - IMAGE_BASE + 0x5055          ; 0x130a
     dw string_loc_QNNI - IMAGE_BASE + 0x5055   ; 0x130c
-    dw loc_122a - IMAGE_BASE + 0x5055          ; 0x130e
+    dw loc_SLGQ - IMAGE_BASE + 0x5055          ; 0x130e
     dw leaf_loc_TUPL - IMAGE_BASE + 0x5055     ; 0x1310
     dw io_loc_NIJO - IMAGE_BASE + 0x5055       ; 0x1312
     dw io_loc_GJHR - IMAGE_BASE + 0x5055       ; 0x1314
     dw io_loc_MUUU - IMAGE_BASE + 0x5055       ; 0x1316
-loc_1318:
+loc_QHUL:
     cmp ax, strict word 0xf          ; 0x1318
-    jae short loc_1325               ; 0x131b
+    jae short loc_TNQQ               ; 0x131b
     xchg bx, ax                      ; 0x131d
     shl bx, 1                        ; 0x131e
     jmp [cs:bx + 0x6341]             ; 0x1320
-loc_1325:
+loc_TNQQ:
     inc word [bp - 0x0002]           ; 0x1325
     mov ax, word [bp - 0x0002]       ; 0x1328
     cmp ax, strict word 0x10         ; 0x132b
-    jge short loc_1333               ; 0x132e
-    jmp near loc_0f7b                ; 0x1330
-loc_1333:
+    jge short loc_QVQM               ; 0x132e
+    jmp near loc_LJMK                ; 0x1330
+loc_QVQM:
     mov ax, 1                        ; 0x1333
     push ax                          ; 0x1336
     push word [bp - 0x0006]          ; 0x1337
@@ -49,9 +49,9 @@ loc_1333:
     add ax, word [bp - 0x0012]       ; 0x1343
     add ax, 0x800                    ; 0x1346
     push ax                          ; 0x1349
-    call loc_0eac                    ; 0x134a
+    call loc_GMJQ                    ; 0x134a
     pop cx                           ; 0x134d
-    jmp near loc_0f0f                ; 0x134e
-loc_1351:
+    jmp near loc_PKJS                ; 0x134e
+loc_URTQ:
     inc word [bss_8d12]              ; 0x1351
     ret                              ; 0x1355

@@ -197,6 +197,10 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         report(f'  Shared lib: {sum(len(v) for v in shared.values())} '
                f'fragments -> {len(shared)} files in lib/')
 
+    # 5b. structure report: objects glued onto a routine's file (plan.md §7)
+    from lib.compare.cotenancy import scan as scan_cotenancy, summarize
+    report('  ' + summarize(scan_cotenancy(out_dir)))
+
     # 6. assemble
     return _batch(nasm_batch, [(name, rel) for name, (rel, _s)
                                in sorted(bins.items())])

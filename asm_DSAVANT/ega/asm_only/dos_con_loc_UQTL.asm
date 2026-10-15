@@ -8,7 +8,7 @@ dos_con_loc_UQTL:
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x110a
     int 0x21 ; DOS function dispatcher
-loc_110f:
+loc_GJPT:
     mov ax, word [cs:cseg_10cb - IMAGE_BASE] ; 0x110f
     inc ax                           ; 0x1113
     mov word [cs:cseg_10cb - IMAGE_BASE], ax ; 0x1114
@@ -24,9 +24,9 @@ loc_110f:
     mov word [cs:bx], ax             ; 0x112f
     mov ax, word [bp + 0x10]         ; 0x1132
     or ax, ax                        ; 0x1135
-    je short loc_113c                ; 0x1137
-    jmp near loc_12bb                ; 0x1139
-loc_113c:
+    je short loc_KUQU                ; 0x1137
+    jmp near loc_NIGS                ; 0x1139
+loc_KUQU:
     cld                              ; 0x113c
     mov cx, 0x1000                   ; 0x113d
     mov bx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x1140
@@ -78,14 +78,14 @@ loc_113c:
     add word [cs:cseg_10cd - IMAGE_BASE], ax ; 0x11b4
     mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x11b9
     cmp ax, 0x4180                   ; 0x11bd
-    jae short loc_1221               ; 0x11c0
+    jae short loc_VTKP               ; 0x11c0
     mov ax, ds                       ; 0x11c2
     add ax, 0x100                    ; 0x11c4
     mov ds, ax                       ; 0x11c7
     mov dx, 0                        ; 0x11c9
-loc_11cc:
+loc_TRTT:
     cmp word [bp - 0x0006], byte 0   ; 0x11cc
-    je short loc_11fd                ; 0x11d0
+    je short loc_MPLJ                ; 0x11d0
     dec word [bp - 0x0006]           ; 0x11d2
     mov cx, 0x8000                   ; 0x11d5
     xor dx, dx                       ; 0x11d8
@@ -103,14 +103,14 @@ loc_11cc:
     mov ax, ds                       ; 0x11f4
     add ax, 0x800                    ; 0x11f6
     mov ds, ax                       ; 0x11f9
-    jmp short loc_11cc               ; 0x11fb
-loc_11fd:
+    jmp short loc_TRTT               ; 0x11fb
+loc_MPLJ:
     mov cx, word [bp - 0x0008]       ; 0x11fd
     xor dx, dx                       ; 0x1200
     mov bx, word [bp + 0xc]          ; 0x1202
     mov ah, 0x3f                     ; 0x1205
     int 0x21 ; DOS read file (handle)
-loc_1209:
+loc_MGUV:
     pop si                           ; 0x1209
     pop di                           ; 0x120a
     pop es                           ; 0x120b

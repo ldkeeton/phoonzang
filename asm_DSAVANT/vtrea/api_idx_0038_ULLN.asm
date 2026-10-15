@@ -128,7 +128,7 @@ api_idx_0038_ULLN:
     mov ax, word [bp - 0x0004]       ; 0x3b8f
     add ax, strict word 0x5d         ; 0x3b92
     push ax                          ; 0x3b95
-    call loc_3a15                    ; 0x3b96
+    call loc_JVLU                    ; 0x3b96
     add sp, byte 0x0e                ; 0x3b99
     mov word [bp - 0x0010], 0        ; 0x3b9c
     push word [bp - 0x0010]          ; 0x3ba1
@@ -401,7 +401,7 @@ api_idx_0038_ULLN:
 @..api_idx_0038_ULLN.l10:
     cmp word [bp + 0x6], byte 0      ; 0x3e03
     jne short @..api_idx_0038_ULLN.l11 ; 0x3e07
-    call loc_086b                    ; 0x3e09
+    call loc_IQGR                    ; 0x3e09
 @..api_idx_0038_ULLN.l11:
     mov ax, 0x59fe                   ; 0x3e0c
     push ax                          ; 0x3e0f
@@ -517,7 +517,7 @@ jumptable_4213_case_0:
     mov ax, word [bp - 0x0004]       ; 0x3f0c
     add ax, strict word 0x5d         ; 0x3f0f
     push ax                          ; 0x3f12
-    call loc_3a15                    ; 0x3f13
+    call loc_JVLU                    ; 0x3f13
     add sp, byte 0x0e                ; 0x3f16
     push word [bp - 0x0010]          ; 0x3f19
     mov ax, 7                        ; 0x3f1c
@@ -657,7 +657,7 @@ jumptable_4213_case_1:
     mov ax, word [bp - 0x0004]       ; 0x404c
     add ax, strict word 0x5d         ; 0x404f
     push ax                          ; 0x4052
-    call loc_3a15                    ; 0x4053
+    call loc_JVLU                    ; 0x4053
     add sp, byte 0x0e                ; 0x4056
     push word [bp - 0x0010]          ; 0x4059
     mov ax, 7                        ; 0x405c
@@ -828,7 +828,7 @@ jumptable_4213_case_5:
     mov ax, word [bp - 0x0004]       ; 0x41e2
     add ax, strict word 0x5d         ; 0x41e5
     push ax                          ; 0x41e8
-    call loc_3a15                    ; 0x41e9
+    call loc_JVLU                    ; 0x41e9
     add sp, byte 0x0e                ; 0x41ec
     mov ax, word [bp - 0x0006]       ; 0x41ef
     add ax, strict word 0x30         ; 0x41f2

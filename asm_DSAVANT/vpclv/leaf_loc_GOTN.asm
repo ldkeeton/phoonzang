@@ -9,4 +9,4 @@ leaf_loc_GOTN:
     mov word [bp - 0x0014], 2        ; 0x4a02
     mov word [bp - 0x0016], 0x1d     ; 0x4a07
     mov word [bp - 0x0018], 1        ; 0x4a0c
-    jmp near loc_4b67                ; 0x4a11
+    jmp near loc_KMTR                ; 0x4a11

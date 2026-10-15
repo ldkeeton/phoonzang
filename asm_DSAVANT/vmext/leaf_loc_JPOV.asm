@@ -25,4 +25,4 @@ leaf_loc_JPOV:
     mov ax, 0xa                      ; 0x2f7c
 @..leaf_loc_JPOV.l1:
     mov word [bp - 0x000a], ax       ; 0x2f7f
-    jmp near loc_30b2                ; 0x2f82
+    jmp near loc_PUVS                ; 0x2f82

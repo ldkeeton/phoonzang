@@ -126,20 +126,3 @@ api_idx_0006_PJVO:
     jg short @..api_idx_0006_PJVO.l4 ; 0x897e
 @..api_idx_0006_PJVO.l6:
     ret                              ; 0x8980
-loc_8981:
-    mov ax, 0                        ; 0x8981
-    call aztec_csav                  ; 0x8984
-    cmp word [bp + 0x6], byte 0      ; 0x8987
-    jne short @..loc_8981.l1         ; 0x898b
-    push word [bp + 0x8]             ; 0x898d
-    push word [bp + 0x4]             ; 0x8990
-    call api_idx_0002_KUST           ; 0x8993
-    add sp, byte 4                   ; 0x8996
-    jmp short @..loc_8981.l2         ; 0x8999
-@..loc_8981.l1:
-    push word [bp + 0x8]             ; 0x899b
-    push word [bp + 0x4]             ; 0x899e
-    call api_idx_0006_PJVO           ; 0x89a1
-    add sp, byte 4                   ; 0x89a4
-@..loc_8981.l2:
-    ret                              ; 0x89a7

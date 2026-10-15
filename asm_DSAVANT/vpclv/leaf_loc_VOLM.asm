@@ -9,4 +9,4 @@ leaf_loc_VOLM:
     mov word [bp - 0x0014], 0        ; 0x499f
     mov word [bp - 0x0016], 0x20     ; 0x49a4
     mov word [bp - 0x0018], 1        ; 0x49a9
-    jmp near loc_4b67                ; 0x49ae
+    jmp near loc_KMTR                ; 0x49ae

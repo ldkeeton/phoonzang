@@ -5,4 +5,4 @@ leaf_loc_OHPG:
     add ax, word [bp + 0xe]          ; 0x3303
     mov bx, ax                       ; 0x3306
     mov byte [bx - 0x6e26], 3        ; 0x3308
-    jmp short loc_3387               ; 0x330d
+    jmp short loc_JULJ               ; 0x330d

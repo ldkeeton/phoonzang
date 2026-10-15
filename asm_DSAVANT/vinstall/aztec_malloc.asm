@@ -37,7 +37,7 @@ aztec_malloc:
     cmp ax, strict word 0xffff       ; 0x2f76
     jne short @..aztec_malloc.l3     ; 0x2f79
     mov ax, 0                        ; 0x2f7b
-loc_2f7e:
+loc_UNVJ:
     pop si                           ; 0x2f7e
     pop di                           ; 0x2f7f
     mov sp, bp                       ; 0x2f80
@@ -101,11 +101,9 @@ loc_2f7e:
     or word [si], 1                  ; 0x3000
     mov ax, si                       ; 0x3004
     add ax, strict word 2            ; 0x3006
-    jmp near loc_2f7e                ; 0x3009
+    jmp near loc_UNVJ                ; 0x3009
 @..aztec_malloc.l9:
     mov ax, word [si]                ; 0x300c
     and ax, strict word 0xfffe       ; 0x300e
     mov si, ax                       ; 0x3011
     jmp near @..aztec_malloc.l2      ; 0x3013
-leaf_loc_OPMK:
-    jmp near loc_2f7e                ; 0x3016

@@ -40,7 +40,7 @@ api_idx_005e_USKO:
     call thunk_4                     ; 0x144f
     add sp, byte 8                   ; 0x1452
 @..api_idx_005e_USKO.l4:
-    call loc_109f                    ; 0x1455
+    call loc_UHKR                    ; 0x1455
     ret                              ; 0x1458
 @..api_idx_005e_USKO.l5:
     cmp word [bp + 0x6], byte 0      ; 0x1459
@@ -203,7 +203,7 @@ api_idx_005e_USKO:
     call api_idx_0006_TPUL           ; 0x15de
     cmp word [bss_845e], byte 0xfe   ; 0x15e1
     jne short @..api_idx_005e_USKO.l21 ; 0x15e6
-    call loc_0ef1                    ; 0x15e8
+    call loc_UVSI                    ; 0x15e8
     mov word [bp - 0x000c], ax       ; 0x15eb
     cmp word [bp - 0x000c], byte 0   ; 0x15ee
     je short @..api_idx_005e_USKO.l22 ; 0x15f2

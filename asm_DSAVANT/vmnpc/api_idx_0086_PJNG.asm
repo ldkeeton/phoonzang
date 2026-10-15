@@ -213,7 +213,7 @@ api_idx_0086_PJNG:
     shl ax, 1                        ; 0x7016
     mov bx, ax                       ; 0x7018
     push word [bx - 0x632c]          ; 0x701a
-    call loc_5497                    ; 0x701e
+    call loc_JPTL                    ; 0x701e
     pop cx                           ; 0x7021
     test ax, ax                      ; 0x7022
     je short @..api_idx_0086_PJNG.l16 ; 0x7024

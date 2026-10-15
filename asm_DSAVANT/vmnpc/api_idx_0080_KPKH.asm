@@ -48,7 +48,7 @@ api_idx_0080_KPKH:
     add sp, byte 4                   ; 0x9736
     lea ax, word [bp - 0x0080]       ; 0x9739
     push ax                          ; 0x973c
-    call loc_9587                    ; 0x973d
+    call loc_JVJP                    ; 0x973d
     pop cx                           ; 0x9740
     call api_idx_000e_LSOI           ; 0x9741
     call api_idx_0004_IKJO           ; 0x9744

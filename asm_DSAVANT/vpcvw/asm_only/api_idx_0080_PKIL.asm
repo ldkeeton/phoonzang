@@ -194,7 +194,7 @@ api_idx_0080_PKIL:
     push ax                          ; 0x6c12
     mov ax, 0x2b                     ; 0x6c13
     push ax                          ; 0x6c16
-    call ds_loc_3a77                 ; 0x6c17
+    call ds_loc_PQIO                 ; 0x6c17
     add sp, byte 4                   ; 0x6c1a
 @..api_idx_0080_PKIL.l6:
     lea ax, word [bp - 0x0068]       ; 0x6c1d

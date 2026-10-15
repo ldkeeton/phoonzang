@@ -30,7 +30,7 @@ api_idx_0002_RGKN:
     push ax                          ; 0x8a5b
     call ds_leaf_loc_JGPJ            ; 0x8a5c
     add sp, byte 8                   ; 0x8a5f
-    call loc_676c                    ; 0x8a62
+    call loc_JGLI                    ; 0x8a62
     mov ax, 0x7fc                    ; 0x8a65
     push ax                          ; 0x8a68
     call api_idx_0050_RIIV           ; 0x8a69
@@ -96,9 +96,9 @@ api_idx_0002_RGKN:
     add sp, byte 8                   ; 0x8afb
     mov ax, 0x12                     ; 0x8afe
     push ax                          ; 0x8b01
-    call loc_6ac7                    ; 0x8b02
+    call loc_HNMM                    ; 0x8b02
     pop cx                           ; 0x8b05
-    call loc_676c                    ; 0x8b06
+    call loc_JGLI                    ; 0x8b06
     mov ax, word [bss_82ee]          ; 0x8b09
     shl ax, 1                        ; 0x8b0c
     add ax, strict word 8            ; 0x8b0e

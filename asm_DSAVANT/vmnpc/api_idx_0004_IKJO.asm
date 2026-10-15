@@ -27,7 +27,7 @@ api_idx_0004_IKJO:
     shl ax, cl                       ; 0x0e50
     add ax, 0x91cc                   ; 0x0e52
     push ax                          ; 0x0e55
-    call ds_loc_3aca                 ; 0x0e56
+    call ds_loc_TILJ                 ; 0x0e56
     add sp, byte 4                   ; 0x0e59
     inc ax                           ; 0x0e5c
     mov cx, 2                        ; 0x0e5d
@@ -92,43 +92,6 @@ api_idx_0004_IKJO:
 @..api_idx_0004_IKJO.l10:
     mov ax, 3                        ; 0x0ee8
     push ax                          ; 0x0eeb
-    call loc_0c96                    ; 0x0eec
+    call loc_HGQP                    ; 0x0eec
     pop cx                           ; 0x0eef
     ret                              ; 0x0ef0
-loc_0ef1:
-    mov ax, 0                        ; 0x0ef1
-    call aztec_csav                  ; 0x0ef4
-    les bx, word [dseg_0002]         ; 0x0ef7
-    mov ax, word [es:bx]             ; 0x0efb
-    mov dx, word [es:bx + 0x2]       ; 0x0efe
-    mov word [bss_9090], dx          ; 0x0f02
-    mov word [bss_908e], ax          ; 0x0f06
-    mov ax, word [bss_908e]          ; 0x0f09
-    mov dx, word [bss_9090]          ; 0x0f0c
-    sub ax, word [bss_908a]          ; 0x0f10
-    sbb dx, word [bss_908c]          ; 0x0f14
-    mov word [bss_9094], dx          ; 0x0f18
-    mov word [bss_9092], ax          ; 0x0f1c
-    mov ax, word [bss_93d6]          ; 0x0f1f
-    cwd                              ; 0x0f22
-    mov cx, ax                       ; 0x0f23
-    mov bx, dx                       ; 0x0f25
-    mov ax, word [bss_9092]          ; 0x0f27
-    mov dx, word [bss_9094]          ; 0x0f2a
-    cmp bx, dx                       ; 0x0f2e
-    jg short @..loc_0ef1.l1          ; 0x0f30
-    jne short @..loc_0ef1.l2         ; 0x0f32
-    cmp cx, ax                       ; 0x0f34
-    jbe short @..loc_0ef1.l2         ; 0x0f36
-@..loc_0ef1.l1:
-    jmp short @..loc_0ef1.l3         ; 0x0f38
-@..loc_0ef1.l2:
-    mov ax, word [bss_908e]          ; 0x0f3a
-    mov dx, word [bss_9090]          ; 0x0f3d
-    mov word [bss_908c], dx          ; 0x0f41
-    mov word [bss_908a], ax          ; 0x0f45
-    mov ax, 1                        ; 0x0f48
-    ret                              ; 0x0f4b
-@..loc_0ef1.l3:
-    mov ax, 0                        ; 0x0f4c
-    ret                              ; 0x0f4f

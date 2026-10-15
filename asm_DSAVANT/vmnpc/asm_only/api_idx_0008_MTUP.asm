@@ -128,7 +128,7 @@ api_idx_0008_MTUP:
     push ax                          ; 0x3a0d
     mov ax, 0x95fa                   ; 0x3a0e
     push ax                          ; 0x3a11
-    call loc_130b                    ; 0x3a12
+    call loc_TJUO                    ; 0x3a12
     add sp, byte 8                   ; 0x3a15
     mov ax, 0                        ; 0x3a18
     push ax                          ; 0x3a1b
@@ -179,7 +179,7 @@ api_idx_0008_MTUP:
     push ax                          ; 0x3a78
     mov ax, 0x95fa                   ; 0x3a79
     push ax                          ; 0x3a7c
-    call loc_2472                    ; 0x3a7d
+    call loc_JJJH                    ; 0x3a7d
     add sp, byte 4                   ; 0x3a80
     jmp short @..api_idx_0008_MTUP.l11 ; 0x3a83
 @..api_idx_0008_MTUP.l9:

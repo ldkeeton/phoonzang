@@ -40,7 +40,7 @@ api_idx_007a_PLMI:
     push ax                          ; 0x4413
     mov ax, 0x64                     ; 0x4414
     push ax                          ; 0x4417
-    call loc_0445                    ; 0x4418
+    call loc_TGJO                    ; 0x4418
     add sp, byte 0x1a                ; 0x441b
     push ax                          ; 0x441e
     mov ax, 0x248                    ; 0x441f
@@ -84,7 +84,7 @@ api_idx_007a_PLMI:
     sub ah, ah                       ; 0x447e
     push ax                          ; 0x4480
     push word [bp + 0x4]             ; 0x4481
-    call loc_42b8                    ; 0x4484
+    call loc_PTQL                    ; 0x4484
     add sp, byte 4                   ; 0x4487
     mov ax, 1                        ; 0x448a
     push ax                          ; 0x448d

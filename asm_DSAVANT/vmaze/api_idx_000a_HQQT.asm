@@ -7,7 +7,7 @@ api_idx_000a_HQQT:
     mov bx, ax                       ; 0x1968
     cmp byte [bx + 0x5e2f], 3        ; 0x196a
     jb short @..api_idx_000a_HQQT.l1 ; 0x196f
-    jmp near loc_1c93                ; 0x1971
+    jmp near loc_NUGN_1c93           ; 0x1971
 @..api_idx_000a_HQQT.l1:
     cmp byte [bx + 0x5d60], 0        ; 0x1974
     ja short @..api_idx_000a_HQQT.l2 ; 0x1979
@@ -19,7 +19,7 @@ api_idx_000a_HQQT:
     pop cx                           ; 0x1985
     test ax, ax                      ; 0x1986
     je short @..api_idx_000a_HQQT.l3 ; 0x1988
-    jmp near loc_1a6f                ; 0x198a
+    jmp near loc_SGTP                ; 0x198a
 @..api_idx_000a_HQQT.l3:
     mov ax, 6                        ; 0x198d
     push ax                          ; 0x1990

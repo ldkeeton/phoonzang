@@ -77,7 +77,7 @@ api_idx_008a_IVUP:
     cwd                              ; 0x0cd0
     idiv cx                          ; 0x0cd1
     mov word [bss_82ee], dx          ; 0x0cd3
-    call loc_054f                    ; 0x0cd7
+    call loc_RMHJ                    ; 0x0cd7
     test ax, ax                      ; 0x0cda
     je short @..api_idx_008a_IVUP.l5 ; 0x0cdc
     mov ax, word [bss_82e8]          ; 0x0cde
@@ -87,10 +87,10 @@ api_idx_008a_IVUP:
     idiv cx                          ; 0x0ce6
     mov word [bss_82e8], dx          ; 0x0ce8
 @..api_idx_008a_IVUP.l5:
-    call loc_51fb                    ; 0x0cec
+    call loc_ULLV                    ; 0x0cec
     cmp word [bp - 0x0006], byte 0   ; 0x0cef
     jne short @..api_idx_008a_IVUP.l6 ; 0x0cf3
-    call loc_0c0d                    ; 0x0cf5
+    call loc_QTOG                    ; 0x0cf5
     mov word [bp - 0x0006], ax       ; 0x0cf8
 @..api_idx_008a_IVUP.l6:
     mov ax, 2                        ; 0x0cfb
@@ -102,7 +102,7 @@ api_idx_008a_IVUP:
     mov word [bp - 0x0008], 0xffff   ; 0x0d05
 @..api_idx_008a_IVUP.l8:
     mov word [bp - 0x000a], 0        ; 0x0d0a
-    call loc_0692                    ; 0x0d0f
+    call loc_QOTJ                    ; 0x0d0f
     cmp word [bp - 0x0008], byte 0xff ; 0x0d12
     jne short @..api_idx_008a_IVUP.l9 ; 0x0d16
     jmp near @..api_idx_008a_IVUP.l14 ; 0x0d18
@@ -127,7 +127,7 @@ api_idx_008a_IVUP:
     jne short @..api_idx_008a_IVUP.l11 ; 0x0d42
     cmp word [bp - 0x0006], byte 0   ; 0x0d44
     jne short @..api_idx_008a_IVUP.l10 ; 0x0d48
-    call loc_0c0d                    ; 0x0d4a
+    call loc_QTOG                    ; 0x0d4a
     mov word [bp - 0x0006], ax       ; 0x0d4d
 @..api_idx_008a_IVUP.l10:
     call api_idx_000a_KKTV           ; 0x0d50
@@ -149,7 +149,7 @@ api_idx_008a_IVUP:
     jne short @..api_idx_008a_IVUP.l13 ; 0x0d74
     cmp word [bp - 0x0006], byte 0   ; 0x0d76
     jne short @..api_idx_008a_IVUP.l12 ; 0x0d7a
-    call loc_0c0d                    ; 0x0d7c
+    call loc_QTOG                    ; 0x0d7c
     mov word [bp - 0x0006], ax       ; 0x0d7f
 @..api_idx_008a_IVUP.l12:
     call api_idx_000a_KKTV           ; 0x0d82
@@ -242,7 +242,7 @@ api_idx_008a_IVUP:
     push ax                          ; 0x0e3f
     call set_bitmap_bit              ; 0x0e40
     add sp, byte 6                   ; 0x0e43
-    call loc_054f                    ; 0x0e46
+    call loc_RMHJ                    ; 0x0e46
     test ax, ax                      ; 0x0e49
     je short @..api_idx_008a_IVUP.l22 ; 0x0e4b
     mov ax, word [bss_82e8]          ; 0x0e4d
@@ -252,10 +252,10 @@ api_idx_008a_IVUP:
     idiv cx                          ; 0x0e55
     mov word [bss_82e8], dx          ; 0x0e57
 @..api_idx_008a_IVUP.l22:
-    call loc_51fb                    ; 0x0e5b
+    call loc_ULLV                    ; 0x0e5b
     cmp word [bp - 0x0006], byte 0   ; 0x0e5e
     jne short @..api_idx_008a_IVUP.l23 ; 0x0e62
-    call loc_0c0d                    ; 0x0e64
+    call loc_QTOG                    ; 0x0e64
     mov word [bp - 0x0006], ax       ; 0x0e67
 @..api_idx_008a_IVUP.l23:
     mov ax, 2                        ; 0x0e6a
@@ -290,27 +290,3 @@ api_idx_008a_IVUP:
     jmp near @..api_idx_008a_IVUP.l8 ; 0x0ea8
 @..api_idx_008a_IVUP.l26:
     ret                              ; 0x0eab
-loc_0eac:
-    mov ax, 0                        ; 0x0eac
-    call aztec_csav                  ; 0x0eaf
-    push word [bp + 0x4]             ; 0x0eb2
-    call api_idx_0050_NNKM           ; 0x0eb5
-    pop cx                           ; 0x0eb8
-    mov ax, 0                        ; 0x0eb9
-    push ax                          ; 0x0ebc
-    call ds_app_IPOK                 ; 0x0ebd
-    pop cx                           ; 0x0ec0
-    push word [bss_905a]             ; 0x0ec1
-    call api_idx_0004_IVLG           ; 0x0ec5
-    pop cx                           ; 0x0ec8
-    mov ax, 0x98                     ; 0x0ec9
-    push ax                          ; 0x0ecc
-    mov ax, 0x13f                    ; 0x0ecd
-    push ax                          ; 0x0ed0
-    mov ax, 0x92                     ; 0x0ed1
-    push ax                          ; 0x0ed4
-    mov ax, 0                        ; 0x0ed5
-    push ax                          ; 0x0ed8
-    call thunk_4                     ; 0x0ed9
-    add sp, byte 8                   ; 0x0edc
-    ret                              ; 0x0edf

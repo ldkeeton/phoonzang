@@ -1,7 +1,7 @@
 ; auto-generated
 leaf_loc_SMTO:
     push bx                          ; 0x3252
-loc_3253:
+loc_PKPV:
     push ax                          ; 0x3253
     cs xlatb                         ; 0x3254
     mov ah, al                       ; 0x3256

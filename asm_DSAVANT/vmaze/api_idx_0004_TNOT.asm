@@ -2,7 +2,7 @@
 api_idx_0004_TNOT:
     mov ax, 0xfffc                   ; 0x72a6
     call aztec_csav                  ; 0x72a9
-    call loc_13c0                    ; 0x72ac
+    call loc_RUMS                    ; 0x72ac
     mov ax, word [bp + 0x4]          ; 0x72af
     shl ax, 1                        ; 0x72b2
     mov si, ax                       ; 0x72b4
@@ -17,7 +17,7 @@ api_idx_0004_TNOT:
     call ds_dos_con_loc_RGTO         ; 0x72cc
     add sp, byte 6                   ; 0x72cf
     push ax                          ; 0x72d2
-    call loc_7242                    ; 0x72d3
+    call loc_VMLV                    ; 0x72d3
     pop cx                           ; 0x72d6
     mov ax, 3                        ; 0x72d7
     push ax                          ; 0x72da
@@ -84,16 +84,16 @@ api_idx_0004_TNOT:
     mov ax, word [bp - 0x0004]       ; 0x738d
     cmp ax, word [bss_830c]          ; 0x7390
     jne short @..api_idx_0004_TNOT.l3 ; 0x7394
-    call loc_676c                    ; 0x7396
+    call loc_JGLI                    ; 0x7396
     jmp short @..api_idx_0004_TNOT.l4 ; 0x7399
 @..api_idx_0004_TNOT.l3:
-    call loc_68f2                    ; 0x739b
+    call loc_QHLL                    ; 0x739b
     push word [bp - 0x0004]          ; 0x739e
     call api_idx_000c_HVJT           ; 0x73a1
     pop cx                           ; 0x73a4
     cmp word [bss_830c], byte 0      ; 0x73a5
     jl short @..api_idx_0004_TNOT.l4 ; 0x73aa
-    call loc_676c                    ; 0x73ac
+    call loc_JGLI                    ; 0x73ac
 @..api_idx_0004_TNOT.l4:
     mov word [bss_91a8], 1           ; 0x73af
     ret                              ; 0x73b5

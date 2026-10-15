@@ -5,4 +5,4 @@ leaf_loc_VOJK:
     add ax, word [bp + 0xe]          ; 0x1b60
     mov bx, ax                       ; 0x1b63
     mov byte [bx - 0x6e39], 1        ; 0x1b65
-    jmp short loc_1bb9               ; 0x1b6a
+    jmp short loc_QNKS               ; 0x1b6a

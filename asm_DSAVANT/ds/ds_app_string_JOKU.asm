@@ -18,7 +18,7 @@ ds_app_string_JOKU: ; Aztec csav frame=0x0100
     push word [bp + 0xa]             ; 0x04ff
     mov ax, 0x20                     ; 0x0502
     push ax                          ; 0x0505
-    call ds_loc_3a77                 ; 0x0506
+    call ds_loc_PQIO                 ; 0x0506
     add sp, byte 4                   ; 0x0509
     dec word [bp + 0x8]              ; 0x050c
     jmp short @..ds_app_string_JOKU.l1 ; 0x050f

@@ -23,7 +23,7 @@ ds_app_MSSG: ; Aztec csav frame=0x0002
     mov cl, byte [bx + 0xff0]        ; 0x2c3f
     cmp al, cl                       ; 0x2c43
     jmp short @..ds_app_MSSG.l2      ; 0x2c45
-ds_loc_2c47:
+ds_loc_LHJU:
     mov ax, 0                        ; 0x2c47
     ret                              ; 0x2c4a
 @..ds_app_MSSG.l2:

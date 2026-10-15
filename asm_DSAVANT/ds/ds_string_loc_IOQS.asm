@@ -4,4 +4,4 @@ ds_string_loc_IOQS:
     mov al, byte [bx + 0x52c4]       ; 0x08ad
     sub ah, ah                       ; 0x08b1
     mov word [bp + 0x8], ax          ; 0x08b3
-    jmp short ds_loc_08f2            ; 0x08b6
+    jmp short ds_loc_MMJO            ; 0x08b6

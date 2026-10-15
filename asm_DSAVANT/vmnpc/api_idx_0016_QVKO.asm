@@ -72,7 +72,7 @@ api_idx_0016_QVKO:
     jne short @..api_idx_0016_QVKO.l6 ; 0xa5fd
     cmp word [bp - 0x000a], byte 0   ; 0xa5ff
     jne short @..api_idx_0016_QVKO.l4 ; 0xa603
-    call loc_109f                    ; 0xa605
+    call loc_UHKR                    ; 0xa605
     mov ax, 0                        ; 0xa608
     push ax                          ; 0xa60b
     push word [bp - 0x0014]          ; 0xa60c
@@ -89,7 +89,7 @@ api_idx_0016_QVKO:
     push ax                          ; 0xa62d
     mov ax, 3                        ; 0xa62e
     push ax                          ; 0xa631
-    call ds_loc_3a77                 ; 0xa632
+    call ds_loc_PQIO                 ; 0xa632
     add sp, byte 4                   ; 0xa635
 @..api_idx_0016_QVKO.l3:
     mov ax, word [bp + 0x8]          ; 0xa638
@@ -288,7 +288,7 @@ api_idx_0016_QVKO:
     mov al, byte [bp - 0x0002]       ; 0xa809
     sub ah, ah                       ; 0xa80c
     push ax                          ; 0xa80e
-    call ds_loc_3a77                 ; 0xa80f
+    call ds_loc_PQIO                 ; 0xa80f
     add sp, byte 4                   ; 0xa812
     mov ax, word [bp + 0x8]          ; 0xa815
     add ax, strict word 5            ; 0xa818

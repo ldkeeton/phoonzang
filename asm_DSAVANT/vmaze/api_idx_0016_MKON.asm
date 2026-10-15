@@ -73,7 +73,7 @@ api_idx_0016_MKON:
     mov bx, word [bp + 0x4]          ; 0x4ffc
     mov al, byte [bx + 0xf]          ; 0x4fff
     sub ah, ah                       ; 0x5002
-loc_5004:
+loc_RINU:
     mov cx, ax                       ; 0x5004
     pop ax                           ; 0x5006
     add ax, cx                       ; 0x5007

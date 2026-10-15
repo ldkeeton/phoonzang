@@ -5,4 +5,4 @@ io_loc_NNIU:
     cwd                              ; 0x30db
     idiv cx                          ; 0x30dc
     mov word [bp - 0x0006], ax       ; 0x30de
-    jmp short loc_3103               ; 0x30e1
+    jmp short loc_KRJJ               ; 0x30e1

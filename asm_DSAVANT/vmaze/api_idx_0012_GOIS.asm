@@ -44,7 +44,7 @@ api_idx_0012_GOIS:
     mov ax, word [bp + 0x20]         ; 0x46c8
     add ax, word [bp + 0x4]          ; 0x46cb
     push ax                          ; 0x46ce
-    call loc_2eac                    ; 0x46cf
+    call loc_UMJN                    ; 0x46cf
     pop cx                           ; 0x46d2
     push ax                          ; 0x46d3
     mov ax, 0                        ; 0x46d4
@@ -61,7 +61,7 @@ api_idx_0012_GOIS:
     mov ax, word [bp + 0x20]         ; 0x46e9
     add ax, word [bp + 0x4]          ; 0x46ec
     push ax                          ; 0x46ef
-    call loc_2ec0                    ; 0x46f0
+    call loc_LITI                    ; 0x46f0
     add sp, byte 4                   ; 0x46f3
     push ax                          ; 0x46f6
     mov ax, 0xff                     ; 0x46f7
@@ -240,7 +240,7 @@ api_idx_0012_GOIS:
     mov ax, word [bp + 0x18]         ; 0x4873
     add ax, word [bp + 0x4]          ; 0x4876
     push ax                          ; 0x4879
-    call loc_2eac                    ; 0x487a
+    call loc_UMJN                    ; 0x487a
     pop cx                           ; 0x487d
     push ax                          ; 0x487e
     mov ax, 0                        ; 0x487f
@@ -257,7 +257,7 @@ api_idx_0012_GOIS:
     mov ax, word [bp + 0x18]         ; 0x4894
     add ax, word [bp + 0x4]          ; 0x4897
     push ax                          ; 0x489a
-    call loc_2ec0                    ; 0x489b
+    call loc_LITI                    ; 0x489b
     add sp, byte 4                   ; 0x489e
     push ax                          ; 0x48a1
     mov ax, 0xff                     ; 0x48a2
@@ -276,13 +276,13 @@ api_idx_0012_GOIS:
     mov ax, word [bp + 0x40]         ; 0x48cd
     add ax, word [bp + 0x4]          ; 0x48d0
     push ax                          ; 0x48d3
-    call loc_2ec0                    ; 0x48d4
+    call loc_LITI                    ; 0x48d4
     add sp, byte 4                   ; 0x48d7
     mov word [bp - 0x000e], ax       ; 0x48da
     mov ax, word [bp + 0x40]         ; 0x48dd
     add ax, word [bp + 0x4]          ; 0x48e0
     push ax                          ; 0x48e3
-    call loc_2eac                    ; 0x48e4
+    call loc_UMJN                    ; 0x48e4
     pop cx                           ; 0x48e7
     mov word [bp - 0x0010], ax       ; 0x48e8
 @..api_idx_0012_GOIS.l24:
@@ -296,14 +296,14 @@ api_idx_0012_GOIS:
     add ax, word [bp + 0x4]          ; 0x48fc
     dec ax                           ; 0x48ff
     push ax                          ; 0x4900
-    call loc_2e98                    ; 0x4901
+    call loc_NNQI                    ; 0x4901
     add sp, byte 4                   ; 0x4904
     mov word [bp - 0x000a], ax       ; 0x4907
     mov ax, word [bp + 0x3c]         ; 0x490a
     add ax, word [bp + 0x4]          ; 0x490d
     dec ax                           ; 0x4910
     push ax                          ; 0x4911
-    call loc_2e84                    ; 0x4912
+    call loc_PLRK                    ; 0x4912
     pop cx                           ; 0x4915
     mov word [bp - 0x000c], ax       ; 0x4916
 @..api_idx_0012_GOIS.l25:
@@ -357,7 +357,7 @@ api_idx_0012_GOIS:
     push ax                          ; 0x4984
     mov ax, 0xc2                     ; 0x4985
     push ax                          ; 0x4988
-    call loc_2e84                    ; 0x4989
+    call loc_PLRK                    ; 0x4989
     pop cx                           ; 0x498c
     push ax                          ; 0x498d
     mov ax, 0                        ; 0x498e
@@ -372,7 +372,7 @@ api_idx_0012_GOIS:
     push ax                          ; 0x499f
     mov ax, 0xc2                     ; 0x49a0
     push ax                          ; 0x49a3
-    call loc_2e98                    ; 0x49a4
+    call loc_NNQI                    ; 0x49a4
     add sp, byte 4                   ; 0x49a7
     push ax                          ; 0x49aa
     mov ax, 0xff                     ; 0x49ab
@@ -393,7 +393,7 @@ api_idx_0012_GOIS:
     push ax                          ; 0x49cc
     mov ax, 0xc3                     ; 0x49cd
     push ax                          ; 0x49d0
-    call loc_2e84                    ; 0x49d1
+    call loc_PLRK                    ; 0x49d1
     pop cx                           ; 0x49d4
     push ax                          ; 0x49d5
     mov ax, 0                        ; 0x49d6
@@ -408,7 +408,7 @@ api_idx_0012_GOIS:
     push ax                          ; 0x49e7
     mov ax, 0xc3                     ; 0x49e8
     push ax                          ; 0x49eb
-    call loc_2e98                    ; 0x49ec
+    call loc_NNQI                    ; 0x49ec
     add sp, byte 4                   ; 0x49ef
     push ax                          ; 0x49f2
     mov ax, 0xff                     ; 0x49f3
@@ -429,7 +429,7 @@ api_idx_0012_GOIS:
     mov ax, word [bp + 0x38]         ; 0x4a13
     add ax, word [bp + 0x4]          ; 0x4a16
     push ax                          ; 0x4a19
-    call loc_2eac                    ; 0x4a1a
+    call loc_UMJN                    ; 0x4a1a
     pop cx                           ; 0x4a1d
     push ax                          ; 0x4a1e
     mov ax, 2                        ; 0x4a1f
@@ -440,7 +440,7 @@ api_idx_0012_GOIS:
     mov ax, word [bp + 0x38]         ; 0x4a2a
     add ax, word [bp + 0x4]          ; 0x4a2d
     push ax                          ; 0x4a30
-    call loc_2ec0                    ; 0x4a31
+    call loc_LITI                    ; 0x4a31
     add sp, byte 4                   ; 0x4a34
     push ax                          ; 0x4a37
     push word [bp + 0x10]            ; 0x4a38
@@ -464,7 +464,7 @@ api_idx_0012_GOIS:
     mov ax, word [bp + 0x4]          ; 0x4a65
     add ax, strict word 0x19         ; 0x4a68
     push ax                          ; 0x4a6b
-    call loc_2eac                    ; 0x4a6c
+    call loc_UMJN                    ; 0x4a6c
     pop cx                           ; 0x4a6f
     push ax                          ; 0x4a70
     mov ax, 0                        ; 0x4a71
@@ -479,7 +479,7 @@ api_idx_0012_GOIS:
     add ax, strict word 0x19         ; 0x4a82
     push ax                          ; 0x4a85
     push ax                          ; 0x4a86
-    call loc_2ec0                    ; 0x4a87
+    call loc_LITI                    ; 0x4a87
     add sp, byte 4                   ; 0x4a8a
     push ax                          ; 0x4a8d
     mov ax, 0xfe                     ; 0x4a8e
@@ -500,13 +500,13 @@ api_idx_0012_GOIS:
     mov al, byte [bx - 0x6e28]       ; 0x4aad
     sub ah, ah                       ; 0x4ab1
     jmp near @..api_idx_0012_GOIS.l40 ; 0x4ab3
-loc_4ab6:
+loc_JUVP:
     cmp word [bp + 0x4], byte 5      ; 0x4ab6
     jge short @..api_idx_0012_GOIS.l38 ; 0x4aba
     mov ax, word [bp + 0x1c]         ; 0x4abc
     add ax, word [bp + 0x4]          ; 0x4abf
     push ax                          ; 0x4ac2
-    call loc_2eac                    ; 0x4ac3
+    call loc_UMJN                    ; 0x4ac3
     pop cx                           ; 0x4ac6
     push ax                          ; 0x4ac7
     mov ax, 2                        ; 0x4ac8
@@ -517,21 +517,21 @@ loc_4ab6:
     mov ax, word [bp + 0x1c]         ; 0x4ad3
     add ax, word [bp + 0x4]          ; 0x4ad6
     push ax                          ; 0x4ad9
-    call loc_2ec0                    ; 0x4ada
+    call loc_LITI                    ; 0x4ada
     add sp, byte 4                   ; 0x4add
     push ax                          ; 0x4ae0
     push word [bp + 0xa]             ; 0x4ae1
     call thunk_34                    ; 0x4ae4
     add sp, byte 8                   ; 0x4ae7
 @..api_idx_0012_GOIS.l38:
-    jmp near loc_4b82                ; 0x4aea
-loc_4aed:
+    jmp near loc_TMVT                ; 0x4aea
+loc_OOHG:
     cmp word [bp + 0x4], byte 5      ; 0x4aed
     jge short @..api_idx_0012_GOIS.l39 ; 0x4af1
     mov ax, word [bp + 0x30]         ; 0x4af3
     add ax, word [bp + 0x4]          ; 0x4af6
     push ax                          ; 0x4af9
-    call loc_2eac                    ; 0x4afa
+    call loc_UMJN                    ; 0x4afa
     pop cx                           ; 0x4afd
     push ax                          ; 0x4afe
     mov ax, 2                        ; 0x4aff
@@ -542,11 +542,11 @@ loc_4aed:
     mov ax, word [bp + 0x30]         ; 0x4b0a
     add ax, word [bp + 0x4]          ; 0x4b0d
     push ax                          ; 0x4b10
-    call loc_2ec0                    ; 0x4b11
+    call loc_LITI                    ; 0x4b11
     add sp, byte 4                   ; 0x4b14
     push ax                          ; 0x4b17
     push word [bp + 0x16]            ; 0x4b18
     call thunk_34                    ; 0x4b1b
     add sp, byte 8                   ; 0x4b1e
 @..api_idx_0012_GOIS.l39:
-    jmp short loc_4b82               ; 0x4b21
+    jmp short loc_TMVT               ; 0x4b21

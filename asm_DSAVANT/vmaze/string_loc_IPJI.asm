@@ -32,4 +32,4 @@ string_loc_IPJI:
     call thunk_34                    ; 0x4b5f
     add sp, byte 8                   ; 0x4b62
 @..string_loc_IPJI.l5:
-    jmp short loc_4b82               ; 0x4b65
+    jmp short loc_TMVT               ; 0x4b65

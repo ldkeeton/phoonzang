@@ -2,7 +2,7 @@
 api_idx_0002_NURS:
     mov ax, 0xfffe                   ; 0x8f74
     call aztec_csav                  ; 0x8f77
-    call loc_85f0                    ; 0x8f7a
+    call loc_SKUK                    ; 0x8f7a
     cmp word [bss_0e32], byte 1      ; 0x8f7d
     jne short @..api_idx_0002_NURS.l1 ; 0x8f82
     call thunk_36                    ; 0x8f84
@@ -43,7 +43,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x8fd8
     mov ax, 0x7ba2                   ; 0x8fd9
     push ax                          ; 0x8fdc
-    call loc_8634                    ; 0x8fdd
+    call loc_LPVU                    ; 0x8fdd
     add sp, byte 0x0a                ; 0x8fe0
     jmp short @..api_idx_0002_NURS.l5 ; 0x8fe3
 @..api_idx_0002_NURS.l4:
@@ -56,7 +56,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x8ff1
     mov ax, 0x7b0c                   ; 0x8ff2
     push ax                          ; 0x8ff5
-    call loc_8634                    ; 0x8ff6
+    call loc_LPVU                    ; 0x8ff6
     add sp, byte 0x0a                ; 0x8ff9
 @..api_idx_0002_NURS.l5:
     mov ax, 0x63                     ; 0x8ffc
@@ -117,7 +117,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x9074
     mov ax, 0x7b52                   ; 0x9075
     push ax                          ; 0x9078
-    call loc_8634                    ; 0x9079
+    call loc_LPVU                    ; 0x9079
     add sp, byte 0x0a                ; 0x907c
     mov ax, 0x63                     ; 0x907f
     push ax                          ; 0x9082
@@ -133,7 +133,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x9098
     mov ax, 0x7b66                   ; 0x9099
     push ax                          ; 0x909c
-    call loc_8a74                    ; 0x909d
+    call loc_VVVH                    ; 0x909d
     add sp, byte 4                   ; 0x90a0
     mov ax, 0                        ; 0x90a3
     push ax                          ; 0x90a6
@@ -151,7 +151,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x90bd
     mov ax, 0x7bd4                   ; 0x90be
     push ax                          ; 0x90c1
-    call loc_8634                    ; 0x90c2
+    call loc_LPVU                    ; 0x90c2
     add sp, byte 0x0a                ; 0x90c5
     mov ax, 0                        ; 0x90c8
     push ax                          ; 0x90cb
@@ -207,7 +207,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x9137
     mov ax, 0x7c0b                   ; 0x9138
     push ax                          ; 0x913b
-    call loc_8634                    ; 0x913c
+    call loc_LPVU                    ; 0x913c
     add sp, byte 0x0a                ; 0x913f
     mov ax, 0x63                     ; 0x9142
     push ax                          ; 0x9145
@@ -218,7 +218,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x914e
     mov ax, 0x7c10                   ; 0x914f
     push ax                          ; 0x9152
-    call loc_8634                    ; 0x9153
+    call loc_LPVU                    ; 0x9153
     add sp, byte 0x0a                ; 0x9156
     mov ax, 0                        ; 0x9159
     push ax                          ; 0x915c
@@ -228,7 +228,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x9162
     mov ax, 0x7c1a                   ; 0x9163
     push ax                          ; 0x9166
-    call loc_8634                    ; 0x9167
+    call loc_LPVU                    ; 0x9167
     add sp, byte 0x0a                ; 0x916a
     mov ax, 0x63                     ; 0x916d
     push ax                          ; 0x9170
@@ -244,7 +244,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x9186
     mov ax, 0x7c38                   ; 0x9187
     push ax                          ; 0x918a
-    call loc_8a74                    ; 0x918b
+    call loc_VVVH                    ; 0x918b
     add sp, byte 4                   ; 0x918e
     mov ax, 0                        ; 0x9191
     push ax                          ; 0x9194
@@ -262,7 +262,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x91ab
     mov ax, 0x797c                   ; 0x91ac
     push ax                          ; 0x91af
-    call loc_8634                    ; 0x91b0
+    call loc_LPVU                    ; 0x91b0
     add sp, byte 0x0a                ; 0x91b3
     mov ax, 0x63                     ; 0x91b6
     push ax                          ; 0x91b9
@@ -344,7 +344,7 @@ api_idx_0002_NURS:
     push ax                          ; 0x9263
     mov ax, 0x79fe                   ; 0x9264
     push ax                          ; 0x9267
-    call loc_8a74                    ; 0x9268
+    call loc_VVVH                    ; 0x9268
     add sp, byte 4                   ; 0x926b
     mov ax, 0                        ; 0x926e
     push ax                          ; 0x9271

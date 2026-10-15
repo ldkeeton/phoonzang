@@ -20,4 +20,4 @@ ds_string_loc_RUSV:
     mov bx, ax                       ; 0x1ad2
     pop ax                           ; 0x1ad4
     add byte [bx + 0x5dab], al       ; 0x1ad5
-    jmp short ds_loc_1b1c            ; 0x1ad9
+    jmp short ds_loc_OIPL            ; 0x1ad9

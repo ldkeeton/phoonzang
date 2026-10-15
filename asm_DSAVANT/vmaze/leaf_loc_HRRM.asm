@@ -5,4 +5,4 @@ leaf_loc_HRRM:
     add ax, word [bp + 0xe]          ; 0x32ef
     mov bx, ax                       ; 0x32f2
     mov byte [bx - 0x6d5e], 1        ; 0x32f4
-    jmp near loc_3387                ; 0x32f9
+    jmp near loc_JULJ                ; 0x32f9

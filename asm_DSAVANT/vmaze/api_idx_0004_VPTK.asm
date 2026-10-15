@@ -9,7 +9,7 @@ api_idx_0004_VPTK:
     sub ah, ah                       ; 0x96e0
     push ax                          ; 0x96e2
     push word [bp + 0x4]             ; 0x96e3
-    call loc_9448                    ; 0x96e6
+    call loc_LUTJ                    ; 0x96e6
     add sp, byte 4                   ; 0x96e9
     test ax, ax                      ; 0x96ec
     je short @..api_idx_0004_VPTK.l1 ; 0x96ee
@@ -48,7 +48,7 @@ api_idx_0004_VPTK:
     ret                              ; 0x9745
 @..api_idx_0004_VPTK.l1:
     push word [bp + 0x4]             ; 0x9746
-    call loc_94a6                    ; 0x9749
+    call loc_RVPM                    ; 0x9749
     pop cx                           ; 0x974c
     test ax, ax                      ; 0x974d
     je short @..api_idx_0004_VPTK.l2 ; 0x974f
@@ -84,7 +84,7 @@ api_idx_0004_VPTK:
     mov word [bp - 0x0004], ax       ; 0x9797
     push ax                          ; 0x979a
     push word [bp + 0x4]             ; 0x979b
-    call loc_9448                    ; 0x979e
+    call loc_LUTJ                    ; 0x979e
     add sp, byte 4                   ; 0x97a1
     test ax, ax                      ; 0x97a4
     je short @..api_idx_0004_VPTK.l4 ; 0x97a6
@@ -107,7 +107,7 @@ api_idx_0004_VPTK:
     pop ax                           ; 0x97d0
     mov byte [bx - 0x7b15], al       ; 0x97d1
     push word [bp + 0x4]             ; 0x97d5
-    call loc_946a                    ; 0x97d8
+    call loc_ISMM                    ; 0x97d8
     pop cx                           ; 0x97db
     ret                              ; 0x97dc
 @..api_idx_0004_VPTK.l5:
@@ -137,7 +137,7 @@ api_idx_0004_VPTK:
     pop ax                           ; 0x9816
     mov byte [bx - 0x7b15], al       ; 0x9817
     push word [bp + 0x4]             ; 0x981b
-    call loc_946a                    ; 0x981e
+    call loc_ISMM                    ; 0x981e
     pop cx                           ; 0x9821
     jmp near @..api_idx_0004_VPTK.l10 ; 0x9822
 @..api_idx_0004_VPTK.l8:
@@ -169,7 +169,7 @@ api_idx_0004_VPTK:
     pop ax                           ; 0x9866
     mov byte [bx - 0x7b12], al       ; 0x9867
     push word [bp + 0x4]             ; 0x986b
-    call loc_946a                    ; 0x986e
+    call loc_ISMM                    ; 0x986e
     pop cx                           ; 0x9871
     mov ax, 0x26                     ; 0x9872
     imul word [bp + 0x4]             ; 0x9875

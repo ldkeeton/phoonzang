@@ -7,7 +7,7 @@ api_idx_000a_MUOR:
     mov al, byte [bx + si + 0xa50]   ; 0x785d
     sub ah, ah                       ; 0x7861
     push ax                          ; 0x7863
-    call loc_6ac7                    ; 0x7864
+    call loc_HNMM                    ; 0x7864
     pop cx                           ; 0x7867
     mov ax, word [bss_8d12]          ; 0x7868
     shl ax, 1                        ; 0x786b

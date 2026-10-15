@@ -26,7 +26,7 @@ api_idx_0002_TTRS:
     call ds_app_IPOK                 ; 0x013b
     pop cx                           ; 0x013e
     ret                              ; 0x013f
-loc_0140:
+loc_KNIO:
     mov ax, 0                        ; 0x0140
     call aztec_csav                  ; 0x0143
     mov ax, 1                        ; 0x0146
@@ -34,50 +34,20 @@ loc_0140:
     call thunk_17                    ; 0x014a
     pop cx                           ; 0x014d
     cmp word [bss_9194], byte 0      ; 0x014e
-    je short @..loc_0140.l1          ; 0x0153
+    je short @..loc_KNIO.l1          ; 0x0153
     mov ax, 0xe                      ; 0x0155
     push ax                          ; 0x0158
     call ds_app_KKKO                 ; 0x0159
     pop cx                           ; 0x015c
-@..loc_0140.l1:
+@..loc_KNIO.l1:
     cmp word [bss_9196], byte 0      ; 0x015d
-    je short @..loc_0140.l2          ; 0x0162
+    je short @..loc_KNIO.l2          ; 0x0162
     mov ax, 0xf                      ; 0x0164
     push ax                          ; 0x0167
     call ds_app_KKKO                 ; 0x0168
     pop cx                           ; 0x016b
-@..loc_0140.l2:
+@..loc_KNIO.l2:
     mov word [bss_9194], 0           ; 0x016c
     mov word [bss_9196], 0           ; 0x0172
     mov word [bss_9198], 0           ; 0x0178
     ret                              ; 0x017e
-loc_017f:
-    mov ax, 0                        ; 0x017f
-    call aztec_csav                  ; 0x0182
-    call loc_0140                    ; 0x0185
-    cmp word [bp + 0x4], byte 0      ; 0x0188
-    je short @..loc_017f.l1          ; 0x018c
-    mov ax, 1                        ; 0x018e
-    push ax                          ; 0x0191
-    mov ax, 0xe                      ; 0x0192
-    push ax                          ; 0x0195
-    push word [bp + 0x4]             ; 0x0196
-    call ds_app_file_GKKL            ; 0x0199
-    add sp, byte 6                   ; 0x019c
-    mov ax, word [bp + 0x4]          ; 0x019f
-    mov word [bss_9194], ax          ; 0x01a2
-@..loc_017f.l1:
-    cmp word [bp + 0x6], byte 0      ; 0x01a5
-    je short @..loc_017f.l2          ; 0x01a9
-    mov ax, 1                        ; 0x01ab
-    push ax                          ; 0x01ae
-    mov ax, 0xf                      ; 0x01af
-    push ax                          ; 0x01b2
-    push word [bp + 0x6]             ; 0x01b3
-    call ds_app_file_GKKL            ; 0x01b6
-    add sp, byte 6                   ; 0x01b9
-    mov ax, word [bp + 0x6]          ; 0x01bc
-    mov word [bss_9196], ax          ; 0x01bf
-@..loc_017f.l2:
-    mov word [bss_9198], 0           ; 0x01c2
-    ret                              ; 0x01c8

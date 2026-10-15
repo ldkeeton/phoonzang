@@ -127,7 +127,7 @@ api_idx_0038_NNPL:
     mov ax, word [bp - 0x0004]       ; 0x2dc5
     add ax, strict word 0x5d         ; 0x2dc8
     push ax                          ; 0x2dcb
-    call loc_2c51                    ; 0x2dcc
+    call loc_TSPU                    ; 0x2dcc
     add sp, byte 0x0e                ; 0x2dcf
     mov word [bp - 0x0010], 0        ; 0x2dd2
     push word [bp - 0x0010]          ; 0x2dd7
@@ -440,7 +440,7 @@ jumptable_33a0_case_0:
     mov ax, word [bp - 0x0004]       ; 0x3099
     add ax, strict word 0x5d         ; 0x309c
     push ax                          ; 0x309f
-    call loc_2c51                    ; 0x30a0
+    call loc_TSPU                    ; 0x30a0
     add sp, byte 0x0e                ; 0x30a3
     push word [bp - 0x0010]          ; 0x30a6
     mov ax, 7                        ; 0x30a9
@@ -580,7 +580,7 @@ jumptable_33a0_case_1:
     mov ax, word [bp - 0x0004]       ; 0x31d9
     add ax, strict word 0x5d         ; 0x31dc
     push ax                          ; 0x31df
-    call loc_2c51                    ; 0x31e0
+    call loc_TSPU                    ; 0x31e0
     add sp, byte 0x0e                ; 0x31e3
     push word [bp - 0x0010]          ; 0x31e6
     mov ax, 7                        ; 0x31e9
@@ -751,7 +751,7 @@ jumptable_33a0_case_5:
     mov ax, word [bp - 0x0004]       ; 0x336f
     add ax, strict word 0x5d         ; 0x3372
     push ax                          ; 0x3375
-    call loc_2c51                    ; 0x3376
+    call loc_TSPU                    ; 0x3376
     add sp, byte 0x0e                ; 0x3379
     mov ax, word [bp - 0x0006]       ; 0x337c
     add ax, strict word 0x30         ; 0x337f

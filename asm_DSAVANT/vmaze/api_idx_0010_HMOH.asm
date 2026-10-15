@@ -45,11 +45,11 @@ api_idx_0010_HMOH:
     jne short @..api_idx_0010_HMOH.l10 ; 0x386a
     push ax                          ; 0x386c
     push word [bp - 0x000c]          ; 0x386d
-    call loc_2e98                    ; 0x3870
+    call loc_NNQI                    ; 0x3870
     add sp, byte 4                   ; 0x3873
     mov word [bp - 0x0002], ax       ; 0x3876
     push word [bp - 0x000c]          ; 0x3879
-    call loc_2e84                    ; 0x387c
+    call loc_PLRK                    ; 0x387c
     pop cx                           ; 0x387f
     mov word [bp - 0x0004], ax       ; 0x3880
     jmp short @..api_idx_0010_HMOH.l11 ; 0x3883
@@ -58,11 +58,11 @@ api_idx_0010_HMOH:
     jne short @..api_idx_0010_HMOH.l11 ; 0x3889
     push word [bp - 0x000c]          ; 0x388b
     push word [bp - 0x000e]          ; 0x388e
-    call loc_2e98                    ; 0x3891
+    call loc_NNQI                    ; 0x3891
     add sp, byte 4                   ; 0x3894
     mov word [bp - 0x0002], ax       ; 0x3897
     push word [bp - 0x000e]          ; 0x389a
-    call loc_2e84                    ; 0x389d
+    call loc_PLRK                    ; 0x389d
     pop cx                           ; 0x38a0
     mov word [bp - 0x0004], ax       ; 0x38a1
 @..api_idx_0010_HMOH.l11:
@@ -141,7 +141,7 @@ jumptable_3a86_case_2:
     mov ax, word [bp + 0x16]         ; 0x393b
     add ax, word [bp + 0x4]          ; 0x393e
     push ax                          ; 0x3941
-    call loc_2e84                    ; 0x3942
+    call loc_PLRK                    ; 0x3942
     pop cx                           ; 0x3945
     push ax                          ; 0x3946
     mov ax, 0                        ; 0x3947
@@ -162,7 +162,7 @@ jumptable_3a86_case_2:
     mov ax, word [bp + 0x16]         ; 0x3963
     add ax, word [bp + 0x4]          ; 0x3966
     push ax                          ; 0x3969
-    call loc_2e98                    ; 0x396a
+    call loc_NNQI                    ; 0x396a
     add sp, byte 4                   ; 0x396d
     push ax                          ; 0x3970
     mov ax, 0xff                     ; 0x3971
@@ -189,7 +189,7 @@ jumptable_3a86_case_2:
     mov ax, word [bp + 0x32]         ; 0x39a1
     add ax, word [bp + 0x4]          ; 0x39a4
     push ax                          ; 0x39a7
-    call loc_2e84                    ; 0x39a8
+    call loc_PLRK                    ; 0x39a8
     pop cx                           ; 0x39ab
     push ax                          ; 0x39ac
     mov ax, 0                        ; 0x39ad
@@ -205,7 +205,7 @@ jumptable_3a86_case_2:
     mov ax, word [bp + 0x32]         ; 0x39c1
     add ax, word [bp + 0x4]          ; 0x39c4
     push ax                          ; 0x39c7
-    call loc_2e98                    ; 0x39c8
+    call loc_NNQI                    ; 0x39c8
     add sp, byte 4                   ; 0x39cb
     push ax                          ; 0x39ce
     mov ax, 0xff                     ; 0x39cf
@@ -229,7 +229,7 @@ jumptable_3a86_case_2:
     mov ax, word [bp + 0x46]         ; 0x39f7
     add ax, word [bp + 0x4]          ; 0x39fa
     push ax                          ; 0x39fd
-    call loc_2e84                    ; 0x39fe
+    call loc_PLRK                    ; 0x39fe
     pop cx                           ; 0x3a01
     push ax                          ; 0x3a02
     mov ax, 0                        ; 0x3a03
@@ -245,7 +245,7 @@ jumptable_3a86_case_2:
     mov ax, word [bp + 0x46]         ; 0x3a17
     add ax, word [bp + 0x4]          ; 0x3a1a
     push ax                          ; 0x3a1d
-    call loc_2e98                    ; 0x3a1e
+    call loc_NNQI                    ; 0x3a1e
     add sp, byte 4                   ; 0x3a21
     push ax                          ; 0x3a24
     mov ax, 0xff                     ; 0x3a25
@@ -360,13 +360,13 @@ jumptable_3ed8_case_7:
     mov ax, word [bp + 0x42]         ; 0x3b0f
     add ax, word [bp + 0x4]          ; 0x3b12
     push ax                          ; 0x3b15
-    call loc_2e98                    ; 0x3b16
+    call loc_NNQI                    ; 0x3b16
     add sp, byte 4                   ; 0x3b19
     mov word [bp - 0x0002], ax       ; 0x3b1c
     mov ax, word [bp + 0x42]         ; 0x3b1f
     add ax, word [bp + 0x4]          ; 0x3b22
     push ax                          ; 0x3b25
-    call loc_2e84                    ; 0x3b26
+    call loc_PLRK                    ; 0x3b26
     pop cx                           ; 0x3b29
     mov word [bp - 0x0004], ax       ; 0x3b2a
 jumptable_3ed8_case_1:
@@ -383,7 +383,7 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x1e]         ; 0x3b43
     add ax, word [bp + 0x4]          ; 0x3b46
     push ax                          ; 0x3b49
-    call loc_2e84                    ; 0x3b4a
+    call loc_PLRK                    ; 0x3b4a
     pop cx                           ; 0x3b4d
     push ax                          ; 0x3b4e
     mov ax, 0                        ; 0x3b4f
@@ -399,7 +399,7 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x1e]         ; 0x3b63
     add ax, word [bp + 0x4]          ; 0x3b66
     push ax                          ; 0x3b69
-    call loc_2e98                    ; 0x3b6a
+    call loc_NNQI                    ; 0x3b6a
     add sp, byte 4                   ; 0x3b6d
     push ax                          ; 0x3b70
     mov ax, 0xff                     ; 0x3b71
@@ -420,7 +420,7 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x36]         ; 0x3b93
     add ax, word [bp + 0x4]          ; 0x3b96
     push ax                          ; 0x3b99
-    call loc_2e84                    ; 0x3b9a
+    call loc_PLRK                    ; 0x3b9a
     pop cx                           ; 0x3b9d
     push ax                          ; 0x3b9e
     mov ax, 0                        ; 0x3b9f
@@ -436,7 +436,7 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x36]         ; 0x3bb3
     add ax, word [bp + 0x4]          ; 0x3bb6
     push ax                          ; 0x3bb9
-    call loc_2e98                    ; 0x3bba
+    call loc_NNQI                    ; 0x3bba
     add sp, byte 4                   ; 0x3bbd
     push ax                          ; 0x3bc0
     mov ax, 0xff                     ; 0x3bc1
@@ -595,13 +595,13 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x26]         ; 0x3d10
     add ax, word [bp + 0x4]          ; 0x3d13
     push ax                          ; 0x3d16
-    call loc_2e84                    ; 0x3d17
+    call loc_PLRK                    ; 0x3d17
     pop cx                           ; 0x3d1a
     push ax                          ; 0x3d1b
     mov ax, word [bp + 0x22]         ; 0x3d1c
     add ax, word [bp + 0x4]          ; 0x3d1f
     push ax                          ; 0x3d22
-    call loc_2e84                    ; 0x3d23
+    call loc_PLRK                    ; 0x3d23
     pop cx                           ; 0x3d26
     push ax                          ; 0x3d27
     mov ax, 0                        ; 0x3d28
@@ -616,7 +616,7 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x26]         ; 0x3d39
     add ax, word [bp + 0x4]          ; 0x3d3c
     push ax                          ; 0x3d3f
-    call loc_2e98                    ; 0x3d40
+    call loc_NNQI                    ; 0x3d40
     add sp, byte 4                   ; 0x3d43
     push ax                          ; 0x3d46
     mov ax, word [bp + 0x24]         ; 0x3d47
@@ -625,7 +625,7 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x22]         ; 0x3d4e
     add ax, word [bp + 0x4]          ; 0x3d51
     push ax                          ; 0x3d54
-    call loc_2e98                    ; 0x3d55
+    call loc_NNQI                    ; 0x3d55
     add sp, byte 4                   ; 0x3d58
     push ax                          ; 0x3d5b
     mov ax, 0xff                     ; 0x3d5c
@@ -645,13 +645,13 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x3e]         ; 0x3d7b
     add ax, word [bp + 0x4]          ; 0x3d7e
     push ax                          ; 0x3d81
-    call loc_2e84                    ; 0x3d82
+    call loc_PLRK                    ; 0x3d82
     pop cx                           ; 0x3d85
     push ax                          ; 0x3d86
     mov ax, word [bp + 0x3a]         ; 0x3d87
     add ax, word [bp + 0x4]          ; 0x3d8a
     push ax                          ; 0x3d8d
-    call loc_2e84                    ; 0x3d8e
+    call loc_PLRK                    ; 0x3d8e
     pop cx                           ; 0x3d91
     push ax                          ; 0x3d92
     mov ax, 0                        ; 0x3d93
@@ -666,7 +666,7 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x3e]         ; 0x3da4
     add ax, word [bp + 0x4]          ; 0x3da7
     push ax                          ; 0x3daa
-    call loc_2e98                    ; 0x3dab
+    call loc_NNQI                    ; 0x3dab
     add sp, byte 4                   ; 0x3dae
     push ax                          ; 0x3db1
     mov ax, word [bp + 0x3c]         ; 0x3db2
@@ -675,7 +675,7 @@ jumptable_3ed8_case_1:
     mov ax, word [bp + 0x3a]         ; 0x3db9
     add ax, word [bp + 0x4]          ; 0x3dbc
     push ax                          ; 0x3dbf
-    call loc_2e98                    ; 0x3dc0
+    call loc_NNQI                    ; 0x3dc0
     add sp, byte 4                   ; 0x3dc3
     push ax                          ; 0x3dc6
     mov ax, 0xff                     ; 0x3dc7
@@ -728,7 +728,7 @@ jumptable_3ed8_case_5:
     mov ax, word [bp + 0x4a]         ; 0x3e26
     add ax, word [bp + 0x4]          ; 0x3e29
     push ax                          ; 0x3e2c
-    call loc_2e84                    ; 0x3e2d
+    call loc_PLRK                    ; 0x3e2d
     pop cx                           ; 0x3e30
     push ax                          ; 0x3e31
     mov ax, 0                        ; 0x3e32
@@ -745,7 +745,7 @@ jumptable_3ed8_case_5:
     mov ax, word [bp + 0x4a]         ; 0x3e47
     add ax, word [bp + 0x4]          ; 0x3e4a
     push ax                          ; 0x3e4d
-    call loc_2e98                    ; 0x3e4e
+    call loc_NNQI                    ; 0x3e4e
     add sp, byte 4                   ; 0x3e51
     push ax                          ; 0x3e54
     mov ax, 0xff                     ; 0x3e55

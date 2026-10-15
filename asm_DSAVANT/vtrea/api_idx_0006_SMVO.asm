@@ -13,7 +13,7 @@ api_idx_0006_SMVO:
     mov ax, 0                        ; 0x552d
     push ax                          ; 0x5530
     push word [bx + si + 0x1e0]      ; 0x5531
-    call loc_0d87                    ; 0x5535
+    call loc_QLRN                    ; 0x5535
     add sp, byte 4                   ; 0x5538
 @..api_idx_0006_SMVO.l1:
     cmp word [bss_830c], byte 0x0e   ; 0x553b

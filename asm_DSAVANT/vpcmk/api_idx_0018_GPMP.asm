@@ -5,7 +5,7 @@ api_idx_0018_GPMP:
     push word [bp + 0x4]             ; 0x6805
     mov ax, 0                        ; 0x6808
     push ax                          ; 0x680b
-    call loc_66c3                    ; 0x680c
+    call loc_QOKJ                    ; 0x680c
     add sp, byte 4                   ; 0x680f
     mov ax, 8                        ; 0x6812
     push ax                          ; 0x6815
@@ -40,7 +40,7 @@ api_idx_0018_GPMP:
     je short @..api_idx_0018_GPMP.l3 ; 0x684f
     lea ax, word [bp - 0x0014]       ; 0x6851
     push ax                          ; 0x6854
-    call loc_6626                    ; 0x6855
+    call loc_VLIJ                    ; 0x6855
     pop cx                           ; 0x6858
     cmp ax, strict word 0xffff       ; 0x6859
     jne short @..api_idx_0018_GPMP.l2 ; 0x685c
@@ -60,7 +60,7 @@ api_idx_0018_GPMP:
     call api_idx_0002_LTOL           ; 0x6879
     add sp, byte 6                   ; 0x687c
     push word [bp + 0x4]             ; 0x687f
-    call loc_67e2                    ; 0x6882
+    call loc_RQVP                    ; 0x6882
     pop cx                           ; 0x6885
 @..api_idx_0018_GPMP.l3:
     ret                              ; 0x6886

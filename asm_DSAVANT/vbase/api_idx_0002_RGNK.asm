@@ -80,15 +80,15 @@ api_idx_0002_RGNK:
     mov ax, 0                        ; 0x8f3d
     push ax                          ; 0x8f40
     push word [bp + 0x4]             ; 0x8f41
-    call loc_6f79                    ; 0x8f44
+    call loc_HTNP                    ; 0x8f44
     add sp, byte 4                   ; 0x8f47
     mov ax, 0xf                      ; 0x8f4a
     push ax                          ; 0x8f4d
-    call loc_72c2                    ; 0x8f4e
+    call loc_JJLM                    ; 0x8f4e
     pop cx                           ; 0x8f51
     mov ax, 0x10                     ; 0x8f52
     push ax                          ; 0x8f55
-    call loc_72c2                    ; 0x8f56
+    call loc_JJLM                    ; 0x8f56
     pop cx                           ; 0x8f59
     mov ax, 0                        ; 0x8f5a
     push ax                          ; 0x8f5d
@@ -98,5 +98,5 @@ api_idx_0002_RGNK:
     push word [bss_a5b2]             ; 0x8f66
     call thunk_12                    ; 0x8f6a
     add sp, byte 8                   ; 0x8f6d
-    call loc_85f0                    ; 0x8f70
+    call loc_SKUK                    ; 0x8f70
     ret                              ; 0x8f73

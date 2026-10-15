@@ -2,8 +2,8 @@
 api_idx_000e_LQIG:
     mov ax, 0xfff2                   ; 0x162b
     call aztec_csav                  ; 0x162e
-    call loc_13c0                    ; 0x1631
-    call loc_12a2                    ; 0x1634
+    call loc_RUMS                    ; 0x1631
+    call loc_QOTJ                    ; 0x1634
     mov ax, word [bss_8f3e]          ; 0x1637
     mov cx, 6                        ; 0x163a
     shl ax, cl                       ; 0x163d
@@ -20,7 +20,7 @@ api_idx_000e_LQIG:
     lea ax, word [bp - 0x000a]       ; 0x165c
     push ax                          ; 0x165f
     push word [bp - 0x0002]          ; 0x1660
-    call loc_2f55                    ; 0x1663
+    call loc_NMPG                    ; 0x1663
     add sp, byte 6                   ; 0x1666
     cmp word [bp - 0x000a], byte 1   ; 0x1669
     je short @..api_idx_000e_LQIG.l1 ; 0x166d
@@ -35,7 +35,7 @@ api_idx_000e_LQIG:
     mov ax, 1                        ; 0x1683
     push ax                          ; 0x1686
     push word [bp + 0x4]             ; 0x1687
-    call loc_1240                    ; 0x168a
+    call loc_GNQK                    ; 0x168a
     add sp, byte 4                   ; 0x168d
     push word [bss_8f44]             ; 0x1690
     push word [bss_8f46]             ; 0x1694
@@ -60,7 +60,7 @@ api_idx_000e_LQIG:
 @..api_idx_000e_LQIG.l3:
     cmp word [bss_919e], byte 0      ; 0x16c0
     jne short @..api_idx_000e_LQIG.l4 ; 0x16c5
-    call loc_13c0                    ; 0x16c7
+    call loc_RUMS                    ; 0x16c7
 @..api_idx_000e_LQIG.l4:
     call api_idx_0004_IKRN           ; 0x16ca
     jmp near @..api_idx_000e_LQIG.l13 ; 0x16cd

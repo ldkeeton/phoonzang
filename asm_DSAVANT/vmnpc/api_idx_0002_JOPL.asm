@@ -69,85 +69,8 @@ api_idx_0002_JOPL:
 @..api_idx_0002_JOPL.l4:
     mov ax, 0x95a8                   ; 0x9c6b
     push ax                          ; 0x9c6e
-    call loc_9587                    ; 0x9c6f
+    call loc_JVJP                    ; 0x9c6f
     pop cx                           ; 0x9c72
     call api_idx_000e_LSOI           ; 0x9c73
     call api_idx_0004_IKJO           ; 0x9c76
     ret                              ; 0x9c79
-loc_9c7a:
-    mov ax, 0                        ; 0x9c7a
-    call aztec_csav                  ; 0x9c7d
-    mov ax, 0x95fa                   ; 0x9c80
-    push ax                          ; 0x9c83
-    push word [bp + 0x4]             ; 0x9c84
-    call ds_app_mem_VKHV             ; 0x9c87
-    add sp, byte 4                   ; 0x9c8a
-    mov ax, 0x9d10                   ; 0x9c8d
-    push ax                          ; 0x9c90
-    push word [bp + 0x6]             ; 0x9c91
-    call ds_app_mem_VKHV             ; 0x9c94
-    add sp, byte 4                   ; 0x9c97
-    cmp byte [bss_95fa], 0           ; 0x9c9a
-    jne short @..loc_9c7a.l1         ; 0x9c9f
-    mov ax, 0x9d10                   ; 0x9ca1
-    push ax                          ; 0x9ca4
-    mov ax, 0x650                    ; 0x9ca5
-    push ax                          ; 0x9ca8
-    call api_idx_0080_KPKH           ; 0x9ca9
-    add sp, byte 4                   ; 0x9cac
-    jmp short @..loc_9c7a.l6         ; 0x9caf
-@..loc_9c7a.l1:
-    cmp byte [bss_95fa], 0x24        ; 0x9cb1
-    jne short @..loc_9c7a.l3         ; 0x9cb6
-    mov al, byte [bss_95fb]          ; 0x9cb8
-    sub ah, ah                       ; 0x9cbb
-    push ax                          ; 0x9cbd
-    push word [bss_b04e]             ; 0x9cbe
-    call api_idx_0040_OTMJ           ; 0x9cc2
-    add sp, byte 4                   ; 0x9cc5
-    cmp ax, strict word 1            ; 0x9cc8
-    jne short @..loc_9c7a.l2         ; 0x9ccb
-    mov word [bss_9e70], 1           ; 0x9ccd
-@..loc_9c7a.l2:
-    jmp short @..loc_9c7a.l6         ; 0x9cd3
-@..loc_9c7a.l3:
-    cmp byte [bss_95fa], 0x26        ; 0x9cd5
-    jne short @..loc_9c7a.l4         ; 0x9cda
-    mov al, byte [bss_95fb]          ; 0x9cdc
-    sub ah, ah                       ; 0x9cdf
-    dec ax                           ; 0x9ce1
-    push ax                          ; 0x9ce2
-    call api_idx_0002_JOPL           ; 0x9ce3
-    pop cx                           ; 0x9ce6
-    jmp short @..loc_9c7a.l6         ; 0x9ce7
-@..loc_9c7a.l4:
-    cmp byte [bss_95fa], 0x2d        ; 0x9ce9
-    jne short @..loc_9c7a.l5         ; 0x9cee
-    mov al, byte [bss_95fb]          ; 0x9cf0
-    sub ah, ah                       ; 0x9cf3
-    sub word [bp + 0x4], ax          ; 0x9cf5
-@..loc_9c7a.l5:
-    mov ax, 0x9102                   ; 0x9cf8
-    push ax                          ; 0x9cfb
-    push word [bp + 0x4]             ; 0x9cfc
-    call api_idx_0080_KPKH           ; 0x9cff
-    add sp, byte 4                   ; 0x9d02
-@..loc_9c7a.l6:
-    ret                              ; 0x9d05
-loc_9d06:
-    mov ax, 0                        ; 0x9d06
-    call aztec_csav                  ; 0x9d09
-    mov ax, word [bp + 0x4]          ; 0x9d0c
-    cmp ax, word [bss_b046]          ; 0x9d0f
-    jge short @..loc_9d06.l1         ; 0x9d13
-    mov cx, 5                        ; 0x9d15
-    imul cx                          ; 0x9d18
-    add ax, word [bss_b050]          ; 0x9d1a
-    ret                              ; 0x9d1e
-@..loc_9d06.l1:
-    mov ax, word [bp + 0x4]          ; 0x9d1f
-    sub ax, word [bss_b046]          ; 0x9d22
-    mov cx, 5                        ; 0x9d26
-    imul cx                          ; 0x9d29
-    add ax, word [bss_b052]          ; 0x9d2b
-    ret                              ; 0x9d2f

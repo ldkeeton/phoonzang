@@ -6,7 +6,7 @@ api_idx_0004_KTSH:
     jle short @..api_idx_0004_KTSH.l1 ; 0x6c15
     mov ax, 0                        ; 0x6c17
     push ax                          ; 0x6c1a
-    call loc_6b5a                    ; 0x6c1b
+    call loc_KJRU                    ; 0x6c1b
     pop cx                           ; 0x6c1e
 @..api_idx_0004_KTSH.l1:
     mov bx, word [bp + 0x4]          ; 0x6c1f
@@ -18,7 +18,7 @@ api_idx_0004_KTSH:
     mov ax, 2                        ; 0x6c2c
     push ax                          ; 0x6c2f
     push bx                          ; 0x6c30
-    call ds_loc_3aca                 ; 0x6c31
+    call ds_loc_TILJ                 ; 0x6c31
     add sp, byte 4                   ; 0x6c34
     inc ax                           ; 0x6c37
     mov cx, 2                        ; 0x6c38

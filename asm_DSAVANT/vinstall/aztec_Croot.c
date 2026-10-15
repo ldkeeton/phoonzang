@@ -75,7 +75,7 @@ redirect:
 		}
 	}
 	*cpp = 0;
-	loc_12b5(bss_253a,bss_253c);
-	loc_380b(0);
+	loc_VRUR(bss_253a,bss_253c);
+	loc_KQTJ(0);
 }
 

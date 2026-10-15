@@ -95,7 +95,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0b9f
     mov ax, 2                        ; 0x0ba0
     push ax                          ; 0x0ba3
-    call loc_0a56                    ; 0x0ba4
+    call loc_VRMJ                    ; 0x0ba4
     add sp, byte 8                   ; 0x0ba7
 @..api_idx_0068_VUVP.l5:
     call api_idx_0002_NJSO           ; 0x0baa
@@ -109,7 +109,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0bbc
     mov ax, 4                        ; 0x0bbd
     push ax                          ; 0x0bc0
-    call loc_0a56                    ; 0x0bc1
+    call loc_VRMJ                    ; 0x0bc1
     add sp, byte 8                   ; 0x0bc4
 @..api_idx_0068_VUVP.l6:
     call api_idx_0002_NJSO           ; 0x0bc7
@@ -123,7 +123,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0bd9
     mov ax, 6                        ; 0x0bda
     push ax                          ; 0x0bdd
-    call loc_0a56                    ; 0x0bde
+    call loc_VRMJ                    ; 0x0bde
     add sp, byte 8                   ; 0x0be1
 @..api_idx_0068_VUVP.l7:
     call api_idx_0002_NJSO           ; 0x0be4
@@ -136,7 +136,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0bf3
     mov ax, 8                        ; 0x0bf4
     push ax                          ; 0x0bf7
-    call loc_0a56                    ; 0x0bf8
+    call loc_VRMJ                    ; 0x0bf8
     add sp, byte 8                   ; 0x0bfb
 @..api_idx_0068_VUVP.l8:
     call api_idx_0002_NJSO           ; 0x0bfe
@@ -150,7 +150,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0c10
     mov ax, 0xb                      ; 0x0c11
     push ax                          ; 0x0c14
-    call loc_0a56                    ; 0x0c15
+    call loc_VRMJ                    ; 0x0c15
     add sp, byte 8                   ; 0x0c18
 @..api_idx_0068_VUVP.l9:
     call api_idx_0002_NJSO           ; 0x0c1b
@@ -164,7 +164,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0c2d
     mov ax, 0xe                      ; 0x0c2e
     push ax                          ; 0x0c31
-    call loc_0a56                    ; 0x0c32
+    call loc_VRMJ                    ; 0x0c32
     add sp, byte 8                   ; 0x0c35
 @..api_idx_0068_VUVP.l10:
     call api_idx_0002_NJSO           ; 0x0c38
@@ -177,7 +177,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0c47
     mov ax, 0x10                     ; 0x0c48
     push ax                          ; 0x0c4b
-    call loc_0a56                    ; 0x0c4c
+    call loc_VRMJ                    ; 0x0c4c
     add sp, byte 8                   ; 0x0c4f
 @..api_idx_0068_VUVP.l11:
     mov ax, 0xf                      ; 0x0c52
@@ -210,7 +210,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0c8c
     mov ax, 1                        ; 0x0c8d
     push ax                          ; 0x0c90
-    call loc_0a56                    ; 0x0c91
+    call loc_VRMJ                    ; 0x0c91
     add sp, byte 8                   ; 0x0c94
 @..api_idx_0068_VUVP.l13:
     call api_idx_0002_NJSO           ; 0x0c97
@@ -224,7 +224,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0ca9
     mov ax, 4                        ; 0x0caa
     push ax                          ; 0x0cad
-    call loc_0a56                    ; 0x0cae
+    call loc_VRMJ                    ; 0x0cae
     add sp, byte 8                   ; 0x0cb1
 @..api_idx_0068_VUVP.l14:
     call api_idx_0002_NJSO           ; 0x0cb4
@@ -237,7 +237,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0cc3
     mov ax, 7                        ; 0x0cc4
     push ax                          ; 0x0cc7
-    call loc_0a56                    ; 0x0cc8
+    call loc_VRMJ                    ; 0x0cc8
     add sp, byte 8                   ; 0x0ccb
 @..api_idx_0068_VUVP.l15:
     mov ax, 0x90                     ; 0x0cce
@@ -255,7 +255,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0ce8
     mov ax, 9                        ; 0x0ce9
     push ax                          ; 0x0cec
-    call loc_0a56                    ; 0x0ced
+    call loc_VRMJ                    ; 0x0ced
     add sp, byte 8                   ; 0x0cf0
 @..api_idx_0068_VUVP.l16:
     call api_idx_0002_NJSO           ; 0x0cf3
@@ -269,7 +269,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0d05
     mov ax, 0xc                      ; 0x0d06
     push ax                          ; 0x0d09
-    call loc_0a56                    ; 0x0d0a
+    call loc_VRMJ                    ; 0x0d0a
     add sp, byte 8                   ; 0x0d0d
 @..api_idx_0068_VUVP.l17:
     call api_idx_0002_NJSO           ; 0x0d10
@@ -283,7 +283,7 @@ api_idx_0068_VUVP:
     push ax                          ; 0x0d22
     mov ax, 0xf                      ; 0x0d23
     push ax                          ; 0x0d26
-    call loc_0a56                    ; 0x0d27
+    call loc_VRMJ                    ; 0x0d27
     add sp, byte 8                   ; 0x0d2a
 @..api_idx_0068_VUVP.l18:
     mov ax, 5                        ; 0x0d2d
@@ -554,7 +554,7 @@ api_idx_0068_VUVP:
     mov ax, 2                        ; 0x0f74
     push ax                          ; 0x0f77
     push word [bp - 0x005e]          ; 0x0f78
-    call ds_loc_3aca                 ; 0x0f7b
+    call ds_loc_TILJ                 ; 0x0f7b
     add sp, byte 4                   ; 0x0f7e
     inc ax                           ; 0x0f81
     mov cx, 2                        ; 0x0f82
@@ -680,7 +680,7 @@ api_idx_0068_VUVP:
     mov ax, 2                        ; 0x10a8
     push ax                          ; 0x10ab
     push word [bp - 0x005e]          ; 0x10ac
-    call ds_loc_3aca                 ; 0x10af
+    call ds_loc_TILJ                 ; 0x10af
     add sp, byte 4                   ; 0x10b2
     inc ax                           ; 0x10b5
     mov cx, 2                        ; 0x10b6

@@ -5,7 +5,7 @@ ds_app_GGUI: ; Aztec csav frame=0x0000
     mov ax, 0                        ; 0x09f6
     cmp word [bp + 0x4], byte 0      ; 0x09f9
     jle short @..ds_app_GGUI.l1      ; 0x09fd
-    call ds_loc_3ba3                 ; 0x09ff
+    call ds_loc_SVSJ                 ; 0x09ff
     cwd                              ; 0x0a02
     idiv word [bp + 0x4]             ; 0x0a03
     mov ax, dx                       ; 0x0a06

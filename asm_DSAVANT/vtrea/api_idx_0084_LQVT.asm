@@ -271,7 +271,7 @@ api_idx_0084_LQVT:
     add ax, word [bp - 0x0006]       ; 0x2841
     add ax, strict word 0x5d         ; 0x2844
     push ax                          ; 0x2847
-    call loc_242c                    ; 0x2848
+    call loc_MMHQ                    ; 0x2848
     add sp, byte 0x0a                ; 0x284b
     mov ax, word [bp - 0x0002]       ; 0x284e
     mov cx, 4                        ; 0x2851
@@ -302,7 +302,7 @@ api_idx_0084_LQVT:
     mov al, byte [bx - 0x6dc0]       ; 0x288b
     sub ah, ah                       ; 0x288f
     push ax                          ; 0x2891
-    call ds_loc_3a77                 ; 0x2892
+    call ds_loc_PQIO                 ; 0x2892
     add sp, byte 4                   ; 0x2895
     inc word [bp - 0x0002]           ; 0x2898
     mov ax, word [bp - 0x0002]       ; 0x289b
@@ -668,7 +668,7 @@ api_idx_0084_LQVT:
     push ax                          ; 0x2be7
     call thunk_4                     ; 0x2be8
     add sp, byte 8                   ; 0x2beb
-    call loc_086b                    ; 0x2bee
+    call loc_IQGR                    ; 0x2bee
     test ax, ax                      ; 0x2bf1
     jne short @..api_idx_0084_LQVT.l18 ; 0x2bf3
     mov ax, 0x19                     ; 0x2bf5
@@ -1051,7 +1051,7 @@ jumptable_34f1_case_3:
     mov ax, word [bp - 0x0006]       ; 0x2f69
     add ax, strict word 8            ; 0x2f6c
     push ax                          ; 0x2f6f
-    call loc_242c                    ; 0x2f70
+    call loc_MMHQ                    ; 0x2f70
     add sp, byte 0x0a                ; 0x2f73
     mov ax, 0xc0                     ; 0x2f76
     push ax                          ; 0x2f79
@@ -1229,7 +1229,7 @@ jumptable_34f1_case_3:
     mov ax, word [bp - 0x0006]       ; 0x3108
     add ax, strict word 8            ; 0x310b
     push ax                          ; 0x310e
-    call loc_242c                    ; 0x310f
+    call loc_MMHQ                    ; 0x310f
     add sp, byte 0x0a                ; 0x3112
     mov ax, 0xc0                     ; 0x3115
     push ax                          ; 0x3118
@@ -1380,7 +1380,7 @@ jumptable_34f1_case_5:
     add ax, word [bp - 0x0006]       ; 0x3274
     add ax, strict word 0x5d         ; 0x3277
     push ax                          ; 0x327a
-    call loc_242c                    ; 0x327b
+    call loc_MMHQ                    ; 0x327b
     add sp, byte 0x0a                ; 0x327e
     mov ax, 0xc2                     ; 0x3281
     push ax                          ; 0x3284
@@ -1417,7 +1417,7 @@ jumptable_34f1_case_5:
     mov al, byte [bx - 0x6dc0]       ; 0x32cc
     sub ah, ah                       ; 0x32d0
     push ax                          ; 0x32d2
-    call ds_loc_3a77                 ; 0x32d3
+    call ds_loc_PQIO                 ; 0x32d3
     add sp, byte 4                   ; 0x32d6
     mov ax, word [bp - 0x0002]       ; 0x32d9
     mov cx, 4                        ; 0x32dc
@@ -1537,7 +1537,7 @@ jumptable_34f1_case_5:
     add ax, word [bp - 0x0006]       ; 0x33f8
     add ax, strict word 0x5d         ; 0x33fb
     push ax                          ; 0x33fe
-    call loc_242c                    ; 0x33ff
+    call loc_MMHQ                    ; 0x33ff
     add sp, byte 0x0a                ; 0x3402
     mov ax, 0xc2                     ; 0x3405
     push ax                          ; 0x3408
@@ -1574,7 +1574,7 @@ jumptable_34f1_case_5:
     mov al, byte [bx - 0x6dc0]       ; 0x3450
     sub ah, ah                       ; 0x3454
     push ax                          ; 0x3456
-    call ds_loc_3a77                 ; 0x3457
+    call ds_loc_PQIO                 ; 0x3457
     add sp, byte 4                   ; 0x345a
     mov ax, word [bp - 0x0002]       ; 0x345d
     mov cx, 4                        ; 0x3460
@@ -1627,14 +1627,14 @@ jumptable_34f1_case_5:
     cmp ax, word [bp - 0x007a]       ; 0x34c9
     jne short @..api_idx_0084_LQVT.l44 ; 0x34cc
     cmp word [bp - 0x007e], byte 0   ; 0x34ce
-loc_34d2:
+loc_GRTS:
     je short @..api_idx_0084_LQVT.l43 ; 0x34d2
-loc_34d4:
+loc_UTKU:
     push word [bp - 0x007e]          ; 0x34d4
     mov ax, 0x10                     ; 0x34d7
     push ax                          ; 0x34da
     push word [bp + 0x4]             ; 0x34db
-    call loc_0f54                    ; 0x34de
+    call loc_VRUN                    ; 0x34de
     add sp, byte 6                   ; 0x34e1
 @..api_idx_0084_LQVT.l43:
     mov word [bss_9050], 0           ; 0x34e4

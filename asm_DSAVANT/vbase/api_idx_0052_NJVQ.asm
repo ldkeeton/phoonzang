@@ -39,7 +39,7 @@ jumptable_4688_case_1:
     mov al, byte [bss_5986]          ; 0x4386
     sub ah, ah                       ; 0x4389
     push ax                          ; 0x438b
-    call loc_4292                    ; 0x438c
+    call loc_UVGL                    ; 0x438c
     add sp, byte 6                   ; 0x438f
     jmp near @..api_idx_0052_NJVQ.l3 ; 0x4392
 jumptable_4688_case_2:
@@ -53,7 +53,7 @@ jumptable_4688_case_2:
     push ax                          ; 0x43a6
     mov ax, 0x593a                   ; 0x43a7
     push ax                          ; 0x43aa
-    call loc_42e3                    ; 0x43ab
+    call loc_SOOL                    ; 0x43ab
     add sp, byte 8                   ; 0x43ae
     jmp near @..api_idx_0052_NJVQ.l3 ; 0x43b1
 jumptable_4688_case_3:
@@ -67,7 +67,7 @@ jumptable_4688_case_3:
     push ax                          ; 0x43c5
     mov ax, 0x594e                   ; 0x43c6
     push ax                          ; 0x43c9
-    call loc_42e3                    ; 0x43ca
+    call loc_SOOL                    ; 0x43ca
     add sp, byte 8                   ; 0x43cd
     jmp near @..api_idx_0052_NJVQ.l3 ; 0x43d0
 jumptable_4688_case_4:
@@ -89,7 +89,7 @@ jumptable_4688_case_4:
     push ax                          ; 0x43f7
     lea ax, word [bp - 0x0052]       ; 0x43f8
     push ax                          ; 0x43fb
-    call loc_42e3                    ; 0x43fc
+    call loc_SOOL                    ; 0x43fc
     add sp, byte 8                   ; 0x43ff
     jmp near @..api_idx_0052_NJVQ.l3 ; 0x4402
 jumptable_4688_case_5:
@@ -184,7 +184,7 @@ jumptable_4688_case_8:
     push ax                          ; 0x44d4
     lea ax, word [bp - 0x0052]       ; 0x44d5
     push ax                          ; 0x44d8
-    call loc_42e3                    ; 0x44d9
+    call loc_SOOL                    ; 0x44d9
     add sp, byte 8                   ; 0x44dc
     jmp near @..api_idx_0052_NJVQ.l3 ; 0x44df
 jumptable_4688_case_9:
@@ -197,7 +197,7 @@ jumptable_4688_case_9:
     mov al, byte [bss_597f]          ; 0x44f0
     sub ah, ah                       ; 0x44f3
     push ax                          ; 0x44f5
-    call loc_4292                    ; 0x44f6
+    call loc_UVGL                    ; 0x44f6
     add sp, byte 6                   ; 0x44f9
     jmp near @..api_idx_0052_NJVQ.l3 ; 0x44fc
 jumptable_4688_case_10:
@@ -277,7 +277,7 @@ jumptable_4688_case_12:
     push ax                          ; 0x45a9
     lea ax, word [bp - 0x0052]       ; 0x45aa
     push ax                          ; 0x45ad
-    call loc_42e3                    ; 0x45ae
+    call loc_SOOL                    ; 0x45ae
     add sp, byte 8                   ; 0x45b1
     jmp near @..api_idx_0052_NJVQ.l3 ; 0x45b4
 jumptable_4688_case_13:
@@ -291,7 +291,7 @@ jumptable_4688_case_13:
     push ax                          ; 0x45c8
     mov ax, 0x5964                   ; 0x45c9
     push ax                          ; 0x45cc
-    call loc_42e3                    ; 0x45cd
+    call loc_SOOL                    ; 0x45cd
     add sp, byte 8                   ; 0x45d0
     jmp near @..api_idx_0052_NJVQ.l3 ; 0x45d3
 jumptable_4688_case_14:
@@ -313,7 +313,7 @@ jumptable_4688_case_14:
     push ax                          ; 0x45fa
     lea ax, word [bp - 0x0052]       ; 0x45fb
     push ax                          ; 0x45fe
-    call loc_42e3                    ; 0x45ff
+    call loc_SOOL                    ; 0x45ff
     add sp, byte 8                   ; 0x4602
     jmp near @..api_idx_0052_NJVQ.l3 ; 0x4605
 jumptable_4688_case_15:
@@ -398,162 +398,3 @@ jumptable_4688:
     jmp [cs:bx - 0x6931]             ; 0x46b2
 @..api_idx_0052_NJVQ.l3:
     ret                              ; 0x46b7
-loc_46b8:
-    mov ax, 0                        ; 0x46b8
-    call aztec_csav                  ; 0x46bb
-    mov ax, 1                        ; 0x46be
-    push ax                          ; 0x46c1
-    mov ax, word [bp + 0x8]          ; 0x46c2
-    add ax, strict word 6            ; 0x46c5
-    push ax                          ; 0x46c8
-    mov ax, word [bp + 0x6]          ; 0x46c9
-    add ax, strict word 0xe          ; 0x46cc
-    push ax                          ; 0x46cf
-    push word [bp + 0x8]             ; 0x46d0
-    push word [bp + 0x6]             ; 0x46d3
-    call thunk_7                     ; 0x46d6
-    add sp, byte 0x0a                ; 0x46d9
-    mov ax, word [bp + 0x8]          ; 0x46dc
-    inc ax                           ; 0x46df
-    push ax                          ; 0x46e0
-    mov ax, word [bp + 0x6]          ; 0x46e1
-    inc ax                           ; 0x46e4
-    inc ax                           ; 0x46e5
-    push ax                          ; 0x46e6
-    call thunk                       ; 0x46e7
-    add sp, byte 4                   ; 0x46ea
-    mov ax, 1                        ; 0x46ed
-    push ax                          ; 0x46f0
-    mov ax, 0                        ; 0x46f1
-    push ax                          ; 0x46f4
-    call thunk_3                     ; 0x46f5
-    add sp, byte 4                   ; 0x46f8
-    mov ax, 0                        ; 0x46fb
-    push ax                          ; 0x46fe
-    mov ax, 2                        ; 0x46ff
-    push ax                          ; 0x4702
-    push word [bp + 0x4]             ; 0x4703
-    call ds_app_SHMQ                 ; 0x4706
-    add sp, byte 6                   ; 0x4709
-    mov ax, word [bp + 0x8]          ; 0x470c
-    add ax, strict word 6            ; 0x470f
-    push ax                          ; 0x4712
-    mov ax, word [bp + 0x6]          ; 0x4713
-    add ax, strict word 0xe          ; 0x4716
-    push ax                          ; 0x4719
-    push word [bp + 0x8]             ; 0x471a
-    push word [bp + 0x6]             ; 0x471d
-    call thunk_4                     ; 0x4720
-    add sp, byte 8                   ; 0x4723
-    ret                              ; 0x4726
-loc_4727:
-    mov ax, 0                        ; 0x4727
-    call aztec_csav                  ; 0x472a
-    mov ax, word [bp + 0x8]          ; 0x472d
-    add ax, strict word 6            ; 0x4730
-    push ax                          ; 0x4733
-    mov ax, 6                        ; 0x4734
-    imul word [bp + 0xa]             ; 0x4737
-    add ax, word [bp + 0x6]          ; 0x473a
-    inc ax                           ; 0x473d
-    inc ax                           ; 0x473e
-    push ax                          ; 0x473f
-    push word [bp + 0x8]             ; 0x4740
-    push word [bp + 0x6]             ; 0x4743
-    call ds_app_URLN                 ; 0x4746
-    add sp, byte 8                   ; 0x4749
-    mov ax, 1                        ; 0x474c
-    push ax                          ; 0x474f
-    mov ax, word [bp + 0x8]          ; 0x4750
-    add ax, strict word 6            ; 0x4753
-    push ax                          ; 0x4756
-    mov ax, 6                        ; 0x4757
-    imul word [bp + 0xa]             ; 0x475a
-    add ax, word [bp + 0x6]          ; 0x475d
-    inc ax                           ; 0x4760
-    inc ax                           ; 0x4761
-    push ax                          ; 0x4762
-    push word [bp + 0x8]             ; 0x4763
-    push word [bp + 0x6]             ; 0x4766
-    call thunk_7                     ; 0x4769
-    add sp, byte 0x0a                ; 0x476c
-    mov ax, word [bp + 0x8]          ; 0x476f
-    inc ax                           ; 0x4772
-    push ax                          ; 0x4773
-    mov ax, word [bp + 0x6]          ; 0x4774
-    inc ax                           ; 0x4777
-    inc ax                           ; 0x4778
-    push ax                          ; 0x4779
-    call thunk                       ; 0x477a
-    add sp, byte 4                   ; 0x477d
-    mov ax, 1                        ; 0x4780
-    push ax                          ; 0x4783
-    mov ax, 0                        ; 0x4784
-    push ax                          ; 0x4787
-    call thunk_3                     ; 0x4788
-    add sp, byte 4                   ; 0x478b
-    mov ax, 0                        ; 0x478e
-    push ax                          ; 0x4791
-    push word [bp + 0x4]             ; 0x4792
-    call ds_string_loc_PTIK          ; 0x4795
-    add sp, byte 4                   ; 0x4798
-    mov ax, word [bp + 0x8]          ; 0x479b
-    add ax, strict word 6            ; 0x479e
-    push ax                          ; 0x47a1
-    mov ax, 6                        ; 0x47a2
-    imul word [bp + 0xa]             ; 0x47a5
-    add ax, word [bp + 0x6]          ; 0x47a8
-    inc ax                           ; 0x47ab
-    inc ax                           ; 0x47ac
-    push ax                          ; 0x47ad
-    push word [bp + 0x8]             ; 0x47ae
-    push word [bp + 0x6]             ; 0x47b1
-    call thunk_4                     ; 0x47b4
-    add sp, byte 8                   ; 0x47b7
-    ret                              ; 0x47ba
-loc_47bb:
-    mov ax, 0                        ; 0x47bb
-    call aztec_csav                  ; 0x47be
-    mov ax, 0x16                     ; 0x47c1
-    push ax                          ; 0x47c4
-    mov ax, word [bp + 0x6]          ; 0x47c5
-    add ax, strict word 8            ; 0x47c8
-    push ax                          ; 0x47cb
-    mov ax, 6                        ; 0x47cc
-    imul word [bp + 0x8]             ; 0x47cf
-    add ax, word [bp + 0x4]          ; 0x47d2
-    push ax                          ; 0x47d5
-    push word [bp + 0x6]             ; 0x47d6
-    push word [bp + 0x4]             ; 0x47d9
-    call loc_01bf                    ; 0x47dc
-    add sp, byte 0x0a                ; 0x47df
-    mov ax, word [bp + 0x6]          ; 0x47e2
-    add ax, strict word 9            ; 0x47e5
-    push ax                          ; 0x47e8
-    mov ax, 6                        ; 0x47e9
-    imul word [bp + 0x8]             ; 0x47ec
-    add ax, word [bp + 0x4]          ; 0x47ef
-    inc ax                           ; 0x47f2
-    push ax                          ; 0x47f3
-    mov ax, word [bp + 0x6]          ; 0x47f4
-    dec ax                           ; 0x47f7
-    push ax                          ; 0x47f8
-    mov ax, word [bp + 0x4]          ; 0x47f9
-    dec ax                           ; 0x47fc
-    push ax                          ; 0x47fd
-    call thunk_4                     ; 0x47fe
-    add sp, byte 8                   ; 0x4801
-    mov ax, 0                        ; 0x4804
-    push ax                          ; 0x4807
-    mov ax, word [bp + 0x6]          ; 0x4808
-    add ax, strict word 8            ; 0x480b
-    push ax                          ; 0x480e
-    mov ax, 6                        ; 0x480f
-    imul word [bp + 0x8]             ; 0x4812
-    add ax, word [bp + 0x4]          ; 0x4815
-    push ax                          ; 0x4818
-    push word [bp + 0x6]             ; 0x4819
-    push word [bp + 0x4]             ; 0x481c
-    call loc_01bf                    ; 0x481f
-    add sp, byte 0x0a                ; 0x4822
-    ret                              ; 0x4825

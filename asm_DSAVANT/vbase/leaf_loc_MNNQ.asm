@@ -1,10 +1,10 @@
 ; auto-generated
 leaf_loc_MNNQ:
     mov word [bp - 0x001a], 0x20     ; 0x265a
-    jmp short loc_269e               ; 0x265f
-loc_2661:
+    jmp short loc_JVIJ               ; 0x265f
+loc_NTLG:
     mov word [bp - 0x001a], 0x21     ; 0x2661
-    jmp short loc_269e               ; 0x2666
+    jmp short loc_JVIJ               ; 0x2666
 jumptable_2668:
     dw leaf_loc_OSVQ - IMAGE_BASE + 0x5055     ; 0x2668
     dw leaf_loc_STUO - IMAGE_BASE + 0x5055     ; 0x266a
@@ -24,32 +24,32 @@ jumptable_2668:
     dw leaf_loc_JNLK - IMAGE_BASE + 0x5055     ; 0x2686
     dw leaf_loc_NKTV - IMAGE_BASE + 0x5055     ; 0x2688
     dw leaf_loc_MNNQ - IMAGE_BASE + 0x5055     ; 0x268a
-    dw loc_2661 - IMAGE_BASE + 0x5055          ; 0x268c
-loc_268e:
+    dw loc_NTLG - IMAGE_BASE + 0x5055          ; 0x268c
+loc_MRPU:
     sub ax, strict word 0xb          ; 0x268e
     cmp ax, strict word 0x13         ; 0x2691
-    jae short loc_269e               ; 0x2694
+    jae short loc_JVIJ               ; 0x2694
     xchg bx, ax                      ; 0x2696
     shl bx, 1                        ; 0x2697
     jmp [cs:bx + 0x76af]             ; 0x2699
-loc_269e:
+loc_JVIJ:
     cmp word [bp - 0x001a], byte 0   ; 0x269e
-    jl short loc_270c                ; 0x26a2
+    jl short loc_IPVQ                ; 0x26a2
     mov ax, word [bss_9426]          ; 0x26a4
     mov word [bp - 0x001c], ax       ; 0x26a7
     cmp ax, strict word 0x12         ; 0x26aa
-    jle short loc_26b4               ; 0x26ad
+    jle short loc_LLTU               ; 0x26ad
     mov word [bp - 0x001c], 0x12     ; 0x26af
-loc_26b4:
+loc_LLTU:
     cmp word [bp - 0x001c], byte 0   ; 0x26b4
-    jle short loc_26f3               ; 0x26b8
+    jle short loc_OHRJ               ; 0x26b8
     mov bx, word [bp - 0x0004]       ; 0x26ba
     mov cl, byte [bx - 0x6aca]       ; 0x26bd
     mov bx, word [bp - 0x0014]       ; 0x26c1
     mov si, word [bp - 0x001a]       ; 0x26c4
     mov al, byte [bx + si + 0x178]   ; 0x26c7
     cmp al, cl                       ; 0x26cb
-    jae short loc_26f3               ; 0x26cd
+    jae short loc_OHRJ               ; 0x26cd
     mov al, byte [bx + si + 0x178]   ; 0x26cf
     sub ah, ah                       ; 0x26d3
     mov cx, ax                       ; 0x26d5
@@ -65,25 +65,25 @@ loc_26b4:
     mov si, word [bp - 0x001a]       ; 0x26e7
     mov byte [bx + si + 0x178], al   ; 0x26ea
     dec word [bp - 0x001c]           ; 0x26ee
-    jmp short loc_26b4               ; 0x26f1
-loc_26f3:
+    jmp short loc_LLTU               ; 0x26f1
+loc_OHRJ:
     mov bx, word [bp - 0x0004]       ; 0x26f3
     mov cl, byte [bx - 0x6aca]       ; 0x26f6
     mov bx, word [bp - 0x0014]       ; 0x26fa
     mov si, word [bp - 0x001a]       ; 0x26fd
     mov al, byte [bx + si + 0x178]   ; 0x2700
     cmp al, cl                       ; 0x2704
-    jbe short loc_270c               ; 0x2706
+    jbe short loc_IPVQ               ; 0x2706
     mov byte [bx + si + 0x178], cl   ; 0x2708
-loc_270c:
+loc_IPVQ:
     inc word [bp - 0x0004]           ; 0x270c
     mov ax, word [bp - 0x0004]       ; 0x270f
     cmp ax, strict word 0x1e         ; 0x2712
-    jge short loc_271a               ; 0x2715
-    jmp near loc_25d1                ; 0x2717
-loc_271a:
+    jge short loc_HJTJ_271a          ; 0x2715
+    jmp near loc_UUHJ                ; 0x2717
+loc_HJTJ_271a:
     mov word [bp - 0x0004], 0        ; 0x271a
-loc_271f:
+loc_HQOR:
     mov bx, word [bp - 0x0004]       ; 0x271f
     mov al, byte [bx - 0x6aac]       ; 0x2722
     sub ah, ah                       ; 0x2726
@@ -101,27 +101,27 @@ loc_271f:
     inc word [bp - 0x0004]           ; 0x274a
     mov ax, word [bp - 0x0004]       ; 0x274d
     cmp ax, strict word 0xe          ; 0x2750
-    jl short loc_271f                ; 0x2753
+    jl short loc_HQOR                ; 0x2753
     mov word [bp - 0x0004], 0        ; 0x2755
-loc_275a:
+loc_OUIJ:
     push word [bp - 0x0004]          ; 0x275a
     mov ax, 0x958a                   ; 0x275d
     push ax                          ; 0x2760
     call ds_leaf_loc_KIMU            ; 0x2761
     add sp, byte 4                   ; 0x2764
     test ax, ax                      ; 0x2767
-    je short loc_27b7                ; 0x2769
+    je short loc_PKKO                ; 0x2769
     push word [bp - 0x0004]          ; 0x276b
-    call loc_1a12                    ; 0x276e
+    call loc_VSKM                    ; 0x276e
     pop cx                           ; 0x2771
     mov word [bp - 0x0006], ax       ; 0x2772
     cmp ax, strict word 0            ; 0x2775
-    jl short loc_27b7                ; 0x2778
+    jl short loc_PKKO                ; 0x2778
     mov cx, 6                        ; 0x277a
     imul cx                          ; 0x277d
     mov bx, ax                       ; 0x277f
     cmp byte [bx + 0x621], 4         ; 0x2781
-    jae short loc_27b7               ; 0x2786
+    jae short loc_PKKO               ; 0x2786
     push cx                          ; 0x2788
     call ds_app_GGUI                 ; 0x2789
     pop cx                           ; 0x278c
@@ -134,7 +134,7 @@ loc_275a:
     mov cx, ax                       ; 0x279c
     pop ax                           ; 0x279e
     cmp ax, cx                       ; 0x279f
-    jl short loc_27b7                ; 0x27a1
+    jl short loc_PKKO                ; 0x27a1
     mov ax, 1                        ; 0x27a3
     push ax                          ; 0x27a6
     push word [bp - 0x0006]          ; 0x27a7
@@ -143,13 +143,13 @@ loc_275a:
     push ax                          ; 0x27b0
     call set_bitmap_bit              ; 0x27b1
     add sp, byte 6                   ; 0x27b4
-loc_27b7:
+loc_PKKO:
     inc word [bp - 0x0004]           ; 0x27b7
     mov ax, word [bp - 0x0004]       ; 0x27ba
     cmp ax, strict word 0x4f         ; 0x27bd
-    jl short loc_275a                ; 0x27c0
+    jl short loc_OUIJ                ; 0x27c0
     mov word [bp - 0x0004], 0        ; 0x27c2
-loc_27c7:
+loc_JKLT:
     mov bx, word [bp - 0x0004]       ; 0x27c7
     mov al, byte [bx - 0x6a6a]       ; 0x27ca
     mov si, bx                       ; 0x27ce
@@ -163,7 +163,7 @@ loc_27c7:
     inc word [bp - 0x0004]           ; 0x27e7
     mov ax, word [bp - 0x0004]       ; 0x27ea
     cmp ax, strict word 4            ; 0x27ed
-    jl short loc_27c7                ; 0x27f0
+    jl short loc_JKLT                ; 0x27f0
     mov al, byte [bss_959f]          ; 0x27f2
     mov bx, word [bp - 0x0014]       ; 0x27f5
     mov byte [bx + 0x237], al        ; 0x27f8
@@ -193,7 +193,7 @@ loc_27c7:
     mov al, byte [bx + 0x237]        ; 0x283d
     sub ah, ah                       ; 0x2841
     push ax                          ; 0x2843
-    call loc_1820                    ; 0x2844
+    call loc_JVTQ                    ; 0x2844
     add sp, byte 6                   ; 0x2847
     mov bx, word [bp - 0x0014]       ; 0x284a
     mov byte [bx + 0x236], al        ; 0x284d
@@ -243,7 +243,7 @@ loc_27c7:
     sub cx, ax                       ; 0x28ce
     mov ax, word [bp - 0x0004]       ; 0x28d0
     cmp cx, ax                       ; 0x28d3
-    jle short loc_28f5               ; 0x28d5
+    jle short loc_MTKI               ; 0x28d5
     mov ax, 5                        ; 0x28d7
     push ax                          ; 0x28da
     call ds_app_GGUI                 ; 0x28db
@@ -257,16 +257,16 @@ loc_27c7:
     sub cx, dx                       ; 0x28ee
     add ax, cx                       ; 0x28f0
     mov word [bp - 0x0004], ax       ; 0x28f2
-loc_28f5:
+loc_MTKI:
     cmp word [bp - 0x0004], byte 0x64 ; 0x28f5
-    jle short loc_2900               ; 0x28f9
+    jle short loc_RJIL               ; 0x28f9
     mov word [bp - 0x0004], 0x64     ; 0x28fb
-loc_2900:
+loc_RJIL:
     mov al, byte [bp - 0x0004]       ; 0x2900
     mov bx, word [bp - 0x0014]       ; 0x2903
     mov byte [bx + 0x246], al        ; 0x2906
     mov word [bp - 0x0004], 0        ; 0x290a
-loc_290f:
+loc_VLNT:
     push word [bp - 0x0004]          ; 0x290f
     push word [bss_69c8]             ; 0x2912
     call ds_app_mem_HNMN             ; 0x2916
@@ -274,17 +274,17 @@ loc_290f:
     inc word [bp - 0x0004]           ; 0x291c
     mov ax, word [bp - 0x0004]       ; 0x291f
     cmp ax, strict word 2            ; 0x2922
-    jl short loc_290f                ; 0x2925
+    jl short loc_VLNT                ; 0x2925
     mov bx, word [bp - 0x0014]       ; 0x2927
     mov byte [bx + 0x1b6], 0xa       ; 0x292a
     mov bx, word [bp - 0x0014]       ; 0x292f
     cmp byte [bx + 0x175], 0xf       ; 0x2932
-    jbe short loc_293e               ; 0x2937
+    jbe short loc_NOPH               ; 0x2937
     mov cx, 1                        ; 0x2939
-    jmp short loc_2941               ; 0x293c
-loc_293e:
+    jmp short loc_TPSN               ; 0x293c
+loc_NOPH:
     mov cx, 0                        ; 0x293e
-loc_2941:
+loc_TPSN:
     mov al, byte [bx + 0x1b6]        ; 0x2941
     cbw                              ; 0x2945
     sub ax, cx                       ; 0x2946
@@ -292,25 +292,25 @@ loc_2941:
     cbw                              ; 0x294c
     mov cx, 0                        ; 0x294d
     cmp byte [bx + 0x175], 0x11      ; 0x2950
-    jbe short loc_295a               ; 0x2955
+    jbe short loc_PSGR               ; 0x2955
     mov cx, 1                        ; 0x2957
-loc_295a:
+loc_PSGR:
     sub ax, cx                       ; 0x295a
     mov byte [bx + 0x1b6], al        ; 0x295c
     mov al, byte [bx + 0x1b6]        ; 0x2960
     cbw                              ; 0x2964
     mov cx, 0                        ; 0x2965
     cmp byte [bx + 0x237], 5         ; 0x2968
-    jne short loc_2972               ; 0x296d
+    jne short loc_HNQJ               ; 0x296d
     mov cx, 2                        ; 0x296f
-loc_2972:
+loc_HNQJ:
     sub ax, cx                       ; 0x2972
     mov byte [bx + 0x1b6], al        ; 0x2974
     cmp byte [bx + 0x239], 0xd       ; 0x2978
-    je short loc_2986                ; 0x297d
+    je short loc_NLLT                ; 0x297d
     cmp byte [bx + 0x239], 0xc       ; 0x297f
-    jne short loc_29a1               ; 0x2984
-loc_2986:
+    jne short loc_SOUM               ; 0x2984
+loc_NLLT:
     mov al, byte [bx + 0x1b6]        ; 0x2986
     cbw                              ; 0x298a
     push ax                          ; 0x298b
@@ -323,12 +323,12 @@ loc_2986:
     pop ax                           ; 0x299a
     sub ax, cx                       ; 0x299b
     mov byte [bx + 0x1b6], al        ; 0x299d
-loc_29a1:
+loc_SOUM:
     mov byte [bx + 0x1b7], 0         ; 0x29a1
     mov bx, word [bp - 0x0014]       ; 0x29a6
     mov byte [bx + 0x1b8], 0         ; 0x29a9
     mov word [bp - 0x0004], 3        ; 0x29ae
-loc_29b3:
+loc_OUPP:
     mov bx, word [bp - 0x0014]       ; 0x29b3
     mov al, byte [bx + 0x1b6]        ; 0x29b6
     mov si, word [bp - 0x0004]       ; 0x29ba
@@ -336,24 +336,24 @@ loc_29b3:
     inc word [bp - 0x0004]           ; 0x29c1
     mov ax, word [bp - 0x0004]       ; 0x29c4
     cmp ax, strict word 8            ; 0x29c7
-    jl short loc_29b3                ; 0x29ca
+    jl short loc_OUPP                ; 0x29ca
     mov word [bp - 0x0004], 0        ; 0x29cc
-loc_29d1:
+loc_JTPM:
     mov bx, word [bp - 0x0014]       ; 0x29d1
     mov al, byte [bx + 0x177]        ; 0x29d4
     sub ah, ah                       ; 0x29d8
     add ax, strict word 0xfff7       ; 0x29da
-    jge short loc_29e5               ; 0x29dd
+    jge short loc_SMGL               ; 0x29dd
     neg ax                           ; 0x29df
     mov cx, ax                       ; 0x29e1
-    jmp short loc_29f2               ; 0x29e3
-loc_29e5:
+    jmp short loc_VGNI               ; 0x29e3
+loc_SMGL:
     mov al, byte [bx + 0x177]        ; 0x29e5
     sub ah, ah                       ; 0x29e9
     mov cx, ax                       ; 0x29eb
     add ax, strict word 0xfff7       ; 0x29ed
     mov cx, ax                       ; 0x29f0
-loc_29f2:
+loc_VGNI:
     shl cx, 1                        ; 0x29f2
     shl cx, 1                        ; 0x29f4
     mov ax, 0x28                     ; 0x29f6
@@ -363,23 +363,23 @@ loc_29f2:
     inc word [bp - 0x0004]           ; 0x2a02
     mov ax, word [bp - 0x0004]       ; 0x2a05
     cmp ax, strict word 0x60         ; 0x2a08
-    jl short loc_29d1                ; 0x2a0b
+    jl short loc_JTPM                ; 0x2a0b
     mov word [bp - 0x0004], 0        ; 0x2a0d
-loc_2a12:
+loc_QHRU:
     mov bx, word [bp - 0x0014]       ; 0x2a12
     mov si, word [bp - 0x0004]       ; 0x2a15
     mov byte [bx + si + 0x154], 0xff ; 0x2a18
     inc word [bp - 0x0004]           ; 0x2a1d
     mov ax, word [bp - 0x0004]       ; 0x2a20
     cmp ax, strict word 8            ; 0x2a23
-    jl short loc_2a12                ; 0x2a26
+    jl short loc_QHRU                ; 0x2a26
     push word [bss_69c8]             ; 0x2a28
     call api_idx_0004_OKUV           ; 0x2a2c
     pop cx                           ; 0x2a2f
     mov word [bp - 0x0016], 0        ; 0x2a30
     mov word [bp - 0x0018], 0        ; 0x2a35
     cmp word [bss_69c8], byte 0      ; 0x2a3a
-    jne short loc_2a73               ; 0x2a3f
+    jne short loc_RINM               ; 0x2a3f
     mov ax, 1                        ; 0x2a41
     push ax                          ; 0x2a44
     mov ax, 0xfffe                   ; 0x2a45
@@ -400,9 +400,9 @@ loc_2a12:
     call api_idx_004c_TIIJ           ; 0x2a6a
     add sp, byte 0x0a                ; 0x2a6d
     inc word [bp - 0x0018]           ; 0x2a70
-loc_2a73:
+loc_RINM:
     mov word [bp - 0x0004], 0        ; 0x2a73
     mov word [bp - 0x0006], 0        ; 0x2a78
     mov al, byte [bss_95a1]          ; 0x2a7d
     sub ah, ah                       ; 0x2a80
-    jmp near loc_2b11                ; 0x2a82
+    jmp near loc_MJIS                ; 0x2a82

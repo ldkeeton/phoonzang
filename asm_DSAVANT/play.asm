@@ -22,33 +22,33 @@ cseg_09a4 equ 0x09a4
 cseg_09a9 equ 0x09a9
 cseg_09bb equ 0x09bb
 
-loc_0000:
-    jmp near loc_0003                ; 0x0000
-loc_0003:
-    call loc_0023                    ; 0x0003
+loc_IJSK:
+    jmp near loc_TGJP                ; 0x0000
+loc_TGJP:
+    call loc_LRNP                    ; 0x0003
     retf                             ; 0x0006
-loc_0007:
+loc_NPQN:
     call string_loc_QTHS             ; 0x0007
     retf                             ; 0x000a
-loc_000b:
+loc_NLTO:
     call leaf_loc_PLJH               ; 0x000b
     retf                             ; 0x000e
-loc_000f:
-    call loc_01b0                    ; 0x000f
+loc_QPKV:
+    call loc_LJTJ                    ; 0x000f
     retf                             ; 0x0012
-loc_0013:
+loc_MPQM:
     call io_loc_JHUI                 ; 0x0013
     retf                             ; 0x0016
-loc_0017:
+loc_GGJT:
     call bios_disk_loc_RVRG          ; 0x0017
     retf                             ; 0x001a
-loc_001b:
+loc_ITRO:
     call leaf_loc_VNQL               ; 0x001b
     retf                             ; 0x001e
-loc_001f:
+loc_PKRS:
     call leaf_loc_NSGK               ; 0x001f
     retf                             ; 0x0022
-%include "play/loc_0023.asm"               ; 0x0023
+%include "play/loc_LRNP.asm"               ; 0x0023
 
 %include "play/asm_only/string_loc_QTHS.asm"        ; 0x00fe
 
@@ -58,7 +58,7 @@ loc_001f:
 
 %include "play/leaf_loc_NSGK.asm"          ; 0x0183
 
-%include "play/loc_01b0.asm"               ; 0x01b0
+%include "play/loc_LJTJ.asm"               ; 0x01b0
 
 %include "play/asm_only/io_loc_JHUI.asm"            ; 0x023f
 
@@ -68,15 +68,390 @@ loc_001f:
 
 %include "play/asm_only/io_loc_GJPH.asm"            ; 0x02ba
 
+data_0421:
+    jne short @..bios_disk_loc_RVRG.l10 ; 0x0421
+    mov byte [cs:cseg_0321 - IMAGE_BASE], 1 ; 0x0423
+    in al, 0x21                      ; 0x0429
+    mov byte [cs:cseg_0a8f - IMAGE_BASE], al ; 0x042b
+    mov ax, word [es:di]             ; 0x042f
+    mov word [cs:cseg_0b10 - IMAGE_BASE], ax ; 0x0432
+    mov ax, word [es:di + 0x2]       ; 0x0436
+    mov word [cs:cseg_0b12 - IMAGE_BASE], ax ; 0x043a
+@..bios_disk_loc_RVRG.l10:
+    mov al, 0x34                     ; 0x043e
+    out 0x43, al                     ; 0x0440
+    call leaf_loc_KROT               ; 0x0442
+    mov ax, 0x48                     ; 0x0445
+    out 0x40, al                     ; 0x0448
+    call leaf_loc_KROT               ; 0x044a
+    mov al, ah                       ; 0x044d
+    out 0x40, al                     ; 0x044f
+    cmp byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x0451
+    je short @..bios_disk_loc_RVRG.l11 ; 0x0457
+    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x0459
+    shl bl, 1                        ; 0x045e
+    xor bh, bh                       ; 0x0460
+    mov dx, word [cs:bx + 0x5a5]     ; 0x0462
+    cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x0467
+    je short loc_KILL                ; 0x046d
+    mov dx, word [cs:bx + 0x5ad]     ; 0x046f
+    jmp near loc_KILL                ; 0x0474
+@..bios_disk_loc_RVRG.l11:
+    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x0477
+    shl bl, 1                        ; 0x047c
+    xor bh, bh                       ; 0x047e
+    mov dx, word [cs:bx + 0x595]     ; 0x0480
+    cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x0485
+    je short loc_KILL                ; 0x048b
+    mov dx, word [cs:bx + 0x59d]     ; 0x048d
+    jmp near loc_KILL                ; 0x0492
 %include "play/asm_only/io_loc_KURR.asm"            ; 0x0495
 
 %include "play/asm_only/leaf_loc_KROT.asm"          ; 0x0610
 
 %include "play/asm_only/leaf_loc_QNLL.asm"          ; 0x077b
 
+cseg_086e:
+    db 0x00
+cseg_086f:
+    db 0x00
+    cli                              ; 0x0870
+    push ax                          ; 0x0871
+    push ds                          ; 0x0872
+    push dx                          ; 0x0873
+    push bx                          ; 0x0874
+loc_0875:
+    mov al, byte [cs:data_096e]      ; 0x0875
+    cmp al, byte [cs:data_096f]      ; 0x0879
+    je short loc_089e                ; 0x087e
+    inc byte [cs:data_096e]          ; 0x0880
+    mov dx, 0x389                    ; 0x0885
+    mov bx, 0x1a3a                   ; 0x0888
+    cs xlatb                         ; 0x088b
+    out dx, al                       ; 0x088d
+    dec word [cs:data_0b81]          ; 0x088e
+    je short loc_08ed                ; 0x0893
+    mov al, 0x20                     ; 0x0895
+    out 0x20, al                     ; 0x0897
+    pop bx                           ; 0x0899
+    pop dx                           ; 0x089a
+    pop ds                           ; 0x089b
+    pop ax                           ; 0x089c
+    iret                             ; 0x089d
+loc_089e:
+    mov byte [cs:data_09ae], 0       ; 0x089e
+    mov al, 0x20                     ; 0x08a4
+    out 0x20, al                     ; 0x08a6
+    pop bx                           ; 0x08a8
+    pop dx                           ; 0x08a9
+    pop ds                           ; 0x08aa
+    pop ax                           ; 0x08ab
+    iret                             ; 0x08ac
+    mov al, 0                        ; 0x08ad
+    cli                              ; 0x08af
+    push ax                          ; 0x08b0
+    push ds                          ; 0x08b1
+    push dx                          ; 0x08b2
+    push bx                          ; 0x08b3
+    cmp byte [cs:data_09ae], 0       ; 0x08b4
+    js short loc_0875                ; 0x08ba
+    jne short loc_091f               ; 0x08bc
+    mov ax, 0                        ; 0x08be
+    mov ds, ax                       ; 0x08c1
+    mov al, byte [0x0000]            ; 0x08c3
+    mov dx, 0x389                    ; 0x08c6
+    mov bx, 0x1a3a                   ; 0x08c9
+    cs xlatb                         ; 0x08cc
+    out dx, al                       ; 0x08ce
+    add byte [cs:data_0b95], 0x80    ; 0x08cf
+    adc word [cs:data_09c4], byte 0  ; 0x08d5
+    jb short loc_08ff                ; 0x08db
+    dec word [cs:data_0b81]          ; 0x08dd
+    je short loc_08ed                ; 0x08e2
+    mov al, 0x20                     ; 0x08e4
+    out 0x20, al                     ; 0x08e6
+    pop bx                           ; 0x08e8
+    pop dx                           ; 0x08e9
+    pop ds                           ; 0x08ea
+    pop ax                           ; 0x08eb
+    iret                             ; 0x08ec
+loc_08ed:
+    call loc_0af6                    ; 0x08ed
+    mov dx, 0x388                    ; 0x08f0
+    mov al, 0x40                     ; 0x08f3
+    out dx, al                       ; 0x08f5
+    mov al, 0x20                     ; 0x08f6
+    out 0x20, al                     ; 0x08f8
+    pop bx                           ; 0x08fa
+    pop dx                           ; 0x08fb
+    pop ds                           ; 0x08fc
+    pop ax                           ; 0x08fd
+    iret                             ; 0x08fe
+loc_08ff:
+    mov bx, word [cs:data_09c4]      ; 0x08ff
+    dec bx                           ; 0x0904
+    mov al, byte [bx]                ; 0x0905
+    mov byte [cs:data_096e], al      ; 0x0907
+    mov byte [cs:data_09ae], 1       ; 0x090b
+    mov al, 0x20                     ; 0x0911
+    out 0x20, al                     ; 0x0913
+    pop bx                           ; 0x0915
+    pop dx                           ; 0x0916
+    pop ds                           ; 0x0917
+    pop ax                           ; 0x0918
+    iret                             ; 0x0919
+    cli                              ; 0x091a
+    push ax                          ; 0x091b
+    push ds                          ; 0x091c
+    push dx                          ; 0x091d
+    push bx                          ; 0x091e
+loc_091f:
+    mov al, byte [cs:data_096e]      ; 0x091f
+    cmp al, 0                        ; 0x0923
+    je short loc_0945                ; 0x0925
+    dec byte [cs:data_096e]          ; 0x0927
+    mov dx, 0x389                    ; 0x092c
+    mov bx, 0x1a3a                   ; 0x092f
+    cs xlatb                         ; 0x0932
+    out dx, al                       ; 0x0934
+    dec word [cs:data_0b81]          ; 0x0935
+    je short loc_08ed                ; 0x093a
+    mov al, 0x20                     ; 0x093c
+    out 0x20, al                     ; 0x093e
+    pop bx                           ; 0x0940
+    pop dx                           ; 0x0941
+    pop ds                           ; 0x0942
+    pop ax                           ; 0x0943
+    iret                             ; 0x0944
+loc_0945:
+    mov byte [cs:data_096e], 0       ; 0x0945
+    mov al, 0x3f                     ; 0x094b
+    mov dx, 0x388                    ; 0x094d
+    out dx, al                       ; 0x0950
+    call loc_09d4                    ; 0x0951
+    mov al, 0x20                     ; 0x0954
+    out 0x20, al                     ; 0x0956
+    pop bx                           ; 0x0958
+    pop dx                           ; 0x0959
+    pop ds                           ; 0x095a
+    pop ax                           ; 0x095b
+    iret                             ; 0x095c
+loc_095d:
+    call loc_0af6                    ; 0x095d
+    mov al, 0x20                     ; 0x0960
+    out 0x20, al                     ; 0x0962
+    pop bx                           ; 0x0964
+    pop dx                           ; 0x0965
+    pop ds                           ; 0x0966
+    pop ax                           ; 0x0967
+    iret                             ; 0x0968
+loc_0969:
+    call loc_09d4                    ; 0x0969
+    mov al, 0x20                     ; 0x096c
+data_096e:
+    out 0x20, al                     ; 0x096e
+    pop bx                           ; 0x0970
+    pop dx                           ; 0x0971
+    pop ds                           ; 0x0972
+    pop ax                           ; 0x0973
+    iret                             ; 0x0974
+    mov al, byte [di]                ; 0x0975
+    cs xlatb                         ; 0x0977
+    out dx, al                       ; 0x0979
+    add ah, 0x80                     ; 0x097a
+    adc di, byte 0                   ; 0x097d
+    jb short loc_0997                ; 0x0980
+    dec si                           ; 0x0982
+    je short loc_098a                ; 0x0983
+    mov al, 0x20                     ; 0x0985
+    out 0x20, al                     ; 0x0987
+    iret                             ; 0x0989
+loc_098a:
+    call loc_0af6                    ; 0x098a
+    mov si, word [cs:data_0b81]      ; 0x098d
+    mov al, 0x20                     ; 0x0992
+    out 0x20, al                     ; 0x0994
+    iret                             ; 0x0996
+loc_0997:
+    call loc_09d4                    ; 0x0997
+    mov al, 0x20                     ; 0x099a
+    out 0x20, al                     ; 0x099c
+    iret                             ; 0x099e
+    push ax                          ; 0x099f
+    push ds                          ; 0x09a0
+    push dx                          ; 0x09a1
+    push bx                          ; 0x09a2
+    mov ax, 0                        ; 0x09a3
+    mov ds, ax                       ; 0x09a6
+    mov al, byte [0x0000]            ; 0x09a8
+    mov dx, word [cs:data_0b8d]      ; 0x09ab
+    mov bx, 0x1a3a                   ; 0x09b0
+    cs xlatb                         ; 0x09b3
+    out dx, al                       ; 0x09b5
+    add byte [cs:data_0b95], 0x80    ; 0x09b6
+    adc word [cs:data_0aa9], byte 0  ; 0x09bc
+    jb short loc_0969                ; 0x09c2
+data_09c4:
+    dec word [cs:data_0b81]          ; 0x09c4
+    je short loc_095d                ; 0x09c9
+    mov al, 0x20                     ; 0x09cb
+    out 0x20, al                     ; 0x09cd
+    pop bx                           ; 0x09cf
+    pop dx                           ; 0x09d0
+    pop ds                           ; 0x09d1
+    pop ax                           ; 0x09d2
+    iret                             ; 0x09d3
+loc_09d4:
+    push dx                          ; 0x09d4
+    in al, 0x61                      ; 0x09d5
+    and al, 0xfe                     ; 0x09d7
+    out 0x61, al                     ; 0x09d9
+    mov byte [cs:data_0b94], 0xff    ; 0x09db
+    mov ax, word [cs:data_0ba6]      ; 0x09e1
+    mov bl, 0x48                     ; 0x09e5
+    mul bl                           ; 0x09e7
+    mov bx, ax                       ; 0x09e9
+    mov ax, cs                       ; 0x09eb
+    mov ds, ax                       ; 0x09ed
+    mov dx, 0xbb4                    ; 0x09ef
+    cmp byte [cs:data_0b9a], 0       ; 0x09f2
+    jne short loc_0a13               ; 0x09f8
+    mov al, byte [cs:data_0b8f]      ; 0x09fa
+    out 0x21, al                     ; 0x09fe
+    mov bx, 0                        ; 0x0a00
+    mov ds, word [cs:data_0c12]      ; 0x0a03
+    mov dx, word [cs:data_0c10]      ; 0x0a08
+    mov byte [cs:data_0421], 0       ; 0x0a0d
+loc_0a13:
+    call string_loc_OPLR             ; 0x0a13
+    mov al, 0x36                     ; 0x0a16
+    out 0x43, al                     ; 0x0a18
+    call leaf_loc_KROT               ; 0x0a1a
+    mov ax, bx                       ; 0x0a1d
+    out 0x40, al                     ; 0x0a1f
+    call leaf_loc_KROT               ; 0x0a21
+    mov al, ah                       ; 0x0a24
+    out 0x40, al                     ; 0x0a26
+    pop dx                           ; 0x0a28
+    ret                              ; 0x0a29
 %include "play/asm_only/string_loc_OPLR.asm"        ; 0x0a2a
 
+cseg_0a54:
+
+    db 0x80, 0x83, 0xd7, 0x00, 0x72, 0x05, 0xb0, 0x20, 0xe6, 0x20, 0xcf, 0xe8, 0x72, 0xff, 0x2e, 0xa0
+    db 0x8f, 0x0b, 0xe6, 0x21, 0xb0, 0x20, 0xe6, 0x20, 0xcf
+
 %include "play/asm_only/io_loc_GSLI.asm"            ; 0x0a6d
+
+cseg_0a7c:
+    db 0x01
+cseg_0a7d:
+    db 0x00, 0x00
+cseg_0a7f:
+    db 0x01, 0x00
+cseg_0a81:
+    db 0x64, 0x00
+cseg_0a83:
+    db 0x0a, 0x00
+cseg_0a85:
+    db 0x83, 0x0b, 0x20, 0x02, 0x20, 0x02, 0x21, 0x02
+cseg_0a8d:
+    db 0x22, 0x02
+cseg_0a8f:
+    db 0x00
+cseg_0a90:
+    times 4 db 0
+cseg_0a94:
+    db 0xff, 0x00
+cseg_0a96:
+    db 0x00, 0x00
+cseg_0a98:
+    db 0x00, 0x00
+cseg_0a9a:
+    db 0x00, 0x00, 0x00
+cseg_0a9d:
+    db 0x00
+cseg_0a9e:
+    db 0x00, 0x00
+cseg_0aa0:
+    db 0x00, 0x00
+cseg_0aa2:
+    db 0x00, 0x00
+cseg_0aa4:
+    db 0x00, 0x00
+cseg_0aa6:
+    db 0x64, 0x00
+cseg_0aa8:
+    db 0x80
+data_0aa9:
+    db 0x80, 0x00, 0x00
+cseg_0aac:
+    db 0x00, 0x00
+cseg_0aae:
+
+    times 6 db 0
+    db 0x50, 0x53, 0x1e, 0xe8, 0x3c, 0x00, 0xb0, 0x20, 0xe6, 0x20, 0x1f, 0x5b, 0x58, 0xcf, 0x50, 0x53
+    db 0x1e, 0x2e, 0xff, 0x0e, 0x81, 0x0b, 0x7f, 0x03, 0xe8, 0x27, 0x00, 0xb0, 0x20, 0xe6, 0x20, 0x1f
+    db 0x5b, 0x58, 0xcf, 0x00, 0x00, 0x2e, 0xc6, 0x06, 0x7e, 0x0b, 0x00, 0x2e, 0x80, 0x3e, 0x7d, 0x0b
+    db 0x01, 0x75, 0x06, 0xba, 0x88, 0x03, 0xb0, 0x40, 0xee, 0x5a, 0x07, 0x5e, 0x59, 0x5f, 0x1f, 0x58
+    db 0x5b, 0xc3, 0x53, 0x50, 0x1e, 0x57, 0x51, 0x56, 0x06, 0x52, 0xfc, 0x2e, 0xff, 0x0e, 0x85, 0x0b
+    db 0x75, 0x0e, 0x2e, 0xa1, 0x83, 0x0b, 0x2e, 0xa3, 0x85, 0x0b, 0x9c, 0x9a
+
+cseg_0b10:
+    db 0x00, 0x00
+cseg_0b12:
+
+    db 0x00, 0x00, 0x2e, 0xa1, 0xa6, 0x0b, 0x2e, 0xa3, 0x81, 0x0b, 0x2e, 0x80, 0x3e, 0x9a, 0x0b, 0x00
+    db 0x74, 0xb5, 0x2e, 0xff, 0x0e, 0x7f, 0x0b, 0x75, 0xae, 0x2e, 0x80, 0x3e, 0x7e, 0x0b, 0x01, 0x74
+    db 0xba, 0x2e, 0xc6, 0x06, 0x7e, 0x0b, 0x01, 0x2e, 0x8b, 0x36, 0xa4, 0x0b, 0x2e, 0xa1, 0xa2, 0x0b
+    db 0x8e, 0xd8, 0xac, 0x3c, 0xfe, 0x75, 0x03, 0xe9, 0x7e, 0x01, 0x3c, 0xff, 0x75, 0x03, 0xe9, 0x1d
+    db 0x01, 0x2e, 0x80, 0x3e, 0x7c, 0x0b, 0x05, 0x74, 0x03, 0xe9, 0xd6, 0x00, 0x2e, 0x8e, 0x06, 0xac
+    db 0x0b, 0x50, 0x2e, 0xa0, 0xa8, 0x0b, 0x2e, 0x3a, 0x06, 0xa9, 0x0b, 0x74, 0x07, 0x2e, 0xa2, 0xa9
+    db 0x0b, 0xe8, 0x64, 0x06, 0x58, 0x2e, 0xa2, 0xd7, 0x12, 0x8a, 0xd8, 0x80, 0xe3, 0x0f, 0x2e
+
+data_0b81:
+    db 0x88, 0x1e, 0xd8, 0x12, 0x8a, 0xd8, 0xd0, 0xeb
+data_0b89:
+    db 0xd0, 0xeb
+data_0b8b:
+    db 0xd0, 0xeb
+data_0b8d:
+    db 0xd0, 0xeb
+data_0b8f:
+    db 0x2e, 0x88, 0x1e
+data_0b92:
+    db 0xd9
+data_0b93:
+    db 0x12
+data_0b94:
+    db 0x2e
+data_0b95:
+    db 0x80, 0x3e, 0xd9, 0x12, 0x04
+data_0b9a:
+    db 0x74, 0x03, 0xe9, 0x33, 0x00, 0x2e, 0xa0, 0xd8, 0x12, 0x32, 0xe4, 0xbb
+data_0ba6:
+
+    db 0xc6, 0x12, 0x03, 0xd8, 0xac, 0x2e, 0x88, 0x07, 0x3c, 0x3e, 0x75, 0x02, 0xeb, 0x90, 0x2e, 0x8b
+    db 0x1e, 0xae, 0x0b, 0x32, 0xe4, 0x03, 0xd8, 0xb0, 0xc0, 0x2e, 0x0a, 0x06, 0xd8, 0x12, 0xfe, 0xc0
+    db 0xe8, 0x32, 0x06, 0x26, 0x8a, 0x07, 0xe8, 0x2c, 0x06, 0xe9, 0x72, 0xff, 0x2e, 0x8a, 0x1e, 0xd8
+    db 0x12, 0x32, 0xff, 0x2e, 0x80, 0xbf, 0xc6, 0x12, 0x3e, 0x75, 0x24, 0x2e, 0xc6, 0x06, 0xd8, 0x12
+    db 0x08, 0xbb, 0xd6, 0x12, 0x8a, 0x04, 0x2e, 0x3a, 0x07, 0x74, 0x0e, 0x83, 0xc3, 0x02, 0x2e, 0x81
+    db 0x3f, 0xff, 0x00, 0x75, 0xf1, 0xad, 0xe9, 0x45, 0xff, 0x2e, 0x8a, 0x47, 0x01, 0x88, 0x04, 0x2e
+    db 0x8a, 0x1e, 0xd9, 0x12, 0x32, 0xff, 0x2e, 0x8a, 0x8f, 0xbf
+
+data_0c10:
+    db 0x12, 0x32
+data_0c12:
+
+    db 0xed, 0x2e, 0xa0, 0xd9, 0x12, 0xd0, 0xe0, 0xd0, 0xe0, 0xd0, 0xe0, 0xd0, 0xe0, 0x2e, 0x0a, 0x06
+    db 0xd8, 0x12, 0x0c, 0x80, 0xfe, 0xc0, 0xe9, 0x01, 0x00, 0xac, 0xe8, 0xcc, 0x05, 0xe2, 0xfa, 0xe9
+    db 0x10, 0xff, 0x2e, 0xc6, 0x06, 0xd7, 0x0b, 0x00, 0x3c, 0x0f, 0x77, 0x03, 0xe9, 0x40, 0x04, 0x3c
+    db 0x1f, 0x77, 0x0f, 0x2e, 0xc6, 0x06, 0xd7, 0x0b, 0x01, 0x2e, 0xc6, 0x06, 0xd8, 0x0b, 0x00, 0xe9
+    db 0xd0, 0x01, 0x3c, 0x2f, 0x77, 0x03, 0xe9, 0xc2, 0x01, 0x3c, 0x4f, 0x77, 0x03, 0xe9, 0x9f, 0x01
+    db 0x3c, 0x5f, 0x77, 0x03, 0xe9, 0xa8, 0x01, 0x3c, 0x6f, 0x77, 0x03, 0xe9, 0xa5, 0x01, 0x2e, 0x80
+    db 0x3e, 0x9d, 0x0b, 0x00, 0x74, 0x08, 0x2e, 0x8b, 0x36, 0x9e, 0x0b, 0xe9, 0xc4, 0xfe, 0x2e, 0xc6
+    db 0x06, 0x9a, 0x0b, 0x00, 0x2e, 0x80, 0x3e, 0x94, 0x0b, 0x00, 0x75, 0x03, 0xe9, 0x48, 0xfe, 0xe8
+    db 0x03, 0x00, 0xe9, 0x42, 0xfe
 
 %include "play/asm_only/io_loc_OGKU.asm"            ; 0x0c97
 

@@ -257,7 +257,7 @@ api_idx_0030_QRVT:
     push ax                          ; 0x5667
     lea ax, word [bp - 0x000a]       ; 0x5668
     push ax                          ; 0x566b
-    call loc_2ed4                    ; 0x566c
+    call loc_UKLN                    ; 0x566c
     add sp, byte 0x0e                ; 0x566f
     mov word [bss_9b34], 5           ; 0x5672
     mov ax, word [bss_8f46]          ; 0x5678
@@ -280,7 +280,7 @@ jumptable_59e2_case_1:
 @..api_idx_0030_QRVT.l9:
     mov ax, 0x1f                     ; 0x56af
     push ax                          ; 0x56b2
-    call loc_2eac                    ; 0x56b3
+    call loc_UMJN                    ; 0x56b3
     pop cx                           ; 0x56b6
     push ax                          ; 0x56b7
     mov ax, 0                        ; 0x56b8
@@ -288,7 +288,7 @@ jumptable_59e2_case_1:
     mov ax, 0x1f                     ; 0x56bc
     push ax                          ; 0x56bf
     push ax                          ; 0x56c0
-    call loc_2ec0                    ; 0x56c1
+    call loc_LITI                    ; 0x56c1
     add sp, byte 4                   ; 0x56c4
     push ax                          ; 0x56c7
     mov ax, 0                        ; 0x56c8
@@ -298,7 +298,7 @@ jumptable_59e2_case_1:
 @..api_idx_0030_QRVT.l10:
     mov ax, 0x20                     ; 0x56d2
     push ax                          ; 0x56d5
-    call loc_2eac                    ; 0x56d6
+    call loc_UMJN                    ; 0x56d6
     pop cx                           ; 0x56d9
     push ax                          ; 0x56da
     mov ax, 0                        ; 0x56db
@@ -306,7 +306,7 @@ jumptable_59e2_case_1:
     mov ax, 0x20                     ; 0x56df
     push ax                          ; 0x56e2
     push ax                          ; 0x56e3
-    call loc_2ec0                    ; 0x56e4
+    call loc_LITI                    ; 0x56e4
     add sp, byte 4                   ; 0x56e7
     push ax                          ; 0x56ea
     mov ax, 0                        ; 0x56eb
@@ -332,7 +332,7 @@ jumptable_59e2_case_2:
     call api_idx_0024_SLHO           ; 0x571b
     mov ax, 4                        ; 0x571e
     push ax                          ; 0x5721
-    call loc_2eac                    ; 0x5722
+    call loc_UMJN                    ; 0x5722
     pop cx                           ; 0x5725
     push ax                          ; 0x5726
     mov ax, 2                        ; 0x5727
@@ -340,7 +340,7 @@ jumptable_59e2_case_2:
     mov ax, 4                        ; 0x572b
     push ax                          ; 0x572e
     push ax                          ; 0x572f
-    call loc_2ec0                    ; 0x5730
+    call loc_LITI                    ; 0x5730
     add sp, byte 4                   ; 0x5733
     push ax                          ; 0x5736
     mov ax, 1                        ; 0x5737
@@ -349,7 +349,7 @@ jumptable_59e2_case_2:
     add sp, byte 8                   ; 0x573e
     mov ax, 0x3e                     ; 0x5741
     push ax                          ; 0x5744
-    call loc_2eac                    ; 0x5745
+    call loc_UMJN                    ; 0x5745
     pop cx                           ; 0x5748
     push ax                          ; 0x5749
     mov ax, 0                        ; 0x574a
@@ -357,7 +357,7 @@ jumptable_59e2_case_2:
     mov ax, 0x3e                     ; 0x574e
     push ax                          ; 0x5751
     push ax                          ; 0x5752
-    call loc_2ec0                    ; 0x5753
+    call loc_LITI                    ; 0x5753
     add sp, byte 4                   ; 0x5756
     push ax                          ; 0x5759
     mov ax, 1                        ; 0x575a
@@ -410,7 +410,7 @@ jumptable_59e2_case_3:
 @..api_idx_0030_QRVT.l12:
     mov ax, 4                        ; 0x57d1
     push ax                          ; 0x57d4
-    call loc_2eac                    ; 0x57d5
+    call loc_UMJN                    ; 0x57d5
     pop cx                           ; 0x57d8
     push ax                          ; 0x57d9
     mov ax, 0                        ; 0x57da
@@ -418,7 +418,7 @@ jumptable_59e2_case_3:
     mov ax, 4                        ; 0x57de
     push ax                          ; 0x57e1
     push ax                          ; 0x57e2
-    call loc_2ec0                    ; 0x57e3
+    call loc_LITI                    ; 0x57e3
     add sp, byte 4                   ; 0x57e6
     push ax                          ; 0x57e9
     mov ax, 4                        ; 0x57ea
@@ -427,7 +427,7 @@ jumptable_59e2_case_3:
     add sp, byte 8                   ; 0x57f1
     mov ax, 0xad                     ; 0x57f4
     push ax                          ; 0x57f7
-    call loc_2eac                    ; 0x57f8
+    call loc_UMJN                    ; 0x57f8
     pop cx                           ; 0x57fb
     push ax                          ; 0x57fc
     mov ax, 0                        ; 0x57fd
@@ -435,7 +435,7 @@ jumptable_59e2_case_3:
     mov ax, 0xad                     ; 0x5801
     push ax                          ; 0x5804
     push ax                          ; 0x5805
-    call loc_2ec0                    ; 0x5806
+    call loc_LITI                    ; 0x5806
     add sp, byte 4                   ; 0x5809
     push ax                          ; 0x580c
     mov ax, 2                        ; 0x580d
@@ -466,7 +466,7 @@ jumptable_59e2_case_4:
     call api_idx_0024_SLHO           ; 0x5847
     mov ax, 4                        ; 0x584a
     push ax                          ; 0x584d
-    call loc_2eac                    ; 0x584e
+    call loc_UMJN                    ; 0x584e
     pop cx                           ; 0x5851
     push ax                          ; 0x5852
     mov ax, 2                        ; 0x5853
@@ -474,7 +474,7 @@ jumptable_59e2_case_4:
     mov ax, 4                        ; 0x5857
     push ax                          ; 0x585a
     push ax                          ; 0x585b
-    call loc_2ec0                    ; 0x585c
+    call loc_LITI                    ; 0x585c
     add sp, byte 4                   ; 0x585f
     push ax                          ; 0x5862
     mov ax, 1                        ; 0x5863
@@ -485,7 +485,7 @@ jumptable_59e2_case_4:
     jne short @..api_idx_0030_QRVT.l15 ; 0x5872
     mov ax, 0x2a                     ; 0x5874
     push ax                          ; 0x5877
-    call loc_2eac                    ; 0x5878
+    call loc_UMJN                    ; 0x5878
     pop cx                           ; 0x587b
     push ax                          ; 0x587c
     mov ax, 0                        ; 0x587d
@@ -493,7 +493,7 @@ jumptable_59e2_case_4:
     mov ax, 0x2a                     ; 0x5881
     push ax                          ; 0x5884
     push ax                          ; 0x5885
-    call loc_2ec0                    ; 0x5886
+    call loc_LITI                    ; 0x5886
     add sp, byte 4                   ; 0x5889
     push ax                          ; 0x588c
     mov ax, 4                        ; 0x588d
@@ -532,7 +532,7 @@ jumptable_59e2_case_5:
     add sp, byte 0x0a                ; 0x58d7
     mov ax, 0x2a                     ; 0x58da
     push ax                          ; 0x58dd
-    call loc_2eac                    ; 0x58de
+    call loc_UMJN                    ; 0x58de
     pop cx                           ; 0x58e1
     push ax                          ; 0x58e2
     mov ax, 0                        ; 0x58e3
@@ -540,7 +540,7 @@ jumptable_59e2_case_5:
     mov ax, 0x2a                     ; 0x58e7
     push ax                          ; 0x58ea
     push ax                          ; 0x58eb
-    call loc_2ec0                    ; 0x58ec
+    call loc_LITI                    ; 0x58ec
     add sp, byte 4                   ; 0x58ef
     push ax                          ; 0x58f2
     mov ax, 4                        ; 0x58f3
@@ -566,7 +566,7 @@ jumptable_59e2_case_6:
     call api_idx_0024_SLHO           ; 0x5923
     mov ax, 0x3e                     ; 0x5926
     push ax                          ; 0x5929
-    call loc_2eac                    ; 0x592a
+    call loc_UMJN                    ; 0x592a
     pop cx                           ; 0x592d
     push ax                          ; 0x592e
     mov ax, 0                        ; 0x592f
@@ -574,7 +574,7 @@ jumptable_59e2_case_6:
     mov ax, 0x3e                     ; 0x5933
     push ax                          ; 0x5936
     push ax                          ; 0x5937
-    call loc_2ec0                    ; 0x5938
+    call loc_LITI                    ; 0x5938
     add sp, byte 4                   ; 0x593b
     push ax                          ; 0x593e
     mov ax, 1                        ; 0x593f
@@ -632,7 +632,7 @@ jumptable_59e2_case_6:
 @..api_idx_0030_QRVT.l22:
     mov ax, 4                        ; 0x59bd
     push ax                          ; 0x59c0
-    call loc_2eac                    ; 0x59c1
+    call loc_UMJN                    ; 0x59c1
     pop cx                           ; 0x59c4
     push ax                          ; 0x59c5
     mov ax, 2                        ; 0x59c6
@@ -640,7 +640,7 @@ jumptable_59e2_case_6:
     mov ax, 4                        ; 0x59ca
     push ax                          ; 0x59cd
     push ax                          ; 0x59ce
-    call loc_2ec0                    ; 0x59cf
+    call loc_LITI                    ; 0x59cf
     add sp, byte 4                   ; 0x59d2
     push ax                          ; 0x59d5
     mov ax, 1                        ; 0x59d6
@@ -697,7 +697,7 @@ jumptable_59e2_case_0:
     push ax                          ; 0x5a44
     lea ax, word [bp - 0x000a]       ; 0x5a45
     push ax                          ; 0x5a48
-    call loc_2ed4                    ; 0x5a49
+    call loc_UKLN                    ; 0x5a49
     add sp, byte 0x0e                ; 0x5a4c
     test ax, ax                      ; 0x5a4f
     je short @..api_idx_0030_QRVT.l34 ; 0x5a51
@@ -2229,42 +2229,3 @@ jumptable_59e2_case_0:
 @..api_idx_0030_QRVT.l93:
     call ds_app_NLKG                 ; 0x6768
     ret                              ; 0x676b
-loc_676c:
-    mov ax, 0                        ; 0x676c
-    call aztec_csav                  ; 0x676f
-    call api_idx_0030_QRVT           ; 0x6772
-    mov ax, 0x8f                     ; 0x6775
-    push ax                          ; 0x6778
-    mov ax, 0xf7                     ; 0x6779
-    push ax                          ; 0x677c
-    mov ax, 0x20                     ; 0x677d
-    push ax                          ; 0x6780
-    mov ax, 0x48                     ; 0x6781
-    push ax                          ; 0x6784
-    call thunk_4                     ; 0x6785
-    add sp, byte 8                   ; 0x6788
-    ret                              ; 0x678b
-loc_678c:
-    mov ax, 0                        ; 0x678c
-    call aztec_csav                  ; 0x678f
-    mov bx, word [bss_0e14]          ; 0x6792
-    mov si, word [bp + 0x4]          ; 0x6796
-    mov al, byte [bx + si + 0x490]   ; 0x6799
-    sub ah, ah                       ; 0x679d
-    cmp ax, word [bp + 0x6]          ; 0x679f
-    jg short @..loc_678c.l1          ; 0x67a2
-    add ax, strict word 7            ; 0x67a4
-    cmp ax, word [bp + 0x6]          ; 0x67a7
-    jl short @..loc_678c.l1          ; 0x67aa
-    mov al, byte [bx + si + 0x4a0]   ; 0x67ac
-    sub ah, ah                       ; 0x67b0
-    cmp ax, word [bp + 0x8]          ; 0x67b2
-    jg short @..loc_678c.l1          ; 0x67b5
-    add ax, strict word 7            ; 0x67b7
-    cmp ax, word [bp + 0x8]          ; 0x67ba
-    jl short @..loc_678c.l1          ; 0x67bd
-    mov ax, si                       ; 0x67bf
-    ret                              ; 0x67c1
-@..loc_678c.l1:
-    mov ax, 0xffff                   ; 0x67c2
-    ret                              ; 0x67c5

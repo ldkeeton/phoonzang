@@ -153,6 +153,6 @@ jumptable_0363:
 @..ds_app_file_JHOT.l19:
     cmp word [bp - 0x0002], byte 1   ; 0x03ae
     jne short @..ds_app_file_JHOT.l20 ; 0x03b2
-    call ds_loc_30a3                 ; 0x03b4
+    call ds_loc_LJPT                 ; 0x03b4
 @..ds_app_file_JHOT.l20:
     ret                              ; 0x03b7

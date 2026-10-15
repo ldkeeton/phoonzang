@@ -10,4 +10,4 @@ leaf_loc_STNM:
     mov bx, ax                       ; 0x1dc8
     mov word [bx - 0x6d3c], 1        ; 0x1dca
 @..leaf_loc_STNM.l1:
-    jmp short loc_1e16               ; 0x1dd0
+    jmp short loc_SGRK               ; 0x1dd0

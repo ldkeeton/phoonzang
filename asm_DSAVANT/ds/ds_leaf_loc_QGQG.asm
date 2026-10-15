@@ -5,4 +5,4 @@ ds_leaf_loc_QGQG:
     inc ax                           ; 0x2cc8
     inc ax                           ; 0x2cc9
     mov word [bp - 0x0004], ax       ; 0x2cca
-    jmp near ds_loc_2d69             ; 0x2ccd
+    jmp near ds_loc_LMLP             ; 0x2ccd

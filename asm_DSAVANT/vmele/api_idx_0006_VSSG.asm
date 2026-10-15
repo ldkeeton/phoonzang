@@ -70,7 +70,7 @@ api_idx_0006_VSSG:
     mov word [bss_8468], 0           ; 0x2c11
     jmp near @..api_idx_0006_VSSG.l16 ; 0x2c17
 @..api_idx_0006_VSSG.l7:
-    call loc_2b19                    ; 0x2c1a
+    call loc_SKOS                    ; 0x2c1a
     mov word [bp - 0x0006], ax       ; 0x2c1d
     mov word [bp - 0x0002], 0        ; 0x2c20
 @..api_idx_0006_VSSG.l8:
@@ -119,7 +119,7 @@ api_idx_0006_VSSG:
     jmp short @..api_idx_0006_VSSG.l16 ; 0x2c8e
 @..api_idx_0006_VSSG.l11:
     push word [bss_845e]             ; 0x2c90
-    call loc_28a0                    ; 0x2c94
+    call loc_MLTS                    ; 0x2c94
     pop cx                           ; 0x2c97
     jmp short @..api_idx_0006_VSSG.l16 ; 0x2c98
 @..api_idx_0006_VSSG.l12:
@@ -144,12 +144,3 @@ api_idx_0006_VSSG:
     mov word [bss_845e], 0xfffd      ; 0x2cc0
 @..api_idx_0006_VSSG.l17:
     ret                              ; 0x2cc6
-loc_2cc7:
-    mov ax, 0                        ; 0x2cc7
-    call aztec_csav                  ; 0x2cca
-    mov word [bss_845e], 0xfffe      ; 0x2ccd
-@..loc_2cc7.l1:
-    call api_idx_0006_VSSG           ; 0x2cd3
-    cmp word [bss_845e], byte 0xfe   ; 0x2cd6
-    jne short @..loc_2cc7.l1         ; 0x2cdb
-    ret                              ; 0x2cdd

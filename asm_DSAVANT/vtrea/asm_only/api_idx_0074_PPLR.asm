@@ -58,7 +58,7 @@ api_idx_0074_PPLR:
     mov ax, 0                        ; 0x797b
     push ax                          ; 0x797e
     push word [bx + si]              ; 0x797f
-    call loc_0d87                    ; 0x7981
+    call loc_QLRN                    ; 0x7981
     add sp, byte 4                   ; 0x7984
 @..api_idx_0074_PPLR.l1:
     mov ax, 1                        ; 0x7987
@@ -73,7 +73,7 @@ api_idx_0074_PPLR:
     mov ax, 2                        ; 0x799c
     push ax                          ; 0x799f
     push word [bp - 0x0002]          ; 0x79a0
-    call loc_788f                    ; 0x79a3
+    call loc_UTRI                    ; 0x79a3
     add sp, byte 4                   ; 0x79a6
     inc word [bp - 0x0002]           ; 0x79a9
 @..api_idx_0074_PPLR.l3:
@@ -418,7 +418,7 @@ api_idx_0074_PPLR:
     mov ax, 0xa                      ; 0x7cc7
     push ax                          ; 0x7cca
     push word [bp - 0x0002]          ; 0x7ccb
-    call loc_0f54                    ; 0x7cce
+    call loc_VRUN                    ; 0x7cce
     add sp, byte 6                   ; 0x7cd1
 @..api_idx_0074_PPLR.l34:
     cmp word [bp - 0x000c], byte 0x0d ; 0x7cd4
@@ -428,7 +428,7 @@ api_idx_0074_PPLR:
     mov ax, 0xb                      ; 0x7cde
     push ax                          ; 0x7ce1
     push word [bp - 0x0002]          ; 0x7ce2
-    call loc_0f54                    ; 0x7ce5
+    call loc_VRUN                    ; 0x7ce5
     add sp, byte 6                   ; 0x7ce8
 @..api_idx_0074_PPLR.l35:
     cmp word [bp - 0x0004], byte 0   ; 0x7ceb
@@ -478,7 +478,7 @@ api_idx_0074_PPLR:
     mov ax, 0x17                     ; 0x7d57
     push ax                          ; 0x7d5a
     push word [bp - 0x0002]          ; 0x7d5b
-    call loc_0f54                    ; 0x7d5e
+    call loc_VRUN                    ; 0x7d5e
     add sp, byte 6                   ; 0x7d61
 @..api_idx_0074_PPLR.l39:
     inc word [bp - 0x0002]           ; 0x7d64
@@ -500,189 +500,7 @@ api_idx_0074_PPLR:
     call ds_dos_con_loc_RGTO         ; 0x7d89
     add sp, byte 6                   ; 0x7d8c
     push ax                          ; 0x7d8f
-    call loc_782b                    ; 0x7d90
+    call loc_VMLV                    ; 0x7d90
     pop cx                           ; 0x7d93
     inc word [bss_8d12]              ; 0x7d94
     ret                              ; 0x7d98
-loc_7d99:
-    mov ax, 0                        ; 0x7d99
-    call aztec_csav                  ; 0x7d9c
-    call ds_app_JMUU                 ; 0x7d9f
-    mov ax, 1                        ; 0x7da2
-    push ax                          ; 0x7da5
-    mov ax, 5                        ; 0x7da6
-    push ax                          ; 0x7da9
-    push ax                          ; 0x7daa
-    call ds_app_file_GKKL            ; 0x7dab
-    add sp, byte 6                   ; 0x7dae
-    mov ax, 7                        ; 0x7db1
-    push ax                          ; 0x7db4
-    mov ax, 9                        ; 0x7db5
-    push ax                          ; 0x7db8
-    call ds_app_file_UMGJ            ; 0x7db9
-    add sp, byte 4                   ; 0x7dbc
-    mov ax, 0xf                      ; 0x7dbf
-    push ax                          ; 0x7dc2
-    mov ax, 0xd                      ; 0x7dc3
-    push ax                          ; 0x7dc6
-    call ds_app_file_UMGJ            ; 0x7dc7
-    add sp, byte 4                   ; 0x7dca
-    mov ax, 0                        ; 0x7dcd
-    push ax                          ; 0x7dd0
-    mov ax, 2                        ; 0x7dd1
-    push ax                          ; 0x7dd4
-    mov ax, 0x8f                     ; 0x7dd5
-    push ax                          ; 0x7dd8
-    mov ax, 0xf7                     ; 0x7dd9
-    push ax                          ; 0x7ddc
-    mov ax, 0x21                     ; 0x7ddd
-    push ax                          ; 0x7de0
-    mov ax, 0x48                     ; 0x7de1
-    push ax                          ; 0x7de4
-    call thunk_11                    ; 0x7de5
-    add sp, byte 0x0c                ; 0x7de8
-    mov word [bss_9062], dx          ; 0x7deb
-    mov word [bss_9060], ax          ; 0x7def
-    cmp word [bss_906a], byte 0      ; 0x7df2
-    je short @..loc_7d99.l1          ; 0x7df7
-    mov ax, 1                        ; 0x7df9
-    push ax                          ; 0x7dfc
-    push word [bss_9068]             ; 0x7dfd
-    call ds_app_file_OVOQ            ; 0x7e01
-    add sp, byte 4                   ; 0x7e04
-    mov word [bss_906a], 0           ; 0x7e07
-@..loc_7d99.l1:
-    mov ax, 0                        ; 0x7e0d
-    push ax                          ; 0x7e10
-    mov ax, 2                        ; 0x7e11
-    push ax                          ; 0x7e14
-    mov ax, 0x8f                     ; 0x7e15
-    push ax                          ; 0x7e18
-    mov ax, 0xf7                     ; 0x7e19
-    push ax                          ; 0x7e1c
-    mov ax, 0x21                     ; 0x7e1d
-    push ax                          ; 0x7e20
-    mov ax, 0x48                     ; 0x7e21
-    push ax                          ; 0x7e24
-    call thunk_11                    ; 0x7e25
-    add sp, byte 0x0c                ; 0x7e28
-    mov word [bss_9066], dx          ; 0x7e2b
-    mov word [bss_9064], ax          ; 0x7e2f
-    call api_idx_000e_QTQU           ; 0x7e32
-    mov ax, 0xc6                     ; 0x7e35
-    push ax                          ; 0x7e38
-    mov ax, 0x127                    ; 0x7e39
-    push ax                          ; 0x7e3c
-    mov ax, 0xa5                     ; 0x7e3d
-    push ax                          ; 0x7e40
-    mov ax, 0x19                     ; 0x7e41
-    push ax                          ; 0x7e44
-    call thunk_10                    ; 0x7e45
-    add sp, byte 8                   ; 0x7e48
-    mov word [bss_8d10], dx          ; 0x7e4b
-    mov word [bss_8d0e], ax          ; 0x7e4f
-    mov ax, 0xa4                     ; 0x7e52
-    push ax                          ; 0x7e55
-    mov ax, 0xff                     ; 0x7e56
-    push ax                          ; 0x7e59
-    mov ax, 0x92                     ; 0x7e5a
-    push ax                          ; 0x7e5d
-    mov ax, 0x41                     ; 0x7e5e
-    push ax                          ; 0x7e61
-    call thunk_10                    ; 0x7e62
-    add sp, byte 8                   ; 0x7e65
-    mov word [bss_8d0c], dx          ; 0x7e68
-    mov word [bss_8d0a], ax          ; 0x7e6c
-    mov ax, 1                        ; 0x7e6f
-    push ax                          ; 0x7e72
-    mov ax, 2                        ; 0x7e73
-    push ax                          ; 0x7e76
-    call ds_app_file_UMGJ            ; 0x7e77
-    add sp, byte 4                   ; 0x7e7a
-    mov ax, 2                        ; 0x7e7d
-    push ax                          ; 0x7e80
-    mov ax, 3                        ; 0x7e81
-    push ax                          ; 0x7e84
-    call ds_app_file_UMGJ            ; 0x7e85
-    add sp, byte 4                   ; 0x7e88
-    mov word [bss_91d4], 1           ; 0x7e8b
-    mov word [bss_9124], 5           ; 0x7e91
-    mov word [bss_911c], 0x8f        ; 0x7e97
-    call bios_kbd_check              ; 0x7e9d
-    mov word [bss_9126], 0           ; 0x7ea0
-    cmp word [bp + 0x4], byte 0      ; 0x7ea6
-    jle short @..loc_7d99.l2         ; 0x7eaa
-    mov ax, 0x9128                   ; 0x7eac
-    push ax                          ; 0x7eaf
-    push word [bp + 0x4]             ; 0x7eb0
-    call ds_app_mem_VKHV             ; 0x7eb3
-    add sp, byte 4                   ; 0x7eb6
-@..loc_7d99.l2:
-    ret                              ; 0x7eb9
-loc_7eba:
-    mov ax, 0                        ; 0x7eba
-    call aztec_csav                  ; 0x7ebd
-    mov ax, 0                        ; 0x7ec0
-    push ax                          ; 0x7ec3
-    mov ax, 1                        ; 0x7ec4
-    push ax                          ; 0x7ec7
-    push word [bss_9066]             ; 0x7ec8
-    push word [bss_9064]             ; 0x7ecc
-    call thunk_12                    ; 0x7ed0
-    add sp, byte 8                   ; 0x7ed3
-    mov ax, 0                        ; 0x7ed6
-    push ax                          ; 0x7ed9
-    mov ax, 1                        ; 0x7eda
-    push ax                          ; 0x7edd
-    push word [bss_9062]             ; 0x7ede
-    push word [bss_9060]             ; 0x7ee2
-    call thunk_12                    ; 0x7ee6
-    add sp, byte 8                   ; 0x7ee9
-    call api_idx_000e_QTQU           ; 0x7eec
-    mov ax, 0xf                      ; 0x7eef
-    push ax                          ; 0x7ef2
-    call ds_app_thunk_26_RNMG        ; 0x7ef3
-    pop cx                           ; 0x7ef6
-    mov ax, 7                        ; 0x7ef7
-    push ax                          ; 0x7efa
-    call ds_app_thunk_26_RNMG        ; 0x7efb
-    pop cx                           ; 0x7efe
-    mov ax, 5                        ; 0x7eff
-    push ax                          ; 0x7f02
-    call ds_app_KKKO                 ; 0x7f03
-    pop cx                           ; 0x7f06
-    mov ax, 0                        ; 0x7f07
-    push ax                          ; 0x7f0a
-    call api_idx_000a_IHIN           ; 0x7f0b
-    pop cx                           ; 0x7f0e
-    mov ax, 1                        ; 0x7f0f
-    push ax                          ; 0x7f12
-    call ds_app_thunk_26_RNMG        ; 0x7f13
-    pop cx                           ; 0x7f16
-    mov ax, 2                        ; 0x7f17
-    push ax                          ; 0x7f1a
-    call ds_app_thunk_26_RNMG        ; 0x7f1b
-    pop cx                           ; 0x7f1e
-    mov ax, 1                        ; 0x7f1f
-    push ax                          ; 0x7f22
-    push word [bss_8d0c]             ; 0x7f23
-    push word [bss_8d0a]             ; 0x7f27
-    call thunk_13                    ; 0x7f2b
-    add sp, byte 6                   ; 0x7f2e
-    mov ax, 1                        ; 0x7f31
-    push ax                          ; 0x7f34
-    push word [bss_8d10]             ; 0x7f35
-    push word [bss_8d0e]             ; 0x7f39
-    call thunk_13                    ; 0x7f3d
-    add sp, byte 6                   ; 0x7f40
-    mov ax, 0xc6                     ; 0x7f43
-    push ax                          ; 0x7f46
-    mov ax, 0x109                    ; 0x7f47
-    push ax                          ; 0x7f4a
-    mov ax, 0x92                     ; 0x7f4b
-    push ax                          ; 0x7f4e
-    mov ax, 0x37                     ; 0x7f4f
-    push ax                          ; 0x7f52
-    call ds_app_io_LUON              ; 0x7f53
-    add sp, byte 8                   ; 0x7f56
-    ret                              ; 0x7f59

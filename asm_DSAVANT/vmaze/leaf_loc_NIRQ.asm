@@ -82,4 +82,4 @@ leaf_loc_NIRQ:
     add ax, cx                       ; 0x45b4
     mov word [bp - 0x0008], ax       ; 0x45b6
     mov word [bp - 0x000a], 0        ; 0x45b9
-    jmp short loc_4623               ; 0x45be
+    jmp short loc_RJVS               ; 0x45be

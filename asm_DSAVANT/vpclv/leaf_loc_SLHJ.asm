@@ -9,4 +9,4 @@ leaf_loc_SLHJ:
     mov word [bp - 0x0014], 1        ; 0x4a65
     mov word [bp - 0x0016], 0x1e     ; 0x4a6a
     mov word [bp - 0x0018], 3        ; 0x4a6f
-    jmp near loc_4b67                ; 0x4a74
+    jmp near loc_KMTR                ; 0x4a74

@@ -70,11 +70,11 @@ api_idx_0002_LNSL:
     mov ax, 0                        ; 0x8e3c
     push ax                          ; 0x8e3f
     push word [bp + 0x4]             ; 0x8e40
-    call loc_6f79                    ; 0x8e43
+    call loc_HTNP                    ; 0x8e43
     add sp, byte 4                   ; 0x8e46
     mov ax, 0xf                      ; 0x8e49
     push ax                          ; 0x8e4c
-    call loc_72c2                    ; 0x8e4d
+    call loc_JJLM                    ; 0x8e4d
     pop cx                           ; 0x8e50
     mov ax, 0                        ; 0x8e51
     push ax                          ; 0x8e54
@@ -84,5 +84,5 @@ api_idx_0002_LNSL:
     push word [bss_a5b2]             ; 0x8e5d
     call thunk_12                    ; 0x8e61
     add sp, byte 8                   ; 0x8e64
-    call loc_85f0                    ; 0x8e67
+    call loc_SKUK                    ; 0x8e67
     ret                              ; 0x8e6a

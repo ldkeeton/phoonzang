@@ -3,7 +3,7 @@
 dos_proc_loc_MNNL:
     pop ax                           ; 0x3716
     pop ax                           ; 0x3717
-loc_3718:
+loc_GGRQ:
     mov ah, 0x4c                     ; 0x3718
     int 0x21 ; DOS exit with return code
 

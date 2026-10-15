@@ -52,7 +52,7 @@ api_idx_006c_PMVV:
     push ax                          ; 0x470d
     mov ax, 5                        ; 0x470e
     push ax                          ; 0x4711
-    call ds_loc_3a77                 ; 0x4712
+    call ds_loc_PQIO                 ; 0x4712
     add sp, byte 4                   ; 0x4715
     mov ax, 6                        ; 0x4718
     imul word [bp - 0x0006]          ; 0x471b
@@ -66,7 +66,7 @@ api_idx_006c_PMVV:
     push ax                          ; 0x472f
     mov ax, 6                        ; 0x4730
     push ax                          ; 0x4733
-    call ds_loc_3a77                 ; 0x4734
+    call ds_loc_PQIO                 ; 0x4734
     add sp, byte 4                   ; 0x4737
     mov word [bp - 0x0002], 0        ; 0x473a
 @..api_idx_006c_PMVV.l2:

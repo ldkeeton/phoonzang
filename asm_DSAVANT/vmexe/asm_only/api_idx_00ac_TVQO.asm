@@ -23,7 +23,7 @@ api_idx_00ac_TVQO:
     push word [bss_8464]             ; 0x79b4
     mov ax, 0x90e6                   ; 0x79b8
     push ax                          ; 0x79bb
-    call loc_15ab                    ; 0x79bc
+    call loc_QJUS                    ; 0x79bc
     add sp, byte 6                   ; 0x79bf
     mov byte [bss_9136], 0           ; 0x79c2
     mov byte [bss_9186], 0           ; 0x79c7
@@ -211,7 +211,7 @@ jumptable_7c0e:
     dw 0x0072                                  ; 0x7c2c ; literal
     dw 0xcb80                                  ; 0x7c2e ; literal
     dw 0xcb88                                  ; 0x7c30 ; literal
-loc_7c32:
+loc_MTMN:
     nop                              ; 0x7c32
     retf                             ; 0x7c33
     cbw                              ; 0x7c34
@@ -288,10 +288,10 @@ loc_7c32:
     mov al, byte [bx + si + 0x89]    ; 0x7cd9
     sub ah, ah                       ; 0x7cdd
     jmp near @..api_idx_00ac_TVQO.l16 ; 0x7cdf
-loc_7ce2:
+loc_GKIQ:
     mov word [bp - 0x0076], 0x15     ; 0x7ce2
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7ce7
-loc_7cea:
+loc_VNIQ:
     mov word [bp - 0x0094], 0x714    ; 0x7cea
     mov word [bp - 0x0076], 0xa      ; 0x7cf0
     mov word [bss_90de], 0xb         ; 0x7cf5
@@ -303,7 +303,7 @@ loc_7cea:
     add sp, byte 4                   ; 0x7d06
     mov word [bp - 0x00ac], 1        ; 0x7d09
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7d0f
-loc_7d12:
+loc_MRLH:
     mov word [bp - 0x0094], 0x506    ; 0x7d12
     mov word [bp - 0x0076], 8        ; 0x7d18
     mov word [bss_90de], 0xb         ; 0x7d1d
@@ -315,7 +315,7 @@ loc_7d12:
     add sp, byte 4                   ; 0x7d2e
     mov word [bp - 0x00ac], 1        ; 0x7d31
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7d37
-loc_7d3a:
+loc_LVIS:
     mov word [bp - 0x0076], 8        ; 0x7d3a
     mov word [bss_90de], 5           ; 0x7d3f
     mov ax, 0x9136                   ; 0x7d45
@@ -326,13 +326,13 @@ loc_7d3a:
     add sp, byte 4                   ; 0x7d50
     mov word [bp - 0x00a6], 0        ; 0x7d53
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7d59
-loc_7d5c:
+loc_GUTH:
     mov word [bp - 0x0076], 2        ; 0x7d5c
     mov word [bp - 0x00a6], 0        ; 0x7d61
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7d67
-loc_7d6a:
+loc_SRJH:
     mov word [bp - 0x00a6], 2        ; 0x7d6a
-loc_7d70:
+loc_JPLJ:
     cmp word [bp - 0x00a6], byte 1   ; 0x7d70
     jne short @..api_idx_00ac_TVQO.l15 ; 0x7d75
     mov word [bp - 0x00a6], 3        ; 0x7d77
@@ -348,26 +348,26 @@ jumptable_7e61_case_13:
     add sp, byte 4                   ; 0x7d93
     mov word [bp - 0x00ac], 1        ; 0x7d96
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7d9c
-loc_7d9f:
+loc_NPHQ:
     mov word [bp - 0x0076], 0        ; 0x7d9f
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7da4
-loc_7da7:
+loc_UKUH:
     mov word [bp - 0x0076], 0xc      ; 0x7da7
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7dac
-loc_7daf:
+loc_NQJN:
     mov word [bp - 0x0076], 0x10     ; 0x7daf
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7db4
-loc_7db7:
+loc_LIPR:
     mov word [bp - 0x0076], 6        ; 0x7db7
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7dbc
-loc_7dbf:
+loc_SKLO:
     mov word [bp - 0x0076], 0x11     ; 0x7dbf
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7dc4
-loc_7dc7:
+loc_JVHS:
     mov word [bp - 0x0076], 4        ; 0x7dc7
     mov word [bp - 0x00a6], 0        ; 0x7dcc
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7dd2
-loc_7dd5:
+loc_PMVI:
     mov word [bp - 0x0094], 0x643    ; 0x7dd5
     mov word [bp - 0x0076], 0x16     ; 0x7ddb
     mov word [bss_90de], 0xa         ; 0x7de0
@@ -379,7 +379,7 @@ loc_7dd5:
     add sp, byte 4                   ; 0x7df1
     mov word [bp - 0x00ac], 1        ; 0x7df4
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7dfa
-loc_7dfd:
+loc_VOMS:
     mov word [bp - 0x0094], 0x702    ; 0x7dfd
     mov word [bp - 0x0076], 0xc      ; 0x7e03
     mov word [bss_90de], 0xc         ; 0x7e08
@@ -391,7 +391,7 @@ loc_7dfd:
     add sp, byte 4                   ; 0x7e19
     mov word [bp - 0x00ac], 1        ; 0x7e1c
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7e22
-loc_7e25:
+loc_HHOV:
     mov word [bp - 0x00aa], 0xa4     ; 0x7e25
     mov word [bp - 0x0094], 0x641    ; 0x7e2b
     mov word [bp - 0x0076], 0xe      ; 0x7e31
@@ -411,43 +411,43 @@ loc_7e25:
     jmp near @..api_idx_00ac_TVQO.l17 ; 0x7e5e
 jumptable_7e61:
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e61
-    dw loc_7ce2 - IMAGE_BASE + 0x5055          ; 0x7e63
-    dw loc_7ce2 - IMAGE_BASE + 0x5055          ; 0x7e65
+    dw loc_GKIQ - IMAGE_BASE + 0x5055          ; 0x7e63
+    dw loc_GKIQ - IMAGE_BASE + 0x5055          ; 0x7e65
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e67
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e69
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e6b
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e6d
-    dw loc_7d3a - IMAGE_BASE + 0x5055          ; 0x7e6f
+    dw loc_LVIS - IMAGE_BASE + 0x5055          ; 0x7e6f
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e71
-    dw loc_7d5c - IMAGE_BASE + 0x5055          ; 0x7e73
+    dw loc_GUTH - IMAGE_BASE + 0x5055          ; 0x7e73
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e75
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e77
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e79
     dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7e7b
     dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7e7d
     dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7e7f
-    dw loc_7d9f - IMAGE_BASE + 0x5055          ; 0x7e81
+    dw loc_NPHQ - IMAGE_BASE + 0x5055          ; 0x7e81
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e83
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e85
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e87
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e89
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e8b
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e8d
-    dw loc_7da7 - IMAGE_BASE + 0x5055          ; 0x7e8f
+    dw loc_UKUH - IMAGE_BASE + 0x5055          ; 0x7e8f
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e91
-    dw loc_7d3a - IMAGE_BASE + 0x5055          ; 0x7e93
+    dw loc_LVIS - IMAGE_BASE + 0x5055          ; 0x7e93
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e95
-    dw loc_7d9f - IMAGE_BASE + 0x5055          ; 0x7e97
+    dw loc_NPHQ - IMAGE_BASE + 0x5055          ; 0x7e97
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e99
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e9b
-    dw loc_7daf - IMAGE_BASE + 0x5055          ; 0x7e9d
-    dw loc_7db7 - IMAGE_BASE + 0x5055          ; 0x7e9f
-    dw loc_7d5c - IMAGE_BASE + 0x5055          ; 0x7ea1
+    dw loc_NQJN - IMAGE_BASE + 0x5055          ; 0x7e9d
+    dw loc_LIPR - IMAGE_BASE + 0x5055          ; 0x7e9f
+    dw loc_GUTH - IMAGE_BASE + 0x5055          ; 0x7ea1
     dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7ea3
-    dw loc_7d9f - IMAGE_BASE + 0x5055          ; 0x7ea5
+    dw loc_NPHQ - IMAGE_BASE + 0x5055          ; 0x7ea5
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ea7
-    dw loc_7dbf - IMAGE_BASE + 0x5055          ; 0x7ea9
-    dw loc_7dc7 - IMAGE_BASE + 0x5055          ; 0x7eab
+    dw loc_SKLO - IMAGE_BASE + 0x5055          ; 0x7ea9
+    dw loc_JVHS - IMAGE_BASE + 0x5055          ; 0x7eab
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ead
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7eaf
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7eb1
@@ -457,20 +457,20 @@ jumptable_7e61:
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7eb9
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ebb
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ebd
-    dw loc_7daf - IMAGE_BASE + 0x5055          ; 0x7ebf
+    dw loc_NQJN - IMAGE_BASE + 0x5055          ; 0x7ebf
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ec1
-    dw loc_7cea - IMAGE_BASE + 0x5055          ; 0x7ec3
-    dw loc_7d12 - IMAGE_BASE + 0x5055          ; 0x7ec5
+    dw loc_VNIQ - IMAGE_BASE + 0x5055          ; 0x7ec3
+    dw loc_MRLH - IMAGE_BASE + 0x5055          ; 0x7ec5
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ec7
-    dw loc_7dd5 - IMAGE_BASE + 0x5055          ; 0x7ec9
-    dw loc_7d6a - IMAGE_BASE + 0x5055          ; 0x7ecb
-    dw loc_7d70 - IMAGE_BASE + 0x5055          ; 0x7ecd
+    dw loc_PMVI - IMAGE_BASE + 0x5055          ; 0x7ec9
+    dw loc_SRJH - IMAGE_BASE + 0x5055          ; 0x7ecb
+    dw loc_JPLJ - IMAGE_BASE + 0x5055          ; 0x7ecd
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ecf
-    dw loc_7dfd - IMAGE_BASE + 0x5055          ; 0x7ed1
+    dw loc_VOMS - IMAGE_BASE + 0x5055          ; 0x7ed1
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ed3
     dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ed5
     dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7ed7
-    dw loc_7e25 - IMAGE_BASE + 0x5055          ; 0x7ed9
+    dw loc_HHOV - IMAGE_BASE + 0x5055          ; 0x7ed9
 @..api_idx_00ac_TVQO.l16:
     cmp ax, strict word 0x3d         ; 0x7edb
     jae short @..api_idx_00ac_TVQO.l17 ; 0x7ede
@@ -570,7 +570,7 @@ jumptable_7e61_case_0:
     push word [bp - 0x004e]          ; 0x7fc4
     mov ax, 0x90e6                   ; 0x7fc7
     push ax                          ; 0x7fca
-    call loc_15ab                    ; 0x7fcb
+    call loc_QJUS                    ; 0x7fcb
     add sp, byte 6                   ; 0x7fce
     mov ax, 2                        ; 0x7fd1
     push ax                          ; 0x7fd4
@@ -755,7 +755,7 @@ jumptable_8145:
     push si                          ; 0x81ab
     rcr word [bp - 0x002f], 1        ; 0x81ac
     pop si                           ; 0x81af
-loc_81b0:
+loc_RSLK:
     shl word [bp - 0x002f], 1        ; 0x81b0
     sar word [ds:bss_3ed1], 1        ; 0x81b3
     rcl word [bp - 0x002f], 1        ; 0x81b8
@@ -804,7 +804,7 @@ loc_81b0:
     push ax                          ; 0x822f
     push word [bp - 0x007c]          ; 0x8230
     push word [bss_8462]             ; 0x8233
-    call loc_1bf4                    ; 0x8237
+    call loc_VRUN                    ; 0x8237
     add sp, byte 6                   ; 0x823a
 @..api_idx_00ac_TVQO.l37:
     push word [bss_8462]             ; 0x823d

@@ -1,18 +1,18 @@
 ; auto-generated
 leaf_loc_RIVH:
     mov word [bp - 0x0002], 3        ; 0x0409
-    jmp short loc_0478               ; 0x040e
-loc_0410:
+    jmp short loc_LPJO               ; 0x040e
+loc_NTMV:
     mov word [bss_91a6], 1           ; 0x0410
-loc_0416:
+loc_NNTT:
     mov word [bp - 0x0002], 4        ; 0x0416
-    jmp short loc_0478               ; 0x041b
-loc_041d:
+    jmp short loc_LPJO               ; 0x041b
+loc_QUIR:
     mov word [bp - 0x0002], 5        ; 0x041d
-    jmp short loc_0478               ; 0x0422
-loc_0424:
+    jmp short loc_LPJO               ; 0x0422
+loc_OVHP:
     mov word [bp - 0x0002], 6        ; 0x0424
-    jmp short loc_0478               ; 0x0429
+    jmp short loc_LPJO               ; 0x0429
 jumptable_042b:
     dw leaf_loc_VJOQ - IMAGE_BASE + 0x5055     ; 0x042b
     dw leaf_loc_VJOQ - IMAGE_BASE + 0x5055     ; 0x042d
@@ -21,12 +21,12 @@ jumptable_042b:
     dw leaf_loc_VJOQ - IMAGE_BASE + 0x5055     ; 0x0433
     dw leaf_loc_VJOQ - IMAGE_BASE + 0x5055     ; 0x0435
     dw leaf_loc_VJOQ - IMAGE_BASE + 0x5055     ; 0x0437
-    dw loc_0416 - IMAGE_BASE + 0x5055          ; 0x0439
-    dw loc_0424 - IMAGE_BASE + 0x5055          ; 0x043b
-    dw loc_0424 - IMAGE_BASE + 0x5055          ; 0x043d
-    dw loc_0424 - IMAGE_BASE + 0x5055          ; 0x043f
-    dw loc_0424 - IMAGE_BASE + 0x5055          ; 0x0441
-    dw loc_0424 - IMAGE_BASE + 0x5055          ; 0x0443
+    dw loc_NNTT - IMAGE_BASE + 0x5055          ; 0x0439
+    dw loc_OVHP - IMAGE_BASE + 0x5055          ; 0x043b
+    dw loc_OVHP - IMAGE_BASE + 0x5055          ; 0x043d
+    dw loc_OVHP - IMAGE_BASE + 0x5055          ; 0x043f
+    dw loc_OVHP - IMAGE_BASE + 0x5055          ; 0x0441
+    dw loc_OVHP - IMAGE_BASE + 0x5055          ; 0x0443
     dw leaf_loc_VJOQ - IMAGE_BASE + 0x5055     ; 0x0445
     dw leaf_loc_RIVH - IMAGE_BASE + 0x5055     ; 0x0447
     dw leaf_loc_MUHH - IMAGE_BASE + 0x5055     ; 0x0449
@@ -36,34 +36,34 @@ jumptable_042b:
     dw leaf_loc_RIVH - IMAGE_BASE + 0x5055     ; 0x0451
     dw leaf_loc_RIVH - IMAGE_BASE + 0x5055     ; 0x0453
     dw leaf_loc_RIVH - IMAGE_BASE + 0x5055     ; 0x0455
-    dw loc_041d - IMAGE_BASE + 0x5055          ; 0x0457
+    dw loc_QUIR - IMAGE_BASE + 0x5055          ; 0x0457
     dw leaf_loc_MUHH - IMAGE_BASE + 0x5055     ; 0x0459
     dw leaf_loc_MUHH - IMAGE_BASE + 0x5055     ; 0x045b
-    dw loc_041d - IMAGE_BASE + 0x5055          ; 0x045d
+    dw loc_QUIR - IMAGE_BASE + 0x5055          ; 0x045d
     dw leaf_loc_MUHH - IMAGE_BASE + 0x5055     ; 0x045f
-    dw loc_0410 - IMAGE_BASE + 0x5055          ; 0x0461
-    dw loc_041d - IMAGE_BASE + 0x5055          ; 0x0463
+    dw loc_NTMV - IMAGE_BASE + 0x5055          ; 0x0461
+    dw loc_QUIR - IMAGE_BASE + 0x5055          ; 0x0463
     dw leaf_loc_MUHH - IMAGE_BASE + 0x5055     ; 0x0465
     dw leaf_loc_MUHH - IMAGE_BASE + 0x5055     ; 0x0467
     dw leaf_loc_RIVH - IMAGE_BASE + 0x5055     ; 0x0469
 @..api_idx_0002_GPPN.l1:
     cmp ax, strict word 0x20         ; 0x046b
-    jae short loc_0478               ; 0x046e
+    jae short loc_LPJO               ; 0x046e
     xchg bx, ax                      ; 0x0470
     shl bx, 1                        ; 0x0471
     jmp [cs:bx + 0x5472]             ; 0x0473
-loc_0478:
+loc_LPJO:
     cmp word [bss_5b70], byte 0      ; 0x0478
-    je short loc_048b                ; 0x047d
+    je short loc_TQVG                ; 0x047d
     mov ax, word [bp - 0x0002]       ; 0x047f
     cmp ax, word [bss_5b6e]          ; 0x0482
-    jne short loc_048b               ; 0x0486
-    jmp near loc_06d0                ; 0x0488
-loc_048b:
+    jne short loc_TQVG               ; 0x0486
+    jmp near loc_VURQ                ; 0x0488
+loc_TQVG:
     call ds_app_JMUU                 ; 0x048b
     mov ax, word [bp - 0x0002]       ; 0x048e
     mov word [bss_5b6e], ax          ; 0x0491
-    jmp near loc_06c3                ; 0x0494
+    jmp near loc_JVTQ                ; 0x0494
 jumptable_06b5_case_1:
     mov ax, 0                        ; 0x0497
     push ax                          ; 0x049a
@@ -102,7 +102,7 @@ jumptable_06b5_case_1:
     call ds_app_file_UMGJ            ; 0x04e5
     add sp, byte 4                   ; 0x04e8
     mov word [bss_5b6c], 0           ; 0x04eb
-    jmp near loc_06d0                ; 0x04f1
+    jmp near loc_VURQ                ; 0x04f1
 jumptable_06b5_case_2:
     mov ax, 1                        ; 0x04f4
     push ax                          ; 0x04f7
@@ -129,7 +129,7 @@ jumptable_06b5_case_2:
     call ds_app_file_UMGJ            ; 0x0526
     add sp, byte 4                   ; 0x0529
     mov word [bss_5b6c], 1           ; 0x052c
-    jmp near loc_06d0                ; 0x0532
+    jmp near loc_VURQ                ; 0x0532
 jumptable_06b5_case_3:
     mov ax, 2                        ; 0x0535
     push ax                          ; 0x0538
@@ -180,7 +180,7 @@ jumptable_06b5_case_3:
     call ds_app_file_UMGJ            ; 0x059f
     add sp, byte 4                   ; 0x05a2
     mov word [bss_5b6c], 2           ; 0x05a5
-    jmp near loc_06d0                ; 0x05ab
+    jmp near loc_VURQ                ; 0x05ab
 jumptable_06b5_case_4:
     mov ax, 1                        ; 0x05ae
     push ax                          ; 0x05b1
@@ -201,7 +201,7 @@ jumptable_06b5_case_4:
     call ds_app_file_UMGJ            ; 0x05d2
     add sp, byte 4                   ; 0x05d5
     mov word [bss_5b6c], 1           ; 0x05d8
-    jmp near loc_06d0                ; 0x05de
+    jmp near loc_VURQ                ; 0x05de
 jumptable_06b5_case_5:
     mov ax, 2                        ; 0x05e1
     push ax                          ; 0x05e4
@@ -252,7 +252,7 @@ jumptable_06b5_case_5:
     call ds_app_file_UMGJ            ; 0x064b
     add sp, byte 4                   ; 0x064e
     mov word [bss_5b6c], 2           ; 0x0651
-    jmp short loc_06d0               ; 0x0657
+    jmp short loc_VURQ               ; 0x0657
 jumptable_06b5_case_6:
     mov ax, 1                        ; 0x0659
     push ax                          ; 0x065c
@@ -291,22 +291,22 @@ jumptable_06b5_case_6:
     call ds_app_file_UMGJ            ; 0x06a7
     add sp, byte 4                   ; 0x06aa
     mov word [bss_5b6c], 1           ; 0x06ad
-    jmp short loc_06d0               ; 0x06b3
+    jmp short loc_VURQ               ; 0x06b3
 jumptable_06b5:
-    dw loc_06d0 - IMAGE_BASE + 0x5055          ; 0x06b5
+    dw loc_VURQ - IMAGE_BASE + 0x5055          ; 0x06b5
     dw jumptable_06b5_case_1 - IMAGE_BASE + 0x5055 ; 0x06b7
     dw jumptable_06b5_case_2 - IMAGE_BASE + 0x5055 ; 0x06b9
     dw jumptable_06b5_case_3 - IMAGE_BASE + 0x5055 ; 0x06bb
     dw jumptable_06b5_case_4 - IMAGE_BASE + 0x5055 ; 0x06bd
     dw jumptable_06b5_case_5 - IMAGE_BASE + 0x5055 ; 0x06bf
     dw jumptable_06b5_case_6 - IMAGE_BASE + 0x5055 ; 0x06c1
-loc_06c3:
+loc_JVTQ:
     cmp ax, strict word 7            ; 0x06c3
-    jae short loc_06d0               ; 0x06c6
+    jae short loc_VURQ               ; 0x06c6
     xchg bx, ax                      ; 0x06c8
     shl bx, 1                        ; 0x06c9
     jmp [cs:bx + 0x56fc]             ; 0x06cb
-loc_06d0:
-    call loc_0344                    ; 0x06d0
+loc_VURQ:
+    call loc_OKOK                    ; 0x06d0
     mov word [bss_5b70], 1           ; 0x06d3
     ret                              ; 0x06d9

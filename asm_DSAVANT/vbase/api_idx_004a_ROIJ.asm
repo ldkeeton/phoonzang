@@ -56,7 +56,7 @@ api_idx_004a_ROIJ:
     push ax                          ; 0x6941
     mov ax, 0x898                    ; 0x6942
     push ax                          ; 0x6945
-    call loc_023a                    ; 0x6946
+    call loc_QLQS                    ; 0x6946
     add sp, byte 0x10                ; 0x6949
     mov word [bp - 0x0002], ax       ; 0x694c
     lea ax, word [bp - 0x004a]       ; 0x694f
@@ -83,18 +83,18 @@ api_idx_004a_ROIJ:
     add sp, byte 0x0e                ; 0x697f
     mov ax, word [bp - 0x0002]       ; 0x6982
     jmp short @..api_idx_004a_ROIJ.l6 ; 0x6985
-loc_6987:
+loc_KRUV:
     mov word [bp - 0x0004], 0        ; 0x6987
     jmp near @..api_idx_004a_ROIJ.l7 ; 0x698c
-loc_698f:
+loc_RGST:
     mov ax, 1                        ; 0x698f
     push ax                          ; 0x6992
-    call loc_4d0e                    ; 0x6993
+    call loc_JUUJ                    ; 0x6993
     pop cx                           ; 0x6996
     jmp short @..api_idx_004a_ROIJ.l7 ; 0x6997
-loc_6999:
+loc_PMOV:
     jmp short @..api_idx_004a_ROIJ.l7 ; 0x6999
-loc_699b:
+loc_OIVK:
     mov ax, 0                        ; 0x699b
     push ax                          ; 0x699e
     call api_idx_004e_HNNL           ; 0x699f
@@ -121,18 +121,18 @@ loc_699b:
     mov word [bp - 0x0004], 0        ; 0x69d2
 @..api_idx_004a_ROIJ.l5:
     jmp short @..api_idx_004a_ROIJ.l7 ; 0x69d7
-loc_69d9:
+loc_NSJQ:
     mov word [bss_8460], 0           ; 0x69d9
     mov word [bss_830a], 7           ; 0x69df
     mov word [bp - 0x0004], 0        ; 0x69e5
     jmp short @..api_idx_004a_ROIJ.l7 ; 0x69ea
 jumptable_69ec:
-    dw loc_6987 - IMAGE_BASE + 0x5055          ; 0x69ec
-    dw loc_698f - IMAGE_BASE + 0x5055          ; 0x69ee
-    dw loc_6999 - IMAGE_BASE + 0x5055          ; 0x69f0
-    dw loc_699b - IMAGE_BASE + 0x5055          ; 0x69f2
-    dw loc_699b - IMAGE_BASE + 0x5055          ; 0x69f4
-    dw loc_69d9 - IMAGE_BASE + 0x5055          ; 0x69f6
+    dw loc_KRUV - IMAGE_BASE + 0x5055          ; 0x69ec
+    dw loc_RGST - IMAGE_BASE + 0x5055          ; 0x69ee
+    dw loc_PMOV - IMAGE_BASE + 0x5055          ; 0x69f0
+    dw loc_OIVK - IMAGE_BASE + 0x5055          ; 0x69f2
+    dw loc_OIVK - IMAGE_BASE + 0x5055          ; 0x69f4
+    dw loc_NSJQ - IMAGE_BASE + 0x5055          ; 0x69f6
 @..api_idx_004a_ROIJ.l6:
     cmp ax, strict word 6            ; 0x69f8
     jae short @..api_idx_004a_ROIJ.l7 ; 0x69fb

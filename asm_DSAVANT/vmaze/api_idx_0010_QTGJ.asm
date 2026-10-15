@@ -32,7 +32,7 @@ api_idx_0010_QTGJ:
     mov word [bp - 0x0006], ax       ; 0x9ad1
     push ax                          ; 0x9ad4
     push word [bp + 0x4]             ; 0x9ad5
-    call loc_9448                    ; 0x9ad8
+    call loc_LUTJ                    ; 0x9ad8
     add sp, byte 4                   ; 0x9adb
     test ax, ax                      ; 0x9ade
     jne short @..api_idx_0010_QTGJ.l2 ; 0x9ae0
@@ -209,7 +209,7 @@ api_idx_0010_QTGJ:
     push ax                          ; 0x9c77
     push word [bp + 0x6]             ; 0x9c78
     push word [bp + 0x4]             ; 0x9c7b
-    call loc_9658                    ; 0x9c7e
+    call loc_UTKU                    ; 0x9c7e
     add sp, byte 6                   ; 0x9c81
     mov ax, 5                        ; 0x9c84
     push ax                          ; 0x9c87
@@ -218,7 +218,7 @@ api_idx_0010_QTGJ:
     push ax                          ; 0x9c8c
     push word [bp + 0x4]             ; 0x9c8d
     push word [bp + 0x6]             ; 0x9c90
-    call loc_9658                    ; 0x9c93
+    call loc_UTKU                    ; 0x9c93
     add sp, byte 6                   ; 0x9c96
 @..api_idx_0010_QTGJ.l12:
     mov ax, 0x16                     ; 0x9c99

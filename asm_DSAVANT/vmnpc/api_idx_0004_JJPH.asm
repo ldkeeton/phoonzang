@@ -6,7 +6,7 @@ api_idx_0004_JJPH:
     push ax                          ; 0x3a9f
     call api_idx_0006_NSNR           ; 0x3aa0
     pop cx                           ; 0x3aa3
-    call loc_10b6                    ; 0x3aa4
+    call loc_SKSV                    ; 0x3aa4
     mov ax, 1                        ; 0x3aa7
     push ax                          ; 0x3aaa
     push ax                          ; 0x3aab

@@ -69,7 +69,7 @@ api_idx_0006_TPUL:
     mov word [bss_8468], 0           ; 0x0fe9
     jmp near @..api_idx_0006_TPUL.l16 ; 0x0fef
 @..api_idx_0006_TPUL.l7:
-    call loc_0ef1                    ; 0x0ff2
+    call loc_UVSI                    ; 0x0ff2
     mov word [bp - 0x0006], ax       ; 0x0ff5
     mov word [bp - 0x0002], 0        ; 0x0ff8
 @..api_idx_0006_TPUL.l8:
@@ -118,7 +118,7 @@ api_idx_0006_TPUL:
     jmp short @..api_idx_0006_TPUL.l16 ; 0x1066
 @..api_idx_0006_TPUL.l11:
     push word [bss_845e]             ; 0x1068
-    call loc_0a56                    ; 0x106c
+    call loc_MLTS                    ; 0x106c
     pop cx                           ; 0x106f
     jmp short @..api_idx_0006_TPUL.l16 ; 0x1070
 @..api_idx_0006_TPUL.l12:
@@ -143,22 +143,3 @@ api_idx_0006_TPUL:
     mov word [bss_845e], 0xfffd      ; 0x1098
 @..api_idx_0006_TPUL.l17:
     ret                              ; 0x109e
-loc_109f:
-    mov ax, 0                        ; 0x109f
-    call aztec_csav                  ; 0x10a2
-    mov word [bss_845e], 0xfffe      ; 0x10a5
-@..loc_109f.l1:
-    call api_idx_0006_TPUL           ; 0x10ab
-    cmp word [bss_845e], byte 0xfe   ; 0x10ae
-    jne short @..loc_109f.l1         ; 0x10b3
-    ret                              ; 0x10b5
-loc_10b6:
-    mov ax, 0                        ; 0x10b6
-    call aztec_csav                  ; 0x10b9
-@..loc_10b6.l1:
-    cmp word [bss_845e], byte 0xfe   ; 0x10bc
-    je short @..loc_10b6.l2          ; 0x10c1
-    call api_idx_0006_TPUL           ; 0x10c3
-    jmp short @..loc_10b6.l1         ; 0x10c6
-@..loc_10b6.l2:
-    ret                              ; 0x10c8

@@ -24,7 +24,7 @@ api_idx_0006_OTSG:
     mov al, byte [bx + 0x7]          ; 0x373d
     sub ah, ah                       ; 0x3740
     push ax                          ; 0x3742
-    call ds_loc_3a77                 ; 0x3743
+    call ds_loc_PQIO                 ; 0x3743
     add sp, byte 4                   ; 0x3746
     mov ax, 0xc4                     ; 0x3749
     push ax                          ; 0x374c

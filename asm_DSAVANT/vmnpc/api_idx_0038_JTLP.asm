@@ -216,7 +216,7 @@ api_idx_0038_JTLP:
     add ax, strict word 0x4e         ; 0x49e0
     push ax                          ; 0x49e3
     push word [bp + 0x4]             ; 0x49e4
-    call loc_4775                    ; 0x49e7
+    call loc_VHRL                    ; 0x49e7
     add sp, byte 0x10                ; 0x49ea
     mov word [bp - 0x0010], 0        ; 0x49ed
     cmp word [bp + 0xc], byte 3      ; 0x49f2
@@ -451,7 +451,7 @@ api_idx_0038_JTLP:
     push word [bp - 0x001e]          ; 0x4bfd
     push word [bp - 0x0016]          ; 0x4c00
     push word [bp - 0x0020]          ; 0x4c03
-    call loc_7832                    ; 0x4c06
+    call loc_RRLK                    ; 0x4c06
     add sp, byte 6                   ; 0x4c09
     mov word [bp - 0x0020], ax       ; 0x4c0c
     mov word [bss_5b3e], 1           ; 0x4c0f
@@ -465,7 +465,7 @@ api_idx_0038_JTLP:
 @..api_idx_0038_JTLP.l10:
     mov ax, word [bp - 0x0018]       ; 0x4c28
     jmp near @..api_idx_0038_JTLP.l21 ; 0x4c2b
-loc_4c2e:
+loc_THST:
     lea ax, word [bp - 0x000e]       ; 0x4c2e
     push ax                          ; 0x4c31
     lea ax, word [bp - 0x000c]       ; 0x4c32
@@ -546,7 +546,7 @@ loc_4c2e:
     add ax, strict word 0x4e         ; 0x4cdd
     push ax                          ; 0x4ce0
     push word [bp + 0x4]             ; 0x4ce1
-    call loc_4775                    ; 0x4ce4
+    call loc_VHRL                    ; 0x4ce4
     add sp, byte 0x10                ; 0x4ce7
     push word [bp - 0x0010]          ; 0x4cea
     mov ax, 7                        ; 0x4ced
@@ -601,7 +601,7 @@ loc_4c2e:
     jmp near @..api_idx_0038_JTLP.l11 ; 0x4d62
 @..api_idx_0038_JTLP.l13:
     jmp near @..api_idx_0038_JTLP.l23 ; 0x4d65
-loc_4d68:
+loc_VSPL:
     cmp word [bp - 0x0018], byte 1   ; 0x4d68
     jne short @..api_idx_0038_JTLP.l15 ; 0x4d6c
     mov ax, 1                        ; 0x4d6e
@@ -688,7 +688,7 @@ loc_4d68:
     add ax, strict word 0x4e         ; 0x4e22
     push ax                          ; 0x4e25
     push word [bp + 0x4]             ; 0x4e26
-    call loc_4775                    ; 0x4e29
+    call loc_VHRL                    ; 0x4e29
     add sp, byte 0x10                ; 0x4e2c
     push word [bp - 0x0010]          ; 0x4e2f
     mov ax, 7                        ; 0x4e32
@@ -739,9 +739,9 @@ loc_4d68:
     call thunk_4                     ; 0x4e9b
     add sp, byte 8                   ; 0x4e9e
     jmp near @..api_idx_0038_JTLP.l23 ; 0x4ea1
-loc_4ea4:
+loc_NQSP:
     jmp near @..api_idx_0038_JTLP.l23 ; 0x4ea4
-loc_4ea7:
+loc_SSQQ:
     cmp word [bp + 0x8], byte 0      ; 0x4ea7
     je short @..api_idx_0038_JTLP.l18 ; 0x4eab
     mov ax, 1                        ; 0x4ead
@@ -775,7 +775,7 @@ loc_4ea7:
     mov word [bp - 0x001a], 0        ; 0x4ef0
 @..api_idx_0038_JTLP.l18:
     jmp near @..api_idx_0038_JTLP.l23 ; 0x4ef5
-loc_4ef8:
+loc_QHIH:
     cmp word [bp + 0xa], byte 0      ; 0x4ef8
     je short @..api_idx_0038_JTLP.l19 ; 0x4efc
     mov ax, 1                        ; 0x4efe
@@ -831,7 +831,7 @@ loc_4ef8:
     add ax, strict word 0x4e         ; 0x4f78
     push ax                          ; 0x4f7b
     push word [bp + 0x4]             ; 0x4f7c
-    call loc_4775                    ; 0x4f7f
+    call loc_VHRL                    ; 0x4f7f
     add sp, byte 0x10                ; 0x4f82
     mov ax, word [bp - 0x0006]       ; 0x4f85
     add ax, strict word 0x30         ; 0x4f88
@@ -849,12 +849,12 @@ loc_4ef8:
     add sp, byte 8                   ; 0x4fa4
     jmp short @..api_idx_0038_JTLP.l23 ; 0x4fa7
 jumptable_4fa9:
-    dw loc_4c2e - IMAGE_BASE + 0x5055          ; 0x4fa9
-    dw loc_4d68 - IMAGE_BASE + 0x5055          ; 0x4fab
-    dw loc_4d68 - IMAGE_BASE + 0x5055          ; 0x4fad
-    dw loc_4ea4 - IMAGE_BASE + 0x5055          ; 0x4faf
-    dw loc_4ea7 - IMAGE_BASE + 0x5055          ; 0x4fb1
-    dw loc_4ef8 - IMAGE_BASE + 0x5055          ; 0x4fb3
+    dw loc_THST - IMAGE_BASE + 0x5055          ; 0x4fa9
+    dw loc_VSPL - IMAGE_BASE + 0x5055          ; 0x4fab
+    dw loc_VSPL - IMAGE_BASE + 0x5055          ; 0x4fad
+    dw loc_NQSP - IMAGE_BASE + 0x5055          ; 0x4faf
+    dw loc_SSQQ - IMAGE_BASE + 0x5055          ; 0x4fb1
+    dw loc_QHIH - IMAGE_BASE + 0x5055          ; 0x4fb3
 @..api_idx_0038_JTLP.l21:
     cmp ax, strict word 6            ; 0x4fb5
     jae short @..api_idx_0038_JTLP.l22 ; 0x4fb8

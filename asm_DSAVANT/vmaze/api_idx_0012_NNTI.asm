@@ -14,7 +14,7 @@ api_idx_0012_NNTI:
     push ax                          ; 0x9f11
     push word [bp + 0x6]             ; 0x9f12
     push word [bp + 0x4]             ; 0x9f15
-    call loc_9658                    ; 0x9f18
+    call loc_UTKU                    ; 0x9f18
     add sp, byte 6                   ; 0x9f1b
     mov ax, 0xf                      ; 0x9f1e
     push ax                          ; 0x9f21
@@ -28,7 +28,7 @@ api_idx_0012_NNTI:
     push ax                          ; 0x9f32
     push word [bp + 0x4]             ; 0x9f33
     push word [bp + 0x6]             ; 0x9f36
-    call loc_9658                    ; 0x9f39
+    call loc_UTKU                    ; 0x9f39
     add sp, byte 6                   ; 0x9f3c
     mov ax, 0x26                     ; 0x9f3f
     imul word [bp + 0x6]             ; 0x9f42
@@ -320,52 +320,3 @@ api_idx_0012_NNTI:
     add sp, byte 8                   ; 0xa20e
     mov ax, word [bp - 0x000e]       ; 0xa211
     ret                              ; 0xa214
-loc_a215:
-    mov ax, 0                        ; 0xa215
-    call aztec_csav                  ; 0xa218
-    mov ax, 3                        ; 0xa21b
-    push ax                          ; 0xa21e
-    call ds_app_GGUI                 ; 0xa21f
-    pop cx                           ; 0xa222
-    test ax, ax                      ; 0xa223
-    jne short @..loc_a215.l1         ; 0xa225
-    mov ax, 0xffff                   ; 0xa227
-    push ax                          ; 0xa22a
-    mov ax, 5                        ; 0xa22b
-    push ax                          ; 0xa22e
-    push word [bp + 0x6]             ; 0xa22f
-    push word [bp + 0x4]             ; 0xa232
-    call api_idx_0002_KUIN           ; 0xa235
-    add sp, byte 8                   ; 0xa238
-    mov ax, 0xf                      ; 0xa23b
-    push ax                          ; 0xa23e
-    call ds_app_GGUI                 ; 0xa23f
-    pop cx                           ; 0xa242
-    add ax, strict word 0xfffb       ; 0xa243
-    push ax                          ; 0xa246
-    push word [bp + 0x6]             ; 0xa247
-    push word [bp + 0x4]             ; 0xa24a
-    call loc_9658                    ; 0xa24d
-    add sp, byte 6                   ; 0xa250
-    mov ax, 0xf                      ; 0xa253
-    push ax                          ; 0xa256
-    call ds_app_GGUI                 ; 0xa257
-    pop cx                           ; 0xa25a
-    add ax, strict word 0xfffb       ; 0xa25b
-    push ax                          ; 0xa25e
-    push word [bp + 0x4]             ; 0xa25f
-    push word [bp + 0x6]             ; 0xa262
-    call loc_9658                    ; 0xa265
-    add sp, byte 6                   ; 0xa268
-@..loc_a215.l1:
-    mov ax, 0x16                     ; 0xa26b
-    imul word [bp + 0x4]             ; 0xa26e
-    add ax, word [bp + 0x6]          ; 0xa271
-    mov bx, ax                       ; 0xa274
-    mov byte [bx - 0x63be], 1        ; 0xa276
-    mov ax, 0x16                     ; 0xa27b
-    imul word [bp + 0x6]             ; 0xa27e
-    add ax, word [bp + 0x4]          ; 0xa281
-    mov bx, ax                       ; 0xa284
-    mov byte [bx - 0x63be], 1        ; 0xa286
-    ret                              ; 0xa28b

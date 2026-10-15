@@ -120,7 +120,7 @@ api_idx_002e_LGPN:
     push ax                          ; 0x3a33
     mov ax, 0x2f                     ; 0x3a34
     push ax                          ; 0x3a37
-    call ds_loc_3a77                 ; 0x3a38
+    call ds_loc_PQIO                 ; 0x3a38
     add sp, byte 4                   ; 0x3a3b
 @..api_idx_002e_LGPN.l9:
     mov ax, 0                        ; 0x3a3e

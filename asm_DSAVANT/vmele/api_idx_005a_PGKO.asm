@@ -129,7 +129,7 @@ api_idx_005a_PGKO:
     call api_idx_0006_VSSG           ; 0x2e1f
     cmp word [bss_845e], byte 0xfe   ; 0x2e22
     jne short @..api_idx_005a_PGKO.l13 ; 0x2e27
-    call loc_2b19                    ; 0x2e29
+    call loc_SKOS                    ; 0x2e29
     mov word [bp - 0x000a], ax       ; 0x2e2c
     cmp word [bp - 0x000a], byte 0   ; 0x2e2f
     je short @..api_idx_005a_PGKO.l14 ; 0x2e33

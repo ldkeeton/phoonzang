@@ -207,7 +207,7 @@ api_idx_000c_JQSL:
     cmp cx, ax                       ; 0x2583
     jne short @..api_idx_000c_JQSL.l13 ; 0x2585
     push word [bp - 0x0008]          ; 0x2587
-    call loc_04b7                    ; 0x258a
+    call loc_NKGP                    ; 0x258a
     pop cx                           ; 0x258d
     mov word [bss_90b6], 0x841       ; 0x258e
     mov word [bss_90b8], 0           ; 0x2594

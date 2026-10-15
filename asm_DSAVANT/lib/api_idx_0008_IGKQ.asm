@@ -48,7 +48,7 @@ api_idx_0008_IGKQ:
     push ax
     mov ax, 3
     push ax
-    call ds_loc_3a77
+    call ds_loc_PQIO
     add sp, byte 4
 @..api_idx_0008_IGKQ.l4:
     mov ax, word [bp + 0x8]
@@ -167,7 +167,7 @@ api_idx_0008_IGKQ:
     mov al, byte [bp - 0x0002]
     sub ah, ah
     push ax
-    call ds_loc_3a77
+    call ds_loc_PQIO
     add sp, byte 4
     mov ax, word [bp + 0x8]
     add ax, strict word 5

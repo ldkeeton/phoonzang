@@ -907,14 +907,170 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/main.asm"                     ; 0x2dd5
 
+cseg_2f36:
+    db 0x00
+cseg_2f37:
+    db 0x00
+cseg_2f38:
+    db 0x00
+cseg_2f39:
+    db 0x00
+cseg_2f3a:
+    db 0x00
+cseg_2f3b:
+    times 5 db 0
+cseg_2f40:
+    db 0x80, 0x41, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x40, 0x01
+cseg_2f4a:
+    db 0x00, 0x00, 0x40, 0x00
+cseg_2f4e:
+    db 0x00, 0x00, 0x30, 0x05
+cseg_2f52:
+    db 0x00, 0x00, 0xd0, 0x01
+cseg_2f56:
+    times 6 db 0
+    db 0x3e, 0x2f, 0xbc, 0x34
+cseg_2f60:
+    db 0x00, 0x00
+cseg_2f62:
+    db 0x00, 0x00
+cseg_2f64:
+    db 0x00, 0x00
+cseg_2f66:
+
+    db 0x00, 0x03, 0x01, 0x00, 0x00, 0x07, 0x01, 0x00, 0x00, 0x0b, 0x01, 0x00, 0x00, 0x0f, 0x01, 0x00
+    db 0x00, 0x13, 0x01, 0x00, 0x00
+
+cseg_2f7b:
+    db 0x17, 0x01, 0x00, 0x00, 0x1b, 0x01, 0x00, 0x00
+cseg_2f83:
+    db 0x1f, 0x01, 0x00, 0x00
+cseg_2f87:
+    db 0x03, 0x01, 0x00, 0x00
+cseg_2f8b:
+    db 0x07, 0x01, 0x00, 0x00
+cseg_2f8f:
+    db 0x0b, 0x01, 0x00, 0x00, 0x0f, 0x01, 0x00, 0x00, 0x13, 0x01, 0x00, 0x00
+cseg_2f9b:
+    db 0x17, 0x01, 0x00, 0x00
+cseg_2f9f:
+    db 0x1b, 0x01, 0x00, 0x00
+cseg_2fa3:
+    db 0x1f, 0x01, 0x00, 0x00
+cseg_2fa7:
+    db 0x23, 0x01, 0x00, 0x00
+cseg_2fab:
+    db 0x27, 0x01, 0x00, 0x00
+cseg_2faf:
+    db 0x2b, 0x01, 0x00, 0x00
+cseg_2fb3:
+    db 0x2f, 0x01, 0x00, 0x00
+cseg_2fb7:
+    db 0x33, 0x01, 0x00, 0x00
+cseg_2fbb:
+    db 0x37, 0x01, 0x00, 0x00
+cseg_2fbf:
+    db 0x3b, 0x01, 0x00, 0x00
+cseg_2fc3:
+    db 0x3f, 0x01, 0x00, 0x00
+cseg_2fc7:
+    db 0x43, 0x01, 0x00, 0x00
+cseg_2fcb:
+    db 0x47, 0x01, 0x00, 0x00
+cseg_2fcf:
+    db 0x4b, 0x01, 0x00, 0x00
+cseg_2fd3:
+    db 0x4f, 0x01, 0x00, 0x00
+cseg_2fd7:
+    db 0x53, 0x01, 0x00, 0x00
+cseg_2fdb:
+    db 0x57, 0x01, 0x00, 0x00
+cseg_2fdf:
+    db 0x5b, 0x01, 0x00, 0x00
+cseg_2fe3:
+    db 0x5f, 0x01, 0x00, 0x00
+cseg_2fe7:
+    db 0x63, 0x01, 0x00, 0x00
+cseg_2feb:
+    db 0x67, 0x01, 0x00, 0x00
+cseg_2fef:
+    db 0x6b, 0x01, 0x00, 0x00
+cseg_2ff3:
+    db 0x6f, 0x01, 0x00, 0x00
+cseg_2ff7:
+    db 0x73, 0x01, 0x00, 0x00
+cseg_2ffb:
+    db 0x77, 0x01, 0x00, 0x00
+cseg_2fff:
+    db 0x7b, 0x01, 0x00, 0x00
+cseg_3003:
+    db 0x7f, 0x01, 0x00, 0x00
+cseg_3007:
+    db 0x83, 0x01, 0x00, 0x00
+cseg_300b:
+    db 0x87, 0x01, 0x00, 0x00
+cseg_300f:
+    db 0x8b, 0x01, 0x00, 0x00
+cseg_3013:
+    db 0x8f, 0x01, 0x00, 0x00
+cseg_3017:
+    db 0x93, 0x01, 0x00, 0x00
+cseg_301b:
+    db 0x97, 0x01, 0x00, 0x00
+cseg_301f:
+    db 0x9b, 0x01, 0x00, 0x00
+cseg_3023:
+    db 0x9f, 0x01, 0x00, 0x00
+cseg_3027:
+    db 0xa3, 0x01, 0x00, 0x00
+cseg_302b:
+    db 0xa7, 0x01, 0x00, 0x00
+cseg_302f:
+    db 0xab, 0x01, 0x00, 0x00
+cseg_3033:
+    db 0xaf, 0x01, 0x00, 0x00
+cseg_3037:
+    db 0xb3, 0x01, 0x00, 0x00
+cseg_303b:
+    db 0xb7, 0x01, 0x00, 0x00
+cseg_303f:
+    db 0xbb, 0x01, 0x00, 0x00
+cseg_3043:
+    db 0xbf, 0x01, 0x00, 0x00
+cseg_3047:
+    db 0xc3, 0x01, 0x00, 0x00
+cseg_304b:
+    db 0xc7, 0x01, 0x00, 0x00
+cseg_304f:
+    db 0xcb, 0x01, 0x00, 0x00
+cseg_3053:
+    db 0xcf, 0x01, 0x00, 0x00
+cseg_3057:
+    db 0xd3, 0x01, 0x00, 0x00
+cseg_305b:
+    db 0xd7, 0x01, 0x00, 0x00
+cseg_305f:
+    db 0xdb, 0x01, 0x00, 0x00
+cseg_3063:
+    db 0xdf, 0x01, 0x00, 0x00
 %include "ds/asm_only/ds_bios_video_loc_SNPP.asm"   ; 0x3067
+
+%include "ds/asm_only/ds_loc_LJPT.asm"              ; 0x30a3
 
 %include "ds/asm_only/ds_bios_video_loc_PRGN.asm"   ; 0x30c3
 
+cseg_30dc:
+    db 0xb8, 0x0b
+cseg_30de:
+    db 0x01, 0x00
+cseg_30e0:
+    db 0x2f, 0x75
 %include "ds/asm_only/ds_leaf_loc_TTIS.asm"         ; 0x30e2
 
 %include "ds/asm_only/bios_get_video_mode.asm"      ; 0x30f7
 
+cseg_3532:
+    db 0x00, 0x00
 %include "ds/asm_only/ds_dos_file_loc_OUMU.asm"     ; 0x3534
 
 %include "ds/asm_only/ds_dos_con_loc_SOLS.asm"      ; 0x35b8
@@ -923,12 +1079,16 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/asm_only/ds_dos_con_loc_QUNU.asm"      ; 0x3640
 
+cseg_3672:
+    db 0x90, 0x01
 %include "ds/asm_only/ds_leaf_loc_LKVP.asm"         ; 0x3674
 
 %include "ds/asm_only/ds_dos_mem_loc_KQJP.asm"      ; 0x36bc
 
 %include "ds/ds_dos_mem_loc_NUGN.asm"      ; 0x36cd
 
+cseg_36ce:
+    db 0x00, 0x00
 %include "ds/ds_leaf_loc_RTLQ.asm"         ; 0x36d0
 
 %include "ds/asm_only/ds_dos_mem_loc_NKNR.asm"      ; 0x36f5
@@ -939,13 +1099,22 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/asm_only/ds_dos_mem_loc_VSVV.asm"      ; 0x377b
 
+%include "ds/ds_loc_RVMI.asm"              ; 0x3796
+
 %include "ds/asm_only/ds_bios_mouse_loc_PQIP.asm"   ; 0x37a5
 
+cseg_37d1:
+    db 'EMMXXXX0'
 %include "ds/asm_only/ds_dos_intvec_loc_HIPQ.asm"   ; 0x37d9
 
 %include "ds/asm_only/ds_leaf_loc_UMHI.asm"         ; 0x382c
 
 %include "ds/ds_leaf_loc_SSPU.asm"         ; 0x383e
+
+cseg_384a:
+
+    times 20 db 0
+    db 0xff, 0xff
 
 %include "ds/asm_only/dos_alloc_mem.asm"            ; 0x3860
 
@@ -955,13 +1124,19 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/asm_only/dos_read_file.asm"            ; 0x398a
 
+%include "ds/asm_only/ds_loc_IMOU.asm"              ; 0x39f6
+
 %include "ds/asm_only/thunk.asm"                    ; 0x3a50
 
 %include "ds/asm_only/thunk_2.asm"                  ; 0x3a5d
 
 %include "ds/asm_only/thunk_3.asm"                  ; 0x3a6a
 
+%include "ds/asm_only/ds_loc_PQIO.asm"              ; 0x3a77
+
 %include "ds/asm_only/ds_string_loc_PTIK.asm"       ; 0x3a95
+
+%include "ds/asm_only/ds_loc_TILJ.asm"              ; 0x3aca
 
 %include "ds/asm_only/thunk_4.asm"                  ; 0x3b21
 
@@ -983,7 +1158,13 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/asm_only/thunk_13.asm"                 ; 0x3b96
 
+%include "ds/asm_only/ds_loc_SVSJ.asm"              ; 0x3ba3
+
 %include "ds/ds_leaf_loc_RJOL.asm"         ; 0x3c0d
+
+cseg_3c7f:
+
+    times 24 db 0
 
 %include "ds/asm_only/dos_con_in_noecho.asm"        ; 0x3c97
 
@@ -1022,6 +1203,8 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/asm_only/thunk_17.asm"                 ; 0x415b
 
 %include "ds/asm_only/thunk_18.asm"                 ; 0x4168
+
+%include "ds/asm_only/ds_loc_MTMS.asm"              ; 0x4175
 
 %include "ds/asm_only/thunk_19.asm"                 ; 0x41a3
 
@@ -1097,6 +1280,8 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/asm_only/aztec_csread.asm"             ; 0x44b4
 
+%include "ds/ds_loc_IRHQ.asm"              ; 0x44d4
+
 %include "ds/ds_string_loc_SPRI.asm"       ; 0x44ff
 
 %include "ds/asm_only/aztec_movblock.asm"           ; 0x4517
@@ -1123,6 +1308,8 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/aztec_malloc.asm"             ; 0x46ea
 
+%include "ds/ds_leaf_loc_QIRU.asm"         ; 0x47e5
+
 %include "ds/aztec_free.asm"               ; 0x47e8
 
 
@@ -1140,15 +1327,15 @@ jumptable_4822:
     dw ds_leaf_loc_NRKM - IMAGE_BASE           ; 0x4832
     dw ds_leaf_loc_GJQS - IMAGE_BASE           ; 0x4834
     dw ds_leaf_loc_GJQS - IMAGE_BASE           ; 0x4836
-    dw ds_loc_4a5b - IMAGE_BASE                ; 0x4838
-    dw ds_loc_4a7a - IMAGE_BASE                ; 0x483a
+    dw ds_loc_IRMP - IMAGE_BASE                ; 0x4838
+    dw ds_loc_JOUO - IMAGE_BASE                ; 0x483a
     dw ds_string_loc_QLKG - IMAGE_BASE         ; 0x483c
     dw ds_string_loc_IJKM - IMAGE_BASE         ; 0x483e
-    dw ds_loc_4a4a - IMAGE_BASE                ; 0x4840
-    dw ds_loc_4a44 - IMAGE_BASE                ; 0x4842
-    dw ds_loc_4a4a - IMAGE_BASE                ; 0x4844
-    dw ds_loc_4a4a - IMAGE_BASE                ; 0x4846
-    dw ds_loc_4a44 - IMAGE_BASE                ; 0x4848
+    dw ds_loc_HVTQ - IMAGE_BASE                ; 0x4840
+    dw ds_loc_MLPR - IMAGE_BASE                ; 0x4842
+    dw ds_loc_HVTQ - IMAGE_BASE                ; 0x4844
+    dw ds_loc_HVTQ - IMAGE_BASE                ; 0x4846
+    dw ds_loc_MLPR - IMAGE_BASE                ; 0x4848
     dw ds_string_loc_RNIR - IMAGE_BASE         ; 0x484a
 
     db '0123456789abcdef -lm first', 0
@@ -1179,6 +1366,8 @@ jumptable_4822:
 
 %include "ds/ds_string_loc_IJKM.asm"       ; 0x4aa2
 
+%include "ds/ds_loc_NINI.asm"              ; 0x4aba
+
 %include "ds/ds_leaf_loc_GPQN.asm"         ; 0x4aed
 
 %include "ds/asm_only/ds_string_loc_NMMQ.asm"       ; 0x4b07
@@ -1199,13 +1388,15 @@ jumptable_4822:
 
 %include "ds/asm_only/aztec_sys.asm"                ; 0x4cf4
 
+cseg_4d38:
+    db 0x00, 0x00
 %include "ds/asm_only/aztec_begin.asm"              ; 0x4d3a
 
 %include "ds/asm_only/ds_dos_proc_loc_TPJT.asm"     ; 0x4e7e
 
 %include "ds/aztec_Croot.asm"              ; 0x4ea7
 
-%include "ds/ds_loc_4f73.asm"              ; 0x4f73
+%include "ds/ds_loc_OMIG.asm"              ; 0x4f73
 
 %include "ds/ds_leaf_loc_LSGN.asm"         ; 0x4f85
 

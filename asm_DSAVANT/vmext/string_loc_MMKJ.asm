@@ -17,4 +17,4 @@ string_loc_MMKJ:
     mov bx, ax                       ; 0x0fd8
     pop ax                           ; 0x0fda
     mov word [bx + 0x5c10], ax       ; 0x0fdb
-    jmp near loc_1325                ; 0x0fdf
+    jmp near loc_TNQQ                ; 0x0fdf

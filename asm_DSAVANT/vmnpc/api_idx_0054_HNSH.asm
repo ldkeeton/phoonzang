@@ -185,7 +185,7 @@ api_idx_0054_HNSH:
     mov al, byte [bx - 0x6648]       ; 0x46c3
     sub ah, ah                       ; 0x46c7
     push ax                          ; 0x46c9
-    call ds_loc_3a77                 ; 0x46ca
+    call ds_loc_PQIO                 ; 0x46ca
     add sp, byte 4                   ; 0x46cd
     push word [bp - 0x0004]          ; 0x46d0
     mov ax, 0xe                      ; 0x46d3
@@ -257,45 +257,3 @@ api_idx_0054_HNSH:
     jmp near @..api_idx_0054_HNSH.l1 ; 0x4771
 @..api_idx_0054_HNSH.l11:
     ret                              ; 0x4774
-loc_4775:
-    mov ax, 0                        ; 0x4775
-    call aztec_csav                  ; 0x4778
-    mov ax, 6                        ; 0x477b
-    imul word [bp + 0xc]             ; 0x477e
-    add ax, word [bp + 0x8]          ; 0x4781
-    push ax                          ; 0x4784
-    mov ax, 6                        ; 0x4785
-    imul word [bp + 0xa]             ; 0x4788
-    add ax, word [bp + 0x6]          ; 0x478b
-    inc ax                           ; 0x478e
-    inc ax                           ; 0x478f
-    push ax                          ; 0x4790
-    push word [bp + 0x8]             ; 0x4791
-    push word [bp + 0x6]             ; 0x4794
-    call ds_app_URLN                 ; 0x4797
-    add sp, byte 8                   ; 0x479a
-    push word [bp + 0x10]            ; 0x479d
-    push word [bp + 0xe]             ; 0x47a0
-    push word [bp + 0x12]            ; 0x47a3
-    push word [bp + 0xa]             ; 0x47a6
-    push word [bp + 0x8]             ; 0x47a9
-    push word [bp + 0x6]             ; 0x47ac
-    push word [bp + 0x4]             ; 0x47af
-    call api_idx_0054_HNSH           ; 0x47b2
-    add sp, byte 0x0e                ; 0x47b5
-    ret                              ; 0x47b8
-loc_47b9:
-    mov ax, 0                        ; 0x47b9
-    call aztec_csav                  ; 0x47bc
-    call loc_109f                    ; 0x47bf
-    mov ax, 0xc6                     ; 0x47c2
-    push ax                          ; 0x47c5
-    mov ax, 0x11d                    ; 0x47c6
-    push ax                          ; 0x47c9
-    mov ax, 0x8e                     ; 0x47ca
-    push ax                          ; 0x47cd
-    mov ax, 0x22                     ; 0x47ce
-    push ax                          ; 0x47d1
-    call thunk_4                     ; 0x47d2
-    add sp, byte 8                   ; 0x47d5
-    ret                              ; 0x47d8

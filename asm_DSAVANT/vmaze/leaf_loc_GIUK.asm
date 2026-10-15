@@ -12,4 +12,4 @@ leaf_loc_GIUK:
     mov bx, ax                       ; 0x32af
     pop ax                           ; 0x32b1
     mov word [bx - 0x6dc0], ax       ; 0x32b2
-    jmp near loc_3387                ; 0x32b6
+    jmp near loc_JULJ                ; 0x32b6

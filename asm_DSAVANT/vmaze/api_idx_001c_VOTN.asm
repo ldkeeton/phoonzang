@@ -196,13 +196,13 @@ api_idx_001c_VOTN:
     mov si, ax                       ; 0x7832
     mov bx, word [bss_0e12]          ; 0x7834
     push word [bx + si]              ; 0x7838
-    call loc_6ac7                    ; 0x783a
+    call loc_HNMM                    ; 0x783a
     pop cx                           ; 0x783d
     cmp word [bp - 0x0012], byte 1   ; 0x783e
     jne short @..api_idx_001c_VOTN.l4 ; 0x7842
-    call loc_676c                    ; 0x7844
+    call loc_JGLI                    ; 0x7844
 @..api_idx_001c_VOTN.l4:
     push word [bp - 0x0014]          ; 0x7847
-    call loc_7242                    ; 0x784a
+    call loc_VMLV                    ; 0x784a
     pop cx                           ; 0x784d
     ret                              ; 0x784e

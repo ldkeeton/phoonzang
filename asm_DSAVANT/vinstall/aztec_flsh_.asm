@@ -53,7 +53,7 @@ aztec_flsh_:
     cmp word [si + 0x4], byte 0      ; 0x2df3
     jne short @..aztec_flsh_.l6      ; 0x2df7
     push si                          ; 0x2df9
-    call loc_2e63                    ; 0x2dfa
+    call loc_NSQI                    ; 0x2dfa
     pop cx                           ; 0x2dfd
 @..aztec_flsh_.l6:
     cmp word [si + 0x9], byte 1      ; 0x2dfe

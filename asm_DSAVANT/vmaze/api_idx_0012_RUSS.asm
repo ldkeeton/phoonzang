@@ -85,7 +85,7 @@ api_idx_0012_RUSS:
     jne short @..api_idx_0012_RUSS.l7 ; 0x8633
     push word [bp - 0x0010]          ; 0x8635
     push word [bp - 0x000e]          ; 0x8638
-    call loc_8540                    ; 0x863b
+    call loc_JIHU                    ; 0x863b
     add sp, byte 4                   ; 0x863e
     jmp short @..api_idx_0012_RUSS.l11 ; 0x8641
 @..api_idx_0012_RUSS.l7:
@@ -129,40 +129,7 @@ api_idx_0012_RUSS:
     add sp, byte 6                   ; 0x869e
 @..api_idx_0012_RUSS.l10:
     push word [bp - 0x0010]          ; 0x86a1
-    call loc_7242                    ; 0x86a4
+    call loc_VMLV                    ; 0x86a4
     pop cx                           ; 0x86a7
 @..api_idx_0012_RUSS.l11:
     ret                              ; 0x86a8
-loc_86a9:
-    mov ax, 0                        ; 0x86a9
-    call aztec_csav                  ; 0x86ac
-    mov ax, 2                        ; 0x86af
-    push ax                          ; 0x86b2
-    mov ax, 0                        ; 0x86b3
-    push ax                          ; 0x86b6
-    mov ax, word [bss_8d12]          ; 0x86b7
-    shl ax, 1                        ; 0x86ba
-    mov si, ax                       ; 0x86bc
-    mov bx, word [bss_0e12]          ; 0x86be
-    push word [bx + si + 0x3c0]      ; 0x86c2
-    call ds_dos_con_loc_RGTO         ; 0x86c6
-    add sp, byte 6                   ; 0x86c9
-    push ax                          ; 0x86cc
-    mov si, word [bss_8d12]          ; 0x86cd
-    mov bx, word [bss_0e12]          ; 0x86d1
-    mov al, byte [bx + si + 0xa50]   ; 0x86d5
-    sub ah, ah                       ; 0x86d9
-    mov cx, 6                        ; 0x86db
-    imul cx                          ; 0x86de
-    mov bx, ax                       ; 0x86e0
-    cmp byte [bx - 0x7b59], 0        ; 0x86e2
-    je short @..loc_86a9.l1          ; 0x86e7
-    mov ax, 0                        ; 0x86e9
-    jmp short @..loc_86a9.l2         ; 0x86ec
-@..loc_86a9.l1:
-    mov ax, 1                        ; 0x86ee
-@..loc_86a9.l2:
-    push ax                          ; 0x86f1
-    call loc_8540                    ; 0x86f2
-    add sp, byte 4                   ; 0x86f5
-    ret                              ; 0x86f8

@@ -8,7 +8,7 @@ api_idx_000e_JGRL:
     push word [bp + 0x10]            ; 0x2a9d
     push word [bp + 0xa]             ; 0x2aa0
     push word [bp + 0x4]             ; 0x2aa3
-    call loc_2553                    ; 0x2aa6
+    call loc_VOJJ                    ; 0x2aa6
     add sp, byte 6                   ; 0x2aa9
     mov word [bp - 0x0008], ax       ; 0x2aac
     jmp short @..api_idx_000e_JGRL.l2 ; 0x2aaf
@@ -21,7 +21,7 @@ api_idx_000e_JGRL:
     push word [bp + 0x12]            ; 0x2abd
     push word [bp + 0xa]             ; 0x2ac0
     push word [bp + 0x4]             ; 0x2ac3
-    call loc_2553                    ; 0x2ac6
+    call loc_VOJJ                    ; 0x2ac6
     add sp, byte 6                   ; 0x2ac9
     mov word [bp - 0x000a], ax       ; 0x2acc
     jmp short @..api_idx_000e_JGRL.l4 ; 0x2acf
@@ -34,7 +34,7 @@ api_idx_000e_JGRL:
     push word [bp + 0x18]            ; 0x2add
     push word [bp + 0xa]             ; 0x2ae0
     push word [bp + 0x4]             ; 0x2ae3
-    call loc_2553                    ; 0x2ae6
+    call loc_VOJJ                    ; 0x2ae6
     add sp, byte 6                   ; 0x2ae9
     mov word [bp - 0x000c], ax       ; 0x2aec
     jmp short @..api_idx_000e_JGRL.l6 ; 0x2aef
@@ -47,7 +47,7 @@ api_idx_000e_JGRL:
     push word [bp + 0x1a]            ; 0x2afd
     push word [bp + 0xa]             ; 0x2b00
     push word [bp + 0x4]             ; 0x2b03
-    call loc_2553                    ; 0x2b06
+    call loc_VOJJ                    ; 0x2b06
     add sp, byte 6                   ; 0x2b09
     mov word [bp - 0x000e], ax       ; 0x2b0c
     jmp short @..api_idx_000e_JGRL.l8 ; 0x2b0f
@@ -70,7 +70,7 @@ api_idx_000e_JGRL:
 @..api_idx_000e_JGRL.l9:
     mov ax, 0xc8d                    ; 0x2b37
     push ax                          ; 0x2b3a
-    call loc_24c2                    ; 0x2b3b
+    call loc_VTRL                    ; 0x2b3b
     pop cx                           ; 0x2b3e
 @..api_idx_000e_JGRL.l10:
     lea ax, word [bp - 0x0006]       ; 0x2b3f

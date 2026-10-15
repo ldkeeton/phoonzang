@@ -19,16 +19,16 @@ api_idx_0008_VLON:
     push ax                          ; 0x2fb3
     lea ax, word [bp + 0x4]          ; 0x2fb4
     push ax                          ; 0x2fb7
-    call loc_2ed4                    ; 0x2fb8
+    call loc_UKLN                    ; 0x2fb8
     add sp, byte 0x0e                ; 0x2fbb
     test ax, ax                      ; 0x2fbe
     je short @..api_idx_0008_VLON.l4 ; 0x2fc0
     mov ax, word [bss_91d4]          ; 0x2fc2
     jmp short @..api_idx_0008_VLON.l3 ; 0x2fc5
-loc_2fc7:
+loc_VURH_2fc7:
     mov ax, 2                        ; 0x2fc7
     ret                              ; 0x2fca
-loc_2fcb:
+loc_OHQS:
     cmp word [bss_91a6], byte 0      ; 0x2fcb
     je short @..api_idx_0008_VLON.l2 ; 0x2fd0
     mov ax, 0                        ; 0x2fd2
@@ -42,7 +42,7 @@ jumptable_3000_case_1:
     mov byte [bx - 0x6e26], 1        ; 0x2fe2
     mov ax, 4                        ; 0x2fe7
     ret                              ; 0x2fea
-loc_2feb:
+loc_OIRO:
     mov ax, 5                        ; 0x2feb
     imul word [bss_91d6]             ; 0x2fee
     add ax, word [bp + 0xe]          ; 0x2ff2
@@ -51,12 +51,12 @@ loc_2feb:
     mov ax, 0                        ; 0x2ffc
     ret                              ; 0x2fff
 jumptable_3000:
-    dw loc_2fc7 - IMAGE_BASE + 0x5055          ; 0x3000
+    dw loc_VURH_2fc7 - IMAGE_BASE + 0x5055     ; 0x3000
     dw jumptable_3000_case_1 - IMAGE_BASE + 0x5055 ; 0x3002
-    dw loc_2fc7 - IMAGE_BASE + 0x5055          ; 0x3004
-    dw loc_2fcb - IMAGE_BASE + 0x5055          ; 0x3006
-    dw loc_2fc7 - IMAGE_BASE + 0x5055          ; 0x3008
-    dw loc_2feb - IMAGE_BASE + 0x5055          ; 0x300a
+    dw loc_VURH_2fc7 - IMAGE_BASE + 0x5055     ; 0x3004
+    dw loc_OHQS - IMAGE_BASE + 0x5055          ; 0x3006
+    dw loc_VURH_2fc7 - IMAGE_BASE + 0x5055     ; 0x3008
+    dw loc_OIRO - IMAGE_BASE + 0x5055          ; 0x300a
 @..api_idx_0008_VLON.l3:
     cmp ax, strict word 6            ; 0x300c
     jae short @..api_idx_0008_VLON.l4 ; 0x300f
@@ -84,21 +84,21 @@ jumptable_3000:
     je short @..api_idx_0008_VLON.l6 ; 0x3042
     mov ax, word [bss_91d4]          ; 0x3044
     jmp short @..api_idx_0008_VLON.l5 ; 0x3047
-loc_3049:
+loc_UTPU:
     mov ax, 5                        ; 0x3049
     imul word [bss_91d6]             ; 0x304c
     add ax, word [bp + 0xe]          ; 0x3050
     mov bx, ax                       ; 0x3053
     mov byte [bx - 0x6e26], 3        ; 0x3055
     jmp short @..api_idx_0008_VLON.l6 ; 0x305a
-loc_305c:
+loc_GMLK:
     mov ax, 5                        ; 0x305c
     imul word [bss_91d6]             ; 0x305f
     add ax, word [bp + 0xe]          ; 0x3063
     mov bx, ax                       ; 0x3066
     mov byte [bx - 0x6e26], 1        ; 0x3068
     jmp short @..api_idx_0008_VLON.l6 ; 0x306d
-loc_306f:
+loc_HTRS:
     mov ax, 5                        ; 0x306f
     imul word [bss_91d6]             ; 0x3072
     add ax, word [bp + 0xe]          ; 0x3076
@@ -106,12 +106,12 @@ loc_306f:
     mov byte [bx - 0x6e26], 2        ; 0x307b
     jmp short @..api_idx_0008_VLON.l6 ; 0x3080
 jumptable_3082:
-    dw loc_3049 - IMAGE_BASE + 0x5055          ; 0x3082
-    dw loc_305c - IMAGE_BASE + 0x5055          ; 0x3084
-    dw loc_306f - IMAGE_BASE + 0x5055          ; 0x3086
-    dw loc_305c - IMAGE_BASE + 0x5055          ; 0x3088
-    dw loc_3049 - IMAGE_BASE + 0x5055          ; 0x308a
-    dw loc_305c - IMAGE_BASE + 0x5055          ; 0x308c
+    dw loc_UTPU - IMAGE_BASE + 0x5055          ; 0x3082
+    dw loc_GMLK - IMAGE_BASE + 0x5055          ; 0x3084
+    dw loc_HTRS - IMAGE_BASE + 0x5055          ; 0x3086
+    dw loc_GMLK - IMAGE_BASE + 0x5055          ; 0x3088
+    dw loc_UTPU - IMAGE_BASE + 0x5055          ; 0x308a
+    dw loc_GMLK - IMAGE_BASE + 0x5055          ; 0x308c
 @..api_idx_0008_VLON.l5:
     cmp ax, strict word 6            ; 0x308e
     jae short @..api_idx_0008_VLON.l6 ; 0x3091
@@ -131,28 +131,28 @@ jumptable_3082:
 @..api_idx_0008_VLON.l7:
     mov ax, word [bss_91d4]          ; 0x30b2
     jmp short @..api_idx_0008_VLON.l9 ; 0x30b5
-loc_30b7:
+loc_SGQU:
     mov ax, 5                        ; 0x30b7
     imul word [bss_91d6]             ; 0x30ba
     add ax, word [bp + 0xe]          ; 0x30be
     mov bx, ax                       ; 0x30c1
     mov byte [bx - 0x6e26], 2        ; 0x30c3
     jmp short @..api_idx_0008_VLON.l10 ; 0x30c8
-loc_30ca:
+loc_RJMO:
     mov ax, 5                        ; 0x30ca
     imul word [bss_91d6]             ; 0x30cd
     add ax, word [bp + 0xe]          ; 0x30d1
     mov bx, ax                       ; 0x30d4
     mov byte [bx - 0x6e0d], 1        ; 0x30d6
     jmp short @..api_idx_0008_VLON.l10 ; 0x30db
-loc_30dd:
+loc_OUMR:
     mov ax, 5                        ; 0x30dd
     imul word [bss_91d6]             ; 0x30e0
     add ax, word [bp + 0xe]          ; 0x30e4
     mov bx, ax                       ; 0x30e7
     mov byte [bx - 0x6e26], 3        ; 0x30e9
     jmp short @..api_idx_0008_VLON.l10 ; 0x30ee
-loc_30f0:
+loc_UQTV:
     mov ax, 5                        ; 0x30f0
     imul word [bss_91d6]             ; 0x30f3
     add ax, word [bp + 0xe]          ; 0x30f7
@@ -165,12 +165,12 @@ loc_30f0:
     mov ax, 0                        ; 0x310d
     ret                              ; 0x3110
 jumptable_3111:
-    dw loc_30f0 - IMAGE_BASE + 0x5055          ; 0x3111
-    dw loc_30b7 - IMAGE_BASE + 0x5055          ; 0x3113
-    dw loc_30ca - IMAGE_BASE + 0x5055          ; 0x3115
-    dw loc_30f0 - IMAGE_BASE + 0x5055          ; 0x3117
-    dw loc_30ca - IMAGE_BASE + 0x5055          ; 0x3119
-    dw loc_30dd - IMAGE_BASE + 0x5055          ; 0x311b
+    dw loc_UQTV - IMAGE_BASE + 0x5055          ; 0x3111
+    dw loc_SGQU - IMAGE_BASE + 0x5055          ; 0x3113
+    dw loc_RJMO - IMAGE_BASE + 0x5055          ; 0x3115
+    dw loc_UQTV - IMAGE_BASE + 0x5055          ; 0x3117
+    dw loc_RJMO - IMAGE_BASE + 0x5055          ; 0x3119
+    dw loc_OUMR - IMAGE_BASE + 0x5055          ; 0x311b
 @..api_idx_0008_VLON.l9:
     cmp ax, strict word 6            ; 0x311d
     jae short @..api_idx_0008_VLON.l10 ; 0x3120
@@ -248,7 +248,7 @@ jumptable_3111:
     push word [bp + 0x8]             ; 0x31cb
     push word [bp + 0x6]             ; 0x31ce
     push word [bp + 0x4]             ; 0x31d1
-    call loc_2d94                    ; 0x31d4
+    call loc_PISK                    ; 0x31d4
     add sp, byte 0x0a                ; 0x31d7
     mov word [bp - 0x0004], ax       ; 0x31da
     jmp short @..api_idx_0008_VLON.l21 ; 0x31dd
@@ -258,7 +258,7 @@ jumptable_3111:
     push word [bp + 0x8]             ; 0x31e5
     push word [bp + 0x6]             ; 0x31e8
     push word [bp + 0x4]             ; 0x31eb
-    call loc_2e0c                    ; 0x31ee
+    call loc_TRNV                    ; 0x31ee
     add sp, byte 0x0a                ; 0x31f1
     mov word [bp - 0x0004], ax       ; 0x31f4
     jmp short @..api_idx_0008_VLON.l21 ; 0x31f7
@@ -277,7 +277,7 @@ jumptable_3111:
     lea ax, word [bp - 0x0006]       ; 0x3211
     push ax                          ; 0x3214
     push word [bp - 0x0002]          ; 0x3215
-    call loc_2f55                    ; 0x3218
+    call loc_NMPG                    ; 0x3218
     add sp, byte 6                   ; 0x321b
     mov ax, word [bss_82ee]          ; 0x321e
     cmp ax, word [bp - 0x0008]       ; 0x3221
@@ -290,7 +290,7 @@ jumptable_3111:
 @..api_idx_0008_VLON.l22:
     cmp ax, strict word 0xb          ; 0x3233
     jg short @..api_idx_0008_VLON.l23 ; 0x3236
-    jmp near loc_3387                ; 0x3238
+    jmp near loc_JULJ                ; 0x3238
 @..api_idx_0008_VLON.l23:
     mov ax, word [bp - 0x0006]       ; 0x323b
     jmp near @..api_idx_0008_VLON.l24 ; 0x323e

@@ -18,7 +18,7 @@ api_idx_00a4_LKSN:
     mov ax, 0                        ; 0x4ec8
     push ax                          ; 0x4ecb
     push word [bp + 0x4]             ; 0x4ecc
-    call loc_2189                    ; 0x4ecf
+    call loc_PKMN                    ; 0x4ecf
     add sp, byte 4                   ; 0x4ed2
     lea ax, word [bp - 0x0054]       ; 0x4ed5
     push ax                          ; 0x4ed8
@@ -71,7 +71,7 @@ api_idx_00a4_LKSN:
     call api_idx_0004_IKQO           ; 0x4f4a
     pop cx                           ; 0x4f4d
     push word [bp + 0x4]             ; 0x4f4e
-    call loc_4310                    ; 0x4f51
+    call loc_ORKT                    ; 0x4f51
     pop cx                           ; 0x4f54
     mov word [bp - 0x0004], 0        ; 0x4f55
     mov word [bp - 0x0002], 0        ; 0x4f5a

@@ -2,7 +2,7 @@
 api_idx_0004_TLTU:
     mov ax, 0xfffc                   ; 0x6cd0
     call aztec_csav                  ; 0x6cd3
-    call loc_6c3f                    ; 0x6cd6
+    call loc_LMPL                    ; 0x6cd6
     les bx, word [dseg_0002]         ; 0x6cd9
     mov ax, word [es:bx]             ; 0x6cdd
     mov dx, word [es:bx + 0x2]       ; 0x6ce0
@@ -25,9 +25,9 @@ api_idx_0004_TLTU:
 @..api_idx_0004_TLTU.l2:
     jmp short @..api_idx_0004_TLTU.l4 ; 0x6d0e
 @..api_idx_0004_TLTU.l3:
-    call loc_6c5c                    ; 0x6d10
+    call loc_HIUG                    ; 0x6d10
     jmp short @..api_idx_0004_TLTU.l1 ; 0x6d13
 @..api_idx_0004_TLTU.l4:
-    call loc_6c1e                    ; 0x6d15
+    call loc_SKTH                    ; 0x6d15
     mov word [bss_a4a6], 0           ; 0x6d18
     ret                              ; 0x6d1e

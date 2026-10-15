@@ -85,12 +85,12 @@ jumptable_6e12_case_4:
     pop cx                           ; 0x6d88
     mov ax, 0                        ; 0x6d89
     push ax                          ; 0x6d8c
-    call loc_6b5a                    ; 0x6d8d
+    call loc_KJRU                    ; 0x6d8d
     pop cx                           ; 0x6d90
     jmp near @..api_idx_0090_PHMT.l7 ; 0x6d91
 jumptable_6e12_case_5:
     inc word [bp + 0x4]              ; 0x6d94
-    call loc_0140                    ; 0x6d97
+    call loc_KNIO                    ; 0x6d97
     mov ax, 0x10                     ; 0x6d9a
     push ax                          ; 0x6d9d
     mov ax, 0xa                      ; 0x6d9e
@@ -126,7 +126,7 @@ jumptable_6e12_case_5:
     push ax                          ; 0x6de5
     call ds_app_thunk_26_RNMG        ; 0x6de6
     pop cx                           ; 0x6de9
-    call loc_0344                    ; 0x6dea
+    call loc_OKOK                    ; 0x6dea
     jmp short @..api_idx_0090_PHMT.l7 ; 0x6ded
 jumptable_6e12_case_6:
     inc word [bp + 0x4]              ; 0x6def
@@ -139,7 +139,7 @@ jumptable_6e12_case_6:
     mov word [bp - 0x0006], 0x20     ; 0x6e01
 @..api_idx_0090_PHMT.l5:
     push word [bp - 0x0006]          ; 0x6e06
-    call loc_6ac7                    ; 0x6e09
+    call loc_HNMM                    ; 0x6e09
     pop cx                           ; 0x6e0c
     inc word [bp + 0x4]              ; 0x6e0d
     jmp short @..api_idx_0090_PHMT.l7 ; 0x6e10
@@ -191,7 +191,7 @@ jumptable_6e12:
     push ax                          ; 0x6e76
     lea ax, word [bp - 0x0086]       ; 0x6e77
     push ax                          ; 0x6e7b
-    call ds_loc_3aca                 ; 0x6e7c
+    call ds_loc_TILJ                 ; 0x6e7c
     add sp, byte 4                   ; 0x6e7f
     mov word [bp - 0x0002], ax       ; 0x6e82
     cmp ax, 0xb8                     ; 0x6e85

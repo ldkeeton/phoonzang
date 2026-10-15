@@ -21,13 +21,13 @@ ovloader_ proc near
 	mov	bx,sp
 	mov	ax,word ptr 2[bx]
 	mov	bss_0cfa_,ax
-	call	ds_loc_4386_
+	call	ds_loc_QNHV_
 	jmp	ax
 ovloader_ endp
 #endasm
 
 static
-ds_loc_4386()
+ds_loc_QNHV()
 {
 	int fd, flag;
 	register char *cp, *xp;
@@ -89,7 +89,7 @@ aztec_loadabort(code)
 {
 	char buffer[80];
 
-	ds_loc_44d4(buffer, "Error %d loading overlay: %s$", code, bss_0cfa);
+	ds_loc_IRHQ(buffer, "Error %d loading overlay: %s$", code, bss_0cfa);
 	aztec_bdos(9, buffer);
-	ds_loc_4f73(100);
+	ds_loc_OMIG(100);
 }

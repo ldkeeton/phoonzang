@@ -165,11 +165,15 @@ class TagGenericsTests(unittest.TestCase):
         label_map, _ = self._run({0x10: bytes([0x55, 0xC3])})
         self.assertRegex(label_map[0x10], r'^leaf_loc_[G-V]{4}$')
 
-    def test_plain_loc_labels_are_left_alone(self):
+    def test_plain_loc_labels_get_a_content_tag(self):
+        # A plain ``loc_`` root is a fragment of its own once a fragment's
+        # trailing neighbour is cut at it (splitting._split_off_foreign_objects),
+        # so it is named after its code too: an address-derived name would rename
+        # the file whenever bytes above it moved.
         data = bytes([0x90, 0xC3])
         label_map, roots = {0: 'loc_0000'}, {0: 'loc_0000'}
         names.tag_generics(label_map, roots, _decode(data, 0), data, 2)
-        self.assertEqual(label_map[0], 'loc_0000')
+        self.assertRegex(label_map[0], r'^loc_[G-V]{4}$')
 
     def test_stub_drops_its_address_unless_copies_share_a_binary(self):
         code = bytes([0x55, 0xC3])

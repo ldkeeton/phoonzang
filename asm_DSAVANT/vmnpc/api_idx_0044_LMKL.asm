@@ -121,7 +121,7 @@ api_idx_0044_LMKL:
     push ax                          ; 0x799a
     mov ax, 0xa                      ; 0x799b
     push ax                          ; 0x799e
-    call ds_loc_3a77                 ; 0x799f
+    call ds_loc_PQIO                 ; 0x799f
     add sp, byte 4                   ; 0x79a2
     mov word [bp - 0x003c], 0xffff   ; 0x79a5
     mov word [bp - 0x003e], 0        ; 0x79aa
@@ -142,7 +142,7 @@ api_idx_0044_LMKL:
     mov ax, word [bp - 0x000c]       ; 0x79d0
     add ax, strict word 0xc          ; 0x79d3
     push ax                          ; 0x79d6
-    call loc_75db                    ; 0x79d7
+    call loc_OOVL                    ; 0x79d7
     add sp, byte 8                   ; 0x79da
     inc word [bp - 0x0002]           ; 0x79dd
     mov ax, word [bp - 0x0002]       ; 0x79e0
@@ -159,7 +159,7 @@ api_idx_0044_LMKL:
     mov ax, word [bp - 0x000c]       ; 0x79fc
     add ax, strict word 0x5e         ; 0x79ff
     push ax                          ; 0x7a02
-    call loc_7667                    ; 0x7a03
+    call loc_KVUI                    ; 0x7a03
     add sp, byte 0x0a                ; 0x7a06
     push word [bp - 0x0042]          ; 0x7a09
     push word [bp + 0x4]             ; 0x7a0c
@@ -503,7 +503,7 @@ api_idx_0044_LMKL:
 @..api_idx_0044_LMKL.l8:
     push word [bp - 0x0042]          ; 0x7d22
     push word [bp + 0x4]             ; 0x7d25
-    call loc_77a1                    ; 0x7d28
+    call loc_MJOU                    ; 0x7d28
     add sp, byte 4                   ; 0x7d2b
     mov ax, 0x59fe                   ; 0x7d2e
     push ax                          ; 0x7d31
@@ -516,7 +516,7 @@ api_idx_0044_LMKL:
     push word [bp - 0x0020]          ; 0x7d41
     push word [bp - 0x0018]          ; 0x7d44
     push word [bp - 0x0022]          ; 0x7d47
-    call loc_7832                    ; 0x7d4a
+    call loc_RRLK                    ; 0x7d4a
     add sp, byte 6                   ; 0x7d4d
     mov word [bp - 0x0022], ax       ; 0x7d50
     mov word [bss_5b3e], 1           ; 0x7d53
@@ -913,7 +913,7 @@ jumptable_8492_case_4:
     mov ax, word [bp - 0x000c]       ; 0x80e8
     add ax, strict word 0xc          ; 0x80eb
     push ax                          ; 0x80ee
-    call loc_75db                    ; 0x80ef
+    call loc_OOVL                    ; 0x80ef
     add sp, byte 8                   ; 0x80f2
     mov ax, word [bp - 0x001a]       ; 0x80f5
     add ax, strict word 0xfffb       ; 0x80f8
@@ -927,7 +927,7 @@ jumptable_8492_case_4:
     mov ax, word [bp - 0x000c]       ; 0x810c
     add ax, strict word 0xc          ; 0x810f
     push ax                          ; 0x8112
-    call loc_75db                    ; 0x8113
+    call loc_OOVL                    ; 0x8113
     add sp, byte 8                   ; 0x8116
     cmp word [bp - 0x003c], byte 0   ; 0x8119
     jge short @..api_idx_0044_LMKL.l27 ; 0x811d
@@ -999,7 +999,7 @@ jumptable_8492_case_4:
     mov ax, word [bp - 0x000c]       ; 0x81b5
     add ax, strict word 0x5e         ; 0x81b8
     push ax                          ; 0x81bb
-    call loc_7667                    ; 0x81bc
+    call loc_KVUI                    ; 0x81bc
     add sp, byte 0x0a                ; 0x81bf
     jmp short @..api_idx_0044_LMKL.l32 ; 0x81c2
 @..api_idx_0044_LMKL.l31:
@@ -1013,7 +1013,7 @@ jumptable_8492_case_4:
     mov ax, word [bp - 0x000c]       ; 0x81d3
     add ax, strict word 0x5e         ; 0x81d6
     push ax                          ; 0x81d9
-    call loc_7667                    ; 0x81da
+    call loc_KVUI                    ; 0x81da
     add sp, byte 0x0a                ; 0x81dd
 @..api_idx_0044_LMKL.l32:
     mov ax, word [bp - 0x0006]       ; 0x81e0
@@ -1137,7 +1137,7 @@ jumptable_8492_case_4:
     mov ax, word [bp - 0x000c]       ; 0x8305
     add ax, strict word 0x5e         ; 0x8308
     push ax                          ; 0x830b
-    call loc_7667                    ; 0x830c
+    call loc_KVUI                    ; 0x830c
     add sp, byte 0x0a                ; 0x830f
     mov ax, word [bp - 0x0006]       ; 0x8312
     add ax, strict word 0x4c         ; 0x8315
@@ -1268,7 +1268,7 @@ jumptable_8492_case_4:
     mov ax, word [bp - 0x000c]       ; 0x843f
     add ax, strict word 0x5e         ; 0x8442
     push ax                          ; 0x8445
-    call loc_7667                    ; 0x8446
+    call loc_KVUI                    ; 0x8446
     add sp, byte 0x0a                ; 0x8449
     mov ax, word [bp - 0x0006]       ; 0x844c
     add ax, strict word 0x4c         ; 0x844f

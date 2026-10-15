@@ -38,7 +38,7 @@ api_idx_001e_IOQM:
     je short @..api_idx_001e_IOQM.l1 ; 0x7ea1
     mov ax, 0x12                     ; 0x7ea3
     push ax                          ; 0x7ea6
-    call loc_6ac7                    ; 0x7ea7
+    call loc_HNMM                    ; 0x7ea7
     pop cx                           ; 0x7eaa
     mov ax, 0x10                     ; 0x7eab
     push ax                          ; 0x7eae
@@ -127,7 +127,7 @@ api_idx_001e_IOQM:
     push word [bp - 0x0014]          ; 0x7f7e
     mov ax, 7                        ; 0x7f81
     push ax                          ; 0x7f84
-    call loc_7cb4                    ; 0x7f85
+    call loc_PRNK                    ; 0x7f85
     add sp, byte 4                   ; 0x7f88
 @..api_idx_001e_IOQM.l4:
     push word [bp - 0x000a]          ; 0x7f8b
@@ -160,7 +160,7 @@ api_idx_001e_IOQM:
     push word [bp - 0x0014]          ; 0x7fd5
     mov ax, 7                        ; 0x7fd8
     push ax                          ; 0x7fdb
-    call loc_7cb4                    ; 0x7fdc
+    call loc_PRNK                    ; 0x7fdc
     add sp, byte 4                   ; 0x7fdf
 @..api_idx_001e_IOQM.l6:
     jmp short @..api_idx_001e_IOQM.l8 ; 0x7fe2
@@ -172,13 +172,13 @@ api_idx_001e_IOQM:
     push word [bp - 0x0014]          ; 0x7ff0
     mov ax, 7                        ; 0x7ff3
     push ax                          ; 0x7ff6
-    call loc_7cb4                    ; 0x7ff7
+    call loc_PRNK                    ; 0x7ff7
     add sp, byte 4                   ; 0x7ffa
 @..api_idx_001e_IOQM.l8:
-    call loc_676c                    ; 0x7ffd
+    call loc_JGLI                    ; 0x7ffd
     jmp short @..api_idx_001e_IOQM.l10 ; 0x8000
 @..api_idx_001e_IOQM.l9:
-    call loc_676c                    ; 0x8002
+    call loc_JGLI                    ; 0x8002
 @..api_idx_001e_IOQM.l10:
     jmp short @..api_idx_001e_IOQM.l13 ; 0x8005
 @..api_idx_001e_IOQM.l11:
@@ -187,7 +187,7 @@ api_idx_001e_IOQM:
     push word [bp - 0x0014]          ; 0x800d
     mov ax, 7                        ; 0x8010
     push ax                          ; 0x8013
-    call loc_7cb4                    ; 0x8014
+    call loc_PRNK                    ; 0x8014
     add sp, byte 4                   ; 0x8017
 @..api_idx_001e_IOQM.l12:
     mov ax, 2                        ; 0x801a
@@ -209,7 +209,7 @@ api_idx_001e_IOQM:
     jbe short @..api_idx_001e_IOQM.l15 ; 0x8043
     mov ax, 2                        ; 0x8045
     push ax                          ; 0x8048
-    call loc_7242                    ; 0x8049
+    call loc_VMLV                    ; 0x8049
     pop cx                           ; 0x804c
 @..api_idx_001e_IOQM.l15:
     ret                              ; 0x804d

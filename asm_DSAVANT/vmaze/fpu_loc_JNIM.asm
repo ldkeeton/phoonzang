@@ -13,4 +13,4 @@ fpu_loc_JNIM:
     add ax, word [bp + 0x14]         ; 0x6a6f
     mov bx, word [bp - 0x0004]       ; 0x6a72
     mov word [bx + 0x4], ax          ; 0x6a75
-    jmp short loc_6ac6               ; 0x6a78
+    jmp short loc_NUGN_6ac6          ; 0x6a78

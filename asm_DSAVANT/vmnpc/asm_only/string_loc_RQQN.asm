@@ -16,7 +16,7 @@ string_loc_RQQN:
     sub ax, ax                       ; 0xae32
     rep stosw                        ; 0xae34
 @..string_loc_RQQN.l1:
-    call loc_21bf                    ; 0xae36
+    call loc_PVIK                    ; 0xae36
     mov bp, word [dseg_9130]         ; 0xae39
     mov sp, word [dseg_912e]         ; 0xae3d
     mov si, word [dseg_912a]         ; 0xae41

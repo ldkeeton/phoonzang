@@ -194,7 +194,7 @@ api_idx_0080_RPOR:
     push ax                          ; 0x26e2
     mov ax, 0x2b                     ; 0x26e3
     push ax                          ; 0x26e6
-    call ds_loc_3a77                 ; 0x26e7
+    call ds_loc_PQIO                 ; 0x26e7
     add sp, byte 4                   ; 0x26ea
 @..api_idx_0080_RPOR.l6:
     lea ax, word [bp - 0x0068]       ; 0x26ed

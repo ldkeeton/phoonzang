@@ -93,7 +93,7 @@ api_idx_000c_JPIH:
     jle short @..api_idx_000c_JPIH.l5 ; 0x129b
     jmp near @..api_idx_000c_JPIH.l1 ; 0x129d
 @..api_idx_000c_JPIH.l5:
-    call loc_2cc7                    ; 0x12a0
+    call loc_RHMS                    ; 0x12a0
     mov ax, 4                        ; 0x12a3
     push ax                          ; 0x12a6
     call api_idx_0004_ONLJ           ; 0x12a7

@@ -38,7 +38,7 @@ api_idx_0004_LRMP:
     test ax, 0x40                    ; 0x233a
     jne short @..api_idx_0004_LRMP.l4 ; 0x233d
     push word [bx + 0x5c34]          ; 0x233f
-    call loc_5497                    ; 0x2343
+    call loc_JPTL                    ; 0x2343
     pop cx                           ; 0x2346
     test ax, ax                      ; 0x2347
     je short @..api_idx_0004_LRMP.l5 ; 0x2349

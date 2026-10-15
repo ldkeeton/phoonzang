@@ -143,7 +143,7 @@ api_idx_0014_HVQT:
     push word [bss_8464]             ; 0x65f0
     mov ax, 0x90e6                   ; 0x65f4
     push ax                          ; 0x65f7
-    call loc_15ab                    ; 0x65f8
+    call loc_QJUS                    ; 0x65f8
     add sp, byte 6                   ; 0x65fb
     mov ax, 0x9136                   ; 0x65fe
     push ax                          ; 0x6601
@@ -202,7 +202,7 @@ api_idx_0014_HVQT:
     mov bx, ax                       ; 0x6680
     mov word [bx - 0x6f36], 0        ; 0x6682
     mov word [bss_8320], 0           ; 0x6688
-    call loc_1a35                    ; 0x668e
+    call loc_MGLK                    ; 0x668e
     mov ax, 6                        ; 0x6691
     imul word [bp - 0x000e]          ; 0x6694
     mov cx, word [bp - 0x0010]       ; 0x6697
@@ -408,7 +408,7 @@ api_idx_0014_HVQT:
     push word [bss_8464]             ; 0x68bd
     mov ax, 0x90e6                   ; 0x68c1
     push ax                          ; 0x68c4
-    call loc_15ab                    ; 0x68c5
+    call loc_QJUS                    ; 0x68c5
     add sp, byte 6                   ; 0x68c8
     mov ax, 0x9136                   ; 0x68cb
     push ax                          ; 0x68ce
@@ -824,7 +824,7 @@ jumptable_6ea7_case_0:
     add ax, strict word 5            ; 0x6d11
     push ax                          ; 0x6d14
     push word [bp - 0x0002]          ; 0x6d15
-    call loc_182b                    ; 0x6d18
+    call loc_TRQG                    ; 0x6d18
     add sp, byte 4                   ; 0x6d1b
     jmp short @..api_idx_0014_HVQT.l44 ; 0x6d1e
 @..api_idx_0014_HVQT.l42:
@@ -839,7 +839,7 @@ jumptable_6ea7_case_0:
     inc ax                           ; 0x6d30
     push ax                          ; 0x6d31
     push word [bp - 0x0002]          ; 0x6d32
-    call loc_182b                    ; 0x6d35
+    call loc_TRQG                    ; 0x6d35
     add sp, byte 4                   ; 0x6d38
     jmp short @..api_idx_0014_HVQT.l44 ; 0x6d3b
 @..api_idx_0014_HVQT.l43:
@@ -851,7 +851,7 @@ jumptable_6ea7_case_0:
     inc ax                           ; 0x6d46
     push ax                          ; 0x6d47
     push word [bp - 0x0002]          ; 0x6d48
-    call loc_182b                    ; 0x6d4b
+    call loc_TRQG                    ; 0x6d4b
     add sp, byte 4                   ; 0x6d4e
 @..api_idx_0014_HVQT.l44:
     jmp near @..api_idx_0014_HVQT.l47 ; 0x6d51
@@ -865,7 +865,7 @@ jumptable_6ea7_case_3:
     pop cx                           ; 0x6d62
     push ax                          ; 0x6d63
     push word [bp - 0x0002]          ; 0x6d64
-    call loc_182b                    ; 0x6d67
+    call loc_TRQG                    ; 0x6d67
     add sp, byte 4                   ; 0x6d6a
     jmp near @..api_idx_0014_HVQT.l47 ; 0x6d6d
 jumptable_6ea7_case_5:
@@ -878,7 +878,7 @@ jumptable_6ea7_case_5:
     pop cx                           ; 0x6d7e
     push ax                          ; 0x6d7f
     push word [bp - 0x0002]          ; 0x6d80
-    call loc_182b                    ; 0x6d83
+    call loc_TRQG                    ; 0x6d83
     add sp, byte 4                   ; 0x6d86
     jmp near @..api_idx_0014_HVQT.l47 ; 0x6d89
 jumptable_6ea7_case_1:
@@ -912,7 +912,7 @@ jumptable_6ea7_case_8:
     push ax                          ; 0x6dce
     call api_idx_0004_LIRS           ; 0x6dcf
     pop cx                           ; 0x6dd2
-    call loc_9842                    ; 0x6dd3
+    call loc_GHRG                    ; 0x6dd3
     mov ax, 4                        ; 0x6dd6
     push ax                          ; 0x6dd9
     call ds_app_GGUI                 ; 0x6dda
@@ -922,9 +922,9 @@ jumptable_6ea7_case_8:
     inc ax                           ; 0x6de0
     push ax                          ; 0x6de1
     push word [bp - 0x0002]          ; 0x6de2
-    call loc_182b                    ; 0x6de5
+    call loc_TRQG                    ; 0x6de5
     add sp, byte 4                   ; 0x6de8
-    call loc_1a35                    ; 0x6deb
+    call loc_MGLK                    ; 0x6deb
     mov ax, 0                        ; 0x6dee
     push ax                          ; 0x6df1
     call api_idx_000a_TPMU           ; 0x6df2
@@ -949,7 +949,7 @@ jumptable_6ea7_case_4:
     inc ax                           ; 0x6e20
     push ax                          ; 0x6e21
     push word [bp - 0x0002]          ; 0x6e22
-    call loc_182b                    ; 0x6e25
+    call loc_TRQG                    ; 0x6e25
     add sp, byte 4                   ; 0x6e28
     jmp near @..api_idx_0014_HVQT.l47 ; 0x6e2b
 jumptable_6ea7_case_7:
@@ -971,7 +971,7 @@ jumptable_6ea7_case_7:
     inc ax                           ; 0x6e50
     push ax                          ; 0x6e51
     push word [bp - 0x0002]          ; 0x6e52
-    call loc_182b                    ; 0x6e55
+    call loc_TRQG                    ; 0x6e55
     add sp, byte 4                   ; 0x6e58
     jmp short @..api_idx_0014_HVQT.l47 ; 0x6e5b
 jumptable_6ea7_case_2:
@@ -989,7 +989,7 @@ jumptable_6ea7_case_2:
     inc ax                           ; 0x6e74
     push ax                          ; 0x6e75
     push word [bp - 0x0002]          ; 0x6e76
-    call loc_182b                    ; 0x6e79
+    call loc_TRQG                    ; 0x6e79
     add sp, byte 4                   ; 0x6e7c
     jmp short @..api_idx_0014_HVQT.l47 ; 0x6e7f
 jumptable_6ea7_case_6:
@@ -1007,7 +1007,7 @@ jumptable_6ea7_case_6:
     add ax, strict word 5            ; 0x6e98
     push ax                          ; 0x6e9b
     push word [bp - 0x0002]          ; 0x6e9c
-    call loc_182b                    ; 0x6e9f
+    call loc_TRQG                    ; 0x6e9f
     add sp, byte 4                   ; 0x6ea2
     jmp short @..api_idx_0014_HVQT.l47 ; 0x6ea5
 jumptable_6ea7:
@@ -1036,37 +1036,3 @@ jumptable_6ea7:
     add sp, byte 4                   ; 0x6ed8
 @..api_idx_0014_HVQT.l48:
     ret                              ; 0x6edb
-loc_6edc:
-    mov ax, 0                        ; 0x6edc
-    call aztec_csav                  ; 0x6edf
-    mov ax, 0                        ; 0x6ee2
-    push ax                          ; 0x6ee5
-    push word [bp + 0x6]             ; 0x6ee6
-    push word [bp + 0x4]             ; 0x6ee9
-    call api_idx_0050_MLPI           ; 0x6eec
-    add sp, byte 6                   ; 0x6eef
-    cmp word [bss_8464], byte 0      ; 0x6ef2
-    je short @..loc_6edc.l2          ; 0x6ef7
-    mov ax, word [bss_8464]          ; 0x6ef9
-    cmp ax, strict word 6            ; 0x6efc
-    je short @..loc_6edc.l2          ; 0x6eff
-    mov ax, 1                        ; 0x6f01
-    cmp word [bss_8464], byte 3      ; 0x6f04
-    jge short @..loc_6edc.l1         ; 0x6f09
-    mov ax, 0                        ; 0x6f0b
-@..loc_6edc.l1:
-    mov cx, 6                        ; 0x6f0e
-    imul cx                          ; 0x6f11
-    mov bx, ax                       ; 0x6f13
-    mov word [bx - 0x6f36], 0        ; 0x6f15
-    mov word [bss_8320], 0           ; 0x6f1b
-    call loc_1a35                    ; 0x6f21
-@..loc_6edc.l2:
-    mov ax, word [bss_9058]          ; 0x6f24
-    mov cx, 2                        ; 0x6f27
-    cwd                              ; 0x6f2a
-    idiv cx                          ; 0x6f2b
-    push ax                          ; 0x6f2d
-    call api_idx_0004_LIRS           ; 0x6f2e
-    pop cx                           ; 0x6f31
-    ret                              ; 0x6f32

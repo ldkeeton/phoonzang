@@ -13,7 +13,7 @@ api_idx_000e_RHUK:
     mov word [bss_90e4], 0           ; 0x3b20
     push word [bp + 0x8]             ; 0x3b26
     push word [bp + 0x6]             ; 0x3b29
-    call loc_1c36                    ; 0x3b2c
+    call loc_OGKH                    ; 0x3b2c
     add sp, byte 4                   ; 0x3b2f
     push ax                          ; 0x3b32
     mov ax, 0x2c                     ; 0x3b33
@@ -164,7 +164,7 @@ jumptable_5eb8_case_4:
     mov ax, 0xf                      ; 0x3c7b
     imul word [bp + 0x8]             ; 0x3c7e
     push ax                          ; 0x3c81
-    call loc_2e09                    ; 0x3c82
+    call loc_NSKO                    ; 0x3c82
     add sp, byte 6                   ; 0x3c85
     mov cx, word [bss_8464]          ; 0x3c88
     shl cx, 1                        ; 0x3c8c
@@ -495,7 +495,7 @@ jumptable_5eb8_case_16:
     mov ax, word [bp + 0x8]          ; 0x3f6e
     shl ax, 1                        ; 0x3f71
     push ax                          ; 0x3f73
-    call loc_2e09                    ; 0x3f74
+    call loc_NSKO                    ; 0x3f74
     add sp, byte 6                   ; 0x3f77
     push ax                          ; 0x3f7a
     mov ax, 0x2c                     ; 0x3f7b
@@ -532,7 +532,7 @@ jumptable_5eb8_case_18:
     mov ax, 0xf                      ; 0x3fc4
     imul word [bp + 0x8]             ; 0x3fc7
     push ax                          ; 0x3fca
-    call loc_2e09                    ; 0x3fcb
+    call loc_NSKO                    ; 0x3fcb
     add sp, byte 6                   ; 0x3fce
     mov cx, word [bss_8464]          ; 0x3fd1
     shl cx, 1                        ; 0x3fd5
@@ -621,7 +621,7 @@ jumptable_5eb8_case_22:
     cbw                              ; 0x4096
     push ax                          ; 0x4097
     push word [bp + 0x8]             ; 0x4098
-    call loc_2e09                    ; 0x409b
+    call loc_NSKO                    ; 0x409b
     add sp, byte 6                   ; 0x409e
     push ax                          ; 0x40a1
     mov ax, 0x2c                     ; 0x40a2
@@ -646,7 +646,7 @@ jumptable_5eb8_case_22:
     cbw                              ; 0x40d3
     push ax                          ; 0x40d4
     push word [bp - 0x0004]          ; 0x40d5
-    call loc_2e09                    ; 0x40d8
+    call loc_NSKO                    ; 0x40d8
     add sp, byte 6                   ; 0x40db
     push ax                          ; 0x40de
     mov ax, 0x2c                     ; 0x40df
@@ -671,7 +671,7 @@ jumptable_5eb8_case_22:
     cbw                              ; 0x4110
     push ax                          ; 0x4111
     push word [bp - 0x0004]          ; 0x4112
-    call loc_2e09                    ; 0x4115
+    call loc_NSKO                    ; 0x4115
     add sp, byte 6                   ; 0x4118
     push ax                          ; 0x411b
     mov ax, 0x2c                     ; 0x411c
@@ -698,7 +698,7 @@ jumptable_5eb8_case_22:
     mov ax, word [bp + 0x8]          ; 0x414f
     shl ax, 1                        ; 0x4152
     push ax                          ; 0x4154
-    call loc_2e09                    ; 0x4155
+    call loc_NSKO                    ; 0x4155
     add sp, byte 6                   ; 0x4158
     push ax                          ; 0x415b
     mov ax, 0x2c                     ; 0x415c
@@ -831,7 +831,7 @@ jumptable_5eb8_case_27:
     mov ax, 0xf                      ; 0x428a
     imul word [bp + 0x8]             ; 0x428d
     push ax                          ; 0x4290
-    call loc_2e09                    ; 0x4291
+    call loc_NSKO                    ; 0x4291
     add sp, byte 6                   ; 0x4294
     mov cx, word [bss_8464]          ; 0x4297
     shl cx, 1                        ; 0x429b
@@ -913,7 +913,7 @@ jumptable_5eb8_case_30:
     mov ax, 0xf                      ; 0x4349
     imul word [bp + 0x8]             ; 0x434c
     push ax                          ; 0x434f
-    call loc_2e09                    ; 0x4350
+    call loc_NSKO                    ; 0x4350
     add sp, byte 6                   ; 0x4353
     mov cx, word [bss_8464]          ; 0x4356
     shl cx, 1                        ; 0x435a
@@ -1485,7 +1485,7 @@ jumptable_5eb8_case_45:
     push ax                          ; 0x486f
     push word [bp - 0x000c]          ; 0x4870
     push word [bp - 0x000a]          ; 0x4873
-    call loc_3aa3                    ; 0x4876
+    call loc_PUHH                    ; 0x4876
     add sp, byte 8                   ; 0x4879
 @..api_idx_000e_RHUK.l27:
     mov ax, 1                        ; 0x487c
@@ -1501,7 +1501,7 @@ jumptable_5eb8_case_45:
     cbw                              ; 0x4896
     push ax                          ; 0x4897
     push word [bp + 0x8]             ; 0x4898
-    call loc_2e09                    ; 0x489b
+    call loc_NSKO                    ; 0x489b
     add sp, byte 6                   ; 0x489e
     push ax                          ; 0x48a1
     mov ax, 0x2c                     ; 0x48a2
@@ -1685,7 +1685,7 @@ jumptable_5eb8_case_53:
     cbw                              ; 0x4a45
     push ax                          ; 0x4a46
     push word [bp - 0x0004]          ; 0x4a47
-    call loc_2e09                    ; 0x4a4a
+    call loc_NSKO                    ; 0x4a4a
     add sp, byte 6                   ; 0x4a4d
     push ax                          ; 0x4a50
     mov ax, 0x2c                     ; 0x4a51
@@ -1867,7 +1867,7 @@ jumptable_5eb8_case_59:
     cbw                              ; 0x4bdd
     push ax                          ; 0x4bde
     push word [bp - 0x0004]          ; 0x4bdf
-    call loc_2e09                    ; 0x4be2
+    call loc_NSKO                    ; 0x4be2
     add sp, byte 6                   ; 0x4be5
     push ax                          ; 0x4be8
     mov ax, 0x2c                     ; 0x4be9
@@ -1892,7 +1892,7 @@ jumptable_5eb8_case_59:
     cbw                              ; 0x4c1a
     push ax                          ; 0x4c1b
     push word [bp - 0x0004]          ; 0x4c1c
-    call loc_2e09                    ; 0x4c1f
+    call loc_NSKO                    ; 0x4c1f
     add sp, byte 6                   ; 0x4c22
     push ax                          ; 0x4c25
     mov ax, 0x2c                     ; 0x4c26
@@ -2515,7 +2515,7 @@ jumptable_5eb8_case_86:
     mov ax, word [bp + 0x8]          ; 0x5178
     shl ax, 1                        ; 0x517b
     push ax                          ; 0x517d
-    call loc_2e09                    ; 0x517e
+    call loc_NSKO                    ; 0x517e
     add sp, byte 6                   ; 0x5181
     mov cx, word [bp - 0x000a]       ; 0x5184
     shl cx, 1                        ; 0x5187
@@ -2863,7 +2863,7 @@ jumptable_5eb8_case_56:
     push ax                          ; 0x54b1
     push word [bp - 0x000c]          ; 0x54b2
     push word [bp - 0x000a]          ; 0x54b5
-    call loc_3aa3                    ; 0x54b8
+    call loc_PUHH                    ; 0x54b8
     add sp, byte 8                   ; 0x54bb
 @..api_idx_000e_RHUK.l74:
     mov ax, 0                        ; 0x54be
@@ -2980,7 +2980,7 @@ jumptable_5eb8_case_94:
     push ax                          ; 0x55cb
     push word [bp - 0x000c]          ; 0x55cc
     push word [bp - 0x000a]          ; 0x55cf
-    call loc_3aa3                    ; 0x55d2
+    call loc_PUHH                    ; 0x55d2
     add sp, byte 8                   ; 0x55d5
 @..api_idx_000e_RHUK.l79:
     jmp near @..api_idx_000e_RHUK.l132 ; 0x55d8
@@ -3084,7 +3084,7 @@ jumptable_5eb8_case_12:
     push ax                          ; 0x56c2
     push word [bp - 0x000c]          ; 0x56c3
     push word [bp - 0x000a]          ; 0x56c6
-    call loc_3aa3                    ; 0x56c9
+    call loc_PUHH                    ; 0x56c9
     add sp, byte 8                   ; 0x56cc
 @..api_idx_000e_RHUK.l86:
     inc word [bp - 0x0002]           ; 0x56cf
@@ -3518,7 +3518,7 @@ jumptable_5eb8_case_78:
     push ax                          ; 0x5ad4
     push word [bp - 0x000c]          ; 0x5ad5
     push word [bp - 0x000a]          ; 0x5ad8
-    call loc_3aa3                    ; 0x5adb
+    call loc_PUHH                    ; 0x5adb
     add sp, byte 8                   ; 0x5ade
 @..api_idx_000e_RHUK.l115:
     inc word [bp - 0x0002]           ; 0x5ae1
@@ -3772,7 +3772,7 @@ jumptable_5eb8_case_100:
     push ax                          ; 0x5d50
     push word [bp - 0x0006]          ; 0x5d51
     push word [bss_8464]             ; 0x5d54
-    call loc_3aa3                    ; 0x5d58
+    call loc_PUHH                    ; 0x5d58
     add sp, byte 8                   ; 0x5d5b
 @..api_idx_000e_RHUK.l126:
     inc word [bp - 0x0006]           ; 0x5d5e
@@ -3810,7 +3810,7 @@ jumptable_5eb8_case_101:
     push ax                          ; 0x5db1
     push word [bss_8462]             ; 0x5db2
     push word [bss_8464]             ; 0x5db6
-    call loc_3aa3                    ; 0x5dba
+    call loc_PUHH                    ; 0x5dba
     add sp, byte 8                   ; 0x5dbd
 @..api_idx_000e_RHUK.l129:
     jmp near @..api_idx_000e_RHUK.l132 ; 0x5dc0
@@ -3825,7 +3825,7 @@ jumptable_5eb8_case_63:
     imul word [bp + 0x8]             ; 0x5dd8
     add ax, strict word 0x46         ; 0x5ddb
     push ax                          ; 0x5dde
-    call loc_2e09                    ; 0x5ddf
+    call loc_NSKO                    ; 0x5ddf
     add sp, byte 6                   ; 0x5de2
     mov word [bss_8300], ax          ; 0x5de5
     jmp near @..api_idx_000e_RHUK.l132 ; 0x5de8
@@ -3843,7 +3843,7 @@ jumptable_5eb8_case_82:
     idiv cx                          ; 0x5e05
     inc ax                           ; 0x5e07
     push ax                          ; 0x5e08
-    call loc_2e09                    ; 0x5e09
+    call loc_NSKO                    ; 0x5e09
     add sp, byte 6                   ; 0x5e0c
     mov word [bss_82f4], ax          ; 0x5e0f
     jmp near @..api_idx_000e_RHUK.l132 ; 0x5e12
@@ -3861,7 +3861,7 @@ jumptable_5eb8_case_49:
     idiv cx                          ; 0x5e2f
     inc ax                           ; 0x5e31
     push ax                          ; 0x5e32
-    call loc_2e09                    ; 0x5e33
+    call loc_NSKO                    ; 0x5e33
     add sp, byte 6                   ; 0x5e36
     mov word [bss_82f8], ax          ; 0x5e39
     jmp near @..api_idx_000e_RHUK.l132 ; 0x5e3c
@@ -3888,7 +3888,7 @@ jumptable_5eb8_case_84:
     mov ax, 0xa                      ; 0x5e6f
     imul word [bp + 0x8]             ; 0x5e72
     push ax                          ; 0x5e75
-    call loc_2e09                    ; 0x5e76
+    call loc_NSKO                    ; 0x5e76
     add sp, byte 6                   ; 0x5e79
     mov cx, word [bss_8464]          ; 0x5e7c
     shl cx, 1                        ; 0x5e80
@@ -3906,7 +3906,7 @@ jumptable_5eb8_case_84:
     mov ax, 0xa                      ; 0x5ea5
     imul word [bp + 0x8]             ; 0x5ea8
     push ax                          ; 0x5eab
-    call loc_2e09                    ; 0x5eac
+    call loc_NSKO                    ; 0x5eac
     add sp, byte 6                   ; 0x5eaf
     mov word [bss_82fc], ax          ; 0x5eb2
 @..api_idx_000e_RHUK.l130:

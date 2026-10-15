@@ -103,10 +103,14 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         )
 
     def test_shared_or_cross_function_targets_stay_exportable(self):
+        # The name is content-derived now (``ds_loc_<TAG>``), so assert the
+        # property this case is about: a *global* label (not an ``@..`` local),
+        # addressable from another routine.
         wrong = {
             offset: self.label_map.get(offset)
             for offset in _SHARED_OR_CROSS_FUNCTION_TARGETS
-            if self.label_map.get(offset) != f'ds_loc_{offset:04x}'
+            if not (isinstance(self.label_map.get(offset), str)
+                    and not self.label_map[offset].startswith('@..'))
         }
         self.assertEqual(wrong, {})
 

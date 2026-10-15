@@ -134,7 +134,7 @@ jumptable_5339_case_0:
     mov ax, 0                        ; 0x51a3
     push ax                          ; 0x51a6
     push word [bp + 0x4]             ; 0x51a7
-    call loc_4ead                    ; 0x51aa
+    call loc_PPJS                    ; 0x51aa
     add sp, byte 8                   ; 0x51ad
     jmp near @..api_idx_0004_MIHU.l4 ; 0x51b0
 jumptable_5339_case_2:
@@ -153,7 +153,7 @@ jumptable_5339_case_2:
     mov ax, 0                        ; 0x51ce
     push ax                          ; 0x51d1
     push word [bp + 0x4]             ; 0x51d2
-    call loc_4ead                    ; 0x51d5
+    call loc_PPJS                    ; 0x51d5
     add sp, byte 8                   ; 0x51d8
 jumptable_5339_case_3:
     mov ax, 0x248                    ; 0x51db
@@ -171,7 +171,7 @@ jumptable_5339_case_3:
     mov ax, 0                        ; 0x51f6
     push ax                          ; 0x51f9
     push word [bp + 0x4]             ; 0x51fa
-    call loc_4ead                    ; 0x51fd
+    call loc_PPJS                    ; 0x51fd
     add sp, byte 8                   ; 0x5200
     jmp near @..api_idx_0004_MIHU.l4 ; 0x5203
 jumptable_5339_case_1:
@@ -182,7 +182,7 @@ jumptable_5339_case_1:
     mov ax, 0                        ; 0x520e
     push ax                          ; 0x5211
     push word [bp + 0x4]             ; 0x5212
-    call loc_4ead                    ; 0x5215
+    call loc_PPJS                    ; 0x5215
     add sp, byte 8                   ; 0x5218
     jmp near @..api_idx_0004_MIHU.l4 ; 0x521b
 jumptable_5339_case_5:
@@ -193,7 +193,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x5226
     push ax                          ; 0x5229
     push word [bp + 0x4]             ; 0x522a
-    call loc_4ead                    ; 0x522d
+    call loc_PPJS                    ; 0x522d
     add sp, byte 8                   ; 0x5230
     mov ax, 0x19                     ; 0x5233
     push ax                          ; 0x5236
@@ -202,7 +202,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x523b
     push ax                          ; 0x523e
     push word [bp + 0x4]             ; 0x523f
-    call loc_4ead                    ; 0x5242
+    call loc_PPJS                    ; 0x5242
     add sp, byte 8                   ; 0x5245
     mov ax, 0x19                     ; 0x5248
     push ax                          ; 0x524b
@@ -211,7 +211,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x5250
     push ax                          ; 0x5253
     push word [bp + 0x4]             ; 0x5254
-    call loc_4ead                    ; 0x5257
+    call loc_PPJS                    ; 0x5257
     add sp, byte 8                   ; 0x525a
     mov ax, 0x19                     ; 0x525d
     push ax                          ; 0x5260
@@ -220,7 +220,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x5265
     push ax                          ; 0x5268
     push word [bp + 0x4]             ; 0x5269
-    call loc_4ead                    ; 0x526c
+    call loc_PPJS                    ; 0x526c
     add sp, byte 8                   ; 0x526f
     mov ax, 0x19                     ; 0x5272
     push ax                          ; 0x5275
@@ -229,7 +229,7 @@ jumptable_5339_case_5:
     mov ax, 0                        ; 0x527a
     push ax                          ; 0x527d
     push word [bp + 0x4]             ; 0x527e
-    call loc_4ead                    ; 0x5281
+    call loc_PPJS                    ; 0x5281
     add sp, byte 8                   ; 0x5284
     jmp near @..api_idx_0004_MIHU.l4 ; 0x5287
 jumptable_5339_case_6:
@@ -240,7 +240,7 @@ jumptable_5339_case_6:
     mov ax, 0                        ; 0x5292
     push ax                          ; 0x5295
     push word [bp + 0x4]             ; 0x5296
-    call loc_4ead                    ; 0x5299
+    call loc_PPJS                    ; 0x5299
     add sp, byte 8                   ; 0x529c
     mov ax, 0xa                      ; 0x529f
     push ax                          ; 0x52a2
@@ -249,7 +249,7 @@ jumptable_5339_case_6:
     mov ax, 0                        ; 0x52a7
     push ax                          ; 0x52aa
     push word [bp + 0x4]             ; 0x52ab
-    call loc_4ead                    ; 0x52ae
+    call loc_PPJS                    ; 0x52ae
     add sp, byte 8                   ; 0x52b1
     mov ax, 0xffec                   ; 0x52b4
     push ax                          ; 0x52b7
@@ -258,7 +258,7 @@ jumptable_5339_case_6:
     mov ax, 0                        ; 0x52bc
     push ax                          ; 0x52bf
     push word [bp + 0x4]             ; 0x52c0
-    call loc_4ead                    ; 0x52c3
+    call loc_PPJS                    ; 0x52c3
     add sp, byte 8                   ; 0x52c6
     jmp near @..api_idx_0004_MIHU.l4 ; 0x52c9
 jumptable_5339_case_8:
@@ -269,7 +269,7 @@ jumptable_5339_case_8:
     mov ax, 0                        ; 0x52d4
     push ax                          ; 0x52d7
     push word [bp + 0x4]             ; 0x52d8
-    call loc_4ead                    ; 0x52db
+    call loc_PPJS                    ; 0x52db
     add sp, byte 8                   ; 0x52de
     mov ax, 0x14                     ; 0x52e1
     push ax                          ; 0x52e4
@@ -278,7 +278,7 @@ jumptable_5339_case_8:
     mov ax, 0                        ; 0x52e9
     push ax                          ; 0x52ec
     push word [bp + 0x4]             ; 0x52ed
-    call loc_4ead                    ; 0x52f0
+    call loc_PPJS                    ; 0x52f0
     add sp, byte 8                   ; 0x52f3
 jumptable_5339_case_9:
     mov ax, 0x14                     ; 0x52f6
@@ -288,7 +288,7 @@ jumptable_5339_case_9:
     mov ax, 0                        ; 0x52fe
     push ax                          ; 0x5301
     push word [bp + 0x4]             ; 0x5302
-    call loc_4ead                    ; 0x5305
+    call loc_PPJS                    ; 0x5305
     add sp, byte 8                   ; 0x5308
     jmp short @..api_idx_0004_MIHU.l4 ; 0x530b
 jumptable_5339_case_10:
@@ -299,7 +299,7 @@ jumptable_5339_case_10:
     mov ax, 0                        ; 0x5315
     push ax                          ; 0x5318
     push word [bp + 0x4]             ; 0x5319
-    call loc_4ead                    ; 0x531c
+    call loc_PPJS                    ; 0x531c
     add sp, byte 8                   ; 0x531f
     mov ax, 0xf                      ; 0x5322
     push ax                          ; 0x5325
@@ -308,7 +308,7 @@ jumptable_5339_case_10:
     mov ax, 0                        ; 0x532a
     push ax                          ; 0x532d
     push word [bp + 0x4]             ; 0x532e
-    call loc_4ead                    ; 0x5331
+    call loc_PPJS                    ; 0x5331
     add sp, byte 8                   ; 0x5334
     jmp short @..api_idx_0004_MIHU.l4 ; 0x5337
 jumptable_5339:
@@ -342,7 +342,7 @@ jumptable_5339:
     mov ax, 0                        ; 0x5373
     push ax                          ; 0x5376
     push word [bp + 0x4]             ; 0x5377
-    call loc_4ead                    ; 0x537a
+    call loc_PPJS                    ; 0x537a
     add sp, byte 8                   ; 0x537d
     mov ax, 5                        ; 0x5380
     push ax                          ; 0x5383
@@ -351,7 +351,7 @@ jumptable_5339:
     mov ax, 0                        ; 0x5388
     push ax                          ; 0x538b
     push word [bp + 0x4]             ; 0x538c
-    call loc_4ead                    ; 0x538f
+    call loc_PPJS                    ; 0x538f
     add sp, byte 8                   ; 0x5392
 @..api_idx_0004_MIHU.l5:
     mov ax, 0x248                    ; 0x5395
@@ -366,7 +366,7 @@ jumptable_5339:
     mov ax, 0                        ; 0x53ac
     push ax                          ; 0x53af
     push word [bp + 0x4]             ; 0x53b0
-    call loc_4ead                    ; 0x53b3
+    call loc_PPJS                    ; 0x53b3
     add sp, byte 8                   ; 0x53b6
 @..api_idx_0004_MIHU.l6:
     mov ax, 0x248                    ; 0x53b9
@@ -381,7 +381,7 @@ jumptable_5339:
     mov ax, 0                        ; 0x53d0
     push ax                          ; 0x53d3
     push word [bp + 0x4]             ; 0x53d4
-    call loc_4ead                    ; 0x53d7
+    call loc_PPJS                    ; 0x53d7
     add sp, byte 8                   ; 0x53da
     mov ax, 5                        ; 0x53dd
     push ax                          ; 0x53e0
@@ -390,7 +390,7 @@ jumptable_5339:
     mov ax, 0                        ; 0x53e5
     push ax                          ; 0x53e8
     push word [bp + 0x4]             ; 0x53e9
-    call loc_4ead                    ; 0x53ec
+    call loc_PPJS                    ; 0x53ec
     add sp, byte 8                   ; 0x53ef
 @..api_idx_0004_MIHU.l7:
     mov word [bp - 0x0004], 0        ; 0x53f2

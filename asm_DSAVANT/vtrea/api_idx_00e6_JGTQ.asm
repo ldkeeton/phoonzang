@@ -18,7 +18,7 @@ api_idx_00e6_JGTQ:
     pop ax                           ; 0x73d8
     add ax, cx                       ; 0x73d9
     push ax                          ; 0x73db
-    call loc_0d87                    ; 0x73dc
+    call loc_QLRN                    ; 0x73dc
     add sp, byte 4                   ; 0x73df
 @..api_idx_00e6_JGTQ.l1:
     mov ax, word [bss_8d12]          ; 0x73e2
@@ -180,7 +180,7 @@ api_idx_00e6_JGTQ:
     mov ax, 0                        ; 0x7568
     push ax                          ; 0x756b
     push word [bp - 0x000a]          ; 0x756c
-    call loc_8441                    ; 0x756f
+    call loc_VHPJ                    ; 0x756f
     add sp, byte 0x1a                ; 0x7572
     mov word [bp - 0x0006], ax       ; 0x7575
     lea ax, word [bp - 0x0072]       ; 0x7578
@@ -345,7 +345,7 @@ api_idx_00e6_JGTQ:
     mov ax, 0                        ; 0x76e9
     push ax                          ; 0x76ec
     push word [bp - 0x000a]          ; 0x76ed
-    call loc_8441                    ; 0x76f0
+    call loc_VHPJ                    ; 0x76f0
     add sp, byte 0x1a                ; 0x76f3
     mov word [bp - 0x0006], ax       ; 0x76f6
     lea ax, word [bp - 0x0072]       ; 0x76f9
@@ -474,78 +474,3 @@ api_idx_00e6_JGTQ:
     mov word [bss_9126], 0           ; 0x7820
     inc word [bss_8d12]              ; 0x7826
     ret                              ; 0x782a
-loc_782b:
-    mov ax, 0                        ; 0x782b
-    call aztec_csav                  ; 0x782e
-    cmp word [bp + 0x4], byte 0      ; 0x7831
-    jle short @..loc_782b.l1         ; 0x7835
-    mov bx, word [bss_0e12]          ; 0x7837
-    mov si, word [bss_8d12]          ; 0x783b
-    cmp byte [bx + si + 0x960], 0    ; 0x783f
-    jbe short @..loc_782b.l1         ; 0x7844
-    mov ax, 1                        ; 0x7846
-    push ax                          ; 0x7849
-    mov al, byte [bx + si + 0x960]   ; 0x784a
-    sub ah, ah                       ; 0x784e
-    push ax                          ; 0x7850
-    mov ax, word [bss_830c]          ; 0x7851
-    mov cx, 4                        ; 0x7854
-    shl ax, cl                       ; 0x7857
-    add ax, 0x8d14                   ; 0x7859
-    push ax                          ; 0x785c
-    call set_bitmap_bit              ; 0x785d
-    add sp, byte 6                   ; 0x7860
-    cmp word [bp + 0x4], byte 1      ; 0x7863
-    jle short @..loc_782b.l1         ; 0x7867
-    mov ax, 1                        ; 0x7869
-    push ax                          ; 0x786c
-    mov bx, word [bss_0e12]          ; 0x786d
-    mov si, word [bss_8d12]          ; 0x7871
-    mov al, byte [bx + si + 0x960]   ; 0x7875
-    sub ah, ah                       ; 0x7879
-    push ax                          ; 0x787b
-    mov ax, word [bss_830c]          ; 0x787c
-    mov cx, 4                        ; 0x787f
-    shl ax, cl                       ; 0x7882
-    add ax, 0x5642                   ; 0x7884
-    push ax                          ; 0x7887
-    call set_bitmap_bit              ; 0x7888
-    add sp, byte 6                   ; 0x788b
-@..loc_782b.l1:
-    ret                              ; 0x788e
-loc_788f:
-    mov ax, 0                        ; 0x788f
-    call aztec_csav                  ; 0x7892
-    mov ax, 0x248                    ; 0x7895
-    imul word [bp + 0x4]             ; 0x7898
-    mov bx, ax                       ; 0x789b
-    cmp byte [bx + 0x5e2f], 3        ; 0x789d
-    jae short @..loc_788f.l1         ; 0x78a2
-    mov al, byte [bx + 0x5e2c]       ; 0x78a4
-    sub ah, ah                       ; 0x78a8
-    add ax, strict word 8            ; 0x78aa
-    push ax                          ; 0x78ad
-    call ds_app_IPOK                 ; 0x78ae
-    pop cx                           ; 0x78b1
-@..loc_788f.l1:
-    mov ax, 0x248                    ; 0x78b2
-    imul word [bp + 0x4]             ; 0x78b5
-    mov bx, ax                       ; 0x78b8
-    mov byte [bx + 0x5e2f], 3        ; 0x78ba
-    mov word [bx + 0x5c0c], 0        ; 0x78bf
-    mov word [bx + 0x5c10], 0        ; 0x78c5
-    cmp word [bp + 0x6], byte 0      ; 0x78cb
-    jle short @..loc_788f.l2         ; 0x78cf
-    mov ax, 1                        ; 0x78d1
-    push ax                          ; 0x78d4
-    push word [bp + 0x4]             ; 0x78d5
-    call ds_app_PIKI                 ; 0x78d8
-    add sp, byte 4                   ; 0x78db
-    cmp word [bp + 0x6], byte 1      ; 0x78de
-    jle short @..loc_788f.l2         ; 0x78e2
-    mov ax, 8                        ; 0x78e4
-    push ax                          ; 0x78e7
-    call ds_app_MIKI                 ; 0x78e8
-    pop cx                           ; 0x78eb
-@..loc_788f.l2:
-    ret                              ; 0x78ec

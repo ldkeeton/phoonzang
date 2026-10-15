@@ -53,33 +53,9 @@ api_idx_0002_JGHN:
     cmp word [bss_830a], byte 0x1f   ; 0x009d
     jne short @..api_idx_0002_JGHN.l6 ; 0x00a2
     push word [bss_8af0]             ; 0x00a4
-    call loc_15af                    ; 0x00a8
+    call loc_GTST                    ; 0x00a8
     pop cx                           ; 0x00ab
 @..api_idx_0002_JGHN.l6:
     mov word [bss_830a], 5           ; 0x00ac
     mov ax, 0                        ; 0x00b2
     ret                              ; 0x00b5
-loc_00b6:
-    mov ax, 0                        ; 0x00b6
-    call aztec_csav                  ; 0x00b9
-    mov bx, word [bss_0e14]          ; 0x00bc
-    mov si, word [bp + 0x4]          ; 0x00c0
-    mov al, byte [bx + si + 0x490]   ; 0x00c3
-    sub ah, ah                       ; 0x00c7
-    cmp ax, word [bp + 0x6]          ; 0x00c9
-    jg short @..loc_00b6.l1          ; 0x00cc
-    add ax, strict word 7            ; 0x00ce
-    cmp ax, word [bp + 0x6]          ; 0x00d1
-    jl short @..loc_00b6.l1          ; 0x00d4
-    mov al, byte [bx + si + 0x4a0]   ; 0x00d6
-    sub ah, ah                       ; 0x00da
-    cmp ax, word [bp + 0x8]          ; 0x00dc
-    jg short @..loc_00b6.l1          ; 0x00df
-    add ax, strict word 7            ; 0x00e1
-    cmp ax, word [bp + 0x8]          ; 0x00e4
-    jl short @..loc_00b6.l1          ; 0x00e7
-    mov ax, si                       ; 0x00e9
-    ret                              ; 0x00eb
-@..loc_00b6.l1:
-    mov ax, 0xffff                   ; 0x00ec
-    ret                              ; 0x00ef

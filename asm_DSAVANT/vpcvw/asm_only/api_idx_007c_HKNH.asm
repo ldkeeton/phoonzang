@@ -84,13 +84,13 @@ api_idx_007c_HKNH:
     mov al, byte [bp - 0x0058]       ; 0x1109
     sub ah, ah                       ; 0x110c
     push ax                          ; 0x110e
-    call ds_loc_3a77                 ; 0x110f
+    call ds_loc_PQIO                 ; 0x110f
     add sp, byte 4                   ; 0x1112
     mov ax, 0                        ; 0x1115
     push ax                          ; 0x1118
     mov ax, 0x2d                     ; 0x1119
     push ax                          ; 0x111c
-    call ds_loc_3a77                 ; 0x111d
+    call ds_loc_PQIO                 ; 0x111d
     add sp, byte 4                   ; 0x1120
     lea ax, word [bp - 0x0058]       ; 0x1123
     push ax                          ; 0x1126
@@ -387,7 +387,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x13dc
     mov ax, 0x20                     ; 0x13dd
     push ax                          ; 0x13e0
-    call ds_loc_3a77                 ; 0x13e1
+    call ds_loc_PQIO                 ; 0x13e1
     add sp, byte 4                   ; 0x13e4
     mov ax, 0                        ; 0x13e7
     push ax                          ; 0x13ea
@@ -422,7 +422,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x1432
     mov ax, 0x20                     ; 0x1433
     push ax                          ; 0x1436
-    call ds_loc_3a77                 ; 0x1437
+    call ds_loc_PQIO                 ; 0x1437
     add sp, byte 4                   ; 0x143a
     mov ax, 0                        ; 0x143d
     push ax                          ; 0x1440
@@ -463,7 +463,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x1496
     mov ax, 0x20                     ; 0x1497
     push ax                          ; 0x149a
-    call ds_loc_3a77                 ; 0x149b
+    call ds_loc_PQIO                 ; 0x149b
     add sp, byte 4                   ; 0x149e
     mov ax, 0                        ; 0x14a1
     push ax                          ; 0x14a4
@@ -489,7 +489,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x14d6
     mov ax, 0x2f                     ; 0x14d7
     push ax                          ; 0x14da
-    call ds_loc_3a77                 ; 0x14db
+    call ds_loc_PQIO                 ; 0x14db
     add sp, byte 4                   ; 0x14de
     lea ax, word [bp - 0x0058]       ; 0x14e1
     push ax                          ; 0x14e4
@@ -533,7 +533,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x1540
     mov ax, 0x20                     ; 0x1541
     push ax                          ; 0x1544
-    call ds_loc_3a77                 ; 0x1545
+    call ds_loc_PQIO                 ; 0x1545
     add sp, byte 4                   ; 0x1548
     mov ax, 0                        ; 0x154b
     push ax                          ; 0x154e
@@ -588,7 +588,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x15c5
     mov ax, 0x28                     ; 0x15c6
     push ax                          ; 0x15c9
-    call ds_loc_3a77                 ; 0x15ca
+    call ds_loc_PQIO                 ; 0x15ca
     add sp, byte 4                   ; 0x15cd
     lea ax, word [bp - 0x0058]       ; 0x15d0
     push ax                          ; 0x15d3
@@ -608,7 +608,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x15f7
     mov ax, 0x29                     ; 0x15f8
     push ax                          ; 0x15fb
-    call ds_loc_3a77                 ; 0x15fc
+    call ds_loc_PQIO                 ; 0x15fc
     add sp, byte 4                   ; 0x15ff
     mov ax, 0                        ; 0x1602
     push ax                          ; 0x1605
@@ -638,7 +638,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x163d
     mov ax, 0x20                     ; 0x163e
     push ax                          ; 0x1641
-    call ds_loc_3a77                 ; 0x1642
+    call ds_loc_PQIO                 ; 0x1642
     add sp, byte 4                   ; 0x1645
     lea ax, word [bp - 0x0058]       ; 0x1648
     push ax                          ; 0x164b
@@ -701,7 +701,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x16d7
     mov ax, 0x20                     ; 0x16d8
     push ax                          ; 0x16db
-    call ds_loc_3a77                 ; 0x16dc
+    call ds_loc_PQIO                 ; 0x16dc
     add sp, byte 4                   ; 0x16df
     lea ax, word [bp - 0x0058]       ; 0x16e2
     push ax                          ; 0x16e5
@@ -725,7 +725,7 @@ api_idx_007c_HKNH:
     push ax                          ; 0x1710
     mov ax, 0x2f                     ; 0x1711
     push ax                          ; 0x1714
-    call ds_loc_3a77                 ; 0x1715
+    call ds_loc_PQIO                 ; 0x1715
     add sp, byte 4                   ; 0x1718
     lea ax, word [bp - 0x0058]       ; 0x171b
     push ax                          ; 0x171e
@@ -797,7 +797,7 @@ api_idx_007c_HKNH:
     mov al, byte [bp - 0x0006]       ; 0x17c0
     sub ah, ah                       ; 0x17c3
     push ax                          ; 0x17c5
-    call ds_loc_3a77                 ; 0x17c6
+    call ds_loc_PQIO                 ; 0x17c6
     add sp, byte 4                   ; 0x17c9
     inc word [bp - 0x0004]           ; 0x17cc
 @..api_idx_007c_HKNH.l10:
@@ -857,7 +857,7 @@ api_idx_007c_HKNH:
     mov al, byte [bx + 0x92c]        ; 0x1867
     sub ah, ah                       ; 0x186b
     push ax                          ; 0x186d
-    call ds_loc_3a77                 ; 0x186e
+    call ds_loc_PQIO                 ; 0x186e
     add sp, byte 4                   ; 0x1871
     mov ax, word [bp - 0x0008]       ; 0x1874
     shl ax, 1                        ; 0x1877

@@ -34,7 +34,7 @@ api_idx_0006_RPNQ:
     mov al, byte [bx + si + 0xa50]   ; 0x8ba2
     sub ah, ah                       ; 0x8ba6
     push ax                          ; 0x8ba8
-    call loc_6ac7                    ; 0x8ba9
+    call loc_HNMM                    ; 0x8ba9
     pop cx                           ; 0x8bac
     mov ax, 8                        ; 0x8bad
     push ax                          ; 0x8bb0
@@ -89,7 +89,7 @@ api_idx_0006_RPNQ:
     add sp, byte 6                   ; 0x8c2b
     mov word [bp - 0x0004], ax       ; 0x8c2e
     push ax                          ; 0x8c31
-    call loc_7242                    ; 0x8c32
+    call loc_VMLV                    ; 0x8c32
     pop cx                           ; 0x8c35
     mov ax, word [bp + 0x4]          ; 0x8c36
     inc ax                           ; 0x8c39

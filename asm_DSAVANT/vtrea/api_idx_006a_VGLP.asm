@@ -228,7 +228,7 @@ api_idx_006a_VGLP:
     add ax, word [bp - 0x0006]       ; 0x6218
     add ax, strict word 0x59         ; 0x621b
     push ax                          ; 0x621e
-    call loc_242c                    ; 0x621f
+    call loc_MMHQ                    ; 0x621f
     add sp, byte 0x0a                ; 0x6222
     inc word [bp - 0x0002]           ; 0x6225
     mov ax, word [bp - 0x0002]       ; 0x6228
@@ -518,7 +518,7 @@ api_idx_006a_VGLP:
     push ax                          ; 0x64b4
     call thunk_4                     ; 0x64b5
     add sp, byte 8                   ; 0x64b8
-    call loc_086b                    ; 0x64bb
+    call loc_IQGR                    ; 0x64bb
     test ax, ax                      ; 0x64be
     jne short @..api_idx_006a_VGLP.l21 ; 0x64c0
     mov ax, 0x19                     ; 0x64c2
@@ -600,7 +600,7 @@ api_idx_006a_VGLP:
     add ax, word [bp - 0x0006]       ; 0x6573
     add ax, strict word 0x59         ; 0x6576
     push ax                          ; 0x6579
-    call loc_242c                    ; 0x657a
+    call loc_MMHQ                    ; 0x657a
     add sp, byte 0x0a                ; 0x657d
     mov ax, word [bp - 0x0008]       ; 0x6580
     add ax, strict word 0x2e         ; 0x6583
@@ -678,7 +678,7 @@ api_idx_006a_VGLP:
     add ax, word [bp - 0x0006]       ; 0x6631
     add ax, strict word 0x59         ; 0x6634
     push ax                          ; 0x6637
-    call loc_242c                    ; 0x6638
+    call loc_MMHQ                    ; 0x6638
     add sp, byte 0x0a                ; 0x663b
     mov ax, word [bp - 0x0008]       ; 0x663e
     add ax, strict word 0x2e         ; 0x6641
@@ -712,7 +712,7 @@ api_idx_006a_VGLP:
     mov ax, 0x10                     ; 0x6684
     push ax                          ; 0x6687
     push word [bp + 0x4]             ; 0x6688
-    call loc_0f54                    ; 0x668b
+    call loc_VRUN                    ; 0x668b
     add sp, byte 6                   ; 0x668e
 @..api_idx_006a_VGLP.l31:
     mov word [bss_9050], 0           ; 0x6691

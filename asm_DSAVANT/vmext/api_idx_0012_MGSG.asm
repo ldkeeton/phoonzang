@@ -44,7 +44,7 @@ api_idx_0012_MGSG:
     mov ax, word [bp + 0x20]         ; 0x3157
     add ax, word [bp + 0x4]          ; 0x315a
     push ax                          ; 0x315d
-    call loc_193b                    ; 0x315e
+    call loc_HOHT                    ; 0x315e
     pop cx                           ; 0x3161
     push ax                          ; 0x3162
     mov ax, 0                        ; 0x3163
@@ -61,7 +61,7 @@ api_idx_0012_MGSG:
     mov ax, word [bp + 0x20]         ; 0x3178
     add ax, word [bp + 0x4]          ; 0x317b
     push ax                          ; 0x317e
-    call loc_194f                    ; 0x317f
+    call loc_UOMJ                    ; 0x317f
     add sp, byte 4                   ; 0x3182
     push ax                          ; 0x3185
     mov ax, 0xff                     ; 0x3186
@@ -240,7 +240,7 @@ api_idx_0012_MGSG:
     mov ax, word [bp + 0x18]         ; 0x3302
     add ax, word [bp + 0x4]          ; 0x3305
     push ax                          ; 0x3308
-    call loc_193b                    ; 0x3309
+    call loc_HOHT                    ; 0x3309
     pop cx                           ; 0x330c
     push ax                          ; 0x330d
     mov ax, 0                        ; 0x330e
@@ -257,7 +257,7 @@ api_idx_0012_MGSG:
     mov ax, word [bp + 0x18]         ; 0x3323
     add ax, word [bp + 0x4]          ; 0x3326
     push ax                          ; 0x3329
-    call loc_194f                    ; 0x332a
+    call loc_UOMJ                    ; 0x332a
     add sp, byte 4                   ; 0x332d
     push ax                          ; 0x3330
     mov ax, 0xff                     ; 0x3331
@@ -276,13 +276,13 @@ api_idx_0012_MGSG:
     mov ax, word [bp + 0x40]         ; 0x335c
     add ax, word [bp + 0x4]          ; 0x335f
     push ax                          ; 0x3362
-    call loc_194f                    ; 0x3363
+    call loc_UOMJ                    ; 0x3363
     add sp, byte 4                   ; 0x3366
     mov word [bp - 0x000e], ax       ; 0x3369
     mov ax, word [bp + 0x40]         ; 0x336c
     add ax, word [bp + 0x4]          ; 0x336f
     push ax                          ; 0x3372
-    call loc_193b                    ; 0x3373
+    call loc_HOHT                    ; 0x3373
     pop cx                           ; 0x3376
     mov word [bp - 0x0010], ax       ; 0x3377
 @..api_idx_0012_MGSG.l24:
@@ -296,14 +296,14 @@ api_idx_0012_MGSG:
     add ax, word [bp + 0x4]          ; 0x338b
     dec ax                           ; 0x338e
     push ax                          ; 0x338f
-    call loc_1927                    ; 0x3390
+    call loc_TRGN                    ; 0x3390
     add sp, byte 4                   ; 0x3393
     mov word [bp - 0x000a], ax       ; 0x3396
     mov ax, word [bp + 0x3c]         ; 0x3399
     add ax, word [bp + 0x4]          ; 0x339c
     dec ax                           ; 0x339f
     push ax                          ; 0x33a0
-    call loc_1913                    ; 0x33a1
+    call loc_TJMT                    ; 0x33a1
     pop cx                           ; 0x33a4
     mov word [bp - 0x000c], ax       ; 0x33a5
 @..api_idx_0012_MGSG.l25:
@@ -357,7 +357,7 @@ api_idx_0012_MGSG:
     push ax                          ; 0x3413
     mov ax, 0xc2                     ; 0x3414
     push ax                          ; 0x3417
-    call loc_1913                    ; 0x3418
+    call loc_TJMT                    ; 0x3418
     pop cx                           ; 0x341b
     push ax                          ; 0x341c
     mov ax, 0                        ; 0x341d
@@ -372,7 +372,7 @@ api_idx_0012_MGSG:
     push ax                          ; 0x342e
     mov ax, 0xc2                     ; 0x342f
     push ax                          ; 0x3432
-    call loc_1927                    ; 0x3433
+    call loc_TRGN                    ; 0x3433
     add sp, byte 4                   ; 0x3436
     push ax                          ; 0x3439
     mov ax, 0xff                     ; 0x343a
@@ -393,7 +393,7 @@ api_idx_0012_MGSG:
     push ax                          ; 0x345b
     mov ax, 0xc3                     ; 0x345c
     push ax                          ; 0x345f
-    call loc_1913                    ; 0x3460
+    call loc_TJMT                    ; 0x3460
     pop cx                           ; 0x3463
     push ax                          ; 0x3464
     mov ax, 0                        ; 0x3465
@@ -408,7 +408,7 @@ api_idx_0012_MGSG:
     push ax                          ; 0x3476
     mov ax, 0xc3                     ; 0x3477
     push ax                          ; 0x347a
-    call loc_1927                    ; 0x347b
+    call loc_TRGN                    ; 0x347b
     add sp, byte 4                   ; 0x347e
     push ax                          ; 0x3481
     mov ax, 0xff                     ; 0x3482
@@ -429,7 +429,7 @@ api_idx_0012_MGSG:
     mov ax, word [bp + 0x38]         ; 0x34a2
     add ax, word [bp + 0x4]          ; 0x34a5
     push ax                          ; 0x34a8
-    call loc_193b                    ; 0x34a9
+    call loc_HOHT                    ; 0x34a9
     pop cx                           ; 0x34ac
     push ax                          ; 0x34ad
     mov ax, 2                        ; 0x34ae
@@ -440,7 +440,7 @@ api_idx_0012_MGSG:
     mov ax, word [bp + 0x38]         ; 0x34b9
     add ax, word [bp + 0x4]          ; 0x34bc
     push ax                          ; 0x34bf
-    call loc_194f                    ; 0x34c0
+    call loc_UOMJ                    ; 0x34c0
     add sp, byte 4                   ; 0x34c3
     push ax                          ; 0x34c6
     push word [bp + 0x10]            ; 0x34c7
@@ -464,7 +464,7 @@ api_idx_0012_MGSG:
     mov ax, word [bp + 0x4]          ; 0x34f4
     add ax, strict word 0x19         ; 0x34f7
     push ax                          ; 0x34fa
-    call loc_193b                    ; 0x34fb
+    call loc_HOHT                    ; 0x34fb
     pop cx                           ; 0x34fe
     push ax                          ; 0x34ff
     mov ax, 0                        ; 0x3500
@@ -479,7 +479,7 @@ api_idx_0012_MGSG:
     add ax, strict word 0x19         ; 0x3511
     push ax                          ; 0x3514
     push ax                          ; 0x3515
-    call loc_194f                    ; 0x3516
+    call loc_UOMJ                    ; 0x3516
     add sp, byte 4                   ; 0x3519
     push ax                          ; 0x351c
     mov ax, 0xfe                     ; 0x351d
@@ -500,13 +500,13 @@ api_idx_0012_MGSG:
     mov al, byte [bx - 0x6e54]       ; 0x353c
     sub ah, ah                       ; 0x3540
     jmp near @..api_idx_0012_MGSG.l45 ; 0x3542
-loc_3545:
+loc_IJMR:
     cmp word [bp + 0x4], byte 5      ; 0x3545
     jge short @..api_idx_0012_MGSG.l38 ; 0x3549
     mov ax, word [bp + 0x1c]         ; 0x354b
     add ax, word [bp + 0x4]          ; 0x354e
     push ax                          ; 0x3551
-    call loc_193b                    ; 0x3552
+    call loc_HOHT                    ; 0x3552
     pop cx                           ; 0x3555
     push ax                          ; 0x3556
     mov ax, 2                        ; 0x3557
@@ -517,7 +517,7 @@ loc_3545:
     mov ax, word [bp + 0x1c]         ; 0x3562
     add ax, word [bp + 0x4]          ; 0x3565
     push ax                          ; 0x3568
-    call loc_194f                    ; 0x3569
+    call loc_UOMJ                    ; 0x3569
     add sp, byte 4                   ; 0x356c
     push ax                          ; 0x356f
     push word [bp + 0xa]             ; 0x3570
@@ -525,13 +525,13 @@ loc_3545:
     add sp, byte 8                   ; 0x3576
 @..api_idx_0012_MGSG.l38:
     jmp near @..api_idx_0012_MGSG.l46 ; 0x3579
-loc_357c:
+loc_HJVL:
     cmp word [bp + 0x4], byte 5      ; 0x357c
     jge short @..api_idx_0012_MGSG.l39 ; 0x3580
     mov ax, word [bp + 0x30]         ; 0x3582
     add ax, word [bp + 0x4]          ; 0x3585
     push ax                          ; 0x3588
-    call loc_193b                    ; 0x3589
+    call loc_HOHT                    ; 0x3589
     pop cx                           ; 0x358c
     push ax                          ; 0x358d
     mov ax, 2                        ; 0x358e
@@ -542,7 +542,7 @@ loc_357c:
     mov ax, word [bp + 0x30]         ; 0x3599
     add ax, word [bp + 0x4]          ; 0x359c
     push ax                          ; 0x359f
-    call loc_194f                    ; 0x35a0
+    call loc_UOMJ                    ; 0x35a0
     add sp, byte 4                   ; 0x35a3
     push ax                          ; 0x35a6
     push word [bp + 0x16]            ; 0x35a7
@@ -550,7 +550,7 @@ loc_357c:
     add sp, byte 8                   ; 0x35ad
 @..api_idx_0012_MGSG.l39:
     jmp short @..api_idx_0012_MGSG.l46 ; 0x35b0
-loc_35b2:
+loc_LNSN:
     cmp word [bp + 0x4], byte 5      ; 0x35b2
     jge short @..api_idx_0012_MGSG.l44 ; 0x35b6
     mov ax, word [bss_91a6]          ; 0x35b8
@@ -584,16 +584,16 @@ loc_35b2:
     add sp, byte 8                   ; 0x35f1
 @..api_idx_0012_MGSG.l44:
     jmp short @..api_idx_0012_MGSG.l46 ; 0x35f4
-loc_35f6:
+loc_OTPK:
     jmp short @..api_idx_0012_MGSG.l46 ; 0x35f6
-loc_35f8:
+loc_QPJS:
     jmp short @..api_idx_0012_MGSG.l46 ; 0x35f8
 jumptable_35fa:
-    dw loc_35f8 - IMAGE_BASE + 0x5055          ; 0x35fa
-    dw loc_3545 - IMAGE_BASE + 0x5055          ; 0x35fc
-    dw loc_357c - IMAGE_BASE + 0x5055          ; 0x35fe
-    dw loc_35b2 - IMAGE_BASE + 0x5055          ; 0x3600
-    dw loc_35f6 - IMAGE_BASE + 0x5055          ; 0x3602
+    dw loc_QPJS - IMAGE_BASE + 0x5055          ; 0x35fa
+    dw loc_IJMR - IMAGE_BASE + 0x5055          ; 0x35fc
+    dw loc_HJVL - IMAGE_BASE + 0x5055          ; 0x35fe
+    dw loc_LNSN - IMAGE_BASE + 0x5055          ; 0x3600
+    dw loc_OTPK - IMAGE_BASE + 0x5055          ; 0x3602
 @..api_idx_0012_MGSG.l45:
     cmp ax, strict word 5            ; 0x3604
     jae short @..api_idx_0012_MGSG.l46 ; 0x3607
@@ -622,7 +622,7 @@ jumptable_35fa:
     mov ax, word [bp + 0x24]         ; 0x3640
     add ax, word [bp + 0x4]          ; 0x3643
     push ax                          ; 0x3646
-    call loc_193b                    ; 0x3647
+    call loc_HOHT                    ; 0x3647
     pop cx                           ; 0x364a
     push ax                          ; 0x364b
     mov ax, 2                        ; 0x364c
@@ -633,7 +633,7 @@ jumptable_35fa:
     mov ax, word [bp + 0x24]         ; 0x3657
     add ax, word [bp + 0x4]          ; 0x365a
     push ax                          ; 0x365d
-    call loc_194f                    ; 0x365e
+    call loc_UOMJ                    ; 0x365e
     add sp, byte 4                   ; 0x3661
     push ax                          ; 0x3664
     mov ax, 3                        ; 0x3665

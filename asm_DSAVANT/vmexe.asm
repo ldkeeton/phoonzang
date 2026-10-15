@@ -21,7 +21,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw string_loc_HOGS - IMAGE_BASE + __zres_end ; 0xf511 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-loc_735e equ 0x735e + VBASE
+loc_RVPL equ 0x735e + VBASE
 loc_81ba equ 0x81ba + VBASE
 loc_81bc equ 0x81bc + VBASE
 data_b0cb equ 0xb0cb
@@ -44,9 +44,19 @@ data_b0cb equ 0xb0cb
 
 %include "lib/api_idx_001c_TROI.asm"     ; 0x0a83
 
-%include "vmexe/api_idx_000e_SVUU.asm"     ; 0x0cc9
+%include "lib/api_idx_000e_SVUU.asm"     ; 0x0cc9
+
+%include "lib/loc_MLTS.asm"              ; 0x0dbe
 
 %include "vmexe/api_idx_0016_SVUH.asm"     ; 0x0e1a
+
+%include "vmexe/loc_OIOO.asm"              ; 0x0f67
+
+%include "vmexe/loc_QJUS.asm"              ; 0x15ab
+
+%include "vmexe/loc_UOKI.asm"              ; 0x15f9
+
+%include "vmexe/loc_HHOO.asm"              ; 0x1613
 
 %include "vmexe/api_idx_0002_GVSN.asm"     ; 0x1642
 
@@ -56,7 +66,17 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/asm_only/api_idx_000e_SLLL.asm"     ; 0x178e
 
+%include "vmexe/loc_VPSG.asm"              ; 0x17d1
+
+%include "vmexe/loc_TRQG.asm"              ; 0x182b
+
+%include "vmexe/loc_UGGT.asm"              ; 0x1849
+
 %include "vmexe/api_idx_0006_RITV.asm"     ; 0x18a8
+
+%include "vmexe/loc_MGLK.asm"              ; 0x1a35
+
+%include "vmexe/loc_OJSH.asm"              ; 0x1a4c
 
 %include "vmexe/api_idx_0004_LIRS.asm"     ; 0x1a5f
 
@@ -64,9 +84,17 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0004_VVKL.asm"     ; 0x1b45
 
+%include "lib/loc_VRUN.asm"              ; 0x1bf4
+
+%include "vmexe/loc_OGKH.asm"              ; 0x1c36
+
 %include "vmexe/api_idx_0004_TKLP.asm"     ; 0x1c5e
 
+%include "vmexe/loc_UONR.asm"              ; 0x1e35
+
 %include "vmexe/api_idx_0002_TPHO.asm"     ; 0x1f00
+
+%include "vmexe/loc_QVNQ.asm"              ; 0x1f5d
 
 %include "vmexe/api_idx_0002_RRLU.asm"     ; 0x1f98
 
@@ -74,7 +102,11 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0022_MLKI.asm"     ; 0x2242
 
+%include "vmexe/loc_VTRL.asm"              ; 0x24c2
+
 %include "vmexe/api_idx_0004_MIJI.asm"     ; 0x24f0
+
+%include "vmexe/loc_VOJJ.asm"              ; 0x2553
 
 %include "vmexe/api_idx_0006_QJLT.asm"     ; 0x25d0
 
@@ -92,6 +124,8 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0002_MUNP.asm"     ; 0x2d6b
 
+%include "lib/loc_NSKO.asm"              ; 0x2e09
+
 %include "vmexe/api_idx_0010_NSVR.asm"     ; 0x2e59
 
 %include "vmexe/api_idx_0006_IPRL.asm"     ; 0x312e
@@ -102,6 +136,8 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/asm_only/string_loc_NNVJ.asm"       ; 0x3620
 
+%include "vmexe/loc_PUHH.asm"              ; 0x3aa3
+
 %include "vmexe/asm_only/api_idx_000e_RHUK.asm"     ; 0x3b07
 
 %include "vmexe/api_idx_000e_NIGL.asm"     ; 0x5fa1
@@ -111,6 +147,8 @@ data_b0cb equ 0xb0cb
 %include "vmexe/api_idx_0008_LGLV.asm"     ; 0x63cd
 
 %include "vmexe/api_idx_0014_HVQT.asm"     ; 0x6476
+
+%include "vmexe/loc_ORPN.asm"              ; 0x6edc
 
 %include "vmexe/api_idx_000c_RQPT.asm"     ; 0x6f33
 
@@ -144,9 +182,13 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_000e_VJLR.asm"     ; 0x91b5
 
+%include "vmexe/loc_GHRG.asm"              ; 0x9842
+
 %include "vmexe/api_idx_0006_NIJH.asm"     ; 0x989b
 
 %include "vmexe/api_idx_0010_HHTV.asm"     ; 0x9a2f
+
+%include "vmexe/loc_JNJU.asm"              ; 0x9d8d
 
 %include "vmexe/api_idx_0006_HKPI.asm"     ; 0x9e5d
 

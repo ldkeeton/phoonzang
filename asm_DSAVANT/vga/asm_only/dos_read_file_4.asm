@@ -80,7 +80,7 @@ dos_read_file_4:
     mov ax, word [cs:bx]             ; 0x3c51
     mov word [cs:bx], 0              ; 0x3c54
     dec word [cs:cseg_0baa - IMAGE_BASE] ; 0x3c59
-    call loc_43e1                    ; 0x3c5e
+    call loc_RSRG                    ; 0x3c5e
 @..dos_read_file_4.l5:
     jmp near @..dos_read_file_4.l9   ; 0x3c61
 @..dos_read_file_4.l6:
@@ -143,7 +143,7 @@ dos_read_file_4:
     mov ax, word [cs:bx]             ; 0x3cf5
     mov word [cs:bx], 0              ; 0x3cf8
     call leaf_loc_KGRV               ; 0x3cfd
-    call loc_0e71                    ; 0x3d00
+    call loc_UJGV                    ; 0x3d00
 @..dos_read_file_4.l9:
     pop si                           ; 0x3d03
     pop di                           ; 0x3d04

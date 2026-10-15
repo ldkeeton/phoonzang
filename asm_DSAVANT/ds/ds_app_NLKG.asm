@@ -3,7 +3,7 @@ ds_app_NLKG: ; Aztec csav frame=0x0014
     mov ax, 0xffec                   ; 0x2c69
     call aztec_csav                  ; 0x2c6c
     mov word [bp - 0x0002], 0        ; 0x2c6f
-ds_loc_2c74:
+ds_loc_OTJP:
     mov ax, 0                        ; 0x2c74
     push ax                          ; 0x2c77
     mov ax, word [bp - 0x0002]       ; 0x2c78
@@ -30,4 +30,4 @@ ds_loc_2c74:
     mov word [bp - 0x0008], ax       ; 0x2cac
     mov word [bp - 0x000a], 7        ; 0x2caf
     mov ax, word [bp - 0x0002]       ; 0x2cb4
-    jmp near ds_loc_2d5c             ; 0x2cb7
+    jmp near ds_loc_NUPN             ; 0x2cb7

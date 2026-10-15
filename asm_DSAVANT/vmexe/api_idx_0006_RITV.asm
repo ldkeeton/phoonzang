@@ -90,7 +90,7 @@ api_idx_0006_RITV:
     mov word [bss_8468], 0           ; 0x1973
     jmp near @..api_idx_0006_RITV.l17 ; 0x1979
 @..api_idx_0006_RITV.l8:
-    call loc_1849                    ; 0x197c
+    call loc_UGGT                    ; 0x197c
     mov word [bp - 0x0006], ax       ; 0x197f
     mov word [bp - 0x0002], 0        ; 0x1982
 @..api_idx_0006_RITV.l9:
@@ -143,7 +143,7 @@ api_idx_0006_RITV:
     jmp short @..api_idx_0006_RITV.l17 ; 0x19fc
 @..api_idx_0006_RITV.l12:
     push word [bss_845e]             ; 0x19fe
-    call loc_0dbe                    ; 0x1a02
+    call loc_MLTS                    ; 0x1a02
     pop cx                           ; 0x1a05
     jmp short @..api_idx_0006_RITV.l17 ; 0x1a06
 @..api_idx_0006_RITV.l13:
@@ -168,22 +168,3 @@ api_idx_0006_RITV:
     mov word [bss_845e], 0xfffd      ; 0x1a2e
 @..api_idx_0006_RITV.l18:
     ret                              ; 0x1a34
-loc_1a35:
-    mov ax, 0                        ; 0x1a35
-    call aztec_csav                  ; 0x1a38
-    mov word [bss_845e], 0xfffe      ; 0x1a3b
-@..loc_1a35.l1:
-    call api_idx_0006_RITV           ; 0x1a41
-    cmp word [bss_845e], byte 0xfe   ; 0x1a44
-    jne short @..loc_1a35.l1         ; 0x1a49
-    ret                              ; 0x1a4b
-loc_1a4c:
-    mov ax, 0                        ; 0x1a4c
-    call aztec_csav                  ; 0x1a4f
-@..loc_1a4c.l1:
-    cmp word [bss_845e], byte 0xfe   ; 0x1a52
-    je short @..loc_1a4c.l2          ; 0x1a57
-    call api_idx_0006_RITV           ; 0x1a59
-    jmp short @..loc_1a4c.l1         ; 0x1a5c
-@..loc_1a4c.l2:
-    ret                              ; 0x1a5e

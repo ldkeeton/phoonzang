@@ -21,4 +21,4 @@ leaf_loc_RJJT:
 @..leaf_loc_RJJT.l1:
     mov word [bp - 0x0016], ax       ; 0x4aa9
     mov word [bp - 0x0018], 1        ; 0x4aac
-    jmp near loc_4b67                ; 0x4ab1
+    jmp near loc_KMTR                ; 0x4ab1

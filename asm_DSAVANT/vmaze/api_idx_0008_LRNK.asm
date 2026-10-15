@@ -3,7 +3,7 @@ api_idx_0008_LRNK:
     mov ax, 0xfff8                   ; 0x01c9
     call aztec_csav                  ; 0x01cc
     mov word [bp - 0x0008], 0        ; 0x01cf
-    call loc_13c0                    ; 0x01d4
+    call loc_RUMS                    ; 0x01d4
     cmp word [bss_919e], byte 0      ; 0x01d7
     je short @..api_idx_0008_LRNK.l2 ; 0x01dc
     cmp word [bss_9194], byte 0x0d   ; 0x01de
@@ -12,7 +12,7 @@ api_idx_0008_LRNK:
     push ax                          ; 0x01e8
     mov ax, 0xd                      ; 0x01e9
     push ax                          ; 0x01ec
-    call loc_017f                    ; 0x01ed
+    call loc_TKQP                    ; 0x01ed
     add sp, byte 4                   ; 0x01f0
 @..api_idx_0008_LRNK.l1:
     mov ax, word [bp + 0xe]          ; 0x01f3
@@ -102,7 +102,7 @@ api_idx_0008_LRNK:
 @..api_idx_0008_LRNK.l13:
     push word [bp + 0xa]             ; 0x02ab
     push word [bp + 0x8]             ; 0x02ae
-    call loc_017f                    ; 0x02b1
+    call loc_TKQP                    ; 0x02b1
     add sp, byte 4                   ; 0x02b4
 @..api_idx_0008_LRNK.l14:
     jmp short @..api_idx_0008_LRNK.l17 ; 0x02b7
@@ -115,7 +115,7 @@ api_idx_0008_LRNK:
 @..api_idx_0008_LRNK.l16:
     push word [bp + 0x6]             ; 0x02c7
     push word [bp + 0x4]             ; 0x02ca
-    call loc_017f                    ; 0x02cd
+    call loc_TKQP                    ; 0x02cd
     add sp, byte 4                   ; 0x02d0
 @..api_idx_0008_LRNK.l17:
     mov ax, word [bp + 0xe]          ; 0x02d3

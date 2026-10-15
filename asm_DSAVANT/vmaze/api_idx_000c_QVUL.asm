@@ -72,7 +72,7 @@ api_idx_000c_QVUL:
     mov cx, word [bx + si]           ; 0x8845
     add ax, cx                       ; 0x8847
     push ax                          ; 0x8849
-    call loc_6f14                    ; 0x884a
+    call loc_QKON                    ; 0x884a
     add sp, byte 4                   ; 0x884d
     mov ax, 2                        ; 0x8850
     push ax                          ; 0x8853
@@ -82,83 +82,6 @@ api_idx_000c_QVUL:
     call ds_dos_con_loc_RGTO         ; 0x885b
     add sp, byte 6                   ; 0x885e
     push ax                          ; 0x8861
-    call loc_7242                    ; 0x8862
+    call loc_VMLV                    ; 0x8862
     pop cx                           ; 0x8865
     ret                              ; 0x8866
-loc_8867:
-    mov ax, 0                        ; 0x8867
-    call aztec_csav                  ; 0x886a
-    mov word [bss_9b4a], 1           ; 0x886d
-    mov word [bss_8f24], 0xffff      ; 0x8873
-loc_8879:
-    push word [bss_8d12]             ; 0x8879
-    push word [bss_8f3e]             ; 0x887d
-    push word [bss_8f40]             ; 0x8881
-    push word [bss_8f42]             ; 0x8885
-    call api_idx_0002_IVNS           ; 0x8889
-    add sp, byte 8                   ; 0x888c
-    mov word [bss_8d12], ax          ; 0x888f
-    cmp ax, strict word 0xffff       ; 0x8892
-    jne short loc_889a               ; 0x8895
-    jmp near loc_89cf                ; 0x8897
-loc_889a:
-    mov word [bss_9bd0], 1           ; 0x889a
-    mov bx, word [bss_0e12]          ; 0x88a0
-    mov si, ax                       ; 0x88a4
-    mov al, byte [bx + si + 0x5a0]   ; 0x88a6
-    sub ah, ah                       ; 0x88aa
-    jmp near loc_89ac                ; 0x88ac
-loc_88af:
-    call api_idx_0002_HMIP           ; 0x88af
-    jmp near loc_89b9                ; 0x88b2
-loc_88b5:
-    cmp word [bss_91a8], byte 0      ; 0x88b5
-    je short loc_88bf                ; 0x88ba
-    call api_idx_001e_JTKS           ; 0x88bc
-loc_88bf:
-    jmp near loc_89b9                ; 0x88bf
-loc_88c2:
-    call api_idx_0004_JRRO           ; 0x88c2
-    jmp near loc_89b9                ; 0x88c5
-loc_88c8:
-    call loc_7a34                    ; 0x88c8
-    jmp near loc_89b9                ; 0x88cb
-loc_88ce:
-    call api_idx_0002_MKLO           ; 0x88ce
-    jmp near loc_89b9                ; 0x88d1
-loc_88d4:
-    call api_idx_000e_GOVT           ; 0x88d4
-    jmp near loc_89b9                ; 0x88d7
-loc_88da:
-    call api_idx_0006_OMGG           ; 0x88da
-    jmp near loc_89b9                ; 0x88dd
-loc_88e0:
-    mov ax, word [bss_8d12]          ; 0x88e0
-    shl ax, 1                        ; 0x88e3
-    mov si, ax                       ; 0x88e5
-    mov bx, word [bss_0e12]          ; 0x88e7
-    cmp word [bx + si], byte 0       ; 0x88eb
-    jle short loc_88fe               ; 0x88ee
-    mov ax, 0                        ; 0x88f0
-    push ax                          ; 0x88f3
-    push word [bx + si]              ; 0x88f4
-    call loc_6f14                    ; 0x88f6
-    add sp, byte 4                   ; 0x88f9
-    jmp short loc_8922               ; 0x88fc
-loc_88fe:
-    mov ax, 1                        ; 0x88fe
-    push ax                          ; 0x8901
-    mov ax, 0xb                      ; 0x8902
-    push ax                          ; 0x8905
-    mov ax, word [bss_8d12]          ; 0x8906
-    shl ax, 1                        ; 0x8909
-    mov si, ax                       ; 0x890b
-    mov bx, word [bss_0e12]          ; 0x890d
-    push word [bx + si + 0x3c0]      ; 0x8911
-    call ds_dos_con_loc_RGTO         ; 0x8915
-    add sp, byte 6                   ; 0x8918
-    test ax, ax                      ; 0x891b
-    je short loc_8922                ; 0x891d
-    call api_idx_0004_SLHO           ; 0x891f
-loc_8922:
-    jmp near loc_89b9                ; 0x8922

@@ -67,7 +67,7 @@ aztec_begin:
     int 0x21 ; DOS resize memory block
     jae short @..aztec_begin.heapdone ; 0x366e
     mov al, 0xfe                     ; 0x3670
-    jmp near loc_3718                ; 0x3672
+    jmp near loc_GGRQ                ; 0x3672
 @..aztec_begin.heapdone:
     mov es, bp ; restore ES ; 0x3675
     cld                              ; 0x3677
@@ -136,10 +136,10 @@ aztec_begin:
     call leaf_loc_LSGN               ; 0x3701
     jb short @..aztec_begin.no_8087  ; 0x3704
     call aztec_Croot ; Croot(argp, first) ; 0x3706
-    jmp short loc_3718               ; 0x3709
+    jmp short loc_GGRQ               ; 0x3709
 @..aztec_begin.no_8087:
     mov ah, 9 ; dos print message ; 0x370b
     mov dx, 0x24e6                   ; 0x370d
     int 0x21 ; DOS string output
     mov al, 0xfd                     ; 0x3712
-    jmp short loc_3718               ; 0x3714
+    jmp short loc_GGRQ               ; 0x3714

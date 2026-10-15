@@ -16,7 +16,7 @@ api_idx_0004_STII:
     push word [bss_8f42]             ; 0x1818
     push word [bss_8f3e]             ; 0x181c
     push dx                          ; 0x1820
-    call loc_1165                    ; 0x1821
+    call loc_USLK                    ; 0x1821
     add sp, byte 0x0c                ; 0x1824
     mov word [bp - 0x0002], ax       ; 0x1827
     mov ax, word [bp - 0x0004]       ; 0x182a
@@ -53,7 +53,7 @@ api_idx_0004_STII:
     call ds_app_IPOK                 ; 0x186d
     pop cx                           ; 0x1870
     mov word [bss_831a], 1           ; 0x1871
-    call loc_676c                    ; 0x1877
+    call loc_JGLI                    ; 0x1877
     mov ax, 0x10                     ; 0x187a
     push ax                          ; 0x187d
     call ds_app_IPOK                 ; 0x187e
@@ -68,7 +68,7 @@ api_idx_0004_STII:
     call ds_app_MIKI                 ; 0x1894
     pop cx                           ; 0x1897
     mov word [bss_831a], 2           ; 0x1898
-    call loc_676c                    ; 0x189e
+    call loc_JGLI                    ; 0x189e
     mov ax, 2                        ; 0x18a1
     push ax                          ; 0x18a4
     call ds_app_MIKI                 ; 0x18a5
@@ -92,7 +92,7 @@ api_idx_0004_STII:
 @..api_idx_0004_STII.l6:
     push ax                          ; 0x18d4
     push word [bss_91ac]             ; 0x18d5
-    call loc_12d3                    ; 0x18d9
+    call loc_RHGL                    ; 0x18d9
     add sp, byte 6                   ; 0x18dc
 @..api_idx_0004_STII.l7:
     jmp near @..api_idx_0004_STII.l18 ; 0x18df
@@ -113,7 +113,7 @@ api_idx_0004_STII:
     push cx                          ; 0x1901
     mov ax, 0x7e5                    ; 0x1902
     push ax                          ; 0x1905
-    call loc_12d3                    ; 0x1906
+    call loc_RHGL                    ; 0x1906
     add sp, byte 6                   ; 0x1909
     jmp short @..api_idx_0004_STII.l11 ; 0x190c
 @..api_idx_0004_STII.l10:
@@ -121,7 +121,7 @@ api_idx_0004_STII:
     push ax                          ; 0x1911
     push ax                          ; 0x1912
     push word [bss_91ac]             ; 0x1913
-    call loc_12d3                    ; 0x1917
+    call loc_RHGL                    ; 0x1917
     add sp, byte 6                   ; 0x191a
 @..api_idx_0004_STII.l11:
     jmp short @..api_idx_0004_STII.l18 ; 0x191d
@@ -141,7 +141,7 @@ api_idx_0004_STII:
     push ax                          ; 0x1936
     push ax                          ; 0x1937
     push word [bss_91ac]             ; 0x1938
-    call loc_12d3                    ; 0x193c
+    call loc_RHGL                    ; 0x193c
     add sp, byte 6                   ; 0x193f
 @..api_idx_0004_STII.l15:
     jmp short @..api_idx_0004_STII.l18 ; 0x1942

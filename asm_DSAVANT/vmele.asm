@@ -22,7 +22,7 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-loc_000e:
+loc_NHKP:
     mov ax, 0                        ; 0x000e
     call aztec_csav                  ; 0x0011
     mov word [bss_90b6], 5           ; 0x0014
@@ -30,17 +30,17 @@ loc_000e:
     mov word [bss_90ba], 0           ; 0x0020
     mov word [bss_90bc], 0           ; 0x0026
     cmp word [bss_830a], byte 0x0a   ; 0x002c
-    jne short @..loc_000e.l1         ; 0x0031
-    call loc_33df                    ; 0x0033
-@..loc_000e.l1:
+    jne short @..loc_NHKP.l1         ; 0x0031
+    call loc_KQPM                    ; 0x0033
+@..loc_NHKP.l1:
     cmp word [bss_830a], byte 0x0e   ; 0x0036
-    jne short @..loc_000e.l2         ; 0x003b
+    jne short @..loc_NHKP.l2         ; 0x003b
     call api_idx_0056_KGVT           ; 0x003d
-@..loc_000e.l2:
+@..loc_NHKP.l2:
     cmp word [bss_830a], byte 0x0b   ; 0x0040
-    jne short @..loc_000e.l3         ; 0x0045
+    jne short @..loc_NHKP.l3         ; 0x0045
     call api_idx_0002_IMMM           ; 0x0047
-@..loc_000e.l3:
+@..loc_NHKP.l3:
     mov ax, 0                        ; 0x004a
     ret                              ; 0x004d
 %include "lib/api_idx_0008_IUTV.asm"     ; 0x004e
@@ -73,11 +73,17 @@ loc_000e:
 
 %include "vmele/asm_only/api_idx_005c_KOIV.asm"     ; 0x14e6
 
+%include "lib/loc_VRUN.asm"              ; 0x16d1
+
 %include "vmele/api_idx_0006_JLTG.asm"     ; 0x1713
 
 %include "vmele/api_idx_0004_RVQN.asm"     ; 0x17ad
 
 %include "vmele/asm_only/api_idx_0014_PSTK.asm"     ; 0x1844
+
+%include "vmele/loc_VJRJ.asm"              ; 0x1a16
+
+%include "vmele/loc_IOOV.asm"              ; 0x1f39
 
 %include "vmele/api_idx_000e_IIQQ.asm"     ; 0x2138
 
@@ -85,13 +91,21 @@ loc_000e:
 
 %include "vmele/api_idx_001c_KTJV.asm"     ; 0x2565
 
-%include "vmele/api_idx_000e_SVUU.asm"     ; 0x27ab
+%include "lib/api_idx_000e_SVUU.asm"     ; 0x27ab
+
+%include "lib/loc_MLTS.asm"              ; 0x28a0
 
 %include "vmele/api_idx_0002_JUSU.asm"     ; 0x28fc
 
+%include "vmele/loc_JROU.asm"              ; 0x299f
+
 %include "vmele/api_idx_000c_NPUK.asm"     ; 0x29c5
 
+%include "vmele/loc_SKOS.asm"              ; 0x2b19
+
 %include "vmele/api_idx_0006_VSSG.asm"     ; 0x2b78
+
+%include "vmele/loc_RHMS.asm"              ; 0x2cc7
 
 %include "vmele/api_idx_005a_PGKO.asm"     ; 0x2cde
 
@@ -113,7 +127,11 @@ loc_000e:
 
 %include "vmele/api_idx_0056_KGVT.asm"     ; 0x31a1
 
+%include "vmele/loc_TSON.asm"              ; 0x331c
+
 %include "vmele/api_idx_0004_MRMJ.asm"     ; 0x3390
+
+%include "vmele/loc_KQPM.asm"              ; 0x33df
 
 %include "vmele/api_idx_0002_IMMM.asm"     ; 0x36b8
 

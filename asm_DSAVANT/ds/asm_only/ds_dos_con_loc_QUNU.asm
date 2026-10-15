@@ -13,5 +13,3 @@ ds_dos_con_loc_QUNU:
     db 'Unable to load sound driver', 0
     db 0x0a, 0x24
 
-cseg_3672:
-    db 0x90, 0x01

@@ -474,7 +474,7 @@ api_idx_00d4_GSJO:
     imul word [bp - 0x0006]          ; 0x3bcf
     add ax, 0x5bf4                   ; 0x3bd2
     push ax                          ; 0x3bd5
-    call loc_0149                    ; 0x3bd6
+    call loc_LKKH                    ; 0x3bd6
     add sp, byte 8                   ; 0x3bd9
     mov ax, 0x16                     ; 0x3bdc
     push ax                          ; 0x3bdf
@@ -484,7 +484,7 @@ api_idx_00d4_GSJO:
     push ax                          ; 0x3be7
     lea ax, word [bp - 0x00d4]       ; 0x3be8
     push ax                          ; 0x3bec
-    call loc_0149                    ; 0x3bed
+    call loc_LKKH                    ; 0x3bed
     add sp, byte 8                   ; 0x3bf0
     mov word [bp - 0x009e], 0        ; 0x3bf3
     mov word [bp - 0x00a0], 0        ; 0x3bf9
@@ -511,7 +511,7 @@ api_idx_00d4_GSJO:
     push ax                          ; 0x3c27
     mov ax, 0xbb8                    ; 0x3c28
     push ax                          ; 0x3c2b
-    call loc_111b                    ; 0x3c2c
+    call loc_OSMV                    ; 0x3c2c
     add sp, byte 0x18                ; 0x3c2f
     mov word [bp - 0x0008], ax       ; 0x3c32
     cmp ax, strict word 0            ; 0x3c35
@@ -538,7 +538,7 @@ api_idx_00d4_GSJO:
 @..api_idx_00d4_GSJO.l42:
     mov ax, word [bp - 0x0008]       ; 0x3c65
     jmp near @..api_idx_00d4_GSJO.l66 ; 0x3c68
-loc_3c6b:
+loc_UKRL:
     mov ax, 0                        ; 0x3c6b
     push ax                          ; 0x3c6e
     call api_idx_0006_NSNR           ; 0x3c6f
@@ -553,7 +553,7 @@ loc_3c6b:
     imul word [bp - 0x0006]          ; 0x3c82
     add ax, 0x5bf4                   ; 0x3c85
     push ax                          ; 0x3c88
-    call loc_0149                    ; 0x3c89
+    call loc_LKKH                    ; 0x3c89
     add sp, byte 8                   ; 0x3c8c
     mov ax, 0x16                     ; 0x3c8f
     push ax                          ; 0x3c92
@@ -563,7 +563,7 @@ loc_3c6b:
     push ax                          ; 0x3c9a
     lea ax, word [bp - 0x00d4]       ; 0x3c9b
     push ax                          ; 0x3c9f
-    call loc_0149                    ; 0x3ca0
+    call loc_LKKH                    ; 0x3ca0
     add sp, byte 8                   ; 0x3ca3
     mov ax, 0x248                    ; 0x3ca6
     imul word [bp - 0x0006]          ; 0x3ca9
@@ -668,7 +668,7 @@ loc_3c6b:
     push ax                          ; 0x3daa
     mov ax, 0xbea                    ; 0x3dab
     push ax                          ; 0x3dae
-    call loc_111b                    ; 0x3daf
+    call loc_OSMV                    ; 0x3daf
     add sp, byte 0x18                ; 0x3db2
     mov word [bp - 0x0098], ax       ; 0x3db5
 @..api_idx_00d4_GSJO.l50:
@@ -727,7 +727,7 @@ loc_3c6b:
     mov word [bp - 0x009e], 1        ; 0x3e45
 @..api_idx_00d4_GSJO.l56:
     jmp near @..api_idx_00d4_GSJO.l67 ; 0x3e4b
-loc_3e4e:
+loc_RNKP:
     mov ax, 0                        ; 0x3e4e
     push ax                          ; 0x3e51
     call api_idx_0006_NSNR           ; 0x3e52
@@ -742,7 +742,7 @@ loc_3e4e:
     imul word [bp - 0x0006]          ; 0x3e65
     add ax, 0x5bf4                   ; 0x3e68
     push ax                          ; 0x3e6b
-    call loc_0149                    ; 0x3e6c
+    call loc_LKKH                    ; 0x3e6c
     add sp, byte 8                   ; 0x3e6f
     mov ax, 0x16                     ; 0x3e72
     push ax                          ; 0x3e75
@@ -752,7 +752,7 @@ loc_3e4e:
     push ax                          ; 0x3e7d
     lea ax, word [bp - 0x00d4]       ; 0x3e7e
     push ax                          ; 0x3e82
-    call loc_0149                    ; 0x3e83
+    call loc_LKKH                    ; 0x3e83
     add sp, byte 8                   ; 0x3e86
     mov word [bp - 0x0002], 0        ; 0x3e89
 @..api_idx_00d4_GSJO.l57:
@@ -806,7 +806,7 @@ loc_3e4e:
     push ax                          ; 0x3f06
     mov ax, 0xc1c                    ; 0x3f07
     push ax                          ; 0x3f0a
-    call loc_111b                    ; 0x3f0b
+    call loc_OSMV                    ; 0x3f0b
     add sp, byte 0x18                ; 0x3f0e
     mov word [bp - 0x0098], ax       ; 0x3f11
     cmp ax, strict word 0xffff       ; 0x3f15
@@ -814,9 +814,9 @@ loc_3e4e:
     mov word [bp - 0x009e], 1        ; 0x3f1a
 @..api_idx_00d4_GSJO.l59:
     jmp near @..api_idx_00d4_GSJO.l67 ; 0x3f20
-loc_3f23:
+loc_RSRG_3f23:
     jmp near @..api_idx_00d4_GSJO.l67 ; 0x3f23
-loc_3f26:
+loc_KRVN:
     mov ax, 0                        ; 0x3f26
     push ax                          ; 0x3f29
     call api_idx_0006_NSNR           ; 0x3f2a
@@ -829,7 +829,7 @@ loc_3f26:
     push ax                          ; 0x3f39
     lea ax, word [bp - 0x00d4]       ; 0x3f3a
     push ax                          ; 0x3f3e
-    call loc_0149                    ; 0x3f3f
+    call loc_LKKH                    ; 0x3f3f
     add sp, byte 8                   ; 0x3f42
     push word [bp - 0x0006]          ; 0x3f45
     call api_idx_000a_PJMP           ; 0x3f48
@@ -840,7 +840,7 @@ loc_3f26:
     mov word [bp - 0x009e], 1        ; 0x3f55
 @..api_idx_00d4_GSJO.l60:
     jmp near @..api_idx_00d4_GSJO.l67 ; 0x3f5b
-loc_3f5e:
+loc_RJIN:
     mov ax, 0                        ; 0x3f5e
     push ax                          ; 0x3f61
     call api_idx_0006_NSNR           ; 0x3f62
@@ -853,7 +853,7 @@ loc_3f5e:
     push ax                          ; 0x3f71
     lea ax, word [bp - 0x00d4]       ; 0x3f72
     push ax                          ; 0x3f76
-    call loc_0149                    ; 0x3f77
+    call loc_LKKH                    ; 0x3f77
     add sp, byte 8                   ; 0x3f7a
     push word [bp - 0x0006]          ; 0x3f7d
     call api_idx_0094_USLJ           ; 0x3f80
@@ -864,7 +864,7 @@ loc_3f5e:
     mov word [bp - 0x009e], 1        ; 0x3f8d
 @..api_idx_00d4_GSJO.l61:
     jmp near @..api_idx_00d4_GSJO.l67 ; 0x3f93
-loc_3f96:
+loc_TQIM:
     call ds_app_io_VJGM              ; 0x3f96
     mov word [bp - 0x0098], ax       ; 0x3f99
     cmp ax, strict word 0xffff       ; 0x3f9d
@@ -872,14 +872,14 @@ loc_3f96:
     mov word [bp - 0x009e], 1        ; 0x3fa2
 @..api_idx_00d4_GSJO.l62:
     jmp near @..api_idx_00d4_GSJO.l67 ; 0x3fa8
-loc_3fab:
+loc_RSRG_3fab:
     jmp near @..api_idx_00d4_GSJO.l67 ; 0x3fab
-loc_3fae:
+loc_VPTK:
     mov word [bp - 0x0098], 8        ; 0x3fae
     jmp near @..api_idx_00d4_GSJO.l67 ; 0x3fb4
-loc_3fb7:
+loc_RSRG_3fb7:
     jmp near @..api_idx_00d4_GSJO.l67 ; 0x3fb7
-loc_3fba:
+loc_QKLL:
     mov ax, 0                        ; 0x3fba
     push ax                          ; 0x3fbd
     mov ax, 0x2d                     ; 0x3fbe
@@ -927,7 +927,7 @@ loc_3fba:
     dec word [bp - 0x00b4]           ; 0x4027
     mov word [bp - 0x00a0], 1        ; 0x402b
     jmp short @..api_idx_00d4_GSJO.l67 ; 0x4031
-loc_4033:
+loc_LMNJ:
     mov ax, 0                        ; 0x4033
     push ax                          ; 0x4036
     mov ax, 0x2d                     ; 0x4037
@@ -941,17 +941,17 @@ loc_4033:
     mov word [bp - 0x00b4], 0        ; 0x4050
     jmp short @..api_idx_00d4_GSJO.l67 ; 0x4056
 jumptable_4058:
-    dw loc_3c6b - IMAGE_BASE + 0x5055          ; 0x4058
-    dw loc_3e4e - IMAGE_BASE + 0x5055          ; 0x405a
-    dw loc_3fab - IMAGE_BASE + 0x5055          ; 0x405c
-    dw loc_3f26 - IMAGE_BASE + 0x5055          ; 0x405e
-    dw loc_3f5e - IMAGE_BASE + 0x5055          ; 0x4060
-    dw loc_3fae - IMAGE_BASE + 0x5055          ; 0x4062
-    dw loc_3fb7 - IMAGE_BASE + 0x5055          ; 0x4064
-    dw loc_3f96 - IMAGE_BASE + 0x5055          ; 0x4066
-    dw loc_3f23 - IMAGE_BASE + 0x5055          ; 0x4068
-    dw loc_3fba - IMAGE_BASE + 0x5055          ; 0x406a
-    dw loc_4033 - IMAGE_BASE + 0x5055          ; 0x406c
+    dw loc_UKRL - IMAGE_BASE + 0x5055          ; 0x4058
+    dw loc_RNKP - IMAGE_BASE + 0x5055          ; 0x405a
+    dw loc_RSRG_3fab - IMAGE_BASE + 0x5055     ; 0x405c
+    dw loc_KRVN - IMAGE_BASE + 0x5055          ; 0x405e
+    dw loc_RJIN - IMAGE_BASE + 0x5055          ; 0x4060
+    dw loc_VPTK - IMAGE_BASE + 0x5055          ; 0x4062
+    dw loc_RSRG_3fb7 - IMAGE_BASE + 0x5055     ; 0x4064
+    dw loc_TQIM - IMAGE_BASE + 0x5055          ; 0x4066
+    dw loc_RSRG_3f23 - IMAGE_BASE + 0x5055     ; 0x4068
+    dw loc_QKLL - IMAGE_BASE + 0x5055          ; 0x406a
+    dw loc_LMNJ - IMAGE_BASE + 0x5055          ; 0x406c
 @..api_idx_00d4_GSJO.l66:
     cmp ax, strict word 0xb          ; 0x406e
     jae short @..api_idx_00d4_GSJO.l67 ; 0x4071
@@ -975,11 +975,11 @@ jumptable_4058:
     push ax                          ; 0x4098
     lea ax, word [bp - 0x00d4]       ; 0x4099
     push ax                          ; 0x409d
-    call loc_0149                    ; 0x409e
+    call loc_LKKH                    ; 0x409e
     add sp, byte 8                   ; 0x40a1
     mov ax, 0                        ; 0x40a4
     push ax                          ; 0x40a7
-    call loc_02af                    ; 0x40a8
+    call loc_HGQP                    ; 0x40a8
     pop cx                           ; 0x40ab
     mov ax, 0x32                     ; 0x40ac
     push ax                          ; 0x40af
@@ -1195,11 +1195,11 @@ jumptable_4058:
     push ax                          ; 0x42bf
     lea ax, word [bp - 0x0096]       ; 0x42c0
     push ax                          ; 0x42c4
-    call loc_0149                    ; 0x42c5
+    call loc_LKKH                    ; 0x42c5
     add sp, byte 8                   ; 0x42c8
     mov ax, 3                        ; 0x42cb
     push ax                          ; 0x42ce
-    call loc_02af                    ; 0x42cf
+    call loc_HGQP                    ; 0x42cf
     pop cx                           ; 0x42d2
     mov word [bp - 0x0002], 0        ; 0x42d3
 @..api_idx_00d4_GSJO.l84:
@@ -1241,7 +1241,7 @@ jumptable_4058:
     push ax                          ; 0x432d
     mov ax, 0xdb3                    ; 0x432e
     push ax                          ; 0x4331
-    call loc_111b                    ; 0x4332
+    call loc_OSMV                    ; 0x4332
     add sp, byte 0x18                ; 0x4335
     mov word [bp - 0x0002], ax       ; 0x4338
     cmp ax, strict word 2            ; 0x433b

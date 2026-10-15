@@ -15,7 +15,7 @@ api_idx_0008_KGRN:
     imul word [bp + 0x8]             ; 0x1cf0
     add ax, strict word 0x46         ; 0x1cf3
     push ax                          ; 0x1cf6
-    call loc_1c7f                    ; 0x1cf7
+    call loc_NSKO                    ; 0x1cf7
     add sp, byte 6                   ; 0x1cfa
     mov word [bss_8300], ax          ; 0x1cfd
     jmp near loc_238c                ; 0x1d00
@@ -32,7 +32,7 @@ api_idx_0008_KGRN:
     idiv cx                          ; 0x1d1d
     inc ax                           ; 0x1d1f
     push ax                          ; 0x1d20
-    call loc_1c7f                    ; 0x1d21
+    call loc_NSKO                    ; 0x1d21
     add sp, byte 6                   ; 0x1d24
     mov word [bss_82f4], ax          ; 0x1d27
     jmp near loc_238c                ; 0x1d2a
@@ -49,7 +49,7 @@ api_idx_0008_KGRN:
     idiv cx                          ; 0x1d47
     inc ax                           ; 0x1d49
     push ax                          ; 0x1d4a
-    call loc_1c7f                    ; 0x1d4b
+    call loc_NSKO                    ; 0x1d4b
     add sp, byte 6                   ; 0x1d4e
     mov word [bss_82f8], ax          ; 0x1d51
     jmp near loc_238c                ; 0x1d54
@@ -70,7 +70,7 @@ api_idx_0008_KGRN:
     mov ax, 5                        ; 0x1d83
     imul word [bp + 0x8]             ; 0x1d86
     push ax                          ; 0x1d89
-    call loc_1c7f                    ; 0x1d8a
+    call loc_NSKO                    ; 0x1d8a
     add sp, byte 6                   ; 0x1d8d
     mov word [bss_82fc], ax          ; 0x1d90
     jmp near loc_238c                ; 0x1d93

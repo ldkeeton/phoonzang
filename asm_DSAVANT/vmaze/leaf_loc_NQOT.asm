@@ -25,7 +25,7 @@ leaf_loc_NQOT:
     mov ax, 0xd                      ; 0x45ff
 @..leaf_loc_NQOT.l1:
     mov word [bp - 0x000a], ax       ; 0x4602
-    jmp short loc_4623               ; 0x4605
+    jmp short loc_RJVS               ; 0x4605
 jumptable_4607:
     dw leaf_loc_NTNI - IMAGE_BASE + 0x5055     ; 0x4607
     dw leaf_loc_VPPN - IMAGE_BASE + 0x5055     ; 0x4609
@@ -36,13 +36,13 @@ jumptable_4607:
 @..leaf_loc_VJPL.l39:
     sub ax, strict word 0xa          ; 0x4613
     cmp ax, strict word 6            ; 0x4616
-    jae short loc_4623               ; 0x4619
+    jae short loc_RJVS               ; 0x4619
     xchg bx, ax                      ; 0x461b
     shl bx, 1                        ; 0x461c
     jmp [cs:bx - 0x69b2]             ; 0x461e
-loc_4623:
+loc_RJVS:
     cmp word [bp - 0x000c], byte 0xff ; 0x4623
-    je short loc_4664                ; 0x4627
+    je short loc_NUGN_4664           ; 0x4627
     mov ax, 3                        ; 0x4629
     push ax                          ; 0x462c
     mov ax, 1                        ; 0x462d
@@ -67,5 +67,5 @@ loc_4623:
     push word [bp - 0x000c]          ; 0x465b
     call api_idx_0004_HUKS           ; 0x465e
     add sp, byte 0x1c                ; 0x4661
-loc_4664:
+loc_NUGN_4664:
     ret                              ; 0x4664

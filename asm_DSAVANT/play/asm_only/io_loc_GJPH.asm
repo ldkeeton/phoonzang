@@ -112,8 +112,8 @@ loc_0381:
     mov dx, word [cs:data_0b8b]      ; 0x03bf
     mov al, 0x80                     ; 0x03c4
     out dx, al                       ; 0x03c6
-    jmp near loc_0592                ; 0x03c7
-    jmp near loc_0592                ; 0x03ca
+    jmp near loc_JRLR                ; 0x03c7
+    jmp near loc_JRLR                ; 0x03ca
     times 14 db 0
     add al, ch                       ; 0x03db
     or ax, 0xe903                    ; 0x03dd
@@ -121,7 +121,7 @@ loc_0381:
 @..bios_disk_loc_RVRG.l5:
     cmp byte [bp + 0x12], 0          ; 0x03e2
     jne short @..bios_disk_loc_RVRG.l7 ; 0x03e6
-    call loc_01b0                    ; 0x03e8
+    call loc_LJTJ                    ; 0x03e8
 @..bios_disk_loc_RVRG.l6:
     test byte [cs:cseg_0a94 - IMAGE_BASE], 0xff ; 0x03eb
     je short @..bios_disk_loc_RVRG.l6 ; 0x03f1
@@ -131,52 +131,15 @@ loc_0381:
     je short @..bios_disk_loc_RVRG.l8 ; 0x03fa
     test byte [cs:cseg_0a94 - IMAGE_BASE], 0xff ; 0x03fc
     jne short @..bios_disk_loc_RVRG.l8 ; 0x0402
-    jmp near loc_0592                ; 0x0404
+    jmp near loc_JRLR                ; 0x0404
 @..bios_disk_loc_RVRG.l8:
     cli                              ; 0x0407
     test byte [cs:cseg_0a94 - IMAGE_BASE], 0xff ; 0x0408
     jne short @..bios_disk_loc_RVRG.l9 ; 0x040e
-    jmp near loc_04c3                ; 0x0410
+    jmp near loc_SKML                ; 0x0410
 @..bios_disk_loc_RVRG.l9:
     xor ax, ax                       ; 0x0413
     mov es, ax                       ; 0x0415
     mov di, 0x20                     ; 0x0417
     cli                              ; 0x041a
     cmp byte [cs:cseg_0321 - IMAGE_BASE], 0 ; 0x041b
-data_0421:
-    jne short @..bios_disk_loc_RVRG.l10 ; 0x0421
-    mov byte [cs:cseg_0321 - IMAGE_BASE], 1 ; 0x0423
-    in al, 0x21                      ; 0x0429
-    mov byte [cs:cseg_0a8f - IMAGE_BASE], al ; 0x042b
-    mov ax, word [es:di]             ; 0x042f
-    mov word [cs:cseg_0b10 - IMAGE_BASE], ax ; 0x0432
-    mov ax, word [es:di + 0x2]       ; 0x0436
-    mov word [cs:cseg_0b12 - IMAGE_BASE], ax ; 0x043a
-@..bios_disk_loc_RVRG.l10:
-    mov al, 0x34                     ; 0x043e
-    out 0x43, al                     ; 0x0440
-    call leaf_loc_KROT               ; 0x0442
-    mov ax, 0x48                     ; 0x0445
-    out 0x40, al                     ; 0x0448
-    call leaf_loc_KROT               ; 0x044a
-    mov al, ah                       ; 0x044d
-    out 0x40, al                     ; 0x044f
-    cmp byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x0451
-    je short @..bios_disk_loc_RVRG.l11 ; 0x0457
-    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x0459
-    shl bl, 1                        ; 0x045e
-    xor bh, bh                       ; 0x0460
-    mov dx, word [cs:bx + 0x5a5]     ; 0x0462
-    cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x0467
-    je short loc_04b5                ; 0x046d
-    mov dx, word [cs:bx + 0x5ad]     ; 0x046f
-    jmp near loc_04b5                ; 0x0474
-@..bios_disk_loc_RVRG.l11:
-    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x0477
-    shl bl, 1                        ; 0x047c
-    xor bh, bh                       ; 0x047e
-    mov dx, word [cs:bx + 0x595]     ; 0x0480
-    cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x0485
-    je short loc_04b5                ; 0x048b
-    mov dx, word [cs:bx + 0x59d]     ; 0x048d
-    jmp near loc_04b5                ; 0x0492

@@ -50,7 +50,7 @@ api_idx_0004_HVMV:
     mov word [bx + 0x2], ax          ; 0x03fb
     mov ax, word [bp + 0x6]          ; 0x03fe
     jmp short @..api_idx_0004_HVMV.l3 ; 0x0401
-loc_0403:
+loc_JNIM:
     mov ax, word [bp + 0xe]          ; 0x0403
     mov cx, 4                        ; 0x0406
     shl ax, cl                       ; 0x0409
@@ -65,12 +65,12 @@ loc_0403:
     mov bx, word [bp - 0x0004]       ; 0x041e
     mov word [bx + 0x4], ax          ; 0x0421
     jmp short @..api_idx_0004_HVMV.l4 ; 0x0424
-loc_0426:
+loc_NMIT:
     mov ax, word [bp + 0xe]          ; 0x0426
     mov bx, word [bp - 0x0004]       ; 0x0429
     mov word [bx + 0x4], ax          ; 0x042c
     jmp short @..api_idx_0004_HVMV.l4 ; 0x042f
-loc_0431:
+loc_PGKQ:
     mov ax, word [bp + 0xe]          ; 0x0431
     xchg al, ah                      ; 0x0434
     sub al, al                       ; 0x0436
@@ -78,7 +78,7 @@ loc_0431:
     mov bx, word [bp - 0x0004]       ; 0x043b
     mov word [bx + 0x4], ax          ; 0x043e
     jmp short @..api_idx_0004_HVMV.l4 ; 0x0441
-loc_0443:
+loc_HJVU:
     mov ax, word [bp + 0x8]          ; 0x0443
     mov bx, word [bp - 0x0004]       ; 0x0446
     mov word [bx + 0x2], ax          ; 0x0449
@@ -87,13 +87,13 @@ loc_0443:
     mov word [bx + 0x4], ax          ; 0x0452
     jmp short @..api_idx_0004_HVMV.l4 ; 0x0455
 jumptable_0457:
-    dw loc_0403 - IMAGE_BASE + 0x5055          ; 0x0457
-    dw loc_0426 - IMAGE_BASE + 0x5055          ; 0x0459
-    dw loc_0426 - IMAGE_BASE + 0x5055          ; 0x045b
-    dw loc_0426 - IMAGE_BASE + 0x5055          ; 0x045d
-    dw loc_0426 - IMAGE_BASE + 0x5055          ; 0x045f
-    dw loc_0431 - IMAGE_BASE + 0x5055          ; 0x0461
-    dw loc_0443 - IMAGE_BASE + 0x5055          ; 0x0463
+    dw loc_JNIM - IMAGE_BASE + 0x5055          ; 0x0457
+    dw loc_NMIT - IMAGE_BASE + 0x5055          ; 0x0459
+    dw loc_NMIT - IMAGE_BASE + 0x5055          ; 0x045b
+    dw loc_NMIT - IMAGE_BASE + 0x5055          ; 0x045d
+    dw loc_NMIT - IMAGE_BASE + 0x5055          ; 0x045f
+    dw loc_PGKQ - IMAGE_BASE + 0x5055          ; 0x0461
+    dw loc_HJVU - IMAGE_BASE + 0x5055          ; 0x0463
 @..api_idx_0004_HVMV.l3:
     cmp ax, strict word 7            ; 0x0465
     jae short @..api_idx_0004_HVMV.l4 ; 0x0468

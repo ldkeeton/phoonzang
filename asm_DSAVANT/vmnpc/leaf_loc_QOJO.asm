@@ -1,30 +1,30 @@
 ; auto-generated
 leaf_loc_QOJO:
     mov word [bp - 0x005c], 0        ; 0x6592
-    jmp short loc_65b2               ; 0x6597
+    jmp short loc_LHUN               ; 0x6597
 jumptable_6599:
-    dw loc_63c8 - IMAGE_BASE + 0x5055          ; 0x6599
-    dw loc_6485 - IMAGE_BASE + 0x5055          ; 0x659b
-    dw loc_641a - IMAGE_BASE + 0x5055          ; 0x659d
-    dw loc_6462 - IMAGE_BASE + 0x5055          ; 0x659f
-    dw loc_6485 - IMAGE_BASE + 0x5055          ; 0x65a1
+    dw loc_MVOJ - IMAGE_BASE + 0x5055          ; 0x6599
+    dw loc_SNPN - IMAGE_BASE + 0x5055          ; 0x659b
+    dw loc_SNLO - IMAGE_BASE + 0x5055          ; 0x659d
+    dw loc_HUMP - IMAGE_BASE + 0x5055          ; 0x659f
+    dw loc_SNPN - IMAGE_BASE + 0x5055          ; 0x65a1
     dw leaf_loc_QOJO - IMAGE_BASE + 0x5055     ; 0x65a3
-loc_65a5:
+loc_SVLK:
     cmp ax, strict word 6            ; 0x65a5
-    jae short loc_65b2               ; 0x65a8
+    jae short loc_LHUN               ; 0x65a8
     xchg bx, ax                      ; 0x65aa
     shl bx, 1                        ; 0x65ab
     jmp [cs:bx - 0x4a20]             ; 0x65ad
-loc_65b2:
+loc_LHUN:
     cmp word [bp - 0x005c], byte 0   ; 0x65b2
-    je short loc_65bb                ; 0x65b6
-    jmp near loc_6359                ; 0x65b8
-loc_65bb:
+    je short loc_KNGQ                ; 0x65b6
+    jmp near loc_RJPL                ; 0x65b8
+loc_KNGQ:
     cmp word [bp - 0x0060], byte 5   ; 0x65bb
-    jne short loc_65c5               ; 0x65bf
+    jne short loc_PRKR               ; 0x65bf
     mov ax, 0                        ; 0x65c1
     ret                              ; 0x65c4
-loc_65c5:
+loc_PRKR:
     mov ax, 0x248                    ; 0x65c5
     imul word [bp + 0x4]             ; 0x65c8
     mov bx, ax                       ; 0x65cb
@@ -99,22 +99,22 @@ loc_65c5:
     push ax                          ; 0x6672
     lea ax, word [bp - 0x005a]       ; 0x6673
     push ax                          ; 0x6676
-    call loc_130b                    ; 0x6677
+    call loc_TJUO                    ; 0x6677
     add sp, byte 8                   ; 0x667a
     mov word [bp - 0x000a], 0        ; 0x667d
     mov ax, word [bp - 0x0004]       ; 0x6682
     cmp ax, word [bp - 0x0002]       ; 0x6685
-    jge short loc_66d9               ; 0x6688
+    jge short loc_HHGR               ; 0x6688
     cmp word [bss_9d62], byte 3      ; 0x668a
-    jne short loc_66a2               ; 0x668f
+    jne short loc_OPIU               ; 0x668f
     mov ax, 3                        ; 0x6691
     push ax                          ; 0x6694
     mov ax, 0x1c                     ; 0x6695
     push ax                          ; 0x6698
     push word [bp + 0x4]             ; 0x6699
-    call loc_8662                    ; 0x669c
+    call loc_VRUN_8662               ; 0x669c
     add sp, byte 6                   ; 0x669f
-loc_66a2:
+loc_OPIU:
     mov ax, 0x55                     ; 0x66a2
     push ax                          ; 0x66a5
     mov ax, 1                        ; 0x66a6
@@ -137,15 +137,15 @@ loc_66a2:
     add ax, strict word 5            ; 0x66cb
     mov word [bp - 0x0008], ax       ; 0x66ce
     mov word [bp - 0x000a], 1        ; 0x66d1
-    jmp near loc_6767                ; 0x66d6
-loc_66d9:
+    jmp near loc_KRRP                ; 0x66d6
+loc_HHGR:
     mov ax, word [bp - 0x0002]       ; 0x66d9
     imul word [bss_9d62]             ; 0x66dc
     cmp ax, word [bp - 0x0004]       ; 0x66e0
-    jl short loc_66eb                ; 0x66e3
+    jl short loc_SSJO                ; 0x66e3
     cmp word [bp - 0x0004], byte 0x5f ; 0x66e5
-    jl short loc_6733                ; 0x66e9
-loc_66eb:
+    jl short loc_LSVT                ; 0x66e9
+loc_SSJO:
     mov ax, 0x16                     ; 0x66eb
     push ax                          ; 0x66ee
     mov ax, 1                        ; 0x66ef
@@ -176,8 +176,8 @@ loc_66eb:
     sub ax, cx                       ; 0x6727
     mov word [bp - 0x0008], ax       ; 0x6729
     mov word [bp - 0x000a], 0xffff   ; 0x672c
-    jmp short loc_6767               ; 0x6731
-loc_6733:
+    jmp short loc_KRRP               ; 0x6731
+loc_LSVT:
     mov ax, 0x55                     ; 0x6733
     push ax                          ; 0x6736
     mov ax, 1                        ; 0x6737
@@ -200,11 +200,11 @@ loc_6733:
     add ax, strict word 0xfffb       ; 0x675c
     mov word [bp - 0x0008], ax       ; 0x675f
     mov word [bp - 0x000a], 0        ; 0x6762
-loc_6767:
+loc_KRRP:
     push word [bp - 0x0008]          ; 0x6767
     push word [bp - 0x0006]          ; 0x676a
     push word [bp + 0x4]             ; 0x676d
-    call loc_85f9                    ; 0x6770
+    call loc_MQOK                    ; 0x6770
     add sp, byte 6                   ; 0x6773
     mov ax, word [bp - 0x000a]       ; 0x6776
     ret                              ; 0x6779

@@ -6,7 +6,7 @@ api_idx_0010_HHTV:
     push word [bss_8464]             ; 0x9a39
     mov ax, 0x90e6                   ; 0x9a3d
     push ax                          ; 0x9a40
-    call loc_15ab                    ; 0x9a41
+    call loc_QJUS                    ; 0x9a41
     add sp, byte 6                   ; 0x9a44
     mov ax, 0x9136                   ; 0x9a47
     push ax                          ; 0x9a4a
@@ -195,7 +195,7 @@ api_idx_0010_HHTV:
     cwd                              ; 0x9c04
     idiv cx                          ; 0x9c05
     mov word [bp - 0x000a], dx       ; 0x9c07
-    call loc_1849                    ; 0x9c0a
+    call loc_UGGT                    ; 0x9c0a
     mov word [bp - 0x0010], ax       ; 0x9c0d
     mov word [bp - 0x0002], 0        ; 0x9c10
 @..api_idx_0010_HHTV.l10:
@@ -283,7 +283,7 @@ api_idx_0010_HHTV:
     call api_idx_0006_RITV           ; 0x9cdb
     cmp word [bss_845e], byte 0xfe   ; 0x9cde
     jne short @..api_idx_0010_HHTV.l20 ; 0x9ce3
-    call loc_1849                    ; 0x9ce5
+    call loc_UGGT                    ; 0x9ce5
     mov word [bp - 0x0010], ax       ; 0x9ce8
     cmp word [bp - 0x0010], byte 0   ; 0x9ceb
     je short @..api_idx_0010_HHTV.l21 ; 0x9cef
@@ -330,7 +330,7 @@ api_idx_0010_HHTV:
     mov word [bx - 0x7bc6], 0        ; 0x9d4a
     mov bx, word [bp + 0x4]          ; 0x9d50
     mov byte [bx + 0x2a], 0xff       ; 0x9d53
-    call loc_1a35                    ; 0x9d57
+    call loc_MGLK                    ; 0x9d57
     jmp short @..api_idx_0010_HHTV.l25 ; 0x9d5a
 @..api_idx_0010_HHTV.l24:
     mov ax, word [bss_9058]          ; 0x9d5c
@@ -360,83 +360,3 @@ api_idx_0010_HHTV:
     pop cx                           ; 0x9d8b
 @..api_idx_0010_HHTV.l27:
     ret                              ; 0x9d8c
-loc_9d8d:
-    mov ax, 0xfd8a                   ; 0x9d8d
-    call aztec_csav                  ; 0x9d90
-    mov ax, 0x248                    ; 0x9d93
-    push ax                          ; 0x9d96
-    mov ax, 0x248                    ; 0x9d97
-    imul word [bp + 0x4]             ; 0x9d9a
-    add ax, 0x5bf4                   ; 0x9d9d
-    push ax                          ; 0x9da0
-    mov ax, 0x248                    ; 0x9da1
-    imul word [bp + 0x6]             ; 0x9da4
-    add ax, 0x5bf4                   ; 0x9da7
-    push ax                          ; 0x9daa
-    call string_loc_SINO             ; 0x9dab
-    add sp, byte 6                   ; 0x9dae
-    mov ax, 0x2c                     ; 0x9db1
-    push ax                          ; 0x9db4
-    mov ax, 0x2c                     ; 0x9db5
-    imul word [bp + 0x4]             ; 0x9db8
-    mov cx, ax                       ; 0x9dbb
-    mov ax, word [bss_8482]          ; 0x9dbd
-    add ax, cx                       ; 0x9dc0
-    push ax                          ; 0x9dc2
-    mov ax, 0x2c                     ; 0x9dc3
-    imul word [bp + 0x6]             ; 0x9dc6
-    mov cx, ax                       ; 0x9dc9
-    mov ax, word [bss_8482]          ; 0x9dcb
-    add ax, cx                       ; 0x9dce
-    push ax                          ; 0x9dd0
-    call string_loc_SINO             ; 0x9dd1
-    add sp, byte 6                   ; 0x9dd4
-    mov ax, word [bp + 0x6]          ; 0x9dd7
-    shl ax, 1                        ; 0x9dda
-    mov bx, ax                       ; 0x9ddc
-    mov ax, word [bx - 0x750e]       ; 0x9dde
-    mov word [bp - 0x0276], ax       ; 0x9de2
-    mov ax, word [bp + 0x4]          ; 0x9de6
-    shl ax, 1                        ; 0x9de9
-    mov bx, ax                       ; 0x9deb
-    mov ax, word [bx - 0x750e]       ; 0x9ded
-    mov cx, word [bp + 0x6]          ; 0x9df1
-    shl cx, 1                        ; 0x9df4
-    mov bx, cx                       ; 0x9df6
-    mov word [bx - 0x750e], ax       ; 0x9df8
-    mov ax, word [bp - 0x0276]       ; 0x9dfc
-    mov cx, word [bp + 0x4]          ; 0x9e00
-    shl cx, 1                        ; 0x9e03
-    mov bx, cx                       ; 0x9e05
-    mov word [bx - 0x750e], ax       ; 0x9e07
-    mov ax, word [bp + 0x6]          ; 0x9e0b
-    shl ax, 1                        ; 0x9e0e
-    mov bx, ax                       ; 0x9e10
-    mov ax, word [bx + 0x69bc]       ; 0x9e12
-    mov word [bp - 0x0276], ax       ; 0x9e16
-    mov bx, cx                       ; 0x9e1a
-    mov ax, word [bx + 0x69bc]       ; 0x9e1c
-    mov cx, word [bp + 0x6]          ; 0x9e20
-    shl cx, 1                        ; 0x9e23
-    mov bx, cx                       ; 0x9e25
-    mov word [bx + 0x69bc], ax       ; 0x9e27
-    mov ax, word [bp - 0x0276]       ; 0x9e2b
-    mov cx, word [bp + 0x4]          ; 0x9e2f
-    shl cx, 1                        ; 0x9e32
-    mov bx, cx                       ; 0x9e34
-    mov word [bx + 0x69bc], ax       ; 0x9e36
-    mov ax, 0                        ; 0x9e3a
-    push ax                          ; 0x9e3d
-    push word [bp + 0x4]             ; 0x9e3e
-    call api_idx_0004_RIUU           ; 0x9e41
-    add sp, byte 4                   ; 0x9e44
-    mov ax, 0                        ; 0x9e47
-    push ax                          ; 0x9e4a
-    push word [bp + 0x6]             ; 0x9e4b
-    call api_idx_0004_RIUU           ; 0x9e4e
-    add sp, byte 4                   ; 0x9e51
-    mov ax, 6                        ; 0x9e54
-    push ax                          ; 0x9e57
-    call api_idx_0004_LIRS           ; 0x9e58
-    pop cx                           ; 0x9e5b
-    ret                              ; 0x9e5c

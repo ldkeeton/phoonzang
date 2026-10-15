@@ -15,7 +15,7 @@ api_idx_0008_RMOL:
     imul word [bp + 0x8]             ; 0x221e
     add ax, strict word 0x46         ; 0x2221
     push ax                          ; 0x2224
-    call loc_21ad                    ; 0x2225
+    call loc_NSKO                    ; 0x2225
     add sp, byte 6                   ; 0x2228
     mov word [bss_8300], ax          ; 0x222b
     jmp near loc_297d                ; 0x222e
@@ -32,7 +32,7 @@ api_idx_0008_RMOL:
     idiv cx                          ; 0x224b
     inc ax                           ; 0x224d
     push ax                          ; 0x224e
-    call loc_21ad                    ; 0x224f
+    call loc_NSKO                    ; 0x224f
     add sp, byte 6                   ; 0x2252
     mov word [bss_82f4], ax          ; 0x2255
     jmp near loc_297d                ; 0x2258
@@ -49,7 +49,7 @@ api_idx_0008_RMOL:
     idiv cx                          ; 0x2275
     inc ax                           ; 0x2277
     push ax                          ; 0x2278
-    call loc_21ad                    ; 0x2279
+    call loc_NSKO                    ; 0x2279
     add sp, byte 6                   ; 0x227c
     mov word [bss_82f8], ax          ; 0x227f
     jmp near loc_297d                ; 0x2282
@@ -70,7 +70,7 @@ api_idx_0008_RMOL:
     mov ax, 5                        ; 0x22b1
     imul word [bp + 0x8]             ; 0x22b4
     push ax                          ; 0x22b7
-    call loc_21ad                    ; 0x22b8
+    call loc_NSKO                    ; 0x22b8
     add sp, byte 6                   ; 0x22bb
     mov word [bss_82fc], ax          ; 0x22be
     jmp near loc_297d                ; 0x22c1
@@ -142,7 +142,7 @@ api_idx_0008_RMOL:
     cmp word [bp + 0x6], byte 0x13   ; 0x235c
     je short @..loc_22c4.l6          ; 0x2360
     push word [bp - 0x0002]          ; 0x2362
-    call loc_2190                    ; 0x2365
+    call loc_KUSK                    ; 0x2365
     pop cx                           ; 0x2368
 @..loc_22c4.l6:
     inc word [bp - 0x0002]           ; 0x2369
@@ -170,7 +170,7 @@ api_idx_0008_RMOL:
     mov al, byte [bp - 0x0002]       ; 0x239e
     mov byte [bx + 0x5d5d], al       ; 0x23a1
     push word [bp + 0xa]             ; 0x23a5
-    call loc_2190                    ; 0x23a8
+    call loc_KUSK                    ; 0x23a8
     pop cx                           ; 0x23ab
     jmp near loc_297d                ; 0x23ac
     mov ax, 0x248                    ; 0x23af
@@ -292,7 +292,7 @@ api_idx_0008_RMOL:
     push word [bp + 0x8]             ; 0x2907
     add ax, 0x5c34                   ; 0x290a
     push ax                          ; 0x290d
-loc_290e:
+loc_SOTT:
     push word [bp + 0x4]             ; 0x290e
     call api_idx_009a_VTKM           ; 0x2911
     add sp, byte 6                   ; 0x2914
@@ -346,7 +346,7 @@ jumptable_291f:
     jb short loc_2924                ; 0x296e
 @..api_idx_0004_SUIN.l5:
     js short @..api_idx_0004_SUIN.l7 ; 0x2970
-    jbe short loc_298e               ; 0x2972
+    jbe short loc_RMUR               ; 0x2972
 @..api_idx_0004_SUIN.l6:
     jns short loc_293d               ; 0x2974
     jbe short loc_29d6               ; 0x2976

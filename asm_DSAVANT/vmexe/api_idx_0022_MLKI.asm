@@ -14,7 +14,7 @@ api_idx_0022_MLKI:
     jae short @..api_idx_0022_MLKI.l1 ; 0x2265
     push word [bp + 0x6]             ; 0x2267
     push word [bp + 0x4]             ; 0x226a
-    call loc_1f5d                    ; 0x226d
+    call loc_QVNQ                    ; 0x226d
     add sp, byte 4                   ; 0x2270
     test ax, ax                      ; 0x2273
     je short @..api_idx_0022_MLKI.l2 ; 0x2275
@@ -98,7 +98,7 @@ api_idx_0022_MLKI:
     push word [bp + 0x4]             ; 0x2325
     mov ax, 0x90e6                   ; 0x2328
     push ax                          ; 0x232b
-    call loc_15ab                    ; 0x232c
+    call loc_QJUS                    ; 0x232c
     add sp, byte 6                   ; 0x232f
     mov ax, 2                        ; 0x2332
     push ax                          ; 0x2335
@@ -278,23 +278,3 @@ api_idx_0022_MLKI:
     pop cx                           ; 0x24bd
     mov ax, word [bp - 0x0002]       ; 0x24be
     ret                              ; 0x24c1
-loc_24c2:
-    mov ax, 0                        ; 0x24c2
-    call aztec_csav                  ; 0x24c5
-    mov ax, 4                        ; 0x24c8
-    push ax                          ; 0x24cb
-    mov ax, 2                        ; 0x24cc
-    push ax                          ; 0x24cf
-    call api_idx_0004_VVKL           ; 0x24d0
-    add sp, byte 4                   ; 0x24d3
-    mov ax, 2                        ; 0x24d6
-    push ax                          ; 0x24d9
-    mov ax, 0x41                     ; 0x24da
-    push ax                          ; 0x24dd
-    push word [bp + 0x4]             ; 0x24de
-    call api_idx_0050_MLPI           ; 0x24e1
-    add sp, byte 6                   ; 0x24e4
-    push word [bss_9058]             ; 0x24e7
-    call api_idx_0004_LIRS           ; 0x24eb
-    pop cx                           ; 0x24ee
-    ret                              ; 0x24ef

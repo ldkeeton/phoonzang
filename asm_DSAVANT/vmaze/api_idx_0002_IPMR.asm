@@ -39,7 +39,7 @@ api_idx_0002_IPMR:
     call api_idx_0002_GPPN           ; 0x008c
     call api_idx_0022_UIUS           ; 0x008f
 @..api_idx_0002_IPMR.l3:
-    call loc_0140                    ; 0x0092
+    call loc_KNIO                    ; 0x0092
     call api_idx_0002_NSHG           ; 0x0095
     mov ax, word [bss_830a]          ; 0x0098
     cmp ax, strict word 0x1e         ; 0x009b

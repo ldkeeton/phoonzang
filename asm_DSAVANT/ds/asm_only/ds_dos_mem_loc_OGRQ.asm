@@ -8,7 +8,7 @@ ds_dos_mem_loc_OGRQ:
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x3728
     int 0x21 ; DOS function dispatcher
-ds_loc_372d:
+ds_loc_KRSV:
     ret                              ; 0x372d
 
     db 0x0d, 0x0a, 0x07

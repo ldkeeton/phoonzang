@@ -5,6 +5,13 @@ import re
 from lib.compare.records import _record_span
 from lib.names import startswith_stem, stem
 
+#: Tokens removed before looking for label references: quoted strings and the
+#: trailing ``; 0x<offset>`` comment.
+_NOT_CODE = re.compile(r"'(?:[^']|'')*'|\"[^\"]*\"|;[^\n]*")
+_IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_.]*')
+_DATA_STEMS = ('cseg_', 'data_', 'dseg_', 'bss_', 'seg_', 'esg_', 'ssg_',
+               'psp_', 'jumptable_')
+
 
 def _file_stem(name):
     """Include-file stem for a function label.
@@ -154,6 +161,89 @@ def _extend_split_ranges_with_local_tails(split_ranges, records):
             end = cursor
         extended.append((start, end, name))
     return extended
+
+
+def _split_off_foreign_objects(split_ranges, records, owners=None):
+    """Cut a fragment's trailing neighbours into their own ranges.
+
+    A fragment is cut at *named* routines only, so an unnamed tail -- a data blob
+    (``cseg_XXXX`` + zeros) or a bare ``loc_<addr>`` callee -- is emitted inside
+    the earlier routine's file.  Such an object is *foreign*: it is referenced
+    from outside the fragment that defines it.  Leaving it glued makes identical
+    code produce non-identical files (the address-named neighbour's spelling
+    differs per binary and blocks ``lib.shared``) and puts a routine's bytes in a
+    neighbour's file.
+
+    Only the tail is touched: a foreign label after the last instruction the
+    range's *own* root owns (``owners``) is a neighbour, a label inside the
+    routine's own code is left alone.  A foreign *code* label (a subroutine) is
+    promoted to its own range, so it gets its own file like any other routine.  A
+    foreign *data* label is left for the master file -- a data-only fragment
+    would be neither a routine nor asm-only.
+    """
+    if not split_ranges:
+        return split_ranges
+    owners = owners or {}
+
+    defs = {}
+    spans = []
+    for rec in records:
+        if rec['type'] == 'label':
+            name = rec['text'].removesuffix(':')
+            if not name.startswith('@..'):
+                defs.setdefault(name, rec['offset'])
+            continue
+        start, end = _record_span(rec)
+        if end > start:
+            spans.append((start, end, rec))
+
+    # Which label names does each emitted record mention?  Definitions are label
+    # records; an ``include`` path names a file, not a label, so it is skipped.
+    refs = {}
+    for start, end, rec in spans:
+        if rec['type'] == 'include':
+            continue
+        for token in set(_IDENT.findall(_NOT_CODE.sub(' ', rec.get('text', '')))):
+            if token in defs:
+                refs.setdefault(token, set()).add(start)
+
+    def owner(offset):
+        for index, (start, end, _) in enumerate(split_ranges):
+            if start <= offset < end:
+                return index
+        return None
+
+    result = []
+    for index, (start, end, name) in enumerate(split_ranges):
+        own_end = start - 1
+        for span_start, span_end, rec in spans:
+            if (rec['type'] == 'mnem' and start <= span_start < end
+                    and start in owners.get(span_start, ())):
+                own_end = max(own_end, span_end)
+        cuts = []
+        for label, offset in defs.items():
+            if not own_end <= offset < end:
+                continue
+            # A tail label the range's own code never names is a neighbour: it is
+            # referenced from outside (a blob, a bare ``loc_`` callee) or not at
+            # all (a dead name).  Either way it is not this routine's.
+            if any(owner(source) == index for source in refs.get(label, ())):
+                continue
+            cuts.append((offset, label))
+        if not cuts:
+            result.append((start, end, name))
+            continue
+        cuts.sort()
+        if cuts[0][0] > start:
+            result.append((start, cuts[0][0], name))
+        for position, (offset, label) in enumerate(cuts):
+            if startswith_stem(label, _DATA_STEMS):
+                continue
+            next_offset = cuts[position + 1][0] if position + 1 < len(cuts) else end
+            if next_offset > offset:
+                result.append((offset, next_offset, label))
+    result.sort()
+    return result
 
 
 def _partition_function_records(records, split_ranges, split_dir):

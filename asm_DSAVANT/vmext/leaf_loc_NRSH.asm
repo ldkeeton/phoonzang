@@ -12,4 +12,4 @@ leaf_loc_NRSH:
     mov bx, ax                       ; 0x1d3e
     pop ax                           ; 0x1d40
     mov word [bx - 0x6dec], ax       ; 0x1d41
-    jmp near loc_1e16                ; 0x1d45
+    jmp near loc_SGRK                ; 0x1d45

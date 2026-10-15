@@ -7,4 +7,4 @@ leaf_loc_NPSR:
     inc ax                           ; 0x880c
     inc ax                           ; 0x880d
     mov word [bp - 0x007e], ax       ; 0x880e
-    jmp short loc_8859               ; 0x8811
+    jmp short loc_LJNK               ; 0x8811

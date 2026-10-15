@@ -2,7 +2,7 @@
 leaf_loc_VJPL:
     cmp word [bp + 0x4], byte 4      ; 0x4431
     jl short @..leaf_loc_VJPL.l34    ; 0x4435
-    jmp near loc_4664                ; 0x4437
+    jmp near loc_NUGN_4664           ; 0x4437
 @..leaf_loc_VJPL.l34:
     cmp word [bp + 0x8], byte 1      ; 0x443a
     je short @..leaf_loc_VJPL.l35    ; 0x443e

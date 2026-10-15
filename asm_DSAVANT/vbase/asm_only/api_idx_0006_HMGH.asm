@@ -92,19 +92,3 @@ api_idx_0006_HMGH:
     add sp, byte 8                   ; 0x62c2
 @..api_idx_0006_HMGH.l5:
     ret                              ; 0x62c5
-loc_62c6:
-    mov ax, 0                        ; 0x62c6
-    call aztec_csav                  ; 0x62c9
-@..loc_62c6.l1:
-    cmp word [bss_69c8], byte 0      ; 0x62cc
-    jle short @..loc_62c6.l2         ; 0x62d1
-    mov ax, 0                        ; 0x62d3
-    push ax                          ; 0x62d6
-    mov ax, word [bss_69c8]          ; 0x62d7
-    dec ax                           ; 0x62da
-    push ax                          ; 0x62db
-    call api_idx_0006_HMGH           ; 0x62dc
-    add sp, byte 4                   ; 0x62df
-    jmp short @..loc_62c6.l1         ; 0x62e2
-@..loc_62c6.l2:
-    ret                              ; 0x62e4

@@ -4,4 +4,4 @@ leaf_loc_MSNI:
     jne short @..leaf_loc_MSNI.l1    ; 0x3275
     mov word [bp - 0x0004], 0xd      ; 0x3277
 @..leaf_loc_MSNI.l1:
-    jmp near loc_3387                ; 0x327c
+    jmp near loc_JULJ                ; 0x327c

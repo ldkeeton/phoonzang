@@ -89,7 +89,7 @@ api_idx_0020_RPUV:
     push ax                          ; 0x33ff
     mov ax, 0x20                     ; 0x3400
     push ax                          ; 0x3403
-    call ds_loc_3a77                 ; 0x3404
+    call ds_loc_PQIO                 ; 0x3404
     add sp, byte 4                   ; 0x3407
     mov ax, 0                        ; 0x340a
     push ax                          ; 0x340d

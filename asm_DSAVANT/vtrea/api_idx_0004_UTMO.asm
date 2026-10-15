@@ -43,10 +43,10 @@ api_idx_0004_UTMO:
     jne short @..api_idx_0004_UTMO.l5 ; 0x0944
     ret                              ; 0x0946
 @..api_idx_0004_UTMO.l5:
-    call loc_086b                    ; 0x0947
+    call loc_IQGR                    ; 0x0947
     test ax, ax                      ; 0x094a
     jne short @..api_idx_0004_UTMO.l6 ; 0x094c
-    call loc_82a9                    ; 0x094e
+    call loc_LQKO                    ; 0x094e
 @..api_idx_0004_UTMO.l6:
     jmp short @..api_idx_0004_UTMO.l1 ; 0x0951
 @..api_idx_0004_UTMO.l7:

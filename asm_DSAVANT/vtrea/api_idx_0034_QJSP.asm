@@ -100,7 +100,7 @@ api_idx_0034_QJSP:
     mov ax, 1                        ; 0x70ef
     push ax                          ; 0x70f2
     push word [bp + 0x6]             ; 0x70f3
-    call loc_6f41                    ; 0x70f6
+    call loc_TOIV                    ; 0x70f6
     add sp, byte 4                   ; 0x70f9
     jmp short @..api_idx_0034_QJSP.l8 ; 0x70fc
 @..api_idx_0034_QJSP.l7:
@@ -127,7 +127,7 @@ api_idx_0034_QJSP:
     push ax                          ; 0x712d
     lea ax, word [bp - 0x0034]       ; 0x712e
     push ax                          ; 0x7131
-    call loc_0eb2                    ; 0x7132
+    call loc_UQVI                    ; 0x7132
     add sp, byte 8                   ; 0x7135
     jmp short @..api_idx_0034_QJSP.l10 ; 0x7138
 @..api_idx_0034_QJSP.l9:
@@ -138,7 +138,7 @@ api_idx_0034_QJSP:
     push ax                          ; 0x7142
     lea ax, word [bp - 0x0034]       ; 0x7143
     push ax                          ; 0x7146
-    call loc_0eb2                    ; 0x7147
+    call loc_UQVI                    ; 0x7147
     add sp, byte 8                   ; 0x714a
 @..api_idx_0034_QJSP.l10:
     mov ax, word [bp - 0x0008]       ; 0x714d

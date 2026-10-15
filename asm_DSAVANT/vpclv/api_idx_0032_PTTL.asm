@@ -50,7 +50,7 @@ api_idx_0032_PTTL:
     push ax                          ; 0x3af7
     mov ax, 5                        ; 0x3af8
     push ax                          ; 0x3afb
-    call ds_loc_3a77                 ; 0x3afc
+    call ds_loc_PQIO                 ; 0x3afc
     add sp, byte 4                   ; 0x3aff
     mov ax, 6                        ; 0x3b02
     imul word [bp - 0x000a]          ; 0x3b05
@@ -64,7 +64,7 @@ api_idx_0032_PTTL:
     push ax                          ; 0x3b19
     mov ax, 6                        ; 0x3b1a
     push ax                          ; 0x3b1d
-    call ds_loc_3a77                 ; 0x3b1e
+    call ds_loc_PQIO                 ; 0x3b1e
     add sp, byte 4                   ; 0x3b21
     mov word [bp - 0x0002], 0        ; 0x3b24
     jmp near @..api_idx_0032_PTTL.l7 ; 0x3b29
@@ -286,7 +286,7 @@ api_idx_0032_PTTL:
     mov ax, 0xbc                     ; 0x3d1e
     push ax                          ; 0x3d21
     push word [bp - 0x0006]          ; 0x3d22
-    call loc_0dc0                    ; 0x3d25
+    call loc_RIRS                    ; 0x3d25
     add sp, byte 0x0a                ; 0x3d28
 @..api_idx_0032_PTTL.l15:
     inc word [bp - 0x000e]           ; 0x3d2b
@@ -352,7 +352,7 @@ api_idx_0032_PTTL:
     mov ax, 0xbc                     ; 0x3daf
     push ax                          ; 0x3db2
     push word [bp - 0x0006]          ; 0x3db3
-    call loc_0dc0                    ; 0x3db6
+    call loc_RIRS                    ; 0x3db6
     add sp, byte 0x0a                ; 0x3db9
     mov ax, 0xc7                     ; 0x3dbc
     push ax                          ; 0x3dbf
@@ -374,7 +374,7 @@ api_idx_0032_PTTL:
     mov ax, 0xbc                     ; 0x3de1
     push ax                          ; 0x3de4
     push word [bp - 0x0006]          ; 0x3de5
-    call loc_0dc0                    ; 0x3de8
+    call loc_RIRS                    ; 0x3de8
     add sp, byte 0x0a                ; 0x3deb
 @..api_idx_0032_PTTL.l21:
     mov ax, 1                        ; 0x3dee

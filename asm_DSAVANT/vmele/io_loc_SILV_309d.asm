@@ -5,4 +5,4 @@ io_loc_SILV_309d:
     cwd                              ; 0x30a3
     idiv cx                          ; 0x30a4
     mov word [bp - 0x0006], ax       ; 0x30a6
-    jmp short loc_3103               ; 0x30a9
+    jmp short loc_KRJJ               ; 0x30a9

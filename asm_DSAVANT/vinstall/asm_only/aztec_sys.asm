@@ -39,5 +39,3 @@ aztec_sys:
     pop bp                           ; 0x35cc
     ret                              ; 0x35cd
     db 0x00, 0x00
-cseg_35d0:
-    db 0x00, 0x00

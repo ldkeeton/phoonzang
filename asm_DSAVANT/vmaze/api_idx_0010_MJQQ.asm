@@ -9,7 +9,7 @@ api_idx_0010_MJQQ:
     sub ah, ah                       ; 0xa2f1
     push ax                          ; 0xa2f3
     push word [bp + 0x4]             ; 0xa2f4
-    call loc_9448                    ; 0xa2f7
+    call loc_LUTJ                    ; 0xa2f7
     add sp, byte 4                   ; 0xa2fa
     test ax, ax                      ; 0xa2fd
     jne short @..api_idx_0010_MJQQ.l1 ; 0xa2ff
@@ -115,7 +115,7 @@ api_idx_0010_MJQQ:
 @..api_idx_0010_MJQQ.l7:
     push word [bp - 0x0006]          ; 0xa3ef
     push word [bp - 0x000c]          ; 0xa3f2
-    call loc_9448                    ; 0xa3f5
+    call loc_LUTJ                    ; 0xa3f5
     add sp, byte 4                   ; 0xa3f8
     test ax, ax                      ; 0xa3fb
     jne short @..api_idx_0010_MJQQ.l8 ; 0xa3fd
@@ -245,7 +245,7 @@ api_idx_0010_MJQQ:
 @..api_idx_0010_MJQQ.l15:
     push word [bp - 0x000c]          ; 0xa513
     push word [bp + 0x4]             ; 0xa516
-    call loc_a215                    ; 0xa519
+    call loc_SNLN                    ; 0xa519
     add sp, byte 4                   ; 0xa51c
     mov ax, 5                        ; 0xa51f
     push ax                          ; 0xa522

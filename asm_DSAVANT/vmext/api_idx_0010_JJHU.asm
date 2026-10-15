@@ -45,11 +45,11 @@ api_idx_0010_JJHU:
     jne short @..api_idx_0010_JJHU.l10 ; 0x22f9
     push ax                          ; 0x22fb
     push word [bp - 0x000c]          ; 0x22fc
-    call loc_1927                    ; 0x22ff
+    call loc_TRGN                    ; 0x22ff
     add sp, byte 4                   ; 0x2302
     mov word [bp - 0x0002], ax       ; 0x2305
     push word [bp - 0x000c]          ; 0x2308
-    call loc_1913                    ; 0x230b
+    call loc_TJMT                    ; 0x230b
     pop cx                           ; 0x230e
     mov word [bp - 0x0004], ax       ; 0x230f
     jmp short @..api_idx_0010_JJHU.l11 ; 0x2312
@@ -58,11 +58,11 @@ api_idx_0010_JJHU:
     jne short @..api_idx_0010_JJHU.l11 ; 0x2318
     push word [bp - 0x000c]          ; 0x231a
     push word [bp - 0x000e]          ; 0x231d
-    call loc_1927                    ; 0x2320
+    call loc_TRGN                    ; 0x2320
     add sp, byte 4                   ; 0x2323
     mov word [bp - 0x0002], ax       ; 0x2326
     push word [bp - 0x000e]          ; 0x2329
-    call loc_1913                    ; 0x232c
+    call loc_TJMT                    ; 0x232c
     pop cx                           ; 0x232f
     mov word [bp - 0x0004], ax       ; 0x2330
 @..api_idx_0010_JJHU.l11:
@@ -141,7 +141,7 @@ jumptable_2515_case_2:
     mov ax, word [bp + 0x16]         ; 0x23ca
     add ax, word [bp + 0x4]          ; 0x23cd
     push ax                          ; 0x23d0
-    call loc_1913                    ; 0x23d1
+    call loc_TJMT                    ; 0x23d1
     pop cx                           ; 0x23d4
     push ax                          ; 0x23d5
     mov ax, 0                        ; 0x23d6
@@ -162,7 +162,7 @@ jumptable_2515_case_2:
     mov ax, word [bp + 0x16]         ; 0x23f2
     add ax, word [bp + 0x4]          ; 0x23f5
     push ax                          ; 0x23f8
-    call loc_1927                    ; 0x23f9
+    call loc_TRGN                    ; 0x23f9
     add sp, byte 4                   ; 0x23fc
     push ax                          ; 0x23ff
     mov ax, 0xff                     ; 0x2400
@@ -189,7 +189,7 @@ jumptable_2515_case_2:
     mov ax, word [bp + 0x32]         ; 0x2430
     add ax, word [bp + 0x4]          ; 0x2433
     push ax                          ; 0x2436
-    call loc_1913                    ; 0x2437
+    call loc_TJMT                    ; 0x2437
     pop cx                           ; 0x243a
     push ax                          ; 0x243b
     mov ax, 0                        ; 0x243c
@@ -205,7 +205,7 @@ jumptable_2515_case_2:
     mov ax, word [bp + 0x32]         ; 0x2450
     add ax, word [bp + 0x4]          ; 0x2453
     push ax                          ; 0x2456
-    call loc_1927                    ; 0x2457
+    call loc_TRGN                    ; 0x2457
     add sp, byte 4                   ; 0x245a
     push ax                          ; 0x245d
     mov ax, 0xff                     ; 0x245e
@@ -229,7 +229,7 @@ jumptable_2515_case_2:
     mov ax, word [bp + 0x46]         ; 0x2486
     add ax, word [bp + 0x4]          ; 0x2489
     push ax                          ; 0x248c
-    call loc_1913                    ; 0x248d
+    call loc_TJMT                    ; 0x248d
     pop cx                           ; 0x2490
     push ax                          ; 0x2491
     mov ax, 0                        ; 0x2492
@@ -245,7 +245,7 @@ jumptable_2515_case_2:
     mov ax, word [bp + 0x46]         ; 0x24a6
     add ax, word [bp + 0x4]          ; 0x24a9
     push ax                          ; 0x24ac
-    call loc_1927                    ; 0x24ad
+    call loc_TRGN                    ; 0x24ad
     add sp, byte 4                   ; 0x24b0
     push ax                          ; 0x24b3
     mov ax, 0xff                     ; 0x24b4
@@ -360,13 +360,13 @@ jumptable_2967_case_7:
     mov ax, word [bp + 0x42]         ; 0x259e
     add ax, word [bp + 0x4]          ; 0x25a1
     push ax                          ; 0x25a4
-    call loc_1927                    ; 0x25a5
+    call loc_TRGN                    ; 0x25a5
     add sp, byte 4                   ; 0x25a8
     mov word [bp - 0x0002], ax       ; 0x25ab
     mov ax, word [bp + 0x42]         ; 0x25ae
     add ax, word [bp + 0x4]          ; 0x25b1
     push ax                          ; 0x25b4
-    call loc_1913                    ; 0x25b5
+    call loc_TJMT                    ; 0x25b5
     pop cx                           ; 0x25b8
     mov word [bp - 0x0004], ax       ; 0x25b9
 jumptable_2967_case_1:
@@ -383,7 +383,7 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x1e]         ; 0x25d2
     add ax, word [bp + 0x4]          ; 0x25d5
     push ax                          ; 0x25d8
-    call loc_1913                    ; 0x25d9
+    call loc_TJMT                    ; 0x25d9
     pop cx                           ; 0x25dc
     push ax                          ; 0x25dd
     mov ax, 0                        ; 0x25de
@@ -399,7 +399,7 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x1e]         ; 0x25f2
     add ax, word [bp + 0x4]          ; 0x25f5
     push ax                          ; 0x25f8
-    call loc_1927                    ; 0x25f9
+    call loc_TRGN                    ; 0x25f9
     add sp, byte 4                   ; 0x25fc
     push ax                          ; 0x25ff
     mov ax, 0xff                     ; 0x2600
@@ -420,7 +420,7 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x36]         ; 0x2622
     add ax, word [bp + 0x4]          ; 0x2625
     push ax                          ; 0x2628
-    call loc_1913                    ; 0x2629
+    call loc_TJMT                    ; 0x2629
     pop cx                           ; 0x262c
     push ax                          ; 0x262d
     mov ax, 0                        ; 0x262e
@@ -436,7 +436,7 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x36]         ; 0x2642
     add ax, word [bp + 0x4]          ; 0x2645
     push ax                          ; 0x2648
-    call loc_1927                    ; 0x2649
+    call loc_TRGN                    ; 0x2649
     add sp, byte 4                   ; 0x264c
     push ax                          ; 0x264f
     mov ax, 0xff                     ; 0x2650
@@ -595,13 +595,13 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x26]         ; 0x279f
     add ax, word [bp + 0x4]          ; 0x27a2
     push ax                          ; 0x27a5
-    call loc_1913                    ; 0x27a6
+    call loc_TJMT                    ; 0x27a6
     pop cx                           ; 0x27a9
     push ax                          ; 0x27aa
     mov ax, word [bp + 0x22]         ; 0x27ab
     add ax, word [bp + 0x4]          ; 0x27ae
     push ax                          ; 0x27b1
-    call loc_1913                    ; 0x27b2
+    call loc_TJMT                    ; 0x27b2
     pop cx                           ; 0x27b5
     push ax                          ; 0x27b6
     mov ax, 0                        ; 0x27b7
@@ -616,7 +616,7 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x26]         ; 0x27c8
     add ax, word [bp + 0x4]          ; 0x27cb
     push ax                          ; 0x27ce
-    call loc_1927                    ; 0x27cf
+    call loc_TRGN                    ; 0x27cf
     add sp, byte 4                   ; 0x27d2
     push ax                          ; 0x27d5
     mov ax, word [bp + 0x24]         ; 0x27d6
@@ -625,7 +625,7 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x22]         ; 0x27dd
     add ax, word [bp + 0x4]          ; 0x27e0
     push ax                          ; 0x27e3
-    call loc_1927                    ; 0x27e4
+    call loc_TRGN                    ; 0x27e4
     add sp, byte 4                   ; 0x27e7
     push ax                          ; 0x27ea
     mov ax, 0xff                     ; 0x27eb
@@ -645,13 +645,13 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x3e]         ; 0x280a
     add ax, word [bp + 0x4]          ; 0x280d
     push ax                          ; 0x2810
-    call loc_1913                    ; 0x2811
+    call loc_TJMT                    ; 0x2811
     pop cx                           ; 0x2814
     push ax                          ; 0x2815
     mov ax, word [bp + 0x3a]         ; 0x2816
     add ax, word [bp + 0x4]          ; 0x2819
     push ax                          ; 0x281c
-    call loc_1913                    ; 0x281d
+    call loc_TJMT                    ; 0x281d
     pop cx                           ; 0x2820
     push ax                          ; 0x2821
     mov ax, 0                        ; 0x2822
@@ -666,7 +666,7 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x3e]         ; 0x2833
     add ax, word [bp + 0x4]          ; 0x2836
     push ax                          ; 0x2839
-    call loc_1927                    ; 0x283a
+    call loc_TRGN                    ; 0x283a
     add sp, byte 4                   ; 0x283d
     push ax                          ; 0x2840
     mov ax, word [bp + 0x3c]         ; 0x2841
@@ -675,7 +675,7 @@ jumptable_2967_case_1:
     mov ax, word [bp + 0x3a]         ; 0x2848
     add ax, word [bp + 0x4]          ; 0x284b
     push ax                          ; 0x284e
-    call loc_1927                    ; 0x284f
+    call loc_TRGN                    ; 0x284f
     add sp, byte 4                   ; 0x2852
     push ax                          ; 0x2855
     mov ax, 0xff                     ; 0x2856
@@ -728,7 +728,7 @@ jumptable_2967_case_5:
     mov ax, word [bp + 0x4a]         ; 0x28b5
     add ax, word [bp + 0x4]          ; 0x28b8
     push ax                          ; 0x28bb
-    call loc_1913                    ; 0x28bc
+    call loc_TJMT                    ; 0x28bc
     pop cx                           ; 0x28bf
     push ax                          ; 0x28c0
     mov ax, 0                        ; 0x28c1
@@ -745,7 +745,7 @@ jumptable_2967_case_5:
     mov ax, word [bp + 0x4a]         ; 0x28d6
     add ax, word [bp + 0x4]          ; 0x28d9
     push ax                          ; 0x28dc
-    call loc_1927                    ; 0x28dd
+    call loc_TRGN                    ; 0x28dd
     add sp, byte 4                   ; 0x28e0
     push ax                          ; 0x28e3
     mov ax, 0xff                     ; 0x28e4

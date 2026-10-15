@@ -19,16 +19,16 @@ api_idx_0008_NHUL:
     push ax                          ; 0x1a42
     lea ax, word [bp + 0x4]          ; 0x1a43
     push ax                          ; 0x1a46
-    call loc_1963                    ; 0x1a47
+    call loc_UKLN                    ; 0x1a47
     add sp, byte 0x0e                ; 0x1a4a
     test ax, ax                      ; 0x1a4d
     je short @..api_idx_0008_NHUL.l4 ; 0x1a4f
     mov ax, word [bss_91a8]          ; 0x1a51
     jmp short @..api_idx_0008_NHUL.l3 ; 0x1a54
-loc_1a56:
+loc_VURH:
     mov ax, 2                        ; 0x1a56
     ret                              ; 0x1a59
-loc_1a5a:
+loc_JVTJ:
     cmp word [bss_9188], byte 0      ; 0x1a5a
     je short @..api_idx_0008_NHUL.l2 ; 0x1a5f
     mov ax, 0                        ; 0x1a61
@@ -42,7 +42,7 @@ jumptable_1a8f_case_1:
     mov byte [bx - 0x6e52], 1        ; 0x1a71
     mov ax, 4                        ; 0x1a76
     ret                              ; 0x1a79
-loc_1a7a:
+loc_KPUI:
     mov ax, 5                        ; 0x1a7a
     imul word [bss_91aa]             ; 0x1a7d
     add ax, word [bp + 0xe]          ; 0x1a81
@@ -51,12 +51,12 @@ loc_1a7a:
     mov ax, 0                        ; 0x1a8b
     ret                              ; 0x1a8e
 jumptable_1a8f:
-    dw loc_1a56 - IMAGE_BASE + 0x5055          ; 0x1a8f
+    dw loc_VURH - IMAGE_BASE + 0x5055          ; 0x1a8f
     dw jumptable_1a8f_case_1 - IMAGE_BASE + 0x5055 ; 0x1a91
-    dw loc_1a56 - IMAGE_BASE + 0x5055          ; 0x1a93
-    dw loc_1a5a - IMAGE_BASE + 0x5055          ; 0x1a95
-    dw loc_1a56 - IMAGE_BASE + 0x5055          ; 0x1a97
-    dw loc_1a7a - IMAGE_BASE + 0x5055          ; 0x1a99
+    dw loc_VURH - IMAGE_BASE + 0x5055          ; 0x1a93
+    dw loc_JVTJ - IMAGE_BASE + 0x5055          ; 0x1a95
+    dw loc_VURH - IMAGE_BASE + 0x5055          ; 0x1a97
+    dw loc_KPUI - IMAGE_BASE + 0x5055          ; 0x1a99
 @..api_idx_0008_NHUL.l3:
     cmp ax, strict word 6            ; 0x1a9b
     jae short @..api_idx_0008_NHUL.l4 ; 0x1a9e
@@ -84,21 +84,21 @@ jumptable_1a8f:
     je short @..api_idx_0008_NHUL.l6 ; 0x1ad1
     mov ax, word [bss_91a8]          ; 0x1ad3
     jmp short @..api_idx_0008_NHUL.l5 ; 0x1ad6
-loc_1ad8:
+loc_GRJO:
     mov ax, 5                        ; 0x1ad8
     imul word [bss_91aa]             ; 0x1adb
     add ax, word [bp + 0xe]          ; 0x1adf
     mov bx, ax                       ; 0x1ae2
     mov byte [bx - 0x6e52], 3        ; 0x1ae4
     jmp short @..api_idx_0008_NHUL.l6 ; 0x1ae9
-loc_1aeb:
+loc_VNMK:
     mov ax, 5                        ; 0x1aeb
     imul word [bss_91aa]             ; 0x1aee
     add ax, word [bp + 0xe]          ; 0x1af2
     mov bx, ax                       ; 0x1af5
     mov byte [bx - 0x6e52], 1        ; 0x1af7
     jmp short @..api_idx_0008_NHUL.l6 ; 0x1afc
-loc_1afe:
+loc_NVMO:
     mov ax, 5                        ; 0x1afe
     imul word [bss_91aa]             ; 0x1b01
     add ax, word [bp + 0xe]          ; 0x1b05
@@ -106,12 +106,12 @@ loc_1afe:
     mov byte [bx - 0x6e52], 2        ; 0x1b0a
     jmp short @..api_idx_0008_NHUL.l6 ; 0x1b0f
 jumptable_1b11:
-    dw loc_1ad8 - IMAGE_BASE + 0x5055          ; 0x1b11
-    dw loc_1aeb - IMAGE_BASE + 0x5055          ; 0x1b13
-    dw loc_1afe - IMAGE_BASE + 0x5055          ; 0x1b15
-    dw loc_1aeb - IMAGE_BASE + 0x5055          ; 0x1b17
-    dw loc_1ad8 - IMAGE_BASE + 0x5055          ; 0x1b19
-    dw loc_1aeb - IMAGE_BASE + 0x5055          ; 0x1b1b
+    dw loc_GRJO - IMAGE_BASE + 0x5055          ; 0x1b11
+    dw loc_VNMK - IMAGE_BASE + 0x5055          ; 0x1b13
+    dw loc_NVMO - IMAGE_BASE + 0x5055          ; 0x1b15
+    dw loc_VNMK - IMAGE_BASE + 0x5055          ; 0x1b17
+    dw loc_GRJO - IMAGE_BASE + 0x5055          ; 0x1b19
+    dw loc_VNMK - IMAGE_BASE + 0x5055          ; 0x1b1b
 @..api_idx_0008_NHUL.l5:
     cmp ax, strict word 6            ; 0x1b1d
     jae short @..api_idx_0008_NHUL.l6 ; 0x1b20
@@ -127,7 +127,7 @@ jumptable_1b11:
     add sp, byte 4                   ; 0x1b37
     test ax, ax                      ; 0x1b3a
     jne short @..api_idx_0008_NHUL.l7 ; 0x1b3c
-    jmp near loc_1bb9                ; 0x1b3e
+    jmp near loc_QNKS                ; 0x1b3e
 @..api_idx_0008_NHUL.l7:
     mov ax, word [bss_91a8]          ; 0x1b41
     jmp short @..api_idx_0008_NHUL.l8 ; 0x1b44

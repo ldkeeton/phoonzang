@@ -6,4 +6,4 @@ leaf_loc_MVNK:
     mov word [bp - 0x0028], 1        ; 0x73b7
     mov ax, word [dseg_0024]         ; 0x73bc
     mov word [bp - 0x0032], ax       ; 0x73bf
-    jmp near loc_745a                ; 0x73c2
+    jmp near loc_OMJU                ; 0x73c2

@@ -82,4 +82,4 @@ leaf_loc_HQOJ:
     add ax, cx                       ; 0x3043
     mov word [bp - 0x0008], ax       ; 0x3045
     mov word [bp - 0x000a], 0        ; 0x3048
-    jmp short loc_30b2               ; 0x304d
+    jmp short loc_PUVS               ; 0x304d

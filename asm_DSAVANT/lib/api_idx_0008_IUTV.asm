@@ -52,7 +52,7 @@ api_idx_0008_IUTV:
     push ax
     mov ax, 0xb
     push ax
-    call ds_loc_3a77
+    call ds_loc_PQIO
     add sp, byte 4
     cmp word [bp + 0x6], byte 0
     je short @..api_idx_0008_IUTV.l3

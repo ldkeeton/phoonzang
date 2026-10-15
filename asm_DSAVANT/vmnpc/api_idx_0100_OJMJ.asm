@@ -44,7 +44,7 @@ api_idx_0100_OJMJ:
     add sp, byte 4                   ; 0x97b0
     lea ax, word [bp - 0x00ff]       ; 0x97b3
     push ax                          ; 0x97b7
-    call loc_9587                    ; 0x97b8
+    call loc_JVJP                    ; 0x97b8
     pop cx                           ; 0x97bb
     inc word [bp + 0x4]              ; 0x97bc
 @..api_idx_0100_OJMJ.l3:

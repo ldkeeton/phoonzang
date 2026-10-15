@@ -120,7 +120,7 @@ api_idx_002e_UMSL:
     push ax                          ; 0x26aa
     mov ax, 0x2f                     ; 0x26ab
     push ax                          ; 0x26ae
-    call ds_loc_3a77                 ; 0x26af
+    call ds_loc_PQIO                 ; 0x26af
     add sp, byte 4                   ; 0x26b2
 @..api_idx_002e_UMSL.l9:
     mov ax, 0                        ; 0x26b5

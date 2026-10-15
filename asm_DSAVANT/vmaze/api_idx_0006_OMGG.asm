@@ -58,6 +58,6 @@ api_idx_0006_OMGG:
     call ds_dos_con_loc_RGTO         ; 0x7641
     add sp, byte 6                   ; 0x7644
     push ax                          ; 0x7647
-    call loc_7242                    ; 0x7648
+    call loc_VMLV                    ; 0x7648
     pop cx                           ; 0x764b
     ret                              ; 0x764c

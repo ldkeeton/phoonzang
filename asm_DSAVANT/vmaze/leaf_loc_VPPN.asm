@@ -25,4 +25,4 @@ leaf_loc_VPPN:
     mov ax, 0xa                      ; 0x44ed
 @..leaf_loc_VPPN.l1:
     mov word [bp - 0x000a], ax       ; 0x44f0
-    jmp near loc_4623                ; 0x44f3
+    jmp near loc_RJVS                ; 0x44f3

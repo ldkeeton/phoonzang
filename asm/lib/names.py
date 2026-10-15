@@ -210,6 +210,23 @@ def tag_generics(label_map, function_roots, instructions, data, size,
         base = name[:-5] if off in stubs else _ADDR_TAIL.sub('', name)
         todo.append((off, name, base, content_tag(
             instructions[lo:hi], data, off, end, external)))
+    # A bare ``loc_`` root becomes a file of its own once a fragment is cut at it
+    # (``splitting._split_off_foreign_objects``), so it needs a content-derived
+    # name too: an address-derived one would rename the file whenever bytes above
+    # it moved.  Its span runs to the next root of *any* kind -- its own code.
+    loc_roots = sorted(
+        off for off, name in label_map.items()
+        if isinstance(name, str) and is_generic(name)
+        and stem(name).startswith('loc_'))
+    bounds = sorted(set(every) | set(loc_roots))
+    for off in loc_roots:
+        name = label_map[off]
+        index = bisect.bisect_right(bounds, off)
+        end = bounds[index] if index < len(bounds) else size
+        lo = bisect.bisect_left(addrs, off)
+        hi = bisect.bisect_left(addrs, end)
+        todo.append((off, name, _ADDR_TAIL.sub('', name), content_tag(
+            instructions[lo:hi], data, off, end, external)))
     seen = {}
     for _, _, base, tag in todo:
         seen[(base, tag)] = seen.get((base, tag), 0) + 1
@@ -219,6 +236,10 @@ def tag_generics(label_map, function_roots, instructions, data, size,
         if seen[(base, tag)] > 1:
             new += f'_{off:04x}'
         label_map[off] = new
-        function_roots[off] = new
+        # A bare ``loc_`` *label* that is not a function root stays a label: it
+        # must not enter ``function_roots``, which is the ownership model's root
+        # set (adding roots there changes which routine owns an instruction).
+        if off in function_roots:
+            function_roots[off] = new
         renames[name] = new
     return renames

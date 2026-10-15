@@ -67,7 +67,7 @@ api_idx_006a_RPPT:
     pop cx                           ; 0xac4a
     mov ax, 3                        ; 0xac4b
     push ax                          ; 0xac4e
-    call loc_0c96                    ; 0xac4f
+    call loc_HGQP                    ; 0xac4f
     pop cx                           ; 0xac52
 @..api_idx_006a_RPPT.l2:
     lea ax, word [bp - 0x006a]       ; 0xac53
@@ -187,7 +187,7 @@ api_idx_006a_RPPT:
     call api_idx_00a2_QTVT           ; 0xadc5
     test ax, ax                      ; 0xadc8
     jne short @..api_idx_006a_RPPT.l9 ; 0xadca
-    call loc_a29f                    ; 0xadcc
+    call loc_NHST                    ; 0xadcc
 @..api_idx_006a_RPPT.l9:
     cmp word [bss_9e70], byte 1      ; 0xadcf
     je short @..api_idx_006a_RPPT.l10 ; 0xadd4
@@ -199,7 +199,7 @@ api_idx_006a_RPPT:
     pop cx                           ; 0xade0
     mov ax, 3                        ; 0xade1
     push ax                          ; 0xade4
-    call loc_0c96                    ; 0xade5
+    call loc_HGQP                    ; 0xade5
     pop cx                           ; 0xade8
     mov ax, 0                        ; 0xade9
     push ax                          ; 0xadec

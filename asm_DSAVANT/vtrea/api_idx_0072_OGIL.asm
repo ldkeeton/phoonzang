@@ -105,7 +105,7 @@ api_idx_0072_OGIL:
     push ax                          ; 0x7255
     mov ax, 0x834                    ; 0x7256
     push ax                          ; 0x7259
-    call loc_8441                    ; 0x725a
+    call loc_VHPJ                    ; 0x725a
     add sp, byte 0x1a                ; 0x725d
     mov word [bp - 0x001c], ax       ; 0x7260
     lea ax, word [bp - 0x0072]       ; 0x7263

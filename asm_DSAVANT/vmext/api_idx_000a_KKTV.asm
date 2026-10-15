@@ -22,7 +22,7 @@ api_idx_000a_KKTV:
     mov word [bss_8f40], ax          ; 0x0bc5
     mov ax, word [bss_8f32]          ; 0x0bc8
     mov word [bss_8f3e], ax          ; 0x0bcb
-    call loc_054f                    ; 0x0bce
+    call loc_RMHJ                    ; 0x0bce
     test ax, ax                      ; 0x0bd1
     je short @..api_idx_000a_KKTV.l1 ; 0x0bd3
     mov ax, word [bss_82e8]          ; 0x0bd5
@@ -32,7 +32,7 @@ api_idx_000a_KKTV:
     idiv cx                          ; 0x0bdd
     mov word [bss_82e8], dx          ; 0x0bdf
 @..api_idx_000a_KKTV.l1:
-    call loc_51fb                    ; 0x0be3
+    call loc_ULLV                    ; 0x0be3
     mov ax, 2                        ; 0x0be6
     push ax                          ; 0x0be9
     call ds_app_MIKI                 ; 0x0bea
@@ -48,12 +48,3 @@ api_idx_000a_KKTV:
     mov ax, word [bp - 0x000a]       ; 0x0c06
     mov word [bss_8f3e], ax          ; 0x0c09
     ret                              ; 0x0c0c
-loc_0c0d:
-    mov ax, 0                        ; 0x0c0d
-    call aztec_csav                  ; 0x0c10
-    mov ax, 0x7f9                    ; 0x0c13
-    push ax                          ; 0x0c16
-    call api_idx_0050_NNKM           ; 0x0c17
-    pop cx                           ; 0x0c1a
-    mov ax, 1                        ; 0x0c1b
-    ret                              ; 0x0c1e

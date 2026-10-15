@@ -54,7 +54,7 @@ api_idx_0002_MKLO:
     push ax                          ; 0x7b3d
     mov ax, 1                        ; 0x7b3e
     push ax                          ; 0x7b41
-    call loc_0b14                    ; 0x7b42
+    call loc_VSIU                    ; 0x7b42
     add sp, byte 6                   ; 0x7b45
     mov word [bss_830a], 0x12        ; 0x7b48
     inc word [bss_8d12]              ; 0x7b4e

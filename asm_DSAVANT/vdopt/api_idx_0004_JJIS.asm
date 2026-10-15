@@ -29,7 +29,7 @@ api_idx_0004_JJIS:
     je short @..api_idx_0004_JJIS.l4 ; 0x0303
     ret                              ; 0x0305
 @..api_idx_0004_JJIS.l4:
-    call loc_02b4                    ; 0x0306
+    call loc_LQKO                    ; 0x0306
     jmp short @..api_idx_0004_JJIS.l1 ; 0x0309
 @..api_idx_0004_JJIS.l5:
     ret                              ; 0x030b

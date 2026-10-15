@@ -33,7 +33,7 @@ ds_app_HTIO: ; Aztec csav frame=0x0008
     cmp ax, strict word 0xe          ; 0x1a7a
     jl short @..ds_app_HTIO.l1       ; 0x1a7d
     mov word [bp - 0x0002], 0        ; 0x1a7f
-ds_loc_1a84:
+ds_loc_SVQL:
     mov ax, 0x248                    ; 0x1a84
     imul word [bp + 0x4]             ; 0x1a87
     add ax, word [bp - 0x0002]       ; 0x1a8a
@@ -41,9 +41,9 @@ ds_loc_1a84:
     mov al, byte [bx + 0x5d48]       ; 0x1a8f
     sub ah, ah                       ; 0x1a93
     cmp ax, word [bp + 0x6]          ; 0x1a95
-    je short ds_loc_1a9d             ; 0x1a98
-    jmp near ds_loc_1b1c             ; 0x1a9a
-ds_loc_1a9d:
+    je short ds_loc_MTTS             ; 0x1a98
+    jmp near ds_loc_OIPL             ; 0x1a9a
+ds_loc_MTTS:
     mov byte [bx + 0x5d48], 0xff     ; 0x1a9d
     mov ax, word [bp - 0x0002]       ; 0x1aa2
-    jmp short ds_loc_1b0f            ; 0x1aa5
+    jmp short ds_loc_LMRQ            ; 0x1aa5

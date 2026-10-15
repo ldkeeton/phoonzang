@@ -8,7 +8,7 @@ api_idx_0002_LVON:
     push ax                          ; 0x4aec
     push word [bp - 0x0002]          ; 0x4aed
     push word [bp + 0x4]             ; 0x4af0
-    call loc_4aa1                    ; 0x4af3
+    call loc_OVOJ                    ; 0x4af3
     add sp, byte 6                   ; 0x4af6
     inc word [bp - 0x0002]           ; 0x4af9
     mov ax, word [bp - 0x0002]       ; 0x4afc

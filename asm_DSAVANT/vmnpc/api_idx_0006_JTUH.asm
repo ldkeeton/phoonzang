@@ -2,7 +2,7 @@
 api_idx_0006_JTUH:
     mov ax, 0xfffa                   ; 0x573e
     call aztec_csav                  ; 0x5741
-    call loc_10b6                    ; 0x5744
+    call loc_SKSV                    ; 0x5744
     mov word [bp - 0x0006], 0        ; 0x5747
 @..api_idx_0006_JTUH.l1:
     push word [bp - 0x0006]          ; 0x574c
@@ -28,7 +28,7 @@ api_idx_0006_JTUH:
     add sp, byte 4                   ; 0x5780
     test ax, ax                      ; 0x5783
     je short @..api_idx_0006_JTUH.l2 ; 0x5785
-    call loc_47b9                    ; 0x5787
+    call loc_UUJL                    ; 0x5787
     mov ax, 1                        ; 0x578a
     ret                              ; 0x578d
 @..api_idx_0006_JTUH.l2:
@@ -37,13 +37,13 @@ api_idx_0006_JTUH:
     mov word [bp - 0x0006], ax       ; 0x5795
 @..api_idx_0006_JTUH.l3:
     mov word [bss_93d8], 0x8d        ; 0x5798
-    call loc_10b6                    ; 0x579e
+    call loc_SKSV                    ; 0x579e
     mov word [bss_93d8], 0x8f        ; 0x57a1
     cmp word [bp - 0x0002], byte 2   ; 0x57a7
     je short @..api_idx_0006_JTUH.l4 ; 0x57ab
     cmp word [bss_9cd2], byte 0      ; 0x57ad
     jg short @..api_idx_0006_JTUH.l1 ; 0x57b2
 @..api_idx_0006_JTUH.l4:
-    call loc_47b9                    ; 0x57b4
+    call loc_UUJL                    ; 0x57b4
     mov ax, 0                        ; 0x57b7
     ret                              ; 0x57ba

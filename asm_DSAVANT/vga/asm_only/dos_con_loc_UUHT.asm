@@ -12,8 +12,3 @@ dos_con_loc_UUHT:
     db 0x0d, 0x0a, 0x07
     db 'Picture slot '
 
-cseg_22de:
-    db 0x30
-cseg_22df:
-    db '0 not freed.', 0
-    db 0x0a, 0x24

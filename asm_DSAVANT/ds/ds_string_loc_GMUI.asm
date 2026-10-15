@@ -6,7 +6,7 @@ ds_string_loc_GMUI:
     mov al, byte [bx + 0x5daa]       ; 0x1af2
     add bx, word [bp - 0x0002]       ; 0x1af6
     mov byte [bx + 0x5daa], al       ; 0x1af9
-    jmp short ds_loc_1b1c            ; 0x1afd
+    jmp short ds_loc_OIPL            ; 0x1afd
 jumptable_1aff:
     dw ds_string_loc_RUSV - IMAGE_BASE         ; 0x1aff
     dw ds_string_loc_RUSV - IMAGE_BASE         ; 0x1b01
@@ -16,13 +16,13 @@ jumptable_1aff:
     dw ds_string_loc_GMUI - IMAGE_BASE         ; 0x1b09
     dw ds_string_loc_GMUI - IMAGE_BASE         ; 0x1b0b
     dw ds_string_loc_GMUI - IMAGE_BASE         ; 0x1b0d
-ds_loc_1b0f:
+ds_loc_LMRQ:
     cmp ax, strict word 8            ; 0x1b0f
-    jae short ds_loc_1b1c            ; 0x1b12
+    jae short ds_loc_OIPL            ; 0x1b12
     xchg bx, ax                      ; 0x1b14
     shl bx, 1                        ; 0x1b15
     jmp [cs:bx + jumptable_1aff - IMAGE_BASE] ; 0x1b17
-ds_loc_1b1c:
+ds_loc_OIPL:
     mov ax, 0x248                    ; 0x1b1c
     imul word [bp + 0x4]             ; 0x1b1f
     add ax, word [bp - 0x0002]       ; 0x1b22
@@ -30,11 +30,11 @@ ds_loc_1b1c:
     mov al, byte [bx + 0x5d48]       ; 0x1b27
     sub ah, ah                       ; 0x1b2b
     cmp ax, 0xff                     ; 0x1b2d
-    jne short ds_loc_1b35            ; 0x1b30
-    jmp near ds_loc_1c20             ; 0x1b32
-ds_loc_1b35:
+    jne short ds_loc_HJTJ            ; 0x1b30
+    jmp near ds_loc_JQOU             ; 0x1b32
+ds_loc_HJTJ:
     mov word [bp - 0x0004], 0        ; 0x1b35
-ds_loc_1b3a:
+ds_loc_MUOU:
     mov ax, 0x248                    ; 0x1b3a
     imul word [bp + 0x4]             ; 0x1b3d
     push ax                          ; 0x1b40
@@ -83,7 +83,7 @@ ds_loc_1b3a:
     inc word [bp - 0x0004]           ; 0x1ba8
     mov ax, word [bp - 0x0004]       ; 0x1bab
     cmp ax, strict word 2            ; 0x1bae
-    jl short ds_loc_1b3a             ; 0x1bb1
+    jl short ds_loc_MUOU             ; 0x1bb1
     mov ax, 0x248                    ; 0x1bb3
     imul word [bp + 0x4]             ; 0x1bb6
     push ax                          ; 0x1bb9
@@ -111,30 +111,30 @@ ds_loc_1b3a:
     sub ah, ah                       ; 0x1bef
     mov dx, word [bp - 0x0008]       ; 0x1bf1
     cmp ax, dx                       ; 0x1bf4
-    jge short ds_loc_1bfc            ; 0x1bf6
+    jge short ds_loc_JTUM            ; 0x1bf6
     mov ax, dx                       ; 0x1bf8
-    jmp short ds_loc_1c02            ; 0x1bfa
-ds_loc_1bfc:
+    jmp short ds_loc_OHKR            ; 0x1bfa
+ds_loc_JTUM:
     mov al, byte [bx + 0x5e30]       ; 0x1bfc
     sub ah, ah                       ; 0x1c00
-ds_loc_1c02:
+ds_loc_OHKR:
     mov byte [bx + 0x5e30], al       ; 0x1c02
     mov al, byte [bx + 0x5e31]       ; 0x1c06
     sub ah, ah                       ; 0x1c0a
     cmp ax, word [bp - 0x0006]       ; 0x1c0c
-    jge short ds_loc_1c16            ; 0x1c0f
+    jge short ds_loc_HTPG            ; 0x1c0f
     mov ax, word [bp - 0x0006]       ; 0x1c11
-    jmp short ds_loc_1c1c            ; 0x1c14
-ds_loc_1c16:
+    jmp short ds_loc_OISG            ; 0x1c14
+ds_loc_HTPG:
     mov al, byte [bx + 0x5e31]       ; 0x1c16
     sub ah, ah                       ; 0x1c1a
-ds_loc_1c1c:
+ds_loc_OISG:
     mov byte [bx + 0x5e31], al       ; 0x1c1c
-ds_loc_1c20:
+ds_loc_JQOU:
     inc word [bp - 0x0002]           ; 0x1c20
     mov ax, word [bp - 0x0002]       ; 0x1c23
     cmp ax, strict word 8            ; 0x1c26
-    jge short ds_loc_1c2e            ; 0x1c29
-    jmp near ds_loc_1a84             ; 0x1c2b
-ds_loc_1c2e:
+    jge short ds_loc_NUGN_1c2e       ; 0x1c29
+    jmp near ds_loc_SVQL             ; 0x1c2b
+ds_loc_NUGN_1c2e:
     ret                              ; 0x1c2e

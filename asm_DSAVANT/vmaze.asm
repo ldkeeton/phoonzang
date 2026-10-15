@@ -18,17 +18,19 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)     ; 0x00fa ; o_dsize: initialized data size
     dw 0x0c94                             ; o_bss: uninitialized data size
-    dw loc_ac30 - IMAGE_BASE + __zres_end ; 0xfc77 ; o_entry: overlay entry offset (CS)
+    dw loc_TNJV - IMAGE_BASE + __zres_end ; 0xfc77 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 fpu_loc_06b5 equ 0x06b5 + VBASE
 leaf_loc_4404 equ 0x4404 + VBASE
 string_loc_4b6b equ 0x4b6b + VBASE
-loc_ab7d equ 0xab7d + VBASE
+loc_RUVG equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0002_IPMR.asm"     ; 0x000e
 
 %include "vmaze/api_idx_0002_TTRS.asm"     ; 0x0106
+
+%include "vmaze/loc_TKQP.asm"              ; 0x017f
 
 %include "vmaze/api_idx_0008_LRNK.asm"     ; 0x01c9
 
@@ -36,6 +38,88 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0002_QUTS.asm"     ; 0x02fe
 
+%include "vmaze/loc_OKOK.asm"              ; 0x0344
+
+jumptable_03ce_case_1:
+    mov ax, 0x1a                     ; 0x0350
+    push ax                          ; 0x0353
+    mov ax, 0x19                     ; 0x0354
+    push ax                          ; 0x0357
+    call loc_TKQP                    ; 0x0358
+    add sp, byte 4                   ; 0x035b
+    jmp near @..loc_OKOK.l2          ; 0x035e
+jumptable_03ce_case_2:
+    mov ax, 1                        ; 0x0361
+    push ax                          ; 0x0364
+    push ax                          ; 0x0365
+    mov ax, 0x17                     ; 0x0366
+    push ax                          ; 0x0369
+    mov ax, 0x16                     ; 0x036a
+    push ax                          ; 0x036d
+    mov ax, 0x14                     ; 0x036e
+    push ax                          ; 0x0371
+    mov ax, 0x15                     ; 0x0372
+    push ax                          ; 0x0375
+    call api_idx_0008_LRNK           ; 0x0376
+    add sp, byte 0x0c                ; 0x0379
+    jmp short @..loc_OKOK.l2         ; 0x037c
+jumptable_03ce_case_3:
+    mov ax, 2                        ; 0x037e
+    push ax                          ; 0x0381
+    mov ax, 1                        ; 0x0382
+    push ax                          ; 0x0385
+    mov ax, 0                        ; 0x0386
+    push ax                          ; 0x0389
+    mov ax, 0x1c                     ; 0x038a
+    push ax                          ; 0x038d
+    mov ax, 0                        ; 0x038e
+    push ax                          ; 0x0391
+    mov ax, 0xe                      ; 0x0392
+    push ax                          ; 0x0395
+    call api_idx_0008_LRNK           ; 0x0396
+    add sp, byte 0x0c                ; 0x0399
+    jmp short @..loc_OKOK.l2         ; 0x039c
+jumptable_03ce_case_5:
+    mov ax, 0x18                     ; 0x039e
+    push ax                          ; 0x03a1
+    mov ax, 0x1d                     ; 0x03a2
+    push ax                          ; 0x03a5
+    call loc_TKQP                    ; 0x03a6
+    add sp, byte 4                   ; 0x03a9
+    jmp short @..loc_OKOK.l2         ; 0x03ac
+jumptable_03ce_case_6:
+    mov ax, 3                        ; 0x03ae
+    push ax                          ; 0x03b1
+    mov ax, 1                        ; 0x03b2
+    push ax                          ; 0x03b5
+    mov ax, 0x17                     ; 0x03b6
+    push ax                          ; 0x03b9
+    mov ax, 0x16                     ; 0x03ba
+    push ax                          ; 0x03bd
+    mov ax, 0                        ; 0x03be
+    push ax                          ; 0x03c1
+    mov ax, 0x1b                     ; 0x03c2
+    push ax                          ; 0x03c5
+    call api_idx_0008_LRNK           ; 0x03c6
+    add sp, byte 0x0c                ; 0x03c9
+    jmp short @..loc_OKOK.l2         ; 0x03cc
+jumptable_03ce:
+    dw jumptable_03ce_case_0 - IMAGE_BASE + 0x5055 ; 0x03ce
+    dw jumptable_03ce_case_1 - IMAGE_BASE + 0x5055 ; 0x03d0
+    dw jumptable_03ce_case_2 - IMAGE_BASE + 0x5055 ; 0x03d2
+    dw jumptable_03ce_case_3 - IMAGE_BASE + 0x5055 ; 0x03d4
+    dw jumptable_03ce_case_2 - IMAGE_BASE + 0x5055 ; 0x03d6
+    dw jumptable_03ce_case_5 - IMAGE_BASE + 0x5055 ; 0x03d8
+    dw jumptable_03ce_case_6 - IMAGE_BASE + 0x5055 ; 0x03da
+@..loc_OKOK.l1:
+    cmp ax, strict word 7            ; 0x03dc
+    jae short @..loc_OKOK.l2         ; 0x03df
+    xchg bx, ax                      ; 0x03e1
+    shl bx, 1                        ; 0x03e2
+    jmp [cs:bx + 0x5415]             ; 0x03e4
+jumptable_03ce_case_0:
+@..loc_OKOK.l2:
+    ret                              ; 0x03e9
 %include "vmaze/api_idx_0002_GPPN.asm"     ; 0x03ea
 
 %include "vmaze/leaf_loc_MUHH.asm"         ; 0x03fb
@@ -46,9 +130,13 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0014_PTQN.asm"     ; 0x06da
 
+%include "vmaze/loc_RKOS.asm"              ; 0x09cb
+
 %include "vmaze/api_idx_0006_TMUH.asm"     ; 0x0a6e
 
 %include "vmaze/api_idx_0002_NGKK.asm"     ; 0x0acc
+
+%include "vmaze/loc_VSIU.asm"              ; 0x0b14
 
 %include "vmaze/api_idx_0002_PGJJ.asm"     ; 0x0b66
 
@@ -56,17 +144,33 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0002_NQUM.asm"     ; 0x0e5d
 
+%include "vmaze/loc_MSIQ.asm"              ; 0x0ea6
+
+%include "vmaze/loc_IPIR.asm"              ; 0x0f68
+
 %include "vmaze/api_idx_0006_KLOT.asm"     ; 0x0f8e
 
 %include "lib/api_idx_0008_POHU.asm"     ; 0x0fde
 
 %include "vmaze/api_idx_0050_RIIV.asm"     ; 0x1094
 
+%include "lib/loc_UTRI.asm"              ; 0x10b0
+
 %include "vmaze/api_idx_0002_RNRT.asm"     ; 0x110e
+
+%include "vmaze/loc_USLK.asm"              ; 0x1165
 
 %include "vmaze/api_idx_0002_GLQQ.asm"     ; 0x1206
 
+%include "vmaze/loc_GNQK.asm"              ; 0x1240
+
+%include "lib/loc_QOTJ.asm"              ; 0x12a2
+
+%include "vmaze/loc_RHGL.asm"              ; 0x12d3
+
 %include "vmaze/api_idx_0004_NHHH.asm"     ; 0x1308
+
+%include "vmaze/loc_RUMS.asm"              ; 0x13c0
 
 %include "vmaze/api_idx_0004_LHHJ.asm"     ; 0x13f7
 
@@ -98,7 +202,23 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0006_ILJT.asm"     ; 0x2133
 
+%include "vmaze/loc_MPPU.asm"              ; 0x21e3
+
 %include "vmaze/api_idx_0022_UIUS.asm"     ; 0x2215
+
+%include "vmaze/loc_PISK.asm"              ; 0x2d94
+
+%include "vmaze/loc_TRNV.asm"              ; 0x2e0c
+
+%include "vmaze/loc_PLRK.asm"              ; 0x2e84
+
+%include "vmaze/loc_NNQI.asm"              ; 0x2e98
+
+%include "vmaze/loc_UMJN.asm"              ; 0x2eac
+
+%include "vmaze/loc_LITI.asm"              ; 0x2ec0
+
+%include "vmaze/loc_UKLN.asm"              ; 0x2ed4
 
 %include "vmaze/api_idx_0008_VLON.asm"     ; 0x2f8e
 
@@ -168,9 +288,15 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0030_QRVT.asm"     ; 0x53fd
 
-%include "vmaze/api_idx_0004_HROJ.asm"     ; 0x67c6
+%include "vmaze/loc_JGLI.asm"              ; 0x676c
+
+%include "lib/loc_LNMK.asm"              ; 0x678c
+
+%include "lib/api_idx_0004_HROJ.asm"     ; 0x67c6
 
 %include "vmaze/api_idx_0002_IVNS.asm"     ; 0x6882
+
+%include "vmaze/loc_QHLL.asm"              ; 0x68f2
 
 %include "lib/api_idx_0006_IQJI.asm"     ; 0x6960
 
@@ -184,7 +310,11 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/fpu_loc_VSMI.asm"          ; 0x6a97
 
+%include "vmaze/loc_HNMM.asm"              ; 0x6ac7
+
 %include "vmaze/api_idx_000a_MTQU.asm"     ; 0x6b0a
+
+%include "vmaze/loc_KJRU.asm"              ; 0x6b5a
 
 %include "vmaze/api_idx_0004_KTSH.asm"     ; 0x6c0a
 
@@ -192,13 +322,21 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0004_VKVG.asm"     ; 0x6eb1
 
+%include "vmaze/loc_QKON.asm"              ; 0x6f14
+
+%include "lib/loc_VRUN.asm"              ; 0x6fbf
+
 %include "vmaze/api_idx_0002_IJNM.asm"     ; 0x7001
 
 %include "vmaze/api_idx_001e_JTKS.asm"     ; 0x7034
 
+%include "lib/loc_VMLV.asm"              ; 0x7242
+
 %include "vmaze/api_idx_0004_TNOT.asm"     ; 0x72a6
 
 %include "vmaze/api_idx_0002_HMIP.asm"     ; 0x73b6
+
+%include "vmaze/loc_TGIL.asm"              ; 0x7436
 
 %include "vmaze/api_idx_0004_JRRO.asm"     ; 0x744e
 
@@ -214,9 +352,13 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0004_TVGU.asm"     ; 0x799e
 
+%include "vmaze/loc_VRVV.asm"              ; 0x7a34
+
 %include "vmaze/api_idx_0002_MKLO.asm"     ; 0x7abe
 
 %include "vmaze/api_idx_0018_ITTI.asm"     ; 0x7b53
+
+%include "vmaze/loc_PRNK.asm"              ; 0x7cb4
 
 %include "vmaze/api_idx_000a_HIUH.asm"     ; 0x7ce5
 
@@ -230,11 +372,35 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_000e_GOVT.asm"     ; 0x8448
 
+%include "vmaze/loc_JIHU.asm"              ; 0x8540
+
 %include "vmaze/api_idx_0012_RUSS.asm"     ; 0x8568
+
+%include "vmaze/loc_VTRJ.asm"              ; 0x86a9
 
 %include "vmaze/api_idx_0002_KJPP.asm"     ; 0x86f9
 
 %include "vmaze/api_idx_000c_QVUL.asm"     ; 0x8794
+
+%include "vmaze/loc_IHRP.asm"              ; 0x8867
+
+%include "vmaze/loc_ILRT.asm"              ; 0x8879
+
+%include "vmaze/loc_HKHK.asm"              ; 0x88af
+
+%include "vmaze/loc_UVPQ.asm"              ; 0x88b5
+
+%include "vmaze/loc_QOUK.asm"              ; 0x88c2
+
+%include "vmaze/loc_KMJH.asm"              ; 0x88c8
+
+%include "vmaze/loc_RPQO.asm"              ; 0x88ce
+
+%include "vmaze/loc_UHPG.asm"              ; 0x88d4
+
+%include "vmaze/loc_NSOM.asm"              ; 0x88da
+
+%include "vmaze/loc_OUGQ.asm"              ; 0x88e0
 
 %include "vmaze/fpu_loc_QRSN.asm"          ; 0x8925
 
@@ -292,7 +458,13 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0002_KUIN.asm"     ; 0x93ab
 
+%include "vmaze/loc_LUTJ.asm"              ; 0x9448
+
+%include "vmaze/loc_RVPM.asm"              ; 0x94a6
+
 %include "vmaze/api_idx_003a_NMIK.asm"     ; 0x94ef
+
+%include "vmaze/loc_UTKU.asm"              ; 0x9658
 
 %include "vmaze/api_idx_0004_VPTK.asm"     ; 0x96ce
 
@@ -308,6 +480,8 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0012_NNTI.asm"     ; 0x9ef7
 
+%include "vmaze/loc_SNLN.asm"              ; 0xa215
+
 %include "vmaze/api_idx_0002_NIML.asm"     ; 0xa28c
 
 %include "vmaze/api_idx_0010_MJQQ.asm"     ; 0xa2df
@@ -316,11 +490,15 @@ loc_ab7d equ 0xab7d + VBASE
 
 %include "vmaze/api_idx_0002_OLGP.asm"     ; 0xa7b2
 
-%include "vmaze/asm_only/api_idx_0002_OQKH.asm"     ; 0xa9a4
+%include "vmaze/api_idx_0002_OQKH.asm"     ; 0xa9a4
+
+%include "vmaze/loc_GUUT.asm"              ; 0xaad3
+
+%include "vmaze/asm_only/loc_IHSP.asm"              ; 0xab84
 
 %include "vmaze/api_idx_0032_UOIL.asm"     ; 0xab9b
 
-loc_ac30:
+loc_TNJV:
     pop word [dseg_9190]             ; 0xac30
     pop cx                           ; 0xac34
     mov word [dseg_918c], sp         ; 0xac35
@@ -332,10 +510,10 @@ loc_ac30:
     mov cx, 0x9e26                   ; 0xac49
     sub cx, di                       ; 0xac4c
     shr cx, 1                        ; 0xac4e
-    je short @..loc_ac30.l1          ; 0xac50
+    je short @..loc_TNJV.l1          ; 0xac50
     sub ax, ax                       ; 0xac52
     rep stosw                        ; 0xac54
-@..loc_ac30.l1:
+@..loc_TNJV.l1:
     call api_idx_0002_IPMR           ; 0xac56
     mov bp, word [dseg_918e]         ; 0xac59
     mov sp, word [dseg_918c]         ; 0xac5d

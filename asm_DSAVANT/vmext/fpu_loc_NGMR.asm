@@ -58,7 +58,7 @@ jumptable_1e9c:
     push word [bp + 0xa]             ; 0x1f09
     push word [bp + 0x8]             ; 0x1f0c
     push word [bp + 0x6]             ; 0x1f0f
-    call loc_189b                    ; 0x1f12
+    call loc_INQQ                    ; 0x1f12
     add sp, byte 0x0a                ; 0x1f15
     mov word [bp - 0x0004], ax       ; 0x1f18
     jmp short @..api_idx_0008_LPKU.l11 ; 0x1f1b
@@ -90,7 +90,7 @@ jumptable_1e9c:
     push word [bp + 0xa]             ; 0x1f55
     push word [bp + 0x8]             ; 0x1f58
     push word [bp + 0x6]             ; 0x1f5b
-    call loc_1823                    ; 0x1f5e
+    call loc_HLHU                    ; 0x1f5e
     add sp, byte 0x0a                ; 0x1f61
     mov word [bp - 0x0004], ax       ; 0x1f64
     jmp short @..api_idx_0008_LPKU.l11 ; 0x1f67
@@ -109,7 +109,7 @@ jumptable_1e9c:
     lea ax, word [bp - 0x0006]       ; 0x1f81
     push ax                          ; 0x1f84
     push word [bp - 0x0002]          ; 0x1f85
-    call loc_19e4                    ; 0x1f88
+    call loc_NMPG                    ; 0x1f88
     add sp, byte 6                   ; 0x1f8b
     mov ax, word [bp - 0x0008]       ; 0x1f8e
     add ax, word [bp + 0x4]          ; 0x1f91
@@ -124,56 +124,3 @@ jumptable_1e9c:
 @..api_idx_0008_LPKU.l12:
     mov ax, word [bp - 0x0006]       ; 0x1fa7
     jmp short @..api_idx_0008_LPKU.l15 ; 0x1faa
-loc_1fac:
-    mov word [bp - 0x0004], 8        ; 0x1fac
-    jmp short @..api_idx_0008_LPKU.l16 ; 0x1fb1
-loc_1fb3:
-    mov word [bp - 0x0004], 9        ; 0x1fb3
-    jmp short @..api_idx_0008_LPKU.l16 ; 0x1fb8
-loc_1fba:
-    mov word [bp - 0x0004], 0xa      ; 0x1fba
-    jmp short @..api_idx_0008_LPKU.l16 ; 0x1fbf
-loc_1fc1:
-    mov word [bp - 0x0004], 0xb      ; 0x1fc1
-    jmp short @..api_idx_0008_LPKU.l16 ; 0x1fc6
-loc_1fc8:
-    cmp word [bss_91aa], byte 0      ; 0x1fc8
-    jne short @..api_idx_0008_LPKU.l13 ; 0x1fcd
-    mov word [bp - 0x0004], 0xc      ; 0x1fcf
-@..api_idx_0008_LPKU.l13:
-    jmp short @..api_idx_0008_LPKU.l16 ; 0x1fd4
-loc_1fd6:
-    cmp word [bss_91aa], byte 0      ; 0x1fd6
-    jne short @..api_idx_0008_LPKU.l14 ; 0x1fdb
-    mov word [bp - 0x0004], 0xd      ; 0x1fdd
-@..api_idx_0008_LPKU.l14:
-    jmp short @..api_idx_0008_LPKU.l16 ; 0x1fe2
-loc_1fe4:
-    mov word [bp - 0x0004], 0xe      ; 0x1fe4
-    jmp short @..api_idx_0008_LPKU.l16 ; 0x1fe9
-loc_1feb:
-    mov word [bp - 0x0004], 0xf      ; 0x1feb
-    jmp short @..api_idx_0008_LPKU.l16 ; 0x1ff0
-jumptable_1ff2:
-    dw jumptable_1ff2_case_0 - IMAGE_BASE + 0x5055 ; 0x1ff2
-    dw loc_1fac - IMAGE_BASE + 0x5055          ; 0x1ff4
-    dw loc_1fb3 - IMAGE_BASE + 0x5055          ; 0x1ff6
-    dw loc_1fba - IMAGE_BASE + 0x5055          ; 0x1ff8
-    dw loc_1fc1 - IMAGE_BASE + 0x5055          ; 0x1ffa
-    dw loc_1fc8 - IMAGE_BASE + 0x5055          ; 0x1ffc
-    dw loc_1fd6 - IMAGE_BASE + 0x5055          ; 0x1ffe
-    dw jumptable_1ff2_case_0 - IMAGE_BASE + 0x5055 ; 0x2000
-    dw jumptable_1ff2_case_0 - IMAGE_BASE + 0x5055 ; 0x2002
-    dw jumptable_1ff2_case_0 - IMAGE_BASE + 0x5055 ; 0x2004
-    dw loc_1fe4 - IMAGE_BASE + 0x5055          ; 0x2006
-    dw loc_1feb - IMAGE_BASE + 0x5055          ; 0x2008
-@..api_idx_0008_LPKU.l15:
-    cmp ax, strict word 0xc          ; 0x200a
-    jae short @..api_idx_0008_LPKU.l16 ; 0x200d
-    xchg bx, ax                      ; 0x200f
-    shl bx, 1                        ; 0x2010
-    jmp [cs:bx + 0x7039]             ; 0x2012
-jumptable_1ff2_case_0:
-@..api_idx_0008_LPKU.l16:
-    mov ax, word [bp - 0x0004]       ; 0x2017
-    ret                              ; 0x201a

@@ -7,7 +7,7 @@ api_idx_0010_KILS:
     push word [bp + 0x8]             ; 0x266b
     push word [bp + 0xe]             ; 0x266e
     push word [bp + 0x4]             ; 0x2671
-    call loc_2553                    ; 0x2674
+    call loc_VOJJ                    ; 0x2674
     add sp, byte 6                   ; 0x2677
     mov word [bp - 0x0008], ax       ; 0x267a
     jmp short @..api_idx_0010_KILS.l2 ; 0x267d
@@ -20,7 +20,7 @@ api_idx_0010_KILS:
     push word [bp + 0xa]             ; 0x268b
     push word [bp + 0xe]             ; 0x268e
     push word [bp + 0x4]             ; 0x2691
-    call loc_2553                    ; 0x2694
+    call loc_VOJJ                    ; 0x2694
     add sp, byte 6                   ; 0x2697
     mov word [bp - 0x000a], ax       ; 0x269a
     jmp short @..api_idx_0010_KILS.l4 ; 0x269d
@@ -37,7 +37,7 @@ api_idx_0010_KILS:
 @..api_idx_0010_KILS.l5:
     mov ax, 0xc8d                    ; 0x26b5
     push ax                          ; 0x26b8
-    call loc_24c2                    ; 0x26b9
+    call loc_VTRL                    ; 0x26b9
     pop cx                           ; 0x26bc
 @..api_idx_0010_KILS.l6:
     lea ax, word [bp - 0x0004]       ; 0x26bd
@@ -80,7 +80,7 @@ api_idx_0010_KILS:
 @..api_idx_0010_KILS.l9:
     push word [bp - 0x0002]          ; 0x271d
     push word [bp + 0x4]             ; 0x2720
-    call loc_1f5d                    ; 0x2723
+    call loc_QVNQ                    ; 0x2723
     add sp, byte 4                   ; 0x2726
     test ax, ax                      ; 0x2729
     je short @..api_idx_0010_KILS.l10 ; 0x272b
@@ -148,7 +148,7 @@ api_idx_0010_KILS:
     push word [bp + 0x4]             ; 0x27b9
     mov ax, 0x90e6                   ; 0x27bc
     push ax                          ; 0x27bf
-    call loc_15ab                    ; 0x27c0
+    call loc_QJUS                    ; 0x27c0
     add sp, byte 6                   ; 0x27c3
     mov ax, 2                        ; 0x27c6
     push ax                          ; 0x27c9
@@ -223,7 +223,7 @@ api_idx_0010_KILS:
     mov ax, word [bx - 0x7b7e]       ; 0x2869
     add ax, cx                       ; 0x286d
     push ax                          ; 0x286f
-    call loc_182b                    ; 0x2870
+    call loc_TRQG                    ; 0x2870
     add sp, byte 4                   ; 0x2873
     cmp word [bp + 0x4], byte 0      ; 0x2876
     jne short @..api_idx_0010_KILS.l19 ; 0x287a

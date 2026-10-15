@@ -1,4 +1,4 @@
 ; auto-generated
 leaf_loc_VPOV_2622:
     mov word [bp - 0x001a], 0xffff   ; 0x2622
-    jmp short loc_269e               ; 0x2627
+    jmp short loc_JVIJ               ; 0x2627

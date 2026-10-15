@@ -134,6 +134,6 @@ api_idx_0002_JPPG:
     push ax                          ; 0x2895
     mov ax, 0x93f0                   ; 0x2896
     push ax                          ; 0x2899
-    call loc_2472                    ; 0x289a
+    call loc_JJJH                    ; 0x289a
     add sp, byte 4                   ; 0x289d
     ret                              ; 0x28a0

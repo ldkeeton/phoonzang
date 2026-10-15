@@ -93,7 +93,7 @@ jumptable_7185_case_1:
     push ax                          ; 0x7138
     mov ax, 0x6e96                   ; 0x7139
     push ax                          ; 0x713c
-    call loc_6f79                    ; 0x713d
+    call loc_HTNP                    ; 0x713d
     add sp, byte 4                   ; 0x7140
     jmp short @..api_idx_0002_NLRM.l6 ; 0x7143
 jumptable_7185_case_2:
@@ -101,7 +101,7 @@ jumptable_7185_case_2:
     push ax                          ; 0x7148
     mov ax, 0x6fc2                   ; 0x7149
     push ax                          ; 0x714c
-    call loc_6f79                    ; 0x714d
+    call loc_HTNP                    ; 0x714d
     add sp, byte 4                   ; 0x7150
     jmp short @..api_idx_0002_NLRM.l6 ; 0x7153
 jumptable_7185_case_3:
@@ -109,7 +109,7 @@ jumptable_7185_case_3:
     push ax                          ; 0x7158
     mov ax, 0x6ffe                   ; 0x7159
     push ax                          ; 0x715c
-    call loc_6f79                    ; 0x715d
+    call loc_HTNP                    ; 0x715d
     add sp, byte 4                   ; 0x7160
     jmp short @..api_idx_0002_NLRM.l6 ; 0x7163
 jumptable_7185_case_4:
@@ -117,7 +117,7 @@ jumptable_7185_case_4:
     push ax                          ; 0x7168
     mov ax, 0x6e46                   ; 0x7169
     push ax                          ; 0x716c
-    call loc_6f79                    ; 0x716d
+    call loc_HTNP                    ; 0x716d
     add sp, byte 4                   ; 0x7170
     jmp short @..api_idx_0002_NLRM.l6 ; 0x7173
 jumptable_7185_case_5:
@@ -125,7 +125,7 @@ jumptable_7185_case_5:
     push ax                          ; 0x7178
     mov ax, 0x6f54                   ; 0x7179
     push ax                          ; 0x717c
-    call loc_6f79                    ; 0x717d
+    call loc_HTNP                    ; 0x717d
     add sp, byte 4                   ; 0x7180
     jmp short @..api_idx_0002_NLRM.l6 ; 0x7183
 io_loc_7185:
@@ -276,10 +276,3 @@ jumptable_7185_case_0:
     call api_idx_0002_VTPK           ; 0x72bb
     add sp, byte 4                   ; 0x72be
     ret                              ; 0x72c1
-loc_72c2:
-    mov ax, 0                        ; 0x72c2
-    call aztec_csav                  ; 0x72c5
-    push word [bp + 0x4]             ; 0x72c8
-    call thunk_26                    ; 0x72cb
-    pop cx                           ; 0x72ce
-    ret                              ; 0x72cf

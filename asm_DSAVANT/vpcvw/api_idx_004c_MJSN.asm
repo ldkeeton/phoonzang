@@ -21,7 +21,7 @@ api_idx_004c_MJSN:
     push ax                          ; 0x6d44
     mov ax, 0x63                     ; 0x6d45
     push ax                          ; 0x6d48
-    call ds_loc_3a77                 ; 0x6d49
+    call ds_loc_PQIO                 ; 0x6d49
     add sp, byte 4                   ; 0x6d4c
 @..api_idx_004c_MJSN.l1:
     cmp word [bss_9614], byte 0      ; 0x6d4f

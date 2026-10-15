@@ -13,7 +13,7 @@ api_idx_005a_PTHK:
     push word [bss_8464]             ; 0x9f6c
     mov ax, 0x90e6                   ; 0x9f70
     push ax                          ; 0x9f73
-    call loc_15ab                    ; 0x9f74
+    call loc_QJUS                    ; 0x9f74
     add sp, byte 6                   ; 0x9f77
     mov word [bp - 0x0004], 0        ; 0x9f7a
     mov word [bp - 0x0006], 0        ; 0x9f7f
@@ -179,7 +179,7 @@ api_idx_005a_PTHK:
     mov ax, 0xd                      ; 0xa0f0
     push ax                          ; 0xa0f3
     push word [bss_8462]             ; 0xa0f4
-    call loc_1bf4                    ; 0xa0f8
+    call loc_VRUN                    ; 0xa0f8
     add sp, byte 6                   ; 0xa0fb
     cmp word [bp - 0x0004], byte 0   ; 0xa0fe
     jge short @..api_idx_005a_PTHK.l12 ; 0xa102
@@ -228,7 +228,7 @@ api_idx_005a_PTHK:
     inc ax                           ; 0xa163
     push ax                          ; 0xa164
     push word [bp + 0x4]             ; 0xa165
-    call loc_182b                    ; 0xa168
+    call loc_TRQG                    ; 0xa168
     add sp, byte 4                   ; 0xa16b
 @..api_idx_005a_PTHK.l16:
     jmp short @..api_idx_005a_PTHK.l19 ; 0xa16e
@@ -441,7 +441,7 @@ api_idx_005a_PTHK:
     push ax                          ; 0xa361
     push word [bp - 0x0012]          ; 0xa362
     push word [bss_8462]             ; 0xa365
-    call loc_1bf4                    ; 0xa369
+    call loc_VRUN                    ; 0xa369
     add sp, byte 6                   ; 0xa36c
     mov ax, 0x248                    ; 0xa36f
     imul word [bss_8462]             ; 0xa372

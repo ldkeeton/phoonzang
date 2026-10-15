@@ -10,7 +10,7 @@ api_idx_0010_LUQQ:
     push ax                          ; 0x18c6
     mov ax, 5                        ; 0x18c7
     push ax                          ; 0x18ca
-    call ds_loc_39f6                 ; 0x18cb
+    call ds_loc_IMOU                 ; 0x18cb
     add sp, byte 8                   ; 0x18ce
     mov word [bp - 0x0006], dx       ; 0x18d1
     mov word [bp - 0x0008], ax       ; 0x18d4

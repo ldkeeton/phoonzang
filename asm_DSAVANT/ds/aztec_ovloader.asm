@@ -3,9 +3,9 @@ aztec_ovloader:
     mov bx, sp                       ; 0x4379
     mov ax, word [bx + 0x2]          ; 0x437b
     mov word [bss_0cfa], ax          ; 0x437e
-    call ds_loc_4386                 ; 0x4381
+    call ds_loc_QNHV                 ; 0x4381
     jmp ax                           ; 0x4384
-ds_loc_4386:
+ds_loc_QNHV:
     push bp                          ; 0x4386
     mov bp, sp                       ; 0x4387
     add sp, byte 0xae                ; 0x4389
@@ -116,7 +116,7 @@ aztec_loadabort:
     push ax                          ; 0x4472
     lea ax, word [bp - 0x0050]       ; 0x4473
     push ax                          ; 0x4476
-    call ds_loc_44d4                 ; 0x4477
+    call ds_loc_IRHQ                 ; 0x4477
     add sp, byte 8                   ; 0x447a
     lea ax, word [bp - 0x0050]       ; 0x447d
     push ax                          ; 0x4480
@@ -126,7 +126,7 @@ aztec_loadabort:
     add sp, byte 4                   ; 0x4488
     mov ax, 0x64                     ; 0x448b
     push ax                          ; 0x448e
-    call ds_loc_4f73                 ; 0x448f
+    call ds_loc_OMIG                 ; 0x448f
     pop cx                           ; 0x4492
     mov sp, bp                       ; 0x4493
     pop bp                           ; 0x4495

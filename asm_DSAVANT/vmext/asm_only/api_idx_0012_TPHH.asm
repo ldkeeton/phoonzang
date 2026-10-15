@@ -18,20 +18,20 @@ api_idx_0012_TPHH:
     cwd                              ; 0x0f09
     idiv cx                          ; 0x0f0a
     mov word [bp - 0x000c], dx       ; 0x0f0c
-loc_0f0f:
+loc_PKJS:
     call ds_app_io_VJGM              ; 0x0f0f
     mov word [bp - 0x0006], ax       ; 0x0f12
     cmp ax, strict word 0xffff       ; 0x0f15
-    jne short loc_0f1d               ; 0x0f18
-    jmp near loc_1351                ; 0x0f1a
-loc_0f1d:
+    jne short loc_JUVV               ; 0x0f18
+    jmp near loc_URTQ                ; 0x0f1a
+loc_JUVV:
     mov word [bp - 0x0010], 0        ; 0x0f1d
     mov word [bp - 0x0012], 0        ; 0x0f22
     mov cx, 0x248                    ; 0x0f27
     imul cx                          ; 0x0f2a
     mov bx, ax                       ; 0x0f2c
     cmp byte [bx + 0x5e2f], 3        ; 0x0f2e
-    jb short loc_0f4d                ; 0x0f33
+    jb short loc_SOPO                ; 0x0f33
     mov ax, 1                        ; 0x0f35
     push ax                          ; 0x0f38
     mov ax, 7                        ; 0x0f39
@@ -40,9 +40,9 @@ loc_0f1d:
     call ds_dos_con_loc_RGTO         ; 0x0f40
     add sp, byte 6                   ; 0x0f43
     test ax, ax                      ; 0x0f46
-    jne short loc_0f4d               ; 0x0f48
-    jmp near loc_1333                ; 0x0f4a
-loc_0f4d:
+    jne short loc_SOPO               ; 0x0f48
+    jmp near loc_QVQM                ; 0x0f4a
+loc_SOPO:
     push word [bp - 0x000a]          ; 0x0f4d
     push word [bp - 0x000c]          ; 0x0f50
     push word [bp - 0x000a]          ; 0x0f53
@@ -61,7 +61,7 @@ loc_0f4d:
     add sp, byte 4                   ; 0x0f70
     mov word [bp - 0x000e], ax       ; 0x0f73
     mov word [bp - 0x0002], 0        ; 0x0f76
-loc_0f7b:
+loc_LJMK:
     mov ax, 1                        ; 0x0f7b
     push ax                          ; 0x0f7e
     push word [bp - 0x0002]          ; 0x0f7f
@@ -69,18 +69,18 @@ loc_0f7b:
     call ds_dos_con_loc_RGTO         ; 0x0f85
     add sp, byte 6                   ; 0x0f88
     cmp ax, strict word 1            ; 0x0f8b
-    je short loc_0f93                ; 0x0f8e
-    jmp near loc_1325                ; 0x0f90
-loc_0f93:
+    je short loc_VOJN                ; 0x0f8e
+    jmp near loc_TNQQ                ; 0x0f90
+loc_VOJN:
     cmp word [bp - 0x0002], byte 7   ; 0x0f93
-    jge short loc_0f9e               ; 0x0f97
+    jge short loc_OMTV               ; 0x0f97
     mov word [bp - 0x0010], 1        ; 0x0f99
-loc_0f9e:
+loc_OMTV:
     mov ax, word [bp - 0x0002]       ; 0x0f9e
     cmp ax, strict word 7            ; 0x0fa1
-    jle short loc_0fb0               ; 0x0fa4
+    jle short loc_GQNG               ; 0x0fa4
     cmp ax, strict word 0xf          ; 0x0fa6
-    jge short loc_0fb0               ; 0x0fa9
+    jge short loc_GQNG               ; 0x0fa9
     mov word [bp - 0x0012], 2        ; 0x0fab
-loc_0fb0:
-    jmp near loc_1318                ; 0x0fb0
+loc_GQNG:
+    jmp near loc_QHUL                ; 0x0fb0

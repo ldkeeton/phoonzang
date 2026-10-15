@@ -9,4 +9,4 @@ leaf_loc_KMKN:
     mov word [bp - 0x0028], 1        ; 0x7367
     mov ax, word [dseg_001e]         ; 0x736c
     mov word [bp - 0x0032], ax       ; 0x736f
-    jmp near loc_745a                ; 0x7372
+    jmp near loc_OMJU                ; 0x7372

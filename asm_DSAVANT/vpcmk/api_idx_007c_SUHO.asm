@@ -65,7 +65,7 @@ api_idx_007c_SUHO:
     push ax                          ; 0x460e
     mov ax, 0x78                     ; 0x460f
     push ax                          ; 0x4612
-    call loc_0445                    ; 0x4613
+    call loc_TGJO                    ; 0x4613
     add sp, byte 0x1a                ; 0x4616
     push ax                          ; 0x4619
     mov ax, 0x248                    ; 0x461a
@@ -111,7 +111,7 @@ api_idx_007c_SUHO:
     sub ah, ah                       ; 0x467d
     push ax                          ; 0x467f
     push word [bp + 0x4]             ; 0x4680
-    call loc_4107                    ; 0x4683
+    call loc_OLPI                    ; 0x4683
     add sp, byte 6                   ; 0x4686
     mov ax, 1                        ; 0x4689
     push ax                          ; 0x468c

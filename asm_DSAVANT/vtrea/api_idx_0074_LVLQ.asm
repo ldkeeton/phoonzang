@@ -647,7 +647,7 @@ api_idx_0074_LVLQ:
     push ax                          ; 0x6cbd
     call thunk_4                     ; 0x6cbe
     add sp, byte 8                   ; 0x6cc1
-    call loc_086b                    ; 0x6cc4
+    call loc_IQGR                    ; 0x6cc4
     test ax, ax                      ; 0x6cc7
     jne short @..api_idx_0074_LVLQ.l23 ; 0x6cc9
     mov ax, 0x19                     ; 0x6ccb
@@ -685,7 +685,7 @@ api_idx_0074_LVLQ:
     mov ax, word [bp - 0x0006]       ; 0x6d0e
     add ax, strict word 8            ; 0x6d11
     push ax                          ; 0x6d14
-    call loc_242c                    ; 0x6d15
+    call loc_MMHQ                    ; 0x6d15
     add sp, byte 0x0a                ; 0x6d18
     mov ax, 0                        ; 0x6d1b
     push ax                          ; 0x6d1e

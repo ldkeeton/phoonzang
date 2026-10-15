@@ -9,12 +9,3 @@ dos_con_loc_UPUP:
     db 0x0d, 0x0a, 0x07
     db 'Picture slot '
 
-cseg_3196:
-    db 0x30
-cseg_3197:
-    db '0 not freed.', 0
-    db 0x0a, 0x24
-@..dos_read_file_3.l8:
-    mov ax, cs                       ; 0x31a6
-    mov ds, ax                       ; 0x31a8
-    mov dx, 0x32b6                   ; 0x31aa

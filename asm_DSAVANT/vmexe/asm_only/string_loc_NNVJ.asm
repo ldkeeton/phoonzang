@@ -82,31 +82,31 @@ string_loc_NNVJ:
 @..string_loc_NNVJ.l7:
     mov ax, word [bp + 0x10]         ; 0x36e0
     jmp short @..string_loc_NNVJ.l9  ; 0x36e3
-loc_36e5:
+loc_MSIG:
     mov ax, word [bp + 0x4]          ; 0x36e5
     mov word [bp - 0x01aa], ax       ; 0x36e8
     jmp short @..string_loc_NNVJ.l11 ; 0x36ec
-loc_36ee:
+loc_IVSO:
     mov ax, word [bp + 0x6]          ; 0x36ee
     mov word [bp - 0x01aa], ax       ; 0x36f1
     jmp short @..string_loc_NNVJ.l11 ; 0x36f5
-loc_36f7:
+loc_KVQI:
     mov ax, word [bp + 0x8]          ; 0x36f7
     mov word [bp - 0x01aa], ax       ; 0x36fa
     jmp short @..string_loc_NNVJ.l11 ; 0x36fe
-loc_3700:
+loc_TVTG:
     mov ax, word [bp + 0xa]          ; 0x3700
     mov word [bp - 0x01aa], ax       ; 0x3703
     jmp short @..string_loc_NNVJ.l11 ; 0x3707
-loc_3709:
+loc_JNNS:
     mov ax, word [bp + 0xc]          ; 0x3709
     mov word [bp - 0x01aa], ax       ; 0x370c
     jmp short @..string_loc_NNVJ.l11 ; 0x3710
-loc_3712:
+loc_MKRL:
     mov ax, word [bp + 0xe]          ; 0x3712
     mov word [bp - 0x01aa], ax       ; 0x3715
     jmp short @..string_loc_NNVJ.l11 ; 0x3719
-loc_371b:
+loc_HRJK:
     mov ax, word [bp + 0xe]          ; 0x371b
     mov word [bp - 0x01aa], ax       ; 0x371e
     jmp short @..string_loc_NNVJ.l11 ; 0x3722
@@ -115,13 +115,13 @@ loc_371b:
     mov word [bp - 0x01aa], ax       ; 0x3727
     jmp short @..string_loc_NNVJ.l11 ; 0x372b
 jumptable_372d:
-    dw loc_36e5 - IMAGE_BASE + 0x5055          ; 0x372d
-    dw loc_36ee - IMAGE_BASE + 0x5055          ; 0x372f
-    dw loc_36f7 - IMAGE_BASE + 0x5055          ; 0x3731
-    dw loc_3700 - IMAGE_BASE + 0x5055          ; 0x3733
-    dw loc_3709 - IMAGE_BASE + 0x5055          ; 0x3735
-    dw loc_3712 - IMAGE_BASE + 0x5055          ; 0x3737
-    dw loc_371b - IMAGE_BASE + 0x5055          ; 0x3739
+    dw loc_MSIG - IMAGE_BASE + 0x5055          ; 0x372d
+    dw loc_IVSO - IMAGE_BASE + 0x5055          ; 0x372f
+    dw loc_KVQI - IMAGE_BASE + 0x5055          ; 0x3731
+    dw loc_TVTG - IMAGE_BASE + 0x5055          ; 0x3733
+    dw loc_JNNS - IMAGE_BASE + 0x5055          ; 0x3735
+    dw loc_MKRL - IMAGE_BASE + 0x5055          ; 0x3737
+    dw loc_HRJK - IMAGE_BASE + 0x5055          ; 0x3739
 @..string_loc_NNVJ.l9:
     cmp ax, strict word 7            ; 0x373b
     jae short @..string_loc_NNVJ.l10 ; 0x373e
@@ -468,47 +468,3 @@ jumptable_372d:
     mov word [bss_598e], 0xffff      ; 0x3a9c
 @..string_loc_NNVJ.l25:
     ret                              ; 0x3aa2
-loc_3aa3:
-    mov ax, 0                        ; 0x3aa3
-    call aztec_csav                  ; 0x3aa6
-    mov ax, word [bss_9058]          ; 0x3aa9
-    mov cx, 4                        ; 0x3aac
-    cwd                              ; 0x3aaf
-    idiv cx                          ; 0x3ab0
-    push ax                          ; 0x3ab2
-    call api_idx_0004_LIRS           ; 0x3ab3
-    pop cx                           ; 0x3ab6
-    push word [bp + 0x6]             ; 0x3ab7
-    push word [bp + 0x4]             ; 0x3aba
-    mov ax, 0x90e6                   ; 0x3abd
-    push ax                          ; 0x3ac0
-    call loc_15ab                    ; 0x3ac1
-    add sp, byte 6                   ; 0x3ac4
-    mov ax, 0x9136                   ; 0x3ac7
-    push ax                          ; 0x3aca
-    push word [bp + 0x8]             ; 0x3acb
-    call ds_app_mem_VKHV             ; 0x3ace
-    add sp, byte 4                   ; 0x3ad1
-    mov ax, 0                        ; 0x3ad4
-    push ax                          ; 0x3ad7
-    push word [bp + 0xa]             ; 0x3ad8
-    mov ax, 0x43                     ; 0x3adb
-    cmp word [bp + 0x4], byte 0      ; 0x3ade
-    jne short @..loc_3aa3.l1         ; 0x3ae2
-    mov ax, 1                        ; 0x3ae4
-@..loc_3aa3.l1:
-    push ax                          ; 0x3ae7
-    mov ax, 0x90b0                   ; 0x3ae8
-    push ax                          ; 0x3aeb
-    mov ax, 0x9136                   ; 0x3aec
-    push ax                          ; 0x3aef
-    mov ax, 0x90e6                   ; 0x3af0
-    push ax                          ; 0x3af3
-    mov ax, 2                        ; 0x3af4
-    push ax                          ; 0x3af7
-    call api_idx_0004_MHSG           ; 0x3af8
-    add sp, byte 0x0e                ; 0x3afb
-    push word [bss_9058]             ; 0x3afe
-    call api_idx_0004_LIRS           ; 0x3b02
-    pop cx                           ; 0x3b05
-    ret                              ; 0x3b06

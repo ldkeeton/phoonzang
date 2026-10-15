@@ -50,7 +50,7 @@ api_idx_0032_VMQI:
     push ax                          ; 0x276e
     mov ax, 5                        ; 0x276f
     push ax                          ; 0x2772
-    call ds_loc_3a77                 ; 0x2773
+    call ds_loc_PQIO                 ; 0x2773
     add sp, byte 4                   ; 0x2776
     mov ax, 6                        ; 0x2779
     imul word [bp - 0x000a]          ; 0x277c
@@ -64,7 +64,7 @@ api_idx_0032_VMQI:
     push ax                          ; 0x2790
     mov ax, 6                        ; 0x2791
     push ax                          ; 0x2794
-    call ds_loc_3a77                 ; 0x2795
+    call ds_loc_PQIO                 ; 0x2795
     add sp, byte 4                   ; 0x2798
     mov word [bp - 0x0002], 0        ; 0x279b
     jmp near @..api_idx_0032_VMQI.l7 ; 0x27a0
@@ -286,7 +286,7 @@ api_idx_0032_VMQI:
     mov ax, 0xbc                     ; 0x2995
     push ax                          ; 0x2998
     push word [bp - 0x0006]          ; 0x2999
-    call loc_03ca                    ; 0x299c
+    call loc_RIRS                    ; 0x299c
     add sp, byte 0x0a                ; 0x299f
 @..api_idx_0032_VMQI.l15:
     inc word [bp - 0x000e]           ; 0x29a2
@@ -352,7 +352,7 @@ api_idx_0032_VMQI:
     mov ax, 0xbc                     ; 0x2a26
     push ax                          ; 0x2a29
     push word [bp - 0x0006]          ; 0x2a2a
-    call loc_03ca                    ; 0x2a2d
+    call loc_RIRS                    ; 0x2a2d
     add sp, byte 0x0a                ; 0x2a30
     mov ax, 0xc7                     ; 0x2a33
     push ax                          ; 0x2a36
@@ -374,7 +374,7 @@ api_idx_0032_VMQI:
     mov ax, 0xbc                     ; 0x2a58
     push ax                          ; 0x2a5b
     push word [bp - 0x0006]          ; 0x2a5c
-    call loc_03ca                    ; 0x2a5f
+    call loc_RIRS                    ; 0x2a5f
     add sp, byte 0x0a                ; 0x2a62
 @..api_idx_0032_VMQI.l21:
     mov ax, 1                        ; 0x2a65

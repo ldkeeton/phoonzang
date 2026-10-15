@@ -5,4 +5,4 @@ leaf_loc_HLGS:
     add ax, word [bp + 0xe]          ; 0x1b4d
     mov bx, ax                       ; 0x1b50
     mov byte [bx - 0x6e52], 2        ; 0x1b52
-    jmp short loc_1bb9               ; 0x1b57
+    jmp short loc_QNKS               ; 0x1b57

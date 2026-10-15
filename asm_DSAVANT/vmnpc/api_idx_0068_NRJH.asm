@@ -13,7 +13,7 @@ api_idx_0068_NRJH:
     push ax                          ; 0x51d3
     call api_idx_0006_NSNR           ; 0x51d4
     pop cx                           ; 0x51d7
-    call loc_10b6                    ; 0x51d8
+    call loc_SKSV                    ; 0x51d8
     mov ax, 0x248                    ; 0x51db
     imul word [bp + 0x4]             ; 0x51de
     add ax, 0x5bf4                   ; 0x51e1

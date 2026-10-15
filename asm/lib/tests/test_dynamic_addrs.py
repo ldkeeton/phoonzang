@@ -173,7 +173,17 @@ BASELINE_TOTALS = {
     # are unchanged).  ``play``'s own ``f3`` rises 9 -> 14 where an operand
     # previously borrowed a (0x100-off) code label and now carries a real
     # ``cseg_`` name -- the honest count, and the whole class only falls.
-    'names_used': 55, 'names_inert': 29, 'hidden_flow': 87,
+    # ``split_off_foreign_objects`` + the ``loc_`` content tag (2026-10-14): each
+    # fragment's trailing neighbour is its own file, and every ``loc_`` root is
+    # named after its code.  ``glued_files`` 361 -> 214, ``outside`` 734 -> 254.
+    # ``names_used`` 55 -> 56 (one more named address is referenced) and
+    # ``hidden_flow`` 87 -> **90**: a shared ``lib/`` file carries no ``; 0x``
+    # comments -- dropping them is what lets it share -- so the source-anchored
+    # scan cannot see its instructions.  More sharing (58 -> 84 lib files) means
+    # fewer visible anchors, and ``hidden_flow`` is a lower bound on a *gap*
+    # walk, so the count rises mechanically rather than from a new reference.
+    # ``code_shift``/``data_shift``, the gate classes, are unchanged.
+    'names_used': 56, 'names_inert': 28, 'hidden_flow': 90,
     'total': 98,
 }
 

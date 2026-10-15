@@ -23,32 +23,32 @@ api_idx_0004_IKRN:
     je short @..api_idx_0004_IKRN.l3 ; 0x153a
     mov ax, word [bss_830c]          ; 0x153c
     jmp short @..api_idx_0004_IKRN.l2 ; 0x153f
-loc_1541:
+loc_GPMV:
     cmp word [bss_8f3e], byte 0x0c   ; 0x1541
     jle short @..api_idx_0004_IKRN.l1 ; 0x1546
     mov word [bp - 0x0004], 1        ; 0x1548
 @..api_idx_0004_IKRN.l1:
     jmp short @..api_idx_0004_IKRN.l3 ; 0x154d
-loc_154f:
+loc_PHPG:
     mov word [bp - 0x0004], 1        ; 0x154f
     jmp short @..api_idx_0004_IKRN.l3 ; 0x1554
 jumptable_1556:
-    dw loc_154f - IMAGE_BASE + 0x5055          ; 0x1556
+    dw loc_PHPG - IMAGE_BASE + 0x5055          ; 0x1556
     dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x1558
-    dw loc_154f - IMAGE_BASE + 0x5055          ; 0x155a
+    dw loc_PHPG - IMAGE_BASE + 0x5055          ; 0x155a
     dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x155c
     dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x155e
     dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x1560
     dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x1562
-    dw loc_154f - IMAGE_BASE + 0x5055          ; 0x1564
-    dw loc_154f - IMAGE_BASE + 0x5055          ; 0x1566
-    dw loc_154f - IMAGE_BASE + 0x5055          ; 0x1568
-    dw loc_154f - IMAGE_BASE + 0x5055          ; 0x156a
-    dw loc_154f - IMAGE_BASE + 0x5055          ; 0x156c
+    dw loc_PHPG - IMAGE_BASE + 0x5055          ; 0x1564
+    dw loc_PHPG - IMAGE_BASE + 0x5055          ; 0x1566
+    dw loc_PHPG - IMAGE_BASE + 0x5055          ; 0x1568
+    dw loc_PHPG - IMAGE_BASE + 0x5055          ; 0x156a
+    dw loc_PHPG - IMAGE_BASE + 0x5055          ; 0x156c
     dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x156e
     dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x1570
-    dw loc_1541 - IMAGE_BASE + 0x5055          ; 0x1572
-    dw loc_154f - IMAGE_BASE + 0x5055          ; 0x1574
+    dw loc_GPMV - IMAGE_BASE + 0x5055          ; 0x1572
+    dw loc_PHPG - IMAGE_BASE + 0x5055          ; 0x1574
 @..api_idx_0004_IKRN.l2:
     sub ax, strict word 0xf          ; 0x1576
     cmp ax, strict word 0x10         ; 0x1579

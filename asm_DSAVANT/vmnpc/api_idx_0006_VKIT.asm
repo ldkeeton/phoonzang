@@ -120,7 +120,7 @@ api_idx_0006_VKIT:
 @..api_idx_0006_VKIT.l13:
     cmp byte [bp + 0x6], 4           ; 0x388a
     jne short @..api_idx_0006_VKIT.l14 ; 0x388e
-    call loc_47b9                    ; 0x3890
+    call loc_UUJL                    ; 0x3890
 @..api_idx_0006_VKIT.l14:
     mov ax, 6                        ; 0x3893
     imul word [bp - 0x0002]          ; 0x3896

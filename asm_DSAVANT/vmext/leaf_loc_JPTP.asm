@@ -22,4 +22,4 @@ leaf_loc_JPTP:
     mov ax, word [bss_82e8]          ; 0x2f30
     add ax, strict word 5            ; 0x2f33
     mov word [bp - 0x000a], ax       ; 0x2f36
-    jmp near loc_30b2                ; 0x2f39
+    jmp near loc_PUVS                ; 0x2f39

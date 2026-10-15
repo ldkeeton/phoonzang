@@ -10,4 +10,4 @@ leaf_loc_MQTO:
     mov bx, ax                       ; 0x1d1f
     pop ax                           ; 0x1d21
     mov byte [bx - 0x6e07], al       ; 0x1d22
-    jmp near loc_1e16                ; 0x1d26
+    jmp near loc_SGRK                ; 0x1d26

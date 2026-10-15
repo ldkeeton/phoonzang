@@ -5,4 +5,4 @@ leaf_loc_THMM:
     add ax, word [bp + 0xe]          ; 0x1d7e
     mov bx, ax                       ; 0x1d81
     mov byte [bx - 0x6d8a], 1        ; 0x1d83
-    jmp near loc_1e16                ; 0x1d88
+    jmp near loc_SGRK                ; 0x1d88

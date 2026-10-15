@@ -3,11 +3,11 @@
 string_loc_UUPH:
     mov al, ah                       ; 0x93e3
     scasb                            ; 0x93e5
-loc_93e6:
+loc_LLRH:
     sbb ax, ax                       ; 0x93e6
-    js short loc_93d5                ; 0x93e8
+    js short loc_HQUP                ; 0x93e8
     inc ax                           ; 0x93ea
-    jmp short loc_93d5               ; 0x93eb
+    jmp short loc_HQUP               ; 0x93eb
 __zdata_start:
 
     db 'PCFILE.DBS', 0

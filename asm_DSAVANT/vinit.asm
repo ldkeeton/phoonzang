@@ -18,37 +18,37 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)     ; 0x0120 ; o_dsize: initialized data size
     dw 0x0002                             ; o_bss: uninitialized data size
-    dw loc_15d9 - IMAGE_BASE + __zres_end ; 0x6620 ; o_entry: overlay entry offset (CS)
+    dw loc_GPRR - IMAGE_BASE + __zres_end ; 0x6620 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
-loc_000e:
+loc_OGQG:
     mov ax, 0                        ; 0x000e
     call aztec_csav                  ; 0x0011
     mov ax, word [bss_830a]          ; 0x0014
-    jmp short @..loc_000e.l5         ; 0x0017
-@..loc_000e.l1:
-    call loc_03a8                    ; 0x0019
-    jmp short @..loc_000e.l6         ; 0x001c
-@..loc_000e.l2:
+    jmp short @..loc_OGQG.l5         ; 0x0017
+@..loc_OGQG.l1:
+    call loc_SPRP                    ; 0x0019
+    jmp short @..loc_OGQG.l6         ; 0x001c
+@..loc_OGQG.l2:
     call api_idx_0068_VUVP           ; 0x001e
-    jmp short @..loc_000e.l6         ; 0x0021
-@..loc_000e.l3:
+    jmp short @..loc_OGQG.l6         ; 0x0021
+@..loc_OGQG.l3:
     call api_idx_0002_LIOI           ; 0x0023
-    jmp short @..loc_000e.l6         ; 0x0026
-@..loc_000e.l4:
+    jmp short @..loc_OGQG.l6         ; 0x0026
+@..loc_OGQG.l4:
     call api_idx_0008_LUSR           ; 0x0028
-    jmp short @..loc_000e.l6         ; 0x002b
-@..loc_000e.l5:
+    jmp short @..loc_OGQG.l6         ; 0x002b
+@..loc_OGQG.l5:
     cmp ax, strict word 0            ; 0x002d
-    je short @..loc_000e.l1          ; 0x0030
+    je short @..loc_OGQG.l1          ; 0x0030
     cmp ax, strict word 1            ; 0x0032
-    je short @..loc_000e.l2          ; 0x0035
+    je short @..loc_OGQG.l2          ; 0x0035
     cmp ax, strict word 2            ; 0x0037
-    je short @..loc_000e.l4          ; 0x003a
+    je short @..loc_OGQG.l4          ; 0x003a
     cmp ax, strict word 8            ; 0x003c
-    je short @..loc_000e.l3          ; 0x003f
-@..loc_000e.l6:
+    je short @..loc_OGQG.l3          ; 0x003f
+@..loc_OGQG.l6:
     mov ax, 0                        ; 0x0041
     ret                              ; 0x0044
 %include "vinit/api_idx_0002_MPHG.asm"     ; 0x0045
@@ -61,6 +61,8 @@ loc_000e:
 
 %include "vinit/api_idx_000c_POHU.asm"     ; 0x0146
 
+%include "vinit/loc_SPRP.asm"              ; 0x03a8
+
 %include "lib/api_idx_0002_VTPK.asm"     ; 0x08b7
 
 %include "vinit/api_idx_0002_NJSO.asm"     ; 0x094a
@@ -69,13 +71,15 @@ loc_000e:
 
 %include "vinit/api_idx_000e_KUPL.asm"     ; 0x09d3
 
+%include "vinit/loc_VRMJ.asm"              ; 0x0a56
+
 %include "vinit/api_idx_0068_VUVP.asm"     ; 0x0ac7
 
 %include "vinit/api_idx_0002_LIOI.asm"     ; 0x133d
 
 %include "vinit/api_idx_0008_LUSR.asm"     ; 0x1409
 
-loc_15d9:
+loc_GPRR:
     pop word [dseg_91b6]             ; 0x15d9
     pop cx                           ; 0x15dd
     mov word [dseg_91b2], sp         ; 0x15de
@@ -87,11 +91,11 @@ loc_15d9:
     mov cx, 0x91ba                   ; 0x15f2
     sub cx, di                       ; 0x15f5
     shr cx, 1                        ; 0x15f7
-    je short @..loc_15d9.l1          ; 0x15f9
+    je short @..loc_GPRR.l1          ; 0x15f9
     sub ax, ax                       ; 0x15fb
     rep stosw                        ; 0x15fd
-@..loc_15d9.l1:
-    call loc_000e                    ; 0x15ff
+@..loc_GPRR.l1:
+    call loc_OGQG                    ; 0x15ff
     mov bp, word [dseg_91b4]         ; 0x1602
     mov sp, word [dseg_91b2]         ; 0x1606
     mov si, word [dseg_91ae]         ; 0x160a

@@ -2,7 +2,7 @@
 api_idx_000a_PJMP:
     mov ax, 0xfff6                   ; 0x2947
     call aztec_csav                  ; 0x294a
-    call loc_108d                    ; 0x294d
+    call loc_JRRT                    ; 0x294d
     mov ax, 1                        ; 0x2950
     push ax                          ; 0x2953
     push ax                          ; 0x2954

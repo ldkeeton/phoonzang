@@ -68,7 +68,7 @@ api_idx_000e_UHJH:
     mov ax, 0x12                     ; 0x80eb
     push ax                          ; 0x80ee
     push word [bss_8af0]             ; 0x80ef
-    call loc_6fbf                    ; 0x80f3
+    call loc_VRUN                    ; 0x80f3
     add sp, byte 6                   ; 0x80f6
 @..api_idx_000e_UHJH.l5:
     mov ax, 0x248                    ; 0x80f9
@@ -113,7 +113,7 @@ api_idx_000e_UHJH:
     mov ax, 0xb                      ; 0x8158
     push ax                          ; 0x815b
     push word [bp - 0x0004]          ; 0x815c
-    call loc_6fbf                    ; 0x815f
+    call loc_VRUN                    ; 0x815f
     add sp, byte 6                   ; 0x8162
 @..api_idx_000e_UHJH.l8:
     inc word [bp - 0x0004]           ; 0x8165
@@ -184,6 +184,6 @@ api_idx_000e_UHJH:
     call ds_dos_con_loc_RGTO         ; 0x81ff
     add sp, byte 6                   ; 0x8202
     push ax                          ; 0x8205
-    call loc_7242                    ; 0x8206
+    call loc_VMLV                    ; 0x8206
     pop cx                           ; 0x8209
     ret                              ; 0x820a

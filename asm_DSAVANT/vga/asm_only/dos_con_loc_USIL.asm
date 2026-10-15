@@ -13,5 +13,3 @@ dos_con_loc_USIL:
     db 'CACHEAREA out of MAZE slots.', 0
     db 0x0a, 0x24
 
-cseg_3b8e:
-    db 0x00, 0x00

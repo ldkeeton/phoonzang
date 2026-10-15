@@ -9,4 +9,4 @@ leaf_loc_JVKS:
     mov word [bp - 0x0014], 3        ; 0x4a44
     mov word [bp - 0x0016], 0x1f     ; 0x4a49
     mov word [bp - 0x0018], 1        ; 0x4a4e
-    jmp near loc_4b67                ; 0x4a53
+    jmp near loc_KMTR                ; 0x4a53

@@ -21,7 +21,7 @@ dos_file_loc_QVOO:
     mov ax, word [cs:bx]             ; 0x3f98
     mov word [cs:bx], 0              ; 0x3f9b
     call leaf_loc_KGRV               ; 0x3fa0
-    call loc_0e71                    ; 0x3fa3
+    call loc_UJGV                    ; 0x3fa3
     jmp near @..dos_file_loc_QVOO.l8 ; 0x3fa6
 @..dos_file_loc_QVOO.l1:
     mov word [bp - 0x0002], ax       ; 0x3fa9

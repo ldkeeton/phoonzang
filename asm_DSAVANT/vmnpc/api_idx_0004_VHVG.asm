@@ -103,16 +103,3 @@ api_idx_0004_VHVG:
     cmp word [bp - 0x0002], byte 0x1e ; 0x5490
     jl short @..api_idx_0004_VHVG.l6 ; 0x5494
     ret                              ; 0x5496
-loc_5497:
-    mov ax, 0                        ; 0x5497
-    call aztec_csav                  ; 0x549a
-    cmp word [bp + 0x4], strict word 0x190 ; 0x549d
-    jl short @..loc_5497.l1          ; 0x54a2
-    cmp word [bp + 0x4], strict word 0x19b ; 0x54a4
-    jge short @..loc_5497.l1         ; 0x54a9
-    mov ax, 1                        ; 0x54ab
-    jmp short @..loc_5497.l2         ; 0x54ae
-@..loc_5497.l1:
-    mov ax, 0                        ; 0x54b0
-@..loc_5497.l2:
-    ret                              ; 0x54b3

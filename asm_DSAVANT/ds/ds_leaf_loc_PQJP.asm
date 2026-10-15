@@ -4,4 +4,4 @@ ds_leaf_loc_PQJP:
     mov bp, sp                       ; 0x4fad
     mov ah, 0x40                     ; 0x4faf
     mov bx, word [bp + 0x4]          ; 0x4fb1
-    jmp short ds_loc_4fda            ; 0x4fb4
+    jmp short ds_loc_PGNI            ; 0x4fb4

@@ -38,7 +38,7 @@ api_idx_000e_LSOI:
     shl ax, cl                       ; 0x92da
     add ax, 0x91cc                   ; 0x92dc
     push ax                          ; 0x92df
-    call ds_loc_3aca                 ; 0x92e0
+    call ds_loc_TILJ                 ; 0x92e0
     add sp, byte 4                   ; 0x92e3
     mov word [bp - 0x0004], ax       ; 0x92e6
     inc ax                           ; 0x92e9

@@ -3,7 +3,7 @@
 ds_dos_proc_loc_TPJT:
     pop ax                           ; 0x4e7e
     pop ax                           ; 0x4e7f
-ds_loc_4e80:
+ds_loc_KLHH:
     mov ah, 0x4c                     ; 0x4e80
     int 0x21 ; DOS exit with return code
 

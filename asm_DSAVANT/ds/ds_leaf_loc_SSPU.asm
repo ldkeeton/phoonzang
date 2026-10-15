@@ -7,8 +7,3 @@ ds_leaf_loc_SSPU:
     mov sp, bp                       ; 0x3846
     pop bp                           ; 0x3848
     ret                              ; 0x3849
-cseg_384a:
-
-    times 20 db 0
-    db 0xff, 0xff
-

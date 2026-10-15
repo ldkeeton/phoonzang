@@ -76,13 +76,13 @@ api_idx_0054_TMMO:
     mov al, byte [bp - 0x0054]       ; 0x1bf2
     sub ah, ah                       ; 0x1bf5
     push ax                          ; 0x1bf7
-    call ds_loc_3a77                 ; 0x1bf8
+    call ds_loc_PQIO                 ; 0x1bf8
     add sp, byte 4                   ; 0x1bfb
     mov ax, 0                        ; 0x1bfe
     push ax                          ; 0x1c01
     mov ax, 0x2d                     ; 0x1c02
     push ax                          ; 0x1c05
-    call ds_loc_3a77                 ; 0x1c06
+    call ds_loc_PQIO                 ; 0x1c06
     add sp, byte 4                   ; 0x1c09
     lea ax, word [bp - 0x0054]       ; 0x1c0c
     push ax                          ; 0x1c0f
@@ -339,7 +339,7 @@ api_idx_0054_TMMO:
     push ax                          ; 0x1e62
     mov ax, 0x20                     ; 0x1e63
     push ax                          ; 0x1e66
-    call ds_loc_3a77                 ; 0x1e67
+    call ds_loc_PQIO                 ; 0x1e67
     add sp, byte 4                   ; 0x1e6a
     mov ax, 0                        ; 0x1e6d
     push ax                          ; 0x1e70
@@ -374,7 +374,7 @@ api_idx_0054_TMMO:
     push ax                          ; 0x1eb8
     mov ax, 0x20                     ; 0x1eb9
     push ax                          ; 0x1ebc
-    call ds_loc_3a77                 ; 0x1ebd
+    call ds_loc_PQIO                 ; 0x1ebd
     add sp, byte 4                   ; 0x1ec0
     mov ax, 0                        ; 0x1ec3
     push ax                          ; 0x1ec6
@@ -415,7 +415,7 @@ api_idx_0054_TMMO:
     push ax                          ; 0x1f1c
     mov ax, 0x20                     ; 0x1f1d
     push ax                          ; 0x1f20
-    call ds_loc_3a77                 ; 0x1f21
+    call ds_loc_PQIO                 ; 0x1f21
     add sp, byte 4                   ; 0x1f24
     mov ax, 0                        ; 0x1f27
     push ax                          ; 0x1f2a
@@ -441,7 +441,7 @@ api_idx_0054_TMMO:
     push ax                          ; 0x1f5c
     mov ax, 0x2f                     ; 0x1f5d
     push ax                          ; 0x1f60
-    call ds_loc_3a77                 ; 0x1f61
+    call ds_loc_PQIO                 ; 0x1f61
     add sp, byte 4                   ; 0x1f64
     lea ax, word [bp - 0x0054]       ; 0x1f67
     push ax                          ; 0x1f6a
@@ -485,7 +485,7 @@ api_idx_0054_TMMO:
     push ax                          ; 0x1fc6
     mov ax, 0x20                     ; 0x1fc7
     push ax                          ; 0x1fca
-    call ds_loc_3a77                 ; 0x1fcb
+    call ds_loc_PQIO                 ; 0x1fcb
     add sp, byte 4                   ; 0x1fce
     mov ax, 0                        ; 0x1fd1
     push ax                          ; 0x1fd4
@@ -540,7 +540,7 @@ api_idx_0054_TMMO:
     push ax                          ; 0x204b
     mov ax, 0x28                     ; 0x204c
     push ax                          ; 0x204f
-    call ds_loc_3a77                 ; 0x2050
+    call ds_loc_PQIO                 ; 0x2050
     add sp, byte 4                   ; 0x2053
     lea ax, word [bp - 0x0054]       ; 0x2056
     push ax                          ; 0x2059
@@ -560,7 +560,7 @@ api_idx_0054_TMMO:
     push ax                          ; 0x207d
     mov ax, 0x29                     ; 0x207e
     push ax                          ; 0x2081
-    call ds_loc_3a77                 ; 0x2082
+    call ds_loc_PQIO                 ; 0x2082
     add sp, byte 4                   ; 0x2085
     push word [bp + 0x4]             ; 0x2088
     call api_idx_0004_GIIO           ; 0x208b

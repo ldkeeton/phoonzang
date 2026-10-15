@@ -151,7 +151,7 @@ leaf_loc_OUTG:
 @..leaf_loc_OUTG.l67:
     push word [bp - 0x0004]          ; 0x160b
     push word [bp - 0x0002]          ; 0x160e
-    call loc_0ede                    ; 0x1611
+    call loc_VKKJ                    ; 0x1611
     add sp, byte 4                   ; 0x1614
     inc word [bp - 0x0002]           ; 0x1617
 @..leaf_loc_OUTG.l68:
@@ -283,7 +283,7 @@ leaf_loc_OUTG:
     mov ax, word [bp - 0x0002]       ; 0x1734
     dec ax                           ; 0x1737
     push ax                          ; 0x1738
-    call loc_0f52                    ; 0x1739
+    call loc_KVVM                    ; 0x1739
     add sp, byte 4                   ; 0x173c
 @..leaf_loc_OUTG.l84:
     inc word [bp - 0x0002]           ; 0x173f

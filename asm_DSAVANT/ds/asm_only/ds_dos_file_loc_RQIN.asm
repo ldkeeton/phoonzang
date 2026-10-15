@@ -34,4 +34,4 @@ ds_dos_file_loc_RQIN:
     pop ds                           ; 0x363b
     ret                              ; 0x363c
 @..ds_dos_file_loc_RQIN.l2:
-    call ds_loc_30a3                 ; 0x363d
+    call ds_loc_LJPT                 ; 0x363d

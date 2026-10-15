@@ -16,7 +16,7 @@ string_loc_IHLM:
     sub ax, ax                       ; 0x9352
     rep stosw                        ; 0x9354
 @..string_loc_IHLM.l1:
-    call loc_000e                    ; 0x9356
+    call loc_NIVM                    ; 0x9356
     mov bp, word [dseg_91c2]         ; 0x9359
     mov sp, word [dseg_91c0]         ; 0x935d
     mov si, word [dseg_91bc]         ; 0x9361

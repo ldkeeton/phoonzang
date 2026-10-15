@@ -70,11 +70,11 @@ api_idx_0002_UPNQ:
     mov ax, 0                        ; 0x8d55
     push ax                          ; 0x8d58
     push word [bp + 0x4]             ; 0x8d59
-    call loc_6f79                    ; 0x8d5c
+    call loc_HTNP                    ; 0x8d5c
     add sp, byte 4                   ; 0x8d5f
     mov ax, 0xf                      ; 0x8d62
     push ax                          ; 0x8d65
-    call loc_72c2                    ; 0x8d66
+    call loc_JJLM                    ; 0x8d66
     pop cx                           ; 0x8d69
     mov ax, 0                        ; 0x8d6a
     push ax                          ; 0x8d6d
@@ -84,5 +84,5 @@ api_idx_0002_UPNQ:
     push word [bss_a5b2]             ; 0x8d76
     call thunk_12                    ; 0x8d7a
     add sp, byte 8                   ; 0x8d7d
-    call loc_85f0                    ; 0x8d80
+    call loc_SKUK                    ; 0x8d80
     ret                              ; 0x8d83

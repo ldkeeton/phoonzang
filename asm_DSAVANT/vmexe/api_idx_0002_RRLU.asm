@@ -15,7 +15,7 @@ api_idx_0002_RRLU:
     jge short @..api_idx_0002_RRLU.l1 ; 0x1fb9
     push word [bp + 0x6]             ; 0x1fbb
     push word [bp + 0x4]             ; 0x1fbe
-    call loc_1f5d                    ; 0x1fc1
+    call loc_QVNQ                    ; 0x1fc1
     add sp, byte 4                   ; 0x1fc4
     test ax, ax                      ; 0x1fc7
     je short @..api_idx_0002_RRLU.l2 ; 0x1fc9
@@ -91,7 +91,7 @@ api_idx_0002_RRLU:
     push word [bp + 0x8]             ; 0x206f
     push word [bp + 0x6]             ; 0x2072
     push word [bp + 0x4]             ; 0x2075
-    call loc_1e35                    ; 0x2078
+    call loc_UONR                    ; 0x2078
     add sp, byte 0x0a                ; 0x207b
     jmp short @..api_idx_0002_RRLU.l7 ; 0x207e
 @..api_idx_0002_RRLU.l6:
@@ -104,7 +104,7 @@ api_idx_0002_RRLU:
     push ax                          ; 0x208e
     push word [bp + 0x6]             ; 0x208f
     push word [bp + 0x4]             ; 0x2092
-    call loc_1e35                    ; 0x2095
+    call loc_UONR                    ; 0x2095
     add sp, byte 0x0a                ; 0x2098
 @..api_idx_0002_RRLU.l7:
     ret                              ; 0x209b

@@ -127,7 +127,7 @@ api_idx_0050_TIRN:
     push ax                          ; 0x31a7
     mov ax, 0xa                      ; 0x31a8
     push ax                          ; 0x31ab
-    call ds_loc_3a77                 ; 0x31ac
+    call ds_loc_PQIO                 ; 0x31ac
     add sp, byte 4                   ; 0x31af
     mov word [bp - 0x003c], 0xffff   ; 0x31b2
     mov word [bp - 0x003e], 0        ; 0x31b7
@@ -148,7 +148,7 @@ api_idx_0050_TIRN:
     mov ax, word [bp - 0x000c]       ; 0x31dd
     add ax, strict word 0xc          ; 0x31e0
     push ax                          ; 0x31e3
-    call loc_2e12                    ; 0x31e4
+    call loc_OOVL                    ; 0x31e4
     add sp, byte 8                   ; 0x31e7
     inc word [bp - 0x0002]           ; 0x31ea
     mov ax, word [bp - 0x0002]       ; 0x31ed
@@ -165,7 +165,7 @@ api_idx_0050_TIRN:
     mov ax, word [bp - 0x000c]       ; 0x3209
     add ax, strict word 0x5e         ; 0x320c
     push ax                          ; 0x320f
-    call loc_2e9e                    ; 0x3210
+    call loc_TTQQ                    ; 0x3210
     add sp, byte 0x0a                ; 0x3213
     push word [bp - 0x0042]          ; 0x3216
     push word [bp + 0x4]             ; 0x3219
@@ -511,7 +511,7 @@ api_idx_0050_TIRN:
 @..api_idx_0050_TIRN.l8:
     push word [bp - 0x0042]          ; 0x3531
     push word [bp + 0x4]             ; 0x3534
-    call loc_2fd8                    ; 0x3537
+    call loc_QIMS                    ; 0x3537
     add sp, byte 4                   ; 0x353a
     mov ax, 0x59fe                   ; 0x353d
     push ax                          ; 0x3540
@@ -938,7 +938,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3918
     add ax, strict word 0xc          ; 0x391b
     push ax                          ; 0x391e
-    call loc_2e12                    ; 0x391f
+    call loc_OOVL                    ; 0x391f
     add sp, byte 8                   ; 0x3922
     mov ax, word [bp - 0x001a]       ; 0x3925
     add ax, strict word 0xfffb       ; 0x3928
@@ -952,7 +952,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x393c
     add ax, strict word 0xc          ; 0x393f
     push ax                          ; 0x3942
-    call loc_2e12                    ; 0x3943
+    call loc_OOVL                    ; 0x3943
     add sp, byte 8                   ; 0x3946
     cmp word [bp - 0x003c], byte 0   ; 0x3949
     jge short @..api_idx_0050_TIRN.l30 ; 0x394d
@@ -1024,7 +1024,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x39e5
     add ax, strict word 0x5e         ; 0x39e8
     push ax                          ; 0x39eb
-    call loc_2e9e                    ; 0x39ec
+    call loc_TTQQ                    ; 0x39ec
     add sp, byte 0x0a                ; 0x39ef
     jmp short @..api_idx_0050_TIRN.l35 ; 0x39f2
 @..api_idx_0050_TIRN.l34:
@@ -1038,7 +1038,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3a03
     add ax, strict word 0x5e         ; 0x3a06
     push ax                          ; 0x3a09
-    call loc_2e9e                    ; 0x3a0a
+    call loc_TTQQ                    ; 0x3a0a
     add sp, byte 0x0a                ; 0x3a0d
 @..api_idx_0050_TIRN.l35:
     mov ax, word [bp - 0x0006]       ; 0x3a10
@@ -1162,7 +1162,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3b35
     add ax, strict word 0x5e         ; 0x3b38
     push ax                          ; 0x3b3b
-    call loc_2e9e                    ; 0x3b3c
+    call loc_TTQQ                    ; 0x3b3c
     add sp, byte 0x0a                ; 0x3b3f
     mov ax, word [bp - 0x0006]       ; 0x3b42
     add ax, strict word 0x4c         ; 0x3b45
@@ -1293,7 +1293,7 @@ jumptable_3cc2_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3c6f
     add ax, strict word 0x5e         ; 0x3c72
     push ax                          ; 0x3c75
-    call loc_2e9e                    ; 0x3c76
+    call loc_TTQQ                    ; 0x3c76
     add sp, byte 0x0a                ; 0x3c79
     mov ax, word [bp - 0x0006]       ; 0x3c7c
     add ax, strict word 0x4c         ; 0x3c7f

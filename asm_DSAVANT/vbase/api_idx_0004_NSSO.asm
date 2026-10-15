@@ -29,7 +29,7 @@ api_idx_0004_NSSO:
     je short @..api_idx_0004_NSSO.l4 ; 0x6cc7
     ret                              ; 0x6cc9
 @..api_idx_0004_NSSO.l4:
-    call loc_6c5c                    ; 0x6cca
+    call loc_HIUG                    ; 0x6cca
     jmp short @..api_idx_0004_NSSO.l1 ; 0x6ccd
 @..api_idx_0004_NSSO.l5:
     ret                              ; 0x6ccf

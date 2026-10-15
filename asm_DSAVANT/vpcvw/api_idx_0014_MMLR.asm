@@ -268,7 +268,7 @@ api_idx_0014_MMLR:
     mov ax, 0                        ; 0x63f9
     push ax                          ; 0x63fc
     push word [bp + 0x4]             ; 0x63fd
-    call loc_40b7                    ; 0x6400
+    call loc_RPNL                    ; 0x6400
     add sp, byte 4                   ; 0x6403
     mov ax, 0                        ; 0x6406
     push ax                          ; 0x6409
@@ -604,7 +604,7 @@ api_idx_0014_MMLR:
     add sp, byte 0x0e                ; 0x66bd
 @..api_idx_0014_MMLR.l13:
     push word [bp + 0x4]             ; 0x66c0
-    call loc_4011                    ; 0x66c3
+    call loc_RKQO                    ; 0x66c3
     pop cx                           ; 0x66c6
     mov ax, 0x59fe                   ; 0x66c7
     push ax                          ; 0x66ca
@@ -648,12 +648,12 @@ api_idx_0014_MMLR:
 @..api_idx_0014_MMLR.l15:
     mov ax, word [bp - 0x0004]       ; 0x6727
     jmp near @..api_idx_0014_MMLR.l19 ; 0x672a
-loc_672d:
+loc_VSMJ:
     push word [bp + 0x4]             ; 0x672d
     call api_idx_0018_PNIL           ; 0x6730
     pop cx                           ; 0x6733
     jmp near @..api_idx_0014_MMLR.l20 ; 0x6734
-loc_6737:
+loc_PQQR:
     cmp word [bp - 0x0006], byte 0   ; 0x6737
     je short @..api_idx_0014_MMLR.l16 ; 0x673b
     mov ax, word [bp + 0x4]          ; 0x673d
@@ -666,7 +666,7 @@ loc_6737:
     mov word [bss_967a], 0           ; 0x6751
 @..api_idx_0014_MMLR.l16:
     jmp near @..api_idx_0014_MMLR.l20 ; 0x6757
-loc_675a:
+loc_VULJ:
     cmp word [bp - 0x0006], byte 0   ; 0x675a
     je short @..api_idx_0014_MMLR.l17 ; 0x675e
     mov ax, word [bp + 0x4]          ; 0x6760
@@ -678,16 +678,16 @@ loc_675a:
     mov word [bss_967a], 0           ; 0x6770
 @..api_idx_0014_MMLR.l17:
     jmp near @..api_idx_0014_MMLR.l20 ; 0x6776
-loc_6779:
+loc_LTRQ:
     push word [bp + 0x4]             ; 0x6779
     call api_idx_009e_JGGH           ; 0x677c
     pop cx                           ; 0x677f
     jmp near @..api_idx_0014_MMLR.l20 ; 0x6780
-loc_6783:
+loc_VJHK_6783:
     jmp near @..api_idx_0014_MMLR.l20 ; 0x6783
-loc_6786:
+loc_VJHK_6786:
     jmp near @..api_idx_0014_MMLR.l20 ; 0x6786
-loc_6789:
+loc_RHGS:
     mov ax, word [bss_9434]          ; 0x6789
     inc ax                           ; 0x678c
     mov cx, 2                        ; 0x678d
@@ -696,14 +696,14 @@ loc_6789:
     mov word [bss_9434], dx          ; 0x6793
     mov word [bss_967a], 0           ; 0x6797
     jmp short @..api_idx_0014_MMLR.l20 ; 0x679d
-loc_679f:
+loc_NSON_679f:
     push word [bp + 0x4]             ; 0x679f
     call api_idx_0084_UPUT           ; 0x67a2
     pop cx                           ; 0x67a5
     jmp short @..api_idx_0014_MMLR.l20 ; 0x67a6
-loc_67a8:
+loc_VJHK_67a8:
     jmp short @..api_idx_0014_MMLR.l20 ; 0x67a8
-loc_67aa:
+loc_JMRS:
     push word [bp + 0x4]             ; 0x67aa
     call ds_app_QIQN                 ; 0x67ad
     pop cx                           ; 0x67b0
@@ -716,21 +716,21 @@ loc_67aa:
 @..api_idx_0014_MMLR.l18:
     jmp short @..api_idx_0014_MMLR.l20 ; 0x67c1
 jumptable_67c3:
-    dw loc_672d - IMAGE_BASE + 0x5055          ; 0x67c3
-    dw loc_6737 - IMAGE_BASE + 0x5055          ; 0x67c5
-    dw loc_675a - IMAGE_BASE + 0x5055          ; 0x67c7
-    dw loc_6779 - IMAGE_BASE + 0x5055          ; 0x67c9
-    dw loc_6783 - IMAGE_BASE + 0x5055          ; 0x67cb
-    dw loc_6786 - IMAGE_BASE + 0x5055          ; 0x67cd
-    dw loc_6789 - IMAGE_BASE + 0x5055          ; 0x67cf
-    dw loc_679f - IMAGE_BASE + 0x5055          ; 0x67d1
-    dw loc_67a8 - IMAGE_BASE + 0x5055          ; 0x67d3
-    dw loc_67a8 - IMAGE_BASE + 0x5055          ; 0x67d5
-    dw loc_67a8 - IMAGE_BASE + 0x5055          ; 0x67d7
-    dw loc_67a8 - IMAGE_BASE + 0x5055          ; 0x67d9
-    dw loc_67a8 - IMAGE_BASE + 0x5055          ; 0x67db
-    dw loc_67a8 - IMAGE_BASE + 0x5055          ; 0x67dd
-    dw loc_67a8 - IMAGE_BASE + 0x5055          ; 0x67df
+    dw loc_VSMJ - IMAGE_BASE + 0x5055          ; 0x67c3
+    dw loc_PQQR - IMAGE_BASE + 0x5055          ; 0x67c5
+    dw loc_VULJ - IMAGE_BASE + 0x5055          ; 0x67c7
+    dw loc_LTRQ - IMAGE_BASE + 0x5055          ; 0x67c9
+    dw loc_VJHK_6783 - IMAGE_BASE + 0x5055     ; 0x67cb
+    dw loc_VJHK_6786 - IMAGE_BASE + 0x5055     ; 0x67cd
+    dw loc_RHGS - IMAGE_BASE + 0x5055          ; 0x67cf
+    dw loc_NSON_679f - IMAGE_BASE + 0x5055     ; 0x67d1
+    dw loc_VJHK_67a8 - IMAGE_BASE + 0x5055     ; 0x67d3
+    dw loc_VJHK_67a8 - IMAGE_BASE + 0x5055     ; 0x67d5
+    dw loc_VJHK_67a8 - IMAGE_BASE + 0x5055     ; 0x67d7
+    dw loc_VJHK_67a8 - IMAGE_BASE + 0x5055     ; 0x67d9
+    dw loc_VJHK_67a8 - IMAGE_BASE + 0x5055     ; 0x67db
+    dw loc_VJHK_67a8 - IMAGE_BASE + 0x5055     ; 0x67dd
+    dw loc_VJHK_67a8 - IMAGE_BASE + 0x5055     ; 0x67df
     dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67e1
     dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67e3
     dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67e5
@@ -741,7 +741,7 @@ jumptable_67c3:
     dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67ef
     dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67f1
     dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67f3
-    dw loc_67aa - IMAGE_BASE + 0x5055          ; 0x67f5
+    dw loc_JMRS - IMAGE_BASE + 0x5055          ; 0x67f5
 @..api_idx_0014_MMLR.l19:
     cmp ax, strict word 0x1a         ; 0x67f7
     jae short @..api_idx_0014_MMLR.l20 ; 0x67fa

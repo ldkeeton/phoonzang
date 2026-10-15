@@ -16,7 +16,7 @@ string_loc_QTKS:
     sub ax, ax                       ; 0x3732
     rep stosw                        ; 0x3734
 @..string_loc_QTKS.l1:
-    call loc_000e                    ; 0x3736
+    call loc_NHKP                    ; 0x3736
     mov bp, word [dseg_90b2]         ; 0x3739
     mov sp, word [dseg_90b0]         ; 0x373d
     mov si, word [dseg_90ac]         ; 0x3741

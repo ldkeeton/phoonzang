@@ -217,7 +217,7 @@ jumptable_78e5_case_5:
     mov ax, word [bx - 0x7b7e]       ; 0x761c
     add ax, cx                       ; 0x7620
     push ax                          ; 0x7622
-    call loc_182b                    ; 0x7623
+    call loc_TRQG                    ; 0x7623
     add sp, byte 4                   ; 0x7626
     mov word [bp - 0x000a], 0xea7    ; 0x7629
 @..api_idx_000a_GGIV.l5:
@@ -341,7 +341,7 @@ jumptable_78e5_case_5:
     push word [bp + 0x8]             ; 0x773e
     mov ax, 0x90e6                   ; 0x7741
     push ax                          ; 0x7744
-    call loc_15ab                    ; 0x7745
+    call loc_QJUS                    ; 0x7745
     add sp, byte 6                   ; 0x7748
     mov ax, 0x9186                   ; 0x774b
     push ax                          ; 0x774e

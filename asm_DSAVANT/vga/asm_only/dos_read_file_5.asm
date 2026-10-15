@@ -21,7 +21,7 @@ dos_read_file_5:
     mov ax, word [cs:bx]             ; 0x3d97
     mov word [cs:bx], 0              ; 0x3d9a
     call leaf_loc_KGRV               ; 0x3d9f
-    call loc_0e71                    ; 0x3da2
+    call loc_UJGV                    ; 0x3da2
     jmp near @..dos_read_file_5.l8   ; 0x3da5
 @..dos_read_file_5.l1:
     mov word [bp - 0x0002], ax       ; 0x3da8

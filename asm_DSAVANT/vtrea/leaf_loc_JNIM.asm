@@ -13,4 +13,4 @@ leaf_loc_JNIM:
     add ax, word [bp + 0x14]         ; 0x5f97
     mov bx, word [bp - 0x0004]       ; 0x5f9a
     mov word [bx + 0x4], ax          ; 0x5f9d
-    jmp short loc_5fee               ; 0x5fa0
+    jmp short loc_NUGN               ; 0x5fa0

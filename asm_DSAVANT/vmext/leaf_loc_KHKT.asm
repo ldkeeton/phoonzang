@@ -5,4 +5,4 @@ leaf_loc_KHKT:
     add ax, word [bp + 0xe]          ; 0x1b73
     mov bx, ax                       ; 0x1b76
     mov byte [bx - 0x6e52], 3        ; 0x1b78
-    jmp short loc_1bb9               ; 0x1b7d
+    jmp short loc_QNKS               ; 0x1b7d

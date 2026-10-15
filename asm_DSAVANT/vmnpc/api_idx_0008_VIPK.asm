@@ -66,7 +66,7 @@ api_idx_0008_VIPK:
     add ax, cx                       ; 0x2a56
     mov bx, ax                       ; 0x2a58
     push word [bx + 0x5c34]          ; 0x2a5a
-    call loc_5497                    ; 0x2a5e
+    call loc_JPTL                    ; 0x2a5e
     pop cx                           ; 0x2a61
     test ax, ax                      ; 0x2a62
     je short @..api_idx_0008_VIPK.l9 ; 0x2a64
@@ -110,7 +110,7 @@ api_idx_0008_VIPK:
     call api_idx_004c_STVP           ; 0x2aba
     add sp, byte 0x0a                ; 0x2abd
     push word [bp + 0x6]             ; 0x2ac0
-    call loc_5497                    ; 0x2ac3
+    call loc_JPTL                    ; 0x2ac3
     pop cx                           ; 0x2ac6
     test ax, ax                      ; 0x2ac7
     je short @..api_idx_0008_VIPK.l10 ; 0x2ac9
@@ -149,7 +149,7 @@ api_idx_0008_VIPK:
     push ax                          ; 0x2b12
     mov ax, 0x95a8                   ; 0x2b13
     push ax                          ; 0x2b16
-    call loc_130b                    ; 0x2b17
+    call loc_TJUO                    ; 0x2b17
     add sp, byte 8                   ; 0x2b1a
     jmp short @..api_idx_0008_VIPK.l12 ; 0x2b1d
 @..api_idx_0008_VIPK.l11:

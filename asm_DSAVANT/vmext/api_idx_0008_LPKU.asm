@@ -17,7 +17,7 @@ api_idx_0008_LPKU:
     push ax                          ; 0x1e71
     lea ax, word [bp + 0x6]          ; 0x1e72
     push ax                          ; 0x1e75
-    call loc_1963                    ; 0x1e76
+    call loc_UKLN                    ; 0x1e76
     add sp, byte 0x0e                ; 0x1e79
     test ax, ax                      ; 0x1e7c
     je short @..api_idx_0008_LPKU.l2 ; 0x1e7e

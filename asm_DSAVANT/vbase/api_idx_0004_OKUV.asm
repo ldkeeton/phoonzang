@@ -49,7 +49,7 @@ jumptable_1ee4_case_0:
     push ax                          ; 0x1ce7
     push ax                          ; 0x1ce8
     push word [bp + 0x4]             ; 0x1ce9
-    call loc_1c09                    ; 0x1cec
+    call loc_LMIM                    ; 0x1cec
     add sp, byte 0x0e                ; 0x1cef
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1cf2
 jumptable_1ee4_case_1:
@@ -75,7 +75,7 @@ jumptable_1ee4_case_1:
     push ax                          ; 0x1d17
     push ax                          ; 0x1d18
     push word [bp + 0x4]             ; 0x1d19
-    call loc_1c09                    ; 0x1d1c
+    call loc_LMIM                    ; 0x1d1c
     add sp, byte 0x0e                ; 0x1d1f
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1d22
 jumptable_1ee4_case_2:
@@ -104,7 +104,7 @@ jumptable_1ee4_case_2:
     inc ax                           ; 0x1d4c
     push ax                          ; 0x1d4d
     push word [bp + 0x4]             ; 0x1d4e
-    call loc_1c09                    ; 0x1d51
+    call loc_LMIM                    ; 0x1d51
     add sp, byte 0x0e                ; 0x1d54
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1d57
 jumptable_1ee4_case_4:
@@ -122,7 +122,7 @@ jumptable_1ee4_case_4:
     push ax                          ; 0x1d6b
     push ax                          ; 0x1d6c
     push word [bp + 0x4]             ; 0x1d6d
-    call loc_1c09                    ; 0x1d70
+    call loc_LMIM                    ; 0x1d70
     add sp, byte 0x0e                ; 0x1d73
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1d76
 jumptable_1ee4_case_5:
@@ -151,7 +151,7 @@ jumptable_1ee4_case_5:
     inc ax                           ; 0x1da0
     push ax                          ; 0x1da1
     push word [bp + 0x4]             ; 0x1da2
-    call loc_1c09                    ; 0x1da5
+    call loc_LMIM                    ; 0x1da5
     add sp, byte 0x0e                ; 0x1da8
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1dab
 jumptable_1ee4_case_6:
@@ -172,7 +172,7 @@ jumptable_1ee4_case_6:
     push ax                          ; 0x1dc4
     push ax                          ; 0x1dc5
     push word [bp + 0x4]             ; 0x1dc6
-    call loc_1c09                    ; 0x1dc9
+    call loc_LMIM                    ; 0x1dc9
     add sp, byte 0x0e                ; 0x1dcc
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1dcf
 jumptable_1ee4_case_7:
@@ -199,7 +199,7 @@ jumptable_1ee4_case_7:
     inc ax                           ; 0x1df9
     push ax                          ; 0x1dfa
     push word [bp + 0x4]             ; 0x1dfb
-    call loc_1c09                    ; 0x1dfe
+    call loc_LMIM                    ; 0x1dfe
     add sp, byte 0x0e                ; 0x1e01
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1e04
 jumptable_1ee4_case_8:
@@ -220,7 +220,7 @@ jumptable_1ee4_case_8:
     inc ax                           ; 0x1e1d
     push ax                          ; 0x1e1e
     push word [bp + 0x4]             ; 0x1e1f
-    call loc_1c09                    ; 0x1e22
+    call loc_LMIM                    ; 0x1e22
     add sp, byte 0x0e                ; 0x1e25
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1e28
 jumptable_1ee4_case_9:
@@ -243,7 +243,7 @@ jumptable_1ee4_case_9:
     push ax                          ; 0x1e4c
     push ax                          ; 0x1e4d
     push word [bp + 0x4]             ; 0x1e4e
-    call loc_1c09                    ; 0x1e51
+    call loc_LMIM                    ; 0x1e51
     add sp, byte 0x0e                ; 0x1e54
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1e57
 jumptable_1ee4_case_10:
@@ -264,7 +264,7 @@ jumptable_1ee4_case_10:
     inc ax                           ; 0x1e70
     push ax                          ; 0x1e71
     push word [bp + 0x4]             ; 0x1e72
-    call loc_1c09                    ; 0x1e75
+    call loc_LMIM                    ; 0x1e75
     add sp, byte 0x0e                ; 0x1e78
     jmp near @..api_idx_0004_OKUV.l6 ; 0x1e7b
 jumptable_1ee4_case_11:
@@ -283,7 +283,7 @@ jumptable_1ee4_case_11:
     push ax                          ; 0x1e90
     push ax                          ; 0x1e91
     push word [bp + 0x4]             ; 0x1e92
-    call loc_1c09                    ; 0x1e95
+    call loc_LMIM                    ; 0x1e95
     add sp, byte 0x0e                ; 0x1e98
     jmp short @..api_idx_0004_OKUV.l6 ; 0x1e9b
 jumptable_1ee4_case_12:
@@ -305,7 +305,7 @@ jumptable_1ee4_case_12:
     inc ax                           ; 0x1eb4
     push ax                          ; 0x1eb5
     push word [bp + 0x4]             ; 0x1eb6
-    call loc_1c09                    ; 0x1eb9
+    call loc_LMIM                    ; 0x1eb9
     add sp, byte 0x0e                ; 0x1ebc
     jmp short @..api_idx_0004_OKUV.l6 ; 0x1ebf
 jumptable_1ee4_case_13:
@@ -326,7 +326,7 @@ jumptable_1ee4_case_13:
     inc ax                           ; 0x1ed7
     push ax                          ; 0x1ed8
     push word [bp + 0x4]             ; 0x1ed9
-    call loc_1c09                    ; 0x1edc
+    call loc_LMIM                    ; 0x1edc
     add sp, byte 0x0e                ; 0x1edf
     jmp short @..api_idx_0004_OKUV.l6 ; 0x1ee2
 jumptable_1ee4:
@@ -352,37 +352,3 @@ jumptable_1ee4:
     jmp [cs:bx + 0x6f2b]             ; 0x1f08
 @..api_idx_0004_OKUV.l6:
     ret                              ; 0x1f0d
-loc_1f0e:
-    mov ax, 0                        ; 0x1f0e
-    call aztec_csav                  ; 0x1f11
-    mov al, byte [bp + 0x4]          ; 0x1f14
-    mov byte [bss_89df], al          ; 0x1f17
-    mov byte [bss_89ea], al          ; 0x1f1a
-    mov al, byte [bp + 0x6]          ; 0x1f1d
-    mov byte [bss_89e0], al          ; 0x1f20
-    mov byte [bss_89f6], al          ; 0x1f23
-    mov al, byte [bp + 0x8]          ; 0x1f26
-    mov byte [bss_89e1], al          ; 0x1f29
-    mov byte [bss_8a02], al          ; 0x1f2c
-    mov al, byte [bp + 0xa]          ; 0x1f2f
-    mov byte [bss_89e2], al          ; 0x1f32
-    mov byte [bss_8a0e], al          ; 0x1f35
-    mov al, byte [bp + 0xc]          ; 0x1f38
-    mov byte [bss_89e3], al          ; 0x1f3b
-    mov byte [bss_8a1a], al          ; 0x1f3e
-    mov al, byte [bp + 0xe]          ; 0x1f41
-    mov byte [bss_89e4], al          ; 0x1f44
-    mov byte [bss_8a26], al          ; 0x1f47
-    mov al, byte [bp + 0x10]         ; 0x1f4a
-    mov byte [bss_89e5], al          ; 0x1f4d
-    mov byte [bss_8a32], al          ; 0x1f50
-    mov al, byte [bp + 0x12]         ; 0x1f53
-    mov byte [bss_89e6], al          ; 0x1f56
-    mov byte [bss_8a3e], al          ; 0x1f59
-    mov al, byte [bp + 0x14]         ; 0x1f5c
-    mov byte [bss_89e7], al          ; 0x1f5f
-    mov byte [bss_8a4a], al          ; 0x1f62
-    mov al, byte [bp + 0x16]         ; 0x1f65
-    mov byte [bss_89e8], al          ; 0x1f68
-    mov byte [bss_8a56], al          ; 0x1f6b
-    ret                              ; 0x1f6e

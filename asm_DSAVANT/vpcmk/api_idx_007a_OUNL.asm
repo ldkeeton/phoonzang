@@ -40,7 +40,7 @@ api_idx_007a_OUNL:
     push ax                          ; 0x44f0
     mov ax, 0x8c                     ; 0x44f1
     push ax                          ; 0x44f4
-    call loc_0445                    ; 0x44f5
+    call loc_TGJO                    ; 0x44f5
     add sp, byte 0x1a                ; 0x44f8
     push ax                          ; 0x44fb
     mov ax, 0x248                    ; 0x44fc
@@ -76,13 +76,13 @@ api_idx_007a_OUNL:
     mov al, byte [bp - 0x0052]       ; 0x4545
     sub ah, ah                       ; 0x4548
     push ax                          ; 0x454a
-    call ds_loc_3a77                 ; 0x454b
+    call ds_loc_PQIO                 ; 0x454b
     add sp, byte 4                   ; 0x454e
     mov ax, 0                        ; 0x4551
     push ax                          ; 0x4554
     mov ax, 0x2d                     ; 0x4555
     push ax                          ; 0x4558
-    call ds_loc_3a77                 ; 0x4559
+    call ds_loc_PQIO                 ; 0x4559
     add sp, byte 4                   ; 0x455c
     mov ax, 0x248                    ; 0x455f
     imul word [bp + 0x4]             ; 0x4562
@@ -91,7 +91,7 @@ api_idx_007a_OUNL:
     sub ah, ah                       ; 0x456b
     push ax                          ; 0x456d
     push word [bp + 0x4]             ; 0x456e
-    call loc_4392                    ; 0x4571
+    call loc_HMSS                    ; 0x4571
     add sp, byte 4                   ; 0x4574
     mov ax, 1                        ; 0x4577
     push ax                          ; 0x457a

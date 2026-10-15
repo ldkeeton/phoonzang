@@ -35,7 +35,7 @@ ds_leaf_loc_SUIQ:
     mov ax, word [bss_82f0]          ; 0x2d45
     add ax, strict word 0xb          ; 0x2d48
     mov word [bp - 0x0004], ax       ; 0x2d4b
-    jmp short ds_loc_2d69            ; 0x2d4e
+    jmp short ds_loc_LMLP            ; 0x2d4e
 jumptable_2d50:
     dw ds_leaf_loc_JMUG - IMAGE_BASE           ; 0x2d50
     dw ds_leaf_loc_QGQG - IMAGE_BASE           ; 0x2d52
@@ -43,19 +43,19 @@ jumptable_2d50:
     dw ds_leaf_loc_PTUM - IMAGE_BASE           ; 0x2d56
     dw ds_leaf_loc_SUIQ - IMAGE_BASE           ; 0x2d58
     dw ds_leaf_loc_LSGT - IMAGE_BASE           ; 0x2d5a
-ds_loc_2d5c:
+ds_loc_NUPN:
     cmp ax, strict word 6            ; 0x2d5c
-    jae short ds_loc_2d69            ; 0x2d5f
+    jae short ds_loc_LMLP            ; 0x2d5f
     xchg bx, ax                      ; 0x2d61
     shl bx, 1                        ; 0x2d62
     jmp [cs:bx + jumptable_2d50 - IMAGE_BASE] ; 0x2d64
-ds_loc_2d69:
+ds_loc_LMLP:
     mov ax, word [bp - 0x0002]       ; 0x2d69
     shl ax, 1                        ; 0x2d6c
     shl ax, 1                        ; 0x2d6e
     mov bx, ax                       ; 0x2d70
     cmp word [bx - 0x7d0e], byte 0   ; 0x2d72
-    jle short ds_loc_2db0            ; 0x2d77
+    jle short ds_loc_QINQ            ; 0x2d77
     mov al, byte [bp - 0x0004]       ; 0x2d79
     mov byte [bp - 0x0014], al       ; 0x2d7c
     mov byte [bp - 0x0013], 0        ; 0x2d7f
@@ -80,13 +80,13 @@ ds_loc_2d69:
     push ax                          ; 0x2da9
     call thunk_28                    ; 0x2daa
     add sp, byte 0x16                ; 0x2dad
-ds_loc_2db0:
+ds_loc_QINQ:
     inc word [bp - 0x0002]           ; 0x2db0
     mov ax, word [bp - 0x0002]       ; 0x2db3
     cmp ax, strict word 6            ; 0x2db6
-    jge short ds_loc_2dbe            ; 0x2db9
-    jmp near ds_loc_2c74             ; 0x2dbb
-ds_loc_2dbe:
+    jge short ds_loc_NIKK            ; 0x2db9
+    jmp near ds_loc_OTJP             ; 0x2dbb
+ds_loc_NIKK:
     mov ax, 0x16                     ; 0x2dbe
     push ax                          ; 0x2dc1
     mov ax, 0xfc                     ; 0x2dc2

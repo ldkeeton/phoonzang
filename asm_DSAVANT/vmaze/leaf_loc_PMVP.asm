@@ -10,4 +10,4 @@ leaf_loc_PMVP:
     mov bx, ax                       ; 0x3339
     mov word [bx - 0x6d10], 1        ; 0x333b
 @..leaf_loc_PMVP.l1:
-    jmp short loc_3387               ; 0x3341
+    jmp short loc_JULJ               ; 0x3341

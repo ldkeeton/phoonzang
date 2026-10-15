@@ -89,7 +89,7 @@ api_idx_0006_NIJH:
     push word [bss_8464]             ; 0x996a
     mov ax, 0x90e6                   ; 0x996e
     push ax                          ; 0x9971
-    call loc_15ab                    ; 0x9972
+    call loc_QJUS                    ; 0x9972
     add sp, byte 6                   ; 0x9975
     mov ax, 0x9136                   ; 0x9978
     push ax                          ; 0x997b
@@ -136,7 +136,7 @@ api_idx_0006_NIJH:
     mov ax, 0x11                     ; 0x99d7
     push ax                          ; 0x99da
     push word [bss_8462]             ; 0x99db
-    call loc_1bf4                    ; 0x99df
+    call loc_VRUN                    ; 0x99df
     add sp, byte 6                   ; 0x99e2
     mov ax, 2                        ; 0x99e5
     push ax                          ; 0x99e8

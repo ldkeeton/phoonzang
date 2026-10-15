@@ -12,7 +12,7 @@ api_idx_0004_LHHJ:
     mov word [bss_8f2c], ax          ; 0x1413
     ret                              ; 0x1416
 @..api_idx_0004_LHHJ.l1:
-    call loc_676c                    ; 0x1417
+    call loc_JGLI                    ; 0x1417
     mov word [bp - 0x0002], 0        ; 0x141a
     jmp near @..api_idx_0004_LHHJ.l7 ; 0x141f
 @..api_idx_0004_LHHJ.l2:
@@ -29,7 +29,7 @@ api_idx_0004_LHHJ:
     mov ax, 1                        ; 0x143c
     push ax                          ; 0x143f
     push word [bp - 0x0002]          ; 0x1440
-    call loc_10b0                    ; 0x1443
+    call loc_UTRI                    ; 0x1443
     add sp, byte 4                   ; 0x1446
     mov ax, 0                        ; 0x1449
     push ax                          ; 0x144c
@@ -84,7 +84,7 @@ api_idx_0004_LHHJ:
     mov ax, 1                        ; 0x14b6
     push ax                          ; 0x14b9
     push word [bp - 0x0002]          ; 0x14ba
-    call loc_10b0                    ; 0x14bd
+    call loc_UTRI                    ; 0x14bd
     add sp, byte 4                   ; 0x14c0
     mov ax, 0                        ; 0x14c3
     push ax                          ; 0x14c6
@@ -100,7 +100,7 @@ api_idx_0004_LHHJ:
     mov ax, 0xa                      ; 0x14da
     push ax                          ; 0x14dd
     push word [bp - 0x0002]          ; 0x14de
-    call loc_6fbf                    ; 0x14e1
+    call loc_VRUN                    ; 0x14e1
     add sp, byte 6                   ; 0x14e4
     mov ax, 1                        ; 0x14e7
     push ax                          ; 0x14ea

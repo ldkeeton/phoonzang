@@ -19,5 +19,3 @@ ds_bios_mouse_loc_PQIP:
     or word [bp - 0x0002], strict word 0x1000 ; 0x37cb
 @..ds_bios_mouse_loc_PQIP.l1:
     ret                              ; 0x37d0
-cseg_37d1:
-    db 'EMMXXXX0'

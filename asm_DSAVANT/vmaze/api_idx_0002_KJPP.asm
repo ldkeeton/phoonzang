@@ -38,7 +38,7 @@ api_idx_0002_KJPP:
     call ds_leaf_loc_KIMU            ; 0x8756
     add sp, byte 4                   ; 0x8759
     push ax                          ; 0x875c
-    call loc_8540                    ; 0x875d
+    call loc_JIHU                    ; 0x875d
     add sp, byte 4                   ; 0x8760
     jmp short @..api_idx_0002_KJPP.l4 ; 0x8763
 @..api_idx_0002_KJPP.l1:
@@ -58,7 +58,7 @@ api_idx_0002_KJPP:
     mov ax, 0                        ; 0x8789
 @..api_idx_0002_KJPP.l3:
     push ax                          ; 0x878c
-    call loc_8540                    ; 0x878d
+    call loc_JIHU                    ; 0x878d
     add sp, byte 4                   ; 0x8790
 @..api_idx_0002_KJPP.l4:
     ret                              ; 0x8793

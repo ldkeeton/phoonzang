@@ -35,7 +35,7 @@ string_loc_OVJU:
     mov bx, ax                       ; 0x5a57
     pop ax                           ; 0x5a59
     mov byte [bx + 0x5d7d], al       ; 0x5a5a
-    jmp short loc_5a89               ; 0x5a5e
+    jmp short loc_NUGN               ; 0x5a5e
 jumptable_5a60:
     dw jumptable_5a60_case_0 - IMAGE_BASE + 0x5055 ; 0x5a60
     dw jumptable_5a60_case_1 - IMAGE_BASE + 0x5055 ; 0x5a62
@@ -51,11 +51,11 @@ jumptable_5a60:
     dw jumptable_5a60_case_11 - IMAGE_BASE + 0x5055 ; 0x5a76
     dw jumptable_5a60_case_12 - IMAGE_BASE + 0x5055 ; 0x5a78
     dw string_loc_OVJU - IMAGE_BASE + 0x5055   ; 0x5a7a
-@..loc_5706.l1:
+@..loc_TRNU.l1:
     cmp ax, strict word 0xe          ; 0x5a7c
-    jae short loc_5a89               ; 0x5a7f
+    jae short loc_NUGN               ; 0x5a7f
     xchg bx, ax                      ; 0x5a81
     shl bx, 1                        ; 0x5a82
     jmp [cs:bx - 0x5559]             ; 0x5a84
-loc_5a89:
+loc_NUGN:
     ret                              ; 0x5a89

@@ -88,7 +88,7 @@ api_idx_00a8_JQTV:
     push word [bss_91d4]             ; 0x5e49
     lea ax, word [bp - 0x0058]       ; 0x5e4d
     push ax                          ; 0x5e50
-    call loc_0eb2                    ; 0x5e51
+    call loc_UQVI                    ; 0x5e51
     add sp, byte 8                   ; 0x5e54
     mov word [bp - 0x0002], 0        ; 0x5e57
     jmp short @..api_idx_00a8_JQTV.l6 ; 0x5e5c

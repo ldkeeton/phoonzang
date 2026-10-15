@@ -52,14 +52,14 @@ api_idx_0004_MHSG:
     mov word [bp - 0x0002], ax       ; 0x1728
     push word [bp + 0x4]             ; 0x172b
     push ax                          ; 0x172e
-    call loc_15f9                    ; 0x172f
+    call loc_UOKI                    ; 0x172f
     add sp, byte 4                   ; 0x1732
     mov bx, word [bp + 0x6]          ; 0x1735
     cmp byte [bx], 0                 ; 0x1738
     je short @..api_idx_0004_MHSG.l5 ; 0x173b
     push word [bp + 0xc]             ; 0x173d
     push bx                          ; 0x1740
-    call loc_1613                    ; 0x1741
+    call loc_HHOO                    ; 0x1741
     add sp, byte 4                   ; 0x1744
 @..api_idx_0004_MHSG.l5:
     mov bx, word [bp + 0x8]          ; 0x1747
@@ -67,7 +67,7 @@ api_idx_0004_MHSG:
     je short @..api_idx_0004_MHSG.l6 ; 0x174d
     push word [bp + 0xe]             ; 0x174f
     push bx                          ; 0x1752
-    call loc_1613                    ; 0x1753
+    call loc_HHOO                    ; 0x1753
     add sp, byte 4                   ; 0x1756
 @..api_idx_0004_MHSG.l6:
     mov bx, word [bp + 0xa]          ; 0x1759
@@ -75,7 +75,7 @@ api_idx_0004_MHSG:
     je short @..api_idx_0004_MHSG.l7 ; 0x175f
     push word [bp + 0x10]            ; 0x1761
     push bx                          ; 0x1764
-    call loc_1613                    ; 0x1765
+    call loc_HHOO                    ; 0x1765
     add sp, byte 4                   ; 0x1768
 @..api_idx_0004_MHSG.l7:
     mov ax, 7                        ; 0x176b

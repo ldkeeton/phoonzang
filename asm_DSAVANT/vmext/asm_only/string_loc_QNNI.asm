@@ -59,8 +59,8 @@ string_loc_QNNI:
     jge short @..string_loc_QNNI.l2  ; 0x1222
     jmp near @..string_loc_QNNI.l1   ; 0x1224
 @..string_loc_QNNI.l2:
-    jmp near loc_1325                ; 0x1227
-loc_122a:
+    jmp near loc_TNQQ                ; 0x1227
+loc_SLGQ:
     mov ax, 0x248                    ; 0x122a
     imul word [bp - 0x0006]          ; 0x122d
     mov bx, ax                       ; 0x1230
@@ -79,7 +79,7 @@ loc_122a:
     pop ax                           ; 0x1251
     mov word [bx + 0x5c0c], ax       ; 0x1252
     cmp ax, strict word 0            ; 0x1256
-    jg short loc_127a                ; 0x1259
+    jg short loc_KORV_127a           ; 0x1259
     mov byte [bx + 0x5e2f], 3        ; 0x125b
     mov word [bx + 0x5c0c], 0        ; 0x1260
     mov word [bx + 0x5c10], 0        ; 0x1266
@@ -89,5 +89,5 @@ loc_122a:
     push ax                          ; 0x1275
     call ds_app_IPOK                 ; 0x1276
     pop cx                           ; 0x1279
-loc_127a:
-    jmp near loc_1325                ; 0x127a
+loc_KORV_127a:
+    jmp near loc_TNQQ                ; 0x127a

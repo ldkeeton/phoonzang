@@ -27,35 +27,35 @@ api_idx_0004_GVNQ:
     je short @..api_idx_0004_GVNQ.l4 ; 0x8fbf
     mov word [bss_9e48], ax          ; 0x8fc1
     jmp short @..api_idx_0004_GVNQ.l2 ; 0x8fc4
-loc_8fc6:
+loc_PPNS:
     mov word [bss_9e6e], 1           ; 0x8fc6
     jmp short @..api_idx_0004_GVNQ.l3 ; 0x8fcc
-loc_8fce:
+loc_SSNR:
     mov word [bss_9e70], 1           ; 0x8fce
     jmp short @..api_idx_0004_GVNQ.l3 ; 0x8fd4
-loc_8fd6:
+loc_QOJP:
     mov word [bss_9e68], 1           ; 0x8fd6
     jmp short @..api_idx_0004_GVNQ.l3 ; 0x8fdc
-loc_8fde:
+loc_MHGP:
     mov word [bss_9e6a], 1           ; 0x8fde
     jmp short @..api_idx_0004_GVNQ.l3 ; 0x8fe4
-loc_8fe6:
+loc_TPUK:
     mov word [bss_9e6c], 1           ; 0x8fe6
     jmp short @..api_idx_0004_GVNQ.l3 ; 0x8fec
-loc_8fee:
+loc_LGNJ:
     mov word [bss_9e74], 1           ; 0x8fee
     jmp short @..api_idx_0004_GVNQ.l3 ; 0x8ff4
-loc_8ff6:
+loc_JIUI:
     mov word [bss_9e76], 1           ; 0x8ff6
     jmp short @..api_idx_0004_GVNQ.l3 ; 0x8ffc
 jumptable_8ffe:
-    dw loc_8fc6 - IMAGE_BASE + 0x5055          ; 0x8ffe
-    dw loc_8fce - IMAGE_BASE + 0x5055          ; 0x9000
-    dw loc_8fd6 - IMAGE_BASE + 0x5055          ; 0x9002
-    dw loc_8fde - IMAGE_BASE + 0x5055          ; 0x9004
-    dw loc_8fe6 - IMAGE_BASE + 0x5055          ; 0x9006
-    dw loc_8fee - IMAGE_BASE + 0x5055          ; 0x9008
-    dw loc_8ff6 - IMAGE_BASE + 0x5055          ; 0x900a
+    dw loc_PPNS - IMAGE_BASE + 0x5055          ; 0x8ffe
+    dw loc_SSNR - IMAGE_BASE + 0x5055          ; 0x9000
+    dw loc_QOJP - IMAGE_BASE + 0x5055          ; 0x9002
+    dw loc_MHGP - IMAGE_BASE + 0x5055          ; 0x9004
+    dw loc_TPUK - IMAGE_BASE + 0x5055          ; 0x9006
+    dw loc_LGNJ - IMAGE_BASE + 0x5055          ; 0x9008
+    dw loc_JIUI - IMAGE_BASE + 0x5055          ; 0x900a
 @..api_idx_0004_GVNQ.l2:
     cmp ax, strict word 7            ; 0x900c
     jae short @..api_idx_0004_GVNQ.l3 ; 0x900f
@@ -79,7 +79,7 @@ jumptable_8ffe:
     mov word [bss_9e62], 1           ; 0x9036
     mov word [bss_9e50], ax          ; 0x903c
     push ax                          ; 0x903f
-    call loc_86c6                    ; 0x9040
+    call loc_TNVN                    ; 0x9040
     pop cx                           ; 0x9043
     mov word [bss_9e46], 0xffff      ; 0x9044
     mov word [bss_9e82], 0xffff      ; 0x904a

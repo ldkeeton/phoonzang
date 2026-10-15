@@ -6,4 +6,4 @@ io_loc_MIKO:
     mov word [bp - 0x001c], 1        ; 0x73ec
     mov ax, word [dseg_0022]         ; 0x73f1
     mov word [bp - 0x0032], ax       ; 0x73f4
-    jmp short loc_745a               ; 0x73f7
+    jmp short loc_OMJU               ; 0x73f7

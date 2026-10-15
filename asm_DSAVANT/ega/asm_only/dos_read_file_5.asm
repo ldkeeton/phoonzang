@@ -21,7 +21,7 @@ dos_read_file_5:
     mov ax, word [cs:bx]             ; 0x4649
     mov word [cs:bx], 0              ; 0x464c
     call leaf_loc_IMUV               ; 0x4651
-    call loc_1392                    ; 0x4654
+    call loc_PQGR                    ; 0x4654
     jmp near @..dos_read_file_5.l8   ; 0x4657
 @..dos_read_file_5.l1:
     mov word [bp - 0x0002], ax       ; 0x465a

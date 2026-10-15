@@ -4,7 +4,7 @@ api_idx_0004_LHJI:
     call aztec_csav                  ; 0x3aaf
     cmp word [bss_9566], byte 5      ; 0x3ab2
     jle short @..api_idx_0004_LHJI.l1 ; 0x3ab7
-    call loc_3a6a                    ; 0x3ab9
+    call loc_VJPM                    ; 0x3ab9
 @..api_idx_0004_LHJI.l1:
     mov bx, word [bp + 0x4]          ; 0x3abc
     cmp byte [bx], 0                 ; 0x3abf
@@ -15,7 +15,7 @@ api_idx_0004_LHJI:
     mov ax, 2                        ; 0x3ac9
     push ax                          ; 0x3acc
     push bx                          ; 0x3acd
-    call ds_loc_3aca                 ; 0x3ace
+    call ds_loc_TILJ                 ; 0x3ace
     add sp, byte 4                   ; 0x3ad1
     inc ax                           ; 0x3ad4
     mov cx, 2                        ; 0x3ad5

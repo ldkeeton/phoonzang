@@ -10,7 +10,7 @@ api_idx_0006_IING:
     je short @..api_idx_0006_IING.l1 ; 0x72d2
     mov ax, 3                        ; 0x72d4
     push ax                          ; 0x72d7
-    call loc_0c96                    ; 0x72d8
+    call loc_HGQP                    ; 0x72d8
     pop cx                           ; 0x72db
 @..api_idx_0006_IING.l1:
     mov ax, 1                        ; 0x72dc
@@ -132,32 +132,3 @@ api_idx_0006_IING:
     call thunk_12                    ; 0x73f9
     add sp, byte 8                   ; 0x73fc
     ret                              ; 0x73ff
-loc_7400:
-    mov ax, 0                        ; 0x7400
-    call aztec_csav                  ; 0x7403
-    mov word [bss_9d6c], 3           ; 0x7406
-    mov word [bss_93d8], 0x8f        ; 0x740c
-    mov word [bss_9d62], 3           ; 0x7412
-    call api_idx_001e_HINN           ; 0x7418
-    call loc_6d9d                    ; 0x741b
-    call api_idx_0086_PJNG           ; 0x741e
-    call loc_a441                    ; 0x7421
-    call api_idx_0054_UJOG           ; 0x7424
-    call api_idx_009c_OKKI           ; 0x7427
-    call api_idx_0006_IING           ; 0x742a
-    ret                              ; 0x742d
-loc_742e:
-    mov ax, 0                        ; 0x742e
-    call aztec_csav                  ; 0x7431
-    mov ax, word [bss_598e]          ; 0x7434
-    cmp ax, word [bp + 0x4]          ; 0x7437
-    je short @..loc_742e.l1          ; 0x743a
-    push word [bp + 0x4]             ; 0x743c
-    call ds_app_LOMI                 ; 0x743f
-    pop cx                           ; 0x7442
-@..loc_742e.l1:
-    mov word [bss_93da], 0x10        ; 0x7443
-    push word [bss_93da]             ; 0x7449
-    call ds_app_IPOK                 ; 0x744d
-    pop cx                           ; 0x7450
-    ret                              ; 0x7451

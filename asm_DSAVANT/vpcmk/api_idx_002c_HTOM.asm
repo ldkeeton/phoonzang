@@ -335,7 +335,7 @@ api_idx_002c_HTOM:
     push ax                          ; 0x6d88
     mov ax, 0x46a                    ; 0x6d89
     push ax                          ; 0x6d8c
-    call loc_0445                    ; 0x6d8d
+    call loc_TGJO                    ; 0x6d8d
     add sp, byte 0x1a                ; 0x6d90
     mov word [bp - 0x0006], ax       ; 0x6d93
     jmp near @..api_idx_002c_HTOM.l14 ; 0x6d96
@@ -365,7 +365,7 @@ jumptable_6e5f_case_2:
     add sp, byte 8                   ; 0x6dc6
     mov ax, 0x482                    ; 0x6dc9
     push ax                          ; 0x6dcc
-    call loc_68fa                    ; 0x6dcd
+    call loc_ISRH                    ; 0x6dcd
     pop cx                           ; 0x6dd0
     mov word [bp - 0x0008], ax       ; 0x6dd1
     cmp ax, strict word 0xffff       ; 0x6dd4
@@ -387,13 +387,13 @@ jumptable_6e5f_case_1:
     add sp, byte 8                   ; 0x6df1
     mov ax, 0x485                    ; 0x6df4
     push ax                          ; 0x6df7
-    call loc_68fa                    ; 0x6df8
+    call loc_ISRH                    ; 0x6df8
     pop cx                           ; 0x6dfb
     mov word [bp - 0x0008], ax       ; 0x6dfc
     cmp ax, strict word 0xffff       ; 0x6dff
     je short @..api_idx_002c_HTOM.l11 ; 0x6e02
     push ax                          ; 0x6e04
-    call loc_67e2                    ; 0x6e05
+    call loc_RQVP                    ; 0x6e05
     pop cx                           ; 0x6e08
 @..api_idx_002c_HTOM.l11:
     jmp short @..api_idx_002c_HTOM.l15 ; 0x6e09
@@ -407,10 +407,10 @@ jumptable_6e5f_case_3:
     push ax                          ; 0x6e17
     call thunk_4                     ; 0x6e18
     add sp, byte 8                   ; 0x6e1b
-loc_6e1e:
+loc_MHMT:
     mov ax, 0x488                    ; 0x6e1e
     push ax                          ; 0x6e21
-    call loc_68fa                    ; 0x6e22
+    call loc_ISRH                    ; 0x6e22
     pop cx                           ; 0x6e25
     mov word [bp - 0x0008], ax       ; 0x6e26
     cmp ax, strict word 0xffff       ; 0x6e29
@@ -432,7 +432,7 @@ jumptable_6e5f_case_4:
     add sp, byte 8                   ; 0x6e45
     mov ax, 0x48b                    ; 0x6e48
     push ax                          ; 0x6e4b
-    call loc_68fa                    ; 0x6e4c
+    call loc_ISRH                    ; 0x6e4c
     pop cx                           ; 0x6e4f
     mov word [bp - 0x0008], ax       ; 0x6e50
     cmp ax, strict word 0xffff       ; 0x6e53

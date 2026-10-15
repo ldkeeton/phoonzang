@@ -29,7 +29,7 @@ api_idx_0004_KGUI:
     jmp short @..api_idx_0004_KGUI.l2 ; 0x6f56
 @..api_idx_0004_KGUI.l3:
     push word [bp + 0x4]             ; 0x6f58
-    call loc_6dd9                    ; 0x6f5b
+    call loc_HQPO                    ; 0x6f5b
     pop cx                           ; 0x6f5e
     mov ax, word [bp - 0x0002]       ; 0x6f5f
     add word [bp + 0x4], ax          ; 0x6f62
@@ -40,43 +40,7 @@ api_idx_0004_KGUI:
     cmp byte [bx], 0                 ; 0x6f6e
     je short @..api_idx_0004_KGUI.l5 ; 0x6f71
     push bx                          ; 0x6f73
-    call loc_6dd9                    ; 0x6f74
+    call loc_HQPO                    ; 0x6f74
     pop cx                           ; 0x6f77
 @..api_idx_0004_KGUI.l5:
     ret                              ; 0x6f78
-loc_6f79:
-    mov ax, 0xfefa                   ; 0x6f79
-    call aztec_csav                  ; 0x6f7c
-    call loc_6c1e                    ; 0x6f7f
-    mov word [bss_a5ac], 0           ; 0x6f82
-    mov word [bss_a4a8], 0xc         ; 0x6f88
-    mov word [bss_a4a6], 0           ; 0x6f8e
-    mov byte [bss_a4aa], 0           ; 0x6f94
-@..loc_6f79.l1:
-    lea ax, word [bp - 0x0105]       ; 0x6f99
-    push ax                          ; 0x6f9d
-    push word [bp + 0x4]             ; 0x6f9e
-    call ds_app_mem_VKHV             ; 0x6fa1
-    add sp, byte 4                   ; 0x6fa4
-    cmp word [bss_5216], byte 0      ; 0x6fa7
-    jne short @..loc_6f79.l2         ; 0x6fac
-    lea ax, word [bp - 0x0105]       ; 0x6fae
-    push ax                          ; 0x6fb2
-    call api_idx_0004_KGUI           ; 0x6fb3
-    pop cx                           ; 0x6fb6
-    inc word [bp + 0x4]              ; 0x6fb7
-@..loc_6f79.l2:
-    cmp word [bss_5216], byte 0      ; 0x6fba
-    je short @..loc_6f79.l1          ; 0x6fbf
-    cmp byte [bss_a4aa], 0           ; 0x6fc1
-    je short @..loc_6f79.l3          ; 0x6fc6
-    mov ax, 0xa4aa                   ; 0x6fc8
-    push ax                          ; 0x6fcb
-    call api_idx_0004_PUGI           ; 0x6fcc
-    pop cx                           ; 0x6fcf
-@..loc_6f79.l3:
-    cmp word [bp + 0x6], byte 0      ; 0x6fd0
-    je short @..loc_6f79.l4          ; 0x6fd4
-    call api_idx_0004_TLTU           ; 0x6fd6
-@..loc_6f79.l4:
-    ret                              ; 0x6fd9

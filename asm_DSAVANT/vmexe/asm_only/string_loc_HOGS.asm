@@ -16,7 +16,7 @@ string_loc_HOGS:
     sub ax, ax                       ; 0xa4ec
     rep stosw                        ; 0xa4ee
 @..string_loc_HOGS.l1:
-    call loc_17d1                    ; 0xa4f0
+    call loc_VPSG                    ; 0xa4f0
     mov bp, word [dseg_90b8]         ; 0xa4f3
     mov sp, word [dseg_90b6]         ; 0xa4f7
     mov si, word [dseg_90b2]         ; 0xa4fb

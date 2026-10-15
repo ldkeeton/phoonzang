@@ -2,7 +2,7 @@
 api_idx_0018_USQS:
     mov ax, 0xffe8                   ; 0x1c94
     call aztec_csav                  ; 0x1c97
-    call loc_0140                    ; 0x1c9a
+    call loc_KNIO                    ; 0x1c9a
     call ds_app_STOI                 ; 0x1c9d
     mov word [bss_8450], ax          ; 0x1ca0
     test ax, ax                      ; 0x1ca3
@@ -101,7 +101,7 @@ api_idx_0018_USQS:
     je short @..api_idx_0018_USQS.l9 ; 0x1da7
     jmp near @..api_idx_0018_USQS.l32 ; 0x1da9
 @..api_idx_0018_USQS.l9:
-    call loc_0f68                    ; 0x1dac
+    call loc_IPIR                    ; 0x1dac
     test ax, ax                      ; 0x1daf
     jne short @..api_idx_0018_USQS.l10 ; 0x1db1
     jmp short @..api_idx_0018_USQS.l9 ; 0x1db3
@@ -142,7 +142,7 @@ api_idx_0018_USQS:
     je short @..api_idx_0018_USQS.l14 ; 0x1e10
     mov word [bss_91ae], 1           ; 0x1e12
 @..api_idx_0018_USQS.l14:
-    call loc_0f68                    ; 0x1e18
+    call loc_IPIR                    ; 0x1e18
     test ax, ax                      ; 0x1e1b
     jne short @..api_idx_0018_USQS.l15 ; 0x1e1d
     mov ax, 0xa                      ; 0x1e1f
@@ -358,7 +358,7 @@ api_idx_0018_USQS:
     mov ax, word [bp - 0x0002]       ; 0x2003
     cmp ax, word [bss_69c8]          ; 0x2006
     jl short @..api_idx_0018_USQS.l33 ; 0x200a
-    call loc_0f68                    ; 0x200c
+    call loc_IPIR                    ; 0x200c
     cmp word [bss_8450], byte 0      ; 0x200f
     je short @..api_idx_0018_USQS.l37 ; 0x2014
     push word [bss_844c]             ; 0x2016
@@ -370,6 +370,6 @@ api_idx_0018_USQS:
     call ds_app_thunk_21_HUMJ        ; 0x2028
     pop cx                           ; 0x202b
 @..api_idx_0018_USQS.l37:
-    call loc_0344                    ; 0x202c
+    call loc_OKOK                    ; 0x202c
     mov ax, 0                        ; 0x202f
     ret                              ; 0x2032

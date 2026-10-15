@@ -101,7 +101,7 @@ api_idx_0054_OMTV:
     push ax                          ; 0x0451
     mov ax, 0x20                     ; 0x0452
     push ax                          ; 0x0455
-    call ds_loc_3a77                 ; 0x0456
+    call ds_loc_PQIO                 ; 0x0456
     add sp, byte 4                   ; 0x0459
     mov ax, 0                        ; 0x045c
     push ax                          ; 0x045f
@@ -146,7 +146,7 @@ api_idx_0054_OMTV:
     push ax                          ; 0x04bb
     mov ax, 0x28                     ; 0x04bc
     push ax                          ; 0x04bf
-    call ds_loc_3a77                 ; 0x04c0
+    call ds_loc_PQIO                 ; 0x04c0
     add sp, byte 4                   ; 0x04c3
     mov ax, 0                        ; 0x04c6
     push ax                          ; 0x04c9
@@ -165,7 +165,7 @@ api_idx_0054_OMTV:
     push ax                          ; 0x04e9
     mov ax, 0x29                     ; 0x04ea
     push ax                          ; 0x04ed
-    call ds_loc_3a77                 ; 0x04ee
+    call ds_loc_PQIO                 ; 0x04ee
     add sp, byte 4                   ; 0x04f1
     inc word [bp - 0x0002]           ; 0x04f4
 @..api_idx_0054_OMTV.l9:

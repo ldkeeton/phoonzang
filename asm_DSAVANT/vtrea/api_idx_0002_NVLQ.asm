@@ -92,7 +92,7 @@ api_idx_0002_NVLQ:
     push ax                          ; 0x1057
     mov ax, 0x20                     ; 0x1058
     push ax                          ; 0x105b
-    call ds_loc_3a77                 ; 0x105c
+    call ds_loc_PQIO                 ; 0x105c
     add sp, byte 4                   ; 0x105f
     mov bx, word [bp + 0x6]          ; 0x1062
     cmp byte [bx], 0                 ; 0x1065
@@ -104,7 +104,7 @@ api_idx_0002_NVLQ:
     add sp, byte 4                   ; 0x1074
     mov ax, 0                        ; 0x1077
     push ax                          ; 0x107a
-loc_107b:
+loc_PSLQ:
     push word [bp + 0x6]             ; 0x107b
     call ds_string_loc_PTIK          ; 0x107e
     add sp, byte 4                   ; 0x1081
@@ -112,7 +112,7 @@ loc_107b:
     push ax                          ; 0x1087
     mov ax, 0x20                     ; 0x1088
     push ax                          ; 0x108b
-    call ds_loc_3a77                 ; 0x108c
+    call ds_loc_PQIO                 ; 0x108c
     add sp, byte 4                   ; 0x108f
 @..api_idx_0002_NVLQ.l7:
     mov bx, word [bp + 0x8]          ; 0x1092
@@ -132,7 +132,7 @@ loc_107b:
     push ax                          ; 0x10b7
     mov ax, 0x20                     ; 0x10b8
     push ax                          ; 0x10bb
-    call ds_loc_3a77                 ; 0x10bc
+    call ds_loc_PQIO                 ; 0x10bc
     add sp, byte 4                   ; 0x10bf
 @..api_idx_0002_NVLQ.l8:
     mov bx, word [bp + 0xa]          ; 0x10c2

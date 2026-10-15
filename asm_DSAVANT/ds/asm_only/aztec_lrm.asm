@@ -19,4 +19,4 @@ aztec_lrm:
     call aztec_lud                   ; 0x4c2f
     mov ax, cx                       ; 0x4c32
     mov dx, bx                       ; 0x4c34
-    jmp short ds_loc_4c07            ; 0x4c36
+    jmp short ds_loc_OMIK            ; 0x4c36

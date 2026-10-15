@@ -22,4 +22,4 @@ leaf_loc_NTNI:
     mov ax, word [bss_82e8]          ; 0x44a1
     add ax, strict word 5            ; 0x44a4
     mov word [bp - 0x000a], ax       ; 0x44a7
-    jmp near loc_4623                ; 0x44aa
+    jmp near loc_RJVS                ; 0x44aa

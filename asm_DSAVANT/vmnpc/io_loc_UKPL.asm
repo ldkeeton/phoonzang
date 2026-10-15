@@ -9,4 +9,4 @@ io_loc_UKPL:
     push ax                          ; 0x36c3
     call set_bitmap_bit              ; 0x36c4
     add sp, byte 6                   ; 0x36c7
-    jmp near loc_3769                ; 0x36ca
+    jmp near loc_VISH                ; 0x36ca

@@ -8,7 +8,7 @@ api_idx_000a_TIQR:
     push word [bp + 0x12]            ; 0x29aa
     push word [bp + 0xa]             ; 0x29ad
     push word [bp + 0x4]             ; 0x29b0
-    call loc_2553                    ; 0x29b3
+    call loc_VOJJ                    ; 0x29b3
     add sp, byte 6                   ; 0x29b6
     mov word [bp - 0x0008], ax       ; 0x29b9
     jmp short @..api_idx_000a_TIQR.l2 ; 0x29bc
@@ -21,7 +21,7 @@ api_idx_000a_TIQR:
     push word [bp + 0x14]            ; 0x29ca
     push word [bp + 0xa]             ; 0x29cd
     push word [bp + 0x4]             ; 0x29d0
-    call loc_2553                    ; 0x29d3
+    call loc_VOJJ                    ; 0x29d3
     add sp, byte 6                   ; 0x29d6
     mov word [bp - 0x000a], ax       ; 0x29d9
     jmp short @..api_idx_000a_TIQR.l4 ; 0x29dc
@@ -38,7 +38,7 @@ api_idx_000a_TIQR:
 @..api_idx_000a_TIQR.l5:
     mov ax, 0xc8d                    ; 0x29f4
     push ax                          ; 0x29f7
-    call loc_24c2                    ; 0x29f8
+    call loc_VTRL                    ; 0x29f8
     pop cx                           ; 0x29fb
 @..api_idx_000a_TIQR.l6:
     lea ax, word [bp - 0x0006]       ; 0x29fc

@@ -2,7 +2,7 @@
 leaf_loc_LKSI:
     cmp word [bp + 0x4], byte 4      ; 0x2ec0
     jl short @..leaf_loc_LKSI.l34    ; 0x2ec4
-    jmp near loc_30f3                ; 0x2ec6
+    jmp near loc_NUGN                ; 0x2ec6
 @..leaf_loc_LKSI.l34:
     cmp word [bp + 0x8], byte 1      ; 0x2ec9
     je short @..leaf_loc_LKSI.l35    ; 0x2ecd
