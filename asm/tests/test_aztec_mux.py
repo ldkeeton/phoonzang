@@ -9,8 +9,7 @@ import os
 import shutil
 import unittest
 
-ASM = os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__))))
+ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT = os.path.dirname(ASM)
 
 from lib.aztec import sources  # noqa: E402

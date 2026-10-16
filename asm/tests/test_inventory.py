@@ -10,7 +10,8 @@ from lib.inventory import (
     address_inventory_dir, write_address_inventory,
 )
 from lib.compare.symbols import _build_address_records
-from lib.tests.syms import data
+from lib.symtab import Space, Symbol
+from tests.syms import bss, cseg, data, dseg, psp
 
 # Inventories are build reports under ``.cache/addresses/<project>/`` (not in
 # the ``asm_<project>`` tree).
@@ -18,10 +19,24 @@ _ADDRESS_DIR = address_inventory_dir('DSAVANT')
 
 
 class ClassifyTest(unittest.TestCase):
+    def test_namespaces_map_to_spaces_and_tiers(self):
+        self.assertEqual(classify(cseg(0x4882)), ('cs', 'embedded_pointer', 'segdataflow', STRONG))
+        self.assertEqual(classify(dseg(0x0c80)), ('ds', 'data', 'segdataflow', STRONG))
+        self.assertEqual(classify(bss(0x0cf6)), ('bss', 'bss', 'segdataflow', STRONG))
+        self.assertEqual(classify(psp(0x2c, 'psp_top_of_memory')), ('psp', 'psp', 'segdataflow', STRONG))
+        self.assertEqual(classify(data(0x0e0e)), ('unknown', 'candidate', 'candidate', CANDIDATE))
+
     def test_code_and_constants(self):
         self.assertEqual(classify('string_loc_088e', 'T'), ('cs', 'code', 'relative_flow', CERTAIN))
         self.assertEqual(classify('entry_point', 'T'), ('cs', 'code', 'relative_flow', CERTAIN))
         self.assertEqual(classify('mystery', 'A'), ('unknown', 'constant', 'label', CANDIDATE))
+
+    def test_external_bios_data_is_a_candidate(self):
+        self.assertEqual(
+            classify(Symbol.data(Space.ABS, 0x410, 'bios_data_0410')),
+            ('unknown', 'candidate', 'candidate', CANDIDATE),
+        )
+
 
 class MergeInventoryTest(unittest.TestCase):
     def test_records_override_classification_and_add_xref(self):

@@ -14,7 +14,7 @@ from main.projects import discover_binaries
 from main.build import build_project, nasm_binary
 from lib.report import clear_project_stats
 
-from .clean import cmd_clean
+from .clean import clean_output
 from .common import APPS, JOBS, PROJECT, _asm_one, _extra_flags
 from .prebuild import _ensure_prebuild
 
@@ -56,14 +56,22 @@ def _assemble(out_dir):
 
 
 def asm_app(app):
-    if _stats_enabled():
-        clear_project_stats(app)
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     failed = build_project(app, _generate(app), _assemble(out_dir))
     if failed:
         print(f'{app}: {len(set(failed))} binary(ies) failed to build')
         sys.exit(1)
     print(f'{app}: build OK')
+
+
+def _prepare(app, *, clean=True, prebuild=True):
+    """What every build does first: drop stale output, make sure prebuild exists."""
+    if clean:
+        clean_output(app)
+    if prebuild:
+        _ensure_prebuild(app)
+    if _stats_enabled():
+        clear_project_stats(app)
 
 
 def cmd_build_binary(app, binary):
@@ -75,10 +83,7 @@ def cmd_build_binary(app, binary):
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
 
-    cmd_clean([app], keep_prebuild=True)
-    _ensure_prebuild(app)
-    if _stats_enabled():
-        clear_project_stats(app)
+    _prepare(app)
     failed = build_project(app, _generate(app), _assemble(out_dir), only=binary)
     if failed:
         sys.exit(1)
@@ -110,13 +115,15 @@ def cmd_rebuild(app=None, binary=None, all_projects=()):
         _rebuild_project(project, binary)
 
 
-def _build_projects(targets, all_projects):
+def _build_projects(targets, all_projects, *, clean=True, prebuild=True):
     for project in targets:
         if project not in all_projects:
             print(f'Unknown project: {project}')
             print(f'Known: {", ".join(all_projects)}')
             sys.exit(1)
-    cmd_clean(targets, keep_prebuild=True)
     for project in targets:
-        _ensure_prebuild(project)
+        if clean:
+            clean_output(project)
+    for project in targets:
+        _prepare(project, clean=False, prebuild=prebuild)
         asm_app(project)

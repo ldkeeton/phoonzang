@@ -8,8 +8,7 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_MEM
 from lib.segments import from_binary
 from lib.segdataflow import (DATA, LOAD, PSP, analyze)
 
-ASM = os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__))))
+ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT = os.path.dirname(ASM)
 
 _MD = Cs(CS_ARCH_X86, CS_MODE_16)

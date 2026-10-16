@@ -10,7 +10,7 @@ code is untouched.
 import unittest
 
 from lib.compare.splitting import _split_off_foreign_objects
-from lib.tests.syms import cseg, generated, label, loc
+from tests.syms import cseg, generated, label, loc
 
 
 def _label(offset, name):

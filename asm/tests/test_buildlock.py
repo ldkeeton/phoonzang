@@ -5,7 +5,7 @@ import tempfile
 import time
 import unittest
 
-ASM = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 _CHILD = '''
 import sys

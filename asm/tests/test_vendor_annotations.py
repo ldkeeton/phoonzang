@@ -1,7 +1,7 @@
 import unittest
 
 from lib.compare.vendor import _apply_asm_annotations, _vendor_named_tails
-from lib.tests.syms import label, loc, routine
+from tests.syms import label, loc, routine
 
 
 def _records():

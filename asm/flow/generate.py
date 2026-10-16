@@ -21,7 +21,7 @@ Usage (from asm/):
   python3 -m flow.generate --stages [PROJECT]               # PIPELINE.md + diagrams
   python3 -m flow.generate --html [PROJECT]                 # one-page health view
   python3 -m flow.generate --baseline [PROJECT]             # pin waste numbers
-  python3 -m flow.generate --lock                           # rewrite pipeline.lock
+  python3 -m flow.generate --lock                           # rewrite .cache/_flow/pipeline.lock
   python3 -m flow.generate --check [PROJECT]                # lock + ledger check
   python3 -m flow.generate --trace                          # trace only
 """

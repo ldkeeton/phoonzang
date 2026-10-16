@@ -9,7 +9,7 @@ from lib.compare.render import (
     _build_source, _label_equ_value, _signed_hex, _virtual_base,
 )
 from lib.verify.assemble import _equ_hex
-from lib.tests.syms import bss, data, dseg, loc, psp
+from tests.syms import bss, data, dseg, loc, psp
 from make.elf import _elf_source_text, _force_origin_zero
 
 

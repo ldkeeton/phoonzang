@@ -1,7 +1,7 @@
 import unittest
 
 from lib.compare.splitting import _select_split_ranges
-from lib.tests.syms import routine
+from tests.syms import routine
 
 
 class COverrideExtentTests(unittest.TestCase):

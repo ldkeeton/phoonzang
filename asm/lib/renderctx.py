@@ -18,9 +18,6 @@ import os
 from lib.cachedirs import render_dir
 from lib.symtab import from_record, to_record
 
-#: Names are stored as symbol records (:func:`lib.symtab.to_record`).
-SCHEMA_VERSION = 2
-
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _PROJECT_ROOT = os.path.dirname(_ASM_DIR)
 
@@ -51,7 +48,6 @@ def encode(context):
     name-keyed ``mem_equ`` a list of ``[name, value]`` pairs.
     """
     return {
-        'schema_version': SCHEMA_VERSION,
         'local_labels': _encode_addr_map(context.get('local_labels')),
         'data_labels': _encode_addr_map(context.get('data_labels')),
         'mem_symbols': {f'{addr},{idx}': to_record(name)
@@ -70,9 +66,7 @@ def encode(context):
 
 
 def decode(raw):
-    """Inverse of :func:`encode`, or ``None`` for an older schema."""
-    if raw.get('schema_version') != SCHEMA_VERSION:
-        return None
+    """Inverse of :func:`encode`."""
     foreign = raw.get('foreign_label_map')
     immediate = raw.get('immediate_labels')
     return {

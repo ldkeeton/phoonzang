@@ -1,4 +1,4 @@
-"""``pipeline.lock``: the checked-in list of pipeline stages.
+"""``pipeline.lock``: the local list of pipeline stages (``.cache/_flow/``).
 
 A stage is a literal ``stagelog.step('<name>', <level>, '<kind>', ...)`` call in
 ``main/`` or ``lib/``.  The lock records each one, so adding, removing or
@@ -21,10 +21,11 @@ shrink.
 import ast
 import os
 
+from lib.cachedirs import pipeline_lock_path
 from lib.stagelog import DECLARED, KINDS
 
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOCK_PATH = os.path.join(ASM_DIR, 'flow', 'pipeline.lock')
+LOCK_PATH = pipeline_lock_path()
 _SCAN = ('main', 'lib')
 _SKIP = {'tests', '__pycache__', 'aztec', 'decompile'}
 
@@ -104,6 +105,7 @@ def read(path=LOCK_PATH):
 
 
 def write(stages, undeclared, path=LOCK_PATH):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w') as f:
         f.write(_HEADER)
         for level, kind, name in stages:

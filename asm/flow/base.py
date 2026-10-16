@@ -6,13 +6,12 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from lib.cachedirs import stats_dir, trace_dir  # noqa: E402
+from lib.cachedirs import flow_out_dir, stats_dir, trace_dir  # noqa: E402
 
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(ASM_DIR)
 APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
-FLOW_DIR = os.path.dirname(os.path.abspath(__file__))
-BUILD_OUT = os.path.join(FLOW_DIR, 'build_out')
+BUILD_OUT = flow_out_dir()
 
 
 def discover_binaries(project):

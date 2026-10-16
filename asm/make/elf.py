@@ -15,7 +15,9 @@ from lib.shared import FOLDER
 from lib.symtab import Symbol
 from main.projects import discover_binaries
 
-from .common import APPS, PROJECT, _extra_flags, _main_exe, _nasm_build
+from main.build import nasm_binary
+
+from .common import APPS, PROJECT, _extra_flags, _main_exe
 
 
 # An image defines its own origin -- the virtual address of file offset 0 -- as
@@ -389,7 +391,7 @@ def _load_render_context(app, binary):
     if not os.path.isfile(path):
         return None
     with open(path) as context_file:
-        return decode(json.load(context_file))  # None for an older schema
+        return decode(json.load(context_file))
 
 
 def _fragment_labels(label_records, start, end):
@@ -735,7 +737,7 @@ def _elf_rebuild_one(app, binary=None):
     #    host source for its symbols, so host edits reach them directly).
     failed = []
     for name, (rel_path, _start_offset) in sorted(bins.items()):
-        if _nasm_build(out_dir, name, rel_path) != 0:
+        if nasm_binary(out_dir, name, rel_path) != 0:
             failed.append(name)
     if failed:
         print(f'elf-rebuild {app}: {len(set(failed))} binary(ies) failed to build')

@@ -33,8 +33,6 @@ from .mux import (COMPILER_VERSIONS, SOURCE_VERSIONS, MuxEngine, is_asm,
                   tool_flags)
 from .objread import fixup_width
 
-PREBUILD_VERSION = 3   # 3: entries carry their C name; internal routines are aztec_impl_
-
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))))
 _ROOT = os.path.dirname(_ASM_DIR)
@@ -97,15 +95,13 @@ def _load(path):
             blob = json.load(f)
     except (OSError, ValueError):
         return None
-    if blob.get('version') != PREBUILD_VERSION:
-        return None
     return blob.get('functions', {})
 
 
 def _save(path, binary, functions, misses):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w') as f:
-        json.dump({'version': PREBUILD_VERSION, 'binary': binary,
+        json.dump({'binary': binary,
                    'functions': functions, 'misses': misses},
                   f, indent=1, sort_keys=True)
 

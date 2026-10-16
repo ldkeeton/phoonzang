@@ -13,11 +13,17 @@ Layout::
     .cache/<project>/stats/             per-binary stats
     .cache/<project>/traces/            detailed phase traces (.jsonl)
     .cache/<project>/stages/            pipeline stage ledgers (.jsonl)
-    .cache/<project>/stats_baseline/    pinned baseline for stats-diff
     .cache/_all/                        cross-project outputs only
                                         (images, images_layers, summary/delta)
+    .cache/_baseline/<project>/         pinned stats baseline for stats-diff; survives
+                                        ``make clean`` and ``make prebuild``
+    .cache/_flow/                       ``make flow`` output only: pipeline.lock,
+                                        pipeline.baseline.json, reports/diagrams
 
-``make prebuild <project>`` removes ``.cache/<project>`` and rebuilds it.
+``make prebuild <project>`` removes ``.cache/<project>`` and rebuilds it, and
+``make clean`` removes all of ``.cache``.  ``make build`` trusts whatever is
+there, so nothing under ``.cache`` carries a format version: clean or prebuild
+is the invalidation.
 """
 
 import os
@@ -26,6 +32,8 @@ _ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(_ASM_DIR)
 CACHE_ROOT = os.path.join(PROJECT_ROOT, '.cache')
 ALL_DIR = os.path.join(CACHE_ROOT, '_all')
+FLOW_DIR = os.path.join(CACHE_ROOT, '_flow')
+BASELINE_ROOT = os.path.join(CACHE_ROOT, '_baseline')
 
 
 def project_cache(project):
@@ -77,7 +85,7 @@ def stats_dir(project):
 
 
 def baseline_dir(project):
-    return os.path.join(project_cache(project), 'stats_baseline')
+    return os.path.join(BASELINE_ROOT, project)
 
 
 def trace_dir(project):
@@ -88,10 +96,24 @@ def stages_dir(project):
     return os.path.join(project_cache(project), 'stages')
 
 
+def pipeline_lock_path():
+    return os.path.join(FLOW_DIR, 'pipeline.lock')
+
+
+def pipeline_baseline_path():
+    return os.path.join(FLOW_DIR, 'pipeline.baseline.json')
+
+
+def flow_out_dir():
+    return os.path.join(FLOW_DIR, 'out')
+
+
 def list_cached_projects():
     """Project names that have a ``.cache/<project>`` directory."""
     if not os.path.isdir(CACHE_ROOT):
         return []
     return sorted(n for n in os.listdir(CACHE_ROOT)
-                  if n != os.path.basename(ALL_DIR)
+                  if n not in (os.path.basename(ALL_DIR),
+                               os.path.basename(FLOW_DIR),
+                               os.path.basename(BASELINE_ROOT))
                   and os.path.isdir(os.path.join(CACHE_ROOT, n)))

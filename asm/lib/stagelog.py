@@ -21,7 +21,7 @@ owns or changes::
 Each tracked artifact is diffed against its previous snapshot.  A key is owned
 by the step that first added it; a later step that removes or changes a key
 owned by *another* step has **rewritten** it.  A ``produce`` step that rewrites
-is an *undeclared* repair -- the case the lock test (``flow/pipeline.lock``)
+is an *undeclared* repair -- the case the lock test (``.cache/_flow/pipeline.lock``)
 exists to stop.
 
 Kinds:
@@ -31,11 +31,16 @@ Kinds:
 ``recompute``  derives again what an earlier step already derived
 ``cleanup``    undoes a side effect
 ``measure``    reads only; ``metrics`` carries the numbers
+
+Opt-in: the main build records nothing.  ``make flow`` sets ``WIZ_STAGELOG=1``
+so a build writes ``.cache/<project>/stages/`` for ``flow.generate`` to read.
 """
 
 import json
 import os
 import time
+
+ENABLED = bool(os.environ.get('WIZ_STAGELOG'))
 
 KINDS = ('produce', 'repair', 'recompute', 'cleanup', 'measure')
 #: Kinds that are *declared* second-guessing of earlier work.
@@ -117,6 +122,8 @@ _stack = []
 
 def begin(scope):
     """Open a ledger; steps go to the innermost open one."""
+    if not ENABLED:
+        return None
     ledger = Ledger(scope)
     _stack.append(ledger)
     return ledger
@@ -124,6 +131,8 @@ def begin(scope):
 
 def end(ledger, path=None):
     """Close *ledger* (and anything left open above it); write it to *path*."""
+    if ledger is None:
+        return None
     while _stack and _stack[-1] is not ledger:
         _stack.pop()
     if _stack:
@@ -140,6 +149,8 @@ def current():
 
 
 def step(name, level, kind='produce', **kwargs):
+    if not ENABLED:
+        return None
     return current().step(name, level, kind, **kwargs)
 
 

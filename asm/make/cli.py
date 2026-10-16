@@ -21,13 +21,14 @@ HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
   make init                 sparse-clone only the dos_compilers folders listed in sidecars
-  make all                  clean, build, then verify all projects
+  make all                  prebuild (clean + Aztec mux), build, verify all projects
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
-  make prebuild PROJECT [BIN]  rebuild aztec libs + signature DB, run the Aztec C mux
+  make prebuild [PROJECT...]  clean, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
   make run PROJECT          run game in dosbox-x
   make verify [PROJECT...]  verify one or all projects
-  make clean [PROJECT...]   clean one or all projects (no args: delete .cache)
+  make clean [PROJECT...]   clean one or all projects (no args: delete .cache,
+                            except the build lock and pinned baselines)
   make rebuild [PROJECT [BIN]]  recompile .c (must match the original bytes;
                             --allow-diff to relax) + nasm; default: everything
   make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
@@ -37,7 +38,7 @@ Commands (space-separated):
   make stats-diff           current-vs-baseline KPI delta (+ delta.json)
   make charts               regenerate all PNGs + CSVs from existing stats
   make readme               regenerate README.md + readme/heatmap.svg
-  make test [TEST...]       run the unit test suite in lib/tests (optionally
+  make test [TEST...]       run the unit test suite in asm/tests (optionally
                             only the named dotted tests)
 
 Env:
@@ -51,7 +52,7 @@ Env:
 
 Stats workflow (LLM/human regression loop):
   EXTRA_FLAGS=--stats make build PROJECT   # snapshot -> .cache/stats
-  make set-baseline                        # pin -> .cache/stats_baseline
+  make set-baseline                        # pin -> .cache/_baseline
   ...edit heuristics...
   EXTRA_FLAGS=--stats make build PROJECT
   make stats-diff                          # read the delta
@@ -76,8 +77,9 @@ def main():
         buildlock.acquire()
 
     if '--all' in flags:
-        cmd_clean([])
-        _build_projects(all_projects, all_projects)
+        for project in all_projects:
+            cmd_prebuild(project)
+        _build_projects(all_projects, all_projects, clean=False, prebuild=False)
         cmd_verify([])
         return
 
@@ -94,23 +96,13 @@ def main():
         return
 
     if '--prebuild' in flags:
-        if len(args) == 2:
-            project, binary = args
+        for project in args:
             if project not in all_projects:
                 print(f'Unknown project: {project}')
                 print(f'Known: {", ".join(all_projects)}')
                 sys.exit(1)
-            cmd_prebuild(project, binary)
-        elif len(args) == 1:
-            project = args[0]
-            if project not in all_projects:
-                print(f'Unknown project: {project}')
-                print(f'Known: {", ".join(all_projects)}')
-                sys.exit(1)
+        for project in (args or all_projects):
             cmd_prebuild(project)
-        else:
-            print('Usage: make prebuild PROJECT [BIN]')
-            sys.exit(1)
         return
 
     if '--check' in flags:

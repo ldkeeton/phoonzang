@@ -1,10 +1,10 @@
 PY := python3
 ASM := asm
-CMD := init check clean run verify rebuild elf-rebuild set-baseline charts concat-code help all build prebuild decompile test readme
+CMD := init check clean run verify rebuild elf-rebuild set-baseline charts help all build prebuild decompile test readme
 
 # The root has a `readme/` directory, so the target of the same name needs to
 # be phony or make reports it "up to date" and skips the recipe.
-.PHONY: $(CMD) stats-diff
+.PHONY: $(CMD) stats-diff flow
 
 help:
 	@cd $(ASM) && $(PY) -m make --help
@@ -17,6 +17,12 @@ set-baseline:
 
 stats-diff:
 	@cd $(ASM) && $(PY) -m make --stats-diff
+
+# Pipeline analysis, never part of a build.  Build first with WIZ_STAGELOG=1 so
+# the stage ledgers exist, e.g. `WIZ_STAGELOG=1 make build DSAVANT`, then
+# `make flow ARGS="--check"` (also --lock, --baseline, --stages, ...).
+flow:
+	@cd $(ASM) && $(PY) -m flow.generate $(ARGS)
 
 ifneq ($(filter $(CMD),$(MAKECMDGOALS)),)
 init check clean run verify rebuild elf-rebuild all build prebuild decompile test readme:

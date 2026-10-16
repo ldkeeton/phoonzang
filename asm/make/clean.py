@@ -4,29 +4,31 @@ import os
 import shutil
 
 from lib.buildlock import LOCK_NAME
-from lib.cachedirs import CACHE_ROOT, project_cache
+from lib.cachedirs import BASELINE_ROOT, CACHE_ROOT, project_cache
 from main.clean import clean_all
 from main.clean import clean_project
 
+#: Kept by a whole-``.cache`` clean: the held build lock (deleting it would
+#: orphan the held inode) and the pinned stats baselines.
+_KEEP = {LOCK_NAME, os.path.basename(BASELINE_ROOT)}
 
 
-def cmd_clean(apps, keep_prebuild=False):
-    """Remove generated trees.
+def clean_output(project):
+    """Remove one project's generated ``asm_<project>/`` files."""
+    return clean_project(project)
 
-    ``make clean`` deletes the whole ``.cache`` folder (``.cache/<app>`` when
-    apps are given).  ``make
-    build`` passes ``keep_prebuild=True`` so the expensive prebuild survives
-    repeated builds (it is created first only when absent).
+
+def cmd_clean(apps):
+    """Remove generated output and ``.cache`` for *apps* (none: everything).
+
+    ``make clean`` deletes every project's generated output and the whole
+    ``.cache`` folder, except the build lock and the pinned baselines.
     """
-    def _targets(app):
-        return [] if keep_prebuild else [project_cache(app)]
-
     if not apps:
         clean_all()
-        if not keep_prebuild and os.path.isdir(CACHE_ROOT):
-            # keep the build lock: deleting it would orphan the held inode
+        if os.path.isdir(CACHE_ROOT):
             for name in os.listdir(CACHE_ROOT):
-                if name == LOCK_NAME:
+                if name in _KEEP:
                     continue
                 path = os.path.join(CACHE_ROOT, name)
                 if os.path.isdir(path) and not os.path.islink(path):
@@ -36,11 +38,11 @@ def cmd_clean(apps, keep_prebuild=False):
             print(f'Removed {CACHE_ROOT}')
         return
     for app in apps:
-        removed = clean_project(app)
-        for out in _targets(app):
-            if os.path.isdir(out):
-                shutil.rmtree(out)
-                print(f'Removed {out}')
-                removed = True
-        if not removed and not keep_prebuild:
+        removed = clean_output(app)
+        cache = project_cache(app)
+        if os.path.isdir(cache):
+            shutil.rmtree(cache)
+            print(f'Removed {cache}')
+            removed = True
+        if not removed:
             print(f'Nothing to clean for {app}')

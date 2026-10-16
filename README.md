@@ -35,7 +35,7 @@ Run from the repo root.
 | `make stats-diff` | current-vs-baseline KPI delta (+ delta.json) |
 | `make charts` | regenerate all PNGs + CSVs from existing stats |
 | `make readme` | regenerate README.md + readme/heatmap.svg |
-| `make test [TEST...]` | run the unit test suite in lib/tests (optionally |
+| `make test [TEST...]` | run the unit test suite in asm/tests (optionally |
 | `make set-baseline` | # pin -> .cache/stats_baseline |
 | `make stats-diff` | # read the delta |
 

@@ -9,6 +9,9 @@ Failures are cached too: some ``(source, compiler)`` pairings make the DOS
 compiler fail outright, and retrying them on every prebuild
 is pure waste.  Deleting the prebuild tree retries them.
 
+There is no format version: ``.cache`` is rebuilt by ``make prebuild`` (which
+starts empty), so an entry never outlives the code that wrote it.
+
 Writes are atomic (temp file + rename) because prebuild may compile the same
 module from several binaries concurrently.
 """
@@ -21,17 +24,8 @@ import tempfile
 from .compile import CompiledModule
 
 
-# Bump when the compile pipeline changes in a way that alters output for the
-# same inputs (e.g. a different object->OMF converter), so stale entries are
-# not trusted.  7: OBD parse keeps relocation kind/addend and local labels.
-# 8: functions keep their C name (``__read``), keyed without folding ``_``.
-CACHE_VERSION = 8
-
-
 def module_key(version, filename, compiler, flags, source_text):
     digest = hashlib.sha1()
-    digest.update(f'v{CACHE_VERSION}'.encode())
-    digest.update(b'\x00')
     for part in (version, filename, compiler, '\x00'.join(flags)):
         digest.update(part.encode('utf-8', 'replace'))
         digest.update(b'\x00')

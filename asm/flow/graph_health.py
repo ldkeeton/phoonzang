@@ -20,9 +20,9 @@ import json
 import os
 
 from flow import graph_stages
+from lib.cachedirs import pipeline_baseline_path
 
-BASELINE_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                             'pipeline.baseline.json')
+BASELINE_PATH = pipeline_baseline_path()
 #: ms/binary above which a recompute is called out.
 SLOW_MS = 500
 #: a step that overwrote at least this many keys per binary is red / amber.
@@ -209,6 +209,7 @@ def read_baseline(path=BASELINE_PATH):
 
 
 def write_baseline(rows, path=BASELINE_PATH):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w') as f:
         json.dump(metrics(rows), f, indent=1, sort_keys=True)
         f.write('\n')

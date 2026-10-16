@@ -23,12 +23,13 @@ from lib.compare.records import (
 )
 from lib.compare.cotenancy import symbol_tables
 from lib.sidecar.loader import load as load_sidecar
-from lib.tests.syms import bss, data, dseg, loc, routine
+from lib.symtab import Space, Symbol
+from tests.syms import bss, cseg, data, dseg, loc, psp, routine
 from lib.sidecar.binary import per_binary
 from make.elf import _force_origin_zero
 
 
-_ASM_DIR = pathlib.Path(__file__).resolve().parents[2]
+_ASM_DIR = pathlib.Path(__file__).resolve().parents[1]
 _PROJECT_ROOT = _ASM_DIR.parent
 _TREE = _PROJECT_ROOT / 'asm_DSAVANT'
 _SKIP_DIRS = {'build_out', 'inc'}
@@ -435,6 +436,77 @@ class CountFrozenAddrsTests(unittest.TestCase):
         self.assertEqual((pointer['f6'], pointer['f7']), (0, 1))
         self.assertEqual(pointer['data_shift'], 1)
         self.assertEqual(pointer['total'], 1)
+
+    def test_classifies_each_taxonomy(self):
+        text = '\n'.join([
+            '    dw 0x0056 ; e_cblp: bytes in final page',
+            '    dw 0x0ff6 ; e_ss: initial stack segment',
+            '    dw 0x93df ; o_csize: code size in bytes',
+            'cseg_2f36 equ 0x2f36',
+            'dseg_0002 equ 0x0002',
+            'bss_0cf6 equ 0x0cf6',
+            'psp_env_segment equ 0x002c',
+            'bios_data_0410 equ 0x0410',
+            '    times 44813 db 0',
+            '    times 4 db 0',
+            '    dw 0x490f ; 0x4822',              # unresolved pointer -> f7
+            '    dw 0x001c ; 0x1698 ; literal',    # literal data word -> f6
+            'IMAGE_BASE equ 0x0200',
+        ])
+        symbols = {str(s): s for s in (
+            cseg(0x2f36), dseg(0x0002), bss(0x0cf6),
+            psp(0x2c, 'psp_env_segment'),
+            Symbol.data(Space.ABS, 0x410, 'bios_data_0410'))}
+        counts = count_frozen_addrs(text, symbols)
+        self.assertEqual(counts['f1'], 2)
+        self.assertEqual(counts['f2'], 1)
+        self.assertEqual(counts['f3'], 1)
+        self.assertEqual(counts['f4'], 2)   # dseg_ + bss_
+        self.assertEqual(counts['f5'], 1)   # the 44813 pad, not the 4-byte run
+        self.assertEqual(counts['f6'], 1)   # the tagged literal word
+        self.assertEqual(counts['f7'], 1)   # the untagged pointer word
+        # Gate classes (plan.md section 10.2); inert is reported, not gated.
+        self.assertEqual(counts['code_shift'], 2 + 1 + 1 + 1)
+        self.assertEqual(counts['data_shift'], 2 + 1)
+        self.assertEqual(counts['inert'], 1 + 1 + 1)  # psp_ + bios_ + f6
+        self.assertEqual(counts['total'],
+                         counts['code_shift'] + counts['data_shift'])
+
+    def test_an_equ_the_symbol_table_does_not_know_is_not_counted(self):
+        counts = count_frozen_addrs('mystery equ 0x1234\n', {})
+        self.assertEqual(counts['total'], 0)
+        self.assertEqual(counts['inert'], 0)
+
+    def test_name_use_splits_used_from_inert(self):
+        sources = [
+            ('play.asm',
+             'loc_0007 equ 0x0007\n'
+             'loc_0008 equ 0x0008\n'
+             'cseg_0100 equ 0x0100\n'),
+            ('play/leaf_loc_077b.asm',
+             '    call loc_0008\n'
+             '    mov al, [cs:cseg_0100]\n'),
+        ]
+        symbols = {str(s): s for s in (loc(7), loc(8), cseg(0x100))}
+        counts = count_name_use(sources, symbols)
+        self.assertEqual(counts['names_used'], 2)
+        self.assertEqual(counts['names_inert'], 1)
+        self.assertEqual(counts['inert_names'], ['loc_0007'])
+
+    def test_include_paths_and_comments_are_not_references(self):
+        """A fragment is named after its label, so its include must not count."""
+        sources = [
+            ('vga.asm',
+             'loc_1000 equ 0x1000\n'
+             '%include "vga/loc_2000.asm"          ; 0x2000\n'),
+            ('vga/loc_2000.asm',
+             'loc_2000 equ 0x2000  ; is loc_1000 live?\n'),
+        ]
+        symbols = {str(s): s for s in (loc(0x1000), loc(0x2000))}
+        counts = count_name_use(sources, symbols)
+        self.assertEqual(counts['names_inert'], 2)
+        self.assertEqual(sorted(counts['inert_names']),
+                         ['loc_1000', 'loc_2000'])
 
     def test_ocorg_family_is_counted_in_every_spelling(self):
         """D7.2: the overlay load origin is one value written three ways.

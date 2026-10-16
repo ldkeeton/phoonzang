@@ -26,7 +26,7 @@ def cmd_set_baseline():
                 shutil.copy2(os.path.join(src, fn), os.path.join(dst, fn))
                 if fn.endswith('.json') and not fn.endswith('.summary.json'):
                     count += 1
-    print(f'Baseline set: {count} binaries -> {cachedirs.CACHE_ROOT}/<project>/stats_baseline')
+    print(f'Baseline set: {count} binaries -> {cachedirs.BASELINE_ROOT}/<project>')
 
 
 def _charts(app):

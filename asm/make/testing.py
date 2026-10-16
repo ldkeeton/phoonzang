@@ -14,6 +14,6 @@ def cmd_test(patterns):
             loader.loadTestsFromName(p) for p in patterns)
     else:
         suite = loader.discover(
-            os.path.join(ASM, 'lib', 'tests'), top_level_dir=ASM)
+            os.path.join(ASM, 'tests'), top_level_dir=ASM)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     sys.exit(0 if result.wasSuccessful() else 1)

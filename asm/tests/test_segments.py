@@ -13,8 +13,7 @@ from lib.segments import (
     psp_field,
 )
 
-ASM = os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__))))
+ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT = os.path.dirname(ASM)
 
 

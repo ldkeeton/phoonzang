@@ -5,7 +5,7 @@ import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.model import JumpTableInfo
-from lib.tests.syms import generated
+from tests.syms import generated
 from lib.phases.recursive import _code_off, _scan_jump_table
 from lib.verify.assemble import clear_assemble_cache, micro_assemble
 from lib.compare.render import (

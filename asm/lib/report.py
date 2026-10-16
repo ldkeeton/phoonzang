@@ -242,7 +242,7 @@ def write_summary(ctx, asm_text=''):
 def load_summaries(baseline=False):
     """Aggregate all per-binary *.summary.json under every project's cache.
 
-    Reads ``.cache/<project>/stats`` (or ``stats_baseline`` when *baseline*).
+    Reads ``.cache/<project>/stats`` (or ``.cache/_baseline/<project>`` when *baseline*).
     Returns {binary: kpi} across every project, plus a `totals` entry.
     """
     binaries = {}

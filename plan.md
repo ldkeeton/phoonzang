@@ -396,9 +396,9 @@ already covers) or to declare the object itself (an `objects` list, honoured lik
 | sidecar | `asm/sidecar/DSAVANT.json`, `lib/sidecar` |
 | edits / rebuild | `asm/main/runner.py`, `asm/make/*` |
 | round-trip | `asm/lib/verify/assemble.py` (`micro_assemble`) |
-| pipeline ledger | `asm/lib/stagelog.py` (checkpoints), `asm/flow/` (`--stages` report + diagrams, `--check`, `pipeline.lock`) |
+| pipeline ledger | `asm/lib/stagelog.py` (checkpoints), `asm/flow/` (`--stages` report + diagrams, `--check`, `.cache/_flow/pipeline.lock`; opt-in via `make flow`) |
 
-**Rule for new behaviour.** Every pipeline step is a `stagelog.step(...)` checkpoint. New behaviour either extends the step that produces the artifact, or is a declared `repair`/`recompute`/`cleanup` with `repairs=` and `why=`. `make build` prints the ledger headline; `python3 -m flow.generate --check` and `lib/tests/test_pipeline_lock.py` fail on an unlisted stage or an undeclared rewrite. After an intended change: `python3 -m flow.generate --lock`.
+**Rule for new behaviour.** Every pipeline step is a `stagelog.step(...)` checkpoint. New behaviour either extends the step that produces the artifact, or is a declared `repair`/`recompute`/`cleanup` with `repairs=` and `why=`. Ledgers are opt-in (`WIZ_STAGELOG=1 make build <project>`); `make flow ARGS="--check"` and `asm/tests/test_pipeline_lock.py` fail on an unlisted stage or an undeclared rewrite. After an intended change: `make flow ARGS="--lock"`.
 
 ---
 

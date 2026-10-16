@@ -4,7 +4,7 @@ import numpy as np
 import polars as pl
 
 from lib.classify import classify
-from lib.tests.syms import generated, loc
+from tests.syms import generated, loc
 from lib.model import IS_CODE, IS_DATA, PhaseContext
 from lib.phases.arbiter import ArbiterPhase
 from lib.phases.recursive import RecursiveDescentPhase

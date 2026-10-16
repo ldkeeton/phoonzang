@@ -127,26 +127,7 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         stagelog.end(ledger, os.path.join(stages_dir(project),
                                           f'{project}__project.jsonl'))
 
-    #don't put noisy reports in the build output
-    #if only is None:
-    #    _report_pipeline(project, report)
-
     return failed
-
-
-def _report_pipeline(project, report):
-    """Print the stage-ledger headline.
-
-    The ``flow/build_out`` diagrams, health HTML and ``PIPELINE.md`` writes are
-    deliberately off here: the build only reports, it does not render.  Run
-    ``python3 -m flow.generate --stages`` (from ``asm/``) to refresh them.
-    """
-    from flow.graph_stages import aggregate, findings, headline, load
-    ledgers = load(project)
-    if not ledgers:
-        return
-    for line in headline(findings(aggregate(ledgers))):
-        report('  ' + line)
 
 
 def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):

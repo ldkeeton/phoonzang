@@ -15,7 +15,7 @@ from lib.aztec.objread import (
     parse_o_locals,
 )
 from lib.compare.coverrides import _c_bytes_to_records
-from lib.tests.syms import loc
+from tests.syms import loc
 
 # ``foo(a)``: a loop with a call, a data read and an array reference.  Mirrors
 # what OBD printed for a real probe module.

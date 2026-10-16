@@ -12,8 +12,8 @@ from lib.sidecar.loader import load as load_sidecar
 from main.options import APPS_DIR
 from main.runner import process
 from main.verify import byte_verify
-from lib.tests.syms import local
-from lib.tests.syms import local
+from tests.syms import local
+from tests.syms import local
 
 
 _PREVIOUS_LOCAL_TARGETS = {
@@ -118,7 +118,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
 
     def test_shared_epilogue_label_uses_its_function_scope(self):
         self.assertEqual(
-            self.local_labels.get(0x47fb), '@..aztec__free.l1',
+            self.local_labels.get(0x47fb), '@..aztec_impl_free.l1',
         )
 
     def test_sidecar_data_anchors_remain_data(self):
@@ -200,7 +200,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertNotIn('@..aztec_csav.l2:', master)
         self.assertIn('@..aztec_csav.l2:', cret_include)
         self.assertIn('mov sp, bp                       ; 0x4676', cret_include)
-        self.assertIn('jmp near aztec__stkover          ; 0x4678', cret_include)
+        self.assertIn('jmp near aztec_impl_stkover      ; 0x4678', cret_include)
 
     def test_sidecar_code_anchors_decode_as_code(self):
         code_starts = (0x0fdf, 0x3067, 0x30f7, 0x343e, 0x3490, 0x457c)
@@ -235,7 +235,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
                            master)
         self.assertEqual(len(names), 1, names)
         name = names[0]
-        self.assertEqual(name, 'aztec__exit')
+        self.assertEqual(name, 'aztec_impl_exit')
         self.assertIn(f'{name}:', asm_text)
         self.assertEqual(asm_text.count(f'call {name}'), 3)
 

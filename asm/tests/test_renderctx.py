@@ -6,7 +6,7 @@ import unittest
 
 from lib.renderctx import encode, decode, context_dir, context_path
 from lib.symtab import Kind
-from lib.tests.syms import bss, local, routine
+from tests.syms import bss, local, routine
 
 
 class EncodeDecodeTest(unittest.TestCase):
@@ -61,6 +61,3 @@ class GeometryRoundTripTest(unittest.TestCase):
         geometry = {'__zres_end': 0x440c, '__zdseg_end': 0x1234}
         raw = json.loads(json.dumps(encode({'geometry': geometry})))
         self.assertEqual(decode(raw)['geometry'], geometry)
-
-    def test_older_schema_is_not_read(self):
-        self.assertIsNone(decode({}))

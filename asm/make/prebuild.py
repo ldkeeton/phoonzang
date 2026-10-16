@@ -8,30 +8,34 @@ from lib.aztec import build_db
 from lib.cachedirs import aztec_funcs_path, prebuild_dir
 from main.projects import discover_binaries
 
+from .clean import cmd_clean
 from .common import APPS, JOBS, _asm_one
 
 
-def cmd_prebuild(app, binary=None):
-    """Rebuild everything the Aztec C mux needs under ``.cache/<app>/``.
+def cmd_prebuild(app):
+    """``make prebuild``: clean *app*, then rebuild what the Aztec C mux needs.
 
-    It does not clean anything (run ``make clean`` first for a fresh start);
-    it regenerates, in order:
+    ``.cache`` carries no version stamps; the clean here is what invalidates
+    it.  Prebuild is a whole-project step.
+    """
+    cmd_clean([app])
+    _run_prebuild(app)
+
+
+def _run_prebuild(app):
+    """Regenerate everything the Aztec C mux needs under ``.cache/<app>/``.
+
+    In order:
 
     1. ``aztec_lib_obj/``    runtime-library OMF from the vendor ``.LIB`` files
     2. ``aztec_funcs.json``  signature DB built from those objects
     3. ``prebuild/``         the mux manifests, C seeds and compiled-module cache
 
-    ``make build`` calls this only when the data is
-    missing.  This intentionally stops the pipeline right after the mux
-    manifest is written: no verify/emit and no NASM, and asm_<app>/ is left
-    untouched.
+    This intentionally stops the pipeline right after the mux manifest is
+    written: no verify/emit and no NASM, and asm_<app>/ is left untouched.
     """
     app_dir = os.path.join(APPS, app)
     bins = discover_binaries(app_dir)
-    if binary is not None and binary not in bins:
-        print(f'Unknown binary "{binary}" in {app}')
-        print(f'Known: {", ".join(sorted(bins))}')
-        sys.exit(1)
 
     out_dir = prebuild_dir(app)
     os.makedirs(out_dir, exist_ok=True)
@@ -44,7 +48,7 @@ def cmd_prebuild(app, binary=None):
     # Binaries disassemble in parallel (CPU-bound); the emulator is serialized
     # behind one inter-process lock (see lib/aztec/compile._dosbox_lock).
     os.environ['ASM_DOSBOX_LOCK'] = os.path.join(out_dir, '.dosbox.lock')
-    targets = [binary] if binary else sorted(bins)
+    targets = sorted(bins)
     outputs = {name: [] for name in targets}
     failures = []
     try:
@@ -76,8 +80,7 @@ def cmd_prebuild(app, binary=None):
         print(f'prebuild {app}: {len(set(failures))} binary(ies) failed')
         sys.exit(1)
 
-    target = f'{app}/{binary}' if binary else app
-    print(f'\nprebuild {target} -> {out_dir}  [OK]')
+    print(f'\nprebuild {app} -> {out_dir}  [OK]')
 
 
 def _ensure_prebuild(app):
@@ -87,4 +90,4 @@ def _ensure_prebuild(app):
                  or not build_db.project_binaries(app))):
         return
     print(f'{app}: prebuild cache missing; running the Aztec C mux first...')
-    cmd_prebuild(app)
+    _run_prebuild(app)

@@ -1,7 +1,7 @@
 """``make stats-diff`` — compact current-vs-baseline KPI delta.
 
 Reads the per-binary ``*.summary.json`` files under ``.cache/<project>/stats``
-and ``.cache/<project>/stats_baseline`` and prints a polarity-annotated delta
+and ``.cache/_baseline/<project>`` and prints a polarity-annotated delta
 for LLM/human consumption. Also writes ``.cache/_all/summary.json`` (current
 snapshot) and ``.cache/_all/delta.json`` (machine-readable result).
 """
@@ -124,7 +124,7 @@ def cmd_stats_diff():
     cur_run = _first_run()
     base_run = _first_run(baseline=True)
     print(f'Stats diff: current={cachedirs.CACHE_ROOT}/<project>/stats')
-    print(f'            baseline={cachedirs.CACHE_ROOT}/<project>/stats_baseline')
+    print(f'            baseline={cachedirs.BASELINE_ROOT}/<project>')
     if cur_run:
         print(f'  current run:  rev {cur_run.get("git_rev", "?")[:12]} '
               f'(dirty={cur_run.get("git_dirty")})  '

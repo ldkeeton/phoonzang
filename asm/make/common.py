@@ -1,28 +1,4 @@
-"""Companion to Makefile — parallel asm gen, NASM build, asset copy, check/run.
-
-Usage (from the repo root):
-  make                     show help
-  make all                 all projects serially
-  make build PROJECT [BIN] asm + nasm + assets (prebuilds first if missing)
-  make prebuild PROJECT [BIN] rebuild aztec libs + DB + mux
-  make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
-  make run PROJECT         run game in dosbox-x
-  make verify [PROJECT...] verify one or all projects
-  make clean [PROJECT...]  clean one or all projects (no args: delete .cache)
-  make rebuild [PROJECT [BIN]] recompile .c (gated vs original bytes) + nasm
-  make elf-rebuild [PROJECT [BIN]] rebuild DOS EXE plus ELF/DWARF symbols
-  make set-baseline        pin current stats (.cache/stats) as local baseline
-  make stats-diff          current-vs-baseline KPI delta
-  make charts              render PNG charts from existing stats
-
-Env:
-  EXTRA_FLAGS              space-separated flags forwarded to python -m main:
-                              --stats             write stats to .cache/stats
-                              --exact-bytes       strict byte-accurate mode
-                              --detailed-timings full-precision phase timings
-                              --no-show-offsets suppress instruction offsets
-  EXACT_FLAG (deprecated)  same as EXTRA_FLAGS=--exact-bytes
-"""
+"""Shared helpers for the ``make`` companion tool (commands: see ``HELP`` in cli.py)."""
 
 import os
 import re
@@ -37,7 +13,6 @@ JOBS = os.cpu_count() or 4
 if ASM not in sys.path:
     sys.path.insert(0, ASM)
 from main.projects import load_whitelist
-from lib.link import include_args
 
 
 # ── helpers ─────────────────────────────────────────────────────────────────
@@ -112,19 +87,6 @@ def _asm_one(app, binary, extra_args=None, sink=None):
     if r.returncode != 0 and r.stderr.strip():
         for line in r.stderr.strip().split('\n'):
             print(f'  {line}', file=sys.stderr)
-    return r.returncode
-
-
-def _nasm_build(out_dir, name, rel_path):
-    asm_path = os.path.join(out_dir, f'{name}.asm')
-    bin_path = os.path.join(out_dir, 'build_out', rel_path)
-    os.makedirs(os.path.dirname(bin_path), exist_ok=True)
-    r = _run('nasm', '-O0', '-f', 'bin', '-w-number-overflow', '-w-other',
-             *include_args(out_dir), '-o', bin_path, asm_path)
-    if r.returncode != 0:
-        print(f'  BUILD FAIL: {name}.asm -> {rel_path}')
-        for line in r.stderr.strip().split('\n'):
-            print(f'    {line}')
     return r.returncode
 
 
