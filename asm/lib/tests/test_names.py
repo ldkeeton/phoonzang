@@ -7,6 +7,15 @@ from lib.compare.render import (
     HOST_SYMBOLS_INC, _build_source, host_symbols_inc_lines,
 )
 from lib.compare.records import count_frozen_addrs
+from lib.symtab import Kind, Source, Space, Symbol
+
+
+def _gen(base, off, kind=Kind.ROUTINE):
+    return Symbol.generated(base, off, kind)
+
+
+def _named(text, off=None):
+    return Symbol(text, kind=Kind.ROUTINE, source=Source.SIGNATURE, offset=off)
 
 
 class GenericNameTests(unittest.TestCase):
@@ -14,20 +23,22 @@ class GenericNameTests(unittest.TestCase):
         names.set_generic_prefix('')
 
     def test_address_derived_names_are_generic(self):
-        for name in ('loc_08f2', 'app_03b8', 'leaf_loc_10108',
-                     'string_loc_0876', 'dos_con_loc_35b8', 'app_file_0242'):
+        for name in (_gen('loc', 0x8f2, Kind.LABEL), _gen('app', 0x3b8),
+                     _gen('leaf_loc', 0x10108), _gen('app_file', 0x242)):
             self.assertTrue(names.is_generic(name), name)
 
     def test_named_and_data_symbols_are_not_generic(self):
-        for name in ('dos_con_in_noecho', 'aztec_csav', 'app_malloc', 'main',
-                     'dseg_0002', 'bss_0e1e', 'psp_env_segment', '__zdseg_0002',
-                     'cseg_1234'):
+        for name in (_named('dos_con_in_noecho'), _named('main'),
+                     Symbol.data(Space.DS, 2), Symbol.data(Space.CSEG, 0x1234),
+                     Symbol.data(Space.PSP, 0x2c, 'psp_env_segment')):
             self.assertFalse(names.is_generic(name), name)
 
     def test_rename_prefixes_only_generic_names_everywhere(self):
-        label_map = {0x8f2: 'loc_08f2', 0x3b8: 'app_03b8', 0x3c97: 'dos_con_in_noecho'}
-        roots = {0x3b8: 'app_03b8', 0x3c97: 'dos_con_in_noecho', 0x1: None}
-        split = {'app_03b8', 'dos_con_in_noecho'}
+        loc, app = _gen('loc', 0x8f2, Kind.LABEL), _gen('app', 0x3b8)
+        named = _named('dos_con_in_noecho', 0x3c97)
+        label_map = {0x8f2: loc, 0x3b8: app, 0x3c97: named}
+        roots = {0x3b8: app, 0x3c97: named, 0x1: None}
+        split = {app, 'dos_con_in_noecho'}
         renames = names.rename_generics(label_map, roots, split, prefix='ds_')
         self.assertEqual(label_map, {0x8f2: 'ds_loc_08f2', 0x3b8: 'ds_app_03b8',
                                      0x3c97: 'dos_con_in_noecho'})
@@ -38,16 +49,13 @@ class GenericNameTests(unittest.TestCase):
                                    'app_03b8': 'ds_app_03b8'})
 
     def test_rename_is_idempotent(self):
-        label_map = {0x8f2: 'ds_loc_08f2'}
+        label_map = {0x8f2: _gen('loc', 0x8f2, Kind.LABEL).prefixed('ds_')}
         self.assertEqual(
             names.rename_generics(label_map, prefix='ds_'), {})
         self.assertEqual(label_map, {0x8f2: 'ds_loc_08f2'})
 
-    def test_stem_looks_through_the_host_prefix(self):
+    def test_loc_name_carries_the_host_prefix(self):
         names.set_generic_prefix('ds_')
-        self.assertTrue(names.startswith_stem('ds_loc_08f2', 'loc_'))
-        self.assertTrue(names.startswith_stem('loc_08f2', 'loc_'))
-        self.assertFalse(names.startswith_stem('ds_app_03b8', 'loc_'))
         self.assertEqual(names.loc_name(0x8f2), 'ds_loc_08f2')
 
     def test_non_host_names_get_no_prefix(self):
@@ -137,11 +145,60 @@ class ContentTagTests(unittest.TestCase):
         other = bytes([0x56, 0xEB, 0x00, 0xC3])
         self.assertNotEqual(self._tag(self.CODE, 0x100), self._tag(other, 0x100))
 
+    def test_bytes_count_however_they_were_decoded(self):
+        # ``push bp / ret`` with the ``ret`` left undecoded (a ``db``).
+        code, base = bytes([0x55, 0xC3]), 0x100
+        data = bytes(base) + code
+        full = names.content_tag(_decode(code, base), data, base, base + 2)
+        part = names.content_tag(_decode(code, base)[:1], data, base, base + 2)
+        self.assertEqual(full, part)
+
+    def test_absolute_data_address_is_layout(self):
+        # ``mov ax, [0x9b00] / ret`` vs ``[0x9c00]``.
+        self.assertEqual(self._tag(bytes([0xA1, 0x00, 0x9B, 0xC3]), 0x100),
+                         self._tag(bytes([0xA1, 0x00, 0x9C, 0xC3]), 0x100))
+        # ``mov ax, [bp+4]``: a frame offset is code, not layout.
+        self.assertNotEqual(self._tag(bytes([0x8B, 0x46, 0x04, 0xC3]), 0x100),
+                            self._tag(bytes([0x8B, 0x46, 0x06, 0xC3]), 0x100))
+
+    def test_constants_count(self):
+        self.assertNotEqual(self._tag(bytes([0xB8, 0x34, 0x12, 0xC3]), 0x100),
+                            self._tag(bytes([0xB8, 0x35, 0x12, 0xC3]), 0x100))
+
+    def test_short_and_near_jumps_out_differ(self):
+        short = bytes([0xEB, 0x10])
+        near = bytes([0xE9, 0x10, 0x00])
+        self.assertNotEqual(self._tag(short, 0x100), self._tag(near, 0x100))
+
+    def test_jump_out_does_not_depend_on_the_distance(self):
+        self.assertEqual(self._tag(bytes([0xE9, 0x10, 0x00]), 0x100),
+                         self._tag(bytes([0xE9, 0x40, 0x02]), 0x100))
+
+    def test_offset_of_own_code_is_rebased(self):
+        # ``mov bx, <own ret> / ret`` with the code at 0x100 and at 0x900.
+        def tag(base):
+            code = bytes([0xBB]) + (base + 3).to_bytes(2, 'little') + b'\xC3'
+            return names.content_tag(
+                _decode(code, base), bytes(base) + code, base, base + 4,
+                code_off=lambda v: v, code_labels={base + 3})
+        self.assertEqual(tag(0x100), tag(0x900))
+
+    def test_relocated_word_is_masked(self):
+        # ``mov ax, <segment> / ret``, patched by the loader.
+        def tag(seg):
+            code = bytes([0xB8]) + seg.to_bytes(2, 'little') + b'\xC3'
+            return names.content_tag(_decode(code, 0x100), bytes(0x100) + code,
+                                     0x100, 0x104, relocs={0x101})
+        self.assertEqual(tag(0x1234), tag(0x5678))
+
     def test_generic_names_still_read_as_generic_with_a_tag(self):
-        self.assertTrue(names.is_generic('leaf_loc_HQRK'))
-        self.assertTrue(names.is_generic('api_idx_0008_HQRK_02e3'))
-        self.assertFalse(names.is_generic('aztec_open'))
-        self.assertFalse(names.is_generic('mouse_init'))
+        tagged = _gen('leaf_loc', 0x10).tagged('HQRK')
+        self.assertEqual(tagged, 'leaf_loc_HQRK')
+        self.assertTrue(names.is_generic(tagged))
+        twin = _gen('api_idx_0008', 0x2e3).tagged('HQRK', keep_address=True)
+        self.assertEqual(twin, 'api_idx_0008_HQRK_02e3')
+        self.assertTrue(names.is_generic(twin))
+        self.assertFalse(names.is_generic(_named('aztec_open')))
 
 
 class TagGenericsTests(unittest.TestCase):
@@ -153,10 +210,10 @@ class TagGenericsTests(unittest.TestCase):
         for off, code in blobs.items():
             data[off:off + len(code)] = code
             instructions += _decode(code, off)
-        label_map = {off: f'leaf_loc_{off:04x}' for off in blobs}
+        label_map = {off: _gen('leaf_loc', off) for off in blobs}
         roots = dict(label_map)
         for off in stubs:
-            label_map[off] = roots[off] = f'api_idx_0008_{off:04x}'
+            label_map[off] = roots[off] = _gen('api_idx_0008', off)
         renames = names.tag_generics(label_map, roots, instructions,
                                      bytes(data), size, stubs=stubs)
         return label_map, renames
@@ -171,7 +228,8 @@ class TagGenericsTests(unittest.TestCase):
         # so it is named after its code too: an address-derived name would rename
         # the file whenever bytes above it moved.
         data = bytes([0x90, 0xC3])
-        label_map, roots = {0: 'loc_0000'}, {0: 'loc_0000'}
+        loc = _gen('loc', 0, Kind.LABEL)
+        label_map, roots = {0: loc}, {0: loc}
         names.tag_generics(label_map, roots, _decode(data, 0), data, 2)
         self.assertRegex(label_map[0], r'^loc_[G-V]{4}$')
 
@@ -182,6 +240,36 @@ class TagGenericsTests(unittest.TestCase):
         twin, _ = self._run({0x10: code, 0x20: code}, stubs={0x10, 0x20})
         self.assertRegex(twin[0x10], r'^api_idx_0008_[G-V]{4}_0010$')
         self.assertRegex(twin[0x20], r'^api_idx_0008_[G-V]{4}_0020$')
+
+    def test_callee_name_counts_only_when_stable(self):
+        # ``call; ret`` twice, into different routines (0x20 and 0x22).
+        callers = {0x10: bytes([0xE8, 0x0D, 0x00, 0xC3]),
+                   0x18: bytes([0xE8, 0x07, 0x00, 0xC3])}
+        callees = {0x20: bytes([0x55, 0xC3]), 0x22: bytes([0x56, 0xC3])}
+        generic, _ = self._run({**callers, **callees})
+        self.assertEqual(generic[0x10][:-5], generic[0x18][:-5])
+        self.assertTrue(generic[0x10].endswith('_0010'))
+        self.assertTrue(generic[0x18].endswith('_0018'))
+
+        blobs = {**callers, **callees}
+        size = max(off + len(code) for off, code in blobs.items())
+        data = bytearray(size)
+        instructions = []
+        for off, code in blobs.items():
+            data[off:off + len(code)] = code
+            instructions += _decode(code, off)
+        label_map = {0x10: _gen('leaf_loc', 0x10), 0x18: _gen('leaf_loc', 0x18),
+                     0x20: _named('_open', 0x20), 0x22: _named('_close', 0x22)}
+        names.tag_generics(label_map, dict(label_map), instructions,
+                           bytes(data), size)
+        self.assertNotEqual(label_map[0x10][-4:], label_map[0x18][-4:])
+
+    def test_changing_a_generic_callee_does_not_rename_its_caller(self):
+        caller = bytes([0xE8, 0x0D, 0x00, 0xC3])
+        before, _ = self._run({0x10: caller, 0x20: bytes([0x55, 0xC3])})
+        after, _ = self._run({0x10: caller, 0x20: bytes([0x56, 0xC3])})
+        self.assertNotEqual(before[0x20], after[0x20])
+        self.assertEqual(before[0x10], after[0x10])
 
     def test_adding_a_routine_does_not_rename_the_others(self):
         code = bytes([0x55, 0xC3])

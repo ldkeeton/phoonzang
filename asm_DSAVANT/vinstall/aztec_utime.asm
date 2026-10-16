@@ -11,7 +11,7 @@ aztec_utime:
 @..aztec_utime.l1:
     cmp byte [si], 0                 ; 0x2c0d
     jne short @..aztec_utime.l3      ; 0x2c10
-    mov word [dseg_24d6], 1          ; 0x2c12
+    mov word [errno], 1              ; 0x2c12
     mov ax, 0                        ; 0x2c18
 @..aztec_utime.l2:
     pop si                           ; 0x2c1b

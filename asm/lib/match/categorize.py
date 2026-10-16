@@ -8,6 +8,9 @@ leaf (no calls), or thunk (single-call wrapper).
 from capstone import CS_AC_WRITE, CS_OP_IMM, CS_OP_MEM, CS_OP_REG
 from capstone.x86 import X86_REG_AH, X86_REG_ES
 
+from lib.names import is_data, is_label
+from lib.symtab import Kind, Symbol
+
 _CALL_MNEMONICS = {'call', 'lcall'}
 _IO_MNEMONICS = {'in', 'out'}
 _STRING_MNEMONICS = {
@@ -263,7 +266,8 @@ def categorize_call_targets(data, call_targets, label_map, instructions=None,
             fallthrough_name = label_map.get(fallthrough)
             if (fallthrough in function_roots
                     and fallthrough_name
-                    and not fallthrough_name.startswith(('loc_', 'data_'))
+                    and not is_label(fallthrough_name)
+                    and not is_data(fallthrough_name)
                     and insn.mnemonic not in (
                         *_RETURN_MNEMONICS, *_UNCONDITIONAL_JUMPS, 'ud2',
                     )):
@@ -300,6 +304,7 @@ def categorize_call_targets(data, call_targets, label_map, instructions=None,
             )
 
         if category:
-            result[off] = f'{category}_loc_{off:04x}'
+            result[off] = Symbol.generated(f'{category}_loc', off,
+                                           Kind.ROUTINE, role=category)
 
     return result

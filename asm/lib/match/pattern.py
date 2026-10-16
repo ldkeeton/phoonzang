@@ -12,6 +12,8 @@ after-terminator entry.
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 from capstone.x86 import X86_OP_REG, X86_OP_IMM, X86_OP_MEM
 
+from lib.symtab import Kind, Source, Symbol
+
 
 _TERMINATORS = {'ret', 'retf', 'iret', 'hlt'}
 _UNCONDITIONAL_TRANSFERS = {'jmp', 'ljmp', 'ud2'}
@@ -299,8 +301,11 @@ def match_patterns(data, call_targets, known_db, max_func_size=256):
                     if func_start not in label_map:
                         n_label = name_count.get(name, 0) + 1
                         name_count[name] = n_label
-                        label_map[func_start] = (
-                            f'{name}_{n_label}' if n_label > 1 else name)
+                        label_map[func_start] = Symbol(
+                            f'{name}_{n_label}' if n_label > 1 else name,
+                            kind=Kind.ROUTINE, source=Source.SIGNATURE,
+                            offset=func_start, role=sig.get('role'),
+                            library=sig.get('library'))
 
                 idx += len(pat_bytes)
 

@@ -26,7 +26,7 @@ mouse_init_2:
     inc dx                           ; 0x1843
     mov al, 1                        ; 0x1844
     out dx, al                       ; 0x1846
-    call leaf_loc_LNMT               ; 0x1847
+    call leaf_loc_PUST               ; 0x1847
     mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x184a
     add si, strict word 0x120        ; 0x184f
     mov dx, 0x3c4                    ; 0x1853
@@ -35,7 +35,7 @@ mouse_init_2:
     inc dx                           ; 0x1859
     mov al, 2                        ; 0x185a
     out dx, al                       ; 0x185c
-    call leaf_loc_LNMT               ; 0x185d
+    call leaf_loc_PUST               ; 0x185d
     mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x1860
     add si, strict word 0x240        ; 0x1865
     mov dx, 0x3c4                    ; 0x1869
@@ -44,7 +44,7 @@ mouse_init_2:
     inc dx                           ; 0x186f
     mov al, 4                        ; 0x1870
     out dx, al                       ; 0x1872
-    call leaf_loc_LNMT               ; 0x1873
+    call leaf_loc_PUST               ; 0x1873
     mov si, word [cs:cseg_1ad5 - IMAGE_BASE] ; 0x1876
     add si, strict word 0x360        ; 0x187b
     mov dx, 0x3c4                    ; 0x187f
@@ -53,7 +53,7 @@ mouse_init_2:
     inc dx                           ; 0x1885
     mov al, 8                        ; 0x1886
     out dx, al                       ; 0x1888
-    call leaf_loc_LNMT               ; 0x1889
+    call leaf_loc_PUST               ; 0x1889
     mov dx, 0x3c4                    ; 0x188c
     mov al, 2                        ; 0x188f
     out dx, al                       ; 0x1891

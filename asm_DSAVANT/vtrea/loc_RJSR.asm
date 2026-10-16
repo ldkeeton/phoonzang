@@ -1,3 +1,0 @@
-; auto-generated
-loc_RJSR:
-    db 0xe9, 0xb0, 0x00

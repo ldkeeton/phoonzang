@@ -25,6 +25,8 @@ Layout it recognises
 
 import re
 
+from .compile import symbol_key
+
 # Mirrors ``sources._DEF_RE``: a definition starts at column zero, may carry
 # return-type tokens, and ends with the function name and an open paren.
 _DEF_RE = re.compile(
@@ -229,7 +231,7 @@ def _blocks(text):
         end = close + 1
         while end < len(text) and text[end] in '\r\n':
             end += 1
-        found.append({'name': name.lstrip('_').lower(), 'raw': name,
+        found.append({'name': symbol_key(name), 'raw': name,
                       'start': start, 'end': end})
 
     # Keep only outermost, non-overlapping blocks (a nested definition would be
@@ -248,12 +250,12 @@ def _blocks(text):
 def extract_routine(module_text, symbol):
     """Return ``preamble + target_function`` for *symbol*, or ``None``.
 
-    *symbol* may be given with a leading underscore and in any case; it is
-    matched against the module's normalized definition names.  ``None`` is
+    *symbol* is the C name, in any case; it is matched against the module's
+    definition names (:func:`lib.aztec.compile.symbol_key`).  ``None`` is
     returned when the definition is missing or ambiguous (more than one body),
     which tells the caller to fall back to the whole module.
     """
-    target = symbol.lstrip('_').lower()
+    target = symbol_key(symbol)
     blocks = _blocks(module_text)
     matches = [b for b in blocks if b['name'] == target]
     if len(matches) != 1:

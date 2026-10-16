@@ -21,7 +21,7 @@ dos_print_str_2:
     jne short @..dos_print_str_2.l1  ; 0x13e6
     cmp ax, 0x401                    ; 0x13e8
     jae short @..dos_print_str_2.l1  ; 0x13eb
-    call leaf_loc_NMVG               ; 0x13ed
+    call leaf_loc_LMQV               ; 0x13ed
     mov ax, word [bp + 0xc]          ; 0x13f0
     mov word [cs:cseg_1d64 - IMAGE_BASE], ax ; 0x13f3
     mov ax, word [bp + 0xe]          ; 0x13f7
@@ -65,7 +65,7 @@ dos_print_str_2:
 @..dos_print_str_2.l6:
     mov ax, cs                       ; 0x1462
     push ax                          ; 0x1464
-    call leaf_loc_MKQV               ; 0x1465
+    call leaf_loc_JHTT               ; 0x1465
     mov byte [cs:cseg_0127 - IMAGE_BASE], 0 ; 0x1468
 @..dos_print_str_2.l7:
     pop di                           ; 0x146e

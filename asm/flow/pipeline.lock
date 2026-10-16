@@ -14,6 +14,7 @@ L0 recompute project.host_emit
 L0 cleanup project.remove_foreign_copies
 L0 repair project.share_identical
 L1 produce aztec.overrides
+L1 repair aztec.siblings
 L1 cleanup export.labels
 L1 produce flow.disassemble
 L1 produce flow.function_roots
@@ -42,3 +43,4 @@ L2 produce verify.postprocess_data
 L2 repair verify.split_foreign
 L2 repair verify.split_local_tails
 L2 produce verify.split_select
+L2 repair verify.vendor_names

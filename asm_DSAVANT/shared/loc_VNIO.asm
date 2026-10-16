@@ -1,0 +1,30 @@
+; auto-generated
+loc_VNIO:
+    mov ax, 0
+    call aztec_csav
+    mov ax, 0
+    push ax
+    push word [bp + 0xa]
+    call thunk_3
+    add sp, byte 4
+    push word [bp + 0x8]
+    push word [bp + 0x4]
+    call aztec_strlen
+    pop cx
+    mov cx, 6
+    imul cx
+    mov cx, 2
+    cwd
+    idiv cx
+    mov cx, ax
+    mov ax, word [bp + 0x6]
+    sub ax, cx
+    push ax
+    call thunk
+    add sp, byte 4
+    mov ax, 0
+    push ax
+    push word [bp + 0x4]
+    call ds_string_loc_QRJV
+    add sp, byte 4
+    ret

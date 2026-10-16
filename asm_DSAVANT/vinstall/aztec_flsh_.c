@@ -2,7 +2,7 @@
 /* Copyright (C) 1981,1982,1983,1984 by Manx Software Systems */
 #include "stdio.h"
 
-static loc_PMOR()		/* called by exit to close any open files */
+static aztec_closall()		/* called by exit to close any open files */
 {
 	register FILE *fp;
 
@@ -43,7 +43,7 @@ register FILE *ptr;
 	register int size;
 	extern int (*dseg_2500)();
 
-	dseg_2500 = loc_PMOR;
+	dseg_2500 = aztec_closall;
 	if (ptr->_flags & _IOERR)
 		return EOF;
 	if (ptr->_flags & _DIRTY) {
@@ -61,7 +61,7 @@ ioerr:
 		return 0;
 	}
 	if (ptr->_buff == NULL)
-		loc_NSQI(ptr);
+		loc_PHKM(ptr);
 	if (ptr->_buflen == 1) {	/* unbuffered I/O */
 		if (aztec_write(ptr->_unit, &data, 1) != 1)
 			goto ioerr;

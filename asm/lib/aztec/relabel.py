@@ -111,15 +111,17 @@ def data_names(data_labels, mem_equ):
     return {addr: sorted(set(names)) for addr, names in at.items()}
 
 
-def _normalize(name):
-    return name.strip('_$').lower()
-
-
 def _own_names(text, label, own_key):
-    """Identifiers in *text* that spell the routine's own name."""
+    """Identifiers in *text* that spell the routine's own name.
+
+    The C name itself, or its assembler spelling inside ``#asm``
+    (``ovloader_``).
+    """
+    from .compile import aztec_name, symbol_key
     return {m.group(0): label for m in _TOKEN.finditer(text)
             if m.group(0)[0] != '/' and m.group(0)[0] not in '"\''
-            and _normalize(m.group(0)) == own_key}
+            and own_key in (symbol_key(m.group(0)),
+                            symbol_key(aztec_name(m.group(0))))}
 
 
 def _with_defines(text, defines):

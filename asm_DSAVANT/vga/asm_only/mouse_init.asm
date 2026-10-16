@@ -35,7 +35,7 @@ mouse_init:
     push ax                          ; 0x1241
     mov ax, 0xffff                   ; 0x1242
     mov word [cs:cseg_14ae - IMAGE_BASE], ax ; 0x1245
-    call graphics_loc_HJIV           ; 0x1249
+    call graphics_loc_HKVN           ; 0x1249
     pop si                           ; 0x124c
     pop di                           ; 0x124d
     pop es                           ; 0x124e

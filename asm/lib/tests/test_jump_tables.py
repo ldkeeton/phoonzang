@@ -5,6 +5,7 @@ import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.model import JumpTableInfo
+from lib.tests.syms import generated
 from lib.phases.recursive import _code_off, _scan_jump_table
 from lib.verify.assemble import clear_assemble_cache, micro_assemble
 from lib.compare.render import (
@@ -128,7 +129,8 @@ class InjectJumpTablesTests(unittest.TestCase):
             'count': 3, 'entry_size': 2, 'label': 'jumptable_0250',
             'source': 'auto', 'note': '',
         }]
-        label_map = {0x210: 'string_loc_0210', 0x220: 'string_loc_0220'}
+        label_map = {0x210: generated('string_loc', 0x210),
+                     0x220: generated('string_loc', 0x220)}
         out, injected, _ = _inject_jump_tables(
             records, specs, binary, 0x200, label_map, {},
         )

@@ -193,7 +193,7 @@ dos_read_file_2:
     mov cl, 0xa                      ; 0x0ddb
     shr ax, cl                       ; 0x0ddd
     mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x0ddf
-    call leaf_loc_NIKG               ; 0x0de3
+    call leaf_loc_HLGJ               ; 0x0de3
     and si, strict word 0x3ff        ; 0x0de6
     mov cl, 4                        ; 0x0dea
     shl si, cl                       ; 0x0dec
@@ -202,7 +202,7 @@ dos_read_file_2:
     je short @..dos_read_file_2.l12  ; 0x0df2
     inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x0df4
     mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x0df9
-    call leaf_loc_NIKG               ; 0x0dfd
+    call leaf_loc_HLGJ               ; 0x0dfd
     sub si, strict word 0x4000       ; 0x0e00
 @..dos_read_file_2.l12:
     xor di, di                       ; 0x0e04

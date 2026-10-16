@@ -22,11 +22,11 @@ linker and the emitted source stays valid when layout moves.
 
 import re
 
+from lib.symtab import Kind, Symbol
+
 from .objread import external_label
 
 _RAW_DATA = re.compile(r'dseg_[0-9a-f]{4}')
-
-LOCAL_PREFIX = '@..'
 
 
 class RelinkError(ValueError):
@@ -103,7 +103,7 @@ def link(label, start, func, index, original, labels_in=()):
     """Resolve *func*'s relocations for placement at file offset *start*.
 
     *original* is the original image, used only for relocations this module
-    does not model.  *labels_in* are the ``(offset, text)`` label lines the
+    does not model.  *labels_in* are the ``(offset, name)`` labels the
     build already placed inside the routine; non-local ones keep their name
     when a derived branch target lands on them.
     """
@@ -119,9 +119,9 @@ def link(label, start, func, index, original, labels_in=()):
         out.legacy.append(fx)
 
     named = {}
-    for offset, text in labels_in:
-        if not text.startswith(LOCAL_PREFIX):
-            named.setdefault(offset, text.rstrip(':'))
+    for offset, name in labels_in:
+        if name.kind is not Kind.LOCAL:
+            named.setdefault(offset, name)
 
     locals_ = [fx for fx in func.fixups
                if fx.symbol_kind == 'LCLSYM' and fx.kind in ('BREL', 'WREL')]
@@ -137,10 +137,10 @@ def link(label, start, func, index, original, labels_in=()):
     for t in targets & set(named):
         out.local_names[t] = named[t]
     for i, t in enumerate(fresh):
-        name = f'{LOCAL_PREFIX}{label}.l{i + 1}'
+        name = Symbol.local(label, t, i + 1)
         out.local_names[t] = name
         out.local_records.append(
-            {'type': 'label', 'text': f'{name}:', 'offset': t})
+            {'type': 'label', 'text': f'{name}:', 'name': name, 'offset': t})
 
     for fx in func.fixups:
         site = fx.offset

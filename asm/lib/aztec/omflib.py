@@ -77,11 +77,17 @@ class Module:
         self.pubdefs = []         # list of (name, seg_id, offset)
         self.extdefs = []
         self.segbytes = {}        # seg_id -> bytearray
+        self.fixups = []          # Fixup records, segment-relative
         self._parse(data, off, limit)
 
     def _parse(self, data, off, limit):
         seg_index = 0
+        ledata = None             # (seg, offset) of the record FIXUPP patches
+        threads = {}              # (is_frame, number) -> (method, index)
         for typ, body in records(data, off, limit):
+            if typ == FIXUPP and ledata is not None:
+                self.fixups.extend(_parse_fixupp(body[:-1], ledata, threads))
+                continue
             if typ == THEADR:
                 nl = body[0]
                 self.name = body[1:1 + nl].decode('latin1')
@@ -118,6 +124,7 @@ class Module:
             elif typ == LEDATA:
                 seg = body[0]
                 offset = u16(body, 1)
+                ledata = (seg, offset)
                 content = body[3:-1]  # drop checksum
                 buf = self.segbytes.setdefault(seg, bytearray())
                 if len(buf) < offset + len(content):
@@ -167,6 +174,89 @@ class Module:
         return out
 
 
+#: FIXUP location types.
+LOC_LOBYTE, LOC_OFFSET, LOC_BASE, LOC_POINTER, LOC_HIBYTE, LOC_LOADER_OFFSET = \
+    0, 1, 2, 3, 4, 5
+#: FIXUP target methods.
+TARGET_SEGDEF, TARGET_GRPDEF, TARGET_EXTDEF = 0, 1, 2
+
+_LOCATION_WIDTH = {LOC_LOBYTE: 1, LOC_HIBYTE: 1, LOC_OFFSET: 2, LOC_BASE: 2,
+                   LOC_LOADER_OFFSET: 2, LOC_POINTER: 4}
+
+
+class Fixup:
+    """One FIXUP: the patched bytes and what they name.
+
+    *offset* is segment-relative.  *self_relative* is a ``call``/``jmp``
+    displacement; otherwise the field holds the target's segment offset plus
+    *displacement*.  *method* is a ``TARGET_*`` and *index* its 1-based
+    SEGDEF/GRPDEF/EXTDEF index.
+    """
+    __slots__ = ('seg', 'offset', 'location', 'self_relative', 'method',
+                 'index', 'displacement')
+
+    def __init__(self, seg, offset, location, self_relative, method, index,
+                 displacement):
+        self.seg = seg
+        self.offset = offset
+        self.location = location
+        self.self_relative = self_relative
+        self.method = method
+        self.index = index
+        self.displacement = displacement
+
+    @property
+    def width(self):
+        return _LOCATION_WIDTH.get(self.location, 2)
+
+
+def _index(body, p):
+    if body[p] & 0x80:
+        return ((body[p] & 0x7F) << 8) | body[p + 1], p + 2
+    return body[p], p + 1
+
+
+def _parse_fixupp(body, ledata, threads):
+    seg, base = ledata
+    p = 0
+    while p < len(body):
+        head = body[p]
+        if not head & 0x80:                     # THREAD
+            is_frame = bool(head & 0x40)
+            method = (head >> 2) & 0x07
+            p += 1
+            index = None
+            if method < 3 or (not is_frame and method < 4):
+                index, p = _index(body, p)
+            threads[(is_frame, head & 0x03)] = (method, index)
+            continue
+        locat = (head << 8) | body[p + 1]
+        p += 2
+        self_relative = not locat & 0x4000
+        location = (locat >> 10) & 0x0F
+        offset = locat & 0x03FF
+        fix = body[p]
+        p += 1
+        if fix & 0x80:
+            pass                                 # frame from a thread
+        else:
+            frame = (fix >> 4) & 0x07
+            if frame < 3:
+                _, p = _index(body, p)
+        no_disp = bool(fix & 0x04)
+        if fix & 0x08:
+            method, index = threads.get((False, fix & 0x03), (None, None))
+        else:
+            method = fix & 0x03
+            index, p = _index(body, p)
+        displacement = 0
+        if not no_disp:
+            displacement = u16(body, p)
+            p += 2
+        yield Fixup(seg, base + offset, location, self_relative, method & 0x03
+                    if method is not None else None, index, displacement)
+
+
 def public_functions(data):
     """Yield dicts: name, module, bytes for public CODE symbols."""
     for mod_off, mod_name, mod_end in find_modules(data):
@@ -192,6 +282,9 @@ def public_functions(data):
                 'offset': offv,
                 'length': max(0, end - offv),
                 'bytes': bytes(buf[offv:end]),
+                'fixups': [fx for fx in m.fixups
+                           if fx.seg == seg and offv <= fx.offset < end],
+                'omf': m,
             }
 
 

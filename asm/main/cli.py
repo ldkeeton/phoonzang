@@ -67,11 +67,8 @@ def main():
             foreign_label_map = dict(raw)
         host_data_offsets = None
         if HOST_DATA_OFFSETS_PATH:
-            import json
-            with open(HOST_DATA_OFFSETS_PATH) as f:
-                host_data_offsets = {
-                    k: int(v) for k, v in json.load(f).items()
-                }
+            from lib.link import read_host_data_offsets
+            host_data_offsets = read_host_data_offsets(HOST_DATA_OFFSETS_PATH)
         process(binary, project_dir, rel_path, start_offset,
                 exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
                 output_dir=out_dir,

@@ -80,7 +80,7 @@ draw_fill_action_slot_table:
     mov al, byte [bx + 0x6a2c]
     sub ah, ah
     push ax
-    call ds_app_GGUI
+    call ds_app_PUNN
     pop cx
     add word [bp - 0x0006], ax
     mov ax, 0x15e
@@ -95,7 +95,7 @@ draw_fill_action_slot_table:
     mov al, byte [bx + 0x6a4a]
     sub ah, ah
     push ax
-    call ds_app_GGUI
+    call ds_app_PUNN
     pop cx
     add word [bp - 0x0008], ax
 @..draw_fill_action_slot_table.l7:
@@ -164,7 +164,7 @@ draw_fill_action_slot_table:
     mov al, byte [bx + 0x6ac2]
     sub ah, ah
     push ax
-    call ds_app_GGUI
+    call ds_app_PUNN
     pop cx
     pop cx
     add ax, cx

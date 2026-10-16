@@ -6,6 +6,7 @@ import unittest
 from unittest.mock import patch
 
 from lib.sidecar.binary import per_binary as sidecar_per_binary
+from lib.tests.syms import routine
 from lib.sidecar.loader import load as load_sidecar
 from main.options import APPS_DIR
 from main.runner import process
@@ -38,7 +39,7 @@ class FunctionCategoryTests(unittest.TestCase):
         instructions = _disassemble(data)
 
         labels = categorize_call_targets(
-            data, {0}, {1: 'stack_alloc_check'},
+            data, {0}, {1: routine('stack_alloc_check', 1)},
             instructions=instructions,
             function_roots={0, 1},
             bounded_targets={0},

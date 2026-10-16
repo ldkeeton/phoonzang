@@ -12,6 +12,8 @@ from lib.sidecar.loader import load as load_sidecar
 from main.options import APPS_DIR
 from main.runner import process
 from main.verify import byte_verify
+from lib.tests.syms import local
+from lib.tests.syms import local
 
 
 _PREVIOUS_LOCAL_TARGETS = {
@@ -116,7 +118,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
 
     def test_shared_epilogue_label_uses_its_function_scope(self):
         self.assertEqual(
-            self.local_labels.get(0x47fb), '@..aztec_free.l1',
+            self.local_labels.get(0x47fb), '@..aztec__free.l1',
         )
 
     def test_sidecar_data_anchors_remain_data(self):
@@ -198,7 +200,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertNotIn('@..aztec_csav.l2:', master)
         self.assertIn('@..aztec_csav.l2:', cret_include)
         self.assertIn('mov sp, bp                       ; 0x4676', cret_include)
-        self.assertIn('jmp near aztec_stkover           ; 0x4678', cret_include)
+        self.assertIn('jmp near aztec__stkover          ; 0x4678', cret_include)
 
     def test_sidecar_code_anchors_decode_as_code(self):
         code_starts = (0x0fdf, 0x3067, 0x30f7, 0x343e, 0x3490, 0x457c)
@@ -233,7 +235,7 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
                            master)
         self.assertEqual(len(names), 1, names)
         name = names[0]
-        self.assertRegex(name, r'^ds_dos_proc_loc_[G-V]{4}$')
+        self.assertEqual(name, 'aztec__exit')
         self.assertIn(f'{name}:', asm_text)
         self.assertEqual(asm_text.count(f'call {name}'), 3)
 
@@ -266,7 +268,7 @@ class OverrideLocalLabelTests(unittest.TestCase):
                          [('@..foo.l1:', 0x104), ('@..foo.l2:', 0x105)])
 
     def test_the_disassembly_name_is_reused_and_defined_once(self):
-        names, records = self._derive(local_labels={0x105: '@..foo.l9'},
+        names, records = self._derive(local_labels={0x105: local('foo', 0x105, 9)},
                                       taken={0x104})
         # 0x105 keeps the disassembly's name; 0x104 is numbered after it, and
         # only the target with no label record yet is defined.
@@ -275,7 +277,7 @@ class OverrideLocalLabelTests(unittest.TestCase):
 
     def test_relinks_own_name_wins_and_is_not_redefined(self):
         class _Linked:
-            local_names = {0x104: '@..foo.l1'}
+            local_names = {0x104: local('foo', 0x104, 1)}
         names, records = self._derive(linked=_Linked(), taken={0x104})
         self.assertEqual(names[0x104], '@..foo.l1')
         self.assertNotIn(0x104, [r['offset'] for r in records])

@@ -20,8 +20,8 @@ dos_read_file_5:
     add bx, ax                       ; 0x3d95
     mov ax, word [cs:bx]             ; 0x3d97
     mov word [cs:bx], 0              ; 0x3d9a
-    call leaf_loc_KGRV               ; 0x3d9f
-    call loc_UJGV                    ; 0x3da2
+    call leaf_loc_OVON               ; 0x3d9f
+    call loc_KLNH                    ; 0x3da2
     jmp near @..dos_read_file_5.l8   ; 0x3da5
 @..dos_read_file_5.l1:
     mov word [bp - 0x0002], ax       ; 0x3da8
@@ -30,7 +30,7 @@ dos_read_file_5:
     je short @..dos_read_file_5.l2   ; 0x3db0
     mov ax, word [bp + 0xe]          ; 0x3db2
     mov word [bp - 0x0004], ax       ; 0x3db5
-    call dos_file_loc_IIUJ           ; 0x3db8
+    call dos_file_loc_MUHV           ; 0x3db8
     jmp near @..dos_read_file_5.l8   ; 0x3dbb
 @..dos_read_file_5.l2:
     mov ax, word [bp + 0xe]          ; 0x3dbe
@@ -100,7 +100,7 @@ dos_read_file_5:
     mov cl, 0xa                      ; 0x3e66
     shr ax, cl                       ; 0x3e68
     mov word [cs:cseg_3b8e - IMAGE_BASE], ax ; 0x3e6a
-    call leaf_loc_NIKG               ; 0x3e6e
+    call leaf_loc_HLGJ               ; 0x3e6e
     and di, strict word 0x3ff        ; 0x3e71
     mov cl, 4                        ; 0x3e75
     shl di, cl                       ; 0x3e77
@@ -124,7 +124,7 @@ dos_read_file_5:
     sub di, strict word 0x4000       ; 0x3ea6
     inc word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3eaa
     mov ax, word [cs:cseg_3b8e - IMAGE_BASE] ; 0x3eaf
-    call leaf_loc_NIKG               ; 0x3eb3
+    call leaf_loc_HLGJ               ; 0x3eb3
 @..dos_read_file_5.l6:
     mov ax, word [bp - 0x0006]       ; 0x3eb6
     mov dx, word [bp - 0x0008]       ; 0x3eb9

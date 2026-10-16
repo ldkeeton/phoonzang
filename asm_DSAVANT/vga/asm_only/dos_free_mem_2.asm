@@ -14,7 +14,7 @@ dos_free_mem_2:
     mov bx, 0x30                     ; 0x2812
     int 0x21 ; DOS allocate memory
     jae short @..dos_free_mem_2.l1   ; 0x2817
-    jmp near bios_video_loc_VJVR     ; 0x2819
+    jmp near bios_video_loc_GGUP     ; 0x2819
 @..dos_free_mem_2.l1:
     mov word [bp - 0x0002], ax       ; 0x281c
     mov ax, 0x1017                   ; 0x281f

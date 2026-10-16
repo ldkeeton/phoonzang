@@ -23,7 +23,7 @@ dos_free_mem_3:
     mov bx, 0x30                     ; 0x291b
     int 0x21 ; DOS allocate memory
     jae short @..dos_free_mem_3.l1   ; 0x2920
-    jmp near dos_mem_loc_KKIK        ; 0x2922
+    jmp near dos_mem_loc_QGNT        ; 0x2922
 @..dos_free_mem_3.l1:
     mov word [bp - 0x0002], ax       ; 0x2925
     mov ax, 0x1017                   ; 0x2928

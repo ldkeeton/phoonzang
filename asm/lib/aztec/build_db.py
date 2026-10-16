@@ -35,6 +35,7 @@ from lib.cachedirs import aztec_funcs_path
 
 from . import libobjs, omflib
 from .cache import _ROOT
+from .compile import routine_label
 
 _MD = Cs(CS_ARCH_X86, CS_MODE_16)
 _MD.detail = False
@@ -68,8 +69,10 @@ MIN_ZEROS = 2  # strict pass rejects windows with this many zero bytes
 
 
 def normalize(name):
-    name = re.sub(r'[^A-Za-z0-9_]', '', name)
-    name = name.strip('_')
+    """The C name of a library public: ``__read_`` -> ``__read``, ``$csav`` ->
+    ``csav``.  Leading underscores stay: ``_read`` is not ``read``."""
+    from .compile import aztec_name
+    name = aztec_name(re.sub(r'[^A-Za-z0-9_]', '', name))
     return name or 'aztec_func'
 
 
@@ -183,7 +186,9 @@ def build(here, apps_dir, out_path, exes):
                 prefix = f['bytes'][:off]
                 break
         signatures.append({
-            'name': f'aztec_{name}',
+            'name': routine_label(name),
+            'role': 'aztec',
+            'library': name,
             'notes': f'Aztec C86 v5.2a runtime {name} (entry+{off}, {L} bytes)',
             'entries': [],
             'entry_offset': off,

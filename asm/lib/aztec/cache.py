@@ -21,6 +21,7 @@ A build that finds ``aztec_*`` labels but no prebuild data fails loudly with
 :class:`PrebuildMissing` rather than silently repeating the expensive search.
 """
 
+import collections
 import json
 import os
 
@@ -32,7 +33,7 @@ from .mux import (COMPILER_VERSIONS, SOURCE_VERSIONS, MuxEngine, is_asm,
                   tool_flags)
 from .objread import fixup_width
 
-PREBUILD_VERSION = 1
+PREBUILD_VERSION = 3   # 3: entries carry their C name; internal routines are aztec_impl_
 
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))))
@@ -153,9 +154,10 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose):
     # DOSBox session per (compiler, includes) pair instead of one per module.
     requests = {}
     for _addr, label in aztec_labels:
-        if not label.startswith('aztec_'):
+        if getattr(label, 'role', None) != 'aztec':
             continue
-        for version, filename, source, compiler in engine.candidates(label[6:]):
+        for version, filename, source, compiler in engine.candidates(
+                label.library):
             key = engine.compile_key(version, filename, source, compiler)
             requests.setdefault(key, (version, filename, source, compiler))
     missing = []
@@ -176,25 +178,42 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose):
     # this does no DOSBox work (and any cached compile error is reproduced).
     functions = {}
     misses = {}
+    found = []
     for addr, label in aztec_labels:
-        if not label.startswith('aztec_'):
+        if getattr(label, 'role', None) != 'aztec':
             continue
-        symbol = label[len('aztec_'):]
-        matches = engine.resolve(symbol, data, addr)
+        matches = engine.resolve(label.library, data, addr)
         good = [m for m in matches if m.exact]
-        if not good:
-            misses[label] = _miss_status(matches)
         if good:
-            m = good[0]
-            functions[label] = _entry_from_match(m)
-            if is_asm(m.filename):
-                _annotate_entry(engine, m, functions[label])
-            if verbose:
-                kind = 'ASM' if is_asm(m.filename) else 'C  '
-                print(f'    {kind} {label:20} <- {m.version}/{m.filename} '
-                      f'via {m.compiler}')
-    _seed_sources(project, binary, functions, data,
-                  {label: addr for addr, label in aztec_labels},
+            found.append((addr, label, good[0]))
+        else:
+            misses[label] = _miss_status(matches)
+    # The matching source names the routine; the signature took the library's
+    # spelling (``_open`` for v3.40a ``open``).  A name two routines would
+    # take stays the signature's.
+    wanted = {str(label): azc.routine_label(m.func.cname)
+              for _, label, m in found}
+    finals = collections.Counter(wanted.get(str(label), str(label))
+                                 for _, label in aztec_labels)
+    addr_by_label = {}
+    for addr, label in aztec_labels:
+        addr_by_label.setdefault(str(label), addr)
+    for addr, label, m in found:
+        entry = _entry_from_match(m)
+        entry['cname'] = m.func.cname
+        name = wanted[str(label)]
+        if name != label and finals[name] == 1:
+            entry['signature'] = str(label)
+            addr_by_label[name] = addr
+            label = name
+        functions[label] = entry
+        if is_asm(m.filename):
+            _annotate_entry(engine, m, functions[label])
+        if verbose:
+            kind = 'ASM' if is_asm(m.filename) else 'C  '
+            print(f'    {kind} {label:20} <- {m.version}/{m.filename} '
+                  f'via {m.compiler}')
+    _seed_sources(project, binary, functions, data, addr_by_label,
                   objcache_dir, verbose)
     _save(path, binary, functions, misses)
     if verbose:
@@ -261,15 +280,18 @@ def _flags_for(entry):
     return tool_flags(entry['file'], entry['compiler'])
 
 
-def _symbol(label):
-    """The C symbol behind a game label (``aztec_open`` -> ``open``)."""
+def _cname(label, entry=None):
+    """The C name behind a game label: the manifest's, else ``aztec_open`` ->
+    ``open`` (a hand-written routine, whose seed defines the label itself)."""
+    if entry and entry.get('cname'):
+        return entry['cname']
     return label[len('aztec_'):] if label.startswith('aztec_') else label
 
 
-def own_key(label):
+def own_key(label, entry=None):
     """The normalized C name a routine's seed defines (``aztec_creat`` -> ``creat``)."""
     from .mux import normalize
-    return normalize(_symbol(label))
+    return normalize(_cname(label, entry))
 
 
 def _module_key(entry, source_text):
@@ -298,7 +320,7 @@ def _seed_sources(project, binary, functions, data, addr_by_label,
         module_text = sources.catalog(entry['source_version']).get(entry['file'])
         if not module_text:
             continue
-        text = extract.extract_routine(module_text, label[len('aztec_'):])
+        text = extract.extract_routine(module_text, _cname(label, entry))
         if text is None:
             continue
         candidates[label] = text
@@ -329,7 +351,7 @@ def _seed_sources(project, binary, functions, data, addr_by_label,
             module = objcache.load(objcache_dir, _module_key(entry,
                                                              candidates[label]))
             func = (None if module is None or isinstance(module, Exception)
-                    else module.get(normalize(_symbol(label))))
+                    else module.get(normalize(_cname(label, entry))))
             addr = addr_by_label.get(label)
             if func is not None and addr is not None:
                 diffs, _ = mux_compare(func, data, addr)
@@ -389,7 +411,7 @@ def compile_source(project, label, entry, source_text):
         raise module
     # A seed relabelled to asm names defines ``aztec_open``; a recovered Manx
     # seed still defines ``open``.
-    func = module.get(normalize(label)) or module.get(normalize(_symbol(label)))
+    func = module.get(normalize(label)) or module.get(normalize(_cname(label, entry)))
     if func is None:
         raise RuntimeError(
             f'{label}: compiled {entry["file"]} defines no such function')

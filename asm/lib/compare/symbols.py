@@ -1,14 +1,21 @@
 """Segment-aware operand symbolization and address inventory records."""
 
 from capstone import CS_OP_MEM
-from lib.names import startswith_stem
+from lib.names import is_data
+from lib.symtab import Space, Symbol
 
 
-def _data_prefix(segments, offset):
-    """``'dseg'``/``'bss'`` for a data-segment offset (see SegmentModel)."""
-    if segments is None:
-        return 'dseg'
-    return segments.data_space(offset) or 'dseg'
+def _data_space(segments, offset):
+    """:class:`Space` ``DS`` or ``BSS`` of a data-segment offset (SegmentModel)."""
+    if segments is not None and segments.data_space(offset) == 'bss':
+        return Space.BSS
+    return Space.DS
+
+
+def data_symbol(segments, offset):
+    """The symbol for data-segment *offset*: its known name, else generated."""
+    named = getattr(segments, 'data_names', {}).get(offset)
+    return named or Symbol.data(_data_space(segments, offset), offset)
 
 
 def _load_offset(segments):
@@ -69,16 +76,15 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset)
                     continue
                 name = (label_map or {}).get(file_off)
                 if name is None:
-                    name = f'cseg_{file_off:04x}'
+                    name = Symbol.data(Space.CSEG, file_off)
                     equ.setdefault(name, file_off)
                 symbols[(insn.address, idx)] = f'{name} - IMAGE_BASE'
             elif space == PSP:
-                name = psp_field(addr) or f'psp_{addr:04x}'
+                name = Symbol.data(Space.PSP, addr, psp_field(addr))
                 equ.setdefault(name, addr)
                 symbols[(insn.address, idx)] = name
             elif space == DATA:
-                prefix = _data_prefix(segments, addr)
-                name = f'{prefix}_{addr:04x}'
+                name = data_symbol(segments, addr)
                 equ.setdefault(name, addr)
                 symbols[(insn.address, idx)] = name
     return symbols, equ
@@ -114,16 +120,15 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
                 continue
             name = (label_map or {}).get(file_off)
             if name is None:
-                name = f'cseg_{file_off:04x}'
+                name = Symbol.data(Space.CSEG, file_off)
                 mem_equ.setdefault(name, file_off)
             result[(addr, idx)] = f'{name} - IMAGE_BASE'
         elif space == PSP:
-            name = psp_field(value) or f'psp_{value:04x}'
+            name = Symbol.data(Space.PSP, value, psp_field(value))
             mem_equ.setdefault(name, value)
             result[(addr, idx)] = name
         elif space == DATA:
-            prefix = _data_prefix(segments, value)
-            name = f'{prefix}_{value:04x}'
+            name = data_symbol(segments, value)
             mem_equ.setdefault(name, value)
             result[(addr, idx)] = name
     return result
@@ -151,6 +156,8 @@ def _build_address_records(insns, mem_symbols, mem_equ, segment_flow,
     for off, label in (label_map or {}).items():
         if isinstance(label, str):
             label_value.setdefault(label, off)
+    # The operand text spells the name; the symbol says what it is.
+    symbol = {str(name): name for name in (*mem_equ, *label_value)}
 
     suffix = ' - IMAGE_BASE'
     records = {}
@@ -166,6 +173,7 @@ def _build_address_records(insns, mem_symbols, mem_equ, segment_flow,
                 value = label_value.get(name)
             if value is None:
                 continue
+            name = symbol.get(name, name)
             space, kind, source, confidence = classify(name)
             record = records.setdefault(name, {
                 'name': name,
@@ -184,7 +192,7 @@ def _build_address_records(insns, mem_symbols, mem_equ, segment_flow,
     for addr, name in (data_labels or {}).items():
         if name in records:
             continue
-        if startswith_stem(name, 'data_') and addr in reloc_targets:
+        if is_data(name) and addr in reloc_targets:
             space, kind, source, confidence = 'ds', 'data', 'relocation', CERTAIN
         else:
             space, kind, source, confidence = classify(name)

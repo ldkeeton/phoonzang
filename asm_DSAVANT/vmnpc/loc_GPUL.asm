@@ -1,0 +1,29 @@
+; auto-generated
+loc_GPUL:
+    mov ax, 0                        ; 0x2963
+    call aztec_csav                  ; 0x2966
+    mov ax, 1                        ; 0x2969
+    push ax                          ; 0x296c
+    call thunk_17                    ; 0x296d
+    pop cx                           ; 0x2970
+    cmp word [bp + 0x4], byte 0      ; 0x2971
+    je short @..loc_GPUL.l1          ; 0x2975
+    mov ax, 0x55                     ; 0x2977
+    push ax                          ; 0x297a
+    mov ax, 1                        ; 0x297b
+    push ax                          ; 0x297e
+    push ax                          ; 0x297f
+    mov ax, 0x605                    ; 0x2980
+    push ax                          ; 0x2983
+    call api_idx_0050_TJLH           ; 0x2984
+    add sp, byte 8                   ; 0x2987
+@..loc_GPUL.l1:
+    mov al, byte [bss_91c2]          ; 0x298a
+    sub ah, ah                       ; 0x298d
+    mov word [bss_0e36], ax          ; 0x298f
+    mov word [bss_8452], 1           ; 0x2992
+    mov word [bss_845a], 0           ; 0x2998
+    mov word [bss_95a6], 0           ; 0x299e
+    mov word [bss_830a], 0xa         ; 0x29a4
+    mov word [bss_905e], 0x12        ; 0x29aa
+    ret                              ; 0x29b0

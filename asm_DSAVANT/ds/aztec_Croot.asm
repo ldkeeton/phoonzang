@@ -9,17 +9,17 @@ aztec_Croot:
     push ax                          ; 0x4eb2
     call aztec_isatty                ; 0x4eb3
     pop cx                           ; 0x4eb6
-    mov byte [dseg_0cdc], al         ; 0x4eb7
+    mov byte [_ioflg], al            ; 0x4eb7
     mov ax, 1                        ; 0x4eba
     push ax                          ; 0x4ebd
     call aztec_isatty                ; 0x4ebe
     pop cx                           ; 0x4ec1
-    mov byte [dseg_0cdc + 0x1], al   ; 0x4ec2
+    mov byte [_ioflg + 0x1], al      ; 0x4ec2
     mov ax, 2                        ; 0x4ec5
     push ax                          ; 0x4ec8
     call aztec_isatty                ; 0x4ec9
     pop cx                           ; 0x4ecc
-    mov byte [dseg_0cdc + 0x2], al   ; 0x4ecd
+    mov byte [_ioflg + 0x2], al      ; 0x4ecd
     mov ax, word [bp + 0x6]          ; 0x4ed0
     shl ax, 1                        ; 0x4ed3
     inc ax                           ; 0x4ed5
@@ -67,7 +67,7 @@ aztec_Croot:
     add sp, byte 6                   ; 0x4f2e
     mov ax, 0xc8                     ; 0x4f31
     push ax                          ; 0x4f34
-    call ds_dos_proc_loc_TPJT        ; 0x4f35
+    call aztec_impl_exit             ; 0x4f35
     pop cx                           ; 0x4f38
 @..aztec_Croot.l4:
     inc si                           ; 0x4f39
@@ -94,7 +94,7 @@ aztec_Croot:
     add sp, byte 4                   ; 0x4f62
     mov ax, 0                        ; 0x4f65
     push ax                          ; 0x4f68
-    call ds_loc_OMIG                 ; 0x4f69
+    call aztec_exit                  ; 0x4f69
     pop cx                           ; 0x4f6c
     pop si                           ; 0x4f6d
     pop di                           ; 0x4f6e

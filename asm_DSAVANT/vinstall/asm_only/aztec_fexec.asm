@@ -36,7 +36,7 @@ aztec_fexec:
     pop es                           ; 0x2a82
     pop ds                           ; 0x2a83
     jae short @..aztec_fexec.noerror ; 0x2a84
-    mov word [dseg_24d6], ax         ; 0x2a86
+    mov word [errno], ax             ; 0x2a86
     mov ax, 0xffff                   ; 0x2a89
     jmp short @..aztec_fexec.done    ; 0x2a8c
 @..aztec_fexec.noerror:

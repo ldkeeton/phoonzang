@@ -15,6 +15,9 @@ def _validate_routines(block):
     if not isinstance(block, dict):
         raise SidecarError('"routines" must be an object')
     for label, info in block.items():
+        if label.startswith('aztec_') and isinstance(info, dict) \
+                and 'name' not in info:
+            continue    # a library routine's note; its name is the library's
         if (not _TAGGED_LABEL.search(label) or not isinstance(info, dict)
                 or not isinstance(info.get('name'), str) or not info['name']):
             raise SidecarError(

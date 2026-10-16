@@ -11,7 +11,7 @@ jumptable_2edc_case_8:
     push ax                          ; 0x2dea
     mov ax, 3                        ; 0x2deb
     push ax                          ; 0x2dee
-    call ds_app_OVOG                 ; 0x2def
+    call ds_app_IMTG                 ; 0x2def
     add sp, byte 4                   ; 0x2df2
 jumptable_2edc_case_0:
     mov ax, 0xbfa                    ; 0x2df5
@@ -25,7 +25,7 @@ jumptable_2edc_case_7:
     push ax                          ; 0x2e06
     mov ax, 1                        ; 0x2e07
     push ax                          ; 0x2e0a
-    call ds_app_OVOG                 ; 0x2e0b
+    call ds_app_IMTG                 ; 0x2e0b
     add sp, byte 4                   ; 0x2e0e
 jumptable_2edc_case_4:
     mov ax, 0xc00                    ; 0x2e11
@@ -59,7 +59,7 @@ jumptable_2edc_case_25:
     push word [bss_830c]             ; 0x2e49
     mov ax, 2                        ; 0x2e4d
     push ax                          ; 0x2e50
-    call ds_app_OVOG                 ; 0x2e51
+    call ds_app_IMTG                 ; 0x2e51
     add sp, byte 4                   ; 0x2e54
     mov word [bss_830a], 5           ; 0x2e57
 jumptable_2edc_case_5:
@@ -121,11 +121,11 @@ jumptable_2edc_case_18:
 jumptable_2edc_case_3:
     mov ax, 0                        ; 0x2eca
     push ax                          ; 0x2ecd
-    call ds_app_file_JHOT            ; 0x2ece
+    call ds_app_file_RKTP            ; 0x2ece
     pop cx                           ; 0x2ed1
     mov ax, 0                        ; 0x2ed2
     push ax                          ; 0x2ed5
-    call ds_loc_OMIG                 ; 0x2ed6
+    call aztec_exit                  ; 0x2ed6
     pop cx                           ; 0x2ed9
     jmp short @..main.l3             ; 0x2eda
 jumptable_2edc:

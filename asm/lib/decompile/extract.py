@@ -1,5 +1,7 @@
 """Group lifted instructions into functions and find global data references."""
 
+from lib.symtab import Kind
+
 from .analyze import analyze_frame
 from .ir import Function, Instruction
 
@@ -28,7 +30,7 @@ def _extract_functions(instructions: list[Instruction],
     for addr, name in sorted(label_map.items()):
         if addr not in insn_by_addr:
             continue
-        if name.startswith('@..') or name.startswith('data_'):
+        if getattr(name, 'kind', None) in (Kind.LOCAL, Kind.DATA):
             continue
         if code_targets is not None and addr not in code_targets:
             continue

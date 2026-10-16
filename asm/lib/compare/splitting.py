@@ -3,14 +3,24 @@
 import re
 
 from lib.compare.records import _record_span
-from lib.names import startswith_stem, stem
+from lib.names import is_address_label, is_data
+from lib.symtab import Kind
 
 #: Tokens removed before looking for label references: quoted strings and the
 #: trailing ``; 0x<offset>`` comment.
 _NOT_CODE = re.compile(r"'(?:[^']|'')*'|\"[^\"]*\"|;[^\n]*")
 _IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_.]*')
-_DATA_STEMS = ('cseg_', 'data_', 'dseg_', 'bss_', 'seg_', 'esg_', 'ssg_',
-               'psp_', 'jumptable_')
+#: Labels that never root a fragment of their own.
+_NOT_ROUTINES = (Kind.DATA, Kind.TABLE, Kind.ANCHOR)
+
+
+def _roots_fragment(label):
+    """True when a foreign tail *label* can be its own routine.
+
+    Data, tables and anchors cannot, and neither can a switch arm: it is the
+    dispatching routine's code, reached through its table.
+    """
+    return label.kind not in _NOT_ROUTINES and label.role != 'case'
 
 
 def _file_stem(name):
@@ -50,10 +60,10 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
     selected = sorted(
         (off, name)
         for off, name in (label_map or {}).items()
-        if not startswith_stem(name, 'data_')
+        if not is_data(name)
         and (off in declared
              or (name in requested
-                 and not re.fullmatch(r'loc_[0-9a-fA-F]+', stem(name))))
+                 and not is_address_label(name)))
     )
 
     # A split root strictly inside a C routine's own recovered extent (e.g. the
@@ -93,7 +103,7 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
             tail_end = original_end if original_end is not None else binary_size
             tail_name = (label_map or {}).get(capped)
             if (isinstance(tail_name, str) and tail_name not in requested
-                    and not startswith_stem(tail_name, 'data_')
+                    and not is_data(tail_name)
                     and tail_end is not None and tail_end > capped):
                 ranges.append((capped, tail_end, tail_name))
     return ranges
@@ -108,21 +118,20 @@ def _extend_split_ranges_with_local_tails(split_ranges, records):
     records_at = {}
     for rec in records:
         if rec['type'] == 'label':
-            labels_at.setdefault(rec['offset'], []).append(
-                rec['text'].removesuffix(':')
-            )
+            labels_at.setdefault(rec['offset'], []).append(rec['name'])
         else:
             start, end = _record_span(rec)
             if end > start:
                 records_at[start] = rec
 
     extended = []
+    def scoped(label, name):
+        return label.kind is Kind.LOCAL and label.owner == name
+
     for start, end, name in split_ranges:
-        scope_prefix = f'@..{name}.'
         while True:
             local_labels = [
-                label for label in labels_at.get(end, ())
-                if label.startswith(scope_prefix)
+                label for label in labels_at.get(end, ()) if scoped(label, name)
             ]
             referenced = any(
                 rec.get('type') in ('mnem', 'db_with_comment')
@@ -138,7 +147,7 @@ def _extend_split_ranges_with_local_tails(split_ranges, records):
             while True:
                 scoped_labels = [
                     label for label in labels_at.get(cursor, ())
-                    if label.startswith(scope_prefix)
+                    if scoped(label, name)
                 ]
                 if labels_at.get(cursor) and not scoped_labels:
                     break
@@ -189,9 +198,8 @@ def _split_off_foreign_objects(split_ranges, records, owners=None):
     spans = []
     for rec in records:
         if rec['type'] == 'label':
-            name = rec['text'].removesuffix(':')
-            if not name.startswith('@..'):
-                defs.setdefault(name, rec['offset'])
+            if rec['name'].kind is not Kind.LOCAL:
+                defs.setdefault(rec['name'], rec['offset'])
             continue
         start, end = _record_span(rec)
         if end > start:
@@ -237,7 +245,7 @@ def _split_off_foreign_objects(split_ranges, records, owners=None):
         if cuts[0][0] > start:
             result.append((start, cuts[0][0], name))
         for position, (offset, label) in enumerate(cuts):
-            if startswith_stem(label, _DATA_STEMS):
+            if not _roots_fragment(label):
                 continue
             next_offset = cuts[position + 1][0] if position + 1 < len(cuts) else end
             if next_offset > offset:

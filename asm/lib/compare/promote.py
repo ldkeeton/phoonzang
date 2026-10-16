@@ -24,6 +24,7 @@ import struct
 
 from lib.compare.records import _record_span
 from lib.compare.render import mz_data_gap
+from lib.symtab import Space, Symbol
 
 
 #: Record types whose raw bytes a promoted word may replace.
@@ -113,12 +114,10 @@ def _split_records(records, binary_data, offset, expr):
     return None
 
 
-def _ds_expression(value, bss_boundary, mem_equ):
+def _ds_expression(value, bss_boundary, mem_equ, data_names=None):
     """Symbolic expression for a DS offset, registering its ``equ`` name."""
-    if value < bss_boundary:
-        name = f'dseg_{value:04x}'
-    else:
-        name = f'bss_{value:04x}'
+    name = (data_names or {}).get(value) or Symbol.data(
+        Space.DS if value < bss_boundary else Space.BSS, value)
     mem_equ.setdefault(name, value)
     return name
 
@@ -156,12 +155,13 @@ def promote_data_pointers(records, binary_data, start_offset, segments,
             skipped.append({'offset': offset, 'reason': 'no-data-anchor'})
             continue
         if space == 'ds':
-            expr = _ds_expression(value, bss_boundary, mem_equ)
+            expr = _ds_expression(value, bss_boundary, mem_equ,
+                                  segments.data_names)
         elif space == 'cs':
             target = segments.cs_origin + value
             name = (label_map or {}).get(target)
             if name is None:
-                name = f'__zcp_{target:04x}'
+                name = Symbol.anchor(f'__zcp_{target:04x}', target)
                 if not _ensure_global_label(records, binary_data, target, name):
                     skipped.append({'offset': offset,
                                     'reason': 'unlabelable-target'})

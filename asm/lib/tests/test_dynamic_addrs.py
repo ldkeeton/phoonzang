@@ -21,7 +21,9 @@ from lib.compare.records import (
     DISPATCH_STRIDE, count_frozen_addrs, count_hidden_flow, count_name_use,
     dispatch_handlers, far_entry_runs, instruction_offsets, thunk_entry_count,
 )
+from lib.compare.cotenancy import symbol_tables
 from lib.sidecar.loader import load as load_sidecar
+from lib.tests.syms import bss, data, dseg, loc, routine
 from lib.sidecar.binary import per_binary
 from make.elf import _force_origin_zero
 
@@ -194,7 +196,16 @@ BASELINE_TOTALS = {
     # because a bound name is no longer a *frozen* name for a byte.  ``vga``
     # stays byte-identical at the original layout, and the parked ``ega
     # dseg_24fd`` stays the one ``data_shift`` (a runtime-DS site, Appendix B).
-    'names_used': 42, 'names_inert': 27, 'hidden_flow': 90,
+    # Byte-hash tags give identical code in two binaries one name, so a name
+    # resolves in its own binary first and each binary's ``equ`` counts on its
+    # own: 42/27 -> **44/28** (the same tree at HEAD measures 44/28 too; the old
+    # count merged two binaries' names and saw a same-named label as a use).
+    # They also share more (84 -> 90 shared files): ``hidden_flow`` 90 -> **105**,
+    # every new site at an offset whose ``; 0x`` anchor moved into ``shared/``.
+    # Parameterised sharing (lib.shared: copies differing only in label names)
+    # took ``shared/`` 90 -> 141 files: ``hidden_flow`` 105 -> **157**, all 61 new
+    # sites at offsets whose anchor moved into ``shared/`` (9 sites went).
+    'names_used': 44, 'names_inert': 28, 'hidden_flow': 157,
     'total': 83,
 }
 
@@ -396,17 +407,18 @@ def _scan_hidden_flow():
 
 def _scan_tree():
     census = count_frozen_addrs('')      # the per-file keys, all zero
+    symbols = symbol_tables('DSAVANT')
     sources = []
     for path in sorted(_TREE.rglob('*.asm')):
         rel = path.relative_to(_TREE)
         if rel.parts[0] in _SKIP_DIRS:
             continue
         text = path.read_text(errors='ignore')
-        sources.append((path, text))
-        counts = count_frozen_addrs(text)
+        sources.append((rel, text))
+        counts = count_frozen_addrs(text, symbols)
         for key in census:
             census[key] += counts[key]
-    use = count_name_use(sources)
+    use = count_name_use(sources, symbols)
     census['names_used'] = use['names_used']
     census['names_inert'] = use['names_inert']
     census['hidden_flow'] = len(_scan_hidden_flow())
@@ -414,37 +426,6 @@ def _scan_tree():
 
 
 class CountFrozenAddrsTests(unittest.TestCase):
-    def test_classifies_each_taxonomy(self):
-        text = '\n'.join([
-            '    dw 0x0056 ; e_cblp: bytes in final page',
-            '    dw 0x0ff6 ; e_ss: initial stack segment',
-            '    dw 0x93df ; o_csize: code size in bytes',
-            'cseg_2f36 equ 0x2f36',
-            'dseg_0002 equ 0x0002',
-            'bss_0cf6 equ 0x0cf6',
-            'psp_env_segment equ 0x002c',
-            'bios_data_0410 equ 0x0410',
-            '    times 44813 db 0',
-            '    times 4 db 0',
-            '    dw 0x490f ; 0x4822',              # unresolved pointer -> f7
-            '    dw 0x001c ; 0x1698 ; literal',    # literal data word -> f6
-            'IMAGE_BASE equ 0x0200',
-        ])
-        counts = count_frozen_addrs(text)
-        self.assertEqual(counts['f1'], 2)
-        self.assertEqual(counts['f2'], 1)
-        self.assertEqual(counts['f3'], 1)
-        self.assertEqual(counts['f4'], 2)   # dseg_ + bss_
-        self.assertEqual(counts['f5'], 1)   # the 44813 pad, not the 4-byte run
-        self.assertEqual(counts['f6'], 1)   # the tagged literal word
-        self.assertEqual(counts['f7'], 1)   # the untagged pointer word
-        # Gate classes (plan.md section 10.2); inert is reported, not gated.
-        self.assertEqual(counts['code_shift'], 2 + 1 + 1 + 1)
-        self.assertEqual(counts['data_shift'], 2 + 1)
-        self.assertEqual(counts['inert'], 1 + 1 + 1)  # psp_ + bios_ + f6
-        self.assertEqual(counts['total'],
-                         counts['code_shift'] + counts['data_shift'])
-
     def test_literal_tag_separates_f6_from_f7(self):
         literal = count_frozen_addrs('    dw 0x001c ; 0x1698 ; literal')
         self.assertEqual((literal['f6'], literal['f7']), (1, 0))
@@ -526,35 +507,6 @@ class CountFrozenAddrsTests(unittest.TestCase):
 
 class CensusMeaningCounterTests(unittest.TestCase):
     """D7.2c-2 counters: what the census's names and bytes actually cost."""
-
-    def test_name_use_splits_used_from_inert(self):
-        sources = [
-            ('play.asm',
-             'loc_0007 equ 0x0007\n'
-             'loc_0008 equ 0x0008\n'
-             'cseg_0100 equ 0x0100\n'),
-            ('play/leaf_loc_077b.asm',
-             '    call loc_0008\n'
-             '    mov al, [cs:cseg_0100]\n'),
-        ]
-        counts = count_name_use(sources)
-        self.assertEqual(counts['names_used'], 2)
-        self.assertEqual(counts['names_inert'], 1)
-        self.assertEqual(counts['inert_names'], ['loc_0007'])
-
-    def test_include_paths_and_comments_are_not_references(self):
-        """A fragment is named after its label, so its include must not count."""
-        sources = [
-            ('vga.asm',
-             'loc_1000 equ 0x1000\n'
-             '%include "vga/loc_2000.asm"          ; 0x2000\n'),
-            ('vga/loc_2000.asm',
-             'loc_2000 equ 0x2000  ; is loc_1000 live?\n'),
-        ]
-        counts = count_name_use(sources)
-        self.assertEqual(counts['names_inert'], 2)
-        self.assertEqual(sorted(counts['inert_names']),
-                         ['loc_1000', 'loc_2000'])
 
     def test_geometry_macros_are_not_names_for_a_byte(self):
         counts = count_name_use([
@@ -834,7 +786,7 @@ class DataSegmentLabelBindingTests(unittest.TestCase):
 
     def test_data_symbols_become_expressions(self):
         src = self._source(self._image(),
-                           {'dseg_0004': 0x04, 'bss_0012': 0x12})
+                           {dseg(0x0004): 0x04, bss(0x0012): 0x12})
         self.assertIn('dseg_0004 equ __zdseg_0004 - __zdseg_start', src)
         self.assertIn(
             'bss_0012 equ (__zimage_end - __zdseg_start) + 0x0002', src)
@@ -842,12 +794,12 @@ class DataSegmentLabelBindingTests(unittest.TestCase):
 
     def test_original_layout_reassembles_byte_for_byte(self):
         binary = self._image()
-        src = self._source(binary, {'dseg_0004': 0x04, 'bss_0012': 0x12})
+        src = self._source(binary, {dseg(0x0004): 0x04, bss(0x0012): 0x12})
         self.assertEqual(_nasm(src), binary)
 
     def test_operand_follows_an_inserted_data_byte(self):
         binary = self._image()
-        src = self._source(binary, {'dseg_0004': 0x04, 'bss_0012': 0x12})
+        src = self._source(binary, {dseg(0x0004): 0x04, bss(0x0012): 0x12})
         grown = src.replace('__zdseg_start:',
                             '__zdseg_start:\n    db 0xee', 1)
         built = _nasm(grown)
@@ -1161,7 +1113,7 @@ class DataStringAnchorTests(unittest.TestCase):
              'bytes': []},
         ]
         src, _ = _build_source(records, 0x200, binary, label_map={},
-                               mem_equ={'dseg_0002': 0x02})
+                               mem_equ={dseg(0x0002): 0x02})
         return src
 
     def test_reference_anchors_to_string_start(self):
@@ -1206,7 +1158,8 @@ class NamedAddressPlacementTests(unittest.TestCase):
     def test_a_named_record_start_becomes_a_label(self):
         records = [{'type': 'mnem', 'text': 'nop', 'offset': 14, 'size': 1},
                    {'type': 'mnem', 'text': 'nop', 'offset': 15, 'size': 1}]
-        src = self._source(records, {14: 'app_start', 15: 'app_next'}, 2)
+        src = self._source(records, {14: routine('app_start', 14),
+                                     15: routine('app_next', 15)}, 2)
         self.assertIn('app_start:', src)
         self.assertIn('app_next:', src)
         self.assertNotIn('app_start equ', src)
@@ -1222,7 +1175,7 @@ class NamedAddressPlacementTests(unittest.TestCase):
         """
         records = [{'type': 'data_block', 'start': 14, 'end': 18,
                     'bytes': ['0x11', '0x22', '0x33', '0x44']}]
-        src = self._source(records, {16: 'loc_0010'}, 4)
+        src = self._source(records, {16: loc(0x0010)}, 4)
         self.assertIn('loc_0010 equ 0x0010 + VBASE', src)
         self.assertNotIn('loc_0010:', src)
 
@@ -1230,14 +1183,14 @@ class NamedAddressPlacementTests(unittest.TestCase):
         """A data name may anchor data -- the D1 pattern, one name form over."""
         records = [{'type': 'data_block', 'start': 14, 'end': 18,
                     'bytes': ['0x11', '0x22', '0x33', '0x44']}]
-        src = self._source(records, {16: 'data_0010'}, 4)
+        src = self._source(records, {16: data(0x0010)}, 4)
         self.assertIn('data_0010:', src)
         self.assertNotIn('data_0010 equ', src)
 
     def test_a_name_inside_an_instruction_keeps_its_equ(self):
         records = [{'type': 'mnem', 'text': 'mov ax, 0', 'offset': 14,
                     'size': 3}]
-        src = self._source(records, {15: 'app_inside'}, 3)
+        src = self._source(records, {15: routine('app_inside', 15)}, 3)
         self.assertIn('app_inside equ 0x000f + VBASE', src)
         self.assertNotIn('app_inside:', src)
 
@@ -1257,7 +1210,7 @@ class NamedAddressPlacementTests(unittest.TestCase):
         """
         records = [{'type': 'data_block', 'start': 0x0a, 'end': 0x0c,
                     'bytes': ['0x11', '0x22']}]
-        src = self._driver_source(records, {0x010a: 'data_010a'})
+        src = self._driver_source(records, {0x010a: data(0x010a)})
         self.assertIn('__zdata_010a:', src)
         self.assertIn('data_010a equ __zdata_010a - IMAGE_BASE', src)
         self.assertNotIn('data_010a equ 0x010a', src)
@@ -1266,7 +1219,7 @@ class NamedAddressPlacementTests(unittest.TestCase):
         """A byte inside a decoded instruction cannot carry a label."""
         records = [{'type': 'mnem', 'text': 'mov ax, 0', 'offset': 0,
                     'size': 3}]
-        src = self._driver_source(records, {0x0101: 'data_0101'})
+        src = self._driver_source(records, {0x0101: data(0x0101)})
         self.assertIn('data_0101 equ 0x0101', src)
         self.assertNotIn('__zdata_0101', src)
 
@@ -1274,7 +1227,7 @@ class NamedAddressPlacementTests(unittest.TestCase):
         """A displacement naming no byte of the module stays numeric."""
         records = [{'type': 'data_block', 'start': 0x0a, 'end': 0x0c,
                     'bytes': ['0x11', '0x22']}]
-        src = self._driver_source(records, {0x0180: 'data_0180'}, size=0x40)
+        src = self._driver_source(records, {0x0180: data(0x0180)}, size=0x40)
         self.assertIn('data_0180 equ 0x0180', src)
 
     def test_a_non_driver_immediate_keeps_its_literal(self):

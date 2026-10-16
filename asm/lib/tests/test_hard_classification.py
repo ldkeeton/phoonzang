@@ -4,6 +4,7 @@ import numpy as np
 import polars as pl
 
 from lib.classify import classify
+from lib.tests.syms import generated, loc
 from lib.model import IS_CODE, IS_DATA, PhaseContext
 from lib.phases.arbiter import ArbiterPhase
 from lib.phases.recursive import RecursiveDescentPhase
@@ -60,10 +61,10 @@ class HardClassificationTests(unittest.TestCase):
             0,
             list(disassemble(data, 0, bitmap)),
             'local_branch_case',
-            label_map={0: 'dos_mem_loc_0000'},
+            label_map={0: generated('dos_mem_loc', 0)},
             bitmap=bitmap,
             code_targets=ctx.code_target_set,
-            function_roots={0: 'dos_mem_loc_0000'},
+            function_roots={0: generated('dos_mem_loc', 0)},
             branch_targets=ctx.branch_targets,
             branch_edges=ctx.branch_edges,
         )
@@ -116,11 +117,11 @@ class HardClassificationTests(unittest.TestCase):
         bitmap = bytearray([IS_CODE] * len(data))
         insns = list(disassemble(bytes(data), 0x100, bitmap))
         branch_edges = {(0x106, 0x110), (0x119, 0x10b)}
-        roots = {0x100: 'math_loc_0100'}
+        roots = {0x100: generated('math_loc', 0x100)}
 
         asm_text, _, _, _, _ = verify(
             bytes(data), 0x100, insns, 'early_return_case',
-            label_map={0x100: 'math_loc_0100'},
+            label_map={0x100: generated('math_loc', 0x100)},
             bitmap=bitmap,
             code_targets={0x10b, 0x110},
             function_roots=roots,
@@ -215,7 +216,7 @@ class HardClassificationTests(unittest.TestCase):
             0,
             list(disassemble(data, 0, bitmap)),
             'hard_data_case',
-            label_map={target: f'loc_{target:04x}'},
+            label_map={target: loc(target)},
             bitmap=bitmap,
             code_targets={target},
             hard_data=hard_data,
@@ -237,7 +238,7 @@ class HardClassificationTests(unittest.TestCase):
             0,
             stale_instructions,
             'stale_instruction_case',
-            label_map={target: f'loc_{target:04x}'},
+            label_map={target: loc(target)},
             bitmap=final_bitmap,
             code_targets={target},
         )

@@ -17,27 +17,27 @@ aztec_strncmp:
 @..aztec_strncmp.l1:
     lodsw                            ; 0x93bd
     scasw                            ; 0x93be
-    jne short loc_NJMS               ; 0x93bf
+    jne short loc_JIHK               ; 0x93bf
     test al, al                      ; 0x93c1
-    je short loc_TSVL                ; 0x93c3
+    je short loc_PGTO                ; 0x93c3
     test ah, ah                      ; 0x93c5
     loopne @..aztec_strncmp.l1       ; 0x93c7
-    je short loc_TSVL                ; 0x93c9
+    je short loc_PGTO                ; 0x93c9
 @..aztec_strncmp.l2:
     test dl, 1                       ; 0x93cb
-    je short loc_TSVL                ; 0x93ce
+    je short loc_PGTO                ; 0x93ce
     cmpsb                            ; 0x93d0
-    jne short loc_LLRH               ; 0x93d1
-loc_TSVL:
+    jne short loc_NQQK               ; 0x93d1
+loc_PGTO:
     sub ax, ax                       ; 0x93d3
-loc_HQUP:
+loc_QKLS:
     pop di                           ; 0x93d5
     pop si                           ; 0x93d6
     pop bp                           ; 0x93d7
     ret                              ; 0x93d8
-loc_NJMS:
+loc_JIHK:
     sub di, byte 2                   ; 0x93d9
     scasb                            ; 0x93dc
-    jne short loc_LLRH               ; 0x93dd
+    jne short loc_NQQK               ; 0x93dd
     test al, al                      ; 0x93df
-    je short loc_TSVL                ; 0x93e1
+    je short loc_PGTO                ; 0x93e1

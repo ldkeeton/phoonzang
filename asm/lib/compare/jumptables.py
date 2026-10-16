@@ -5,8 +5,9 @@ import struct
 from capstone import CS_OP_MEM
 
 from lib.verify.assemble import micro_assemble
-from lib.compare.records import _record_span, _emit_label
-from lib.names import startswith_stem
+from lib.compare.records import _record_span, _label_record
+from lib.names import is_data
+from lib.symtab import Kind, Source, Symbol
 
 
 def _parse_hex_offset(value):
@@ -42,7 +43,7 @@ def _merge_jump_table_specs(jump_tables, overrides, start_offset, total):
             'jmp_addr': jmp_addr,
             'count': count,
             'entry_size': entry_size,
-            'label': f'jumptable_{table_addr:04x}',
+            'label': _table_symbol(table_addr),
             'source': source,
             'note': note,
         }
@@ -81,6 +82,17 @@ def _merge_jump_table_specs(jump_tables, overrides, start_offset, total):
     return [specs[addr] for addr in sorted(specs)]
 
 
+def _table_symbol(offset):
+    return Symbol.generated('jumptable', offset, Kind.TABLE)
+
+
+def _case_symbol(table, index, target):
+    """The label synthesized at a table entry's *target*."""
+    return Symbol(f'jumptable_{table:04x}_case_{index}', kind=Kind.LABEL,
+                  source=Source.ADDRESS, offset=target, base='jumptable_case',
+                  role='case')
+
+
 def _usable_jump_label(off, label_map):
     """Return a global label at *off*, or None if it must be synthesized.
 
@@ -93,7 +105,7 @@ def _usable_jump_label(off, label_map):
     name = label_map.get(off)
     if not name:
         return None
-    if startswith_stem(name, 'data_') or name.startswith('@..'):
+    if is_data(name) or name.kind is Kind.LOCAL:
         return None
     return name
 
@@ -121,19 +133,15 @@ def _ensure_jump_case_label(records, binary_data, off, name):
     for i, rec in enumerate(records):
         rtype = rec['type']
         if rtype == 'label':
-            if rec['offset'] == off and rec['text'].removesuffix(':') == name:
+            if rec['offset'] == off and rec['name'] == name:
                 return True
             if rec['offset'] == off:
-                records.insert(i, {
-                    'type': 'label', 'text': _emit_label(name), 'offset': off,
-                })
+                records.insert(i, _label_record(name, off))
                 return True
             continue
         rec_start, rec_end = _record_span(rec)
         if rec_start == off:
-            records.insert(i, {
-                'type': 'label', 'text': _emit_label(name), 'offset': off,
-            })
+            records.insert(i, _label_record(name, off))
             return True
         if rec_start < off < rec_end:
             if rtype != 'data_block':
@@ -144,7 +152,7 @@ def _ensure_jump_case_label(records, binary_data, off, name):
                       'bytes': [f'0x{b:02x}' for b in binary_data[off:rec_end]]}
             records[i:i + 1] = [
                 prefix,
-                {'type': 'label', 'text': _emit_label(name), 'offset': off},
+                _label_record(name, off),
                 suffix,
             ]
             return True
@@ -311,7 +319,7 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
             resolved.append((value, target))
 
         adjust = o_corg if o_corg is not None else 0
-        label = f'jumptable_{start:04x}'
+        label = _table_symbol(start)
         spec = {**spec, 'table_end': end, 'label': label, 'adjust': adjust}
 
         entries = []
@@ -329,7 +337,7 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
                 if name is None:
                     name = case_names.get(target)
                 if name is None:
-                    candidate = f'jumptable_{start:04x}_case_{index}'
+                    candidate = _case_symbol(start, index, target)
                     if _ensure_jump_case_label(records, binary_data, target,
                                                candidate):
                         case_names[target] = candidate

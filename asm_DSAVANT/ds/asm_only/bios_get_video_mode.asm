@@ -7,7 +7,7 @@ bios_get_video_mode:
     mov ax, word [bp + 0x4]          ; 0x30ff
     and ax, strict word 1            ; 0x3102
     jne short @..bios_get_video_mode.l1 ; 0x3105
-    jmp near ds_loc_NGTL             ; 0x3107
+    jmp near ds_loc_QOUG             ; 0x3107
 @..bios_get_video_mode.l1:
     mov ax, 0                        ; 0x310a
     push ds                          ; 0x310d
@@ -29,7 +29,7 @@ bios_get_video_mode:
     cmp bh, 8                        ; 0x3130
     jne short @..bios_get_video_mode.l3 ; 0x3133
 @..bios_get_video_mode.l2:
-    jmp near ds_loc_NHLH             ; 0x3135
+    jmp near ds_loc_GVHR             ; 0x3135
 @..bios_get_video_mode.l3:
     mov word [bp - 0x0002], 0        ; 0x3138
     ret                              ; 0x313d
@@ -90,7 +90,7 @@ bios_get_video_mode:
     db 0x18, 0x00, 0x30, 0x14, 0x00, 0x28, 0x10, 0x00, 0x20, 0x0c, 0x00, 0x18, 0x08, 0x00, 0x10, 0x18
     db 0x18, 0x20
 
-ds_loc_NHLH:
+ds_loc_GVHR:
     mov byte [cs:cseg_2f3a - IMAGE_BASE], 0 ; 0x343e
     mov byte [cs:cseg_2f3b - IMAGE_BASE], 0 ; 0x3444
     mov byte [cs:cseg_2f38 - IMAGE_BASE], 0 ; 0x344a
@@ -116,7 +116,7 @@ ds_loc_NHLH:
     mov bx, 0x3307                   ; 0x3489
     mov word [bp - 0x0004], bx       ; 0x348c
     ret                              ; 0x348f
-ds_loc_NGTL:
+ds_loc_QOUG:
     mov ax, 0                        ; 0x3490
     push ds                          ; 0x3493
     mov ds, ax                       ; 0x3494
@@ -124,12 +124,12 @@ ds_loc_NGTL:
     mov al, byte [bx]                ; 0x3499
     pop ds                           ; 0x349b
     or al, al                        ; 0x349c
-    je short @..ds_loc_NGTL.l1       ; 0x349e
-    jmp near @..ds_loc_NGTL.l2       ; 0x34a0
-@..ds_loc_NGTL.l1:
+    je short @..ds_loc_QOUG.l1       ; 0x349e
+    jmp near @..ds_loc_QOUG.l2       ; 0x34a0
+@..ds_loc_QOUG.l1:
     mov word [bp - 0x0002], 0        ; 0x34a3
     ret                              ; 0x34a8
-@..ds_loc_NGTL.l2:
+@..ds_loc_QOUG.l2:
     mov byte [cs:cseg_2f3a - IMAGE_BASE], 0 ; 0x34a9
     mov byte [cs:cseg_2f3b - IMAGE_BASE], 0 ; 0x34af
     mov byte [cs:cseg_2f38 - IMAGE_BASE], 1 ; 0x34b5

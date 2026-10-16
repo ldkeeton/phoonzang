@@ -1,6 +1,0 @@
-; auto-generated
-; asm only
-string_loc_OOQH:
-    or byte [bp - 0x000b], 4         ; 0x314e
-    lodsb                            ; 0x3152
-    jmp short loc_HKHT               ; 0x3153

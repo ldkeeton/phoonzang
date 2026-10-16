@@ -13,6 +13,7 @@ from lib.compare.analysis import (
     _compute_local_labels,
     _local_branch_targets,
 )
+from lib.tests.syms import generated, label, loc, local, routine
 from lib.compare.splitting import (
     _extend_split_ranges_with_local_tails,
     _select_split_ranges,
@@ -25,7 +26,7 @@ class DirectFlowLabelTests(unittest.TestCase):
         md.detail = True
         insn = next(md.disasm(bytes.fromhex('e9 05 00'), 0x100))
 
-        roots = {0x100: 'test_function'}
+        roots = {0x100: routine('test_function', 0x100)}
         owners, edge_sources, direct_edges, roots = _compute_branch_ownership(
             [insn], roots, binary_size=0x200,
         )
@@ -44,7 +45,7 @@ class DirectFlowLabelTests(unittest.TestCase):
         md.detail = True
         insn = next(md.disasm(bytes.fromhex('e9 e0 ff'), 0x10))
 
-        roots = {0x10: 'test_function'}
+        roots = {0x10: routine('test_function', 0x10)}
         owners, edge_sources, direct_edges, roots = _compute_branch_ownership(
             [insn], roots, binary_size=0x200,
         )
@@ -63,7 +64,7 @@ class DirectFlowLabelTests(unittest.TestCase):
         md.detail = True
         insn = next(md.disasm(bytes.fromhex('e9 e8 ff'), 0x20))
 
-        roots = {0x20: 'test_function'}
+        roots = {0x20: routine('test_function', 0x20)}
         owners, edge_sources, direct_edges, roots = _compute_branch_ownership(
             [insn], roots, binary_size=0x200, start_offset=0x10,
         )
@@ -103,9 +104,9 @@ class DirectFlowLabelTests(unittest.TestCase):
 class FunctionIncludeTests(unittest.TestCase):
     def test_selects_named_roots_and_clips_ranges_before_next_root(self):
         label_map = {
-            0x100: 'main',
-            0x110: 'bios_video_loc_3067',
-            0x120: 'loc_23ef',
+            0x100: routine('main', 0x100),
+            0x110: generated('bios_video_loc', 0x3067),
+            0x120: loc(0x23ef),
         }
         boundaries = {
             0x100: (0x130, 'main'),
@@ -127,9 +128,9 @@ class FunctionIncludeTests(unittest.TestCase):
 
     def test_capped_c_routine_carves_following_code_into_its_own_fragment(self):
         label_map = {
-            0x100: 'aztec_open',
-            0x150: 'loc_4be6',
-            0x170: 'aztec_lrm',
+            0x100: routine('aztec_open', 0x100),
+            0x150: loc(0x4be6),
+            0x170: routine('aztec_lrm', 0x170),
         }
         self.assertEqual(
             _select_split_ranges(
@@ -146,7 +147,7 @@ class FunctionIncludeTests(unittest.TestCase):
         )
 
     def test_capped_c_routine_without_tail_label_stays_clipped(self):
-        label_map = {0x100: 'aztec_free', 0x170: 'string_loc_4867'}
+        label_map = {0x100: routine('aztec_free', 0x100), 0x170: generated('string_loc', 0x4867)}
         self.assertEqual(
             _select_split_ranges(
                 label_map,
@@ -168,10 +169,10 @@ class FunctionIncludeTests(unittest.TestCase):
         the declared table *is* the layout.
         """
         label_map = {
-            0x100: 'main',
-            0x110: 'io_loc_016e',
-            0x120: 'loc_0154',
-            0x140: 'leaf_loc_02b3',
+            0x100: routine('main', 0x100),
+            0x110: generated('io_loc', 0x016e),
+            0x120: loc(0x0154),
+            0x140: generated('leaf_loc', 0x02b3),
         }
         requested = {'main', 'io_loc_016e', 'leaf_loc_02b3'}
         self.assertEqual(
@@ -196,25 +197,17 @@ class FunctionIncludeTests(unittest.TestCase):
     def test_loc_fragment_scopes_local_labels(self):
         local_targets = {0x120, 0x124}
         owners = {0x120: {0x100}, 0x124: {0x100}}
-        label_map = {0x100: 'loc_4be6'}
+        label_map = {0x100: loc(0x4be6)}
         labels = _compute_local_labels(
             local_targets, owners, {}, label_map, {'loc_4be6'},
         )
         self.assertEqual(labels[0x120], '@..loc_4be6.l1')
         self.assertEqual(labels[0x124], '@..loc_4be6.l2')
 
-    def test_unnamed_owner_locals_independent_of_other_owners(self):
-        targets = {0x120, 0x220}
-        owners = {0x120: {0x100}, 0x220: {0x200}}
-        both = _compute_local_labels(targets, owners, {}, {}, set())
-        alone = _compute_local_labels({0x220}, {0x220: {0x200}}, {}, {}, set())
-        self.assertEqual(both[0x220], '@..loc_0200.l1')
-        self.assertEqual(alone[0x220], both[0x220])
-
     def test_loc_owner_without_fragment_is_scoped_by_address(self):
         local_targets = {0x120}
         owners = {0x120: {0x100}}
-        label_map = {0x100: 'loc_4be6'}
+        label_map = {0x100: loc(0x4be6)}
         labels = _compute_local_labels(
             local_targets, owners, {}, label_map, set(),
         )
@@ -222,7 +215,7 @@ class FunctionIncludeTests(unittest.TestCase):
 
     def test_named_function_include_starts_at_its_call_target_prefix(self):
         records = [
-            {'type': 'label', 'text': 'stack_alloc_check:', 'offset': 0x100},
+            label('stack_alloc_check', 0x100),
             {'type': 'mnem', 'text': 'pop bx', 'offset': 0x100, 'size': 1},
             {'type': 'mnem', 'text': 'push bp', 'offset': 0x101, 'size': 1},
             {'type': 'mnem', 'text': 'ret', 'offset': 0x102, 'size': 1},
@@ -242,12 +235,11 @@ class FunctionIncludeTests(unittest.TestCase):
 
     def test_referenced_local_tail_joins_its_named_function_include(self):
         records = [
-            {'type': 'label', 'text': 'stack_alloc_check:', 'offset': 0x100},
+            label('stack_alloc_check', 0x100),
             {'type': 'mnem', 'text': 'ja short @..stack_alloc_check.l2',
              'offset': 0x100, 'size': 2},
             {'type': 'mnem', 'text': 'ret', 'offset': 0x102, 'size': 1},
-            {'type': 'label', 'text': '@..stack_alloc_check.l2:',
-             'offset': 0x103},
+            label(local('stack_alloc_check', 0x103, 2), 0x103),
             {'type': 'mnem', 'text': 'mov sp, bp', 'offset': 0x103, 'size': 2},
             {'type': 'mnem', 'text': 'jmp near @..stack_alloc_check.l3',
              'offset': 0x105, 'size': 3},
@@ -273,9 +265,9 @@ class FunctionIncludeTests(unittest.TestCase):
 
     def test_include_replaces_contiguous_function_records_in_place(self):
         records = [
-            {'type': 'label', 'text': 'example_fn:', 'offset': 0x100},
+            label('example_fn', 0x100),
             {'type': 'mnem', 'text': 'nop', 'offset': 0x100, 'size': 1},
-            {'type': 'label', 'text': '@..example_fn.l1:', 'offset': 0x101},
+            label(local('example_fn', 0x101, 1), 0x101),
             {'type': 'mnem', 'text': 'ret', 'offset': 0x101, 'size': 1},
             {'type': 'mnem', 'text': 'nop', 'offset': 0x102, 'size': 1},
         ]
@@ -368,7 +360,7 @@ class MZHeaderRenderingTests(unittest.TestCase):
         )
         # The header's CS:IP entry (cs=0, ip=0x4b3a) lands at file offset
         # header_size + ip == 0x200 + 0x4b3a, which is where the entry lives.
-        label_map = {0x4d3a: 'aztec_begin'}
+        label_map = {0x4d3a: routine('aztec_begin', 0x4d3a)}
 
         source, _ = _build_source(
             [], 0x200, bytes(header), label_map=label_map,

@@ -2,6 +2,8 @@
 
 from capstone import CS_OP_MEM
 
+from lib.symtab import Kind, Symbol
+
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent, clear_assemble_cache
 from lib.diagnostics import enabled as diag_enabled, emit as diag_emit, phase as diag_phase
 from lib.compare.interrupts import _set_insn_fields
@@ -60,7 +62,7 @@ def _generate_inline_code(insns, raw_bytes, start_offset, binary_data, label_map
                             # A code label owns this offset; a data-space
                             # alias would be undefined.
                             continue
-                        dname = f'data_{addr:04x}'
+                        dname = Symbol.generated('data', addr, Kind.DATA)
                         names[addr] = dname
                         if label_map is not None and names is not label_map:
                             label_map[addr] = dname

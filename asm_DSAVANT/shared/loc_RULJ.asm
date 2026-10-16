@@ -1,0 +1,9 @@
+; auto-generated
+loc_RULJ:
+    mov ax, 0
+    call aztec_csav
+    mov ax, 0xa
+    push ax
+    call ds_leaf_loc_UJPS
+    pop cx
+    ret

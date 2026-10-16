@@ -9,6 +9,7 @@ import json
 import os
 
 from lib.model import CONF_CODE, SeedInfo, TargetInfo
+from lib.symtab import Kind, Source, Symbol
 
 from lib.cachedirs import aztec_funcs_path
 
@@ -164,8 +165,8 @@ def _label_app_functions(label_map, ctx, instructions):
 
     for index, entry in enumerate(csav_sorted):
         existing = label_map.get(entry)
-        if (existing and existing != 'entry_point'
-                and not existing.startswith('loc_')):
+        if (existing and existing.source is not Source.FIXED
+                and existing.kind is not Kind.LABEL):
             # Preserve an explicit sidecar/known name (e.g. 'main').
             continue
         boundary = (csav_sorted[index + 1] if index + 1 < len(csav_sorted)
@@ -185,14 +186,16 @@ def _label_app_functions(label_map, ctx, instructions):
             callee = callees[0]
             short = _CSAV_WRAPPER_NAMES.get(callee)
             if short:
-                label_map[entry] = short
+                label_map[entry] = Symbol(short, kind=Kind.ROUTINE,
+                                          source=Source.FIXED, offset=entry)
             else:
                 base = (callee.split('_', 1)[-1]
                         if callee.startswith(('aztec_', 'dos_', 'bios_'))
                         else callee)
-                label_map[entry] = f'app_{base}_{entry:04x}'
+                label_map[entry] = Symbol.generated(
+                    f'app_{base}', entry, Kind.ROUTINE, role='app')
             continue
 
         tag = _app_affinity_tag(callees)
-        label_map[entry] = (
-            f'app_{tag}_{entry:04x}' if tag else f'app_{entry:04x}')
+        label_map[entry] = Symbol.generated(
+            f'app_{tag}' if tag else 'app', entry, Kind.ROUTINE, role='app')

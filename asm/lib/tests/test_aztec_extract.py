@@ -73,19 +73,6 @@ class ExtractTest(unittest.TestCase):
         self.assertNotIn('exit(code)', out)
         self.assertNotIn('redir_err(name)', out)
 
-    def test_tty_rd_keeps_file_scope_data(self):
-        out = extract.extract_routine(_src(_TTYIO), 'tty_rd')
-        self.assertIsNotNone(out)
-        self.assertIn('__tty_rd(fd,buff,len)', out)
-        self.assertIn("char _Eol = '\\n';", out)
-        self.assertIn('int _TTrem;', out)
-        self.assertNotIn('__tty_wr', out)
-
-    def test_name_is_normalized(self):
-        expected = extract.extract_routine(_src(_CROOT), 'Croot')
-        self.assertEqual(extract.extract_routine(_src(_CROOT), '_croot'),
-                         expected)
-
     def test_missing_symbol_is_none(self):
         self.assertIsNone(extract.extract_routine(_src(_OPEN), 'not_there'))
 

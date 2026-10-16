@@ -57,7 +57,7 @@ dos_read_file_3:
     mov ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x224e
     cmp ax, 0x4180                   ; 0x2252
     jb short @..dos_read_file_3.l2   ; 0x2255
-    jmp near dos_con_loc_LHPI        ; 0x2257
+    jmp near dos_con_loc_KORI        ; 0x2257
 @..dos_read_file_3.l2:
     mov bx, word [bp - 0x0002]       ; 0x225a
     mov ax, word [cs:bx]             ; 0x225d

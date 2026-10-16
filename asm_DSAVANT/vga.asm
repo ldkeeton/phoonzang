@@ -7,188 +7,174 @@ bits 16
 IMAGE_BASE equ -0x0100
 %endif
 
-data_0229 equ __zdata_0229 - IMAGE_BASE
-data_0251 equ __zdata_0251 - IMAGE_BASE
-data_025b equ __zdata_025b - IMAGE_BASE
-data_029b equ __zdata_029b - IMAGE_BASE
-data_02d7 equ __zdata_02d7 - IMAGE_BASE
-data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
-data_0bda equ __zdata_0bda - IMAGE_BASE
-data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
-data_1e4c equ __zdata_1e4c - IMAGE_BASE
-data_1e5c equ __zdata_1e5c - IMAGE_BASE
 data_1e64 equ __zdata_1e64 - IMAGE_BASE
-data_381b equ __zdata_381b - IMAGE_BASE
-data_4202 equ __zdata_4202 - IMAGE_BASE
-data_46d9 equ __zdata_46d9 - IMAGE_BASE
-data_46f1 equ __zdata_46f1 - IMAGE_BASE
 
-loc_HHMO:
-    jmp near loc_UJON                ; 0x0000
-loc_UJON:
+loc_LPSH:
+    jmp near loc_JTQK_0003           ; 0x0000
+loc_JTQK_0003:
     call mouse_init                  ; 0x0003
     retf                             ; 0x0006
-loc_HLQS:
+loc_JTQK_0007:
     call mouse_init_2                ; 0x0007
     retf                             ; 0x000a
-loc_OHGT:
-    call bios_mouse_loc_NSSJ         ; 0x000b
+loc_JTQK_000b:
+    call bios_mouse_loc_TVOK         ; 0x000b
     retf                             ; 0x000e
-loc_JHOQ:
-    call leaf_loc_NMVG               ; 0x000f
+loc_JTQK_000f:
+    call leaf_loc_LMQV               ; 0x000f
     retf                             ; 0x0012
-loc_GQPG:
-    call bios_mouse_loc_TKVN         ; 0x0013
+loc_JTQK_0013:
+    call bios_mouse_loc_USQU         ; 0x0013
     retf                             ; 0x0016
-loc_QPLR:
+loc_JTQK_0017:
     call dos_read_file_3             ; 0x0017
     retf                             ; 0x001a
-loc_ULIS:
-    call graphics_loc_RHSL           ; 0x001b
+loc_JTQK_001b:
+    call graphics_loc_OLQQ           ; 0x001b
     retf                             ; 0x001e
-loc_TGSV:
+loc_JTQK_001f:
     call dos_read_file               ; 0x001f
     retf                             ; 0x0022
-loc_RMKG:
+loc_JTQK_0023:
     call dos_read_file_2             ; 0x0023
     retf                             ; 0x0026
-loc_LLRI:
+loc_JTQK_0027:
     call dos_print_str               ; 0x0027
     retf                             ; 0x002a
-loc_TSVO:
-    call leaf_loc_SRJS               ; 0x002b
+loc_JTQK_002b:
+    call leaf_loc_UQHV               ; 0x002b
     retf                             ; 0x002e
-loc_NLUG:
-    call graphics_loc_VIRI           ; 0x002f
+loc_JTQK_002f:
+    call graphics_loc_IOKK           ; 0x002f
     retf                             ; 0x0032
-loc_TISS:
-    call leaf_loc_GLGG               ; 0x0033
+loc_JTQK_0033:
+    call leaf_loc_LMRM               ; 0x0033
     retf                             ; 0x0036
-loc_NLQS:
-    call leaf_loc_NONR               ; 0x0037
+loc_JTQK_0037:
+    call leaf_loc_UNNV               ; 0x0037
     retf                             ; 0x003a
-loc_VPQR:
-    call leaf_loc_UIHG               ; 0x003b
+loc_JTQK_003b:
+    call leaf_loc_OITH               ; 0x003b
     retf                             ; 0x003e
-loc_UJLQ:
-    call leaf_loc_LUNP               ; 0x003f
+loc_JTQK_003f:
+    call leaf_loc_TKRV               ; 0x003f
     retf                             ; 0x0042
-loc_MVNV:
-    call loc_NITI                    ; 0x0043
+loc_JTQK_0043:
+    call loc_QVUN                    ; 0x0043
     retf                             ; 0x0046
-loc_QKVQ:
-    call leaf_loc_VSTU               ; 0x0047
+loc_JTQK_0047:
+    call leaf_loc_QSOP               ; 0x0047
     retf                             ; 0x004a
-loc_UHMI:
-    call leaf_loc_RUJV               ; 0x004b
+loc_JTQK_004b:
+    call leaf_loc_GHVP               ; 0x004b
     retf                             ; 0x004e
-loc_UJOK:
-    call string_loc_NJGU             ; 0x004f
+loc_JTQK_004f:
+    call string_loc_RQOL             ; 0x004f
     retf                             ; 0x0052
-loc_SJRT:
+loc_JTQK_0053:
     call dos_alloc_mem               ; 0x0053
     retf                             ; 0x0056
-loc_PNOS:
+loc_JTQK_0057:
     call dos_free_mem                ; 0x0057
     retf                             ; 0x005a
-loc_UVMH:
-    call loc_HKIK                    ; 0x005b
+loc_JTQK_005b:
+    call loc_QNIQ                    ; 0x005b
     retf                             ; 0x005e
-loc_HOMQ:
-    call bios_mouse_loc_NUQU         ; 0x005f
+loc_JTQK_005f:
+    call bios_mouse_loc_RKQL         ; 0x005f
     retf                             ; 0x0062
-loc_OUOM:
+loc_JTQK_0063:
     call dos_print_str_2             ; 0x0063
     retf                             ; 0x0066
-loc_LUNN:
-    call leaf_loc_VQIT               ; 0x0067
+loc_JTQK_0067:
+    call leaf_loc_ILKH               ; 0x0067
     retf                             ; 0x006a
-loc_SUGP:
+loc_JTQK_006b:
     call dos_write_file              ; 0x006b
     retf                             ; 0x006e
-loc_LVNG:
-    call loc_JSPO                    ; 0x006f
+loc_JTQK_006f:
+    call loc_JTQT                    ; 0x006f
     retf                             ; 0x0072
-loc_QSMK:
-    call bios_video_loc_NHNV         ; 0x0073
+loc_JTQK_0073:
+    call bios_video_loc_KVON         ; 0x0073
     retf                             ; 0x0076
-loc_VKGQ:
-    call bios_video_loc_PUJP         ; 0x0077
+loc_JTQK_0077:
+    call bios_video_loc_TVOT         ; 0x0077
     retf                             ; 0x007a
-loc_HSMQ:
+loc_JTQK_007b:
     call dos_free_mem_2              ; 0x007b
     retf                             ; 0x007e
-loc_KVMS:
+loc_JTQK_007f:
     call dos_free_mem_3              ; 0x007f
     retf                             ; 0x0082
-loc_JTHL:
+loc_JTQK_0083:
     call dos_free_mem_4              ; 0x0083
     retf                             ; 0x0086
-loc_NORI:
-    call bios_mouse_loc_IISN         ; 0x0087
+loc_JTQK_0087:
+    call bios_mouse_loc_PRLT         ; 0x0087
     retf                             ; 0x008a
-loc_GKII:
-    call bios_mouse_loc_PHIN         ; 0x008b
+loc_JTQK_008b:
+    call bios_mouse_loc_JLUV         ; 0x008b
     retf                             ; 0x008e
-loc_PHPP:
-    call loc_HQMI                    ; 0x008f
+loc_JTQK_008f:
+    call loc_NRVQ                    ; 0x008f
     retf                             ; 0x0092
-loc_IOIL:
-    call loc_RKQK                    ; 0x0093
+loc_JTQK_0093:
+    call loc_ROPT                    ; 0x0093
     retf                             ; 0x0096
-loc_QOGU:
-    call leaf_loc_JKPU               ; 0x0097
+loc_JTQK_0097:
+    call leaf_loc_IPJP               ; 0x0097
     retf                             ; 0x009a
-loc_JKGK:
-    call leaf_loc_ITSQ               ; 0x009b
+loc_JTQK_009b:
+    call leaf_loc_PIJK               ; 0x009b
     retf                             ; 0x009e
-loc_URGJ:
+loc_JTQK_009f:
     call dos_write_file_2            ; 0x009f
     retf                             ; 0x00a2
-loc_RPUS:
-    call dos_mem_loc_MOUN            ; 0x00a3
+loc_JTQK_00a3:
+    call dos_mem_loc_NGNH            ; 0x00a3
     retf                             ; 0x00a6
-loc_LTHH:
+loc_JTQK_00a7:
     call dos_read_file_4             ; 0x00a7
     retf                             ; 0x00aa
-loc_HIVK:
+loc_JTQK_00ab:
     call dos_read_file_5             ; 0x00ab
     retf                             ; 0x00ae
-loc_LQPV:
-    call dos_file_loc_QVOO           ; 0x00af
+loc_JTQK_00af:
+    call dos_file_loc_JRGK           ; 0x00af
     retf                             ; 0x00b2
-loc_QMTI:
+loc_JTQK_00b3:
     call dos_read_file_6             ; 0x00b3
     retf                             ; 0x00b6
-loc_NUUT:
-    call loc_QHNO                    ; 0x00b7
+loc_JTQK_00b7:
+    call loc_ISSO                    ; 0x00b7
     retf                             ; 0x00ba
-loc_JRSQ:
-    call loc_PUSH                    ; 0x00bb
+loc_JTQK_00bb:
+    call loc_SRSO                    ; 0x00bb
     retf                             ; 0x00be
-loc_SSOU:
-    call loc_SPHL                    ; 0x00bf
+loc_JTQK_00bf:
+    call loc_LSLP                    ; 0x00bf
     retf                             ; 0x00c2
-loc_HTLS:
-    call loc_PKHP                    ; 0x00c3
+loc_JTQK_00c3:
+    call loc_HOSM                    ; 0x00c3
     retf                             ; 0x00c6
-loc_PIQL:
+loc_JTQK_00c7:
     call dos_read_file_7             ; 0x00c7
     retf                             ; 0x00ca
-loc_URRV:
-    call loc_POPH                    ; 0x00cb
+loc_JTQK_00cb:
+    call loc_RKRU                    ; 0x00cb
     retf                             ; 0x00ce
-loc_HSRK:
-    call loc_LQIK                    ; 0x00cf
+loc_JTQK_00cf:
+    call loc_VHQQ                    ; 0x00cf
     retf                             ; 0x00d2
-loc_LGUM:
-    call loc_KIPO                    ; 0x00d3
+loc_JTQK_00d3:
+    call loc_PORS_4866               ; 0x00d3
     retf                             ; 0x00d6
-loc_HMMH:
-    call loc_TOOG                    ; 0x00d7
+loc_JTQK_00d7:
+    call loc_PORS_487e               ; 0x00d7
     retf                             ; 0x00da
-loc_NHNT:
-    call loc_QHII                    ; 0x00db
+loc_JULP:
+    call loc_MMLT                    ; 0x00db
     retf                             ; 0x00de
     db 0x80, 0x41
 cseg_00e1:
@@ -275,47 +261,52 @@ cseg_028f:
     db 0x00, 0x00
 cseg_0291:
     db 0x00, 0x00
-%include "shared/graphics_loc_VIRI.asm"       ; 0x0293
+%include "shared/graphics_loc_IOKK.asm"       ; 0x0293
 
-%include "shared/leaf_loc_VQIT.asm"           ; 0x0439
+%include "shared/leaf_loc_ILKH.asm"           ; 0x0439
 
-%include "vga/leaf_loc_GLGG.asm"           ; 0x0447
+%include "vga/leaf_loc_LMRM.asm"           ; 0x0447
 
-%include "shared/leaf_loc_NONR.asm"           ; 0x045c
+%include "vga/asm_only/leaf_loc_UNNV.asm"           ; 0x045c
 
-%include "vga/asm_only/leaf_loc_UIHG.asm"           ; 0x0477
+%include "vga/asm_only/leaf_loc_OITH.asm"           ; 0x0477
 
-%include "vga/asm_only/leaf_loc_LUNP.asm"           ; 0x0496
+%include "vga/asm_only/leaf_loc_TKRV.asm"           ; 0x0496
 
-%include "vga/asm_only/loc_NITI.asm"                ; 0x04b5
+%include "vga/asm_only/loc_QVUN.asm"                ; 0x04b5
 
 cseg_0515:
     db 0x00
-%include "vga/asm_only/graphics_loc_RJST.asm"       ; 0x0516
+%include "vga/asm_only/graphics_loc_LQRJ.asm"       ; 0x0516
 
-%include "vga/asm_only/leaf_loc_QKGQ.asm"           ; 0x067f
+%include "vga/asm_only/leaf_loc_PRNU.asm"           ; 0x067f
 
-%include "shared/leaf_loc_VSTU.asm"           ; 0x06b2
+%include "shared/leaf_loc_QSOP.asm"           ; 0x06b2
 
-%include "shared/leaf_loc_RUJV.asm"           ; 0x06d9
+%include "shared/leaf_loc_GHVP.asm"           ; 0x06d9
 
-%include "vga/asm_only/string_loc_NJGU.asm"         ; 0x0728
+%include "vga/asm_only/string_loc_RQOL.asm"         ; 0x0728
 
 %include "vga/asm_only/dos_alloc_mem.asm"           ; 0x077a
 
-%include "vga/asm_only/dos_con_loc_RGLV.asm"        ; 0x07fd
+%include "vga/asm_only/dos_con_loc_PJHN.asm"        ; 0x07fd
 
 %include "vga/asm_only/dos_free_mem.asm"            ; 0x0836
 
-%include "vga/asm_only/dos_con_loc_VHTS.asm"        ; 0x088f
+%include "vga/asm_only/dos_con_loc_SUSK.asm"        ; 0x088f
 
+data_0251 equ __zdata_0251 - IMAGE_BASE
+data_02d7 equ __zdata_02d7 - IMAGE_BASE
+data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/asm_only/dos_read_file.asm"           ; 0x08d2
 
+; data_0251 equ __zdata_0251 - IMAGE_BASE
+; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/asm_only/dos_write_file.asm"          ; 0x099c
 
-%include "vga/asm_only/dos_con_loc_TGKV.asm"        ; 0x0a4f
+%include "vga/asm_only/dos_con_loc_VOMM.asm"        ; 0x0a4f
 
-%include "vga/asm_only/dos_con_loc_RHKN.asm"        ; 0x0a8d
+%include "vga/asm_only/dos_con_loc_HUUH.asm"        ; 0x0a8d
 
 __zdata_0bc6:
 cseg_0ac6:
@@ -330,33 +321,49 @@ cseg_0baa:
     db 0x00, 0x00
 cseg_0bac:
     db 0x00, 0x00
+data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
+; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/asm_only/dos_read_file_2.asm"         ; 0x0bae
 
-%include "vga/leaf_loc_KGRV.asm"           ; 0x0e34
+data_029b equ __zdata_029b - IMAGE_BASE
+; data_02d7 equ __zdata_02d7 - IMAGE_BASE
+%include "vga/leaf_loc_OVON.asm"           ; 0x0e34
 
-%include "vga/asm_only/loc_UJGV.asm"                ; 0x0e71
+loc_KLNH.cseg1     equ cseg_0e6d
+loc_KLNH.cseg2     equ cseg_0e6f
+loc_KLNH.leaf_loc1 equ leaf_loc_TRIO
+%include "shared/loc_KLNH.asm"                ; 0x0e71
 
-%include "vga/asm_only/leaf_loc_NKPG.asm"           ; 0x0f3b
+%include "vga/asm_only/leaf_loc_TRIO.asm"           ; 0x0f3b
 
-%include "vga/asm_only/loc_HQMI.asm"                ; 0x0f6f
+; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
+%include "vga/asm_only/loc_NRVQ.asm"                ; 0x0f6f
 
+; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
+; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/asm_only/dos_print_str.asm"           ; 0x0fb7
 
 %include "vga/asm_only/mouse_init.asm"              ; 0x11f8
 
 %include "vga/asm_only/mouse_init_2.asm"            ; 0x126c
 
-%include "vga/asm_only/bios_mouse_loc_TKVN.asm"     ; 0x12c9
+bios_mouse_loc_USQU.cseg1 equ cseg_14ac
+bios_mouse_loc_USQU.cseg2 equ cseg_14ae
+%include "shared/bios_mouse_loc_USQU.asm"     ; 0x12c9
 
-%include "shared/leaf_loc_NMVG.asm"           ; 0x1308
+%include "shared/leaf_loc_LMQV.asm"           ; 0x1308
 
-%include "vga/asm_only/bios_mouse_loc_NSSJ.asm"     ; 0x1317
+bios_mouse_loc_TVOK.cseg1 equ cseg_1dcd
+bios_mouse_loc_TVOK.cseg2 equ cseg_1dcf
+bios_mouse_loc_TVOK.cseg3 equ cseg_1dd1
+%include "shared/bios_mouse_loc_TVOK.asm"     ; 0x1317
 
-%include "shared/bios_mouse_loc_NUQU.asm"     ; 0x139a
+%include "shared/bios_mouse_loc_RKQL.asm"     ; 0x139a
 
+data_1e5c equ __zdata_1e5c - IMAGE_BASE
 %include "vga/asm_only/dos_print_str_2.asm"         ; 0x13c9
 
-%include "vga/asm_only/dos_con_loc_NUJP.asm"        ; 0x147d
+%include "vga/asm_only/dos_con_loc_TUKI.asm"        ; 0x147d
 
 cseg_14ac:
     db 0x00, 0x00
@@ -430,24 +437,33 @@ cseg_1dd3:
     db 0x08, 0x2e, 0x3b, 0x16, 0xae, 0x15, 0x75, 0x01, 0xcb, 0xd1, 0xe1, 0x2e, 0xa0, 0x27, 0x02, 0x2e
     db 0x0a, 0x06, 0x26, 0x02, 0x74, 0x01, 0xcb
 
-%include "vga/asm_only/leaf_loc_MKQV.asm"           ; 0x1e1a
+leaf_loc_JHTT.cseg1 equ cseg_1dd3
+leaf_loc_JHTT.cseg2 equ cseg_14b0
+leaf_loc_JHTT.cseg3 equ cseg_14b2
+%include "shared/leaf_loc_JHTT.asm"           ; 0x1e1a
 
-%include "vga/asm_only/graphics_loc_HJIV.asm"       ; 0x1e35
+data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
+data_1e4c equ __zdata_1e4c - IMAGE_BASE
+%include "vga/asm_only/graphics_loc_HKVN.asm"       ; 0x1e35
 
-%include "vga/leaf_loc_SRJS.asm"           ; 0x217d
+leaf_loc_UQHV.cseg1 equ cseg_1dcd
+%include "shared/leaf_loc_UQHV.asm"           ; 0x217d
 
-%include "vga/asm_only/loc_HKIK.asm"                ; 0x2185
+data_0229 equ __zdata_0229 - IMAGE_BASE
+%include "vga/asm_only/loc_QNIQ.asm"                ; 0x2185
 
+; data_0229 equ __zdata_0229 - IMAGE_BASE
+; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/asm_only/dos_read_file_3.asm"         ; 0x21cd
 
-%include "vga/asm_only/dos_con_loc_UUHT.asm"        ; 0x22be
+%include "vga/asm_only/dos_con_loc_QRKT.asm"        ; 0x22be
 
 cseg_22de:
     db 0x30
 cseg_22df:
     db '0 not freed.', 0
     db 0x0a, 0x24
-%include "vga/asm_only/dos_con_loc_LHPI.asm"        ; 0x22ee
+%include "vga/asm_only/dos_con_loc_KORI.asm"        ; 0x22ee
 
 cseg_2327:
 
@@ -485,35 +501,39 @@ cseg_2327:
     db 0x56, 0xb5, 0xb2, 0xff, 0xe3, 0xd7, 0x11, 0xff, 0x55, 0xff, 0xb1, 0xb0, 0xff, 0x52, 0x50, 0x10
     db 0x00
 
-%include "vga/asm_only/loc_JSPO.asm"                ; 0x2528
+%include "vga/asm_only/loc_JTQT.asm"                ; 0x2528
 
-%include "vga/asm_only/bios_video_loc_NHNV.asm"     ; 0x277f
+%include "vga/asm_only/bios_video_loc_KVON.asm"     ; 0x277f
 
-%include "vga/asm_only/bios_video_loc_PUJP.asm"     ; 0x27d0
+%include "vga/asm_only/bios_video_loc_TVOT.asm"     ; 0x27d0
 
 %include "vga/asm_only/dos_free_mem_2.asm"          ; 0x2802
 
-%include "vga/asm_only/bios_video_loc_VJVR.asm"     ; 0x28ba
+%include "vga/asm_only/bios_video_loc_GGUP.asm"     ; 0x28ba
 
 %include "vga/asm_only/dos_free_mem_3.asm"          ; 0x28f0
 
-%include "vga/asm_only/dos_mem_loc_KKIK.asm"        ; 0x29bf
+%include "vga/asm_only/dos_mem_loc_QGNT.asm"        ; 0x29bf
 
 %include "vga/asm_only/dos_free_mem_4.asm"          ; 0x29f6
 
-%include "vga/asm_only/dos_con_loc_NOVS.asm"        ; 0x2a97
+%include "vga/asm_only/dos_con_loc_HJPN.asm"        ; 0x2a97
 
-%include "vga/asm_only/leaf_loc_ITSQ.asm"           ; 0x2acf
+%include "vga/asm_only/leaf_loc_PIJK.asm"           ; 0x2acf
 
-%include "vga/asm_only/dos_mem_loc_MOUN.asm"        ; 0x2b01
+dos_mem_loc_NGNH.cseg1 equ cseg_0bac
+%include "shared/dos_mem_loc_NGNH.asm"        ; 0x2b01
 
-%include "vga/asm_only/bios_mouse_loc_IISN.asm"     ; 0x2b6c
+%include "shared/bios_mouse_loc_PRLT.asm"     ; 0x2b6c
 
-%include "vga/asm_only/bios_mouse_loc_PHIN.asm"     ; 0x2c0e
+bios_mouse_loc_JLUV.cseg1 equ cseg_14ac
+bios_mouse_loc_JLUV.cseg2 equ cseg_14ae
+%include "shared/bios_mouse_loc_JLUV.asm"     ; 0x2c0e
 
-%include "vga/asm_only/loc_RKQK.asm"                ; 0x2cbe
+; data_0251 equ __zdata_0251 - IMAGE_BASE
+%include "vga/asm_only/loc_ROPT.asm"                ; 0x2cbe
 
-%include "shared/leaf_loc_JKPU.asm"           ; 0x2d08
+%include "shared/leaf_loc_IPJP.asm"           ; 0x2d08
 
 __zdata_2e2b:
 cseg_2d2b:
@@ -525,86 +545,111 @@ cseg_2d53:
 
     times 25 db 0
 
-%include "vga/asm_only/graphics_loc_RHSL.asm"       ; 0x2d6c
+; data_0229 equ __zdata_0229 - IMAGE_BASE
+; data_0bda equ __zdata_0bda - IMAGE_BASE
+%include "vga/asm_only/graphics_loc_OLQQ.asm"       ; 0x2d6c
 
-%include "vga/asm_only/dos_con_loc_IJTI.asm"        ; 0x3131
+%include "vga/asm_only/dos_con_loc_VJMI.asm"        ; 0x3131
 
-%include "shared/leaf_loc_GSNR.asm"           ; 0x319f
+%include "shared/leaf_loc_NOSG.asm"           ; 0x319f
 
-%include "vga/asm_only/graphics_loc_OGUJ.asm"       ; 0x31d9
+data_381b equ __zdata_381b - IMAGE_BASE
+%include "vga/asm_only/graphics_loc_PVIU.asm"       ; 0x31d9
 
-%include "shared/leaf_loc_PPVV.asm"           ; 0x3340
+%include "shared/leaf_loc_MTKK.asm"           ; 0x3340
 
-%include "vga/asm_only/leaf_loc_HLOL.asm"           ; 0x3360
+; data_381b equ __zdata_381b - IMAGE_BASE
+%include "vga/asm_only/leaf_loc_GLTQ.asm"           ; 0x3360
 
-%include "shared/dos_con_loc_RIVS.asm"        ; 0x3822
+%include "shared/dos_con_loc_KIIN.asm"        ; 0x3822
 
+data_025b equ __zdata_025b - IMAGE_BASE
+; data_029b equ __zdata_029b - IMAGE_BASE
+; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/asm_only/dos_write_file_2.asm"        ; 0x385f
 
-%include "vga/asm_only/dos_con_loc_SKJM.asm"        ; 0x3ab7
+%include "vga/asm_only/dos_con_loc_GKQH.asm"        ; 0x3ab7
 
-%include "vga/asm_only/dos_con_loc_NGOQ.asm"        ; 0x3aee
+%include "vga/asm_only/dos_con_loc_QORG.asm"        ; 0x3aee
 
-%include "vga/asm_only/dos_con_loc_PVVP.asm"        ; 0x3b1f
+%include "vga/asm_only/dos_con_loc_RSSU.asm"        ; 0x3b1f
 
-%include "vga/asm_only/dos_con_loc_USIL.asm"        ; 0x3b5c
+%include "vga/asm_only/dos_con_loc_UHSU.asm"        ; 0x3b5c
 
 cseg_3b8e:
     db 0x00, 0x00
-%include "shared/leaf_loc_NIKG.asm"           ; 0x3b90
+%include "shared/leaf_loc_HLGJ.asm"           ; 0x3b90
 
+; data_025b equ __zdata_025b - IMAGE_BASE
+; data_029b equ __zdata_029b - IMAGE_BASE
+; data_0bda equ __zdata_0bda - IMAGE_BASE
 %include "vga/asm_only/dos_read_file_4.asm"         ; 0x3ba5
 
-%include "vga/asm_only/dos_file_loc_IIUJ.asm"       ; 0x3d0b
+%include "vga/asm_only/dos_file_loc_MUHV.asm"       ; 0x3d0b
 
-%include "vga/asm_only/dos_con_loc_KSIP.asm"        ; 0x3d39
+%include "vga/asm_only/dos_con_loc_KVVK.asm"        ; 0x3d39
 
 %include "vga/asm_only/dos_read_file_5.asm"         ; 0x3d72
 
-%include "shared/dos_con_loc_KMVS.asm"        ; 0x3f45
+%include "shared/dos_con_loc_URMP.asm"        ; 0x3f45
 
-%include "vga/asm_only/dos_file_loc_QVOO.asm"       ; 0x3f73
+; data_02d7 equ __zdata_02d7 - IMAGE_BASE
+%include "vga/asm_only/dos_file_loc_JRGK.asm"       ; 0x3f73
 
-%include "vga/asm_only/dos_con_loc_TLRV.asm"        ; 0x4088
+%include "vga/asm_only/dos_con_loc_GQSQ.asm"        ; 0x4088
 
-%include "shared/dos_con_loc_TUTH.asm"        ; 0x40d2
+%include "shared/dos_con_loc_MQTN.asm"        ; 0x40d2
 
 __zdata_4202:
 cseg_4102:
 
     times 84 db 0
 
+; data_0bda equ __zdata_0bda - IMAGE_BASE
+data_4202 equ __zdata_4202 - IMAGE_BASE
 %include "vga/asm_only/dos_read_file_6.asm"         ; 0x4156
 
-%include "vga/asm_only/dos_con_loc_SSKH.asm"        ; 0x422f
+%include "vga/asm_only/dos_con_loc_VTSU.asm"        ; 0x422f
 
-%include "vga/asm_only/dos_con_loc_PTOV.asm"        ; 0x426b
+dos_con_loc_MION.cseg1 equ cseg_0bac
+%include "shared/dos_con_loc_MION.asm"        ; 0x426b
 
-%include "vga/asm_only/string_loc_LUMH.asm"         ; 0x4300
+string_loc_RQON.dos_file_loc1 equ dos_file_loc_VKSU
+%include "shared/string_loc_RQON.asm"         ; 0x4300
 
-%include "vga/asm_only/dos_file_loc_JKRG.asm"       ; 0x4319
+%include "vga/asm_only/dos_file_loc_VKSU.asm"       ; 0x4319
 
-%include "vga/asm_only/loc_QHNO.asm"                ; 0x439a
+; data_4202 equ __zdata_4202 - IMAGE_BASE
+%include "vga/asm_only/loc_ISSO.asm"                ; 0x439a
 
-%include "vga/leaf_loc_MGRT.asm"           ; 0x43f7
+; data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
+%include "vga/leaf_loc_PTSI.asm"           ; 0x43f7
 
-%include "vga/leaf_loc_IKRU.asm"           ; 0x440c
+; data_0229 equ __zdata_0229 - IMAGE_BASE
+%include "vga/leaf_loc_IHJG.asm"           ; 0x440c
 
-%include "vga/leaf_loc_OUNM.asm"           ; 0x4421
+; data_025b equ __zdata_025b - IMAGE_BASE
+%include "vga/leaf_loc_MGRH.asm"           ; 0x4421
 
-%include "vga/leaf_loc_UGTM.asm"           ; 0x4436
+; data_0251 equ __zdata_0251 - IMAGE_BASE
+%include "vga/leaf_loc_USQQ.asm"           ; 0x4436
 
-%include "vga/leaf_loc_MQGG.asm"           ; 0x444b
+; data_4202 equ __zdata_4202 - IMAGE_BASE
+%include "vga/leaf_loc_VRNL.asm"           ; 0x444b
 
-%include "vga/asm_only/dos_con_loc_GIQJ.asm"        ; 0x4461
+data_46d9 equ __zdata_46d9 - IMAGE_BASE
+%include "vga/asm_only/dos_con_loc_GOSI.asm"        ; 0x4461
 
-%include "vga/asm_only/leaf_loc_IPQV.asm"           ; 0x44a3
+; data_0bda equ __zdata_0bda - IMAGE_BASE
+%include "vga/asm_only/leaf_loc_KQVI.asm"           ; 0x44a3
 
-%include "vga/asm_only/loc_PUSH.asm"                ; 0x4527
+; data_0bda equ __zdata_0bda - IMAGE_BASE
+; data_4202 equ __zdata_4202 - IMAGE_BASE
+%include "vga/asm_only/loc_SRSO.asm"                ; 0x4527
 
-%include "shared/loc_SPHL.asm"                ; 0x4596
+%include "shared/loc_LSLP.asm"                ; 0x4596
 
-%include "shared/loc_PKHP.asm"                ; 0x45b2
+%include "shared/loc_HOSM.asm"                ; 0x45b2
 
 __zdata_46d9:
 cseg_45d9:
@@ -613,20 +658,27 @@ cseg_45d9:
 
 __zdata_46f1:
     times 10 db 0
+; data_0bda equ __zdata_0bda - IMAGE_BASE
+; data_46d9 equ __zdata_46d9 - IMAGE_BASE
+data_46f1 equ __zdata_46f1 - IMAGE_BASE
 %include "vga/asm_only/dos_read_file_7.asm"         ; 0x45fb
 
-%include "vga/asm_only/dos_con_loc_SLMO.asm"        ; 0x4719
+%include "vga/asm_only/dos_con_loc_HNTO.asm"        ; 0x4719
 
-%include "vga/asm_only/dos_con_loc_MLHI.asm"        ; 0x4755
+%include "vga/asm_only/dos_con_loc_PJJM.asm"        ; 0x4755
 
-%include "vga/asm_only/loc_POPH.asm"                ; 0x478a
+; data_0bda equ __zdata_0bda - IMAGE_BASE
+; data_46d9 equ __zdata_46d9 - IMAGE_BASE
+; data_46f1 equ __zdata_46f1 - IMAGE_BASE
+%include "vga/asm_only/loc_RKRU.asm"                ; 0x478a
 
-%include "vga/asm_only/loc_LQIK.asm"                ; 0x481f
+; data_46d9 equ __zdata_46d9 - IMAGE_BASE
+%include "vga/asm_only/loc_VHQQ.asm"                ; 0x481f
 
-%include "shared/loc_KIPO.asm"                ; 0x4866
+%include "vga/asm_only/loc_PORS_4866.asm"           ; 0x4866
 
-%include "shared/loc_TOOG.asm"                ; 0x487e
+%include "vga/asm_only/loc_PORS_487e.asm"           ; 0x487e
 
-%include "shared/loc_QHII.asm"                ; 0x4896
+%include "shared/loc_MMLT.asm"                ; 0x4896
 
     db 0x00

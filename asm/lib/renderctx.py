@@ -16,6 +16,10 @@ resplice step.
 import os
 
 from lib.cachedirs import render_dir
+from lib.symtab import from_record, to_record
+
+#: Names are stored as symbol records (:func:`lib.symtab.to_record`).
+SCHEMA_VERSION = 2
 
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _PROJECT_ROOT = os.path.dirname(_ASM_DIR)
@@ -32,50 +36,57 @@ def context_path(project, binary):
 
 
 def _encode_addr_map(mapping):
-    return {str(addr): name for addr, name in (mapping or {}).items()}
+    return {str(addr): to_record(name) for addr, name in (mapping or {}).items()}
+
+
+def _decode_addr_map(raw):
+    return {int(addr): from_record(name) for addr, name in raw.items()}
 
 
 def encode(context):
     """Return a JSON-serializable form of *context*.
 
-    Dictionary keys must be strings, so address-keyed maps are stringified and
-    the operand-keyed ``mem_symbols`` becomes ``"<addr>,<index>"``.
+    Dictionary keys must be strings, so address-keyed maps are stringified, the
+    operand-keyed ``mem_symbols`` becomes ``"<addr>,<index>"`` and the
+    name-keyed ``mem_equ`` a list of ``[name, value]`` pairs.
     """
     return {
-        'schema_version': 1,
+        'schema_version': SCHEMA_VERSION,
         'local_labels': _encode_addr_map(context.get('local_labels')),
         'data_labels': _encode_addr_map(context.get('data_labels')),
-        'mem_symbols': {f'{addr},{idx}': name
+        'mem_symbols': {f'{addr},{idx}': to_record(name)
                         for (addr, idx), name
                         in (context.get('mem_symbols') or {}).items()},
-        'mem_equ': dict(context.get('mem_equ') or {}),
+        'mem_equ': [[to_record(name), value]
+                    for name, value in (context.get('mem_equ') or {}).items()],
         'foreign_label_map': _encode_addr_map(context.get('foreign_label_map')),
         'immediate_labels': _encode_addr_map(context.get('immediate_labels')),
         'exact_bytes': bool(context.get('exact_bytes', False)),
         'geometry': dict(context.get('geometry') or {}),
-        'label_records': [[offset, text]
-                          for offset, text in context.get('label_records', ())],
+        'label_records': [[offset, to_record(name), text]
+                          for offset, name, text
+                          in context.get('label_records', ())],
     }
 
 
 def decode(raw):
-    """Inverse of :func:`encode`; every map is keyed by ``int`` again."""
+    """Inverse of :func:`encode`, or ``None`` for an older schema."""
+    if raw.get('schema_version') != SCHEMA_VERSION:
+        return None
     foreign = raw.get('foreign_label_map')
     immediate = raw.get('immediate_labels')
     return {
-        'local_labels': {int(k): v
-                         for k, v in raw.get('local_labels', {}).items()},
-        'data_labels': {int(k): v
-                        for k, v in raw.get('data_labels', {}).items()},
-        'mem_symbols': {tuple(int(part) for part in k.split(',')): v
+        'local_labels': _decode_addr_map(raw.get('local_labels', {})),
+        'data_labels': _decode_addr_map(raw.get('data_labels', {})),
+        'mem_symbols': {tuple(int(part) for part in k.split(',')): from_record(v)
                         for k, v in raw.get('mem_symbols', {}).items()},
-        'mem_equ': raw.get('mem_equ', {}),
-        'foreign_label_map': ({int(k): v for k, v in foreign.items()}
-                              if foreign else None),
-        'immediate_labels': ({int(k): v for k, v in immediate.items()}
-                             if immediate else None),
+        'mem_equ': {from_record(name): value
+                    for name, value in raw.get('mem_equ', ())},
+        'foreign_label_map': _decode_addr_map(foreign) if foreign else None,
+        'immediate_labels': _decode_addr_map(immediate) if immediate else None,
         'exact_bytes': bool(raw.get('exact_bytes', False)),
         'geometry': raw.get('geometry', {}),
-        'label_records': [(int(offset), text)
-                          for offset, text in raw.get('label_records', ())],
+        'label_records': [(int(offset), from_record(name), text)
+                          for offset, name, text
+                          in raw.get('label_records', ())],
     }

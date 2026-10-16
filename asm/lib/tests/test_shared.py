@@ -78,6 +78,43 @@ class KeepAddressesTest(unittest.TestCase):
             self.assertIn('; 0x0100', _read(root, 'shared/f.asm'))
 
 
+class CommonNameTest(unittest.TestCase):
+    def _tree(self, root, a_ops, b_ops):
+        for b, ops in (('a', a_ops), ('b', b_ops)):
+            body = 'f:\n' + ''.join(f'{op}\n' for op in ops) + '    ret\n'
+            _put(root, f'{b}/f.asm', body)
+            _put(root, f'{b}.asm', f'%include "{b}/f.asm"\n')
+
+    def test_numbers_or_registers_do_not_get_common_names(self):
+        for a, b in (('    mov ax, 1', '    mov ax, 2'),
+                     ('    push ax', '    push bx')):
+            with tempfile.TemporaryDirectory() as root:
+                self._tree(root, [a], [b])
+                self.assertEqual(shared.share_identical(root), {})
+
+    def test_copies_must_agree_on_which_names_repeat(self):
+        for a, b in ((['bss_1', 'bss_1'], ['bss_2', 'bss_3']),
+                     (['bss_2', 'bss_3'], ['bss_1', 'bss_1'])):
+            with tempfile.TemporaryDirectory() as root:
+                self._tree(root, [f'    mov ax, [{a[0]}]', f'    mov bx, [{a[1]}]'],
+                           [f'    mov ax, [{b[0]}]', f'    mov bx, [{b[1]}]'])
+                self.assertEqual(shared.share_identical(root), {})
+
+
+class PlaceEqusTest(unittest.TestCase):
+    def test_header_equs_move_to_the_includes_that_use_them(self):
+        with tempfile.TemporaryDirectory() as root:
+            _put(root, 'a/f.asm', 'f:\n    mov ax, [bss_1]\n    mov bx, [bss_2]\n')
+            _put(root, 'a/g.asm', 'g:\n    mov ax, [bss_2]\n')
+            _put(root, 'a.asm', 'bss_1 equ 0x10\nbss_2 equ 0x20\nbss_3 equ 0x30\n'
+                 '\n%include "a/f.asm"\n\n%include "a/g.asm"\n')
+            shared.share_identical(root)
+            self.assertEqual(_read(root, 'a.asm').split('\n')[1:], [
+                'bss_3 equ 0x30', '',
+                'bss_1 equ 0x10', 'bss_2 equ 0x20', '%include "a/f.asm"', '',
+                '; bss_2 equ 0x20', '%include "a/g.asm"', ''])
+
+
 class SharedCTest(unittest.TestCase):
     def _tree(self, root, c_b='int f;\n'):
         for b, c in (('a', 'int f;\n'), ('b', c_b)):

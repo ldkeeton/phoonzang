@@ -34,21 +34,15 @@ IMAGE_BASE equ 0x0200 + VBASE
     db 0x3b, 0x4b
     times 478 db 0
 
-bios_data_0410 equ 0x0410
 ds_leaf_loc_10108 equ 0x10108 + VBASE
-dseg_0002 equ __zdseg_0002 - __zdseg_start
-psp_top_of_memory equ 0x0002
-dseg_000a equ __zdseg_000a - __zdseg_start
 dseg_001e equ __zdseg_001e - __zdseg_start
 dseg_0022 equ __zdseg_0022 - __zdseg_start
 dseg_0024 equ __zdseg_0024 - __zdseg_start
-psp_env_segment equ 0x002c
 dseg_0038 equ __zdseg_0038 - __zdseg_start
 dseg_003c equ __zdseg_003c - __zdseg_start
 dseg_0040 equ __zdseg_0040 - __zdseg_start
 dseg_0042 equ __zdseg_0042 - __zdseg_start
 dseg_0044 equ __zdseg_0044 - __zdseg_start
-psp_cmd_tail_len equ 0x0080
 dseg_010c equ __zdseg_010c - __zdseg_start
 dseg_010e equ __zdseg_010e - __zdseg_start
 dseg_0110 equ __zdseg_0110 - __zdseg_start
@@ -57,129 +51,39 @@ dseg_0114 equ __zdseg_0114 - __zdseg_start
 dseg_0116 equ __zdseg_0116 - __zdseg_start
 dseg_03ae equ __zdseg_03ae - __zdseg_start
 dseg_03dc equ __zdseg_03dc - __zdseg_start
-dseg_0c6c equ __zdseg_0c6c - __zdseg_start
-dseg_0c70 equ __zdseg_0c70 - __zdseg_start
-dseg_0c72 equ __zdseg_0c72 - __zdseg_start
-dseg_0c74 equ __zdseg_0c74 - __zdseg_start
-dseg_0c76 equ __zdseg_0c76 - __zdseg_start
-dseg_0c78 equ __zdseg_0c78 - __zdseg_start
-dseg_0c7a equ __zdseg_0c7a - __zdseg_start
-dseg_0c7c equ __zdseg_0c7c - __zdseg_start
-dseg_0c7e equ __zdseg_0c7e - __zdseg_start
-dseg_0c80 equ __zdseg_0c80 - __zdseg_start
-dseg_0c9c equ __zdseg_0c9c - __zdseg_start
-dseg_0cd4 equ __zdseg_0cd4 - __zdseg_start
-dseg_0cd6 equ __zdseg_0cd6 - __zdseg_start
-dseg_0cd8 equ __zdseg_0cd8 - __zdseg_start
-dseg_0cda equ __zdseg_0cda - __zdseg_start
-dseg_0cdc equ __zdseg_0cdc - __zdseg_start
 dseg_0cdd equ __zdseg_0cdd - __zdseg_start
 dseg_0cde equ __zdseg_0cde - __zdseg_start
-dseg_0cf0 equ __zdseg_0cf0 - __zdseg_start
-dseg_0cf2 equ __zdseg_0cf2 - __zdseg_start
-dseg_0cf4 equ __zdseg_0cf4 - __zdseg_start
-bss_0cf6 equ (__zimage_end - __zdseg_start)
-bss_0cf8 equ (__zimage_end - __zdseg_start) + 0x0002
-bss_0cfa equ (__zimage_end - __zdseg_start) + 0x0004
-bss_0cfc equ (__zimage_end - __zdseg_start) + 0x0006
-bss_0cfe equ (__zimage_end - __zdseg_start) + 0x0008
-bss_0d00 equ (__zimage_end - __zdseg_start) + 0x000a
-bss_0d02 equ (__zimage_end - __zdseg_start) + 0x000c
-bss_0d04 equ (__zimage_end - __zdseg_start) + 0x000e
-bss_0d06 equ (__zimage_end - __zdseg_start) + 0x0010
-bss_0e0c equ (__zimage_end - __zdseg_start) + 0x0116
-bss_0e0e equ (__zimage_end - __zdseg_start) + 0x0118
-bss_0e10 equ (__zimage_end - __zdseg_start) + 0x011a
-bss_0e12 equ (__zimage_end - __zdseg_start) + 0x011c
-bss_0e14 equ (__zimage_end - __zdseg_start) + 0x011e
-bss_0e16 equ (__zimage_end - __zdseg_start) + 0x0120
-bss_0e18 equ (__zimage_end - __zdseg_start) + 0x0122
-bss_0e1a equ (__zimage_end - __zdseg_start) + 0x0124
-bss_0e1c equ (__zimage_end - __zdseg_start) + 0x0126
-bss_0e1e equ (__zimage_end - __zdseg_start) + 0x0128
-bss_0e20 equ (__zimage_end - __zdseg_start) + 0x012a
-bss_0e22 equ (__zimage_end - __zdseg_start) + 0x012c
-bss_0e24 equ (__zimage_end - __zdseg_start) + 0x012e
-bss_0e26 equ (__zimage_end - __zdseg_start) + 0x0130
-bss_0e28 equ (__zimage_end - __zdseg_start) + 0x0132
-bss_0e2a equ (__zimage_end - __zdseg_start) + 0x0134
-bss_0e2c equ (__zimage_end - __zdseg_start) + 0x0136
-bss_0e2e equ (__zimage_end - __zdseg_start) + 0x0138
-bss_0e30 equ (__zimage_end - __zdseg_start) + 0x013a
-bss_0e32 equ (__zimage_end - __zdseg_start) + 0x013c
-bss_0e34 equ (__zimage_end - __zdseg_start) + 0x013e
 bss_0e36 equ (__zimage_end - __zdseg_start) + 0x0140
 bss_0e38 equ (__zimage_end - __zdseg_start) + 0x0142
-bss_0fd5 equ (__zimage_end - __zdseg_start) + 0x02df
-bss_0fd6 equ (__zimage_end - __zdseg_start) + 0x02e0
-bss_1008 equ (__zimage_end - __zdseg_start) + 0x0312
-bss_100a equ (__zimage_end - __zdseg_start) + 0x0314
-bss_100c equ (__zimage_end - __zdseg_start) + 0x0316
-bss_2d40 equ (__zimage_end - __zdseg_start) + 0x204a
-bss_2d58 equ (__zimage_end - __zdseg_start) + 0x2062
 bss_3ed1 equ (__zimage_end - __zdseg_start) + 0x31db
-bss_5212 equ (__zimage_end - __zdseg_start) + 0x451c
-bss_5214 equ (__zimage_end - __zdseg_start) + 0x451e
-bss_5216 equ (__zimage_end - __zdseg_start) + 0x4520
-bss_5218 equ (__zimage_end - __zdseg_start) + 0x4522
 bss_5528 equ (__zimage_end - __zdseg_start) + 0x4832
 bss_552a equ (__zimage_end - __zdseg_start) + 0x4834
 bss_5642 equ (__zimage_end - __zdseg_start) + 0x494c
 bss_56d1 equ (__zimage_end - __zdseg_start) + 0x49db
 bss_590e equ (__zimage_end - __zdseg_start) + 0x4c18
 bss_5910 equ (__zimage_end - __zdseg_start) + 0x4c1a
-bss_5962 equ (__zimage_end - __zdseg_start) + 0x4c6c
-bss_5963 equ (__zimage_end - __zdseg_start) + 0x4c6d
-bss_5964 equ (__zimage_end - __zdseg_start) + 0x4c6e
 bss_5978 equ (__zimage_end - __zdseg_start) + 0x4c82
 bss_5979 equ (__zimage_end - __zdseg_start) + 0x4c83
 bss_597a equ (__zimage_end - __zdseg_start) + 0x4c84
 bss_597c equ (__zimage_end - __zdseg_start) + 0x4c86
 bss_597d equ (__zimage_end - __zdseg_start) + 0x4c87
 bss_597e equ (__zimage_end - __zdseg_start) + 0x4c88
-bss_597f equ (__zimage_end - __zdseg_start) + 0x4c89
 bss_5980 equ (__zimage_end - __zdseg_start) + 0x4c8a
 bss_5982 equ (__zimage_end - __zdseg_start) + 0x4c8c
-bss_5984 equ (__zimage_end - __zdseg_start) + 0x4c8e
-bss_5985 equ (__zimage_end - __zdseg_start) + 0x4c8f
 bss_5986 equ (__zimage_end - __zdseg_start) + 0x4c90
-bss_5987 equ (__zimage_end - __zdseg_start) + 0x4c91
 bss_5988 equ (__zimage_end - __zdseg_start) + 0x4c92
 bss_5989 equ (__zimage_end - __zdseg_start) + 0x4c93
 bss_598a equ (__zimage_end - __zdseg_start) + 0x4c94
 bss_598b equ (__zimage_end - __zdseg_start) + 0x4c95
-bss_598c equ (__zimage_end - __zdseg_start) + 0x4c96
-bss_598e equ (__zimage_end - __zdseg_start) + 0x4c98
-bss_5990 equ (__zimage_end - __zdseg_start) + 0x4c9a
-bss_59f4 equ (__zimage_end - __zdseg_start) + 0x4cfe
-bss_59f6 equ (__zimage_end - __zdseg_start) + 0x4d00
-bss_59f8 equ (__zimage_end - __zdseg_start) + 0x4d02
-bss_59fa equ (__zimage_end - __zdseg_start) + 0x4d04
-bss_59fc equ (__zimage_end - __zdseg_start) + 0x4d06
-bss_5b3e equ (__zimage_end - __zdseg_start) + 0x4e48
-bss_5b40 equ (__zimage_end - __zdseg_start) + 0x4e4a
-bss_5b42 equ (__zimage_end - __zdseg_start) + 0x4e4c
-bss_5b44 equ (__zimage_end - __zdseg_start) + 0x4e4e
-bss_5b46 equ (__zimage_end - __zdseg_start) + 0x4e50
 bss_5b55 equ (__zimage_end - __zdseg_start) + 0x4e5f
-bss_5b6c equ (__zimage_end - __zdseg_start) + 0x4e76
-bss_5b6e equ (__zimage_end - __zdseg_start) + 0x4e78
-bss_5b70 equ (__zimage_end - __zdseg_start) + 0x4e7a
 bss_5c08 equ (__zimage_end - __zdseg_start) + 0x4f12
 bss_5c0a equ (__zimage_end - __zdseg_start) + 0x4f14
 bss_5e2a equ (__zimage_end - __zdseg_start) + 0x5134
-bss_69c8 equ (__zimage_end - __zdseg_start) + 0x5cd2
 bss_7abc equ (__zimage_end - __zdseg_start) + 0x6dc6
 bss_7abe equ (__zimage_end - __zdseg_start) + 0x6dc8
 bss_7b04 equ (__zimage_end - __zdseg_start) + 0x6e0e
 bss_7b05 equ (__zimage_end - __zdseg_start) + 0x6e0f
 bss_7d3c equ (__zimage_end - __zdseg_start) + 0x7046
-bss_82b6 equ (__zimage_end - __zdseg_start) + 0x75c0
-bss_82e8 equ (__zimage_end - __zdseg_start) + 0x75f2
-bss_82ea equ (__zimage_end - __zdseg_start) + 0x75f4
-bss_82ec equ (__zimage_end - __zdseg_start) + 0x75f6
-bss_82ee equ (__zimage_end - __zdseg_start) + 0x75f8
-bss_82f0 equ (__zimage_end - __zdseg_start) + 0x75fa
 bss_82f2 equ (__zimage_end - __zdseg_start) + 0x75fc
 bss_82f4 equ (__zimage_end - __zdseg_start) + 0x75fe
 bss_82f6 equ (__zimage_end - __zdseg_start) + 0x7600
@@ -191,8 +95,6 @@ bss_8300 equ (__zimage_end - __zdseg_start) + 0x760a
 bss_8302 equ (__zimage_end - __zdseg_start) + 0x760c
 bss_8304 equ (__zimage_end - __zdseg_start) + 0x760e
 bss_8306 equ (__zimage_end - __zdseg_start) + 0x7610
-bss_830a equ (__zimage_end - __zdseg_start) + 0x7614
-bss_830c equ (__zimage_end - __zdseg_start) + 0x7616
 bss_831a equ (__zimage_end - __zdseg_start) + 0x7624
 bss_8320 equ (__zimage_end - __zdseg_start) + 0x762a
 bss_843a equ (__zimage_end - __zdseg_start) + 0x7744
@@ -307,7 +209,6 @@ bss_908e equ (__zimage_end - __zdseg_start) + 0x8398
 bss_9090 equ (__zimage_end - __zdseg_start) + 0x839a
 bss_9092 equ (__zimage_end - __zdseg_start) + 0x839c
 bss_9094 equ (__zimage_end - __zdseg_start) + 0x839e
-bss_9096 equ (__zimage_end - __zdseg_start) + 0x83a0
 dseg_90ac equ __zdseg_end + 0x0014
 dseg_90ae equ __zdseg_end + 0x0016
 dseg_90b0 equ __zdseg_end + 0x0018
@@ -729,7 +630,6 @@ bss_b052 equ __zdseg_end + 0x1fba
 bss_b054 equ __zdseg_end + 0x1fbc
 bss_b198 equ (__zimage_end - __zdseg_start) + 0xa4a2
 __zbss_size equ 0x83a2
-__zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/app_malloc.asm"               ; 0x0200
 
@@ -737,174 +637,276 @@ __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
 %include "ds/app_free.asm"                 ; 0x022f
 
-%include "ds/ds_app_file_JHOT.asm"         ; 0x0242
+bss_0e0e equ (__zimage_end - __zdseg_start) + 0x0118
+bss_0e10 equ (__zimage_end - __zdseg_start) + 0x011a
+bss_0e12 equ (__zimage_end - __zdseg_start) + 0x011c
+bss_0e14 equ (__zimage_end - __zdseg_start) + 0x011e
+bss_0e16 equ (__zimage_end - __zdseg_start) + 0x0120
+bss_0e18 equ (__zimage_end - __zdseg_start) + 0x0122
+bss_0e1a equ (__zimage_end - __zdseg_start) + 0x0124
+bss_0e1c equ (__zimage_end - __zdseg_start) + 0x0126
+bss_0e1e equ (__zimage_end - __zdseg_start) + 0x0128
+bss_0e20 equ (__zimage_end - __zdseg_start) + 0x012a
+bss_0e22 equ (__zimage_end - __zdseg_start) + 0x012c
+bss_0e24 equ (__zimage_end - __zdseg_start) + 0x012e
+bss_0e26 equ (__zimage_end - __zdseg_start) + 0x0130
+bss_0e28 equ (__zimage_end - __zdseg_start) + 0x0132
+bss_0e2a equ (__zimage_end - __zdseg_start) + 0x0134
+bss_0e2c equ (__zimage_end - __zdseg_start) + 0x0136
+bss_0e2e equ (__zimage_end - __zdseg_start) + 0x0138
+bss_0e30 equ (__zimage_end - __zdseg_start) + 0x013a
+bss_0e32 equ (__zimage_end - __zdseg_start) + 0x013c
+%include "ds/ds_app_file_RKTP.asm"         ; 0x0242
 
-%include "ds/ds_app_VKGH.asm"              ; 0x03b8
+%include "ds/ds_app_UKIP.asm"              ; 0x03b8
 
-%include "ds/ds_app_HJQG.asm"              ; 0x03cd
+bss_0e34 equ (__zimage_end - __zdseg_start) + 0x013e
+%include "ds/ds_app_OGNR.asm"              ; 0x03cd
 
-%include "ds/ds_app_string_RNVR.asm"       ; 0x03da
+%include "ds/ds_app_string_TVHI.asm"       ; 0x03da
 
-%include "ds/ds_app_ILKN.asm"              ; 0x0422
+%include "ds/ds_app_SVGG.asm"              ; 0x0422
 
-%include "ds/ds_app_OPJO.asm"              ; 0x04c4
+%include "ds/ds_app_OLKR.asm"              ; 0x04c4
 
-%include "ds/ds_app_string_JOKU.asm"       ; 0x04da
+%include "ds/ds_app_string_THKS.asm"       ; 0x04da
 
-%include "ds/ds_app_SHMQ.asm"              ; 0x052e
+%include "ds/ds_app_GUML.asm"              ; 0x052e
 
-%include "ds/ds_app_string_VPKQ.asm"       ; 0x0547
+%include "ds/ds_app_string_HHIL.asm"       ; 0x0547
 
-%include "ds/ds_app_string_QMQM.asm"       ; 0x05d0
+bss_0fd5 equ (__zimage_end - __zdseg_start) + 0x02df
+bss_0fd6 equ (__zimage_end - __zdseg_start) + 0x02e0
+bss_1008 equ (__zimage_end - __zdseg_start) + 0x0312
+bss_100a equ (__zimage_end - __zdseg_start) + 0x0314
+%include "ds/ds_app_string_MPHP.asm"       ; 0x05d0
 
-%include "ds/ds_app_IURL.asm"              ; 0x065d
+bss_100c equ (__zimage_end - __zdseg_start) + 0x0316
+%include "ds/ds_app_MRJK.asm"              ; 0x065d
 
-%include "ds/ds_app_file_PVKT.asm"         ; 0x06c6
+; bss_0e24 equ (__zimage_end - __zdseg_start) + 0x012e
+bss_5212 equ (__zimage_end - __zdseg_start) + 0x451c
+bss_5214 equ (__zimage_end - __zdseg_start) + 0x451e
+%include "ds/ds_app_file_RPKG.asm"         ; 0x06c6
 
-%include "ds/ds_app_mem_VKHV.asm"          ; 0x0782
+; bss_5212 equ (__zimage_end - __zdseg_start) + 0x451c
+bss_5216 equ (__zimage_end - __zdseg_start) + 0x4520
+%include "ds/ds_app_mem_TIMR.asm"          ; 0x0782
 
-%include "ds/ds_app_OVUS.asm"              ; 0x0860
+%include "ds/ds_app_KQMO.asm"              ; 0x0860
 
-%include "ds/ds_app_file_GKHN.asm"         ; 0x0883
+%include "ds/ds_app_file_NKGK.asm"         ; 0x0883
 
-%include "ds/ds_string_loc_HIIH.asm"       ; 0x088e
+%include "ds/ds_string_loc_HNSL.asm"       ; 0x088e
 
-%include "ds/ds_string_loc_HUTN.asm"       ; 0x089c
+%include "ds/ds_string_loc_SKSJ.asm"       ; 0x089c
 
-%include "ds/ds_string_loc_IOQS.asm"       ; 0x08aa
+%include "ds/ds_string_loc_HHJS.asm"       ; 0x08aa
 
-%include "ds/ds_string_loc_RGRL.asm"       ; 0x08b8
+%include "ds/ds_string_loc_NQLQ.asm"       ; 0x08b8
 
-%include "ds/ds_string_loc_PMSL.asm"       ; 0x08c6
+; bss_0e22 equ (__zimage_end - __zdseg_start) + 0x012c
+%include "ds/ds_string_loc_GNPI.asm"       ; 0x08c6
 
-%include "ds/ds_app_MIKI.asm"              ; 0x09a5
+dseg_0002 equ __zdseg_0002 - __zdseg_start
+%include "ds/ds_app_OIGN.asm"              ; 0x09a5
 
-%include "ds/ds_app_GGUI.asm"              ; 0x09f0
+%include "ds/ds_app_PUNN.asm"              ; 0x09f0
 
 %include "ds/clamp.asm"                    ; 0x0a09
 
-%include "ds/ds_app_IPOK.asm"              ; 0x0a27
+bss_5984 equ (__zimage_end - __zdseg_start) + 0x4c8e
+bss_598e equ (__zimage_end - __zdseg_start) + 0x4c98
+%include "ds/ds_app_HKIJ.asm"              ; 0x0a27
 
-%include "ds/ds_app_OVMJ.asm"              ; 0x0ad7
+; bss_0e34 equ (__zimage_end - __zdseg_start) + 0x013e
+bss_5990 equ (__zimage_end - __zdseg_start) + 0x4c9a
+bss_59f4 equ (__zimage_end - __zdseg_start) + 0x4cfe
+bss_59f6 equ (__zimage_end - __zdseg_start) + 0x4d00
+bss_59f8 equ (__zimage_end - __zdseg_start) + 0x4d02
+%include "ds/ds_app_RMGT.asm"              ; 0x0ad7
 
-%include "ds/ds_app_io_UHGM.asm"           ; 0x0af6
+%include "ds/ds_app_io_TSGV.asm"           ; 0x0af6
 
-%include "ds/ds_app_io_MHHL.asm"           ; 0x0b54
+; bss_0e32 equ (__zimage_end - __zdseg_start) + 0x013c
+bss_59fa equ (__zimage_end - __zdseg_start) + 0x4d04
+bss_59fc equ (__zimage_end - __zdseg_start) + 0x4d06
+bss_5b3e equ (__zimage_end - __zdseg_start) + 0x4e48
+%include "ds/ds_app_io_UHMG.asm"           ; 0x0b54
 
-%include "ds/ds_app_string_MGOQ.asm"       ; 0x0c0b
+; bss_0fd6 equ (__zimage_end - __zdseg_start) + 0x02e0
+; bss_5990 equ (__zimage_end - __zdseg_start) + 0x4c9a
+; bss_59f6 equ (__zimage_end - __zdseg_start) + 0x4d00
+bss_5b40 equ (__zimage_end - __zdseg_start) + 0x4e4a
+bss_5b42 equ (__zimage_end - __zdseg_start) + 0x4e4c
+bss_5b44 equ (__zimage_end - __zdseg_start) + 0x4e4e
+bss_5b46 equ (__zimage_end - __zdseg_start) + 0x4e50
+%include "ds/ds_app_string_KVNI.asm"       ; 0x0c0b
 
-%include "ds/ds_app_JRNS.asm"              ; 0x0ced
+%include "ds/ds_app_NGUR.asm"              ; 0x0ced
 
-%include "ds/ds_app_NMTN.asm"              ; 0x0d36
+; bss_5b3e equ (__zimage_end - __zdseg_start) + 0x4e48
+%include "ds/ds_app_TMKJ.asm"              ; 0x0d36
 
-%include "ds/ds_app_io_LUON.asm"           ; 0x0d7a
+; bss_0e2a equ (__zimage_end - __zdseg_start) + 0x0134
+; bss_0e2c equ (__zimage_end - __zdseg_start) + 0x0136
+; bss_0e32 equ (__zimage_end - __zdseg_start) + 0x013c
+bss_598c equ (__zimage_end - __zdseg_start) + 0x4c96
+%include "ds/ds_app_io_VRKV.asm"           ; 0x0d7a
 
-%include "ds/ds_app_JKGV.asm"              ; 0x0e03
+%include "ds/ds_app_GIKM.asm"              ; 0x0e03
 
-%include "ds/ds_app_JHOI.asm"              ; 0x0e82
+%include "ds/ds_app_TTLJ.asm"              ; 0x0e82
 
-%include "ds/ds_app_VMUS.asm"              ; 0x0ee1
+%include "ds/ds_app_KNSQ.asm"              ; 0x0ee1
 
-%include "ds/ds_app_QIHH.asm"              ; 0x0f2a
+%include "ds/ds_app_PQGJ.asm"              ; 0x0f2a
 
-%include "ds/ds_app_URLN.asm"              ; 0x0fdf
+%include "ds/ds_app_OPOL.asm"              ; 0x0fdf
 
-%include "ds/ds_app_string_PKTQ.asm"       ; 0x1034
+%include "ds/ds_app_string_MJQI.asm"       ; 0x1034
 
-%include "ds/ds_app_JSSU.asm"              ; 0x10a6
+%include "ds/ds_app_VIGG.asm"              ; 0x10a6
 
-%include "ds/ds_app_GJNR.asm"              ; 0x10ff
+%include "ds/ds_app_QOOL.asm"              ; 0x10ff
 
-%include "ds/ds_app_HHRR.asm"              ; 0x1138
+%include "ds/ds_app_UNSL.asm"              ; 0x1138
 
-%include "ds/ds_app_NLUH.asm"              ; 0x11de
+%include "ds/ds_app_HTKI.asm"              ; 0x11de
 
-%include "ds/ds_app_JJIG.asm"              ; 0x121f
+%include "ds/ds_app_JKST.asm"              ; 0x121f
 
-%include "ds/ds_app_string_QGLU.asm"       ; 0x1308
+%include "ds/ds_app_string_IIIR.asm"       ; 0x1308
 
-%include "ds/ds_app_thunk_26_RNMG.asm"     ; 0x1371
+%include "ds/ds_app_thunk_26_VNHP.asm"     ; 0x1371
 
-%include "ds/ds_app_JMUU.asm"              ; 0x138c
+bss_5b6c equ (__zimage_end - __zdseg_start) + 0x4e76
+bss_5b6e equ (__zimage_end - __zdseg_start) + 0x4e78
+bss_5b70 equ (__zimage_end - __zdseg_start) + 0x4e7a
+%include "ds/ds_app_VKRR.asm"              ; 0x138c
 
-%include "ds/ds_app_file_IOMU.asm"         ; 0x14ca
+bss_5962 equ (__zimage_end - __zdseg_start) + 0x4c6c
+bss_5963 equ (__zimage_end - __zdseg_start) + 0x4c6d
+bss_5964 equ (__zimage_end - __zdseg_start) + 0x4c6e
+%include "ds/ds_app_file_LMRK.asm"         ; 0x14ca
 
-%include "ds/ds_app_file_OVOQ.asm"         ; 0x16a0
+%include "ds/ds_app_file_HMNO.asm"         ; 0x16a0
 
-%include "ds/ds_app_GRGK.asm"              ; 0x1741
+%include "ds/ds_app_VOML.asm"              ; 0x1741
 
-%include "ds/ds_app_UJIM.asm"              ; 0x17d6
+%include "ds/ds_app_OOUT.asm"              ; 0x17d6
 
-%include "ds/ds_app_mem_HNMN.asm"          ; 0x184f
+%include "ds/ds_app_mem_TMKK.asm"          ; 0x184f
 
-%include "ds/ds_app_HTIO.asm"              ; 0x1a23
+%include "ds/ds_app_VPLJ.asm"              ; 0x1a23
 
-%include "ds/ds_string_loc_RUSV.asm"       ; 0x1aa7
+%include "ds/ds_string_loc_MTJN.asm"       ; 0x1aa7
 
-%include "ds/ds_string_loc_JPOQ.asm"       ; 0x1adb
+%include "ds/ds_string_loc_SSSJ.asm"       ; 0x1adb
 
-%include "ds/ds_string_loc_GMUI.asm"       ; 0x1aea
+%include "ds/ds_string_loc_UHQI.asm"       ; 0x1aea
 
-%include "ds/ds_app_KIQO.asm"              ; 0x1c2f
+%include "ds/ds_app_IPJO.asm"              ; 0x1c2f
 
-%include "ds/ds_app_NGSM.asm"              ; 0x1c6e
+%include "ds/ds_app_UTUH.asm"              ; 0x1c6e
 
-%include "ds/ds_app_JLGK.asm"              ; 0x1cb1
+; bss_0fd5 equ (__zimage_end - __zdseg_start) + 0x02df
+; bss_5990 equ (__zimage_end - __zdseg_start) + 0x4c9a
+; bss_59f4 equ (__zimage_end - __zdseg_start) + 0x4cfe
+%include "ds/ds_app_OOHU.asm"              ; 0x1cb1
 
-%include "ds/ds_app_QIQN.asm"              ; 0x1ccc
+%include "ds/ds_app_KTPM.asm"              ; 0x1ccc
 
-%include "ds/ds_app_NHUH.asm"              ; 0x1cf8
+%include "ds/ds_app_TRNH.asm"              ; 0x1cf8
 
-%include "ds/ds_app_PIKI.asm"              ; 0x1d81
+%include "ds/ds_app_LUOV.asm"              ; 0x1d81
 
-%include "ds/ds_app_io_VJGM.asm"           ; 0x20f8
+; bss_0e2e equ (__zimage_end - __zdseg_start) + 0x0138
+; bss_0e30 equ (__zimage_end - __zdseg_start) + 0x013a
+; bss_0e32 equ (__zimage_end - __zdseg_start) + 0x013c
+; bss_59fa equ (__zimage_end - __zdseg_start) + 0x4d04
+; bss_5b3e equ (__zimage_end - __zdseg_start) + 0x4e48
+bss_69c8 equ (__zimage_end - __zdseg_start) + 0x5cd2
+%include "ds/ds_app_io_VGOM.asm"           ; 0x20f8
 
-%include "ds/ds_app_VHTL.asm"              ; 0x2305
+%include "ds/ds_app_QSQR.asm"              ; 0x2305
 
-%include "ds/ds_app_QOVI.asm"              ; 0x2331
+bss_0cf6 equ (__zimage_end - __zdseg_start)
+bss_0cf8 equ (__zimage_end - __zdseg_start) + 0x0002
+%include "ds/ds_app_HGSV.asm"              ; 0x2331
 
-%include "ds/ds_app_UKQM.asm"              ; 0x2359
+%include "ds/ds_app_HVHT.asm"              ; 0x2359
 
-%include "ds/ds_app_TKHP.asm"              ; 0x23a8
+bss_5987 equ (__zimage_end - __zdseg_start) + 0x4c91
+%include "ds/ds_app_UUHT.asm"              ; 0x23a8
 
-%include "ds/ds_app_file_QKJP.asm"         ; 0x23ef
+; bss_0e22 equ (__zimage_end - __zdseg_start) + 0x012c
+; bss_0e24 equ (__zimage_end - __zdseg_start) + 0x012e
+bss_5218 equ (__zimage_end - __zdseg_start) + 0x4522
+; bss_5987 equ (__zimage_end - __zdseg_start) + 0x4c91
+; bss_5b3e equ (__zimage_end - __zdseg_start) + 0x4e48
+%include "ds/ds_app_file_QQMM.asm"         ; 0x23ef
 
-%include "ds/ds_app_OVOG.asm"              ; 0x27e9
+; bss_5218 equ (__zimage_end - __zdseg_start) + 0x4522
+; bss_5987 equ (__zimage_end - __zdseg_start) + 0x4c91
+%include "ds/ds_app_IMTG.asm"              ; 0x27e9
 
-%include "ds/ds_app_file_UMGJ.asm"         ; 0x2863
+%include "ds/ds_app_file_TSNH.asm"         ; 0x2863
 
-%include "ds/ds_app_KKKO.asm"              ; 0x290d
+%include "ds/ds_app_SOQK.asm"              ; 0x290d
 
-%include "ds/ds_app_file_GKKL.asm"         ; 0x2923
+%include "ds/ds_app_file_JISS.asm"         ; 0x2923
 
-%include "ds/ds_app_LOMI.asm"              ; 0x29f1
+; bss_598e equ (__zimage_end - __zdseg_start) + 0x4c98
+%include "ds/ds_app_QTIV.asm"              ; 0x29f1
 
-%include "ds/ds_app_file_TIUM.asm"         ; 0x2a2e
+bss_5985 equ (__zimage_end - __zdseg_start) + 0x4c8f
+bss_82b6 equ (__zimage_end - __zdseg_start) + 0x75c0
+%include "ds/ds_app_file_KRUQ.asm"         ; 0x2a2e
 
-%include "ds/ds_app_thunk_21_HUMJ.asm"     ; 0x2b4e
+; bss_82b6 equ (__zimage_end - __zdseg_start) + 0x75c0
+%include "ds/ds_app_thunk_21_VGJR.asm"     ; 0x2b4e
 
 %include "ds/animate_sprite_up.asm"        ; 0x2b62
 
-%include "ds/ds_app_JTLO.asm"              ; 0x2bab
+bss_597f equ (__zimage_end - __zdseg_start) + 0x4c89
+%include "ds/ds_app_UKGP.asm"              ; 0x2bab
 
-%include "ds/ds_app_STOI.asm"              ; 0x2bed
+; bss_597f equ (__zimage_end - __zdseg_start) + 0x4c89
+; bss_5985 equ (__zimage_end - __zdseg_start) + 0x4c8f
+%include "ds/ds_app_NNSU.asm"              ; 0x2bed
 
-%include "ds/ds_app_MSSG.asm"              ; 0x2c11
+; bss_1008 equ (__zimage_end - __zdseg_start) + 0x0312
+; bss_59f6 equ (__zimage_end - __zdseg_start) + 0x4d00
+; bss_59f8 equ (__zimage_end - __zdseg_start) + 0x4d02
+%include "ds/ds_app_LPKV.asm"              ; 0x2c11
 
-%include "ds/ds_app_NLKG.asm"              ; 0x2c69
+%include "ds/ds_app_GJOV.asm"              ; 0x2c69
 
-%include "ds/ds_leaf_loc_JMUG.asm"         ; 0x2cba
+bss_82e8 equ (__zimage_end - __zdseg_start) + 0x75f2
+%include "ds/ds_leaf_loc_SOGP.asm"         ; 0x2cba
 
-%include "ds/ds_leaf_loc_QGQG.asm"         ; 0x2cc4
+; bss_82e8 equ (__zimage_end - __zdseg_start) + 0x75f2
+%include "ds/ds_leaf_loc_VNSJ.asm"         ; 0x2cc4
 
-%include "ds/ds_leaf_loc_QOLU.asm"         ; 0x2cd0
+; bss_82e8 equ (__zimage_end - __zdseg_start) + 0x75f2
+%include "ds/ds_leaf_loc_QNQO.asm"         ; 0x2cd0
 
-%include "ds/ds_leaf_loc_PTUM.asm"         ; 0x2cdc
+; bss_82e8 equ (__zimage_end - __zdseg_start) + 0x75f2
+bss_82ea equ (__zimage_end - __zdseg_start) + 0x75f4
+%include "ds/ds_leaf_loc_VSOJ.asm"         ; 0x2cdc
 
-%include "ds/ds_leaf_loc_LSGT.asm"         ; 0x2cec
+; bss_82e8 equ (__zimage_end - __zdseg_start) + 0x75f2
+%include "ds/ds_leaf_loc_HJGN.asm"         ; 0x2cec
 
-%include "ds/ds_leaf_loc_SUIQ.asm"         ; 0x2cf8
+; bss_82e8 equ (__zimage_end - __zdseg_start) + 0x75f2
+bss_82ec equ (__zimage_end - __zdseg_start) + 0x75f6
+bss_82ee equ (__zimage_end - __zdseg_start) + 0x75f8
+bss_82f0 equ (__zimage_end - __zdseg_start) + 0x75fa
+%include "ds/ds_leaf_loc_PJKL.asm"         ; 0x2cf8
 
+bss_830a equ (__zimage_end - __zdseg_start) + 0x7614
+bss_830c equ (__zimage_end - __zdseg_start) + 0x7616
 %include "ds/main.asm"                     ; 0x2dd5
 
 cseg_2f36:
@@ -1053,11 +1055,12 @@ cseg_305f:
     db 0xdb, 0x01, 0x00, 0x00
 cseg_3063:
     db 0xdf, 0x01, 0x00, 0x00
-%include "ds/asm_only/ds_bios_video_loc_SNPP.asm"   ; 0x3067
+%include "ds/asm_only/ds_bios_video_loc_LILQ.asm"   ; 0x3067
 
-%include "ds/asm_only/ds_loc_LJPT.asm"              ; 0x30a3
+%include "ds/asm_only/ds_loc_IGLJ.asm"              ; 0x30a3
 
-%include "ds/asm_only/ds_bios_video_loc_PRGN.asm"   ; 0x30c3
+bios_data_0410 equ 0x0410
+%include "ds/asm_only/ds_bios_video_loc_PHVR.asm"   ; 0x30c3
 
 cseg_30dc:
     db 0xb8, 0x0b
@@ -1065,51 +1068,55 @@ cseg_30de:
     db 0x01, 0x00
 cseg_30e0:
     db 0x2f, 0x75
-%include "ds/asm_only/ds_leaf_loc_TTIS.asm"         ; 0x30e2
+%include "ds/asm_only/ds_leaf_loc_OIUO.asm"         ; 0x30e2
 
+; bios_data_0410 equ 0x0410
 %include "ds/asm_only/bios_get_video_mode.asm"      ; 0x30f7
 
 cseg_3532:
     db 0x00, 0x00
-%include "ds/asm_only/ds_dos_file_loc_OUMU.asm"     ; 0x3534
+%include "ds/asm_only/ds_dos_file_loc_SJIH.asm"     ; 0x3534
 
-%include "ds/asm_only/ds_dos_con_loc_SOLS.asm"      ; 0x35b8
+%include "ds/asm_only/ds_dos_con_loc_OQQL.asm"      ; 0x35b8
 
-%include "ds/asm_only/ds_dos_file_loc_RQIN.asm"     ; 0x35f5
+%include "ds/asm_only/ds_dos_file_loc_NKUS.asm"     ; 0x35f5
 
-%include "ds/asm_only/ds_dos_con_loc_QUNU.asm"      ; 0x3640
+%include "ds/asm_only/ds_dos_con_loc_GOVO.asm"      ; 0x3640
 
 cseg_3672:
     db 0x90, 0x01
-%include "ds/asm_only/ds_leaf_loc_LKVP.asm"         ; 0x3674
+%include "ds/asm_only/ds_leaf_loc_QNNO.asm"         ; 0x3674
 
-%include "ds/asm_only/ds_dos_mem_loc_KQJP.asm"      ; 0x36bc
+%include "ds/asm_only/ds_dos_mem_loc_OHLH.asm"      ; 0x36bc
 
-%include "ds/ds_dos_mem_loc_NUGN.asm"      ; 0x36cd
+%include "ds/ds_dos_mem_loc_PLIR.asm"      ; 0x36cd
 
 cseg_36ce:
     db 0x00, 0x00
-%include "ds/ds_leaf_loc_RTLQ.asm"         ; 0x36d0
+%include "ds/ds_leaf_loc_UJPS.asm"         ; 0x36d0
 
-%include "ds/asm_only/ds_dos_mem_loc_NKNR.asm"      ; 0x36f5
+bss_2d40 equ (__zimage_end - __zdseg_start) + 0x204a
+%include "ds/asm_only/ds_dos_mem_loc_TGHM.asm"      ; 0x36f5
 
-%include "ds/asm_only/ds_dos_mem_loc_OGRQ.asm"      ; 0x371d
+%include "ds/asm_only/ds_dos_mem_loc_JMGG.asm"      ; 0x371d
 
-%include "ds/asm_only/ds_dos_mem_loc_RMSS.asm"      ; 0x3760
+%include "ds/asm_only/ds_dos_mem_loc_GSMJ.asm"      ; 0x3760
 
-%include "ds/asm_only/ds_dos_mem_loc_VSVV.asm"      ; 0x377b
+%include "ds/asm_only/ds_dos_mem_loc_GMLT.asm"      ; 0x377b
 
-%include "ds/ds_loc_RVMI.asm"              ; 0x3796
+bss_2d58 equ (__zimage_end - __zdseg_start) + 0x2062
+%include "ds/ds_loc_RMTO.asm"              ; 0x3796
 
-%include "ds/asm_only/ds_bios_mouse_loc_PQIP.asm"   ; 0x37a5
+%include "ds/asm_only/ds_bios_mouse_loc_RUQG.asm"   ; 0x37a5
 
 cseg_37d1:
     db 'EMMXXXX0'
-%include "ds/asm_only/ds_dos_intvec_loc_HIPQ.asm"   ; 0x37d9
+dseg_000a equ __zdseg_000a - __zdseg_start
+%include "ds/asm_only/ds_dos_intvec_loc_OHRJ.asm"   ; 0x37d9
 
-%include "ds/asm_only/ds_leaf_loc_UMHI.asm"         ; 0x382c
+%include "ds/asm_only/ds_leaf_loc_KIKO.asm"         ; 0x382c
 
-%include "ds/ds_leaf_loc_SSPU.asm"         ; 0x383e
+%include "ds/ds_leaf_loc_PUGK.asm"         ; 0x383e
 
 cseg_384a:
 
@@ -1118,13 +1125,13 @@ cseg_384a:
 
 %include "ds/asm_only/dos_alloc_mem.asm"            ; 0x3860
 
-%include "ds/asm_only/ds_dos_con_loc_TSRV.asm"      ; 0x3936
+%include "ds/asm_only/ds_dos_con_loc_RKPT.asm"      ; 0x3936
 
-%include "ds/asm_only/ds_dos_con_loc_RHNO.asm"      ; 0x3962
+%include "ds/asm_only/ds_dos_con_loc_RGGK.asm"      ; 0x3962
 
 %include "ds/asm_only/dos_read_file.asm"            ; 0x398a
 
-%include "ds/asm_only/ds_loc_IMOU.asm"              ; 0x39f6
+%include "ds/asm_only/ds_loc_UQOV.asm"              ; 0x39f6
 
 %include "ds/asm_only/thunk.asm"                    ; 0x3a50
 
@@ -1132,11 +1139,11 @@ cseg_384a:
 
 %include "ds/asm_only/thunk_3.asm"                  ; 0x3a6a
 
-%include "ds/asm_only/ds_loc_PQIO.asm"              ; 0x3a77
+%include "ds/asm_only/ds_loc_TJTV.asm"              ; 0x3a77
 
-%include "ds/asm_only/ds_string_loc_PTIK.asm"       ; 0x3a95
+%include "ds/asm_only/ds_string_loc_QRJV.asm"       ; 0x3a95
 
-%include "ds/asm_only/ds_loc_TILJ.asm"              ; 0x3aca
+%include "ds/asm_only/ds_loc_JJGM.asm"              ; 0x3aca
 
 %include "ds/asm_only/thunk_4.asm"                  ; 0x3b21
 
@@ -1158,9 +1165,9 @@ cseg_384a:
 
 %include "ds/asm_only/thunk_13.asm"                 ; 0x3b96
 
-%include "ds/asm_only/ds_loc_SVSJ.asm"              ; 0x3ba3
+%include "ds/asm_only/ds_loc_JRJK.asm"              ; 0x3ba3
 
-%include "ds/ds_leaf_loc_RJOL.asm"         ; 0x3c0d
+%include "ds/ds_leaf_loc_MPVL.asm"         ; 0x3c0d
 
 cseg_3c7f:
 
@@ -1174,21 +1181,21 @@ cseg_3c7f:
 
 %include "ds/asm_only/set_bitmap_bit.asm"           ; 0x3e88
 
-%include "ds/asm_only/ds_leaf_loc_KIMU.asm"         ; 0x3ebb
+%include "ds/asm_only/ds_leaf_loc_PRVP.asm"         ; 0x3ebb
 
-%include "ds/asm_only/ds_leaf_loc_JGPJ.asm"         ; 0x3eeb
+%include "ds/asm_only/ds_leaf_loc_OOUU.asm"         ; 0x3eeb
 
-%include "ds/asm_only/ds_leaf_loc_JIKQ.asm"         ; 0x3f3d
+%include "ds/asm_only/ds_leaf_loc_NPSL.asm"         ; 0x3f3d
 
-%include "ds/asm_only/ds_dos_con_loc_RGTO.asm"      ; 0x3f81
+%include "ds/asm_only/ds_dos_con_loc_QJHU.asm"      ; 0x3f81
 
 %include "ds/asm_only/dos_read_file_2.asm"          ; 0x3fa9
 
-%include "ds/asm_only/ds_dos_con_loc_VUKM.asm"      ; 0x3fd5
+%include "ds/asm_only/ds_dos_con_loc_NHHR.asm"      ; 0x3fd5
 
-%include "ds/asm_only/ds_string_loc_UJSV.asm"       ; 0x4002
+%include "ds/asm_only/ds_string_loc_HTNS.asm"       ; 0x4002
 
-%include "ds/asm_only/ds_string_loc_RJNU.asm"       ; 0x4046
+%include "ds/asm_only/ds_string_loc_SSGO.asm"       ; 0x4046
 
 %include "ds/asm_only/strpos.asm"                   ; 0x4091
 
@@ -1204,7 +1211,7 @@ cseg_3c7f:
 
 %include "ds/asm_only/thunk_18.asm"                 ; 0x4168
 
-%include "ds/asm_only/ds_loc_MTMS.asm"              ; 0x4175
+%include "ds/asm_only/ds_loc_QURR.asm"              ; 0x4175
 
 %include "ds/asm_only/thunk_19.asm"                 ; 0x41a3
 
@@ -1274,23 +1281,35 @@ cseg_3c7f:
 
 %include "ds/asm_only/thunk_51.asm"                 ; 0x436c
 
+bss_0cfa equ (__zimage_end - __zdseg_start) + 0x0004
 %include "ds/aztec_ovloader.asm"           ; 0x4379
+
+_mbot       equ __z_mbot - __zdseg_start
+; bss_0cfa    equ (__zimage_end - __zdseg_start) + 0x0004
+__zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
+%include "ds/aztec_impl_ovld.asm"          ; 0x4386
+
+; bss_0cfa equ (__zimage_end - __zdseg_start) + 0x0004
+%include "ds/aztec_loadabort.asm"          ; 0x4462
 
 %include "ds/asm_only/aztec_bdos.asm"               ; 0x4497
 
-%include "ds/asm_only/aztec_csread.asm"             ; 0x44b4
+errno equ __zerrno - __zdseg_start
+%include "ds/asm_only/aztec_impl_csread.asm"        ; 0x44b4
 
-%include "ds/ds_loc_IRHQ.asm"              ; 0x44d4
+bss_0cfc equ (__zimage_end - __zdseg_start) + 0x0006
+%include "ds/ds_loc_LHHJ.asm"              ; 0x44d4
 
-%include "ds/ds_string_loc_SPRI.asm"       ; 0x44ff
+; bss_0cfc equ (__zimage_end - __zdseg_start) + 0x0006
+%include "ds/ds_string_loc_RNGG.asm"       ; 0x44ff
 
 %include "ds/asm_only/aztec_movblock.asm"           ; 0x4517
 
 %include "ds/asm_only/aztec_setmem.asm"             ; 0x454d
 
-%include "ds/ds_string_loc_VOPH.asm"       ; 0x4574
+%include "shared/aztec_strcat.asm"             ; 0x4574
 
-%include "ds/asm_only/aztec_strncat.asm"            ; 0x457c
+%include "shared/aztec_strncat.asm"            ; 0x457c
 
 %include "shared/aztec_strcpy.asm"             ; 0x45ab
 
@@ -1300,85 +1319,98 @@ cseg_3c7f:
 
 %include "ds/asm_only/aztec_lrealloc.asm"           ; 0x4625
 
+_sbot     equ __z_sbot - __zdseg_start
+_lowwater equ __z_lowwater - __zdseg_start
 %include "ds/asm_only/aztec_csav.asm"               ; 0x4652
 
 %include "ds/asm_only/aztec_cret.asm"               ; 0x4670
 
+bss_0cfe equ (__zimage_end - __zdseg_start) + 0x0008
+bss_0d00 equ (__zimage_end - __zdseg_start) + 0x000a
 %include "ds/aztec_realloc.asm"            ; 0x467b
 
+dseg_0c6c equ __zdseg_0c6c - __zdseg_start
+; bss_0cfe  equ (__zimage_end - __zdseg_start) + 0x0008
+; bss_0d00  equ (__zimage_end - __zdseg_start) + 0x000a
+bss_0d02  equ (__zimage_end - __zdseg_start) + 0x000c
 %include "ds/aztec_malloc.asm"             ; 0x46ea
 
-%include "ds/ds_leaf_loc_QIRU.asm"         ; 0x47e5
+%include "ds/ds_leaf_loc_LPSH.asm"         ; 0x47e5
 
+; bss_0d00 equ (__zimage_end - __zdseg_start) + 0x000a
 %include "ds/aztec_free.asm"               ; 0x47e8
 
 
     db 'LlhFNoxXudiscpneEfgG%'
 
 jumptable_4822:
-    dw ds_string_loc_KGVG - IMAGE_BASE         ; 0x4822
-    dw ds_string_loc_KJTR - IMAGE_BASE         ; 0x4824
-    dw ds_string_loc_RSUQ - IMAGE_BASE         ; 0x4826
-    dw ds_string_loc_OIHT - IMAGE_BASE         ; 0x4828
-    dw ds_string_loc_RSUQ - IMAGE_BASE         ; 0x482a
-    dw ds_leaf_loc_JHSL - IMAGE_BASE           ; 0x482c
-    dw ds_leaf_loc_KVLL - IMAGE_BASE           ; 0x482e
-    dw ds_leaf_loc_LJNM - IMAGE_BASE           ; 0x4830
-    dw ds_leaf_loc_NRKM - IMAGE_BASE           ; 0x4832
-    dw ds_leaf_loc_GJQS - IMAGE_BASE           ; 0x4834
-    dw ds_leaf_loc_GJQS - IMAGE_BASE           ; 0x4836
-    dw ds_loc_IRMP - IMAGE_BASE                ; 0x4838
-    dw ds_loc_JOUO - IMAGE_BASE                ; 0x483a
-    dw ds_string_loc_QLKG - IMAGE_BASE         ; 0x483c
-    dw ds_string_loc_IJKM - IMAGE_BASE         ; 0x483e
-    dw ds_loc_HVTQ - IMAGE_BASE                ; 0x4840
-    dw ds_loc_MLPR - IMAGE_BASE                ; 0x4842
-    dw ds_loc_HVTQ - IMAGE_BASE                ; 0x4844
-    dw ds_loc_HVTQ - IMAGE_BASE                ; 0x4846
-    dw ds_loc_MLPR - IMAGE_BASE                ; 0x4848
-    dw ds_string_loc_RNIR - IMAGE_BASE         ; 0x484a
+    dw ds_string_loc_KLPS - IMAGE_BASE         ; 0x4822
+    dw ds_string_loc_TJJQ - IMAGE_BASE         ; 0x4824
+    dw ds_string_loc_IPHN - IMAGE_BASE         ; 0x4826
+    dw ds_string_loc_TVST - IMAGE_BASE         ; 0x4828
+    dw ds_string_loc_IPHN - IMAGE_BASE         ; 0x482a
+    dw ds_leaf_loc_KNGK - IMAGE_BASE           ; 0x482c
+    dw ds_leaf_loc_VGLQ - IMAGE_BASE           ; 0x482e
+    dw ds_leaf_loc_QRUN - IMAGE_BASE           ; 0x4830
+    dw ds_leaf_loc_RIHO - IMAGE_BASE           ; 0x4832
+    dw ds_leaf_loc_MQKT - IMAGE_BASE           ; 0x4834
+    dw ds_leaf_loc_MQKT - IMAGE_BASE           ; 0x4836
+    dw ds_loc_HRLO - IMAGE_BASE                ; 0x4838
+    dw ds_loc_OMJQ - IMAGE_BASE                ; 0x483a
+    dw ds_string_loc_LPSH - IMAGE_BASE         ; 0x483c
+    dw ds_string_loc_MLSO - IMAGE_BASE         ; 0x483e
+    dw ds_loc_RLKL - IMAGE_BASE                ; 0x4840
+    dw ds_loc_GHJS - IMAGE_BASE                ; 0x4842
+    dw ds_loc_RLKL - IMAGE_BASE                ; 0x4844
+    dw ds_loc_RLKL - IMAGE_BASE                ; 0x4846
+    dw ds_loc_GHJS - IMAGE_BASE                ; 0x4848
+    dw ds_string_loc_TKHL - IMAGE_BASE         ; 0x484a
 
     db '0123456789abcdef -lm first', 0
 
-%include "ds/asm_only/sprintf.asm"                  ; 0x4867
+ds_loc_KNJH  equ sprintf.loc1
+sprintf.loc2 equ ds_loc_JJKK
+%include "shared/sprintf.asm"                  ; 0x4867
 
-%include "ds/asm_only/ds_string_loc_RNIR.asm"       ; 0x4882
+%include "ds/asm_only/ds_string_loc_TKHL.asm"       ; 0x4882
 
-%include "ds/asm_only/ds_string_loc_KGVG.asm"       ; 0x490f
+%include "ds/asm_only/ds_string_loc_KLPS.asm"       ; 0x490f
 
-%include "ds/ds_string_loc_KJTR.asm"       ; 0x4916
+%include "ds/ds_string_loc_TJJQ.asm"       ; 0x4916
 
-%include "ds/asm_only/ds_string_loc_RSUQ.asm"       ; 0x491a
+%include "ds/asm_only/ds_string_loc_IPHN.asm"       ; 0x491a
 
-%include "ds/asm_only/ds_string_loc_OIHT.asm"       ; 0x491d
+%include "ds/asm_only/ds_string_loc_TVST.asm"       ; 0x491d
 
-%include "ds/ds_leaf_loc_JHSL.asm"         ; 0x4924
+%include "ds/ds_leaf_loc_KNGK.asm"         ; 0x4924
 
-%include "ds/ds_leaf_loc_LJNM.asm"         ; 0x4929
+%include "ds/ds_leaf_loc_QRUN.asm"         ; 0x4929
 
-%include "ds/ds_leaf_loc_KVLL.asm"         ; 0x492d
+%include "ds/ds_leaf_loc_VGLQ.asm"         ; 0x492d
 
-%include "ds/ds_leaf_loc_NRKM.asm"         ; 0x4932
+%include "ds/ds_leaf_loc_RIHO.asm"         ; 0x4932
 
-%include "ds/asm_only/ds_leaf_loc_GJQS.asm"         ; 0x4937
+%include "ds/asm_only/ds_leaf_loc_MQKT.asm"         ; 0x4937
 
-%include "ds/ds_string_loc_QLKG.asm"       ; 0x4a9f
+%include "ds/ds_string_loc_LPSH.asm"       ; 0x4a9f
 
-%include "ds/ds_string_loc_IJKM.asm"       ; 0x4aa2
+%include "ds/ds_string_loc_MLSO.asm"       ; 0x4aa2
 
-%include "ds/ds_loc_NINI.asm"              ; 0x4aba
+%include "ds/ds_loc_MRST.asm"              ; 0x4aba
 
-%include "ds/ds_leaf_loc_GPQN.asm"         ; 0x4aed
+%include "ds/ds_leaf_loc_GSJQ.asm"         ; 0x4aed
 
-%include "ds/asm_only/ds_string_loc_NMMQ.asm"       ; 0x4b07
+%include "ds/asm_only/ds_string_loc_TRQP.asm"       ; 0x4b07
 
 %include "shared/aztec_creat.asm"              ; 0x4b39
 
-%include "ds/aztec_open.asm"               ; 0x4b50
+; errno  equ __zerrno - __zdseg_start
+_ioflg equ __z_ioflg - __zdseg_start
+%include "shared/aztec_open.asm"               ; 0x4b50
 
-%include "ds/asm_only/aztec_ldv.asm"                ; 0x4be6
+%include "shared/aztec_ldv.asm"                ; 0x4be6
 
-%include "ds/asm_only/aztec_lrm.asm"                ; 0x4c14
+%include "shared/aztec_lrm.asm"                ; 0x4c14
 
 %include "shared/aztec_lum.asm"                ; 0x4c38
 
@@ -1386,51 +1418,97 @@ jumptable_4822:
 
 %include "shared/aztec_strlen.asm"             ; 0x4cd7
 
-%include "ds/asm_only/aztec_sys.asm"                ; 0x4cf4
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_impl_sys.asm"           ; 0x4cf4
 
 cseg_4d38:
     db 0x00, 0x00
+psp_top_of_memory equ 0x0002
+psp_env_segment   equ 0x002c
+psp_cmd_tail_len  equ 0x0080
+aztec_MEMRY       equ __zaztec_MEMRY - __zdseg_start
+dseg_0c74         equ __zdseg_0c74 - __zdseg_start
+dseg_0c76         equ __zdseg_0c76 - __zdseg_start
+; _mbot             equ __z_mbot - __zdseg_start
+; _sbot             equ __z_sbot - __zdseg_start
+_mtop             equ __z_mtop - __zdseg_start
+_PSP              equ __z_PSP - __zdseg_start
+dseg_0cd4         equ __zdseg_0cd4 - __zdseg_start
+_STKRED           equ __z_STKRED - __zdseg_start
+dseg_0cd8         equ __zdseg_0cd8 - __zdseg_start
+_STKLOW           equ __z_STKLOW - __zdseg_start
+; bss_0cf6          equ (__zimage_end - __zdseg_start)
+; __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/asm_only/aztec_begin.asm"              ; 0x4d3a
 
-%include "ds/asm_only/ds_dos_proc_loc_TPJT.asm"     ; 0x4e7e
+%include "ds/asm_only/aztec_impl_exit.asm"          ; 0x4e7e
 
+; _ioflg   equ __z_ioflg - __zdseg_start
+bss_0d04 equ (__zimage_end - __zdseg_start) + 0x000e
+bss_0d06 equ (__zimage_end - __zdseg_start) + 0x0010
 %include "ds/aztec_Croot.asm"              ; 0x4ea7
 
-%include "ds/ds_loc_OMIG.asm"              ; 0x4f73
+dseg_0c9c equ __zdseg_0c9c - __zdseg_start
+aztec_exit.dseg1 equ dseg_0c9c
+%include "shared/aztec_exit.asm"               ; 0x4f73
 
-%include "ds/ds_leaf_loc_LSGN.asm"         ; 0x4f85
+%include "ds/ds_leaf_loc_UTMK.asm"         ; 0x4f85
 
-%include "ds/aztec_stkover.asm"            ; 0x4f87
+%include "ds/aztec_impl_stkover.asm"       ; 0x4f87
 
-%include "ds/asm_only/aztec_read.asm"               ; 0x4fa2
+aztec_impl_read.loc1 equ ds_loc_IGMS
+%include "shared/aztec_impl_read.asm"          ; 0x4fa2
 
-%include "ds/ds_leaf_loc_PQJP.asm"         ; 0x4fac
+aztec_impl_write.loc1 equ ds_loc_IGMS
+%include "shared/aztec_impl_write.asm"         ; 0x4fac
 
-%include "ds/ds_leaf_loc_JKTJ.asm"         ; 0x4fb6
+aztec_read.loc1 equ ds_loc_NOQM
+%include "shared/aztec_read.asm"               ; 0x4fb6
 
+; errno     equ __zerrno - __zdseg_start
+dseg_0cf0 equ __zdseg_0cf0 - __zdseg_start
+dseg_0cf2 equ __zdseg_0cf2 - __zdseg_start
 %include "ds/asm_only/aztec_write.asm"              ; 0x4fbd
 
-%include "ds/asm_only/aztec_close.asm"              ; 0x4fec
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_close.asm"              ; 0x4fec
 
-%include "ds/asm_only/aztec_lseek.asm"              ; 0x5004
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_lseek.asm"              ; 0x5004
 
-%include "ds/asm_only/aztec_unlink.asm"             ; 0x5023
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_unlink.asm"             ; 0x5023
 
-%include "ds/asm_only/aztec_rename.asm"             ; 0x503b
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_rename.asm"             ; 0x503b
 
-%include "ds/aztec_tty_rd.asm"             ; 0x505c
+_Eol     equ __z_Eol - __zdseg_start
+bss_0e0c equ (__zimage_end - __zdseg_start) + 0x0116
+_TTrem   equ (__zimage_end - __zdseg_start) + 0x83a0
+%include "ds/aztec_impl_tty_rd.asm"        ; 0x505c
 
-%include "ds/aztec_tty_wr.asm"             ; 0x50c1
+%include "ds/aztec_impl_tty_wr.asm"        ; 0x50c1
 
 %include "shared/aztec_movmem.asm"             ; 0x5123
 
 %include "shared/aztec_isatty.asm"             ; 0x5168
 
-%include "ds/asm_only/aztec_sbrk.asm"               ; 0x5188
+; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
+; errno       equ __zerrno - __zdseg_start
+%include "shared/aztec_sbrk.asm"               ; 0x5188
 
-%include "ds/asm_only/aztec_brk.asm"                ; 0x51bc
+; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
+; errno       equ __zerrno - __zdseg_start
+; _mbot       equ __z_mbot - __zdseg_start
+; _sbot       equ __z_sbot - __zdseg_start
+; _mtop       equ __z_mtop - __zdseg_start
+; _PSP        equ __z_PSP - __zdseg_start
+; _STKRED     equ __z_STKRED - __zdseg_start
+; _STKLOW     equ __z_STKLOW - __zdseg_start
+%include "shared/aztec_brk.asm"                ; 0x51bc
 
-%include "ds/asm_only/aztec_rsvstk.asm"             ; 0x5248
+; _STKRED equ __z_STKRED - __zdseg_start
+%include "shared/aztec_rsvstk.asm"             ; 0x5248
 
 
 ; End of host resident code
@@ -1725,23 +1803,23 @@ __zdseg_03dc:
 
 __zdseg_0c6c:
     db 0x02, 0x0d, 0x02, 0x0d
-__zdseg_0c70:
+__zaztec_MEMRY:
     dw bss_b198                                ; 0x10dd0
-__zdseg_0c72:
+__zerrno:
     db 0x00, 0x00
 __zdseg_0c74:
     db 0x00, 0x00
 __zdseg_0c76:
     db 0x00, 0x00
-__zdseg_0c78:
+__z_mbot:
     db 0x00, 0x00
-__zdseg_0c7a:
+__z_sbot:
     db 0x00, 0x00
-__zdseg_0c7c:
+__z_mtop:
     db 0x00, 0x00
-__zdseg_0c7e:
+__z_lowwater:
     db 0xff, 0xff
-__zdseg_0c80:
+__z_PSP:
 
     db 0x00, 0x00
     db '8087/80287 is required!'
@@ -1756,13 +1834,13 @@ __zdseg_0c9c:
 
 __zdseg_0cd4:
     db 0x00, 0x01
-__zdseg_0cd6:
+__z_STKRED:
     db 0x00, 0x08
 __zdseg_0cd8:
     db 0x00, 0x01
-__zdseg_0cda:
+__z_STKLOW:
     db 0x00, 0x00
-__zdseg_0cdc:
+__z_ioflg:
     db 0x00
 __zdseg_0cdd:
     db 0x00
@@ -1774,7 +1852,7 @@ __zdseg_0cf0:
     db 0x5c, 0x4e
 __zdseg_0cf2:
     db 0xc1, 0x4e
-__zdseg_0cf4:
+__z_Eol:
     db 0x0a, 0x0d
 
 __zimage_end:

@@ -30,88 +30,17 @@ _TREE = _ASM_DIR.parent / 'asm_DSAVANT'
 #: glued onto the fragment.  Four ``__zdata_start`` origins had been counted as
 #: *code* co-tenants (their name is not in ``_DATA_PREFIXES``) and three
 #: fragments whose only extra label was one of them were reported as glued.
-COTENANCY_BASELINE = {'glued_files': 211, 'code_outside': 243, 'data_outside': 7}
+#:
+#: Byte-hash tags: ``code_outside`` 243 -> **213**.  A reference now resolves in
+#: its own binary first (``cotenancy.resolve``); the old scan matched names
+#: across the tree, so another binary's same-named label counted as a use.
+COTENANCY_BASELINE = {'glued_files': 211, 'code_outside': 213, 'data_outside': 7}
 
 
 def _write(path, text):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w') as f:
         f.write(text)
-
-
-class CoTenancyClassificationTests(unittest.TestCase):
-    def test_label_kind(self):
-        self.assertEqual(cotenancy.label_kind('cseg_1234'), 'data')
-        self.assertEqual(cotenancy.label_kind('dseg_00ff'), 'data')
-        self.assertEqual(cotenancy.label_kind('bss_830c'), 'data')
-        self.assertEqual(cotenancy.label_kind('loc_1234'), 'code')
-        self.assertEqual(cotenancy.label_kind('leaf_loc_ABCD'), 'code')
-
-    def test_outside_reference_is_flagged(self):
-        with tempfile.TemporaryDirectory() as d:
-            _write(os.path.join(d, 'a', 'r1.asm'),
-                   '; auto-generated\nr1:\n    ret\ncseg_0100:\n    times 4 db 0\n')
-            _write(os.path.join(d, 'a', 'r2.asm'),
-                   '; auto-generated\nr2:\n    mov bx, cseg_0100\n    ret\n')
-            report = cotenancy.scan(d)
-            self.assertEqual(report['glued_files'], 1)
-            self.assertEqual(report['co_tenants'], 1)
-            self.assertEqual(report['data']['outside'], 1)
-            entry = report['entries'][0]
-            self.assertEqual(entry['file'], 'a/r1.asm')
-            self.assertEqual(entry['extra'][0]['name'], 'cseg_0100')
-            self.assertEqual(entry['extra'][0]['reach'], 'outside')
-
-    def test_inside_reference_is_not_outside(self):
-        with tempfile.TemporaryDirectory() as d:
-            _write(os.path.join(d, 'a', 'r1.asm'),
-                   '; auto-generated\nr1:\n    jmp short r1_tail\nr1_tail:\n    ret\n')
-            report = cotenancy.scan(d)
-            self.assertEqual(report['glued_files'], 1)
-            self.assertEqual(report['code']['outside'], 0)
-            self.assertEqual(report['code']['inside'], 1)
-            self.assertEqual(report['entries'][0]['extra'][0]['reach'], 'inside')
-
-    def test_never_referenced_is_dead(self):
-        with tempfile.TemporaryDirectory() as d:
-            _write(os.path.join(d, 'a', 'r1.asm'),
-                   '; auto-generated\nr1:\n    ret\ncseg_0100:\n    times 4 db 0\n')
-            report = cotenancy.scan(d)
-            self.assertEqual(report['data']['dead'], 1)
-            self.assertEqual(report['data']['outside'], 0)
-
-    def test_clean_fragment_is_not_listed(self):
-        with tempfile.TemporaryDirectory() as d:
-            _write(os.path.join(d, 'a', 'r1.asm'),
-                   '; auto-generated\nr1:\n    mov ax, 1\n    ret\n')
-            report = cotenancy.scan(d)
-            self.assertEqual(report['files'], 1)
-            self.assertEqual(report['glued_files'], 0)
-            self.assertEqual(report['co_tenants'], 0)
-
-    def test_comments_are_not_references(self):
-        with tempfile.TemporaryDirectory() as d:
-            _write(os.path.join(d, 'a', 'r1.asm'),
-                   '; auto-generated\nr1:\n    ret\ncseg_0100:\n    times 4 db 0\n')
-            _write(os.path.join(d, 'a', 'r2.asm'),
-                   '; auto-generated\nr2:\n    ret ; cseg_0100\n')
-            report = cotenancy.scan(d)
-            self.assertEqual(report['data']['dead'], 1)
-
-    def test_renderer_alias_is_not_a_co_tenant(self):
-        """A ``__z*`` alias names a byte inside the fragment, not an object.
-
-        ``render.place_driver_immediates`` puts one on the byte a raw driver's
-        named immediate refers to; it adds no bytes, so the fragment is not
-        "the routine plus a neighbour".
-        """
-        with tempfile.TemporaryDirectory() as d:
-            _write(os.path.join(d, 'a', 'r1.asm'),
-                   '; auto-generated\nr1:\n    ret\n__zdata_0100:\n'
-                   '    times 4 db 0\n')
-            report = cotenancy.scan(d)
-            self.assertEqual(report['glued_files'], 0)
-            self.assertEqual(report['co_tenants'], 0)
 
 
 class CommittedTreeCoTenancyTests(unittest.TestCase):

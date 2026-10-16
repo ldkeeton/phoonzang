@@ -48,10 +48,10 @@
     }
   },
   "routines": {
-    "api_idx_000a_JKVP": {
+    "api_idx_000a_IQHO": {
       "name": "draw_fill_action_slot_table"
     },
-    "api_idx_000c_JKJK": {
+    "api_idx_000c_LGVL": {
       "name": "draw_party_slot_letters",
       "note": "overlay stub 0x0c: draws one letter per party slot (six of them) via thunk_28, from the host's tables at ds:01d4/01a4/01bc/830e"
     }

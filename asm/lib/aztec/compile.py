@@ -101,13 +101,60 @@ class AztecCompileError(RuntimeError):
     cc_log = ''
 
 
+def symbol_key(name):
+    """The lookup key of a C name: ``$csav`` and ``csav`` alike, in any case.
+
+    Leading underscores are part of the name: ``_read``, ``__read`` and
+    ``read`` are three routines.
+    """
+    return name.lstrip('$').lower()
+
+
+def aztec_name(symbol):
+    """The C name of an Aztec-spelled symbol (``__read_`` -> ``__read``).
+
+    The compiler appends exactly one ``_``: library objects, assembler
+    ``public``/``proc`` names and the object dump's externals all carry it.
+    """
+    return symbol[:-1] if symbol.endswith('_') else symbol
+
+
+def routine_label(cname):
+    """The asm label of library routine *cname*: ``aztec_`` + the name, with a
+    runtime helper's ``$`` dropped (``$csav`` -> ``aztec_csav``).
+
+    Leading ``_`` marks Manx's internal layer, the routine the library calls
+    under a public one (``_read`` under ``read``); it reads ``impl_``
+    (``aztec_impl_read``, ``__tty_rd`` -> ``aztec_impl_tty_rd``).
+    """
+    cname = cname.lstrip('$')
+    if cname.startswith('_'):
+        return 'aztec_impl_' + cname.lstrip('_')
+    return 'aztec_' + cname
+
+
+#: OMF converters that prefix ``_`` to every public (v5.2a OBJMS: ``_putc``,
+#: ``___read`` for ``__read``).  The v3.40a OBJ keeps the C name as it is.
+_PREFIXING_CONVERTERS = {'v52a'}
+
+
+def omf_name(public, compiler):
+    """The C name of an OMF public written by *compiler*'s converter."""
+    if compiler in _PREFIXING_CONVERTERS and public.startswith('_'):
+        return public[1:]
+    return public
+
+
 class Func:
     """A public function recovered from a compiled module."""
 
-    __slots__ = ('name', 'module', 'offset', 'code', 'fixups', 'locals')
+    __slots__ = ('name', 'cname', 'module', 'offset', 'code', 'fixups',
+                 'locals')
 
-    def __init__(self, name, module, offset, code, fixups, locals_=None):
+    def __init__(self, name, module, offset, code, fixups, locals_=None,
+                 cname=None):
         self.name = name
+        self.cname = cname or name   # the C name (``__read``, ``flsh_``)
         self.module = module
         self.offset = offset
         self.code = bytes(code)
@@ -117,7 +164,7 @@ class Func:
 
     @property
     def key(self):
-        return self.name.strip('_$').lower()
+        return symbol_key(self.cname)
 
     def masked(self):
         """Yield ``(index, is_relocation)`` for every byte of the code."""
@@ -131,6 +178,7 @@ class Func:
     def to_dict(self):
         return {
             'name': self.name,
+            'cname': self.cname,
             'module': self.module,
             'offset': self.offset,
             'code': self.code.hex(),
@@ -144,7 +192,7 @@ class Func:
         fixups = [Fixup.from_list(row) for row in blob.get('fixups', ())]
         return cls(blob['name'], blob.get('module'),
                    blob.get('offset', 0), bytes.fromhex(blob['code']), fixups,
-                   blob.get('locals'))
+                   blob.get('locals'), blob.get('cname'))
 
     def truncate(self, length):
         """A copy owning only the first *length* bytes of *code*.
@@ -163,7 +211,8 @@ class Func:
         return Func(
             self.name, self.module, self.offset, self.code[:length],
             [fx for fx in self.fixups if fx.offset + fx.width <= length],
-            {name: off for name, off in self.locals.items() if off < length})
+            {name: off for name, off in self.locals.items() if off < length},
+            self.cname)
 
     def __repr__(self):
         return (f'Func({self.name!r}, off=0x{self.offset:x}, '
@@ -179,7 +228,7 @@ class CompiledModule:
         self.listing = ''
 
     def get(self, name):
-        return self.functions.get(name.strip('_$').lower())
+        return self.functions.get(symbol_key(name))
 
     def to_dict(self):
         return {'functions': {name: func.to_dict()
@@ -189,8 +238,9 @@ class CompiledModule:
     @classmethod
     def from_dict(cls, blob):
         result = cls()
-        result.functions = {name: Func.from_dict(func)
-                            for name, func in blob.get('functions', {}).items()}
+        funcs = [Func.from_dict(func)
+                 for func in blob.get('functions', {}).values()]
+        result.functions = {func.key: func for func in funcs}
         result.listing = blob.get('listing', '')
         return result
 
@@ -284,7 +334,7 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
             raise err
 
         dump = attach_locals(parse_obd(_read(obd_path)), _read_bytes(obj_path))
-        result = _build_module(module, omf_path, dump)
+        result = _build_module(module, omf_path, dump, compiler)
         result.listing = _read(os.path.join(work, f'{module}.LST'))
         result.log = log + cc_log
         result.cc_log = cc_log
@@ -423,7 +473,7 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
                 obd_path = os.path.join(work, f'{dos}.OBD')
                 dump = attach_locals(parse_obd(_read(obd_path)),
                                      _read_bytes(obj_path))
-                results[key] = _build_module(dos, omf_path, dump)
+                results[key] = _build_module(dos, omf_path, dump, compiler)
                 results[key].listing = _read(os.path.join(work, f'{dos}.LST'))
             elif os.path.exists(cc_path) and os.path.getsize(cc_path) > 0:
                 results[key] = AztecCompileError(
@@ -439,7 +489,7 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
             shutil.rmtree(work, ignore_errors=True)
 
 
-def _build_module(module, omf_path, dump):
+def _build_module(module, omf_path, dump, compiler):
     result = CompiledModule()
     if not os.path.exists(omf_path):
         return result
@@ -474,6 +524,7 @@ def _build_module(module, omf_path, dump):
         local_names = {fx.symbol for fx in fixups if fx.symbol_kind == 'LCLSYM'}
         locals_ = {name: dump.locals[name] - off for name in local_names
                    if name in dump.locals}
-        result.functions[pf['name'].strip('_$').lower()] = Func(
-            pf['name'], pf['module'] or module, off, seg, fixups, locals_)
+        func = Func(pf['name'], pf['module'] or module, off, seg, fixups,
+                    locals_, omf_name(pf['name'], compiler))
+        result.functions[func.key] = func
     return result

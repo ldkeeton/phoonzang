@@ -6,6 +6,8 @@ and names them based on the dispatch index.
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
+from lib.symtab import Kind, Symbol
+
 
 def match_trampolines(data, call_targets, known_db=None):
     """Detect trampoline-dispatch stubs.
@@ -47,7 +49,8 @@ def match_trampolines(data, call_targets, known_db=None):
                     name = dispatch_names.get(idx)
                     if name is None:
                         name = f'api_idx_{idx:04x}'
-                    label_map[off] = f'{name}_{off:04x}'
+                    label_map[off] = Symbol.generated(
+                        name, off, Kind.ROUTINE, role='api_stub')
                 break
             elif data[j] in (0xC3, 0xCB, 0xCF, 0xEB, 0xE9):
                 break

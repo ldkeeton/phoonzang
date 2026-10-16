@@ -9,6 +9,7 @@ from lib.compare.render import (
     _build_source, _label_equ_value, _signed_hex, _virtual_base,
 )
 from lib.verify.assemble import _equ_hex
+from lib.tests.syms import bss, data, dseg, loc, psp
 from make.elf import _elf_source_text, _force_origin_zero
 
 
@@ -35,9 +36,10 @@ class VirtualBaseTest(unittest.TestCase):
 class EquValueTest(unittest.TestCase):
     def test_code_labels_follow_the_origin_but_data_offsets_do_not(self):
         code = lambda addr: f'0x{addr:04x} + VBASE'
-        self.assertEqual(_label_equ_value('loc_0d04', 0xd04, code),
+        self.assertEqual(_label_equ_value(loc(0xd04), 0xd04, code),
                          '0x0d04 + VBASE')
-        for name in ('dseg_0002', 'bss_0e1e', 'psp_env_segment', 'data_0438'):
+        for name in (dseg(0x2), bss(0xe1e), psp(0x2c, 'psp_env_segment'),
+                     data(0x438)):
             self.assertEqual(_label_equ_value(name, 0x2, code), '0x0002')
 
 

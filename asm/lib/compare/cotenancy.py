@@ -9,14 +9,15 @@ but "the routine plus whatever followed it".
 This module measures that.  For every generated fragment it lists the labels it
 defines besides its own root, and classifies each by:
 
-* **kind** - ``data`` (an address-named byte: ``cseg_``/``data_``/``dseg_``/
-  ``bss_``/``seg_``/``esg_``/``psp_``) or ``code`` (a routine name);
+* **kind** - ``data`` (a :attr:`Kind.DATA` symbol) or ``code``;
 * **reach** - referenced from *outside* the defining file (a mis-filed object
   that belongs in its own file / the master) or only inside it (a local tail).
 
-A renderer *alias* (``__z*``: a label on a byte, so a name can be written as an
+A renderer *anchor* (a label on a byte, so a name can be written as an
 expression over it) is not listed: it is an alternate spelling for a byte inside
-the fragment's own span, not an object glued onto it.
+the fragment's own span, not an object glued onto it.  Neither is a routine's
+local label.  What a name is comes from the binaries' symbol tables
+(``.cache/<project>/symbols/``), not from its spelling.
 
 The ``outside`` count is the number that matters: those objects are not the
 fragment's to own, and their address-derived names are also what stops identical
@@ -28,21 +29,31 @@ import re
 from collections import defaultdict
 
 from lib.autogen import is_generated
+from lib.cachedirs import project_of_asm_dir
 from lib.shared import FOLDER
+from lib.symtab import Kind, project_tables
 
-_LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_.]*):')
+_LABEL = re.compile(r'^([A-Za-z_@][A-Za-z0-9_.@]*):')
 _IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_.]*')
-_LOCAL_PREFIX = '@..'
-#: The renderer's alias namespace (``render.ANCHOR_PREFIX``): a label on a byte,
-#: not an object of its own, so it is not a co-tenant (see ``_defined_labels``).
-_ALIAS_PREFIX = '__z'
-_DATA_PREFIXES = ('cseg_', 'data_', 'dseg_', 'bss_', 'seg_', 'esg_', 'ssg_', 'psp_')
+#: Labels that are not objects of their own: a routine's local, or a
+#: renderer anchor on a byte inside a record.
+_NOT_OBJECTS = (Kind.LOCAL, Kind.ANCHOR)
 _SKIP_DIRS = {'inc', 'build_out'}
 
 
-def label_kind(name):
-    """``'data'`` for an address-named byte, else ``'code'``."""
-    return 'data' if name.startswith(_DATA_PREFIXES) else 'code'
+def symbol_tables(project):
+    """``{text: Symbol}`` over every binary's table of *project*."""
+    symbols = {}
+    for table in project_tables(project).values():
+        for text, sym in table.items():
+            symbols.setdefault(text, sym)
+    return symbols
+
+
+def label_kind(name, symbols):
+    """``'data'`` for a data symbol, else ``'code'``."""
+    sym = symbols.get(name)
+    return 'data' if sym is not None and sym.kind is Kind.DATA else 'code'
 
 
 def _read(path):
@@ -59,19 +70,20 @@ def _walk_asm(out_dir):
                 yield os.path.join(folder, filename)
 
 
-def _defined_labels(text):
-    """Label names defined in *text*, excluding ``@..`` locals and aliases.
+def _defined_labels(text, symbols):
+    """Label names defined in *text*, excluding locals and anchors.
 
-    A renderer *alias* (``__zdata_381b``, ``__zdseg_0008``: ``render.ANCHOR_PREFIX``)
-    names a byte inside whatever record spans it, so it is an alternate spelling
-    for an object, not a foreign object the splitter mis-filed.  Counting it would
-    report a glued fragment for a label that adds no bytes, and a fragment that
-    defines one is not "the routine plus a neighbour".
+    A renderer anchor (``__zdata_381b``) names a byte inside whatever record
+    spans it, so it is an alternate spelling for an object, not a foreign object
+    the splitter mis-filed.  Counting it would report a glued fragment for a
+    label that adds no bytes, and a fragment that defines one is not "the
+    routine plus a neighbour".
     """
     out = []
     for line in text.split('\n'):
         m = _LABEL.match(line)
-        if m and not m.group(1).startswith((_LOCAL_PREFIX, _ALIAS_PREFIX)):
+        sym = symbols.get(m.group(1)) if m else None
+        if m and (sym is None or sym.kind not in _NOT_OBJECTS):
             out.append(m.group(1))
     return out
 
@@ -93,16 +105,43 @@ def fragments(out_dir):
     return out
 
 
-def _defined(out_dir):
-    """``{label: relative file}`` for labels defined anywhere in the tree."""
-    where = {}
+def _defined(out_dir, symbols):
+    """``{label: [relative files]}`` for labels defined anywhere in the tree.
+
+    One name can be defined by several binaries: a content tag names the code,
+    so identical code in two binaries carries the same name.
+    """
+    where = defaultdict(list)
     for path in _walk_asm(out_dir):
         if not is_generated(path):
             continue
         rel = os.path.relpath(path, out_dir)
-        for name in _defined_labels(_read(path)):
-            where.setdefault(name, rel)
+        for name in _defined_labels(_read(path), symbols):
+            where[name].append(rel)
     return where
+
+
+def binary_of(rel):
+    """The binary a tree file belongs to: its top dir, or a master's stem."""
+    top = rel.split(os.sep, 1)[0]
+    return top[:-4] if top.endswith('.asm') else top
+
+
+def resolve(name, referrer, defined, host='ds'):
+    """The files whose *name* a reference in *referrer* means.
+
+    A name resolves in the referrer's own binary first, then ``shared/``, then
+    the *host* -- the order the assembler sees them.  A ``shared/`` file is
+    included by several binaries, so it means every definition.
+    """
+    where = defined.get(name, ())
+    if binary_of(referrer) == FOLDER:
+        return set(where)
+    for scope in (binary_of(referrer), FOLDER, host):
+        hit = {f for f in where if binary_of(f) == scope}
+        if hit:
+            return hit
+    return set(where)
 
 
 def _references(out_dir, known):
@@ -128,15 +167,20 @@ def _references(out_dir, known):
     return refs
 
 
-def scan(out_dir):
+def scan(out_dir, symbols=None):
     """Measure co-tenancy over the generated tree at *out_dir*.
+
+    *symbols* is ``{text: Symbol}``; by default the tables of the project the
+    tree belongs to (:func:`symbol_tables`).
 
     Returns ``{'files', 'glued_files', 'co_tenants', 'code', 'data', 'entries'}``
     where ``code``/``data`` are ``{'outside', 'inside', 'dead'}`` counts and
     ``entries`` is the per-fragment detail (one row per glued fragment).
     """
+    if symbols is None:
+        symbols = symbol_tables(project_of_asm_dir(out_dir))
     frags = fragments(out_dir)
-    defined = _defined(out_dir)
+    defined = _defined(out_dir, symbols)
     refs = _references(out_dir, set(defined))
 
     code = {'outside': 0, 'inside': 0, 'dead': 0}
@@ -144,13 +188,14 @@ def scan(out_dir):
     entries = []
     for rel, text in sorted(frags.items()):
         root = os.path.basename(rel)[:-4]
-        extras = [n for n in _defined_labels(text) if n != root]
+        extras = [n for n in _defined_labels(text, symbols) if n != root]
         if not extras:
             continue
         row = []
         for name in extras:
-            kind = label_kind(name)
-            outside = {f for f in refs.get(name, ()) if f != rel}
+            kind = label_kind(name, symbols)
+            outside = {f for f in refs.get(name, ())
+                       if f != rel and rel in resolve(name, f, defined)}
             reach = 'outside' if outside else (
                 'inside' if refs.get(name) else 'dead')
             (code if kind == 'code' else data)[reach] += 1

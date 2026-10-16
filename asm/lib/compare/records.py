@@ -3,7 +3,8 @@
 import re
 import struct
 
-from lib.names import loc_name, startswith_stem, stem
+from lib.names import is_data, is_label, loc_name
+from lib.symtab import Kind, Space
 
 
 def _record_span(rec):
@@ -16,8 +17,12 @@ def _record_span(rec):
     return start, start + rec.get('size', 1)
 
 
-def _emit_label(name):
-    return f'{name}:'
+def _label_record(name, off, comment=None):
+    """A ``label`` record: *name* (its :class:`~lib.symtab.Symbol`) and the line."""
+    text = f'{name}:'
+    if comment:
+        text = f'{text} {comment}'
+    return {'type': 'label', 'text': text, 'name': name, 'offset': off}
 
 
 def _flush_data_block(records, pending_data, data_block_start, end_off):
@@ -35,43 +40,18 @@ def _flush_data_block(records, pending_data, data_block_start, end_off):
 
 def _emit_label_record(records, off, label_map, local_labels=None,
                        insn_by_addr=None, label_comments=None):
-    if label_map and off in label_map:
-        name = label_map[off]
-        if startswith_stem(name, 'data_'):
-            if local_labels and off in local_labels:
-                records.append({
-                    'type': 'label',
-                    'text': _emit_label(local_labels[off]),
-                    'offset': off,
-                })
+    local = (local_labels or {}).get(off)
+    name = (label_map or {}).get(off)
+    if name is not None:
+        if is_data(name) or (is_label(name) and local is not None):
+            if local is not None:
+                records.append(_label_record(local, off))
             return
-        if startswith_stem(name, 'loc_') and local_labels and off in local_labels:
-            records.append({
-                'type': 'label',
-                'text': _emit_label(local_labels[off]),
-                'offset': off,
-            })
-            return
-        text = _emit_label(name)
-        if label_comments and off in label_comments:
-            text = f'{text} {label_comments[off]}'
-        records.append({
-            'type': 'label',
-            'text': text,
-            'offset': off,
-        })
-    elif local_labels and off in local_labels:
-        records.append({
-            'type': 'label',
-            'text': _emit_label(local_labels[off]),
-            'offset': off,
-        })
+        records.append(_label_record(name, off, (label_comments or {}).get(off)))
+    elif local is not None:
+        records.append(_label_record(local, off))
     else:
-        records.append({
-            'type': 'label',
-            'text': _emit_label(loc_name(off)),
-            'offset': off,
-        })
+        records.append(_label_record(loc_name(off), off))
 
 
 _BARE_MEM_RE = re.compile(r'\[(?:[a-z]+:)?0x[0-9a-f]{4}\]')
@@ -129,83 +109,26 @@ _FROZEN_LITERAL_WORD_RE = re.compile(
     r'^\s*dw\s+0x[0-9a-f]{1,4}\s*;\s*0x[0-9a-f]{4}\s*;\s*literal\s*$'
 )
 
-_F3_PREFIXES = ('cseg_', 'data_', 'loc_', 'leaf_', 'io_', 'dos_', 'string_',
-                'api_', 'fpu_')
-# F4 splits into relocatable data symbols (they move when the data segment
-# resizes) and fixed DOS-segment fields (they never do).
-_F4_DATA_PREFIXES = ('dseg_', 'bss_')
-_F4_INERT_PREFIXES = ('psp_',)
-# Fixed external-segment fields named by the sidecar ``external_data`` block
-# (``segments.external_data_name``), e.g. the BIOS Data Area.
-_EXTERNAL_PREFIXES = ('bios_data_', 'external_')
+#: The census bucket of a frozen ``equ``'s symbol, by data space; code (a
+#: routine, label or jump table: file offsets) is ``f3``.
+_DATA_BUCKETS = {Space.IMAGE: 'f3', Space.CSEG: 'f3', Space.DS: 'f4',
+                 Space.BSS: 'f4', Space.PSP: 'psp', Space.ABS: 'external'}
 
 # A literal ``times N db 0`` is treated as a layout pad (F5) only when it is
 # large enough to be the code→data gap rather than an inline zero run.
 _F5_PAD_MIN = 1000
 
 
-#: The census's *named* address families: an ``equ`` in one of these prefixes
-#: declares a name for a byte (the ``f3``/``f4`` buckets and the inert-by-name
-#: ones).  The geometry macros are deliberately absent -- ``VBASE``/``IMAGE_BASE``
-#: are not names for a byte, so no label could carry them.
-_NAME_FAMILIES = (_F3_PREFIXES + _F4_DATA_PREFIXES + _F4_INERT_PREFIXES
-                  + _EXTERNAL_PREFIXES)
-
 #: Identifier occurrences, and the ``; 0x<hex>`` offset comment of an instruction
 #: line (census tags such as ``; dssize`` follow it).
 _IDENT_RE = re.compile(r'[A-Za-z_][A-Za-z0-9_]*')
+_LABEL_DEF_RE = re.compile(r'^([A-Za-z_][A-Za-z0-9_]*):')
 _ANCHOR_RE = re.compile(r';\s*0x([0-9a-f]{4})\b')
 _MNEMONIC_RE = re.compile(r'([A-Za-z_][A-Za-z0-9_]*)')
 #: First tokens that are data or directives, not instructions.
 _DIRECTIVE_KEYWORDS = frozenset((
     'db', 'dw', 'dd', 'times', 'equ', 'section', 'org', 'bits', 'incbin',
 ))
-
-
-def count_name_use(sources):
-    """Split the census's frozen address *names* into used and inert (D7.2c).
-
-    *sources* is an iterable of ``(path, text)`` covering the whole emitted
-    tree.  The unit is the tree rather than one file on purpose: a name declared
-    in a master is normally used in a fragment.  Returns ``{'names_used',
-    'names_inert', 'inert_names'}``.
-
-    A name is **used** when the tree mentions it anywhere other than the ``equ``
-    that declares it -- the frozen literal is then a real dependency, and binding
-    it to a label is what makes it follow an edit.  An **inert** name is one
-    nothing refers to: the literal costs nothing, and converting it to a label
-    only moves the census (``loc_0007`` names offset 7 of ``play``'s dispatch
-    table, which nothing in the tree calls).
-
-    A comment is not a reference, and neither is a ``%`` directive or an
-    ``%include`` path: an emitted fragment is named after the label it defines,
-    so its include line would otherwise make every fragment-rooted name look
-    used.
-    """
-    texts = [(str(path), text or '') for path, text in sources]
-    defined = {}
-    for path, text in texts:
-        for lineno, line in enumerate(text.splitlines()):
-            m = _FROZEN_EQU_RE.match(line)
-            if m and stem(m.group(1)).startswith(_NAME_FAMILIES):
-                defined.setdefault(m.group(1), set()).add((path, lineno))
-    if not defined:
-        return {'names_used': 0, 'names_inert': 0, 'inert_names': []}
-    used = set()
-    for path, text in texts:
-        for lineno, line in enumerate(text.splitlines()):
-            code = line.split(';', 1)[0]
-            if not code.strip() or code.lstrip()[0] == '%':
-                continue
-            for ident in _IDENT_RE.findall(code):
-                if ident in defined and (path, lineno) not in defined[ident]:
-                    used.add(ident)
-    inert = sorted(set(defined) - used)
-    return {
-        'names_used': len(defined) - len(inert),
-        'names_inert': len(inert),
-        'inert_names': inert,
-    }
 
 
 def instruction_offsets(text):
@@ -363,7 +286,82 @@ def count_hidden_flow(data, code_offsets, max_insn=16):
     return hits
 
 
-def count_frozen_addrs(src_text):
+def _frozen_bucket(sym):
+    """The census bucket of a frozen name's symbol, or ``None``."""
+    if sym is None or sym.kind in (Kind.LOCAL, Kind.ANCHOR):
+        return None
+    if sym.kind is Kind.DATA:
+        return _DATA_BUCKETS.get(sym.space)
+    return 'f3'
+
+
+def count_name_use(sources, symbols=None):
+    """Split the census's frozen address *names* into used and inert (D7.2c).
+
+    *sources* is an iterable of ``(path, text)`` covering the whole emitted
+    tree.  The unit is the tree rather than one file on purpose: a name declared
+    in a master is normally used in a fragment.  Returns ``{'names_used',
+    'names_inert', 'inert_names'}``.
+
+    A name is **used** when the tree mentions it anywhere other than the ``equ``
+    that declares it -- the frozen literal is then a real dependency, and binding
+    it to a label is what makes it follow an edit.  An **inert** name is one
+    nothing refers to: the literal costs nothing, and converting it to a label
+    only moves the census (``loc_0007`` names offset 7 of ``play``'s dispatch
+    table, which nothing in the tree calls).
+
+    A comment is not a reference, and neither is a ``%`` directive or an
+    ``%include`` path: an emitted fragment is named after the label it defines,
+    so its include line would otherwise make every fragment-rooted name look
+    used.
+
+    One name can be declared by several binaries (a content tag names the code,
+    so identical code carries the same name), so each binary's declaration is
+    counted on its own, and a reference means the declaration it resolves to
+    (:func:`lib.compare.cotenancy.resolve`: its own binary first).  *sources*
+    paths are relative to the tree root.  *symbols* is ``{text: Symbol}``: a
+    frozen ``equ`` names a byte when its symbol has a census bucket.
+    """
+    symbols = symbols or {}
+    from lib.compare.cotenancy import binary_of, resolve
+
+    texts = [(str(path), text or '') for path, text in sources]
+    defined = {}
+    anywhere = {}
+    for path, text in texts:
+        for lineno, line in enumerate(text.splitlines()):
+            m = _FROZEN_EQU_RE.match(line)
+            if m and _frozen_bucket(symbols.get(m.group(1))) is not None:
+                defined.setdefault((m.group(1), binary_of(path)), set()).add(
+                    (path, lineno))
+            m = m or _LABEL_DEF_RE.match(line)
+            if m:
+                anywhere.setdefault(m.group(1), []).append(path)
+    if not defined:
+        return {'names_used': 0, 'names_inert': 0, 'inert_names': []}
+    names = {name for name, _ in defined}
+    used = set()
+    for path, text in texts:
+        for lineno, line in enumerate(text.splitlines()):
+            code = line.split(';', 1)[0]
+            if not code.strip() or code.lstrip()[0] == '%':
+                continue
+            for ident in _IDENT_RE.findall(code):
+                if ident not in names:
+                    continue
+                for file in resolve(ident, path, anywhere):
+                    key = (ident, binary_of(file))
+                    if key in defined and (path, lineno) not in defined[key]:
+                        used.add(key)
+    inert = sorted(name for name, _ in set(defined) - used)
+    return {
+        'names_used': len(defined) - len(inert),
+        'names_inert': len(inert),
+        'inert_names': inert,
+    }
+
+
+def count_frozen_addrs(src_text, symbols=None):
     """Classify residual frozen address/size values in emitted source text.
 
     Returns the per-taxonomy counts (``f1``..``f7``) plus the three gate
@@ -388,7 +386,11 @@ def count_frozen_addrs(src_text):
     overlay load address -> ``code_shift``), ``o_dorg`` (overlay data origin,
     i.e. the host DS size -> ``data_shift``), and ``ds_size_imm`` (a code
     immediate equal to the DS size -> ``code_shift``).
+
+    *symbols* is ``{text: Symbol}`` for the names the source spells: a frozen
+    ``equ`` is bucketed by what its symbol is (:func:`_frozen_bucket`).
     """
+    symbols = symbols or {}
     f = {'f1': 0, 'f2': 0, 'f3': 0, 'f4': 0, 'f5': 0, 'f6': 0, 'f7': 0}
     f4_inert = 0
     external = 0
@@ -415,16 +417,14 @@ def count_frozen_addrs(src_text):
             continue
         m = _FROZEN_EQU_RE.match(line)
         if m:
-            name = stem(m.group(1))
-            if name == 'VBASE':
+            bucket = _frozen_bucket(symbols.get(m.group(1)))
+            if m.group(1) == 'VBASE':
                 o_corg += 1
-            elif name.startswith(_F3_PREFIXES):
-                f['f3'] += 1
-            elif name.startswith(_F4_DATA_PREFIXES):
-                f['f4'] += 1
-            elif name.startswith(_F4_INERT_PREFIXES):
+            elif bucket in ('f3', 'f4'):
+                f[bucket] += 1
+            elif bucket == 'psp':
                 f4_inert += 1
-            elif name.startswith(_EXTERNAL_PREFIXES):
+            elif bucket == 'external':
                 external += 1
             continue
         m = _FROZEN_PAD_RE.match(line)

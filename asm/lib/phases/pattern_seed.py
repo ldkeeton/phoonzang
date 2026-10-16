@@ -5,6 +5,7 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 from lib.model import PhaseContext, SeedInfo, TargetInfo
 from lib.match.pattern import anchor_signature
 from lib.pipeline.phase import Phase, PhaseContract
+from lib.symtab import Kind, Source, Symbol
 
 
 def _discard_stale_prologue_seed(ctx, address):
@@ -94,7 +95,11 @@ class PatternSeedPhase(Phase):
 
                     n_label = name_count.get(name, 0) + 1
                     name_count[name] = n_label
-                    label = f'{name}_{n_label}' if n_label > 1 else name
+                    label = Symbol(
+                        f'{name}_{n_label}' if n_label > 1 else name,
+                        kind=Kind.ROUTINE, source=Source.SIGNATURE,
+                        offset=func_start, role=sig.get('role'),
+                        library=sig.get('library'))
 
                     ctx.label_map[func_start] = label
                     ctx.seeds.append(SeedInfo(

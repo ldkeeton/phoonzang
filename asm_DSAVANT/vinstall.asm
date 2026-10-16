@@ -30,20 +30,13 @@ IMAGE_BASE equ 0x0200 + VBASE
     db 0xd3, 0x33
     times 478 db 0
 
-loc_TIGK equ 0x1fb2 + VBASE
+loc_TTIQ equ 0x1fb2 + VBASE
 leaf_loc_5fe5 equ 0x5fe5 + VBASE
-psp_top_of_memory equ 0x0002
-dseg_0004 equ __zdseg_0004 - __zdseg_start
-dseg_0006 equ __zdseg_0006 - __zdseg_start
 dseg_000e equ __zdseg_000e - __zdseg_start
 dseg_0025 equ __zdseg_0025 - __zdseg_start
-psp_env_segment equ 0x002c
-dseg_002e equ __zstr_0025 - __zdseg_start + 0x0009
-dseg_0030 equ __zstr_0025 - __zdseg_start + 0x000b
 dseg_003c equ __zdseg_003c - __zdseg_start
 dseg_0053 equ __zdseg_0053 - __zdseg_start
 dseg_006a equ __zdseg_006a - __zdseg_start
-psp_cmd_tail_len equ 0x0080
 dseg_0081 equ __zdseg_0081 - __zdseg_start
 dseg_009c equ __zdseg_009c - __zdseg_start
 dseg_00a0 equ __zdseg_00a0 - __zdseg_start
@@ -62,80 +55,12 @@ dseg_0181 equ __zdseg_0181 - __zdseg_start
 dseg_0198 equ __zdseg_0198 - __zdseg_start
 dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
-dseg_230e equ __zdseg_230e - __zdseg_start
-dseg_2310 equ __zdseg_2310 - __zdseg_start
-dseg_2312 equ __zdseg_2312 - __zdseg_start
-dseg_2314 equ __zdseg_2314 - __zdseg_start
-dseg_2316 equ __zdseg_2316 - __zdseg_start
-dseg_2318 equ __zdseg_2318 - __zdseg_start
-dseg_231a equ __zdseg_231a - __zdseg_start
-dseg_231c equ __zdseg_231c - __zdseg_start
-dseg_234a equ __zdseg_234a - __zdseg_start
-dseg_244e equ __zdseg_244e - __zdseg_start
-dseg_24d4 equ __zdseg_24d4 - __zdseg_start
-dseg_24d6 equ __zdseg_24d6 - __zdseg_start
-dseg_24d8 equ __zdseg_24d8 - __zdseg_start
-dseg_24da equ __zdseg_24da - __zdseg_start
-dseg_24dc equ __zdseg_24dc - __zdseg_start
-dseg_24de equ __zdseg_24de - __zdseg_start
-dseg_24e0 equ __zdseg_24e0 - __zdseg_start
-dseg_24e4 equ __zdseg_24e4 - __zdseg_start
-dseg_2500 equ __zdseg_2500 - __zdseg_start
-dseg_2512 equ __zdseg_2512 - __zdseg_start
-dseg_2514 equ __zdseg_2514 - __zdseg_start
-dseg_2516 equ __zdseg_2516 - __zdseg_start
-dseg_2518 equ __zdseg_2518 - __zdseg_start
-dseg_251a equ __zdseg_251a - __zdseg_start
 dseg_251b equ __zdseg_251b - __zdseg_start
 dseg_251c equ __zdseg_251c - __zdseg_start
-dseg_252e equ __zdseg_252e - __zdseg_start
-dseg_2530 equ __zdseg_2530 - __zdseg_start
-dseg_2532 equ __zdseg_2532 - __zdseg_start
-bss_2534 equ (__zimage_end - __zdseg_start)
-bss_2536 equ (__zimage_end - __zdseg_start) + 0x0002
-bss_2538 equ (__zimage_end - __zdseg_start) + 0x0004
-bss_253a equ (__zimage_end - __zdseg_start) + 0x0006
-bss_253c equ (__zimage_end - __zdseg_start) + 0x0008
-bss_2642 equ (__zimage_end - __zdseg_start) + 0x010e
-bss_2644 equ (__zimage_end - __zdseg_start) + 0x0110
-bss_2645 equ (__zimage_end - __zdseg_start) + 0x0111
-bss_2646 equ (__zimage_end - __zdseg_start) + 0x0112
-bss_2647 equ (__zimage_end - __zdseg_start) + 0x0113
-bss_2698 equ (__zimage_end - __zdseg_start) + 0x0164
-bss_29ba equ (__zimage_end - __zdseg_start) + 0x0486
-bss_29bb equ (__zimage_end - __zdseg_start) + 0x0487
-bss_29d0 equ (__zimage_end - __zdseg_start) + 0x049c
-bss_29d1 equ (__zimage_end - __zdseg_start) + 0x049d
-bss_29d2 equ (__zimage_end - __zdseg_start) + 0x049e
-bss_29d4 equ (__zimage_end - __zdseg_start) + 0x04a0
-bss_29d5 equ (__zimage_end - __zdseg_start) + 0x04a1
-bss_29d6 equ (__zimage_end - __zdseg_start) + 0x04a2
-bss_29d7 equ (__zimage_end - __zdseg_start) + 0x04a3
-bss_29d8 equ (__zimage_end - __zdseg_start) + 0x04a4
-bss_29da equ (__zimage_end - __zdseg_start) + 0x04a6
-bss_29dc equ (__zimage_end - __zdseg_start) + 0x04a8
-bss_29dd equ (__zimage_end - __zdseg_start) + 0x04a9
-bss_29df equ (__zimage_end - __zdseg_start) + 0x04ab
-bss_29e1 equ (__zimage_end - __zdseg_start) + 0x04ad
-bss_29e2 equ (__zimage_end - __zdseg_start) + 0x04ae
-bss_29e3 equ (__zimage_end - __zdseg_start) + 0x04af
-bss_29e6 equ (__zimage_end - __zdseg_start) + 0x04b2
-bss_29e8 equ (__zimage_end - __zdseg_start) + 0x04b4
-bss_29ea equ (__zimage_end - __zdseg_start) + 0x04b6
-bss_29ec equ (__zimage_end - __zdseg_start) + 0x04b8
-bss_29ee equ (__zimage_end - __zdseg_start) + 0x04ba
-bss_2af0 equ (__zimage_end - __zdseg_start) + 0x05bc
-bss_2af2 equ (__zimage_end - __zdseg_start) + 0x05be
-bss_2af4 equ (__zimage_end - __zdseg_start) + 0x05c0
-bss_2af6 equ (__zimage_end - __zdseg_start) + 0x05c2
-bss_2af8 equ (__zimage_end - __zdseg_start) + 0x05c4
-bss_2afa equ (__zimage_end - __zdseg_start) + 0x05c6
-bss_2afc equ (__zimage_end - __zdseg_start) + 0x05c8
 bss_2afe equ (__zimage_end - __zdseg_start) + 0x05ca
 __zbss_size equ 0x05ca
-__zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 
-loc_IGLH:
+loc_NVUL:
     push bp                          ; 0x0200
     mov bp, sp                       ; 0x0201
     add sp, byte 0xee                ; 0x0203
@@ -148,9 +73,9 @@ loc_IGLH:
     add ax, strict word 0xffbf       ; 0x0211
     mov word [bp - 0x0012], ax       ; 0x0214
     cmp ax, strict word 0            ; 0x0217
-    jl short @..loc_IGLH.l3          ; 0x021a
+    jl short @..loc_NVUL.l3          ; 0x021a
     cmp ax, strict word 0x19         ; 0x021c
-    jg short @..loc_IGLH.l3          ; 0x021f
+    jg short @..loc_NVUL.l3          ; 0x021f
     mov ax, word [bp - 0x0012]       ; 0x0221
     mov word [bp - 0x000a], ax       ; 0x0224
     mov word [bp - 0x0010], 0xe00    ; 0x0227
@@ -172,21 +97,21 @@ loc_IGLH:
     mov ax, word [bp - 0x0010]       ; 0x024f
     and ax, 0xff                     ; 0x0252
     cmp ax, word [bp - 0x0012]       ; 0x0255
-    je short @..loc_IGLH.l2          ; 0x0258
+    je short @..loc_NVUL.l2          ; 0x0258
     mov ax, 0xffff                   ; 0x025a
-@..loc_IGLH.l1:
+@..loc_NVUL.l1:
     mov sp, bp                       ; 0x025d
     pop bp                           ; 0x025f
     ret                              ; 0x0260
-@..loc_IGLH.l2:
-    jmp short @..loc_IGLH.l4         ; 0x0261
-@..loc_IGLH.l3:
+@..loc_NVUL.l2:
+    jmp short @..loc_NVUL.l4         ; 0x0261
+@..loc_NVUL.l3:
     mov ax, 0xffff                   ; 0x0263
-    jmp short @..loc_IGLH.l1         ; 0x0266
-@..loc_IGLH.l4:
+    jmp short @..loc_NVUL.l1         ; 0x0266
+@..loc_NVUL.l4:
     mov ax, 0                        ; 0x0268
-    jmp short @..loc_IGLH.l1         ; 0x026b
-loc_IRKJ:
+    jmp short @..loc_NVUL.l1         ; 0x026b
+loc_MPOT:
     push bp                          ; 0x026d
     mov bp, sp                       ; 0x026e
     add sp, byte 0xfe                ; 0x0270
@@ -198,8 +123,8 @@ loc_IRKJ:
     pop cx                           ; 0x027e
     dec ax                           ; 0x027f
     mov word [bp - 0x0002], ax       ; 0x0280
-    jmp short @..loc_IRKJ.l2         ; 0x0283
-@..loc_IRKJ.l1:
+    jmp short @..loc_MPOT.l2         ; 0x0283
+@..loc_MPOT.l1:
     mov bx, word [bp + 0x4]          ; 0x0285
     mov al, byte [bx + di]           ; 0x0288
     cbw                              ; 0x028a
@@ -215,9 +140,9 @@ loc_IRKJ:
     mov byte [bx], al                ; 0x02a1
     dec word [bp - 0x0002]           ; 0x02a3
     inc di                           ; 0x02a6
-@..loc_IRKJ.l2:
+@..loc_MPOT.l2:
     cmp di, word [bp - 0x0002]       ; 0x02a7
-    jl short @..loc_IRKJ.l1          ; 0x02aa
+    jl short @..loc_MPOT.l1          ; 0x02aa
     pop si                           ; 0x02ac
     pop di                           ; 0x02ad
     mov sp, bp                       ; 0x02ae
@@ -225,43 +150,82 @@ loc_IRKJ:
     ret                              ; 0x02b1
 %include "vinstall/aztec_raise.asm"        ; 0x02b2
 
-%include "vinstall/loc_QULN.asm"           ; 0x03b3
+%include "vinstall/loc_JTRN_03b3.asm"      ; 0x03b3
 
-%include "vinstall/loc_SLKN.asm"           ; 0x03e1
+%include "vinstall/loc_JTRN_03e1.asm"      ; 0x03e1
 
-%include "vinstall/loc_JSPT.asm"           ; 0x040f
+%include "vinstall/loc_STSN_040f.asm"      ; 0x040f
 
-%include "vinstall/loc_KPHK.asm"           ; 0x0429
+%include "vinstall/loc_STSN_0429.asm"      ; 0x0429
 
-%include "vinstall/loc_PJUI.asm"           ; 0x06f1
+%include "vinstall/loc_NPPN.asm"           ; 0x06f1
 
-%include "vinstall/loc_KLTH.asm"           ; 0x0815
+%include "vinstall/loc_JJNP_0815.asm"      ; 0x0815
 
-%include "vinstall/loc_UONK.asm"           ; 0x0823
+%include "vinstall/loc_NOVO.asm"           ; 0x0823
 
-%include "vinstall/loc_TINS.asm"           ; 0x0927
+bss_2644 equ (__zimage_end - __zdseg_start) + 0x0110
+bss_2645 equ (__zimage_end - __zdseg_start) + 0x0111
+bss_2646 equ (__zimage_end - __zdseg_start) + 0x0112
+bss_2647 equ (__zimage_end - __zdseg_start) + 0x0113
+%include "vinstall/loc_VRLL.asm"           ; 0x0927
 
 %include "vinstall/aztec_vfprintf.asm"     ; 0x0944
 
-%include "vinstall/loc_QQGN.asm"           ; 0x0992
+%include "vinstall/loc_NNGU.asm"           ; 0x0992
 
-%include "vinstall/aztec_scan.asm"         ; 0x0a0f
+bss_2698 equ (__zimage_end - __zdseg_start) + 0x0164
+bss_29ba equ (__zimage_end - __zdseg_start) + 0x0486
+bss_29bb equ (__zimage_end - __zdseg_start) + 0x0487
+bss_29d0 equ (__zimage_end - __zdseg_start) + 0x049c
+bss_29d1 equ (__zimage_end - __zdseg_start) + 0x049d
+bss_29d2 equ (__zimage_end - __zdseg_start) + 0x049e
+bss_29d4 equ (__zimage_end - __zdseg_start) + 0x04a0
+bss_29d5 equ (__zimage_end - __zdseg_start) + 0x04a1
+bss_29d6 equ (__zimage_end - __zdseg_start) + 0x04a2
+bss_29d7 equ (__zimage_end - __zdseg_start) + 0x04a3
+bss_29d8 equ (__zimage_end - __zdseg_start) + 0x04a4
+bss_29da equ (__zimage_end - __zdseg_start) + 0x04a6
+bss_29dc equ (__zimage_end - __zdseg_start) + 0x04a8
+bss_29dd equ (__zimage_end - __zdseg_start) + 0x04a9
+bss_29df equ (__zimage_end - __zdseg_start) + 0x04ab
+bss_29e1 equ (__zimage_end - __zdseg_start) + 0x04ad
+bss_29e2 equ (__zimage_end - __zdseg_start) + 0x04ae
+bss_29e3 equ (__zimage_end - __zdseg_start) + 0x04af
+%include "vinstall/aztec_impl_scan.asm"    ; 0x0a0f
 
-%include "vinstall/loc_NOKL.asm"           ; 0x0c21
+bss_29e6 equ (__zimage_end - __zdseg_start) + 0x04b2
+bss_29e8 equ (__zimage_end - __zdseg_start) + 0x04b4
+bss_29ea equ (__zimage_end - __zdseg_start) + 0x04b6
+bss_29ec equ (__zimage_end - __zdseg_start) + 0x04b8
+%include "vinstall/loc_UTOL.asm"           ; 0x0c21
 
-%include "vinstall/loc_MVGG.asm"           ; 0x0cd6
+%include "vinstall/loc_HUKT.asm"           ; 0x0cd6
 
-%include "vinstall/loc_SOGS.asm"           ; 0x0d12
+%include "vinstall/loc_TUNS.asm"           ; 0x0d12
 
-%include "vinstall/loc_RMUH.asm"           ; 0x0d3f
+%include "vinstall/loc_PQHH.asm"           ; 0x0d3f
 
-%include "vinstall/loc_PMLM.asm"           ; 0x0dda
+%include "vinstall/loc_ONOP.asm"           ; 0x0dda
 
-%include "vinstall/loc_GGIS.asm"           ; 0x0ed8
+bss_29ee equ (__zimage_end - __zdseg_start) + 0x04ba
+%include "vinstall/loc_GVUH.asm"           ; 0x0ed8
 
-%include "vinstall/leaf_loc_NNJM.asm"      ; 0x10a4
+%include "vinstall/leaf_loc_UUSR.asm"      ; 0x10a4
 
-%include "vinstall/loc_VRUR.asm"           ; 0x12b5
+dseg_0004 equ __zdseg_0004 - __zdseg_start
+dseg_0006 equ __zdseg_0006 - __zdseg_start
+; bss_29e6  equ (__zimage_end - __zdseg_start) + 0x04b2
+; bss_29e8  equ (__zimage_end - __zdseg_start) + 0x04b4
+; bss_29ea  equ (__zimage_end - __zdseg_start) + 0x04b6
+; bss_29ec  equ (__zimage_end - __zdseg_start) + 0x04b8
+bss_2af0  equ (__zimage_end - __zdseg_start) + 0x05bc
+bss_2af2  equ (__zimage_end - __zdseg_start) + 0x05be
+bss_2af4  equ (__zimage_end - __zdseg_start) + 0x05c0
+bss_2af6  equ (__zimage_end - __zdseg_start) + 0x05c2
+bss_2af8  equ (__zimage_end - __zdseg_start) + 0x05c4
+bss_2afa  equ (__zimage_end - __zdseg_start) + 0x05c6
+%include "vinstall/loc_JGSH.asm"           ; 0x12b5
 
 jumptable_1969_case_1:
     mov ax, word [bp - 0x000e]       ; 0x17cf
@@ -272,9 +236,9 @@ jumptable_1969_case_1:
     push ax                          ; 0x17dd
     mov ax, 8                        ; 0x17de
     push ax                          ; 0x17e1
-    call loc_JSPT                    ; 0x17e2
+    call loc_STSN_040f               ; 0x17e2
     add sp, byte 6                   ; 0x17e5
-    jmp near @..loc_VRUR.l11         ; 0x17e8
+    jmp near @..loc_JGSH.l11         ; 0x17e8
 jumptable_1969_case_2:
     lea ax, word [bp - 0x001c]       ; 0x17eb
     push ax                          ; 0x17ee
@@ -282,9 +246,9 @@ jumptable_1969_case_2:
     push ax                          ; 0x17f2
     mov ax, 8                        ; 0x17f3
     push ax                          ; 0x17f6
-    call loc_JSPT                    ; 0x17f7
+    call loc_STSN_040f               ; 0x17f7
     add sp, byte 6                   ; 0x17fa
-    jmp near @..loc_VRUR.l11         ; 0x17fd
+    jmp near @..loc_JGSH.l11         ; 0x17fd
 jumptable_1969_case_3:
     lea ax, word [bp - 0x0032]       ; 0x1800
     push ax                          ; 0x1803
@@ -292,9 +256,9 @@ jumptable_1969_case_3:
     push ax                          ; 0x1807
     mov ax, 8                        ; 0x1808
     push ax                          ; 0x180b
-    call loc_JSPT                    ; 0x180c
+    call loc_STSN_040f               ; 0x180c
     add sp, byte 6                   ; 0x180f
-    jmp near @..loc_VRUR.l11         ; 0x1812
+    jmp near @..loc_JGSH.l11         ; 0x1812
 jumptable_1969_case_4:
     mov ax, word [bp - 0x0010]       ; 0x1815
     shl ax, 1                        ; 0x1818
@@ -304,9 +268,9 @@ jumptable_1969_case_4:
     push ax                          ; 0x1823
     mov ax, 9                        ; 0x1824
     push ax                          ; 0x1827
-    call loc_JSPT                    ; 0x1828
+    call loc_STSN_040f               ; 0x1828
     add sp, byte 6                   ; 0x182b
-    jmp near @..loc_VRUR.l11         ; 0x182e
+    jmp near @..loc_JGSH.l11         ; 0x182e
 jumptable_1969_case_5:
     lea ax, word [bp - 0x003e]       ; 0x1831
     push ax                          ; 0x1834
@@ -314,9 +278,9 @@ jumptable_1969_case_5:
     push ax                          ; 0x1838
     mov ax, 9                        ; 0x1839
     push ax                          ; 0x183c
-    call loc_JSPT                    ; 0x183d
+    call loc_STSN_040f               ; 0x183d
     add sp, byte 6                   ; 0x1840
-    jmp near @..loc_VRUR.l11         ; 0x1843
+    jmp near @..loc_JGSH.l11         ; 0x1843
 jumptable_1969_case_6:
     lea ax, word [bp - 0x0054]       ; 0x1846
     push ax                          ; 0x1849
@@ -324,9 +288,9 @@ jumptable_1969_case_6:
     push ax                          ; 0x184d
     mov ax, 9                        ; 0x184e
     push ax                          ; 0x1851
-    call loc_JSPT                    ; 0x1852
+    call loc_STSN_040f               ; 0x1852
     add sp, byte 6                   ; 0x1855
-    jmp near @..loc_VRUR.l11         ; 0x1858
+    jmp near @..loc_JGSH.l11         ; 0x1858
 jumptable_1969_case_7:
     mov ax, word [bp - 0x01a0]       ; 0x185b
     shl ax, 1                        ; 0x185f
@@ -336,9 +300,9 @@ jumptable_1969_case_7:
     push ax                          ; 0x186a
     mov ax, 0xb                      ; 0x186b
     push ax                          ; 0x186e
-    call loc_JSPT                    ; 0x186f
+    call loc_STSN_040f               ; 0x186f
     add sp, byte 6                   ; 0x1872
-    jmp near @..loc_VRUR.l11         ; 0x1875
+    jmp near @..loc_JGSH.l11         ; 0x1875
 jumptable_1969_case_8:
     mov ax, word [bp - 0x01a2]       ; 0x1878
     shl ax, 1                        ; 0x187c
@@ -348,9 +312,9 @@ jumptable_1969_case_8:
     push ax                          ; 0x1887
     mov ax, 0xb                      ; 0x1888
     push ax                          ; 0x188b
-    call loc_JSPT                    ; 0x188c
+    call loc_STSN_040f               ; 0x188c
     add sp, byte 6                   ; 0x188f
-    jmp near @..loc_VRUR.l11         ; 0x1892
+    jmp near @..loc_JGSH.l11         ; 0x1892
 jumptable_1969_case_9:
     lea ax, word [bp - 0x01b8]       ; 0x1895
     push ax                          ; 0x1899
@@ -358,9 +322,9 @@ jumptable_1969_case_9:
     push ax                          ; 0x189d
     mov ax, 0xb                      ; 0x189e
     push ax                          ; 0x18a1
-    call loc_JSPT                    ; 0x18a2
+    call loc_STSN_040f               ; 0x18a2
     add sp, byte 6                   ; 0x18a5
-    jmp near @..loc_VRUR.l11         ; 0x18a8
+    jmp near @..loc_JGSH.l11         ; 0x18a8
 jumptable_1969_case_10:
     mov ax, word [bp - 0x0196]       ; 0x18ab
     shl ax, 1                        ; 0x18af
@@ -370,27 +334,27 @@ jumptable_1969_case_10:
     push ax                          ; 0x18ba
     mov ax, 0xd                      ; 0x18bb
     push ax                          ; 0x18be
-    call loc_JSPT                    ; 0x18bf
+    call loc_STSN_040f               ; 0x18bf
     add sp, byte 6                   ; 0x18c2
-    jmp near @..loc_VRUR.l11         ; 0x18c5
+    jmp near @..loc_JGSH.l11         ; 0x18c5
 jumptable_1969_case_11:
     push word [bp - 0x01ba]          ; 0x18c8
     mov ax, 0x3e                     ; 0x18cc
     push ax                          ; 0x18cf
     mov ax, 0xf                      ; 0x18d0
     push ax                          ; 0x18d3
-    call loc_QULN                    ; 0x18d4
+    call loc_JTRN_03b3               ; 0x18d4
     add sp, byte 6                   ; 0x18d7
-    jmp near @..loc_VRUR.l11         ; 0x18da
+    jmp near @..loc_JGSH.l11         ; 0x18da
 jumptable_1969_case_12:
     push word [bp - 0x01bc]          ; 0x18dd
     mov ax, 0x3e                     ; 0x18e1
     push ax                          ; 0x18e4
     mov ax, 0x10                     ; 0x18e5
     push ax                          ; 0x18e8
-    call loc_QULN                    ; 0x18e9
+    call loc_JTRN_03b3               ; 0x18e9
     add sp, byte 6                   ; 0x18ec
-    jmp near @..loc_VRUR.l11         ; 0x18ef
+    jmp near @..loc_JGSH.l11         ; 0x18ef
 jumptable_1969_case_13:
     mov ax, word [bp - 0x019a]       ; 0x18f2
     shl ax, 1                        ; 0x18f6
@@ -400,9 +364,9 @@ jumptable_1969_case_13:
     push ax                          ; 0x1901
     mov ax, 0x12                     ; 0x1902
     push ax                          ; 0x1905
-    call loc_JSPT                    ; 0x1906
+    call loc_STSN_040f               ; 0x1906
     add sp, byte 6                   ; 0x1909
-    jmp near @..loc_VRUR.l11         ; 0x190c
+    jmp near @..loc_JGSH.l11         ; 0x190c
 jumptable_1969_case_14:
     mov ax, word [bp - 0x0198]       ; 0x190f
     shl ax, 1                        ; 0x1913
@@ -412,9 +376,9 @@ jumptable_1969_case_14:
     push ax                          ; 0x191e
     mov ax, 0x12                     ; 0x191f
     push ax                          ; 0x1922
-    call loc_JSPT                    ; 0x1923
+    call loc_STSN_040f               ; 0x1923
     add sp, byte 6                   ; 0x1926
-    jmp short @..loc_VRUR.l11        ; 0x1929
+    jmp short @..loc_JGSH.l11        ; 0x1929
 jumptable_1969_case_15:
     mov ax, 0x1e50                   ; 0x192b
     push ax                          ; 0x192e
@@ -422,9 +386,9 @@ jumptable_1969_case_15:
     push ax                          ; 0x1932
     mov ax, 0x14                     ; 0x1933
     push ax                          ; 0x1936
-    call loc_JSPT                    ; 0x1937
+    call loc_STSN_040f               ; 0x1937
     add sp, byte 6                   ; 0x193a
-    jmp short @..loc_VRUR.l11        ; 0x193d
+    jmp short @..loc_JGSH.l11        ; 0x193d
 jumptable_1969_case_16:
     mov ax, 0x1e5d                   ; 0x193f
     push ax                          ; 0x1942
@@ -432,9 +396,9 @@ jumptable_1969_case_16:
     push ax                          ; 0x1946
     mov ax, 0x14                     ; 0x1947
     push ax                          ; 0x194a
-    call loc_JSPT                    ; 0x194b
+    call loc_STSN_040f               ; 0x194b
     add sp, byte 6                   ; 0x194e
-    jmp short @..loc_VRUR.l11        ; 0x1951
+    jmp short @..loc_JGSH.l11        ; 0x1951
 jumptable_1969_case_17:
     mov ax, 0x1e69                   ; 0x1953
     push ax                          ; 0x1956
@@ -442,11 +406,11 @@ jumptable_1969_case_17:
     push ax                          ; 0x195a
     mov ax, 0x14                     ; 0x195b
     push ax                          ; 0x195e
-    call loc_JSPT                    ; 0x195f
+    call loc_STSN_040f               ; 0x195f
     add sp, byte 6                   ; 0x1962
-    jmp short @..loc_VRUR.l11        ; 0x1965
+    jmp short @..loc_JGSH.l11        ; 0x1965
 jumptable_1969_case_0:
-    jmp short @..loc_VRUR.l11        ; 0x1967
+    jmp short @..loc_JGSH.l11        ; 0x1967
 jumptable_1969:
     dw jumptable_1969_case_0 - IMAGE_BASE      ; 0x1969
     dw jumptable_1969_case_1 - IMAGE_BASE      ; 0x196b
@@ -466,16 +430,16 @@ jumptable_1969:
     dw jumptable_1969_case_15 - IMAGE_BASE     ; 0x1987
     dw jumptable_1969_case_16 - IMAGE_BASE     ; 0x1989
     dw jumptable_1969_case_17 - IMAGE_BASE     ; 0x198b
-@..loc_VRUR.l10:
+@..loc_JGSH.l10:
     sub ax, strict word 0xffff       ; 0x198d
     cmp ax, strict word 0x12         ; 0x1990
-    jae short @..loc_VRUR.l11        ; 0x1993
+    jae short @..loc_JGSH.l11        ; 0x1993
     xchg bx, ax                      ; 0x1995
     shl bx, 1                        ; 0x1996
     jmp [cs:bx + jumptable_1969 - IMAGE_BASE] ; 0x1998
-@..loc_VRUR.l11:
+@..loc_JGSH.l11:
     mov ax, word [bp - 0x019c]       ; 0x199d
-    jmp near @..loc_VRUR.l12         ; 0x19a1
+    jmp near @..loc_JGSH.l12         ; 0x19a1
 jumptable_1b3c_case_0:
     mov ax, word [bp - 0x000e]       ; 0x19a4
     shl ax, 1                        ; 0x19a7
@@ -485,9 +449,9 @@ jumptable_1b3c_case_0:
     push ax                          ; 0x19b2
     mov ax, 8                        ; 0x19b3
     push ax                          ; 0x19b6
-    call loc_KPHK                    ; 0x19b7
+    call loc_STSN_0429               ; 0x19b7
     add sp, byte 6                   ; 0x19ba
-    jmp near @..loc_VRUR.l13         ; 0x19bd
+    jmp near @..loc_JGSH.l13         ; 0x19bd
 jumptable_1b3c_case_1:
     lea ax, word [bp - 0x001c]       ; 0x19c0
     push ax                          ; 0x19c3
@@ -495,9 +459,9 @@ jumptable_1b3c_case_1:
     push ax                          ; 0x19c7
     mov ax, 8                        ; 0x19c8
     push ax                          ; 0x19cb
-    call loc_KPHK                    ; 0x19cc
+    call loc_STSN_0429               ; 0x19cc
     add sp, byte 6                   ; 0x19cf
-    jmp near @..loc_VRUR.l13         ; 0x19d2
+    jmp near @..loc_JGSH.l13         ; 0x19d2
 jumptable_1b3c_case_2:
     lea ax, word [bp - 0x0032]       ; 0x19d5
     push ax                          ; 0x19d8
@@ -505,9 +469,9 @@ jumptable_1b3c_case_2:
     push ax                          ; 0x19dc
     mov ax, 8                        ; 0x19dd
     push ax                          ; 0x19e0
-    call loc_KPHK                    ; 0x19e1
+    call loc_STSN_0429               ; 0x19e1
     add sp, byte 6                   ; 0x19e4
-    jmp near @..loc_VRUR.l13         ; 0x19e7
+    jmp near @..loc_JGSH.l13         ; 0x19e7
 jumptable_1b3c_case_3:
     mov ax, word [bp - 0x0010]       ; 0x19ea
     shl ax, 1                        ; 0x19ed
@@ -517,9 +481,9 @@ jumptable_1b3c_case_3:
     push ax                          ; 0x19f8
     mov ax, 9                        ; 0x19f9
     push ax                          ; 0x19fc
-    call loc_KPHK                    ; 0x19fd
+    call loc_STSN_0429               ; 0x19fd
     add sp, byte 6                   ; 0x1a00
-    jmp near @..loc_VRUR.l13         ; 0x1a03
+    jmp near @..loc_JGSH.l13         ; 0x1a03
 jumptable_1b3c_case_4:
     lea ax, word [bp - 0x003e]       ; 0x1a06
     push ax                          ; 0x1a09
@@ -527,9 +491,9 @@ jumptable_1b3c_case_4:
     push ax                          ; 0x1a0d
     mov ax, 9                        ; 0x1a0e
     push ax                          ; 0x1a11
-    call loc_KPHK                    ; 0x1a12
+    call loc_STSN_0429               ; 0x1a12
     add sp, byte 6                   ; 0x1a15
-    jmp near @..loc_VRUR.l13         ; 0x1a18
+    jmp near @..loc_JGSH.l13         ; 0x1a18
 jumptable_1b3c_case_5:
     lea ax, word [bp - 0x0054]       ; 0x1a1b
     push ax                          ; 0x1a1e
@@ -537,9 +501,9 @@ jumptable_1b3c_case_5:
     push ax                          ; 0x1a22
     mov ax, 9                        ; 0x1a23
     push ax                          ; 0x1a26
-    call loc_KPHK                    ; 0x1a27
+    call loc_STSN_0429               ; 0x1a27
     add sp, byte 6                   ; 0x1a2a
-    jmp near @..loc_VRUR.l13         ; 0x1a2d
+    jmp near @..loc_JGSH.l13         ; 0x1a2d
 jumptable_1b3c_case_6:
     mov ax, word [bp - 0x01a0]       ; 0x1a30
     shl ax, 1                        ; 0x1a34
@@ -549,9 +513,9 @@ jumptable_1b3c_case_6:
     push ax                          ; 0x1a3f
     mov ax, 0xb                      ; 0x1a40
     push ax                          ; 0x1a43
-    call loc_KPHK                    ; 0x1a44
+    call loc_STSN_0429               ; 0x1a44
     add sp, byte 6                   ; 0x1a47
-    jmp near @..loc_VRUR.l13         ; 0x1a4a
+    jmp near @..loc_JGSH.l13         ; 0x1a4a
 jumptable_1b3c_case_7:
     mov ax, word [bp - 0x01a2]       ; 0x1a4d
     shl ax, 1                        ; 0x1a51
@@ -561,9 +525,9 @@ jumptable_1b3c_case_7:
     push ax                          ; 0x1a5c
     mov ax, 0xb                      ; 0x1a5d
     push ax                          ; 0x1a60
-    call loc_KPHK                    ; 0x1a61
+    call loc_STSN_0429               ; 0x1a61
     add sp, byte 6                   ; 0x1a64
-    jmp near @..loc_VRUR.l13         ; 0x1a67
+    jmp near @..loc_JGSH.l13         ; 0x1a67
 jumptable_1b3c_case_8:
     lea ax, word [bp - 0x01b8]       ; 0x1a6a
     push ax                          ; 0x1a6e
@@ -571,9 +535,9 @@ jumptable_1b3c_case_8:
     push ax                          ; 0x1a72
     mov ax, 0xb                      ; 0x1a73
     push ax                          ; 0x1a76
-    call loc_KPHK                    ; 0x1a77
+    call loc_STSN_0429               ; 0x1a77
     add sp, byte 6                   ; 0x1a7a
-    jmp near @..loc_VRUR.l13         ; 0x1a7d
+    jmp near @..loc_JGSH.l13         ; 0x1a7d
 jumptable_1b3c_case_9:
     mov ax, word [bp - 0x0196]       ; 0x1a80
     shl ax, 1                        ; 0x1a84
@@ -583,27 +547,27 @@ jumptable_1b3c_case_9:
     push ax                          ; 0x1a8f
     mov ax, 0xd                      ; 0x1a90
     push ax                          ; 0x1a93
-    call loc_KPHK                    ; 0x1a94
+    call loc_STSN_0429               ; 0x1a94
     add sp, byte 6                   ; 0x1a97
-    jmp near @..loc_VRUR.l13         ; 0x1a9a
+    jmp near @..loc_JGSH.l13         ; 0x1a9a
 jumptable_1b3c_case_10:
     push word [bp - 0x01ba]          ; 0x1a9d
     mov ax, 0x3e                     ; 0x1aa1
     push ax                          ; 0x1aa4
     mov ax, 0xf                      ; 0x1aa5
     push ax                          ; 0x1aa8
-    call loc_SLKN                    ; 0x1aa9
+    call loc_JTRN_03e1               ; 0x1aa9
     add sp, byte 6                   ; 0x1aac
-    jmp near @..loc_VRUR.l13         ; 0x1aaf
+    jmp near @..loc_JGSH.l13         ; 0x1aaf
 jumptable_1b3c_case_11:
     push word [bp - 0x01bc]          ; 0x1ab2
     mov ax, 0x3e                     ; 0x1ab6
     push ax                          ; 0x1ab9
     mov ax, 0x10                     ; 0x1aba
     push ax                          ; 0x1abd
-    call loc_SLKN                    ; 0x1abe
+    call loc_JTRN_03e1               ; 0x1abe
     add sp, byte 6                   ; 0x1ac1
-    jmp near @..loc_VRUR.l13         ; 0x1ac4
+    jmp near @..loc_JGSH.l13         ; 0x1ac4
 jumptable_1b3c_case_12:
     mov ax, word [bp - 0x019a]       ; 0x1ac7
     shl ax, 1                        ; 0x1acb
@@ -613,9 +577,9 @@ jumptable_1b3c_case_12:
     push ax                          ; 0x1ad6
     mov ax, 0x12                     ; 0x1ad7
     push ax                          ; 0x1ada
-    call loc_KPHK                    ; 0x1adb
+    call loc_STSN_0429               ; 0x1adb
     add sp, byte 6                   ; 0x1ade
-    jmp near @..loc_VRUR.l13         ; 0x1ae1
+    jmp near @..loc_JGSH.l13         ; 0x1ae1
 jumptable_1b3c_case_13:
     mov ax, word [bp - 0x0198]       ; 0x1ae4
     shl ax, 1                        ; 0x1ae8
@@ -625,9 +589,9 @@ jumptable_1b3c_case_13:
     push ax                          ; 0x1af3
     mov ax, 0x12                     ; 0x1af4
     push ax                          ; 0x1af7
-    call loc_KPHK                    ; 0x1af8
+    call loc_STSN_0429               ; 0x1af8
     add sp, byte 6                   ; 0x1afb
-    jmp short @..loc_VRUR.l13        ; 0x1afe
+    jmp short @..loc_JGSH.l13        ; 0x1afe
 jumptable_1b3c_case_14:
     mov ax, 0x1e77                   ; 0x1b00
     push ax                          ; 0x1b03
@@ -635,9 +599,9 @@ jumptable_1b3c_case_14:
     push ax                          ; 0x1b07
     mov ax, 0x14                     ; 0x1b08
     push ax                          ; 0x1b0b
-    call loc_KPHK                    ; 0x1b0c
+    call loc_STSN_0429               ; 0x1b0c
     add sp, byte 6                   ; 0x1b0f
-    jmp short @..loc_VRUR.l13        ; 0x1b12
+    jmp short @..loc_JGSH.l13        ; 0x1b12
 jumptable_1b3c_case_15:
     mov ax, 0x1e84                   ; 0x1b14
     push ax                          ; 0x1b17
@@ -645,9 +609,9 @@ jumptable_1b3c_case_15:
     push ax                          ; 0x1b1b
     mov ax, 0x14                     ; 0x1b1c
     push ax                          ; 0x1b1f
-    call loc_KPHK                    ; 0x1b20
+    call loc_STSN_0429               ; 0x1b20
     add sp, byte 6                   ; 0x1b23
-    jmp short @..loc_VRUR.l13        ; 0x1b26
+    jmp short @..loc_JGSH.l13        ; 0x1b26
 jumptable_1b3c_case_16:
     mov ax, 0x1e90                   ; 0x1b28
     push ax                          ; 0x1b2b
@@ -655,9 +619,9 @@ jumptable_1b3c_case_16:
     push ax                          ; 0x1b2f
     mov ax, 0x14                     ; 0x1b30
     push ax                          ; 0x1b33
-    call loc_KPHK                    ; 0x1b34
+    call loc_STSN_0429               ; 0x1b34
     add sp, byte 6                   ; 0x1b37
-    jmp short @..loc_VRUR.l13        ; 0x1b3a
+    jmp short @..loc_JGSH.l13        ; 0x1b3a
 jumptable_1b3c:
     dw jumptable_1b3c_case_0 - IMAGE_BASE      ; 0x1b3c
     dw jumptable_1b3c_case_1 - IMAGE_BASE      ; 0x1b3e
@@ -676,28 +640,28 @@ jumptable_1b3c:
     dw jumptable_1b3c_case_14 - IMAGE_BASE     ; 0x1b58
     dw jumptable_1b3c_case_15 - IMAGE_BASE     ; 0x1b5a
     dw jumptable_1b3c_case_16 - IMAGE_BASE     ; 0x1b5c
-@..loc_VRUR.l12:
+@..loc_JGSH.l12:
     cmp ax, strict word 0x11         ; 0x1b5e
-    jae short @..loc_VRUR.l13        ; 0x1b61
+    jae short @..loc_JGSH.l13        ; 0x1b61
     xchg bx, ax                      ; 0x1b63
     shl bx, 1                        ; 0x1b64
     jmp [cs:bx + jumptable_1b3c - IMAGE_BASE] ; 0x1b66
-@..loc_VRUR.l13:
+@..loc_JGSH.l13:
     call dos_con_in_noecho           ; 0x1b6b
     push ax                          ; 0x1b6e
-    call loc_JQKT                    ; 0x1b6f
+    call loc_MPRS                    ; 0x1b6f
     pop cx                           ; 0x1b72
     mov word [bp - 0x0008], ax       ; 0x1b73
-    jmp near @..loc_VRUR.l48         ; 0x1b76
-%include "vinstall/loc_PSMR.asm"           ; 0x1b79
+    jmp near @..loc_JGSH.l48         ; 0x1b76
+%include "vinstall/loc_RQGH.asm"           ; 0x1b79
 
-%include "vinstall/loc_ILSJ.asm"           ; 0x1b90
+%include "vinstall/loc_RIRK.asm"           ; 0x1b90
 
-%include "vinstall/loc_RTII.asm"           ; 0x1ba7
+%include "vinstall/loc_TURS.asm"           ; 0x1ba7
 
-%include "vinstall/loc_KRQO.asm"           ; 0x1bbe
+%include "vinstall/loc_JVOO.asm"           ; 0x1bbe
 
-%include "vinstall/loc_VNJS.asm"           ; 0x1bd5
+%include "vinstall/loc_KHVG.asm"           ; 0x1bd5
 
 jumptable_1f81_case_0:
     mov ax, 0x1e9e                   ; 0x1be2
@@ -705,12 +669,12 @@ jumptable_1f81_case_0:
     push word [bp - 0x000e]          ; 0x1be6
     mov ax, 8                        ; 0x1be9
     push ax                          ; 0x1bec
-    call loc_MVGG                    ; 0x1bed
+    call loc_HUKT                    ; 0x1bed
     add sp, byte 6                   ; 0x1bf0
     mov word [bp - 0x000e], ax       ; 0x1bf3
-    jmp near @..loc_VRUR.l47         ; 0x1bf6
+    jmp near @..loc_JGSH.l47         ; 0x1bf6
 jumptable_1f81_case_1:
-@..loc_VRUR.l14:
+@..loc_JGSH.l14:
     mov ax, 2                        ; 0x1bf9
     push ax                          ; 0x1bfc
     lea ax, word [bp - 0x001c]       ; 0x1bfd
@@ -719,44 +683,44 @@ jumptable_1f81_case_1:
     push ax                          ; 0x1c04
     mov ax, 8                        ; 0x1c05
     push ax                          ; 0x1c08
-    call loc_RHMG                    ; 0x1c09
+    call loc_GPOQ                    ; 0x1c09
     add sp, byte 8                   ; 0x1c0c
     cmp byte [bp - 0x001c], 0x41     ; 0x1c0f
-    jl short @..loc_VRUR.l15         ; 0x1c13
+    jl short @..loc_JGSH.l15         ; 0x1c13
     cmp byte [bp - 0x001c], 0x5a     ; 0x1c15
-    jg short @..loc_VRUR.l15         ; 0x1c19
+    jg short @..loc_JGSH.l15         ; 0x1c19
     cmp byte [bp - 0x001b], 0x3a     ; 0x1c1b
-    je short @..loc_VRUR.l16         ; 0x1c1f
-@..loc_VRUR.l15:
+    je short @..loc_JGSH.l16         ; 0x1c1f
+@..loc_JGSH.l15:
     mov ax, 1                        ; 0x1c21
-    jmp short @..loc_VRUR.l17        ; 0x1c24
-@..loc_VRUR.l16:
+    jmp short @..loc_JGSH.l17        ; 0x1c24
+@..loc_JGSH.l16:
     mov ax, 0                        ; 0x1c26
-@..loc_VRUR.l17:
+@..loc_JGSH.l17:
     mov word [bp - 0x01c2], ax       ; 0x1c29
     cmp ax, strict word 1            ; 0x1c2d
-    jne short @..loc_VRUR.l18        ; 0x1c30
+    jne short @..loc_JGSH.l18        ; 0x1c30
     mov ax, 0x1ea4                   ; 0x1c32
     push ax                          ; 0x1c35
-    call loc_QQGN                    ; 0x1c36
+    call loc_NNGU                    ; 0x1c36
     pop cx                           ; 0x1c39
-@..loc_VRUR.l18:
+@..loc_JGSH.l18:
     cmp word [bp - 0x01c2], byte 1   ; 0x1c3a
-    je short @..loc_VRUR.l14         ; 0x1c3f
-    jmp near @..loc_VRUR.l47         ; 0x1c41
+    je short @..loc_JGSH.l14         ; 0x1c3f
+    jmp near @..loc_JGSH.l47         ; 0x1c41
 jumptable_1f81_case_2:
     mov ax, 0x1ecd                   ; 0x1c44
     push ax                          ; 0x1c47
-    call loc_QQGN                    ; 0x1c48
+    call loc_NNGU                    ; 0x1c48
     pop cx                           ; 0x1c4b
-    jmp near @..loc_VRUR.l47         ; 0x1c4c
+    jmp near @..loc_JGSH.l47         ; 0x1c4c
 jumptable_1f81_case_3:
     mov ax, 0x1ef6                   ; 0x1c4f
     push ax                          ; 0x1c52
     push word [bp - 0x0010]          ; 0x1c53
     mov ax, 9                        ; 0x1c56
     push ax                          ; 0x1c59
-    call loc_MVGG                    ; 0x1c5a
+    call loc_HUKT                    ; 0x1c5a
     add sp, byte 6                   ; 0x1c5d
     mov word [bp - 0x0010], ax       ; 0x1c60
     lea ax, word [bp - 0x0054]       ; 0x1c63
@@ -764,7 +728,7 @@ jumptable_1f81_case_3:
     lea ax, word [bp - 0x003e]       ; 0x1c67
     push ax                          ; 0x1c6a
     push word [bp - 0x0010]          ; 0x1c6b
-    call leaf_loc_NNJM               ; 0x1c6e
+    call leaf_loc_UUSR               ; 0x1c6e
     add sp, byte 6                   ; 0x1c71
     mov ax, 0x1efc                   ; 0x1c74
     push ax                          ; 0x1c77
@@ -772,7 +736,7 @@ jumptable_1f81_case_3:
     push ax                          ; 0x1c7b
     mov ax, 9                        ; 0x1c7c
     push ax                          ; 0x1c7f
-    call loc_JSPT                    ; 0x1c80
+    call loc_STSN_040f               ; 0x1c80
     add sp, byte 6                   ; 0x1c83
     lea ax, word [bp - 0x003e]       ; 0x1c86
     push ax                          ; 0x1c89
@@ -780,7 +744,7 @@ jumptable_1f81_case_3:
     push ax                          ; 0x1c8d
     mov ax, 9                        ; 0x1c8e
     push ax                          ; 0x1c91
-    call loc_JSPT                    ; 0x1c92
+    call loc_STSN_040f               ; 0x1c92
     add sp, byte 6                   ; 0x1c95
     lea ax, word [bp - 0x0054]       ; 0x1c98
     push ax                          ; 0x1c9b
@@ -788,11 +752,11 @@ jumptable_1f81_case_3:
     push ax                          ; 0x1c9f
     mov ax, 9                        ; 0x1ca0
     push ax                          ; 0x1ca3
-    call loc_JSPT                    ; 0x1ca4
+    call loc_STSN_040f               ; 0x1ca4
     add sp, byte 6                   ; 0x1ca7
-    jmp near @..loc_VRUR.l47         ; 0x1caa
+    jmp near @..loc_JGSH.l47         ; 0x1caa
 jumptable_1f81_case_4:
-@..loc_VRUR.l19:
+@..loc_JGSH.l19:
     mov ax, 2                        ; 0x1cad
     push ax                          ; 0x1cb0
     lea ax, word [bp - 0x003e]       ; 0x1cb1
@@ -801,42 +765,42 @@ jumptable_1f81_case_4:
     push ax                          ; 0x1cb8
     mov ax, 9                        ; 0x1cb9
     push ax                          ; 0x1cbc
-    call loc_RHMG                    ; 0x1cbd
+    call loc_GPOQ                    ; 0x1cbd
     add sp, byte 8                   ; 0x1cc0
     cmp byte [bp - 0x003e], 0x41     ; 0x1cc3
-    jl short @..loc_VRUR.l20         ; 0x1cc7
+    jl short @..loc_JGSH.l20         ; 0x1cc7
     cmp byte [bp - 0x003e], 0x5a     ; 0x1cc9
-    jg short @..loc_VRUR.l20         ; 0x1ccd
+    jg short @..loc_JGSH.l20         ; 0x1ccd
     cmp byte [bp - 0x003d], 0x3a     ; 0x1ccf
-    je short @..loc_VRUR.l21         ; 0x1cd3
-@..loc_VRUR.l20:
+    je short @..loc_JGSH.l21         ; 0x1cd3
+@..loc_JGSH.l20:
     mov ax, 1                        ; 0x1cd5
-    jmp short @..loc_VRUR.l22        ; 0x1cd8
-@..loc_VRUR.l21:
+    jmp short @..loc_JGSH.l22        ; 0x1cd8
+@..loc_JGSH.l21:
     mov ax, 0                        ; 0x1cda
-@..loc_VRUR.l22:
+@..loc_JGSH.l22:
     mov word [bp - 0x01c2], ax       ; 0x1cdd
     cmp ax, strict word 1            ; 0x1ce1
-    jne short @..loc_VRUR.l23        ; 0x1ce4
+    jne short @..loc_JGSH.l23        ; 0x1ce4
     mov ax, 0x1f1e                   ; 0x1ce6
     push ax                          ; 0x1ce9
-    call loc_QQGN                    ; 0x1cea
+    call loc_NNGU                    ; 0x1cea
     pop cx                           ; 0x1ced
-    jmp short @..loc_VRUR.l24        ; 0x1cee
-@..loc_VRUR.l23:
+    jmp short @..loc_JGSH.l24        ; 0x1cee
+@..loc_JGSH.l23:
     mov al, byte [bp - 0x003e]       ; 0x1cf0
     cmp al, byte [bp - 0x001c]       ; 0x1cf3
-    jne short @..loc_VRUR.l24        ; 0x1cf6
+    jne short @..loc_JGSH.l24        ; 0x1cf6
     mov ax, 0x1f47                   ; 0x1cf8
     push ax                          ; 0x1cfb
-    call loc_QQGN                    ; 0x1cfc
+    call loc_NNGU                    ; 0x1cfc
     pop cx                           ; 0x1cff
-@..loc_VRUR.l24:
+@..loc_JGSH.l24:
     cmp word [bp - 0x01c2], byte 1   ; 0x1d00
-    je short @..loc_VRUR.l19         ; 0x1d05
-    jmp near @..loc_VRUR.l47         ; 0x1d07
+    je short @..loc_JGSH.l19         ; 0x1d05
+    jmp near @..loc_JGSH.l47         ; 0x1d07
 jumptable_1f81_case_5:
-@..loc_VRUR.l25:
+@..loc_JGSH.l25:
     mov ax, 0x14                     ; 0x1d0a
     push ax                          ; 0x1d0d
     lea ax, word [bp - 0x0054]       ; 0x1d0e
@@ -845,65 +809,65 @@ jumptable_1f81_case_5:
     push ax                          ; 0x1d15
     mov ax, 9                        ; 0x1d16
     push ax                          ; 0x1d19
-    call loc_RHMG                    ; 0x1d1a
+    call loc_GPOQ                    ; 0x1d1a
     add sp, byte 8                   ; 0x1d1d
     cmp word [bp - 0x0010], byte 0   ; 0x1d20
-    jne short @..loc_VRUR.l30        ; 0x1d24
+    jne short @..loc_JGSH.l30        ; 0x1d24
     cmp byte [bp - 0x0054], 0x41     ; 0x1d26
-    jl short @..loc_VRUR.l26         ; 0x1d2a
+    jl short @..loc_JGSH.l26         ; 0x1d2a
     cmp byte [bp - 0x0054], 0x5a     ; 0x1d2c
-    jg short @..loc_VRUR.l26         ; 0x1d30
+    jg short @..loc_JGSH.l26         ; 0x1d30
     cmp byte [bp - 0x0053], 0x3a     ; 0x1d32
-    jne short @..loc_VRUR.l26        ; 0x1d36
+    jne short @..loc_JGSH.l26        ; 0x1d36
     lea ax, word [bp - 0x0054]       ; 0x1d38
     push ax                          ; 0x1d3b
     call aztec_strlen                ; 0x1d3c
     pop cx                           ; 0x1d3f
     cmp ax, strict word 2            ; 0x1d40
-    jle short @..loc_VRUR.l27        ; 0x1d43
-@..loc_VRUR.l26:
+    jle short @..loc_JGSH.l27        ; 0x1d43
+@..loc_JGSH.l26:
     mov ax, 1                        ; 0x1d45
-    jmp short @..loc_VRUR.l28        ; 0x1d48
-@..loc_VRUR.l27:
+    jmp short @..loc_JGSH.l28        ; 0x1d48
+@..loc_JGSH.l27:
     mov ax, 0                        ; 0x1d4a
-@..loc_VRUR.l28:
+@..loc_JGSH.l28:
     mov word [bp - 0x01c2], ax       ; 0x1d4d
     cmp ax, strict word 1            ; 0x1d51
-    jne short @..loc_VRUR.l29        ; 0x1d54
+    jne short @..loc_JGSH.l29        ; 0x1d54
     mov ax, 0x1f7c                   ; 0x1d56
     push ax                          ; 0x1d59
-    call loc_QQGN                    ; 0x1d5a
+    call loc_NNGU                    ; 0x1d5a
     pop cx                           ; 0x1d5d
-@..loc_VRUR.l29:
-    jmp short @..loc_VRUR.l31        ; 0x1d5e
-@..loc_VRUR.l30:
+@..loc_JGSH.l29:
+    jmp short @..loc_JGSH.l31        ; 0x1d5e
+@..loc_JGSH.l30:
     mov word [bp - 0x01c2], 0        ; 0x1d60
-@..loc_VRUR.l31:
+@..loc_JGSH.l31:
     cmp word [bp - 0x01c2], byte 1   ; 0x1d66
-    je short @..loc_VRUR.l25         ; 0x1d6b
-    jmp near @..loc_VRUR.l47         ; 0x1d6d
+    je short @..loc_JGSH.l25         ; 0x1d6b
+    jmp near @..loc_JGSH.l47         ; 0x1d6d
 jumptable_1f81_case_6:
     push word [bp - 0x01a0]          ; 0x1d70
     mov ax, 0x1b                     ; 0x1d74
     push ax                          ; 0x1d77
     mov ax, 0xb                      ; 0x1d78
     push ax                          ; 0x1d7b
-    call loc_RMUH                    ; 0x1d7c
+    call loc_PQHH                    ; 0x1d7c
     add sp, byte 6                   ; 0x1d7f
     mov word [bp - 0x01a0], ax       ; 0x1d82
-    jmp near @..loc_VRUR.l47         ; 0x1d86
+    jmp near @..loc_JGSH.l47         ; 0x1d86
 jumptable_1f81_case_7:
     push word [bp - 0x01a2]          ; 0x1d89
     mov ax, 0x29                     ; 0x1d8d
     push ax                          ; 0x1d90
     mov ax, 0xb                      ; 0x1d91
     push ax                          ; 0x1d94
-    call loc_RMUH                    ; 0x1d95
+    call loc_PQHH                    ; 0x1d95
     add sp, byte 6                   ; 0x1d98
     mov word [bp - 0x01a2], ax       ; 0x1d9b
-    jmp near @..loc_VRUR.l47         ; 0x1d9f
+    jmp near @..loc_JGSH.l47         ; 0x1d9f
 jumptable_1f81_case_8:
-@..loc_VRUR.l32:
+@..loc_JGSH.l32:
     mov ax, 0x14                     ; 0x1da2
     push ax                          ; 0x1da5
     lea ax, word [bp - 0x01b8]       ; 0x1da6
@@ -912,7 +876,7 @@ jumptable_1f81_case_8:
     push ax                          ; 0x1dae
     mov ax, 0xb                      ; 0x1daf
     push ax                          ; 0x1db2
-    call loc_RHMG                    ; 0x1db3
+    call loc_GPOQ                    ; 0x1db3
     add sp, byte 8                   ; 0x1db6
     lea ax, word [bp - 0x01b8]       ; 0x1db9
     push ax                          ; 0x1dbd
@@ -920,34 +884,34 @@ jumptable_1f81_case_8:
     pop cx                           ; 0x1dc1
     mov word [bp - 0x02d8], ax       ; 0x1dc2
     cmp ax, strict word 2            ; 0x1dc6
-    jl short @..loc_VRUR.l33         ; 0x1dc9
+    jl short @..loc_JGSH.l33         ; 0x1dc9
     mov bx, ax                       ; 0x1dcb
     add bx, bp                       ; 0x1dcd
     cmp byte [bx - 0x01b9], 0x3a     ; 0x1dcf
-    je short @..loc_VRUR.l34         ; 0x1dd4
-@..loc_VRUR.l33:
+    je short @..loc_JGSH.l34         ; 0x1dd4
+@..loc_JGSH.l33:
     mov ax, 1                        ; 0x1dd6
-    jmp short @..loc_VRUR.l35        ; 0x1dd9
-@..loc_VRUR.l34:
+    jmp short @..loc_JGSH.l35        ; 0x1dd9
+@..loc_JGSH.l34:
     mov ax, 0                        ; 0x1ddb
-@..loc_VRUR.l35:
+@..loc_JGSH.l35:
     mov word [bp - 0x01c2], ax       ; 0x1dde
     cmp ax, strict word 1            ; 0x1de2
-    jne short @..loc_VRUR.l36        ; 0x1de5
+    jne short @..loc_JGSH.l36        ; 0x1de5
     mov ax, 0x1fa5                   ; 0x1de7
     push ax                          ; 0x1dea
-    call loc_QQGN                    ; 0x1deb
+    call loc_NNGU                    ; 0x1deb
     pop cx                           ; 0x1dee
-@..loc_VRUR.l36:
+@..loc_JGSH.l36:
     cmp word [bp - 0x01c2], byte 1   ; 0x1def
-    je short @..loc_VRUR.l32         ; 0x1df4
-    jmp near @..loc_VRUR.l47         ; 0x1df6
+    je short @..loc_JGSH.l32         ; 0x1df4
+    jmp near @..loc_JGSH.l47         ; 0x1df6
 jumptable_1f81_case_9:
     push word [bp - 0x0196]          ; 0x1df9
-    call loc_NOKL                    ; 0x1dfd
+    call loc_UTOL                    ; 0x1dfd
     pop cx                           ; 0x1e00
     mov word [bp - 0x0196], ax       ; 0x1e01
-    jmp near @..loc_VRUR.l47         ; 0x1e05
+    jmp near @..loc_JGSH.l47         ; 0x1e05
 jumptable_1f81_case_10:
     mov ax, 0xff9d                   ; 0x1e08
     push ax                          ; 0x1e0b
@@ -960,10 +924,10 @@ jumptable_1f81_case_10:
     mov ax, 0xf                      ; 0x1e18
     push ax                          ; 0x1e1b
     push word [bp - 0x01ba]          ; 0x1e1c
-    call loc_UONK                    ; 0x1e20
+    call loc_NOVO                    ; 0x1e20
     add sp, byte 0x0c                ; 0x1e23
     mov word [bp - 0x01ba], ax       ; 0x1e26
-    jmp near @..loc_VRUR.l47         ; 0x1e2a
+    jmp near @..loc_JGSH.l47         ; 0x1e2a
 jumptable_1f81_case_11:
     mov ax, 0xff9d                   ; 0x1e2d
     push ax                          ; 0x1e30
@@ -976,84 +940,84 @@ jumptable_1f81_case_11:
     mov ax, 0x10                     ; 0x1e3d
     push ax                          ; 0x1e40
     push word [bp - 0x01bc]          ; 0x1e41
-    call loc_UONK                    ; 0x1e45
+    call loc_NOVO                    ; 0x1e45
     add sp, byte 0x0c                ; 0x1e48
     mov word [bp - 0x01bc], ax       ; 0x1e4b
-    jmp near @..loc_VRUR.l47         ; 0x1e4f
+    jmp near @..loc_JGSH.l47         ; 0x1e4f
 jumptable_1f81_case_12:
     push word [bp - 0x019a]          ; 0x1e52
     mov ax, 0x1b                     ; 0x1e56
     push ax                          ; 0x1e59
     mov ax, 0x12                     ; 0x1e5a
     push ax                          ; 0x1e5d
-    call loc_RMUH                    ; 0x1e5e
+    call loc_PQHH                    ; 0x1e5e
     add sp, byte 6                   ; 0x1e61
     mov word [bp - 0x019a], ax       ; 0x1e64
-    jmp near @..loc_VRUR.l47         ; 0x1e68
+    jmp near @..loc_JGSH.l47         ; 0x1e68
 jumptable_1f81_case_13:
     push word [bp - 0x0198]          ; 0x1e6b
-    call loc_SOGS                    ; 0x1e6f
+    call loc_TUNS                    ; 0x1e6f
     pop cx                           ; 0x1e72
     mov word [bp - 0x0198], ax       ; 0x1e73
-    jmp near @..loc_VRUR.l47         ; 0x1e77
+    jmp near @..loc_JGSH.l47         ; 0x1e77
 jumptable_1f81_case_14:
     mov al, byte [bp - 0x001c]       ; 0x1e7a
     cmp al, byte [bp - 0x003e]       ; 0x1e7d
-    jne short @..loc_VRUR.l37        ; 0x1e80
+    jne short @..loc_JGSH.l37        ; 0x1e80
     mov ax, 0x1fce                   ; 0x1e82
     push ax                          ; 0x1e85
-    call loc_QQGN                    ; 0x1e86
+    call loc_NNGU                    ; 0x1e86
     pop cx                           ; 0x1e89
     mov ax, 0x200a                   ; 0x1e8a
     push ax                          ; 0x1e8d
-    call loc_QQGN                    ; 0x1e8e
+    call loc_NNGU                    ; 0x1e8e
     pop cx                           ; 0x1e91
-    jmp near @..loc_VRUR.l45         ; 0x1e92
-@..loc_VRUR.l37:
+    jmp near @..loc_JGSH.l45         ; 0x1e92
+@..loc_JGSH.l37:
     mov ax, word [bp - 0x0010]       ; 0x1e95
-    jmp short @..loc_VRUR.l42        ; 0x1e98
-@..loc_VRUR.l38:
+    jmp short @..loc_JGSH.l42        ; 0x1e98
+@..loc_JGSH.l38:
     mov ax, 0x204c                   ; 0x1e9a
     push ax                          ; 0x1e9d
     lea ax, word [bp - 0x0194]       ; 0x1e9e
     push ax                          ; 0x1ea2
     call aztec_strcpy                ; 0x1ea3
     add sp, byte 4                   ; 0x1ea6
-    jmp short @..loc_VRUR.l43        ; 0x1ea9
-@..loc_VRUR.l39:
+    jmp short @..loc_JGSH.l43        ; 0x1ea9
+@..loc_JGSH.l39:
     mov ax, 0x2062                   ; 0x1eab
     push ax                          ; 0x1eae
     lea ax, word [bp - 0x0194]       ; 0x1eaf
     push ax                          ; 0x1eb3
     call aztec_strcpy                ; 0x1eb4
     add sp, byte 4                   ; 0x1eb7
-    jmp short @..loc_VRUR.l43        ; 0x1eba
-@..loc_VRUR.l40:
+    jmp short @..loc_JGSH.l43        ; 0x1eba
+@..loc_JGSH.l40:
     mov ax, 0x207b                   ; 0x1ebc
     push ax                          ; 0x1ebf
     lea ax, word [bp - 0x0194]       ; 0x1ec0
     push ax                          ; 0x1ec4
     call aztec_strcpy                ; 0x1ec5
     add sp, byte 4                   ; 0x1ec8
-    jmp short @..loc_VRUR.l43        ; 0x1ecb
-@..loc_VRUR.l41:
+    jmp short @..loc_JGSH.l43        ; 0x1ecb
+@..loc_JGSH.l41:
     mov ax, 0x208f                   ; 0x1ecd
     push ax                          ; 0x1ed0
     lea ax, word [bp - 0x0194]       ; 0x1ed1
     push ax                          ; 0x1ed5
     call aztec_strcpy                ; 0x1ed6
     add sp, byte 4                   ; 0x1ed9
-    jmp short @..loc_VRUR.l43        ; 0x1edc
-@..loc_VRUR.l42:
+    jmp short @..loc_JGSH.l43        ; 0x1edc
+@..loc_JGSH.l42:
     cmp ax, strict word 0            ; 0x1ede
-    je short @..loc_VRUR.l38         ; 0x1ee1
+    je short @..loc_JGSH.l38         ; 0x1ee1
     cmp ax, strict word 1            ; 0x1ee3
-    je short @..loc_VRUR.l39         ; 0x1ee6
+    je short @..loc_JGSH.l39         ; 0x1ee6
     cmp ax, strict word 2            ; 0x1ee8
-    je short @..loc_VRUR.l40         ; 0x1eeb
+    je short @..loc_JGSH.l40         ; 0x1eeb
     cmp ax, strict word 3            ; 0x1eed
-    je short @..loc_VRUR.l41         ; 0x1ef0
-@..loc_VRUR.l43:
+    je short @..loc_JGSH.l41         ; 0x1ef0
+@..loc_JGSH.l43:
     mov ax, 0x20a8                   ; 0x1ef2
     push ax                          ; 0x1ef5
     mov ax, 0x2648                   ; 0x1ef6
@@ -1061,7 +1025,7 @@ jumptable_1f81_case_14:
     call aztec_strcpy                ; 0x1efa
     add sp, byte 4                   ; 0x1efd
     cmp word [bp - 0x0010], byte 4   ; 0x1f00
-    je short @..loc_VRUR.l44         ; 0x1f04
+    je short @..loc_JGSH.l44         ; 0x1f04
     mov ax, 0x20a9                   ; 0x1f06
     push ax                          ; 0x1f09
     lea ax, word [bp - 0x0144]       ; 0x1f0a
@@ -1072,38 +1036,38 @@ jumptable_1f81_case_14:
     push ax                          ; 0x1f19
     lea ax, word [bp - 0x0144]       ; 0x1f1a
     push ax                          ; 0x1f1e
-    call string_loc_VOPH             ; 0x1f1f
+    call aztec_strcat                ; 0x1f1f
     add sp, byte 4                   ; 0x1f22
     mov ax, 0x20c0                   ; 0x1f25
     push ax                          ; 0x1f28
     lea ax, word [bp - 0x0144]       ; 0x1f29
     push ax                          ; 0x1f2d
-    call string_loc_VOPH             ; 0x1f2e
+    call aztec_strcat                ; 0x1f2e
     add sp, byte 4                   ; 0x1f31
     lea ax, word [bp - 0x0144]       ; 0x1f34
     push ax                          ; 0x1f38
-    call loc_QQGN                    ; 0x1f39
+    call loc_NNGU                    ; 0x1f39
     pop cx                           ; 0x1f3c
     mov ax, 0x20d2                   ; 0x1f3d
     push ax                          ; 0x1f40
-    call loc_QQGN                    ; 0x1f41
+    call loc_NNGU                    ; 0x1f41
     pop cx                           ; 0x1f44
-@..loc_VRUR.l44:
+@..loc_JGSH.l44:
     mov word [bp - 0x01c6], 1        ; 0x1f45
     mov word [bp - 0x01c0], 1        ; 0x1f4b
     mov word [bp - 0x01ca], 1        ; 0x1f51
-@..loc_VRUR.l45:
-    jmp short @..loc_VRUR.l47        ; 0x1f57
+@..loc_JGSH.l45:
+    jmp short @..loc_JGSH.l47        ; 0x1f57
 jumptable_1f81_case_15:
     mov word [bp - 0x01c6], 1        ; 0x1f59
     mov word [bp - 0x01c0], 1        ; 0x1f5f
     mov word [bp - 0x01ca], 0        ; 0x1f65
-    jmp short @..loc_VRUR.l47        ; 0x1f6b
+    jmp short @..loc_JGSH.l47        ; 0x1f6b
 jumptable_1f81_case_16:
     mov word [bp - 0x01c6], 0        ; 0x1f6d
     mov word [bp - 0x01c0], 1        ; 0x1f73
     mov word [bp - 0x01ca], 0        ; 0x1f79
-    jmp short @..loc_VRUR.l47        ; 0x1f7f
+    jmp short @..loc_JGSH.l47        ; 0x1f7f
 jumptable_1f81:
     dw jumptable_1f81_case_0 - IMAGE_BASE      ; 0x1f81
     dw jumptable_1f81_case_1 - IMAGE_BASE      ; 0x1f83
@@ -1122,38 +1086,38 @@ jumptable_1f81:
     dw jumptable_1f81_case_14 - IMAGE_BASE     ; 0x1f9d
     dw jumptable_1f81_case_15 - IMAGE_BASE     ; 0x1f9f
     dw jumptable_1f81_case_16 - IMAGE_BASE     ; 0x1fa1
-@..loc_VRUR.l46:
+@..loc_JGSH.l46:
     cmp ax, strict word 0x11         ; 0x1fa3
-    jae short @..loc_VRUR.l47        ; 0x1fa6
+    jae short @..loc_JGSH.l47        ; 0x1fa6
     xchg bx, ax                      ; 0x1fa8
     shl bx, 1                        ; 0x1fa9
     jmp [cs:bx + jumptable_1f81 - IMAGE_BASE] ; 0x1fab
-@..loc_VRUR.l47:
-    jmp short @..loc_VRUR.l49        ; 0x1fb0
+@..loc_JGSH.l47:
+    jmp short @..loc_JGSH.l49        ; 0x1fb0
 jumptable_1fb2:
-    dw loc_PSMR - IMAGE_BASE                   ; 0x1fb2
-    dw loc_ILSJ - IMAGE_BASE                   ; 0x1fb4
-    dw loc_RTII - IMAGE_BASE                   ; 0x1fb6
-    dw loc_KRQO - IMAGE_BASE                   ; 0x1fb8
+    dw loc_RQGH - IMAGE_BASE                   ; 0x1fb2
+    dw loc_RIRK - IMAGE_BASE                   ; 0x1fb4
+    dw loc_TURS - IMAGE_BASE                   ; 0x1fb6
+    dw loc_JVOO - IMAGE_BASE                   ; 0x1fb8
     dw jumptable_1fb2_case_4 - IMAGE_BASE      ; 0x1fba
-    dw loc_VNJS - IMAGE_BASE                   ; 0x1fbc
-@..loc_VRUR.l48:
+    dw loc_KHVG - IMAGE_BASE                   ; 0x1fbc
+@..loc_JGSH.l48:
     sub ax, strict word 8            ; 0x1fbe
     cmp ax, strict word 6            ; 0x1fc1
-    jae short @..loc_VRUR.l49        ; 0x1fc4
+    jae short @..loc_JGSH.l49        ; 0x1fc4
     xchg bx, ax                      ; 0x1fc6
     shl bx, 1                        ; 0x1fc7
     jmp [cs:bx + jumptable_1fb2 - IMAGE_BASE] ; 0x1fc9
 jumptable_1fb2_case_4:
-@..loc_VRUR.l49:
+@..loc_JGSH.l49:
     cmp word [bp - 0x01c0], byte 0   ; 0x1fce
-    jne short @..loc_VRUR.l50        ; 0x1fd3
-    jmp near @..loc_VRUR.l9          ; 0x1fd5
-@..loc_VRUR.l50:
+    jne short @..loc_JGSH.l50        ; 0x1fd3
+    jmp near @..loc_JGSH.l9          ; 0x1fd5
+@..loc_JGSH.l50:
     cmp word [bp - 0x01c6], byte 0   ; 0x1fd8
-    jne short @..loc_VRUR.l51        ; 0x1fdd
-    jmp near @..loc_VRUR.l66         ; 0x1fdf
-@..loc_VRUR.l51:
+    jne short @..loc_JGSH.l51        ; 0x1fdd
+    jmp near @..loc_JGSH.l66         ; 0x1fdf
+@..loc_JGSH.l51:
     mov ax, 0x2112                   ; 0x1fe2
     push ax                          ; 0x1fe5
     mov ax, 0x29f0                   ; 0x1fe6
@@ -1176,7 +1140,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2010
     lea ax, word [bp - 0x00a4]       ; 0x2011
     push ax                          ; 0x2015
-    call string_loc_VOPH             ; 0x2016
+    call aztec_strcat                ; 0x2016
     add sp, byte 4                   ; 0x2019
     lea ax, word [bp - 0x003e]       ; 0x201c
     push ax                          ; 0x201f
@@ -1188,44 +1152,44 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x202e
     lea ax, word [bp - 0x00f4]       ; 0x202f
     push ax                          ; 0x2033
-    call string_loc_VOPH             ; 0x2034
+    call aztec_strcat                ; 0x2034
     add sp, byte 4                   ; 0x2037
     cmp word [bp - 0x01ca], byte 0   ; 0x203a
-    jne short @..loc_VRUR.l52        ; 0x203f
+    jne short @..loc_JGSH.l52        ; 0x203f
     cmp word [bp - 0x0010], byte 4   ; 0x2041
-    jne short @..loc_VRUR.l52        ; 0x2045
+    jne short @..loc_JGSH.l52        ; 0x2045
     lea ax, word [bp - 0x0054]       ; 0x2047
     push ax                          ; 0x204a
     lea ax, word [bp - 0x00f4]       ; 0x204b
     push ax                          ; 0x204f
-    call string_loc_VOPH             ; 0x2050
+    call aztec_strcat                ; 0x2050
     add sp, byte 4                   ; 0x2053
     lea ax, word [bp - 0x0054]       ; 0x2056
     push ax                          ; 0x2059
     call aztec_strlen                ; 0x205a
     pop cx                           ; 0x205d
     cmp ax, strict word 0            ; 0x205e
-    jle short @..loc_VRUR.l52        ; 0x2061
+    jle short @..loc_JGSH.l52        ; 0x2061
     mov ax, 0x2118                   ; 0x2063
     push ax                          ; 0x2066
     lea ax, word [bp - 0x00f4]       ; 0x2067
     push ax                          ; 0x206b
-    call string_loc_VOPH             ; 0x206c
+    call aztec_strcat                ; 0x206c
     add sp, byte 4                   ; 0x206f
-@..loc_VRUR.l52:
+@..loc_JGSH.l52:
     cmp word [bp - 0x01ca], byte 1   ; 0x2072
-    je short @..loc_VRUR.l53         ; 0x2077
-    jmp near @..loc_VRUR.l61         ; 0x2079
-@..loc_VRUR.l53:
+    je short @..loc_JGSH.l53         ; 0x2077
+    jmp near @..loc_JGSH.l61         ; 0x2079
+@..loc_JGSH.l53:
     cmp word [bp - 0x0010], byte 4   ; 0x207c
-    je short @..loc_VRUR.l54         ; 0x2080
-    jmp near @..loc_VRUR.l61         ; 0x2082
-@..loc_VRUR.l54:
+    je short @..loc_JGSH.l54         ; 0x2080
+    jmp near @..loc_JGSH.l61         ; 0x2082
+@..loc_JGSH.l54:
     lea ax, word [bp - 0x0054]       ; 0x2085
     push ax                          ; 0x2088
     lea ax, word [bp - 0x00f4]       ; 0x2089
     push ax                          ; 0x208d
-    call string_loc_VOPH             ; 0x208e
+    call aztec_strcat                ; 0x208e
     add sp, byte 4                   ; 0x2091
     mov ax, 1                        ; 0x2094
     push ax                          ; 0x2097
@@ -1233,21 +1197,21 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x209c
     lea ax, word [bp - 0x003e]       ; 0x209d
     push ax                          ; 0x20a0
-    call loc_KGUL                    ; 0x20a1
+    call loc_HSPL                    ; 0x20a1
     add sp, byte 6                   ; 0x20a4
     lea ax, word [bp - 0x0054]       ; 0x20a7
     push ax                          ; 0x20aa
     call aztec_strlen                ; 0x20ab
     pop cx                           ; 0x20ae
     cmp ax, strict word 0            ; 0x20af
-    jle short @..loc_VRUR.l55        ; 0x20b2
+    jle short @..loc_JGSH.l55        ; 0x20b2
     mov ax, 0x211a                   ; 0x20b4
     push ax                          ; 0x20b7
     lea ax, word [bp - 0x00f4]       ; 0x20b8
     push ax                          ; 0x20bc
-    call string_loc_VOPH             ; 0x20bd
+    call aztec_strcat                ; 0x20bd
     add sp, byte 4                   ; 0x20c0
-@..loc_VRUR.l55:
+@..loc_JGSH.l55:
     mov ax, 0x211c                   ; 0x20c3
     push ax                          ; 0x20c6
     mov ax, 1                        ; 0x20c7
@@ -1256,7 +1220,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x20cf
     lea ax, word [bp - 0x001c]       ; 0x20d0
     push ax                          ; 0x20d3
-    call loc_PMLM                    ; 0x20d4
+    call loc_ONOP                    ; 0x20d4
     add sp, byte 8                   ; 0x20d7
     mov ax, 0x2132                   ; 0x20da
     push ax                          ; 0x20dd
@@ -1266,12 +1230,12 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x20e6
     lea ax, word [bp - 0x00a4]       ; 0x20e7
     push ax                          ; 0x20eb
-    call loc_GGIS                    ; 0x20ec
+    call loc_GVUH                    ; 0x20ec
     add sp, byte 8                   ; 0x20ef
     cmp word [bp - 0x000e], byte 3   ; 0x20f2
-    je short @..loc_VRUR.l56         ; 0x20f6
-    jmp near @..loc_VRUR.l57         ; 0x20f8
-@..loc_VRUR.l56:
+    je short @..loc_JGSH.l56         ; 0x20f6
+    jmp near @..loc_JGSH.l57         ; 0x20f8
+@..loc_JGSH.l56:
     mov ax, 0x213e                   ; 0x20fb
     push ax                          ; 0x20fe
     mov ax, 0x2133                   ; 0x20ff
@@ -1280,7 +1244,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2107
     lea ax, word [bp - 0x00a4]       ; 0x2108
     push ax                          ; 0x210c
-    call loc_GGIS                    ; 0x210d
+    call loc_GVUH                    ; 0x210d
     add sp, byte 8                   ; 0x2110
     mov ax, 0x214a                   ; 0x2113
     push ax                          ; 0x2116
@@ -1290,7 +1254,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x211f
     lea ax, word [bp - 0x00a4]       ; 0x2120
     push ax                          ; 0x2124
-    call loc_GGIS                    ; 0x2125
+    call loc_GVUH                    ; 0x2125
     add sp, byte 8                   ; 0x2128
     mov ax, 0x2156                   ; 0x212b
     push ax                          ; 0x212e
@@ -1300,7 +1264,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2137
     lea ax, word [bp - 0x00a4]       ; 0x2138
     push ax                          ; 0x213c
-    call loc_GGIS                    ; 0x213d
+    call loc_GVUH                    ; 0x213d
     add sp, byte 8                   ; 0x2140
     mov ax, 0x2157                   ; 0x2143
     push ax                          ; 0x2146
@@ -1310,7 +1274,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x214f
     lea ax, word [bp - 0x001c]       ; 0x2150
     push ax                          ; 0x2153
-    call loc_PMLM                    ; 0x2154
+    call loc_ONOP                    ; 0x2154
     add sp, byte 8                   ; 0x2157
     mov ax, 0x216d                   ; 0x215a
     push ax                          ; 0x215d
@@ -1320,7 +1284,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2166
     lea ax, word [bp - 0x00a4]       ; 0x2167
     push ax                          ; 0x216b
-    call loc_GGIS                    ; 0x216c
+    call loc_GVUH                    ; 0x216c
     add sp, byte 8                   ; 0x216f
     mov ax, 0x2179                   ; 0x2172
     push ax                          ; 0x2175
@@ -1330,7 +1294,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x217e
     lea ax, word [bp - 0x00a4]       ; 0x217f
     push ax                          ; 0x2183
-    call loc_GGIS                    ; 0x2184
+    call loc_GVUH                    ; 0x2184
     add sp, byte 8                   ; 0x2187
     mov ax, 0x2185                   ; 0x218a
     push ax                          ; 0x218d
@@ -1340,7 +1304,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2196
     lea ax, word [bp - 0x00a4]       ; 0x2197
     push ax                          ; 0x219b
-    call loc_GGIS                    ; 0x219c
+    call loc_GVUH                    ; 0x219c
     add sp, byte 8                   ; 0x219f
     mov ax, 0x2191                   ; 0x21a2
     push ax                          ; 0x21a5
@@ -1350,13 +1314,13 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x21ae
     lea ax, word [bp - 0x00a4]       ; 0x21af
     push ax                          ; 0x21b3
-    call loc_GGIS                    ; 0x21b4
+    call loc_GVUH                    ; 0x21b4
     add sp, byte 8                   ; 0x21b7
-@..loc_VRUR.l57:
+@..loc_JGSH.l57:
     cmp word [bp - 0x000e], byte 2   ; 0x21ba
-    je short @..loc_VRUR.l58         ; 0x21be
-    jmp near @..loc_VRUR.l59         ; 0x21c0
-@..loc_VRUR.l58:
+    je short @..loc_JGSH.l58         ; 0x21be
+    jmp near @..loc_JGSH.l59         ; 0x21c0
+@..loc_JGSH.l58:
     mov ax, 0x219d                   ; 0x21c3
     push ax                          ; 0x21c6
     mov ax, 0x2192                   ; 0x21c7
@@ -1365,7 +1329,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x21cf
     lea ax, word [bp - 0x00a4]       ; 0x21d0
     push ax                          ; 0x21d4
-    call loc_GGIS                    ; 0x21d5
+    call loc_GVUH                    ; 0x21d5
     add sp, byte 8                   ; 0x21d8
     mov ax, 0x219e                   ; 0x21db
     push ax                          ; 0x21de
@@ -1375,7 +1339,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x21e7
     lea ax, word [bp - 0x001c]       ; 0x21e8
     push ax                          ; 0x21eb
-    call loc_PMLM                    ; 0x21ec
+    call loc_ONOP                    ; 0x21ec
     add sp, byte 8                   ; 0x21ef
     mov ax, 0x21b4                   ; 0x21f2
     push ax                          ; 0x21f5
@@ -1385,7 +1349,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x21fe
     lea ax, word [bp - 0x00a4]       ; 0x21ff
     push ax                          ; 0x2203
-    call loc_GGIS                    ; 0x2204
+    call loc_GVUH                    ; 0x2204
     add sp, byte 8                   ; 0x2207
     mov ax, 0x21c0                   ; 0x220a
     push ax                          ; 0x220d
@@ -1395,7 +1359,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2216
     lea ax, word [bp - 0x00a4]       ; 0x2217
     push ax                          ; 0x221b
-    call loc_GGIS                    ; 0x221c
+    call loc_GVUH                    ; 0x221c
     add sp, byte 8                   ; 0x221f
     mov ax, 0x21cc                   ; 0x2222
     push ax                          ; 0x2225
@@ -1405,7 +1369,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x222e
     lea ax, word [bp - 0x00a4]       ; 0x222f
     push ax                          ; 0x2233
-    call loc_GGIS                    ; 0x2234
+    call loc_GVUH                    ; 0x2234
     add sp, byte 8                   ; 0x2237
     mov ax, 0x21cd                   ; 0x223a
     push ax                          ; 0x223d
@@ -1415,7 +1379,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2246
     lea ax, word [bp - 0x001c]       ; 0x2247
     push ax                          ; 0x224a
-    call loc_PMLM                    ; 0x224b
+    call loc_ONOP                    ; 0x224b
     add sp, byte 8                   ; 0x224e
     mov ax, 0x21e3                   ; 0x2251
     push ax                          ; 0x2254
@@ -1425,7 +1389,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x225d
     lea ax, word [bp - 0x00a4]       ; 0x225e
     push ax                          ; 0x2262
-    call loc_GGIS                    ; 0x2263
+    call loc_GVUH                    ; 0x2263
     add sp, byte 8                   ; 0x2266
     mov ax, 0x21ef                   ; 0x2269
     push ax                          ; 0x226c
@@ -1435,7 +1399,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2275
     lea ax, word [bp - 0x00a4]       ; 0x2276
     push ax                          ; 0x227a
-    call loc_GGIS                    ; 0x227b
+    call loc_GVUH                    ; 0x227b
     add sp, byte 8                   ; 0x227e
     mov ax, 0x21f0                   ; 0x2281
     push ax                          ; 0x2284
@@ -1445,7 +1409,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x228d
     lea ax, word [bp - 0x001c]       ; 0x228e
     push ax                          ; 0x2291
-    call loc_PMLM                    ; 0x2292
+    call loc_ONOP                    ; 0x2292
     add sp, byte 8                   ; 0x2295
     mov ax, 0x2206                   ; 0x2298
     push ax                          ; 0x229b
@@ -1455,13 +1419,13 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x22a4
     lea ax, word [bp - 0x00a4]       ; 0x22a5
     push ax                          ; 0x22a9
-    call loc_GGIS                    ; 0x22aa
+    call loc_GVUH                    ; 0x22aa
     add sp, byte 8                   ; 0x22ad
-@..loc_VRUR.l59:
+@..loc_JGSH.l59:
     cmp word [bp - 0x000e], byte 1   ; 0x22b0
-    je short @..loc_VRUR.l60         ; 0x22b4
-    jmp near @..loc_VRUR.l61         ; 0x22b6
-@..loc_VRUR.l60:
+    je short @..loc_JGSH.l60         ; 0x22b4
+    jmp near @..loc_JGSH.l61         ; 0x22b6
+@..loc_JGSH.l60:
     mov ax, 0x2212                   ; 0x22b9
     push ax                          ; 0x22bc
     mov ax, 0x2207                   ; 0x22bd
@@ -1470,7 +1434,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x22c5
     lea ax, word [bp - 0x00a4]       ; 0x22c6
     push ax                          ; 0x22ca
-    call loc_GGIS                    ; 0x22cb
+    call loc_GVUH                    ; 0x22cb
     add sp, byte 8                   ; 0x22ce
     mov ax, 0x221e                   ; 0x22d1
     push ax                          ; 0x22d4
@@ -1480,7 +1444,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x22dd
     lea ax, word [bp - 0x00a4]       ; 0x22de
     push ax                          ; 0x22e2
-    call loc_GGIS                    ; 0x22e3
+    call loc_GVUH                    ; 0x22e3
     add sp, byte 8                   ; 0x22e6
     mov ax, 0x221f                   ; 0x22e9
     push ax                          ; 0x22ec
@@ -1490,7 +1454,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x22f5
     lea ax, word [bp - 0x001c]       ; 0x22f6
     push ax                          ; 0x22f9
-    call loc_PMLM                    ; 0x22fa
+    call loc_ONOP                    ; 0x22fa
     add sp, byte 8                   ; 0x22fd
     mov ax, 0x2235                   ; 0x2300
     push ax                          ; 0x2303
@@ -1500,7 +1464,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x230c
     lea ax, word [bp - 0x00a4]       ; 0x230d
     push ax                          ; 0x2311
-    call loc_GGIS                    ; 0x2312
+    call loc_GVUH                    ; 0x2312
     add sp, byte 8                   ; 0x2315
     mov ax, 0x2241                   ; 0x2318
     push ax                          ; 0x231b
@@ -1510,7 +1474,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2324
     lea ax, word [bp - 0x00a4]       ; 0x2325
     push ax                          ; 0x2329
-    call loc_GGIS                    ; 0x232a
+    call loc_GVUH                    ; 0x232a
     add sp, byte 8                   ; 0x232d
     mov ax, 0x224d                   ; 0x2330
     push ax                          ; 0x2333
@@ -1520,7 +1484,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x233c
     lea ax, word [bp - 0x00a4]       ; 0x233d
     push ax                          ; 0x2341
-    call loc_GGIS                    ; 0x2342
+    call loc_GVUH                    ; 0x2342
     add sp, byte 8                   ; 0x2345
     mov ax, 0x2259                   ; 0x2348
     push ax                          ; 0x234b
@@ -1530,7 +1494,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2354
     lea ax, word [bp - 0x00a4]       ; 0x2355
     push ax                          ; 0x2359
-    call loc_GGIS                    ; 0x235a
+    call loc_GVUH                    ; 0x235a
     add sp, byte 8                   ; 0x235d
     mov ax, 0x225a                   ; 0x2360
     push ax                          ; 0x2363
@@ -1540,7 +1504,7 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x236c
     lea ax, word [bp - 0x001c]       ; 0x236d
     push ax                          ; 0x2370
-    call loc_PMLM                    ; 0x2371
+    call loc_ONOP                    ; 0x2371
     add sp, byte 8                   ; 0x2374
     mov ax, 0x2270                   ; 0x2377
     push ax                          ; 0x237a
@@ -1550,72 +1514,86 @@ jumptable_1fb2_case_4:
     push ax                          ; 0x2383
     lea ax, word [bp - 0x00a4]       ; 0x2384
     push ax                          ; 0x2388
-    call loc_GGIS                    ; 0x2389
+    call loc_GVUH                    ; 0x2389
     add sp, byte 8                   ; 0x238c
-@..loc_VRUR.l61:
+@..loc_JGSH.l61:
     mov ax, word [bp - 0x0010]       ; 0x238f
-    jmp short @..loc_VRUR.l62        ; 0x2392
-%include "vinstall/loc_TKNK.asm"           ; 0x2394
+    jmp short @..loc_JGSH.l62        ; 0x2392
+%include "vinstall/loc_KOIR.asm"           ; 0x2394
 
-%include "vinstall/loc_JNRH_239c.asm"      ; 0x239c
+%include "vinstall/loc_TMPN_239c.asm"      ; 0x239c
 
-%include "vinstall/loc_SRIV.asm"           ; 0x23a4
+%include "vinstall/loc_JMQK.asm"           ; 0x23a4
 
-%include "vinstall/loc_JNRH_23ac.asm"      ; 0x23ac
+%include "vinstall/loc_TMPN_23ac.asm"      ; 0x23ac
 
-%include "vinstall/loc_KGSS.asm"           ; 0x23b4
+%include "vinstall/loc_USNQ.asm"           ; 0x23b4
 
 cseg_2479:
     db 0x00
-%include "vinstall/asm_only/bios_video_loc_GRLO.asm" ; 0x247a
+%include "vinstall/asm_only/bios_video_loc_GGHN.asm" ; 0x247a
 
-%include "vinstall/asm_only/bios_mouse_loc_KUPR.asm" ; 0x2501
+%include "vinstall/asm_only/bios_mouse_loc_JHVQ.asm" ; 0x2501
 
 %include "vinstall/asm_only/dos_con_in_noecho.asm"  ; 0x2521
 
-%include "vinstall/asm_only/bios_video_loc_UMOO.asm" ; 0x252e
+; bss_2647 equ (__zimage_end - __zdseg_start) + 0x0113
+%include "vinstall/asm_only/bios_video_loc_RSQH.asm" ; 0x252e
 
-%include "vinstall/asm_only/bios_video_loc_LRTV.asm" ; 0x2551
+%include "vinstall/asm_only/bios_video_loc_RRQH.asm" ; 0x2551
 
-%include "vinstall/asm_only/bios_video_loc_MIHP.asm" ; 0x25d3
+; bss_2645 equ (__zimage_end - __zdseg_start) + 0x0111
+%include "vinstall/asm_only/bios_video_loc_HMPN.asm" ; 0x25d3
 
-%include "vinstall/asm_only/bios_video_loc_RGPO.asm" ; 0x2621
+; bss_2644 equ (__zimage_end - __zdseg_start) + 0x0110
+%include "vinstall/asm_only/bios_video_loc_QTQU.asm" ; 0x2621
 
 %include "vinstall/asm_only/aztec_calloc.asm"       ; 0x26f6
 
 %include "vinstall/asm_only/bios_kbd_check.asm"     ; 0x2709
 
-%include "vinstall/asm_only/bios_video_loc_KLVI.asm" ; 0x2720
+%include "vinstall/asm_only/bios_video_loc_VJJP.asm" ; 0x2720
 
-%include "vinstall/asm_only/bios_video_loc_JNLT.asm" ; 0x2733
+%include "vinstall/asm_only/bios_video_loc_IVQL.asm" ; 0x2733
 
 %include "vinstall/aztec_atoi.asm"         ; 0x2806
 
 %include "vinstall/aztec_atol.asm"         ; 0x2877
 
-%include "vinstall/loc_PTUG.asm"           ; 0x2908
+%include "vinstall/loc_NJNG.asm"           ; 0x2908
 
 %include "vinstall/aztec_fexecv.asm"       ; 0x291c
 
 %include "vinstall/asm_only/aztec_fcbinit.asm"      ; 0x29d9
 
+errno equ __zerrno - __zdseg_start
 %include "vinstall/asm_only/aztec_mkdir.asm"        ; 0x29fe
 
-%include "vinstall/leaf_loc_THVG.asm"      ; 0x2a15
+%include "vinstall/aztec_rmdir.asm"        ; 0x2a15
 
-%include "vinstall/leaf_loc_GPVI.asm"      ; 0x2a1c
+%include "vinstall/aztec_chdir.asm"        ; 0x2a1c
 
 cseg_2a23:
     add byte [bx + si], al           ; 0x2a23
 cseg_2a25:
     add byte [bx + si], al           ; 0x2a25
+dseg_002e equ __zstr_0025 - __zdseg_start + 0x0009
+dseg_0030 equ __zstr_0025 - __zdseg_start + 0x000b
+dseg_230e equ __zdseg_230e - __zdseg_start
+dseg_2310 equ __zdseg_2310 - __zdseg_start
+dseg_2312 equ __zdseg_2312 - __zdseg_start
+dseg_2314 equ __zdseg_2314 - __zdseg_start
+dseg_2316 equ __zdseg_2316 - __zdseg_start
+dseg_2318 equ __zdseg_2318 - __zdseg_start
+dseg_231a equ __zdseg_231a - __zdseg_start
+; errno     equ __zerrno - __zdseg_start
 %include "vinstall/asm_only/aztec_fexec.asm"        ; 0x2a27
 
 %include "vinstall/asm_only/aztec_wait.asm"         ; 0x2a9d
 
-%include "vinstall/string_loc_VOPH.asm"    ; 0x2aa6
+%include "shared/aztec_strcat.asm"       ; 0x2aa6
 
-%include "vinstall/asm_only/aztec_strncat.asm"      ; 0x2aae
+%include "shared/aztec_strncat.asm"      ; 0x2aae
 
 %include "shared/aztec_strcpy.asm"       ; 0x2add
 
@@ -1629,158 +1607,221 @@ cseg_2a25:
 
 %include "vinstall/aztec_gmtime.asm"       ; 0x2bda
 
+dseg_231c equ __zdseg_231c - __zdseg_start
+; errno     equ __zerrno - __zdseg_start
 %include "vinstall/aztec_utime.asm"        ; 0x2bfe
 
-%include "vinstall/loc_LJIN.asm"           ; 0x2c62
+%include "vinstall/loc_KSUH.asm"           ; 0x2c62
 
-%include "vinstall/loc_TSHR.asm"           ; 0x2c7a
+%include "vinstall/loc_GGGN.asm"           ; 0x2c7a
 
 %include "vinstall/aztec_fputs.asm"        ; 0x2c8e
 
 %include "vinstall/aztec_putc.asm"         ; 0x2cc1
 
-%include "vinstall/loc_PMOR.asm"           ; 0x2cf5
+%include "vinstall/aztec_closall.asm"      ; 0x2cf5
 
 %include "vinstall/aztec_fclose.asm"       ; 0x2d0b
 
+dseg_2500 equ __zdseg_2500 - __zdseg_start
 %include "vinstall/aztec_flsh_.asm"        ; 0x2d86
 
-%include "vinstall/leaf_loc_OLII.asm"      ; 0x2e45
+dseg_234a equ __zdseg_234a - __zdseg_start
+%include "vinstall/leaf_loc_TRGR.asm"      ; 0x2e45
 
-%include "vinstall/loc_NSQI.asm"           ; 0x2e63
+%include "vinstall/loc_PHKM.asm"           ; 0x2e63
 
+bss_2534 equ (__zimage_end - __zdseg_start)
+bss_2536 equ (__zimage_end - __zdseg_start) + 0x0002
 %include "vinstall/aztec_realloc.asm"      ; 0x2eac
 
+dseg_244e equ __zdseg_244e - __zdseg_start
+; bss_2534  equ (__zimage_end - __zdseg_start)
+; bss_2536  equ (__zimage_end - __zdseg_start) + 0x0002
+bss_2538  equ (__zimage_end - __zdseg_start) + 0x0004
 %include "vinstall/aztec_malloc.asm"       ; 0x2f1b
 
-%include "vinstall/leaf_loc_OPMK.asm"      ; 0x3016
+leaf_loc_LPSH.loc1 equ loc_ISSQ
+%include "shared/leaf_loc_LPSH.asm"      ; 0x3016
 
+; bss_2536 equ (__zimage_end - __zdseg_start) + 0x0002
 %include "vinstall/aztec_free.asm"         ; 0x3019
 
 
     db 'LlhFNoxXudiscpneEfgG%'
 
 jumptable_3053:
-    dw string_loc_KLTQ - IMAGE_BASE            ; 0x3053
-    dw string_loc_KJTR - IMAGE_BASE            ; 0x3055
-    dw string_loc_IUUH - IMAGE_BASE            ; 0x3057
-    dw string_loc_OOQH - IMAGE_BASE            ; 0x3059
-    dw string_loc_IUUH - IMAGE_BASE            ; 0x305b
-    dw leaf_loc_NLHG - IMAGE_BASE              ; 0x305d
-    dw leaf_loc_PUQN - IMAGE_BASE              ; 0x305f
-    dw leaf_loc_LJNM - IMAGE_BASE              ; 0x3061
-    dw leaf_loc_SSSV - IMAGE_BASE              ; 0x3063
-    dw leaf_loc_LNJQ - IMAGE_BASE              ; 0x3065
-    dw leaf_loc_LNJQ - IMAGE_BASE              ; 0x3067
-    dw loc_VNMS - IMAGE_BASE                   ; 0x3069
-    dw loc_THMJ - IMAGE_BASE                   ; 0x306b
-    dw string_loc_UPQI - IMAGE_BASE            ; 0x306d
-    dw string_loc_QQVO - IMAGE_BASE            ; 0x306f
-    dw loc_PSOK - IMAGE_BASE                   ; 0x3071
-    dw loc_MLPR - IMAGE_BASE                   ; 0x3073
-    dw loc_PSOK - IMAGE_BASE                   ; 0x3075
-    dw loc_PSOK - IMAGE_BASE                   ; 0x3077
-    dw loc_MLPR - IMAGE_BASE                   ; 0x3079
-    dw string_loc_NKRM - IMAGE_BASE            ; 0x307b
-    dw string_loc_TQKV - IMAGE_BASE            ; 0x307d
+    dw string_loc_KLPS - IMAGE_BASE            ; 0x3053
+    dw string_loc_TJJQ - IMAGE_BASE            ; 0x3055
+    dw string_loc_IPHN - IMAGE_BASE            ; 0x3057
+    dw string_loc_TVST - IMAGE_BASE            ; 0x3059
+    dw string_loc_IPHN - IMAGE_BASE            ; 0x305b
+    dw leaf_loc_KNGK - IMAGE_BASE              ; 0x305d
+    dw leaf_loc_VGLQ - IMAGE_BASE              ; 0x305f
+    dw leaf_loc_QRUN - IMAGE_BASE              ; 0x3061
+    dw leaf_loc_RIHO - IMAGE_BASE              ; 0x3063
+    dw leaf_loc_LLHP - IMAGE_BASE              ; 0x3065
+    dw leaf_loc_LLHP - IMAGE_BASE              ; 0x3067
+    dw loc_HRLO - IMAGE_BASE                   ; 0x3069
+    dw loc_OMJQ - IMAGE_BASE                   ; 0x306b
+    dw string_loc_LPSH - IMAGE_BASE            ; 0x306d
+    dw string_loc_MLSO - IMAGE_BASE            ; 0x306f
+    dw loc_GLMV - IMAGE_BASE                   ; 0x3071
+    dw loc_GHJS - IMAGE_BASE                   ; 0x3073
+    dw loc_GLMV - IMAGE_BASE                   ; 0x3075
+    dw loc_GLMV - IMAGE_BASE                   ; 0x3077
+    dw loc_GHJS - IMAGE_BASE                   ; 0x3079
+    dw string_loc_LTKU - IMAGE_BASE            ; 0x307b
+    dw string_loc_QMVT - IMAGE_BASE            ; 0x307d
 
     db '23456789abcdef -lm first', 0
 
-%include "vinstall/asm_only/sprintf.asm"            ; 0x3098
+loc_KNJH     equ sprintf.loc1
+sprintf.loc2 equ loc_JJKK
+%include "shared/sprintf.asm"            ; 0x3098
 
-%include "vinstall/asm_only/string_loc_NKRM.asm"    ; 0x30b3
+%include "vinstall/asm_only/string_loc_LTKU.asm"    ; 0x30b3
 
-%include "vinstall/asm_only/string_loc_KLTQ.asm"    ; 0x3140
+%include "vinstall/asm_only/string_loc_KLPS.asm"    ; 0x3140
 
-%include "vinstall/string_loc_KJTR.asm"    ; 0x3147
+%include "vinstall/string_loc_TJJQ.asm"    ; 0x3147
 
-%include "vinstall/asm_only/string_loc_IUUH.asm"    ; 0x314b
+%include "vinstall/asm_only/string_loc_IPHN.asm"    ; 0x314b
 
-%include "vinstall/asm_only/string_loc_OOQH.asm"    ; 0x314e
+%include "vinstall/asm_only/string_loc_TVST.asm"    ; 0x314e
 
-%include "vinstall/leaf_loc_NLHG.asm"      ; 0x3155
+%include "vinstall/leaf_loc_KNGK.asm"      ; 0x3155
 
-%include "vinstall/leaf_loc_LJNM.asm"      ; 0x315a
+%include "vinstall/leaf_loc_QRUN.asm"      ; 0x315a
 
-%include "vinstall/leaf_loc_PUQN.asm"      ; 0x315e
+%include "vinstall/leaf_loc_VGLQ.asm"      ; 0x315e
 
-%include "vinstall/leaf_loc_SSSV.asm"      ; 0x3163
+%include "vinstall/leaf_loc_RIHO.asm"      ; 0x3163
 
-%include "vinstall/asm_only/leaf_loc_LNJQ.asm"      ; 0x3168
+%include "vinstall/asm_only/leaf_loc_LLHP.asm"      ; 0x3168
 
-%include "vinstall/string_loc_UPQI.asm"    ; 0x32d0
+%include "vinstall/string_loc_LPSH.asm"    ; 0x32d0
 
-%include "vinstall/string_loc_QQVO.asm"    ; 0x32d3
+%include "vinstall/string_loc_MLSO.asm"    ; 0x32d3
 
-%include "vinstall/loc_NINI.asm"           ; 0x32eb
+%include "vinstall/loc_MRST.asm"           ; 0x32eb
 
-%include "vinstall/leaf_loc_NSJV.asm"      ; 0x331e
+%include "vinstall/leaf_loc_GIJR.asm"      ; 0x331e
 
-%include "vinstall/string_loc_TQKV.asm"    ; 0x3330
+%include "vinstall/string_loc_QMVT.asm"    ; 0x3330
 
-%include "vinstall/asm_only/string_loc_NMMQ.asm"    ; 0x3338
+%include "vinstall/asm_only/string_loc_TRQP.asm"    ; 0x3338
 
 %include "shared/aztec_creat.asm"        ; 0x336a
 
-%include "vinstall/aztec_open.asm"         ; 0x3381
+; errno  equ __zerrno - __zdseg_start
+_ioflg equ __z_ioflg - __zdseg_start
+%include "shared/aztec_open.asm"         ; 0x3381
 
-%include "vinstall/asm_only/aztec_ldv.asm"          ; 0x3417
+%include "shared/aztec_ldv.asm"          ; 0x3417
 
-%include "vinstall/asm_only/aztec_lrm.asm"          ; 0x3445
+%include "shared/aztec_lrm.asm"          ; 0x3445
 
 %include "shared/aztec_lum.asm"          ; 0x3469
 
 %include "shared/aztec_lud.asm"          ; 0x3471
 
-%include "vinstall/asm_only/aztec_strcmp.asm"       ; 0x3508
+aztec_strcmp.loc1 equ loc_OSRT
+%include "shared/aztec_strcmp.asm"       ; 0x3508
 
 %include "vinstall/asm_only/aztec_strncmp.asm"      ; 0x3526
 
 %include "shared/aztec_strlen.asm"       ; 0x356f
 
-%include "vinstall/asm_only/aztec_sys.asm"          ; 0x358c
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_impl_sys.asm"     ; 0x358c
 
 cseg_35d0:
     db 0x00, 0x00
+psp_top_of_memory equ 0x0002
+psp_env_segment   equ 0x002c
+psp_cmd_tail_len  equ 0x0080
+aztec_MEMRY       equ __zaztec_MEMRY - __zdseg_start
+dseg_24d8         equ __zdseg_24d8 - __zdseg_start
+dseg_24da         equ __zdseg_24da - __zdseg_start
+_mbot             equ __z_mbot - __zdseg_start
+_sbot             equ __z_sbot - __zdseg_start
+_mtop             equ __z_mtop - __zdseg_start
+_PSP              equ __z_PSP - __zdseg_start
+dseg_2512         equ __zdseg_2512 - __zdseg_start
+_STKRED           equ __z_STKRED - __zdseg_start
+dseg_2516         equ __zdseg_2516 - __zdseg_start
+_STKLOW           equ __z_STKLOW - __zdseg_start
+; bss_2534          equ (__zimage_end - __zdseg_start)
+__zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "vinstall/asm_only/aztec_begin.asm"        ; 0x35d2
 
-%include "vinstall/asm_only/dos_proc_loc_MNNL.asm"  ; 0x3716
+%include "vinstall/asm_only/aztec_impl_exit.asm"    ; 0x3716
 
+; _ioflg   equ __z_ioflg - __zdseg_start
+bss_253a equ (__zimage_end - __zdseg_start) + 0x0006
+bss_253c equ (__zimage_end - __zdseg_start) + 0x0008
 %include "vinstall/aztec_Croot.asm"        ; 0x373f
 
-%include "vinstall/loc_KQTJ.asm"           ; 0x380b
+; dseg_2500 equ __zdseg_2500 - __zdseg_start
+aztec_exit.dseg1 equ dseg_2500
+%include "shared/aztec_exit.asm"         ; 0x380b
 
-%include "vinstall/leaf_loc_LSGN.asm"      ; 0x381d
+%include "vinstall/leaf_loc_UTMK.asm"      ; 0x381d
 
-%include "vinstall/asm_only/aztec_read.asm"         ; 0x381f
+aztec_impl_read.loc1 equ loc_IGMS
+%include "shared/aztec_impl_read.asm"    ; 0x381f
 
-%include "vinstall/leaf_loc_JRQS.asm"      ; 0x3829
+aztec_impl_write.loc1 equ loc_IGMS
+%include "shared/aztec_impl_write.asm"   ; 0x3829
 
-%include "vinstall/leaf_loc_SSLH.asm"      ; 0x3833
+aztec_read.loc1 equ loc_ILUN
+%include "shared/aztec_read.asm"         ; 0x3833
 
+; errno     equ __zerrno - __zdseg_start
+dseg_252e equ __zdseg_252e - __zdseg_start
+dseg_2530 equ __zdseg_2530 - __zdseg_start
 %include "vinstall/asm_only/aztec_write.asm"        ; 0x383a
 
-%include "vinstall/asm_only/aztec_close.asm"        ; 0x3869
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_close.asm"        ; 0x3869
 
-%include "vinstall/asm_only/aztec_lseek.asm"        ; 0x3881
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_lseek.asm"        ; 0x3881
 
-%include "vinstall/asm_only/aztec_unlink.asm"       ; 0x38a0
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_unlink.asm"       ; 0x38a0
 
-%include "vinstall/asm_only/aztec_rename.asm"       ; 0x38b8
+; errno equ __zerrno - __zdseg_start
+%include "shared/aztec_rename.asm"       ; 0x38b8
 
-%include "vinstall/aztec_tty_rd.asm"       ; 0x38d9
+_Eol     equ __z_Eol - __zdseg_start
+bss_2642 equ (__zimage_end - __zdseg_start) + 0x010e
+_TTrem   equ (__zimage_end - __zdseg_start) + 0x05c8
+%include "vinstall/aztec_impl_tty_rd.asm"  ; 0x38d9
 
-%include "vinstall/aztec_tty_wr.asm"       ; 0x393e
+%include "vinstall/aztec_impl_tty_wr.asm"  ; 0x393e
 
 %include "shared/aztec_movmem.asm"       ; 0x39a0
 
 %include "shared/aztec_isatty.asm"       ; 0x39e5
 
-%include "vinstall/asm_only/aztec_sbrk.asm"         ; 0x3a05
+; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
+; errno       equ __zerrno - __zdseg_start
+%include "shared/aztec_sbrk.asm"         ; 0x3a05
 
-%include "vinstall/asm_only/aztec_brk.asm"          ; 0x3a39
+; aztec_MEMRY equ __zaztec_MEMRY - __zdseg_start
+; errno       equ __zerrno - __zdseg_start
+; _mbot       equ __z_mbot - __zdseg_start
+; _sbot       equ __z_sbot - __zdseg_start
+; _mtop       equ __z_mtop - __zdseg_start
+; _PSP        equ __z_PSP - __zdseg_start
+; _STKRED     equ __z_STKRED - __zdseg_start
+; _STKLOW     equ __z_STKLOW - __zdseg_start
+%include "shared/aztec_brk.asm"          ; 0x3a39
 
-%include "vinstall/asm_only/aztec_rsvstk.asm"       ; 0x3ac5
+; _STKRED equ __z_STKRED - __zdseg_start
+%include "shared/aztec_rsvstk.asm"       ; 0x3ac5
 
 
 ; End of host resident code
@@ -2570,21 +2611,21 @@ __zdseg_244e:
     db 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02
     db '@@@@ ', 0
 
-__zdseg_24d4:
+__zaztec_MEMRY:
     dw bss_2afe                                ; 0x5fb4
-__zdseg_24d6:
+__zerrno:
     db 0x00, 0x00
 __zdseg_24d8:
     db 0x00, 0x00
 __zdseg_24da:
     db 0x00, 0x00
-__zdseg_24dc:
+__z_mbot:
     db 0x00, 0x00
-__zdseg_24de:
+__z_sbot:
     db 0x00, 0x00
-__zdseg_24e0:
+__z_mtop:
     db 0x00, 0x00, 0xff, 0xff
-__zdseg_24e4:
+__z_PSP:
 
     db 0x00, 0x00
     db '8087/80287 is required!'
@@ -2597,13 +2638,13 @@ __zdseg_2500:
 
 __zdseg_2512:
     db 0x00, 0x01
-__zdseg_2514:
+__z_STKRED:
     db 0x00, 0x08
 __zdseg_2516:
     db 0x00, 0x01
-__zdseg_2518:
+__z_STKLOW:
     db 0x00, 0x00
-__zdseg_251a:
+__z_ioflg:
     db 0x00
 __zdseg_251b:
     db 0x00
@@ -2615,7 +2656,7 @@ __zdseg_252e:
     db 0xd9, 0x36
 __zdseg_2530:
     db 0x3e, 0x37
-__zdseg_2532:
+__z_Eol:
     db 0x0a, 0x0d
 
 __zimage_end:

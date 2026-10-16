@@ -11,6 +11,8 @@ import os
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
+from lib import symtab
+
 _FLOW_OPS = frozenset((
     'jmp', 'call', 'je', 'jne', 'jl', 'jle', 'jg', 'jge',
     'ja', 'jb', 'jae', 'jbe', 'jz', 'jnz', 'js', 'jns',
@@ -111,8 +113,9 @@ def overlay_host_aliases(foreign_label_map, segments, instructions,
                 continue
             name = foreign_label_map.get(host_off)
             if name is None:
-                name = (f'{prefix}_dispatch_{target:04x}' if prefix
-                        else f'dispatch_{target:04x}')
+                name = symtab.Symbol.generated(
+                    'dispatch', target, symtab.Kind.ROUTINE,
+                    prefix=f'{prefix}_' if prefix else '')
             aliases[target] = name
     return aliases
 
@@ -125,12 +128,14 @@ def write_label_inc(label_map, path):
 
 
 def write_label_json(label_map, path):
-    """Write a JSON-serialised label map (string keys for JSON)."""
+    """Write a label map: ``{offset: {name, ...symbol fields}}``."""
     with open(path, 'w') as f:
-        json.dump({str(k): v for k, v in label_map.items()}, f)
+        json.dump({str(k): symtab.to_record(v)
+                   for k, v in label_map.items()}, f)
 
 
 def read_label_json(path):
-    """Read a JSON label map back to ``{int: str}``."""
+    """Read a :func:`write_label_json` map back to ``{int: Symbol}``."""
     with open(path) as f:
-        return {int(k): v for k, v in json.load(f).items()}
+        raw = json.load(f)
+    return {int(k): symtab.from_record(record) for k, record in raw.items()}

@@ -54,7 +54,21 @@ def tool_flags(filename, compiler, default=('-n', '+y')):
 
 
 def normalize(name):
-    return name.strip('_$').lower()
+    from .compile import symbol_key
+    return symbol_key(name)
+
+
+def spellings(symbol):
+    """*symbol*, then with each leading ``_`` dropped in turn.
+
+    The bundled library is a later build that renamed some routines
+    (``_open`` for the v3.40a sources' ``open``), while ``__read`` is
+    ``__read`` in both.  The source that matches the bytes names the routine.
+    """
+    yield symbol
+    while symbol.startswith('_') and len(symbol) > 1:
+        symbol = symbol[1:]
+        yield symbol
 
 
 class Match:
@@ -151,19 +165,28 @@ class MuxEngine:
         Compilation is not attempted; this is the candidate search space used
         by both :meth:`resolve` and the batched prebuild.
         """
-        name = normalize(symbol)
+        for _, *candidate in self._candidates(symbol):
+            yield tuple(candidate)
+
+    def _candidates(self, symbol):
+        """``(name, version, filename, source, compiler)``, oldest version
+        first and, within one, each of :func:`spellings` in turn: the oldest
+        sources' name for a routine is the one the game was built with."""
+        names = [normalize(name) for name in spellings(symbol)]
         for version in self.source_versions:
-            for filename in sources.definition_files(version, name):
-                source = sources.catalog(version).get(filename)
-                if source is None:
-                    continue
-                for compiler in self.compiler_versions:
-                    yield version, filename, source, compiler
+            for name in names:
+                for filename in sources.definition_files(version, name):
+                    source = sources.catalog(version).get(filename)
+                    if source is None:
+                        continue
+                    for compiler in self.compiler_versions:
+                        yield name, version, filename, source, compiler
         for version in ASM_VERSIONS:
-            for filename in sources.asm_definition_files(version, name):
-                source = self.source(version, filename)
-                if source is not None:
-                    yield version, filename, source, version
+            for name in names:
+                for filename in sources.asm_definition_files(version, name):
+                    source = self.source(version, filename)
+                    if source is not None:
+                        yield name, version, filename, source, version
 
     def compile_key(self, version, filename, source, compiler):
         flags = tool_flags(filename, compiler, self.flags)
@@ -175,9 +198,9 @@ class MuxEngine:
         Compilation stops as soon as an exact match is found, since there is
         no reason to keep trying further (source, compiler) pairings.
         """
-        name = normalize(symbol)
         matches = []
-        for version, filename, source, compiler in self.candidates(symbol):
+        for name, version, filename, source, compiler in \
+                self._candidates(symbol):
             module = self._compile(version, filename, source, compiler)
             if isinstance(module, Exception):
                 matches.append(Match(version, filename, compiler,

@@ -15,6 +15,7 @@ from lib.aztec.objread import (
     parse_o_locals,
 )
 from lib.compare.coverrides import _c_bytes_to_records
+from lib.tests.syms import loc
 
 # ``foo(a)``: a loop with a call, a data read and an array reference.  Mirrors
 # what OBD printed for a real probe module.
@@ -163,8 +164,9 @@ class LinkTest(unittest.TestCase):
 
     def test_named_label_keeps_its_name_at_a_branch_target(self):
         out = self.link(_index(),
-                        labels_in=[(self.START + 0x30, 'ds_loc_4430:')])
-        self.assertEqual(out.local_names[self.START + 0x30], 'ds_loc_4430')
+                        labels_in=[(self.START + 0x30,
+                                    loc(0x30).prefixed('ds_'))])
+        self.assertEqual(out.local_names[self.START + 0x30], 'ds_loc_0030')
         self.assertEqual(len(out.local_records), 3)
 
     def test_unknown_symbol_is_an_error(self):

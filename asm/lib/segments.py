@@ -144,6 +144,9 @@ class SegmentModel:
         # Name of the binary this model describes (set for a host, whose
         # source overlays include for its symbols).
         self.name = None
+        # Known names for data-segment offsets, ``{offset: Symbol}`` (the
+        # runtime library's ``errno``); everything else gets ``dseg_<off>``.
+        self.data_names = {}
 
     def resolve(self, segment, offset):
         """Resolve *segment*:*offset* to a concrete location.

@@ -12,7 +12,7 @@ noper()
 }
 
 int (*cls_)() = noper;
-extern char dseg_0cdc[];
+extern char _ioflg[];
 
 aztec_Croot(cp, first)
 register char *cp;
@@ -24,9 +24,9 @@ register char *cp;
 	register char *fname;
 #endif
 
-	dseg_0cdc[0] = aztec_isatty(0);	/* set flag for i/o routines */
-	dseg_0cdc[1] = aztec_isatty(1);	/* set flag for i/o routines */
-	dseg_0cdc[2] = aztec_isatty(2);	/* set flag for i/o routines */
+	_ioflg[0] = aztec_isatty(0);	/* set flag for i/o routines */
+	_ioflg[1] = aztec_isatty(1);	/* set flag for i/o routines */
+	_ioflg[2] = aztec_isatty(2);	/* set flag for i/o routines */
 
 	bss_0d06 = (char **)aztec_sbrk((first+1)*sizeof(char *));
 	bss_0d06[0] = "";
@@ -65,7 +65,7 @@ redirect:
 			bss_0d04++;
 			if (aztec_sbrk(sizeof(char *)) == (char *)-1) {
 				aztec_write(2, "Too many args.", 14);
-				ds_dos_proc_loc_TPJT(200);
+				aztec_impl_exit(200);
 			}
 			while (*++cp)
 				if (*cp == ' ' || *cp == '\t') {
@@ -76,6 +76,6 @@ redirect:
 	}
 	*cpp = 0;
 	main(bss_0d04,bss_0d06);
-	ds_loc_OMIG(0);
+	aztec_exit(0);
 }
 

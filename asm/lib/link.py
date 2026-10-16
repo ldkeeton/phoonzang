@@ -42,9 +42,9 @@ HOST_DATA_OFFSETS_NAME = 'host_data_offsets.json'
 def collect_host_data(labels_path):
     """Return the union of every ``<name>_hostdata.json`` map under *labels_path*.
 
-    Each overlay exports the host-owned DS names it references (``{name:
-    offset}``); the union is what the host must declare.  Raises
-    :class:`LinkError` when two consumers disagree on a name's value.
+    Each overlay exports the host-owned DS symbols it references (``{name:
+    record}``, :func:`lib.symtab.encode`); the union is what the host must
+    declare.  Raises :class:`LinkError` when two consumers disagree on one.
     """
     union = {}
     if not os.path.isdir(labels_path):
@@ -55,9 +55,17 @@ def collect_host_data(labels_path):
         with open(os.path.join(labels_path, entry)) as f:
             for name, value in json.load(f).items():
                 if name in union and union[name] != value:
-                    raise LinkError(f'conflicting DS offset for {name}')
+                    raise LinkError(f'conflicting DS symbol {name}')
                 union[name] = value
     return union
+
+
+def read_host_data_offsets(path):
+    """``{symbol: offset}`` from a :func:`write_host_data_offsets` file."""
+    from lib.symtab import decode
+    with open(path) as f:
+        return {decode(name, record): record['offset']
+                for name, record in json.load(f).items()}
 
 
 def write_host_data_offsets(project, union):

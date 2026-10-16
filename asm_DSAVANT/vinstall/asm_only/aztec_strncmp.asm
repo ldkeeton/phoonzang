@@ -17,34 +17,34 @@ aztec_strncmp:
 @..aztec_strncmp.l1:
     lodsw                            ; 0x353f
     scasw                            ; 0x3540
-    jne short loc_OGRR               ; 0x3541
+    jne short loc_OSRT               ; 0x3541
     test al, al                      ; 0x3543
-    je short loc_TSVL                ; 0x3545
+    je short loc_PGTO                ; 0x3545
     test ah, ah                      ; 0x3547
     loopne @..aztec_strncmp.l1       ; 0x3549
-    je short loc_TSVL                ; 0x354b
+    je short loc_PGTO                ; 0x354b
 @..aztec_strncmp.l2:
     test dl, 1                       ; 0x354d
-    je short loc_TSVL                ; 0x3550
+    je short loc_PGTO                ; 0x3550
     cmpsb                            ; 0x3552
-    jne short loc_HSMN               ; 0x3553
-loc_TSVL:
+    jne short loc_TMNK               ; 0x3553
+loc_PGTO:
     sub ax, ax                       ; 0x3555
-loc_HQUP:
+loc_QKLS:
     pop di                           ; 0x3557
     pop si                           ; 0x3558
     pop bp                           ; 0x3559
     ret                              ; 0x355a
-loc_OGRR:
+loc_OSRT:
     sub di, byte 2                   ; 0x355b
     scasb                            ; 0x355e
-    jne short loc_HSMN               ; 0x355f
+    jne short loc_TMNK               ; 0x355f
     test al, al                      ; 0x3561
-    je short loc_TSVL                ; 0x3563
+    je short loc_PGTO                ; 0x3563
     mov al, ah                       ; 0x3565
     scasb                            ; 0x3567
-loc_HSMN:
+loc_TMNK:
     sbb ax, ax                       ; 0x3568
-    js short loc_HQUP                ; 0x356a
+    js short loc_QKLS                ; 0x356a
     inc ax                           ; 0x356c
-    jmp short loc_HQUP               ; 0x356d
+    jmp short loc_QKLS               ; 0x356d

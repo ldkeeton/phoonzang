@@ -34,7 +34,8 @@ from lib import stagelog
 from lib.cachedirs import labels_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
-    LinkError, collect_host_data, host_name, write_host_data_offsets,
+    LinkError, collect_host_data, host_name, read_host_data_offsets,
+    write_host_data_offsets,
     include_args,
 )
 from lib.sidecar.loader import load as load_sidecar
@@ -270,10 +271,7 @@ def _worker_kwargs(flags):
         elif key == '--foreign-prefix':
             kwargs['foreign_prefix'] = value
         elif key == '--host-data-offsets':
-            with open(value) as f:
-                kwargs['host_data_offsets'] = {
-                    k: int(v) for k, v in json.load(f).items()
-                }
+            kwargs['host_data_offsets'] = read_host_data_offsets(value)
     return kwargs
 
 

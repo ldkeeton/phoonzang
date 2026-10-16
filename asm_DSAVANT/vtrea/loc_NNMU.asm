@@ -1,3 +1,0 @@
-; auto-generated
-loc_NNMU:
-    db 0xe9, 0x67, 0x01

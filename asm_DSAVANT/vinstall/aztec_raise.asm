@@ -42,7 +42,7 @@ aztec_raise:
     mov bx, word [bp + 0x6]          ; 0x0302
     mov byte [bx + si], 0            ; 0x0305
     push word [bp + 0x6]             ; 0x0308
-    call loc_IRKJ                    ; 0x030b
+    call loc_MPOT                    ; 0x030b
     pop cx                           ; 0x030e
     pop si                           ; 0x030f
     pop di                           ; 0x0310

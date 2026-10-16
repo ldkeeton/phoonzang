@@ -47,11 +47,15 @@ from lib.segments import (
 from lib.segdataflow import (
     analyze as analyze_segments,
     operand_space_counts,
+    _relocation_offsets,
 )
+from lib.phases.recursive import _code_off
 from lib.cross_ref import overlay_host_aliases
 from lib.names import (
-    rename_generics, set_generic_prefix, startswith_stem, tag_generics,
+    is_data, is_label, rename_generics, set_generic_prefix, tag_generics,
 )
+from lib import symtab
+from lib.symtab import Kind, Source, Symbol
 from lib import stagelog
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
@@ -217,7 +221,11 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
             except ValueError:
                 continue
             if off in ctx.code_targets:
-                label_map[off] = info.get('name', f'fn_{hex_off}')
+                label_map[off] = (
+                    _sidecar_routine(info['name'], off)
+                    if 'name' in info else
+                    Symbol.generated('fn', off, Kind.ROUTINE,
+                                     text=f'fn_{hex_off}'))
     stagelog.step('label.sidecar_names', 1, track={'label_map': label_map})
 
     # The MZ header determines the executable entry point. Prefer a name
@@ -225,7 +233,9 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     # the generic 'entry_point' label.
     if mz_entry_point is not None and mz_entry_point in ctx.code_targets:
         label_targets.add(mz_entry_point)
-        label_map.setdefault(mz_entry_point, 'entry_point')
+        label_map.setdefault(mz_entry_point, Symbol(
+            'entry_point', kind=Kind.ROUTINE, source=Source.FIXED,
+            offset=mz_entry_point))
     stagelog.step('label.entry_point', 1, track={'label_map': label_map})
 
     # Aztec stack-checked application functions: name pure runtime wrappers
@@ -297,7 +307,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     )
     for target in local_branch_targets:
         label_targets.discard(target)
-        if label_map.get(target) == f'loc_{target:04x}':
+        sym = label_map.get(target)
+        if sym is not None and sym.kind is Kind.LABEL:
             del label_map[target]
     external_branch_targets = {
         target for target in ctx.branch_targets
@@ -306,11 +317,11 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     }
     label_targets |= external_branch_targets
     for off in external_branch_targets:
-        label_map.setdefault(off, f'loc_{off:04x}')
+        label_map.setdefault(off, Symbol.generated('loc', off, Kind.LABEL))
 
     for off in label_targets:
         if off not in label_map:
-            label_map[off] = f'loc_{off:04x}'
+            label_map[off] = Symbol.generated('loc', off, Kind.LABEL)
     stagelog.step('label.branch_targets', 1, 'repair', repairs='label.categorize',
         why='branch targets local to a routine are not labels; the rest get loc_',
         track={'label_map': label_map})
@@ -324,7 +335,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     if (entry_symbol and mz_entry_point is not None
             and mz_entry_point in ctx.code_targets):
         label_targets.add(mz_entry_point)
-        label_map[mz_entry_point] = entry_symbol
+        label_map[mz_entry_point] = _sidecar_routine(entry_symbol,
+                                                     mz_entry_point)
     stagelog.step('label.entry_symbol', 1, 'repair', repairs='label.entry_point',
         why='sidecar entry_symbol is authoritative', track={'label_map': label_map})
 
@@ -365,6 +377,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         label_map, function_roots, instructions, data, len(data),
         stubs={off for off, lbl in trampoline_map.items()
                if label_map.get(off) == lbl},
+        relocs=_relocation_offsets(ctx.segments),
+        code_off=lambda value: _code_off(ctx, value),
     )
     stagelog.step('names.tag_generics', 1, 'repair', repairs='label.categorize',
         why='address-derived names become content tags',
@@ -373,10 +387,11 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     # covers every binary that carries that routine.
     routines = (sidecar_entry or {}).get('routines') or {}
     for off, label in list(label_map.items()):
-        if isinstance(label, str) and label in routines:
-            label_map[off] = routines[label]['name']
+        if isinstance(label, str) and 'name' in routines.get(label, {}):
+            label_map[off] = label.renamed(routines[label]['name'],
+                                           Source.SIDECAR)
             if function_roots.get(off) == label:
-                function_roots[off] = routines[label]['name']
+                function_roots[off] = label_map[off]
     stagelog.step('names.sidecar_routines', 1, 'repair', repairs='names.tag_generics',
         why='sidecar routines rename content tags',
         track={'label_map': label_map, 'function_roots': function_roots})
@@ -387,8 +402,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         diag_emit('code_bytes', int((squashed_arr == IS_CODE).sum()))
 
     if diag_enabled():
-        loc_count = sum(1 for v in label_map.values() if startswith_stem(v, 'loc_'))
-        data_count = sum(1 for v in label_map.values() if startswith_stem(v, 'data_'))
+        loc_count = sum(1 for v in label_map.values() if is_label(v))
+        data_count = sum(1 for v in label_map.values() if is_data(v))
         named = len(label_map) - loc_count - data_count
         diag_phase('label_map')
         diag_emit('total', len(label_map))
@@ -434,10 +449,27 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     out_dir = output_dir or ASM_DIR
     t_aztec = time.perf_counter()
     c_overrides, _entries = _aztec_c_overrides(
-        project, name, data, ctx.label_map, out_dir)
+        project, name, data, ctx.label_map, out_dir, function_roots)
     asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map)
     stagelog.step('aztec.overrides', 1, metrics={'c': len(c_overrides),
                                          'asm': len(asm_annotations)})
+    if project:
+        from lib.aztec import libnames
+        for off, sym in libnames.sibling_symbols(
+                project, data, ctx.label_map, _entries,
+                start_offset).items():
+            if function_roots.get(off) == ctx.label_map[off]:
+                function_roots[off] = sym
+            ctx.label_map[off] = sym
+        stagelog.step('aztec.siblings', 1, 'repair', repairs='names.tag_generics',
+                      why='a matched vendor module names the publics beside '
+                          'the routine the signatures found',
+                      track={'label_map': ctx.label_map,
+                             'function_roots': function_roots})
+    if ctx.segments is not None:
+        ctx.segments.data_names = _data_names(
+            project, name, data, ctx.label_map, ctx.segments, foreign_prefix,
+            _entries)
     t_aztec_end = time.perf_counter()
 
     if AZTEC_PREBUILD_ONLY:
@@ -464,7 +496,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         root_name
         for root_name in function_roots.values()
         if isinstance(root_name, str)
-        and not startswith_stem(root_name, ('loc_', 'data_'))
+        and not is_label(root_name) and not is_data(root_name)
     )
     # The exported host's address-derived names (``loc_08f2``) get its name as a
     # prefix (``ds_loc_08f2``): an overlay includes the host's symbols to call
@@ -502,6 +534,40 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         t_flow_disasm_start=t_flow_disasm_start, t_disasm=t_disasm,
         t_aztec=t_aztec, t_aztec_end=t_aztec_end,
     )
+
+
+def _sidecar_routine(name, offset):
+    """A routine the sidecar names.
+
+    The sidecar spells a runtime-library routine ``aztec_<C name>``
+    (``aztec_flsh_``); this is the one place that reads that spelling, so
+    everything downstream checks ``role``/``library`` instead.
+    """
+    role = library = None
+    if name.startswith('aztec_'):
+        role, library = 'aztec', name[len('aztec_'):]
+    return Symbol(name, kind=Kind.ROUTINE, source=Source.SIDECAR,
+                  offset=offset, role=role, library=library)
+
+
+def _data_names(project, name, data, label_map, segments, host, entries):
+    """Known names for data-segment offsets: the library's, or the host's.
+
+    An overlay runs in its host's data segment, so it takes the names the host
+    exported (:func:`_export_labels`) rather than reading its own.
+    """
+    if not project:
+        return {}
+    if segments.kind == 'overlay':
+        if not host:
+            return {}
+        from lib.cachedirs import labels_dir
+        from lib.cross_ref import read_label_json
+        path = os.path.join(labels_dir(project), f'{host}_datanames.json')
+        return read_label_json(path) if os.path.exists(path) else {}
+    from lib.aztec import libnames
+    return libnames.data_symbols(project, name, data, label_map, segments,
+                                 entries)
 
 
 def _render(a, exact_bytes, show_offsets, host_data_offsets):
@@ -560,7 +626,9 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets):
         target_dir = labels_dir(project)
         os.makedirs(target_dir, exist_ok=True)
         with open(os.path.join(target_dir, f'{name}_hostdata.json'), 'w') as f:
-            json.dump(stats['host_data_refs'], f, indent=1, sort_keys=True)
+            json.dump({str(sym): symtab.encode(sym)
+                       for sym in stats['host_data_refs']},
+                      f, indent=1, sort_keys=True)
     # Hard gate: a decoded instruction that could not be re-encoded is emitted
     # as ``db 0x.. ; <disassembly>``.  In the default semantic mode every
     # instruction must encode (exactly or semantically); these fallbacks are
@@ -736,6 +804,12 @@ def _emit(a, r, exact_bytes):
     render_context = stats.pop('render_context', None)
     if project and render_context:
         _write_render_context(project, name, render_context)
+    symbols = stats.pop('symbols', None)
+    if project and symbols is not None:
+        from lib.cachedirs import symbols_dir
+        from lib.symtab import write_table
+        write_table(os.path.join(symbols_dir(project), f'{name}.json'),
+                    symbols)
     if STATS:
         write_report(ctx, asm_text)
         write_layers(ctx)
@@ -770,6 +844,10 @@ def _export_labels(a):
             why='labels vendored into a C routine are not exported',
             metrics={'renamed': len(renamed), 'exported': len(exported)})
         write_label_json(exported, json_path)
+        data_names = getattr(a.ctx.segments, 'data_names', None)
+        if data_names:
+            write_label_json(data_names, os.path.join(
+                target_dir, f'{name}_datanames.json'))
 
 
 def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,

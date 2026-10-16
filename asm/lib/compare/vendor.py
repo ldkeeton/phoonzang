@@ -3,10 +3,7 @@
 import re
 
 from lib.compare.records import _record_span
-from lib.names import stem
-
-
-_SHARED_TAIL_RE = re.compile(r'loc_[0-9a-f]+')
+from lib.symtab import Kind, Source, Symbol
 
 
 def _vendor_named_tails(label_map, annotations):
@@ -15,8 +12,24 @@ def _vendor_named_tails(label_map, annotations):
         addr for note in (annotations or {}).values()
         for addr in note['labels']
         if note['start'] < addr < note['end']
-        and _SHARED_TAIL_RE.fullmatch(stem(label_map.get(addr) or ''))
+        and addr in label_map and _plain_loc(label_map[addr])
     }
+
+
+def _numbered_local(name, routine):
+    """True for one of *routine*'s ``@..<routine>.lN`` branch targets."""
+    return (name.kind is Kind.LOCAL and name.owner == routine
+            and name.index is not None)
+
+
+def _plain_loc(name):
+    """True for a generated ``loc_`` label (a tail shared with another routine).
+
+    Address- or tag-named, with or without the host prefix: the vendor's name
+    is better than either, and the same in every binary.
+    """
+    return (name.kind is Kind.LABEL and name.base == 'loc'
+            and name.source in (Source.ADDRESS, Source.TAG))
 
 
 def _join(*parts):
@@ -44,16 +57,18 @@ def _apply_asm_annotations(records, annotations, label_map=None):
                 continue
             addr = rec['offset']
             vendor = note['labels'].get(addr)
-            old = rec['text'].removesuffix(':')
+            old = rec['name']
             if (vendor is None or not (note['start'] < addr < note['end'])
-                    or not (old.startswith(f'@..{routine}.l')
-                            or _SHARED_TAIL_RE.fullmatch(old))):
+                    or not (_numbered_local(old, routine)
+                            or _plain_loc(old))):
                 continue
-            new = f'@..{routine}.{vendor}'
+            new = Symbol.local(routine, addr, name=vendor,
+                               source=Source.SIGNATURE)
             if new in taken:
                 continue
             taken.add(new)
             renames[old] = new
+            rec['name'] = new
             if label_map is not None and label_map.get(addr) == old:
                 del label_map[addr]
     if renames:

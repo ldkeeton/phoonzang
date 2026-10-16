@@ -21,19 +21,19 @@ ovloader_ proc near
 	mov	bx,sp
 	mov	ax,word ptr 2[bx]
 	mov	bss_0cfa_,ax
-	call	ds_loc_QNHV_
+	call	aztec_impl_ovld_
 	jmp	ax
 ovloader_ endp
 #endasm
 
 static
-ds_loc_QNHV()
+aztec_impl_ovld()
 {
 	int fd, flag;
 	register char *cp, *xp;
 	auto struct ovrheader hdr;
 	char *getenv(), path[64];
-	extern char *dseg_0c78, __zres_end[], __zdseg_end[];
+	extern char *_mbot, __zres_end[], __zdseg_end[];
 
 #ifdef DOS20
 	if ((cp = getenv("PATH")) == 0)
@@ -41,7 +41,7 @@ ds_loc_QNHV()
 	xp = path;
 	for (;;) {
 		aztec_strcpy(xp, bss_0cfa);
-		ds_string_loc_VOPH(path, ".ovr");
+		aztec_strcat(path, ".ovr");
 		if ((fd = aztec_open(path, 0)) != -1)
 			break;
 		do {
@@ -61,24 +61,24 @@ ds_loc_QNHV()
 
 #else
 	aztec_strcpy(path, bss_0cfa);
-	ds_string_loc_VOPH(path, ".ovr");
+	aztec_strcat(path, ".ovr");
 	if ((fd = aztec_open(path, 0)) == -1)
 		aztec_loadabort(10);
 #endif
 
-	if (ds_leaf_loc_JKTJ(fd, &hdr, sizeof hdr) != sizeof hdr)
+	if (aztec_read(fd, &hdr, sizeof hdr) != sizeof hdr)
 		aztec_loadabort(20);
 
 	/* safety check overlay header */
 	if (hdr.o_magic != OV_MAGIC)
 		aztec_loadabort(30);
-	if (dseg_0c78 < hdr.o_dorg+hdr.o_dsize+hdr.o_bss)
+	if (_mbot < hdr.o_dorg+hdr.o_dsize+hdr.o_bss)
 		aztec_loadabort(40);
 	if (__zres_end > hdr.o_corg || __zdseg_end > hdr.o_dorg)
 		aztec_loadabort(60);
 
-	if (aztec_csread(fd, hdr.o_corg, hdr.o_csize) < hdr.o_csize
-			|| ds_leaf_loc_JKTJ(fd, hdr.o_dorg, hdr.o_dsize) < hdr.o_dsize)
+	if (aztec_impl_csread(fd, hdr.o_corg, hdr.o_csize) < hdr.o_csize
+			|| aztec_read(fd, hdr.o_dorg, hdr.o_dsize) < hdr.o_dsize)
 		aztec_loadabort(50);
 	aztec_close(fd);
 	return hdr.o_entry;
@@ -89,7 +89,7 @@ aztec_loadabort(code)
 {
 	char buffer[80];
 
-	ds_loc_IRHQ(buffer, "Error %d loading overlay: %s$", code, bss_0cfa);
+	ds_loc_LHHJ(buffer, "Error %d loading overlay: %s$", code, bss_0cfa);
 	aztec_bdos(9, buffer);
-	ds_loc_OMIG(100);
+	aztec_exit(100);
 }

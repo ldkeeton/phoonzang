@@ -1,0 +1,3 @@
+; auto-generated
+loc_QKII:
+    db 0xe9, 0x67, 0x01

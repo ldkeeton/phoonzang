@@ -18,100 +18,107 @@ IMAGE_BASE equ 0x000e + VBASE
     dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)     ; 0x003e ; o_dsize: initialized data size
     dw 0x02b8                             ; o_bss: uninitialized data size
-    dw loc_NPPP - IMAGE_BASE + __zres_end ; 0x9ee4 ; o_entry: overlay entry offset (CS)
+    dw loc_JHJT - IMAGE_BASE + __zres_end ; 0x9ee4 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
-loc_OOJT:
+loc_PTRJ:
     mov ax, 0                        ; 0x000e
     call aztec_csav                  ; 0x0011
     cmp word [bss_830a], byte 0x0c   ; 0x0014
-    jne short @..loc_OOJT.l1         ; 0x0019
-    call api_idx_0004_IPJL           ; 0x001b
-@..loc_OOJT.l1:
+    jne short @..loc_PTRJ.l1         ; 0x0019
+    call api_idx_0004_PPTR           ; 0x001b
+@..loc_PTRJ.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
-%include "shared/api_idx_002a_IHRK.asm"     ; 0x0022
+%include "shared/api_idx_002a_STSK.asm"     ; 0x0022
 
-%include "shared/api_idx_000a_SPQS.asm"     ; 0x00cb
+%include "shared/api_idx_000a_QJGP.asm"     ; 0x00cb
 
-%include "shared/loc_LKKH.asm"              ; 0x0149
+%include "shared/loc_VNIO.asm"              ; 0x0149
 
-%include "shared/api_idx_0006_NSNR.asm"     ; 0x018d
+%include "shared/api_idx_0006_SHUK.asm"     ; 0x018d
 
-%include "shared/loc_HGQP.asm"              ; 0x02af
+%include "shared/loc_HTQP.asm"              ; 0x02af
 
-%include "vpops/api_idx_0054_OMTV.asm"     ; 0x035f
+%include "vpops/api_idx_0054_NQHV.asm"     ; 0x035f
 
 %include "shared/draw_fill_action_slot_table.asm" ; 0x0504
 
-%include "shared/api_idx_000e_TGQN.asm"     ; 0x0704
+api_idx_000e_VRIR.api_idx1 equ draw_fill_action_slot_table
+%include "shared/api_idx_000e_VRIR.asm"     ; 0x0704
 
-%include "shared/api_idx_0004_HHQR.asm"     ; 0x0a27
+%include "shared/api_idx_0004_ONRQ.asm"     ; 0x0a27
 
-%include "shared/api_idx_001c_TROI.asm"     ; 0x0b31
+%include "shared/api_idx_001c_VLRT.asm"     ; 0x0b31
 
-%include "vpops/api_idx_000e_GVON.asm"     ; 0x0d77
+%include "vpops/api_idx_000e_LVUJ.asm"     ; 0x0d77
 
-%include "shared/loc_MLTS.asm"              ; 0x0e6c
+%include "shared/loc_SSIO.asm"              ; 0x0e6c
 
-%include "vpops/loc_NTTP.asm"              ; 0x0ec8
+loc_KRMP.bss1 equ bss_90d6
+%include "shared/loc_KRMP.asm"              ; 0x0ec8
 
-%include "vpops/api_idx_0006_LHQR.asm"     ; 0x0f27
+%include "vpops/api_idx_0006_HRUL.asm"     ; 0x0f27
 
-%include "vpops/loc_VVQL.asm"              ; 0x1076
+loc_RPUI.api_idx1 equ api_idx_0006_HRUL
+%include "shared/loc_RPUI.asm"              ; 0x1076
 
-%include "vpops/loc_JRRT.asm"              ; 0x108d
+%include "vpops/loc_UTQS.asm"              ; 0x108d
 
-%include "vpops/loc_OSMV.asm"              ; 0x111b
+%include "vpops/loc_HTRU.asm"              ; 0x111b
 
-%include "vpops/api_idx_000c_UHNR.asm"     ; 0x178a
+%include "vpops/api_idx_000c_JUIH.asm"     ; 0x178a
 
 %include "shared/draw_party_slot_letters.asm" ; 0x18c2
 
-%include "shared/api_idx_0002_PGOV.asm"     ; 0x1941
+%include "shared/api_idx_0002_TIUI.asm"     ; 0x1941
 
-%include "vpops/api_idx_0004_JGSU.asm"     ; 0x199c
+%include "vpops/api_idx_0004_OQNP.asm"     ; 0x199c
 
-%include "vpops/api_idx_000a_ULVM.asm"     ; 0x1a0d
+%include "vpops/api_idx_000a_UMQI.asm"     ; 0x1a0d
 
-%include "shared/loc_OOVL.asm"              ; 0x1a4b
+%include "shared/loc_PTRP.asm"              ; 0x1a4b
 
-%include "vpops/loc_JIPH.asm"              ; 0x1ad7
+%include "vpops/loc_VGIT.asm"              ; 0x1ad7
 
-%include "vpops/api_idx_000c_PVOR.asm"     ; 0x1b78
+%include "shared/api_idx_000c_JQMN.asm"     ; 0x1b78
 
-%include "vpops/loc_GVVJ.asm"              ; 0x1c11
+loc_SRQQ.bss1     equ bss_90d6
+loc_SRQQ.api_idx1 equ api_idx_000a_UMQI
+loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
+%include "shared/loc_SRQQ.asm"              ; 0x1c11
 
-%include "vpops/api_idx_0044_HTUI.asm"     ; 0x1ca2
+%include "vpops/api_idx_0044_NJNI.asm"     ; 0x1ca2
 
-%include "vpops/api_idx_000a_PJMP.asm"     ; 0x2947
+%include "vpops/api_idx_000a_GVNM.asm"     ; 0x2947
 
-%include "shared/api_idx_0018_IRSN.asm"     ; 0x29f2
+%include "shared/api_idx_0018_RGOS.asm"     ; 0x29f2
 
-%include "vpops/api_idx_0004_JRIG.asm"     ; 0x2aef
+%include "vpops/api_idx_0004_LUOM.asm"     ; 0x2aef
 
-%include "vpops/loc_TSPU.asm"              ; 0x2c51
+loc_HTKI.api_idx1 equ api_idx_0004_LUOM
+%include "shared/loc_HTKI.asm"              ; 0x2c51
 
-%include "vpops/api_idx_0038_NNPL.asm"     ; 0x2c92
+%include "vpops/api_idx_0038_PVVG.asm"     ; 0x2c92
 
-%include "vpops/api_idx_0094_USLJ.asm"     ; 0x33db
+%include "vpops/api_idx_0094_NVHQ.asm"     ; 0x33db
 
-%include "vpops/api_idx_0006_IPTM.asm"     ; 0x36c0
+%include "vpops/api_idx_0006_QUSK.asm"     ; 0x36c0
 
-%include "vpops/api_idx_00d4_GSJO.asm"     ; 0x3710
+%include "vpops/api_idx_00d4_LUPQ.asm"     ; 0x3710
 
-%include "vpops/api_idx_0004_KVOL.asm"     ; 0x4528
+%include "vpops/api_idx_0004_PKLV.asm"     ; 0x4528
 
-%include "vpops/api_idx_0002_NTIP.asm"     ; 0x45b3
+%include "vpops/api_idx_0002_ROVK.asm"     ; 0x45b3
 
-%include "vpops/api_idx_0024_HJTT.asm"     ; 0x45f3
+%include "vpops/api_idx_0024_NKNU.asm"     ; 0x45f3
 
-%include "vpops/api_idx_0002_NMVG.asm"     ; 0x4d91
+%include "vpops/api_idx_0002_GMMK.asm"     ; 0x4d91
 
-%include "vpops/api_idx_0004_IPJL.asm"     ; 0x4e3b
+%include "vpops/api_idx_0004_PPTR.asm"     ; 0x4e3b
 
-loc_NPPP:
+loc_JHJT:
     pop word [dseg_90d4]             ; 0x4e9d
     pop cx                           ; 0x4ea1
     mov word [dseg_90d0], sp         ; 0x4ea2
@@ -123,11 +130,11 @@ loc_NPPP:
     mov cx, 0x938e                   ; 0x4eb6
     sub cx, di                       ; 0x4eb9
     shr cx, 1                        ; 0x4ebb
-    je short @..loc_NPPP.l1          ; 0x4ebd
+    je short @..loc_JHJT.l1          ; 0x4ebd
     sub ax, ax                       ; 0x4ebf
     rep stosw                        ; 0x4ec1
-@..loc_NPPP.l1:
-    call loc_OOJT                    ; 0x4ec3
+@..loc_JHJT.l1:
+    call loc_PTRJ                    ; 0x4ec3
     mov bp, word [dseg_90d2]         ; 0x4ec6
     mov sp, word [dseg_90d0]         ; 0x4eca
     mov si, word [dseg_90cc]         ; 0x4ece

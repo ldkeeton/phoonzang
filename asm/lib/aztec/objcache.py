@@ -24,7 +24,8 @@ from .compile import CompiledModule
 # Bump when the compile pipeline changes in a way that alters output for the
 # same inputs (e.g. a different object->OMF converter), so stale entries are
 # not trusted.  7: OBD parse keeps relocation kind/addend and local labels.
-CACHE_VERSION = 7
+# 8: functions keep their C name (``__read``), keyed without folding ``_``.
+CACHE_VERSION = 8
 
 
 def module_key(version, filename, compiler, flags, source_text):

@@ -1,0 +1,3 @@
+; auto-generated
+loc_PSRT:
+    db 0xe9, 0xb0, 0x00

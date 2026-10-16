@@ -39,15 +39,15 @@ int a, b, c, d;
 				}
 			}
 		} else {
-			j += ds_app_GGUI(dseg_6a2c[v1][i]);
+			j += ds_app_PUNN(dseg_6a2c[v1][i]);
 			k = dseg_6a40[v1][j];
 			if (flag != 0)
-				k += ds_app_GGUI(dseg_6a4a[v1][j]);
+				k += ds_app_PUNN(dseg_6a4a[v1][j]);
 		}
 		dseg_8430[b * 3 + c] = d;
 		dseg_8322[b * 90 + c * 30 + i * 3] = j;
 		dseg_8322[b * 90 + c * 30 + i * 3 + 1] = k;
 		dseg_8322[b * 90 + c * 30 + i * 3 + 2] = dseg_6ac1[v1][k * 4] + 1;
-		dseg_8322[b * 90 + c * 30 + i * 3 + 2] += ds_app_GGUI(dseg_6ac1[v1][k * 4 + 1]);
+		dseg_8322[b * 90 + c * 30 + i * 3 + 2] += ds_app_PUNN(dseg_6ac1[v1][k * 4 + 1]);
 	}
 }

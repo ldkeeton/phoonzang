@@ -19,12 +19,12 @@ aztec_begin:
     mov bx, 0x1000                   ; 0x4d60
 @..aztec_begin.smallseg:
     mov es, bp                       ; 0x4d63
-    mov word [es:dseg_0c80], ds      ; 0x4d65
+    mov word [es:_PSP], ds           ; 0x4d65
     mov cl, 4                        ; 0x4d6a
     shl bx, cl                       ; 0x4d6c
-    cmp word [es:dseg_0cda], byte 0  ; 0x4d6e
+    cmp word [es:_STKLOW], byte 0    ; 0x4d6e
     je short @..aztec_begin.setstk ; stack goes above heap ; 0x4d74
-    mov ax, word [es:dseg_0cd6] ; stack goes below heap ; 0x4d76
+    mov ax, word [es:_STKRED] ; stack goes below heap ; 0x4d76
     shl ax, 1 ; allow at least twice the RED zone size ; 0x4d7a
     mov bx, word [es:dseg_0cd4]      ; 0x4d7c
     shl bx, cl ; compute requested stack size ; 0x4d81
@@ -42,19 +42,19 @@ aztec_begin:
     jne short @..aztec_begin.oksav   ; 0x4d95
     mov bx, 0xffff                   ; 0x4d97
 @..aztec_begin.oksav:
-    mov word [es:dseg_0c7c], bx      ; 0x4d9a
-    cmp word [es:dseg_0cda], byte 0 ; stack now set up. before doing anything else, save para addr of PSP for _exit / now adjust heap s... ; 0x4d9f
+    mov word [es:_mtop], bx          ; 0x4d9a
+    cmp word [es:_STKLOW], byte 0 ; stack now set up. before doing anything else, save para addr of PSP for _exit / now adjust heap s... ; 0x4d9f
     je short @..aztec_begin.heapdone ; 0x4da5
     mov si, word [es:dseg_0cd8]      ; 0x4da7
     mov ax, bx                       ; 0x4dac
     inc ax                           ; 0x4dae
-    mov word [es:dseg_0c70], ax ; start of heap for later ; 0x4daf
+    mov word [es:aztec_MEMRY], ax ; start of heap for later ; 0x4daf
     shl si, cl                       ; 0x4db3
     add bx, si                       ; 0x4db5
     jae short @..aztec_begin.heapok  ; 0x4db7
     mov bx, 0xffff                   ; 0x4db9
 @..aztec_begin.heapok:
-    mov word [es:dseg_0c7c], bx ; and save as _mtop_ ; 0x4dbc
+    mov word [es:_mtop], bx ; and save as _mtop_ ; 0x4dbc
     add bx, byte 0x0f                ; 0x4dc1
     shr bx, cl ; convert to paragraph form ; 0x4dc4
     mov ax, es                       ; 0x4dc6
@@ -67,7 +67,7 @@ aztec_begin:
     int 0x21 ; DOS resize memory block
     jae short @..aztec_begin.heapdone ; 0x4dd6
     mov al, 0xfe                     ; 0x4dd8
-    jmp near ds_loc_KLHH             ; 0x4dda
+    jmp near @..aztec_impl_exit.exit ; 0x4dda
 @..aztec_begin.heapdone:
     mov es, bp ; restore ES ; 0x4ddd
     cld                              ; 0x4ddf
@@ -106,7 +106,7 @@ aztec_begin:
 @..aztec_begin.mov_args:
     push ax ; first arg # for Croot ; 0x4e21
     mov es, bp ; reload ES with our real dataseg ; 0x4e22
-    mov di, word [es:dseg_0c70]      ; 0x4e24
+    mov di, word [es:aztec_MEMRY]    ; 0x4e24
     push di ; argp for Croot ; 0x4e29
     jcxz @..aztec_begin.cpy_done     ; 0x4e2a
 @..aztec_begin.cpy_args:
@@ -121,25 +121,25 @@ aztec_begin:
     mov ds, bp ; set DS, now DS, SS, ES are equal ; 0x4e37
     inc di                           ; 0x4e39
     and di, strict word 0xfffe ; adjust to word boundary ; 0x4e3a
-    mov word [dseg_0c70], di ; save memory allocation info for sbrk() ; 0x4e3e
-    mov word [dseg_0c78], di         ; 0x4e42
-    mov word [dseg_0c7a], __zdseg_end ; 0x4e46
-    cmp word [dseg_0cda], byte 0     ; 0x4e4c
+    mov word [aztec_MEMRY], di ; save memory allocation info for sbrk() ; 0x4e3e
+    mov word [_mbot], di             ; 0x4e42
+    mov word [_sbot], __zdseg_end    ; 0x4e46
+    cmp word [_STKLOW], byte 0       ; 0x4e4c
     jne short @..aztec_begin.nostk   ; 0x4e51
-    mov word [dseg_0c7a], di         ; 0x4e53
+    mov word [_sbot], di             ; 0x4e53
 @..aztec_begin.nostk:
-    mov ax, word [dseg_0c7a]         ; 0x4e57
-    add ax, word [dseg_0cd6]         ; 0x4e5a
-    mov word [dseg_0c7a], ax         ; 0x4e5e
+    mov ax, word [_sbot]             ; 0x4e57
+    add ax, word [_STKRED]           ; 0x4e5a
+    mov word [_sbot], ax             ; 0x4e5e
     mov word [dseg_0c74], ds         ; 0x4e61
     mov word [dseg_0c76], cs         ; 0x4e65
-    call ds_leaf_loc_LSGN            ; 0x4e69
+    call ds_leaf_loc_UTMK            ; 0x4e69
     jb short @..aztec_begin.no_8087  ; 0x4e6c
     call aztec_Croot ; Croot(argp, first) ; 0x4e6e
-    jmp short ds_loc_KLHH            ; 0x4e71
+    jmp short @..aztec_impl_exit.exit ; 0x4e71
 @..aztec_begin.no_8087:
     mov ah, 9 ; dos print message ; 0x4e73
     mov dx, 0xc82                    ; 0x4e75
     int 0x21 ; DOS string output
     mov al, 0xfd                     ; 0x4e7a
-    jmp short ds_loc_KLHH            ; 0x4e7c
+    jmp short @..aztec_impl_exit.exit ; 0x4e7c

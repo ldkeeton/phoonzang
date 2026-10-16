@@ -7,6 +7,7 @@ Layout::
     .cache/<project>/aztec_funcs.json   runtime signature DB built from those
     .cache/<project>/render/            render contexts
     .cache/<project>/labels/            derived host/foreign label values
+    .cache/<project>/symbols/           every name a binary's render uses
     .cache/<project>/spans/             Aztec routine span sidecars
     .cache/<project>/addresses/         address inventories
     .cache/<project>/stats/             per-binary stats
@@ -49,6 +50,10 @@ def render_dir(project):
 
 def labels_dir(project):
     return os.path.join(project_cache(project), 'labels')
+
+
+def symbols_dir(project):
+    return os.path.join(project_cache(project), 'symbols')
 
 
 def spans_dir(project):

@@ -145,11 +145,15 @@ _DEF_CACHE = {}
 
 
 def _key(name):
-    """Index key for a vendor symbol: ``_open``, ``flsh_`` and ``$csav`` fold alike.
+    """Index key for a C name (:func:`lib.aztec.compile.symbol_key`)."""
+    from .compile import symbol_key
+    return symbol_key(name)
 
-    Matches :func:`lib.aztec.mux.normalize`, which the lookups are made with.
-    """
-    return name.strip('_$').lower()
+
+def _asm_key(name):
+    """Index key for an assembler ``public``/``proc`` name (``ovloader_``)."""
+    from .compile import aztec_name
+    return _key(aztec_name(name))
 
 
 _KEYWORDS = {
@@ -181,7 +185,7 @@ def _definition_files(version):
                 index[name].append(fn)
         # ``#asm`` blocks define routines too (``ovloader_ proc near``).
         for m in _ASM_PROC_RE.finditer(text):
-            name = _key(m.group(1))
+            name = _asm_key(m.group(1))
             if name and fn not in index.setdefault(name, []):
                 index[name].append(fn)
     _DEF_CACHE[version] = index
@@ -207,17 +211,22 @@ _ASM_NAME_RE = re.compile(r'[A-Za-z0-9_$@?]+')
 
 
 def _asm_names(text):
+    """Index keys of the names *text* defines.
+
+    ``procdef`` takes the C name (it appends the ``_`` itself); ``public`` and
+    ``proc`` spell it as the assembler does (``__tty_rd_``).
+    """
     for m in _ASM_DECL_RE.finditer(text):
         # ``procdef strcmp,<<str1,ptr>,...>``: only the first name is defined.
         decl = m.group(0).split(None, 1)
         if decl[0].lower() == 'procdef':
             first = _ASM_NAME_RE.match(m.group(1).strip())
             if first:
-                yield first.group(0)
+                yield _key(first.group(0))
         else:
-            yield from _ASM_NAME_RE.findall(m.group(1))
+            yield from map(_asm_key, _ASM_NAME_RE.findall(m.group(1)))
     for m in _ASM_PROC_RE.finditer(text):
-        yield m.group(1)
+        yield _asm_key(m.group(1))
 
 
 def _asm_definition_files(version):
@@ -227,8 +236,7 @@ def _asm_definition_files(version):
     for fn, text in catalog(version).items():
         if not fn.endswith('.asm'):
             continue
-        for raw in _asm_names(text):
-            name = _key(raw)
+        for name in _asm_names(text):
             if not name:
                 continue
             index.setdefault(name, [])

@@ -16,6 +16,7 @@ PROJECT = os.path.dirname(ASM)
 from lib.aztec import sources  # noqa: E402
 from lib.aztec.mux import MuxEngine, normalize, compare  # noqa: E402
 from lib.aztec.cache import cache_path, to_override  # noqa: E402
+from lib.cross_ref import read_label_json  # noqa: E402
 
 
 def _have_toolchain():
@@ -52,8 +53,7 @@ class CacheTest(unittest.TestCase):
         path = _ds_labels_path()
         if not os.path.exists(path):
             self.skipTest('no generated label map; run "make build DSAVANT"')
-        with open(path) as f:
-            return {v: int(k) for k, v in json.load(f).items()}
+        return {v: k for k, v in read_label_json(path).items()}
 
     def test_cached_routines_are_byte_exact(self):
         path = cache_path('DSAVANT', 'ds')
@@ -83,8 +83,7 @@ class MuxCompileTest(unittest.TestCase):
         labels_path = _ds_labels_path()
         if not os.path.exists(labels_path):
             self.skipTest('no generated label map; run "make build DSAVANT"')
-        with open(labels_path) as f:
-            labels = {v: int(k) for k, v in json.load(f).items()}
+        labels = {v: k for k, v in read_label_json(labels_path).items()}
         engine = MuxEngine()
         matches = engine.resolve('open', data, labels['aztec_open'])
         self.assertTrue(any(m.exact for m in matches))

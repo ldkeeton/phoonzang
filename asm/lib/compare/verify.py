@@ -58,7 +58,8 @@ from lib.compare.analysis import (
 from lib.compare.coverrides import _apply_c_overrides
 from lib.compare.vendor import _apply_asm_annotations
 from lib.compare.interrupts import _set_insn_fields, _annotate_interrupts
-from lib.names import generic_prefix, loc_name, startswith_stem
+from lib.names import data_space, generic_prefix, is_data, is_label, loc_name
+from lib.symtab import Kind, Source, Space, Symbol
 from lib.compare.jumptables import (
     _merge_jump_table_specs,
     _inject_jump_tables,
@@ -455,7 +456,11 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         dname = None
         if external_data and len(segs) == 1:
             dname = external_data_name(addr, external_data, next(iter(segs)))
-        dname = dname or f'data_{addr:04x}'
+        if dname:
+            dname = Symbol(dname, kind=Kind.DATA, source=Source.SIDECAR,
+                           offset=addr, space=Space.ABS)
+        else:
+            dname = Symbol.generated('data', addr, Kind.DATA)
         if label_map is None:
             data_labels[addr] = dname
             continue
@@ -558,7 +563,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if off in known_addrs and (
                 off in insn_by_addr
                 or (label_map and off in label_map
-                    and startswith_stem(label_map[off], 'data_'))
+                    and is_data(label_map[off]))
                 or (local_labels and off in local_labels)):
             data_block_start, pending_data = _flush_data_block(
                 records, pending_data, data_block_start, off,
@@ -576,7 +581,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                     bisect_left(known_addr_sorted, insn_end)]
                 if (a in insn_by_addr
                     or (label_map and a in label_map
-                        and startswith_stem(label_map[a], 'data_'))
+                        and is_data(label_map[a]))
                     or (local_labels and a in local_labels))
             ]
 
@@ -769,7 +774,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # to the ``equ``.  ``org 0`` means a label at file offset *off* has value
     # *off*, so every reference re-encodes identically.
     label_defined = set()
-    existing_labels = {r['text'] for r in records if r['type'] == 'label'}
+    existing_labels = {r['name'] for r in records if r['type'] == 'label'}
     label_offsets_now = {r['offset'] for r in records if r['type'] == 'label'}
     # Symbols whose address falls inside the MZ code→data zero gap must stay
     # ``equ`` constants: a label there would split the dynamic pad.  Locate the
@@ -791,22 +796,22 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
 
     f3_candidates = []
     for cname, caddr in (mem_equ or {}).items():
-        if cname.startswith('cseg_') and not _in_gap(caddr):
+        if data_space(cname) is Space.CSEG and not _in_gap(caddr):
             f3_candidates.append((cname, caddr))
     for caddr, cname in (label_map or {}).items():
         if _in_gap(caddr):
             continue
-        if startswith_stem(cname, 'data_'):
+        if is_data(cname):
             f3_candidates.append((cname, caddr))
         elif (caddr not in label_offsets_now
-              and not cname.startswith(('dseg_', 'bss_', 'psp_'))):
+              and data_space(cname) not in (Space.DS, Space.BSS, Space.PSP)):
             # A stale flow target sitting in data must not become a code label.
             if (bitmap is not None and 0 <= caddr < len(bitmap)
                     and bitmap[caddr] != IS_CODE):
                 continue
             f3_candidates.append((cname, caddr))
     for cname, caddr in sorted(f3_candidates, key=lambda t: (t[1], t[0])):
-        if f'{cname}:' in existing_labels:
+        if cname in existing_labels:
             label_defined.add(cname)
             continue
         if _ensure_global_label(records, binary_data, caddr, cname):
@@ -871,6 +876,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     if asm_annotations:
         records = _apply_asm_annotations(
             records, asm_annotations, label_map)
+        stagelog.step('verify.vendor_names', 2, 'repair',
+                      repairs='names.tag_generics',
+                      why='the vendor source names a shared tail the '
+                          'address or content tag only stood in for',
+                      track={'label_map': label_map or {}},
+                      metrics={'routines': len(asm_annotations)})
 
     if c_overrides:
         records = _apply_c_overrides(
@@ -1006,7 +1017,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         host_symbols = (f'{host.name}.asm', -(host.cs_origin or 0))
         host_data_refs = {
             name: value for name, value in (mem_equ or {}).items()
-            if name.startswith(('dseg_', 'bss_'))
+            if data_space(name) in (Space.DS, Space.BSS)
         }
 
     src_lines, split_sources = _build_source(
@@ -1025,8 +1036,19 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                   track={'label_map': label_map or {}},
                   metrics={'lines': len(src_lines), 'files': len(split_sources)})
 
+    # Every name the render defines or spells.  The emitted records come
+    # first: theirs are the final names.
+    symbols = [
+        *(rec['name'] for rec in records if rec['type'] == 'label'),
+        *(rec['label'] for rec in records if rec['type'] == 'jump_table'),
+        *(label_map or {}).values(), *(local_labels or {}).values(),
+        *(data_labels or {}).values(), *(mem_symbols or {}).values(),
+        *(mem_equ or {}), *(foreign_label_map or {}).values(),
+        *(immediate_labels or {}).values(),
+    ]
     frozen = count_frozen_addrs(
-        src_lines + '\n' + '\n'.join(split_sources.values())
+        src_lines + '\n' + '\n'.join(split_sources.values()),
+        {str(sym): sym for sym in reversed(symbols) if isinstance(sym, Symbol)},
     )
     mnem_count = sum(1 for r in records if r['type'] == 'mnem')
     db_count = sum(1 for r in records if r['type'] == 'db')
@@ -1037,7 +1059,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     code_loss = 0
     if label_map:
         for off, lname in label_map.items():
-            if startswith_stem(lname, 'loc_') and off < total and emit_class[off] == IS_DATA:
+            if is_label(lname) and off < total and emit_class[off] == IS_DATA:
                 code_loss += 1
 
     struct_count = 0
@@ -1075,7 +1097,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         },
         'aztec_labels': (
             sum(1 for n in label_map.values()
-                if isinstance(n, str) and n.startswith('aztec_'))
+                if getattr(n, 'role', None) == 'aztec')
             if label_map else 0
         ),
         # Region carving pre-pass (D2): the byte map D4 scores candidates
@@ -1105,6 +1127,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             insns, mem_symbols, mem_equ, segment_flow, label_map, start_offset,
             data_labels=data_labels, reloc_targets=reloc_targets,
             immediate_labels=immediate_labels),
+        # What readers of the generated tree look a token up in
+        # (``symbols/<binary>.json``).
+        'symbols': symbols,
         # Rendering context for ``make elf-rebuild``'s C-fragment resplice:
         # without these maps a recompiled fragment loses the resolved operand
         # symbols (e.g. ``bss_0d00``) and the binary's local-label numbering.
@@ -1120,7 +1145,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             'geometry': image_geometry(
                 records, binary_data, start_offset,
                 getattr(segments, 'ds_size', None)),
-            'label_records': [(rec['offset'], rec['text'])
+            'label_records': [(rec['offset'], rec['name'], rec['text'])
                               for rec in records if rec['type'] == 'label'],
         },
         'status': 'OK',

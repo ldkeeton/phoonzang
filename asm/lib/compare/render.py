@@ -4,7 +4,8 @@ import re
 import struct
 
 from lib.compare.splitting import _partition_function_records
-from lib.names import generic_prefix, stem
+from lib.names import data_space, generic_prefix
+from lib.symtab import Space, Symbol
 
 
 # Minimum printable-run length for the D1 string anchor.  Shorter runs are
@@ -412,10 +413,13 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
     ]
 
 
-# Names whose ``equ`` value is a data-segment or PSP offset, not a code address,
-# so the code origin (``VBASE``) must not be added to it.
-_RAW_EQU_PREFIXES = ('data_', 'dseg_', 'bss_', 'psp_', 'bios_data_',
-                     'external_')
+def _raw_value(name):
+    """True when *name*'s ``equ`` value is a data, PSP or absolute offset.
+
+    The code origin (``VBASE``) is then not added to it; only a code label (or
+    a CS-reached ``cseg_`` offset) is a code address.
+    """
+    return data_space(name) not in (None, Space.CSEG)
 
 #: Record kinds that emit bytes rather than instructions (``verify.emit_class``
 #: marks these ``IS_DATA``).  A *code* name carrying a label on one of these
@@ -458,7 +462,8 @@ def place_driver_immediates(records, binary_data, immediate_labels, load_offset)
         file_off = disp - load_offset
         if not 0 <= file_off < len(binary_data):
             continue
-        anchor = f'{ANCHOR_PREFIX}{immediate_labels[disp]}'
+        anchor = Symbol.anchor(f'{ANCHOR_PREFIX}{immediate_labels[disp]}',
+                               file_off)
         if _ensure_global_label(records, binary_data, file_off, anchor):
             placed[disp] = anchor
     return placed
@@ -490,7 +495,7 @@ def _signed_hex(value):
 
 def _label_equ_value(name, addr, code_value):
     """``equ`` right-hand side for a label that could not be placed in line."""
-    if stem(name).startswith(_RAW_EQU_PREFIXES):
+    if _raw_value(name):
         return f'0x{addr:04x}'
     return code_value(addr)
 
@@ -534,7 +539,7 @@ def _place_label(records, binary_data, addr, name, gap=None):
     if covering is None:
         return False
     if (covering['type'] in _DATA_RECORD_TYPES
-            and not stem(name).startswith(_RAW_EQU_PREFIXES)):
+            and not _raw_value(name)):
         return False
     # Local import: ``jumptables`` pulls in the assembler, so the dependency
     # stays inside the function like the other callers in this module.
@@ -767,7 +772,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             if data_start < len(binary_data):
                 from lib.compare.jumptables import _ensure_global_label
                 dynamic_ovr_size = _ensure_global_label(
-                    records, binary_data, data_start, '__zdata_start')
+                    records, binary_data, data_start,
+                    Symbol.anchor('__zdata_start', data_start))
         # D7.0c: ``o_dorg`` is the host data-segment size, so bind it to the
         # host symbol the link step resolves (only when the host values file is
         # in scope -- ``host_symbols``).
@@ -787,7 +793,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     defined_names = set()
     for r in records:
         if r['type'] == 'label':
-            defined_names.add(r['text'].split(':', 1)[0].strip())
+            defined_names.add(r['name'])
 
     def _defined(name):
         return name in label_defined or name in defined_names
@@ -853,7 +859,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # the whole union.
         data_names = {}
         for name, value in (mem_equ or {}).items():
-            if host_symbols and name.startswith(('dseg_', 'bss_')):
+            if host_symbols and data_space(name) in (Space.DS, Space.BSS):
                 continue  # the one shared host table declares it
             data_names[name] = (value, False)
         if data_anchored and host_data_offsets:
@@ -874,7 +880,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             # MZ image's own ``mem_equ`` never reaches past its segment end.
             own = from_host_data and ds_size is not None and value >= ds_size
             expr = None
-            if data_anchored and name.startswith('dseg_'):
+            if data_anchored and data_space(name) is Space.DS:
                 if own:
                     delta = value - ds_size
                     expr = _DSSIZE_SYMBOL if delta == 0 else (
@@ -894,7 +900,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                                 and run[1] - run[0] >= _MIN_STRING_ANCHOR):
                             anchor_off = run[0]
                             anchor_ds = anchor_off - data_origin
-                            anchor = f'__zstr_{anchor_ds:04x}'
+                            anchor = Symbol.anchor(f'__zstr_{anchor_ds:04x}',
+                                                   anchor_off)
                             if anchor not in placed_anchors:
                                 if _ensure_global_label(
                                         records, binary_data, anchor_off, anchor):
@@ -907,11 +914,11 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                             if delta:
                                 expr += f' + 0x{delta:04x}'
                         else:
-                            label = f'__z{name}'
+                            label = Symbol.anchor(f'__z{name}', file_off)
                             if _ensure_global_label(records, binary_data,
                                                     file_off, label):
                                 expr = f'{label} - __zdseg_start'
-            elif data_anchored and name.startswith('bss_'):
+            elif data_anchored and data_space(name) is Space.BSS:
                 if own:
                     delta = value - ds_size
                     expr = _DSSIZE_SYMBOL if delta == 0 else (
@@ -922,7 +929,7 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                     expr = base if delta == 0 else f'{base} + 0x{delta:04x}'
             if expr is not None:
                 out.append(f'{name} equ {expr}')
-            elif name.startswith('cseg_'):
+            elif data_space(name) is Space.CSEG:
                 out.append(f'{name} equ {code_value(value)}')
             else:
                 out.append(f'{name} equ 0x{value:04x}')

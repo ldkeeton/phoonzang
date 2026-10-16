@@ -1,6 +1,5 @@
 """Resolve Aztec runtime routines to C and compile the current seeds."""
 
-import json
 import os
 
 from lib.shared import FOLDER
@@ -13,7 +12,8 @@ from .options import (
 )
 
 
-def _aztec_c_overrides(project, name, data, label_map, out_dir):
+def _aztec_c_overrides(project, name, data, label_map, out_dir,
+                       function_roots=None):
     """Resolve Aztec runtime routines to C and compile the current seeds.
 
     Returns ``(overrides, entries)`` where *overrides* feeds the byte-preserving
@@ -29,7 +29,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
     if not project or AZTEC_MUX_DISABLED:
         return {}, {}
     labels = [(addr, nm) for addr, nm in label_map.items()
-              if isinstance(nm, str) and nm.startswith('aztec_')]
+              if getattr(nm, 'role', None) == 'aztec']
     dest = os.path.join(out_dir, name)
     known = {nm for nm in label_map.values() if isinstance(nm, str)}
     hand_c = sorted(f[:-2] for f in (os.listdir(dest) if os.path.isdir(dest)
@@ -44,7 +44,6 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
         return {}, {}
     from lib.aztec import cache
     from lib.aztec.objread import fixup_width
-    from lib.cachedirs import spans_dir
     entries = {}
     if labels:
         mode = 'prebuild' if (AZTEC_PREBUILD or AZTEC_MUX_REFRESH) else 'build'
@@ -56,30 +55,33 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
         except Exception as exc:  # never let C recovery break the build
             print(f'  aztec mux: skipped ({exc})')
             return {}, {}
+    _apply_renames(entries, label_map, function_roots)
     if AZTEC_PREBUILD_ONLY:
         return {}, entries
+    known = {nm for nm in label_map.values() if isinstance(nm, str)}
+    shared_c = sorted(f[:-2] for f in (os.listdir(shared_dir)
+                                       if os.path.isdir(shared_dir) else ())
+                      if f.endswith('.c') and f[:-2] in known)
 
     orphans = sorted(f'{label}.c' for label in hand_c if label not in known)
     if orphans:
         raise SystemExit(f'error: C file(s) in {dest} with no matching asm '
                          f'routine: {", ".join(orphans)}')
-    # A routine's fragment span, recorded by the previous build, is where the
-    # routine really ends.  The object's public extent can run past it into a
-    # trailing ``static`` neighbour (``putc`` compiles ``closall`` inside its
-    # extent; the splitter gives each its own fragment), so the C override must
-    # own only the span -- never the neighbour's bytes or its ``.N`` labels.
-    spans = {}
-    spans_path = os.path.join(spans_dir(project),
-                              f'{name}_aztec_spans.json')
-    if os.path.isfile(spans_path):
-        with open(spans_path) as f:
-            spans = json.load(f)
+    # A routine ends at the next fragment root.  The object's public extent can
+    # run past it into a trailing ``static`` neighbour (``putc`` compiles
+    # ``closall`` inside its extent; the splitter gives each its own fragment),
+    # so the C override must own only its own fragment -- never the
+    # neighbour's bytes or its ``.N`` labels.
+    roots = sorted(function_roots or ())
+    starts = {nm: addr for addr, nm in label_map.items()
+              if isinstance(nm, str)}
 
     def owned_length(label, entry, func):
         length = entry.get('original_length') or len(func.code)
-        span = spans.get(label)
-        if span:
-            length = min(length, span[1] - span[0])
+        start = starts.get(label)
+        following = [r for r in roots if start is not None and r > start]
+        if following:
+            length = min(length, following[0] - start)
         return length
 
     overrides = {}
@@ -99,7 +101,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
             # The linker resolves the routine's relocations against the build's
             # label maps once those exist (lib.compare.coverrides).
             'func': func, 'text': text, 'path': path,
-            'own_key': cache.own_key(label),
+            'own_key': cache.own_key(label, entry),
             'pristine': text == cache.seed_source_text(
                 project, name, label, entry),
             'compile': (lambda t, _l=label, _e=entry:
@@ -113,7 +115,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
         }
     # A hand-written <label>.c with no compiled manifest entry (an application
     # routine, a miss, or a vendor-asm routine) replaces that routine too.  Its
-    # original length comes from the span the previous build recorded.
+    # original length runs to the next fragment root.
     for label in sorted(set(hand_c) | set(shared_c)):
         entry = entries.get(label)
         if entry is not None and not cache.is_asm_entry(entry):
@@ -126,20 +128,42 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
             func = cache.compile_source(project, label, entry, text)
         except Exception as exc:
             raise SystemExit(f'error: {label}.c: compile failed ({exc})')
-        span = spans.get(label)
+        start = starts.get(label)
+        following = [r for r in roots if start is not None and r > start]
         overrides[label] = {
             'func': func, 'text': text, 'path': path,
-            'own_key': cache.own_key(label), 'pristine': False,
+            'own_key': cache.own_key(label, entry), 'pristine': False,
             'compile': (lambda t, _l=label, _e=entry:
                         cache.compile_source(project, _l, _e, t)),
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
-            'length': (span[1] - span[0]) if span else len(func.code),
+            'length': (following[0] - start) if following else len(func.code),
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
         }
     return overrides, entries
+
+
+def _apply_renames(entries, label_map, function_roots):
+    """Name each recovered routine as its matching source does.
+
+    The signature took the library's spelling (``aztec__open``); the entry is
+    keyed by the vendor source's C name (``aztec_open``) and remembers the
+    signature's label.
+    """
+    from lib.symtab import Source
+    at = {str(nm): addr for addr, nm in label_map.items()}
+    for label, entry in entries.items():
+        addr = at.get(entry.get('signature'))
+        if addr is None:
+            continue
+        # The name changes; ``library`` stays the object the bytes matched.
+        sym = label_map[addr].renamed(label, Source.LIBRARY)
+        if function_roots is not None and function_roots.get(addr) == \
+                label_map[addr]:
+            function_roots[addr] = sym
+        label_map[addr] = sym
 
 
 def c_path(dest, label):

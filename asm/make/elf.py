@@ -12,6 +12,7 @@ from lib.autogen import write_text
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
 from lib.shared import FOLDER
+from lib.symtab import Symbol
 from main.projects import discover_binaries
 
 from .common import APPS, PROJECT, _extra_flags, _main_exe, _nasm_build
@@ -373,7 +374,7 @@ def _synthesize_locals(code, base, length, label):
         for op in insn.operands:
             if op.type == CS_OP_IMM and base < op.imm < base + length:
                 targets.add(op.imm)
-    return {addr: f'@..{label}.l{i + 1}'
+    return {addr: Symbol.local(label, addr, i + 1)
             for i, addr in enumerate(sorted(targets))}
 
 
@@ -388,13 +389,13 @@ def _load_render_context(app, binary):
     if not os.path.isfile(path):
         return None
     with open(path) as context_file:
-        return decode(json.load(context_file))
+        return decode(json.load(context_file))  # None for an older schema
 
 
 def _fragment_labels(label_records, start, end):
     """Select the build's label lines owned by a fragment span."""
-    return [{'type': 'label', 'text': text, 'offset': offset}
-            for offset, text in label_records if start <= offset < end]
+    return [{'type': 'label', 'text': text, 'name': name, 'offset': offset}
+            for offset, name, text in label_records if start <= offset < end]
 
 
 def _report_linked(app, binary, label, linked):
@@ -443,7 +444,9 @@ def resplice_c(app, binary):
         _c_bytes_to_records,
         _merge_label_records,
     )
+    from lib.compare.records import _label_record
     from lib.compare.render import _render_records
+    from lib.symtab import Kind
 
     out_dir = os.path.join(PROJECT, f'asm_{app}')
     dest = os.path.join(out_dir, binary)
@@ -461,8 +464,8 @@ def resplice_c(app, binary):
         spans = json.load(f)
     with open(manifest) as f:
         entries = json.load(f)['functions']
-    with open(labels_path) as f:
-        label_map = {int(k): v for k, v in json.load(f).items()}
+    from lib.cross_ref import read_label_json
+    label_map = read_label_json(labels_path)
     context = _load_render_context(app, binary)
     index = (relink.SymbolIndex(label_map, context['foreign_label_map'],
                                 context['data_labels'],
@@ -556,8 +559,8 @@ def resplice_c(app, binary):
         if index is not None:
             # Resolve the C's own relocations against the asm namespace; the
             # original image supplies only the ones the linker does not model.
-            labels_in = [(offset, text)
-                         for offset, text in context['label_records']
+            labels_in = [(offset, name)
+                         for offset, name, _ in context['label_records']
                          if start <= offset < end]
             try:
                 linked = relink.link(label, start, func, index, data,
@@ -627,8 +630,7 @@ def resplice_c(app, binary):
             if linked is not None:
                 # Branch labels follow the code the compiler produced.
                 label_records = ([r for r in label_records
-                                  if not r['text'].startswith(
-                                      relink.LOCAL_PREFIX)]
+                                  if r['name'].kind is not Kind.LOCAL]
                                  + linked.local_records)
             data_labels = context['data_labels']
             mem_symbols = context['mem_symbols']
@@ -641,14 +643,13 @@ def resplice_c(app, binary):
             # per-fragment synthesis this hot loop used before the maps existed.
             local_labels = _synthesize_locals(
                 bytes(final), start, code_len, label)
-            label_records = [{'type': 'label', 'text': f'{label}:',
-                              'offset': start}]
+            label_records = [_label_record(label_map.get(start, label), start)]
             label_records.extend(
-                {'type': 'label', 'text': f'{name}:', 'offset': addr}
+                _label_record(name, addr)
                 for addr, name in sorted(label_map.items())
                 if start < addr < end and isinstance(name, str))
             label_records.extend(
-                {'type': 'label', 'text': f'{name}:', 'offset': addr}
+                _label_record(name, addr)
                 for addr, name in sorted(local_labels.items()))
             data_labels = mem_symbols = mem_equ = None
             foreign_label_map = immediate_labels = None

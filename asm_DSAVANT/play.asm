@@ -9,9 +9,91 @@ IMAGE_BASE equ -0x0100
 
 data_096f equ 0x096f
 data_09ae equ 0x09ae
-loc_0af6 equ 0x0af6
-loc_121d equ 0x121d
+
+loc_LPSH:
+    jmp near loc_JTQK_0003           ; 0x0000
+loc_JTQK_0003:
+    call loc_MMRI                    ; 0x0003
+    retf                             ; 0x0006
+loc_JTQK_0007:
+    call string_loc_OLGI             ; 0x0007
+    retf                             ; 0x000a
+loc_JTQK_000b:
+    call leaf_loc_GJRP               ; 0x000b
+    retf                             ; 0x000e
+loc_JTQK_000f:
+    call loc_LGGU                    ; 0x000f
+    retf                             ; 0x0012
+loc_JTQK_0013:
+    call io_loc_QVTL                 ; 0x0013
+    retf                             ; 0x0016
+loc_JTQK_0017:
+    call bios_disk_loc_VOLH          ; 0x0017
+    retf                             ; 0x001a
+loc_JTQK_001b:
+    call leaf_loc_IQNG               ; 0x001b
+    retf                             ; 0x001e
+loc_JTQK_001f:
+    call leaf_loc_RPUI               ; 0x001f
+    retf                             ; 0x0022
+%include "play/loc_MMRI.asm"               ; 0x0023
+
+%include "play/asm_only/string_loc_OLGI.asm"        ; 0x00fe
+
+%include "play/leaf_loc_GJRP.asm"          ; 0x0154
+
+%include "play/leaf_loc_IQNG.asm"          ; 0x016e
+
+%include "play/leaf_loc_RPUI.asm"          ; 0x0183
+
+%include "play/loc_LGGU.asm"               ; 0x01b0
+
+%include "play/asm_only/io_loc_QVTL.asm"            ; 0x023f
+
+%include "play/bios_disk_loc_VOLH.asm"     ; 0x0294
+
+%include "play/leaf_loc_NLLU.asm"          ; 0x02b3
+
 data_89a3 equ 0x89a3
+%include "play/asm_only/io_loc_MSLK.asm"            ; 0x02ba
+
+data_0421:
+    jne short @..bios_disk_loc_VOLH.l10 ; 0x0421
+    mov byte [cs:cseg_0321 - IMAGE_BASE], 1 ; 0x0423
+    in al, 0x21                      ; 0x0429
+    mov byte [cs:cseg_0a8f - IMAGE_BASE], al ; 0x042b
+    mov ax, word [es:di]             ; 0x042f
+    mov word [cs:cseg_0b10 - IMAGE_BASE], ax ; 0x0432
+    mov ax, word [es:di + 0x2]       ; 0x0436
+    mov word [cs:cseg_0b12 - IMAGE_BASE], ax ; 0x043a
+@..bios_disk_loc_VOLH.l10:
+    mov al, 0x34                     ; 0x043e
+    out 0x43, al                     ; 0x0440
+    call leaf_loc_RNOI               ; 0x0442
+    mov ax, 0x48                     ; 0x0445
+    out 0x40, al                     ; 0x0448
+    call leaf_loc_RNOI               ; 0x044a
+    mov al, ah                       ; 0x044d
+    out 0x40, al                     ; 0x044f
+    cmp byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x0451
+    je short @..bios_disk_loc_VOLH.l11 ; 0x0457
+    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x0459
+    shl bl, 1                        ; 0x045e
+    xor bh, bh                       ; 0x0460
+    mov dx, word [cs:bx + 0x5a5]     ; 0x0462
+    cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x0467
+    je short loc_JOTM                ; 0x046d
+    mov dx, word [cs:bx + 0x5ad]     ; 0x046f
+    jmp near loc_JOTM                ; 0x0474
+@..bios_disk_loc_VOLH.l11:
+    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x0477
+    shl bl, 1                        ; 0x047c
+    xor bh, bh                       ; 0x047e
+    mov dx, word [cs:bx + 0x595]     ; 0x0480
+    cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x0485
+    je short loc_JOTM                ; 0x048b
+    mov dx, word [cs:bx + 0x59d]     ; 0x048d
+    jmp near loc_JOTM                ; 0x0492
 cseg_0848 equ 0x0848
 cseg_08ae equ 0x08ae
 cseg_08bf equ 0x08bf
@@ -21,95 +103,13 @@ cseg_097c equ 0x097c
 cseg_09a4 equ 0x09a4
 cseg_09a9 equ 0x09a9
 cseg_09bb equ 0x09bb
+%include "play/asm_only/io_loc_KUOH.asm"            ; 0x0495
 
-loc_IJSK:
-    jmp near loc_TGJP                ; 0x0000
-loc_TGJP:
-    call loc_LRNP                    ; 0x0003
-    retf                             ; 0x0006
-loc_NPQN:
-    call string_loc_QTHS             ; 0x0007
-    retf                             ; 0x000a
-loc_NLTO:
-    call leaf_loc_PLJH               ; 0x000b
-    retf                             ; 0x000e
-loc_QPKV:
-    call loc_LJTJ                    ; 0x000f
-    retf                             ; 0x0012
-loc_MPQM:
-    call io_loc_JHUI                 ; 0x0013
-    retf                             ; 0x0016
-loc_GGJT:
-    call bios_disk_loc_RVRG          ; 0x0017
-    retf                             ; 0x001a
-loc_ITRO:
-    call leaf_loc_VNQL               ; 0x001b
-    retf                             ; 0x001e
-loc_PKRS:
-    call leaf_loc_NSGK               ; 0x001f
-    retf                             ; 0x0022
-%include "play/loc_LRNP.asm"               ; 0x0023
+%include "play/asm_only/leaf_loc_RNOI.asm"          ; 0x0610
 
-%include "play/asm_only/string_loc_QTHS.asm"        ; 0x00fe
-
-%include "play/leaf_loc_PLJH.asm"          ; 0x0154
-
-%include "play/leaf_loc_VNQL.asm"          ; 0x016e
-
-%include "play/leaf_loc_NSGK.asm"          ; 0x0183
-
-%include "play/loc_LJTJ.asm"               ; 0x01b0
-
-%include "play/asm_only/io_loc_JHUI.asm"            ; 0x023f
-
-%include "play/bios_disk_loc_RVRG.asm"     ; 0x0294
-
-%include "play/leaf_loc_RLRO.asm"          ; 0x02b3
-
-%include "play/asm_only/io_loc_GJPH.asm"            ; 0x02ba
-
-data_0421:
-    jne short @..bios_disk_loc_RVRG.l10 ; 0x0421
-    mov byte [cs:cseg_0321 - IMAGE_BASE], 1 ; 0x0423
-    in al, 0x21                      ; 0x0429
-    mov byte [cs:cseg_0a8f - IMAGE_BASE], al ; 0x042b
-    mov ax, word [es:di]             ; 0x042f
-    mov word [cs:cseg_0b10 - IMAGE_BASE], ax ; 0x0432
-    mov ax, word [es:di + 0x2]       ; 0x0436
-    mov word [cs:cseg_0b12 - IMAGE_BASE], ax ; 0x043a
-@..bios_disk_loc_RVRG.l10:
-    mov al, 0x34                     ; 0x043e
-    out 0x43, al                     ; 0x0440
-    call leaf_loc_KROT               ; 0x0442
-    mov ax, 0x48                     ; 0x0445
-    out 0x40, al                     ; 0x0448
-    call leaf_loc_KROT               ; 0x044a
-    mov al, ah                       ; 0x044d
-    out 0x40, al                     ; 0x044f
-    cmp byte [cs:cseg_0a90 - IMAGE_BASE], 0 ; 0x0451
-    je short @..bios_disk_loc_RVRG.l11 ; 0x0457
-    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x0459
-    shl bl, 1                        ; 0x045e
-    xor bh, bh                       ; 0x0460
-    mov dx, word [cs:bx + 0x5a5]     ; 0x0462
-    cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x0467
-    je short loc_KILL                ; 0x046d
-    mov dx, word [cs:bx + 0x5ad]     ; 0x046f
-    jmp near loc_KILL                ; 0x0474
-@..bios_disk_loc_RVRG.l11:
-    mov bl, byte [cs:cseg_0a7d - IMAGE_BASE] ; 0x0477
-    shl bl, 1                        ; 0x047c
-    xor bh, bh                       ; 0x047e
-    mov dx, word [cs:bx + 0x595]     ; 0x0480
-    cmp byte [cs:cseg_0a94 - IMAGE_BASE], 0 ; 0x0485
-    je short loc_KILL                ; 0x048b
-    mov dx, word [cs:bx + 0x59d]     ; 0x048d
-    jmp near loc_KILL                ; 0x0492
-%include "play/asm_only/io_loc_KURR.asm"            ; 0x0495
-
-%include "play/asm_only/leaf_loc_KROT.asm"          ; 0x0610
-
-%include "play/asm_only/leaf_loc_QNLL.asm"          ; 0x077b
+loc_0af6 equ 0x0af6
+loc_121d equ 0x121d
+%include "play/asm_only/leaf_loc_LSQV.asm"          ; 0x077b
 
 cseg_086e:
     db 0x00
@@ -323,25 +323,25 @@ loc_09d4:
     mov dx, word [cs:data_0c10]      ; 0x0a08
     mov byte [cs:data_0421], 0       ; 0x0a0d
 loc_0a13:
-    call string_loc_OPLR             ; 0x0a13
+    call string_loc_PGLH             ; 0x0a13
     mov al, 0x36                     ; 0x0a16
     out 0x43, al                     ; 0x0a18
-    call leaf_loc_KROT               ; 0x0a1a
+    call leaf_loc_RNOI               ; 0x0a1a
     mov ax, bx                       ; 0x0a1d
     out 0x40, al                     ; 0x0a1f
-    call leaf_loc_KROT               ; 0x0a21
+    call leaf_loc_RNOI               ; 0x0a21
     mov al, ah                       ; 0x0a24
     out 0x40, al                     ; 0x0a26
     pop dx                           ; 0x0a28
     ret                              ; 0x0a29
-%include "play/asm_only/string_loc_OPLR.asm"        ; 0x0a2a
+%include "play/asm_only/string_loc_PGLH.asm"        ; 0x0a2a
 
 cseg_0a54:
 
     db 0x80, 0x83, 0xd7, 0x00, 0x72, 0x05, 0xb0, 0x20, 0xe6, 0x20, 0xcf, 0xe8, 0x72, 0xff, 0x2e, 0xa0
     db 0x8f, 0x0b, 0xe6, 0x21, 0xb0, 0x20, 0xe6, 0x20, 0xcf
 
-%include "play/asm_only/io_loc_GSLI.asm"            ; 0x0a6d
+%include "play/asm_only/io_loc_LJNG.asm"            ; 0x0a6d
 
 cseg_0a7c:
     db 0x01
@@ -453,7 +453,7 @@ data_0c12:
     db 0x06, 0x9a, 0x0b, 0x00, 0x2e, 0x80, 0x3e, 0x94, 0x0b, 0x00, 0x75, 0x03, 0xe9, 0x48, 0xfe, 0xe8
     db 0x03, 0x00, 0xe9, 0x42, 0xfe
 
-%include "play/asm_only/io_loc_OGKU.asm"            ; 0x0c97
+%include "play/asm_only/io_loc_KTNU.asm"            ; 0x0c97
 
 
     db 0xad, 0x3d, 0x00, 0x00, 0x75, 0x03, 0xe9, 0x71, 0xfe, 0x2e, 0xa3, 0x7f, 0x0b, 0x2e, 0x89, 0x36

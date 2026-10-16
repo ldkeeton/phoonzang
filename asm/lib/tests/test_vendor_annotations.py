@@ -1,15 +1,16 @@
 import unittest
 
 from lib.compare.vendor import _apply_asm_annotations, _vendor_named_tails
+from lib.tests.syms import label, loc, routine
 
 
 def _records():
     return [
-        {'type': 'label', 'text': 'aztec_ldv:', 'offset': 0x10},
+        label('aztec_ldv', 0x10),
         {'type': 'mnem', 'text': 'call aztec_lud', 'offset': 0x10},
-        {'type': 'label', 'text': 'loc_0014:', 'offset': 0x14},
+        label(loc(0x14), 0x14),
         {'type': 'mnem', 'text': 'test di, di', 'offset': 0x14},
-        {'type': 'label', 'text': 'aztec_lrm:', 'offset': 0x20},
+        label('aztec_lrm', 0x20),
         {'type': 'mnem', 'text': 'jmp short loc_0014', 'offset': 0x20},
     ]
 
@@ -26,7 +27,7 @@ class SharedTailRenameTest(unittest.TestCase):
     def test_renamed_loc_label_is_dropped_from_label_map(self):
         notes = {'aztec_ldv': {'start': 0x10, 'end': 0x18,
                                'labels': {0x14: 'chksign'}, 'comments': {}}}
-        label_map = {0x10: 'aztec_ldv', 0x14: 'loc_0014'}
+        label_map = {0x10: routine('aztec_ldv', 0x10), 0x14: loc(0x14)}
         _apply_asm_annotations(_records(), notes, label_map)
         self.assertEqual(label_map, {0x10: 'aztec_ldv'})
 
@@ -34,7 +35,8 @@ class SharedTailRenameTest(unittest.TestCase):
         notes = {'aztec_ldv': {'start': 0x10, 'end': 0x18,
                                'labels': {0x14: 'chksign', 0x16: 'x'},
                                'comments': {}}}
-        label_map = {0x10: 'aztec_ldv', 0x14: 'loc_0014', 0x16: 'aztec_y'}
+        label_map = {0x10: routine('aztec_ldv', 0x10), 0x14: loc(0x14),
+                     0x16: routine('aztec_y', 0x16)}
         self.assertEqual(_vendor_named_tails(label_map, notes), {0x14})
 
     def test_loc_label_outside_routine_span_is_kept(self):

@@ -11,7 +11,7 @@ dos_con_in_noecho:
     mov ax, cs                       ; 0x3c9f
     mov ds, ax                       ; 0x3ca1
     mov es, ax                       ; 0x3ca3
-    call ds_leaf_loc_RJOL            ; 0x3ca5
+    call ds_leaf_loc_MPVL            ; 0x3ca5
     lea si, word [cseg_3c7f - IMAGE_BASE] ; 0x3ca8
 @..dos_con_in_noecho.l1:
     mov bx, word [si]                ; 0x3cac

@@ -10,7 +10,8 @@ from lib.format import LinkedSymbol
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent
 from lib.compare.interrupts import _set_insn_fields
 from lib.compare.cgate import check_against_original
-from lib.compare.records import _record_span
+from lib.compare.records import _label_record, _record_span
+from lib.symtab import Kind, Symbol
 
 
 def _ref_operands(insn, off, refs):
@@ -160,9 +161,8 @@ def _override_local_labels(data, start, end, label_map, local_labels, linked,
             named.setdefault(off, name)
     global_offsets = {off for off, name in (label_map or {}).items()
                       if isinstance(name, str)}
-    numbers = [int(m.group(1))
-               for m in (re.search(r'\.l(\d+)$', name)
-                         for name in named.values()) if m is not None]
+    numbers = [name.index for name in named.values()
+               if name.kind is Kind.LOCAL and name.index is not None]
     number = max(numbers, default=0) + 1
     md = Cs(CS_ARCH_X86, CS_MODE_16)
     md.detail = True
@@ -179,9 +179,9 @@ def _override_local_labels(data, start, end, label_map, local_labels, linked,
         targets.add(target)
     names = {off: named[off] for off in targets if off in named}
     for target in sorted(targets - names.keys()):
-        names[target] = f'{relink.LOCAL_PREFIX}{label}.l{number}'
+        names[target] = Symbol.local(label, target, number)
         number += 1
-    records = [{'type': 'label', 'text': f'{names[off]}:', 'offset': off}
+    records = [_label_record(names[off], off)
                for off in sorted(targets) if off not in taken]
     return names, records
 
@@ -197,7 +197,7 @@ def _link_override(label, start, override, records, binary_data, index,
     """
     func = override['func']
     length = override.get('length') or len(func.code)
-    labels_in = [(r['offset'], r['text']) for r in records
+    labels_in = [(r['offset'], r['name']) for r in records
                  if r['type'] == 'label' and start <= r['offset'] < start + length]
     try:
         return relink.link(label, start, func, index, binary_data, labels_in)
@@ -353,7 +353,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             _report_linked(label, linked)
             # Branch labels follow the code the compiler produced.
             labels_in = ([r for r in labels_in
-                          if not r['text'].startswith(relink.LOCAL_PREFIX)]
+                          if r['name'].kind is not Kind.LOCAL]
                          + linked.local_records)
         # Every branch the override's code makes *inside* the routine must name
         # a label this override defines.  The disassembly's ``local_labels``

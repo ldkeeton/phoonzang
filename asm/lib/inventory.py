@@ -23,42 +23,35 @@ import json
 import os
 
 from lib.cachedirs import addresses_dir
-from lib.names import startswith_stem
+from lib.symtab import Kind, Space, Symbol
 
 _ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _PROJECT_ROOT = os.path.dirname(_ASM_DIR)
 
-
-# Prefix -> (space, kind)
-_NAMESPACE = (
-    ('cseg_', ('cs', 'embedded_pointer')),
-    ('dseg_', ('ds', 'data')),
-    ('bss_', ('bss', 'bss')),
-    ('psp_', ('psp', 'psp')),
-    ('data_', ('unknown', 'candidate')),
-)
 
 # Confidence tiers (plan Phase 6).
 CERTAIN = 'certain'
 STRONG = 'strong'
 CANDIDATE = 'candidate'
 
+#: Space -> (space, kind) as the inventory reports a resolved data symbol.
+_SPACES = {Space.CSEG: ('cs', 'embedded_pointer'), Space.DS: ('ds', 'data'),
+           Space.BSS: ('bss', 'bss'), Space.PSP: ('psp', 'psp')}
+
 
 def classify(name, nm_kind=None):
-    """Return ``(space, kind, source, confidence)`` for a symbol name."""
-    for prefix, (space, kind) in _NAMESPACE:
-        if name.startswith(prefix):
-            confidence = CANDIDATE if space == 'unknown' else STRONG
-            source = 'candidate' if space == 'unknown' else 'segdataflow'
-            return space, kind, source, confidence
-    if startswith_stem(name, 'string_loc_'):
-        return 'cs', 'code', 'relative_flow', CERTAIN
-    if name.startswith('bios_data_'):
-        # External BIOS Data Area field addressed through ES; its space is
-        # not this image's, so it stays a documented candidate.
+    """Return ``(space, kind, source, confidence)`` for a symbol name.
+
+    A name that is not a :class:`Symbol` is known only by its ``nm`` type.
+    """
+    if isinstance(name, Symbol):
+        if name.kind is not Kind.DATA:
+            return 'cs', 'code', 'relative_flow', CERTAIN
+        if name.space in _SPACES:
+            return (*_SPACES[name.space], 'segdataflow', STRONG)
+        # ``data_`` (unresolved) or an external field (the BIOS Data Area):
+        # not an address space of this image, so a documented candidate.
         return 'unknown', 'candidate', 'candidate', CANDIDATE
-    if startswith_stem(name, ('loc_', 'leaf_loc_')):
-        return 'cs', 'code', 'relative_flow', CERTAIN
     upper = (nm_kind or '').upper()
     if upper in ('T', 't'):
         return 'cs', 'code', 'relative_flow', CERTAIN
