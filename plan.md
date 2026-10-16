@@ -303,7 +303,7 @@ The tree is split into one file per routine:
   `cli`/`sti`, `rep`, far `ret`/`call`, …) is stamped `; asm only` and filed under
   `<binary>/asm_only/` (`lib/asm_only.py`); the rest are candidates for a
   hand-written `.c` compiled and byte-checked (`lib/compare/cgate.py`).
-- Byte-identical fragments collapse into `asm_DSAVANT/lib/` and each master
+- Byte-identical fragments collapse into `asm_DSAVANT/shared/` and each master
   `%include`s them (`lib/shared.py`). Sharing compares the instructions with the
   per-binary `; 0x` comments removed; a fragment that embeds an address-derived
   symbol (`cseg_XXXX`, `loc_XXXX`) does not share, because a shared file can
@@ -330,8 +330,8 @@ becomes its own range and file (like any routine), a *data* neighbour is left fo
 the master (a data-only fragment would be neither a routine nor asm-only). A
 label inside the routine's own code is untouched, so a real routine is never
 split. Effect: fragments 1364 → 1723, glued files 361 → 214, outside co-tenants
-734 → 254 (code 247, data 7), and shared `lib/` files 58 → 84. `dos_con_loc_TUTH`
-and `leaf_loc_JKPU` — the two pairs D7.6 left un-shared — now share from `lib/`.
+734 → 254 (code 247, data 7), and shared `shared/` files 58 → 84. `dos_con_loc_TUTH`
+and `leaf_loc_JKPU` — the two pairs D7.6 left un-shared — now share from `shared/`.
 Byte-identical: 18/18, `code_shift`/`data_shift` unchanged.
 
 **A promoted `loc_` root is named after its code.** `tag_generics` used to skip a

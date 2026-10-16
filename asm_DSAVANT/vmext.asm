@@ -25,11 +25,11 @@ loc_QQVN equ 0x4471 + VBASE
 
 %include "vmext/api_idx_0002_JGHN.asm"     ; 0x000e
 
-%include "lib/loc_LNMK.asm"              ; 0x00b6
+%include "shared/loc_LNMK.asm"              ; 0x00b6
 
-%include "lib/api_idx_0004_HROJ.asm"     ; 0x00f0
+%include "shared/api_idx_0004_HROJ.asm"     ; 0x00f0
 
-%include "lib/api_idx_0002_QNVQ.asm"     ; 0x01ac
+%include "shared/api_idx_0002_QNVQ.asm"     ; 0x01ac
 
 %include "vmext/api_idx_0002_IOJM.asm"     ; 0x021c
 
@@ -57,11 +57,11 @@ loc_QQVN equ 0x4471 + VBASE
 
 %include "vmext/loc_GOOG.asm"              ; 0x0636
 
-%include "lib/loc_QOTJ.asm"              ; 0x0692
+%include "shared/loc_QOTJ.asm"              ; 0x0692
 
 %include "vmext/loc_LKSR.asm"              ; 0x06c3
 
-%include "lib/api_idx_0008_POHU.asm"     ; 0x0764
+%include "shared/api_idx_0008_POHU.asm"     ; 0x0764
 
 %include "vmext/api_idx_0050_NNKM.asm"     ; 0x081a
 
@@ -105,11 +105,11 @@ loc_QQVN equ 0x4471 + VBASE
 
 %include "vmext/io_loc_MUUU.asm"           ; 0x12de
 
-%include "lib/api_idx_004c_STVP.asm"     ; 0x1356
+%include "shared/api_idx_004c_STVP.asm"     ; 0x1356
 
-%include "lib/api_idx_0004_MHTS.asm"     ; 0x146b
+%include "shared/api_idx_0004_MHTS.asm"     ; 0x146b
 
-%include "lib/api_idx_0006_HQVN.asm"     ; 0x14c7
+%include "shared/api_idx_0006_HQVN.asm"     ; 0x14c7
 
 %include "vmext/api_idx_0008_IRUL.asm"     ; 0x151e
 
@@ -223,9 +223,9 @@ jumptable_1ff2_case_0:
 
 %include "vmext/api_idx_0016_MKON.asm"     ; 0x39e2
 
-%include "lib/api_idx_0024_SLHO.asm"     ; 0x3b83
+%include "shared/api_idx_0024_SLHO.asm"     ; 0x3b83
 
-%include "lib/api_idx_001e_PMST.asm"     ; 0x3d29
+%include "shared/api_idx_001e_PMST.asm"     ; 0x3d29
 
 %include "vmext/api_idx_0030_QVNP.asm"     ; 0x3e8c
 

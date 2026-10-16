@@ -1,6 +1,6 @@
 """Companion to Makefile — parallel asm gen, NASM build, asset copy, check/run.
 
-Usage (from asm/):
+Usage (from the repo root):
   make                     show help
   make all                 all projects serially
   make build PROJECT [BIN] asm + nasm + assets (prebuilds first if missing)
@@ -10,7 +10,7 @@ Usage (from asm/):
   make verify [PROJECT...] verify one or all projects
   make clean [PROJECT...]  clean one or all projects (no args: delete .cache)
   make rebuild [PROJECT [BIN]] recompile .c (gated vs original bytes) + nasm
-  make elf-rebuild PROJECT BIN rebuild DOS EXE plus ELF/DWARF symbols
+  make elf-rebuild [PROJECT [BIN]] rebuild DOS EXE plus ELF/DWARF symbols
   make set-baseline        pin current stats (.cache/stats) as local baseline
   make stats-diff          current-vs-baseline KPI delta
   make charts              render PNG charts from existing stats

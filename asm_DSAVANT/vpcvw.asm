@@ -48,13 +48,13 @@ loc_VIUO:
 @..loc_VIUO.l1:
     mov ax, 0                        ; 0x0023
     ret                              ; 0x0026
-%include "lib/api_idx_0002_UKHK.asm"     ; 0x0027
+%include "shared/api_idx_0002_UKHK.asm"     ; 0x0027
 
-%include "lib/api_idx_000e_QTQU.asm"     ; 0x008b
+%include "shared/api_idx_000e_QTQU.asm"     ; 0x008b
 
 %include "vpcvw/asm_only/api_idx_0012_HLJM.asm"     ; 0x014b
 
-%include "lib/api_idx_0004_VPLS.asm"     ; 0x02c7
+%include "shared/api_idx_0004_VPLS.asm"     ; 0x02c7
 
 %include "vpcvw/api_idx_000c_PKKK.asm"     ; 0x037b
 
@@ -66,15 +66,15 @@ loc_VIUO:
 
 %include "vpcvw/api_idx_0012_RMPH.asm"     ; 0x0a96
 
-%include "lib/draw_party_slot_letters.asm" ; 0x0cd6
+%include "shared/draw_party_slot_letters.asm" ; 0x0cd6
 
 %include "vpcvw/api_idx_0004_TOKN.asm"     ; 0x0d55
 
-%include "lib/api_idx_0002_PGOV.asm"     ; 0x0e05
+%include "shared/api_idx_0002_PGOV.asm"     ; 0x0e05
 
-%include "lib/api_idx_0002_GLLG.asm"     ; 0x0e60
+%include "shared/api_idx_0002_GLLG.asm"     ; 0x0e60
 
-%include "lib/api_idx_0010_TIQJ.asm"     ; 0x0ea1
+%include "shared/api_idx_0010_TIQJ.asm"     ; 0x0ea1
 
 %include "vpcvw/api_idx_000a_MKIS.asm"     ; 0x0f9e
 
@@ -88,7 +88,7 @@ loc_VIUO:
 
 %include "vpcvw/loc_KUSK.asm"              ; 0x2190
 
-%include "lib/loc_NSKO.asm"              ; 0x21ad
+%include "shared/loc_NSKO.asm"              ; 0x21ad
 
 %include "vpcvw/asm_only/api_idx_0008_RMOL.asm"     ; 0x21fd
 
@@ -96,7 +96,7 @@ loc_VIUO:
 
 %include "vpcvw/api_idx_000a_HVVP.asm"     ; 0x29ef
 
-%include "lib/loc_OOVL.asm"              ; 0x2a2d
+%include "shared/loc_OOVL.asm"              ; 0x2a2d
 
 %include "vpcvw/loc_GLTV.asm"              ; 0x2ab9
 
@@ -152,7 +152,7 @@ loc_VIUO:
 
 %include "vpcvw/loc_UNOV.asm"              ; 0x474b
 
-%include "lib/api_idx_0004_VKIV.asm"     ; 0x4793
+%include "shared/api_idx_0004_VKIV.asm"     ; 0x4793
 
 %include "vpcvw/api_idx_0048_PLGK.asm"     ; 0x4a1c
 
@@ -162,19 +162,19 @@ loc_VIUO:
 
 %include "vpcvw/api_idx_0010_MRKK.asm"     ; 0x5050
 
-%include "lib/api_idx_0008_IMMI.asm"     ; 0x539e
+%include "shared/api_idx_0008_IMMI.asm"     ; 0x539e
 
-%include "lib/api_idx_0004_LNTS.asm"     ; 0x542a
+%include "shared/api_idx_0004_LNTS.asm"     ; 0x542a
 
 %include "vpcvw/asm_only/api_idx_00c2_LINN.asm"     ; 0x54fb
 
 %include "vpcvw/api_idx_0014_MMLR.asm"     ; 0x616c
 
-%include "lib/api_idx_002a_IHRK.asm"     ; 0x6977
+%include "shared/api_idx_002a_IHRK.asm"     ; 0x6977
 
 %include "vpcvw/asm_only/api_idx_0080_PKIL.asm"     ; 0x6a20
 
-%include "lib/api_idx_0004_SSHG.asm"     ; 0x6c47
+%include "shared/api_idx_0004_SSHG.asm"     ; 0x6c47
 
 %include "vpcvw/api_idx_004c_MJSN.asm"     ; 0x6d13
 
@@ -208,9 +208,9 @@ loc_VIUO:
 
 %include "vpcvw/api_idx_0002_PMMV.asm"     ; 0x8676
 
-%include "lib/api_idx_0058_LOPH.asm"     ; 0x8730
+%include "shared/api_idx_0058_LOPH.asm"     ; 0x8730
 
-%include "lib/api_idx_0008_IGKQ.asm"     ; 0x88b6
+%include "shared/api_idx_0008_IGKQ.asm"     ; 0x88b6
 
 %include "vpcvw/api_idx_0026_JHKN.asm"     ; 0x8a6e
 

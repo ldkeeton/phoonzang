@@ -2,6 +2,8 @@
 
 import sys
 
+from lib import buildlock
+
 from .build import _build_projects, cmd_build_binary, cmd_rebuild
 from .charts import cmd_charts, cmd_set_baseline
 from .clean import cmd_clean
@@ -28,7 +30,7 @@ Commands (space-separated):
   make clean [PROJECT...]   clean one or all projects (no args: delete .cache)
   make rebuild [PROJECT [BIN]]  recompile .c (must match the original bytes;
                             --allow-diff to relax) + nasm; default: everything
-  make elf-rebuild PROJECT [BIN]  full rebuild from current sources (C resplice +
+  make elf-rebuild [PROJECT [BIN]]  full rebuild from current sources (C resplice +
                             link + all binaries); ELF/DWARF for BIN (default host)
   make decompile PROJECT BIN  disassemble + decompile binary to .c
   make set-baseline         pin current stats as the local baseline
@@ -56,6 +58,11 @@ Stats workflow (LLM/human regression loop):
 '''
 
 
+# Commands that rewrite generated output; one at a time (lib.buildlock).
+_MUTATING = {'--all', '--build', '--prebuild', '--rebuild', '--elf-rebuild',
+             '--clean', '--decompile'}
+
+
 def main():
     flags = [a for a in sys.argv[1:] if a.startswith('--')]
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
@@ -64,6 +71,9 @@ def main():
     if '--help' in flags:
         print(HELP)
         return
+
+    if _MUTATING & set(flags):
+        buildlock.acquire()
 
     if '--all' in flags:
         cmd_clean([])
@@ -164,15 +174,12 @@ def main():
         return
 
     if '--elf-rebuild' in flags:
-        if not args:
-            print('Usage: make elf-rebuild PROJECT [BINARY]')
-            sys.exit(1)
-        project = args[0]
+        project = args[0] if args else None
         binary = args[1] if len(args) > 1 else None
-        if project not in all_projects:
+        if project is not None and project not in all_projects:
             print(f'Unknown project: {project}')
             sys.exit(1)
-        cmd_elf_rebuild(project, binary)
+        cmd_elf_rebuild(project, binary, all_projects)
         return
 
     if '--decompile' in flags:

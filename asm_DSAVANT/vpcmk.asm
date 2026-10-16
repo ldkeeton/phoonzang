@@ -34,29 +34,29 @@ loc_QQTV:
     mov word [bss_830a], 4           ; 0x0017
     mov ax, 0                        ; 0x001d
     ret                              ; 0x0020
-%include "lib/api_idx_0002_UKHK.asm"     ; 0x0021
+%include "shared/api_idx_0002_UKHK.asm"     ; 0x0021
 
-%include "lib/api_idx_0002_LTOL.asm"     ; 0x0085
+%include "shared/api_idx_0002_LTOL.asm"     ; 0x0085
 
-%include "lib/api_idx_0008_IGKQ.asm"     ; 0x0104
+%include "shared/api_idx_0008_IGKQ.asm"     ; 0x0104
 
 %include "vpcmk/api_idx_0008_JMRO.asm"     ; 0x02bc
 
 %include "vpcmk/loc_TGJO.asm"              ; 0x0445
 
-%include "lib/api_idx_0058_LOPH.asm"     ; 0x0935
+%include "shared/api_idx_0058_LOPH.asm"     ; 0x0935
 
 %include "vpcmk/api_idx_0038_MRUQ.asm"     ; 0x0abb
 
 %include "vpcmk/api_idx_0026_QGVL.asm"     ; 0x11f4
 
-%include "lib/draw_party_slot_letters.asm" ; 0x16ea
+%include "shared/draw_party_slot_letters.asm" ; 0x16ea
 
 %include "vpcmk/api_idx_0004_GIIO.asm"     ; 0x1769
 
-%include "lib/api_idx_0002_PGOV.asm"     ; 0x1819
+%include "shared/api_idx_0002_PGOV.asm"     ; 0x1819
 
-%include "lib/api_idx_0002_GLLG.asm"     ; 0x1874
+%include "shared/api_idx_0002_GLLG.asm"     ; 0x1874
 
 %include "vpcmk/api_idx_0010_LUQQ.asm"     ; 0x18b5
 
@@ -66,7 +66,7 @@ loc_QQTV:
 
 %include "vpcmk/api_idx_0054_TMMO.asm"     ; 0x1b40
 
-%include "lib/api_idx_0004_VPLS.asm"     ; 0x2090
+%include "shared/api_idx_0004_VPLS.asm"     ; 0x2090
 
 %include "vpcmk/api_idx_0004_IHOP.asm"     ; 0x2144
 
@@ -84,7 +84,7 @@ loc_QQTV:
 
 %include "vpcmk/api_idx_000a_JTUO.asm"     ; 0x2dd4
 
-%include "lib/loc_OOVL.asm"              ; 0x2e12
+%include "shared/loc_OOVL.asm"              ; 0x2e12
 
 %include "vpcmk/loc_TTQQ.asm"              ; 0x2e9e
 
@@ -623,11 +623,11 @@ jumptable_4e83:
     jmp [cs:bx - 0x6136]             ; 0x4ea7
 @..loc_TUTJ.l3:
     ret                              ; 0x4eac
-%include "lib/loc_PPJS.asm"              ; 0x4ead
+%include "shared/loc_PPJS.asm"              ; 0x4ead
 
-%include "lib/api_idx_0006_VRUK.asm"     ; 0x4f00
+%include "shared/api_idx_0006_VRUK.asm"     ; 0x4f00
 
-%include "lib/api_idx_0002_KOUO.asm"     ; 0x4f95
+%include "shared/api_idx_0002_KOUO.asm"     ; 0x4f95
 
 %include "vpcmk/api_idx_0004_MIHU.asm"     ; 0x5087
 
@@ -970,7 +970,7 @@ jumptable_5a60_case_12:
 
 %include "vpcmk/api_idx_000a_VGVO.asm"     ; 0x5a8a
 
-%include "lib/loc_LMIM.asm"              ; 0x5d7e
+%include "shared/loc_LMIM.asm"              ; 0x5d7e
 
 %include "vpcmk/api_idx_0004_OPUJ.asm"     ; 0x5df5
 

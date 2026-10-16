@@ -26,27 +26,27 @@ loc_81ba equ 0x81ba + VBASE
 loc_81bc equ 0x81bc + VBASE
 data_b0cb equ 0xb0cb
 
-%include "lib/api_idx_0002_MMNR.asm"     ; 0x000e
+%include "shared/api_idx_0002_MMNR.asm"     ; 0x000e
 
 %include "vmexe/api_idx_0004_NQOV.asm"     ; 0x0034
 
 %include "vmexe/asm_only/api_idx_0012_NOUI.asm"     ; 0x00db
 
-%include "lib/api_idx_0008_IUTV.asm"     ; 0x0257
+%include "shared/api_idx_0008_IUTV.asm"     ; 0x0257
 
 %include "vmexe/api_idx_0004_RIUU.asm"     ; 0x030b
 
-%include "lib/fill_action_slot_table.asm" ; 0x0456
+%include "shared/draw_fill_action_slot_table.asm" ; 0x0456
 
-%include "lib/api_idx_000e_TGQN.asm"     ; 0x0656
+%include "shared/api_idx_000e_TGQN.asm"     ; 0x0656
 
-%include "lib/api_idx_0004_HHQR.asm"     ; 0x0979
+%include "shared/api_idx_0004_HHQR.asm"     ; 0x0979
 
-%include "lib/api_idx_001c_TROI.asm"     ; 0x0a83
+%include "shared/api_idx_001c_TROI.asm"     ; 0x0a83
 
-%include "lib/api_idx_000e_SVUU.asm"     ; 0x0cc9
+%include "shared/api_idx_000e_SVUU.asm"     ; 0x0cc9
 
-%include "lib/loc_MLTS.asm"              ; 0x0dbe
+%include "shared/loc_MLTS.asm"              ; 0x0dbe
 
 %include "vmexe/api_idx_0016_SVUH.asm"     ; 0x0e1a
 
@@ -80,11 +80,11 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0004_LIRS.asm"     ; 0x1a5f
 
-%include "lib/api_idx_000a_TPMU.asm"     ; 0x1ac7
+%include "shared/api_idx_000a_TPMU.asm"     ; 0x1ac7
 
 %include "vmexe/api_idx_0004_VVKL.asm"     ; 0x1b45
 
-%include "lib/loc_VRUN.asm"              ; 0x1bf4
+%include "shared/loc_VRUN.asm"              ; 0x1bf4
 
 %include "vmexe/loc_OGKH.asm"              ; 0x1c36
 
@@ -124,7 +124,7 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/api_idx_0002_MUNP.asm"     ; 0x2d6b
 
-%include "lib/loc_NSKO.asm"              ; 0x2e09
+%include "shared/loc_NSKO.asm"              ; 0x2e09
 
 %include "vmexe/api_idx_0010_NSVR.asm"     ; 0x2e59
 
@@ -196,7 +196,7 @@ data_b0cb equ 0xb0cb
 
 %include "vmexe/asm_only/string_loc_HOGS.asm"       ; 0xa4ca
 
-%include "lib/leaf_loc_VKIM.asm"         ; 0xa508
+%include "shared/leaf_loc_VKIM.asm"         ; 0xa508
 
 %include "vmexe/asm_only/string_loc_SINO.asm"       ; 0xa520
 

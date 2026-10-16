@@ -1292,7 +1292,7 @@ cseg_3c7f:
 
 %include "ds/asm_only/aztec_strncat.asm"            ; 0x457c
 
-%include "lib/aztec_strcpy.asm"             ; 0x45ab
+%include "shared/aztec_strcpy.asm"             ; 0x45ab
 
 %include "ds/asm_only/aztec_lmalloc.asm"            ; 0x45d7
 
@@ -1372,7 +1372,7 @@ jumptable_4822:
 
 %include "ds/asm_only/ds_string_loc_NMMQ.asm"       ; 0x4b07
 
-%include "lib/aztec_creat.asm"              ; 0x4b39
+%include "shared/aztec_creat.asm"              ; 0x4b39
 
 %include "ds/aztec_open.asm"               ; 0x4b50
 
@@ -1380,11 +1380,11 @@ jumptable_4822:
 
 %include "ds/asm_only/aztec_lrm.asm"                ; 0x4c14
 
-%include "lib/aztec_lum.asm"                ; 0x4c38
+%include "shared/aztec_lum.asm"                ; 0x4c38
 
-%include "lib/aztec_lud.asm"                ; 0x4c40
+%include "shared/aztec_lud.asm"                ; 0x4c40
 
-%include "lib/aztec_strlen.asm"             ; 0x4cd7
+%include "shared/aztec_strlen.asm"             ; 0x4cd7
 
 %include "ds/asm_only/aztec_sys.asm"                ; 0x4cf4
 
@@ -1422,9 +1422,9 @@ cseg_4d38:
 
 %include "ds/aztec_tty_wr.asm"             ; 0x50c1
 
-%include "lib/aztec_movmem.asm"             ; 0x5123
+%include "shared/aztec_movmem.asm"             ; 0x5123
 
-%include "lib/aztec_isatty.asm"             ; 0x5168
+%include "shared/aztec_isatty.asm"             ; 0x5168
 
 %include "ds/asm_only/aztec_sbrk.asm"               ; 0x5188
 

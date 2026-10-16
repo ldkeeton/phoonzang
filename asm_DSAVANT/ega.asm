@@ -256,13 +256,13 @@ cseg_028f:
     db 0x00, 0x00
 cseg_0291:
     db 0x00, 0x00
-%include "lib/graphics_loc_VIRI.asm"       ; 0x0293
+%include "shared/graphics_loc_VIRI.asm"       ; 0x0293
 
-%include "lib/leaf_loc_VQIT.asm"           ; 0x0439
+%include "shared/leaf_loc_VQIT.asm"           ; 0x0439
 
 %include "ega/asm_only/leaf_loc_TVKN.asm"           ; 0x0447
 
-%include "lib/leaf_loc_NONR.asm"           ; 0x0462
+%include "shared/leaf_loc_NONR.asm"           ; 0x0462
 
 %include "ega/leaf_loc_LRIJ.asm"           ; 0x047d
 
@@ -276,9 +276,9 @@ cseg_0948:
 
 %include "ega/asm_only/leaf_loc_TUKK.asm"           ; 0x0b91
 
-%include "lib/leaf_loc_VSTU.asm"           ; 0x0bcf
+%include "shared/leaf_loc_VSTU.asm"           ; 0x0bcf
 
-%include "lib/leaf_loc_RUJV.asm"           ; 0x0bf6
+%include "shared/leaf_loc_RUJV.asm"           ; 0x0bf6
 
 %include "ega/asm_only/string_loc_INQT.asm"         ; 0x0c45
 
@@ -330,11 +330,11 @@ cseg_10cd:
 
 %include "ega/asm_only/bios_mouse_loc_NHLG.asm"     ; 0x18c1
 
-%include "lib/leaf_loc_NMVG.asm"           ; 0x1900
+%include "shared/leaf_loc_NMVG.asm"           ; 0x1900
 
 %include "ega/asm_only/bios_mouse_loc_LOQT.asm"     ; 0x190f
 
-%include "lib/bios_mouse_loc_NUQU.asm"     ; 0x1992
+%include "shared/bios_mouse_loc_NUQU.asm"     ; 0x1992
 
 %include "ega/asm_only/dos_print_str_2.asm"         ; 0x19c1
 
@@ -485,7 +485,7 @@ cseg_3197:
 
 %include "ega/asm_only/loc_UJTG.asm"                ; 0x3570
 
-%include "lib/leaf_loc_JKPU.asm"           ; 0x35ba
+%include "shared/leaf_loc_JKPU.asm"           ; 0x35ba
 
 cseg_35dd:
 
@@ -523,15 +523,15 @@ cseg_3a35:
     mov ds, bx                       ; 0x3a4c
     mov bx, ax                       ; 0x3a4e
     ret                              ; 0x3a50
-%include "lib/leaf_loc_GSNR.asm"           ; 0x3a51
+%include "shared/leaf_loc_GSNR.asm"           ; 0x3a51
 
 %include "ega/asm_only/graphics_loc_HMTN.asm"       ; 0x3a8b
 
-%include "lib/leaf_loc_PPVV.asm"           ; 0x3bf2
+%include "shared/leaf_loc_PPVV.asm"           ; 0x3bf2
 
 %include "ega/asm_only/leaf_loc_KQLO.asm"           ; 0x3c12
 
-%include "lib/dos_con_loc_RIVS.asm"        ; 0x40d4
+%include "shared/dos_con_loc_RIVS.asm"        ; 0x40d4
 
 %include "ega/asm_only/dos_write_file_2.asm"        ; 0x4111
 
@@ -543,7 +543,7 @@ cseg_3a35:
 
 cseg_4440:
     db 0x00, 0x00
-%include "lib/leaf_loc_NIKG.asm"           ; 0x4442
+%include "shared/leaf_loc_NIKG.asm"           ; 0x4442
 
 %include "ega/asm_only/dos_read_file_4.asm"         ; 0x4457
 
@@ -555,13 +555,13 @@ cseg_4440:
 
 %include "ega/asm_only/dos_con_loc_QNMU.asm"        ; 0x47af
 
-%include "lib/dos_con_loc_KMVS.asm"        ; 0x47f7
+%include "shared/dos_con_loc_KMVS.asm"        ; 0x47f7
 
 %include "ega/asm_only/dos_file_loc_SLHU.asm"       ; 0x4825
 
 %include "ega/asm_only/dos_con_loc_MMQH.asm"        ; 0x493a
 
-%include "lib/dos_con_loc_TUTH.asm"        ; 0x4984
+%include "shared/dos_con_loc_TUTH.asm"        ; 0x4984
 
 cseg_49b4:
 
@@ -595,9 +595,9 @@ cseg_49b4:
 
 %include "ega/asm_only/loc_PHNQ.asm"                ; 0x4dd9
 
-%include "lib/loc_SPHL.asm"                ; 0x4e48
+%include "shared/loc_SPHL.asm"                ; 0x4e48
 
-%include "lib/loc_PKHP.asm"                ; 0x4e64
+%include "shared/loc_PKHP.asm"                ; 0x4e64
 
 cseg_4e8b:
 
@@ -609,10 +609,10 @@ cseg_4e8b:
 
 %include "ega/asm_only/loc_LTMJ.asm"                ; 0x50d1
 
-%include "lib/loc_KIPO.asm"                ; 0x5118
+%include "shared/loc_KIPO.asm"                ; 0x5118
 
-%include "lib/loc_TOOG.asm"                ; 0x5130
+%include "shared/loc_TOOG.asm"                ; 0x5130
 
-%include "lib/loc_QHII.asm"                ; 0x5148
+%include "shared/loc_QHII.asm"                ; 0x5148
 
     db 0x00

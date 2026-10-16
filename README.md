@@ -6,19 +6,18 @@ The 16-bit disassembler and decompiler. Currently focused on Wizardry VII: Crusa
 
 ```
 Original game files need to be put in ./apps/DSAVANT
-cd asm
 make all
 ```
 
 ## Wizardry 7 coverage
 
-Progress: **27 / 1035** (2.6%).
+Progress: **28 / 1367** (2.0%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
 ## Make targets
 
-Run from `asm/`.
+Run from the repo root.
 
 | command | what |
 |---|---|
@@ -30,7 +29,7 @@ Run from `asm/`.
 | `make verify [PROJECT...]` | verify one or all projects |
 | `make clean [PROJECT...]` | clean one or all projects (no args: delete .cache) |
 | `make rebuild [PROJECT [BIN]]` | recompile .c (must match the original bytes; |
-| `make elf-rebuild PROJECT [BIN]` | full rebuild from current sources (C resplice + |
+| `make elf-rebuild [PROJECT [BIN]]` | full rebuild from current sources (C resplice + |
 | `make decompile PROJECT BIN` | disassemble + decompile binary to .c |
 | `make set-baseline` | pin current stats as the local baseline |
 | `make stats-diff` | current-vs-baseline KPI delta (+ delta.json) |

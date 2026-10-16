@@ -150,11 +150,11 @@ jumptable_03ce_case_0:
 
 %include "vmaze/api_idx_0006_KLOT.asm"     ; 0x0f8e
 
-%include "lib/api_idx_0008_POHU.asm"     ; 0x0fde
+%include "shared/api_idx_0008_POHU.asm"     ; 0x0fde
 
 %include "vmaze/api_idx_0050_RIIV.asm"     ; 0x1094
 
-%include "lib/loc_UTRI.asm"              ; 0x10b0
+%include "shared/loc_UTRI.asm"              ; 0x10b0
 
 %include "vmaze/api_idx_0002_RNRT.asm"     ; 0x110e
 
@@ -164,7 +164,7 @@ jumptable_03ce_case_0:
 
 %include "vmaze/loc_GNQK.asm"              ; 0x1240
 
-%include "lib/loc_QOTJ.asm"              ; 0x12a2
+%include "shared/loc_QOTJ.asm"              ; 0x12a2
 
 %include "vmaze/loc_RHGL.asm"              ; 0x12d3
 
@@ -198,7 +198,7 @@ jumptable_03ce_case_0:
 
 %include "vmaze/api_idx_0010_GLHG.asm"     ; 0x2033
 
-%include "lib/api_idx_0006_HQVN.asm"     ; 0x20dc
+%include "shared/api_idx_0006_HQVN.asm"     ; 0x20dc
 
 %include "vmaze/api_idx_0006_ILJT.asm"     ; 0x2133
 
@@ -282,23 +282,23 @@ jumptable_03ce_case_0:
 
 %include "vmaze/api_idx_0016_MKON.asm"     ; 0x4f53
 
-%include "lib/api_idx_0024_SLHO.asm"     ; 0x50f4
+%include "shared/api_idx_0024_SLHO.asm"     ; 0x50f4
 
-%include "lib/api_idx_001e_PMST.asm"     ; 0x529a
+%include "shared/api_idx_001e_PMST.asm"     ; 0x529a
 
 %include "vmaze/api_idx_0030_QRVT.asm"     ; 0x53fd
 
 %include "vmaze/loc_JGLI.asm"              ; 0x676c
 
-%include "lib/loc_LNMK.asm"              ; 0x678c
+%include "shared/loc_LNMK.asm"              ; 0x678c
 
-%include "lib/api_idx_0004_HROJ.asm"     ; 0x67c6
+%include "shared/api_idx_0004_HROJ.asm"     ; 0x67c6
 
 %include "vmaze/api_idx_0002_IVNS.asm"     ; 0x6882
 
 %include "vmaze/loc_QHLL.asm"              ; 0x68f2
 
-%include "lib/api_idx_0006_IQJI.asm"     ; 0x6960
+%include "shared/api_idx_0006_IQJI.asm"     ; 0x6960
 
 %include "vmaze/api_idx_0004_VVMS.asm"     ; 0x69d6
 
@@ -324,13 +324,13 @@ jumptable_03ce_case_0:
 
 %include "vmaze/loc_QKON.asm"              ; 0x6f14
 
-%include "lib/loc_VRUN.asm"              ; 0x6fbf
+%include "shared/loc_VRUN.asm"              ; 0x6fbf
 
 %include "vmaze/api_idx_0002_IJNM.asm"     ; 0x7001
 
 %include "vmaze/api_idx_001e_JTKS.asm"     ; 0x7034
 
-%include "lib/loc_VMLV.asm"              ; 0x7242
+%include "shared/loc_VMLV.asm"              ; 0x7242
 
 %include "vmaze/api_idx_0004_TNOT.asm"     ; 0x72a6
 
@@ -368,7 +368,7 @@ jumptable_03ce_case_0:
 
 %include "vmaze/api_idx_0010_GJOV.asm"     ; 0x820b
 
-%include "lib/api_idx_0004_SMJG.asm"     ; 0x83b3
+%include "shared/api_idx_0004_SMJG.asm"     ; 0x83b3
 
 %include "vmaze/api_idx_000e_GOVT.asm"     ; 0x8448
 
@@ -436,7 +436,7 @@ jumptable_03ce_case_0:
 
 %include "vmaze/fpu_loc_GKLO.asm"          ; 0x8976
 
-%include "lib/api_idx_0002_USNT.asm"     ; 0x89d0
+%include "shared/api_idx_0002_USNT.asm"     ; 0x89d0
 
 %include "vmaze/api_idx_0002_RGKN.asm"     ; 0x8a14
 
@@ -470,7 +470,7 @@ jumptable_03ce_case_0:
 
 %include "vmaze/api_idx_0002_VNMJ.asm"     ; 0x98cc
 
-%include "lib/api_idx_0002_IVLK.asm"     ; 0x9920
+%include "shared/api_idx_0002_IVLK.asm"     ; 0x9920
 
 %include "vmaze/api_idx_0006_SRON.asm"     ; 0x99dd
 

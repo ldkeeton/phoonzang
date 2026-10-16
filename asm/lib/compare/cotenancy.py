@@ -24,6 +24,7 @@ import re
 from collections import defaultdict
 
 from lib.autogen import is_generated
+from lib.shared import FOLDER
 
 _LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_.]*):')
 _IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_.]*')
@@ -64,13 +65,13 @@ def _defined_labels(text):
 def fragments(out_dir):
     """``{relative path: text}`` for the per-binary generated fragments.
 
-    A fragment lives under a binary's own directory; the shared ``lib/`` and the
+    A fragment lives under a binary's own directory; the shared ``shared/`` and the
     top-level masters are not fragments.
     """
     out = {}
     for binary in sorted(os.listdir(out_dir)):
         top = os.path.join(out_dir, binary)
-        if binary == 'lib' or binary in _SKIP_DIRS or not os.path.isdir(top):
+        if binary == FOLDER or binary in _SKIP_DIRS or not os.path.isdir(top):
             continue
         for path in _walk_asm(top):
             if is_generated(path):

@@ -1,0 +1,43 @@
+import os
+import subprocess
+import sys
+import tempfile
+import unittest
+
+ASM = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+_CHILD = '''
+import sys
+sys.path.insert(0, {asm!r})
+from lib import buildlock
+buildlock.LOCK_PATH = {path!r}
+buildlock.acquire()
+print("held", flush=True)
+sys.stdin.readline()
+'''
+
+
+class BuildLockTests(unittest.TestCase):
+    def _spawn(self, path):
+        return subprocess.Popen(
+            [sys.executable, '-c', _CHILD.format(asm=ASM, path=path)],
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+
+    def test_second_holder_is_refused_until_first_exits(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, 'build.lock')
+            first = self._spawn(path)
+            self.assertEqual(first.stdout.readline().strip(), 'held')
+            second = self._spawn(path)
+            out, _ = second.communicate(timeout=30)
+            self.assertEqual(second.returncode, 1)
+            self.assertIn('Build already running. Please wait.', out)
+            first.kill()
+            first.wait()
+            third = self._spawn(path)
+            self.assertEqual(third.stdout.readline().strip(), 'held')
+            third.communicate('\n', timeout=30)
+
+
+if __name__ == '__main__':
+    unittest.main()

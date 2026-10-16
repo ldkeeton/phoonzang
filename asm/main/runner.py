@@ -626,8 +626,7 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_off
               f'aztec={stats.get("aztec_labels", 0)}  '
               f'[{stats["status"]}]')
     else:
-        print(f'{name}: {len(instructions)} insns -> '
-              f'{os.path.basename(asm_path)}  [{stats["status"]}]')
+        print(f'{name}: {stats["status"]}')
     if DETAILED_TIMINGS:
         a_stats = assemble_stats()
         print(f'  classify+match: {t_classify_end-t_classify:.1f}s  '

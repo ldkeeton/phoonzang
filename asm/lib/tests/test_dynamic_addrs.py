@@ -177,9 +177,9 @@ BASELINE_TOTALS = {
     # fragment's trailing neighbour is its own file, and every ``loc_`` root is
     # named after its code.  ``glued_files`` 361 -> 214, ``outside`` 734 -> 254.
     # ``names_used`` 55 -> 56 (one more named address is referenced) and
-    # ``hidden_flow`` 87 -> **90**: a shared ``lib/`` file carries no ``; 0x``
+    # ``hidden_flow`` 87 -> **90**: a shared ``shared/`` file carries no ``; 0x``
     # comments -- dropping them is what lets it share -- so the source-anchored
-    # scan cannot see its instructions.  More sharing (58 -> 84 lib files) means
+    # scan cannot see its instructions.  More sharing (58 -> 84 shared files) means
     # fewer visible anchors, and ``hidden_flow`` is a lower bound on a *gap*
     # walk, so the count rises mechanically rather than from a new reference.
     # ``code_shift``/``data_shift``, the gate classes, are unchanged.
@@ -208,8 +208,8 @@ def _binary_sources(binary):
     if frag_dir.is_dir():
         out += sorted(frag_dir.rglob('*.asm'))   # incl. asm_only/
     if master.is_file():
-        # Fragments shared with other binaries live in lib/ (lib.shared).
-        for name in re.findall(r'%include "(lib/[^"]+)"', master.read_text()):
+        # Fragments shared with other binaries live in shared/ (lib.shared).
+        for name in re.findall(r'%include "(shared/[^"]+)"', master.read_text()):
             out.append(_TREE / name)
     return out
 
@@ -225,7 +225,7 @@ def _tree_labels(binary):
     record, whose ``; 0x<hex>`` comment gives the address.  Local (``@..``)
     labels never displace a global one and never start a file.  The path is
     relative to the tree root because a fragment no longer has to sit beside its
-    master: ``asm_only/`` holds the hand-written ones and ``lib/`` the shared
+    master: ``asm_only/`` holds the hand-written ones and ``shared/`` the shared
     ones (`asm/lib/asm_only.py`), so a bare basename would not resolve.
     """
     out = {}

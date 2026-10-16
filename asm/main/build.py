@@ -15,13 +15,13 @@ load-bearing:
    regenerated with ``--host-data-offsets=<path>``, so it declares one recipe
    per offset.  It is regenerated *in place*: its code labels do not change, so
    the consumers' foreign maps stay valid;
-5. the byte-identical routines collapse into ``lib/`` (:mod:`lib.shared`);
+5. the byte-identical routines collapse into ``shared/`` (:mod:`lib.shared`);
 6. the assets are copied and every binary is assembled.
 
 The caller supplies two batch runners -- *run_batch* and *nasm_batch* -- so
 ``make`` can run each step as a thread pool of subprocesses while ``python -m
 main`` runs it in process.  A partial build (``make build PROJECT BINARY``)
-stops after step 3: the host-data union and the ``lib/`` placement are
+stops after step 3: the host-data union and the ``shared/`` placement are
 whole-project decisions.
 """
 
@@ -124,22 +124,27 @@ def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         from lib.cachedirs import stages_dir
         stagelog.end(ledger, os.path.join(stages_dir(project),
                                           f'{project}__project.jsonl'))
-    if only is None:
-        _report_pipeline(project, report)
+
+    #don't put noisy reports in the build output
+    #if only is None:
+    #    _report_pipeline(project, report)
+
     return failed
 
 
 def _report_pipeline(project, report):
-    """Print the stage-ledger headline and refresh ``flow/build_out``."""
-    from flow import generate
-    from flow.graph_stages import headline, write
-    written = write(project)
-    if written is None:
+    """Print the stage-ledger headline.
+
+    The ``flow/build_out`` diagrams, health HTML and ``PIPELINE.md`` writes are
+    deliberately off here: the build only reports, it does not render.  Run
+    ``python3 -m flow.generate --stages`` (from ``asm/``) to refresh them.
+    """
+    from flow.graph_stages import aggregate, findings, headline, load
+    ledgers = load(project)
+    if not ledgers:
         return
-    for line in headline(written[1]):
+    for line in headline(findings(aggregate(ledgers))):
         report('  ' + line)
-    generate.process_arch(project)
-    generate.process_html(project)
 
 
 def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
@@ -168,20 +173,14 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     cross_refs = detect_cross_refs(app_dir, bins)
     stagelog.step('project.cross_refs', 0, metrics={'consumers': len(cross_refs)})
     source_names = {src for refs in cross_refs.values() for _, src in refs}
-    if cross_refs and only is None:
-        report(f'  Cross-binary references detected: {len(cross_refs)} consumers')
-        for name in sorted(source_names):
-            report(f'  Source binary: {name}')
 
     # 1. the sources, so each consumer below can be handed their labels
     needed = source_names
     if only is not None:
         needed = ({src for _, src in cross_refs.get(only, [])}
                   | ({only} if only in source_names else set()))
-    items = []
-    for name in sorted(source_names & set(bins) & needed):
-        report(f'  Processing source: {name}')
-        items.append((name, ['--export-labels']))
+    items = [(name, ['--export-labels'])
+             for name in sorted(source_names & set(bins) & needed)]
     failed = _batch(run_batch, items)
     stagelog.step('project.export_sources', 0, metrics={'sources': len(items)})
     remove_foreign_label_copies(project)
@@ -220,7 +219,6 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     host = host_name(bins)
     offsets = aggregate_host_data(project)
     if offsets and host is not None:
-        report(f'  Host data map: {host}.asm declares the overlay DS union')
         failed = _batch(run_batch, [(host, ['--export-labels',
                                             f'--host-data-offsets={offsets}'])])
         if failed:
@@ -229,20 +227,20 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         stagelog.step('project.host_regen', 0, 'recompute', repairs='project.export_sources',
             why='the host is generated twice: once to export labels, again with the overlay DS union')
 
-    # 5. one copy of every byte-identical routine, in lib/
+    # 5. one copy of every byte-identical routine, in shared/
     shared = share_identical(out_dir)
     if shared:
-        report(f'  Shared lib: {sum(len(v) for v in shared.values())} '
-               f'fragments -> {len(shared)} files in lib/')
+        report(f'  Shared: {sum(len(v) for v in shared.values())} '
+               f'fragments -> {len(shared)} files in shared/')
     stagelog.step('project.share_identical', 0, 'repair', repairs='project.consumers',
-        why='byte-identical fragments of different binaries collapse into lib/',
-        metrics={'lib_files': len(shared or {}),
+        why='byte-identical fragments of different binaries collapse into shared/',
+        metrics={'shared_files': len(shared or {}),
                  'fragments': sum(len(v) for v in (shared or {}).values())})
 
     # 5b. structure report: objects glued onto a routine's file (plan.md §7)
     from lib.compare.cotenancy import scan as scan_cotenancy, summarize
     cotenancy = scan_cotenancy(out_dir)
-    report('  ' + summarize(cotenancy))
+    #report('  ' + summarize(cotenancy))
     stagelog.step('project.cotenancy', 0, 'measure',
         metrics={k: cotenancy[k] for k in ('files', 'glued_files', 'co_tenants',
                                             'code', 'data')})

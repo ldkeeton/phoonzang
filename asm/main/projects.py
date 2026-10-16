@@ -81,7 +81,7 @@ def process_project(project_name):
 
     The whole order lives in :mod:`main.build`; this is the ``python -m main``
     entry point to it, so it does exactly what ``make build`` does -- including
-    the ``lib/`` placement, which it used to skip.
+    the ``shared/`` placement, which it used to skip.
     """
     from .build import build_project, inprocess_runners
 

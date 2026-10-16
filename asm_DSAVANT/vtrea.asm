@@ -73,7 +73,7 @@ loc_MGNT:
 
 %include "vtrea/loc_IJST.asm"              ; 0x0111
 
-%include "lib/api_idx_000e_QTQU.asm"     ; 0x067b
+%include "shared/api_idx_000e_QTQU.asm"     ; 0x067b
 
 %include "vtrea/api_idx_000a_GKTH.asm"     ; 0x073b
 
@@ -97,7 +97,7 @@ loc_MGNT:
 
 %include "vtrea/loc_UQVI.asm"              ; 0x0eb2
 
-%include "lib/loc_VRUN.asm"              ; 0x0f54
+%include "shared/loc_VRUN.asm"              ; 0x0f54
 
 %include "vtrea/api_idx_0002_NVLQ.asm"     ; 0x0f96
 
@@ -123,15 +123,15 @@ loc_MGNT:
 
 %include "vtrea/api_idx_0084_LQVT.asm"     ; 0x25ab
 
-%include "lib/api_idx_0008_IMMI.asm"     ; 0x3552
+%include "shared/api_idx_0008_IMMI.asm"     ; 0x3552
 
-%include "lib/api_idx_0004_LNTS.asm"     ; 0x35de
+%include "shared/api_idx_0004_LNTS.asm"     ; 0x35de
 
-%include "lib/api_idx_0006_HQVN.asm"     ; 0x36af
+%include "shared/api_idx_0006_HQVN.asm"     ; 0x36af
 
 %include "vtrea/api_idx_0006_OTSG.asm"     ; 0x3706
 
-%include "lib/api_idx_0018_IRSN.asm"     ; 0x37b6
+%include "shared/api_idx_0018_IRSN.asm"     ; 0x37b6
 
 %include "vtrea/api_idx_0004_HKQU.asm"     ; 0x38b3
 
@@ -141,7 +141,7 @@ loc_MGNT:
 
 %include "vtrea/api_idx_0054_SKQU.asm"     ; 0x4254
 
-%include "lib/loc_NSKO.asm"              ; 0x4318
+%include "shared/loc_NSKO.asm"              ; 0x4318
 
 %include "vtrea/asm_only/api_idx_0008_OHQQ.asm"     ; 0x4368
 
@@ -239,9 +239,9 @@ loc_MGNT:
 
 %include "vtrea/loc_LINV.asm"              ; 0x51c6
 
-%include "lib/api_idx_004c_STVP.asm"     ; 0x51d7
+%include "shared/api_idx_004c_STVP.asm"     ; 0x51d7
 
-%include "lib/api_idx_0004_MHTS.asm"     ; 0x52ec
+%include "shared/api_idx_0004_MHTS.asm"     ; 0x52ec
 
 %include "vtrea/api_idx_0040_GNSR.asm"     ; 0x5348
 
@@ -257,7 +257,7 @@ loc_MGNT:
 
 %include "vtrea/api_idx_00a8_JQTV.asm"     ; 0x5d80
 
-%include "lib/api_idx_0006_IQJI.asm"     ; 0x5e88
+%include "shared/api_idx_0006_IQJI.asm"     ; 0x5e88
 
 %include "vtrea/api_idx_0004_QNKH.asm"     ; 0x5efe
 
@@ -273,7 +273,7 @@ loc_MGNT:
 
 %include "vtrea/api_idx_0074_LVLQ.asm"     ; 0x66eb
 
-%include "lib/api_idx_0002_USNT.asm"     ; 0x6e69
+%include "shared/api_idx_0002_USNT.asm"     ; 0x6e69
 
 %include "vtrea/api_idx_0004_MJTH.asm"     ; 0x6ead
 
@@ -283,13 +283,13 @@ loc_MGNT:
 
 %include "vtrea/api_idx_0072_OGIL.asm"     ; 0x7151
 
-%include "lib/api_idx_0004_SMJG.asm"     ; 0x7319
+%include "shared/api_idx_0004_SMJG.asm"     ; 0x7319
 
 %include "vtrea/api_idx_00e6_JGTQ.asm"     ; 0x73ae
 
-%include "lib/loc_VMLV.asm"              ; 0x782b
+%include "shared/loc_VMLV.asm"              ; 0x782b
 
-%include "lib/loc_UTRI.asm"              ; 0x788f
+%include "shared/loc_UTRI.asm"              ; 0x788f
 
 %include "vtrea/asm_only/api_idx_0074_PPLR.asm"     ; 0x78ed
 
@@ -307,23 +307,23 @@ loc_MGNT:
 
 %include "vtrea/loc_OPQM.asm"              ; 0x81db
 
-%include "lib/api_idx_002a_HVPS.asm"     ; 0x8200
+%include "shared/api_idx_002a_HVPS.asm"     ; 0x8200
 
-%include "lib/loc_LQKO.asm"              ; 0x82a9
+%include "shared/loc_LQKO.asm"              ; 0x82a9
 
 %include "vtrea/api_idx_0008_OOGG.asm"     ; 0x82b8
 
 %include "vtrea/loc_VHPJ.asm"              ; 0x8441
 
-%include "lib/draw_party_slot_letters.asm" ; 0x893e
+%include "shared/draw_party_slot_letters.asm" ; 0x893e
 
-%include "lib/api_idx_0002_PGOV.asm"     ; 0x89bd
+%include "shared/api_idx_0002_PGOV.asm"     ; 0x89bd
 
 %include "vtrea/api_idx_0004_IOPR.asm"     ; 0x8a18
 
 %include "vtrea/api_idx_000a_MTKM.asm"     ; 0x8a89
 
-%include "lib/loc_OOVL.asm"              ; 0x8ac7
+%include "shared/loc_OOVL.asm"              ; 0x8ac7
 
 %include "vtrea/loc_RJIN.asm"              ; 0x8b53
 

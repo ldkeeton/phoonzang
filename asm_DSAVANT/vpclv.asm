@@ -32,19 +32,19 @@ loc_USTQ:
 @..loc_USTQ.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
-%include "lib/api_idx_0002_UKHK.asm"     ; 0x0022
+%include "shared/api_idx_0002_UKHK.asm"     ; 0x0022
 
 %include "vpclv/asm_only/api_idx_0012_URNN.asm"     ; 0x0086
 
-%include "lib/draw_party_slot_letters.asm" ; 0x0202
+%include "shared/draw_party_slot_letters.asm" ; 0x0202
 
 %include "vpclv/api_idx_0004_RIKH.asm"     ; 0x0281
 
-%include "lib/api_idx_0002_PGOV.asm"     ; 0x0331
+%include "shared/api_idx_0002_PGOV.asm"     ; 0x0331
 
-%include "lib/api_idx_0002_GLLG.asm"     ; 0x038c
+%include "shared/api_idx_0002_GLLG.asm"     ; 0x038c
 
-%include "lib/api_idx_0010_TIQJ.asm"     ; 0x03cd
+%include "shared/api_idx_0010_TIQJ.asm"     ; 0x03cd
 
 %include "vpclv/api_idx_000a_RVMG.asm"     ; 0x04ca
 
@@ -56,7 +56,7 @@ loc_USTQ:
 
 %include "vpclv/api_idx_000a_QMKR.asm"     ; 0x0eac
 
-%include "lib/loc_OOVL.asm"              ; 0x0eea
+%include "shared/loc_OOVL.asm"              ; 0x0eea
 
 %include "vpclv/loc_UONK.asm"              ; 0x0f76
 
@@ -72,25 +72,25 @@ loc_USTQ:
 
 %include "vpclv/loc_PKMN.asm"              ; 0x2189
 
-%include "lib/api_idx_0004_VKIV.asm"     ; 0x21be
+%include "shared/api_idx_0004_VKIV.asm"     ; 0x21be
 
-%include "lib/api_idx_002a_IHRK.asm"     ; 0x2447
+%include "shared/api_idx_002a_IHRK.asm"     ; 0x2447
 
 %include "vpclv/asm_only/api_idx_0080_RPOR.asm"     ; 0x24f0
 
-%include "lib/api_idx_0004_SSHG.asm"     ; 0x2717
+%include "shared/api_idx_0004_SSHG.asm"     ; 0x2717
 
 %include "vpclv/api_idx_004c_QHGO.asm"     ; 0x27e3
 
-%include "lib/loc_PPJS.asm"              ; 0x2a32
+%include "shared/loc_PPJS.asm"              ; 0x2a32
 
-%include "lib/api_idx_0006_VRUK.asm"     ; 0x2a85
+%include "shared/api_idx_0006_VRUK.asm"     ; 0x2a85
 
-%include "lib/api_idx_0002_KOUO.asm"     ; 0x2b1a
+%include "shared/api_idx_0002_KOUO.asm"     ; 0x2b1a
 
 %include "vpclv/api_idx_0052_LVIU.asm"     ; 0x2c0c
 
-%include "lib/api_idx_0004_VPLS.asm"     ; 0x3288
+%include "shared/api_idx_0004_VPLS.asm"     ; 0x3288
 
 %include "vpclv/api_idx_0020_RPUV.asm"     ; 0x333c
 
@@ -453,7 +453,7 @@ jumptable_45b6:
 
 %include "vpclv/api_idx_0046_LKOQ.asm"     ; 0x4fca
 
-%include "lib/api_idx_000e_QTQU.asm"     ; 0x50a1
+%include "shared/api_idx_000e_QTQU.asm"     ; 0x50a1
 
 %include "vpclv/api_idx_000c_KJVL.asm"     ; 0x5161
 

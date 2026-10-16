@@ -31,29 +31,29 @@ loc_OOJT:
 @..loc_OOJT.l1:
     mov ax, 0                        ; 0x001e
     ret                              ; 0x0021
-%include "lib/api_idx_002a_IHRK.asm"     ; 0x0022
+%include "shared/api_idx_002a_IHRK.asm"     ; 0x0022
 
-%include "lib/api_idx_000a_SPQS.asm"     ; 0x00cb
+%include "shared/api_idx_000a_SPQS.asm"     ; 0x00cb
 
-%include "lib/loc_LKKH.asm"              ; 0x0149
+%include "shared/loc_LKKH.asm"              ; 0x0149
 
-%include "lib/api_idx_0006_NSNR.asm"     ; 0x018d
+%include "shared/api_idx_0006_NSNR.asm"     ; 0x018d
 
-%include "lib/loc_HGQP.asm"              ; 0x02af
+%include "shared/loc_HGQP.asm"              ; 0x02af
 
 %include "vpops/api_idx_0054_OMTV.asm"     ; 0x035f
 
-%include "lib/fill_action_slot_table.asm" ; 0x0504
+%include "shared/draw_fill_action_slot_table.asm" ; 0x0504
 
-%include "lib/api_idx_000e_TGQN.asm"     ; 0x0704
+%include "shared/api_idx_000e_TGQN.asm"     ; 0x0704
 
-%include "lib/api_idx_0004_HHQR.asm"     ; 0x0a27
+%include "shared/api_idx_0004_HHQR.asm"     ; 0x0a27
 
-%include "lib/api_idx_001c_TROI.asm"     ; 0x0b31
+%include "shared/api_idx_001c_TROI.asm"     ; 0x0b31
 
 %include "vpops/api_idx_000e_GVON.asm"     ; 0x0d77
 
-%include "lib/loc_MLTS.asm"              ; 0x0e6c
+%include "shared/loc_MLTS.asm"              ; 0x0e6c
 
 %include "vpops/loc_NTTP.asm"              ; 0x0ec8
 
@@ -67,15 +67,15 @@ loc_OOJT:
 
 %include "vpops/api_idx_000c_UHNR.asm"     ; 0x178a
 
-%include "lib/draw_party_slot_letters.asm" ; 0x18c2
+%include "shared/draw_party_slot_letters.asm" ; 0x18c2
 
-%include "lib/api_idx_0002_PGOV.asm"     ; 0x1941
+%include "shared/api_idx_0002_PGOV.asm"     ; 0x1941
 
 %include "vpops/api_idx_0004_JGSU.asm"     ; 0x199c
 
 %include "vpops/api_idx_000a_ULVM.asm"     ; 0x1a0d
 
-%include "lib/loc_OOVL.asm"              ; 0x1a4b
+%include "shared/loc_OOVL.asm"              ; 0x1a4b
 
 %include "vpops/loc_JIPH.asm"              ; 0x1ad7
 
@@ -87,7 +87,7 @@ loc_OOJT:
 
 %include "vpops/api_idx_000a_PJMP.asm"     ; 0x2947
 
-%include "lib/api_idx_0018_IRSN.asm"     ; 0x29f2
+%include "shared/api_idx_0018_IRSN.asm"     ; 0x29f2
 
 %include "vpops/api_idx_0004_JRIG.asm"     ; 0x2aef
 

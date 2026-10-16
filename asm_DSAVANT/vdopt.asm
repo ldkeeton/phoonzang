@@ -106,17 +106,17 @@ loc_LNMK:
 @..loc_LNMK.l1:
     mov ax, 0xffff                   ; 0x00db
     ret                              ; 0x00de
-%include "lib/api_idx_0004_HROJ.asm"     ; 0x00df
+%include "shared/api_idx_0004_HROJ.asm"     ; 0x00df
 
-%include "lib/api_idx_0002_QNVQ.asm"     ; 0x019b
+%include "shared/api_idx_0002_QNVQ.asm"     ; 0x019b
 
-%include "lib/api_idx_002a_HVPS.asm"     ; 0x020b
+%include "shared/api_idx_002a_HVPS.asm"     ; 0x020b
 
-%include "lib/loc_LQKO.asm"              ; 0x02b4
+%include "shared/loc_LQKO.asm"              ; 0x02b4
 
 %include "vdopt/api_idx_0004_JJIS.asm"     ; 0x02c3
 
-%include "lib/api_idx_0006_IQJI.asm"     ; 0x030c
+%include "shared/api_idx_0006_IQJI.asm"     ; 0x030c
 
 %include "vdopt/api_idx_0004_HVMV.asm"     ; 0x0382
 
@@ -168,21 +168,21 @@ loc_LNMK:
 
 %include "vdopt/api_idx_00fa_HKNG.asm"     ; 0x1a5d
 
-%include "lib/loc_NSKO.asm"              ; 0x1c7f
+%include "shared/loc_NSKO.asm"              ; 0x1c7f
 
 %include "vdopt/asm_only/api_idx_0008_KGRN.asm"     ; 0x1ccf
 
 %include "vdopt/api_idx_000c_JQSL.asm"     ; 0x238d
 
-%include "lib/draw_party_slot_letters.asm" ; 0x25a8
+%include "shared/draw_party_slot_letters.asm" ; 0x25a8
 
-%include "lib/api_idx_0002_PGOV.asm"     ; 0x2627
+%include "shared/api_idx_0002_PGOV.asm"     ; 0x2627
 
 %include "vdopt/api_idx_0004_JMRJ.asm"     ; 0x2682
 
 %include "vdopt/api_idx_000a_IOVI.asm"     ; 0x26f3
 
-%include "lib/loc_OOVL.asm"              ; 0x2731
+%include "shared/loc_OOVL.asm"              ; 0x2731
 
 %include "vdopt/loc_MTSN.asm"              ; 0x27bd
 
@@ -192,11 +192,11 @@ loc_LNMK:
 
 %include "vdopt/api_idx_0044_VUKV.asm"     ; 0x2988
 
-%include "lib/api_idx_0008_IMMI.asm"     ; 0x362f
+%include "shared/api_idx_0008_IMMI.asm"     ; 0x362f
 
-%include "lib/api_idx_0004_LNTS.asm"     ; 0x36bb
+%include "shared/api_idx_0004_LNTS.asm"     ; 0x36bb
 
-%include "lib/api_idx_0018_IRSN.asm"     ; 0x378c
+%include "shared/api_idx_0018_IRSN.asm"     ; 0x378c
 
 %include "vdopt/api_idx_0004_PGLK.asm"     ; 0x3889
 

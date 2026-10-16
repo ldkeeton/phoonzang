@@ -128,5 +128,43 @@ class ObdParseTest(unittest.TestCase):
         self.assertEqual(bytes(dump.code), b'\x90\x90\xc3')
 
 
+class FuncTruncateTest(unittest.TestCase):
+    """A routine owns its fragment span, not its object's public extent.
+
+    A trailing ``static`` neighbour is compiled inside the preceding public
+    function (``putc`` swallows ``closall``), so the object's extent and the
+    module-wide local-label table hand it the neighbour's ``.N`` labels.
+    ``Func.truncate`` drops what lies past the routine's real end.
+    """
+
+    def _func(self):
+        from lib.aztec.compile import Func
+        from lib.aztec.objread import Fixup
+        code = bytes(74)
+        fixups = [
+            Fixup(0xd, 'BREL', 'LCLSYM', None, '.0'),   # width 1
+            Fixup(0x33, 'BREL', 'LCLSYM', None, '.1'),  # width 1
+            Fixup(0x34, 'WREL', 'GBLSYM', None, 'x_'),  # straddles 52
+            Fixup(0x47, 'BREL', 'LCLSYM', None, '.2'),  # in the neighbour
+        ]
+        locals_ = {'.0': 0x21, '.1': 0x1c, '.2': 0x38}
+        return Func('putc', 'putc.c', 0, code, fixups, locals_)
+
+    def test_drops_the_neighbours_code_labels_and_fixups(self):
+        capped = self._func().truncate(52)
+        self.assertEqual(len(capped.code), 52)
+        self.assertEqual(capped.locals, {'.0': 0x21, '.1': 0x1c})
+        self.assertEqual([fx.offset for fx in capped.fixups], [0xd, 0x33])
+
+    def test_a_fixup_straddling_the_boundary_is_dropped(self):
+        # 0x34 + 2 > 52, so the word relocation is not kept.
+        self.assertNotIn(0x34, [fx.offset for fx in self._func().truncate(52).fixups])
+
+    def test_a_length_at_or_past_the_code_is_a_noop(self):
+        func = self._func()
+        self.assertIs(func.truncate(len(func.code)), func)
+        self.assertIs(func.truncate(len(func.code) + 10), func)
+
+
 if __name__ == '__main__':
     unittest.main()

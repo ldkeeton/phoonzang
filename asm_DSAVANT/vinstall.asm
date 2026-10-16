@@ -1617,9 +1617,9 @@ cseg_2a25:
 
 %include "vinstall/asm_only/aztec_strncat.asm"      ; 0x2aae
 
-%include "lib/aztec_strcpy.asm"       ; 0x2add
+%include "shared/aztec_strcpy.asm"       ; 0x2add
 
-%include "lib/aztec_strncpy.asm"      ; 0x2b09
+%include "shared/aztec_strncpy.asm"      ; 0x2b09
 
 %include "vinstall/asm_only/aztec_sysint.asm"       ; 0x2b31
 
@@ -1720,7 +1720,7 @@ jumptable_3053:
 
 %include "vinstall/asm_only/string_loc_NMMQ.asm"    ; 0x3338
 
-%include "lib/aztec_creat.asm"        ; 0x336a
+%include "shared/aztec_creat.asm"        ; 0x336a
 
 %include "vinstall/aztec_open.asm"         ; 0x3381
 
@@ -1728,15 +1728,15 @@ jumptable_3053:
 
 %include "vinstall/asm_only/aztec_lrm.asm"          ; 0x3445
 
-%include "lib/aztec_lum.asm"          ; 0x3469
+%include "shared/aztec_lum.asm"          ; 0x3469
 
-%include "lib/aztec_lud.asm"          ; 0x3471
+%include "shared/aztec_lud.asm"          ; 0x3471
 
 %include "vinstall/asm_only/aztec_strcmp.asm"       ; 0x3508
 
 %include "vinstall/asm_only/aztec_strncmp.asm"      ; 0x3526
 
-%include "lib/aztec_strlen.asm"       ; 0x356f
+%include "shared/aztec_strlen.asm"       ; 0x356f
 
 %include "vinstall/asm_only/aztec_sys.asm"          ; 0x358c
 
@@ -1772,9 +1772,9 @@ cseg_35d0:
 
 %include "vinstall/aztec_tty_wr.asm"       ; 0x393e
 
-%include "lib/aztec_movmem.asm"       ; 0x39a0
+%include "shared/aztec_movmem.asm"       ; 0x39a0
 
-%include "lib/aztec_isatty.asm"       ; 0x39e5
+%include "shared/aztec_isatty.asm"       ; 0x39e5
 
 %include "vinstall/asm_only/aztec_sbrk.asm"         ; 0x3a05
 

@@ -3,6 +3,8 @@
 import json
 import os
 
+from lib.shared import FOLDER
+
 from .options import (
     AZTEC_MUX_DISABLED,
     AZTEC_MUX_REFRESH,
@@ -32,13 +34,13 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
     known = {nm for nm in label_map.values() if isinstance(nm, str)}
     hand_c = sorted(f[:-2] for f in (os.listdir(dest) if os.path.isdir(dest)
                                      else ()) if f.endswith('.c'))
-    lib_dir = os.path.join(out_dir, 'lib')
-    # C shared between binaries (lib.shared) lives in lib/; only the labels
+    shared_dir = os.path.join(out_dir, FOLDER)
+    # C shared between binaries (lib.shared) lives in shared/; only the labels
     # this binary has are its own.
-    lib_c = sorted(f[:-2] for f in (os.listdir(lib_dir) if os.path.isdir(lib_dir)
-                                    else ())
-                   if f.endswith('.c') and f[:-2] in known)
-    if not labels and not hand_c and not lib_c:
+    shared_c = sorted(f[:-2] for f in (os.listdir(shared_dir)
+                                       if os.path.isdir(shared_dir) else ())
+                      if f.endswith('.c') and f[:-2] in known)
+    if not labels and not hand_c and not shared_c:
         return {}, {}
     from lib.aztec import cache
     from lib.aztec.objread import fixup_width
@@ -61,6 +63,25 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
     if orphans:
         raise SystemExit(f'error: C file(s) in {dest} with no matching asm '
                          f'routine: {", ".join(orphans)}')
+    # A routine's fragment span, recorded by the previous build, is where the
+    # routine really ends.  The object's public extent can run past it into a
+    # trailing ``static`` neighbour (``putc`` compiles ``closall`` inside its
+    # extent; the splitter gives each its own fragment), so the C override must
+    # own only the span -- never the neighbour's bytes or its ``.N`` labels.
+    spans = {}
+    spans_path = os.path.join(spans_dir(project),
+                              f'{name}_aztec_spans.json')
+    if os.path.isfile(spans_path):
+        with open(spans_path) as f:
+            spans = json.load(f)
+
+    def owned_length(label, entry, func):
+        length = entry.get('original_length') or len(func.code)
+        span = spans.get(label)
+        if span:
+            length = min(length, span[1] - span[0])
+        return length
+
     overrides = {}
     for label, entry in entries.items():
         if cache.is_asm_entry(entry):
@@ -71,6 +92,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
         except Exception as exc:
             print(f'  aztec mux: {label}: compile failed ({exc})')
             continue
+        length = owned_length(label, entry, func)
+        func = func.truncate(length)
         path = c_path(dest, label)
         overrides[label] = {
             # The linker resolves the routine's relocations against the build's
@@ -84,20 +107,14 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
             'code': func.code,
             'fixups': [(fx.offset, fixup_width(fx.kind))
                        for fx in func.fixups],
-            'length': entry.get('original_length') or len(func.code),
+            'length': length,
             'source_version': entry['source_version'],
             'file': entry['file'], 'compiler': entry['compiler'],
         }
     # A hand-written <label>.c with no compiled manifest entry (an application
     # routine, a miss, or a vendor-asm routine) replaces that routine too.  Its
     # original length comes from the span the previous build recorded.
-    spans = {}
-    spans_path = os.path.join(spans_dir(project),
-                              f'{name}_aztec_spans.json')
-    if os.path.isfile(spans_path):
-        with open(spans_path) as f:
-            spans = json.load(f)
-    for label in sorted(set(hand_c) | set(lib_c)):
+    for label in sorted(set(hand_c) | set(shared_c)):
         entry = entries.get(label)
         if entry is not None and not cache.is_asm_entry(entry):
             continue
@@ -126,8 +143,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir):
 
 
 def c_path(dest, label):
-    """The routine's ``.c``: the shared ``lib/`` copy when there is one."""
-    shared = os.path.join(os.path.dirname(dest), 'lib', f'{label}.c')
+    """The routine's ``.c``: the shared ``shared/`` copy when there is one."""
+    shared = os.path.join(os.path.dirname(dest), FOLDER, f'{label}.c')
     return shared if os.path.exists(shared) else os.path.join(dest, f'{label}.c')
 
 

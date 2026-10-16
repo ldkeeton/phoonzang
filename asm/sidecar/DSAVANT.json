@@ -4,8 +4,11 @@
   "version": 1,
   "dos_compilers": ["Manx Aztec C86 v52a", "Manx Aztec C86 v340a"],
   "compiler_flags": {
-    "default": ["-n", "+y", "+b", "+m"],
-    "prefixes": { "aztec_": ["-n", "+y"] }
+    "default": ["-n", "+y", "+b"],
+    "prefixes": { 
+      "aztec_": ["-n", "+y"],
+      "draw_" : ["-n", "+y", "+b", "+m"]
+    }
   },
   "vendor_patches": {
     "aztec_begin": {
@@ -46,7 +49,7 @@
   },
   "routines": {
     "api_idx_000a_JKVP": {
-      "name": "fill_action_slot_table"
+      "name": "draw_fill_action_slot_table"
     },
     "api_idx_000c_JKJK": {
       "name": "draw_party_slot_letters",

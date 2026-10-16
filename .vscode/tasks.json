@@ -65,7 +65,7 @@
             "label": "Build DSAVANT ELF",
             "type": "shell",
             "command": "make",
-            "args": ["-C", "asm", "elf-rebuild", "DSAVANT", "ds"],
+            "args": ["elf-rebuild", "DSAVANT", "ds"],
             "group": "build",
             "problemMatcher": []
         },

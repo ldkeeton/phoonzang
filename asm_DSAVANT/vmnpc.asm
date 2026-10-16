@@ -34,15 +34,15 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/api_idx_000e_QGTI.asm"     ; 0x0961
 
-%include "lib/loc_MLTS.asm"              ; 0x0a56
+%include "shared/loc_MLTS.asm"              ; 0x0a56
 
-%include "lib/api_idx_000a_SPQS.asm"     ; 0x0ab2
+%include "shared/api_idx_000a_SPQS.asm"     ; 0x0ab2
 
-%include "lib/loc_LKKH.asm"              ; 0x0b30
+%include "shared/loc_LKKH.asm"              ; 0x0b30
 
-%include "lib/api_idx_0006_NSNR.asm"     ; 0x0b74
+%include "shared/api_idx_0006_NSNR.asm"     ; 0x0b74
 
-%include "lib/loc_HGQP.asm"              ; 0x0c96
+%include "shared/loc_HGQP.asm"              ; 0x0c96
 
 %include "vmnpc/api_idx_0054_UJOG.asm"     ; 0x0d46
 
@@ -82,7 +82,7 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/loc_PVIK.asm"              ; 0x21bf
 
-%include "lib/api_idx_004c_STVP.asm"     ; 0x21d2
+%include "shared/api_idx_004c_STVP.asm"     ; 0x21d2
 
 %include "vmnpc/api_idx_0004_LRMP.asm"     ; 0x22e7
 
@@ -116,7 +116,7 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/api_idx_0004_JJPH.asm"     ; 0x3a96
 
-%include "lib/api_idx_0018_IRSN.asm"     ; 0x3b9a
+%include "shared/api_idx_0018_IRSN.asm"     ; 0x3b9a
 
 %include "vmnpc/api_idx_0004_MQNP.asm"     ; 0x3c97
 
@@ -142,13 +142,13 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/loc_JPTL.asm"              ; 0x5497
 
-%include "lib/api_idx_0002_IVLK.asm"     ; 0x54b4
+%include "shared/api_idx_0002_IVLK.asm"     ; 0x54b4
 
 %include "vmnpc/api_idx_0008_PHUS.asm"     ; 0x5571
 
 %include "vmnpc/api_idx_0006_JTUH.asm"     ; 0x573e
 
-%include "lib/api_idx_0002_MMNR.asm"     ; 0x57bb
+%include "shared/api_idx_0002_MMNR.asm"     ; 0x57bb
 
 %include "vmnpc/api_idx_005e_SJTI.asm"     ; 0x57e1
 
@@ -184,15 +184,15 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/loc_VQKO.asm"              ; 0x742e
 
-%include "lib/draw_party_slot_letters.asm" ; 0x7452
+%include "shared/draw_party_slot_letters.asm" ; 0x7452
 
-%include "lib/api_idx_0002_PGOV.asm"     ; 0x74d1
+%include "shared/api_idx_0002_PGOV.asm"     ; 0x74d1
 
 %include "vmnpc/api_idx_0004_ITRR.asm"     ; 0x752c
 
 %include "vmnpc/api_idx_000a_JGJS.asm"     ; 0x759d
 
-%include "lib/loc_OOVL.asm"              ; 0x75db
+%include "shared/loc_OOVL.asm"              ; 0x75db
 
 %include "vmnpc/loc_KVUI.asm"              ; 0x7667
 
@@ -248,7 +248,7 @@ io_loc_4fa9 equ 0x4fa9 + VBASE
 
 %include "vmnpc/api_idx_0002_GIHI.asm"     ; 0x8be8
 
-%include "lib/api_idx_0004_NJJP.asm"     ; 0x8c2a
+%include "shared/api_idx_0004_NJJP.asm"     ; 0x8c2a
 
 %include "vmnpc/api_idx_0084_JRPV.asm"     ; 0x8c72
 
@@ -477,7 +477,7 @@ jumptable_9baa:
 
 %include "vmnpc/asm_only/string_loc_RQQN.asm"       ; 0xae10
 
-%include "lib/aztec_strncpy.asm"         ; 0xae4e
+%include "shared/aztec_strncpy.asm"         ; 0xae4e
 
 %include "vmnpc/asm_only/aztec_strcmp.asm"          ; 0xae76
 

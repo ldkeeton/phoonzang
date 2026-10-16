@@ -12,6 +12,7 @@ const { labels, occurrences, addresses, routineStart, locate } = require('./scan
 const sidecar = require('./sidecar');
 
 const SRC = 'asm_*/**/*.{asm,c}';
+const SHARED_DIR = 'shared';   // asm_<PROJECT>/shared/ holds routines shared between binaries
 const WORD = /[A-Za-z_$?][\w$?]*/;
 const C_SELECTOR = [{ language: 'c' }, { language: 'cpp' }];
 const ANY_SELECTOR = [{ pattern: '**/asm_*/**/*.{c,asm}' }, ...C_SELECTOR];
@@ -136,7 +137,7 @@ function describe(name, doc) {
     if (addr === null) {
         md.appendCodeblock(text.split('\n')[hit.row].trim(), 'asm');
     }
-    if (where && where.binary === 'lib') {
+    if (where && where.binary === SHARED_DIR) {
         const key = routineKey(where);
         const data = readJson(sidecarPath(where.project));
         const entry = key && data && data.routines && data.routines[key];
@@ -191,7 +192,7 @@ async function goToAddress() {
 
 const TAGGED_LABEL = /_[G-V]{4}(?:_[0-9a-f]{4,5})?$/;
 
-// Sidecar ``routines`` key for a lib routine: its content-tagged label, or the
+// Sidecar ``routines`` key for a shared routine: its content-tagged label, or the
 // key it was already named under (the file is then called by that name).
 function routineKey(where) {
     if (TAGGED_LABEL.test(where.label)) return where.label;
@@ -236,7 +237,7 @@ async function nameRoutine(uri, suggestion) {
     if (!name) return vscode.window.showErrorMessage('put the cursor on a routine label');
     const hit = hitsFor(name, doc)[0];
     const where = locate(hit.uri.fsPath);
-    if (where && where.binary === 'lib') return nameSharedRoutine(where, suggestion);
+    if (where && where.binary === SHARED_DIR) return nameSharedRoutine(where, suggestion);
     const addr = routineStart(texts.get(hit.uri.toString()), hit.row);
     if (!where || addr === null) return vscode.window.showErrorMessage(`${name} has no listing address`);
     const data = readJson(sidecarPath(where.project));

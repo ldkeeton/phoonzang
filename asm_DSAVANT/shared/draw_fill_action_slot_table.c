@@ -11,7 +11,7 @@ extern unsigned char dseg_6ac1[][350];
 extern unsigned char dseg_8430[];
 extern unsigned char dseg_8322[];
 
-fill_action_slot_table(a, b, c, d)
+draw_fill_action_slot_table(a, b, c, d)
 int a, b, c, d;
 {
 	int v1, i, j, k, flag;

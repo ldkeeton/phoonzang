@@ -3,6 +3,7 @@
 import os
 import shutil
 
+from lib.buildlock import LOCK_NAME
 from lib.cachedirs import CACHE_ROOT, project_cache
 from main.clean import clean_all
 from main.clean import clean_project
@@ -23,7 +24,15 @@ def cmd_clean(apps, keep_prebuild=False):
     if not apps:
         clean_all()
         if not keep_prebuild and os.path.isdir(CACHE_ROOT):
-            shutil.rmtree(CACHE_ROOT)
+            # keep the build lock: deleting it would orphan the held inode
+            for name in os.listdir(CACHE_ROOT):
+                if name == LOCK_NAME:
+                    continue
+                path = os.path.join(CACHE_ROOT, name)
+                if os.path.isdir(path) and not os.path.islink(path):
+                    shutil.rmtree(path)
+                else:
+                    os.remove(path)
             print(f'Removed {CACHE_ROOT}')
         return
     for app in apps:

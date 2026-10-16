@@ -141,7 +141,7 @@ api_idx_000e_TGQN:
     push word [bp + 0xa]
     push word [bp + 0x8]
     push word [bp + 0x4]
-    call fill_action_slot_table
+    call draw_fill_action_slot_table
     add sp, byte 8
     push word [bp + 0xe]
     mov ax, 0

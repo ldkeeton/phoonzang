@@ -47,7 +47,7 @@ loc_NIVM:
 @..loc_NIVM.l3:
     mov ax, 0                        ; 0x0032
     ret                              ; 0x0035
-%include "lib/api_idx_0002_LTOL.asm"     ; 0x0036
+%include "shared/api_idx_0002_LTOL.asm"     ; 0x0036
 
 %include "vbase/api_idx_0004_JLRL.asm"     ; 0x00b5
 
@@ -59,7 +59,7 @@ loc_NIVM:
 
 %include "vbase/api_idx_0038_HKLS.asm"     ; 0x0606
 
-%include "lib/api_idx_0008_IGKQ.asm"     ; 0x0d3f
+%include "shared/api_idx_0008_IGKQ.asm"     ; 0x0d3f
 
 %include "vbase/api_idx_0028_MKOQ.asm"     ; 0x0ef7
 
@@ -398,7 +398,7 @@ jumptable_19de_case_0:
 
 %include "vbase/leaf_loc_LJTS.asm"         ; 0x1b56
 
-%include "lib/loc_LMIM.asm"              ; 0x1c09
+%include "shared/loc_LMIM.asm"              ; 0x1c09
 
 %include "vbase/api_idx_0004_OKUV.asm"     ; 0x1c80
 
@@ -733,7 +733,7 @@ jumptable_6e77:
 
 %include "vbase/loc_HTNP.asm"              ; 0x6f79
 
-%include "lib/api_idx_0002_VTPK.asm"     ; 0x6fda
+%include "shared/api_idx_0002_VTPK.asm"     ; 0x6fda
 
 %include "vbase/api_idx_0002_NLRM.asm"     ; 0x706d
 
@@ -769,7 +769,7 @@ jumptable_6e77:
 
 %include "vbase/asm_only/string_loc_IHLM.asm"       ; 0x9330
 
-%include "lib/leaf_loc_VKIM.asm"         ; 0x936e
+%include "shared/leaf_loc_VKIM.asm"         ; 0x936e
 
 %include "vbase/asm_only/aztec_strcmp.asm"          ; 0x9386
 

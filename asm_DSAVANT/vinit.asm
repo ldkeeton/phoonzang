@@ -63,7 +63,7 @@ loc_OGQG:
 
 %include "vinit/loc_SPRP.asm"              ; 0x03a8
 
-%include "lib/api_idx_0002_VTPK.asm"     ; 0x08b7
+%include "shared/api_idx_0002_VTPK.asm"     ; 0x08b7
 
 %include "vinit/api_idx_0002_NJSO.asm"     ; 0x094a
 

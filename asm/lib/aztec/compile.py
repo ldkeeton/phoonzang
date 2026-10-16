@@ -146,6 +146,25 @@ class Func:
                    blob.get('offset', 0), bytes.fromhex(blob['code']), fixups,
                    blob.get('locals'))
 
+    def truncate(self, length):
+        """A copy owning only the first *length* bytes of *code*.
+
+        A public function's object extent runs to the next public symbol
+        (:func:`omflib.public_functions`), so a trailing ``static`` neighbour
+        is compiled inside it -- ``putc``'s extent swallows ``closall``, and
+        the module-wide local-label table hands ``putc`` the neighbour's
+        ``.N`` labels.  When the build knows where the routine really ends (the
+        fragment span the splitter chose), take only those bytes so the
+        neighbour's code, fixups and local labels are not claimed here.
+        """
+        if length >= len(self.code):
+            return self
+        length = max(0, length)
+        return Func(
+            self.name, self.module, self.offset, self.code[:length],
+            [fx for fx in self.fixups if fx.offset + fx.width <= length],
+            {name: off for name, off in self.locals.items() if off < length})
+
     def __repr__(self):
         return (f'Func({self.name!r}, off=0x{self.offset:x}, '
                 f'len={len(self.code)}, fixups={len(self.fixups)})')

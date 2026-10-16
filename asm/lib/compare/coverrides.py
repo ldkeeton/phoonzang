@@ -207,6 +207,10 @@ def _link_override(label, start, override, records, binary_data, index,
     text, func = relabel.upgrade(
         label, override['own_key'], start, override['text'], binary_data,
         index, names_at, override['compile'], image_base or 0)
+    # The relabelled compile has the same object extent as the original one,
+    # so cap it to this routine's fragment again: a trailing static neighbour
+    # (``putc``/``closall``) must stay in its own fragment.
+    func = func.truncate(length)
     with open(override['path'], 'w') as f:
         f.write(text)
     override.update(text=text, func=func, pristine=False)

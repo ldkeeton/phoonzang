@@ -43,15 +43,15 @@ loc_NHKP:
 @..loc_NHKP.l3:
     mov ax, 0                        ; 0x004a
     ret                              ; 0x004d
-%include "lib/api_idx_0008_IUTV.asm"     ; 0x004e
+%include "shared/api_idx_0008_IUTV.asm"     ; 0x004e
 
 %include "vmele/api_idx_0004_ONLJ.asm"     ; 0x0102
 
 %include "vmele/api_idx_0008_VRLU.asm"     ; 0x0164
 
-%include "lib/api_idx_000a_TPMU.asm"     ; 0x0244
+%include "shared/api_idx_000a_TPMU.asm"     ; 0x0244
 
-%include "lib/api_idx_0004_NJJP.asm"     ; 0x02c2
+%include "shared/api_idx_0004_NJJP.asm"     ; 0x02c2
 
 %include "vmele/api_idx_000c_SLOL.asm"     ; 0x030a
 
@@ -73,7 +73,7 @@ loc_NHKP:
 
 %include "vmele/asm_only/api_idx_005c_KOIV.asm"     ; 0x14e6
 
-%include "lib/loc_VRUN.asm"              ; 0x16d1
+%include "shared/loc_VRUN.asm"              ; 0x16d1
 
 %include "vmele/api_idx_0006_JLTG.asm"     ; 0x1713
 
@@ -87,13 +87,13 @@ loc_NHKP:
 
 %include "vmele/api_idx_000e_IIQQ.asm"     ; 0x2138
 
-%include "lib/api_idx_0004_HHQR.asm"     ; 0x245b
+%include "shared/api_idx_0004_HHQR.asm"     ; 0x245b
 
 %include "vmele/api_idx_001c_KTJV.asm"     ; 0x2565
 
-%include "lib/api_idx_000e_SVUU.asm"     ; 0x27ab
+%include "shared/api_idx_000e_SVUU.asm"     ; 0x27ab
 
-%include "lib/loc_MLTS.asm"              ; 0x28a0
+%include "shared/loc_MLTS.asm"              ; 0x28a0
 
 %include "vmele/api_idx_0002_JUSU.asm"     ; 0x28fc
 

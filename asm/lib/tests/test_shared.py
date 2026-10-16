@@ -25,15 +25,15 @@ class ShareIdenticalTest(unittest.TestCase):
         _put(root, 'a.asm', '%include "a/f.asm"   ; 0x0100\n')
         _put(root, 'b.asm', '%include "b/f.asm"   ; 0x0900\n')
 
-    def test_identical_fragments_move_to_lib(self):
+    def test_identical_fragments_move_to_shared(self):
         with tempfile.TemporaryDirectory() as root:
             self._tree(root)
             result = shared.share_identical(root)
-            self.assertEqual(result, {'lib/f.asm': ['a/f.asm', 'b/f.asm']})
+            self.assertEqual(result, {'shared/f.asm': ['a/f.asm', 'b/f.asm']})
             self.assertFalse(os.path.exists(os.path.join(root, 'a')))
-            self.assertIn('%include "lib/f.asm"   ; 0x0100', _read(root, 'a.asm'))
-            self.assertIn('%include "lib/f.asm"', _read(root, 'b.asm'))
-            self.assertNotIn('; 0x', _read(root, 'lib/f.asm'))
+            self.assertIn('%include "shared/f.asm"   ; 0x0100', _read(root, 'a.asm'))
+            self.assertIn('%include "shared/f.asm"', _read(root, 'b.asm'))
+            self.assertNotIn('; 0x', _read(root, 'shared/f.asm'))
 
     def test_different_code_or_hand_c_stays(self):
         with tempfile.TemporaryDirectory() as root:
@@ -53,7 +53,7 @@ class ShareIdenticalTest(unittest.TestCase):
                      .replace('push bp', 'push si'))
                 _put(root, f'{b}.asm', f'%include "{b}/f.asm"\n')
             result = shared.share_identical(root)
-            self.assertEqual(result, {'lib/f.asm': ['c/f.asm', 'd/f.asm', 'e/f.asm']})
+            self.assertEqual(result, {'shared/f.asm': ['c/f.asm', 'd/f.asm', 'e/f.asm']})
             self.assertTrue(os.path.exists(os.path.join(root, 'a', 'f.asm')))
 
     def test_hand_owned_fragment_is_untouched(self):
@@ -75,7 +75,7 @@ class KeepAddressesTest(unittest.TestCase):
                 _put(root, f'{b}/f.asm', BODY.format(name='f', a='0100', b='0101', c='0103'))
                 _put(root, f'{b}.asm', f'%include "{b}/f.asm"\n')
             shared.share_identical(root)
-            self.assertIn('; 0x0100', _read(root, 'lib/f.asm'))
+            self.assertIn('; 0x0100', _read(root, 'shared/f.asm'))
 
 
 class SharedCTest(unittest.TestCase):
@@ -89,9 +89,9 @@ class SharedCTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             self._tree(root)
             shared.share_identical(root)
-            self.assertTrue(os.path.exists(os.path.join(root, 'lib', 'f.c')))
+            self.assertTrue(os.path.exists(os.path.join(root, 'shared', 'f.c')))
             self.assertFalse(os.path.exists(os.path.join(root, 'a', 'f.c')))
-            self.assertNotIn('; 0x', _read(root, 'lib/f.asm'))
+            self.assertNotIn('; 0x', _read(root, 'shared/f.asm'))
 
     def test_differing_c_stays(self):
         with tempfile.TemporaryDirectory() as root:

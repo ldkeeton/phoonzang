@@ -53,7 +53,7 @@ def main():
             )
 
     subprocess.run(
-        ["make", "-C", str(ROOT / "asm"), "elf-rebuild", "DSAVANT", "ds"],
+        ["make", "-C", str(ROOT), "elf-rebuild", "DSAVANT", "ds"],
         check=True,
     )
     if not DWARF_SOURCE.is_file():

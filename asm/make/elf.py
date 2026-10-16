@@ -11,6 +11,7 @@ import sys
 from lib.autogen import write_text
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
+from lib.shared import FOLDER
 from main.projects import discover_binaries
 
 from .common import APPS, PROJECT, _extra_flags, _main_exe, _nasm_build
@@ -473,21 +474,21 @@ def resplice_c(app, binary):
 
     c_labels = {name[:-2] for name in os.listdir(dest)
                 if name.endswith('.c')} if os.path.isdir(dest) else set()
-    # C shared between binaries lives in lib/ beside its .asm (lib.shared).
-    lib_dir = os.path.join(out_dir, 'lib')
+    # C shared between binaries lives in shared/ beside its .asm (lib.shared).
+    shared_dir = os.path.join(out_dir, FOLDER)
     def has_own_asm(label):
         # a same-named routine owned by this binary is not the shared one
         return any(os.path.exists(os.path.join(dest, sub, label + '.asm'))
                    for sub in ('', 'asm_only'))
 
-    c_labels |= {name[:-2] for name in (os.listdir(lib_dir)
-                                        if os.path.isdir(lib_dir) else ())
+    c_labels |= {name[:-2] for name in (os.listdir(shared_dir)
+                                        if os.path.isdir(shared_dir) else ())
                  if name.endswith('.c') and name[:-2] in spans
                  and not has_own_asm(name[:-2])}
     c_labels = sorted(c_labels)
 
     def where(label, suffix):
-        shared = os.path.join(lib_dir, label + suffix)
+        shared = os.path.join(shared_dir, label + suffix)
         own = os.path.join(dest, label + suffix)
         if has_own_asm(label):
             return own
@@ -538,6 +539,18 @@ def resplice_c(app, binary):
                 if hashlib.sha1(f.read()).hexdigest() == prev['out']:
                     continue
         func = cache.compile_source(app, label, entry, text)
+        # A routine's object extent runs to the next public symbol, so a
+        # trailing ``static`` neighbour is compiled inside it (``putc`` swallows
+        # ``closall``).  The fragment span is where this routine ends; own only
+        # those bytes so relink never mints the neighbour's ``.N`` labels into
+        # this fragment.  A compile that outgrew its own recovered length is a
+        # real edit and needs a full relayout.
+        declared = entry.get('original_length') or len(func.code)
+        if len(func.code) > declared:
+            raise SystemExit(
+                f'error: {label}: compiled {len(func.code)} bytes, no longer '
+                f'the routine it was ({declared}); run "make build {app}"')
+        func = func.truncate(min(len(func.code), span_len))
 
         linked = None
         if index is not None:
@@ -564,7 +577,7 @@ def resplice_c(app, binary):
                 compiled[fx.offset:fx.offset + n] = chunk
 
         if not lenient:
-            expected = entry.get('original_length') or span_len
+            expected = min(entry.get('original_length') or span_len, span_len)
             report = check_against_original(
                 label, start, data[start:start + expected], compiled,
                 exact=exact_here)
@@ -648,7 +661,7 @@ def resplice_c(app, binary):
             _report_linked(app, binary, label, linked)
         records = _merge_label_records(records, label_records)
         fragment = '\n'.join(_render_records(records, data, True)) + '\n'
-        if os.path.dirname(apath) == lib_dir:
+        if os.path.dirname(apath) == shared_dir:
             # Shared by several binaries: no one binary's addresses.
             from lib.shared import neutral
             fragment = neutral(fragment)
@@ -674,7 +687,13 @@ def resplice_c(app, binary):
             print(f'    {name}')
 
 
-def cmd_elf_rebuild(app, binary=None):
+def cmd_elf_rebuild(app=None, binary=None, all_projects=()):
+    """``make elf-rebuild [PROJECT [BIN]]``: all projects, or just one."""
+    for project in ([app] if app else all_projects):
+        _elf_rebuild_one(project, binary)
+
+
+def _elf_rebuild_one(app, binary=None):
     """Full rebuild of the whole game from the current sources, then ELF.
 
     ``asm_<project>`` is the source of truth: this does *not* regenerate it from
