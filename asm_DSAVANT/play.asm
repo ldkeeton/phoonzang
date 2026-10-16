@@ -10,32 +10,30 @@ IMAGE_BASE equ -0x0100
 data_096f equ 0x096f
 data_09ae equ 0x09ae
 
-loc_LPSH:
-    jmp near loc_JTQK_0003           ; 0x0000
-loc_JTQK_0003:
-    call loc_MMRI                    ; 0x0003
-    retf                             ; 0x0006
-loc_JTQK_0007:
-    call string_loc_OLGI             ; 0x0007
-    retf                             ; 0x000a
-loc_JTQK_000b:
-    call leaf_loc_GJRP               ; 0x000b
-    retf                             ; 0x000e
-loc_JTQK_000f:
-    call loc_LGGU                    ; 0x000f
-    retf                             ; 0x0012
-loc_JTQK_0013:
-    call io_loc_QVTL                 ; 0x0013
-    retf                             ; 0x0016
-loc_JTQK_0017:
-    call bios_disk_loc_VOLH          ; 0x0017
-    retf                             ; 0x001a
-loc_JTQK_001b:
-    call leaf_loc_IQNG               ; 0x001b
-    retf                             ; 0x001e
-loc_JTQK_001f:
-    call leaf_loc_RPUI               ; 0x001f
-    retf                             ; 0x0022
+loc_LPSH.mouse_init1 equ loc_MMRI
+%include "shared/loc_LPSH.asm"               ; 0x0000
+
+loc_JTQK_0007.mouse_init_21 equ string_loc_OLGI
+%include "shared/loc_JTQK_0007.asm"          ; 0x0007
+
+loc_JTQK_000b.bios_mouse_loc1 equ leaf_loc_GJRP
+%include "shared/loc_JTQK_000b.asm"          ; 0x000b
+
+loc_JTQK_000f.leaf_loc1 equ loc_LGGU
+%include "shared/loc_JTQK_000f.asm"          ; 0x000f
+
+loc_JTQK_0013.bios_mouse_loc1 equ io_loc_QVTL
+%include "shared/loc_JTQK_0013.asm"          ; 0x0013
+
+loc_JTQK_0017.dos_read_file_31 equ bios_disk_loc_VOLH
+%include "shared/loc_JTQK_0017.asm"          ; 0x0017
+
+loc_JTQK_001b.graphics_loc1 equ leaf_loc_IQNG
+%include "shared/loc_JTQK_001b.asm"          ; 0x001b
+
+loc_JTQK_001f.dos_read_file1 equ leaf_loc_RPUI
+%include "shared/loc_JTQK_001f.asm"          ; 0x001f
+
 %include "play/loc_MMRI.asm"               ; 0x0023
 
 %include "play/asm_only/string_loc_OLGI.asm"        ; 0x00fe

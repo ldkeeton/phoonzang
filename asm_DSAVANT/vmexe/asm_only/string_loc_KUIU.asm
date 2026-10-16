@@ -90,7 +90,7 @@ loc_JNKN:
     mov ax, word [bp + 0x6]          ; 0x36ee
     mov word [bp - 0x01aa], ax       ; 0x36f1
     jmp short @..string_loc_KUIU.l11 ; 0x36f5
-loc_SSQU:
+loc_SSQU_36f7:
     mov ax, word [bp + 0x8]          ; 0x36f7
     mov word [bp - 0x01aa], ax       ; 0x36fa
     jmp short @..string_loc_KUIU.l11 ; 0x36fe
@@ -117,7 +117,7 @@ loc_GTUG:
 jumptable_372d:
     dw loc_GMLU - IMAGE_BASE + 0x5055          ; 0x372d
     dw loc_JNKN - IMAGE_BASE + 0x5055          ; 0x372f
-    dw loc_SSQU - IMAGE_BASE + 0x5055          ; 0x3731
+    dw loc_SSQU_36f7 - IMAGE_BASE + 0x5055     ; 0x3731
     dw loc_VJIL - IMAGE_BASE + 0x5055          ; 0x3733
     dw loc_KRJM - IMAGE_BASE + 0x5055          ; 0x3735
     dw loc_OOJH - IMAGE_BASE + 0x5055          ; 0x3737

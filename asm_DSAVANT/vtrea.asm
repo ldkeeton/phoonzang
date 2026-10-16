@@ -22,49 +22,9 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 loc_ITIN equ 0x34f1 + VBASE
-api_idx_0004_4ad8 equ 0x4ad8 + VBASE
 
-loc_IJTR:
-    mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
-    mov word [bss_9114], 0           ; 0x0014
-    mov word [bss_9116], 0xffff      ; 0x001a
-    mov word [bss_9118], 0           ; 0x0020
-    mov word [bss_911a], 0xffff      ; 0x0026
-    cmp word [bss_830a], byte 0x0f   ; 0x002c
-    jne short @..loc_IJTR.l1         ; 0x0031
-    mov word [bss_830a], 0x16        ; 0x0033
-    call api_idx_0050_MUIG           ; 0x0039
-    jmp short @..loc_IJTR.l6         ; 0x003c
-@..loc_IJTR.l1:
-    cmp word [bss_830a], byte 0x15   ; 0x003e
-    jne short @..loc_IJTR.l2         ; 0x0043
-    mov word [bss_830a], 0x16        ; 0x0045
-    call loc_PKHU                    ; 0x004b
-    jmp short @..loc_IJTR.l6         ; 0x004e
-@..loc_IJTR.l2:
-    cmp word [bss_830a], byte 0x1a   ; 0x0050
-    jne short @..loc_IJTR.l3         ; 0x0055
-    mov word [bss_830a], 5           ; 0x0057
-    call loc_UIQM                    ; 0x005d
-    jmp short @..loc_IJTR.l6         ; 0x0060
-@..loc_IJTR.l3:
-    cmp word [bss_830a], byte 0x1c   ; 0x0062
-    jne short @..loc_IJTR.l4         ; 0x0067
-    mov word [bss_830a], 5           ; 0x0069
-    call loc_PGGL                    ; 0x006f
-    jmp short @..loc_IJTR.l6         ; 0x0072
-@..loc_IJTR.l4:
-    cmp word [bss_830a], byte 0x1d   ; 0x0074
-    jne short @..loc_IJTR.l5         ; 0x0079
-    mov word [bss_830a], 5           ; 0x007b
-    call loc_HVOM                    ; 0x0081
-    jmp short @..loc_IJTR.l6         ; 0x0084
-@..loc_IJTR.l5:
-    mov word [bss_830a], 0x16        ; 0x0086
-@..loc_IJTR.l6:
-    mov ax, 0                        ; 0x008c
-    ret                              ; 0x008f
+%include "vtrea/loc_IJTR.asm"              ; 0x000e
+
 %include "vtrea/api_idx_0010_PVHV.asm"     ; 0x0090
 
 %include "vtrea/loc_GRQV.asm"              ; 0x0111
@@ -143,105 +103,13 @@ loc_HTKI.api_idx1 equ api_idx_0004_SLIS
 
 %include "shared/loc_QQUT.asm"              ; 0x4318
 
-loc_4582 equ 0x4582 + VBASE
-loc_4a4d equ 0x4a4d + VBASE
-loc_4a5e equ 0x4a5e + VBASE
-loc_UKKL equ 0x4ad7 + VBASE
-%include "vtrea/asm_only/api_idx_0008_NSVU.asm"     ; 0x4368
+%include "vtrea/asm_only/api_idx_0008_HJOM.asm"     ; 0x4368
 
-%include "vtrea/loc_RJUG.asm"              ; 0x4af7
+%include "vtrea/api_idx_0004_GKHR.asm"     ; 0x4ad8
 
-%include "vtrea/loc_TOJK.asm"              ; 0x4b1f
+%include "vtrea/api_idx_0092_GSQH.asm"     ; 0x4bcc
 
-%include "vtrea/loc_SJOU.asm"              ; 0x4b28
-
-%include "vtrea/loc_HNGP.asm"              ; 0x4bbe
-
-%include "vtrea/loc_JUSH.asm"              ; 0x4bcb
-
-%include "vtrea/api_idx_0092_4bcc.asm"     ; 0x4bcc
-
-%include "vtrea/loc_URLJ.asm"              ; 0x4bdd
-
-%include "vtrea/loc_RMPK.asm"              ; 0x4be2
-
-%include "vtrea/loc_GVPL.asm"              ; 0x4c0c
-
-%include "vtrea/loc_HLSR.asm"              ; 0x4c64
-
-%include "vtrea/loc_GPQI.asm"              ; 0x4c7e
-
-%include "vtrea/loc_UJKK.asm"              ; 0x4cf9
-
-%include "vtrea/loc_KRGN.asm"              ; 0x4d07
-
-%include "vtrea/loc_HUIT.asm"              ; 0x4d23
-
-%include "vtrea/loc_JJNJ.asm"              ; 0x4d31
-
-%include "vtrea/loc_QUHP.asm"              ; 0x4d3f
-
-%include "vtrea/loc_MHQS.asm"              ; 0x4d47
-
-%include "vtrea/loc_MVPM.asm"              ; 0x4d73
-
-%include "vtrea/loc_OQMG.asm"              ; 0x4d8a
-
-%include "vtrea/loc_PVON.asm"              ; 0x4dcc
-
-%include "vtrea/loc_LSOP.asm"              ; 0x4e35
-
-%include "vtrea/loc_NTSL.asm"              ; 0x4e73
-
-%include "vtrea/loc_LKVJ.asm"              ; 0x4e75
-
-%include "vtrea/loc_KSSG.asm"              ; 0x4eb0
-
-%include "vtrea/loc_UURV.asm"              ; 0x4ee5
-
-%include "vtrea/api_idx_007a_4f0c.asm"     ; 0x4f0c
-
-%include "vtrea/loc_QRGV.asm"              ; 0x4f2b
-
-%include "vtrea/loc_HJNU.asm"              ; 0x4f69
-
-%include "vtrea/loc_JPUH.asm"              ; 0x4f6e
-
-%include "vtrea/loc_QUKN.asm"              ; 0x501e
-
-%include "vtrea/loc_HLSU.asm"              ; 0x502d
-
-%include "vtrea/loc_QKII.asm"              ; 0x5069
-
-%include "vtrea/loc_RNOH.asm"              ; 0x506c
-
-%include "vtrea/loc_VORJ.asm"              ; 0x507b
-
-%include "vtrea/loc_SGTV.asm"              ; 0x5089
-
-%include "vtrea/loc_NMPS.asm"              ; 0x5095
-
-%include "vtrea/loc_RNNH.asm"              ; 0x50f2
-
-%include "vtrea/loc_PSRT.asm"              ; 0x5120
-
-%include "vtrea/loc_ROGI.asm"              ; 0x5123
-
-%include "vtrea/loc_PHUG.asm"              ; 0x5132
-
-%include "vtrea/loc_GTTM.asm"              ; 0x5140
-
-%include "vtrea/loc_VHKG.asm"              ; 0x5169
-
-%include "vtrea/loc_RSKJ.asm"              ; 0x5176
-
-%include "vtrea/loc_HLOK.asm"              ; 0x5187
-
-%include "vtrea/loc_IVUJ.asm"              ; 0x51b6
-
-%include "vtrea/loc_SKRJ.asm"              ; 0x51b8
-
-%include "vtrea/loc_JSQH.asm"              ; 0x51c6
+%include "vtrea/api_idx_007a_NHII.asm"     ; 0x4f0c
 
 %include "shared/api_idx_004c_RQSO.asm"     ; 0x51d7
 

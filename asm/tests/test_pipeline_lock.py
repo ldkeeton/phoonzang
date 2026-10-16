@@ -11,11 +11,14 @@ Run: ``make test`` from ``asm/``.
 import os
 import unittest
 
+from tests.slow import slow
+
 from flow import graph_stages, lock
 from lib.cachedirs import list_cached_projects
 
 
 class PipelineLockTests(unittest.TestCase):
+    @slow
     def test_stages_are_well_formed(self):
         _, problems = lock.scan()
         self.assertEqual(problems, [])
@@ -25,6 +28,7 @@ class PipelineLockTests(unittest.TestCase):
             self.skipTest('no pipeline.lock: run `make flow ARGS=--lock`')
         return lock.read()
 
+    @slow
     def test_lock_matches_source(self):
         found, _ = lock.scan()
         locked, _ = self._read_lock()

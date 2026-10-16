@@ -1,12 +1,16 @@
 import struct
 import unittest
+from types import SimpleNamespace
 
 import numpy as np
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib.model import JumpTableInfo
 from tests.syms import generated
-from lib.phases.recursive import _code_off, _scan_jump_table
+from lib.phases.recursive import (
+    _code_off, _inline_call_table, _scan_jump_table,
+)
+from lib.phases.aztec_switch import AZTEC_SWITCH_BODY, aztec_switch_layout
 from lib.verify.assemble import clear_assemble_cache, micro_assemble
 from lib.compare.render import (
     _build_source,
@@ -347,6 +351,84 @@ class TrampolineLookupTableTest(unittest.TestCase):
 
     def test_ignores_returning_helper(self):
         self.assertEqual(self._find('5bc3'), [])
+
+
+
+def _aztec_switch_image():
+    """``mov cx, 3; call helper`` + 2 keys + 3 targets, helper at 0x180.
+
+    MZ convention with ``start_offset`` 0x100: a CS word ``v`` addresses file
+    offset ``v + 0x100``.  Targets 0x40/0x50/0x60 -> files 0x140/0x150/0x160.
+    """
+    data = bytearray(0x200)
+    data[0x100:0x106] = bytes.fromhex('b90300e87a00')  # mov cx,3; call 0x180
+    struct.pack_into('<5H', data, 0x106, 0x0007, 0x0009, 0x40, 0x50, 0x60)
+    data[0x140:0x170] = b'\xc3' * 0x30
+    data[0x180:0x180 + len(AZTEC_SWITCH_BODY)] = AZTEC_SWITCH_BODY
+    return bytes(data)
+
+
+class InlineCallTableTests(unittest.TestCase):
+    """A non-returning call followed by an inline key/target table (plan.md D8).
+
+    The Aztec switch helper (``mov cx, N; call helper``) is followed by N-1
+    keys and N code targets; the decoder must stop at the call, carve the
+    table and queue the targets.  The recognizer is injected, so with none
+    registered the call is an ordinary call.
+    """
+
+    def _ctx(self, data):
+        return SimpleNamespace(hard_data=np.zeros(len(data), dtype=bool),
+                               start_offset=0x100, segments=None)
+
+    def _decode(self, data, recognizers=(aztec_switch_layout,)):
+        insns = _disassemble(data[0x100:0x106], 0x100)
+        return _inline_call_table(self._ctx(data), data, len(data),
+                                  insns[1], insns[0], recognizers)
+
+    def test_no_recognizer_no_table(self):
+        self.assertIsNone(self._decode(_aztec_switch_image(), ()))
+
+    def test_splits_keys_and_targets(self):
+        jt = self._decode(_aztec_switch_image())
+        self.assertEqual((jt.table_addr, jt.table_end, jt.keys),
+                         (0x106, 0x110, 2))
+        self.assertEqual(jt.targets, [0x140, 0x150, 0x160])
+
+    def test_refuses_without_mov_cx(self):
+        data = bytearray(_aztec_switch_image())
+        data[0x100:0x103] = bytes.fromhex('ba0300')  # mov dx, 3
+        self.assertIsNone(self._decode(bytes(data)))
+
+    def test_refuses_other_helper(self):
+        data = bytearray(_aztec_switch_image())
+        data[0x180:0x183] = bytes.fromhex('5bffe1')  # generic pop; jmp cx
+        self.assertIsNone(self._decode(bytes(data)))
+
+    def test_refuses_target_outside_image(self):
+        data = bytearray(_aztec_switch_image())
+        struct.pack_into('<H', data, 0x10e, 0xff00)
+        self.assertIsNone(self._decode(bytes(data)))
+
+    def test_keys_stay_literal_targets_resolve(self):
+        data = _aztec_switch_image()
+        jt = self._decode(data)
+        specs = _merge_jump_table_specs([jt], [], 0x100, len(data))
+        self.assertEqual(specs[0]['keys'], 2)
+        records = [{'type': 'data_block', 'start': 0x106, 'end': 0x110,
+                    'bytes': []}]
+        names = {0x140: generated('case_a', 0x140), 0x150: generated('case_b', 0x150),
+                 0x160: generated('case_c', 0x160)}
+        label_map = dict(names)
+        out, _, _ = _inject_jump_tables(records, specs, data, 0x100,
+                                        label_map, {})
+        table = next(r for r in out if r['type'] == 'jump_table')
+        self.assertEqual(table['entries'],
+                         [0x0007, 0x0009, names[0x140], names[0x150], names[0x160]])
+        lines = '\n'.join(_render_records(out, data, show_offsets=True))
+        self.assertIn('dw 0x0007', lines)
+        self.assertRegex(lines, r'dw 0x0009\s+; 0x0108 ; literal')
+        self.assertRegex(lines, r'dw case_a_0140 - IMAGE_BASE\s+; 0x010a\n')
 
 
 if __name__ == '__main__':

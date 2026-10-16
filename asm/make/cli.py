@@ -21,7 +21,7 @@ HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
   make init                 sparse-clone only the dos_compilers folders listed in sidecars
-  make all                  prebuild (clean + Aztec mux), build, verify all projects
+  make all                  prebuild (clean + Aztec mux), build, verify all projects, then make test
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
   make prebuild [PROJECT...]  clean, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
@@ -39,7 +39,8 @@ Commands (space-separated):
   make charts               regenerate all PNGs + CSVs from existing stats
   make readme               regenerate README.md + readme/heatmap.svg
   make test [TEST...]       run the unit test suite in asm/tests (optionally
-                            only the named dotted tests)
+                            only the named dotted tests); skips @slow tests
+  make test slow            run only the @slow tests (>= 100 ms)
 
 Env:
   EXTRA_FLAGS               space-separated flags forwarded to python -m main:
@@ -81,6 +82,7 @@ def main():
             cmd_prebuild(project)
         _build_projects(all_projects, all_projects, clean=False, prebuild=False)
         cmd_verify([])
+        cmd_test([])
         return
 
     if '--init' in flags:

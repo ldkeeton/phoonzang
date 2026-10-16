@@ -9,174 +9,145 @@ IMAGE_BASE equ -0x0100
 
 data_1e64 equ __zdata_1e64 - IMAGE_BASE
 
-loc_LPSH:
-    jmp near loc_JTQK_0003           ; 0x0000
-loc_JTQK_0003:
-    call mouse_init                  ; 0x0003
-    retf                             ; 0x0006
-loc_JTQK_0007:
-    call mouse_init_2                ; 0x0007
-    retf                             ; 0x000a
-loc_JTQK_000b:
-    call bios_mouse_loc_TVOK         ; 0x000b
-    retf                             ; 0x000e
-loc_JTQK_000f:
-    call leaf_loc_LMQV               ; 0x000f
-    retf                             ; 0x0012
-loc_JTQK_0013:
-    call bios_mouse_loc_USQU         ; 0x0013
-    retf                             ; 0x0016
-loc_JTQK_0017:
-    call dos_read_file_3             ; 0x0017
-    retf                             ; 0x001a
-loc_JTQK_001b:
-    call graphics_loc_OLQQ           ; 0x001b
-    retf                             ; 0x001e
-loc_JTQK_001f:
-    call dos_read_file               ; 0x001f
-    retf                             ; 0x0022
-loc_JTQK_0023:
-    call dos_read_file_2             ; 0x0023
-    retf                             ; 0x0026
-loc_JTQK_0027:
-    call dos_print_str               ; 0x0027
-    retf                             ; 0x002a
-loc_JTQK_002b:
-    call leaf_loc_UQHV               ; 0x002b
-    retf                             ; 0x002e
-loc_JTQK_002f:
-    call graphics_loc_IOKK           ; 0x002f
-    retf                             ; 0x0032
-loc_JTQK_0033:
-    call leaf_loc_LMRM               ; 0x0033
-    retf                             ; 0x0036
-loc_JTQK_0037:
-    call leaf_loc_UNNV               ; 0x0037
-    retf                             ; 0x003a
-loc_JTQK_003b:
-    call leaf_loc_OITH               ; 0x003b
-    retf                             ; 0x003e
-loc_JTQK_003f:
-    call leaf_loc_TKRV               ; 0x003f
-    retf                             ; 0x0042
-loc_JTQK_0043:
-    call loc_QVUN                    ; 0x0043
-    retf                             ; 0x0046
-loc_JTQK_0047:
-    call leaf_loc_QSOP               ; 0x0047
-    retf                             ; 0x004a
-loc_JTQK_004b:
-    call leaf_loc_GHVP               ; 0x004b
-    retf                             ; 0x004e
-loc_JTQK_004f:
-    call string_loc_RQOL             ; 0x004f
-    retf                             ; 0x0052
-loc_JTQK_0053:
-    call dos_alloc_mem               ; 0x0053
-    retf                             ; 0x0056
-loc_JTQK_0057:
-    call dos_free_mem                ; 0x0057
-    retf                             ; 0x005a
-loc_JTQK_005b:
-    call loc_QNIQ                    ; 0x005b
-    retf                             ; 0x005e
-loc_JTQK_005f:
-    call bios_mouse_loc_RKQL         ; 0x005f
-    retf                             ; 0x0062
-loc_JTQK_0063:
-    call dos_print_str_2             ; 0x0063
-    retf                             ; 0x0066
-loc_JTQK_0067:
-    call leaf_loc_ILKH               ; 0x0067
-    retf                             ; 0x006a
-loc_JTQK_006b:
-    call dos_write_file              ; 0x006b
-    retf                             ; 0x006e
-loc_JTQK_006f:
-    call loc_JTQT                    ; 0x006f
-    retf                             ; 0x0072
-loc_JTQK_0073:
-    call bios_video_loc_KVON         ; 0x0073
-    retf                             ; 0x0076
-loc_JTQK_0077:
-    call bios_video_loc_TVOT         ; 0x0077
-    retf                             ; 0x007a
-loc_JTQK_007b:
-    call dos_free_mem_2              ; 0x007b
-    retf                             ; 0x007e
-loc_JTQK_007f:
-    call dos_free_mem_3              ; 0x007f
-    retf                             ; 0x0082
-loc_JTQK_0083:
-    call dos_free_mem_4              ; 0x0083
-    retf                             ; 0x0086
-loc_JTQK_0087:
-    call bios_mouse_loc_PRLT         ; 0x0087
-    retf                             ; 0x008a
-loc_JTQK_008b:
-    call bios_mouse_loc_JLUV         ; 0x008b
-    retf                             ; 0x008e
-loc_JTQK_008f:
-    call loc_NRVQ                    ; 0x008f
-    retf                             ; 0x0092
-loc_JTQK_0093:
-    call loc_ROPT                    ; 0x0093
-    retf                             ; 0x0096
-loc_JTQK_0097:
-    call leaf_loc_IPJP               ; 0x0097
-    retf                             ; 0x009a
-loc_JTQK_009b:
-    call leaf_loc_PIJK               ; 0x009b
-    retf                             ; 0x009e
-loc_JTQK_009f:
-    call dos_write_file_2            ; 0x009f
-    retf                             ; 0x00a2
-loc_JTQK_00a3:
-    call dos_mem_loc_NGNH            ; 0x00a3
-    retf                             ; 0x00a6
-loc_JTQK_00a7:
-    call dos_read_file_4             ; 0x00a7
-    retf                             ; 0x00aa
-loc_JTQK_00ab:
-    call dos_read_file_5             ; 0x00ab
-    retf                             ; 0x00ae
-loc_JTQK_00af:
-    call dos_file_loc_JRGK           ; 0x00af
-    retf                             ; 0x00b2
-loc_JTQK_00b3:
-    call dos_read_file_6             ; 0x00b3
-    retf                             ; 0x00b6
-loc_JTQK_00b7:
-    call loc_ISSO                    ; 0x00b7
-    retf                             ; 0x00ba
-loc_JTQK_00bb:
-    call loc_SRSO                    ; 0x00bb
-    retf                             ; 0x00be
-loc_JTQK_00bf:
-    call loc_LSLP                    ; 0x00bf
-    retf                             ; 0x00c2
-loc_JTQK_00c3:
-    call loc_HOSM                    ; 0x00c3
-    retf                             ; 0x00c6
-loc_JTQK_00c7:
-    call dos_read_file_7             ; 0x00c7
-    retf                             ; 0x00ca
-loc_JTQK_00cb:
-    call loc_RKRU                    ; 0x00cb
-    retf                             ; 0x00ce
-loc_JTQK_00cf:
-    call loc_VHQQ                    ; 0x00cf
-    retf                             ; 0x00d2
-loc_JTQK_00d3:
-    call loc_PORS_4866               ; 0x00d3
-    retf                             ; 0x00d6
-loc_JTQK_00d7:
-    call loc_PORS_487e               ; 0x00d7
-    retf                             ; 0x00da
-loc_JULP:
-    call loc_MMLT                    ; 0x00db
-    retf                             ; 0x00de
-    db 0x80, 0x41
+loc_LPSH.mouse_init1 equ mouse_init
+%include "shared/loc_LPSH.asm"                ; 0x0000
+
+loc_JTQK_0007.mouse_init_21 equ mouse_init_2
+%include "shared/loc_JTQK_0007.asm"           ; 0x0007
+
+loc_JTQK_000b.bios_mouse_loc1 equ bios_mouse_loc_TVOK
+%include "shared/loc_JTQK_000b.asm"           ; 0x000b
+
+loc_JTQK_000f.leaf_loc1 equ leaf_loc_LMQV
+%include "shared/loc_JTQK_000f.asm"           ; 0x000f
+
+loc_JTQK_0013.bios_mouse_loc1 equ bios_mouse_loc_USQU
+%include "shared/loc_JTQK_0013.asm"           ; 0x0013
+
+loc_JTQK_0017.dos_read_file_31 equ dos_read_file_3
+%include "shared/loc_JTQK_0017.asm"           ; 0x0017
+
+loc_JTQK_001b.graphics_loc1 equ graphics_loc_OLQQ
+%include "shared/loc_JTQK_001b.asm"           ; 0x001b
+
+loc_JTQK_001f.dos_read_file1 equ dos_read_file
+%include "shared/loc_JTQK_001f.asm"           ; 0x001f
+
+%include "shared/loc_JTQK_0023.asm"           ; 0x0023
+
+%include "shared/loc_JTQK_0027.asm"           ; 0x0027
+
+%include "shared/loc_JTQK_002b.asm"           ; 0x002b
+
+%include "shared/loc_JTQK_002f.asm"           ; 0x002f
+
+loc_JTQK_0033.leaf_loc1 equ leaf_loc_LMRM
+%include "shared/loc_JTQK_0033.asm"           ; 0x0033
+
+loc_JTQK_0037.leaf_loc1 equ leaf_loc_UNNV
+%include "shared/loc_JTQK_0037.asm"           ; 0x0037
+
+loc_JTQK_003b.leaf_loc1 equ leaf_loc_OITH
+%include "shared/loc_JTQK_003b.asm"           ; 0x003b
+
+loc_JTQK_003f.leaf_loc1 equ leaf_loc_TKRV
+%include "shared/loc_JTQK_003f.asm"           ; 0x003f
+
+loc_JTQK_0043.loc1 equ loc_QVUN
+%include "shared/loc_JTQK_0043.asm"           ; 0x0043
+
+%include "shared/loc_JTQK_0047.asm"           ; 0x0047
+
+%include "shared/loc_JTQK_004b.asm"           ; 0x004b
+
+loc_JTQK_004f.string_loc1 equ string_loc_RQOL
+%include "shared/loc_JTQK_004f.asm"           ; 0x004f
+
+%include "shared/loc_JTQK_0053.asm"           ; 0x0053
+
+%include "shared/loc_JTQK_0057.asm"           ; 0x0057
+
+%include "shared/loc_JTQK_005b.asm"           ; 0x005b
+
+%include "shared/loc_JTQK_005f.asm"           ; 0x005f
+
+%include "shared/loc_JTQK_0063.asm"           ; 0x0063
+
+%include "shared/loc_JTQK_0067.asm"           ; 0x0067
+
+%include "shared/loc_JTQK_006b.asm"           ; 0x006b
+
+loc_JTQK_006f.graphics_loc1 equ loc_JTQT
+%include "shared/loc_JTQK_006f.asm"           ; 0x006f
+
+loc_JTQK_0073.leaf_loc1 equ bios_video_loc_KVON
+%include "shared/loc_JTQK_0073.asm"           ; 0x0073
+
+loc_JTQK_0077.leaf_loc1 equ bios_video_loc_TVOT
+%include "shared/loc_JTQK_0077.asm"           ; 0x0077
+
+loc_JTQK_007b.leaf_loc1 equ dos_free_mem_2
+%include "shared/loc_JTQK_007b.asm"           ; 0x007b
+
+loc_JTQK_007f.leaf_loc1 equ dos_free_mem_3
+%include "shared/loc_JTQK_007f.asm"           ; 0x007f
+
+loc_JTQK_0083.leaf_loc1 equ dos_free_mem_4
+%include "shared/loc_JTQK_0083.asm"           ; 0x0083
+
+%include "shared/loc_JTQK_0087.asm"           ; 0x0087
+
+%include "shared/loc_JTQK_008b.asm"           ; 0x008b
+
+loc_JTQK_008f.loc1 equ loc_NRVQ
+%include "shared/loc_JTQK_008f.asm"           ; 0x008f
+
+%include "shared/loc_JTQK_0093.asm"           ; 0x0093
+
+%include "shared/loc_JTQK_0097.asm"           ; 0x0097
+
+loc_JTQK_009b.leaf_loc1 equ leaf_loc_PIJK
+%include "shared/loc_JTQK_009b.asm"           ; 0x009b
+
+%include "shared/loc_JTQK_009f.asm"           ; 0x009f
+
+%include "shared/loc_JTQK_00a3.asm"           ; 0x00a3
+
+%include "shared/loc_JTQK_00a7.asm"           ; 0x00a7
+
+%include "shared/loc_JTQK_00ab.asm"           ; 0x00ab
+
+loc_JTQK_00af.dos_file_loc1 equ dos_file_loc_JRGK
+%include "shared/loc_JTQK_00af.asm"           ; 0x00af
+
+%include "shared/loc_JTQK_00b3.asm"           ; 0x00b3
+
+loc_JTQK_00b7.loc1 equ loc_ISSO
+%include "shared/loc_JTQK_00b7.asm"           ; 0x00b7
+
+loc_JTQK_00bb.loc1 equ loc_SRSO
+%include "shared/loc_JTQK_00bb.asm"           ; 0x00bb
+
+%include "shared/loc_JTQK_00bf.asm"           ; 0x00bf
+
+%include "shared/loc_JTQK_00c3.asm"           ; 0x00c3
+
+%include "shared/loc_JTQK_00c7.asm"           ; 0x00c7
+
+loc_JTQK_00cb.loc1 equ loc_RKRU
+%include "shared/loc_JTQK_00cb.asm"           ; 0x00cb
+
+loc_JTQK_00cf.loc1 equ loc_VHQQ
+%include "shared/loc_JTQK_00cf.asm"           ; 0x00cf
+
+loc_JTQK_00d3.loc1 equ loc_PORS_4866
+%include "shared/loc_JTQK_00d3.asm"           ; 0x00d3
+
+loc_JTQK_00d7.loc1 equ loc_PORS_487e
+%include "shared/loc_JTQK_00d7.asm"           ; 0x00d7
+
+%include "shared/loc_JULP.asm"                ; 0x00db
+
 cseg_00e1:
     db 0x00, 0x00, 0x00, 0x10
 cseg_00e5:

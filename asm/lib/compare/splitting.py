@@ -35,7 +35,8 @@ def _file_stem(name):
 
 def _select_split_ranges(label_map, split_functions, func_boundaries=None,
                          binary_size=None, c_override_lengths=None,
-                         declared_roots=None):
+                         declared_roots=None, code_end=None,
+                         code_start=None):
     """Select named function boundaries, ending each at the next split root.
 
     Starts come straight from the label offsets so a function's file always
@@ -49,6 +50,16 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
     with (D7.2c-2d).  Undeclared bare ``loc_`` names stay address labels and keep
     sharing their neighbour's fragment -- otherwise the ~1600 internal branch
     targets in the tree would each become a file.
+
+    The last root has no successor to end it, so its heuristic boundary
+    (``func_boundaries``: the first ``ret``, at most 512 bytes) would strand the
+    rest of the code in the master file.  *code_end* (the end of the last decoded
+    instruction) lets it run to the end of the code instead;
+    ``_split_off_foreign_objects`` then cuts the neighbours it swallowed.
+
+    Code before the first root (an overlay's entry routine, right after its
+    header) has no predecessor to cut it, so when *code_start* (the first decoded
+    instruction) carries a code label it starts a range of its own.
 
     Functions that have a C override own exactly ``length`` bytes; their split
     range is capped there so non-C data after the routine stays in the master
@@ -65,6 +76,11 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
              or (name in requested
                  and not is_address_label(name)))
     )
+
+    name = (label_map or {}).get(code_start)
+    if (selected and code_start is not None and code_start < selected[0][0]
+            and name is not None and not is_data(name)):
+        selected.insert(0, (code_start, name))
 
     # A split root strictly inside a C routine's own recovered extent (e.g. the
     # one-instruction ``jmp`` exit tail a routine's branches share) is part of
@@ -84,6 +100,8 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
             original_end = None
             if func_boundaries and start in func_boundaries:
                 original_end = func_boundaries[start][0]
+                if code_end is not None and code_end > original_end:
+                    original_end = code_end
             if original_end is None:
                 original_end = binary_size
         capped = None
@@ -231,6 +249,12 @@ def _split_off_foreign_objects(split_ranges, records, owners=None):
         cuts = []
         for label, offset in defs.items():
             if not own_end <= offset < end:
+                continue
+            # A switch arm is the dispatching routine's code, reached through a
+            # ``jump_table`` record (which names it without any ``text``).
+            # Cutting here would strand the tail in the master file, since an
+            # arm can never root a fragment of its own.
+            if label.role == 'case':
                 continue
             # A tail label the range's own code never names is a neighbour: it is
             # referenced from outside (a blob, a bare ``loc_`` callee) or not at

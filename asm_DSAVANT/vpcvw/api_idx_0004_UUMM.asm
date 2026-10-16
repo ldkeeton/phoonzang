@@ -96,7 +96,7 @@ api_idx_0004_UUMM:
     push word [bp - 0x0004]          ; 0x3a5a
     push word [bp - 0x0002]          ; 0x3a5d
     push word [bp + 0x4]             ; 0x3a60
-    call api_idx_0008_TIPJ           ; 0x3a63
+    call api_idx_0008_NOPG           ; 0x3a63
     add sp, byte 8                   ; 0x3a66
 @..api_idx_0004_UUMM.l6:
     ret                              ; 0x3a69

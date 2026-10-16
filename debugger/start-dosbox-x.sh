@@ -64,7 +64,8 @@ output = $SDL_OUTPUT
 quit warning = false
 
 [cpu]
-cputype = 386
+cycles = max
+turbo = false
 
 [autoexec]
 @echo off

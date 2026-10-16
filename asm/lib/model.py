@@ -55,6 +55,9 @@ class JumpTableInfo:
     validated: bool = False
     validation_ok: bool = False
     table_end: int = 0
+    # Leading words that are switch keys, not code pointers (an inline
+    # key/target table read by a non-returning call).
+    keys: int = 0
 
 
 class PhaseContext:

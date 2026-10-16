@@ -56,7 +56,7 @@ loc_GMUI:
     push ax                          ; 0x2b55
     push word [bp - 0x0004]          ; 0x2b56
     push word [bss_69c8]             ; 0x2b59
-    call api_idx_004c_MNLG           ; 0x2b5d
+    call api_idx_004c_PNQN           ; 0x2b5d
     add sp, byte 0x0a                ; 0x2b60
     inc word [bp - 0x0018]           ; 0x2b63
 loc_IMMP:
@@ -78,7 +78,7 @@ loc_IMMP:
     push ax                          ; 0x2b8c
     push word [bp - 0x0006]          ; 0x2b8d
     push word [bss_69c8]             ; 0x2b90
-    call api_idx_004c_MNLG           ; 0x2b94
+    call api_idx_004c_PNQN           ; 0x2b94
     add sp, byte 0x0a                ; 0x2b97
     inc word [bp - 0x0018]           ; 0x2b9a
 loc_JJRR:
@@ -152,7 +152,7 @@ loc_PRVO:
     push ax                          ; 0x2c3b
     push word [bp - 0x0006]          ; 0x2c3c
     push word [bss_69c8]             ; 0x2c3f
-    call api_idx_004c_MNLG           ; 0x2c43
+    call api_idx_004c_PNQN           ; 0x2c43
     add sp, byte 0x0a                ; 0x2c46
     inc word [bp - 0x0018]           ; 0x2c49
     mov ax, word [bp - 0x0018]       ; 0x2c4c
@@ -239,7 +239,7 @@ loc_OTKK:
     push ax                          ; 0x2d08
     push word [bp - 0x0006]          ; 0x2d09
     push word [bss_69c8]             ; 0x2d0c
-    call api_idx_004c_MNLG           ; 0x2d10
+    call api_idx_004c_PNQN           ; 0x2d10
     add sp, byte 0x0a                ; 0x2d13
     inc word [bp - 0x0018]           ; 0x2d16
     mov ax, word [bp - 0x0018]       ; 0x2d19
@@ -303,7 +303,7 @@ loc_UQQS:
     push ax                          ; 0x2da0
     push word [bp - 0x0006]          ; 0x2da1
     push word [bss_69c8]             ; 0x2da4
-    call api_idx_004c_MNLG           ; 0x2da8
+    call api_idx_004c_PNQN           ; 0x2da8
     add sp, byte 0x0a                ; 0x2dab
 loc_VJIN:
     inc word [bss_69c8]              ; 0x2dae
@@ -461,7 +461,7 @@ loc_MUNN:
 loc_NOGQ:
     cmp word [bp - 0x001a], byte 0xff ; 0x2f63
     jne short loc_PTUO               ; 0x2f67
-    jmp near loc_PKOU                ; 0x2f69
+    jmp near loc_PKOU_2feb           ; 0x2f69
 loc_PTUO:
     mov ax, 1                        ; 0x2f6c
     push ax                          ; 0x2f6f
@@ -514,6 +514,6 @@ loc_PTUO:
     mov word [bss_8f30], ax          ; 0x2fe2
     mov ax, word [bss_830c]          ; 0x2fe5
     mov word [bss_8f3c], ax          ; 0x2fe8
-loc_PKOU:
+loc_PKOU_2feb:
     mov ax, 0                        ; 0x2feb
     ret                              ; 0x2fee

@@ -22,15 +22,8 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-loc_PTRJ:
-    mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
-    cmp word [bss_830a], byte 0x0c   ; 0x0014
-    jne short @..loc_PTRJ.l1         ; 0x0019
-    call api_idx_0004_PPTR           ; 0x001b
-@..loc_PTRJ.l1:
-    mov ax, 0                        ; 0x001e
-    ret                              ; 0x0021
+%include "vpops/loc_PTRJ.asm"              ; 0x000e
+
 %include "shared/api_idx_002a_STSK.asm"     ; 0x0022
 
 %include "shared/api_idx_000a_QJGP.asm"     ; 0x00cb
@@ -118,29 +111,8 @@ loc_HTKI.api_idx1 equ api_idx_0004_LUOM
 
 %include "vpops/api_idx_0004_PPTR.asm"     ; 0x4e3b
 
-loc_JHJT:
-    pop word [dseg_90d4]             ; 0x4e9d
-    pop cx                           ; 0x4ea1
-    mov word [dseg_90d0], sp         ; 0x4ea2
-    mov word [dseg_90d2], bp         ; 0x4ea6
-    mov word [dseg_90cc], si         ; 0x4eaa
-    mov word [dseg_90ce], di         ; 0x4eae
-    cld                              ; 0x4eb2
-    mov di, bss_90d6                 ; 0x4eb3
-    mov cx, 0x938e                   ; 0x4eb6
-    sub cx, di                       ; 0x4eb9
-    shr cx, 1                        ; 0x4ebb
-    je short @..loc_JHJT.l1          ; 0x4ebd
-    sub ax, ax                       ; 0x4ebf
-    rep stosw                        ; 0x4ec1
-@..loc_JHJT.l1:
-    call loc_PTRJ                    ; 0x4ec3
-    mov bp, word [dseg_90d2]         ; 0x4ec6
-    mov sp, word [dseg_90d0]         ; 0x4eca
-    mov si, word [dseg_90cc]         ; 0x4ece
-    mov di, word [dseg_90ce]         ; 0x4ed2
-    push cx                          ; 0x4ed6
-    jmp [dseg_90d4]                  ; 0x4ed7
+%include "vpops/asm_only/loc_JHJT.asm"              ; 0x4e9d
+
 __zdata_start:
 
     db 'V1.$$$', 0

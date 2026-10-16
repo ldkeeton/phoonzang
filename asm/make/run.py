@@ -35,6 +35,8 @@ def _dosbox_flags():
         '-nomenu',
         '-nopromptfolder',
         '-set', 'dosbox quit warning=false',
+        '-set', 'cpu cycles=max',
+        '-set', 'cpu turbo=false',
     ]
 
 

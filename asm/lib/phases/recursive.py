@@ -217,6 +217,47 @@ def _validate_jump_tables(ctx, data, n, result, md):
                 result[j] = _CONF_JT_DATA
 
 
+def _inline_call_table(ctx, data, n, call, prev, recognizers):
+    """The inline key/target table after a non-returning *call*, or None.
+
+    Each recognizer takes ``(data, call, prev)`` -- a direct near call and the
+    instruction before it -- and returns the ``(keys, targets)`` word counts
+    of the table that follows the call, or None (e.g.
+    ``lib.phases.aztec_switch.aztec_switch_layout``).  Returns a
+    ``JumpTableInfo`` whose first ``keys`` words are switch keys and whose
+    remaining words are code targets (file offsets in ``targets``).  Refuses
+    -- returns None -- unless every target word lands in the image, so a
+    misread count never turns data into code roots.
+    """
+    if not recognizers or is_indirect(call) or call.bytes[:1] != b'\xe8':
+        return None
+    layout = None
+    for recognize in recognizers:
+        layout = recognize(data, call, prev)
+        if layout is not None:
+            break
+    if layout is None:
+        return None
+    keys, slots = layout
+    if keys < 0 or slots < 1:
+        return None
+    start = call.address + call.size
+    end = start + 2 * (keys + slots)
+    if end > n or ctx.hard_data[start:end].any():
+        return None
+    targets = []
+    for i in range(slots):
+        value = struct.unpack_from('<H', data, start + 2 * (keys + i))[0]
+        target = _code_off(ctx, value)
+        if not (0 <= target < n) or start <= target < end:
+            return None
+        targets.append(target)
+    return JumpTableInfo(
+        table_addr=start, jmp_addr=call.address, targets=sorted(set(targets)),
+        max_index=keys + slots - 1, table_end=end, keys=keys,
+    )
+
+
 def _infer_exit_type(insn):
     mnem = insn.mnemonic
     if mnem in _TERMINATORS:
@@ -245,9 +286,13 @@ class RecursiveDescentPhase(Phase):
         requires_binary=True,
     )
 
-    def __init__(self, input_slot='seed', output_slot='recursive'):
+    def __init__(self, input_slot='seed', output_slot='recursive',
+                 inline_tables=()):
         self.input_slot = input_slot
         self.output_slot = output_slot
+        # Toolchain recognizers for non-returning calls followed by an inline
+        # key/target table (see ``_inline_call_table``).
+        self.inline_tables = tuple(inline_tables)
 
     def run(self, input_col, ctx):
         data = ctx.binary_data
@@ -401,6 +446,7 @@ class RecursiveDescentPhase(Phase):
             fork_exits = []
             spec_start = off
             gen = md.disasm(data[off:], off)
+            last_insn = None
 
             while off < n:
                 if ctx.is_hard_data(off):
@@ -436,6 +482,7 @@ class RecursiveDescentPhase(Phase):
                 except StopIteration:
                     break
 
+                prev_insn, last_insn = last_insn, insn
                 insn_end = insn.address + insn.size
                 mnem = insn.mnemonic
 
@@ -515,6 +562,36 @@ class RecursiveDescentPhase(Phase):
                                         _CONF_CALL_CODE,
                                         source_offset=insn.address)
                             fork_exits[-1] = 'jmp'
+                    break
+
+                swt = (_inline_call_table(ctx, data, n, insn, prev_insn,
+                                          self.inline_tables)
+                       if mnem == 'call' else None)
+                if swt is not None:
+                    # The helper never returns: the bytes after the call are
+                    # its key/target table, and the targets are the case arms.
+                    fork_ranges.append((spec_start, insn_end))
+                    fork_exits.append('jmp_indirect')
+                    helper = get_imm_target(insn)
+                    worklist.append(helper)
+                    _add_target(ctx, helper, 'direct_call', _CONF_CALL_CODE,
+                                source_offset=insn.address)
+                    for t in swt.targets:
+                        if not ctx.is_hard_data(t):
+                            worklist.append(t)
+                            _add_target(ctx, t, 'jt_target', _CONF_JT_CODE,
+                                        source_offset=insn.address)
+                    for j in range(swt.table_addr, swt.table_end):
+                        result[j] = _CONF_JT_DATA
+                        data_boundary[j] = _CONF_JT_DATA
+                    if all(jt.table_addr != swt.table_addr
+                           for jt in ctx.jump_tables):
+                        ctx.jump_tables.append(swt)
+                    if tlog:
+                        tlog.event('recursive', 'inline_call_table',
+                                   iteration=ctx.iteration, addr=insn.address,
+                                   table=swt.table_addr, end=swt.table_end,
+                                   keys=swt.keys, targets=swt.targets[:20])
                     break
 
                 if mnem in _CALLS:

@@ -15,7 +15,7 @@ jumptable_883a:
     dw leaf_loc_TUGO - IMAGE_BASE + 0x5055     ; 0x8846
     dw leaf_loc_QOMJ - IMAGE_BASE + 0x5055     ; 0x8848
     dw leaf_loc_PRNP - IMAGE_BASE + 0x5055     ; 0x884a
-@..api_idx_00ac_HRGR.l74:
+loc_SUQU:
     cmp ax, strict word 9            ; 0x884c
     jae short loc_SJSL               ; 0x884f
     xchg bx, ax                      ; 0x8851
@@ -33,9 +33,9 @@ loc_SJSL:
     jne short loc_KTHU               ; 0x8870
     mov ax, 0xa                      ; 0x8872
     cmp word [bp - 0x005a], byte 0x0a ; 0x8875
-    jle short loc_IGJU               ; 0x8879
+    jle short loc_IGJU_887e          ; 0x8879
     mov ax, word [bp - 0x005a]       ; 0x887b
-loc_IGJU:
+loc_IGJU_887e:
     mov word [bp - 0x005a], ax       ; 0x887e
     mov word [bp - 0x009a], 2        ; 0x8881
 loc_KTHU:

@@ -21,20 +21,9 @@ IMAGE_BASE equ 0x000e + VBASE
     dw loc_ILSJ - IMAGE_BASE + __zres_end ; 0xe835 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-loc_SNGI equ 0x7736 + VBASE
-loc_TJRI equ 0x7738 + VBASE
 
-loc_HLJG:
-    mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
-    cmp word [bss_830a], byte 0x11   ; 0x0014
-    jne short @..loc_HLJG.l1         ; 0x0019
-    push word [bss_8af0]             ; 0x001b
-    call api_idx_0014_VORK           ; 0x001f
-    pop cx                           ; 0x0022
-@..loc_HLJG.l1:
-    mov ax, 0                        ; 0x0023
-    ret                              ; 0x0026
+%include "vpcvw/loc_HLJG.asm"              ; 0x000e
+
 %include "shared/api_idx_0002_OOKN.asm"     ; 0x0027
 
 %include "shared/api_idx_000e_TIOP.asm"     ; 0x008b
@@ -83,20 +72,7 @@ api_idx_000a_TITQ.bss4 equ bss_9430
 
 %include "shared/loc_QQUT.asm"              ; 0x21ad
 
-loc_23fd equ 0x23fd + VBASE
-loc_2924 equ 0x2924 + VBASE
-loc_2933 equ 0x2933 + VBASE
-loc_293d equ 0x293d + VBASE
-loc_2940 equ 0x2940 + VBASE
-loc_2941 equ 0x2941 + VBASE
-loc_294c equ 0x294c + VBASE
-loc_297d equ 0x297d + VBASE
-loc_29b2 equ 0x29b2 + VBASE
-loc_29b3 equ 0x29b3 + VBASE
-loc_29c3 equ 0x29c3 + VBASE
-loc_29d6 equ 0x29d6 + VBASE
-loc_29e4 equ 0x29e4 + VBASE
-%include "vpcvw/asm_only/api_idx_0008_TIPJ.asm"     ; 0x21fd
+%include "vpcvw/asm_only/api_idx_0008_NOPG.asm"     ; 0x21fd
 
 %include "vpcvw/api_idx_0004_NONK.asm"     ; 0x297e
 
@@ -217,7 +193,7 @@ api_idx_0080_MHMQ.api_idx1 equ api_idx_0012_PJTU
 
 %include "vpcvw/io_loc_JRGQ.asm"           ; 0x7410
 
-%include "vpcvw/io_loc_RNQT.asm"           ; 0x7415
+%include "vpcvw/io_loc_KPVS.asm"           ; 0x7415
 
 %include "vpcvw/api_idx_0004_IKOQ.asm"     ; 0x82da
 
@@ -239,268 +215,10 @@ api_idx_0002_OGRO.bss2 equ bss_93f6
 
 %include "vpcvw/loc_PGKG.asm"              ; 0x902e
 
-jumptable_9188_case_0:
-    push word [bp + 0x8]             ; 0x903a
-    mov ax, 0x92e8                   ; 0x903d
-    push ax                          ; 0x9040
-    push word [bp + 0x6]             ; 0x9041
-    push word [bp + 0x4]             ; 0x9044
-    call api_idx_0002_LTGI           ; 0x9047
-    add sp, byte 8                   ; 0x904a
-    jmp near @..loc_PGKG.l4          ; 0x904d
-jumptable_9188_case_1:
-    push word [bp + 0x8]             ; 0x9050
-    mov ax, 0x92f1                   ; 0x9053
-    push ax                          ; 0x9056
-    push word [bp + 0x6]             ; 0x9057
-    push word [bp + 0x4]             ; 0x905a
-    call api_idx_0002_LTGI           ; 0x905d
-    add sp, byte 8                   ; 0x9060
-    jmp near @..loc_PGKG.l4          ; 0x9063
-jumptable_9188_case_2:
-    push word [bp + 0x8]             ; 0x9066
-    mov ax, 0x92fa                   ; 0x9069
-    push ax                          ; 0x906c
-    push word [bp + 0x6]             ; 0x906d
-    push word [bp + 0x4]             ; 0x9070
-    call api_idx_0002_LTGI           ; 0x9073
-    add sp, byte 8                   ; 0x9076
-    jmp near @..loc_PGKG.l4          ; 0x9079
-jumptable_9188_case_3:
-    push word [bp + 0x8]             ; 0x907c
-    mov ax, 0x9303                   ; 0x907f
-    push ax                          ; 0x9082
-    push word [bp + 0x6]             ; 0x9083
-    push word [bp + 0x4]             ; 0x9086
-    call api_idx_0002_LTGI           ; 0x9089
-    add sp, byte 8                   ; 0x908c
-    jmp near @..loc_PGKG.l4          ; 0x908f
-jumptable_9188_case_4:
-    push word [bp + 0x8]             ; 0x9092
-    mov ax, 0x930c                   ; 0x9095
-    push ax                          ; 0x9098
-    push word [bp + 0x6]             ; 0x9099
-    push word [bp + 0x4]             ; 0x909c
-    call api_idx_0002_LTGI           ; 0x909f
-    add sp, byte 8                   ; 0x90a2
-    jmp near @..loc_PGKG.l4          ; 0x90a5
-jumptable_9188_case_5:
-    push word [bp + 0x8]             ; 0x90a8
-    mov ax, 0x9315                   ; 0x90ab
-    push ax                          ; 0x90ae
-    push word [bp + 0x6]             ; 0x90af
-    push word [bp + 0x4]             ; 0x90b2
-    call api_idx_0002_LTGI           ; 0x90b5
-    add sp, byte 8                   ; 0x90b8
-    jmp near @..loc_PGKG.l4          ; 0x90bb
-jumptable_9188_case_6:
-    push word [bp + 0x8]             ; 0x90be
-    mov ax, 0x931e                   ; 0x90c1
-    push ax                          ; 0x90c4
-    push word [bp + 0x6]             ; 0x90c5
-    push word [bp + 0x4]             ; 0x90c8
-    call api_idx_0002_LTGI           ; 0x90cb
-    add sp, byte 8                   ; 0x90ce
-    jmp near @..loc_PGKG.l4          ; 0x90d1
-jumptable_9188_case_7:
-    push word [bp + 0x8]             ; 0x90d4
-    mov ax, 0x9327                   ; 0x90d7
-    push ax                          ; 0x90da
-    push word [bp + 0x6]             ; 0x90db
-    push word [bp + 0x4]             ; 0x90de
-    call api_idx_0002_LTGI           ; 0x90e1
-    add sp, byte 8                   ; 0x90e4
-    jmp near @..loc_PGKG.l4          ; 0x90e7
-jumptable_9188_case_8:
-    mov ax, 0x248                    ; 0x90ea
-    imul word [bp + 0x4]             ; 0x90ed
-    mov bx, ax                       ; 0x90f0
-    cmp byte [bx + 0x5e2c], 1        ; 0x90f2
-    jne short @..loc_PGKG.l1         ; 0x90f7
-    push word [bp + 0x8]             ; 0x90f9
-    mov ax, 0x9330                   ; 0x90fc
-    push ax                          ; 0x90ff
-    push word [bp + 0x6]             ; 0x9100
-    push word [bp + 0x4]             ; 0x9103
-    call api_idx_0002_LTGI           ; 0x9106
-    add sp, byte 8                   ; 0x9109
-    jmp short @..loc_PGKG.l2         ; 0x910c
-@..loc_PGKG.l1:
-    mov ax, word [bp + 0x6]          ; 0x910e
-    shl ax, 1                        ; 0x9111
-    mov bx, ax                       ; 0x9113
-    mov word [bx - 0x6984], 0        ; 0x9115
-@..loc_PGKG.l2:
-    jmp near @..loc_PGKG.l4          ; 0x911b
-jumptable_9188_case_9:
-    push word [bp + 0x8]             ; 0x911e
-    mov ax, 0x9339                   ; 0x9121
-    push ax                          ; 0x9124
-    push word [bp + 0x6]             ; 0x9125
-    push word [bp + 0x4]             ; 0x9128
-    call api_idx_0002_LTGI           ; 0x912b
-    add sp, byte 8                   ; 0x912e
-    jmp near @..loc_PGKG.l4          ; 0x9131
-jumptable_9188_case_10:
-    push word [bp + 0x8]             ; 0x9134
-    mov ax, 0x9342                   ; 0x9137
-    push ax                          ; 0x913a
-    push word [bp + 0x6]             ; 0x913b
-    push word [bp + 0x4]             ; 0x913e
-    call api_idx_0002_LTGI           ; 0x9141
-    add sp, byte 8                   ; 0x9144
-    jmp short @..loc_PGKG.l4         ; 0x9147
-jumptable_9188_case_11:
-    push word [bp + 0x8]             ; 0x9149
-    mov ax, 0x934b                   ; 0x914c
-    push ax                          ; 0x914f
-    push word [bp + 0x6]             ; 0x9150
-    push word [bp + 0x4]             ; 0x9153
-    call api_idx_0002_LTGI           ; 0x9156
-    add sp, byte 8                   ; 0x9159
-    jmp short @..loc_PGKG.l4         ; 0x915c
-jumptable_9188_case_12:
-    push word [bp + 0x8]             ; 0x915e
-    mov ax, 0x9354                   ; 0x9161
-    push ax                          ; 0x9164
-    push word [bp + 0x6]             ; 0x9165
-    push word [bp + 0x4]             ; 0x9168
-    call api_idx_0002_LTGI           ; 0x916b
-    add sp, byte 8                   ; 0x916e
-    jmp short @..loc_PGKG.l4         ; 0x9171
-jumptable_9188_case_13:
-    push word [bp + 0x8]             ; 0x9173
-    mov ax, 0x935d                   ; 0x9176
-    push ax                          ; 0x9179
-    push word [bp + 0x6]             ; 0x917a
-    push word [bp + 0x4]             ; 0x917d
-    call api_idx_0002_LTGI           ; 0x9180
-    add sp, byte 8                   ; 0x9183
-    jmp short @..loc_PGKG.l4         ; 0x9186
-jumptable_9188:
-    dw jumptable_9188_case_0 - IMAGE_BASE + 0x5055 ; 0x9188
-    dw jumptable_9188_case_1 - IMAGE_BASE + 0x5055 ; 0x918a
-    dw jumptable_9188_case_2 - IMAGE_BASE + 0x5055 ; 0x918c
-    dw jumptable_9188_case_3 - IMAGE_BASE + 0x5055 ; 0x918e
-    dw jumptable_9188_case_4 - IMAGE_BASE + 0x5055 ; 0x9190
-    dw jumptable_9188_case_5 - IMAGE_BASE + 0x5055 ; 0x9192
-    dw jumptable_9188_case_6 - IMAGE_BASE + 0x5055 ; 0x9194
-    dw jumptable_9188_case_7 - IMAGE_BASE + 0x5055 ; 0x9196
-    dw jumptable_9188_case_8 - IMAGE_BASE + 0x5055 ; 0x9198
-    dw jumptable_9188_case_9 - IMAGE_BASE + 0x5055 ; 0x919a
-    dw jumptable_9188_case_10 - IMAGE_BASE + 0x5055 ; 0x919c
-    dw jumptable_9188_case_11 - IMAGE_BASE + 0x5055 ; 0x919e
-    dw jumptable_9188_case_12 - IMAGE_BASE + 0x5055 ; 0x91a0
-    dw jumptable_9188_case_13 - IMAGE_BASE + 0x5055 ; 0x91a2
-@..loc_PGKG.l3:
-    cmp ax, strict word 0xe          ; 0x91a4
-    jae short @..loc_PGKG.l4         ; 0x91a7
-    xchg bx, ax                      ; 0x91a9
-    shl bx, 1                        ; 0x91aa
-    jmp [cs:bx - 0x1e31]             ; 0x91ac
-@..loc_PGKG.l4:
-    ret                              ; 0x91b1
 %include "vpcvw/api_idx_0002_RQOS.asm"     ; 0x91b2
 
 %include "vpcvw/loc_SRNN.asm"              ; 0x91d9
 
-jumptable_928f_case_0:
-    mov ax, 0x9366                   ; 0x91e5
-    push ax                          ; 0x91e8
-    push word [bp + 0x4]             ; 0x91e9
-    call api_idx_0002_VLGM           ; 0x91ec
-    add sp, byte 4                   ; 0x91ef
-    jmp near @..loc_SRNN.l2          ; 0x91f2
-jumptable_928f_case_1:
-    mov ax, 0x936f                   ; 0x91f5
-    push ax                          ; 0x91f8
-    push word [bp + 0x4]             ; 0x91f9
-    call api_idx_0002_VLGM           ; 0x91fc
-    add sp, byte 4                   ; 0x91ff
-    jmp near @..loc_SRNN.l2          ; 0x9202
-jumptable_928f_case_2:
-    mov ax, 0x9378                   ; 0x9205
-    push ax                          ; 0x9208
-    push word [bp + 0x4]             ; 0x9209
-    call api_idx_0002_VLGM           ; 0x920c
-    add sp, byte 4                   ; 0x920f
-    jmp near @..loc_SRNN.l2          ; 0x9212
-jumptable_928f_case_3:
-    mov ax, 0x9381                   ; 0x9215
-    push ax                          ; 0x9218
-    push word [bp + 0x4]             ; 0x9219
-    call api_idx_0002_VLGM           ; 0x921c
-    add sp, byte 4                   ; 0x921f
-    jmp near @..loc_SRNN.l2          ; 0x9222
-jumptable_928f_case_4:
-    mov ax, 0x938a                   ; 0x9225
-    push ax                          ; 0x9228
-    push word [bp + 0x4]             ; 0x9229
-    call api_idx_0002_VLGM           ; 0x922c
-    add sp, byte 4                   ; 0x922f
-    jmp near @..loc_SRNN.l2          ; 0x9232
-jumptable_928f_case_5:
-    mov ax, 0x9393                   ; 0x9235
-    push ax                          ; 0x9238
-    push word [bp + 0x4]             ; 0x9239
-    call api_idx_0002_VLGM           ; 0x923c
-    add sp, byte 4                   ; 0x923f
-    jmp short @..loc_SRNN.l2         ; 0x9242
-jumptable_928f_case_6:
-    mov ax, 0x939c                   ; 0x9244
-    push ax                          ; 0x9247
-    push word [bp + 0x4]             ; 0x9248
-    call api_idx_0002_VLGM           ; 0x924b
-    add sp, byte 4                   ; 0x924e
-    jmp short @..loc_SRNN.l2         ; 0x9251
-jumptable_928f_case_7:
-    mov ax, 0x93a5                   ; 0x9253
-    push ax                          ; 0x9256
-    push word [bp + 0x4]             ; 0x9257
-    call api_idx_0002_VLGM           ; 0x925a
-    add sp, byte 4                   ; 0x925d
-    jmp short @..loc_SRNN.l2         ; 0x9260
-jumptable_928f_case_8:
-    mov ax, 0x93ae                   ; 0x9262
-    push ax                          ; 0x9265
-    push word [bp + 0x4]             ; 0x9266
-    call api_idx_0002_VLGM           ; 0x9269
-    add sp, byte 4                   ; 0x926c
-    jmp short @..loc_SRNN.l2         ; 0x926f
-jumptable_928f_case_9:
-    mov ax, 0x93b7                   ; 0x9271
-    push ax                          ; 0x9274
-    push word [bp + 0x4]             ; 0x9275
-    call api_idx_0002_VLGM           ; 0x9278
-    add sp, byte 4                   ; 0x927b
-    jmp short @..loc_SRNN.l2         ; 0x927e
-jumptable_928f_case_10:
-    mov ax, 0x93c0                   ; 0x9280
-    push ax                          ; 0x9283
-    push word [bp + 0x4]             ; 0x9284
-    call api_idx_0002_VLGM           ; 0x9287
-    add sp, byte 4                   ; 0x928a
-    jmp short @..loc_SRNN.l2         ; 0x928d
-jumptable_928f:
-    dw jumptable_928f_case_0 - IMAGE_BASE + 0x5055 ; 0x928f
-    dw jumptable_928f_case_1 - IMAGE_BASE + 0x5055 ; 0x9291
-    dw jumptable_928f_case_2 - IMAGE_BASE + 0x5055 ; 0x9293
-    dw jumptable_928f_case_3 - IMAGE_BASE + 0x5055 ; 0x9295
-    dw jumptable_928f_case_4 - IMAGE_BASE + 0x5055 ; 0x9297
-    dw jumptable_928f_case_5 - IMAGE_BASE + 0x5055 ; 0x9299
-    dw jumptable_928f_case_6 - IMAGE_BASE + 0x5055 ; 0x929b
-    dw jumptable_928f_case_7 - IMAGE_BASE + 0x5055 ; 0x929d
-    dw jumptable_928f_case_8 - IMAGE_BASE + 0x5055 ; 0x929f
-    dw jumptable_928f_case_9 - IMAGE_BASE + 0x5055 ; 0x92a1
-    dw jumptable_928f_case_10 - IMAGE_BASE + 0x5055 ; 0x92a3
-@..loc_SRNN.l1:
-    cmp ax, strict word 0xb          ; 0x92a5
-    jae short @..loc_SRNN.l2         ; 0x92a8
-    xchg bx, ax                      ; 0x92aa
-    shl bx, 1                        ; 0x92ab
-    jmp [cs:bx - 0x1d2a]             ; 0x92ad
-@..loc_SRNN.l2:
-    ret                              ; 0x92b2
 %include "vpcvw/api_idx_0030_TGOH.asm"     ; 0x92b3
 
 %include "vpcvw/api_idx_0016_TVKP.asm"     ; 0x9434

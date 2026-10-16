@@ -3,6 +3,7 @@
 from lib.phases.seed import SeedPhase
 from lib.phases.sidecar import SidecarPhase
 from lib.phases.aztec_overlay import AztecOverlayPhase
+from lib.phases.aztec_switch import aztec_switch_layout
 from lib.phases.dispatch import DispatchTablePhase
 from lib.phases.pattern_seed import PatternSeedPhase
 from lib.phases.carve import CarvePhase
@@ -38,7 +39,8 @@ def _build_classify_phases(known_db=None):
                     output_slot='carve_1'),
         TrampolinePhase(input_slot='carve_1'),
         ErrorHandlerPhase(),
-        RecursiveDescentPhase(input_slot='error_handler', output_slot='recursive'),
+        RecursiveDescentPhase(input_slot='error_handler', output_slot='recursive',
+                              inline_tables=(aztec_switch_layout,)),
         PruneDeadPhase(),
         PruneDeadBeforePhase(),
         PruneZeroPhase(),

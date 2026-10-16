@@ -332,7 +332,7 @@ jumptable_3f96_case_0:
     push word [bp - 0x004e]          ; 0x3ff0
     push word [bp - 0x004c]          ; 0x3ff3
     push word [bp + 0x4]             ; 0x3ff6
-    call api_idx_0008_TIPJ           ; 0x3ff9
+    call api_idx_0008_NOPG           ; 0x3ff9
     add sp, byte 8                   ; 0x3ffc
     push word [bp + 0x6]             ; 0x3fff
     call loc_NKUR                    ; 0x4002

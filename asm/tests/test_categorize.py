@@ -3,6 +3,8 @@ import io
 import pathlib
 import tempfile
 import unittest
+
+from tests.slow import slow
 from unittest.mock import patch
 
 from lib.sidecar.binary import per_binary as sidecar_per_binary
@@ -60,6 +62,7 @@ class FunctionCategoryTests(unittest.TestCase):
         self.assertEqual(labels[0], 'leaf_loc_0000')
 
 
+@slow
 class DSAVANTEgaNamingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

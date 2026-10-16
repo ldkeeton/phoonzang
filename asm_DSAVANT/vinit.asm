@@ -22,35 +22,8 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-loc_OIQP:
-    mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
-    mov ax, word [bss_830a]          ; 0x0014
-    jmp short @..loc_OIQP.l5         ; 0x0017
-@..loc_OIQP.l1:
-    call loc_RVQR                    ; 0x0019
-    jmp short @..loc_OIQP.l6         ; 0x001c
-@..loc_OIQP.l2:
-    call api_idx_0068_OUHP           ; 0x001e
-    jmp short @..loc_OIQP.l6         ; 0x0021
-@..loc_OIQP.l3:
-    call api_idx_0002_SKSN           ; 0x0023
-    jmp short @..loc_OIQP.l6         ; 0x0026
-@..loc_OIQP.l4:
-    call api_idx_0008_NGRM           ; 0x0028
-    jmp short @..loc_OIQP.l6         ; 0x002b
-@..loc_OIQP.l5:
-    cmp ax, strict word 0            ; 0x002d
-    je short @..loc_OIQP.l1          ; 0x0030
-    cmp ax, strict word 1            ; 0x0032
-    je short @..loc_OIQP.l2          ; 0x0035
-    cmp ax, strict word 2            ; 0x0037
-    je short @..loc_OIQP.l4          ; 0x003a
-    cmp ax, strict word 8            ; 0x003c
-    je short @..loc_OIQP.l3          ; 0x003f
-@..loc_OIQP.l6:
-    mov ax, 0                        ; 0x0041
-    ret                              ; 0x0044
+%include "vinit/loc_OIQP.asm"              ; 0x000e
+
 %include "vinit/api_idx_0002_JOSN.asm"     ; 0x0045
 
 %include "vinit/api_idx_0002_OGHR.asm"     ; 0x0084
@@ -79,29 +52,8 @@ loc_OIQP:
 
 %include "vinit/api_idx_0008_NGRM.asm"     ; 0x1409
 
-loc_SPOT:
-    pop word [dseg_91b6]             ; 0x15d9
-    pop cx                           ; 0x15dd
-    mov word [dseg_91b2], sp         ; 0x15de
-    mov word [dseg_91b4], bp         ; 0x15e2
-    mov word [dseg_91ae], si         ; 0x15e6
-    mov word [dseg_91b0], di         ; 0x15ea
-    cld                              ; 0x15ee
-    mov di, bss_91b8                 ; 0x15ef
-    mov cx, 0x91ba                   ; 0x15f2
-    sub cx, di                       ; 0x15f5
-    shr cx, 1                        ; 0x15f7
-    je short @..loc_SPOT.l1          ; 0x15f9
-    sub ax, ax                       ; 0x15fb
-    rep stosw                        ; 0x15fd
-@..loc_SPOT.l1:
-    call loc_OIQP                    ; 0x15ff
-    mov bp, word [dseg_91b4]         ; 0x1602
-    mov sp, word [dseg_91b2]         ; 0x1606
-    mov si, word [dseg_91ae]         ; 0x160a
-    mov di, word [dseg_91b0]         ; 0x160e
-    push cx                          ; 0x1612
-    jmp [dseg_91b6]                  ; 0x1613
+%include "vinit/asm_only/loc_SPOT.asm"              ; 0x15d9
+
 __zdata_start:
 
     db 'SCENARIO.HDR', 0

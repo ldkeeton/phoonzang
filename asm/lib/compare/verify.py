@@ -138,9 +138,11 @@ def _find_trampoline_tables(instructions, binary_data, total):
     """Find inline lookup tables read by the ``mov cx, N; call helper`` idiom.
 
     Returns ``[(table_start, length, count), ...]``.  The table immediately
-    follows the call (it is the return address the helper pops) and holds
-    ``N + 1`` words.  Gated on the helper's proven non-returning dispatch
-    shape so an ordinary ``mov cx, n; call`` is never reclassified.
+    follows the call (it is the return address the helper pops) and is
+    assumed to hold ``N + 1`` words; a table the decoder recognized exactly
+    (a ``JumpTableInfo`` with ``keys``, plan.md D8) supersedes this guess.
+    Gated on the helper's proven non-returning dispatch shape so an ordinary
+    ``mov cx, n; call`` is never reclassified.
     """
     by_addr = {insn.address: insn for insn in instructions}
     tables = []
@@ -237,12 +239,25 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # ``mov cx, N; call <jmp-reg dispatch helper>`` introduces an inline
     # lookup table of N+1 words (7E.4).  It is data, even though linear
     # descent decodes it as instructions.
+    # A key/target table the decoder recognized exactly (plan.md D8) replaces
+    # the N+1 guess for the same table.
+    keyed_tables = {
+        jt.table_addr: jt.table_end - jt.table_addr
+        for jt in (jump_tables or ())
+        if getattr(jt, 'keys', 0) and jt.table_end > jt.table_addr
+    }
     tramp_tables = [
         (table_start, length, count)
         for table_start, length, count in _find_trampoline_tables(
             instructions, binary_data, total)
-        if not any(hard_data[table_start:table_start + length])
+        if table_start not in keyed_tables
+        and not any(hard_data[table_start:table_start + length])
     ]
+    tramp_tables.extend(
+        (table_start, length, length // 2)
+        for table_start, length in sorted(keyed_tables.items())
+        if not any(hard_data[table_start:table_start + length])
+    )
 
     data_offsets = bytearray(total)
     for table_start, length, _ in tramp_tables:
@@ -355,6 +370,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     split_ranges = _select_split_ranges(
         label_map, split_functions, func_boundaries, binary_size=total,
         c_override_lengths=c_override_lengths, declared_roots=declared_roots,
+        code_end=max((i.address + i.size for i in insns), default=None),
+        code_start=min((i.address for i in insns), default=None),
     )
     stagelog.step('verify.split_select', 2,
                   track={'split_ranges': stagelog.ranges_by_start(split_ranges)})
@@ -495,7 +512,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         }
 
     covered = []
+    decoded = {spec['table_addr'] for spec in table_specs if spec.get('keys')}
     for table_start, length, _ in tramp_tables:
+        if table_start in decoded:
+            # The decoder already split this table into keys and targets.
+            covered.append((table_start, table_start + length))
+            continue
         table_specs.append(_literal_spec(
             table_start, length, 'trampoline_lookup',
             'inline lookup table (mov cx; call dispatch)'))

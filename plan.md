@@ -35,24 +35,24 @@ literal into three gate classes:
 `total = code_shift + data_shift` is the metric of record; `inert` is reported,
 not counted.
 
-**Current tree** (a `make build` fixed point): **`code_shift` 82, `data_shift` 1,
-`inert` 248, `total` 83.** Per-taxonomy: `f1=2 f2=13 f3=64 f4=1 f5=3 f6=241 f7=0`;
+**Current tree** (a `make build` fixed point): **`code_shift` 57, `data_shift` 1,
+`inert` 230, `total` 58.** Per-taxonomy: `f1=2 f2=13 f3=39 f4=1 f5=3 f6=223 f7=0`;
 shared-geometry buckets `o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0`.
-`code_shift` decomposes as 64 F3 `equ`s + 13 overlay `o_bss` + 2 MZ `e_sp` +
+`code_shift` decomposes as 39 F3 `equ`s + 13 overlay `o_bss` + 2 MZ `e_sp` +
 3 overlay zero pads.
 
 Two auxiliary counters, both in `BASELINE_TOTALS`:
 
-- `names_used` **42** / `names_inert` **27** — of the *named* frozen addresses,
+- `names_used` **22** / `names_inert` **25** — of the *named* frozen addresses,
   how many the tree actually refers to (`count_name_use`). Converting an inert
   name to a label moves the census without making anything follow an edit.
-- `hidden_flow` **90** — near call/jmp targets whose *target* the source shows as
+- `hidden_flow` **118** — near call/jmp targets whose *target* the source shows as
   code but whose *site* is emitted as bytes, so no source line spells the
   reference (`count_hidden_flow`; a lower bound).
 
-Where the 83 live, per emitted file: `vpcvw` 16, `play` 14, `vbase` 9,
-`vtrea` 7, `vpcmk` 6, `vmaze`/`vmexe` 5, `ega`/`vinstall`/`vmnpc` 3, the rest 2s
-and 1s — `vga` is down to 1. The single `data_shift` is a raw-driver DS reference
+Where the 58 live, per emitted file: `play` 14, `vbase` 8, `vpcmk` 6, `vmaze` 5,
+`ega`/`vinstall`/`vmnpc` 3, the rest 2s and 1s — `vpcvw` (16 before D8) and `vga`
+are down to 1. The single `data_shift` is a raw-driver DS reference
 (Appendix B).
 
 ---
@@ -67,7 +67,7 @@ and 1s — `vga` is down to 1. The single `data_shift` is a raw-driver DS refere
 | F2 | overlay `o_bss` | `_render_ovr_header` | literal (runtime) — counts as 13 |
 | F2 | overlay `o_corg` | `_render_ovr_header` | bound to host (`__zresident_end`) |
 | F2 | overlay `o_dorg` | `_render_ovr_header` | bound — it *is* the host DS size |
-| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | 64 overlay `equ` remain |
+| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | 39 `equ` remain |
 | F4 | `dseg_`/`bss_` `equ` | `_build_source` | dynamic (MZ) and via the host data map (overlays); 1 raw-driver left |
 | F4 | `psp_` `equ` | `_build_source` | inert |
 | F4 | host DS-size immediates | `_build_source` | bound to `__zdseg_end` |
@@ -240,12 +240,37 @@ string → entropy → zero → data), used to deprioritise words and to supply 
 
 ## 5. Remaining work
 
-`code_shift` 82 → 0, `data_shift` 1 → 0.
+`code_shift` 57 → 0, `data_shift` 1 → 0.
 
-- **The 64 F3 `equ`s (the largest block).** Overlay `loc_`/`string_`/`leaf_`/
-  `fpu_`/`io_`/`bios_`/`api_idx_` names still refused a label, plus a handful of
-  driver `cseg_`/`data_` names on data or mid-instruction bytes. Each refusal is
-  a byte whose *kind* is undecided upstream, not a rendering trick away:
+- **D8 — inline switch tables (done, 2026-10-15).** A sparse `switch` compiles
+  to `mov cx, N; call <helper>`; the helper pops the return address as the table
+  base, `repne scasw`s the keys and jumps through `[es:bx+di-4]`, so it never
+  returns and the call is followed by **N-1 keys then N case targets** (the last
+  is the default). The decoder used to fall through the call and decode the
+  target words as `jcc`s — each fake branch target became a frozen `loc_` `equ`
+  (all of `vpcvw`'s `loc_29xx` cluster) — and 7E.4 tagged a wrong-length N+1
+  words `literal`. 8 call sites in 5 overlays (4 byte-identical helper copies).
+  - *Generic mechanism:* `RecursiveDescentPhase(inline_tables=…)` takes
+    recognizers `(data, call, prev) -> (keys, targets) | None`;
+    `_inline_call_table` stops the block at the call, carves the table, queues
+    the targets as code roots, and refuses if any target leaves the image.
+    `JumpTableInfo.keys` flows to the spec; `_inject_jump_tables` resolves only
+    the target words and the renderer tags keys `; literal`; `verify.py` lets a
+    keyed table supersede the 7E.4 N+1 guess.
+  - *Toolchain part:* `lib/phases/aztec_switch.py` (`aztec_switch_layout`,
+    matched on the helper's exact 24-byte body plus the adjacent `mov cx`),
+    registered in `main/phases.py` — the decoder itself stays toolchain-agnostic.
+  - *Effect:* `f3` 64 → 39, `code_shift` 82 → 57, `f6` 241 → 223, `hidden_flow`
+    157 → 118, `names_used` 44 → 22; 18/18 byte-identical. Edit-property:
+    `InlineSwitchEditTests` (a byte inserted before a `vpcvw` case arm moves
+    exactly the targets at or past it; keys unchanged).
+  - *Follow-up:* overlay table targets render as `label - IMAGE_BASE + 0x5055`;
+    under the D7.5 `vstart` model that is just `label`, and the `0x5055` is a
+    frozen `o_corg` spelling the census does not count.
+- **The 39 F3 `equ`s (the largest block).** Overlay `loc_`/`string_`/`leaf_`/
+  `fpu_`/`io_` names still refused a label, plus `play`'s driver `cseg_`/`data_`
+  operands (code-segment variables). Each refusal is a byte whose *kind* is
+  undecided upstream, not a rendering trick away:
   - a `vga` decode gap — bytes the sidecar calls code that the arbiter calls
     data (the driver dispatch table followed by real code and strings);
   - the `mem_equ` `cseg_`/`data_` *operand* symbols (code-segment variables read
@@ -388,6 +413,7 @@ already covers) or to declare the object itself (an `objects` list, honoured lik
 | area | module |
 |------|--------|
 | census | `asm/lib/compare/records.py` (`count_frozen_addrs`, `count_name_use`, `count_hidden_flow`) |
+| decoding / toolchain idioms | `asm/lib/phases/recursive.py` (generic); `aztec_overlay.py`, `aztec_switch.py` (Aztec-specific, wired in `asm/main/phases.py`) |
 | pointer scoring / promotion | `asm/lib/compare/pointers.py`, `promote.py` |
 | emission | `asm/lib/compare/render.py`, `symbols.py` |
 | splitting / naming | `asm/lib/compare/splitting.py`, `lib/names.py`, `lib/asm_only.py`, `lib/shared.py` |

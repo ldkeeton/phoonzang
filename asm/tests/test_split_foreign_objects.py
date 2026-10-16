@@ -9,6 +9,7 @@ code is untouched.
 
 import unittest
 
+from lib.compare.jumptables import _case_symbol
 from lib.compare.splitting import _split_off_foreign_objects
 from tests.syms import cseg, generated, label, loc
 
@@ -76,6 +77,21 @@ class ForeignObjectTests(unittest.TestCase):
         ]
         # The label sits before the last instruction the root owns.
         owners = {0x1000: {0x1000}, 0x1001: {0x1000}, 0x1030: {0x2000}}
+        self.assertEqual(
+            _split_off_foreign_objects([(0x1000, 0x1030, 'root')], records, owners),
+            [(0x1000, 0x1030, 'root')])
+
+    def test_switch_arm_tail_stays_with_its_routine(self):
+        # The arm is named only by a ``jump_table`` record (no ``text``), but it
+        # is the dispatching routine's code: the range must not be cut at it.
+        records = [
+            _label(0x1000, 'root'), _insn(0x1000, 'ret'),
+            _label(0x1010, _case_symbol(0x1020, 0, 0x1010)),
+            _insn(0x1010, 'ret'),
+            {'type': 'jump_table', 'start': 0x1020, 'end': 0x1022,
+             'entries': []},
+        ]
+        owners = {0x1000: {0x1000}, 0x1010: {0x1000}}
         self.assertEqual(
             _split_off_foreign_objects([(0x1000, 0x1030, 'root')], records, owners),
             [(0x1000, 0x1030, 'root')])

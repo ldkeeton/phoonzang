@@ -59,7 +59,7 @@ api_idx_0004_PMJJ:
     push word [bp - 0x0004]          ; 0x4668
     push word [bp - 0x0002]          ; 0x466b
     push word [bp + 0x4]             ; 0x466e
-    call api_idx_0008_PNIQ           ; 0x4671
+    call api_idx_0008_JRPS           ; 0x4671
     add sp, byte 8                   ; 0x4674
     push word [bp - 0x0004]          ; 0x4677
     call ds_app_PUNN                 ; 0x467a

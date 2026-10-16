@@ -9,6 +9,8 @@ import os
 import shutil
 import unittest
 
+from tests.slow import slow
+
 ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT = os.path.dirname(ASM)
 
@@ -75,6 +77,7 @@ class CacheTest(unittest.TestCase):
 
 @unittest.skipUnless(_have_toolchain(), 'Aztec toolchain/DOSBox missing')
 class MuxCompileTest(unittest.TestCase):
+    @slow
     def test_open_recovers_from_v340a_source_v52a_compiler(self):
         with open(os.path.join(PROJECT, 'apps', 'DSAVANT', 'DS.EXE'),
                   'rb') as f:

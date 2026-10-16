@@ -203,3 +203,112 @@ api_idx_000c_RMOO:
     mov word [bss_948e], 0           ; 0x5352
     mov word [bp - 0x0002], 0        ; 0x5358
     jmp short @..api_idx_000c_RMOO.l6 ; 0x535d
+@..api_idx_000c_RMOO.l5:
+    mov ax, 1                        ; 0x535f
+    push ax                          ; 0x5362
+    push word [bp - 0x0002]          ; 0x5363
+    call api_idx_0046_NOMK           ; 0x5366
+    add sp, byte 4                   ; 0x5369
+    inc word [bp - 0x0002]           ; 0x536c
+@..api_idx_000c_RMOO.l6:
+    mov ax, word [bp - 0x0002]       ; 0x536f
+    cmp ax, word [bss_69c8]          ; 0x5372
+    jl short @..api_idx_000c_RMOO.l5 ; 0x5376
+    cmp word [bss_8450], byte 0      ; 0x5378
+    je short @..api_idx_000c_RMOO.l7 ; 0x537d
+    push word [bss_844c]             ; 0x537f
+    push word [bss_844e]             ; 0x5383
+    call animate_sprite_up           ; 0x5387
+    add sp, byte 4                   ; 0x538a
+    mov ax, 0                        ; 0x538d
+    push ax                          ; 0x5390
+    call ds_app_thunk_21_VGJR        ; 0x5391
+    pop cx                           ; 0x5394
+@..api_idx_000c_RMOO.l7:
+    mov ax, 0xf                      ; 0x5395
+    push ax                          ; 0x5398
+    call ds_app_thunk_26_VNHP        ; 0x5399
+    pop cx                           ; 0x539c
+    mov ax, 0                        ; 0x539d
+    push ax                          ; 0x53a0
+    mov ax, 1                        ; 0x53a1
+    push ax                          ; 0x53a4
+    push word [bss_9434]             ; 0x53a5
+    push word [bss_9432]             ; 0x53a9
+    call thunk_12                    ; 0x53ad
+    add sp, byte 8                   ; 0x53b0
+    mov ax, 0                        ; 0x53b3
+    push ax                          ; 0x53b6
+    mov ax, 1                        ; 0x53b7
+    push ax                          ; 0x53ba
+    push word [bss_942c]             ; 0x53bb
+    push word [bss_942a]             ; 0x53bf
+    call thunk_12                    ; 0x53c3
+    add sp, byte 8                   ; 0x53c6
+    mov ax, 0                        ; 0x53c9
+    push ax                          ; 0x53cc
+    mov ax, 1                        ; 0x53cd
+    push ax                          ; 0x53d0
+    push word [bss_9428]             ; 0x53d1
+    push word [bss_9426]             ; 0x53d5
+    call thunk_12                    ; 0x53d9
+    add sp, byte 8                   ; 0x53dc
+    mov ax, 0                        ; 0x53df
+    push ax                          ; 0x53e2
+    mov ax, 1                        ; 0x53e3
+    push ax                          ; 0x53e6
+    push word [bss_9424]             ; 0x53e7
+    push word [bss_9422]             ; 0x53eb
+    call thunk_12                    ; 0x53ef
+    add sp, byte 8                   ; 0x53f2
+    mov ax, 0                        ; 0x53f5
+    push ax                          ; 0x53f8
+    mov ax, 1                        ; 0x53f9
+    push ax                          ; 0x53fc
+    push word [bss_9420]             ; 0x53fd
+    push word [bss_941e]             ; 0x5401
+    call thunk_12                    ; 0x5405
+    add sp, byte 8                   ; 0x5408
+    mov ax, 0                        ; 0x540b
+    push ax                          ; 0x540e
+    mov ax, 1                        ; 0x540f
+    push ax                          ; 0x5412
+    push word [bss_941c]             ; 0x5413
+    push word [bss_941a]             ; 0x5417
+    call thunk_12                    ; 0x541b
+    add sp, byte 8                   ; 0x541e
+    mov ax, 0                        ; 0x5421
+    push ax                          ; 0x5424
+    mov ax, 1                        ; 0x5425
+    push ax                          ; 0x5428
+    push word [bss_9418]             ; 0x5429
+    push word [bss_9416]             ; 0x542d
+    call thunk_12                    ; 0x5431
+    add sp, byte 8                   ; 0x5434
+    mov ax, 0                        ; 0x5437
+    push ax                          ; 0x543a
+    mov ax, 1                        ; 0x543b
+    push ax                          ; 0x543e
+    push word [bp - 0x000a]          ; 0x543f
+    push word [bp - 0x000c]          ; 0x5442
+    call thunk_12                    ; 0x5445
+    add sp, byte 8                   ; 0x5448
+    mov ax, 1                        ; 0x544b
+    push ax                          ; 0x544e
+    call ds_app_thunk_26_VNHP        ; 0x544f
+    pop cx                           ; 0x5452
+    mov ax, 2                        ; 0x5453
+    push ax                          ; 0x5456
+    call ds_app_thunk_26_VNHP        ; 0x5457
+    pop cx                           ; 0x545a
+    call api_idx_000e_TIOP           ; 0x545b
+    mov ax, 0xc7                     ; 0x545e
+    push ax                          ; 0x5461
+    mov ax, 0x13f                    ; 0x5462
+    push ax                          ; 0x5465
+    mov ax, 0                        ; 0x5466
+    push ax                          ; 0x5469
+    push ax                          ; 0x546a
+    call thunk_4                     ; 0x546b
+    add sp, byte 8                   ; 0x546e
+    ret                              ; 0x5471

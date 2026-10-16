@@ -4,6 +4,8 @@ import pathlib
 import re
 import tempfile
 import unittest
+
+from tests.slow import slow
 from unittest.mock import patch
 
 from lib.model import IS_CODE, IS_DATA
@@ -70,6 +72,7 @@ def _local_labels_by_offset(output_dir):
     return labels
 
 
+@slow
 class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

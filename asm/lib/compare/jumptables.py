@@ -29,7 +29,8 @@ def _merge_jump_table_specs(jump_tables, overrides, start_offset, total):
     """
     specs = {}
 
-    def _record(table_addr, jmp_addr, count, entry_size, source, note=''):
+    def _record(table_addr, jmp_addr, count, entry_size, source, note='',
+                keys=0):
         if table_addr is None or not (0 <= table_addr < total):
             return
         entry_size = entry_size if entry_size and entry_size > 0 else 2
@@ -46,6 +47,7 @@ def _merge_jump_table_specs(jump_tables, overrides, start_offset, total):
             'label': _table_symbol(table_addr),
             'source': source,
             'note': note,
+            'keys': keys,
         }
 
     for table in jump_tables or ():
@@ -58,7 +60,11 @@ def _merge_jump_table_specs(jump_tables, overrides, start_offset, total):
         else:
             max_index = getattr(table, 'max_index', None)
             count = (max_index + 1) if max_index is not None else None
-        _record(table_addr, getattr(table, 'jmp_addr', -1), count, 2, 'auto')
+        keys = getattr(table, 'keys', 0) or 0
+        _record(table_addr, getattr(table, 'jmp_addr', -1), count, 2,
+                'inline_switch' if keys else 'auto',
+                'inline switch: keys, then case targets' if keys else '',
+                keys=keys)
 
     for entry in overrides or ():
         if not isinstance(entry, dict):
@@ -77,7 +83,8 @@ def _merge_jump_table_specs(jump_tables, overrides, start_offset, total):
         if count is None and existing:
             count = existing['count']
         _record(table_addr, jmp_addr if jmp_addr is not None else -1, count,
-                entry_size, 'sidecar', entry.get('note', ''))
+                entry_size, 'sidecar', entry.get('note', ''),
+                keys=existing['keys'] if existing else 0)
 
     return [specs[addr] for addr in sorted(specs)]
 
@@ -182,6 +189,7 @@ def _jump_table_record(spec, entries):
         'entries': list(entries),
         'adjust': spec.get('adjust', 0),
         'literal': bool(spec.get('literal', False)),
+        'keys': spec.get('keys', 0),
         'note': spec.get('note', ''),
     }
 
@@ -294,6 +302,7 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
         if (end - start) % 2:
             end -= 1
         count = (end - start) // 2
+        keys = spec.get('keys', 0)
 
         overlap = _records_overlapping(records, start, end)
         if not overlap or any(
@@ -304,8 +313,8 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
         resolved = []
         for index in range(count):
             value = struct.unpack_from('<H', binary_data, start + index * 2)[0]
-            if literal:
-                # Inline data, not a code-pointer table: keep every word raw.
+            if literal or index < keys:
+                # Inline data or a switch key, not a code pointer: keep raw.
                 resolved.append((value, None))
                 continue
             target = None
@@ -328,7 +337,7 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
             if value == 0:
                 entries.append(None)
                 continue
-            if literal:
+            if literal or index < keys:
                 entries.append(value)
                 continue
             name = None

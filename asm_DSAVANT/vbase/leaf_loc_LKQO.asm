@@ -397,7 +397,7 @@ loc_IKPI:
     mov ax, 0x19b                    ; 0x2a62
     push ax                          ; 0x2a65
     push word [bss_69c8]             ; 0x2a66
-    call api_idx_004c_MNLG           ; 0x2a6a
+    call api_idx_004c_PNQN           ; 0x2a6a
     add sp, byte 0x0a                ; 0x2a6d
     inc word [bp - 0x0018]           ; 0x2a70
 loc_NOQG:

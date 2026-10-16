@@ -3,6 +3,8 @@ import io
 import pathlib
 import tempfile
 import unittest
+
+from tests.slow import slow
 from unittest.mock import patch
 
 from lib.sidecar.binary import per_binary as sidecar_per_binary
@@ -35,6 +37,7 @@ class WorkerFlagTests(unittest.TestCase):
         self.assertNotIn('emit', _worker_kwargs(['--export-labels']))
 
 
+@slow
 class LabelsPhaseTests(unittest.TestCase):
     """The host's labels pass must not write what its emitting pass writes."""
 

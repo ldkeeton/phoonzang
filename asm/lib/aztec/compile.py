@@ -63,6 +63,10 @@ _CONF = """\
 machine=svga_s3
 memsize=16
 
+[cpu]
+cycles=max
+turbo=true
+
 [sblaster]
 sbtype=none
 

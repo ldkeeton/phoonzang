@@ -35,3 +35,16 @@ loc_QKLS:
     pop si
     pop bp
     ret
+loc_OSRT:
+    sub di, byte 2
+    scasb
+    jne short aztec_strncmp.loc1
+    test al, al
+    je short loc_PGTO
+    mov al, ah
+    scasb
+aztec_strncmp.loc1:
+    sbb ax, ax
+    js short loc_QKLS
+    inc ax
+    jmp short loc_QKLS

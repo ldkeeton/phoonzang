@@ -183,10 +183,12 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
         elif rec['type'] == 'jump_table':
             out.append(f'{rec["label"]}:')
             adjust = rec.get('adjust', 0)
-            literal = bool(rec.get('literal'))
+            keys = rec.get('keys', 0)
             addr = rec['start']
             entry_size = rec.get('entry_size', 2)
-            for entry in rec['entries']:
+            for index, entry in enumerate(rec['entries']):
+                # A switch key is a number, never a pointer (plan.md D8).
+                literal = bool(rec.get('literal')) or index < keys
                 if entry is None:
                     text = 'dw 0'
                 elif isinstance(entry, str):

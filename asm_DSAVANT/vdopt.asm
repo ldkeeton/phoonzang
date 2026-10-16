@@ -22,89 +22,10 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-loc_QIIH:
-    mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
-    cmp word [bss_906a], byte 0      ; 0x0014
-    je short @..loc_QIIH.l1          ; 0x0019
-    mov ax, 1                        ; 0x001b
-    push ax                          ; 0x001e
-    push word [bss_9068]             ; 0x001f
-    call ds_app_file_HMNO            ; 0x0023
-    add sp, byte 4                   ; 0x0026
-    mov word [bss_906a], 0           ; 0x0029
-@..loc_QIIH.l1:
-    mov word [bss_90b6], 0           ; 0x002f
-    mov word [bss_90b8], 0           ; 0x0035
-    cmp word [bss_830a], byte 0x13   ; 0x003b
-    jne short @..loc_QIIH.l2         ; 0x0040
-    mov ax, 0xe                      ; 0x0042
-    push ax                          ; 0x0045
-    call ds_app_thunk_26_VNHP        ; 0x0046
-    pop cx                           ; 0x0049
-    mov ax, 1                        ; 0x004a
-    push ax                          ; 0x004d
-    mov ax, 2                        ; 0x004e
-    push ax                          ; 0x0051
-    call ds_app_file_TSNH            ; 0x0052
-    add sp, byte 4                   ; 0x0055
-    mov ax, 2                        ; 0x0058
-    push ax                          ; 0x005b
-    mov ax, 3                        ; 0x005c
-    push ax                          ; 0x005f
-    call ds_app_file_TSNH            ; 0x0060
-    add sp, byte 4                   ; 0x0063
-    push word [bss_8af0]             ; 0x0066
-    call api_idx_0004_PMJJ           ; 0x006a
-    pop cx                           ; 0x006d
-    mov ax, 1                        ; 0x006e
-    push ax                          ; 0x0071
-    call ds_app_thunk_26_VNHP        ; 0x0072
-    pop cx                           ; 0x0075
-    mov ax, 2                        ; 0x0076
-    push ax                          ; 0x0079
-    call ds_app_thunk_26_VNHP        ; 0x007a
-    pop cx                           ; 0x007d
-    mov ax, 0xe                      ; 0x007e
-    push ax                          ; 0x0081
-    mov ax, 0                        ; 0x0082
-    push ax                          ; 0x0085
-    call ds_app_file_TSNH            ; 0x0086
-    add sp, byte 4                   ; 0x0089
-@..loc_QIIH.l2:
-    cmp word [bss_830a], byte 0x14   ; 0x008c
-    jne short @..loc_QIIH.l3         ; 0x0091
-    push word [bss_8af0]             ; 0x0093
-    call api_idx_0094_LUVH           ; 0x0097
-    pop cx                           ; 0x009a
-@..loc_QIIH.l3:
-    mov word [bss_830a], 5           ; 0x009b
-    mov ax, 0                        ; 0x00a1
-    ret                              ; 0x00a4
-loc_MPHO:
-    mov ax, 0                        ; 0x00a5
-    call aztec_csav                  ; 0x00a8
-    mov bx, word [bss_0e14]          ; 0x00ab
-    mov si, word [bp + 0x4]          ; 0x00af
-    mov al, byte [bx + si + 0x490]   ; 0x00b2
-    sub ah, ah                       ; 0x00b6
-    cmp ax, word [bp + 0x6]          ; 0x00b8
-    jg short @..loc_MPHO.l1          ; 0x00bb
-    add ax, strict word 7            ; 0x00bd
-    cmp ax, word [bp + 0x6]          ; 0x00c0
-    jl short @..loc_MPHO.l1          ; 0x00c3
-    mov al, byte [bx + si + 0x4a0]   ; 0x00c5
-    sub ah, ah                       ; 0x00c9
-    cmp ax, word [bp + 0x8]          ; 0x00cb
-    jg short @..loc_MPHO.l1          ; 0x00ce
-    add ax, strict word 7            ; 0x00d0
-    cmp ax, word [bp + 0x8]          ; 0x00d3
-    jl short @..loc_MPHO.l1          ; 0x00d6
-    mov ax, si                       ; 0x00d8
-    ret                              ; 0x00da
-@..loc_MPHO.l1:
-    mov ax, 0xffff                   ; 0x00db
-    ret                              ; 0x00de
+%include "vdopt/loc_QIIH.asm"              ; 0x000e
+
+%include "shared/loc_MPHO.asm"              ; 0x00a5
+
 %include "shared/api_idx_0004_QVPP.asm"     ; 0x00df
 
 %include "shared/api_idx_0002_KQPU.asm"     ; 0x019b
@@ -172,8 +93,7 @@ loc_NJKS.loc2 equ loc_KHGO
 
 %include "shared/loc_QQUT.asm"              ; 0x1c7f
 
-loc_238c equ 0x238c + VBASE
-%include "vdopt/asm_only/api_idx_0008_PNIQ.asm"     ; 0x1ccf
+%include "vdopt/asm_only/api_idx_0008_JRPS.asm"     ; 0x1ccf
 
 %include "vdopt/api_idx_000c_RLKV.asm"     ; 0x238d
 

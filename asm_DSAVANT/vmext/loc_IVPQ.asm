@@ -21,3 +21,7 @@ jumptable_1ff2:
     xchg bx, ax                      ; 0x200f
     shl bx, 1                        ; 0x2010
     jmp [cs:bx + 0x7039]             ; 0x2012
+jumptable_1ff2_case_0:
+@..api_idx_0008_NLUK.l16:
+    mov ax, word [bp - 0x0004]       ; 0x2017
+    ret                              ; 0x201a

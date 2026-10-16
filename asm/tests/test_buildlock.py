@@ -5,6 +5,8 @@ import tempfile
 import time
 import unittest
 
+from tests.slow import slow
+
 ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 _CHILD = '''
@@ -25,6 +27,7 @@ class BuildLockTests(unittest.TestCase):
             [sys.executable, '-c', _CHILD.format(asm=ASM, path=path)],
             stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
 
+    @slow
     def test_second_holder_waits_until_first_exits(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = os.path.join(tmp, 'build.lock')

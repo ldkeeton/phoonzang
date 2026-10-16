@@ -196,7 +196,8 @@ endstruc
 ; @field offset=3 size=1 name=f_03
 ; @field offset=4 size=1 name=f_04
 ; @field offset=5 size=1 name=f_05
-; @field offset=6 size=2 name=f_06
+; @field offset=6 size=1 name=f_06
+; @field offset=7 size=1 name=f_07
 ; @field offset=8 size=1 name=f_08
 ; @field offset=9 size=1 name=f_09
 ; @field offset=10 size=1 name=f_0a
@@ -215,7 +216,8 @@ struc s_bx_5d5a
     .f_03: resb 1
     .gap_4: resb 1
     .f_05: resb 1
-    .gap_6: resb 2
+    .f_06: resb 1
+    .f_07: resb 1
     .f_08: resb 1
     .gap_9: resb 1
     .f_0a: resb 1

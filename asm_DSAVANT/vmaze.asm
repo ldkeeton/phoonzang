@@ -40,86 +40,6 @@ loc_ITNU equ 0xab7d + VBASE
 
 %include "vmaze/loc_VRKM.asm"              ; 0x0344
 
-jumptable_03ce_case_1:
-    mov ax, 0x1a                     ; 0x0350
-    push ax                          ; 0x0353
-    mov ax, 0x19                     ; 0x0354
-    push ax                          ; 0x0357
-    call loc_RRRG                    ; 0x0358
-    add sp, byte 4                   ; 0x035b
-    jmp near @..loc_VRKM.l2          ; 0x035e
-jumptable_03ce_case_2:
-    mov ax, 1                        ; 0x0361
-    push ax                          ; 0x0364
-    push ax                          ; 0x0365
-    mov ax, 0x17                     ; 0x0366
-    push ax                          ; 0x0369
-    mov ax, 0x16                     ; 0x036a
-    push ax                          ; 0x036d
-    mov ax, 0x14                     ; 0x036e
-    push ax                          ; 0x0371
-    mov ax, 0x15                     ; 0x0372
-    push ax                          ; 0x0375
-    call api_idx_0008_URRP           ; 0x0376
-    add sp, byte 0x0c                ; 0x0379
-    jmp short @..loc_VRKM.l2         ; 0x037c
-jumptable_03ce_case_3:
-    mov ax, 2                        ; 0x037e
-    push ax                          ; 0x0381
-    mov ax, 1                        ; 0x0382
-    push ax                          ; 0x0385
-    mov ax, 0                        ; 0x0386
-    push ax                          ; 0x0389
-    mov ax, 0x1c                     ; 0x038a
-    push ax                          ; 0x038d
-    mov ax, 0                        ; 0x038e
-    push ax                          ; 0x0391
-    mov ax, 0xe                      ; 0x0392
-    push ax                          ; 0x0395
-    call api_idx_0008_URRP           ; 0x0396
-    add sp, byte 0x0c                ; 0x0399
-    jmp short @..loc_VRKM.l2         ; 0x039c
-jumptable_03ce_case_5:
-    mov ax, 0x18                     ; 0x039e
-    push ax                          ; 0x03a1
-    mov ax, 0x1d                     ; 0x03a2
-    push ax                          ; 0x03a5
-    call loc_RRRG                    ; 0x03a6
-    add sp, byte 4                   ; 0x03a9
-    jmp short @..loc_VRKM.l2         ; 0x03ac
-jumptable_03ce_case_6:
-    mov ax, 3                        ; 0x03ae
-    push ax                          ; 0x03b1
-    mov ax, 1                        ; 0x03b2
-    push ax                          ; 0x03b5
-    mov ax, 0x17                     ; 0x03b6
-    push ax                          ; 0x03b9
-    mov ax, 0x16                     ; 0x03ba
-    push ax                          ; 0x03bd
-    mov ax, 0                        ; 0x03be
-    push ax                          ; 0x03c1
-    mov ax, 0x1b                     ; 0x03c2
-    push ax                          ; 0x03c5
-    call api_idx_0008_URRP           ; 0x03c6
-    add sp, byte 0x0c                ; 0x03c9
-    jmp short @..loc_VRKM.l2         ; 0x03cc
-jumptable_03ce:
-    dw jumptable_03ce_case_0 - IMAGE_BASE + 0x5055 ; 0x03ce
-    dw jumptable_03ce_case_1 - IMAGE_BASE + 0x5055 ; 0x03d0
-    dw jumptable_03ce_case_2 - IMAGE_BASE + 0x5055 ; 0x03d2
-    dw jumptable_03ce_case_3 - IMAGE_BASE + 0x5055 ; 0x03d4
-    dw jumptable_03ce_case_2 - IMAGE_BASE + 0x5055 ; 0x03d6
-    dw jumptable_03ce_case_5 - IMAGE_BASE + 0x5055 ; 0x03d8
-    dw jumptable_03ce_case_6 - IMAGE_BASE + 0x5055 ; 0x03da
-@..loc_VRKM.l1:
-    cmp ax, strict word 7            ; 0x03dc
-    jae short @..loc_VRKM.l2         ; 0x03df
-    xchg bx, ax                      ; 0x03e1
-    shl bx, 1                        ; 0x03e2
-    jmp [cs:bx + 0x5415]             ; 0x03e4
-jumptable_03ce_case_0:
-@..loc_VRKM.l2:
-    ret                              ; 0x03e9
 api_idx_0002_HTRV.bss1 equ bss_91a6
 %include "shared/api_idx_0002_HTRV.asm"     ; 0x03ea
 
@@ -307,7 +227,8 @@ leaf_loc_MGPR.bss1 equ bss_91d4
 
 %include "vmaze/api_idx_0030_JQMM.asm"     ; 0x53fd
 
-%include "vmaze/loc_IONR.asm"              ; 0x676c
+loc_IONR.api_idx1 equ api_idx_0030_JQMM
+%include "shared/loc_IONR.asm"              ; 0x676c
 
 %include "shared/loc_MPHO.asm"              ; 0x678c
 
@@ -520,29 +441,8 @@ api_idx_0004_JGSH.bss2 equ bss_9b4e
 
 %include "vmaze/api_idx_0032_RMHI.asm"     ; 0xab9b
 
-loc_TKPQ:
-    pop word [dseg_9190]             ; 0xac30
-    pop cx                           ; 0xac34
-    mov word [dseg_918c], sp         ; 0xac35
-    mov word [dseg_918e], bp         ; 0xac39
-    mov word [dseg_9188], si         ; 0xac3d
-    mov word [dseg_918a], di         ; 0xac41
-    cld                              ; 0xac45
-    mov di, bss_9192                 ; 0xac46
-    mov cx, 0x9e26                   ; 0xac49
-    sub cx, di                       ; 0xac4c
-    shr cx, 1                        ; 0xac4e
-    je short @..loc_TKPQ.l1          ; 0xac50
-    sub ax, ax                       ; 0xac52
-    rep stosw                        ; 0xac54
-@..loc_TKPQ.l1:
-    call api_idx_0002_RQJQ           ; 0xac56
-    mov bp, word [dseg_918e]         ; 0xac59
-    mov sp, word [dseg_918c]         ; 0xac5d
-    mov si, word [dseg_9188]         ; 0xac61
-    mov di, word [dseg_918a]         ; 0xac65
-    push cx                          ; 0xac69
-    jmp [dseg_9190]                  ; 0xac6a
+%include "vmaze/asm_only/loc_TKPQ.asm"              ; 0xac30
+
 __zdata_start:
 
     db 'VM1.$$$', 0

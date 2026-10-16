@@ -298,7 +298,7 @@ api_idx_0094_LUVH:
     push word [bp - 0x0056]          ; 0x443f
     push word [bp - 0x0054]          ; 0x4442
     push word [bp + 0x4]             ; 0x4445
-    call api_idx_0008_PNIQ           ; 0x4448
+    call api_idx_0008_JRPS           ; 0x4448
     add sp, byte 8                   ; 0x444b
 @..api_idx_0094_LUVH.l19:
     jmp near @..api_idx_0094_LUVH.l27 ; 0x444e

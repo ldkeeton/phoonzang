@@ -38,6 +38,7 @@ ds_leaf_loc_10108 equ 0x10108 + VBASE
 dseg_001e equ __zdseg_001e - __zdseg_start
 dseg_0022 equ __zdseg_0022 - __zdseg_start
 dseg_0024 equ __zdseg_0024 - __zdseg_start
+dseg_0030 equ __zdseg_0030 - __zdseg_start
 dseg_0038 equ __zdseg_0038 - __zdseg_start
 dseg_003c equ __zdseg_003c - __zdseg_start
 dseg_0040 equ __zdseg_0040 - __zdseg_start
@@ -55,11 +56,9 @@ dseg_0cdd equ __zdseg_0cdd - __zdseg_start
 dseg_0cde equ __zdseg_0cde - __zdseg_start
 bss_0e36 equ (__zimage_end - __zdseg_start) + 0x0140
 bss_0e38 equ (__zimage_end - __zdseg_start) + 0x0142
-bss_3ed1 equ (__zimage_end - __zdseg_start) + 0x31db
 bss_5528 equ (__zimage_end - __zdseg_start) + 0x4832
 bss_552a equ (__zimage_end - __zdseg_start) + 0x4834
 bss_5642 equ (__zimage_end - __zdseg_start) + 0x494c
-bss_56d1 equ (__zimage_end - __zdseg_start) + 0x49db
 bss_590e equ (__zimage_end - __zdseg_start) + 0x4c18
 bss_5910 equ (__zimage_end - __zdseg_start) + 0x4c1a
 bss_5978 equ (__zimage_end - __zdseg_start) + 0x4c82
@@ -431,6 +430,7 @@ bss_95ce equ __zdseg_end + 0x0536
 bss_95d0 equ __zdseg_end + 0x0538
 bss_95de equ __zdseg_end + 0x0546
 bss_95e0 equ __zdseg_end + 0x0548
+bss_95e2 equ __zdseg_end + 0x054a
 bss_95e4 equ __zdseg_end + 0x054c
 bss_95e8 equ __zdseg_end + 0x0550
 bss_95ea equ __zdseg_end + 0x0552
@@ -1536,10 +1536,9 @@ __zdseg_001e:
 __zdseg_0022:
     db 0xab, 0x00
 __zdseg_0024:
-
-    db 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x09, 0x00, 0x5f, 0x00, 0x35, 0x00
-    db 0x1c, 0x00, 0xab, 0x00
-
+    db 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x5e, 0x00, 0x09, 0x00
+__zdseg_0030:
+    db 0x5f, 0x00, 0x35, 0x00, 0x1c, 0x00, 0xab, 0x00
 __zdseg_0038:
     db 0x00, 0x00, 0x09, 0x00
 __zdseg_003c:

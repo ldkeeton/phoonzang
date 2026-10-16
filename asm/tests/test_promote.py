@@ -15,6 +15,8 @@ import pathlib
 import struct
 import tempfile
 import unittest
+
+from tests.slow import slow
 from unittest.mock import patch
 
 from lib.sidecar.binary import per_binary as sidecar_per_binary
@@ -233,6 +235,7 @@ class SyntheticPromotionTests(unittest.TestCase):
         self.assertEqual(report['skipped'][0]['reason'], 'no-data-anchor')
 
 
+@slow
 class CorpusPromotionPipelineTests(unittest.TestCase):
     """The real ``vinstall`` corpus: every asserted word is emitted as a ``dw``."""
 

@@ -16,6 +16,8 @@ import subprocess
 import tempfile
 import unittest
 
+from tests.slow import slow
+
 from lib.compare.render import HOST_SYMBOLS_INC, _build_source
 from lib.compare.records import (
     DISPATCH_STRIDE, count_frozen_addrs, count_hidden_flow, count_name_use,
@@ -163,8 +165,8 @@ def _mz_header(e_ss):
 # (one name the C spelling no longer mentions).  Both are decrease-only baselines;
 # they were lowered here after measuring HEAD's own tree, not the working tree.
 BASELINE_TOTALS = {
-    'code_shift': 82, 'data_shift': 1, 'inert': 248,
-    'f1': 2, 'f2': 13, 'f3': 64, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
+    'code_shift': 57, 'data_shift': 1, 'inert': 230,
+    'f1': 2, 'f2': 13, 'f3': 39, 'f4': 1, 'f5': 3, 'f6': 223, 'f7': 0,
     'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
     # D7.6 gave the raw drivers their true load origin (``CS:0x100``), so a
     # ``[cs:disp]`` operand now resolves to ``disp - 0x100`` and the ``cseg_``
@@ -206,8 +208,21 @@ BASELINE_TOTALS = {
     # Parameterised sharing (lib.shared: copies differing only in label names)
     # took ``shared/`` 90 -> 141 files: ``hidden_flow`` 105 -> **157**, all 61 new
     # sites at offsets whose anchor moved into ``shared/`` (9 sites went).
-    'names_used': 44, 'names_inert': 28, 'hidden_flow': 157,
-    'total': 83,
+    'names_used': 22, 'names_inert': 25, 'hidden_flow': 175,
+    'total': 58,
+    # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
+    # returns; the call is followed by N-1 keys and N case targets.  The decoder
+    # used to fall through the call and decode the target words as ``jcc``s,
+    # minting a frozen ``loc_`` ``equ`` per fake branch target, and 7E.4 tagged
+    # N+1 words ``literal``.  Now the table is carved exactly and the targets are
+    # code roots: ``f3`` 64 -> **39**, ``code_shift`` 82 -> **57**, ``f6`` 241
+    # -> **223** (case targets render as labels, not tagged numbers),
+    # ``hidden_flow`` 157 -> **118** (the case arms decode as code),
+    # ``names_used`` 44 -> **22**, ``names_inert`` 28 -> **25**.
+    # No bare code left in the masters (switch-arm tails kept with their routine,
+    # the last root runs to the end of the code, the entry routine gets a file):
+    # ``shared/`` 146 -> 202 files, which drops more ``; 0x`` anchors, so
+    # ``hidden_flow`` 118 -> **175** (a lower-bound artifact, not a new reference).
 }
 
 
@@ -750,6 +765,7 @@ class EmittedTreeCoherenceTests(unittest.TestCase):
     the *disassembly*'s table -- a label that override never defines.
     """
 
+    @slow
     def test_every_referenced_local_label_is_defined(self):
         if not _TREE.is_dir():
             self.skipTest('generated asm_DSAVANT tree not present')
@@ -958,6 +974,7 @@ class HostIncludeTests(unittest.TestCase):
         with open(master, 'w') as f:
             f.write(edited)
 
+    @slow
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists()
         and (_TREE / 'vbase.asm').exists(),
@@ -976,6 +993,7 @@ class HostIncludeTests(unittest.TestCase):
                             '__zdseg_start:\n    db 0xee\n')
             self.assertEqual(self._build_overlay(d)[6:8], b'\x99\x90')
 
+    @slow
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists()
         and (_TREE / 'vbase.asm').exists(),
@@ -1026,6 +1044,7 @@ class HostIncludeTests(unittest.TestCase):
         self.assertNotIn('%define VBASE', rewritten)
         self.assertIn(f'%include "{HOST_SYMBOLS_INC}"', rewritten)
 
+    @slow
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists()
         and (_TREE / 'vbase.asm').exists(),
@@ -1083,6 +1102,7 @@ class HostCallNamesTests(unittest.TestCase):
         _TREE.is_dir() and (_TREE / 'ds.asm').exists(),
         'generated asm_DSAVANT tree not present',
     )
+    @slow
     def test_every_referenced_host_prefixed_name_is_defined_by_the_host(self):
         import re
         defined = self._host_definitions()
@@ -1127,6 +1147,7 @@ class HostDataTableTests(unittest.TestCase):
     ``dseg_`` is run-time DS -- both stay out of this table; Appendix C.)
     """
 
+    @slow
     def test_every_overlay_ds_name_is_defined_by_the_host(self):
         import re
         pat = re.compile(r'^((?:bss|dseg)_[0-9a-fA-F]+)\s+equ\b')
@@ -1315,6 +1336,63 @@ class NamedAddressPlacementTests(unittest.TestCase):
         self.assertIn('data_010a equ 0x010a', src)
 
 
+@slow
+class InlineSwitchEditTests(unittest.TestCase):
+    """An inline switch table follows a code edit (plan.md D8).
+
+    ``vpcvw``'s ``mov cx, 0x18; call <switch helper>`` at file 0x291c is
+    followed by 23 keys and 24 case targets (file 0x291f..0x297d).  Inserting
+    one byte in front of a case arm must move exactly the targets at or past it
+    and leave the keys alone.
+    """
+
+    _TABLE = 0x291f
+    _KEYS = 23
+    _TARGETS = 24
+    _O_CORG = 0x5055
+    _HEADER = 14
+
+    def _words(self, image, start, count):
+        return list(struct.unpack_from(f'<{count}H', image, start))
+
+    @unittest.skipUnless(
+        _TREE.is_dir() and (_TREE / 'vpcvw.asm').exists()
+        and (_TREE / 'ds.asm').exists(),
+        'generated asm_DSAVANT tree not present',
+    )
+    def test_case_targets_follow_an_inserted_byte(self):
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            root = pathlib.Path(d)
+            original = _nasm_file(str(root / 'vpcvw.asm'), d)
+            keys = self._words(original, self._TABLE, self._KEYS)
+            targets = self._words(original, self._TABLE + 2 * self._KEYS,
+                                  self._TARGETS)
+            self.assertEqual(keys[0], 0x000c)
+
+            # The arm the first target names; insert a byte in front of it.
+            arm = self._HEADER + targets[0] - self._O_CORG
+            label = 'jumptable_291f_case_23:'
+            src = next(p for p in root.rglob('*.asm')
+                       if label in p.read_text(errors='ignore'))
+            text = src.read_text()
+            src.write_text(text.replace(label, f'    nop\n{label}', 1))
+
+            grown = _nasm_file(str(root / 'vpcvw.asm'), d)
+            self.assertEqual(len(grown), len(original) + 1)
+            table = self._TABLE + 1  # the table sits past the edit
+            self.assertEqual(self._words(grown, table, self._KEYS), keys)
+            expected = [
+                t + 1 if self._HEADER + t - self._O_CORG >= arm else t
+                for t in targets
+            ]
+            self.assertEqual(
+                self._words(grown, table + 2 * self._KEYS, self._TARGETS),
+                expected)
+            self.assertNotEqual(expected, targets)
+
+
+@slow
 class InsertBytePropertyTests(unittest.TestCase):
     """Acceptance test: editing a fragment keeps the image consistent.
 
@@ -1614,6 +1692,7 @@ class DataPointerCorpusTests(unittest.TestCase):
                              f'{binary}: offset asserted both ways')
 
 
+@slow
 class CommittedTreeBaselineTests(unittest.TestCase):
     @unittest.skipUnless(_TREE.is_dir(), 'generated asm_DSAVANT tree not present')
     def test_frozen_addr_only_decreases(self):

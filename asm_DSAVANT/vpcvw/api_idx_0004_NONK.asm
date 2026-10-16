@@ -4,14 +4,14 @@ api_idx_0004_NONK:
     call aztec_csav                  ; 0x2981
     mov word [bp - 0x0004], 0        ; 0x2984
     mov word [bp - 0x0002], 0        ; 0x2989
-loc_GSQL:
+@..api_idx_0004_NONK.l1:
     mov ax, 6                        ; 0x298e
     imul word [bp - 0x0002]          ; 0x2991
     mov bx, ax                       ; 0x2994
     mov al, byte [bx + 0x620]        ; 0x2996
     sub ah, ah                       ; 0x299a
     cmp ax, word [bp + 0x6]          ; 0x299c
-    jne short loc_HTQU               ; 0x299f
+    jne short @..api_idx_0004_NONK.l2 ; 0x299f
     push word [bp - 0x0002]          ; 0x29a1
     mov ax, 0x248                    ; 0x29a4
     imul word [bp + 0x4]             ; 0x29a7
@@ -20,7 +20,7 @@ loc_GSQL:
     call ds_leaf_loc_PRVP            ; 0x29ae
     add sp, byte 4                   ; 0x29b1
     test ax, ax                      ; 0x29b4
-    je short loc_HTQU                ; 0x29b6
+    je short @..api_idx_0004_NONK.l2 ; 0x29b6
     mov ax, 0x14                     ; 0x29b8
     imul word [bp - 0x0004]          ; 0x29bb
     add ax, 0xe38                    ; 0x29be
@@ -36,10 +36,10 @@ loc_GSQL:
     mov bx, cx                       ; 0x29d7
     mov word [bx - 0x6aee], ax       ; 0x29d9
     inc word [bp - 0x0004]           ; 0x29dd
-loc_HTQU:
+@..api_idx_0004_NONK.l2:
     inc word [bp - 0x0002]           ; 0x29e0
     mov ax, word [bp - 0x0002]       ; 0x29e3
     cmp ax, strict word 0x66         ; 0x29e6
-    jl short loc_GSQL                ; 0x29e9
+    jl short @..api_idx_0004_NONK.l1 ; 0x29e9
     mov ax, word [bp - 0x0004]       ; 0x29eb
     ret                              ; 0x29ee

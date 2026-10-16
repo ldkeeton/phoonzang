@@ -11,6 +11,8 @@ import pathlib
 import tempfile
 import unittest
 
+from tests.slow import slow
+
 from lib.compare import cotenancy
 from lib.symtab import Symbol
 from tests.syms import bss, cseg, dseg, loc, routine
@@ -36,7 +38,12 @@ _TREE = _ASM_DIR.parent / 'asm_DSAVANT'
 #: Byte-hash tags: ``code_outside`` 243 -> **213**.  A reference now resolves in
 #: its own binary first (``cotenancy.resolve``); the old scan matched names
 #: across the tree, so another binary's same-named label counted as a use.
-COTENANCY_BASELINE = {'glued_files': 211, 'code_outside': 213, 'data_outside': 7}
+#:
+#: Ending the last root at the end of the code and giving the entry routine a
+#: file (no bare code in the masters) revealed one more glued fragment: 211 -> **212**, and code that used to sit
+#: bare in the masters now shows up in fragments: ``code_outside`` 213 -> **235**
+#: (mostly switch arms split from their table, e.g. ``jumptable_436e_case_*``).
+COTENANCY_BASELINE = {'glued_files': 212, 'code_outside': 235, 'data_outside': 7}
 
 
 def _write(path, text):
@@ -146,6 +153,7 @@ class CoTenancyClassificationTests(unittest.TestCase):
             self.assertNotEqual(reach['a/r1.asm'], 'outside')
 
 
+@slow
 class CommittedTreeCoTenancyTests(unittest.TestCase):
     @unittest.skipUnless(_TREE.is_dir(), 'generated asm_DSAVANT tree not present')
     def test_glue_only_falls(self):

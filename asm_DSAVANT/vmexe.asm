@@ -160,10 +160,11 @@ loc_UTQS.api_idx1 equ api_idx_0006_TMLR
 
 %include "vmexe/asm_only/api_idx_000c_NRPK.asm"     ; 0x7911
 
-loc_81ba  equ 0x81ba + VBASE
-loc_81bc  equ 0x81bc + VBASE
-data_b0cb equ 0xb0cb
-%include "vmexe/asm_only/api_idx_00ac_HRGR.asm"     ; 0x7962
+%include "vmexe/api_idx_00ac_HRGV.asm"     ; 0x7962
+
+%include "vmexe/leaf_loc_IIUM.asm"         ; 0x7b39
+
+%include "vmexe/asm_only/leaf_loc_MPRQ.asm"         ; 0x7b41
 
 leaf_loc_LPSH.loc1 equ loc_SJSL
 %include "shared/leaf_loc_LPSH.asm"         ; 0x87b7

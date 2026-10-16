@@ -813,7 +813,7 @@ jumptable_6ea7_case_0:
     push word [bp - 0x000c]          ; 0x6cf4
     push word [bp - 0x000a]          ; 0x6cf7
     push word [bp - 0x0002]          ; 0x6cfa
-    call api_idx_00ac_HRGR           ; 0x6cfd
+    call api_idx_00ac_HRGV           ; 0x6cfd
     add sp, byte 6                   ; 0x6d00
     cmp word [bp - 0x000c], byte 3   ; 0x6d03
     jne short @..api_idx_0014_OSKJ.l42 ; 0x6d07

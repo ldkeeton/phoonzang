@@ -15,6 +15,8 @@ import pathlib
 import struct
 import tempfile
 import unittest
+
+from tests.slow import slow
 from unittest.mock import patch
 
 from lib.sidecar.binary import per_binary as sidecar_per_binary
@@ -315,6 +317,7 @@ class BacklogCorroborationTests(unittest.TestCase):
         self.assertEqual([c['offset'] for c in report['unproven']], [0x120])
 
 
+@slow
 class PointerCorpusPipelineTests(unittest.TestCase):
     """The real ``vinstall`` corpus: the accepted set must be 100% precise.
 

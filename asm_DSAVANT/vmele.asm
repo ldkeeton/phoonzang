@@ -22,27 +22,8 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-loc_KSVQ:
-    mov ax, 0                        ; 0x000e
-    call aztec_csav                  ; 0x0011
-    mov word [bss_90b6], 5           ; 0x0014
-    mov word [bss_90b8], 0           ; 0x001a
-    mov word [bss_90ba], 0           ; 0x0020
-    mov word [bss_90bc], 0           ; 0x0026
-    cmp word [bss_830a], byte 0x0a   ; 0x002c
-    jne short @..loc_KSVQ.l1         ; 0x0031
-    call loc_RLUJ                    ; 0x0033
-@..loc_KSVQ.l1:
-    cmp word [bss_830a], byte 0x0e   ; 0x0036
-    jne short @..loc_KSVQ.l2         ; 0x003b
-    call api_idx_0056_KOPT           ; 0x003d
-@..loc_KSVQ.l2:
-    cmp word [bss_830a], byte 0x0b   ; 0x0040
-    jne short @..loc_KSVQ.l3         ; 0x0045
-    call api_idx_0002_PSIJ           ; 0x0047
-@..loc_KSVQ.l3:
-    mov ax, 0                        ; 0x004a
-    ret                              ; 0x004d
+%include "vmele/loc_KSVQ.asm"              ; 0x000e
+
 %include "shared/api_idx_0008_MNJN.asm"     ; 0x004e
 
 %include "vmele/api_idx_0004_RGUG.asm"     ; 0x0102
