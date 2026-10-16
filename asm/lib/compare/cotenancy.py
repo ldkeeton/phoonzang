@@ -14,6 +14,10 @@ defines besides its own root, and classifies each by:
 * **reach** - referenced from *outside* the defining file (a mis-filed object
   that belongs in its own file / the master) or only inside it (a local tail).
 
+A renderer *alias* (``__z*``: a label on a byte, so a name can be written as an
+expression over it) is not listed: it is an alternate spelling for a byte inside
+the fragment's own span, not an object glued onto it.
+
 The ``outside`` count is the number that matters: those objects are not the
 fragment's to own, and their address-derived names are also what stops identical
 code from sharing (``lib.shared``).
@@ -29,6 +33,9 @@ from lib.shared import FOLDER
 _LABEL = re.compile(r'^([A-Za-z_][A-Za-z0-9_.]*):')
 _IDENT = re.compile(r'[A-Za-z_][A-Za-z0-9_.]*')
 _LOCAL_PREFIX = '@..'
+#: The renderer's alias namespace (``render.ANCHOR_PREFIX``): a label on a byte,
+#: not an object of its own, so it is not a co-tenant (see ``_defined_labels``).
+_ALIAS_PREFIX = '__z'
 _DATA_PREFIXES = ('cseg_', 'data_', 'dseg_', 'bss_', 'seg_', 'esg_', 'ssg_', 'psp_')
 _SKIP_DIRS = {'inc', 'build_out'}
 
@@ -53,11 +60,18 @@ def _walk_asm(out_dir):
 
 
 def _defined_labels(text):
-    """Label names defined in *text*, excluding ``@..`` locals."""
+    """Label names defined in *text*, excluding ``@..`` locals and aliases.
+
+    A renderer *alias* (``__zdata_381b``, ``__zdseg_0008``: ``render.ANCHOR_PREFIX``)
+    names a byte inside whatever record spans it, so it is an alternate spelling
+    for an object, not a foreign object the splitter mis-filed.  Counting it would
+    report a glued fragment for a label that adds no bytes, and a fragment that
+    defines one is not "the routine plus a neighbour".
+    """
     out = []
     for line in text.split('\n'):
         m = _LABEL.match(line)
-        if m and not m.group(1).startswith(_LOCAL_PREFIX):
+        if m and not m.group(1).startswith((_LOCAL_PREFIX, _ALIAS_PREFIX)):
             out.append(m.group(1))
     return out
 

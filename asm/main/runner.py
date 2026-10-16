@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import time
+from types import SimpleNamespace
 
 import polars as pl
 
@@ -91,10 +92,14 @@ def process(name, *args, **kwargs):
                      if project else None)
 
 
-def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_offsets=True, output_dir=None, project=None, sidecar_entry=None,
-            foreign_label_map=None, export_labels=False, host_model=None,
-            foreign_prefix=None, host_data_offsets=None):
-    set_generic_prefix('')
+def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
+             project=None, sidecar_entry=None, foreign_label_map=None,
+             export_labels=False, host_model=None, foreign_prefix=None):
+    """Classify and name one binary: everything short of rendering it.
+
+    Returns a ``SimpleNamespace`` of the results, or ``None`` when the binary
+    is missing.  Nothing is written under the project's output directory.
+    """
     path = os.path.join(orig_dir, rel_path)
     if not os.path.exists(path):
         print(f'{name}: SKIP (file not found at {path})')
@@ -438,7 +443,7 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_off
     if AZTEC_PREBUILD_ONLY:
         # `make prebuild`: the mux manifest is written; nothing downstream of
         # this point (emit/NASM/build_out) belongs to a prebuild.
-        return ctx.bitmap, label_map
+        return SimpleNamespace(prebuild_only=True, ctx=ctx, label_map=label_map)
 
     structs = build_structs(instructions)
 
@@ -481,6 +486,40 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_off
             foreign_label_map, ctx.segments, instructions,
             start_offset, len(data), foreign_prefix,
         )
+
+    return SimpleNamespace(
+        prebuild_only=False, name=name, project=project, data=data,
+        start_offset=start_offset, ctx=ctx, trace_writer=trace_writer,
+        instructions=instructions, label_map=label_map,
+        function_roots=function_roots, extra_flow_edges=extra_flow_edges,
+        foreign_label_map=foreign_label_map, entry_symbol=entry_symbol,
+        structs=structs, carve_1=carve_1, immediate_labels=immediate_labels,
+        label_comments=label_comments, split_functions=split_functions,
+        out_dir=out_dir, c_overrides=c_overrides, entries=_entries,
+        asm_annotations=asm_annotations, classify_timing=classify_timing,
+        code_bytes=code_bytes, data_bytes=data_bytes, pct=pct,
+        t_total=t_total, t_classify=t_classify, t_classify_end=t_classify_end,
+        t_flow_disasm_start=t_flow_disasm_start, t_disasm=t_disasm,
+        t_aztec=t_aztec, t_aztec_end=t_aztec_end,
+    )
+
+
+def _render(a, exact_bytes, show_offsets, host_data_offsets):
+    """Render an analysed binary to assembly text; still writes no sources.
+
+    The host's DS declarations depend on ``host_data_offsets``, which exist only
+    once its consumers are built.  The labels the consumers need do not, which
+    is why rendering is a separate step from analysing.
+    """
+    (name, project, data, start_offset, ctx, instructions, label_map,
+     function_roots, extra_flow_edges, foreign_label_map, entry_symbol,
+     structs, carve_1, immediate_labels, label_comments, split_functions,
+     out_dir, c_overrides, asm_annotations) = (
+        a.name, a.project, a.data, a.start_offset, a.ctx, a.instructions,
+        a.label_map, a.function_roots, a.extra_flow_edges,
+        a.foreign_label_map, a.entry_symbol, a.structs, a.carve_1,
+        a.immediate_labels, a.label_comments, a.split_functions, a.out_dir,
+        a.c_overrides, a.asm_annotations)
     asm_text, stats, emit_bytes, label_positions, split_sources = verify(
         data, start_offset, instructions, name, ctx.label_map,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
@@ -549,6 +588,24 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_off
         diag_emit('bare_call', stats.get('bare_call', 0))
         diag_flush()
 
+
+    return SimpleNamespace(asm_text=asm_text, stats=stats,
+                           split_sources=split_sources)
+
+
+def _emit(a, r, exact_bytes):
+    """Write the rendered sources and report; the only step that touches ``asm_<project>/``."""
+    (name, project, ctx, instructions, label_map, out_dir, entries,
+     immediate_labels, classify_timing, code_bytes, data_bytes, pct,
+     t_total, t_flow_disasm_start, t_disasm, t_aztec, t_aztec_end,
+     t_classify, t_classify_end, asm_annotations) = (
+        a.name, a.project, a.ctx, a.instructions, a.label_map, a.out_dir,
+        a.entries, a.immediate_labels, a.classify_timing, a.code_bytes,
+        a.data_bytes, a.pct, a.t_total, a.t_flow_disasm_start, a.t_disasm,
+        a.t_aztec, a.t_aztec_end, a.t_classify, a.t_classify_end,
+        a.asm_annotations)
+    asm_text, stats, split_sources = r.asm_text, r.stats, r.split_sources
+    _entries = entries
     os.makedirs(out_dir, exist_ok=True)
     # Asm-only routines (lib.asm_only) live in an ``asm_only`` subfolder so they
     # are not mixed with the routines that can become C.  A routine with a
@@ -685,6 +742,19 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_off
         write_summary(ctx, asm_text)
     print_short_report(ctx)
 
+
+    if _DECOMPILE:
+        from lib.decompile.driver import decompile
+        c_text = decompile(instructions, label_map, ctx.code_target_set, name)
+        c_path = os.path.join(out_dir, f'{name}.c')
+        write_text(c_path, c_text)
+        print(f'  decompile: {len(instructions)} insns -> {c_path}')
+
+
+def _export_labels(a):
+    """Keep the binary's labels for its consumers and for resplice."""
+    name, project, label_map = a.name, a.project, a.label_map
+    asm_annotations = a.asm_annotations
     # Every binary's labels are kept (not only an exported host's): resplice
     # re-renders a binary's C routines against them.
     if label_map and project:
@@ -701,14 +771,37 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False, show_off
             metrics={'renamed': len(renamed), 'exported': len(exported)})
         write_label_json(exported, json_path)
 
-    if _DECOMPILE:
-        from lib.decompile.driver import decompile
-        c_text = decompile(instructions, label_map, ctx.code_target_set, name)
-        c_path = os.path.join(out_dir, f'{name}.c')
-        write_text(c_path, c_text)
-        print(f'  decompile: {len(instructions)} insns -> {c_path}')
 
-    if trace_writer:
-        trace_writer.close()
+def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
+             show_offsets=True, output_dir=None, project=None,
+             sidecar_entry=None, foreign_label_map=None, export_labels=False,
+             host_model=None, foreign_prefix=None, host_data_offsets=None,
+             emit=True):
+    """Generate one binary: analyse, render, export its labels, then emit.
 
-    return ctx.bitmap, label_map
+    ``emit=False`` is the labels phase: the same analysis and render (so the
+    labels are the ones the emitting run will produce), but no source is
+    written and no status is printed.  The build uses it for the host, whose
+    emitted source must wait for its consumers' DS offsets.
+    """
+    set_generic_prefix('')
+    a = _analyze(name, orig_dir, rel_path, start_offset, output_dir=output_dir,
+                 project=project, sidecar_entry=sidecar_entry,
+                 foreign_label_map=foreign_label_map,
+                 export_labels=export_labels, host_model=host_model,
+                 foreign_prefix=foreign_prefix)
+    if a is None:
+        return None
+    if a.prebuild_only:
+        # `make prebuild`: the mux manifest is written; nothing downstream of
+        # this point (emit/NASM/build_out) belongs to a prebuild.
+        return a.ctx.bitmap, a.label_map
+    try:
+        r = _render(a, exact_bytes, show_offsets, host_data_offsets)
+    finally:
+        if a.trace_writer:
+            a.trace_writer.close()
+    _export_labels(a)
+    if emit:
+        _emit(a, r, exact_bytes)
+    return a.ctx.bitmap, a.label_map

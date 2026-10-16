@@ -7,21 +7,21 @@ bits 16
 IMAGE_BASE equ -0x0100
 %endif
 
-data_0229 equ 0x0229
-data_0251 equ 0x0251
-data_025b equ 0x025b
-data_029b equ 0x029b
-data_02d7 equ 0x02d7
-data_0bc6 equ 0x0bc6
-data_0bda equ 0x0bda
-data_1dc4 equ 0x1dc4
-data_1e4c equ 0x1e4c
-data_1e5c equ 0x1e5c
-data_1e64 equ 0x1e64
-data_381b equ 0x381b
-data_4202 equ 0x4202
-data_46d9 equ 0x46d9
-data_46f1 equ 0x46f1
+data_0229 equ __zdata_0229 - IMAGE_BASE
+data_0251 equ __zdata_0251 - IMAGE_BASE
+data_025b equ __zdata_025b - IMAGE_BASE
+data_029b equ __zdata_029b - IMAGE_BASE
+data_02d7 equ __zdata_02d7 - IMAGE_BASE
+data_0bc6 equ __zdata_0bc6 - IMAGE_BASE
+data_0bda equ __zdata_0bda - IMAGE_BASE
+data_1dc4 equ __zdata_1dc4 - IMAGE_BASE
+data_1e4c equ __zdata_1e4c - IMAGE_BASE
+data_1e5c equ __zdata_1e5c - IMAGE_BASE
+data_1e64 equ __zdata_1e64 - IMAGE_BASE
+data_381b equ __zdata_381b - IMAGE_BASE
+data_4202 equ __zdata_4202 - IMAGE_BASE
+data_46d9 equ __zdata_46d9 - IMAGE_BASE
+data_46f1 equ __zdata_46f1 - IMAGE_BASE
 
 loc_HHMO:
     jmp near loc_UJON                ; 0x0000
@@ -229,12 +229,15 @@ cseg_0127:
     db 0x00
 cseg_0128:
     db 0x00
+__zdata_0229:
 cseg_0129:
 
     times 40 db 0
 
+__zdata_0251:
 cseg_0151:
     times 10 db 0
+__zdata_025b:
 cseg_015b:
 
     times 32 db 0
@@ -254,6 +257,7 @@ cseg_0197:
     db 0x00, 0x00
 cseg_0199:
     db 0x00, 0x00
+__zdata_029b:
 cseg_019b:
 
     times 40 db 0
@@ -262,6 +266,7 @@ cseg_01c3:
 
     times 20 db 0
 
+__zdata_02d7:
 cseg_01d7:
 
     times 184 db 0
@@ -312,9 +317,14 @@ cseg_0515:
 
 %include "vga/asm_only/dos_con_loc_RHKN.asm"        ; 0x0a8d
 
+__zdata_0bc6:
 cseg_0ac6:
 
-    times 228 db 0
+    times 20 db 0
+
+__zdata_0bda:
+
+    times 208 db 0
 
 cseg_0baa:
     db 0x00, 0x00
@@ -374,20 +384,24 @@ cseg_14c2:
 
     times 2050 db 0
 
+__zdata_1dc4:
 cseg_1cc4:
 
     times 136 db 0
 
+__zdata_1e4c:
 cseg_1d4c:
 
     times 16 db 0
 
+__zdata_1e5c:
 cseg_1d5c:
     db 0x0a, 0x00
 cseg_1d5e:
     db 0x0a, 0x00
 cseg_1d60:
     db 0x0a, 0x00, 0x0a, 0x00
+__zdata_1e64:
 cseg_1d64:
     db 0x00, 0x00
 cseg_1d66:
@@ -501,10 +515,12 @@ cseg_2327:
 
 %include "shared/leaf_loc_JKPU.asm"           ; 0x2d08
 
+__zdata_2e2b:
 cseg_2d2b:
 
     times 40 db 0
 
+__zdata_2e53:
 cseg_2d53:
 
     times 25 db 0
@@ -553,6 +569,7 @@ cseg_3b8e:
 
 %include "shared/dos_con_loc_TUTH.asm"        ; 0x40d2
 
+__zdata_4202:
 cseg_4102:
 
     times 84 db 0
@@ -589,10 +606,13 @@ cseg_4102:
 
 %include "shared/loc_PKHP.asm"                ; 0x45b2
 
+__zdata_46d9:
 cseg_45d9:
 
-    times 34 db 0
+    times 24 db 0
 
+__zdata_46f1:
+    times 10 db 0
 %include "vga/asm_only/dos_read_file_7.asm"         ; 0x45fb
 
 %include "vga/asm_only/dos_con_loc_SLMO.asm"        ; 0x4719

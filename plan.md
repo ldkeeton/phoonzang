@@ -35,24 +35,25 @@ literal into three gate classes:
 `total = code_shift + data_shift` is the metric of record; `inert` is reported,
 not counted.
 
-**Current tree** (a `make build` fixed point): **`code_shift` 97, `data_shift` 1,
-`inert` 248, `total` 98.** Per-taxonomy: `f1=2 f2=13 f3=79 f4=1 f5=3 f6=241 f7=0`;
+**Current tree** (a `make build` fixed point): **`code_shift` 82, `data_shift` 1,
+`inert` 248, `total` 83.** Per-taxonomy: `f1=2 f2=13 f3=64 f4=1 f5=3 f6=241 f7=0`;
 shared-geometry buckets `o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0`.
-`code_shift` decomposes as 79 F3 `equ`s + 13 overlay `o_bss` + 2 MZ `e_sp` +
+`code_shift` decomposes as 64 F3 `equ`s + 13 overlay `o_bss` + 2 MZ `e_sp` +
 3 overlay zero pads.
 
 Two auxiliary counters, both in `BASELINE_TOTALS`:
 
-- `names_used` **55** / `names_inert` **29** — of the *named* frozen addresses,
+- `names_used` **42** / `names_inert` **27** — of the *named* frozen addresses,
   how many the tree actually refers to (`count_name_use`). Converting an inert
   name to a label moves the census without making anything follow an edit.
-- `hidden_flow` **87** — near call/jmp targets whose *target* the source shows as
+- `hidden_flow` **90** — near call/jmp targets whose *target* the source shows as
   code but whose *site* is emitted as bytes, so no source line spells the
   reference (`count_hidden_flow`; a lower bound).
 
-Where the 98 live, per emitted file: `vpcvw`/`vga` 16 each, `play` 14, `vbase` 9,
-`vtrea` 7, `vpcmk` 6, `vmaze`/`vmexe` 5, `vinstall`/`vmnpc` 3, then 2s and 1s.
-The single `data_shift` is a raw-driver DS reference (Appendix C).
+Where the 83 live, per emitted file: `vpcvw` 16, `play` 14, `vbase` 9,
+`vtrea` 7, `vpcmk` 6, `vmaze`/`vmexe` 5, `ega`/`vinstall`/`vmnpc` 3, the rest 2s
+and 1s — `vga` is down to 1. The single `data_shift` is a raw-driver DS reference
+(Appendix B).
 
 ---
 
@@ -66,7 +67,7 @@ The single `data_shift` is a raw-driver DS reference (Appendix C).
 | F2 | overlay `o_bss` | `_render_ovr_header` | literal (runtime) — counts as 13 |
 | F2 | overlay `o_corg` | `_render_ovr_header` | bound to host (`__zresident_end`) |
 | F2 | overlay `o_dorg` | `_render_ovr_header` | bound — it *is* the host DS size |
-| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | 79 overlay `equ` remain |
+| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | 64 overlay `equ` remain |
 | F4 | `dseg_`/`bss_` `equ` | `_build_source` | dynamic (MZ) and via the host data map (overlays); 1 raw-driver left |
 | F4 | `psp_` `equ` | `_build_source` | inert |
 | F4 | host DS-size immediates | `_build_source` | bound to `__zdseg_end` |
@@ -239,13 +240,12 @@ string → entropy → zero → data), used to deprioritise words and to supply 
 
 ## 5. Remaining work
 
-`code_shift` 97 → 0, `data_shift` 1 → 0.
+`code_shift` 82 → 0, `data_shift` 1 → 0.
 
-- **The 79 F3 `equ`s (the largest block).** Overlay `loc_`/`string_`/`leaf_`/
-  `fpu_`/`io_`/`bios_`/`api_idx_` names still refused a label, plus the `vga`
-  `immediate_labels` (15 `data_`) and a handful of driver `cseg_`/`data_` names on
-  data or mid-instruction bytes. Each refusal is a byte whose *kind* is
-  undecided upstream, not a rendering trick away:
+- **The 64 F3 `equ`s (the largest block).** Overlay `loc_`/`string_`/`leaf_`/
+  `fpu_`/`io_`/`bios_`/`api_idx_` names still refused a label, plus a handful of
+  driver `cseg_`/`data_` names on data or mid-instruction bytes. Each refusal is
+  a byte whose *kind* is undecided upstream, not a rendering trick away:
   - a `vga` decode gap — bytes the sidecar calls code that the arbiter calls
     data (the driver dispatch table followed by real code and strings);
   - the `mem_equ` `cseg_`/`data_` *operand* symbols (code-segment variables read
@@ -253,15 +253,25 @@ string → entropy → zero → data), used to deprioritise words and to supply 
     wants carving as data;
   - names strictly inside a decoded instruction;
   - names outside every record.
+
+  The `vga` `immediate_labels` (15 `data_`) left this list in D7.6b: a driver's
+  *named* absolute immediates are bound (`data_XXXX equ __zdata_XXXX - IMAGE_BASE`),
+  so `vga`'s block is down to the one name that is never referenced.
 - **`o_bss` (13) + MZ `e_sp` (2) → `inert`.** Both are sizes that can never
   change under a source edit; they are counted today and belong in the inert set
-  (Appendix C).
+  (Appendix B).
 - **Overlay zero pads (3).** Settle whether they can carry an anchor.
 - **The raw-driver DS half + the parked `ega dseg_24fd`.** Bind them where DS is
-  the host's; reclassify where it is not.
-- **Raw-driver absolute immediates** — a driver's *values* are CS offsets too
+  the host's; reclassify where it is not. `dseg_24fd` is a `[bx]` read (no `cs:`
+  override) in a routine that also spells its own data `[cs:cseg_…]`, so DS there
+  is the caller's; the decision is whether that is the host's segment at that
+  call site.
+- **Raw-driver absolute immediates.** A driver's *values* are CS offsets too
   (`mov dx, 0x29ca` names a string at file `0x28ca`). The coordinate is known
-  (`disp - 0x100`); the class is uncounted (~45 real references).
+  (`disp - 0x100`) and the *named* half is bound (D7.6b); what remains is the
+  **unnamed** class (~45 real references, e.g. `mov dx, 0x10ea` naming the
+  `MAZE SET ERROR.` string at file 0x0fea), which needs a rule that decides which
+  bare immediates are addresses -- the immediate analogue of the pointer scorer.
 - **The C data-reference contract.** A hand-written `.c` may name a DS offset the
   build has no symbol for; `lib/aztec/relink.py` takes it as written and emits a
   bare literal, so a wrong `dseg_`/`bss_` prefix is invisible (the tree names
@@ -329,10 +339,16 @@ neighbour whether it is referenced from outside or **dead**; a *code* neighbour
 becomes its own range and file (like any routine), a *data* neighbour is left for
 the master (a data-only fragment would be neither a routine nor asm-only). A
 label inside the routine's own code is untouched, so a real routine is never
-split. Effect: fragments 1364 → 1723, glued files 361 → 214, outside co-tenants
-734 → 254 (code 247, data 7), and shared `shared/` files 58 → 84. `dos_con_loc_TUTH`
-and `leaf_loc_JKPU` — the two pairs D7.6 left un-shared — now share from `shared/`.
-Byte-identical: 18/18, `code_shift`/`data_shift` unchanged.
+split. Effect: fragments 1364 → 1723, glued files 361 → **211**, outside
+co-tenants 734 → **250** (code 243, data 7), and shared `shared/` files 58 → 84.
+`dos_con_loc_TUTH` and `leaf_loc_JKPU` — the two pairs D7.6 left un-shared — now
+share from `shared/`. Byte-identical: 18/18, `code_shift`/`data_shift` unchanged.
+D7.6b then took glued 214 → 211 and code-outside 247 → 243 by classifying the
+renderer's `__z*` *aliases* as aliases (`cotenancy._ALIAS_PREFIX`): four
+`__zdata_start` origins had been counted as *code* co-tenants, and three
+fragments whose only extra label was one of them were reported as glued. A label
+on a byte adds no bytes to a fragment, so it is not "the routine plus a
+neighbour".
 
 **A promoted `loc_` root is named after its code.** `tag_generics` used to skip a
 plain `loc_` name outright, because a plain `loc_` root was held to live inside

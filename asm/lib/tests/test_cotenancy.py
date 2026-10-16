@@ -23,7 +23,14 @@ _TREE = _ASM_DIR.parent / 'asm_DSAVANT'
 #: ``glued_files`` 361 -> 214 and ``outside`` 734 -> 254.  A rise is a correction
 #: (more decoding reveals more labels) and must be re-measured, like
 #: ``BASELINE_TOTALS``.
-COTENANCY_BASELINE = {'glued_files': 214, 'code_outside': 247, 'data_outside': 7}
+#:
+#: D7.6b lowered them once more, 214/247/7 -> **211/243/7**, by classifying the
+#: renderer's ``__z*`` *aliases* correctly: an alias is a label on a byte inside
+#: whatever record spans it (``render.place_driver_immediates``), not an object
+#: glued onto the fragment.  Four ``__zdata_start`` origins had been counted as
+#: *code* co-tenants (their name is not in ``_DATA_PREFIXES``) and three
+#: fragments whose only extra label was one of them were reported as glued.
+COTENANCY_BASELINE = {'glued_files': 211, 'code_outside': 243, 'data_outside': 7}
 
 
 def _write(path, text):
@@ -90,6 +97,21 @@ class CoTenancyClassificationTests(unittest.TestCase):
                    '; auto-generated\nr2:\n    ret ; cseg_0100\n')
             report = cotenancy.scan(d)
             self.assertEqual(report['data']['dead'], 1)
+
+    def test_renderer_alias_is_not_a_co_tenant(self):
+        """A ``__z*`` alias names a byte inside the fragment, not an object.
+
+        ``render.place_driver_immediates`` puts one on the byte a raw driver's
+        named immediate refers to; it adds no bytes, so the fragment is not
+        "the routine plus a neighbour".
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _write(os.path.join(d, 'a', 'r1.asm'),
+                   '; auto-generated\nr1:\n    ret\n__zdata_0100:\n'
+                   '    times 4 db 0\n')
+            report = cotenancy.scan(d)
+            self.assertEqual(report['glued_files'], 0)
+            self.assertEqual(report['co_tenants'], 0)
 
 
 class CommittedTreeCoTenancyTests(unittest.TestCase):

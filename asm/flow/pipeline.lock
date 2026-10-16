@@ -10,7 +10,7 @@ L0 produce project.consumers
 L0 measure project.cotenancy
 L0 produce project.cross_refs
 L0 produce project.export_sources
-L0 recompute project.host_regen
+L0 recompute project.host_emit
 L0 cleanup project.remove_foreign_copies
 L0 repair project.share_identical
 L1 produce aztec.overrides

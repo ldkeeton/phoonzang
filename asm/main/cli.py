@@ -15,6 +15,7 @@ from .options import (
     FOREIGN_LABELS_PATH,
     FOREIGN_PREFIX,
     HOST_DATA_OFFSETS_PATH,
+    LABELS_ONLY,
     PROJECT_ROOT,
     _SHOW_OFFSETS,
 )
@@ -78,7 +79,8 @@ def main():
                 foreign_label_map=foreign_label_map,
                 foreign_prefix=prefix if FOREIGN_LABELS_PATH else None,
                 export_labels=EXPORT_LABELS, host_model=host_model,
-                host_data_offsets=host_data_offsets)
+                host_data_offsets=host_data_offsets,
+                emit=not LABELS_ONLY)
         return
 
     target = args[0] if args else None

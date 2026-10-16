@@ -160,8 +160,8 @@ def _mz_header(e_ss):
 # (one name the C spelling no longer mentions).  Both are decrease-only baselines;
 # they were lowered here after measuring HEAD's own tree, not the working tree.
 BASELINE_TOTALS = {
-    'code_shift': 97, 'data_shift': 1, 'inert': 248,
-    'f1': 2, 'f2': 13, 'f3': 79, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
+    'code_shift': 82, 'data_shift': 1, 'inert': 248,
+    'f1': 2, 'f2': 13, 'f3': 64, 'f4': 1, 'f5': 3, 'f6': 241, 'f7': 0,
     'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
     # D7.6 gave the raw drivers their true load origin (``CS:0x100``), so a
     # ``[cs:disp]`` operand now resolves to ``disp - 0x100`` and the ``cseg_``
@@ -183,8 +183,19 @@ BASELINE_TOTALS = {
     # fewer visible anchors, and ``hidden_flow`` is a lower bound on a *gap*
     # walk, so the count rises mechanically rather than from a new reference.
     # ``code_shift``/``data_shift``, the gate classes, are unchanged.
-    'names_used': 56, 'names_inert': 28, 'hidden_flow': 90,
-    'total': 98,
+    # D7.6b bound the raw drivers' *named* absolute immediates (plan.md section 5,
+    # "raw-driver absolute immediates").  A driver's immediate encodes
+    # ``file + load_offset``, so ``vga``'s 17 sidecar ``immediate_labels`` name
+    # the byte at ``value - 0x100``; each is now a label on that byte, written
+    # ``data_XXXX equ __zdata_XXXX - IMAGE_BASE``, which keeps the encoding and
+    # lets the operand follow an edit.  ``f3`` 79 -> 64 and ``code_shift``
+    # 97 -> 82 (14 live names + ``data_1e64``, which is name-only); the 15 names
+    # leave ``names_used``/``names_inert`` altogether (56 -> 42, 28 -> 27),
+    # because a bound name is no longer a *frozen* name for a byte.  ``vga``
+    # stays byte-identical at the original layout, and the parked ``ega
+    # dseg_24fd`` stays the one ``data_shift`` (a runtime-DS site, Appendix B).
+    'names_used': 42, 'names_inert': 27, 'hidden_flow': 90,
+    'total': 83,
 }
 
 
@@ -1230,6 +1241,54 @@ class NamedAddressPlacementTests(unittest.TestCase):
         self.assertIn('app_inside equ 0x000f + VBASE', src)
         self.assertNotIn('app_inside:', src)
 
+    def _driver_source(self, records, immediate_labels, size=0x40):
+        src, _ = _build_source(records, 0, bytes(size),
+                               immediate_labels=immediate_labels,
+                               load_offset=0x100)
+        return src
+
+    def test_a_driver_immediate_binds_to_the_byte_it_names(self):
+        """D7.6b: a driver's named immediate becomes ``label - IMAGE_BASE``.
+
+        ``data_010a`` encodes the CS offset 0x010a, which a module read to
+        ``segment:0x100`` uses at file 0x00a.  The name is not a virtual address,
+        so it stays an ``equ`` -- but the byte it names carries a label, and the
+        value is written through it, so an edit above the byte moves the operand.
+        """
+        records = [{'type': 'data_block', 'start': 0x0a, 'end': 0x0c,
+                    'bytes': ['0x11', '0x22']}]
+        src = self._driver_source(records, {0x010a: 'data_010a'})
+        self.assertIn('__zdata_010a:', src)
+        self.assertIn('data_010a equ __zdata_010a - IMAGE_BASE', src)
+        self.assertNotIn('data_010a equ 0x010a', src)
+
+    def test_a_driver_immediate_inside_an_instruction_keeps_its_literal(self):
+        """A byte inside a decoded instruction cannot carry a label."""
+        records = [{'type': 'mnem', 'text': 'mov ax, 0', 'offset': 0,
+                    'size': 3}]
+        src = self._driver_source(records, {0x0101: 'data_0101'})
+        self.assertIn('data_0101 equ 0x0101', src)
+        self.assertNotIn('__zdata_0101', src)
+
+    def test_a_driver_immediate_past_the_module_keeps_its_literal(self):
+        """A displacement naming no byte of the module stays numeric."""
+        records = [{'type': 'data_block', 'start': 0x0a, 'end': 0x0c,
+                    'bytes': ['0x11', '0x22']}]
+        src = self._driver_source(records, {0x0180: 'data_0180'}, size=0x40)
+        self.assertIn('data_0180 equ 0x0180', src)
+
+    def test_a_non_driver_immediate_keeps_its_literal(self):
+        """An MZ/overlay immediate is a raw offset, not a load address.
+
+        ``VBASE`` would have to be subtracted -- a formula only the driver's
+        negative ``IMAGE_BASE`` makes free -- so those stay as they were.
+        """
+        records = [{'type': 'data_block', 'start': 0x0a, 'end': 0x0c,
+                    'bytes': ['0x11', '0x22']}]
+        src, _ = _build_source(records, 0, bytes(0x40),
+                               immediate_labels={0x010a: 'data_010a'})
+        self.assertIn('data_010a equ 0x010a', src)
+
 
 class InsertBytePropertyTests(unittest.TestCase):
     """Acceptance test: editing a fragment keeps the image consistent.
@@ -1425,6 +1484,44 @@ class InsertBytePropertyTests(unittest.TestCase):
         self.assertEqual(original[0x7a2:0x7a6], b'\x2e\x88\x26\x93')
         self.assertEqual(grown[0x7a3:0x7a6], b'\x2e\x88\x26')
         self.assertEqual(grown[0x7a6:0x7a8], b'\x94\x0b')
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vga.asm').exists(),
+                         'generated asm_DSAVANT tree not present')
+    def test_driver_immediate_follows_an_inserted_byte(self):
+        """D7.6b: a driver's named absolute immediate tracks the byte it names.
+
+        ``vga``'s sidecar names the CS offset 0x0bda -- file byte 0x0ada, since
+        the module is read to ``segment:0x100`` -- and its routines load it
+        (``mov bx, data_0bda``) to walk a buffer with ``[cs:bx]``.  It used to
+        stand as the frozen ``data_0bda equ 0x0bda``, so an edit above the byte
+        left the operand put.  Bound as ``__zdata_0bda - IMAGE_BASE`` it moves
+        with the byte: inserting one byte above the *first* consumer moves the
+        byte (0x0ada -> 0x0adb) and every operand naming it (0x0bda -> 0x0bdb)
+        -- the site above the insert keeps its address, the site below moves.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'vga.asm')
+            original = _nasm_file(master, d)
+            self.assertEqual(original[0x8ff:0x902], b'\xbb\xda\x0b')
+            self.assertEqual(original[0x456e:0x4571], b'\xbb\xda\x0b')
+
+            frag = os.path.join(d, 'vga', 'asm_only', 'dos_read_file.asm')
+            with open(frag) as f:
+                text = f.read()
+            needle = '    mov bx, data_0bda                ; 0x08ff\n'
+            self.assertIn(needle, text)
+            with open(frag, 'w') as f:
+                f.write(text.replace(needle, '    nop\n' + needle, 1))
+            grown = _nasm_file(master, d)
+
+        self.assertEqual(len(grown), len(original) + 1)
+        # The first consumer moved with the insert; its operand grew by one
+        # because the byte it names moved too.
+        self.assertEqual(grown[0x900:0x903], b'\xbb\xdb\x0b')
+        # The consumer *below* the insert also grew, though nothing local to it
+        # changed -- the operand is the named byte, not a frozen address.
+        self.assertEqual(grown[0x456f:0x4572], b'\xbb\xdb\x0b')
 
 
 class DataPointerCorpusTests(unittest.TestCase):

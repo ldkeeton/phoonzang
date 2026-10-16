@@ -22,6 +22,8 @@ EXACT_BYTES = '--exact-bytes' in sys.argv
 # Restore the lenient C splice: no byte-for-byte gate, short compiles NOP-padded.
 ALLOW_DIFF = '--allow-diff' in sys.argv
 EXPORT_LABELS = '--export-labels' in sys.argv
+# Labels phase: analyse and render, export the labels, write no source.
+LABELS_ONLY = '--labels-only' in sys.argv
 FOREIGN_LABELS_PATH = None
 FOREIGN_PREFIX = None
 HOST_DATA_OFFSETS_PATH = None

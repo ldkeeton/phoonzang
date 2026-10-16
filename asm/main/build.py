@@ -6,15 +6,16 @@ load-bearing:
 
 1. the *source* binaries -- the ones other binaries reference labels from --
    generate with ``--export-labels``, which writes their label map into
-   ``.cache/<project>/labels/``;
+   ``.cache/<project>/labels/``.  The host's source cannot be final yet (it
+   needs step 4), so it runs with ``--labels-only``: labels, no source;
 2. the previous build's per-consumer DS exports are dropped, so the union built
    below is exactly *this* build's references;
 3. the consumers generate, each with ``--foreign-labels=<path>`` for the source
    labels it references;
 4. the DS names the consumers referenced become one union and the host is
-   regenerated with ``--host-data-offsets=<path>``, so it declares one recipe
-   per offset.  It is regenerated *in place*: its code labels do not change, so
-   the consumers' foreign maps stay valid;
+   generated -- the one time its source is written -- with
+   ``--host-data-offsets=<path>``, so it declares one recipe per offset.  Its
+   code labels do not change, so the consumers' foreign maps stay valid;
 5. the byte-identical routines collapse into ``shared/`` (:mod:`lib.shared`);
 6. the assets are copied and every binary is assembled.
 
@@ -179,7 +180,10 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     if only is not None:
         needed = ({src for _, src in cross_refs.get(only, [])}
                   | ({only} if only in source_names else set()))
-    items = [(name, ['--export-labels'])
+    host = host_name(bins)
+    # The host is emitted once, in step 4; a partial build never reaches it.
+    items = [(name, ['--export-labels']
+              + (['--labels-only'] if name == host and only is None else []))
              for name in sorted(source_names & set(bins) & needed)]
     failed = _batch(run_batch, items)
     stagelog.step('project.export_sources', 0, metrics={'sources': len(items)})
@@ -216,16 +220,17 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         return _batch(nasm_batch, [(only, bins[only][0])])
 
     # 4. the host declares the union of the DS offsets its consumers reference
-    host = host_name(bins)
     offsets = aggregate_host_data(project)
-    if offsets and host is not None:
-        failed = _batch(run_batch, [(host, ['--export-labels',
-                                            f'--host-data-offsets={offsets}'])])
+    if host in source_names:
+        flags = ['--export-labels']
+        if offsets:
+            flags.append(f'--host-data-offsets={offsets}')
+        failed = _batch(run_batch, [(host, flags)])
         if failed:
-            report(f'{project}: regenerating {host} with the DS union failed')
+            report(f'{project}: generating {host} with the DS union failed')
             return failed
-        stagelog.step('project.host_regen', 0, 'recompute', repairs='project.export_sources',
-            why='the host is generated twice: once to export labels, again with the overlay DS union')
+        stagelog.step('project.host_emit', 0, 'recompute', repairs='project.export_sources',
+            why='the host\'s labels come first, its source waits for the overlay DS union')
 
     # 5. one copy of every byte-identical routine, in shared/
     shared = share_identical(out_dir)
@@ -258,6 +263,8 @@ def _worker_kwargs(flags):
         key, _, value = flag.partition('=')
         if key == '--export-labels':
             kwargs['export_labels'] = True
+        elif key == '--labels-only':
+            kwargs['emit'] = False
         elif key == '--foreign-labels':
             kwargs['foreign_label_map'] = read_label_json(value)
         elif key == '--foreign-prefix':

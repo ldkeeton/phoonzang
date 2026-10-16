@@ -114,11 +114,15 @@ def _ensure_jump_case_label(records, binary_data, off, name):
     """Insert a global case label at *off*, splitting a data block if needed.
 
     Returns True when the label is in place.  Mid-instruction offsets return
-    False and fall back to a raw ``dw`` value.
+    False and fall back to a raw ``dw`` value.  Idempotent: a second call for the
+    same name at the same offset is a no-op, so asking twice cannot emit a
+    duplicate symbol.
     """
     for i, rec in enumerate(records):
         rtype = rec['type']
         if rtype == 'label':
+            if rec['offset'] == off and rec['text'].removesuffix(':') == name:
+                return True
             if rec['offset'] == off:
                 records.insert(i, {
                     'type': 'label', 'text': _emit_label(name), 'offset': off,
