@@ -22,7 +22,7 @@ _SKIP_DIRS = {'tools', '.git', '__pycache__', 'build_out'}
 
 
 def _init_files():
-    """Every ``__init__.py`` under ``asm/`` except vendored ``tools/``."""
+    """Every ``__init__.py`` under ``disassembler/`` except vendored ``tools/``."""
     found = set()
     for dirpath, dirnames, filenames in os.walk(_ASM):
         dirnames[:] = [d for d in dirnames if d not in _SKIP_DIRS]
@@ -38,7 +38,7 @@ class NoCodeInInitTest(unittest.TestCase):
             extra, [],
             'unexpected __init__.py: ' + ', '.join(str(p) for p in extra)
             + ' — this project uses namespace packages, so move any code to a '
-              'sibling module and leave only asm/tests/__init__.py.')
+              'sibling module and leave only disassembler/tests/__init__.py.')
 
     def test_allowed_init_holds_no_code(self):
         for path in sorted(_init_files() & _ALLOWED):

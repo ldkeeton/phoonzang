@@ -13,7 +13,7 @@ Produces three kinds of output:
      the disassembler pipeline executed phase-by-phase with timing and
      event counts.
 
-Usage (from asm/):
+Usage (from disassembler/):
   python3 -m flow.generate                                  # both
   python3 -m flow.generate DSAVANT                          # trace for one project
   python3 -m flow.generate DSAVANT ds                       # trace for one binary

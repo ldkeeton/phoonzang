@@ -277,7 +277,7 @@ def _tree_labels(binary):
     labels never displace a global one and never start a file.  The path is
     relative to the tree root because a fragment no longer has to sit beside its
     master: ``asm_only/`` holds the hand-written ones and ``shared/`` the shared
-    ones (`asm/lib/asm_only.py`), so a bare basename would not resolve.
+    ones (`disassembler/lib/asm_only.py`), so a bare basename would not resolve.
     """
     out = {}
     for path in _binary_sources(binary):
@@ -311,7 +311,7 @@ _BIOS_INTS = {'bios_disk': 'int 0x13', 'bios_video': 'int 0x10',
               'bios_mouse': 'int 0x33'}
 _LABEL_LINE_RE = re.compile(r'^[A-Za-z_@][\w.@]*:$')
 #: A categorized label is ``<category>_loc_<tag>``.  The tag is four ``G``-``V``
-#: letters derived from the routine's *content* (`asm/lib/names.py`), optionally
+#: letters derived from the routine's *content* (`disassembler/lib/names.py`), optionally
 #: followed by the address that separates identical copies in one binary; a bare
 #: ``loc_<hex>`` claims no category and a signature name is not this pass's call.
 _CATEGORY_RE = re.compile(r'([a-z_]+)_loc_[G-V]{4}(?:_[0-9a-f]{4,5})?$')
@@ -378,7 +378,7 @@ def _scan_declared_handlers():
     interleaves into another fragment can still report (a documented backlog):
     ``play``'s ``bios_disk_loc_RVRG`` reaches its ``int 0x13`` past ``0x02b3``,
     and ``ega``'s ``graphics_loc_UVTQ`` is a ``jmp`` thunk into handler ``0x04b1``.
-    Names carry a *content* tag now (`asm/lib/names.py`), so a name says nothing
+    Names carry a *content* tag now (`disassembler/lib/names.py`), so a name says nothing
     about an address -- and ``_CATEGORY_RE`` has to follow that shape, or this
     counter silently reads zero (which is how the rename first disabled it).
     """

@@ -23,7 +23,7 @@ hand-editing a hex constant.
 
 ## 1. Census
 
-`count_frozen_addrs` (`asm/lib/compare/records.py`) classifies every emitted
+`count_frozen_addrs` (`disassembler/lib/compare/records.py`) classifies every emitted
 literal into three gate classes:
 
 | class | breaks when | target |
@@ -140,7 +140,7 @@ evidence about an *access*.
 rendered as such), symbol + constant (`label + 4`), far pointers (offset half
 moves, segment half is F8), relocation targets (never an offset pointer).
 
-**Implemented** in `asm/lib/compare/pointers.py` (scoring) and
+**Implemented** in `disassembler/lib/compare/pointers.py` (scoring) and
 `promote.py` (emission). Two weights are narrower than the table, forced by the
 corpus: `pointer_access` is an anchor only for a *table* read (`[bx+disp]`), and
 DATA space is bounded to the file-backed segment (`value < bss_boundary`) — the
@@ -149,7 +149,7 @@ The ddisasm `point-to-boundary-sym(+4)` term is **omitted**: a 16-bit MZ image
 has no fine sections, so its cheap approximation (target = region start) fires on
 coincidence.
 
-**Corpus.** `asm/sidecar/DSAVANT.json` carries a per-binary `data_pointers` +
+**Corpus.** `disassembler/sidecar/DSAVANT.json` carries a per-binary `data_pointers` +
 `not_pointers` list to calibrate the weights and pin the false-positive
 direction: a `not_pointers` word must never be emitted as a *data* pointer (a
 code pointer via the jump-table path is fine). Current: `vinstall` 24 positives /
@@ -412,19 +412,19 @@ already covers) or to declare the object itself (an `objects` list, honoured lik
 
 | area | module |
 |------|--------|
-| census | `asm/lib/compare/records.py` (`count_frozen_addrs`, `count_name_use`, `count_hidden_flow`) |
-| decoding / toolchain idioms | `asm/lib/phases/recursive.py` (generic); `aztec_overlay.py`, `aztec_switch.py` (Aztec-specific, wired in `asm/main/phases.py`) |
-| pointer scoring / promotion | `asm/lib/compare/pointers.py`, `promote.py` |
-| emission | `asm/lib/compare/render.py`, `symbols.py` |
-| splitting / naming | `asm/lib/compare/splitting.py`, `lib/names.py`, `lib/asm_only.py`, `lib/shared.py` |
-| regions | `asm/lib/compare/regions.py` |
-| segments / origins | `asm/lib/segments.py` |
-| sidecar | `asm/sidecar/DSAVANT.json`, `lib/sidecar` |
-| edits / rebuild | `asm/main/runner.py`, `asm/make/*` |
-| round-trip | `asm/lib/verify/assemble.py` (`micro_assemble`) |
-| pipeline ledger | `asm/lib/stagelog.py` (checkpoints), `asm/flow/` (`--stages` report + diagrams, `--check`, `.cache/_flow/pipeline.lock`; opt-in via `make flow`) |
+| census | `disassembler/lib/compare/records.py` (`count_frozen_addrs`, `count_name_use`, `count_hidden_flow`) |
+| decoding / toolchain idioms | `disassembler/lib/phases/recursive.py` (generic); `aztec_overlay.py`, `aztec_switch.py` (Aztec-specific, wired in `disassembler/main/phases.py`) |
+| pointer scoring / promotion | `disassembler/lib/compare/pointers.py`, `promote.py` |
+| emission | `disassembler/lib/compare/render.py`, `symbols.py` |
+| splitting / naming | `disassembler/lib/compare/splitting.py`, `lib/names.py`, `lib/asm_only.py`, `lib/shared.py` |
+| regions | `disassembler/lib/compare/regions.py` |
+| segments / origins | `disassembler/lib/segments.py` |
+| sidecar | `disassembler/sidecar/DSAVANT.json`, `lib/sidecar` |
+| edits / rebuild | `disassembler/main/runner.py`, `disassembler/make/*` |
+| round-trip | `disassembler/lib/verify/assemble.py` (`micro_assemble`) |
+| pipeline ledger | `disassembler/lib/stagelog.py` (checkpoints), `disassembler/flow/` (`--stages` report + diagrams, `--check`, `.cache/_flow/pipeline.lock`; opt-in via `make flow`) |
 
-**Rule for new behaviour.** Every pipeline step is a `stagelog.step(...)` checkpoint. New behaviour either extends the step that produces the artifact, or is a declared `repair`/`recompute`/`cleanup` with `repairs=` and `why=`. Ledgers are opt-in (`WIZ_STAGELOG=1 make build <project>`); `make flow ARGS="--check"` and `asm/tests/test_pipeline_lock.py` fail on an unlisted stage or an undeclared rewrite. After an intended change: `make flow ARGS="--lock"`.
+**Rule for new behaviour.** Every pipeline step is a `stagelog.step(...)` checkpoint. New behaviour either extends the step that produces the artifact, or is a declared `repair`/`recompute`/`cleanup` with `repairs=` and `why=`. Ledgers are opt-in (`WIZ_STAGELOG=1 make build <project>`); `make flow ARGS="--check"` and `disassembler/tests/test_pipeline_lock.py` fail on an unlisted stage or an undeclared rewrite. After an intended change: `make flow ARGS="--lock"`.
 
 ---
 

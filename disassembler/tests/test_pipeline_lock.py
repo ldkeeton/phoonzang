@@ -5,7 +5,7 @@ change is reviewed.  A repair/recompute/cleanup stage must say what it repairs
 and why.  The ledger half (undeclared rewrites may only shrink) needs a build's
 ledgers and runs when ``.cache/<project>/stages`` exists.  The lock is local
 to ``make flow`` (``python3 -m flow.generate --lock``), so these skip without it.
-Run: ``make test`` from ``asm/``.
+Run: ``make test`` from ``disassembler/``.
 """
 
 import os

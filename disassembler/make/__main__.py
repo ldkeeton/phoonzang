@@ -4,7 +4,7 @@ import os
 import sys
 
 # The ``make`` package no longer has an __init__.py, so the bootstrap that put
-# asm/ on sys.path has to live in the entry point (before .cli pulls in
+# disassembler/ on sys.path has to live in the entry point (before .cli pulls in
 # ``main.*`` / ``lib.*``).
 _ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _ASM not in sys.path:

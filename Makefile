@@ -1,5 +1,5 @@
 PY := python3
-ASM := asm
+ASM := disassembler
 CMD := init check clean run verify rebuild elf-rebuild set-baseline charts help all build prebuild decompile test readme
 
 # The root has a `readme/` directory, so the target of the same name needs to

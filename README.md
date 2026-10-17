@@ -11,7 +11,7 @@ make all
 
 ## Wizardry 7 coverage
 
-Progress: **28 / 1367** (2.0%).
+Progress: **27 / 1310** (2.1%).
 
 ![C coverage heatmap](readme/heatmap.svg)
  
@@ -22,12 +22,12 @@ Run from the repo root.
 | command | what |
 |---|---|
 | `make init` | sparse-clone only the dos_compilers folders listed in sidecars |
-| `make all` | clean, build, then verify all projects |
+| `make all` | prebuild (clean + Aztec mux), build, verify all projects, then make test |
 | `make build PROJECT [BIN]` | asm + nasm + assets (seeds .c; runs prebuild first if missing) |
-| `make prebuild PROJECT [BIN]` | rebuild aztec libs + signature DB, run the Aztec C mux |
+| `make prebuild [PROJECT...]` | clean, rebuild aztec libs + signature DB, run the Aztec C mux |
 | `make run PROJECT` | run game in dosbox-x |
 | `make verify [PROJECT...]` | verify one or all projects |
-| `make clean [PROJECT...]` | clean one or all projects (no args: delete .cache) |
+| `make clean [PROJECT...]` | clean one or all projects (no args: delete .cache, |
 | `make rebuild [PROJECT [BIN]]` | recompile .c (must match the original bytes; |
 | `make elf-rebuild [PROJECT [BIN]]` | full rebuild from current sources (C resplice + |
 | `make decompile PROJECT BIN` | disassemble + decompile binary to .c |
@@ -35,16 +35,17 @@ Run from the repo root.
 | `make stats-diff` | current-vs-baseline KPI delta (+ delta.json) |
 | `make charts` | regenerate all PNGs + CSVs from existing stats |
 | `make readme` | regenerate README.md + readme/heatmap.svg |
-| `make test [TEST...]` | run the unit test suite in asm/tests (optionally |
-| `make set-baseline` | # pin -> .cache/stats_baseline |
+| `make test [TEST...]` | run the unit test suite in disassembler/tests (optionally |
+| `make test slow` | run only the @slow tests (>= 100 ms) |
+| `make set-baseline` | # pin -> .cache/_baseline |
 | `make stats-diff` | # read the delta |
 
 ## Layout
 
 ```
 apps/           input programs (apps.json lists active ones)
-asm/            decoder, phases, emitter, verifier, disassembler 
-asm_DSAVANT/    generated NASM (+ C) for Wizardry 7 
+disassembler/   decoder, phases, emitter, verifier, disassembler
+asm_DSAVANT/    generated NASM (+ C) for Wizardry 7
 debugger/       16 bit TSR dbg proxy for inside dosbox
 ```
  
@@ -54,7 +55,7 @@ debugger/       16 bit TSR dbg proxy for inside dosbox
 (`asm_<PROJECT>/`). Install once, then reload the window:
 
 ```
-ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.wiz7-asm-nav-0.0.1
+ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.phoonzang-asm-nav-0.0.1
 ```
 
 - **F12 / Shift+F12** from C into the NASM labels (and `equ` constants), scoped
@@ -64,5 +65,5 @@ ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.wiz7-asm-nav-0.0.1
 - **Name this routine** (right-click): writes the sidecar `function_names` entry
 - **Diff against vendor seed**: what relabelling changed (also via the CodeLens)
 - **Manx `cc` check on save**: the real compiler's errors and warnings as
-  squiggles on save and open (`wiz7AsmNav.checkOnSave`, `checkOnOpen`), via `.vscode/cccheck.py`; the
+  squiggles on save and open (`PHOONZANGAsmNav.checkOnSave`, `checkOnOpen`), via `.vscode/cccheck.py`; the
   "Manx cc: check current file" task does the same without the extension

@@ -1,4 +1,4 @@
-"""``make init`` — sparse-clone read-only reference repos into ``asm/``."""
+"""``make init`` — sparse-clone read-only reference repos into ``disassembler/``."""
 
 import glob
 import json
@@ -71,7 +71,7 @@ def _verify(folders):
 
 
 def cmd_init():
-    """Fetch only the sidecar-listed folders into ``asm/dos_compilers``.
+    """Fetch only the sidecar-listed folders into ``disassembler/dos_compilers``.
 
     After checkout every file is verified against git's tree (existence,
     size, blob hash).  Safe to re-run: it re-applies the folder list, so folders added to a

@@ -38,7 +38,7 @@ Commands (space-separated):
   make stats-diff           current-vs-baseline KPI delta (+ delta.json)
   make charts               regenerate all PNGs + CSVs from existing stats
   make readme               regenerate README.md + readme/heatmap.svg
-  make test [TEST...]       run the unit test suite in asm/tests (optionally
+  make test [TEST...]       run the unit test suite in disassembler/tests (optionally
                             only the named dotted tests); skips @slow tests
   make test slow            run only the @slow tests (>= 100 ms)
 

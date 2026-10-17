@@ -16,7 +16,7 @@ from .vendor import _validate_vendor_patches
 def load(project):
     """Load the sidecar for *project* (e.g. ``DSAVANT``).
 
-    Looks for ``asm/sidecar/<project>.json``.
+    Looks for ``disassembler/sidecar/<project>.json``.
     Returns the parsed dict or ``None`` if no sidecar file exists.
     Raises :class:`SidecarError` on malformed content.
     """

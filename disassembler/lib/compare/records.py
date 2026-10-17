@@ -464,7 +464,7 @@ class UnencodedInstructionError(RuntimeError):
     Raised by the build when a non-``--exact-bytes`` run still emits
     ``db 0x.. ; <disassembly>`` records: every such line is a decoded
     instruction the formatter could not reproduce, which the project now
-    treats as a hard error (see ``asm/lib/format.py``).
+    treats as a hard error (see ``disassembler/lib/format.py``).
     """
 
 

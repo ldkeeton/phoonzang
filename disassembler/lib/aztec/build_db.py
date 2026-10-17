@@ -17,7 +17,7 @@ which lets leaf routines without a ``push bp`` prologue anchor correctly.
 
 Output: .cache/<project>/aztec_funcs.json (signatures compatible with known_funcs.json).
 
-``make prebuild PROJECT`` runs this.  Standalone, from ``asm/``:
+``make prebuild PROJECT`` runs this.  Standalone, from ``disassembler/``:
 ``python3 -m lib.aztec.build_db PROJECT`` (the library OMF under
 ``.cache/<project>/aztec_lib_obj`` is generated on demand by :mod:`.libobjs`).
 """

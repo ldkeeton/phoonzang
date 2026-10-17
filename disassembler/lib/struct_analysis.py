@@ -280,8 +280,8 @@ def format_types_json(structs, binary_path, overlay_name):
 
 
 def write_struct_inc_files(structs, name, structs_dir):
-    """Write auto-discovered struct definitions to asm/inc/structs/<name>.inc
-    and asm/inc/structs/structs.inc (shared primitives).
+    """Write auto-discovered struct definitions to disassembler/inc/structs/<name>.inc
+    and disassembler/inc/structs/structs.inc (shared primitives).
 
     Returns the %include directive string, or None if no structs.
     """

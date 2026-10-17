@@ -1,6 +1,6 @@
 {
-    "name": "wiz7-asm-nav",
-    "displayName": "Wiz7 asm navigation",
+    "name": "phoonzang-asm-nav",
+    "displayName": "PHOONZANG asm navigation",
     "description": "Navigation, hover, sidecar naming and Manx cc diagnostics for the generated C and NASM trees.",
     "publisher": "local",
     "version": "0.0.2",
@@ -9,50 +9,50 @@
     "main": "./extension.js",
     "contributes": {
         "commands": [
-            { "command": "wiz7AsmNav.reindex", "title": "Wiz7: Reindex asm labels" },
-            { "command": "wiz7AsmNav.goToAddress", "title": "Wiz7: Go to address" },
-            { "command": "wiz7AsmNav.nameRoutine", "title": "Wiz7: Name this routine (sidecar)" },
-            { "command": "wiz7AsmNav.diffVendor", "title": "Wiz7: Diff against vendor seed" },
-            { "command": "wiz7AsmNav.check", "title": "Wiz7: Check with Manx cc" },
-            { "command": "wiz7AsmNav.makeC", "title": "Wiz7: Make C file (Claude)" }
+            { "command": "PHOONZANGAsmNav.reindex", "title": "PHOONZANG:Reindex asm labels" },
+            { "command": "PHOONZANGAsmNav.goToAddress", "title": "PHOONZANG:Go to address" },
+            { "command": "PHOONZANGAsmNav.nameRoutine", "title": "PHOONZANG:Name this routine (sidecar)" },
+            { "command": "PHOONZANGAsmNav.diffVendor", "title": "PHOONZANG:Diff against vendor seed" },
+            { "command": "PHOONZANGAsmNav.check", "title": "PHOONZANG:Check with Manx cc" },
+            { "command": "PHOONZANGAsmNav.makeC", "title": "PHOONZANG:Make C file (Claude)" }
         ],
         "menus": {
             "editor/context": [
-                { "command": "wiz7AsmNav.nameRoutine", "when": "resourcePath =~ /asm_[^/]+\\//", "group": "wiz7@1" },
-                { "command": "wiz7AsmNav.diffVendor", "when": "resourcePath =~ /asm_[^/]+\\/.*\\.c$/", "group": "wiz7@2" },
-                { "command": "wiz7AsmNav.makeC", "when": "resourcePath =~ /asm_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "wiz7@3" }
+                { "command": "PHOONZANGAsmNav.nameRoutine", "when": "resourcePath =~ /asm_[^/]+\\//", "group": "PHOONZANG@1" },
+                { "command": "PHOONZANGAsmNav.diffVendor", "when": "resourcePath =~ /asm_[^/]+\\/.*\\.c$/", "group": "PHOONZANG@2" },
+                { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /asm_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" }
             ],
             "explorer/context": [
-                { "command": "wiz7AsmNav.makeC", "when": "resourcePath =~ /asm_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "wiz7@3" }
+                { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /asm_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" }
             ]
         },
         "keybindings": [
-            { "command": "wiz7AsmNav.goToAddress", "key": "ctrl+alt+g" }
+            { "command": "PHOONZANGAsmNav.goToAddress", "key": "ctrl+alt+g" }
         ],
         "configuration": {
-            "title": "Wiz7 asm navigation",
+            "title": "PHOONZANG asm navigation",
             "properties": {
-                "wiz7AsmNav.checkOnSave": {
+                "PHOONZANGAsmNav.checkOnSave": {
                     "type": "boolean",
                     "default": true,
                     "description": "Compile a generated .c file with the real Manx cc on save and show its errors and warnings."
                 },
-                "wiz7AsmNav.checkOnOpen": {
+                "PHOONZANGAsmNav.checkOnOpen": {
                     "type": "boolean",
                     "default": true,
                     "description": "Also run the Manx cc check when a generated .c file is opened (and for files already open at start-up)."
                 },
-                "wiz7AsmNav.claude": {
+                "PHOONZANGAsmNav.claude": {
                     "type": "string",
                     "default": "claude",
                     "description": "Claude Code CLI used by 'Make C file' (uses its existing OAuth login)."
                 },
-                "wiz7AsmNav.claudeModel": {
+                "PHOONZANGAsmNav.claudeModel": {
                     "type": "string",
                     "default": "",
                     "description": "Model for 'Make C file'; empty uses the CLI default."
                 },
-                "wiz7AsmNav.python": {
+                "PHOONZANGAsmNav.python": {
                     "type": "string",
                     "default": "python3",
                     "description": "Python used to run .vscode/cccheck.py."

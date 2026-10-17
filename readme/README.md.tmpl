@@ -25,8 +25,8 @@ Run from the repo root.
 
 ```
 apps/           input programs (apps.json lists active ones)
-asm/            decoder, phases, emitter, verifier, disassembler 
-asm_DSAVANT/    generated NASM (+ C) for Wizardry 7 
+disassembler/   decoder, phases, emitter, verifier, disassembler
+asm_DSAVANT/    generated NASM (+ C) for Wizardry 7
 debugger/       16 bit TSR dbg proxy for inside dosbox
 ```
  
@@ -36,7 +36,7 @@ debugger/       16 bit TSR dbg proxy for inside dosbox
 (`asm_<PROJECT>/`). Install once, then reload the window:
 
 ```
-ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.wiz7-asm-nav-0.0.1
+ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.phoonzang-asm-nav-0.0.1
 ```
 
 - **F12 / Shift+F12** from C into the NASM labels (and `equ` constants), scoped
@@ -46,5 +46,5 @@ ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.wiz7-asm-nav-0.0.1
 - **Name this routine** (right-click): writes the sidecar `function_names` entry
 - **Diff against vendor seed**: what relabelling changed (also via the CodeLens)
 - **Manx `cc` check on save**: the real compiler's errors and warnings as
-  squiggles on save and open (`wiz7AsmNav.checkOnSave`, `checkOnOpen`), via `.vscode/cccheck.py`; the
+  squiggles on save and open (`PHOONZANGAsmNav.checkOnSave`, `checkOnOpen`), via `.vscode/cccheck.py`; the
   "Manx cc: check current file" task does the same without the extension

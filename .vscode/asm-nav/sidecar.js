@@ -1,5 +1,5 @@
 'use strict';
-// Read and edit ``asm/sidecar/<PROJECT>.json`` without reformatting it: the
+// Read and edit ``disassembler/sidecar/<PROJECT>.json`` without reformatting it: the
 // file mixes layouts, so only the ``function_names`` object being changed is
 // re-serialised and spliced back in.
 

@@ -22,7 +22,7 @@ let defs = new Map();    // label -> [{uri, row}]
 let addrs = new Map();   // binary -> sorted [{addr, uri, row}]
 
 const root = () => vscode.workspace.workspaceFolders[0].uri.fsPath;
-const cfg = () => vscode.workspace.getConfiguration('wiz7AsmNav');
+const cfg = () => vscode.workspace.getConfiguration('PHOONZANGAsmNav');
 
 // ---------------------------------------------------------------- index
 
@@ -105,7 +105,7 @@ function readJson(file) {
     }
 }
 
-const sidecarPath = (project) => path.join(root(), 'asm', 'sidecar', `${project}.json`);
+const sidecarPath = (project) => path.join(root(), 'disassembler', 'sidecar', `${project}.json`);
 const manifestPath = (project, binary) =>
     path.join(root(), '.cache', project, 'prebuild', `${binary}_aztec_mux.json`);
 const seedPath = (where) =>
@@ -453,9 +453,9 @@ function activate(context) {
                     const top = new vscode.Range(0, 0, 0, 0);
                     return [
                         new vscode.CodeLens(top, { title: provenance(doc),
-                            command: 'wiz7AsmNav.diffVendor', arguments: [doc.uri] }),
+                            command: 'PHOONZANGAsmNav.diffVendor', arguments: [doc.uri] }),
                         new vscode.CodeLens(top, { title: '$(check) Manx cc',
-                            command: 'wiz7AsmNav.check', arguments: [doc.uri] }),
+                            command: 'PHOONZANGAsmNav.check', arguments: [doc.uri] }),
                     ];
                 },
             }),
@@ -468,12 +468,12 @@ function activate(context) {
         // The References panel opens and closes documents constantly, so don't clear
         // diagnostics here (that would churn views too); just forget the checked version.
         vscode.workspace.onDidCloseTextDocument((doc) => checked.delete(doc.fileName)),
-        vscode.commands.registerCommand('wiz7AsmNav.reindex', rebuild),
-        vscode.commands.registerCommand('wiz7AsmNav.goToAddress', async () => { await ready; return goToAddress(); }),
-        vscode.commands.registerCommand('wiz7AsmNav.nameRoutine', async () => { await ready; return nameRoutine(); }),
-        vscode.commands.registerCommand('wiz7AsmNav.diffVendor', diffVendor),
-        vscode.commands.registerCommand('wiz7AsmNav.makeC', makeC),
-        vscode.commands.registerCommand('wiz7AsmNav.check', async (uri) => {
+        vscode.commands.registerCommand('PHOONZANGAsmNav.reindex', rebuild),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.goToAddress', async () => { await ready; return goToAddress(); }),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.nameRoutine', async () => { await ready; return nameRoutine(); }),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.diffVendor', diffVendor),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.makeC', makeC),
+        vscode.commands.registerCommand('PHOONZANGAsmNav.check', async (uri) => {
             const doc = uri
                 ? await vscode.workspace.openTextDocument(uri)
                 : vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;

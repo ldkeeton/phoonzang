@@ -19,7 +19,7 @@ import re
 import sys
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_ASM = os.path.join(_ROOT, 'asm')
+_ASM = os.path.join(_ROOT, 'disassembler')
 sys.path.insert(0, _ASM)
 
 from lib.aztec import compile as azc  # noqa: E402
