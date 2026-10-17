@@ -387,7 +387,11 @@ def format_instruction(insn, label_map=None, local_labels=None, foreign_label_ma
         imm1 = insn.operands[1].imm
         if ops.startswith('far '):
             offset16 = imm1 & 0xFFFF
-            if local_labels and offset16 in local_labels:
+            if imm0 == 0 and offset16 == 0:
+                # ``call far 0000:0000``: a placeholder patched at run time
+                # (a chained interrupt vector), not a pointer to offset 0.
+                ops = 'far 0x0:0x0'
+            elif local_labels and offset16 in local_labels:
                 ops = f'far {_fmt_imm(imm0)}:{local_labels[offset16]}'
             elif label_map and offset16 in label_map:
                 ops = f'far {_fmt_imm(imm0)}:{label_map[offset16]}'

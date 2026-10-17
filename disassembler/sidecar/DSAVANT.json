@@ -362,7 +362,17 @@
         "format": "e8_rel16_cb"
       },
       "code_tables": [
-        {"table": "0495", "entry_size": 2, "count": 16, "note": "INT 08h handler dispatch table: loc_03e2 loads `mov dx, word [cs:bx+0x595]` (four overlapping 4-entry sub-tables at file 0495/049d/04a5/04ad, indexed by cseg_0a7d) and the installer at 04b5 stores DX into 0000:0020. Values are runtime CS offsets (file + 0x100): the targets are the handler entries 0841, 08af, 0975, 099f, 0a41 and 18e4"}
+        {"table": "0495", "entry_size": 2, "count": 16, "note": "INT 08h handler dispatch table: loc_03e2 loads `mov dx, word [cs:bx+0x595]` (four overlapping 4-entry sub-tables at file 0495/049d/04a5/04ad, indexed by cseg_0a7d) and the installer at 04b5 stores DX into 0000:0020. Values are runtime CS offsets (file + 0x100): the targets are the handler entries 0841, 08af, 0975, 099f, 0a41 and 18e4"},
+        {"table": "115b", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x125b]` (0x1154); see jump_tables. Declared here too so the decoder roots its targets (0x1302 is code, not a db blob) and carves the words as data"},
+        {"table": "1178", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x1278]` (0x1171); as 115b. Without it the words decode as `test`/`jp`"},
+        {"table": "1196", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x1296]` (0x118f); as 115b"},
+        {"table": "11b3", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x12b3]` (0x11ac); as 115b. Six entries: the bytes after it are a byte table"}
+      ],
+      "jump_tables": [
+        {"table": "115b", "jmp": "1154", "entry_size": 2, "count": 6, "note": "Mode dispatch: `mov bl, cs:[cseg_0a7c]; shl bx, 1; call [cs:bx+0x125b]`. The mode is 0-5 (`cmp byte cs:[cseg_0a7c], 5` at 0x0b53), so six code pointers"},
+        {"table": "1178", "jmp": "1171", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x1278]`; six entries, as 115b"},
+        {"table": "1196", "jmp": "118f", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x1296]`; six entries, as 115b"},
+        {"table": "11b3", "jmp": "11ac", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x12b3]`; six entries, as 115b. The bytes after it (03 03 03 03 02 02 03 ff ...) are a byte table, not code pointers"}
       ]
     }
   },

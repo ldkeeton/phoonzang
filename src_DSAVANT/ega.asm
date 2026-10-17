@@ -283,6 +283,10 @@ cseg_10cd:
 
 %include "ega/leaf_loc_MIUO.asm"           ; 0x1355
 
+cseg_138e:
+    db 0x00, 0x00
+cseg_1390:
+    db 0x00, 0x00
 loc_KLNH.cseg1     equ cseg_138e
 loc_KLNH.cseg2     equ cseg_1390
 loc_KLNH.leaf_loc1 equ leaf_loc_QTJL

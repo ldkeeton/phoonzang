@@ -33,7 +33,3 @@ leaf_loc_MIUO:
     loop @..leaf_loc_MIUO.l5         ; 0x138a
     pop ax                           ; 0x138c
     ret                              ; 0x138d
-cseg_138e:
-    db 0x00, 0x00
-cseg_1390:
-    db 0x00, 0x00

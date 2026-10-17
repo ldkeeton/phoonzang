@@ -303,6 +303,10 @@ data_029b equ __zdata_029b - IMAGE_BASE
 ; data_02d7 equ __zdata_02d7 - IMAGE_BASE
 %include "vga/leaf_loc_MIUO.asm"           ; 0x0e34
 
+cseg_0e6d:
+    db 0x00, 0x00
+cseg_0e6f:
+    db 0x00, 0x00
 loc_KLNH.cseg1     equ cseg_0e6d
 loc_KLNH.cseg2     equ cseg_0e6f
 loc_KLNH.leaf_loc1 equ leaf_loc_VKOL

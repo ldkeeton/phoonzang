@@ -46,3 +46,17 @@ struc s_di_0000
     .f_00: resb 2
     .f_02: resb 2
 endstruc
+
+; @struct s_si_0001 size=10 reg=si disp=0x0001
+; @field offset=0 size=1 name=f_00
+; @field offset=1 size=4 name=f_01
+; @field offset=5 size=1 name=f_05
+; @field offset=6 size=3 name=f_06
+; @field offset=9 size=1 name=f_09
+struc s_si_0001
+    .f_00: resb 1
+    .gap_1: resb 4
+    .f_05: resb 1
+    .gap_6: resb 3
+    .f_09: resb 1
+endstruc

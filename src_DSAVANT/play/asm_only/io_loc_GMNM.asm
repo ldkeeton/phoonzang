@@ -4,8 +4,10 @@ io_loc_GMNM:
     push bx                          ; 0x1217
     push cx                          ; 0x1218
     push dx                          ; 0x1219
+__zinsn_121a:
 cseg_121a:
     add byte [bx + si], al           ; 0x121a
+__zinsn_121c:
     mov dx, 0x331                    ; 0x121c
     in al, dx                        ; 0x121f
     and al, 0x80                     ; 0x1220

@@ -21,7 +21,9 @@ from lib.compare.jumptables import (
     _merge_jump_table_specs,
 )
 from lib.compare.splitting import _partition_function_records
-from lib.compare.verify import _is_direct_far, _find_trampoline_tables
+from lib.compare.verify import (
+    _cs_written_offsets, _is_direct_far, _find_trampoline_tables,
+)
 
 
 def _disassemble(data, address=0):
@@ -355,6 +357,17 @@ class DirectFarClassificationTest(unittest.TestCase):
 
     def test_near_call_is_not_data(self):
         self.assertFalse(_is_direct_far(self._insn('e80000')))
+
+    def test_a_patched_far_operand_is_seen(self):
+        """``play`` chains INT 08h through ``call far 0000:0000`` and stores
+        the old vector into its operand: ``mov [cs:0x0b10], ax`` at a driver
+        loaded to ``CS:0x100`` names file 0x0a10, the far call's offset word."""
+        insns = _disassemble(bytes.fromhex('2ea3100b'), 0)
+        self.assertEqual(_cs_written_offsets(insns, 0, 0x100), {0x0a10})
+
+    def test_a_cs_read_is_not_a_patch(self):
+        insns = _disassemble(bytes.fromhex('2e803e100b00'), 0)  # cmp byte
+        self.assertEqual(_cs_written_offsets(insns, 0, 0x100), set())
 
 
 class TrampolineLookupTableTest(unittest.TestCase):

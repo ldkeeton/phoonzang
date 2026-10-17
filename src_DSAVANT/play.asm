@@ -7,7 +7,6 @@ bits 16
 IMAGE_BASE equ -0x0100
 %endif
 
-io_loc_0495 equ 0x0495
 
 %include "play/asm_only/thunk_loc_TMGR.asm"         ; 0x0000
 
@@ -62,8 +61,8 @@ loc_JTQK_001f.dos_read_file1 equ leaf_loc_IUKK
 
 %include "play/leaf_loc_NLLU.asm"          ; 0x02b3
 
-cseg_0b10 equ 0x0b10
-cseg_0b12 equ 0x0b12
+cseg_0b10 equ __zinsn_0b0f + 0x1
+cseg_0b12 equ __zinsn_0b0f + 0x3
 %include "play/asm_only/io_loc_TRGI.asm"            ; 0x02ba
 
 %include "play/asm_only/loc_0322.asm"               ; 0x0322
@@ -74,25 +73,21 @@ cseg_0b12 equ 0x0b12
 
 %include "play/io_loc_JOTO.asm"            ; 0x03dc
 
-; cseg_0b10 equ 0x0b10
-; cseg_0b12 equ 0x0b12
+cseg_0848 equ __zinsn_0846 + 0x2
+cseg_08bf equ __zinsn_08be + 0x1
+cseg_08c4 equ __zinsn_08c3 + 0x1
+cseg_08d4 equ __zinsn_08cf + 0x5
+cseg_097c equ __zinsn_097a + 0x2
+cseg_09a4 equ __zinsn_09a3 + 0x1
+cseg_09a9 equ __zinsn_09a8 + 0x1
+cseg_09bb equ __zinsn_09b6 + 0x5
+cseg_0a54 equ __zinsn_0a52 + 0x2
+; cseg_0b10 equ __zinsn_0b0f + 0x1
+; cseg_0b12 equ __zinsn_0b0f + 0x3
+cseg_18e8 equ __zinsn_18e7 + 0x1
+cseg_18f2 equ __zinsn_18f1 + 0x1
+cseg_1904 equ __zinsn_18ff + 0x5
 %include "play/asm_only/loc_03e2.asm"               ; 0x03e2
-
-%include "play/loc_VMIM.asm"               ; 0x04bd
-
-cseg_0848 equ 0x0848
-cseg_08bf equ 0x08bf
-cseg_08c4 equ 0x08c4
-cseg_08d4 equ 0x08d4
-cseg_097c equ 0x097c
-cseg_09a4 equ 0x09a4
-cseg_09a9 equ 0x09a9
-cseg_09bb equ 0x09bb
-cseg_0a54 equ 0x0a54
-cseg_18e8 equ 0x18e8
-cseg_18f2 equ 0x18f2
-cseg_1904 equ 0x1904
-%include "play/asm_only/loc_HQPU.asm"               ; 0x04bf
 
 %include "play/asm_only/io_loc_HMTR.asm"            ; 0x0592
 
@@ -100,8 +95,8 @@ cseg_1904 equ 0x1904
 
 %include "play/leaf_loc_STGJ.asm"          ; 0x0610
 
-; cseg_0b10 equ 0x0b10
-; cseg_0b12 equ 0x0b12
+; cseg_0b10 equ __zinsn_0b0f + 0x1
+; cseg_0b12 equ __zinsn_0b0f + 0x3
 %include "play/asm_only/loc_0614.asm"               ; 0x0614
 
 %include "play/asm_only/io_loc_LPTR.asm"            ; 0x06ec
@@ -116,12 +111,16 @@ cseg_1904 equ 0x1904
 
 %include "play/asm_only/io_loc_UVLK_0841.asm"       ; 0x0841
 
-loc_121d equ 0x121d
+loc_121d equ __zinsn_121c + 0x1
 %include "play/io_loc_VOJO.asm"            ; 0x086b
 
+cseg_086e:
+    db 0x00
+cseg_086f:
+    db 0x00, 0xfa, 0x50, 0x1e, 0x52, 0x53
 %include "play/asm_only/loc_0875.asm"               ; 0x0875
 
-; cseg_08c4 equ 0x08c4
+; cseg_08c4 equ __zinsn_08c3 + 0x1
 %include "play/asm_only/io_loc_TGPU.asm"            ; 0x08af
 
 %include "play/asm_only/loc_095d.asm"               ; 0x095d
@@ -130,11 +129,11 @@ loc_121d equ 0x121d
 
 %include "play/asm_only/io_loc_UVLK_0975.asm"       ; 0x0975
 
-; cseg_09a9 equ 0x09a9
+; cseg_09a9 equ __zinsn_09a8 + 0x1
 %include "play/asm_only/io_loc_PNPV.asm"            ; 0x099f
 
-; cseg_0b10 equ 0x0b10
-; cseg_0b12 equ 0x0b12
+; cseg_0b10 equ __zinsn_0b0f + 0x1
+; cseg_0b12 equ __zinsn_0b0f + 0x3
 %include "play/asm_only/io_loc_UQMR.asm"            ; 0x09d4
 
 %include "play/asm_only/string_loc_OJPI.asm"        ; 0x0a2a
@@ -214,8 +213,8 @@ cseg_0ad8:
 
 %include "play/asm_only/io_loc_JPGM.asm"            ; 0x0af6
 
-; cseg_0b10 equ 0x0b10
-; cseg_0b12 equ 0x0b12
+; cseg_0b10 equ __zinsn_0b0f + 0x1
+; cseg_0b12 equ __zinsn_0b0f + 0x3
 %include "play/asm_only/io_loc_TTNM.asm"            ; 0x0c97
 
 %include "play/asm_only/loc_NSQH.asm"               ; 0x0cca
@@ -244,7 +243,9 @@ cseg_0d3f:
 cseg_0d40:
     db 0x00
 cseg_0d41:
-    db 0x00, 0x20, 0x00, 0x00
+    db 0x00, 0x20
+cseg_0d43:
+    db 0x00, 0x00
 cseg_0d45:
     db 0x00
 cseg_0d46:
@@ -279,14 +280,8 @@ cseg_0d4e:
 
 %include "play/loc_NPTG.asm"               ; 0x0f44
 
-%include "play/leaf_loc_HJNR.asm"          ; 0x0f55
+%include "play/leaf_loc_TKVU.asm"          ; 0x0f55
 
-%include "play/loc_VVPP.asm"               ; 0x114a
-
-loc_1190 equ 0x1190
-%include "play/loc_JMTR.asm"               ; 0x1178
-
-loc_MUHV equ 0x11b8
 %include "play/loc_PLIR.asm"               ; 0x1184
 
 cseg_11d6:
@@ -301,14 +296,24 @@ cseg_11d9:
 
 %include "play/asm_only/io_loc_QUNR.asm"            ; 0x11fb
 
-cseg_121b equ 0x121b
+cseg_121b equ __zinsn_121a + 0x1
 %include "play/asm_only/io_loc_GMNM.asm"            ; 0x1217
 
-%include "play/string_loc_VQPL.asm"        ; 0x12af
+%include "play/string_loc_OSJN.asm"        ; 0x12af
+
+%include "play/leaf_loc_VSLO.asm"          ; 0x12f1
+
+%include "play/loc_QKNN.asm"               ; 0x1302
+
+%include "play/asm_only/string_loc_NOSM.asm"        ; 0x137a
+
+cseg_1774:
+    db 0x00
+%include "play/asm_only/loc_NQLH.asm"               ; 0x1775
 
 %include "play/io_loc_VHII.asm"            ; 0x18cb
 
-; cseg_18f2 equ 0x18f2
+; cseg_18f2 equ __zinsn_18f1 + 0x1
 %include "play/asm_only/io_loc_KNIR.asm"            ; 0x18e4
 
     db 0x00

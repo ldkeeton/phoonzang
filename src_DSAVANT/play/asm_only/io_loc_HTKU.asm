@@ -11,6 +11,7 @@ io_loc_HTKU:
     out dx, al                       ; 0x0a4e
     xor al, al                       ; 0x0a4f
     out dx, al                       ; 0x0a51
+__zinsn_0a52:
     add ah, 0x80                     ; 0x0a52
     adc di, byte 0                   ; 0x0a55
     jb short @..io_loc_HTKU.l1       ; 0x0a58

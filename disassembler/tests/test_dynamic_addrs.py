@@ -165,8 +165,8 @@ def _mz_header(e_ss):
 # (one name the C spelling no longer mentions).  Both are decrease-only baselines;
 # they were lowered here after measuring HEAD's own tree, not the working tree.
 BASELINE_TOTALS = {
-    'code_shift': 62, 'data_shift': 1, 'inert': 231,
-    'f1': 2, 'f2': 13, 'f3': 44, 'f4': 1, 'f5': 3, 'f6': 224, 'f7': 0,
+    'code_shift': 43, 'data_shift': 1, 'inert': 230,
+    'f1': 2, 'f2': 13, 'f3': 25, 'f4': 1, 'f5': 3, 'f6': 223, 'f7': 0,
     'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
     # D7.6 gave the raw drivers their true load origin (``CS:0x100``), so a
     # ``[cs:disp]`` operand now resolves to ``disp - 0x100`` and the ``cseg_``
@@ -208,8 +208,8 @@ BASELINE_TOTALS = {
     # Parameterised sharing (lib.shared: copies differing only in label names)
     # took ``shared/`` 90 -> 141 files: ``hidden_flow`` 105 -> **157**, all 61 new
     # sites at offsets whose anchor moved into ``shared/`` (9 sites went).
-    'names_used': 26, 'names_inert': 26, 'hidden_flow': 181,
-    'total': 63,
+    'names_used': 8, 'names_inert': 25, 'hidden_flow': 177,
+    'total': 44,
     # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
     # returns; the call is followed by N-1 keys and N case targets.  The decoder
     # used to fall through the call and decode the target words as ``jcc``s,
@@ -236,6 +236,17 @@ BASELINE_TOTALS = {
     # ``hidden_flow`` 175 -> **181** (a lower-bound artifact of the re-rooting)
     # and ``names_used``/``names_inert`` 22/25 -> **26/26** follow the same
     # re-rooting, not a new reference.
+    # ``play``'s self-modified operands (2026-10-17).  A name on a byte strictly
+    # inside an instruction is now ``__zinsn_<start> + k`` over a label on the
+    # instruction's first byte (``render._instruction_anchor``), the patched
+    # ``call far 0000:0000`` that chains INT 08h stays code (``verify.
+    # _cs_written_offsets``), and the four mode-dispatch tables at 115b/1178/
+    # 1196/11b3 are declared ``code_tables`` (hard data), so the fake ``jp``/
+    # ``jne`` targets ``loc_1190``/``loc_MUHV`` vanish and 0x12af-0x1344 decodes
+    # as code instead of a ``db`` blob.  All 18 ``play`` names bind: ``f3``
+    # 44 -> **25**, ``code_shift`` 62 -> **43**, ``names_used`` 26 -> **8**,
+    # ``names_inert`` 26 -> **25** (the dead ``io_loc_0495``), ``f6``/``inert``
+    # 224/231 -> **223/230**, ``hidden_flow`` 181 -> **177**.
 }
 
 
@@ -1299,12 +1310,36 @@ class NamedAddressPlacementTests(unittest.TestCase):
         self.assertIn('data_0010:', src)
         self.assertNotIn('data_0010 equ', src)
 
-    def test_a_name_inside_an_instruction_keeps_its_equ(self):
+    def test_a_name_inside_an_instruction_hangs_off_its_first_byte(self):
+        """A self-modified operand: the label goes on the instruction, and the
+        name keeps its distance from it instead of freezing the address."""
         records = [{'type': 'mnem', 'text': 'mov ax, 0', 'offset': 14,
                     'size': 3}]
         src = self._source(records, {15: routine('app_inside', 15)}, 3)
-        self.assertIn('app_inside equ 0x000f + VBASE', src)
+        self.assertIn('app_inside equ __zinsn_000e + 0x1', src)
+        self.assertIn('__zinsn_000e:', src)
         self.assertNotIn('app_inside:', src)
+        self.assertNotIn('0x000f + VBASE', src)
+
+    def test_a_cs_operand_inside_a_driver_instruction_follows_it(self):
+        """``play``'s ``cseg_`` names patch its own instructions' operands."""
+        records = [{'type': 'mnem', 'text': 'mov ax, 0', 'offset': 0x10,
+                    'size': 3}]
+        src, _ = _build_source(records, 0, bytes(0x20),
+                               mem_equ={cseg(0x11): 0x11}, load_offset=0x100)
+        self.assertIn('cseg_0011 equ __zinsn_0010 + 0x1', src)
+        self.assertNotIn('cseg_0011 equ 0x0011', src)
+
+    def test_names_inside_one_instruction_share_its_label(self):
+        """``play``'s ``call far 0000:0000``: offset word at +1, segment at +3."""
+        records = [{'type': 'mnem', 'text': 'call far 0x0:0x0',
+                    'offset': 0x10, 'size': 5}]
+        src, _ = _build_source(records, 0, bytes(0x20),
+                               mem_equ={cseg(0x11): 0x11, cseg(0x13): 0x13},
+                               load_offset=0x100)
+        self.assertIn('cseg_0011 equ __zinsn_0010 + 0x1', src)
+        self.assertIn('cseg_0013 equ __zinsn_0010 + 0x3', src)
+        self.assertEqual(src.count('__zinsn_0010:'), 1)
 
     def _driver_source(self, records, immediate_labels, size=0x40):
         src, _ = _build_source(records, 0, bytes(size),
@@ -1608,6 +1643,43 @@ class InsertBytePropertyTests(unittest.TestCase):
         self.assertEqual(original[0x7a2:0x7a6], b'\x2e\x88\x26\x93')
         self.assertEqual(grown[0x7a3:0x7a6], b'\x2e\x88\x26')
         self.assertEqual(grown[0x7a6:0x7a8], b'\x94\x0b')
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'play.asm').exists(),
+                         'generated src_DSAVANT tree not present')
+    def test_driver_self_modified_operands_follow_an_inserted_byte(self):
+        """``play``'s timer handler patches its own operands.
+
+        The installer stores the segment into the ``mov ax, 0`` at 0x08be
+        (``mov [cs:cseg_08bf], ax`` at 0x0509) and the old INT 08h vector
+        into the ``call far 0000:0000`` at 0x0b0f (``mov [cs:cseg_0b10], ax``
+        at 0x02d6).  Both names sit inside an instruction, so they hang off a
+        label on its first byte.  One byte inserted at the handler's entry
+        (0x08af) must move both stored addresses, and the mode table at 0x1196
+        (now 0x1197) must name the moved ``loc_PLIR``/``loc_NQLH``.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'play.asm')
+            original = _nasm_file(master, d)
+            self.assertEqual(original[0x509:0x50d], b'\x2e\xa3\xbf\x09')
+            self.assertEqual(original[0x2d6:0x2da], b'\x2e\xa3\x10\x0c')
+            self.assertEqual(original[0x1196:0x119a], b'\x84\x12\x75\x18')
+            with open(master) as f:
+                included = re.findall(r'%include "([^"]+)"\s*; 0x08af\b', f.read())
+            self.assertEqual(len(included), 1, included)
+            frag = os.path.join(d, included[0])
+            with open(frag) as f:
+                text = f.read()
+            needle = '    cli                              ; 0x08af\n'
+            self.assertIn(needle, text)
+            with open(frag, 'w') as f:
+                f.write(text.replace(needle, '    nop\n' + needle, 1))
+            grown = _nasm_file(master, d)
+
+        self.assertEqual(len(grown), len(original) + 1)
+        self.assertEqual(grown[0x509:0x50d], b'\x2e\xa3\xc0\x09')
+        self.assertEqual(grown[0x2d6:0x2da], b'\x2e\xa3\x11\x0c')
+        self.assertEqual(grown[0x1197:0x119b], b'\x85\x12\x76\x18')
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vga.asm').exists(),
                          'generated src_DSAVANT tree not present')

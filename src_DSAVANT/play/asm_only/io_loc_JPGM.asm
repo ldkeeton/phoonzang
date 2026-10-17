@@ -15,10 +15,8 @@ io_loc_JPGM:
     mov ax, word [cs:cseg_0a83 - IMAGE_BASE] ; 0x0b06
     mov word [cs:cseg_0a85 - IMAGE_BASE], ax ; 0x0b0a
     pushf                            ; 0x0b0e
-jumptable_0b0f:
-    dw 0x009a                                  ; 0x0b0f ; literal
-    dw 0                                       ; 0x0b11
-    db 0x00
+__zinsn_0b0f:
+    call far 0x0:0x0                 ; 0x0b0f
 @..io_loc_JPGM.l1:
     mov ax, word [cs:cseg_0aa6 - IMAGE_BASE] ; 0x0b14
     mov word [cs:cseg_0a81 - IMAGE_BASE], ax ; 0x0b18

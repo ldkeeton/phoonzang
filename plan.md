@@ -40,27 +40,26 @@ proven. (The census still files the 224 `f6` `; literal` words under `inert`;
 that is a classification to prove, not an exemption — see Section 5.)
 
 **Current tree** (a `make build` fixed point, measured 2026-10-17): **`code_shift`
-62, `data_shift` 1, `inert` 231, `total` 63.** Per-taxonomy:
-`f1=2 f2=13 f3=44 f4=1 f5=3 f6=224 f7=0`; shared-geometry buckets
-`o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0`. `code_shift` decomposes as 44 F3
-`equ`s + 13 overlay `o_bss` + 2 MZ `e_sp` + 3 overlay zero pads. (The rise from
-57/39 after D8 is the raw-driver load-origin change in Section 5 — `play`'s
-INT 08h handler now decodes as code and exposes its `cseg_` operands; an honest
-count, not a new frozen byte.)
+43, `data_shift` 1, `inert` 230, `total` 44.** Per-taxonomy:
+`f1=2 f2=13 f3=25 f4=1 f5=3 f6=223 f7=0`; shared-geometry buckets
+`o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0`. `code_shift` decomposes as 25 F3
+`equ`s + 13 overlay `o_bss` + 2 MZ `e_sp` + 3 overlay zero pads. (`play`'s 18
+self-modified/code-segment names are bound — Section 5, "`play`'s self-modified
+operands".)
 
 Two auxiliary counters, both in `BASELINE_TOTALS`:
 
-- `names_used` **26** / `names_inert` **26** — of the *named* frozen addresses,
+- `names_used` **8** / `names_inert` **25** — of the *named* frozen addresses,
   how many the tree actually refers to (`count_name_use`). Converting an inert
   name to a label moves the census without making anything follow an edit.
-- `hidden_flow` **181** — near call/jmp targets whose *target* the source shows as
+- `hidden_flow` **177** — near call/jmp targets whose *target* the source shows as
   code but whose *site* is emitted as bytes, so no source line spells the
   reference (`count_hidden_flow`; a lower bound — it rises mechanically as more
   fragments move into `shared/` and lose their `; 0x` anchors).
 
-Where the 63 live, per emitted file: `play` 19, `vbase` 8, `vpcmk` 6, `vmaze` 5,
+Where the 44 live, per emitted file: `vbase` 8, `vpcmk` 6, `vmaze` 5,
 `ega`/`vinstall`/`vmnpc` 3, the rest 2s and 1s — `vpcvw` (16 before D8) and `vga`
-are down to 1. The single `data_shift` is a raw-driver DS reference (`ega dseg_24fd`).
+are down to 1, `play` (19 before) to 0. The single `data_shift` is a raw-driver DS reference (`ega dseg_24fd`).
 
 ---
 
@@ -74,7 +73,7 @@ are down to 1. The single `data_shift` is a raw-driver DS reference (`ega dseg_2
 | F2 | overlay `o_bss` | `_render_ovr_header` | literal — must derive from the overlay's BSS declarations (13) |
 | F2 | overlay `o_corg` | `_render_ovr_header` | bound to host (`__zresident_end`) |
 | F2 | overlay `o_dorg` | `_render_ovr_header` | bound — it *is* the host DS size |
-| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | 44 `equ` remain |
+| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | 25 `equ` remain |
 | F4 | `dseg_`/`bss_` `equ` | `_build_source` | dynamic (MZ) and via the host data map (overlays); 1 raw-driver left |
 | F4 | `psp_` `equ` | `_build_source` | inert |
 | F4 | host DS-size immediates | `_build_source` | bound to `__zdseg_end` |
@@ -249,7 +248,7 @@ string → entropy → zero → data), used to deprioritise words and to supply 
 
 ## 5. Remaining work
 
-`code_shift` 62 → 0, `data_shift` 1 → 0.
+`code_shift` 43 → 0, `data_shift` 1 → 0.
 
 - **D8 — inline switch tables (done, 2026-10-15).** A sparse `switch` compiles
   to `mov cx, N; call <helper>`; the helper pops the return address as the table
@@ -288,17 +287,38 @@ string → entropy → zero → data), used to deprioritise words and to supply 
   57 → 62, `inert`/`f6` 230/223 → 231/224, `hidden_flow` 118 → 181 (most of that
   from the earlier `shared/` growth 146 → 202), `names_used`/`names_inert`
   22/25 → 26/26.
-- **The 44 F3 `equ`s (the largest block).** Overlay `loc_`/`string_`/`leaf_`/
-  `fpu_`/`io_` names still refused a label, plus `play`'s driver `cseg_`/`data_`
-  operands (code-segment variables). Each refusal is a byte whose *kind* is
+- **`play`'s self-modified operands (done, 2026-10-17).** All 18 names bind:
+  - a name strictly inside a decoded instruction is `__zinsn_<start> + k` over a label
+    on the instruction's first byte (`render._instruction_anchor`) — the INT 08h
+    handler's patched immediates/displacements (`cseg_0848`…`cseg_1904`,
+    `cseg_121b`, `loc_121d`);
+  - the patched `call far 0000:0000` that chains the old INT 08h vector stays
+    code when some `[cs:]` store writes its operand (`verify._cs_written_offsets`;
+    the Aztec "direct far = data" rule is unchanged otherwise), so `cseg_0b10`/
+    `cseg_0b12` hang off it; the zero placeholder renders `far 0x0:0x0`;
+  - the four mode-dispatch tables at 115b/1178/1196/11b3 (indexed by the 0-5 mode
+    byte `cseg_0a7c`) are sidecar `code_tables` + `jump_tables` with count 6, and a
+    declared code table is hard data (`model.PhaseContext`). Their words had
+    decoded as `test`/`jp`, minting the fake `loc_1190`/`loc_MUHV`; 11b3 had run
+    three words into a byte table. 0x12af-0x1344 now decodes as code, not a `db`
+    blob;
+  - splitter: a tail label is a routine's own only when the piece it ends up in
+    names it (`_split_off_foreign_objects`), so `cseg_1774` (used only by the
+    promoted `loc_NQLH`) goes to the master. Co-tenancy 244/267/10 → 241/266/4.
+
+  `f3` 44 → 25, `code_shift` 62 → 43, `names_used` 26 → 8, `hidden_flow` 181 →
+  177; 18/18 byte-identical. Edit-property:
+  `InsertBytePropertyTests.test_driver_self_modified_operands_follow_an_inserted_byte`.
+- **The 25 F3 `equ`s (the largest block).** Overlay `loc_`/`string_`/`leaf_`/
+  `fpu_`/`io_` names still refused a label (about 25, none referenced — dead names
+  to delete or move to the sidecar). Each refusal is a byte whose *kind* is
   undecided upstream, not a rendering trick away:
   - a `vga` decode gap — bytes the sidecar calls code that the arbiter calls
     data (the driver dispatch table followed by real code and strings);
   - the `mem_equ` `cseg_`/`data_` *operand* symbols (code-segment variables read
     as `[cs:cseg_XXXX - IMAGE_BASE]`) — data living in the code stream, which
-    wants carving as data; `play` alone carries 14 (`cseg_0848`…`cseg_1904`,
-    `cseg_0b10/0b12`), including the INT 08h handler's self-modified operands;
-  - names strictly inside a decoded instruction;
+    wants carving as data (`play`'s are done; see above);
+  - names strictly inside a decoded instruction (now bound as `anchor + k`);
   - names outside every record.
 
   The `vga` `immediate_labels` (15 `data_`) left this list in D7.6b: a driver's

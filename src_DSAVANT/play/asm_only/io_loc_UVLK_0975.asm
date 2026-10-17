@@ -4,6 +4,7 @@ io_loc_UVLK_0975:
     mov al, byte [di]                ; 0x0975
     cs xlatb                         ; 0x0977
     out dx, al                       ; 0x0979
+__zinsn_097a:
     add ah, 0x80                     ; 0x097a
     adc di, byte 0                   ; 0x097d
     jb short @..io_loc_UVLK_0975.l2  ; 0x0980

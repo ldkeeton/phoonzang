@@ -4,16 +4,19 @@ io_loc_KNIR:
     push ax                          ; 0x18e4
     push ds                          ; 0x18e5
     push bx                          ; 0x18e6
+__zinsn_18e7:
     mov ax, 0                        ; 0x18e7
     mov ds, ax                       ; 0x18ea
     mov ax, 0x20b0                   ; 0x18ec
     out 0x43, al                     ; 0x18ef
+__zinsn_18f1:
     mov al, byte [0x0000]            ; 0x18f1
     mov bx, 0x1a3a                   ; 0x18f4
     cs xlatb                         ; 0x18f7
     out 0x42, al                     ; 0x18f9
     xor al, al                       ; 0x18fb
     out 0x42, al                     ; 0x18fd
+__zinsn_18ff:
     add byte [cs:cseg_0a95 - IMAGE_BASE], 0x80 ; 0x18ff
     adc word [cs:cseg_18f2 - IMAGE_BASE], byte 0 ; 0x1905
     jb short @..io_loc_KNIR.l2       ; 0x190b

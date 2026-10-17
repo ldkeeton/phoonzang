@@ -109,6 +109,29 @@ def _is_direct_far(insn):
     return any(op.type == CS_OP_IMM for op in insn.operands)
 
 
+def _cs_written_offsets(instructions, start_offset, load_offset):
+    """File offsets some instruction stores to through a ``[cs:disp]`` operand.
+
+    Hand-written resident code (``play``'s INT 08h hook) chains the previous
+    vector with a direct ``call far 0000:0000`` whose seg:off it patches at
+    install time.  Such a transfer is real, unlike the Aztec misdecodes
+    ``_is_direct_far`` exists for, and a store into its operand bytes is
+    what tells the two apart.  The displacement is ``file - start_offset +
+    load_offset``, as in ``symbols._resolve_mem_symbols``.
+    """
+    out = set()
+    for insn in instructions:
+        if not insn.operands or insn.mnemonic.startswith(('cmp', 'test', 'push')):
+            continue
+        op = insn.operands[0]
+        if op.type != CS_OP_MEM or op.mem.base or op.mem.index:
+            continue
+        if not op.mem.segment or insn.reg_name(op.mem.segment).lower() != 'cs':
+            continue
+        out.add((op.mem.disp & 0xFFFF) + start_offset - load_offset)
+    return out
+
+
 def _looks_like_dispatch_trampoline(binary_data, target, total, window=48):
     """True when ``target`` is a ``pop``-then-``jmp reg`` dispatch helper.
 
@@ -228,8 +251,16 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # bytes are inline data.  Collect them so they are dropped from the code
     # stream, marked DATA, and re-emitted as literal ``dw`` tables.
     far_insns = []
+    patched = _cs_written_offsets(
+        instructions, start_offset, getattr(segments, 'load_offset', 0) or 0)
     for insn in instructions:
         if not _is_direct_far(insn):
+            continue
+        if any(off in patched
+               for off in range(insn.address + 1, insn.address + insn.size)):
+            # A self-modified far transfer (a driver chaining the vector it
+            # hooked): code stores into its seg:off, so it is a real
+            # instruction whose operand bytes need labels.
             continue
         start = insn.address
         end = start + insn.size

@@ -122,6 +122,18 @@ class DeclaredCodeTableTests(unittest.TestCase):
         self.assertTrue(all(result[0x20:0x26] == -1.0))
 
 
+    def test_declared_table_is_hard_data(self):
+        """The words are data even where linear descent decodes them
+        (``84 12`` is ``test [bp+si], dl``), so the span is hard data from
+        the start, like ``force_data``."""
+        img = _synthetic_driver()
+        ctx = PhaseContext(img, start_offset=0, entry_points=[0],
+                           sidecar_entry={'code_tables': [
+                               {'table': '20', 'entry_size': 2, 'count': 3}]})
+        self.assertTrue(ctx.hard_data[0x20:0x26].all())
+        self.assertFalse(ctx.hard_data[0x26])
+
+
 class SidecarCodeTableValidationTests(unittest.TestCase):
     def test_shipped_play_declaration_is_valid(self):
         from lib.sidecar.loader import load as load_sidecar
@@ -155,7 +167,9 @@ class PlayBoundaryTreeTests(unittest.TestCase):
     def test_ivt_table_is_carved_as_data_with_case_labels(self):
         text = self._play_ascii()
         self.assertIn('jumptable_0495:', text)
-        self.assertIn('io_loc_0495 equ 0x0495', (_TREE / 'play.asm').read_text())
+        # A declared table is hard data, so no stale code name (once a dead
+        # ``io_loc_0495 equ 0x0495``) survives on its first word.
+        self.assertNotIn('io_loc_0495', (_TREE / 'play.asm').read_text())
 
     def test_handler_entries_decode_as_named_routines(self):
         # The table's targets (and the two extra entries the driver installs)

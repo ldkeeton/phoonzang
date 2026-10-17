@@ -557,6 +557,34 @@ def _place_label(records, binary_data, addr, name, gap=None):
     return _ensure_global_label(records, binary_data, addr, name)
 
 
+def _instruction_anchor(records, binary_data, addr, name):
+    """``anchor + k`` for a code byte strictly inside a decoded instruction.
+
+    A self-modified operand (``play``'s timer handler patches the immediates and
+    displacements of its own instructions) is named by a byte no label can sit
+    on, since a label cannot split an instruction.  The instruction's first byte
+    can carry one, though, and the operand keeps its fixed distance from it, so
+    the name becomes ``__zinsn_<start> + k`` and follows an edit above the instruction
+    instead of freezing the address.  The anchor is named after the
+    instruction (``__zinsn_<start>``), so every name inside one instruction
+    shares a single label and reads as "the instruction at <start>, plus k".
+    Returns ``None`` -- the caller keeps the literal -- when *addr* is not
+    strictly inside an instruction record.
+    """
+    from lib.compare.records import _record_span
+    covering = _covering_record(records, addr)
+    if covering is None or covering['type'] in _DATA_RECORD_TYPES:
+        return None
+    start, _ = _record_span(covering)
+    if start == addr:
+        return None
+    from lib.compare.jumptables import _ensure_global_label
+    anchor = Symbol.anchor(f'{ANCHOR_PREFIX}insn_{start:04x}', start)
+    if not _ensure_global_label(records, binary_data, start, anchor):
+        return None
+    return f'{anchor} + 0x{addr - start:x}'
+
+
 def mz_data_gap(records, binary_data, start_offset):
     """Locate the MZ code->data gap, or return ``None``.
 
@@ -817,8 +845,10 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             # edit instead of freezing the address.  The literal is the
             # fallback, kept only where the byte cannot carry a label.
             if not _place_label(records, binary_data, addr, name, gap):
-                out.append(
-                    f'{name} equ {_label_equ_value(name, addr, code_value)}')
+                inner = (None if _raw_value(name) else
+                         _instruction_anchor(records, binary_data, addr, name))
+                out.append(f'{name} equ '
+                           f'{inner or _label_equ_value(name, addr, code_value)}')
     if immediate_labels:
         # The sidecar's ``immediate_labels`` value is the displacement the
         # instruction encodes -- a raw offset, e.g. ``data_46d9 equ 0x46d9`` --
@@ -937,10 +967,21 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                     delta = value - bss_boundary
                     base = '(__zimage_end - __zdseg_start)'
                     expr = base if delta == 0 else f'{base} + 0x{delta:04x}'
+            if expr is None and data_space(name) is Space.CSEG:
+                # A CS-reached byte: a label on it (data or an instruction
+                # start), else an offset from the instruction that holds it.
+                # Either follows an edit; the literal is the last resort.
+                from lib.compare.jumptables import _ensure_global_label
+                in_gap = gap is not None and gap[0] <= value < gap[1]
+                if not in_gap and _ensure_global_label(records, binary_data,
+                                                       value, name):
+                    continue
+                expr = (None if in_gap else
+                        _instruction_anchor(records, binary_data, value, name))
+                if expr is None:
+                    expr = code_value(value)
             if expr is not None:
                 out.append(f'{name} equ {expr}')
-            elif data_space(name) is Space.CSEG:
-                out.append(f'{name} equ {code_value(value)}')
             else:
                 out.append(f'{name} equ 0x{value:04x}')
     if ds_end_symbol is not None:

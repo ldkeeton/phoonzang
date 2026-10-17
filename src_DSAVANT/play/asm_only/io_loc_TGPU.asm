@@ -9,13 +9,16 @@ io_loc_TGPU:
     cmp byte [cs:cseg_08ae - IMAGE_BASE], 0 ; 0x08b4
     js short loc_0875                ; 0x08ba
     jne short @..io_loc_TGPU.l3      ; 0x08bc
+__zinsn_08be:
     mov ax, 0                        ; 0x08be
     mov ds, ax                       ; 0x08c1
+__zinsn_08c3:
     mov al, byte [0x0000]            ; 0x08c3
     mov dx, 0x389                    ; 0x08c6
     mov bx, 0x1a3a                   ; 0x08c9
     cs xlatb                         ; 0x08cc
     out dx, al                       ; 0x08ce
+__zinsn_08cf:
     add byte [cs:cseg_0a95 - IMAGE_BASE], 0x80 ; 0x08cf
     adc word [cs:cseg_08c4 - IMAGE_BASE], byte 0 ; 0x08d5
     jb short @..io_loc_TGPU.l2       ; 0x08db

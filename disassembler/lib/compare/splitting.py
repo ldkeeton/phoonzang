@@ -247,6 +247,7 @@ def _split_off_foreign_objects(split_ranges, records, owners=None):
                     and start in owners.get(span_start, ())):
                 own_end = max(own_end, span_end)
         cuts = []
+        kept = []
         for label, offset in defs.items():
             if not own_end <= offset < end:
                 continue
@@ -260,8 +261,22 @@ def _split_off_foreign_objects(split_ranges, records, owners=None):
             # referenced from outside (a blob, a bare ``loc_`` callee) or not at
             # all (a dead name).  Either way it is not this routine's.
             if any(owner(source) == index for source in refs.get(label, ())):
+                kept.append((offset, label))
                 continue
             cuts.append((offset, label))
+        # The range is about to be cut at the routines it carries, so a tail
+        # label is the routine's own only when the piece it ends up in names
+        # it: a data byte just before a promoted ``loc_`` callee, used only by
+        # that callee, is a neighbour of the routine above it.
+        bounds = sorted({start, end, *(offset for offset, label in cuts
+                                       if _roots_fragment(label))})
+        for offset, label in kept:
+            if _roots_fragment(label):
+                continue
+            lo = max(b for b in bounds if b <= offset)
+            hi = min(b for b in bounds if b > offset)
+            if not any(lo <= source < hi for source in refs.get(label, ())):
+                cuts.append((offset, label))
         if not cuts:
             result.append((start, end, name))
             continue

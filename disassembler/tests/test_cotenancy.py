@@ -49,7 +49,11 @@ _TREE = _ASM_DIR.parent / 'src_DSAVANT'
 #: inject their arms, and a branch target laid out inside another routine's
 #: fragment is rooted rather than left as a ``@..owner.lN`` local.  Re-measured
 #: 212/235/7 -> **244/267/10**; the goal is still 0.
-COTENANCY_BASELINE = {'glued_files': 244, 'code_outside': 267, 'data_outside': 10}
+#:
+#: A tail label is a routine's own only when the piece it ends up in names it
+#: (``_split_off_foreign_objects``): a data byte just before a promoted ``loc_``
+#: callee, used only by that callee, is cut too.  244/267/10 -> **241/266/4**.
+COTENANCY_BASELINE = {'glued_files': 241, 'code_outside': 266, 'data_outside': 4}
 
 
 def _write(path, text):

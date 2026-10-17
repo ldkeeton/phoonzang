@@ -1,16 +1,16 @@
 ; auto-generated
-leaf_loc_HJNR:
+leaf_loc_TKVU:
     mov bx, cseg_0d03 - IMAGE_BASE   ; 0x0f55
     mov al, byte [cs:cseg_0d3e - IMAGE_BASE] ; 0x0f58
-@..leaf_loc_HJNR.l1:
+@..leaf_loc_TKVU.l1:
     cmp al, byte [cs:bx + 0x2]       ; 0x0f5c
-    jne short @..leaf_loc_HJNR.l2    ; 0x0f60
+    jne short @..leaf_loc_TKVU.l2    ; 0x0f60
     jmp near loc_RUNQ                ; 0x0f62
-@..leaf_loc_HJNR.l2:
+@..leaf_loc_TKVU.l2:
     inc al                           ; 0x0f65
     add bx, byte 5                   ; 0x0f67
     cmp bx, strict word 0xe3a        ; 0x0f6a
-    jb short @..leaf_loc_HJNR.l1     ; 0x0f6e
+    jb short @..leaf_loc_TKVU.l1     ; 0x0f6e
     jmp near loc_NGKV                ; 0x0f70
 loc_GLKJ:
     mov bx, cseg_0d03 - IMAGE_BASE   ; 0x0f73
@@ -84,7 +84,7 @@ loc_VQRR:
     mov al, byte [cs:bx + 0x2]       ; 0x1042
     cmp al, byte [cs:cseg_0d3e - IMAGE_BASE] ; 0x1046
     je short loc_RUNQ                ; 0x104b
-    call loc_ORRG                    ; 0x104d
+    call loc_IMHI                    ; 0x104d
 loc_RUNQ:
     mov al, byte [cs:cseg_0d3f - IMAGE_BASE] ; 0x1050
     mov byte [cs:bx], al             ; 0x1054
@@ -93,7 +93,7 @@ loc_RUNQ:
     mov byte [cs:bx + 0x1], al       ; 0x1061
     mov al, byte [cs:si]             ; 0x1065
     mov byte [cs:bx + 0x2], al       ; 0x1068
-    call loc_IVTG                    ; 0x106c
+    call loc_ONLU                    ; 0x106c
     mov byte [cs:cseg_0ad8 - IMAGE_BASE], 1 ; 0x106f
     inc si                           ; 0x1075
     dec cx                           ; 0x1076
@@ -137,16 +137,16 @@ loc_GJLP:
     xor al, al                       ; 0x1112
 loc_RPSI:
     cmp byte [cs:bx], 0              ; 0x1114
-    je short loc_HHMI                ; 0x1118
+    je short loc_PIOG                ; 0x1118
     cmp byte [cs:bx + 0x1], ah       ; 0x111a
-    jne short loc_HHMI               ; 0x111e
+    jne short loc_PIOG               ; 0x111e
     cmp byte [cs:bx + 0x2], dh       ; 0x1120
-    jne short loc_HHMI               ; 0x1124
+    jne short loc_PIOG               ; 0x1124
     mov byte [cs:bx], 0              ; 0x1126
     mov word [cs:bx + 0x3], 0        ; 0x112a
     mov byte [cs:cseg_0d40 - IMAGE_BASE], al ; 0x1130
-    call loc_KILN                    ; 0x1134
-loc_HHMI:
+    call loc_NLST                    ; 0x1134
+loc_PIOG:
     inc al                           ; 0x1137
     add bx, byte 5                   ; 0x1139
     cmp al, byte [cs:cseg_0d3a - IMAGE_BASE] ; 0x113c
@@ -155,3 +155,29 @@ loc_HHMI:
     loop loc_GJLP                    ; 0x1144
     pop si                           ; 0x1146
     jmp near loc_MRJU                ; 0x1147
+
+    db 0x53, 0x2e, 0x8a, 0x1e, 0x7c, 0x0b, 0x32, 0xff, 0xd1, 0xe3, 0x2e, 0xff, 0x97, 0x5b, 0x12, 0x5b
+    db 0xc3
+
+jumptable_115b:
+    dw loc_PLIR - IMAGE_BASE                   ; 0x115b
+    dw loc_QKNN - IMAGE_BASE                   ; 0x115d
+    dw loc_PLIR - IMAGE_BASE                   ; 0x115f
+    dw loc_PLIR - IMAGE_BASE                   ; 0x1161
+    dw loc_QKNN - IMAGE_BASE                   ; 0x1163
+    dw loc_PLIR - IMAGE_BASE                   ; 0x1165
+loc_IMHI:
+    push bx                          ; 0x1167
+    mov bl, byte [cs:cseg_0a7c - IMAGE_BASE] ; 0x1168
+    xor bh, bh                       ; 0x116d
+    shl bx, 1                        ; 0x116f
+    call [cs:bx + jumptable_1178 - IMAGE_BASE] ; 0x1171
+    pop bx                           ; 0x1176
+    ret                              ; 0x1177
+jumptable_1178:
+    dw loc_PLIR - IMAGE_BASE                   ; 0x1178
+    dw string_loc_NOSM - IMAGE_BASE            ; 0x117a
+    dw loc_PLIR - IMAGE_BASE                   ; 0x117c
+    dw loc_PLIR - IMAGE_BASE                   ; 0x117e
+    dw string_loc_NOSM - IMAGE_BASE            ; 0x1180
+    dw loc_PLIR - IMAGE_BASE                   ; 0x1182

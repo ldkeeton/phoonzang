@@ -96,6 +96,15 @@ class PhaseContext:
             end = _parse_offset(data_range.get('end', data_range['start']),
                                 f'force_data[{index}].end') + 1
             self.hard_data[start:min(end, n)] = True
+        # A declared code-pointer table is a stated fact too: its words are
+        # data even where linear descent would decode them as instructions.
+        for index, table in enumerate(
+                (sidecar_entry or {}).get('code_tables', [])):
+            start = _parse_offset(table['table'], f'code_tables[{index}].table')
+            count = table.get('count')
+            if isinstance(count, int) and count > 0:
+                end = start + count * int(table.get('entry_size', 2))
+                self.hard_data[start:min(end, n)] = True
         self.seeds: list[SeedInfo] = []
         #: Handler offsets a declared ``dispatch_table`` names (D7.2c-2d).  The
         #: table is a contract, not a guess: each handler is a function entry,

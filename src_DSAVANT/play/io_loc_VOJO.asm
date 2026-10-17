@@ -1,7 +1,3 @@
 ; auto-generated
 io_loc_VOJO:
     jmp near loc_121d                ; 0x086b
-cseg_086e:
-    db 0x00
-cseg_086f:
-    db 0x00, 0xfa, 0x50, 0x1e, 0x52, 0x53

@@ -4,6 +4,7 @@ io_loc_UVLK_0841:
     mov al, byte [di]                ; 0x0841
     cs xlatb                         ; 0x0843
     out dx, al                       ; 0x0845
+__zinsn_0846:
     add ah, 0x80                     ; 0x0846
     adc di, byte 0                   ; 0x0849
     jb short @..io_loc_UVLK_0841.l2  ; 0x084c
