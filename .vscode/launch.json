@@ -15,9 +15,14 @@
             "cwd": "${workspaceFolder}/debugger",
             "preLaunchTask": "Start DOSBox-X (COM)",
             "sourceFileMap": {
-                "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
+                "/PHOONZANG/debugger/": "${workspaceFolder}/debugger/"
             },
             "setupCommands": [
+                {
+                    "text": "set substitute-path /PHOONZANG ${workspaceFolder}",
+                    "description": "ELF debug paths are rooted at the virtual /PHOONZANG",
+                    "ignoreFailures": false
+                },
                 {
                     "text": "set architecture i8086",
                     "description": "GDBSRV 16-bit real-mode target",
@@ -52,9 +57,14 @@
             "cwd": "${workspaceFolder}/debugger",
             "preLaunchTask": "Start DOSBox-X (MZ EXE)",
             "sourceFileMap": {
-                "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
+                "/PHOONZANG/debugger/": "${workspaceFolder}/debugger/"
             },
             "setupCommands": [
+                {
+                    "text": "set substitute-path /PHOONZANG ${workspaceFolder}",
+                    "description": "ELF debug paths are rooted at the virtual /PHOONZANG",
+                    "ignoreFailures": false
+                },
                 {
                     "text": "set architecture i8086",
                     "description": "GDBSRV 16-bit real-mode target",
@@ -91,9 +101,14 @@
             "stopAtConnect": true,
             "cwd": "${workspaceFolder}/debugger",
             "sourceFileMap": {
-                "/media/lyle/ST8000DM004/Games/Wiz7/debugger/": "${workspaceFolder}/debugger/"
+                "/PHOONZANG/debugger/": "${workspaceFolder}/debugger/"
             },
             "setupCommands": [
+                {
+                    "text": "set substitute-path /PHOONZANG ${workspaceFolder}",
+                    "description": "ELF debug paths are rooted at the virtual /PHOONZANG",
+                    "ignoreFailures": false
+                },
                 {
                     "text": "set architecture i8086",
                     "description": "GDBSRV 16-bit real-mode target",
@@ -120,9 +135,14 @@
             "cwd": "${workspaceFolder}/src_DSAVANT/build_out",
             "preLaunchTask": "Start DOSBox-X (DSAVANT)",
             "sourceFileMap": {
-                "/media/lyle/ST8000DM004/Games/Wiz7/src_DSAVANT/build_out/.elf-rebuild/": "${workspaceFolder}/src_DSAVANT/"
+                "/PHOONZANG/src_DSAVANT/build_out/.elf-rebuild/": "${workspaceFolder}/src_DSAVANT/"
             },
             "setupCommands": [
+                {
+                    "text": "set substitute-path /PHOONZANG ${workspaceFolder}",
+                    "description": "ELF debug paths are rooted at the virtual /PHOONZANG",
+                    "ignoreFailures": false
+                },
                 {
                     "text": "set architecture i8086",
                     "description": "16-bit MZ real-mode target",

@@ -10,9 +10,7 @@ import subprocess
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ELF = ROOT / "src_DSAVANT" / "build_out" / "DS.elf"
 DWARF_SOURCE = ROOT / "src_DSAVANT" / "build_out" / ".elf-rebuild" / "ds.asm"
-SOURCE_LINE = 5097
-INCLUDE_SOURCE = ROOT / "src_DSAVANT" / "ds" / "bios_get_video_mode.asm"
-INCLUDE_LINE = 2
+INCLUDE_SOURCE = ROOT / "src_DSAVANT" / "ds" / "asm_only" / "bios_get_video_mode.asm"
 MASTER_SOURCE = ROOT / "src_DSAVANT" / "ds.asm"
 FLOW_ADDRESS = re.compile(
     r"\b(?:call|jmp|j[a-z]+|loop(?:e|ne)?)\s+"
@@ -21,24 +19,41 @@ FLOW_ADDRESS = re.compile(
 )
 
 
-def source_line_address(source_name, source_line):
+def decoded_lines():
+    """``(file name, line, address)`` rows from the ELF's DWARF line table."""
     output = subprocess.check_output(
-        ["objdump", "--dwarf=decodedline", str(ELF)], text=True
+        ["objdump", "--dwarf=decodedline", str(ELF)],
+        text=True,
+        stderr=subprocess.DEVNULL,
     )
     for row in output.splitlines():
         fields = row.split()
         if (
             len(fields) >= 3
-            and pathlib.PurePosixPath(fields[0]).name == source_name
-            and fields[1] == str(source_line)
+            and fields[1].isdigit()
             and fields[2].startswith("0x")
         ):
-            return int(fields[2], 16)
+            yield (pathlib.PurePosixPath(fields[0]).name, int(fields[1]),
+                   int(fields[2], 16))
+
+
+def source_line_address(source_name, source_line):
+    for name, line, address in decoded_lines():
+        if name == source_name and line == source_line:
+            return address
     raise AssertionError(f"{source_name}:{source_line} has no address in {ELF}")
 
 
+def first_mapped_line(source_name):
+    """First line of *source_name* the ELF line table maps to an address."""
+    for name, line, _ in decoded_lines():
+        if name == source_name:
+            return line
+    raise AssertionError(f"{source_name} has no mapped source line in {ELF}")
+
+
 def main():
-    if '%include "ds/bios_get_video_mode.asm"' not in MASTER_SOURCE.read_text():
+    if '%include "ds/asm_only/bios_get_video_mode.asm"' not in MASTER_SOURCE.read_text():
         raise AssertionError("ds.asm does not include bios_get_video_mode.asm")
     for source_path in (MASTER_SOURCE, INCLUDE_SOURCE):
         unresolved = [
@@ -64,8 +79,9 @@ def main():
         raise AssertionError(f"generated source include is missing: {INCLUDE_SOURCE}")
 
     breakpoints = (
-        ("4", DWARF_SOURCE, "ds.asm", SOURCE_LINE),
-        ("5", INCLUDE_SOURCE, INCLUDE_SOURCE.name, INCLUDE_LINE),
+        ("4", DWARF_SOURCE, "ds.asm", first_mapped_line("ds.asm")),
+        ("5", INCLUDE_SOURCE, INCLUDE_SOURCE.name,
+         first_mapped_line(INCLUDE_SOURCE.name)),
     )
     commands = "\n".join(
         (

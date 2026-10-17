@@ -11,6 +11,7 @@ import sys
 from lib.autogen import write_text
 from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
+from lib.dwarf_paths import remap_elf as _remap_elf_paths
 from lib.link import include_args
 from lib.shared import FOLDER
 from lib.symtab import Symbol
@@ -349,6 +350,10 @@ def _nasm_elf_build(out_dir, name, entry_ip, load_offset=0x200):
             _fix_elf_debug_line(tmp_elf)
         except Exception as exc:  # never let a repair failure break the build
             print(f'  ELF LINE TABLE WARN: {exc}')
+        # NASM bakes in the absolute checkout path; swap it for a fixed virtual
+        # root so the ELF (and launch.json's substitute-path) is portable.
+        _remap_elf_paths(tmp_elf, os.path.dirname(os.path.dirname(os.path.dirname(
+            os.path.abspath(__file__)))))
         os.replace(tmp_elf, elf_path)
         build_succeeded = True
         return 0
@@ -356,7 +361,8 @@ def _nasm_elf_build(out_dir, name, entry_ip, load_offset=0x200):
         # GDB resolves source breakpoints by opening the path recorded in
         # DW_AT_comp_dir. Keep the generated, line-aligned source at that path
         # so absolute break-insert requests can resolve instead of staying
-        # pending. The VS Code sourceFileMap still presents the original file.
+        # pending. launch.json's ``substitute-path /PHOONZANG`` maps the
+        # virtual root back to the checkout.
         cleanup_paths = (tmp_elf,) if build_succeeded else (source_path, tmp_elf)
         for path in cleanup_paths:
             try:
