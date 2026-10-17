@@ -700,32 +700,32 @@ jumptable_2326:
     dw 0x0061                                  ; 0x2352 ; literal
     dw 0x0062                                  ; 0x2354 ; literal
     dw 0x0063                                  ; 0x2356 ; literal
-    dw jumptable_2326_case_25 - IMAGE_BASE + 0x5055 ; 0x2358
-    dw jumptable_2326_case_26 - IMAGE_BASE + 0x5055 ; 0x235a
-    dw jumptable_2326_case_25 - IMAGE_BASE + 0x5055 ; 0x235c
-    dw jumptable_2326_case_28 - IMAGE_BASE + 0x5055 ; 0x235e
-    dw jumptable_2326_case_29 - IMAGE_BASE + 0x5055 ; 0x2360
-    dw jumptable_2326_case_30 - IMAGE_BASE + 0x5055 ; 0x2362
-    dw jumptable_2326_case_31 - IMAGE_BASE + 0x5055 ; 0x2364
-    dw jumptable_2326_case_32 - IMAGE_BASE + 0x5055 ; 0x2366
-    dw jumptable_2326_case_33 - IMAGE_BASE + 0x5055 ; 0x2368
-    dw jumptable_2326_case_34 - IMAGE_BASE + 0x5055 ; 0x236a
-    dw jumptable_2326_case_35 - IMAGE_BASE + 0x5055 ; 0x236c
-    dw jumptable_2326_case_36 - IMAGE_BASE + 0x5055 ; 0x236e
-    dw jumptable_2326_case_37 - IMAGE_BASE + 0x5055 ; 0x2370
-    dw jumptable_2326_case_38 - IMAGE_BASE + 0x5055 ; 0x2372
-    dw jumptable_2326_case_39 - IMAGE_BASE + 0x5055 ; 0x2374
-    dw jumptable_2326_case_40 - IMAGE_BASE + 0x5055 ; 0x2376
-    dw jumptable_2326_case_41 - IMAGE_BASE + 0x5055 ; 0x2378
-    dw jumptable_2326_case_42 - IMAGE_BASE + 0x5055 ; 0x237a
-    dw jumptable_2326_case_43 - IMAGE_BASE + 0x5055 ; 0x237c
-    dw jumptable_2326_case_44 - IMAGE_BASE + 0x5055 ; 0x237e
-    dw jumptable_2326_case_42 - IMAGE_BASE + 0x5055 ; 0x2380
-    dw jumptable_2326_case_46 - IMAGE_BASE + 0x5055 ; 0x2382
-    dw jumptable_2326_case_47 - IMAGE_BASE + 0x5055 ; 0x2384
-    dw jumptable_2326_case_48 - IMAGE_BASE + 0x5055 ; 0x2386
-    dw jumptable_2326_case_49 - IMAGE_BASE + 0x5055 ; 0x2388
-    dw jumptable_2326_case_50 - IMAGE_BASE + 0x5055 ; 0x238a
+    dw jumptable_2326_case_25 - IMAGE_BASE + __zres_end ; 0x2358
+    dw jumptable_2326_case_26 - IMAGE_BASE + __zres_end ; 0x235a
+    dw jumptable_2326_case_25 - IMAGE_BASE + __zres_end ; 0x235c
+    dw jumptable_2326_case_28 - IMAGE_BASE + __zres_end ; 0x235e
+    dw jumptable_2326_case_29 - IMAGE_BASE + __zres_end ; 0x2360
+    dw jumptable_2326_case_30 - IMAGE_BASE + __zres_end ; 0x2362
+    dw jumptable_2326_case_31 - IMAGE_BASE + __zres_end ; 0x2364
+    dw jumptable_2326_case_32 - IMAGE_BASE + __zres_end ; 0x2366
+    dw jumptable_2326_case_33 - IMAGE_BASE + __zres_end ; 0x2368
+    dw jumptable_2326_case_34 - IMAGE_BASE + __zres_end ; 0x236a
+    dw jumptable_2326_case_35 - IMAGE_BASE + __zres_end ; 0x236c
+    dw jumptable_2326_case_36 - IMAGE_BASE + __zres_end ; 0x236e
+    dw jumptable_2326_case_37 - IMAGE_BASE + __zres_end ; 0x2370
+    dw jumptable_2326_case_38 - IMAGE_BASE + __zres_end ; 0x2372
+    dw jumptable_2326_case_39 - IMAGE_BASE + __zres_end ; 0x2374
+    dw jumptable_2326_case_40 - IMAGE_BASE + __zres_end ; 0x2376
+    dw jumptable_2326_case_41 - IMAGE_BASE + __zres_end ; 0x2378
+    dw jumptable_2326_case_42 - IMAGE_BASE + __zres_end ; 0x237a
+    dw jumptable_2326_case_43 - IMAGE_BASE + __zres_end ; 0x237c
+    dw jumptable_2326_case_44 - IMAGE_BASE + __zres_end ; 0x237e
+    dw jumptable_2326_case_42 - IMAGE_BASE + __zres_end ; 0x2380
+    dw jumptable_2326_case_46 - IMAGE_BASE + __zres_end ; 0x2382
+    dw jumptable_2326_case_47 - IMAGE_BASE + __zres_end ; 0x2384
+    dw jumptable_2326_case_48 - IMAGE_BASE + __zres_end ; 0x2386
+    dw jumptable_2326_case_49 - IMAGE_BASE + __zres_end ; 0x2388
+    dw jumptable_2326_case_50 - IMAGE_BASE + __zres_end ; 0x238a
 jumptable_2326_case_50:
 @..loc_1cdb.l36:
     ret                              ; 0x238c

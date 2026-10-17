@@ -4,16 +4,16 @@ string_loc_VMIJ:
     mov word [bss_830a], 0x17        ; 0x6c0e
     jmp short loc_OVQV               ; 0x6c14
 jumptable_6c16:
-    dw loc_QLVJ - IMAGE_BASE + 0x5055          ; 0x6c16
-    dw loc_OJLQ - IMAGE_BASE + 0x5055          ; 0x6c18
-    dw loc_QLVJ - IMAGE_BASE + 0x5055          ; 0x6c1a
-    dw loc_ITMO - IMAGE_BASE + 0x5055          ; 0x6c1c
-    dw loc_ITMO - IMAGE_BASE + 0x5055          ; 0x6c1e
-    dw loc_ITMO - IMAGE_BASE + 0x5055          ; 0x6c20
-    dw loc_ITMO - IMAGE_BASE + 0x5055          ; 0x6c22
-    dw loc_MPTI - IMAGE_BASE + 0x5055          ; 0x6c24
-    dw string_loc_RQHG - IMAGE_BASE + 0x5055   ; 0x6c26
-    dw string_loc_VMIJ - IMAGE_BASE + 0x5055   ; 0x6c28
+    dw loc_QLVJ - IMAGE_BASE + __zres_end      ; 0x6c16
+    dw loc_OJLQ - IMAGE_BASE + __zres_end      ; 0x6c18
+    dw loc_QLVJ - IMAGE_BASE + __zres_end      ; 0x6c1a
+    dw loc_ITMO - IMAGE_BASE + __zres_end      ; 0x6c1c
+    dw loc_ITMO - IMAGE_BASE + __zres_end      ; 0x6c1e
+    dw loc_ITMO - IMAGE_BASE + __zres_end      ; 0x6c20
+    dw loc_ITMO - IMAGE_BASE + __zres_end      ; 0x6c22
+    dw loc_MPTI - IMAGE_BASE + __zres_end      ; 0x6c24
+    dw string_loc_RQHG - IMAGE_BASE + __zres_end ; 0x6c26
+    dw string_loc_VMIJ - IMAGE_BASE + __zres_end ; 0x6c28
 loc_NHRG:
     cmp ax, strict word 0xa          ; 0x6c2a
     jae short loc_OVQV               ; 0x6c2d

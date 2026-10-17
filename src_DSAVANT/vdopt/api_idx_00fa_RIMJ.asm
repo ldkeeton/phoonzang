@@ -27,14 +27,14 @@ loc_HSTU:
     add word [bp - 0x0004], byte 0x32 ; 0x1a9f
     jmp short @..api_idx_00fa_RIMJ.l2 ; 0x1aa3
 jumptable_1aa5:
-    dw jumptable_1aa5_case_0 - IMAGE_BASE + 0x5055 ; 0x1aa5
-    dw loc_HSTU - IMAGE_BASE + 0x5055          ; 0x1aa7
-    dw loc_OQHO_1a97 - IMAGE_BASE + 0x5055     ; 0x1aa9
-    dw loc_OQHO_1a8f - IMAGE_BASE + 0x5055     ; 0x1aab
-    dw loc_PUPK_1a87 - IMAGE_BASE + 0x5055     ; 0x1aad
-    dw loc_PUPK_1a7f - IMAGE_BASE + 0x5055     ; 0x1aaf
-    dw loc_LLGT_1a7b - IMAGE_BASE + 0x5055     ; 0x1ab1
-    dw loc_LLGT_1a77 - IMAGE_BASE + 0x5055     ; 0x1ab3
+    dw jumptable_1aa5_case_0 - IMAGE_BASE + __zres_end ; 0x1aa5
+    dw loc_HSTU - IMAGE_BASE + __zres_end      ; 0x1aa7
+    dw loc_OQHO_1a97 - IMAGE_BASE + __zres_end ; 0x1aa9
+    dw loc_OQHO_1a8f - IMAGE_BASE + __zres_end ; 0x1aab
+    dw loc_PUPK_1a87 - IMAGE_BASE + __zres_end ; 0x1aad
+    dw loc_PUPK_1a7f - IMAGE_BASE + __zres_end ; 0x1aaf
+    dw loc_LLGT_1a7b - IMAGE_BASE + __zres_end ; 0x1ab1
+    dw loc_LLGT_1a77 - IMAGE_BASE + __zres_end ; 0x1ab3
 @..api_idx_00fa_RIMJ.l1:
     cmp ax, strict word 8            ; 0x1ab5
     jae short @..api_idx_00fa_RIMJ.l2 ; 0x1ab8

@@ -68,13 +68,13 @@ jumptable_03ce_case_6:
     add sp, byte 0x0c                ; 0x03c9
     jmp short @..loc_VRKM.l2         ; 0x03cc
 jumptable_03ce:
-    dw jumptable_03ce_case_0 - IMAGE_BASE + 0x5055 ; 0x03ce
-    dw jumptable_03ce_case_1 - IMAGE_BASE + 0x5055 ; 0x03d0
-    dw jumptable_03ce_case_2 - IMAGE_BASE + 0x5055 ; 0x03d2
-    dw jumptable_03ce_case_3 - IMAGE_BASE + 0x5055 ; 0x03d4
-    dw jumptable_03ce_case_2 - IMAGE_BASE + 0x5055 ; 0x03d6
-    dw jumptable_03ce_case_5 - IMAGE_BASE + 0x5055 ; 0x03d8
-    dw jumptable_03ce_case_6 - IMAGE_BASE + 0x5055 ; 0x03da
+    dw jumptable_03ce_case_0 - IMAGE_BASE + __zres_end ; 0x03ce
+    dw jumptable_03ce_case_1 - IMAGE_BASE + __zres_end ; 0x03d0
+    dw jumptable_03ce_case_2 - IMAGE_BASE + __zres_end ; 0x03d2
+    dw jumptable_03ce_case_3 - IMAGE_BASE + __zres_end ; 0x03d4
+    dw jumptable_03ce_case_2 - IMAGE_BASE + __zres_end ; 0x03d6
+    dw jumptable_03ce_case_5 - IMAGE_BASE + __zres_end ; 0x03d8
+    dw jumptable_03ce_case_6 - IMAGE_BASE + __zres_end ; 0x03da
 @..loc_VRKM.l1:
     cmp ax, strict word 7            ; 0x03dc
     jae short @..loc_VRKM.l2         ; 0x03df

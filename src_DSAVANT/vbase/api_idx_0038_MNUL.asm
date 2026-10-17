@@ -758,12 +758,12 @@ jumptable_0d04_case_5:
     add sp, byte 8                   ; 0x0cff
     jmp short @..api_idx_0038_MNUL.l24 ; 0x0d02
 jumptable_0d04:
-    dw jumptable_0d04_case_0 - IMAGE_BASE + 0x5055 ; 0x0d04
-    dw jumptable_0d04_case_1 - IMAGE_BASE + 0x5055 ; 0x0d06
-    dw jumptable_0d04_case_1 - IMAGE_BASE + 0x5055 ; 0x0d08
-    dw jumptable_0d04_case_3 - IMAGE_BASE + 0x5055 ; 0x0d0a
-    dw jumptable_0d04_case_4 - IMAGE_BASE + 0x5055 ; 0x0d0c
-    dw jumptable_0d04_case_5 - IMAGE_BASE + 0x5055 ; 0x0d0e
+    dw jumptable_0d04_case_0 - IMAGE_BASE + __zres_end ; 0x0d04
+    dw jumptable_0d04_case_1 - IMAGE_BASE + __zres_end ; 0x0d06
+    dw jumptable_0d04_case_1 - IMAGE_BASE + __zres_end ; 0x0d08
+    dw jumptable_0d04_case_3 - IMAGE_BASE + __zres_end ; 0x0d0a
+    dw jumptable_0d04_case_4 - IMAGE_BASE + __zres_end ; 0x0d0c
+    dw jumptable_0d04_case_5 - IMAGE_BASE + __zres_end ; 0x0d0e
 @..api_idx_0038_MNUL.l22:
     cmp ax, strict word 6            ; 0x0d10
     jae short @..api_idx_0038_MNUL.l23 ; 0x0d13

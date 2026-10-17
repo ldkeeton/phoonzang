@@ -769,12 +769,12 @@ jumptable_33a0_case_5:
     add sp, byte 8                   ; 0x339b
     jmp short @..api_idx_0038_PVVG.l26 ; 0x339e
 jumptable_33a0:
-    dw jumptable_33a0_case_0 - IMAGE_BASE + 0x5055 ; 0x33a0
-    dw jumptable_33a0_case_1 - IMAGE_BASE + 0x5055 ; 0x33a2
-    dw jumptable_33a0_case_1 - IMAGE_BASE + 0x5055 ; 0x33a4
-    dw jumptable_33a0_case_3 - IMAGE_BASE + 0x5055 ; 0x33a6
-    dw jumptable_33a0_case_4 - IMAGE_BASE + 0x5055 ; 0x33a8
-    dw jumptable_33a0_case_5 - IMAGE_BASE + 0x5055 ; 0x33aa
+    dw jumptable_33a0_case_0 - IMAGE_BASE + __zres_end ; 0x33a0
+    dw jumptable_33a0_case_1 - IMAGE_BASE + __zres_end ; 0x33a2
+    dw jumptable_33a0_case_1 - IMAGE_BASE + __zres_end ; 0x33a4
+    dw jumptable_33a0_case_3 - IMAGE_BASE + __zres_end ; 0x33a6
+    dw jumptable_33a0_case_4 - IMAGE_BASE + __zres_end ; 0x33a8
+    dw jumptable_33a0_case_5 - IMAGE_BASE + __zres_end ; 0x33aa
 @..api_idx_0038_PVVG.l24:
     cmp ax, strict word 6            ; 0x33ac
     jae short @..api_idx_0038_PVVG.l25 ; 0x33af

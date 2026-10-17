@@ -162,16 +162,16 @@ jumptable_9baa_case_9:
 @..loc_SMSJ.l3:
     jmp short @..loc_SMSJ.l5         ; 0x9ba8
 jumptable_9baa:
-    dw jumptable_9baa_case_0 - IMAGE_BASE + 0x5055 ; 0x9baa
-    dw jumptable_9baa_case_1 - IMAGE_BASE + 0x5055 ; 0x9bac
-    dw jumptable_9baa_case_2 - IMAGE_BASE + 0x5055 ; 0x9bae
-    dw jumptable_9baa_case_3 - IMAGE_BASE + 0x5055 ; 0x9bb0
-    dw jumptable_9baa_case_4 - IMAGE_BASE + 0x5055 ; 0x9bb2
-    dw jumptable_9baa_case_5 - IMAGE_BASE + 0x5055 ; 0x9bb4
-    dw jumptable_9baa_case_6 - IMAGE_BASE + 0x5055 ; 0x9bb6
-    dw jumptable_9baa_case_7 - IMAGE_BASE + 0x5055 ; 0x9bb8
-    dw jumptable_9baa_case_8 - IMAGE_BASE + 0x5055 ; 0x9bba
-    dw jumptable_9baa_case_9 - IMAGE_BASE + 0x5055 ; 0x9bbc
+    dw jumptable_9baa_case_0 - IMAGE_BASE + __zres_end ; 0x9baa
+    dw jumptable_9baa_case_1 - IMAGE_BASE + __zres_end ; 0x9bac
+    dw jumptable_9baa_case_2 - IMAGE_BASE + __zres_end ; 0x9bae
+    dw jumptable_9baa_case_3 - IMAGE_BASE + __zres_end ; 0x9bb0
+    dw jumptable_9baa_case_4 - IMAGE_BASE + __zres_end ; 0x9bb2
+    dw jumptable_9baa_case_5 - IMAGE_BASE + __zres_end ; 0x9bb4
+    dw jumptable_9baa_case_6 - IMAGE_BASE + __zres_end ; 0x9bb6
+    dw jumptable_9baa_case_7 - IMAGE_BASE + __zres_end ; 0x9bb8
+    dw jumptable_9baa_case_8 - IMAGE_BASE + __zres_end ; 0x9bba
+    dw jumptable_9baa_case_9 - IMAGE_BASE + __zres_end ; 0x9bbc
 @..loc_SMSJ.l4:
     cmp ax, strict word 0xa          ; 0x9bbe
     jae short @..loc_SMSJ.l5         ; 0x9bc1

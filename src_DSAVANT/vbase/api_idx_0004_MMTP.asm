@@ -330,20 +330,20 @@ jumptable_1ee4_case_13:
     add sp, byte 0x0e                ; 0x1edf
     jmp short @..api_idx_0004_MMTP.l6 ; 0x1ee2
 jumptable_1ee4:
-    dw jumptable_1ee4_case_0 - IMAGE_BASE + 0x5055 ; 0x1ee4
-    dw jumptable_1ee4_case_1 - IMAGE_BASE + 0x5055 ; 0x1ee6
-    dw jumptable_1ee4_case_2 - IMAGE_BASE + 0x5055 ; 0x1ee8
-    dw jumptable_1ee4_case_0 - IMAGE_BASE + 0x5055 ; 0x1eea
-    dw jumptable_1ee4_case_4 - IMAGE_BASE + 0x5055 ; 0x1eec
-    dw jumptable_1ee4_case_5 - IMAGE_BASE + 0x5055 ; 0x1eee
-    dw jumptable_1ee4_case_6 - IMAGE_BASE + 0x5055 ; 0x1ef0
-    dw jumptable_1ee4_case_7 - IMAGE_BASE + 0x5055 ; 0x1ef2
-    dw jumptable_1ee4_case_8 - IMAGE_BASE + 0x5055 ; 0x1ef4
-    dw jumptable_1ee4_case_9 - IMAGE_BASE + 0x5055 ; 0x1ef6
-    dw jumptable_1ee4_case_10 - IMAGE_BASE + 0x5055 ; 0x1ef8
-    dw jumptable_1ee4_case_11 - IMAGE_BASE + 0x5055 ; 0x1efa
-    dw jumptable_1ee4_case_12 - IMAGE_BASE + 0x5055 ; 0x1efc
-    dw jumptable_1ee4_case_13 - IMAGE_BASE + 0x5055 ; 0x1efe
+    dw jumptable_1ee4_case_0 - IMAGE_BASE + __zres_end ; 0x1ee4
+    dw jumptable_1ee4_case_1 - IMAGE_BASE + __zres_end ; 0x1ee6
+    dw jumptable_1ee4_case_2 - IMAGE_BASE + __zres_end ; 0x1ee8
+    dw jumptable_1ee4_case_0 - IMAGE_BASE + __zres_end ; 0x1eea
+    dw jumptable_1ee4_case_4 - IMAGE_BASE + __zres_end ; 0x1eec
+    dw jumptable_1ee4_case_5 - IMAGE_BASE + __zres_end ; 0x1eee
+    dw jumptable_1ee4_case_6 - IMAGE_BASE + __zres_end ; 0x1ef0
+    dw jumptable_1ee4_case_7 - IMAGE_BASE + __zres_end ; 0x1ef2
+    dw jumptable_1ee4_case_8 - IMAGE_BASE + __zres_end ; 0x1ef4
+    dw jumptable_1ee4_case_9 - IMAGE_BASE + __zres_end ; 0x1ef6
+    dw jumptable_1ee4_case_10 - IMAGE_BASE + __zres_end ; 0x1ef8
+    dw jumptable_1ee4_case_11 - IMAGE_BASE + __zres_end ; 0x1efa
+    dw jumptable_1ee4_case_12 - IMAGE_BASE + __zres_end ; 0x1efc
+    dw jumptable_1ee4_case_13 - IMAGE_BASE + __zres_end ; 0x1efe
 @..api_idx_0004_MMTP.l5:
     cmp ax, strict word 0xe          ; 0x1f00
     jae short @..api_idx_0004_MMTP.l6 ; 0x1f03

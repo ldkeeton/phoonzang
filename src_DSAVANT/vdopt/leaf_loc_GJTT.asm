@@ -4,14 +4,14 @@ leaf_loc_GJTT:
     mov word [bp - 0x0010], ax       ; 0x0d9b
     jmp short loc_VPRT               ; 0x0d9e
 jumptable_0da0:
-    dw loc_VPRT - IMAGE_BASE + 0x5055          ; 0x0da0
-    dw leaf_loc_JQTI_0d80 - IMAGE_BASE + 0x5055 ; 0x0da2
-    dw leaf_loc_JQTI_0d88 - IMAGE_BASE + 0x5055 ; 0x0da4
-    dw leaf_loc_JQTI_0d90 - IMAGE_BASE + 0x5055 ; 0x0da6
-    dw leaf_loc_GJTT - IMAGE_BASE + 0x5055     ; 0x0da8
-    dw loc_VPRT - IMAGE_BASE + 0x5055          ; 0x0daa
-    dw leaf_loc_JQTI_0d90 - IMAGE_BASE + 0x5055 ; 0x0dac
-    dw leaf_loc_JQTI_0d88 - IMAGE_BASE + 0x5055 ; 0x0dae
+    dw loc_VPRT - IMAGE_BASE + __zres_end      ; 0x0da0
+    dw leaf_loc_JQTI_0d80 - IMAGE_BASE + __zres_end ; 0x0da2
+    dw leaf_loc_JQTI_0d88 - IMAGE_BASE + __zres_end ; 0x0da4
+    dw leaf_loc_JQTI_0d90 - IMAGE_BASE + __zres_end ; 0x0da6
+    dw leaf_loc_GJTT - IMAGE_BASE + __zres_end ; 0x0da8
+    dw loc_VPRT - IMAGE_BASE + __zres_end      ; 0x0daa
+    dw leaf_loc_JQTI_0d90 - IMAGE_BASE + __zres_end ; 0x0dac
+    dw leaf_loc_JQTI_0d88 - IMAGE_BASE + __zres_end ; 0x0dae
 loc_0db0:
     cmp ax, strict word 8            ; 0x0db0
     jae short loc_VPRT               ; 0x0db3
@@ -62,14 +62,14 @@ loc_TNRH:
     mov word [bp - 0x0010], ax       ; 0x0e1b
     jmp short loc_KQGG               ; 0x0e1e
 jumptable_0e20:
-    dw loc_KQGG - IMAGE_BASE + 0x5055          ; 0x0e20
-    dw loc_JQTI_0e00 - IMAGE_BASE + 0x5055     ; 0x0e22
-    dw loc_JQTI_0e08 - IMAGE_BASE + 0x5055     ; 0x0e24
-    dw loc_JQTI_0e10 - IMAGE_BASE + 0x5055     ; 0x0e26
-    dw loc_TNRH - IMAGE_BASE + 0x5055          ; 0x0e28
-    dw loc_KQGG - IMAGE_BASE + 0x5055          ; 0x0e2a
-    dw loc_JQTI_0e10 - IMAGE_BASE + 0x5055     ; 0x0e2c
-    dw loc_JQTI_0e08 - IMAGE_BASE + 0x5055     ; 0x0e2e
+    dw loc_KQGG - IMAGE_BASE + __zres_end      ; 0x0e20
+    dw loc_JQTI_0e00 - IMAGE_BASE + __zres_end ; 0x0e22
+    dw loc_JQTI_0e08 - IMAGE_BASE + __zres_end ; 0x0e24
+    dw loc_JQTI_0e10 - IMAGE_BASE + __zres_end ; 0x0e26
+    dw loc_TNRH - IMAGE_BASE + __zres_end      ; 0x0e28
+    dw loc_KQGG - IMAGE_BASE + __zres_end      ; 0x0e2a
+    dw loc_JQTI_0e10 - IMAGE_BASE + __zres_end ; 0x0e2c
+    dw loc_JQTI_0e08 - IMAGE_BASE + __zres_end ; 0x0e2e
 loc_HRMG:
     cmp ax, strict word 8            ; 0x0e30
     jae short loc_KQGG               ; 0x0e33

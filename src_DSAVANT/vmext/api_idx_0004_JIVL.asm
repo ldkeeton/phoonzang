@@ -33,22 +33,22 @@ loc_MRLK:
     mov word [bp - 0x0004], 1        ; 0x08e2
     jmp short @..api_idx_0004_JIVL.l3 ; 0x08e7
 jumptable_08e9:
-    dw loc_MRLK - IMAGE_BASE + 0x5055          ; 0x08e9
-    dw jumptable_08e9_case_1 - IMAGE_BASE + 0x5055 ; 0x08eb
-    dw loc_MRLK - IMAGE_BASE + 0x5055          ; 0x08ed
-    dw jumptable_08e9_case_1 - IMAGE_BASE + 0x5055 ; 0x08ef
-    dw jumptable_08e9_case_1 - IMAGE_BASE + 0x5055 ; 0x08f1
-    dw jumptable_08e9_case_1 - IMAGE_BASE + 0x5055 ; 0x08f3
-    dw jumptable_08e9_case_1 - IMAGE_BASE + 0x5055 ; 0x08f5
-    dw loc_MRLK - IMAGE_BASE + 0x5055          ; 0x08f7
-    dw loc_MRLK - IMAGE_BASE + 0x5055          ; 0x08f9
-    dw loc_MRLK - IMAGE_BASE + 0x5055          ; 0x08fb
-    dw loc_MRLK - IMAGE_BASE + 0x5055          ; 0x08fd
-    dw loc_MRLK - IMAGE_BASE + 0x5055          ; 0x08ff
-    dw jumptable_08e9_case_1 - IMAGE_BASE + 0x5055 ; 0x0901
-    dw jumptable_08e9_case_1 - IMAGE_BASE + 0x5055 ; 0x0903
-    dw loc_OLOH - IMAGE_BASE + 0x5055          ; 0x0905
-    dw loc_MRLK - IMAGE_BASE + 0x5055          ; 0x0907
+    dw loc_MRLK - IMAGE_BASE + __zres_end      ; 0x08e9
+    dw jumptable_08e9_case_1 - IMAGE_BASE + __zres_end ; 0x08eb
+    dw loc_MRLK - IMAGE_BASE + __zres_end      ; 0x08ed
+    dw jumptable_08e9_case_1 - IMAGE_BASE + __zres_end ; 0x08ef
+    dw jumptable_08e9_case_1 - IMAGE_BASE + __zres_end ; 0x08f1
+    dw jumptable_08e9_case_1 - IMAGE_BASE + __zres_end ; 0x08f3
+    dw jumptable_08e9_case_1 - IMAGE_BASE + __zres_end ; 0x08f5
+    dw loc_MRLK - IMAGE_BASE + __zres_end      ; 0x08f7
+    dw loc_MRLK - IMAGE_BASE + __zres_end      ; 0x08f9
+    dw loc_MRLK - IMAGE_BASE + __zres_end      ; 0x08fb
+    dw loc_MRLK - IMAGE_BASE + __zres_end      ; 0x08fd
+    dw loc_MRLK - IMAGE_BASE + __zres_end      ; 0x08ff
+    dw jumptable_08e9_case_1 - IMAGE_BASE + __zres_end ; 0x0901
+    dw jumptable_08e9_case_1 - IMAGE_BASE + __zres_end ; 0x0903
+    dw loc_OLOH - IMAGE_BASE + __zres_end      ; 0x0905
+    dw loc_MRLK - IMAGE_BASE + __zres_end      ; 0x0907
 @..api_idx_0004_JIVL.l2:
     sub ax, strict word 0xf          ; 0x0909
     cmp ax, strict word 0x10         ; 0x090c

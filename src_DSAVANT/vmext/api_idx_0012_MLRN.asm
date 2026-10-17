@@ -550,22 +550,22 @@ jumptable_2e93_case_5:
 loc_2e91:
     jmp short leaf_loc_RSTT          ; 0x2e91
 jumptable_2e93:
-    dw leaf_loc_RSTT - IMAGE_BASE + 0x5055     ; 0x2e93
-    dw loc_2b45 - IMAGE_BASE + 0x5055          ; 0x2e95
-    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2e97
-    dw loc_2a88 - IMAGE_BASE + 0x5055          ; 0x2e99
-    dw jumptable_2e93_case_4 - IMAGE_BASE + 0x5055 ; 0x2e9b
-    dw jumptable_2e93_case_5 - IMAGE_BASE + 0x5055 ; 0x2e9d
-    dw loc_2a88 - IMAGE_BASE + 0x5055          ; 0x2e9f
-    dw jumptable_2e93_case_7 - IMAGE_BASE + 0x5055 ; 0x2ea1
-    dw jumptable_2e93_case_8 - IMAGE_BASE + 0x5055 ; 0x2ea3
-    dw jumptable_2e93_case_8 - IMAGE_BASE + 0x5055 ; 0x2ea5
-    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2ea7
-    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2ea9
-    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2eab
-    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2ead
-    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2eaf
-    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2eb1
+    dw leaf_loc_RSTT - IMAGE_BASE + __zres_end ; 0x2e93
+    dw loc_2b45 - IMAGE_BASE + __zres_end      ; 0x2e95
+    dw loc_2c7c - IMAGE_BASE + __zres_end      ; 0x2e97
+    dw loc_2a88 - IMAGE_BASE + __zres_end      ; 0x2e99
+    dw jumptable_2e93_case_4 - IMAGE_BASE + __zres_end ; 0x2e9b
+    dw jumptable_2e93_case_5 - IMAGE_BASE + __zres_end ; 0x2e9d
+    dw loc_2a88 - IMAGE_BASE + __zres_end      ; 0x2e9f
+    dw jumptable_2e93_case_7 - IMAGE_BASE + __zres_end ; 0x2ea1
+    dw jumptable_2e93_case_8 - IMAGE_BASE + __zres_end ; 0x2ea3
+    dw jumptable_2e93_case_8 - IMAGE_BASE + __zres_end ; 0x2ea5
+    dw loc_2c7c - IMAGE_BASE + __zres_end      ; 0x2ea7
+    dw loc_2c7c - IMAGE_BASE + __zres_end      ; 0x2ea9
+    dw loc_2c7c - IMAGE_BASE + __zres_end      ; 0x2eab
+    dw loc_2c7c - IMAGE_BASE + __zres_end      ; 0x2ead
+    dw loc_2c7c - IMAGE_BASE + __zres_end      ; 0x2eaf
+    dw loc_2c7c - IMAGE_BASE + __zres_end      ; 0x2eb1
 @..api_idx_0012_MLRN.l1:
     cmp ax, strict word 0x10         ; 0x2eb3
     jae short leaf_loc_RSTT          ; 0x2eb6

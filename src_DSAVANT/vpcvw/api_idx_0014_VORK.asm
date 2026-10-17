@@ -716,32 +716,32 @@ loc_QHSQ:
 @..api_idx_0014_VORK.l18:
     jmp short @..api_idx_0014_VORK.l20 ; 0x67c1
 jumptable_67c3:
-    dw loc_RSKH_672d - IMAGE_BASE + 0x5055     ; 0x67c3
-    dw loc_MKQJ - IMAGE_BASE + 0x5055          ; 0x67c5
-    dw loc_NMKG - IMAGE_BASE + 0x5055          ; 0x67c7
-    dw loc_RSKH_6779 - IMAGE_BASE + 0x5055     ; 0x67c9
-    dw loc_LPSH_6783 - IMAGE_BASE + 0x5055     ; 0x67cb
-    dw loc_LPSH_6786 - IMAGE_BASE + 0x5055     ; 0x67cd
-    dw loc_MIKT - IMAGE_BASE + 0x5055          ; 0x67cf
-    dw loc_VUMS - IMAGE_BASE + 0x5055          ; 0x67d1
-    dw loc_MNIM_67a8 - IMAGE_BASE + 0x5055     ; 0x67d3
-    dw loc_MNIM_67a8 - IMAGE_BASE + 0x5055     ; 0x67d5
-    dw loc_MNIM_67a8 - IMAGE_BASE + 0x5055     ; 0x67d7
-    dw loc_MNIM_67a8 - IMAGE_BASE + 0x5055     ; 0x67d9
-    dw loc_MNIM_67a8 - IMAGE_BASE + 0x5055     ; 0x67db
-    dw loc_MNIM_67a8 - IMAGE_BASE + 0x5055     ; 0x67dd
-    dw loc_MNIM_67a8 - IMAGE_BASE + 0x5055     ; 0x67df
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67e1
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67e3
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67e5
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67e7
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67e9
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67eb
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67ed
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67ef
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67f1
-    dw jumptable_67c3_case_15 - IMAGE_BASE + 0x5055 ; 0x67f3
-    dw loc_QHSQ - IMAGE_BASE + 0x5055          ; 0x67f5
+    dw loc_RSKH_672d - IMAGE_BASE + __zres_end ; 0x67c3
+    dw loc_MKQJ - IMAGE_BASE + __zres_end      ; 0x67c5
+    dw loc_NMKG - IMAGE_BASE + __zres_end      ; 0x67c7
+    dw loc_RSKH_6779 - IMAGE_BASE + __zres_end ; 0x67c9
+    dw loc_LPSH_6783 - IMAGE_BASE + __zres_end ; 0x67cb
+    dw loc_LPSH_6786 - IMAGE_BASE + __zres_end ; 0x67cd
+    dw loc_MIKT - IMAGE_BASE + __zres_end      ; 0x67cf
+    dw loc_VUMS - IMAGE_BASE + __zres_end      ; 0x67d1
+    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67d3
+    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67d5
+    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67d7
+    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67d9
+    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67db
+    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67dd
+    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67df
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67e1
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67e3
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67e5
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67e7
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67e9
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67eb
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67ed
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67ef
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67f1
+    dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67f3
+    dw loc_QHSQ - IMAGE_BASE + __zres_end      ; 0x67f5
 @..api_idx_0014_VORK.l19:
     cmp ax, strict word 0x1a         ; 0x67f7
     jae short @..api_idx_0014_VORK.l20 ; 0x67fa

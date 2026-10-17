@@ -115,13 +115,13 @@ loc_GTUG:
     mov word [bp - 0x01aa], ax       ; 0x3727
     jmp short @..string_loc_KUIU.l11 ; 0x372b
 jumptable_372d:
-    dw loc_GMLU - IMAGE_BASE + 0x5055          ; 0x372d
-    dw loc_JNKN - IMAGE_BASE + 0x5055          ; 0x372f
-    dw loc_SSQU_36f7 - IMAGE_BASE + 0x5055     ; 0x3731
-    dw loc_VJIL - IMAGE_BASE + 0x5055          ; 0x3733
-    dw loc_KRJM - IMAGE_BASE + 0x5055          ; 0x3735
-    dw loc_OOJH - IMAGE_BASE + 0x5055          ; 0x3737
-    dw loc_GTUG - IMAGE_BASE + 0x5055          ; 0x3739
+    dw loc_GMLU - IMAGE_BASE + __zres_end      ; 0x372d
+    dw loc_JNKN - IMAGE_BASE + __zres_end      ; 0x372f
+    dw loc_SSQU_36f7 - IMAGE_BASE + __zres_end ; 0x3731
+    dw loc_VJIL - IMAGE_BASE + __zres_end      ; 0x3733
+    dw loc_KRJM - IMAGE_BASE + __zres_end      ; 0x3735
+    dw loc_OOJH - IMAGE_BASE + __zres_end      ; 0x3737
+    dw loc_GTUG - IMAGE_BASE + __zres_end      ; 0x3739
 @..string_loc_KUIU.l9:
     cmp ax, strict word 7            ; 0x373b
     jae short @..string_loc_KUIU.l10 ; 0x373e

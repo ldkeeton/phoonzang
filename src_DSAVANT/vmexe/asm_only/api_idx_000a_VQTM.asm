@@ -525,14 +525,14 @@ jumptable_78e5_case_7:
     add sp, byte 0x16                ; 0x78e0
     jmp short @..api_idx_000a_VQTM.l22 ; 0x78e3
 jumptable_78e5:
-    dw jumptable_78e5_case_0 - IMAGE_BASE + 0x5055 ; 0x78e5
-    dw jumptable_78e5_case_1 - IMAGE_BASE + 0x5055 ; 0x78e7
-    dw jumptable_78e5_case_2 - IMAGE_BASE + 0x5055 ; 0x78e9
-    dw jumptable_78e5_case_3 - IMAGE_BASE + 0x5055 ; 0x78eb
-    dw jumptable_78e5_case_4 - IMAGE_BASE + 0x5055 ; 0x78ed
-    dw jumptable_78e5_case_5 - IMAGE_BASE + 0x5055 ; 0x78ef
-    dw jumptable_78e5_case_6 - IMAGE_BASE + 0x5055 ; 0x78f1
-    dw jumptable_78e5_case_7 - IMAGE_BASE + 0x5055 ; 0x78f3
+    dw jumptable_78e5_case_0 - IMAGE_BASE + __zres_end ; 0x78e5
+    dw jumptable_78e5_case_1 - IMAGE_BASE + __zres_end ; 0x78e7
+    dw jumptable_78e5_case_2 - IMAGE_BASE + __zres_end ; 0x78e9
+    dw jumptable_78e5_case_3 - IMAGE_BASE + __zres_end ; 0x78eb
+    dw jumptable_78e5_case_4 - IMAGE_BASE + __zres_end ; 0x78ed
+    dw jumptable_78e5_case_5 - IMAGE_BASE + __zres_end ; 0x78ef
+    dw jumptable_78e5_case_6 - IMAGE_BASE + __zres_end ; 0x78f1
+    dw jumptable_78e5_case_7 - IMAGE_BASE + __zres_end ; 0x78f3
 @..api_idx_000a_VQTM.l21:
     cmp ax, strict word 8            ; 0x78f5
     jae short @..api_idx_000a_VQTM.l22 ; 0x78f8

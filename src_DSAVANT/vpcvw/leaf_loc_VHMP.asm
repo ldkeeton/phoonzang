@@ -27,23 +27,23 @@ loc_KOVM:
 loc_45ee:
     jmp short loc_SKRT               ; 0x45ee
 jumptable_45f0:
-    dw leaf_loc_KOJL - IMAGE_BASE + 0x5055     ; 0x45f0
-    dw leaf_loc_KOJL - IMAGE_BASE + 0x5055     ; 0x45f2
-    dw leaf_loc_KOJL - IMAGE_BASE + 0x5055     ; 0x45f4
-    dw leaf_loc_KOJL - IMAGE_BASE + 0x5055     ; 0x45f6
-    dw leaf_loc_MKJK - IMAGE_BASE + 0x5055     ; 0x45f8
-    dw leaf_loc_LHLU - IMAGE_BASE + 0x5055     ; 0x45fa
-    dw leaf_loc_VHMP - IMAGE_BASE + 0x5055     ; 0x45fc
-    dw loc_JPGH - IMAGE_BASE + 0x5055          ; 0x45fe
-    dw loc_TIUJ - IMAGE_BASE + 0x5055          ; 0x4600
-    dw loc_IPVI - IMAGE_BASE + 0x5055          ; 0x4602
-    dw loc_SUUR - IMAGE_BASE + 0x5055          ; 0x4604
-    dw loc_OTPG - IMAGE_BASE + 0x5055          ; 0x4606
-    dw leaf_loc_KOJL - IMAGE_BASE + 0x5055     ; 0x4608
-    dw loc_KOVM - IMAGE_BASE + 0x5055          ; 0x460a
-    dw loc_KOVM - IMAGE_BASE + 0x5055          ; 0x460c
-    dw loc_KOVM - IMAGE_BASE + 0x5055          ; 0x460e
-    dw leaf_loc_KOJL - IMAGE_BASE + 0x5055     ; 0x4610
+    dw leaf_loc_KOJL - IMAGE_BASE + __zres_end ; 0x45f0
+    dw leaf_loc_KOJL - IMAGE_BASE + __zres_end ; 0x45f2
+    dw leaf_loc_KOJL - IMAGE_BASE + __zres_end ; 0x45f4
+    dw leaf_loc_KOJL - IMAGE_BASE + __zres_end ; 0x45f6
+    dw leaf_loc_MKJK - IMAGE_BASE + __zres_end ; 0x45f8
+    dw leaf_loc_LHLU - IMAGE_BASE + __zres_end ; 0x45fa
+    dw leaf_loc_VHMP - IMAGE_BASE + __zres_end ; 0x45fc
+    dw loc_JPGH - IMAGE_BASE + __zres_end      ; 0x45fe
+    dw loc_TIUJ - IMAGE_BASE + __zres_end      ; 0x4600
+    dw loc_IPVI - IMAGE_BASE + __zres_end      ; 0x4602
+    dw loc_SUUR - IMAGE_BASE + __zres_end      ; 0x4604
+    dw loc_OTPG - IMAGE_BASE + __zres_end      ; 0x4606
+    dw leaf_loc_KOJL - IMAGE_BASE + __zres_end ; 0x4608
+    dw loc_KOVM - IMAGE_BASE + __zres_end      ; 0x460a
+    dw loc_KOVM - IMAGE_BASE + __zres_end      ; 0x460c
+    dw loc_KOVM - IMAGE_BASE + __zres_end      ; 0x460e
+    dw leaf_loc_KOJL - IMAGE_BASE + __zres_end ; 0x4610
 loc_4612:
     cmp ax, strict word 0x11         ; 0x4612
     jae short loc_SKRT               ; 0x4615

@@ -87,13 +87,13 @@ loc_LGLK:
     mov word [bx + 0x4], ax          ; 0x0452
     jmp short @..api_idx_0004_PSJH.l4 ; 0x0455
 jumptable_0457:
-    dw loc_VMRH - IMAGE_BASE + 0x5055          ; 0x0457
-    dw loc_NQGQ - IMAGE_BASE + 0x5055          ; 0x0459
-    dw loc_NQGQ - IMAGE_BASE + 0x5055          ; 0x045b
-    dw loc_NQGQ - IMAGE_BASE + 0x5055          ; 0x045d
-    dw loc_NQGQ - IMAGE_BASE + 0x5055          ; 0x045f
-    dw loc_TKUN - IMAGE_BASE + 0x5055          ; 0x0461
-    dw loc_LGLK - IMAGE_BASE + 0x5055          ; 0x0463
+    dw loc_VMRH - IMAGE_BASE + __zres_end      ; 0x0457
+    dw loc_NQGQ - IMAGE_BASE + __zres_end      ; 0x0459
+    dw loc_NQGQ - IMAGE_BASE + __zres_end      ; 0x045b
+    dw loc_NQGQ - IMAGE_BASE + __zres_end      ; 0x045d
+    dw loc_NQGQ - IMAGE_BASE + __zres_end      ; 0x045f
+    dw loc_TKUN - IMAGE_BASE + __zres_end      ; 0x0461
+    dw loc_LGLK - IMAGE_BASE + __zres_end      ; 0x0463
 @..api_idx_0004_PSJH.l3:
     cmp ax, strict word 7            ; 0x0465
     jae short @..api_idx_0004_PSJH.l4 ; 0x0468

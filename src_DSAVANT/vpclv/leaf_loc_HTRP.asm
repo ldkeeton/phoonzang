@@ -49,20 +49,20 @@ loc_4b35:
     jmp short loc_IOTO               ; 0x4b3a
 loc_RVNO:
 jumptable_4b3c:
-    dw loc_4b35 - IMAGE_BASE + 0x5055          ; 0x4b3c
-    dw leaf_loc_MVPS - IMAGE_BASE + 0x5055     ; 0x4b3e
-    dw leaf_loc_RPIK - IMAGE_BASE + 0x5055     ; 0x4b40
-    dw loc_4b35 - IMAGE_BASE + 0x5055          ; 0x4b42
-    dw leaf_loc_OKGJ - IMAGE_BASE + 0x5055     ; 0x4b44
-    dw leaf_loc_RVOL - IMAGE_BASE + 0x5055     ; 0x4b46
-    dw leaf_loc_HKVH - IMAGE_BASE + 0x5055     ; 0x4b48
-    dw leaf_loc_HKHH - IMAGE_BASE + 0x5055     ; 0x4b4a
-    dw leaf_loc_QSLV - IMAGE_BASE + 0x5055     ; 0x4b4c
-    dw leaf_loc_MLUK - IMAGE_BASE + 0x5055     ; 0x4b4e
-    dw leaf_loc_HTRP - IMAGE_BASE + 0x5055     ; 0x4b50
-    dw loc_GGSR - IMAGE_BASE + 0x5055          ; 0x4b52
-    dw loc_SUMM - IMAGE_BASE + 0x5055          ; 0x4b54
-    dw loc_QLKU - IMAGE_BASE + 0x5055          ; 0x4b56
+    dw loc_4b35 - IMAGE_BASE + __zres_end      ; 0x4b3c
+    dw leaf_loc_MVPS - IMAGE_BASE + __zres_end ; 0x4b3e
+    dw leaf_loc_RPIK - IMAGE_BASE + __zres_end ; 0x4b40
+    dw loc_4b35 - IMAGE_BASE + __zres_end      ; 0x4b42
+    dw leaf_loc_OKGJ - IMAGE_BASE + __zres_end ; 0x4b44
+    dw leaf_loc_RVOL - IMAGE_BASE + __zres_end ; 0x4b46
+    dw leaf_loc_HKVH - IMAGE_BASE + __zres_end ; 0x4b48
+    dw leaf_loc_HKHH - IMAGE_BASE + __zres_end ; 0x4b4a
+    dw leaf_loc_QSLV - IMAGE_BASE + __zres_end ; 0x4b4c
+    dw leaf_loc_MLUK - IMAGE_BASE + __zres_end ; 0x4b4e
+    dw leaf_loc_HTRP - IMAGE_BASE + __zres_end ; 0x4b50
+    dw loc_GGSR - IMAGE_BASE + __zres_end      ; 0x4b52
+    dw loc_SUMM - IMAGE_BASE + __zres_end      ; 0x4b54
+    dw loc_QLKU - IMAGE_BASE + __zres_end      ; 0x4b56
 loc_4b58:
     cmp ax, strict word 0xe          ; 0x4b58
     jae short loc_4b65               ; 0x4b5b

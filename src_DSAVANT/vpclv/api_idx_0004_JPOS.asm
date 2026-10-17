@@ -191,20 +191,20 @@ jumptable_3797_case_13:
     add sp, byte 0x0a                ; 0x3792
     jmp short @..api_idx_0004_JPOS.l2 ; 0x3795
 jumptable_3797:
-    dw jumptable_3797_case_0 - IMAGE_BASE + 0x5055 ; 0x3797
-    dw jumptable_3797_case_1 - IMAGE_BASE + 0x5055 ; 0x3799
-    dw jumptable_3797_case_2 - IMAGE_BASE + 0x5055 ; 0x379b
-    dw jumptable_3797_case_3 - IMAGE_BASE + 0x5055 ; 0x379d
-    dw jumptable_3797_case_4 - IMAGE_BASE + 0x5055 ; 0x379f
-    dw jumptable_3797_case_5 - IMAGE_BASE + 0x5055 ; 0x37a1
-    dw jumptable_3797_case_6 - IMAGE_BASE + 0x5055 ; 0x37a3
-    dw jumptable_3797_case_7 - IMAGE_BASE + 0x5055 ; 0x37a5
-    dw jumptable_3797_case_8 - IMAGE_BASE + 0x5055 ; 0x37a7
-    dw jumptable_3797_case_9 - IMAGE_BASE + 0x5055 ; 0x37a9
-    dw jumptable_3797_case_10 - IMAGE_BASE + 0x5055 ; 0x37ab
-    dw jumptable_3797_case_11 - IMAGE_BASE + 0x5055 ; 0x37ad
-    dw jumptable_3797_case_12 - IMAGE_BASE + 0x5055 ; 0x37af
-    dw jumptable_3797_case_13 - IMAGE_BASE + 0x5055 ; 0x37b1
+    dw jumptable_3797_case_0 - IMAGE_BASE + __zres_end ; 0x3797
+    dw jumptable_3797_case_1 - IMAGE_BASE + __zres_end ; 0x3799
+    dw jumptable_3797_case_2 - IMAGE_BASE + __zres_end ; 0x379b
+    dw jumptable_3797_case_3 - IMAGE_BASE + __zres_end ; 0x379d
+    dw jumptable_3797_case_4 - IMAGE_BASE + __zres_end ; 0x379f
+    dw jumptable_3797_case_5 - IMAGE_BASE + __zres_end ; 0x37a1
+    dw jumptable_3797_case_6 - IMAGE_BASE + __zres_end ; 0x37a3
+    dw jumptable_3797_case_7 - IMAGE_BASE + __zres_end ; 0x37a5
+    dw jumptable_3797_case_8 - IMAGE_BASE + __zres_end ; 0x37a7
+    dw jumptable_3797_case_9 - IMAGE_BASE + __zres_end ; 0x37a9
+    dw jumptable_3797_case_10 - IMAGE_BASE + __zres_end ; 0x37ab
+    dw jumptable_3797_case_11 - IMAGE_BASE + __zres_end ; 0x37ad
+    dw jumptable_3797_case_12 - IMAGE_BASE + __zres_end ; 0x37af
+    dw jumptable_3797_case_13 - IMAGE_BASE + __zres_end ; 0x37b1
 @..api_idx_0004_JPOS.l1:
     cmp ax, strict word 0xe          ; 0x37b3
     jae short @..api_idx_0004_JPOS.l2 ; 0x37b6

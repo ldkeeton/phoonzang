@@ -51,12 +51,12 @@ loc_UISH:
     mov ax, 0                        ; 0x2ffc
     ret                              ; 0x2fff
 jumptable_3000:
-    dw loc_QMOG_2fc7 - IMAGE_BASE + 0x5055     ; 0x3000
-    dw jumptable_3000_case_1 - IMAGE_BASE + 0x5055 ; 0x3002
-    dw loc_QMOG_2fc7 - IMAGE_BASE + 0x5055     ; 0x3004
-    dw loc_RORN - IMAGE_BASE + 0x5055          ; 0x3006
-    dw loc_QMOG_2fc7 - IMAGE_BASE + 0x5055     ; 0x3008
-    dw loc_UISH - IMAGE_BASE + 0x5055          ; 0x300a
+    dw loc_QMOG_2fc7 - IMAGE_BASE + __zres_end ; 0x3000
+    dw jumptable_3000_case_1 - IMAGE_BASE + __zres_end ; 0x3002
+    dw loc_QMOG_2fc7 - IMAGE_BASE + __zres_end ; 0x3004
+    dw loc_RORN - IMAGE_BASE + __zres_end      ; 0x3006
+    dw loc_QMOG_2fc7 - IMAGE_BASE + __zres_end ; 0x3008
+    dw loc_UISH - IMAGE_BASE + __zres_end      ; 0x300a
 @..api_idx_0008_KSTK.l3:
     cmp ax, strict word 6            ; 0x300c
     jae short @..api_idx_0008_KSTK.l4 ; 0x300f
@@ -106,12 +106,12 @@ loc_JIIG:
     mov byte [bx - 0x6e26], 2        ; 0x307b
     jmp short @..api_idx_0008_KSTK.l6 ; 0x3080
 jumptable_3082:
-    dw loc_QUHK_3049 - IMAGE_BASE + 0x5055     ; 0x3082
-    dw loc_RMNP - IMAGE_BASE + 0x5055          ; 0x3084
-    dw loc_JIIG - IMAGE_BASE + 0x5055          ; 0x3086
-    dw loc_RMNP - IMAGE_BASE + 0x5055          ; 0x3088
-    dw loc_QUHK_3049 - IMAGE_BASE + 0x5055     ; 0x308a
-    dw loc_RMNP - IMAGE_BASE + 0x5055          ; 0x308c
+    dw loc_QUHK_3049 - IMAGE_BASE + __zres_end ; 0x3082
+    dw loc_RMNP - IMAGE_BASE + __zres_end      ; 0x3084
+    dw loc_JIIG - IMAGE_BASE + __zres_end      ; 0x3086
+    dw loc_RMNP - IMAGE_BASE + __zres_end      ; 0x3088
+    dw loc_QUHK_3049 - IMAGE_BASE + __zres_end ; 0x308a
+    dw loc_RMNP - IMAGE_BASE + __zres_end      ; 0x308c
 @..api_idx_0008_KSTK.l5:
     cmp ax, strict word 6            ; 0x308e
     jae short @..api_idx_0008_KSTK.l6 ; 0x3091
@@ -165,12 +165,12 @@ loc_VVRS:
     mov ax, 0                        ; 0x310d
     ret                              ; 0x3110
 jumptable_3111:
-    dw loc_VVRS - IMAGE_BASE + 0x5055          ; 0x3111
-    dw loc_RMUP - IMAGE_BASE + 0x5055          ; 0x3113
-    dw loc_UGOK - IMAGE_BASE + 0x5055          ; 0x3115
-    dw loc_VVRS - IMAGE_BASE + 0x5055          ; 0x3117
-    dw loc_UGOK - IMAGE_BASE + 0x5055          ; 0x3119
-    dw loc_QUHK_30dd - IMAGE_BASE + 0x5055     ; 0x311b
+    dw loc_VVRS - IMAGE_BASE + __zres_end      ; 0x3111
+    dw loc_RMUP - IMAGE_BASE + __zres_end      ; 0x3113
+    dw loc_UGOK - IMAGE_BASE + __zres_end      ; 0x3115
+    dw loc_VVRS - IMAGE_BASE + __zres_end      ; 0x3117
+    dw loc_UGOK - IMAGE_BASE + __zres_end      ; 0x3119
+    dw loc_QUHK_30dd - IMAGE_BASE + __zres_end ; 0x311b
 @..api_idx_0008_KSTK.l9:
     cmp ax, strict word 6            ; 0x311d
     jae short @..api_idx_0008_KSTK.l10 ; 0x3120

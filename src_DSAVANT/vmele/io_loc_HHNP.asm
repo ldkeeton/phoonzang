@@ -3,12 +3,12 @@ io_loc_HHNP:
     mov word [bp - 0x0006], 1        ; 0x30e3
     jmp short loc_SHRQ               ; 0x30e8
 jumptable_30ea:
-    dw io_loc_PONH_309d - IMAGE_BASE + 0x5055  ; 0x30ea
-    dw io_loc_PONH_30ab - IMAGE_BASE + 0x5055  ; 0x30ec
-    dw io_loc_ISUT_30b9 - IMAGE_BASE + 0x5055  ; 0x30ee
-    dw io_loc_ISUT_30c7 - IMAGE_BASE + 0x5055  ; 0x30f0
-    dw io_loc_QLSL - IMAGE_BASE + 0x5055       ; 0x30f2
-    dw io_loc_HHNP - IMAGE_BASE + 0x5055       ; 0x30f4
+    dw io_loc_PONH_309d - IMAGE_BASE + __zres_end ; 0x30ea
+    dw io_loc_PONH_30ab - IMAGE_BASE + __zres_end ; 0x30ec
+    dw io_loc_ISUT_30b9 - IMAGE_BASE + __zres_end ; 0x30ee
+    dw io_loc_ISUT_30c7 - IMAGE_BASE + __zres_end ; 0x30f0
+    dw io_loc_QLSL - IMAGE_BASE + __zres_end   ; 0x30f2
+    dw io_loc_HHNP - IMAGE_BASE + __zres_end   ; 0x30f4
 loc_ROJH:
     cmp ax, strict word 6            ; 0x30f6
     jae short loc_SHRQ               ; 0x30f9

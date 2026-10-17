@@ -247,20 +247,20 @@ jumptable_5cb4_case_13:
     dec byte [bx + 0x5e3a]           ; 0x5cae
     jmp short @..api_idx_000a_HMMT.l2 ; 0x5cb2
 jumptable_5cb4:
-    dw jumptable_5cb4_case_0 - IMAGE_BASE + 0x5055 ; 0x5cb4
-    dw jumptable_5cb4_case_1 - IMAGE_BASE + 0x5055 ; 0x5cb6
-    dw jumptable_5cb4_case_2 - IMAGE_BASE + 0x5055 ; 0x5cb8
-    dw jumptable_5cb4_case_3 - IMAGE_BASE + 0x5055 ; 0x5cba
-    dw jumptable_5cb4_case_4 - IMAGE_BASE + 0x5055 ; 0x5cbc
-    dw jumptable_5cb4_case_5 - IMAGE_BASE + 0x5055 ; 0x5cbe
-    dw jumptable_5cb4_case_6 - IMAGE_BASE + 0x5055 ; 0x5cc0
-    dw jumptable_5cb4_case_7 - IMAGE_BASE + 0x5055 ; 0x5cc2
-    dw jumptable_5cb4_case_8 - IMAGE_BASE + 0x5055 ; 0x5cc4
-    dw jumptable_5cb4_case_9 - IMAGE_BASE + 0x5055 ; 0x5cc6
-    dw jumptable_5cb4_case_10 - IMAGE_BASE + 0x5055 ; 0x5cc8
-    dw jumptable_5cb4_case_11 - IMAGE_BASE + 0x5055 ; 0x5cca
-    dw jumptable_5cb4_case_12 - IMAGE_BASE + 0x5055 ; 0x5ccc
-    dw jumptable_5cb4_case_13 - IMAGE_BASE + 0x5055 ; 0x5cce
+    dw jumptable_5cb4_case_0 - IMAGE_BASE + __zres_end ; 0x5cb4
+    dw jumptable_5cb4_case_1 - IMAGE_BASE + __zres_end ; 0x5cb6
+    dw jumptable_5cb4_case_2 - IMAGE_BASE + __zres_end ; 0x5cb8
+    dw jumptable_5cb4_case_3 - IMAGE_BASE + __zres_end ; 0x5cba
+    dw jumptable_5cb4_case_4 - IMAGE_BASE + __zres_end ; 0x5cbc
+    dw jumptable_5cb4_case_5 - IMAGE_BASE + __zres_end ; 0x5cbe
+    dw jumptable_5cb4_case_6 - IMAGE_BASE + __zres_end ; 0x5cc0
+    dw jumptable_5cb4_case_7 - IMAGE_BASE + __zres_end ; 0x5cc2
+    dw jumptable_5cb4_case_8 - IMAGE_BASE + __zres_end ; 0x5cc4
+    dw jumptable_5cb4_case_9 - IMAGE_BASE + __zres_end ; 0x5cc6
+    dw jumptable_5cb4_case_10 - IMAGE_BASE + __zres_end ; 0x5cc8
+    dw jumptable_5cb4_case_11 - IMAGE_BASE + __zres_end ; 0x5cca
+    dw jumptable_5cb4_case_12 - IMAGE_BASE + __zres_end ; 0x5ccc
+    dw jumptable_5cb4_case_13 - IMAGE_BASE + __zres_end ; 0x5cce
 @..api_idx_000a_HMMT.l1:
     cmp ax, strict word 0xe          ; 0x5cd0
     jae short @..api_idx_000a_HMMT.l2 ; 0x5cd3

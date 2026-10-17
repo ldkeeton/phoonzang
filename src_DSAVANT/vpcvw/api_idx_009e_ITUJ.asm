@@ -287,18 +287,18 @@ jumptable_3f96_case_11:
     pop cx                           ; 0x3f93
     jmp short @..api_idx_009e_ITUJ.l13 ; 0x3f94
 jumptable_3f96:
-    dw jumptable_3f96_case_0 - IMAGE_BASE + 0x5055 ; 0x3f96
-    dw jumptable_3f96_case_1 - IMAGE_BASE + 0x5055 ; 0x3f98
-    dw jumptable_3f96_case_2 - IMAGE_BASE + 0x5055 ; 0x3f9a
-    dw jumptable_3f96_case_3 - IMAGE_BASE + 0x5055 ; 0x3f9c
-    dw jumptable_3f96_case_4 - IMAGE_BASE + 0x5055 ; 0x3f9e
-    dw jumptable_3f96_case_0 - IMAGE_BASE + 0x5055 ; 0x3fa0
-    dw jumptable_3f96_case_6 - IMAGE_BASE + 0x5055 ; 0x3fa2
-    dw jumptable_3f96_case_0 - IMAGE_BASE + 0x5055 ; 0x3fa4
-    dw jumptable_3f96_case_0 - IMAGE_BASE + 0x5055 ; 0x3fa6
-    dw jumptable_3f96_case_0 - IMAGE_BASE + 0x5055 ; 0x3fa8
-    dw jumptable_3f96_case_10 - IMAGE_BASE + 0x5055 ; 0x3faa
-    dw jumptable_3f96_case_11 - IMAGE_BASE + 0x5055 ; 0x3fac
+    dw jumptable_3f96_case_0 - IMAGE_BASE + __zres_end ; 0x3f96
+    dw jumptable_3f96_case_1 - IMAGE_BASE + __zres_end ; 0x3f98
+    dw jumptable_3f96_case_2 - IMAGE_BASE + __zres_end ; 0x3f9a
+    dw jumptable_3f96_case_3 - IMAGE_BASE + __zres_end ; 0x3f9c
+    dw jumptable_3f96_case_4 - IMAGE_BASE + __zres_end ; 0x3f9e
+    dw jumptable_3f96_case_0 - IMAGE_BASE + __zres_end ; 0x3fa0
+    dw jumptable_3f96_case_6 - IMAGE_BASE + __zres_end ; 0x3fa2
+    dw jumptable_3f96_case_0 - IMAGE_BASE + __zres_end ; 0x3fa4
+    dw jumptable_3f96_case_0 - IMAGE_BASE + __zres_end ; 0x3fa6
+    dw jumptable_3f96_case_0 - IMAGE_BASE + __zres_end ; 0x3fa8
+    dw jumptable_3f96_case_10 - IMAGE_BASE + __zres_end ; 0x3faa
+    dw jumptable_3f96_case_11 - IMAGE_BASE + __zres_end ; 0x3fac
 @..api_idx_009e_ITUJ.l12:
     cmp ax, strict word 0xc          ; 0x3fae
     jae short @..api_idx_009e_ITUJ.l13 ; 0x3fb1

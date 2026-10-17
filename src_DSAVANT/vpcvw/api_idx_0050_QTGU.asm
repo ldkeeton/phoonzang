@@ -1326,11 +1326,11 @@ jumptable_38dd_case_4:
 @..api_idx_0050_QTGU.l47:
     jmp short @..api_idx_0050_QTGU.l50 ; 0x38db
 jumptable_38dd:
-    dw jumptable_38dd_case_0 - IMAGE_BASE + 0x5055 ; 0x38dd
-    dw jumptable_38dd_case_1 - IMAGE_BASE + 0x5055 ; 0x38df
-    dw jumptable_38dd_case_1 - IMAGE_BASE + 0x5055 ; 0x38e1
-    dw jumptable_38dd_case_3 - IMAGE_BASE + 0x5055 ; 0x38e3
-    dw jumptable_38dd_case_4 - IMAGE_BASE + 0x5055 ; 0x38e5
+    dw jumptable_38dd_case_0 - IMAGE_BASE + __zres_end ; 0x38dd
+    dw jumptable_38dd_case_1 - IMAGE_BASE + __zres_end ; 0x38df
+    dw jumptable_38dd_case_1 - IMAGE_BASE + __zres_end ; 0x38e1
+    dw jumptable_38dd_case_3 - IMAGE_BASE + __zres_end ; 0x38e3
+    dw jumptable_38dd_case_4 - IMAGE_BASE + __zres_end ; 0x38e5
 @..api_idx_0050_QTGU.l48:
     cmp ax, strict word 5            ; 0x38e7
     jae short @..api_idx_0050_QTGU.l49 ; 0x38ea

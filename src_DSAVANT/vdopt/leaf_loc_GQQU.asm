@@ -4,14 +4,14 @@ leaf_loc_GQQU:
     mov word [bp - 0x0010], ax       ; 0x0e9b
     jmp short loc_UKPG               ; 0x0e9e
 jumptable_0ea0:
-    dw loc_UKPG - IMAGE_BASE + 0x5055          ; 0x0ea0
-    dw leaf_loc_JQTI_0e80 - IMAGE_BASE + 0x5055 ; 0x0ea2
-    dw leaf_loc_JQTI_0e88 - IMAGE_BASE + 0x5055 ; 0x0ea4
-    dw leaf_loc_JQTI_0e90 - IMAGE_BASE + 0x5055 ; 0x0ea6
-    dw leaf_loc_GQQU - IMAGE_BASE + 0x5055     ; 0x0ea8
-    dw loc_UKPG - IMAGE_BASE + 0x5055          ; 0x0eaa
-    dw leaf_loc_JQTI_0e90 - IMAGE_BASE + 0x5055 ; 0x0eac
-    dw leaf_loc_JQTI_0e88 - IMAGE_BASE + 0x5055 ; 0x0eae
+    dw loc_UKPG - IMAGE_BASE + __zres_end      ; 0x0ea0
+    dw leaf_loc_JQTI_0e80 - IMAGE_BASE + __zres_end ; 0x0ea2
+    dw leaf_loc_JQTI_0e88 - IMAGE_BASE + __zres_end ; 0x0ea4
+    dw leaf_loc_JQTI_0e90 - IMAGE_BASE + __zres_end ; 0x0ea6
+    dw leaf_loc_GQQU - IMAGE_BASE + __zres_end ; 0x0ea8
+    dw loc_UKPG - IMAGE_BASE + __zres_end      ; 0x0eaa
+    dw leaf_loc_JQTI_0e90 - IMAGE_BASE + __zres_end ; 0x0eac
+    dw leaf_loc_JQTI_0e88 - IMAGE_BASE + __zres_end ; 0x0eae
 loc_TTJR:
     cmp ax, strict word 8            ; 0x0eb0
     jae short loc_UKPG               ; 0x0eb3

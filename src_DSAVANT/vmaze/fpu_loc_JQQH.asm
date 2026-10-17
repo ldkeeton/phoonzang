@@ -8,13 +8,13 @@ fpu_loc_JQQH:
     mov word [bx + 0x4], ax          ; 0x6aa6
     jmp short loc_PLIR_6ac6          ; 0x6aa9
 jumptable_6aab:
-    dw fpu_loc_VMRH - IMAGE_BASE + 0x5055      ; 0x6aab
-    dw fpu_loc_NQGQ - IMAGE_BASE + 0x5055      ; 0x6aad
-    dw fpu_loc_NQGQ - IMAGE_BASE + 0x5055      ; 0x6aaf
-    dw fpu_loc_NQGQ - IMAGE_BASE + 0x5055      ; 0x6ab1
-    dw fpu_loc_NQGQ - IMAGE_BASE + 0x5055      ; 0x6ab3
-    dw fpu_loc_TKUN - IMAGE_BASE + 0x5055      ; 0x6ab5
-    dw fpu_loc_JQQH - IMAGE_BASE + 0x5055      ; 0x6ab7
+    dw fpu_loc_VMRH - IMAGE_BASE + __zres_end  ; 0x6aab
+    dw fpu_loc_NQGQ - IMAGE_BASE + __zres_end  ; 0x6aad
+    dw fpu_loc_NQGQ - IMAGE_BASE + __zres_end  ; 0x6aaf
+    dw fpu_loc_NQGQ - IMAGE_BASE + __zres_end  ; 0x6ab1
+    dw fpu_loc_NQGQ - IMAGE_BASE + __zres_end  ; 0x6ab3
+    dw fpu_loc_TKUN - IMAGE_BASE + __zres_end  ; 0x6ab5
+    dw fpu_loc_JQQH - IMAGE_BASE + __zres_end  ; 0x6ab7
 loc_6ab9:
     cmp ax, strict word 7            ; 0x6ab9
     jae short loc_PLIR_6ac6          ; 0x6abc

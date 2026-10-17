@@ -303,12 +303,12 @@ jumptable_099e_case_5:
     add sp, byte 8                   ; 0x0999
     jmp short @..api_idx_0014_LHRI.l9 ; 0x099c
 jumptable_099e:
-    dw jumptable_099e_case_0 - IMAGE_BASE + 0x5055 ; 0x099e
-    dw jumptable_099e_case_1 - IMAGE_BASE + 0x5055 ; 0x09a0
-    dw jumptable_099e_case_2 - IMAGE_BASE + 0x5055 ; 0x09a2
-    dw jumptable_099e_case_3 - IMAGE_BASE + 0x5055 ; 0x09a4
-    dw jumptable_099e_case_4 - IMAGE_BASE + 0x5055 ; 0x09a6
-    dw jumptable_099e_case_5 - IMAGE_BASE + 0x5055 ; 0x09a8
+    dw jumptable_099e_case_0 - IMAGE_BASE + __zres_end ; 0x099e
+    dw jumptable_099e_case_1 - IMAGE_BASE + __zres_end ; 0x09a0
+    dw jumptable_099e_case_2 - IMAGE_BASE + __zres_end ; 0x09a2
+    dw jumptable_099e_case_3 - IMAGE_BASE + __zres_end ; 0x09a4
+    dw jumptable_099e_case_4 - IMAGE_BASE + __zres_end ; 0x09a6
+    dw jumptable_099e_case_5 - IMAGE_BASE + __zres_end ; 0x09a8
 @..api_idx_0014_LHRI.l8:
     cmp ax, strict word 6            ; 0x09aa
     jae short @..api_idx_0014_LHRI.l9 ; 0x09ad

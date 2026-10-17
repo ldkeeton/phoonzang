@@ -3,12 +3,12 @@ fpu_loc_KVGV:
     mov word [bp - 0x0008], 9        ; 0x19ba
     jmp short loc_RTJI               ; 0x19bf
 jumptable_19c1:
-    dw fpu_loc_VKJQ - IMAGE_BASE + 0x5055      ; 0x19c1
-    dw fpu_loc_KUHO - IMAGE_BASE + 0x5055      ; 0x19c3
-    dw fpu_loc_USLK - IMAGE_BASE + 0x5055      ; 0x19c5
-    dw fpu_loc_IJNV - IMAGE_BASE + 0x5055      ; 0x19c7
-    dw fpu_loc_LHHK - IMAGE_BASE + 0x5055      ; 0x19c9
-    dw fpu_loc_KVGV - IMAGE_BASE + 0x5055      ; 0x19cb
+    dw fpu_loc_VKJQ - IMAGE_BASE + __zres_end  ; 0x19c1
+    dw fpu_loc_KUHO - IMAGE_BASE + __zres_end  ; 0x19c3
+    dw fpu_loc_USLK - IMAGE_BASE + __zres_end  ; 0x19c5
+    dw fpu_loc_IJNV - IMAGE_BASE + __zres_end  ; 0x19c7
+    dw fpu_loc_LHHK - IMAGE_BASE + __zres_end  ; 0x19c9
+    dw fpu_loc_KVGV - IMAGE_BASE + __zres_end  ; 0x19cb
 loc_19cd:
     cmp ax, strict word 6            ; 0x19cd
     jae short loc_RTJI               ; 0x19d0

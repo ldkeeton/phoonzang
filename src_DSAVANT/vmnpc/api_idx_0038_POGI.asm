@@ -192,18 +192,18 @@ loc_LOLO:
     mov word [bp - 0x000c], 0x6ea    ; 0x2685
     jmp short @..api_idx_0038_POGI.l15 ; 0x268a
 jumptable_268c:
-    dw loc_SKIN - IMAGE_BASE + 0x5055          ; 0x268c
-    dw loc_SKIN - IMAGE_BASE + 0x5055          ; 0x268e
-    dw loc_SKIN - IMAGE_BASE + 0x5055          ; 0x2690
-    dw loc_QTUP - IMAGE_BASE + 0x5055          ; 0x2692
-    dw loc_UMHM - IMAGE_BASE + 0x5055          ; 0x2694
-    dw loc_SKIN - IMAGE_BASE + 0x5055          ; 0x2696
-    dw loc_SKIN - IMAGE_BASE + 0x5055          ; 0x2698
-    dw loc_UMHM - IMAGE_BASE + 0x5055          ; 0x269a
-    dw loc_LOLO - IMAGE_BASE + 0x5055          ; 0x269c
-    dw loc_LOLO - IMAGE_BASE + 0x5055          ; 0x269e
-    dw loc_QTUP - IMAGE_BASE + 0x5055          ; 0x26a0
-    dw loc_LOLO - IMAGE_BASE + 0x5055          ; 0x26a2
+    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x268c
+    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x268e
+    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x2690
+    dw loc_QTUP - IMAGE_BASE + __zres_end      ; 0x2692
+    dw loc_UMHM - IMAGE_BASE + __zres_end      ; 0x2694
+    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x2696
+    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x2698
+    dw loc_UMHM - IMAGE_BASE + __zres_end      ; 0x269a
+    dw loc_LOLO - IMAGE_BASE + __zres_end      ; 0x269c
+    dw loc_LOLO - IMAGE_BASE + __zres_end      ; 0x269e
+    dw loc_QTUP - IMAGE_BASE + __zres_end      ; 0x26a0
+    dw loc_LOLO - IMAGE_BASE + __zres_end      ; 0x26a2
 @..api_idx_0038_POGI.l14:
     cmp ax, strict word 0xc          ; 0x26a4
     jae short @..api_idx_0038_POGI.l15 ; 0x26a7

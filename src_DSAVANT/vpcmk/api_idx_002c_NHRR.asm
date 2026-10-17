@@ -443,11 +443,11 @@ jumptable_6e5f_case_4:
 @..api_idx_002c_NHRR.l13:
     jmp short @..api_idx_002c_NHRR.l15 ; 0x6e5d
 jumptable_6e5f:
-    dw jumptable_6e5f_case_0 - IMAGE_BASE + 0x5055 ; 0x6e5f
-    dw jumptable_6e5f_case_1 - IMAGE_BASE + 0x5055 ; 0x6e61
-    dw jumptable_6e5f_case_2 - IMAGE_BASE + 0x5055 ; 0x6e63
-    dw jumptable_6e5f_case_3 - IMAGE_BASE + 0x5055 ; 0x6e65
-    dw jumptable_6e5f_case_4 - IMAGE_BASE + 0x5055 ; 0x6e67
+    dw jumptable_6e5f_case_0 - IMAGE_BASE + __zres_end ; 0x6e5f
+    dw jumptable_6e5f_case_1 - IMAGE_BASE + __zres_end ; 0x6e61
+    dw jumptable_6e5f_case_2 - IMAGE_BASE + __zres_end ; 0x6e63
+    dw jumptable_6e5f_case_3 - IMAGE_BASE + __zres_end ; 0x6e65
+    dw jumptable_6e5f_case_4 - IMAGE_BASE + __zres_end ; 0x6e67
 @..api_idx_002c_NHRR.l14:
     cmp ax, strict word 5            ; 0x6e69
     jae short @..api_idx_002c_NHRR.l15 ; 0x6e6c

@@ -49,13 +49,13 @@ loc_IVVU:
     mov word [bss_9e76], 1           ; 0x8ff6
     jmp short @..api_idx_0004_GSIV.l3 ; 0x8ffc
 jumptable_8ffe:
-    dw loc_RQHG_8fc6 - IMAGE_BASE + 0x5055     ; 0x8ffe
-    dw loc_RQHG_8fce - IMAGE_BASE + 0x5055     ; 0x9000
-    dw loc_RQHG_8fd6 - IMAGE_BASE + 0x5055     ; 0x9002
-    dw loc_RQHG_8fde - IMAGE_BASE + 0x5055     ; 0x9004
-    dw loc_RQHG_8fe6 - IMAGE_BASE + 0x5055     ; 0x9006
-    dw loc_RQHG_8fee - IMAGE_BASE + 0x5055     ; 0x9008
-    dw loc_IVVU - IMAGE_BASE + 0x5055          ; 0x900a
+    dw loc_RQHG_8fc6 - IMAGE_BASE + __zres_end ; 0x8ffe
+    dw loc_RQHG_8fce - IMAGE_BASE + __zres_end ; 0x9000
+    dw loc_RQHG_8fd6 - IMAGE_BASE + __zres_end ; 0x9002
+    dw loc_RQHG_8fde - IMAGE_BASE + __zres_end ; 0x9004
+    dw loc_RQHG_8fe6 - IMAGE_BASE + __zres_end ; 0x9006
+    dw loc_RQHG_8fee - IMAGE_BASE + __zres_end ; 0x9008
+    dw loc_IVVU - IMAGE_BASE + __zres_end      ; 0x900a
 @..api_idx_0004_GSIV.l2:
     cmp ax, strict word 7            ; 0x900c
     jae short @..api_idx_0004_GSIV.l3 ; 0x900f

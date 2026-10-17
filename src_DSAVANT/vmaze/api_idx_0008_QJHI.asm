@@ -39,12 +39,12 @@ loc_UOQQ:
     mov ax, 0                        ; 0x3409
     ret                              ; 0x340c
 jumptable_340d:
-    dw loc_QMOG_33f6 - IMAGE_BASE + 0x5055     ; 0x340d
-    dw jumptable_340d_case_1 - IMAGE_BASE + 0x5055 ; 0x340f
-    dw loc_QMOG_33f6 - IMAGE_BASE + 0x5055     ; 0x3411
-    dw loc_OISP - IMAGE_BASE + 0x5055          ; 0x3413
-    dw loc_QMOG_33f6 - IMAGE_BASE + 0x5055     ; 0x3415
-    dw loc_UOQQ - IMAGE_BASE + 0x5055          ; 0x3417
+    dw loc_QMOG_33f6 - IMAGE_BASE + __zres_end ; 0x340d
+    dw jumptable_340d_case_1 - IMAGE_BASE + __zres_end ; 0x340f
+    dw loc_QMOG_33f6 - IMAGE_BASE + __zres_end ; 0x3411
+    dw loc_OISP - IMAGE_BASE + __zres_end      ; 0x3413
+    dw loc_QMOG_33f6 - IMAGE_BASE + __zres_end ; 0x3415
+    dw loc_UOQQ - IMAGE_BASE + __zres_end      ; 0x3417
 @..api_idx_0008_QJHI.l2:
     cmp ax, strict word 6            ; 0x3419
     jae short @..api_idx_0008_QJHI.l3 ; 0x341c
@@ -191,18 +191,18 @@ loc_GRSG:
     mov word [bp - 0x0004], 0xf      ; 0x355c
     jmp short @..api_idx_0008_QJHI.l17 ; 0x3561
 jumptable_3563:
-    dw jumptable_3563_case_0 - IMAGE_BASE + 0x5055 ; 0x3563
-    dw loc_MHOR - IMAGE_BASE + 0x5055          ; 0x3565
-    dw loc_VLQH - IMAGE_BASE + 0x5055          ; 0x3567
-    dw loc_PIVO - IMAGE_BASE + 0x5055          ; 0x3569
-    dw loc_PLLI - IMAGE_BASE + 0x5055          ; 0x356b
-    dw loc_RNIO - IMAGE_BASE + 0x5055          ; 0x356d
-    dw loc_NMPJ - IMAGE_BASE + 0x5055          ; 0x356f
-    dw jumptable_3563_case_0 - IMAGE_BASE + 0x5055 ; 0x3571
-    dw jumptable_3563_case_0 - IMAGE_BASE + 0x5055 ; 0x3573
-    dw jumptable_3563_case_0 - IMAGE_BASE + 0x5055 ; 0x3575
-    dw loc_JJML - IMAGE_BASE + 0x5055          ; 0x3577
-    dw loc_GRSG - IMAGE_BASE + 0x5055          ; 0x3579
+    dw jumptable_3563_case_0 - IMAGE_BASE + __zres_end ; 0x3563
+    dw loc_MHOR - IMAGE_BASE + __zres_end      ; 0x3565
+    dw loc_VLQH - IMAGE_BASE + __zres_end      ; 0x3567
+    dw loc_PIVO - IMAGE_BASE + __zres_end      ; 0x3569
+    dw loc_PLLI - IMAGE_BASE + __zres_end      ; 0x356b
+    dw loc_RNIO - IMAGE_BASE + __zres_end      ; 0x356d
+    dw loc_NMPJ - IMAGE_BASE + __zres_end      ; 0x356f
+    dw jumptable_3563_case_0 - IMAGE_BASE + __zres_end ; 0x3571
+    dw jumptable_3563_case_0 - IMAGE_BASE + __zres_end ; 0x3573
+    dw jumptable_3563_case_0 - IMAGE_BASE + __zres_end ; 0x3575
+    dw loc_JJML - IMAGE_BASE + __zres_end      ; 0x3577
+    dw loc_GRSG - IMAGE_BASE + __zres_end      ; 0x3579
 @..api_idx_0008_QJHI.l16:
     cmp ax, strict word 0xc          ; 0x357b
     jae short @..api_idx_0008_QJHI.l17 ; 0x357e

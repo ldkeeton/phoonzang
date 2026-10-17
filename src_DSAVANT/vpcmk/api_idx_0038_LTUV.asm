@@ -758,12 +758,12 @@ jumptable_11b9_case_5:
     add sp, byte 8                   ; 0x11b4
     jmp short @..api_idx_0038_LTUV.l24 ; 0x11b7
 jumptable_11b9:
-    dw jumptable_11b9_case_0 - IMAGE_BASE + 0x5055 ; 0x11b9
-    dw jumptable_11b9_case_1 - IMAGE_BASE + 0x5055 ; 0x11bb
-    dw jumptable_11b9_case_1 - IMAGE_BASE + 0x5055 ; 0x11bd
-    dw jumptable_11b9_case_3 - IMAGE_BASE + 0x5055 ; 0x11bf
-    dw jumptable_11b9_case_4 - IMAGE_BASE + 0x5055 ; 0x11c1
-    dw jumptable_11b9_case_5 - IMAGE_BASE + 0x5055 ; 0x11c3
+    dw jumptable_11b9_case_0 - IMAGE_BASE + __zres_end ; 0x11b9
+    dw jumptable_11b9_case_1 - IMAGE_BASE + __zres_end ; 0x11bb
+    dw jumptable_11b9_case_1 - IMAGE_BASE + __zres_end ; 0x11bd
+    dw jumptable_11b9_case_3 - IMAGE_BASE + __zres_end ; 0x11bf
+    dw jumptable_11b9_case_4 - IMAGE_BASE + __zres_end ; 0x11c1
+    dw jumptable_11b9_case_5 - IMAGE_BASE + __zres_end ; 0x11c3
 @..api_idx_0038_LTUV.l22:
     cmp ax, strict word 6            ; 0x11c5
     jae short @..api_idx_0038_LTUV.l23 ; 0x11c8

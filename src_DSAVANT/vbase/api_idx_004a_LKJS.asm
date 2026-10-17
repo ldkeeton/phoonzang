@@ -195,15 +195,15 @@ jumptable_6bfb_case_8:
     mov word [bss_830a], 3           ; 0x6bf3
     jmp short @..api_idx_004a_LKJS.l19 ; 0x6bf9
 jumptable_6bfb:
-    dw jumptable_6bfb_case_0 - IMAGE_BASE + 0x5055 ; 0x6bfb
-    dw jumptable_6bfb_case_1 - IMAGE_BASE + 0x5055 ; 0x6bfd
-    dw jumptable_6bfb_case_2 - IMAGE_BASE + 0x5055 ; 0x6bff
-    dw jumptable_6bfb_case_3 - IMAGE_BASE + 0x5055 ; 0x6c01
-    dw jumptable_6bfb_case_4 - IMAGE_BASE + 0x5055 ; 0x6c03
-    dw jumptable_6bfb_case_5 - IMAGE_BASE + 0x5055 ; 0x6c05
-    dw jumptable_6bfb_case_6 - IMAGE_BASE + 0x5055 ; 0x6c07
-    dw jumptable_6bfb_case_7 - IMAGE_BASE + 0x5055 ; 0x6c09
-    dw jumptable_6bfb_case_8 - IMAGE_BASE + 0x5055 ; 0x6c0b
+    dw jumptable_6bfb_case_0 - IMAGE_BASE + __zres_end ; 0x6bfb
+    dw jumptable_6bfb_case_1 - IMAGE_BASE + __zres_end ; 0x6bfd
+    dw jumptable_6bfb_case_2 - IMAGE_BASE + __zres_end ; 0x6bff
+    dw jumptable_6bfb_case_3 - IMAGE_BASE + __zres_end ; 0x6c01
+    dw jumptable_6bfb_case_4 - IMAGE_BASE + __zres_end ; 0x6c03
+    dw jumptable_6bfb_case_5 - IMAGE_BASE + __zres_end ; 0x6c05
+    dw jumptable_6bfb_case_6 - IMAGE_BASE + __zres_end ; 0x6c07
+    dw jumptable_6bfb_case_7 - IMAGE_BASE + __zres_end ; 0x6c09
+    dw jumptable_6bfb_case_8 - IMAGE_BASE + __zres_end ; 0x6c0b
 @..api_idx_004a_LKJS.l18:
     cmp ax, strict word 9            ; 0x6c0d
     jae short @..api_idx_004a_LKJS.l19 ; 0x6c10

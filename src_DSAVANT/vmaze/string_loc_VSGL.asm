@@ -2,11 +2,11 @@
 string_loc_VSGL:
     jmp short loc_OQNV               ; 0x4b69
 jumptable_4b6b:
-    dw string_loc_VSGL - IMAGE_BASE + 0x5055   ; 0x4b6b
-    dw loc_GMQM - IMAGE_BASE + 0x5055          ; 0x4b6d
-    dw loc_NQIP - IMAGE_BASE + 0x5055          ; 0x4b6f
-    dw string_loc_NVUT - IMAGE_BASE + 0x5055   ; 0x4b71
-    dw string_loc_MNIM - IMAGE_BASE + 0x5055   ; 0x4b73
+    dw string_loc_VSGL - IMAGE_BASE + __zres_end ; 0x4b6b
+    dw loc_GMQM - IMAGE_BASE + __zres_end      ; 0x4b6d
+    dw loc_NQIP - IMAGE_BASE + __zres_end      ; 0x4b6f
+    dw string_loc_NVUT - IMAGE_BASE + __zres_end ; 0x4b71
+    dw string_loc_MNIM - IMAGE_BASE + __zres_end ; 0x4b73
 loc_4b75:
     cmp ax, strict word 5            ; 0x4b75
     jae short loc_OQNV               ; 0x4b78

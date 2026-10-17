@@ -773,29 +773,29 @@ jumptable_4a7d:
     dw 0x005e                                  ; 0x4aa3 ; literal
     dw 0x0061                                  ; 0x4aa5 ; literal
     dw 0x0062                                  ; 0x4aa7 ; literal
-    dw jumptable_4a7d_case_22 - IMAGE_BASE + 0x5055 ; 0x4aa9
-    dw jumptable_4a7d_case_23 - IMAGE_BASE + 0x5055 ; 0x4aab
-    dw jumptable_4a7d_case_22 - IMAGE_BASE + 0x5055 ; 0x4aad
-    dw jumptable_4a7d_case_25 - IMAGE_BASE + 0x5055 ; 0x4aaf
-    dw jumptable_4a7d_case_26 - IMAGE_BASE + 0x5055 ; 0x4ab1
-    dw jumptable_4a7d_case_27 - IMAGE_BASE + 0x5055 ; 0x4ab3
-    dw jumptable_4a7d_case_28 - IMAGE_BASE + 0x5055 ; 0x4ab5
-    dw jumptable_4a7d_case_29 - IMAGE_BASE + 0x5055 ; 0x4ab7
-    dw jumptable_4a7d_case_30 - IMAGE_BASE + 0x5055 ; 0x4ab9
-    dw jumptable_4a7d_case_31 - IMAGE_BASE + 0x5055 ; 0x4abb
-    dw jumptable_4a7d_case_32 - IMAGE_BASE + 0x5055 ; 0x4abd
-    dw jumptable_4a7d_case_33 - IMAGE_BASE + 0x5055 ; 0x4abf
-    dw jumptable_4a7d_case_34 - IMAGE_BASE + 0x5055 ; 0x4ac1
-    dw jumptable_4a7d_case_35 - IMAGE_BASE + 0x5055 ; 0x4ac3
-    dw jumptable_4a7d_case_36 - IMAGE_BASE + 0x5055 ; 0x4ac5
-    dw jumptable_4a7d_case_37 - IMAGE_BASE + 0x5055 ; 0x4ac7
-    dw jumptable_4a7d_case_38 - IMAGE_BASE + 0x5055 ; 0x4ac9
-    dw jumptable_4a7d_case_39 - IMAGE_BASE + 0x5055 ; 0x4acb
-    dw jumptable_4a7d_case_37 - IMAGE_BASE + 0x5055 ; 0x4acd
-    dw jumptable_4a7d_case_41 - IMAGE_BASE + 0x5055 ; 0x4acf
-    dw jumptable_4a7d_case_42 - IMAGE_BASE + 0x5055 ; 0x4ad1
-    dw jumptable_4a7d_case_43 - IMAGE_BASE + 0x5055 ; 0x4ad3
-    dw jumptable_4a7d_case_44 - IMAGE_BASE + 0x5055 ; 0x4ad5
+    dw jumptable_4a7d_case_22 - IMAGE_BASE + __zres_end ; 0x4aa9
+    dw jumptable_4a7d_case_23 - IMAGE_BASE + __zres_end ; 0x4aab
+    dw jumptable_4a7d_case_22 - IMAGE_BASE + __zres_end ; 0x4aad
+    dw jumptable_4a7d_case_25 - IMAGE_BASE + __zres_end ; 0x4aaf
+    dw jumptable_4a7d_case_26 - IMAGE_BASE + __zres_end ; 0x4ab1
+    dw jumptable_4a7d_case_27 - IMAGE_BASE + __zres_end ; 0x4ab3
+    dw jumptable_4a7d_case_28 - IMAGE_BASE + __zres_end ; 0x4ab5
+    dw jumptable_4a7d_case_29 - IMAGE_BASE + __zres_end ; 0x4ab7
+    dw jumptable_4a7d_case_30 - IMAGE_BASE + __zres_end ; 0x4ab9
+    dw jumptable_4a7d_case_31 - IMAGE_BASE + __zres_end ; 0x4abb
+    dw jumptable_4a7d_case_32 - IMAGE_BASE + __zres_end ; 0x4abd
+    dw jumptable_4a7d_case_33 - IMAGE_BASE + __zres_end ; 0x4abf
+    dw jumptable_4a7d_case_34 - IMAGE_BASE + __zres_end ; 0x4ac1
+    dw jumptable_4a7d_case_35 - IMAGE_BASE + __zres_end ; 0x4ac3
+    dw jumptable_4a7d_case_36 - IMAGE_BASE + __zres_end ; 0x4ac5
+    dw jumptable_4a7d_case_37 - IMAGE_BASE + __zres_end ; 0x4ac7
+    dw jumptable_4a7d_case_38 - IMAGE_BASE + __zres_end ; 0x4ac9
+    dw jumptable_4a7d_case_39 - IMAGE_BASE + __zres_end ; 0x4acb
+    dw jumptable_4a7d_case_37 - IMAGE_BASE + __zres_end ; 0x4acd
+    dw jumptable_4a7d_case_41 - IMAGE_BASE + __zres_end ; 0x4acf
+    dw jumptable_4a7d_case_42 - IMAGE_BASE + __zres_end ; 0x4ad1
+    dw jumptable_4a7d_case_43 - IMAGE_BASE + __zres_end ; 0x4ad3
+    dw jumptable_4a7d_case_44 - IMAGE_BASE + __zres_end ; 0x4ad5
 jumptable_4a7d_case_44:
 @..loc_4374.l44:
     ret                              ; 0x4ad7

@@ -1326,11 +1326,11 @@ jumptable_3cc2_case_4:
 @..api_idx_0050_NHHL.l47:
     jmp short @..api_idx_0050_NHHL.l50 ; 0x3cc0
 jumptable_3cc2:
-    dw jumptable_3cc2_case_0 - IMAGE_BASE + 0x5055 ; 0x3cc2
-    dw jumptable_3cc2_case_1 - IMAGE_BASE + 0x5055 ; 0x3cc4
-    dw jumptable_3cc2_case_1 - IMAGE_BASE + 0x5055 ; 0x3cc6
-    dw jumptable_3cc2_case_3 - IMAGE_BASE + 0x5055 ; 0x3cc8
-    dw jumptable_3cc2_case_4 - IMAGE_BASE + 0x5055 ; 0x3cca
+    dw jumptable_3cc2_case_0 - IMAGE_BASE + __zres_end ; 0x3cc2
+    dw jumptable_3cc2_case_1 - IMAGE_BASE + __zres_end ; 0x3cc4
+    dw jumptable_3cc2_case_1 - IMAGE_BASE + __zres_end ; 0x3cc6
+    dw jumptable_3cc2_case_3 - IMAGE_BASE + __zres_end ; 0x3cc8
+    dw jumptable_3cc2_case_4 - IMAGE_BASE + __zres_end ; 0x3cca
 @..api_idx_0050_NHHL.l48:
     cmp ax, strict word 5            ; 0x3ccc
     jae short @..api_idx_0050_NHHL.l49 ; 0x3ccf

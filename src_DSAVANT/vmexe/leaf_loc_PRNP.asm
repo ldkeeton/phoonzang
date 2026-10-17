@@ -6,15 +6,15 @@ leaf_loc_PRNP:
     inc word [bp - 0x005c]           ; 0x8835
     jmp short loc_SJSL               ; 0x8838
 jumptable_883a:
-    dw leaf_loc_LPSH - IMAGE_BASE + 0x5055     ; 0x883a
-    dw leaf_loc_TPRI - IMAGE_BASE + 0x5055     ; 0x883c
-    dw leaf_loc_NJLQ - IMAGE_BASE + 0x5055     ; 0x883e
-    dw leaf_loc_VVNV - IMAGE_BASE + 0x5055     ; 0x8840
-    dw leaf_loc_IIUP - IMAGE_BASE + 0x5055     ; 0x8842
-    dw leaf_loc_IVJO - IMAGE_BASE + 0x5055     ; 0x8844
-    dw leaf_loc_TUGO - IMAGE_BASE + 0x5055     ; 0x8846
-    dw leaf_loc_QOMJ - IMAGE_BASE + 0x5055     ; 0x8848
-    dw leaf_loc_PRNP - IMAGE_BASE + 0x5055     ; 0x884a
+    dw leaf_loc_LPSH - IMAGE_BASE + __zres_end ; 0x883a
+    dw leaf_loc_TPRI - IMAGE_BASE + __zres_end ; 0x883c
+    dw leaf_loc_NJLQ - IMAGE_BASE + __zres_end ; 0x883e
+    dw leaf_loc_VVNV - IMAGE_BASE + __zres_end ; 0x8840
+    dw leaf_loc_IIUP - IMAGE_BASE + __zres_end ; 0x8842
+    dw leaf_loc_IVJO - IMAGE_BASE + __zres_end ; 0x8844
+    dw leaf_loc_TUGO - IMAGE_BASE + __zres_end ; 0x8846
+    dw leaf_loc_QOMJ - IMAGE_BASE + __zres_end ; 0x8848
+    dw leaf_loc_PRNP - IMAGE_BASE + __zres_end ; 0x884a
 loc_SUQU:
     cmp ax, strict word 9            ; 0x884c
     jae short loc_SJSL               ; 0x884f

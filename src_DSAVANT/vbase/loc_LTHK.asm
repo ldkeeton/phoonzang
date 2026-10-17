@@ -73,13 +73,13 @@ jumptable_6e77_case_6:
 @..loc_LTHK.l4:
     jmp short @..loc_LTHK.l6         ; 0x6e75
 jumptable_6e77:
-    dw jumptable_6e77_case_0 - IMAGE_BASE + 0x5055 ; 0x6e77
-    dw jumptable_6e77_case_1 - IMAGE_BASE + 0x5055 ; 0x6e79
-    dw jumptable_6e77_case_2 - IMAGE_BASE + 0x5055 ; 0x6e7b
-    dw jumptable_6e77_case_3 - IMAGE_BASE + 0x5055 ; 0x6e7d
-    dw jumptable_6e77_case_4 - IMAGE_BASE + 0x5055 ; 0x6e7f
-    dw jumptable_6e77_case_5 - IMAGE_BASE + 0x5055 ; 0x6e81
-    dw jumptable_6e77_case_6 - IMAGE_BASE + 0x5055 ; 0x6e83
+    dw jumptable_6e77_case_0 - IMAGE_BASE + __zres_end ; 0x6e77
+    dw jumptable_6e77_case_1 - IMAGE_BASE + __zres_end ; 0x6e79
+    dw jumptable_6e77_case_2 - IMAGE_BASE + __zres_end ; 0x6e7b
+    dw jumptable_6e77_case_3 - IMAGE_BASE + __zres_end ; 0x6e7d
+    dw jumptable_6e77_case_4 - IMAGE_BASE + __zres_end ; 0x6e7f
+    dw jumptable_6e77_case_5 - IMAGE_BASE + __zres_end ; 0x6e81
+    dw jumptable_6e77_case_6 - IMAGE_BASE + __zres_end ; 0x6e83
 @..loc_LTHK.l5:
     cmp ax, strict word 7            ; 0x6e85
     jae short @..loc_LTHK.l6         ; 0x6e88

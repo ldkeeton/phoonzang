@@ -318,25 +318,25 @@ jumptable_4af5_case_18:
     add sp, byte 6                   ; 0x4af0
     jmp short @..api_idx_0052_JQTP.l2 ; 0x4af3
 jumptable_4af5:
-    dw jumptable_4af5_case_0 - IMAGE_BASE + 0x5055 ; 0x4af5
-    dw jumptable_4af5_case_1 - IMAGE_BASE + 0x5055 ; 0x4af7
-    dw jumptable_4af5_case_2 - IMAGE_BASE + 0x5055 ; 0x4af9
-    dw jumptable_4af5_case_3 - IMAGE_BASE + 0x5055 ; 0x4afb
-    dw jumptable_4af5_case_4 - IMAGE_BASE + 0x5055 ; 0x4afd
-    dw jumptable_4af5_case_5 - IMAGE_BASE + 0x5055 ; 0x4aff
-    dw jumptable_4af5_case_6 - IMAGE_BASE + 0x5055 ; 0x4b01
-    dw jumptable_4af5_case_7 - IMAGE_BASE + 0x5055 ; 0x4b03
-    dw jumptable_4af5_case_8 - IMAGE_BASE + 0x5055 ; 0x4b05
-    dw jumptable_4af5_case_9 - IMAGE_BASE + 0x5055 ; 0x4b07
-    dw jumptable_4af5_case_10 - IMAGE_BASE + 0x5055 ; 0x4b09
-    dw jumptable_4af5_case_11 - IMAGE_BASE + 0x5055 ; 0x4b0b
-    dw jumptable_4af5_case_12 - IMAGE_BASE + 0x5055 ; 0x4b0d
-    dw jumptable_4af5_case_13 - IMAGE_BASE + 0x5055 ; 0x4b0f
-    dw jumptable_4af5_case_14 - IMAGE_BASE + 0x5055 ; 0x4b11
-    dw jumptable_4af5_case_15 - IMAGE_BASE + 0x5055 ; 0x4b13
-    dw jumptable_4af5_case_16 - IMAGE_BASE + 0x5055 ; 0x4b15
-    dw jumptable_4af5_case_17 - IMAGE_BASE + 0x5055 ; 0x4b17
-    dw jumptable_4af5_case_18 - IMAGE_BASE + 0x5055 ; 0x4b19
+    dw jumptable_4af5_case_0 - IMAGE_BASE + __zres_end ; 0x4af5
+    dw jumptable_4af5_case_1 - IMAGE_BASE + __zres_end ; 0x4af7
+    dw jumptable_4af5_case_2 - IMAGE_BASE + __zres_end ; 0x4af9
+    dw jumptable_4af5_case_3 - IMAGE_BASE + __zres_end ; 0x4afb
+    dw jumptable_4af5_case_4 - IMAGE_BASE + __zres_end ; 0x4afd
+    dw jumptable_4af5_case_5 - IMAGE_BASE + __zres_end ; 0x4aff
+    dw jumptable_4af5_case_6 - IMAGE_BASE + __zres_end ; 0x4b01
+    dw jumptable_4af5_case_7 - IMAGE_BASE + __zres_end ; 0x4b03
+    dw jumptable_4af5_case_8 - IMAGE_BASE + __zres_end ; 0x4b05
+    dw jumptable_4af5_case_9 - IMAGE_BASE + __zres_end ; 0x4b07
+    dw jumptable_4af5_case_10 - IMAGE_BASE + __zres_end ; 0x4b09
+    dw jumptable_4af5_case_11 - IMAGE_BASE + __zres_end ; 0x4b0b
+    dw jumptable_4af5_case_12 - IMAGE_BASE + __zres_end ; 0x4b0d
+    dw jumptable_4af5_case_13 - IMAGE_BASE + __zres_end ; 0x4b0f
+    dw jumptable_4af5_case_14 - IMAGE_BASE + __zres_end ; 0x4b11
+    dw jumptable_4af5_case_15 - IMAGE_BASE + __zres_end ; 0x4b13
+    dw jumptable_4af5_case_16 - IMAGE_BASE + __zres_end ; 0x4b15
+    dw jumptable_4af5_case_17 - IMAGE_BASE + __zres_end ; 0x4b17
+    dw jumptable_4af5_case_18 - IMAGE_BASE + __zres_end ; 0x4b19
 @..api_idx_0052_JQTP.l1:
     cmp ax, strict word 0x13         ; 0x4b1b
     jae short @..api_idx_0052_JQTP.l2 ; 0x4b1e

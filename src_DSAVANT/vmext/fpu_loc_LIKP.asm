@@ -3,38 +3,38 @@ fpu_loc_LIKP:
     mov word [bp - 0x0002], 6        ; 0x029c
     jmp short loc_KJUH               ; 0x02a1
 jumptable_02a3:
-    dw fpu_loc_LHLU - IMAGE_BASE + 0x5055      ; 0x02a3
-    dw fpu_loc_LHLU - IMAGE_BASE + 0x5055      ; 0x02a5
-    dw fpu_loc_LHLU - IMAGE_BASE + 0x5055      ; 0x02a7
-    dw fpu_loc_LHLU - IMAGE_BASE + 0x5055      ; 0x02a9
-    dw fpu_loc_LHLU - IMAGE_BASE + 0x5055      ; 0x02ab
-    dw fpu_loc_LHLU - IMAGE_BASE + 0x5055      ; 0x02ad
-    dw fpu_loc_LHLU - IMAGE_BASE + 0x5055      ; 0x02af
-    dw fpu_loc_JPGH - IMAGE_BASE + 0x5055      ; 0x02b1
-    dw fpu_loc_LIKP - IMAGE_BASE + 0x5055      ; 0x02b3
-    dw fpu_loc_LIKP - IMAGE_BASE + 0x5055      ; 0x02b5
-    dw fpu_loc_LIKP - IMAGE_BASE + 0x5055      ; 0x02b7
-    dw fpu_loc_LIKP - IMAGE_BASE + 0x5055      ; 0x02b9
-    dw fpu_loc_LIKP - IMAGE_BASE + 0x5055      ; 0x02bb
-    dw fpu_loc_LHLU - IMAGE_BASE + 0x5055      ; 0x02bd
-    dw fpu_loc_LTOU - IMAGE_BASE + 0x5055      ; 0x02bf
-    dw fpu_loc_OTPG - IMAGE_BASE + 0x5055      ; 0x02c1
-    dw fpu_loc_LTOU - IMAGE_BASE + 0x5055      ; 0x02c3
-    dw fpu_loc_OTPG - IMAGE_BASE + 0x5055      ; 0x02c5
-    dw fpu_loc_LTOU - IMAGE_BASE + 0x5055      ; 0x02c7
-    dw fpu_loc_LTOU - IMAGE_BASE + 0x5055      ; 0x02c9
-    dw fpu_loc_LTOU - IMAGE_BASE + 0x5055      ; 0x02cb
-    dw fpu_loc_LTOU - IMAGE_BASE + 0x5055      ; 0x02cd
-    dw fpu_loc_TIUJ - IMAGE_BASE + 0x5055      ; 0x02cf
-    dw fpu_loc_OTPG - IMAGE_BASE + 0x5055      ; 0x02d1
-    dw fpu_loc_OTPG - IMAGE_BASE + 0x5055      ; 0x02d3
-    dw fpu_loc_TIUJ - IMAGE_BASE + 0x5055      ; 0x02d5
-    dw fpu_loc_OTPG - IMAGE_BASE + 0x5055      ; 0x02d7
-    dw fpu_loc_LHIH - IMAGE_BASE + 0x5055      ; 0x02d9
-    dw fpu_loc_TIUJ - IMAGE_BASE + 0x5055      ; 0x02db
-    dw fpu_loc_OTPG - IMAGE_BASE + 0x5055      ; 0x02dd
-    dw fpu_loc_OTPG - IMAGE_BASE + 0x5055      ; 0x02df
-    dw fpu_loc_LTOU - IMAGE_BASE + 0x5055      ; 0x02e1
+    dw fpu_loc_LHLU - IMAGE_BASE + __zres_end  ; 0x02a3
+    dw fpu_loc_LHLU - IMAGE_BASE + __zres_end  ; 0x02a5
+    dw fpu_loc_LHLU - IMAGE_BASE + __zres_end  ; 0x02a7
+    dw fpu_loc_LHLU - IMAGE_BASE + __zres_end  ; 0x02a9
+    dw fpu_loc_LHLU - IMAGE_BASE + __zres_end  ; 0x02ab
+    dw fpu_loc_LHLU - IMAGE_BASE + __zres_end  ; 0x02ad
+    dw fpu_loc_LHLU - IMAGE_BASE + __zres_end  ; 0x02af
+    dw fpu_loc_JPGH - IMAGE_BASE + __zres_end  ; 0x02b1
+    dw fpu_loc_LIKP - IMAGE_BASE + __zres_end  ; 0x02b3
+    dw fpu_loc_LIKP - IMAGE_BASE + __zres_end  ; 0x02b5
+    dw fpu_loc_LIKP - IMAGE_BASE + __zres_end  ; 0x02b7
+    dw fpu_loc_LIKP - IMAGE_BASE + __zres_end  ; 0x02b9
+    dw fpu_loc_LIKP - IMAGE_BASE + __zres_end  ; 0x02bb
+    dw fpu_loc_LHLU - IMAGE_BASE + __zres_end  ; 0x02bd
+    dw fpu_loc_LTOU - IMAGE_BASE + __zres_end  ; 0x02bf
+    dw fpu_loc_OTPG - IMAGE_BASE + __zres_end  ; 0x02c1
+    dw fpu_loc_LTOU - IMAGE_BASE + __zres_end  ; 0x02c3
+    dw fpu_loc_OTPG - IMAGE_BASE + __zres_end  ; 0x02c5
+    dw fpu_loc_LTOU - IMAGE_BASE + __zres_end  ; 0x02c7
+    dw fpu_loc_LTOU - IMAGE_BASE + __zres_end  ; 0x02c9
+    dw fpu_loc_LTOU - IMAGE_BASE + __zres_end  ; 0x02cb
+    dw fpu_loc_LTOU - IMAGE_BASE + __zres_end  ; 0x02cd
+    dw fpu_loc_TIUJ - IMAGE_BASE + __zres_end  ; 0x02cf
+    dw fpu_loc_OTPG - IMAGE_BASE + __zres_end  ; 0x02d1
+    dw fpu_loc_OTPG - IMAGE_BASE + __zres_end  ; 0x02d3
+    dw fpu_loc_TIUJ - IMAGE_BASE + __zres_end  ; 0x02d5
+    dw fpu_loc_OTPG - IMAGE_BASE + __zres_end  ; 0x02d7
+    dw fpu_loc_LHIH - IMAGE_BASE + __zres_end  ; 0x02d9
+    dw fpu_loc_TIUJ - IMAGE_BASE + __zres_end  ; 0x02db
+    dw fpu_loc_OTPG - IMAGE_BASE + __zres_end  ; 0x02dd
+    dw fpu_loc_OTPG - IMAGE_BASE + __zres_end  ; 0x02df
+    dw fpu_loc_LTOU - IMAGE_BASE + __zres_end  ; 0x02e1
 loc_02e3:
     cmp ax, strict word 0x20         ; 0x02e3
     jae short loc_KJUH               ; 0x02e6
@@ -282,13 +282,13 @@ jumptable_052d_case_6:
     mov word [bss_5b6c], 1           ; 0x0525
     jmp short loc_KRKR               ; 0x052b
 jumptable_052d:
-    dw loc_KRKR - IMAGE_BASE + 0x5055          ; 0x052d
-    dw jumptable_052d_case_1 - IMAGE_BASE + 0x5055 ; 0x052f
-    dw jumptable_052d_case_2 - IMAGE_BASE + 0x5055 ; 0x0531
-    dw jumptable_052d_case_3 - IMAGE_BASE + 0x5055 ; 0x0533
-    dw jumptable_052d_case_4 - IMAGE_BASE + 0x5055 ; 0x0535
-    dw jumptable_052d_case_5 - IMAGE_BASE + 0x5055 ; 0x0537
-    dw jumptable_052d_case_6 - IMAGE_BASE + 0x5055 ; 0x0539
+    dw loc_KRKR - IMAGE_BASE + __zres_end      ; 0x052d
+    dw jumptable_052d_case_1 - IMAGE_BASE + __zres_end ; 0x052f
+    dw jumptable_052d_case_2 - IMAGE_BASE + __zres_end ; 0x0531
+    dw jumptable_052d_case_3 - IMAGE_BASE + __zres_end ; 0x0533
+    dw jumptable_052d_case_4 - IMAGE_BASE + __zres_end ; 0x0535
+    dw jumptable_052d_case_5 - IMAGE_BASE + __zres_end ; 0x0537
+    dw jumptable_052d_case_6 - IMAGE_BASE + __zres_end ; 0x0539
 loc_GTLH:
     cmp ax, strict word 7            ; 0x053b
     jae short loc_KRKR               ; 0x053e

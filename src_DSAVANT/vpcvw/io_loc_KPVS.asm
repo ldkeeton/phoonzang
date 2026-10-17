@@ -6,23 +6,23 @@ io_loc_KPVS:
     mov word [bp - 0x0032], 0xc0     ; 0x7424
     jmp short loc_HKVS               ; 0x7429
 jumptable_742b:
-    dw leaf_loc_TLQQ - IMAGE_BASE + 0x5055     ; 0x742b
-    dw leaf_loc_TLQQ - IMAGE_BASE + 0x5055     ; 0x742d
-    dw leaf_loc_TLQQ - IMAGE_BASE + 0x5055     ; 0x742f
-    dw leaf_loc_TLQQ - IMAGE_BASE + 0x5055     ; 0x7431
-    dw leaf_loc_NQTG - IMAGE_BASE + 0x5055     ; 0x7433
-    dw leaf_loc_VIMM - IMAGE_BASE + 0x5055     ; 0x7435
-    dw leaf_loc_PGKP - IMAGE_BASE + 0x5055     ; 0x7437
-    dw leaf_loc_PGKP - IMAGE_BASE + 0x5055     ; 0x7439
-    dw leaf_loc_PGKP - IMAGE_BASE + 0x5055     ; 0x743b
-    dw leaf_loc_PGKP - IMAGE_BASE + 0x5055     ; 0x743d
-    dw leaf_loc_PGKP - IMAGE_BASE + 0x5055     ; 0x743f
-    dw io_loc_KVNJ - IMAGE_BASE + 0x5055       ; 0x7441
-    dw io_loc_LNKI - IMAGE_BASE + 0x5055       ; 0x7443
-    dw io_loc_JHIK - IMAGE_BASE + 0x5055       ; 0x7445
-    dw io_loc_JRGQ - IMAGE_BASE + 0x5055       ; 0x7447
-    dw io_loc_KPVS - IMAGE_BASE + 0x5055       ; 0x7449
-    dw io_loc_LNKI - IMAGE_BASE + 0x5055       ; 0x744b
+    dw leaf_loc_TLQQ - IMAGE_BASE + __zres_end ; 0x742b
+    dw leaf_loc_TLQQ - IMAGE_BASE + __zres_end ; 0x742d
+    dw leaf_loc_TLQQ - IMAGE_BASE + __zres_end ; 0x742f
+    dw leaf_loc_TLQQ - IMAGE_BASE + __zres_end ; 0x7431
+    dw leaf_loc_NQTG - IMAGE_BASE + __zres_end ; 0x7433
+    dw leaf_loc_VIMM - IMAGE_BASE + __zres_end ; 0x7435
+    dw leaf_loc_PGKP - IMAGE_BASE + __zres_end ; 0x7437
+    dw leaf_loc_PGKP - IMAGE_BASE + __zres_end ; 0x7439
+    dw leaf_loc_PGKP - IMAGE_BASE + __zres_end ; 0x743b
+    dw leaf_loc_PGKP - IMAGE_BASE + __zres_end ; 0x743d
+    dw leaf_loc_PGKP - IMAGE_BASE + __zres_end ; 0x743f
+    dw io_loc_KVNJ - IMAGE_BASE + __zres_end   ; 0x7441
+    dw io_loc_LNKI - IMAGE_BASE + __zres_end   ; 0x7443
+    dw io_loc_JHIK - IMAGE_BASE + __zres_end   ; 0x7445
+    dw io_loc_JRGQ - IMAGE_BASE + __zres_end   ; 0x7447
+    dw io_loc_KPVS - IMAGE_BASE + __zres_end   ; 0x7449
+    dw io_loc_LNKI - IMAGE_BASE + __zres_end   ; 0x744b
 loc_744d:
     cmp ax, strict word 0x11         ; 0x744d
     jae short loc_HKVS               ; 0x7450
@@ -341,50 +341,50 @@ jumptable_76e2:
     dw 0x006e                                  ; 0x7732 ; literal
     dw 0x0070                                  ; 0x7734 ; literal
     dw 0x0072                                  ; 0x7736 ; literal
-    dw loc_HQIT - IMAGE_BASE + 0x5055          ; 0x7738
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x773a
-    dw loc_MOMI - IMAGE_BASE + 0x5055          ; 0x773c
-    dw loc_MOMI - IMAGE_BASE + 0x5055          ; 0x773e
-    dw loc_UKMT - IMAGE_BASE + 0x5055          ; 0x7740
-    dw loc_UKMT - IMAGE_BASE + 0x5055          ; 0x7742
-    dw loc_UKMT - IMAGE_BASE + 0x5055          ; 0x7744
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x7746
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x7748
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x774a
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x774c
-    dw loc_LOTV - IMAGE_BASE + 0x5055          ; 0x774e
-    dw loc_LOTV - IMAGE_BASE + 0x5055          ; 0x7750
-    dw loc_PNQH - IMAGE_BASE + 0x5055          ; 0x7752
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x7754
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x7756
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x7758
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x775a
-    dw loc_HQIT - IMAGE_BASE + 0x5055          ; 0x775c
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x775e
-    dw loc_MOMI - IMAGE_BASE + 0x5055          ; 0x7760
-    dw loc_UMMG - IMAGE_BASE + 0x5055          ; 0x7762
-    dw loc_GULG - IMAGE_BASE + 0x5055          ; 0x7764
-    dw loc_LOTV - IMAGE_BASE + 0x5055          ; 0x7766
-    dw loc_GULG - IMAGE_BASE + 0x5055          ; 0x7768
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x776a
-    dw loc_UKMT - IMAGE_BASE + 0x5055          ; 0x776c
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x776e
-    dw loc_UKMT - IMAGE_BASE + 0x5055          ; 0x7770
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x7772
-    dw loc_UKMT - IMAGE_BASE + 0x5055          ; 0x7774
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x7776
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x7778
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x777a
-    dw loc_HQIT - IMAGE_BASE + 0x5055          ; 0x777c
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x777e
-    dw loc_IKQU - IMAGE_BASE + 0x5055          ; 0x7780
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x7782
-    dw loc_RNPI - IMAGE_BASE + 0x5055          ; 0x7784
-    dw loc_KHMM - IMAGE_BASE + 0x5055          ; 0x7786
-    dw loc_IKQU - IMAGE_BASE + 0x5055          ; 0x7788
-    dw loc_UMMG - IMAGE_BASE + 0x5055          ; 0x778a
-    dw loc_IKQU - IMAGE_BASE + 0x5055          ; 0x778c
-    dw loc_UKKR - IMAGE_BASE + 0x5055          ; 0x778e
+    dw loc_HQIT - IMAGE_BASE + __zres_end      ; 0x7738
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x773a
+    dw loc_MOMI - IMAGE_BASE + __zres_end      ; 0x773c
+    dw loc_MOMI - IMAGE_BASE + __zres_end      ; 0x773e
+    dw loc_UKMT - IMAGE_BASE + __zres_end      ; 0x7740
+    dw loc_UKMT - IMAGE_BASE + __zres_end      ; 0x7742
+    dw loc_UKMT - IMAGE_BASE + __zres_end      ; 0x7744
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x7746
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x7748
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x774a
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x774c
+    dw loc_LOTV - IMAGE_BASE + __zres_end      ; 0x774e
+    dw loc_LOTV - IMAGE_BASE + __zres_end      ; 0x7750
+    dw loc_PNQH - IMAGE_BASE + __zres_end      ; 0x7752
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x7754
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x7756
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x7758
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x775a
+    dw loc_HQIT - IMAGE_BASE + __zres_end      ; 0x775c
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x775e
+    dw loc_MOMI - IMAGE_BASE + __zres_end      ; 0x7760
+    dw loc_UMMG - IMAGE_BASE + __zres_end      ; 0x7762
+    dw loc_GULG - IMAGE_BASE + __zres_end      ; 0x7764
+    dw loc_LOTV - IMAGE_BASE + __zres_end      ; 0x7766
+    dw loc_GULG - IMAGE_BASE + __zres_end      ; 0x7768
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x776a
+    dw loc_UKMT - IMAGE_BASE + __zres_end      ; 0x776c
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x776e
+    dw loc_UKMT - IMAGE_BASE + __zres_end      ; 0x7770
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x7772
+    dw loc_UKMT - IMAGE_BASE + __zres_end      ; 0x7774
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x7776
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x7778
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x777a
+    dw loc_HQIT - IMAGE_BASE + __zres_end      ; 0x777c
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x777e
+    dw loc_IKQU - IMAGE_BASE + __zres_end      ; 0x7780
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x7782
+    dw loc_RNPI - IMAGE_BASE + __zres_end      ; 0x7784
+    dw loc_KHMM - IMAGE_BASE + __zres_end      ; 0x7786
+    dw loc_IKQU - IMAGE_BASE + __zres_end      ; 0x7788
+    dw loc_UMMG - IMAGE_BASE + __zres_end      ; 0x778a
+    dw loc_IKQU - IMAGE_BASE + __zres_end      ; 0x778c
+    dw loc_UKKR - IMAGE_BASE + __zres_end      ; 0x778e
 loc_IHLU:
     mov ax, 0x248                    ; 0x7790
     imul word [bp + 0x4]             ; 0x7793

@@ -233,22 +233,22 @@ api_idx_0014_KHON:
 jumptable_0c0b_case_0:
     db 0xa1, 0xea, 0x9a, 0x89, 0x46, 0xf2, 0xeb, 0x30
 jumptable_0c0b:
-    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c0b
-    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c0d
-    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c0f
-    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c11
-    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c13
-    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c15
-    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c17
-    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c19
-    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c1b
-    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c1d
-    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c1f
-    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c21
-    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c23
-    dw jumptable_0c0b_case_1 - IMAGE_BASE + 0x5055 ; 0x0c25
-    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c27
-    dw jumptable_0c0b_case_0 - IMAGE_BASE + 0x5055 ; 0x0c29
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + __zres_end ; 0x0c0b
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + __zres_end ; 0x0c0d
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + __zres_end ; 0x0c0f
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + __zres_end ; 0x0c11
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + __zres_end ; 0x0c13
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + __zres_end ; 0x0c15
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + __zres_end ; 0x0c17
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + __zres_end ; 0x0c19
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + __zres_end ; 0x0c1b
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + __zres_end ; 0x0c1d
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + __zres_end ; 0x0c1f
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + __zres_end ; 0x0c21
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + __zres_end ; 0x0c23
+    dw jumptable_0c0b_case_1 - IMAGE_BASE + __zres_end ; 0x0c25
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + __zres_end ; 0x0c27
+    dw jumptable_0c0b_case_0 - IMAGE_BASE + __zres_end ; 0x0c29
 @..api_idx_0014_KHON.l22:
     sub ax, strict word 0xf          ; 0x0c2b
     cmp ax, strict word 0x10         ; 0x0c2e
@@ -357,14 +357,14 @@ loc_RRRO:
     mov word [bp - 0x0010], ax       ; 0x0d1b
     jmp short @..api_idx_0014_KHON.l33 ; 0x0d1e
 jumptable_0d20:
-    dw jumptable_0d20_case_0 - IMAGE_BASE + 0x5055 ; 0x0d20
-    dw loc_JQTI_0d00 - IMAGE_BASE + 0x5055     ; 0x0d22
-    dw loc_JQTI_0d08 - IMAGE_BASE + 0x5055     ; 0x0d24
-    dw loc_JQTI_0d10 - IMAGE_BASE + 0x5055     ; 0x0d26
-    dw loc_RRRO - IMAGE_BASE + 0x5055          ; 0x0d28
-    dw jumptable_0d20_case_0 - IMAGE_BASE + 0x5055 ; 0x0d2a
-    dw loc_JQTI_0d10 - IMAGE_BASE + 0x5055     ; 0x0d2c
-    dw loc_JQTI_0d08 - IMAGE_BASE + 0x5055     ; 0x0d2e
+    dw jumptable_0d20_case_0 - IMAGE_BASE + __zres_end ; 0x0d20
+    dw loc_JQTI_0d00 - IMAGE_BASE + __zres_end ; 0x0d22
+    dw loc_JQTI_0d08 - IMAGE_BASE + __zres_end ; 0x0d24
+    dw loc_JQTI_0d10 - IMAGE_BASE + __zres_end ; 0x0d26
+    dw loc_RRRO - IMAGE_BASE + __zres_end      ; 0x0d28
+    dw jumptable_0d20_case_0 - IMAGE_BASE + __zres_end ; 0x0d2a
+    dw loc_JQTI_0d10 - IMAGE_BASE + __zres_end ; 0x0d2c
+    dw loc_JQTI_0d08 - IMAGE_BASE + __zres_end ; 0x0d2e
 @..api_idx_0014_KHON.l32:
     cmp ax, strict word 8            ; 0x0d30
     jae short @..api_idx_0014_KHON.l33 ; 0x0d33

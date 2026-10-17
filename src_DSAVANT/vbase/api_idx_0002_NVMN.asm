@@ -130,12 +130,12 @@ jumptable_7185_case_5:
     jmp short @..api_idx_0002_NVMN.l6 ; 0x7183
 io_loc_7185:
 jumptable_7185:
-    dw jumptable_7185_case_0 - IMAGE_BASE + 0x5055 ; 0x7185
-    dw jumptable_7185_case_1 - IMAGE_BASE + 0x5055 ; 0x7187
-    dw jumptable_7185_case_2 - IMAGE_BASE + 0x5055 ; 0x7189
-    dw jumptable_7185_case_3 - IMAGE_BASE + 0x5055 ; 0x718b
-    dw jumptable_7185_case_4 - IMAGE_BASE + 0x5055 ; 0x718d
-    dw jumptable_7185_case_5 - IMAGE_BASE + 0x5055 ; 0x718f
+    dw jumptable_7185_case_0 - IMAGE_BASE + __zres_end ; 0x7185
+    dw jumptable_7185_case_1 - IMAGE_BASE + __zres_end ; 0x7187
+    dw jumptable_7185_case_2 - IMAGE_BASE + __zres_end ; 0x7189
+    dw jumptable_7185_case_3 - IMAGE_BASE + __zres_end ; 0x718b
+    dw jumptable_7185_case_4 - IMAGE_BASE + __zres_end ; 0x718d
+    dw jumptable_7185_case_5 - IMAGE_BASE + __zres_end ; 0x718f
 @..api_idx_0002_NVMN.l5:
     cmp ax, strict word 6            ; 0x7191
     jae short @..api_idx_0002_NVMN.l6 ; 0x7194

@@ -608,16 +608,16 @@ jumptable_a27d_case_9:
     add sp, byte 4                   ; 0xa279
     ret                              ; 0xa27c
 jumptable_a27d:
-    dw jumptable_a27d_case_0 - IMAGE_BASE + 0x5055 ; 0xa27d
-    dw jumptable_a27d_case_1 - IMAGE_BASE + 0x5055 ; 0xa27f
-    dw jumptable_a27d_case_1 - IMAGE_BASE + 0x5055 ; 0xa281
-    dw jumptable_a27d_case_1 - IMAGE_BASE + 0x5055 ; 0xa283
-    dw jumptable_a27d_case_4 - IMAGE_BASE + 0x5055 ; 0xa285
-    dw jumptable_a27d_case_5 - IMAGE_BASE + 0x5055 ; 0xa287
-    dw jumptable_a27d_case_6 - IMAGE_BASE + 0x5055 ; 0xa289
-    dw jumptable_a27d_case_6 - IMAGE_BASE + 0x5055 ; 0xa28b
-    dw jumptable_a27d_case_8 - IMAGE_BASE + 0x5055 ; 0xa28d
-    dw jumptable_a27d_case_9 - IMAGE_BASE + 0x5055 ; 0xa28f
+    dw jumptable_a27d_case_0 - IMAGE_BASE + __zres_end ; 0xa27d
+    dw jumptable_a27d_case_1 - IMAGE_BASE + __zres_end ; 0xa27f
+    dw jumptable_a27d_case_1 - IMAGE_BASE + __zres_end ; 0xa281
+    dw jumptable_a27d_case_1 - IMAGE_BASE + __zres_end ; 0xa283
+    dw jumptable_a27d_case_4 - IMAGE_BASE + __zres_end ; 0xa285
+    dw jumptable_a27d_case_5 - IMAGE_BASE + __zres_end ; 0xa287
+    dw jumptable_a27d_case_6 - IMAGE_BASE + __zres_end ; 0xa289
+    dw jumptable_a27d_case_6 - IMAGE_BASE + __zres_end ; 0xa28b
+    dw jumptable_a27d_case_8 - IMAGE_BASE + __zres_end ; 0xa28d
+    dw jumptable_a27d_case_9 - IMAGE_BASE + __zres_end ; 0xa28f
 @..api_idx_0054_UOTQ.l34:
     cmp ax, strict word 0xa          ; 0xa291
     jae short @..api_idx_0054_UOTQ.l35 ; 0xa294

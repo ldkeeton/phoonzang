@@ -7,24 +7,24 @@ leaf_loc_JHVI:
     mov byte [bx - 0x6d5e], 2        ; 0x334f
     jmp short loc_KNRN               ; 0x3354
 jumptable_3356:
-    dw loc_KNRN - IMAGE_BASE + 0x5055          ; 0x3356
-    dw leaf_loc_LGUH - IMAGE_BASE + 0x5055     ; 0x3358
-    dw leaf_loc_TGSJ - IMAGE_BASE + 0x5055     ; 0x335a
-    dw leaf_loc_LHNH - IMAGE_BASE + 0x5055     ; 0x335c
-    dw leaf_loc_UKTT - IMAGE_BASE + 0x5055     ; 0x335e
-    dw leaf_loc_LUKJ - IMAGE_BASE + 0x5055     ; 0x3360
-    dw leaf_loc_NNIO - IMAGE_BASE + 0x5055     ; 0x3362
-    dw leaf_loc_VKVH - IMAGE_BASE + 0x5055     ; 0x3364
-    dw leaf_loc_VUHJ - IMAGE_BASE + 0x5055     ; 0x3366
-    dw leaf_loc_PQRM - IMAGE_BASE + 0x5055     ; 0x3368
-    dw leaf_loc_KGIG - IMAGE_BASE + 0x5055     ; 0x336a
-    dw leaf_loc_RJTN - IMAGE_BASE + 0x5055     ; 0x336c
-    dw leaf_loc_UVOJ - IMAGE_BASE + 0x5055     ; 0x336e
-    dw leaf_loc_QUHK - IMAGE_BASE + 0x5055     ; 0x3370
-    dw leaf_loc_HPLP - IMAGE_BASE + 0x5055     ; 0x3372
-    dw leaf_loc_OKIV - IMAGE_BASE + 0x5055     ; 0x3374
-    dw leaf_loc_JHVI - IMAGE_BASE + 0x5055     ; 0x3376
-    dw leaf_loc_HPLP - IMAGE_BASE + 0x5055     ; 0x3378
+    dw loc_KNRN - IMAGE_BASE + __zres_end      ; 0x3356
+    dw leaf_loc_LGUH - IMAGE_BASE + __zres_end ; 0x3358
+    dw leaf_loc_TGSJ - IMAGE_BASE + __zres_end ; 0x335a
+    dw leaf_loc_LHNH - IMAGE_BASE + __zres_end ; 0x335c
+    dw leaf_loc_UKTT - IMAGE_BASE + __zres_end ; 0x335e
+    dw leaf_loc_LUKJ - IMAGE_BASE + __zres_end ; 0x3360
+    dw leaf_loc_NNIO - IMAGE_BASE + __zres_end ; 0x3362
+    dw leaf_loc_VKVH - IMAGE_BASE + __zres_end ; 0x3364
+    dw leaf_loc_VUHJ - IMAGE_BASE + __zres_end ; 0x3366
+    dw leaf_loc_PQRM - IMAGE_BASE + __zres_end ; 0x3368
+    dw leaf_loc_KGIG - IMAGE_BASE + __zres_end ; 0x336a
+    dw leaf_loc_RJTN - IMAGE_BASE + __zres_end ; 0x336c
+    dw leaf_loc_UVOJ - IMAGE_BASE + __zres_end ; 0x336e
+    dw leaf_loc_QUHK - IMAGE_BASE + __zres_end ; 0x3370
+    dw leaf_loc_HPLP - IMAGE_BASE + __zres_end ; 0x3372
+    dw leaf_loc_OKIV - IMAGE_BASE + __zres_end ; 0x3374
+    dw leaf_loc_JHVI - IMAGE_BASE + __zres_end ; 0x3376
+    dw leaf_loc_HPLP - IMAGE_BASE + __zres_end ; 0x3378
 loc_337a:
     cmp ax, strict word 0x12         ; 0x337a
     jae short loc_KNRN               ; 0x337d

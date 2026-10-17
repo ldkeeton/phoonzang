@@ -432,13 +432,13 @@ loc_144f:
     mov word [bss_95ce], 0xffff      ; 0x1476
     jmp short leaf_loc_STTR          ; 0x147c
 jumptable_147e:
-    dw leaf_loc_STTR - IMAGE_BASE + 0x5055     ; 0x147e
-    dw jumptable_147e_case_1 - IMAGE_BASE + 0x5055 ; 0x1480
-    dw jumptable_147e_case_2 - IMAGE_BASE + 0x5055 ; 0x1482
-    dw jumptable_147e_case_3 - IMAGE_BASE + 0x5055 ; 0x1484
-    dw jumptable_147e_case_4 - IMAGE_BASE + 0x5055 ; 0x1486
-    dw jumptable_147e_case_5 - IMAGE_BASE + 0x5055 ; 0x1488
-    dw jumptable_147e_case_6 - IMAGE_BASE + 0x5055 ; 0x148a
+    dw leaf_loc_STTR - IMAGE_BASE + __zres_end ; 0x147e
+    dw jumptable_147e_case_1 - IMAGE_BASE + __zres_end ; 0x1480
+    dw jumptable_147e_case_2 - IMAGE_BASE + __zres_end ; 0x1482
+    dw jumptable_147e_case_3 - IMAGE_BASE + __zres_end ; 0x1484
+    dw jumptable_147e_case_4 - IMAGE_BASE + __zres_end ; 0x1486
+    dw jumptable_147e_case_5 - IMAGE_BASE + __zres_end ; 0x1488
+    dw jumptable_147e_case_6 - IMAGE_BASE + __zres_end ; 0x148a
 @..api_idx_0012_VVJL.l5:
     cmp ax, strict word 7            ; 0x148c
     jae short leaf_loc_STTR          ; 0x148f

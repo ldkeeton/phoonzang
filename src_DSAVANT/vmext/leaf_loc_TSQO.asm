@@ -27,12 +27,12 @@ leaf_loc_TSQO:
     mov word [bp - 0x000a], ax       ; 0x3091
     jmp short loc_LIQJ               ; 0x3094
 jumptable_3096:
-    dw leaf_loc_URUM - IMAGE_BASE + 0x5055     ; 0x3096
-    dw leaf_loc_JNNQ - IMAGE_BASE + 0x5055     ; 0x3098
-    dw leaf_loc_MGPR - IMAGE_BASE + 0x5055     ; 0x309a
-    dw leaf_loc_MGPR - IMAGE_BASE + 0x5055     ; 0x309c
-    dw leaf_loc_TSQO - IMAGE_BASE + 0x5055     ; 0x309e
-    dw leaf_loc_TSQO - IMAGE_BASE + 0x5055     ; 0x30a0
+    dw leaf_loc_URUM - IMAGE_BASE + __zres_end ; 0x3096
+    dw leaf_loc_JNNQ - IMAGE_BASE + __zres_end ; 0x3098
+    dw leaf_loc_MGPR - IMAGE_BASE + __zres_end ; 0x309a
+    dw leaf_loc_MGPR - IMAGE_BASE + __zres_end ; 0x309c
+    dw leaf_loc_TSQO - IMAGE_BASE + __zres_end ; 0x309e
+    dw leaf_loc_TSQO - IMAGE_BASE + __zres_end ; 0x30a0
 loc_30a2:
     sub ax, strict word 0xa          ; 0x30a2
     cmp ax, strict word 6            ; 0x30a5

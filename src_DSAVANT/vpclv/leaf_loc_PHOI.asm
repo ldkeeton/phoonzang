@@ -18,13 +18,13 @@ loc_SGJH:
     mov word [bp - 0x0006], 0x18     ; 0x4e42
     jmp short loc_JMPV               ; 0x4e47
 jumptable_4e49:
-    dw leaf_loc_QHMG - IMAGE_BASE + 0x5055     ; 0x4e49
-    dw leaf_loc_PHOI - IMAGE_BASE + 0x5055     ; 0x4e4b
-    dw loc_HVTM - IMAGE_BASE + 0x5055          ; 0x4e4d
-    dw loc_GHGM - IMAGE_BASE + 0x5055          ; 0x4e4f
-    dw loc_TIJR - IMAGE_BASE + 0x5055          ; 0x4e51
-    dw loc_KVSM - IMAGE_BASE + 0x5055          ; 0x4e53
-    dw loc_SGJH - IMAGE_BASE + 0x5055          ; 0x4e55
+    dw leaf_loc_QHMG - IMAGE_BASE + __zres_end ; 0x4e49
+    dw leaf_loc_PHOI - IMAGE_BASE + __zres_end ; 0x4e4b
+    dw loc_HVTM - IMAGE_BASE + __zres_end      ; 0x4e4d
+    dw loc_GHGM - IMAGE_BASE + __zres_end      ; 0x4e4f
+    dw loc_TIJR - IMAGE_BASE + __zres_end      ; 0x4e51
+    dw loc_KVSM - IMAGE_BASE + __zres_end      ; 0x4e53
+    dw loc_SGJH - IMAGE_BASE + __zres_end      ; 0x4e55
 loc_QUMR:
     cmp ax, strict word 7            ; 0x4e57
     jae short loc_JMPV               ; 0x4e5a

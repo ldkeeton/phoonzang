@@ -846,12 +846,12 @@ jumptable_4213_case_5:
     add sp, byte 8                   ; 0x420e
     jmp short @..api_idx_0038_ULQM.l30 ; 0x4211
 jumptable_4213:
-    dw jumptable_4213_case_0 - IMAGE_BASE + 0x5055 ; 0x4213
-    dw jumptable_4213_case_1 - IMAGE_BASE + 0x5055 ; 0x4215
-    dw jumptable_4213_case_1 - IMAGE_BASE + 0x5055 ; 0x4217
-    dw jumptable_4213_case_3 - IMAGE_BASE + 0x5055 ; 0x4219
-    dw jumptable_4213_case_4 - IMAGE_BASE + 0x5055 ; 0x421b
-    dw jumptable_4213_case_5 - IMAGE_BASE + 0x5055 ; 0x421d
+    dw jumptable_4213_case_0 - IMAGE_BASE + __zres_end ; 0x4213
+    dw jumptable_4213_case_1 - IMAGE_BASE + __zres_end ; 0x4215
+    dw jumptable_4213_case_1 - IMAGE_BASE + __zres_end ; 0x4217
+    dw jumptable_4213_case_3 - IMAGE_BASE + __zres_end ; 0x4219
+    dw jumptable_4213_case_4 - IMAGE_BASE + __zres_end ; 0x421b
+    dw jumptable_4213_case_5 - IMAGE_BASE + __zres_end ; 0x421d
 @..api_idx_0038_ULQM.l28:
     cmp ax, strict word 6            ; 0x421f
     jae short @..api_idx_0038_ULQM.l29 ; 0x4222

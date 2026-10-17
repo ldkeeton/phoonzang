@@ -79,16 +79,16 @@ jumptable_8b35_case_9:
     add sp, byte 4                   ; 0x8b30
     jmp short @..api_idx_0054_TNHV.l3 ; 0x8b33
 jumptable_8b35:
-    dw jumptable_8b35_case_0 - IMAGE_BASE + 0x5055 ; 0x8b35
-    dw jumptable_8b35_case_1 - IMAGE_BASE + 0x5055 ; 0x8b37
-    dw jumptable_8b35_case_2 - IMAGE_BASE + 0x5055 ; 0x8b39
-    dw jumptable_8b35_case_3 - IMAGE_BASE + 0x5055 ; 0x8b3b
-    dw jumptable_8b35_case_4 - IMAGE_BASE + 0x5055 ; 0x8b3d
-    dw jumptable_8b35_case_0 - IMAGE_BASE + 0x5055 ; 0x8b3f
-    dw jumptable_8b35_case_0 - IMAGE_BASE + 0x5055 ; 0x8b41
-    dw jumptable_8b35_case_7 - IMAGE_BASE + 0x5055 ; 0x8b43
-    dw jumptable_8b35_case_8 - IMAGE_BASE + 0x5055 ; 0x8b45
-    dw jumptable_8b35_case_9 - IMAGE_BASE + 0x5055 ; 0x8b47
+    dw jumptable_8b35_case_0 - IMAGE_BASE + __zres_end ; 0x8b35
+    dw jumptable_8b35_case_1 - IMAGE_BASE + __zres_end ; 0x8b37
+    dw jumptable_8b35_case_2 - IMAGE_BASE + __zres_end ; 0x8b39
+    dw jumptable_8b35_case_3 - IMAGE_BASE + __zres_end ; 0x8b3b
+    dw jumptable_8b35_case_4 - IMAGE_BASE + __zres_end ; 0x8b3d
+    dw jumptable_8b35_case_0 - IMAGE_BASE + __zres_end ; 0x8b3f
+    dw jumptable_8b35_case_0 - IMAGE_BASE + __zres_end ; 0x8b41
+    dw jumptable_8b35_case_7 - IMAGE_BASE + __zres_end ; 0x8b43
+    dw jumptable_8b35_case_8 - IMAGE_BASE + __zres_end ; 0x8b45
+    dw jumptable_8b35_case_9 - IMAGE_BASE + __zres_end ; 0x8b47
 @..api_idx_0054_TNHV.l2:
     cmp ax, strict word 0xa          ; 0x8b49
     jae short @..api_idx_0054_TNHV.l3 ; 0x8b4c

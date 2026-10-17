@@ -589,11 +589,11 @@ loc_MNIM_35f6:
 loc_TORJ:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35f8
 jumptable_35fa:
-    dw loc_TORJ - IMAGE_BASE + 0x5055          ; 0x35fa
-    dw loc_GMQM - IMAGE_BASE + 0x5055          ; 0x35fc
-    dw loc_NQIP - IMAGE_BASE + 0x5055          ; 0x35fe
-    dw loc_NVUT - IMAGE_BASE + 0x5055          ; 0x3600
-    dw loc_MNIM_35f6 - IMAGE_BASE + 0x5055     ; 0x3602
+    dw loc_TORJ - IMAGE_BASE + __zres_end      ; 0x35fa
+    dw loc_GMQM - IMAGE_BASE + __zres_end      ; 0x35fc
+    dw loc_NQIP - IMAGE_BASE + __zres_end      ; 0x35fe
+    dw loc_NVUT - IMAGE_BASE + __zres_end      ; 0x3600
+    dw loc_MNIM_35f6 - IMAGE_BASE + __zres_end ; 0x3602
 @..api_idx_0012_STJU.l45:
     cmp ax, strict word 5            ; 0x3604
     jae short @..api_idx_0012_STJU.l46 ; 0x3607

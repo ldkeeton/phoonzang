@@ -721,12 +721,12 @@ loc_HKMQ:
     add sp, byte 8                   ; 0x44d4
     jmp short @..api_idx_0038_IJUK.l22 ; 0x44d7
 jumptable_44d9:
-    dw loc_ROPI - IMAGE_BASE + 0x5055          ; 0x44d9
-    dw loc_MUKH - IMAGE_BASE + 0x5055          ; 0x44db
-    dw loc_MUKH - IMAGE_BASE + 0x5055          ; 0x44dd
-    dw loc_LPSH_43e2 - IMAGE_BASE + 0x5055     ; 0x44df
-    dw loc_RIRV - IMAGE_BASE + 0x5055          ; 0x44e1
-    dw loc_KKIR - IMAGE_BASE + 0x5055          ; 0x44e3
+    dw loc_ROPI - IMAGE_BASE + __zres_end      ; 0x44d9
+    dw loc_MUKH - IMAGE_BASE + __zres_end      ; 0x44db
+    dw loc_MUKH - IMAGE_BASE + __zres_end      ; 0x44dd
+    dw loc_LPSH_43e2 - IMAGE_BASE + __zres_end ; 0x44df
+    dw loc_RIRV - IMAGE_BASE + __zres_end      ; 0x44e1
+    dw loc_KKIR - IMAGE_BASE + __zres_end      ; 0x44e3
 @..api_idx_0038_IJUK.l20:
     cmp ax, strict word 6            ; 0x44e5
     jae short @..api_idx_0038_IJUK.l21 ; 0x44e8

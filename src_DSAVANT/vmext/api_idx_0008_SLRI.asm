@@ -51,12 +51,12 @@ loc_GIGH:
     mov ax, 0                        ; 0x1a8b
     ret                              ; 0x1a8e
 jumptable_1a8f:
-    dw loc_QMOG - IMAGE_BASE + 0x5055          ; 0x1a8f
-    dw jumptable_1a8f_case_1 - IMAGE_BASE + 0x5055 ; 0x1a91
-    dw loc_QMOG - IMAGE_BASE + 0x5055          ; 0x1a93
-    dw loc_NVPM - IMAGE_BASE + 0x5055          ; 0x1a95
-    dw loc_QMOG - IMAGE_BASE + 0x5055          ; 0x1a97
-    dw loc_GIGH - IMAGE_BASE + 0x5055          ; 0x1a99
+    dw loc_QMOG - IMAGE_BASE + __zres_end      ; 0x1a8f
+    dw jumptable_1a8f_case_1 - IMAGE_BASE + __zres_end ; 0x1a91
+    dw loc_QMOG - IMAGE_BASE + __zres_end      ; 0x1a93
+    dw loc_NVPM - IMAGE_BASE + __zres_end      ; 0x1a95
+    dw loc_QMOG - IMAGE_BASE + __zres_end      ; 0x1a97
+    dw loc_GIGH - IMAGE_BASE + __zres_end      ; 0x1a99
 @..api_idx_0008_SLRI.l3:
     cmp ax, strict word 6            ; 0x1a9b
     jae short @..api_idx_0008_SLRI.l4 ; 0x1a9e
@@ -106,12 +106,12 @@ loc_NRTI:
     mov byte [bx - 0x6e52], 2        ; 0x1b0a
     jmp short @..api_idx_0008_SLRI.l6 ; 0x1b0f
 jumptable_1b11:
-    dw loc_KOGU_1ad8 - IMAGE_BASE + 0x5055     ; 0x1b11
-    dw loc_KQVV - IMAGE_BASE + 0x5055          ; 0x1b13
-    dw loc_NRTI - IMAGE_BASE + 0x5055          ; 0x1b15
-    dw loc_KQVV - IMAGE_BASE + 0x5055          ; 0x1b17
-    dw loc_KOGU_1ad8 - IMAGE_BASE + 0x5055     ; 0x1b19
-    dw loc_KQVV - IMAGE_BASE + 0x5055          ; 0x1b1b
+    dw loc_KOGU_1ad8 - IMAGE_BASE + __zres_end ; 0x1b11
+    dw loc_KQVV - IMAGE_BASE + __zres_end      ; 0x1b13
+    dw loc_NRTI - IMAGE_BASE + __zres_end      ; 0x1b15
+    dw loc_KQVV - IMAGE_BASE + __zres_end      ; 0x1b17
+    dw loc_KOGU_1ad8 - IMAGE_BASE + __zres_end ; 0x1b19
+    dw loc_KQVV - IMAGE_BASE + __zres_end      ; 0x1b1b
 @..api_idx_0008_SLRI.l5:
     cmp ax, strict word 6            ; 0x1b1d
     jae short @..api_idx_0008_SLRI.l6 ; 0x1b20

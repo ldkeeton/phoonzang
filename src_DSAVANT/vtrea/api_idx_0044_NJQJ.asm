@@ -1320,11 +1320,11 @@ jumptable_9967_case_4:
 @..api_idx_0044_NJQJ.l47:
     jmp short @..api_idx_0044_NJQJ.l50 ; 0x9965
 jumptable_9967:
-    dw jumptable_9967_case_0 - IMAGE_BASE + 0x5055 ; 0x9967
-    dw jumptable_9967_case_1 - IMAGE_BASE + 0x5055 ; 0x9969
-    dw jumptable_9967_case_1 - IMAGE_BASE + 0x5055 ; 0x996b
-    dw jumptable_9967_case_3 - IMAGE_BASE + 0x5055 ; 0x996d
-    dw jumptable_9967_case_4 - IMAGE_BASE + 0x5055 ; 0x996f
+    dw jumptable_9967_case_0 - IMAGE_BASE + __zres_end ; 0x9967
+    dw jumptable_9967_case_1 - IMAGE_BASE + __zres_end ; 0x9969
+    dw jumptable_9967_case_1 - IMAGE_BASE + __zres_end ; 0x996b
+    dw jumptable_9967_case_3 - IMAGE_BASE + __zres_end ; 0x996d
+    dw jumptable_9967_case_4 - IMAGE_BASE + __zres_end ; 0x996f
 @..api_idx_0044_NJQJ.l48:
     cmp ax, strict word 5            ; 0x9971
     jae short @..api_idx_0044_NJQJ.l49 ; 0x9974

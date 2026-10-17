@@ -144,13 +144,13 @@ jumptable_6e12_case_6:
     inc word [bp + 0x4]              ; 0x6e0d
     jmp short @..api_idx_0090_PNOU.l7 ; 0x6e10
 jumptable_6e12:
-    dw jumptable_6e12_case_0 - IMAGE_BASE + 0x5055 ; 0x6e12
-    dw jumptable_6e12_case_1 - IMAGE_BASE + 0x5055 ; 0x6e14
-    dw jumptable_6e12_case_2 - IMAGE_BASE + 0x5055 ; 0x6e16
-    dw jumptable_6e12_case_3 - IMAGE_BASE + 0x5055 ; 0x6e18
-    dw jumptable_6e12_case_4 - IMAGE_BASE + 0x5055 ; 0x6e1a
-    dw jumptable_6e12_case_5 - IMAGE_BASE + 0x5055 ; 0x6e1c
-    dw jumptable_6e12_case_6 - IMAGE_BASE + 0x5055 ; 0x6e1e
+    dw jumptable_6e12_case_0 - IMAGE_BASE + __zres_end ; 0x6e12
+    dw jumptable_6e12_case_1 - IMAGE_BASE + __zres_end ; 0x6e14
+    dw jumptable_6e12_case_2 - IMAGE_BASE + __zres_end ; 0x6e16
+    dw jumptable_6e12_case_3 - IMAGE_BASE + __zres_end ; 0x6e18
+    dw jumptable_6e12_case_4 - IMAGE_BASE + __zres_end ; 0x6e1a
+    dw jumptable_6e12_case_5 - IMAGE_BASE + __zres_end ; 0x6e1c
+    dw jumptable_6e12_case_6 - IMAGE_BASE + __zres_end ; 0x6e1e
 @..api_idx_0090_PNOU.l6:
     cmp ax, strict word 7            ; 0x6e20
     jae short @..api_idx_0090_PNOU.l7 ; 0x6e23

@@ -650,13 +650,13 @@ jumptable_4471_case_6:
 @..api_idx_0030_MNJL.l23:
     jmp short @..api_idx_0030_MNJL.l25 ; 0x446f
 jumptable_4471:
-    dw jumptable_4471_case_0 - IMAGE_BASE + 0x5055 ; 0x4471
-    dw jumptable_4471_case_1 - IMAGE_BASE + 0x5055 ; 0x4473
-    dw jumptable_4471_case_2 - IMAGE_BASE + 0x5055 ; 0x4475
-    dw jumptable_4471_case_3 - IMAGE_BASE + 0x5055 ; 0x4477
-    dw jumptable_4471_case_4 - IMAGE_BASE + 0x5055 ; 0x4479
-    dw jumptable_4471_case_5 - IMAGE_BASE + 0x5055 ; 0x447b
-    dw jumptable_4471_case_6 - IMAGE_BASE + 0x5055 ; 0x447d
+    dw jumptable_4471_case_0 - IMAGE_BASE + __zres_end ; 0x4471
+    dw jumptable_4471_case_1 - IMAGE_BASE + __zres_end ; 0x4473
+    dw jumptable_4471_case_2 - IMAGE_BASE + __zres_end ; 0x4475
+    dw jumptable_4471_case_3 - IMAGE_BASE + __zres_end ; 0x4477
+    dw jumptable_4471_case_4 - IMAGE_BASE + __zres_end ; 0x4479
+    dw jumptable_4471_case_5 - IMAGE_BASE + __zres_end ; 0x447b
+    dw jumptable_4471_case_6 - IMAGE_BASE + __zres_end ; 0x447d
 @..api_idx_0030_MNJL.l24:
     cmp ax, strict word 7            ; 0x447f
     jae short @..api_idx_0030_MNJL.l25 ; 0x4482

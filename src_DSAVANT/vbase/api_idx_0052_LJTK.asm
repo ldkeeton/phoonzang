@@ -373,23 +373,23 @@ jumptable_4688_case_15:
     add sp, byte 6                   ; 0x4683
     jmp short @..api_idx_0052_LJTK.l3 ; 0x4686
 jumptable_4688:
-    dw jumptable_4688_case_0 - IMAGE_BASE + 0x5055 ; 0x4688
-    dw jumptable_4688_case_1 - IMAGE_BASE + 0x5055 ; 0x468a
-    dw jumptable_4688_case_2 - IMAGE_BASE + 0x5055 ; 0x468c
-    dw jumptable_4688_case_3 - IMAGE_BASE + 0x5055 ; 0x468e
-    dw jumptable_4688_case_4 - IMAGE_BASE + 0x5055 ; 0x4690
-    dw jumptable_4688_case_5 - IMAGE_BASE + 0x5055 ; 0x4692
-    dw jumptable_4688_case_5 - IMAGE_BASE + 0x5055 ; 0x4694
-    dw jumptable_4688_case_5 - IMAGE_BASE + 0x5055 ; 0x4696
-    dw jumptable_4688_case_8 - IMAGE_BASE + 0x5055 ; 0x4698
-    dw jumptable_4688_case_9 - IMAGE_BASE + 0x5055 ; 0x469a
-    dw jumptable_4688_case_10 - IMAGE_BASE + 0x5055 ; 0x469c
-    dw jumptable_4688_case_11 - IMAGE_BASE + 0x5055 ; 0x469e
-    dw jumptable_4688_case_12 - IMAGE_BASE + 0x5055 ; 0x46a0
-    dw jumptable_4688_case_13 - IMAGE_BASE + 0x5055 ; 0x46a2
-    dw jumptable_4688_case_14 - IMAGE_BASE + 0x5055 ; 0x46a4
-    dw jumptable_4688_case_15 - IMAGE_BASE + 0x5055 ; 0x46a6
-    dw jumptable_4688_case_15 - IMAGE_BASE + 0x5055 ; 0x46a8
+    dw jumptable_4688_case_0 - IMAGE_BASE + __zres_end ; 0x4688
+    dw jumptable_4688_case_1 - IMAGE_BASE + __zres_end ; 0x468a
+    dw jumptable_4688_case_2 - IMAGE_BASE + __zres_end ; 0x468c
+    dw jumptable_4688_case_3 - IMAGE_BASE + __zres_end ; 0x468e
+    dw jumptable_4688_case_4 - IMAGE_BASE + __zres_end ; 0x4690
+    dw jumptable_4688_case_5 - IMAGE_BASE + __zres_end ; 0x4692
+    dw jumptable_4688_case_5 - IMAGE_BASE + __zres_end ; 0x4694
+    dw jumptable_4688_case_5 - IMAGE_BASE + __zres_end ; 0x4696
+    dw jumptable_4688_case_8 - IMAGE_BASE + __zres_end ; 0x4698
+    dw jumptable_4688_case_9 - IMAGE_BASE + __zres_end ; 0x469a
+    dw jumptable_4688_case_10 - IMAGE_BASE + __zres_end ; 0x469c
+    dw jumptable_4688_case_11 - IMAGE_BASE + __zres_end ; 0x469e
+    dw jumptable_4688_case_12 - IMAGE_BASE + __zres_end ; 0x46a0
+    dw jumptable_4688_case_13 - IMAGE_BASE + __zres_end ; 0x46a2
+    dw jumptable_4688_case_14 - IMAGE_BASE + __zres_end ; 0x46a4
+    dw jumptable_4688_case_15 - IMAGE_BASE + __zres_end ; 0x46a6
+    dw jumptable_4688_case_15 - IMAGE_BASE + __zres_end ; 0x46a8
 @..api_idx_0052_LJTK.l2:
     cmp ax, strict word 0x11         ; 0x46aa
     jae short @..api_idx_0052_LJTK.l3 ; 0x46ad

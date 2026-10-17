@@ -330,20 +330,20 @@ jumptable_6059_case_13:
     add sp, byte 0x0e                ; 0x6054
     jmp short @..api_idx_0004_QSJP.l6 ; 0x6057
 jumptable_6059:
-    dw jumptable_6059_case_0 - IMAGE_BASE + 0x5055 ; 0x6059
-    dw jumptable_6059_case_1 - IMAGE_BASE + 0x5055 ; 0x605b
-    dw jumptable_6059_case_2 - IMAGE_BASE + 0x5055 ; 0x605d
-    dw jumptable_6059_case_0 - IMAGE_BASE + 0x5055 ; 0x605f
-    dw jumptable_6059_case_4 - IMAGE_BASE + 0x5055 ; 0x6061
-    dw jumptable_6059_case_5 - IMAGE_BASE + 0x5055 ; 0x6063
-    dw jumptable_6059_case_6 - IMAGE_BASE + 0x5055 ; 0x6065
-    dw jumptable_6059_case_7 - IMAGE_BASE + 0x5055 ; 0x6067
-    dw jumptable_6059_case_8 - IMAGE_BASE + 0x5055 ; 0x6069
-    dw jumptable_6059_case_9 - IMAGE_BASE + 0x5055 ; 0x606b
-    dw jumptable_6059_case_10 - IMAGE_BASE + 0x5055 ; 0x606d
-    dw jumptable_6059_case_11 - IMAGE_BASE + 0x5055 ; 0x606f
-    dw jumptable_6059_case_12 - IMAGE_BASE + 0x5055 ; 0x6071
-    dw jumptable_6059_case_13 - IMAGE_BASE + 0x5055 ; 0x6073
+    dw jumptable_6059_case_0 - IMAGE_BASE + __zres_end ; 0x6059
+    dw jumptable_6059_case_1 - IMAGE_BASE + __zres_end ; 0x605b
+    dw jumptable_6059_case_2 - IMAGE_BASE + __zres_end ; 0x605d
+    dw jumptable_6059_case_0 - IMAGE_BASE + __zres_end ; 0x605f
+    dw jumptable_6059_case_4 - IMAGE_BASE + __zres_end ; 0x6061
+    dw jumptable_6059_case_5 - IMAGE_BASE + __zres_end ; 0x6063
+    dw jumptable_6059_case_6 - IMAGE_BASE + __zres_end ; 0x6065
+    dw jumptable_6059_case_7 - IMAGE_BASE + __zres_end ; 0x6067
+    dw jumptable_6059_case_8 - IMAGE_BASE + __zres_end ; 0x6069
+    dw jumptable_6059_case_9 - IMAGE_BASE + __zres_end ; 0x606b
+    dw jumptable_6059_case_10 - IMAGE_BASE + __zres_end ; 0x606d
+    dw jumptable_6059_case_11 - IMAGE_BASE + __zres_end ; 0x606f
+    dw jumptable_6059_case_12 - IMAGE_BASE + __zres_end ; 0x6071
+    dw jumptable_6059_case_13 - IMAGE_BASE + __zres_end ; 0x6073
 @..api_idx_0004_QSJP.l5:
     cmp ax, strict word 0xe          ; 0x6075
     jae short @..api_idx_0004_QSJP.l6 ; 0x6078

@@ -291,11 +291,11 @@ loc_VJQO:
     mov ax, 0xffff                   ; 0x51b8
     ret                              ; 0x51bb
 jumptable_51bc:
-    dw loc_PKMV - IMAGE_BASE + 0x5055          ; 0x51bc
-    dw loc_QMHM - IMAGE_BASE + 0x5055          ; 0x51be
-    dw loc_TMJL - IMAGE_BASE + 0x5055          ; 0x51c0
-    dw loc_TMJL - IMAGE_BASE + 0x5055          ; 0x51c2
-    dw loc_VJQO - IMAGE_BASE + 0x5055          ; 0x51c4
+    dw loc_PKMV - IMAGE_BASE + __zres_end      ; 0x51bc
+    dw loc_QMHM - IMAGE_BASE + __zres_end      ; 0x51be
+    dw loc_TMJL - IMAGE_BASE + __zres_end      ; 0x51c0
+    dw loc_TMJL - IMAGE_BASE + __zres_end      ; 0x51c2
+    dw loc_VJQO - IMAGE_BASE + __zres_end      ; 0x51c4
 @..api_idx_007a_NHII.l18:
     cmp ax, strict word 5            ; 0x51c6
     jae short @..api_idx_007a_NHII.l19 ; 0x51c9

@@ -89,7 +89,7 @@ def _render_data_block(raw):
 
 def _render_records(records, binary_data, show_offsets=True, gap=None,
                     ds_size=None, ds_end_symbol=None, resident_end=None,
-                    resident_end_symbol=None):
+                    resident_end_symbol=None, corg_symbol=None):
     """Render ordered body records, including textual NASM include directives.
 
     *gap* is an optional ``(block_start, gap_end, header_size, gap_len)`` tuple
@@ -108,6 +108,11 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
     ``o_corg``) and follows the same pattern (D7.2): rewritten to
     *resident_end_symbol* when the anchor is in scope, otherwise tagged
     ``; ocorg`` so the census sees it.
+
+    *corg_symbol* is an overlay's own load-origin symbol (the host's
+    resident-code end).  An overlay jump-table word is ``label - IMAGE_BASE +
+    o_corg``; with the symbol in scope the origin is spelled by it, so the word
+    follows a resized host instead of freezing ``0x5055``.
     """
     out = []
     i = 0
@@ -192,7 +197,10 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
                 if entry is None:
                     text = 'dw 0'
                 elif isinstance(entry, str):
-                    suffix = f' + 0x{adjust:04x}' if adjust else ''
+                    if adjust and corg_symbol:
+                        suffix = f' + {corg_symbol}'
+                    else:
+                        suffix = f' + 0x{adjust:04x}' if adjust else ''
                     text = f'dw {entry} - IMAGE_BASE{suffix}'
                 else:
                     text = f'dw 0x{entry:04x}'
@@ -952,14 +960,16 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     out.extend(_render_records(main_records, binary_data, show_offsets, gap=gap,
                                ds_size=ds_size, ds_end_symbol=ds_end_symbol,
                                resident_end=resident_end,
-                               resident_end_symbol=resident_end_symbol))
+                               resident_end_symbol=resident_end_symbol,
+                               corg_symbol=corg_symbol))
 
     split_sources = {
         path: '\n'.join(_render_records(fragment, binary_data, show_offsets,
                                         ds_size=ds_size,
                                         ds_end_symbol=ds_end_symbol,
                                         resident_end=resident_end,
-                                        resident_end_symbol=resident_end_symbol)
+                                        resident_end_symbol=resident_end_symbol,
+                                        corg_symbol=corg_symbol)
                         ) + '\n'
         for path, fragment in split_records.items()
     }

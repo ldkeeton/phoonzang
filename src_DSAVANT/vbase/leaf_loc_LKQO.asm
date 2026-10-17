@@ -6,25 +6,25 @@ loc_KJKO:
     mov word [bp - 0x001a], 0x21     ; 0x2661
     jmp short loc_VNSN               ; 0x2666
 jumptable_2668:
-    dw leaf_loc_KVRT - IMAGE_BASE + 0x5055     ; 0x2668
-    dw leaf_loc_VKOG - IMAGE_BASE + 0x5055     ; 0x266a
-    dw leaf_loc_TQGG - IMAGE_BASE + 0x5055     ; 0x266c
-    dw leaf_loc_GGTG - IMAGE_BASE + 0x5055     ; 0x266e
-    dw leaf_loc_MJJK - IMAGE_BASE + 0x5055     ; 0x2670
-    dw leaf_loc_IMPH - IMAGE_BASE + 0x5055     ; 0x2672
-    dw leaf_loc_OLLI_260a - IMAGE_BASE + 0x5055 ; 0x2674
-    dw leaf_loc_OLLI_2612 - IMAGE_BASE + 0x5055 ; 0x2676
-    dw leaf_loc_OLLI_261a - IMAGE_BASE + 0x5055 ; 0x2678
-    dw leaf_loc_TNRJ_2622 - IMAGE_BASE + 0x5055 ; 0x267a
-    dw leaf_loc_TNRJ_2629 - IMAGE_BASE + 0x5055 ; 0x267c
-    dw leaf_loc_RTMU - IMAGE_BASE + 0x5055     ; 0x267e
-    dw leaf_loc_TNRJ_2637 - IMAGE_BASE + 0x5055 ; 0x2680
-    dw leaf_loc_MVIH - IMAGE_BASE + 0x5055     ; 0x2682
-    dw leaf_loc_NGIK - IMAGE_BASE + 0x5055     ; 0x2684
-    dw leaf_loc_NURI - IMAGE_BASE + 0x5055     ; 0x2686
-    dw leaf_loc_RTHP - IMAGE_BASE + 0x5055     ; 0x2688
-    dw leaf_loc_LKQO - IMAGE_BASE + 0x5055     ; 0x268a
-    dw loc_KJKO - IMAGE_BASE + 0x5055          ; 0x268c
+    dw leaf_loc_KVRT - IMAGE_BASE + __zres_end ; 0x2668
+    dw leaf_loc_VKOG - IMAGE_BASE + __zres_end ; 0x266a
+    dw leaf_loc_TQGG - IMAGE_BASE + __zres_end ; 0x266c
+    dw leaf_loc_GGTG - IMAGE_BASE + __zres_end ; 0x266e
+    dw leaf_loc_MJJK - IMAGE_BASE + __zres_end ; 0x2670
+    dw leaf_loc_IMPH - IMAGE_BASE + __zres_end ; 0x2672
+    dw leaf_loc_OLLI_260a - IMAGE_BASE + __zres_end ; 0x2674
+    dw leaf_loc_OLLI_2612 - IMAGE_BASE + __zres_end ; 0x2676
+    dw leaf_loc_OLLI_261a - IMAGE_BASE + __zres_end ; 0x2678
+    dw leaf_loc_TNRJ_2622 - IMAGE_BASE + __zres_end ; 0x267a
+    dw leaf_loc_TNRJ_2629 - IMAGE_BASE + __zres_end ; 0x267c
+    dw leaf_loc_RTMU - IMAGE_BASE + __zres_end ; 0x267e
+    dw leaf_loc_TNRJ_2637 - IMAGE_BASE + __zres_end ; 0x2680
+    dw leaf_loc_MVIH - IMAGE_BASE + __zres_end ; 0x2682
+    dw leaf_loc_NGIK - IMAGE_BASE + __zres_end ; 0x2684
+    dw leaf_loc_NURI - IMAGE_BASE + __zres_end ; 0x2686
+    dw leaf_loc_RTHP - IMAGE_BASE + __zres_end ; 0x2688
+    dw leaf_loc_LKQO - IMAGE_BASE + __zres_end ; 0x268a
+    dw loc_KJKO - IMAGE_BASE + __zres_end      ; 0x268c
 loc_TUVU:
     sub ax, strict word 0xb          ; 0x268e
     cmp ax, strict word 0x13         ; 0x2691

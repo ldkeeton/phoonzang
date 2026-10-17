@@ -143,20 +143,20 @@ jumptable_9188_case_13:
     add sp, byte 8                   ; 0x9183
     jmp short @..loc_PGKG.l4         ; 0x9186
 jumptable_9188:
-    dw jumptable_9188_case_0 - IMAGE_BASE + 0x5055 ; 0x9188
-    dw jumptable_9188_case_1 - IMAGE_BASE + 0x5055 ; 0x918a
-    dw jumptable_9188_case_2 - IMAGE_BASE + 0x5055 ; 0x918c
-    dw jumptable_9188_case_3 - IMAGE_BASE + 0x5055 ; 0x918e
-    dw jumptable_9188_case_4 - IMAGE_BASE + 0x5055 ; 0x9190
-    dw jumptable_9188_case_5 - IMAGE_BASE + 0x5055 ; 0x9192
-    dw jumptable_9188_case_6 - IMAGE_BASE + 0x5055 ; 0x9194
-    dw jumptable_9188_case_7 - IMAGE_BASE + 0x5055 ; 0x9196
-    dw jumptable_9188_case_8 - IMAGE_BASE + 0x5055 ; 0x9198
-    dw jumptable_9188_case_9 - IMAGE_BASE + 0x5055 ; 0x919a
-    dw jumptable_9188_case_10 - IMAGE_BASE + 0x5055 ; 0x919c
-    dw jumptable_9188_case_11 - IMAGE_BASE + 0x5055 ; 0x919e
-    dw jumptable_9188_case_12 - IMAGE_BASE + 0x5055 ; 0x91a0
-    dw jumptable_9188_case_13 - IMAGE_BASE + 0x5055 ; 0x91a2
+    dw jumptable_9188_case_0 - IMAGE_BASE + __zres_end ; 0x9188
+    dw jumptable_9188_case_1 - IMAGE_BASE + __zres_end ; 0x918a
+    dw jumptable_9188_case_2 - IMAGE_BASE + __zres_end ; 0x918c
+    dw jumptable_9188_case_3 - IMAGE_BASE + __zres_end ; 0x918e
+    dw jumptable_9188_case_4 - IMAGE_BASE + __zres_end ; 0x9190
+    dw jumptable_9188_case_5 - IMAGE_BASE + __zres_end ; 0x9192
+    dw jumptable_9188_case_6 - IMAGE_BASE + __zres_end ; 0x9194
+    dw jumptable_9188_case_7 - IMAGE_BASE + __zres_end ; 0x9196
+    dw jumptable_9188_case_8 - IMAGE_BASE + __zres_end ; 0x9198
+    dw jumptable_9188_case_9 - IMAGE_BASE + __zres_end ; 0x919a
+    dw jumptable_9188_case_10 - IMAGE_BASE + __zres_end ; 0x919c
+    dw jumptable_9188_case_11 - IMAGE_BASE + __zres_end ; 0x919e
+    dw jumptable_9188_case_12 - IMAGE_BASE + __zres_end ; 0x91a0
+    dw jumptable_9188_case_13 - IMAGE_BASE + __zres_end ; 0x91a2
 @..loc_PGKG.l3:
     cmp ax, strict word 0xe          ; 0x91a4
     jae short @..loc_PGKG.l4         ; 0x91a7

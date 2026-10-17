@@ -12,21 +12,21 @@ io_loc_PHVU:
 @..io_loc_PHVU.l1:
     jmp short loc_HPTS               ; 0x12f8
 jumptable_12fa:
-    dw string_loc_JUNI - IMAGE_BASE + 0x5055   ; 0x12fa
-    dw string_loc_PVJO - IMAGE_BASE + 0x5055   ; 0x12fc
-    dw loc_HSIN - IMAGE_BASE + 0x5055          ; 0x12fe
-    dw leaf_loc_JQVM - IMAGE_BASE + 0x5055     ; 0x1300
-    dw leaf_loc_PNJO - IMAGE_BASE + 0x5055     ; 0x1302
-    dw leaf_loc_VTGV - IMAGE_BASE + 0x5055     ; 0x1304
-    dw loc_OUIV - IMAGE_BASE + 0x5055          ; 0x1306
-    dw loc_MNML - IMAGE_BASE + 0x5055          ; 0x1308
-    dw loc_TIRQ - IMAGE_BASE + 0x5055          ; 0x130a
-    dw string_loc_LQQS - IMAGE_BASE + 0x5055   ; 0x130c
-    dw loc_OLGJ - IMAGE_BASE + 0x5055          ; 0x130e
-    dw leaf_loc_USKL - IMAGE_BASE + 0x5055     ; 0x1310
-    dw io_loc_MJON - IMAGE_BASE + 0x5055       ; 0x1312
-    dw io_loc_RVMM - IMAGE_BASE + 0x5055       ; 0x1314
-    dw io_loc_PHVU - IMAGE_BASE + 0x5055       ; 0x1316
+    dw string_loc_JUNI - IMAGE_BASE + __zres_end ; 0x12fa
+    dw string_loc_PVJO - IMAGE_BASE + __zres_end ; 0x12fc
+    dw loc_HSIN - IMAGE_BASE + __zres_end      ; 0x12fe
+    dw leaf_loc_JQVM - IMAGE_BASE + __zres_end ; 0x1300
+    dw leaf_loc_PNJO - IMAGE_BASE + __zres_end ; 0x1302
+    dw leaf_loc_VTGV - IMAGE_BASE + __zres_end ; 0x1304
+    dw loc_OUIV - IMAGE_BASE + __zres_end      ; 0x1306
+    dw loc_MNML - IMAGE_BASE + __zres_end      ; 0x1308
+    dw loc_TIRQ - IMAGE_BASE + __zres_end      ; 0x130a
+    dw string_loc_LQQS - IMAGE_BASE + __zres_end ; 0x130c
+    dw loc_OLGJ - IMAGE_BASE + __zres_end      ; 0x130e
+    dw leaf_loc_USKL - IMAGE_BASE + __zres_end ; 0x1310
+    dw io_loc_MJON - IMAGE_BASE + __zres_end   ; 0x1312
+    dw io_loc_RVMM - IMAGE_BASE + __zres_end   ; 0x1314
+    dw io_loc_PHVU - IMAGE_BASE + __zres_end   ; 0x1316
 loc_MVKU:
     cmp ax, strict word 0xf          ; 0x1318
     jae short loc_HPTS               ; 0x131b

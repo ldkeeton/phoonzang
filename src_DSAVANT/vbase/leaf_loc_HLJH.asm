@@ -89,26 +89,26 @@ jumptable_17ce:
     dw 0x0134                                  ; 0x17ee ; literal
     dw 0x0135                                  ; 0x17f0 ; literal
     dw 0x0139                                  ; 0x17f2 ; literal
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x17f4
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x17f6
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x17f8
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x17fa
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x17fc
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x17fe
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1800
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1802
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1804
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1806
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1808
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x180a
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x180c
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x180e
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1810
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1812
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1814
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1816
-    dw loc_OTKL - IMAGE_BASE + 0x5055          ; 0x1818
-    dw loc_PKOU_181c - IMAGE_BASE + 0x5055     ; 0x181a
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x17f4
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x17f6
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x17f8
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x17fa
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x17fc
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x17fe
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1800
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1802
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1804
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1806
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1808
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x180a
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x180c
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x180e
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1810
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1812
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1814
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1816
+    dw loc_OTKL - IMAGE_BASE + __zres_end      ; 0x1818
+    dw loc_PKOU_181c - IMAGE_BASE + __zres_end ; 0x181a
 loc_PKOU_181c:
     mov ax, 0                        ; 0x181c
     ret                              ; 0x181f

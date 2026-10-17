@@ -33,22 +33,22 @@ loc_QTQM:
     mov word [bp - 0x0004], 1        ; 0x154f
     jmp short @..api_idx_0004_HRPS.l3 ; 0x1554
 jumptable_1556:
-    dw loc_QTQM - IMAGE_BASE + 0x5055          ; 0x1556
-    dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x1558
-    dw loc_QTQM - IMAGE_BASE + 0x5055          ; 0x155a
-    dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x155c
-    dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x155e
-    dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x1560
-    dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x1562
-    dw loc_QTQM - IMAGE_BASE + 0x5055          ; 0x1564
-    dw loc_QTQM - IMAGE_BASE + 0x5055          ; 0x1566
-    dw loc_QTQM - IMAGE_BASE + 0x5055          ; 0x1568
-    dw loc_QTQM - IMAGE_BASE + 0x5055          ; 0x156a
-    dw loc_QTQM - IMAGE_BASE + 0x5055          ; 0x156c
-    dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x156e
-    dw jumptable_1556_case_1 - IMAGE_BASE + 0x5055 ; 0x1570
-    dw loc_OLOH - IMAGE_BASE + 0x5055          ; 0x1572
-    dw loc_QTQM - IMAGE_BASE + 0x5055          ; 0x1574
+    dw loc_QTQM - IMAGE_BASE + __zres_end      ; 0x1556
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end ; 0x1558
+    dw loc_QTQM - IMAGE_BASE + __zres_end      ; 0x155a
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end ; 0x155c
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end ; 0x155e
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end ; 0x1560
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end ; 0x1562
+    dw loc_QTQM - IMAGE_BASE + __zres_end      ; 0x1564
+    dw loc_QTQM - IMAGE_BASE + __zres_end      ; 0x1566
+    dw loc_QTQM - IMAGE_BASE + __zres_end      ; 0x1568
+    dw loc_QTQM - IMAGE_BASE + __zres_end      ; 0x156a
+    dw loc_QTQM - IMAGE_BASE + __zres_end      ; 0x156c
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end ; 0x156e
+    dw jumptable_1556_case_1 - IMAGE_BASE + __zres_end ; 0x1570
+    dw loc_OLOH - IMAGE_BASE + __zres_end      ; 0x1572
+    dw loc_QTQM - IMAGE_BASE + __zres_end      ; 0x1574
 @..api_idx_0004_HRPS.l2:
     sub ax, strict word 0xf          ; 0x1576
     cmp ax, strict word 0x10         ; 0x1579

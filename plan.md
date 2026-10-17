@@ -30,30 +30,37 @@ literal into three gate classes:
 |-------|-------------|--------|
 | `code_shift` | code before it resizes — F1/F2 sizes, F3, F5 | 0 |
 | `data_shift` | the data segment resizes — F4, F7 | 0 |
-| `inert` | never — fixed DOS/external offsets, deliberately-literal tables | excluded |
+| `inert` | never — addresses *outside* the image (BIOS data area, PSP fields) | excluded |
 
 `total = code_shift + data_shift` is the metric of record; `inert` is reported,
-not counted.
+not counted. **There are no waivers:** a value is inert only when it names
+something outside the image. Anything inside the image — a size, a stack pointer,
+a table word assumed to be "just a number" — is work until it is derived or
+proven. (The census still files the 224 `f6` `; literal` words under `inert`;
+that is a classification to prove, not an exemption — see Section 5.)
 
-**Current tree** (a `make build` fixed point): **`code_shift` 57, `data_shift` 1,
-`inert` 230, `total` 58.** Per-taxonomy: `f1=2 f2=13 f3=39 f4=1 f5=3 f6=223 f7=0`;
-shared-geometry buckets `o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0`.
-`code_shift` decomposes as 39 F3 `equ`s + 13 overlay `o_bss` + 2 MZ `e_sp` +
-3 overlay zero pads.
+**Current tree** (a `make build` fixed point, measured 2026-10-17): **`code_shift`
+62, `data_shift` 1, `inert` 231, `total` 63.** Per-taxonomy:
+`f1=2 f2=13 f3=44 f4=1 f5=3 f6=224 f7=0`; shared-geometry buckets
+`o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0`. `code_shift` decomposes as 44 F3
+`equ`s + 13 overlay `o_bss` + 2 MZ `e_sp` + 3 overlay zero pads. (The rise from
+57/39 after D8 is the raw-driver load-origin change in Section 5 — `play`'s
+INT 08h handler now decodes as code and exposes its `cseg_` operands; an honest
+count, not a new frozen byte.)
 
 Two auxiliary counters, both in `BASELINE_TOTALS`:
 
-- `names_used` **22** / `names_inert` **25** — of the *named* frozen addresses,
+- `names_used` **26** / `names_inert` **26** — of the *named* frozen addresses,
   how many the tree actually refers to (`count_name_use`). Converting an inert
   name to a label moves the census without making anything follow an edit.
-- `hidden_flow` **118** — near call/jmp targets whose *target* the source shows as
+- `hidden_flow` **181** — near call/jmp targets whose *target* the source shows as
   code but whose *site* is emitted as bytes, so no source line spells the
-  reference (`count_hidden_flow`; a lower bound).
+  reference (`count_hidden_flow`; a lower bound — it rises mechanically as more
+  fragments move into `shared/` and lose their `; 0x` anchors).
 
-Where the 58 live, per emitted file: `play` 14, `vbase` 8, `vpcmk` 6, `vmaze` 5,
+Where the 63 live, per emitted file: `play` 19, `vbase` 8, `vpcmk` 6, `vmaze` 5,
 `ega`/`vinstall`/`vmnpc` 3, the rest 2s and 1s — `vpcvw` (16 before D8) and `vga`
-are down to 1. The single `data_shift` is a raw-driver DS reference
-(Appendix B).
+are down to 1. The single `data_shift` is a raw-driver DS reference (`ega dseg_24fd`).
 
 ---
 
@@ -62,21 +69,21 @@ are down to 1. The single `data_shift` is a raw-driver DS reference
 | id | value | where emitted | status |
 |----|-------|---------------|--------|
 | F1 | MZ `e_cblp`/`e_cp`, `e_ss` | `_render_mz_header` | dynamic |
-| F1 | MZ `e_sp` | `_render_mz_header` | literal (segment-relative) — counts as 2 |
+| F1 | MZ `e_sp` | `_render_mz_header` | literal — must derive from the data end + stack reserve (2) |
 | F2 | overlay `o_csize`/`o_entry`/`o_dsize` | `_render_ovr_header` | dynamic |
-| F2 | overlay `o_bss` | `_render_ovr_header` | literal (runtime) — counts as 13 |
+| F2 | overlay `o_bss` | `_render_ovr_header` | literal — must derive from the overlay's BSS declarations (13) |
 | F2 | overlay `o_corg` | `_render_ovr_header` | bound to host (`__zresident_end`) |
 | F2 | overlay `o_dorg` | `_render_ovr_header` | bound — it *is* the host DS size |
-| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | 39 `equ` remain |
+| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | 44 `equ` remain |
 | F4 | `dseg_`/`bss_` `equ` | `_build_source` | dynamic (MZ) and via the host data map (overlays); 1 raw-driver left |
 | F4 | `psp_` `equ` | `_build_source` | inert |
 | F4 | host DS-size immediates | `_build_source` | bound to `__zdseg_end` |
 | F5 | `times N db 0` gap to `data_origin` | `_render_data_block` | dynamic (MZ); 3 overlay pads remain |
-| F6 | numeric `dw` in a `literal` table | `_inject_jump_tables` | inert (tagged `; literal`) |
+| F6 | numeric `dw` in a `literal` table | `_inject_jump_tables` | unproven — filed inert today; each table must be shown to hold no address |
 | F7 | unrecognized pointer word in data | `_render_data_block` | done for the MZ images (`f7=0`) |
 | F8 | MZ relocation-table offset word | `hdr[28:]` | in scope |
-| F9 | unproven immediates (`_fmt_imm`) | `format.py` | waiver |
-| F10 | `; 0x<F>` offset comments | `_render_records` | cosmetic |
+| F9 | unproven immediates (`_fmt_imm`) | `format.py` | open — needs the immediate-address rule (Section 5) |
+| F10 | `; 0x<F>` offset comments | `_render_records` | comments, not values — assemble to nothing |
 
 A literal data table and an unresolved pointer word render identically
 (`dw 0x…. ; 0x<slot>`); the trailing `; literal` tag tells the census which is
@@ -187,7 +194,9 @@ bss_0cf6 equ (__zimage_end - __zdseg_start)
 bss_830c equ (__zimage_end - __zdseg_start) + 0x7616
 ```
 
-`e_sp` needs no change (SS == DS).
+`e_sp` is still a literal and is *not* edit-safe: SS == DS, so the stack top is a
+DS offset past the file-backed data and BSS, and growing the data shrinks the
+stack silently. It must be written from `__zdseg_end` + the stack reserve.
 
 **Host DS-size immediates** are rewritten to `__zdseg_end`
 (= file-backed data + reserved BSS).
@@ -240,7 +249,7 @@ string → entropy → zero → data), used to deprioritise words and to supply 
 
 ## 5. Remaining work
 
-`code_shift` 57 → 0, `data_shift` 1 → 0.
+`code_shift` 62 → 0, `data_shift` 1 → 0.
 
 - **D8 — inline switch tables (done, 2026-10-15).** A sparse `switch` compiles
   to `mov cx, N; call <helper>`; the helper pops the return address as the table
@@ -264,10 +273,22 @@ string → entropy → zero → data), used to deprioritise words and to supply 
     157 → 118, `names_used` 44 → 22; 18/18 byte-identical. Edit-property:
     `InlineSwitchEditTests` (a byte inserted before a `vpcvw` case arm moves
     exactly the targets at or past it; keys unchanged).
-  - *Follow-up:* overlay table targets render as `label - IMAGE_BASE + 0x5055`;
-    under the D7.5 `vstart` model that is just `label`, and the `0x5055` is a
-    frozen `o_corg` spelling the census does not count.
-- **The 39 F3 `equ`s (the largest block).** Overlay `loc_`/`string_`/`leaf_`/
+  - *Follow-up (done, 2026-10-17):* overlay table targets rendered as
+    `label - IMAGE_BASE + 0x5055`, a frozen `o_corg` the census did not count.
+    They now render `label - IMAGE_BASE + __zres_end` (1992 words), the same
+    form as `o_entry`, which also stays right under the ELF prep's `VBASE equ 0`.
+    18/18 byte-identical; `HostIncludeTests.test_overlay_corg_follows_a_host_code_edit`
+    checks that a table word moves with a host code edit.
+- **Raw-driver code tables + load origin (done, `61eba0bb`).** A driver runs at
+  `CS:0x100`, so a stored code pointer is `file + load_offset`; the driver switch
+  tables now resolve and inject their arms (`jumptable_XXXX_case_*`), and a
+  branch target laid out inside another routine's fragment is rooted instead of
+  being an `@..owner.lN` local. `play`'s INT 08h handler cluster decodes as code,
+  exposing its self-modified `cseg_` operands: `f3` 39 → 44, `code_shift`
+  57 → 62, `inert`/`f6` 230/223 → 231/224, `hidden_flow` 118 → 181 (most of that
+  from the earlier `shared/` growth 146 → 202), `names_used`/`names_inert`
+  22/25 → 26/26.
+- **The 44 F3 `equ`s (the largest block).** Overlay `loc_`/`string_`/`leaf_`/
   `fpu_`/`io_` names still refused a label, plus `play`'s driver `cseg_`/`data_`
   operands (code-segment variables). Each refusal is a byte whose *kind* is
   undecided upstream, not a rendering trick away:
@@ -275,16 +296,24 @@ string → entropy → zero → data), used to deprioritise words and to supply 
     data (the driver dispatch table followed by real code and strings);
   - the `mem_equ` `cseg_`/`data_` *operand* symbols (code-segment variables read
     as `[cs:cseg_XXXX - IMAGE_BASE]`) — data living in the code stream, which
-    wants carving as data;
+    wants carving as data; `play` alone carries 14 (`cseg_0848`…`cseg_1904`,
+    `cseg_0b10/0b12`), including the INT 08h handler's self-modified operands;
   - names strictly inside a decoded instruction;
   - names outside every record.
 
   The `vga` `immediate_labels` (15 `data_`) left this list in D7.6b: a driver's
   *named* absolute immediates are bound (`data_XXXX equ __zdata_XXXX - IMAGE_BASE`),
   so `vga`'s block is down to the one name that is never referenced.
-- **`o_bss` (13) + MZ `e_sp` (2) → `inert`.** Both are sizes that can never
-  change under a source edit; they are counted today and belong in the inert set
-  (Appendix B).
+- **`o_bss` (13), MZ `e_sp` (2) and `__zbss_size` → derived.** They look
+  invariant only because BSS is not represented as source: adding a variable
+  changes them. Declare BSS as labelled `resb` (or equivalent) objects and
+  derive the sizes — `o_bss`/`__zbss_size` from the BSS span, `e_sp` from
+  `__zdseg_end` + the stack reserve. `__zbss_size` is not counted by the census
+  today; it should be.
+- **F6 literal tables (224 words) and F9 immediates → proven.** "Not an address"
+  is a claim, not a default. Each `; literal` table needs evidence (the scorer's
+  negative evidence, a consumer that uses it arithmetically, or a sidecar entry
+  verified against the bytes); the rest are candidates.
 - **Overlay zero pads (3).** Settle whether they can carry an anchor.
 - **The raw-driver DS half + the parked `ega dseg_24fd`.** Bind them where DS is
   the host's; reclassify where it is not. `dseg_24fd` is a `[bx]` read (no `cs:`
@@ -301,15 +330,19 @@ string → entropy → zero → data), used to deprioritise words and to supply 
   build has no symbol for; `lib/aztec/relink.py` takes it as written and emits a
   bare literal, so a wrong `dseg_`/`bss_` prefix is invisible (the tree names
   DS:0x8482 `bss_8482`, past `bss_boundary`). The C reference should resolve: the
-  build declares the canonical name, or the fallback is a hard error. 16
-  references today, all in `lib/` sources.
+  build declares the canonical name, or the fallback is a hard error. The
+  `_RAW_DATA` fallback in `relink.py` is still there; the raw `dseg_`/`bss_`
+  spellings now live in the hand-written `.c` under `ds/`, `vinstall/` and
+  `shared/` (formerly `lib/`).
 - **Coverage.** An overlay should be covered by the edit-property test. The host
   already is (`HostIncludeTests`: a host data edit moves `o_dorg` and every
   `dseg_` operand; a host code edit moves an overlay's call displacement).
 - **ELF/DWARF for overlays** (`make elf-rebuild`): the prep is MZ-shaped and
   raises for overlays/drivers. Needs the kind-aware header handling, the
   `o_entry - o_corg + 14` entry mapping, and a per-type load base
-  (`EXE → 0`, `OVR → o_corg`, `DRV → 0x100`).
+  (`EXE → 0`, `OVR → o_corg`, `DRV → 0x100`). Still open (`make/elf.py` prints
+  "no ELF yet: overlay/driver DWARF is D7.0d"). Done for MZ: checkout-independent
+  DWARF paths (`lib/dwarf_paths.py`, mapped back in `launch.json`).
 
 ## 6. Acceptance
 
@@ -445,14 +478,14 @@ Hex is fixed-width (`0x%04x`, bytes `0x%02x`). An in-place label carries no valu
 comment (its address is the include's `; 0x<offset>`). Literal data words carry a
 trailing `; literal` tag.
 
-## Appendix B — Waivers (kept literal, counted today)
+## Appendix B — Fixed external addresses (not waivers)
 
-- `e_sp` — stack reserve size, segment-relative (2).
-- Overlay `o_bss` — uninitialized data size, host/runtime (13).
-- `__zbss_size` — an MZ size; invariant under any source edit (never counted).
-- `bios_data_*` and any `external_data` field — fixed external segment (inert).
-- PSP fields not in `PSP_FIELDS` (inert).
-- Raw-driver `data_*` — the code origin is known (`CS:0x100`) but the data
-  segment is established at run time; the parked `ega dseg_24fd` is this case.
-- Pure data words in lookup tables that are not addresses (F6/F9).
-- `; 0x<F>` comments (F10) — documentation only.
+These are the only values kept literal, because they name memory *outside* the
+image, which no source edit can move:
+
+- `bios_data_*` and any `external_data` field — the BIOS data area (segment 0x40).
+- `psp_*` fields — the DOS Program Segment Prefix layout.
+
+Everything else that is literal today (`e_sp`, `o_bss`, `__zbss_size`, the
+raw-driver `data_*`/`dseg_24fd`, F6 tables, F9 immediates) is open work in
+Section 5.

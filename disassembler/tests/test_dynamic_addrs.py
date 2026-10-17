@@ -1078,6 +1078,9 @@ class HostIncludeTests(unittest.TestCase):
             original = self._build_overlay(d)
             self.assertEqual(original[2:4], b'\x55\x50')            # o_corg 0x5055
             self.assertEqual(original[0xb8:0xbb], b'\xe8\x50\xf3')  # call aztec_csav
+            # A jump-table word (``vbase/leaf_loc_HLJH.asm``, file 0x17f4) is a
+            # CS offset, ``label - IMAGE_BASE + __zres_end``.
+            case = struct.unpack_from('<H', original, 0x17f4)[0]
 
             self._edit_host(d, '%include "ds/asm_only/aztec_csav.asm"',
                             '    db 0xee\n%include "ds/asm_only/aztec_csav.asm"')
@@ -1088,6 +1091,9 @@ class HostIncludeTests(unittest.TestCase):
             # ``o_entry`` (the entry's host CS offset) is drawn from the frame,
             # so it follows the host code edit too.
             self.assertEqual(grown[0xc:0xe], b'\x78\xe3')
+            # So does every jump-table word (it was a frozen ``+ 0x5055``).
+            self.assertEqual(struct.unpack_from('<H', grown, 0x17f4)[0],
+                             case + 1)
 
 
 class HostCallNamesTests(unittest.TestCase):

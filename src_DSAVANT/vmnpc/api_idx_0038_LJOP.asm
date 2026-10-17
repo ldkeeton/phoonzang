@@ -849,12 +849,12 @@ loc_RJNR:
     add sp, byte 8                   ; 0x4fa4
     jmp short @..api_idx_0038_LJOP.l23 ; 0x4fa7
 jumptable_4fa9:
-    dw loc_QUSU - IMAGE_BASE + 0x5055          ; 0x4fa9
-    dw loc_USII - IMAGE_BASE + 0x5055          ; 0x4fab
-    dw loc_USII - IMAGE_BASE + 0x5055          ; 0x4fad
-    dw loc_LPSH_4ea4 - IMAGE_BASE + 0x5055     ; 0x4faf
-    dw loc_NRKM - IMAGE_BASE + 0x5055          ; 0x4fb1
-    dw loc_RJNR - IMAGE_BASE + 0x5055          ; 0x4fb3
+    dw loc_QUSU - IMAGE_BASE + __zres_end      ; 0x4fa9
+    dw loc_USII - IMAGE_BASE + __zres_end      ; 0x4fab
+    dw loc_USII - IMAGE_BASE + __zres_end      ; 0x4fad
+    dw loc_LPSH_4ea4 - IMAGE_BASE + __zres_end ; 0x4faf
+    dw loc_NRKM - IMAGE_BASE + __zres_end      ; 0x4fb1
+    dw loc_RJNR - IMAGE_BASE + __zres_end      ; 0x4fb3
 @..api_idx_0038_LJOP.l21:
     cmp ax, strict word 6            ; 0x4fb5
     jae short @..api_idx_0038_LJOP.l22 ; 0x4fb8

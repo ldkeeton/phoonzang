@@ -191,20 +191,20 @@ jumptable_85bc_case_13:
     add sp, byte 0x0a                ; 0x85b7
     jmp short @..api_idx_0004_PONI.l2 ; 0x85ba
 jumptable_85bc:
-    dw jumptable_85bc_case_0 - IMAGE_BASE + 0x5055 ; 0x85bc
-    dw jumptable_85bc_case_1 - IMAGE_BASE + 0x5055 ; 0x85be
-    dw jumptable_85bc_case_2 - IMAGE_BASE + 0x5055 ; 0x85c0
-    dw jumptable_85bc_case_3 - IMAGE_BASE + 0x5055 ; 0x85c2
-    dw jumptable_85bc_case_4 - IMAGE_BASE + 0x5055 ; 0x85c4
-    dw jumptable_85bc_case_5 - IMAGE_BASE + 0x5055 ; 0x85c6
-    dw jumptable_85bc_case_6 - IMAGE_BASE + 0x5055 ; 0x85c8
-    dw jumptable_85bc_case_7 - IMAGE_BASE + 0x5055 ; 0x85ca
-    dw jumptable_85bc_case_8 - IMAGE_BASE + 0x5055 ; 0x85cc
-    dw jumptable_85bc_case_9 - IMAGE_BASE + 0x5055 ; 0x85ce
-    dw jumptable_85bc_case_10 - IMAGE_BASE + 0x5055 ; 0x85d0
-    dw jumptable_85bc_case_11 - IMAGE_BASE + 0x5055 ; 0x85d2
-    dw jumptable_85bc_case_12 - IMAGE_BASE + 0x5055 ; 0x85d4
-    dw jumptable_85bc_case_13 - IMAGE_BASE + 0x5055 ; 0x85d6
+    dw jumptable_85bc_case_0 - IMAGE_BASE + __zres_end ; 0x85bc
+    dw jumptable_85bc_case_1 - IMAGE_BASE + __zres_end ; 0x85be
+    dw jumptable_85bc_case_2 - IMAGE_BASE + __zres_end ; 0x85c0
+    dw jumptable_85bc_case_3 - IMAGE_BASE + __zres_end ; 0x85c2
+    dw jumptable_85bc_case_4 - IMAGE_BASE + __zres_end ; 0x85c4
+    dw jumptable_85bc_case_5 - IMAGE_BASE + __zres_end ; 0x85c6
+    dw jumptable_85bc_case_6 - IMAGE_BASE + __zres_end ; 0x85c8
+    dw jumptable_85bc_case_7 - IMAGE_BASE + __zres_end ; 0x85ca
+    dw jumptable_85bc_case_8 - IMAGE_BASE + __zres_end ; 0x85cc
+    dw jumptable_85bc_case_9 - IMAGE_BASE + __zres_end ; 0x85ce
+    dw jumptable_85bc_case_10 - IMAGE_BASE + __zres_end ; 0x85d0
+    dw jumptable_85bc_case_11 - IMAGE_BASE + __zres_end ; 0x85d2
+    dw jumptable_85bc_case_12 - IMAGE_BASE + __zres_end ; 0x85d4
+    dw jumptable_85bc_case_13 - IMAGE_BASE + __zres_end ; 0x85d6
 @..api_idx_0004_PONI.l1:
     cmp ax, strict word 0xe          ; 0x85d8
     jae short @..api_idx_0004_PONI.l2 ; 0x85db

@@ -191,20 +191,20 @@ jumptable_240e_case_13:
     add sp, byte 0x0a                ; 0x2409
     jmp short @..api_idx_0004_PTIQ.l2 ; 0x240c
 jumptable_240e:
-    dw jumptable_240e_case_0 - IMAGE_BASE + 0x5055 ; 0x240e
-    dw jumptable_240e_case_1 - IMAGE_BASE + 0x5055 ; 0x2410
-    dw jumptable_240e_case_2 - IMAGE_BASE + 0x5055 ; 0x2412
-    dw jumptable_240e_case_3 - IMAGE_BASE + 0x5055 ; 0x2414
-    dw jumptable_240e_case_4 - IMAGE_BASE + 0x5055 ; 0x2416
-    dw jumptable_240e_case_5 - IMAGE_BASE + 0x5055 ; 0x2418
-    dw jumptable_240e_case_6 - IMAGE_BASE + 0x5055 ; 0x241a
-    dw jumptable_240e_case_7 - IMAGE_BASE + 0x5055 ; 0x241c
-    dw jumptable_240e_case_8 - IMAGE_BASE + 0x5055 ; 0x241e
-    dw jumptable_240e_case_9 - IMAGE_BASE + 0x5055 ; 0x2420
-    dw jumptable_240e_case_10 - IMAGE_BASE + 0x5055 ; 0x2422
-    dw jumptable_240e_case_11 - IMAGE_BASE + 0x5055 ; 0x2424
-    dw jumptable_240e_case_12 - IMAGE_BASE + 0x5055 ; 0x2426
-    dw jumptable_240e_case_13 - IMAGE_BASE + 0x5055 ; 0x2428
+    dw jumptable_240e_case_0 - IMAGE_BASE + __zres_end ; 0x240e
+    dw jumptable_240e_case_1 - IMAGE_BASE + __zres_end ; 0x2410
+    dw jumptable_240e_case_2 - IMAGE_BASE + __zres_end ; 0x2412
+    dw jumptable_240e_case_3 - IMAGE_BASE + __zres_end ; 0x2414
+    dw jumptable_240e_case_4 - IMAGE_BASE + __zres_end ; 0x2416
+    dw jumptable_240e_case_5 - IMAGE_BASE + __zres_end ; 0x2418
+    dw jumptable_240e_case_6 - IMAGE_BASE + __zres_end ; 0x241a
+    dw jumptable_240e_case_7 - IMAGE_BASE + __zres_end ; 0x241c
+    dw jumptable_240e_case_8 - IMAGE_BASE + __zres_end ; 0x241e
+    dw jumptable_240e_case_9 - IMAGE_BASE + __zres_end ; 0x2420
+    dw jumptable_240e_case_10 - IMAGE_BASE + __zres_end ; 0x2422
+    dw jumptable_240e_case_11 - IMAGE_BASE + __zres_end ; 0x2424
+    dw jumptable_240e_case_12 - IMAGE_BASE + __zres_end ; 0x2426
+    dw jumptable_240e_case_13 - IMAGE_BASE + __zres_end ; 0x2428
 @..api_idx_0004_PTIQ.l1:
     cmp ax, strict word 0xe          ; 0x242a
     jae short @..api_idx_0004_PTIQ.l2 ; 0x242d

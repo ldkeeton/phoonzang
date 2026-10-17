@@ -650,13 +650,13 @@ jumptable_59e2_case_6:
 @..api_idx_0030_JQMM.l23:
     jmp short @..api_idx_0030_JQMM.l25 ; 0x59e0
 jumptable_59e2:
-    dw jumptable_59e2_case_0 - IMAGE_BASE + 0x5055 ; 0x59e2
-    dw jumptable_59e2_case_1 - IMAGE_BASE + 0x5055 ; 0x59e4
-    dw jumptable_59e2_case_2 - IMAGE_BASE + 0x5055 ; 0x59e6
-    dw jumptable_59e2_case_3 - IMAGE_BASE + 0x5055 ; 0x59e8
-    dw jumptable_59e2_case_4 - IMAGE_BASE + 0x5055 ; 0x59ea
-    dw jumptable_59e2_case_5 - IMAGE_BASE + 0x5055 ; 0x59ec
-    dw jumptable_59e2_case_6 - IMAGE_BASE + 0x5055 ; 0x59ee
+    dw jumptable_59e2_case_0 - IMAGE_BASE + __zres_end ; 0x59e2
+    dw jumptable_59e2_case_1 - IMAGE_BASE + __zres_end ; 0x59e4
+    dw jumptable_59e2_case_2 - IMAGE_BASE + __zres_end ; 0x59e6
+    dw jumptable_59e2_case_3 - IMAGE_BASE + __zres_end ; 0x59e8
+    dw jumptable_59e2_case_4 - IMAGE_BASE + __zres_end ; 0x59ea
+    dw jumptable_59e2_case_5 - IMAGE_BASE + __zres_end ; 0x59ec
+    dw jumptable_59e2_case_6 - IMAGE_BASE + __zres_end ; 0x59ee
 @..api_idx_0030_JQMM.l24:
     cmp ax, strict word 7            ; 0x59f0
     jae short @..api_idx_0030_JQMM.l25 ; 0x59f3

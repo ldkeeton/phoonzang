@@ -127,12 +127,12 @@ loc_PUVO:
     mov word [bp - 0x0004], 0        ; 0x69e5
     jmp short @..api_idx_004a_UIIS.l7 ; 0x69ea
 jumptable_69ec:
-    dw loc_JGMH_6987 - IMAGE_BASE + 0x5055     ; 0x69ec
-    dw loc_KNJM - IMAGE_BASE + 0x5055          ; 0x69ee
-    dw loc_MNIM_6999 - IMAGE_BASE + 0x5055     ; 0x69f0
-    dw loc_LLMN - IMAGE_BASE + 0x5055          ; 0x69f2
-    dw loc_LLMN - IMAGE_BASE + 0x5055          ; 0x69f4
-    dw loc_PUVO - IMAGE_BASE + 0x5055          ; 0x69f6
+    dw loc_JGMH_6987 - IMAGE_BASE + __zres_end ; 0x69ec
+    dw loc_KNJM - IMAGE_BASE + __zres_end      ; 0x69ee
+    dw loc_MNIM_6999 - IMAGE_BASE + __zres_end ; 0x69f0
+    dw loc_LLMN - IMAGE_BASE + __zres_end      ; 0x69f2
+    dw loc_LLMN - IMAGE_BASE + __zres_end      ; 0x69f4
+    dw loc_PUVO - IMAGE_BASE + __zres_end      ; 0x69f6
 @..api_idx_004a_UIIS.l6:
     cmp ax, strict word 6            ; 0x69f8
     jae short @..api_idx_004a_UIIS.l7 ; 0x69fb

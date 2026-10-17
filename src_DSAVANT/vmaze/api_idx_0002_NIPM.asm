@@ -47,13 +47,13 @@ loc_RVMP:
     pop cx                           ; 0x7417
     jmp short @..api_idx_0002_NIPM.l2 ; 0x7418
 jumptable_741a:
-    dw loc_JKUN - IMAGE_BASE + 0x5055          ; 0x741a
-    dw loc_QRGI - IMAGE_BASE + 0x5055          ; 0x741c
-    dw loc_ISSU - IMAGE_BASE + 0x5055          ; 0x741e
-    dw jumptable_741a_case_3 - IMAGE_BASE + 0x5055 ; 0x7420
-    dw loc_RVMP - IMAGE_BASE + 0x5055          ; 0x7422
-    dw loc_RVMP - IMAGE_BASE + 0x5055          ; 0x7424
-    dw loc_RVMP - IMAGE_BASE + 0x5055          ; 0x7426
+    dw loc_JKUN - IMAGE_BASE + __zres_end      ; 0x741a
+    dw loc_QRGI - IMAGE_BASE + __zres_end      ; 0x741c
+    dw loc_ISSU - IMAGE_BASE + __zres_end      ; 0x741e
+    dw jumptable_741a_case_3 - IMAGE_BASE + __zres_end ; 0x7420
+    dw loc_RVMP - IMAGE_BASE + __zres_end      ; 0x7422
+    dw loc_RVMP - IMAGE_BASE + __zres_end      ; 0x7424
+    dw loc_RVMP - IMAGE_BASE + __zres_end      ; 0x7426
 @..api_idx_0002_NIPM.l1:
     cmp ax, strict word 7            ; 0x7428
     jae short @..api_idx_0002_NIPM.l2 ; 0x742b

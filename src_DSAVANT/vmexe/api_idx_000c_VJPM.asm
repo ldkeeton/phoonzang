@@ -443,12 +443,12 @@ jumptable_735e_case_5:
     add sp, byte 0x12                ; 0x7359
     jmp short @..api_idx_000c_VJPM.l31 ; 0x735c
 jumptable_735e:
-    dw jumptable_735e_case_0 - IMAGE_BASE + 0x5055 ; 0x735e
-    dw jumptable_735e_case_1 - IMAGE_BASE + 0x5055 ; 0x7360
-    dw jumptable_735e_case_2 - IMAGE_BASE + 0x5055 ; 0x7362
-    dw jumptable_735e_case_3 - IMAGE_BASE + 0x5055 ; 0x7364
-    dw jumptable_735e_case_4 - IMAGE_BASE + 0x5055 ; 0x7366
-    dw jumptable_735e_case_5 - IMAGE_BASE + 0x5055 ; 0x7368
+    dw jumptable_735e_case_0 - IMAGE_BASE + __zres_end ; 0x735e
+    dw jumptable_735e_case_1 - IMAGE_BASE + __zres_end ; 0x7360
+    dw jumptable_735e_case_2 - IMAGE_BASE + __zres_end ; 0x7362
+    dw jumptable_735e_case_3 - IMAGE_BASE + __zres_end ; 0x7364
+    dw jumptable_735e_case_4 - IMAGE_BASE + __zres_end ; 0x7366
+    dw jumptable_735e_case_5 - IMAGE_BASE + __zres_end ; 0x7368
 @..api_idx_000c_VJPM.l30:
     cmp ax, strict word 6            ; 0x736a
     jae short @..api_idx_000c_VJPM.l31 ; 0x736d

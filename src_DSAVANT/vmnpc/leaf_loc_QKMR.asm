@@ -3,12 +3,12 @@ leaf_loc_QKMR:
     mov word [bp - 0x005c], 0        ; 0x6592
     jmp short loc_NPIS               ; 0x6597
 jumptable_6599:
-    dw loc_TSUU - IMAGE_BASE + 0x5055          ; 0x6599
-    dw loc_VLPO - IMAGE_BASE + 0x5055          ; 0x659b
-    dw loc_STLQ - IMAGE_BASE + 0x5055          ; 0x659d
-    dw loc_HTIU - IMAGE_BASE + 0x5055          ; 0x659f
-    dw loc_VLPO - IMAGE_BASE + 0x5055          ; 0x65a1
-    dw leaf_loc_QKMR - IMAGE_BASE + 0x5055     ; 0x65a3
+    dw loc_TSUU - IMAGE_BASE + __zres_end      ; 0x6599
+    dw loc_VLPO - IMAGE_BASE + __zres_end      ; 0x659b
+    dw loc_STLQ - IMAGE_BASE + __zres_end      ; 0x659d
+    dw loc_HTIU - IMAGE_BASE + __zres_end      ; 0x659f
+    dw loc_VLPO - IMAGE_BASE + __zres_end      ; 0x65a1
+    dw leaf_loc_QKMR - IMAGE_BASE + __zres_end ; 0x65a3
 loc_MNSG:
     cmp ax, strict word 6            ; 0x65a5
     jae short loc_NPIS               ; 0x65a8

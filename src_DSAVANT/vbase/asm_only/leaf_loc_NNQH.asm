@@ -675,31 +675,31 @@ jumptable_5e7f_case_24:
     add sp, byte 4                   ; 0x5e7a
     jmp short loc_IRGJ               ; 0x5e7d
 jumptable_5e7f:
-    dw jumptable_5e7f_case_0 - IMAGE_BASE + 0x5055 ; 0x5e7f
-    dw jumptable_5e7f_case_1 - IMAGE_BASE + 0x5055 ; 0x5e81
-    dw jumptable_5e7f_case_2 - IMAGE_BASE + 0x5055 ; 0x5e83
-    dw jumptable_5e7f_case_3 - IMAGE_BASE + 0x5055 ; 0x5e85
-    dw jumptable_5e7f_case_4 - IMAGE_BASE + 0x5055 ; 0x5e87
-    dw jumptable_5e7f_case_5 - IMAGE_BASE + 0x5055 ; 0x5e89
-    dw jumptable_5e7f_case_6 - IMAGE_BASE + 0x5055 ; 0x5e8b
-    dw jumptable_5e7f_case_7 - IMAGE_BASE + 0x5055 ; 0x5e8d
-    dw jumptable_5e7f_case_8 - IMAGE_BASE + 0x5055 ; 0x5e8f
-    dw jumptable_5e7f_case_9 - IMAGE_BASE + 0x5055 ; 0x5e91
-    dw jumptable_5e7f_case_10 - IMAGE_BASE + 0x5055 ; 0x5e93
-    dw jumptable_5e7f_case_11 - IMAGE_BASE + 0x5055 ; 0x5e95
-    dw jumptable_5e7f_case_12 - IMAGE_BASE + 0x5055 ; 0x5e97
-    dw jumptable_5e7f_case_13 - IMAGE_BASE + 0x5055 ; 0x5e99
-    dw jumptable_5e7f_case_14 - IMAGE_BASE + 0x5055 ; 0x5e9b
-    dw jumptable_5e7f_case_15 - IMAGE_BASE + 0x5055 ; 0x5e9d
-    dw jumptable_5e7f_case_16 - IMAGE_BASE + 0x5055 ; 0x5e9f
-    dw jumptable_5e7f_case_17 - IMAGE_BASE + 0x5055 ; 0x5ea1
-    dw jumptable_5e7f_case_18 - IMAGE_BASE + 0x5055 ; 0x5ea3
-    dw jumptable_5e7f_case_19 - IMAGE_BASE + 0x5055 ; 0x5ea5
-    dw jumptable_5e7f_case_20 - IMAGE_BASE + 0x5055 ; 0x5ea7
-    dw jumptable_5e7f_case_21 - IMAGE_BASE + 0x5055 ; 0x5ea9
-    dw jumptable_5e7f_case_22 - IMAGE_BASE + 0x5055 ; 0x5eab
-    dw jumptable_5e7f_case_23 - IMAGE_BASE + 0x5055 ; 0x5ead
-    dw jumptable_5e7f_case_24 - IMAGE_BASE + 0x5055 ; 0x5eaf
+    dw jumptable_5e7f_case_0 - IMAGE_BASE + __zres_end ; 0x5e7f
+    dw jumptable_5e7f_case_1 - IMAGE_BASE + __zres_end ; 0x5e81
+    dw jumptable_5e7f_case_2 - IMAGE_BASE + __zres_end ; 0x5e83
+    dw jumptable_5e7f_case_3 - IMAGE_BASE + __zres_end ; 0x5e85
+    dw jumptable_5e7f_case_4 - IMAGE_BASE + __zres_end ; 0x5e87
+    dw jumptable_5e7f_case_5 - IMAGE_BASE + __zres_end ; 0x5e89
+    dw jumptable_5e7f_case_6 - IMAGE_BASE + __zres_end ; 0x5e8b
+    dw jumptable_5e7f_case_7 - IMAGE_BASE + __zres_end ; 0x5e8d
+    dw jumptable_5e7f_case_8 - IMAGE_BASE + __zres_end ; 0x5e8f
+    dw jumptable_5e7f_case_9 - IMAGE_BASE + __zres_end ; 0x5e91
+    dw jumptable_5e7f_case_10 - IMAGE_BASE + __zres_end ; 0x5e93
+    dw jumptable_5e7f_case_11 - IMAGE_BASE + __zres_end ; 0x5e95
+    dw jumptable_5e7f_case_12 - IMAGE_BASE + __zres_end ; 0x5e97
+    dw jumptable_5e7f_case_13 - IMAGE_BASE + __zres_end ; 0x5e99
+    dw jumptable_5e7f_case_14 - IMAGE_BASE + __zres_end ; 0x5e9b
+    dw jumptable_5e7f_case_15 - IMAGE_BASE + __zres_end ; 0x5e9d
+    dw jumptable_5e7f_case_16 - IMAGE_BASE + __zres_end ; 0x5e9f
+    dw jumptable_5e7f_case_17 - IMAGE_BASE + __zres_end ; 0x5ea1
+    dw jumptable_5e7f_case_18 - IMAGE_BASE + __zres_end ; 0x5ea3
+    dw jumptable_5e7f_case_19 - IMAGE_BASE + __zres_end ; 0x5ea5
+    dw jumptable_5e7f_case_20 - IMAGE_BASE + __zres_end ; 0x5ea7
+    dw jumptable_5e7f_case_21 - IMAGE_BASE + __zres_end ; 0x5ea9
+    dw jumptable_5e7f_case_22 - IMAGE_BASE + __zres_end ; 0x5eab
+    dw jumptable_5e7f_case_23 - IMAGE_BASE + __zres_end ; 0x5ead
+    dw jumptable_5e7f_case_24 - IMAGE_BASE + __zres_end ; 0x5eaf
 loc_TPNH:
     cmp ax, strict word 0x19         ; 0x5eb1
     jae short loc_IRGJ               ; 0x5eb4

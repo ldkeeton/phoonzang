@@ -941,17 +941,17 @@ loc_UJUH:
     mov word [bp - 0x00b4], 0        ; 0x4050
     jmp short @..api_idx_00d4_LUPQ.l67 ; 0x4056
 jumptable_4058:
-    dw loc_HGVG - IMAGE_BASE + 0x5055          ; 0x4058
-    dw loc_GSNU - IMAGE_BASE + 0x5055          ; 0x405a
-    dw loc_LPSH_3fab - IMAGE_BASE + 0x5055     ; 0x405c
-    dw loc_UPTQ_3f26 - IMAGE_BASE + 0x5055     ; 0x405e
-    dw loc_UPTQ_3f5e - IMAGE_BASE + 0x5055     ; 0x4060
-    dw loc_NGVU - IMAGE_BASE + 0x5055          ; 0x4062
-    dw loc_LPSH_3fb7 - IMAGE_BASE + 0x5055     ; 0x4064
-    dw loc_JNST - IMAGE_BASE + 0x5055          ; 0x4066
-    dw loc_LPSH_3f23 - IMAGE_BASE + 0x5055     ; 0x4068
-    dw loc_NPHN - IMAGE_BASE + 0x5055          ; 0x406a
-    dw loc_UJUH - IMAGE_BASE + 0x5055          ; 0x406c
+    dw loc_HGVG - IMAGE_BASE + __zres_end      ; 0x4058
+    dw loc_GSNU - IMAGE_BASE + __zres_end      ; 0x405a
+    dw loc_LPSH_3fab - IMAGE_BASE + __zres_end ; 0x405c
+    dw loc_UPTQ_3f26 - IMAGE_BASE + __zres_end ; 0x405e
+    dw loc_UPTQ_3f5e - IMAGE_BASE + __zres_end ; 0x4060
+    dw loc_NGVU - IMAGE_BASE + __zres_end      ; 0x4062
+    dw loc_LPSH_3fb7 - IMAGE_BASE + __zres_end ; 0x4064
+    dw loc_JNST - IMAGE_BASE + __zres_end      ; 0x4066
+    dw loc_LPSH_3f23 - IMAGE_BASE + __zres_end ; 0x4068
+    dw loc_NPHN - IMAGE_BASE + __zres_end      ; 0x406a
+    dw loc_UJUH - IMAGE_BASE + __zres_end      ; 0x406c
 @..api_idx_00d4_LUPQ.l66:
     cmp ax, strict word 0xb          ; 0x406e
     jae short @..api_idx_00d4_LUPQ.l67 ; 0x4071
