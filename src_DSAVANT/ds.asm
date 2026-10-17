@@ -892,27 +892,27 @@ cseg_480d:
     db 'LlhFNoxXudiscpneEfgG%'
 
 jumptable_4822:
-    dw ds_string_loc_490f - IMAGE_BASE         ; 0x4822
-    dw ds_string_loc_4916 - IMAGE_BASE         ; 0x4824
-    dw ds_string_loc_491a - IMAGE_BASE         ; 0x4826
-    dw ds_string_loc_491d - IMAGE_BASE         ; 0x4828
-    dw ds_string_loc_491a - IMAGE_BASE         ; 0x482a
-    dw ds_leaf_loc_4924 - IMAGE_BASE           ; 0x482c
-    dw ds_leaf_loc_492d - IMAGE_BASE           ; 0x482e
-    dw ds_leaf_loc_4929 - IMAGE_BASE           ; 0x4830
-    dw ds_leaf_loc_4932 - IMAGE_BASE           ; 0x4832
-    dw ds_leaf_loc_4937 - IMAGE_BASE           ; 0x4834
-    dw ds_leaf_loc_4937 - IMAGE_BASE           ; 0x4836
-    dw ds_loc_QMOJ - IMAGE_BASE                ; 0x4838
-    dw ds_loc_OKTP - IMAGE_BASE                ; 0x483a
-    dw ds_string_loc_4a9f - IMAGE_BASE         ; 0x483c
-    dw ds_string_loc_4aa2 - IMAGE_BASE         ; 0x483e
-    dw ds_loc_RLKL - IMAGE_BASE                ; 0x4840
-    dw ds_loc_GHJS - IMAGE_BASE                ; 0x4842
-    dw ds_loc_RLKL - IMAGE_BASE                ; 0x4844
-    dw ds_loc_RLKL - IMAGE_BASE                ; 0x4846
-    dw ds_loc_GHJS - IMAGE_BASE                ; 0x4848
-    dw ds_string_loc_4882 - IMAGE_BASE         ; 0x484a
+    dw jumptable_4822_case_0 - IMAGE_BASE      ; 0x4822
+    dw jumptable_4822_case_1 - IMAGE_BASE      ; 0x4824
+    dw jumptable_4822_case_2 - IMAGE_BASE      ; 0x4826
+    dw jumptable_4822_case_3 - IMAGE_BASE      ; 0x4828
+    dw jumptable_4822_case_2 - IMAGE_BASE      ; 0x482a
+    dw jumptable_4822_case_5 - IMAGE_BASE      ; 0x482c
+    dw jumptable_4822_case_6 - IMAGE_BASE      ; 0x482e
+    dw jumptable_4822_case_7 - IMAGE_BASE      ; 0x4830
+    dw jumptable_4822_case_8 - IMAGE_BASE      ; 0x4832
+    dw jumptable_4822_case_9 - IMAGE_BASE      ; 0x4834
+    dw jumptable_4822_case_9 - IMAGE_BASE      ; 0x4836
+    dw jumptable_4822_case_11 - IMAGE_BASE     ; 0x4838
+    dw jumptable_4822_case_12 - IMAGE_BASE     ; 0x483a
+    dw jumptable_4822_case_13 - IMAGE_BASE     ; 0x483c
+    dw jumptable_4822_case_14 - IMAGE_BASE     ; 0x483e
+    dw jumptable_4822_case_15 - IMAGE_BASE     ; 0x4840
+    dw jumptable_4822_case_16 - IMAGE_BASE     ; 0x4842
+    dw jumptable_4822_case_15 - IMAGE_BASE     ; 0x4844
+    dw jumptable_4822_case_15 - IMAGE_BASE     ; 0x4846
+    dw jumptable_4822_case_16 - IMAGE_BASE     ; 0x4848
+    dw jumptable_4822_case_20 - IMAGE_BASE     ; 0x484a
 cseg_484c:
 
     db '0123456789abcdef -lm first', 0

@@ -31,35 +31,35 @@ ds_app_JKOJ: ; Aztec csav frame=0x0014
     mov word [bp - 0x000a], 7        ; 0x2caf
     mov ax, word [bp - 0x0002]       ; 0x2cb4
     jmp near @..ds_app_JKOJ.l5       ; 0x2cb7
-ds_leaf_loc_2cba:
+jumptable_2d50_case_0:
     mov ax, word [bss_82e8]          ; 0x2cba
     inc ax                           ; 0x2cbd
     mov word [bp - 0x0004], ax       ; 0x2cbe
     jmp near @..ds_app_JKOJ.l6       ; 0x2cc1
-ds_leaf_loc_2cc4:
+jumptable_2d50_case_1:
     mov ax, word [bss_82e8]          ; 0x2cc4
     inc ax                           ; 0x2cc7
     inc ax                           ; 0x2cc8
     inc ax                           ; 0x2cc9
     mov word [bp - 0x0004], ax       ; 0x2cca
     jmp near @..ds_app_JKOJ.l6       ; 0x2ccd
-ds_leaf_loc_2cd0:
+jumptable_2d50_case_2:
     mov ax, word [bss_82e8]          ; 0x2cd0
     add ax, strict word 5            ; 0x2cd3
     mov word [bp - 0x0004], ax       ; 0x2cd6
     jmp near @..ds_app_JKOJ.l6       ; 0x2cd9
-ds_leaf_loc_2cdc:
+jumptable_2d50_case_3:
     mov ax, word [bss_82e8]          ; 0x2cdc
     imul word [bss_82ea]             ; 0x2cdf
     add ax, strict word 7            ; 0x2ce3
     mov word [bp - 0x0004], ax       ; 0x2ce6
     jmp near @..ds_app_JKOJ.l6       ; 0x2ce9
-ds_leaf_loc_2cec:
+jumptable_2d50_case_5:
     mov ax, word [bss_82e8]          ; 0x2cec
     add ax, strict word 9            ; 0x2cef
     mov word [bp - 0x0004], ax       ; 0x2cf2
     jmp near @..ds_app_JKOJ.l6       ; 0x2cf5
-ds_leaf_loc_2cf8:
+jumptable_2d50_case_4:
     mov ax, word [bss_82e8]          ; 0x2cf8
     cmp ax, word [bss_82ec]          ; 0x2cfb
     je short @..ds_app_JKOJ.l4       ; 0x2cff
@@ -97,12 +97,12 @@ ds_leaf_loc_2cf8:
     mov word [bp - 0x0004], ax       ; 0x2d4b
     jmp short @..ds_app_JKOJ.l6      ; 0x2d4e
 jumptable_2d50:
-    dw ds_leaf_loc_2cba - IMAGE_BASE           ; 0x2d50
-    dw ds_leaf_loc_2cc4 - IMAGE_BASE           ; 0x2d52
-    dw ds_leaf_loc_2cd0 - IMAGE_BASE           ; 0x2d54
-    dw ds_leaf_loc_2cdc - IMAGE_BASE           ; 0x2d56
-    dw ds_leaf_loc_2cf8 - IMAGE_BASE           ; 0x2d58
-    dw ds_leaf_loc_2cec - IMAGE_BASE           ; 0x2d5a
+    dw jumptable_2d50_case_0 - IMAGE_BASE      ; 0x2d50
+    dw jumptable_2d50_case_1 - IMAGE_BASE      ; 0x2d52
+    dw jumptable_2d50_case_2 - IMAGE_BASE      ; 0x2d54
+    dw jumptable_2d50_case_3 - IMAGE_BASE      ; 0x2d56
+    dw jumptable_2d50_case_4 - IMAGE_BASE      ; 0x2d58
+    dw jumptable_2d50_case_5 - IMAGE_BASE      ; 0x2d5a
 @..ds_app_JKOJ.l5:
     cmp ax, strict word 6            ; 0x2d5c
     jae short @..ds_app_JKOJ.l6      ; 0x2d5f

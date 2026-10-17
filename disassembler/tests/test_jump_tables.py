@@ -8,7 +8,7 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 from lib.model import JumpTableInfo
 from tests.syms import generated
 from lib.phases.recursive import (
-    _code_off, _inline_call_table, _scan_jump_table,
+    _code_off, _find_jump_table_bounds, _inline_call_table, _scan_jump_table,
 )
 from lib.phases.aztec_switch import AZTEC_SWITCH_BODY, aztec_switch_layout
 from lib.verify.assemble import clear_assemble_cache, micro_assemble
@@ -62,6 +62,45 @@ class ScanJumpTableBoundsTests(unittest.TestCase):
             self._table(), 0x40, conf, max_index=None)
         self.assertEqual(targets, set())
         self.assertEqual(end, 0x40)
+
+
+class DispatcherBoundsTests(unittest.TestCase):
+    """``_find_jump_table_bounds`` says whether the count is the dispatcher's."""
+
+    MD = Cs(CS_ARCH_X86, CS_MODE_16)
+
+    def test_a_scan_dispatch_bounds_its_table_by_the_key_count(self):
+        # Aztec sprintf (vinstall 0x312d): mov cx, 3; repne scasb;
+        # sub di, K; shl di, 1; jmp [cs:di + 0x40].  The 3 slots are followed
+        # by the "01" of a digit string, which must not become a 4th.
+        data = bytearray(0x80)
+        data[0:14] = bytes([0xB9, 0x03, 0x00, 0xF2, 0xAE,
+                            0x81, 0xEF, 0x00, 0x00, 0xD1, 0xE7,
+                            0x2E, 0xFF, 0xA5])
+        data[14:16] = struct.pack('<H', 0x40)
+        for i, target in enumerate((0x10, 0x14, 0x18)):
+            struct.pack_into('<H', data, 0x40 + 2 * i, target)
+        data[0x46:0x48] = b'01'
+        self.assertEqual(
+            _find_jump_table_bounds(bytes(data), 11, self.MD, jt_addr=0x40),
+            (2, True))
+
+    def test_a_cmp_next_to_the_jmp_is_proven(self):
+        # cmp ax, 4; jae +n; xchg bx, ax; shl bx, 1; jmp [cs:bx + 0x40]
+        data = bytes([0x3D, 0x04, 0x00, 0x73, 0x10, 0x93, 0xD1, 0xE3,
+                      0x2E, 0xFF, 0xA7, 0x40, 0x00]) + bytes(0x80)
+        self.assertEqual(
+            _find_jump_table_bounds(data, 8, self.MD, jt_addr=0x40),
+            (3, True))
+
+    def test_a_pattern_found_by_the_window_is_only_a_guess(self):
+        # No check next to the jmp; a ``3D xx xx 73`` sits 32 bytes earlier.
+        data = bytearray(0x80)
+        data[0x10:0x14] = bytes([0x3D, 0x06, 0x00, 0x73])
+        data[0x30:0x35] = bytes([0x2E, 0xFF, 0xA7, 0x40, 0x00])
+        self.assertEqual(
+            _find_jump_table_bounds(bytes(data), 0x30, self.MD, jt_addr=0x40),
+            (5, False))
 
 
 class CodeOffSignExtensionTests(unittest.TestCase):

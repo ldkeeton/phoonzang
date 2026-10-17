@@ -251,7 +251,7 @@ api_idx_0080_MHMQ.api_idx1 equ api_idx_0012_PJTU
 
 ; bss_93f6 equ __zdseg_end + (__zobss_93f6 - __zdata_start)
 ; bss_93f8 equ __zdseg_end + (__zobss_93f8 - __zdata_start)
-%include "vpcvw/loc_LJLP.asm"              ; 0x70ca
+%include "vpcvw/loc_IUTP.asm"              ; 0x70ca
 
 %include "vpcvw/api_idx_0004_IKOQ.asm"     ; 0x82da
 

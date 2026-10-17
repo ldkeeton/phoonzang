@@ -63,7 +63,7 @@ api_idx_00d2_SNMN:
     add sp, byte 0x0c                ; 0x63bf
     mov word [bp - 0x0060], ax       ; 0x63c2
     jmp near @..api_idx_00d2_SNMN.l17 ; 0x63c5
-loc_VING:
+jumptable_6599_case_0:
     mov ax, 0x248                    ; 0x63c8
     imul word [bp + 0x4]             ; 0x63cb
     mov bx, ax                       ; 0x63ce
@@ -98,7 +98,7 @@ loc_VING:
 @..api_idx_00d2_SNMN.l7:
     mov word [bp - 0x005c], 0        ; 0x6412
     jmp near @..api_idx_00d2_SNMN.l18 ; 0x6417
-loc_PKMU:
+jumptable_6599_case_2:
     mov word [bss_9d62], 1           ; 0x641a
     mov word [bp - 0x005e], 0        ; 0x6420
     jmp short @..api_idx_00d2_SNMN.l10 ; 0x6425
@@ -126,7 +126,7 @@ loc_PKMU:
     sub word [bp - 0x0002], ax       ; 0x6457
     mov word [bp - 0x005c], 0        ; 0x645a
     jmp near @..api_idx_00d2_SNMN.l18 ; 0x645f
-loc_NULI:
+jumptable_6599_case_3:
     mov ax, 1                        ; 0x6462
     push ax                          ; 0x6465
     push ax                          ; 0x6466
@@ -141,7 +141,7 @@ loc_NULI:
     mov word [bp - 0x005c], 0        ; 0x647d
 @..api_idx_00d2_SNMN.l11:
     jmp near @..api_idx_00d2_SNMN.l18 ; 0x6482
-loc_GSUS:
+jumptable_6599_case_1:
     cmp word [bp - 0x0060], byte 4   ; 0x6485
     jne short @..api_idx_00d2_SNMN.l12 ; 0x6489
     push word [bp + 0x4]             ; 0x648b
@@ -253,16 +253,16 @@ loc_GSUS:
     call loc_HTQP                    ; 0x658c
     pop cx                           ; 0x658f
     jmp short @..api_idx_00d2_SNMN.l18 ; 0x6590
-leaf_loc_6592:
+jumptable_6599_case_5:
     mov word [bp - 0x005c], 0        ; 0x6592
     jmp short @..api_idx_00d2_SNMN.l18 ; 0x6597
 jumptable_6599:
-    dw loc_VING - IMAGE_BASE + __zres_end      ; 0x6599
-    dw loc_GSUS - IMAGE_BASE + __zres_end      ; 0x659b
-    dw loc_PKMU - IMAGE_BASE + __zres_end      ; 0x659d
-    dw loc_NULI - IMAGE_BASE + __zres_end      ; 0x659f
-    dw loc_GSUS - IMAGE_BASE + __zres_end      ; 0x65a1
-    dw leaf_loc_6592 - IMAGE_BASE + __zres_end ; 0x65a3
+    dw jumptable_6599_case_0 - IMAGE_BASE + __zres_end ; 0x6599
+    dw jumptable_6599_case_1 - IMAGE_BASE + __zres_end ; 0x659b
+    dw jumptable_6599_case_2 - IMAGE_BASE + __zres_end ; 0x659d
+    dw jumptable_6599_case_3 - IMAGE_BASE + __zres_end ; 0x659f
+    dw jumptable_6599_case_1 - IMAGE_BASE + __zres_end ; 0x65a1
+    dw jumptable_6599_case_5 - IMAGE_BASE + __zres_end ; 0x65a3
 @..api_idx_00d2_SNMN.l17:
     cmp ax, strict word 6            ; 0x65a5
     jae short @..api_idx_00d2_SNMN.l18 ; 0x65a8

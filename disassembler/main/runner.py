@@ -50,6 +50,7 @@ from lib.segdataflow import (
     _relocation_offsets,
 )
 from lib.phases.recursive import _code_off
+from lib.compare.jumptables import _case_symbol
 from lib.cross_ref import overlay_host_aliases
 from lib.names import (
     is_data, is_label, rename_generics, set_generic_prefix, tag_generics,
@@ -358,15 +359,36 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     stagelog.step('label.branch_targets', 1, 'repair', repairs='label.categorize',
         why='branch targets local to a routine are not labels; the rest get loc_',
         track={'label_map': label_map})
-    # A switch arm keeps its label (the table's words name it), marked as a case
-    # so the file split does not start a fragment there: the switch -- prologue,
-    # bodies, table, dispatcher -- is one routine's file.
+    # A switch arm is named after its table and first slot
+    # (``jumptable_<table>_case_<n>``), not after the generic category its body
+    # happened to get, and marked as a case so the file split does not start a
+    # fragment there: the switch -- prologue, bodies, table, dispatcher -- is one
+    # routine's file.
+    first_slot = {}
+    for table in sorted(ctx.jump_tables, key=lambda t: t.table_addr):
+        if not (table.validated and table.validation_ok and table.jmp_addr >= 0):
+            continue
+        end = table.table_end or table.table_addr
+        for index, word in enumerate(range(table.table_addr, end - 1, 2)):
+            if index < table.keys:
+                continue
+            target = _code_off(ctx, int.from_bytes(data[word:word + 2], 'little'))
+            first_slot.setdefault(target, (table.table_addr, index))
     for address in switch_arms - pinned:
         label = label_map.get(address)
         if (address not in function_roots and isinstance(label, Symbol)
                 and label.source in GENERIC):
-            label_map[address] = label.renamed(str(label), label.source,
-                                               role='case')
+            if address in first_slot:
+                # Only the text changes: kind and source still say what the
+                # body is (``analysis._compute_func_boundaries`` skips an
+                # address-sourced label, and an arm without a boundary lets the
+                # zero gap before it decode as code).
+                case = _case_symbol(*first_slot[address], address)
+                label_map[address] = label.renamed(str(case), label.source,
+                                                   base=case.base, role='case')
+            else:
+                label_map[address] = label.renamed(str(label), label.source,
+                                                   role='case')
 
     # A sidecar ``entry_symbol`` names the true entry point for this binary
     # (project-specific; e.g. DSAVANT's ``aztec_begin``).  Make it

@@ -82,31 +82,31 @@ string_loc_KUIU:
 @..string_loc_KUIU.l7:
     mov ax, word [bp + 0x10]         ; 0x36e0
     jmp short @..string_loc_KUIU.l9  ; 0x36e3
-loc_GMLU:
+jumptable_372d_case_0:
     mov ax, word [bp + 0x4]          ; 0x36e5
     mov word [bp - 0x01aa], ax       ; 0x36e8
     jmp short @..string_loc_KUIU.l11 ; 0x36ec
-loc_JNKN:
+jumptable_372d_case_1:
     mov ax, word [bp + 0x6]          ; 0x36ee
     mov word [bp - 0x01aa], ax       ; 0x36f1
     jmp short @..string_loc_KUIU.l11 ; 0x36f5
-loc_SSQU:
+jumptable_372d_case_2:
     mov ax, word [bp + 0x8]          ; 0x36f7
     mov word [bp - 0x01aa], ax       ; 0x36fa
     jmp short @..string_loc_KUIU.l11 ; 0x36fe
-loc_VJIL:
+jumptable_372d_case_3:
     mov ax, word [bp + 0xa]          ; 0x3700
     mov word [bp - 0x01aa], ax       ; 0x3703
     jmp short @..string_loc_KUIU.l11 ; 0x3707
-loc_KRJM:
+jumptable_372d_case_4:
     mov ax, word [bp + 0xc]          ; 0x3709
     mov word [bp - 0x01aa], ax       ; 0x370c
     jmp short @..string_loc_KUIU.l11 ; 0x3710
-loc_OOJH:
+jumptable_372d_case_5:
     mov ax, word [bp + 0xe]          ; 0x3712
     mov word [bp - 0x01aa], ax       ; 0x3715
     jmp short @..string_loc_KUIU.l11 ; 0x3719
-loc_GTUG:
+jumptable_372d_case_6:
     mov ax, word [bp + 0xe]          ; 0x371b
     mov word [bp - 0x01aa], ax       ; 0x371e
     jmp short @..string_loc_KUIU.l11 ; 0x3722
@@ -115,13 +115,13 @@ loc_GTUG:
     mov word [bp - 0x01aa], ax       ; 0x3727
     jmp short @..string_loc_KUIU.l11 ; 0x372b
 jumptable_372d:
-    dw loc_GMLU - IMAGE_BASE + __zres_end      ; 0x372d
-    dw loc_JNKN - IMAGE_BASE + __zres_end      ; 0x372f
-    dw loc_SSQU - IMAGE_BASE + __zres_end      ; 0x3731
-    dw loc_VJIL - IMAGE_BASE + __zres_end      ; 0x3733
-    dw loc_KRJM - IMAGE_BASE + __zres_end      ; 0x3735
-    dw loc_OOJH - IMAGE_BASE + __zres_end      ; 0x3737
-    dw loc_GTUG - IMAGE_BASE + __zres_end      ; 0x3739
+    dw jumptable_372d_case_0 - IMAGE_BASE + __zres_end ; 0x372d
+    dw jumptable_372d_case_1 - IMAGE_BASE + __zres_end ; 0x372f
+    dw jumptable_372d_case_2 - IMAGE_BASE + __zres_end ; 0x3731
+    dw jumptable_372d_case_3 - IMAGE_BASE + __zres_end ; 0x3733
+    dw jumptable_372d_case_4 - IMAGE_BASE + __zres_end ; 0x3735
+    dw jumptable_372d_case_5 - IMAGE_BASE + __zres_end ; 0x3737
+    dw jumptable_372d_case_6 - IMAGE_BASE + __zres_end ; 0x3739
 @..string_loc_KUIU.l9:
     cmp ax, strict word 7            ; 0x373b
     jae short @..string_loc_KUIU.l10 ; 0x373e

@@ -1048,7 +1048,7 @@ api_idx_00c2_OUOT:
     lea ax, word [bp - 0x002c]       ; 0x5ead
     push ax                          ; 0x5eb0
     push word [bp + 0x4]             ; 0x5eb1
-    call loc_LJLP                    ; 0x5eb4
+    call loc_IUTP                    ; 0x5eb4
     add sp, byte 8                   ; 0x5eb7
     cmp ax, strict word 0xffff       ; 0x5eba
     jne short @..api_idx_00c2_OUOT.l58 ; 0x5ebd

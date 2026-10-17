@@ -7,35 +7,35 @@ api_idx_0006_ILTI:
 @..api_idx_0006_ILTI.l1:
     mov ax, word [bp - 0x0002]       ; 0x4e13
     jmp short @..api_idx_0006_ILTI.l2 ; 0x4e16
-leaf_loc_4e18:
+jumptable_4e49_case_0:
     mov word [bp - 0x0006], 2        ; 0x4e18
     jmp short @..api_idx_0006_ILTI.l3 ; 0x4e1d
-leaf_loc_4e1f:
+jumptable_4e49_case_1:
     mov word [bp - 0x0006], 4        ; 0x4e1f
     jmp short @..api_idx_0006_ILTI.l3 ; 0x4e24
-loc_HVTM:
+jumptable_4e49_case_2:
     mov word [bp - 0x0006], 7        ; 0x4e26
     jmp short @..api_idx_0006_ILTI.l3 ; 0x4e2b
-loc_GHGM:
+jumptable_4e49_case_3:
     mov word [bp - 0x0006], 0xa      ; 0x4e2d
     jmp short @..api_idx_0006_ILTI.l3 ; 0x4e32
-loc_TIJR:
+jumptable_4e49_case_4:
     mov word [bp - 0x0006], 0xe      ; 0x4e34
     jmp short @..api_idx_0006_ILTI.l3 ; 0x4e39
-loc_KVSM:
+jumptable_4e49_case_5:
     mov word [bp - 0x0006], 0x12     ; 0x4e3b
     jmp short @..api_idx_0006_ILTI.l3 ; 0x4e40
-loc_VNVG:
+jumptable_4e49_case_6:
     mov word [bp - 0x0006], 0x18     ; 0x4e42
     jmp short @..api_idx_0006_ILTI.l3 ; 0x4e47
 jumptable_4e49:
-    dw leaf_loc_4e18 - IMAGE_BASE + __zres_end ; 0x4e49
-    dw leaf_loc_4e1f - IMAGE_BASE + __zres_end ; 0x4e4b
-    dw loc_HVTM - IMAGE_BASE + __zres_end      ; 0x4e4d
-    dw loc_GHGM - IMAGE_BASE + __zres_end      ; 0x4e4f
-    dw loc_TIJR - IMAGE_BASE + __zres_end      ; 0x4e51
-    dw loc_KVSM - IMAGE_BASE + __zres_end      ; 0x4e53
-    dw loc_VNVG - IMAGE_BASE + __zres_end      ; 0x4e55
+    dw jumptable_4e49_case_0 - IMAGE_BASE + __zres_end ; 0x4e49
+    dw jumptable_4e49_case_1 - IMAGE_BASE + __zres_end ; 0x4e4b
+    dw jumptable_4e49_case_2 - IMAGE_BASE + __zres_end ; 0x4e4d
+    dw jumptable_4e49_case_3 - IMAGE_BASE + __zres_end ; 0x4e4f
+    dw jumptable_4e49_case_4 - IMAGE_BASE + __zres_end ; 0x4e51
+    dw jumptable_4e49_case_5 - IMAGE_BASE + __zres_end ; 0x4e53
+    dw jumptable_4e49_case_6 - IMAGE_BASE + __zres_end ; 0x4e55
 @..api_idx_0006_ILTI.l2:
     cmp ax, strict word 7            ; 0x4e57
     jae short @..api_idx_0006_ILTI.l3 ; 0x4e5a

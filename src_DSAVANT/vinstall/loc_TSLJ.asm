@@ -1,5 +1,5 @@
 ; auto-generated
-loc_GVUH:
+loc_TSLJ:
     push bp                          ; 0x0ed8
     mov bp, sp                       ; 0x0ed9
     add sp, strict word 0xfe34       ; 0x0edb
@@ -99,10 +99,10 @@ loc_GVUH:
     add sp, byte 6                   ; 0x0fca
     mov word [bss_29ee], ax          ; 0x0fcd
     cmp word [bp - 0x01c9], byte 0xff ; 0x0fd0
-    je short @..loc_GVUH.l1          ; 0x0fd5
+    je short @..loc_TSLJ.l1          ; 0x0fd5
     cmp word [bp - 0x01cb], byte 0   ; 0x0fd7
-    je short @..loc_GVUH.l2          ; 0x0fdc
-@..loc_GVUH.l1:
+    je short @..loc_TSLJ.l2          ; 0x0fdc
+@..loc_TSLJ.l1:
     mov ax, 0x163c                   ; 0x0fde
     push ax                          ; 0x0fe1
     lea ax, word [bp - 0x01c7]       ; 0x0fe2
@@ -133,7 +133,7 @@ loc_GVUH:
     push ax                          ; 0x1024
     call aztec_exit                  ; 0x1025
     pop cx                           ; 0x1028
-@..loc_GVUH.l2:
+@..loc_TSLJ.l2:
     mov sp, bp                       ; 0x1029
     pop bp                           ; 0x102b
     ret                              ; 0x102c

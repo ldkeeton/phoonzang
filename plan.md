@@ -524,6 +524,42 @@ code. Address-named roots: 32 → **0**; content-tagged 554 → **924**. The tag
 picks up the sharing those names were blocking (58 → 84 lib files), because a
 shared file can carry only one root spelling.
 
+**A switch is one file (2026-10-17).** A C `switch` compiles to a prologue, the
+case bodies, the table and the dispatcher. Each body carried a category name
+(`leaf_loc_…`) and so started a file: vbase `loc_GLHQ` was 81 files. Now every
+arm of a validated table (`jmp [cs:bx+table]` or an Aztec inline switch) that is
+not pinned (direct call target, declared handler, seed) is marked `role ==
+'case'` and named after its table, `jumptable_<table>_case_<n>` (`runner`).
+`_select_split_ranges` never starts a range at one, the content tagger and the
+host `ds_` prefix leave it alone, and `ForceCodePhase` no longer treats it as a
+function entry. ForceCode used to recognise a non-entry by the `loc_<addr>` name
+text; without that, it scanned back for a `push bp` and decoded play's 15-byte
+zero gap before `0x03dc`. A table the terminator vote rejected is valid when the
+dispatcher's bounds check (`max_index`) and decoded targets prove it
+(`recursive._validate_jump_tables`): vmaze `jumptable_4404`, vmext `2e93`, vdopt
+`147e`, whose break/default block had been a file of its own. Files 1601 → 1405
+(HEAD 1797). Case labels: none of HEAD's 894 lost, 670 more named. Cross-file
+`@..owner.lN` refs 97 → 3. 18/18 byte-identical, census unchanged.
+Only a bound that is the dispatcher's own counts for that rule
+(`JumpTableInfo.bounded`): an adjacent `cmp`/`jcc`, the `mov cx, N; repne
+scas` scan dispatch, or an inline switch's layout. A windowed guess does not.
+The scan shape was missing: vinstall's `sprintf` table (21 format characters)
+was read as 22 words, the 22nd being the `"01"` of its digit string. That
+planted a fake case label in `leaf_loc_GSJQ` and cut the string to
+`'23456789abcdef'` (already wrong at HEAD, as `string_loc_3330`). It now
+matches the ds copy.
+
+What stays split, deliberately:
+
+- **Blocks laid out away from their routine.** ega/vga `loc_4b52`/`loc_42a0`
+  (a tail of `dos_read_file_6` placed after two other routines), and play
+  `loc_0875` (a block of `io_loc_TGPU` placed before its entry). These are the
+  last 3 cross-file local refs. One file is one contiguous byte range.
+- **Tables whose targets are real routines.** play's mode-dispatch and handler
+  tables (`loc_PLIR`, `io_loc_*`: shared targets of several tables, or entries
+  by ABI), and the tables in `ds`/`vinstall` that sit in the master in front of
+  `sprintf`, whose cases are all inside `sprintf.asm`.
+
 Two residual tails stay glued, deliberately:
 
 - **A cross-referenced label inside the routine's own control flow.** `ds_loc_4c07`
@@ -563,7 +599,7 @@ already covers) or to declare the object itself (an `objects` list, honoured lik
 | round-trip | `disassembler/lib/verify/assemble.py` (`micro_assemble`) |
 | pipeline ledger | `disassembler/lib/stagelog.py` (checkpoints), `disassembler/flow/` (`--stages` report + diagrams, `--check`, `.cache/_flow/pipeline.lock`; opt-in via `make flow`) |
 
-**Rule for new behaviour.** Every pipeline step is a `stagelog.step(...)` checkpoint. New behaviour either extends the step that produces the artifact, or is a declared `repair`/`recompute`/`cleanup` with `repairs=` and `why=`. Ledgers are opt-in (`WIZ_STAGELOG=1 make build <project>`); `make flow ARGS="--check"` and `disassembler/tests/test_pipeline_lock.py` fail on an unlisted stage or an undeclared rewrite. After an intended change: `make flow ARGS="--lock"`.
+**Rule for new behaviour.** Every pipeline step is a `stagelog.step(...)` checkpoint. New behaviour either extends the step that produces the artifact, or is a declared `repair`/`recompute`/`cleanup` with `repairs=` and `why=`. Ledgers are opt-in (`ASM_STAGELOG=1 make build <project>`); `make flow ARGS="--check"` and `disassembler/tests/test_pipeline_lock.py` fail on an unlisted stage or an undeclared rewrite. After an intended change: `make flow ARGS="--lock"`.
 
 ---
 

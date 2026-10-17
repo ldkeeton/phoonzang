@@ -28,6 +28,13 @@ _SOFT_CODE = 0.3
 
 
 def _find_jump_table_bounds(data, jmp_addr, md, jt_addr=None):
+    """``(max_index, proven)`` for the table *jmp_addr* dispatches through.
+
+    *proven* is True when the bound is the dispatcher's own: the ``cmp ax, N;
+    jcc`` or the ``mov cx, N; repne scas`` just before the ``jmp``.  The
+    windowed fallbacks are a guess at the length (a ``3D xx xx 7x`` byte
+    pattern near the table), never evidence that the table is real.
+    """
     if jt_addr is not None:
         # The ``cmp ax, N; jcc`` bounds check belongs to *this* dispatcher and
         # sits just before the ``xchg bx, ax; shl bx, 1; jmp [cs:bx+table]``
@@ -40,8 +47,17 @@ def _find_jump_table_bounds(data, jmp_addr, md, jt_addr=None):
                     and data[i + 3] in (0x73, 0x77, 0x72, 0x76)):
                 imm = struct.unpack_from('<H', data, i + 1)[0]
                 if data[i + 3] in (0x77, 0x72):
-                    return imm
-                return max(imm - 1, 0)
+                    return imm, True
+                return max(imm - 1, 0), True
+            # A scan dispatch (Aztec ``sprintf``): ``mov cx, N; repne scasb``
+            # over N keys, then ``sub di, K; shl di, 1; jmp [cs:di+table]``.
+            # The table has one slot per key.  Without this the fallback below
+            # read vinstall's ``"01"`` after the 21 slots as a 22nd target.
+            if (data[i] == 0xB9 and i + 4 < len(data)
+                    and data[i + 3] == 0xF2 and data[i + 4] in (0xAE, 0xAF)):
+                imm = struct.unpack_from('<H', data, i + 1)[0]
+                if 0 < imm <= 256:
+                    return imm - 1, True
 
         # Fallback: a forward scan around the table (historical behaviour).
         lo = max(0, min(jt_addr, jmp_addr) - 64)
@@ -50,8 +66,8 @@ def _find_jump_table_bounds(data, jmp_addr, md, jt_addr=None):
             if data[i] == 0x3D and data[i + 3] in (0x73, 0x77, 0x72, 0x76):
                 imm = struct.unpack_from('<H', data, i + 1)[0]
                 if data[i + 3] in (0x77, 0x72):
-                    return imm
-                return max(imm - 1, 0)
+                    return imm, False
+                return max(imm - 1, 0), False
 
     lo = max(0, jmp_addr - 64)
     hi = jmp_addr
@@ -59,7 +75,7 @@ def _find_jump_table_bounds(data, jmp_addr, md, jt_addr=None):
         if data[i] == 0xB9:
             imm = struct.unpack_from('<H', data, i + 1)[0]
             if 0 < imm <= 256:
-                return imm
+                return imm, False
 
     search_start = max(0, jmp_addr - 30)
     insns = []
@@ -80,11 +96,11 @@ def _find_jump_table_bounds(data, jmp_addr, md, jt_addr=None):
         if len(ops) >= 2 and ops[0].type == CS_OP_REG and ops[1].type == CS_OP_IMM:
             imm = ops[1].imm & 0xFFFF
             if nxt.mnemonic in ('ja', 'jb'):
-                return imm
+                return imm, False
             if nxt.mnemonic in ('jae', 'jbe', 'je', 'jne'):
-                return max(imm - 1, 0)
+                return max(imm - 1, 0), False
 
-    return None
+    return None, False
 
 
 def _code_off(ctx, value):
@@ -175,8 +191,9 @@ def _register_indirect_table(ctx, data, data_boundary, result, md, worklist,
     table = _code_off(ctx, disp)
     if not (0 <= table < n):
         return False
-    max_idx = (_find_jump_table_bounds(data, dispatch_addr, md, jt_addr=table)
-               if bounds else None)
+    max_idx, proven = (
+        _find_jump_table_bounds(data, dispatch_addr, md, jt_addr=table)
+        if bounds else (None, False))
     tbl_end, targets = _scan_jump_table(
         data, table, data_boundary,
         max_index=max_idx,
@@ -196,6 +213,7 @@ def _register_indirect_table(ctx, data, data_boundary, result, md, worklist,
         ctx.jump_tables.append(JumpTableInfo(
             table_addr=table, jmp_addr=dispatch_addr,
             targets=sorted(targets), max_index=max_idx, table_end=tbl_end,
+            bounded=proven,
         ))
     return True
 
@@ -372,9 +390,11 @@ def _validate_jump_tables(ctx, data, n, result, md):
         if jt.declared:
             continue        # a sidecar fact, not a guess to re-score
         valid = 0
+        decoded = 0
         for t in jt.targets:
             for block in ctx.blocks:
                 if block.start <= t < block.end:
+                    decoded += 1
                     if block.exit_type in ('ret', 'retf', 'jmp', 'hlt'):
                         if block.provenance in ('seed', 'call', 'trampoline'):
                             valid += 2
@@ -382,7 +402,13 @@ def _validate_jump_tables(ctx, data, n, result, md):
                             valid += 1
                     break
         fraction = valid / max(len(jt.targets), 1)
-        if fraction >= 0.4:
+        # The terminator vote is a guess for a table of unknown length.  When
+        # the dispatcher's own bounds check proves the count (``bounded``) and
+        # every target is decoded code, the table is proven: a switch whose
+        # arms end in ``jcc``/fallthrough (vmaze ``jumptable_4404``) is still one.
+        bounded = (jt.bounded and jt.jmp_addr >= 0
+                   and decoded == len(jt.targets))
+        if fraction >= 0.4 or bounded:
             jt.validated = True
             jt.validation_ok = True
         else:
@@ -434,6 +460,7 @@ def _inline_call_table(ctx, data, n, call, prev, recognizers):
     return JumpTableInfo(
         table_addr=start, jmp_addr=call.address, targets=sorted(set(targets)),
         max_index=keys + slots - 1, table_end=end, keys=keys,
+        bounded=True,       # the ``mov cx, N`` before the call sets the layout
     )
 
 

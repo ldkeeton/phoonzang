@@ -50,7 +50,7 @@ api_idx_0088_LVJM:
     push ax                          ; 0x401c
     push word [bp - 0x0006]          ; 0x401d
     push word [bp + 0x4]             ; 0x4020
-    call api_idx_0004_JPOS           ; 0x4023
+    call api_idx_0004_LOLJ           ; 0x4023
     add sp, byte 6                   ; 0x4026
     mov word [bp - 0x0008], ax       ; 0x4029
     mov word [bp - 0x0002], 0        ; 0x402c

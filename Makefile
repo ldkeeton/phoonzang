@@ -18,8 +18,8 @@ set-baseline:
 stats-diff:
 	@cd $(ASM) && $(PY) -m make --stats-diff
 
-# Pipeline analysis, never part of a build.  Build first with WIZ_STAGELOG=1 so
-# the stage ledgers exist, e.g. `WIZ_STAGELOG=1 make build DSAVANT`, then
+# Pipeline analysis, never part of a build.  Build first with ASM_STAGELOG=1 so
+# the stage ledgers exist, e.g. `ASM_STAGELOG=1 make build DSAVANT`, then
 # `make flow ARGS="--check"` (also --lock, --baseline, --stages, ...).
 flow:
 	@cd $(ASM) && $(PY) -m flow.generate $(ARGS)

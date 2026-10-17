@@ -27,35 +27,35 @@ api_idx_0004_GSIV:
     je short @..api_idx_0004_GSIV.l4 ; 0x8fbf
     mov word [bss_9e48], ax          ; 0x8fc1
     jmp short @..api_idx_0004_GSIV.l2 ; 0x8fc4
-loc_RQHG_8fc6:
+jumptable_8ffe_case_0:
     mov word [bss_9e6e], 1           ; 0x8fc6
     jmp short @..api_idx_0004_GSIV.l3 ; 0x8fcc
-loc_RQHG_8fce:
+jumptable_8ffe_case_1:
     mov word [bss_9e70], 1           ; 0x8fce
     jmp short @..api_idx_0004_GSIV.l3 ; 0x8fd4
-loc_RQHG_8fd6:
+jumptable_8ffe_case_2:
     mov word [bss_9e68], 1           ; 0x8fd6
     jmp short @..api_idx_0004_GSIV.l3 ; 0x8fdc
-loc_RQHG_8fde:
+jumptable_8ffe_case_3:
     mov word [bss_9e6a], 1           ; 0x8fde
     jmp short @..api_idx_0004_GSIV.l3 ; 0x8fe4
-loc_RQHG_8fe6:
+jumptable_8ffe_case_4:
     mov word [bss_9e6c], 1           ; 0x8fe6
     jmp short @..api_idx_0004_GSIV.l3 ; 0x8fec
-loc_RQHG_8fee:
+jumptable_8ffe_case_5:
     mov word [bss_9e74], 1           ; 0x8fee
     jmp short @..api_idx_0004_GSIV.l3 ; 0x8ff4
-loc_IVVU:
+jumptable_8ffe_case_6:
     mov word [bss_9e76], 1           ; 0x8ff6
     jmp short @..api_idx_0004_GSIV.l3 ; 0x8ffc
 jumptable_8ffe:
-    dw loc_RQHG_8fc6 - IMAGE_BASE + __zres_end ; 0x8ffe
-    dw loc_RQHG_8fce - IMAGE_BASE + __zres_end ; 0x9000
-    dw loc_RQHG_8fd6 - IMAGE_BASE + __zres_end ; 0x9002
-    dw loc_RQHG_8fde - IMAGE_BASE + __zres_end ; 0x9004
-    dw loc_RQHG_8fe6 - IMAGE_BASE + __zres_end ; 0x9006
-    dw loc_RQHG_8fee - IMAGE_BASE + __zres_end ; 0x9008
-    dw loc_IVVU - IMAGE_BASE + __zres_end      ; 0x900a
+    dw jumptable_8ffe_case_0 - IMAGE_BASE + __zres_end ; 0x8ffe
+    dw jumptable_8ffe_case_1 - IMAGE_BASE + __zres_end ; 0x9000
+    dw jumptable_8ffe_case_2 - IMAGE_BASE + __zres_end ; 0x9002
+    dw jumptable_8ffe_case_3 - IMAGE_BASE + __zres_end ; 0x9004
+    dw jumptable_8ffe_case_4 - IMAGE_BASE + __zres_end ; 0x9006
+    dw jumptable_8ffe_case_5 - IMAGE_BASE + __zres_end ; 0x9008
+    dw jumptable_8ffe_case_6 - IMAGE_BASE + __zres_end ; 0x900a
 @..api_idx_0004_GSIV.l2:
     cmp ax, strict word 7            ; 0x900c
     jae short @..api_idx_0004_GSIV.l3 ; 0x900f
@@ -79,7 +79,7 @@ jumptable_8ffe:
     mov word [bss_9e62], 1           ; 0x9036
     mov word [bss_9e50], ax          ; 0x903c
     push ax                          ; 0x903f
-    call loc_GTUI                    ; 0x9040
+    call loc_NLPS                    ; 0x9040
     pop cx                           ; 0x9043
     mov word [bss_9e46], 0xffff      ; 0x9044
     mov word [bss_9e82], 0xffff      ; 0x904a

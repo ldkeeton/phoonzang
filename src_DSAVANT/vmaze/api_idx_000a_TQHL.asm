@@ -26,31 +26,31 @@ api_idx_000a_TQHL:
     call ds_app_PUNN                 ; 0x1991
     pop cx                           ; 0x1994
     jmp short @..api_idx_000a_TQHL.l4 ; 0x1995
-fpu_loc_1997:
+jumptable_19c1_case_0:
     mov word [bp - 0x0008], 3        ; 0x1997
     jmp short @..api_idx_000a_TQHL.l5 ; 0x199c
-fpu_loc_199e:
+jumptable_19c1_case_1:
     mov word [bp - 0x0008], 4        ; 0x199e
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19a3
-fpu_loc_19a5:
+jumptable_19c1_case_2:
     mov word [bp - 0x0008], 5        ; 0x19a5
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19aa
-fpu_loc_19ac:
+jumptable_19c1_case_3:
     mov word [bp - 0x0008], 7        ; 0x19ac
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19b1
-fpu_loc_19b3:
+jumptable_19c1_case_4:
     mov word [bp - 0x0008], 8        ; 0x19b3
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19b8
-fpu_loc_19ba:
+jumptable_19c1_case_5:
     mov word [bp - 0x0008], 9        ; 0x19ba
     jmp short @..api_idx_000a_TQHL.l5 ; 0x19bf
 jumptable_19c1:
-    dw fpu_loc_1997 - IMAGE_BASE + __zres_end  ; 0x19c1
-    dw fpu_loc_199e - IMAGE_BASE + __zres_end  ; 0x19c3
-    dw fpu_loc_19a5 - IMAGE_BASE + __zres_end  ; 0x19c5
-    dw fpu_loc_19ac - IMAGE_BASE + __zres_end  ; 0x19c7
-    dw fpu_loc_19b3 - IMAGE_BASE + __zres_end  ; 0x19c9
-    dw fpu_loc_19ba - IMAGE_BASE + __zres_end  ; 0x19cb
+    dw jumptable_19c1_case_0 - IMAGE_BASE + __zres_end ; 0x19c1
+    dw jumptable_19c1_case_1 - IMAGE_BASE + __zres_end ; 0x19c3
+    dw jumptable_19c1_case_2 - IMAGE_BASE + __zres_end ; 0x19c5
+    dw jumptable_19c1_case_3 - IMAGE_BASE + __zres_end ; 0x19c7
+    dw jumptable_19c1_case_4 - IMAGE_BASE + __zres_end ; 0x19c9
+    dw jumptable_19c1_case_5 - IMAGE_BASE + __zres_end ; 0x19cb
 @..api_idx_000a_TQHL.l4:
     cmp ax, strict word 6            ; 0x19cd
     jae short @..api_idx_000a_TQHL.l5 ; 0x19d0

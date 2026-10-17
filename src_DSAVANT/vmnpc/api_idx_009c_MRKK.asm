@@ -225,7 +225,7 @@ api_idx_009c_MRKK:
     add sp, byte 0x14                ; 0x69c3
     mov ax, word [bp - 0x0006]       ; 0x69c6
     jmp near @..api_idx_009c_MRKK.l42 ; 0x69c9
-loc_QRIR:
+jumptable_6c16_case_0:
     call ds_app_io_VGOM              ; 0x69cc
     mov word [bp - 0x000c], ax       ; 0x69cf
     cmp ax, strict word 0            ; 0x69d2
@@ -294,7 +294,7 @@ loc_QRIR:
     add sp, byte 4                   ; 0x6a60
 @..api_idx_009c_MRKK.l22:
     jmp near @..api_idx_009c_MRKK.l43 ; 0x6a63
-loc_JLLL:
+jumptable_6c16_case_3:
     call ds_app_io_VGOM              ; 0x6a66
     mov word [bp - 0x000c], ax       ; 0x6a69
     cmp ax, strict word 0            ; 0x6a6c
@@ -345,7 +345,7 @@ loc_JLLL:
     mov word [bp - 0x0006], 8        ; 0x6ace
 @..api_idx_009c_MRKK.l29:
     jmp near @..api_idx_009c_MRKK.l43 ; 0x6ad3
-loc_SLKQ:
+jumptable_6c16_case_1:
     mov ax, 0                        ; 0x6ad6
     cmp word [bss_9d66], byte 1      ; 0x6ad9
     jne short @..api_idx_009c_MRKK.l30 ; 0x6ade
@@ -402,7 +402,7 @@ loc_SLKQ:
     add sp, byte 4                   ; 0x6b57
 @..api_idx_009c_MRKK.l37:
     jmp near @..api_idx_009c_MRKK.l43 ; 0x6b5a
-loc_KMVI:
+jumptable_6c16_case_7:
     mov word [bp - 0x0002], 0        ; 0x6b5d
     jmp short @..api_idx_009c_MRKK.l40 ; 0x6b62
 @..api_idx_009c_MRKK.l38:
@@ -472,24 +472,24 @@ loc_KMVI:
     pop cx                           ; 0x6bf8
     mov word [bp - 0x0006], 8        ; 0x6bf9
     jmp short @..api_idx_009c_MRKK.l43 ; 0x6bfe
-string_loc_6c00:
+jumptable_6c16_case_8:
     mov word [bss_95a6], 1           ; 0x6c00
     jmp short @..api_idx_009c_MRKK.l43 ; 0x6c06
-string_loc_6c08:
+jumptable_6c16_case_9:
     mov word [bss_95a6], 0           ; 0x6c08
     mov word [bss_830a], 0x17        ; 0x6c0e
     jmp short @..api_idx_009c_MRKK.l43 ; 0x6c14
 jumptable_6c16:
-    dw loc_QRIR - IMAGE_BASE + __zres_end      ; 0x6c16
-    dw loc_SLKQ - IMAGE_BASE + __zres_end      ; 0x6c18
-    dw loc_QRIR - IMAGE_BASE + __zres_end      ; 0x6c1a
-    dw loc_JLLL - IMAGE_BASE + __zres_end      ; 0x6c1c
-    dw loc_JLLL - IMAGE_BASE + __zres_end      ; 0x6c1e
-    dw loc_JLLL - IMAGE_BASE + __zres_end      ; 0x6c20
-    dw loc_JLLL - IMAGE_BASE + __zres_end      ; 0x6c22
-    dw loc_KMVI - IMAGE_BASE + __zres_end      ; 0x6c24
-    dw string_loc_6c00 - IMAGE_BASE + __zres_end ; 0x6c26
-    dw string_loc_6c08 - IMAGE_BASE + __zres_end ; 0x6c28
+    dw jumptable_6c16_case_0 - IMAGE_BASE + __zres_end ; 0x6c16
+    dw jumptable_6c16_case_1 - IMAGE_BASE + __zres_end ; 0x6c18
+    dw jumptable_6c16_case_0 - IMAGE_BASE + __zres_end ; 0x6c1a
+    dw jumptable_6c16_case_3 - IMAGE_BASE + __zres_end ; 0x6c1c
+    dw jumptable_6c16_case_3 - IMAGE_BASE + __zres_end ; 0x6c1e
+    dw jumptable_6c16_case_3 - IMAGE_BASE + __zres_end ; 0x6c20
+    dw jumptable_6c16_case_3 - IMAGE_BASE + __zres_end ; 0x6c22
+    dw jumptable_6c16_case_7 - IMAGE_BASE + __zres_end ; 0x6c24
+    dw jumptable_6c16_case_8 - IMAGE_BASE + __zres_end ; 0x6c26
+    dw jumptable_6c16_case_9 - IMAGE_BASE + __zres_end ; 0x6c28
 @..api_idx_009c_MRKK.l42:
     cmp ax, strict word 0xa          ; 0x6c2a
     jae short @..api_idx_009c_MRKK.l43 ; 0x6c2d

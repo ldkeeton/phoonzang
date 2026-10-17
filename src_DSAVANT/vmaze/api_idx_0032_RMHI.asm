@@ -55,7 +55,7 @@ api_idx_0032_RMHI:
     add bx, bp                       ; 0xac18
     mov word [bx - 0x0032], 1        ; 0xac1a
     push word [bp - 0x0002]          ; 0xac1f
-    call loc_LKNU                    ; 0xac22
+    call loc_SNPU                    ; 0xac22
     pop cx                           ; 0xac25
     inc word [bp - 0x0006]           ; 0xac26
     cmp word [bp - 0x0006], byte 0x16 ; 0xac29

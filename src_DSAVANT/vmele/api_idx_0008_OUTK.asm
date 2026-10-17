@@ -20,51 +20,51 @@ api_idx_0008_OUTK:
 @..api_idx_0008_OUTK.l3:
     mov ax, si                       ; 0x3099
     jmp short @..api_idx_0008_OUTK.l4 ; 0x309b
-io_loc_309d:
+jumptable_30ea_case_0:
     mov ax, word [bp - 0x0008]       ; 0x309d
     mov cx, 0xa                      ; 0x30a0
     cwd                              ; 0x30a3
     idiv cx                          ; 0x30a4
     mov word [bp - 0x0006], ax       ; 0x30a6
     jmp short @..api_idx_0008_OUTK.l5 ; 0x30a9
-io_loc_30ab:
+jumptable_30ea_case_1:
     mov ax, word [bp - 0x0008]       ; 0x30ab
     mov cx, 0xa                      ; 0x30ae
     cwd                              ; 0x30b1
     idiv cx                          ; 0x30b2
     mov word [bp - 0x0006], ax       ; 0x30b4
     jmp short @..api_idx_0008_OUTK.l5 ; 0x30b7
-io_loc_30b9:
+jumptable_30ea_case_2:
     mov ax, word [bp - 0x0008]       ; 0x30b9
     mov cx, 0xc                      ; 0x30bc
     cwd                              ; 0x30bf
     idiv cx                          ; 0x30c0
     mov word [bp - 0x0006], ax       ; 0x30c2
     jmp short @..api_idx_0008_OUTK.l5 ; 0x30c5
-io_loc_30c7:
+jumptable_30ea_case_3:
     mov ax, word [bp - 0x0008]       ; 0x30c7
     mov cx, 0xc                      ; 0x30ca
     cwd                              ; 0x30cd
     idiv cx                          ; 0x30ce
     mov word [bp - 0x0006], ax       ; 0x30d0
     jmp short @..api_idx_0008_OUTK.l5 ; 0x30d3
-io_loc_30d5:
+jumptable_30ea_case_4:
     mov ax, word [bp - 0x0008]       ; 0x30d5
     mov cx, 0x14                     ; 0x30d8
     cwd                              ; 0x30db
     idiv cx                          ; 0x30dc
     mov word [bp - 0x0006], ax       ; 0x30de
     jmp short @..api_idx_0008_OUTK.l5 ; 0x30e1
-io_loc_30e3:
+jumptable_30ea_case_5:
     mov word [bp - 0x0006], 1        ; 0x30e3
     jmp short @..api_idx_0008_OUTK.l5 ; 0x30e8
 jumptable_30ea:
-    dw io_loc_309d - IMAGE_BASE + __zres_end   ; 0x30ea
-    dw io_loc_30ab - IMAGE_BASE + __zres_end   ; 0x30ec
-    dw io_loc_30b9 - IMAGE_BASE + __zres_end   ; 0x30ee
-    dw io_loc_30c7 - IMAGE_BASE + __zres_end   ; 0x30f0
-    dw io_loc_30d5 - IMAGE_BASE + __zres_end   ; 0x30f2
-    dw io_loc_30e3 - IMAGE_BASE + __zres_end   ; 0x30f4
+    dw jumptable_30ea_case_0 - IMAGE_BASE + __zres_end ; 0x30ea
+    dw jumptable_30ea_case_1 - IMAGE_BASE + __zres_end ; 0x30ec
+    dw jumptable_30ea_case_2 - IMAGE_BASE + __zres_end ; 0x30ee
+    dw jumptable_30ea_case_3 - IMAGE_BASE + __zres_end ; 0x30f0
+    dw jumptable_30ea_case_4 - IMAGE_BASE + __zres_end ; 0x30f2
+    dw jumptable_30ea_case_5 - IMAGE_BASE + __zres_end ; 0x30f4
 @..api_idx_0008_OUTK.l4:
     cmp ax, strict word 6            ; 0x30f6
     jae short @..api_idx_0008_OUTK.l5 ; 0x30f9

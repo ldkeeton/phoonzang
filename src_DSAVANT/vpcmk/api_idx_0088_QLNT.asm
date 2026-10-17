@@ -50,7 +50,7 @@ api_idx_0088_QLNT:
     push ax                          ; 0x2c93
     push word [bp - 0x0006]          ; 0x2c94
     push word [bp + 0x4]             ; 0x2c97
-    call api_idx_0004_QSLJ           ; 0x2c9a
+    call api_idx_0004_SNNO           ; 0x2c9a
     add sp, byte 6                   ; 0x2c9d
     mov word [bp - 0x0008], ax       ; 0x2ca0
     lea ax, word [bp - 0x0020]       ; 0x2ca3

@@ -52,6 +52,10 @@ class ForceCodePhase(Phase):
             expected = f'loc_{off:04x}'
             if lbl == expected or lbl.endswith(f'_{expected}'):
                 continue
+            # A switch case is a block of its dispatcher, never a function
+            # entry: no prologue to scan back for.
+            if getattr(lbl, 'role', None) == 'case':
+                continue
 
             if strong_data_count[off] >= 3:
                 continue

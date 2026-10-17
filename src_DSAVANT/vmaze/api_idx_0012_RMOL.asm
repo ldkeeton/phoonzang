@@ -500,7 +500,7 @@ api_idx_0012_RMOL:
     mov al, byte [bx - 0x6e28]       ; 0x4aad
     sub ah, ah                       ; 0x4ab1
     jmp near @..api_idx_0012_RMOL.l45 ; 0x4ab3
-loc_GMQM:
+jumptable_4b6b_case_1:
     cmp word [bp + 0x4], byte 5      ; 0x4ab6
     jge short @..api_idx_0012_RMOL.l38 ; 0x4aba
     mov ax, word [bp + 0x1c]         ; 0x4abc
@@ -525,7 +525,7 @@ loc_GMQM:
     add sp, byte 8                   ; 0x4ae7
 @..api_idx_0012_RMOL.l38:
     jmp near @..api_idx_0012_RMOL.l46 ; 0x4aea
-loc_TPUG:
+jumptable_4b6b_case_2:
     cmp word [bp + 0x4], byte 5      ; 0x4aed
     jge short @..api_idx_0012_RMOL.l39 ; 0x4af1
     mov ax, word [bp + 0x30]         ; 0x4af3
@@ -550,7 +550,7 @@ loc_TPUG:
     add sp, byte 8                   ; 0x4b1e
 @..api_idx_0012_RMOL.l39:
     jmp short @..api_idx_0012_RMOL.l46 ; 0x4b21
-string_loc_4b23:
+jumptable_4b6b_case_3:
     cmp word [bp + 0x4], byte 5      ; 0x4b23
     jge short @..api_idx_0012_RMOL.l44 ; 0x4b27
     mov ax, word [bss_91d2]          ; 0x4b29
@@ -584,16 +584,16 @@ string_loc_4b23:
     add sp, byte 8                   ; 0x4b62
 @..api_idx_0012_RMOL.l44:
     jmp short @..api_idx_0012_RMOL.l46 ; 0x4b65
-string_loc_4b67:
+jumptable_4b6b_case_4:
     jmp short @..api_idx_0012_RMOL.l46 ; 0x4b67
-string_loc_4b69:
+jumptable_4b6b_case_0:
     jmp short @..api_idx_0012_RMOL.l46 ; 0x4b69
 jumptable_4b6b:
-    dw string_loc_4b69 - IMAGE_BASE + __zres_end ; 0x4b6b
-    dw loc_GMQM - IMAGE_BASE + __zres_end      ; 0x4b6d
-    dw loc_TPUG - IMAGE_BASE + __zres_end      ; 0x4b6f
-    dw string_loc_4b23 - IMAGE_BASE + __zres_end ; 0x4b71
-    dw string_loc_4b67 - IMAGE_BASE + __zres_end ; 0x4b73
+    dw jumptable_4b6b_case_0 - IMAGE_BASE + __zres_end ; 0x4b6b
+    dw jumptable_4b6b_case_1 - IMAGE_BASE + __zres_end ; 0x4b6d
+    dw jumptable_4b6b_case_2 - IMAGE_BASE + __zres_end ; 0x4b6f
+    dw jumptable_4b6b_case_3 - IMAGE_BASE + __zres_end ; 0x4b71
+    dw jumptable_4b6b_case_4 - IMAGE_BASE + __zres_end ; 0x4b73
 @..api_idx_0012_RMOL.l45:
     cmp ax, strict word 5            ; 0x4b75
     jae short @..api_idx_0012_RMOL.l46 ; 0x4b78

@@ -500,7 +500,7 @@ api_idx_0012_STJU:
     mov al, byte [bx - 0x6e54]       ; 0x353c
     sub ah, ah                       ; 0x3540
     jmp near @..api_idx_0012_STJU.l45 ; 0x3542
-loc_GMQM:
+jumptable_35fa_case_1:
     cmp word [bp + 0x4], byte 5      ; 0x3545
     jge short @..api_idx_0012_STJU.l38 ; 0x3549
     mov ax, word [bp + 0x1c]         ; 0x354b
@@ -525,7 +525,7 @@ loc_GMQM:
     add sp, byte 8                   ; 0x3576
 @..api_idx_0012_STJU.l38:
     jmp near @..api_idx_0012_STJU.l46 ; 0x3579
-loc_NQIP:
+jumptable_35fa_case_2:
     cmp word [bp + 0x4], byte 5      ; 0x357c
     jge short @..api_idx_0012_STJU.l39 ; 0x3580
     mov ax, word [bp + 0x30]         ; 0x3582
@@ -550,7 +550,7 @@ loc_NQIP:
     add sp, byte 8                   ; 0x35ad
 @..api_idx_0012_STJU.l39:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35b0
-loc_NVUT:
+jumptable_35fa_case_3:
     cmp word [bp + 0x4], byte 5      ; 0x35b2
     jge short @..api_idx_0012_STJU.l44 ; 0x35b6
     mov ax, word [bss_91a6]          ; 0x35b8
@@ -584,16 +584,16 @@ loc_NVUT:
     add sp, byte 8                   ; 0x35f1
 @..api_idx_0012_STJU.l44:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35f4
-loc_MNIM:
+jumptable_35fa_case_4:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35f6
-loc_TORJ:
+jumptable_35fa_case_0:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35f8
 jumptable_35fa:
-    dw loc_TORJ - IMAGE_BASE + __zres_end      ; 0x35fa
-    dw loc_GMQM - IMAGE_BASE + __zres_end      ; 0x35fc
-    dw loc_NQIP - IMAGE_BASE + __zres_end      ; 0x35fe
-    dw loc_NVUT - IMAGE_BASE + __zres_end      ; 0x3600
-    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x3602
+    dw jumptable_35fa_case_0 - IMAGE_BASE + __zres_end ; 0x35fa
+    dw jumptable_35fa_case_1 - IMAGE_BASE + __zres_end ; 0x35fc
+    dw jumptable_35fa_case_2 - IMAGE_BASE + __zres_end ; 0x35fe
+    dw jumptable_35fa_case_3 - IMAGE_BASE + __zres_end ; 0x3600
+    dw jumptable_35fa_case_4 - IMAGE_BASE + __zres_end ; 0x3602
 @..api_idx_0012_STJU.l45:
     cmp ax, strict word 5            ; 0x3604
     jae short @..api_idx_0012_STJU.l46 ; 0x3607

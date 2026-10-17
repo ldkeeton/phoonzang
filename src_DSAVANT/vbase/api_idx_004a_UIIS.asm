@@ -83,18 +83,18 @@ api_idx_004a_UIIS:
     add sp, byte 0x0e                ; 0x697f
     mov ax, word [bp - 0x0002]       ; 0x6982
     jmp short @..api_idx_004a_UIIS.l6 ; 0x6985
-loc_JGMH:
+jumptable_69ec_case_0:
     mov word [bp - 0x0004], 0        ; 0x6987
     jmp near @..api_idx_004a_UIIS.l7 ; 0x698c
-loc_KNJM:
+jumptable_69ec_case_1:
     mov ax, 1                        ; 0x698f
     push ax                          ; 0x6992
     call loc_RMVR                    ; 0x6993
     pop cx                           ; 0x6996
     jmp short @..api_idx_004a_UIIS.l7 ; 0x6997
-loc_MNIM:
+jumptable_69ec_case_2:
     jmp short @..api_idx_004a_UIIS.l7 ; 0x6999
-loc_LLMN:
+jumptable_69ec_case_3:
     mov ax, 0                        ; 0x699b
     push ax                          ; 0x699e
     call api_idx_004e_HUKL           ; 0x699f
@@ -121,18 +121,18 @@ loc_LLMN:
     mov word [bp - 0x0004], 0        ; 0x69d2
 @..api_idx_004a_UIIS.l5:
     jmp short @..api_idx_004a_UIIS.l7 ; 0x69d7
-loc_PUVO:
+jumptable_69ec_case_5:
     mov word [bss_8460], 0           ; 0x69d9
     mov word [bss_830a], 7           ; 0x69df
     mov word [bp - 0x0004], 0        ; 0x69e5
     jmp short @..api_idx_004a_UIIS.l7 ; 0x69ea
 jumptable_69ec:
-    dw loc_JGMH - IMAGE_BASE + __zres_end      ; 0x69ec
-    dw loc_KNJM - IMAGE_BASE + __zres_end      ; 0x69ee
-    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x69f0
-    dw loc_LLMN - IMAGE_BASE + __zres_end      ; 0x69f2
-    dw loc_LLMN - IMAGE_BASE + __zres_end      ; 0x69f4
-    dw loc_PUVO - IMAGE_BASE + __zres_end      ; 0x69f6
+    dw jumptable_69ec_case_0 - IMAGE_BASE + __zres_end ; 0x69ec
+    dw jumptable_69ec_case_1 - IMAGE_BASE + __zres_end ; 0x69ee
+    dw jumptable_69ec_case_2 - IMAGE_BASE + __zres_end ; 0x69f0
+    dw jumptable_69ec_case_3 - IMAGE_BASE + __zres_end ; 0x69f2
+    dw jumptable_69ec_case_3 - IMAGE_BASE + __zres_end ; 0x69f4
+    dw jumptable_69ec_case_5 - IMAGE_BASE + __zres_end ; 0x69f6
 @..api_idx_004a_UIIS.l6:
     cmp ax, strict word 6            ; 0x69f8
     jae short @..api_idx_004a_UIIS.l7 ; 0x69fb

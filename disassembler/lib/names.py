@@ -73,7 +73,7 @@ def rename_generics(label_map, function_roots=None, split_functions=None,
 
     def new_name(name):
         if (not isinstance(name, Symbol) or not prefix or name.prefix
-                or not is_generic(name)):
+                or not is_generic(name) or name.role == 'case'):
             return name
         renames[name] = name.prefixed(prefix)
         return renames[name]
@@ -232,9 +232,12 @@ def tag_generics(label_map, function_roots, instructions, data, size,
     # (``splitting._split_off_foreign_objects``), so it needs a content-derived
     # name too: an address-derived one would rename the file whenever bytes above
     # it moved.  Its span runs to the next root of *any* kind -- its own code.
+    # A switch case (``jumptable_<table>_case_<n>``) never starts a file, and its
+    # table already names it.
     loc_roots = sorted(
         off for off, name in label_map.items()
-        if isinstance(name, str) and is_generic(name) and is_label(name))
+        if isinstance(name, str) and is_generic(name) and is_label(name)
+        and getattr(name, 'role', None) != 'case')
     bounds = sorted(set(every) | set(loc_roots))
     for off in loc_roots:
         name = label_map[off]

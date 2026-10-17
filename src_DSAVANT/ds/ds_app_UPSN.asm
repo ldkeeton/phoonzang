@@ -47,7 +47,7 @@ ds_app_UPSN: ; Aztec csav frame=0x0008
     mov byte [bx + 0x5d48], 0xff     ; 0x1a9d
     mov ax, word [bp - 0x0002]       ; 0x1aa2
     jmp short @..ds_app_UPSN.l4      ; 0x1aa5
-ds_string_loc_1aa7:
+jumptable_1aff_case_0:
     push word [bp - 0x0002]          ; 0x1aa7
     push word [bp + 0x4]             ; 0x1aaa
     call ds_app_mem_TMKK             ; 0x1aad
@@ -69,13 +69,13 @@ ds_string_loc_1aa7:
     pop ax                           ; 0x1ad4
     add byte [bx + 0x5dab], al       ; 0x1ad5
     jmp short @..ds_app_UPSN.l5      ; 0x1ad9
-ds_string_loc_1adb:
+jumptable_1aff_case_2:
     mov ax, 0x248                    ; 0x1adb
     imul word [bp + 0x4]             ; 0x1ade
     mov bx, ax                       ; 0x1ae1
     mov byte [bx + 0x5dac], 0        ; 0x1ae3
     jmp short @..ds_app_UPSN.l5      ; 0x1ae8
-ds_string_loc_1aea:
+jumptable_1aff_case_3:
     mov ax, 0x248                    ; 0x1aea
     imul word [bp + 0x4]             ; 0x1aed
     mov bx, ax                       ; 0x1af0
@@ -84,14 +84,14 @@ ds_string_loc_1aea:
     mov byte [bx + 0x5daa], al       ; 0x1af9
     jmp short @..ds_app_UPSN.l5      ; 0x1afd
 jumptable_1aff:
-    dw ds_string_loc_1aa7 - IMAGE_BASE         ; 0x1aff
-    dw ds_string_loc_1aa7 - IMAGE_BASE         ; 0x1b01
-    dw ds_string_loc_1adb - IMAGE_BASE         ; 0x1b03
-    dw ds_string_loc_1aea - IMAGE_BASE         ; 0x1b05
-    dw ds_string_loc_1aea - IMAGE_BASE         ; 0x1b07
-    dw ds_string_loc_1aea - IMAGE_BASE         ; 0x1b09
-    dw ds_string_loc_1aea - IMAGE_BASE         ; 0x1b0b
-    dw ds_string_loc_1aea - IMAGE_BASE         ; 0x1b0d
+    dw jumptable_1aff_case_0 - IMAGE_BASE      ; 0x1aff
+    dw jumptable_1aff_case_0 - IMAGE_BASE      ; 0x1b01
+    dw jumptable_1aff_case_2 - IMAGE_BASE      ; 0x1b03
+    dw jumptable_1aff_case_3 - IMAGE_BASE      ; 0x1b05
+    dw jumptable_1aff_case_3 - IMAGE_BASE      ; 0x1b07
+    dw jumptable_1aff_case_3 - IMAGE_BASE      ; 0x1b09
+    dw jumptable_1aff_case_3 - IMAGE_BASE      ; 0x1b0b
+    dw jumptable_1aff_case_3 - IMAGE_BASE      ; 0x1b0d
 @..ds_app_UPSN.l4:
     cmp ax, strict word 8            ; 0x1b0f
     jae short @..ds_app_UPSN.l5      ; 0x1b12

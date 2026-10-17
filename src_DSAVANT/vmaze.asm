@@ -190,10 +190,7 @@ bss_9b18 equ __zdseg_end + (__zobss_9b18 - __zdata_start)
 %include "vmaze/api_idx_0010_RPIL.asm"     ; 0x3802
 
 ; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-%include "vmaze/api_idx_0012_HQVT.asm"     ; 0x3f56
-
-; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
-%include "vmaze/leaf_loc_KOVG.asm"         ; 0x4431
+%include "vmaze/api_idx_0012_VQVU.asm"     ; 0x3f56
 
 ; bss_91d0 equ __zdseg_end + (__zobss_91d0 - __zdata_start)
 ; bss_91d2 equ __zdseg_end + (__zobss_91d2 - __zdata_start)
@@ -341,7 +338,7 @@ bss_9bd0 equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
 ; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 ; bss_9b4a equ __zdseg_end + (__zobss_9b4a - __zdata_start)
 ; bss_9bd0 equ __zdseg_end + (__zobss_9bd0 - __zdata_start)
-%include "vmaze/loc_NQRL.asm"              ; 0x8867
+%include "vmaze/loc_IPSH.asm"              ; 0x8867
 
 %include "shared/api_idx_0002_OVRM.asm"     ; 0x89d0
 
@@ -407,7 +404,7 @@ bss_9bde equ __zdseg_end + (__zobss_9bde - __zdata_start)
 
 %include "vmaze/api_idx_0002_KRLI.asm"     ; 0xa9a4
 
-%include "vmaze/loc_LKNU.asm"              ; 0xaad3
+%include "vmaze/loc_SNPU.asm"              ; 0xaad3
 
 %include "vmaze/api_idx_0032_RMHI.asm"     ; 0xab9b
 

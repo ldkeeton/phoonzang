@@ -209,8 +209,10 @@ BASELINE_TOTALS = {
     # Parameterised sharing (lib.shared: copies differing only in label names)
     # took ``shared/`` 90 -> 141 files: ``hidden_flow`` 105 -> **157**, all 61 new
     # sites at offsets whose anchor moved into ``shared/`` (9 sites went).
-    'names_used': 7, 'names_inert': 24, 'hidden_flow': 150,
-    'total': 26,
+    # Step 4 (the 24 F3 ``equ``s minted upstream) left no inert frozen name:
+    # ``names_inert`` 24 -> **0**, ``total`` 26 -> **0** (both ratcheted here).
+    'names_used': 7, 'names_inert': 0, 'hidden_flow': 150,
+    'total': 0,
     # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
     # returns; the call is followed by N-1 keys and N case targets.  The decoder
     # used to fall through the call and decode the target words as ``jcc``s,

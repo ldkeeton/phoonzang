@@ -58,7 +58,7 @@ dseg_251c equ __zdseg_251c - __zdseg_start
 bss_2afe equ __zbss_2afe - __zdseg_start
 __zbss_size equ __zbss_end - __zimage_end
 
-%include "vinstall/loc_NVUL.asm"           ; 0x0200
+%include "vinstall/loc_ILSL.asm"           ; 0x0200
 
 %include "vinstall/loc_MPOT.asm"           ; 0x026d
 
@@ -123,9 +123,9 @@ bss_29ec equ __zbss_29ec - __zdseg_start
 %include "vinstall/loc_ONOP.asm"           ; 0x0dda
 
 bss_29ee equ __zbss_29ee - __zdseg_start
-%include "vinstall/loc_GVUH.asm"           ; 0x0ed8
+%include "vinstall/loc_TSLJ.asm"           ; 0x0ed8
 
-%include "vinstall/leaf_loc_UUSR.asm"      ; 0x10a4
+%include "vinstall/leaf_loc_IRLU.asm"      ; 0x10a4
 
 dseg_0004 equ __zdseg_0004 - __zdseg_start
 dseg_0006 equ __zdseg_0006 - __zdseg_start
@@ -139,7 +139,7 @@ bss_2af4  equ __zbss_2af4 - __zdseg_start
 bss_2af6  equ __zbss_2af6 - __zdseg_start
 bss_2af8  equ __zbss_2af8 - __zdseg_start
 bss_2afa  equ __zbss_2afa - __zdseg_start
-%include "vinstall/loc_JGSH.asm"           ; 0x12b5
+%include "vinstall/loc_SGVI.asm"           ; 0x12b5
 
 cseg_2479:
     db 0x00
@@ -263,30 +263,30 @@ cseg_303e:
     db 'LlhFNoxXudiscpneEfgG%'
 
 jumptable_3053:
-    dw string_loc_3140 - IMAGE_BASE            ; 0x3053
-    dw string_loc_3147 - IMAGE_BASE            ; 0x3055
-    dw string_loc_314b - IMAGE_BASE            ; 0x3057
-    dw string_loc_314e - IMAGE_BASE            ; 0x3059
-    dw string_loc_314b - IMAGE_BASE            ; 0x305b
-    dw leaf_loc_3155 - IMAGE_BASE              ; 0x305d
-    dw leaf_loc_315e - IMAGE_BASE              ; 0x305f
-    dw leaf_loc_315a - IMAGE_BASE              ; 0x3061
-    dw leaf_loc_3163 - IMAGE_BASE              ; 0x3063
-    dw leaf_loc_3168 - IMAGE_BASE              ; 0x3065
-    dw leaf_loc_3168 - IMAGE_BASE              ; 0x3067
-    dw loc_QMOJ - IMAGE_BASE                   ; 0x3069
-    dw loc_OKTP - IMAGE_BASE                   ; 0x306b
-    dw string_loc_32d0 - IMAGE_BASE            ; 0x306d
-    dw string_loc_32d3 - IMAGE_BASE            ; 0x306f
-    dw loc_GLMV - IMAGE_BASE                   ; 0x3071
-    dw loc_GHJS - IMAGE_BASE                   ; 0x3073
-    dw loc_GLMV - IMAGE_BASE                   ; 0x3075
-    dw loc_GLMV - IMAGE_BASE                   ; 0x3077
-    dw loc_GHJS - IMAGE_BASE                   ; 0x3079
-    dw string_loc_30b3 - IMAGE_BASE            ; 0x307b
-    dw string_loc_3330 - IMAGE_BASE            ; 0x307d
+    dw jumptable_3053_case_0 - IMAGE_BASE      ; 0x3053
+    dw jumptable_3053_case_1 - IMAGE_BASE      ; 0x3055
+    dw jumptable_3053_case_2 - IMAGE_BASE      ; 0x3057
+    dw jumptable_3053_case_3 - IMAGE_BASE      ; 0x3059
+    dw jumptable_3053_case_2 - IMAGE_BASE      ; 0x305b
+    dw jumptable_3053_case_5 - IMAGE_BASE      ; 0x305d
+    dw jumptable_3053_case_6 - IMAGE_BASE      ; 0x305f
+    dw jumptable_3053_case_7 - IMAGE_BASE      ; 0x3061
+    dw jumptable_3053_case_8 - IMAGE_BASE      ; 0x3063
+    dw jumptable_3053_case_9 - IMAGE_BASE      ; 0x3065
+    dw jumptable_3053_case_9 - IMAGE_BASE      ; 0x3067
+    dw jumptable_3053_case_11 - IMAGE_BASE     ; 0x3069
+    dw jumptable_3053_case_12 - IMAGE_BASE     ; 0x306b
+    dw jumptable_3053_case_13 - IMAGE_BASE     ; 0x306d
+    dw jumptable_3053_case_14 - IMAGE_BASE     ; 0x306f
+    dw jumptable_3053_case_15 - IMAGE_BASE     ; 0x3071
+    dw jumptable_3053_case_16 - IMAGE_BASE     ; 0x3073
+    dw jumptable_3053_case_15 - IMAGE_BASE     ; 0x3075
+    dw jumptable_3053_case_15 - IMAGE_BASE     ; 0x3077
+    dw jumptable_3053_case_16 - IMAGE_BASE     ; 0x3079
+    dw jumptable_3053_case_20 - IMAGE_BASE     ; 0x307b
+cseg_307d:
 
-    db '23456789abcdef -lm first', 0
+    db '0123456789abcdef -lm first', 0
 
 %include "vinstall/asm_only/sprintf.asm"            ; 0x3098
 

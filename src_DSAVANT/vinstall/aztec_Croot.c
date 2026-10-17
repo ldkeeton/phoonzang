@@ -75,7 +75,7 @@ redirect:
 		}
 	}
 	*cpp = 0;
-	loc_JGSH(bss_253a,bss_253c);
+	loc_SGVI(bss_253a,bss_253c);
 	aztec_exit(0);
 }
 

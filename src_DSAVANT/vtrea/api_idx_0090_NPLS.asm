@@ -17,14 +17,14 @@ api_idx_0090_NPLS:
     jmp near @..api_idx_0090_NPLS.l9 ; 0x0b49
 @..api_idx_0090_NPLS.l2:
     jmp near @..api_idx_0090_NPLS.l7 ; 0x0b4c
-loc_JQUQ:
+jumptable_0c85_case_0:
     inc word [bp + 0x4]              ; 0x0b4f
     mov ax, 0x9154                   ; 0x0b52
     push ax                          ; 0x0b55
     call api_idx_0004_JGSH           ; 0x0b56
     pop cx                           ; 0x0b59
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0b5a
-loc_UGQN:
+jumptable_0c85_case_1:
     inc word [bp + 0x4]              ; 0x0b5d
     mov ax, 0x9154                   ; 0x0b60
     push ax                          ; 0x0b63
@@ -44,7 +44,7 @@ loc_UGQN:
     call api_idx_0004_UQUT           ; 0x0b82
     pop cx                           ; 0x0b85
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0b86
-loc_VMMJ:
+jumptable_0c85_case_2:
     inc word [bp + 0x4]              ; 0x0b89
     mov ax, 0x9154                   ; 0x0b8c
     push ax                          ; 0x0b8f
@@ -61,7 +61,7 @@ loc_VMMJ:
     call ds_app_io_VRKV              ; 0x0ba4
     add sp, byte 8                   ; 0x0ba7
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0baa
-loc_QGLT:
+jumptable_0c85_case_3:
     inc word [bp + 0x4]              ; 0x0bad
     mov ax, 0                        ; 0x0bb0
     push ax                          ; 0x0bb3
@@ -69,7 +69,7 @@ loc_QGLT:
     pop cx                           ; 0x0bb7
     mov word [bss_9150], 0           ; 0x0bb8
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0bbe
-loc_SJGK:
+jumptable_0c85_case_4:
     inc word [bp + 0x4]              ; 0x0bc1
     mov ax, 0x9154                   ; 0x0bc4
     push ax                          ; 0x0bc7
@@ -80,7 +80,7 @@ loc_SJGK:
     call loc_NQGV                    ; 0x0bd0
     pop cx                           ; 0x0bd3
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0bd4
-loc_IVKM:
+jumptable_0c85_case_5:
     inc word [bp + 0x4]              ; 0x0bd7
     mov ax, 0x10                     ; 0x0bda
     push ax                          ; 0x0bdd
@@ -118,7 +118,7 @@ loc_IVKM:
     call ds_app_thunk_26_VNHP        ; 0x0c26
     pop cx                           ; 0x0c29
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0c2a
-string_loc_0c2d:
+jumptable_0c85_case_6:
     inc word [bp + 0x4]              ; 0x0c2d
     mov bx, word [bp + 0x4]          ; 0x0c30
     mov al, byte [bx]                ; 0x0c33
@@ -159,13 +159,13 @@ string_loc_0c2d:
     inc word [bp + 0x4]              ; 0x0c80
     jmp short @..api_idx_0090_NPLS.l8 ; 0x0c83
 jumptable_0c85:
-    dw loc_JQUQ - IMAGE_BASE + __zres_end      ; 0x0c85
-    dw loc_UGQN - IMAGE_BASE + __zres_end      ; 0x0c87
-    dw loc_VMMJ - IMAGE_BASE + __zres_end      ; 0x0c89
-    dw loc_QGLT - IMAGE_BASE + __zres_end      ; 0x0c8b
-    dw loc_SJGK - IMAGE_BASE + __zres_end      ; 0x0c8d
-    dw loc_IVKM - IMAGE_BASE + __zres_end      ; 0x0c8f
-    dw string_loc_0c2d - IMAGE_BASE + __zres_end ; 0x0c91
+    dw jumptable_0c85_case_0 - IMAGE_BASE + __zres_end ; 0x0c85
+    dw jumptable_0c85_case_1 - IMAGE_BASE + __zres_end ; 0x0c87
+    dw jumptable_0c85_case_2 - IMAGE_BASE + __zres_end ; 0x0c89
+    dw jumptable_0c85_case_3 - IMAGE_BASE + __zres_end ; 0x0c8b
+    dw jumptable_0c85_case_4 - IMAGE_BASE + __zres_end ; 0x0c8d
+    dw jumptable_0c85_case_5 - IMAGE_BASE + __zres_end ; 0x0c8f
+    dw jumptable_0c85_case_6 - IMAGE_BASE + __zres_end ; 0x0c91
 @..api_idx_0090_NPLS.l7:
     cmp ax, strict word 7            ; 0x0c93
     jae short @..api_idx_0090_NPLS.l8 ; 0x0c96

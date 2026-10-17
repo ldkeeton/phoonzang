@@ -44,9 +44,9 @@ __zcode_start:
 
 %include "vbase/api_idx_004c_MUGV.asm"     ; 0x156e
 
-%include "vbase/loc_QKKR.asm"              ; 0x1683
+%include "vbase/loc_JJHG.asm"              ; 0x1683
 
-%include "vbase/loc_VNLP.asm"              ; 0x1820
+%include "vbase/loc_UOUN.asm"              ; 0x1820
 
 %include "vbase/loc_GLHQ.asm"              ; 0x1a12
 
@@ -119,7 +119,7 @@ bss_9a2e equ __zdseg_end + (__zobss_9a2e - __zdata_start)
 bss_9a30 equ __zdseg_end + (__zobss_9a30 - __zdata_start)
 bss_9a4a equ __zdseg_end + (__zobss_9a4a - __zdata_start)
 bss_9a4c equ __zdseg_end + (__zobss_9a4c - __zdata_start)
-%include "vbase/asm_only/api_idx_0038_IQQK.asm"     ; 0x2fef
+%include "vbase/asm_only/api_idx_0038_HNUN.asm"     ; 0x2fef
 
 ; bss_9a00 equ __zdseg_end + (__zobss_9a00 - __zdata_start)
 ; bss_9a02 equ __zdseg_end + (__zobss_9a02 - __zdata_start)

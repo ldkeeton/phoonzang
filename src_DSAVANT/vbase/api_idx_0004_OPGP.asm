@@ -18,7 +18,7 @@ api_idx_0004_OPGP:
     call ds_app_OIGN                 ; 0x6690
     pop cx                           ; 0x6693
     push word [bp + 0x4]             ; 0x6694
-    call api_idx_0038_IQQK           ; 0x6697
+    call api_idx_0038_HNUN           ; 0x6697
     pop cx                           ; 0x669a
     mov word [bp - 0x0002], ax       ; 0x669b
 @..api_idx_0004_OPGP.l2:
@@ -26,7 +26,7 @@ api_idx_0004_OPGP:
     jmp short @..api_idx_0004_OPGP.l4 ; 0x66a4
 @..api_idx_0004_OPGP.l3:
     push word [bp + 0x4]             ; 0x66a6
-    call api_idx_0038_IQQK           ; 0x66a9
+    call api_idx_0038_HNUN           ; 0x66a9
     pop cx                           ; 0x66ac
     mov word [bp - 0x0002], ax       ; 0x66ad
 @..api_idx_0004_OPGP.l4:

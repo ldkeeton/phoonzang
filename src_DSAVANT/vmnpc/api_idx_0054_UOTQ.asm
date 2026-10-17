@@ -33,7 +33,7 @@ api_idx_0054_UOTQ:
     ret                              ; 0x9d7b
 @..api_idx_0054_UOTQ.l2:
     mov ax, word [bss_9e46]          ; 0x9d7c
-    jmp near @..api_idx_0054_UOTQ.l34 ; 0x9d7f
+    jmp near @..api_idx_0054_UOTQ.l63 ; 0x9d7f
 jumptable_a27d_case_0:
     cmp word [bss_9e62], byte 1      ; 0x9d82
     je short @..api_idx_0054_UOTQ.l3 ; 0x9d87
@@ -318,46 +318,46 @@ jumptable_a27d_case_1:
     add sp, byte 4                   ; 0xa018
     ret                              ; 0xa01b
 @..api_idx_0054_UOTQ.l33:
-    jmp near @..api_idx_0054_UOTQ.l35 ; 0xa01c
+    jmp near @..api_idx_0054_UOTQ.l64 ; 0xa01c
 jumptable_a27d_case_4:
     cmp word [bss_9e62], byte 1      ; 0xa01f
-    jne short @..loc_a01f.l6         ; 0xa024
+    jne short @..api_idx_0054_UOTQ.l39 ; 0xa024
     cmp word [bss_9e78], byte 0      ; 0xa026
-    jne short @..loc_a01f.l5         ; 0xa02b
+    jne short @..api_idx_0054_UOTQ.l38 ; 0xa02b
     cmp word [bss_9e54], byte 1      ; 0xa02d
-    jne short @..loc_a01f.l1         ; 0xa032
+    jne short @..api_idx_0054_UOTQ.l34 ; 0xa032
     mov ax, 0x910b                   ; 0xa034
     push ax                          ; 0xa037
     mov ax, 0x667                    ; 0xa038
     push ax                          ; 0xa03b
     call api_idx_0080_TKTP           ; 0xa03c
     add sp, byte 4                   ; 0xa03f
-    jmp short @..loc_a01f.l4         ; 0xa042
-@..loc_a01f.l1:
+    jmp short @..api_idx_0054_UOTQ.l37 ; 0xa042
+@..api_idx_0054_UOTQ.l34:
     cmp word [bss_9e58], byte 1      ; 0xa044
-    je short @..loc_a01f.l2          ; 0xa049
+    je short @..api_idx_0054_UOTQ.l35 ; 0xa049
     cmp word [bss_9e5c], byte 1      ; 0xa04b
-    je short @..loc_a01f.l2          ; 0xa050
+    je short @..api_idx_0054_UOTQ.l35 ; 0xa050
     cmp word [bss_9e5e], byte 1      ; 0xa052
-    jne short @..loc_a01f.l3         ; 0xa057
-@..loc_a01f.l2:
+    jne short @..api_idx_0054_UOTQ.l36 ; 0xa057
+@..api_idx_0054_UOTQ.l35:
     mov ax, 0x910c                   ; 0xa059
     push ax                          ; 0xa05c
     mov ax, 0x66b                    ; 0xa05d
     push ax                          ; 0xa060
     call api_idx_0080_TKTP           ; 0xa061
     add sp, byte 4                   ; 0xa064
-    jmp short @..loc_a01f.l4         ; 0xa067
-@..loc_a01f.l3:
+    jmp short @..api_idx_0054_UOTQ.l37 ; 0xa067
+@..api_idx_0054_UOTQ.l36:
     mov ax, 0x910d                   ; 0xa069
     push ax                          ; 0xa06c
     mov ax, 0x65f                    ; 0xa06d
     push ax                          ; 0xa070
     call api_idx_0080_TKTP           ; 0xa071
     add sp, byte 4                   ; 0xa074
-@..loc_a01f.l4:
+@..api_idx_0054_UOTQ.l37:
     ret                              ; 0xa077
-@..loc_a01f.l5:
+@..api_idx_0054_UOTQ.l38:
     mov ax, 0x910e                   ; 0xa078
     push ax                          ; 0xa07b
     mov ax, 0x65b                    ; 0xa07c
@@ -365,9 +365,9 @@ jumptable_a27d_case_4:
     call api_idx_0080_TKTP           ; 0xa080
     add sp, byte 4                   ; 0xa083
     ret                              ; 0xa086
-@..loc_a01f.l6:
+@..api_idx_0054_UOTQ.l39:
     cmp word [bp - 0x0002], byte 0   ; 0xa087
-    jne short @..loc_a01f.l7         ; 0xa08b
+    jne short @..api_idx_0054_UOTQ.l40 ; 0xa08b
     mov ax, 0x910f                   ; 0xa08d
     push ax                          ; 0xa090
     mov ax, 0x660                    ; 0xa091
@@ -375,7 +375,7 @@ jumptable_a27d_case_4:
     call api_idx_0080_TKTP           ; 0xa095
     add sp, byte 4                   ; 0xa098
     ret                              ; 0xa09b
-@..loc_a01f.l7:
+@..api_idx_0054_UOTQ.l40:
     mov ax, 0x9110                   ; 0xa09c
     push ax                          ; 0xa09f
     mov ax, 0x65b                    ; 0xa0a0
@@ -385,28 +385,28 @@ jumptable_a27d_case_4:
     ret                              ; 0xa0aa
 jumptable_a27d_case_5:
     cmp word [bss_9e62], byte 1      ; 0xa0ab
-    jne short @..loc_a0ab.l4         ; 0xa0b0
+    jne short @..api_idx_0054_UOTQ.l44 ; 0xa0b0
     cmp word [bss_9e78], byte 0      ; 0xa0b2
-    jne short @..loc_a0ab.l3         ; 0xa0b7
+    jne short @..api_idx_0054_UOTQ.l43 ; 0xa0b7
     cmp word [bss_9e54], byte 1      ; 0xa0b9
-    jne short @..loc_a0ab.l1         ; 0xa0be
+    jne short @..api_idx_0054_UOTQ.l41 ; 0xa0be
     mov ax, 0x9111                   ; 0xa0c0
     push ax                          ; 0xa0c3
     mov ax, 0x668                    ; 0xa0c4
     push ax                          ; 0xa0c7
     call api_idx_0080_TKTP           ; 0xa0c8
     add sp, byte 4                   ; 0xa0cb
-    jmp short @..loc_a0ab.l2         ; 0xa0ce
-@..loc_a0ab.l1:
+    jmp short @..api_idx_0054_UOTQ.l42 ; 0xa0ce
+@..api_idx_0054_UOTQ.l41:
     mov ax, 0x9112                   ; 0xa0d0
     push ax                          ; 0xa0d3
     mov ax, 0x65f                    ; 0xa0d4
     push ax                          ; 0xa0d7
     call api_idx_0080_TKTP           ; 0xa0d8
     add sp, byte 4                   ; 0xa0db
-@..loc_a0ab.l2:
+@..api_idx_0054_UOTQ.l42:
     ret                              ; 0xa0de
-@..loc_a0ab.l3:
+@..api_idx_0054_UOTQ.l43:
     mov ax, 0x9113                   ; 0xa0df
     push ax                          ; 0xa0e2
     mov ax, 0x65b                    ; 0xa0e3
@@ -414,9 +414,9 @@ jumptable_a27d_case_5:
     call api_idx_0080_TKTP           ; 0xa0e7
     add sp, byte 4                   ; 0xa0ea
     ret                              ; 0xa0ed
-@..loc_a0ab.l4:
+@..api_idx_0054_UOTQ.l44:
     cmp word [bss_9e78], byte 0      ; 0xa0ee
-    jle short @..loc_a0ab.l5         ; 0xa0f3
+    jle short @..api_idx_0054_UOTQ.l45 ; 0xa0f3
     mov ax, 0x659                    ; 0xa0f5
     push ax                          ; 0xa0f8
     mov ax, word [bp - 0x0004]       ; 0xa0f9
@@ -427,7 +427,7 @@ jumptable_a27d_case_5:
     call loc_OJVU                    ; 0xa100
     add sp, byte 4                   ; 0xa103
     ret                              ; 0xa106
-@..loc_a0ab.l5:
+@..api_idx_0054_UOTQ.l45:
     mov ax, 0x9114                   ; 0xa107
     push ax                          ; 0xa10a
     mov ax, 0x664                    ; 0xa10b
@@ -437,26 +437,26 @@ jumptable_a27d_case_5:
     ret                              ; 0xa115
 jumptable_a27d_case_6:
     cmp word [bss_9e62], byte 1      ; 0xa116
-    jne short @..loc_a116.l3         ; 0xa11b
+    jne short @..api_idx_0054_UOTQ.l48 ; 0xa11b
     cmp word [bss_9e54], byte 1      ; 0xa11d
-    jne short @..loc_a116.l1         ; 0xa122
+    jne short @..api_idx_0054_UOTQ.l46 ; 0xa122
     mov ax, 0x9115                   ; 0xa124
     push ax                          ; 0xa127
     mov ax, 0x667                    ; 0xa128
     push ax                          ; 0xa12b
     call api_idx_0080_TKTP           ; 0xa12c
     add sp, byte 4                   ; 0xa12f
-    jmp short @..loc_a116.l2         ; 0xa132
-@..loc_a116.l1:
+    jmp short @..api_idx_0054_UOTQ.l47 ; 0xa132
+@..api_idx_0054_UOTQ.l46:
     mov ax, 0x9116                   ; 0xa134
     push ax                          ; 0xa137
     mov ax, 0x65f                    ; 0xa138
     push ax                          ; 0xa13b
     call api_idx_0080_TKTP           ; 0xa13c
     add sp, byte 4                   ; 0xa13f
-@..loc_a116.l2:
+@..api_idx_0054_UOTQ.l47:
     ret                              ; 0xa142
-@..loc_a116.l3:
+@..api_idx_0054_UOTQ.l48:
     mov ax, 0x9117                   ; 0xa143
     push ax                          ; 0xa146
     mov ax, 0x665                    ; 0xa147
@@ -466,11 +466,11 @@ jumptable_a27d_case_6:
     ret                              ; 0xa151
 jumptable_a27d_case_8:
     cmp word [bss_9e62], byte 1      ; 0xa152
-    je short @..loc_a152.l1          ; 0xa157
-    jmp near @..loc_a152.l7          ; 0xa159
-@..loc_a152.l1:
+    je short @..api_idx_0054_UOTQ.l49 ; 0xa157
+    jmp near @..api_idx_0054_UOTQ.l55 ; 0xa159
+@..api_idx_0054_UOTQ.l49:
     cmp word [bss_9e52], byte 1      ; 0xa15c
-    jne short @..loc_a152.l2         ; 0xa161
+    jne short @..api_idx_0054_UOTQ.l50 ; 0xa161
     mov ax, 0x9118                   ; 0xa163
     push ax                          ; 0xa166
     mov ax, 0x65e                    ; 0xa167
@@ -478,9 +478,9 @@ jumptable_a27d_case_8:
     call api_idx_0080_TKTP           ; 0xa16b
     add sp, byte 4                   ; 0xa16e
     ret                              ; 0xa171
-@..loc_a152.l2:
+@..api_idx_0054_UOTQ.l50:
     cmp word [bss_9e54], byte 1      ; 0xa172
-    jne short @..loc_a152.l3         ; 0xa177
+    jne short @..api_idx_0054_UOTQ.l51 ; 0xa177
     mov ax, 0x654                    ; 0xa179
     push ax                          ; 0xa17c
     mov ax, word [bp - 0x0004]       ; 0xa17d
@@ -490,9 +490,9 @@ jumptable_a27d_case_8:
     call loc_OJVU                    ; 0xa183
     add sp, byte 4                   ; 0xa186
     ret                              ; 0xa189
-@..loc_a152.l3:
+@..api_idx_0054_UOTQ.l51:
     cmp word [bss_9e58], byte 1      ; 0xa18a
-    jne short @..loc_a152.l4         ; 0xa18f
+    jne short @..api_idx_0054_UOTQ.l52 ; 0xa18f
     mov ax, 0x656                    ; 0xa191
     push ax                          ; 0xa194
     mov ax, word [bp - 0x0004]       ; 0xa195
@@ -501,9 +501,9 @@ jumptable_a27d_case_8:
     call loc_OJVU                    ; 0xa19c
     add sp, byte 4                   ; 0xa19f
     ret                              ; 0xa1a2
-@..loc_a152.l4:
+@..api_idx_0054_UOTQ.l52:
     cmp word [bss_9e5a], byte 1      ; 0xa1a3
-    jne short @..loc_a152.l5         ; 0xa1a8
+    jne short @..api_idx_0054_UOTQ.l53 ; 0xa1a8
     mov ax, 0x9119                   ; 0xa1aa
     push ax                          ; 0xa1ad
     mov ax, 0x657                    ; 0xa1ae
@@ -511,9 +511,9 @@ jumptable_a27d_case_8:
     call api_idx_0080_TKTP           ; 0xa1b2
     add sp, byte 4                   ; 0xa1b5
     ret                              ; 0xa1b8
-@..loc_a152.l5:
+@..api_idx_0054_UOTQ.l53:
     cmp word [bss_9e56], byte 1      ; 0xa1b9
-    jne short @..loc_a152.l6         ; 0xa1be
+    jne short @..api_idx_0054_UOTQ.l54 ; 0xa1be
     mov ax, 0x911a                   ; 0xa1c0
     push ax                          ; 0xa1c3
     mov ax, 0x655                    ; 0xa1c4
@@ -521,7 +521,7 @@ jumptable_a27d_case_8:
     call api_idx_0080_TKTP           ; 0xa1c8
     add sp, byte 4                   ; 0xa1cb
     ret                              ; 0xa1ce
-@..loc_a152.l6:
+@..api_idx_0054_UOTQ.l54:
     mov ax, 0x659                    ; 0xa1cf
     push ax                          ; 0xa1d2
     mov ax, word [bp - 0x0004]       ; 0xa1d3
@@ -532,7 +532,7 @@ jumptable_a27d_case_8:
     call loc_OJVU                    ; 0xa1da
     add sp, byte 4                   ; 0xa1dd
     ret                              ; 0xa1e0
-@..loc_a152.l7:
+@..api_idx_0054_UOTQ.l55:
     mov ax, 0x911b                   ; 0xa1e1
     push ax                          ; 0xa1e4
     mov ax, 0x661                    ; 0xa1e5
@@ -542,14 +542,14 @@ jumptable_a27d_case_8:
     ret                              ; 0xa1ef
 jumptable_a27d_case_9:
     cmp word [bss_9e62], byte 1      ; 0xa1f0
-    je short @..loc_a1f0.l1          ; 0xa1f5
-    jmp near @..loc_a1f0.l7          ; 0xa1f7
-@..loc_a1f0.l1:
+    je short @..api_idx_0054_UOTQ.l56 ; 0xa1f5
+    jmp near @..api_idx_0054_UOTQ.l62 ; 0xa1f7
+@..api_idx_0054_UOTQ.l56:
     cmp word [bss_9e52], byte 1      ; 0xa1fa
-    je short @..loc_a1f0.l2          ; 0xa1ff
+    je short @..api_idx_0054_UOTQ.l57 ; 0xa1ff
     cmp word [bss_9e5a], byte 1      ; 0xa201
-    jne short @..loc_a1f0.l3         ; 0xa206
-@..loc_a1f0.l2:
+    jne short @..api_idx_0054_UOTQ.l58 ; 0xa206
+@..api_idx_0054_UOTQ.l57:
     mov ax, 0x911c                   ; 0xa208
     push ax                          ; 0xa20b
     mov ax, 0x65e                    ; 0xa20c
@@ -557,9 +557,9 @@ jumptable_a27d_case_9:
     call api_idx_0080_TKTP           ; 0xa210
     add sp, byte 4                   ; 0xa213
     ret                              ; 0xa216
-@..loc_a1f0.l3:
+@..api_idx_0054_UOTQ.l58:
     cmp word [bss_9e54], byte 1      ; 0xa217
-    jne short @..loc_a1f0.l4         ; 0xa21c
+    jne short @..api_idx_0054_UOTQ.l59 ; 0xa21c
     mov ax, 0x911d                   ; 0xa21e
     push ax                          ; 0xa221
     mov ax, 0x662                    ; 0xa222
@@ -567,9 +567,9 @@ jumptable_a27d_case_9:
     call api_idx_0080_TKTP           ; 0xa226
     add sp, byte 4                   ; 0xa229
     ret                              ; 0xa22c
-@..loc_a1f0.l4:
+@..api_idx_0054_UOTQ.l59:
     cmp word [bss_9e58], byte 1      ; 0xa22d
-    jne short @..loc_a1f0.l5         ; 0xa232
+    jne short @..api_idx_0054_UOTQ.l60 ; 0xa232
     mov ax, 0x656                    ; 0xa234
     push ax                          ; 0xa237
     mov ax, word [bp - 0x0004]       ; 0xa238
@@ -578,9 +578,9 @@ jumptable_a27d_case_9:
     call loc_OJVU                    ; 0xa23f
     add sp, byte 4                   ; 0xa242
     ret                              ; 0xa245
-@..loc_a1f0.l5:
+@..api_idx_0054_UOTQ.l60:
     cmp word [bss_9e56], byte 1      ; 0xa246
-    jne short @..loc_a1f0.l6         ; 0xa24b
+    jne short @..api_idx_0054_UOTQ.l61 ; 0xa24b
     mov ax, 0x911e                   ; 0xa24d
     push ax                          ; 0xa250
     mov ax, 0x655                    ; 0xa251
@@ -588,7 +588,7 @@ jumptable_a27d_case_9:
     call api_idx_0080_TKTP           ; 0xa255
     add sp, byte 4                   ; 0xa258
     ret                              ; 0xa25b
-@..loc_a1f0.l6:
+@..api_idx_0054_UOTQ.l61:
     mov ax, 0x659                    ; 0xa25c
     push ax                          ; 0xa25f
     mov ax, word [bp - 0x0004]       ; 0xa260
@@ -599,7 +599,7 @@ jumptable_a27d_case_9:
     call loc_OJVU                    ; 0xa267
     add sp, byte 4                   ; 0xa26a
     ret                              ; 0xa26d
-@..loc_a1f0.l7:
+@..api_idx_0054_UOTQ.l62:
     mov ax, 0x911f                   ; 0xa26e
     push ax                          ; 0xa271
     mov ax, 0x663                    ; 0xa272
@@ -618,11 +618,11 @@ jumptable_a27d:
     dw jumptable_a27d_case_6 - IMAGE_BASE + __zres_end ; 0xa28b
     dw jumptable_a27d_case_8 - IMAGE_BASE + __zres_end ; 0xa28d
     dw jumptable_a27d_case_9 - IMAGE_BASE + __zres_end ; 0xa28f
-@..api_idx_0054_UOTQ.l34:
+@..api_idx_0054_UOTQ.l63:
     cmp ax, strict word 0xa          ; 0xa291
-    jae short @..api_idx_0054_UOTQ.l35 ; 0xa294
+    jae short @..api_idx_0054_UOTQ.l64 ; 0xa294
     xchg bx, ax                      ; 0xa296
     shl bx, 1                        ; 0xa297
     jmp [cs:bx + jumptable_a27d - IMAGE_BASE + __zres_end] ; 0xa299
-@..api_idx_0054_UOTQ.l35:
+@..api_idx_0054_UOTQ.l64:
     ret                              ; 0xa29e

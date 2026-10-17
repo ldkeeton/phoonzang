@@ -112,7 +112,7 @@ api_idx_007a_NHII:
     add sp, byte 0x12                ; 0x5015
     mov ax, word [bp - 0x0008]       ; 0x5018
     jmp near @..api_idx_007a_NHII.l18 ; 0x501b
-loc_QMHM:
+jumptable_51bc_case_1:
     cmp word [bss_0e32], byte 0      ; 0x501e
     jne short @..api_idx_007a_NHII.l5 ; 0x5023
     mov ax, 1                        ; 0x5025
@@ -146,7 +146,7 @@ loc_QMHM:
     ret                              ; 0x5068
 @..api_idx_007a_NHII.l6:
     jmp near @..api_idx_007a_NHII.l19 ; 0x5069
-loc_PKMV:
+jumptable_51bc_case_0:
     cmp word [bss_0e32], byte 0      ; 0x506c
     jne short @..api_idx_007a_NHII.l7 ; 0x5071
     mov ax, 1                        ; 0x5073
@@ -225,7 +225,7 @@ loc_PKMV:
     ret                              ; 0x511f
 @..api_idx_007a_NHII.l11:
     jmp near @..api_idx_007a_NHII.l19 ; 0x5120
-loc_TMJL:
+jumptable_51bc_case_2:
     cmp word [bss_0e32], byte 0      ; 0x5123
     jne short @..api_idx_007a_NHII.l12 ; 0x5128
     mov ax, 1                        ; 0x512a
@@ -287,15 +287,15 @@ loc_TMJL:
     ret                              ; 0x51b5
 @..api_idx_007a_NHII.l17:
     jmp short @..api_idx_007a_NHII.l19 ; 0x51b6
-loc_VJQO:
+jumptable_51bc_case_4:
     mov ax, 0xffff                   ; 0x51b8
     ret                              ; 0x51bb
 jumptable_51bc:
-    dw loc_PKMV - IMAGE_BASE + __zres_end      ; 0x51bc
-    dw loc_QMHM - IMAGE_BASE + __zres_end      ; 0x51be
-    dw loc_TMJL - IMAGE_BASE + __zres_end      ; 0x51c0
-    dw loc_TMJL - IMAGE_BASE + __zres_end      ; 0x51c2
-    dw loc_VJQO - IMAGE_BASE + __zres_end      ; 0x51c4
+    dw jumptable_51bc_case_0 - IMAGE_BASE + __zres_end ; 0x51bc
+    dw jumptable_51bc_case_1 - IMAGE_BASE + __zres_end ; 0x51be
+    dw jumptable_51bc_case_2 - IMAGE_BASE + __zres_end ; 0x51c0
+    dw jumptable_51bc_case_2 - IMAGE_BASE + __zres_end ; 0x51c2
+    dw jumptable_51bc_case_4 - IMAGE_BASE + __zres_end ; 0x51c4
 @..api_idx_007a_NHII.l18:
     cmp ax, strict word 5            ; 0x51c6
     jae short @..api_idx_007a_NHII.l19 ; 0x51c9

@@ -14,7 +14,7 @@ sprintf:
     lodsb                            ; 0x487d
     cmp al, 0x25                     ; 0x487e
     je short @..sprintf.l3           ; 0x4880
-ds_string_loc_4882:
+jumptable_4822_case_20:
     test al, al                      ; 0x4882
     je short @..sprintf.l2           ; 0x4884
     call ds_loc_NJTI                 ; 0x4886
@@ -82,31 +82,31 @@ ds_string_loc_4882:
     sub di, strict word 0x460e       ; 0x4904
     shl di, 1                        ; 0x4908
     jmp [cs:di + jumptable_4822 - IMAGE_BASE] ; 0x490a
-ds_string_loc_490f:
+jumptable_4822_case_0:
     or byte [bp - 0x000b], 1         ; 0x490f
     lodsb                            ; 0x4913
     jmp short @..sprintf.l12         ; 0x4914
-ds_string_loc_4916:
+jumptable_4822_case_1:
     or byte [bp - 0x000b], 2         ; 0x4916
-ds_string_loc_491a:
+jumptable_4822_case_2:
     lodsb                            ; 0x491a
     jmp short @..sprintf.l12         ; 0x491b
-ds_string_loc_491d:
+jumptable_4822_case_3:
     or byte [bp - 0x000b], 4         ; 0x491d
     lodsb                            ; 0x4921
     jmp short @..sprintf.l12         ; 0x4922
-ds_leaf_loc_4924:
+jumptable_4822_case_5:
     mov cx, 8                        ; 0x4924
     jmp short @..sprintf.l13         ; 0x4927
-ds_leaf_loc_4929:
+jumptable_4822_case_7:
     or byte [bp - 0x000b], 0x20      ; 0x4929
-ds_leaf_loc_492d:
+jumptable_4822_case_6:
     mov cx, 0x10                     ; 0x492d
     jmp short @..sprintf.l13         ; 0x4930
-ds_leaf_loc_4932:
+jumptable_4822_case_8:
     mov cx, 0xa                      ; 0x4932
     jmp short @..sprintf.l13         ; 0x4935
-ds_leaf_loc_4937:
+jumptable_4822_case_9:
     mov cx, 0xff0a                   ; 0x4937
 @..sprintf.l13:
     push ds                          ; 0x493a
@@ -235,17 +235,17 @@ ds_leaf_loc_4937:
     jmp short @..sprintf.l32         ; 0x4a3f
 @..sprintf.l33:
     jmp near @..sprintf.l1           ; 0x4a41
-ds_loc_GHJS:
+jumptable_4822_case_16:
     or byte [bp - 0x000b], 0x20      ; 0x4a44
     add al, 0x20                     ; 0x4a48
-ds_loc_RLKL:
+jumptable_4822_case_15:
     add word [bp + 0x8], byte 8      ; 0x4a4a
     mov ax, cs                       ; 0x4a4e
     mov es, ax                       ; 0x4a50
     mov di, 0x465c                   ; 0x4a52
     sub word [bp - 0x0004], byte 0x0a ; 0x4a55
     jmp short @..sprintf.l31         ; 0x4a59
-ds_loc_QMOJ:
+jumptable_4822_case_11:
     call ds_leaf_loc_GSJQ            ; 0x4a5b
     push di                          ; 0x4a5e
     mov al, 0                        ; 0x4a5f
@@ -260,7 +260,7 @@ ds_loc_QMOJ:
     pop di                           ; 0x4a71
     mov word [bp - 0x0006], 0        ; 0x4a72
     jmp near @..sprintf.l25          ; 0x4a77
-ds_loc_OKTP:
+jumptable_4822_case_12:
     push ds                          ; 0x4a7a
     pop es                           ; 0x4a7b
     mov di, word [bp + 0x8]          ; 0x4a7c
@@ -274,9 +274,9 @@ ds_loc_OKTP:
     lea di, word [bp - 0x0154]       ; 0x4a93
     mov word [bp - 0x0006], 0        ; 0x4a97
     jmp near @..sprintf.l25          ; 0x4a9c
-ds_string_loc_4a9f:
+jumptable_4822_case_13:
     jmp near @..sprintf.l1           ; 0x4a9f
-ds_string_loc_4aa2:
+jumptable_4822_case_14:
     call ds_leaf_loc_GSJQ            ; 0x4aa2
     mov ax, word [bp - 0x0002]       ; 0x4aa5
     mov word [es:di], ax             ; 0x4aa8

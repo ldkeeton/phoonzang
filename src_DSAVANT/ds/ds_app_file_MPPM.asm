@@ -4,44 +4,44 @@ ds_app_file_MPPM: ; Aztec csav frame=0x0100
     call aztec_csav                  ; 0x0886
     mov ax, word [bp + 0x4]          ; 0x0889
     jmp short @..ds_app_file_MPPM.l1 ; 0x088c
-ds_string_loc_088e:
+jumptable_08d4_case_0:
     mov bx, word [bp + 0x8]          ; 0x088e
     mov al, byte [bx + 0x5244]       ; 0x0891
     sub ah, ah                       ; 0x0895
     mov word [bp + 0x8], ax          ; 0x0897
     jmp short @..ds_app_file_MPPM.l2 ; 0x089a
-ds_string_loc_089c:
+jumptable_08d4_case_3:
     mov bx, word [bp + 0x8]          ; 0x089c
     mov al, byte [bx + 0x5264]       ; 0x089f
     sub ah, ah                       ; 0x08a3
     mov word [bp + 0x8], ax          ; 0x08a5
     jmp short @..ds_app_file_MPPM.l2 ; 0x08a8
-ds_string_loc_08aa:
+jumptable_08d4_case_5:
     mov bx, word [bp + 0x8]          ; 0x08aa
     mov al, byte [bx + 0x52c4]       ; 0x08ad
     sub ah, ah                       ; 0x08b1
     mov word [bp + 0x8], ax          ; 0x08b3
     jmp short @..ds_app_file_MPPM.l2 ; 0x08b6
-ds_string_loc_08b8:
+jumptable_08d4_case_2:
     mov bx, word [bp + 0x8]          ; 0x08b8
     mov al, byte [bx + 0x53c4]       ; 0x08bb
     sub ah, ah                       ; 0x08bf
     mov word [bp + 0x8], ax          ; 0x08c1
     jmp short @..ds_app_file_MPPM.l2 ; 0x08c4
-ds_string_loc_08c6:
+jumptable_08d4_case_6:
     mov bx, word [bp + 0x8]          ; 0x08c6
     mov al, byte [bx + 0x54c4]       ; 0x08c9
     sub ah, ah                       ; 0x08cd
     mov word [bp + 0x8], ax          ; 0x08cf
     jmp short @..ds_app_file_MPPM.l2 ; 0x08d2
 jumptable_08d4:
-    dw ds_string_loc_088e - IMAGE_BASE         ; 0x08d4
-    dw ds_string_loc_088e - IMAGE_BASE         ; 0x08d6
-    dw ds_string_loc_08b8 - IMAGE_BASE         ; 0x08d8
-    dw ds_string_loc_089c - IMAGE_BASE         ; 0x08da
+    dw jumptable_08d4_case_0 - IMAGE_BASE      ; 0x08d4
+    dw jumptable_08d4_case_0 - IMAGE_BASE      ; 0x08d6
+    dw jumptable_08d4_case_2 - IMAGE_BASE      ; 0x08d8
+    dw jumptable_08d4_case_3 - IMAGE_BASE      ; 0x08da
     dw jumptable_08d4_case_4 - IMAGE_BASE      ; 0x08dc
-    dw ds_string_loc_08aa - IMAGE_BASE         ; 0x08de
-    dw ds_string_loc_08c6 - IMAGE_BASE         ; 0x08e0
+    dw jumptable_08d4_case_5 - IMAGE_BASE      ; 0x08de
+    dw jumptable_08d4_case_6 - IMAGE_BASE      ; 0x08e0
 @..ds_app_file_MPPM.l1:
     sub ax, strict word 2            ; 0x08e2
     cmp ax, strict word 7            ; 0x08e5

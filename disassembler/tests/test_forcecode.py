@@ -1,4 +1,5 @@
-"""ForceCodePhase must stop a function body at DOS exits."""
+"""ForceCodePhase must stop a function body at DOS exits, and leave switch
+cases alone."""
 
 import unittest
 
@@ -7,6 +8,7 @@ import polars as pl
 
 from lib.model import PhaseContext
 from lib.phases.forcecode import ForceCodePhase
+from lib.symtab import Kind, Source, Symbol
 
 
 def _ctx(data, name):
@@ -39,6 +41,29 @@ class ForceCodeDosExitTests(unittest.TestCase):
 
         self.assertTrue(all(result[i] > 0.5 for i in range(5)))
         self.assertTrue(all(result[i] == 0.0 for i in range(5, len(data))))
+
+
+class ForceCodeSwitchCaseTests(unittest.TestCase):
+    # A 0x55 byte, a zero gap, then a body at 7 (play's ``jumptable_035e``
+    # arm at 0x03dc sits after a 15-byte zero gap).
+    DATA = b'\x55' + b'\x00' * 6 + b'\xc3'
+
+    def _forced(self, label):
+        ctx = _ctx(self.DATA, 'unused')
+        ctx.label_map = {7: label}
+        return ForceCodePhase().run(None, ctx).to_numpy()
+
+    def test_a_function_label_scans_back_for_its_prologue(self):
+        label = Symbol('io_loc_KXYZ', kind=Kind.ROUTINE, source=Source.TAG,
+                       offset=7)
+        result = self._forced(label)
+        self.assertTrue(all(result[i] > 0.5 for i in range(7)))
+
+    def test_a_switch_case_is_not_a_function_entry(self):
+        label = Symbol('jumptable_0010_case_1', kind=Kind.ROUTINE,
+                       source=Source.TAG, offset=7, role='case')
+        result = self._forced(label)
+        self.assertTrue(all(result[i] == 0.0 for i in range(len(self.DATA))))
 
 
 if __name__ == '__main__':

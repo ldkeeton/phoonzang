@@ -359,7 +359,7 @@ api_idx_0022_RHMN:
     je short @..api_idx_0022_RHMN.l35 ; 0x258c
     cmp word [bss_91a8], byte 1      ; 0x258e
     jne short @..api_idx_0022_RHMN.l35 ; 0x2593
-    call loc_NQRL                    ; 0x2595
+    call loc_IPSH                    ; 0x2595
     cmp word [bss_830a], byte 5      ; 0x2598
     je short @..api_idx_0022_RHMN.l35 ; 0x259d
     ret                              ; 0x259f

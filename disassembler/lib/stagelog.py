@@ -32,7 +32,7 @@ Kinds:
 ``cleanup``    undoes a side effect
 ``measure``    reads only; ``metrics`` carries the numbers
 
-Opt-in: the main build records nothing.  ``make flow`` sets ``WIZ_STAGELOG=1``
+Opt-in: the main build records nothing.  ``make flow`` sets ``ASM_STAGELOG=1``
 so a build writes ``.cache/<project>/stages/`` for ``flow.generate`` to read.
 """
 
@@ -40,7 +40,7 @@ import json
 import os
 import time
 
-ENABLED = bool(os.environ.get('WIZ_STAGELOG'))
+ENABLED = bool(os.environ.get('ASM_STAGELOG'))
 
 KINDS = ('produce', 'repair', 'recompute', 'cleanup', 'measure')
 #: Kinds that are *declared* second-guessing of earlier work.

@@ -340,31 +340,31 @@ jumptable_0c0b_case_1:
     add sp, byte 0x0c                ; 0x0cf8
     mov word [bp - 0x0012], ax       ; 0x0cfb
     jmp short @..api_idx_0014_HTUV.l32 ; 0x0cfe
-loc_JQTI_0d00:
+jumptable_0d20_case_1:
     mov ax, word [bss_9af6]          ; 0x0d00
     mov word [bp - 0x0010], ax       ; 0x0d03
     jmp short @..api_idx_0014_HTUV.l33 ; 0x0d06
-loc_JQTI_0d08:
+jumptable_0d20_case_2:
     mov ax, word [bss_9af8]          ; 0x0d08
     mov word [bp - 0x0010], ax       ; 0x0d0b
     jmp short @..api_idx_0014_HTUV.l33 ; 0x0d0e
-loc_JQTI_0d10:
+jumptable_0d20_case_3:
     mov ax, word [bss_9afa]          ; 0x0d10
     mov word [bp - 0x0010], ax       ; 0x0d13
     jmp short @..api_idx_0014_HTUV.l33 ; 0x0d16
-loc_OGLV:
+jumptable_0d20_case_4:
     mov ax, word [bss_9afc]          ; 0x0d18
     mov word [bp - 0x0010], ax       ; 0x0d1b
     jmp short @..api_idx_0014_HTUV.l33 ; 0x0d1e
 jumptable_0d20:
     dw jumptable_0d20_case_0 - IMAGE_BASE + __zres_end ; 0x0d20
-    dw loc_JQTI_0d00 - IMAGE_BASE + __zres_end ; 0x0d22
-    dw loc_JQTI_0d08 - IMAGE_BASE + __zres_end ; 0x0d24
-    dw loc_JQTI_0d10 - IMAGE_BASE + __zres_end ; 0x0d26
-    dw loc_OGLV - IMAGE_BASE + __zres_end      ; 0x0d28
+    dw jumptable_0d20_case_1 - IMAGE_BASE + __zres_end ; 0x0d22
+    dw jumptable_0d20_case_2 - IMAGE_BASE + __zres_end ; 0x0d24
+    dw jumptable_0d20_case_3 - IMAGE_BASE + __zres_end ; 0x0d26
+    dw jumptable_0d20_case_4 - IMAGE_BASE + __zres_end ; 0x0d28
     dw jumptable_0d20_case_0 - IMAGE_BASE + __zres_end ; 0x0d2a
-    dw loc_JQTI_0d10 - IMAGE_BASE + __zres_end ; 0x0d2c
-    dw loc_JQTI_0d08 - IMAGE_BASE + __zres_end ; 0x0d2e
+    dw jumptable_0d20_case_3 - IMAGE_BASE + __zres_end ; 0x0d2c
+    dw jumptable_0d20_case_2 - IMAGE_BASE + __zres_end ; 0x0d2e
 @..api_idx_0014_HTUV.l32:
     cmp ax, strict word 8            ; 0x0d30
     jae short @..api_idx_0014_HTUV.l33 ; 0x0d33
@@ -399,31 +399,31 @@ jumptable_0d20_case_0:
     add sp, byte 0x0c                ; 0x0d78
     mov word [bp - 0x0012], ax       ; 0x0d7b
     jmp short @..api_idx_0014_HTUV.l35 ; 0x0d7e
-leaf_loc_0d80:
+jumptable_0da0_case_1:
     mov ax, word [bss_9afe]          ; 0x0d80
     mov word [bp - 0x0010], ax       ; 0x0d83
     jmp short @..api_idx_0014_HTUV.l36 ; 0x0d86
-leaf_loc_0d88:
+jumptable_0da0_case_2:
     mov ax, word [bss_9b00]          ; 0x0d88
     mov word [bp - 0x0010], ax       ; 0x0d8b
     jmp short @..api_idx_0014_HTUV.l36 ; 0x0d8e
-leaf_loc_0d90:
+jumptable_0da0_case_3:
     mov ax, word [bss_9b02]          ; 0x0d90
     mov word [bp - 0x0010], ax       ; 0x0d93
     jmp short @..api_idx_0014_HTUV.l36 ; 0x0d96
-leaf_loc_0d98:
+jumptable_0da0_case_4:
     mov ax, word [bss_9b04]          ; 0x0d98
     mov word [bp - 0x0010], ax       ; 0x0d9b
     jmp short @..api_idx_0014_HTUV.l36 ; 0x0d9e
 jumptable_0da0:
     dw jumptable_0da0_case_0 - IMAGE_BASE + __zres_end ; 0x0da0
-    dw leaf_loc_0d80 - IMAGE_BASE + __zres_end ; 0x0da2
-    dw leaf_loc_0d88 - IMAGE_BASE + __zres_end ; 0x0da4
-    dw leaf_loc_0d90 - IMAGE_BASE + __zres_end ; 0x0da6
-    dw leaf_loc_0d98 - IMAGE_BASE + __zres_end ; 0x0da8
+    dw jumptable_0da0_case_1 - IMAGE_BASE + __zres_end ; 0x0da2
+    dw jumptable_0da0_case_2 - IMAGE_BASE + __zres_end ; 0x0da4
+    dw jumptable_0da0_case_3 - IMAGE_BASE + __zres_end ; 0x0da6
+    dw jumptable_0da0_case_4 - IMAGE_BASE + __zres_end ; 0x0da8
     dw jumptable_0da0_case_0 - IMAGE_BASE + __zres_end ; 0x0daa
-    dw leaf_loc_0d90 - IMAGE_BASE + __zres_end ; 0x0dac
-    dw leaf_loc_0d88 - IMAGE_BASE + __zres_end ; 0x0dae
+    dw jumptable_0da0_case_3 - IMAGE_BASE + __zres_end ; 0x0dac
+    dw jumptable_0da0_case_2 - IMAGE_BASE + __zres_end ; 0x0dae
 @..api_idx_0014_HTUV.l35:
     cmp ax, strict word 8            ; 0x0db0
     jae short @..api_idx_0014_HTUV.l36 ; 0x0db3
@@ -458,31 +458,31 @@ jumptable_0da0_case_0:
     add sp, byte 0x0c                ; 0x0df8
     mov word [bp - 0x0012], ax       ; 0x0dfb
     jmp short @..api_idx_0014_HTUV.l38 ; 0x0dfe
-loc_JQTI_0e00:
+jumptable_0e20_case_1:
     mov ax, word [bss_9af6]          ; 0x0e00
     mov word [bp - 0x0010], ax       ; 0x0e03
     jmp short @..api_idx_0014_HTUV.l39 ; 0x0e06
-loc_JQTI_0e08:
+jumptable_0e20_case_2:
     mov ax, word [bss_9af8]          ; 0x0e08
     mov word [bp - 0x0010], ax       ; 0x0e0b
     jmp short @..api_idx_0014_HTUV.l39 ; 0x0e0e
-loc_JQTI_0e10:
+jumptable_0e20_case_3:
     mov ax, word [bss_9afa]          ; 0x0e10
     mov word [bp - 0x0010], ax       ; 0x0e13
     jmp short @..api_idx_0014_HTUV.l39 ; 0x0e16
-loc_RIGO:
+jumptable_0e20_case_4:
     mov ax, word [bss_9afc]          ; 0x0e18
     mov word [bp - 0x0010], ax       ; 0x0e1b
     jmp short @..api_idx_0014_HTUV.l39 ; 0x0e1e
 jumptable_0e20:
     dw jumptable_0e20_case_0 - IMAGE_BASE + __zres_end ; 0x0e20
-    dw loc_JQTI_0e00 - IMAGE_BASE + __zres_end ; 0x0e22
-    dw loc_JQTI_0e08 - IMAGE_BASE + __zres_end ; 0x0e24
-    dw loc_JQTI_0e10 - IMAGE_BASE + __zres_end ; 0x0e26
-    dw loc_RIGO - IMAGE_BASE + __zres_end      ; 0x0e28
+    dw jumptable_0e20_case_1 - IMAGE_BASE + __zres_end ; 0x0e22
+    dw jumptable_0e20_case_2 - IMAGE_BASE + __zres_end ; 0x0e24
+    dw jumptable_0e20_case_3 - IMAGE_BASE + __zres_end ; 0x0e26
+    dw jumptable_0e20_case_4 - IMAGE_BASE + __zres_end ; 0x0e28
     dw jumptable_0e20_case_0 - IMAGE_BASE + __zres_end ; 0x0e2a
-    dw loc_JQTI_0e10 - IMAGE_BASE + __zres_end ; 0x0e2c
-    dw loc_JQTI_0e08 - IMAGE_BASE + __zres_end ; 0x0e2e
+    dw jumptable_0e20_case_3 - IMAGE_BASE + __zres_end ; 0x0e2c
+    dw jumptable_0e20_case_2 - IMAGE_BASE + __zres_end ; 0x0e2e
 @..api_idx_0014_HTUV.l38:
     cmp ax, strict word 8            ; 0x0e30
     jae short @..api_idx_0014_HTUV.l39 ; 0x0e33
@@ -517,31 +517,31 @@ jumptable_0e20_case_0:
     add sp, byte 0x0c                ; 0x0e78
     mov word [bp - 0x0012], ax       ; 0x0e7b
     jmp short @..api_idx_0014_HTUV.l41 ; 0x0e7e
-leaf_loc_0e80:
+jumptable_0ea0_case_1:
     mov ax, word [bss_9afe]          ; 0x0e80
     mov word [bp - 0x0010], ax       ; 0x0e83
     jmp short @..api_idx_0014_HTUV.l42 ; 0x0e86
-leaf_loc_0e88:
+jumptable_0ea0_case_2:
     mov ax, word [bss_9b00]          ; 0x0e88
     mov word [bp - 0x0010], ax       ; 0x0e8b
     jmp short @..api_idx_0014_HTUV.l42 ; 0x0e8e
-leaf_loc_0e90:
+jumptable_0ea0_case_3:
     mov ax, word [bss_9b02]          ; 0x0e90
     mov word [bp - 0x0010], ax       ; 0x0e93
     jmp short @..api_idx_0014_HTUV.l42 ; 0x0e96
-leaf_loc_0e98:
+jumptable_0ea0_case_4:
     mov ax, word [bss_9b04]          ; 0x0e98
     mov word [bp - 0x0010], ax       ; 0x0e9b
     jmp short @..api_idx_0014_HTUV.l42 ; 0x0e9e
 jumptable_0ea0:
     dw jumptable_0ea0_case_0 - IMAGE_BASE + __zres_end ; 0x0ea0
-    dw leaf_loc_0e80 - IMAGE_BASE + __zres_end ; 0x0ea2
-    dw leaf_loc_0e88 - IMAGE_BASE + __zres_end ; 0x0ea4
-    dw leaf_loc_0e90 - IMAGE_BASE + __zres_end ; 0x0ea6
-    dw leaf_loc_0e98 - IMAGE_BASE + __zres_end ; 0x0ea8
+    dw jumptable_0ea0_case_1 - IMAGE_BASE + __zres_end ; 0x0ea2
+    dw jumptable_0ea0_case_2 - IMAGE_BASE + __zres_end ; 0x0ea4
+    dw jumptable_0ea0_case_3 - IMAGE_BASE + __zres_end ; 0x0ea6
+    dw jumptable_0ea0_case_4 - IMAGE_BASE + __zres_end ; 0x0ea8
     dw jumptable_0ea0_case_0 - IMAGE_BASE + __zres_end ; 0x0eaa
-    dw leaf_loc_0e90 - IMAGE_BASE + __zres_end ; 0x0eac
-    dw leaf_loc_0e88 - IMAGE_BASE + __zres_end ; 0x0eae
+    dw jumptable_0ea0_case_3 - IMAGE_BASE + __zres_end ; 0x0eac
+    dw jumptable_0ea0_case_2 - IMAGE_BASE + __zres_end ; 0x0eae
 @..api_idx_0014_HTUV.l41:
     cmp ax, strict word 8            ; 0x0eb0
     jae short @..api_idx_0014_HTUV.l42 ; 0x0eb3

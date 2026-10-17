@@ -1,160 +1,160 @@
 ; auto-generated
-loc_VNLP:
+loc_UOUN:
     mov ax, 0                        ; 0x1820
     call aztec_csav                  ; 0x1823
     mov ax, word [bp + 0x4]          ; 0x1826
-    jmp short @..loc_VNLP.l4         ; 0x1829
-leaf_loc_182b:
+    jmp short @..loc_UOUN.l4         ; 0x1829
+jumptable_185e_case_0:
     mov ax, 0xc                      ; 0x182b
     cmp word [bp + 0x6], byte 0      ; 0x182e
-    jne short @..loc_VNLP.l1         ; 0x1832
+    jne short @..loc_UOUN.l1         ; 0x1832
     mov ax, 0xd                      ; 0x1834
-@..loc_VNLP.l1:
+@..loc_UOUN.l1:
     ret                              ; 0x1837
-leaf_loc_1838:
+jumptable_185e_case_1:
     mov ax, 0x1a                     ; 0x1838
     ret                              ; 0x183b
-leaf_loc_183c:
+jumptable_185e_case_2:
     mov ax, 0x18                     ; 0x183c
     ret                              ; 0x183f
-leaf_loc_1840:
+jumptable_185e_case_3:
     mov ax, 8                        ; 0x1840
     cmp word [bp + 0x6], byte 0      ; 0x1843
-    jne short @..loc_VNLP.l2         ; 0x1847
+    jne short @..loc_UOUN.l2         ; 0x1847
     mov ax, 3                        ; 0x1849
-@..loc_VNLP.l2:
+@..loc_UOUN.l2:
     ret                              ; 0x184c
-leaf_loc_184d:
+jumptable_185e_case_4:
     mov ax, 7                        ; 0x184d
     cmp word [bp + 0x6], byte 0      ; 0x1850
-    jne short @..loc_VNLP.l3         ; 0x1854
+    jne short @..loc_UOUN.l3         ; 0x1854
     mov ax, 5                        ; 0x1856
-@..loc_VNLP.l3:
+@..loc_UOUN.l3:
     ret                              ; 0x1859
-leaf_loc_185a:
+jumptable_185e_case_5:
     mov ax, 0x16                     ; 0x185a
     ret                              ; 0x185d
 jumptable_185e:
-    dw leaf_loc_182b - IMAGE_BASE + __zres_end ; 0x185e
-    dw leaf_loc_1838 - IMAGE_BASE + __zres_end ; 0x1860
-    dw leaf_loc_183c - IMAGE_BASE + __zres_end ; 0x1862
-    dw leaf_loc_1840 - IMAGE_BASE + __zres_end ; 0x1864
-    dw leaf_loc_184d - IMAGE_BASE + __zres_end ; 0x1866
-    dw leaf_loc_185a - IMAGE_BASE + __zres_end ; 0x1868
-@..loc_VNLP.l4:
+    dw jumptable_185e_case_0 - IMAGE_BASE + __zres_end ; 0x185e
+    dw jumptable_185e_case_1 - IMAGE_BASE + __zres_end ; 0x1860
+    dw jumptable_185e_case_2 - IMAGE_BASE + __zres_end ; 0x1862
+    dw jumptable_185e_case_3 - IMAGE_BASE + __zres_end ; 0x1864
+    dw jumptable_185e_case_4 - IMAGE_BASE + __zres_end ; 0x1866
+    dw jumptable_185e_case_5 - IMAGE_BASE + __zres_end ; 0x1868
+@..loc_UOUN.l4:
     sub ax, strict word 5            ; 0x186a
     cmp ax, strict word 6            ; 0x186d
-    jae short @..loc_VNLP.l5         ; 0x1870
+    jae short @..loc_UOUN.l5         ; 0x1870
     xchg bx, ax                      ; 0x1872
     shl bx, 1                        ; 0x1873
     jmp [cs:bx + jumptable_185e - IMAGE_BASE + __zres_end] ; 0x1875
-@..loc_VNLP.l5:
+@..loc_UOUN.l5:
     cmp word [bp + 0x8], byte 0x0d   ; 0x187a
-    jne short @..loc_VNLP.l6         ; 0x187e
+    jne short @..loc_UOUN.l6         ; 0x187e
     mov ax, 0x12                     ; 0x1880
     ret                              ; 0x1883
-@..loc_VNLP.l6:
+@..loc_UOUN.l6:
     cmp word [bp + 0x4], byte 1      ; 0x1884
-    jne short @..loc_VNLP.l12        ; 0x1888
+    jne short @..loc_UOUN.l12        ; 0x1888
     mov ax, word [bp + 0x8]          ; 0x188a
-    jmp short @..loc_VNLP.l11        ; 0x188d
-leaf_loc_188f:
+    jmp short @..loc_UOUN.l11        ; 0x188d
+jumptable_18c7_case_0:
     mov ax, 0xa                      ; 0x188f
     cmp word [bp + 0x6], byte 0      ; 0x1892
-    jne short @..loc_VNLP.l7         ; 0x1896
+    jne short @..loc_UOUN.l7         ; 0x1896
     mov ax, 0x20                     ; 0x1898
-@..loc_VNLP.l7:
+@..loc_UOUN.l7:
     ret                              ; 0x189b
-leaf_loc_189c:
+jumptable_18c7_case_1:
     mov ax, 0x1f                     ; 0x189c
     cmp word [bp + 0x6], byte 0      ; 0x189f
-    jne short @..loc_VNLP.l8         ; 0x18a3
+    jne short @..loc_UOUN.l8         ; 0x18a3
     mov ax, 0x1c                     ; 0x18a5
-@..loc_VNLP.l8:
+@..loc_UOUN.l8:
     ret                              ; 0x18a8
-leaf_loc_18a9:
+jumptable_18c7_case_3:
     mov ax, 1                        ; 0x18a9
     ret                              ; 0x18ac
-leaf_loc_18ad:
+jumptable_18c7_case_11:
     mov ax, 0x1b                     ; 0x18ad
     cmp word [bp + 0x6], byte 0      ; 0x18b0
-    jne short @..loc_VNLP.l9         ; 0x18b4
+    jne short @..loc_UOUN.l9         ; 0x18b4
     mov ax, 6                        ; 0x18b6
-@..loc_VNLP.l9:
+@..loc_UOUN.l9:
     ret                              ; 0x18b9
-leaf_loc_18ba:
+jumptable_18c7_case_9:
     mov ax, 0xf                      ; 0x18ba
     cmp word [bp + 0x6], byte 0      ; 0x18bd
-    jne short @..loc_VNLP.l10        ; 0x18c1
+    jne short @..loc_UOUN.l10        ; 0x18c1
     mov ax, 0x1c                     ; 0x18c3
-@..loc_VNLP.l10:
+@..loc_UOUN.l10:
     ret                              ; 0x18c6
 jumptable_18c7:
-    dw leaf_loc_188f - IMAGE_BASE + __zres_end ; 0x18c7
-    dw leaf_loc_189c - IMAGE_BASE + __zres_end ; 0x18c9
-    dw leaf_loc_189c - IMAGE_BASE + __zres_end ; 0x18cb
-    dw leaf_loc_18a9 - IMAGE_BASE + __zres_end ; 0x18cd
-    dw leaf_loc_18a9 - IMAGE_BASE + __zres_end ; 0x18cf
-    dw leaf_loc_189c - IMAGE_BASE + __zres_end ; 0x18d1
-    dw leaf_loc_18a9 - IMAGE_BASE + __zres_end ; 0x18d3
-    dw leaf_loc_189c - IMAGE_BASE + __zres_end ; 0x18d5
-    dw leaf_loc_188f - IMAGE_BASE + __zres_end ; 0x18d7
-    dw leaf_loc_18ba - IMAGE_BASE + __zres_end ; 0x18d9
-    dw leaf_loc_188f - IMAGE_BASE + __zres_end ; 0x18db
-    dw leaf_loc_18ad - IMAGE_BASE + __zres_end ; 0x18dd
-    dw leaf_loc_18ba - IMAGE_BASE + __zres_end ; 0x18df
-@..loc_VNLP.l11:
+    dw jumptable_18c7_case_0 - IMAGE_BASE + __zres_end ; 0x18c7
+    dw jumptable_18c7_case_1 - IMAGE_BASE + __zres_end ; 0x18c9
+    dw jumptable_18c7_case_1 - IMAGE_BASE + __zres_end ; 0x18cb
+    dw jumptable_18c7_case_3 - IMAGE_BASE + __zres_end ; 0x18cd
+    dw jumptable_18c7_case_3 - IMAGE_BASE + __zres_end ; 0x18cf
+    dw jumptable_18c7_case_1 - IMAGE_BASE + __zres_end ; 0x18d1
+    dw jumptable_18c7_case_3 - IMAGE_BASE + __zres_end ; 0x18d3
+    dw jumptable_18c7_case_1 - IMAGE_BASE + __zres_end ; 0x18d5
+    dw jumptable_18c7_case_0 - IMAGE_BASE + __zres_end ; 0x18d7
+    dw jumptable_18c7_case_9 - IMAGE_BASE + __zres_end ; 0x18d9
+    dw jumptable_18c7_case_0 - IMAGE_BASE + __zres_end ; 0x18db
+    dw jumptable_18c7_case_11 - IMAGE_BASE + __zres_end ; 0x18dd
+    dw jumptable_18c7_case_9 - IMAGE_BASE + __zres_end ; 0x18df
+@..loc_UOUN.l11:
     cmp ax, strict word 0xd          ; 0x18e1
-    jae short @..loc_VNLP.l12        ; 0x18e4
+    jae short @..loc_UOUN.l12        ; 0x18e4
     xchg bx, ax                      ; 0x18e6
     shl bx, 1                        ; 0x18e7
     jmp [cs:bx + jumptable_18c7 - IMAGE_BASE + __zres_end] ; 0x18e9
-@..loc_VNLP.l12:
+@..loc_UOUN.l12:
     mov ax, word [bp + 0x4]          ; 0x18ee
     cmp ax, strict word 2            ; 0x18f1
-    je short @..loc_VNLP.l13         ; 0x18f4
+    je short @..loc_UOUN.l13         ; 0x18f4
     cmp ax, strict word 4            ; 0x18f6
-    je short @..loc_VNLP.l13         ; 0x18f9
+    je short @..loc_UOUN.l13         ; 0x18f9
     cmp ax, strict word 3            ; 0x18fb
-    je short @..loc_VNLP.l13         ; 0x18fe
-    jmp near @..loc_VNLP.l15         ; 0x1900
-@..loc_VNLP.l13:
+    je short @..loc_UOUN.l13         ; 0x18fe
+    jmp near @..loc_UOUN.l20         ; 0x1900
+@..loc_UOUN.l13:
     mov ax, word [bp + 0x8]          ; 0x1903
-    jmp short @..loc_VNLP.l14        ; 0x1906
+    jmp short @..loc_UOUN.l19        ; 0x1906
 jumptable_1949_case_0:
     mov ax, 0x1d                     ; 0x1908
     cmp word [bp + 0x6], byte 0      ; 0x190b
-    jne short @..loc_1908.l1         ; 0x190f
+    jne short @..loc_UOUN.l14        ; 0x190f
     mov ax, 4                        ; 0x1911
-@..loc_1908.l1:
+@..loc_UOUN.l14:
     ret                              ; 0x1914
 jumptable_1949_case_1:
     mov ax, 0x11                     ; 0x1915
     cmp word [bp + 0x6], byte 0      ; 0x1918
-    jne short @..loc_1915.l1         ; 0x191c
+    jne short @..loc_UOUN.l15        ; 0x191c
     mov ax, 0xb                      ; 0x191e
-@..loc_1915.l1:
+@..loc_UOUN.l15:
     ret                              ; 0x1921
 jumptable_1949_case_6:
     mov ax, 0xe                      ; 0x1922
     cmp word [bp + 0x6], byte 0      ; 0x1925
-    jne short @..loc_1922.l1         ; 0x1929
+    jne short @..loc_UOUN.l16        ; 0x1929
     mov ax, 0x10                     ; 0x192b
-@..loc_1922.l1:
+@..loc_UOUN.l16:
     ret                              ; 0x192e
 jumptable_1949_case_3:
     mov ax, 0x1d                     ; 0x192f
     cmp word [bp + 0x6], byte 0      ; 0x1932
-    jne short @..loc_192f.l1         ; 0x1936
+    jne short @..loc_UOUN.l17        ; 0x1936
     mov ax, 0x10                     ; 0x1938
-@..loc_192f.l1:
+@..loc_UOUN.l17:
     ret                              ; 0x193b
 jumptable_1949_case_11:
     mov ax, 0x1b                     ; 0x193c
     cmp word [bp + 0x6], byte 0      ; 0x193f
-    jne short @..loc_193c.l1         ; 0x1943
+    jne short @..loc_UOUN.l18        ; 0x1943
     mov ax, 6                        ; 0x1945
-@..loc_193c.l1:
+@..loc_UOUN.l18:
     ret                              ; 0x1948
 jumptable_1949:
     dw jumptable_1949_case_0 - IMAGE_BASE + __zres_end ; 0x1949
@@ -170,70 +170,70 @@ jumptable_1949:
     dw jumptable_1949_case_0 - IMAGE_BASE + __zres_end ; 0x195d
     dw jumptable_1949_case_11 - IMAGE_BASE + __zres_end ; 0x195f
     dw jumptable_1949_case_3 - IMAGE_BASE + __zres_end ; 0x1961
-@..loc_VNLP.l14:
+@..loc_UOUN.l19:
     cmp ax, strict word 0xd          ; 0x1963
-    jae short @..loc_VNLP.l15        ; 0x1966
+    jae short @..loc_UOUN.l20        ; 0x1966
     xchg bx, ax                      ; 0x1968
     shl bx, 1                        ; 0x1969
     jmp [cs:bx + jumptable_1949 - IMAGE_BASE + __zres_end] ; 0x196b
-@..loc_VNLP.l15:
+@..loc_UOUN.l20:
     mov ax, word [bp + 0x8]          ; 0x1970
-    jmp near @..loc_VNLP.l16         ; 0x1973
+    jmp near @..loc_UOUN.l29         ; 0x1973
 jumptable_19de_case_1:
     mov ax, 0                        ; 0x1976
     cmp word [bp + 0x6], byte 0      ; 0x1979
-    jne short @..loc_1976.l1         ; 0x197d
+    jne short @..loc_UOUN.l21        ; 0x197d
     mov ax, 2                        ; 0x197f
-@..loc_1976.l1:
+@..loc_UOUN.l21:
     ret                              ; 0x1982
 jumptable_19de_case_2:
     mov ax, 0                        ; 0x1983
     cmp word [bp + 0x6], byte 0      ; 0x1986
-    jne short @..loc_1983.l1         ; 0x198a
+    jne short @..loc_UOUN.l22        ; 0x198a
     mov ax, 0x1e                     ; 0x198c
-@..loc_1983.l1:
+@..loc_UOUN.l22:
     ret                              ; 0x198f
 jumptable_19de_case_3:
     mov ax, 0xe                      ; 0x1990
     cmp word [bp + 0x6], byte 0      ; 0x1993
-    jne short @..loc_1990.l1         ; 0x1997
+    jne short @..loc_UOUN.l23        ; 0x1997
     mov ax, 0x15                     ; 0x1999
-@..loc_1990.l1:
+@..loc_UOUN.l23:
     ret                              ; 0x199c
 jumptable_19de_case_4:
     mov ax, 0x13                     ; 0x199d
     cmp word [bp + 0x6], byte 0      ; 0x19a0
-    jne short @..loc_199d.l1         ; 0x19a4
+    jne short @..loc_UOUN.l24        ; 0x19a4
     mov ax, 9                        ; 0x19a6
-@..loc_199d.l1:
+@..loc_UOUN.l24:
     ret                              ; 0x19a9
 jumptable_19de_case_8:
     mov ax, 0xa                      ; 0x19aa
     cmp word [bp + 0x6], byte 0      ; 0x19ad
-    jne short @..loc_19aa.l1         ; 0x19b1
+    jne short @..loc_UOUN.l25        ; 0x19b1
     mov ax, 0x14                     ; 0x19b3
-@..loc_19aa.l1:
+@..loc_UOUN.l25:
     ret                              ; 0x19b6
 jumptable_19de_case_9:
     mov ax, 0xf                      ; 0x19b7
     cmp word [bp + 0x6], byte 0      ; 0x19ba
-    jne short @..loc_19b7.l1         ; 0x19be
+    jne short @..loc_UOUN.l26        ; 0x19be
     mov ax, 0x19                     ; 0x19c0
-@..loc_19b7.l1:
+@..loc_UOUN.l26:
     ret                              ; 0x19c3
 jumptable_19de_case_11:
     mov ax, 0x1b                     ; 0x19c4
     cmp word [bp + 0x6], byte 0      ; 0x19c7
-    jne short @..loc_19c4.l1         ; 0x19cb
+    jne short @..loc_UOUN.l27        ; 0x19cb
     mov ax, 6                        ; 0x19cd
-@..loc_19c4.l1:
+@..loc_UOUN.l27:
     ret                              ; 0x19d0
 jumptable_19de_case_12:
     mov ax, 0xf                      ; 0x19d1
     cmp word [bp + 0x6], byte 0      ; 0x19d4
-    jne short @..loc_19d1.l1         ; 0x19d8
+    jne short @..loc_UOUN.l28        ; 0x19d8
     mov ax, 0x1e                     ; 0x19da
-@..loc_19d1.l1:
+@..loc_UOUN.l28:
     ret                              ; 0x19dd
 jumptable_19de:
     dw jumptable_19de_case_0 - IMAGE_BASE + __zres_end ; 0x19de
@@ -249,17 +249,17 @@ jumptable_19de:
     dw jumptable_19de_case_8 - IMAGE_BASE + __zres_end ; 0x19f2
     dw jumptable_19de_case_11 - IMAGE_BASE + __zres_end ; 0x19f4
     dw jumptable_19de_case_12 - IMAGE_BASE + __zres_end ; 0x19f6
-@..loc_VNLP.l16:
+@..loc_UOUN.l29:
     cmp ax, strict word 0xd          ; 0x19f8
-    jae short @..loc_VNLP.l17        ; 0x19fb
+    jae short @..loc_UOUN.l30        ; 0x19fb
     xchg bx, ax                      ; 0x19fd
     shl bx, 1                        ; 0x19fe
     jmp [cs:bx + jumptable_19de - IMAGE_BASE + __zres_end] ; 0x1a00
 jumptable_19de_case_0:
-@..loc_VNLP.l17:
+@..loc_UOUN.l30:
     mov ax, 0x13                     ; 0x1a05
     cmp word [bp + 0x6], byte 0      ; 0x1a08
-    jne short @..loc_VNLP.l18        ; 0x1a0c
+    jne short @..loc_UOUN.l31        ; 0x1a0c
     mov ax, 0x17                     ; 0x1a0e
-@..loc_VNLP.l18:
+@..loc_UOUN.l31:
     ret                              ; 0x1a11

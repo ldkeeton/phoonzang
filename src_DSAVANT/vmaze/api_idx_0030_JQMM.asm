@@ -1033,7 +1033,7 @@ jumptable_59e2_case_0:
     push ax                          ; 0x5d4d
     push word [bss_9b38]             ; 0x5d4e
     push word [bss_91d6]             ; 0x5d52
-    call api_idx_0012_HQVT           ; 0x5d56
+    call api_idx_0012_VQVU           ; 0x5d56
     add sp, byte 0x40                ; 0x5d59
     mov ax, 0x34                     ; 0x5d5c
     push ax                          ; 0x5d5f
@@ -1096,7 +1096,7 @@ jumptable_59e2_case_0:
     push ax                          ; 0x5dd0
     push word [bss_9b3a]             ; 0x5dd1
     push word [bss_91d6]             ; 0x5dd5
-    call api_idx_0012_HQVT           ; 0x5dd9
+    call api_idx_0012_VQVU           ; 0x5dd9
     add sp, byte 0x40                ; 0x5ddc
     mov ax, 0x43                     ; 0x5ddf
     push ax                          ; 0x5de2
@@ -1158,7 +1158,7 @@ jumptable_59e2_case_0:
     push ax                          ; 0x5e50
     push word [bss_9b44]             ; 0x5e51
     push word [bss_91d6]             ; 0x5e55
-    call api_idx_0012_HQVT           ; 0x5e59
+    call api_idx_0012_VQVU           ; 0x5e59
     add sp, byte 0x40                ; 0x5e5c
     mov ax, 0x3e                     ; 0x5e5f
     push ax                          ; 0x5e62
@@ -1221,7 +1221,7 @@ jumptable_59e2_case_0:
     push ax                          ; 0x5ed3
     push word [bss_9b46]             ; 0x5ed4
     push word [bss_91d6]             ; 0x5ed8
-    call api_idx_0012_HQVT           ; 0x5edc
+    call api_idx_0012_VQVU           ; 0x5edc
     add sp, byte 0x40                ; 0x5edf
     mov ax, word [bss_91d0]          ; 0x5ee2
     inc ax                           ; 0x5ee5

@@ -465,7 +465,7 @@ api_idx_0038_LJOP:
 @..api_idx_0038_LJOP.l10:
     mov ax, word [bp - 0x0018]       ; 0x4c28
     jmp near @..api_idx_0038_LJOP.l21 ; 0x4c2b
-loc_QUSU:
+jumptable_4fa9_case_0:
     lea ax, word [bp - 0x000e]       ; 0x4c2e
     push ax                          ; 0x4c31
     lea ax, word [bp - 0x000c]       ; 0x4c32
@@ -601,7 +601,7 @@ loc_QUSU:
     jmp near @..api_idx_0038_LJOP.l11 ; 0x4d62
 @..api_idx_0038_LJOP.l13:
     jmp near @..api_idx_0038_LJOP.l23 ; 0x4d65
-loc_USII:
+jumptable_4fa9_case_1:
     cmp word [bp - 0x0018], byte 1   ; 0x4d68
     jne short @..api_idx_0038_LJOP.l15 ; 0x4d6c
     mov ax, 1                        ; 0x4d6e
@@ -739,9 +739,9 @@ loc_USII:
     call thunk_4                     ; 0x4e9b
     add sp, byte 8                   ; 0x4e9e
     jmp near @..api_idx_0038_LJOP.l23 ; 0x4ea1
-loc_LPSH_4ea4:
+jumptable_4fa9_case_3:
     jmp near @..api_idx_0038_LJOP.l23 ; 0x4ea4
-loc_VGUR:
+jumptable_4fa9_case_4:
     cmp word [bp + 0x8], byte 0      ; 0x4ea7
     je short @..api_idx_0038_LJOP.l18 ; 0x4eab
     mov ax, 1                        ; 0x4ead
@@ -775,7 +775,7 @@ loc_VGUR:
     mov word [bp - 0x001a], 0        ; 0x4ef0
 @..api_idx_0038_LJOP.l18:
     jmp near @..api_idx_0038_LJOP.l23 ; 0x4ef5
-loc_LQKQ:
+jumptable_4fa9_case_5:
     cmp word [bp + 0xa], byte 0      ; 0x4ef8
     je short @..api_idx_0038_LJOP.l19 ; 0x4efc
     mov ax, 1                        ; 0x4efe
@@ -849,12 +849,12 @@ loc_LQKQ:
     add sp, byte 8                   ; 0x4fa4
     jmp short @..api_idx_0038_LJOP.l23 ; 0x4fa7
 jumptable_4fa9:
-    dw loc_QUSU - IMAGE_BASE + __zres_end      ; 0x4fa9
-    dw loc_USII - IMAGE_BASE + __zres_end      ; 0x4fab
-    dw loc_USII - IMAGE_BASE + __zres_end      ; 0x4fad
-    dw loc_LPSH_4ea4 - IMAGE_BASE + __zres_end ; 0x4faf
-    dw loc_VGUR - IMAGE_BASE + __zres_end      ; 0x4fb1
-    dw loc_LQKQ - IMAGE_BASE + __zres_end      ; 0x4fb3
+    dw jumptable_4fa9_case_0 - IMAGE_BASE + __zres_end ; 0x4fa9
+    dw jumptable_4fa9_case_1 - IMAGE_BASE + __zres_end ; 0x4fab
+    dw jumptable_4fa9_case_1 - IMAGE_BASE + __zres_end ; 0x4fad
+    dw jumptable_4fa9_case_3 - IMAGE_BASE + __zres_end ; 0x4faf
+    dw jumptable_4fa9_case_4 - IMAGE_BASE + __zres_end ; 0x4fb1
+    dw jumptable_4fa9_case_5 - IMAGE_BASE + __zres_end ; 0x4fb3
 @..api_idx_0038_LJOP.l21:
     cmp ax, strict word 6            ; 0x4fb5
     jae short @..api_idx_0038_LJOP.l22 ; 0x4fb8

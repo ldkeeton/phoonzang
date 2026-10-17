@@ -131,10 +131,7 @@ bss_9aec equ __zdseg_end + (__zobss_9aec - __zdata_start)
 %include "vmext/api_idx_0010_NIMV.asm"     ; 0x2291
 
 ; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-%include "vmext/api_idx_0012_MLRN.asm"     ; 0x29e5
-
-; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
-%include "vmext/leaf_loc_JQNJ.asm"         ; 0x2ec0
+%include "vmext/api_idx_0012_JLRR.asm"     ; 0x29e5
 
 ; bss_91a4 equ __zdseg_end + (__zobss_91a4 - __zdata_start)
 ; bss_91a6 equ __zdseg_end + (__zobss_91a6 - __zdata_start)

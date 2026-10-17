@@ -132,7 +132,7 @@ bss_9492 equ __zdseg_end + (__zobss_9492 - __zdata_start)
 %include "vpclv/api_idx_0004_GRGJ.asm"     ; 0x34cd
 
 bss_95d0 equ __zdseg_end + (__zobss_95d0 - __zdata_start)
-%include "vpclv/api_idx_0004_JPOS.asm"     ; 0x35fc
+%include "vpclv/api_idx_0004_LOLJ.asm"     ; 0x35fc
 
 ; bss_941e equ __zdseg_end + (__zobss_941e - __zdata_start)
 ; bss_9420 equ __zdseg_end + (__zobss_9420 - __zdata_start)

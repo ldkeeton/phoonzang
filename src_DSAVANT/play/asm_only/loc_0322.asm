@@ -23,12 +23,12 @@ loc_0350:
     xor bh, bh                       ; 0x0357
     jmp [cs:bx + jumptable_035e - IMAGE_BASE] ; 0x0359
 jumptable_035e:
-    dw io_loc_0592 - IMAGE_BASE                ; 0x035e
-    dw io_loc_03dc - IMAGE_BASE                ; 0x0360
-    dw io_loc_0368 - IMAGE_BASE                ; 0x0362
-    dw io_loc_0368 - IMAGE_BASE                ; 0x0364
-    dw io_loc_03ca - IMAGE_BASE                ; 0x0366
-io_loc_0368:
+    dw jumptable_035e_case_0 - IMAGE_BASE      ; 0x035e
+    dw jumptable_035e_case_1 - IMAGE_BASE      ; 0x0360
+    dw jumptable_035e_case_2 - IMAGE_BASE      ; 0x0362
+    dw jumptable_035e_case_2 - IMAGE_BASE      ; 0x0364
+    dw jumptable_035e_case_4 - IMAGE_BASE      ; 0x0366
+jumptable_035e_case_2:
     mov ax, word [bp + 0x10]         ; 0x0368
     mov word [cs:cseg_0a89 - IMAGE_BASE], ax ; 0x036b
     inc ax                           ; 0x036f
@@ -66,10 +66,10 @@ loc_0381:
     mov dx, word [cs:cseg_0a8b - IMAGE_BASE] ; 0x03bf
     mov al, 0x80                     ; 0x03c4
     out dx, al                       ; 0x03c6
-    jmp near io_loc_0592             ; 0x03c7
-io_loc_03ca:
-    jmp near io_loc_0592             ; 0x03ca
+    jmp near jumptable_035e_case_0   ; 0x03c7
+jumptable_035e_case_4:
+    jmp near jumptable_035e_case_0   ; 0x03ca
     times 15 db 0
-io_loc_03dc:
+jumptable_035e_case_1:
     call io_loc_LPTR                 ; 0x03dc
-    jmp near io_loc_0592             ; 0x03df
+    jmp near jumptable_035e_case_0   ; 0x03df

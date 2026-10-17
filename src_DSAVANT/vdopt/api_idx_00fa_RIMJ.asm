@@ -7,34 +7,34 @@ api_idx_00fa_RIMJ:
     mov word [bp - 0x0008], 0        ; 0x1a6d
     mov ax, word [bp + 0x4]          ; 0x1a72
     jmp short @..api_idx_00fa_RIMJ.l1 ; 0x1a75
-loc_LLGT_1a77:
+jumptable_1aa5_case_7:
     add word [bp - 0x0008], byte 0x19 ; 0x1a77
-loc_LLGT_1a7b:
+jumptable_1aa5_case_6:
     add word [bp - 0x0008], byte 0x19 ; 0x1a7b
-loc_PUPK_1a7f:
+jumptable_1aa5_case_5:
     add word [bp - 0x0006], byte 0x19 ; 0x1a7f
     add word [bp - 0x0008], byte 0x19 ; 0x1a83
-loc_PUPK_1a87:
+jumptable_1aa5_case_4:
     add word [bp - 0x0006], byte 0x19 ; 0x1a87
     add word [bp - 0x0008], byte 0x19 ; 0x1a8b
-loc_OQHO_1a8f:
+jumptable_1aa5_case_3:
     add word [bp - 0x0004], byte 0x19 ; 0x1a8f
     add word [bp - 0x0006], byte 0x19 ; 0x1a93
-loc_OQHO_1a97:
+jumptable_1aa5_case_2:
     add word [bp - 0x0004], byte 0x19 ; 0x1a97
     add word [bp - 0x0006], byte 0x19 ; 0x1a9b
-loc_HSTU:
+jumptable_1aa5_case_1:
     add word [bp - 0x0004], byte 0x32 ; 0x1a9f
     jmp short @..api_idx_00fa_RIMJ.l2 ; 0x1aa3
 jumptable_1aa5:
     dw jumptable_1aa5_case_0 - IMAGE_BASE + __zres_end ; 0x1aa5
-    dw loc_HSTU - IMAGE_BASE + __zres_end      ; 0x1aa7
-    dw loc_OQHO_1a97 - IMAGE_BASE + __zres_end ; 0x1aa9
-    dw loc_OQHO_1a8f - IMAGE_BASE + __zres_end ; 0x1aab
-    dw loc_PUPK_1a87 - IMAGE_BASE + __zres_end ; 0x1aad
-    dw loc_PUPK_1a7f - IMAGE_BASE + __zres_end ; 0x1aaf
-    dw loc_LLGT_1a7b - IMAGE_BASE + __zres_end ; 0x1ab1
-    dw loc_LLGT_1a77 - IMAGE_BASE + __zres_end ; 0x1ab3
+    dw jumptable_1aa5_case_1 - IMAGE_BASE + __zres_end ; 0x1aa7
+    dw jumptable_1aa5_case_2 - IMAGE_BASE + __zres_end ; 0x1aa9
+    dw jumptable_1aa5_case_3 - IMAGE_BASE + __zres_end ; 0x1aab
+    dw jumptable_1aa5_case_4 - IMAGE_BASE + __zres_end ; 0x1aad
+    dw jumptable_1aa5_case_5 - IMAGE_BASE + __zres_end ; 0x1aaf
+    dw jumptable_1aa5_case_6 - IMAGE_BASE + __zres_end ; 0x1ab1
+    dw jumptable_1aa5_case_7 - IMAGE_BASE + __zres_end ; 0x1ab3
 @..api_idx_00fa_RIMJ.l1:
     cmp ax, strict word 8            ; 0x1ab5
     jae short @..api_idx_00fa_RIMJ.l2 ; 0x1ab8

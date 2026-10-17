@@ -3,7 +3,7 @@
 loc_0614:
     cmp byte [cs:cseg_0321 - IMAGE_BASE], 0 ; 0x0614
     jne short loc_061f               ; 0x061a
-    jmp near io_loc_0592             ; 0x061c
+    jmp near jumptable_035e_case_0   ; 0x061c
 loc_061f:
     cld                              ; 0x061f
     cli                              ; 0x0620
@@ -27,7 +27,7 @@ loc_061f:
     mov al, byte [cs:cseg_0a8f - IMAGE_BASE] ; 0x064e
     out 0x21, al                     ; 0x0652
     sti                              ; 0x0654
-    jmp near io_loc_0592             ; 0x0655
+    jmp near jumptable_035e_case_0   ; 0x0655
 cseg_0658:
     db 0x00, 0x00
 jumptable_0789_case_1:

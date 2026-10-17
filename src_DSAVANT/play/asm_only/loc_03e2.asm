@@ -13,7 +13,7 @@ loc_03f6:
     je short loc_0407                ; 0x03fa
     test byte [cs:cseg_0a94 - IMAGE_BASE], 0xff ; 0x03fc
     jne short loc_0407               ; 0x0402
-    jmp near io_loc_0592             ; 0x0404
+    jmp near jumptable_035e_case_0   ; 0x0404
 loc_0407:
     cli                              ; 0x0407
     test byte [cs:cseg_0a94 - IMAGE_BASE], 0xff ; 0x0408
@@ -156,11 +156,11 @@ loc_056d:
     out 0x21, al                     ; 0x0581
     sti                              ; 0x0583
     test byte [bp + 0x14], 1         ; 0x0584
-    je short io_loc_0592             ; 0x0588
+    je short jumptable_035e_case_0   ; 0x0588
 loc_058a:
     test byte [cs:cseg_0a94 - IMAGE_BASE], 0xff ; 0x058a
     je short loc_058a                ; 0x0590
-io_loc_0592:
+jumptable_035e_case_0:
     pop bx                           ; 0x0592
     pop dx                           ; 0x0593
     pop ds                           ; 0x0594
@@ -216,4 +216,4 @@ loc_05e2:
 loc_0608:
     mov al, byte [cs:cseg_0a8f - IMAGE_BASE] ; 0x0608
     out 0x21, al                     ; 0x060c
-    jmp short io_loc_0592            ; 0x060e
+    jmp short jumptable_035e_case_0  ; 0x060e

@@ -53,7 +53,7 @@ class PipelineLockTests(unittest.TestCase):
                 f'declare it (kind=repair/recompute, repairs=, why=) or extend '
                 f'the stage it rewrites')
         if not seen:
-            self.skipTest('no stage ledgers: run `WIZ_STAGELOG=1 make build <project>` first')
+            self.skipTest('no stage ledgers: run `ASM_STAGELOG=1 make build <project>` first')
 
 
 if __name__ == '__main__':

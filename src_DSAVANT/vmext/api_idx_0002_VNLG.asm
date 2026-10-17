@@ -5,59 +5,59 @@ api_idx_0002_VNLG:
     mov word [bss_9188], 0           ; 0x0268
     mov ax, word [bss_830c]          ; 0x026e
     jmp short @..api_idx_0002_VNLG.l1 ; 0x0271
-fpu_loc_0273:
+jumptable_02a3_case_15:
     mov word [bp - 0x0002], 1        ; 0x0273
     jmp short @..api_idx_0002_VNLG.l2 ; 0x0278
-fpu_loc_027a:
+jumptable_02a3_case_0:
     mov word [bp - 0x0002], 2        ; 0x027a
     jmp short @..api_idx_0002_VNLG.l2 ; 0x027f
-fpu_loc_0281:
+jumptable_02a3_case_14:
     mov word [bp - 0x0002], 3        ; 0x0281
     jmp short @..api_idx_0002_VNLG.l2 ; 0x0286
-fpu_loc_0288:
+jumptable_02a3_case_27:
     mov word [bss_9188], 1           ; 0x0288
-fpu_loc_028e:
+jumptable_02a3_case_7:
     mov word [bp - 0x0002], 4        ; 0x028e
     jmp short @..api_idx_0002_VNLG.l2 ; 0x0293
-fpu_loc_0295:
+jumptable_02a3_case_22:
     mov word [bp - 0x0002], 5        ; 0x0295
     jmp short @..api_idx_0002_VNLG.l2 ; 0x029a
-fpu_loc_029c:
+jumptable_02a3_case_8:
     mov word [bp - 0x0002], 6        ; 0x029c
     jmp short @..api_idx_0002_VNLG.l2 ; 0x02a1
 jumptable_02a3:
-    dw fpu_loc_027a - IMAGE_BASE + __zres_end  ; 0x02a3
-    dw fpu_loc_027a - IMAGE_BASE + __zres_end  ; 0x02a5
-    dw fpu_loc_027a - IMAGE_BASE + __zres_end  ; 0x02a7
-    dw fpu_loc_027a - IMAGE_BASE + __zres_end  ; 0x02a9
-    dw fpu_loc_027a - IMAGE_BASE + __zres_end  ; 0x02ab
-    dw fpu_loc_027a - IMAGE_BASE + __zres_end  ; 0x02ad
-    dw fpu_loc_027a - IMAGE_BASE + __zres_end  ; 0x02af
-    dw fpu_loc_028e - IMAGE_BASE + __zres_end  ; 0x02b1
-    dw fpu_loc_029c - IMAGE_BASE + __zres_end  ; 0x02b3
-    dw fpu_loc_029c - IMAGE_BASE + __zres_end  ; 0x02b5
-    dw fpu_loc_029c - IMAGE_BASE + __zres_end  ; 0x02b7
-    dw fpu_loc_029c - IMAGE_BASE + __zres_end  ; 0x02b9
-    dw fpu_loc_029c - IMAGE_BASE + __zres_end  ; 0x02bb
-    dw fpu_loc_027a - IMAGE_BASE + __zres_end  ; 0x02bd
-    dw fpu_loc_0281 - IMAGE_BASE + __zres_end  ; 0x02bf
-    dw fpu_loc_0273 - IMAGE_BASE + __zres_end  ; 0x02c1
-    dw fpu_loc_0281 - IMAGE_BASE + __zres_end  ; 0x02c3
-    dw fpu_loc_0273 - IMAGE_BASE + __zres_end  ; 0x02c5
-    dw fpu_loc_0281 - IMAGE_BASE + __zres_end  ; 0x02c7
-    dw fpu_loc_0281 - IMAGE_BASE + __zres_end  ; 0x02c9
-    dw fpu_loc_0281 - IMAGE_BASE + __zres_end  ; 0x02cb
-    dw fpu_loc_0281 - IMAGE_BASE + __zres_end  ; 0x02cd
-    dw fpu_loc_0295 - IMAGE_BASE + __zres_end  ; 0x02cf
-    dw fpu_loc_0273 - IMAGE_BASE + __zres_end  ; 0x02d1
-    dw fpu_loc_0273 - IMAGE_BASE + __zres_end  ; 0x02d3
-    dw fpu_loc_0295 - IMAGE_BASE + __zres_end  ; 0x02d5
-    dw fpu_loc_0273 - IMAGE_BASE + __zres_end  ; 0x02d7
-    dw fpu_loc_0288 - IMAGE_BASE + __zres_end  ; 0x02d9
-    dw fpu_loc_0295 - IMAGE_BASE + __zres_end  ; 0x02db
-    dw fpu_loc_0273 - IMAGE_BASE + __zres_end  ; 0x02dd
-    dw fpu_loc_0273 - IMAGE_BASE + __zres_end  ; 0x02df
-    dw fpu_loc_0281 - IMAGE_BASE + __zres_end  ; 0x02e1
+    dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02a3
+    dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02a5
+    dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02a7
+    dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02a9
+    dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02ab
+    dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02ad
+    dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02af
+    dw jumptable_02a3_case_7 - IMAGE_BASE + __zres_end ; 0x02b1
+    dw jumptable_02a3_case_8 - IMAGE_BASE + __zres_end ; 0x02b3
+    dw jumptable_02a3_case_8 - IMAGE_BASE + __zres_end ; 0x02b5
+    dw jumptable_02a3_case_8 - IMAGE_BASE + __zres_end ; 0x02b7
+    dw jumptable_02a3_case_8 - IMAGE_BASE + __zres_end ; 0x02b9
+    dw jumptable_02a3_case_8 - IMAGE_BASE + __zres_end ; 0x02bb
+    dw jumptable_02a3_case_0 - IMAGE_BASE + __zres_end ; 0x02bd
+    dw jumptable_02a3_case_14 - IMAGE_BASE + __zres_end ; 0x02bf
+    dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02c1
+    dw jumptable_02a3_case_14 - IMAGE_BASE + __zres_end ; 0x02c3
+    dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02c5
+    dw jumptable_02a3_case_14 - IMAGE_BASE + __zres_end ; 0x02c7
+    dw jumptable_02a3_case_14 - IMAGE_BASE + __zres_end ; 0x02c9
+    dw jumptable_02a3_case_14 - IMAGE_BASE + __zres_end ; 0x02cb
+    dw jumptable_02a3_case_14 - IMAGE_BASE + __zres_end ; 0x02cd
+    dw jumptable_02a3_case_22 - IMAGE_BASE + __zres_end ; 0x02cf
+    dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02d1
+    dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02d3
+    dw jumptable_02a3_case_22 - IMAGE_BASE + __zres_end ; 0x02d5
+    dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02d7
+    dw jumptable_02a3_case_27 - IMAGE_BASE + __zres_end ; 0x02d9
+    dw jumptable_02a3_case_22 - IMAGE_BASE + __zres_end ; 0x02db
+    dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02dd
+    dw jumptable_02a3_case_15 - IMAGE_BASE + __zres_end ; 0x02df
+    dw jumptable_02a3_case_14 - IMAGE_BASE + __zres_end ; 0x02e1
 @..api_idx_0002_VNLG.l1:
     cmp ax, strict word 0x20         ; 0x02e3
     jae short @..api_idx_0002_VNLG.l2 ; 0x02e6

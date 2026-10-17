@@ -9,17 +9,17 @@ api_idx_0002_NIPM:
     mov ax, word [bx + si]           ; 0x73c7
     mov word [bp - 0x0002], ax       ; 0x73c9
     jmp short @..api_idx_0002_NIPM.l1 ; 0x73cc
-loc_QRGI:
+jumptable_741a_case_1:
     mov ax, 0x11                     ; 0x73ce
     push ax                          ; 0x73d1
     call loc_GRON                    ; 0x73d2
     pop cx                           ; 0x73d5
-loc_JKUN:
+jumptable_741a_case_0:
     push word [bss_8d12]             ; 0x73d6
     call api_idx_0004_IPQQ           ; 0x73da
     pop cx                           ; 0x73dd
     jmp short @..api_idx_0002_NIPM.l2 ; 0x73de
-loc_ISSU:
+jumptable_741a_case_2:
     mov ax, 0x804                    ; 0x73e0
     push ax                          ; 0x73e3
     call api_idx_0050_JLOV           ; 0x73e4
@@ -37,7 +37,7 @@ loc_ISSU:
     call api_idx_0004_IPQQ           ; 0x7402
     pop cx                           ; 0x7405
     jmp short @..api_idx_0002_NIPM.l2 ; 0x7406
-loc_RVMP:
+jumptable_741a_case_4:
     mov ax, 8                        ; 0x7408
     push ax                          ; 0x740b
     call ds_app_HKIJ                 ; 0x740c
@@ -47,13 +47,13 @@ loc_RVMP:
     pop cx                           ; 0x7417
     jmp short @..api_idx_0002_NIPM.l2 ; 0x7418
 jumptable_741a:
-    dw loc_JKUN - IMAGE_BASE + __zres_end      ; 0x741a
-    dw loc_QRGI - IMAGE_BASE + __zres_end      ; 0x741c
-    dw loc_ISSU - IMAGE_BASE + __zres_end      ; 0x741e
+    dw jumptable_741a_case_0 - IMAGE_BASE + __zres_end ; 0x741a
+    dw jumptable_741a_case_1 - IMAGE_BASE + __zres_end ; 0x741c
+    dw jumptable_741a_case_2 - IMAGE_BASE + __zres_end ; 0x741e
     dw jumptable_741a_case_3 - IMAGE_BASE + __zres_end ; 0x7420
-    dw loc_RVMP - IMAGE_BASE + __zres_end      ; 0x7422
-    dw loc_RVMP - IMAGE_BASE + __zres_end      ; 0x7424
-    dw loc_RVMP - IMAGE_BASE + __zres_end      ; 0x7426
+    dw jumptable_741a_case_4 - IMAGE_BASE + __zres_end ; 0x7422
+    dw jumptable_741a_case_4 - IMAGE_BASE + __zres_end ; 0x7424
+    dw jumptable_741a_case_4 - IMAGE_BASE + __zres_end ; 0x7426
 @..api_idx_0002_NIPM.l1:
     cmp ax, strict word 7            ; 0x7428
     jae short @..api_idx_0002_NIPM.l2 ; 0x742b

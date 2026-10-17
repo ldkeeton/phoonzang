@@ -44,7 +44,7 @@ jumptable_9baa_case_2:
     mov word [bss_9e44], ax          ; 0x9a76
     mov word [bss_9e62], 1           ; 0x9a79
     push word [bss_9e50]             ; 0x9a7f
-    call loc_GTUI                    ; 0x9a83
+    call loc_NLPS                    ; 0x9a83
     pop cx                           ; 0x9a86
     jmp near @..loc_SMSJ.l5          ; 0x9a87
 jumptable_9baa_case_3:

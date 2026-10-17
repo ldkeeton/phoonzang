@@ -1,5 +1,5 @@
 ; auto-generated
-api_idx_0004_JPOS:
+api_idx_0004_LOLJ:
     mov ax, 0xfffc                   ; 0x35fc
     call aztec_csav                  ; 0x35ff
     mov ax, 0x248                    ; 0x3602
@@ -7,7 +7,7 @@ api_idx_0004_JPOS:
     mov bx, ax                       ; 0x3608
     mov al, byte [bx + 0x5e2d]       ; 0x360a
     sub ah, ah                       ; 0x360e
-    jmp near @..api_idx_0004_JPOS.l1 ; 0x3610
+    jmp near @..api_idx_0004_LOLJ.l1 ; 0x3610
 jumptable_3797_case_0:
     mov ax, 0x91ec                   ; 0x3613
     push ax                          ; 0x3616
@@ -20,7 +20,7 @@ jumptable_3797_case_0:
     push word [bp + 0x4]             ; 0x3623
     call api_idx_0004_GRGJ           ; 0x3626
     add sp, byte 0x0a                ; 0x3629
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x362c
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x362c
 jumptable_3797_case_1:
     mov ax, 0x9212                   ; 0x362f
     push ax                          ; 0x3632
@@ -33,7 +33,7 @@ jumptable_3797_case_1:
     push word [bp + 0x4]             ; 0x363f
     call api_idx_0004_GRGJ           ; 0x3642
     add sp, byte 0x0a                ; 0x3645
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x3648
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x3648
 jumptable_3797_case_2:
     mov ax, 0x9238                   ; 0x364b
     push ax                          ; 0x364e
@@ -46,7 +46,7 @@ jumptable_3797_case_2:
     push word [bp + 0x4]             ; 0x365b
     call api_idx_0004_GRGJ           ; 0x365e
     add sp, byte 0x0a                ; 0x3661
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x3664
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x3664
 jumptable_3797_case_3:
     mov ax, 0x925e                   ; 0x3667
     push ax                          ; 0x366a
@@ -59,7 +59,7 @@ jumptable_3797_case_3:
     push word [bp + 0x4]             ; 0x3677
     call api_idx_0004_GRGJ           ; 0x367a
     add sp, byte 0x0a                ; 0x367d
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x3680
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x3680
 jumptable_3797_case_4:
     mov ax, 0x9284                   ; 0x3683
     push ax                          ; 0x3686
@@ -72,7 +72,7 @@ jumptable_3797_case_4:
     push word [bp + 0x4]             ; 0x3693
     call api_idx_0004_GRGJ           ; 0x3696
     add sp, byte 0x0a                ; 0x3699
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x369c
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x369c
 jumptable_3797_case_5:
     mov ax, 0x92aa                   ; 0x369f
     push ax                          ; 0x36a2
@@ -85,7 +85,7 @@ jumptable_3797_case_5:
     push word [bp + 0x4]             ; 0x36af
     call api_idx_0004_GRGJ           ; 0x36b2
     add sp, byte 0x0a                ; 0x36b5
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x36b8
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x36b8
 jumptable_3797_case_6:
     mov ax, 0x92d0                   ; 0x36bb
     push ax                          ; 0x36be
@@ -98,7 +98,7 @@ jumptable_3797_case_6:
     push word [bp + 0x4]             ; 0x36cb
     call api_idx_0004_GRGJ           ; 0x36ce
     add sp, byte 0x0a                ; 0x36d1
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x36d4
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x36d4
 jumptable_3797_case_7:
     mov ax, 0x92f6                   ; 0x36d7
     push ax                          ; 0x36da
@@ -111,7 +111,7 @@ jumptable_3797_case_7:
     push word [bp + 0x4]             ; 0x36e7
     call api_idx_0004_GRGJ           ; 0x36ea
     add sp, byte 0x0a                ; 0x36ed
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x36f0
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x36f0
 jumptable_3797_case_8:
     mov ax, 0x931c                   ; 0x36f3
     push ax                          ; 0x36f6
@@ -124,7 +124,7 @@ jumptable_3797_case_8:
     push word [bp + 0x4]             ; 0x3703
     call api_idx_0004_GRGJ           ; 0x3706
     add sp, byte 0x0a                ; 0x3709
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x370c
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x370c
 jumptable_3797_case_9:
     mov ax, 0x9342                   ; 0x370f
     push ax                          ; 0x3712
@@ -137,7 +137,7 @@ jumptable_3797_case_9:
     push word [bp + 0x4]             ; 0x371f
     call api_idx_0004_GRGJ           ; 0x3722
     add sp, byte 0x0a                ; 0x3725
-    jmp near @..api_idx_0004_JPOS.l2 ; 0x3728
+    jmp near @..api_idx_0004_LOLJ.l2 ; 0x3728
 jumptable_3797_case_10:
     mov ax, 0x9368                   ; 0x372b
     push ax                          ; 0x372e
@@ -150,7 +150,7 @@ jumptable_3797_case_10:
     push word [bp + 0x4]             ; 0x373b
     call api_idx_0004_GRGJ           ; 0x373e
     add sp, byte 0x0a                ; 0x3741
-    jmp short @..api_idx_0004_JPOS.l2 ; 0x3744
+    jmp short @..api_idx_0004_LOLJ.l2 ; 0x3744
 jumptable_3797_case_11:
     mov ax, 0x938e                   ; 0x3746
     push ax                          ; 0x3749
@@ -163,7 +163,7 @@ jumptable_3797_case_11:
     push word [bp + 0x4]             ; 0x3756
     call api_idx_0004_GRGJ           ; 0x3759
     add sp, byte 0x0a                ; 0x375c
-    jmp short @..api_idx_0004_JPOS.l2 ; 0x375f
+    jmp short @..api_idx_0004_LOLJ.l2 ; 0x375f
 jumptable_3797_case_12:
     mov ax, 0x93b4                   ; 0x3761
     push ax                          ; 0x3764
@@ -176,7 +176,7 @@ jumptable_3797_case_12:
     push word [bp + 0x4]             ; 0x3771
     call api_idx_0004_GRGJ           ; 0x3774
     add sp, byte 0x0a                ; 0x3777
-    jmp short @..api_idx_0004_JPOS.l2 ; 0x377a
+    jmp short @..api_idx_0004_LOLJ.l2 ; 0x377a
 jumptable_3797_case_13:
     mov ax, 0x93da                   ; 0x377c
     push ax                          ; 0x377f
@@ -189,7 +189,7 @@ jumptable_3797_case_13:
     push word [bp + 0x4]             ; 0x378c
     call api_idx_0004_GRGJ           ; 0x378f
     add sp, byte 0x0a                ; 0x3792
-    jmp short @..api_idx_0004_JPOS.l2 ; 0x3795
+    jmp short @..api_idx_0004_LOLJ.l2 ; 0x3795
 jumptable_3797:
     dw jumptable_3797_case_0 - IMAGE_BASE + __zres_end ; 0x3797
     dw jumptable_3797_case_1 - IMAGE_BASE + __zres_end ; 0x3799
@@ -205,22 +205,22 @@ jumptable_3797:
     dw jumptable_3797_case_11 - IMAGE_BASE + __zres_end ; 0x37ad
     dw jumptable_3797_case_12 - IMAGE_BASE + __zres_end ; 0x37af
     dw jumptable_3797_case_13 - IMAGE_BASE + __zres_end ; 0x37b1
-@..api_idx_0004_JPOS.l1:
+@..api_idx_0004_LOLJ.l1:
     cmp ax, strict word 0xe          ; 0x37b3
-    jae short @..api_idx_0004_JPOS.l2 ; 0x37b6
+    jae short @..api_idx_0004_LOLJ.l2 ; 0x37b6
     xchg bx, ax                      ; 0x37b8
     shl bx, 1                        ; 0x37b9
     jmp [cs:bx + jumptable_3797 - IMAGE_BASE + __zres_end] ; 0x37bb
-@..api_idx_0004_JPOS.l2:
+@..api_idx_0004_LOLJ.l2:
     mov ax, 0x248                    ; 0x37c0
     imul word [bp + 0x4]             ; 0x37c3
     mov bx, ax                       ; 0x37c6
     cmp byte [bx + 0x5d65], 0xd      ; 0x37c8
-    jbe short @..api_idx_0004_JPOS.l3 ; 0x37cd
+    jbe short @..api_idx_0004_LOLJ.l3 ; 0x37cd
     cmp byte [bx + 0x5d6a], 0xd      ; 0x37cf
-    jbe short @..api_idx_0004_JPOS.l3 ; 0x37d4
+    jbe short @..api_idx_0004_LOLJ.l3 ; 0x37d4
     mov word [bss_95d0], 1           ; 0x37d6
-@..api_idx_0004_JPOS.l3:
+@..api_idx_0004_LOLJ.l3:
     mov word [bp - 0x0004], 0        ; 0x37dc
     mov ax, word [bp + 0x6]          ; 0x37e1
     shl ax, 1                        ; 0x37e4
@@ -228,13 +228,13 @@ jumptable_3797:
     mov bx, ax                       ; 0x37e8
     mov ax, word [word bx + 0x38]    ; 0x37ea
     mov word [bp - 0x0002], ax       ; 0x37ee
-    jmp short @..api_idx_0004_JPOS.l6 ; 0x37f1
-@..api_idx_0004_JPOS.l4:
+    jmp short @..api_idx_0004_LOLJ.l6 ; 0x37f1
+@..api_idx_0004_LOLJ.l4:
     mov ax, word [bp - 0x0002]       ; 0x37f3
     shl ax, 1                        ; 0x37f6
     mov bx, ax                       ; 0x37f8
     cmp word [bx - 0x6a68], byte 1   ; 0x37fa
-    jne short @..api_idx_0004_JPOS.l5 ; 0x37ff
+    jne short @..api_idx_0004_LOLJ.l5 ; 0x37ff
     mov ax, 0x14                     ; 0x3801
     imul word [bp - 0x0004]          ; 0x3804
     add ax, 0xe38                    ; 0x3807
@@ -251,16 +251,16 @@ jumptable_3797:
     mov bx, word [bp + 0x8]          ; 0x3822
     mov word [bx + si], ax           ; 0x3825
     inc word [bp - 0x0004]           ; 0x3827
-@..api_idx_0004_JPOS.l5:
+@..api_idx_0004_LOLJ.l5:
     inc word [bp - 0x0002]           ; 0x382a
-@..api_idx_0004_JPOS.l6:
+@..api_idx_0004_LOLJ.l6:
     mov ax, word [bp + 0x6]          ; 0x382d
     shl ax, 1                        ; 0x3830
     shl ax, 1                        ; 0x3832
     mov bx, ax                       ; 0x3834
     mov ax, word [word bx + 0x3a]    ; 0x3836
     cmp ax, word [bp - 0x0002]       ; 0x383a
-    jge short @..api_idx_0004_JPOS.l4 ; 0x383d
+    jge short @..api_idx_0004_LOLJ.l4 ; 0x383d
     mov ax, 0x95dc                   ; 0x383f
     push ax                          ; 0x3842
     mov ax, 0x159e                   ; 0x3843

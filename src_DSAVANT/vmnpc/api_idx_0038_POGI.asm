@@ -175,35 +175,35 @@ api_idx_0038_POGI:
     mov al, byte [bx - 0x77d3]       ; 0x2655
     cbw                              ; 0x2659
     jmp short @..api_idx_0038_POGI.l14 ; 0x265a
-loc_SKIN:
+jumptable_268c_case_0:
     mov word [bp - 0x000a], 0x6a4    ; 0x265c
     mov word [bp - 0x000c], 0x6ea    ; 0x2661
     jmp short @..api_idx_0038_POGI.l15 ; 0x2666
-loc_QTUP:
+jumptable_268c_case_3:
     mov word [bp - 0x000a], 0x708    ; 0x2668
     mov word [bp - 0x000c], 0x6a4    ; 0x266d
     jmp short @..api_idx_0038_POGI.l15 ; 0x2672
-loc_UMHM:
+jumptable_268c_case_4:
     mov word [bp - 0x000a], 0x708    ; 0x2674
     mov word [bp - 0x000c], 0x6ea    ; 0x2679
     jmp short @..api_idx_0038_POGI.l15 ; 0x267e
-loc_LOLO:
+jumptable_268c_case_8:
     mov word [bp - 0x000a], 0x6d6    ; 0x2680
     mov word [bp - 0x000c], 0x6ea    ; 0x2685
     jmp short @..api_idx_0038_POGI.l15 ; 0x268a
 jumptable_268c:
-    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x268c
-    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x268e
-    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x2690
-    dw loc_QTUP - IMAGE_BASE + __zres_end      ; 0x2692
-    dw loc_UMHM - IMAGE_BASE + __zres_end      ; 0x2694
-    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x2696
-    dw loc_SKIN - IMAGE_BASE + __zres_end      ; 0x2698
-    dw loc_UMHM - IMAGE_BASE + __zres_end      ; 0x269a
-    dw loc_LOLO - IMAGE_BASE + __zres_end      ; 0x269c
-    dw loc_LOLO - IMAGE_BASE + __zres_end      ; 0x269e
-    dw loc_QTUP - IMAGE_BASE + __zres_end      ; 0x26a0
-    dw loc_LOLO - IMAGE_BASE + __zres_end      ; 0x26a2
+    dw jumptable_268c_case_0 - IMAGE_BASE + __zres_end ; 0x268c
+    dw jumptable_268c_case_0 - IMAGE_BASE + __zres_end ; 0x268e
+    dw jumptable_268c_case_0 - IMAGE_BASE + __zres_end ; 0x2690
+    dw jumptable_268c_case_3 - IMAGE_BASE + __zres_end ; 0x2692
+    dw jumptable_268c_case_4 - IMAGE_BASE + __zres_end ; 0x2694
+    dw jumptable_268c_case_0 - IMAGE_BASE + __zres_end ; 0x2696
+    dw jumptable_268c_case_0 - IMAGE_BASE + __zres_end ; 0x2698
+    dw jumptable_268c_case_4 - IMAGE_BASE + __zres_end ; 0x269a
+    dw jumptable_268c_case_8 - IMAGE_BASE + __zres_end ; 0x269c
+    dw jumptable_268c_case_8 - IMAGE_BASE + __zres_end ; 0x269e
+    dw jumptable_268c_case_3 - IMAGE_BASE + __zres_end ; 0x26a0
+    dw jumptable_268c_case_8 - IMAGE_BASE + __zres_end ; 0x26a2
 @..api_idx_0038_POGI.l14:
     cmp ax, strict word 0xc          ; 0x26a4
     jae short @..api_idx_0038_POGI.l15 ; 0x26a7

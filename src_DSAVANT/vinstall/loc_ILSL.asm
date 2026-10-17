@@ -1,5 +1,5 @@
 ; auto-generated
-loc_NVUL:
+loc_ILSL:
     push bp                          ; 0x0200
     mov bp, sp                       ; 0x0201
     add sp, byte 0xee                ; 0x0203
@@ -12,9 +12,9 @@ loc_NVUL:
     add ax, strict word 0xffbf       ; 0x0211
     mov word [bp - 0x0012], ax       ; 0x0214
     cmp ax, strict word 0            ; 0x0217
-    jl short @..loc_NVUL.l3          ; 0x021a
+    jl short @..loc_ILSL.l3          ; 0x021a
     cmp ax, strict word 0x19         ; 0x021c
-    jg short @..loc_NVUL.l3          ; 0x021f
+    jg short @..loc_ILSL.l3          ; 0x021f
     mov ax, word [bp - 0x0012]       ; 0x0221
     mov word [bp - 0x000a], ax       ; 0x0224
     mov word [bp - 0x0010], 0xe00    ; 0x0227
@@ -36,17 +36,17 @@ loc_NVUL:
     mov ax, word [bp - 0x0010]       ; 0x024f
     and ax, 0xff                     ; 0x0252
     cmp ax, word [bp - 0x0012]       ; 0x0255
-    je short @..loc_NVUL.l2          ; 0x0258
+    je short @..loc_ILSL.l2          ; 0x0258
     mov ax, 0xffff                   ; 0x025a
-@..loc_NVUL.l1:
+@..loc_ILSL.l1:
     mov sp, bp                       ; 0x025d
     pop bp                           ; 0x025f
     ret                              ; 0x0260
-@..loc_NVUL.l2:
-    jmp short @..loc_NVUL.l4         ; 0x0261
-@..loc_NVUL.l3:
+@..loc_ILSL.l2:
+    jmp short @..loc_ILSL.l4         ; 0x0261
+@..loc_ILSL.l3:
     mov ax, 0xffff                   ; 0x0263
-    jmp short @..loc_NVUL.l1         ; 0x0266
-@..loc_NVUL.l4:
+    jmp short @..loc_ILSL.l1         ; 0x0266
+@..loc_ILSL.l4:
     mov ax, 0                        ; 0x0268
-    jmp short @..loc_NVUL.l1         ; 0x026b
+    jmp short @..loc_ILSL.l1         ; 0x026b

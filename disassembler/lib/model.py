@@ -60,6 +60,9 @@ class JumpTableInfo:
     keys: int = 0
     # A sidecar ``code_tables`` entry: stated, so re-validation keeps it.
     declared: bool = False
+    # ``max_index`` is the dispatcher's own bounds check (``cmp``/``jcc`` or
+    # ``mov cx, N; repne scas``), not a windowed guess at the length.
+    bounded: bool = False
 
 
 class PhaseContext:

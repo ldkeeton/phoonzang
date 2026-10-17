@@ -50,7 +50,7 @@ api_idx_0004_JVLM:
     mov word [bx + 0x2], ax          ; 0x5f77
     mov ax, word [bp + 0x6]          ; 0x5f7a
     jmp short @..api_idx_0004_JVLM.l3 ; 0x5f7d
-leaf_loc_5f7f:
+jumptable_5fd3_case_0:
     mov ax, word [bp + 0xe]          ; 0x5f7f
     mov cx, 4                        ; 0x5f82
     shl ax, cl                       ; 0x5f85
@@ -65,12 +65,12 @@ leaf_loc_5f7f:
     mov bx, word [bp - 0x0004]       ; 0x5f9a
     mov word [bx + 0x4], ax          ; 0x5f9d
     jmp short @..api_idx_0004_JVLM.l4 ; 0x5fa0
-leaf_loc_5fa2:
+jumptable_5fd3_case_1:
     mov ax, word [bp + 0xe]          ; 0x5fa2
     mov bx, word [bp - 0x0004]       ; 0x5fa5
     mov word [bx + 0x4], ax          ; 0x5fa8
     jmp short @..api_idx_0004_JVLM.l4 ; 0x5fab
-leaf_loc_5fad:
+jumptable_5fd3_case_5:
     mov ax, word [bp + 0xe]          ; 0x5fad
     xchg al, ah                      ; 0x5fb0
     sub al, al                       ; 0x5fb2
@@ -78,7 +78,7 @@ leaf_loc_5fad:
     mov bx, word [bp - 0x0004]       ; 0x5fb7
     mov word [bx + 0x4], ax          ; 0x5fba
     jmp short @..api_idx_0004_JVLM.l4 ; 0x5fbd
-leaf_loc_5fbf:
+jumptable_5fd3_case_6:
     mov ax, word [bp + 0x8]          ; 0x5fbf
     mov bx, word [bp - 0x0004]       ; 0x5fc2
     mov word [bx + 0x2], ax          ; 0x5fc5
@@ -87,13 +87,13 @@ leaf_loc_5fbf:
     mov word [bx + 0x4], ax          ; 0x5fce
     jmp short @..api_idx_0004_JVLM.l4 ; 0x5fd1
 jumptable_5fd3:
-    dw leaf_loc_5f7f - IMAGE_BASE + __zres_end ; 0x5fd3
-    dw leaf_loc_5fa2 - IMAGE_BASE + __zres_end ; 0x5fd5
-    dw leaf_loc_5fa2 - IMAGE_BASE + __zres_end ; 0x5fd7
-    dw leaf_loc_5fa2 - IMAGE_BASE + __zres_end ; 0x5fd9
-    dw leaf_loc_5fa2 - IMAGE_BASE + __zres_end ; 0x5fdb
-    dw leaf_loc_5fad - IMAGE_BASE + __zres_end ; 0x5fdd
-    dw leaf_loc_5fbf - IMAGE_BASE + __zres_end ; 0x5fdf
+    dw jumptable_5fd3_case_0 - IMAGE_BASE + __zres_end ; 0x5fd3
+    dw jumptable_5fd3_case_1 - IMAGE_BASE + __zres_end ; 0x5fd5
+    dw jumptable_5fd3_case_1 - IMAGE_BASE + __zres_end ; 0x5fd7
+    dw jumptable_5fd3_case_1 - IMAGE_BASE + __zres_end ; 0x5fd9
+    dw jumptable_5fd3_case_1 - IMAGE_BASE + __zres_end ; 0x5fdb
+    dw jumptable_5fd3_case_5 - IMAGE_BASE + __zres_end ; 0x5fdd
+    dw jumptable_5fd3_case_6 - IMAGE_BASE + __zres_end ; 0x5fdf
 @..api_idx_0004_JVLM.l3:
     cmp ax, strict word 7            ; 0x5fe1
     jae short @..api_idx_0004_JVLM.l4 ; 0x5fe4

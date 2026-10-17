@@ -50,7 +50,7 @@ api_idx_0004_PSJH:
     mov word [bx + 0x2], ax          ; 0x03fb
     mov ax, word [bp + 0x6]          ; 0x03fe
     jmp short @..api_idx_0004_PSJH.l3 ; 0x0401
-loc_VMRH:
+jumptable_0457_case_0:
     mov ax, word [bp + 0xe]          ; 0x0403
     mov cx, 4                        ; 0x0406
     shl ax, cl                       ; 0x0409
@@ -65,12 +65,12 @@ loc_VMRH:
     mov bx, word [bp - 0x0004]       ; 0x041e
     mov word [bx + 0x4], ax          ; 0x0421
     jmp short @..api_idx_0004_PSJH.l4 ; 0x0424
-loc_NQGQ:
+jumptable_0457_case_1:
     mov ax, word [bp + 0xe]          ; 0x0426
     mov bx, word [bp - 0x0004]       ; 0x0429
     mov word [bx + 0x4], ax          ; 0x042c
     jmp short @..api_idx_0004_PSJH.l4 ; 0x042f
-loc_TKUN:
+jumptable_0457_case_5:
     mov ax, word [bp + 0xe]          ; 0x0431
     xchg al, ah                      ; 0x0434
     sub al, al                       ; 0x0436
@@ -78,7 +78,7 @@ loc_TKUN:
     mov bx, word [bp - 0x0004]       ; 0x043b
     mov word [bx + 0x4], ax          ; 0x043e
     jmp short @..api_idx_0004_PSJH.l4 ; 0x0441
-loc_LGLK:
+jumptable_0457_case_6:
     mov ax, word [bp + 0x8]          ; 0x0443
     mov bx, word [bp - 0x0004]       ; 0x0446
     mov word [bx + 0x2], ax          ; 0x0449
@@ -87,13 +87,13 @@ loc_LGLK:
     mov word [bx + 0x4], ax          ; 0x0452
     jmp short @..api_idx_0004_PSJH.l4 ; 0x0455
 jumptable_0457:
-    dw loc_VMRH - IMAGE_BASE + __zres_end      ; 0x0457
-    dw loc_NQGQ - IMAGE_BASE + __zres_end      ; 0x0459
-    dw loc_NQGQ - IMAGE_BASE + __zres_end      ; 0x045b
-    dw loc_NQGQ - IMAGE_BASE + __zres_end      ; 0x045d
-    dw loc_NQGQ - IMAGE_BASE + __zres_end      ; 0x045f
-    dw loc_TKUN - IMAGE_BASE + __zres_end      ; 0x0461
-    dw loc_LGLK - IMAGE_BASE + __zres_end      ; 0x0463
+    dw jumptable_0457_case_0 - IMAGE_BASE + __zres_end ; 0x0457
+    dw jumptable_0457_case_1 - IMAGE_BASE + __zres_end ; 0x0459
+    dw jumptable_0457_case_1 - IMAGE_BASE + __zres_end ; 0x045b
+    dw jumptable_0457_case_1 - IMAGE_BASE + __zres_end ; 0x045d
+    dw jumptable_0457_case_1 - IMAGE_BASE + __zres_end ; 0x045f
+    dw jumptable_0457_case_5 - IMAGE_BASE + __zres_end ; 0x0461
+    dw jumptable_0457_case_6 - IMAGE_BASE + __zres_end ; 0x0463
 @..api_idx_0004_PSJH.l3:
     cmp ax, strict word 7            ; 0x0465
     jae short @..api_idx_0004_PSJH.l4 ; 0x0468

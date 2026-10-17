@@ -83,7 +83,7 @@ bss_95ae equ __zdseg_end + (__zobss_95ae - __zdata_start)
 %include "vpcmk/api_idx_0004_GRKI.asm"     ; 0x2144
 
 bss_95e8 equ __zdseg_end + (__zobss_95e8 - __zdata_start)
-%include "vpcmk/api_idx_0004_QSLJ.asm"     ; 0x2273
+%include "vpcmk/api_idx_0004_SNNO.asm"     ; 0x2273
 
 bss_952c equ __zdseg_end + (__zobss_952c - __zdata_start)
 bss_952e equ __zdseg_end + (__zobss_952e - __zdata_start)
@@ -127,9 +127,9 @@ loc_TTSP.bss2 equ bss_95ae
 %include "vpcmk/api_idx_0002_IRKS.asm"     ; 0x402d
 
 ; bss_9594 equ __zdseg_end + (__zobss_9594 - __zdata_start)
-%include "vpcmk/api_idx_0006_MKGN.asm"     ; 0x4081
+%include "vpcmk/api_idx_0006_SKNL.asm"     ; 0x4081
 
-%include "vpcmk/loc_VMKK.asm"              ; 0x4107
+%include "vpcmk/loc_UMTI.asm"              ; 0x4107
 
 %include "vpcmk/api_idx_0002_MPHM.asm"     ; 0x4291
 

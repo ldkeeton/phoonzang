@@ -332,7 +332,7 @@ bss_9e5a equ __zdseg_end + (__zobss_9e5a - __zdata_start)
 bss_9e5c equ __zdseg_end + (__zobss_9e5c - __zdata_start)
 bss_9e5e equ __zdseg_end + (__zobss_9e5e - __zdata_start)
 bss_9e62 equ __zdseg_end + (__zobss_9e62 - __zdata_start)
-%include "vmnpc/loc_GTUI.asm"              ; 0x86c6
+%include "vmnpc/loc_NLPS.asm"              ; 0x86c6
 
 bss_9e84 equ __zdseg_end + (__zobss_9e84 - __zdata_start)
 %include "vmnpc/api_idx_0004_JVTH.asm"     ; 0x8738

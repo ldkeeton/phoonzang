@@ -50,7 +50,7 @@ api_idx_0004_KMPG:
     mov word [bx + 0x2], ax          ; 0x6a4f
     mov ax, word [bp + 0x6]          ; 0x6a52
     jmp short @..api_idx_0004_KMPG.l3 ; 0x6a55
-fpu_loc_6a57:
+jumptable_6aab_case_0:
     mov ax, word [bp + 0xe]          ; 0x6a57
     mov cx, 4                        ; 0x6a5a
     shl ax, cl                       ; 0x6a5d
@@ -65,12 +65,12 @@ fpu_loc_6a57:
     mov bx, word [bp - 0x0004]       ; 0x6a72
     mov word [bx + 0x4], ax          ; 0x6a75
     jmp short @..api_idx_0004_KMPG.l4 ; 0x6a78
-fpu_loc_6a7a:
+jumptable_6aab_case_1:
     mov ax, word [bp + 0xe]          ; 0x6a7a
     mov bx, word [bp - 0x0004]       ; 0x6a7d
     mov word [bx + 0x4], ax          ; 0x6a80
     jmp short @..api_idx_0004_KMPG.l4 ; 0x6a83
-fpu_loc_6a85:
+jumptable_6aab_case_5:
     mov ax, word [bp + 0xe]          ; 0x6a85
     xchg al, ah                      ; 0x6a88
     sub al, al                       ; 0x6a8a
@@ -78,7 +78,7 @@ fpu_loc_6a85:
     mov bx, word [bp - 0x0004]       ; 0x6a8f
     mov word [bx + 0x4], ax          ; 0x6a92
     jmp short @..api_idx_0004_KMPG.l4 ; 0x6a95
-fpu_loc_6a97:
+jumptable_6aab_case_6:
     mov ax, word [bp + 0x8]          ; 0x6a97
     mov bx, word [bp - 0x0004]       ; 0x6a9a
     mov word [bx + 0x2], ax          ; 0x6a9d
@@ -87,13 +87,13 @@ fpu_loc_6a97:
     mov word [bx + 0x4], ax          ; 0x6aa6
     jmp short @..api_idx_0004_KMPG.l4 ; 0x6aa9
 jumptable_6aab:
-    dw fpu_loc_6a57 - IMAGE_BASE + __zres_end  ; 0x6aab
-    dw fpu_loc_6a7a - IMAGE_BASE + __zres_end  ; 0x6aad
-    dw fpu_loc_6a7a - IMAGE_BASE + __zres_end  ; 0x6aaf
-    dw fpu_loc_6a7a - IMAGE_BASE + __zres_end  ; 0x6ab1
-    dw fpu_loc_6a7a - IMAGE_BASE + __zres_end  ; 0x6ab3
-    dw fpu_loc_6a85 - IMAGE_BASE + __zres_end  ; 0x6ab5
-    dw fpu_loc_6a97 - IMAGE_BASE + __zres_end  ; 0x6ab7
+    dw jumptable_6aab_case_0 - IMAGE_BASE + __zres_end ; 0x6aab
+    dw jumptable_6aab_case_1 - IMAGE_BASE + __zres_end ; 0x6aad
+    dw jumptable_6aab_case_1 - IMAGE_BASE + __zres_end ; 0x6aaf
+    dw jumptable_6aab_case_1 - IMAGE_BASE + __zres_end ; 0x6ab1
+    dw jumptable_6aab_case_1 - IMAGE_BASE + __zres_end ; 0x6ab3
+    dw jumptable_6aab_case_5 - IMAGE_BASE + __zres_end ; 0x6ab5
+    dw jumptable_6aab_case_6 - IMAGE_BASE + __zres_end ; 0x6ab7
 @..api_idx_0004_KMPG.l3:
     cmp ax, strict word 7            ; 0x6ab9
     jae short @..api_idx_0004_KMPG.l4 ; 0x6abc

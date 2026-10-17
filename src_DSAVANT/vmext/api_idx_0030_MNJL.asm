@@ -1033,7 +1033,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x47dc
     push word [bss_9b0c]             ; 0x47dd
     push word [bss_91aa]             ; 0x47e1
-    call api_idx_0012_MLRN           ; 0x47e5
+    call api_idx_0012_JLRR           ; 0x47e5
     add sp, byte 0x40                ; 0x47e8
     mov ax, 0x34                     ; 0x47eb
     push ax                          ; 0x47ee
@@ -1096,7 +1096,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x485f
     push word [bss_9b0e]             ; 0x4860
     push word [bss_91aa]             ; 0x4864
-    call api_idx_0012_MLRN           ; 0x4868
+    call api_idx_0012_JLRR           ; 0x4868
     add sp, byte 0x40                ; 0x486b
     mov ax, 0x43                     ; 0x486e
     push ax                          ; 0x4871
@@ -1158,7 +1158,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x48df
     push word [bss_9b18]             ; 0x48e0
     push word [bss_91aa]             ; 0x48e4
-    call api_idx_0012_MLRN           ; 0x48e8
+    call api_idx_0012_JLRR           ; 0x48e8
     add sp, byte 0x40                ; 0x48eb
     mov ax, 0x3e                     ; 0x48ee
     push ax                          ; 0x48f1
@@ -1221,7 +1221,7 @@ jumptable_4471_case_0:
     push ax                          ; 0x4962
     push word [bss_9b1a]             ; 0x4963
     push word [bss_91aa]             ; 0x4967
-    call api_idx_0012_MLRN           ; 0x496b
+    call api_idx_0012_JLRR           ; 0x496b
     add sp, byte 0x40                ; 0x496e
     mov ax, word [bss_91a4]          ; 0x4971
     inc ax                           ; 0x4974

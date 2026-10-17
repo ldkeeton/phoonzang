@@ -538,7 +538,7 @@ api_idx_00d4_LUPQ:
 @..api_idx_00d4_LUPQ.l42:
     mov ax, word [bp - 0x0008]       ; 0x3c65
     jmp near @..api_idx_00d4_LUPQ.l66 ; 0x3c68
-loc_HGVG:
+jumptable_4058_case_0:
     mov ax, 0                        ; 0x3c6b
     push ax                          ; 0x3c6e
     call api_idx_0006_SHUK           ; 0x3c6f
@@ -727,7 +727,7 @@ loc_HGVG:
     mov word [bp - 0x009e], 1        ; 0x3e45
 @..api_idx_00d4_LUPQ.l56:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3e4b
-loc_GSNU:
+jumptable_4058_case_1:
     mov ax, 0                        ; 0x3e4e
     push ax                          ; 0x3e51
     call api_idx_0006_SHUK           ; 0x3e52
@@ -814,9 +814,9 @@ loc_GSNU:
     mov word [bp - 0x009e], 1        ; 0x3f1a
 @..api_idx_00d4_LUPQ.l59:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3f20
-loc_LPSH_3f23:
+jumptable_4058_case_8:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3f23
-loc_UPTQ_3f26:
+jumptable_4058_case_3:
     mov ax, 0                        ; 0x3f26
     push ax                          ; 0x3f29
     call api_idx_0006_SHUK           ; 0x3f2a
@@ -840,7 +840,7 @@ loc_UPTQ_3f26:
     mov word [bp - 0x009e], 1        ; 0x3f55
 @..api_idx_00d4_LUPQ.l60:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3f5b
-loc_UPTQ_3f5e:
+jumptable_4058_case_4:
     mov ax, 0                        ; 0x3f5e
     push ax                          ; 0x3f61
     call api_idx_0006_SHUK           ; 0x3f62
@@ -864,7 +864,7 @@ loc_UPTQ_3f5e:
     mov word [bp - 0x009e], 1        ; 0x3f8d
 @..api_idx_00d4_LUPQ.l61:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3f93
-loc_JNST:
+jumptable_4058_case_7:
     call ds_app_io_VGOM              ; 0x3f96
     mov word [bp - 0x0098], ax       ; 0x3f99
     cmp ax, strict word 0xffff       ; 0x3f9d
@@ -872,14 +872,14 @@ loc_JNST:
     mov word [bp - 0x009e], 1        ; 0x3fa2
 @..api_idx_00d4_LUPQ.l62:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3fa8
-loc_LPSH_3fab:
+jumptable_4058_case_2:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3fab
-loc_NGVU:
+jumptable_4058_case_5:
     mov word [bp - 0x0098], 8        ; 0x3fae
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3fb4
-loc_LPSH_3fb7:
+jumptable_4058_case_6:
     jmp near @..api_idx_00d4_LUPQ.l67 ; 0x3fb7
-loc_NPHN:
+jumptable_4058_case_9:
     mov ax, 0                        ; 0x3fba
     push ax                          ; 0x3fbd
     mov ax, 0x2d                     ; 0x3fbe
@@ -927,7 +927,7 @@ loc_NPHN:
     dec word [bp - 0x00b4]           ; 0x4027
     mov word [bp - 0x00a0], 1        ; 0x402b
     jmp short @..api_idx_00d4_LUPQ.l67 ; 0x4031
-loc_UJUH:
+jumptable_4058_case_10:
     mov ax, 0                        ; 0x4033
     push ax                          ; 0x4036
     mov ax, 0x2d                     ; 0x4037
@@ -941,17 +941,17 @@ loc_UJUH:
     mov word [bp - 0x00b4], 0        ; 0x4050
     jmp short @..api_idx_00d4_LUPQ.l67 ; 0x4056
 jumptable_4058:
-    dw loc_HGVG - IMAGE_BASE + __zres_end      ; 0x4058
-    dw loc_GSNU - IMAGE_BASE + __zres_end      ; 0x405a
-    dw loc_LPSH_3fab - IMAGE_BASE + __zres_end ; 0x405c
-    dw loc_UPTQ_3f26 - IMAGE_BASE + __zres_end ; 0x405e
-    dw loc_UPTQ_3f5e - IMAGE_BASE + __zres_end ; 0x4060
-    dw loc_NGVU - IMAGE_BASE + __zres_end      ; 0x4062
-    dw loc_LPSH_3fb7 - IMAGE_BASE + __zres_end ; 0x4064
-    dw loc_JNST - IMAGE_BASE + __zres_end      ; 0x4066
-    dw loc_LPSH_3f23 - IMAGE_BASE + __zres_end ; 0x4068
-    dw loc_NPHN - IMAGE_BASE + __zres_end      ; 0x406a
-    dw loc_UJUH - IMAGE_BASE + __zres_end      ; 0x406c
+    dw jumptable_4058_case_0 - IMAGE_BASE + __zres_end ; 0x4058
+    dw jumptable_4058_case_1 - IMAGE_BASE + __zres_end ; 0x405a
+    dw jumptable_4058_case_2 - IMAGE_BASE + __zres_end ; 0x405c
+    dw jumptable_4058_case_3 - IMAGE_BASE + __zres_end ; 0x405e
+    dw jumptable_4058_case_4 - IMAGE_BASE + __zres_end ; 0x4060
+    dw jumptable_4058_case_5 - IMAGE_BASE + __zres_end ; 0x4062
+    dw jumptable_4058_case_6 - IMAGE_BASE + __zres_end ; 0x4064
+    dw jumptable_4058_case_7 - IMAGE_BASE + __zres_end ; 0x4066
+    dw jumptable_4058_case_8 - IMAGE_BASE + __zres_end ; 0x4068
+    dw jumptable_4058_case_9 - IMAGE_BASE + __zres_end ; 0x406a
+    dw jumptable_4058_case_10 - IMAGE_BASE + __zres_end ; 0x406c
 @..api_idx_00d4_LUPQ.l66:
     cmp ax, strict word 0xb          ; 0x406e
     jae short @..api_idx_00d4_LUPQ.l67 ; 0x4071

@@ -654,83 +654,83 @@ api_idx_0072_OUII:
     mov ax, word [bp - 0x0004]       ; 0x25d1
     mov word [bp - 0x001a], ax       ; 0x25d4
     jmp near @..api_idx_0072_OUII.l42 ; 0x25d7
-leaf_loc_25da:
+jumptable_2668_case_0:
     mov word [bp - 0x001a], 0xc      ; 0x25da
     jmp near @..api_idx_0072_OUII.l43 ; 0x25df
-leaf_loc_25e2:
+jumptable_2668_case_1:
     mov word [bp - 0x001a], 0xd      ; 0x25e2
     jmp near @..api_idx_0072_OUII.l43 ; 0x25e7
-leaf_loc_25ea:
+jumptable_2668_case_2:
     mov word [bp - 0x001a], 0xe      ; 0x25ea
     jmp near @..api_idx_0072_OUII.l43 ; 0x25ef
-leaf_loc_25f2:
+jumptable_2668_case_3:
     mov word [bp - 0x001a], 0xf      ; 0x25f2
     jmp near @..api_idx_0072_OUII.l43 ; 0x25f7
-leaf_loc_25fa:
+jumptable_2668_case_4:
     mov word [bp - 0x001a], 0x10     ; 0x25fa
     jmp near @..api_idx_0072_OUII.l43 ; 0x25ff
-leaf_loc_2602:
+jumptable_2668_case_5:
     mov word [bp - 0x001a], 0x11     ; 0x2602
     jmp near @..api_idx_0072_OUII.l43 ; 0x2607
-leaf_loc_260a:
+jumptable_2668_case_6:
     mov word [bp - 0x001a], 0xffff   ; 0x260a
     jmp near @..api_idx_0072_OUII.l43 ; 0x260f
-leaf_loc_2612:
+jumptable_2668_case_7:
     mov word [bp - 0x001a], 0xffff   ; 0x2612
     jmp near @..api_idx_0072_OUII.l43 ; 0x2617
-leaf_loc_261a:
+jumptable_2668_case_8:
     mov word [bp - 0x001a], 0xffff   ; 0x261a
     jmp near @..api_idx_0072_OUII.l43 ; 0x261f
-leaf_loc_2622:
+jumptable_2668_case_9:
     mov word [bp - 0x001a], 0xffff   ; 0x2622
     jmp short @..api_idx_0072_OUII.l43 ; 0x2627
-leaf_loc_2629:
+jumptable_2668_case_10:
     mov word [bp - 0x001a], 0xffff   ; 0x2629
     jmp short @..api_idx_0072_OUII.l43 ; 0x262e
-leaf_loc_2630:
+jumptable_2668_case_11:
     mov word [bp - 0x001a], 0x18     ; 0x2630
     jmp short @..api_idx_0072_OUII.l43 ; 0x2635
-leaf_loc_2637:
+jumptable_2668_case_12:
     mov word [bp - 0x001a], 0xffff   ; 0x2637
     jmp short @..api_idx_0072_OUII.l43 ; 0x263c
-leaf_loc_263e:
+jumptable_2668_case_13:
     mov word [bp - 0x001a], 0x1b     ; 0x263e
     jmp short @..api_idx_0072_OUII.l43 ; 0x2643
-leaf_loc_2645:
+jumptable_2668_case_14:
     mov word [bp - 0x001a], 0x1d     ; 0x2645
     jmp short @..api_idx_0072_OUII.l43 ; 0x264a
-leaf_loc_264c:
+jumptable_2668_case_15:
     mov word [bp - 0x001a], 0x1e     ; 0x264c
     jmp short @..api_idx_0072_OUII.l43 ; 0x2651
-leaf_loc_2653:
+jumptable_2668_case_16:
     mov word [bp - 0x001a], 0x1f     ; 0x2653
     jmp short @..api_idx_0072_OUII.l43 ; 0x2658
-leaf_loc_265a:
+jumptable_2668_case_17:
     mov word [bp - 0x001a], 0x20     ; 0x265a
     jmp short @..api_idx_0072_OUII.l43 ; 0x265f
-loc_MVRL:
+jumptable_2668_case_18:
     mov word [bp - 0x001a], 0x21     ; 0x2661
     jmp short @..api_idx_0072_OUII.l43 ; 0x2666
 jumptable_2668:
-    dw leaf_loc_25da - IMAGE_BASE + __zres_end ; 0x2668
-    dw leaf_loc_25e2 - IMAGE_BASE + __zres_end ; 0x266a
-    dw leaf_loc_25ea - IMAGE_BASE + __zres_end ; 0x266c
-    dw leaf_loc_25f2 - IMAGE_BASE + __zres_end ; 0x266e
-    dw leaf_loc_25fa - IMAGE_BASE + __zres_end ; 0x2670
-    dw leaf_loc_2602 - IMAGE_BASE + __zres_end ; 0x2672
-    dw leaf_loc_260a - IMAGE_BASE + __zres_end ; 0x2674
-    dw leaf_loc_2612 - IMAGE_BASE + __zres_end ; 0x2676
-    dw leaf_loc_261a - IMAGE_BASE + __zres_end ; 0x2678
-    dw leaf_loc_2622 - IMAGE_BASE + __zres_end ; 0x267a
-    dw leaf_loc_2629 - IMAGE_BASE + __zres_end ; 0x267c
-    dw leaf_loc_2630 - IMAGE_BASE + __zres_end ; 0x267e
-    dw leaf_loc_2637 - IMAGE_BASE + __zres_end ; 0x2680
-    dw leaf_loc_263e - IMAGE_BASE + __zres_end ; 0x2682
-    dw leaf_loc_2645 - IMAGE_BASE + __zres_end ; 0x2684
-    dw leaf_loc_264c - IMAGE_BASE + __zres_end ; 0x2686
-    dw leaf_loc_2653 - IMAGE_BASE + __zres_end ; 0x2688
-    dw leaf_loc_265a - IMAGE_BASE + __zres_end ; 0x268a
-    dw loc_MVRL - IMAGE_BASE + __zres_end      ; 0x268c
+    dw jumptable_2668_case_0 - IMAGE_BASE + __zres_end ; 0x2668
+    dw jumptable_2668_case_1 - IMAGE_BASE + __zres_end ; 0x266a
+    dw jumptable_2668_case_2 - IMAGE_BASE + __zres_end ; 0x266c
+    dw jumptable_2668_case_3 - IMAGE_BASE + __zres_end ; 0x266e
+    dw jumptable_2668_case_4 - IMAGE_BASE + __zres_end ; 0x2670
+    dw jumptable_2668_case_5 - IMAGE_BASE + __zres_end ; 0x2672
+    dw jumptable_2668_case_6 - IMAGE_BASE + __zres_end ; 0x2674
+    dw jumptable_2668_case_7 - IMAGE_BASE + __zres_end ; 0x2676
+    dw jumptable_2668_case_8 - IMAGE_BASE + __zres_end ; 0x2678
+    dw jumptable_2668_case_9 - IMAGE_BASE + __zres_end ; 0x267a
+    dw jumptable_2668_case_10 - IMAGE_BASE + __zres_end ; 0x267c
+    dw jumptable_2668_case_11 - IMAGE_BASE + __zres_end ; 0x267e
+    dw jumptable_2668_case_12 - IMAGE_BASE + __zres_end ; 0x2680
+    dw jumptable_2668_case_13 - IMAGE_BASE + __zres_end ; 0x2682
+    dw jumptable_2668_case_14 - IMAGE_BASE + __zres_end ; 0x2684
+    dw jumptable_2668_case_15 - IMAGE_BASE + __zres_end ; 0x2686
+    dw jumptable_2668_case_16 - IMAGE_BASE + __zres_end ; 0x2688
+    dw jumptable_2668_case_17 - IMAGE_BASE + __zres_end ; 0x268a
+    dw jumptable_2668_case_18 - IMAGE_BASE + __zres_end ; 0x268c
 @..api_idx_0072_OUII.l42:
     sub ax, strict word 0xb          ; 0x268e
     cmp ax, strict word 0x13         ; 0x2691
@@ -899,7 +899,7 @@ jumptable_2668:
     mov al, byte [bx + 0x237]        ; 0x283d
     sub ah, ah                       ; 0x2841
     push ax                          ; 0x2843
-    call loc_VNLP                    ; 0x2844
+    call loc_UOUN                    ; 0x2844
     add sp, byte 6                   ; 0x2847
     mov bx, word [bp - 0x0014]       ; 0x284a
     mov byte [bx + 0x236], al        ; 0x284d
@@ -1112,65 +1112,65 @@ jumptable_2668:
     mov al, byte [bss_95a1]          ; 0x2a7d
     sub ah, ah                       ; 0x2a80
     jmp near @..api_idx_0072_OUII.l67 ; 0x2a82
-leaf_loc_2a85:
+jumptable_2af5_case_0:
     mov word [bp - 0x0004], 8        ; 0x2a85
     jmp near @..api_idx_0072_OUII.l68 ; 0x2a8a
-leaf_loc_2a8d:
+jumptable_2af5_case_1:
     mov word [bp - 0x0004], 0x12     ; 0x2a8d
     jmp near @..api_idx_0072_OUII.l68 ; 0x2a92
-leaf_loc_2a95:
+jumptable_2af5_case_2:
     mov word [bp - 0x0004], 0x18     ; 0x2a95
     jmp near @..api_idx_0072_OUII.l68 ; 0x2a9a
-leaf_loc_2a9d:
+jumptable_2af5_case_3:
     mov word [bp - 0x0004], 6        ; 0x2a9d
     jmp near @..api_idx_0072_OUII.l68 ; 0x2aa2
-leaf_loc_2aa5:
+jumptable_2af5_case_4:
     mov word [bp - 0x0004], 0x1f     ; 0x2aa5
     mov word [bp - 0x0006], 0x21     ; 0x2aaa
     jmp short @..api_idx_0072_OUII.l68 ; 0x2aaf
-leaf_loc_2ab1:
+jumptable_2af5_case_5:
     mov word [bp - 0x0004], 0x12     ; 0x2ab1
     jmp short @..api_idx_0072_OUII.l68 ; 0x2ab6
-leaf_loc_2ab8:
+jumptable_2af5_case_6:
     mov word [bp - 0x0004], 0x1d     ; 0x2ab8
     mov word [bp - 0x0006], 0x1e     ; 0x2abd
     jmp short @..api_idx_0072_OUII.l68 ; 0x2ac2
-leaf_loc_2ac4:
+jumptable_2af5_case_7:
     mov word [bp - 0x0004], 1        ; 0x2ac4
     jmp short @..api_idx_0072_OUII.l68 ; 0x2ac9
-leaf_loc_2acb:
+jumptable_2af5_case_8:
     mov word [bp - 0x0004], 0x16     ; 0x2acb
     jmp short @..api_idx_0072_OUII.l68 ; 0x2ad0
-leaf_loc_2ad2:
+jumptable_2af5_case_9:
     mov word [bp - 0x0004], 0x18     ; 0x2ad2
     jmp short @..api_idx_0072_OUII.l68 ; 0x2ad7
-leaf_loc_2ad9:
+jumptable_2af5_case_10:
     mov word [bp - 0x0004], 9        ; 0x2ad9
     jmp short @..api_idx_0072_OUII.l68 ; 0x2ade
-loc_PIVO:
+jumptable_2af5_case_11:
     mov word [bp - 0x0004], 0xa      ; 0x2ae0
     jmp short @..api_idx_0072_OUII.l68 ; 0x2ae5
-loc_QJQU:
+jumptable_2af5_case_12:
     mov word [bp - 0x0004], 0x19     ; 0x2ae7
     jmp short @..api_idx_0072_OUII.l68 ; 0x2aec
-loc_QPSH:
+jumptable_2af5_case_13:
     mov word [bp - 0x0004], 0x2f     ; 0x2aee
     jmp short @..api_idx_0072_OUII.l68 ; 0x2af3
 jumptable_2af5:
-    dw leaf_loc_2a85 - IMAGE_BASE + __zres_end ; 0x2af5
-    dw leaf_loc_2a8d - IMAGE_BASE + __zres_end ; 0x2af7
-    dw leaf_loc_2a95 - IMAGE_BASE + __zres_end ; 0x2af9
-    dw leaf_loc_2a9d - IMAGE_BASE + __zres_end ; 0x2afb
-    dw leaf_loc_2aa5 - IMAGE_BASE + __zres_end ; 0x2afd
-    dw leaf_loc_2ab1 - IMAGE_BASE + __zres_end ; 0x2aff
-    dw leaf_loc_2ab8 - IMAGE_BASE + __zres_end ; 0x2b01
-    dw leaf_loc_2ac4 - IMAGE_BASE + __zres_end ; 0x2b03
-    dw leaf_loc_2acb - IMAGE_BASE + __zres_end ; 0x2b05
-    dw leaf_loc_2ad2 - IMAGE_BASE + __zres_end ; 0x2b07
-    dw leaf_loc_2ad9 - IMAGE_BASE + __zres_end ; 0x2b09
-    dw loc_PIVO - IMAGE_BASE + __zres_end      ; 0x2b0b
-    dw loc_QJQU - IMAGE_BASE + __zres_end      ; 0x2b0d
-    dw loc_QPSH - IMAGE_BASE + __zres_end      ; 0x2b0f
+    dw jumptable_2af5_case_0 - IMAGE_BASE + __zres_end ; 0x2af5
+    dw jumptable_2af5_case_1 - IMAGE_BASE + __zres_end ; 0x2af7
+    dw jumptable_2af5_case_2 - IMAGE_BASE + __zres_end ; 0x2af9
+    dw jumptable_2af5_case_3 - IMAGE_BASE + __zres_end ; 0x2afb
+    dw jumptable_2af5_case_4 - IMAGE_BASE + __zres_end ; 0x2afd
+    dw jumptable_2af5_case_5 - IMAGE_BASE + __zres_end ; 0x2aff
+    dw jumptable_2af5_case_6 - IMAGE_BASE + __zres_end ; 0x2b01
+    dw jumptable_2af5_case_7 - IMAGE_BASE + __zres_end ; 0x2b03
+    dw jumptable_2af5_case_8 - IMAGE_BASE + __zres_end ; 0x2b05
+    dw jumptable_2af5_case_9 - IMAGE_BASE + __zres_end ; 0x2b07
+    dw jumptable_2af5_case_10 - IMAGE_BASE + __zres_end ; 0x2b09
+    dw jumptable_2af5_case_11 - IMAGE_BASE + __zres_end ; 0x2b0b
+    dw jumptable_2af5_case_12 - IMAGE_BASE + __zres_end ; 0x2b0d
+    dw jumptable_2af5_case_13 - IMAGE_BASE + __zres_end ; 0x2b0f
 @..api_idx_0072_OUII.l67:
     cmp ax, strict word 0xe          ; 0x2b11
     jae short @..api_idx_0072_OUII.l68 ; 0x2b14
@@ -1243,7 +1243,7 @@ jumptable_2af5:
     jmp near @..api_idx_0072_OUII.l77 ; 0x2bc1
 @..api_idx_0072_OUII.l73:
     push ax                          ; 0x2bc4
-    call loc_QKKR                    ; 0x2bc5
+    call loc_JJHG                    ; 0x2bc5
     pop cx                           ; 0x2bc8
     mov word [bp - 0x0006], ax       ; 0x2bc9
     cmp ax, strict word 0            ; 0x2bcc
@@ -1329,7 +1329,7 @@ jumptable_2af5:
     jmp near @..api_idx_0072_OUII.l85 ; 0x2c8b
 @..api_idx_0072_OUII.l81:
     push ax                          ; 0x2c8e
-    call loc_QKKR                    ; 0x2c8f
+    call loc_JJHG                    ; 0x2c8f
     pop cx                           ; 0x2c92
     mov word [bp - 0x0006], ax       ; 0x2c93
     cmp ax, strict word 0            ; 0x2c96
@@ -1411,7 +1411,7 @@ jumptable_2af5:
     shl ax, 1                        ; 0x2d4c
     mov bx, ax                       ; 0x2d4e
     push word [bx - 0x6bbe]          ; 0x2d50
-    call loc_QKKR                    ; 0x2d54
+    call loc_JJHG                    ; 0x2d54
     pop cx                           ; 0x2d57
     mov word [bp - 0x0006], ax       ; 0x2d58
     cmp ax, strict word 0            ; 0x2d5b

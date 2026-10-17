@@ -4,7 +4,7 @@ api_idx_0008_HJOM:
     mov ax, 0xfff8                   ; 0x4368
     call aztec_csav                  ; 0x436b
     mov ax, word [bp + 0x6]          ; 0x436e
-    jmp near @..api_idx_0008_HJOM.l1 ; 0x4371
+    jmp near @..api_idx_0008_HJOM.l44 ; 0x4371
 jumptable_4a7d_case_34:
     mov ax, 0x32                     ; 0x4374
     imul word [bp + 0x8]             ; 0x4377
@@ -19,7 +19,7 @@ jumptable_4a7d_case_34:
     call loc_QQUT                    ; 0x4390
     add sp, byte 6                   ; 0x4393
     mov word [bss_8300], ax          ; 0x4396
-    jmp near @..loc_4374.l44         ; 0x4399
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x4399
 jumptable_4a7d_case_38:
     mov ax, 0x23                     ; 0x439c
     imul word [bp + 0x8]             ; 0x439f
@@ -37,7 +37,7 @@ jumptable_4a7d_case_38:
     call loc_QQUT                    ; 0x43ba
     add sp, byte 6                   ; 0x43bd
     mov word [bss_82f4], ax          ; 0x43c0
-    jmp near @..loc_4374.l44         ; 0x43c3
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x43c3
 jumptable_4a7d_case_30:
     mov ax, 0x32                     ; 0x43c6
     imul word [bp + 0x8]             ; 0x43c9
@@ -55,17 +55,17 @@ jumptable_4a7d_case_30:
     call loc_QQUT                    ; 0x43e4
     add sp, byte 6                   ; 0x43e7
     mov word [bss_82f8], ax          ; 0x43ea
-    jmp near @..loc_4374.l44         ; 0x43ed
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x43ed
 jumptable_4a7d_case_27:
     mov ax, 5                        ; 0x43f0
     imul word [bp + 0x8]             ; 0x43f3
     add word [bss_8306], ax          ; 0x43f6
-    jmp near @..loc_4374.l44         ; 0x43fa
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x43fa
 jumptable_4a7d_case_28:
     mov ax, 0x64                     ; 0x43fd
     imul word [bp + 0x8]             ; 0x4400
     add word [bss_8302], ax          ; 0x4403
-    jmp near @..loc_4374.l44         ; 0x4407
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x4407
 jumptable_4a7d_case_39:
     mov ax, 0x32                     ; 0x440a
     imul word [bp + 0x8]             ; 0x440d
@@ -79,16 +79,16 @@ jumptable_4a7d_case_39:
     call loc_QQUT                    ; 0x4423
     add sp, byte 6                   ; 0x4426
     mov word [bss_82fc], ax          ; 0x4429
-    jmp near @..loc_4374.l44         ; 0x442c
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x442c
 jumptable_4a7d_case_29:
     push word [bp + 0x8]             ; 0x442f
     push word [bp + 0x4]             ; 0x4432
     call api_idx_0054_TIQK           ; 0x4435
     add sp, byte 4                   ; 0x4438
-    jmp near @..loc_4374.l44         ; 0x443b
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x443b
 jumptable_4a7d_case_33:
     mov word [bp - 0x0006], 0        ; 0x443e
-@..loc_4374.l1:
+@..api_idx_0008_HJOM.l1:
     mov ax, 0x64                     ; 0x4443
     push ax                          ; 0x4446
     call ds_app_PUNN                 ; 0x4447
@@ -105,25 +105,25 @@ jumptable_4a7d_case_33:
     mov cx, ax                       ; 0x4461
     pop ax                           ; 0x4463
     cmp ax, cx                       ; 0x4464
-    jge short @..loc_4374.l8         ; 0x4466
+    jge short @..api_idx_0008_HJOM.l8 ; 0x4466
     mov word [bp - 0x0002], 0        ; 0x4468
-    jmp short @..loc_4374.l7         ; 0x446d
-@..loc_4374.l2:
+    jmp short @..api_idx_0008_HJOM.l7 ; 0x446d
+@..api_idx_0008_HJOM.l2:
     cmp word [bss_91fe], byte 0      ; 0x446f
-    jle short @..loc_4374.l5         ; 0x4474
+    jle short @..api_idx_0008_HJOM.l5 ; 0x4474
     cmp word [bss_9250], byte 0xff   ; 0x4476
-    je short @..loc_4374.l5          ; 0x447b
+    je short @..api_idx_0008_HJOM.l5 ; 0x447b
     mov ax, 0xa                      ; 0x447d
     imul word [bss_9250]             ; 0x4480
     add ax, word [bp - 0x0006]       ; 0x4484
     mov bx, ax                       ; 0x4487
     cmp byte [bx - 0x6dae], 0x2d     ; 0x4489
-    jne short @..loc_4374.l3         ; 0x448e
+    jne short @..api_idx_0008_HJOM.l3 ; 0x448e
     mov ax, 0x2d                     ; 0x4490
-    jmp short @..loc_4374.l4         ; 0x4493
-@..loc_4374.l3:
+    jmp short @..api_idx_0008_HJOM.l4 ; 0x4493
+@..api_idx_0008_HJOM.l3:
     mov ax, 0x2a                     ; 0x4495
-@..loc_4374.l4:
+@..api_idx_0008_HJOM.l4:
     push ax                          ; 0x4498
     mov ax, 0xa                      ; 0x4499
     imul word [bp - 0x0002]          ; 0x449c
@@ -132,55 +132,55 @@ jumptable_4a7d_case_33:
     mov bx, ax                       ; 0x44a4
     pop ax                           ; 0x44a6
     mov byte [bx - 0x6c8e], al       ; 0x44a7
-    jmp short @..loc_4374.l6         ; 0x44ab
-@..loc_4374.l5:
+    jmp short @..api_idx_0008_HJOM.l6 ; 0x44ab
+@..api_idx_0008_HJOM.l5:
     mov ax, 0xa                      ; 0x44ad
     imul word [bp - 0x0002]          ; 0x44b0
     add ax, word [bp - 0x0006]       ; 0x44b3
     mov bx, ax                       ; 0x44b6
     mov byte [bx - 0x6c8e], 0x2d     ; 0x44b8
-@..loc_4374.l6:
+@..api_idx_0008_HJOM.l6:
     inc word [bp - 0x0002]           ; 0x44bd
-@..loc_4374.l7:
+@..api_idx_0008_HJOM.l7:
     mov ax, word [bp - 0x0002]       ; 0x44c0
     cmp ax, word [bss_69c8]          ; 0x44c3
-    jl short @..loc_4374.l2          ; 0x44c7
-@..loc_4374.l8:
+    jl short @..api_idx_0008_HJOM.l2 ; 0x44c7
+@..api_idx_0008_HJOM.l8:
     inc word [bp - 0x0006]           ; 0x44c9
     mov ax, word [bp - 0x0006]       ; 0x44cc
     cmp ax, strict word 8            ; 0x44cf
-    jge short @..loc_4374.l9         ; 0x44d2
-    jmp near @..loc_4374.l1          ; 0x44d4
-@..loc_4374.l9:
-    jmp near @..loc_4374.l44         ; 0x44d7
+    jge short @..api_idx_0008_HJOM.l9 ; 0x44d2
+    jmp near @..api_idx_0008_HJOM.l1 ; 0x44d4
+@..api_idx_0008_HJOM.l9:
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x44d7
 jumptable_4a7d_case_22:
     mov ax, 0                        ; 0x44da
     cmp word [bp + 0x6], byte 0x13   ; 0x44dd
-    je short @..loc_4374.l10         ; 0x44e1
+    je short @..api_idx_0008_HJOM.l10 ; 0x44e1
     mov ax, word [bp + 0xa]          ; 0x44e3
-@..loc_4374.l10:
+@..api_idx_0008_HJOM.l10:
     mov word [bp - 0x0002], ax       ; 0x44e6
     mov ax, word [bss_69c8]          ; 0x44e9
     cmp word [bp + 0x6], byte 0x13   ; 0x44ec
-    je short @..loc_4374.l11         ; 0x44f0
+    je short @..api_idx_0008_HJOM.l11 ; 0x44f0
     mov ax, word [bp + 0xa]          ; 0x44f2
     inc ax                           ; 0x44f5
-@..loc_4374.l11:
+@..api_idx_0008_HJOM.l11:
     mov word [bp - 0x0004], ax       ; 0x44f6
     mov ax, word [bp + 0x8]          ; 0x44f9
     cmp word [bp + 0x6], byte 0x13   ; 0x44fc
-    je short @..loc_4374.l12         ; 0x4500
+    je short @..api_idx_0008_HJOM.l12 ; 0x4500
     shl ax, 1                        ; 0x4502
-@..loc_4374.l12:
+@..api_idx_0008_HJOM.l12:
     mov word [bp - 0x0006], ax       ; 0x4504
     mov ax, 0                        ; 0x4507
     cmp word [bp + 0x6], byte 0x13   ; 0x450a
-    je short @..loc_4374.l13         ; 0x450e
+    je short @..api_idx_0008_HJOM.l13 ; 0x450e
     mov ax, word [bp + 0x8]          ; 0x4510
-@..loc_4374.l13:
+@..api_idx_0008_HJOM.l13:
     mov word [bp - 0x0008], ax       ; 0x4513
-    jmp short @..loc_4374.l15        ; 0x4516
-@..loc_4374.l14:
+    jmp short @..api_idx_0008_HJOM.l15 ; 0x4516
+@..api_idx_0008_HJOM.l14:
     mov ax, 0x248                    ; 0x4518
     imul word [bp - 0x0002]          ; 0x451b
     mov bx, ax                       ; 0x451e
@@ -225,11 +225,11 @@ jumptable_4a7d_case_22:
     call ds_app_LUOV                 ; 0x4579
     add sp, byte 4                   ; 0x457c
     inc word [bp - 0x0002]           ; 0x457f
-@..loc_4374.l15:
+@..api_idx_0008_HJOM.l15:
     mov ax, word [bp - 0x0002]       ; 0x4582
     cmp ax, word [bp - 0x0004]       ; 0x4585
-    jl short @..loc_4374.l14         ; 0x4588
-    jmp near @..loc_4374.l44         ; 0x458a
+    jl short @..api_idx_0008_HJOM.l14 ; 0x4588
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x458a
 jumptable_4a7d_case_23:
     mov ax, 0x248                    ; 0x458d
     imul word [bp + 0xa]             ; 0x4590
@@ -244,9 +244,9 @@ jumptable_4a7d_case_23:
     sub ax, cx                       ; 0x45a5
     mov word [bp - 0x0002], ax       ; 0x45a7
     cmp ax, strict word 0            ; 0x45aa
-    jge short @..loc_4374.l16        ; 0x45ad
+    jge short @..api_idx_0008_HJOM.l16 ; 0x45ad
     mov word [bp - 0x0002], 0        ; 0x45af
-@..loc_4374.l16:
+@..api_idx_0008_HJOM.l16:
     mov al, byte [bp - 0x0002]       ; 0x45b4
     mov byte [bx + 0x5d5d], al       ; 0x45b7
     mov ax, 1                        ; 0x45bb
@@ -254,7 +254,7 @@ jumptable_4a7d_case_23:
     push word [bp + 0xa]             ; 0x45bf
     call ds_app_LUOV                 ; 0x45c2
     add sp, byte 4                   ; 0x45c5
-    jmp near @..loc_4374.l44         ; 0x45c8
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x45c8
 jumptable_4a7d_case_26:
     mov ax, 0x248                    ; 0x45cb
     imul word [bp + 0xa]             ; 0x45ce
@@ -264,10 +264,10 @@ jumptable_4a7d_case_26:
     sub ax, word [bp + 0x8]          ; 0x45d9
     mov word [bp - 0x0002], ax       ; 0x45dc
     cmp ax, strict word 0            ; 0x45df
-    jg short @..loc_4374.l17         ; 0x45e2
+    jg short @..api_idx_0008_HJOM.l17 ; 0x45e2
     mov word [bp - 0x0002], 0        ; 0x45e4
     mov byte [bx + 0x5d5f], 0        ; 0x45e9
-@..loc_4374.l17:
+@..api_idx_0008_HJOM.l17:
     mov al, byte [bp - 0x0002]       ; 0x45ee
     mov byte [bx + 0x5e32], al       ; 0x45f1
     mov al, byte [bx + 0x5d5f]       ; 0x45f5
@@ -280,10 +280,10 @@ jumptable_4a7d_case_26:
     sub ax, cx                       ; 0x4605
     mov word [bp - 0x0002], ax       ; 0x4607
     cmp ax, strict word 0            ; 0x460a
-    jg short @..loc_4374.l18         ; 0x460d
+    jg short @..api_idx_0008_HJOM.l18 ; 0x460d
     mov word [bp - 0x0002], 0        ; 0x460f
     mov byte [bx + 0x5e32], 0        ; 0x4614
-@..loc_4374.l18:
+@..api_idx_0008_HJOM.l18:
     mov al, byte [bp - 0x0002]       ; 0x4619
     mov byte [bx + 0x5d5f], al       ; 0x461c
     mov ax, 1                        ; 0x4620
@@ -291,15 +291,15 @@ jumptable_4a7d_case_26:
     push word [bp + 0xa]             ; 0x4624
     call ds_app_LUOV                 ; 0x4627
     add sp, byte 4                   ; 0x462a
-    jmp near @..loc_4374.l44         ; 0x462d
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x462d
 jumptable_4a7d_case_31:
     mov ax, 0x248                    ; 0x4630
     imul word [bp + 0xa]             ; 0x4633
     mov bx, ax                       ; 0x4636
     cmp byte [bx + 0x5e2f], 2        ; 0x4638
-    je short @..loc_4374.l19         ; 0x463d
-    jmp near @..loc_4374.l22         ; 0x463f
-@..loc_4374.l19:
+    je short @..api_idx_0008_HJOM.l19 ; 0x463d
+    jmp near @..api_idx_0008_HJOM.l22 ; 0x463f
+@..api_idx_0008_HJOM.l19:
     mov ax, 3                        ; 0x4642
     imul word [bp + 0x8]             ; 0x4645
     push ax                          ; 0x4648
@@ -310,7 +310,7 @@ jumptable_4a7d_case_31:
     sub cx, ax                       ; 0x4654
     pop ax                           ; 0x4656
     cmp ax, cx                       ; 0x4657
-    jle short @..loc_4374.l22        ; 0x4659
+    jle short @..api_idx_0008_HJOM.l22 ; 0x4659
     dec byte [bx + 0x5d67]           ; 0x465b
     mov ax, 0xb7                     ; 0x465f
     push ax                          ; 0x4662
@@ -340,21 +340,21 @@ jumptable_4a7d_case_31:
     mov cx, ax                       ; 0x4696
     pop ax                           ; 0x4698
     cmp ax, cx                       ; 0x4699
-    jle short @..loc_4374.l20        ; 0x469b
+    jle short @..api_idx_0008_HJOM.l20 ; 0x469b
     mov byte [bx + 0x5e2f], 3        ; 0x469d
     mov word [bx + 0x5c0c], 0        ; 0x46a2
     mov word [bx + 0x5c10], 0        ; 0x46a8
-    jmp short @..loc_4374.l21        ; 0x46ae
-@..loc_4374.l20:
+    jmp short @..api_idx_0008_HJOM.l21 ; 0x46ae
+@..api_idx_0008_HJOM.l20:
     mov byte [bx + 0x5e2f], 0        ; 0x46b0
-@..loc_4374.l21:
+@..api_idx_0008_HJOM.l21:
     mov ax, 1                        ; 0x46b5
     push ax                          ; 0x46b8
     push word [bp + 0xa]             ; 0x46b9
     call ds_app_LUOV                 ; 0x46bc
     add sp, byte 4                   ; 0x46bf
-@..loc_4374.l22:
-    jmp near @..loc_4374.l44         ; 0x46c2
+@..api_idx_0008_HJOM.l22:
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x46c2
 jumptable_4a7d_case_36:
     mov ax, 0x248                    ; 0x46c5
     imul word [bp + 0xa]             ; 0x46c8
@@ -369,9 +369,9 @@ jumptable_4a7d_case_36:
     sub ax, cx                       ; 0x46dd
     mov word [bp - 0x0002], ax       ; 0x46df
     cmp ax, strict word 0            ; 0x46e2
-    jge short @..loc_4374.l23        ; 0x46e5
+    jge short @..api_idx_0008_HJOM.l23 ; 0x46e5
     mov word [bp - 0x0002], 0        ; 0x46e7
-@..loc_4374.l23:
+@..api_idx_0008_HJOM.l23:
     mov al, byte [bp - 0x0002]       ; 0x46ec
     mov byte [bx + 0x5d61], al       ; 0x46ef
     mov ax, 1                        ; 0x46f3
@@ -379,7 +379,7 @@ jumptable_4a7d_case_36:
     push word [bp + 0xa]             ; 0x46f7
     call ds_app_LUOV                 ; 0x46fa
     add sp, byte 4                   ; 0x46fd
-    jmp near @..loc_4374.l44         ; 0x4700
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x4700
 jumptable_4a7d_case_25:
     mov ax, 3                        ; 0x4703
     imul word [bp + 0x8]             ; 0x4706
@@ -394,19 +394,19 @@ jumptable_4a7d_case_25:
     sub cx, ax                       ; 0x471d
     pop ax                           ; 0x471f
     cmp ax, cx                       ; 0x4720
-    jle short @..loc_4374.l24        ; 0x4722
+    jle short @..api_idx_0008_HJOM.l24 ; 0x4722
     mov byte [bx + 0x5d60], 0        ; 0x4724
-@..loc_4374.l24:
+@..api_idx_0008_HJOM.l24:
     mov ax, 1                        ; 0x4729
     push ax                          ; 0x472c
     push word [bp + 0xa]             ; 0x472d
     call ds_app_LUOV                 ; 0x4730
     add sp, byte 4                   ; 0x4733
-    jmp near @..loc_4374.l44         ; 0x4736
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x4736
 jumptable_4a7d_case_35:
     mov word [bp - 0x0002], 0        ; 0x4739
-    jmp short @..loc_4374.l27        ; 0x473e
-@..loc_4374.l25:
+    jmp short @..api_idx_0008_HJOM.l27 ; 0x473e
+@..api_idx_0008_HJOM.l25:
     mov ax, 0x248                    ; 0x4740
     imul word [bp + 0xa]             ; 0x4743
     mov bx, ax                       ; 0x4746
@@ -422,9 +422,9 @@ jumptable_4a7d_case_35:
     sub ax, cx                       ; 0x475c
     mov word [bp - 0x0004], ax       ; 0x475e
     cmp ax, strict word 0            ; 0x4761
-    jge short @..loc_4374.l26        ; 0x4764
+    jge short @..api_idx_0008_HJOM.l26 ; 0x4764
     mov word [bp - 0x0004], 0        ; 0x4766
-@..loc_4374.l26:
+@..api_idx_0008_HJOM.l26:
     mov al, byte [bp - 0x0004]       ; 0x476b
     mov byte [bx + 0x5d5c], al       ; 0x476e
     mov ax, 1                        ; 0x4772
@@ -433,26 +433,26 @@ jumptable_4a7d_case_35:
     call ds_app_LUOV                 ; 0x4779
     add sp, byte 4                   ; 0x477c
     inc word [bp - 0x0002]           ; 0x477f
-@..loc_4374.l27:
+@..api_idx_0008_HJOM.l27:
     mov ax, word [bp - 0x0002]       ; 0x4782
     cmp ax, word [bss_69c8]          ; 0x4785
-    jl short @..loc_4374.l25         ; 0x4789
-    jmp near @..loc_4374.l44         ; 0x478b
+    jl short @..api_idx_0008_HJOM.l25 ; 0x4789
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x478b
 jumptable_4a7d_case_32:
     mov word [bp - 0x0004], 1        ; 0x478e
-@..loc_4374.l28:
+@..api_idx_0008_HJOM.l28:
     mov ax, word [bp - 0x0004]       ; 0x4793
     cmp ax, strict word 1            ; 0x4796
-    je short @..loc_4374.l29         ; 0x4799
+    je short @..api_idx_0008_HJOM.l29 ; 0x4799
     cmp ax, strict word 2            ; 0x479b
-    je short @..loc_4374.l29         ; 0x479e
+    je short @..api_idx_0008_HJOM.l29 ; 0x479e
     cmp ax, strict word 4            ; 0x47a0
-    je short @..loc_4374.l29         ; 0x47a3
+    je short @..api_idx_0008_HJOM.l29 ; 0x47a3
     cmp ax, strict word 8            ; 0x47a5
-    je short @..loc_4374.l29         ; 0x47a8
+    je short @..api_idx_0008_HJOM.l29 ; 0x47a8
     cmp ax, strict word 9            ; 0x47aa
-    jne short @..loc_4374.l31        ; 0x47ad
-@..loc_4374.l29:
+    jne short @..api_idx_0008_HJOM.l31 ; 0x47ad
+@..api_idx_0008_HJOM.l29:
     mov ax, 0x248                    ; 0x47af
     imul word [bp + 0xa]             ; 0x47b2
     mov cx, ax                       ; 0x47b5
@@ -471,50 +471,50 @@ jumptable_4a7d_case_32:
     sub ax, cx                       ; 0x47d2
     mov word [bp - 0x0002], ax       ; 0x47d4
     cmp ax, strict word 0            ; 0x47d7
-    jge short @..loc_4374.l30        ; 0x47da
+    jge short @..api_idx_0008_HJOM.l30 ; 0x47da
     mov word [bp - 0x0002], 0        ; 0x47dc
-@..loc_4374.l30:
+@..api_idx_0008_HJOM.l30:
     mov al, byte [bp - 0x0002]       ; 0x47e1
     mov byte [bx + 0x5d5a], al       ; 0x47e4
-@..loc_4374.l31:
+@..api_idx_0008_HJOM.l31:
     inc word [bp - 0x0004]           ; 0x47e8
     mov ax, word [bp - 0x0004]       ; 0x47eb
     cmp ax, strict word 9            ; 0x47ee
-    jle short @..loc_4374.l28        ; 0x47f1
+    jle short @..api_idx_0008_HJOM.l28 ; 0x47f1
     mov ax, 1                        ; 0x47f3
     push ax                          ; 0x47f6
     push word [bp + 0xa]             ; 0x47f7
     call ds_app_LUOV                 ; 0x47fa
     add sp, byte 4                   ; 0x47fd
-    jmp near @..loc_4374.l44         ; 0x4800
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x4800
 jumptable_4a7d_case_37:
     mov ax, 0                        ; 0x4803
     cmp word [bp + 0x6], byte 0x58   ; 0x4806
-    je short @..loc_4374.l32         ; 0x480a
+    je short @..api_idx_0008_HJOM.l32 ; 0x480a
     mov ax, word [bp + 0xa]          ; 0x480c
-@..loc_4374.l32:
+@..api_idx_0008_HJOM.l32:
     mov word [bp - 0x0002], ax       ; 0x480f
     mov ax, word [bss_69c8]          ; 0x4812
     cmp word [bp + 0x6], byte 0x58   ; 0x4815
-    je short @..loc_4374.l33         ; 0x4819
+    je short @..api_idx_0008_HJOM.l33 ; 0x4819
     mov ax, word [bp + 0xa]          ; 0x481b
     inc ax                           ; 0x481e
-@..loc_4374.l33:
+@..api_idx_0008_HJOM.l33:
     mov word [bp - 0x0004], ax       ; 0x481f
     mov ax, 4                        ; 0x4822
     cmp word [bp + 0x6], byte 0x58   ; 0x4825
-    je short @..loc_4374.l34         ; 0x4829
+    je short @..api_idx_0008_HJOM.l34 ; 0x4829
     mov ax, 7                        ; 0x482b
-@..loc_4374.l34:
+@..api_idx_0008_HJOM.l34:
     mov word [bp - 0x0006], ax       ; 0x482e
     mov ax, 0                        ; 0x4831
     cmp word [bp + 0x6], byte 0x58   ; 0x4834
-    je short @..loc_4374.l35         ; 0x4838
+    je short @..api_idx_0008_HJOM.l35 ; 0x4838
     mov ax, word [bp + 0x8]          ; 0x483a
-@..loc_4374.l35:
+@..api_idx_0008_HJOM.l35:
     mov word [bp - 0x0008], ax       ; 0x483d
-    jmp short @..loc_4374.l37        ; 0x4840
-@..loc_4374.l36:
+    jmp short @..api_idx_0008_HJOM.l37 ; 0x4840
+@..api_idx_0008_HJOM.l36:
     mov ax, 0x248                    ; 0x4842
     imul word [bp - 0x0002]          ; 0x4845
     mov bx, ax                       ; 0x4848
@@ -560,19 +560,19 @@ jumptable_4a7d_case_37:
     call ds_app_LUOV                 ; 0x48ac
     add sp, byte 4                   ; 0x48af
     inc word [bp - 0x0002]           ; 0x48b2
-@..loc_4374.l37:
+@..api_idx_0008_HJOM.l37:
     mov ax, word [bp - 0x0002]       ; 0x48b5
     cmp ax, word [bp - 0x0004]       ; 0x48b8
-    jl short @..loc_4374.l36         ; 0x48bb
-    jmp near @..loc_4374.l44         ; 0x48bd
+    jl short @..api_idx_0008_HJOM.l36 ; 0x48bb
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x48bd
 jumptable_4a7d_case_41:
     mov ax, 0x248                    ; 0x48c0
     imul word [bp + 0xa]             ; 0x48c3
     mov bx, ax                       ; 0x48c6
     cmp byte [bx + 0x5e2f], 3        ; 0x48c8
-    je short @..loc_4374.l38         ; 0x48cd
-    jmp near @..loc_4374.l39         ; 0x48cf
-@..loc_4374.l38:
+    je short @..api_idx_0008_HJOM.l38 ; 0x48cd
+    jmp near @..api_idx_0008_HJOM.l39 ; 0x48cf
+@..api_idx_0008_HJOM.l38:
     mov ax, 3                        ; 0x48d2
     imul word [bp + 0x8]             ; 0x48d5
     push ax                          ; 0x48d8
@@ -583,7 +583,7 @@ jumptable_4a7d_case_41:
     sub cx, ax                       ; 0x48e4
     pop ax                           ; 0x48e6
     cmp ax, cx                       ; 0x48e7
-    jle short @..loc_4374.l39        ; 0x48e9
+    jle short @..api_idx_0008_HJOM.l39 ; 0x48e9
     dec byte [bx + 0x5d67]           ; 0x48eb
     mov byte [bx + 0x5e2f], 0        ; 0x48ef
     push word [bx + 0x5c0e]          ; 0x48f4
@@ -628,8 +628,8 @@ jumptable_4a7d_case_41:
     push word [bp + 0xa]             ; 0x4951
     call ds_app_LUOV                 ; 0x4954
     add sp, byte 4                   ; 0x4957
-@..loc_4374.l39:
-    jmp near @..loc_4374.l44         ; 0x495a
+@..api_idx_0008_HJOM.l39:
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x495a
 jumptable_4a7d_case_42:
     push word [bp + 0x8]             ; 0x495d
     mov ax, 8                        ; 0x4960
@@ -657,10 +657,10 @@ jumptable_4a7d_case_42:
     add word [bx + 0x5c10], ax       ; 0x4991
     mov ax, word [bx + 0x5c10]       ; 0x4995
     cmp ax, word [bx + 0x5c12]       ; 0x4999
-    jle short @..loc_4374.l40        ; 0x499d
+    jle short @..api_idx_0008_HJOM.l40 ; 0x499d
     mov ax, word [bx + 0x5c12]       ; 0x499f
     mov word [bx + 0x5c10], ax       ; 0x49a3
-@..loc_4374.l40:
+@..api_idx_0008_HJOM.l40:
     mov ax, 0                        ; 0x49a7
     push ax                          ; 0x49aa
     mov ax, 2                        ; 0x49ab
@@ -688,19 +688,19 @@ jumptable_4a7d_case_42:
     add word [bx + 0x5c0c], ax       ; 0x49dc
     mov ax, word [bx + 0x5c0c]       ; 0x49e0
     cmp ax, word [bx + 0x5c0e]       ; 0x49e4
-    jle short @..loc_4374.l41        ; 0x49e8
+    jle short @..api_idx_0008_HJOM.l41 ; 0x49e8
     mov ax, word [bx + 0x5c0e]       ; 0x49ea
     mov word [bx + 0x5c0c], ax       ; 0x49ee
-@..loc_4374.l41:
+@..api_idx_0008_HJOM.l41:
     mov ax, 1                        ; 0x49f2
     push ax                          ; 0x49f5
     push word [bp + 0x4]             ; 0x49f6
     call ds_app_LUOV                 ; 0x49f9
     add sp, byte 4                   ; 0x49fc
-    jmp near @..loc_4374.l44         ; 0x49ff
+    jmp near @..api_idx_0008_HJOM.l45 ; 0x49ff
 jumptable_4a7d_case_43:
     mov word [bp - 0x0002], 0        ; 0x4a02
-@..loc_4374.l42:
+@..api_idx_0008_HJOM.l42:
     mov ax, 0                        ; 0x4a07
     push ax                          ; 0x4a0a
     mov ax, 0xa                      ; 0x4a0b
@@ -733,21 +733,21 @@ jumptable_4a7d_case_43:
     add word [bx + 0x5c1c], ax       ; 0x4a47
     mov ax, word [bx + 0x5c1c]       ; 0x4a4b
     cmp ax, word [bx + 0x5c1e]       ; 0x4a4f
-    jle short @..loc_4374.l43        ; 0x4a53
+    jle short @..api_idx_0008_HJOM.l43 ; 0x4a53
     mov ax, word [bx + 0x5c1e]       ; 0x4a55
     mov word [bx + 0x5c1c], ax       ; 0x4a59
-@..loc_4374.l43:
+@..api_idx_0008_HJOM.l43:
     inc word [bp - 0x0002]           ; 0x4a5d
     mov ax, word [bp - 0x0002]       ; 0x4a60
     cmp ax, strict word 6            ; 0x4a63
-    jl short @..loc_4374.l42         ; 0x4a66
+    jl short @..api_idx_0008_HJOM.l42 ; 0x4a66
     mov ax, 1                        ; 0x4a68
     push ax                          ; 0x4a6b
     push word [bp + 0x4]             ; 0x4a6c
     call ds_app_LUOV                 ; 0x4a6f
     add sp, byte 4                   ; 0x4a72
-    jmp short @..loc_4374.l44        ; 0x4a75
-@..api_idx_0008_HJOM.l1:
+    jmp short @..api_idx_0008_HJOM.l45 ; 0x4a75
+@..api_idx_0008_HJOM.l44:
     mov cx, 0x17                     ; 0x4a77
     call leaf_loc_GTUT               ; 0x4a7a
 jumptable_4a7d:
@@ -797,5 +797,5 @@ jumptable_4a7d:
     dw jumptable_4a7d_case_43 - IMAGE_BASE + __zres_end ; 0x4ad3
     dw jumptable_4a7d_case_44 - IMAGE_BASE + __zres_end ; 0x4ad5
 jumptable_4a7d_case_44:
-@..loc_4374.l44:
+@..api_idx_0008_HJOM.l45:
     ret                              ; 0x4ad7

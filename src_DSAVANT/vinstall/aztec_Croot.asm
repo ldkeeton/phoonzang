@@ -90,7 +90,7 @@ aztec_Croot:
     mov word [di], 0                 ; 0x37eb
     push word [bss_253c]             ; 0x37ef
     push word [bss_253a]             ; 0x37f3
-    call loc_JGSH                    ; 0x37f7
+    call loc_SGVI                    ; 0x37f7
     add sp, byte 4                   ; 0x37fa
     mov ax, 0                        ; 0x37fd
     push ax                          ; 0x3800
