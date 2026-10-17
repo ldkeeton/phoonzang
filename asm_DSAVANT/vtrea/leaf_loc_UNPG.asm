@@ -15,7 +15,7 @@ jumptable_5fd3:
     dw leaf_loc_NQGQ - IMAGE_BASE + 0x5055     ; 0x5fdb
     dw leaf_loc_TKUN - IMAGE_BASE + 0x5055     ; 0x5fdd
     dw leaf_loc_UNPG - IMAGE_BASE + 0x5055     ; 0x5fdf
-@..api_idx_0004_GMNK.l3:
+loc_5fe1:
     cmp ax, strict word 7            ; 0x5fe1
     jae short loc_PLIR               ; 0x5fe4
     xchg bx, ax                      ; 0x5fe6

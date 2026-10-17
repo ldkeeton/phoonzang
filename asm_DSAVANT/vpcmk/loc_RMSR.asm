@@ -7,7 +7,7 @@ loc_RMSR:
     mov bx, ax                       ; 0x5712
     mov al, byte [bx + 0x5e2d]       ; 0x5714
     sub ah, ah                       ; 0x5718
-    jmp near @..loc_RMSR.l1          ; 0x571a
+    jmp near loc_5a7c                ; 0x571a
 jumptable_5a60_case_0:
     mov ax, 3                        ; 0x571d
     push ax                          ; 0x5720

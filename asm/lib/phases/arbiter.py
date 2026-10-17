@@ -31,6 +31,7 @@ _CALL_REASON_BONUS = {
     'trampoline': 1,
     'indirect_jmp': 1,
     'jt_target': 0,
+    'code_table': 2,
     'force_code': 2,
 }
 

@@ -57,7 +57,7 @@ dos_read_file_3:
     mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x3106
     cmp ax, 0x4180                   ; 0x310a
     jb short @..dos_read_file_3.l2   ; 0x310d
-    jmp near @..dos_read_file_3.l8   ; 0x310f
+    jmp near loc_31a6                ; 0x310f
 @..dos_read_file_3.l2:
     mov bx, word [bp - 0x0002]       ; 0x3112
     mov ax, word [cs:bx]             ; 0x3115

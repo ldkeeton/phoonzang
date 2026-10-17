@@ -10,7 +10,3 @@ dos_con_loc_NQOR:
     db 'CACHEAREA out of EMS slots.', 0
     db 0x0a, 0x24
 
-@..dos_write_file_2.l21:
-    mov ax, cs                       ; 0x43d1
-    mov ds, ax                       ; 0x43d3
-    mov dx, 0x44e1                   ; 0x43d5

@@ -499,7 +499,7 @@ api_idx_0012_TQRK:
     mov bx, ax                       ; 0x4aab
     mov al, byte [bx - 0x6e28]       ; 0x4aad
     sub ah, ah                       ; 0x4ab1
-    jmp near @..api_idx_0012_TQRK.l40 ; 0x4ab3
+    jmp near loc_4b75                ; 0x4ab3
 loc_GMQM:
     cmp word [bp + 0x4], byte 5      ; 0x4ab6
     jge short @..api_idx_0012_TQRK.l38 ; 0x4aba

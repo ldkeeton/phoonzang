@@ -6,6 +6,6 @@ aztec_cret:
     mov sp, bp                       ; 0x4672
     pop bp                           ; 0x4674
     ret                              ; 0x4675
-@..aztec_csav.l2:
+@..aztec_cret.stackfault:
     mov sp, bp ; put stack back the way it was ; 0x4676
     jmp near aztec_impl_stkover      ; 0x4678

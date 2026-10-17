@@ -20,7 +20,7 @@ jumptable_19de_case_12:
 @..loc_19d1.l1:
     ret                              ; 0x19dd
 jumptable_19de:
-    dw jumptable_19de_case_0 - IMAGE_BASE + 0x5055 ; 0x19de
+    dw loc_1a05 - IMAGE_BASE + 0x5055          ; 0x19de
     dw jumptable_19de_case_1 - IMAGE_BASE + 0x5055 ; 0x19e0
     dw jumptable_19de_case_2 - IMAGE_BASE + 0x5055 ; 0x19e2
     dw jumptable_19de_case_3 - IMAGE_BASE + 0x5055 ; 0x19e4
@@ -33,17 +33,16 @@ jumptable_19de:
     dw jumptable_19de_case_8 - IMAGE_BASE + 0x5055 ; 0x19f2
     dw jumptable_19de_case_11 - IMAGE_BASE + 0x5055 ; 0x19f4
     dw jumptable_19de_case_12 - IMAGE_BASE + 0x5055 ; 0x19f6
-@..loc_QKKR_1820.l9:
+loc_19f8:
     cmp ax, strict word 0xd          ; 0x19f8
-    jae short @..loc_QKKR_1820.l10   ; 0x19fb
+    jae short loc_1a05               ; 0x19fb
     xchg bx, ax                      ; 0x19fd
     shl bx, 1                        ; 0x19fe
     jmp [cs:bx + 0x6a25]             ; 0x1a00
-jumptable_19de_case_0:
-@..loc_QKKR_1820.l10:
+loc_1a05:
     mov ax, 0x13                     ; 0x1a05
     cmp word [bp + 0x6], byte 0      ; 0x1a08
-    jne short @..loc_QKKR_1820.l11   ; 0x1a0c
+    jne short loc_1a11               ; 0x1a0c
     mov ax, 0x17                     ; 0x1a0e
-@..loc_QKKR_1820.l11:
+loc_1a11:
     ret                              ; 0x1a11

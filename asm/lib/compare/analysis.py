@@ -236,13 +236,24 @@ def _local_branch_targets(branch_targets, owners, edge_sources,
 
 
 def _compute_local_labels(local_targets, owners, function_roots, label_map,
-                          fragment_names=None):
+                          fragment_names=None, split_ranges=None):
     """Return local assembly names for branch targets with unique owners.
+
+    A local label lives in its owner's fragment.  With *split_ranges*, a target
+    that falls in a different fragment than its owner's root (a shared exit laid
+    out past another routine) is not local: it stays an ordinary code label, so
+    the splitter can root it instead of stranding it in the master file.
 
     Owners are normally scoped by their function-root name.  A root without a
     friendly name (for example a bare ``loc_`` helper that is a call target)
     is scoped by its own address, so its locals read as ``@..loc_4be6.l1``.
     """
+    def fragment_of(offset):
+        for start, end, _ in split_ranges or ():
+            if start <= offset < end:
+                return start
+        return None
+
     local_labels = {}
     named_counts = {}
     for off in sorted(local_targets or ()):
@@ -252,6 +263,8 @@ def _compute_local_labels(local_targets, owners, function_roots, label_map,
         if len(owner_set) != 1:
             continue
         owner = next(iter(owner_set))
+        if split_ranges and fragment_of(off) != fragment_of(owner):
+            continue
         name = (function_roots or {}).get(owner)
         if not name or (is_label(name) or is_data(name)):
             candidate = (label_map or {}).get(owner)

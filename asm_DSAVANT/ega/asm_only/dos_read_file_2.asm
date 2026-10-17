@@ -13,7 +13,7 @@ dos_read_file_2:
     mov ax, word [bp + 0xe]          ; 0x10dd
     cmp ax, strict word 0xa          ; 0x10e0
     jb short @..dos_read_file_2.l1   ; 0x10e3
-    jmp near @..dos_read_file_2.l2   ; 0x10e5
+    jmp near loc_1211                ; 0x10e5
 @..dos_read_file_2.l1:
     shl ax, 1                        ; 0x10e8
     mov word [bp - 0x0008], ax       ; 0x10ea
@@ -22,5 +22,5 @@ dos_read_file_2:
     mov word [bp - 0x0002], bx       ; 0x10f2
     mov ax, word [cs:bx]             ; 0x10f5
     or ax, ax                        ; 0x10f8
-    jne short dos_con_loc_GIJK       ; 0x10fa
+    jne short dos_con_loc_GRVO       ; 0x10fa
     jmp near loc_SMNJ                ; 0x10fc

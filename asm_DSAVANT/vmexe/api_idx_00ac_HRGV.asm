@@ -29,7 +29,7 @@ api_idx_00ac_HRGV:
     mov word [bp - 0x00a6], 1        ; 0x79cc
     cmp word [bss_8464], byte 0      ; 0x79d2
     je short @..api_idx_00ac_HRGV.l1 ; 0x79d7
-    jmp near @..api_idx_00ac_HRGV.l14 ; 0x79d9
+    jmp near loc_7c53                ; 0x79d9
 @..api_idx_00ac_HRGV.l1:
     mov ax, 0x9136                   ; 0x79dc
     push ax                          ; 0x79df
@@ -172,4 +172,4 @@ api_idx_00ac_HRGV:
     mov bx, ax                       ; 0x7b2e
     mov al, byte [bx + 0x5c39]       ; 0x7b30
     sub ah, ah                       ; 0x7b34
-    jmp near @..api_idx_00ac_HRGV.l13 ; 0x7b36
+    jmp near loc_7c08                ; 0x7b36

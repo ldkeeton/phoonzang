@@ -10,7 +10,3 @@ ds_dos_con_loc_RKPT:
     db 'I/O error loading font'
     db 0x0d, 0x0a, 0x24
 
-@..dos_alloc_mem.l6:
-    mov ax, cs                       ; 0x395b
-    mov ds, ax                       ; 0x395d
-    mov dx, 0x376b                   ; 0x395f

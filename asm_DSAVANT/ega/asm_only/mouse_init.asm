@@ -16,7 +16,7 @@ mouse_init:
     mov si, 0x259e                   ; 0x1731
     mov ax, cs                       ; 0x1734
     mov ds, ax                       ; 0x1736
-    call string_loc_RUML             ; 0x1738
+    call string_loc_RHHH             ; 0x1738
     pop si                           ; 0x173b
     pop ds                           ; 0x173c
     mov ax, 0                        ; 0x173d
@@ -46,7 +46,7 @@ mouse_init:
     push ax                          ; 0x1776
     mov ax, 0xffff                   ; 0x1777
     mov word [cs:cseg_1adb - IMAGE_BASE], ax ; 0x177a
-    call io_loc_NSIN                 ; 0x177e
+    call io_loc_UQHG                 ; 0x177e
     pop si                           ; 0x1781
     pop di                           ; 0x1782
     pop es                           ; 0x1783

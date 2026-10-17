@@ -293,4 +293,4 @@ jumptable_3111:
     jmp near loc_KNRN                ; 0x3238
 @..api_idx_0008_KSTK.l23:
     mov ax, word [bp - 0x0006]       ; 0x323b
-    jmp near @..api_idx_0008_KSTK.l24 ; 0x323e
+    jmp near loc_337a                ; 0x323e

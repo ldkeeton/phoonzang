@@ -3,7 +3,7 @@ api_idx_0008_NLUK:
     mov ax, 0xfff8                   ; 0x1e4f
     call aztec_csav                  ; 0x1e52
     cmp word [bp + 0x10], byte 0     ; 0x1e55
-    je short @..api_idx_0008_NLUK.l2 ; 0x1e59
+    je short loc_1eb5                ; 0x1e59
     mov ax, 0                        ; 0x1e5b
     push ax                          ; 0x1e5e
     push word [bp + 0x10]            ; 0x1e5f
@@ -20,6 +20,6 @@ api_idx_0008_NLUK:
     call loc_VOSO                    ; 0x1e76
     add sp, byte 0x0e                ; 0x1e79
     test ax, ax                      ; 0x1e7c
-    je short @..api_idx_0008_NLUK.l2 ; 0x1e7e
+    je short loc_1eb5                ; 0x1e7e
     mov ax, word [bss_91a8]          ; 0x1e80
-    jmp short @..api_idx_0008_NLUK.l1 ; 0x1e83
+    jmp short loc_1ea8               ; 0x1e83

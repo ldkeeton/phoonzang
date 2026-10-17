@@ -14,7 +14,7 @@ dos_file_loc_RQKL:
     mov ah, 0x3f                     ; 0x45d0
     int 0x21 ; DOS read file (handle)
     or ax, ax                        ; 0x45d4
-    je short @..dos_file_loc_RQKL.l3 ; 0x45d6
+    je short loc_461f                ; 0x45d6
     mov cx, ax                       ; 0x45d8
     push ax                          ; 0x45da
     mov bx, word [bp - 0x0004]       ; 0x45db

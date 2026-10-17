@@ -54,7 +54,7 @@ dos_alloc_mem:
     mov ah, 0x48                     ; 0x38d2
     int 0x21 ; DOS allocate memory
     jae short @..dos_alloc_mem.l3    ; 0x38d6
-    jmp near @..dos_alloc_mem.l6     ; 0x38d8
+    jmp near ds_loc_395b             ; 0x38d8
 @..dos_alloc_mem.l3:
     mov bx, 0x364a                   ; 0x38db
     mov cx, word [bp + 0x6]          ; 0x38de

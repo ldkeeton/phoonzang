@@ -135,6 +135,9 @@
     },
     "vinstall": {
       "file": "VINSTALL.EXE",
+      "force_data": [
+        {"start": "2a23", "end": "2a26", "note": "00 00 00 00 padding between aztec_chdir and aztec_fexec (0x2a27), not code"}
+      ],
       "type": "mz",
       "start_offset": 512,
       "entry_symbol": "aztec_begin",
@@ -357,7 +360,10 @@
         "entry_size": 4,
         "count": 8,
         "format": "e8_rel16_cb"
-      }
+      },
+      "code_tables": [
+        {"table": "0495", "entry_size": 2, "count": 16, "note": "INT 08h handler dispatch table: loc_03e2 loads `mov dx, word [cs:bx+0x595]` (four overlapping 4-entry sub-tables at file 0495/049d/04a5/04ad, indexed by cseg_0a7d) and the installer at 04b5 stores DX into 0000:0020. Values are runtime CS offsets (file + 0x100): the targets are the handler entries 0841, 08af, 0975, 099f, 0a41 and 18e4"}
+      ]
     }
   },
   "force_data": [],

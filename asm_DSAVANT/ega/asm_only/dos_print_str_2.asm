@@ -46,7 +46,7 @@ dos_print_str_2:
     mov si, 0x259e                   ; 0x1a25
     mov ax, cs                       ; 0x1a28
     mov ds, ax                       ; 0x1a2a
-    call string_loc_RUML             ; 0x1a2c
+    call string_loc_RHHH             ; 0x1a2c
     pop si                           ; 0x1a2f
     pop ds                           ; 0x1a30
     jmp short @..dos_print_str_2.l4  ; 0x1a31
@@ -61,7 +61,7 @@ dos_print_str_2:
     mov si, word [bp + 0xc]          ; 0x1a44
     mov ax, word [bp + 0xe]          ; 0x1a47
     mov ds, ax                       ; 0x1a4a
-    call string_loc_RUML             ; 0x1a4c
+    call string_loc_RHHH             ; 0x1a4c
     pop si                           ; 0x1a4f
     pop ds                           ; 0x1a50
 @..dos_print_str_2.l4:

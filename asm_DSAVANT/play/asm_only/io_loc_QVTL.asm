@@ -20,13 +20,13 @@ io_loc_QVTL:
     je short @..io_loc_QVTL.l2       ; 0x026b
     mov al, 0x34                     ; 0x026d
     out 0x43, al                     ; 0x026f
-    call leaf_loc_RNOI               ; 0x0271
+    call leaf_loc_STGJ               ; 0x0271
     mov ax, word [cs:cseg_0aa6 - IMAGE_BASE] ; 0x0274
     mov bl, 0x48                     ; 0x0278
     mul bl                           ; 0x027a
     mov word [cs:cseg_0a98 - IMAGE_BASE], ax ; 0x027c
     out 0x40, al                     ; 0x0280
-    call leaf_loc_RNOI               ; 0x0282
+    call leaf_loc_STGJ               ; 0x0282
     mov al, ah                       ; 0x0285
     out 0x40, al                     ; 0x0287
 @..io_loc_QVTL.l2:

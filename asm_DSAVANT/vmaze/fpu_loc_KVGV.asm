@@ -9,7 +9,7 @@ jumptable_19c1:
     dw fpu_loc_IJNV - IMAGE_BASE + 0x5055      ; 0x19c7
     dw fpu_loc_LHHK - IMAGE_BASE + 0x5055      ; 0x19c9
     dw fpu_loc_KVGV - IMAGE_BASE + 0x5055      ; 0x19cb
-@..api_idx_000a_JVOP.l4:
+loc_19cd:
     cmp ax, strict word 6            ; 0x19cd
     jae short loc_RTJI               ; 0x19d0
     xchg bx, ax                      ; 0x19d2
@@ -116,7 +116,7 @@ loc_KJHQ:
     add sp, byte 4                   ; 0x1ac5
 loc_JISH:
     jmp near loc_HTNO                ; 0x1ac8
-@..api_idx_000a_JVOP.l5:
+loc_1acb:
     push word [bp + 0x6]             ; 0x1acb
     call ds_app_PUNN                 ; 0x1ace
     pop cx                           ; 0x1ad1
@@ -147,24 +147,24 @@ loc_JISH:
     add word [bx + 0x5c0c], ax       ; 0x1b07
     mov ax, word [bx + 0x5c0c]       ; 0x1b0b
     cmp ax, word [bx + 0x5c0e]       ; 0x1b0f
-    jle short @..api_idx_000a_JVOP.l6 ; 0x1b13
+    jle short loc_1b1d               ; 0x1b13
     mov ax, word [bx + 0x5c0e]       ; 0x1b15
     mov word [bx + 0x5c0c], ax       ; 0x1b19
-@..api_idx_000a_JVOP.l6:
+loc_1b1d:
     cmp word [bx + 0x5c0c], byte 0   ; 0x1b1d
-    jg short @..api_idx_000a_JVOP.l7 ; 0x1b22
+    jg short loc_1b34                ; 0x1b22
     mov ax, 0                        ; 0x1b24
     push ax                          ; 0x1b27
     push word [bp + 0x4]             ; 0x1b28
     call loc_QTKU                    ; 0x1b2b
     add sp, byte 4                   ; 0x1b2e
     jmp near loc_HTNO                ; 0x1b31
-@..api_idx_000a_JVOP.l7:
+loc_1b34:
     mov ax, 0x248                    ; 0x1b34
     imul word [bp + 0x4]             ; 0x1b37
     mov bx, ax                       ; 0x1b3a
     cmp word [bx + 0x5c10], byte 0   ; 0x1b3c
-    jg short @..api_idx_000a_JVOP.l8 ; 0x1b41
+    jg short loc_1b62                ; 0x1b41
     mov word [bx + 0x5c10], 0        ; 0x1b43
     mov ax, 6                        ; 0x1b49
     push ax                          ; 0x1b4c
@@ -177,9 +177,9 @@ loc_JISH:
     mov bx, ax                       ; 0x1b5b
     pop ax                           ; 0x1b5d
     mov byte [bx + 0x5d5c], al       ; 0x1b5e
-@..api_idx_000a_JVOP.l8:
+loc_1b62:
     cmp word [bp + 0x8], byte 0      ; 0x1b62
-    jle short @..api_idx_000a_JVOP.l9 ; 0x1b66
+    jle short loc_1bc8               ; 0x1b66
     mov ax, 0x248                    ; 0x1b68
     imul word [bp + 0x4]             ; 0x1b6b
     mov bx, ax                       ; 0x1b6e
@@ -216,12 +216,12 @@ loc_JISH:
     mov word [bx + 0x5c10], ax       ; 0x1bb2
     mov ax, word [bx + 0x5c10]       ; 0x1bb6
     cmp ax, word [bx + 0x5c12]       ; 0x1bba
-    jle short @..api_idx_000a_JVOP.l9 ; 0x1bbe
+    jle short loc_1bc8               ; 0x1bbe
     mov ax, word [bx + 0x5c12]       ; 0x1bc0
     mov word [bx + 0x5c10], ax       ; 0x1bc4
-@..api_idx_000a_JVOP.l9:
+loc_1bc8:
     mov word [bp - 0x0004], 0        ; 0x1bc8
-@..api_idx_000a_JVOP.l10:
+loc_1bcd:
     mov ax, 0x248                    ; 0x1bcd
     imul word [bp + 0x4]             ; 0x1bd0
     add ax, word [bp - 0x0004]       ; 0x1bd3
@@ -230,37 +230,37 @@ loc_JISH:
     sub ah, ah                       ; 0x1bdc
     mov word [bp - 0x0006], ax       ; 0x1bde
     cmp ax, strict word 0            ; 0x1be1
-    jle short @..api_idx_000a_JVOP.l12 ; 0x1be4
+    jle short loc_1c03               ; 0x1be4
     cmp ax, 0xff                     ; 0x1be6
-    je short @..api_idx_000a_JVOP.l12 ; 0x1be9
+    je short loc_1c03                ; 0x1be9
     mov ax, word [bp + 0xa]          ; 0x1beb
     sub word [bp - 0x0006], ax       ; 0x1bee
     cmp word [bp - 0x0006], byte 0   ; 0x1bf1
-    jge short @..api_idx_000a_JVOP.l11 ; 0x1bf5
+    jge short loc_1bfc               ; 0x1bf5
     mov word [bp - 0x0006], 0        ; 0x1bf7
-@..api_idx_000a_JVOP.l11:
+loc_1bfc:
     mov al, byte [bp - 0x0006]       ; 0x1bfc
     mov byte [bx + 0x5d5a], al       ; 0x1bff
-@..api_idx_000a_JVOP.l12:
+loc_1c03:
     inc word [bp - 0x0004]           ; 0x1c03
     mov ax, word [bp - 0x0004]       ; 0x1c06
     cmp ax, strict word 0xa          ; 0x1c09
-    jl short @..api_idx_000a_JVOP.l10 ; 0x1c0c
+    jl short loc_1bcd                ; 0x1c0c
     mov ax, 0x248                    ; 0x1c0e
     imul word [bp + 0x4]             ; 0x1c11
     mov bx, ax                       ; 0x1c14
     cmp byte [bx + 0x5d5f], 0        ; 0x1c16
-    je short @..api_idx_000a_JVOP.l13 ; 0x1c1b
+    je short loc_1c24                ; 0x1c1b
     cmp byte [bx + 0x5e32], 0        ; 0x1c1d
-    jne short @..api_idx_000a_JVOP.l14 ; 0x1c22
-@..api_idx_000a_JVOP.l13:
+    jne short loc_1c2e               ; 0x1c22
+loc_1c24:
     mov byte [bx + 0x5d5f], 0        ; 0x1c24
     mov byte [bx + 0x5e32], 0        ; 0x1c29
-@..api_idx_000a_JVOP.l14:
+loc_1c2e:
     cmp word [bp + 0xc], byte 0      ; 0x1c2e
     jle short loc_HTNO               ; 0x1c32
     mov word [bp - 0x0004], 0        ; 0x1c34
-@..api_idx_000a_JVOP.l15:
+loc_1c39:
     mov ax, 0x248                    ; 0x1c39
     imul word [bp + 0x4]             ; 0x1c3c
     add ax, word [bp - 0x0004]       ; 0x1c3f
@@ -284,14 +284,14 @@ loc_JISH:
     add word [bx + 0x5c1c], ax       ; 0x1c65
     mov ax, word [bx + 0x5c1c]       ; 0x1c69
     cmp ax, word [bx + 0x5c1e]       ; 0x1c6d
-    jle short @..api_idx_000a_JVOP.l16 ; 0x1c71
+    jle short loc_1c7b               ; 0x1c71
     mov ax, word [bx + 0x5c1e]       ; 0x1c73
     mov word [bx + 0x5c1c], ax       ; 0x1c77
-@..api_idx_000a_JVOP.l16:
+loc_1c7b:
     inc word [bp - 0x0004]           ; 0x1c7b
     mov ax, word [bp - 0x0004]       ; 0x1c7e
     cmp ax, strict word 6            ; 0x1c81
-    jl short @..api_idx_000a_JVOP.l15 ; 0x1c84
+    jl short loc_1c39                ; 0x1c84
 loc_HTNO:
     mov ax, 1                        ; 0x1c86
     push ax                          ; 0x1c89

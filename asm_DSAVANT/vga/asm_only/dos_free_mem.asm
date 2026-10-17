@@ -34,11 +34,11 @@ dos_free_mem:
     jne short @..dos_free_mem.l1     ; 0x0878
     mov ax, word [bp + 0x10]         ; 0x087a
     or ax, ax                        ; 0x087d
-    je short @..dos_free_mem.l2      ; 0x087f
+    je short loc_08ca                ; 0x087f
     mov ax, ds                       ; 0x0881
     or ax, ax                        ; 0x0883
-    je short @..dos_free_mem.l2      ; 0x0885
+    je short loc_08ca                ; 0x0885
     mov es, ax                       ; 0x0887
     mov ah, 0x49                     ; 0x0889
     int 0x21 ; DOS free memory
-    jmp short @..dos_free_mem.l2     ; 0x088d
+    jmp short loc_08ca               ; 0x088d

@@ -86,6 +86,13 @@ class CodeOffSignExtensionTests(unittest.TestCase):
         ctx = type('Ctx', (), {'segments': None, 'start_offset': 0})()
         self.assertEqual(_code_off(ctx, -0x7ff0), 0x8010)
 
+    def test_driver_value_is_file_offset_plus_load_offset(self):
+        # A raw driver runs at CS:0x100, so a stored code pointer is file+0x100.
+        segments = type('Seg', (), {
+            'load_offset': 0x100, 'code_offset': lambda self, v: None})()
+        ctx = type('Ctx', (), {'segments': segments, 'start_offset': 0})()
+        self.assertEqual(_code_off(ctx, 0x045e), 0x035e)
+
 
 class MergeJumpTableSpecsTests(unittest.TestCase):
     def test_auto_detection_span_and_dedup(self):
@@ -206,6 +213,29 @@ class InjectJumpTablesTests(unittest.TestCase):
         self.assertTrue(any(
             'jumptable_0250_case_0 - IMAGE_BASE + 0x1000' in line
             for line in lines))
+
+    def test_driver_words_are_file_offset_plus_load_offset(self):
+        binary = bytearray(self._binary())
+        # Entries 0x0310/0x0320 are cs values; at load_offset 0x100 they name
+        # file offsets 0x210/0x220, not 0x310/0x320.
+        struct.pack_into('<HH', binary, 0x250, 0x0310, 0x0320)
+        records = [{
+            'type': 'data_block', 'start': 0x250, 'end': 0x256,
+            'bytes': [f'0x{b:02x}' for b in binary[0x250:0x256]],
+        }]
+        specs = [{
+            'table_addr': 0x250, 'table_end': 0x256, 'jmp_addr': 0x2ac,
+            'count': 3, 'entry_size': 2, 'label': 'jumptable_0250',
+            'source': 'auto', 'note': '',
+        }]
+        label_map = {0x210: generated('string_loc', 0x210),
+                     0x220: generated('string_loc', 0x220)}
+        out, _, _ = _inject_jump_tables(
+            records, specs, bytes(binary), 0, label_map, {}, load_offset=0x100,
+        )
+        table = next(r for r in out if r['type'] == 'jump_table')
+        self.assertEqual(table['entries'][:2],
+                         ['string_loc_0210', 'string_loc_0220'])
 
     def test_code_overlap_is_skipped(self):
         binary = self._binary()

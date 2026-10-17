@@ -15,7 +15,7 @@ jumptable_6aab:
     dw fpu_loc_NQGQ - IMAGE_BASE + 0x5055      ; 0x6ab3
     dw fpu_loc_TKUN - IMAGE_BASE + 0x5055      ; 0x6ab5
     dw fpu_loc_JQQH - IMAGE_BASE + 0x5055      ; 0x6ab7
-@..api_idx_0004_GMNK.l3:
+loc_6ab9:
     cmp ax, strict word 7            ; 0x6ab9
     jae short loc_PLIR_6ac6          ; 0x6abc
     xchg bx, ax                      ; 0x6abe

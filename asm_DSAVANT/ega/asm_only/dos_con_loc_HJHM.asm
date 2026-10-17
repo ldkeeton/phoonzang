@@ -10,7 +10,3 @@ dos_con_loc_HJHM:
     db 'CACHEMAZE().  Requested slot already in use.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xb0
 
-@..dos_read_file_5.l10:
-    mov ax, cs                       ; 0x47f0
-    mov ds, ax                       ; 0x47f2
-    mov dx, 0x4900                   ; 0x47f4

@@ -22,9 +22,9 @@ loc_KOVM:
     mov al, byte [bx + 0x37]         ; 0x45df
     sub ah, ah                       ; 0x45e2
     test ax, 8                       ; 0x45e4
-    je short @..api_idx_0002_VMLV.l1 ; 0x45e7
+    je short loc_45ee                ; 0x45e7
     mov word [bp - 0x0002], 1        ; 0x45e9
-@..api_idx_0002_VMLV.l1:
+loc_45ee:
     jmp short loc_SKRT               ; 0x45ee
 jumptable_45f0:
     dw leaf_loc_KOJL - IMAGE_BASE + 0x5055     ; 0x45f0
@@ -44,7 +44,7 @@ jumptable_45f0:
     dw loc_KOVM - IMAGE_BASE + 0x5055          ; 0x460c
     dw loc_KOVM - IMAGE_BASE + 0x5055          ; 0x460e
     dw leaf_loc_KOJL - IMAGE_BASE + 0x5055     ; 0x4610
-@..api_idx_0002_VMLV.l2:
+loc_4612:
     cmp ax, strict word 0x11         ; 0x4612
     jae short loc_SKRT               ; 0x4615
     xchg bx, ax                      ; 0x4617

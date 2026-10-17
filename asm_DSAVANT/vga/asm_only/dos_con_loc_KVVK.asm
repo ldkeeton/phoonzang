@@ -13,9 +13,3 @@ dos_con_loc_KVVK:
     db 'Error occurred writing to disk', 0
     db 0x0a, 0x24
 
-@..dos_file_loc_MUHV.l2:
-    pop di                           ; 0x3d6d
-    pop si                           ; 0x3d6e
-    pop es                           ; 0x3d6f
-    pop ds                           ; 0x3d70
-    ret                              ; 0x3d71

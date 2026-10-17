@@ -131,6 +131,7 @@ loc_HTKI.api_idx1 equ api_idx_0004_SLIS
 
 %include "shared/api_idx_0006_POPS.asm"     ; 0x5e88
 
+api_idx_0004_GMNK.loc1 equ loc_5fe1
 %include "shared/api_idx_0004_GMNK.asm"     ; 0x5efe
 
 %include "vtrea/leaf_loc_VMRH.asm"         ; 0x5f7f

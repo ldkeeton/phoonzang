@@ -11,7 +11,7 @@ loc_QVUN:
     mov ax, ds                       ; 0x04bf
     mov es, ax                       ; 0x04c1
     call leaf_loc_LMQV               ; 0x04c3
-    call graphics_loc_LQRJ           ; 0x04c6
+    call graphics_loc_RNOG           ; 0x04c6
     mov ax, word [cs:cseg_00e5 - IMAGE_BASE] ; 0x04c9
     mov ds, ax                       ; 0x04cd
     mov ax, 0xa000                   ; 0x04cf
@@ -38,7 +38,7 @@ loc_QVUN:
     dec dx                           ; 0x0504
     jne short @..loc_QVUN.l1         ; 0x0505
     call leaf_loc_PRNU               ; 0x0507
-    call bios_mouse_loc_USQU         ; 0x050a
+    call bios_mouse_loc_PTIM         ; 0x050a
     pop si                           ; 0x050d
     pop di                           ; 0x050e
     pop es                           ; 0x050f

@@ -34,6 +34,7 @@ loc_KIVR equ 0x4471 + VBASE
 %include "vmext/api_idx_0002_OTTG.asm"     ; 0x021c
 
 api_idx_0002_HTRV.bss1 equ bss_9188
+api_idx_0002_HTRV.loc1 equ loc_02e3
 %include "shared/api_idx_0002_HTRV.asm"     ; 0x0262
 
 %include "vmext/fpu_loc_OTPG.asm"          ; 0x0273
@@ -147,6 +148,8 @@ loc_MMMO.bss1 equ bss_9188
 
 %include "vmext/leaf_loc_LSPM.asm"         ; 0x1b7f
 
+%include "vmext/loc_1bac.asm"              ; 0x1bac
+
 leaf_loc_LGUH.loc1 equ loc_TRQP
 %include "shared/leaf_loc_LGUH.asm"         ; 0x1cd0
 
@@ -199,6 +202,8 @@ leaf_loc_RJTN.loc1 equ loc_TRQP
 
 %include "vmext/fpu_loc_MLML.asm"          ; 0x1e98
 
+%include "vmext/loc_1ea8.asm"              ; 0x1ea8
+
 %include "vmext/loc_MHOR.asm"              ; 0x1fac
 
 %include "vmext/loc_VLQH.asm"              ; 0x1fb3
@@ -222,6 +227,7 @@ leaf_loc_RJTN.loc1 equ loc_TRQP
 %include "vmext/api_idx_0012_MLRN.asm"     ; 0x29e5
 
 leaf_loc_RSTT.loc1 equ loc_PLIR
+leaf_loc_RSTT.loc2 equ loc_30a2
 %include "shared/leaf_loc_RSTT.asm"         ; 0x2ec0
 
 %include "shared/leaf_loc_URUM.asm"         ; 0x2efa

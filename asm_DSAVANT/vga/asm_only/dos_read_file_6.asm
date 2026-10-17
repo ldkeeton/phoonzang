@@ -58,7 +58,7 @@ dos_read_file_6:
     mov ax, word [bx]                ; 0x41d3
     or ax, ax                        ; 0x41d5
     je short @..dos_read_file_6.l2   ; 0x41d7
-    jmp near @..dos_read_file_6.l6   ; 0x41d9
+    jmp near loc_42a0                ; 0x41d9
 @..dos_read_file_6.l2:
     mov bx, word [bp - 0x0002]       ; 0x41dc
     mov ax, word [bp - 0x0004]       ; 0x41df
@@ -71,7 +71,7 @@ dos_read_file_6:
     mov word [cs:bx + 0x2], ax       ; 0x41f3
     add ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x41f7
     cmp ax, 0x4180                   ; 0x41fc
-    jae short @..dos_read_file_6.l5  ; 0x41ff
+    jae short loc_4264               ; 0x41ff
     mov word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x4201
     mov ax, word [cs:bx]             ; 0x4205
     add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x4208

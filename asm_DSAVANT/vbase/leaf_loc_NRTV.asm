@@ -82,12 +82,3 @@ jumptable_1b5a:
     dw leaf_loc_SUUP - IMAGE_BASE + 0x5055     ; 0x1bf2
     dw leaf_loc_VVNL - IMAGE_BASE + 0x5055     ; 0x1bf4
     dw leaf_loc_NRTV - IMAGE_BASE + 0x5055     ; 0x1bf6
-@..loc_PULU.l1:
-    cmp ax, strict word 0x4f         ; 0x1bf8
-    jae short @..loc_PULU.l2         ; 0x1bfb
-    xchg bx, ax                      ; 0x1bfd
-    shl bx, 1                        ; 0x1bfe
-    jmp [cs:bx + 0x6ba1]             ; 0x1c00
-@..loc_PULU.l2:
-    mov ax, 0xffff                   ; 0x1c05
-    ret                              ; 0x1c08

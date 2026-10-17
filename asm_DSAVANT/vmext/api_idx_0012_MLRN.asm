@@ -8,24 +8,24 @@ api_idx_0012_MLRN:
     jmp near @..api_idx_0012_MLRN.l1 ; 0x29f8
 jumptable_2e93_case_8:
     cmp word [bp + 0x26], byte 0xff  ; 0x29fb
-    jne short @..leaf_loc_RSTT.l1    ; 0x29ff
-    jmp near @..leaf_loc_RSTT.l11    ; 0x2a01
-@..leaf_loc_RSTT.l1:
+    jne short loc_2a04               ; 0x29ff
+    jmp near loc_2a88                ; 0x2a01
+loc_2a04:
     cmp word [bp + 0x4], byte 0      ; 0x2a04
-    je short @..leaf_loc_RSTT.l2     ; 0x2a08
-    jmp near @..leaf_loc_RSTT.l11    ; 0x2a0a
-@..leaf_loc_RSTT.l2:
+    je short loc_2a0d                ; 0x2a08
+    jmp near loc_2a88                ; 0x2a0a
+loc_2a0d:
     cmp word [bp + 0x6], byte 8      ; 0x2a0d
-    jne short @..leaf_loc_RSTT.l3    ; 0x2a11
+    jne short loc_2a19               ; 0x2a11
     mov ax, word [bp + 0x26]         ; 0x2a13
     inc ax                           ; 0x2a16
-    jmp short @..leaf_loc_RSTT.l4    ; 0x2a17
-@..leaf_loc_RSTT.l3:
+    jmp short loc_2a1f               ; 0x2a17
+loc_2a19:
     mov ax, word [bp + 0x26]         ; 0x2a19
     inc ax                           ; 0x2a1c
     inc ax                           ; 0x2a1d
     inc ax                           ; 0x2a1e
-@..leaf_loc_RSTT.l4:
+loc_2a1f:
     mov word [bp - 0x0002], ax       ; 0x2a1f
     mov ax, 0                        ; 0x2a22
     push ax                          ; 0x2a25
@@ -37,16 +37,16 @@ jumptable_2e93_case_8:
     push word [bp + 0x4]             ; 0x2a31
     mov ax, 0xffff                   ; 0x2a34
     cmp word [bp + 0x8], byte 2      ; 0x2a37
-    jge short @..leaf_loc_RSTT.l5    ; 0x2a3b
+    jge short loc_2a41               ; 0x2a3b
     mov ax, word [bp - 0x0002]       ; 0x2a3d
     inc ax                           ; 0x2a40
-@..leaf_loc_RSTT.l5:
+loc_2a41:
     push ax                          ; 0x2a41
     mov ax, 0xffff                   ; 0x2a42
     cmp word [bp + 0x8], byte 2      ; 0x2a45
-    jge short @..leaf_loc_RSTT.l6    ; 0x2a49
+    jge short loc_2a4e               ; 0x2a49
     mov ax, word [bp - 0x0002]       ; 0x2a4b
-@..leaf_loc_RSTT.l6:
+loc_2a4e:
     push ax                          ; 0x2a4e
     mov ax, 0                        ; 0x2a4f
     push ax                          ; 0x2a52
@@ -55,39 +55,38 @@ jumptable_2e93_case_8:
     push ax                          ; 0x2a57
     push ax                          ; 0x2a58
     cmp word [bp + 0x6], byte 8      ; 0x2a59
-    jne short @..leaf_loc_RSTT.l7    ; 0x2a5d
+    jne short loc_2a65               ; 0x2a5d
     cmp word [bp + 0x8], byte 2      ; 0x2a5f
-    jg short @..leaf_loc_RSTT.l8     ; 0x2a63
-@..leaf_loc_RSTT.l7:
+    jg short loc_2a71                ; 0x2a63
+loc_2a65:
     cmp word [bp + 0x6], byte 9      ; 0x2a65
-    jne short @..leaf_loc_RSTT.l9    ; 0x2a69
+    jne short loc_2a77               ; 0x2a69
     cmp word [bp + 0x8], byte 2      ; 0x2a6b
-    jge short @..leaf_loc_RSTT.l9    ; 0x2a6f
-@..leaf_loc_RSTT.l8:
+    jge short loc_2a77               ; 0x2a6f
+loc_2a71:
     mov ax, word [bp - 0x0002]       ; 0x2a71
     inc ax                           ; 0x2a74
-    jmp short @..leaf_loc_RSTT.l10   ; 0x2a75
-@..leaf_loc_RSTT.l9:
+    jmp short loc_2a7a               ; 0x2a75
+loc_2a77:
     mov ax, 0xffff                   ; 0x2a77
-@..leaf_loc_RSTT.l10:
+loc_2a7a:
     push ax                          ; 0x2a7a
     push word [bp - 0x0002]          ; 0x2a7b
     mov ax, 0xfd                     ; 0x2a7e
     push ax                          ; 0x2a81
     call api_idx_0004_RTNM           ; 0x2a82
     add sp, byte 0x1c                ; 0x2a85
-jumptable_2e93_case_3:
-@..leaf_loc_RSTT.l11:
+loc_2a88:
     cmp word [bp + 0x6], byte 3      ; 0x2a88
-    je short @..leaf_loc_RSTT.l12    ; 0x2a8c
-    jmp near @..leaf_loc_RSTT.l15    ; 0x2a8e
-@..leaf_loc_RSTT.l12:
+    je short loc_2a91                ; 0x2a8c
+    jmp near loc_2b14                ; 0x2a8e
+loc_2a91:
     cmp word [bp + 0x4], byte 4      ; 0x2a91
-    jl short @..leaf_loc_RSTT.l13    ; 0x2a95
-    jmp near @..leaf_loc_RSTT.l15    ; 0x2a97
-@..leaf_loc_RSTT.l13:
+    jl short loc_2a9a                ; 0x2a95
+    jmp near loc_2b14                ; 0x2a97
+loc_2a9a:
     cmp word [bp + 0x34], byte 0xff  ; 0x2a9a
-    je short @..leaf_loc_RSTT.l14    ; 0x2a9e
+    je short loc_2aef                ; 0x2a9e
     mov ax, 0                        ; 0x2aa0
     push ax                          ; 0x2aa3
     mov ax, 1                        ; 0x2aa4
@@ -125,7 +124,7 @@ jumptable_2e93_case_3:
     push ax                          ; 0x2ae8
     call api_idx_0004_RTNM           ; 0x2ae9
     add sp, byte 0x1c                ; 0x2aec
-@..leaf_loc_RSTT.l14:
+loc_2aef:
     mov ax, word [bp + 0x32]         ; 0x2aef
     add ax, word [bp + 0x4]          ; 0x2af2
     push ax                          ; 0x2af5
@@ -141,11 +140,11 @@ jumptable_2e93_case_3:
     call loc_UMHI_193b               ; 0x2b0d
     pop cx                           ; 0x2b10
     mov word [bp - 0x0006], ax       ; 0x2b11
-@..leaf_loc_RSTT.l15:
+loc_2b14:
     cmp word [bp + 0x6], byte 6      ; 0x2b14
-    jne short @..leaf_loc_RSTT.l16   ; 0x2b18
+    jne short loc_2b45               ; 0x2b18
     cmp word [bp + 0x4], byte 4      ; 0x2b1a
-    jge short @..leaf_loc_RSTT.l16   ; 0x2b1e
+    jge short loc_2b45               ; 0x2b1e
     mov ax, word [bp + 0x24]         ; 0x2b20
     add ax, word [bp + 0x4]          ; 0x2b23
     push ax                          ; 0x2b26
@@ -161,12 +160,11 @@ jumptable_2e93_case_3:
     call loc_UMHI_193b               ; 0x2b3e
     pop cx                           ; 0x2b41
     mov word [bp - 0x0006], ax       ; 0x2b42
-jumptable_2e93_case_1:
-@..leaf_loc_RSTT.l16:
+loc_2b45:
     cmp word [bss_91a8], byte 0      ; 0x2b45
-    jne short @..leaf_loc_RSTT.l18   ; 0x2b4a
+    jne short loc_2ba1               ; 0x2b4a
     cmp word [bp + 0x4], byte 4      ; 0x2b4c
-    jge short @..leaf_loc_RSTT.l17   ; 0x2b50
+    jge short loc_2b9f               ; 0x2b50
     mov ax, 0                        ; 0x2b52
     push ax                          ; 0x2b55
     mov ax, 1                        ; 0x2b56
@@ -202,13 +200,13 @@ jumptable_2e93_case_1:
     push ax                          ; 0x2b98
     call api_idx_0004_RTNM           ; 0x2b99
     add sp, byte 0x1c                ; 0x2b9c
-@..leaf_loc_RSTT.l17:
-    jmp short @..leaf_loc_RSTT.l19   ; 0x2b9f
-@..leaf_loc_RSTT.l18:
+loc_2b9f:
+    jmp short loc_2bfb               ; 0x2b9f
+loc_2ba1:
     cmp word [bss_91a8], byte 2      ; 0x2ba1
-    jne short @..leaf_loc_RSTT.l19   ; 0x2ba6
+    jne short loc_2bfb               ; 0x2ba6
     cmp word [bp + 0x4], byte 5      ; 0x2ba8
-    jge short @..leaf_loc_RSTT.l19   ; 0x2bac
+    jge short loc_2bfb               ; 0x2bac
     mov ax, 0                        ; 0x2bae
     push ax                          ; 0x2bb1
     mov ax, 1                        ; 0x2bb2
@@ -244,16 +242,16 @@ jumptable_2e93_case_1:
     push ax                          ; 0x2bf4
     call api_idx_0004_RTNM           ; 0x2bf5
     add sp, byte 0x1c                ; 0x2bf8
-@..leaf_loc_RSTT.l19:
+loc_2bfb:
     cmp word [bp + 0x26], byte 0xff  ; 0x2bfb
-    je short @..leaf_loc_RSTT.l22    ; 0x2bff
+    je short loc_2c4e                ; 0x2bff
     cmp word [bp + 0x4], byte 0      ; 0x2c01
-    jne short @..leaf_loc_RSTT.l22   ; 0x2c05
+    jne short loc_2c4e               ; 0x2c05
     cmp word [bp + 0x6], byte 8      ; 0x2c07
-    je short @..leaf_loc_RSTT.l20    ; 0x2c0b
+    je short loc_2c13                ; 0x2c0b
     cmp word [bp + 0x6], byte 9      ; 0x2c0d
-    jne short @..leaf_loc_RSTT.l22   ; 0x2c11
-@..leaf_loc_RSTT.l20:
+    jne short loc_2c4e               ; 0x2c11
+loc_2c13:
     mov ax, 0                        ; 0x2c13
     push ax                          ; 0x2c16
     mov ax, 1                        ; 0x2c17
@@ -265,9 +263,9 @@ jumptable_2e93_case_1:
     mov ax, 0xffff                   ; 0x2c25
     push ax                          ; 0x2c28
     cmp word [bp + 0x8], byte 2      ; 0x2c29
-    jge short @..leaf_loc_RSTT.l21   ; 0x2c2d
+    jge short loc_2c32               ; 0x2c2d
     mov ax, word [bp + 0x26]         ; 0x2c2f
-@..leaf_loc_RSTT.l21:
+loc_2c32:
     push ax                          ; 0x2c32
     mov ax, 0                        ; 0x2c33
     push ax                          ; 0x2c36
@@ -282,11 +280,11 @@ jumptable_2e93_case_1:
     push ax                          ; 0x2c47
     call api_idx_0004_RTNM           ; 0x2c48
     add sp, byte 0x1c                ; 0x2c4b
-@..leaf_loc_RSTT.l22:
+loc_2c4e:
     jmp near leaf_loc_RSTT           ; 0x2c4e
 jumptable_2e93_case_7:
     cmp word [bp + 0x4], byte 4      ; 0x2c51
-    jge short @..leaf_loc_RSTT.l23   ; 0x2c55
+    jge short loc_2c7c               ; 0x2c55
     mov ax, word [bp + 0x3a]         ; 0x2c57
     add ax, word [bp + 0x4]          ; 0x2c5a
     push ax                          ; 0x2c5d
@@ -302,12 +300,11 @@ jumptable_2e93_case_7:
     call loc_UMHI_193b               ; 0x2c75
     pop cx                           ; 0x2c78
     mov word [bp - 0x0006], ax       ; 0x2c79
-jumptable_2e93_case_2:
-@..leaf_loc_RSTT.l23:
+loc_2c7c:
     cmp word [bss_91a8], byte 0      ; 0x2c7c
-    jne short @..leaf_loc_RSTT.l25   ; 0x2c81
+    jne short loc_2cd9               ; 0x2c81
     cmp word [bp + 0x4], byte 4      ; 0x2c83
-    jge short @..leaf_loc_RSTT.l24   ; 0x2c87
+    jge short loc_2cd6               ; 0x2c87
     mov ax, 0                        ; 0x2c89
     push ax                          ; 0x2c8c
     mov ax, 1                        ; 0x2c8d
@@ -343,23 +340,23 @@ jumptable_2e93_case_2:
     push ax                          ; 0x2ccf
     call api_idx_0004_RTNM           ; 0x2cd0
     add sp, byte 0x1c                ; 0x2cd3
-@..leaf_loc_RSTT.l24:
-    jmp near @..leaf_loc_RSTT.l31    ; 0x2cd6
-@..leaf_loc_RSTT.l25:
+loc_2cd6:
+    jmp near loc_2de1                ; 0x2cd6
+loc_2cd9:
     cmp word [bss_91a8], byte 3      ; 0x2cd9
-    jl short @..leaf_loc_RSTT.l26    ; 0x2cde
+    jl short loc_2cea                ; 0x2cde
     cmp word [bss_91a8], byte 5      ; 0x2ce0
-    je short @..leaf_loc_RSTT.l26    ; 0x2ce5
-    jmp near @..leaf_loc_RSTT.l30    ; 0x2ce7
-@..leaf_loc_RSTT.l26:
+    je short loc_2cea                ; 0x2ce5
+    jmp near loc_2d85                ; 0x2ce7
+loc_2cea:
     cmp word [bp + 0x4], byte 5      ; 0x2cea
-    jl short @..leaf_loc_RSTT.l27    ; 0x2cee
-    jmp near @..leaf_loc_RSTT.l29    ; 0x2cf0
-@..leaf_loc_RSTT.l27:
+    jl short loc_2cf3                ; 0x2cee
+    jmp near loc_2d83                ; 0x2cf0
+loc_2cf3:
     cmp word [bss_91a8], byte 2      ; 0x2cf3
-    jne short @..leaf_loc_RSTT.l28   ; 0x2cf8
+    jne short loc_2d34               ; 0x2cf8
     cmp word [bp - 0x0004], byte 0xff ; 0x2cfa
-    je short @..leaf_loc_RSTT.l28    ; 0x2cfe
+    je short loc_2d34                ; 0x2cfe
     mov ax, 0                        ; 0x2d00
     push ax                          ; 0x2d03
     mov ax, 1                        ; 0x2d04
@@ -384,7 +381,7 @@ jumptable_2e93_case_2:
     push ax                          ; 0x2d2d
     call api_idx_0004_RTNM           ; 0x2d2e
     add sp, byte 0x1c                ; 0x2d31
-@..leaf_loc_RSTT.l28:
+loc_2d34:
     mov ax, 0                        ; 0x2d34
     push ax                          ; 0x2d37
     mov ax, 1                        ; 0x2d38
@@ -422,13 +419,13 @@ jumptable_2e93_case_2:
     push ax                          ; 0x2d7c
     call api_idx_0004_RTNM           ; 0x2d7d
     add sp, byte 0x1c                ; 0x2d80
-@..leaf_loc_RSTT.l29:
-    jmp short @..leaf_loc_RSTT.l31   ; 0x2d83
-@..leaf_loc_RSTT.l30:
+loc_2d83:
+    jmp short loc_2de1               ; 0x2d83
+loc_2d85:
     cmp word [bss_91a8], byte 5      ; 0x2d85
-    jge short @..leaf_loc_RSTT.l31   ; 0x2d8a
+    jge short loc_2de1               ; 0x2d8a
     cmp word [bp + 0x4], byte 4      ; 0x2d8c
-    jge short @..leaf_loc_RSTT.l31   ; 0x2d90
+    jge short loc_2de1               ; 0x2d90
     mov ax, 0                        ; 0x2d92
     push ax                          ; 0x2d95
     mov ax, 1                        ; 0x2d96
@@ -466,11 +463,11 @@ jumptable_2e93_case_2:
     push ax                          ; 0x2dda
     call api_idx_0004_RTNM           ; 0x2ddb
     add sp, byte 0x1c                ; 0x2dde
-@..leaf_loc_RSTT.l31:
+loc_2de1:
     jmp near leaf_loc_RSTT           ; 0x2de1
 jumptable_2e93_case_4:
     cmp word [bp + 0x4], byte 4      ; 0x2de4
-    jge short @..leaf_loc_RSTT.l32   ; 0x2de8
+    jge short loc_2e39               ; 0x2de8
     mov ax, 0                        ; 0x2dea
     push ax                          ; 0x2ded
     mov ax, 1                        ; 0x2dee
@@ -508,11 +505,11 @@ jumptable_2e93_case_4:
     push ax                          ; 0x2e32
     call api_idx_0004_RTNM           ; 0x2e33
     add sp, byte 0x1c                ; 0x2e36
-@..leaf_loc_RSTT.l32:
+loc_2e39:
     jmp near leaf_loc_RSTT           ; 0x2e39
 jumptable_2e93_case_5:
     cmp word [bp + 0x4], byte 4      ; 0x2e3c
-    jge short @..leaf_loc_RSTT.l33   ; 0x2e40
+    jge short loc_2e91               ; 0x2e40
     mov ax, 0                        ; 0x2e42
     push ax                          ; 0x2e45
     mov ax, 1                        ; 0x2e46
@@ -550,25 +547,25 @@ jumptable_2e93_case_5:
     push ax                          ; 0x2e8a
     call api_idx_0004_RTNM           ; 0x2e8b
     add sp, byte 0x1c                ; 0x2e8e
-@..leaf_loc_RSTT.l33:
+loc_2e91:
     jmp short leaf_loc_RSTT          ; 0x2e91
 jumptable_2e93:
     dw leaf_loc_RSTT - IMAGE_BASE + 0x5055     ; 0x2e93
-    dw jumptable_2e93_case_1 - IMAGE_BASE + 0x5055 ; 0x2e95
-    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2e97
-    dw jumptable_2e93_case_3 - IMAGE_BASE + 0x5055 ; 0x2e99
+    dw loc_2b45 - IMAGE_BASE + 0x5055          ; 0x2e95
+    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2e97
+    dw loc_2a88 - IMAGE_BASE + 0x5055          ; 0x2e99
     dw jumptable_2e93_case_4 - IMAGE_BASE + 0x5055 ; 0x2e9b
     dw jumptable_2e93_case_5 - IMAGE_BASE + 0x5055 ; 0x2e9d
-    dw jumptable_2e93_case_3 - IMAGE_BASE + 0x5055 ; 0x2e9f
+    dw loc_2a88 - IMAGE_BASE + 0x5055          ; 0x2e9f
     dw jumptable_2e93_case_7 - IMAGE_BASE + 0x5055 ; 0x2ea1
     dw jumptable_2e93_case_8 - IMAGE_BASE + 0x5055 ; 0x2ea3
     dw jumptable_2e93_case_8 - IMAGE_BASE + 0x5055 ; 0x2ea5
-    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2ea7
-    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2ea9
-    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2eab
-    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2ead
-    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2eaf
-    dw jumptable_2e93_case_2 - IMAGE_BASE + 0x5055 ; 0x2eb1
+    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2ea7
+    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2ea9
+    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2eab
+    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2ead
+    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2eaf
+    dw loc_2c7c - IMAGE_BASE + 0x5055          ; 0x2eb1
 @..api_idx_0012_MLRN.l1:
     cmp ax, strict word 0x10         ; 0x2eb3
     jae short leaf_loc_RSTT          ; 0x2eb6

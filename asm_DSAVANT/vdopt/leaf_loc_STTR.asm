@@ -4,58 +4,58 @@ leaf_loc_STTR:
     mov word [bss_9b08], 8           ; 0x149f
     mov ax, 0xffff                   ; 0x14a5
     cmp word [bp + 0x4], byte 1      ; 0x14a8
-    jle short @..leaf_loc_STTR.l47   ; 0x14ac
+    jle short @..leaf_loc_STTR.l1    ; 0x14ac
     mov ax, 0x16                     ; 0x14ae
-@..leaf_loc_STTR.l47:
+@..leaf_loc_STTR.l1:
     mov word [bss_9afc], ax          ; 0x14b1
     mov ax, 0xffff                   ; 0x14b4
     cmp word [bp + 0x4], byte 1      ; 0x14b7
-    jle short @..leaf_loc_STTR.l48   ; 0x14bb
+    jle short @..leaf_loc_STTR.l2    ; 0x14bb
     mov ax, 0x17                     ; 0x14bd
-@..leaf_loc_STTR.l48:
+@..leaf_loc_STTR.l2:
     mov word [bss_9b04], ax          ; 0x14c0
     mov ax, word [bss_9af0]          ; 0x14c3
     cmp word [bp + 0x4], byte 3      ; 0x14c6
-    jle short @..leaf_loc_STTR.l49   ; 0x14ca
+    jle short @..leaf_loc_STTR.l3    ; 0x14ca
     mov ax, 0x1a                     ; 0x14cc
-@..leaf_loc_STTR.l49:
+@..leaf_loc_STTR.l3:
     mov word [bss_9ae2], ax          ; 0x14cf
     mov ax, word [bss_9af0]          ; 0x14d2
     cmp word [bp + 0x4], byte 3      ; 0x14d5
-    jle short @..leaf_loc_STTR.l50   ; 0x14d9
+    jle short @..leaf_loc_STTR.l4    ; 0x14d9
     mov ax, 0x1b                     ; 0x14db
-@..leaf_loc_STTR.l50:
+@..leaf_loc_STTR.l4:
     mov word [bss_9ae4], ax          ; 0x14de
     mov ax, word [bss_9af0]          ; 0x14e1
     cmp word [bp + 0x4], byte 3      ; 0x14e4
-    jle short @..leaf_loc_STTR.l51   ; 0x14e8
+    jle short @..leaf_loc_STTR.l5    ; 0x14e8
     mov ax, 0x1c                     ; 0x14ea
-@..leaf_loc_STTR.l51:
+@..leaf_loc_STTR.l5:
     mov word [bss_9aee], ax          ; 0x14ed
     mov ax, word [bss_9af0]          ; 0x14f0
     cmp word [bp + 0x4], byte 3      ; 0x14f3
-    jle short @..leaf_loc_STTR.l52   ; 0x14f7
+    jle short @..leaf_loc_STTR.l6    ; 0x14f7
     mov ax, 0x1e                     ; 0x14f9
-@..leaf_loc_STTR.l52:
+@..leaf_loc_STTR.l6:
     mov word [bss_9aec], ax          ; 0x14fc
     mov ax, word [bss_9af0]          ; 0x14ff
     cmp word [bp + 0x4], byte 3      ; 0x1502
-    jle short @..leaf_loc_STTR.l53   ; 0x1506
+    jle short @..leaf_loc_STTR.l7    ; 0x1506
     mov ax, 0x1d                     ; 0x1508
-@..leaf_loc_STTR.l53:
+@..leaf_loc_STTR.l7:
     mov word [bss_9ae8], ax          ; 0x150b
     mov ax, word [bss_9af0]          ; 0x150e
     cmp word [bp + 0x4], byte 3      ; 0x1511
-    jle short @..leaf_loc_STTR.l54   ; 0x1515
+    jle short @..leaf_loc_STTR.l8    ; 0x1515
     mov ax, 0x1f                     ; 0x1517
-@..leaf_loc_STTR.l54:
+@..leaf_loc_STTR.l8:
     mov word [bss_9ae6], ax          ; 0x151a
     mov word [bp - 0x0002], 0        ; 0x151d
-    jmp short @..leaf_loc_STTR.l58   ; 0x1522
-@..leaf_loc_STTR.l55:
+    jmp short @..leaf_loc_STTR.l12   ; 0x1522
+@..leaf_loc_STTR.l9:
     mov word [bp - 0x0004], 0        ; 0x1524
-    jmp short @..leaf_loc_STTR.l57   ; 0x1529
-@..leaf_loc_STTR.l56:
+    jmp short @..leaf_loc_STTR.l11   ; 0x1529
+@..leaf_loc_STTR.l10:
     mov ax, word [bss_9af0]          ; 0x152b
     push ax                          ; 0x152e
     mov ax, 0x24                     ; 0x152f
@@ -70,17 +70,17 @@ leaf_loc_STTR:
     mov word [bx - 0x6cba], 0xffff   ; 0x1545
     mov word [bx - 0x6a30], 0xffff   ; 0x154b
     inc word [bp - 0x0004]           ; 0x1551
-@..leaf_loc_STTR.l57:
+@..leaf_loc_STTR.l11:
     mov ax, word [bp - 0x0008]       ; 0x1554
     inc ax                           ; 0x1557
     cmp ax, word [bp - 0x0004]       ; 0x1558
-    jge short @..leaf_loc_STTR.l56   ; 0x155b
+    jge short @..leaf_loc_STTR.l10   ; 0x155b
     inc word [bp - 0x0002]           ; 0x155d
-@..leaf_loc_STTR.l58:
+@..leaf_loc_STTR.l12:
     mov ax, word [bp - 0x0006]       ; 0x1560
     inc ax                           ; 0x1563
     cmp ax, word [bp - 0x0002]       ; 0x1564
-    jge short @..leaf_loc_STTR.l55   ; 0x1567
+    jge short @..leaf_loc_STTR.l9    ; 0x1567
     mov ax, 0                        ; 0x1569
     push ax                          ; 0x156c
     mov ax, 7                        ; 0x156d
@@ -98,23 +98,23 @@ leaf_loc_STTR:
     call thunk_7                     ; 0x158d
     add sp, byte 0x0a                ; 0x1590
     mov word [bp - 0x0004], 1        ; 0x1593
-    jmp short @..leaf_loc_STTR.l65   ; 0x1598
-@..leaf_loc_STTR.l59:
+    jmp short @..leaf_loc_STTR.l19   ; 0x1598
+@..leaf_loc_STTR.l13:
     mov word [bp - 0x0002], 1        ; 0x159a
-    jmp short @..leaf_loc_STTR.l64   ; 0x159f
-@..leaf_loc_STTR.l60:
+    jmp short @..leaf_loc_STTR.l18   ; 0x159f
+@..leaf_loc_STTR.l14:
     cmp word [bss_9858], byte 0      ; 0x15a1
-    jne short @..leaf_loc_STTR.l61   ; 0x15a6
+    jne short @..leaf_loc_STTR.l15   ; 0x15a6
     cmp word [bp + 0x6], byte 0      ; 0x15a8
-    jne short @..leaf_loc_STTR.l62   ; 0x15ac
+    jne short @..leaf_loc_STTR.l16   ; 0x15ac
     cmp word [bp + 0x4], byte 4      ; 0x15ae
-    jle short @..leaf_loc_STTR.l62   ; 0x15b2
-@..leaf_loc_STTR.l61:
+    jle short @..leaf_loc_STTR.l16   ; 0x15b2
+@..leaf_loc_STTR.l15:
     mov ax, 1                        ; 0x15b4
-    jmp short @..leaf_loc_STTR.l63   ; 0x15b7
-@..leaf_loc_STTR.l62:
+    jmp short @..leaf_loc_STTR.l17   ; 0x15b7
+@..leaf_loc_STTR.l16:
     mov ax, 0                        ; 0x15b9
-@..leaf_loc_STTR.l63:
+@..leaf_loc_STTR.l17:
     push ax                          ; 0x15bc
     push word [bp - 0x0004]          ; 0x15bd
     push word [bp - 0x0002]          ; 0x15c0
@@ -132,44 +132,44 @@ leaf_loc_STTR:
     call api_idx_0014_KHON           ; 0x15db
     add sp, byte 0x0a                ; 0x15de
     inc word [bp - 0x0002]           ; 0x15e1
-@..leaf_loc_STTR.l64:
+@..leaf_loc_STTR.l18:
     mov ax, word [bp - 0x0002]       ; 0x15e4
     cmp ax, word [bp - 0x0006]       ; 0x15e7
-    jle short @..leaf_loc_STTR.l60   ; 0x15ea
+    jle short @..leaf_loc_STTR.l14   ; 0x15ea
     inc word [bp - 0x0004]           ; 0x15ec
-@..leaf_loc_STTR.l65:
+@..leaf_loc_STTR.l19:
     mov ax, word [bp - 0x0004]       ; 0x15ef
     cmp ax, word [bp - 0x0008]       ; 0x15f2
-    jle short @..leaf_loc_STTR.l59   ; 0x15f5
+    jle short @..leaf_loc_STTR.l13   ; 0x15f5
     cmp word [bp + 0x4], byte 1      ; 0x15f7
-    jle short @..leaf_loc_STTR.l70   ; 0x15fb
+    jle short @..leaf_loc_STTR.l24   ; 0x15fb
     mov word [bp - 0x0004], 1        ; 0x15fd
-    jmp short @..leaf_loc_STTR.l69   ; 0x1602
-@..leaf_loc_STTR.l66:
+    jmp short @..leaf_loc_STTR.l23   ; 0x1602
+@..leaf_loc_STTR.l20:
     mov word [bp - 0x0002], 1        ; 0x1604
-    jmp short @..leaf_loc_STTR.l68   ; 0x1609
-@..leaf_loc_STTR.l67:
+    jmp short @..leaf_loc_STTR.l22   ; 0x1609
+@..leaf_loc_STTR.l21:
     push word [bp - 0x0004]          ; 0x160b
     push word [bp - 0x0002]          ; 0x160e
     call loc_GTJK                    ; 0x1611
     add sp, byte 4                   ; 0x1614
     inc word [bp - 0x0002]           ; 0x1617
-@..leaf_loc_STTR.l68:
+@..leaf_loc_STTR.l22:
     mov ax, word [bp - 0x0002]       ; 0x161a
     cmp ax, word [bp - 0x0006]       ; 0x161d
-    jle short @..leaf_loc_STTR.l67   ; 0x1620
+    jle short @..leaf_loc_STTR.l21   ; 0x1620
     inc word [bp - 0x0004]           ; 0x1622
-@..leaf_loc_STTR.l69:
+@..leaf_loc_STTR.l23:
     mov ax, word [bp - 0x0004]       ; 0x1625
     cmp ax, word [bp - 0x0008]       ; 0x1628
-    jle short @..leaf_loc_STTR.l66   ; 0x162b
-@..leaf_loc_STTR.l70:
+    jle short @..leaf_loc_STTR.l20   ; 0x162b
+@..leaf_loc_STTR.l24:
     mov word [bp - 0x0004], 1        ; 0x162d
-    jmp short @..leaf_loc_STTR.l75   ; 0x1632
-@..leaf_loc_STTR.l71:
+    jmp short @..leaf_loc_STTR.l29   ; 0x1632
+@..leaf_loc_STTR.l25:
     mov word [bp - 0x0002], 1        ; 0x1634
-    jmp short @..leaf_loc_STTR.l74   ; 0x1639
-@..leaf_loc_STTR.l72:
+    jmp short @..leaf_loc_STTR.l28   ; 0x1639
+@..leaf_loc_STTR.l26:
     mov ax, 0x24                     ; 0x163b
     imul word [bp - 0x0002]          ; 0x163e
     mov cx, word [bp - 0x0004]       ; 0x1641
@@ -177,7 +177,7 @@ leaf_loc_STTR:
     add ax, cx                       ; 0x1646
     mov bx, ax                       ; 0x1648
     cmp word [bx - 0x6f46], byte 0xff ; 0x164a
-    je short @..leaf_loc_STTR.l73    ; 0x164f
+    je short @..leaf_loc_STTR.l27    ; 0x164f
     mov ax, 0                        ; 0x1651
     push ax                          ; 0x1654
     push ax                          ; 0x1655
@@ -190,23 +190,23 @@ leaf_loc_STTR:
     push ax                          ; 0x1663
     call api_idx_000a_GMJG           ; 0x1664
     add sp, byte 0x0a                ; 0x1667
-@..leaf_loc_STTR.l73:
+@..leaf_loc_STTR.l27:
     inc word [bp - 0x0002]           ; 0x166a
-@..leaf_loc_STTR.l74:
+@..leaf_loc_STTR.l28:
     mov ax, word [bp - 0x0002]       ; 0x166d
     cmp ax, word [bp - 0x0006]       ; 0x1670
-    jle short @..leaf_loc_STTR.l72   ; 0x1673
+    jle short @..leaf_loc_STTR.l26   ; 0x1673
     inc word [bp - 0x0004]           ; 0x1675
-@..leaf_loc_STTR.l75:
+@..leaf_loc_STTR.l29:
     mov ax, word [bp - 0x0004]       ; 0x1678
     cmp ax, word [bp - 0x0008]       ; 0x167b
-    jle short @..leaf_loc_STTR.l71   ; 0x167e
+    jle short @..leaf_loc_STTR.l25   ; 0x167e
     mov word [bp - 0x0004], 0        ; 0x1680
-    jmp short @..leaf_loc_STTR.l81   ; 0x1685
-@..leaf_loc_STTR.l76:
+    jmp short @..leaf_loc_STTR.l35   ; 0x1685
+@..leaf_loc_STTR.l30:
     mov word [bp - 0x0002], 0        ; 0x1687
-    jmp short @..leaf_loc_STTR.l80   ; 0x168c
-@..leaf_loc_STTR.l77:
+    jmp short @..leaf_loc_STTR.l34   ; 0x168c
+@..leaf_loc_STTR.l31:
     mov ax, 0x24                     ; 0x168e
     imul word [bp - 0x0002]          ; 0x1691
     mov cx, word [bp - 0x0004]       ; 0x1694
@@ -214,7 +214,7 @@ leaf_loc_STTR:
     add ax, cx                       ; 0x1699
     mov bx, ax                       ; 0x169b
     cmp word [bx - 0x6cba], byte 0xff ; 0x169d
-    je short @..leaf_loc_STTR.l78    ; 0x16a2
+    je short @..leaf_loc_STTR.l32    ; 0x16a2
     mov ax, 0xffff                   ; 0x16a4
     push ax                          ; 0x16a7
     push ax                          ; 0x16a8
@@ -227,7 +227,7 @@ leaf_loc_STTR:
     push ax                          ; 0x16b6
     call api_idx_000a_GMJG           ; 0x16b7
     add sp, byte 0x0a                ; 0x16ba
-@..leaf_loc_STTR.l78:
+@..leaf_loc_STTR.l32:
     mov ax, 0x24                     ; 0x16bd
     imul word [bp - 0x0002]          ; 0x16c0
     mov cx, word [bp - 0x0004]       ; 0x16c3
@@ -235,7 +235,7 @@ leaf_loc_STTR:
     add ax, cx                       ; 0x16c8
     mov bx, ax                       ; 0x16ca
     cmp word [bx - 0x6a30], byte 0xff ; 0x16cc
-    je short @..leaf_loc_STTR.l79    ; 0x16d1
+    je short @..leaf_loc_STTR.l33    ; 0x16d1
     mov ax, 0xffff                   ; 0x16d3
     push ax                          ; 0x16d6
     push ax                          ; 0x16d7
@@ -248,27 +248,27 @@ leaf_loc_STTR:
     push ax                          ; 0x16e5
     call api_idx_000a_GMJG           ; 0x16e6
     add sp, byte 0x0a                ; 0x16e9
-@..leaf_loc_STTR.l79:
+@..leaf_loc_STTR.l33:
     inc word [bp - 0x0002]           ; 0x16ec
-@..leaf_loc_STTR.l80:
+@..leaf_loc_STTR.l34:
     mov ax, word [bp - 0x0006]       ; 0x16ef
     inc ax                           ; 0x16f2
     cmp ax, word [bp - 0x0002]       ; 0x16f3
-    jge short @..leaf_loc_STTR.l77   ; 0x16f6
+    jge short @..leaf_loc_STTR.l31   ; 0x16f6
     inc word [bp - 0x0004]           ; 0x16f8
-@..leaf_loc_STTR.l81:
+@..leaf_loc_STTR.l35:
     mov ax, word [bp - 0x0008]       ; 0x16fb
     inc ax                           ; 0x16fe
     cmp ax, word [bp - 0x0004]       ; 0x16ff
-    jge short @..leaf_loc_STTR.l76   ; 0x1702
+    jge short @..leaf_loc_STTR.l30   ; 0x1702
     cmp word [bss_9858], byte 0      ; 0x1704
-    je short @..leaf_loc_STTR.l87    ; 0x1709
+    je short @..leaf_loc_STTR.l41    ; 0x1709
     mov word [bp - 0x0004], 0        ; 0x170b
-    jmp short @..leaf_loc_STTR.l86   ; 0x1710
-@..leaf_loc_STTR.l82:
+    jmp short @..leaf_loc_STTR.l40   ; 0x1710
+@..leaf_loc_STTR.l36:
     mov word [bp - 0x0002], 0        ; 0x1712
-    jmp short @..leaf_loc_STTR.l85   ; 0x1717
-@..leaf_loc_STTR.l83:
+    jmp short @..leaf_loc_STTR.l39   ; 0x1717
+@..leaf_loc_STTR.l37:
     mov ax, 0x24                     ; 0x1719
     imul word [bp - 0x0002]          ; 0x171c
     mov cx, word [bp - 0x0004]       ; 0x171f
@@ -276,7 +276,7 @@ leaf_loc_STTR:
     add ax, cx                       ; 0x1724
     mov bx, ax                       ; 0x1726
     cmp word [bx - 0x67a6], byte 1   ; 0x1728
-    jne short @..leaf_loc_STTR.l84   ; 0x172d
+    jne short @..leaf_loc_STTR.l38   ; 0x172d
     mov ax, word [bp - 0x0004]       ; 0x172f
     dec ax                           ; 0x1732
     push ax                          ; 0x1733
@@ -285,18 +285,18 @@ leaf_loc_STTR:
     push ax                          ; 0x1738
     call loc_TIPV                    ; 0x1739
     add sp, byte 4                   ; 0x173c
-@..leaf_loc_STTR.l84:
+@..leaf_loc_STTR.l38:
     inc word [bp - 0x0002]           ; 0x173f
-@..leaf_loc_STTR.l85:
+@..leaf_loc_STTR.l39:
     mov ax, word [bp - 0x0002]       ; 0x1742
     cmp ax, word [bp - 0x0006]       ; 0x1745
-    jle short @..leaf_loc_STTR.l83   ; 0x1748
+    jle short @..leaf_loc_STTR.l37   ; 0x1748
     inc word [bp - 0x0004]           ; 0x174a
-@..leaf_loc_STTR.l86:
+@..leaf_loc_STTR.l40:
     mov ax, word [bp - 0x0004]       ; 0x174d
     cmp ax, word [bp - 0x0008]       ; 0x1750
-    jle short @..leaf_loc_STTR.l82   ; 0x1753
-@..leaf_loc_STTR.l87:
+    jle short @..leaf_loc_STTR.l36   ; 0x1753
+@..leaf_loc_STTR.l41:
     mov ax, 7                        ; 0x1755
     imul word [bp - 0x0008]          ; 0x1758
     add ax, word [bss_9b0a]          ; 0x175b
@@ -360,12 +360,12 @@ leaf_loc_STTR:
     add sp, byte 8                   ; 0x17e9
     mov word [bp - 0x0010], dx       ; 0x17ec
     mov word [bp - 0x0012], ax       ; 0x17ef
-@..leaf_loc_STTR.l88:
+@..leaf_loc_STTR.l42:
     call ds_app_TMKJ                 ; 0x17f2
     test ax, ax                      ; 0x17f5
-    je short @..leaf_loc_STTR.l89    ; 0x17f7
-    jmp near @..leaf_loc_STTR.l90    ; 0x17f9
-@..leaf_loc_STTR.l89:
+    je short @..leaf_loc_STTR.l43    ; 0x17f7
+    jmp near @..leaf_loc_STTR.l44    ; 0x17f9
+@..leaf_loc_STTR.l43:
     mov ax, 0                        ; 0x17fc
     push ax                          ; 0x17ff
     push ax                          ; 0x1800
@@ -469,8 +469,8 @@ leaf_loc_STTR:
     push ax                          ; 0x18ea
     call ds_leaf_loc_UJPS            ; 0x18eb
     pop cx                           ; 0x18ee
-    jmp near @..leaf_loc_STTR.l88    ; 0x18ef
-@..leaf_loc_STTR.l90:
+    jmp near @..leaf_loc_STTR.l42    ; 0x18ef
+@..leaf_loc_STTR.l44:
     mov ax, 1                        ; 0x18f2
     push ax                          ; 0x18f5
     push word [bp - 0x0010]          ; 0x18f6

@@ -142,7 +142,7 @@ dos_read_file_4:
     add bx, ax                       ; 0x3cf3
     mov ax, word [cs:bx]             ; 0x3cf5
     mov word [cs:bx], 0              ; 0x3cf8
-    call leaf_loc_OVON               ; 0x3cfd
+    call leaf_loc_MIUO               ; 0x3cfd
     call loc_KLNH                    ; 0x3d00
 @..dos_read_file_4.l9:
     pop si                           ; 0x3d03

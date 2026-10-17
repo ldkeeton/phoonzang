@@ -66,51 +66,51 @@ api_idx_0012_VVJL:
 jumptable_147e_case_1:
     mov ax, 0xffff                   ; 0x106b
     cmp word [bp + 0x4], byte 1      ; 0x106e
-    jle short @..leaf_loc_STTR.l1    ; 0x1072
+    jle short loc_1077               ; 0x1072
     mov ax, 0xa                      ; 0x1074
-@..leaf_loc_STTR.l1:
+loc_1077:
     mov word [bss_9af8], ax          ; 0x1077
     mov ax, 0xffff                   ; 0x107a
     cmp word [bp + 0x4], byte 1      ; 0x107d
-    jle short @..leaf_loc_STTR.l2    ; 0x1081
+    jle short loc_1086               ; 0x1081
     mov ax, 0xb                      ; 0x1083
-@..leaf_loc_STTR.l2:
+loc_1086:
     mov word [bss_9b00], ax          ; 0x1086
     mov ax, 0xc                      ; 0x1089
     cmp word [bp + 0x4], byte 2      ; 0x108c
-    jg short @..leaf_loc_STTR.l3     ; 0x1090
+    jg short loc_109e                ; 0x1090
     mov ax, 0xffff                   ; 0x1092
     cmp word [bp + 0x4], byte 1      ; 0x1095
-    jle short @..leaf_loc_STTR.l3    ; 0x1099
+    jle short loc_109e               ; 0x1099
     mov ax, 0xa                      ; 0x109b
-@..leaf_loc_STTR.l3:
+loc_109e:
     mov word [bss_9af6], ax          ; 0x109e
     mov ax, 0xd                      ; 0x10a1
     cmp word [bp + 0x4], byte 2      ; 0x10a4
-    jg short @..leaf_loc_STTR.l4     ; 0x10a8
+    jg short loc_10b6                ; 0x10a8
     mov ax, 0xffff                   ; 0x10aa
     cmp word [bp + 0x4], byte 1      ; 0x10ad
-    jle short @..leaf_loc_STTR.l4    ; 0x10b1
+    jle short loc_10b6               ; 0x10b1
     mov ax, 0xb                      ; 0x10b3
-@..leaf_loc_STTR.l4:
+loc_10b6:
     mov word [bss_9afe], ax          ; 0x10b6
     mov ax, 0xe                      ; 0x10b9
     cmp word [bp + 0x4], byte 2      ; 0x10bc
-    jg short @..leaf_loc_STTR.l5     ; 0x10c0
+    jg short loc_10ce                ; 0x10c0
     mov ax, 0xffff                   ; 0x10c2
     cmp word [bp + 0x4], byte 1      ; 0x10c5
-    jle short @..leaf_loc_STTR.l5    ; 0x10c9
+    jle short loc_10ce               ; 0x10c9
     mov ax, 0xa                      ; 0x10cb
-@..leaf_loc_STTR.l5:
+loc_10ce:
     mov word [bss_9afa], ax          ; 0x10ce
     mov ax, 0xf                      ; 0x10d1
     cmp word [bp + 0x4], byte 2      ; 0x10d4
-    jg short @..leaf_loc_STTR.l6     ; 0x10d8
+    jg short loc_10e6                ; 0x10d8
     mov ax, 0xffff                   ; 0x10da
     cmp word [bp + 0x4], byte 1      ; 0x10dd
-    jle short @..leaf_loc_STTR.l6    ; 0x10e1
+    jle short loc_10e6               ; 0x10e1
     mov ax, 0xb                      ; 0x10e3
-@..leaf_loc_STTR.l6:
+loc_10e6:
     mov word [bss_9b02], ax          ; 0x10e6
     mov word [bss_9af0], 1           ; 0x10e9
     mov word [bss_9af4], 0xffff      ; 0x10ef
@@ -119,65 +119,65 @@ jumptable_147e_case_1:
     mov word [bss_9b06], 6           ; 0x1101
     mov ax, 0xffff                   ; 0x1107
     cmp word [bp + 0x4], byte 1      ; 0x110a
-    jle short @..leaf_loc_STTR.l7    ; 0x110e
+    jle short loc_1113               ; 0x110e
     mov ax, 0xa                      ; 0x1110
-@..leaf_loc_STTR.l7:
+loc_1113:
     mov word [bss_9344], ax          ; 0x1113
     mov ax, 0xffff                   ; 0x1116
     cmp word [bp + 0x4], byte 1      ; 0x1119
-    jle short @..leaf_loc_STTR.l8    ; 0x111d
+    jle short loc_1122               ; 0x111d
     mov ax, 0xb                      ; 0x111f
-@..leaf_loc_STTR.l8:
+loc_1122:
     mov word [bss_95ce], ax          ; 0x1122
     jmp near leaf_loc_STTR           ; 0x1125
 jumptable_147e_case_2:
     mov ax, 0xffff                   ; 0x1128
     cmp word [bp + 0x4], byte 1      ; 0x112b
-    jle short @..leaf_loc_STTR.l9    ; 0x112f
+    jle short loc_1134               ; 0x112f
     mov ax, 0x10                     ; 0x1131
-@..leaf_loc_STTR.l9:
+loc_1134:
     mov word [bss_9af8], ax          ; 0x1134
     mov ax, 0xffff                   ; 0x1137
     cmp word [bp + 0x4], byte 1      ; 0x113a
-    jle short @..leaf_loc_STTR.l10   ; 0x113e
+    jle short loc_1143               ; 0x113e
     mov ax, 0x11                     ; 0x1140
-@..leaf_loc_STTR.l10:
+loc_1143:
     mov word [bss_9b00], ax          ; 0x1143
     mov ax, 0x12                     ; 0x1146
     cmp word [bp + 0x4], byte 2      ; 0x1149
-    jg short @..leaf_loc_STTR.l11    ; 0x114d
+    jg short loc_115b                ; 0x114d
     mov ax, 0xffff                   ; 0x114f
     cmp word [bp + 0x4], byte 1      ; 0x1152
-    jle short @..leaf_loc_STTR.l11   ; 0x1156
+    jle short loc_115b               ; 0x1156
     mov ax, 0x10                     ; 0x1158
-@..leaf_loc_STTR.l11:
+loc_115b:
     mov word [bss_9af6], ax          ; 0x115b
     mov ax, 0x13                     ; 0x115e
     cmp word [bp + 0x4], byte 2      ; 0x1161
-    jg short @..leaf_loc_STTR.l12    ; 0x1165
+    jg short loc_1173                ; 0x1165
     mov ax, 0xffff                   ; 0x1167
     cmp word [bp + 0x4], byte 1      ; 0x116a
-    jle short @..leaf_loc_STTR.l12   ; 0x116e
+    jle short loc_1173               ; 0x116e
     mov ax, 0x11                     ; 0x1170
-@..leaf_loc_STTR.l12:
+loc_1173:
     mov word [bss_9afe], ax          ; 0x1173
     mov ax, 0x14                     ; 0x1176
     cmp word [bp + 0x4], byte 2      ; 0x1179
-    jg short @..leaf_loc_STTR.l13    ; 0x117d
+    jg short loc_118b                ; 0x117d
     mov ax, 0xffff                   ; 0x117f
     cmp word [bp + 0x4], byte 1      ; 0x1182
-    jle short @..leaf_loc_STTR.l13   ; 0x1186
+    jle short loc_118b               ; 0x1186
     mov ax, 0x10                     ; 0x1188
-@..leaf_loc_STTR.l13:
+loc_118b:
     mov word [bss_9afa], ax          ; 0x118b
     mov ax, 0x15                     ; 0x118e
     cmp word [bp + 0x4], byte 2      ; 0x1191
-    jg short @..leaf_loc_STTR.l14    ; 0x1195
+    jg short loc_11a3                ; 0x1195
     mov ax, 0xffff                   ; 0x1197
     cmp word [bp + 0x4], byte 1      ; 0x119a
-    jle short @..leaf_loc_STTR.l14   ; 0x119e
+    jle short loc_11a3               ; 0x119e
     mov ax, 0x11                     ; 0x11a0
-@..leaf_loc_STTR.l14:
+loc_11a3:
     mov word [bss_9b02], ax          ; 0x11a3
     mov word [bss_9af0], 5           ; 0x11a6
     mov word [bss_9af4], 4           ; 0x11ac
@@ -186,65 +186,65 @@ jumptable_147e_case_2:
     mov word [bss_9b06], 7           ; 0x11be
     mov ax, 0xffff                   ; 0x11c4
     cmp word [bp + 0x4], byte 1      ; 0x11c7
-    jle short @..leaf_loc_STTR.l15   ; 0x11cb
+    jle short loc_11d0               ; 0x11cb
     mov ax, 0x16                     ; 0x11cd
-@..leaf_loc_STTR.l15:
+loc_11d0:
     mov word [bss_9344], ax          ; 0x11d0
     mov ax, 0xffff                   ; 0x11d3
     cmp word [bp + 0x4], byte 1      ; 0x11d6
-    jle short @..leaf_loc_STTR.l16   ; 0x11da
+    jle short loc_11df               ; 0x11da
     mov ax, 0x17                     ; 0x11dc
-@..leaf_loc_STTR.l16:
+loc_11df:
     mov word [bss_95ce], ax          ; 0x11df
     jmp near leaf_loc_STTR           ; 0x11e2
 jumptable_147e_case_3:
     mov ax, 0xffff                   ; 0x11e5
     cmp word [bp + 0x4], byte 1      ; 0x11e8
-    jle short @..leaf_loc_STTR.l17   ; 0x11ec
+    jle short loc_11f1               ; 0x11ec
     mov ax, 0x10                     ; 0x11ee
-@..leaf_loc_STTR.l17:
+loc_11f1:
     mov word [bss_9af8], ax          ; 0x11f1
     mov ax, 0xffff                   ; 0x11f4
     cmp word [bp + 0x4], byte 1      ; 0x11f7
-    jle short @..leaf_loc_STTR.l18   ; 0x11fb
+    jle short loc_1200               ; 0x11fb
     mov ax, 0x11                     ; 0x11fd
-@..leaf_loc_STTR.l18:
+loc_1200:
     mov word [bss_9b00], ax          ; 0x1200
     mov ax, 0x12                     ; 0x1203
     cmp word [bp + 0x4], byte 2      ; 0x1206
-    jg short @..leaf_loc_STTR.l19    ; 0x120a
+    jg short loc_1218                ; 0x120a
     mov ax, 0xffff                   ; 0x120c
     cmp word [bp + 0x4], byte 1      ; 0x120f
-    jle short @..leaf_loc_STTR.l19   ; 0x1213
+    jle short loc_1218               ; 0x1213
     mov ax, 0x10                     ; 0x1215
-@..leaf_loc_STTR.l19:
+loc_1218:
     mov word [bss_9af6], ax          ; 0x1218
     mov ax, 0x13                     ; 0x121b
     cmp word [bp + 0x4], byte 2      ; 0x121e
-    jg short @..leaf_loc_STTR.l20    ; 0x1222
+    jg short loc_1230                ; 0x1222
     mov ax, 0xffff                   ; 0x1224
     cmp word [bp + 0x4], byte 1      ; 0x1227
-    jle short @..leaf_loc_STTR.l20   ; 0x122b
+    jle short loc_1230               ; 0x122b
     mov ax, 0x11                     ; 0x122d
-@..leaf_loc_STTR.l20:
+loc_1230:
     mov word [bss_9afe], ax          ; 0x1230
     mov ax, 0x14                     ; 0x1233
     cmp word [bp + 0x4], byte 2      ; 0x1236
-    jg short @..leaf_loc_STTR.l21    ; 0x123a
+    jg short loc_1248                ; 0x123a
     mov ax, 0xffff                   ; 0x123c
     cmp word [bp + 0x4], byte 1      ; 0x123f
-    jle short @..leaf_loc_STTR.l21   ; 0x1243
+    jle short loc_1248               ; 0x1243
     mov ax, 0x10                     ; 0x1245
-@..leaf_loc_STTR.l21:
+loc_1248:
     mov word [bss_9afa], ax          ; 0x1248
     mov ax, 0x15                     ; 0x124b
     cmp word [bp + 0x4], byte 2      ; 0x124e
-    jg short @..leaf_loc_STTR.l22    ; 0x1252
+    jg short loc_1260                ; 0x1252
     mov ax, 0xffff                   ; 0x1254
     cmp word [bp + 0x4], byte 1      ; 0x1257
-    jle short @..leaf_loc_STTR.l22   ; 0x125b
+    jle short loc_1260               ; 0x125b
     mov ax, 0x11                     ; 0x125d
-@..leaf_loc_STTR.l22:
+loc_1260:
     mov word [bss_9b02], ax          ; 0x1260
     mov word [bss_9af0], 4           ; 0x1263
     mov word [bss_9af4], 3           ; 0x1269
@@ -253,53 +253,53 @@ jumptable_147e_case_3:
     mov word [bss_9b06], 7           ; 0x127b
     mov ax, 0xffff                   ; 0x1281
     cmp word [bp + 0x4], byte 1      ; 0x1284
-    jle short @..leaf_loc_STTR.l23   ; 0x1288
+    jle short loc_128d               ; 0x1288
     mov ax, 0x10                     ; 0x128a
-@..leaf_loc_STTR.l23:
+loc_128d:
     mov word [bss_9344], ax          ; 0x128d
     mov ax, 0xffff                   ; 0x1290
     cmp word [bp + 0x4], byte 1      ; 0x1293
-    jle short @..leaf_loc_STTR.l24   ; 0x1297
+    jle short loc_129c               ; 0x1297
     mov ax, 0x11                     ; 0x1299
-@..leaf_loc_STTR.l24:
+loc_129c:
     mov word [bss_95ce], ax          ; 0x129c
     jmp near leaf_loc_STTR           ; 0x129f
 jumptable_147e_case_4:
     mov ax, 0xffff                   ; 0x12a2
     cmp word [bp + 0x4], byte 1      ; 0x12a5
-    jle short @..leaf_loc_STTR.l25   ; 0x12a9
+    jle short loc_12ae               ; 0x12a9
     mov ax, 0x18                     ; 0x12ab
-@..leaf_loc_STTR.l25:
+loc_12ae:
     mov word [bss_9af8], ax          ; 0x12ae
     mov ax, 0xffff                   ; 0x12b1
     cmp word [bp + 0x4], byte 1      ; 0x12b4
-    jle short @..leaf_loc_STTR.l26   ; 0x12b8
+    jle short loc_12bd               ; 0x12b8
     mov ax, 0x19                     ; 0x12ba
-@..leaf_loc_STTR.l26:
+loc_12bd:
     mov word [bss_9b00], ax          ; 0x12bd
     mov ax, 0xffff                   ; 0x12c0
     cmp word [bp + 0x4], byte 1      ; 0x12c3
-    jle short @..leaf_loc_STTR.l27   ; 0x12c7
+    jle short loc_12cc               ; 0x12c7
     mov ax, 0x18                     ; 0x12c9
-@..leaf_loc_STTR.l27:
+loc_12cc:
     mov word [bss_9af6], ax          ; 0x12cc
     mov ax, 0xffff                   ; 0x12cf
     cmp word [bp + 0x4], byte 1      ; 0x12d2
-    jle short @..leaf_loc_STTR.l28   ; 0x12d6
+    jle short loc_12db               ; 0x12d6
     mov ax, 0x19                     ; 0x12d8
-@..leaf_loc_STTR.l28:
+loc_12db:
     mov word [bss_9afe], ax          ; 0x12db
     mov ax, 0xffff                   ; 0x12de
     cmp word [bp + 0x4], byte 1      ; 0x12e1
-    jle short @..leaf_loc_STTR.l29   ; 0x12e5
+    jle short loc_12ea               ; 0x12e5
     mov ax, 0x18                     ; 0x12e7
-@..leaf_loc_STTR.l29:
+loc_12ea:
     mov word [bss_9afa], ax          ; 0x12ea
     mov ax, 0xffff                   ; 0x12ed
     cmp word [bp + 0x4], byte 1      ; 0x12f0
-    jle short @..leaf_loc_STTR.l30   ; 0x12f4
+    jle short loc_12f9               ; 0x12f4
     mov ax, 0x19                     ; 0x12f6
-@..leaf_loc_STTR.l30:
+loc_12f9:
     mov word [bss_9b02], ax          ; 0x12f9
     mov word [bss_9af0], 1           ; 0x12fc
     mov word [bss_9af4], 4           ; 0x1302
@@ -308,53 +308,53 @@ jumptable_147e_case_4:
     mov word [bss_9b06], 9           ; 0x1314
     mov ax, 0xffff                   ; 0x131a
     cmp word [bp + 0x4], byte 1      ; 0x131d
-    jle short @..leaf_loc_STTR.l31   ; 0x1321
+    jle short loc_1326               ; 0x1321
     mov ax, 0x16                     ; 0x1323
-@..leaf_loc_STTR.l31:
+loc_1326:
     mov word [bss_9344], ax          ; 0x1326
     mov ax, 0xffff                   ; 0x1329
     cmp word [bp + 0x4], byte 1      ; 0x132c
-    jle short @..leaf_loc_STTR.l32   ; 0x1330
+    jle short loc_1335               ; 0x1330
     mov ax, 0x17                     ; 0x1332
-@..leaf_loc_STTR.l32:
+loc_1335:
     mov word [bss_95ce], ax          ; 0x1335
     jmp near leaf_loc_STTR           ; 0x1338
 jumptable_147e_case_5:
     mov ax, 0xffff                   ; 0x133b
     cmp word [bp + 0x4], byte 1      ; 0x133e
-    jle short @..leaf_loc_STTR.l33   ; 0x1342
+    jle short loc_1347               ; 0x1342
     mov ax, 0x18                     ; 0x1344
-@..leaf_loc_STTR.l33:
+loc_1347:
     mov word [bss_9af8], ax          ; 0x1347
     mov ax, 0xffff                   ; 0x134a
     cmp word [bp + 0x4], byte 1      ; 0x134d
-    jle short @..leaf_loc_STTR.l34   ; 0x1351
+    jle short loc_1356               ; 0x1351
     mov ax, 0x19                     ; 0x1353
-@..leaf_loc_STTR.l34:
+loc_1356:
     mov word [bss_9b00], ax          ; 0x1356
     mov ax, 0xffff                   ; 0x1359
     cmp word [bp + 0x4], byte 1      ; 0x135c
-    jle short @..leaf_loc_STTR.l35   ; 0x1360
+    jle short loc_1365               ; 0x1360
     mov ax, 0x18                     ; 0x1362
-@..leaf_loc_STTR.l35:
+loc_1365:
     mov word [bss_9af6], ax          ; 0x1365
     mov ax, 0xffff                   ; 0x1368
     cmp word [bp + 0x4], byte 1      ; 0x136b
-    jle short @..leaf_loc_STTR.l36   ; 0x136f
+    jle short loc_1374               ; 0x136f
     mov ax, 0x19                     ; 0x1371
-@..leaf_loc_STTR.l36:
+loc_1374:
     mov word [bss_9afe], ax          ; 0x1374
     mov ax, 0xffff                   ; 0x1377
     cmp word [bp + 0x4], byte 1      ; 0x137a
-    jle short @..leaf_loc_STTR.l37   ; 0x137e
+    jle short loc_1383               ; 0x137e
     mov ax, 0x18                     ; 0x1380
-@..leaf_loc_STTR.l37:
+loc_1383:
     mov word [bss_9afa], ax          ; 0x1383
     mov ax, 0xffff                   ; 0x1386
     cmp word [bp + 0x4], byte 1      ; 0x1389
-    jle short @..leaf_loc_STTR.l38   ; 0x138d
+    jle short loc_1392               ; 0x138d
     mov ax, 0x19                     ; 0x138f
-@..leaf_loc_STTR.l38:
+loc_1392:
     mov word [bss_9b02], ax          ; 0x1392
     mov word [bss_9af0], 1           ; 0x1395
     mov word [bss_9af4], 4           ; 0x139b
@@ -363,65 +363,65 @@ jumptable_147e_case_5:
     mov word [bss_9b06], 9           ; 0x13ad
     mov ax, 0xffff                   ; 0x13b3
     cmp word [bp + 0x4], byte 1      ; 0x13b6
-    jle short @..leaf_loc_STTR.l39   ; 0x13ba
+    jle short loc_13bf               ; 0x13ba
     mov ax, 0x18                     ; 0x13bc
-@..leaf_loc_STTR.l39:
+loc_13bf:
     mov word [bss_9344], ax          ; 0x13bf
     mov ax, 0xffff                   ; 0x13c2
     cmp word [bp + 0x4], byte 1      ; 0x13c5
-    jle short @..leaf_loc_STTR.l40   ; 0x13c9
+    jle short loc_13ce               ; 0x13c9
     mov ax, 0x19                     ; 0x13cb
-@..leaf_loc_STTR.l40:
+loc_13ce:
     mov word [bss_95ce], ax          ; 0x13ce
     jmp near leaf_loc_STTR           ; 0x13d1
 jumptable_147e_case_6:
     mov ax, 0xffff                   ; 0x13d4
     cmp word [bp + 0x4], byte 1      ; 0x13d7
-    jle short @..leaf_loc_STTR.l41   ; 0x13db
+    jle short loc_13e0               ; 0x13db
     mov ax, 0x10                     ; 0x13dd
-@..leaf_loc_STTR.l41:
+loc_13e0:
     mov word [bss_9af8], ax          ; 0x13e0
     mov ax, 0xffff                   ; 0x13e3
     cmp word [bp + 0x4], byte 1      ; 0x13e6
-    jle short @..leaf_loc_STTR.l42   ; 0x13ea
+    jle short loc_13ef               ; 0x13ea
     mov ax, 0x11                     ; 0x13ec
-@..leaf_loc_STTR.l42:
+loc_13ef:
     mov word [bss_9b00], ax          ; 0x13ef
     mov ax, 0x12                     ; 0x13f2
     cmp word [bp + 0x4], byte 2      ; 0x13f5
-    jg short @..leaf_loc_STTR.l43    ; 0x13f9
+    jg short loc_1407                ; 0x13f9
     mov ax, 0xffff                   ; 0x13fb
     cmp word [bp + 0x4], byte 1      ; 0x13fe
-    jle short @..leaf_loc_STTR.l43   ; 0x1402
+    jle short loc_1407               ; 0x1402
     mov ax, 0x10                     ; 0x1404
-@..leaf_loc_STTR.l43:
+loc_1407:
     mov word [bss_9af6], ax          ; 0x1407
     mov ax, 0x13                     ; 0x140a
     cmp word [bp + 0x4], byte 2      ; 0x140d
-    jg short @..leaf_loc_STTR.l44    ; 0x1411
+    jg short loc_141f                ; 0x1411
     mov ax, 0xffff                   ; 0x1413
     cmp word [bp + 0x4], byte 1      ; 0x1416
-    jle short @..leaf_loc_STTR.l44   ; 0x141a
+    jle short loc_141f               ; 0x141a
     mov ax, 0x11                     ; 0x141c
-@..leaf_loc_STTR.l44:
+loc_141f:
     mov word [bss_9afe], ax          ; 0x141f
     mov ax, 0x14                     ; 0x1422
     cmp word [bp + 0x4], byte 2      ; 0x1425
-    jg short @..leaf_loc_STTR.l45    ; 0x1429
+    jg short loc_1437                ; 0x1429
     mov ax, 0xffff                   ; 0x142b
     cmp word [bp + 0x4], byte 1      ; 0x142e
-    jle short @..leaf_loc_STTR.l45   ; 0x1432
+    jle short loc_1437               ; 0x1432
     mov ax, 0x10                     ; 0x1434
-@..leaf_loc_STTR.l45:
+loc_1437:
     mov word [bss_9afa], ax          ; 0x1437
     mov ax, 0x15                     ; 0x143a
     cmp word [bp + 0x4], byte 2      ; 0x143d
-    jg short @..leaf_loc_STTR.l46    ; 0x1441
+    jg short loc_144f                ; 0x1441
     mov ax, 0xffff                   ; 0x1443
     cmp word [bp + 0x4], byte 1      ; 0x1446
-    jle short @..leaf_loc_STTR.l46   ; 0x144a
+    jle short loc_144f               ; 0x144a
     mov ax, 0x11                     ; 0x144c
-@..leaf_loc_STTR.l46:
+loc_144f:
     mov word [bss_9b02], ax          ; 0x144f
     mov word [bss_9af0], 5           ; 0x1452
     mov word [bss_9af4], 4           ; 0x1458

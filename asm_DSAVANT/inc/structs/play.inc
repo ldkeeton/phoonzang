@@ -29,6 +29,16 @@ struc s_bx_0595
     .f_18: resb 2
 endstruc
 
+; @struct s_bx_12bf size=8 reg=bx disp=0x12bf
+; @field offset=0 size=1 name=f_00
+; @field offset=1 size=6 name=f_01
+; @field offset=7 size=1 name=f_07
+struc s_bx_12bf
+    .f_00: resb 1
+    .gap_1: resb 6
+    .f_07: resb 1
+endstruc
+
 ; @struct s_di_0000 size=4 reg=di disp=0x0000
 ; @field offset=0 size=2 name=f_00
 ; @field offset=2 size=2 name=f_02

@@ -41,6 +41,7 @@ loc_ITNU equ 0xab7d + VBASE
 %include "vmaze/loc_VRKM.asm"              ; 0x0344
 
 api_idx_0002_HTRV.bss1 equ bss_91a6
+api_idx_0002_HTRV.loc1 equ loc_046b
 %include "shared/api_idx_0002_HTRV.asm"     ; 0x03ea
 
 %include "vmaze/leaf_loc_OTPG.asm"         ; 0x03fb
@@ -200,6 +201,7 @@ leaf_loc_RJTN.loc1 equ loc_KNRN
 %include "vmaze/api_idx_0012_HQVT.asm"     ; 0x3f56
 
 leaf_loc_RSTT.loc1 equ loc_PLIR_4664
+leaf_loc_RSTT.loc2 equ loc_4613
 %include "shared/leaf_loc_RSTT.asm"         ; 0x4431
 
 %include "shared/leaf_loc_URUM.asm"         ; 0x446b
@@ -240,6 +242,7 @@ loc_IONR.api_idx1 equ api_idx_0030_JQMM
 
 %include "shared/api_idx_0006_POPS.asm"     ; 0x6960
 
+api_idx_0004_GMNK.loc1 equ loc_6ab9
 %include "shared/api_idx_0004_GMNK.asm"     ; 0x69d6
 
 %include "vmaze/fpu_loc_VMRH.asm"          ; 0x6a57

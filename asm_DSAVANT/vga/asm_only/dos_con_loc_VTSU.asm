@@ -10,7 +10,3 @@ dos_con_loc_VTSU:
     db 'In LOAD_SOUND() ... slot already used.', 0
     db 0x0a, 0x24
 
-@..dos_read_file_6.l5:
-    mov ax, cs                       ; 0x4264
-    mov ds, ax                       ; 0x4266
-    mov dx, 0x4374                   ; 0x4268

@@ -204,6 +204,18 @@ class FunctionIncludeTests(unittest.TestCase):
         self.assertEqual(labels[0x120], '@..loc_4be6.l1')
         self.assertEqual(labels[0x124], '@..loc_4be6.l2')
 
+    def test_target_in_another_fragment_is_not_local(self):
+        # 0x180 is the owner's shared exit, but it is laid out inside the
+        # fragment of the routine that starts at 0x150.
+        ranges = [(0x100, 0x150, 'owner'), (0x150, 0x1a0, 'neighbour')]
+        label_map = {0x100: routine('owner', 0x100)}
+        labels = _compute_local_labels(
+            {0x120, 0x180}, {0x120: {0x100}, 0x180: {0x100}}, {}, label_map,
+            {'owner'}, split_ranges=ranges,
+        )
+        self.assertIn(0x120, labels)
+        self.assertNotIn(0x180, labels)
+
     def test_loc_owner_without_fragment_is_scoped_by_address(self):
         local_targets = {0x120}
         owners = {0x120: {0x100}}

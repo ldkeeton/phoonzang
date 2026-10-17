@@ -1,0 +1,46 @@
+; auto-generated
+; asm only
+io_loc_KNIR:
+    push ax                          ; 0x18e4
+    push ds                          ; 0x18e5
+    push bx                          ; 0x18e6
+    mov ax, 0                        ; 0x18e7
+    mov ds, ax                       ; 0x18ea
+    mov ax, 0x20b0                   ; 0x18ec
+    out 0x43, al                     ; 0x18ef
+    mov al, byte [0x0000]            ; 0x18f1
+    mov bx, 0x1a3a                   ; 0x18f4
+    cs xlatb                         ; 0x18f7
+    out 0x42, al                     ; 0x18f9
+    xor al, al                       ; 0x18fb
+    out 0x42, al                     ; 0x18fd
+    add byte [cs:cseg_0a95 - IMAGE_BASE], 0x80 ; 0x18ff
+    adc word [cs:cseg_18f2 - IMAGE_BASE], byte 0 ; 0x1905
+    jb short @..io_loc_KNIR.l2       ; 0x190b
+    dec word [cs:cseg_0a81 - IMAGE_BASE] ; 0x190d
+    je short @..io_loc_KNIR.l1       ; 0x1912
+    mov al, ah                       ; 0x1914
+    out 0x20, al                     ; 0x1916
+    pop bx                           ; 0x1918
+    pop ds                           ; 0x1919
+    pop ax                           ; 0x191a
+    iret                             ; 0x191b
+@..io_loc_KNIR.l1:
+    mov al, ah                       ; 0x191c
+    out 0x20, al                     ; 0x191e
+    pop bx                           ; 0x1920
+    pop ds                           ; 0x1921
+    pop ax                           ; 0x1922
+    sti                              ; 0x1923
+    call io_loc_JPGM                 ; 0x1924
+    iret                             ; 0x1927
+@..io_loc_KNIR.l2:
+    call io_loc_UQMR                 ; 0x1928
+    mov al, byte [cs:cseg_0a8f - IMAGE_BASE] ; 0x192b
+    out 0x21, al                     ; 0x192f
+    mov al, 0x20                     ; 0x1931
+    out 0x20, al                     ; 0x1933
+    pop bx                           ; 0x1935
+    pop ds                           ; 0x1936
+    pop ax                           ; 0x1937
+    iret                             ; 0x1938

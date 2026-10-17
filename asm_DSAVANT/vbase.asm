@@ -71,6 +71,8 @@ loc_QNTL equ 0x6e77 + VBASE
 
 %include "vbase/leaf_loc_LUHJ.asm"         ; 0x185a
 
+%include "vbase/loc_186a.asm"              ; 0x186a
+
 %include "vbase/leaf_loc_NRKJ.asm"         ; 0x188f
 
 %include "vbase/leaf_loc_PNPQ.asm"         ; 0x189c
@@ -80,6 +82,8 @@ loc_QNTL equ 0x6e77 + VBASE
 %include "vbase/leaf_loc_KRST.asm"         ; 0x18ad
 
 %include "vbase/leaf_loc_ITHO.asm"         ; 0x18ba
+
+%include "vbase/loc_18e1.asm"              ; 0x18e1
 
 %include "vbase/loc_VOQS.asm"              ; 0x19ba
 
@@ -242,6 +246,8 @@ loc_QNTL equ 0x6e77 + VBASE
 %include "vbase/leaf_loc_VVNL.asm"         ; 0x1b52
 
 %include "vbase/leaf_loc_NRTV.asm"         ; 0x1b56
+
+%include "vbase/loc_1bf8.asm"              ; 0x1bf8
 
 %include "shared/loc_OIOJ.asm"              ; 0x1c09
 

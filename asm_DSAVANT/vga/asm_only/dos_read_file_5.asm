@@ -20,7 +20,7 @@ dos_read_file_5:
     add bx, ax                       ; 0x3d95
     mov ax, word [cs:bx]             ; 0x3d97
     mov word [cs:bx], 0              ; 0x3d9a
-    call leaf_loc_OVON               ; 0x3d9f
+    call leaf_loc_MIUO               ; 0x3d9f
     call loc_KLNH                    ; 0x3da2
     jmp near @..dos_read_file_5.l8   ; 0x3da5
 @..dos_read_file_5.l1:

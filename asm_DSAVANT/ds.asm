@@ -1127,6 +1127,8 @@ cseg_384a:
 
 %include "ds/asm_only/ds_dos_con_loc_RKPT.asm"      ; 0x3936
 
+%include "ds/asm_only/ds_loc_395b.asm"              ; 0x395b
+
 %include "ds/asm_only/ds_dos_con_loc_RGGK.asm"      ; 0x3962
 
 %include "ds/asm_only/dos_read_file.asm"            ; 0x398a

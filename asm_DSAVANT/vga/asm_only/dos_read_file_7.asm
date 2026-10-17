@@ -89,7 +89,7 @@ dos_read_file_7:
     add ax, word [cs:cseg_0bac - IMAGE_BASE] ; 0x46c9
     cmp ax, 0x4180                   ; 0x46ce
     jb short @..dos_read_file_7.l3   ; 0x46d1
-    jmp near @..dos_read_file_7.l6   ; 0x46d3
+    jmp near loc_474e                ; 0x46d3
 @..dos_read_file_7.l3:
     mov word [cs:cseg_0bac - IMAGE_BASE], ax ; 0x46d6
     mov ax, word [cs:bx]             ; 0x46da

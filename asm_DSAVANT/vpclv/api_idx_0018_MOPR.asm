@@ -19,4 +19,4 @@ api_idx_0018_MOPR:
     mov word [bp - 0x000a], ax       ; 0x4984
     mov al, byte [bx + 0x5e2d]       ; 0x4987
     sub ah, ah                       ; 0x498b
-    jmp near @..api_idx_0018_MOPR.l2 ; 0x498d
+    jmp near loc_4b58                ; 0x498d

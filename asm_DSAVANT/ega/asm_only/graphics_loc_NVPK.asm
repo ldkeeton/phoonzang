@@ -12,11 +12,11 @@ graphics_loc_NVPK:
     mov ax, word [bp + 0x1a]         ; 0x3aa0
     cmp al, 2                        ; 0x3aa3
     jne short @..graphics_loc_NVPK.l1 ; 0x3aa5
-    jmp near @..graphics_loc_NVPK.l53 ; 0x3aa7
+    jmp near loc_3d4a                ; 0x3aa7
 @..graphics_loc_NVPK.l1:
     cmp al, 3                        ; 0x3aaa
     jne short @..graphics_loc_NVPK.l2 ; 0x3aac
-    jmp near @..graphics_loc_NVPK.l78 ; 0x3aae
+    jmp near loc_3e8a                ; 0x3aae
 @..graphics_loc_NVPK.l2:
     mov ax, word [bp - 0x0006]       ; 0x3ab1
     mov word [bp - 0x000e], ax       ; 0x3ab4
@@ -30,7 +30,7 @@ graphics_loc_NVPK:
     mov ax, word [bp + 0x1a]         ; 0x3acd
     cmp al, 1                        ; 0x3ad0
     jne short @..graphics_loc_NVPK.l3 ; 0x3ad2
-    jmp near @..graphics_loc_NVPK.l28 ; 0x3ad4
+    jmp near loc_3c2e                ; 0x3ad4
 @..graphics_loc_NVPK.l3:
     mov ax, word [bp - 0x0028]       ; 0x3ad7
     add word [bp - 0x000e], ax       ; 0x3ada

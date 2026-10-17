@@ -270,7 +270,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     extra_flow_edges = {
         (table.jmp_addr, target)
         for table in ctx.jump_tables
-        if table.validated and table.validation_ok
+        if table.validated and table.validation_ok and table.jmp_addr >= 0
         for target in table.targets
     }
     extra_flow_edges.update(
@@ -292,7 +292,8 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     segment_edges = set(extra_flow_edges) | set(ctx.branch_edges)
     for table in ctx.jump_tables:
         for target in table.targets:
-            segment_edges.add((table.jmp_addr, target))
+            if table.jmp_addr >= 0:
+                segment_edges.add((table.jmp_addr, target))
     ctx.segment_flow = analyze_segments(
         instructions, ctx.segments, binary_data=data,
         function_roots=set(function_roots),

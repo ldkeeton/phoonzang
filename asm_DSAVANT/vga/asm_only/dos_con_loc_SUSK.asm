@@ -13,11 +13,3 @@ dos_con_loc_SUSK:
     db 'RESTOREAREA called with NULL pointer.', 0
     db 0x0a, 0x24
 
-@..dos_free_mem.l2:
-    pop si                           ; 0x08ca
-    pop di                           ; 0x08cb
-    pop ds                           ; 0x08cc
-    pop es                           ; 0x08cd
-    mov sp, bp                       ; 0x08ce
-    pop bp                           ; 0x08d0
-    ret                              ; 0x08d1

@@ -12,7 +12,7 @@ jumptable_0da0:
     dw loc_VPRT - IMAGE_BASE + 0x5055          ; 0x0daa
     dw leaf_loc_JQTI_0d90 - IMAGE_BASE + 0x5055 ; 0x0dac
     dw leaf_loc_JQTI_0d88 - IMAGE_BASE + 0x5055 ; 0x0dae
-@..api_idx_0014_KHON.l35:
+loc_0db0:
     cmp ax, strict word 8            ; 0x0db0
     jae short loc_VPRT               ; 0x0db3
     xchg bx, ax                      ; 0x0db5

@@ -13,7 +13,7 @@ jumptable_08d4:
     dw ds_loc_PQMN - IMAGE_BASE                ; 0x08dc
     dw ds_string_loc_HHJS - IMAGE_BASE         ; 0x08de
     dw ds_string_loc_GNPI - IMAGE_BASE         ; 0x08e0
-@..ds_app_file_NKGK.l1:
+ds_loc_08e2:
     sub ax, strict word 2            ; 0x08e2
     cmp ax, strict word 7            ; 0x08e5
     jae short ds_loc_PQMN            ; 0x08e8

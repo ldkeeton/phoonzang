@@ -208,9 +208,9 @@ errno equ __zerrno - __zdseg_start
 %include "vinstall/aztec_chdir.asm"        ; 0x2a1c
 
 cseg_2a23:
-    add byte [bx + si], al           ; 0x2a23
+    db 0x00, 0x00
 cseg_2a25:
-    add byte [bx + si], al           ; 0x2a25
+    db 0x00, 0x00
 dseg_002e equ __zstr_0025 - __zdseg_start + 0x0009
 dseg_0030 equ __zstr_0025 - __zdseg_start + 0x000b
 dseg_230e equ __zdseg_230e - __zdseg_start

@@ -14,7 +14,7 @@ dos_file_loc_MUHV:
     mov ah, 0x3f                     ; 0x3d1e
     int 0x21 ; DOS read file (handle)
     or ax, ax                        ; 0x3d22
-    je short @..dos_file_loc_MUHV.l2 ; 0x3d24
+    je short loc_3d6d                ; 0x3d24
     mov cx, ax                       ; 0x3d26
     push ax                          ; 0x3d28
     mov bx, word [bp - 0x0004]       ; 0x3d29

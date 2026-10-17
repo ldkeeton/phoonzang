@@ -6,9 +6,9 @@ aztec_csav:
     mov bp, sp                       ; 0x4654
     add sp, ax                       ; 0x4656
     cmp sp, bp ; check for wrap around ; 0x4658
-    ja short @..aztec_csav.l2        ; 0x465a
+    ja short @..aztec_cret.stackfault ; 0x465a
     cmp sp, word [_sbot] ; or moving into the RED zone ; 0x465c
-    jb short @..aztec_csav.l2        ; 0x4660
+    jb short @..aztec_cret.stackfault ; 0x4660
     cmp sp, word [_lowwater]         ; 0x4662
     ja short @..aztec_csav.nodeeper  ; 0x4666
     mov word [_lowwater], sp         ; 0x4668

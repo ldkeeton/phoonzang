@@ -51,7 +51,7 @@ jumptable_5a60:
     dw jumptable_5a60_case_11 - IMAGE_BASE + 0x5055 ; 0x5a76
     dw jumptable_5a60_case_12 - IMAGE_BASE + 0x5055 ; 0x5a78
     dw string_loc_PPRO - IMAGE_BASE + 0x5055   ; 0x5a7a
-@..loc_RMSR.l1:
+loc_5a7c:
     cmp ax, strict word 0xe          ; 0x5a7c
     jae short loc_PLIR               ; 0x5a7f
     xchg bx, ax                      ; 0x5a81

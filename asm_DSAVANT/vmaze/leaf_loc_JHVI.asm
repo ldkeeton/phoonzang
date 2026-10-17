@@ -25,7 +25,7 @@ jumptable_3356:
     dw leaf_loc_OKIV - IMAGE_BASE + 0x5055     ; 0x3374
     dw leaf_loc_JHVI - IMAGE_BASE + 0x5055     ; 0x3376
     dw leaf_loc_HPLP - IMAGE_BASE + 0x5055     ; 0x3378
-@..api_idx_0008_KSTK.l24:
+loc_337a:
     cmp ax, strict word 0x12         ; 0x337a
     jae short loc_KNRN               ; 0x337d
     xchg bx, ax                      ; 0x337f

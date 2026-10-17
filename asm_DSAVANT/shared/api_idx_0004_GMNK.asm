@@ -49,4 +49,4 @@ api_idx_0004_GMNK:
     mov bx, word [bp - 0x0004]
     mov word [bx + 0x2], ax
     mov ax, word [bp + 0x6]
-    jmp short @..api_idx_0004_GMNK.l3
+    jmp short api_idx_0004_GMNK.loc1

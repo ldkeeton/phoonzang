@@ -38,13 +38,13 @@ loc_VKJM:
     add ax, cx                       ; 0x7b9a
     mov bx, ax                       ; 0x7b9c
     cmp byte [bx + 0x5c3a], 0        ; 0x7b9e
-    jbe short @..api_idx_00ac_HRGV.l9 ; 0x7ba3
+    jbe short loc_7bb2               ; 0x7ba3
     mov word [bp - 0x0076], 0xf      ; 0x7ba5
     mov word [bss_90de], 0xc         ; 0x7baa
-    jmp short @..api_idx_00ac_HRGV.l10 ; 0x7bb0
-@..api_idx_00ac_HRGV.l9:
+    jmp short loc_7bb8               ; 0x7bb0
+loc_7bb2:
     mov word [bp - 0x00a4], 1        ; 0x7bb2
-@..api_idx_00ac_HRGV.l10:
+loc_7bb8:
     mov ax, 0x9136                   ; 0x7bb8
     push ax                          ; 0x7bbb
     mov ax, 0xd1f                    ; 0x7bbc
@@ -63,13 +63,13 @@ loc_OLTS:
     add ax, cx                       ; 0x7bda
     mov bx, ax                       ; 0x7bdc
     cmp byte [bx + 0x5c3a], 0        ; 0x7bde
-    jbe short @..api_idx_00ac_HRGV.l11 ; 0x7be3
+    jbe short loc_7bf2               ; 0x7be3
     mov word [bp - 0x0076], 8        ; 0x7be5
     mov word [bss_90de], 5           ; 0x7bea
-    jmp short @..api_idx_00ac_HRGV.l12 ; 0x7bf0
-@..api_idx_00ac_HRGV.l11:
+    jmp short loc_7bf8               ; 0x7bf0
+loc_7bf2:
     mov word [bp - 0x00a4], 1        ; 0x7bf2
-@..api_idx_00ac_HRGV.l12:
+loc_7bf8:
     mov ax, 0x9136                   ; 0x7bf8
     push ax                          ; 0x7bfb
     mov ax, 0xd1f                    ; 0x7bfc
@@ -77,7 +77,7 @@ loc_OLTS:
     call ds_app_mem_TIMR             ; 0x7c00
     add sp, byte 4                   ; 0x7c03
     jmp short loc_IJIL               ; 0x7c06
-@..api_idx_00ac_HRGV.l13:
+loc_7c08:
     mov cx, 0x11                     ; 0x7c08
     call leaf_loc_RJLR               ; 0x7c0b
 jumptable_7c0e:
@@ -116,16 +116,16 @@ jumptable_7c0e:
     dw loc_IJIL - IMAGE_BASE + 0x5055          ; 0x7c4e
 loc_IJIL:
     jmp near loc_LOHN                ; 0x7c50
-@..api_idx_00ac_HRGV.l14:
+loc_7c53:
     mov ax, word [bss_8464]          ; 0x7c53
     shl ax, 1                        ; 0x7c56
     mov bx, ax                       ; 0x7c58
     mov bx, word [bx - 0x7b70]       ; 0x7c5a
     mov si, word [bp + 0x6]          ; 0x7c5e
     cmp byte [bx + si + 0x86], 3     ; 0x7c61
-    jbe short @..api_idx_00ac_HRGV.l15 ; 0x7c66
-    jmp near @..api_idx_00ac_HRGV.l22 ; 0x7c68
-@..api_idx_00ac_HRGV.l15:
+    jbe short loc_7c6b               ; 0x7c66
+    jmp near loc_7f13                ; 0x7c68
+loc_7c6b:
     mov ax, 0x9136                   ; 0x7c6b
     push ax                          ; 0x7c6e
     mov ax, word [bp + 0x8]          ; 0x7c6f
@@ -135,12 +135,12 @@ loc_IJIL:
     add sp, byte 4                   ; 0x7c79
     mov bx, word [bp + 0x4]          ; 0x7c7c
     cmp byte [bx + 0x2b], 0          ; 0x7c7f
-    je short @..api_idx_00ac_HRGV.l16 ; 0x7c83
+    je short loc_7ca8                ; 0x7c83
     mov ax, word [bp + 0x8]          ; 0x7c85
     cmp ax, strict word 4            ; 0x7c88
-    je short @..api_idx_00ac_HRGV.l16 ; 0x7c8b
+    je short loc_7ca8                ; 0x7c8b
     cmp ax, strict word 8            ; 0x7c8d
-    je short @..api_idx_00ac_HRGV.l16 ; 0x7c90
+    je short loc_7ca8                ; 0x7c90
     mov ax, 0x9136                   ; 0x7c92
     push ax                          ; 0x7c95
     mov ax, 2                        ; 0x7c96
@@ -151,13 +151,13 @@ loc_IJIL:
     push ax                          ; 0x7ca1
     call ds_app_mem_TIMR             ; 0x7ca2
     add sp, byte 4                   ; 0x7ca5
-@..api_idx_00ac_HRGV.l16:
+loc_7ca8:
     cmp word [bp + 0x8], byte 4      ; 0x7ca8
-    je short @..api_idx_00ac_HRGV.l17 ; 0x7cac
+    je short loc_7cb7                ; 0x7cac
     cmp word [bp + 0x8], byte 8      ; 0x7cae
-    je short @..api_idx_00ac_HRGV.l17 ; 0x7cb2
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7cb4
-@..api_idx_00ac_HRGV.l17:
+    je short loc_7cb7                ; 0x7cb2
+    jmp near loc_7ee8                ; 0x7cb4
+loc_7cb7:
     mov ax, 0x12                     ; 0x7cb7
     imul word [bp + 0x6]             ; 0x7cba
     mov si, ax                       ; 0x7cbd
@@ -172,10 +172,10 @@ loc_IJIL:
     mov si, word [bp + 0x6]          ; 0x7cd6
     mov al, byte [bx + si + 0x89]    ; 0x7cd9
     sub ah, ah                       ; 0x7cdd
-    jmp near @..api_idx_00ac_HRGV.l19 ; 0x7cdf
+    jmp near loc_7edb                ; 0x7cdf
 loc_LMNP:
     mov word [bp - 0x0076], 0x15     ; 0x7ce2
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7ce7
+    jmp near loc_7ee8                ; 0x7ce7
 loc_UHKI:
     mov word [bp - 0x0094], 0x714    ; 0x7cea
     mov word [bp - 0x0076], 0xa      ; 0x7cf0
@@ -187,7 +187,7 @@ loc_UHKI:
     call ds_app_mem_TIMR             ; 0x7d03
     add sp, byte 4                   ; 0x7d06
     mov word [bp - 0x00ac], 1        ; 0x7d09
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7d0f
+    jmp near loc_7ee8                ; 0x7d0f
 loc_SVNV:
     mov word [bp - 0x0094], 0x506    ; 0x7d12
     mov word [bp - 0x0076], 8        ; 0x7d18
@@ -199,7 +199,7 @@ loc_SVNV:
     call ds_app_mem_TIMR             ; 0x7d2b
     add sp, byte 4                   ; 0x7d2e
     mov word [bp - 0x00ac], 1        ; 0x7d31
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7d37
+    jmp near loc_7ee8                ; 0x7d37
 loc_PKSM:
     mov word [bp - 0x0076], 8        ; 0x7d3a
     mov word [bss_90de], 5           ; 0x7d3f
@@ -210,19 +210,18 @@ loc_PKSM:
     call ds_app_mem_TIMR             ; 0x7d4d
     add sp, byte 4                   ; 0x7d50
     mov word [bp - 0x00a6], 0        ; 0x7d53
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7d59
+    jmp near loc_7ee8                ; 0x7d59
 loc_KKVN:
     mov word [bp - 0x0076], 2        ; 0x7d5c
     mov word [bp - 0x00a6], 0        ; 0x7d61
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7d67
+    jmp near loc_7ee8                ; 0x7d67
 loc_NSNI:
     mov word [bp - 0x00a6], 2        ; 0x7d6a
 loc_ONHK:
     cmp word [bp - 0x00a6], byte 1   ; 0x7d70
-    jne short @..api_idx_00ac_HRGV.l18 ; 0x7d75
+    jne short loc_7d7d               ; 0x7d75
     mov word [bp - 0x00a6], 3        ; 0x7d77
-jumptable_7e61_case_13:
-@..api_idx_00ac_HRGV.l18:
+loc_7d7d:
     mov word [bp - 0x0076], 0xf      ; 0x7d7d
     mov word [bss_90de], 0xc         ; 0x7d82
     mov ax, 0x9136                   ; 0x7d88
@@ -232,26 +231,26 @@ jumptable_7e61_case_13:
     call ds_app_mem_TIMR             ; 0x7d90
     add sp, byte 4                   ; 0x7d93
     mov word [bp - 0x00ac], 1        ; 0x7d96
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7d9c
+    jmp near loc_7ee8                ; 0x7d9c
 loc_IIUM:
     mov word [bp - 0x0076], 0        ; 0x7d9f
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7da4
+    jmp near loc_7ee8                ; 0x7da4
 loc_GUQH:
     mov word [bp - 0x0076], 0xc      ; 0x7da7
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7dac
+    jmp near loc_7ee8                ; 0x7dac
 loc_IPHG_7daf:
     mov word [bp - 0x0076], 0x10     ; 0x7daf
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7db4
+    jmp near loc_7ee8                ; 0x7db4
 loc_MNVL_7db7:
     mov word [bp - 0x0076], 6        ; 0x7db7
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7dbc
+    jmp near loc_7ee8                ; 0x7dbc
 loc_JNTO_7dbf:
     mov word [bp - 0x0076], 0x11     ; 0x7dbf
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7dc4
+    jmp near loc_7ee8                ; 0x7dc4
 loc_NJMN:
     mov word [bp - 0x0076], 4        ; 0x7dc7
     mov word [bp - 0x00a6], 0        ; 0x7dcc
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7dd2
+    jmp near loc_7ee8                ; 0x7dd2
 loc_VOHG:
     mov word [bp - 0x0094], 0x643    ; 0x7dd5
     mov word [bp - 0x0076], 0x16     ; 0x7ddb
@@ -263,7 +262,7 @@ loc_VOHG:
     call ds_app_mem_TIMR             ; 0x7dee
     add sp, byte 4                   ; 0x7df1
     mov word [bp - 0x00ac], 1        ; 0x7df4
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7dfa
+    jmp near loc_7ee8                ; 0x7dfa
 loc_TPJP:
     mov word [bp - 0x0094], 0x702    ; 0x7dfd
     mov word [bp - 0x0076], 0xc      ; 0x7e03
@@ -275,7 +274,7 @@ loc_TPJP:
     call ds_app_mem_TIMR             ; 0x7e16
     add sp, byte 4                   ; 0x7e19
     mov word [bp - 0x00ac], 1        ; 0x7e1c
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7e22
+    jmp near loc_7ee8                ; 0x7e22
 loc_RMSG:
     mov word [bp - 0x00aa], 0xa4     ; 0x7e25
     mov word [bp - 0x0094], 0x641    ; 0x7e2b
@@ -293,84 +292,83 @@ loc_RMSG:
     call ds_app_mem_TIMR             ; 0x7e52
     add sp, byte 4                   ; 0x7e55
     mov word [bp - 0x00ac], 1        ; 0x7e58
-    jmp near @..api_idx_00ac_HRGV.l20 ; 0x7e5e
+    jmp near loc_7ee8                ; 0x7e5e
 jumptable_7e61:
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e61
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e61
     dw loc_LMNP - IMAGE_BASE + 0x5055          ; 0x7e63
     dw loc_LMNP - IMAGE_BASE + 0x5055          ; 0x7e65
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e67
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e69
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e6b
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e6d
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e67
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e69
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e6b
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e6d
     dw loc_PKSM - IMAGE_BASE + 0x5055          ; 0x7e6f
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e71
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e71
     dw loc_KKVN - IMAGE_BASE + 0x5055          ; 0x7e73
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e75
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e77
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e79
-    dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7e7b
-    dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7e7d
-    dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7e7f
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e75
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e77
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e79
+    dw loc_7d7d - IMAGE_BASE + 0x5055          ; 0x7e7b
+    dw loc_7d7d - IMAGE_BASE + 0x5055          ; 0x7e7d
+    dw loc_7d7d - IMAGE_BASE + 0x5055          ; 0x7e7f
     dw loc_IIUM - IMAGE_BASE + 0x5055          ; 0x7e81
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e83
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e85
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e87
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e89
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e8b
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e8d
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e83
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e85
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e87
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e89
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e8b
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e8d
     dw loc_GUQH - IMAGE_BASE + 0x5055          ; 0x7e8f
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e91
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e91
     dw loc_PKSM - IMAGE_BASE + 0x5055          ; 0x7e93
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e95
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e95
     dw loc_IIUM - IMAGE_BASE + 0x5055          ; 0x7e97
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e99
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7e9b
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e99
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7e9b
     dw loc_IPHG_7daf - IMAGE_BASE + 0x5055     ; 0x7e9d
     dw loc_MNVL_7db7 - IMAGE_BASE + 0x5055     ; 0x7e9f
     dw loc_KKVN - IMAGE_BASE + 0x5055          ; 0x7ea1
-    dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7ea3
+    dw loc_7d7d - IMAGE_BASE + 0x5055          ; 0x7ea3
     dw loc_IIUM - IMAGE_BASE + 0x5055          ; 0x7ea5
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ea7
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7ea7
     dw loc_JNTO_7dbf - IMAGE_BASE + 0x5055     ; 0x7ea9
     dw loc_NJMN - IMAGE_BASE + 0x5055          ; 0x7eab
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ead
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7eaf
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7eb1
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7eb3
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7eb5
-    dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7eb7
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7eb9
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ebb
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ebd
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7ead
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7eaf
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7eb1
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7eb3
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7eb5
+    dw loc_7d7d - IMAGE_BASE + 0x5055          ; 0x7eb7
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7eb9
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7ebb
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7ebd
     dw loc_IPHG_7daf - IMAGE_BASE + 0x5055     ; 0x7ebf
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ec1
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7ec1
     dw loc_UHKI - IMAGE_BASE + 0x5055          ; 0x7ec3
     dw loc_SVNV - IMAGE_BASE + 0x5055          ; 0x7ec5
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ec7
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7ec7
     dw loc_VOHG - IMAGE_BASE + 0x5055          ; 0x7ec9
     dw loc_NSNI - IMAGE_BASE + 0x5055          ; 0x7ecb
     dw loc_ONHK - IMAGE_BASE + 0x5055          ; 0x7ecd
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ecf
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7ecf
     dw loc_TPJP - IMAGE_BASE + 0x5055          ; 0x7ed1
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ed3
-    dw jumptable_7e61_case_0 - IMAGE_BASE + 0x5055 ; 0x7ed5
-    dw jumptable_7e61_case_13 - IMAGE_BASE + 0x5055 ; 0x7ed7
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7ed3
+    dw loc_7ee8 - IMAGE_BASE + 0x5055          ; 0x7ed5
+    dw loc_7d7d - IMAGE_BASE + 0x5055          ; 0x7ed7
     dw loc_RMSG - IMAGE_BASE + 0x5055          ; 0x7ed9
-@..api_idx_00ac_HRGV.l19:
+loc_7edb:
     cmp ax, strict word 0x3d         ; 0x7edb
-    jae short @..api_idx_00ac_HRGV.l20 ; 0x7ede
+    jae short loc_7ee8               ; 0x7ede
     xchg bx, ax                      ; 0x7ee0
     shl bx, 1                        ; 0x7ee1
     jmp [cs:bx - 0x3158]             ; 0x7ee3
-jumptable_7e61_case_0:
-@..api_idx_00ac_HRGV.l20:
+loc_7ee8:
     mov ax, word [bss_8464]          ; 0x7ee8
     shl ax, 1                        ; 0x7eeb
     mov bx, ax                       ; 0x7eed
     mov bx, word [bx - 0x7b70]       ; 0x7eef
     mov si, word [bp + 0x6]          ; 0x7ef3
     cmp byte [bx + si + 0x89], 0     ; 0x7ef6
-    jbe short @..api_idx_00ac_HRGV.l21 ; 0x7efb
+    jbe short loc_7f11               ; 0x7efb
     mov ax, 0x9186                   ; 0x7efd
     push ax                          ; 0x7f00
     mov al, byte [bx + si + 0x89]    ; 0x7f01
@@ -379,9 +377,9 @@ jumptable_7e61_case_0:
     push ax                          ; 0x7f0a
     call ds_app_mem_TIMR             ; 0x7f0b
     add sp, byte 4                   ; 0x7f0e
-@..api_idx_00ac_HRGV.l21:
+loc_7f11:
     jmp short loc_LOHN               ; 0x7f11
-@..api_idx_00ac_HRGV.l22:
+loc_7f13:
     mov ax, 0x9136                   ; 0x7f13
     push ax                          ; 0x7f16
     mov ax, word [bss_8464]          ; 0x7f17

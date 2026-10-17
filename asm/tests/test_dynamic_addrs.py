@@ -165,8 +165,8 @@ def _mz_header(e_ss):
 # (one name the C spelling no longer mentions).  Both are decrease-only baselines;
 # they were lowered here after measuring HEAD's own tree, not the working tree.
 BASELINE_TOTALS = {
-    'code_shift': 57, 'data_shift': 1, 'inert': 230,
-    'f1': 2, 'f2': 13, 'f3': 39, 'f4': 1, 'f5': 3, 'f6': 223, 'f7': 0,
+    'code_shift': 62, 'data_shift': 1, 'inert': 231,
+    'f1': 2, 'f2': 13, 'f3': 44, 'f4': 1, 'f5': 3, 'f6': 224, 'f7': 0,
     'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
     # D7.6 gave the raw drivers their true load origin (``CS:0x100``), so a
     # ``[cs:disp]`` operand now resolves to ``disp - 0x100`` and the ``cseg_``
@@ -208,8 +208,8 @@ BASELINE_TOTALS = {
     # Parameterised sharing (lib.shared: copies differing only in label names)
     # took ``shared/`` 90 -> 141 files: ``hidden_flow`` 105 -> **157**, all 61 new
     # sites at offsets whose anchor moved into ``shared/`` (9 sites went).
-    'names_used': 22, 'names_inert': 25, 'hidden_flow': 175,
-    'total': 58,
+    'names_used': 26, 'names_inert': 26, 'hidden_flow': 181,
+    'total': 63,
     # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
     # returns; the call is followed by N-1 keys and N case targets.  The decoder
     # used to fall through the call and decode the target words as ``jcc``s,
@@ -223,6 +223,19 @@ BASELINE_TOTALS = {
     # the last root runs to the end of the code, the entry routine gets a file):
     # ``shared/`` 146 -> 202 files, which drops more ``; 0x`` anchors, so
     # ``hidden_flow`` 118 -> **175** (a lower-bound artifact, not a new reference).
+    # Raw-driver load origin + cross-fragment exits (working tree).  A raw
+    # driver runs at ``CS:0x100``, so a stored code pointer is ``file +
+    # load_offset`` and the driver switch tables now resolve and inject their
+    # arms (``jumptable_XXXX_case_*``); a branch target laid out inside another
+    # routine's fragment can no longer be a ``@..owner.lN`` local (the file that
+    # includes it would not see the name) and is rooted instead.  ``f3`` 39 ->
+    # **44** and ``code_shift`` 57 -> **62** are ``play``'s INT 08h handler
+    # cluster decoding as code, which exposes the self-modified ``cseg_``
+    # operands (the plan's section 5 ``mem_equ`` class -- the honest count, not
+    # a new frozen byte).  ``inert``/``f6`` 230/223 -> **231/224**,
+    # ``hidden_flow`` 175 -> **181** (a lower-bound artifact of the re-rooting)
+    # and ``names_used``/``names_inert`` 22/25 -> **26/26** follow the same
+    # re-rooting, not a new reference.
 }
 
 
@@ -1549,11 +1562,12 @@ class InsertBytePropertyTests(unittest.TestCase):
     def test_driver_branch_follows_an_inserted_byte(self):
         """D7.2c: a named branch target is a label, so an edit moves it.
 
-        ``loc_07a2`` names the byte at 0x07a2, spelled ``loc_07a2 equ 0x07a2``
-        before this step.  Inserting one byte *between* the ``jb`` at 0x079a and
-        that target must lengthen the branch by exactly one: the target moved
-        with the byte.  Under the old ``equ`` the displacement would have stayed
-        put and the jump would have landed one byte short.
+        The ``jb`` at 0x079a targets 0x07a2, which the jump table's
+        ``loc_0793`` arm names as its local ``@..loc_0793.l1``.  Inserting one
+        byte *between* the branch and that target must lengthen the branch by
+        exactly one: the target moved with the byte.  Under a frozen ``equ`` the
+        displacement would have stayed put and the jump would have landed one
+        byte short.
         """
         with tempfile.TemporaryDirectory() as d:
             _copy_source_tree(d)
@@ -1568,7 +1582,7 @@ class InsertBytePropertyTests(unittest.TestCase):
             frag = os.path.join(d, included[0])
             with open(frag) as f:
                 text = f.read()
-            needle = '    jb short loc_07a2'
+            needle = '    jb short @..loc_0793.l1'
             self.assertIn(needle, text)
             with open(frag, 'w') as f:
                 f.write(text.replace(needle, needle + '\n    db 0x90', 1))
@@ -1581,9 +1595,10 @@ class InsertBytePropertyTests(unittest.TestCase):
         # names moved with the inserted byte.
         self.assertEqual(grown[0x79a:0x79c], b'\x72\x07')
         self.assertEqual(original[0x79a:0x79c], b'\x72\x06')
-        # The instruction at the target is the same one, one byte later.  (Its
-        # embedded ``mov word [0x0b93], ax`` operand grows too: that absolute
-        # address is still a frozen ``data_`` immediate -- D7.2c-2.)
+        # The instruction at the target is the same one, one byte later.  Its
+        # ``[cs:cseg_0a93]`` operand is a label on the byte at 0x0a93, which also
+        # lies after the insert, so the encoded address follows the edit:
+        # ``0b93`` -> ``0b94``.
         self.assertEqual(original[0x7a2:0x7a6], b'\x2e\x88\x26\x93')
         self.assertEqual(grown[0x7a3:0x7a6], b'\x2e\x88\x26')
         self.assertEqual(grown[0x7a6:0x7a8], b'\x94\x0b')

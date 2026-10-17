@@ -49,9 +49,14 @@ _SHARED_OR_CROSS_FUNCTION_TARGETS = {
 }
 # Resolved as a named library routine rather than a local branch target.
 _NOW_GLOBALLY_NAMED = {0x4f87}  # aztec_stkover
+# Cross-fragment branch targets: a shared exit laid out in *another* routine's
+# fragment is no longer a ``@..owner.lN`` local -- the file that includes the
+# owner would not see the name -- so it is rooted as its own global
+# ``ds_loc_XXXX`` fragment.
+_NOW_GLOBALLY_ROOTED = {0x395b, 0x4676}
 _EXPECTED_LOCAL_TARGETS = (
     _PREVIOUS_LOCAL_TARGETS - _SHARED_OR_CROSS_FUNCTION_TARGETS
-    - _NOW_GLOBALLY_NAMED
+    - _NOW_GLOBALLY_NAMED - _NOW_GLOBALLY_ROOTED
 )
 
 
@@ -194,16 +199,26 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
         self.assertTrue(stack_include.split('\n', 1)[1].startswith('aztec_csav:'))
         self.assertIn('pop bx                           ; 0x4652', stack_include)
 
-    def test_stack_check_local_error_tail_is_in_function_include(self):
+    def test_stack_check_error_tail_is_a_global_fragment(self):
         output = pathlib.Path(self._output.name)
         master = (output / 'ds.asm').read_text()
         cret_include = (output / 'ds' / 'aztec_cret.asm').read_text()
+        tail_include = (output / 'ds' / 'ds_loc_4676.asm').read_text()
 
+        # ``0x4676`` is ``aztec_csav``'s shared stack-fault exit, but it is laid
+        # out past ``aztec_cret``'s ``ret``, in another fragment.  A local label
+        # there could not be addressed from the file that includes ``aztec_csav``,
+        # so it is rooted as its own global fragment and reached by name.
         self.assertIn('%include "ds/aztec_cret.asm"', master)
-        self.assertNotIn('@..aztec_csav.l2:', master)
-        self.assertIn('@..aztec_csav.l2:', cret_include)
-        self.assertIn('mov sp, bp                       ; 0x4676', cret_include)
-        self.assertIn('jmp near aztec_impl_stkover      ; 0x4678', cret_include)
+        self.assertIn('%include "ds/ds_loc_4676.asm"', master)
+        self.assertNotIn('0x4676', cret_include)
+        self.assertNotIn('@..aztec_csav.l2', master)
+        self.assertTrue(tail_include.split('\n', 1)[1].startswith('ds_loc_4676:'))
+        self.assertIn('mov sp, bp                       ; 0x4676', tail_include)
+        self.assertIn('jmp near aztec_impl_stkover      ; 0x4678', tail_include)
+        csav_include = (output / 'ds' / 'aztec_csav.asm').read_text()
+        self.assertIn('ja short ds_loc_4676', csav_include)
+        self.assertIn('jb short ds_loc_4676', csav_include)
 
     def test_sidecar_code_anchors_decode_as_code(self):
         code_starts = (0x0fdf, 0x3067, 0x30f7, 0x343e, 0x3490, 0x457c)

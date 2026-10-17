@@ -398,4 +398,4 @@ jumptable_0d20_case_0:
     call loc_NJKS                    ; 0x0d75
     add sp, byte 0x0c                ; 0x0d78
     mov word [bp - 0x0012], ax       ; 0x0d7b
-    jmp short @..api_idx_0014_KHON.l35 ; 0x0d7e
+    jmp short loc_0db0               ; 0x0d7e

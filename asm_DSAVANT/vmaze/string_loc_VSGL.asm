@@ -7,7 +7,7 @@ jumptable_4b6b:
     dw loc_NQIP - IMAGE_BASE + 0x5055          ; 0x4b6f
     dw string_loc_NVUT - IMAGE_BASE + 0x5055   ; 0x4b71
     dw string_loc_MNIM - IMAGE_BASE + 0x5055   ; 0x4b73
-@..api_idx_0012_TQRK.l40:
+loc_4b75:
     cmp ax, strict word 5            ; 0x4b75
     jae short loc_OQNV               ; 0x4b78
     xchg bx, ax                      ; 0x4b7a

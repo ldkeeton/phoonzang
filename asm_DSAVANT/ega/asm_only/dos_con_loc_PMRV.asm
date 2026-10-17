@@ -10,7 +10,3 @@ dos_con_loc_PMRV:
     db 'CACHESCREEN().  Requested slot already in use.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
 
-@..dos_file_loc_GRNS.l10:
-    mov ax, cs                       ; 0x497d
-    mov ds, ax                       ; 0x497f
-    mov dx, 0x4a8d                   ; 0x4981

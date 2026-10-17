@@ -3,7 +3,7 @@
 from .constants import _BINARY_TYPES, _IDENTIFIER
 from .errors import SidecarError
 from .external_data import _external_data_map, _validate_external_data
-from .jump_tables import _validate_jump_tables
+from .jump_tables import _validate_jump_tables, _validate_code_tables
 from .pointers import _pointer_assertions, _validate_corpus
 from .ranges import _validate_ranges, validate_force_ranges
 
@@ -33,6 +33,9 @@ def _validate_binary(name, info):
     if 'jump_tables' in info:
         _validate_jump_tables(info['jump_tables'], f'binaries.{name}.jump_tables')
 
+    if 'code_tables' in info:
+        _validate_code_tables(info['code_tables'], f'binaries.{name}.code_tables')
+
     if 'external_data' in info:
         _validate_external_data(info['external_data'],
                                 f'binaries.{name}.external_data')
@@ -60,6 +63,7 @@ def per_binary(sidecar, short_name):
         'immediate_labels': {},
         'external_data': {},
         'jump_tables': [],
+        'code_tables': [],
         'data_pointers': _pointer_assertions(
             sidecar.get('data_pointers', []), 'data_pointers'),
         'not_pointers': _pointer_assertions(
@@ -82,6 +86,7 @@ def per_binary(sidecar, short_name):
             result['immediate_labels'] = b.get('immediate_labels', {})
             result['external_data'] = _external_data_map(b.get('external_data', {}))
             result['jump_tables'] = b.get('jump_tables', [])
+            result['code_tables'] = b.get('code_tables', [])
             result['ghidra_base_offset'] = b.get('ghidra_base_offset', 0)
             result['fingerprint-start'] = b.get('fingerprint-start')
             result['fingerprint-end'] = b.get('fingerprint-end')

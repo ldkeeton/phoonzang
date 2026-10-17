@@ -247,7 +247,8 @@ def _replace_jump_span(records, binary_data, spec, entries):
 
 
 def _inject_jump_tables(records, specs, binary_data, start_offset,
-                        label_map, local_labels=None, o_corg=None):
+                        label_map, local_labels=None, o_corg=None,
+                        load_offset=0):
     """Replace detected switch-table data blocks with readable records.
 
     Table entries are read as raw little-endian words (order and duplicates
@@ -257,8 +258,11 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
 
     Overlay code addresses are ``o_corg``-based CS offsets, so a word *value*
     addresses file offset ``start_offset + (value - o_corg)`` and re-encodes as
-    ``label - IMAGE_BASE + o_corg``.  MZ/driver words are load-image offsets
-    (``value + start_offset``) and re-encode as ``label - IMAGE_BASE``.
+    ``label - IMAGE_BASE + o_corg``.  MZ words are load-image offsets
+    (``value + start_offset``) and re-encode as ``label - IMAGE_BASE``.  A raw
+    driver runs at ``CS:load_offset``, so its words are ``file + load_offset``
+    (``value + start_offset - load_offset``); ``IMAGE_BASE`` is ``-load_offset``,
+    so ``label - IMAGE_BASE`` re-encodes them unchanged.
 
     Returns ``(records, injected, synthesized)`` where *injected* maps each
     emitted table offset to its label and *synthesized* maps every generated
@@ -287,7 +291,7 @@ def _inject_jump_tables(records, specs, binary_data, start_offset,
         if o_corg is not None:
             target = start_offset + (value - o_corg)
         else:
-            target = value + start_offset
+            target = value + start_offset - load_offset
         return target if 0 <= target < total else None
 
     for spec in specs:

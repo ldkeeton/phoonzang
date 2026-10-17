@@ -378,6 +378,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     fragment_names = {range_name for _, _, range_name in split_ranges}
     local_labels = _compute_local_labels(
         local_targets, owners, roots, label_map, fragment_names,
+        split_ranges=split_ranges,
     )
     local_labels = {
         off: label for off, label in local_labels.items()
@@ -766,14 +767,15 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     if segments is not None and getattr(segments, 'overlay', None):
         o_corg = segments.overlay.get('o_corg')
     if table_specs:
+        load_offset = getattr(segments, 'load_offset', 0) or 0
         records, injected, synthesized = _inject_jump_tables(
             records, table_specs, binary_data, start_offset,
-            label_map, local_labels, o_corg=o_corg,
+            label_map, local_labels, o_corg=o_corg, load_offset=load_offset,
         )
         disp_labels = {
-            table_addr - start_offset: label
+            table_addr - start_offset + load_offset: label
             for table_addr, label in injected.items()
-            if 0 <= table_addr - start_offset < 0x10000
+            if 0 <= table_addr - start_offset + load_offset < 0x10000
         }
         # Overlay dispatchers carry an o_corg-based displacement; the emitted
         # ``label - IMAGE_BASE`` form would not reproduce it, so leave those

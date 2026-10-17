@@ -20,7 +20,7 @@ dos_file_loc_JRGK:
     add bx, ax                       ; 0x3f96
     mov ax, word [cs:bx]             ; 0x3f98
     mov word [cs:bx], 0              ; 0x3f9b
-    call leaf_loc_OVON               ; 0x3fa0
+    call leaf_loc_MIUO               ; 0x3fa0
     call loc_KLNH                    ; 0x3fa3
     jmp near @..dos_file_loc_JRGK.l8 ; 0x3fa6
 @..dos_file_loc_JRGK.l1:
@@ -60,7 +60,7 @@ dos_file_loc_JRGK:
     mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x4004
     cmp ax, word [cs:cseg_00ff - IMAGE_BASE] ; 0x4008
     jbe short @..dos_file_loc_JRGK.l4 ; 0x400d
-    jmp near @..dos_file_loc_JRGK.l10 ; 0x400f
+    jmp near loc_40cb                ; 0x400f
 @..dos_file_loc_JRGK.l4:
     mov ax, 0xfa00                   ; 0x4012
     mov word [bp - 0x0006], ax       ; 0x4015

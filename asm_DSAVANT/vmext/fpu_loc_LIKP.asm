@@ -35,7 +35,7 @@ jumptable_02a3:
     dw fpu_loc_OTPG - IMAGE_BASE + 0x5055      ; 0x02dd
     dw fpu_loc_OTPG - IMAGE_BASE + 0x5055      ; 0x02df
     dw fpu_loc_LTOU - IMAGE_BASE + 0x5055      ; 0x02e1
-@..api_idx_0002_HTRV.l1:
+loc_02e3:
     cmp ax, strict word 0x20         ; 0x02e3
     jae short loc_KJUH               ; 0x02e6
     xchg bx, ax                      ; 0x02e8

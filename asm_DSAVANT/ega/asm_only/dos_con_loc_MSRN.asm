@@ -10,7 +10,3 @@ dos_con_loc_MSRN:
     db 'In LOAD_SOUND() ... slot already used.', 0
     db 0x0a, 0x24
 
-@..dos_read_file_6.l5:
-    mov ax, cs                       ; 0x4b16
-    mov ds, ax                       ; 0x4b18
-    mov dx, 0x4c26                   ; 0x4b1a

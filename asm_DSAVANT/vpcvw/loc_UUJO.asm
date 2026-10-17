@@ -245,4 +245,4 @@ loc_UUJO:
     mov word [bp - 0x0024], ax       ; 0x733e
     mov al, byte [bp - 0x0042]       ; 0x7341
     sub ah, ah                       ; 0x7344
-    jmp near @..loc_UUJO.l11         ; 0x7346
+    jmp near loc_744d                ; 0x7346

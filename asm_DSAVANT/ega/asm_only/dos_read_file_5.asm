@@ -20,7 +20,7 @@ dos_read_file_5:
     add bx, ax                       ; 0x4647
     mov ax, word [cs:bx]             ; 0x4649
     mov word [cs:bx], 0              ; 0x464c
-    call leaf_loc_OVON               ; 0x4651
+    call leaf_loc_MIUO               ; 0x4651
     call loc_KLNH                    ; 0x4654
     jmp near @..dos_read_file_5.l8   ; 0x4657
 @..dos_read_file_5.l1:
@@ -94,7 +94,7 @@ dos_read_file_5:
     mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x4708
     cmp ax, word [cs:cseg_00ff - IMAGE_BASE] ; 0x470c
     jbe short @..dos_read_file_5.l4  ; 0x4711
-    jmp near @..dos_read_file_5.l10  ; 0x4713
+    jmp near loc_47f0                ; 0x4713
 @..dos_read_file_5.l4:
     mov ax, di                       ; 0x4716
     mov cl, 0xa                      ; 0x4718

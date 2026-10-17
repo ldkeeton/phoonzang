@@ -44,16 +44,15 @@ loc_QLKU:
     mov word [bp - 0x0016], 0x1d     ; 0x4b29
     mov word [bp - 0x0018], 5        ; 0x4b2e
     jmp short loc_IOTO               ; 0x4b33
-jumptable_4b3c_case_0:
-@..api_idx_0018_MOPR.l1:
+loc_4b35:
     mov word [bp - 0x0018], 0        ; 0x4b35
     jmp short loc_IOTO               ; 0x4b3a
 loc_RVNO:
 jumptable_4b3c:
-    dw jumptable_4b3c_case_0 - IMAGE_BASE + 0x5055 ; 0x4b3c
+    dw loc_4b35 - IMAGE_BASE + 0x5055          ; 0x4b3c
     dw leaf_loc_MVPS - IMAGE_BASE + 0x5055     ; 0x4b3e
     dw leaf_loc_RPIK - IMAGE_BASE + 0x5055     ; 0x4b40
-    dw jumptable_4b3c_case_0 - IMAGE_BASE + 0x5055 ; 0x4b42
+    dw loc_4b35 - IMAGE_BASE + 0x5055          ; 0x4b42
     dw leaf_loc_OKGJ - IMAGE_BASE + 0x5055     ; 0x4b44
     dw leaf_loc_RVOL - IMAGE_BASE + 0x5055     ; 0x4b46
     dw leaf_loc_HKVH - IMAGE_BASE + 0x5055     ; 0x4b48
@@ -64,14 +63,14 @@ jumptable_4b3c:
     dw loc_GGSR - IMAGE_BASE + 0x5055          ; 0x4b52
     dw loc_SUMM - IMAGE_BASE + 0x5055          ; 0x4b54
     dw loc_QLKU - IMAGE_BASE + 0x5055          ; 0x4b56
-@..api_idx_0018_MOPR.l2:
+loc_4b58:
     cmp ax, strict word 0xe          ; 0x4b58
-    jae short @..api_idx_0018_MOPR.l3 ; 0x4b5b
+    jae short loc_4b65               ; 0x4b5b
     xchg bx, ax                      ; 0x4b5d
     shl bx, 1                        ; 0x4b5e
     jmp [cs:bx - 0x647d]             ; 0x4b60
-@..api_idx_0018_MOPR.l3:
-    jmp short @..api_idx_0018_MOPR.l1 ; 0x4b65
+loc_4b65:
+    jmp short loc_4b35               ; 0x4b65
 loc_IOTO:
     cmp word [bp - 0x0018], byte 0   ; 0x4b67
     jne short loc_QIGQ               ; 0x4b6b

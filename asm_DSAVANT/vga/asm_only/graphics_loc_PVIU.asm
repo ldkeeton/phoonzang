@@ -12,11 +12,11 @@ graphics_loc_PVIU:
     mov ax, word [bp + 0x1a]         ; 0x31ee
     cmp al, 2                        ; 0x31f1
     jne short @..graphics_loc_PVIU.l1 ; 0x31f3
-    jmp near @..graphics_loc_PVIU.l53 ; 0x31f5
+    jmp near loc_3498                ; 0x31f5
 @..graphics_loc_PVIU.l1:
     cmp al, 3                        ; 0x31f8
     jne short @..graphics_loc_PVIU.l2 ; 0x31fa
-    jmp near @..graphics_loc_PVIU.l78 ; 0x31fc
+    jmp near loc_35d8                ; 0x31fc
 @..graphics_loc_PVIU.l2:
     mov ax, word [bp - 0x0006]       ; 0x31ff
     mov word [bp - 0x000e], ax       ; 0x3202
@@ -30,7 +30,7 @@ graphics_loc_PVIU:
     mov ax, word [bp + 0x1a]         ; 0x321b
     cmp al, 1                        ; 0x321e
     jne short @..graphics_loc_PVIU.l3 ; 0x3220
-    jmp near @..graphics_loc_PVIU.l28 ; 0x3222
+    jmp near loc_337c                ; 0x3222
 @..graphics_loc_PVIU.l3:
     mov ax, word [bp - 0x0028]       ; 0x3225
     add word [bp - 0x000e], ax       ; 0x3228

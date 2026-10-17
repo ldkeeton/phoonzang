@@ -60,4 +60,4 @@ dos_alloc_mem:
     jne short @..dos_alloc_mem.l2    ; 0x07f5
     mov dx, es                       ; 0x07f7
     xor ax, ax                       ; 0x07f9
-    jmp short @..dos_alloc_mem.l3    ; 0x07fb
+    jmp short loc_082e               ; 0x07fb

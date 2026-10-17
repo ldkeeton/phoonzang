@@ -1,7 +1,7 @@
 ; auto-generated
 ; asm only
 loc_LPSH:
-    jmp near loc_JTQK_0003
+    jmp near loc_JTQK_0003           ; 0x0000
 loc_JTQK_0003:
-    call loc_LPSH.mouse_init1
-    retf
+    call mouse_init                  ; 0x0003
+    retf                             ; 0x0006

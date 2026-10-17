@@ -4,4 +4,4 @@ api_idx_0002_HTRV:
     call aztec_csav
     mov word [api_idx_0002_HTRV.bss1], 0
     mov ax, word [bss_830c]
-    jmp short @..api_idx_0002_HTRV.l1
+    jmp short api_idx_0002_HTRV.loc1

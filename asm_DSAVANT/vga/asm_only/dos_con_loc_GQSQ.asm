@@ -10,7 +10,3 @@ dos_con_loc_GQSQ:
     db 'CACHESCREEN().  Requested slot already in use.', 0
     db 0x0a, 0x24, 0x33, 0xd2, 0x8b, 0xc2, 0xeb, 0xae
 
-@..dos_file_loc_JRGK.l10:
-    mov ax, cs                       ; 0x40cb
-    mov ds, ax                       ; 0x40cd
-    mov dx, 0x41db                   ; 0x40cf

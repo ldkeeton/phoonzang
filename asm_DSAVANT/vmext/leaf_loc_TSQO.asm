@@ -33,7 +33,7 @@ jumptable_3096:
     dw leaf_loc_MGPR - IMAGE_BASE + 0x5055     ; 0x309c
     dw leaf_loc_TSQO - IMAGE_BASE + 0x5055     ; 0x309e
     dw leaf_loc_TSQO - IMAGE_BASE + 0x5055     ; 0x30a0
-@..leaf_loc_RSTT.l39:
+loc_30a2:
     sub ax, strict word 0xa          ; 0x30a2
     cmp ax, strict word 6            ; 0x30a5
     jae short loc_LIQJ               ; 0x30a8

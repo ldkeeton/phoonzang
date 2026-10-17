@@ -46,7 +46,7 @@ jumptable_042b:
     dw leaf_loc_OTPG - IMAGE_BASE + 0x5055     ; 0x0465
     dw leaf_loc_OTPG - IMAGE_BASE + 0x5055     ; 0x0467
     dw leaf_loc_UTMM - IMAGE_BASE + 0x5055     ; 0x0469
-@..api_idx_0002_HTRV.l1:
+loc_046b:
     cmp ax, strict word 0x20         ; 0x046b
     jae short loc_KJUH               ; 0x046e
     xchg bx, ax                      ; 0x0470

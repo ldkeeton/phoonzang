@@ -91,7 +91,9 @@ def _code_off(ctx, value):
     """Translate an embedded CS offset to a file offset.
 
     Overlays store ``o_corg``-based CS values (``SegmentModel.code_offset``);
-    MZ images and drivers use the plain ``start_offset + value`` convention.
+    MZ images use the plain ``start_offset + value`` convention.  A raw driver
+    runs at ``CS:load_offset`` (0x100), so the value it stores is
+    ``file + load_offset`` and the file offset is ``value - load_offset``.
 
     Embedded code offsets are 16-bit.  capstone sign-extends a memory
     displacement whose high byte is set (e.g. ``jmp [cs:bx - 0x78c1]`` arrives
@@ -104,7 +106,8 @@ def _code_off(ctx, value):
         off = segments.code_offset(value)
         if off is not None:
             return off
-    return ctx.start_offset + value
+    load_offset = getattr(segments, 'load_offset', 0) or 0
+    return ctx.start_offset + value - load_offset
 
 
 def _scan_jump_table(data, start, conf_arr, max_index=None, translate=None):
@@ -134,6 +137,150 @@ def _scan_jump_table(data, start, conf_arr, max_index=None, translate=None):
     return start, set()
 
 
+def _register_indirect_table(ctx, data, data_boundary, result, md, worklist,
+                             dispatch_addr, disp, reason='jt_target',
+                             bounds=True):
+    """Read the table an indirect ``jmp``/``call [cs:reg+disp]`` indexes.
+
+    Records a :class:`JumpTableInfo`, seeds every target as code and votes the
+    table bytes as data.  Returns False when *disp* does not land in the image.
+
+    *bounds* enables the ``cmp ax, N; jcc`` length heuristic; a table read with
+    a plain ``mov`` (an IVT handler table) has no adjacent bounds check, so the
+    caller passes ``bounds=False`` and the run self-terminates at the first
+    out-of-image value.
+    """
+    n = len(data_boundary)
+    table = _code_off(ctx, disp)
+    if not (0 <= table < n):
+        return False
+    max_idx = (_find_jump_table_bounds(data, dispatch_addr, md, jt_addr=table)
+               if bounds else None)
+    tbl_end, targets = _scan_jump_table(
+        data, table, data_boundary,
+        max_index=max_idx,
+        translate=lambda v: _code_off(ctx, v),
+    )
+    if targets:
+        for t in targets:
+            if 0 <= t < n and not ctx.is_hard_data(t):
+                worklist.append(t)
+                _add_target(ctx, t, reason, _CONF_JT_CODE,
+                            source_offset=dispatch_addr)
+        for j in range(table, min(tbl_end, n)):
+            if result[j] == 0.0:
+                result[j] = _CONF_JT_DATA
+                data_boundary[j] = _CONF_JT_DATA
+    if all(jt.table_addr != table for jt in ctx.jump_tables):
+        ctx.jump_tables.append(JumpTableInfo(
+            table_addr=table, jmp_addr=dispatch_addr,
+            targets=sorted(targets), max_index=max_idx, table_end=tbl_end,
+        ))
+    return True
+
+
+def _ivt_source_registers(data, start, n):
+    """Registers a resident handler installer stores into the IVT.
+
+    The DOS session idiom is ``xor ax,ax; mov es,ax; mov di,<vector>; mov
+    ax,<reg>; stosw``: the handler offset arrives in *reg* and is written to
+    ``0000:<vector>``.  Returns the set of source register codes so the
+    matching ``mov reg, word [cs:base+disp]`` producer can be recognised as a
+    code-pointer table rather than a data read.
+    """
+    regs = set()
+    for p in range(start + 2, n):
+        if data[p] != 0xAB:                      # stosw
+            continue
+        if data[p - 2] != 0x8B or (data[p - 1] & 0xF8) != 0xC0:
+            continue                             # mov ax, <reg>
+        window = data[max(start, p - 24):p - 2]
+        if b'\x8e\xc0' not in window:            # mov es, ax (segment 0)
+            continue
+        if 0xBF not in window:                   # mov di, <vector offset>
+            continue
+        regs.add(data[p - 1] & 0x07)
+    return regs
+
+
+def _register_mov_code_tables(ctx, data, data_boundary, result, md, worklist):
+    """Seed handler entries named by an IVT-install code-pointer table.
+
+    A resident driver keeps a mode-indexed table of *runtime* CS offsets
+    (``file + load_offset``) and loads one with ``mov reg, word
+    [cs:base+disp]`` before storing it into ``0000:<vector>``.  The table is
+    read with a ``mov``, not a ``jmp``, so the indirect-table scan never sees
+    it and the handlers stay unrooted.  Only a table whose producer register is
+    the register the installer stores is registered, so a plain data read
+    through ``[cs:base+disp]`` (e.g. an AdLib register table) is not mistaken
+    for a handler table.
+    """
+    n = len(data)
+    regs = _ivt_source_registers(data, ctx.start_offset, n)
+    if not regs:
+        return
+    for i in range(ctx.start_offset, n - 3):
+        if data[i] != 0x2E or data[i + 1] != 0x8B:
+            continue
+        modrm = data[i + 2]
+        if (modrm & 0xC7) not in (0x87, 0x85):   # [cs:bx+disp16] / [cs:di+disp16]
+            continue
+        if ((modrm >> 3) & 0x07) not in regs:
+            continue
+        if ctx.is_hard_data(i) or data_boundary[i] < _HARD_DATA:
+            continue
+        disp = struct.unpack_from('<H', data, i + 3)[0]
+        _register_indirect_table(ctx, data, data_boundary, result, md,
+                                 worklist, i, disp, bounds=False)
+
+
+def _register_declared_code_table(ctx, data, data_boundary, result, md,
+                                  worklist, entry):
+    """Seed a code-pointer table declared in the sidecar.
+
+    Unlike an auto-detected table this is a stated fact, so the targets are
+    seeded *hard* (a later prune may not demote them) and the table bytes are
+    voted data.  ``table`` is a file offset; ``entry_size``/``count`` give the
+    geometry and each word is a runtime CS offset translated by ``_code_off``.
+    """
+    from lib.sidecar.offsets import _parse_offset
+
+    n = len(data)
+    table = _parse_offset(entry['table'], 'code_tables.table')
+    esize = int(entry.get('entry_size', 2))
+    if esize not in (2, 4):
+        return
+    count = entry.get('count')
+    if not isinstance(count, int) or count <= 0:
+        count = max(0, (n - table) // esize)
+    end = min(table + count * esize, n)
+    if not (0 <= table < n and table < end):
+        return
+    targets = []
+    for i in range(count):
+        off = table + i * esize
+        if off + 2 > n:
+            break
+        value = struct.unpack_from('<H', data, off)[0]
+        target = _code_off(ctx, value)
+        if not (0 <= target < n) or table <= target < end:
+            continue
+        targets.append(target)
+        if not ctx.is_hard_data(target):
+            worklist.append(target)
+            _add_target(ctx, target, 'code_table', _CONF_JT_CODE,
+                        source_offset=off)
+    for j in range(table, end):
+        if result[j] == 0.0:
+            result[j] = _CONF_JT_DATA
+            data_boundary[j] = _CONF_JT_DATA
+    if all(jt.table_addr != table for jt in ctx.jump_tables):
+        ctx.jump_tables.append(JumpTableInfo(
+            table_addr=table, jmp_addr=-1, targets=sorted(set(targets)),
+            max_index=count - 1, table_end=end,
+        ))
+
+
 def _add_target(ctx, address, reason, confidence, source_offset=-1):
     if ctx.is_hard_data(address):
         if ctx.trace:
@@ -150,7 +297,8 @@ def _add_target(ctx, address, reason, confidence, source_offset=-1):
     else:
         ctx.entry_targets.add(address)
     existing = ctx.code_targets.get(address)
-    hard = reason in ('direct_call', 'direct_jump', 'conditional_jump')
+    hard = reason in ('direct_call', 'direct_jump', 'conditional_jump',
+                      'code_table')
     accepted = (existing is None or confidence > existing.confidence
                 or (hard and not existing.hard))
     if accepted:
@@ -361,36 +509,24 @@ class RecursiveDescentPhase(Phase):
         for scan_idx in range(ctx.start_offset, n - 5):
             if ctx.is_hard_data(scan_idx):
                 continue
+            # ``cs: jmp/call word [bx|di + disp16]`` (FF /4 and FF /2).
             if (data[scan_idx] != 0x2E or data[scan_idx + 1] != 0xFF
-                    or data[scan_idx + 2] not in (0xA7, 0xA5)):
+                    or data[scan_idx + 2] not in (0xA7, 0xA5, 0x97, 0x95)):
                 continue
             if data_boundary[scan_idx] < _HARD_DATA:
                 continue
             disp = struct.unpack_from('<H', data, scan_idx + 3)[0]
-            tgt = _code_off(ctx, disp)
-            if not (0 <= tgt < n):
-                continue
-            max_idx = _find_jump_table_bounds(data, scan_idx, md, jt_addr=tgt)
-            tbl_end, jt_tgts = _scan_jump_table(
-                data, tgt, data_boundary,
-                max_index=max_idx,
-                translate=lambda v: _code_off(ctx, v),
-            )
-            jt_info = JumpTableInfo(
-                table_addr=tgt, jmp_addr=scan_idx,
-                targets=sorted(jt_tgts), max_index=max_idx,
-                table_end=tbl_end,
-            )
-            if jt_tgts:
-                for t in jt_tgts:
-                    if 0 <= t < n and not ctx.is_hard_data(t):
-                        worklist.append(t)
-                        _add_target(ctx, t, 'jt_target', _CONF_JT_CODE, source_offset=scan_idx)
-                for j in range(tgt, min(tbl_end, n)):
-                    if result[j] == 0.0:
-                        result[j] = _CONF_JT_DATA
-                        data_boundary[j] = _CONF_JT_DATA
-            ctx.jump_tables.append(jt_info)
+            _register_indirect_table(ctx, data, data_boundary, result, md,
+                                     worklist, scan_idx, disp)
+
+        # A driver's IVT-installed handler table is read with a ``mov`` and
+        # stored with ``stosw``, so the ``jmp``-scan above never sees it.
+        _register_mov_code_tables(ctx, data, data_boundary, result, md,
+                                  worklist)
+        for entry in (ctx.sidecar_entry or {}).get('code_tables', []):
+            if isinstance(entry, dict) and 'table' in entry:
+                _register_declared_code_table(ctx, data, data_boundary, result,
+                                              md, worklist, entry)
 
         ctx.blocks = []
 
@@ -515,30 +651,10 @@ class RecursiveDescentPhase(Phase):
                                 break
                         use_jt = has_base and mem_disp is not None
                         if use_jt:
-                            new_start = _code_off(ctx, mem_disp)
-                            if not (0 <= new_start < n):
+                            if not _register_indirect_table(
+                                    ctx, data, data_boundary, result, md,
+                                    worklist, off, mem_disp):
                                 break
-                            max_idx = _find_jump_table_bounds(data, off, md, jt_addr=new_start)
-                            tbl_end, jt_tgts = _scan_jump_table(
-                                data, new_start, data_boundary,
-                                max_index=max_idx,
-                                translate=lambda v: _code_off(ctx, v),
-                            )
-                            jt_info = JumpTableInfo(
-                                table_addr=new_start, jmp_addr=off,
-                                targets=sorted(jt_tgts), max_index=max_idx,
-                                table_end=tbl_end,
-                            )
-                            if jt_tgts:
-                                for t in jt_tgts:
-                                    if 0 <= t < n and not ctx.is_hard_data(t):
-                                        worklist.append(t)
-                                        _add_target(ctx, t, 'jt_target', _CONF_JT_CODE, source_offset=off)
-                                for j in range(new_start, min(tbl_end, n)):
-                                    if result[j] == 0.0:
-                                        result[j] = _CONF_JT_DATA
-                                        data_boundary[j] = _CONF_JT_DATA
-                            ctx.jump_tables.append(jt_info)
                         elif mem_disp is not None:
                             ptr_addr = _code_off(ctx, mem_disp)
                             if 0 <= ptr_addr < n - 2:
@@ -598,7 +714,17 @@ class RecursiveDescentPhase(Phase):
                     fork_ranges.append((spec_start, insn_end))
                     fork_exits.append('call')
                     spec_start = insn_end
-                    if not is_indirect(insn):
+                    if is_indirect(insn):
+                        # Only ``cs:`` operands index a table in the code image.
+                        for op in insn.operands:
+                            if op.type == CS_OP_MEM:
+                                if (op.mem.base != 0
+                                        and insn.bytes[:1] == b'\x2e'):
+                                    _register_indirect_table(
+                                        ctx, data, data_boundary, result, md,
+                                        worklist, off, op.mem.disp & 0xFFFF)
+                                break
+                    else:
                         target = get_imm_target(insn)
                         if target is not None and 0 <= target < n:
                             if tlog:

@@ -11,7 +11,7 @@ loc_JTQT:
     mov ax, ds                       ; 0x2532
     mov es, ax                       ; 0x2534
     call leaf_loc_LMQV               ; 0x2536
-    call graphics_loc_LQRJ           ; 0x2539
+    call graphics_loc_RNOG           ; 0x2539
 @..loc_JTQT.l1:
     xor ax, ax                       ; 0x253c
     mov word [bp - 0x0022], ax       ; 0x253e
@@ -268,7 +268,7 @@ loc_JTQT:
     jmp near @..loc_JTQT.l1          ; 0x276e
 @..loc_JTQT.l36:
     call leaf_loc_PRNU               ; 0x2771
-    call bios_mouse_loc_USQU         ; 0x2774
+    call bios_mouse_loc_PTIM         ; 0x2774
     pop di                           ; 0x2777
     pop si                           ; 0x2778
     pop es                           ; 0x2779

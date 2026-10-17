@@ -20,7 +20,7 @@ dos_file_loc_GRNS:
     add bx, ax                       ; 0x4848
     mov ax, word [cs:bx]             ; 0x484a
     mov word [cs:bx], 0              ; 0x484d
-    call leaf_loc_OVON               ; 0x4852
+    call leaf_loc_MIUO               ; 0x4852
     call loc_KLNH                    ; 0x4855
     jmp near @..dos_file_loc_GRNS.l8 ; 0x4858
 @..dos_file_loc_GRNS.l1:
@@ -60,7 +60,7 @@ dos_file_loc_GRNS:
     mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x48b6
     cmp ax, word [cs:cseg_00ff - IMAGE_BASE] ; 0x48ba
     jbe short @..dos_file_loc_GRNS.l4 ; 0x48bf
-    jmp near @..dos_file_loc_GRNS.l10 ; 0x48c1
+    jmp near loc_497d                ; 0x48c1
 @..dos_file_loc_GRNS.l4:
     mov ax, 0xfa00                   ; 0x48c4
     mov word [bp - 0x0006], ax       ; 0x48c7

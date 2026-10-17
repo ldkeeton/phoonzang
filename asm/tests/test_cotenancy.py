@@ -43,7 +43,13 @@ _TREE = _ASM_DIR.parent / 'asm_DSAVANT'
 #: file (no bare code in the masters) revealed one more glued fragment: 211 -> **212**, and code that used to sit
 #: bare in the masters now shows up in fragments: ``code_outside`` 213 -> **235**
 #: (mostly switch arms split from their table, e.g. ``jumptable_436e_case_*``).
-COTENANCY_BASELINE = {'glued_files': 212, 'code_outside': 235, 'data_outside': 7}
+#:
+#: Working tree (raw-driver load origin + cross-fragment exits): a driver's
+#: stored code pointer is ``file + load_offset``, so the driver switch tables
+#: inject their arms, and a branch target laid out inside another routine's
+#: fragment is rooted rather than left as a ``@..owner.lN`` local.  Re-measured
+#: 212/235/7 -> **244/267/10**; the goal is still 0.
+COTENANCY_BASELINE = {'glued_files': 244, 'code_outside': 267, 'data_outside': 10}
 
 
 def _write(path, text):

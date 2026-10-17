@@ -130,4 +130,4 @@ jumptable_1b11:
     jmp near loc_RMTV                ; 0x1b3e
 @..api_idx_0008_SLRI.l7:
     mov ax, word [bss_91a8]          ; 0x1b41
-    jmp short @..api_idx_0008_SLRI.l8 ; 0x1b44
+    jmp short loc_1bac               ; 0x1b44
