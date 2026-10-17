@@ -20,8 +20,9 @@ from tests.slow import slow
 
 from lib.compare.render import HOST_SYMBOLS_INC, _build_source
 from lib.compare.records import (
-    DISPATCH_STRIDE, count_frozen_addrs, count_hidden_flow, count_name_use,
-    dispatch_handlers, far_entry_runs, instruction_offsets, thunk_entry_count,
+    DISPATCH_STRIDE, count_ds_index, count_frozen_addrs, count_hidden_flow,
+    count_name_use, count_string_immediates, dispatch_handlers, far_entry_runs,
+    instruction_offsets, thunk_entry_count,
 )
 from lib.compare.cotenancy import symbol_tables
 from lib.sidecar.loader import load as load_sidecar
@@ -213,6 +214,15 @@ BASELINE_TOTALS = {
     # ``names_inert`` 24 -> **0**, ``total`` 26 -> **0** (both ratcheted here).
     'names_used': 7, 'names_inert': 0, 'hidden_flow': 150,
     'total': 0,
+    # Two classes the per-file census cannot see, because telling an address
+    # from a number needs the binary's data segment (plan.md section 5, "DS
+    # addresses spelled as numbers in code", 2026-10-17).  ``str_imm``: a
+    # ``mov`` immediate that is a DS string's address (``mov ax, 0x1630`` =
+    # ``"nul"``; console strings in the drivers).  ``ds_index``: a
+    # ``[bx/si/di + disp]`` whose displacement is a DS address (an overlay
+    # indexing a host array, ``[bx + 0x5c0c]``).  Both are shape tests, so a
+    # few hits are numbers; both only fall.
+    'str_imm': 746, 'ds_index': 2178,
     # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
     # returns; the call is followed by N-1 keys and N case targets.  The decoder
     # used to fall through the call and decode the target words as ``jcc``s,
@@ -511,6 +521,59 @@ def _scan_hidden_flow():
     return hits
 
 
+#: A raw driver runs at ``CS:0x100`` with ``DS = CS``.
+_DRIVER_LOAD = 0x100
+
+
+def _ds_views():
+    """``{binary: bytes}``: the data segment each binary's code runs with.
+
+    An MZ image's is its own DATA segment; an overlay's is the host's, with its
+    own initialized data loaded at ``o_dorg``; a raw driver's is its image at
+    ``CS:0x100``.  A byte that is not file-backed reads as zero.
+    """
+    from lib.segments import from_binary
+    app_dir = _PROJECT_ROOT / 'apps' / 'DSAVANT'
+    sidecar = load_sidecar('DSAVANT')
+    views, images = {}, {}
+    for binary in sorted(sidecar['binaries']):
+        info = per_binary(sidecar, binary)
+        image = app_dir / info['file']
+        if image.is_file():
+            images[binary] = (info['type'], image.read_bytes())
+    host = None
+    for binary, (kind, data) in images.items():
+        if kind == 'mz':
+            views[binary] = data[from_binary(data, 'mz').data_origin:]
+            if binary == 'ds':
+                host = views[binary]
+        elif kind == 'raw_drv':
+            views[binary] = bytes(_DRIVER_LOAD) + data
+    for binary, (kind, data) in images.items():
+        if kind == 'aztec_overlay' and host is not None:
+            _, _, csize, dorg, dsize = struct.unpack_from('<5H', data)
+            own = data[14 + csize:14 + csize + dsize]
+            views[binary] = (host[:dorg].ljust(dorg, b'\0') + own)
+    return views
+
+
+def _scan_ds_refs():
+    """``(str_imm, ds_index)`` hit lists over every binary (Section 5)."""
+    if not _TREE.is_dir():
+        return [], []
+    str_imm, ds_index = [], []
+    sidecar = load_sidecar('DSAVANT')
+    drivers = {b for b in sidecar['binaries']
+               if per_binary(sidecar, b)['type'] == 'raw_drv'}
+    for binary, ds in _ds_views().items():
+        for path in _binary_sources(binary):
+            text = path.read_text(errors='ignore')
+            str_imm += [(binary, *h) for h in count_string_immediates(
+                text, ds, console=binary in drivers)]
+            ds_index += [(binary, *h) for h in count_ds_index(text, len(ds))]
+    return str_imm, ds_index
+
+
 def _scan_tree():
     census = count_frozen_addrs('')      # the per-file keys, all zero
     symbols = symbol_tables('DSAVANT')
@@ -528,7 +591,42 @@ def _scan_tree():
     census['names_used'] = use['names_used']
     census['names_inert'] = use['names_inert']
     census['hidden_flow'] = len(_scan_hidden_flow())
+    str_imm, ds_index = _scan_ds_refs()
+    census['str_imm'] = len(str_imm)
+    census['ds_index'] = len(ds_index)
     return census
+
+
+class DsReferenceCountTests(unittest.TestCase):
+    #: DS 0x100: "nul" after a NUL; DS 0x110: a console string after code.
+    DS = (bytes(0xff) + b'\0nul\0' + bytes(0x0b)
+          + b'\xcd\x21\r\n\x07MAZE SET ERROR.\0' + bytes(0x200))
+
+    def test_an_immediate_on_a_string_start_is_counted(self):
+        hits = count_string_immediates('\n'.join([
+            '    mov ax, 0x100                    ; 0x0f89',
+            '    mov ax, 0x101                    ; 0x0f8c',   # mid-string
+            '    mov ax, 0x26                     ; 0x0f8f',   # a small number
+            '    mov ax, dseg_0100                ; 0x0f92',
+        ]), self.DS)
+        self.assertEqual(hits, [(0x0f89, 0x100)])
+
+    def test_a_console_string_needs_the_driver_rule(self):
+        line = '    mov dx, 0x112                    ; 0x0fde'
+        self.assertEqual(count_string_immediates(line, self.DS), [])
+        self.assertEqual(count_string_immediates(line, self.DS, console=True),
+                         [(0x0fde, 0x112)])
+
+    def test_a_ds_table_displacement_is_counted(self):
+        hits = count_ds_index('\n'.join([
+            '    mov word [bx + 0x5c0c], ax       ; 0x032a',
+            '    push word [bx + 0x1a1]           ; 0x0d26',
+            '    mov al, byte [bx + si + 0x2a]    ; 0x0d2a',   # a field
+            '    mov al, byte [cs:bx + 0x1529]    ; 0x0205',   # cs_index
+            '    mov ax, word [bp + 0x1a1]        ; 0x0d30',   # a frame slot
+            '    mov ax, word [bx + 0xf000]       ; 0x0d34',   # past DS
+        ]), 0x9098)
+        self.assertEqual(hits, [(0x032a, 0x5c0c), (0x0d26, 0x1a1)])
 
 
 class CountFrozenAddrsTests(unittest.TestCase):
@@ -1714,6 +1812,43 @@ class InsertBytePropertyTests(unittest.TestCase):
             self.assertEqual(
                 grown[new_origin + new_start:new_origin + new_start + 23],
                 content)
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
+                         'generated src_DSAVANT tree not present')
+    def test_vinstall_file_list_follows_an_inserted_byte(self):
+        """A ``pointer_arrays`` table: every word follows a data edit.
+
+        The install file list (file 0x3d89, odd DS 0x02a9) is 156 records of
+        ``{disk, name, letter x3}``.  A byte inserted before ``"WROOT.EXE"``
+        (record 1's name) moves the words naming it and every later string by
+        one and leaves record 0's words alone.
+        """
+        table, records = 0x3d89, 156
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'vinstall.asm')
+            original = _nasm_file(master, d)
+            data_origin = 0x200 + struct.unpack_from('<H', original, 14)[0] * 16
+            name = struct.unpack_from('<H', original, table + 10 + 2)[0]
+            self.assertEqual(
+                original[data_origin + name:data_origin + name + 10],
+                b'WROOT.EXE\x00')
+
+            with open(master) as f:
+                src = f.read()
+            label = f'__zdseg_{name:04x}:'
+            grown_src = src.replace(label, f'    db 0xee\n{label}', 1)
+            self.assertNotEqual(grown_src, src)
+            with open(master, 'w') as f:
+                f.write(grown_src)
+            grown = _nasm_file(master, d)
+
+            for record in range(records):
+                for field in (2, 4, 6, 8):
+                    off = table + record * 10 + field
+                    old = struct.unpack_from('<H', original, off)[0]
+                    new = struct.unpack_from('<H', grown, off)[0]
+                    self.assertEqual(new, old + (old >= name), hex(off))
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
                          'generated src_DSAVANT tree not present')

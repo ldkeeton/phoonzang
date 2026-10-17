@@ -441,6 +441,16 @@ def _array_run_offsets(data, segments, emit_class, known_addrs, min_len=3):
     return run_offsets, run_targets
 
 
+def scored_corpus(data_pointers):
+    """``{offset: entry}``: the corpus words the scorer is measured against.
+
+    A ``pointer_arrays`` word (it carries ``array``) is a declared layout at
+    any byte, outside the scorer's aligned sweep: it is promoted as stated,
+    and counting it would score the sweep on words it is not built to see.
+    """
+    return {e['offset']: e for e in (data_pointers or ()) if 'array' not in e}
+
+
 def score_candidates(data, segments, emit_class, *, instructions=(),
                      segment_flow=None, known_addrs=(), regions=(),
                      reloc_targets=None, data_pointers=(), not_pointers=()):
@@ -460,7 +470,7 @@ def score_candidates(data, segments, emit_class, *, instructions=(),
 
     known_addrs = set(known_addrs)
     reloc_targets = set(reloc_targets or ())
-    corpus_pos = {e['offset']: e for e in (data_pointers or ())}
+    corpus_pos = scored_corpus(data_pointers)
     corpus_neg = {e['offset']: e for e in (not_pointers or ())}
 
     word_reads = set()
@@ -616,7 +626,7 @@ def _score_driver(data, segments, emit_class, instructions, segment_flow,
     report = _empty_report()
     if segment_flow is None or not instructions:
         return report
-    corpus_pos = {e['offset']: e for e in (data_pointers or ())}
+    corpus_pos = scored_corpus(data_pointers)
     corpus_neg = {e['offset']: e for e in (not_pointers or ())}
     consumed = _consumed_reads(instructions, segments, segment_flow)
     candidates = []

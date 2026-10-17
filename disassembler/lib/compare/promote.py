@@ -67,6 +67,8 @@ def merge_promotions(accepted, data_pointers):
             'space': entry.get('space', 'ds'),
             'source': 'corpus',
         }
+        if 'array' in entry:
+            merged[offset]['array'] = entry['array']
     return [merged[offset] for offset in sorted(merged)]
 
 
@@ -115,12 +117,53 @@ def _split_records(records, binary_data, offset, expr):
     return None
 
 
+def _check_array_word(binary_data, data_origin, bss_boundary, table, offset,
+                      value):
+    """Raise unless a declared array's DS word names a string.
+
+    The sidecar states the layout; the bytes must agree with it: the target is
+    file-backed DS and a printable NUL-terminated run starts there (an empty
+    string is a run of length 0).
+    """
+    from lib.sidecar.errors import SidecarError
+
+    target = data_origin + value
+    end = binary_data.find(b'\0', target) if value < bss_boundary else -1
+    if (not 0 < value < bss_boundary or end < 0
+            or any(b < 0x20 or b > 0x7e for b in binary_data[target:end])):
+        raise SidecarError(
+            f'pointer_arrays table 0x{table:x}: word at 0x{offset:x} '
+            f'(0x{value:04x}) does not name a DS string')
+
+
 def _ds_expression(value, bss_boundary, mem_equ, data_names=None):
     """Symbolic expression for a DS offset, registering its ``equ`` name."""
     name = (data_names or {}).get(value) or Symbol.data(
         Space.DS if value < bss_boundary else Space.BSS, value)
     mem_equ.setdefault(name, value)
     return name
+
+
+def _array_word_expression(records, binary_data, data_origin, value,
+                           mem_equ, data_names=None):
+    """Expression for a declared array word: its string's label, unaliased.
+
+    A string that only the array points at needs no ``dseg_`` name: the word
+    is the string's label minus ``__zdseg_start`` directly, so the table does
+    not add one ``equ`` line per string.  A string the code also names keeps
+    that name.  None when the string cannot be labelled.
+    """
+    from lib.compare.render import _anchor_data_byte
+    name = (data_names or {}).get(value) or Symbol.data(Space.DS, value)
+    if name in mem_equ:
+        return name
+    anchored = _anchor_data_byte(records, binary_data, data_origin + value,
+                                 data_origin, value, name, set())
+    if anchored is None:
+        return None
+    anchor, delta = anchored
+    expr = f'{anchor} - __zdseg_start'
+    return expr + f' + 0x{delta:04x}' if delta else expr
 
 
 def promote_data_pointers(records, binary_data, start_offset, segments,
@@ -152,15 +195,29 @@ def promote_data_pointers(records, binary_data, start_offset, segments,
     skipped = []
     for entry in promoted:
         offset = entry['offset']
-        if (offset & 1 and not driver) or offset + 2 > len(binary_data):
+        # A declared array lays its records out at any byte, as the C
+        # compiler packed them; a scored word is an aligned guess.
+        declared = 'array' in entry
+        if ((offset & 1 and not driver and not declared)
+                or offset + 2 > len(binary_data)):
             skipped.append({'offset': offset, 'reason': 'misaligned'})
             continue
         value = struct.unpack_from('<H', binary_data, offset)[0]
         space = entry.get('space', 'ds')
+        if declared and space == 'ds' and not driver:
+            _check_array_word(binary_data, data_origin, bss_boundary,
+                              entry['array'], offset, value)
         if not anchored:
             skipped.append({'offset': offset, 'reason': 'no-data-anchor'})
             continue
-        if space == 'ds' and not driver:
+        if declared and space == 'ds' and not driver:
+            expr = _array_word_expression(records, binary_data, data_origin,
+                                          value, mem_equ, segments.data_names)
+            if expr is None:
+                skipped.append({'offset': offset,
+                                'reason': 'unlabelable-target'})
+                continue
+        elif space == 'ds' and not driver:
             expr = _ds_expression(value, bss_boundary, mem_equ,
                                   segments.data_names)
         elif space == 'cs':

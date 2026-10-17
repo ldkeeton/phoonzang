@@ -140,7 +140,7 @@ class ExpressionTests(unittest.TestCase):
         self.assertEqual(mem_equ, {'bss_0020': 0x20})
 
     def test_existing_equ_is_not_clobbered(self):
-        mem_equ = {'dseg_0008': 0x08}
+        mem_equ = {PR.Symbol.data(PR.Space.DS, 0x08): 0x08}
         PR._ds_expression(0x08, 0x20, mem_equ)
         self.assertEqual(mem_equ, {'dseg_0008': 0x08})
 
@@ -233,6 +233,94 @@ class SyntheticPromotionTests(unittest.TestCase):
             [{'offset': 0x210, 'space': 'ds'}], {})
         self.assertEqual(report['promoted'], [])
         self.assertEqual(report['skipped'][0]['reason'], 'no-data-anchor')
+
+
+class PointerArraySidecarTests(unittest.TestCase):
+    """``pointer_arrays``: one declaration, one assertion per pointer word."""
+
+    def test_expands_every_field_of_every_record(self):
+        from lib.sidecar.pointers import _expand_pointer_arrays
+        words = _expand_pointer_arrays(
+            [{'table': '101', 'stride': 6, 'count': 2, 'fields': [2, 4]}], 't')
+        self.assertEqual([w['offset'] for w in words],
+                         [0x103, 0x105, 0x109, 0x10b])
+        self.assertTrue(all(w['array'] == 0x101 and w['space'] == 'ds'
+                            for w in words))
+
+    def test_a_field_past_the_record_is_rejected(self):
+        from lib.sidecar.errors import SidecarError
+        from lib.sidecar.pointers import _validate_pointer_arrays
+        with self.assertRaises(SidecarError):
+            _validate_pointer_arrays(
+                [{'table': '10', 'stride': 4, 'count': 1, 'fields': [3]}], 't')
+
+    def test_an_array_word_cannot_also_be_a_not_pointer(self):
+        from lib.sidecar.errors import SidecarError
+        from lib.sidecar.pointers import _validate_corpus
+        with self.assertRaises(SidecarError):
+            _validate_corpus({
+                'pointer_arrays': [{'table': '10', 'stride': 4, 'count': 1,
+                                    'fields': [2]}],
+                'not_pointers': [{'offset': '12'}],
+            }, 't')
+
+    def test_the_vinstall_file_list_is_declared(self):
+        entry = sidecar_per_binary(load_sidecar('DSAVANT'), 'vinstall')
+        words = [w for w in entry['data_pointers'] if w.get('array') == 0x3d89]
+        self.assertEqual(len(words), 156 * 4)
+
+
+class DeclaredArrayPromotionTests(unittest.TestCase):
+    """A ``pointer_arrays`` word: any byte offset, checked against the bytes."""
+
+    def _binary(self, value=0x0008):
+        data = bytearray(0x20)
+        struct.pack_into('<H', data, 0x1, value)    # odd: ds 0x01 -> ds 0x08
+        data[0x08:0x0b] = b'AB\0'
+        data[0x0c:0x0e] = b'\x01\0'
+        return _synthetic(data)
+
+    def _promote(self, binary, entry):
+        return PR.promote_data_pointers(
+            _records(binary), binary, 0x200, _model(binary), [entry], {})
+
+    def test_a_declared_odd_word_is_promoted(self):
+        binary = self._binary()
+        records = _records(binary)
+        mem_equ = {}
+        records, report = PR.promote_data_pointers(
+            records, binary, 0x200, _model(binary),
+            [{'offset': 0x211, 'space': 'ds', 'array': 0x211}], mem_equ)
+        self.assertEqual([w['offset'] for w in report['promoted']], [0x211])
+        src, _ = _build_source(records, 0x200, binary, label_map={},
+                               mem_equ=mem_equ)
+        # The string only the array names gets no ``dseg_`` alias.
+        self.assertIn('dw __zdseg_0008 - __zdseg_start', src)
+        self.assertNotIn('dseg_0008 equ', src)
+        self.assertEqual(_nasm(src), binary)
+
+    def test_a_declared_word_keeps_a_name_the_code_uses(self):
+        binary = self._binary()
+        records = _records(binary)
+        mem_equ = {PR.Symbol.data(PR.Space.DS, 0x08): 0x08}
+        records, _ = PR.promote_data_pointers(
+            records, binary, 0x200, _model(binary),
+            [{'offset': 0x211, 'space': 'ds', 'array': 0x211}], mem_equ)
+        src, _ = _build_source(records, 0x200, binary, label_map={},
+                               mem_equ=mem_equ)
+        self.assertIn('dw dseg_0008', src)
+        self.assertEqual(_nasm(src), binary)
+
+    def test_a_scored_odd_word_stays_raw(self):
+        _, report = self._promote(self._binary(),
+                                  {'offset': 0x211, 'space': 'ds'})
+        self.assertEqual(report['skipped'][0]['reason'], 'misaligned')
+
+    def test_a_declared_word_must_name_a_string(self):
+        from lib.sidecar.errors import SidecarError
+        with self.assertRaises(SidecarError):
+            self._promote(self._binary(value=0x000c),   # a control byte
+                          {'offset': 0x211, 'space': 'ds', 'array': 0x211})
 
 
 @slow

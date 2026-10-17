@@ -353,7 +353,7 @@ class PointerCorpusPipelineTests(unittest.TestCase):
 
     def _asserted_offsets(self):
         entry = sidecar_per_binary(self.sidecar, 'vinstall')
-        return {e['offset'] for e in entry['data_pointers']}
+        return set(P.scored_corpus(entry['data_pointers']))
 
     def test_promoted_set_is_within_the_corpus(self):
         asserted = self._asserted_offsets()

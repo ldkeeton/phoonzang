@@ -128,8 +128,6 @@ def cmd_test(patterns):
         every = list(_flatten(loader.discover(
             os.path.join(ASM, 'tests'), top_level_dir=ASM)))
         tests = [t for t in every if not _is_slow(t)]
-        print(f'{len(every) - len(tests)} slow tests skipped '
-              f'(make test slow)')
         suite = _TimedSuite(tests)
     result = unittest.TextTestRunner(
         verbosity=2, resultclass=_TimedResult).run(suite)

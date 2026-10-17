@@ -4,7 +4,8 @@ from .constants import _BINARY_TYPES, _IDENTIFIER
 from .errors import SidecarError
 from .external_data import _external_data_map, _validate_external_data
 from .jump_tables import _validate_jump_tables, _validate_code_tables
-from .pointers import _pointer_assertions, _validate_corpus
+from .pointers import (_expand_pointer_arrays, _pointer_assertions,
+                       _validate_corpus)
 from .ranges import _validate_ranges, validate_force_ranges
 
 
@@ -48,7 +49,8 @@ def per_binary(sidecar, short_name):
 
     Returns a dict with keys:
         file, type, start_offset, entry_symbol, function_names, force_data,
-        force_code, external_data, data_pointers, not_pointers,
+        force_code, external_data, data_pointers (with each
+        ``pointer_arrays`` word expanded into it), not_pointers,
         immediate_pointers,
         fingerprint-start, fingerprint-end
 
@@ -96,7 +98,9 @@ def per_binary(sidecar, short_name):
             result['force_code'] = b.get('force_code', sidecar.get('force_code', []))
             result['data_pointers'] = _pointer_assertions(
                 b.get('data_pointers', sidecar.get('data_pointers', [])),
-                f'binaries.{short_name}.data_pointers')
+                f'binaries.{short_name}.data_pointers') + _expand_pointer_arrays(
+                b.get('pointer_arrays', []),
+                f'binaries.{short_name}.pointer_arrays')
             result['not_pointers'] = _pointer_assertions(
                 b.get('not_pointers', sidecar.get('not_pointers', [])),
                 f'binaries.{short_name}.not_pointers')

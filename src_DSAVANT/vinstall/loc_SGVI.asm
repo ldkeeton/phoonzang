@@ -260,7 +260,7 @@ loc_SGVI:
     lea ax, word [bp - 0x003e]       ; 0x1538
     push ax                          ; 0x153b
     push word [bp - 0x0010]          ; 0x153c
-    call leaf_loc_IRLU               ; 0x153f
+    call leaf_loc_UVRI               ; 0x153f
     add sp, byte 6                   ; 0x1542
     mov ax, 0x1bce                   ; 0x1545
     push ax                          ; 0x1548
@@ -1041,7 +1041,7 @@ jumptable_1f81_case_3:
     lea ax, word [bp - 0x003e]       ; 0x1c67
     push ax                          ; 0x1c6a
     push word [bp - 0x0010]          ; 0x1c6b
-    call leaf_loc_IRLU               ; 0x1c6e
+    call leaf_loc_UVRI               ; 0x1c6e
     add sp, byte 6                   ; 0x1c71
     mov ax, 0x1efc                   ; 0x1c74
     push ax                          ; 0x1c77

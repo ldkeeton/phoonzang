@@ -1,94 +1,52 @@
 ; auto-generated
-leaf_loc_IRLU:
-    push bp                          ; 0x10a4
-    mov bp, sp                       ; 0x10a5
-    mov ax, word [bp + 0x4]          ; 0x10a7
-    jmp near @..leaf_loc_IRLU.l1     ; 0x10aa
-jumptable_113a_case_0:
-    mov ax, 0x166c                   ; 0x10ad
-    push ax                          ; 0x10b0
-    push word [bp + 0x6]             ; 0x10b1
-    call aztec_strcpy                ; 0x10b4
-    add sp, byte 4                   ; 0x10b7
-    mov ax, 0x166f                   ; 0x10ba
-    push ax                          ; 0x10bd
-    push word [bp + 0x8]             ; 0x10be
-    call aztec_strcpy                ; 0x10c1
-    add sp, byte 4                   ; 0x10c4
-    jmp near @..leaf_loc_IRLU.l2     ; 0x10c7
-jumptable_113a_case_1:
-    mov ax, 0x1672                   ; 0x10ca
-    push ax                          ; 0x10cd
-    push word [bp + 0x6]             ; 0x10ce
-    call aztec_strcpy                ; 0x10d1
-    add sp, byte 4                   ; 0x10d4
-    mov ax, 0x1675                   ; 0x10d7
-    push ax                          ; 0x10da
-    push word [bp + 0x8]             ; 0x10db
-    call aztec_strcpy                ; 0x10de
-    add sp, byte 4                   ; 0x10e1
-    jmp short @..leaf_loc_IRLU.l2    ; 0x10e4
-jumptable_113a_case_2:
-    mov ax, 0x1676                   ; 0x10e6
-    push ax                          ; 0x10e9
-    push word [bp + 0x6]             ; 0x10ea
-    call aztec_strcpy                ; 0x10ed
-    add sp, byte 4                   ; 0x10f0
-    mov ax, 0x1679                   ; 0x10f3
-    push ax                          ; 0x10f6
-    push word [bp + 0x8]             ; 0x10f7
-    call aztec_strcpy                ; 0x10fa
-    add sp, byte 4                   ; 0x10fd
-    jmp short @..leaf_loc_IRLU.l2    ; 0x1100
-jumptable_113a_case_3:
-    mov ax, 0x167a                   ; 0x1102
-    push ax                          ; 0x1105
-    push word [bp + 0x6]             ; 0x1106
-    call aztec_strcpy                ; 0x1109
-    add sp, byte 4                   ; 0x110c
-    mov ax, 0x167d                   ; 0x110f
-    push ax                          ; 0x1112
-    push word [bp + 0x8]             ; 0x1113
-    call aztec_strcpy                ; 0x1116
-    add sp, byte 4                   ; 0x1119
-    jmp short @..leaf_loc_IRLU.l2    ; 0x111c
-jumptable_113a_case_4:
-    mov ax, 0x167e                   ; 0x111e
-    push ax                          ; 0x1121
-    push word [bp + 0x6]             ; 0x1122
-    call aztec_strcpy                ; 0x1125
-    add sp, byte 4                   ; 0x1128
-    mov ax, 0x1681                   ; 0x112b
-    push ax                          ; 0x112e
-    push word [bp + 0x8]             ; 0x112f
-    call aztec_strcpy                ; 0x1132
-    add sp, byte 4                   ; 0x1135
-    jmp short @..leaf_loc_IRLU.l2    ; 0x1138
-jumptable_113a:
-    dw jumptable_113a_case_0 - IMAGE_BASE      ; 0x113a
-    dw jumptable_113a_case_1 - IMAGE_BASE      ; 0x113c
-    dw jumptable_113a_case_2 - IMAGE_BASE      ; 0x113e
-    dw jumptable_113a_case_3 - IMAGE_BASE      ; 0x1140
-    dw jumptable_113a_case_4 - IMAGE_BASE      ; 0x1142
-@..leaf_loc_IRLU.l1:
-    cmp ax, strict word 5            ; 0x1144
-    jae short @..leaf_loc_IRLU.l2    ; 0x1147
-    xchg bx, ax                      ; 0x1149
-    shl bx, 1                        ; 0x114a
-    jmp [cs:bx + jumptable_113a - IMAGE_BASE] ; 0x114c
-@..leaf_loc_IRLU.l2:
-    mov sp, bp                       ; 0x1151
-    pop bp                           ; 0x1153
-    ret                              ; 0x1154
-
-    db 0x55, 0x8b, 0xec, 0x81, 0xc4, 0x5e, 0xff, 0x8b, 0x46, 0x04, 0x8b, 0xd0, 0xd1, 0xe0, 0xd1, 0xe0
-    db 0x03, 0xc2, 0xd1, 0xe0, 0x8b, 0x4e, 0x06, 0xd1, 0xe1, 0x03, 0xc1, 0x8b, 0xd8, 0xff, 0xb7, 0xad
-    db 0x02, 0x8d, 0x46, 0xae, 0x50, 0xe8, 0x60, 0x19, 0x83, 0xc4, 0x04, 0xc7, 0x46, 0xfe, 0x00, 0x00
-    db 0xeb, 0x21, 0x8b, 0x5e, 0xfe, 0x03, 0xdd, 0x80, 0x7f, 0xae, 0x2a, 0x74, 0x0c, 0x8a, 0x47, 0xae
-    db 0x98, 0x05, 0xbf, 0xff, 0x3b, 0x46, 0x08, 0x75, 0x07, 0xb8, 0x01, 0x00, 0x8b, 0xe5, 0x5d, 0xc3
-    db 0xff, 0x46, 0xfe, 0x8d, 0x46, 0xae, 0x50, 0xe8, 0xc0, 0x23, 0x59, 0x3b, 0x46, 0xfe, 0x7f, 0xd2
-    db 0xb8, 0x00, 0x00, 0xeb, 0xe7
-
+loc_RJRG:
+    push bp                          ; 0x1155
+    mov bp, sp                       ; 0x1156
+    add sp, strict word 0xff5e       ; 0x1158
+    mov ax, word [bp + 0x4]          ; 0x115c
+    mov dx, ax                       ; 0x115f
+    shl ax, 1                        ; 0x1161
+    shl ax, 1                        ; 0x1163
+    add ax, dx                       ; 0x1165
+    shl ax, 1                        ; 0x1167
+    mov cx, word [bp + 0x6]          ; 0x1169
+    shl cx, 1                        ; 0x116c
+    add ax, cx                       ; 0x116e
+    mov bx, ax                       ; 0x1170
+    push word [bx + 0x2ad]           ; 0x1172
+    lea ax, word [bp - 0x0052]       ; 0x1176
+    push ax                          ; 0x1179
+    call aztec_strcpy                ; 0x117a
+    add sp, byte 4                   ; 0x117d
+    mov word [bp - 0x0002], 0        ; 0x1180
+    jmp short @..loc_RJRG.l5         ; 0x1185
+@..loc_RJRG.l1:
+    mov bx, word [bp - 0x0002]       ; 0x1187
+    add bx, bp                       ; 0x118a
+    cmp byte [bx - 0x0052], 0x2a     ; 0x118c
+    je short @..loc_RJRG.l2          ; 0x1190
+    mov al, byte [bx - 0x0052]       ; 0x1192
+    cbw                              ; 0x1195
+    add ax, strict word 0xffbf       ; 0x1196
+    cmp ax, word [bp + 0x8]          ; 0x1199
+    jne short @..loc_RJRG.l4         ; 0x119c
+@..loc_RJRG.l2:
+    mov ax, 1                        ; 0x119e
+@..loc_RJRG.l3:
+    mov sp, bp                       ; 0x11a1
+    pop bp                           ; 0x11a3
+    ret                              ; 0x11a4
+@..loc_RJRG.l4:
+    inc word [bp - 0x0002]           ; 0x11a5
+@..loc_RJRG.l5:
+    lea ax, word [bp - 0x0052]       ; 0x11a8
+    push ax                          ; 0x11ab
+    call aztec_strlen                ; 0x11ac
+    pop cx                           ; 0x11af
+    cmp ax, word [bp - 0x0002]       ; 0x11b0
+    jg short @..loc_RJRG.l1          ; 0x11b3
+    mov ax, 0                        ; 0x11b5
+    jmp short @..loc_RJRG.l3         ; 0x11b8
 loc_HSPL:
     push bp                          ; 0x11ba
     mov bp, sp                       ; 0x11bb

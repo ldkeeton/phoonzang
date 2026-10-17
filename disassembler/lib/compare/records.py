@@ -308,6 +308,94 @@ def count_hidden_flow(data, code_offsets, max_insn=16):
     return hits
 
 
+#: An instruction line's own file offset, the last ``; 0x<hex>`` on the line.
+_SITE_RE = re.compile(r';\s*0x([0-9a-f]+)\s*$')
+#: ``mov <dst>, 0x<hex>``: an immediate the source spells as a number.
+_MOV_IMM_RE = re.compile(
+    r'^\s*mov\s+[^,;]+,\s*(?:strict\s+word\s+)?0x([0-9a-f]+)\s*;', re.I)
+#: ``[bx|si|di (+ reg) + 0x<hex>]`` with no segment override: a DS displacement.
+_DS_INDEX_RE = re.compile(
+    r'\[(?:bx|si|di)(?:\s*\+\s*(?:bx|si|di))?\s*\+\s*0x([0-9a-f]+)\]', re.I)
+
+#: Smallest displacement ``count_ds_index`` takes for a table address: below
+#: it, ``[reg + disp]`` is a struct field far more often than a DS object
+#: (the party record's fields run to ``0x1a1``).  It misses a low table such
+#: as ``vinstall``'s ``[bx + 0xa4]``, so the count is a lower bound.
+DS_INDEX_MIN = 0x100
+#: Smallest immediate ``count_string_immediates`` takes: below it a number
+#: (``mov ax, 0x26``) lands on a one-character string by chance.
+STR_IMM_MIN = 0x100
+#: Bytes a DOS console string carries besides text: TAB, LF, CR, BEL.
+_CONSOLE_CONTROLS = frozenset(b'\t\n\r\a')
+
+
+def _names_ds_string(ds, value, console=False):
+    """True when *value* is the first byte of a string in *ds*.
+
+    A C string is a printable NUL-terminated run whose previous byte ends an
+    object (NUL).  A *console* string (a raw driver's ``int 21h/09h`` text)
+    sits after code, may carry CR/LF/BEL and ends in ``$`` or NUL, so it is
+    taken on its run alone: at least four bytes.
+    """
+    if not 0 < value < len(ds):
+        return False
+    if not console:
+        if ds[value - 1] != 0:
+            return False
+        end = ds.find(b'\0', value)
+        return end > value and all(0x20 <= b < 0x7f for b in ds[value:end])
+    end = value
+    while end < len(ds) and (0x20 <= ds[end] < 0x7f and ds[end] != 0x24
+                             or ds[end] in _CONSOLE_CONTROLS):
+        end += 1
+    return end - value >= 4 and end < len(ds) and ds[end] in (0, 0x24)
+
+
+def count_string_immediates(text, ds, console=False):
+    """``(site, value)`` for each ``mov`` immediate that names a DS string.
+
+    *ds* is the data segment the code runs with, indexed by DS offset (zeros
+    where it is not file-backed).  ``mov ax, 0x1630; push ax`` passes Aztec's
+    ``"nul"``: the number is a string's address, frozen at its layout.  The
+    test is the shape of the target (:func:`_names_ds_string`; *console* for a
+    raw driver), so a number can match by chance; the count is a ratchet, not
+    a proof.
+    """
+    hits = []
+    for line in (text or '').splitlines():
+        m = _MOV_IMM_RE.match(line)
+        site = _SITE_RE.search(line)
+        if m is None or site is None:
+            continue
+        value = int(m.group(1), 16)
+        if value >= STR_IMM_MIN and _names_ds_string(ds, value, console):
+            hits.append((int(site.group(1), 16), value))
+    return hits
+
+
+def count_ds_index(text, ds_size):
+    """``(site, disp)`` for each DS-indexed operand whose displacement is a
+    DS address.
+
+    ``push word [bx + 0xa4]`` reads entry ``bx`` of the table at DS 0xa4: the
+    displacement is that table's address, frozen.  ``[cs:reg + disp]`` is the
+    ``cs_index`` bucket and ``[bp + disp]`` a frame slot, so neither is
+    counted; a displacement under :data:`DS_INDEX_MIN` or past the file-backed
+    *ds_size* is taken as a field offset.
+    """
+    hits = []
+    for line in (text or '').splitlines():
+        code = line.split(';', 1)[0]
+        site = _SITE_RE.search(line)
+        if site is None or not code.strip():
+            continue
+        for m in _DS_INDEX_RE.finditer(code):
+            value = int(m.group(1), 16)
+            if DS_INDEX_MIN <= value < ds_size:
+                hits.append((int(site.group(1), 16), value))
+    return hits
+
+
 def _frozen_bucket(sym):
     """The census bucket of a frozen name's symbol, or ``None``."""
     if sym is None or sym.kind in (Kind.LOCAL, Kind.ANCHOR):
