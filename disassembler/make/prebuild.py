@@ -32,7 +32,7 @@ def _run_prebuild(app):
     3. ``prebuild/``         the mux manifests, C seeds and compiled-module cache
 
     This intentionally stops the pipeline right after the mux manifest is
-    written: no verify/emit and no NASM, and asm_<app>/ is left untouched.
+    written: no verify/emit and no NASM, and src_<app>/ is left untouched.
     """
     app_dir = os.path.join(APPS, app)
     bins = discover_binaries(app_dir)

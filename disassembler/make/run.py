@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import sys
 
+from lib.cachedirs import src_dir
 from lib.dosbox import DOSBOX
 from main.projects import discover_binaries
 
@@ -72,7 +73,7 @@ def _parse_check_args(args):
 
 def cmd_check(app, timeout_seconds=DEFAULT_CHECK_SECONDS):
     app_dir = os.path.join(APPS, app)
-    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    out_dir = src_dir(app, PROJECT)
     bins = discover_binaries(app_dir)
     name, rel = _main_exe(out_dir, bins)
     if name is None:
@@ -103,7 +104,7 @@ def cmd_check(app, timeout_seconds=DEFAULT_CHECK_SECONDS):
 
 def cmd_run(app):
     app_dir = os.path.join(APPS, app)
-    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    out_dir = src_dir(app, PROJECT)
     bins = discover_binaries(app_dir)
     name, rel = _main_exe(out_dir, bins)
     if name is None:

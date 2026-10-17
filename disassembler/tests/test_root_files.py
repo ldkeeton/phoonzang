@@ -9,7 +9,7 @@ import pathlib
 import re
 import unittest
 
-_TREE = pathlib.Path(__file__).resolve().parents[2] / 'asm_DSAVANT'
+_TREE = pathlib.Path(__file__).resolve().parents[2] / 'src_DSAVANT'
 
 _STRUCTURAL = re.compile(
     r'^\s*(;.*)?$'
@@ -20,7 +20,7 @@ _STRUCTURAL = re.compile(
     re.I)
 
 
-@unittest.skipUnless(_TREE.is_dir(), 'generated asm_DSAVANT tree not present')
+@unittest.skipUnless(_TREE.is_dir(), 'generated src_DSAVANT tree not present')
 class RootFileTests(unittest.TestCase):
     def test_root_files_hold_no_instructions(self):
         bare = {}

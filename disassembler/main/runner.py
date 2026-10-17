@@ -663,7 +663,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets):
 
 
 def _emit(a, r, exact_bytes):
-    """Write the rendered sources and report; the only step that touches ``asm_<project>/``."""
+    """Write the rendered sources and report; the only step that touches ``src_<project>/``."""
     (name, project, ctx, instructions, label_map, out_dir, entries,
      immediate_labels, classify_timing, code_bytes, data_bytes, pct,
      t_total, t_flow_disasm_start, t_disasm, t_aztec, t_aztec_end,

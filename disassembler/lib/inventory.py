@@ -133,7 +133,7 @@ def address_inventory_dir(project):
     """Return the ``.cache`` directory holding *project*'s inventories.
 
     The inventory is a build report, not source, so it lives under
-    ``.cache/<project>/addresses/`` rather than in the ``asm_<project>`` tree
+    ``.cache/<project>/addresses/`` rather than in the ``src_<project>`` tree
     (where it is neither assembled nor included).
     """
     return addresses_dir(project)

@@ -6,7 +6,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from lib.cachedirs import flow_out_dir, stats_dir, trace_dir  # noqa: E402
+from lib.cachedirs import flow_out_dir, src_dir, stats_dir, trace_dir  # noqa: E402
 
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(ASM_DIR)
@@ -71,7 +71,7 @@ def find_json_report(project, binary_name):
 
 
 def find_asm_file(project, binary_name):
-    asm_dir = os.path.join(PROJECT_ROOT, f'asm_{project}')
+    asm_dir = src_dir(project, PROJECT_ROOT)
     path = os.path.join(asm_dir, f'{binary_name}.asm')
     if os.path.exists(path):
         return path

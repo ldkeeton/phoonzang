@@ -18,12 +18,12 @@
         ],
         "menus": {
             "editor/context": [
-                { "command": "PHOONZANGAsmNav.nameRoutine", "when": "resourcePath =~ /asm_[^/]+\\//", "group": "PHOONZANG@1" },
-                { "command": "PHOONZANGAsmNav.diffVendor", "when": "resourcePath =~ /asm_[^/]+\\/.*\\.c$/", "group": "PHOONZANG@2" },
-                { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /asm_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" }
+                { "command": "PHOONZANGAsmNav.nameRoutine", "when": "resourcePath =~ /src_[^/]+\\//", "group": "PHOONZANG@1" },
+                { "command": "PHOONZANGAsmNav.diffVendor", "when": "resourcePath =~ /src_[^/]+\\/.*\\.c$/", "group": "PHOONZANG@2" },
+                { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" }
             ],
             "explorer/context": [
-                { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /asm_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" }
+                { "command": "PHOONZANGAsmNav.makeC", "when": "resourcePath =~ /src_[^/]+\\/[^/]+\\/.*\\.asm$/", "group": "PHOONZANG@3" }
             ]
         },
         "keybindings": [

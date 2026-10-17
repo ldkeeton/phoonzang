@@ -14,7 +14,7 @@ _KEEP = {LOCK_NAME, os.path.basename(BASELINE_ROOT)}
 
 
 def clean_output(project):
-    """Remove one project's generated ``asm_<project>/`` files."""
+    """Remove one project's generated ``src_<project>/`` files."""
     return clean_project(project)
 
 

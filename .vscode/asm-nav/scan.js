@@ -52,10 +52,10 @@ function routineStart(text, row) {
     return null;
 }
 
-// ``.../asm_DSAVANT/ds/asm_only/x.asm`` -> {project:'DSAVANT', binary:'ds', label:'x'}.
-// Top-level files such as ``asm_DSAVANT/ds.asm`` have no binary directory.
+// ``.../src_DSAVANT/ds/asm_only/x.asm`` -> {project:'DSAVANT', binary:'ds', label:'x'}.
+// Top-level files such as ``src_DSAVANT/ds.asm`` have no binary directory.
 function locate(fsPath) {
-    const m = /asm_([^/\\]+)[/\\]([^/\\]+)[/\\](?:.*[/\\])?([^/\\]+?)\.(c|asm)$/.exec(fsPath);
+    const m = /src_([^/\\]+)[/\\]([^/\\]+)[/\\](?:.*[/\\])?([^/\\]+?)\.(c|asm)$/.exec(fsPath);
     return m ? { project: m[1], binary: m[2], label: m[3], ext: m[4] } : null;
 }
 

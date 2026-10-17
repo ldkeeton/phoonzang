@@ -3,7 +3,7 @@
 
 Usage::
 
-    python3 .vscode/cccheck.py asm_DSAVANT/ds/aztec_ovloader.c
+    python3 .vscode/cccheck.py src_DSAVANT/ds/aztec_ovloader.c
 
 The compiler, header tree and switches are those the build uses for that
 routine (from the prebuild mux manifest); a file the manifest does not know
@@ -29,11 +29,11 @@ _MSG = re.compile(r'^\S+\.C:(\d+): (ERROR|WARNING) (\d+): ?(.*?):?\s*$', re.I)
 
 
 def _manifest_entry(path):
-    """The mux manifest entry for *path* (``asm_<PROJECT>/<bin>/<label>.c``)."""
+    """The mux manifest entry for *path* (``src_<PROJECT>/<bin>/<label>.c``)."""
     parts = os.path.normpath(os.path.abspath(path)).split(os.sep)
     try:
-        index = next(i for i, p in enumerate(parts) if p.startswith('asm_'))
-        project, binary = parts[index][len('asm_'):], parts[index + 1]
+        index = next(i for i, p in enumerate(parts) if p.startswith('src_'))
+        project, binary = parts[index][len('src_'):], parts[index + 1]
     except (StopIteration, IndexError):
         return {}
     manifest = os.path.join(_ROOT, '.cache', project, 'prebuild',

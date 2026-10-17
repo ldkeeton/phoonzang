@@ -5,7 +5,7 @@ A full ``make build`` resolves every operand to a namespace symbol
 labels, and records the effective label lines and render flags.
 ``make elf-rebuild``'s resplice step recompiles the C-routine seeds and must
 re-render their fragments *identically* to the build -- otherwise merely
-launching the debugger rewrites committed ``asm_<project>/`` fragments with
+launching the debugger rewrites committed ``src_<project>/`` fragments with
 bare displacements and renumbered locals.
 
 The maps are build artifacts (not source), so they live under

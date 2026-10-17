@@ -110,17 +110,17 @@
             "name": "GDB: Launch DSAVANT (DS.EXE)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/asm_DSAVANT/build_out/DS.elf",
+            "program": "${workspaceFolder}/src_DSAVANT/build_out/DS.elf",
             "miDebuggerServerAddress": "localhost:1234",
             "miDebuggerPath": "${workspaceFolder}/debugger/gdb_mi_proxy.py",
             "MIMode": "gdb",
             "targetArchitecture": "x86",
             "stopAtEntry": true,
              
-            "cwd": "${workspaceFolder}/asm_DSAVANT/build_out",
+            "cwd": "${workspaceFolder}/src_DSAVANT/build_out",
             "preLaunchTask": "Start DOSBox-X (DSAVANT)",
             "sourceFileMap": {
-                "/media/lyle/ST8000DM004/Games/Wiz7/asm_DSAVANT/build_out/.elf-rebuild/": "${workspaceFolder}/asm_DSAVANT/"
+                "/media/lyle/ST8000DM004/Games/Wiz7/src_DSAVANT/build_out/.elf-rebuild/": "${workspaceFolder}/src_DSAVANT/"
             },
             "setupCommands": [
                 {

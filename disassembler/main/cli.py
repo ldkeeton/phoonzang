@@ -3,6 +3,7 @@
 import os
 import sys
 
+from lib.cachedirs import src_dir
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.report import print_compare
@@ -50,7 +51,7 @@ def main():
             sys.exit(1)
         project_dir = os.path.join(APPS_DIR, p)
         sidecar = load_sidecar(p)
-        out_dir = os.path.join(PROJECT_ROOT, f'asm_{p}')
+        out_dir = src_dir(p, PROJECT_ROOT)
         bins = discover_binaries(project_dir)
         if binary not in bins:
             print(f'Unknown binary "{binary}" in {p}')

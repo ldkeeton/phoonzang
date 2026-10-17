@@ -26,7 +26,7 @@ from tests.slow import slow
 
 _PROJECT_ROOT = pathlib.Path(__file__).resolve().parents[2]
 _PLAY = _PROJECT_ROOT / 'apps' / 'DSAVANT' / 'PLAY.DRV'
-_TREE = _PROJECT_ROOT / 'asm_DSAVANT'
+_TREE = _PROJECT_ROOT / 'src_DSAVANT'
 
 
 def _driver_ctx(data):
@@ -142,7 +142,7 @@ class SidecarCodeTableValidationTests(unittest.TestCase):
 
 @slow
 @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'play.asm').exists(),
-                     'generated asm_DSAVANT tree not present')
+                     'generated src_DSAVANT tree not present')
 class PlayBoundaryTreeTests(unittest.TestCase):
     """The committed tree must keep the handler boundaries this fixes."""
 

@@ -29,7 +29,7 @@ import re
 from collections import defaultdict
 
 from lib.autogen import is_generated
-from lib.cachedirs import project_of_asm_dir
+from lib.cachedirs import project_of_src_dir
 from lib.shared import FOLDER
 from lib.symtab import Kind, project_tables
 
@@ -178,7 +178,7 @@ def scan(out_dir, symbols=None):
     ``entries`` is the per-fragment detail (one row per glued fragment).
     """
     if symbols is None:
-        symbols = symbol_tables(project_of_asm_dir(out_dir))
+        symbols = symbol_tables(project_of_src_dir(out_dir))
     frags = fragments(out_dir)
     defined = _defined(out_dir, symbols)
     refs = _references(out_dir, set(defined))
@@ -227,7 +227,7 @@ def summarize(report):
 
 if __name__ == '__main__':
     import sys
-    tree = sys.argv[1] if len(sys.argv) > 1 else 'asm_DSAVANT'
+    tree = sys.argv[1] if len(sys.argv) > 1 else 'src_DSAVANT'
     found = scan(tree)
     print(summarize(found))
     for entry in found['entries']:

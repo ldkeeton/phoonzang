@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 
+from lib.cachedirs import src_dir
 from lib.model import IS_CODE
 
 from .options import APPS_DIR, EXACT_BYTES, PROJECT_ROOT
@@ -174,7 +175,7 @@ def verify_project(project_name):
     if not os.path.isdir(project_dir):
         return 0, []
 
-    out_dir = os.path.join(PROJECT_ROOT, f'asm_{project_name}')
+    out_dir = src_dir(project_name, PROJECT_ROOT)
     sidecar = load_sidecar(project_name)
     bins = discover_binaries(project_dir)
     ok = 0

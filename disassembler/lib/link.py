@@ -4,14 +4,14 @@ An overlay is a *separate* NASM assembly.  It sees the host program's labels by
 including the host source in a section that emits no bytes (see
 ``lib.compare.render``), so no table of host-derived numbers is generated any
 more.  What remains here is the host's name, the include arguments for a
-generated ``asm_*`` tree, and the union of the host DS offsets the overlays
+generated ``src_*`` tree, and the union of the host DS offsets the overlays
 reference (the host declares one recipe per offset).
 """
 
 import json
 import os
 
-from lib.cachedirs import labels_dir, project_cache, project_of_asm_dir
+from lib.cachedirs import labels_dir, project_cache, project_of_src_dir
 
 
 class LinkError(RuntimeError):
@@ -20,14 +20,14 @@ class LinkError(RuntimeError):
 
 def cache_include_arg(asm_dir):
     """Return the ``-I`` argument that exposes ``.cache/<project>/`` to NASM."""
-    project = project_of_asm_dir(asm_dir)
+    project = project_of_src_dir(asm_dir)
     if project is None:
         return None
     return f'-I{project_cache(project)}/'
 
 
 def include_args(asm_dir):
-    """Return the ``-I`` arguments for assembling a generated ``asm_*`` tree."""
+    """Return the ``-I`` arguments for assembling a generated ``src_*`` tree."""
     args = [f'-I{asm_dir}/']
     cache_arg = cache_include_arg(asm_dir)
     if cache_arg:

@@ -1,4 +1,4 @@
-# Plan: layout-independent `asm_DSAVANT`
+# Plan: layout-independent `src_DSAVANT`
 
 **Goal.** The generated source tree must stay internally consistent no matter
 where bytes are inserted or deleted: every value that shifts when code or data is
@@ -338,7 +338,7 @@ The tree is split into one file per routine:
   `cli`/`sti`, `rep`, far `ret`/`call`, …) is stamped `; asm only` and filed under
   `<binary>/asm_only/` (`lib/asm_only.py`); the rest are candidates for a
   hand-written `.c` compiled and byte-checked (`lib/compare/cgate.py`).
-- Byte-identical fragments collapse into `asm_DSAVANT/shared/` and each master
+- Byte-identical fragments collapse into `src_DSAVANT/shared/` and each master
   `%include`s them (`lib/shared.py`). Sharing compares the instructions with the
   per-binary `; 0x` comments removed; a fragment that embeds an address-derived
   symbol (`cseg_XXXX`, `loc_XXXX`) does not share, because a shared file can
@@ -351,7 +351,7 @@ The tree is split into one file per routine:
 cuts at a named routine, any unnamed object between two named routines was glued
 onto the earlier one: a trailing data blob (`cseg_XXXX` + zeros) or a bare
 `loc_<addr>` callee. Measured with `lib/compare/cotenancy.py` (`python3 -m
-lib.compare.cotenancy asm_DSAVANT`, and logged by `make build`): of 1364
+lib.compare.cotenancy src_DSAVANT`, and logged by `make build`): of 1364
 fragments, **361 defined a label other than their own root**; of the 2561
 co-tenant labels **734 were referenced from outside** the file that defined them
 — 524 code (469 bare `loc_` callees, 31 `ds_loc_`, 13 `jumptable_`) and 210 data

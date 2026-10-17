@@ -1,5 +1,5 @@
 'use strict';
-// Navigation and tooling for the generated C / NASM trees (``asm_<PROJECT>/``):
+// Navigation and tooling for the generated C / NASM trees (``src_<PROJECT>/``):
 //   * Go to Definition / Find References from C into the NASM listings
 //   * hover: address, sidecar name/note, vendor provenance
 //   * Go to address, Name this routine (writes the sidecar), vendor diff
@@ -11,13 +11,13 @@ const vscode = require('vscode');
 const { labels, occurrences, addresses, routineStart, locate } = require('./scan');
 const sidecar = require('./sidecar');
 
-const SRC = 'asm_*/**/*.{asm,c}';
-const SHARED_DIR = 'shared';   // asm_<PROJECT>/shared/ holds routines shared between binaries
+const SRC = 'src_*/**/*.{asm,c}';
+const SHARED_DIR = 'shared';   // src_<PROJECT>/shared/ holds routines shared between binaries
 const WORD = /[A-Za-z_$?][\w$?]*/;
 const C_SELECTOR = [{ language: 'c' }, { language: 'cpp' }];
-const ANY_SELECTOR = [{ pattern: '**/asm_*/**/*.{c,asm}' }, ...C_SELECTOR];
+const ANY_SELECTOR = [{ pattern: '**/src_*/**/*.{c,asm}' }, ...C_SELECTOR];
 
-let texts = new Map();   // uri string -> text (asm and c under asm_*)
+let texts = new Map();   // uri string -> text (asm and c under src_*)
 let defs = new Map();    // label -> [{uri, row}]
 let addrs = new Map();   // binary -> sorted [{addr, uri, row}]
 
@@ -330,7 +330,7 @@ function checkFile(doc, force) {
     vscode.window.setStatusBarMessage('$(sync~spin) Manx cc…', done);
 }
 
-const isGeneratedC = (doc) => doc.uri.scheme === 'file' && /asm_[^/\\]+[/\\][^/\\]+[/\\][^/\\]+\.c$/.test(doc.fileName);
+const isGeneratedC = (doc) => doc.uri.scheme === 'file' && /src_[^/\\]+[/\\][^/\\]+[/\\][^/\\]+\.c$/.test(doc.fileName);
 
 // ------------------------------------------------------- make C (Claude)
 
@@ -341,7 +341,7 @@ const converting = new Map();   // asm path -> terminal
 async function makeC(uri) {
     uri = uri || (vscode.window.activeTextEditor && vscode.window.activeTextEditor.document.uri);
     const where = uri && locate(uri.fsPath);
-    if (!where) return vscode.window.showErrorMessage('open a routine .asm under asm_<PROJECT>/<binary>/');
+    if (!where) return vscode.window.showErrorMessage('open a routine .asm under src_<PROJECT>/<binary>/');
     const dir = path.dirname(uri.fsPath);
     const asmFile = path.join(dir, `${where.label}.asm`);
     const cFile = path.join(dir, `${where.label}.c`);
@@ -448,7 +448,7 @@ function activate(context) {
             },
         }),
         vscode.languages.registerCodeLensProvider(
-            [{ pattern: '**/asm_*/*/*.c' }, { pattern: '**/asm_*/*/*/*.c' }], {
+            [{ pattern: '**/src_*/*/*.c' }, { pattern: '**/src_*/*/*/*.c' }], {
                 provideCodeLenses(doc) {
                     const top = new vscode.Range(0, 0, 0, 0);
                     return [

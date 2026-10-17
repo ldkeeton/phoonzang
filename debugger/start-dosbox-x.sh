@@ -13,7 +13,7 @@ case "${1:-testcom}" in
     testexe|exe) TARGET=TESTEXE.EXE ;;
     dsavant)
         TARGET='C:\DS.EXE'
-        APP_BUILD="$DIR/../asm_DSAVANT/build_out"
+        APP_BUILD="$DIR/../src_DSAVANT/build_out"
         MOUNT_DEBUGGER=1
         ;;
     *) echo "Usage: $0 [testcom|testexe|dsavant] [--headless]" >&2; exit 2 ;;

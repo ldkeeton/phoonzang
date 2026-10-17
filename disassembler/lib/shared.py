@@ -1,4 +1,4 @@
-"""Share byte-identical routines between binaries under ``asm_<project>/shared/``.
+"""Share byte-identical routines between binaries under ``src_<project>/shared/``.
 
 The same vendor runtime routine (``aztec_strlen``) or overlay API stub is
 emitted once per binary that contains it.  Where the instructions are identical
@@ -24,7 +24,7 @@ from collections import defaultdict
 
 from .autogen import is_generated
 from .asm_only import MARKER as ASM_ONLY_MARKER
-from .cachedirs import project_of_asm_dir
+from .cachedirs import project_of_src_dir
 from .symtab import project_tables
 
 FOLDER = 'shared'
@@ -199,7 +199,7 @@ def share_identical(out_dir):
     Returns ``{shared relative path: [replaced relative paths]}``.
     """
     fragments = _fragments(out_dir)
-    project = project_of_asm_dir(out_dir)
+    project = project_of_src_dir(out_dir)
     tables = project_tables(project) if project else {}
     groups = defaultdict(list)
     for rel, (text, ctext) in fragments.items():

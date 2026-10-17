@@ -45,14 +45,14 @@ Run from the repo root.
 ```
 apps/           input programs (apps.json lists active ones)
 disassembler/   decoder, phases, emitter, verifier, disassembler
-asm_DSAVANT/    generated NASM (+ C) for Wizardry 7
+src_DSAVANT/    generated NASM (+ C) for Wizardry 7
 debugger/       16 bit TSR dbg proxy for inside dosbox
 ```
  
 ## VS Code extension
 
 `.vscode/asm-nav/` is a small local extension for the generated C and NASM
-(`asm_<PROJECT>/`). Install once, then reload the window:
+(`src_<PROJECT>/`). Install once, then reload the window:
 
 ```
 ln -s "$PWD/.vscode/asm-nav" ~/.vscode/extensions/local.phoonzang-asm-nav-0.0.1

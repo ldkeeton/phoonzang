@@ -9,6 +9,7 @@ import subprocess
 import sys
 
 from lib.autogen import write_text
+from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
 from lib.shared import FOLDER
@@ -450,7 +451,7 @@ def resplice_c(app, binary):
     from lib.compare.render import _render_records
     from lib.symtab import Kind
 
-    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    out_dir = src_dir(app, PROJECT)
     dest = os.path.join(out_dir, binary)
     from lib.cachedirs import labels_dir, render_dir, spans_dir
     from lib.renderctx import context_path
@@ -699,14 +700,14 @@ def cmd_elf_rebuild(app=None, binary=None, all_projects=()):
 def _elf_rebuild_one(app, binary=None):
     """Full rebuild of the whole game from the current sources, then ELF.
 
-    ``asm_<project>`` is the source of truth: this does *not* regenerate it from
+    ``src_<project>`` is the source of truth: this does *not* regenerate it from
     the original binaries (that would discard edits).  Instead it recompiles the
     edited C seeds, runs the pre-NASM link step, and assembles **every** binary
     -- so editing the host moves the overlays too -- before emitting DWARF for
     *binary* (or the MZ host when *binary* is omitted).  See ``plan.md`` D7.0c.
     """
     app_dir = os.path.join(APPS, app)
-    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    out_dir = src_dir(app, PROJECT)
     bins = discover_binaries(app_dir)
     if not bins:
         print(f'{app}: no binaries found')

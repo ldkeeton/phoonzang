@@ -34,6 +34,7 @@ CACHE_ROOT = os.path.join(PROJECT_ROOT, '.cache')
 ALL_DIR = os.path.join(CACHE_ROOT, '_all')
 FLOW_DIR = os.path.join(CACHE_ROOT, '_flow')
 BASELINE_ROOT = os.path.join(CACHE_ROOT, '_baseline')
+SRC_PREFIX = 'src_'
 
 
 def project_cache(project):
@@ -68,11 +69,17 @@ def spans_dir(project):
     return os.path.join(project_cache(project), 'spans')
 
 
-def project_of_asm_dir(asm_dir):
-    """Return the project name for a generated ``asm_<project>`` directory."""
-    base = os.path.basename(os.path.normpath(asm_dir))
-    if base.startswith('asm_'):
-        return base[len('asm_'):]
+def src_dir(project, root=None):
+    """Return the generated ``src_<project>`` tree for *project*."""
+    return os.path.join(root if root is not None else PROJECT_ROOT,
+                        f'{SRC_PREFIX}{project}')
+
+
+def project_of_src_dir(tree_dir):
+    """Return the project name for a generated ``src_<project>`` directory."""
+    base = os.path.basename(os.path.normpath(tree_dir))
+    if base.startswith(SRC_PREFIX):
+        return base[len(SRC_PREFIX):]
     return None
 
 

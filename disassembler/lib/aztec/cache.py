@@ -10,7 +10,7 @@ Compiling through DOSBox is slow, so ``make prebuild <project>`` resolves every
 ``src/<binary>/<label>.c``
     A self-contained seed per routine: the extracted function when that still
     compiles byte-exact, otherwise the whole module.  ``make build`` copies
-    these into ``asm_<project>/<binary>/`` only when a seed is absent, so a
+    these into ``src_<project>/<binary>/`` only when a seed is absent, so a
     no-clean debug rebuild keeps hand edits.
 ``objs/<sha1>.json``
     Baseline compiled modules keyed by content hash, so re-running prebuild (or

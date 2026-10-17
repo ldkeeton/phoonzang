@@ -3,7 +3,7 @@
 Usage:
   - Enable via ``--diag`` on the ``python -m main`` command line.
   - A ``Diag`` context manager records key->value pairs; on close it flushes
-    to ``asm_PROJECT/diag/NAME.diag``.
+    to ``src_PROJECT/diag/NAME.diag``.
 
 All values are integers — easy to grep / diff between runs.
 """
@@ -11,8 +11,7 @@ All values are integers — easy to grep / diff between runs.
 import os
 import threading
 
-ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJECT_ROOT = os.path.dirname(ASM_DIR)
+from lib.cachedirs import src_dir
 
 _STATE = threading.local()
 
@@ -52,7 +51,7 @@ def flush():
         return
     project = _STATE.project
     name = _STATE.name
-    diag_dir = os.path.join(PROJECT_ROOT, f'asm_{project}', 'diag')
+    diag_dir = os.path.join(src_dir(project), 'diag')
     os.makedirs(diag_dir, exist_ok=True)
     path = os.path.join(diag_dir, f'{name}.diag')
     with open(path, 'w') as f:

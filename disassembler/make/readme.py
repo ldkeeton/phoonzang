@@ -4,6 +4,7 @@ import os
 import re
 
 from lib.asm_only import FOLDER, is_marked
+from lib.cachedirs import src_dir
 
 from .common import PROJECT
 
@@ -25,7 +26,7 @@ def _state(path, filename, stems):
 
 
 def _scan(src):
-    """Return {binary: [(asm_stem, state)]} for a generated asm_<PROJECT> tree.
+    """Return {binary: [(asm_stem, state)]} for a generated src_<PROJECT> tree.
 
     ``state`` is ``'c'`` (has a .c), ``'asm'`` (in the asm_only folder: never
     C) or ``'todo'``.
@@ -78,7 +79,7 @@ def _make_table():
 
 
 def cmd_readme():
-    groups = _scan(os.path.join(PROJECT, 'asm_DSAVANT'))
+    groups = _scan(src_dir('DSAVANT', PROJECT))
     # Asm-only routines can never be C, so they are not counted at all.
     counted = {k: [c for c in v if c[1] != 'asm'] for k, v in groups.items()}
     asm_total = sum(len(v) for v in counted.values())

@@ -8,12 +8,12 @@ import subprocess
 
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-ELF = ROOT / "asm_DSAVANT" / "build_out" / "DS.elf"
-DWARF_SOURCE = ROOT / "asm_DSAVANT" / "build_out" / ".elf-rebuild" / "ds.asm"
+ELF = ROOT / "src_DSAVANT" / "build_out" / "DS.elf"
+DWARF_SOURCE = ROOT / "src_DSAVANT" / "build_out" / ".elf-rebuild" / "ds.asm"
 SOURCE_LINE = 5097
-INCLUDE_SOURCE = ROOT / "asm_DSAVANT" / "ds" / "bios_get_video_mode.asm"
+INCLUDE_SOURCE = ROOT / "src_DSAVANT" / "ds" / "bios_get_video_mode.asm"
 INCLUDE_LINE = 2
-MASTER_SOURCE = ROOT / "asm_DSAVANT" / "ds.asm"
+MASTER_SOURCE = ROOT / "src_DSAVANT" / "ds.asm"
 FLOW_ADDRESS = re.compile(
     r"\b(?:call|jmp|j[a-z]+|loop(?:e|ne)?)\s+"
     r"(?:(?:short|near|far)\s+)?(?:0x[0-9a-f]{1,4}:)?0x[0-9a-f]{1,4}\b",

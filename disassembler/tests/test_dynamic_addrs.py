@@ -4,7 +4,7 @@ Two layers:
 
 * pure classification tests for ``count_frozen_addrs`` (the metric that tracks
   the goal);
-* a baseline check over the committed ``asm_DSAVANT`` tree: ``frozen_addr`` may
+* a baseline check over the committed ``src_DSAVANT`` tree: ``frozen_addr`` may
   only decrease as values are rewritten into assembler expressions.
 """
 
@@ -33,7 +33,7 @@ from make.elf import _force_origin_zero
 
 _ASM_DIR = pathlib.Path(__file__).resolve().parents[1]
 _PROJECT_ROOT = _ASM_DIR.parent
-_TREE = _PROJECT_ROOT / 'asm_DSAVANT'
+_TREE = _PROJECT_ROOT / 'src_DSAVANT'
 _SKIP_DIRS = {'build_out', 'inc'}
 
 
@@ -749,7 +749,7 @@ class DriverHandlerPlacementTests(unittest.TestCase):
             total += len(handlers)
         self.assertEqual(total, 118)
 
-    @unittest.skipUnless(_TREE.is_dir(), 'generated asm_DSAVANT tree not present')
+    @unittest.skipUnless(_TREE.is_dir(), 'generated src_DSAVANT tree not present')
     def test_handler_placement_only_improves(self):
         buried, unsupported = _scan_declared_handlers()
         self.assertLessEqual(
@@ -781,7 +781,7 @@ class EmittedTreeCoherenceTests(unittest.TestCase):
     @slow
     def test_every_referenced_local_label_is_defined(self):
         if not _TREE.is_dir():
-            self.skipTest('generated asm_DSAVANT tree not present')
+            self.skipTest('generated src_DSAVANT tree not present')
         referenced, defined = set(), set()
         for path in sorted(_TREE.rglob('*.asm')):
             if path.relative_to(_TREE).parts[0] in _SKIP_DIRS:
@@ -991,7 +991,7 @@ class HostIncludeTests(unittest.TestCase):
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists()
         and (_TREE / 'vbase.asm').exists(),
-        'generated asm_DSAVANT tree not present',
+        'generated src_DSAVANT tree not present',
     )
     def test_overlay_o_dorg_follows_a_host_data_edit(self):
         with tempfile.TemporaryDirectory() as d:
@@ -1010,7 +1010,7 @@ class HostIncludeTests(unittest.TestCase):
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists()
         and (_TREE / 'vbase.asm').exists(),
-        'generated asm_DSAVANT tree not present',
+        'generated src_DSAVANT tree not present',
     )
     def test_overlay_data_name_follows_a_host_data_edit(self):
         """D7.1: a shared DS name in an overlay follows a host data edit.
@@ -1035,7 +1035,7 @@ class HostIncludeTests(unittest.TestCase):
 
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'vbase.asm').exists(),
-        'generated asm_DSAVANT tree not present',
+        'generated src_DSAVANT tree not present',
     )
     def test_overlay_origin_is_what_the_elf_prep_zeroes(self):
         """The emitted origin is the form ``make elf-rebuild`` rewrites.
@@ -1061,7 +1061,7 @@ class HostIncludeTests(unittest.TestCase):
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists()
         and (_TREE / 'vbase.asm').exists(),
-        'generated asm_DSAVANT tree not present',
+        'generated src_DSAVANT tree not present',
     )
     def test_overlay_corg_follows_a_host_code_edit(self):
         """D7.2: the overlay load origin tracks the host's resident code end.
@@ -1113,7 +1113,7 @@ class HostCallNamesTests(unittest.TestCase):
 
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'ds.asm').exists(),
-        'generated asm_DSAVANT tree not present',
+        'generated src_DSAVANT tree not present',
     )
     @slow
     def test_every_referenced_host_prefixed_name_is_defined_by_the_host(self):
@@ -1371,7 +1371,7 @@ class InlineSwitchEditTests(unittest.TestCase):
     @unittest.skipUnless(
         _TREE.is_dir() and (_TREE / 'vpcvw.asm').exists()
         and (_TREE / 'ds.asm').exists(),
-        'generated asm_DSAVANT tree not present',
+        'generated src_DSAVANT tree not present',
     )
     def test_case_targets_follow_an_inserted_byte(self):
         with tempfile.TemporaryDirectory() as d:
@@ -1415,7 +1415,7 @@ class InsertBytePropertyTests(unittest.TestCase):
     """
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'ds.asm').exists(),
-                         'generated asm_DSAVANT tree not present')
+                         'generated src_DSAVANT tree not present')
     def test_ds_insert_byte_property(self):
         with tempfile.TemporaryDirectory() as d:
             _copy_source_tree(d)
@@ -1454,7 +1454,7 @@ class InsertBytePropertyTests(unittest.TestCase):
             self.assertEqual(g_cp, (len(grown) + 511) // 512)
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'ds.asm').exists(),
-                         'generated asm_DSAVANT tree not present')
+                         'generated src_DSAVANT tree not present')
     def test_ds_data_insert_moves_the_ds_size_immediates(self):
         """D7.0b: a code immediate hard-coding the DS size follows a data edit.
 
@@ -1489,7 +1489,7 @@ class InsertBytePropertyTests(unittest.TestCase):
                              b'\xc7\x06\x7b\x0c\x99\x90')
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
-                         'generated asm_DSAVANT tree not present')
+                         'generated src_DSAVANT tree not present')
     def test_vinstall_data_insert_moves_promoted_pointers(self):
         """D5: a promoted pointer word follows an edit inside the data segment.
 
@@ -1527,7 +1527,7 @@ class InsertBytePropertyTests(unittest.TestCase):
                 content)
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vinstall.asm').exists(),
-                         'generated asm_DSAVANT tree not present')
+                         'generated src_DSAVANT tree not present')
     def test_vinstall_data_delete_moves_promoted_pointers(self):
         """D5: the same property for a deletion (array stays word-aligned)."""
         with tempfile.TemporaryDirectory() as d:
@@ -1558,7 +1558,7 @@ class InsertBytePropertyTests(unittest.TestCase):
                 content)
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'play.asm').exists(),
-                         'generated asm_DSAVANT tree not present')
+                         'generated src_DSAVANT tree not present')
     def test_driver_branch_follows_an_inserted_byte(self):
         """D7.2c: a named branch target is a label, so an edit moves it.
 
@@ -1604,7 +1604,7 @@ class InsertBytePropertyTests(unittest.TestCase):
         self.assertEqual(grown[0x7a6:0x7a8], b'\x94\x0b')
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vga.asm').exists(),
-                         'generated asm_DSAVANT tree not present')
+                         'generated src_DSAVANT tree not present')
     def test_driver_immediate_follows_an_inserted_byte(self):
         """D7.6b: a driver's named absolute immediate tracks the byte it names.
 
@@ -1709,7 +1709,7 @@ class DataPointerCorpusTests(unittest.TestCase):
 
 @slow
 class CommittedTreeBaselineTests(unittest.TestCase):
-    @unittest.skipUnless(_TREE.is_dir(), 'generated asm_DSAVANT tree not present')
+    @unittest.skipUnless(_TREE.is_dir(), 'generated src_DSAVANT tree not present')
     def test_frozen_addr_only_decreases(self):
         totals = _scan_tree()
         for key, limit in BASELINE_TOTALS.items():

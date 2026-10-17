@@ -1,4 +1,4 @@
-"""The "auto-generated" marker: which files under ``asm_<project>/`` are ours.
+"""The "auto-generated" marker: which files under ``src_<project>/`` are ours.
 
 Every file the generator writes starts with a one-line marker.  ``make clean``
 removes exactly the files that still carry it, so a file a human took over (by

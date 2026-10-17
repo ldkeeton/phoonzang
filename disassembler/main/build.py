@@ -31,7 +31,7 @@ import os
 import subprocess
 
 from lib import stagelog
-from lib.cachedirs import labels_dir
+from lib.cachedirs import labels_dir, src_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
     LinkError, collect_host_data, host_name, read_host_data_offsets,
@@ -139,7 +139,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     plus the sources it references, and stops before the whole-project steps.
     """
     app_dir = os.path.join(APPS_DIR, project)
-    out_dir = os.path.join(PROJECT_ROOT, f'asm_{project}')
+    out_dir = src_dir(project, PROJECT_ROOT)
     os.makedirs(out_dir, exist_ok=True)
 
     bins = discover_binaries(app_dir)
@@ -266,7 +266,7 @@ def inprocess_runners(project):
     from .runner import process
 
     app_dir = os.path.join(APPS_DIR, project)
-    out_dir = os.path.join(PROJECT_ROOT, f'asm_{project}')
+    out_dir = src_dir(project, PROJECT_ROOT)
     bins = discover_binaries(app_dir)
     sidecar = load_sidecar(project)
     host_model = _build_host_model(app_dir, bins, sidecar)

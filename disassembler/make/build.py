@@ -12,6 +12,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from main.projects import discover_binaries
 from main.build import build_project, nasm_binary
+from lib.cachedirs import src_dir
 from lib.report import clear_project_stats
 
 from .clean import clean_output
@@ -56,7 +57,7 @@ def _assemble(out_dir):
 
 
 def asm_app(app):
-    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    out_dir = src_dir(app, PROJECT)
     failed = build_project(app, _generate(app), _assemble(out_dir))
     if failed:
         print(f'{app}: {len(set(failed))} binary(ies) failed to build')
@@ -76,7 +77,7 @@ def _prepare(app, *, clean=True, prebuild=True):
 
 def cmd_build_binary(app, binary):
     app_dir = os.path.join(APPS, app)
-    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    out_dir = src_dir(app, PROJECT)
     bins = discover_binaries(app_dir)
     if binary not in bins:
         print(f'Unknown binary "{binary}" in {app}')
@@ -94,7 +95,7 @@ def _rebuild_project(app, binary=None):
     """Recompile every ``.c`` (gated against the original) then NASM-assemble."""
     from .elf import resplice_c
     app_dir = os.path.join(APPS, app)
-    out_dir = os.path.join(PROJECT, f'asm_{app}')
+    out_dir = src_dir(app, PROJECT)
     bins = discover_binaries(app_dir)
     if binary is not None and binary not in bins:
         print(f'Unknown binary "{binary}" in {app}')

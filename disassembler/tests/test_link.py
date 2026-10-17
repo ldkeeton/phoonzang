@@ -14,7 +14,7 @@ from lib.link import (
     collect_host_data,
     host_name,
     include_args,
-    project_of_asm_dir,
+    project_of_src_dir,
 )
 
 
@@ -48,17 +48,17 @@ class HostDataMapTests(unittest.TestCase):
 
 class IncludeArgsTests(unittest.TestCase):
     def test_tree_root_is_first(self):
-        args = include_args('/tmp/asm_DSAVANT')
-        self.assertEqual(args[0], '-I/tmp/asm_DSAVANT/')
+        args = include_args('/tmp/src_DSAVANT')
+        self.assertEqual(args[0], '-I/tmp/src_DSAVANT/')
 
     def test_exposes_the_project_cache(self):
-        args = include_args('/tmp/asm_DSAVANT')
+        args = include_args('/tmp/src_DSAVANT')
         self.assertEqual(len(args), 2)
         self.assertTrue(args[1].endswith('.cache/DSAVANT/'))
 
-    def test_project_of_asm_dir(self):
-        self.assertEqual(project_of_asm_dir('/tmp/asm_DSAVANT'), 'DSAVANT')
-        self.assertIsNone(project_of_asm_dir('/tmp/foo'))
+    def test_project_of_src_dir(self):
+        self.assertEqual(project_of_src_dir('/tmp/src_DSAVANT'), 'DSAVANT')
+        self.assertIsNone(project_of_src_dir('/tmp/foo'))
 
     def test_host_name_prefers_ds_then_the_0x200_image(self):
         self.assertEqual(host_name({'ds': ('DS.EXE', 0x200),

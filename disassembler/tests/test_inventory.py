@@ -14,7 +14,7 @@ from lib.symtab import Space, Symbol
 from tests.syms import bss, cseg, data, dseg, psp
 
 # Inventories are build reports under ``.cache/addresses/<project>/`` (not in
-# the ``asm_<project>`` tree).
+# the ``src_<project>`` tree).
 _ADDRESS_DIR = address_inventory_dir('DSAVANT')
 
 

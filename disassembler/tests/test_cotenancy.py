@@ -19,7 +19,7 @@ from tests.syms import bss, cseg, dseg, loc, routine
 
 
 _ASM_DIR = pathlib.Path(__file__).resolve().parents[1]
-_TREE = _ASM_DIR.parent / 'asm_DSAVANT'
+_TREE = _ASM_DIR.parent / 'src_DSAVANT'
 
 #: Decrease-only baselines. so lets  The goal is 0: every label a fragment defines
 #: besides its own root should be the fragment's own.  ``_split_off_foreign_
@@ -161,7 +161,7 @@ class CoTenancyClassificationTests(unittest.TestCase):
 
 @slow
 class CommittedTreeCoTenancyTests(unittest.TestCase):
-    @unittest.skipUnless(_TREE.is_dir(), 'generated asm_DSAVANT tree not present')
+    @unittest.skipUnless(_TREE.is_dir(), 'generated src_DSAVANT tree not present')
     def test_glue_only_falls(self):
         report = cotenancy.scan(str(_TREE))
         self.assertLessEqual(
