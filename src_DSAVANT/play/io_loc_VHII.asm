@@ -5,7 +5,7 @@ io_loc_VHII:
     mov al, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x18cd
     add al, 0xb1                     ; 0x18d1
     mov ah, al                       ; 0x18d3
-    mov bx, 0x1529                   ; 0x18d5
+    mov bx, cseg_1429 - IMAGE_BASE   ; 0x18d5
     cs xlatb                         ; 0x18d8
     and al, 0xdf                     ; 0x18da
     call io_loc_KRUO                 ; 0x18dc

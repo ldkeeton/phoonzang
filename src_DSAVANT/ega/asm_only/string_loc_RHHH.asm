@@ -26,11 +26,11 @@ string_loc_RHHH:
     lodsb                            ; 0x17d3
     mov ah, byte [bp - 0x0004]       ; 0x17d4
     call leaf_loc_TTKL               ; 0x17d7
-    or byte [cs:di + 0x2a02], ch     ; 0x17da
-    or byte [cs:di + 0x2602], dl     ; 0x17df
-    or byte [cs:di + 0x2702], dh     ; 0x17e4
-    or byte [cs:di + 0x2802], al     ; 0x17e9
-    or byte [cs:di + 0x2902], ah     ; 0x17ee
+    or byte [cs:di + cseg_2902 - IMAGE_BASE], ch ; 0x17da
+    or byte [cs:di + cseg_2502 - IMAGE_BASE], dl ; 0x17df
+    or byte [cs:di + cseg_2602 - IMAGE_BASE], dh ; 0x17e4
+    or byte [cs:di + cseg_2702 - IMAGE_BASE], al ; 0x17e9
+    or byte [cs:di + cseg_2802 - IMAGE_BASE], ah ; 0x17ee
     sub byte [bp - 0x0004], 2        ; 0x17f3
     jae short @..string_loc_RHHH.l3  ; 0x17f7
     inc di                           ; 0x17f9

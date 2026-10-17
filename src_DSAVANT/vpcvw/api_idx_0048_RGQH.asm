@@ -9,7 +9,7 @@ api_idx_0048_RGQH:
     push ax                          ; 0x4263
     mov ax, 1                        ; 0x4264
     push ax                          ; 0x4267
-    call ds_app_file_NKGK            ; 0x4268
+    call ds_app_file_MPPM            ; 0x4268
     add sp, byte 8                   ; 0x426b
     lea ax, word [bp - 0x0048]       ; 0x426e
     push ax                          ; 0x4271

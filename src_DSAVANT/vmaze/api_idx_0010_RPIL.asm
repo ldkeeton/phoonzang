@@ -318,7 +318,7 @@ jumptable_3a86:
     jae short @..api_idx_0010_RPIL.l26 ; 0x3aa9
     xchg bx, ax                      ; 0x3aab
     shl bx, 1                        ; 0x3aac
-    jmp [cs:bx - 0x7533]             ; 0x3aae
+    jmp [cs:bx + jumptable_3a86 - IMAGE_BASE + __zres_end] ; 0x3aae
 jumptable_3a86_case_0:
 @..api_idx_0010_RPIL.l26:
     mov word [bp - 0x0002], 0xffff   ; 0x3ab3
@@ -820,7 +820,7 @@ jumptable_3ed8:
     jae short @..api_idx_0010_RPIL.l48 ; 0x3efb
     xchg bx, ax                      ; 0x3efd
     shl bx, 1                        ; 0x3efe
-    jmp [cs:bx - 0x70e1]             ; 0x3f00
+    jmp [cs:bx + jumptable_3ed8 - IMAGE_BASE + __zres_end] ; 0x3f00
 jumptable_3ed8_case_0:
 @..api_idx_0010_RPIL.l48:
     cmp word [bp - 0x0010], byte 0xff ; 0x3f05

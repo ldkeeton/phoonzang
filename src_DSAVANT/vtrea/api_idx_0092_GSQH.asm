@@ -33,7 +33,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4c17
     mov ax, 1                        ; 0x4c18
     push ax                          ; 0x4c1b
-    call ds_app_file_NKGK            ; 0x4c1c
+    call ds_app_file_MPPM            ; 0x4c1c
     add sp, byte 8                   ; 0x4c1f
     mov ax, 0x248                    ; 0x4c22
     imul word [bp + 0x4]             ; 0x4c25
@@ -239,7 +239,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4df7
     mov ax, 1                        ; 0x4df8
     push ax                          ; 0x4dfb
-    call ds_app_file_NKGK            ; 0x4dfc
+    call ds_app_file_MPPM            ; 0x4dfc
     add sp, byte 8                   ; 0x4dff
     cmp word [bp - 0x0028], byte 0   ; 0x4e02
     je short @..api_idx_0092_GSQH.l16 ; 0x4e06

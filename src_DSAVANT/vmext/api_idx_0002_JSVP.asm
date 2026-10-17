@@ -18,7 +18,7 @@ api_idx_0002_JSVP:
 @..api_idx_0002_JSVP.l1:
     push word [bp + 0x4]             ; 0x0b7a
     push word [bss_82ee]             ; 0x0b7d
-    call api_idx_000c_GVHU           ; 0x0b81
+    call api_idx_000c_RMGQ           ; 0x0b81
     add sp, byte 4                   ; 0x0b84
     ret                              ; 0x0b87
 @..api_idx_0002_JSVP.l2:

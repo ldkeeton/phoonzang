@@ -6,7 +6,7 @@ ds_app_IPJO: ; Aztec csav frame=0x0000
     jne short @..ds_app_IPJO.l1      ; 0x1c39
     push word [bp + 0x8]             ; 0x1c3b
     push word [bp + 0x4]             ; 0x1c3e
-    call ds_app_VPLJ                 ; 0x1c41
+    call ds_app_UPSN                 ; 0x1c41
     add sp, byte 4                   ; 0x1c44
 @..ds_app_IPJO.l1:
     mov ax, 0x248                    ; 0x1c47

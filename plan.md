@@ -28,7 +28,7 @@ literal into three gate classes:
 
 | class | breaks when | target |
 |-------|-------------|--------|
-| `code_shift` | code before it resizes — F1/F2 sizes, F3, F5 | 0 |
+| `code_shift` | code before it resizes — F1/F2 sizes, F3, F5 | 0 (reached) |
 | `data_shift` | the data segment resizes — F4, F7 | 0 |
 | `inert` | never — addresses *outside* the image (BIOS data area, PSP fields) | excluded |
 
@@ -40,26 +40,32 @@ proven. (The census still files the 224 `f6` `; literal` words under `inert`;
 that is a classification to prove, not an exemption — see Section 5.)
 
 **Current tree** (a `make build` fixed point, measured 2026-10-17): **`code_shift`
-43, `data_shift` 1, `inert` 230, `total` 44.** Per-taxonomy:
-`f1=2 f2=13 f3=25 f4=1 f5=3 f6=223 f7=0`; shared-geometry buckets
-`o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0`. `code_shift` decomposes as 25 F3
-`equ`s + 13 overlay `o_bss` + 2 MZ `e_sp` + 3 overlay zero pads. (`play`'s 18
+0, `data_shift` 0, `inert` 234, `total` 0.** Per-taxonomy:
+`f1=0 f2=0 f3=0 f4=0 f5=0 f6=223 f7=0`; shared-geometry buckets
+`o_corg=0 o_corg_imm=0 o_dorg=0 ds_size_imm=0`; indexed-table buckets
+`cs_index=0 rebased=0`; BSS bucket `seg_delta=0`; `buffers=4` (inert: a zero
+run that starts on a label is an object's body, its length the object's size —
+the driver save buffers, Section 5). **`total` 0 is not the goal reached:** the
+census only sees literals it has a pattern for. What it cannot see is Section 5's
+remaining work — the 223 `f6` words to prove, the F9 immediates (a bare `mov
+dx, 0x10ea` naming a driver string), and stored pointers still rendered as raw
+`db` bytes (this step found 8). (`play`'s 18
 self-modified/code-segment names are bound — Section 5, "`play`'s self-modified
-operands".)
+operands"; every `[cs:reg + <table>]` is bound — Section 5, "Register-indexed
+code-segment tables".)
 
 Two auxiliary counters, both in `BASELINE_TOTALS`:
 
-- `names_used` **8** / `names_inert` **25** — of the *named* frozen addresses,
+- `names_used` **7** / `names_inert` **24** — of the *named* frozen addresses,
   how many the tree actually refers to (`count_name_use`). Converting an inert
   name to a label moves the census without making anything follow an edit.
-- `hidden_flow` **177** — near call/jmp targets whose *target* the source shows as
+- `hidden_flow` **150** — near call/jmp targets whose *target* the source shows as
   code but whose *site* is emitted as bytes, so no source line spells the
   reference (`count_hidden_flow`; a lower bound — it rises mechanically as more
   fragments move into `shared/` and lose their `; 0x` anchors).
 
-Where the 44 live, per emitted file: `vbase` 8, `vpcmk` 6, `vmaze` 5,
-`ega`/`vinstall`/`vmnpc` 3, the rest 2s and 1s — `vpcvw` (16 before D8) and `vga`
-are down to 1, `play` (19 before) to 0. The single `data_shift` is a raw-driver DS reference (`ega dseg_24fd`).
+Every binary is at `code_shift` 0. `data_shift` is 0: `ega`'s two DS pointers
+were code-segment addresses (Section 5, "Caller-inherited segments").
 
 ---
 
@@ -68,18 +74,18 @@ are down to 1, `play` (19 before) to 0. The single `data_shift` is a raw-driver 
 | id | value | where emitted | status |
 |----|-------|---------------|--------|
 | F1 | MZ `e_cblp`/`e_cp`, `e_ss` | `_render_mz_header` | dynamic |
-| F1 | MZ `e_sp` | `_render_mz_header` | literal — must derive from the data end + stack reserve (2) |
+| F1 | MZ `e_sp`/`e_minalloc` | `_render_mz_header` | dynamic — the stack top, the last label of the BSS block |
 | F2 | overlay `o_csize`/`o_entry`/`o_dsize` | `_render_ovr_header` | dynamic |
-| F2 | overlay `o_bss` | `_render_ovr_header` | literal — must derive from the overlay's BSS declarations (13) |
+| F2 | overlay `o_bss` | `_render_ovr_header` | dynamic — the span of the overlay's BSS block |
 | F2 | overlay `o_corg` | `_render_ovr_header` | bound to host (`__zresident_end`) |
 | F2 | overlay `o_dorg` | `_render_ovr_header` | bound — it *is* the host DS size |
-| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | 25 `equ` remain |
-| F4 | `dseg_`/`bss_` `equ` | `_build_source` | dynamic (MZ) and via the host data map (overlays); 1 raw-driver left |
+| F3 | `cseg_`/`data_`/unreached `loc_`/`leaf_`/`io_`/`dos_`/`string_`/`api_` `equ` | `_build_source` | done (`f3=0`): the last 24 were mis-minted names, fixed upstream |
+| F4 | `dseg_`/`bss_` `equ` | `_build_source` | dynamic (MZ), declared on the overlay's own bytes (overlays); `ega`'s were CS (`f4=0`) |
 | F4 | `psp_` `equ` | `_build_source` | inert |
 | F4 | host DS-size immediates | `_build_source` | bound to `__zdseg_end` |
-| F5 | `times N db 0` gap to `data_origin` | `_render_data_block` | dynamic (MZ); 3 overlay pads remain |
+| F5 | `times N db 0` gap to `data_origin` | `_render_data_block` | dynamic (MZ); the driver "pads" were buffers (`f5=0`, `buffers=4`) |
 | F6 | numeric `dw` in a `literal` table | `_inject_jump_tables` | unproven — filed inert today; each table must be shown to hold no address |
-| F7 | unrecognized pointer word in data | `_render_data_block` | done for the MZ images (`f7=0`) |
+| F7 | unrecognized pointer word in data | `_render_data_block` | `f7=0` counts only jump-table words; a pointer left as raw `db` is uncounted (8 found and promoted 2026-10-17, Section 5) |
 | F8 | MZ relocation-table offset word | `hdr[28:]` | in scope |
 | F9 | unproven immediates (`_fmt_imm`) | `format.py` | open — needs the immediate-address rule (Section 5) |
 | F10 | `; 0x<F>` offset comments | `_render_records` | comments, not values — assemble to nothing |
@@ -189,23 +195,32 @@ Data operands bind to bytes:
 
 ```nasm
 dseg_0c6c equ __zdseg_0c6c - __zdseg_start
-bss_0cf6 equ (__zimage_end - __zdseg_start)
-bss_830c equ (__zimage_end - __zdseg_start) + 0x7616
+bss_0cf6 equ __zbss_0cf6 - __zdseg_start
+bss_830c equ __zbss_830c - __zdseg_start
 ```
 
-`e_sp` is still a literal and is *not* edit-safe: SS == DS, so the stack top is a
-DS offset past the file-backed data and BSS, and growing the data shrinks the
-stack silently. It must be written from `__zdseg_end` + the stack reserve.
+BSS is source: an `absolute __zimage_end` block after the image, whose labels
+are the BSS objects and whose `resb` gaps are their sizes. The stack is its last
+object (SS == DS), so the sizes are spans of it:
+
+```nasm
+__zbss_size equ __zbss_end - __zimage_end
+    dw ((__zstack_top - __zimage_end) + 15) // 16 ; e_minalloc
+    dw __zstack_top - __zdseg_start               ; e_sp
+```
 
 **Host DS-size immediates** are rewritten to `__zdseg_end`
 (= file-backed data + reserved BSS).
 
 **Overlays.** Every overlay's data offsets are the *host's* DS offsets and its
 `o_dorg` **is** the host DS size, so the host owns the DS name map: the host
-declares one recipe per offset (`dseg_X` → a placed label; host BSS → the
-file-backed size + delta; overlay-own → `__zdseg_end` + delta) and the overlays
-`%include` it. This collapsed ~1230 literal `equ`s (647 names redeclared in each
-overlay) into the host's map.
+declares one recipe per offset (`dseg_X` → a placed label; host BSS → a label in
+its BSS block) and the overlays `%include` it. This collapsed ~1230 literal
+`equ`s (647 names redeclared in each overlay) into the host's map. A name at or
+past `__zdseg_end` is an overlay's *own* data or BSS (loaded at `o_dorg`, different
+in every overlay), so the overlay declares it on its own byte or BSS label:
+`bss_9408 equ __zdseg_end + (__zobss_9408 - __zdata_start)`, and `o_bss` is
+`__zobss_end - __zimage_end`.
 
 `o_corg` (the overlay load origin) is the host's resident-code end: the host's
 last routine `aztec_rsvstk` ends at file `0x5255` (= CS `0x5055`, since
@@ -248,7 +263,9 @@ string → entropy → zero → data), used to deprioritise words and to supply 
 
 ## 5. Remaining work
 
-`code_shift` 43 → 0, `data_shift` 1 → 0.
+`code_shift` and `data_shift` are both 0 and stay 0. What remains is the work the
+census cannot count: the F6 tables, the F9 immediates and the stored pointers
+still rendered as bytes (below), then the shuffle build.
 
 - **D8 — inline switch tables (done, 2026-10-15).** A sparse `switch` compiles
   to `mov cx, N; call <helper>`; the helper pops the return address as the table
@@ -309,39 +326,108 @@ string → entropy → zero → data), used to deprioritise words and to supply 
   `f3` 44 → 25, `code_shift` 62 → 43, `names_used` 26 → 8, `hidden_flow` 181 →
   177; 18/18 byte-identical. Edit-property:
   `InsertBytePropertyTests.test_driver_self_modified_operands_follow_an_inserted_byte`.
-- **The 25 F3 `equ`s (the largest block).** Overlay `loc_`/`string_`/`leaf_`/
-  `fpu_`/`io_` names still refused a label (about 25, none referenced — dead names
-  to delete or move to the sidecar). Each refusal is a byte whose *kind* is
-  undecided upstream, not a rendering trick away:
-  - a `vga` decode gap — bytes the sidecar calls code that the arbiter calls
-    data (the driver dispatch table followed by real code and strings);
-  - the `mem_equ` `cseg_`/`data_` *operand* symbols (code-segment variables read
-    as `[cs:cseg_XXXX - IMAGE_BASE]`) — data living in the code stream, which
-    wants carving as data (`play`'s are done; see above);
-  - names strictly inside a decoded instruction (now bound as `anchor + k`);
-  - names outside every record.
+- **Register-indexed code-segment tables (done, 2026-10-17).** `[cs:bx +
+  0x1529]` and every overlay switch dispatcher `jmp [cs:bx + 0x5415]` spelled a
+  table's CS address as a number the census did not count (about 183 sites).
+  - `jumptables._bind_cs_table_operands` rewrites each operand whose
+    displacement lands on a carved data object over that object's label:
+    `jumptable_0495 + 0x10 - IMAGE_BASE`, `cseg_1429 - IMAGE_BASE`, and
+    `jumptable_03ce - IMAGE_BASE + __zres_end` in an overlay. A displacement on
+    code, below the image or 0 (`[cs:bx]`) stays; each line must assemble back.
+  - Immediates: `segdataflow` proves `mov bx, <table>; cs xlatb` (no listed
+    operand) and follows a forward `jmp`; three dead stores of a table address
+    in `play` (`mov di, 0x1a3a` …) are sidecar `immediate_pointers`, checked
+    against the bytes (`symbols._resolve_declared_immediates`).
+  - Three undetected overlay switch tables (vmaze ab7d, vpclv 4679, vtrea
+    0c85) are declared `code_tables` with their dispatcher (`jmp`), which keeps
+    the arms in the dispatching function and survives re-validation
+    (`JumpTableInfo.declared`); the fake `loc_ITNU`/`loc_LNJU`/`loc_NGSV` go.
+  - A `jmp`-dispatched switch arm is a block of its dispatcher, not a root
+    (`runner`): a generic category name used to cut the routine into one
+    fragment per arm. `sprintf`, `ds_app_UPSN`, `ds_app_JKOJ` are whole again.
+    Co-tenancy 241/266/4 → **202/137/4**.
+  - The census gates the class at zero: `cs_index` (`[cs:reg ± 0x<3+ hex>]`) and
+    `rebased` (`label - IMAGE_BASE + 0x<hex>`), both `code_shift`.
 
-  The `vga` `immediate_labels` (15 `data_`) left this list in D7.6b: a driver's
-  *named* absolute immediates are bound (`data_XXXX equ __zdata_XXXX - IMAGE_BASE`),
-  so `vga`'s block is down to the one name that is never referenced.
-- **`o_bss` (13), MZ `e_sp` (2) and `__zbss_size` → derived.** They look
-  invariant only because BSS is not represented as source: adding a variable
-  changes them. Declare BSS as labelled `resb` (or equivalent) objects and
-  derive the sizes — `o_bss`/`__zbss_size` from the BSS span, `e_sp` from
-  `__zdseg_end` + the stack reserve. `__zbss_size` is not counted by the census
-  today; it should be.
+  `code_shift` 43 → 41, `f3` 25 → 24, `f5` 3 → 2, `hidden_flow` 177 → 150;
+  18/18 byte-identical. `data_shift` 1 → 2: following the `jmp` proves `ega`'s
+  `mov bx, 0x2a02` a DS pointer, so a bare number is now the visible
+  `dseg_2a02` (settled below: "Caller-inherited segments"). Edit-property:
+  `InsertBytePropertyTests.test_driver_indexed_tables_follow_an_inserted_byte`.
+- **The 24 F3 `equ`s (done, 2026-10-17).** None was a rendering problem: each
+  was a name the pipeline should never have minted, so the fix is upstream and
+  the `equ` disappears with it.
+  - **20 on a jump table's first byte.** `CascadeTargetPhase` admits a short
+    DATA run right after CODE that decodes fully and contains a branch. A jump
+    table after its dispatcher's `jmp` is exactly that shape: its words decode
+    as instructions. The table start became a `verified_cascade` root, a second
+    name beside `jumptable_XXXX`, and the decoded "branches" seeded two more
+    (`vbase` `0x18c8`/`0x18ca`, from inside `jumptable_185e`). Cascade now skips
+    a run that overlaps a known table (`ctx.jump_tables`).
+  - **2 from `jmp [dseg_XXXX]` read in the wrong frame.** The recursive phase
+    read an absolute `jmp [disp]` vector in the code frame. Without a `cs:`
+    override the operand is DS, so it picked up an unrelated word and seeded a
+    target in the middle of whatever sat there (`vinstall 0x5fe5`, `ds
+    0x10108`). `_vector_off` resolves it in DS (the code frame stays for a raw
+    driver, `DS = CS`).
+  - **What that exposed.** The vectors Aztec's `write` jumps through
+    (`dseg_252e`/`2530`, `dseg_0cf0`/`0cf2`: console read/write) and the exit
+    hook (`call [dseg_2500]`/`[dseg_0c9c]`) are code pointers stored in DS, and
+    were frozen as `db` bytes the census never counted. A near `jmp`/`call
+    [disp]` is now a consumer in the scorer (it loads IP from the word), so all
+    six are `dw <label> - IMAGE_BASE`; each is a reviewed corpus entry.
+    `test_ds_insert_byte_property` now checks that they move with their code.
+- **BSS as source (done, 2026-10-17).** Each image's BSS is an
+  `absolute __zimage_end` block of labels and `resb` gaps. `__zbss_size`,
+  `o_bss` (13) and the MZ `e_sp`/`e_minalloc` (2 + 2; `e_minalloc` was not
+  counted before) are spans of it, the stack being its last object. The host
+  BSS names (`(__zimage_end - __zdseg_start) + <distance>`) and the overlays'
+  own data and BSS (`__zdseg_end + <distance>` in the host's shared frame — the
+  D7.1 "known residual") were frozen distances the census never saw: **690**
+  lines. Now the host's are labels in its block, and each overlay declares its
+  own names on its own bytes and BSS labels; the new `seg_delta` bucket
+  (`data_shift`) gates the form at 0. `code_shift` 41 → 26. Edit-property:
+  `test_overlay_bss_follows_an_inserted_data_byte` (one byte at `vpclv`'s
+  `__zdata_start` moves `dseg_9400`/`bss_9408`/`bss_9704` and keeps `o_bss`),
+  `test_ds_stack_follows_an_inserted_data_byte` (`e_sp` 0xf198 → 0xf199).
 - **F6 literal tables (224 words) and F9 immediates → proven.** "Not an address"
   is a claim, not a default. Each `; literal` table needs evidence (the scorer's
   negative evidence, a consumer that uses it arithmetically, or a sidecar entry
   verified against the bytes); the rest are candidates.
-- **Overlay zero pads (3).** Settle whether they can carry an anchor.
-- **The raw-driver DS half + the parked `ega dseg_24fd`.** Bind them where DS is
-  the host's; reclassify where it is not. `dseg_24fd` is a `[bx]` read (no `cs:`
-  override) in a routine that also spells its own data `[cs:cseg_…]`, so DS there
-  is the caller's; the decision is whether that is the host's segment at that
-  call site.
+- **Driver zero pads (done, 2026-10-17).** They were not fill. `ega`'s 2306
+  zero bytes are the word `cseg_1afb` plus two 0x480-byte save buffers (4 planes
+  × 0x120), and `vga`'s 2050 are a word plus two 0x400-byte buffers. Pointers to
+  the buffers sit just before them (`ega` `cseg_1ad5`/`1ad7` = CS 0x1bfd/0x207d,
+  `vga` `cseg_14b4`/`14b6`), frozen as `db` bytes; the code loads them into `si`
+  and swaps them as a double buffer. The scorer now runs on raw drivers, with
+  proven consumers as its only candidates (no alignment rule, no shape terms; a
+  driver's variables sit at any byte). It promotes three; `ega cseg_1ad5`'s
+  consumer is across a call (`rep movsb` in `leaf_loc_PUST`), so that one is a
+  reviewed corpus entry. Each pad is now one buffer from a pointer-named label
+  (`__zcp_1afd:` / `times 1152 db 0`). That is an object's size, not a distance to
+  a fixed origin, so the census files a zero run that starts on a label as
+  `buffers` (inert, reported) rather than F5. Edit-property:
+  `test_driver_buffer_pointers_follow_an_inserted_byte`.
+- **Stored pointers left as raw bytes (open).** The 8 above were invisible:
+  the census counts a numeric `dw` in a jump table (F7) and a `; literal` word
+  (F6), but not a pointer still inside a `db` data block. The scorer's
+  `unproven` backlog lists the MZ candidates with access evidence; it has to be
+  worked to zero (prove each, or record it as a number with its evidence). In
+  the drivers the remaining candidates are the bare immediates (F9).
+- **Caller-inherited segments (done, 2026-10-17).** The dataflow used to re-seed
+  every function root with the host convention (`DS = ES = DATA`), which only
+  holds where the host enters. Now a root reached only by direct `call`/`jmp` in
+  the image (not a seed, a declared handler or a switch arm) starts in the merged
+  state its callers hand it. `ega`'s blitters `io_loc_SRLG`/`JGUP`/`QMLN` are
+  called after `mov ax, cs; mov ds, ax`, so `dseg_24fd`/`dseg_2a02` became
+  `cseg_23fd`/`cseg_2902 - IMAGE_BASE`: `data_shift` 2 → 0. `ds`'s
+  `mov di, dseg_000a` (after `int 21h/35h`, which returns the EMS driver's `ES`)
+  went back to `0xa`, a foreign-segment offset it always was. 18/18
+  byte-identical.
 - **Raw-driver absolute immediates.** A driver's *values* are CS offsets too
-  (`mov dx, 0x29ca` names a string at file `0x28ca`). The coordinate is known
+  (`mov dx, 0x29ca` names a string at file `0x28ca`). `ega`'s `io_loc_QMLN` is
+  another: `add si, strict word 0x2602` rebases a caller's `si` onto a CS buffer
+  that `[si]` then reads with `DS = CS`. The coordinate is known
   (`disp - 0x100`) and the *named* half is bound (D7.6b); what remains is the
   **unnamed** class (~45 real references, e.g. `mov dx, 0x10ea` naming the
   `MAZE SET ERROR.` string at file 0x0fea), which needs a rule that decides which
@@ -506,6 +592,5 @@ image, which no source edit can move:
 - `bios_data_*` and any `external_data` field — the BIOS data area (segment 0x40).
 - `psp_*` fields — the DOS Program Segment Prefix layout.
 
-Everything else that is literal today (`e_sp`, `o_bss`, `__zbss_size`, the
-raw-driver `data_*`/`dseg_24fd`, F6 tables, F9 immediates) is open work in
-Section 5.
+Everything else that is literal today (the raw-driver `data_*`, F6 tables,
+F9 immediates) is open work in Section 5.

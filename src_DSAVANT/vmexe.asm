@@ -17,16 +17,16 @@ IMAGE_BASE equ 0x000e + VBASE
     dw (__zdata_start - __zcode_start)           ; 0xa537 ; o_csize: code size in bytes
     dw __zdseg_end                               ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)            ; 0x0024 ; o_dsize: initialized data size
-    dw 0x0120                                    ; o_bss: uninitialized data size
+    dw __zobss_end - __zimage_end                ; 0x0120 ; o_bss: uninitialized data size
     dw string_loc_KPHK - IMAGE_BASE + __zres_end ; 0xf511 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
-loc_RKQJ equ 0x735e + VBASE
 
 %include "shared/api_idx_0002_GKQL.asm"     ; 0x000e
 
 %include "vmexe/api_idx_0004_QUVO.asm"     ; 0x0034
 
+bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmexe/asm_only/api_idx_0012_PGSL.asm"     ; 0x00db
 
 %include "shared/api_idx_0008_MNJN.asm"     ; 0x0257
@@ -47,8 +47,11 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
 
 %include "shared/loc_SSIO.asm"              ; 0x0dbe
 
+bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
 %include "vmexe/api_idx_0016_MUKH.asm"     ; 0x0e1a
 
+; bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
+bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
 %include "vmexe/loc_OTGM.asm"              ; 0x0f67
 
 %include "vmexe/loc_HJSG.asm"              ; 0x15ab
@@ -65,13 +68,17 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
 
 %include "vmexe/asm_only/api_idx_000e_PTNT.asm"     ; 0x178e
 
+bss_90e0 equ __zdseg_end + (__zobss_90e0 - __zdata_start)
 %include "vmexe/loc_QRIN.asm"              ; 0x17d1
 
 %include "vmexe/loc_TGJH.asm"              ; 0x182b
 
+bss_90e2 equ __zdseg_end + (__zobss_90e2 - __zdata_start)
 loc_KRMP.bss1 equ bss_90e2
 %include "shared/loc_KRMP.asm"              ; 0x1849
 
+; bss_90dc equ __zdseg_end + (__zobss_90dc - __zdata_start)
+; bss_90e2 equ __zdseg_end + (__zobss_90e2 - __zdata_start)
 %include "vmexe/api_idx_0006_TMLR.asm"     ; 0x18a8
 
 loc_RPUI.api_idx1 equ api_idx_0006_TMLR
@@ -80,6 +87,7 @@ loc_RPUI.api_idx1 equ api_idx_0006_TMLR
 loc_UTQS.api_idx1 equ api_idx_0006_TMLR
 %include "shared/loc_UTQS.asm"              ; 0x1a4c
 
+bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 %include "vmexe/api_idx_0004_QUPL.asm"     ; 0x1a5f
 
 %include "shared/api_idx_000a_UUIH.asm"     ; 0x1ac7
@@ -92,6 +100,8 @@ loc_UTQS.api_idx1 equ api_idx_0006_TMLR
 
 %include "vmexe/api_idx_0004_PIHK.asm"     ; 0x1c5e
 
+bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
+bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/loc_NJKR.asm"              ; 0x1e35
 
 %include "vmexe/api_idx_0002_LKMM.asm"     ; 0x1f00
@@ -102,6 +112,8 @@ loc_UTQS.api_idx1 equ api_idx_0006_TMLR
 
 %include "vmexe/asm_only/api_idx_0006_QJOL.asm"     ; 0x209c
 
+; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
+; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/api_idx_0022_ROKS.asm"     ; 0x2242
 
 %include "vmexe/loc_PKMT.asm"              ; 0x24c2
@@ -112,18 +124,25 @@ loc_UTQS.api_idx1 equ api_idx_0006_TMLR
 
 %include "vmexe/api_idx_0006_OMUL.asm"     ; 0x25d0
 
+bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
+; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
+; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/api_idx_0010_LPLH.asm"     ; 0x265f
 
 %include "vmexe/api_idx_000a_PJIK.asm"     ; 0x28e1
 
+; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/api_idx_000a_LHTJ.asm"     ; 0x2998
 
+; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/api_idx_000e_RMNP.asm"     ; 0x2a8b
 
 %include "vmexe/api_idx_0002_PGQI.asm"     ; 0x2bf2
 
+; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/api_idx_0006_LIRP.asm"     ; 0x2c7b
 
+; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/api_idx_0002_NGRN.asm"     ; 0x2d6b
 
 %include "shared/loc_QQUT.asm"              ; 0x2e09
@@ -132,75 +151,85 @@ loc_UTQS.api_idx1 equ api_idx_0006_TMLR
 
 %include "vmexe/api_idx_0006_NIMO.asm"     ; 0x312e
 
+; bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
+bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
 %include "vmexe/api_idx_0004_PMSR.asm"     ; 0x33e2
 
 %include "vmexe/api_idx_005e_OJVJ.asm"     ; 0x34bc
 
+; bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 %include "vmexe/asm_only/string_loc_KUIU.asm"       ; 0x3620
 
 %include "vmexe/loc_RKLS.asm"              ; 0x3aa3
 
+; bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 %include "vmexe/asm_only/api_idx_000e_ORJG.asm"     ; 0x3b07
 
+; bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
+bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 %include "vmexe/api_idx_000e_HLRI.asm"     ; 0x5fa1
 
 %include "vmexe/api_idx_0004_MIIS.asm"     ; 0x6374
 
 %include "vmexe/api_idx_0008_NUPQ.asm"     ; 0x63cd
 
+; bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
+; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
+; bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
+; bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 %include "vmexe/api_idx_0014_OSKJ.asm"     ; 0x6476
 
 %include "vmexe/loc_HOUQ.asm"              ; 0x6edc
 
+; bss_90e2 equ __zdseg_end + (__zobss_90e2 - __zdata_start)
 %include "vmexe/api_idx_000c_VJPM.asm"     ; 0x6f33
 
 %include "vmexe/api_idx_0004_NRKR.asm"     ; 0x73f6
 
+; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vmexe/asm_only/api_idx_000a_VQTM.asm"     ; 0x7434
 
 %include "vmexe/asm_only/api_idx_000c_NRPK.asm"     ; 0x7911
 
-%include "vmexe/api_idx_00ac_HRGV.asm"     ; 0x7962
+; bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
+; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
+; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
+; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
+; bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
+%include "vmexe/asm_only/api_idx_00ac_OJJU.asm"     ; 0x7962
 
-%include "vmexe/leaf_loc_IIUM.asm"         ; 0x7b39
-
-%include "vmexe/asm_only/leaf_loc_MPRQ.asm"         ; 0x7b41
-
-leaf_loc_LPSH.loc1 equ loc_SJSL
-%include "shared/leaf_loc_LPSH.asm"         ; 0x87b7
-
-%include "vmexe/leaf_loc_TPRI.asm"         ; 0x87ba
-
-%include "vmexe/leaf_loc_NJLQ.asm"         ; 0x87c9
-
-%include "vmexe/leaf_loc_VVNV.asm"         ; 0x87d5
-
-%include "vmexe/leaf_loc_IIUP.asm"         ; 0x87e5
-
-%include "vmexe/leaf_loc_IVJO.asm"         ; 0x87f8
-
-%include "vmexe/leaf_loc_TUGO.asm"         ; 0x8800
-
-%include "vmexe/leaf_loc_QOMJ.asm"         ; 0x8813
-
-%include "vmexe/leaf_loc_PRNP.asm"         ; 0x8827
-
+; bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
+; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
 %include "vmexe/api_idx_0006_MRPM.asm"     ; 0x908d
 
+; bss_90de equ __zdseg_end + (__zobss_90de - __zdata_start)
+; bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 %include "vmexe/api_idx_000e_SOLJ.asm"     ; 0x91b5
 
+; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
 %include "vmexe/loc_SKVJ.asm"              ; 0x9842
 
+; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
 %include "vmexe/api_idx_0006_PSQH.asm"     ; 0x989b
 
+; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
 %include "vmexe/api_idx_0010_UUTT.asm"     ; 0x9a2f
 
 %include "vmexe/loc_IRGI.asm"              ; 0x9d8d
 
+; bss_9186 equ __zdseg_end + (__zobss_9186 - __zdata_start)
 %include "vmexe/api_idx_0006_JJVQ.asm"     ; 0x9e5d
 
+; bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
+; bss_91da equ __zdseg_end + (__zobss_91da - __zdata_start)
 %include "vmexe/api_idx_005a_UJPS.asm"     ; 0x9f4f
 
+dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
+dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
+dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
+dseg_90b8 equ __zdseg_end + (__zdseg_90b8 - __zdata_start)
+dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
+; bss_90bc  equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmexe/asm_only/string_loc_KPHK.asm"       ; 0xa4ca
 
 %include "shared/leaf_loc_RJLR.asm"         ; 0xa508
@@ -212,7 +241,41 @@ __zdata_start:
     db 'V1.$$$', 0
     db 'V2.$$$', 0
     db 'MON00.PIC', 0
-    times 12 db 0
+    db 0x00, 0x00
 
+__zdseg_90b2:
+    db 0x00, 0x00
+__zdseg_90b4:
+    db 0x00, 0x00
+__zdseg_90b6:
+    db 0x00, 0x00
+__zdseg_90b8:
+    db 0x00, 0x00
+__zdseg_90ba:
+    db 0x00, 0x00
 
 __zimage_end:
+absolute __zimage_end
+__zobss_90bc:
+    resb 0x0020
+__zobss_90dc:
+    resb 0x0002
+__zobss_90de:
+    resb 0x0002
+__zobss_90e0:
+    resb 0x0002
+__zobss_90e2:
+    resb 0x0002
+__zobss_90e4:
+    resb 0x0052
+__zobss_9136:
+    resb 0x0050
+__zobss_9186:
+    resb 0x0050
+__zobss_91d6:
+    resb 0x0002
+__zobss_91d8:
+    resb 0x0002
+__zobss_91da:
+    resb 0x0002
+__zobss_end:

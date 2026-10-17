@@ -29,7 +29,7 @@ loc_QJRN:
     sub ah, ah                       ; 0x9488
     push ax                          ; 0x948a
     push word [bp + 0x4]             ; 0x948b
-    call api_idx_0006_TNSP           ; 0x948e
+    call api_idx_0006_UMQS           ; 0x948e
     add sp, byte 6                   ; 0x9491
     test ax, ax                      ; 0x9494
     jne short @..loc_QJRN.l1         ; 0x9496

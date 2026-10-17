@@ -119,7 +119,7 @@ api_idx_000a_JJNS:
     push word [bp + 0x8]             ; 0x7dff
     push word [bp - 0x0004]          ; 0x7e02
     push word [bss_830c]             ; 0x7e05
-    call api_idx_0004_GMNK           ; 0x7e09
+    call api_idx_0004_KMPG           ; 0x7e09
     add sp, byte 0x12                ; 0x7e0c
     cmp word [bp - 0x0002], byte 0   ; 0x7e0f
     jne short @..api_idx_000a_JJNS.l12 ; 0x7e13

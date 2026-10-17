@@ -681,7 +681,7 @@ jumptable_291f_case_34:
     mov ax, bx                       ; 0x285e
     push ax                          ; 0x2860
     push word [bp + 0x4]             ; 0x2861
-    call loc_UUJO                    ; 0x2864
+    call loc_LJLP                    ; 0x2864
     add sp, byte 8                   ; 0x2867
 @..loc_2209.l37:
     jmp near @..loc_2209.l42         ; 0x286a

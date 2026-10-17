@@ -22,7 +22,7 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     push ax                          ; 0x2891
     mov ax, 8                        ; 0x2892
     push ax                          ; 0x2895
-    call ds_app_file_NKGK            ; 0x2896
+    call ds_app_file_MPPM            ; 0x2896
     add sp, byte 8                   ; 0x2899
     mov ax, 0xbcd                    ; 0x289c
     push ax                          ; 0x289f

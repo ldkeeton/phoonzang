@@ -99,6 +99,6 @@ jumptable_0457:
     jae short @..api_idx_0004_PSJH.l4 ; 0x0468
     xchg bx, ax                      ; 0x046a
     shl bx, 1                        ; 0x046b
-    jmp [cs:bx + 0x549e]             ; 0x046d
+    jmp [cs:bx + jumptable_0457 - IMAGE_BASE + __zres_end] ; 0x046d
 @..api_idx_0004_PSJH.l4:
     ret                              ; 0x0472

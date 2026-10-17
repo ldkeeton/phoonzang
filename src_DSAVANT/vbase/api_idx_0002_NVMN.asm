@@ -128,7 +128,6 @@ jumptable_7185_case_5:
     call loc_LIQV                    ; 0x717d
     add sp, byte 4                   ; 0x7180
     jmp short @..api_idx_0002_NVMN.l6 ; 0x7183
-io_loc_7185:
 jumptable_7185:
     dw jumptable_7185_case_0 - IMAGE_BASE + __zres_end ; 0x7185
     dw jumptable_7185_case_1 - IMAGE_BASE + __zres_end ; 0x7187
@@ -141,7 +140,7 @@ jumptable_7185:
     jae short @..api_idx_0002_NVMN.l6 ; 0x7194
     xchg bx, ax                      ; 0x7196
     shl bx, 1                        ; 0x7197
-    jmp [cs:bx - 0x3e34]             ; 0x7199
+    jmp [cs:bx + jumptable_7185 - IMAGE_BASE + __zres_end] ; 0x7199
 jumptable_7185_case_0:
 @..api_idx_0002_NVMN.l6:
     mov ax, 0                        ; 0x719e

@@ -39,14 +39,13 @@ _PREVIOUS_LOCAL_TARGETS = {
     0x51e6, 0x51ea, 0x51fb, 0x523b,
 }
 
-# These old local names have branch sources owned by other named entries too,
-# so their generated labels must remain globally addressable.
-_SHARED_OR_CROSS_FUNCTION_TARGETS = {
-    0x1a84, 0x1a9d, 0x1b0f, 0x1b1c,
-    0x2c74, 0x2d5c,
-    0x4879, 0x4894, 0x48a5, 0x48b0, 0x48ba, 0x48ca,
-    0x48d4, 0x48dd, 0x48ea, 0x48f8, 0x48fc,
-}
+# 0x1a84..0x1b1c, 0x2c74/0x2d5c and 0x4879..0x48fc were once kept global: each
+# of their routine's switch arms was rooted as an entry of its own, cutting
+# ``ds_app_UPSN``, ``ds_app_JKOJ`` and ``sprintf`` into pieces that branched
+# into each other.  A ``jmp``-dispatched arm is a block of its dispatcher now
+# (``runner``: a switch arm loses a generic root), so each routine is whole and
+# they are its locals again.
+
 # Resolved as a named library routine rather than a local branch target.
 _NOW_GLOBALLY_NAMED = {0x4f87}  # aztec_stkover
 # Cross-fragment branch targets: a shared exit laid out in *another* routine's
@@ -55,8 +54,7 @@ _NOW_GLOBALLY_NAMED = {0x4f87}  # aztec_stkover
 # ``ds_loc_XXXX`` fragment.
 _NOW_GLOBALLY_ROOTED = {0x395b, 0x4676}
 _EXPECTED_LOCAL_TARGETS = (
-    _PREVIOUS_LOCAL_TARGETS - _SHARED_OR_CROSS_FUNCTION_TARGETS
-    - _NOW_GLOBALLY_NAMED - _NOW_GLOBALLY_ROOTED
+    _PREVIOUS_LOCAL_TARGETS - _NOW_GLOBALLY_NAMED - _NOW_GLOBALLY_ROOTED
 )
 
 
@@ -111,18 +109,6 @@ class DSAVANTLocalLabelRegressionTests(unittest.TestCase):
             'DSAVANT targets no longer rendered as local labels: '
             + ', '.join(f'0x{offset:04x}' for offset in missing),
         )
-
-    def test_shared_or_cross_function_targets_stay_exportable(self):
-        # The name is content-derived now (``ds_loc_<TAG>``), so assert the
-        # property this case is about: a *global* label (not an ``@..`` local),
-        # addressable from another routine.
-        wrong = {
-            offset: self.label_map.get(offset)
-            for offset in _SHARED_OR_CROSS_FUNCTION_TARGETS
-            if not (isinstance(self.label_map.get(offset), str)
-                    and not self.label_map[offset].startswith('@..'))
-        }
-        self.assertEqual(wrong, {})
 
     def test_shared_epilogue_label_uses_its_function_scope(self):
         self.assertEqual(

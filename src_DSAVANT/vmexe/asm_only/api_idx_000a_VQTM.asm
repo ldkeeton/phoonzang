@@ -538,7 +538,7 @@ jumptable_78e5:
     jae short @..api_idx_000a_VQTM.l22 ; 0x78f8
     xchg bx, ax                      ; 0x78fa
     shl bx, 1                        ; 0x78fb
-    jmp [cs:bx - 0x36d4]             ; 0x78fd
+    jmp [cs:bx + jumptable_78e5 - IMAGE_BASE + __zres_end] ; 0x78fd
 @..api_idx_000a_VQTM.l22:
     inc word [bp - 0x0002]           ; 0x7902
     mov ax, word [bp - 0x0002]       ; 0x7905

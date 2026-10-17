@@ -72,7 +72,7 @@ api_idx_0002_MSOL:
     mov ax, 5                        ; 0x8ac0
     push ax                          ; 0x8ac3
     push word [bss_830c]             ; 0x8ac4
-    call api_idx_0004_GMNK           ; 0x8ac8
+    call api_idx_0004_KMPG           ; 0x8ac8
     add sp, byte 0x12                ; 0x8acb
     mov ax, 0                        ; 0x8ace
     push ax                          ; 0x8ad1
@@ -127,6 +127,6 @@ api_idx_0002_MSOL:
     mov ax, 6                        ; 0x8b43
     push ax                          ; 0x8b46
     push word [bss_830c]             ; 0x8b47
-    call api_idx_0004_GMNK           ; 0x8b4b
+    call api_idx_0004_KMPG           ; 0x8b4b
     add sp, byte 0x12                ; 0x8b4e
     ret                              ; 0x8b51

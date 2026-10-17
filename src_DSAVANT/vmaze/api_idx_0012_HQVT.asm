@@ -281,7 +281,7 @@ loc_41a3:
     call api_idx_0004_OVUO           ; 0x41b9
     add sp, byte 0x1c                ; 0x41bc
 loc_41bf:
-    jmp near leaf_loc_RSTT           ; 0x41bf
+    jmp near leaf_loc_KOVG           ; 0x41bf
 jumptable_4404_case_7:
     cmp word [bp + 0x4], byte 4      ; 0x41c2
     jge short loc_41ed               ; 0x41c6
@@ -464,7 +464,7 @@ loc_42f6:
     call api_idx_0004_OVUO           ; 0x434c
     add sp, byte 0x1c                ; 0x434f
 loc_4352:
-    jmp near leaf_loc_RSTT           ; 0x4352
+    jmp near leaf_loc_KOVG           ; 0x4352
 jumptable_4404_case_4:
     cmp word [bp + 0x4], byte 4      ; 0x4355
     jge short loc_43aa               ; 0x4359
@@ -506,7 +506,7 @@ jumptable_4404_case_4:
     call api_idx_0004_OVUO           ; 0x43a4
     add sp, byte 0x1c                ; 0x43a7
 loc_43aa:
-    jmp near leaf_loc_RSTT           ; 0x43aa
+    jmp near leaf_loc_KOVG           ; 0x43aa
 jumptable_4404_case_5:
     cmp word [bp + 0x4], byte 4      ; 0x43ad
     jge short loc_4402               ; 0x43b1
@@ -548,9 +548,9 @@ jumptable_4404_case_5:
     call api_idx_0004_OVUO           ; 0x43fc
     add sp, byte 0x1c                ; 0x43ff
 loc_4402:
-    jmp short leaf_loc_RSTT          ; 0x4402
+    jmp short leaf_loc_KOVG          ; 0x4402
 jumptable_4404:
-    dw leaf_loc_RSTT - IMAGE_BASE + __zres_end ; 0x4404
+    dw leaf_loc_KOVG - IMAGE_BASE + __zres_end ; 0x4404
     dw loc_40b6 - IMAGE_BASE + __zres_end      ; 0x4406
     dw loc_41ed - IMAGE_BASE + __zres_end      ; 0x4408
     dw loc_3ff9 - IMAGE_BASE + __zres_end      ; 0x440a
@@ -568,7 +568,7 @@ jumptable_4404:
     dw loc_41ed - IMAGE_BASE + __zres_end      ; 0x4422
 @..api_idx_0012_HQVT.l1:
     cmp ax, strict word 0x10         ; 0x4424
-    jae short leaf_loc_RSTT          ; 0x4427
+    jae short leaf_loc_KOVG          ; 0x4427
     xchg bx, ax                      ; 0x4429
     shl bx, 1                        ; 0x442a
-    jmp [cs:bx - 0x6bb5]             ; 0x442c
+    jmp [cs:bx + jumptable_4404 - IMAGE_BASE + __zres_end] ; 0x442c

@@ -84,7 +84,7 @@ api_idx_007a_GTOG:
     sub ah, ah                       ; 0x447e
     push ax                          ; 0x4480
     push word [bp + 0x4]             ; 0x4481
-    call loc_MMIM                    ; 0x4484
+    call loc_VQPO                    ; 0x4484
     add sp, byte 4                   ; 0x4487
     mov ax, 1                        ; 0x448a
     push ax                          ; 0x448d

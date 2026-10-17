@@ -177,6 +177,6 @@ jumptable_9baa:
     jae short @..loc_SMSJ.l5         ; 0x9bc1
     xchg bx, ax                      ; 0x9bc3
     shl bx, 1                        ; 0x9bc4
-    jmp [cs:bx - 0x140f]             ; 0x9bc6
+    jmp [cs:bx + jumptable_9baa - IMAGE_BASE + __zres_end] ; 0x9bc6
 @..loc_SMSJ.l5:
     ret                              ; 0x9bcb

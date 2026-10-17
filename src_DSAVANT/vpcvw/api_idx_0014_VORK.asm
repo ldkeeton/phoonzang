@@ -701,7 +701,7 @@ loc_VUMS:
     call api_idx_0084_LRRN           ; 0x67a2
     pop cx                           ; 0x67a5
     jmp short @..api_idx_0014_VORK.l20 ; 0x67a6
-loc_MNIM_67a8:
+loc_MNIM:
     jmp short @..api_idx_0014_VORK.l20 ; 0x67a8
 loc_QHSQ:
     push word [bp + 0x4]             ; 0x67aa
@@ -724,13 +724,13 @@ jumptable_67c3:
     dw loc_LPSH_6786 - IMAGE_BASE + __zres_end ; 0x67cd
     dw loc_MIKT - IMAGE_BASE + __zres_end      ; 0x67cf
     dw loc_VUMS - IMAGE_BASE + __zres_end      ; 0x67d1
-    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67d3
-    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67d5
-    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67d7
-    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67d9
-    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67db
-    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67dd
-    dw loc_MNIM_67a8 - IMAGE_BASE + __zres_end ; 0x67df
+    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x67d3
+    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x67d5
+    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x67d7
+    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x67d9
+    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x67db
+    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x67dd
+    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x67df
     dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67e1
     dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67e3
     dw jumptable_67c3_case_15 - IMAGE_BASE + __zres_end ; 0x67e5
@@ -747,7 +747,7 @@ jumptable_67c3:
     jae short @..api_idx_0014_VORK.l20 ; 0x67fa
     xchg bx, ax                      ; 0x67fc
     shl bx, 1                        ; 0x67fd
-    jmp [cs:bx - 0x47f6]             ; 0x67ff
+    jmp [cs:bx + jumptable_67c3 - IMAGE_BASE + __zres_end] ; 0x67ff
 jumptable_67c3_case_15:
 @..api_idx_0014_VORK.l20:
     cmp word [bp - 0x0004], byte 0x1a ; 0x6804

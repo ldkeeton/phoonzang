@@ -90,7 +90,7 @@ loc_MQMP:
 loc_QUTJ:
     mov bl, byte [cs:cseg_11d8 - IMAGE_BASE] ; 0x0bd2
     xor bh, bh                       ; 0x0bd7
-    cmp byte [cs:bx + 0x12c6], 0x3e  ; 0x0bd9
+    cmp byte [cs:bx + cseg_11c6 - IMAGE_BASE], 0x3e ; 0x0bd9
     jne short loc_TVJU               ; 0x0bdf
     mov byte [cs:cseg_11d8 - IMAGE_BASE], 8 ; 0x0be1
     mov bx, cseg_11d6 - IMAGE_BASE   ; 0x0be7
@@ -109,7 +109,7 @@ loc_PLOS:
 loc_TVJU:
     mov bl, byte [cs:cseg_11d9 - IMAGE_BASE] ; 0x0c05
     xor bh, bh                       ; 0x0c0a
-    mov cl, byte [cs:bx + 0x12bf]    ; 0x0c0c
+    mov cl, byte [cs:bx + cseg_11bf - IMAGE_BASE] ; 0x0c0c
     xor ch, ch                       ; 0x0c11
     mov al, byte [cs:cseg_11d9 - IMAGE_BASE] ; 0x0c13
     shl al, 1                        ; 0x0c17

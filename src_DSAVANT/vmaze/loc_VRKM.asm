@@ -80,7 +80,7 @@ jumptable_03ce:
     jae short @..loc_VRKM.l2         ; 0x03df
     xchg bx, ax                      ; 0x03e1
     shl bx, 1                        ; 0x03e2
-    jmp [cs:bx + 0x5415]             ; 0x03e4
+    jmp [cs:bx + jumptable_03ce - IMAGE_BASE + __zres_end] ; 0x03e4
 jumptable_03ce_case_0:
 @..loc_VRKM.l2:
     ret                              ; 0x03e9

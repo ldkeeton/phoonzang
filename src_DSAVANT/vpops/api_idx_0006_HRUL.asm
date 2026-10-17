@@ -115,7 +115,7 @@ api_idx_0006_HRUL:
     idiv cx                          ; 0x1034
     mov word [bss_82e8], dx          ; 0x1036
 @..api_idx_0006_HRUL.l10:
-    call ds_app_GJOV                 ; 0x103a
+    call ds_app_JKOJ                 ; 0x103a
     jmp short @..api_idx_0006_HRUL.l16 ; 0x103d
 @..api_idx_0006_HRUL.l11:
     push word [bss_845e]             ; 0x103f

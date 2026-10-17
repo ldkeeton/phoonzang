@@ -94,7 +94,7 @@ jumptable_8b35:
     jae short @..api_idx_0054_TNHV.l3 ; 0x8b4c
     xchg bx, ax                      ; 0x8b4e
     shl bx, 1                        ; 0x8b4f
-    jmp [cs:bx - 0x2484]             ; 0x8b51
+    jmp [cs:bx + jumptable_8b35 - IMAGE_BASE + __zres_end] ; 0x8b51
 jumptable_8b35_case_0:
 @..api_idx_0054_TNHV.l3:
     lea ax, word [bp - 0x0052]       ; 0x8b56

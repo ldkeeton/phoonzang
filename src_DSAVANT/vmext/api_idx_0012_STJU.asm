@@ -584,7 +584,7 @@ loc_NVUT:
     add sp, byte 8                   ; 0x35f1
 @..api_idx_0012_STJU.l44:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35f4
-loc_MNIM_35f6:
+loc_MNIM:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35f6
 loc_TORJ:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35f8
@@ -593,13 +593,13 @@ jumptable_35fa:
     dw loc_GMQM - IMAGE_BASE + __zres_end      ; 0x35fc
     dw loc_NQIP - IMAGE_BASE + __zres_end      ; 0x35fe
     dw loc_NVUT - IMAGE_BASE + __zres_end      ; 0x3600
-    dw loc_MNIM_35f6 - IMAGE_BASE + __zres_end ; 0x3602
+    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x3602
 @..api_idx_0012_STJU.l45:
     cmp ax, strict word 5            ; 0x3604
     jae short @..api_idx_0012_STJU.l46 ; 0x3607
     xchg bx, ax                      ; 0x3609
     shl bx, 1                        ; 0x360a
-    jmp [cs:bx - 0x79bf]             ; 0x360c
+    jmp [cs:bx + jumptable_35fa - IMAGE_BASE + __zres_end] ; 0x360c
 @..api_idx_0012_STJU.l46:
     cmp word [bp - 0x0012], byte 0   ; 0x3611
     jne short @..api_idx_0012_STJU.l47 ; 0x3615

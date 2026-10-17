@@ -210,7 +210,7 @@ jumptable_85bc:
     jae short @..api_idx_0004_PONI.l2 ; 0x85db
     xchg bx, ax                      ; 0x85dd
     shl bx, 1                        ; 0x85de
-    jmp [cs:bx - 0x29fd]             ; 0x85e0
+    jmp [cs:bx + jumptable_85bc - IMAGE_BASE + __zres_end] ; 0x85e0
 @..api_idx_0004_PONI.l2:
     mov ax, 0x248                    ; 0x85e5
     imul word [bp + 0x4]             ; 0x85e8

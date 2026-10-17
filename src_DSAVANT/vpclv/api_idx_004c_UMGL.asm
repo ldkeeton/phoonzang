@@ -106,7 +106,7 @@ api_idx_004c_UMGL:
     push ax                          ; 0x28da
     mov ax, 1                        ; 0x28db
     push ax                          ; 0x28de
-    call ds_app_file_NKGK            ; 0x28df
+    call ds_app_file_MPPM            ; 0x28df
     add sp, byte 8                   ; 0x28e2
     mov ax, 0x248                    ; 0x28e5
     imul word [bp + 0x4]             ; 0x28e8

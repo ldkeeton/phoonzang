@@ -7,7 +7,7 @@ from capstone import CS_OP_MEM
 from lib.verify.assemble import micro_assemble
 from lib.compare.records import _record_span, _label_record
 from lib.names import is_data
-from lib.symtab import Kind, Source, Symbol
+from lib.symtab import Kind, Source, Space, Symbol
 
 
 def _parse_hex_offset(value):
@@ -408,4 +408,131 @@ def _rewrite_jump_dispatchers(records, disp_labels, start_offset,
         )
         if built and len(built) >= len(original) and built[:len(original)] == original:
             rec['text'] = text
+    return records
+
+
+_TABLE_RECORD_TYPES = ('data_block', 'db', 'db_with_comment', 'jump_table')
+
+
+def _cs_table_symbol(records, off, mem_equ):
+    """The name for file offset *off* inside a carved data object, or None.
+
+    An injected table answers ``label`` / ``label + k`` (its span is one
+    record, so a label cannot sit inside it); a label already on the byte is
+    reused; any other data byte gets a ``cseg_`` name in *mem_equ*, which the
+    dynamic-address pass then places as a label (plan.md F3).  A byte that is
+    code, a header or outside every record names no table.
+    """
+    covering = None
+    label = None
+    for rec in records:
+        if rec['type'] == 'label':
+            if rec['offset'] == off and label is None:
+                label = rec['name']
+            continue
+        start, end = _record_span(rec)
+        if start == off or start < off < end:
+            covering = rec
+            break
+    if covering is None or covering['type'] not in _TABLE_RECORD_TYPES:
+        return None
+    if covering['type'] == 'jump_table':
+        k = off - covering['start']
+        return covering['label'] if k == 0 else f"{covering['label']} + 0x{k:x}"
+    if label is not None:
+        return label
+    name = Symbol.data(Space.CSEG, off)
+    mem_equ.setdefault(name, off)
+    return name
+
+
+def _bind_cs_table_operands(records, binary_data, start_offset, label_map,
+                            local_labels, foreign_label_map, immediate_labels,
+                            data_labels=None, mem_symbols=None, mem_equ=None,
+                            load_offset=0, o_corg=None):
+    """Name the table in every ``[cs:reg + disp]`` operand (plan.md §5).
+
+    ``mov dx, [cs:bx + 0x5a5]`` or ``jmp [cs:bx + 0x5415]`` indexes a table in
+    the code segment: the displacement is the table's CS address, so it moves
+    whenever the table does.  When the displacement lands on a carved data
+    object of this image (an injected table, a data block, a string) it is
+    rewritten over that object's label.  A displacement on code, below the
+    image or past it is a field offset or an unknown pointer and stays.
+
+    The CS address of file offset ``F`` is ``F - IMAGE_BASE`` for an MZ or a
+    driver (``IMAGE_BASE`` is ``-load_offset`` there) and
+    ``F - IMAGE_BASE + __zres_end`` for an overlay, whose code runs at
+    ``o_corg`` -- the same spelling as ``o_entry`` and the table words.  Each
+    rewritten line must assemble back to the original bytes.
+    """
+    from lib.format import format_instruction
+
+    if mem_symbols is None or mem_equ is None:
+        return records
+    total = len(binary_data)
+    suffix = ' - IMAGE_BASE' + (' + __zres_end' if o_corg is not None else '')
+
+    planned = []
+    for rec in records:
+        if rec['type'] != 'mnem':
+            continue
+        insn = rec.get('_insn')
+        if insn is None:
+            continue
+        for idx, op in enumerate(insn.operands):
+            if (op.type != CS_OP_MEM or not (op.mem.base or op.mem.index)
+                    or insn.reg_name(op.mem.segment or 0) != 'cs'):
+                continue
+            disp = op.mem.disp & 0xFFFF
+            if disp == 0:
+                continue        # ``[cs:bx]``: a pointer, not a table base
+            if o_corg is not None:
+                off = start_offset + disp - o_corg
+            else:
+                off = disp + start_offset - load_offset
+            if not start_offset <= off < total:
+                continue
+            name = _cs_table_symbol(records, off, mem_equ)
+            if name is not None:
+                planned.append((rec, insn, idx, f'{name}{suffix}'))
+    if not planned:
+        return records
+
+    # One prelude for every check: the names the rewrites spell, at their
+    # file offsets, plus the overlay origin (``IMAGE_BASE`` is the file-offset
+    # model's ``start_offset - load_offset``).
+    known = {str(n) for m in (label_map, local_labels, foreign_label_map,
+                              immediate_labels) for n in (m or {}).values()}
+    defs = {name: value for name, value in mem_equ.items()
+            if str(name) not in known}
+    for rec in records:
+        if rec['type'] == 'label' and rec['name'] not in known:
+            defs.setdefault(rec['name'], rec['offset'])
+        elif rec['type'] == 'jump_table' and rec['label'] not in known:
+            defs.setdefault(rec['label'], rec['start'])
+    if o_corg is not None:
+        defs['__zres_end'] = o_corg
+    image_base = start_offset - load_offset
+
+    for rec, insn, idx, expr in planned:
+        previous = mem_symbols.get((insn.address, idx))
+        mem_symbols[(insn.address, idx)] = expr
+        text = format_instruction(
+            insn, label_map, local_labels, foreign_label_map,
+            immediate_labels=immediate_labels, data_labels=data_labels,
+            mem_symbols=mem_symbols,
+        )
+        original = bytes(insn.bytes)
+        built = text and micro_assemble(
+            text, insn.address, label_map, local_labels,
+            foreign_label_map=foreign_label_map,
+            immediate_labels=immediate_labels,
+            image_base=image_base, mem_equ=defs,
+        )
+        if built and built[:len(original)] == original:
+            rec['text'] = text
+        elif previous is None:
+            del mem_symbols[(insn.address, idx)]
+        else:
+            mem_symbols[(insn.address, idx)] = previous
     return records

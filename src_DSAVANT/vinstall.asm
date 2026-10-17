@@ -11,27 +11,25 @@ IMAGE_BASE equ 0x0200 + VBASE
 %endif
 
     ; DOS MZ executable header (512 bytes)
-    db "MZ"                               ; e_magic: DOS MZ signature
-    dw (__zimage_end - $$) % 512          ; 0x0014 ; e_cblp: bytes in final 512-byte page (0 means full)
-    dw ((__zimage_end - $$) + 511) // 512 ; 0x0031 ; e_cp: total 512-byte pages in the file
-    dw 0x0001                             ; e_crlc: number of relocation entries
-    dw 0x0020                             ; e_cparhdr: header size in 16-byte paragraphs
-    dw 0x045d                             ; e_minalloc: minimum extra memory paragraphs
-    dw 0xffff                             ; e_maxalloc: maximum extra memory paragraphs
-    dw __zdseg_para                       ; 0x038e ; e_ss: initial stack segment, relative to load module
-    dw 0x6afe                             ; e_sp: initial stack pointer
-    dw 0x0000                             ; e_csum: file checksum (often unused)
-    dw aztec_begin - IMAGE_BASE           ; 0x33d2 ; e_ip: initial instruction pointer
-    dw 0x0000                             ; e_cs: initial code segment, relative to load module
-    dw 0x0020                             ; e_lfarlc: file offset of relocation table
-    dw 0x0000                             ; e_ovno: overlay number (0 for main executable)
+    db "MZ"                                       ; e_magic: DOS MZ signature
+    dw (__zimage_end - $$) % 512                  ; 0x0014 ; e_cblp: bytes in final 512-byte page (0 means full)
+    dw ((__zimage_end - $$) + 511) // 512         ; 0x0031 ; e_cp: total 512-byte pages in the file
+    dw 0x0001                                     ; e_crlc: number of relocation entries
+    dw 0x0020                                     ; e_cparhdr: header size in 16-byte paragraphs
+    dw ((__zstack_top - __zimage_end) + 15) // 16 ; 0x045d ; e_minalloc: minimum extra memory paragraphs
+    dw 0xffff                                     ; e_maxalloc: maximum extra memory paragraphs
+    dw __zdseg_para                               ; 0x038e ; e_ss: initial stack segment, relative to load module
+    dw __zstack_top - __zdseg_start               ; 0x6afe ; e_sp: initial stack pointer
+    dw 0x0000                                     ; e_csum: file checksum (often unused)
+    dw aztec_begin - IMAGE_BASE                   ; 0x33d2 ; e_ip: initial instruction pointer
+    dw 0x0000                                     ; e_cs: initial code segment, relative to load module
+    dw 0x0020                                     ; e_lfarlc: file offset of relocation table
+    dw 0x0000                                     ; e_ovno: overlay number (0 for main executable)
 
     times 4 db 0
     db 0xd3, 0x33
     times 478 db 0
 
-loc_TTIQ equ 0x1fb2 + VBASE
-leaf_loc_5fe5 equ 0x5fe5 + VBASE
 dseg_000e equ __zdseg_000e - __zdseg_start
 dseg_0025 equ __zdseg_0025 - __zdseg_start
 dseg_003c equ __zdseg_003c - __zdseg_start
@@ -57,8 +55,8 @@ dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
 dseg_251b equ __zdseg_251b - __zdseg_start
 dseg_251c equ __zdseg_251c - __zdseg_start
-bss_2afe equ (__zimage_end - __zdseg_start) + 0x05ca
-__zbss_size equ 0x05ca
+bss_2afe equ __zbss_2afe - __zdseg_start
+__zbss_size equ __zbss_end - __zimage_end
 
 %include "vinstall/loc_NVUL.asm"           ; 0x0200
 
@@ -80,40 +78,40 @@ __zbss_size equ 0x05ca
 
 %include "vinstall/loc_NOVO.asm"           ; 0x0823
 
-bss_2644 equ (__zimage_end - __zdseg_start) + 0x0110
-bss_2645 equ (__zimage_end - __zdseg_start) + 0x0111
-bss_2646 equ (__zimage_end - __zdseg_start) + 0x0112
-bss_2647 equ (__zimage_end - __zdseg_start) + 0x0113
+bss_2644 equ __zbss_2644 - __zdseg_start
+bss_2645 equ __zbss_2645 - __zdseg_start
+bss_2646 equ __zbss_2646 - __zdseg_start
+bss_2647 equ __zbss_2647 - __zdseg_start
 %include "vinstall/loc_VRLL.asm"           ; 0x0927
 
 %include "vinstall/aztec_vfprintf.asm"     ; 0x0944
 
 %include "vinstall/loc_NNGU.asm"           ; 0x0992
 
-bss_2698 equ (__zimage_end - __zdseg_start) + 0x0164
-bss_29ba equ (__zimage_end - __zdseg_start) + 0x0486
-bss_29bb equ (__zimage_end - __zdseg_start) + 0x0487
-bss_29d0 equ (__zimage_end - __zdseg_start) + 0x049c
-bss_29d1 equ (__zimage_end - __zdseg_start) + 0x049d
-bss_29d2 equ (__zimage_end - __zdseg_start) + 0x049e
-bss_29d4 equ (__zimage_end - __zdseg_start) + 0x04a0
-bss_29d5 equ (__zimage_end - __zdseg_start) + 0x04a1
-bss_29d6 equ (__zimage_end - __zdseg_start) + 0x04a2
-bss_29d7 equ (__zimage_end - __zdseg_start) + 0x04a3
-bss_29d8 equ (__zimage_end - __zdseg_start) + 0x04a4
-bss_29da equ (__zimage_end - __zdseg_start) + 0x04a6
-bss_29dc equ (__zimage_end - __zdseg_start) + 0x04a8
-bss_29dd equ (__zimage_end - __zdseg_start) + 0x04a9
-bss_29df equ (__zimage_end - __zdseg_start) + 0x04ab
-bss_29e1 equ (__zimage_end - __zdseg_start) + 0x04ad
-bss_29e2 equ (__zimage_end - __zdseg_start) + 0x04ae
-bss_29e3 equ (__zimage_end - __zdseg_start) + 0x04af
+bss_2698 equ __zbss_2698 - __zdseg_start
+bss_29ba equ __zbss_29ba - __zdseg_start
+bss_29bb equ __zbss_29bb - __zdseg_start
+bss_29d0 equ __zbss_29d0 - __zdseg_start
+bss_29d1 equ __zbss_29d1 - __zdseg_start
+bss_29d2 equ __zbss_29d2 - __zdseg_start
+bss_29d4 equ __zbss_29d4 - __zdseg_start
+bss_29d5 equ __zbss_29d5 - __zdseg_start
+bss_29d6 equ __zbss_29d6 - __zdseg_start
+bss_29d7 equ __zbss_29d7 - __zdseg_start
+bss_29d8 equ __zbss_29d8 - __zdseg_start
+bss_29da equ __zbss_29da - __zdseg_start
+bss_29dc equ __zbss_29dc - __zdseg_start
+bss_29dd equ __zbss_29dd - __zdseg_start
+bss_29df equ __zbss_29df - __zdseg_start
+bss_29e1 equ __zbss_29e1 - __zdseg_start
+bss_29e2 equ __zbss_29e2 - __zdseg_start
+bss_29e3 equ __zbss_29e3 - __zdseg_start
 %include "vinstall/aztec_impl_scan.asm"    ; 0x0a0f
 
-bss_29e6 equ (__zimage_end - __zdseg_start) + 0x04b2
-bss_29e8 equ (__zimage_end - __zdseg_start) + 0x04b4
-bss_29ea equ (__zimage_end - __zdseg_start) + 0x04b6
-bss_29ec equ (__zimage_end - __zdseg_start) + 0x04b8
+bss_29e6 equ __zbss_29e6 - __zdseg_start
+bss_29e8 equ __zbss_29e8 - __zdseg_start
+bss_29ea equ __zbss_29ea - __zdseg_start
+bss_29ec equ __zbss_29ec - __zdseg_start
 %include "vinstall/loc_UTOL.asm"           ; 0x0c21
 
 %include "vinstall/loc_HUKT.asm"           ; 0x0cd6
@@ -124,44 +122,24 @@ bss_29ec equ (__zimage_end - __zdseg_start) + 0x04b8
 
 %include "vinstall/loc_ONOP.asm"           ; 0x0dda
 
-bss_29ee equ (__zimage_end - __zdseg_start) + 0x04ba
+bss_29ee equ __zbss_29ee - __zdseg_start
 %include "vinstall/loc_GVUH.asm"           ; 0x0ed8
 
 %include "vinstall/leaf_loc_UUSR.asm"      ; 0x10a4
 
 dseg_0004 equ __zdseg_0004 - __zdseg_start
 dseg_0006 equ __zdseg_0006 - __zdseg_start
-; bss_29e6  equ (__zimage_end - __zdseg_start) + 0x04b2
-; bss_29e8  equ (__zimage_end - __zdseg_start) + 0x04b4
-; bss_29ea  equ (__zimage_end - __zdseg_start) + 0x04b6
-; bss_29ec  equ (__zimage_end - __zdseg_start) + 0x04b8
-bss_2af0  equ (__zimage_end - __zdseg_start) + 0x05bc
-bss_2af2  equ (__zimage_end - __zdseg_start) + 0x05be
-bss_2af4  equ (__zimage_end - __zdseg_start) + 0x05c0
-bss_2af6  equ (__zimage_end - __zdseg_start) + 0x05c2
-bss_2af8  equ (__zimage_end - __zdseg_start) + 0x05c4
-bss_2afa  equ (__zimage_end - __zdseg_start) + 0x05c6
+; bss_29e6  equ __zbss_29e6 - __zdseg_start
+; bss_29e8  equ __zbss_29e8 - __zdseg_start
+; bss_29ea  equ __zbss_29ea - __zdseg_start
+; bss_29ec  equ __zbss_29ec - __zdseg_start
+bss_2af0  equ __zbss_2af0 - __zdseg_start
+bss_2af2  equ __zbss_2af2 - __zdseg_start
+bss_2af4  equ __zbss_2af4 - __zdseg_start
+bss_2af6  equ __zbss_2af6 - __zdseg_start
+bss_2af8  equ __zbss_2af8 - __zdseg_start
+bss_2afa  equ __zbss_2afa - __zdseg_start
 %include "vinstall/loc_JGSH.asm"           ; 0x12b5
-
-%include "vinstall/loc_RQGH.asm"           ; 0x1b79
-
-%include "vinstall/loc_RIRK.asm"           ; 0x1b90
-
-%include "vinstall/loc_TURS.asm"           ; 0x1ba7
-
-%include "vinstall/loc_JVOO.asm"           ; 0x1bbe
-
-%include "vinstall/loc_KHVG.asm"           ; 0x1bd5
-
-%include "vinstall/loc_KOIR.asm"           ; 0x2394
-
-%include "vinstall/loc_TMPN_239c.asm"      ; 0x239c
-
-%include "vinstall/loc_JMQK.asm"           ; 0x23a4
-
-%include "vinstall/loc_TMPN_23ac.asm"      ; 0x23ac
-
-%include "vinstall/loc_USNQ.asm"           ; 0x23b4
 
 cseg_2479:
     db 0x00
@@ -171,15 +149,15 @@ cseg_2479:
 
 %include "vinstall/asm_only/dos_con_in_noecho.asm"  ; 0x2521
 
-; bss_2647 equ (__zimage_end - __zdseg_start) + 0x0113
+; bss_2647 equ __zbss_2647 - __zdseg_start
 %include "vinstall/asm_only/bios_video_loc_RSQH.asm" ; 0x252e
 
 %include "vinstall/asm_only/bios_video_loc_RRQH.asm" ; 0x2551
 
-; bss_2645 equ (__zimage_end - __zdseg_start) + 0x0111
+; bss_2645 equ __zbss_2645 - __zdseg_start
 %include "vinstall/asm_only/bios_video_loc_HMPN.asm" ; 0x25d3
 
-; bss_2644 equ (__zimage_end - __zdseg_start) + 0x0110
+; bss_2644 equ __zbss_2644 - __zdseg_start
 %include "vinstall/asm_only/bios_video_loc_QTQU.asm" ; 0x2621
 
 %include "vinstall/asm_only/aztec_calloc.asm"       ; 0x26f6
@@ -265,84 +243,54 @@ dseg_234a equ __zdseg_234a - __zdseg_start
 
 %include "vinstall/loc_PHKM.asm"           ; 0x2e63
 
-bss_2534 equ (__zimage_end - __zdseg_start)
-bss_2536 equ (__zimage_end - __zdseg_start) + 0x0002
+bss_2534 equ __zbss_2534 - __zdseg_start
+bss_2536 equ __zbss_2536 - __zdseg_start
 %include "vinstall/aztec_realloc.asm"      ; 0x2eac
 
 dseg_244e equ __zdseg_244e - __zdseg_start
-; bss_2534  equ (__zimage_end - __zdseg_start)
-; bss_2536  equ (__zimage_end - __zdseg_start) + 0x0002
-bss_2538  equ (__zimage_end - __zdseg_start) + 0x0004
+; bss_2534  equ __zbss_2534 - __zdseg_start
+; bss_2536  equ __zbss_2536 - __zdseg_start
+bss_2538  equ __zbss_2538 - __zdseg_start
 %include "vinstall/aztec_malloc.asm"       ; 0x2f1b
 
-leaf_loc_LPSH.loc1 equ loc_ISSQ
-%include "shared/leaf_loc_LPSH.asm"      ; 0x3016
+%include "vinstall/leaf_loc_LPSH.asm"      ; 0x3016
 
-; bss_2536 equ (__zimage_end - __zdseg_start) + 0x0002
+; bss_2536 equ __zbss_2536 - __zdseg_start
 %include "vinstall/aztec_free.asm"         ; 0x3019
 
+cseg_303e:
 
     db 'LlhFNoxXudiscpneEfgG%'
 
 jumptable_3053:
-    dw string_loc_KLPS - IMAGE_BASE            ; 0x3053
-    dw string_loc_TJJQ - IMAGE_BASE            ; 0x3055
-    dw string_loc_IPHN - IMAGE_BASE            ; 0x3057
-    dw string_loc_TVST - IMAGE_BASE            ; 0x3059
-    dw string_loc_IPHN - IMAGE_BASE            ; 0x305b
-    dw leaf_loc_KNGK - IMAGE_BASE              ; 0x305d
-    dw leaf_loc_VGLQ - IMAGE_BASE              ; 0x305f
-    dw leaf_loc_QRUN - IMAGE_BASE              ; 0x3061
-    dw leaf_loc_RIHO - IMAGE_BASE              ; 0x3063
-    dw leaf_loc_LLHP - IMAGE_BASE              ; 0x3065
-    dw leaf_loc_LLHP - IMAGE_BASE              ; 0x3067
-    dw loc_HRLO - IMAGE_BASE                   ; 0x3069
-    dw loc_OMJQ - IMAGE_BASE                   ; 0x306b
-    dw string_loc_LPSH - IMAGE_BASE            ; 0x306d
-    dw string_loc_MLSO - IMAGE_BASE            ; 0x306f
+    dw string_loc_3140 - IMAGE_BASE            ; 0x3053
+    dw string_loc_3147 - IMAGE_BASE            ; 0x3055
+    dw string_loc_314b - IMAGE_BASE            ; 0x3057
+    dw string_loc_314e - IMAGE_BASE            ; 0x3059
+    dw string_loc_314b - IMAGE_BASE            ; 0x305b
+    dw leaf_loc_3155 - IMAGE_BASE              ; 0x305d
+    dw leaf_loc_315e - IMAGE_BASE              ; 0x305f
+    dw leaf_loc_315a - IMAGE_BASE              ; 0x3061
+    dw leaf_loc_3163 - IMAGE_BASE              ; 0x3063
+    dw leaf_loc_3168 - IMAGE_BASE              ; 0x3065
+    dw leaf_loc_3168 - IMAGE_BASE              ; 0x3067
+    dw loc_QMOJ - IMAGE_BASE                   ; 0x3069
+    dw loc_OKTP - IMAGE_BASE                   ; 0x306b
+    dw string_loc_32d0 - IMAGE_BASE            ; 0x306d
+    dw string_loc_32d3 - IMAGE_BASE            ; 0x306f
     dw loc_GLMV - IMAGE_BASE                   ; 0x3071
     dw loc_GHJS - IMAGE_BASE                   ; 0x3073
     dw loc_GLMV - IMAGE_BASE                   ; 0x3075
     dw loc_GLMV - IMAGE_BASE                   ; 0x3077
     dw loc_GHJS - IMAGE_BASE                   ; 0x3079
-    dw string_loc_LTKU - IMAGE_BASE            ; 0x307b
-    dw string_loc_QMVT - IMAGE_BASE            ; 0x307d
+    dw string_loc_30b3 - IMAGE_BASE            ; 0x307b
+    dw string_loc_3330 - IMAGE_BASE            ; 0x307d
 
     db '23456789abcdef -lm first', 0
 
-loc_KNJH     equ sprintf.loc1
-sprintf.loc2 equ loc_JJKK
-%include "shared/sprintf.asm"            ; 0x3098
+%include "vinstall/asm_only/sprintf.asm"            ; 0x3098
 
-%include "vinstall/asm_only/string_loc_LTKU.asm"    ; 0x30b3
-
-%include "vinstall/asm_only/string_loc_KLPS.asm"    ; 0x3140
-
-%include "vinstall/string_loc_TJJQ.asm"    ; 0x3147
-
-%include "vinstall/asm_only/string_loc_IPHN.asm"    ; 0x314b
-
-%include "vinstall/asm_only/string_loc_TVST.asm"    ; 0x314e
-
-%include "vinstall/leaf_loc_KNGK.asm"      ; 0x3155
-
-%include "vinstall/leaf_loc_QRUN.asm"      ; 0x315a
-
-%include "vinstall/leaf_loc_VGLQ.asm"      ; 0x315e
-
-%include "vinstall/leaf_loc_RIHO.asm"      ; 0x3163
-
-%include "vinstall/asm_only/leaf_loc_LLHP.asm"      ; 0x3168
-
-%include "vinstall/string_loc_LPSH.asm"    ; 0x32d0
-
-%include "vinstall/string_loc_MLSO.asm"    ; 0x32d3
-
-%include "vinstall/loc_MRST.asm"           ; 0x32eb
-
-%include "vinstall/leaf_loc_GIJR.asm"      ; 0x331e
-
-%include "vinstall/string_loc_QMVT.asm"    ; 0x3330
+%include "vinstall/leaf_loc_GSJQ.asm"      ; 0x331e
 
 %include "vinstall/asm_only/string_loc_TRQP.asm"    ; 0x3338
 
@@ -360,7 +308,6 @@ _ioflg equ __z_ioflg - __zdseg_start
 
 %include "shared/aztec_lud.asm"          ; 0x3471
 
-aztec_strcmp.loc1 equ loc_OSRT
 %include "shared/aztec_strcmp.asm"       ; 0x3508
 
 loc_TMNK equ aztec_strncmp.loc1
@@ -387,15 +334,17 @@ dseg_2512         equ __zdseg_2512 - __zdseg_start
 _STKRED           equ __z_STKRED - __zdseg_start
 dseg_2516         equ __zdseg_2516 - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
-; bss_2534          equ (__zimage_end - __zdseg_start)
+; bss_2534          equ __zbss_2534 - __zdseg_start
 __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "vinstall/asm_only/aztec_begin.asm"        ; 0x35d2
 
 %include "vinstall/asm_only/aztec_impl_exit.asm"    ; 0x3716
 
+__zcp_373b:
+    db 0xb8, 0x00, 0x00, 0xc3
 ; _ioflg   equ __z_ioflg - __zdseg_start
-bss_253a equ (__zimage_end - __zdseg_start) + 0x0006
-bss_253c equ (__zimage_end - __zdseg_start) + 0x0008
+bss_253a equ __zbss_253a - __zdseg_start
+bss_253c equ __zbss_253c - __zdseg_start
 %include "vinstall/aztec_Croot.asm"        ; 0x373f
 
 ; dseg_2500 equ __zdseg_2500 - __zdseg_start
@@ -431,8 +380,8 @@ dseg_2530 equ __zdseg_2530 - __zdseg_start
 %include "shared/aztec_rename.asm"       ; 0x38b8
 
 _Eol     equ __z_Eol - __zdseg_start
-bss_2642 equ (__zimage_end - __zdseg_start) + 0x010e
-_TTrem   equ (__zimage_end - __zdseg_start) + 0x05c8
+bss_2642 equ __zbss_2642 - __zdseg_start
+_TTrem   equ __zbss_2afc - __zdseg_start
 %include "vinstall/aztec_impl_tty_rd.asm"  ; 0x38d9
 
 %include "vinstall/aztec_impl_tty_wr.asm"  ; 0x393e
@@ -1267,8 +1216,9 @@ __z_PSP:
     db 0x0d, 0x0a, 0x24
 
 __zdseg_2500:
+    dw __zcp_373b - IMAGE_BASE                 ; 0x5fe0
 
-    db 0x3b, 0x35, 0x00
+    db 0x00
     db 'Too many args.', 0
 
 __zdseg_2512:
@@ -1288,10 +1238,95 @@ __zdseg_251c:
     times 18 db 0
 
 __zdseg_252e:
-    db 0xd9, 0x36
+    dw aztec_impl_tty_rd - IMAGE_BASE          ; 0x600e
 __zdseg_2530:
-    db 0x3e, 0x37
+    dw aztec_impl_tty_wr - IMAGE_BASE          ; 0x6010
 __z_Eol:
     db 0x0a, 0x0d
 
 __zimage_end:
+absolute __zimage_end
+__zbss_2534:
+    resb 0x0002
+__zbss_2536:
+    resb 0x0002
+__zbss_2538:
+    resb 0x0002
+__zbss_253a:
+    resb 0x0002
+__zbss_253c:
+    resb 0x0106
+__zbss_2642:
+    resb 0x0002
+__zbss_2644:
+    resb 0x0001
+__zbss_2645:
+    resb 0x0001
+__zbss_2646:
+    resb 0x0001
+__zbss_2647:
+    resb 0x0051
+__zbss_2698:
+    resb 0x0322
+__zbss_29ba:
+    resb 0x0001
+__zbss_29bb:
+    resb 0x0015
+__zbss_29d0:
+    resb 0x0001
+__zbss_29d1:
+    resb 0x0001
+__zbss_29d2:
+    resb 0x0002
+__zbss_29d4:
+    resb 0x0001
+__zbss_29d5:
+    resb 0x0001
+__zbss_29d6:
+    resb 0x0001
+__zbss_29d7:
+    resb 0x0001
+__zbss_29d8:
+    resb 0x0002
+__zbss_29da:
+    resb 0x0002
+__zbss_29dc:
+    resb 0x0001
+__zbss_29dd:
+    resb 0x0002
+__zbss_29df:
+    resb 0x0002
+__zbss_29e1:
+    resb 0x0001
+__zbss_29e2:
+    resb 0x0001
+__zbss_29e3:
+    resb 0x0003
+__zbss_29e6:
+    resb 0x0002
+__zbss_29e8:
+    resb 0x0002
+__zbss_29ea:
+    resb 0x0002
+__zbss_29ec:
+    resb 0x0002
+__zbss_29ee:
+    resb 0x0102
+__zbss_2af0:
+    resb 0x0002
+__zbss_2af2:
+    resb 0x0002
+__zbss_2af4:
+    resb 0x0002
+__zbss_2af6:
+    resb 0x0002
+__zbss_2af8:
+    resb 0x0002
+__zbss_2afa:
+    resb 0x0002
+__zbss_2afc:
+    resb 0x0002
+__zbss_2afe:
+__zbss_end:
+    resb 0x4000
+__zstack_top:

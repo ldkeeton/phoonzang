@@ -1311,7 +1311,7 @@ jumptable_8492:
     jae short @..api_idx_0044_NORP.l46 ; 0x849f
     xchg bx, ax                      ; 0x84a1
     shl bx, 1                        ; 0x84a2
-    jmp [cs:bx - 0x2b27]             ; 0x84a4
+    jmp [cs:bx + jumptable_8492 - IMAGE_BASE + __zres_end] ; 0x84a4
 @..api_idx_0044_NORP.l46:
     jmp near @..api_idx_0044_NORP.l24 ; 0x84a9
 @..api_idx_0044_NORP.l47:

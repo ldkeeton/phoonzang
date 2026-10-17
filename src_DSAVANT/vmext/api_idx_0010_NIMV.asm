@@ -318,7 +318,7 @@ jumptable_2515:
     jae short @..api_idx_0010_NIMV.l26 ; 0x2538
     xchg bx, ax                      ; 0x253a
     shl bx, 1                        ; 0x253b
-    jmp [cs:bx + 0x755c]             ; 0x253d
+    jmp [cs:bx + jumptable_2515 - IMAGE_BASE + __zres_end] ; 0x253d
 jumptable_2515_case_0:
 @..api_idx_0010_NIMV.l26:
     mov word [bp - 0x0002], 0xffff   ; 0x2542
@@ -820,7 +820,7 @@ jumptable_2967:
     jae short @..api_idx_0010_NIMV.l48 ; 0x298a
     xchg bx, ax                      ; 0x298c
     shl bx, 1                        ; 0x298d
-    jmp [cs:bx + 0x79ae]             ; 0x298f
+    jmp [cs:bx + jumptable_2967 - IMAGE_BASE + __zres_end] ; 0x298f
 jumptable_2967_case_0:
 @..api_idx_0010_NIMV.l48:
     cmp word [bp - 0x0010], byte 0xff ; 0x2994

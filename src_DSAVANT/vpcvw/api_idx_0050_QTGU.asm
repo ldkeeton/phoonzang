@@ -1336,7 +1336,7 @@ jumptable_38dd:
     jae short @..api_idx_0050_QTGU.l49 ; 0x38ea
     xchg bx, ax                      ; 0x38ec
     shl bx, 1                        ; 0x38ed
-    jmp [cs:bx - 0x76dc]             ; 0x38ef
+    jmp [cs:bx + jumptable_38dd - IMAGE_BASE + __zres_end] ; 0x38ef
 @..api_idx_0050_QTGU.l49:
     jmp near @..api_idx_0050_QTGU.l27 ; 0x38f4
 @..api_idx_0050_QTGU.l50:

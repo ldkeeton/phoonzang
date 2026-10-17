@@ -114,7 +114,7 @@ api_idx_0006_SQTK:
     idiv cx                          ; 0x105d
     mov word [bss_82e8], dx          ; 0x105f
 @..api_idx_0006_SQTK.l10:
-    call ds_app_GJOV                 ; 0x1063
+    call ds_app_JKOJ                 ; 0x1063
     jmp short @..api_idx_0006_SQTK.l16 ; 0x1066
 @..api_idx_0006_SQTK.l11:
     push word [bss_845e]             ; 0x1068

@@ -3,7 +3,7 @@
 loc_0614:
     cmp byte [cs:cseg_0321 - IMAGE_BASE], 0 ; 0x0614
     jne short loc_061f               ; 0x061a
-    jmp near io_loc_HMTR             ; 0x061c
+    jmp near io_loc_0592             ; 0x061c
 loc_061f:
     cld                              ; 0x061f
     cli                              ; 0x0620
@@ -27,14 +27,14 @@ loc_061f:
     mov al, byte [cs:cseg_0a8f - IMAGE_BASE] ; 0x064e
     out 0x21, al                     ; 0x0652
     sti                              ; 0x0654
-    jmp near io_loc_HMTR             ; 0x0655
+    jmp near io_loc_0592             ; 0x0655
 cseg_0658:
     db 0x00, 0x00
 jumptable_0789_case_1:
     push di                          ; 0x065a
     push si                          ; 0x065b
-    mov di, 0x1a3a                   ; 0x065c
-    mov si, 0x1b3a                   ; 0x065f
+    mov di, cseg_193a - IMAGE_BASE   ; 0x065c
+    mov si, cseg_1a3a - IMAGE_BASE   ; 0x065f
     xor bh, bh                       ; 0x0662
     mov bl, byte [bp + 0x12]         ; 0x0664
     mov cx, bx                       ; 0x0667
@@ -64,8 +64,8 @@ jumptable_0789_case_1:
     dec ax                           ; 0x069d
     cmp byte [cs:cseg_0a7d - IMAGE_BASE], 4 ; 0x069e
     mov si, ax                       ; 0x06a4
-    mov al, byte [cs:si + 0x1b3a]    ; 0x06a6
-    mov byte [cs:bx + 0x1a3a], al    ; 0x06ab
+    mov al, byte [cs:si + cseg_1a3a - IMAGE_BASE] ; 0x06a6
+    mov byte [cs:bx + cseg_193a - IMAGE_BASE], al ; 0x06ab
     inc bx                           ; 0x06b0
     cmp bx, strict word 0x80         ; 0x06b1
     jb short @..loc_065a.l2          ; 0x06b5
@@ -82,8 +82,8 @@ jumptable_0789_case_1:
     add ax, word [cs:cseg_0658 - IMAGE_BASE] ; 0x06ca
     cmp byte [cs:cseg_0a7d - IMAGE_BASE], 4 ; 0x06cf
     mov si, ax                       ; 0x06d5
-    mov al, byte [cs:si + 0x1b3a]    ; 0x06d7
-    mov byte [cs:bx + 0x1aba], al    ; 0x06dc
+    mov al, byte [cs:si + cseg_1a3a - IMAGE_BASE] ; 0x06d7
+    mov byte [cs:bx + cseg_19ba - IMAGE_BASE], al ; 0x06dc
     inc bx                           ; 0x06e1
     cmp bx, strict word 0x80         ; 0x06e2
     jb short @..loc_065a.l4          ; 0x06e6

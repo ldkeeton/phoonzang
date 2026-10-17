@@ -252,7 +252,7 @@ jumptable_3341:
     jae short @..api_idx_0006_NIMO.l5 ; 0x3358
     xchg bx, ax                      ; 0x335a
     shl bx, 1                        ; 0x335b
-    jmp [cs:bx - 0x7c78]             ; 0x335d
+    jmp [cs:bx + jumptable_3341 - IMAGE_BASE + __zres_end] ; 0x335d
 @..api_idx_0006_NIMO.l5:
     jmp short @..api_idx_0006_NIMO.l8 ; 0x3362
 @..api_idx_0006_NIMO.l6:

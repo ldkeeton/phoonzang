@@ -170,13 +170,13 @@ jumptable_6bfb_case_5:
 jumptable_6bfb_case_6:
     mov ax, 0                        ; 0x6bc1
     push ax                          ; 0x6bc4
-    call loc_TQRN                    ; 0x6bc5
+    call loc_RMVR                    ; 0x6bc5
     pop cx                           ; 0x6bc8
     test ax, ax                      ; 0x6bc9
     je short @..api_idx_004a_LKJS.l17 ; 0x6bcb
     mov ax, 0x912                    ; 0x6bcd
     push ax                          ; 0x6bd0
-    call api_idx_0062_NHSS           ; 0x6bd1
+    call api_idx_0062_SRKH           ; 0x6bd1
     pop cx                           ; 0x6bd4
     call loc_ROTV                    ; 0x6bd5
     call api_idx_0002_JLUK           ; 0x6bd8
@@ -209,7 +209,7 @@ jumptable_6bfb:
     jae short @..api_idx_004a_LKJS.l19 ; 0x6c10
     xchg bx, ax                      ; 0x6c12
     shl bx, 1                        ; 0x6c13
-    jmp [cs:bx - 0x43be]             ; 0x6c15
+    jmp [cs:bx + jumptable_6bfb - IMAGE_BASE + __zres_end] ; 0x6c15
 @..api_idx_004a_LKJS.l19:
     jmp near @..api_idx_004a_LKJS.l3 ; 0x6c1a
 @..api_idx_004a_LKJS.l20:

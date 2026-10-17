@@ -769,7 +769,7 @@ jumptable_11b9:
     jae short @..api_idx_0038_LTUV.l23 ; 0x11c8
     xchg bx, ax                      ; 0x11ca
     shl bx, 1                        ; 0x11cb
-    jmp [cs:bx + 0x6200]             ; 0x11cd
+    jmp [cs:bx + jumptable_11b9 - IMAGE_BASE + __zres_end] ; 0x11cd
 @..api_idx_0038_LTUV.l23:
     jmp short @..api_idx_0038_LTUV.l21 ; 0x11d2
 @..api_idx_0038_LTUV.l24:

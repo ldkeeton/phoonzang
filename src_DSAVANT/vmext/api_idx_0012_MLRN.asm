@@ -281,7 +281,7 @@ loc_2c32:
     call api_idx_0004_RTNM           ; 0x2c48
     add sp, byte 0x1c                ; 0x2c4b
 loc_2c4e:
-    jmp near leaf_loc_RSTT           ; 0x2c4e
+    jmp near leaf_loc_JQNJ           ; 0x2c4e
 jumptable_2e93_case_7:
     cmp word [bp + 0x4], byte 4      ; 0x2c51
     jge short loc_2c7c               ; 0x2c55
@@ -464,7 +464,7 @@ loc_2d85:
     call api_idx_0004_RTNM           ; 0x2ddb
     add sp, byte 0x1c                ; 0x2dde
 loc_2de1:
-    jmp near leaf_loc_RSTT           ; 0x2de1
+    jmp near leaf_loc_JQNJ           ; 0x2de1
 jumptable_2e93_case_4:
     cmp word [bp + 0x4], byte 4      ; 0x2de4
     jge short loc_2e39               ; 0x2de8
@@ -506,7 +506,7 @@ jumptable_2e93_case_4:
     call api_idx_0004_RTNM           ; 0x2e33
     add sp, byte 0x1c                ; 0x2e36
 loc_2e39:
-    jmp near leaf_loc_RSTT           ; 0x2e39
+    jmp near leaf_loc_JQNJ           ; 0x2e39
 jumptable_2e93_case_5:
     cmp word [bp + 0x4], byte 4      ; 0x2e3c
     jge short loc_2e91               ; 0x2e40
@@ -548,9 +548,9 @@ jumptable_2e93_case_5:
     call api_idx_0004_RTNM           ; 0x2e8b
     add sp, byte 0x1c                ; 0x2e8e
 loc_2e91:
-    jmp short leaf_loc_RSTT          ; 0x2e91
+    jmp short leaf_loc_JQNJ          ; 0x2e91
 jumptable_2e93:
-    dw leaf_loc_RSTT - IMAGE_BASE + __zres_end ; 0x2e93
+    dw leaf_loc_JQNJ - IMAGE_BASE + __zres_end ; 0x2e93
     dw loc_2b45 - IMAGE_BASE + __zres_end      ; 0x2e95
     dw loc_2c7c - IMAGE_BASE + __zres_end      ; 0x2e97
     dw loc_2a88 - IMAGE_BASE + __zres_end      ; 0x2e99
@@ -568,7 +568,7 @@ jumptable_2e93:
     dw loc_2c7c - IMAGE_BASE + __zres_end      ; 0x2eb1
 @..api_idx_0012_MLRN.l1:
     cmp ax, strict word 0x10         ; 0x2eb3
-    jae short leaf_loc_RSTT          ; 0x2eb6
+    jae short leaf_loc_JQNJ          ; 0x2eb6
     xchg bx, ax                      ; 0x2eb8
     shl bx, 1                        ; 0x2eb9
-    jmp [cs:bx + 0x7eda]             ; 0x2ebb
+    jmp [cs:bx + jumptable_2e93 - IMAGE_BASE + __zres_end] ; 0x2ebb

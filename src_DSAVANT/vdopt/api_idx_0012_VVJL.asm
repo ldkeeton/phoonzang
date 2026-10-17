@@ -444,4 +444,4 @@ jumptable_147e:
     jae short leaf_loc_STTR          ; 0x148f
     xchg bx, ax                      ; 0x1491
     shl bx, 1                        ; 0x1492
-    jmp [cs:bx + 0x64c5]             ; 0x1494
+    jmp [cs:bx + jumptable_147e - IMAGE_BASE + __zres_end] ; 0x1494

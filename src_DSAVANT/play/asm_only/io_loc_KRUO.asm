@@ -5,7 +5,7 @@ io_loc_KRUO:
     push dx                          ; 0x07f7
     xor bh, bh                       ; 0x07f8
     mov bl, ah                       ; 0x07fa
-    mov byte [cs:bx + 0x1529], al    ; 0x07fc
+    mov byte [cs:bx + cseg_1429 - IMAGE_BASE], al ; 0x07fc
     mov dx, 0x388                    ; 0x0801
     xchg ah, al                      ; 0x0804
     pushf                            ; 0x0806

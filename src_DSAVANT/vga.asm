@@ -352,9 +352,9 @@ cseg_14b0:
 cseg_14b2:
     db 0x00, 0x00
 cseg_14b4:
-    db 0xc4, 0x15
+    dw __zcp_14c4 - IMAGE_BASE                 ; 0x14b4
 cseg_14b6:
-    db 0xc4, 0x19
+    dw __zcp_18c4 - IMAGE_BASE                 ; 0x14b6
 cseg_14b8:
     db 0x00, 0x00
 cseg_14ba:
@@ -366,8 +366,14 @@ cseg_14be:
 cseg_14c0:
     db 0x00, 0x00
 cseg_14c2:
+    db 0x00, 0x00
+__zcp_14c4:
 
-    times 2050 db 0
+    times 1024 db 0
+
+__zcp_18c4:
+
+    times 1024 db 0
 
 __zdata_1dc4:
 cseg_1cc4:

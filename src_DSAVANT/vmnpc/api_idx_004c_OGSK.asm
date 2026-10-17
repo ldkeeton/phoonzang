@@ -33,7 +33,7 @@ api_idx_004c_OGSK:
     push ax                          ; 0x5035
     mov ax, 1                        ; 0x5036
     push ax                          ; 0x5039
-    call ds_app_file_NKGK            ; 0x503a
+    call ds_app_file_MPPM            ; 0x503a
     add sp, byte 8                   ; 0x503d
     mov ax, 0x248                    ; 0x5040
     imul word [bp + 0x4]             ; 0x5043

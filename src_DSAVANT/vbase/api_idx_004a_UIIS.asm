@@ -83,16 +83,16 @@ api_idx_004a_UIIS:
     add sp, byte 0x0e                ; 0x697f
     mov ax, word [bp - 0x0002]       ; 0x6982
     jmp short @..api_idx_004a_UIIS.l6 ; 0x6985
-loc_JGMH_6987:
+loc_JGMH:
     mov word [bp - 0x0004], 0        ; 0x6987
     jmp near @..api_idx_004a_UIIS.l7 ; 0x698c
 loc_KNJM:
     mov ax, 1                        ; 0x698f
     push ax                          ; 0x6992
-    call loc_TQRN                    ; 0x6993
+    call loc_RMVR                    ; 0x6993
     pop cx                           ; 0x6996
     jmp short @..api_idx_004a_UIIS.l7 ; 0x6997
-loc_MNIM_6999:
+loc_MNIM:
     jmp short @..api_idx_004a_UIIS.l7 ; 0x6999
 loc_LLMN:
     mov ax, 0                        ; 0x699b
@@ -127,9 +127,9 @@ loc_PUVO:
     mov word [bp - 0x0004], 0        ; 0x69e5
     jmp short @..api_idx_004a_UIIS.l7 ; 0x69ea
 jumptable_69ec:
-    dw loc_JGMH_6987 - IMAGE_BASE + __zres_end ; 0x69ec
+    dw loc_JGMH - IMAGE_BASE + __zres_end      ; 0x69ec
     dw loc_KNJM - IMAGE_BASE + __zres_end      ; 0x69ee
-    dw loc_MNIM_6999 - IMAGE_BASE + __zres_end ; 0x69f0
+    dw loc_MNIM - IMAGE_BASE + __zres_end      ; 0x69f0
     dw loc_LLMN - IMAGE_BASE + __zres_end      ; 0x69f2
     dw loc_LLMN - IMAGE_BASE + __zres_end      ; 0x69f4
     dw loc_PUVO - IMAGE_BASE + __zres_end      ; 0x69f6
@@ -138,7 +138,7 @@ jumptable_69ec:
     jae short @..api_idx_004a_UIIS.l7 ; 0x69fb
     xchg bx, ax                      ; 0x69fd
     shl bx, 1                        ; 0x69fe
-    jmp [cs:bx - 0x45cd]             ; 0x6a00
+    jmp [cs:bx + jumptable_69ec - IMAGE_BASE + __zres_end] ; 0x6a00
 @..api_idx_004a_UIIS.l7:
     cmp word [bp - 0x0004], byte 0   ; 0x6a05
     je short @..api_idx_004a_UIIS.l8 ; 0x6a09

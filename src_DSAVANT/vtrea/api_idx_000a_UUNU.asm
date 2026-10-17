@@ -95,7 +95,7 @@ loc_SPML:
 @..loc_SPML.l1:
     call api_idx_000e_TIOP           ; 0x080c
 @..loc_SPML.l2:
-    call ds_app_GJOV                 ; 0x080f
+    call ds_app_JKOJ                 ; 0x080f
     cmp word [bss_911a], byte 0      ; 0x0812
     jl short @..loc_SPML.l3          ; 0x0817
     push word [bss_9120]             ; 0x0819

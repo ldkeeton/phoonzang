@@ -349,6 +349,6 @@ jumptable_1ee4:
     jae short @..api_idx_0004_MMTP.l6 ; 0x1f03
     xchg bx, ax                      ; 0x1f05
     shl bx, 1                        ; 0x1f06
-    jmp [cs:bx + 0x6f2b]             ; 0x1f08
+    jmp [cs:bx + jumptable_1ee4 - IMAGE_BASE + __zres_end] ; 0x1f08
 @..api_idx_0004_MMTP.l6:
     ret                              ; 0x1f0d

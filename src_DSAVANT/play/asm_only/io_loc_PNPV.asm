@@ -11,7 +11,7 @@ __zinsn_09a3:
 __zinsn_09a8:
     mov al, byte [0x0000]            ; 0x09a8
     mov dx, word [cs:cseg_0a8d - IMAGE_BASE] ; 0x09ab
-    mov bx, 0x1a3a                   ; 0x09b0
+    mov bx, cseg_193a - IMAGE_BASE   ; 0x09b0
     cs xlatb                         ; 0x09b3
     out dx, al                       ; 0x09b5
 __zinsn_09b6:

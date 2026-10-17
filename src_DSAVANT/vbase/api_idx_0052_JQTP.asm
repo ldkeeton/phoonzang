@@ -342,7 +342,7 @@ jumptable_4af5:
     jae short @..api_idx_0052_JQTP.l2 ; 0x4b1e
     xchg bx, ax                      ; 0x4b20
     shl bx, 1                        ; 0x4b21
-    jmp [cs:bx - 0x64c4]             ; 0x4b23
+    jmp [cs:bx + jumptable_4af5 - IMAGE_BASE + __zres_end] ; 0x4b23
 jumptable_4af5_case_14:
 @..api_idx_0052_JQTP.l2:
     ret                              ; 0x4b28

@@ -116,7 +116,7 @@ api_idx_0030_MNJL:
     call thunk_28                    ; 0x3fb6
     add sp, byte 0x16                ; 0x3fb9
 @..api_idx_0030_MNJL.l4:
-    call ds_app_GJOV                 ; 0x3fbc
+    call ds_app_JKOJ                 ; 0x3fbc
     ret                              ; 0x3fbf
 @..api_idx_0030_MNJL.l5:
     cmp word [bss_5b6e], byte 1      ; 0x3fc0
@@ -149,7 +149,7 @@ api_idx_0030_MNJL:
     call api_idx_001e_IGLM           ; 0x4003
     call api_idx_0024_NUGL           ; 0x4006
 @..api_idx_0030_MNJL.l7:
-    call ds_app_GJOV                 ; 0x4009
+    call ds_app_JKOJ                 ; 0x4009
     ret                              ; 0x400c
 @..api_idx_0030_MNJL.l8:
     mov ax, 0                        ; 0x400d
@@ -662,7 +662,7 @@ jumptable_4471:
     jae short @..api_idx_0030_MNJL.l25 ; 0x4482
     xchg bx, ax                      ; 0x4484
     shl bx, 1                        ; 0x4485
-    jmp [cs:bx - 0x6b48]             ; 0x4487
+    jmp [cs:bx + jumptable_4471 - IMAGE_BASE + __zres_end] ; 0x4487
 jumptable_4471_case_0:
 @..api_idx_0030_MNJL.l25:
     mov word [bss_91aa], 0           ; 0x448c
@@ -746,7 +746,7 @@ jumptable_4471_case_0:
     push word [bp - 0x000e]          ; 0x4550
     push word [bp - 0x000c]          ; 0x4553
     push word [bp - 0x000a]          ; 0x4556
-    call api_idx_0008_SLRI           ; 0x4559
+    call api_idx_0008_UNPO           ; 0x4559
     add sp, byte 0x0c                ; 0x455c
     mov word [bss_9b0a], ax          ; 0x455f
     mov ax, 0                        ; 0x4562
@@ -757,7 +757,7 @@ jumptable_4471_case_0:
     push word [bp - 0x000c]          ; 0x456f
     push word [bp - 0x000a]          ; 0x4572
     push ax                          ; 0x4575
-    call api_idx_0008_NLUK           ; 0x4576
+    call api_idx_0008_LUNN           ; 0x4576
     add sp, byte 0x0e                ; 0x4579
     mov word [bss_9b0c], ax          ; 0x457c
     mov ax, 0                        ; 0x457f
@@ -769,7 +769,7 @@ jumptable_4471_case_0:
     push word [bp - 0x000a]          ; 0x458f
     mov ax, 2                        ; 0x4592
     push ax                          ; 0x4595
-    call api_idx_0008_NLUK           ; 0x4596
+    call api_idx_0008_LUNN           ; 0x4596
     add sp, byte 0x0e                ; 0x4599
     mov word [bss_9b0e], ax          ; 0x459c
 @..api_idx_0030_MNJL.l35:
@@ -780,7 +780,7 @@ jumptable_4471_case_0:
     push word [bp - 0x000e]          ; 0x45a9
     push word [bp - 0x000c]          ; 0x45ac
     push word [bp - 0x000a]          ; 0x45af
-    call api_idx_0008_SLRI           ; 0x45b2
+    call api_idx_0008_UNPO           ; 0x45b2
     add sp, byte 0x0c                ; 0x45b5
     mov word [bss_9b10], ax          ; 0x45b8
     mov ax, 1                        ; 0x45bb
@@ -790,7 +790,7 @@ jumptable_4471_case_0:
     push word [bp - 0x000e]          ; 0x45c5
     push word [bp - 0x000c]          ; 0x45c8
     push word [bp - 0x000a]          ; 0x45cb
-    call api_idx_0008_SLRI           ; 0x45ce
+    call api_idx_0008_UNPO           ; 0x45ce
     add sp, byte 0x0c                ; 0x45d1
     mov word [bss_9b12], ax          ; 0x45d4
     cmp word [bss_91aa], byte 1      ; 0x45d7
@@ -802,7 +802,7 @@ jumptable_4471_case_0:
     push word [bp - 0x000e]          ; 0x45e8
     push word [bp - 0x000c]          ; 0x45eb
     push word [bp - 0x000a]          ; 0x45ee
-    call api_idx_0008_SLRI           ; 0x45f1
+    call api_idx_0008_UNPO           ; 0x45f1
     add sp, byte 0x0c                ; 0x45f4
     mov word [bss_9b14], ax          ; 0x45f7
     mov ax, 2                        ; 0x45fa
@@ -812,7 +812,7 @@ jumptable_4471_case_0:
     push word [bp - 0x000e]          ; 0x4604
     push word [bp - 0x000c]          ; 0x4607
     push word [bp - 0x000a]          ; 0x460a
-    call api_idx_0008_SLRI           ; 0x460d
+    call api_idx_0008_UNPO           ; 0x460d
     add sp, byte 0x0c                ; 0x4610
     mov word [bss_9b16], ax          ; 0x4613
     mov ax, 0xffff                   ; 0x4616
@@ -824,7 +824,7 @@ jumptable_4471_case_0:
     push word [bp - 0x000a]          ; 0x4626
     mov ax, 0                        ; 0x4629
     push ax                          ; 0x462c
-    call api_idx_0008_NLUK           ; 0x462d
+    call api_idx_0008_LUNN           ; 0x462d
     add sp, byte 0x0e                ; 0x4630
     mov word [bss_9b18], ax          ; 0x4633
     mov ax, 1                        ; 0x4636
@@ -836,7 +836,7 @@ jumptable_4471_case_0:
     push word [bp - 0x000a]          ; 0x4646
     mov ax, 2                        ; 0x4649
     push ax                          ; 0x464c
-    call api_idx_0008_NLUK           ; 0x464d
+    call api_idx_0008_LUNN           ; 0x464d
     add sp, byte 0x0e                ; 0x4650
     mov word [bss_9b1a], ax          ; 0x4653
     jmp short @..api_idx_0030_MNJL.l37 ; 0x4656
@@ -2227,5 +2227,5 @@ jumptable_4471_case_0:
     jl short @..api_idx_0030_MNJL.l93 ; 0x51f2
     jmp near @..api_idx_0030_MNJL.l40 ; 0x51f4
 @..api_idx_0030_MNJL.l93:
-    call ds_app_GJOV                 ; 0x51f7
+    call ds_app_JKOJ                 ; 0x51f7
     ret                              ; 0x51fa

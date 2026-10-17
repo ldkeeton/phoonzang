@@ -9,9 +9,10 @@ layout and (b) follows the data segment when it is resized:
 * a **file-backed** DS target names the byte it points at (``dseg_<off>``,
   whose label the ``mem_equ`` machinery places at that byte -- anchored to a
   string start when the target lands inside a literal);
-* a **BSS/heap** DS target is the dynamic data size plus its offset
-  (``bss_<off>`` = ``(__zimage_end - __zdseg_start) + delta``);
-* a **CS** target names the code label (``<label> - IMAGE_BASE``).
+* a **BSS/heap** DS target names its label in the BSS block after the image
+  (``bss_<off>`` = ``__zbss_<off> - __zdseg_start``);
+* a **CS** target names the code label (``<label> - IMAGE_BASE``) -- in an
+  MZ image, or in a raw driver, whose ``IMAGE_BASE`` is the negative load base.
 
 Only bytes that a data block still owns are replaced: a word the disassembly
 already claimed (a mnemonic or a jump-table record) is left alone, because
@@ -134,19 +135,24 @@ def promote_data_pointers(records, binary_data, start_offset, segments,
     from lib.compare.jumptables import _ensure_global_label
     from lib.segments import SegmentModel  # noqa: F401  (documented dependency)
 
-    if segments is None or getattr(segments, 'kind', None) != 'mz':
+    kind = getattr(segments, 'kind', None)
+    driver = kind == 'driver'
+    if segments is None or kind not in ('mz', 'driver'):
         return records, {'promoted': [], 'skipped': []}
     data_origin = segments.data_origin
-    if data_origin is None:
+    if data_origin is None and not driver:
         return records, {'promoted': [], 'skipped': []}
-    bss_boundary = len(binary_data) - data_origin
-    anchored = data_anchored(records, binary_data, start_offset)
+    # A raw driver has one segment (``DS = CS``): only ``cs`` words, and its
+    # variables sit at any byte offset.
+    bss_boundary = None if driver else len(binary_data) - data_origin
+    anchored = driver or data_anchored(records, binary_data, start_offset)
+    load_offset = getattr(segments, 'load_offset', 0) or 0
 
     emitted = []
     skipped = []
     for entry in promoted:
         offset = entry['offset']
-        if offset & 1 or offset + 2 > len(binary_data):
+        if (offset & 1 and not driver) or offset + 2 > len(binary_data):
             skipped.append({'offset': offset, 'reason': 'misaligned'})
             continue
         value = struct.unpack_from('<H', binary_data, offset)[0]
@@ -154,11 +160,11 @@ def promote_data_pointers(records, binary_data, start_offset, segments,
         if not anchored:
             skipped.append({'offset': offset, 'reason': 'no-data-anchor'})
             continue
-        if space == 'ds':
+        if space == 'ds' and not driver:
             expr = _ds_expression(value, bss_boundary, mem_equ,
                                   segments.data_names)
         elif space == 'cs':
-            target = segments.cs_origin + value
+            target = segments.cs_origin + value - load_offset
             name = (label_map or {}).get(target)
             if name is None:
                 name = Symbol.anchor(f'__zcp_{target:04x}', target)

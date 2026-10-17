@@ -71,7 +71,7 @@ jumptable_48eb:
     jae short @..api_idx_0004_KJII.l3 ; 0x490a
     xchg bx, ax                      ; 0x490c
     shl bx, 1                        ; 0x490d
-    jmp [cs:bx - 0x66ce]             ; 0x490f
+    jmp [cs:bx + jumptable_48eb - IMAGE_BASE + __zres_end] ; 0x490f
 @..api_idx_0004_KJII.l3:
     cmp word [bp - 0x0004], byte 8   ; 0x4914
     jge short @..api_idx_0004_KJII.l4 ; 0x4918

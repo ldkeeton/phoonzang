@@ -139,7 +139,7 @@ api_idx_0006_TMLR:
     idiv cx                          ; 0x19f3
     mov word [bss_82e8], dx          ; 0x19f5
 @..api_idx_0006_TMLR.l11:
-    call ds_app_GJOV                 ; 0x19f9
+    call ds_app_JKOJ                 ; 0x19f9
     jmp short @..api_idx_0006_TMLR.l17 ; 0x19fc
 @..api_idx_0006_TMLR.l12:
     push word [bss_845e]             ; 0x19fe

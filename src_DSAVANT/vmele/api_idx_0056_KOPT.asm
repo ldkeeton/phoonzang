@@ -8,7 +8,7 @@ api_idx_0056_KOPT:
     push ax                          ; 0x31b0
     call api_idx_005c_UIOK           ; 0x31b1
     pop cx                           ; 0x31b4
-    call api_idx_0008_JTOJ           ; 0x31b5
+    call api_idx_0008_OUTK           ; 0x31b5
     mov word [bp - 0x0002], 0        ; 0x31b8
     jmp short @..api_idx_0056_KOPT.l4 ; 0x31bd
 @..api_idx_0056_KOPT.l1:

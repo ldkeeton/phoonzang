@@ -32,10 +32,11 @@ def _validate_code_tables(tables, description):
     """Validate a sidecar code_tables list.
 
     A code-pointer table is a run of in-image code offsets (e.g. a driver's
-    interrupt-handler dispatch table), so it has no dispatcher address.
-    ``table`` is the table's load-image offset; ``entry_size``/``count`` give
-    the geometry.  The targets become hard code roots and the table bytes are
-    carved as data.
+    interrupt-handler dispatch table).  ``table`` is the table's load-image
+    offset; ``entry_size``/``count`` give the geometry.  The targets become
+    hard code targets and the table bytes are carved as data.  A switch table
+    also names its dispatcher (``jmp``), whose flow edges keep the arms in the
+    dispatching function; a handler table has none.
     """
     if not isinstance(tables, list):
         raise SidecarError(f'{description} must be a list')
@@ -44,6 +45,8 @@ def _validate_code_tables(tables, description):
         if not isinstance(entry, dict) or 'table' not in entry:
             raise SidecarError(f'{where} must be an object with "table"')
         _parse_offset(entry['table'], f'{where}.table')
+        if 'jmp' in entry:
+            _parse_offset(entry['jmp'], f'{where}.jmp')
         esize = entry.get('entry_size', 2)
         if esize not in (2, 4):
             raise SidecarError(f'{where}.entry_size must be 2 or 4')

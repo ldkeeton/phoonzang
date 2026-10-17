@@ -1336,7 +1336,7 @@ jumptable_1d9a:
     jae short @..api_idx_0050_MINM.l49 ; 0x1da7
     xchg bx, ax                      ; 0x1da9
     shl bx, 1                        ; 0x1daa
-    jmp [cs:bx + 0x6de1]             ; 0x1dac
+    jmp [cs:bx + jumptable_1d9a - IMAGE_BASE + __zres_end] ; 0x1dac
 @..api_idx_0050_MINM.l49:
     jmp near @..api_idx_0050_MINM.l27 ; 0x1db1
 @..api_idx_0050_MINM.l50:

@@ -9,7 +9,7 @@ loc_HUIS:
     push ax                          ; 0x579a
     mov ax, 7                        ; 0x579b
     push ax                          ; 0x579e
-    call ds_app_file_NKGK            ; 0x579f
+    call ds_app_file_MPPM            ; 0x579f
     add sp, byte 8                   ; 0x57a2
     mov word [bss_84a0], 0xffff      ; 0x57a5
     cmp byte [bp - 0x0005], 0        ; 0x57ab
@@ -307,7 +307,7 @@ loc_HUIS:
     push ax                          ; 0x5a6e
     mov ax, 1                        ; 0x5a6f
     push ax                          ; 0x5a72
-    call ds_app_file_NKGK            ; 0x5a73
+    call ds_app_file_MPPM            ; 0x5a73
     add sp, byte 8                   ; 0x5a76
     mov al, byte [bp - 0x004b]       ; 0x5a79
     sub ah, ah                       ; 0x5a7c

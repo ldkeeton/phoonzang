@@ -65,7 +65,10 @@
       "fingerprint-start": "9e68e13368a5e977af6f4921d01938b5d8932faa7c4a526c5a2dc1c7082dd9fa",
       "fingerprint-end": "b94811b8e00674347f4917bc5eda18025b74473bed7ed5aadc3638184285f0de",
       "data_pointers": [
-        {"offset": "10dd0", "space": "ds", "target": "dseg_b198", "note": "Aztec heap-base pointer (dseg_0c70): read as `mov di, word es:[dseg_0c70]` then `stosb es:[di]` (0x4e24) and advanced by the malloc/brk routines (0x4daf, 0x51dc). Target 0xb198 lies past bss_boundary (0xcf6) but is a real DS offset at the end of the image; the CRT recomputes it at startup from psp_top_of_memory, so it must track the data end"}
+        {"offset": "10dd0", "space": "ds", "target": "dseg_b198", "note": "Aztec heap-base pointer (dseg_0c70): read as `mov di, word es:[dseg_0c70]` then `stosb es:[di]` (0x4e24) and advanced by the malloc/brk routines (0x4daf, 0x51dc). Target 0xb198 lies past bss_boundary (0xcf6) but is a real DS offset at the end of the image; the CRT recomputes it at startup from psp_top_of_memory, so it must track the data end"},
+        {"offset": "10dfc", "space": "cs", "target": "__zcp_4ea3", "note": "Aztec exit hook (dseg_0c9c): called as `call [dseg_0c9c]` by aztec_exit, so the CPU loads IP from the word; its default target CS 0x4ca3 (file 0x4ea3) is a `mov ax, 0; ret` stub"},
+        {"offset": "10e50", "space": "cs", "target": "aztec_impl_tty_rd", "note": "Aztec console read vector (dseg_0cf0): aztec_write dispatches a tty handle with `cmp ah, 0x3f; je; ...; jmp [dseg_0cf0]` (0x4fd6), so the word is the read routine's CS offset (file 0x505c)"},
+        {"offset": "10e52", "space": "cs", "target": "aztec_impl_tty_wr", "note": "Aztec console write vector (dseg_0cf2): the other arm of the same dispatch, `jmp [dseg_0cf2]` (0x4fd2); target file 0x50c1"}
       ],
       "not_pointers": [
         {"offset": "10162", "note": "far-pointer offset half; ds/app_09a5.asm does `les bx, word [dseg_0002]` -> ES:BX = 0000:046c, the BIOS timer tick. The target is an absolute external, so this offset must not move"},
@@ -173,7 +176,10 @@
         {"offset": "3c44", "space": "ds", "target": "dseg_0198", "note": "disk-type menu entry 2 ('Floppy 3.5L  (720k)   ')"},
         {"offset": "3c46", "space": "ds", "target": "dseg_01af", "note": "disk-type menu entry 3 ('Floppy 3.5H  (1.4Meg)')"},
         {"offset": "3c48", "space": "ds", "target": "dseg_01c6", "note": "disk-type menu entry 4 ('Hard (Fixed) Drive    ')"},
-        {"offset": "5fb4", "space": "ds", "target": "dseg_2afe", "note": "Aztec heap-base pointer (dseg_24d4): read as `mov di, word es:[dseg_24d4]` then `stosb es:[di]` (0x36bc) and advanced by malloc/brk. Target 0x2afe lies past bss_boundary (0x2534) but is a real DS offset; the same value is used as a code immediate (`add bx, 0x2afe` at 0x3621, `mov cx, 0x2afe` at 0x367b)"}
+        {"offset": "5fb4", "space": "ds", "target": "dseg_2afe", "note": "Aztec heap-base pointer (dseg_24d4): read as `mov di, word es:[dseg_24d4]` then `stosb es:[di]` (0x36bc) and advanced by malloc/brk. Target 0x2afe lies past bss_boundary (0x2534) but is a real DS offset; the same value is used as a code immediate (`add bx, 0x2afe` at 0x3621, `mov cx, 0x2afe` at 0x367b)"},
+        {"offset": "5fe0", "space": "cs", "target": "__zcp_373b", "note": "Aztec exit hook (dseg_2500): called as `call [dseg_2500]` by aztec_exit, so the CPU loads IP from the word; its default target CS 0x353b (file 0x373b) is a `mov ax, 0; ret` stub"},
+        {"offset": "600e", "space": "cs", "target": "aztec_impl_tty_rd", "note": "Aztec console read vector (dseg_252e): aztec_write does `cmp ah, 0x3f; je; ...; jmp [dseg_252e]` (0x3853) for a tty handle; target file 0x38d9"},
+        {"offset": "6010", "space": "cs", "target": "aztec_impl_tty_wr", "note": "Aztec console write vector (dseg_2530): the other arm, `jmp [dseg_2530]` (0x384f); target file 0x393e"}
       ],
       "not_pointers": [
         {"offset": "113c", "note": "entry 1 of the 5-way jump table at 0x113a (jumptable_113a), NOT a DS string pointer. The dispatch is `cmp ax,5; jae; xchg bx,ax; shl bx,1; jmp word [cs:bx + 0x193c]` (vinstall/leaf_loc_10a4.asm, 0x1144-0x114c), so the word is a CS code offset; each target is a case body ending at the join point. The DS reading (0x0eca -> 'MON36.PIC') is a numeric coincidence"},
@@ -247,7 +253,13 @@
       "type": "aztec_overlay",
       "start_offset": 14,
       "fingerprint-start": "7036496b95041e558f2300d8edfb7bafbf28bf3b49287b08c83be6777ade2076",
-      "fingerprint-end": "9a549cc9b826f26418d2a2526edb43513f6ad2bd5c199b45e0474c601469b619"
+      "fingerprint-end": "9a549cc9b826f26418d2a2526edb43513f6ad2bd5c199b45e0474c601469b619",
+      "code_tables": [
+        {"table": "ab7d", "jmp": "ab95", "entry_size": 2, "count": 8, "note": "Switch table read by `cmp ax, 8; jae; xchg bx, ax; shl bx, 1; jmp [cs:bx-0x043c]` (0xab95). Eight CS words, all arms of loc_MVIL. Undetected because its fifth word's 0xfb decoded as `sti` (the fake loc_LNJU / loc_ITNU). Declared so the words are carved as data and the arms decode as part of the dispatching function; see jump_tables"}
+      ],
+      "jump_tables": [
+        {"table": "ab7d", "jmp": "ab95", "entry_size": 2, "count": 8, "note": "Switch table read by `cmp ax, 8; jae; xchg bx, ax; shl bx, 1; jmp [cs:bx-0x043c]` (0xab95). Eight CS words, all arms of loc_MVIL. Undetected because its fifth word's 0xfb decoded as `sti` (the fake loc_LNJU / loc_ITNU)"}
+      ]
     },
     "vmnpc": {
       "file": "VMNPC.OVR",
@@ -268,7 +280,13 @@
       "type": "aztec_overlay",
       "start_offset": 14,
       "fingerprint-start": "a1b4edc3972d7eaf1885ec5cdb4d86ef190f50ef7ccfc62d69b8d207e549ebaa",
-      "fingerprint-end": "a8abc7a622f186ea7f236ac8f4a12ca8c73cac886ee9350419e8b09cd3a7be2c"
+      "fingerprint-end": "a8abc7a622f186ea7f236ac8f4a12ca8c73cac886ee9350419e8b09cd3a7be2c",
+      "code_tables": [
+        {"table": "4679", "jmp": "469d", "entry_size": 2, "count": 14, "note": "Switch table read by `cmp ax, 0xe; jae; xchg bx, ax; shl bx, 1; jmp [cs:bx-0x6940]` (0x469d). Fourteen CS words; its first byte (0x50) had decoded as `push ax` (the fake loc_NGSV). Declared so the words are carved as data and the arms decode as part of the dispatching function; see jump_tables"}
+      ],
+      "jump_tables": [
+        {"table": "4679", "jmp": "469d", "entry_size": 2, "count": 14, "note": "Switch table read by `cmp ax, 0xe; jae; xchg bx, ax; shl bx, 1; jmp [cs:bx-0x6940]` (0x469d). Fourteen CS words; its first byte (0x50) had decoded as `push ax` (the fake loc_NGSV)"}
+      ]
     },
     "vpcmk": {
       "file": "VPCMK.OVR",
@@ -289,7 +307,13 @@
       "type": "aztec_overlay",
       "start_offset": 14,
       "fingerprint-start": "c6c44873a8e2c2fefadfc69be5426dff544f1674e6a87ded0d95c74b8843f007",
-      "fingerprint-end": "891661dde33bd5a33bc26b02c23f61f633e2d37eb80b5b6a41851f6e63aa9aea"
+      "fingerprint-end": "891661dde33bd5a33bc26b02c23f61f633e2d37eb80b5b6a41851f6e63aa9aea",
+      "code_tables": [
+        {"table": "0c85", "jmp": "0c9b", "entry_size": 2, "count": 7, "note": "Switch table read by `cmp ax, 7; jae; xchg bx, ax; shl bx, 1; jmp [cs:bx+0x5ccc]` (0x0c9b). Seven CS words; its first byte (0x96) had decoded as `xchg si, ax` (the fake string_loc_0c85). Declared so the words are carved as data and the arms decode as part of the dispatching function; see jump_tables"}
+      ],
+      "jump_tables": [
+        {"table": "0c85", "jmp": "0c9b", "entry_size": 2, "count": 7, "note": "Switch table read by `cmp ax, 7; jae; xchg bx, ax; shl bx, 1; jmp [cs:bx+0x5ccc]` (0x0c9b). Seven CS words; its first byte (0x96) had decoded as `xchg si, ax` (the fake string_loc_0c85)"}
+      ]
     },
     "vmext": {
       "file": "VMEXT.OVR",
@@ -347,6 +371,9 @@
       },
       "force_data": [
         {"start": "00df", "end": "0292", "note": "(value,size) pairs + the 8-entry host callback ladder up to the first routine at 0x0293 -- not code"}
+      ],
+      "data_pointers": [
+        {"offset": "1ad5", "space": "cs", "target": "__zcp_1afd", "note": "cursor save-buffer pointer (CS 0x1bfd -> file 0x1afd, a 0x480-byte buffer): loaded as `mov si, word [cs:cseg_1ad5]` (0x1838, 0x184a, 0x1860, 0x1876) and handed to leaf_loc_PUST, which copies from it with `rep movsb` (0x18b1) under DS = CS; it is also added to a row offset (`add ax, word [cs:cseg_1ad5]`, 0x0a33, 0x2c37). Its partner cseg_1ad7 (CS 0x207d, the second buffer) is proven by the scorer's own consumer scan (leaf_loc_KNIM 0x0bb3). The scan stops at a call, so this one is stated here"}
       ]
     },
     "play": {
@@ -373,6 +400,11 @@
         {"table": "1178", "jmp": "1171", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x1278]`; six entries, as 115b"},
         {"table": "1196", "jmp": "118f", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x1296]`; six entries, as 115b"},
         {"table": "11b3", "jmp": "11ac", "entry_size": 2, "count": 6, "note": "Mode dispatch through `call [cs:bx+0x12b3]`; six entries, as 115b. The bytes after it (03 03 03 03 02 02 03 ff ...) are a byte table, not code pointers"}
+      ],
+      "immediate_pointers": [
+        {"offset": "05b6", "space": "cs", "target": "cseg_193a", "note": "`mov bx, 0x1a3a`: the CS address of the 0x193a byte table the timer handlers read with `mov bx, 0x1a3a; cs xlatb`. bl is overwritten by `mov bl, 0x48` before any read, so no use proves it"},
+        {"offset": "065c", "space": "cs", "target": "cseg_193a", "note": "`mov di, 0x1a3a`: the table this routine fills as `[cs:bx + 0x1a3a]`; di is saved/restored around it and never read"},
+        {"offset": "065f", "space": "cs", "target": "cseg_1a3a", "note": "`mov si, 0x1b3a`: the table this routine reads as `[cs:si + 0x1b3a]`; si is overwritten by `mov si, ax` before any read"}
       ]
     }
   },

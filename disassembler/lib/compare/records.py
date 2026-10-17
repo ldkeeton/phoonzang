@@ -66,7 +66,7 @@ _BARE_FLOW_RE = re.compile(
 # from the plan; a value that has been rewritten as an expression no longer
 # matches.
 _FROZEN_MZ_FIELD_RE = re.compile(
-    r'^\s*dw\s+0x[0-9a-f]{1,4}\s*;\s*e_(cblp|cp|ss|sp)\b'
+    r'^\s*dw\s+0x[0-9a-f]{1,4}\s*;\s*e_(cblp|cp|ss|sp|minalloc)\b'
 )
 _FROZEN_OVR_FIELD_RE = re.compile(
     r'^\s*dw\s+0x[0-9a-f]{1,4}\s*;\s*o_(csize|dsize|bss|entry)\b'
@@ -91,10 +91,30 @@ _FROZEN_OVR_ENTRY_LITERAL_RE = re.compile(
 # host/overlay geometry constant (plan.md D7.0).  Tagged ``; dssize`` at emit
 # time (``render.py``) so the census matches a *form*, not a magic number.
 _FROZEN_DSSIZE_RE = re.compile(r';\s*dssize\b')
+# A data name written as a segment boundary plus a number -- ``bss_9420 equ
+# __zdseg_end + 0x0388`` or ``(__zimage_end - __zdseg_start) + 0x4c18``: the
+# number is the distance to an object, so an object added before it (or an
+# overlay's data growing) leaves the name on the wrong byte.  A BSS object is a
+# label in the BSS block after the image instead (plan.md section 5).
+_FROZEN_SEG_DELTA_RE = re.compile(
+    r'^\s*[A-Za-z_.@$?][\w.@$?]*\s+equ\s+'
+    r'(?:__zdseg_end|\(__zimage_end - __zdseg_start\))\s*\+\s*0x[0-9a-f]+\s*$'
+)
+# The BSS reservation as a number, not the span of the BSS block.
+_FROZEN_BSS_SIZE_RE = re.compile(r'^\s*__zbss_size\s+equ\s+0x[0-9a-f]+\s*$')
 # A code immediate equal to the *host's resident-code end* (the overlay load
 # address, ``o_corg``).  Tagged ``; ocorg`` at emit time so the counter exists
 # before the binding does (plan.md D7.2).
 _FROZEN_OCORG_IMM_RE = re.compile(r';\s*ocorg\b')
+# A code-segment table indexed by a register, ``[cs:bx + 0x1529]``: the
+# displacement is the table's CS address (plan.md section 5).  A field offset
+# into a CS structure (``[cs:bx + 0x2]``) is below any table, so three hex
+# digits is the floor.  The bound form is ``[cs:bx + <label> - IMAGE_BASE]``.
+_FROZEN_CS_INDEX_RE = re.compile(
+    r'\[cs:(?:word )?[a-z]{2}(?: \+ [a-z]{2})? [+-] 0x[0-9a-f]{3,}\]')
+# A label re-based by a number, ``label - IMAGE_BASE + 0x5055``: the number is
+# a frozen origin standing in for a symbol (``__zres_end``).
+_FROZEN_REBASED_RE = re.compile(r'- IMAGE_BASE \+ 0x[0-9a-f]+')
 _FROZEN_EQU_RE = re.compile(r'^\s*(\w+)\s+equ\s+0x')
 _FROZEN_PAD_RE = re.compile(r'^\s*times\s+(\d+)\s+db\s+0\b')
 # A numeric word in a jump table renders as ``dw 0x<value> ; 0x<slot>``; header
@@ -117,6 +137,8 @@ _DATA_BUCKETS = {Space.IMAGE: 'f3', Space.CSEG: 'f3', Space.DS: 'f4',
 # A literal ``times N db 0`` is treated as a layout pad (F5) only when it is
 # large enough to be the code→data gap rather than an inline zero run.
 _F5_PAD_MIN = 1000
+#: A label definition on its own line (``name:``), the start of an object.
+_LABEL_LINE_RE = re.compile(r'^[A-Za-z_.@$?][\w.@$?]*:\s*(?:;.*)?$')
 
 
 #: Identifier occurrences, and the ``; 0x<hex>`` offset comment of an instruction
@@ -385,7 +407,14 @@ def count_frozen_addrs(src_text, symbols=None):
     ``o_entry`` addend), ``o_corg_imm`` (a host code immediate equal to it, the
     overlay load address -> ``code_shift``), ``o_dorg`` (overlay data origin,
     i.e. the host DS size -> ``data_shift``), and ``ds_size_imm`` (a code
-    immediate equal to the DS size -> ``code_shift``).
+    immediate equal to the DS size -> ``code_shift``).  Two more are
+    ``code_shift`` by construction: ``cs_index`` (a register-indexed code-segment
+    table spelled ``[cs:bx + 0x1529]``) and ``rebased`` (a label re-based by a
+    number, ``label - IMAGE_BASE + 0x5055``).  ``seg_delta`` (``data_shift``)
+    is a data name spelled as a segment boundary plus a number, or the BSS
+    size as a number, where the BSS block should carry a label.  ``buffers``
+    (``inert``, reported) is a large zero run that starts on a label: an
+    object's body, not an F5 fill to a fixed origin.
 
     *symbols* is ``{text: Symbol}`` for the names the source spells: a frozen
     ``equ`` is bucketed by what its symbol is (:func:`_frozen_bucket`).
@@ -398,7 +427,26 @@ def count_frozen_addrs(src_text, symbols=None):
     o_corg_imm = 0
     o_dorg = 0
     ds_size_imm = 0
+    cs_index = 0
+    rebased = 0
+    seg_delta = 0
+    buffers = 0
+    # An F5 pad is a zero run that fills up to a fixed origin.  A run that
+    # starts on a label is an object's body instead (a driver's save buffer,
+    # whose start a stored pointer names): its length is the object's size, and
+    # an edit before it moves the label and leaves the size right.
+    after_label = False
     for line in (src_text or '').splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        on_label = _LABEL_LINE_RE.match(line) is not None
+        prev_label, after_label = after_label, on_label
+        if on_label:
+            continue
+        if _FROZEN_SEG_DELTA_RE.match(line) or _FROZEN_BSS_SIZE_RE.match(line):
+            seg_delta += 1
+            continue
         if _FROZEN_MZ_FIELD_RE.match(line):
             f['f1'] += 1
             continue
@@ -429,7 +477,10 @@ def count_frozen_addrs(src_text, symbols=None):
             continue
         m = _FROZEN_PAD_RE.match(line)
         if m and int(m.group(1)) >= _F5_PAD_MIN:
-            f['f5'] += 1
+            if prev_label:
+                buffers += 1
+            else:
+                f['f5'] += 1
             continue
         if _FROZEN_LITERAL_WORD_RE.match(line):
             f['f6'] += 1
@@ -441,16 +492,23 @@ def count_frozen_addrs(src_text, symbols=None):
             ds_size_imm += 1
         if _FROZEN_OCORG_IMM_RE.search(line):
             o_corg_imm += 1
+        code = line.split(';', 1)[0]
+        cs_index += len(_FROZEN_CS_INDEX_RE.findall(code))
+        rebased += len(_FROZEN_REBASED_RE.findall(code))
     code_shift = (f['f1'] + f['f2'] + f['f3'] + f['f5'] + o_corg
-                  + o_corg_imm + ds_size_imm)
-    data_shift = f['f4'] + f['f7'] + o_dorg
-    inert = f4_inert + f['f6'] + external
+                  + o_corg_imm + ds_size_imm + cs_index + rebased)
+    data_shift = f['f4'] + f['f7'] + o_dorg + seg_delta
+    inert = f4_inert + f['f6'] + external + buffers
     return {
         **f,
         'o_corg': o_corg,
         'o_corg_imm': o_corg_imm,
         'o_dorg': o_dorg,
         'ds_size_imm': ds_size_imm,
+        'cs_index': cs_index,
+        'rebased': rebased,
+        'seg_delta': seg_delta,
+        'buffers': buffers,
         'code_shift': code_shift,
         'data_shift': data_shift,
         'inert': inert,

@@ -209,7 +209,7 @@ jumptable_268c:
     jae short @..api_idx_0038_POGI.l15 ; 0x26a7
     xchg bx, ax                      ; 0x26a9
     shl bx, 1                        ; 0x26aa
-    jmp [cs:bx + 0x76d3]             ; 0x26ac
+    jmp [cs:bx + jumptable_268c - IMAGE_BASE + __zres_end] ; 0x26ac
 @..api_idx_0038_POGI.l15:
     mov ax, 0x9576                   ; 0x26b1
     push ax                          ; 0x26b4

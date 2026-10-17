@@ -162,6 +162,6 @@ jumptable_9188:
     jae short @..loc_PGKG.l4         ; 0x91a7
     xchg bx, ax                      ; 0x91a9
     shl bx, 1                        ; 0x91aa
-    jmp [cs:bx - 0x1e31]             ; 0x91ac
+    jmp [cs:bx + jumptable_9188 - IMAGE_BASE + __zres_end] ; 0x91ac
 @..loc_PGKG.l4:
     ret                              ; 0x91b1

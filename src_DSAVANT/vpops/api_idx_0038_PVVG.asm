@@ -780,7 +780,7 @@ jumptable_33a0:
     jae short @..api_idx_0038_PVVG.l25 ; 0x33af
     xchg bx, ax                      ; 0x33b1
     shl bx, 1                        ; 0x33b2
-    jmp [cs:bx - 0x7c19]             ; 0x33b4
+    jmp [cs:bx + jumptable_33a0 - IMAGE_BASE + __zres_end] ; 0x33b4
 @..api_idx_0038_PVVG.l25:
     jmp short @..api_idx_0038_PVVG.l23 ; 0x33b9
 @..api_idx_0038_PVVG.l26:

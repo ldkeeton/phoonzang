@@ -745,7 +745,7 @@ jumptable_9808:
     jae short @..api_idx_000e_SOLJ.l12 ; 0x9825
     xchg bx, ax                      ; 0x9827
     shl bx, 1                        ; 0x9828
-    jmp [cs:bx - 0x17b1]             ; 0x982a
+    jmp [cs:bx + jumptable_9808 - IMAGE_BASE + __zres_end] ; 0x982a
 jumptable_9808_case_0:
 @..api_idx_000e_SOLJ.l12:
     cmp word [bss_90e4], byte 0      ; 0x982f

@@ -49,6 +49,7 @@ def per_binary(sidecar, short_name):
     Returns a dict with keys:
         file, type, start_offset, entry_symbol, function_names, force_data,
         force_code, external_data, data_pointers, not_pointers,
+        immediate_pointers,
         fingerprint-start, fingerprint-end
 
     Missing optional fields default to ``None`` / empty dict.
@@ -68,6 +69,7 @@ def per_binary(sidecar, short_name):
             sidecar.get('data_pointers', []), 'data_pointers'),
         'not_pointers': _pointer_assertions(
             sidecar.get('not_pointers', []), 'not_pointers'),
+        'immediate_pointers': [],
         'ghidra_base_offset': 0,
         'entry_symbol': None,
         'fingerprint-start': None,
@@ -98,6 +100,9 @@ def per_binary(sidecar, short_name):
             result['not_pointers'] = _pointer_assertions(
                 b.get('not_pointers', sidecar.get('not_pointers', [])),
                 f'binaries.{short_name}.not_pointers')
+            result['immediate_pointers'] = _pointer_assertions(
+                b.get('immediate_pointers', []),
+                f'binaries.{short_name}.immediate_pointers')
 
     validate_force_ranges(result['force_data'], result['force_code'],
                           f'binaries.{short_name}')

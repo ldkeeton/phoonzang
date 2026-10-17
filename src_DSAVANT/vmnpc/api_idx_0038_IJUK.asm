@@ -650,7 +650,7 @@ loc_RIRV:
     mov word [bp - 0x001a], 0        ; 0x442e
 @..api_idx_0038_IJUK.l17:
     jmp near @..api_idx_0038_IJUK.l22 ; 0x4433
-loc_KKIR:
+loc_SPQL:
     cmp word [bp + 0xa], byte 0      ; 0x4436
     je short @..api_idx_0038_IJUK.l18 ; 0x443a
     mov ax, 1                        ; 0x443c
@@ -680,7 +680,6 @@ loc_KKIR:
     push ax                          ; 0x4472
     call ds_app_VIGG                 ; 0x4473
     add sp, byte 0x0a                ; 0x4476
-loc_HKMQ:
     mov word [bss_9050], 2           ; 0x4479
     mov word [bp - 0x001a], 0        ; 0x447f
 @..api_idx_0038_IJUK.l18:
@@ -726,13 +725,13 @@ jumptable_44d9:
     dw loc_MUKH - IMAGE_BASE + __zres_end      ; 0x44dd
     dw loc_LPSH_43e2 - IMAGE_BASE + __zres_end ; 0x44df
     dw loc_RIRV - IMAGE_BASE + __zres_end      ; 0x44e1
-    dw loc_KKIR - IMAGE_BASE + __zres_end      ; 0x44e3
+    dw loc_SPQL - IMAGE_BASE + __zres_end      ; 0x44e3
 @..api_idx_0038_IJUK.l20:
     cmp ax, strict word 6            ; 0x44e5
     jae short @..api_idx_0038_IJUK.l21 ; 0x44e8
     xchg bx, ax                      ; 0x44ea
     shl bx, 1                        ; 0x44eb
-    jmp [cs:bx - 0x6ae0]             ; 0x44ed
+    jmp [cs:bx + jumptable_44d9 - IMAGE_BASE + __zres_end] ; 0x44ed
 @..api_idx_0038_IJUK.l21:
     jmp short @..api_idx_0038_IJUK.l19 ; 0x44f2
 @..api_idx_0038_IJUK.l22:

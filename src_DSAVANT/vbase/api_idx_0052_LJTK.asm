@@ -395,6 +395,6 @@ jumptable_4688:
     jae short @..api_idx_0052_LJTK.l3 ; 0x46ad
     xchg bx, ax                      ; 0x46af
     shl bx, 1                        ; 0x46b0
-    jmp [cs:bx - 0x6931]             ; 0x46b2
+    jmp [cs:bx + jumptable_4688 - IMAGE_BASE + __zres_end] ; 0x46b2
 @..api_idx_0052_LJTK.l3:
     ret                              ; 0x46b7

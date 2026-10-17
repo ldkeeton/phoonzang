@@ -857,7 +857,7 @@ jumptable_4213:
     jae short @..api_idx_0038_ULQM.l29 ; 0x4222
     xchg bx, ax                      ; 0x4224
     shl bx, 1                        ; 0x4225
-    jmp [cs:bx - 0x6da6]             ; 0x4227
+    jmp [cs:bx + jumptable_4213 - IMAGE_BASE + __zres_end] ; 0x4227
 @..api_idx_0038_ULQM.l29:
     jmp short @..api_idx_0038_ULQM.l27 ; 0x422c
 @..api_idx_0038_ULQM.l30:

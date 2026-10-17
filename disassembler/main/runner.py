@@ -55,7 +55,7 @@ from lib.names import (
     is_data, is_label, rename_generics, set_generic_prefix, tag_generics,
 )
 from lib import symtab
-from lib.symtab import Kind, Source, Symbol
+from lib.symtab import GENERIC, Kind, Source, Symbol
 from lib import stagelog
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
@@ -266,6 +266,32 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         entry_points=(seed.address for seed in ctx.seeds),
         binary_size=len(data), start_offset=start_offset,
     )
+    # A switch arm is a block of the function that dispatches it, not a function
+    # entry: an address reached only through a ``jmp [table]`` loses the root a
+    # generic category name (``string_loc_``, ``leaf_loc_``) gave it, so the
+    # ownership pass below keeps the arm -- and the table and dispatcher -- in one
+    # fragment.  A direct call target, a seed, a declared handler or a named
+    # (signature/sidecar) routine stays a root.
+    insn_at = {insn.address: insn for insn in instructions}
+    # An Aztec inline switch (``call <dispatch>`` followed by its key/target
+    # table, ``keys > 0``) never returns to the call: its arms are the
+    # switch's blocks exactly like a ``jmp [table]``'s.
+    switch_arms = {
+        target
+        for table in ctx.jump_tables
+        if table.validated and table.validation_ok and table.jmp_addr >= 0
+        and (table.keys > 0
+             or getattr(insn_at.get(table.jmp_addr), 'mnemonic', '') == 'jmp')
+        for target in table.targets
+    }
+    pinned = (direct_call_targets | ctx.dispatch_handlers
+              | {seed.address for seed in ctx.seeds})
+    for address in switch_arms - pinned:
+        root_name = function_roots.get(address)
+        if address in function_roots and (
+                root_name is None
+                or getattr(root_name, 'source', None) in GENERIC):
+            del function_roots[address]
     stagelog.step('flow.function_roots', 1, track={'function_roots': function_roots})
     extra_flow_edges = {
         (table.jmp_addr, target)
@@ -294,10 +320,16 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         for target in table.targets:
             if table.jmp_addr >= 0:
                 segment_edges.add((table.jmp_addr, target))
+    # Addresses entered from outside the image keep the caller convention;
+    # every other root starts in the state its callers hand it.
+    segment_entries = (ctx.dispatch_handlers
+                       | {seed.address for seed in ctx.seeds}
+                       | {target for table in ctx.jump_tables
+                          for target in table.targets})
     ctx.segment_flow = analyze_segments(
         instructions, ctx.segments, binary_data=data,
         function_roots=set(function_roots),
-        extra_edges=segment_edges,
+        extra_edges=segment_edges, entry_roots=segment_entries,
     )
     ctx.report['segment_flow'] = operand_space_counts(
         instructions, ctx.segment_flow)
@@ -326,6 +358,15 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     stagelog.step('label.branch_targets', 1, 'repair', repairs='label.categorize',
         why='branch targets local to a routine are not labels; the rest get loc_',
         track={'label_map': label_map})
+    # A switch arm keeps its label (the table's words name it), marked as a case
+    # so the file split does not start a fragment there: the switch -- prologue,
+    # bodies, table, dispatcher -- is one routine's file.
+    for address in switch_arms - pinned:
+        label = label_map.get(address)
+        if (address not in function_roots and isinstance(label, Symbol)
+                and label.source in GENERIC):
+            label_map[address] = label.renamed(str(label), label.source,
+                                               role='case')
 
     # A sidecar ``entry_symbol`` names the true entry point for this binary
     # (project-specific; e.g. DSAVANT's ``aztec_begin``).  Make it
@@ -366,7 +407,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         ctx.segment_flow = analyze_segments(
             instructions, ctx.segments, binary_data=data,
             function_roots=set(function_roots),
-            extra_edges=segment_edges,
+            extra_edges=segment_edges, entry_roots=segment_entries,
         )
         ctx.report['segment_flow'] = operand_space_counts(
             instructions, ctx.segment_flow)
@@ -616,6 +657,8 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets):
         entry_symbol=entry_symbol,
         data_pointers=(ctx.sidecar_entry or {}).get('data_pointers', []),
         not_pointers=(ctx.sidecar_entry or {}).get('not_pointers', []),
+        immediate_pointers=(ctx.sidecar_entry or {}).get(
+            'immediate_pointers', []),
         host_data_offsets=host_data_offsets,
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})

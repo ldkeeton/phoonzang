@@ -957,7 +957,7 @@ jumptable_4058:
     jae short @..api_idx_00d4_LUPQ.l67 ; 0x4071
     xchg bx, ax                      ; 0x4073
     shl bx, 1                        ; 0x4074
-    jmp [cs:bx - 0x6f61]             ; 0x4076
+    jmp [cs:bx + jumptable_4058 - IMAGE_BASE + __zres_end] ; 0x4076
 @..api_idx_00d4_LUPQ.l67:
     cmp word [bp - 0x009e], byte 1   ; 0x407b
     jne short @..api_idx_00d4_LUPQ.l68 ; 0x4080

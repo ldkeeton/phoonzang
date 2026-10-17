@@ -212,7 +212,7 @@ api_idx_004e_HUKL:
     jne short @..api_idx_004e_HUKL.l16 ; 0x3a71
     lea ax, word [bp - 0x003a]       ; 0x3a73
     push ax                          ; 0x3a76
-    call loc_IQSK                    ; 0x3a77
+    call loc_KPLK                    ; 0x3a77
     pop cx                           ; 0x3a7a
     cmp word [bp - 0x000e], byte 0   ; 0x3a7b
     je short @..api_idx_004e_HUKL.l15 ; 0x3a7f
@@ -315,7 +315,7 @@ api_idx_004e_HUKL:
     jg short @..api_idx_004e_HUKL.l20 ; 0x3b58
     lea ax, word [bp - 0x003a]       ; 0x3b5a
     push ax                          ; 0x3b5d
-    call loc_IQSK                    ; 0x3b5e
+    call loc_KPLK                    ; 0x3b5e
     pop cx                           ; 0x3b61
     push word [bp - 0x000a]          ; 0x3b62
     call aztec_close                 ; 0x3b65
@@ -349,7 +349,7 @@ api_idx_004e_HUKL:
     jg short @..api_idx_004e_HUKL.l22 ; 0x3baa
     lea ax, word [bp - 0x003a]       ; 0x3bac
     push ax                          ; 0x3baf
-    call loc_IQSK                    ; 0x3bb0
+    call loc_KPLK                    ; 0x3bb0
     pop cx                           ; 0x3bb3
     push word [bp - 0x000a]          ; 0x3bb4
     call aztec_close                 ; 0x3bb7
@@ -385,7 +385,7 @@ api_idx_004e_HUKL:
     jg short @..api_idx_004e_HUKL.l24 ; 0x3bfe
     lea ax, word [bp - 0x003a]       ; 0x3c00
     push ax                          ; 0x3c03
-    call loc_IQSK                    ; 0x3c04
+    call loc_KPLK                    ; 0x3c04
     pop cx                           ; 0x3c07
     push word [bp - 0x000a]          ; 0x3c08
     call aztec_close                 ; 0x3c0b
@@ -450,7 +450,7 @@ api_idx_004e_HUKL:
     jg short @..api_idx_004e_HUKL.l27 ; 0x3c91
     lea ax, word [bp - 0x003a]       ; 0x3c93
     push ax                          ; 0x3c96
-    call loc_IQSK                    ; 0x3c97
+    call loc_KPLK                    ; 0x3c97
     pop cx                           ; 0x3c9a
     push word [bp - 0x000a]          ; 0x3c9b
     call aztec_close                 ; 0x3c9e
@@ -481,7 +481,7 @@ api_idx_004e_HUKL:
     jg short @..api_idx_004e_HUKL.l29 ; 0x3cd7
     lea ax, word [bp - 0x003a]       ; 0x3cd9
     push ax                          ; 0x3cdc
-    call loc_IQSK                    ; 0x3cdd
+    call loc_KPLK                    ; 0x3cdd
     pop cx                           ; 0x3ce0
     push word [bp - 0x000a]          ; 0x3ce1
     call aztec_close                 ; 0x3ce4
@@ -584,7 +584,7 @@ api_idx_004e_HUKL:
     jg short @..api_idx_004e_HUKL.l33 ; 0x3df6
     lea ax, word [bp - 0x003a]       ; 0x3df8
     push ax                          ; 0x3dfb
-    call loc_IQSK                    ; 0x3dfc
+    call loc_KPLK                    ; 0x3dfc
     pop cx                           ; 0x3dff
     push word [bp - 0x000a]          ; 0x3e00
     call aztec_close                 ; 0x3e03
@@ -655,7 +655,7 @@ api_idx_004e_HUKL:
     jg short @..api_idx_004e_HUKL.l35 ; 0x3ea0
     lea ax, word [bp - 0x003a]       ; 0x3ea2
     push ax                          ; 0x3ea5
-    call loc_IQSK                    ; 0x3ea6
+    call loc_KPLK                    ; 0x3ea6
     pop cx                           ; 0x3ea9
     push word [bp - 0x000a]          ; 0x3eaa
     call aztec_close                 ; 0x3ead
@@ -686,7 +686,7 @@ api_idx_004e_HUKL:
     jg short @..api_idx_004e_HUKL.l37 ; 0x3ee6
     lea ax, word [bp - 0x003a]       ; 0x3ee8
     push ax                          ; 0x3eeb
-    call loc_IQSK                    ; 0x3eec
+    call loc_KPLK                    ; 0x3eec
     pop cx                           ; 0x3eef
     push word [bp - 0x000a]          ; 0x3ef0
     call aztec_close                 ; 0x3ef3
@@ -730,7 +730,7 @@ api_idx_004e_HUKL:
     jg short @..api_idx_004e_HUKL.l40 ; 0x3f4c
     lea ax, word [bp - 0x003a]       ; 0x3f4e
     push ax                          ; 0x3f51
-    call loc_IQSK                    ; 0x3f52
+    call loc_KPLK                    ; 0x3f52
     pop cx                           ; 0x3f55
     push word [bp - 0x000a]          ; 0x3f56
     call aztec_close                 ; 0x3f59

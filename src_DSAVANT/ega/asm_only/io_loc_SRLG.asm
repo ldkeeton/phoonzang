@@ -7,7 +7,7 @@ io_loc_SRLG:
     inc dx                           ; 0x2e3b
     mov al, ah                       ; 0x2e3c
     out dx, al                       ; 0x2e3e
-    mov bx, dseg_24fd                ; 0x2e3f
+    mov bx, cseg_23fd - IMAGE_BASE   ; 0x2e3f
     mov di, word [cs:cseg_1ae5 - IMAGE_BASE] ; 0x2e42
     mov cx, word [cs:cseg_1ae3 - IMAGE_BASE] ; 0x2e47
 @..io_loc_SRLG.l1:

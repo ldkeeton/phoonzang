@@ -134,6 +134,42 @@ class DeclaredCodeTableTests(unittest.TestCase):
         self.assertFalse(ctx.hard_data[0x26])
 
 
+class DeclaredSwitchTableTests(unittest.TestCase):
+    def _register(self, ctx, img, entry):
+        _register_declared_code_table(
+            ctx, img, np.full(len(img), np.inf, dtype=np.float32),
+            np.zeros(len(img), dtype=np.float32), None, [], entry)
+
+    def test_a_named_dispatcher_carries_the_arms(self):
+        """``jmp`` gives the table the dispatcher's flow edges, and the
+        declaration is kept through re-validation."""
+        img = _synthetic_driver()
+        ctx = _driver_ctx(img)
+        self._register(ctx, img, {'table': '20', 'entry_size': 2, 'count': 3,
+                                  'jmp': '10'})
+        (jt,) = ctx.jump_tables
+        self.assertEqual(jt.jmp_addr, 0x10)
+        self.assertTrue(jt.declared and jt.validated and jt.validation_ok)
+
+    def test_a_handler_table_has_no_dispatcher(self):
+        img = _synthetic_driver()
+        ctx = _driver_ctx(img)
+        self._register(ctx, img, {'table': '20', 'entry_size': 2, 'count': 3})
+        self.assertEqual(ctx.jump_tables[0].jmp_addr, -1)
+
+    def test_the_declaration_replaces_a_detected_table(self):
+        from lib.model import JumpTableInfo
+        img = _synthetic_driver()
+        ctx = _driver_ctx(img)
+        ctx.jump_tables.append(JumpTableInfo(table_addr=0x20, jmp_addr=0x10,
+                                             targets=[0x40], table_end=0x22))
+        self._register(ctx, img, {'table': '20', 'entry_size': 2, 'count': 3,
+                                  'jmp': '10'})
+        (jt,) = ctx.jump_tables
+        self.assertTrue(jt.declared)
+        self.assertEqual(sorted(jt.targets), [0x40, 0x50, 0x60])
+
+
 class SidecarCodeTableValidationTests(unittest.TestCase):
     def test_shipped_play_declaration_is_valid(self):
         from lib.sidecar.loader import load as load_sidecar

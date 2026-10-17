@@ -785,7 +785,7 @@ jumptable_4141:
     jae short @..api_idx_0038_QQIU.l25 ; 0x4150
     xchg bx, ax                      ; 0x4152
     shl bx, 1                        ; 0x4153
-    jmp [cs:bx - 0x6e78]             ; 0x4155
+    jmp [cs:bx + jumptable_4141 - IMAGE_BASE + __zres_end] ; 0x4155
 @..api_idx_0038_QQIU.l25:
     jmp short @..api_idx_0038_QQIU.l23 ; 0x415a
 @..api_idx_0038_QQIU.l26:

@@ -165,9 +165,10 @@ def _mz_header(e_ss):
 # (one name the C spelling no longer mentions).  Both are decrease-only baselines;
 # they were lowered here after measuring HEAD's own tree, not the working tree.
 BASELINE_TOTALS = {
-    'code_shift': 43, 'data_shift': 1, 'inert': 230,
-    'f1': 2, 'f2': 13, 'f3': 25, 'f4': 1, 'f5': 3, 'f6': 223, 'f7': 0,
+    'code_shift': 0, 'data_shift': 0, 'inert': 234,
+    'f1': 0, 'f2': 0, 'f3': 0, 'f4': 0, 'f5': 0, 'f6': 223, 'f7': 0,
     'o_corg': 0, 'o_corg_imm': 0, 'o_dorg': 0, 'ds_size_imm': 0,
+    'cs_index': 0, 'rebased': 0, 'seg_delta': 0, 'buffers': 4,
     # D7.6 gave the raw drivers their true load origin (``CS:0x100``), so a
     # ``[cs:disp]`` operand now resolves to ``disp - 0x100`` and the ``cseg_``
     # names land on the bytes they really name.  ``f3`` 114 -> 79 and
@@ -208,8 +209,8 @@ BASELINE_TOTALS = {
     # Parameterised sharing (lib.shared: copies differing only in label names)
     # took ``shared/`` 90 -> 141 files: ``hidden_flow`` 105 -> **157**, all 61 new
     # sites at offsets whose anchor moved into ``shared/`` (9 sites went).
-    'names_used': 8, 'names_inert': 25, 'hidden_flow': 177,
-    'total': 44,
+    'names_used': 7, 'names_inert': 24, 'hidden_flow': 150,
+    'total': 26,
     # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
     # returns; the call is followed by N-1 keys and N case targets.  The decoder
     # used to fall through the call and decode the target words as ``jcc``s,
@@ -247,6 +248,62 @@ BASELINE_TOTALS = {
     # 44 -> **25**, ``code_shift`` 62 -> **43**, ``names_used`` 26 -> **8**,
     # ``names_inert`` 26 -> **25** (the dead ``io_loc_0495``), ``f6``/``inert``
     # 224/231 -> **223/230**, ``hidden_flow`` 181 -> **177**.
+    # Register-indexed code-segment tables (2026-10-17).  ``[cs:bx + 0x1529]``
+    # and every overlay switch dispatcher ``jmp [cs:bx + 0x5415]`` spelled the
+    # table's CS address as a number the census never counted (about 183 sites
+    # in the tree before).  ``jumptables._bind_cs_table_operands`` writes each
+    # over the carved object it lands on (``jumptable_0495 + 0x10 -
+    # IMAGE_BASE``, ``... - IMAGE_BASE + __zres_end`` in an overlay), and two
+    # new ``code_shift`` buckets gate the class at zero: ``cs_index`` (the
+    # indexed form) and ``rebased`` (``label - IMAGE_BASE + 0x<origin>``).
+    # ``segdataflow`` proves ``mov bx, <table>; cs xlatb`` and follows a forward
+    # ``jmp``; the three dead stores of a table address in ``play`` are sidecar
+    # ``immediate_pointers``.  Three undetected overlay switch tables (vmaze
+    # ab7d, vpclv 4679, vtrea 0c85) are declared, so the fake ``loc_ITNU``/
+    # ``loc_LNJU``/``loc_NGSV`` go; a ``jmp``-dispatched arm stays a block of its
+    # dispatcher (``runner``), not a root.  ``code_shift`` 43 -> **41**, ``f3``
+    # 25 -> **24**, ``f5`` 3 -> **2**, ``names_inert`` 25 -> **24**,
+    # ``hidden_flow`` 177 -> **150**, ``total`` 44 -> **43**.  ``data_shift``,
+    # ``f4`` and ``names_used`` rise by one for the same name: following the
+    # ``jmp`` proves ``ega``'s ``mov bx, 0x2a02`` a DS pointer, so a bare number
+    # the census could not see is now the visible ``dseg_2a02`` -- the same
+    # driver-DS-is-CS question as ``dseg_24fd`` (plan.md section 5), not a new
+    # frozen byte.
+    # Internal routines inherit their callers' segments (``segdataflow``): a
+    # root reached only by direct ``call``/``jmp`` starts in the state its
+    # callers hand it instead of the ``DS=DATA`` convention.  ``ega``'s blitters
+    # are called after ``mov ax, cs; mov ds, ax``, so ``dseg_24fd``/``dseg_2a02``
+    # are the code-segment bytes ``cseg_23fd``/``cseg_2902 - IMAGE_BASE``:
+    # ``data_shift`` 2 -> **0**, ``f4`` 2 -> **0**, ``names_used`` 9 -> **7**,
+    # ``total`` 43 -> **41**.  ``ds``'s ``mov di, dseg_000a`` goes back to ``0xa``:
+    # ``int 21h/35h`` hands back the EMS driver's ``ES``, so it never named ``ds``.
+    # BSS as source (2026-10-17): each image's BSS is an ``absolute`` block after
+    # ``__zimage_end`` whose labels are the BSS objects, so ``__zbss_size``,
+    # ``o_bss`` (13) and the MZ ``e_sp``/``e_minalloc`` (the stack is the block's
+    # last object) are spans of it: ``f1`` 2 -> **0** (``e_minalloc`` is now
+    # counted too: it was 2 more), ``f2`` 13 -> **0**, ``code_shift`` 41 ->
+    # **26**, ``total`` 41 -> **26**.  An overlay's own data and BSS (names at or
+    # past ``__zdseg_end``) are declared by the overlay on its own bytes and BSS
+    # labels instead of the host's ``__zdseg_end + <distance>``.  The new
+    # ``seg_delta`` bucket (``data_shift``) counts a name spelled as a segment
+    # boundary plus a number, and a numeric ``__zbss_size``: the tree before
+    # this change held **690** of them, uncounted; it is **0**.
+    # F3 residue + driver pads (2026-10-17): the 24 ``equ``s were names the
+    # pipeline should never have minted.  20 sat on a jump table's first byte:
+    # the cascade phase admitted the table (a short DATA run after the
+    # dispatcher's ``jmp`` whose words decode with a branch) as code, and its
+    # "instructions" seeded two more (``vbase 0x18c8``/``0x18ca``).  Cascade now
+    # skips a known table.  The other 2 were ``jmp [dseg_XXXX]`` vectors read in
+    # the code frame (``vinstall 0x5fe5``, ``ds 0x10108``); the vector is a DS
+    # word, and reading it there proves it a code pointer, so Aztec's tty and
+    # exit-hook vectors are now ``dw <label> - IMAGE_BASE`` (4 frozen pointers
+    # the census never saw).  The driver "pads" hid 4 more: ``ega`` ``cseg_1ad5``/
+    # ``1ad7`` and ``vga`` ``cseg_14b4``/``14b6`` are double-buffer pointers into
+    # them, proven by their consumers (one, across a call, by a reviewed corpus
+    # entry).  Promoted, they split each pad at its buffers, so a pad is now one
+    # buffer's size from a pointer-named label: ``buffers`` (``inert``, 4) instead
+    # of ``f5``.  ``f3`` 24 -> 0, ``f5`` 2 -> 0, ``code_shift`` 26 -> **0**,
+    # ``total`` **0**; ``inert`` 230 -> 234.
 }
 
 
@@ -280,6 +337,9 @@ _LABEL_RE = re.compile(r'^([A-Za-z_@][\w.@]*):')
 _LABEL_OFFSET_RE = re.compile(r';\s*0x([0-9a-f]{4})\b')
 
 
+_DATA_LINE_RE = re.compile(r'^\s+(?:db|dw|dd|times)\b')
+
+
 def _tree_labels(binary):
     """``{offset: (label, relpath, is_first_label_in_file)}`` for *binary*.
 
@@ -304,6 +364,10 @@ def _tree_labels(binary):
                 continue
             m = _LABEL_OFFSET_RE.search(line)
             if not m:
+                if _DATA_LINE_RE.match(line):
+                    # An uncommented ``db`` run is the record the label names;
+                    # the next comment belongs to whatever follows it.
+                    pending = None
                 continue
             offset = int(m.group(1), 16)
             if offset not in out or not pending.startswith('@'):
@@ -466,6 +530,39 @@ def _scan_tree():
 
 
 class CountFrozenAddrsTests(unittest.TestCase):
+    def test_a_distance_from_a_segment_boundary_is_data_shift(self):
+        counts = count_frozen_addrs('\n'.join([
+            'bss_9420 equ __zdseg_end + 0x0388',
+            'bss_5910 equ (__zimage_end - __zdseg_start) + 0x4c1a',
+            '__zbss_size equ 0x83a2',
+            '; bss_9436 equ __zdseg_end + 0x039e',                 # comment
+            'bss_9408 equ __zdseg_end + (__zobss_9408 - __zdata_start)',
+            'bss_0e36 equ __zbss_0e36 - __zdseg_start',
+            '__zbss_size equ __zbss_end - __zimage_end',
+            '__zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size',
+        ]))
+        self.assertEqual(counts['seg_delta'], 3)
+        self.assertEqual(counts['data_shift'], 3)
+
+    def test_an_indexed_code_segment_table_is_code_shift(self):
+        counts = count_frozen_addrs('\n'.join([
+            '    mov al, byte [cs:bx + 0x1529]    ; 0x0205',
+            '    jmp [cs:bx - 0x7fb9]             ; 0x3014',
+            '    mov ax, word [cs:bx + 0x2]       ; 0x47b5',   # a field
+            '    mov al, byte [cs:bx + cseg_1429 - IMAGE_BASE] ; 0x0205',
+        ]))
+        self.assertEqual(counts['cs_index'], 2)
+        self.assertEqual(counts['code_shift'], 2)
+
+    def test_a_label_rebased_by_a_number_is_code_shift(self):
+        counts = count_frozen_addrs('\n'.join([
+            '    dw loc_X - IMAGE_BASE + 0x5055   ; 0x03ce',
+            '    dw loc_X - IMAGE_BASE + __zres_end ; 0x03d0',
+            '    nop ; was loc_X - IMAGE_BASE + 0x5055',          # a comment
+        ]))
+        self.assertEqual(counts['rebased'], 1)
+        self.assertEqual(counts['code_shift'], 1)
+
     def test_literal_tag_separates_f6_from_f7(self):
         literal = count_frozen_addrs('    dw 0x001c ; 0x1698 ; literal')
         self.assertEqual((literal['f6'], literal['f7']), (1, 0))
@@ -510,6 +607,21 @@ class CountFrozenAddrsTests(unittest.TestCase):
         self.assertEqual(counts['inert'], 1 + 1 + 1)  # psp_ + bios_ + f6
         self.assertEqual(counts['total'],
                          counts['code_shift'] + counts['data_shift'])
+
+    def test_a_zero_run_on_a_label_is_a_buffer_not_a_pad(self):
+        # The run after ``__zcp_1afd:`` is that buffer's body (its size, not a
+        # distance to a fixed origin); a run after an instruction is an F5 fill.
+        counts = count_frozen_addrs('\n'.join([
+            '__zcp_1afd:',
+            '',
+            '    times 1152 db 0',
+            '    ret',
+            '    times 2306 db 0',
+        ]))
+        self.assertEqual(counts['buffers'], 1)
+        self.assertEqual(counts['f5'], 1)
+        self.assertEqual(counts['code_shift'], 1)
+        self.assertEqual(counts['inert'], 1)
 
     def test_an_equ_the_symbol_table_does_not_know_is_not_counted(self):
         counts = count_frozen_addrs('mystery equ 0x1234\n', {})
@@ -900,8 +1012,10 @@ class DataSegmentLabelBindingTests(unittest.TestCase):
         src = self._source(self._image(),
                            {dseg(0x0004): 0x04, bss(0x0012): 0x12})
         self.assertIn('dseg_0004 equ __zdseg_0004 - __zdseg_start', src)
-        self.assertIn(
-            'bss_0012 equ (__zimage_end - __zdseg_start) + 0x0002', src)
+        # A BSS object is a label in the block after the image.
+        self.assertIn('bss_0012 equ __zbss_0012 - __zdseg_start', src)
+        self.assertIn('__zimage_end:\nabsolute __zimage_end\n'
+                      '    resb 0x0002\n__zbss_0012:', src)
         self.assertEqual(count_frozen_addrs(src)['data_shift'], 0)
 
     def test_original_layout_reassembles_byte_for_byte(self):
@@ -958,7 +1072,12 @@ class DsSizeSymbolTests(unittest.TestCase):
 
     def test_immediate_becomes_the_symbol(self):
         src = self._source(self._image())
-        self.assertIn('__zbss_size equ 0x0008', src)
+        # The BSS size is the block's span; the stack ends it, so ``e_sp`` is
+        # its top.
+        self.assertIn('__zbss_size equ __zbss_end - __zimage_end', src)
+        self.assertIn('    resb 0x0008\n__zbss_end:\n'
+                      '    resb 0xf180\n__zstack_top:', src)
+        self.assertIn('dw __zstack_top - __zdseg_start', src)
         self.assertIn(
             '__zdseg_end equ (__zimage_end - __zdseg_start) '
             '+ __zbss_size', src)
@@ -1168,26 +1287,32 @@ _OVERLAY_MASTERS = (
 
 
 class HostDataTableTests(unittest.TestCase):
-    """D7.1: the overlays share one host DS name table.
+    """D7.1: the host owns its DS names; an overlay owns the ones past its end.
 
-    A data name the host owns (``dseg_``/``bss_``) is declared once in
-    ``ds.asm`` with a host recipe; the 13 overlay masters no longer re-declare
-    ~1230 literals, they see the host's declarations through the include.  (The two MZ
-    images own their data names via in-place labels, and a raw driver's
+    A data name in the host's segment (``dseg_``/``bss_`` below ``__zdseg_end``)
+    is declared once in ``ds.asm`` with a host recipe, and the 13 overlay
+    masters see it through the include.  A name at or past ``__zdseg_end`` is
+    an overlay's own data or BSS -- loaded at ``o_dorg``, different in every
+    overlay -- so the overlay declares it, on its own byte or BSS label.  (The
+    two MZ images own their data names via in-place labels, and a raw driver's
     ``dseg_`` is run-time DS -- both stay out of this table; Appendix C.)
     """
 
+    _DEF = re.compile(r'^((?:bss|dseg)_[0-9a-fA-F]+)\s+equ\s+(.*)$')
+
+    def _definitions(self, path):
+        return {m.group(1): m.group(2)
+                for line in path.read_text().splitlines()
+                if (m := self._DEF.match(line))}
+
     @slow
-    def test_every_overlay_ds_name_is_defined_by_the_host(self):
-        import re
-        pat = re.compile(r'^((?:bss|dseg)_[0-9a-fA-F]+)\s+equ\b')
-        defined = {m.group(1)
-                   for line in (_TREE / 'ds.asm').read_text().splitlines()
-                   if (m := pat.match(line))}
-        self.assertTrue(defined)
+    def test_every_overlay_ds_name_is_defined(self):
+        host = set(self._definitions(_TREE / 'ds.asm'))
+        self.assertTrue(host)
         name_re = re.compile(r'\b(?:bss|dseg)_[0-9a-fA-F]{4}\b')
         missing = []
         for master in _OVERLAY_MASTERS:
+            own = set(self._definitions(_TREE / f'{master}.asm'))
             paths = [_TREE / f'{master}.asm']
             directory = _TREE / master
             if directory.is_dir():
@@ -1195,18 +1320,25 @@ class HostDataTableTests(unittest.TestCase):
             for p in paths:
                 for name in sorted(set(name_re.findall(
                         p.read_text(errors='ignore')))):
-                    if name not in defined:
+                    if name not in host and name not in own:
                         missing.append(f'{p.relative_to(_TREE)}:{name}')
         self.assertEqual(missing, [])
 
-    def test_no_overlay_master_defines_a_ds_equ(self):
-        import re
-        pat = re.compile(r'^\s*(bss_|dseg_)[0-9a-fA-F]+\s+equ\b')
+    def test_an_overlay_declares_only_its_own_data(self):
+        own = re.compile(r'^__zdseg_end \+ \(__z\w+ - __zdata_start\)'
+                         r'(?: \+ 0x[0-9a-f]+)?$')
         offenders = []
         for master in _OVERLAY_MASTERS:
-            for line in (_TREE / f'{master}.asm').read_text().splitlines():
-                if pat.match(line):
-                    offenders.append(f'{master}.asm:{line.strip()}')
+            for name, expr in self._definitions(
+                    _TREE / f'{master}.asm').items():
+                if not own.match(expr):
+                    offenders.append(f'{master}.asm:{name} equ {expr}')
+        self.assertEqual(offenders, [])
+
+    def test_the_host_declares_no_overlay_data(self):
+        offenders = [f'{name} equ {expr}' for name, expr in
+                     self._definitions(_TREE / 'ds.asm').items()
+                     if expr.startswith('__zdseg_end')]
         self.assertEqual(offenders, [])
 
 
@@ -1468,14 +1600,23 @@ class InsertBytePropertyTests(unittest.TestCase):
             with open(frag) as f:
                 lines = f.read().splitlines(keepends=True)
 
-            # 1) a single nop fits in the code→data gap.
+            # 1) a single nop fits in the code→data gap.  The data stays put;
+            # only the code pointers it stores (the exit hook and the two tty
+            # vectors, all aimed past the nop) move with their routines.
             with open(frag, 'w') as f:
                 f.writelines([lines[0], '    nop\n'] + lines[1:])
             mut = _nasm_file(master, d)
             self.assertEqual(len(mut), len(original))
             self.assertEqual(struct.unpack_from('<H', mut, 14)[0],
                              struct.unpack_from('<H', original, 14)[0])
-            self.assertEqual(mut[data_origin:],
+            code_ptrs = (0x10dfc, 0x10e50, 0x10e52)
+            for off in code_ptrs:
+                self.assertEqual(struct.unpack_from('<H', mut, off)[0],
+                                 struct.unpack_from('<H', original, off)[0] + 1)
+            masked = bytearray(mut)
+            for off in code_ptrs:
+                masked[off:off + 2] = original[off:off + 2]
+            self.assertEqual(bytes(masked[data_origin:]),
                              original[data_origin:])
             cblp, cp = struct.unpack_from('<HH', mut, 2)
             self.assertEqual(cblp, len(mut) % 512)
@@ -1488,8 +1629,13 @@ class InsertBytePropertyTests(unittest.TestCase):
             new_origin = 0x200 + struct.unpack_from('<H', grown, 14)[0] * 16
             self.assertGreater(new_origin, data_origin)
             self.assertEqual(new_origin % 16, 0)
-            self.assertEqual(grown[new_origin:new_origin + len(original) - data_origin],
-                             original[data_origin:])
+            moved = bytearray(grown[new_origin:new_origin + len(original) - data_origin])
+            for off in code_ptrs:
+                rel = off - data_origin
+                self.assertEqual(struct.unpack_from('<H', moved, rel)[0],
+                                 struct.unpack_from('<H', original, off)[0] + 45000)
+                moved[rel:rel + 2] = original[off:off + 2]
+            self.assertEqual(bytes(moved), original[data_origin:])
             g_cblp, g_cp = struct.unpack_from('<HH', grown, 2)
             self.assertEqual(g_cblp, len(grown) % 512)
             self.assertEqual(g_cp, (len(grown) + 511) // 512)
@@ -1680,6 +1826,132 @@ class InsertBytePropertyTests(unittest.TestCase):
         self.assertEqual(grown[0x509:0x50d], b'\x2e\xa3\xc0\x09')
         self.assertEqual(grown[0x2d6:0x2da], b'\x2e\xa3\x11\x0c')
         self.assertEqual(grown[0x1197:0x119b], b'\x85\x12\x76\x18')
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'play.asm').exists(),
+                         'generated src_DSAVANT tree not present')
+    def test_driver_indexed_tables_follow_an_inserted_byte(self):
+        """``[cs:bx + <table>]`` and a table's address in a register move with it.
+
+        One byte inserted at 0x08af sits after ``jumptable_0495`` and before the
+        byte tables at 0x1429/0x193a/0x1a3a.  ``mov dx, [cs:bx + 0x5a5]`` (a
+        sub-table, ``jumptable_0495 + 0x10``) keeps its displacement; ``mov al,
+        [cs:bx + 0x1529]`` and ``mov byte [cs:bx + 0x1a3a], al`` gain one; so do
+        ``mov bx, 0x1a3a`` before ``cs xlatb`` (now at 0x09b1, a proven
+        pointer) and the dead store ``mov di, 0x1a3a`` at 0x065c (a sidecar
+        ``immediate_pointers`` entry).
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'play.asm')
+            original = _nasm_file(master, d)
+            self.assertEqual(original[0x462:0x467], b'\x2e\x8b\x97\xa5\x05')
+            self.assertEqual(original[0x205:0x20a], b'\x2e\x8a\x87\x29\x15')
+            self.assertEqual(original[0x6ab:0x6b0], b'\x2e\x88\x87\x3a\x1a')
+            self.assertEqual(original[0x9b0:0x9b3], b'\xbb\x3a\x1a')
+            self.assertEqual(original[0x65c:0x65f], b'\xbf\x3a\x1a')
+            with open(master) as f:
+                included = re.findall(r'%include "([^"]+)"\s*; 0x08af\b', f.read())
+            frag = os.path.join(d, included[0])
+            with open(frag) as f:
+                text = f.read()
+            needle = '    cli                              ; 0x08af\n'
+            with open(frag, 'w') as f:
+                f.write(text.replace(needle, '    nop\n' + needle, 1))
+            grown = _nasm_file(master, d)
+
+        self.assertEqual(len(grown), len(original) + 1)
+        self.assertEqual(grown[0x462:0x467], b'\x2e\x8b\x97\xa5\x05')
+        self.assertEqual(grown[0x205:0x20a], b'\x2e\x8a\x87\x2a\x15')
+        self.assertEqual(grown[0x6ab:0x6b0], b'\x2e\x88\x87\x3b\x1a')
+        self.assertEqual(grown[0x9b1:0x9b4], b'\xbb\x3b\x1a')
+        self.assertEqual(grown[0x65c:0x65f], b'\xbf\x3b\x1a')
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'ega.asm').exists(),
+                         'generated src_DSAVANT tree not present')
+    def test_driver_buffer_pointers_follow_an_inserted_byte(self):
+        """``ega``'s stored buffer pointers name their buffers, not numbers.
+
+        ``cseg_1ad5``/``cseg_1ad7`` hold CS 0x1bfd/0x207d, the two 0x480-byte
+        save buffers that were one frozen 2306-byte pad.  A byte inserted before
+        them moves both words and ``mov di, cseg_23fd`` (0x2d2a), and each
+        buffer keeps its size.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'ega.asm')
+            original = _nasm_file(master, d)
+            self.assertEqual(original[0x1ad5:0x1ad9], b'\xfd\x1b\x7d\x20')
+            self.assertEqual(original[0x2d2a:0x2d2d], b'\xbf\xfd\x24')
+            with open(master) as f:
+                text = f.read()
+            with open(master, 'w') as f:
+                f.write(text.replace('cseg_1ad5:\n',
+                                     '    db 0xee\ncseg_1ad5:\n', 1))
+            grown = _nasm_file(master, d)
+        self.assertEqual(len(grown), len(original) + 1)
+        self.assertEqual(grown[0x1ad6:0x1ada], b'\xfe\x1b\x7e\x20')
+        self.assertEqual(grown[0x2d2b:0x2d2e], b'\xbf\xfe\x24')
+        self.assertEqual(grown[0x1afe:0x23fe], original[0x1afd:0x23fd])
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'ds.asm').exists(),
+                         'generated src_DSAVANT tree not present')
+    def test_ds_stack_follows_an_inserted_data_byte(self):
+        """``e_sp`` is the top of the BSS block, so a data byte moves it.
+
+        SS == DS, and the stack is the last object after the BSS.  One byte of
+        file-backed data moves the stack top (``e_sp`` 0xf198 -> 0xf199);
+        ``e_minalloc`` -- the paragraphs from the end of the file to the stack
+        top -- stays.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'ds.asm')
+            original = _nasm_file(master, d)
+            with open(master) as f:
+                text = f.read()
+            with open(master, 'w') as f:
+                f.write(text.replace('__zdseg_start:\n',
+                                     '__zdseg_start:\n    db 0xee\n', 1))
+            grown = _nasm_file(master, d)
+        minalloc, = struct.unpack_from('<H', original, 10)
+        self.assertEqual(struct.unpack_from('<H', original, 16)[0], 0xf198)
+        self.assertEqual(struct.unpack_from('<H', grown, 16)[0], 0xf199)
+        self.assertEqual(struct.unpack_from('<H', grown, 10)[0], minalloc)
+
+    @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vpclv.asm').exists(),
+                         'generated src_DSAVANT tree not present')
+    def test_overlay_bss_follows_an_inserted_data_byte(self):
+        """An overlay's own data and BSS move when its data grows.
+
+        ``vpclv``'s data is loaded at the host's data end (``o_dorg`` 0x9098)
+        and its BSS follows it.  One byte inserted at the start of the data
+        moves its data word ``dseg_9400`` (``mov [dseg_9400], di`` at 0x5483)
+        and its BSS objects ``bss_9408`` (``mov di, bss_9408`` at 0x5488) and
+        ``bss_9704`` (``mov word [bss_9704], 0xffff`` at 0x5185) by one;
+        ``o_dsize`` grows by one and ``o_bss`` -- the BSS block's span -- stays.
+        These names were ``__zdseg_end + <distance>`` and stood still.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            _copy_source_tree(d)
+            master = os.path.join(d, 'vpclv.asm')
+            original = _nasm_file(master, d)
+            self.assertEqual(original[0x5483:0x5487], b'\x89\x3e\x00\x94')
+            self.assertEqual(original[0x5488:0x548b], b'\xbf\x08\x94')
+            self.assertEqual(original[0x5185:0x5189], b'\xc7\x06\x04\x97')
+            with open(master) as f:
+                text = f.read()
+            with open(master, 'w') as f:
+                f.write(text.replace('__zdata_start:\n',
+                                     '__zdata_start:\n    db 0xee\n', 1))
+            grown = _nasm_file(master, d)
+
+        self.assertEqual(len(grown), len(original) + 1)
+        o_dsize, o_bss = struct.unpack_from('<HH', original, 8)
+        self.assertEqual(struct.unpack_from('<HH', grown, 8),
+                         (o_dsize + 1, o_bss))
+        self.assertEqual(grown[0x5483:0x5487], b'\x89\x3e\x01\x94')
+        self.assertEqual(grown[0x5488:0x548b], b'\xbf\x09\x94')
+        self.assertEqual(grown[0x5185:0x5189], b'\xc7\x06\x05\x97')
 
     @unittest.skipUnless(_TREE.is_dir() and (_TREE / 'vga.asm').exists(),
                          'generated src_DSAVANT tree not present')

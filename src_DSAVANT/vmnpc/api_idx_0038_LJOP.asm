@@ -741,7 +741,7 @@ loc_USII:
     jmp near @..api_idx_0038_LJOP.l23 ; 0x4ea1
 loc_LPSH_4ea4:
     jmp near @..api_idx_0038_LJOP.l23 ; 0x4ea4
-loc_NRKM:
+loc_VGUR:
     cmp word [bp + 0x8], byte 0      ; 0x4ea7
     je short @..api_idx_0038_LJOP.l18 ; 0x4eab
     mov ax, 1                        ; 0x4ead
@@ -775,7 +775,7 @@ loc_NRKM:
     mov word [bp - 0x001a], 0        ; 0x4ef0
 @..api_idx_0038_LJOP.l18:
     jmp near @..api_idx_0038_LJOP.l23 ; 0x4ef5
-loc_RJNR:
+loc_LQKQ:
     cmp word [bp + 0xa], byte 0      ; 0x4ef8
     je short @..api_idx_0038_LJOP.l19 ; 0x4efc
     mov ax, 1                        ; 0x4efe
@@ -853,14 +853,14 @@ jumptable_4fa9:
     dw loc_USII - IMAGE_BASE + __zres_end      ; 0x4fab
     dw loc_USII - IMAGE_BASE + __zres_end      ; 0x4fad
     dw loc_LPSH_4ea4 - IMAGE_BASE + __zres_end ; 0x4faf
-    dw loc_NRKM - IMAGE_BASE + __zres_end      ; 0x4fb1
-    dw loc_RJNR - IMAGE_BASE + __zres_end      ; 0x4fb3
+    dw loc_VGUR - IMAGE_BASE + __zres_end      ; 0x4fb1
+    dw loc_LQKQ - IMAGE_BASE + __zres_end      ; 0x4fb3
 @..api_idx_0038_LJOP.l21:
     cmp ax, strict word 6            ; 0x4fb5
     jae short @..api_idx_0038_LJOP.l22 ; 0x4fb8
     xchg bx, ax                      ; 0x4fba
     shl bx, 1                        ; 0x4fbb
-    jmp [cs:bx - 0x6010]             ; 0x4fbd
+    jmp [cs:bx + jumptable_4fa9 - IMAGE_BASE + __zres_end] ; 0x4fbd
 @..api_idx_0038_LJOP.l22:
     jmp short @..api_idx_0038_LJOP.l20 ; 0x4fc2
 @..api_idx_0038_LJOP.l23:

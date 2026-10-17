@@ -7,6 +7,7 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_MEM
 from lib.segments import SegmentModel
 from lib.segdataflow import LOAD, DATA, PSP, UNKNOWN
 from lib.compare.symbols import (
+    _resolve_declared_immediates,
     _resolve_mem_symbols,
     _resolve_imm_symbols,
 )
@@ -95,6 +96,37 @@ class FormatOverrideTest(unittest.TestCase):
         text = format_instruction(
             insn, {}, {}, mem_symbols={(0x200, 1): 'cseg_0300 - IMAGE_BASE'})
         self.assertEqual(text, 'mov di, cseg_0300 - IMAGE_BASE')
+
+
+class DeclaredImmediateTests(unittest.TestCase):
+    """Sidecar ``immediate_pointers``: a dead store of a table address."""
+
+    _DRIVER = type('Seg', (), {'load_offset': 0x100, 'file_size': 0x2000,
+                               'overlay': None})()
+
+    def _resolve(self, code_hex, offset, **entry):
+        insns = _disasm(code_hex, offset)
+        mem_equ = {}
+        result = _resolve_declared_immediates(
+            insns, [{'offset': offset, **entry}], self._DRIVER, {}, mem_equ,
+            0, owner='play')
+        return result, mem_equ
+
+    def test_a_declared_mov_is_a_code_segment_pointer(self):
+        # mov di, 0x1a3a: a driver's CS 0x1a3a is file 0x193a.
+        result, equ = self._resolve('bf3a1a', 0x65c, space='cs')
+        self.assertEqual(result, {(0x65c, 1): 'cseg_193a - IMAGE_BASE'})
+        self.assertEqual(list(equ.values()), [0x193a])
+
+    def test_a_declaration_on_another_instruction_is_an_error(self):
+        from lib.sidecar.errors import SidecarError
+        with self.assertRaises(SidecarError):
+            self._resolve('8bc3', 0x65c)            # mov ax, bx
+
+    def test_a_value_outside_the_image_is_an_error(self):
+        from lib.sidecar.errors import SidecarError
+        with self.assertRaises(SidecarError):
+            self._resolve('bf3a00', 0x65c)          # CS 0x003a: below the image
 
 
 if __name__ == '__main__':

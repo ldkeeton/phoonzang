@@ -59,7 +59,7 @@ jumptable_741a:
     jae short @..api_idx_0002_NIPM.l2 ; 0x742b
     xchg bx, ax                      ; 0x742d
     shl bx, 1                        ; 0x742e
-    jmp [cs:bx - 0x3b9f]             ; 0x7430
+    jmp [cs:bx + jumptable_741a - IMAGE_BASE + __zres_end] ; 0x7430
 jumptable_741a_case_3:
 @..api_idx_0002_NIPM.l2:
     ret                              ; 0x7435

@@ -8,7 +8,7 @@ api_idx_0002_MPHM:
     push ax                          ; 0x429f
     push word [bp - 0x0002]          ; 0x42a0
     push word [bp + 0x4]             ; 0x42a3
-    call loc_JKKS                    ; 0x42a6
+    call loc_VMKK                    ; 0x42a6
     add sp, byte 6                   ; 0x42a9
     inc word [bp - 0x0002]           ; 0x42ac
     mov ax, word [bp - 0x0002]       ; 0x42af

@@ -175,7 +175,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x727e
     mov ax, 5                        ; 0x727f
     push ax                          ; 0x7282
-    call ds_app_file_NKGK            ; 0x7283
+    call ds_app_file_MPPM            ; 0x7283
     add sp, byte 8                   ; 0x7286
     mov ax, 2                        ; 0x7289
     push ax                          ; 0x728c

@@ -30,7 +30,7 @@ api_idx_0002_NURV:
 @..api_idx_0002_NURV.l2:
     cmp word [bss_830a], byte 0x17   ; 0x006a
     jne short @..api_idx_0002_NURV.l3 ; 0x006f
-    call api_idx_0002_HTRV           ; 0x0071
+    call api_idx_0002_VNLG           ; 0x0071
     mov ax, 0xa                      ; 0x0074
     push ax                          ; 0x0077
     call ds_app_PUNN                 ; 0x0078
@@ -42,7 +42,7 @@ api_idx_0002_NURV:
 @..api_idx_0002_NURV.l3:
     cmp word [bss_830a], byte 0x1b   ; 0x0084
     jne short @..api_idx_0002_NURV.l4 ; 0x0089
-    call api_idx_0012_PJTU           ; 0x008b
+    call api_idx_0012_VNOV           ; 0x008b
 @..api_idx_0002_NURV.l4:
     cmp word [bss_830a], byte 0x1e   ; 0x008e
     jne short @..api_idx_0002_NURV.l5 ; 0x0093

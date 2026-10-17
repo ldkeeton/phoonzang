@@ -14,7 +14,7 @@ api_idx_0046_NOMK:
     push ax                          ; 0x4fe6
     mov ax, 0                        ; 0x4fe7
     push ax                          ; 0x4fea
-    call ds_app_file_NKGK            ; 0x4feb
+    call ds_app_file_MPPM            ; 0x4feb
     add sp, byte 8                   ; 0x4fee
     mov word [bss_9492], 0           ; 0x4ff1
 @..api_idx_0046_NOMK.l1:

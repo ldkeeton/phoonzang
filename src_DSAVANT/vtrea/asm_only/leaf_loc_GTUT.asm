@@ -35,5 +35,14 @@ __zdata_start:
     db 'V.$$$', 0
     db 0x2a, 0x2a, 0x2a, 0x00
     db 'V.$$$', 0
-    times 10 db 0
 
+__zdseg_910a:
+    db 0x00, 0x00
+__zdseg_910c:
+    db 0x00, 0x00
+__zdseg_910e:
+    db 0x00, 0x00
+__zdseg_9110:
+    db 0x00, 0x00
+__zdseg_9112:
+    db 0x00, 0x00

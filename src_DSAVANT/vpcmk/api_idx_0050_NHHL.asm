@@ -1336,7 +1336,7 @@ jumptable_3cc2:
     jae short @..api_idx_0050_NHHL.l49 ; 0x3ccf
     xchg bx, ax                      ; 0x3cd1
     shl bx, 1                        ; 0x3cd2
-    jmp [cs:bx - 0x72f7]             ; 0x3cd4
+    jmp [cs:bx + jumptable_3cc2 - IMAGE_BASE + __zres_end] ; 0x3cd4
 @..api_idx_0050_NHHL.l49:
     jmp near @..api_idx_0050_NHHL.l27 ; 0x3cd9
 @..api_idx_0050_NHHL.l50:

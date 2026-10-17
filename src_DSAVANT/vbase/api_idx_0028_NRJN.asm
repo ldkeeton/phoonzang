@@ -660,7 +660,7 @@ jumptable_14d6:
     jae short @..api_idx_0028_NRJN.l9 ; 0x14e3
     xchg bx, ax                      ; 0x14e5
     shl bx, 1                        ; 0x14e6
-    jmp [cs:bx + 0x651d]             ; 0x14e8
+    jmp [cs:bx + jumptable_14d6 - IMAGE_BASE + __zres_end] ; 0x14e8
 @..api_idx_0028_NRJN.l9:
     cmp word [bp - 0x0010], byte 0   ; 0x14ed
     je short @..api_idx_0028_NRJN.l10 ; 0x14f1

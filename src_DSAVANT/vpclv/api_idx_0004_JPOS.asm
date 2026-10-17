@@ -210,7 +210,7 @@ jumptable_3797:
     jae short @..api_idx_0004_JPOS.l2 ; 0x37b6
     xchg bx, ax                      ; 0x37b8
     shl bx, 1                        ; 0x37b9
-    jmp [cs:bx - 0x7822]             ; 0x37bb
+    jmp [cs:bx + jumptable_3797 - IMAGE_BASE + __zres_end] ; 0x37bb
 @..api_idx_0004_JPOS.l2:
     mov ax, 0x248                    ; 0x37c0
     imul word [bp + 0x4]             ; 0x37c3

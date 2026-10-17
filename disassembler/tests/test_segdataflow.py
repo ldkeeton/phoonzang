@@ -6,7 +6,8 @@ import unittest
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16, CS_OP_MEM
 
 from lib.segments import from_binary
-from lib.segdataflow import (DATA, LOAD, PSP, analyze)
+from lib.segdataflow import (DATA, LOAD, PSP, analyze,
+                             immediate_pointer_spaces)
 
 ASM = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT = os.path.dirname(ASM)
@@ -78,6 +79,61 @@ class SynthesisTest(unittest.TestCase):
                   for o in i.operands if o.type == CS_OP_MEM][0]
         self.assertEqual(flow.effective_segment(insns[0], bx_mem), ('ds', DATA))
         self.assertEqual(flow.effective_segment(insns[1], bp_mem), ('ss', DATA))
+
+
+class ImmediatePointerTest(unittest.TestCase):
+    """``mov reg, imm16`` is a pointer when *reg* is next used as a base."""
+
+    def _proven(self, code):
+        insns = _disasm(bytes.fromhex(code), 0x200)
+        flow = analyze(insns, _model(), binary_data=bytes(0x2000),
+                       function_roots={0x200})
+        return immediate_pointer_spaces(insns, flow)
+
+    def test_cs_xlatb_proves_bx_a_code_segment_pointer(self):
+        # mov bx, 0x1a3a; cs xlatb -- the table read has no listed operand.
+        self.assertEqual(self._proven('bb3a1a' '2ed7'), {(0x200, 1): LOAD})
+
+    def test_plain_xlatb_reads_through_ds(self):
+        self.assertEqual(self._proven('bb3a1a' 'd7'), {(0x200, 1): DATA})
+
+    def test_xlatb_proves_only_bx(self):
+        self.assertEqual(self._proven('be3a1a' '2ed7'), {})
+
+    def test_a_forward_jmp_is_followed(self):
+        # mov bx, 0x1a3a; jmp +1; nop; mov [cs:bx], ah
+        self.assertEqual(self._proven('bb3a1a' 'eb01' '90' '2e8827'),
+                         {(0x200, 1): LOAD})
+
+    def test_a_backward_jmp_ends_the_scan(self):
+        # nop; mov bx, 0x1a3a; jmp 0x200 (back over the definition); [cs:bx]
+        self.assertEqual(self._proven('90' 'bb3a1a' 'ebfa' '2e8827'), {})
+
+
+class CallerStateTest(unittest.TestCase):
+    """A root reached only by direct calls starts in its callers' state."""
+
+    # 0x200 mov ax, cs; mov ds, ax; call 0x208; ret / 0x208 ret
+    _CODE = '8cc8' '8ed8' 'e80100' 'c3' 'c3'
+
+    def _flow(self, code, roots, entry_roots=()):
+        insns = _disasm(bytes.fromhex(code), 0x200)
+        return analyze(insns, _model(), binary_data=bytes(0x2000),
+                       function_roots=roots, entry_roots=entry_roots)
+
+    def test_callee_inherits_ds_equals_cs(self):
+        flow = self._flow(self._CODE, {0x200, 0x208})
+        self.assertEqual(flow.space_of(0x208, 'ds'), LOAD)
+
+    def test_an_entry_root_keeps_the_convention(self):
+        flow = self._flow(self._CODE, {0x200, 0x208}, entry_roots={0x208})
+        self.assertEqual(flow.space_of(0x208, 'ds'), DATA)
+
+    def test_callers_that_disagree_leave_ds_unknown(self):
+        # 0x200 call 0x20b; mov ax, cs; mov ds, ax; call 0x20b; ret / 0x20b ret
+        flow = self._flow('e80800' '8cc8' '8ed8' 'e80100' 'c3' 'c3',
+                          {0x200, 0x20b})
+        self.assertIsNone(flow.space_of(0x20b, 'ds'))
 
 
 class RealAztecBeginTest(unittest.TestCase):

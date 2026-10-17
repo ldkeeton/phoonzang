@@ -15,7 +15,7 @@ ds_app_file_JISS: ; Aztec csav frame=0x0018
     push ax                          ; 0x2941
     mov ax, 9                        ; 0x2942
     push ax                          ; 0x2945
-    call ds_app_file_NKGK            ; 0x2946
+    call ds_app_file_MPPM            ; 0x2946
     add sp, byte 8                   ; 0x2949
     mov word [bp - 0x0002], 1        ; 0x294c
     mov ax, 0xc                      ; 0x2951

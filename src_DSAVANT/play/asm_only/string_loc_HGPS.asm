@@ -8,7 +8,7 @@ string_loc_HGPS:
     push si                          ; 0x0d54
     and al, 0xf                      ; 0x0d55
     mov byte [cs:cseg_0d3b - IMAGE_BASE], al ; 0x0d57
-    mov bx, 0xddf                    ; 0x0d5b
+    mov bx, cseg_0cdf - IMAGE_BASE   ; 0x0d5b
     cs xlatb                         ; 0x0d5e
     mov byte [cs:cseg_0d3d - IMAGE_BASE], al ; 0x0d60
     mov byte [cs:cseg_0d47 - IMAGE_BASE], 0xff ; 0x0d64

@@ -6,7 +6,7 @@ loc_0875:
     je short loc_089e                ; 0x087e
     inc byte [cs:cseg_086e - IMAGE_BASE] ; 0x0880
     mov dx, 0x389                    ; 0x0885
-    mov bx, 0x1a3a                   ; 0x0888
+    mov bx, cseg_193a - IMAGE_BASE   ; 0x0888
     cs xlatb                         ; 0x088b
     out dx, al                       ; 0x088d
     dec word [cs:cseg_0a81 - IMAGE_BASE] ; 0x088e

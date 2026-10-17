@@ -17,12 +17,14 @@ api_idx_0090_NPLS:
     jmp near @..api_idx_0090_NPLS.l9 ; 0x0b49
 @..api_idx_0090_NPLS.l2:
     jmp near @..api_idx_0090_NPLS.l7 ; 0x0b4c
+loc_JQUQ:
     inc word [bp + 0x4]              ; 0x0b4f
     mov ax, 0x9154                   ; 0x0b52
     push ax                          ; 0x0b55
     call api_idx_0004_JGSH           ; 0x0b56
     pop cx                           ; 0x0b59
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0b5a
+loc_UGQN:
     inc word [bp + 0x4]              ; 0x0b5d
     mov ax, 0x9154                   ; 0x0b60
     push ax                          ; 0x0b63
@@ -42,6 +44,7 @@ api_idx_0090_NPLS:
     call api_idx_0004_UQUT           ; 0x0b82
     pop cx                           ; 0x0b85
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0b86
+loc_VMMJ:
     inc word [bp + 0x4]              ; 0x0b89
     mov ax, 0x9154                   ; 0x0b8c
     push ax                          ; 0x0b8f
@@ -58,6 +61,7 @@ api_idx_0090_NPLS:
     call ds_app_io_VRKV              ; 0x0ba4
     add sp, byte 8                   ; 0x0ba7
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0baa
+loc_QGLT:
     inc word [bp + 0x4]              ; 0x0bad
     mov ax, 0                        ; 0x0bb0
     push ax                          ; 0x0bb3
@@ -65,6 +69,7 @@ api_idx_0090_NPLS:
     pop cx                           ; 0x0bb7
     mov word [bss_9150], 0           ; 0x0bb8
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0bbe
+loc_SJGK:
     inc word [bp + 0x4]              ; 0x0bc1
     mov ax, 0x9154                   ; 0x0bc4
     push ax                          ; 0x0bc7
@@ -75,6 +80,7 @@ api_idx_0090_NPLS:
     call loc_NQGV                    ; 0x0bd0
     pop cx                           ; 0x0bd3
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0bd4
+loc_IVKM:
     inc word [bp + 0x4]              ; 0x0bd7
     mov ax, 0x10                     ; 0x0bda
     push ax                          ; 0x0bdd
@@ -112,6 +118,7 @@ api_idx_0090_NPLS:
     call ds_app_thunk_26_VNHP        ; 0x0c26
     pop cx                           ; 0x0c29
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0c2a
+string_loc_0c2d:
     inc word [bp + 0x4]              ; 0x0c2d
     mov bx, word [bp + 0x4]          ; 0x0c30
     mov al, byte [bx]                ; 0x0c33
@@ -151,15 +158,20 @@ api_idx_0090_NPLS:
 @..api_idx_0090_NPLS.l6:
     inc word [bp + 0x4]              ; 0x0c80
     jmp short @..api_idx_0090_NPLS.l8 ; 0x0c83
-string_loc_0c85:
-    xchg si, ax                      ; 0x0c85
-    db 0x5b, 0xa4, 0x5b, 0xd0, 0x5b, 0xf4, 0x5b, 0x08, 0x5c, 0x1e, 0x5c, 0x74, 0x5c
+jumptable_0c85:
+    dw loc_JQUQ - IMAGE_BASE + __zres_end      ; 0x0c85
+    dw loc_UGQN - IMAGE_BASE + __zres_end      ; 0x0c87
+    dw loc_VMMJ - IMAGE_BASE + __zres_end      ; 0x0c89
+    dw loc_QGLT - IMAGE_BASE + __zres_end      ; 0x0c8b
+    dw loc_SJGK - IMAGE_BASE + __zres_end      ; 0x0c8d
+    dw loc_IVKM - IMAGE_BASE + __zres_end      ; 0x0c8f
+    dw string_loc_0c2d - IMAGE_BASE + __zres_end ; 0x0c91
 @..api_idx_0090_NPLS.l7:
     cmp ax, strict word 7            ; 0x0c93
     jae short @..api_idx_0090_NPLS.l8 ; 0x0c96
     xchg bx, ax                      ; 0x0c98
     shl bx, 1                        ; 0x0c99
-    jmp [cs:bx + 0x5ccc]             ; 0x0c9b
+    jmp [cs:bx + jumptable_0c85 - IMAGE_BASE + __zres_end] ; 0x0c9b
 @..api_idx_0090_NPLS.l8:
     jmp near @..api_idx_0090_NPLS.l1 ; 0x0ca0
 @..api_idx_0090_NPLS.l9:
@@ -194,7 +206,6 @@ string_loc_0c85:
     push ax                          ; 0x0ce9
     lea ax, word [bp - 0x0086]       ; 0x0cea
     push ax                          ; 0x0cee
-loc_HKVI:
     call ds_loc_JJGM                 ; 0x0cef
     add sp, byte 4                   ; 0x0cf2
     mov word [bp - 0x0002], ax       ; 0x0cf5

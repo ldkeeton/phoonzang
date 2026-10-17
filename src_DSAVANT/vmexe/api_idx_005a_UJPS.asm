@@ -54,7 +54,7 @@ api_idx_005a_UJPS:
     push ax                          ; 0x9fd7
     mov ax, 1                        ; 0x9fd8
     push ax                          ; 0x9fdb
-    call ds_app_file_NKGK            ; 0x9fdc
+    call ds_app_file_MPPM            ; 0x9fdc
     add sp, byte 8                   ; 0x9fdf
     mov ax, 0x248                    ; 0x9fe2
     imul word [bss_8462]             ; 0x9fe5

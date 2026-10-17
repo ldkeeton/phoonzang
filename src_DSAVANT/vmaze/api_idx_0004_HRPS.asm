@@ -55,7 +55,7 @@ jumptable_1556:
     jae short @..api_idx_0004_HRPS.l3 ; 0x157c
     xchg bx, ax                      ; 0x157e
     shl bx, 1                        ; 0x157f
-    jmp [cs:bx + 0x659d]             ; 0x1581
+    jmp [cs:bx + jumptable_1556 - IMAGE_BASE + __zres_end] ; 0x1581
 jumptable_1556_case_1:
 @..api_idx_0004_HRPS.l3:
     push word [bp - 0x0002]          ; 0x1586

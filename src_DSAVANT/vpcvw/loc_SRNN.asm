@@ -98,6 +98,6 @@ jumptable_928f:
     jae short @..loc_SRNN.l2         ; 0x92a8
     xchg bx, ax                      ; 0x92aa
     shl bx, 1                        ; 0x92ab
-    jmp [cs:bx - 0x1d2a]             ; 0x92ad
+    jmp [cs:bx + jumptable_928f - IMAGE_BASE + __zres_end] ; 0x92ad
 @..loc_SRNN.l2:
     ret                              ; 0x92b2

@@ -1,6 +1,0 @@
-; auto-generated
-ds_leaf_loc_QNQO:
-    mov ax, word [bss_82e8]          ; 0x2cd0
-    add ax, strict word 5            ; 0x2cd3
-    mov word [bp - 0x0004], ax       ; 0x2cd6
-    jmp near ds_loc_VQTI             ; 0x2cd9

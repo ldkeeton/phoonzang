@@ -115,7 +115,7 @@ api_idx_0006_IRNH:
     idiv cx                          ; 0x2c85
     mov word [bss_82e8], dx          ; 0x2c87
 @..api_idx_0006_IRNH.l10:
-    call ds_app_GJOV                 ; 0x2c8b
+    call ds_app_JKOJ                 ; 0x2c8b
     jmp short @..api_idx_0006_IRNH.l16 ; 0x2c8e
 @..api_idx_0006_IRNH.l11:
     push word [bss_845e]             ; 0x2c90

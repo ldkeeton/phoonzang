@@ -351,7 +351,7 @@ jumptable_532e:
     jae short @..api_idx_0010_GVMH.l17 ; 0x5384
     xchg bx, ax                      ; 0x5386
     shl bx, 1                        ; 0x5387
-    jmp [cs:bx - 0x5c8b]             ; 0x5389
+    jmp [cs:bx + jumptable_532e - IMAGE_BASE + __zres_end] ; 0x5389
 jumptable_532e_case_9:
 @..api_idx_0010_GVMH.l17:
     push word [bp + 0x8]             ; 0x538e

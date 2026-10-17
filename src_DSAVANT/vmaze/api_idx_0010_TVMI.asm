@@ -64,7 +64,7 @@ api_idx_0010_TVMI:
     mov ax, 5                        ; 0x82ad
     push ax                          ; 0x82b0
     push word [bss_830c]             ; 0x82b1
-    call api_idx_0004_GMNK           ; 0x82b5
+    call api_idx_0004_KMPG           ; 0x82b5
     add sp, byte 0x12                ; 0x82b8
     push word [bp - 0x000c]          ; 0x82bb
     mov ax, 6                        ; 0x82be

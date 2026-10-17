@@ -9,7 +9,7 @@ io_loc_JGUP:
     out dx, al                       ; 0x2e86
     add si, word [cs:cseg_1ad7 - IMAGE_BASE] ; 0x2e87
     mov di, word [cs:cseg_1af7 - IMAGE_BASE] ; 0x2e8c
-    mov bx, 0x2a02                   ; 0x2e91
+    mov bx, cseg_2902 - IMAGE_BASE   ; 0x2e91
     mov cx, word [cs:cseg_1af5 - IMAGE_BASE] ; 0x2e94
     mov dx, 0x3ce                    ; 0x2e99
     mov al, 8                        ; 0x2e9c

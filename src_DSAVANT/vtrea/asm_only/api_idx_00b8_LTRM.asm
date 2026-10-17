@@ -260,7 +260,7 @@ jumptable_1fa3_case_4:
     lea ax, word [bp - 0x0068]       ; 0x171c
     push ax                          ; 0x171f
     push word [bp - 0x0002]          ; 0x1720
-    call api_idx_0002_QLNJ           ; 0x1723
+    call api_idx_0002_RJQH           ; 0x1723
     add sp, byte 0x10                ; 0x1726
     push word [bss_905a]             ; 0x1729
     call api_idx_0004_UQUT           ; 0x172d
@@ -313,7 +313,7 @@ jumptable_1fa3_case_4:
     lea ax, word [bp - 0x0068]       ; 0x178e
     push ax                          ; 0x1791
     push word [bp - 0x0002]          ; 0x1792
-    call api_idx_0002_QLNJ           ; 0x1795
+    call api_idx_0002_RJQH           ; 0x1795
     add sp, byte 0x10                ; 0x1798
     push word [bss_905a]             ; 0x179b
     call api_idx_0004_UQUT           ; 0x179f
@@ -746,7 +746,7 @@ jumptable_1b19:
     jae short @..api_idx_00b8_LTRM.l34 ; 0x1b28
     xchg bx, ax                      ; 0x1b2a
     shl bx, 1                        ; 0x1b2b
-    jmp [cs:bx + 0x6b60]             ; 0x1b2d
+    jmp [cs:bx + jumptable_1b19 - IMAGE_BASE + __zres_end] ; 0x1b2d
 @..api_idx_00b8_LTRM.l34:
     inc word [bp - 0x0002]           ; 0x1b32
 @..api_idx_00b8_LTRM.l35:
@@ -1040,7 +1040,7 @@ jumptable_1fa3_case_12:
     lea ax, word [bp - 0x0068]       ; 0x1dad
     push ax                          ; 0x1db0
     push word [bp - 0x0002]          ; 0x1db1
-    call api_idx_0002_QLNJ           ; 0x1db4
+    call api_idx_0002_RJQH           ; 0x1db4
     add sp, byte 0x10                ; 0x1db7
     mov ax, 1                        ; 0x1dba
     push ax                          ; 0x1dbd
@@ -1147,7 +1147,7 @@ jumptable_1fa3_case_15:
     lea ax, word [bp - 0x0068]       ; 0x1ea0
     push ax                          ; 0x1ea3
     push word [bp - 0x0002]          ; 0x1ea4
-    call api_idx_0002_QLNJ           ; 0x1ea7
+    call api_idx_0002_RJQH           ; 0x1ea7
     add sp, byte 0x10                ; 0x1eaa
     push word [bss_905a]             ; 0x1ead
     call api_idx_0004_UQUT           ; 0x1eb1
@@ -1197,7 +1197,7 @@ jumptable_1fa3_case_15:
     lea ax, word [bp - 0x0068]       ; 0x1f16
     push ax                          ; 0x1f19
     push word [bp - 0x0002]          ; 0x1f1a
-    call api_idx_0002_QLNJ           ; 0x1f1d
+    call api_idx_0002_RJQH           ; 0x1f1d
     add sp, byte 0x10                ; 0x1f20
     push word [bss_905a]             ; 0x1f23
     call api_idx_0004_UQUT           ; 0x1f27
@@ -1282,7 +1282,7 @@ jumptable_1fa3:
     jae short @..api_idx_00b8_LTRM.l61 ; 0x1fca
     xchg bx, ax                      ; 0x1fcc
     shl bx, 1                        ; 0x1fcd
-    jmp [cs:bx + 0x6fea]             ; 0x1fcf
+    jmp [cs:bx + jumptable_1fa3 - IMAGE_BASE + __zres_end] ; 0x1fcf
 jumptable_1fa3_case_0:
 @..api_idx_00b8_LTRM.l61:
     ret                              ; 0x1fd4

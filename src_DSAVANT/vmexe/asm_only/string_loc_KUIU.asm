@@ -90,7 +90,7 @@ loc_JNKN:
     mov ax, word [bp + 0x6]          ; 0x36ee
     mov word [bp - 0x01aa], ax       ; 0x36f1
     jmp short @..string_loc_KUIU.l11 ; 0x36f5
-loc_SSQU_36f7:
+loc_SSQU:
     mov ax, word [bp + 0x8]          ; 0x36f7
     mov word [bp - 0x01aa], ax       ; 0x36fa
     jmp short @..string_loc_KUIU.l11 ; 0x36fe
@@ -117,7 +117,7 @@ loc_GTUG:
 jumptable_372d:
     dw loc_GMLU - IMAGE_BASE + __zres_end      ; 0x372d
     dw loc_JNKN - IMAGE_BASE + __zres_end      ; 0x372f
-    dw loc_SSQU_36f7 - IMAGE_BASE + __zres_end ; 0x3731
+    dw loc_SSQU - IMAGE_BASE + __zres_end      ; 0x3731
     dw loc_VJIL - IMAGE_BASE + __zres_end      ; 0x3733
     dw loc_KRJM - IMAGE_BASE + __zres_end      ; 0x3735
     dw loc_OOJH - IMAGE_BASE + __zres_end      ; 0x3737
@@ -127,7 +127,7 @@ jumptable_372d:
     jae short @..string_loc_KUIU.l10 ; 0x373e
     xchg bx, ax                      ; 0x3740
     shl bx, 1                        ; 0x3741
-    jmp [cs:bx - 0x788c]             ; 0x3743
+    jmp [cs:bx + jumptable_372d - IMAGE_BASE + __zres_end] ; 0x3743
 @..string_loc_KUIU.l10:
     jmp short @..string_loc_KUIU.l8  ; 0x3748
 @..string_loc_KUIU.l11:
@@ -140,7 +140,7 @@ jumptable_372d:
     push word [bx - 0x7b70]          ; 0x3759
     mov ax, 4                        ; 0x375d
     push ax                          ; 0x3760
-    call ds_app_file_NKGK            ; 0x3761
+    call ds_app_file_MPPM            ; 0x3761
     add sp, byte 8                   ; 0x3764
     cmp word [bss_8464], byte 0      ; 0x3767
     je short @..string_loc_KUIU.l12  ; 0x376c

@@ -126,10 +126,22 @@ def _in_space(value, segments):
         bss = getattr(segments, 'bss_boundary', None)
         if bss is not None and value < bss:
             spaces.add('ds')
-    cs_origin = getattr(segments, 'cs_origin', None)
-    if cs_origin is not None and cs_origin + value < segments.file_size:
+    cs_file = _cs_file(value, segments)
+    if cs_file is not None and 0 <= cs_file < segments.file_size:
         spaces.add('cs')
     return spaces
+
+
+def _cs_file(value, segments):
+    """File offset of CS offset *value*, or None.
+
+    A raw driver runs at ``CS:0x100`` (``load_offset``), so its CS offsets are
+    file offsets plus the load base (plan.md D7.6).
+    """
+    cs_origin = getattr(segments, 'cs_origin', None)
+    if cs_origin is None:
+        return None
+    return cs_origin + value - (getattr(segments, 'load_offset', 0) or 0)
 
 
 def _in_initialised_data(value, segments):
@@ -147,8 +159,8 @@ def _in_initialised_data(value, segments):
 def _target_offset(space, value, segments):
     if space == 'ds' and segments.data_origin is not None:
         return segments.data_origin + value
-    if space == 'cs' and segments.cs_origin is not None:
-        return segments.cs_origin + value
+    if space == 'cs':
+        return _cs_file(value, segments)
     return None
 
 
@@ -198,15 +210,15 @@ def _absolute_operand_file_offset(insn, op, segments, segment_flow,
     seg, space = segment_flow.effective_segment(insn, op)
     if seg not in ('ds', 'es', 'cs'):
         return None
+    disp = op.mem.disp & 0xFFFF
     if space == LOAD:
-        origin = segments.cs_origin
-    elif space == DATA:
+        return _cs_file(disp, segments)
+    if space == DATA:
         origin = segments.data_origin
     else:
         return None
     if origin is None:
         return None
-    disp = op.mem.disp & 0xFFFF
     file_off = origin + disp
     if (space == DATA and disp in FIXED_DS_SLOTS
             and file_off not in reloc_file_offsets):
@@ -320,6 +332,9 @@ def _consumed_reads(instructions, segments, segment_flow, limit=64):
     register is redefined or control leaves the straight-line block.  It
     deliberately does **not** cross a call: the callee's use of a caller
     register is not visible here, so an unproven word stays unproven.
+
+    A near ``jmp``/``call [disp]`` is its own consumer: it loads IP from the
+    word, so the word is a ``cs`` pointer.
     """
     from capstone import CS_OP_MEM, CS_OP_REG
     from lib.segdataflow import (
@@ -330,6 +345,17 @@ def _consumed_reads(instructions, segments, segment_flow, limit=64):
     reloc_file_offsets = _relocation_file_offsets(segments)
     consumed = {}
     for k, insn in enumerate(insns):
+        if insn.mnemonic in ('jmp', 'call') and len(insn.operands) == 1:
+            # ``jmp [vector]``: the CPU loads IP from the word, so the word is
+            # a code pointer by its use (Aztec's ``_write`` vector).
+            op = insn.operands[0]
+            if (op.type == CS_OP_MEM and not op.mem.base and not op.mem.index
+                    and op.size == 2):
+                file_off = _absolute_operand_file_offset(
+                    insn, op, segments, segment_flow, reloc_file_offsets)
+                if file_off is not None:
+                    consumed[file_off] = 'cs'
+            continue
         if insn.mnemonic != 'mov' or len(insn.operands) != 2:
             continue
         dest, src = insn.operands
@@ -424,8 +450,12 @@ def score_candidates(data, segments, emit_class, *, instructions=(),
     ``not_pointers`` are the sidecar corpus entries (``{'offset': int, ...}``)
     used to calibrate and to pin the negative direction.
     """
-    if segments is None or getattr(segments, 'kind', None) != 'mz':
-        # Scope is the MZ images; overlays/drivers are D7.
+    kind = getattr(segments, 'kind', None)
+    if kind == 'driver':
+        return _score_driver(data, segments, emit_class, instructions,
+                             segment_flow, data_pointers, not_pointers)
+    if segments is None or kind != 'mz':
+        # Scope is the MZ images and the raw drivers; overlays are D7.
         return _empty_report()
 
     known_addrs = set(known_addrs)
@@ -515,7 +545,9 @@ def score_candidates(data, segments, emit_class, *, instructions=(),
         if offset in corpus_neg:
             refused = refused or 'corpus-negative'
 
-        if 'ds' in spaces:
+        if consumed.get(offset) == 'cs':
+            space = 'cs'   # the consuming use is the proof of the space
+        elif 'ds' in spaces:
             space = corpus_pos[offset]['space'] if offset in corpus_pos else 'ds'
         else:
             space = 'cs'
@@ -569,6 +601,53 @@ def score_candidates(data, segments, emit_class, *, instructions=(),
             'refused': len(refused),
         },
     }
+
+
+def _score_driver(data, segments, emit_class, instructions, segment_flow,
+                  data_pointers, not_pointers):
+    """Accept a raw driver's stored CS pointers that a consumer proves.
+
+    A driver is hand-written assembly: its variables sit at any byte offset,
+    so the MZ scorer's aligned-word candidate sweep and its shape terms do not
+    apply.  The only candidates are words a consuming use proves to be
+    addresses (:func:`_consumed_reads`, ``DS = CS`` here); the corpus adds the
+    reviewed ones whose consumer is out of the scan's reach (across a call).
+    """
+    report = _empty_report()
+    if segment_flow is None or not instructions:
+        return report
+    corpus_pos = {e['offset']: e for e in (data_pointers or ())}
+    corpus_neg = {e['offset']: e for e in (not_pointers or ())}
+    consumed = _consumed_reads(instructions, segments, segment_flow)
+    candidates = []
+    for offset in sorted(consumed):
+        if consumed[offset] != 'cs' or offset + 2 > len(data):
+            continue
+        if emit_class[offset] == IS_CODE or emit_class[offset + 1] == IS_CODE:
+            continue
+        value = _read16(data, offset)
+        target = _target_offset('cs', value, segments)
+        if not value or target is None or not 0 <= target < len(data):
+            continue
+        candidates.append({
+            'offset': offset, 'value': value, 'space': 'cs', 'target': target,
+            'score': W_CONSUMPTION, 'anchors': ['consumption'],
+            'evidence': ['consumed'],
+            'refused': 'corpus-negative' if offset in corpus_neg else None,
+            'source': None,
+            'corpus': 'pointer' if offset in corpus_pos
+            else 'not_pointer' if offset in corpus_neg else None,
+        })
+    promoted = [c for c in candidates if c['refused'] is None]
+    refused = [c for c in candidates if c['refused'] is not None]
+    report.update({
+        'candidates': candidates, 'promoted': promoted, 'refused': refused,
+        'precision': _precision(promoted, corpus_pos),
+        'recall': _recall(promoted, corpus_pos),
+        'counts': {'candidates': len(candidates), 'promoted': len(promoted),
+                   'unproven': 0, 'refused': len(refused)},
+    })
+    return report
 
 
 #: Evidence that the word is actually *read* as an address (ddisasm's

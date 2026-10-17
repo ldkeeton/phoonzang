@@ -21,7 +21,6 @@ api_idx_0014_LHRI:
     shl cx, 1                        ; 0x070a
     mov si, cx                       ; 0x070c
     mov bx, word [bss_0e12]          ; 0x070e
-loc_PJMT:
     mov word [bx + si + 0x3c0], ax   ; 0x0712
     jmp near @..api_idx_0014_LHRI.l9 ; 0x0716
 @..api_idx_0014_LHRI.l3:
@@ -314,7 +313,7 @@ jumptable_099e:
     jae short @..api_idx_0014_LHRI.l9 ; 0x09ad
     xchg bx, ax                      ; 0x09af
     shl bx, 1                        ; 0x09b0
-    jmp [cs:bx + 0x59e5]             ; 0x09b2
+    jmp [cs:bx + jumptable_099e - IMAGE_BASE + __zres_end] ; 0x09b2
 @..api_idx_0014_LHRI.l9:
     add word [bp - 0x0004], byte 6   ; 0x09b7
     inc word [bp - 0x0002]           ; 0x09bb

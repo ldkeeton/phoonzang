@@ -22,6 +22,12 @@ _DSSIZE_SYMBOL = '__zdseg_end'
 # host code edit moves the overlays out of its way.
 _RESIDENT_END_SYMBOL = '__zres_end'
 
+# The top of the MZ stack, the last object of the BSS block (``e_sp``).
+_STACK_TOP_SYMBOL = '__zstack_top'
+
+# The end of an overlay's own BSS (``o_bss`` = it minus ``__zimage_end``).
+_OVR_BSS_END_SYMBOL = '__zobss_end'
+
 
 def _group_db_lines(hex_bytes):
     """Group hex bytes into db lines, 16 bytes per line."""
@@ -315,7 +321,7 @@ def _mz_entry_symbol(header, label_map, entry_symbol):
 
 
 def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None,
-                      dynamic_e_ss=False):
+                      dynamic_e_ss=False, stack_top=False, derived_minalloc=False):
     """Render the fixed MZ fields with a shared comment column.
 
     When *entry_symbol* is the label at the header's CS:IP entry offset, the
@@ -323,10 +329,19 @@ def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None
     the recoverable entry point instead of freezing its original constant.
     ``e_cblp``/``e_cp`` are always computed from ``__zimage_end``; when
     *dynamic_e_ss* is set (the code→data gap was located) ``e_ss`` is drawn
-    from ``__zdseg_para`` so it follows a relocated data segment.
+    from ``__zdseg_para`` so it follows a relocated data segment.  With
+    *stack_top* the BSS block ends in the stack, so ``e_sp`` is its top and,
+    with *derived_minalloc*, ``e_minalloc`` the paragraphs from the end of the
+    file to it.
     """
     _, cblp, cp, crlc, cparhdr, minalloc, maxalloc, ss, sp, \
         csum, ip, cs, lfarlc, ovno = struct.unpack_from('<2s13H', header, 0)
+    # The stack is the last object of the BSS block, so ``e_sp`` is its top and
+    # ``e_minalloc`` the paragraphs from the end of the file to it.
+    sp_text = (f'dw {_STACK_TOP_SYMBOL} - __zdseg_start' if stack_top
+               else f'dw 0x{sp:04x}')
+    alloc_text = (f'dw (({_STACK_TOP_SYMBOL} - __zimage_end) + 15) // 16'
+                  if stack_top and derived_minalloc else f'dw 0x{minalloc:04x}')
     bound_entry = _mz_entry_symbol(header, label_map, entry_symbol)
     ip_text = (f'dw {bound_entry} - IMAGE_BASE' if bound_entry
                else f'dw 0x{ip:04x}')
@@ -347,10 +362,10 @@ def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None
                'e_cp: total 512-byte pages in the file'),
         (f'dw 0x{crlc:04x}', 'e_crlc: number of relocation entries'),
         (f'dw 0x{cparhdr:04x}', 'e_cparhdr: header size in 16-byte paragraphs'),
-        (f'dw 0x{minalloc:04x}', 'e_minalloc: minimum extra memory paragraphs'),
+        _field(alloc_text, minalloc, 'e_minalloc: minimum extra memory paragraphs'),
         (f'dw 0x{maxalloc:04x}', 'e_maxalloc: maximum extra memory paragraphs'),
         _field(ss_text, ss, 'e_ss: initial stack segment, relative to load module'),
-        (f'dw 0x{sp:04x}', 'e_sp: initial stack pointer'),
+        _field(sp_text, sp, 'e_sp: initial stack pointer'),
         (f'dw 0x{csum:04x}', 'e_csum: file checksum (often unused)'),
         _field(ip_text, ip, 'e_ip: initial instruction pointer'),
         (f'dw 0x{cs:04x}', 'e_cs: initial code segment, relative to load module'),
@@ -367,7 +382,7 @@ def _render_mz_header(header, label_map=None, image_base=None, entry_symbol=None
 
 def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
                        dynamic_dsize=False, ds_end_symbol=None,
-                       corg_symbol=None):
+                       corg_symbol=None, bss_end_symbol=None):
     """Render the Aztec overlay header fields with a shared comment column.
 
     The overlay file is ``header + code(o_csize) + data(o_dsize)``.  When the
@@ -383,6 +398,9 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
     (D7.2, an overlay with a host) it -- and the ``o_corg`` addend inside
     ``o_entry`` -- is rendered as that symbol so a host code edit moves the
     overlay out of the way.
+
+    ``o_bss`` is the span of the overlay's BSS block, which follows the image,
+    when *bss_end_symbol* names its end.
 
     Rewritten fields keep their original value as a leading comment.
     """
@@ -412,7 +430,8 @@ def _render_ovr_header(header, entry_symbol=None, dynamic_csize=False,
         _field(csize_text, o_csize, 'o_csize: code size in bytes'),
         _field(dorg_text, o_dorg, 'o_dorg: data load origin (memory offset)'),
         _field(dsize_text, o_dsize, 'o_dsize: initialized data size'),
-        (f'dw 0x{o_bss:04x}', 'o_bss: uninitialized data size'),
+        _field(f'dw {bss_end_symbol} - __zimage_end' if bss_end_symbol
+               else f'dw 0x{o_bss:04x}', o_bss, 'o_bss: uninitialized data size'),
         _field(entry_text, o_entry, 'o_entry: overlay entry offset (CS)'),
     ]
     width = max(len(instruction) for instruction, _ in fields)
@@ -682,11 +701,59 @@ def _host_include_lines():
     ]
 
 
+def _anchor_data_byte(records, binary_data, file_off, origin, value, name,
+                      placed):
+    """Label the data byte at *file_off*; return ``(anchor, delta)`` or None.
+
+    *origin* is the file offset of the segment's first byte and *value* the
+    byte's segment offset.  A reference strictly inside a string is not a data
+    symbol: it is anchored to the string's start (and keeps the delta) so the
+    literal stays readable instead of being sliced into hex fragments.
+    Everything else gets a label at the exact byte, so the operand tracks
+    inserted bytes.  *placed* collects the string anchors already placed.
+    """
+    from lib.compare.jumptables import _ensure_global_label
+    from lib.compare.regions import string_run
+    run = string_run(binary_data, file_off, origin)
+    if (run is not None and run[0] < file_off
+            and run[1] - run[0] >= _MIN_STRING_ANCHOR):
+        anchor_ds = value - (file_off - run[0])
+        anchor = Symbol.anchor(f'__zstr_{anchor_ds:04x}', run[0])
+        if anchor in placed or _ensure_global_label(
+                records, binary_data, run[0], anchor):
+            placed.add(anchor)
+            return anchor, value - anchor_ds
+    label = Symbol.anchor(f'__z{name}', file_off)
+    if _ensure_global_label(records, binary_data, file_off, label):
+        return label, 0
+    return None
+
+
+def _bss_block_lines(labels):
+    """The BSS block after ``__zimage_end``: ``{distance: [label, ...]}``.
+
+    The block reserves no file bytes (``absolute``), so each object is a label
+    and the space between two is a ``resb`` -- adding an object moves the ones
+    after it, and the sizes that span it (``o_bss``, ``__zbss_size``, ``e_sp``)
+    follow.
+    """
+    if not labels:
+        return []
+    lines = ['absolute __zimage_end']
+    at = 0
+    for off in sorted(labels):
+        if off > at:
+            lines.append(f'    resb 0x{off - at:04x}')
+            at = off
+        lines.extend(f'{label}:' for label in labels[off])
+    return lines
+
+
 def _build_source(records, start_offset, binary_data, label_map=None, show_offsets=True,
                   immediate_labels=None, split_ranges=None,
                   split_dir='ds', mem_equ=None, image_base=None, entry_symbol=None,
                   label_defined=None, ds_size=None, host_symbols=None,
-                  host_data_offsets=None, load_offset=0):
+                  host_data_offsets=None, load_offset=0, overlay_own=None):
     """Render the master NASM source and any generated includes.
 
     *host_symbols* is ``(master_file, host_vbase)`` for an overlay with a host:
@@ -698,6 +765,10 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
     needs the host's anchor already known (plan.md D7.2).  The host itself
     receives *host_data_offsets* (the union of the offsets the overlays
     reference) and declares one recipe-based ``equ`` per offset.
+
+    *overlay_own* (``{name: DS offset}``) are an overlay's names at or past the
+    host's data end: its own initialized data and BSS, which the overlay
+    declares itself, on its own bytes and BSS block.
     """
     label_defined = label_defined or ()
     vbase = _virtual_base(binary_data, start_offset)
@@ -793,9 +864,22 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         out.append('%endif')
         out.append('')
 
+    # The stack is the BSS block's last object: SS == DS, so ``e_sp`` past the
+    # data-segment end is its top.
+    stack_reserve = None
+    derived_minalloc = False
+    if is_mz and ds_end_symbol is not None:
+        e_minalloc, e_sp = (struct.unpack_from('<H', hdr, off)[0]
+                            for off in (10, 16))
+        if e_sp >= ds_size:
+            stack_reserve = e_sp - ds_size
+            derived_minalloc = (e_sp - bss_boundary + 15) // 16 == e_minalloc
+    ovr_bss = False
     if is_mz:
         out.extend(_render_mz_header(hdr, label_map, base, entry_symbol,
-                                     dynamic_e_ss=gap is not None))
+                                     dynamic_e_ss=gap is not None,
+                                     stack_top=stack_reserve is not None,
+                                     derived_minalloc=derived_minalloc))
         out.append('')
         out.extend(_render_data_block(hdr[28:]))
         out.append('')
@@ -815,11 +899,13 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # D7.0c: ``o_dorg`` is the host data-segment size, so bind it to the
         # host symbol the link step resolves (only when the host values file is
         # in scope -- ``host_symbols``).
+        ovr_bss = dynamic_ovr_size and bool(host_symbols)
         out.extend(_render_ovr_header(
             binary_data[:14], entry_symbol=entry_symbol,
             dynamic_csize=dynamic_ovr_size, dynamic_dsize=dynamic_ovr_size,
             ds_end_symbol=(_DSSIZE_SYMBOL if host_symbols else None),
-            corg_symbol=corg_symbol))
+            corg_symbol=corg_symbol,
+            bss_end_symbol=_OVR_BSS_END_SYMBOL if ovr_bss else None))
         out.append('')
         out.append('__zcode_start:')
     elif start_offset > 0:
@@ -880,6 +966,9 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             else:
                 out.append(f'{name} equ 0x{addr:04x}')
     data_anchored = is_mz and gap is not None
+    # The BSS blocks after ``__zimage_end``: ``{offset past the image: label}``.
+    mz_bss = {}
+    ovr_bss_labels = {}
     if mem_equ or (data_anchored and host_data_offsets):
         # Segment-resolved operand symbols (Phase 4): cseg_ (code segment file
         # offset), dseg_/bss_ (data segment offset), psp_ (PSP field).
@@ -907,66 +996,36 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                 data_names.setdefault(name, (value, True))
         if data_anchored:
             from lib.compare.jumptables import _ensure_global_label
-            from lib.compare.regions import string_run
             placed_anchors = set()
         for name in sorted(data_names, key=lambda n: (data_names[n][0], n)):
             if _defined(name):
                 continue
             value, from_host_data = data_names[name]
-            # Overlay-own data (``>= __zdseg_end``) is not file-backed in the
-            # host, so it hangs off the shared data-segment end instead of a
-            # label; its delta stays frozen (plan.md D7.1 "Known residual").
-            # Only a union name (``host_data_offsets``) can be overlay-own -- an
-            # MZ image's own ``mem_equ`` never reaches past its segment end.
-            own = from_host_data and ds_size is not None and value >= ds_size
+            # Overlay-own data (``>= __zdseg_end``) belongs to the overlay that
+            # names it: each overlay declares it on its own bytes and BSS block
+            # (*overlay_own*), so the host's shared frame does not.  Only a union
+            # name (``host_data_offsets``) can be overlay-own -- an MZ image's
+            # own ``mem_equ`` never reaches past its segment end.
+            if from_host_data and ds_size is not None and value >= ds_size:
+                continue
             expr = None
             if data_anchored and data_space(name) is Space.DS:
-                if own:
-                    delta = value - ds_size
-                    expr = _DSSIZE_SYMBOL if delta == 0 else (
-                        f'{_DSSIZE_SYMBOL} + 0x{delta:04x}')
-                else:
-                    file_off = data_origin + value
-                    if file_off < len(binary_data):
-                        # A reference strictly inside a string is not a data
-                        # symbol: anchor it to the string's start (and keep the
-                        # delta) so the literal stays readable instead of being
-                        # sliced into hex fragments.  Everything else gets a
-                        # label at the exact byte so the operand tracks inserted
-                        # bytes.
-                        run = string_run(binary_data, file_off, data_origin)
-                        anchor = None
-                        if (run is not None and run[0] < file_off
-                                and run[1] - run[0] >= _MIN_STRING_ANCHOR):
-                            anchor_off = run[0]
-                            anchor_ds = anchor_off - data_origin
-                            anchor = Symbol.anchor(f'__zstr_{anchor_ds:04x}',
-                                                   anchor_off)
-                            if anchor not in placed_anchors:
-                                if _ensure_global_label(
-                                        records, binary_data, anchor_off, anchor):
-                                    placed_anchors.add(anchor)
-                                else:
-                                    anchor = None
-                        if anchor is not None:
-                            delta = value - anchor_ds
-                            expr = f'{anchor} - __zdseg_start'
-                            if delta:
-                                expr += f' + 0x{delta:04x}'
-                        else:
-                            label = Symbol.anchor(f'__z{name}', file_off)
-                            if _ensure_global_label(records, binary_data,
-                                                    file_off, label):
-                                expr = f'{label} - __zdseg_start'
+                file_off = data_origin + value
+                if file_off < len(binary_data):
+                    anchored = _anchor_data_byte(
+                        records, binary_data, file_off, data_origin, value,
+                        name, placed_anchors)
+                    if anchored is not None:
+                        anchor, delta = anchored
+                        expr = f'{anchor} - __zdseg_start'
+                        if delta:
+                            expr += f' + 0x{delta:04x}'
             elif data_anchored and data_space(name) is Space.BSS:
-                if own:
-                    delta = value - ds_size
-                    expr = _DSSIZE_SYMBOL if delta == 0 else (
-                        f'{_DSSIZE_SYMBOL} + 0x{delta:04x}')
-                elif value >= bss_boundary:
-                    delta = value - bss_boundary
-                    base = '(__zimage_end - __zdseg_start)'
-                    expr = base if delta == 0 else f'{base} + 0x{delta:04x}'
+                if value >= bss_boundary:
+                    # A BSS object is a label in the BSS block after the image.
+                    label = f'__zbss_{value:04x}'
+                    mz_bss.setdefault(value - bss_boundary, []).append(label)
+                    expr = f'{label} - __zdseg_start'
             if expr is None and data_space(name) is Space.CSEG:
                 # A CS-reached byte: a label on it (data or an instruction
                 # start), else an offset from the instruction that holds it.
@@ -989,9 +1048,43 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # ``__zbss_size`` is the invariant BSS reservation (it never moves under
         # an edit); the sum follows a resized data segment, because
         # ``__zimage_end - __zdseg_start`` is the file-backed data size.
-        out.append(f'__zbss_size equ 0x{ds_size - bss_boundary:04x}')
+        mz_bss.setdefault(ds_size - bss_boundary, []).append('__zbss_end')
+        out.append('__zbss_size equ __zbss_end - __zimage_end')
         out.append(f'{ds_end_symbol} equ '
                    f'(__zimage_end - __zdseg_start) + __zbss_size')
+    if ovr_bss:
+        # An overlay's own data and BSS (plan.md D7.1): its data is loaded at
+        # the host's data end (``o_dorg``), so a name there is
+        # ``__zdseg_end`` plus the distance of its byte -- or BSS label --
+        # from ``__zdata_start``.
+        o_csize, o_dorg, o_dsize, o_bss = (
+            struct.unpack_from('<H', binary_data, off)[0]
+            for off in (4, 6, 8, 10))
+        ovr_origin = start_offset + o_csize
+        ovr_bss_labels[o_bss] = [_OVR_BSS_END_SYMBOL]
+        from lib.compare.jumptables import _ensure_global_label
+        placed = set()
+        for name in sorted(overlay_own or (),
+                           key=lambda n: (overlay_own[n], n)):
+            if _defined(name):
+                continue
+            delta = overlay_own[name] - o_dorg
+            expr = None
+            if delta < o_dsize:
+                anchored = _anchor_data_byte(
+                    records, binary_data, ovr_origin + delta, ovr_origin,
+                    overlay_own[name], name, placed)
+                if anchored is not None:
+                    anchor, off = anchored
+                    expr = f'{_DSSIZE_SYMBOL} + ({anchor} - __zdata_start)'
+                    if off:
+                        expr += f' + 0x{off:04x}'
+            else:
+                label = ovr_bss_labels.setdefault(
+                    delta - o_dsize, [f'__zobss_{overlay_own[name]:04x}'])[0]
+                expr = f'{_DSSIZE_SYMBOL} + ({label} - __zdata_start)'
+            out.append(f'{name} equ '
+                       f'{expr or f"{_DSSIZE_SYMBOL} + 0x{delta:04x}"}')
     if label_map or immediate_labels or mem_equ or ds_end_symbol is not None:
         out.append('')
 
@@ -1028,5 +1121,9 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # o_csize).  Must sit after every emitted byte, including includes.
         out.append('')
         out.append('__zimage_end:')
+        if stack_reserve is not None:
+            mz_bss.setdefault(ds_size - bss_boundary + stack_reserve,
+                              []).append(_STACK_TOP_SYMBOL)
+        out.extend(_bss_block_lines(mz_bss or ovr_bss_labels))
     out.append('')
     return '\n'.join(out), split_sources

@@ -14,7 +14,7 @@ _TREE = pathlib.Path(__file__).resolve().parents[2] / 'src_DSAVANT'
 _STRUCTURAL = re.compile(
     r'^\s*(;.*)?$'
     r'|^\s*%'
-    r'|^\s*(bits|section|org|db|dw|dd|times|resb|resw|align)\b'
+    r'|^\s*(bits|section|absolute|org|db|dw|dd|times|resb|resw|align)\b'
     r'|^\s*[\w.$@]+\s+equ\b'
     r'|^\s*[\w.$@]+:\s*(;.*)?$',
     re.I)

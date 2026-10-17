@@ -129,7 +129,7 @@ leaf_loc_STTR:
     dec ax                           ; 0x15d6
     sub ax, word [bp - 0x000a]       ; 0x15d7
     push ax                          ; 0x15da
-    call api_idx_0014_KHON           ; 0x15db
+    call api_idx_0014_HTUV           ; 0x15db
     add sp, byte 0x0a                ; 0x15de
     inc word [bp - 0x0002]           ; 0x15e1
 @..leaf_loc_STTR.l18:

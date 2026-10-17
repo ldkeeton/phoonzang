@@ -11,7 +11,7 @@ __zinsn_18e7:
     out 0x43, al                     ; 0x18ef
 __zinsn_18f1:
     mov al, byte [0x0000]            ; 0x18f1
-    mov bx, 0x1a3a                   ; 0x18f4
+    mov bx, cseg_193a - IMAGE_BASE   ; 0x18f4
     cs xlatb                         ; 0x18f7
     out 0x42, al                     ; 0x18f9
     xor al, al                       ; 0x18fb

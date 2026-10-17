@@ -53,7 +53,11 @@ _TREE = _ASM_DIR.parent / 'src_DSAVANT'
 #: A tail label is a routine's own only when the piece it ends up in names it
 #: (``_split_off_foreign_objects``): a data byte just before a promoted ``loc_``
 #: callee, used only by that callee, is cut too.  244/267/10 -> **241/266/4**.
-COTENANCY_BASELINE = {'glued_files': 241, 'code_outside': 266, 'data_outside': 4}
+#: A ``jmp``-dispatched switch arm is a block of its dispatcher, not a root of
+#: its own (``runner``, 2026-10-17): a generic category name (``string_loc_``,
+#: ``leaf_loc_``) used to cut the dispatching routine into one fragment per arm
+#: that branched back into it.  241/266/4 -> **202/137/4**.
+COTENANCY_BASELINE = {'glued_files': 202, 'code_outside': 137, 'data_outside': 4}
 
 
 def _write(path, text):

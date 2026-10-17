@@ -118,7 +118,7 @@ jumptable_2ce6:
     jae short @..api_idx_0052_LHVG.l2 ; 0x2d05
     xchg bx, ax                      ; 0x2d07
     shl bx, 1                        ; 0x2d08
-    jmp [cs:bx + 0x7d2d]             ; 0x2d0a
+    jmp [cs:bx + jumptable_2ce6 - IMAGE_BASE + __zres_end] ; 0x2d0a
 @..api_idx_0052_LHVG.l2:
     mov ax, 0x248                    ; 0x2d0f
     imul word [bp + 0x4]             ; 0x2d12
@@ -328,7 +328,7 @@ jumptable_2ebe:
     jae short @..api_idx_0052_LHVG.l4 ; 0x2ed7
     xchg bx, ax                      ; 0x2ed9
     shl bx, 1                        ; 0x2eda
-    jmp [cs:bx + 0x7f05]             ; 0x2edc
+    jmp [cs:bx + jumptable_2ebe - IMAGE_BASE + __zres_end] ; 0x2edc
 @..api_idx_0052_LHVG.l4:
     mov ax, 0x248                    ; 0x2ee1
     imul word [bp + 0x4]             ; 0x2ee4
@@ -579,7 +579,7 @@ jumptable_30fe:
     jae short @..api_idx_0052_LHVG.l16 ; 0x311d
     xchg bx, ax                      ; 0x311f
     shl bx, 1                        ; 0x3120
-    jmp [cs:bx - 0x7ebb]             ; 0x3122
+    jmp [cs:bx + jumptable_30fe - IMAGE_BASE + __zres_end] ; 0x3122
 @..api_idx_0052_LHVG.l16:
     mov word [bp - 0x0002], 0        ; 0x3127
 @..api_idx_0052_LHVG.l17:
@@ -613,7 +613,7 @@ jumptable_30fe:
     push ax                          ; 0x3172
     mov ax, 1                        ; 0x3173
     push ax                          ; 0x3176
-    call ds_app_file_NKGK            ; 0x3177
+    call ds_app_file_MPPM            ; 0x3177
     add sp, byte 8                   ; 0x317a
     lea ax, word [bp - 0x0052]       ; 0x317d
     push ax                          ; 0x3180

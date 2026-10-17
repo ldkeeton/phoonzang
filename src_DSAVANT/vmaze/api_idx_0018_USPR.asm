@@ -230,7 +230,7 @@ api_idx_0018_USPR:
 @..api_idx_0018_USPR.l25:
     push ax                          ; 0x1ed7
     push word [bp - 0x0002]          ; 0x1ed8
-    call api_idx_000a_JVOP           ; 0x1edb
+    call api_idx_000a_TQHL           ; 0x1edb
     add sp, byte 0x0a                ; 0x1ede
     mov ax, 5                        ; 0x1ee1
     push ax                          ; 0x1ee4

@@ -61,7 +61,7 @@ jumptable_8ffe:
     jae short @..api_idx_0004_GSIV.l3 ; 0x900f
     xchg bx, ax                      ; 0x9011
     shl bx, 1                        ; 0x9012
-    jmp [cs:bx - 0x1fbb]             ; 0x9014
+    jmp [cs:bx + jumptable_8ffe - IMAGE_BASE + __zres_end] ; 0x9014
 @..api_idx_0004_GSIV.l3:
     mov ax, 3                        ; 0x9019
     ret                              ; 0x901c

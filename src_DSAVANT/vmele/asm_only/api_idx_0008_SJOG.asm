@@ -12,7 +12,7 @@ api_idx_0008_SJOG:
     push word [bx - 0x7b70]          ; 0x07c1
     mov ax, 4                        ; 0x07c5
     push ax                          ; 0x07c8
-    call ds_app_file_NKGK            ; 0x07c9
+    call ds_app_file_MPPM            ; 0x07c9
     add sp, byte 8                   ; 0x07cc
     cmp word [bp + 0x6], byte 1      ; 0x07cf
     jle short @..api_idx_0008_SJOG.l1 ; 0x07d3

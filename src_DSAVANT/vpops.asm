@@ -17,7 +17,7 @@ IMAGE_BASE equ 0x000e + VBASE
     dw (__zdata_start - __zcode_start)    ; 0x4ecd ; o_csize: code size in bytes
     dw __zdseg_end                        ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)     ; 0x003e ; o_dsize: initialized data size
-    dw 0x02b8                             ; o_bss: uninitialized data size
+    dw __zobss_end - __zimage_end         ; 0x02b8 ; o_bss: uninitialized data size
     dw loc_JHJT - IMAGE_BASE + __zres_end ; 0x9ee4 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
@@ -49,9 +49,11 @@ api_idx_000e_VRIR.api_idx1 equ draw_fill_action_slot_table
 
 %include "shared/loc_SSIO.asm"              ; 0x0e6c
 
+bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 loc_KRMP.bss1 equ bss_90d6
 %include "shared/loc_KRMP.asm"              ; 0x0ec8
 
+; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 %include "vpops/api_idx_0006_HRUL.asm"     ; 0x0f27
 
 loc_RPUI.api_idx1 equ api_idx_0006_HRUL
@@ -77,11 +79,13 @@ loc_RPUI.api_idx1 equ api_idx_0006_HRUL
 
 %include "shared/api_idx_000c_JQMN.asm"     ; 0x1b78
 
+; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 loc_SRQQ.bss1     equ bss_90d6
 loc_SRQQ.api_idx1 equ api_idx_000a_UMQI
 loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
 %include "shared/loc_SRQQ.asm"              ; 0x1c11
 
+; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 %include "vpops/api_idx_0044_NJNI.asm"     ; 0x1ca2
 
 %include "vpops/api_idx_000a_GVNM.asm"     ; 0x2947
@@ -99,6 +103,7 @@ loc_HTKI.api_idx1 equ api_idx_0004_LUOM
 
 %include "vpops/api_idx_0006_QUSK.asm"     ; 0x36c0
 
+bss_9388 equ __zdseg_end + (__zobss_9388 - __zdata_start)
 %include "vpops/api_idx_00d4_LUPQ.asm"     ; 0x3710
 
 %include "vpops/api_idx_0004_PKLV.asm"     ; 0x4528
@@ -109,8 +114,19 @@ loc_HTKI.api_idx1 equ api_idx_0004_LUOM
 
 %include "vpops/api_idx_0002_GMMK.asm"     ; 0x4d91
 
+; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
+bss_9386 equ __zdseg_end + (__zobss_9386 - __zdata_start)
+; bss_9388 equ __zdseg_end + (__zobss_9388 - __zdata_start)
+bss_938a equ __zdseg_end + (__zobss_938a - __zdata_start)
+bss_938c equ __zdseg_end + (__zobss_938c - __zdata_start)
 %include "vpops/api_idx_0004_PPTR.asm"     ; 0x4e3b
 
+dseg_90cc equ __zdseg_end + (__zdseg_90cc - __zdata_start)
+dseg_90ce equ __zdseg_end + (__zdseg_90ce - __zdata_start)
+dseg_90d0 equ __zdseg_end + (__zdseg_90d0 - __zdata_start)
+dseg_90d2 equ __zdseg_end + (__zdseg_90d2 - __zdata_start)
+dseg_90d4 equ __zdseg_end + (__zdseg_90d4 - __zdata_start)
+; bss_90d6  equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 %include "vpops/asm_only/loc_JHJT.asm"              ; 0x4e9d
 
 __zdata_start:
@@ -123,7 +139,29 @@ __zdata_start:
     db 0x2a, 0x2a, 0x2a, 0x00
     db 'V.$$$', 0
     db 'V.$$$', 0
-    times 11 db 0
+    db 0x00
 
+__zdseg_90cc:
+    db 0x00, 0x00
+__zdseg_90ce:
+    db 0x00, 0x00
+__zdseg_90d0:
+    db 0x00, 0x00
+__zdseg_90d2:
+    db 0x00, 0x00
+__zdseg_90d4:
+    db 0x00, 0x00
 
 __zimage_end:
+absolute __zimage_end
+__zobss_90d6:
+    resb 0x02b0
+__zobss_9386:
+    resb 0x0002
+__zobss_9388:
+    resb 0x0002
+__zobss_938a:
+    resb 0x0002
+__zobss_938c:
+    resb 0x0002
+__zobss_end:

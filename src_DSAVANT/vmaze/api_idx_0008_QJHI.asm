@@ -50,7 +50,7 @@ jumptable_340d:
     jae short @..api_idx_0008_QJHI.l3 ; 0x341c
     xchg bx, ax                      ; 0x341e
     shl bx, 1                        ; 0x341f
-    jmp [cs:bx - 0x7bac]             ; 0x3421
+    jmp [cs:bx + jumptable_340d - IMAGE_BASE + __zres_end] ; 0x3421
 @..api_idx_0008_QJHI.l3:
     mov ax, word [bp + 0xe]          ; 0x3426
     mov cx, 6                        ; 0x3429
@@ -208,7 +208,7 @@ jumptable_3563:
     jae short @..api_idx_0008_QJHI.l17 ; 0x357e
     xchg bx, ax                      ; 0x3580
     shl bx, 1                        ; 0x3581
-    jmp [cs:bx - 0x7a56]             ; 0x3583
+    jmp [cs:bx + jumptable_3563 - IMAGE_BASE + __zres_end] ; 0x3583
 jumptable_3563_case_0:
 @..api_idx_0008_QJHI.l17:
     mov ax, word [bp - 0x0004]       ; 0x3588

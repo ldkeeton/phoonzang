@@ -56,7 +56,7 @@ api_idx_005a_SIOK:
     lea ax, word [bp - 0x0050]       ; 0x117c
     push ax                          ; 0x117f
     push word [bp + 0x4]             ; 0x1180
-    call api_idx_0002_QLNJ           ; 0x1183
+    call api_idx_0002_RJQH           ; 0x1183
     add sp, byte 0x10                ; 0x1186
     mov ax, 0x248                    ; 0x1189
     imul word [bp + 0x4]             ; 0x118c

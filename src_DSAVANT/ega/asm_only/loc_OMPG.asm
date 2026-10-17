@@ -117,7 +117,7 @@ loc_OMPG:
 @..loc_OMPG.l7:
     mov di, word [bp - 0x0002]       ; 0x05ba
     mov si, word [bp - 0x0012]       ; 0x05bd
-    mov bx, 0x33b3                   ; 0x05c0
+    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x05c0
     mov cl, 4                        ; 0x05c3
     test byte [bp - 0x0014], 0xaa    ; 0x05c5
     jne short @..loc_OMPG.l8         ; 0x05c9
@@ -361,7 +361,7 @@ loc_OMPG:
     add bx, word [bp - 0x0024]       ; 0x07a9
     mov dh, byte [es:bx + di]        ; 0x07ac
 @..loc_OMPG.l25:
-    mov bx, 0x33b3                   ; 0x07af
+    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x07af
     lodsb                            ; 0x07b2
     cs xlatb                         ; 0x07b3
     rcl al, 1                        ; 0x07b5
@@ -400,7 +400,7 @@ loc_OMPG:
     xor dx, dx                       ; 0x07fc
     mov byte [bp - 0x0030], 4        ; 0x07fe
 @..loc_OMPG.l28:
-    mov bx, 0x33b3                   ; 0x0802
+    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x0802
     lodsb                            ; 0x0805
     cs xlatb                         ; 0x0806
     rcl al, 1                        ; 0x0808
@@ -448,7 +448,7 @@ loc_OMPG:
     add bx, word [bp - 0x0024]       ; 0x0868
     mov dh, byte [es:bx + di]        ; 0x086b
 @..loc_OMPG.l30:
-    mov bx, 0x33b3                   ; 0x086e
+    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x086e
     mov al, byte [si]                ; 0x0871
     dec si                           ; 0x0873
     cs xlatb                         ; 0x0874

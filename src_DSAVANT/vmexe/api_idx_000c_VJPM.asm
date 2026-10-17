@@ -454,7 +454,7 @@ jumptable_735e:
     jae short @..api_idx_000c_VJPM.l31 ; 0x736d
     xchg bx, ax                      ; 0x736f
     shl bx, 1                        ; 0x7370
-    jmp [cs:bx - 0x3c5b]             ; 0x7372
+    jmp [cs:bx + jumptable_735e - IMAGE_BASE + __zres_end] ; 0x7372
 @..api_idx_000c_VJPM.l31:
     inc word [bp - 0x0008]           ; 0x7377
     mov ax, word [bp - 0x0008]       ; 0x737a

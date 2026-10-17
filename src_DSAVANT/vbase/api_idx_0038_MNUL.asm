@@ -769,7 +769,7 @@ jumptable_0d04:
     jae short @..api_idx_0038_MNUL.l23 ; 0x0d13
     xchg bx, ax                      ; 0x0d15
     shl bx, 1                        ; 0x0d16
-    jmp [cs:bx + 0x5d4b]             ; 0x0d18
+    jmp [cs:bx + jumptable_0d04 - IMAGE_BASE + __zres_end] ; 0x0d18
 @..api_idx_0038_MNUL.l23:
     jmp short @..api_idx_0038_MNUL.l21 ; 0x0d1d
 @..api_idx_0038_MNUL.l24:

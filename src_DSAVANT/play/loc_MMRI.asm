@@ -29,7 +29,7 @@ loc_MMRI:
     call loc_VVTT                    ; 0x0084
     cmp ax, strict word 0            ; 0x0087
     jne short @..loc_MMRI.l2         ; 0x008a
-    call io_loc_TRGI                 ; 0x008c
+    call io_loc_RQKH                 ; 0x008c
     mov byte [cs:cseg_0a9a - IMAGE_BASE], 1 ; 0x008f
 @..loc_MMRI.l2:
     pop bx                           ; 0x0095

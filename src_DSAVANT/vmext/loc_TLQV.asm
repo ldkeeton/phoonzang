@@ -3,7 +3,7 @@ loc_TLQV:
     mov ax, 0                        ; 0x0eac
     call aztec_csav                  ; 0x0eaf
     push word [bp + 0x4]             ; 0x0eb2
-    call api_idx_0050_OLPO           ; 0x0eb5
+    call api_idx_0050_GORG           ; 0x0eb5
     pop cx                           ; 0x0eb8
     mov ax, 0                        ; 0x0eb9
     push ax                          ; 0x0ebc

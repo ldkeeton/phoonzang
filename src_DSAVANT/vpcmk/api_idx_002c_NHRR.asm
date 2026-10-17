@@ -407,7 +407,6 @@ jumptable_6e5f_case_3:
     push ax                          ; 0x6e17
     call thunk_4                     ; 0x6e18
     add sp, byte 8                   ; 0x6e1b
-loc_IRPM:
     mov ax, 0x488                    ; 0x6e1e
     push ax                          ; 0x6e21
     call loc_PVJJ                    ; 0x6e22
@@ -453,7 +452,7 @@ jumptable_6e5f:
     jae short @..api_idx_002c_NHRR.l15 ; 0x6e6c
     xchg bx, ax                      ; 0x6e6e
     shl bx, 1                        ; 0x6e6f
-    jmp [cs:bx - 0x415a]             ; 0x6e71
+    jmp [cs:bx + jumptable_6e5f - IMAGE_BASE + __zres_end] ; 0x6e71
 @..api_idx_002c_NHRR.l15:
     cmp word [bp - 0x0006], byte 5   ; 0x6e76
     je short @..api_idx_002c_NHRR.l16 ; 0x6e7a

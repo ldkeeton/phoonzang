@@ -110,6 +110,27 @@ def _code_off(ctx, value):
     return ctx.start_offset + value - load_offset
 
 
+def _vector_off(ctx, disp, segment):
+    """File offset of the word a ``jmp [disp]`` reads its target from.
+
+    The operand is a DS access unless a ``cs:`` override says otherwise, so the
+    vector lives in the data segment (Aztec's ``_write`` jumps through
+    ``[dseg_0cf0]``); reading it in the code frame picks up an unrelated word
+    and seeds a target in the middle of whatever sits there.  A raw driver has
+    no separate data segment (``DS = CS``), so it keeps the code frame.  Returns
+    None when the vector is not in this file (an overlay's DS is the host's,
+    or the offset is BSS).
+    """
+    segments = getattr(ctx, 'segments', None)
+    if (segment or '').lower() == 'cs' or segments is None or (
+            segments.data_origin is None and segments.host is None):
+        return _code_off(ctx, disp)
+    if segments.host is not None:
+        return None
+    where = segments.resolve('DS', disp)
+    return where[1] if where[0] == 'file' else None
+
+
 def _scan_jump_table(data, start, conf_arr, max_index=None, translate=None):
     n = len(conf_arr)
     targets = set()
@@ -274,11 +295,19 @@ def _register_declared_code_table(ctx, data, data_boundary, result, md,
         if result[j] == 0.0:
             result[j] = _CONF_JT_DATA
             data_boundary[j] = _CONF_JT_DATA
-    if all(jt.table_addr != table for jt in ctx.jump_tables):
-        ctx.jump_tables.append(JumpTableInfo(
-            table_addr=table, jmp_addr=-1, targets=sorted(set(targets)),
-            max_index=count - 1, table_end=end,
-        ))
+    # A switch table names its dispatcher (``jmp``): its arms then hang off
+    # that jump like a detected table's, so they stay in the function that
+    # dispatches them.  A handler table (no dispatcher) roots each target.
+    jmp = entry.get('jmp')
+    jmp_addr = _parse_offset(jmp, 'code_tables.jmp') if jmp is not None else -1
+    info = JumpTableInfo(
+        table_addr=table, jmp_addr=jmp_addr, targets=sorted(set(targets)),
+        max_index=count - 1, table_end=end,
+        validated=jmp_addr >= 0, validation_ok=jmp_addr >= 0, declared=True,
+    )
+    # The declaration replaces whatever the descent guessed for this table.
+    ctx.jump_tables[:] = [jt for jt in ctx.jump_tables if jt.table_addr != table]
+    ctx.jump_tables.append(info)
 
 
 def _add_target(ctx, address, reason, confidence, source_offset=-1):
@@ -340,6 +369,8 @@ def _validate_jump_tables(ctx, data, n, result, md):
             if not ctx.hard_data[j]:
                 result[j] = _CONF_JT_DATA
                 ctx.hard_code[j] = False
+        if jt.declared:
+            continue        # a sidecar fact, not a guess to re-score
         valid = 0
         for t in jt.targets:
             for block in ctx.blocks:
@@ -644,10 +675,13 @@ class RecursiveDescentPhase(Phase):
                     if is_indirect(insn):
                         mem_disp = None
                         has_base = False
+                        mem_seg = None
                         for op in insn.operands:
                             if op.type == CS_OP_MEM:
                                 mem_disp = op.mem.disp & 0xFFFF
                                 has_base = op.mem.base != 0
+                                if op.mem.segment:
+                                    mem_seg = insn.reg_name(op.mem.segment)
                                 break
                         use_jt = has_base and mem_disp is not None
                         if use_jt:
@@ -656,8 +690,8 @@ class RecursiveDescentPhase(Phase):
                                     worklist, off, mem_disp):
                                 break
                         elif mem_disp is not None:
-                            ptr_addr = _code_off(ctx, mem_disp)
-                            if 0 <= ptr_addr < n - 2:
+                            ptr_addr = _vector_off(ctx, mem_disp, mem_seg)
+                            if ptr_addr is not None and 0 <= ptr_addr < n - 2:
                                 ptr = struct.unpack_from('<H', data, ptr_addr)[0]
                                 target = _code_off(ctx, ptr)
                                 if 0 <= target < n and not ctx.is_hard_data(target):

@@ -182,7 +182,7 @@ loc_PKMV:
     mov ax, 0x145a                   ; 0x50ae
     push ax                          ; 0x50b1
     push word [bp - 0x0006]          ; 0x50b2
-    call api_idx_0084_NKVU           ; 0x50b5
+    call api_idx_0084_IMVQ           ; 0x50b5
     add sp, byte 0x0c                ; 0x50b8
     mov word [bp - 0x0002], ax       ; 0x50bb
     cmp word [bp - 0x0002], byte 0   ; 0x50be
@@ -301,7 +301,7 @@ jumptable_51bc:
     jae short @..api_idx_007a_NHII.l19 ; 0x51c9
     xchg bx, ax                      ; 0x51cb
     shl bx, 1                        ; 0x51cc
-    jmp [cs:bx - 0x5dfd]             ; 0x51ce
+    jmp [cs:bx + jumptable_51bc - IMAGE_BASE + __zres_end] ; 0x51ce
 @..api_idx_007a_NHII.l19:
     jmp near @..api_idx_007a_NHII.l4 ; 0x51d3
     db 0xc3

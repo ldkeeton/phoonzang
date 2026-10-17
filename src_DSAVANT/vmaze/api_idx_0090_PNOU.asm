@@ -156,7 +156,7 @@ jumptable_6e12:
     jae short @..api_idx_0090_PNOU.l7 ; 0x6e23
     xchg bx, ax                      ; 0x6e25
     shl bx, 1                        ; 0x6e26
-    jmp [cs:bx - 0x41a7]             ; 0x6e28
+    jmp [cs:bx + jumptable_6e12 - IMAGE_BASE + __zres_end] ; 0x6e28
 @..api_idx_0090_PNOU.l7:
     jmp near @..api_idx_0090_PNOU.l1 ; 0x6e2d
 @..api_idx_0090_PNOU.l8:

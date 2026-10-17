@@ -1330,7 +1330,7 @@ jumptable_9967:
     jae short @..api_idx_0044_NJQJ.l49 ; 0x9974
     xchg bx, ax                      ; 0x9976
     shl bx, 1                        ; 0x9977
-    jmp [cs:bx - 0x1652]             ; 0x9979
+    jmp [cs:bx + jumptable_9967 - IMAGE_BASE + __zres_end] ; 0x9979
 @..api_idx_0044_NJQJ.l49:
     jmp near @..api_idx_0044_NJQJ.l27 ; 0x997e
 @..api_idx_0044_NJQJ.l50:

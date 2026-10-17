@@ -64,6 +64,7 @@ from lib.compare.jumptables import (
     _merge_jump_table_specs,
     _inject_jump_tables,
     _rewrite_jump_dispatchers,
+    _bind_cs_table_operands,
     _ensure_global_label,
 )
 from lib.compare.postprocess import _postprocess_data_blocks
@@ -82,6 +83,7 @@ from lib.compare.splitting import (
 )
 from lib.compare.symbols import (
     _resolve_mem_symbols,
+    _resolve_declared_immediates,
     _resolve_imm_symbols,
     _build_address_records,
 )
@@ -214,7 +216,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            jump_tables=None, jump_table_overrides=None,
            segment_flow=None, segments=None, external_data=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
-           host_data_offsets=None):
+           immediate_pointers=(), host_data_offsets=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -448,6 +450,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         insns, segment_flow, segments, label_map, start_offset)
     mem_symbols.update(_resolve_imm_symbols(
         insns, segment_flow, segments, label_map, mem_equ, start_offset))
+    mem_symbols.update(_resolve_declared_immediates(
+        insns, immediate_pointers, segments, label_map, mem_equ,
+        start_offset, owner=name))
 
     # ``micro_assemble``/``assemble_batch`` rebuild ``name - IMAGE_BASE`` from
     # *file-offset* labels (``_build_equ_prelude``), so a raw driver's
@@ -817,6 +822,13 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 foreign_label_map, immediate_labels, data_labels=data_labels,
                 mem_symbols=mem_symbols, mem_equ=mem_equ,
             )
+    # Every ``[cs:reg + disp]`` that indexes a carved table, overlays included.
+    records = _bind_cs_table_operands(
+        records, binary_data, start_offset, label_map, local_labels,
+        foreign_label_map, immediate_labels, data_labels=data_labels,
+        mem_symbols=mem_symbols, mem_equ=mem_equ,
+        load_offset=getattr(segments, 'load_offset', 0) or 0, o_corg=o_corg,
+    )
 
     stagelog.step('verify.jump_tables', 2, track={'labels': _label_records(records)},
                   metrics={'records': len(records)})
@@ -1063,17 +1075,19 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # and the geometry/data names (``__zdseg_end``, ``dseg_``/``bss_``)
     # resolve to the host's real labels instead of a generated table.  The
     # overlay exports the (name -> offset) set of DS names it references so the
-    # host can declare them.
+    # host can declare them.  A name at or past the host's data end (``o_dorg``)
+    # is the overlay's own data or BSS: the overlay declares it on its own bytes.
     host_symbols = None
     host_data_refs = {}
+    overlay_own = {}
     if (segments is not None and getattr(segments, 'kind', None) == 'overlay'
             and getattr(segments, 'host', None) is not None):
         host = segments.host
         host_symbols = (f'{host.name}.asm', -(host.cs_origin or 0))
-        host_data_refs = {
-            name: value for name, value in (mem_equ or {}).items()
-            if data_space(name) in (Space.DS, Space.BSS)
-        }
+        o_dorg = segments.overlay['o_dorg']
+        for sym, value in (mem_equ or {}).items():
+            if data_space(sym) in (Space.DS, Space.BSS):
+                (overlay_own if value >= o_dorg else host_data_refs)[sym] = value
 
     src_lines, split_sources = _build_source(
         records, start_offset, binary_data, label_map,
@@ -1085,6 +1099,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         host_symbols=host_symbols,
         host_data_offsets=host_data_offsets,
         load_offset=getattr(segments, 'load_offset', 0) or 0,
+        overlay_own=overlay_own,
     )
     t6 = time.perf_counter()
     stagelog.step('verify.build_source', 2,

@@ -134,6 +134,50 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
     return result
 
 
+def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
+                                 start_offset, owner=''):
+    """Symbols for the sidecar's ``immediate_pointers`` (a ``mov reg, imm16``).
+
+    Segment dataflow proves an immediate by its use; a register loaded with a
+    table's address and then overwritten unread (``mov di, 0x1a3a`` in a
+    routine that indexes that table as ``[cs:bx + 0x1a3a]``) has no use to
+    prove it by, yet its value still moves with the table.  Each entry names
+    the instruction's file ``offset`` and the ``space`` (only ``cs``); the
+    instruction must be ``mov reg, imm16`` whose value is a byte of this image,
+    or the sidecar is wrong and this raises.  Overlays are not supported (their
+    CS values are ``o_corg``-based).
+    """
+    from capstone import CS_OP_IMM, CS_OP_REG
+    from lib.sidecar.errors import SidecarError
+
+    if not declared:
+        return {}
+    by_addr = {insn.address: insn for insn in insns}
+    file_size = _file_size(segments)
+    result = {}
+    for entry in declared:
+        where = f'{owner}.immediate_pointers[0x{entry["offset"]:04x}]'
+        if entry.get('space', 'cs') != 'cs' or getattr(segments, 'overlay', None):
+            raise SidecarError(f'{where}: only a non-overlay cs pointer is supported')
+        insn = by_addr.get(entry['offset'])
+        ops = insn.operands if insn is not None else ()
+        if (insn is None or insn.mnemonic != 'mov' or len(ops) != 2
+                or ops[0].type != CS_OP_REG or ops[1].type != CS_OP_IMM
+                or ops[0].size != 2):
+            raise SidecarError(f'{where}: not a decoded `mov reg16, imm16`')
+        value = ops[1].imm & 0xFFFF
+        file_off = value + start_offset - _load_offset(segments)
+        if not 0 <= file_off < file_size:
+            raise SidecarError(
+                f'{where}: 0x{value:04x} names no byte of the image')
+        name = (label_map or {}).get(file_off)
+        if name is None:
+            name = Symbol.data(Space.CSEG, file_off)
+            mem_equ.setdefault(name, file_off)
+        result[(insn.address, 1)] = f'{name} - IMAGE_BASE'
+    return result
+
+
 def _build_address_records(insns, mem_symbols, mem_equ, segment_flow,
                            label_map, start_offset, data_labels=None,
                            reloc_targets=None, immediate_labels=None):

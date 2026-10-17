@@ -249,7 +249,7 @@ api_idx_0022_RHMN:
     push ax                          ; 0x2488
     push ax                          ; 0x2489
     push word [bp - 0x0004]          ; 0x248a
-    call api_idx_000a_JVOP           ; 0x248d
+    call api_idx_000a_TQHL           ; 0x248d
     add sp, byte 0x0a                ; 0x2490
 @..api_idx_0022_RHMN.l24:
     inc word [bp - 0x0004]           ; 0x2493
@@ -359,7 +359,7 @@ api_idx_0022_RHMN:
     je short @..api_idx_0022_RHMN.l35 ; 0x258c
     cmp word [bss_91a8], byte 1      ; 0x258e
     jne short @..api_idx_0022_RHMN.l35 ; 0x2593
-    call loc_VKNV                    ; 0x2595
+    call loc_NQRL                    ; 0x2595
     cmp word [bss_830a], byte 5      ; 0x2598
     je short @..api_idx_0022_RHMN.l35 ; 0x259d
     ret                              ; 0x259f
@@ -898,7 +898,7 @@ jumptable_2a3c:
     jae short @..api_idx_0022_RHMN.l57 ; 0x2a52
     xchg bx, ax                      ; 0x2a54
     shl bx, 1                        ; 0x2a55
-    jmp [cs:bx + 0x7a83]             ; 0x2a57
+    jmp [cs:bx + jumptable_2a3c - IMAGE_BASE + __zres_end] ; 0x2a57
 jumptable_2a3c_case_3:
 @..api_idx_0022_RHMN.l57:
     mov ax, 0                        ; 0x2a5c
@@ -1210,7 +1210,7 @@ jumptable_2d1b:
     jae short @..api_idx_0022_RHMN.l82 ; 0x2d52
     xchg bx, ax                      ; 0x2d54
     shl bx, 1                        ; 0x2d55
-    jmp [cs:bx + 0x7d62]             ; 0x2d57
+    jmp [cs:bx + jumptable_2d1b - IMAGE_BASE + __zres_end] ; 0x2d57
 jumptable_2d1b_case_12:
 @..api_idx_0022_RHMN.l82:
     cmp word [bp - 0x0002], byte 0   ; 0x2d5c

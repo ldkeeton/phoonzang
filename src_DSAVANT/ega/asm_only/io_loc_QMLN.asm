@@ -10,7 +10,7 @@ io_loc_QMLN:
     add si, strict word 0x2602       ; 0x2f7a
     mov cx, word [cs:cseg_1af5 - IMAGE_BASE] ; 0x2f7e
     mov di, word [cs:cseg_1af7 - IMAGE_BASE] ; 0x2f83
-    mov bx, 0x2a02                   ; 0x2f88
+    mov bx, cseg_2902 - IMAGE_BASE   ; 0x2f88
     mov dx, 0x3ce                    ; 0x2f8b
     mov al, 8                        ; 0x2f8e
     out dx, al                       ; 0x2f90

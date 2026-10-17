@@ -28,7 +28,7 @@ loc_OJVU:
     sub ah, ah                       ; 0x9cbb
     push ax                          ; 0x9cbd
     push word [bss_b04e]             ; 0x9cbe
-    call api_idx_0040_UOUS           ; 0x9cc2
+    call api_idx_0040_LSRO           ; 0x9cc2
     add sp, byte 4                   ; 0x9cc5
     cmp ax, strict word 1            ; 0x9cc8
     jne short @..loc_OJVU.l2         ; 0x9ccb

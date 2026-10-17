@@ -813,7 +813,7 @@ jumptable_6ea7_case_0:
     push word [bp - 0x000c]          ; 0x6cf4
     push word [bp - 0x000a]          ; 0x6cf7
     push word [bp - 0x0002]          ; 0x6cfa
-    call api_idx_00ac_HRGV           ; 0x6cfd
+    call api_idx_00ac_OJJU           ; 0x6cfd
     add sp, byte 6                   ; 0x6d00
     cmp word [bp - 0x000c], byte 3   ; 0x6d03
     jne short @..api_idx_0014_OSKJ.l42 ; 0x6d07
@@ -1025,7 +1025,7 @@ jumptable_6ea7:
     jae short @..api_idx_0014_OSKJ.l47 ; 0x6ebc
     xchg bx, ax                      ; 0x6ebe
     shl bx, 1                        ; 0x6ebf
-    jmp [cs:bx - 0x4112]             ; 0x6ec1
+    jmp [cs:bx + jumptable_6ea7 - IMAGE_BASE + __zres_end] ; 0x6ec1
 @..api_idx_0014_OSKJ.l47:
     cmp word [bss_8464], byte 0      ; 0x6ec6
     jne short @..api_idx_0014_OSKJ.l48 ; 0x6ecb

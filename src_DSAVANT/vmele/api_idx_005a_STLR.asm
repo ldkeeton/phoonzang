@@ -123,7 +123,7 @@ api_idx_005a_STLR:
     jmp near @..api_idx_005a_STLR.l4 ; 0x2e10
 @..api_idx_005a_STLR.l12:
     call api_idx_000e_NKQN           ; 0x2e13
-    call ds_app_GJOV                 ; 0x2e16
+    call ds_app_JKOJ                 ; 0x2e16
     mov word [bss_845e], 0           ; 0x2e19
 @..api_idx_005a_STLR.l13:
     call api_idx_0006_IRNH           ; 0x2e1f

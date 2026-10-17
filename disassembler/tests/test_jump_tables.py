@@ -17,6 +17,7 @@ from lib.compare.render import (
     _render_records,
 )
 from lib.compare.jumptables import (
+    _bind_cs_table_operands,
     _inject_jump_tables,
     _merge_jump_table_specs,
 )
@@ -314,6 +315,71 @@ class DispatcherFormatTests(unittest.TestCase):
             text, insn.address, disp_labels=disp_labels, image_base=8,
         )
         self.assertEqual(bytes(built), original)
+
+
+class BindCsTableOperandTests(unittest.TestCase):
+    """``[cs:reg + disp]`` names the carved table its displacement lands on."""
+
+    def setUp(self):
+        clear_assemble_cache()
+
+    def _bind(self, raw, address, data_rec, size=0x40, start_offset=0,
+              load_offset=0x100, o_corg=None):
+        insn = _disassemble(bytes.fromhex(raw), address)[0]
+        mnem = {'type': 'mnem', 'offset': address, 'size': insn.size,
+                'text': 'unbound', '_insn': insn}
+        records = [mnem, data_rec]
+        mem_symbols, mem_equ = {}, {}
+        _bind_cs_table_operands(
+            records, bytes(size), start_offset, {}, {}, {}, {},
+            mem_symbols=mem_symbols, mem_equ=mem_equ,
+            load_offset=load_offset, o_corg=o_corg)
+        return mnem['text'], mem_equ
+
+    def test_a_driver_byte_table_gets_a_cseg_name(self):
+        # mov al, [cs:bx + 0x120]: a driver runs at CS:0x100, so file 0x20.
+        text, equ = self._bind('2e8a872001', 0x00,
+                               {'type': 'data_block', 'start': 0x20, 'end': 0x30})
+        self.assertEqual(text, 'mov al, byte [cs:bx + cseg_0020 - IMAGE_BASE]')
+        self.assertEqual(list(equ.values()), [0x20])
+
+    def test_a_sub_table_is_the_table_plus_k(self):
+        text, equ = self._bind(
+            '2e8b972801', 0x00,
+            {'type': 'jump_table', 'start': 0x20, 'end': 0x30,
+             'label': 'jumptable_0020'})
+        self.assertEqual(
+            text, 'mov dx, word [cs:bx + jumptable_0020 + 0x8 - IMAGE_BASE]')
+        self.assertEqual(equ, {})
+
+    def test_an_overlay_dispatcher_is_rebased_on_the_host_end(self):
+        # jmp [cs:bx + 0x5415]: CS 0x5415 is file 0x3ce at o_corg 0x5055.
+        text, _ = self._bind(
+            '2effa71554', 0x3e4,
+            {'type': 'jump_table', 'start': 0x3ce, 'end': 0x3da,
+             'label': 'jumptable_03ce'},
+            size=0x400, start_offset=14, load_offset=0, o_corg=0x5055)
+        self.assertEqual(
+            text, 'jmp [cs:bx + jumptable_03ce - IMAGE_BASE + __zres_end]')
+
+    def test_a_displacement_on_code_stays(self):
+        text, equ = self._bind('2e8a872001', 0x00,
+                               {'type': 'mnem', 'offset': 0x20, 'size': 2})
+        self.assertEqual(text, 'unbound')
+        self.assertEqual(equ, {})
+
+    def test_a_field_offset_stays(self):
+        # [cs:bx + 0x2] in a driver is below the image (file -0xfe).
+        text, _ = self._bind('2e8a4702', 0x00,
+                             {'type': 'data_block', 'start': 0x02, 'end': 0x30})
+        self.assertEqual(text, 'unbound')
+
+    def test_no_displacement_is_a_pointer_not_a_table(self):
+        # [cs:bx] in an MZ (start 0x20): disp 0 would name the image's first byte.
+        text, _ = self._bind('2e8a07', 0x00,
+                             {'type': 'data_block', 'start': 0x20, 'end': 0x30},
+                             start_offset=0x20, load_offset=0)
+        self.assertEqual(text, 'unbound')
 
 
 class IncludeOffsetTests(unittest.TestCase):

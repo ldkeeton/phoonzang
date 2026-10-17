@@ -126,6 +126,30 @@ class FunctionIncludeTests(unittest.TestCase):
             ],
         )
 
+    def test_a_switch_case_body_does_not_start_a_fragment(self):
+        # ``vbase`` ``loc_GLHQ``: the bodies of its switch carry names (the
+        # table's words reference them), but they are the routine's own code,
+        # so its fragment runs through them to the next routine.
+        arm = generated('leaf_loc', 0x110)
+        case = arm.renamed(str(arm), arm.source, role='case')
+        label_map = {
+            0x100: routine('main', 0x100),
+            0x110: case,
+            0x140: routine('next', 0x140),
+        }
+        self.assertEqual(
+            _select_split_ranges(
+                label_map, {'main', str(case), 'next'}, binary_size=0x200)[0],
+            (0x100, 0x140, 'main'),
+        )
+        # The same name without the case mark is a routine of its own.
+        label_map[0x110] = arm
+        self.assertEqual(
+            [start for start, _, _ in _select_split_ranges(
+                label_map, {'main', str(arm), 'next'}, binary_size=0x200)],
+            [0x100, 0x110, 0x140],
+        )
+
     def test_capped_c_routine_carves_following_code_into_its_own_fragment(self):
         label_map = {
             0x100: routine('aztec_open', 0x100),

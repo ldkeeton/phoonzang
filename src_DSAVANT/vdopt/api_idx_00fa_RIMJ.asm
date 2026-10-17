@@ -40,7 +40,7 @@ jumptable_1aa5:
     jae short @..api_idx_00fa_RIMJ.l2 ; 0x1ab8
     xchg bx, ax                      ; 0x1aba
     shl bx, 1                        ; 0x1abb
-    jmp [cs:bx + 0x6aec]             ; 0x1abd
+    jmp [cs:bx + jumptable_1aa5 - IMAGE_BASE + __zres_end] ; 0x1abd
 jumptable_1aa5_case_0:
 @..api_idx_00fa_RIMJ.l2:
     mov ax, 2                        ; 0x1ac2

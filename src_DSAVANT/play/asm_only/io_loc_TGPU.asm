@@ -15,7 +15,7 @@ __zinsn_08be:
 __zinsn_08c3:
     mov al, byte [0x0000]            ; 0x08c3
     mov dx, 0x389                    ; 0x08c6
-    mov bx, 0x1a3a                   ; 0x08c9
+    mov bx, cseg_193a - IMAGE_BASE   ; 0x08c9
     cs xlatb                         ; 0x08cc
     out dx, al                       ; 0x08ce
 __zinsn_08cf:
@@ -63,7 +63,7 @@ __zinsn_08cf:
     je short @..io_loc_TGPU.l4       ; 0x0925
     dec byte [cs:cseg_086e - IMAGE_BASE] ; 0x0927
     mov dx, 0x389                    ; 0x092c
-    mov bx, 0x1a3a                   ; 0x092f
+    mov bx, cseg_193a - IMAGE_BASE   ; 0x092f
     cs xlatb                         ; 0x0932
     out dx, al                       ; 0x0934
     dec word [cs:cseg_0a81 - IMAGE_BASE] ; 0x0935

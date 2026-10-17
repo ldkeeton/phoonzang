@@ -6,7 +6,7 @@ ds_dos_intvec_loc_OHRJ:
     mov ah, 0x35                     ; 0x37db
     mov al, 0x67                     ; 0x37dd
     int 0x21 ; DOS get interrupt vector
-    mov di, dseg_000a                ; 0x37e1
+    mov di, 0xa                      ; 0x37e1
     mov ax, cs                       ; 0x37e4
     mov ds, ax                       ; 0x37e6
     mov si, cseg_37d1 - IMAGE_BASE   ; 0x37e8

@@ -74,7 +74,7 @@ api_idx_003e_JGVR:
     lea ax, word [bp - 0x0016]       ; 0x1261
     push ax                          ; 0x1264
     push word [bp + 0x4]             ; 0x1265
-    call api_idx_0002_QLNJ           ; 0x1268
+    call api_idx_0002_RJQH           ; 0x1268
     add sp, byte 0x10                ; 0x126b
     mov ax, 1                        ; 0x126e
     push ax                          ; 0x1271

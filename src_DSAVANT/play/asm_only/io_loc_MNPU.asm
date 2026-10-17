@@ -2,7 +2,7 @@
 ; asm only
 io_loc_MNPU:
     xor bh, bh                       ; 0x0203
-    mov al, byte [cs:bx + 0x1529]    ; 0x0205
+    mov al, byte [cs:bx + cseg_1429 - IMAGE_BASE] ; 0x0205
     and al, 0xdf                     ; 0x020a
     call io_loc_KRUO                 ; 0x020c
     inc cl                           ; 0x020f

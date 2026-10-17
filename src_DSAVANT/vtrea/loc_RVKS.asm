@@ -31,7 +31,7 @@ loc_RVKS:
     mov ax, 6                        ; 0x6f86
     push ax                          ; 0x6f89
     push word [bss_830c]             ; 0x6f8a
-    call api_idx_0004_GMNK           ; 0x6f8e
+    call api_idx_0004_JVLM           ; 0x6f8e
     add sp, byte 0x12                ; 0x6f91
     mov ax, word [bp + 0x4]          ; 0x6f94
     shl ax, 1                        ; 0x6f97

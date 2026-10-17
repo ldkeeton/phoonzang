@@ -58,6 +58,8 @@ class JumpTableInfo:
     # Leading words that are switch keys, not code pointers (an inline
     # key/target table read by a non-returning call).
     keys: int = 0
+    # A sidecar ``code_tables`` entry: stated, so re-validation keeps it.
+    declared: bool = False
 
 
 class PhaseContext:

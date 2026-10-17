@@ -17,11 +17,15 @@ IMAGE_BASE equ 0x000e + VBASE
     dw (__zdata_start - __zcode_start)           ; 0x3765 ; o_csize: code size in bytes
     dw __zdseg_end                               ; 0x9098 ; o_dorg: data load origin (memory offset)
     dw (__zimage_end - __zdata_start)            ; 0x001e ; o_dsize: initialized data size
-    dw 0x001a                                    ; o_bss: uninitialized data size
+    dw __zobss_end - __zimage_end                ; 0x001a ; o_bss: uninitialized data size
     dw string_loc_PQLL - IMAGE_BASE + __zres_end ; 0x8757 ; o_entry: overlay entry offset (CS)
 
 __zcode_start:
 
+bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
+bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
+bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
+bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmele/loc_KSVQ.asm"              ; 0x000e
 
 %include "shared/api_idx_0008_MNJN.asm"     ; 0x004e
@@ -46,6 +50,7 @@ __zcode_start:
 
 %include "vmele/api_idx_0004_TJKU.asm"     ; 0x0c67
 
+; bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
 %include "vmele/api_idx_000a_PKVL.asm"     ; 0x0f95
 
 %include "vmele/api_idx_000c_QNKI.asm"     ; 0x11b0
@@ -82,33 +87,26 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_ONRQ
 
 %include "vmele/loc_QMOS.asm"              ; 0x299f
 
+; bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
 %include "vmele/api_idx_000c_RTIP.asm"     ; 0x29c5
 
+; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 loc_KRMP.bss1 equ bss_90b6
 %include "shared/loc_KRMP.asm"              ; 0x2b19
 
+; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 %include "vmele/api_idx_0006_IRNH.asm"     ; 0x2b78
 
 loc_RPUI.api_idx1 equ api_idx_0006_IRNH
 %include "shared/loc_RPUI.asm"              ; 0x2cc7
 
+; bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
+; bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
 %include "vmele/api_idx_005a_STLR.asm"     ; 0x2cde
 
 %include "vmele/api_idx_0004_NIHO.asm"     ; 0x2ec4
 
-%include "vmele/api_idx_0008_JTOJ.asm"     ; 0x306a
-
-%include "vmele/io_loc_PONH_309d.asm"      ; 0x309d
-
-%include "vmele/io_loc_PONH_30ab.asm"      ; 0x30ab
-
-%include "vmele/io_loc_ISUT_30b9.asm"      ; 0x30b9
-
-%include "vmele/io_loc_ISUT_30c7.asm"      ; 0x30c7
-
-%include "vmele/io_loc_QLSL.asm"           ; 0x30d5
-
-%include "vmele/io_loc_HHNP.asm"           ; 0x30e3
+%include "vmele/api_idx_0008_OUTK.asm"     ; 0x306a
 
 %include "vmele/api_idx_0056_KOPT.asm"     ; 0x31a1
 
@@ -116,10 +114,21 @@ loc_RPUI.api_idx1 equ api_idx_0006_IRNH
 
 %include "vmele/api_idx_0004_NQLR.asm"     ; 0x3390
 
+; bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
+; bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
+; bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmele/loc_RLUJ.asm"              ; 0x33df
 
+; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
+; bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 %include "vmele/api_idx_0002_PSIJ.asm"     ; 0x36b8
 
+dseg_90ac equ __zdseg_end + (__zdseg_90ac - __zdata_start)
+dseg_90ae equ __zdseg_end + (__zdseg_90ae - __zdata_start)
+dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
+dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
+dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
+; bss_90b6  equ __zdseg_end + (__zobss_90b6 - __zdata_start)
 %include "vmele/asm_only/string_loc_PQLL.asm"       ; 0x3710
 
 %include "vmele/asm_only/string_loc_SJPQ.asm"       ; 0x374e
@@ -129,7 +138,26 @@ __zdata_start:
     db 'MON00.PIC', 0
     db 0x20, 0x00
     db 'VM1.$$$', 0
-    times 10 db 0
 
+__zdseg_90ac:
+    db 0x00, 0x00
+__zdseg_90ae:
+    db 0x00, 0x00
+__zdseg_90b0:
+    db 0x00, 0x00
+__zdseg_90b2:
+    db 0x00, 0x00
+__zdseg_90b4:
+    db 0x00, 0x00
 
 __zimage_end:
+absolute __zimage_end
+__zobss_90b6:
+    resb 0x0002
+__zobss_90b8:
+    resb 0x0002
+__zobss_90ba:
+    resb 0x0002
+__zobss_90bc:
+    resb 0x0014
+__zobss_end:

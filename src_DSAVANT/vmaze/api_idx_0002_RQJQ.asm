@@ -36,7 +36,7 @@ api_idx_0002_RQJQ:
 @..api_idx_0002_RQJQ.l2:
     cmp word [bss_830a], byte 5      ; 0x0085
     jne short @..api_idx_0002_RQJQ.l3 ; 0x008a
-    call api_idx_0002_HTRV           ; 0x008c
+    call api_idx_0002_TOSL           ; 0x008c
     call api_idx_0022_RHMN           ; 0x008f
 @..api_idx_0002_RQJQ.l3:
     call loc_OGHL                    ; 0x0092

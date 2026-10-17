@@ -209,7 +209,7 @@ api_idx_0038_IQQK:
     jne short @..api_idx_0038_IQQK.l16 ; 0x31cf
     lea ax, word [bp - 0x0024]       ; 0x31d1
     push ax                          ; 0x31d4
-    call loc_IQSK                    ; 0x31d5
+    call loc_KPLK                    ; 0x31d5
     pop cx                           ; 0x31d8
     cmp word [bp - 0x000c], byte 0   ; 0x31d9
     je short @..api_idx_0038_IQQK.l15 ; 0x31dd
@@ -286,7 +286,7 @@ api_idx_0038_IQQK:
     jg short @..api_idx_0038_IQQK.l21 ; 0x3277
     lea ax, word [bp - 0x0024]       ; 0x3279
     push ax                          ; 0x327c
-    call loc_IQSK                    ; 0x327d
+    call loc_KPLK                    ; 0x327d
     pop cx                           ; 0x3280
     push word [bp - 0x000a]          ; 0x3281
     call aztec_close                 ; 0x3284
@@ -384,7 +384,7 @@ api_idx_0038_IQQK:
     jg short @..api_idx_0038_IQQK.l25 ; 0x337e
     lea ax, word [bp - 0x0024]       ; 0x3380
     push ax                          ; 0x3383
-    call loc_IQSK                    ; 0x3384
+    call loc_KPLK                    ; 0x3384
     pop cx                           ; 0x3387
     push word [bp - 0x000a]          ; 0x3388
     call aztec_close                 ; 0x338b
@@ -420,7 +420,7 @@ api_idx_0038_IQQK:
     jg short @..api_idx_0038_IQQK.l27 ; 0x33d2
     lea ax, word [bp - 0x0024]       ; 0x33d4
     push ax                          ; 0x33d7
-    call loc_IQSK                    ; 0x33d8
+    call loc_KPLK                    ; 0x33d8
     pop cx                           ; 0x33db
     push word [bp - 0x000a]          ; 0x33dc
     call aztec_close                 ; 0x33df
@@ -453,7 +453,7 @@ api_idx_0038_IQQK:
     jg short @..api_idx_0038_IQQK.l30 ; 0x341d
     lea ax, word [bp - 0x0024]       ; 0x341f
     push ax                          ; 0x3422
-    call loc_IQSK                    ; 0x3423
+    call loc_KPLK                    ; 0x3423
     pop cx                           ; 0x3426
     push word [bp - 0x000a]          ; 0x3427
     call aztec_close                 ; 0x342a
@@ -484,7 +484,7 @@ api_idx_0038_IQQK:
     jg short @..api_idx_0038_IQQK.l32 ; 0x3463
     lea ax, word [bp - 0x0024]       ; 0x3465
     push ax                          ; 0x3468
-    call loc_IQSK                    ; 0x3469
+    call loc_KPLK                    ; 0x3469
     pop cx                           ; 0x346c
     push word [bp - 0x000a]          ; 0x346d
     call aztec_close                 ; 0x3470
@@ -553,7 +553,7 @@ api_idx_0038_IQQK:
     jg short @..api_idx_0038_IQQK.l35 ; 0x34ff
     lea ax, word [bp - 0x0024]       ; 0x3501
     push ax                          ; 0x3504
-    call loc_IQSK                    ; 0x3505
+    call loc_KPLK                    ; 0x3505
     pop cx                           ; 0x3508
     push word [bp - 0x000a]          ; 0x3509
     call aztec_close                 ; 0x350c
@@ -576,7 +576,7 @@ api_idx_0038_IQQK:
     jne short @..api_idx_0038_IQQK.l37 ; 0x3533
     lea ax, word [bp - 0x0024]       ; 0x3535
     push ax                          ; 0x3538
-    call loc_IQSK                    ; 0x3539
+    call loc_KPLK                    ; 0x3539
     pop cx                           ; 0x353c
     push word [bp - 0x000a]          ; 0x353d
     call aztec_close                 ; 0x3540
@@ -711,7 +711,7 @@ api_idx_0038_IQQK:
     jg short @..api_idx_0038_IQQK.l40 ; 0x36a2
     lea ax, word [bp - 0x0024]       ; 0x36a4
     push ax                          ; 0x36a7
-    call loc_IQSK                    ; 0x36a8
+    call loc_KPLK                    ; 0x36a8
     pop cx                           ; 0x36ab
     push word [bp - 0x000a]          ; 0x36ac
     call aztec_close                 ; 0x36af
@@ -758,7 +758,7 @@ api_idx_0038_IQQK:
     jg short @..api_idx_0038_IQQK.l44 ; 0x3710
     lea ax, word [bp - 0x0024]       ; 0x3712
     push ax                          ; 0x3715
-    call loc_IQSK                    ; 0x3716
+    call loc_KPLK                    ; 0x3716
     pop cx                           ; 0x3719
     push word [bp - 0x000a]          ; 0x371a
     call aztec_close                 ; 0x371d
@@ -793,7 +793,7 @@ api_idx_0038_IQQK:
     jg short @..api_idx_0038_IQQK.l47 ; 0x3764
     lea ax, word [bp - 0x0024]       ; 0x3766
     push ax                          ; 0x3769
-    call loc_IQSK                    ; 0x376a
+    call loc_KPLK                    ; 0x376a
     pop cx                           ; 0x376d
     push word [bp - 0x000a]          ; 0x376e
     call aztec_close                 ; 0x3771
@@ -869,7 +869,7 @@ api_idx_0038_IQQK:
     mov ax, word [bp - 0x0002]       ; 0x381b
     cmp ax, strict word 6            ; 0x381e
     jl short @..api_idx_0038_IQQK.l51 ; 0x3821
-    call api_idx_0072_MNLK           ; 0x3823
+    call api_idx_0072_OUII           ; 0x3823
     cmp ax, strict word 0xffff       ; 0x3826
     jne short @..api_idx_0038_IQQK.l52 ; 0x3829
     mov ax, 0xffff                   ; 0x382b

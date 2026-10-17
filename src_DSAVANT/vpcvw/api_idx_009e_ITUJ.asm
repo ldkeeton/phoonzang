@@ -10,7 +10,7 @@ api_idx_009e_ITUJ:
     push ax                          ; 0x3d10
     mov ax, 1                        ; 0x3d11
     push ax                          ; 0x3d14
-    call ds_app_file_NKGK            ; 0x3d15
+    call ds_app_file_MPPM            ; 0x3d15
     add sp, byte 8                   ; 0x3d18
     cmp byte [bp - 0x000b], 0        ; 0x3d1b
     ja short @..api_idx_009e_ITUJ.l1 ; 0x3d1f
@@ -304,7 +304,7 @@ jumptable_3f96:
     jae short @..api_idx_009e_ITUJ.l13 ; 0x3fb1
     xchg bx, ax                      ; 0x3fb3
     shl bx, 1                        ; 0x3fb4
-    jmp [cs:bx - 0x7023]             ; 0x3fb6
+    jmp [cs:bx + jumptable_3f96 - IMAGE_BASE + __zres_end] ; 0x3fb6
 jumptable_3f96_case_0:
 @..api_idx_009e_ITUJ.l13:
     jmp short @..api_idx_009e_ITUJ.l17 ; 0x3fbb

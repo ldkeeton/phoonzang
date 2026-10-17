@@ -141,7 +141,7 @@ api_idx_0030_TGOH:
     jne short @..api_idx_0030_TGOH.l10 ; 0x940d
     push word [bp - 0x0008]          ; 0x940f
     push word [bp + 0x4]             ; 0x9412
-    call ds_app_VPLJ                 ; 0x9415
+    call ds_app_UPSN                 ; 0x9415
     add sp, byte 4                   ; 0x9418
 @..api_idx_0030_TGOH.l10:
     inc word [bp - 0x0008]           ; 0x941b

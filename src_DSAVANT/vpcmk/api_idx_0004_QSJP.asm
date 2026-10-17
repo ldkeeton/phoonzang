@@ -349,6 +349,6 @@ jumptable_6059:
     jae short @..api_idx_0004_QSJP.l6 ; 0x6078
     xchg bx, ax                      ; 0x607a
     shl bx, 1                        ; 0x607b
-    jmp [cs:bx - 0x4f60]             ; 0x607d
+    jmp [cs:bx + jumptable_6059 - IMAGE_BASE + __zres_end] ; 0x607d
 @..api_idx_0004_QSJP.l6:
     ret                              ; 0x6082

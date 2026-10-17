@@ -178,6 +178,9 @@ _STRING_USES = {
     'cmpsb': ('si', 'ds'), 'cmpsw': ('si', 'ds'),
 }
 
+# Segment-override prefix byte (capstone ``insn.prefix[1]``) -> segment.
+_XLAT_SEGMENT = {0x2E: 'cs', 0x26: 'es', 0x36: 'ss', 0x3E: 'ds'}
+
 # Mnemonics that write their first (register) operand.
 _DEST_WRITERS = {
     'mov', 'lea', 'pop', 'add', 'adc', 'sub', 'sbb', 'and', 'or', 'xor',
@@ -197,6 +200,7 @@ def immediate_pointer_spaces(instructions, flow, limit=64):
     from capstone import CS_OP_REG, CS_OP_IMM, CS_OP_MEM
 
     insns = sorted(instructions, key=lambda i: i.address)
+    index_of = {insn.address: k for k, insn in enumerate(insns)}
     result = {}
     for k, insn in enumerate(insns):
         if insn.mnemonic != 'mov' or len(insn.operands) != 2:
@@ -209,15 +213,27 @@ def immediate_pointer_spaces(instructions, flow, limit=64):
         if parent in _SEG_REGS:
             continue
         space = None
-        for j in range(k + 1, min(k + limit, len(insns))):
+        j = k + 1
+        for _ in range(limit):
+            if j >= len(insns):
+                break
             nxt = insns[j]
             if _writes_register(nxt, parent):
                 break
             space = _use_space(nxt, parent, flow)
             if space is not None:
                 break
-            if nxt.mnemonic in _TERMINATORS or nxt.mnemonic in ('jmp', 'ljmp'):
+            if nxt.mnemonic == 'jmp':
+                # A forward direct jump is the only path on: follow it (a
+                # backward one could loop back over the definition).
+                target = _direct_target(nxt)
+                j = index_of.get(target, -1) if target is not None else -1
+                if j <= k:
+                    break
+                continue
+            if nxt.mnemonic in _TERMINATORS or nxt.mnemonic == 'ljmp':
                 break
+            j += 1
         if space is not None:
             result[(insn.address, 1)] = space
     return result
@@ -254,6 +270,13 @@ def _use_space(insn, parent, flow):
                 _, space = flow.effective_segment(insn, op)
                 if space in (LOAD, DATA, PSP):
                     return space
+    if insn.mnemonic == 'xlatb' and parent == 'bx':
+        # ``xlatb`` reads ``[seg:bx + al]`` with no operand capstone lists;
+        # the segment is the override prefix, else DS.
+        seg = _XLAT_SEGMENT.get(insn.prefix[1], 'ds')
+        space = LOAD if seg == 'cs' else flow.space_of(insn.address, seg)
+        if space in (LOAD, DATA, PSP):
+            return space
     use = _STRING_USES.get(_base_mnemonic(insn))
     if use and use[0] == parent:
         space = flow.space_of(insn.address, use[1])
@@ -263,13 +286,20 @@ def _use_space(insn, parent, flow):
 
 
 def analyze(instructions, model, binary_data=None, function_roots=(),
-            extra_edges=()):
+            extra_edges=(), entry_roots=()):
     """Run segment-register dataflow over *instructions*.
 
     *instructions* is a list of capstone instructions whose ``address`` is a
     file offset.  *function_roots* are addresses where the caller-convention
     state (``DS=ES=DATA``) is re-established.  *extra_edges* are additional
     ``(src, dst)`` control-flow edges (e.g. validated jump tables).
+
+    A root reached only by direct ``call``/``jmp`` from this image -- not an
+    edge in *extra_edges*, not one of *entry_roots* (addresses entered from
+    outside: seeds, declared handlers) and not the entry -- is internal: it
+    starts in the state its callers hand it, so a routine whose callers set
+    ``DS=CS`` addresses the code segment through ``DS``.  An internal root no
+    reached caller hands a state to falls back to the convention.
     """
     insns = {insn.address: insn for insn in instructions}
     roots = set(function_roots)
@@ -282,6 +312,8 @@ def analyze(instructions, model, binary_data=None, function_roots=(),
 
     mz_entry = model.entry_offset if model.kind == 'mz' else None
     entry = mz_entry if mz_entry in insns else next(iter(insns), None)
+
+    internal = _internal_roots(insns, roots, extra, entry_roots, entry)
 
     states = {}
     worklist = []
@@ -305,20 +337,30 @@ def analyze(instructions, model, binary_data=None, function_roots=(),
                 continue
             state = states[address]
             out = _transfer(insn, state, model, relocs, binary_data)
+            if insn.mnemonic == 'call':
+                callee = _direct_target(insn)
+                if callee in internal:
+                    push(callee, State(dict(state.regs)))
             for succ in _successors(insn, insns, state, model, extra,
                                     test_before):
                 if succ is None:
                     continue
-                if succ in roots or succ == entry:
+                if succ in internal:
+                    incoming = State(dict(out.regs))
+                elif succ in roots or succ == entry:
                     incoming = seed_for(succ)
                 else:
                     incoming = out
                 push(succ, incoming)
 
     for root in roots | ({entry} if entry is not None else set()):
-        if root in insns:
+        if root in insns and root not in internal:
             push(root, seed_for(root))
     run()
+    for root in sorted(internal):
+        if root not in states:
+            push(root, seed_for(root))
+            run()
 
     # Detached code islands (e.g. switch arms promoted after the first decode)
     # have no incoming edge, so the walk above never reaches them and their
@@ -334,6 +376,20 @@ def analyze(instructions, model, binary_data=None, function_roots=(),
         run()
 
     return SegmentFlow(model, states)
+
+
+def _internal_roots(insns, roots, extra, entry_roots, entry):
+    """Roots every reference to which is a direct call or jump in *insns*."""
+    referenced = set()
+    for insn in insns.values():
+        if insn.mnemonic in ('call', 'jmp') or insn.mnemonic in _COND_JUMPS:
+            target = _direct_target(insn)
+            if target in roots:
+                referenced.add(target)
+    external = set(entry_roots) | {entry}
+    for targets in extra.values():
+        external |= targets
+    return referenced - external
 
 
 def _entry_state():

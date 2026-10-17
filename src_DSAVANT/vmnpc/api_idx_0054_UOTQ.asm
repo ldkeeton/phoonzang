@@ -623,6 +623,6 @@ jumptable_a27d:
     jae short @..api_idx_0054_UOTQ.l35 ; 0xa294
     xchg bx, ax                      ; 0xa296
     shl bx, 1                        ; 0xa297
-    jmp [cs:bx - 0x0d3c]             ; 0xa299
+    jmp [cs:bx + jumptable_a27d - IMAGE_BASE + __zres_end] ; 0xa299
 @..api_idx_0054_UOTQ.l35:
     ret                              ; 0xa29e

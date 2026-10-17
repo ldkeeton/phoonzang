@@ -44,6 +44,10 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
     scan was unreliable: the 512-byte cap truncated long functions and the
     backward push-bp scan pulled starts into the preceding function.
 
+    A switch's case body (``role == 'case'``) never starts a range: it is the
+    dispatching routine's code, so the routine's file runs through its bodies,
+    table and dispatcher.
+
     A *declared* root (``declared_roots``) splits even when its label is a bare
     ``loc_<addr>``: a declared dispatch table names a function entry, so the
     entry owns its fragment whatever name a categorization heuristic left it
@@ -72,6 +76,7 @@ def _select_split_ranges(label_map, split_functions, func_boundaries=None,
         (off, name)
         for off, name in (label_map or {}).items()
         if not is_data(name)
+        and getattr(name, 'role', None) != 'case'
         and (off in declared
              or (name in requested
                  and not is_address_label(name)))

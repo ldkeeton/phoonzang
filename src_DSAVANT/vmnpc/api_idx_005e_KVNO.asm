@@ -35,7 +35,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x582f
     mov ax, 1                        ; 0x5830
     push ax                          ; 0x5833
-    call ds_app_file_NKGK            ; 0x5834
+    call ds_app_file_MPPM            ; 0x5834
     add sp, byte 8                   ; 0x5837
     mov al, byte [bp - 0x0038]       ; 0x583a
     sub ah, ah                       ; 0x583d

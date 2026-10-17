@@ -67,7 +67,7 @@ api_idx_0034_NSGM:
     mov ax, 0x83c                    ; 0x70a2
     push ax                          ; 0x70a5
     push word [bp + 0x4]             ; 0x70a6
-    call api_idx_006a_JIRQ           ; 0x70a9
+    call api_idx_006a_NKMN           ; 0x70a9
     add sp, byte 0x0c                ; 0x70ac
     mov word [bp - 0x0008], ax       ; 0x70af
     jmp short @..api_idx_0034_NSGM.l6 ; 0x70b2

@@ -105,7 +105,7 @@ api_idx_0056_VTNO:
     lea ax, word [bp - 0x0056]       ; 0x13bd
     push ax                          ; 0x13c0
     push word [bp + 0x4]             ; 0x13c1
-    call api_idx_0002_QLNJ           ; 0x13c4
+    call api_idx_0002_RJQH           ; 0x13c4
     add sp, byte 0x10                ; 0x13c7
     mov ax, 1                        ; 0x13ca
     push ax                          ; 0x13cd

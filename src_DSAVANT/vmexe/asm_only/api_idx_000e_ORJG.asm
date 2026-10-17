@@ -4019,7 +4019,7 @@ jumptable_5eb8:
     jae short @..api_idx_000e_ORJG.l132 ; 0x5f87
     xchg bx, ax                      ; 0x5f89
     shl bx, 1                        ; 0x5f8a
-    jmp [cs:bx - 0x5101]             ; 0x5f8c
+    jmp [cs:bx + jumptable_5eb8 - IMAGE_BASE + __zres_end] ; 0x5f8c
 jumptable_5eb8_case_47:
 @..api_idx_000e_ORJG.l132:
     cmp word [bss_90e4], byte 0      ; 0x5f91

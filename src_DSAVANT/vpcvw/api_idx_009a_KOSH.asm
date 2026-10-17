@@ -10,7 +10,7 @@ api_idx_009a_KOSH:
     push ax                          ; 0x6f74
     mov ax, 1                        ; 0x6f75
     push ax                          ; 0x6f78
-    call ds_app_file_NKGK            ; 0x6f79
+    call ds_app_file_MPPM            ; 0x6f79
     add sp, byte 8                   ; 0x6f7c
     mov bx, word [bp + 0x6]          ; 0x6f7f
     cmp byte [bx + 0x6], 0           ; 0x6f82

@@ -5,7 +5,7 @@ loc_QKNN:
     mov al, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x1304
     inc al                           ; 0x1308
     call leaf_loc_VSLO               ; 0x130a
-    mov bx, 0x1b3a                   ; 0x130d
+    mov bx, cseg_1a3a - IMAGE_BASE   ; 0x130d
     mov al, byte [cs:cseg_0d3f - IMAGE_BASE] ; 0x1310
     shl al, 1                        ; 0x1314
     xor ah, ah                       ; 0x1316
@@ -18,7 +18,7 @@ loc_QKNN:
     mov bl, byte [cs:cseg_0d40 - IMAGE_BASE] ; 0x1327
     inc bl                           ; 0x132c
     mov al, 1                        ; 0x132e
-    and al, byte [cs:bx + 0x15e9]    ; 0x1330
+    and al, byte [cs:bx + cseg_14e9 - IMAGE_BASE] ; 0x1330
     je short @..loc_QKNN.l1          ; 0x1335
     mov al, dl                       ; 0x1337
     call loc_QVOP                    ; 0x1339

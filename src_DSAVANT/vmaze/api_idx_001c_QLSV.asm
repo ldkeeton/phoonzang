@@ -103,7 +103,7 @@ api_idx_001c_QLSV:
     mov ax, 0                        ; 0x7755
     push ax                          ; 0x7758
     push word [bss_830c]             ; 0x7759
-    call api_idx_0004_GMNK           ; 0x775d
+    call api_idx_0004_KMPG           ; 0x775d
     add sp, byte 0x12                ; 0x7760
     push word [bp - 0x001c]          ; 0x7763
     mov ax, 4                        ; 0x7766

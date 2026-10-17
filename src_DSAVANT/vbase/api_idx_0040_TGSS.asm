@@ -9,7 +9,7 @@ api_idx_0040_TGSS:
     push ax                          ; 0x1f7f
     mov ax, 0                        ; 0x1f80
     push ax                          ; 0x1f83
-    call ds_app_file_NKGK            ; 0x1f84
+    call ds_app_file_MPPM            ; 0x1f84
     add sp, byte 8                   ; 0x1f87
     cmp word [bp + 0x6], byte 1      ; 0x1f8a
     jle short @..api_idx_0040_TGSS.l1 ; 0x1f8e

@@ -32,7 +32,7 @@ loc_NQLH:
     inc bl                           ; 0x17ba
     shl bl, 1                        ; 0x17bc
     xor bh, bh                       ; 0x17be
-    mov ch, byte [cs:bx + 0x13df]    ; 0x17c0
+    mov ch, byte [cs:bx + cseg_12df - IMAGE_BASE] ; 0x17c0
     mov al, ch                       ; 0x17c5
     add al, 3                        ; 0x17c7
     mov ah, byte [si + 0x6]          ; 0x17c9
@@ -97,7 +97,7 @@ loc_NQLH:
     shr di, 1                        ; 0x185e
     shr di, 1                        ; 0x1860
     mov dx, di                       ; 0x1862
-    mov bl, byte [cs:di + 0x1809]    ; 0x1864
+    mov bl, byte [cs:di + cseg_1709 - IMAGE_BASE] ; 0x1864
     xor bh, bh                       ; 0x1869
     mov di, bx                       ; 0x186b
     shl di, 1                        ; 0x186d
@@ -108,9 +108,9 @@ loc_NQLH:
     shl ax, 1                        ; 0x1877
     and ax, strict word 0x1f         ; 0x1879
     add di, ax                       ; 0x187c
-    mov ax, word [cs:di + 0x1629]    ; 0x187e
+    mov ax, word [cs:di + cseg_1529 - IMAGE_BASE] ; 0x187e
     mov di, dx                       ; 0x1883
-    mov bl, byte [cs:di + 0x17a9]    ; 0x1885
+    mov bl, byte [cs:di + cseg_16a9 - IMAGE_BASE] ; 0x1885
     dec bl                           ; 0x188a
     or ax, ax                        ; 0x188c
     jge short @..loc_NQLH.l7         ; 0x188e

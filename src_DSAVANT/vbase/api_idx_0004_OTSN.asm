@@ -29,7 +29,7 @@ api_idx_0004_OTSN:
     jmp short @..api_idx_0004_OTSN.l2 ; 0x6f56
 @..api_idx_0004_OTSN.l3:
     push word [bp + 0x4]             ; 0x6f58
-    call loc_LTHK                    ; 0x6f5b
+    call loc_VMSS                    ; 0x6f5b
     pop cx                           ; 0x6f5e
     mov ax, word [bp - 0x0002]       ; 0x6f5f
     add word [bp + 0x4], ax          ; 0x6f62
@@ -40,7 +40,7 @@ api_idx_0004_OTSN:
     cmp byte [bx], 0                 ; 0x6f6e
     je short @..api_idx_0004_OTSN.l5 ; 0x6f71
     push bx                          ; 0x6f73
-    call loc_LTHK                    ; 0x6f74
+    call loc_VMSS                    ; 0x6f74
     pop cx                           ; 0x6f77
 @..api_idx_0004_OTSN.l5:
     ret                              ; 0x6f78

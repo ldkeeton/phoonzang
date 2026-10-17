@@ -197,7 +197,7 @@ api_idx_005e_SHOL:
     jmp near @..api_idx_005e_SHOL.l10 ; 0x15cf
 @..api_idx_005e_SHOL.l20:
     call api_idx_000e_NKQN           ; 0x15d2
-    call ds_app_GJOV                 ; 0x15d5
+    call ds_app_JKOJ                 ; 0x15d5
     mov word [bss_845e], 0           ; 0x15d8
 @..api_idx_005e_SHOL.l21:
     call api_idx_0006_SQTK           ; 0x15de

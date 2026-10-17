@@ -32,7 +32,7 @@ api_idx_009e_KPST:
     push ax                          ; 0x18e0
     mov ax, 0                        ; 0x18e1
     push ax                          ; 0x18e4
-    call ds_app_file_NKGK            ; 0x18e5
+    call ds_app_file_MPPM            ; 0x18e5
     add sp, byte 8                   ; 0x18e8
     lea ax, word [bp - 0x009e]       ; 0x18eb
     push ax                          ; 0x18ef

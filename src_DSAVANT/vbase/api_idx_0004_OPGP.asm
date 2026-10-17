@@ -82,7 +82,7 @@ api_idx_0004_OPGP:
     cmp word [bss_95b2], byte 0      ; 0x6740
     jle short @..api_idx_0004_OPGP.l8 ; 0x6745
     push word [bss_95b2]             ; 0x6747
-    call api_idx_0002_SOPK           ; 0x674b
+    call api_idx_0002_HQSQ           ; 0x674b
     pop cx                           ; 0x674e
 @..api_idx_0004_OPGP.l8:
     mov word [bss_830a], 6           ; 0x674f

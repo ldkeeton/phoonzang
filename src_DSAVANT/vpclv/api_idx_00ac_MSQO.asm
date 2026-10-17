@@ -14,6 +14,7 @@ api_idx_00ac_MSQO:
     mov al, byte [bx + 0x5e2d]       ; 0x4600
     sub ah, ah                       ; 0x4604
     jmp near @..api_idx_00ac_MSQO.l1 ; 0x4606
+loc_JGOJ:
     mov ax, 5                        ; 0x4609
     push ax                          ; 0x460c
     call ds_app_PUNN                 ; 0x460d
@@ -21,6 +22,7 @@ api_idx_00ac_MSQO:
     add ax, strict word 6            ; 0x4611
     mov word [bp - 0x0002], ax       ; 0x4614
     jmp near @..api_idx_00ac_MSQO.l2 ; 0x4617
+loc_IQNV:
     mov ax, 3                        ; 0x461a
     push ax                          ; 0x461d
     call ds_app_PUNN                 ; 0x461e
@@ -29,6 +31,7 @@ api_idx_00ac_MSQO:
     inc ax                           ; 0x4623
     mov word [bp - 0x0002], ax       ; 0x4624
     jmp short @..api_idx_00ac_MSQO.l2 ; 0x4627
+loc_HRJJ:
     mov ax, 4                        ; 0x4629
     push ax                          ; 0x462c
     call ds_app_PUNN                 ; 0x462d
@@ -36,6 +39,7 @@ api_idx_00ac_MSQO:
     add ax, strict word 4            ; 0x4631
     mov word [bp - 0x0002], ax       ; 0x4634
     jmp short @..api_idx_00ac_MSQO.l2 ; 0x4637
+loc_SOQH:
     mov ax, 4                        ; 0x4639
     push ax                          ; 0x463c
     call ds_app_PUNN                 ; 0x463d
@@ -45,6 +49,7 @@ api_idx_00ac_MSQO:
     inc ax                           ; 0x4643
     mov word [bp - 0x0002], ax       ; 0x4644
     jmp short @..api_idx_00ac_MSQO.l2 ; 0x4647
+loc_UGQM:
     mov ax, 3                        ; 0x4649
     push ax                          ; 0x464c
     call ds_app_PUNN                 ; 0x464d
@@ -54,6 +59,7 @@ api_idx_00ac_MSQO:
     inc ax                           ; 0x4653
     mov word [bp - 0x0002], ax       ; 0x4654
     jmp short @..api_idx_00ac_MSQO.l2 ; 0x4657
+loc_TUSJ:
     mov ax, 5                        ; 0x4659
     push ax                          ; 0x465c
     call ds_app_PUNN                 ; 0x465d
@@ -61,6 +67,7 @@ api_idx_00ac_MSQO:
     add ax, strict word 5            ; 0x4661
     mov word [bp - 0x0002], ax       ; 0x4664
     jmp short @..api_idx_00ac_MSQO.l2 ; 0x4667
+loc_RPPS:
     mov ax, 5                        ; 0x4669
     push ax                          ; 0x466c
     call ds_app_PUNN                 ; 0x466d
@@ -68,18 +75,27 @@ api_idx_00ac_MSQO:
     add ax, strict word 4            ; 0x4671
     mov word [bp - 0x0002], ax       ; 0x4674
     jmp short @..api_idx_00ac_MSQO.l2 ; 0x4677
-loc_NGSV:
-    push ax                          ; 0x4679
-
-    db 0x96, 0x61, 0x96, 0x70, 0x96, 0x80, 0x96, 0x50, 0x96, 0x70, 0x96, 0x90, 0x96, 0x90, 0x96, 0xa0
-    db 0x96, 0x90, 0x96, 0x50, 0x96, 0xa0, 0x96, 0x70, 0x96, 0xb0, 0x96
-
+jumptable_4679:
+    dw loc_JGOJ - IMAGE_BASE + __zres_end      ; 0x4679
+    dw loc_IQNV - IMAGE_BASE + __zres_end      ; 0x467b
+    dw loc_HRJJ - IMAGE_BASE + __zres_end      ; 0x467d
+    dw loc_SOQH - IMAGE_BASE + __zres_end      ; 0x467f
+    dw loc_JGOJ - IMAGE_BASE + __zres_end      ; 0x4681
+    dw loc_HRJJ - IMAGE_BASE + __zres_end      ; 0x4683
+    dw loc_UGQM - IMAGE_BASE + __zres_end      ; 0x4685
+    dw loc_UGQM - IMAGE_BASE + __zres_end      ; 0x4687
+    dw loc_TUSJ - IMAGE_BASE + __zres_end      ; 0x4689
+    dw loc_UGQM - IMAGE_BASE + __zres_end      ; 0x468b
+    dw loc_JGOJ - IMAGE_BASE + __zres_end      ; 0x468d
+    dw loc_TUSJ - IMAGE_BASE + __zres_end      ; 0x468f
+    dw loc_HRJJ - IMAGE_BASE + __zres_end      ; 0x4691
+    dw loc_RPPS - IMAGE_BASE + __zres_end      ; 0x4693
 @..api_idx_00ac_MSQO.l1:
     cmp ax, strict word 0xe          ; 0x4695
     jae short @..api_idx_00ac_MSQO.l2 ; 0x4698
     xchg bx, ax                      ; 0x469a
     shl bx, 1                        ; 0x469b
-    jmp [cs:bx - 0x6940]             ; 0x469d
+    jmp [cs:bx + jumptable_4679 - IMAGE_BASE + __zres_end] ; 0x469d
 @..api_idx_00ac_MSQO.l2:
     mov ax, 4                        ; 0x46a2
     push ax                          ; 0x46a5

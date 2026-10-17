@@ -55,7 +55,7 @@ jumptable_08e9:
     jae short @..api_idx_0004_JIVL.l3 ; 0x090f
     xchg bx, ax                      ; 0x0911
     shl bx, 1                        ; 0x0912
-    jmp [cs:bx + 0x5930]             ; 0x0914
+    jmp [cs:bx + jumptable_08e9 - IMAGE_BASE + __zres_end] ; 0x0914
 jumptable_08e9_case_1:
 @..api_idx_0004_JIVL.l3:
     push word [bp - 0x0002]          ; 0x0919

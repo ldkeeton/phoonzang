@@ -1328,7 +1328,7 @@ jumptable_28e9:
     jae short @..api_idx_0044_NJNI.l49 ; 0x28f6
     xchg bx, ax                      ; 0x28f8
     shl bx, 1                        ; 0x28f9
-    jmp [cs:bx + 0x7930]             ; 0x28fb
+    jmp [cs:bx + jumptable_28e9 - IMAGE_BASE + __zres_end] ; 0x28fb
 @..api_idx_0044_NJNI.l49:
     jmp near @..api_idx_0044_NJNI.l27 ; 0x2900
 @..api_idx_0044_NJNI.l50:

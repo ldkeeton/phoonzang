@@ -1330,7 +1330,7 @@ jumptable_35d1:
     jae short @..api_idx_0044_PIIP.l49 ; 0x35de
     xchg bx, ax                      ; 0x35e0
     shl bx, 1                        ; 0x35e1
-    jmp [cs:bx - 0x79e8]             ; 0x35e3
+    jmp [cs:bx + jumptable_35d1 - IMAGE_BASE + __zres_end] ; 0x35e3
 @..api_idx_0044_PIIP.l49:
     jmp near @..api_idx_0044_PIIP.l27 ; 0x35e8
 @..api_idx_0044_PIIP.l50:

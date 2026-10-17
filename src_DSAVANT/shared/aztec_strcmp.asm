@@ -13,7 +13,7 @@ aztec_strcmp:
 @..aztec_strcmp.l1:
     lodsw
     scasw
-    jne short aztec_strcmp.loc1
+    jne short loc_OSRT
     test al, al
     je short loc_PGTO
     test ah, ah

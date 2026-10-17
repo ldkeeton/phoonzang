@@ -52,7 +52,7 @@ api_idx_0086_JRHU:
     push ax                          ; 0x6e8b
     mov ax, 7                        ; 0x6e8c
     push ax                          ; 0x6e8f
-    call ds_app_file_NKGK            ; 0x6e90
+    call ds_app_file_MPPM            ; 0x6e90
     add sp, byte 8                   ; 0x6e93
     mov word [bp - 0x0006], 0        ; 0x6e96
     mov word [bp - 0x0002], 0        ; 0x6e9b
@@ -162,7 +162,7 @@ api_idx_0086_JRHU:
     push ax                          ; 0x6f9d
     mov ax, 1                        ; 0x6f9e
     push ax                          ; 0x6fa1
-    call ds_app_file_NKGK            ; 0x6fa2
+    call ds_app_file_MPPM            ; 0x6fa2
     add sp, byte 8                   ; 0x6fa5
     lea ax, word [bp - 0x0086]       ; 0x6fa8
     push ax                          ; 0x6fac

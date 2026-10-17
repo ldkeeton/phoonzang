@@ -1949,7 +1949,7 @@ jumptable_85d0:
     jae short @..api_idx_000a_THHN.l112 ; 0x85e5
     xchg bx, ax                      ; 0x85e7
     shl bx, 1                        ; 0x85e8
-    jmp [cs:bx - 0x29e9]             ; 0x85ea
+    jmp [cs:bx + jumptable_85d0 - IMAGE_BASE + __zres_end] ; 0x85ea
 jumptable_85d0_case_0:
 @..api_idx_000a_THHN.l112:
     ret                              ; 0x85ef

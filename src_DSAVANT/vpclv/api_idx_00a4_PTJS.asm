@@ -13,7 +13,7 @@ api_idx_00a4_PTJS:
     mov byte [bx + 0x5e3b], 0        ; 0x4ebc
 @..api_idx_00a4_PTJS.l1:
     push word [bp + 0x4]             ; 0x4ec1
-    call api_idx_0006_JLRK           ; 0x4ec4
+    call api_idx_0006_ILTI           ; 0x4ec4
     pop cx                           ; 0x4ec7
     mov ax, 0                        ; 0x4ec8
     push ax                          ; 0x4ecb
@@ -71,7 +71,7 @@ api_idx_00a4_PTJS:
     call api_idx_0004_KJII           ; 0x4f4a
     pop cx                           ; 0x4f4d
     push word [bp + 0x4]             ; 0x4f4e
-    call loc_JPIR                    ; 0x4f51
+    call loc_KPKJ                    ; 0x4f51
     pop cx                           ; 0x4f54
     mov word [bp - 0x0004], 0        ; 0x4f55
     mov word [bp - 0x0002], 0        ; 0x4f5a
@@ -97,7 +97,7 @@ api_idx_00a4_PTJS:
     call api_idx_0052_LHVG           ; 0x4f8e
     pop cx                           ; 0x4f91
     push word [bp + 0x4]             ; 0x4f92
-    call api_idx_0018_MOPR           ; 0x4f95
+    call api_idx_0018_IKVK           ; 0x4f95
     pop cx                           ; 0x4f98
     mov word [bp - 0x0002], 0        ; 0x4f99
 @..api_idx_00a4_PTJS.l4:

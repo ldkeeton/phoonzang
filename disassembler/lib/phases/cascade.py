@@ -24,7 +24,7 @@ class CascadeTargetPhase(Phase):
         writes_columns=['cascade_targets'],
         reads_columns=['ALL'],
         reads_ctx=['binary_data', 'hard_data', 'code_targets', 'iteration',
-                   'start_offset', 'trace'],
+                   'jump_tables', 'start_offset', 'trace'],
         writes_ctx=['code_targets', 'branch_targets', 'branch_edges',
                     'entry_targets'],
         requires_binary=True,
@@ -45,6 +45,11 @@ class CascadeTargetPhase(Phase):
         md = Cs(CS_ARCH_X86, CS_MODE_16)
         md.detail = True
         i = max(ctx.start_offset + 1, 1)
+        # A jump table after the dispatcher's ``jmp`` is exactly the shape this
+        # rule admits (a short DATA run after CODE whose words happen to decode
+        # with a branch in them); its words are pointers, not code.
+        tables = [(jt.table_addr, jt.table_end or jt.table_addr + 2)
+                  for jt in getattr(ctx, 'jump_tables', ())]
 
         while i < n:
             if previous[i] != IS_DATA:
@@ -58,8 +63,10 @@ class CascadeTargetPhase(Phase):
             size = end - start
             preceded_by_code = previous[start - 1] == IS_CODE
             has_hard_data = bool(ctx.hard_data[start:end].any())
+            in_table = any(lo < end and start < hi for lo, hi in tables)
 
-            if not preceded_by_code or not (2 <= size <= 32) or has_hard_data:
+            if (not preceded_by_code or not (2 <= size <= 32) or has_hard_data
+                    or in_table):
                 continue
 
             insns = list(md.disasm(data[start:end], start))

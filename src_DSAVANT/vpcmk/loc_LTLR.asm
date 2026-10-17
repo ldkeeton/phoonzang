@@ -258,6 +258,6 @@ jumptable_4e83:
     jae short @..loc_LTLR.l3         ; 0x4ea2
     xchg bx, ax                      ; 0x4ea4
     shl bx, 1                        ; 0x4ea5
-    jmp [cs:bx - 0x6136]             ; 0x4ea7
+    jmp [cs:bx + jumptable_4e83 - IMAGE_BASE + __zres_end] ; 0x4ea7
 @..loc_LTLR.l3:
     ret                              ; 0x4eac

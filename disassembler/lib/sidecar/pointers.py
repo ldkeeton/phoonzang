@@ -55,7 +55,7 @@ def _reject_corpus_conflicts(data_pointers, not_pointers, owner):
 
 def _validate_corpus(data, owner):
     """Validate the ``data_pointers`` / ``not_pointers`` corpus for *owner*."""
-    for key in ('data_pointers', 'not_pointers'):
+    for key in ('data_pointers', 'not_pointers', 'immediate_pointers'):
         if key in data:
             _validate_pointer_assertions(data[key], f'{owner}.{key}')
     _reject_corpus_conflicts(data.get('data_pointers', []),

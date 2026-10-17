@@ -118,7 +118,7 @@ jumptable_5161:
     jae short @..api_idx_0004_GHPT.l2 ; 0x5180
     xchg bx, ax                      ; 0x5182
     shl bx, 1                        ; 0x5183
-    jmp [cs:bx - 0x5e58]             ; 0x5185
+    jmp [cs:bx + jumptable_5161 - IMAGE_BASE + __zres_end] ; 0x5185
 @..api_idx_0004_GHPT.l2:
     mov ax, 0x248                    ; 0x518a
     imul word [bp + 0x4]             ; 0x518d
@@ -328,7 +328,7 @@ jumptable_5339:
     jae short @..api_idx_0004_GHPT.l4 ; 0x5352
     xchg bx, ax                      ; 0x5354
     shl bx, 1                        ; 0x5355
-    jmp [cs:bx - 0x5c80]             ; 0x5357
+    jmp [cs:bx + jumptable_5339 - IMAGE_BASE + __zres_end] ; 0x5357
 @..api_idx_0004_GHPT.l4:
     mov ax, 0x248                    ; 0x535c
     imul word [bp + 0x4]             ; 0x535f
@@ -474,7 +474,7 @@ jumptable_547c:
     jae short @..api_idx_0004_GHPT.l10 ; 0x549b
     xchg bx, ax                      ; 0x549d
     shl bx, 1                        ; 0x549e
-    jmp [cs:bx - 0x5b3d]             ; 0x54a0
+    jmp [cs:bx + jumptable_547c - IMAGE_BASE + __zres_end] ; 0x54a0
 @..api_idx_0004_GHPT.l10:
     mov word [bp - 0x0002], 0        ; 0x54a5
 @..api_idx_0004_GHPT.l11:

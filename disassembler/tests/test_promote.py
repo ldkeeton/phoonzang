@@ -212,8 +212,8 @@ class SyntheticPromotionTests(unittest.TestCase):
         struct.pack_into('<H', data, 0x0, 0x0030)   # ds 0x00 -> ds 0x30 (BSS)
         binary = _synthetic(data)
         src, _ = self._source(binary)
-        self.assertIn(
-            'bss_0030 equ (__zimage_end - __zdseg_start) + 0x0020', src)
+        self.assertIn('bss_0030 equ __zbss_0030 - __zdseg_start', src)
+        self.assertIn('    resb 0x0020\n__zbss_0030:', src)
         self.assertIn('dw bss_0030', src)
         self.assertEqual(_nasm(src), binary)
 
