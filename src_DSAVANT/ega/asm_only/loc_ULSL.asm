@@ -17,7 +17,7 @@ loc_ULSL:
 @..loc_ULSL.l1:
     shl ax, 1                        ; 0x4c65
     shl ax, 1                        ; 0x4c67
-    mov bx, 0x4ab4                   ; 0x4c69
+    mov bx, cseg_49b4 - IMAGE_BASE   ; 0x4c69
     add bx, ax                       ; 0x4c6c
     mov ax, word [cs:bx]             ; 0x4c6e
     or ax, ax                        ; 0x4c71

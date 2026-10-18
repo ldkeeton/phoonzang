@@ -28,7 +28,7 @@ loc_3d82:
 loc_3d8f:
     push cx                          ; 0x3d8f
     call leaf_loc_MTKK               ; 0x3d90
-    mov ax, 0x36dd                   ; 0x3d93
+    mov ax, cseg_35dd - IMAGE_BASE   ; 0x3d93
     mov word [bp - 0x0034], ax       ; 0x3d96
     mov cx, word [bp - 0x0002]       ; 0x3d99
 loc_3d9c:

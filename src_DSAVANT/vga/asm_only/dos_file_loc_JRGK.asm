@@ -48,7 +48,7 @@ dos_file_loc_JRGK:
     dec ax                           ; 0x3fdf
     mov cl, 2                        ; 0x3fe0
     shl ax, cl                       ; 0x3fe2
-    mov bx, 0x2eb                    ; 0x3fe4
+    mov bx, cseg_01eb - IMAGE_BASE   ; 0x3fe4
     add bx, ax                       ; 0x3fe7
     mov word [bp - 0x0002], bx       ; 0x3fe9
     mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x3fec

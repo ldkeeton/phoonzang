@@ -3,13 +3,13 @@
 loc_LQTO:
     mov ax, word [bp + 0xc]          ; 0x12bb
     shl ax, 1                        ; 0x12be
-    mov si, 0x2c3                    ; 0x12c0
+    mov si, cseg_01c3 - IMAGE_BASE   ; 0x12c0
     add si, ax                       ; 0x12c3
     mov ax, word [cs:si]             ; 0x12c5
     dec ax                           ; 0x12c8
     mov cl, 2                        ; 0x12c9
     shl ax, cl                       ; 0x12cb
-    mov di, 0x2eb                    ; 0x12cd
+    mov di, cseg_01eb - IMAGE_BASE   ; 0x12cd
     add di, ax                       ; 0x12d0
     mov si, word [cs:di]             ; 0x12d2
     mov ax, word [cs:di + 0x2]       ; 0x12d5

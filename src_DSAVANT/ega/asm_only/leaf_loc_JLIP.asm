@@ -4,7 +4,7 @@ leaf_loc_JLIP:
     dec ax                           ; 0x4d55
     mov cl, 2                        ; 0x4d56
     shl ax, cl                       ; 0x4d58
-    mov bx, 0x10fb                   ; 0x4d5a
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x4d5a
     add bx, ax                       ; 0x4d5d
     mov word [bp - 0x0004], bx       ; 0x4d5f
     mov ax, word [cs:bx + 0x2]       ; 0x4d62

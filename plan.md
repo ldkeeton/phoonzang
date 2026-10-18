@@ -32,7 +32,8 @@ each literal operand or `dw` that should have moved and did not. Ratchet:
 | 2d7d06c5 | 135 | 984 | 0 |
 | 734d80e1 | 51 | 1207 | 0 |
 | indexed DS bound | 51 | 545 | 0 |
-| pointer arguments | **57** | **356** | 0 |
+| pointer arguments | 57 | 356 | 0 |
+| driver tables | **29** | **356** | 0 |
 
 The oracle is frozen. All rows were measured with its final version, in which
 a displacement counts only in the segment the edit moves and `bp` frame slots
@@ -56,6 +57,20 @@ numbers: `[bx + si]` reads, where either register may be the pointer
 thunks, and returned addresses. Code rose 51 → 57 only because vmnpc's newly
 named own data sits at CS 0xff7a–0xffac, which six csav frame sizes equal by
 chance.
+
+The driver row names the code-segment table addresses the raw drivers spell
+as numbers. `segdataflow.immediate_pointer_spaces` now also accepts, for a
+code-segment address only: `lea reg, [disp]`; a table start added to an index
+(`shl bx, 1; add bx, 0x4ab4; mov ax, [cs:bx]`) or an index added to a table
+start (`mov bx, 0x13df; add bx, ax`), where an index is a shifted, multiplied
+or zero-extended value; and a register handed to a near routine that reads
+through it (`mov bx, 0x33b3; call leaf_loc_OHGP` → `cs xlatb`). 17 sites the
+scan cannot reach (end-of-table loop bounds, frame-slot spills, a dead load)
+are reviewed `immediate_pointers` in the sidecar. Two wrong names went with
+it: ega/vga's shared bit-row clear (`lea di, [data_36dd]`) had its label 0x100
+bytes too high, inside the routine's own code, and ds's memory-block table
+(`lea si, [bss_2d40]`, read as `[cs:si]`) was named in DS. The only driver
+findings left are ega's EMS page size `0x4000` and copy count `0x3a00`.
 
 The data rise at 4a0e0cdb is visibility: 73 → 1419 named DS objects, so more
 literals match a known object. The name-independent classes held at 951–953.

@@ -16,7 +16,7 @@ dos_read_file_5:
     dec word [cs:cseg_028f - IMAGE_BASE] ; 0x3d88
     mov ax, word [bp + 0xe]          ; 0x3d8d
     shl ax, 1                        ; 0x3d90
-    mov bx, 0x2c3                    ; 0x3d92
+    mov bx, cseg_01c3 - IMAGE_BASE   ; 0x3d92
     add bx, ax                       ; 0x3d95
     mov ax, word [cs:bx]             ; 0x3d97
     mov word [cs:bx], 0              ; 0x3d9a
@@ -35,7 +35,7 @@ dos_read_file_5:
 @..dos_read_file_5.l2:
     mov ax, word [bp + 0xe]          ; 0x3dbe
     shl ax, 1                        ; 0x3dc1
-    mov bx, 0x2c3                    ; 0x3dc3
+    mov bx, cseg_01c3 - IMAGE_BASE   ; 0x3dc3
     add bx, ax                       ; 0x3dc6
     mov ax, word [cs:bx]             ; 0x3dc8
     or ax, ax                        ; 0x3dcb
@@ -48,7 +48,7 @@ dos_read_file_5:
     dec ax                           ; 0x3dde
     mov cl, 2                        ; 0x3ddf
     shl ax, cl                       ; 0x3de1
-    mov bx, 0x2eb                    ; 0x3de3
+    mov bx, cseg_01eb - IMAGE_BASE   ; 0x3de3
     add bx, ax                       ; 0x3de6
     mov word [bp - 0x0002], bx       ; 0x3de8
     mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x3deb

@@ -92,7 +92,7 @@ dos_read_file_4:
     dec ax                           ; 0x3c71
     mov cl, 2                        ; 0x3c72
     shl ax, cl                       ; 0x3c74
-    mov bx, 0x2eb                    ; 0x3c76
+    mov bx, cseg_01eb - IMAGE_BASE   ; 0x3c76
     add bx, ax                       ; 0x3c79
     mov ax, word [cs:bx]             ; 0x3c7b
     mov word [bp - 0x0002], ax       ; 0x3c7e

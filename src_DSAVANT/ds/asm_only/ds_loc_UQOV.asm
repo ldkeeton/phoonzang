@@ -14,7 +14,7 @@ ds_loc_UQOV:
     mov ax, cs                       ; 0x3a05
     mov ds, ax                       ; 0x3a07
     mov ax, word [bp + 0x4]          ; 0x3a09
-    mov bx, 0x364a                   ; 0x3a0c
+    mov bx, cseg_384a - IMAGE_BASE   ; 0x3a0c
     shl ax, 1                        ; 0x3a0f
     add bx, ax                       ; 0x3a11
     mov ax, word [bx]                ; 0x3a13

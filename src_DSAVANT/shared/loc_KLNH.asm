@@ -4,7 +4,7 @@ loc_KLNH:
     dec ax
     mov cl, 2
     shl ax, cl
-    mov bx, 0x2eb
+    mov bx, cseg_01eb - IMAGE_BASE
     add bx, ax
     mov word [bp - 0x0004], bx
     mov ax, word [cs:bx + 0x2]

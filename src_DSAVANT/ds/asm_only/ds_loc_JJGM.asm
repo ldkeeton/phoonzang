@@ -11,7 +11,7 @@ ds_loc_JJGM:
     mov es, ax                       ; 0x3ad5
     mov cx, 0xffff                   ; 0x3ad7
     mov ax, word [bp + 0x6]          ; 0x3ada
-    mov bx, 0x364a                   ; 0x3add
+    mov bx, cseg_384a - IMAGE_BASE   ; 0x3add
     shl ax, 1                        ; 0x3ae0
     add bx, ax                       ; 0x3ae2
     mov ax, word [cs:bx]             ; 0x3ae4

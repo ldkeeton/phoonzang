@@ -16,7 +16,7 @@ loc_3c3f:
 loc_3c4f:
     push cx                          ; 0x3c4f
     call leaf_loc_MTKK               ; 0x3c50
-    mov ax, 0x36dd                   ; 0x3c53
+    mov ax, cseg_35dd - IMAGE_BASE   ; 0x3c53
     mov word [bp - 0x0034], ax       ; 0x3c56
     mov cx, word [bp - 0x0002]       ; 0x3c59
 loc_3c5c:

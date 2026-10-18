@@ -171,7 +171,9 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
         insn = by_addr.get(addr)
         if insn is None or idx >= len(insn.operands):
             continue
-        value = insn.operands[idx].imm & 0xFFFF
+        op = insn.operands[idx]
+        # ``lea reg, [disp]`` loads its displacement as the address.
+        value = (op.mem.disp if op.type == CS_OP_MEM else op.imm) & 0xFFFF
         if value == 0:
             continue
         if space == LOAD:
@@ -194,18 +196,24 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
     return result
 
 
+#: Instructions whose immediate a sidecar ``immediate_pointers`` entry may name.
+_DECLARABLE = ('mov', 'add', 'sub', 'cmp')
+
+
 def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
                                  start_offset, owner=''):
-    """Symbols for the sidecar's ``immediate_pointers`` (a ``mov reg, imm16``).
+    """Symbols for the sidecar's ``immediate_pointers`` (``op reg16, imm16``).
 
     Segment dataflow proves an immediate by its use; a register loaded with a
     table's address and then overwritten unread (``mov di, 0x1a3a`` in a
     routine that indexes that table as ``[cs:bx + 0x1a3a]``) has no use to
-    prove it by, yet its value still moves with the table.  Each entry names
-    the instruction's file ``offset`` and the ``space`` (only ``cs``); the
-    instruction must be ``mov reg, imm16`` whose value is a byte of this image,
-    or the sidecar is wrong and this raises.  Overlays are not supported (their
-    CS values are ``o_corg``-based).
+    prove it by, yet its value still moves with the table.  So does a table's
+    end in a loop bound (``cmp bx, 0xe3a``) or its start taken back off a
+    pointer (``sub bx, 0x257d``).  Each entry names the instruction's file
+    ``offset`` and the ``space`` (only ``cs``); the instruction must be
+    ``mov``/``add``/``sub``/``cmp reg16, imm16`` whose value is a byte of this
+    image, or the sidecar is wrong and this raises.  Overlays are not
+    supported (their CS values are ``o_corg``-based).
     """
     from capstone import CS_OP_IMM, CS_OP_REG
     from lib.sidecar.errors import SidecarError
@@ -221,10 +229,10 @@ def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
             raise SidecarError(f'{where}: only a non-overlay cs pointer is supported')
         insn = by_addr.get(entry['offset'])
         ops = insn.operands if insn is not None else ()
-        if (insn is None or insn.mnemonic != 'mov' or len(ops) != 2
+        if (insn is None or insn.mnemonic not in _DECLARABLE or len(ops) != 2
                 or ops[0].type != CS_OP_REG or ops[1].type != CS_OP_IMM
                 or ops[0].size != 2):
-            raise SidecarError(f'{where}: not a decoded `mov reg16, imm16`')
+            raise SidecarError(f'{where}: not a decoded `op reg16, imm16`')
         value = ops[1].imm & 0xFFFF
         file_off = value + start_offset - _load_offset(segments)
         if not 0 <= file_off < file_size:

@@ -16,7 +16,7 @@ dos_write_file:
     jmp near @..dos_write_file.l4    ; 0x0ed3
 @..dos_write_file.l1:
     neg ax                           ; 0x0ed6
-    mov bx, 0x251                    ; 0x0ed8
+    mov bx, cseg_0151 - IMAGE_BASE   ; 0x0ed8
     shl ax, 1                        ; 0x0edb
     add bx, ax                       ; 0x0edd
     mov ax, word [cs:bx]             ; 0x0edf
@@ -31,7 +31,7 @@ dos_write_file:
     mov cl, 2                        ; 0x0ef5
     dec ax                           ; 0x0ef7
     shl ax, cl                       ; 0x0ef8
-    mov bx, 0x10fb                   ; 0x0efa
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x0efa
     add bx, ax                       ; 0x0efd
     mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x0eff
     mov word [cs:bx], ax             ; 0x0f03
@@ -47,13 +47,13 @@ dos_write_file:
     mov ax, word [bp + 0xc]          ; 0x0f22
     neg ax                           ; 0x0f25
     shl ax, 1                        ; 0x0f27
-    mov bx, 0x251                    ; 0x0f29
+    mov bx, cseg_0151 - IMAGE_BASE   ; 0x0f29
     add bx, ax                       ; 0x0f2c
     mov ax, word [cs:bx]             ; 0x0f2e
     dec ax                           ; 0x0f31
     mov cl, 2                        ; 0x0f32
     shl ax, cl                       ; 0x0f34
-    mov bx, 0x10fb                   ; 0x0f36
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x0f36
     add bx, ax                       ; 0x0f39
     mov ax, word [cs:bx]             ; 0x0f3b
     add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x0f3e

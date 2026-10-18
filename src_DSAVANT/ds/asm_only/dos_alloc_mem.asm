@@ -56,7 +56,7 @@ dos_alloc_mem:
     jae short @..dos_alloc_mem.l3    ; 0x38d6
     jmp near ds_loc_395b             ; 0x38d8
 @..dos_alloc_mem.l3:
-    mov bx, 0x364a                   ; 0x38db
+    mov bx, cseg_384a - IMAGE_BASE   ; 0x38db
     mov cx, word [bp + 0x6]          ; 0x38de
     shl cx, 1                        ; 0x38e1
     add bx, cx                       ; 0x38e3

@@ -214,7 +214,7 @@ io_loc_UQHG:
 @..io_loc_UQHG.l13:
     mov ax, 0xa000                   ; 0x2ca6
     mov es, ax                       ; 0x2ca9
-    mov si, 0x2602                   ; 0x2cab
+    mov si, cseg_2502 - IMAGE_BASE   ; 0x2cab
     mov ax, cs                       ; 0x2cae
     mov ds, ax                       ; 0x2cb0
     xor si, si                       ; 0x2cb2
@@ -291,13 +291,13 @@ io_loc_UQHG:
     mov bx, word [bp - 0x0002]       ; 0x2d55
     mul bx                           ; 0x2d58
     mov di, ax                       ; 0x2d5a
-    add di, strict word 0x24fd       ; 0x2d5c
+    add di, cseg_23fd - IMAGE_BASE   ; 0x2d5c
     mov ax, word [bp - 0x0006]       ; 0x2d60
     mov bx, word [cs:cseg_1ad9 - IMAGE_BASE] ; 0x2d63
     shr bx, 1                        ; 0x2d68
     shr bx, 1                        ; 0x2d6a
     sub ax, bx                       ; 0x2d6c
-    mov bx, 0x257d                   ; 0x2d6e
+    mov bx, cseg_247d - IMAGE_BASE   ; 0x2d6e
 @..io_loc_UQHG.l16:
     cmp ax, strict word 8            ; 0x2d71
     jb short @..io_loc_UQHG.l17      ; 0x2d74
@@ -330,7 +330,7 @@ io_loc_UQHG:
     mov byte [bx], ah                ; 0x2da7
     inc bx                           ; 0x2da9
 @..io_loc_UQHG.l20:
-    sub bx, strict word 0x257d       ; 0x2daa
+    sub bx, cseg_247d - IMAGE_BASE   ; 0x2daa
     mov word [bp - 0x0004], bx       ; 0x2dae
     mov cx, word [bp - 0x0010]       ; 0x2db1
 @..io_loc_UQHG.l21:

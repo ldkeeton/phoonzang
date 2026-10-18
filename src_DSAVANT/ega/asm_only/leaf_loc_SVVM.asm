@@ -10,7 +10,7 @@ leaf_loc_SVVM:
     push di                          ; 0x31fd
     mov ax, ds                       ; 0x31fe
     mov es, ax                       ; 0x3200
-    mov bx, 0x33b3                   ; 0x3202
+    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x3202
     add bx, word [bp + 0xc]          ; 0x3205
     mov ax, word [bp + 0xe]          ; 0x3208
     cmp ax, strict word 0xffff       ; 0x320b
@@ -18,7 +18,7 @@ leaf_loc_SVVM:
     mov word [cs:bx], 0xff           ; 0x3210
     jmp short @..leaf_loc_SVVM.l4    ; 0x3215
 @..leaf_loc_SVVM.l1:
-    mov si, 0x32e2                   ; 0x3217
+    mov si, cseg_31e2 - IMAGE_BASE   ; 0x3217
     mov ax, 8                        ; 0x321a
     shl ax, 1                        ; 0x321d
     add si, ax                       ; 0x321f

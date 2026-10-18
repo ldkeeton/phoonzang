@@ -18,7 +18,7 @@ loc_ROPT:
 @..loc_ROPT.l1:
     shl ax, 1                        ; 0x358b
     mov word [bp - 0x0008], ax       ; 0x358d
-    mov bx, 0x251                    ; 0x3590
+    mov bx, cseg_0151 - IMAGE_BASE   ; 0x3590
     add bx, ax                       ; 0x3593
     mov ax, word [cs:bx]             ; 0x3595
     or ax, ax                        ; 0x3598

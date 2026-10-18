@@ -12,13 +12,13 @@ loc_SLKJ:
     mov es, ax                       ; 0x5048
     mov bx, word [bp + 0xc]          ; 0x504a
     shl bx, 1                        ; 0x504d
-    add bx, strict word 0x4fa3       ; 0x504f
+    add bx, cseg_4ea3 - IMAGE_BASE   ; 0x504f
     mov ax, word [cs:bx]             ; 0x5053
     mov word [bp - 0x0008], ax       ; 0x5056
     mov bx, word [bp + 0xc]          ; 0x5059
     shl bx, 1                        ; 0x505c
     shl bx, 1                        ; 0x505e
-    add bx, strict word 0x4f8b       ; 0x5060
+    add bx, cseg_4e8b - IMAGE_BASE   ; 0x5060
     mov word [bp - 0x0002], bx       ; 0x5064
     mov ax, word [cs:bx + 0x2]       ; 0x5067
     mov word [bp - 0x0006], ax       ; 0x506b
@@ -28,7 +28,7 @@ loc_SLKJ:
     dec ax                           ; 0x5075
     shl ax, 1                        ; 0x5076
     shl ax, 1                        ; 0x5078
-    mov bx, 0x10fb                   ; 0x507a
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x507a
     add bx, ax                       ; 0x507d
     mov word [bp - 0x0004], bx       ; 0x507f
     push word [bp - 0x0008]          ; 0x5082

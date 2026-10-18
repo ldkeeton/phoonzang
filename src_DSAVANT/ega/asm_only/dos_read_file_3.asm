@@ -12,7 +12,7 @@ dos_read_file_3:
     mov es, ax                       ; 0x3091
     mov ax, word [bp + 0xe]          ; 0x3093
     shl ax, 1                        ; 0x3096
-    mov bx, 0x229                    ; 0x3098
+    mov bx, cseg_0129 - IMAGE_BASE   ; 0x3098
     add bx, ax                       ; 0x309b
     mov word [bp - 0x0002], bx       ; 0x309d
     mov ax, word [cs:bx]             ; 0x30a0
@@ -28,7 +28,7 @@ dos_read_file_3:
     dec ax                           ; 0x30b9
     mov cl, 2                        ; 0x30ba
     shl ax, cl                       ; 0x30bc
-    mov bx, 0x10fb                   ; 0x30be
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x30be
     add bx, ax                       ; 0x30c1
     mov word [bp - 0x0002], bx       ; 0x30c3
     mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x30c6

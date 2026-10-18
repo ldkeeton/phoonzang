@@ -14,7 +14,7 @@ string_loc_RHHH:
     xor al, al                       ; 0x17b7
     rep stosb                        ; 0x17b9
     xor di, di                       ; 0x17bb
-    mov bx, 0x33b3                   ; 0x17bd
+    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x17bd
     mov cx, word [cs:cseg_2491 - IMAGE_BASE] ; 0x17c0
 @..string_loc_RHHH.l1:
     push cx                          ; 0x17c5

@@ -193,7 +193,7 @@ dos_write_file_2:
     dec ax                           ; 0x3a29
     mov cl, 2                        ; 0x3a2a
     shl ax, cl                       ; 0x3a2c
-    mov bx, 0x2eb                    ; 0x3a2e
+    mov bx, cseg_01eb - IMAGE_BASE   ; 0x3a2e
     add bx, ax                       ; 0x3a31
     mov ax, word [bp - 0x000e]       ; 0x3a33
     mov word [cs:bx], ax             ; 0x3a36

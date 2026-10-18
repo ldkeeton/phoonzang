@@ -35,7 +35,7 @@ dos_print_str:
     dec bx                           ; 0x1520
     mov cl, 2                        ; 0x1521
     shl bx, cl                       ; 0x1523
-    add bx, strict word 0x10fb       ; 0x1525
+    add bx, cseg_0ffb - IMAGE_BASE   ; 0x1525
     mov ax, word [cs:bx]             ; 0x1529
     mov word [bp - 0x0002], ax       ; 0x152c
     mov ax, word [bp + 0x12]         ; 0x152f

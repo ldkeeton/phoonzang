@@ -109,6 +109,38 @@ class ImmediatePointerTest(unittest.TestCase):
         # nop; mov bx, 0x1a3a; jmp 0x200 (back over the definition); [cs:bx]
         self.assertEqual(self._proven('90' 'bb3a1a' 'ebfa' '2e8827'), {})
 
+    def test_lea_of_an_absolute_address_is_a_load(self):
+        # lea di, [0x1a3a]; mov [cs:di], al
+        self.assertEqual(self._proven('8d3e3a1a' '2e8805'), {(0x200, 1): LOAD})
+
+    def test_a_table_start_added_to_an_index(self):
+        # shl bx, 1; add bx, 0x1a3a; mov ax, [cs:bx]
+        self.assertEqual(self._proven('d1e3' '81c33a1a' '2e8b07'),
+                         {(0x202, 1): LOAD})
+
+    def test_a_constant_added_to_a_non_index_proves_nothing(self):
+        # mov bx, [bp+4]; add bx, 0x1a3a; mov ax, [cs:bx] -- bx may be a
+        # pointer and 0x1a3a an offset into what it points at.
+        self.assertEqual(self._proven('8b5e04' '81c33a1a' '2e8b07'), {})
+
+    def test_an_index_added_to_a_table_start(self):
+        # xor ah, ah; mov bx, 0x1a3a; add bx, ax; mov [cs:bx], al
+        self.assertEqual(self._proven('30e4' 'bb3a1a' '01c3' '2e8807'),
+                         {(0x202, 1): LOAD})
+
+    def test_a_non_index_added_to_a_table_start_ends_the_scan(self):
+        # mov ax, [bp+4]; mov bx, 0x1a3a; add bx, ax; mov [cs:bx], al
+        self.assertEqual(self._proven('8b4604' 'bb3a1a' '01c3' '2e8807'), {})
+
+    def test_the_new_shapes_prove_only_code_segment_addresses(self):
+        # shl bx, 1; add bx, 0x1a3a; mov ax, [bx] -- a DS table is left alone.
+        self.assertEqual(self._proven('d1e3' '81c33a1a' '8b07'), {})
+
+    def test_a_register_parameter_read_by_the_callee(self):
+        # mov bx, 0x1a3a; call 0x207; ret / 0x207: cs xlatb; ret
+        self.assertEqual(self._proven('bb3a1a' 'e80100' 'c3' '2ed7' 'c3'),
+                         {(0x200, 1): LOAD})
+
 
 class CallerStateTest(unittest.TestCase):
     """A root reached only by direct calls starts in its callers' state."""

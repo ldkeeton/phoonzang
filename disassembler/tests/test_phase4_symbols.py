@@ -164,6 +164,11 @@ class DeclaredImmediateTests(unittest.TestCase):
         self.assertEqual(result, {(0x65c, 1): 'cseg_193a - IMAGE_BASE'})
         self.assertEqual(list(equ.values()), [0x193a])
 
+    def test_a_declared_loop_bound_is_a_code_segment_pointer(self):
+        # cmp bx, 0xe3a: the end of a table the loop walks.
+        result, _ = self._resolve('81fb3a0e', 0x72, space='cs')
+        self.assertEqual(result, {(0x72, 1): 'cseg_0d3a - IMAGE_BASE'})
+
     def test_a_declaration_on_another_instruction_is_an_error(self):
         from lib.sidecar.errors import SidecarError
         with self.assertRaises(SidecarError):

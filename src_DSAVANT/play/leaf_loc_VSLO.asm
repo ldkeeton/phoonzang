@@ -3,7 +3,7 @@ leaf_loc_VSLO:
     push ax                          ; 0x12f1
     push bx                          ; 0x12f2
     xor ah, ah                       ; 0x12f3
-    mov bx, 0x13df                   ; 0x12f5
+    mov bx, cseg_12df - IMAGE_BASE   ; 0x12f5
     shl ax, 1                        ; 0x12f8
     add bx, ax                       ; 0x12fa
     mov dx, word [cs:bx]             ; 0x12fc

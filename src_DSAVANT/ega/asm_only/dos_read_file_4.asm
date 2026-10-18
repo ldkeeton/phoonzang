@@ -41,13 +41,13 @@ dos_read_file_4:
 @..dos_read_file_4.l3:
     mov ax, word [bp + 0xc]          ; 0x44a9
     shl ax, 1                        ; 0x44ac
-    mov bx, 0x25b                    ; 0x44ae
+    mov bx, cseg_015b - IMAGE_BASE   ; 0x44ae
     add bx, ax                       ; 0x44b1
     mov ax, word [cs:bx]             ; 0x44b3
     dec ax                           ; 0x44b6
     mov cl, 2                        ; 0x44b7
     shl ax, cl                       ; 0x44b9
-    mov bx, 0x10fb                   ; 0x44bb
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x44bb
     add bx, ax                       ; 0x44be
     mov ax, word [cs:bx]             ; 0x44c0
     add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x44c3
@@ -75,7 +75,7 @@ dos_read_file_4:
     je short @..dos_read_file_4.l5   ; 0x44f7
     mov ax, word [bp + 0xc]          ; 0x44f9
     shl ax, 1                        ; 0x44fc
-    mov bx, 0x25b                    ; 0x44fe
+    mov bx, cseg_015b - IMAGE_BASE   ; 0x44fe
     add bx, ax                       ; 0x4501
     mov ax, word [cs:bx]             ; 0x4503
     mov word [cs:bx], 0              ; 0x4506
@@ -86,13 +86,13 @@ dos_read_file_4:
 @..dos_read_file_4.l6:
     mov ax, word [bp + 0xc]          ; 0x4516
     shl ax, 1                        ; 0x4519
-    mov bx, 0x29b                    ; 0x451b
+    mov bx, cseg_019b - IMAGE_BASE   ; 0x451b
     add bx, ax                       ; 0x451e
     mov ax, word [cs:bx]             ; 0x4520
     dec ax                           ; 0x4523
     mov cl, 2                        ; 0x4524
     shl ax, cl                       ; 0x4526
-    mov bx, 0x2eb                    ; 0x4528
+    mov bx, cseg_01eb - IMAGE_BASE   ; 0x4528
     add bx, ax                       ; 0x452b
     mov ax, word [cs:bx]             ; 0x452d
     mov word [bp - 0x0002], ax       ; 0x4530
@@ -138,7 +138,7 @@ dos_read_file_4:
     mov word [cs:cseg_028f - IMAGE_BASE], cx ; 0x4598
     mov ax, word [bp + 0xc]          ; 0x459d
     shl ax, 1                        ; 0x45a0
-    mov bx, 0x29b                    ; 0x45a2
+    mov bx, cseg_019b - IMAGE_BASE   ; 0x45a2
     add bx, ax                       ; 0x45a5
     mov ax, word [cs:bx]             ; 0x45a7
     mov word [cs:bx], 0              ; 0x45aa

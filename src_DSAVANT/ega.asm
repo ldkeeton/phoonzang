@@ -219,7 +219,11 @@ cseg_01c3:
 
 cseg_01d7:
 
-    times 184 db 0
+    times 20 db 0
+
+cseg_01eb:
+
+    times 164 db 0
 
 cseg_028f:
     db 0x00, 0x00
@@ -265,7 +269,11 @@ cseg_0948:
 
 cseg_0fe7:
 
-    times 228 db 0
+    times 20 db 0
+
+cseg_0ffb:
+
+    times 208 db 0
 
 cseg_10cb:
     db 0x00, 0x00
@@ -464,6 +472,11 @@ cseg_3197:
 
 %include "ega/graphics_loc_VROJ.asm"       ; 0x31df
 
+cseg_31e2:
+
+    db 0x05, 0x00, 0x08, 0x0a, 0x0a, 0xaa, 0x11, 0x2a, 0x13, 0x22, 0x16, 0x2f, 0x19, 0xff, 0x1a, 0x7f
+    db 0x1c, 0x77
+
 %include "ega/asm_only/leaf_loc_SVVM.asm"           ; 0x31f4
 
 %include "ega/leaf_loc_PLIR_3240.asm"      ; 0x3240
@@ -649,8 +662,10 @@ string_loc_RQON.dos_file_loc1 equ dos_file_loc_ISRM
 
 cseg_4e8b:
 
-    times 34 db 0
+    times 24 db 0
 
+cseg_4ea3:
+    times 10 db 0
 %include "ega/asm_only/dos_read_file_7.asm"         ; 0x4ead
 
 %include "ega/asm_only/loc_SLKJ.asm"                ; 0x503c

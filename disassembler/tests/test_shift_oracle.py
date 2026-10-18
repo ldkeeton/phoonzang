@@ -32,8 +32,13 @@ _TREE = shift_oracle.TREE
 # vmnpc's own data, now named, sits after its code at CS 0xff7a-0xffac, and six
 # ``mov ax, 0xffac; call aztec_csav`` frame sizes equal those labels by chance
 # (the oracle's constant-equals-a-label case, like ega's ``0x4000``).
+# Code fell 57 -> 29 when the drivers' code-segment table addresses became
+# names: a table start added to an index, ``lea``, a register handed to a
+# routine that reads through it (``segdataflow.immediate_pointer_spaces``), and
+# 17 reviewed ``immediate_pointers`` (loop bounds, frame-slot spills).  Every
+# driver finding left is ega's EMS page size ``0x4000`` / count ``0x3a00``.
 # A rise from new visibility is re-measured and explained here, not hidden.
-BASELINE = {'code': 57, 'data': 356, 'branch': 0}
+BASELINE = {'code': 29, 'data': 356, 'branch': 0}
 
 
 def _sites(result):
@@ -84,6 +89,12 @@ class ShiftOracleSanityTests(unittest.TestCase):
         # reads through: the string's address is now a name.
         r = shift_oracle.run('ds', 'data')
         self.assertNotIn(('ds/ds_app_file_QQMM.asm', 51), _sites(r))
+
+    def test_a_driver_table_start_plus_an_index_moves(self):
+        # ``mov bx, 0x13df; shl ax, 1; add bx, ax; mov dx, word [cs:bx]``.
+        r = shift_oracle.run('play', 'code')
+        self.assertNotIn(('play/leaf_loc_VSLO.asm', 6), _sites(r))
+        self.assertEqual(r['frozen'], [])
 
 
 @slow

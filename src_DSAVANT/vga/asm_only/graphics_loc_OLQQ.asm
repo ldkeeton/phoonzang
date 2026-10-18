@@ -62,11 +62,11 @@ graphics_loc_OLQQ:
     mov word [bp - 0x0038], ax       ; 0x2df3
     mov ax, cs                       ; 0x2df6
     mov es, ax                       ; 0x2df8
-    lea di, word [data_2e2b]         ; 0x2dfa
+    lea di, word [cseg_2d2b - IMAGE_BASE] ; 0x2dfa
     xor ax, ax                       ; 0x2dfe
     mov cx, 0x14                     ; 0x2e00
     rep stosw                        ; 0x2e03
-    lea di, word [data_2e53]         ; 0x2e05
+    lea di, word [cseg_2d53 - IMAGE_BASE] ; 0x2e05
     mov cx, 0x19                     ; 0x2e09
     rep stosb                        ; 0x2e0c
     mov bx, word [bp + 0x20]         ; 0x2e0e
@@ -82,7 +82,6 @@ graphics_loc_OLQQ:
     mov cx, ax                       ; 0x2e24
     mov bx, word [bp + 0x20]         ; 0x2e26
     mul bx                           ; 0x2e29
-data_2e2b:
     mov bx, 0x64                     ; 0x2e2b
     div bx                           ; 0x2e2e
     cmp dx, byte 0x32                ; 0x2e30
@@ -102,7 +101,6 @@ data_2e2b:
     mov word [bp - 0x003c], bx       ; 0x2e4d
     mov si, ax                       ; 0x2e50
     dec si                           ; 0x2e52
-data_2e53:
     mov word [bp - 0x0030], ax       ; 0x2e53
     mov word [bp - 0x0032], cx       ; 0x2e56
     call leaf_loc_NOSG               ; 0x2e59

@@ -1,7 +1,7 @@
 ; auto-generated
 ; asm only
 loc_OJOO:
-    mov bx, 0xddf                    ; 0x0e01
+    mov bx, cseg_0cdf - IMAGE_BASE   ; 0x0e01
     and al, 0xf                      ; 0x0e04
     xor ah, ah                       ; 0x0e06
     add bx, ax                       ; 0x0e08

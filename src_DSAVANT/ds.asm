@@ -56,6 +56,7 @@ dseg_0cde equ __zdseg_0cde - __zdseg_start
 bss_0e36 equ __zbss_0e36 - __zdseg_start
 bss_0e38 equ __zbss_0e38 - __zdseg_start
 bss_0e4c equ __zbss_0e4c - __zdseg_start
+bss_2d40 equ __zbss_2d40 - __zdseg_start
 bss_5528 equ __zbss_5528 - __zdseg_start
 bss_552a equ __zbss_552a - __zdseg_start
 bss_5642 equ __zbss_5642 - __zdseg_start
@@ -686,7 +687,6 @@ cseg_36ce:
     db 0x00, 0x00
 %include "ds/ds_leaf_loc_UJPS.asm"         ; 0x36d0
 
-bss_2d40 equ __zbss_2d40 - __zdseg_start
 %include "ds/asm_only/ds_dos_mem_loc_TGHM.asm"      ; 0x36f5
 
 %include "ds/asm_only/ds_dos_mem_loc_JMGG.asm"      ; 0x371d

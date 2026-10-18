@@ -9,7 +9,7 @@ leaf_loc_TKVU:
 @..leaf_loc_TKVU.l2:
     inc al                           ; 0x0f65
     add bx, byte 5                   ; 0x0f67
-    cmp bx, strict word 0xe3a        ; 0x0f6a
+    cmp bx, cseg_0d3a - IMAGE_BASE   ; 0x0f6a
     jb short @..leaf_loc_TKVU.l1     ; 0x0f6e
     jmp near loc_NGKV                ; 0x0f70
 loc_GLKJ:

@@ -17,7 +17,7 @@ dos_read_file_2:
 @..dos_read_file_2.l1:
     shl ax, 1                        ; 0x10e8
     mov word [bp - 0x0008], ax       ; 0x10ea
-    mov bx, 0x10e7                   ; 0x10ed
+    mov bx, cseg_0fe7 - IMAGE_BASE   ; 0x10ed
     add bx, ax                       ; 0x10f0
     mov word [bp - 0x0002], bx       ; 0x10f2
     mov ax, word [cs:bx]             ; 0x10f5

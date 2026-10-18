@@ -113,7 +113,7 @@ graphics_loc_IMOU:
     mov cx, word [bp - 0x000e]       ; 0x0a71
 @..graphics_loc_IMOU.l8:
     push cx                          ; 0x0a74
-    mov bx, 0x33b3                   ; 0x0a75
+    mov bx, cseg_32b3 - IMAGE_BASE   ; 0x0a75
     mov ah, byte [bp - 0x001c]       ; 0x0a78
     lodsb                            ; 0x0a7b
     call leaf_loc_OHGP               ; 0x0a7c

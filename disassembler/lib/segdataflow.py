@@ -196,47 +196,185 @@ def immediate_pointer_spaces(instructions, flow, limit=64):
     ``mov reg, imm16`` whose *reg* is used, before being redefined, as the
     base of a memory operand (explicitly or via a string op) whose segment is
     statically known.  Anything not provable this way is left out.
-    """
-    from capstone import CS_OP_REG, CS_OP_IMM, CS_OP_MEM
 
+    A few more shapes prove a code-segment (``LOAD``) address only, the space
+    the raw drivers keep their tables in:
+
+    * ``lea reg, [disp]``: the same load, spelled as an address computation;
+    * ``add reg, imm16`` where *reg* holds an index (a shifted, multiplied or
+      zero-extended value): a table's start plus an element offset;
+    * ``mov reg, imm16`` then ``add reg, other`` where *other* holds an index;
+    * a near call to a routine that reads *reg* as a pointer before writing it
+      (a register parameter: ``mov bx, table; call f`` / ``f: cs xlatb``).
+    """
     insns = sorted(instructions, key=lambda i: i.address)
     index_of = {insn.address: k for k, insn in enumerate(insns)}
+    joins = _join_points(insns)
     result = {}
     for k, insn in enumerate(insns):
-        if insn.mnemonic != 'mov' or len(insn.operands) != 2:
+        defined = _immediate_definition(insns, k, joins)
+        if defined is None:
             continue
-        dest, src = insn.operands
-        if dest.type != CS_OP_REG or src.type != CS_OP_IMM:
+        parent, code_only = defined
+        space, extended = _pointer_use(insns, index_of, joins, k, parent,
+                                       flow, limit, follow_calls=True)
+        if space is None or ((code_only or extended) and space != LOAD):
             continue
-        reg = insn.reg_name(dest.reg).lower()
-        parent = _R8_PARENT.get(reg, reg)
-        if parent in _SEG_REGS:
-            continue
-        space = None
-        j = k + 1
-        for _ in range(limit):
-            if j >= len(insns):
-                break
-            nxt = insns[j]
-            if _writes_register(nxt, parent):
-                break
-            space = _use_space(nxt, parent, flow)
-            if space is not None:
-                break
-            if nxt.mnemonic == 'jmp':
-                # A forward direct jump is the only path on: follow it (a
-                # backward one could loop back over the definition).
-                target = _direct_target(nxt)
-                j = index_of.get(target, -1) if target is not None else -1
-                if j <= k:
-                    break
-                continue
-            if nxt.mnemonic in _TERMINATORS or nxt.mnemonic == 'ljmp':
-                break
-            j += 1
-        if space is not None:
-            result[(insn.address, 1)] = space
+        result[(insn.address, 1)] = space
     return result
+
+
+def _immediate_definition(insns, k, joins):
+    """``(register, code_only)`` when ``insns[k]`` loads an address, else None."""
+    from capstone import CS_OP_REG, CS_OP_IMM, CS_OP_MEM
+
+    insn = insns[k]
+    if insn.mnemonic not in ('mov', 'lea', 'add') or len(insn.operands) != 2:
+        return None
+    dest, src = insn.operands
+    if dest.type != CS_OP_REG:
+        return None
+    parent = _R8_PARENT.get(insn.reg_name(dest.reg).lower(), '')
+    if not parent or parent in _SEG_REGS:
+        return None
+    if insn.mnemonic == 'mov':
+        return (parent, False) if src.type == CS_OP_IMM else None
+    if insn.mnemonic == 'lea':
+        if src.type == CS_OP_MEM and not (src.mem.base or src.mem.index):
+            return parent, True
+        return None
+    if (src.type == CS_OP_IMM and dest.size == 2 and src.imm & 0xFFFF >= 0x100
+            and _holds_index(insns, k, parent, joins)):
+        return parent, True
+    return None
+
+
+def _pointer_use(insns, index_of, joins, k, parent, flow, limit,
+                 follow_calls):
+    """``(space, extended)`` of *parent*'s first use as a pointer after *k*.
+
+    *extended* is true when the proof needed an index addition or a callee.
+    """
+    from capstone import CS_OP_REG
+
+    extended = False
+    j = k + 1
+    for _ in range(limit):
+        if j >= len(insns):
+            break
+        nxt = insns[j]
+        ops = nxt.operands
+        if (nxt.mnemonic == 'add' and len(ops) == 2
+                and ops[0].type == CS_OP_REG and ops[1].type == CS_OP_REG
+                and _R8_PARENT.get(nxt.reg_name(ops[0].reg).lower()) == parent
+                and ops[0].size == 2
+                and _holds_index(insns, j,
+                                 _R8_PARENT.get(nxt.reg_name(ops[1].reg).lower(), ''),
+                                 joins)):
+            # The table's start plus an element offset is still a pointer
+            # into the table.
+            extended = True
+            j += 1
+            continue
+        if _writes_register(nxt, parent):
+            break
+        space = _use_space(nxt, parent, flow)
+        if space is not None:
+            return space, extended
+        if follow_calls and nxt.mnemonic == 'call' and nxt.bytes[0] == 0xE8:
+            target = index_of.get(_direct_target(nxt))
+            if target is not None:
+                space, _ = _pointer_use(insns, index_of, joins, target - 1,
+                                        parent, flow, limit,
+                                        follow_calls=False)
+                if space is not None:
+                    return space, True
+        if nxt.mnemonic == 'jmp':
+            # A forward direct jump is the only path on: follow it (a
+            # backward one could loop back over the definition).
+            target = _direct_target(nxt)
+            j = index_of.get(target, -1) if target is not None else -1
+            if j <= k:
+                break
+            continue
+        if nxt.mnemonic in _TERMINATORS or nxt.mnemonic == 'ljmp':
+            break
+        j += 1
+    return None, extended
+
+
+def _join_points(insns):
+    """Addresses reached other than by falling through the previous insn."""
+    joins = set()
+    for insn in insns:
+        if insn.mnemonic in ('jmp', 'call') or insn.mnemonic in _COND_JUMPS:
+            target = _direct_target(insn)
+            if target is not None:
+                joins.add(target)
+    for prev, insn in zip(insns, insns[1:]):
+        if prev.address + prev.size != insn.address:
+            joins.add(insn.address)
+    return joins
+
+
+#: Mnemonics after which a register holds an element offset, not an address.
+_INDEX_MAKERS = {'shl', 'sal', 'mul'}
+
+
+def _holds_index(insns, k, reg, joins, depth=4):
+    """True when *reg* holds an index on entry to ``insns[k]``.
+
+    An index is a shifted or multiplied value, or one whose high byte was just
+    cleared (``xor ah, ah``; ``and ax, 0xf``): nothing an address is built
+    from.  The definition must be in the same straight-line run.
+    """
+    from capstone import CS_OP_REG, CS_OP_IMM
+
+    if not reg or depth == 0:
+        return False
+    for j in range(k - 1, max(k - 1 - _INDEX_BACK, -1), -1):
+        if insns[j + 1].address in joins:
+            return False
+        insn = insns[j]
+        mnem = insn.mnemonic
+        if mnem in _TERMINATORS or mnem in ('jmp', 'call', 'ljmp', 'lcall'):
+            return False
+        written = {_R8_PARENT.get(insn.reg_name(r).lower(), '')
+                   for r in insn.regs_access()[1]}
+        if reg not in written:
+            continue
+        ops = insn.operands
+        if mnem == 'mul' or (mnem == 'imul' and len(ops) == 1):
+            return reg in ('ax', 'dx')
+        if not ops or ops[0].type != CS_OP_REG:
+            return False
+        dest = insn.reg_name(ops[0].reg).lower()
+        if mnem in _INDEX_MAKERS:
+            return True
+        if (mnem == 'xor' and len(ops) == 2 and ops[1].type == CS_OP_REG
+                and ops[1].reg == ops[0].reg and dest == reg[0] + 'h'):
+            return True
+        if (mnem == 'mov' and dest == reg[0] + 'h' and len(ops) == 2
+                and ops[1].type == CS_OP_IMM and ops[1].imm == 0):
+            return True
+        if ops[0].size != 2:
+            return False
+        if mnem == 'and' and ops[1].type == CS_OP_IMM:
+            return ops[1].imm & 0xFFFF < 0x100
+        if mnem == 'mov' and ops[1].type == CS_OP_REG:
+            src = _R8_PARENT.get(insn.reg_name(ops[1].reg).lower(), '')
+            return _holds_index(insns, j, src, joins, depth - 1)
+        if mnem in ('add', 'sub') and not (
+                ops[1].type == CS_OP_IMM and ops[1].imm & 0xFFFF >= 0x100):
+            # An index plus another offset is still an index: the table's
+            # start is the immediate added to it.
+            return _holds_index(insns, j, reg, joins, depth - 1)
+        return False
+    return False
+
+
+#: How far back :func:`_holds_index` looks for a register's definition.
+_INDEX_BACK = 16
 
 
 def _writes_register(insn, parent):

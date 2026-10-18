@@ -38,7 +38,7 @@ loc_LPMH:
 loc_MGMT:
     inc word [cs:bx + 0x3]           ; 0x0f2d
     add bx, byte 5                   ; 0x0f31
-    cmp bx, strict word 0xe3a        ; 0x0f34
+    cmp bx, cseg_0d3a - IMAGE_BASE   ; 0x0f34
     jb short loc_MGMT                ; 0x0f38
     mov cl, byte [cs:cseg_0d48 - IMAGE_BASE] ; 0x0f3a
     xor ch, ch                       ; 0x0f3f

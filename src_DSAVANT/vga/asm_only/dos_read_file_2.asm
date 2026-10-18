@@ -170,13 +170,13 @@ dos_read_file_2:
 @..dos_read_file_2.l10:
     mov ax, word [bp + 0xc]          ; 0x0d9a
     shl ax, 1                        ; 0x0d9d
-    mov si, 0x2c3                    ; 0x0d9f
+    mov si, cseg_01c3 - IMAGE_BASE   ; 0x0d9f
     add si, ax                       ; 0x0da2
     mov ax, word [cs:si]             ; 0x0da4
     dec ax                           ; 0x0da7
     mov cl, 2                        ; 0x0da8
     shl ax, cl                       ; 0x0daa
-    mov di, 0x2eb                    ; 0x0dac
+    mov di, cseg_01eb - IMAGE_BASE   ; 0x0dac
     add di, ax                       ; 0x0daf
     mov si, word [cs:di]             ; 0x0db1
     mov ax, word [cs:di + 0x2]       ; 0x0db4

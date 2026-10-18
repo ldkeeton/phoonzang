@@ -225,7 +225,11 @@ cseg_01c3:
 __zdata_02d7:
 cseg_01d7:
 
-    times 184 db 0
+    times 20 db 0
+
+cseg_01eb:
+
+    times 164 db 0
 
 cseg_028f:
     db 0x00, 0x00
@@ -288,6 +292,7 @@ cseg_0ac6:
     times 20 db 0
 
 __zdata_0bda:
+cseg_0ada:
 
     times 208 db 0
 
@@ -531,12 +536,16 @@ cseg_2d53:
 
 ; data_0229 equ __zdata_0229 - IMAGE_BASE
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
+data_2e2b equ __zdata_2e2b - IMAGE_BASE
+data_2e53 equ __zdata_2e53 - IMAGE_BASE
 %include "vga/asm_only/graphics_loc_OLQQ.asm"       ; 0x2d6c
 
 %include "vga/asm_only/dos_con_loc_PILL.asm"        ; 0x3131
 
 %include "shared/leaf_loc_NOSG.asm"           ; 0x319f
 
+; data_2e2b equ __zdata_2e2b - IMAGE_BASE
+; data_2e53 equ __zdata_2e53 - IMAGE_BASE
 data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/asm_only/graphics_loc_PVIU.asm"       ; 0x31d9
 
@@ -544,12 +553,15 @@ data_381b equ __zdata_381b - IMAGE_BASE
 
 %include "vga/leaf_loc_GLTQ.asm"           ; 0x3360
 
+; data_2e2b equ __zdata_2e2b - IMAGE_BASE
 ; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_337c.asm"                ; 0x337c
 
+; data_2e2b equ __zdata_2e2b - IMAGE_BASE
 ; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_3498.asm"                ; 0x3498
 
+; data_2e2b equ __zdata_2e2b - IMAGE_BASE
 ; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_35d8.asm"                ; 0x35d8
 
@@ -660,6 +672,7 @@ cseg_45d9:
     times 24 db 0
 
 __zdata_46f1:
+cseg_45f1:
     times 10 db 0
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 ; data_46d9 equ __zdata_46d9 - IMAGE_BASE

@@ -17,7 +17,7 @@ loc_SMNJ:
     dec ax                           ; 0x111e
     mov cl, 2                        ; 0x111f
     shl ax, cl                       ; 0x1121
-    mov bx, 0x10fb                   ; 0x1123
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x1123
     add bx, ax                       ; 0x1126
     mov word [bp - 0x0002], bx       ; 0x1128
     mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x112b

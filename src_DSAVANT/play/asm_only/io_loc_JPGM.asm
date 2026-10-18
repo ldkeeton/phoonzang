@@ -69,7 +69,7 @@ loc_NSTK:
 loc_STSS:
     mov al, byte [cs:cseg_11d8 - IMAGE_BASE] ; 0x0b9f
     xor ah, ah                       ; 0x0ba3
-    mov bx, 0x12c6                   ; 0x0ba5
+    mov bx, cseg_11c6 - IMAGE_BASE   ; 0x0ba5
     add bx, ax                       ; 0x0ba8
     lodsb                            ; 0x0baa
     mov byte [cs:bx], al             ; 0x0bab

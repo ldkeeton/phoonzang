@@ -18,13 +18,13 @@ dos_read_file:
 @..dos_read_file.l1:
     mov ax, word [bp + 0xc]          ; 0x0e0e
     shl ax, 1                        ; 0x0e11
-    mov bx, 0x251                    ; 0x0e13
+    mov bx, cseg_0151 - IMAGE_BASE   ; 0x0e13
     add bx, ax                       ; 0x0e16
     mov ax, word [cs:bx]             ; 0x0e18
     dec ax                           ; 0x0e1b
     mov cl, 2                        ; 0x0e1c
     shl ax, cl                       ; 0x0e1e
-    mov bx, 0x10fb                   ; 0x0e20
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x0e20
     add bx, ax                       ; 0x0e23
     mov ax, word [cs:bx]             ; 0x0e25
     mov bx, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x0e28
@@ -40,13 +40,13 @@ dos_read_file:
 @..dos_read_file.l2:
     mov ax, word [bp + 0xc]          ; 0x0e42
     shl ax, 1                        ; 0x0e45
-    mov bx, 0x2d7                    ; 0x0e47
+    mov bx, cseg_01d7 - IMAGE_BASE   ; 0x0e47
     add bx, ax                       ; 0x0e4a
     mov ax, word [cs:bx]             ; 0x0e4c
     dec ax                           ; 0x0e4f
     mov cl, 2                        ; 0x0e50
     shl ax, cl                       ; 0x0e52
-    mov bx, 0x2eb                    ; 0x0e54
+    mov bx, cseg_01eb - IMAGE_BASE   ; 0x0e54
     add bx, ax                       ; 0x0e57
     mov si, word [cs:bx]             ; 0x0e59
     mov ax, si                       ; 0x0e5c

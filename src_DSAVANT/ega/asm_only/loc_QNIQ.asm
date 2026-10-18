@@ -17,7 +17,7 @@ loc_QNIQ:
 @..loc_QNIQ.l1:
     shl ax, 1                        ; 0x3056
     mov word [bp - 0x0008], ax       ; 0x3058
-    mov bx, 0x229                    ; 0x305b
+    mov bx, cseg_0129 - IMAGE_BASE   ; 0x305b
     add bx, ax                       ; 0x305e
     mov ax, word [cs:bx]             ; 0x3060
     or ax, ax                        ; 0x3063

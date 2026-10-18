@@ -46,7 +46,7 @@ dos_read_file:
     dec ax                           ; 0x092e
     mov cl, 2                        ; 0x092f
     shl ax, cl                       ; 0x0931
-    mov bx, 0x2eb                    ; 0x0933
+    mov bx, cseg_01eb - IMAGE_BASE   ; 0x0933
     add bx, ax                       ; 0x0936
     mov si, word [cs:bx]             ; 0x0938
     mov ax, si                       ; 0x093b

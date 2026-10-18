@@ -380,6 +380,22 @@
       ],
       "data_pointers": [
         {"offset": "1ad5", "space": "cs", "target": "__zcp_1afd", "note": "cursor save-buffer pointer (CS 0x1bfd -> file 0x1afd, a 0x480-byte buffer): loaded as `mov si, word [cs:cseg_1ad5]` (0x1838, 0x184a, 0x1860, 0x1876) and handed to leaf_loc_PUST, which copies from it with `rep movsb` (0x18b1) under DS = CS; it is also added to a row offset (`add ax, word [cs:cseg_1ad5]`, 0x0a33, 0x2c37). Its partner cseg_1ad7 (CS 0x207d, the second buffer) is proven by the scorer's own consumer scan (leaf_loc_KNIM 0x0bb3). The scan stops at a call, so this one is stated here"}
+      ],
+      "immediate_pointers": [
+        {"offset": "17bd", "space": "cs", "target": "cseg_32b3", "note": "`mov bx, 0x33b3`: the nibble table leaf_loc_OHGP translates through with `cs xlatb` (0x3254). Handed in bx to leaf_loc_TTKL, which reaches that `cs xlatb` only past a conditional jump, so the automatic scan stops short"},
+        {"offset": "3202", "space": "cs", "target": "cseg_32b3", "note": "`mov bx, 0x33b3; add bx, word [bp + 0xc]; mov word [cs:bx], 0xff` (0x3210): an entry of the same 0x32b3 table, indexed by an argument the scan cannot prove is an index"},
+        {"offset": "2cab", "space": "cs", "target": "cseg_2502", "note": "`mov si, 0x2602`: the four 0x100-byte plane buffers at 0x2502 that io_loc_QMLN adds to si (0x2f7a). si is overwritten by `xor si, si` (0x2cb2) before any read"},
+        {"offset": "2f7a", "space": "cs", "target": "cseg_2502", "note": "`add si, 0x2602`: the caller passes si = plane * 0x100 (0x2cb2-0x2cc9) and sets DS = CS (0x2cb0); the sum is read as `mov al, byte [si]` (0x2fa8)"},
+        {"offset": "2d5c", "space": "cs", "target": "cseg_23fd", "note": "`add di, 0x24fd` after `mul bx; mov di, ax`: a row of the 0x80-byte mask buffer at 0x23fd (filled at 0x2d2a), later written by `rep movsb` under ES = CS (0x2dbc). The `inc di` loop's backward jump ends the automatic scan"},
+        {"offset": "2d6e", "space": "cs", "target": "cseg_247d", "note": "`mov bx, 0x257d`: the scratch row at 0x247d, built with `mov byte [bx], ah` (0x2d8e, DS = CS since 0x2d28) and copied out of as `mov si, cseg_247d` (0x2db6). A backward jump ends the automatic scan"},
+        {"offset": "2daa", "space": "cs", "target": "cseg_247d", "note": "`sub bx, 0x257d`: the end pointer into the 0x247d row minus its start, the byte count copied at 0x2dbc"},
+        {"offset": "36f7", "space": "cs", "target": "cseg_35dd", "note": "`mov di, 0x36dd`: the 0x28-byte bit row at 0x35dd (cleared by `lea di` at 0x36ac). Handed in di to leaf_loc_NOSG, which sets bits as `or byte [cs:bx + di], al`; a [bx + di] read names no single pointer register"},
+        {"offset": "3736", "space": "cs", "target": "cseg_3605", "note": "`mov di, 0x3705`: the 0x19-byte bit row at 0x3605 (cleared by `lea di` at 0x36b7), handed to leaf_loc_NOSG as 36f7"},
+        {"offset": "3a92", "space": "cs", "target": "cseg_3605", "note": "`mov ax, 0x3705; mov word [bp - 0x36], ax`: read back through the frame slot as `mov bx, word [bp - 0x36]; mov al, byte [cs:bx]` (0x3dcf)"},
+        {"offset": "3af9", "space": "cs", "target": "cseg_35dd", "note": "`mov ax, 0x36dd; mov word [bp - 0x34], ax`: read back by leaf_loc_VGLT as `mov bx, word [bp - 0x34]; mov al, byte [cs:bx]` (0x3c19)"},
+        {"offset": "3c53", "space": "cs", "target": "cseg_35dd", "note": "as 3af9"},
+        {"offset": "3d93", "space": "cs", "target": "cseg_35dd", "note": "as 3af9; also read as `mov bx, word [bp - 0x34]; mov al, byte [cs:bx]` at 0x3dad"},
+        {"offset": "3ed6", "space": "cs", "target": "cseg_35dd", "note": "as 3af9"}
       ]
     },
     "play": {
@@ -410,7 +426,10 @@
       "immediate_pointers": [
         {"offset": "05b6", "space": "cs", "target": "cseg_193a", "note": "`mov bx, 0x1a3a`: the CS address of the 0x193a byte table the timer handlers read with `mov bx, 0x1a3a; cs xlatb`. bl is overwritten by `mov bl, 0x48` before any read, so no use proves it"},
         {"offset": "065c", "space": "cs", "target": "cseg_193a", "note": "`mov di, 0x1a3a`: the table this routine fills as `[cs:bx + 0x1a3a]`; di is saved/restored around it and never read"},
-        {"offset": "065f", "space": "cs", "target": "cseg_1a3a", "note": "`mov si, 0x1b3a`: the table this routine reads as `[cs:si + 0x1b3a]`; si is overwritten by `mov si, ax` before any read"}
+        {"offset": "065f", "space": "cs", "target": "cseg_1a3a", "note": "`mov si, 0x1b3a`: the table this routine reads as `[cs:si + 0x1b3a]`; si is overwritten by `mov si, ax` before any read"},
+        {"offset": "0072", "space": "cs", "target": "cseg_0d3a", "note": "`cmp bx, 0xe3a`: the end of the eleven 5-byte records at 0x0d03 that the loop walks from `mov bx, cseg_0d03` with `add bx, 5`"},
+        {"offset": "0f34", "space": "cs", "target": "cseg_0d3a", "note": "as 0072 (loop from 0x0f2a)"},
+        {"offset": "0f6a", "space": "cs", "target": "cseg_0d3a", "note": "as 0072"}
       ]
     }
   },

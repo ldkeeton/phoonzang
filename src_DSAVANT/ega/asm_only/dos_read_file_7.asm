@@ -13,7 +13,7 @@ dos_read_file_7:
     mov bx, word [bp + 0x12]         ; 0x4ebb
     shl bx, 1                        ; 0x4ebe
     shl bx, 1                        ; 0x4ec0
-    add bx, strict word 0x4f8b       ; 0x4ec2
+    add bx, cseg_4e8b - IMAGE_BASE   ; 0x4ec2
     mov word [bp - 0x0002], bx       ; 0x4ec6
     mov ax, word [cs:bx]             ; 0x4ec9
     or ax, ax                        ; 0x4ecc
@@ -22,7 +22,7 @@ dos_read_file_7:
 @..dos_read_file_7.l1:
     mov bx, word [bp + 0x12]         ; 0x4ed3
     shl bx, 1                        ; 0x4ed6
-    add bx, strict word 0x4fa3       ; 0x4ed8
+    add bx, cseg_4ea3 - IMAGE_BASE   ; 0x4ed8
     mov ax, word [bp + 0x10]         ; 0x4edc
     mov word [cs:bx], ax             ; 0x4edf
     mov ax, word [cs:cseg_10cb - IMAGE_BASE] ; 0x4ee2
@@ -33,7 +33,7 @@ dos_read_file_7:
     dec ax                           ; 0x4ef1
     mov cl, 2                        ; 0x4ef2
     shl ax, cl                       ; 0x4ef4
-    mov bx, 0x10fb                   ; 0x4ef6
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x4ef6
     add bx, ax                       ; 0x4ef9
     mov word [bp - 0x000a], bx       ; 0x4efb
     mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x4efe

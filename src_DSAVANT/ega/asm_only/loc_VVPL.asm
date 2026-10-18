@@ -17,7 +17,7 @@ loc_VVPL:
 @..loc_VVPL.l1:
     shl ax, 1                        ; 0x4df2
     shl ax, 1                        ; 0x4df4
-    mov bx, 0x4ab4                   ; 0x4df6
+    mov bx, cseg_49b4 - IMAGE_BASE   ; 0x4df6
     add bx, ax                       ; 0x4df9
     mov ax, word [cs:bx + 0x2]       ; 0x4dfb
     mov word [bp - 0x0002], ax       ; 0x4dff
@@ -35,7 +35,7 @@ loc_VVPL:
     push ax                          ; 0x4e1c
     xor ax, ax                       ; 0x4e1d
     push ax                          ; 0x4e1f
-    mov bx, 0x10fb                   ; 0x4e20
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x4e20
     mov ax, word [bp - 0x0004]       ; 0x4e23
     shl ax, 1                        ; 0x4e26
     shl ax, 1                        ; 0x4e28

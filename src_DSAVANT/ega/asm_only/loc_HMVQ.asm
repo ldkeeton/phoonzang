@@ -17,7 +17,7 @@ loc_HMVQ:
 @..loc_HMVQ.l1:
     shl ax, 1                        ; 0x14a9
     mov word [bp - 0x0008], ax       ; 0x14ab
-    mov bx, 0x10e7                   ; 0x14ae
+    mov bx, cseg_0fe7 - IMAGE_BASE   ; 0x14ae
     add bx, ax                       ; 0x14b1
     mov ax, word [cs:bx]             ; 0x14b3
     or ax, ax                        ; 0x14b6

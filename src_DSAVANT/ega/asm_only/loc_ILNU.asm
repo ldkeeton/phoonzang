@@ -17,7 +17,7 @@ loc_ILNU:
 @..loc_ILNU.l1:
     shl ax, 1                        ; 0x50ea
     shl ax, 1                        ; 0x50ec
-    mov bx, 0x4f8b                   ; 0x50ee
+    mov bx, cseg_4e8b - IMAGE_BASE   ; 0x50ee
     add bx, ax                       ; 0x50f1
     mov ax, word [cs:bx]             ; 0x50f3
     or ax, ax                        ; 0x50f6

@@ -14,7 +14,7 @@ dos_read_file:
     mov ax, cs                       ; 0x3999
     mov ds, ax                       ; 0x399b
     mov ax, word [bp + 0x6]          ; 0x399d
-    mov bx, 0x364a                   ; 0x39a0
+    mov bx, cseg_384a - IMAGE_BASE   ; 0x39a0
     shl ax, 1                        ; 0x39a3
     add bx, ax                       ; 0x39a5
     mov ax, word [bx]                ; 0x39a7

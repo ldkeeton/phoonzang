@@ -13,7 +13,7 @@ dos_read_file_6:
     mov bx, word [bp + 0xe]          ; 0x4a16
     shl bx, 1                        ; 0x4a19
     shl bx, 1                        ; 0x4a1b
-    add bx, strict word 0x4ab4       ; 0x4a1d
+    add bx, cseg_49b4 - IMAGE_BASE   ; 0x4a1d
     mov word [bp - 0x0002], bx       ; 0x4a21
     mov ax, word [cs:bx]             ; 0x4a24
     or ax, ax                        ; 0x4a27
@@ -28,7 +28,7 @@ dos_read_file_6:
     dec ax                           ; 0x4a3d
     mov cl, 2                        ; 0x4a3e
     shl ax, cl                       ; 0x4a40
-    mov bx, 0x10fb                   ; 0x4a42
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x4a42
     add bx, ax                       ; 0x4a45
     mov word [bp - 0x000a], bx       ; 0x4a47
     mov ax, word [cs:cseg_10cd - IMAGE_BASE] ; 0x4a4a

@@ -21,7 +21,7 @@ loc_MMRI:
     mov byte [cs:bx + 0x2], 0xff     ; 0x0064
     mov word [cs:bx + 0x3], 0        ; 0x0069
     add bx, byte 5                   ; 0x006f
-    cmp bx, strict word 0xe3a        ; 0x0072
+    cmp bx, cseg_0d3a - IMAGE_BASE   ; 0x0072
     jb short @..loc_MMRI.l1          ; 0x0076
     mov al, byte [cs:cseg_0a7c - IMAGE_BASE] ; 0x0078
     mov ax, word [cs:cseg_0a83 - IMAGE_BASE] ; 0x007c

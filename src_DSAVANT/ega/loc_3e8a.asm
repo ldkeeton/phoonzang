@@ -29,7 +29,7 @@ loc_3ec2:
 loc_3ed2:
     push cx                          ; 0x3ed2
     call leaf_loc_MTKK               ; 0x3ed3
-    mov ax, 0x36dd                   ; 0x3ed6
+    mov ax, cseg_35dd - IMAGE_BASE   ; 0x3ed6
     mov word [bp - 0x0034], ax       ; 0x3ed9
     mov cx, word [bp - 0x0002]       ; 0x3edc
 loc_3edf:

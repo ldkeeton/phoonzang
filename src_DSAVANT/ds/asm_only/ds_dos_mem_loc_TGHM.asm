@@ -5,7 +5,7 @@ ds_dos_mem_loc_TGHM:
     jne short @..ds_dos_mem_loc_TGHM.l1 ; 0x36f9
     jmp near ds_loc_LGTQ             ; 0x36fb
 @..ds_dos_mem_loc_TGHM.l1:
-    lea si, word [bss_2d40]          ; 0x36fe
+    lea si, word [cseg_2f40 - IMAGE_BASE] ; 0x36fe
 @..ds_dos_mem_loc_TGHM.l2:
     mov bx, word [cs:si]             ; 0x3702
     or bx, bx                        ; 0x3705

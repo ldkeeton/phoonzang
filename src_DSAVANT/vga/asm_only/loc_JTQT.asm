@@ -235,7 +235,7 @@ loc_JTQT:
     shl ax, cl                       ; 0x2726
     add bx, ax                       ; 0x2728
     add bx, word [bp - 0x0012]       ; 0x272a
-    add bx, strict word 0x2427       ; 0x272d
+    add bx, cseg_2327 - IMAGE_BASE   ; 0x272d
     mov al, byte [cs:bx]             ; 0x2731
     cmp al, 0xff                     ; 0x2734
     je short @..loc_JTQT.l33         ; 0x2736

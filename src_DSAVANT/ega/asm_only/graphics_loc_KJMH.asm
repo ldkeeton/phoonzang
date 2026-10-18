@@ -23,13 +23,13 @@ graphics_loc_KJMH:
     mov word [bp - 0x0006], ax       ; 0x3647
     mov ax, word [bp + 0xc]          ; 0x364a
     shl ax, 1                        ; 0x364d
-    mov bx, 0x229                    ; 0x364f
+    mov bx, cseg_0129 - IMAGE_BASE   ; 0x364f
     add bx, ax                       ; 0x3652
     mov ax, word [cs:bx]             ; 0x3654
     dec ax                           ; 0x3657
     mov cl, 2                        ; 0x3658
     shl ax, cl                       ; 0x365a
-    mov bx, 0x10fb                   ; 0x365c
+    mov bx, cseg_0ffb - IMAGE_BASE   ; 0x365c
     add bx, ax                       ; 0x365f
     mov ax, word [cs:bx]             ; 0x3661
     add ax, word [cs:cseg_00e1 - IMAGE_BASE] ; 0x3664
@@ -62,11 +62,11 @@ graphics_loc_KJMH:
     mov word [bp - 0x0038], ax       ; 0x36a5
     mov ax, cs                       ; 0x36a8
     mov es, ax                       ; 0x36aa
-    lea di, word [data_36dd]         ; 0x36ac
+    lea di, word [cseg_35dd - IMAGE_BASE] ; 0x36ac
     xor ax, ax                       ; 0x36b0
     mov cx, 0x14                     ; 0x36b2
     rep stosw                        ; 0x36b5
-    lea di, word [data_3705]         ; 0x36b7
+    lea di, word [cseg_3605 - IMAGE_BASE] ; 0x36b7
     mov cx, 0x19                     ; 0x36bb
     rep stosb                        ; 0x36be
     mov bx, word [bp + 0x20]         ; 0x36c0
@@ -82,7 +82,6 @@ graphics_loc_KJMH:
     mov cx, ax                       ; 0x36d6
     mov bx, word [bp + 0x20]         ; 0x36d8
     mul bx                           ; 0x36db
-data_36dd:
     mov bx, 0x64                     ; 0x36dd
     div bx                           ; 0x36e0
     cmp dx, byte 0x32                ; 0x36e2
@@ -96,13 +95,12 @@ data_36dd:
     mov word [bp - 0x0034], ax       ; 0x36f0
     mov ax, cx                       ; 0x36f3
     div bx                           ; 0x36f5
-    mov di, 0x36dd                   ; 0x36f7
+    mov di, cseg_35dd - IMAGE_BASE   ; 0x36f7
     mov bx, word [bp - 0x0034]       ; 0x36fa
     shr bx, 1                        ; 0x36fd
     mov word [bp - 0x003c], bx       ; 0x36ff
     mov si, ax                       ; 0x3702
     dec si                           ; 0x3704
-data_3705:
     mov word [bp - 0x0030], ax       ; 0x3705
     mov word [bp - 0x0032], cx       ; 0x3708
     call leaf_loc_NOSG               ; 0x370b
@@ -126,7 +124,7 @@ data_3705:
     mov word [bp - 0x0034], ax       ; 0x372f
     mov ax, cx                       ; 0x3732
     div bx                           ; 0x3734
-    mov di, 0x3705                   ; 0x3736
+    mov di, cseg_3605 - IMAGE_BASE   ; 0x3736
     mov bx, word [bp - 0x0034]       ; 0x3739
     shr bx, 1                        ; 0x373c
     mov word [bp - 0x003c], bx       ; 0x373e

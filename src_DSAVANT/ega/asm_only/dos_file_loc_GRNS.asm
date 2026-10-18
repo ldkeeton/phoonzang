@@ -16,7 +16,7 @@ dos_file_loc_GRNS:
     dec word [cs:cseg_028f - IMAGE_BASE] ; 0x483b
     mov ax, word [bp + 0xe]          ; 0x4840
     shl ax, 1                        ; 0x4843
-    mov bx, 0x2d7                    ; 0x4845
+    mov bx, cseg_01d7 - IMAGE_BASE   ; 0x4845
     add bx, ax                       ; 0x4848
     mov ax, word [cs:bx]             ; 0x484a
     mov word [cs:bx], 0              ; 0x484d
@@ -35,7 +35,7 @@ dos_file_loc_GRNS:
 @..dos_file_loc_GRNS.l2:
     mov ax, word [bp + 0xe]          ; 0x4871
     shl ax, 1                        ; 0x4874
-    mov bx, 0x2d7                    ; 0x4876
+    mov bx, cseg_01d7 - IMAGE_BASE   ; 0x4876
     add bx, ax                       ; 0x4879
     mov ax, word [cs:bx]             ; 0x487b
     or ax, ax                        ; 0x487e
@@ -48,7 +48,7 @@ dos_file_loc_GRNS:
     dec ax                           ; 0x4891
     mov cl, 2                        ; 0x4892
     shl ax, cl                       ; 0x4894
-    mov bx, 0x2eb                    ; 0x4896
+    mov bx, cseg_01eb - IMAGE_BASE   ; 0x4896
     add bx, ax                       ; 0x4899
     mov word [bp - 0x0002], bx       ; 0x489b
     mov ax, word [cs:cseg_0291 - IMAGE_BASE] ; 0x489e

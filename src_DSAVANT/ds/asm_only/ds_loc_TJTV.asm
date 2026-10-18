@@ -5,7 +5,7 @@ ds_loc_TJTV:
     mov bp, sp                       ; 0x3a78
     cld                              ; 0x3a7a
     mov ax, word [bp + 0x6]          ; 0x3a7b
-    mov bx, 0x364a                   ; 0x3a7e
+    mov bx, cseg_384a - IMAGE_BASE   ; 0x3a7e
     shl ax, 1                        ; 0x3a81
     add bx, ax                       ; 0x3a83
     mov ax, word [cs:bx]             ; 0x3a85
