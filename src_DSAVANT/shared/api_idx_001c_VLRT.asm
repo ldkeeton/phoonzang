@@ -60,7 +60,7 @@ api_idx_001c_VLRT:
     mov ax, 0x15e
     imul word [bp - 0x0006]
     mov bx, ax
-    cmp byte [bx + 0x6b75], 0
+    cmp byte [bx + bss_6b75], 0
     je short @..api_idx_001c_VLRT.l5
     mov word [bp + 0x8], 0
 @..api_idx_001c_VLRT.l5:

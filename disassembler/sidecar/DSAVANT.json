@@ -64,6 +64,9 @@
       "entry_symbol": "aztec_begin",
       "fingerprint-start": "9e68e13368a5e977af6f4921d01938b5d8932faa7c4a526c5a2dc1c7082dd9fa",
       "fingerprint-end": "b94811b8e00674347f4917bc5eda18025b74473bed7ed5aadc3638184285f0de",
+      "immediate_pointers": [
+        {"offset": "288e", "space": "ds", "target": "bss_6a1a", "note": "`mov ax, 0x15e; imul bx; add ax, 0x6a1a; push ax`: row bx of the 350-byte-row array bss_6a1a (the overlays' C declares it `unsigned char [][350]`), passed to ds_app_file_MPPM as the buffer"}
+      ],
       "data_pointers": [
         {"offset": "10dd0", "space": "ds", "target": "dseg_b198", "note": "Aztec heap-base pointer (dseg_0c70): read as `mov di, word es:[dseg_0c70]` then `stosb es:[di]` (0x4e24) and advanced by the malloc/brk routines (0x4daf, 0x51dc). Target 0xb198 lies past bss_boundary (0xcf6) but is a real DS offset at the end of the image; the CRT recomputes it at startup from psp_top_of_memory, so it must track the data end"},
         {"offset": "10dfc", "space": "cs", "target": "__zcp_4ea3", "note": "Aztec exit hook (dseg_0c9c): called as `call [dseg_0c9c]` by aztec_exit, so the CPU loads IP from the word; its default target CS 0x4ca3 (file 0x4ea3) is a `mov ax, 0; ret` stub"},

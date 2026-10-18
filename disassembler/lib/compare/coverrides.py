@@ -11,6 +11,7 @@ from lib.verify.assemble import micro_assemble, is_semantically_equivalent
 from lib.compare.interrupts import _set_insn_fields
 from lib.compare.cgate import check_against_original
 from lib.compare.records import _label_record, _record_span
+from lib.compare.symbols import data_symbol
 from lib.symtab import Kind, Symbol
 
 
@@ -234,19 +235,13 @@ def _report_linked(label, linked):
                                   for fx in linked.legacy}))
         print(f'  aztec link: {label}: {len(linked.legacy)} relocation(s) '
               f'copied from the original image ({kinds})')
-    if linked.raw:
-        names = ', '.join(sorted({name for _, name in linked.raw}))
-        print(f'  aztec link: {label}: {len(linked.raw)} data reference(s) '
-              f'taken as written from the C name, not a build symbol ({names})')
-        print(f'  aztec link: {label}:   the operand is emitted as a literal; '
-              f'the C must name a symbol the build defines (plan.md section 18)')
 
 
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        local_labels, foreign_label_map, immediate_labels,
                        exact_bytes=False, data_labels=None,
                        mem_symbols=None, mem_equ=None, image_base=None,
-                       allow_diff=False, geometry=None):
+                       allow_diff=False, geometry=None, segments=None):
     """Replace disassembled records with code compiled from C.
 
     ``c_overrides`` maps a function label to ``{'code': bytes,
@@ -272,13 +267,24 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                 # image-size symbols the renderer defines; a C external such
                 # as ``_Cend``/``_Uend`` names them.
                 sym_equ = {**(mem_equ or {}), **(geometry or {})}
+                canonical = None
+                if (segments is not None
+                        and segments.data_space(0) is not None):
+                    def canonical(offset):
+                        return data_symbol(segments, offset)
                 sym_index = relink.SymbolIndex(label_map, foreign_label_map,
-                                               data_labels, sym_equ)
+                                               data_labels, sym_equ,
+                                               data_symbol=canonical)
                 names_at = relabel.data_names(data_labels, sym_equ)
             linked = _link_override(label, start, override, records,
                                     binary_data, sym_index, names_at,
                                     image_base)
             compiled = linked.code
+            # A DS object the C names first is defined like any operand
+            # symbol: in ``mem_equ``, so an overlay exports it to the host.
+            if mem_equ is not None:
+                for name, value in linked.minted.items():
+                    mem_equ.setdefault(name, value)
         else:
             compiled = bytearray(override['code'])
         # The routine owns exactly *length* bytes (its original, exact-match

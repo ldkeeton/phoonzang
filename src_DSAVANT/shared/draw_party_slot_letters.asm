@@ -9,11 +9,11 @@ draw_party_slot_letters:
     mov cx, word [bp - 0x0002]
     shl cx, 1
     mov bx, cx
-    mov cx, word [bx + 0x830e]
+    mov cx, word [bx + bss_830e]
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x01d4]
+    mov al, byte [bx + dseg_01d4]
     mov byte [bp - 0x000c], al
     mov byte [bp - 0x000b], 0
     mov ax, 0
@@ -37,10 +37,10 @@ draw_party_slot_letters:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx + 0x01bc]
+    mov ax, word [bx + dseg_01bc]
     add ax, word [bp + 0x6]
     push ax
-    mov ax, word [bx + 0x01a4]
+    mov ax, word [bx + dseg_01a4]
     add ax, word [bp + 0x4]
     push ax
     mov ax, 2

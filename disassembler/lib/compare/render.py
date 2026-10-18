@@ -198,8 +198,12 @@ def _render_records(records, binary_data, show_offsets=True, gap=None,
             addr = rec['start']
             entry_size = rec.get('entry_size', 2)
             for index, entry in enumerate(rec['entries']):
-                # A switch key is a number, never a pointer (plan.md D8).
-                literal = bool(rec.get('literal')) or index < keys
+                # A switch key is a number, never a pointer (plan.md D8): the
+                # recognized helper only compares it (``repne scasw``).  That
+                # is the evidence the tag stands for; a word in a table merely
+                # *assumed* literal (``rec['literal']``) stays untagged, so the
+                # census counts it as unresolved (F7) rather than proven (F6).
+                literal = index < keys
                 if entry is None:
                     text = 'dw 0'
                 elif isinstance(entry, str):

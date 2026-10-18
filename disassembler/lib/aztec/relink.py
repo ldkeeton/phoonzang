@@ -26,7 +26,9 @@ from lib.symtab import Kind, Symbol
 
 from .objread import external_label
 
-_RAW_DATA = re.compile(r'dseg_[0-9a-f]{4}')
+#: A data name spelled by address (``dseg_8482``/``bss_8482``): the C may name
+#: a DS object no asm operand names yet, but only by its canonical spelling.
+_DATA_BY_ADDRESS = re.compile(r'(?:dseg|bss)_([0-9a-f]{4})')
 
 
 class RelinkError(ValueError):
@@ -38,11 +40,14 @@ class SymbolIndex:
 
     *label_map* / *foreign_label_map* map file offsets to code labels (the
     space calls and jumps are measured in); *data_labels* and *mem_equ* name
-    data-segment offsets.
+    data-segment offsets.  *data_symbol* maps a DS offset to the build's
+    canonical name for it (``lib.compare.symbols.data_symbol``), or is None
+    where the image has no data segment.
     """
 
     def __init__(self, label_map=None, foreign_label_map=None,
-                 data_labels=None, mem_equ=None):
+                 data_labels=None, mem_equ=None, data_symbol=None):
+        self.data_symbol = data_symbol
         self.code = {}
         for maps in (label_map, foreign_label_map):
             for addr, name in (maps or {}).items():
@@ -78,7 +83,7 @@ class Linked:
         self.local_records = []     # label records for derived local labels
         self.local_names = {}       # absolute address -> local label name
         self.legacy = []            # Fixups left on the original-bytes path
-        self.raw = []               # (site, name) taken as written from a C name
+        self.minted = {}            # data names first defined by the C: {name: offset}
         self.failed = []            # refs whose operand text did not verify
         self.consumed = set()       # fixup offsets matched to an operand
 
@@ -177,14 +182,25 @@ def link(label, start, func, index, original, labels_in=()):
                                      False, {name: value})
             elif name in index.code:
                 legacy(fx)      # address of code needs the image base
-            elif _RAW_DATA.fullmatch(name):
-                # ``dseg_01d4``: a data-segment offset no label names (an
-                # overlay's reach into the host's data), taken as written.
-                value = int(name[-4:], 16)
+            elif _DATA_BY_ADDRESS.fullmatch(name):
+                # ``dseg_6a1a``: a DS object no asm operand names (an
+                # overlay's reach into the host's data).  It becomes a build
+                # symbol under its canonical spelling -- a wrong
+                # ``dseg_``/``bss_`` prefix would otherwise name nothing.
+                value = int(_DATA_BY_ADDRESS.fullmatch(name).group(1), 16)
+                canonical = (index.data_symbol(value)
+                             if index.data_symbol else None)
+                if canonical != name:
+                    hint = (f'the build calls DS:0x{value:04x} {canonical!r}'
+                            if canonical else 'this image has no data segment')
+                    raise RelinkError(
+                        f'{label}: data reference {name!r} (from C identifier '
+                        f'{fx.symbol!r}): {hint}')
                 _put(code, site, 2, value + fx.addend)
-                out.refs[site] = Ref(site, 2, f'0x{value + fx.addend:04x}',
-                                     False, {})
-                out.raw.append((site, name))
+                out.refs[site] = Ref(site, 2,
+                                     canonical + _addend_text(fx.addend),
+                                     False, {canonical: value})
+                out.minted[canonical] = value
             else:
                 raise RelinkError(
                     f'{label}: reference to unknown symbol {name!r} '

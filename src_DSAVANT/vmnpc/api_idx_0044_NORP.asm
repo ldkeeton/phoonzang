@@ -7,7 +7,7 @@ api_idx_0044_NORP:
     mov ax, word [bp - 0x0002]       ; 0x7877
     shl ax, 1                        ; 0x787a
     mov bx, ax                       ; 0x787c
-    mov word [bx - 0x7cf2], 0        ; 0x787e
+    mov word [bx + bss_830e], 0      ; 0x787e
     inc word [bp - 0x0002]           ; 0x7884
     mov ax, word [bp - 0x0002]       ; 0x7887
     cmp ax, strict word 6            ; 0x788a

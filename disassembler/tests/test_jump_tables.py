@@ -578,6 +578,15 @@ class InlineCallTableTests(unittest.TestCase):
         self.assertRegex(lines, r'dw 0x0009\s+; 0x0108 ; literal')
         self.assertRegex(lines, r'dw case_a_0140 - IMAGE_BASE\s+; 0x010a\n')
 
+    def test_only_a_proven_key_is_tagged_literal(self):
+        # A table assumed literal (no recognized switch helper) keeps its raw
+        # words but is not tagged: nothing shows they are not addresses.
+        rec = {'type': 'jump_table', 'label': 'jumptable_0106', 'start': 0x106,
+               'entries': [0x0007, 0x0009], 'literal': True}
+        lines = '\n'.join(_render_records([rec], b'', show_offsets=True))
+        self.assertIn('dw 0x0009', lines)
+        self.assertNotIn('literal', lines)
+
 
 if __name__ == '__main__':
     unittest.main()

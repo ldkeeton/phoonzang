@@ -38,7 +38,12 @@ _TREE = shift_oracle.TREE
 # 17 reviewed ``immediate_pointers`` (loop bounds, frame-slot spills).  Every
 # driver finding left is ega's EMS page size ``0x4000`` / count ``0x3a00``.
 # A rise from new visibility is re-measured and explained here, not hidden.
-BASELINE = {'code': 29, 'data': 356, 'branch': 0}
+# Data 356 -> 358: hand-written C now names its DS objects by their canonical
+# symbols (``bss_8482``, not a bare ``0x8482``), so draw_fill_action_slot_table's
+# 4 literals went; the host now declares 0x01a4/0x01d4/0x6a1a, which exposes 6
+# numbers equal to them by chance: the 420-byte record size passed to
+# ``malloc``/``setmem`` (0x1a4) and message number 0x1d4.
+BASELINE = {'code': 29, 'data': 358, 'branch': 0}
 
 
 def _sites(result):

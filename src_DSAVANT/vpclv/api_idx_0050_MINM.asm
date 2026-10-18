@@ -7,13 +7,13 @@ api_idx_0050_MINM:
     mov ax, word [bp - 0x0002]       ; 0x114c
     shl ax, 1                        ; 0x114f
     mov bx, ax                       ; 0x1151
-    mov ax, word [bx - 0x7cf2]       ; 0x1153
+    mov ax, word [bx + bss_830e]     ; 0x1153
     add bx, bp                       ; 0x1157
     mov word [bx - 0x0050], ax       ; 0x1159
     mov ax, word [bp - 0x0002]       ; 0x115c
     shl ax, 1                        ; 0x115f
     mov bx, ax                       ; 0x1161
-    mov word [bx - 0x7cf2], 0        ; 0x1163
+    mov word [bx + bss_830e], 0      ; 0x1163
     inc word [bp - 0x0002]           ; 0x1169
     mov ax, word [bp - 0x0002]       ; 0x116c
     cmp ax, strict word 6            ; 0x116f
@@ -1373,7 +1373,7 @@ jumptable_1d9a:
     mov cx, word [bp - 0x0002]       ; 0x1df5
     shl cx, 1                        ; 0x1df8
     mov bx, cx                       ; 0x1dfa
-    mov word [bx - 0x7cf2], ax       ; 0x1dfc
+    mov word [bx + bss_830e], ax     ; 0x1dfc
     inc word [bp - 0x0002]           ; 0x1e00
     mov ax, word [bp - 0x0002]       ; 0x1e03
     cmp ax, strict word 6            ; 0x1e06

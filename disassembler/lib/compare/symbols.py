@@ -210,10 +210,12 @@ def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
     prove it by, yet its value still moves with the table.  So does a table's
     end in a loop bound (``cmp bx, 0xe3a``) or its start taken back off a
     pointer (``sub bx, 0x257d``).  Each entry names the instruction's file
-    ``offset`` and the ``space`` (only ``cs``); the instruction must be
+    ``offset`` and the ``space`` (``cs`` or ``ds``); the instruction must be
     ``mov``/``add``/``sub``/``cmp reg16, imm16`` whose value is a byte of this
-    image, or the sidecar is wrong and this raises.  Overlays are not
-    supported (their CS values are ``o_corg``-based).
+    image (``cs``) or of its data segment (``ds``: a row of a DS array added
+    to a scaled index, ``imul``'d by the row size), or the sidecar is wrong and
+    this raises.  A ``cs`` entry in an overlay is not supported (its CS values
+    are ``o_corg``-based); a ``ds`` name is the same in every binary.
     """
     from capstone import CS_OP_IMM, CS_OP_REG
     from lib.sidecar.errors import SidecarError
@@ -225,8 +227,11 @@ def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
     result = {}
     for entry in declared:
         where = f'{owner}.immediate_pointers[0x{entry["offset"]:04x}]'
-        if entry.get('space', 'cs') != 'cs' or getattr(segments, 'overlay', None):
-            raise SidecarError(f'{where}: only a non-overlay cs pointer is supported')
+        space = entry.get('space', 'cs')
+        if space not in ('cs', 'ds') or (
+                space == 'cs' and getattr(segments, 'overlay', None)):
+            raise SidecarError(
+                f'{where}: only a ds or non-overlay cs pointer is supported')
         insn = by_addr.get(entry['offset'])
         ops = insn.operands if insn is not None else ()
         if (insn is None or insn.mnemonic not in _DECLARABLE or len(ops) != 2
@@ -234,6 +239,13 @@ def _resolve_declared_immediates(insns, declared, segments, label_map, mem_equ,
                 or ops[0].size != 2):
             raise SidecarError(f'{where}: not a decoded `op reg16, imm16`')
         value = ops[1].imm & 0xFFFF
+        if space == 'ds':
+            if segments is None or segments.data_space(value) is None:
+                raise SidecarError(f'{where}: this image has no data segment')
+            name = data_symbol(segments, value)
+            mem_equ.setdefault(name, value)
+            result[(insn.address, 1)] = str(name)
+            continue
         file_off = value + start_offset - _load_offset(segments)
         if not 0 <= file_off < file_size:
             raise SidecarError(

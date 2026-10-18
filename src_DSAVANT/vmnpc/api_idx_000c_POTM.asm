@@ -10,13 +10,13 @@ api_idx_000c_POTM:
     imul word [bp + 0x6]             ; 0x01e7
     add ax, word [bp + 0x8]          ; 0x01ea
     mov bx, ax                       ; 0x01ed
-    mov al, byte [bx - 0x7bd0]       ; 0x01ef
+    mov al, byte [bx + bss_8430]     ; 0x01ef
     sub ah, ah                       ; 0x01f3
     mov cx, ax                       ; 0x01f5
     pop ax                           ; 0x01f7
     add ax, cx                       ; 0x01f8
     mov bx, ax                       ; 0x01fa
-    mov al, byte [bx + 0x6a1a]       ; 0x01fc
+    mov al, byte [bx + bss_6a1a]     ; 0x01fc
     sub ah, ah                       ; 0x0200
     mov word [bp - 0x0002], ax       ; 0x0202
     jmp near @..api_idx_000c_POTM.l13 ; 0x0205
@@ -81,7 +81,7 @@ api_idx_000c_POTM:
     jle short @..api_idx_000c_POTM.l4 ; 0x0294
     jmp near @..api_idx_000c_POTM.l8 ; 0x0296
 @..api_idx_000c_POTM.l4:
-    mov al, byte [bx - 0x7cde]       ; 0x0299
+    mov al, byte [bx + bss_8322]     ; 0x0299
     sub ah, ah                       ; 0x029d
     mov word [bp - 0x0004], ax       ; 0x029f
     inc word [bp - 0x0006]           ; 0x02a2
@@ -91,10 +91,10 @@ api_idx_000c_POTM:
     mov ax, word [bp - 0x0004]       ; 0x02ad
     add cx, ax                       ; 0x02b0
     mov bx, cx                       ; 0x02b2
-    mov al, byte [bx + 0x6a40]       ; 0x02b4
+    mov al, byte [bx + bss_6a40]     ; 0x02b4
     sub ah, ah                       ; 0x02b8
     push ax                          ; 0x02ba
-    mov al, byte [bx + 0x6a4a]       ; 0x02bb
+    mov al, byte [bx + bss_6a4a]     ; 0x02bb
     sub ah, ah                       ; 0x02bf
     mov cx, ax                       ; 0x02c1
     pop ax                           ; 0x02c3
@@ -108,9 +108,9 @@ api_idx_000c_POTM:
     imul word [bp + 0x6]             ; 0x02d2
     add ax, word [bp + 0x8]          ; 0x02d5
     mov bx, ax                       ; 0x02d8
-    cmp byte [bx - 0x7bd0], 0        ; 0x02da
+    cmp byte [bx + bss_8430], 0      ; 0x02da
     je short @..api_idx_000c_POTM.l6 ; 0x02df
-    mov byte [bx - 0x7bd0], 0        ; 0x02e1
+    mov byte [bx + bss_8430], 0      ; 0x02e1
     mov ax, 0                        ; 0x02e6
     push ax                          ; 0x02e9
     push word [bp + 0x8]             ; 0x02ea
@@ -132,7 +132,7 @@ api_idx_000c_POTM:
     imul word [bp + 0x4]             ; 0x0313
     add ax, word [bp - 0x0002]       ; 0x0316
     mov bx, ax                       ; 0x0319
-    mov al, byte [bx + 0x6a2c]       ; 0x031b
+    mov al, byte [bx + bss_6a2c]     ; 0x031b
     sub ah, ah                       ; 0x031f
     push ax                          ; 0x0321
     call ds_app_PUNN                 ; 0x0322
@@ -142,7 +142,7 @@ api_idx_000c_POTM:
     imul word [bp + 0x4]             ; 0x032a
     add ax, word [bp - 0x0002]       ; 0x032d
     mov bx, ax                       ; 0x0330
-    mov al, byte [bx + 0x6a22]       ; 0x0332
+    mov al, byte [bx + bss_6a22]     ; 0x0332
     sub ah, ah                       ; 0x0336
     mov cx, ax                       ; 0x0338
     pop ax                           ; 0x033a
@@ -163,12 +163,12 @@ api_idx_000c_POTM:
     add cx, ax                       ; 0x035e
     mov bx, cx                       ; 0x0360
     pop ax                           ; 0x0362
-    mov byte [bx - 0x7cde], al       ; 0x0363
+    mov byte [bx + bss_8322], al     ; 0x0363
     mov ax, 0x15e                    ; 0x0367
     imul word [bp + 0x4]             ; 0x036a
     add ax, word [bp - 0x0004]       ; 0x036d
     mov bx, ax                       ; 0x0370
-    mov al, byte [bx + 0x6a40]       ; 0x0372
+    mov al, byte [bx + bss_6a40]     ; 0x0372
     sub ah, ah                       ; 0x0376
     mov word [bp - 0x0006], ax       ; 0x0378
 @..api_idx_000c_POTM.l7:
@@ -208,7 +208,7 @@ api_idx_000c_POTM:
     shl cx, 1                        ; 0x03ca
     add ax, cx                       ; 0x03cc
     mov bx, ax                       ; 0x03ce
-    mov al, byte [bx + 0x6ac1]       ; 0x03d0
+    mov al, byte [bx + bss_6ac1]     ; 0x03d0
     sub ah, ah                       ; 0x03d4
     mov cx, ax                       ; 0x03d6
     pop ax                           ; 0x03d8
@@ -260,7 +260,7 @@ api_idx_000c_POTM:
     pop ax                           ; 0x0447
     add ax, cx                       ; 0x0448
     mov bx, ax                       ; 0x044a
-    mov al, byte [bx - 0x7cde]       ; 0x044c
+    mov al, byte [bx + bss_8322]     ; 0x044c
     sub ah, ah                       ; 0x0450
     xchg al, ah                      ; 0x0452
     sub al, al                       ; 0x0454
@@ -305,16 +305,16 @@ api_idx_000c_POTM:
     imul word [bp + 0x6]             ; 0x04b1
     add ax, word [bp + 0x8]          ; 0x04b4
     mov bx, ax                       ; 0x04b7
-    mov al, byte [bx - 0x7bd0]       ; 0x04b9
+    mov al, byte [bx + bss_8430]     ; 0x04b9
     sub ah, ah                       ; 0x04bd
     mov cx, ax                       ; 0x04bf
     pop ax                           ; 0x04c1
     add ax, cx                       ; 0x04c2
     mov bx, ax                       ; 0x04c4
-    mov al, byte [bx + 0x6a1a]       ; 0x04c6
+    mov al, byte [bx + bss_6a1a]     ; 0x04c6
     sub ah, ah                       ; 0x04ca
     push ax                          ; 0x04cc
-    mov al, byte [bx + 0x6a1e]       ; 0x04cd
+    mov al, byte [bx + bss_6a1e]     ; 0x04cd
     sub ah, ah                       ; 0x04d1
     mov cx, ax                       ; 0x04d3
     pop ax                           ; 0x04d5
@@ -348,7 +348,7 @@ api_idx_000c_POTM:
     shl cx, 1                        ; 0x051b
     add ax, cx                       ; 0x051d
     mov bx, ax                       ; 0x051f
-    mov al, byte [bx + 0x6ac1]       ; 0x0521
+    mov al, byte [bx + bss_6ac1]     ; 0x0521
     mov bx, word [bp + 0xc]          ; 0x0525
     mov byte [bx + 0x1], al          ; 0x0528
     mov ax, 0x15e                    ; 0x052b

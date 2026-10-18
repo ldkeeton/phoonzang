@@ -242,7 +242,7 @@ api_idx_0014_VORK:
     mov ax, word [bp - 0x0002]       ; 0x63b0
     shl ax, 1                        ; 0x63b3
     mov bx, ax                       ; 0x63b5
-    mov word [bx - 0x7cf2], 0        ; 0x63b7
+    mov word [bx + bss_830e], 0      ; 0x63b7
     inc word [bp - 0x0002]           ; 0x63bd
     mov ax, word [bp - 0x0002]       ; 0x63c0
     cmp ax, strict word 6            ; 0x63c3

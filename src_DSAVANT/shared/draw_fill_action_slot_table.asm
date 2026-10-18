@@ -5,7 +5,7 @@ draw_fill_action_slot_table:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + 0x8482]
+    mov bx, word [bx + bss_8482]
     cmp byte [bx + 0x19f], 0xff
     jne short @..draw_fill_action_slot_table.l1
     ret
@@ -20,7 +20,7 @@ draw_fill_action_slot_table:
     mov cx, 0x15e
     imul cx
     mov bx, ax
-    mov al, byte [bx + 0x6b75]
+    mov al, byte [bx + bss_6b75]
     sub ah, ah
     cmp ax, 0xfe
     je short @..draw_fill_action_slot_table.l2
@@ -30,7 +30,7 @@ draw_fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp + 0xa]
     mov bx, ax
-    mov al, byte [bx + 0x6a1a]
+    mov al, byte [bx + bss_6a1a]
     sub ah, ah
     mov word [bp - 0x0004], ax
     jmp near @..draw_fill_action_slot_table.l8
@@ -39,7 +39,7 @@ draw_fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + 0x6a22]
+    mov al, byte [bx + bss_6a22]
     sub ah, ah
     mov word [bp - 0x0006], ax
     cmp word [bp + 0xa], byte 0
@@ -47,9 +47,9 @@ draw_fill_action_slot_table:
     mov ax, 0x15e
     imul word [bp - 0x0002]
     mov bx, ax
-    cmp byte [bx + 0x6b75], 0
+    cmp byte [bx + bss_6b75], 0
     jbe short @..draw_fill_action_slot_table.l6
-    mov al, byte [bx + 0x6b75]
+    mov al, byte [bx + bss_6b75]
     sub ah, ah
     cmp ax, 0xfe
     jge short @..draw_fill_action_slot_table.l6
@@ -63,7 +63,7 @@ draw_fill_action_slot_table:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx + 0x8490]
+    mov bx, word [bx + bss_8490]
     cmp byte [bx + 0xd7], 0x47
     jne short @..draw_fill_action_slot_table.l5
     cmp word [bp - 0x000a], byte 0
@@ -77,7 +77,7 @@ draw_fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0004]
     mov bx, ax
-    mov al, byte [bx + 0x6a2c]
+    mov al, byte [bx + bss_6a2c]
     sub ah, ah
     push ax
     call ds_app_PUNN
@@ -87,12 +87,12 @@ draw_fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp - 0x0006]
     mov bx, ax
-    mov al, byte [bx + 0x6a40]
+    mov al, byte [bx + bss_6a40]
     sub ah, ah
     mov word [bp - 0x0008], ax
     cmp word [bp - 0x000a], byte 0
     je short @..draw_fill_action_slot_table.l7
-    mov al, byte [bx + 0x6a4a]
+    mov al, byte [bx + bss_6a4a]
     sub ah, ah
     push ax
     call ds_app_PUNN
@@ -107,7 +107,7 @@ draw_fill_action_slot_table:
     add ax, word [bp + 0x8]
     mov bx, ax
     pop ax
-    mov byte [bx + 0x8430], al
+    mov byte [bx + bss_8430], al
     mov al, byte [bp - 0x0006]
     push ax
     mov ax, 0x5a
@@ -123,7 +123,7 @@ draw_fill_action_slot_table:
     add cx, ax
     mov bx, cx
     pop ax
-    mov byte [bx + 0x8322], al
+    mov byte [bx + bss_8322], al
     mov al, byte [bp - 0x0008]
     mov byte [bx - 0x7cdd], al
     mov ax, 0x15e
@@ -133,7 +133,7 @@ draw_fill_action_slot_table:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6ac1]
+    mov al, byte [bx + bss_6ac1]
     inc al
     push ax
     mov ax, 0x5a
@@ -189,10 +189,10 @@ draw_fill_action_slot_table:
     imul word [bp - 0x0002]
     add ax, word [bp + 0xa]
     mov bx, ax
-    mov al, byte [bx + 0x6a1a]
+    mov al, byte [bx + bss_6a1a]
     sub ah, ah
     push ax
-    mov al, byte [bx + 0x6a1e]
+    mov al, byte [bx + bss_6a1e]
     sub ah, ah
     mov cx, ax
     pop ax

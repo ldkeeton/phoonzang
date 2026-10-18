@@ -18,7 +18,7 @@ ds_app_file_TSNH: ; Aztec csav frame=0x0018
     push word [bp + 0x4]             ; 0x2886
     mov ax, 0x15e                    ; 0x2889
     imul bx                          ; 0x288c
-    add ax, 0x6a1a                   ; 0x288e
+    add ax, bss_6a1a                 ; 0x288e
     push ax                          ; 0x2891
     mov ax, 8                        ; 0x2892
     push ax                          ; 0x2895

@@ -987,6 +987,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             geometry=image_geometry(
                 records, binary_data, start_offset,
                 getattr(segments, 'ds_size', None)),
+            segments=segments,
         )
 
     _annotate_interrupts(records)

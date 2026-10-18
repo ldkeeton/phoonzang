@@ -210,7 +210,7 @@ loc_QUVM:
     mov cx, 0x15e                    ; 0x1c07
     imul cx                          ; 0x1c0a
     mov bx, ax                       ; 0x1c0c
-    cmp byte [bx + 0x6b75], 0        ; 0x1c0e
+    cmp byte [bx + bss_6b75], 0      ; 0x1c0e
     je short @..loc_QUVM.l13         ; 0x1c13
     mov ax, word [bp - 0x0002]       ; 0x1c15
     shl ax, 1                        ; 0x1c18

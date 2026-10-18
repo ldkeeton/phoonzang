@@ -173,6 +173,21 @@ class LinkTest(unittest.TestCase):
         with self.assertRaisesRegex(relink.RelinkError, 'ds_loc_4462'):
             self.link(relink.SymbolIndex({}, None, None, {'bss_0cfa': 1}))
 
+    def _unnamed_index(self, canonical):
+        code = {0x5000: 'ds_loc_4462', 0x4f00: 'aztec_close'}
+        data = {'dseg_0d10': 0xd10, 'tbl': 0xd20}
+        return relink.SymbolIndex(code, None, None, data,
+                                  data_symbol=lambda off: canonical)
+
+    def test_a_data_object_no_operand_names_becomes_a_symbol(self):
+        out = self.link(self._unnamed_index('bss_0cfa'))
+        self.assertEqual(out.refs[0xf].text, 'bss_0cfa')
+        self.assertEqual(out.minted, {'bss_0cfa': 0xcfa})
+
+    def test_a_wrong_data_prefix_is_an_error(self):
+        with self.assertRaisesRegex(relink.RelinkError, "calls DS:0x0cfa 'dseg_0cfa'"):
+            self.link(self._unnamed_index('dseg_0cfa'))
+
     def test_short_branch_out_of_range_is_an_error(self):
         func = _foo()
         func.locals['.0'] = 0x300

@@ -7,7 +7,7 @@ api_idx_0044_PIIP:
     mov ax, word [bp - 0x0002]       ; 0x2993
     shl ax, 1                        ; 0x2996
     mov bx, ax                       ; 0x2998
-    mov word [bx - 0x7cf2], 0        ; 0x299a
+    mov word [bx + bss_830e], 0      ; 0x299a
     inc word [bp - 0x0002]           ; 0x29a0
     mov ax, word [bp - 0x0002]       ; 0x29a3
     cmp ax, strict word 6            ; 0x29a6

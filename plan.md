@@ -33,7 +33,8 @@ each literal operand or `dw` that should have moved and did not. Ratchet:
 | 734d80e1 | 51 | 1207 | 0 |
 | indexed DS bound | 51 | 545 | 0 |
 | pointer arguments | 57 | 356 | 0 |
-| driver tables | **29** | **356** | 0 |
+| driver tables | 29 | 356 | 0 |
+| C data names | **29** | **358** | 0 |
 
 The oracle is frozen. All rows were measured with its final version, in which
 a displacement counts only in the segment the edit moves and `bp` frame slots
@@ -44,7 +45,8 @@ The last row binds an indexed DS displacement (`[bx - 0x7b7e]` →
 `[bx + bss_8482]`) when it starts an object some binary of the host family
 names absolutely (the build's `ds_starts` union); a field offset such as
 `[bx + 0x19f]` stays a number. 662 of the 666 indexed findings went; the 4
-left are the C-relinked `draw_fill_action_slot_table` (§4.3 `_RAW_DATA`).
+left were the C-relinked `draw_fill_action_slot_table`, fixed by the C data
+names row below.
 
 The next row names a constant the program passes into an argument its
 routine reads memory through (`lib.argpointers`): the routine loads the
@@ -112,7 +114,7 @@ Auxiliary counters (all in `BASELINE_TOTALS`, all ratchets that only fall):
 | F3 | address-named `equ`s (`cseg_`, `loc_`, …) | 0 |
 | F4 | `dseg_`/`bss_` `equ`s, host DS-size immediates | dynamic; `psp_` inert |
 | F5 | gap to `data_origin` | dynamic |
-| F6 | numeric `dw` in a `; literal` table | **open**: 223 words, each table must be shown to hold no address |
+| F6 | numeric `dw` in a `; literal` table | done: 223 switch keys, each compared by the recognized helper |
 | F7 | pointer word in data | done: scorer + corpus + `pointer_arrays` |
 | F8 | MZ relocation-table offset word | in scope |
 | F9 | immediates and displacements that are addresses | **open**: `str_imm` 746, `ds_index` 2178 |
@@ -120,6 +122,12 @@ Auxiliary counters (all in `BASELINE_TOTALS`, all ratchets that only fall):
 
 A literal table word and an unresolved pointer render alike (`dw 0x…. ; 0x<slot>`);
 the trailing `; literal` tag makes it `f6`/inert, its absence `f7`/`data_shift`.
+The tag is evidence, not a guess: only a key of an Aztec inline switch carries
+it (`mov cx, N; call` a helper matching `AZTEC_SWITCH_BODY` byte for byte, which
+pops the table base and `repne scasw`s the N−1 keys against the switch value, so
+a key is compared and never read through). A table merely *assumed* literal (a
+`mov cx; call` dispatch the recognizer refused, a dropped direct far transfer)
+keeps its raw words untagged and counts as `f7`.
 
 ---
 
@@ -200,14 +208,26 @@ and supply the "inside a string" refusal.
    the pointer scorer, with a consumer as the proof (a `push` to a callee that
    takes a `char *`, a `[reg + disp]` read). Drivers also have non-string cases,
    e.g. `ega`'s `add si, strict word 0x2602` rebasing onto a CS buffer.
-2. **F6 literal tables (223 words).** "Not an address" is a claim. Each
-   `; literal` table needs evidence: the scorer's negative evidence, a consumer
-   that uses it arithmetically, or a sidecar entry checked against the bytes.
-3. **The C data-reference contract.** `lib/aztec/relink.py` still has the
-   `_RAW_DATA` fallback: a hand-written `.c` naming a DS offset the build has no
-   symbol for becomes a bare literal, so a wrong `dseg_`/`bss_` prefix is
-   invisible (DS:0x8482 is named `bss_8482`, past `bss_boundary`). It should
-   resolve to the canonical name or fail.
+2. **F6 literal tables: done.** All 223 tagged words are switch keys (§2):
+   each table follows `mov cx, N; call <helper>` and holds exactly N−1 tagged
+   keys before its N targets. The oracle reports one of them, vbase
+   `loc_JJHG.asm:170` `dw 0x0116` (data insert): the key equals a host DS
+   address by chance. The switch translates keyboard codes (`0x100 + scan`;
+   its neighbours test `0x13c`–`0x14c`, `0x1ab`, `0x1d8`), so 0x0116 is
+   Alt+U and stays a number; it is one of the 356.
+3. **The C data-reference contract: done.** A hand-written `.c` that names a
+   DS object by address (`bss_6a1a`) gets that symbol even when no asm operand
+   names it yet: `relink` mints it in `mem_equ`, so an overlay exports it and
+   the host declares it. The spelling must be the build's own
+   (`symbols.data_symbol`); `dseg_8482` for a BSS object is a link error that
+   names `bss_8482`. The two shared C files were renamed accordingly (13 BSS
+   objects). Their names also bind the asm copies of the same routines in the
+   other overlays (62 numbers became names in all, through the step-2 indexed rule). Data rose
+   356 → 358: the C's 4 literals went, and the newly declared 0x01a4/0x01d4
+   expose 6 numbers equal to them by chance (the 420-byte record size handed
+   to `malloc`/`setmem`, message number 0x1d4). One real address it exposed,
+   ds `add ax, 0x6a1a` after `imul` by the 350-byte row size, is declared as a
+   `ds` `immediate_pointers` entry (now accepted alongside `cs`).
 4. **Sidecar-authoritative names.** `vga`'s `cseg_4102` sits on an operand the
    sidecar's `immediate_labels` names `data_4202`; `_resolve_imm_symbols` mints
    it anyway and a dead label is stamped. Either do not mint a name an

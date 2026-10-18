@@ -7,13 +7,13 @@ api_idx_0050_NHHL:
     mov ax, word [bp - 0x0002]       ; 0x3074
     shl ax, 1                        ; 0x3077
     mov bx, ax                       ; 0x3079
-    mov ax, word [bx - 0x7cf2]       ; 0x307b
+    mov ax, word [bx + bss_830e]     ; 0x307b
     add bx, bp                       ; 0x307f
     mov word [bx - 0x0050], ax       ; 0x3081
     mov ax, word [bp - 0x0002]       ; 0x3084
     shl ax, 1                        ; 0x3087
     mov bx, ax                       ; 0x3089
-    mov word [bx - 0x7cf2], 0        ; 0x308b
+    mov word [bx + bss_830e], 0      ; 0x308b
     inc word [bp - 0x0002]           ; 0x3091
     mov ax, word [bp - 0x0002]       ; 0x3094
     cmp ax, strict word 6            ; 0x3097
@@ -1373,7 +1373,7 @@ jumptable_3cc2:
     mov cx, word [bp - 0x0002]       ; 0x3d1d
     shl cx, 1                        ; 0x3d20
     mov bx, cx                       ; 0x3d22
-    mov word [bx - 0x7cf2], ax       ; 0x3d24
+    mov word [bx + bss_830e], ax     ; 0x3d24
     inc word [bp - 0x0002]           ; 0x3d28
     mov ax, word [bp - 0x0002]       ; 0x3d2b
     cmp ax, strict word 6            ; 0x3d2e

@@ -7,7 +7,7 @@ api_idx_0044_NJQJ:
     mov ax, word [bp - 0x0002]       ; 0x8d29
     shl ax, 1                        ; 0x8d2c
     mov bx, ax                       ; 0x8d2e
-    mov word [bx - 0x7cf2], 0        ; 0x8d30
+    mov word [bx + bss_830e], 0      ; 0x8d30
     inc word [bp - 0x0002]           ; 0x8d36
     mov ax, word [bp - 0x0002]       ; 0x8d39
     cmp ax, strict word 6            ; 0x8d3c
