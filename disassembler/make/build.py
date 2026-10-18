@@ -14,6 +14,7 @@ from main.projects import discover_binaries
 from main.build import build_project, nasm_binary
 from lib.cachedirs import src_dir
 from lib.report import clear_project_stats
+from lib.sidecar.errors import SidecarError
 
 from .clean import clean_output
 from .common import APPS, JOBS, PROJECT, _asm_one, _extra_flags
@@ -58,7 +59,11 @@ def _assemble(out_dir):
 
 def asm_app(app):
     out_dir = src_dir(app, PROJECT)
-    failed = build_project(app, _generate(app), _assemble(out_dir))
+    try:
+        failed = build_project(app, _generate(app), _assemble(out_dir))
+    except SidecarError as exc:
+        print(f'{app}: sidecar configuration error: {exc}')
+        sys.exit(1)
     if failed:
         print(f'{app}: {len(set(failed))} binary(ies) failed to build')
         sys.exit(1)

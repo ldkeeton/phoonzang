@@ -153,10 +153,10 @@ class Func:
     """A public function recovered from a compiled module."""
 
     __slots__ = ('name', 'cname', 'module', 'offset', 'code', 'fixups',
-                 'locals')
+                 'locals', 'data_locals')
 
     def __init__(self, name, module, offset, code, fixups, locals_=None,
-                 cname=None):
+                 cname=None, data_locals=None):
         self.name = name
         self.cname = cname or name   # the C name (``__read``, ``flsh_``)
         self.module = module
@@ -165,6 +165,11 @@ class Func:
         self.fixups = fixups  # Fixup with offsets relative to *code*
         # ``.N`` local label -> offset relative to *code*.
         self.locals = dict(locals_ or {})
+        # ``.N`` module-local data label (a ``static`` or string literal) ->
+        # the initialized bytes the C gives it (``b''`` for uninitialized
+        # storage).  None for a module cached before this was recorded.
+        self.data_locals = (None if data_locals is None
+                            else {k: bytes(v) for k, v in data_locals.items()})
 
     @property
     def key(self):
@@ -188,15 +193,21 @@ class Func:
             'code': self.code.hex(),
             'fixups': [fx.to_list() for fx in self.fixups],
             'locals': self.locals,
+            'data_locals': (None if self.data_locals is None
+                            else {k: v.hex()
+                                  for k, v in self.data_locals.items()}),
         }
 
     @classmethod
     def from_dict(cls, blob):
         from .objread import Fixup
         fixups = [Fixup.from_list(row) for row in blob.get('fixups', ())]
+        data_locals = blob.get('data_locals')
+        if data_locals is not None:
+            data_locals = {k: bytes.fromhex(v) for k, v in data_locals.items()}
         return cls(blob['name'], blob.get('module'),
                    blob.get('offset', 0), bytes.fromhex(blob['code']), fixups,
-                   blob.get('locals'), blob.get('cname'))
+                   blob.get('locals'), blob.get('cname'), data_locals)
 
     def truncate(self, length):
         """A copy owning only the first *length* bytes of *code*.
@@ -216,7 +227,7 @@ class Func:
             self.name, self.module, self.offset, self.code[:length],
             [fx for fx in self.fixups if fx.offset + fx.width <= length],
             {name: off for name, off in self.locals.items() if off < length},
-            self.cname)
+            self.cname, self.data_locals)
 
     def __repr__(self):
         return (f'Func({self.name!r}, off=0x{self.offset:x}, '
@@ -493,6 +504,26 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
             shutil.rmtree(work, ignore_errors=True)
 
 
+def _local_data(dump, name):
+    """The initialized bytes at module-local data label *name*.
+
+    They run from the label to the next data label or the first uninitialized
+    byte, whichever comes first.  Uninitialized storage has none.
+    """
+    if name in dump.bss_locals:
+        return b''
+    start = dump.data_locals[name]
+    stops = [off for n, off in dump.data_locals.items()
+             if off > start and n not in dump.bss_locals]
+    stop = min(stops, default=None)
+    out = bytearray()
+    off = start
+    while off in dump.data and (stop is None or off < stop):
+        out.append(dump.data[off])
+        off += 1
+    return bytes(out)
+
+
 def _build_module(module, omf_path, dump, compiler):
     result = CompiledModule()
     if not os.path.exists(omf_path):
@@ -528,7 +559,9 @@ def _build_module(module, omf_path, dump, compiler):
         local_names = {fx.symbol for fx in fixups if fx.symbol_kind == 'LCLSYM'}
         locals_ = {name: dump.locals[name] - off for name in local_names
                    if name in dump.locals}
+        data_locals = {name: _local_data(dump, name) for name in local_names
+                       if name in dump.data_locals}
         func = Func(pf['name'], pf['module'] or module, off, seg, fixups,
-                    locals_, omf_name(pf['name'], compiler))
+                    locals_, omf_name(pf['name'], compiler), data_locals)
         result.functions[func.key] = func
     return result

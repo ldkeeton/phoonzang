@@ -83,3 +83,7 @@ def _validate(data):
         _reject_range_conflicts(force_data, force_code, f'binaries.{b_name}')
 
     _validate_corpus(data, 'project')
+    for key in ('pointer_arrays', 'immediate_pointers'):
+        if key in data:
+            raise SidecarError(f'"{key}" belongs under a binary: no binary '
+                               f'takes the project-level list')

@@ -19,6 +19,17 @@ def _validate_compiler_flags(block):
                            '"default" list and a "prefixes" map of lists')
 
 
+def matching_prefix(project, label):
+    """The ``compiler_flags`` prefix that sets *label*'s flags, or None."""
+    from .loader import load
+
+    block = (load(project) or {}).get('compiler_flags') or {}
+    for prefix in sorted(block.get('prefixes', {}), key=len, reverse=True):
+        if label.startswith(prefix):
+            return prefix
+    return None
+
+
 def compiler_flags(project, label):
     """Flags for *label* from the sidecar's ``compiler_flags``, or ``None``.
 

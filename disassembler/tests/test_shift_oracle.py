@@ -43,7 +43,14 @@ _TREE = shift_oracle.TREE
 # 4 literals went; the host now declares 0x01a4/0x01d4/0x6a1a, which exposes 6
 # numbers equal to them by chance: the 420-byte record size passed to
 # ``malloc``/``setmem`` (0x1a4) and message number 0x1d4.
-BASELINE = {'code': 29, 'data': 358, 'branch': 0}
+# Code 29 -> 28, data 358 -> 369: every C relocation is now named (none is
+# copied from the exe), so vinstall's ``cls_ = closall`` reads
+# ``aztec_closall - IMAGE_BASE``.  The C now names ``bss_8322 + 1``/``+ 2`` and
+# ``bss_6ac1 + 1``, which exposes the same 5 displacements in the asm-only
+# sibling ``shared/api_idx_000e_VRIR.asm`` (counted in vmexe and vpops: 10),
+# and ``dseg_0cf5`` (tty_wr's ``crbuf``) exposes vmexe's message number 0xcf5
+# passed to ``ds_app_mem_TIMR``.
+BASELINE = {'code': 28, 'data': 369, 'branch': 0}
 
 
 def _sites(result):

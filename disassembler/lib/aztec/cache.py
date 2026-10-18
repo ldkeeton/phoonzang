@@ -29,6 +29,7 @@ from lib.autogen import MARKER_C
 from lib.cachedirs import prebuild_dir
 
 from . import listing, objcache, sources
+from .compile import CompiledModule
 from .mux import (COMPILER_VERSIONS, SOURCE_VERSIONS, MuxEngine, is_asm,
                   tool_flags)
 from .objread import fixup_width
@@ -397,6 +398,9 @@ def compile_source(project, label, entry, source_text):
 
     key = _module_key(entry, source_text)
     module = objcache.load(objs_dir(project), key)
+    if (isinstance(module, CompiledModule)
+            and any(f.data_locals is None for f in module.functions.values())):
+        module = None   # cached before module data was kept: the link needs it
     if module is None:
         module = azc.compile_module(
             source_text, label, compiler=entry['compiler'],

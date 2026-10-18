@@ -60,8 +60,9 @@ def learn_names(label, start, func, original, index, names_at, image_base=0):
     ``index`` is a :class:`lib.aztec.relink.SymbolIndex`; ``names_at`` maps a
     data-segment offset to the names defined there.  An absolute address with
     no data name may be a code pointer (``cls_ = closall``): code labels sit at
-    file offsets, so it is looked up at ``target + image_base``.  An external
-    whose target has no name, or more than one, is an error rather than a
+    file offsets, so it is looked up at ``target + image_base``; failing
+    both, a data address takes the build's canonical name for it.  An
+    external whose target has more than one name is an error rather than a
     guess.
     """
     code_at = {}
@@ -86,6 +87,10 @@ def learn_names(label, start, func, original, index, names_at, image_base=0):
                 candidates = code_at.get(target + image_base, [])
                 what = (f'data or code address 0x{target:04x} '
                         f'(file 0x{target + image_base:04x})')
+            if not candidates and index.data_symbol:
+                # A DS object no asm operand names yet: its canonical
+                # spelling, which the linker defines (``relink``).
+                candidates = [str(index.data_symbol(target))]
         else:
             continue
         if len(candidates) != 1:
@@ -158,7 +163,10 @@ def upgrade(label, own_key, start, text, original, index, names_at, compile_,
     mapping = learn_names(label, start, func, original, index, names_at,
                           image_base)
     mapping.update(_own_names(text, label, own_key))
-    macros = {}
+    # A name only a header macro spells (``ctp_`` in ``isdigit``) is not in
+    # the text to rename: define it.
+    tokens = {m.group(0) for m in _TOKEN.finditer(text)}
+    macros = {k: v for k, v in mapping.items() if k not in tokens}
     for _attempt in range(4):
         direct = {k: v for k, v in mapping.items() if k not in macros}
         new_text = _with_defines(rewrite_identifiers(text, direct),

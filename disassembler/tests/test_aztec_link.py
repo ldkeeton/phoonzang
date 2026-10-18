@@ -77,7 +77,7 @@ class ObdParseTest(unittest.TestCase):
         self.assertEqual((fx.kind, fx.symbol, fx.addend),
                          ('WABS', 'tbl_', 4))
 
-    def test_unmodelled_expression_is_kept_raw(self):
+    def test_nested_expression_folds_to_symbol_and_addend(self):
         dump = parse_obd(
             'Code (0000): Data( 3)  b8 00 00\n'
             'Code (0001): Expr ADD\n'
@@ -87,10 +87,26 @@ class ObdParseTest(unittest.TestCase):
             '                 SMLINT: 0\n'
             'Code (0003): TheEnd\n')
         fx = dump.fixups[0]
+        self.assertEqual((fx.kind, fx.symbol_kind, fx.symbol, fx.addend),
+                         ('WABS', 'LCLSYM', '.1', -1))
+
+    def test_unmodelled_expression_is_kept_raw(self):
+        dump = parse_obd(
+            'Code (0000): Data( 3)  b8 00 00\n'
+            'Code (0001): Expr MUL\n'
+            '                 GBLSYM 3, tbl_\n'
+            '                 SMLINT: 2\n'
+            'Code (0003): TheEnd\n')
+        fx = dump.fixups[0]
         self.assertEqual(fx.kind, 'Expr')
         self.assertFalse(fx.is_reloc)
         self.assertIsNone(fx.symbol)
-        self.assertEqual(len(fx.expr), 4)
+        self.assertEqual(len(fx.expr), 2)
+
+    def test_module_data_segment_is_kept(self):
+        dump = parse_obd('Data (0000): Use Code\n'
+                         'Data (0001): Data( 2)  0d 0a\n')
+        self.assertEqual(dump.data, {1: 0x0d, 2: 0x0a})
 
     def test_real_relocation_classification(self):
         self.assertTrue(is_reloc(self.by_offset[0x18]))
@@ -194,12 +210,46 @@ class LinkTest(unittest.TestCase):
         with self.assertRaisesRegex(relink.RelinkError, 'out of range'):
             relink.link('aztec_foo', self.START, func, _index(), b'')
 
-    def test_code_address_operand_stays_on_the_legacy_path(self):
+    def test_a_code_address_operand_is_relative_to_the_image_base(self):
         func = Func('_f', 'f', 0, b'\xb8\x00\x00',
                     [Fixup(1, 'WABS', 'GBLSYM', 0, 'aztec_close_')])
-        out = relink.link('aztec_f', 0, func, _index(), b'\xb8\x34\x12')
-        self.assertEqual(bytes(out.code), b'\xb8\x34\x12')
-        self.assertEqual(len(out.legacy), 1)
+        index = _index()
+        index.image_base = 0x200
+        out = relink.link('aztec_f', 0, func, index, b'')
+        self.assertEqual(out.refs[1].text, 'aztec_close - IMAGE_BASE')
+        self.assertEqual(bytes(out.code[1:]),
+                         (index.code['aztec_close'] - 0x200).to_bytes(2, 'little'))
+
+    def test_a_code_address_without_an_image_base_is_an_error(self):
+        func = Func('_f', 'f', 0, b'\xb8\x00\x00',
+                    [Fixup(1, 'WABS', 'GBLSYM', 0, 'aztec_close_')])
+        with self.assertRaisesRegex(relink.RelinkError, 'image base'):
+            relink.link('aztec_f', 0, func, _index(), b'')
+
+    def test_an_undecoded_expression_is_an_error(self):
+        func = Func('_f', 'f', 0, b'\xb8\x00\x00',
+                    [Fixup(1, 'Expr', 'MUL', None, None, expr=['x'])])
+        with self.assertRaisesRegex(relink.RelinkError, 'linker can name'):
+            relink.link('aztec_f', 0, func, _index(), b'\xb8\x34\x12')
+
+    def _static(self, data, exe_bytes):
+        """``mov ax, &crbuf`` where the original link put ``crbuf`` at 0xcf5."""
+        func = Func('_f', 'f', 0, b'\xb8\x00\x00',
+                    [Fixup(1, 'WABS', 'LCLSYM', None, '.2')],
+                    data_locals={'.2': data})
+        index = relink.SymbolIndex(
+            data_symbol=lambda off: f'dseg_{off:04x}',
+            data_bytes=lambda off, n: exe_bytes[:n])
+        return relink.link('aztec_f', 0, func, index, b'\xb8\xf5\x0c')
+
+    def test_module_static_data_is_named_where_the_exe_has_it(self):
+        out = self._static(b'\r', b'\r')
+        self.assertEqual(out.refs[1].text, 'dseg_0cf5')
+        self.assertEqual(out.minted, {'dseg_0cf5': 0xcf5})
+
+    def test_module_static_data_must_match_the_exe(self):
+        with self.assertRaisesRegex(relink.RelinkError, 'the exe has 0d'):
+            self._static(b'\n', b'\r')
 
 
 class RenderTest(unittest.TestCase):

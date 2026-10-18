@@ -71,11 +71,21 @@ class DispatchTablePhase(Phase):
                     confidence=CONF_CODE, reason=reason,
                 ))
 
+        use = ctx.sidecar_entry.get('use')
+        if use is not None:
+            use.applied('dispatch_table', 'table')
         for i in range(count):
             addr = base + i * esize
             if addr + 3 >= n:
+                if use is not None:
+                    use.skipped('dispatch_table', 'table',
+                                f'entry {i} runs past the end of the file')
                 break
             if data[addr] != 0xE8 or data[addr + 3] != 0xCB:
+                if use is not None:
+                    use.skipped('dispatch_table', 'table',
+                                f'entry {i} at 0x{addr:04x} is not '
+                                f'`call rel16; retf`')
                 continue
 
             # The entry is an executable thunk, so its own address is a code

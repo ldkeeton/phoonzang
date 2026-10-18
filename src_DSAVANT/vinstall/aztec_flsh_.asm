@@ -5,7 +5,7 @@ aztec_flsh_:
     push di                          ; 0x2d89
     push si                          ; 0x2d8a
     mov si, word [bp + 0x4]          ; 0x2d8b
-    mov word [dseg_2500], 0x2af5     ; 0x2d8e
+    mov word [dseg_2500], aztec_closall - IMAGE_BASE ; 0x2d8e
     mov al, byte [si + 0x6]          ; 0x2d94
     cbw                              ; 0x2d97
     test ax, 0x10                    ; 0x2d98

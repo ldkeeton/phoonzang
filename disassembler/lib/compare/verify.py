@@ -31,6 +31,7 @@ See ``lib.format`` for the F/L/DATA/PSP model.  Within this module:
   tables) is not absorbed and mis-decoded as pseudo-instructions.
 """
 
+import re
 import os
 import struct
 import time
@@ -212,6 +213,88 @@ def _host_space_starts(mem_equ, segments):
                    and (limit is None or value < limit)})
 
 
+def _note_declared_immediates(use, entries, declared, insn_by_addr,
+                              immediate_labels):
+    """Record each ``immediate_pointers`` entry: named, or shadowed.
+
+    ``_resolve_declared_immediates`` already fails on an entry that names no
+    decoded immediate; an ``immediate_labels`` name for the same value is
+    rendered first, so it would hide the entry.
+    """
+    for entry in entries or ():
+        offset = entry['offset']
+        ident = f'{offset:04x}'
+        if (offset, 1) not in declared:
+            use.skipped('immediate_pointers', ident, 'named no operand')
+            continue
+        insn = insn_by_addr.get(offset)
+        value = insn.operands[1].imm & 0xffff if insn is not None else None
+        if value in (immediate_labels or {}):
+            use.skipped('immediate_pointers', ident,
+                        f'immediate_labels names 0x{value:04x} '
+                        f'{immediate_labels[value]!r} first')
+        else:
+            use.applied('immediate_pointers', ident)
+
+
+def _note_pointer_corpus(use, data_pointers, not_pointers, promotion_report,
+                         segments, emit_class):
+    """Record each ``data_pointers``/``pointer_arrays``/``not_pointers`` entry.
+
+    An asserted pointer is applied when its word was emitted symbolically; a
+    ``pointer_arrays`` table when every one of its words was.  A non-pointer
+    holds while its word is still a data word that stays raw.
+    """
+    emitted = {e['offset'] for e in promotion_report['promoted']}
+    skipped = {e['offset']: e['reason'] for e in promotion_report['skipped']}
+    kind = getattr(segments, 'kind', None)
+    for entry in data_pointers or ():
+        if 'array' in entry:
+            use.applied('pointer_arrays', f'{entry["array"]:04x}')
+    for entry in data_pointers or ():
+        offset = entry['offset']
+        key, ident = (('pointer_arrays', f'{entry["array"]:04x}')
+                      if 'array' in entry else
+                      ('data_pointers', f'{offset:04x}'))
+        if offset in emitted:
+            if key == 'data_pointers':
+                use.applied(key, ident)
+            continue
+        if kind not in ('mz', 'driver'):
+            reason = f'a {kind} image takes no data_pointers'
+        else:
+            reason = skipped.get(offset, 'not emitted')
+        prefix = f'word at 0x{offset:04x}: ' if key == 'pointer_arrays' else ''
+        use.skipped(key, ident, prefix + reason)
+    for entry in not_pointers or ():
+        offset = entry['offset']
+        ident = f'{offset:04x}'
+        if offset + 2 > len(emit_class):
+            use.skipped('not_pointers', ident, 'outside the file')
+        elif IS_CODE in (emit_class[offset], emit_class[offset + 1]):
+            use.skipped('not_pointers', ident, 'the word is code')
+        elif offset in emitted:
+            use.skipped('not_pointers', ident, 'emitted as a pointer')
+        else:
+            use.applied('not_pointers', ident)
+
+
+def _note_immediate_labels(use, immediate_labels, text):
+    """Record each ``immediate_labels`` name an emitted operand spells."""
+    for value, name in (immediate_labels or {}).items():
+        ident = f'0x{value:x}'
+        spelled = re.compile(rf'(?<![\w.@$]){re.escape(name)}(?![\w$])')
+        uses = [line for line in text.splitlines()
+                if spelled.search(line)
+                and not re.match(rf'\s*{re.escape(name)}\s+equ\b', line)
+                and not re.match(rf'\s*{re.escape(name)}:', line)]
+        if uses:
+            use.applied('immediate_labels', ident)
+        else:
+            use.skipped('immediate_labels', ident,
+                        f'no operand renders {name!r}')
+
+
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False, show_offsets=True,
            structs=None, asm_dir=None, cascade_promoted=None,
@@ -226,8 +309,12 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            segment_flow=None, segments=None, external_data=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
            immediate_pointers=(), host_data_offsets=None,
-           ds_starts=frozenset(), foreign_pointer_params=None):
+           ds_starts=frozenset(), foreign_pointer_params=None,
+           sidecar_use=None):
     """Produce NASM source text from *binary_data* and *instructions*.
+
+    *sidecar_use* (a :class:`lib.sidecar.usage.SidecarUse`) learns which of
+    the sidecar entries handed in here were applied.
 
     Parameters
     ----------
@@ -477,9 +564,13 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     mem_symbols.update(_resolve_imm_symbols(
         insns, segment_flow, segments, label_map, mem_equ, start_offset,
         extra_proven=arg_pointers))
-    mem_symbols.update(_resolve_declared_immediates(
+    declared = _resolve_declared_immediates(
         insns, immediate_pointers, segments, label_map, mem_equ,
-        start_offset, owner=name))
+        start_offset, owner=name)
+    mem_symbols.update(declared)
+    if sidecar_use is not None:
+        _note_declared_immediates(sidecar_use, immediate_pointers, declared,
+                                  insn_by_addr, immediate_labels)
 
     # ``micro_assemble``/``assemble_batch`` rebuild ``name - IMAGE_BASE`` from
     # *file-offset* labels (``_build_equ_prelude``), so a raw driver's
@@ -537,6 +628,15 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         dname = None
         if external_data and len(segs) == 1:
             dname = external_data_name(addr, external_data, next(iter(segs)))
+        if sidecar_use is not None and external_data and addr in external_data:
+            ident = f'0x{addr:04x}'
+            if dname:
+                sidecar_use.applied('external_data', ident)
+            else:
+                sidecar_use.skipped(
+                    'external_data', ident,
+                    f'reached through {sorted(segs) or "no segment"}, not '
+                    f'only {external_data[addr].get("segment", "ds")}')
         if dname:
             dname = Symbol(dname, kind=Kind.DATA, source=Source.SIDECAR,
                            offset=addr, space=Space.ABS)
@@ -548,8 +648,15 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         if addr in label_map:
             if label_map[addr] == dname:
                 data_labels[addr] = dname
+            elif sidecar_use is not None and addr in (external_data or {}):
+                sidecar_use.skipped('external_data', f'0x{addr:04x}',
+                                    f'0x{addr:04x} is already named '
+                                    f'{str(label_map[addr])!r}')
             continue
         if code_targets is not None and addr in code_targets:
+            if sidecar_use is not None and addr in (external_data or {}):
+                sidecar_use.skipped('external_data', f'0x{addr:04x}',
+                                    f'0x{addr:04x} is a code target')
             continue
         label_map[addr] = dname
         data_labels[addr] = dname
@@ -829,12 +936,24 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     o_corg = None
     if segments is not None and getattr(segments, 'overlay', None):
         o_corg = segments.overlay.get('o_corg')
+    injected = {}
     if table_specs:
         load_offset = getattr(segments, 'load_offset', 0) or 0
         records, injected, synthesized = _inject_jump_tables(
             records, table_specs, binary_data, start_offset,
             label_map, local_labels, o_corg=o_corg, load_offset=load_offset,
         )
+    if sidecar_use is not None:
+        for entry in jump_table_overrides or ():
+            table = int(entry['table'], 16)
+            if table in injected:
+                sidecar_use.applied('jump_tables', entry['table'])
+            else:
+                sidecar_use.skipped(
+                    'jump_tables', entry['table'],
+                    'not emitted as a table (its bytes are not one data run, '
+                    'or it is under three words)')
+    if injected:
         disp_labels = {
             table_addr - start_offset + load_offset: label
             for table_addr, label in injected.items()
@@ -1052,6 +1171,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         records, binary_data, start_offset, segments, promoted_words,
         mem_equ, label_map=label_map,
     )
+    if sidecar_use is not None:
+        _note_pointer_corpus(sidecar_use, data_pointers, not_pointers,
+                             promotion_report, segments, emit_class)
 
     stagelog.step('verify.pointer_promotion', 2, track={'labels': _label_records(records)},
                   metrics={'records': len(records)})
@@ -1144,6 +1266,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         *(mem_equ or {}), *(foreign_label_map or {}).values(),
         *(immediate_labels or {}).values(),
     ]
+    if sidecar_use is not None:
+        _note_immediate_labels(
+            sidecar_use, immediate_labels,
+            src_lines + '\n' + '\n'.join(split_sources.values()))
     frozen = count_frozen_addrs(
         src_lines + '\n' + '\n'.join(split_sources.values()),
         {str(sym): sym for sym in reversed(symbols) if isinstance(sym, Symbol)},

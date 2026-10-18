@@ -7,6 +7,7 @@ from .jump_tables import _validate_jump_tables, _validate_code_tables
 from .pointers import (_expand_pointer_arrays, _pointer_assertions,
                        _validate_corpus)
 from .ranges import _validate_ranges, validate_force_ranges
+from .usage import SidecarUse
 
 
 def _validate_binary(name, info):
@@ -62,6 +63,7 @@ def per_binary(sidecar, short_name):
         'api_dispatch': sidecar.get('api_dispatch', {}),
         'function_names': {},
         'routines': sidecar.get('routines', {}),
+        'vendor_patches': sidecar.get('vendor_patches', {}),
         'dispatch_table': None,
         'immediate_labels': {},
         'external_data': {},
@@ -110,4 +112,35 @@ def per_binary(sidecar, short_name):
 
     validate_force_ranges(result['force_data'], result['force_code'],
                           f'binaries.{short_name}')
+    result['use'] = _expected_use(result, short_name)
     return result
+
+
+def _expected_use(result, short_name):
+    """A :class:`SidecarUse` expecting each of this binary's own entries."""
+    use = SidecarUse(f'binaries.{short_name}')
+    for key in ('force_data', 'force_code'):
+        for r in result[key]:
+            use.expect(key, r['start'])
+    for key in ('code_tables', 'jump_tables'):
+        for t in result[key]:
+            use.expect(key, t['table'])
+    if result['dispatch_table']:
+        use.expect('dispatch_table', 'table')
+    for hex_off in result['function_names']:
+        use.expect('function_names', hex_off)
+    if result['entry_symbol']:
+        use.expect('entry_symbol', result['entry_symbol'])
+    for hex_off in result['immediate_labels']:
+        use.expect('immediate_labels', f'0x{int(hex_off, 16):x}')
+    for key in ('immediate_pointers', 'not_pointers'):
+        for entry in result[key]:
+            use.expect(key, f'{entry["offset"]:04x}')
+    for entry in result['data_pointers']:
+        if 'array' in entry:
+            use.expect('pointer_arrays', f'{entry["array"]:04x}')
+        else:
+            use.expect('data_pointers', f'{entry["offset"]:04x}')
+    for offset in result['external_data']:
+        use.expect('external_data', f'0x{offset:04x}')
+    return use

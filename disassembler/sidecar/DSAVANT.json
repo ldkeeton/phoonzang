@@ -362,8 +362,7 @@
         "0x4202": "data_4202",
         "0x46d9": "data_46d9",
         "0x46f1": "data_46f1",
-        "0x1e5c": "data_1e5c",
-        "0x1e64": "data_1e64"
+        "0x1e5c": "data_1e5c"
       }
     },
     "ega": {
@@ -441,11 +440,5 @@
     }
   },
   "force_data": [],
-  "force_code": [],
-  "api_dispatch": {
-    "0x0001": {
-      "name": "api_special_ffff",
-      "notes": "dispatch param 0xFFFF (-1) \u2014 odd index, likely special-case"
-    }
-  }
+  "force_code": []
 }

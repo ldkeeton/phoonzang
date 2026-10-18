@@ -1,9 +1,11 @@
 /* auto-generated */
 /* Copyright (C) 1982 by Manx Software Systems */
+/* asm label names for identifiers the headers declare */
+#define ctp_ dseg_2452
 #include <ctype.h>
 
 long
-atol(cp)
+aztec_atol(cp)
 register char *cp;
 {
 	long n;

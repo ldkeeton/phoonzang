@@ -40,11 +40,13 @@ from lib.cachedirs import labels_dir, src_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
     DS_STARTS_NAME, LinkError, collect_ds_starts, collect_host_data,
+    collect_sidecar_use,
     ds_starts_export_name, host_name, read_ds_starts, read_host_data_offsets,
     write_ds_starts, write_host_data_offsets,
     include_args,
 )
 from lib.sidecar.loader import load as load_sidecar
+from lib.sidecar.errors import SidecarError
 from lib.sidecar.binary import per_binary as sidecar_per_binary
 from lib.shared import share_identical
 
@@ -60,6 +62,45 @@ def clear_host_data_exports(project):
     for entry in os.listdir(target):
         if entry.endswith('_hostdata.json'):
             os.remove(os.path.join(target, entry))
+
+
+def clear_sidecar_use_exports(project):
+    """Drop the previous build's per-binary sidecar-use exports."""
+    target = labels_dir(project)
+    if not os.path.isdir(target):
+        return
+    for entry in os.listdir(target):
+        if entry.endswith('_sidecaruse.json'):
+            os.remove(os.path.join(target, entry))
+
+
+def check_build_sidecar_use(project, bins):
+    """Fail on a build-wide sidecar entry no binary applied.
+
+    One ``routines``/``api_dispatch`` entry names code in every binary that
+    carries it, a ``vendor_patches`` entry a library routine, a
+    ``compiler_flags`` prefix the C routines it covers; each must have done
+    so somewhere.  Every ``binaries`` entry must name a binary of the app.
+    """
+    sidecar = load_sidecar(project) or {}
+    used = collect_sidecar_use(labels_dir(project), bins)
+    problems = []
+    for key in ('routines', 'api_dispatch', 'vendor_patches'):
+        for entry in sidecar.get(key) or {}:
+            if entry not in used.get(key, ()):
+                problems.append(f'{key}[{entry}]: no binary has it')
+    prefixes = (sidecar.get('compiler_flags') or {}).get('prefixes', {})
+    for prefix in prefixes:
+        if prefix not in used.get('compiler_flags', ()):
+            problems.append(f'compiler_flags.prefixes[{prefix}]: no C routine '
+                            f'takes it')
+    for name in (sidecar.get('binaries') or {}):
+        if name not in bins:
+            problems.append(f'binaries.{name}: no such binary')
+    if problems:
+        raise SidecarError(
+            f'{len(problems)} sidecar entr{"y" if len(problems) == 1 else "ies"} '
+            f'not applied:\n  ' + '\n  '.join(problems))
 
 
 def clear_ds_starts_exports(project):
@@ -179,6 +220,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     family = {host} | {n for n, refs in cross_refs.items()
                        if any(src == host for _, src in refs)}
     if only is None:
+        clear_sidecar_use_exports(project)
         clear_ds_starts_exports(project)
         stagelog.step('project.clear_ds_starts', 0, 'cleanup',
             repairs='project.ds_starts',
@@ -266,6 +308,10 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
             return failed
         stagelog.step('project.host_emit', 0, 'recompute', repairs='project.export_sources',
             why='the host\'s labels come first, its source waits for the overlay DS union')
+
+    check_build_sidecar_use(project, bins)
+    stagelog.step('project.sidecar_use', 0, 'measure',
+        why='a build-wide sidecar entry is applied by some binary or is stale')
 
     # 5. one copy of every byte-identical routine, in shared/
     shared = share_identical(out_dir)

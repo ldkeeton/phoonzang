@@ -133,6 +133,10 @@ class ObjDump:
         # from the raw object (OBD does not print their definitions).
         self.locals = {}
         self.data_locals = {}
+        self.bss_locals = set()
+        # The module's initialized data, ``{data offset: byte}`` (uninitialized
+        # storage has no entry).
+        self.data = {}
 
     def __len__(self):
         return len(self.code)
@@ -167,6 +171,57 @@ class ObjDump:
 
 _EXPR_SYM_RE = re.compile(r'^\s+([A-Z]+SYM)\s+(\d+),\s*(\S+)\s*$')
 _EXPR_INT_RE = re.compile(r'^\s+[A-Z]*INT:\s*(-?\d+)\s*$')
+_EXPR_LOCAL_RE = re.compile(r'^\s+(LCLSYM)\s+(\.\d+)\s*$')
+_EXPR_OP_RE = re.compile(r'^\s+Expr\s+(\w+)\s*$')
+_OBD_DATA_RE = re.compile(r'^Data \(([0-9a-fA-F]+)\): Data\(\s*(\d+)\)\s*(.*)$')
+
+
+def _fold_expr(op, body):
+    """``(symbol_kind, index, symbol, addend)`` for *op* over *body*, or None.
+
+    An expression's operands follow it in prefix order, one per line (a
+    nested operator's operands follow *it*).  Aztec writes ``tbl[i + 1]`` as
+    ``ADD(ADD(tbl, 1), 0)``: one symbol and constants, which fold to
+    ``tbl + 1``.  ``SUB`` folds the same way when the constant is subtracted
+    from the symbol.  Anything else is not a plain address.
+    """
+    items = iter(body)
+
+    def node():
+        line = next(items)
+        m = _EXPR_OP_RE.match(line)
+        if m:
+            return tree(m.group(1))
+        m = _EXPR_SYM_RE.match(line)
+        if m:
+            return (m.group(1), int(m.group(2)), m.group(3), 0)
+        m = _EXPR_LOCAL_RE.match(line)
+        if m:
+            return (m.group(1), None, m.group(2), 0)
+        m = _EXPR_INT_RE.match(line)
+        if m:
+            return int(m.group(1))
+        raise ValueError(line)
+
+    def tree(op):
+        left, right = node(), node()
+        if op == 'ADD' and isinstance(left, int) and isinstance(right, int):
+            return left + right
+        if op == 'ADD' and isinstance(right, int) and isinstance(left, tuple):
+            return left[:3] + (left[3] + right,)
+        if op == 'ADD' and isinstance(left, int) and isinstance(right, tuple):
+            return right[:3] + (right[3] + left,)
+        if op == 'SUB' and isinstance(right, int) and isinstance(left, tuple):
+            return left[:3] + (left[3] - right,)
+        raise ValueError(op)
+
+    try:
+        folded = tree(op)
+        if next(items, None) is not None:
+            return None
+    except (ValueError, StopIteration):
+        return None
+    return folded if isinstance(folded, tuple) else None
 
 
 def _parse_reloc(rest):
@@ -202,7 +257,9 @@ def parse_obd(text):
 
     ``Expr ADD`` records carry their operands on the following indented lines
     (``GBLSYM 3, tbl_`` and ``SMLINT: 4``): a word reference to ``tbl`` plus a
-    constant.  Other expressions are kept raw (``fixup.expr``).
+    constant, possibly nested (:func:`_fold_expr`).  Other expressions are kept
+    raw (``fixup.expr``).  ``Data (xxxx)`` lines are the module's own data
+    segment, kept in ``data``.
     """
     dump = ObjDump()
     code_len = 0
@@ -226,6 +283,12 @@ def parse_obd(text):
             dump.code[addr:addr + len(data)] = data
             code_len = max(code_len, addr + len(data))
             continue
+        m = _OBD_DATA_RE.match(line)
+        if m:
+            addr = int(m.group(1), 16)
+            for k, h in enumerate(m.group(3).split()[:int(m.group(2))]):
+                dump.data[addr + k] = int(h, 16)
+            continue
         m = _CODE_RE.match(line)
         if not m:
             continue
@@ -242,12 +305,11 @@ def parse_obd(text):
                 if lines[i].strip():
                     body.append(lines[i].rstrip())
                 i += 1
-            sym = [_EXPR_SYM_RE.match(b) for b in body]
-            ints = [_EXPR_INT_RE.match(b) for b in body]
-            if (op == 'ADD' and len(body) == 2 and sym[0] and ints[1]):
-                dump.fixups.append(Fixup(
-                    addr, _DEFAULT_FIXUP, sym[0].group(1), int(sym[0].group(2)),
-                    sym[0].group(3), addend=int(ints[1].group(1))))
+            folded = _fold_expr(op, body)
+            if folded is not None:
+                symbol_kind, index, symbol, addend = folded
+                dump.fixups.append(Fixup(addr, _DEFAULT_FIXUP, symbol_kind,
+                                         index, symbol, addend=addend))
             else:
                 dump.fixups.append(Fixup(addr, 'Expr', op, None, None,
                                          expr=body))
@@ -262,11 +324,26 @@ def parse_obd(text):
 # Local symbol definitions in the raw object: ``<type> <seg> <offset16>``.  They
 # are the file's trailer, in ``.0``, ``.1`` ... order, after the global symbol
 # names.  ``seg`` is 0x80 for a code-segment label and 0x82 for a data-segment
-# one (a static or string literal); ``type`` varies (02, 03, 09) and is not
-# needed.  Names are ASCII, so a 0x80/0x82 byte in the third-from-last position
-# cannot belong to a symbol name.
+# one (a static or string literal).  ``type`` is 02 for code, 03 for
+# initialized data and 09 for uninitialized storage, whose offsets count from
+# the module's own BSS (``static char buffer[260]`` and the initialized
+# ``_Eol`` can both sit at offset 0).  Names are ASCII, so a 0x80/0x82 byte in
+# the third-from-last position cannot belong to a symbol name.
 _SEG_CODE = 0x80
 _SEG_DATA = 0x82
+_TYPE_BSS = 0x09
+
+
+def _o_local_records(blob):
+    """``[(type, seg, offset), ...]`` for ``.0``, ``.1`` ... from a ``.O``."""
+    records = []
+    end = len(blob)
+    while end >= 4 and blob[end - 3] in (_SEG_CODE, _SEG_DATA):
+        records.append((blob[end - 4], blob[end - 3],
+                        blob[end - 2] | (blob[end - 1] << 8)))
+        end -= 4
+    records.reverse()
+    return records
 
 
 def parse_o_locals(blob):
@@ -275,22 +352,19 @@ def parse_o_locals(blob):
     OBD prints references to local labels (``BREL LCLSYM .3``) but not their
     definitions; those are the object's trailing 4-byte records.
     """
-    records = []
-    end = len(blob)
-    while end >= 4 and blob[end - 3] in (_SEG_CODE, _SEG_DATA):
-        records.append((blob[end - 3], blob[end - 2] | (blob[end - 1] << 8)))
-        end -= 4
-    records.reverse()
-    return records
+    return [(seg, off) for _, seg, off in _o_local_records(blob)]
 
 
 def attach_locals(dump, blob):
     """Fill ``dump.locals`` / ``dump.data_locals`` from the raw ``.O`` bytes.
 
     ``locals`` maps ``.N`` to a module code offset, ``data_locals`` to a module
-    data offset.  Every ``.N`` the relocations reference must be defined.
+    data offset; ``bss_locals`` are the data labels of uninitialized storage
+    (their offsets count from the module's BSS, not its data).  Every ``.N``
+    the relocations reference must be defined.
     """
-    records = parse_o_locals(blob)
+    typed = _o_local_records(blob)
+    records = [(seg, off) for _, seg, off in typed]
     needed = [int(fx.symbol[1:]) for fx in dump.fixups
               if fx.symbol_kind == 'LCLSYM' and (fx.symbol or '').startswith('.')]
     if needed and max(needed) >= len(records):
@@ -301,4 +375,6 @@ def attach_locals(dump, blob):
                    if seg == _SEG_CODE}
     dump.data_locals = {f'.{n}': off for n, (seg, off) in enumerate(records)
                         if seg == _SEG_DATA}
+    dump.bss_locals = {f'.{n}' for n, (kind, seg, _) in enumerate(typed)
+                       if seg == _SEG_DATA and kind == _TYPE_BSS}
     return dump

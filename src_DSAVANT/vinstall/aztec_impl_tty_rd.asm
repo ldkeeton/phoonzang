@@ -8,7 +8,7 @@ aztec_impl_tty_rd:
     jne short @..aztec_impl_tty_rd.l2 ; 0x38e3
     mov ax, 0x104                    ; 0x38e5
     push ax                          ; 0x38e8
-    mov ax, 0x253e                   ; 0x38e9
+    mov ax, bss_253e                 ; 0x38e9
     push ax                          ; 0x38ec
     push word [bp + 0x4]             ; 0x38ed
     call aztec_impl_read             ; 0x38f0
@@ -16,13 +16,13 @@ aztec_impl_tty_rd:
     mov si, ax                       ; 0x38f6
     test si, si                      ; 0x38f8
     je short @..aztec_impl_tty_rd.l1 ; 0x38fa
-    cmp byte [si + 0x253d], 0xa      ; 0x38fc
+    cmp byte [si + bss_253e - 0x1], 0xa ; 0x38fc
     jne short @..aztec_impl_tty_rd.l1 ; 0x3901
     dec si                           ; 0x3903
     mov al, byte [_Eol]              ; 0x3904
-    mov byte [si + 0x253d], al       ; 0x3907
+    mov byte [si + bss_253e - 0x1], al ; 0x3907
 @..aztec_impl_tty_rd.l1:
-    mov word [bss_2642], 0x253e      ; 0x390b
+    mov word [bss_2642], bss_253e    ; 0x390b
     mov word [_TTrem], si            ; 0x3911
 @..aztec_impl_tty_rd.l2:
     cmp si, word [bp + 0x8]          ; 0x3915

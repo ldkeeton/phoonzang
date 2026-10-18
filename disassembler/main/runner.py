@@ -57,6 +57,7 @@ from lib.names import (
 )
 from lib import symtab
 from lib.symtab import GENERIC, Kind, Source, Symbol
+from lib.sidecar.usage import SidecarUse
 from lib import stagelog
 from lib.report import write_report, write_layers, write_summary, print_short_report
 
@@ -214,12 +215,14 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
             label_map[off] = lbl
     stagelog.step('label.trampolines', 1, track={'label_map': label_map})
 
+    use = (sidecar_entry or {}).get('use') or SidecarUse('binaries.?')
     if sidecar_entry:
         fn_offset = sidecar_entry.get('ghidra_base_offset', 0)
         for hex_off, info in sidecar_entry.get('function_names', {}).items():
             try:
                 off = int(hex_off, 16) + start_offset + fn_offset
             except ValueError:
+                use.skipped('function_names', hex_off, 'not a hex offset')
                 continue
             if off in ctx.code_targets:
                 label_map[off] = (
@@ -227,6 +230,11 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
                     if 'name' in info else
                     Symbol.generated('fn', off, Kind.ROUTINE,
                                      text=f'fn_{hex_off}'))
+                use.final_names[('function_names', hex_off)] = (
+                    off, str(label_map[off]))
+            else:
+                use.skipped('function_names', hex_off,
+                            f'file offset 0x{off:04x} is not a code target')
     stagelog.step('label.sidecar_names', 1, track={'label_map': label_map})
 
     # The MZ header determines the executable entry point. Prefer a name
@@ -401,6 +409,12 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         label_targets.add(mz_entry_point)
         label_map[mz_entry_point] = _sidecar_routine(entry_symbol,
                                                      mz_entry_point)
+        use.final_names[('entry_symbol', entry_symbol)] = (
+            mz_entry_point, entry_symbol)
+    elif entry_symbol:
+        use.skipped('entry_symbol', entry_symbol,
+                    'no MZ entry point' if mz_entry_point is None
+                    else 'the MZ entry point is not a code target')
     stagelog.step('label.entry_symbol', 1, 'repair', repairs='label.entry_point',
         why='sidecar entry_symbol is authoritative', track={'label_map': label_map})
 
@@ -700,6 +714,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         host_data_offsets=host_data_offsets,
         ds_starts=ds_starts,
         foreign_pointer_params=_foreign_pointer_params(project, a.foreign_prefix),
+        sidecar_use=(ctx.sidecar_entry or {}).get('use'),
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
     # D7.1: export the host-owned DS names this overlay references so the make
@@ -982,5 +997,39 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
             a.trace_writer.close()
     _export_labels(a)
     if emit:
+        _check_sidecar_use(a, project, name)
         _emit(a, r, exact_bytes)
     return a.ctx.bitmap, a.label_map
+
+
+def _check_sidecar_use(a, project, name):
+    """Fail on a sidecar entry of this binary that applied to nothing.
+
+    Runs on the emitting pass only: a labels-only pass repeats the same
+    analysis.  The build-wide keys (one entry covers every binary) are
+    exported for ``main.build`` to check across all of them.
+    """
+    sidecar = a.ctx.sidecar_entry or {}
+    use = sidecar.get('use')
+    if use is None:
+        return
+    use.check_names(a.label_map)
+    use.check()
+    if not project:
+        return
+    from lib.link import write_sidecar_use_export
+    from lib.sidecar.compiler import matching_prefix
+    names = {str(label) for label in a.label_map.values()}
+    routines = sidecar.get('routines') or {}
+    write_sidecar_use_export(project, name, {
+        'routines': [key for key, entry in routines.items()
+                     if entry.get('name') in names],
+        'api_dispatch': [key for key, entry in
+                         (sidecar.get('api_dispatch') or {}).items()
+                         if entry.get('name') in names],
+        'vendor_patches': [label for label in sidecar.get('vendor_patches', ())
+                           if label in names],
+        'compiler_flags': [p for p in (matching_prefix(project, label)
+                                       for label in a.c_overrides or ())
+                           if p is not None],
+    })

@@ -53,6 +53,7 @@ dseg_0181 equ __zdseg_0181 - __zdseg_start
 dseg_0198 equ __zdseg_0198 - __zdseg_start
 dseg_01af equ __zdseg_01af - __zdseg_start
 dseg_01c6 equ __zdseg_01c6 - __zdseg_start
+dseg_2503 equ __zdseg_2503 - __zdseg_start
 dseg_251b equ __zdseg_251b - __zdseg_start
 dseg_251c equ __zdseg_251c - __zdseg_start
 bss_2afe equ __zbss_2afe - __zdseg_start
@@ -348,12 +349,15 @@ cseg_2479:
 
 %include "vinstall/asm_only/bios_video_loc_IVQL.asm" ; 0x2733
 
+dseg_2452 equ __zdseg_2452 - __zdseg_start
 %include "vinstall/aztec_atoi.asm"         ; 0x2806
 
+; dseg_2452 equ __zdseg_2452 - __zdseg_start
 %include "vinstall/aztec_atol.asm"         ; 0x2877
 
 %include "vinstall/loc_NJNG.asm"           ; 0x2908
 
+dseg_230a equ __zdseg_230a - __zdseg_start
 %include "vinstall/aztec_fexecv.asm"       ; 0x291c
 
 %include "vinstall/asm_only/aztec_fcbinit.asm"      ; 0x29d9
@@ -522,7 +526,7 @@ __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 
 __zcp_373b:
     db 0xb8, 0x00, 0x00, 0xc3
-dseg_2503 equ __zdseg_2503 - __zdseg_start
+dseg_2502 equ __zdseg_2502 - __zdseg_start
 ; _ioflg    equ __z_ioflg - __zdseg_start
 bss_253a  equ __zbss_253a - __zdseg_start
 bss_253c  equ __zbss_253c - __zdseg_start
@@ -568,10 +572,12 @@ loc_USUN_3867     equ aztec_write.loc4
 %include "shared/aztec_rename.asm"       ; 0x38b8
 
 _Eol     equ __z_Eol - __zdseg_start
+bss_253e equ __zbss_253e - __zdseg_start
 bss_2642 equ __zbss_2642 - __zdseg_start
 _TTrem   equ __zbss_2afc - __zdseg_start
 %include "vinstall/aztec_impl_tty_rd.asm"  ; 0x38d9
 
+dseg_2533 equ __zdseg_2533 - __zdseg_start
 %include "vinstall/aztec_impl_tty_wr.asm"  ; 0x393e
 
 %include "shared/aztec_movmem.asm"       ; 0x39a0
@@ -3239,8 +3245,10 @@ __zdseg_22af:
 __zdseg_22e3:
 
     db 'To Play The Game, Type: WIZARDRY <cr>', 0
-    db 0x00, 0x2e, 0x00, 0x2e, 0x00
+    db 0x00
 
+__zdseg_230a:
+    db 0x2e, 0x00, 0x2e, 0x00
 __zdseg_230e:
     db 0x00, 0x00
 __zdseg_2310:
@@ -3280,8 +3288,10 @@ __zdseg_2357:
     times 198 db 0
 
 __zdseg_244e:
+    db 0x38, 0x25, 0x38, 0x25
+__zdseg_2452:
 
-    db 0x38, 0x25, 0x38, 0x25, 0x00
+    db 0x00
     db '         00000                  '
     db 0x90
     db '@@@@@@@@@@@@@@@'
@@ -3316,6 +3326,7 @@ __z_PSP:
 
 __zdseg_2500:
     dw __zcp_373b - IMAGE_BASE                 ; 0x5fe0
+__zdseg_2502:
     db 0x00
 __zdseg_2503:
     db 'Too many args.', 0
@@ -3340,7 +3351,9 @@ __zdseg_252e:
 __zdseg_2530:
     dw aztec_impl_tty_wr - IMAGE_BASE          ; 0x6010
 __z_Eol:
-    db 0x0a, 0x0d
+    db 0x0a
+__zdseg_2533:
+    db 0x0d
 
 __zimage_end:
 absolute __zimage_end
@@ -3353,7 +3366,9 @@ __zbss_2538:
 __zbss_253a:
     resb 0x0002
 __zbss_253c:
-    resb 0x0106
+    resb 0x0002
+__zbss_253e:
+    resb 0x0104
 __zbss_2642:
     resb 0x0002
 __zbss_2644:

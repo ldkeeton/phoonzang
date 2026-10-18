@@ -125,7 +125,7 @@ draw_fill_action_slot_table:
     pop ax
     mov byte [bx + bss_8322], al
     mov al, byte [bp - 0x0008]
-    mov byte [bx - 0x7cdd], al
+    mov byte [bx + bss_8322 + 0x1], al
     mov ax, 0x15e
     imul word [bp - 0x0002]
     mov cx, word [bp - 0x0008]
@@ -149,8 +149,8 @@ draw_fill_action_slot_table:
     add cx, ax
     mov bx, cx
     pop ax
-    mov byte [bx - 0x7cdc], al
-    mov al, byte [bx - 0x7cdc]
+    mov byte [bx + bss_8322 + 0x2], al
+    mov al, byte [bx + bss_8322 + 0x2]
     sub ah, ah
     mov cx, ax
     push cx
@@ -161,7 +161,7 @@ draw_fill_action_slot_table:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov al, byte [bx + 0x6ac2]
+    mov al, byte [bx + bss_6ac1 + 0x1]
     sub ah, ah
     push ax
     call ds_app_PUNN
@@ -182,7 +182,7 @@ draw_fill_action_slot_table:
     add cx, ax
     mov bx, cx
     pop ax
-    mov byte [bx - 0x7cdc], al
+    mov byte [bx + bss_8322 + 0x2], al
     inc word [bp - 0x0004]
 @..draw_fill_action_slot_table.l8:
     mov ax, 0x15e

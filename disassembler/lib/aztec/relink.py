@@ -12,8 +12,12 @@ C actually named.  Here the relocations are resolved the way a linker would:
   own label maps; an unknown symbol is an error, never a zero fill;
 * **local branches** (``BREL``/``WREL`` to ``.N``) use the object's own local
   label table, so the labels follow the code the compiler actually produced;
-* anything else (``Long`` far references, module-local data) keeps the legacy
-  original-bytes overlay and is reported in :attr:`Linked.legacy`.
+* **module-local data** (``.N`` in the object's data segment: a ``static`` or
+  a string literal) is where the original link put it -- the address the
+  original instruction carries -- and the bytes the C gives it must be the
+  bytes the exe has there;
+* anything else is an error: a reference the build cannot name would stay a
+  number copied from the original image.
 
 The result carries the relocated bytes *and* the operand text to emit
 (``call aztec_open``), so NASM -- which assembles the whole listing -- is the
@@ -42,12 +46,19 @@ class SymbolIndex:
     space calls and jumps are measured in); *data_labels* and *mem_equ* name
     data-segment offsets.  *data_symbol* maps a DS offset to the build's
     canonical name for it (``lib.compare.symbols.data_symbol``), or is None
-    where the image has no data segment.
+    where the image has no data segment.  *data_bytes* ``(offset, n)`` reads
+    the exe's initialized data there (None for uninitialized storage).
+    *image_base* is where CS offset 0 sits in the file, which a code label's
+    address as a value (``cls_ = closall``) needs; None where code addresses
+    do not follow that convention.
     """
 
     def __init__(self, label_map=None, foreign_label_map=None,
-                 data_labels=None, mem_equ=None, data_symbol=None):
+                 data_labels=None, mem_equ=None, data_symbol=None,
+                 data_bytes=None, image_base=None):
         self.data_symbol = data_symbol
+        self.data_bytes = data_bytes
+        self.image_base = image_base
         self.code = {}
         for maps in (label_map, foreign_label_map):
             for addr, name in (maps or {}).items():
@@ -82,7 +93,6 @@ class Linked:
         self.refs = {}              # fixup offset -> Ref
         self.local_records = []     # label records for derived local labels
         self.local_names = {}       # absolute address -> local label name
-        self.legacy = []            # Fixups left on the original-bytes path
         self.minted = {}            # data names first defined by the C: {name: offset}
         self.failed = []            # refs whose operand text did not verify
         self.consumed = set()       # fixup offsets matched to an operand
@@ -107,21 +117,30 @@ def _put(code, offset, width, value):
 def link(label, start, func, index, original, labels_in=()):
     """Resolve *func*'s relocations for placement at file offset *start*.
 
-    *original* is the original image, used only for relocations this module
-    does not model.  *labels_in* are the ``(offset, name)`` labels the
-    build already placed inside the routine; non-local ones keep their name
-    when a derived branch target lands on them.
+    *original* is the original image: its relocated words say where the
+    original link put the module's own data.  *labels_in* are the
+    ``(offset, name)`` labels the build already placed inside the routine;
+    non-local ones keep their name when a derived branch target lands on them.
     """
     code = bytearray(func.code)
     out = Linked(code)
 
-    def legacy(fx):
-        n = min(fx.width, len(code) - fx.offset)
-        if n > 0:
-            chunk = original[start + fx.offset:start + fx.offset + n]
-            chunk = chunk + bytes(n - len(chunk))
-            code[fx.offset:fx.offset + n] = chunk
-        out.legacy.append(fx)
+    def unknown(fx, why):
+        what = fx.symbol or ' '.join(x.strip() for x in fx.expr or ())
+        raise RelinkError(f'{label}: relocation at +0x{fx.offset:x} '
+                          f'({fx.kind} {fx.symbol_kind} {what}): {why}')
+
+    def canonical_data(fx, value):
+        canonical = (index.data_symbol(value)
+                     if index.data_symbol else None)
+        if canonical is None:
+            unknown(fx, 'this image has no data segment')
+        return canonical
+
+    def put_data(fx, name, value):
+        _put(code, fx.offset, 2, value + fx.addend)
+        out.refs[fx.offset] = Ref(fx.offset, 2, name + _addend_text(fx.addend),
+                                  False, {name: value})
 
     named = {}
     for offset, name in labels_in:
@@ -151,8 +170,7 @@ def link(label, start, func, index, original, labels_in=()):
         site = fx.offset
         width = fx.width
         if site + width > len(code):
-            legacy(fx)
-            continue
+            unknown(fx, 'runs past the end of the routine')
         if id(fx) in local_ids:
             target = start + func.locals[fx.symbol]
             disp = target - (start + site + width)
@@ -176,36 +194,54 @@ def link(label, start, func, index, original, labels_in=()):
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'WABS':
             name = external_label(fx.symbol)
             if name in index.data:
-                value = index.data[name]
-                _put(code, site, 2, value + fx.addend)
-                out.refs[site] = Ref(site, 2, name + _addend_text(fx.addend),
-                                     False, {name: value})
+                put_data(fx, name, index.data[name])
             elif name in index.code:
-                legacy(fx)      # address of code needs the image base
+                # A code address as a value (a function pointer): the label
+                # is a file offset, the value its CS offset.
+                if index.image_base is None:
+                    unknown(fx, 'a code address as a value needs the image '
+                                'base, which this image does not have')
+                target = index.code[name]
+                _put(code, site, 2, target - index.image_base + fx.addend)
+                out.refs[site] = Ref(
+                    site, 2, f'{name} - IMAGE_BASE' + _addend_text(fx.addend),
+                    False, {name: target})
             elif _DATA_BY_ADDRESS.fullmatch(name):
                 # ``dseg_6a1a``: a DS object no asm operand names (an
                 # overlay's reach into the host's data).  It becomes a build
                 # symbol under its canonical spelling -- a wrong
                 # ``dseg_``/``bss_`` prefix would otherwise name nothing.
                 value = int(_DATA_BY_ADDRESS.fullmatch(name).group(1), 16)
-                canonical = (index.data_symbol(value)
-                             if index.data_symbol else None)
+                canonical = canonical_data(fx, value)
                 if canonical != name:
-                    hint = (f'the build calls DS:0x{value:04x} {canonical!r}'
-                            if canonical else 'this image has no data segment')
                     raise RelinkError(
                         f'{label}: data reference {name!r} (from C identifier '
-                        f'{fx.symbol!r}): {hint}')
-                _put(code, site, 2, value + fx.addend)
-                out.refs[site] = Ref(site, 2,
-                                     canonical + _addend_text(fx.addend),
-                                     False, {canonical: value})
+                        f'{fx.symbol!r}): the build calls DS:0x{value:04x} '
+                        f'{canonical!r}')
+                put_data(fx, canonical, value)
                 out.minted[canonical] = value
             else:
                 raise RelinkError(
                     f'{label}: reference to unknown symbol {name!r} '
                     f'(from C identifier {fx.symbol!r}); the C must name an '
                     f'asm label')
+        elif (fx.symbol_kind == 'LCLSYM' and fx.kind == 'WABS'
+              and fx.symbol in (func.data_locals or {})):
+            # The C's own ``static`` or string literal.  The splice does not
+            # emit the object's data segment: the exe already holds it, at
+            # the address the original instruction carries.
+            word = int.from_bytes(original[start + site:start + site + 2],
+                                  'little')
+            value = (word - fx.addend) & 0xffff
+            name = canonical_data(fx, value)
+            want = func.data_locals[fx.symbol]
+            have = index.data_bytes(value, len(want)) if want else None
+            if want and have != want:
+                unknown(fx, f'the C gives DS:0x{value:04x} {name} the bytes '
+                            f'{want.hex()}, the exe has '
+                            f'{have.hex() if have else "no initialized data"}')
+            put_data(fx, name, value)
+            out.minted[name] = value
         else:
-            legacy(fx)
+            unknown(fx, 'not a relocation the linker can name')
     return out

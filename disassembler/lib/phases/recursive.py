@@ -285,24 +285,34 @@ def _register_declared_code_table(ctx, data, data_boundary, result, md,
     from lib.sidecar.offsets import _parse_offset
 
     n = len(data)
+    use = (ctx.sidecar_entry or {}).get('use')
+
+    def skip(reason):
+        if use is not None:
+            use.skipped('code_tables', entry['table'], reason)
+
     table = _parse_offset(entry['table'], 'code_tables.table')
     esize = int(entry.get('entry_size', 2))
     if esize not in (2, 4):
-        return
+        return skip('entry_size must be 2 or 4')
     count = entry.get('count')
     if not isinstance(count, int) or count <= 0:
         count = max(0, (n - table) // esize)
     end = min(table + count * esize, n)
     if not (0 <= table < n and table < end):
-        return
+        return skip('outside the file')
+    if use is not None:
+        use.applied('code_tables', entry['table'])
     targets = []
     for i in range(count):
         off = table + i * esize
         if off + 2 > n:
+            skip(f'word {i} runs past the end of the file')
             break
         value = struct.unpack_from('<H', data, off)[0]
         target = _code_off(ctx, value)
         if not (0 <= target < n) or table <= target < end:
+            skip(f'word {i} (0x{value:04x}) is not code outside the table')
             continue
         targets.append(target)
         if not ctx.is_hard_data(target):

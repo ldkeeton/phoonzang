@@ -9,13 +9,13 @@ aztec_fexecv:
     mov word [bp - 0x0002], 1        ; 0x2929
     lea ax, word [bp - 0x0094]       ; 0x292e
     push ax                          ; 0x2932
-    mov ax, 0x230a                   ; 0x2933
+    mov ax, dseg_230a                ; 0x2933
     push ax                          ; 0x2936
     call aztec_fcbinit               ; 0x2937
     add sp, byte 4                   ; 0x293a
     lea ax, word [bp - 0x00a4]       ; 0x293d
     push ax                          ; 0x2941
-    mov ax, 0x230c                   ; 0x2942
+    mov ax, dseg_230a + 0x2          ; 0x2942
     push ax                          ; 0x2945
     call aztec_fcbinit               ; 0x2946
     add sp, byte 4                   ; 0x2949

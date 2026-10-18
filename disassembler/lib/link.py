@@ -133,3 +133,33 @@ def host_name(bins):
         if bins[name][1] == 0x200:
             return name
     return None
+
+
+def sidecar_use_export_name(name):
+    """The per-binary export file :func:`collect_sidecar_use` reads."""
+    return f'{name}_sidecaruse.json'
+
+
+def write_sidecar_use_export(project, name, used):
+    """Persist the build-wide sidecar entries one binary applied.
+
+    *used* maps a top-level sidecar key (``routines``, ``api_dispatch`` ...)
+    to the entries of it this binary applied.
+    """
+    target = labels_dir(project)
+    os.makedirs(target, exist_ok=True)
+    with open(os.path.join(target, sidecar_use_export_name(name)), 'w') as f:
+        json.dump({key: sorted(v) for key, v in used.items()}, f, indent=1,
+                  sort_keys=True)
+
+
+def collect_sidecar_use(labels_path, names):
+    """``{key: set}``: the union of the ``_sidecaruse.json`` exports of *names*."""
+    union = {}
+    for name in sorted(names):
+        path = os.path.join(labels_path, sidecar_use_export_name(name))
+        if os.path.exists(path):
+            with open(path) as f:
+                for key, used in json.load(f).items():
+                    union.setdefault(key, set()).update(used)
+    return union

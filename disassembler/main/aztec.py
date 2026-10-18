@@ -52,9 +52,9 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                                           mode=mode)
         except cache.PrebuildMissing as exc:
             raise SystemExit(f'error: {exc}')
-        except Exception as exc:  # never let C recovery break the build
-            print(f'  aztec mux: skipped ({exc})')
-            return {}, {}
+        except Exception as exc:
+            # Every recovered routine's C would silently drop out of the build.
+            raise SystemExit(f'error: aztec mux: {exc}') from exc
     _apply_renames(entries, label_map, function_roots)
     if AZTEC_PREBUILD_ONLY:
         return {}, entries
@@ -92,8 +92,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         try:
             func = cache.compile_source(project, label, entry, text)
         except Exception as exc:
-            print(f'  aztec mux: {label}: compile failed ({exc})')
-            continue
+            raise SystemExit(f'error: {label}.c: compile failed ({exc})') from exc
         length = owned_length(label, entry, func)
         func = func.truncate(length)
         path = c_path(dest, label)

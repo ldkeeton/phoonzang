@@ -21,7 +21,7 @@ aztec_impl_tty_wr:
     add sp, byte 6                   ; 0x3962
     mov ax, 1                        ; 0x3965
     push ax                          ; 0x3968
-    mov ax, 0x2533                   ; 0x3969
+    mov ax, dseg_2533                ; 0x3969
     push ax                          ; 0x396c
     push word [bp + 0x4]             ; 0x396d
     call aztec_impl_write            ; 0x3970

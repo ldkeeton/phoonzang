@@ -25,6 +25,7 @@ class SidecarPhase(Phase):
             return pl.Series('sidecar', result, dtype=pl.Float32)
 
         sidecar = ctx.sidecar_entry
+        use = sidecar.get('use')
 
         for r in sidecar.get('force_data', []):
             s = _parse_offset(r['start'], 'force_data.start')
@@ -32,6 +33,11 @@ class SidecarPhase(Phase):
             e = _parse_offset(e_raw, 'force_data.end') + 1
             s = max(0, s)
             e = min(n, e)
+            if use is not None:
+                if s < e:
+                    use.applied('force_data', r['start'])
+                else:
+                    use.skipped('force_data', r['start'], 'outside the file')
             result[s:e] = CONF_DATA
 
         for r in sidecar.get('force_code', []):
@@ -40,8 +46,14 @@ class SidecarPhase(Phase):
             e = _parse_offset(e_raw, 'force_code.end') + 1
             s = max(0, s)
             e = min(n, e)
-            if ctx.hard_data[s:e].any():
+            if s >= e or ctx.hard_data[s:e].any():
+                if use is not None:
+                    use.skipped('force_code', r['start'],
+                                'outside the file' if s >= e else
+                                'overlaps force_data or a code_tables table')
                 continue
+            if use is not None:
+                use.applied('force_code', r['start'])
             result[s:e] = 1.0
             ctx.code_targets[s] = TargetInfo(
                 address=s, reason='force_code', confidence=1.0,

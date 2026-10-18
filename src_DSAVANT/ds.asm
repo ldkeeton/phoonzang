@@ -54,6 +54,7 @@ dseg_01bc equ __zdseg_01bc - __zdseg_start
 dseg_01d4 equ __zdseg_01d4 - __zdseg_start
 dseg_03ae equ __zdseg_03ae - __zdseg_start
 dseg_03dc equ __zdseg_03dc - __zdseg_start
+dseg_0c9f equ __zdseg_0c9f - __zdseg_start
 dseg_0cdd equ __zdseg_0cdd - __zdseg_start
 dseg_0cde equ __zdseg_0cde - __zdseg_start
 bss_0e36 equ __zbss_0e36 - __zdseg_start
@@ -1027,7 +1028,7 @@ _STKLOW           equ __z_STKLOW - __zdseg_start
 
 __zcp_4ea3:
     db 0xb8, 0x00, 0x00, 0xc3
-dseg_0c9f equ __zdseg_0c9f - __zdseg_start
+dseg_0c9e equ __zdseg_0c9e - __zdseg_start
 ; _ioflg    equ __z_ioflg - __zdseg_start
 bss_0d04  equ __zbss_0d04 - __zdseg_start
 bss_0d06  equ __zbss_0d06 - __zdseg_start
@@ -1076,10 +1077,12 @@ ds_loc_USUN       equ aztec_write.loc4
 %include "shared/aztec_rename.asm"             ; 0x503b
 
 _Eol     equ __z_Eol - __zdseg_start
+bss_0d08 equ __zbss_0d08 - __zdseg_start
 bss_0e0c equ __zbss_0e0c - __zdseg_start
 _TTrem   equ __zbss_9096 - __zdseg_start
 %include "ds/aztec_impl_tty_rd.asm"        ; 0x505c
 
+dseg_0cf5 equ __zdseg_0cf5 - __zdseg_start
 %include "ds/aztec_impl_tty_wr.asm"        ; 0x50c1
 
 %include "shared/aztec_movmem.asm"             ; 0x5123
@@ -1464,6 +1467,7 @@ __z_PSP:
 
 __zdseg_0c9c:
     dw __zcp_4ea3 - IMAGE_BASE                 ; 0x10dfc
+__zdseg_0c9e:
     db 0x00
 __zdseg_0c9f:
     db 'Too many args.', 0
@@ -1493,7 +1497,9 @@ __zdseg_0cf0:
 __zdseg_0cf2:
     dw aztec_impl_tty_wr - IMAGE_BASE          ; 0x10e52
 __z_Eol:
-    db 0x0a, 0x0d
+    db 0x0a
+__zdseg_0cf5:
+    db 0x0d
 
 __zimage_end:
 absolute __zimage_end
@@ -1514,7 +1520,9 @@ __zbss_0d02:
 __zbss_0d04:
     resb 0x0002
 __zbss_0d06:
-    resb 0x0106
+    resb 0x0002
+__zbss_0d08:
+    resb 0x0104
 __zbss_0e0c:
     resb 0x0002
 __zbss_0e0e:

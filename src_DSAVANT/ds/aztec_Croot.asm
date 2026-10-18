@@ -28,9 +28,9 @@ aztec_Croot:
     call aztec_sbrk                  ; 0x4ed8
     pop cx                           ; 0x4edb
     mov word [bss_0d06], ax          ; 0x4edc
-    mov ax, 0xc9e                    ; 0x4edf
+    mov ax, dseg_0c9e                ; 0x4edf
     mov bx, word [bss_0d06]          ; 0x4ee2
-    mov word [bx], 0xc9e             ; 0x4ee6
+    mov word [bx], dseg_0c9e         ; 0x4ee6
     mov ax, word [bp + 0x6]          ; 0x4eea
     mov word [bss_0d04], ax          ; 0x4eed
     shl ax, 1                        ; 0x4ef0
@@ -59,7 +59,7 @@ aztec_Croot:
     jne short @..aztec_Croot.l4      ; 0x4f1d
     mov ax, 0xe                      ; 0x4f1f
     push ax                          ; 0x4f22
-    mov ax, dseg_0c9f                ; 0x4f23
+    mov ax, dseg_0c9e + 0x1          ; 0x4f23
     push ax                          ; 0x4f26
     mov ax, 2                        ; 0x4f27
     push ax                          ; 0x4f2a

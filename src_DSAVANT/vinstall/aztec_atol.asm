@@ -61,7 +61,7 @@ aztec_atol:
     mov al, byte [si]                ; 0x28e2
     cbw                              ; 0x28e4
     mov bx, ax                       ; 0x28e5
-    mov al, byte [bx + 0x2453]       ; 0x28e7
+    mov al, byte [bx + dseg_2452 + 0x1] ; 0x28e7
     cbw                              ; 0x28eb
     test ax, 4                       ; 0x28ec
     jne short @..aztec_atol.l6       ; 0x28ef

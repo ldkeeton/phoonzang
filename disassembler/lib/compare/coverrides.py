@@ -219,22 +219,37 @@ def _link_override(label, start, override, records, binary_data, index,
     return relink.link(label, start, func, index, binary_data, labels_in)
 
 
-def _report_linked(label, linked):
-    """Print what the linker could not place symbolically."""
-    for addr, text, built, want in linked.failed:
-        print(f'  aztec link: {label}: 0x{addr:x} {text!r} assembles to '
-              f'{built}, compiled bytes are {want}')
+def _check_linked(label, linked):
+    """Fail on any relocation the emitted source does not name.
+
+    A relocation whose operand text assembles to other bytes, or that no
+    decoded operand claims, would leave the C's reference a number.
+    """
+    problems = [f'0x{addr:x} {text!r} assembles to {built}, compiled bytes '
+                f'are {want}' for addr, text, built, want in linked.failed]
     if linked.unmatched:
-        sites = ', '.join(f'+0x{site:x}' for site in linked.unmatched[:3])
-        if len(linked.unmatched) > 3:
-            sites += f', +{len(linked.unmatched) - 3} more'
-        print(f'  aztec link: {label}: {len(linked.unmatched)} relocation(s) '
-              f'matched no operand ({sites})')
-    if linked.legacy:
-        kinds = ', '.join(sorted({f'{fx.kind} {fx.symbol_kind}'
-                                  for fx in linked.legacy}))
-        print(f'  aztec link: {label}: {len(linked.legacy)} relocation(s) '
-              f'copied from the original image ({kinds})')
+        sites = ', '.join(f'+0x{site:x}' for site in linked.unmatched)
+        problems.append(f'{len(linked.unmatched)} relocation(s) matched no '
+                        f'operand ({sites})')
+    if problems:
+        raise ValueError(f'C override {label!r}: ' + '; '.join(problems))
+
+
+def _data_bytes(segments, binary_data, offset, n):
+    """The exe's *n* initialized bytes at DS:*offset*, None for BSS.
+
+    An overlay's data segment is the host's, whose bytes this run does not
+    hold, so a C module's own data cannot be checked there.
+    """
+    if segments is None or getattr(segments, 'host', None) is not None:
+        raise ValueError(f'DS:0x{offset:04x}: this image does not hold the '
+                         f'data segment, so the C\'s data cannot be checked')
+    where = segments.resolve('DS', offset)
+    if where[0] == 'bss':
+        return None
+    if where[0] != 'file':
+        raise ValueError(f'DS:0x{offset:04x} is not in the image')
+    return bytes(binary_data[where[1]:where[1] + n])
 
 
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
@@ -272,9 +287,13 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                         and segments.data_space(0) is not None):
                     def canonical(offset):
                         return data_symbol(segments, offset)
-                sym_index = relink.SymbolIndex(label_map, foreign_label_map,
-                                               data_labels, sym_equ,
-                                               data_symbol=canonical)
+                sym_index = relink.SymbolIndex(
+                    label_map, foreign_label_map, data_labels, sym_equ,
+                    data_symbol=canonical,
+                    data_bytes=lambda off, n: _data_bytes(segments,
+                                                          binary_data, off, n),
+                    image_base=(None if getattr(segments, 'kind', None)
+                                == 'overlay' else image_base))
                 names_at = relabel.data_names(data_labels, sym_equ)
             linked = _link_override(label, start, override, records,
                                     binary_data, sym_index, names_at,
@@ -356,7 +375,6 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         labels_in = [r for r in records
                      if r['type'] == 'label' and start < r['offset'] < end]
         if linked is not None:
-            _report_linked(label, linked)
             # Branch labels follow the code the compiler produced.
             labels_in = ([r for r in labels_in
                           if r['name'].kind is not Kind.LOCAL]
@@ -382,6 +400,8 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
             mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
             linked=linked)
+        if linked is not None:
+            _check_linked(label, linked)
         replacements.append((start, end,
                              _merge_label_records(new_records, labels_in)))
 

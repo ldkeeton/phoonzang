@@ -7,7 +7,6 @@ bits 16
 IMAGE_BASE equ -0x0100
 %endif
 
-data_1e64 equ __zdata_1e64 - IMAGE_BASE
 
 %include "shared/loc_LPSH.asm"                ; 0x0000
 
@@ -397,7 +396,6 @@ cseg_1d5e:
     db 0x0a, 0x00
 cseg_1d60:
     db 0x0a, 0x00, 0x0a, 0x00
-__zdata_1e64:
 cseg_1d64:
     db 0x00, 0x00
 cseg_1d66:
