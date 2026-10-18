@@ -19,7 +19,30 @@ a coherent, loadable program without hand-editing a hex constant.
 
 ## 1. Census
 
-`count_frozen_addrs` (`lib/compare/records.py`) files every emitted literal:
+**The progress number is the shift oracle**, not the regex census below.
+`python3 -m lib.verify.shift_oracle` (`lib/verify/shift_oracle.py`) assembles
+every master as is and with 16 bytes inserted (mid-code; at the DS start, or the
+host's for an overlay), pairs the images through the NASM listings and reports
+each literal operand or `dw` that should have moved and did not. Ratchet:
+`tests/test_shift_oracle.py` (`make test slow`).
+
+| tree | code insert | data insert | branch |
+|------|-------------|-------------|--------|
+| 801b643f | 130 | 982 | 16 |
+| 2d7d06c5 | 135 | 984 | 0 |
+| 734d80e1 | **51** | **1207** | 0 |
+
+The oracle is frozen. All rows were measured with its final version, in which
+a displacement counts only in the segment the edit moves and `bp` frame slots
+never count; that change cut 14–16 false code findings per tree and left data
+unchanged.
+
+The data rise at 4a0e0cdb is visibility: 73 → 1419 named DS objects, so more
+literals match a known object. The name-independent classes held at 951–953.
+Nearly all of the data side is F9 (Section 4.1).
+
+`count_frozen_addrs` (`lib/compare/records.py`) files every emitted literal it
+has a pattern for (diagnostic only):
 
 | class | breaks when | now |
 |-------|-------------|-----|
