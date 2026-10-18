@@ -11,10 +11,10 @@ loc_ONLU:
     ret                              ; 0x1195
 jumptable_1196:
     dw loc_PLIR - IMAGE_BASE                   ; 0x1196
-    dw loc_NQLH - IMAGE_BASE                   ; 0x1198
+    dw loc_NVPH - IMAGE_BASE                   ; 0x1198
     dw loc_PLIR - IMAGE_BASE                   ; 0x119a
     dw loc_PLIR - IMAGE_BASE                   ; 0x119c
-    dw loc_NQLH - IMAGE_BASE                   ; 0x119e
+    dw loc_NVPH - IMAGE_BASE                   ; 0x119e
     dw loc_PLIR - IMAGE_BASE                   ; 0x11a0
 loc_NLST:
     push bx                          ; 0x11a2

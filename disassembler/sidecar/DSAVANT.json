@@ -410,6 +410,9 @@
         "count": 8,
         "format": "e8_rel16_cb"
       },
+      "force_code": [
+        {"start": "0e51", "end": "0f27", "note": "Unreachable code after `jmp near loc_LPMH` at 0x0e4e: a switch on cs:[0x0e46] (6-10) that sets OPL rhythm bits through register 0xBD, plus its helper at 0x0f12 (`cs xlatb` through 0x1529) ending in the ret at 0x0f27."}
+      ],
       "code_tables": [
         {"table": "0495", "entry_size": 2, "count": 16, "note": "INT 08h handler dispatch table: loc_03e2 loads `mov dx, word [cs:bx+0x595]` (four overlapping 4-entry sub-tables at file 0495/049d/04a5/04ad, indexed by cseg_0a7d) and the installer at 04b5 stores DX into 0000:0020. Values are runtime CS offsets (file + 0x100): the targets are the handler entries 0841, 08af, 0975, 099f, 0a41 and 18e4"},
         {"table": "115b", "entry_size": 2, "count": 6, "note": "Mode dispatch table read by `call [cs:bx+0x125b]` (0x1154); see jump_tables. Declared here too so the decoder roots its targets (0x1302 is code, not a db blob) and carves the words as data"},
@@ -429,7 +432,8 @@
         {"offset": "065f", "space": "cs", "target": "cseg_1a3a", "note": "`mov si, 0x1b3a`: the table this routine reads as `[cs:si + 0x1b3a]`; si is overwritten by `mov si, ax` before any read"},
         {"offset": "0072", "space": "cs", "target": "cseg_0d3a", "note": "`cmp bx, 0xe3a`: the end of the eleven 5-byte records at 0x0d03 that the loop walks from `mov bx, cseg_0d03` with `add bx, 5`"},
         {"offset": "0f34", "space": "cs", "target": "cseg_0d3a", "note": "as 0072 (loop from 0x0f2a)"},
-        {"offset": "0f6a", "space": "cs", "target": "cseg_0d3a", "note": "as 0072"}
+        {"offset": "0f6a", "space": "cs", "target": "cseg_0d3a", "note": "as 0072"},
+        {"offset": "0e57", "space": "cs", "target": "cseg_1a3a", "note": "`mov bx, 0x1b3a` in the force_code routine at 0x0e51: the volume-curve table the sibling at 0x130d loads for `cs xlatb` after the same `cs:[0x0e3f] * cs:[0x0ba8]` product. Here the xlat was replaced by `mov cl, 0x3f; sub cl, al` and bx is overwritten (helper at 0x0f12) before any read"}
       ]
     }
   },

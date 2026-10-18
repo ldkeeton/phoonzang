@@ -104,7 +104,7 @@ loc_RUON:
     pop si                           ; 0x107d
     jmp near loc_MRJU                ; 0x107e
 loc_HOVS_1081:
-    call string_loc_HGPS             ; 0x1081
+    call string_loc_ROMP             ; 0x1081
     cmp byte [cs:cseg_0d3d - IMAGE_BASE], 0xff ; 0x1084
     jne short loc_JSJL_108f          ; 0x108a
     jmp near loc_MRJU                ; 0x108c

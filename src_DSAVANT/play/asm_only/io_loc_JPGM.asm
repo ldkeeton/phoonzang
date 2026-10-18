@@ -33,9 +33,9 @@ __zinsn_0b0f:
 loc_MRJU:
     lodsb                            ; 0x0b44
     cmp al, 0xfe                     ; 0x0b45
-    jne short loc_GOTP               ; 0x0b47
+    jne short loc_GOTP_0b4c          ; 0x0b47
     jmp near loc_NSQH                ; 0x0b49
-loc_GOTP:
+loc_GOTP_0b4c:
     cmp al, 0xff                     ; 0x0b4c
     jne short loc_IGJL               ; 0x0b4e
     jmp near loc_STUU                ; 0x0b50

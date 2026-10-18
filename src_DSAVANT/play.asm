@@ -260,7 +260,7 @@ cseg_0d4d:
     db 0x00
 cseg_0d4e:
     db 0x00, 0x00
-%include "play/asm_only/string_loc_HGPS.asm"        ; 0x0d50
+%include "play/asm_only/string_loc_ROMP.asm"        ; 0x0d50
 
 %include "play/asm_only/loc_OJOO.asm"               ; 0x0e01
 
@@ -271,6 +271,8 @@ cseg_0d4e:
 %include "play/asm_only/loc_JIPR.asm"               ; 0x0e1d
 
 %include "play/loc_HOVS_0e24.asm"          ; 0x0e24
+
+%include "play/loc_MNKP.asm"               ; 0x0e51
 
 %include "play/loc_NPTG.asm"               ; 0x0f44
 
@@ -317,7 +319,9 @@ cseg_1429:
     times 177 db 0
 
 cseg_14da:
-    times 15 db 0
+    times 12 db 0
+cseg_14e6:
+    db 0x00, 0x00, 0x00
 cseg_14e9:
 
     times 64 db 0
@@ -372,7 +376,9 @@ cseg_1709:
 
 cseg_1774:
     db 0x00
-%include "play/asm_only/loc_NQLH.asm"               ; 0x1775
+%include "play/asm_only/loc_NVPH.asm"               ; 0x1775
+
+%include "play/loc_GOTP_17f0.asm"          ; 0x17f0
 
 %include "play/io_loc_VHII.asm"            ; 0x18cb
 
