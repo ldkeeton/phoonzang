@@ -16,9 +16,9 @@ loc_HJSG:
     mov ax, word [bp + 0x6]          ; 0x15cc
     shl ax, 1                        ; 0x15cf
     mov bx, ax                       ; 0x15d1
-    mov ax, word [bx - 0x7b70]       ; 0x15d3
+    mov ax, word [bx + bss_8490]     ; 0x15d3
     push ax                          ; 0x15d7
-    mov bx, word [bx - 0x7b7e]       ; 0x15d8
+    mov bx, word [bx + bss_8482]     ; 0x15d8
     mov al, byte [bx + 0x1a0]        ; 0x15dc
     sub ah, ah                       ; 0x15e0
     mov dx, ax                       ; 0x15e2

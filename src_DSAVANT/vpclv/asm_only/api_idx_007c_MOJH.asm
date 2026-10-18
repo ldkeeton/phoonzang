@@ -645,8 +645,8 @@ api_idx_007c_MOJH:
     mov ax, 0x248                    ; 0x0b78
     imul word [bp + 0x4]             ; 0x0b7b
     mov bx, ax                       ; 0x0b7e
-    push word [bx + 0x5c0a]          ; 0x0b80
-    push word [bx + 0x5c08]          ; 0x0b84
+    push word [bx + bss_5c0a]        ; 0x0b80
+    push word [bx + bss_5c08]        ; 0x0b84
     call ds_app_SVGG                 ; 0x0b88
     add sp, byte 6                   ; 0x0b8b
     mov ax, 0                        ; 0x0b8e

@@ -37,9 +37,9 @@ api_idx_00d2_SNMN:
     mov ax, 0x248                    ; 0x637c
     imul word [bp + 0x4]             ; 0x637f
     mov bx, ax                       ; 0x6382
-    cmp word [bx + 0x5c0a], byte 0   ; 0x6384
+    cmp word [bx + bss_5c0a], byte 0 ; 0x6384
     jne short @..api_idx_00d2_SNMN.l3 ; 0x6389
-    cmp word [bx + 0x5c08], byte 0   ; 0x638b
+    cmp word [bx + bss_5c08], byte 0 ; 0x638b
 @..api_idx_00d2_SNMN.l3:
     jne short @..api_idx_00d2_SNMN.l4 ; 0x6390
     mov word [bp - 0x0072], 0        ; 0x6392
@@ -169,8 +169,8 @@ jumptable_6599_case_1:
     mov ax, 0x248                    ; 0x64bf
     imul word [bp + 0x4]             ; 0x64c2
     mov bx, ax                       ; 0x64c5
-    mov cx, word [bx + 0x5c08]       ; 0x64c7
-    mov bx, word [bx + 0x5c0a]       ; 0x64cb
+    mov cx, word [bx + bss_5c08]     ; 0x64c7
+    mov bx, word [bx + bss_5c0a]     ; 0x64cb
     mov ax, word [bp - 0x00d2]       ; 0x64cf
     mov dx, word [bp - 0x00d0]       ; 0x64d3
     cmp bx, dx                       ; 0x64d7
@@ -193,8 +193,8 @@ jumptable_6599_case_1:
     mov bx, ax                       ; 0x64fb
     pop dx                           ; 0x64fd
     pop ax                           ; 0x64fe
-    sub word [bx + 0x5c08], ax       ; 0x64ff
-    sbb word [bx + 0x5c0a], dx       ; 0x6503
+    sub word [bx + bss_5c08], ax     ; 0x64ff
+    sbb word [bx + bss_5c0a], dx     ; 0x6503
     mov cx, 0xa                      ; 0x6507
     mov bx, 0                        ; 0x650a
     call aztec_ldv                   ; 0x650d

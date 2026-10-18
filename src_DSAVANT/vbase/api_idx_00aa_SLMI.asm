@@ -84,7 +84,7 @@ api_idx_00aa_SLMI:
     lea ax, word [bp - 0x00a8]       ; 0x63a9
     push ax                          ; 0x63ad
     mov bx, word [bss_5b40]          ; 0x63ae
-    mov al, byte [bx + 0x5990]       ; 0x63b2
+    mov al, byte [bx + bss_5990]     ; 0x63b2
     sub ah, ah                       ; 0x63b6
     push ax                          ; 0x63b8
     call ds_app_OLKR                 ; 0x63b9
@@ -134,7 +134,7 @@ api_idx_00aa_SLMI:
     lea ax, word [bp - 0x00a8]       ; 0x641e
     push ax                          ; 0x6422
     mov bx, word [bss_5b46]          ; 0x6423
-    mov al, byte [bx + 0x5990]       ; 0x6427
+    mov al, byte [bx + bss_5990]     ; 0x6427
     sub ah, ah                       ; 0x642b
     add ax, 0x423                    ; 0x642d
     push ax                          ; 0x6430
@@ -185,7 +185,7 @@ api_idx_00aa_SLMI:
     lea ax, word [bp - 0x00a8]       ; 0x6496
     push ax                          ; 0x649a
     mov bx, word [bss_5b42]          ; 0x649b
-    mov al, byte [bx + 0x5990]       ; 0x649f
+    mov al, byte [bx + bss_5990]     ; 0x649f
     sub ah, ah                       ; 0x64a3
     push ax                          ; 0x64a5
     call ds_app_OLKR                 ; 0x64a6
@@ -201,7 +201,7 @@ api_idx_00aa_SLMI:
     lea ax, word [bp - 0x00a8]       ; 0x64bf
     push ax                          ; 0x64c3
     mov bx, word [bss_5b44]          ; 0x64c4
-    mov al, byte [bx + 0x5990]       ; 0x64c8
+    mov al, byte [bx + bss_5990]     ; 0x64c8
     sub ah, ah                       ; 0x64cc
     push ax                          ; 0x64ce
     call ds_app_OLKR                 ; 0x64cf

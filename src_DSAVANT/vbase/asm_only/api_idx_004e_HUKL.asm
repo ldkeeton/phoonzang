@@ -550,9 +550,9 @@ api_idx_004e_HUKL:
     shl ax, 1                        ; 0x3d8e
     shl ax, 1                        ; 0x3d90
     mov bx, ax                       ; 0x3d92
-    mov ax, word [bx - 0x7d0e]       ; 0x3d94
+    mov ax, word [bx + bss_82f2]     ; 0x3d94
     mov word [bx - 0x65ce], ax       ; 0x3d98
-    mov ax, word [bx - 0x7d0c]       ; 0x3d9c
+    mov ax, word [bx + bss_82f4]     ; 0x3d9c
     mov word [bx - 0x65cc], ax       ; 0x3da0
     inc word [bp - 0x0002]           ; 0x3da4
     mov ax, word [bp - 0x0002]       ; 0x3da7

@@ -122,7 +122,7 @@ api_idx_0022_PNPP:
     mov ax, 0x248                    ; 0x95a4
     imul word [bp + 0x4]             ; 0x95a7
     mov bx, ax                       ; 0x95aa
-    mov al, byte [bx + 0x5e2a]       ; 0x95ac
+    mov al, byte [bx + bss_5e2a]     ; 0x95ac
     sub ah, ah                       ; 0x95b0
     push ax                          ; 0x95b2
     call api_idx_0016_TVKP           ; 0x95b3
@@ -159,27 +159,27 @@ api_idx_0022_PNPP:
     mov ax, 0x248                    ; 0x95f8
     imul word [bp + 0x4]             ; 0x95fb
     mov bx, ax                       ; 0x95fe
-    mov al, byte [bx + 0x5e2a]       ; 0x9600
+    mov al, byte [bx + bss_5e2a]     ; 0x9600
     sub ah, ah                       ; 0x9604
     add ax, strict word 0x20         ; 0x9606
     mov cx, 0x21                     ; 0x9609
     cwd                              ; 0x960c
     idiv cx                          ; 0x960d
     mov ax, dx                       ; 0x960f
-    mov byte [bx + 0x5e2a], al       ; 0x9611
+    mov byte [bx + bss_5e2a], al     ; 0x9611
     jmp short @..api_idx_0022_PNPP.l9 ; 0x9615
 @..api_idx_0022_PNPP.l7:
     mov ax, 0x248                    ; 0x9617
     imul word [bp + 0x4]             ; 0x961a
     mov bx, ax                       ; 0x961d
-    mov al, byte [bx + 0x5e2a]       ; 0x961f
+    mov al, byte [bx + bss_5e2a]     ; 0x961f
     sub ah, ah                       ; 0x9623
     inc ax                           ; 0x9625
     mov cx, 0x21                     ; 0x9626
     cwd                              ; 0x9629
     idiv cx                          ; 0x962a
     mov ax, dx                       ; 0x962c
-    mov byte [bx + 0x5e2a], al       ; 0x962e
+    mov byte [bx + bss_5e2a], al     ; 0x962e
     jmp short @..api_idx_0022_PNPP.l9 ; 0x9632
 @..api_idx_0022_PNPP.l8:
     cmp ax, strict word 0            ; 0x9634

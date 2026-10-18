@@ -63,7 +63,6 @@ bss_5910 equ __zbss_5910 - __zdseg_start
 bss_5978 equ __zbss_5978 - __zdseg_start
 bss_5979 equ __zbss_5979 - __zdseg_start
 bss_597a equ __zbss_597a - __zdseg_start
-bss_597c equ __zbss_597c - __zdseg_start
 bss_597d equ __zbss_597d - __zdseg_start
 bss_597e equ __zbss_597e - __zdseg_start
 bss_5980 equ __zbss_5980 - __zdseg_start
@@ -76,13 +75,11 @@ bss_598b equ __zbss_598b - __zdseg_start
 bss_5b55 equ __zbss_5b55 - __zdseg_start
 bss_5c08 equ __zbss_5c08 - __zdseg_start
 bss_5c0a equ __zbss_5c0a - __zdseg_start
-bss_5e2a equ __zbss_5e2a - __zdseg_start
 bss_7abc equ __zbss_7abc - __zdseg_start
 bss_7abe equ __zbss_7abe - __zdseg_start
 bss_7b04 equ __zbss_7b04 - __zdseg_start
 bss_7b05 equ __zbss_7b05 - __zdseg_start
 bss_7d3c equ __zbss_7d3c - __zdseg_start
-bss_82f2 equ __zbss_82f2 - __zdseg_start
 bss_82f4 equ __zbss_82f4 - __zdseg_start
 bss_82f6 equ __zbss_82f6 - __zdseg_start
 bss_82f8 equ __zbss_82f8 - __zdseg_start
@@ -284,6 +281,7 @@ dseg_0002 equ __zdseg_0002 - __zdseg_start
 
 %include "ds/clamp.asm"                    ; 0x0a09
 
+bss_597c equ __zbss_597c - __zdseg_start
 bss_5984 equ __zbss_5984 - __zdseg_start
 bss_598e equ __zbss_598e - __zdseg_start
 %include "ds/ds_app_HKIJ.asm"              ; 0x0a27
@@ -382,6 +380,7 @@ bss_5964 equ __zbss_5964 - __zdseg_start
 
 %include "ds/ds_app_TRNH.asm"              ; 0x1cf8
 
+bss_5e2a equ __zbss_5e2a - __zdseg_start
 %include "ds/ds_app_LUOV.asm"              ; 0x1d81
 
 ; bss_0e2e equ __zbss_0e2e - __zdseg_start
@@ -449,6 +448,7 @@ bss_82ea equ __zbss_82ea - __zdseg_start
 bss_82ec equ __zbss_82ec - __zdseg_start
 bss_82ee equ __zbss_82ee - __zdseg_start
 bss_82f0 equ __zbss_82f0 - __zdseg_start
+bss_82f2 equ __zbss_82f2 - __zdseg_start
 %include "ds/ds_app_JKOJ.asm"              ; 0x2c69
 
 bss_830a equ __zbss_830a - __zdseg_start
@@ -989,9 +989,16 @@ aztec_read.loc1 equ ds_loc_NOQM
 %include "shared/aztec_read.asm"               ; 0x4fb6
 
 ; errno     equ __zerrno - __zdseg_start
+; _ioflg    equ __z_ioflg - __zdseg_start
 dseg_0cf0 equ __zdseg_0cf0 - __zdseg_start
 dseg_0cf2 equ __zdseg_0cf2 - __zdseg_start
-%include "ds/asm_only/aztec_write.asm"              ; 0x4fbd
+ds_loc_NOQM       equ aztec_write.loc1
+ds_loc_IGMS       equ aztec_write.loc2
+ds_loc_SROM       equ aztec_write.loc3
+aztec_write.dseg1 equ dseg_0cf2
+aztec_write.dseg2 equ dseg_0cf0
+ds_loc_USUN       equ aztec_write.loc4
+%include "shared/aztec_write.asm"              ; 0x4fbd
 
 ; errno equ __zerrno - __zdseg_start
 %include "shared/aztec_close.asm"              ; 0x4fec

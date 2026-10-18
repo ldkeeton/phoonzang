@@ -84,8 +84,8 @@ loc_SPML:
     shl ax, 1                        ; 0x07ec
     shl ax, 1                        ; 0x07ee
     mov bx, ax                       ; 0x07f0
-    push word [bx - 0x6f9e]          ; 0x07f2
-    push word [bx - 0x6fa0]          ; 0x07f6
+    push word [bx + bss_9062]        ; 0x07f2
+    push word [bx + bss_9060]        ; 0x07f6
     call thunk_12                    ; 0x07fa
     add sp, byte 8                   ; 0x07fd
     cmp word [bss_9114], byte 1      ; 0x0800

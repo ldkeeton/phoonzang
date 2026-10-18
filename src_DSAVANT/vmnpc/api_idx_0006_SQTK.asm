@@ -51,8 +51,8 @@ api_idx_0006_SQTK:
     shl ax, 1                        ; 0x0fb6
     shl ax, 1                        ; 0x0fb8
     mov bx, ax                       ; 0x0fba
-    push word [bx - 0x6f9e]          ; 0x0fbc
-    push word [bx - 0x6fa0]          ; 0x0fc0
+    push word [bx + bss_9062]        ; 0x0fbc
+    push word [bx + bss_9060]        ; 0x0fc0
     call thunk_12                    ; 0x0fc4
     add sp, byte 8                   ; 0x0fc7
     mov word [bp - 0x0002], 0        ; 0x0fca

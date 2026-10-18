@@ -30,12 +30,19 @@ each literal operand or `dw` that should have moved and did not. Ratchet:
 |------|-------------|-------------|--------|
 | 801b643f | 130 | 982 | 16 |
 | 2d7d06c5 | 135 | 984 | 0 |
-| 734d80e1 | **51** | **1207** | 0 |
+| 734d80e1 | 51 | 1207 | 0 |
+| indexed DS bound | **51** | **545** | 0 |
 
 The oracle is frozen. All rows were measured with its final version, in which
 a displacement counts only in the segment the edit moves and `bp` frame slots
 never count; that change cut 14–16 false code findings per tree and left data
 unchanged.
+
+The last row binds an indexed DS displacement (`[bx - 0x7b7e]` →
+`[bx + bss_8482]`) when it starts an object some binary of the host family
+names absolutely (the build's `ds_starts` union); a field offset such as
+`[bx + 0x19f]` stays a number. 662 of the 666 indexed findings went; the 4
+left are the C-relinked `draw_fill_action_slot_table` (§4.3 `_RAW_DATA`).
 
 The data rise at 4a0e0cdb is visibility: 73 → 1419 named DS objects, so more
 literals match a known object. The name-independent classes held at 951–953.

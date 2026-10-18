@@ -365,9 +365,16 @@ aztec_read.loc1 equ loc_ILUN
 %include "shared/aztec_read.asm"         ; 0x3833
 
 ; errno     equ __zerrno - __zdseg_start
+; _ioflg    equ __z_ioflg - __zdseg_start
 dseg_252e equ __zdseg_252e - __zdseg_start
 dseg_2530 equ __zdseg_2530 - __zdseg_start
-%include "vinstall/asm_only/aztec_write.asm"        ; 0x383a
+loc_ILUN          equ aztec_write.loc1
+loc_IGMS          equ aztec_write.loc2
+loc_SROM          equ aztec_write.loc3
+aztec_write.dseg1 equ dseg_2530
+aztec_write.dseg2 equ dseg_252e
+loc_USUN_3867     equ aztec_write.loc4
+%include "shared/aztec_write.asm"        ; 0x383a
 
 ; errno equ __zerrno - __zdseg_start
 %include "shared/aztec_close.asm"        ; 0x3869

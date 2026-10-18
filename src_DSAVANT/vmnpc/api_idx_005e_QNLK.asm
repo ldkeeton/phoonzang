@@ -214,8 +214,8 @@ api_idx_005e_QNLK:
     mov bx, ax                       ; 0x61ba
     pop dx                           ; 0x61bc
     pop ax                           ; 0x61bd
-    add word [bx + 0x5c08], ax       ; 0x61be
-    adc word [bx + 0x5c0a], dx       ; 0x61c2
+    add word [bx + bss_5c08], ax     ; 0x61be
+    adc word [bx + bss_5c0a], dx     ; 0x61c2
     lea ax, word [bp - 0x005e]       ; 0x61c6
     push ax                          ; 0x61c9
     mov ax, 0x626                    ; 0x61ca

@@ -15,7 +15,7 @@ api_idx_0002_UUUJ:
     mov cx, word [bp - 0x0002]       ; 0x88a0
     shl cx, 1                        ; 0x88a3
     mov bx, cx                       ; 0x88a5
-    mov word [bx - 0x5a30], ax       ; 0x88a7
+    mov word [bx + bss_a5d0], ax     ; 0x88a7
     inc word [bp - 0x0002]           ; 0x88ab
     mov ax, word [bp - 0x0002]       ; 0x88ae
     cmp ax, strict word 5            ; 0x88b1
@@ -113,7 +113,7 @@ api_idx_0002_UUUJ:
     mov ax, word [bp - 0x0002]       ; 0x898f
     shl ax, 1                        ; 0x8992
     mov bx, ax                       ; 0x8994
-    mov word [bx - 0x5a26], 0x140    ; 0x8996
+    mov word [bx + bss_a5da], 0x140  ; 0x8996
     mov ax, 0x3c                     ; 0x899c
     push ax                          ; 0x899f
     call ds_app_PUNN                 ; 0x89a0

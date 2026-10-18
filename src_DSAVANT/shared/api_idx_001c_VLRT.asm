@@ -9,7 +9,7 @@ api_idx_001c_VLRT:
     shl cx, 1
     add ax, cx
     mov bx, ax
-    mov ax, word [bx - 0x7bc6]
+    mov ax, word [bx + bss_843a]
     mov cx, 0xa
     cwd
     idiv cx
@@ -28,7 +28,7 @@ api_idx_001c_VLRT:
     mov ax, word [bp - 0x0002]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx - 0x7b7e]
+    mov bx, word [bx + bss_8482]
     cmp byte [bx + 0x19f], 0xff
     jne short @..api_idx_001c_VLRT.l3
     ret

@@ -8,7 +8,7 @@ api_idx_0002_UTVG:
     mov ax, word [bp + 0x4]          ; 0x1fa6
     shl ax, 1                        ; 0x1fa9
     mov bx, ax                       ; 0x1fab
-    mov bx, word [bx - 0x7b7e]       ; 0x1fad
+    mov bx, word [bx + bss_8482]     ; 0x1fad
     mov al, byte [bx + si + 0x22]    ; 0x1fb1
     sub ah, ah                       ; 0x1fb4
     cmp ax, word [bp + 0xc]          ; 0x1fb6
@@ -47,7 +47,7 @@ api_idx_0002_UTVG:
     mov ax, word [bp + 0x4]          ; 0x2001
     shl ax, 1                        ; 0x2004
     mov bx, ax                       ; 0x2006
-    mov bx, word [bx - 0x7b70]       ; 0x2008
+    mov bx, word [bx + bss_8490]     ; 0x2008
     mov si, word [bp + 0xa]          ; 0x200c
     mov al, byte [bx + si + 0x9a]    ; 0x200f
     sub ah, ah                       ; 0x2013
@@ -66,7 +66,7 @@ api_idx_0002_UTVG:
     mov ax, word [bp + 0x4]          ; 0x202d
     shl ax, 1                        ; 0x2030
     mov bx, ax                       ; 0x2032
-    mov bx, word [bx - 0x7b7e]       ; 0x2034
+    mov bx, word [bx + bss_8482]     ; 0x2034
     pop ax                           ; 0x2038
     mov byte [bx + si + 0x22], al    ; 0x2039
     cmp word [bp + 0xc], byte 3      ; 0x203c

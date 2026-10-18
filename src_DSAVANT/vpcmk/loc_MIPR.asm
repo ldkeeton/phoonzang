@@ -148,7 +148,7 @@ loc_MIPR:
     mov ax, 0x248                    ; 0x6457
     imul word [bp - 0x0006]          ; 0x645a
     mov bx, ax                       ; 0x645d
-    mov byte [bx + 0x5e2a], 0        ; 0x645f
+    mov byte [bx + bss_5e2a], 0      ; 0x645f
     push word [bp - 0x027a]          ; 0x6464
     push word [bp - 0x027c]          ; 0x6468
     push word [bp - 0x0006]          ; 0x646c
@@ -165,7 +165,7 @@ loc_MIPR:
     mov ax, 0x248                    ; 0x648b
     imul word [bp - 0x0006]          ; 0x648e
     mov bx, ax                       ; 0x6491
-    mov al, byte [bx + 0x5e2a]       ; 0x6493
+    mov al, byte [bx + bss_5e2a]     ; 0x6493
     sub ah, ah                       ; 0x6497
     push ax                          ; 0x6499
     call api_idx_0016_JNJG           ; 0x649a

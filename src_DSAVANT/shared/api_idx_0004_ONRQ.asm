@@ -25,7 +25,7 @@ api_idx_0004_ONRQ:
     mov ax, word [bp - 0x0004]
     shl ax, 1
     mov bx, ax
-    mov si, word [bx - 0x7b98]
+    mov si, word [bx + bss_8468]
     mov di, word [bx - 0x7b96]
     mov cx, ds
     mov es, cx

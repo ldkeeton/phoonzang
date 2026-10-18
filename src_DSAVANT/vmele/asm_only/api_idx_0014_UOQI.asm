@@ -13,7 +13,7 @@ api_idx_0014_UOQI:
     mov ax, word [bp - 0x0002]       ; 0x185e
     shl ax, 1                        ; 0x1861
     mov bx, ax                       ; 0x1863
-    mov bx, word [bx - 0x7b7e]       ; 0x1865
+    mov bx, word [bx + bss_8482]     ; 0x1865
     cmp byte [bx + 0x1a1], 0         ; 0x1869
     ja short @..api_idx_0014_UOQI.l2 ; 0x186e
     jmp near @..api_idx_0014_UOQI.l12 ; 0x1870
@@ -27,7 +27,7 @@ api_idx_0014_UOQI:
     mov si, bx                       ; 0x1881
     shl ax, 1                        ; 0x1883
     mov bx, ax                       ; 0x1885
-    mov di, word [bx - 0x7b7e]       ; 0x1887
+    mov di, word [bx + bss_8482]     ; 0x1887
     mov cx, ds                       ; 0x188b
     mov es, cx                       ; 0x188d
     mov cx, 0xd2                     ; 0x188f
@@ -35,11 +35,11 @@ api_idx_0014_UOQI:
     mov ax, word [bp - 0x0002]       ; 0x1894
     shl ax, 1                        ; 0x1897
     mov bx, ax                       ; 0x1899
-    mov si, word [bx - 0x7b70]       ; 0x189b
+    mov si, word [bx + bss_8490]     ; 0x189b
     mov ax, word [bp - 0x0006]       ; 0x189f
     shl ax, 1                        ; 0x18a2
     mov bx, ax                       ; 0x18a4
-    mov di, word [bx - 0x7b70]       ; 0x18a6
+    mov di, word [bx + bss_8490]     ; 0x18a6
     mov cx, ds                       ; 0x18aa
     mov es, cx                       ; 0x18ac
     mov cx, 0x74                     ; 0x18ae
@@ -69,7 +69,7 @@ api_idx_0014_UOQI:
     mov ax, word [bp - 0x0002]       ; 0x18e9
     shl ax, 1                        ; 0x18ec
     mov bx, ax                       ; 0x18ee
-    mov bx, word [bx - 0x7b7e]       ; 0x18f0
+    mov bx, word [bx + bss_8482]     ; 0x18f0
     mov byte [bx + 0x1a1], 0         ; 0x18f4
     jmp near @..api_idx_0014_UOQI.l12 ; 0x18f9
 @..api_idx_0014_UOQI.l7:
@@ -82,7 +82,7 @@ api_idx_0014_UOQI:
     mov ax, word [bp - 0x0006]       ; 0x190c
     shl ax, 1                        ; 0x190f
     mov bx, ax                       ; 0x1911
-    mov bx, word [bx - 0x7b7e]       ; 0x1913
+    mov bx, word [bx + bss_8482]     ; 0x1913
     mov al, byte [bx + si + 0x2a]    ; 0x1917
     cbw                              ; 0x191a
     mov word [bp - 0x0008], ax       ; 0x191b
@@ -113,7 +113,7 @@ api_idx_0014_UOQI:
     shl cx, 1                        ; 0x1958
     add ax, cx                       ; 0x195a
     mov bx, ax                       ; 0x195c
-    cmp word [bx - 0x7bc6], byte 0   ; 0x195e
+    cmp word [bx + bss_843a], byte 0 ; 0x195e
     jne short @..api_idx_0014_UOQI.l10 ; 0x1963
     mov ax, 6                        ; 0x1965
     imul word [bp - 0x000a]          ; 0x1968
@@ -121,7 +121,7 @@ api_idx_0014_UOQI:
     shl cx, 1                        ; 0x196e
     add ax, cx                       ; 0x1970
     mov bx, ax                       ; 0x1972
-    mov word [bx - 0x7bc6], 0        ; 0x1974
+    mov word [bx + bss_843a], 0      ; 0x1974
     mov ax, 0xa                      ; 0x197a
     imul word [bp - 0x0006]          ; 0x197d
     add ax, word [bp - 0x0004]       ; 0x1980
@@ -134,14 +134,14 @@ api_idx_0014_UOQI:
     add ax, dx                       ; 0x1991
     mov bx, ax                       ; 0x1993
     pop ax                           ; 0x1995
-    mov word [bx - 0x7bc6], ax       ; 0x1996
+    mov word [bx + bss_843a], ax     ; 0x1996
     mov ax, 0xa                      ; 0x199a
     imul word [bp - 0x000e]          ; 0x199d
     add ax, word [bp - 0x0010]       ; 0x19a0
     mov cx, word [bp - 0x0006]       ; 0x19a3
     shl cx, 1                        ; 0x19a6
     mov bx, cx                       ; 0x19a8
-    mov bx, word [bx - 0x7b7e]       ; 0x19aa
+    mov bx, word [bx + bss_8482]     ; 0x19aa
     mov byte [bx + si + 0x2a], al    ; 0x19ae
     mov ax, 0xffff                   ; 0x19b1
     push ax                          ; 0x19b4
@@ -156,7 +156,7 @@ api_idx_0014_UOQI:
     mov ax, word [bp - 0x0006]       ; 0x19c7
     shl ax, 1                        ; 0x19ca
     mov bx, ax                       ; 0x19cc
-    mov bx, word [bx - 0x7b7e]       ; 0x19ce
+    mov bx, word [bx + bss_8482]     ; 0x19ce
     mov al, byte [bx + 0x1a1]        ; 0x19d2
     sub ah, ah                       ; 0x19d6
     cmp ax, word [bp - 0x0004]       ; 0x19d8

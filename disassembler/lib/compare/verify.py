@@ -203,6 +203,15 @@ def _label_records(records):
     return {r['text']: r['offset'] for r in records if r['type'] == 'label'}
 
 
+def _host_space_starts(mem_equ, segments):
+    """DS/BSS offsets named in *mem_equ* that lie in the host's data space."""
+    from lib.compare.symbols import _host_space_limit
+    limit = _host_space_limit(segments)
+    return sorted({value for sym, value in (mem_equ or {}).items()
+                   if data_space(sym) in (Space.DS, Space.BSS)
+                   and (limit is None or value < limit)})
+
+
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False, show_offsets=True,
            structs=None, asm_dir=None, cascade_promoted=None,
@@ -216,7 +225,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            jump_tables=None, jump_table_overrides=None,
            segment_flow=None, segments=None, external_data=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
-           immediate_pointers=(), host_data_offsets=None):
+           immediate_pointers=(), host_data_offsets=None,
+           ds_starts=frozenset()):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -447,7 +457,8 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # resolved here are rendered from the correct namespace and are excluded
     # from the generic ``data_`` fallback below.
     mem_symbols, mem_equ = _resolve_mem_symbols(
-        insns, segment_flow, segments, label_map, start_offset)
+        insns, segment_flow, segments, label_map, start_offset,
+        ds_starts=ds_starts)
     mem_symbols.update(_resolve_imm_symbols(
         insns, segment_flow, segments, label_map, mem_equ, start_offset))
     mem_symbols.update(_resolve_declared_immediates(
@@ -1193,6 +1204,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         # the binary is an overlay with a host).  ``main``/``runner`` exports
         # them so the host can declare one ``equ`` per offset.
         'host_data_refs': host_data_refs,
+        # The host-space DS starts this binary names, for the union that lets
+        # every binary of the host's family bind an indexed operand
+        # (``symbols._resolve_indexed_symbols``).
+        'ds_starts': _host_space_starts(mem_equ, segments),
         'address_records': _build_address_records(
             insns, mem_symbols, mem_equ, segment_flow, label_map, start_offset,
             data_labels=data_labels, reloc_targets=reloc_targets,

@@ -52,7 +52,7 @@ api_idx_0060_VPPJ:
     mov ax, word [bss_91fe]          ; 0x2050
     shl ax, 1                        ; 0x2053
     mov bx, ax                       ; 0x2055
-    mov word [bx - 0x6e00], 1        ; 0x2057
+    mov word [bx + bss_9200], 1      ; 0x2057
     mov ax, 0                        ; 0x205d
     push ax                          ; 0x2060
     mov ax, 0x10                     ; 0x2061
@@ -109,7 +109,7 @@ api_idx_0060_VPPJ:
     mov ax, word [bp - 0x0002]       ; 0x20e3
     shl ax, 1                        ; 0x20e6
     mov bx, ax                       ; 0x20e8
-    cmp word [bx - 0x6e00], byte 0   ; 0x20ea
+    cmp word [bx + bss_9200], byte 0 ; 0x20ea
     je short @..api_idx_0060_VPPJ.l10 ; 0x20ef
     jmp near @..api_idx_0060_VPPJ.l16 ; 0x20f1
 @..api_idx_0060_VPPJ.l10:
@@ -168,7 +168,7 @@ api_idx_0060_VPPJ:
     mov ax, word [bp - 0x0002]       ; 0x2178
     shl ax, 1                        ; 0x217b
     mov bx, ax                       ; 0x217d
-    mov word [bx - 0x6e00], 1        ; 0x217f
+    mov word [bx + bss_9200], 1      ; 0x217f
     mov word [bp - 0x0006], 0        ; 0x2185
 @..api_idx_0060_VPPJ.l14:
     mov ax, word [bp - 0x0002]       ; 0x218a
@@ -252,7 +252,7 @@ api_idx_0060_VPPJ:
     mov ax, word [bp - 0x0002]       ; 0x2258
     shl ax, 1                        ; 0x225b
     mov bx, ax                       ; 0x225d
-    cmp word [bx - 0x6e00], byte 0   ; 0x225f
+    cmp word [bx + bss_9200], byte 0 ; 0x225f
     jne short @..api_idx_0060_VPPJ.l26 ; 0x2264
     jmp near @..api_idx_0060_VPPJ.l32 ; 0x2266
 @..api_idx_0060_VPPJ.l26:

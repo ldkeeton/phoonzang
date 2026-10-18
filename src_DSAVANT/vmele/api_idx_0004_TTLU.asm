@@ -16,7 +16,7 @@ api_idx_0004_TTLU:
     mov ax, word [bp - 0x0002]       ; 0x17d2
     shl ax, 1                        ; 0x17d5
     mov bx, ax                       ; 0x17d7
-    mov bx, word [bx - 0x7b70]       ; 0x17d9
+    mov bx, word [bx + bss_8490]     ; 0x17d9
     mov al, byte [bx + 0xd7]         ; 0x17dd
     sub ah, ah                       ; 0x17e1
     push ax                          ; 0x17e3
@@ -25,7 +25,7 @@ api_idx_0004_TTLU:
     mov cx, word [bp - 0x0002]       ; 0x17e8
     shl cx, 1                        ; 0x17eb
     mov bx, cx                       ; 0x17ed
-    mov bx, word [bx - 0x7b7e]       ; 0x17ef
+    mov bx, word [bx + bss_8482]     ; 0x17ef
     mov byte [bx + 0x19f], al        ; 0x17f3
     inc word [bp - 0x0002]           ; 0x17f7
 @..api_idx_0004_TTLU.l3:

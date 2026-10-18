@@ -25,7 +25,7 @@ api_idx_0004_SMTU:
     mov ax, word [bp - 0x0004]       ; 0x0660
     shl ax, 1                        ; 0x0663
     mov bx, ax                       ; 0x0665
-    mov si, word [bx - 0x7b98]       ; 0x0667
+    mov si, word [bx + bss_8468]     ; 0x0667
     mov di, word [bx - 0x7b96]       ; 0x066b
     mov cx, ds                       ; 0x066f
     mov es, cx                       ; 0x0671

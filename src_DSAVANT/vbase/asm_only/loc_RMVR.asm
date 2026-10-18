@@ -2079,7 +2079,7 @@ loc_PVJJ:
     imul word [bp - 0x0008]          ; 0x5f87
     add ax, word [bp - 0x0004]       ; 0x5f8a
     mov bx, ax                       ; 0x5f8d
-    mov byte [bx + 0xe38], 0x20      ; 0x5f8f
+    mov byte [bx + bss_0e38], 0x20   ; 0x5f8f
     inc word [bp - 0x0004]           ; 0x5f94
     jmp short @..loc_PVJJ.l3         ; 0x5f97
 @..loc_PVJJ.l4:

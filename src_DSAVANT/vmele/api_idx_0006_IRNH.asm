@@ -52,8 +52,8 @@ api_idx_0006_IRNH:
     shl ax, 1                        ; 0x2bde
     shl ax, 1                        ; 0x2be0
     mov bx, ax                       ; 0x2be2
-    push word [bx - 0x6f9e]          ; 0x2be4
-    push word [bx - 0x6fa0]          ; 0x2be8
+    push word [bx + bss_9062]        ; 0x2be4
+    push word [bx + bss_9060]        ; 0x2be8
     call thunk_12                    ; 0x2bec
     add sp, byte 8                   ; 0x2bef
     mov word [bp - 0x0002], 0        ; 0x2bf2

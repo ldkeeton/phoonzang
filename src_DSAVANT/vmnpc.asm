@@ -88,6 +88,7 @@ loc_UTQS.api_idx1 equ api_idx_0006_SQTK
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
 bss_91c3 equ __zdseg_end + (__zobss_91c3 - __zdata_start)
 bss_93da equ __zdseg_end + (__zobss_93da - __zdata_start)
+bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
 %include "vmnpc/api_idx_005e_SHOL.asm"     ; 0x13ed
 
 %include "vmnpc/api_idx_000c_KGOL.asm"     ; 0x1676
@@ -136,6 +137,7 @@ bss_91b8 equ __zdseg_end + (__zobss_91b8 - __zdata_start)
 ; bss_91c2 equ __zdseg_end + (__zobss_91c2 - __zdata_start)
 ; bss_91c6 equ __zdseg_end + (__zobss_91c6 - __zdata_start)
 ; bss_91c7 equ __zdseg_end + (__zobss_91c7 - __zdata_start)
+; bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
 ; bss_93ee equ __zdseg_end + (__zobss_93ee - __zdata_start)
 ; bss_95a6 equ __zdseg_end + (__zobss_95a6 - __zdata_start)
 %include "vmnpc/api_idx_0040_LSRO.asm"     ; 0x2b8e
@@ -245,7 +247,7 @@ bss_91a2 equ __zdseg_end + (__zobss_91a2 - __zdata_start)
 ; bss_91c6 equ __zdseg_end + (__zobss_91c6 - __zdata_start)
 ; bss_91c7 equ __zdseg_end + (__zobss_91c7 - __zdata_start)
 ; bss_93da equ __zdseg_end + (__zobss_93da - __zdata_start)
-bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
+; bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
 ; bss_95a6 equ __zdseg_end + (__zobss_95a6 - __zdata_start)
 ; bss_964e equ __zdseg_end + (__zobss_964e - __zdata_start)
 ; bss_9d60 equ __zdseg_end + (__zobss_9d60 - __zdata_start)

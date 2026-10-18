@@ -24,8 +24,10 @@ _TREE = shift_oracle.TREE
 # names (``moved`` + ``string``) stayed 951-953.  Code was 65 until displacements
 # were judged by segment (an overlay DS displacement equal to a code label, a
 # ``bp`` frame slot); every tree was re-measured then and data did not move.
+# Data fell 1207 -> 545 when indexed DS displacements were bound to the named
+# object they start (``[bx + bss_8482]``, ``symbols._resolve_indexed_symbols``).
 # A rise from new visibility is re-measured and explained here, not hidden.
-BASELINE = {'code': 51, 'data': 1207, 'branch': 0}
+BASELINE = {'code': 51, 'data': 545, 'branch': 0}
 
 
 def _sites(result):
@@ -65,6 +67,11 @@ class ShiftOracleSanityTests(unittest.TestCase):
         # on a code insert, but a DS displacement does not.
         r = shift_oracle.run('vpclv', 'code')
         self.assertNotIn(('vpclv/api_idx_004c_UMGL.asm', 161), _sites(r))
+
+    def test_an_indexed_ds_array_moves(self):
+        # ``mov bx, word [bx + bss_8482]`` was ``[bx - 0x7b7e]``.
+        r = shift_oracle.run('vmexe', 'data')
+        self.assertNotIn(('shared/api_idx_000e_VRIR.asm', 10), _sites(r))
 
 
 @slow

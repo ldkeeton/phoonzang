@@ -22,14 +22,14 @@ api_idx_0006_PSQH:
     mov ax, word [bp - 0x0002]       ; 0x98ce
     shl ax, 1                        ; 0x98d1
     mov bx, ax                       ; 0x98d3
-    mov bx, word [bx - 0x7b7e]       ; 0x98d5
+    mov bx, word [bx + bss_8482]     ; 0x98d5
     mov al, byte [bx + 0x1a1]        ; 0x98d9
     sub ah, ah                       ; 0x98dd
     push ax                          ; 0x98df
     mov ax, word [bp - 0x0002]       ; 0x98e0
     shl ax, 1                        ; 0x98e3
     mov bx, ax                       ; 0x98e5
-    mov bx, word [bx - 0x7b70]       ; 0x98e7
+    mov bx, word [bx + bss_8490]     ; 0x98e7
     mov al, byte [bx + 0x80]         ; 0x98eb
     sub ah, ah                       ; 0x98ef
     mov cx, ax                       ; 0x98f1

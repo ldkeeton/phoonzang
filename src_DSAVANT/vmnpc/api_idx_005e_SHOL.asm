@@ -13,7 +13,7 @@ api_idx_005e_SHOL:
     shl cx, 1                        ; 0x140b
     add ax, cx                       ; 0x140d
     mov bx, ax                       ; 0x140f
-    cmp word [bx - 0x7bc6], byte 0   ; 0x1411
+    cmp word [bx + bss_843a], byte 0 ; 0x1411
     je short @..api_idx_005e_SHOL.l3 ; 0x1416
     mov word [bp - 0x000e], 1        ; 0x1418
 @..api_idx_005e_SHOL.l3:
@@ -175,7 +175,7 @@ api_idx_005e_SHOL:
     sub ax, cx                       ; 0x1599
     push ax                          ; 0x159b
     mov ax, 0                        ; 0x159c
-    cmp word [bx - 0x6c24], byte 1   ; 0x159f
+    cmp word [bx + bss_93dc], byte 1 ; 0x159f
     jne short @..api_idx_005e_SHOL.l18 ; 0x15a4
     mov ax, word [bp - 0x0008]       ; 0x15a6
 @..api_idx_005e_SHOL.l18:
@@ -239,7 +239,7 @@ api_idx_005e_SHOL:
     shl cx, 1                        ; 0x1637
     add ax, cx                       ; 0x1639
     mov bx, ax                       ; 0x163b
-    mov word [bx - 0x6c24], 0        ; 0x163d
+    mov word [bx + bss_93dc], 0      ; 0x163d
     inc word [bp - 0x0006]           ; 0x1643
     mov ax, word [bp - 0x0006]       ; 0x1646
     cmp ax, strict word 3            ; 0x1649

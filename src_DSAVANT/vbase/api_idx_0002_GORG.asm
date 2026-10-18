@@ -48,7 +48,7 @@ api_idx_0002_GORG:
     mov ax, word [bp - 0x0002]       ; 0x8bea
     shl ax, 1                        ; 0x8bed
     mov bx, ax                       ; 0x8bef
-    mov word [bx - 0x5a26], 0x140    ; 0x8bf1
+    mov word [bx + bss_a5da], 0x140  ; 0x8bf1
     mov ax, 0x10                     ; 0x8bf7
     push ax                          ; 0x8bfa
     call ds_app_PUNN                 ; 0x8bfb

@@ -60,7 +60,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp - 0x0004]       ; 0x468c
     shl ax, 1                        ; 0x468f
     mov bx, ax                       ; 0x4691
-    mov bx, word [bx - 0x7b7e]       ; 0x4693
+    mov bx, word [bx + bss_8482]     ; 0x4693
     mov ax, word [bx + si + 0x2]     ; 0x4697
     cwd                              ; 0x469a
     add word [bp - 0x0024], ax       ; 0x469b
@@ -70,7 +70,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp - 0x0004]       ; 0x46a4
     shl ax, 1                        ; 0x46a7
     mov bx, ax                       ; 0x46a9
-    mov bx, word [bx - 0x7b7e]       ; 0x46ab
+    mov bx, word [bx + bss_8482]     ; 0x46ab
     mov al, byte [bx + 0x1a1]        ; 0x46af
     sub ah, ah                       ; 0x46b3
     cmp ax, word [bp - 0x0006]       ; 0x46b5
@@ -142,7 +142,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4748
     shl ax, 1                        ; 0x474b
     mov bx, ax                       ; 0x474d
-    mov bx, word [bx - 0x7b70]       ; 0x474f
+    mov bx, word [bx + bss_8490]     ; 0x474f
     mov al, byte [bx + 0xe2]         ; 0x4753
     sub ah, ah                       ; 0x4757
     test ax, 1                       ; 0x4759
@@ -154,7 +154,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4769
     shl ax, 1                        ; 0x476c
     mov bx, ax                       ; 0x476e
-    mov bx, word [bx - 0x7b7e]       ; 0x4770
+    mov bx, word [bx + bss_8482]     ; 0x4770
     mov ax, word [bx + 0x4]          ; 0x4774
     shl ax, 1                        ; 0x4777
     mov cx, word [bx + 0x2]          ; 0x4779
@@ -176,7 +176,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x479e
     shl ax, 1                        ; 0x47a1
     mov bx, ax                       ; 0x47a3
-    mov ax, word [bx - 0x7b7e]       ; 0x47a5
+    mov ax, word [bx + bss_8482]     ; 0x47a5
     add ax, cx                       ; 0x47a9
     mov word [bp - 0x0008], ax       ; 0x47ab
     mov ax, 0xa                      ; 0x47ae
@@ -190,7 +190,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x47bf
     shl ax, 1                        ; 0x47c2
     mov bx, ax                       ; 0x47c4
-    mov bx, word [bx - 0x7b7e]       ; 0x47c6
+    mov bx, word [bx + bss_8482]     ; 0x47c6
     mov al, byte [bx + si + 0x29]    ; 0x47ca
     cbw                              ; 0x47cd
     mov cx, ax                       ; 0x47ce
@@ -200,7 +200,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x47d4
     shl ax, 1                        ; 0x47d7
     mov bx, ax                       ; 0x47d9
-    mov bx, word [bx - 0x7b70]       ; 0x47db
+    mov bx, word [bx + bss_8490]     ; 0x47db
     mov al, byte [bx + 0xd9]         ; 0x47df
     sub ah, ah                       ; 0x47e3
     mov cx, ax                       ; 0x47e5
@@ -288,7 +288,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x48a2
     shl ax, 1                        ; 0x48a5
     mov bx, ax                       ; 0x48a7
-    mov bx, word [bx - 0x7b70]       ; 0x48a9
+    mov bx, word [bx + bss_8490]     ; 0x48a9
     mov al, byte [bx + 0xdb]         ; 0x48ad
     sub ah, ah                       ; 0x48b1
     cmp ax, word [bp - 0x000e]       ; 0x48b3
@@ -325,7 +325,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x6]          ; 0x4904
     shl ax, 1                        ; 0x4907
     mov bx, ax                       ; 0x4909
-    mov bx, word [bx - 0x7b7e]       ; 0x490b
+    mov bx, word [bx + bss_8482]     ; 0x490b
     mov al, byte [bx + 0x1a1]        ; 0x490f
     sub ah, ah                       ; 0x4913
     push ax                          ; 0x4915
@@ -343,7 +343,7 @@ api_idx_0024_NKNU:
     sub ah, ah                       ; 0x4932
     shl ax, 1                        ; 0x4934
     mov bx, ax                       ; 0x4936
-    mov bx, word [bx - 0x7b7e]       ; 0x4938
+    mov bx, word [bx + bss_8482]     ; 0x4938
     cmp byte [bx + si + 0x22], 3     ; 0x493c
     jae short @..api_idx_0024_NKNU.l25 ; 0x4940
     mov ax, 0x64                     ; 0x4942
@@ -354,7 +354,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x494b
     shl ax, 1                        ; 0x494e
     mov bx, ax                       ; 0x4950
-    mov bx, word [bx - 0x7b70]       ; 0x4952
+    mov bx, word [bx + bss_8490]     ; 0x4952
     mov al, byte [bx + 0xae]         ; 0x4956
     sub ah, ah                       ; 0x495a
     mov cx, ax                       ; 0x495c
@@ -381,7 +381,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4994
     shl ax, 1                        ; 0x4997
     mov bx, ax                       ; 0x4999
-    mov bx, word [bx - 0x7b70]       ; 0x499b
+    mov bx, word [bx + bss_8490]     ; 0x499b
     mov si, word [bp - 0x0010]       ; 0x499f
     mov al, byte [bx + si + 0x90]    ; 0x49a2
     sub ah, ah                       ; 0x49a6
@@ -504,7 +504,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4ab4
     shl ax, 1                        ; 0x4ab7
     mov bx, ax                       ; 0x4ab9
-    mov bx, word [bx - 0x7b70]       ; 0x4abb
+    mov bx, word [bx + bss_8490]     ; 0x4abb
     mov al, byte [bx + 0xb0]         ; 0x4abf
     sub ah, ah                       ; 0x4ac3
     mov cx, ax                       ; 0x4ac5
@@ -517,7 +517,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4ad8
     shl ax, 1                        ; 0x4adb
     mov bx, ax                       ; 0x4add
-    mov bx, word [bx - 0x7b70]       ; 0x4adf
+    mov bx, word [bx + bss_8490]     ; 0x4adf
     mov al, byte [bx + 0xde]         ; 0x4ae3
     sub ah, ah                       ; 0x4ae7
     mov bx, word [bp - 0x0008]       ; 0x4ae9
@@ -555,7 +555,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4b3a
     shl ax, 1                        ; 0x4b3d
     mov bx, ax                       ; 0x4b3f
-    mov bx, word [bx - 0x7b70]       ; 0x4b41
+    mov bx, word [bx + bss_8490]     ; 0x4b41
     cmp byte [bx + si + 0x51], 1     ; 0x4b45
     jbe short @..api_idx_0024_NKNU.l47 ; 0x4b49
 @..api_idx_0024_NKNU.l45:
@@ -566,7 +566,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4b58
     shl ax, 1                        ; 0x4b5b
     mov bx, ax                       ; 0x4b5d
-    mov bx, word [bx - 0x7b70]       ; 0x4b5f
+    mov bx, word [bx + bss_8490]     ; 0x4b5f
     mov al, byte [bx + si + 0x51]    ; 0x4b63
     sub ah, ah                       ; 0x4b66
     mov cx, 2                        ; 0x4b68
@@ -581,7 +581,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x6]          ; 0x4b7d
     shl ax, 1                        ; 0x4b80
     mov bx, ax                       ; 0x4b82
-    mov bx, word [bx - 0x7b7e]       ; 0x4b84
+    mov bx, word [bx + bss_8482]     ; 0x4b84
     mov al, byte [bx + 0x1a1]        ; 0x4b88
     sub ah, ah                       ; 0x4b8c
     cmp ax, word [bp - 0x0012]       ; 0x4b8e
@@ -598,7 +598,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x6]          ; 0x4baa
     shl ax, 1                        ; 0x4bad
     mov bx, ax                       ; 0x4baf
-    mov bx, word [bx - 0x7b7e]       ; 0x4bb1
+    mov bx, word [bx + bss_8482]     ; 0x4bb1
     cmp byte [bx + si + 0x22], 3     ; 0x4bb5
     jae short @..api_idx_0024_NKNU.l50 ; 0x4bb9
     inc word [bp - 0x0010]           ; 0x4bbb
@@ -629,7 +629,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4bfa
     shl ax, 1                        ; 0x4bfd
     mov bx, ax                       ; 0x4bff
-    mov bx, word [bx - 0x7b70]       ; 0x4c01
+    mov bx, word [bx + bss_8490]     ; 0x4c01
     mov si, word [bp - 0x0014]       ; 0x4c05
     cmp byte [bx + si + 0x86], 2     ; 0x4c08
     jne short @..api_idx_0024_NKNU.l53 ; 0x4c0d
@@ -640,7 +640,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4c19
     shl ax, 1                        ; 0x4c1c
     mov bx, ax                       ; 0x4c1e
-    mov bx, word [bx - 0x7b70]       ; 0x4c20
+    mov bx, word [bx + bss_8490]     ; 0x4c20
     mov si, word [bp - 0x0014]       ; 0x4c24
     cmp byte [bx + si + 0x86], 3     ; 0x4c27
     jne short @..api_idx_0024_NKNU.l54 ; 0x4c2c
@@ -654,7 +654,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4c40
     shl ax, 1                        ; 0x4c43
     mov bx, ax                       ; 0x4c45
-    mov ax, word [bx - 0x7b70]       ; 0x4c47
+    mov ax, word [bx + bss_8490]     ; 0x4c47
     add ax, cx                       ; 0x4c4b
     add ax, strict word 0x53         ; 0x4c4d
     push ax                          ; 0x4c50
@@ -687,7 +687,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4c87
     shl ax, 1                        ; 0x4c8a
     mov bx, ax                       ; 0x4c8c
-    mov bx, word [bx - 0x7b70]       ; 0x4c8e
+    mov bx, word [bx + bss_8490]     ; 0x4c8e
     mov al, byte [bx + 0xb2]         ; 0x4c92
     sub ah, ah                       ; 0x4c96
     mov cx, ax                       ; 0x4c98
@@ -716,14 +716,14 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4cd6
     shl ax, 1                        ; 0x4cd9
     mov bx, ax                       ; 0x4cdb
-    mov bx, word [bx - 0x7b70]       ; 0x4cdd
+    mov bx, word [bx + bss_8490]     ; 0x4cdd
     cmp byte [bx + si + 0x51], 1     ; 0x4ce1
     jbe short @..api_idx_0024_NKNU.l66 ; 0x4ce5
 @..api_idx_0024_NKNU.l62:
     mov ax, word [bp + 0x4]          ; 0x4ce7
     shl ax, 1                        ; 0x4cea
     mov bx, ax                       ; 0x4cec
-    mov bx, word [bx - 0x7b70]       ; 0x4cee
+    mov bx, word [bx + bss_8490]     ; 0x4cee
     mov si, word [bp - 0x0014]       ; 0x4cf2
     cmp byte [bx + si + 0x86], 2     ; 0x4cf5
     jne short @..api_idx_0024_NKNU.l63 ; 0x4cfa
@@ -734,7 +734,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4d06
     shl ax, 1                        ; 0x4d09
     mov bx, ax                       ; 0x4d0b
-    mov bx, word [bx - 0x7b70]       ; 0x4d0d
+    mov bx, word [bx + bss_8490]     ; 0x4d0d
     mov si, word [bp - 0x0014]       ; 0x4d11
     cmp byte [bx + si + 0x86], 3     ; 0x4d14
     jne short @..api_idx_0024_NKNU.l64 ; 0x4d19
@@ -748,7 +748,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4d2d
     shl ax, 1                        ; 0x4d30
     mov bx, ax                       ; 0x4d32
-    mov ax, word [bx - 0x7b70]       ; 0x4d34
+    mov ax, word [bx + bss_8490]     ; 0x4d34
     add ax, cx                       ; 0x4d38
     add ax, strict word 0x53         ; 0x4d3a
     push ax                          ; 0x4d3d
@@ -781,7 +781,7 @@ api_idx_0024_NKNU:
     mov ax, word [bp + 0x4]          ; 0x4d77
     shl ax, 1                        ; 0x4d7a
     mov bx, ax                       ; 0x4d7c
-    mov bx, word [bx - 0x7b7e]       ; 0x4d7e
+    mov bx, word [bx + bss_8482]     ; 0x4d7e
     mov al, byte [bx + 0x1a1]        ; 0x4d82
     sub ah, ah                       ; 0x4d86
     cmp ax, word [bp - 0x0002]       ; 0x4d88

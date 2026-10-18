@@ -114,7 +114,7 @@ jumptable_2d50:
     shl ax, 1                        ; 0x2d6c
     shl ax, 1                        ; 0x2d6e
     mov bx, ax                       ; 0x2d70
-    cmp word [bx - 0x7d0e], byte 0   ; 0x2d72
+    cmp word [bx + bss_82f2], byte 0 ; 0x2d72
     jle short @..ds_app_JKOJ.l7      ; 0x2d77
     mov al, byte [bp - 0x0004]       ; 0x2d79
     mov byte [bp - 0x0014], al       ; 0x2d7c

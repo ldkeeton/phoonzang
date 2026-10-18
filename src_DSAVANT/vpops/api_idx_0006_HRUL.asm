@@ -52,8 +52,8 @@ api_idx_0006_HRUL:
     shl ax, 1                        ; 0x0f8d
     shl ax, 1                        ; 0x0f8f
     mov bx, ax                       ; 0x0f91
-    push word [bx - 0x6f9e]          ; 0x0f93
-    push word [bx - 0x6fa0]          ; 0x0f97
+    push word [bx + bss_9062]        ; 0x0f93
+    push word [bx + bss_9060]        ; 0x0f97
     call thunk_12                    ; 0x0f9b
     add sp, byte 8                   ; 0x0f9e
     mov word [bp - 0x0002], 0        ; 0x0fa1

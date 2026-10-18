@@ -13,7 +13,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x64a0
     shl ax, 1                        ; 0x64a3
     mov bx, ax                       ; 0x64a5
-    mov ax, word [bx - 0x7b7e]       ; 0x64a7
+    mov ax, word [bx + bss_8482]     ; 0x64a7
     add ax, cx                       ; 0x64ab
     mov word [bp - 0x0002], ax       ; 0x64ad
     mov bx, ax                       ; 0x64b0
@@ -106,7 +106,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6593
     shl ax, 1                        ; 0x6596
     mov bx, ax                       ; 0x6598
-    mov bx, word [bx - 0x7b70]       ; 0x659a
+    mov bx, word [bx + bss_8490]     ; 0x659a
     mov al, byte [bx + 0xe2]         ; 0x659e
     sub ah, ah                       ; 0x65a2
     test ax, 4                       ; 0x65a4
@@ -117,7 +117,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x65b2
     shl ax, 1                        ; 0x65b5
     mov bx, ax                       ; 0x65b7
-    mov bx, word [bx - 0x7b7e]       ; 0x65b9
+    mov bx, word [bx + bss_8482]     ; 0x65b9
     mov ax, word [bx + si + 0x2]     ; 0x65bd
     push ax                          ; 0x65c0
     mov ax, word [bx + si + 0x4]     ; 0x65c1
@@ -180,7 +180,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x664b
     shl ax, 1                        ; 0x664e
     mov bx, ax                       ; 0x6650
-    mov bx, word [bx - 0x7b7e]       ; 0x6652
+    mov bx, word [bx + bss_8482]     ; 0x6652
     cmp byte [bx + si + 0x2a], 0xff  ; 0x6656
     je short @..api_idx_0014_OSKJ.l11 ; 0x665a
     mov al, byte [bx + si + 0x2a]    ; 0x665c
@@ -209,7 +209,7 @@ api_idx_0014_OSKJ:
     shl cx, 1                        ; 0x669a
     add ax, cx                       ; 0x669c
     mov bx, ax                       ; 0x669e
-    mov word [bx - 0x7bc6], 0        ; 0x66a0
+    mov word [bx + bss_843a], 0      ; 0x66a0
 @..api_idx_0014_OSKJ.l11:
     mov ax, 0x2c                     ; 0x66a6
     imul word [bss_8462]             ; 0x66a9
@@ -217,7 +217,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x66af
     shl ax, 1                        ; 0x66b2
     mov bx, ax                       ; 0x66b4
-    mov bx, word [bx - 0x7b7e]       ; 0x66b6
+    mov bx, word [bx + bss_8482]     ; 0x66b6
     mov byte [bx + si + 0x2a], 0xff  ; 0x66ba
     cmp word [bp - 0x0008], byte 1   ; 0x66be
     jne short @..api_idx_0014_OSKJ.l12 ; 0x66c2
@@ -227,7 +227,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x66cd
     shl ax, 1                        ; 0x66d0
     mov bx, ax                       ; 0x66d2
-    mov bx, word [bx - 0x7b7e]       ; 0x66d4
+    mov bx, word [bx + bss_8482]     ; 0x66d4
     mov byte [bx + si + 0x22], 3     ; 0x66d8
     mov ax, 0x2c                     ; 0x66dc
     imul word [bss_8462]             ; 0x66df
@@ -235,7 +235,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x66e5
     shl ax, 1                        ; 0x66e8
     mov bx, ax                       ; 0x66ea
-    mov bx, word [bx - 0x7b7e]       ; 0x66ec
+    mov bx, word [bx + bss_8482]     ; 0x66ec
     mov word [bx + si + 0x2], 0      ; 0x66f0
 @..api_idx_0014_OSKJ.l12:
     mov word [bp - 0x000e], 0        ; 0x66f5
@@ -247,7 +247,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6706
     shl ax, 1                        ; 0x6709
     mov bx, ax                       ; 0x670b
-    mov bx, word [bx - 0x7b7e]       ; 0x670d
+    mov bx, word [bx + bss_8482]     ; 0x670d
     mov byte [bx + si + 0x18], 0     ; 0x6711
     inc word [bp - 0x000e]           ; 0x6715
     mov ax, word [bp - 0x000e]       ; 0x6718
@@ -326,7 +326,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x67e4
     shl ax, 1                        ; 0x67e7
     mov bx, ax                       ; 0x67e9
-    mov ax, word [bx - 0x7b70]       ; 0x67eb
+    mov ax, word [bx + bss_8490]     ; 0x67eb
     add ax, strict word 0x53         ; 0x67ef
     push ax                          ; 0x67f2
     call ds_leaf_loc_PRVP            ; 0x67f3
@@ -346,7 +346,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6817
     shl ax, 1                        ; 0x681a
     mov bx, ax                       ; 0x681c
-    mov bx, word [bx - 0x7b70]       ; 0x681e
+    mov bx, word [bx + bss_8490]     ; 0x681e
     mov si, word [bp - 0x0014]       ; 0x6822
     cmp byte [bx + si + 0x86], 3     ; 0x6825
     jne short @..api_idx_0014_OSKJ.l22 ; 0x682a
@@ -368,7 +368,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6858
     shl ax, 1                        ; 0x685b
     mov bx, ax                       ; 0x685d
-    mov bx, word [bx - 0x7b7e]       ; 0x685f
+    mov bx, word [bx + bss_8482]     ; 0x685f
     mov al, byte [bx + 0x1a1]        ; 0x6863
     sub ah, ah                       ; 0x6867
     push ax                          ; 0x6869
@@ -390,7 +390,7 @@ api_idx_0014_OSKJ:
     mov ax, word [bss_8464]          ; 0x6892
     shl ax, 1                        ; 0x6895
     mov bx, ax                       ; 0x6897
-    mov bx, word [bx - 0x7b7e]       ; 0x6899
+    mov bx, word [bx + bss_8482]     ; 0x6899
     cmp byte [bx + si + 0x22], 3     ; 0x689d
     jae short @..api_idx_0014_OSKJ.l24 ; 0x68a1
     cmp byte [bx + si + 0x2b], 0     ; 0x68a3
@@ -467,7 +467,7 @@ api_idx_0014_OSKJ:
     sub ah, ah                       ; 0x6949
     shl ax, 1                        ; 0x694b
     mov bx, ax                       ; 0x694d
-    mov bx, word [bx - 0x7b7e]       ; 0x694f
+    mov bx, word [bx + bss_8482]     ; 0x694f
     cmp byte [bx + si + 0x22], 3     ; 0x6953
     jae short @..api_idx_0014_OSKJ.l29 ; 0x6957
     cmp byte [bx + si + 0x2b], 0     ; 0x6959
@@ -762,7 +762,7 @@ jumptable_6ea7_case_0:
     sub ah, ah                       ; 0x6c77
     shl ax, 1                        ; 0x6c79
     mov bx, ax                       ; 0x6c7b
-    mov bx, word [bx - 0x7b7e]       ; 0x6c7d
+    mov bx, word [bx + bss_8482]     ; 0x6c7d
     cmp byte [bx + si + 0x22], 3     ; 0x6c81
     jb short @..api_idx_0014_OSKJ.l39 ; 0x6c85
     jmp near @..api_idx_0014_OSKJ.l44 ; 0x6c87

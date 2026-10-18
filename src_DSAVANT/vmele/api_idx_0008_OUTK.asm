@@ -9,7 +9,7 @@ api_idx_0008_OUTK:
     mov ax, word [bp - 0x0002]       ; 0x307a
     shl ax, 1                        ; 0x307d
     mov bx, ax                       ; 0x307f
-    mov bx, word [bx - 0x7b7e]       ; 0x3081
+    mov bx, word [bx + bss_8482]     ; 0x3081
     mov si, word [bp - 0x0004]       ; 0x3085
     mov al, byte [bx + si + 0x18c]   ; 0x3088
     sub ah, ah                       ; 0x308c
@@ -86,7 +86,7 @@ jumptable_30ea:
     mov cx, word [bp - 0x0002]       ; 0x3122
     shl cx, 1                        ; 0x3125
     mov bx, cx                       ; 0x3127
-    mov bx, word [bx - 0x7b7e]       ; 0x3129
+    mov bx, word [bx + bss_8482]     ; 0x3129
     mov si, word [bp - 0x0004]       ; 0x312d
     mov byte [bx + si + 0x18c], al   ; 0x3130
 @..api_idx_0008_OUTK.l8:
@@ -101,7 +101,7 @@ jumptable_30ea:
     mov ax, word [bp - 0x0002]       ; 0x3147
     shl ax, 1                        ; 0x314a
     mov bx, ax                       ; 0x314c
-    mov bx, word [bx - 0x7b7e]       ; 0x314e
+    mov bx, word [bx + bss_8482]     ; 0x314e
     mov si, word [bp - 0x0004]       ; 0x3152
     cmp byte [bx + si + 0x192], 0    ; 0x3155
     jbe short @..api_idx_0008_OUTK.l11 ; 0x315a

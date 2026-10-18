@@ -17,7 +17,7 @@ api_idx_0002_HMSQ:
     mov ax, word [bp + 0x4]          ; 0x291e
     shl ax, 1                        ; 0x2921
     mov bx, ax                       ; 0x2923
-    mov bx, word [bx - 0x7b7e]       ; 0x2925
+    mov bx, word [bx + bss_8482]     ; 0x2925
     cmp byte [bx + si + 0x2a], 0xff  ; 0x2929
     jne short @..api_idx_0002_HMSQ.l3 ; 0x292d
     mov ax, 6                        ; 0x292f
@@ -30,14 +30,14 @@ api_idx_0002_HMSQ:
     mov ax, 0xa                      ; 0x2944
     imul word [bp + 0x4]             ; 0x2947
     add ax, word [bp - 0x0002]       ; 0x294a
-    mov word [bx - 0x7bc6], ax       ; 0x294d
+    mov word [bx + bss_843a], ax     ; 0x294d
     mov ax, 0xa                      ; 0x2951
     imul word [bp + 0x6]             ; 0x2954
     add ax, word [bp + 0x8]          ; 0x2957
     mov cx, word [bp + 0x4]          ; 0x295a
     shl cx, 1                        ; 0x295d
     mov bx, cx                       ; 0x295f
-    mov bx, word [bx - 0x7b7e]       ; 0x2961
+    mov bx, word [bx + bss_8482]     ; 0x2961
     mov byte [bx + si + 0x2a], al    ; 0x2965
     mov ax, 0xffff                   ; 0x2968
     push ax                          ; 0x296b
@@ -54,7 +54,7 @@ api_idx_0002_HMSQ:
     mov ax, word [bp + 0x4]          ; 0x2982
     shl ax, 1                        ; 0x2985
     mov bx, ax                       ; 0x2987
-    mov bx, word [bx - 0x7b7e]       ; 0x2989
+    mov bx, word [bx + bss_8482]     ; 0x2989
     mov al, byte [bx + 0x1a1]        ; 0x298d
     sub ah, ah                       ; 0x2991
     cmp ax, word [bp - 0x0002]       ; 0x2993

@@ -12,7 +12,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 0x0002]       ; 0x0375
     shl ax, 1                        ; 0x0378
     mov bx, ax                       ; 0x037a
-    mov bx, word [bx - 0x7b7e]       ; 0x037c
+    mov bx, word [bx + bss_8482]     ; 0x037c
     mov byte [bx + 0x1a2], 0         ; 0x0380
     mov word [bp - 0x0004], 0        ; 0x0385
     jmp short @..api_idx_0054_NQHV.l4 ; 0x038a
@@ -23,7 +23,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 0x0002]       ; 0x0394
     shl ax, 1                        ; 0x0397
     mov bx, ax                       ; 0x0399
-    mov bx, word [bx - 0x7b7e]       ; 0x039b
+    mov bx, word [bx + bss_8482]     ; 0x039b
     cmp byte [bx + si + 0x22], 2     ; 0x039f
     jae short @..api_idx_0054_NQHV.l3 ; 0x03a3
     cmp byte [bx + si + 0x11], 0     ; 0x03a5
@@ -37,7 +37,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 0x0002]       ; 0x03b8
     shl ax, 1                        ; 0x03bb
     mov bx, ax                       ; 0x03bd
-    mov bx, word [bx - 0x7b7e]       ; 0x03bf
+    mov bx, word [bx + bss_8482]     ; 0x03bf
     mov al, byte [bx + 0x1a1]        ; 0x03c3
     sub ah, ah                       ; 0x03c7
     cmp ax, word [bp - 0x0004]       ; 0x03c9
@@ -91,7 +91,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 0x0002]       ; 0x0436
     shl ax, 1                        ; 0x0439
     mov bx, ax                       ; 0x043b
-    mov bx, word [bx - 0x7b7e]       ; 0x043d
+    mov bx, word [bx + bss_8482]     ; 0x043d
     mov al, byte [bx + 0x1a1]        ; 0x0441
     sub ah, ah                       ; 0x0445
     push ax                          ; 0x0447
@@ -108,7 +108,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 0x0002]       ; 0x0460
     shl ax, 1                        ; 0x0463
     mov bx, ax                       ; 0x0465
-    mov bx, word [bx - 0x7b7e]       ; 0x0467
+    mov bx, word [bx + bss_8482]     ; 0x0467
     cmp byte [bx + 0x1a1], 1         ; 0x046b
     jne short @..api_idx_0054_NQHV.l7 ; 0x0470
     mov ax, 0                        ; 0x0472
@@ -129,7 +129,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 0x0002]       ; 0x0490
     shl ax, 1                        ; 0x0493
     mov bx, ax                       ; 0x0495
-    mov ax, word [bx - 0x7b70]       ; 0x0497
+    mov ax, word [bx + bss_8490]     ; 0x0497
     add ax, cx                       ; 0x049b
     push ax                          ; 0x049d
     call ds_string_loc_QRJV          ; 0x049e
@@ -155,7 +155,7 @@ api_idx_0054_NQHV:
     mov ax, word [bp - 0x0002]       ; 0x04ce
     shl ax, 1                        ; 0x04d1
     mov bx, ax                       ; 0x04d3
-    mov bx, word [bx - 0x7b7e]       ; 0x04d5
+    mov bx, word [bx + bss_8482]     ; 0x04d5
     mov al, byte [bx + 0x1a2]        ; 0x04d9
     sub ah, ah                       ; 0x04dd
     push ax                          ; 0x04df

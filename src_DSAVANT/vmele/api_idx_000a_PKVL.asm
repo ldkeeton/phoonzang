@@ -5,7 +5,7 @@ api_idx_000a_PKVL:
     mov ax, word [bp + 0x4]          ; 0x0f9b
     shl ax, 1                        ; 0x0f9e
     mov bx, ax                       ; 0x0fa0
-    mov bx, word [bx - 0x7b7e]       ; 0x0fa2
+    mov bx, word [bx + bss_8482]     ; 0x0fa2
     cmp byte [bx + 0x19f], 0xff      ; 0x0fa6
     jne short @..api_idx_000a_PKVL.l1 ; 0x0fab
     ret                              ; 0x0fad
@@ -65,7 +65,7 @@ api_idx_000a_PKVL:
     mov ax, word [bp + 0x4]          ; 0x103f
     shl ax, 1                        ; 0x1042
     mov bx, ax                       ; 0x1044
-    mov bx, word [bx - 0x7b70]       ; 0x1046
+    mov bx, word [bx + bss_8490]     ; 0x1046
     cmp byte [bx + 0xd7], 0x47       ; 0x104a
     jne short @..api_idx_000a_PKVL.l7 ; 0x104f
     cmp word [bss_90ba], byte 1      ; 0x1051

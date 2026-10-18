@@ -11,10 +11,15 @@ load-bearing:
 2. the previous build's per-consumer DS exports are dropped, so the union built
    below is exactly *this* build's references;
 3. the consumers generate, each with ``--foreign-labels=<path>`` for the source
-   labels it references;
+   labels it references.  The host's family (the host and the consumers of its
+   labels, which share its data segment) first runs a ``--labels-only`` pass
+   that exports the DS starts each names absolutely; their union, handed back
+   with ``--ds-starts=<path>``, lets an indexed operand bind to an object only
+   another binary names.  Binding adds no start outside the union, so one
+   pass reaches the fixed point;
 4. the DS names the consumers referenced become one union and the host is
    generated -- the one time its source is written -- with
-   ``--host-data-offsets=<path>``, so it declares one recipe per offset.  Its
+   ``--host-data-offsets=<path>`` (and ``--ds-starts``), so it declares one recipe per offset.  Its
    code labels do not change, so the consumers' foreign maps stay valid;
 5. the byte-identical routines collapse into ``shared/`` (:mod:`lib.shared`);
 6. the assets are copied and every binary is assembled.
@@ -34,8 +39,9 @@ from lib import stagelog
 from lib.cachedirs import labels_dir, src_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
-    LinkError, collect_host_data, host_name, read_host_data_offsets,
-    write_host_data_offsets,
+    DS_STARTS_NAME, LinkError, collect_ds_starts, collect_host_data,
+    ds_starts_export_name, host_name, read_ds_starts, read_host_data_offsets,
+    write_ds_starts, write_host_data_offsets,
     include_args,
 )
 from lib.sidecar.loader import load as load_sidecar
@@ -53,6 +59,16 @@ def clear_host_data_exports(project):
         return
     for entry in os.listdir(target):
         if entry.endswith('_hostdata.json'):
+            os.remove(os.path.join(target, entry))
+
+
+def clear_ds_starts_exports(project):
+    """Drop the previous build's per-binary ``ds_starts`` exports and union."""
+    target = labels_dir(project)
+    if not os.path.isdir(target):
+        return
+    for entry in os.listdir(target):
+        if entry.endswith(ds_starts_export_name('')) or entry == DS_STARTS_NAME:
             os.remove(os.path.join(target, entry))
 
 
@@ -157,12 +173,22 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     stagelog.step('project.cross_refs', 0, metrics={'consumers': len(cross_refs)})
     source_names = {src for refs in cross_refs.values() for _, src in refs}
 
+    host = host_name(bins)
+    # The binaries that share the host's data segment: the indexed-binding
+    # union (``ds_starts``) is drawn from and handed to these only.
+    family = {host} | {n for n, refs in cross_refs.items()
+                       if any(src == host for _, src in refs)}
+    if only is None:
+        clear_ds_starts_exports(project)
+        stagelog.step('project.clear_ds_starts', 0, 'cleanup',
+            repairs='project.ds_starts',
+            why='the ds_starts union must see this build\'s names only')
+
     # 1. the sources, so each consumer below can be handed their labels
     needed = source_names
     if only is not None:
         needed = ({src for _, src in cross_refs.get(only, [])}
                   | ({only} if only in source_names else set()))
-    host = host_name(bins)
     # The host is emitted once, in step 4; a partial build never reaches it.
     items = [(name, ['--export-labels']
               + (['--labels-only'] if name == host and only is None else []))
@@ -186,8 +212,33 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     targets = [n for n in sorted(bins) if n not in source_names]
     if only is not None:
         targets = [only] if only in targets else []
-    failed = _batch(run_batch, [(n, foreign_args(project, n, cross_refs))
-                                for n in targets])
+    starts = os.path.join(labels_dir(project), DS_STARTS_NAME)
+    if only is None:
+        # 3a. a labels-only pass exports the DS starts each family binary
+        #     names absolutely; their union lets every one of them bind an
+        #     indexed operand to an object another binary names.
+        first = [n for n in targets if n in family]
+        failed = _batch(run_batch, [
+            (n, (foreign_args(project, n, cross_refs) or []) + ['--labels-only'])
+            for n in first])
+        if failed:
+            report(f'{project}: ds_starts pass failed: '
+                   f'{", ".join(sorted(set(failed)))}')
+            return failed
+        starts = write_ds_starts(project, collect_ds_starts(
+            labels_dir(project), family))
+        stagelog.step('project.ds_starts', 0, metrics={'starts': len(
+            read_ds_starts(starts))},
+            why='an indexed operand binds only to an object some binary of the '
+                'host family names; the union exists after every one has run')
+
+    def consumer_flags(n):
+        flags = foreign_args(project, n, cross_refs)
+        if n in family and os.path.exists(starts):
+            flags = (flags or []) + [f'--ds-starts={starts}']
+        return flags
+
+    failed = _batch(run_batch, [(n, consumer_flags(n)) for n in targets])
     if failed:
         report(f'{project}: asm generation failed: '
                f'{", ".join(sorted(set(failed)))}')
@@ -207,6 +258,8 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         flags = ['--export-labels']
         if offsets:
             flags.append(f'--host-data-offsets={offsets}')
+        if os.path.exists(starts):
+            flags.append(f'--ds-starts={starts}')
         failed = _batch(run_batch, [(host, flags)])
         if failed:
             report(f'{project}: generating {host} with the DS union failed')
@@ -253,6 +306,8 @@ def _worker_kwargs(flags):
             kwargs['foreign_prefix'] = value
         elif key == '--host-data-offsets':
             kwargs['host_data_offsets'] = read_host_data_offsets(value)
+        elif key == '--ds-starts':
+            kwargs['ds_starts'] = read_ds_starts(value)
     return kwargs
 
 

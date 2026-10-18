@@ -9,7 +9,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x07ba
     shl ax, 1                        ; 0x07bd
     mov bx, ax                       ; 0x07bf
-    push word [bx - 0x7b70]          ; 0x07c1
+    push word [bx + bss_8490]        ; 0x07c1
     mov ax, 4                        ; 0x07c5
     push ax                          ; 0x07c8
     call ds_app_file_MPPM            ; 0x07c9
@@ -19,7 +19,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x07d5
     shl ax, 1                        ; 0x07d8
     mov bx, ax                       ; 0x07da
-    mov bx, word [bx - 0x7b70]       ; 0x07dc
+    mov bx, word [bx + bss_8490]     ; 0x07dc
     mov al, byte [bx + 0xd7]         ; 0x07e0
     sub ah, ah                       ; 0x07e4
     push ax                          ; 0x07e6
@@ -34,12 +34,12 @@ api_idx_0008_SJOG:
     mov cx, word [bp + 0x6]          ; 0x07f8
     shl cx, 1                        ; 0x07fb
     mov bx, cx                       ; 0x07fd
-    mov bx, word [bx - 0x7b7e]       ; 0x07ff
+    mov bx, word [bx + bss_8482]     ; 0x07ff
     mov byte [bx + 0x19e], al        ; 0x0803
     mov ax, word [bp + 0x6]          ; 0x0807
     shl ax, 1                        ; 0x080a
     mov bx, ax                       ; 0x080c
-    mov bx, word [bx - 0x7b70]       ; 0x080e
+    mov bx, word [bx + bss_8490]     ; 0x080e
     mov al, byte [bx + 0xd7]         ; 0x0812
     sub ah, ah                       ; 0x0816
     push ax                          ; 0x0818
@@ -48,14 +48,14 @@ api_idx_0008_SJOG:
     mov cx, word [bp + 0x6]          ; 0x081d
     shl cx, 1                        ; 0x0820
     mov bx, cx                       ; 0x0822
-    mov bx, word [bx - 0x7b7e]       ; 0x0824
+    mov bx, word [bx + bss_8482]     ; 0x0824
     mov byte [bx + 0x19f], al        ; 0x0828
     cmp word [bp + 0x6], byte 1      ; 0x082c
     jne short @..api_idx_0008_SJOG.l2 ; 0x0830
     mov ax, word [bp + 0x6]          ; 0x0832
     shl ax, 1                        ; 0x0835
     mov bx, ax                       ; 0x0837
-    mov bx, word [bx - 0x7b70]       ; 0x0839
+    mov bx, word [bx + bss_8490]     ; 0x0839
     cmp byte [bx + 0xd8], 0          ; 0x083d
     jbe short @..api_idx_0008_SJOG.l2 ; 0x0842
     mov al, byte [bx + 0xd8]         ; 0x0844
@@ -67,7 +67,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x084f
     shl ax, 1                        ; 0x0852
     mov bx, ax                       ; 0x0854
-    mov bx, word [bx - 0x7b70]       ; 0x0856
+    mov bx, word [bx + bss_8490]     ; 0x0856
     mov al, byte [bx + 0xe2]         ; 0x085a
     sub ah, ah                       ; 0x085e
     test ax, 1                       ; 0x0860
@@ -79,7 +79,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x086c
     shl ax, 1                        ; 0x086f
     mov bx, ax                       ; 0x0871
-    mov bx, word [bx - 0x7b70]       ; 0x0873
+    mov bx, word [bx + bss_8490]     ; 0x0873
     cmp word [bx + 0x7a], byte 0     ; 0x0877
     jle short @..api_idx_0008_SJOG.l4 ; 0x087b
     dec word [bx + 0x7a]             ; 0x087d
@@ -89,7 +89,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0882
     shl ax, 1                        ; 0x0885
     mov bx, ax                       ; 0x0887
-    mov bx, word [bx - 0x7b70]       ; 0x0889
+    mov bx, word [bx + bss_8490]     ; 0x0889
     inc word [bx + 0x7a]             ; 0x088d
     jmp short @..api_idx_0008_SJOG.l7 ; 0x0890
 @..api_idx_0008_SJOG.l6:
@@ -101,7 +101,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x089c
     shl ax, 1                        ; 0x089f
     mov bx, ax                       ; 0x08a1
-    mov cx, word [bx - 0x7b70]       ; 0x08a3
+    mov cx, word [bx + bss_8490]     ; 0x08a3
     add cx, byte 0x7a                ; 0x08a7
     sub sp, byte 4                   ; 0x08aa
     mov ax, sp                       ; 0x08ad
@@ -116,12 +116,12 @@ api_idx_0008_SJOG:
     mov cx, word [bp + 0x6]          ; 0x08bf
     shl cx, 1                        ; 0x08c2
     mov bx, cx                       ; 0x08c4
-    mov bx, word [bx - 0x7b7e]       ; 0x08c6
+    mov bx, word [bx + bss_8482]     ; 0x08c6
     mov byte [bx + 0x1a1], al        ; 0x08ca
     mov ax, word [bp + 0x6]          ; 0x08ce
     shl ax, 1                        ; 0x08d1
     mov bx, ax                       ; 0x08d3
-    mov bx, word [bx - 0x7b7e]       ; 0x08d5
+    mov bx, word [bx + bss_8482]     ; 0x08d5
     cmp byte [bx + 0x1a1], 1         ; 0x08d9
     jae short @..api_idx_0008_SJOG.l8 ; 0x08de
     mov byte [bx + 0x1a1], 1         ; 0x08e0
@@ -129,7 +129,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x08e5
     shl ax, 1                        ; 0x08e8
     mov bx, ax                       ; 0x08ea
-    mov bx, word [bx - 0x7b7e]       ; 0x08ec
+    mov bx, word [bx + bss_8482]     ; 0x08ec
     cmp byte [bx + 0x1a1], 9         ; 0x08f0
     jbe short @..api_idx_0008_SJOG.l9 ; 0x08f5
     mov byte [bx + 0x1a1], 9         ; 0x08f7
@@ -137,14 +137,14 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x08fc
     shl ax, 1                        ; 0x08ff
     mov bx, ax                       ; 0x0901
-    mov bx, word [bx - 0x7b7e]       ; 0x0903
+    mov bx, word [bx + bss_8482]     ; 0x0903
     mov byte [bx + 0x1a0], 1         ; 0x0907
     mov word [bp - 0x0002], 0        ; 0x090c
 @..api_idx_0008_SJOG.l10:
     mov ax, word [bp + 0x6]          ; 0x0911
     shl ax, 1                        ; 0x0914
     mov bx, ax                       ; 0x0916
-    mov bx, word [bx - 0x7b7e]       ; 0x0918
+    mov bx, word [bx + bss_8482]     ; 0x0918
     mov si, word [bp - 0x0002]       ; 0x091c
     mov byte [bx + si + 0x18c], 0    ; 0x091f
     inc word [bp - 0x0002]           ; 0x0924
@@ -156,7 +156,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0934
     shl ax, 1                        ; 0x0937
     mov bx, ax                       ; 0x0939
-    mov bx, word [bx - 0x7b7e]       ; 0x093b
+    mov bx, word [bx + bss_8482]     ; 0x093b
     mov si, word [bp - 0x0002]       ; 0x093f
     mov byte [bx + si + 0x192], 0    ; 0x0942
     inc word [bp - 0x0002]           ; 0x0947
@@ -168,7 +168,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0959
     shl ax, 1                        ; 0x095c
     mov bx, ax                       ; 0x095e
-    mov bx, word [bx - 0x7b70]       ; 0x0960
+    mov bx, word [bx + bss_8490]     ; 0x0960
     inc byte [bx + 0x80]             ; 0x0964
 @..api_idx_0008_SJOG.l12:
     mov word [bp - 0x0002], 0        ; 0x0968
@@ -177,7 +177,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0970
     shl ax, 1                        ; 0x0973
     mov bx, ax                       ; 0x0975
-    mov bx, word [bx - 0x7b70]       ; 0x0977
+    mov bx, word [bx + bss_8490]     ; 0x0977
     mov al, byte [bx + 0x80]         ; 0x097b
     sub ah, ah                       ; 0x097f
     push ax                          ; 0x0981
@@ -187,13 +187,13 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x098a
     shl ax, 1                        ; 0x098d
     mov bx, ax                       ; 0x098f
-    mov bx, word [bx - 0x7b7e]       ; 0x0991
+    mov bx, word [bx + bss_8482]     ; 0x0991
     pop ax                           ; 0x0995
     mov word [bx + si], ax           ; 0x0996
     mov ax, word [bp + 0x6]          ; 0x0998
     shl ax, 1                        ; 0x099b
     mov bx, ax                       ; 0x099d
-    mov cx, word [bx - 0x7b70]       ; 0x099f
+    mov cx, word [bx + bss_8490]     ; 0x099f
     add cx, byte 0x7e                ; 0x09a3
     sub sp, byte 4                   ; 0x09a6
     mov ax, sp                       ; 0x09a9
@@ -212,7 +212,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x09c4
     shl ax, 1                        ; 0x09c7
     mov bx, ax                       ; 0x09c9
-    mov bx, word [bx - 0x7b7e]       ; 0x09cb
+    mov bx, word [bx + bss_8482]     ; 0x09cb
     pop ax                           ; 0x09cf
     mov word [bx + si + 0x4], ax     ; 0x09d0
     mov ax, 0x2c                     ; 0x09d3
@@ -221,13 +221,13 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x09db
     shl ax, 1                        ; 0x09de
     mov bx, ax                       ; 0x09e0
-    mov bx, word [bx - 0x7b7e]       ; 0x09e2
+    mov bx, word [bx + bss_8482]     ; 0x09e2
     mov ax, word [bx + si + 0x4]     ; 0x09e6
     mov word [bx + si + 0x2], ax     ; 0x09e9
     mov ax, word [bp + 0x6]          ; 0x09ec
     shl ax, 1                        ; 0x09ef
     mov bx, ax                       ; 0x09f1
-    mov cx, word [bx - 0x7b70]       ; 0x09f3
+    mov cx, word [bx + bss_8490]     ; 0x09f3
     add cx, strict word 0x82         ; 0x09f7
     sub sp, byte 4                   ; 0x09fb
     mov ax, sp                       ; 0x09fe
@@ -246,7 +246,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0a19
     shl ax, 1                        ; 0x0a1c
     mov bx, ax                       ; 0x0a1e
-    mov bx, word [bx - 0x7b7e]       ; 0x0a20
+    mov bx, word [bx + bss_8482]     ; 0x0a20
     pop ax                           ; 0x0a24
     mov word [bx + si + 0x8], ax     ; 0x0a25
     mov ax, 0x2c                     ; 0x0a28
@@ -255,7 +255,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0a30
     shl ax, 1                        ; 0x0a33
     mov bx, ax                       ; 0x0a35
-    mov bx, word [bx - 0x7b7e]       ; 0x0a37
+    mov bx, word [bx + bss_8482]     ; 0x0a37
     mov ax, word [bx + si + 0x8]     ; 0x0a3b
     mov word [bx + si + 0x6], ax     ; 0x0a3e
     mov ax, 0x2c                     ; 0x0a41
@@ -264,7 +264,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0a49
     shl ax, 1                        ; 0x0a4c
     mov bx, ax                       ; 0x0a4e
-    mov bx, word [bx - 0x7b7e]       ; 0x0a50
+    mov bx, word [bx + bss_8482]     ; 0x0a50
     mov byte [bx + si + 0x2a], 0xff  ; 0x0a54
     mov al, byte [bss_5988]          ; 0x0a58
     sub ah, ah                       ; 0x0a5b
@@ -276,7 +276,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0a68
     shl ax, 1                        ; 0x0a6b
     mov bx, ax                       ; 0x0a6d
-    mov bx, word [bx - 0x7b7e]       ; 0x0a6f
+    mov bx, word [bx + bss_8482]     ; 0x0a6f
     mov byte [bx + si + 0x26], 2     ; 0x0a73
     mov ax, 0x2c                     ; 0x0a77
     imul word [bp - 0x0002]          ; 0x0a7a
@@ -284,7 +284,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0a7f
     shl ax, 1                        ; 0x0a82
     mov bx, ax                       ; 0x0a84
-    mov bx, word [bx - 0x7b7e]       ; 0x0a86
+    mov bx, word [bx + bss_8482]     ; 0x0a86
     mov byte [bx + si + 0x27], 2     ; 0x0a8a
     mov ax, 0x2c                     ; 0x0a8e
     imul word [bp - 0x0002]          ; 0x0a91
@@ -292,7 +292,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0a96
     shl ax, 1                        ; 0x0a99
     mov bx, ax                       ; 0x0a9b
-    mov bx, word [bx - 0x7b7e]       ; 0x0a9d
+    mov bx, word [bx + bss_8482]     ; 0x0a9d
     mov byte [bx + si + 0x29], 0xfb  ; 0x0aa1
     jmp short @..api_idx_0008_SJOG.l18 ; 0x0aa5
 @..api_idx_0008_SJOG.l15:
@@ -302,7 +302,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0aaf
     shl ax, 1                        ; 0x0ab2
     mov bx, ax                       ; 0x0ab4
-    mov bx, word [bx - 0x7b7e]       ; 0x0ab6
+    mov bx, word [bx + bss_8482]     ; 0x0ab6
     mov byte [bx + si + 0x26], 0xfe  ; 0x0aba
     mov ax, 0x2c                     ; 0x0abe
     imul word [bp - 0x0002]          ; 0x0ac1
@@ -310,7 +310,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0ac6
     shl ax, 1                        ; 0x0ac9
     mov bx, ax                       ; 0x0acb
-    mov bx, word [bx - 0x7b7e]       ; 0x0acd
+    mov bx, word [bx + bss_8482]     ; 0x0acd
     mov byte [bx + si + 0x27], 0xfe  ; 0x0ad1
     mov ax, 0x2c                     ; 0x0ad5
     imul word [bp - 0x0002]          ; 0x0ad8
@@ -318,7 +318,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0add
     shl ax, 1                        ; 0x0ae0
     mov bx, ax                       ; 0x0ae2
-    mov bx, word [bx - 0x7b7e]       ; 0x0ae4
+    mov bx, word [bx + bss_8482]     ; 0x0ae4
     mov byte [bx + si + 0x29], 5     ; 0x0ae8
     jmp short @..api_idx_0008_SJOG.l18 ; 0x0aec
 @..api_idx_0008_SJOG.l16:
@@ -334,7 +334,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0afe
     shl ax, 1                        ; 0x0b01
     mov bx, ax                       ; 0x0b03
-    mov bx, word [bx - 0x7b7e]       ; 0x0b05
+    mov bx, word [bx + bss_8482]     ; 0x0b05
     mov al, byte [bx + 0x1a1]        ; 0x0b09
     sub ah, ah                       ; 0x0b0d
     cmp ax, word [bp - 0x0002]       ; 0x0b0f
@@ -408,7 +408,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0bbc
     shl ax, 1                        ; 0x0bbf
     mov bx, ax                       ; 0x0bc1
-    mov bx, word [bx - 0x7b70]       ; 0x0bc3
+    mov bx, word [bx + bss_8490]     ; 0x0bc3
     mov al, byte [bx + 0xac]         ; 0x0bc7
     sub ah, ah                       ; 0x0bcb
     mov cx, ax                       ; 0x0bcd
@@ -428,14 +428,14 @@ api_idx_0008_SJOG:
     mov ax, word [bp - 0x0008]       ; 0x0beb
     shl ax, 1                        ; 0x0bee
     mov bx, ax                       ; 0x0bf0
-    mov bx, word [bx - 0x7b70]       ; 0x0bf2
+    mov bx, word [bx + bss_8490]     ; 0x0bf2
     mov si, word [bp - 0x0002]       ; 0x0bf6
     cmp byte [bx + si + 0xac], 0     ; 0x0bf9
     jbe short @..api_idx_0008_SJOG.l30 ; 0x0bfe
     mov ax, word [bp + 0x6]          ; 0x0c00
     shl ax, 1                        ; 0x0c03
     mov bx, ax                       ; 0x0c05
-    mov bx, word [bx - 0x7b70]       ; 0x0c07
+    mov bx, word [bx + bss_8490]     ; 0x0c07
     cmp byte [bx + si + 0xac], 0     ; 0x0c0b
     jbe short @..api_idx_0008_SJOG.l30 ; 0x0c10
     push word [bp - 0x0004]          ; 0x0c12
@@ -445,7 +445,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp + 0x6]          ; 0x0c1a
     shl ax, 1                        ; 0x0c1d
     mov bx, ax                       ; 0x0c1f
-    mov bx, word [bx - 0x7b70]       ; 0x0c21
+    mov bx, word [bx + bss_8490]     ; 0x0c21
     mov si, word [bp - 0x0002]       ; 0x0c25
     mov al, byte [bx + si + 0xac]    ; 0x0c28
     sub ah, ah                       ; 0x0c2c
@@ -456,7 +456,7 @@ api_idx_0008_SJOG:
     mov ax, word [bp - 0x0008]       ; 0x0c35
     shl ax, 1                        ; 0x0c38
     mov bx, ax                       ; 0x0c3a
-    mov bx, word [bx - 0x7b70]       ; 0x0c3c
+    mov bx, word [bx + bss_8490]     ; 0x0c3c
     mov al, byte [bx + si + 0xaa]    ; 0x0c40
     sub ah, ah                       ; 0x0c44
     mov word [bp + 0x4], ax          ; 0x0c46

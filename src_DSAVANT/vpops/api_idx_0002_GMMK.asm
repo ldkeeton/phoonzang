@@ -20,7 +20,7 @@ api_idx_0002_GMMK:
     mov ax, word [bp - 0x0002]       ; 0x4dc1
     shl ax, 1                        ; 0x4dc4
     mov bx, ax                       ; 0x4dc6
-    mov bx, word [bx - 0x7b70]       ; 0x4dc8
+    mov bx, word [bx + bss_8490]     ; 0x4dc8
     cmp byte [bx + 0xd6], 0x16       ; 0x4dcc
     je short @..api_idx_0002_GMMK.l2 ; 0x4dd1
     cmp word [bss_0e36], strict word 0xe1 ; 0x4dd3

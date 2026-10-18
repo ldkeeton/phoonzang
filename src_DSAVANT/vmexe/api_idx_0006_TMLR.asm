@@ -72,8 +72,8 @@ api_idx_0006_TMLR:
     shl ax, 1                        ; 0x1940
     shl ax, 1                        ; 0x1942
     mov bx, ax                       ; 0x1944
-    push word [bx - 0x6f9e]          ; 0x1946
-    push word [bx - 0x6fa0]          ; 0x194a
+    push word [bx + bss_9062]        ; 0x1946
+    push word [bx + bss_9060]        ; 0x194a
     call thunk_12                    ; 0x194e
     add sp, byte 8                   ; 0x1951
     mov word [bp - 0x0002], 0        ; 0x1954

@@ -36,16 +36,16 @@ ds_app_string_KVNI: ; Aztec csav frame=0x0054
     add sp, byte 4                   ; 0x0c57
     mov al, byte [bp - 0x0054]       ; 0x0c5a
     mov bx, word [bss_5b40]          ; 0x0c5d
-    mov byte [bx + 0x5990], al       ; 0x0c61
+    mov byte [bx + bss_5990], al     ; 0x0c61
     mov al, byte [bp - 0x0053]       ; 0x0c65
     mov bx, word [bss_5b42]          ; 0x0c68
-    mov byte [bx + 0x5990], al       ; 0x0c6c
+    mov byte [bx + bss_5990], al     ; 0x0c6c
     mov al, byte [bp - 0x0052]       ; 0x0c70
     mov bx, word [bss_5b44]          ; 0x0c73
-    mov byte [bx + 0x5990], al       ; 0x0c77
+    mov byte [bx + bss_5990], al     ; 0x0c77
     mov al, byte [bp - 0x0051]       ; 0x0c7b
     mov bx, word [bss_5b46]          ; 0x0c7e
-    mov byte [bx + 0x5990], al       ; 0x0c82
+    mov byte [bx + bss_5990], al     ; 0x0c82
     mov word [bp - 0x0002], 0        ; 0x0c86
     lea ax, word [bp - 0x0054]       ; 0x0c8b
     push ax                          ; 0x0c8e

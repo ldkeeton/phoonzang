@@ -196,9 +196,9 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, 0x248                    ; 0x1f68
     imul word [bp + 0x4]             ; 0x1f6b
     mov bx, ax                       ; 0x1f6e
-    cmp byte [bx + 0x5e2a], 0x13     ; 0x1f70
+    cmp byte [bx + bss_5e2a], 0x13   ; 0x1f70
     je short @..ds_app_LUOV.l9       ; 0x1f75
-    cmp byte [bx + 0x5e2a], 0x19     ; 0x1f77
+    cmp byte [bx + bss_5e2a], 0x19   ; 0x1f77
     jne short @..ds_app_LUOV.l10     ; 0x1f7c
 @..ds_app_LUOV.l9:
     mov ax, 0xa                      ; 0x1f7e

@@ -221,8 +221,11 @@ BASELINE_TOTALS = {
     # ``"nul"``; console strings in the drivers).  ``ds_index``: a
     # ``[bx/si/di + disp]`` whose displacement is a DS address (an overlay
     # indexing a host array, ``[bx + 0x5c0c]``).  Both are shape tests, so a
-    # few hits are numbers; both only fall.
-    'str_imm': 746, 'ds_index': 2178,
+    # few hits are numbers; both only fall.  ``ds_index`` 2178 -> 2084 when an
+    # indexed displacement that starts a named object was bound to it
+    # (``[bx + dseg_5c08]``); the census skips BSS, so the 0x8482-style arrays
+    # that made up most of the shift oracle's drop never counted here.
+    'str_imm': 746, 'ds_index': 2084,
     # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
     # returns; the call is followed by N-1 keys and N case targets.  The decoder
     # used to fall through the call and decode the target words as ``jcc``s,

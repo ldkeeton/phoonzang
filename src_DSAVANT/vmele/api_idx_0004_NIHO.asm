@@ -118,13 +118,13 @@ api_idx_0004_NIHO:
     mov ax, word [bp - 0x0002]       ; 0x2fd4
     shl ax, 1                        ; 0x2fd7
     mov bx, ax                       ; 0x2fd9
-    push word [bx - 0x7b70]          ; 0x2fdb
+    push word [bx + bss_8490]        ; 0x2fdb
     call aztec_free                  ; 0x2fdf
     pop cx                           ; 0x2fe2
     mov ax, word [bp - 0x0002]       ; 0x2fe3
     shl ax, 1                        ; 0x2fe6
     mov bx, ax                       ; 0x2fe8
-    push word [bx - 0x7b7e]          ; 0x2fea
+    push word [bx + bss_8482]        ; 0x2fea
     call aztec_free                  ; 0x2fee
     pop cx                           ; 0x2ff1
     inc word [bp - 0x0002]           ; 0x2ff2

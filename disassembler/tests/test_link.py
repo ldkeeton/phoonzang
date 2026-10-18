@@ -11,6 +11,7 @@ import unittest
 
 from lib.link import (
     LinkError,
+    collect_ds_starts,
     collect_host_data,
     host_name,
     include_args,
@@ -44,6 +45,20 @@ class HostDataMapTests(unittest.TestCase):
     def test_collect_host_data_empty_when_no_exports(self):
         with tempfile.TemporaryDirectory() as d:
             self.assertEqual(collect_host_data(d), {})
+
+
+class DsStartsTests(unittest.TestCase):
+    """The indexed-binding union is drawn from the host family only."""
+
+    def test_collect_unites_the_named_binaries(self):
+        import json
+        with tempfile.TemporaryDirectory() as d:
+            for name, starts in (('ds', [0x110, 0x8482]), ('vmele', [0x8490]),
+                                 ('vinstall', [0x251a])):
+                with open(os.path.join(d, f'{name}_dsstarts.json'), 'w') as f:
+                    json.dump(starts, f)
+            self.assertEqual(collect_ds_starts(d, {'ds', 'vmele', 'vmexe'}),
+                             {0x110, 0x8482, 0x8490})
 
 
 class IncludeArgsTests(unittest.TestCase):

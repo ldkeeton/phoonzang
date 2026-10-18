@@ -364,7 +364,7 @@ api_idx_005a_UJPS:
     mov ax, word [bp - 0x000c]       ; 0xa2a0
     shl ax, 1                        ; 0xa2a3
     mov bx, ax                       ; 0xa2a5
-    mov bx, word [bx - 0x7b7e]       ; 0xa2a7
+    mov bx, word [bx + bss_8482]     ; 0xa2a7
     mov al, byte [bx + 0x19e]        ; 0xa2ab
     sub ah, ah                       ; 0xa2af
     cmp ax, 0xe9                     ; 0xa2b1
@@ -372,7 +372,7 @@ api_idx_005a_UJPS:
     mov ax, word [bp - 0x000c]       ; 0xa2b6
     shl ax, 1                        ; 0xa2b9
     mov bx, ax                       ; 0xa2bb
-    mov bx, word [bx - 0x7b70]       ; 0xa2bd
+    mov bx, word [bx + bss_8490]     ; 0xa2bd
     mov al, byte [bx + 0xa5]         ; 0xa2c1
     sub ah, ah                       ; 0xa2c5
     add ax, strict word 0xfff1       ; 0xa2c7
@@ -482,7 +482,7 @@ api_idx_005a_UJPS:
     mov ax, word [bss_8464]          ; 0xa3ca
     shl ax, 1                        ; 0xa3cd
     mov bx, ax                       ; 0xa3cf
-    mov bx, word [bx - 0x7b7e]       ; 0xa3d1
+    mov bx, word [bx + bss_8482]     ; 0xa3d1
     mov ax, word [bx + si]           ; 0xa3d5
     mov cx, 5                        ; 0xa3d7
     imul cx                          ; 0xa3da

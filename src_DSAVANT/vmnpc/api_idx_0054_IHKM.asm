@@ -21,8 +21,8 @@ api_idx_0054_IHKM:
     mov ax, 0x248                    ; 0x5dbd
     imul word [bp + 0x4]             ; 0x5dc0
     mov bx, ax                       ; 0x5dc3
-    push word [bx + 0x5c0a]          ; 0x5dc5
-    push word [bx + 0x5c08]          ; 0x5dc9
+    push word [bx + bss_5c0a]        ; 0x5dc5
+    push word [bx + bss_5c08]        ; 0x5dc9
     call ds_app_SVGG                 ; 0x5dcd
     add sp, byte 6                   ; 0x5dd0
     push word [bp + 0xa]             ; 0x5dd3

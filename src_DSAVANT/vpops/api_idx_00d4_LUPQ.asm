@@ -427,7 +427,7 @@ api_idx_00d4_LUPQ:
     mov cx, word [bp - 0x00b2]       ; 0x3b4e
     shl cx, 1                        ; 0x3b52
     mov bx, cx                       ; 0x3b54
-    mov cx, word [bx - 0x6c7a]       ; 0x3b56
+    mov cx, word [bx + bss_9386]     ; 0x3b56
     cmp ax, cx                       ; 0x3b5a
     jle short @..api_idx_00d4_LUPQ.l38 ; 0x3b5c
     mov word [bp - 0x0028], 0        ; 0x3b5e
@@ -697,7 +697,7 @@ jumptable_4058_case_0:
     mov cx, word [bp - 0x00b2]       ; 0x3df8
     shl cx, 1                        ; 0x3dfc
     mov bx, cx                       ; 0x3dfe
-    mov cx, word [bx - 0x6c7a]       ; 0x3e00
+    mov cx, word [bx + bss_9386]     ; 0x3e00
     cmp ax, cx                       ; 0x3e04
     jle short @..api_idx_00d4_LUPQ.l53 ; 0x3e06
     mov ax, 0                        ; 0x3e08

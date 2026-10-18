@@ -55,7 +55,7 @@ api_idx_000c_RTIP:
     shl ax, 1                        ; 0x2a51
     add cx, ax                       ; 0x2a53
     mov bx, cx                       ; 0x2a55
-    cmp word [bx - 0x7bc6], byte 0   ; 0x2a57
+    cmp word [bx + bss_843a], byte 0 ; 0x2a57
     je short @..api_idx_000c_RTIP.l6 ; 0x2a5c
     jmp near @..api_idx_000c_RTIP.l17 ; 0x2a5e
 @..api_idx_000c_RTIP.l6:

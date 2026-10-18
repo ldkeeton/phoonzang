@@ -634,7 +634,8 @@ def _data_names(project, name, data, label_map, segments, host, entries):
                                  entries)
 
 
-def _render(a, exact_bytes, show_offsets, host_data_offsets):
+def _render(a, exact_bytes, show_offsets, host_data_offsets,
+            ds_starts=frozenset()):
     """Render an analysed binary to assembly text; still writes no sources.
 
     The host's DS declarations depend on ``host_data_offsets``, which exist only
@@ -682,6 +683,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets):
         immediate_pointers=(ctx.sidecar_entry or {}).get(
             'immediate_pointers', []),
         host_data_offsets=host_data_offsets,
+        ds_starts=ds_starts,
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
     # D7.1: export the host-owned DS names this overlay references so the make
@@ -695,6 +697,12 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets):
             json.dump({str(sym): symtab.encode(sym)
                        for sym in stats['host_data_refs']},
                       f, indent=1, sort_keys=True)
+    # The host-space DS starts this binary names; the build unites the host
+    # family's exports so each binary can bind an indexed operand to an object
+    # another binary names (``symbols._resolve_indexed_symbols``).
+    if project:
+        from lib.link import write_ds_starts_export
+        write_ds_starts_export(project, name, stats.get('ds_starts', ()))
     # Hard gate: a decoded instruction that could not be re-encoded is emitted
     # as ``db 0x.. ; <disassembly>``.  In the default semantic mode every
     # instruction must encode (exactly or semantically); these fallbacks are
@@ -920,7 +928,7 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
              show_offsets=True, output_dir=None, project=None,
              sidecar_entry=None, foreign_label_map=None, export_labels=False,
              host_model=None, foreign_prefix=None, host_data_offsets=None,
-             emit=True):
+             emit=True, ds_starts=frozenset()):
     """Generate one binary: analyse, render, export its labels, then emit.
 
     ``emit=False`` is the labels phase: the same analysis and render (so the
@@ -941,7 +949,8 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
         # this point (emit/NASM/build_out) belongs to a prebuild.
         return a.ctx.bitmap, a.label_map
     try:
-        r = _render(a, exact_bytes, show_offsets, host_data_offsets)
+        r = _render(a, exact_bytes, show_offsets, host_data_offsets,
+                    ds_starts)
     finally:
         if a.trace_writer:
             a.trace_writer.close()

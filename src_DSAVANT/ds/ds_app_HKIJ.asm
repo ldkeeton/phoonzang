@@ -44,7 +44,7 @@ ds_app_HKIJ: ; Aztec csav frame=0x0006
     mov word [bp - 0x0006], 2        ; 0x0a98
 @..ds_app_HKIJ.l6:
     mov bx, word [bp - 0x0006]       ; 0x0a9d
-    mov al, byte [bx + 0x597c]       ; 0x0aa0
+    mov al, byte [bx + bss_597c]     ; 0x0aa0
     sub ah, ah                       ; 0x0aa4
     imul word [bp - 0x0004]          ; 0x0aa6
     mov cx, 0xa                      ; 0x0aa9

@@ -74,6 +74,52 @@ class ResolveMemSymbolsTest(unittest.TestCase):
         self.assertNotIn('cseg_0250', equ)
 
 
+class ResolveIndexedSymbolsTest(unittest.TestCase):
+    """An indexed DATA displacement binds only to a named object's start."""
+
+    _FLOW = _FakeFlow({0x0400: DATA, 0x0500: DATA, 0x01a1: DATA})
+
+    def _resolve(self, code_hex, segments=None, ds_starts=frozenset()):
+        insns = _disasm(code_hex, 0x200)
+        return _resolve_mem_symbols(insns, self._FLOW, segments or _model(),
+                                    {}, 0x200, ds_starts=ds_starts)
+
+    def test_binds_a_start_this_binary_names(self):
+        # mov ax, [0x0400] | mov ax, [bx + 0x400]
+        symbols, _ = self._resolve('a10004' '8b870004')
+        self.assertEqual(symbols[(0x203, 1)], 'bss_0400')
+
+    def test_a_field_offset_is_not_bound(self):
+        # mov ax, [si + 0x1a1]: in the DS range, but no object starts there
+        symbols, equ = self._resolve('8b84a101')
+        self.assertEqual(symbols, {})
+        self.assertEqual(equ, {})
+
+    def test_frame_slot_and_cs_table_are_skipped(self):
+        # mov ax, [0x0400] | mov ax, [bp + 0x400] | mov ax, [cs:bx + 0x400]
+        symbols, _ = self._resolve('a10004' '8b860004' '2e8b870004')
+        self.assertEqual(set(symbols), {(0x200, 1)})
+
+    def test_binds_a_start_another_binary_names(self):
+        # mov ax, [bx + 0x500], 0x500 named only in the union
+        symbols, equ = self._resolve('8b870005', ds_starts={0x500})
+        self.assertEqual(symbols[(0x200, 1)], 'bss_0500')
+        self.assertEqual(equ['bss_0500'], 0x500)
+
+    def test_overlay_ignores_union_starts_in_its_own_data(self):
+        # Past ``o_dorg`` the offset names a different object in each overlay.
+        class _Overlay:
+            kind = 'overlay'
+            overlay = {'o_dorg': 0x450}
+            data_names = {}
+
+            def data_space(self, offset):
+                return 'bss'
+        symbols, _ = self._resolve('8b870004' '8b870005', segments=_Overlay(),
+                                   ds_starts={0x400, 0x500})
+        self.assertEqual(set(symbols), {(0x200, 1)})
+
+
 class ResolveImmSymbolsTest(unittest.TestCase):
     def test_immediate_pointer_via_dataflow(self):
         from lib.segdataflow import analyze

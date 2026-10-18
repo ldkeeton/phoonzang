@@ -7,14 +7,14 @@ api_idx_0004_TJKU:
     mov cx, word [bp - 0x0004]       ; 0x0c75
     shl cx, 1                        ; 0x0c78
     mov bx, cx                       ; 0x0c7a
-    mov bx, word [bx - 0x7b7e]       ; 0x0c7c
+    mov bx, word [bx + bss_8482]     ; 0x0c7c
     mov byte [bx + 0x1a1], al        ; 0x0c80
     mov word [bp - 0x0002], 0        ; 0x0c84
 @..api_idx_0004_TJKU.l1:
     mov ax, word [bp - 0x0004]       ; 0x0c89
     shl ax, 1                        ; 0x0c8c
     mov bx, ax                       ; 0x0c8e
-    mov bx, word [bx - 0x7b7e]       ; 0x0c90
+    mov bx, word [bx + bss_8482]     ; 0x0c90
     mov si, word [bp - 0x0002]       ; 0x0c94
     mov byte [bx + si + 0x18c], 0    ; 0x0c97
     inc word [bp - 0x0002]           ; 0x0c9c
@@ -27,7 +27,7 @@ api_idx_0004_TJKU:
     mov cx, word [bp - 0x0004]       ; 0x0cb1
     shl cx, 1                        ; 0x0cb4
     mov bx, cx                       ; 0x0cb6
-    mov bx, word [bx - 0x7b7e]       ; 0x0cb8
+    mov bx, word [bx + bss_8482]     ; 0x0cb8
     mov byte [bx + 0x190], al        ; 0x0cbc
 @..api_idx_0004_TJKU.l2:
     mov word [bp - 0x0002], 0        ; 0x0cc0
@@ -35,7 +35,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0cc5
     shl ax, 1                        ; 0x0cc8
     mov bx, ax                       ; 0x0cca
-    mov bx, word [bx - 0x7b7e]       ; 0x0ccc
+    mov bx, word [bx + bss_8482]     ; 0x0ccc
     mov si, word [bp - 0x0002]       ; 0x0cd0
     mov byte [bx + si + 0x192], 0    ; 0x0cd3
     inc word [bp - 0x0002]           ; 0x0cd8
@@ -56,7 +56,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0d00
     shl ax, 1                        ; 0x0d03
     mov bx, ax                       ; 0x0d05
-    mov bx, word [bx - 0x7b7e]       ; 0x0d07
+    mov bx, word [bx + bss_8482]     ; 0x0d07
     pop ax                           ; 0x0d0b
     mov word [bx + si], ax           ; 0x0d0c
     mov ax, 0x248                    ; 0x0d0e
@@ -70,7 +70,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0d23
     shl ax, 1                        ; 0x0d26
     mov bx, ax                       ; 0x0d28
-    mov bx, word [bx - 0x7b7e]       ; 0x0d2a
+    mov bx, word [bx + bss_8482]     ; 0x0d2a
     pop ax                           ; 0x0d2e
     mov word [bx + si + 0x4], ax     ; 0x0d2f
     mov ax, 0x248                    ; 0x0d32
@@ -84,7 +84,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0d47
     shl ax, 1                        ; 0x0d4a
     mov bx, ax                       ; 0x0d4c
-    mov bx, word [bx - 0x7b7e]       ; 0x0d4e
+    mov bx, word [bx + bss_8482]     ; 0x0d4e
     pop ax                           ; 0x0d52
     mov word [bx + si + 0x2], ax     ; 0x0d53
     mov ax, 0x248                    ; 0x0d56
@@ -98,7 +98,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0d6b
     shl ax, 1                        ; 0x0d6e
     mov bx, ax                       ; 0x0d70
-    mov bx, word [bx - 0x7b7e]       ; 0x0d72
+    mov bx, word [bx + bss_8482]     ; 0x0d72
     pop ax                           ; 0x0d76
     mov word [bx + si + 0x8], ax     ; 0x0d77
     mov ax, 0x248                    ; 0x0d7a
@@ -112,7 +112,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0d8f
     shl ax, 1                        ; 0x0d92
     mov bx, ax                       ; 0x0d94
-    mov bx, word [bx - 0x7b7e]       ; 0x0d96
+    mov bx, word [bx + bss_8482]     ; 0x0d96
     pop ax                           ; 0x0d9a
     mov word [bx + si + 0x6], ax     ; 0x0d9b
     mov ax, 0x248                    ; 0x0d9e
@@ -126,7 +126,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0db3
     shl ax, 1                        ; 0x0db6
     mov bx, ax                       ; 0x0db8
-    mov bx, word [bx - 0x7b7e]       ; 0x0dba
+    mov bx, word [bx + bss_8482]     ; 0x0dba
     pop ax                           ; 0x0dbe
     mov byte [bx + si + 0x22], al    ; 0x0dbf
     mov ax, 0xa                      ; 0x0dc2
@@ -137,7 +137,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0dce
     shl ax, 1                        ; 0x0dd1
     mov bx, ax                       ; 0x0dd3
-    mov ax, word [bx - 0x7b7e]       ; 0x0dd5
+    mov ax, word [bx + bss_8482]     ; 0x0dd5
     add ax, cx                       ; 0x0dd9
     add ax, strict word 0xe          ; 0x0ddb
     push ax                          ; 0x0dde
@@ -158,7 +158,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0e04
     shl ax, 1                        ; 0x0e07
     mov bx, ax                       ; 0x0e09
-    mov bx, word [bx - 0x7b7e]       ; 0x0e0b
+    mov bx, word [bx + bss_8482]     ; 0x0e0b
     pop ax                           ; 0x0e0f
     mov byte [bx + si + 0x23], al    ; 0x0e10
     mov ax, 0x2c                     ; 0x0e13
@@ -167,7 +167,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0e1b
     shl ax, 1                        ; 0x0e1e
     mov bx, ax                       ; 0x0e20
-    mov bx, word [bx - 0x7b7e]       ; 0x0e22
+    mov bx, word [bx + bss_8482]     ; 0x0e22
     mov byte [bx + si + 0x2a], 0xff  ; 0x0e26
     mov ax, 0x2c                     ; 0x0e2a
     imul word [bp - 0x0002]          ; 0x0e2d
@@ -175,7 +175,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0e32
     shl ax, 1                        ; 0x0e35
     mov bx, ax                       ; 0x0e37
-    mov bx, word [bx - 0x7b7e]       ; 0x0e39
+    mov bx, word [bx + bss_8482]     ; 0x0e39
     mov byte [bx + si + 0x1f], 1     ; 0x0e3d
     mov ax, 0x248                    ; 0x0e41
     imul word [bp - 0x0002]          ; 0x0e44
@@ -188,7 +188,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0e58
     shl ax, 1                        ; 0x0e5b
     mov bx, ax                       ; 0x0e5d
-    mov bx, word [bx - 0x7b7e]       ; 0x0e5f
+    mov bx, word [bx + bss_8482]     ; 0x0e5f
     mov al, byte [bx + si + 0x28]    ; 0x0e63
     cbw                              ; 0x0e66
     push ax                          ; 0x0e67
@@ -208,7 +208,7 @@ api_idx_0004_TJKU:
     mov cx, word [bp - 0x0004]       ; 0x0e83
     shl cx, 1                        ; 0x0e86
     mov bx, cx                       ; 0x0e88
-    mov bx, word [bx - 0x7b7e]       ; 0x0e8a
+    mov bx, word [bx + bss_8482]     ; 0x0e8a
     mov byte [bx + si + 0x28], al    ; 0x0e8e
 @..api_idx_0004_TJKU.l5:
     mov ax, 0x248                    ; 0x0e91
@@ -222,7 +222,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0ea8
     shl ax, 1                        ; 0x0eab
     mov bx, ax                       ; 0x0ead
-    mov bx, word [bx - 0x7b7e]       ; 0x0eaf
+    mov bx, word [bx + bss_8482]     ; 0x0eaf
     mov al, byte [bx + si + 0x26]    ; 0x0eb3
     cbw                              ; 0x0eb6
     push ax                          ; 0x0eb7
@@ -243,7 +243,7 @@ api_idx_0004_TJKU:
     mov cx, word [bp - 0x0004]       ; 0x0ed5
     shl cx, 1                        ; 0x0ed8
     mov bx, cx                       ; 0x0eda
-    mov bx, word [bx - 0x7b7e]       ; 0x0edc
+    mov bx, word [bx + bss_8482]     ; 0x0edc
     mov byte [bx + si + 0x26], al    ; 0x0ee0
 @..api_idx_0004_TJKU.l6:
     mov ax, 0x248                    ; 0x0ee3
@@ -257,7 +257,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0efa
     shl ax, 1                        ; 0x0efd
     mov bx, ax                       ; 0x0eff
-    mov bx, word [bx - 0x7b7e]       ; 0x0f01
+    mov bx, word [bx + bss_8482]     ; 0x0f01
     mov al, byte [bx + si + 0x27]    ; 0x0f05
     cbw                              ; 0x0f08
     push ax                          ; 0x0f09
@@ -278,7 +278,7 @@ api_idx_0004_TJKU:
     mov cx, word [bp - 0x0004]       ; 0x0f27
     shl cx, 1                        ; 0x0f2a
     mov bx, cx                       ; 0x0f2c
-    mov bx, word [bx - 0x7b7e]       ; 0x0f2e
+    mov bx, word [bx + bss_8482]     ; 0x0f2e
     mov byte [bx + si + 0x27], al    ; 0x0f32
 @..api_idx_0004_TJKU.l7:
     mov ax, 0x248                    ; 0x0f35
@@ -292,7 +292,7 @@ api_idx_0004_TJKU:
     mov ax, word [bp - 0x0004]       ; 0x0f4c
     shl ax, 1                        ; 0x0f4f
     mov bx, ax                       ; 0x0f51
-    mov bx, word [bx - 0x7b7e]       ; 0x0f53
+    mov bx, word [bx + bss_8482]     ; 0x0f53
     mov al, byte [bx + si + 0x29]    ; 0x0f57
     cbw                              ; 0x0f5a
     push ax                          ; 0x0f5b
@@ -312,7 +312,7 @@ api_idx_0004_TJKU:
     mov cx, word [bp - 0x0004]       ; 0x0f77
     shl cx, 1                        ; 0x0f7a
     mov bx, cx                       ; 0x0f7c
-    mov bx, word [bx - 0x7b7e]       ; 0x0f7e
+    mov bx, word [bx + bss_8482]     ; 0x0f7e
     mov byte [bx + si + 0x29], al    ; 0x0f82
 @..api_idx_0004_TJKU.l8:
     inc word [bp - 0x0002]           ; 0x0f85

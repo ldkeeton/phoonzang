@@ -8,7 +8,7 @@ api_idx_000e_UGVQ:
     mov ax, word [bp + 0x4]          ; 0x12ba
     shl ax, 1                        ; 0x12bd
     mov bx, ax                       ; 0x12bf
-    mov ax, word [bx - 0x7b7e]       ; 0x12c1
+    mov ax, word [bx + bss_8482]     ; 0x12c1
     add ax, cx                       ; 0x12c5
     mov word [bp - 0x0004], ax       ; 0x12c7
     mov word [bp - 0x000a], 0        ; 0x12ca
@@ -90,7 +90,7 @@ api_idx_000e_UGVQ:
     mov ax, word [bp + 0x4]          ; 0x1391
     shl ax, 1                        ; 0x1394
     mov bx, ax                       ; 0x1396
-    mov bx, word [bx - 0x7b70]       ; 0x1398
+    mov bx, word [bx + bss_8490]     ; 0x1398
     mov ax, word [bx + 0x40]         ; 0x139c
     mov dx, word [bx + 0x42]         ; 0x139f
     add word [bss_84a2], ax          ; 0x13a2
@@ -116,14 +116,14 @@ api_idx_000e_UGVQ:
     shl cx, 1                        ; 0x13d3
     add ax, cx                       ; 0x13d5
     mov bx, ax                       ; 0x13d7
-    mov word [bx - 0x7bc6], 0        ; 0x13d9
+    mov word [bx + bss_843a], 0      ; 0x13d9
     mov bx, word [bp - 0x0004]       ; 0x13df
     mov byte [bx + 0x2a], 0xff       ; 0x13e2
 @..api_idx_000e_UGVQ.l7:
     mov ax, word [bp + 0x4]          ; 0x13e6
     shl ax, 1                        ; 0x13e9
     mov bx, ax                       ; 0x13eb
-    mov bx, word [bx - 0x7b70]       ; 0x13ed
+    mov bx, word [bx + bss_8490]     ; 0x13ed
     mov al, byte [bx + 0xe2]         ; 0x13f1
     sub ah, ah                       ; 0x13f5
     test ax, 1                       ; 0x13f7

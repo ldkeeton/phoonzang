@@ -90,8 +90,8 @@ api_idx_0038_LJOP:
     mov ax, 0x248                    ; 0x48b9
     imul word [bp + 0x4]             ; 0x48bc
     mov bx, ax                       ; 0x48bf
-    push word [bx + 0x5c0a]          ; 0x48c1
-    push word [bx + 0x5c08]          ; 0x48c5
+    push word [bx + bss_5c0a]        ; 0x48c1
+    push word [bx + bss_5c08]        ; 0x48c5
     call ds_app_SVGG                 ; 0x48c9
     add sp, byte 6                   ; 0x48cc
     mov ax, word [bp - 0x0006]       ; 0x48cf

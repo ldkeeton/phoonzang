@@ -20,7 +20,7 @@ loc_TUUJ:
     mov ax, 0x248                    ; 0x66f1
     imul word [bp + 0x4]             ; 0x66f4
     mov bx, ax                       ; 0x66f7
-    mov al, byte [bx + 0x5e2a]       ; 0x66f9
+    mov al, byte [bx + bss_5e2a]     ; 0x66f9
     sub ah, ah                       ; 0x66fd
     push ax                          ; 0x66ff
     call api_idx_0016_JNJG           ; 0x6700

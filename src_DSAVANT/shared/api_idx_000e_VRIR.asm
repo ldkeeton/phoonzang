@@ -7,7 +7,7 @@ api_idx_000e_VRIR:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx - 0x7b7e]
+    mov bx, word [bx + bss_8482]
     cmp byte [bx + 0x19f], 0xff
     jne short @..api_idx_000e_VRIR.l1
     ret
@@ -40,7 +40,7 @@ api_idx_000e_VRIR:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx - 0x7b7e]
+    mov bx, word [bx + bss_8482]
     cmp byte [bx + si + 0x22], 2
     je short @..api_idx_000e_VRIR.l3
     cmp byte [bx + si + 0x11], 0
@@ -272,7 +272,7 @@ api_idx_000e_VRIR:
     mov ax, word [bp + 0x4]
     shl ax, 1
     mov bx, ax
-    mov bx, word [bx - 0x7b7e]
+    mov bx, word [bx + bss_8482]
     cmp byte [bx + 0x19e], 0x79
     je short @..api_idx_000e_VRIR.l12
     mov al, byte [bx + 0x19e]

@@ -33,7 +33,7 @@ api_idx_0002_GLIS:
     mov cx, word [bp - 0x0002]       ; 0x87a3
     shl cx, 1                        ; 0x87a6
     mov bx, cx                       ; 0x87a8
-    mov word [bx - 0x5a30], ax       ; 0x87aa
+    mov word [bx + bss_a5d0], ax     ; 0x87aa
     inc word [bp - 0x0002]           ; 0x87ae
     mov ax, word [bp - 0x0002]       ; 0x87b1
     cmp ax, strict word 5            ; 0x87b4
@@ -43,7 +43,7 @@ api_idx_0002_GLIS:
     mov ax, word [bp - 0x0002]       ; 0x87be
     shl ax, 1                        ; 0x87c1
     mov bx, ax                       ; 0x87c3
-    mov word [bx - 0x5a26], 0x140    ; 0x87c5
+    mov word [bx + bss_a5da], 0x140  ; 0x87c5
     mov ax, 0x3c                     ; 0x87cb
     push ax                          ; 0x87ce
     call ds_app_PUNN                 ; 0x87cf

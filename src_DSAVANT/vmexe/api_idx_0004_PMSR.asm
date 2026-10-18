@@ -18,7 +18,7 @@ api_idx_0004_PMSR:
     mov ax, word [bss_8464]          ; 0x3407
     shl ax, 1                        ; 0x340a
     mov bx, ax                       ; 0x340c
-    mov bx, word [bx - 0x7b7e]       ; 0x340e
+    mov bx, word [bx + bss_8482]     ; 0x340e
     cmp byte [bx + si + 0x2a], 0xff  ; 0x3412
     jne short @..api_idx_0004_PMSR.l4 ; 0x3416
     mov ax, 0                        ; 0x3418
@@ -48,7 +48,7 @@ api_idx_0004_PMSR:
     mov ax, word [bp + 0x4]          ; 0x344b
     shl ax, 1                        ; 0x344e
     mov bx, ax                       ; 0x3450
-    mov bx, word [bx - 0x7b7e]       ; 0x3452
+    mov bx, word [bx + bss_8482]     ; 0x3452
     cmp byte [bx + si + 0x2a], 0xff  ; 0x3456
     jne short @..api_idx_0004_PMSR.l8 ; 0x345a
     mov ax, 0                        ; 0x345c

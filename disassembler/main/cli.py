@@ -15,7 +15,7 @@ from .options import (
     EXPORT_LABELS,
     FOREIGN_LABELS_PATH,
     FOREIGN_PREFIX,
-    HOST_DATA_OFFSETS_PATH,
+    HOST_DATA_OFFSETS_PATH, DS_STARTS_PATH,
     LABELS_ONLY,
     PROJECT_ROOT,
     _SHOW_OFFSETS,
@@ -70,6 +70,10 @@ def main():
         if HOST_DATA_OFFSETS_PATH:
             from lib.link import read_host_data_offsets
             host_data_offsets = read_host_data_offsets(HOST_DATA_OFFSETS_PATH)
+        ds_starts = frozenset()
+        if DS_STARTS_PATH:
+            from lib.link import read_ds_starts
+            ds_starts = read_ds_starts(DS_STARTS_PATH)
         process(binary, project_dir, rel_path, start_offset,
                 exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
                 output_dir=out_dir,
@@ -78,7 +82,7 @@ def main():
                 foreign_prefix=prefix if FOREIGN_LABELS_PATH else None,
                 export_labels=EXPORT_LABELS, host_model=host_model,
                 host_data_offsets=host_data_offsets,
-                emit=not LABELS_ONLY)
+                emit=not LABELS_ONLY, ds_starts=ds_starts)
         return
 
     target = args[0] if args else None

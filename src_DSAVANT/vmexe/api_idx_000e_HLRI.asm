@@ -71,7 +71,7 @@ api_idx_000e_HLRI:
     mov ax, word [bss_8464]          ; 0x6054
     shl ax, 1                        ; 0x6057
     mov bx, ax                       ; 0x6059
-    mov bx, word [bx - 0x7b7e]       ; 0x605b
+    mov bx, word [bx + bss_8482]     ; 0x605b
     mov al, byte [bx + 0x191]        ; 0x605f
     sub ah, ah                       ; 0x6063
     mov bx, word [bp + 0x4]          ; 0x6065
@@ -85,7 +85,7 @@ api_idx_000e_HLRI:
     mov ax, word [bss_8464]          ; 0x6073
     shl ax, 1                        ; 0x6076
     mov bx, ax                       ; 0x6078
-    mov bx, word [bx - 0x7b7e]       ; 0x607a
+    mov bx, word [bx + bss_8482]     ; 0x607a
     mov al, byte [bx + 0x191]        ; 0x607e
     sub ah, ah                       ; 0x6082
     mov cx, ax                       ; 0x6084
@@ -194,7 +194,7 @@ api_idx_000e_HLRI:
     mov ax, word [bss_8464]          ; 0x617a
     shl ax, 1                        ; 0x617d
     mov bx, ax                       ; 0x617f
-    mov bx, word [bx - 0x7b7e]       ; 0x6181
+    mov bx, word [bx + bss_8482]     ; 0x6181
     mov ax, word [bx + si]           ; 0x6185
     mov cx, 3                        ; 0x6187
     imul cx                          ; 0x618a
@@ -253,7 +253,7 @@ api_idx_000e_HLRI:
     mov ax, word [bss_8464]          ; 0x620d
     shl ax, 1                        ; 0x6210
     mov bx, ax                       ; 0x6212
-    mov bx, word [bx - 0x7b70]       ; 0x6214
+    mov bx, word [bx + bss_8490]     ; 0x6214
     mov al, byte [bx + 0xd6]         ; 0x6218
     cmp al, 5                        ; 0x621c
     je short @..api_idx_000e_HLRI.l15 ; 0x621e

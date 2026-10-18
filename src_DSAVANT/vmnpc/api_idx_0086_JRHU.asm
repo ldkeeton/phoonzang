@@ -114,7 +114,7 @@ api_idx_0086_JRHU:
     cmp word [bx - 0x003c], byte 0   ; 0x6f24
     jle short @..api_idx_0086_JRHU.l12 ; 0x6f28
     mov bx, word [bp - 0x0006]       ; 0x6f2a
-    mov al, byte [bx + 0x5990]       ; 0x6f2d
+    mov al, byte [bx + bss_5990]     ; 0x6f2d
     sub ah, ah                       ; 0x6f31
     cmp ax, word [bp - 0x0008]       ; 0x6f33
     jge short @..api_idx_0086_JRHU.l11 ; 0x6f36

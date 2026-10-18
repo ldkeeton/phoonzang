@@ -645,8 +645,8 @@ api_idx_007c_OKMO:
     mov ax, 0x248                    ; 0x164c
     imul word [bp + 0x4]             ; 0x164f
     mov bx, ax                       ; 0x1652
-    push word [bx + 0x5c0a]          ; 0x1654
-    push word [bx + 0x5c08]          ; 0x1658
+    push word [bx + bss_5c0a]        ; 0x1654
+    push word [bx + bss_5c08]        ; 0x1658
     call ds_app_SVGG                 ; 0x165c
     add sp, byte 6                   ; 0x165f
     mov ax, 0                        ; 0x1662

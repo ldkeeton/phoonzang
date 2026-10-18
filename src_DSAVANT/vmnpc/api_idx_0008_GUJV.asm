@@ -82,8 +82,8 @@ api_idx_0008_GUJV:
     mov ax, 0x248                    ; 0x562a
     imul word [bp + 0x4]             ; 0x562d
     mov bx, ax                       ; 0x5630
-    mov ax, word [bx + 0x5c08]       ; 0x5632
-    mov dx, word [bx + 0x5c0a]       ; 0x5636
+    mov ax, word [bx + bss_5c08]     ; 0x5632
+    mov dx, word [bx + bss_5c0a]     ; 0x5636
     mov cx, word [bp + 0x6]          ; 0x563a
     shl cx, 1                        ; 0x563d
     shl cx, 1                        ; 0x563f
@@ -181,8 +181,8 @@ api_idx_0008_GUJV:
     mov bx, ax                       ; 0x570c
     pop dx                           ; 0x570e
     pop ax                           ; 0x570f
-    sub word [bx + 0x5c08], ax       ; 0x5710
-    sbb word [bx + 0x5c0a], dx       ; 0x5714
+    sub word [bx + bss_5c08], ax     ; 0x5710
+    sbb word [bx + bss_5c0a], dx     ; 0x5714
     mov ax, word [bp + 0x6]          ; 0x5718
     shl ax, 1                        ; 0x571b
     mov bx, ax                       ; 0x571d

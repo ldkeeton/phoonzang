@@ -12,7 +12,7 @@ api_idx_000c_JUIH:
     mov ax, word [bp + 0x6]          ; 0x17a4
     shl ax, 1                        ; 0x17a7
     mov bx, ax                       ; 0x17a9
-    mov bx, word [bx - 0x7b7e]       ; 0x17ab
+    mov bx, word [bx + bss_8482]     ; 0x17ab
     cmp byte [bx + si + 0x2a], 0xff  ; 0x17af
     je short @..api_idx_000c_JUIH.l2 ; 0x17b3
     mov word [bp - 0x000c], 0        ; 0x17b5
@@ -22,7 +22,7 @@ api_idx_000c_JUIH:
     mov ax, word [bp + 0x6]          ; 0x17bd
     shl ax, 1                        ; 0x17c0
     mov bx, ax                       ; 0x17c2
-    mov bx, word [bx - 0x7b7e]       ; 0x17c4
+    mov bx, word [bx + bss_8482]     ; 0x17c4
     mov al, byte [bx + 0x1a1]        ; 0x17c8
     sub ah, ah                       ; 0x17cc
     cmp ax, word [bp - 0x0006]       ; 0x17ce
@@ -54,7 +54,7 @@ api_idx_000c_JUIH:
     mov ax, word [bp + 0x6]          ; 0x180e
     shl ax, 1                        ; 0x1811
     mov bx, ax                       ; 0x1813
-    mov bx, word [bx - 0x7b7e]       ; 0x1815
+    mov bx, word [bx + bss_8482]     ; 0x1815
     mov al, byte [bx + 0x1a1]        ; 0x1819
     sub ah, ah                       ; 0x181d
     cmp ax, word [bp - 0x0006]       ; 0x181f
@@ -88,7 +88,7 @@ api_idx_000c_JUIH:
     pop ax                           ; 0x1864
     add ax, cx                       ; 0x1865
     mov bx, ax                       ; 0x1867
-    mov ax, word [bx - 0x7bc6]       ; 0x1869
+    mov ax, word [bx + bss_843a]     ; 0x1869
     mov cx, 0xa                      ; 0x186d
     cwd                              ; 0x1870
     idiv cx                          ; 0x1871

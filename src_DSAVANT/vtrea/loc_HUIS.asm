@@ -607,8 +607,8 @@ loc_HUIS:
     adc word [bx + 0x5c02], dx       ; 0x5d44
     mov ax, word [bp - 0x0088]       ; 0x5d48
     mov dx, word [bp - 0x0086]       ; 0x5d4c
-    add word [bx + 0x5c08], ax       ; 0x5d50
-    adc word [bx + 0x5c0a], dx       ; 0x5d54
+    add word [bx + bss_5c08], ax     ; 0x5d50
+    adc word [bx + bss_5c0a], dx     ; 0x5d54
 @..loc_HUIS.l53:
     inc word [bp - 0x0002]           ; 0x5d58
 @..loc_HUIS.l54:

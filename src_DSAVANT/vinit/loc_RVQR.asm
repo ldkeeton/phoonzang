@@ -111,7 +111,7 @@ loc_RVQR:
     call ds_app_PUNN                 ; 0x04c2
     pop cx                           ; 0x04c5
     mov bx, word [bp - 0x0006]       ; 0x04c6
-    mov byte [bx + 0x5990], al       ; 0x04c9
+    mov byte [bx + bss_5990], al     ; 0x04c9
     inc word [bp - 0x0006]           ; 0x04cd
     mov ax, word [bp - 0x0006]       ; 0x04d0
     cmp ax, strict word 0x64         ; 0x04d3

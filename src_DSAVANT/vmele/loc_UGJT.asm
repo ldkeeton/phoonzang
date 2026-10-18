@@ -19,7 +19,7 @@ loc_UGJT:
     mov ax, word [bp - 0x0002]       ; 0x3341
     shl ax, 1                        ; 0x3344
     mov bx, ax                       ; 0x3346
-    push word [bx - 0x7b7e]          ; 0x3348
+    push word [bx + bss_8482]        ; 0x3348
     call aztec_setmem                ; 0x334c
     add sp, byte 6                   ; 0x334f
     inc word [bp - 0x0002]           ; 0x3352
@@ -31,7 +31,7 @@ loc_UGJT:
     mov ax, word [bp - 0x0002]       ; 0x3362
     shl ax, 1                        ; 0x3365
     mov bx, ax                       ; 0x3367
-    mov bx, word [bx - 0x7b7e]       ; 0x3369
+    mov bx, word [bx + bss_8482]     ; 0x3369
     mov byte [bx + 0x1a1], 0         ; 0x336d
     inc word [bp - 0x0002]           ; 0x3372
     mov ax, word [bp - 0x0002]       ; 0x3375

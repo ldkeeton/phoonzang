@@ -33,7 +33,21 @@ def _file_size(segments):
     return getattr(segments, 'file_size', 0) or 0
 
 
-def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset):
+def _host_space_limit(segments):
+    """The end of the data space a cross-binary DS start may come from.
+
+    An overlay's own data and BSS begin at ``o_dorg``; below it is the host's
+    data segment, whose objects are the same in every binary.  An overlay-own
+    address names a different object in each overlay, so it never comes from
+    the union.  ``None`` (no limit) for the host itself.
+    """
+    if getattr(segments, 'kind', None) == 'overlay' and segments.overlay:
+        return segments.overlay.get('o_dorg')
+    return None
+
+
+def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
+                         ds_starts=frozenset()):
     """Choose a segment-correct symbol for every absolute memory operand.
 
     Returns ``(mem_symbols, mem_equ)`` where ``mem_symbols`` maps
@@ -50,6 +64,12 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset)
       BSS boundary.
     * **PSP** - ``psp_<field>`` for catalogued fields, else ``psp_<off>``.
     * **UNKNOWN** - left to the ``data_`` fallback (nothing emitted here).
+
+    An indexed DATA operand (``[bx - 0x7b7e]``) is bound only when its
+    displacement is the start of a named object: one this binary addresses
+    absolutely, a known data name, or a host-space start another binary names
+    (*ds_starts*, the build's union).  A displacement in the DS range is not
+    enough: record field offsets (``[si + 0x1a1]``) live there too.
     """
     if segment_flow is None:
         return {}, {}
@@ -58,6 +78,7 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset)
 
     symbols = {}
     equ = {}
+    named = set()
     for insn in insns:
         for idx, op in enumerate(insn.operands):
             if (op.type != CS_OP_MEM or op.mem.base or op.mem.index):
@@ -87,7 +108,44 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset)
                 name = data_symbol(segments, addr)
                 equ.setdefault(name, addr)
                 symbols[(insn.address, idx)] = name
+                named.add(addr)
+    symbols.update(_resolve_indexed_symbols(
+        insns, segment_flow, segments, named, ds_starts, equ))
     return symbols, equ
+
+
+def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
+                             equ):
+    """Symbols for indexed DATA displacements that start a named object.
+
+    *named* holds the DATA addresses this binary binds absolutely; the known
+    data names and the host-space part of *ds_starts* are added to it.  A
+    ``bp`` base is a frame slot and an indexed ``cs:`` table belongs to
+    ``jumptables``, so neither is considered.
+    """
+    from capstone.x86 import X86_REG_BP, X86_REG_CS
+    from lib.segdataflow import DATA
+    from lib.compare.records import DS_INDEX_MIN
+
+    limit = _host_space_limit(segments)
+    starts = (set(named) | set(getattr(segments, 'data_names', {}))
+              | {a for a in ds_starts if limit is None or a < limit})
+    symbols = {}
+    for insn in insns:
+        for idx, op in enumerate(insn.operands):
+            if (op.type != CS_OP_MEM or not (op.mem.base or op.mem.index)
+                    or op.mem.base == X86_REG_BP
+                    or op.mem.segment == X86_REG_CS):
+                continue
+            addr = op.mem.disp & 0xFFFF
+            if addr < DS_INDEX_MIN or addr not in starts:
+                continue
+            if segment_flow.effective_segment(insn, op)[1] != DATA:
+                continue
+            name = data_symbol(segments, addr)
+            equ.setdefault(name, addr)
+            symbols[(insn.address, idx)] = name
+    return symbols
 
 
 def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,

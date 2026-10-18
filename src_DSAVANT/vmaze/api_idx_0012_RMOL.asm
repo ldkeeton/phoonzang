@@ -816,7 +816,7 @@ jumptable_4b6b:
     push ax                          ; 0x4d70
     push ax                          ; 0x4d71
     push word [bp - 0x0004]          ; 0x4d72
-    push word [bx + 0x3dc]           ; 0x4d75
+    push word [bx + dseg_03dc]       ; 0x4d75
     mov ax, 0xa                      ; 0x4d79
     imul word [bp + 0x4]             ; 0x4d7c
     mov cx, word [bp + 0x6]          ; 0x4d7f
@@ -873,7 +873,7 @@ jumptable_4b6b:
     mov ax, word [bp + 0x4]          ; 0x4df6
     shl ax, 1                        ; 0x4df9
     mov bx, ax                       ; 0x4dfb
-    push word [bx + 0x3dc]           ; 0x4dfd
+    push word [bx + dseg_03dc]       ; 0x4dfd
     mov ax, 0xa                      ; 0x4e01
     imul word [bp + 0x4]             ; 0x4e04
     mov cx, word [bp + 0x6]          ; 0x4e07
@@ -955,7 +955,7 @@ jumptable_4b6b:
     push ax                          ; 0x4ebb
     mov ax, 1                        ; 0x4ebc
     push ax                          ; 0x4ebf
-    push word [bx + 0x3dc]           ; 0x4ec0
+    push word [bx + dseg_03dc]       ; 0x4ec0
     mov ax, 0xa                      ; 0x4ec4
     imul word [bp + 0x4]             ; 0x4ec7
     mov cx, word [bp + 0x6]          ; 0x4eca
@@ -993,7 +993,7 @@ jumptable_4b6b:
     push ax                          ; 0x4f10
     mov ax, 3                        ; 0x4f11
     push ax                          ; 0x4f14
-    push word [bx + 0x3dc]           ; 0x4f15
+    push word [bx + dseg_03dc]       ; 0x4f15
     mov ax, 0xa                      ; 0x4f19
     imul word [bp + 0x4]             ; 0x4f1c
     mov cx, word [bp + 0x6]          ; 0x4f1f

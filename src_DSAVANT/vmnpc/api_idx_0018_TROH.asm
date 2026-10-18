@@ -9,7 +9,7 @@ api_idx_0018_TROH:
     shl cx, 1                        ; 0x073a
     add ax, cx                       ; 0x073c
     mov bx, ax                       ; 0x073e
-    mov ax, word [bx - 0x7bc6]       ; 0x0740
+    mov ax, word [bx + bss_843a]     ; 0x0740
     mov word [bp - 0x0002], ax       ; 0x0744
     cmp word [bp - 0x0002], byte 0   ; 0x0747
     jne short @..api_idx_0018_TROH.l1 ; 0x074b

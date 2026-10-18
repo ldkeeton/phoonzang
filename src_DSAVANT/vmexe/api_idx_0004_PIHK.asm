@@ -22,7 +22,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1c95
     shl ax, 1                        ; 0x1c98
     mov bx, ax                       ; 0x1c9a
-    mov bx, word [bx - 0x7b70]       ; 0x1c9c
+    mov bx, word [bx + bss_8490]     ; 0x1c9c
     mov al, byte [bx + 0xe2]         ; 0x1ca0
     sub ah, ah                       ; 0x1ca4
     test ax, 1                       ; 0x1ca6
@@ -40,7 +40,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1cc0
     shl ax, 1                        ; 0x1cc3
     mov bx, ax                       ; 0x1cc5
-    mov bx, word [bx - 0x7b70]       ; 0x1cc7
+    mov bx, word [bx + bss_8490]     ; 0x1cc7
     cmp byte [bx + 0xe4], 0xff       ; 0x1ccb
     je short @..api_idx_0004_PIHK.l4 ; 0x1cd0
     mov al, byte [bx + 0xe4]         ; 0x1cd2
@@ -52,7 +52,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1ce3
     shl ax, 1                        ; 0x1ce6
     mov bx, ax                       ; 0x1ce8
-    mov bx, word [bx - 0x7b70]       ; 0x1cea
+    mov bx, word [bx + bss_8490]     ; 0x1cea
     mov al, byte [bx + 0xe4]         ; 0x1cee
     cbw                              ; 0x1cf2
     mov word [bss_849e], ax          ; 0x1cf3
@@ -63,7 +63,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1cfe
     shl ax, 1                        ; 0x1d01
     mov bx, ax                       ; 0x1d03
-    mov bx, word [bx - 0x7b7e]       ; 0x1d05
+    mov bx, word [bx + bss_8482]     ; 0x1d05
     cmp byte [bx + si + 0x2a], 0xff  ; 0x1d09
     je short @..api_idx_0004_PIHK.l5 ; 0x1d0d
     mov al, byte [bx + si + 0x2a]    ; 0x1d0f
@@ -92,7 +92,7 @@ api_idx_0004_PIHK:
     shl cx, 1                        ; 0x1d4d
     add ax, cx                       ; 0x1d4f
     mov bx, ax                       ; 0x1d51
-    mov word [bx - 0x7bc6], 0        ; 0x1d53
+    mov word [bx + bss_843a], 0      ; 0x1d53
 @..api_idx_0004_PIHK.l5:
     mov ax, 0x2c                     ; 0x1d59
     imul word [bp + 0x6]             ; 0x1d5c
@@ -100,7 +100,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1d61
     shl ax, 1                        ; 0x1d64
     mov bx, ax                       ; 0x1d66
-    mov bx, word [bx - 0x7b7e]       ; 0x1d68
+    mov bx, word [bx + bss_8482]     ; 0x1d68
     mov byte [bx + si + 0x2a], 0xff  ; 0x1d6c
     mov ax, 0x2c                     ; 0x1d70
     imul word [bp + 0x6]             ; 0x1d73
@@ -108,7 +108,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1d78
     shl ax, 1                        ; 0x1d7b
     mov bx, ax                       ; 0x1d7d
-    mov bx, word [bx - 0x7b7e]       ; 0x1d7f
+    mov bx, word [bx + bss_8482]     ; 0x1d7f
     mov byte [bx + si + 0x22], 3     ; 0x1d83
     mov ax, 0x2c                     ; 0x1d87
     imul word [bp + 0x6]             ; 0x1d8a
@@ -116,7 +116,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1d8f
     shl ax, 1                        ; 0x1d92
     mov bx, ax                       ; 0x1d94
-    mov bx, word [bx - 0x7b7e]       ; 0x1d96
+    mov bx, word [bx + bss_8482]     ; 0x1d96
     mov word [bx + si + 0x2], 0      ; 0x1d9a
     mov ax, 0x2c                     ; 0x1d9f
     imul word [bp + 0x6]             ; 0x1da2
@@ -124,7 +124,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1da7
     shl ax, 1                        ; 0x1daa
     mov bx, ax                       ; 0x1dac
-    mov bx, word [bx - 0x7b7e]       ; 0x1dae
+    mov bx, word [bx + bss_8482]     ; 0x1dae
     mov word [bx + si + 0x6], 0      ; 0x1db2
     mov ax, 0x2c                     ; 0x1db7
     imul word [bp + 0x6]             ; 0x1dba
@@ -132,7 +132,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1dbf
     shl ax, 1                        ; 0x1dc2
     mov bx, ax                       ; 0x1dc4
-    mov bx, word [bx - 0x7b7e]       ; 0x1dc6
+    mov bx, word [bx + bss_8482]     ; 0x1dc6
     mov byte [bx + si + 0x24], 0     ; 0x1dca
     mov ax, 0x2c                     ; 0x1dce
     imul word [bp + 0x6]             ; 0x1dd1
@@ -140,7 +140,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1dd6
     shl ax, 1                        ; 0x1dd9
     mov bx, ax                       ; 0x1ddb
-    mov bx, word [bx - 0x7b7e]       ; 0x1ddd
+    mov bx, word [bx + bss_8482]     ; 0x1ddd
     mov byte [bx + si + 0x25], 0     ; 0x1de1
     mov word [bp - 0x0002], 0        ; 0x1de5
 @..api_idx_0004_PIHK.l6:
@@ -151,7 +151,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1df5
     shl ax, 1                        ; 0x1df8
     mov bx, ax                       ; 0x1dfa
-    mov bx, word [bx - 0x7b7e]       ; 0x1dfc
+    mov bx, word [bx + bss_8482]     ; 0x1dfc
     mov byte [bx + si + 0x18], 0     ; 0x1e00
     inc word [bp - 0x0002]           ; 0x1e04
     mov ax, word [bp - 0x0002]       ; 0x1e07
@@ -164,7 +164,7 @@ api_idx_0004_PIHK:
     mov ax, word [bp + 0x4]          ; 0x1e1b
     shl ax, 1                        ; 0x1e1e
     mov bx, ax                       ; 0x1e20
-    mov bx, word [bx - 0x7b70]       ; 0x1e22
+    mov bx, word [bx + bss_8490]     ; 0x1e22
     mov ax, word [bx + 0x40]         ; 0x1e26
     mov dx, word [bx + 0x42]         ; 0x1e29
     add word [bss_84a2], ax          ; 0x1e2c

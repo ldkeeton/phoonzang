@@ -339,7 +339,7 @@ api_idx_0038_HNUN:
 @..api_idx_0038_HNUN.l23:
     mov bx, word [bp - 0x0002]       ; 0x32fb
     mov al, byte [bx - 0x6712]       ; 0x32fe
-    mov byte [bx + 0x597c], al       ; 0x3302
+    mov byte [bx + bss_597c], al     ; 0x3302
     inc word [bp - 0x0002]           ; 0x3306
     mov ax, word [bp - 0x0002]       ; 0x3309
     cmp ax, strict word 4            ; 0x330c
@@ -640,9 +640,9 @@ api_idx_0038_HNUN:
     shl ax, 1                        ; 0x35de
     mov bx, ax                       ; 0x35e0
     mov ax, word [bx - 0x65ce]       ; 0x35e2
-    mov word [bx - 0x7d0e], ax       ; 0x35e6
+    mov word [bx + bss_82f2], ax     ; 0x35e6
     mov ax, word [bx - 0x65cc]       ; 0x35ea
-    mov word [bx - 0x7d0c], ax       ; 0x35ee
+    mov word [bx + bss_82f4], ax     ; 0x35ee
     inc word [bp - 0x0002]           ; 0x35f2
     mov ax, word [bp - 0x0002]       ; 0x35f5
     cmp ax, strict word 6            ; 0x35f8
@@ -737,7 +737,7 @@ api_idx_0038_HNUN:
     call ds_app_PUNN                 ; 0x36da
     pop cx                           ; 0x36dd
     mov bx, word [bp - 0x0002]       ; 0x36de
-    mov byte [bx + 0x5990], al       ; 0x36e1
+    mov byte [bx + bss_5990], al     ; 0x36e1
     inc word [bp - 0x0002]           ; 0x36e5
     mov ax, word [bp - 0x0002]       ; 0x36e8
     cmp ax, strict word 0x64         ; 0x36eb
@@ -885,7 +885,7 @@ api_idx_0038_HNUN:
     mov ax, 0x248                    ; 0x3841
     imul word [bp - 0x0002]          ; 0x3844
     mov bx, ax                       ; 0x3847
-    mov al, byte [bx + 0x5e2a]       ; 0x3849
+    mov al, byte [bx + bss_5e2a]     ; 0x3849
     sub ah, ah                       ; 0x384d
     push ax                          ; 0x384f
     call api_idx_0016_KOOO           ; 0x3850

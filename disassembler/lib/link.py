@@ -77,6 +77,54 @@ def write_host_data_offsets(project, union):
     return path
 
 
+#: The internal build artifact naming the host-space DS starts any binary of
+#: the host's family addresses absolutely (the indexed-binding union).
+DS_STARTS_NAME = 'ds_starts.json'
+
+
+def ds_starts_export_name(name):
+    """The per-binary export file :func:`collect_ds_starts` reads."""
+    return f'{name}_dsstarts.json'
+
+
+def write_ds_starts_export(project, name, starts):
+    """Persist one binary's absolute host-space DS starts."""
+    target = labels_dir(project)
+    os.makedirs(target, exist_ok=True)
+    with open(os.path.join(target, ds_starts_export_name(name)), 'w') as f:
+        json.dump(sorted(starts), f)
+
+
+def collect_ds_starts(labels_path, names):
+    """The union of the ``<name>_dsstarts.json`` exports of *names*.
+
+    Only the host and its overlays share one data segment, so the caller
+    names them; another MZ image's offsets name different objects.
+    """
+    union = set()
+    for name in sorted(names):
+        path = os.path.join(labels_path, ds_starts_export_name(name))
+        if os.path.exists(path):
+            with open(path) as f:
+                union.update(json.load(f))
+    return union
+
+
+def read_ds_starts(path):
+    """The offsets of a :func:`write_ds_starts` file, as a frozenset."""
+    with open(path) as f:
+        return frozenset(json.load(f))
+
+
+def write_ds_starts(project, union):
+    """Persist the union so the host family's second pass can bind with it."""
+    path = os.path.join(labels_dir(project), DS_STARTS_NAME)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w') as f:
+        json.dump(sorted(union), f)
+    return path
+
+
 def host_name(bins):
     """Return the MZ host binary's name (``ds`` when present), or ``None``."""
     if 'ds' in bins:

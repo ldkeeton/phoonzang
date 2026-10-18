@@ -103,6 +103,7 @@ loc_HTKI.api_idx1 equ api_idx_0004_LUOM
 
 %include "vpops/api_idx_0006_QUSK.asm"     ; 0x36c0
 
+bss_9386 equ __zdseg_end + (__zobss_9386 - __zdata_start)
 bss_9388 equ __zdseg_end + (__zobss_9388 - __zdata_start)
 %include "vpops/api_idx_00d4_LUPQ.asm"     ; 0x3710
 
@@ -115,7 +116,7 @@ bss_9388 equ __zdseg_end + (__zobss_9388 - __zdata_start)
 %include "vpops/api_idx_0002_GMMK.asm"     ; 0x4d91
 
 ; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
-bss_9386 equ __zdseg_end + (__zobss_9386 - __zdata_start)
+; bss_9386 equ __zdseg_end + (__zobss_9386 - __zdata_start)
 ; bss_9388 equ __zdseg_end + (__zobss_9388 - __zdata_start)
 bss_938a equ __zdseg_end + (__zobss_938a - __zdata_start)
 bss_938c equ __zdseg_end + (__zobss_938c - __zdata_start)
