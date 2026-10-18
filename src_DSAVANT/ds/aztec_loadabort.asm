@@ -5,7 +5,7 @@ aztec_loadabort:
     add sp, byte 0xb0                ; 0x4465
     push word [bss_0cfa]             ; 0x4468
     push word [bp + 0x4]             ; 0x446c
-    mov ax, 0xc4d                    ; 0x446f
+    mov ax, dseg_0c4d                ; 0x446f
     push ax                          ; 0x4472
     lea ax, word [bp - 0x0050]       ; 0x4473
     push ax                          ; 0x4476

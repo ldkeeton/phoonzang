@@ -7,7 +7,7 @@ api_idx_0086_JRHU:
     push ax                          ; 0x6e1e
     mov ax, 0x3c                     ; 0x6e1f
     push ax                          ; 0x6e22
-    mov ax, 0x9cd4                   ; 0x6e23
+    mov ax, bss_9cd4                 ; 0x6e23
     push ax                          ; 0x6e26
     call aztec_setmem                ; 0x6e27
     add sp, byte 6                   ; 0x6e2a

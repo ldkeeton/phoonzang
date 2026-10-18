@@ -45,7 +45,7 @@ loc_UIJJ:
     mov bx, word [bp - 0x0002]       ; 0x0d99
     add bx, bp                       ; 0x0d9c
     mov byte [bx - 0x0052], 0        ; 0x0d9e
-    mov ax, 0x156d                   ; 0x0da2
+    mov ax, dseg_156d                ; 0x0da2
     push ax                          ; 0x0da5
     mov ax, 0                        ; 0x0da6
     push ax                          ; 0x0da9

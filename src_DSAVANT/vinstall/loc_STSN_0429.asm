@@ -28,7 +28,7 @@ loc_NJKV:
     mov word [bp - 0x0002], ax       ; 0x045b
     mov ax, 7                        ; 0x045e
     push ax                          ; 0x0461
-    mov ax, 0x1444                   ; 0x0462
+    mov ax, dseg_1444                ; 0x0462
     push ax                          ; 0x0465
     call loc_KSUH                    ; 0x0466
     add sp, byte 4                   ; 0x0469

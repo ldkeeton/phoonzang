@@ -156,7 +156,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x5581
     mov ax, 0x19                     ; 0x5582
     push ax                          ; 0x5585
-    mov ax, 0x920a                   ; 0x5586
+    mov ax, bss_920a                 ; 0x5586
     push ax                          ; 0x5589
     call aztec_setmem                ; 0x558a
     add sp, byte 6                   ; 0x558d
@@ -164,7 +164,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x5593
     mov ax, 0x19                     ; 0x5594
     push ax                          ; 0x5597
-    mov ax, 0x91f1                   ; 0x5598
+    mov ax, bss_91f1                 ; 0x5598
     push ax                          ; 0x559b
     call aztec_setmem                ; 0x559c
     add sp, byte 6                   ; 0x559f
@@ -172,7 +172,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x55a5
     mov ax, 0x19                     ; 0x55a6
     push ax                          ; 0x55a9
-    mov ax, 0x91d8                   ; 0x55aa
+    mov ax, bss_91d8                 ; 0x55aa
     push ax                          ; 0x55ad
     call aztec_setmem                ; 0x55ae
     add sp, byte 6                   ; 0x55b1
@@ -180,7 +180,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x55b7
     mov ax, 0x19                     ; 0x55b8
     push ax                          ; 0x55bb
-    mov ax, 0x9b1a                   ; 0x55bc
+    mov ax, bss_9b1a                 ; 0x55bc
     push ax                          ; 0x55bf
     call aztec_setmem                ; 0x55c0
     add sp, byte 6                   ; 0x55c3
@@ -188,7 +188,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x55c9
     mov ax, 0x19                     ; 0x55ca
     push ax                          ; 0x55cd
-    mov ax, 0x9223                   ; 0x55ce
+    mov ax, bss_9223                 ; 0x55ce
     push ax                          ; 0x55d1
     call aztec_setmem                ; 0x55d2
     add sp, byte 6                   ; 0x55d5
@@ -196,7 +196,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x55db
     mov ax, 0x32                     ; 0x55dc
     push ax                          ; 0x55df
-    mov ax, 0x92ba                   ; 0x55e0
+    mov ax, bss_92ba                 ; 0x55e0
     push ax                          ; 0x55e3
     call aztec_setmem                ; 0x55e4
     add sp, byte 6                   ; 0x55e7
@@ -204,7 +204,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x55ed
     mov ax, 0x19                     ; 0x55ee
     push ax                          ; 0x55f1
-    mov ax, 0x92a0                   ; 0x55f2
+    mov ax, bss_92a0                 ; 0x55f2
     push ax                          ; 0x55f5
     call aztec_setmem                ; 0x55f6
     add sp, byte 6                   ; 0x55f9
@@ -212,7 +212,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x55ff
     mov ax, 0x32                     ; 0x5600
     push ax                          ; 0x5603
-    mov ax, 0x923c                   ; 0x5604
+    mov ax, bss_923c                 ; 0x5604
     push ax                          ; 0x5607
     call aztec_setmem                ; 0x5608
     add sp, byte 6                   ; 0x560b
@@ -220,7 +220,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x5611
     mov ax, 0x32                     ; 0x5612
     push ax                          ; 0x5615
-    mov ax, 0x92ec                   ; 0x5616
+    mov ax, bss_92ec                 ; 0x5616
     push ax                          ; 0x5619
     call aztec_setmem                ; 0x561a
     add sp, byte 6                   ; 0x561d
@@ -228,7 +228,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x5623
     mov ax, 0x32                     ; 0x5624
     push ax                          ; 0x5627
-    mov ax, 0x926e                   ; 0x5628
+    mov ax, bss_926e                 ; 0x5628
     push ax                          ; 0x562b
     call aztec_setmem                ; 0x562c
     add sp, byte 6                   ; 0x562f
@@ -236,7 +236,7 @@ api_idx_0030_JQMM:
     push ax                          ; 0x5635
     mov ax, 0x7f8                    ; 0x5636
     push ax                          ; 0x5639
-    mov ax, 0x9320                   ; 0x563a
+    mov ax, bss_9320                 ; 0x563a
     push ax                          ; 0x563d
     call aztec_setmem                ; 0x563e
     add sp, byte 6                   ; 0x5641

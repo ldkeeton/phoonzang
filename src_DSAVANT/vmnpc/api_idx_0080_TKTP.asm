@@ -20,7 +20,7 @@ api_idx_0080_TKTP:
     mov bx, ax                       ; 0x96f3
     cmp byte [bx - 0x6e34], 0        ; 0x96f5
     je short @..api_idx_0080_TKTP.l1 ; 0x96fa
-    mov ax, 0x90f0                   ; 0x96fc
+    mov ax, dseg_90f0                ; 0x96fc
     push ax                          ; 0x96ff
     add bx, strict word 0x91cc       ; 0x9700
     mov ax, bx                       ; 0x9704

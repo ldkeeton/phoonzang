@@ -8,7 +8,7 @@ api_idx_0002_QVIM:
     imul word [bp + 0x8]
     mov bx, ax
     pop ax
-    mov byte [bx - 0x7b5a], al
+    mov byte [bx + bss_84a6], al
     mov byte [bx - 0x7b59], 0
     mov ax, 1
     push ax

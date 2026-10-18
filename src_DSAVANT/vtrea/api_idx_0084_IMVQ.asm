@@ -106,7 +106,7 @@ api_idx_0084_IMVQ:
     push ax                          ; 0x26bd
     call ds_string_loc_QRJV          ; 0x26be
     add sp, byte 4                   ; 0x26c1
-    mov ax, 0x90d3                   ; 0x26c4
+    mov ax, dseg_90d3                ; 0x26c4
     push ax                          ; 0x26c7
     lea ax, word [bp - 0x0074]       ; 0x26c8
     push ax                          ; 0x26cb
@@ -122,7 +122,7 @@ api_idx_0084_IMVQ:
     push ax                          ; 0x26e4
     call ds_app_OLKR                 ; 0x26e5
     add sp, byte 4                   ; 0x26e8
-    mov ax, 0x90d5                   ; 0x26eb
+    mov ax, dseg_90d5                ; 0x26eb
     push ax                          ; 0x26ee
     lea ax, word [bp - 0x0074]       ; 0x26ef
     push ax                          ; 0x26f2
@@ -1059,7 +1059,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x2f7d
     call thunk_3                     ; 0x2f7e
     add sp, byte 4                   ; 0x2f81
-    mov ax, 0x90d8                   ; 0x2f84
+    mov ax, dseg_90d8                ; 0x2f84
     push ax                          ; 0x2f87
     lea ax, word [bp - 0x0074]       ; 0x2f88
     push ax                          ; 0x2f8b
@@ -1071,7 +1071,7 @@ jumptable_34f1_case_3:
     push ax                          ; 0x2f99
     call aztec_strcat                ; 0x2f9a
     add sp, byte 4                   ; 0x2f9d
-    mov ax, 0x90da                   ; 0x2fa0
+    mov ax, dseg_90da                ; 0x2fa0
     push ax                          ; 0x2fa3
     lea ax, word [bp - 0x0074]       ; 0x2fa4
     push ax                          ; 0x2fa7

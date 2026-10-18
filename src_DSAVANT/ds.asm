@@ -55,11 +55,14 @@ dseg_0cdd equ __zdseg_0cdd - __zdseg_start
 dseg_0cde equ __zdseg_0cde - __zdseg_start
 bss_0e36 equ __zbss_0e36 - __zdseg_start
 bss_0e38 equ __zbss_0e38 - __zdseg_start
+bss_0e4c equ __zbss_0e4c - __zdseg_start
 bss_5528 equ __zbss_5528 - __zdseg_start
 bss_552a equ __zbss_552a - __zdseg_start
 bss_5642 equ __zbss_5642 - __zdseg_start
 bss_590e equ __zbss_590e - __zdseg_start
 bss_5910 equ __zbss_5910 - __zdseg_start
+bss_593a equ __zbss_593a - __zdseg_start
+bss_594e equ __zbss_594e - __zdseg_start
 bss_5978 equ __zbss_5978 - __zdseg_start
 bss_5979 equ __zbss_5979 - __zdseg_start
 bss_597a equ __zbss_597a - __zdseg_start
@@ -73,6 +76,7 @@ bss_5989 equ __zbss_5989 - __zdseg_start
 bss_598a equ __zbss_598a - __zdseg_start
 bss_598b equ __zbss_598b - __zdseg_start
 bss_5b55 equ __zbss_5b55 - __zdseg_start
+bss_5bf4 equ __zbss_5bf4 - __zdseg_start
 bss_5c08 equ __zbss_5c08 - __zdseg_start
 bss_5c0a equ __zbss_5c0a - __zdseg_start
 bss_7abc equ __zbss_7abc - __zdseg_start
@@ -117,9 +121,14 @@ bss_849e equ __zbss_849e - __zdseg_start
 bss_84a0 equ __zbss_84a0 - __zdseg_start
 bss_84a2 equ __zbss_84a2 - __zdseg_start
 bss_84a4 equ __zbss_84a4 - __zdseg_start
+bss_84a6 equ __zbss_84a6 - __zdseg_start
+bss_84e8 equ __zbss_84e8 - __zdseg_start
 bss_86c8 equ __zbss_86c8 - __zdseg_start
 bss_8809 equ __zbss_8809 - __zdseg_start
 bss_880a equ __zbss_880a - __zdseg_start
+bss_882c equ __zbss_882c - __zdseg_start
+bss_8976 equ __zbss_8976 - __zdseg_start
+bss_89de equ __zbss_89de - __zdseg_start
 bss_89df equ __zbss_89df - __zdseg_start
 bss_89e0 equ __zbss_89e0 - __zdseg_start
 bss_89e1 equ __zbss_89e1 - __zdseg_start
@@ -140,9 +149,13 @@ bss_8a32 equ __zbss_8a32 - __zdseg_start
 bss_8a3e equ __zbss_8a3e - __zdseg_start
 bss_8a4a equ __zbss_8a4a - __zdseg_start
 bss_8a56 equ __zbss_8a56 - __zdseg_start
+bss_8a6e equ __zbss_8a6e - __zdseg_start
 bss_8aac equ __zbss_8aac - __zdseg_start
 bss_8aee equ __zbss_8aee - __zdseg_start
 bss_8af0 equ __zbss_8af0 - __zdseg_start
+bss_8bfe equ __zbss_8bfe - __zdseg_start
+bss_8c7e equ __zbss_8c7e - __zdseg_start
+bss_8cfe equ __zbss_8cfe - __zdseg_start
 bss_8d06 equ __zbss_8d06 - __zdseg_start
 bss_8d08 equ __zbss_8d08 - __zdseg_start
 bss_8d0a equ __zbss_8d0a - __zdseg_start
@@ -261,10 +274,12 @@ bss_100c equ __zbss_100c - __zdseg_start
 %include "ds/ds_app_MRJK.asm"              ; 0x065d
 
 ; bss_0e24 equ __zbss_0e24 - __zdseg_start
+bss_3e12 equ __zbss_3e12 - __zdseg_start
 bss_5212 equ __zbss_5212 - __zdseg_start
 bss_5214 equ __zbss_5214 - __zdseg_start
 %include "ds/ds_app_file_RPKG.asm"         ; 0x06c6
 
+; bss_3e12 equ __zbss_3e12 - __zdseg_start
 ; bss_5212 equ __zbss_5212 - __zdseg_start
 bss_5216 equ __zbss_5216 - __zdseg_start
 %include "ds/ds_app_mem_TIMR.asm"          ; 0x0782
@@ -272,6 +287,7 @@ bss_5216 equ __zbss_5216 - __zdseg_start
 %include "ds/ds_app_KQMO.asm"              ; 0x0860
 
 ; bss_0e22 equ __zbss_0e22 - __zdseg_start
+bss_5524 equ __zbss_5524 - __zdseg_start
 %include "ds/ds_app_file_MPPM.asm"         ; 0x0883
 
 dseg_0002 equ __zdseg_0002 - __zdseg_start
@@ -400,30 +416,45 @@ bss_0cf8 equ __zbss_0cf8 - __zdseg_start
 %include "ds/ds_app_HVHT.asm"              ; 0x2359
 
 bss_5987 equ __zbss_5987 - __zdseg_start
+bss_69ca equ __zbss_69ca - __zdseg_start
 %include "ds/ds_app_UUHT.asm"              ; 0x23a8
 
-; bss_0e22 equ __zbss_0e22 - __zdseg_start
-; bss_0e24 equ __zbss_0e24 - __zdseg_start
-bss_5218 equ __zbss_5218 - __zdseg_start
-; bss_5987 equ __zbss_5987 - __zdseg_start
-; bss_5b3e equ __zbss_5b3e - __zdseg_start
+dseg_0b74 equ __zdseg_0b74 - __zdseg_start
+dseg_0b89 equ __zdseg_0b89 - __zdseg_start
+dseg_0b99 equ __zdseg_0b99 - __zdseg_start
+dseg_0ba6 equ __zdseg_0ba6 - __zdseg_start
+dseg_0baf equ __zdseg_0baf - __zdseg_start
+dseg_0bb8 equ __zdseg_0bb8 - __zdseg_start
+dseg_0bc0 equ __zdseg_0bc0 - __zdseg_start
+; bss_0e22  equ __zbss_0e22 - __zdseg_start
+; bss_0e24  equ __zbss_0e24 - __zdseg_start
+bss_5218  equ __zbss_5218 - __zdseg_start
+bss_5926  equ __zbss_5926 - __zdseg_start
+; bss_5987  equ __zbss_5987 - __zdseg_start
+; bss_5b3e  equ __zbss_5b3e - __zdseg_start
 %include "ds/ds_app_file_QQMM.asm"         ; 0x23ef
 
 ; bss_5218 equ __zbss_5218 - __zdseg_start
 ; bss_5987 equ __zbss_5987 - __zdseg_start
 %include "ds/ds_app_IMTG.asm"              ; 0x27e9
 
+dseg_0bcd equ __zdseg_0bcd - __zdseg_start
 %include "ds/ds_app_file_TSNH.asm"         ; 0x2863
 
 %include "ds/ds_app_SOQK.asm"              ; 0x290d
 
+dseg_0bd7 equ __zdseg_0bd7 - __zdseg_start
 %include "ds/ds_app_file_JISS.asm"         ; 0x2923
 
 ; bss_598e equ __zbss_598e - __zdseg_start
 %include "ds/ds_app_QTIV.asm"              ; 0x29f1
 
-bss_5985 equ __zbss_5985 - __zdseg_start
-bss_82b6 equ __zbss_82b6 - __zdseg_start
+dseg_0be3 equ __zdseg_0be3 - __zdseg_start
+dseg_0beb equ __zdseg_0beb - __zdseg_start
+dseg_0bf0 equ __zdseg_0bf0 - __zdseg_start
+dseg_0bf5 equ __zdseg_0bf5 - __zdseg_start
+bss_5985  equ __zbss_5985 - __zdseg_start
+bss_82b6  equ __zbss_82b6 - __zdseg_start
 %include "ds/ds_app_file_KRUQ.asm"         ; 0x2a2e
 
 ; bss_82b6 equ __zbss_82b6 - __zdseg_start
@@ -441,6 +472,7 @@ bss_597f equ __zbss_597f - __zdseg_start
 ; bss_1008 equ __zbss_1008 - __zdseg_start
 ; bss_59f6 equ __zbss_59f6 - __zdseg_start
 ; bss_59f8 equ __zbss_59f8 - __zdseg_start
+bss_82b8 equ __zbss_82b8 - __zdseg_start
 %include "ds/ds_app_LPKV.asm"              ; 0x2c11
 
 bss_82e8 equ __zbss_82e8 - __zdseg_start
@@ -451,8 +483,21 @@ bss_82f0 equ __zbss_82f0 - __zdseg_start
 bss_82f2 equ __zbss_82f2 - __zdseg_start
 %include "ds/ds_app_JKOJ.asm"              ; 0x2c69
 
-bss_830a equ __zbss_830a - __zdseg_start
-bss_830c equ __zbss_830c - __zdseg_start
+dseg_0bfa equ __zdseg_0bfa - __zdseg_start
+dseg_0c00 equ __zdseg_0c00 - __zdseg_start
+dseg_0c06 equ __zdseg_0c06 - __zdseg_start
+dseg_0c0c equ __zdseg_0c0c - __zdseg_start
+dseg_0c12 equ __zdseg_0c12 - __zdseg_start
+dseg_0c18 equ __zdseg_0c18 - __zdseg_start
+dseg_0c1e equ __zdseg_0c1e - __zdseg_start
+dseg_0c24 equ __zdseg_0c24 - __zdseg_start
+dseg_0c2a equ __zdseg_0c2a - __zdseg_start
+dseg_0c30 equ __zdseg_0c30 - __zdseg_start
+dseg_0c36 equ __zdseg_0c36 - __zdseg_start
+dseg_0c3c equ __zdseg_0c3c - __zdseg_start
+dseg_0c42 equ __zdseg_0c42 - __zdseg_start
+bss_830a  equ __zbss_830a - __zdseg_start
+bss_830c  equ __zbss_830c - __zdseg_start
 %include "ds/main.asm"                     ; 0x2dd5
 
 cseg_2f36:
@@ -831,12 +876,14 @@ cseg_3c7f:
 bss_0cfa equ __zbss_0cfa - __zdseg_start
 %include "ds/aztec_ovloader.asm"           ; 0x4379
 
+dseg_0c48   equ __zdseg_0c48 - __zdseg_start
 _mbot       equ __z_mbot - __zdseg_start
 ; bss_0cfa    equ __zbss_0cfa - __zdseg_start
 __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/aztec_impl_ovld.asm"          ; 0x4386
 
-; bss_0cfa equ __zbss_0cfa - __zdseg_start
+dseg_0c4d equ __zdseg_0c4d - __zdseg_start
+; bss_0cfa  equ __zbss_0cfa - __zdseg_start
 %include "ds/aztec_loadabort.asm"          ; 0x4462
 
 %include "ds/asm_only/aztec_bdos.asm"               ; 0x4497
@@ -966,9 +1013,10 @@ _STKLOW           equ __z_STKLOW - __zdseg_start
 
 __zcp_4ea3:
     db 0xb8, 0x00, 0x00, 0xc3
-; _ioflg   equ __z_ioflg - __zdseg_start
-bss_0d04 equ __zbss_0d04 - __zdseg_start
-bss_0d06 equ __zbss_0d06 - __zdseg_start
+dseg_0c9f equ __zdseg_0c9f - __zdseg_start
+; _ioflg    equ __z_ioflg - __zdseg_start
+bss_0d04  equ __zbss_0d04 - __zdseg_start
+bss_0d06  equ __zbss_0d06 - __zdseg_start
 %include "ds/aztec_Croot.asm"              ; 0x4ea7
 
 dseg_0c9c equ __zdseg_0c9c - __zdseg_start
@@ -977,6 +1025,7 @@ aztec_exit.dseg1 equ dseg_0c9c
 
 %include "ds/ds_leaf_loc_UTMK.asm"         ; 0x4f85
 
+dseg_0cae equ __zdseg_0cae - __zdseg_start
 %include "ds/aztec_impl_stkover.asm"       ; 0x4f87
 
 aztec_impl_read.loc1 equ ds_loc_IGMS
@@ -1300,31 +1349,67 @@ __zdseg_03dc:
     db 0x2d, 0x02, 0x2c, 0x02, 0x2d, 0x02, 0x2e, 0x02, 0x4c, 0x01, 0xf5, 0x01, 0x2f, 0x02, 0x2e, 0x02
     db 0x2f, 0x02, 0x30, 0x02
     times 6 db 0
+
+__zdseg_0b74:
+
     db 'INSERT SAVEGAME DISK', 0
+
+__zdseg_0b89:
+
     db 'INSERT DISK (^)', 0
+
+__zdseg_0b99:
     db 'INTO DRIVE ^', 0
+__zdseg_0ba6:
     db 'CONTINUE', 0
+__zdseg_0baf:
     db 'DISK.HDR', 0
+__zdseg_0bb8:
     db 'MSG.DBS', 0
+__zdseg_0bc0:
     db 'SCENARIO.DBS', 0
+__zdseg_0bcd:
     db 'MON00.PIC', 0
+__zdseg_0bd7:
     db 'SOUND00.SND', 0
+__zdseg_0be3:
     db 'SCORE00', 0
-    db 0x2e, 0x43, 0x53, 0x46, 0x00, 0x2e, 0x50, 0x42, 0x4c, 0x00, 0x2e, 0x50, 0x42, 0x41, 0x00
+__zdseg_0beb:
+    db 0x2e, 0x43, 0x53, 0x46, 0x00
+__zdseg_0bf0:
+    db 0x2e, 0x50, 0x42, 0x4c, 0x00
+__zdseg_0bf5:
+    db 0x2e, 0x50, 0x42, 0x41, 0x00
+__zdseg_0bfa:
     db 'VINIT', 0
+__zdseg_0c00:
     db 'VBASE', 0
+__zdseg_0c06:
     db 'VPCVW', 0
+__zdseg_0c0c:
     db 'VPCLV', 0
+__zdseg_0c12:
     db 'VPCMK', 0
+__zdseg_0c18:
     db 'VMAZE', 0
+__zdseg_0c1e:
     db 'VMEXT', 0
+__zdseg_0c24:
     db 'VMELE', 0
+__zdseg_0c2a:
     db 'VPOPS', 0
+__zdseg_0c30:
     db 'VMEXE', 0
+__zdseg_0c36:
     db 'VDOPT', 0
+__zdseg_0c3c:
     db 'VTREA', 0
+__zdseg_0c42:
     db 'VMNPC', 0
+__zdseg_0c48:
     db 0x2e, 0x6f, 0x76, 0x72, 0x00
+__zdseg_0c4d:
+
     db 'Error %d loading overlay: %s$', 0
     db 0x00
 
@@ -1354,9 +1439,11 @@ __z_PSP:
 
 __zdseg_0c9c:
     dw __zcp_4ea3 - IMAGE_BASE                 ; 0x10dfc
-
     db 0x00
+__zdseg_0c9f:
     db 'Too many args.', 0
+__zdseg_0cae:
+
     db 'STACK OVERFLOW, INCREASE STACK SIZE'
     db 0x0a, 0x00, 0x00
 
@@ -1448,7 +1535,9 @@ __zbss_0e34:
 __zbss_0e36:
     resb 0x0002
 __zbss_0e38:
-    resb 0x019d
+    resb 0x0014
+__zbss_0e4c:
+    resb 0x0189
 __zbss_0fd5:
     resb 0x0001
 __zbss_0fd6:
@@ -1462,7 +1551,9 @@ __zbss_100c:
 __zbss_2d40:
     resb 0x0018
 __zbss_2d58:
-    resb 0x24ba
+    resb 0x10ba
+__zbss_3e12:
+    resb 0x1400
 __zbss_5212:
     resb 0x0002
 __zbss_5214:
@@ -1470,7 +1561,9 @@ __zbss_5214:
 __zbss_5216:
     resb 0x0002
 __zbss_5218:
-    resb 0x0310
+    resb 0x030c
+__zbss_5524:
+    resb 0x0004
 __zbss_5528:
     resb 0x0002
 __zbss_552a:
@@ -1480,7 +1573,13 @@ __zbss_5642:
 __zbss_590e:
     resb 0x0002
 __zbss_5910:
-    resb 0x0052
+    resb 0x0016
+__zbss_5926:
+    resb 0x0014
+__zbss_593a:
+    resb 0x0014
+__zbss_594e:
+    resb 0x0014
 __zbss_5962:
     resb 0x0001
 __zbss_5963:
@@ -1554,7 +1653,9 @@ __zbss_5b6c:
 __zbss_5b6e:
     resb 0x0002
 __zbss_5b70:
-    resb 0x0098
+    resb 0x0084
+__zbss_5bf4:
+    resb 0x0014
 __zbss_5c08:
     resb 0x0002
 __zbss_5c0a:
@@ -1562,7 +1663,9 @@ __zbss_5c0a:
 __zbss_5e2a:
     resb 0x0b9e
 __zbss_69c8:
-    resb 0x10f4
+    resb 0x0002
+__zbss_69ca:
+    resb 0x10f2
 __zbss_7abc:
     resb 0x0002
 __zbss_7abe:
@@ -1574,7 +1677,9 @@ __zbss_7b05:
 __zbss_7d3c:
     resb 0x057a
 __zbss_82b6:
-    resb 0x0032
+    resb 0x0002
+__zbss_82b8:
+    resb 0x0030
 __zbss_82e8:
     resb 0x0002
 __zbss_82ea:
@@ -1664,13 +1769,23 @@ __zbss_84a0:
 __zbss_84a2:
     resb 0x0002
 __zbss_84a4:
-    resb 0x0224
+    resb 0x0002
+__zbss_84a6:
+    resb 0x0042
+__zbss_84e8:
+    resb 0x01e0
 __zbss_86c8:
     resb 0x0141
 __zbss_8809:
     resb 0x0001
 __zbss_880a:
-    resb 0x01d5
+    resb 0x0022
+__zbss_882c:
+    resb 0x014a
+__zbss_8976:
+    resb 0x0068
+__zbss_89de:
+    resb 0x0001
 __zbss_89df:
     resb 0x0001
 __zbss_89e0:
@@ -1710,13 +1825,21 @@ __zbss_8a3e:
 __zbss_8a4a:
     resb 0x000c
 __zbss_8a56:
-    resb 0x0056
+    resb 0x0018
+__zbss_8a6e:
+    resb 0x003e
 __zbss_8aac:
     resb 0x0042
 __zbss_8aee:
     resb 0x0002
 __zbss_8af0:
-    resb 0x0216
+    resb 0x010e
+__zbss_8bfe:
+    resb 0x0080
+__zbss_8c7e:
+    resb 0x0080
+__zbss_8cfe:
+    resb 0x0008
 __zbss_8d06:
     resb 0x0002
 __zbss_8d08:

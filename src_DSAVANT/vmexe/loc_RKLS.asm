@@ -11,11 +11,11 @@ loc_RKLS:
     pop cx                           ; 0x3ab6
     push word [bp + 0x6]             ; 0x3ab7
     push word [bp + 0x4]             ; 0x3aba
-    mov ax, 0x90e6                   ; 0x3abd
+    mov ax, bss_90e6                 ; 0x3abd
     push ax                          ; 0x3ac0
     call loc_HJSG                    ; 0x3ac1
     add sp, byte 6                   ; 0x3ac4
-    mov ax, 0x9136                   ; 0x3ac7
+    mov ax, bss_9136                 ; 0x3ac7
     push ax                          ; 0x3aca
     push word [bp + 0x8]             ; 0x3acb
     call ds_app_mem_TIMR             ; 0x3ace
@@ -29,11 +29,11 @@ loc_RKLS:
     mov ax, 1                        ; 0x3ae4
 @..loc_RKLS.l1:
     push ax                          ; 0x3ae7
-    mov ax, 0x90b0                   ; 0x3ae8
+    mov ax, dseg_90b0                ; 0x3ae8
     push ax                          ; 0x3aeb
-    mov ax, 0x9136                   ; 0x3aec
+    mov ax, bss_9136                 ; 0x3aec
     push ax                          ; 0x3aef
-    mov ax, 0x90e6                   ; 0x3af0
+    mov ax, bss_90e6                 ; 0x3af0
     push ax                          ; 0x3af3
     mov ax, 2                        ; 0x3af4
     push ax                          ; 0x3af7

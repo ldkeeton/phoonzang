@@ -3,7 +3,7 @@ loc_ONOP:
     push bp                          ; 0x0dda
     mov bp, sp                       ; 0x0ddb
     add sp, strict word 0xff5c       ; 0x0ddd
-    mov ax, 0x15bd                   ; 0x0de1
+    mov ax, dseg_15bd                ; 0x0de1
     push ax                          ; 0x0de4
     lea ax, word [bp - 0x00a2]       ; 0x0de5
     push ax                          ; 0x0de9
@@ -11,7 +11,7 @@ loc_ONOP:
     add sp, byte 4                   ; 0x0ded
     cmp word [bp + 0x8], byte 0      ; 0x0df0
     jge short @..loc_ONOP.l1         ; 0x0df4
-    mov ax, 0x15cc                   ; 0x0df6
+    mov ax, dseg_15cc                ; 0x0df6
     push ax                          ; 0x0df9
     lea ax, word [bp - 0x00a2]       ; 0x0dfa
     push ax                          ; 0x0dfe
@@ -22,7 +22,7 @@ loc_ONOP:
     mov word [bp + 0x8], ax          ; 0x0e0b
     jmp short @..loc_ONOP.l2         ; 0x0e0e
 @..loc_ONOP.l1:
-    mov ax, 0x15d8                   ; 0x0e10
+    mov ax, dseg_15d8                ; 0x0e10
     push ax                          ; 0x0e13
     lea ax, word [bp - 0x00a2]       ; 0x0e14
     push ax                          ; 0x0e18
@@ -30,7 +30,7 @@ loc_ONOP:
     add sp, byte 4                   ; 0x0e1c
     call loc_NJKV                    ; 0x0e1f
 @..loc_ONOP.l2:
-    mov ax, 0x15e1                   ; 0x0e22
+    mov ax, dseg_15e1                ; 0x0e22
     push ax                          ; 0x0e25
     lea ax, word [bp - 0x00a2]       ; 0x0e26
     push ax                          ; 0x0e2a
@@ -46,7 +46,7 @@ loc_ONOP:
     push ax                          ; 0x0e46
     call aztec_strcat                ; 0x0e47
     add sp, byte 4                   ; 0x0e4a
-    mov ax, 0x15e9                   ; 0x0e4d
+    mov ax, dseg_15e9                ; 0x0e4d
     push ax                          ; 0x0e50
     lea ax, word [bp - 0x00a2]       ; 0x0e51
     push ax                          ; 0x0e55
@@ -57,7 +57,7 @@ loc_ONOP:
     push ax                          ; 0x0e63
     call aztec_strcat                ; 0x0e64
     add sp, byte 4                   ; 0x0e67
-    mov ax, 0x15f7                   ; 0x0e6a
+    mov ax, dseg_15f7                ; 0x0e6a
     push ax                          ; 0x0e6d
     lea ax, word [bp - 0x00a2]       ; 0x0e6e
     push ax                          ; 0x0e72

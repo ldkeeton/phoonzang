@@ -139,7 +139,7 @@ api_idx_0026_NRVO:
     call ds_string_loc_QRJV          ; 0x1333
     add sp, byte 4                   ; 0x1336
     push word [bp + 0xc]             ; 0x1339
-    mov ax, 0xe38                    ; 0x133c
+    mov ax, bss_0e38                 ; 0x133c
     push ax                          ; 0x133f
     call aztec_strcpy                ; 0x1340
     add sp, byte 4                   ; 0x1343
@@ -280,11 +280,11 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x146a
     add ax, strict word 0x5f         ; 0x146d
     push ax                          ; 0x1470
-    mov ax, 0xe38                    ; 0x1471
+    mov ax, bss_0e38                 ; 0x1471
     push ax                          ; 0x1474
     call api_idx_0008_LLVT           ; 0x1475
     add sp, byte 0x0e                ; 0x1478
-    mov ax, 0xe38                    ; 0x147b
+    mov ax, bss_0e38                 ; 0x147b
     push ax                          ; 0x147e
     push word [bp + 0xc]             ; 0x147f
     call aztec_strcpy                ; 0x1482
@@ -381,11 +381,11 @@ api_idx_0026_NRVO:
     mov ax, word [bp - 0x0002]       ; 0x1551
     add ax, strict word 0x5f         ; 0x1554
     push ax                          ; 0x1557
-    mov ax, 0xe38                    ; 0x1558
+    mov ax, bss_0e38                 ; 0x1558
     push ax                          ; 0x155b
     call api_idx_0008_LLVT           ; 0x155c
     add sp, byte 0x0e                ; 0x155f
-    mov ax, 0xe38                    ; 0x1562
+    mov ax, bss_0e38                 ; 0x1562
     push ax                          ; 0x1565
     push word [bp + 0xc]             ; 0x1566
     call aztec_strcpy                ; 0x1569

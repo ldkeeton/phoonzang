@@ -4,7 +4,7 @@ api_idx_0002_JHTS:
     call aztec_csav                  ; 0x8ca6
     mov ax, 0                        ; 0x8ca9
     push ax                          ; 0x8cac
-    mov ax, 0x9172                   ; 0x8cad
+    mov ax, dseg_9172                ; 0x8cad
     push ax                          ; 0x8cb0
     call api_idx_0002_LVPS           ; 0x8cb1
     add sp, byte 4                   ; 0x8cb4
@@ -31,9 +31,9 @@ api_idx_0002_JHTS:
     add sp, byte 4                   ; 0x8ce4
     mov ax, word [bp + 0x6]          ; 0x8ce7
     mov word [bss_a5b6], ax          ; 0x8cea
-    mov ax, 0x917f                   ; 0x8ced
+    mov ax, dseg_917f                ; 0x8ced
     push ax                          ; 0x8cf0
-    mov ax, 0xa5c6                   ; 0x8cf1
+    mov ax, bss_a5c6                 ; 0x8cf1
     push ax                          ; 0x8cf4
     call aztec_strcpy                ; 0x8cf5
     add sp, byte 4                   ; 0x8cf8

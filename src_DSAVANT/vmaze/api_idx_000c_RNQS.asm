@@ -43,7 +43,7 @@ api_idx_000c_RNQS:
     push ax                          ; 0x0d29
     mov ax, 0x80                     ; 0x0d2a
     push ax                          ; 0x0d2d
-    mov ax, 0x8c7e                   ; 0x0d2e
+    mov ax, bss_8c7e                 ; 0x0d2e
     push ax                          ; 0x0d31
     call aztec_setmem                ; 0x0d32
     add sp, byte 6                   ; 0x0d35
@@ -108,7 +108,7 @@ api_idx_000c_RNQS:
     push ax                          ; 0x0dc8
     mov ax, 0x80                     ; 0x0dc9
     push ax                          ; 0x0dcc
-    mov ax, 0x8bfe                   ; 0x0dcd
+    mov ax, bss_8bfe                 ; 0x0dcd
     push ax                          ; 0x0dd0
     call aztec_setmem                ; 0x0dd1
     add sp, byte 6                   ; 0x0dd4

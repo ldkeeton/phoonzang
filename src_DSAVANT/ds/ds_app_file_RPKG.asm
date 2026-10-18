@@ -12,7 +12,7 @@ ds_app_file_RPKG: ; Aztec csav frame=0x0002
     jne short @..ds_app_file_RPKG.l2 ; 0x06df
     mov ax, 0x400                    ; 0x06e1
     push ax                          ; 0x06e4
-    mov ax, 0x3e12                   ; 0x06e5
+    mov ax, bss_3e12                 ; 0x06e5
     push ax                          ; 0x06e8
     mov ax, word [bp - 0x0002]       ; 0x06e9
     mov cx, 0xa                      ; 0x06ec
@@ -49,7 +49,7 @@ ds_app_file_RPKG: ; Aztec csav frame=0x0002
     add sp, byte 8                   ; 0x072f
     mov ax, 0x400                    ; 0x0732
     push ax                          ; 0x0735
-    mov ax, 0x3e12                   ; 0x0736
+    mov ax, bss_3e12                 ; 0x0736
     push ax                          ; 0x0739
     push word [bss_0e24]             ; 0x073a
     call aztec_read                  ; 0x073e
@@ -63,7 +63,7 @@ ds_app_file_RPKG: ; Aztec csav frame=0x0002
     shl ax, cl                       ; 0x0754
     add ax, 0x4212                   ; 0x0756
     push ax                          ; 0x0759
-    mov ax, 0x3e12                   ; 0x075a
+    mov ax, bss_3e12                 ; 0x075a
     push ax                          ; 0x075d
     call aztec_movmem                ; 0x075e
     add sp, byte 6                   ; 0x0761

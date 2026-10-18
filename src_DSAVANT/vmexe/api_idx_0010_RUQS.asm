@@ -41,7 +41,7 @@ api_idx_0010_RUQS:
     add sp, byte 4                   ; 0x2eb6
     push word [bp - 0x0002]          ; 0x2eb9
     push word [bp + 0x4]             ; 0x2ebc
-    mov ax, 0x90e6                   ; 0x2ebf
+    mov ax, bss_90e6                 ; 0x2ebf
     push ax                          ; 0x2ec2
     call loc_HJSG                    ; 0x2ec3
     add sp, byte 6                   ; 0x2ec6
@@ -53,7 +53,7 @@ api_idx_0010_RUQS:
     mov ax, 1                        ; 0x2ed6
 @..api_idx_0010_RUQS.l4:
     push ax                          ; 0x2ed9
-    mov ax, 0x90e6                   ; 0x2eda
+    mov ax, bss_90e6                 ; 0x2eda
     push ax                          ; 0x2edd
     call api_idx_0002_TMNV           ; 0x2ede
     add sp, byte 6                   ; 0x2ee1

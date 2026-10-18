@@ -27,7 +27,7 @@ loc_KIOQ:
     je short @..loc_KIOQ.l1          ; 0x0dcc
     cmp byte [bss_9154], 0           ; 0x0dce
     je short @..loc_KIOQ.l3          ; 0x0dd3
-    mov ax, 0x9154                   ; 0x0dd5
+    mov ax, bss_9154                 ; 0x0dd5
     push ax                          ; 0x0dd8
     call api_idx_0004_JGSH           ; 0x0dd9
     pop cx                           ; 0x0ddc

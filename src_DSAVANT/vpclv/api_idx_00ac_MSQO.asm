@@ -194,9 +194,9 @@ jumptable_4679:
     push ax                          ; 0x478d
     mov ax, 0x18                     ; 0x478e
     push ax                          ; 0x4791
-    mov ax, 0x93e9                   ; 0x4792
+    mov ax, dseg_93e9                ; 0x4792
     push ax                          ; 0x4795
-    mov ax, 0x93e5                   ; 0x4796
+    mov ax, dseg_93e5                ; 0x4796
     push ax                          ; 0x4799
     mov ax, 0xd5                     ; 0x479a
     push ax                          ; 0x479d
@@ -238,9 +238,9 @@ jumptable_4679:
     push ax                          ; 0x47f0
     mov ax, 0x18                     ; 0x47f1
     push ax                          ; 0x47f4
-    mov ax, 0x93ed                   ; 0x47f5
+    mov ax, dseg_93ed                ; 0x47f5
     push ax                          ; 0x47f8
-    mov ax, 0x93eb                   ; 0x47f9
+    mov ax, dseg_93eb                ; 0x47f9
     push ax                          ; 0x47fc
     mov ax, 0xd4                     ; 0x47fd
     push ax                          ; 0x4800

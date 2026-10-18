@@ -4,7 +4,7 @@ loc_TQHJ:
     call aztec_csav                  ; 0x8637
     mov ax, 0                        ; 0x863a
     push ax                          ; 0x863d
-    mov ax, 0x9144                   ; 0x863e
+    mov ax, dseg_9144                ; 0x863e
     push ax                          ; 0x8641
     call api_idx_0002_LVPS           ; 0x8642
     add sp, byte 4                   ; 0x8645
@@ -57,9 +57,9 @@ loc_TQHJ:
     mov ax, 0x14                     ; 0x86c1
 @..loc_TQHJ.l1:
     mov word [bss_a5ce], ax          ; 0x86c4
-    mov ax, 0x9151                   ; 0x86c7
+    mov ax, dseg_9151                ; 0x86c7
     push ax                          ; 0x86ca
-    mov ax, 0xa5c6                   ; 0x86cb
+    mov ax, bss_a5c6                 ; 0x86cb
     push ax                          ; 0x86ce
     call aztec_strcpy                ; 0x86cf
     add sp, byte 4                   ; 0x86d2

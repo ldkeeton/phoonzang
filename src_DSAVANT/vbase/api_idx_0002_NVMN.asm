@@ -59,7 +59,7 @@ api_idx_0002_NVMN:
     je short @..api_idx_0002_NVMN.l3 ; 0x70f1
     mov ax, 2                        ; 0x70f3
     push ax                          ; 0x70f6
-    mov ax, 0x911e                   ; 0x70f7
+    mov ax, dseg_911e                ; 0x70f7
     push ax                          ; 0x70fa
     call api_idx_0002_LVPS           ; 0x70fb
     add sp, byte 4                   ; 0x70fe
@@ -270,7 +270,7 @@ jumptable_7185_case_0:
     add sp, byte 8                   ; 0x72b0
     mov ax, 2                        ; 0x72b3
     push ax                          ; 0x72b6
-    mov ax, 0x912b                   ; 0x72b7
+    mov ax, dseg_912b                ; 0x72b7
     push ax                          ; 0x72ba
     call api_idx_0002_LVPS           ; 0x72bb
     add sp, byte 4                   ; 0x72be

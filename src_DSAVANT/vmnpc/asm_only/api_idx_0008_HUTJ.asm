@@ -114,7 +114,7 @@ api_idx_0008_HUTJ:
     cmp ax, cx                       ; 0x39f0
     jge short @..api_idx_0008_HUTJ.l7 ; 0x39f2
 @..api_idx_0008_HUTJ.l6:
-    mov ax, 0x95fa                   ; 0x39f4
+    mov ax, bss_95fa                 ; 0x39f4
     push ax                          ; 0x39f7
     mov ax, 0x609                    ; 0x39f8
     push ax                          ; 0x39fb
@@ -126,7 +126,7 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x3a09
     mov ax, 1                        ; 0x3a0a
     push ax                          ; 0x3a0d
-    mov ax, 0x95fa                   ; 0x3a0e
+    mov ax, bss_95fa                 ; 0x3a0e
     push ax                          ; 0x3a11
     call loc_MLKO                    ; 0x3a12
     add sp, byte 8                   ; 0x3a15
@@ -157,11 +157,11 @@ api_idx_0008_HUTJ:
 @..api_idx_0008_HUTJ.l8:
     mov ax, 1                        ; 0x3a47
     push ax                          ; 0x3a4a
-    mov ax, 0x95a8                   ; 0x3a4b
+    mov ax, bss_95a8                 ; 0x3a4b
     push ax                          ; 0x3a4e
     call api_idx_0084_VMPP           ; 0x3a4f
     add sp, byte 4                   ; 0x3a52
-    mov ax, 0x95fa                   ; 0x3a55
+    mov ax, bss_95fa                 ; 0x3a55
     push ax                          ; 0x3a58
     mov ax, 0x60a                    ; 0x3a59
     push ax                          ; 0x3a5c
@@ -171,13 +171,13 @@ api_idx_0008_HUTJ:
     push ax                          ; 0x3a66
     mov ax, 0x95a8                   ; 0x3a67
     push ax                          ; 0x3a6a
-    mov ax, 0x95fa                   ; 0x3a6b
+    mov ax, bss_95fa                 ; 0x3a6b
     push ax                          ; 0x3a6e
     call ds_app_string_HHIL          ; 0x3a6f
     add sp, byte 6                   ; 0x3a72
     mov ax, 1                        ; 0x3a75
     push ax                          ; 0x3a78
-    mov ax, 0x95fa                   ; 0x3a79
+    mov ax, bss_95fa                 ; 0x3a79
     push ax                          ; 0x3a7c
     call loc_LRGG                    ; 0x3a7d
     add sp, byte 4                   ; 0x3a80

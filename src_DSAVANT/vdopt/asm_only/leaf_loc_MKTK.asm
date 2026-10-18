@@ -15,13 +15,17 @@ leaf_loc_MKTK:
     pop es                           ; 0x472b
     pop di                           ; 0x472c
     jmp cx                           ; 0x472d
+__zdseg_9098:
 __zdata_start:
+    db 0x00
+__zdseg_9099:
 
-    db 0x00, 0x00, 0x2a, 0x2a, 0x2a, 0x00
+    db 0x00, 0x2a, 0x2a, 0x2a, 0x00
     db 'V.$$$', 0
     db 'V.$$$', 0
+
+__zdseg_90aa:
     db 0x00, 0x00
-
 __zdseg_90ac:
     db 0x00, 0x00
 __zdseg_90ae:

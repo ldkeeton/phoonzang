@@ -18,7 +18,7 @@ api_idx_0038_POGI:
     mov bx, ax                       ; 0x24d6
     cmp byte [bx - 0x7b00], 0        ; 0x24d8
     jle short @..api_idx_0038_POGI.l3 ; 0x24dd
-    mov al, byte [bx - 0x7b18]       ; 0x24df
+    mov al, byte [bx + bss_84e8]     ; 0x24df
     sub ah, ah                       ; 0x24e3
     cmp ax, word [bp + 0x4]          ; 0x24e5
     je short @..api_idx_0038_POGI.l2 ; 0x24e8
@@ -36,7 +36,7 @@ api_idx_0038_POGI:
     mov ax, 0x26                     ; 0x2507
     imul word [bp - 0x0002]          ; 0x250a
     mov bx, ax                       ; 0x250d
-    mov al, byte [bx - 0x7b18]       ; 0x250f
+    mov al, byte [bx + bss_84e8]     ; 0x250f
     cmp al, byte [bss_91c7]          ; 0x2513
     jne short @..api_idx_0038_POGI.l3 ; 0x2517
 @..api_idx_0038_POGI.l2:
@@ -100,7 +100,7 @@ api_idx_0038_POGI:
     pop ax                           ; 0x25a9
     add ax, cx                       ; 0x25aa
     mov bx, ax                       ; 0x25ac
-    cmp byte [bx - 0x77d4], 0xff     ; 0x25ae
+    cmp byte [bx + bss_882c], 0xff   ; 0x25ae
     jne short @..api_idx_0038_POGI.l9 ; 0x25b3
 @..api_idx_0038_POGI.l8:
     cmp word [bp - 0x0008], byte 5   ; 0x25b5
@@ -123,7 +123,7 @@ api_idx_0038_POGI:
     pop ax                           ; 0x25dc
     add ax, cx                       ; 0x25dd
     mov bx, ax                       ; 0x25df
-    cmp byte [bx - 0x77d4], 0xff     ; 0x25e1
+    cmp byte [bx + bss_882c], 0xff   ; 0x25e1
     jne short @..api_idx_0038_POGI.l10 ; 0x25e6
     jmp near @..api_idx_0038_POGI.l16 ; 0x25e8
 @..api_idx_0038_POGI.l10:
@@ -136,7 +136,7 @@ api_idx_0038_POGI:
     jmp near @..api_idx_0038_POGI.l16 ; 0x25fd
 @..api_idx_0038_POGI.l11:
     mov byte [bx - 0x6b10], 1        ; 0x2600
-    mov ax, 0x93f0                   ; 0x2605
+    mov ax, bss_93f0                 ; 0x2605
     push ax                          ; 0x2608
     mov ax, 0xf                      ; 0x2609
     imul word [bp - 0x0002]          ; 0x260c
@@ -222,7 +222,7 @@ jumptable_268c:
     pop ax                           ; 0x26c4
     add ax, cx                       ; 0x26c5
     mov bx, ax                       ; 0x26c7
-    mov al, byte [bx - 0x77d4]       ; 0x26c9
+    mov al, byte [bx + bss_882c]     ; 0x26c9
     cbw                              ; 0x26cd
     add ax, word [bp - 0x000a]       ; 0x26ce
     push ax                          ; 0x26d1
@@ -249,7 +249,7 @@ jumptable_268c:
     push ax                          ; 0x2702
     mov ax, 0x955e                   ; 0x2703
     push ax                          ; 0x2706
-    mov ax, 0x93f0                   ; 0x2707
+    mov ax, bss_93f0                 ; 0x2707
     push ax                          ; 0x270a
     call ds_app_string_HHIL          ; 0x270b
     add sp, byte 6                   ; 0x270e
@@ -257,7 +257,7 @@ jumptable_268c:
     push ax                          ; 0x2714
     mov ax, 0x9576                   ; 0x2715
     push ax                          ; 0x2718
-    mov ax, 0x93f0                   ; 0x2719
+    mov ax, bss_93f0                 ; 0x2719
     push ax                          ; 0x271c
     call ds_app_string_HHIL          ; 0x271d
     add sp, byte 6                   ; 0x2720
@@ -265,7 +265,7 @@ jumptable_268c:
     push ax                          ; 0x2726
     mov ax, 0x958e                   ; 0x2727
     push ax                          ; 0x272a
-    mov ax, 0x93f0                   ; 0x272b
+    mov ax, bss_93f0                 ; 0x272b
     push ax                          ; 0x272e
     call ds_app_string_HHIL          ; 0x272f
     add sp, byte 6                   ; 0x2732
@@ -279,7 +279,7 @@ jumptable_268c:
     mov ax, 0xffff                   ; 0x2745
     ret                              ; 0x2748
 @..api_idx_0038_POGI.l18:
-    mov ax, 0x93f0                   ; 0x2749
+    mov ax, bss_93f0                 ; 0x2749
     push ax                          ; 0x274c
     mov ax, 0x669                    ; 0x274d
     push ax                          ; 0x2750
@@ -287,7 +287,7 @@ jumptable_268c:
     add sp, byte 4                   ; 0x2754
 @..api_idx_0038_POGI.l19:
     push word [bp + 0x6]             ; 0x2757
-    mov ax, 0x93f0                   ; 0x275a
+    mov ax, bss_93f0                 ; 0x275a
     push ax                          ; 0x275d
     call loc_LRGG                    ; 0x275e
     add sp, byte 4                   ; 0x2761

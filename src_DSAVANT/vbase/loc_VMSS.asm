@@ -19,7 +19,7 @@ loc_VMSS:
     jmp near @..loc_VMSS.l5          ; 0x6dfc
 jumptable_6e77_case_0:
     inc word [bp + 0x4]              ; 0x6dff
-    mov ax, 0xa4aa                   ; 0x6e02
+    mov ax, bss_a4aa                 ; 0x6e02
     push ax                          ; 0x6e05
     call api_idx_0004_RLUP           ; 0x6e06
     pop cx                           ; 0x6e09
@@ -39,7 +39,7 @@ jumptable_6e77_case_1:
     jmp short @..loc_VMSS.l6         ; 0x6e27
 jumptable_6e77_case_2:
     inc word [bp + 0x4]              ; 0x6e29
-    mov ax, 0xa4aa                   ; 0x6e2c
+    mov ax, bss_a4aa                 ; 0x6e2c
     push ax                          ; 0x6e2f
     call api_idx_0004_RLUP           ; 0x6e30
     pop cx                           ; 0x6e33
@@ -52,7 +52,7 @@ jumptable_6e77_case_3:
     jmp short @..loc_VMSS.l6         ; 0x6e45
 jumptable_6e77_case_4:
     inc word [bp + 0x4]              ; 0x6e47
-    mov ax, 0xa4aa                   ; 0x6e4a
+    mov ax, bss_a4aa                 ; 0x6e4a
     push ax                          ; 0x6e4d
     call api_idx_0004_RLUP           ; 0x6e4e
     pop cx                           ; 0x6e51
@@ -91,13 +91,13 @@ jumptable_6e77:
 @..loc_VMSS.l7:
     cmp byte [bss_a4aa], 0           ; 0x6e95
     je short @..loc_VMSS.l8          ; 0x6e9a
-    mov ax, 0xa4aa                   ; 0x6e9c
+    mov ax, bss_a4aa                 ; 0x6e9c
     push ax                          ; 0x6e9f
     lea ax, word [bp - 0x0105]       ; 0x6ea0
     push ax                          ; 0x6ea4
     call aztec_strcpy                ; 0x6ea5
     add sp, byte 4                   ; 0x6ea8
-    mov ax, 0x911c                   ; 0x6eab
+    mov ax, dseg_911c                ; 0x6eab
     push ax                          ; 0x6eae
     lea ax, word [bp - 0x0105]       ; 0x6eaf
     push ax                          ; 0x6eb3
@@ -125,12 +125,12 @@ jumptable_6e77:
     mov word [bp - 0x0002], ax       ; 0x6ee7
     cmp ax, 0x127                    ; 0x6eea
     jle short @..loc_VMSS.l10        ; 0x6eed
-    mov ax, 0xa4aa                   ; 0x6eef
+    mov ax, bss_a4aa                 ; 0x6eef
     push ax                          ; 0x6ef2
     call api_idx_0004_RLUP           ; 0x6ef3
     pop cx                           ; 0x6ef6
     push word [bp + 0x4]             ; 0x6ef7
-    mov ax, 0xa4aa                   ; 0x6efa
+    mov ax, bss_a4aa                 ; 0x6efa
     push ax                          ; 0x6efd
     call aztec_strcpy                ; 0x6efe
     add sp, byte 4                   ; 0x6f01
@@ -138,7 +138,7 @@ jumptable_6e77:
 @..loc_VMSS.l10:
     lea ax, word [bp - 0x0105]       ; 0x6f06
     push ax                          ; 0x6f0a
-    mov ax, 0xa4aa                   ; 0x6f0b
+    mov ax, bss_a4aa                 ; 0x6f0b
     push ax                          ; 0x6f0e
     call aztec_strcpy                ; 0x6f0f
     add sp, byte 4                   ; 0x6f12

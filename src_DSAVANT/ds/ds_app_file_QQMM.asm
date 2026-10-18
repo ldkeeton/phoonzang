@@ -48,7 +48,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
 @..ds_app_file_QQMM.l3:
     cmp word [bp + 0x6], byte 0      ; 0x2471
     jge short @..ds_app_file_QQMM.l4 ; 0x2475
-    mov ax, 0xb74                    ; 0x2477
+    mov ax, dseg_0b74                ; 0x2477
     push ax                          ; 0x247a
     lea ax, word [bp - 0x0050]       ; 0x247b
     push ax                          ; 0x247e
@@ -60,7 +60,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     add ax, strict word 0x41         ; 0x248a
     mov byte [bp - 0x00a0], al       ; 0x248d
     mov byte [bp - 0x009f], 0        ; 0x2491
-    mov ax, 0xb89                    ; 0x2496
+    mov ax, dseg_0b89                ; 0x2496
     push ax                          ; 0x2499
     lea ax, word [bp - 0x0050]       ; 0x249a
     push ax                          ; 0x249d
@@ -114,7 +114,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2515
     call ds_string_loc_QRJV          ; 0x2516
     add sp, byte 4                   ; 0x2519
-    mov ax, 0xb99                    ; 0x251c
+    mov ax, dseg_0b99                ; 0x251c
     push ax                          ; 0x251f
     lea ax, word [bp - 0x0050]       ; 0x2520
     push ax                          ; 0x2523
@@ -155,7 +155,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2576
     call ds_string_loc_QRJV          ; 0x2577
     add sp, byte 4                   ; 0x257a
-    mov ax, 0xba6                    ; 0x257d
+    mov ax, dseg_0ba6                ; 0x257d
     push ax                          ; 0x2580
     mov ax, 1                        ; 0x2581
     push ax                          ; 0x2584
@@ -282,7 +282,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x26a4
     call aztec_strcpy                ; 0x26a5
     add sp, byte 4                   ; 0x26a8
-    mov ax, 0xbaf                    ; 0x26ab
+    mov ax, dseg_0baf                ; 0x26ab
     push ax                          ; 0x26ae
     lea ax, word [bp - 0x00a0]       ; 0x26af
     push ax                          ; 0x26b3
@@ -315,7 +315,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     je short @..ds_app_file_QQMM.l14 ; 0x26f9
     mov ax, 0x30c                    ; 0x26fb
     push ax                          ; 0x26fe
-    mov ax, 0x5218                   ; 0x26ff
+    mov ax, bss_5218                 ; 0x26ff
     push ax                          ; 0x2702
     push word [bp - 0x00a2]          ; 0x2703
     call aztec_read                  ; 0x2707
@@ -350,7 +350,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     mov ax, word [bp - 0x00aa]       ; 0x2750
     mov word [bp + 0x6], ax          ; 0x2754
     mov word [bp - 0x00aa], 0xfffe   ; 0x2757
-    mov ax, 0x5926                   ; 0x275d
+    mov ax, bss_5926                 ; 0x275d
     push ax                          ; 0x2760
     lea ax, word [bp - 0x0078]       ; 0x2761
     push ax                          ; 0x2764
@@ -372,7 +372,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     mov ax, 0                        ; 0x278f
     push ax                          ; 0x2792
     push ax                          ; 0x2793
-    mov ax, 0xbb8                    ; 0x2794
+    mov ax, dseg_0bb8                ; 0x2794
     push ax                          ; 0x2797
     call ds_app_UUHT                 ; 0x2798
     add sp, byte 4                   ; 0x279b
@@ -395,7 +395,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     mov ax, 0                        ; 0x27c3
 @..ds_app_file_QQMM.l18:
     push ax                          ; 0x27c6
-    mov ax, 0xbc0                    ; 0x27c7
+    mov ax, dseg_0bc0                ; 0x27c7
     push ax                          ; 0x27ca
     call ds_app_UUHT                 ; 0x27cb
     add sp, byte 4                   ; 0x27ce

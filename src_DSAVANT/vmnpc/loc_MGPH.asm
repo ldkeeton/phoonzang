@@ -45,13 +45,13 @@ loc_MGPH:
     push ax                          ; 0xa4be
     call api_idx_0002_SLOH           ; 0xa4bf
     add sp, byte 6                   ; 0xa4c2
-    mov ax, 0xb032                   ; 0xa4c5
+    mov ax, bss_b032                 ; 0xa4c5
     push ax                          ; 0xa4c8
     mov ax, 0x1b80                   ; 0xa4c9
     push ax                          ; 0xa4cc
     call ds_app_mem_TIMR             ; 0xa4cd
     add sp, byte 4                   ; 0xa4d0
-    mov ax, 0xb03c                   ; 0xa4d3
+    mov ax, bss_b03c                 ; 0xa4d3
     push ax                          ; 0xa4d6
     mov ax, 0x1b81                   ; 0xa4d7
     push ax                          ; 0xa4da

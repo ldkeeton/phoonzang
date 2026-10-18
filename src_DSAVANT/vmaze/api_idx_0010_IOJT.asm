@@ -101,12 +101,12 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9b78
     imul word [bp + 0x4]             ; 0x9b7b
     mov bx, ax                       ; 0x9b7e
-    mov al, byte [bx - 0x7b18]       ; 0x9b80
+    mov al, byte [bx + bss_84e8]     ; 0x9b80
     push ax                          ; 0x9b84
     mov ax, 0x26                     ; 0x9b85
     imul word [bp + 0x6]             ; 0x9b88
     mov bx, ax                       ; 0x9b8b
-    mov cl, byte [bx - 0x7b18]       ; 0x9b8d
+    mov cl, byte [bx + bss_84e8]     ; 0x9b8d
     pop ax                           ; 0x9b91
     cmp al, cl                       ; 0x9b92
     je short @..api_idx_0010_IOJT.l6 ; 0x9b94
@@ -253,13 +253,13 @@ api_idx_0010_IOJT:
     mov ax, 0x26                     ; 0x9ce4
     imul word [bp + 0x4]             ; 0x9ce7
     mov bx, ax                       ; 0x9cea
-    mov al, byte [bx - 0x7b18]       ; 0x9cec
+    mov al, byte [bx + bss_84e8]     ; 0x9cec
     push ax                          ; 0x9cf0
     mov ax, 0x26                     ; 0x9cf1
     imul word [bp + 0x6]             ; 0x9cf4
     mov bx, ax                       ; 0x9cf7
     pop ax                           ; 0x9cf9
-    cmp al, byte [bx - 0x7b18]       ; 0x9cfa
+    cmp al, byte [bx + bss_84e8]     ; 0x9cfa
     jne short @..api_idx_0010_IOJT.l13 ; 0x9cfe
     cmp byte [bx - 0x7b16], 1        ; 0x9d00
     jne short @..api_idx_0010_IOJT.l13 ; 0x9d05

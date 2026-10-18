@@ -36,7 +36,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x0012], 1        ; 0x38d7
     cmp word [bp + 0x4], byte 1      ; 0x38dc
     jne short @..api_idx_004e_HUKL.l3 ; 0x38e0
-    mov ax, 0x90db                   ; 0x38e2
+    mov ax, dseg_90db                ; 0x38e2
     push ax                          ; 0x38e5
     lea ax, word [bp - 0x0026]       ; 0x38e6
     push ax                          ; 0x38e9
@@ -45,7 +45,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x000c], 0x591    ; 0x38f0
     jmp short @..api_idx_004e_HUKL.l4 ; 0x38f5
 @..api_idx_004e_HUKL.l3:
-    mov ax, 0x594e                   ; 0x38f7
+    mov ax, bss_594e                 ; 0x38f7
     push ax                          ; 0x38fa
     lea ax, word [bp - 0x0026]       ; 0x38fb
     push ax                          ; 0x38fe
@@ -55,7 +55,7 @@ api_idx_004e_HUKL:
 @..api_idx_004e_HUKL.l4:
     lea ax, word [bp - 0x0026]       ; 0x390a
     push ax                          ; 0x390d
-    mov ax, 0x593a                   ; 0x390e
+    mov ax, bss_593a                 ; 0x390e
     push ax                          ; 0x3911
     mov ax, 1                        ; 0x3912
     push ax                          ; 0x3915
@@ -74,7 +74,7 @@ api_idx_004e_HUKL:
     jne short @..api_idx_004e_HUKL.l6 ; 0x3931
     lea ax, word [bp - 0x0026]       ; 0x3933
     push ax                          ; 0x3936
-    mov ax, 0x594e                   ; 0x3937
+    mov ax, bss_594e                 ; 0x3937
     push ax                          ; 0x393a
     call aztec_strcpy                ; 0x393b
     add sp, byte 4                   ; 0x393e
@@ -95,19 +95,19 @@ api_idx_004e_HUKL:
     push ax                          ; 0x395e
     call ds_app_HVHT                 ; 0x395f
     add sp, byte 6                   ; 0x3962
-    mov ax, 0x593a                   ; 0x3965
+    mov ax, bss_593a                 ; 0x3965
     push ax                          ; 0x3968
-    mov ax, 0x91ee                   ; 0x3969
+    mov ax, bss_91ee                 ; 0x3969
     push ax                          ; 0x396c
     call aztec_strcpy                ; 0x396d
     add sp, byte 4                   ; 0x3970
-    mov ax, 0x91ee                   ; 0x3973
+    mov ax, bss_91ee                 ; 0x3973
     push ax                          ; 0x3976
     call aztec_strlen                ; 0x3977
     pop cx                           ; 0x397a
     cmp ax, strict word 0            ; 0x397b
     jle short @..api_idx_004e_HUKL.l7 ; 0x397e
-    mov ax, 0x91ee                   ; 0x3980
+    mov ax, bss_91ee                 ; 0x3980
     push ax                          ; 0x3983
     call aztec_strlen                ; 0x3984
     pop cx                           ; 0x3987
@@ -121,15 +121,15 @@ api_idx_004e_HUKL:
 @..api_idx_004e_HUKL.l7:
     lea ax, word [bp - 0x0026]       ; 0x399f
     push ax                          ; 0x39a2
-    mov ax, 0x91ee                   ; 0x39a3
+    mov ax, bss_91ee                 ; 0x39a3
     push ax                          ; 0x39a6
     call aztec_strcat                ; 0x39a7
     add sp, byte 4                   ; 0x39aa
     cmp byte [bss_5987], 1           ; 0x39ad
     jne short @..api_idx_004e_HUKL.l8 ; 0x39b2
-    mov ax, 0x91da                   ; 0x39b4
+    mov ax, bss_91da                 ; 0x39b4
     push ax                          ; 0x39b7
-    mov ax, 0x91c6                   ; 0x39b8
+    mov ax, bss_91c6                 ; 0x39b8
     push ax                          ; 0x39bb
     call aztec_strcmp                ; 0x39bc
     add sp, byte 4                   ; 0x39bf
@@ -137,15 +137,15 @@ api_idx_004e_HUKL:
     jne short @..api_idx_004e_HUKL.l8 ; 0x39c4
     jmp near @..api_idx_004e_HUKL.l14 ; 0x39c6
 @..api_idx_004e_HUKL.l8:
-    mov ax, 0x91da                   ; 0x39c9
+    mov ax, bss_91da                 ; 0x39c9
     push ax                          ; 0x39cc
     call aztec_strlen                ; 0x39cd
     pop cx                           ; 0x39d0
     cmp ax, strict word 0            ; 0x39d1
     jle short @..api_idx_004e_HUKL.l12 ; 0x39d4
-    mov ax, 0x91da                   ; 0x39d6
+    mov ax, bss_91da                 ; 0x39d6
     push ax                          ; 0x39d9
-    mov ax, 0x91c6                   ; 0x39da
+    mov ax, bss_91c6                 ; 0x39da
     push ax                          ; 0x39dd
     call aztec_strcmp                ; 0x39de
     add sp, byte 4                   ; 0x39e1
@@ -161,7 +161,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x000e]          ; 0x39f8
     mov ax, 0xffff                   ; 0x39fb
     push ax                          ; 0x39fe
-    mov ax, 0x91da                   ; 0x39ff
+    mov ax, bss_91da                 ; 0x39ff
     push ax                          ; 0x3a02
     call ds_app_file_QQMM            ; 0x3a03
     add sp, byte 8                   ; 0x3a06
@@ -181,7 +181,7 @@ api_idx_004e_HUKL:
     push word [bp - 0x000e]          ; 0x3a2a
     mov ax, 0xffff                   ; 0x3a2d
     push ax                          ; 0x3a30
-    mov ax, 0x91c6                   ; 0x3a31
+    mov ax, bss_91c6                 ; 0x3a31
     push ax                          ; 0x3a34
     call ds_app_file_QQMM            ; 0x3a35
     add sp, byte 8                   ; 0x3a38
@@ -203,7 +203,7 @@ api_idx_004e_HUKL:
     add sp, byte 8                   ; 0x3a5a
     mov ax, 0x301                    ; 0x3a5d
     push ax                          ; 0x3a60
-    mov ax, 0x91ee                   ; 0x3a61
+    mov ax, bss_91ee                 ; 0x3a61
     push ax                          ; 0x3a64
     call aztec_open                  ; 0x3a65
     add sp, byte 4                   ; 0x3a68
@@ -220,7 +220,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3a84
     push word [bp - 0x0012]          ; 0x3a85
     push word [bp - 0x0010]          ; 0x3a88
-    mov ax, 0x91c6                   ; 0x3a8b
+    mov ax, bss_91c6                 ; 0x3a8b
     push ax                          ; 0x3a8e
     call ds_app_file_QQMM            ; 0x3a8f
     add sp, byte 8                   ; 0x3a92
@@ -305,7 +305,7 @@ api_idx_004e_HUKL:
     add sp, byte 8                   ; 0x3b3e
     mov ax, 0x34c                    ; 0x3b41
     push ax                          ; 0x3b44
-    mov ax, 0x5642                   ; 0x3b45
+    mov ax, bss_5642                 ; 0x3b45
     push ax                          ; 0x3b48
     push word [bp - 0x000a]          ; 0x3b49
     call aztec_write                 ; 0x3b4c
@@ -326,7 +326,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3b72
     push word [bp - 0x0012]          ; 0x3b73
     push word [bp - 0x0010]          ; 0x3b76
-    mov ax, 0x91c6                   ; 0x3b79
+    mov ax, bss_91c6                 ; 0x3b79
     push ax                          ; 0x3b7c
     call ds_app_file_QQMM            ; 0x3b7d
     add sp, byte 8                   ; 0x3b80
@@ -360,7 +360,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3bc4
     push word [bp - 0x0012]          ; 0x3bc5
     push word [bp - 0x0010]          ; 0x3bc8
-    mov ax, 0x91c6                   ; 0x3bcb
+    mov ax, bss_91c6                 ; 0x3bcb
     push ax                          ; 0x3bce
     call ds_app_file_QQMM            ; 0x3bcf
     add sp, byte 8                   ; 0x3bd2
@@ -396,7 +396,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3c18
     push word [bp - 0x0012]          ; 0x3c19
     push word [bp - 0x0010]          ; 0x3c1c
-    mov ax, 0x91c6                   ; 0x3c1f
+    mov ax, bss_91c6                 ; 0x3c1f
     push ax                          ; 0x3c22
     call ds_app_file_QQMM            ; 0x3c23
     add sp, byte 8                   ; 0x3c26
@@ -440,7 +440,7 @@ api_idx_004e_HUKL:
     add sp, byte 0x0a                ; 0x3c77
     mov ax, 0x80                     ; 0x3c7a
     push ax                          ; 0x3c7d
-    mov ax, 0x9900                   ; 0x3c7e
+    mov ax, bss_9900                 ; 0x3c7e
     push ax                          ; 0x3c81
     push word [bp - 0x000a]          ; 0x3c82
     call aztec_write                 ; 0x3c85
@@ -461,7 +461,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3cab
     push word [bp - 0x0012]          ; 0x3cac
     push word [bp - 0x0010]          ; 0x3caf
-    mov ax, 0x91c6                   ; 0x3cb2
+    mov ax, bss_91c6                 ; 0x3cb2
     push ax                          ; 0x3cb5
     call ds_app_file_QQMM            ; 0x3cb6
     add sp, byte 8                   ; 0x3cb9
@@ -471,7 +471,7 @@ api_idx_004e_HUKL:
 @..api_idx_004e_HUKL.l27:
     mov ax, 0x80                     ; 0x3cc0
     push ax                          ; 0x3cc3
-    mov ax, 0x9980                   ; 0x3cc4
+    mov ax, bss_9980                 ; 0x3cc4
     push ax                          ; 0x3cc7
     push word [bp - 0x000a]          ; 0x3cc8
     call aztec_write                 ; 0x3ccb
@@ -492,7 +492,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3cf1
     push word [bp - 0x0012]          ; 0x3cf2
     push word [bp - 0x0010]          ; 0x3cf5
-    mov ax, 0x91c6                   ; 0x3cf8
+    mov ax, bss_91c6                 ; 0x3cf8
     push ax                          ; 0x3cfb
     call ds_app_file_QQMM            ; 0x3cfc
     add sp, byte 8                   ; 0x3cff
@@ -574,7 +574,7 @@ api_idx_004e_HUKL:
     mov word [bss_9a4a], ax          ; 0x3ddc
     mov ax, 0x4c                     ; 0x3ddf
     push ax                          ; 0x3de2
-    mov ax, 0x9a00                   ; 0x3de3
+    mov ax, bss_9a00                 ; 0x3de3
     push ax                          ; 0x3de6
     push word [bp - 0x000a]          ; 0x3de7
     call aztec_write                 ; 0x3dea
@@ -595,7 +595,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3e10
     push word [bp - 0x0012]          ; 0x3e11
     push word [bp - 0x0010]          ; 0x3e14
-    mov ax, 0x91c6                   ; 0x3e17
+    mov ax, bss_91c6                 ; 0x3e17
     push ax                          ; 0x3e1a
     call ds_app_file_QQMM            ; 0x3e1b
     add sp, byte 8                   ; 0x3e1e
@@ -605,7 +605,7 @@ api_idx_004e_HUKL:
 @..api_idx_004e_HUKL.l33:
     mov ax, 0x80                     ; 0x3e25
     push ax                          ; 0x3e28
-    mov ax, 0x8a6e                   ; 0x3e29
+    mov ax, bss_8a6e                 ; 0x3e29
     push ax                          ; 0x3e2c
     push word [bp - 0x000a]          ; 0x3e2d
     call aztec_write                 ; 0x3e30
@@ -613,7 +613,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x0008], ax       ; 0x3e36
     mov ax, 0x90                     ; 0x3e39
     push ax                          ; 0x3e3c
-    mov ax, 0x89de                   ; 0x3e3d
+    mov ax, bss_89de                 ; 0x3e3d
     push ax                          ; 0x3e40
     push word [bp - 0x000a]          ; 0x3e41
     call aztec_write                 ; 0x3e44
@@ -621,7 +621,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x0008], ax       ; 0x3e4a
     mov ax, 0x68                     ; 0x3e4d
     push ax                          ; 0x3e50
-    mov ax, 0x8976                   ; 0x3e51
+    mov ax, bss_8976                 ; 0x3e51
     push ax                          ; 0x3e54
     push word [bp - 0x000a]          ; 0x3e55
     call aztec_write                 ; 0x3e58
@@ -629,7 +629,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x0008], ax       ; 0x3e5e
     mov ax, 0x14a                    ; 0x3e61
     push ax                          ; 0x3e64
-    mov ax, 0x882c                   ; 0x3e65
+    mov ax, bss_882c                 ; 0x3e65
     push ax                          ; 0x3e68
     push word [bp - 0x000a]          ; 0x3e69
     call aztec_write                 ; 0x3e6c
@@ -637,7 +637,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x0008], ax       ; 0x3e72
     mov ax, 0x344                    ; 0x3e75
     push ax                          ; 0x3e78
-    mov ax, 0x84e8                   ; 0x3e79
+    mov ax, bss_84e8                 ; 0x3e79
     push ax                          ; 0x3e7c
     push word [bp - 0x000a]          ; 0x3e7d
     call aztec_write                 ; 0x3e80
@@ -645,7 +645,7 @@ api_idx_004e_HUKL:
     mov word [bp - 0x0008], ax       ; 0x3e86
     mov ax, 0x42                     ; 0x3e89
     push ax                          ; 0x3e8c
-    mov ax, 0x84a6                   ; 0x3e8d
+    mov ax, bss_84a6                 ; 0x3e8d
     push ax                          ; 0x3e90
     push word [bp - 0x000a]          ; 0x3e91
     call aztec_write                 ; 0x3e94
@@ -666,7 +666,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3eba
     push word [bp - 0x0012]          ; 0x3ebb
     push word [bp - 0x0010]          ; 0x3ebe
-    mov ax, 0x91c6                   ; 0x3ec1
+    mov ax, bss_91c6                 ; 0x3ec1
     push ax                          ; 0x3ec4
     call ds_app_file_QQMM            ; 0x3ec5
     add sp, byte 8                   ; 0x3ec8
@@ -676,7 +676,7 @@ api_idx_004e_HUKL:
 @..api_idx_004e_HUKL.l35:
     mov ax, 0x64                     ; 0x3ecf
     push ax                          ; 0x3ed2
-    mov ax, 0x5990                   ; 0x3ed3
+    mov ax, bss_5990                 ; 0x3ed3
     push ax                          ; 0x3ed6
     push word [bp - 0x000a]          ; 0x3ed7
     call aztec_write                 ; 0x3eda
@@ -697,7 +697,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3f00
     push word [bp - 0x0012]          ; 0x3f01
     push word [bp - 0x0010]          ; 0x3f04
-    mov ax, 0x91c6                   ; 0x3f07
+    mov ax, bss_91c6                 ; 0x3f07
     push ax                          ; 0x3f0a
     call ds_app_file_QQMM            ; 0x3f0b
     add sp, byte 8                   ; 0x3f0e
@@ -720,7 +720,7 @@ api_idx_004e_HUKL:
     rep movsw                        ; 0x3f33
     mov ax, 0x248                    ; 0x3f35
     push ax                          ; 0x3f38
-    mov ax, 0x9a4c                   ; 0x3f39
+    mov ax, bss_9a4c                 ; 0x3f39
     push ax                          ; 0x3f3c
     push word [bp - 0x000a]          ; 0x3f3d
     call aztec_write                 ; 0x3f40
@@ -741,7 +741,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3f66
     push word [bp - 0x0012]          ; 0x3f67
     push word [bp - 0x0010]          ; 0x3f6a
-    mov ax, 0x91c6                   ; 0x3f6d
+    mov ax, bss_91c6                 ; 0x3f6d
     push ax                          ; 0x3f70
     call ds_app_file_QQMM            ; 0x3f71
     add sp, byte 8                   ; 0x3f74
@@ -763,7 +763,7 @@ api_idx_004e_HUKL:
     push ax                          ; 0x3f97
     push word [bp - 0x0012]          ; 0x3f98
     push word [bp - 0x0010]          ; 0x3f9b
-    mov ax, 0x91c6                   ; 0x3f9e
+    mov ax, bss_91c6                 ; 0x3f9e
     push ax                          ; 0x3fa1
     call ds_app_file_QQMM            ; 0x3fa2
     add sp, byte 8                   ; 0x3fa5

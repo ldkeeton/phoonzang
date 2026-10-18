@@ -22,7 +22,7 @@ api_idx_0004_USIK:
     mov ax, word [bp - 0x0004]       ; 0x182a
     shl ax, 1                        ; 0x182d
     mov bx, ax                       ; 0x182f
-    mov ax, word [bx - 0x7302]       ; 0x1831
+    mov ax, word [bx + bss_8cfe]     ; 0x1831
     jmp near @..api_idx_0004_USIK.l16 ; 0x1835
 @..api_idx_0004_USIK.l1:
     cmp word [bp - 0x0002], byte 2   ; 0x1838

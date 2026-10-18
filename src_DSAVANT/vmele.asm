@@ -44,6 +44,7 @@ bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 
 %include "vmele/api_idx_00a8_KNHJ.asm"     ; 0x041d
 
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 %include "vmele/api_idx_005e_RKOR.asm"     ; 0x0649
 
 %include "vmele/asm_only/api_idx_0008_SJOG.asm"     ; 0x07ad
@@ -57,6 +58,7 @@ bss_90bc equ __zdseg_end + (__zobss_90bc - __zdata_start)
 
 %include "vmele/api_idx_000e_UGVQ.asm"     ; 0x12ac
 
+dseg_90a2 equ __zdseg_end + (__zdseg_90a2 - __zdata_start)
 %include "vmele/asm_only/api_idx_005c_UIOK.asm"     ; 0x14e6
 
 %include "shared/loc_SIKN.asm"              ; 0x16d1
@@ -133,12 +135,12 @@ dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 
 %include "vmele/asm_only/string_loc_SJPQ.asm"       ; 0x374e
 
+__zdseg_9098:
 __zdata_start:
-
     db 'MON00.PIC', 0
+__zdseg_90a2:
     db 0x20, 0x00
     db 'VM1.$$$', 0
-
 __zdseg_90ac:
     db 0x00, 0x00
 __zdseg_90ae:

@@ -132,7 +132,7 @@ api_idx_005c_UIOK:
     push word [bp - 0x000a]          ; 0x1621
     call ds_app_OLKR                 ; 0x1624
     add sp, byte 4                   ; 0x1627
-    mov ax, 0x90a2                   ; 0x162a
+    mov ax, dseg_90a2                ; 0x162a
     push ax                          ; 0x162d
     lea ax, word [bp - 0x005c]       ; 0x162e
     push ax                          ; 0x1631

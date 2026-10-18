@@ -4,11 +4,11 @@ api_idx_0010_UUTT:
     call aztec_csav                  ; 0x9a32
     push word [bss_8462]             ; 0x9a35
     push word [bss_8464]             ; 0x9a39
-    mov ax, 0x90e6                   ; 0x9a3d
+    mov ax, bss_90e6                 ; 0x9a3d
     push ax                          ; 0x9a40
     call loc_HJSG                    ; 0x9a41
     add sp, byte 6                   ; 0x9a44
-    mov ax, 0x9136                   ; 0x9a47
+    mov ax, bss_9136                 ; 0x9a47
     push ax                          ; 0x9a4a
     mov ax, 0xdbd                    ; 0x9a4b
     push ax                          ; 0x9a4e
@@ -110,7 +110,7 @@ api_idx_0010_UUTT:
     sub ah, ah                       ; 0x9b3e
     test ax, 8                       ; 0x9b40
     je short @..api_idx_0010_UUTT.l4 ; 0x9b43
-    mov ax, 0x9136                   ; 0x9b45
+    mov ax, bss_9136                 ; 0x9b45
     push ax                          ; 0x9b48
     mov ax, 0xdc5                    ; 0x9b49
     push ax                          ; 0x9b4c
@@ -130,11 +130,11 @@ api_idx_0010_UUTT:
     mov ax, 1                        ; 0x9b6e
 @..api_idx_0010_UUTT.l6:
     push ax                          ; 0x9b71
-    mov ax, 0x9186                   ; 0x9b72
+    mov ax, bss_9186                 ; 0x9b72
     push ax                          ; 0x9b75
-    mov ax, 0x9136                   ; 0x9b76
+    mov ax, bss_9136                 ; 0x9b76
     push ax                          ; 0x9b79
-    mov ax, 0x90e6                   ; 0x9b7a
+    mov ax, bss_90e6                 ; 0x9b7a
     push ax                          ; 0x9b7d
     mov ax, 0                        ; 0x9b7e
     push ax                          ; 0x9b81

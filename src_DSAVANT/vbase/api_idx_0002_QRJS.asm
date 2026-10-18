@@ -4,7 +4,7 @@ api_idx_0002_QRJS:
     call aztec_csav                  ; 0x8e6e
     mov ax, 0                        ; 0x8e71
     push ax                          ; 0x8e74
-    mov ax, 0x919a                   ; 0x8e75
+    mov ax, dseg_919a                ; 0x8e75
     push ax                          ; 0x8e78
     call api_idx_0002_LVPS           ; 0x8e79
     add sp, byte 4                   ; 0x8e7c
@@ -39,9 +39,9 @@ api_idx_0002_QRJS:
     mov word [bss_a5b8], ax          ; 0x8ec0
     mov ax, word [bp + 0x8]          ; 0x8ec3
     mov word [bss_a5ba], ax          ; 0x8ec6
-    mov ax, 0x91a7                   ; 0x8ec9
+    mov ax, dseg_91a7                ; 0x8ec9
     push ax                          ; 0x8ecc
-    mov ax, 0xa5c6                   ; 0x8ecd
+    mov ax, bss_a5c6                 ; 0x8ecd
     push ax                          ; 0x8ed0
     call aztec_strcpy                ; 0x8ed1
     add sp, byte 4                   ; 0x8ed4

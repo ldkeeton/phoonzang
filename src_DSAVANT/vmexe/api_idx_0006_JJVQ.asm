@@ -31,14 +31,14 @@ api_idx_0006_JJVQ:
 @..api_idx_0006_JJVQ.l4:
     push word [bss_8462]             ; 0x9e99
     push word [bss_8464]             ; 0x9e9d
-    mov ax, 0x90e6                   ; 0x9ea1
+    mov ax, bss_90e6                 ; 0x9ea1
     push ax                          ; 0x9ea4
     call loc_HJSG                    ; 0x9ea5
     add sp, byte 6                   ; 0x9ea8
     mov ax, word [bp + 0x4]          ; 0x9eab
     cmp ax, word [bp + 0x6]          ; 0x9eae
     jle short @..api_idx_0006_JJVQ.l5 ; 0x9eb1
-    mov ax, 0x9136                   ; 0x9eb3
+    mov ax, bss_9136                 ; 0x9eb3
     push ax                          ; 0x9eb6
     mov ax, 0xdb9                    ; 0x9eb7
     push ax                          ; 0x9eba
@@ -47,7 +47,7 @@ api_idx_0006_JJVQ:
     mov word [bp - 0x0002], 0xfffe   ; 0x9ec1
     jmp short @..api_idx_0006_JJVQ.l6 ; 0x9ec6
 @..api_idx_0006_JJVQ.l5:
-    mov ax, 0x9136                   ; 0x9ec8
+    mov ax, bss_9136                 ; 0x9ec8
     push ax                          ; 0x9ecb
     mov ax, 0xdba                    ; 0x9ecc
     push ax                          ; 0x9ecf
@@ -62,11 +62,11 @@ api_idx_0006_JJVQ:
     push ax                          ; 0x9ee7
     mov ax, 1                        ; 0x9ee8
     push ax                          ; 0x9eeb
-    mov ax, 0x9186                   ; 0x9eec
+    mov ax, bss_9186                 ; 0x9eec
     push ax                          ; 0x9eef
-    mov ax, 0x9136                   ; 0x9ef0
+    mov ax, bss_9136                 ; 0x9ef0
     push ax                          ; 0x9ef3
-    mov ax, 0x90e6                   ; 0x9ef4
+    mov ax, bss_90e6                 ; 0x9ef4
     push ax                          ; 0x9ef7
     mov ax, 0                        ; 0x9ef8
     push ax                          ; 0x9efb

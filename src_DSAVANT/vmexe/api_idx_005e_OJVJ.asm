@@ -16,7 +16,7 @@ api_idx_005e_OJVJ:
     mov ax, word [bp - 0x0002]       ; 0x34dc
     cmp ax, strict word 0x12         ; 0x34df
     jl short @..api_idx_005e_OJVJ.l1 ; 0x34e2
-    mov ax, 0x90a6                   ; 0x34e4
+    mov ax, dseg_90a6                ; 0x34e4
     push ax                          ; 0x34e7
     lea ax, word [bp - 0x005e]       ; 0x34e8
     push ax                          ; 0x34eb

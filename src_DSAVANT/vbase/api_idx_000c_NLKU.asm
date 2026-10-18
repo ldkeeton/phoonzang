@@ -108,7 +108,7 @@ api_idx_000c_NLKU:
     push ax                          ; 0x415d
     mov ax, 0x200                    ; 0x415e
     push ax                          ; 0x4161
-    mov ax, 0xa294                   ; 0x4162
+    mov ax, bss_a294                 ; 0x4162
     push ax                          ; 0x4165
     call aztec_setmem                ; 0x4166
     add sp, byte 6                   ; 0x4169

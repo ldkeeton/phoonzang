@@ -13,7 +13,7 @@ api_idx_0002_JLVK:
     pop ax                           ; 0x93c5
     add ax, cx                       ; 0x93c6
     mov bx, ax                       ; 0x93c8
-    mov al, byte [bx - 0x77d4]       ; 0x93ca
+    mov al, byte [bx + bss_882c]     ; 0x93ca
     cbw                              ; 0x93ce
     cmp ax, word [bp + 0x6]          ; 0x93cf
     jne short @..api_idx_0002_JLVK.l2 ; 0x93d2
@@ -47,7 +47,7 @@ api_idx_0002_JLVK:
     add cx, ax                       ; 0x9415
     mov bx, cx                       ; 0x9417
     pop ax                           ; 0x9419
-    mov byte [bx - 0x77d4], al       ; 0x941a
+    mov byte [bx + bss_882c], al     ; 0x941a
     mov al, byte [bp + 0x8]          ; 0x941e
     mov byte [bx - 0x77d3], al       ; 0x9421
     mov al, byte [bp + 0xa]          ; 0x9425

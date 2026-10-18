@@ -393,7 +393,7 @@ api_idx_0002_HQSQ:
 @..api_idx_0002_HQSQ.l16:
     mov ax, 0                        ; 0x92da
     push ax                          ; 0x92dd
-    mov ax, 0x91ae                   ; 0x92de
+    mov ax, dseg_91ae                ; 0x92de
     push ax                          ; 0x92e1
     call api_idx_0002_LVPS           ; 0x92e2
     add sp, byte 4                   ; 0x92e5

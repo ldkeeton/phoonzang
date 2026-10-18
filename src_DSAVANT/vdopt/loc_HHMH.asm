@@ -5,7 +5,7 @@ loc_HHMH:
     mov ax, word [bss_82ee]          ; 0x04bd
     shl ax, 1                        ; 0x04c0
     mov bx, ax                       ; 0x04c2
-    mov word [bx - 0x7302], 0        ; 0x04c4
+    mov word [bx + bss_8cfe], 0      ; 0x04c4
     push ax                          ; 0x04ca
     mov cx, word [bp + 0x4]          ; 0x04cb
     shl cx, 1                        ; 0x04ce

@@ -23,17 +23,17 @@ api_idx_000e_HLRI:
     mov word [bp - 0x0006], dx       ; 0x5fd7
     push word [bss_8462]             ; 0x5fda
     push word [bss_8464]             ; 0x5fde
-    mov ax, 0x90e6                   ; 0x5fe2
+    mov ax, bss_90e6                 ; 0x5fe2
     push ax                          ; 0x5fe5
     call loc_HJSG                    ; 0x5fe6
     add sp, byte 6                   ; 0x5fe9
-    mov ax, 0x9136                   ; 0x5fec
+    mov ax, bss_9136                 ; 0x5fec
     push ax                          ; 0x5fef
     mov ax, 0xcec                    ; 0x5ff0
     push ax                          ; 0x5ff3
     call ds_app_mem_TIMR             ; 0x5ff4
     add sp, byte 4                   ; 0x5ff7
-    mov ax, 0x9186                   ; 0x5ffa
+    mov ax, bss_9186                 ; 0x5ffa
     push ax                          ; 0x5ffd
     mov ax, word [bp - 0x0006]       ; 0x5ffe
     add ax, 0xfa0                    ; 0x6001
@@ -56,11 +56,11 @@ api_idx_000e_HLRI:
     mov ax, 1                        ; 0x602e
 @..api_idx_000e_HLRI.l1:
     push ax                          ; 0x6031
-    mov ax, 0x9186                   ; 0x6032
+    mov ax, bss_9186                 ; 0x6032
     push ax                          ; 0x6035
-    mov ax, 0x9136                   ; 0x6036
+    mov ax, bss_9136                 ; 0x6036
     push ax                          ; 0x6039
-    mov ax, 0x90e6                   ; 0x603a
+    mov ax, bss_90e6                 ; 0x603a
     push ax                          ; 0x603d
     mov ax, 0                        ; 0x603e
     push ax                          ; 0x6041

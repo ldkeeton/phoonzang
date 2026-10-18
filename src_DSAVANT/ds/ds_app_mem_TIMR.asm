@@ -30,7 +30,7 @@ ds_app_mem_TIMR: ; Aztec csav frame=0x010a
     cmp ax, word [bp - 0x0004]       ; 0x07c0
     je short @..ds_app_mem_TIMR.l4   ; 0x07c3
     mov bx, word [bp - 0x0002]       ; 0x07c5
-    mov al, byte [bx + 0x3e12]       ; 0x07c8
+    mov al, byte [bx + bss_3e12]     ; 0x07c8
     sub ah, ah                       ; 0x07cc
     add ax, bx                       ; 0x07ce
     inc ax                           ; 0x07d0
@@ -39,7 +39,7 @@ ds_app_mem_TIMR: ; Aztec csav frame=0x010a
     jmp short @..ds_app_mem_TIMR.l3  ; 0x07d7
 @..ds_app_mem_TIMR.l4:
     mov bx, word [bp - 0x0002]       ; 0x07d9
-    mov al, byte [bx + 0x3e12]       ; 0x07dc
+    mov al, byte [bx + bss_3e12]     ; 0x07dc
     sub ah, ah                       ; 0x07e0
     mov word [bp - 0x0006], ax       ; 0x07e2
     inc word [bp - 0x0002]           ; 0x07e5

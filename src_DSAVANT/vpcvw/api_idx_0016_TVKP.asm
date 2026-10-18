@@ -2,7 +2,7 @@
 api_idx_0016_TVKP:
     mov ax, 0xffea                   ; 0x9434
     call aztec_csav                  ; 0x9437
-    mov ax, 0x93c9                   ; 0x943a
+    mov ax, dseg_93c9                ; 0x943a
     push ax                          ; 0x943d
     lea ax, word [bp - 0x0016]       ; 0x943e
     push ax                          ; 0x9441

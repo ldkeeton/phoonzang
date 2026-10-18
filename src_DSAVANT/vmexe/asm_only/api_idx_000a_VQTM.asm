@@ -339,11 +339,11 @@ jumptable_78e5_case_5:
 @..api_idx_000a_VQTM.l14:
     push word [bp + 0xa]             ; 0x773b
     push word [bp + 0x8]             ; 0x773e
-    mov ax, 0x90e6                   ; 0x7741
+    mov ax, bss_90e6                 ; 0x7741
     push ax                          ; 0x7744
     call loc_HJSG                    ; 0x7745
     add sp, byte 6                   ; 0x7748
-    mov ax, 0x9186                   ; 0x774b
+    mov ax, bss_9186                 ; 0x774b
     push ax                          ; 0x774e
     push word [bp - 0x000a]          ; 0x774f
     call ds_app_mem_TIMR             ; 0x7752
@@ -359,12 +359,12 @@ jumptable_78e5_case_5:
     push ax                          ; 0x776e
     mov ax, 0x9136                   ; 0x776f
     push ax                          ; 0x7772
-    mov ax, 0x9186                   ; 0x7773
+    mov ax, bss_9186                 ; 0x7773
     push ax                          ; 0x7776
     call ds_app_string_HHIL          ; 0x7777
     add sp, byte 6                   ; 0x777a
 @..api_idx_000a_VQTM.l15:
-    mov ax, 0x9136                   ; 0x777d
+    mov ax, bss_9136                 ; 0x777d
     push ax                          ; 0x7780
     mov ax, 0xea6                    ; 0x7781
     push ax                          ; 0x7784
@@ -383,11 +383,11 @@ jumptable_78e5_case_5:
     mov ax, 1                        ; 0x77a1
 @..api_idx_000a_VQTM.l16:
     push ax                          ; 0x77a4
-    mov ax, 0x9186                   ; 0x77a5
+    mov ax, bss_9186                 ; 0x77a5
     push ax                          ; 0x77a8
-    mov ax, 0x9136                   ; 0x77a9
+    mov ax, bss_9136                 ; 0x77a9
     push ax                          ; 0x77ac
-    mov ax, 0x90e6                   ; 0x77ad
+    mov ax, bss_90e6                 ; 0x77ad
     push ax                          ; 0x77b0
     mov ax, 4                        ; 0x77b1
     push ax                          ; 0x77b4

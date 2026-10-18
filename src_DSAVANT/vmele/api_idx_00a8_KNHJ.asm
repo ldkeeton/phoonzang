@@ -145,7 +145,7 @@ api_idx_00a8_KNHJ:
     imul word [bp - 0x000a]          ; 0x0601
     add ax, word [bp - 0x000c]       ; 0x0604
     mov bx, ax                       ; 0x0607
-    cmp byte [bx - 0x7622], 0x23     ; 0x0609
+    cmp byte [bx + bss_89de], 0x23   ; 0x0609
     jle short @..api_idx_00a8_KNHJ.l8 ; 0x060e
     mov ax, 0xc                      ; 0x0610
     imul word [bp - 0x000c]          ; 0x0613

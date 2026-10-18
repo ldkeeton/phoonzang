@@ -51,7 +51,7 @@ api_idx_002c_JIHO:
     push ax                          ; 0x67b0
     mov ax, 0                        ; 0x67b1
     push ax                          ; 0x67b4
-    mov ax, 0x9501                   ; 0x67b5
+    mov ax, dseg_9501                ; 0x67b5
     push ax                          ; 0x67b8
     call ds_app_UUHT                 ; 0x67b9
     add sp, byte 4                   ; 0x67bc
@@ -61,7 +61,7 @@ api_idx_002c_JIHO:
     mov word [bp - 0x0004], ax       ; 0x67c6
     mov ax, 0x18                     ; 0x67c9
     push ax                          ; 0x67cc
-    mov ax, 0x906e                   ; 0x67cd
+    mov ax, bss_906e                 ; 0x67cd
     push ax                          ; 0x67d0
     push word [bp - 0x0004]          ; 0x67d1
     call aztec_write                 ; 0x67d4

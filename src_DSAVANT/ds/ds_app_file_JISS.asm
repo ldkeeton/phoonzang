@@ -37,7 +37,7 @@ ds_app_file_JISS: ; Aztec csav frame=0x0018
 @..ds_app_file_JISS.l3:
     cmp word [bp - 0x0002], byte 0   ; 0x297d
     je short @..ds_app_file_JISS.l6  ; 0x2981
-    mov ax, 0xbd7                    ; 0x2983
+    mov ax, dseg_0bd7                ; 0x2983
     push ax                          ; 0x2986
     lea ax, word [bp - 0x0018]       ; 0x2987
     push ax                          ; 0x298a

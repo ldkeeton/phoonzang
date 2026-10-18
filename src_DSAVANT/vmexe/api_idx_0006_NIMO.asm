@@ -273,7 +273,7 @@ jumptable_3341:
     add sp, byte 4                   ; 0x3388
     push word [bp - 0x0002]          ; 0x338b
     push word [bp + 0x4]             ; 0x338e
-    mov ax, 0x90e6                   ; 0x3391
+    mov ax, bss_90e6                 ; 0x3391
     push ax                          ; 0x3394
     call loc_HJSG                    ; 0x3395
     add sp, byte 6                   ; 0x3398
@@ -285,7 +285,7 @@ jumptable_3341:
     mov ax, 1                        ; 0x33a8
 @..api_idx_0006_NIMO.l7:
     push ax                          ; 0x33ab
-    mov ax, 0x90e6                   ; 0x33ac
+    mov ax, bss_90e6                 ; 0x33ac
     push ax                          ; 0x33af
     call api_idx_0002_TMNV           ; 0x33b0
     add sp, byte 6                   ; 0x33b3

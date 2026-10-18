@@ -19,7 +19,7 @@ loc_NOVO:
     push ax                          ; 0x084e
     call bios_video_loc_HMPN         ; 0x084f
     pop cx                           ; 0x0852
-    mov ax, 0x144b                   ; 0x0853
+    mov ax, dseg_144b                ; 0x0853
     push ax                          ; 0x0856
     call bios_video_loc_QTQU         ; 0x0857
     pop cx                           ; 0x085a

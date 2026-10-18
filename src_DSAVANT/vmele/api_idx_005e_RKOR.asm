@@ -16,7 +16,7 @@ api_idx_005e_RKOR:
     mov ax, word [bp - 0x0002]       ; 0x0669
     cmp ax, strict word 0x12         ; 0x066c
     jl short @..api_idx_005e_RKOR.l1 ; 0x066f
-    mov ax, 0x9098                   ; 0x0671
+    mov ax, dseg_9098                ; 0x0671
     push ax                          ; 0x0674
     lea ax, word [bp - 0x005e]       ; 0x0675
     push ax                          ; 0x0678

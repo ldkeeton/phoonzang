@@ -107,7 +107,7 @@ loc_SNOI:
     mov word [bss_9126], 0           ; 0x7ea0
     cmp word [bp + 0x4], byte 0      ; 0x7ea6
     jle short @..loc_SNOI.l2         ; 0x7eaa
-    mov ax, 0x9128                   ; 0x7eac
+    mov ax, bss_9128                 ; 0x7eac
     push ax                          ; 0x7eaf
     push word [bp + 0x4]             ; 0x7eb0
     call ds_app_mem_TIMR             ; 0x7eb3

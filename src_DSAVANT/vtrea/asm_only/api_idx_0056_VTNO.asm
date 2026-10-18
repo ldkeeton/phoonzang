@@ -98,9 +98,9 @@ api_idx_0056_VTNO:
     push ax                          ; 0x13b0
     mov ax, 1                        ; 0x13b1
     push ax                          ; 0x13b4
-    mov ax, 0x90b3                   ; 0x13b5
+    mov ax, dseg_90b3                ; 0x13b5
     push ax                          ; 0x13b8
-    mov ax, 0x90b2                   ; 0x13b9
+    mov ax, dseg_90b2                ; 0x13b9
     push ax                          ; 0x13bc
     lea ax, word [bp - 0x0056]       ; 0x13bd
     push ax                          ; 0x13c0

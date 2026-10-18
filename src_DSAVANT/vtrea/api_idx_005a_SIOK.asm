@@ -49,9 +49,9 @@ api_idx_005a_SIOK:
     push ax                          ; 0x116f
     mov ax, 1                        ; 0x1170
     push ax                          ; 0x1173
-    mov ax, 0x90b1                   ; 0x1174
+    mov ax, dseg_90b1                ; 0x1174
     push ax                          ; 0x1177
-    mov ax, 0x90b0                   ; 0x1178
+    mov ax, dseg_90b0                ; 0x1178
     push ax                          ; 0x117b
     lea ax, word [bp - 0x0050]       ; 0x117c
     push ax                          ; 0x117f

@@ -11,7 +11,7 @@ api_idx_005a_UJPS:
     mov word [bp - 0x000e], ax       ; 0x9f65
     push word [bss_8462]             ; 0x9f68
     push word [bss_8464]             ; 0x9f6c
-    mov ax, 0x90e6                   ; 0x9f70
+    mov ax, bss_90e6                 ; 0x9f70
     push ax                          ; 0x9f73
     call loc_HJSG                    ; 0x9f74
     add sp, byte 6                   ; 0x9f77
@@ -77,13 +77,13 @@ api_idx_005a_UJPS:
     je short @..api_idx_005a_UJPS.l2 ; 0xa00c
     lea ax, word [bp - 0x005a]       ; 0xa00e
     push ax                          ; 0xa011
-    mov ax, 0x9186                   ; 0xa012
+    mov ax, bss_9186                 ; 0xa012
     push ax                          ; 0xa015
     call aztec_strcpy                ; 0xa016
     add sp, byte 4                   ; 0xa019
     jmp short @..api_idx_005a_UJPS.l3 ; 0xa01c
 @..api_idx_005a_UJPS.l2:
-    mov ax, 0x9186                   ; 0xa01e
+    mov ax, bss_9186                 ; 0xa01e
     push ax                          ; 0xa021
     mov al, byte [bp - 0x0021]       ; 0xa022
     sub ah, ah                       ; 0xa025
@@ -110,7 +110,7 @@ api_idx_005a_UJPS:
     sub ah, ah                       ; 0xa054
     jmp near @..api_idx_005a_UJPS.l20 ; 0xa056
 @..api_idx_005a_UJPS.l5:
-    mov ax, 0x9136                   ; 0xa059
+    mov ax, bss_9136                 ; 0xa059
     push ax                          ; 0xa05c
     mov ax, 0xcf1                    ; 0xa05d
     push ax                          ; 0xa060
@@ -118,7 +118,7 @@ api_idx_005a_UJPS:
     add sp, byte 4                   ; 0xa064
     jmp near @..api_idx_005a_UJPS.l24 ; 0xa067
 @..api_idx_005a_UJPS.l6:
-    mov ax, 0x9136                   ; 0xa06a
+    mov ax, bss_9136                 ; 0xa06a
     push ax                          ; 0xa06d
     mov ax, 0xcf2                    ; 0xa06e
     push ax                          ; 0xa071
@@ -127,7 +127,7 @@ api_idx_005a_UJPS:
     mov word [bp - 0x0012], 0x1b     ; 0xa078
     jmp near @..api_idx_005a_UJPS.l24 ; 0xa07d
 @..api_idx_005a_UJPS.l7:
-    mov ax, 0x9136                   ; 0xa080
+    mov ax, bss_9136                 ; 0xa080
     push ax                          ; 0xa083
     mov ax, 0xcf3                    ; 0xa084
     push ax                          ; 0xa087
@@ -140,7 +140,7 @@ api_idx_005a_UJPS:
     cmp word [bp - 0x0006], byte 0x62 ; 0xa097
     jne short @..api_idx_005a_UJPS.l10 ; 0xa09b
 @..api_idx_005a_UJPS.l9:
-    mov ax, 0x9136                   ; 0xa09d
+    mov ax, bss_9136                 ; 0xa09d
     push ax                          ; 0xa0a0
     mov ax, 0xcf6                    ; 0xa0a1
     push ax                          ; 0xa0a4
@@ -207,7 +207,7 @@ api_idx_005a_UJPS:
 @..api_idx_005a_UJPS.l14:
     cmp word [bp - 0x0004], byte 0   ; 0xa135
     jne short @..api_idx_005a_UJPS.l15 ; 0xa139
-    mov ax, 0x9136                   ; 0xa13b
+    mov ax, bss_9136                 ; 0xa13b
     push ax                          ; 0xa13e
     mov ax, 0xce9                    ; 0xa13f
     push ax                          ; 0xa142
@@ -215,7 +215,7 @@ api_idx_005a_UJPS:
     add sp, byte 4                   ; 0xa146
     jmp short @..api_idx_005a_UJPS.l16 ; 0xa149
 @..api_idx_005a_UJPS.l15:
-    mov ax, 0x9136                   ; 0xa14b
+    mov ax, bss_9136                 ; 0xa14b
     push ax                          ; 0xa14e
     mov ax, 0xce8                    ; 0xa14f
     push ax                          ; 0xa152
@@ -250,7 +250,7 @@ api_idx_005a_UJPS:
     mov bx, ax                       ; 0xa18f
     cmp word [bx + 0x5c34], strict word 0x1d4 ; 0xa191
     jne short @..api_idx_005a_UJPS.l18 ; 0xa197
-    mov ax, 0x9136                   ; 0xa199
+    mov ax, bss_9136                 ; 0xa199
     push ax                          ; 0xa19c
     mov ax, 0xcf3                    ; 0xa19d
     push ax                          ; 0xa1a0
@@ -258,7 +258,7 @@ api_idx_005a_UJPS:
     add sp, byte 4                   ; 0xa1a4
     jmp short @..api_idx_005a_UJPS.l19 ; 0xa1a7
 @..api_idx_005a_UJPS.l18:
-    mov ax, 0x9136                   ; 0xa1a9
+    mov ax, bss_9136                 ; 0xa1a9
     push ax                          ; 0xa1ac
     mov ax, 0xcf0                    ; 0xa1ad
     push ax                          ; 0xa1b0
@@ -294,7 +294,7 @@ api_idx_005a_UJPS:
     cmp byte [bp - 0x0022], 4        ; 0xa1f1
     jne short @..api_idx_005a_UJPS.l27 ; 0xa1f5
 @..api_idx_005a_UJPS.l26:
-    mov ax, 0x9136                   ; 0xa1f7
+    mov ax, bss_9136                 ; 0xa1f7
     push ax                          ; 0xa1fa
     mov ax, 0xcf5                    ; 0xa1fb
     push ax                          ; 0xa1fe
@@ -302,7 +302,7 @@ api_idx_005a_UJPS:
     add sp, byte 4                   ; 0xa202
     jmp short @..api_idx_005a_UJPS.l28 ; 0xa205
 @..api_idx_005a_UJPS.l27:
-    mov ax, 0x9136                   ; 0xa207
+    mov ax, bss_9136                 ; 0xa207
     push ax                          ; 0xa20a
     mov ax, 0xcf4                    ; 0xa20b
     push ax                          ; 0xa20e
@@ -314,7 +314,7 @@ api_idx_005a_UJPS:
     cmp byte [bp - 0x001b], 0x58     ; 0xa21d
     jne short @..api_idx_005a_UJPS.l29 ; 0xa221
     mov word [bss_8458], 1           ; 0xa223
-    mov ax, 0x9136                   ; 0xa229
+    mov ax, bss_9136                 ; 0xa229
     push ax                          ; 0xa22c
     mov ax, 0xcf0                    ; 0xa22d
     push ax                          ; 0xa230
@@ -385,7 +385,7 @@ api_idx_005a_UJPS:
     mov byte [bx + 0xa5], al         ; 0xa2da
 @..api_idx_005a_UJPS.l31:
     mov word [bp - 0x0012], 0x1b     ; 0xa2de
-    mov ax, 0x9136                   ; 0xa2e3
+    mov ax, bss_9136                 ; 0xa2e3
     push ax                          ; 0xa2e6
     mov ax, 0xcf2                    ; 0xa2e7
     push ax                          ; 0xa2ea
@@ -397,11 +397,11 @@ api_idx_005a_UJPS:
     push ax                          ; 0xa2f5
     mov ax, 1                        ; 0xa2f6
     push ax                          ; 0xa2f9
-    mov ax, 0x9186                   ; 0xa2fa
+    mov ax, bss_9186                 ; 0xa2fa
     push ax                          ; 0xa2fd
-    mov ax, 0x9136                   ; 0xa2fe
+    mov ax, bss_9136                 ; 0xa2fe
     push ax                          ; 0xa301
-    mov ax, 0x90e6                   ; 0xa302
+    mov ax, bss_90e6                 ; 0xa302
     push ax                          ; 0xa305
     mov ax, 0                        ; 0xa306
     push ax                          ; 0xa309

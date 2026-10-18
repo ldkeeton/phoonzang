@@ -226,7 +226,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
            segment_flow=None, segments=None, external_data=None,
            entry_symbol=None, data_pointers=(), not_pointers=(),
            immediate_pointers=(), host_data_offsets=None,
-           ds_starts=frozenset()):
+           ds_starts=frozenset(), foreign_pointer_params=None):
     """Produce NASM source text from *binary_data* and *instructions*.
 
     Parameters
@@ -459,8 +459,24 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     mem_symbols, mem_equ = _resolve_mem_symbols(
         insns, segment_flow, segments, label_map, start_offset,
         ds_starts=ds_starts)
+    # A constant pushed into an argument its routine reads memory through is
+    # a DS address (``lib.argpointers``).
+    pointer_params = {}
+    arg_pointers = {}
+    if segment_flow is not None:
+        from lib.argpointers import argument_pointer_immediates
+
+        def _name_of(target):
+            return ((label_map or {}).get(target)
+                    or (foreign_label_map or {}).get(target))
+        arg_pointers, params = argument_pointer_immediates(
+            insns, segment_flow, _name_of, foreign=foreign_pointer_params,
+            labels=label_map or ())
+        pointer_params = {str(label_map[e]): sorted(p)
+                          for e, p in params.items() if e in (label_map or {})}
     mem_symbols.update(_resolve_imm_symbols(
-        insns, segment_flow, segments, label_map, mem_equ, start_offset))
+        insns, segment_flow, segments, label_map, mem_equ, start_offset,
+        extra_proven=arg_pointers))
     mem_symbols.update(_resolve_declared_immediates(
         insns, immediate_pointers, segments, label_map, mem_equ,
         start_offset, owner=name))
@@ -1208,6 +1224,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         # every binary of the host's family bind an indexed operand
         # (``symbols._resolve_indexed_symbols``).
         'ds_starts': _host_space_starts(mem_equ, segments),
+        # The arguments each named routine reads memory through, for the
+        # overlays that call it (``lib.argpointers``).
+        'pointer_params': pointer_params,
         'address_records': _build_address_records(
             insns, mem_symbols, mem_equ, segment_flow, label_map, start_offset,
             data_labels=data_labels, reloc_targets=reloc_targets,

@@ -81,7 +81,7 @@ api_idx_0006_MITV:
     push ax                          ; 0x737a
     mov ax, 0x12                     ; 0x737b
     push ax                          ; 0x737e
-    mov ax, 0x843a                   ; 0x737f
+    mov ax, bss_843a                 ; 0x737f
     push ax                          ; 0x7382
     call aztec_setmem                ; 0x7383
     add sp, byte 6                   ; 0x7386
@@ -89,7 +89,7 @@ api_idx_0006_MITV:
     push ax                          ; 0x738c
     mov ax, 0x12                     ; 0x738d
     push ax                          ; 0x7390
-    mov ax, 0x93dc                   ; 0x7391
+    mov ax, bss_93dc                 ; 0x7391
     push ax                          ; 0x7394
     call aztec_setmem                ; 0x7395
     add sp, byte 6                   ; 0x7398

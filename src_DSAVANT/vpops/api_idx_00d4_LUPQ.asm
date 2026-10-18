@@ -163,7 +163,7 @@ api_idx_00d4_LUPQ:
     push ax                          ; 0x38b4
     mov ax, 0x2d                     ; 0x38b5
     push ax                          ; 0x38b8
-    mov ax, 0x90d8                   ; 0x38b9
+    mov ax, bss_90d8                 ; 0x38b9
     push ax                          ; 0x38bc
     call aztec_setmem                ; 0x38bd
     add sp, byte 6                   ; 0x38c0
@@ -884,7 +884,7 @@ jumptable_4058_case_9:
     push ax                          ; 0x3fbd
     mov ax, 0x2d                     ; 0x3fbe
     push ax                          ; 0x3fc1
-    mov ax, 0x90d8                   ; 0x3fc2
+    mov ax, bss_90d8                 ; 0x3fc2
     push ax                          ; 0x3fc5
     call aztec_setmem                ; 0x3fc6
     add sp, byte 6                   ; 0x3fc9
@@ -932,7 +932,7 @@ jumptable_4058_case_10:
     push ax                          ; 0x4036
     mov ax, 0x2d                     ; 0x4037
     push ax                          ; 0x403a
-    mov ax, 0x90d8                   ; 0x403b
+    mov ax, bss_90d8                 ; 0x403b
     push ax                          ; 0x403e
     call aztec_setmem                ; 0x403f
     add sp, byte 6                   ; 0x4042
@@ -1314,7 +1314,7 @@ jumptable_4058:
     push ax                          ; 0x43ef
     mov ax, 0x2d                     ; 0x43f0
     push ax                          ; 0x43f3
-    mov ax, 0x90d8                   ; 0x43f4
+    mov ax, bss_90d8                 ; 0x43f4
     push ax                          ; 0x43f7
     call aztec_setmem                ; 0x43f8
     add sp, byte 6                   ; 0x43fb

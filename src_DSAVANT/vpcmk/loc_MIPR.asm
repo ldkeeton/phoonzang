@@ -291,7 +291,7 @@ loc_MIPR:
     push ax                          ; 0x65ca
     mov ax, 0                        ; 0x65cb
     push ax                          ; 0x65ce
-    mov ax, 0x94f6                   ; 0x65cf
+    mov ax, dseg_94f6                ; 0x65cf
     push ax                          ; 0x65d2
     call ds_app_UUHT                 ; 0x65d3
     add sp, byte 4                   ; 0x65d6
@@ -301,7 +301,7 @@ loc_MIPR:
     mov word [bp - 0x0008], ax       ; 0x65e0
     mov ax, 0x18                     ; 0x65e3
     push ax                          ; 0x65e6
-    mov ax, 0x906e                   ; 0x65e7
+    mov ax, bss_906e                 ; 0x65e7
     push ax                          ; 0x65ea
     push word [bp - 0x0008]          ; 0x65eb
     call aztec_write                 ; 0x65ee

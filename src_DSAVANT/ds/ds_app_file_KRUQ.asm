@@ -9,7 +9,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     jne short @..ds_app_file_KRUQ.l1 ; 0x2a40
     mov word [bp - 0x00a8], 4        ; 0x2a42
 @..ds_app_file_KRUQ.l1:
-    mov ax, 0xbe3                    ; 0x2a48
+    mov ax, dseg_0be3                ; 0x2a48
     push ax                          ; 0x2a4b
     lea ax, word [bp - 0x00a4]       ; 0x2a4c
     push ax                          ; 0x2a50
@@ -30,7 +30,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     push ax                          ; 0x2a78
     call aztec_strcpy                ; 0x2a79
     add sp, byte 4                   ; 0x2a7c
-    mov ax, 0xbeb                    ; 0x2a7f
+    mov ax, dseg_0beb                ; 0x2a7f
     push ax                          ; 0x2a82
     lea ax, word [bp - 0x0054]       ; 0x2a83
     push ax                          ; 0x2a86
@@ -63,7 +63,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     add sp, byte 4                   ; 0x2ac2
     cmp word [bp - 0x00a8], byte 5   ; 0x2ac5
     jne short @..ds_app_file_KRUQ.l3 ; 0x2aca
-    mov ax, 0xbf0                    ; 0x2acc
+    mov ax, dseg_0bf0                ; 0x2acc
     push ax                          ; 0x2acf
     lea ax, word [bp - 0x0054]       ; 0x2ad0
     push ax                          ; 0x2ad3
@@ -71,7 +71,7 @@ ds_app_file_KRUQ: ; Aztec csav frame=0x00a8
     add sp, byte 4                   ; 0x2ad7
     jmp short @..ds_app_file_KRUQ.l4 ; 0x2ada
 @..ds_app_file_KRUQ.l3:
-    mov ax, 0xbf5                    ; 0x2adc
+    mov ax, dseg_0bf5                ; 0x2adc
     push ax                          ; 0x2adf
     lea ax, word [bp - 0x0054]       ; 0x2ae0
     push ax                          ; 0x2ae3

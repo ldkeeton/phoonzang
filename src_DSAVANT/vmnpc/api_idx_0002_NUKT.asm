@@ -6,7 +6,7 @@ api_idx_0002_NUKT:
     sub ah, ah                       ; 0x9bd5
     cmp ax, word [bp + 0x4]          ; 0x9bd7
     jne short @..api_idx_0002_NUKT.l1 ; 0x9bda
-    mov ax, 0x95a8                   ; 0x9bdc
+    mov ax, bss_95a8                 ; 0x9bdc
     push ax                          ; 0x9bdf
     mov ax, 0x790                    ; 0x9be0
     push ax                          ; 0x9be3
@@ -20,7 +20,7 @@ api_idx_0002_NUKT:
     imul cx                          ; 0x9bf5
     add ax, word [bp + 0x4]          ; 0x9bf7
     mov bx, ax                       ; 0x9bfa
-    mov al, byte [bx - 0x7622]       ; 0x9bfc
+    mov al, byte [bx + bss_89de]     ; 0x9bfc
     cbw                              ; 0x9c00
     mov word [bp - 0x0002], ax       ; 0x9c01
     cmp word [bp + 0x4], byte 0      ; 0x9c04
@@ -28,7 +28,7 @@ api_idx_0002_NUKT:
     mov al, byte [bss_91c7]          ; 0x9c0a
     sub ah, ah                       ; 0x9c0d
     mov bx, ax                       ; 0x9c0f
-    mov al, byte [bx - 0x7622]       ; 0x9c11
+    mov al, byte [bx + bss_89de]     ; 0x9c11
     cbw                              ; 0x9c15
     mov word [bp - 0x0002], ax       ; 0x9c16
 @..api_idx_0002_NUKT.l2:
@@ -51,7 +51,7 @@ api_idx_0002_NUKT:
     push ax                          ; 0x9c41
     call ds_app_mem_TIMR             ; 0x9c42
     add sp, byte 4                   ; 0x9c45
-    mov ax, 0x9d10                   ; 0x9c48
+    mov ax, bss_9d10                 ; 0x9c48
     push ax                          ; 0x9c4b
     mov ax, word [bp + 0x4]          ; 0x9c4c
     add ax, 0x79e                    ; 0x9c4f
@@ -62,12 +62,12 @@ api_idx_0002_NUKT:
     push ax                          ; 0x9c5c
     mov ax, 0x9d10                   ; 0x9c5d
     push ax                          ; 0x9c60
-    mov ax, 0x95a8                   ; 0x9c61
+    mov ax, bss_95a8                 ; 0x9c61
     push ax                          ; 0x9c64
     call ds_app_string_HHIL          ; 0x9c65
     add sp, byte 6                   ; 0x9c68
 @..api_idx_0002_NUKT.l4:
-    mov ax, 0x95a8                   ; 0x9c6b
+    mov ax, bss_95a8                 ; 0x9c6b
     push ax                          ; 0x9c6e
     call loc_IPHP                    ; 0x9c6f
     pop cx                           ; 0x9c72

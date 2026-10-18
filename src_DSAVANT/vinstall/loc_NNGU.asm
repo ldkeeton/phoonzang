@@ -2,7 +2,7 @@
 loc_NNGU:
     push bp                          ; 0x0992
     mov bp, sp                       ; 0x0993
-    mov ax, 0x144f                   ; 0x0995
+    mov ax, dseg_144f                ; 0x0995
     push ax                          ; 0x0998
     mov ax, 0                        ; 0x0999
     push ax                          ; 0x099c
@@ -33,7 +33,7 @@ loc_NNGU:
     je short @..loc_NNGU.l2          ; 0x09d3
     jmp short @..loc_NNGU.l1         ; 0x09d5
 @..loc_NNGU.l2:
-    mov ax, 0x149f                   ; 0x09d7
+    mov ax, dseg_149f                ; 0x09d7
     push ax                          ; 0x09da
     mov ax, 0                        ; 0x09db
     push ax                          ; 0x09de
@@ -41,7 +41,7 @@ loc_NNGU:
     push ax                          ; 0x09e2
     call loc_STSN_040f               ; 0x09e3
     add sp, byte 6                   ; 0x09e6
-    mov ax, 0x2648                   ; 0x09e9
+    mov ax, bss_2648                 ; 0x09e9
     push ax                          ; 0x09ec
     push ax                          ; 0x09ed
     call aztec_strlen                ; 0x09ee

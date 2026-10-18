@@ -125,7 +125,7 @@ api_idx_0008_KNNO:
     call api_idx_0002_QVIM           ; 0x2adb
     add sp, byte 6                   ; 0x2ade
 @..api_idx_0008_KNNO.l10:
-    mov ax, 0x95a8                   ; 0x2ae1
+    mov ax, bss_95a8                 ; 0x2ae1
     push ax                          ; 0x2ae4
     mov ax, 0x60b                    ; 0x2ae5
     push ax                          ; 0x2ae8
@@ -137,7 +137,7 @@ api_idx_0008_KNNO:
     imul word [bp - 0x0008]          ; 0x2af6
     add ax, 0x5bf4                   ; 0x2af9
     push ax                          ; 0x2afc
-    mov ax, 0x95a8                   ; 0x2afd
+    mov ax, bss_95a8                 ; 0x2afd
     push ax                          ; 0x2b00
     call ds_app_string_HHIL          ; 0x2b01
     add sp, byte 6                   ; 0x2b04
@@ -147,7 +147,7 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2b10
     push ax                          ; 0x2b11
     push ax                          ; 0x2b12
-    mov ax, 0x95a8                   ; 0x2b13
+    mov ax, bss_95a8                 ; 0x2b13
     push ax                          ; 0x2b16
     call loc_MLKO                    ; 0x2b17
     add sp, byte 8                   ; 0x2b1a
@@ -164,7 +164,7 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2b34
     call ds_app_mem_TIMR             ; 0x2b35
     add sp, byte 4                   ; 0x2b38
-    mov ax, 0x95a8                   ; 0x2b3b
+    mov ax, bss_95a8                 ; 0x2b3b
     push ax                          ; 0x2b3e
     call aztec_strlen                ; 0x2b3f
     pop cx                           ; 0x2b42
@@ -181,7 +181,7 @@ api_idx_0008_KNNO:
     add ax, cx                       ; 0x2b5b
     mov bx, ax                       ; 0x2b5d
     mov byte [bx - 0x6e34], 0        ; 0x2b5f
-    mov ax, 0x95a8                   ; 0x2b64
+    mov ax, bss_95a8                 ; 0x2b64
     push ax                          ; 0x2b67
     add cx, strict word 0x91cc       ; 0x2b68
     mov ax, cx                       ; 0x2b6c

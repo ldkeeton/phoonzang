@@ -158,7 +158,7 @@ api_idx_0092_GSQH:
     jne short @..api_idx_0092_GSQH.l11 ; 0x4d44
     ret                              ; 0x4d46
 @..api_idx_0092_GSQH.l11:
-    mov ax, 0x90e2                   ; 0x4d47
+    mov ax, dseg_90e2                ; 0x4d47
     push ax                          ; 0x4d4a
     push word [bp - 0x0092]          ; 0x4d4b
     mov ax, 1                        ; 0x4d4f

@@ -64,9 +64,9 @@ api_idx_00b4_QLQS:
     push ax                          ; 0x4d61
     mov ax, 0x18                     ; 0x4d62
     push ax                          ; 0x4d65
-    mov ax, 0x93ef                   ; 0x4d66
+    mov ax, dseg_93ef                ; 0x4d66
     push ax                          ; 0x4d69
-    mov ax, 0x93ee                   ; 0x4d6a
+    mov ax, dseg_93ee                ; 0x4d6a
     push ax                          ; 0x4d6d
     mov ax, word [bp - 0x0002]       ; 0x4d6e
     add ax, 0xcc                     ; 0x4d71

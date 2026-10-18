@@ -129,7 +129,7 @@ api_idx_0004_VRTU:
     mov bx, ax                       ; 0x9800
     cmp byte [bx - 0x7b59], 1        ; 0x9802
     jne short @..api_idx_0004_VRTU.l8 ; 0x9807
-    mov al, byte [bx - 0x7b5a]       ; 0x9809
+    mov al, byte [bx + bss_84a6]     ; 0x9809
     push ax                          ; 0x980d
     mov ax, 0x26                     ; 0x980e
     imul word [bp + 0x4]             ; 0x9811
@@ -146,7 +146,7 @@ api_idx_0004_VRTU:
     mov bx, ax                       ; 0x982b
     cmp byte [bx - 0x7b59], 0        ; 0x982d
     jne short @..api_idx_0004_VRTU.l10 ; 0x9832
-    mov al, byte [bx - 0x7b5a]       ; 0x9834
+    mov al, byte [bx + bss_84a6]     ; 0x9834
     sub ah, ah                       ; 0x9838
     mov cx, 0x26                     ; 0x983a
     imul cx                          ; 0x983d
@@ -161,7 +161,7 @@ api_idx_0004_VRTU:
     mov ax, 6                        ; 0x9852
     imul word [bp - 0x0002]          ; 0x9855
     mov bx, ax                       ; 0x9858
-    mov al, byte [bx - 0x7b5a]       ; 0x985a
+    mov al, byte [bx + bss_84a6]     ; 0x985a
     push ax                          ; 0x985e
     mov ax, word [bp + 0x4]          ; 0x985f
     imul cx                          ; 0x9862

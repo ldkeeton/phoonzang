@@ -41,7 +41,7 @@ api_idx_0006_JHIT:
     mov ax, 1                        ; 0x68e8
     push ax                          ; 0x68eb
     push word [bp + 0x4]             ; 0x68ec
-    mov ax, 0x5bf4                   ; 0x68ef
+    mov ax, bss_5bf4                 ; 0x68ef
     push ax                          ; 0x68f2
     call api_idx_0002_SJMT           ; 0x68f3
     add sp, byte 6                   ; 0x68f6

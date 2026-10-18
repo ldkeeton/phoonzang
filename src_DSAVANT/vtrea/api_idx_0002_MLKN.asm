@@ -8,7 +8,7 @@ api_idx_0002_MLKN:
     imul word [bp + 0x8]             ; 0x56d9
     mov bx, ax                       ; 0x56dc
     pop ax                           ; 0x56de
-    mov byte [bx - 0x7b5a], al       ; 0x56df
+    mov byte [bx + bss_84a6], al     ; 0x56df
     mov byte [bx - 0x7b59], 0        ; 0x56e3
     mov ax, 1                        ; 0x56e8
     push ax                          ; 0x56eb

@@ -6,7 +6,7 @@ api_idx_0002_QRVU:
     push ax                          ; 0x3fb5
     mov ax, 0                        ; 0x3fb6
     push ax                          ; 0x3fb9
-    mov ax, 0x90e8                   ; 0x3fba
+    mov ax, dseg_90e8                ; 0x3fba
     push ax                          ; 0x3fbd
     call ds_app_UUHT                 ; 0x3fbe
     add sp, byte 4                   ; 0x3fc1
@@ -32,7 +32,7 @@ api_idx_0002_QRVU:
     add sp, byte 8                   ; 0x3fee
     mov ax, 0x34c                    ; 0x3ff1
     push ax                          ; 0x3ff4
-    mov ax, 0x5642                   ; 0x3ff5
+    mov ax, bss_5642                 ; 0x3ff5
     push ax                          ; 0x3ff8
     push word [bss_9088]             ; 0x3ff9
     call aztec_write                 ; 0x3ffd

@@ -193,9 +193,9 @@ jumptable_1aa5_case_0:
     push ax                          ; 0x1c27
     call ds_app_mem_TIMR             ; 0x1c28
     add sp, byte 4                   ; 0x1c2b
-    mov ax, 0x9099                   ; 0x1c2e
+    mov ax, dseg_9099                ; 0x1c2e
     push ax                          ; 0x1c31
-    mov ax, 0x9098                   ; 0x1c32
+    mov ax, dseg_9098                ; 0x1c32
     push ax                          ; 0x1c35
     lea ax, word [bp - 0x005a]       ; 0x1c36
     push ax                          ; 0x1c39

@@ -159,7 +159,7 @@ api_idx_0094_LUVH:
     jne short @..api_idx_0094_LUVH.l11 ; 0x42fa
     ret                              ; 0x42fc
 @..api_idx_0094_LUVH.l11:
-    mov ax, 0x90aa                   ; 0x42fd
+    mov ax, dseg_90aa                ; 0x42fd
     push ax                          ; 0x4300
     push word [bp - 0x0094]          ; 0x4301
     mov ax, 1                        ; 0x4305

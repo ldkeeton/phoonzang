@@ -589,7 +589,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         instructions=instructions, label_map=label_map,
         function_roots=function_roots, extra_flow_edges=extra_flow_edges,
         foreign_label_map=foreign_label_map, entry_symbol=entry_symbol,
-        structs=structs, carve_1=carve_1, immediate_labels=immediate_labels,
+        foreign_prefix=foreign_prefix, structs=structs, carve_1=carve_1, immediate_labels=immediate_labels,
         label_comments=label_comments, split_functions=split_functions,
         out_dir=out_dir, c_overrides=c_overrides, entries=_entries,
         asm_annotations=asm_annotations, classify_timing=classify_timing,
@@ -632,6 +632,21 @@ def _data_names(project, name, data, label_map, segments, host, entries):
     from lib.aztec import libnames
     return libnames.data_symbols(project, name, data, label_map, segments,
                                  entries)
+
+
+def _foreign_pointer_params(project, host):
+    """The host's pointer arguments, ``{routine: [argument, ...]}`` (or ``{}``).
+
+    Written by the host's labels-only pass, which runs before any consumer.
+    """
+    if not project or not host:
+        return {}
+    from lib.cachedirs import labels_dir
+    path = os.path.join(labels_dir(project), f'{host}_ptrparams.json')
+    if not os.path.exists(path):
+        return {}
+    with open(path) as f:
+        return {name: frozenset(args) for name, args in json.load(f).items()}
 
 
 def _render(a, exact_bytes, show_offsets, host_data_offsets,
@@ -684,6 +699,7 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
             'immediate_pointers', []),
         host_data_offsets=host_data_offsets,
         ds_starts=ds_starts,
+        foreign_pointer_params=_foreign_pointer_params(project, a.foreign_prefix),
     )
     stagelog.step('verify', 1, metrics={'lines': asm_text.count('\\n')})
     # D7.1: export the host-owned DS names this overlay references so the make
@@ -697,6 +713,16 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
             json.dump({str(sym): symtab.encode(sym)
                        for sym in stats['host_data_refs']},
                       f, indent=1, sort_keys=True)
+    # The arguments this binary's routines read memory through, by name: the
+    # overlays call the host's routines, so they read the host's file
+    # (``lib.argpointers``).
+    if project:
+        from lib.cachedirs import labels_dir
+        target_dir = labels_dir(project)
+        os.makedirs(target_dir, exist_ok=True)
+        with open(os.path.join(target_dir, f'{name}_ptrparams.json'), 'w') as f:
+            json.dump(stats.get('pointer_params', {}), f, indent=1,
+                      sort_keys=True)
     # The host-space DS starts this binary names; the build unites the host
     # family's exports so each binary can bind an indexed operand to an object
     # another binary names (``symbols._resolve_indexed_symbols``).

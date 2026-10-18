@@ -39,11 +39,11 @@ api_idx_000e_NSGM:
     add sp, byte 4                   ; 0x168d
     push word [bss_8f44]             ; 0x1690
     push word [bss_8f46]             ; 0x1694
-    mov ax, 0x8f3e                   ; 0x1698
+    mov ax, bss_8f3e                 ; 0x1698
     push ax                          ; 0x169b
-    mov ax, 0x8f40                   ; 0x169c
+    mov ax, bss_8f40                 ; 0x169c
     push ax                          ; 0x169f
-    mov ax, 0x8f42                   ; 0x16a0
+    mov ax, bss_8f42                 ; 0x16a0
     push ax                          ; 0x16a3
     call api_idx_0004_QVPP           ; 0x16a4
     add sp, byte 0x0a                ; 0x16a7

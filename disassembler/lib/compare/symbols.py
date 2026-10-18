@@ -149,19 +149,21 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
 
 
 def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
-                         start_offset):
+                         start_offset, extra_proven=None):
     """Symbols for immediates proven to point into a known segment.
 
     Uses :func:`lib.segdataflow.immediate_pointer_spaces` and returns entries
     keyed the same way as :func:`_resolve_mem_symbols`, so both share one
-    ``mem_symbols`` map.
+    ``mem_symbols`` map.  *extra_proven* adds proofs made elsewhere in the
+    same ``{(address, operand): space}`` form (``lib.argpointers``).
     """
     if segment_flow is None:
         return {}
     from lib.segdataflow import immediate_pointer_spaces, LOAD, DATA, PSP
     from lib.segments import psp_field
 
-    proven = immediate_pointer_spaces(insns, segment_flow)
+    proven = dict(extra_proven or {})
+    proven.update(immediate_pointer_spaces(insns, segment_flow))
     by_addr = {insn.address: insn for insn in insns}
     file_size = segments.file_size if segments is not None else 0
     result = {}

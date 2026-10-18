@@ -4,7 +4,7 @@ api_idx_0002_JOQL:
     call aztec_csav                  ; 0xa2ea
     mov word [bp - 0x0002], 0        ; 0xa2ed
 @..api_idx_0002_JOQL.l1:
-    mov ax, 0x95a8                   ; 0xa2f2
+    mov ax, bss_95a8                 ; 0xa2f2
     push ax                          ; 0xa2f5
     push word [bp + 0x4]             ; 0xa2f6
     call ds_app_mem_TIMR             ; 0xa2f9
@@ -20,7 +20,7 @@ api_idx_0002_JOQL:
     mov bx, ax                       ; 0xa315
     pop ax                           ; 0xa317
     mov word [bx - 0x617a], ax       ; 0xa318
-    mov ax, 0x95a9                   ; 0xa31c
+    mov ax, bss_95a9                 ; 0xa31c
     push ax                          ; 0xa31f
     add bx, strict word 0x9e88       ; 0xa320
     mov ax, bx                       ; 0xa324
@@ -35,7 +35,7 @@ api_idx_0002_JOQL:
     mov ax, word [bp - 0x0002]       ; 0xa33b
     mov word [bss_b046], ax          ; 0xa33e
 @..api_idx_0002_JOQL.l3:
-    mov ax, 0x95a8                   ; 0xa341
+    mov ax, bss_95a8                 ; 0xa341
     push ax                          ; 0xa344
     push word [bp + 0x6]             ; 0xa345
     call ds_app_mem_TIMR             ; 0xa348
@@ -51,7 +51,7 @@ api_idx_0002_JOQL:
     mov bx, ax                       ; 0xa364
     pop ax                           ; 0xa366
     mov word [bx - 0x617a], ax       ; 0xa367
-    mov ax, 0x95a9                   ; 0xa36b
+    mov ax, bss_95a9                 ; 0xa36b
     push ax                          ; 0xa36e
     add bx, strict word 0x9e88       ; 0xa36f
     mov ax, bx                       ; 0xa373

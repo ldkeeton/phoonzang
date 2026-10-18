@@ -8,13 +8,13 @@ loc_TSLJ:
     push ax                          ; 0x0ee5
     call aztec_strcpy                ; 0x0ee6
     add sp, byte 4                   ; 0x0ee9
-    mov ax, 0x1609                   ; 0x0eec
+    mov ax, dseg_1609                ; 0x0eec
     push ax                          ; 0x0eef
     lea ax, word [bp - 0x0028]       ; 0x0ef0
     push ax                          ; 0x0ef3
     call aztec_strcat                ; 0x0ef4
     add sp, byte 4                   ; 0x0ef7
-    mov ax, 0x1615                   ; 0x0efa
+    mov ax, dseg_1615                ; 0x0efa
     push ax                          ; 0x0efd
     lea ax, word [bp - 0x0050]       ; 0x0efe
     push ax                          ; 0x0f01
@@ -35,7 +35,7 @@ loc_TSLJ:
     push ax                          ; 0x0f29
     call aztec_strcpy                ; 0x0f2a
     add sp, byte 4                   ; 0x0f2d
-    mov ax, 0x1621                   ; 0x0f30
+    mov ax, dseg_1621                ; 0x0f30
     push ax                          ; 0x0f33
     lea ax, word [bp - 0x0177]       ; 0x0f34
     push ax                          ; 0x0f38
@@ -51,7 +51,7 @@ loc_TSLJ:
     push ax                          ; 0x0f54
     call aztec_strcat                ; 0x0f55
     add sp, byte 4                   ; 0x0f58
-    mov ax, 0x162e                   ; 0x0f5b
+    mov ax, dseg_162e                ; 0x0f5b
     push ax                          ; 0x0f5e
     lea ax, word [bp - 0x0177]       ; 0x0f5f
     push ax                          ; 0x0f63
@@ -66,11 +66,11 @@ loc_TSLJ:
     push ax                          ; 0x0f7c
     call loc_UIJJ                    ; 0x0f7d
     pop cx                           ; 0x0f80
-    mov ax, 0x2357                   ; 0x0f81
+    mov ax, dseg_2357                ; 0x0f81
     push ax                          ; 0x0f84
-    mov ax, 0x1634                   ; 0x0f85
+    mov ax, dseg_1634                ; 0x0f85
     push ax                          ; 0x0f88
-    mov ax, 0x1630                   ; 0x0f89
+    mov ax, dseg_1630                ; 0x0f89
     push ax                          ; 0x0f8c
     call aztec_utime                 ; 0x0f8d
     add sp, byte 6                   ; 0x0f90
@@ -91,9 +91,9 @@ loc_TSLJ:
     call aztec_wait                  ; 0x0fb4
     mov word [bp - 0x01cb], ax       ; 0x0fb7
     push word [bss_29ee]             ; 0x0fbb
-    mov ax, 0x163a                   ; 0x0fbf
+    mov ax, dseg_163a                ; 0x0fbf
     push ax                          ; 0x0fc2
-    mov ax, 0x1636                   ; 0x0fc3
+    mov ax, dseg_1636                ; 0x0fc3
     push ax                          ; 0x0fc6
     call aztec_utime                 ; 0x0fc7
     add sp, byte 6                   ; 0x0fca
@@ -103,7 +103,7 @@ loc_TSLJ:
     cmp word [bp - 0x01cb], byte 0   ; 0x0fd7
     je short @..loc_TSLJ.l2          ; 0x0fdc
 @..loc_TSLJ.l1:
-    mov ax, 0x163c                   ; 0x0fde
+    mov ax, dseg_163c                ; 0x0fde
     push ax                          ; 0x0fe1
     lea ax, word [bp - 0x01c7]       ; 0x0fe2
     push ax                          ; 0x0fe6
@@ -119,7 +119,7 @@ loc_TSLJ:
     push ax                          ; 0x1002
     call aztec_strcat                ; 0x1003
     add sp, byte 4                   ; 0x1006
-    mov ax, 0x1657                   ; 0x1009
+    mov ax, dseg_1657                ; 0x1009
     push ax                          ; 0x100c
     lea ax, word [bp - 0x01c7]       ; 0x100d
     push ax                          ; 0x1011

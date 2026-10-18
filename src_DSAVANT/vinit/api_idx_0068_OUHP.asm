@@ -388,7 +388,7 @@ api_idx_0068_OUHP:
     jne short @..api_idx_0068_OUHP.l28 ; 0x0df6
     mov ax, 1                        ; 0x0df8
     push ax                          ; 0x0dfb
-    mov ax, 0x9187                   ; 0x0dfc
+    mov ax, dseg_9187                ; 0x0dfc
     push ax                          ; 0x0dff
     call api_idx_0002_LVPS           ; 0x0e00
     add sp, byte 4                   ; 0x0e03
@@ -399,7 +399,7 @@ api_idx_0068_OUHP:
 @..api_idx_0068_OUHP.l28:
     mov ax, 0                        ; 0x0e0e
     push ax                          ; 0x0e11
-    mov ax, 0x9194                   ; 0x0e12
+    mov ax, dseg_9194                ; 0x0e12
     push ax                          ; 0x0e15
     call api_idx_0002_LVPS           ; 0x0e16
     add sp, byte 4                   ; 0x0e19

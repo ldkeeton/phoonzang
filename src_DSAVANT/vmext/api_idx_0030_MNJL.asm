@@ -156,7 +156,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x4010
     mov ax, 0x19                     ; 0x4011
     push ax                          ; 0x4014
-    mov ax, 0x91de                   ; 0x4015
+    mov ax, bss_91de                 ; 0x4015
     push ax                          ; 0x4018
     call aztec_setmem                ; 0x4019
     add sp, byte 6                   ; 0x401c
@@ -164,7 +164,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x4022
     mov ax, 0x19                     ; 0x4023
     push ax                          ; 0x4026
-    mov ax, 0x91c5                   ; 0x4027
+    mov ax, bss_91c5                 ; 0x4027
     push ax                          ; 0x402a
     call aztec_setmem                ; 0x402b
     add sp, byte 6                   ; 0x402e
@@ -172,7 +172,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x4034
     mov ax, 0x19                     ; 0x4035
     push ax                          ; 0x4038
-    mov ax, 0x91ac                   ; 0x4039
+    mov ax, bss_91ac                 ; 0x4039
     push ax                          ; 0x403c
     call aztec_setmem                ; 0x403d
     add sp, byte 6                   ; 0x4040
@@ -180,7 +180,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x4046
     mov ax, 0x19                     ; 0x4047
     push ax                          ; 0x404a
-    mov ax, 0x9aee                   ; 0x404b
+    mov ax, bss_9aee                 ; 0x404b
     push ax                          ; 0x404e
     call aztec_setmem                ; 0x404f
     add sp, byte 6                   ; 0x4052
@@ -188,7 +188,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x4058
     mov ax, 0x19                     ; 0x4059
     push ax                          ; 0x405c
-    mov ax, 0x91f7                   ; 0x405d
+    mov ax, bss_91f7                 ; 0x405d
     push ax                          ; 0x4060
     call aztec_setmem                ; 0x4061
     add sp, byte 6                   ; 0x4064
@@ -196,7 +196,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x406a
     mov ax, 0x32                     ; 0x406b
     push ax                          ; 0x406e
-    mov ax, 0x928e                   ; 0x406f
+    mov ax, bss_928e                 ; 0x406f
     push ax                          ; 0x4072
     call aztec_setmem                ; 0x4073
     add sp, byte 6                   ; 0x4076
@@ -204,7 +204,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x407c
     mov ax, 0x19                     ; 0x407d
     push ax                          ; 0x4080
-    mov ax, 0x9274                   ; 0x4081
+    mov ax, bss_9274                 ; 0x4081
     push ax                          ; 0x4084
     call aztec_setmem                ; 0x4085
     add sp, byte 6                   ; 0x4088
@@ -212,7 +212,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x408e
     mov ax, 0x32                     ; 0x408f
     push ax                          ; 0x4092
-    mov ax, 0x9210                   ; 0x4093
+    mov ax, bss_9210                 ; 0x4093
     push ax                          ; 0x4096
     call aztec_setmem                ; 0x4097
     add sp, byte 6                   ; 0x409a
@@ -220,7 +220,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x40a0
     mov ax, 0x32                     ; 0x40a1
     push ax                          ; 0x40a4
-    mov ax, 0x92c0                   ; 0x40a5
+    mov ax, bss_92c0                 ; 0x40a5
     push ax                          ; 0x40a8
     call aztec_setmem                ; 0x40a9
     add sp, byte 6                   ; 0x40ac
@@ -228,7 +228,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x40b2
     mov ax, 0x32                     ; 0x40b3
     push ax                          ; 0x40b6
-    mov ax, 0x9242                   ; 0x40b7
+    mov ax, bss_9242                 ; 0x40b7
     push ax                          ; 0x40ba
     call aztec_setmem                ; 0x40bb
     add sp, byte 6                   ; 0x40be
@@ -236,7 +236,7 @@ api_idx_0030_MNJL:
     push ax                          ; 0x40c4
     mov ax, 0x7f8                    ; 0x40c5
     push ax                          ; 0x40c8
-    mov ax, 0x92f4                   ; 0x40c9
+    mov ax, bss_92f4                 ; 0x40c9
     push ax                          ; 0x40cc
     call aztec_setmem                ; 0x40cd
     add sp, byte 6                   ; 0x40d0

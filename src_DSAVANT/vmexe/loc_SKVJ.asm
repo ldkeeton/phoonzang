@@ -4,11 +4,11 @@ loc_SKVJ:
     call aztec_csav                  ; 0x9845
     push word [bss_8462]             ; 0x9848
     push word [bss_8464]             ; 0x984c
-    mov ax, 0x90e6                   ; 0x9850
+    mov ax, bss_90e6                 ; 0x9850
     push ax                          ; 0x9853
     call loc_HJSG                    ; 0x9854
     add sp, byte 6                   ; 0x9857
-    mov ax, 0x9136                   ; 0x985a
+    mov ax, bss_9136                 ; 0x985a
     push ax                          ; 0x985d
     mov ax, 0xcef                    ; 0x985e
     push ax                          ; 0x9861
@@ -20,11 +20,11 @@ loc_SKVJ:
     push ax                          ; 0x9871
     mov ax, 1                        ; 0x9872
     push ax                          ; 0x9875
-    mov ax, 0x9186                   ; 0x9876
+    mov ax, bss_9186                 ; 0x9876
     push ax                          ; 0x9879
-    mov ax, 0x9136                   ; 0x987a
+    mov ax, bss_9136                 ; 0x987a
     push ax                          ; 0x987d
-    mov ax, 0x90e6                   ; 0x987e
+    mov ax, bss_90e6                 ; 0x987e
     push ax                          ; 0x9881
     mov ax, 0                        ; 0x9882
     push ax                          ; 0x9885

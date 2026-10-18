@@ -2,7 +2,7 @@
 api_idx_0016_KOOO:
     mov ax, 0xffea                   ; 0x0559
     call aztec_csav                  ; 0x055c
-    mov ax, 0x90a9                   ; 0x055f
+    mov ax, dseg_90a9                ; 0x055f
     push ax                          ; 0x0562
     lea ax, word [bp - 0x0016]       ; 0x0563
     push ax                          ; 0x0566

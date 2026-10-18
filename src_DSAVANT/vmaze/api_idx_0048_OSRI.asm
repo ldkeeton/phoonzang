@@ -32,7 +32,7 @@ api_idx_0048_OSRI:
     shl ax, 1                        ; 0x906f
     shl ax, 1                        ; 0x9071
     mov bx, ax                       ; 0x9073
-    mov al, byte [bx - 0x7592]       ; 0x9075
+    mov al, byte [bx + bss_8a6e]     ; 0x9075
     sub ah, ah                       ; 0x9079
     cmp ax, word [bp + 0x4]          ; 0x907b
     je short @..api_idx_0048_OSRI.l6 ; 0x907e
@@ -65,7 +65,7 @@ api_idx_0048_OSRI:
     push ax                          ; 0x90c3
     lea ax, word [bp - 0x0048]       ; 0x90c4
     push ax                          ; 0x90c7
-    mov ax, 0x9c02                   ; 0x90c8
+    mov ax, bss_9c02                 ; 0x90c8
     push ax                          ; 0x90cb
     call aztec_movmem                ; 0x90cc
     add sp, byte 6                   ; 0x90cf
@@ -102,7 +102,7 @@ api_idx_0048_OSRI:
     mov word [bss_9be6], ax          ; 0x9117
     mov ax, 0x40                     ; 0x911a
     push ax                          ; 0x911d
-    mov ax, 0x9c02                   ; 0x911e
+    mov ax, bss_9c02                 ; 0x911e
     push ax                          ; 0x9121
     lea ax, word [bp - 0x0048]       ; 0x9122
     push ax                          ; 0x9125
@@ -148,7 +148,7 @@ api_idx_0048_OSRI:
     push ax                          ; 0x9186
     lea ax, word [bp - 0x0048]       ; 0x9187
     push ax                          ; 0x918a
-    mov ax, 0x9c02                   ; 0x918b
+    mov ax, bss_9c02                 ; 0x918b
     push ax                          ; 0x918e
     call aztec_movmem                ; 0x918f
     add sp, byte 6                   ; 0x9192
@@ -161,7 +161,7 @@ api_idx_0048_OSRI:
     shl ax, 1                        ; 0x91a3
     shl ax, 1                        ; 0x91a5
     mov bx, ax                       ; 0x91a7
-    mov al, byte [bx - 0x7592]       ; 0x91a9
+    mov al, byte [bx + bss_8a6e]     ; 0x91a9
     sub ah, ah                       ; 0x91ad
     push ax                          ; 0x91af
     call api_idx_0048_OSRI           ; 0x91b0
@@ -172,7 +172,7 @@ api_idx_0048_OSRI:
     shl ax, 1                        ; 0x91bd
     shl ax, 1                        ; 0x91bf
     mov bx, ax                       ; 0x91c1
-    mov al, byte [bx - 0x7592]       ; 0x91c3
+    mov al, byte [bx + bss_8a6e]     ; 0x91c3
     sub ah, ah                       ; 0x91c7
     push ax                          ; 0x91c9
     push word [bp + 0x4]             ; 0x91ca
@@ -185,7 +185,7 @@ api_idx_0048_OSRI:
     mov word [bss_9be6], ax          ; 0x91da
     mov ax, 0x40                     ; 0x91dd
     push ax                          ; 0x91e0
-    mov ax, 0x9c02                   ; 0x91e1
+    mov ax, bss_9c02                 ; 0x91e1
     push ax                          ; 0x91e4
     lea ax, word [bp - 0x0048]       ; 0x91e5
     push ax                          ; 0x91e8

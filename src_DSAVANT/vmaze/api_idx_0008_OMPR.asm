@@ -90,7 +90,7 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa68a
     imul word [bp + 0x4]             ; 0xa68d
     mov bx, ax                       ; 0xa690
-    mov al, byte [bx - 0x7b18]       ; 0xa692
+    mov al, byte [bx + bss_84e8]     ; 0xa692
     sub ah, ah                       ; 0xa696
     mov cx, 0xc                      ; 0xa698
     imul cx                          ; 0xa69b
@@ -98,13 +98,13 @@ api_idx_0008_OMPR:
     mov ax, 0x26                     ; 0xa69e
     imul word [bp - 0x0006]          ; 0xa6a1
     mov bx, ax                       ; 0xa6a4
-    mov al, byte [bx - 0x7b18]       ; 0xa6a6
+    mov al, byte [bx + bss_84e8]     ; 0xa6a6
     sub ah, ah                       ; 0xa6aa
     mov cx, ax                       ; 0xa6ac
     pop ax                           ; 0xa6ae
     add ax, cx                       ; 0xa6af
     mov bx, ax                       ; 0xa6b1
-    mov al, byte [bx - 0x7622]       ; 0xa6b3
+    mov al, byte [bx + bss_89de]     ; 0xa6b3
     cbw                              ; 0xa6b7
     mov word [bp - 0x0008], ax       ; 0xa6b8
     mov ax, 0xa                      ; 0xa6bb

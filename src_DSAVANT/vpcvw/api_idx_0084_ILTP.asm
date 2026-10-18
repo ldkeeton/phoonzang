@@ -6,7 +6,7 @@ api_idx_0084_ILTP:
     cmp byte [bx], 0x21              ; 0x3b6f
     jne short @..api_idx_0084_ILTP.l1 ; 0x3b72
     inc word [bp + 0x4]              ; 0x3b74
-    mov ax, 0x956a                   ; 0x3b77
+    mov ax, bss_956a                 ; 0x3b77
     push ax                          ; 0x3b7a
     call api_idx_0004_UQRV           ; 0x3b7b
     pop cx                           ; 0x3b7e
@@ -16,7 +16,7 @@ api_idx_0084_ILTP:
     cmp byte [bx], 0x40              ; 0x3b84
     jne short @..api_idx_0084_ILTP.l2 ; 0x3b87
     inc word [bp + 0x4]              ; 0x3b89
-    mov ax, 0x956a                   ; 0x3b8c
+    mov ax, bss_956a                 ; 0x3b8c
     push ax                          ; 0x3b8f
     call api_idx_0004_UQRV           ; 0x3b90
     pop cx                           ; 0x3b93
@@ -24,13 +24,13 @@ api_idx_0084_ILTP:
 @..api_idx_0084_ILTP.l2:
     cmp byte [bss_956a], 0           ; 0x3b97
     je short @..api_idx_0084_ILTP.l3 ; 0x3b9c
-    mov ax, 0x956a                   ; 0x3b9e
+    mov ax, bss_956a                 ; 0x3b9e
     push ax                          ; 0x3ba1
     lea ax, word [bp - 0x0084]       ; 0x3ba2
     push ax                          ; 0x3ba6
     call aztec_strcpy                ; 0x3ba7
     add sp, byte 4                   ; 0x3baa
-    mov ax, 0x90b1                   ; 0x3bad
+    mov ax, dseg_90b1                ; 0x3bad
     push ax                          ; 0x3bb0
     lea ax, word [bp - 0x0084]       ; 0x3bb1
     push ax                          ; 0x3bb5
@@ -58,12 +58,12 @@ api_idx_0084_ILTP:
     mov word [bp - 0x0002], ax       ; 0x3be9
     cmp ax, 0xa8                     ; 0x3bec
     jle short @..api_idx_0084_ILTP.l5 ; 0x3bef
-    mov ax, 0x956a                   ; 0x3bf1
+    mov ax, bss_956a                 ; 0x3bf1
     push ax                          ; 0x3bf4
     call api_idx_0004_UQRV           ; 0x3bf5
     pop cx                           ; 0x3bf8
     push word [bp + 0x4]             ; 0x3bf9
-    mov ax, 0x956a                   ; 0x3bfc
+    mov ax, bss_956a                 ; 0x3bfc
     push ax                          ; 0x3bff
     call aztec_strcpy                ; 0x3c00
     add sp, byte 4                   ; 0x3c03
@@ -71,7 +71,7 @@ api_idx_0084_ILTP:
 @..api_idx_0084_ILTP.l5:
     lea ax, word [bp - 0x0084]       ; 0x3c08
     push ax                          ; 0x3c0c
-    mov ax, 0x956a                   ; 0x3c0d
+    mov ax, bss_956a                 ; 0x3c0d
     push ax                          ; 0x3c10
     call aztec_strcpy                ; 0x3c11
     add sp, byte 4                   ; 0x3c14

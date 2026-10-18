@@ -11,7 +11,7 @@ api_idx_0018_MVRH:
     push ax                          ; 0x6815
     call ds_app_OIGN                 ; 0x6816
     pop cx                           ; 0x6819
-    mov ax, 0x5bf4                   ; 0x681a
+    mov ax, bss_5bf4                 ; 0x681a
     push ax                          ; 0x681d
     lea ax, word [bp - 0x0014]       ; 0x681e
     push ax                          ; 0x6821
@@ -48,14 +48,14 @@ api_idx_0018_MVRH:
 @..api_idx_0018_MVRH.l2:
     lea ax, word [bp - 0x0014]       ; 0x6860
     push ax                          ; 0x6863
-    mov ax, 0x5bf4                   ; 0x6864
+    mov ax, bss_5bf4                 ; 0x6864
     push ax                          ; 0x6867
     call aztec_strcpy                ; 0x6868
     add sp, byte 4                   ; 0x686b
     mov ax, 1                        ; 0x686e
     push ax                          ; 0x6871
     push word [bp + 0x4]             ; 0x6872
-    mov ax, 0x5bf4                   ; 0x6875
+    mov ax, bss_5bf4                 ; 0x6875
     push ax                          ; 0x6878
     call api_idx_0002_SJMT           ; 0x6879
     add sp, byte 6                   ; 0x687c

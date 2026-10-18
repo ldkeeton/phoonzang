@@ -53,7 +53,7 @@ api_idx_0004_OPGP:
     push ax                          ; 0x66de
     mov ax, 8                        ; 0x66df
     push ax                          ; 0x66e2
-    mov ax, 0x8cfe                   ; 0x66e3
+    mov ax, bss_8cfe                 ; 0x66e3
     push ax                          ; 0x66e6
     call aztec_setmem                ; 0x66e7
     add sp, byte 6                   ; 0x66ea

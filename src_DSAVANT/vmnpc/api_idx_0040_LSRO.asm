@@ -218,14 +218,14 @@ jumptable_36f8_case_6:
 @..api_idx_0040_LSRO.l15:
     jmp short @..api_idx_0040_LSRO.l17 ; 0x2da0
 @..api_idx_0040_LSRO.l16:
-    mov ax, 0x95a8                   ; 0x2da2
+    mov ax, bss_95a8                 ; 0x2da2
     push ax                          ; 0x2da5
     mov ax, word [bp - 0x0026]       ; 0x2da6
     inc ax                           ; 0x2da9
     push ax                          ; 0x2daa
     call ds_app_mem_TIMR             ; 0x2dab
     add sp, byte 4                   ; 0x2dae
-    mov ax, 0x95a8                   ; 0x2db1
+    mov ax, bss_95a8                 ; 0x2db1
     push ax                          ; 0x2db4
     call aztec_strlen                ; 0x2db5
     pop cx                           ; 0x2db8
@@ -233,7 +233,7 @@ jumptable_36f8_case_6:
     jle short @..api_idx_0040_LSRO.l17 ; 0x2dbc
     mov ax, 1                        ; 0x2dbe
     push ax                          ; 0x2dc1
-    mov ax, 0x95a8                   ; 0x2dc2
+    mov ax, bss_95a8                 ; 0x2dc2
     push ax                          ; 0x2dc5
     call loc_LRGG                    ; 0x2dc6
     add sp, byte 4                   ; 0x2dc9
@@ -857,7 +857,7 @@ jumptable_36f8_case_31:
     mov al, byte [bss_91c7]          ; 0x3378
     sub ah, ah                       ; 0x337b
     mov bx, ax                       ; 0x337d
-    mov al, byte [bx - 0x7622]       ; 0x337f
+    mov al, byte [bx + bss_89de]     ; 0x337f
     cbw                              ; 0x3383
     add ax, word [bp - 0x003a]       ; 0x3384
     push ax                          ; 0x3387
@@ -868,7 +868,7 @@ jumptable_36f8_case_31:
     sub ah, ah                       ; 0x3392
     mov bx, ax                       ; 0x3394
     pop ax                           ; 0x3396
-    mov byte [bx - 0x7622], al       ; 0x3397
+    mov byte [bx + bss_89de], al     ; 0x3397
     jmp near @..api_idx_0040_LSRO.l85 ; 0x339b
 jumptable_36f8_case_32:
     mov word [bp - 0x002c], 0        ; 0x339e
@@ -892,13 +892,13 @@ jumptable_36f8_case_32:
     cmp byte [bx + 0x5d64], 0x13     ; 0x33c8
     jae short @..api_idx_0040_LSRO.l69 ; 0x33cd
     inc byte [bx + 0x5d64]           ; 0x33cf
-    mov ax, 0x95a8                   ; 0x33d3
+    mov ax, bss_95a8                 ; 0x33d3
     push ax                          ; 0x33d6
     mov ax, 0x1397                   ; 0x33d7
     push ax                          ; 0x33da
     call ds_app_mem_TIMR             ; 0x33db
     add sp, byte 4                   ; 0x33de
-    mov ax, 0x95fa                   ; 0x33e1
+    mov ax, bss_95fa                 ; 0x33e1
     push ax                          ; 0x33e4
     mov ax, word [bp - 0x003a]       ; 0x33e5
     add ax, 0x13ba                   ; 0x33e8
@@ -911,7 +911,7 @@ jumptable_36f8_case_32:
     imul word [bp - 0x002c]          ; 0x33f9
     add ax, 0x5bf4                   ; 0x33fc
     push ax                          ; 0x33ff
-    mov ax, 0x95a8                   ; 0x3400
+    mov ax, bss_95a8                 ; 0x3400
     push ax                          ; 0x3403
     call ds_app_string_HHIL          ; 0x3404
     add sp, byte 6                   ; 0x3407
@@ -919,7 +919,7 @@ jumptable_36f8_case_32:
     push ax                          ; 0x340d
     mov ax, 0x95fa                   ; 0x340e
     push ax                          ; 0x3411
-    mov ax, 0x95a8                   ; 0x3412
+    mov ax, bss_95a8                 ; 0x3412
     push ax                          ; 0x3415
     call ds_app_string_HHIL          ; 0x3416
     add sp, byte 6                   ; 0x3419
@@ -928,7 +928,7 @@ jumptable_36f8_case_32:
     mov ax, 1                        ; 0x3420
     push ax                          ; 0x3423
     push ax                          ; 0x3424
-    mov ax, 0x95a8                   ; 0x3425
+    mov ax, bss_95a8                 ; 0x3425
     push ax                          ; 0x3428
     call loc_MLKO                    ; 0x3429
     add sp, byte 8                   ; 0x342c
@@ -1066,7 +1066,7 @@ jumptable_36f8_case_41:
     mov al, byte [bss_91c7]          ; 0x357c
     sub ah, ah                       ; 0x357f
     mov bx, ax                       ; 0x3581
-    mov al, byte [bx - 0x7622]       ; 0x3583
+    mov al, byte [bx + bss_89de]     ; 0x3583
     cbw                              ; 0x3587
     cmp ax, word [bp - 0x0026]       ; 0x3588
     jge short @..api_idx_0040_LSRO.l77 ; 0x358b

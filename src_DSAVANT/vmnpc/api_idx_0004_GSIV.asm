@@ -112,7 +112,7 @@ jumptable_8ffe:
     mov ax, 4                        ; 0x9093
     ret                              ; 0x9096
 @..api_idx_0004_GSIV.l9:
-    mov ax, 0xb032                   ; 0x9097
+    mov ax, bss_b032                 ; 0x9097
     push ax                          ; 0x909a
     push word [bp + 0x4]             ; 0x909b
     call api_idx_0002_NTRU           ; 0x909e
@@ -161,7 +161,7 @@ jumptable_8ffe:
     mov ax, 1                        ; 0x9110
     ret                              ; 0x9113
 @..api_idx_0004_GSIV.l15:
-    mov ax, 0xb03c                   ; 0x9114
+    mov ax, bss_b03c                 ; 0x9114
     push ax                          ; 0x9117
     push word [bp + 0x4]             ; 0x9118
     call api_idx_0002_NTRU           ; 0x911b
@@ -211,7 +211,7 @@ jumptable_8ffe:
     ret                              ; 0x918b
 @..api_idx_0004_GSIV.l20:
     mov word [bss_b048], 0           ; 0x918c
-    mov ax, 0xb048                   ; 0x9192
+    mov ax, bss_b048                 ; 0x9192
     push ax                          ; 0x9195
     push word [bp + 0x4]             ; 0x9196
     call api_idx_0058_PMKH           ; 0x9199

@@ -33,8 +33,25 @@ bss_9180 equ __zdseg_end + (__zobss_9180 - __zdata_start)
 
 %include "vmext/api_idx_0002_OTTG.asm"     ; 0x021c
 
-; bss_9180 equ __zdseg_end + (__zobss_9180 - __zdata_start)
-bss_9188 equ __zdseg_end + (__zobss_9188 - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
+dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
+dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
+dseg_90cc equ __zdseg_end + (__zdseg_90cc - __zdata_start)
+dseg_90d9 equ __zdseg_end + (__zdseg_90d9 - __zdata_start)
+dseg_90e6 equ __zdseg_end + (__zdseg_90e6 - __zdata_start)
+dseg_90f3 equ __zdseg_end + (__zdseg_90f3 - __zdata_start)
+dseg_9100 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
+dseg_910d equ __zdseg_end + (__zdseg_910d - __zdata_start)
+dseg_911a equ __zdseg_end + (__zdseg_911a - __zdata_start)
+dseg_9127 equ __zdseg_end + (__zdseg_9127 - __zdata_start)
+dseg_9134 equ __zdseg_end + (__zdseg_9134 - __zdata_start)
+dseg_9141 equ __zdseg_end + (__zdseg_9141 - __zdata_start)
+dseg_914e equ __zdseg_end + (__zdseg_914e - __zdata_start)
+dseg_915b equ __zdseg_end + (__zdseg_915b - __zdata_start)
+dseg_9168 equ __zdseg_end + (__zdseg_9168 - __zdata_start)
+; bss_9180  equ __zdseg_end + (__zobss_9180 - __zdata_start)
+bss_9188  equ __zdseg_end + (__zobss_9188 - __zdata_start)
 %include "vmext/api_idx_0002_VNLG.asm"     ; 0x0262
 
 %include "shared/loc_QQOI.asm"              ; 0x059a
@@ -149,9 +166,20 @@ bss_9aec equ __zdseg_end + (__zobss_9aec - __zdata_start)
 ; bss_91a6 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 ; bss_91a8 equ __zdseg_end + (__zobss_91a8 - __zdata_start)
 ; bss_91aa equ __zdseg_end + (__zobss_91aa - __zdata_start)
+bss_91ac equ __zdseg_end + (__zobss_91ac - __zdata_start)
 bss_91b8 equ __zdseg_end + (__zobss_91b8 - __zdata_start)
+bss_91c5 equ __zdseg_end + (__zobss_91c5 - __zdata_start)
+bss_91de equ __zdseg_end + (__zobss_91de - __zdata_start)
+bss_91f7 equ __zdseg_end + (__zobss_91f7 - __zdata_start)
+bss_9210 equ __zdseg_end + (__zobss_9210 - __zdata_start)
+bss_9242 equ __zdseg_end + (__zobss_9242 - __zdata_start)
+bss_9274 equ __zdseg_end + (__zobss_9274 - __zdata_start)
+bss_928e equ __zdseg_end + (__zobss_928e - __zdata_start)
+bss_92c0 equ __zdseg_end + (__zobss_92c0 - __zdata_start)
 ; bss_92f2 equ __zdseg_end + (__zobss_92f2 - __zdata_start)
+bss_92f4 equ __zdseg_end + (__zobss_92f4 - __zdata_start)
 ; bss_9aec equ __zdseg_end + (__zobss_9aec - __zdata_start)
+bss_9aee equ __zdseg_end + (__zobss_9aee - __zdata_start)
 bss_9b08 equ __zdseg_end + (__zobss_9b08 - __zdata_start)
 bss_9b0a equ __zdseg_end + (__zobss_9b0a - __zdata_start)
 bss_9b0c equ __zdseg_end + (__zobss_9b0c - __zdata_start)
@@ -175,27 +203,42 @@ dseg_917e equ __zdseg_end + (__zdseg_917e - __zdata_start)
 ; bss_9180  equ __zdseg_end + (__zobss_9180 - __zdata_start)
 %include "vmext/asm_only/loc_TQTV.asm"              ; 0x521b
 
+__zdseg_9098:
 __zdata_start:
-
     db 'MAZEDATA.VGA', 0
+__zdseg_90a5:
     db 'WATRDATA.VGA', 0
+__zdseg_90b2:
     db 'TREEDATA.VGA', 0
+__zdseg_90bf:
     db 'OTWNDATA.VGA', 0
+__zdseg_90cc:
     db 'TILEDATA.VGA', 0
+__zdseg_90d9:
     db 'TOWNDATA.VGA', 0
+__zdseg_90e6:
     db 'OTWNDATA.VGA', 0
+__zdseg_90f3:
     db 'WATRDATA.VGA', 0
+__zdseg_9100:
     db 'TILEDATA.VGA', 0
+__zdseg_910d:
     db 'TREEDATA.VGA', 0
+__zdseg_911a:
     db 'OCAVDATA.VGA', 0
+__zdseg_9127:
     db 'CAVEDATA.VGA', 0
+__zdseg_9134:
     db 'OCAVDATA.VGA', 0
+__zdseg_9141:
     db 'WATRDATA.VGA', 0
+__zdseg_914e:
     db 'TREEDATA.VGA', 0
+__zdseg_915b:
     db 'OTWNDATA.VGA', 0
+__zdseg_9168:
     db 'WATRDATA.VGA', 0
     db 0x00
-
 __zdseg_9176:
     db 0x00, 0x00
 __zdseg_9178:
@@ -222,13 +265,35 @@ __zobss_91a6:
 __zobss_91a8:
     resb 0x0002
 __zobss_91aa:
-    resb 0x000e
+    resb 0x0002
+__zobss_91ac:
+    resb 0x000c
 __zobss_91b8:
-    resb 0x013a
+    resb 0x000d
+__zobss_91c5:
+    resb 0x0019
+__zobss_91de:
+    resb 0x0019
+__zobss_91f7:
+    resb 0x0019
+__zobss_9210:
+    resb 0x0032
+__zobss_9242:
+    resb 0x0032
+__zobss_9274:
+    resb 0x001a
+__zobss_928e:
+    resb 0x0032
+__zobss_92c0:
+    resb 0x0032
 __zobss_92f2:
-    resb 0x07fa
+    resb 0x0002
+__zobss_92f4:
+    resb 0x07f8
 __zobss_9aec:
-    resb 0x001c
+    resb 0x0002
+__zobss_9aee:
+    resb 0x001a
 __zobss_9b08:
     resb 0x0002
 __zobss_9b0a:

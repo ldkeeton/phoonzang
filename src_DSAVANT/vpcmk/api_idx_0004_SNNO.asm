@@ -261,7 +261,7 @@ jumptable_240e:
     mov ax, word [word bx + 0x3a]    ; 0x24ad
     cmp ax, word [bp - 0x0002]       ; 0x24b1
     jge short @..api_idx_0004_SNNO.l4 ; 0x24b4
-    mov ax, 0x95f4                   ; 0x24b6
+    mov ax, bss_95f4                 ; 0x24b6
     push ax                          ; 0x24b9
     mov ax, 0x159e                   ; 0x24ba
     push ax                          ; 0x24bd

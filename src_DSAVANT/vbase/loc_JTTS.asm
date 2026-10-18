@@ -4,7 +4,7 @@ loc_JTTS:
     call aztec_csav                  ; 0x8a77
     mov ax, 0                        ; 0x8a7a
     push ax                          ; 0x8a7d
-    mov ax, 0x9158                   ; 0x8a7e
+    mov ax, dseg_9158                ; 0x8a7e
     push ax                          ; 0x8a81
     call api_idx_0002_LVPS           ; 0x8a82
     add sp, byte 4                   ; 0x8a85

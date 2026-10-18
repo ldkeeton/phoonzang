@@ -98,7 +98,7 @@ api_idx_0084_VMPP:
     add bx, bp                       ; 0x8d63
     mov byte [bx - 0x0051], 0x20     ; 0x8d65
     mov byte [bx - 0x0050], 0        ; 0x8d69
-    mov ax, 0x9e44                   ; 0x8d6d
+    mov ax, bss_9e44                 ; 0x8d6d
     push ax                          ; 0x8d70
     lea ax, word [bp - 0x0050]       ; 0x8d71
     push ax                          ; 0x8d74

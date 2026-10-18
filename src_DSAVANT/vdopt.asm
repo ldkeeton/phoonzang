@@ -134,6 +134,8 @@ bss_9b0c equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 
 %include "vdopt/api_idx_0002_OHVL.asm"     ; 0x195b
 
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_9099 equ __zdseg_end + (__zdseg_9099 - __zdata_start)
 %include "vdopt/api_idx_00fa_RIMJ.asm"     ; 0x1a5d
 
 %include "shared/loc_QQUT.asm"              ; 0x1c7f
@@ -180,10 +182,11 @@ loc_HTKI.api_idx1 equ api_idx_0004_PNVH
 
 %include "vdopt/api_idx_0038_QQIU.asm"     ; 0x3a2c
 
-; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)
-; bss_90b8 equ __zdseg_end + (__zobss_90b8 - __zdata_start)
-; bss_9b5e equ __zdseg_end + (__zobss_9b5e - __zdata_start)
-bss_9d90 equ __zdseg_end + (__zobss_9d90 - __zdata_start)
+dseg_90aa equ __zdseg_end + (__zdseg_90aa - __zdata_start)
+; bss_90b6  equ __zdseg_end + (__zobss_90b6 - __zdata_start)
+; bss_90b8  equ __zdseg_end + (__zobss_90b8 - __zdata_start)
+; bss_9b5e  equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+bss_9d90  equ __zdseg_end + (__zobss_9d90 - __zdata_start)
 %include "vdopt/api_idx_0094_LUVH.asm"     ; 0x417c
 
 ; bss_90b6 equ __zdseg_end + (__zobss_90b6 - __zdata_start)

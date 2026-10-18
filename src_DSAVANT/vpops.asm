@@ -103,6 +103,7 @@ loc_HTKI.api_idx1 equ api_idx_0004_LUOM
 
 %include "vpops/api_idx_0006_QUSK.asm"     ; 0x36c0
 
+bss_90d8 equ __zdseg_end + (__zobss_90d8 - __zdata_start)
 bss_9386 equ __zdseg_end + (__zobss_9386 - __zdata_start)
 bss_9388 equ __zdseg_end + (__zobss_9388 - __zdata_start)
 %include "vpops/api_idx_00d4_LUPQ.asm"     ; 0x3710
@@ -156,7 +157,9 @@ __zdseg_90d4:
 __zimage_end:
 absolute __zimage_end
 __zobss_90d6:
-    resb 0x02b0
+    resb 0x0002
+__zobss_90d8:
+    resb 0x02ae
 __zobss_9386:
     resb 0x0002
 __zobss_9388:

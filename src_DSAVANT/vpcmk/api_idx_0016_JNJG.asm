@@ -2,7 +2,7 @@
 api_idx_0016_JNJG:
     mov ax, 0xffea                   ; 0x6083
     call aztec_csav                  ; 0x6086
-    mov ax, 0x94e9                   ; 0x6089
+    mov ax, dseg_94e9                ; 0x6089
     push ax                          ; 0x608c
     lea ax, word [bp - 0x0016]       ; 0x608d
     push ax                          ; 0x6090

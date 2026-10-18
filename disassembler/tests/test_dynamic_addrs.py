@@ -225,7 +225,9 @@ BASELINE_TOTALS = {
     # indexed displacement that starts a named object was bound to it
     # (``[bx + dseg_5c08]``); the census skips BSS, so the 0x8482-style arrays
     # that made up most of the shift oracle's drop never counted here.
-    'str_imm': 746, 'ds_index': 2084,
+    # ``str_imm`` 746 -> 408 when a constant passed into an argument its
+    # routine reads memory through became a name (``lib.argpointers``).
+    'str_imm': 408, 'ds_index': 2084,
     # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
     # returns; the call is followed by N-1 keys and N case targets.  The decoder
     # used to fall through the call and decode the target words as ``jcc``s,

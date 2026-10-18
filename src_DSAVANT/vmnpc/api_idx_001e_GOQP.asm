@@ -90,7 +90,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x7193
     mov ax, 0x12                     ; 0x7194
     push ax                          ; 0x7197
-    mov ax, 0x843a                   ; 0x7198
+    mov ax, bss_843a                 ; 0x7198
     push ax                          ; 0x719b
     call aztec_setmem                ; 0x719c
     add sp, byte 6                   ; 0x719f
@@ -98,7 +98,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x71a5
     mov ax, 0x12                     ; 0x71a6
     push ax                          ; 0x71a9
-    mov ax, 0x93dc                   ; 0x71aa
+    mov ax, bss_93dc                 ; 0x71aa
     push ax                          ; 0x71ad
     call aztec_setmem                ; 0x71ae
     add sp, byte 6                   ; 0x71b1
@@ -171,7 +171,7 @@ api_idx_001e_GOQP:
     mov ax, 0                        ; 0x7273
     push ax                          ; 0x7276
     push word [bss_9136]             ; 0x7277
-    mov ax, 0x9138                   ; 0x727b
+    mov ax, bss_9138                 ; 0x727b
     push ax                          ; 0x727e
     mov ax, 5                        ; 0x727f
     push ax                          ; 0x7282
@@ -179,7 +179,7 @@ api_idx_001e_GOQP:
     add sp, byte 8                   ; 0x7286
     mov ax, 2                        ; 0x7289
     push ax                          ; 0x728c
-    mov ax, 0x95f8                   ; 0x728d
+    mov ax, bss_95f8                 ; 0x728d
     push ax                          ; 0x7290
     mov ax, word [bss_9136]          ; 0x7291
     shl ax, 1                        ; 0x7294
@@ -193,7 +193,7 @@ api_idx_001e_GOQP:
     push ax                          ; 0x72af
     mov ax, 0x6e                     ; 0x72b0
     push ax                          ; 0x72b3
-    mov ax, 0x94f0                   ; 0x72b4
+    mov ax, bss_94f0                 ; 0x72b4
     push ax                          ; 0x72b7
     call aztec_setmem                ; 0x72b8
     add sp, byte 6                   ; 0x72bb

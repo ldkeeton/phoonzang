@@ -6,7 +6,7 @@ loc_UGJT:
     push ax                          ; 0x3325
     mov ax, 0x12                     ; 0x3326
     push ax                          ; 0x3329
-    mov ax, 0x843a                   ; 0x332a
+    mov ax, bss_843a                 ; 0x332a
     push ax                          ; 0x332d
     call aztec_setmem                ; 0x332e
     add sp, byte 6                   ; 0x3331

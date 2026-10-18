@@ -43,7 +43,7 @@ api_idx_000a_TIPG:
     je short @..api_idx_000a_TIPG.l1 ; 0x09ba
     mov ax, 0x92                     ; 0x09bc
     push ax                          ; 0x09bf
-    mov ax, 0x9128                   ; 0x09c0
+    mov ax, bss_9128                 ; 0x09c0
     push ax                          ; 0x09c3
     call aztec_strlen                ; 0x09c4
     pop cx                           ; 0x09c7

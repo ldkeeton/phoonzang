@@ -19,14 +19,14 @@ api_idx_0090_NPLS:
     jmp near @..api_idx_0090_NPLS.l7 ; 0x0b4c
 jumptable_0c85_case_0:
     inc word [bp + 0x4]              ; 0x0b4f
-    mov ax, 0x9154                   ; 0x0b52
+    mov ax, bss_9154                 ; 0x0b52
     push ax                          ; 0x0b55
     call api_idx_0004_JGSH           ; 0x0b56
     pop cx                           ; 0x0b59
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0b5a
 jumptable_0c85_case_1:
     inc word [bp + 0x4]              ; 0x0b5d
-    mov ax, 0x9154                   ; 0x0b60
+    mov ax, bss_9154                 ; 0x0b60
     push ax                          ; 0x0b63
     call api_idx_0004_JGSH           ; 0x0b64
     pop cx                           ; 0x0b67
@@ -46,7 +46,7 @@ jumptable_0c85_case_1:
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0b86
 jumptable_0c85_case_2:
     inc word [bp + 0x4]              ; 0x0b89
-    mov ax, 0x9154                   ; 0x0b8c
+    mov ax, bss_9154                 ; 0x0b8c
     push ax                          ; 0x0b8f
     call api_idx_0004_JGSH           ; 0x0b90
     pop cx                           ; 0x0b93
@@ -71,7 +71,7 @@ jumptable_0c85_case_3:
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0bbe
 jumptable_0c85_case_4:
     inc word [bp + 0x4]              ; 0x0bc1
-    mov ax, 0x9154                   ; 0x0bc4
+    mov ax, bss_9154                 ; 0x0bc4
     push ax                          ; 0x0bc7
     call api_idx_0004_JGSH           ; 0x0bc8
     pop cx                           ; 0x0bcb
@@ -177,13 +177,13 @@ jumptable_0c85:
 @..api_idx_0090_NPLS.l9:
     cmp byte [bss_9154], 0           ; 0x0ca3
     je short @..api_idx_0090_NPLS.l10 ; 0x0ca8
-    mov ax, 0x9154                   ; 0x0caa
+    mov ax, bss_9154                 ; 0x0caa
     push ax                          ; 0x0cad
     lea ax, word [bp - 0x0086]       ; 0x0cae
     push ax                          ; 0x0cb2
     call aztec_strcpy                ; 0x0cb3
     add sp, byte 4                   ; 0x0cb6
-    mov ax, 0x90a0                   ; 0x0cb9
+    mov ax, dseg_90a0                ; 0x0cb9
     push ax                          ; 0x0cbc
     lea ax, word [bp - 0x0086]       ; 0x0cbd
     push ax                          ; 0x0cc1
@@ -211,12 +211,12 @@ jumptable_0c85:
     mov word [bp - 0x0002], ax       ; 0x0cf5
     cmp ax, 0xb8                     ; 0x0cf8
     jle short @..api_idx_0090_NPLS.l12 ; 0x0cfb
-    mov ax, 0x9154                   ; 0x0cfd
+    mov ax, bss_9154                 ; 0x0cfd
     push ax                          ; 0x0d00
     call api_idx_0004_JGSH           ; 0x0d01
     pop cx                           ; 0x0d04
     push word [bp + 0x4]             ; 0x0d05
-    mov ax, 0x9154                   ; 0x0d08
+    mov ax, bss_9154                 ; 0x0d08
     push ax                          ; 0x0d0b
     call aztec_strcpy                ; 0x0d0c
     add sp, byte 4                   ; 0x0d0f
@@ -224,7 +224,7 @@ jumptable_0c85:
 @..api_idx_0090_NPLS.l12:
     lea ax, word [bp - 0x0086]       ; 0x0d14
     push ax                          ; 0x0d18
-    mov ax, 0x9154                   ; 0x0d19
+    mov ax, bss_9154                 ; 0x0d19
     push ax                          ; 0x0d1c
     call aztec_strcpy                ; 0x0d1d
     add sp, byte 4                   ; 0x0d20

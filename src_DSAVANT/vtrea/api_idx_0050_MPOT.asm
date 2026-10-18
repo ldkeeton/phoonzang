@@ -34,7 +34,7 @@ api_idx_0050_MPOT:
     mov ax, 0                        ; 0x1434
     push ax                          ; 0x1437
     push word [bss_91d4]             ; 0x1438
-    mov ax, 0x91d6                   ; 0x143c
+    mov ax, bss_91d6                 ; 0x143c
     push ax                          ; 0x143f
     call loc_OOHI                    ; 0x1440
     add sp, byte 8                   ; 0x1443

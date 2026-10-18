@@ -25,7 +25,7 @@ loc_LIQV:
     je short @..loc_LIQV.l1          ; 0x6fbf
     cmp byte [bss_a4aa], 0           ; 0x6fc1
     je short @..loc_LIQV.l3          ; 0x6fc6
-    mov ax, 0xa4aa                   ; 0x6fc8
+    mov ax, bss_a4aa                 ; 0x6fc8
     push ax                          ; 0x6fcb
     call api_idx_0004_RLUP           ; 0x6fcc
     pop cx                           ; 0x6fcf

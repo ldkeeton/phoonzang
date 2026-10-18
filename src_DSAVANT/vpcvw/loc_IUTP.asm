@@ -1202,7 +1202,7 @@ jumptable_76e2:
     jne short @..loc_IUTP.l50        ; 0x7c49
     jmp near @..loc_IUTP.l52         ; 0x7c4b
 @..loc_IUTP.l50:
-    mov ax, 0x90c0                   ; 0x7c4e
+    mov ax, dseg_90c0                ; 0x7c4e
     push ax                          ; 0x7c51
     lea ax, word [bp - 0x00f2]       ; 0x7c52
     push ax                          ; 0x7c56
@@ -1210,7 +1210,7 @@ jumptable_76e2:
     add sp, byte 4                   ; 0x7c5a
     cmp byte [bp - 0x0039], 0        ; 0x7c5d
     jl short @..loc_IUTP.l51         ; 0x7c61
-    mov ax, 0x90c2                   ; 0x7c63
+    mov ax, dseg_90c2                ; 0x7c63
     push ax                          ; 0x7c66
     lea ax, word [bp - 0x00f2]       ; 0x7c67
     push ax                          ; 0x7c6b
@@ -1230,7 +1230,7 @@ jumptable_76e2:
     push ax                          ; 0x7c8b
     call aztec_strcat                ; 0x7c8c
     add sp, byte 4                   ; 0x7c8f
-    mov ax, 0x90c4                   ; 0x7c92
+    mov ax, dseg_90c4                ; 0x7c92
     push ax                          ; 0x7c95
     lea ax, word [bp - 0x00f2]       ; 0x7c96
     push ax                          ; 0x7c9a
@@ -1288,7 +1288,7 @@ jumptable_76e2:
     mov ax, word [bp - 0x0008]       ; 0x7d13
     sub ax, word [bp - 0x0004]       ; 0x7d16
     jle short @..loc_IUTP.l55        ; 0x7d19
-    mov ax, 0x90c6                   ; 0x7d1b
+    mov ax, dseg_90c6                ; 0x7d1b
     push ax                          ; 0x7d1e
     lea ax, word [bp - 0x00f2]       ; 0x7d1f
     push ax                          ; 0x7d23
@@ -1432,7 +1432,7 @@ jumptable_76e2:
     push word [bp - 0x0030]          ; 0x7e76
     call ds_app_OLKR                 ; 0x7e79
     add sp, byte 4                   ; 0x7e7c
-    mov ax, 0x90c8                   ; 0x7e7f
+    mov ax, dseg_90c8                ; 0x7e7f
     push ax                          ; 0x7e82
     lea ax, word [bp - 0x00f2]       ; 0x7e83
     push ax                          ; 0x7e87
@@ -1607,7 +1607,7 @@ jumptable_76e2:
     push ax                          ; 0x8027
     call aztec_strcat                ; 0x8028
     add sp, byte 4                   ; 0x802b
-    mov ax, 0x90ca                   ; 0x802e
+    mov ax, dseg_90ca                ; 0x802e
     push ax                          ; 0x8031
     lea ax, word [bp - 0x00f2]       ; 0x8032
     push ax                          ; 0x8036
@@ -1783,7 +1783,7 @@ jumptable_76e2:
     push word [bp - 0x0008]          ; 0x81cb
     call ds_app_OLKR                 ; 0x81ce
     add sp, byte 4                   ; 0x81d1
-    mov ax, 0x90cc                   ; 0x81d4
+    mov ax, dseg_90cc                ; 0x81d4
     push ax                          ; 0x81d7
     lea ax, word [bp - 0x00f2]       ; 0x81d8
     push ax                          ; 0x81dc

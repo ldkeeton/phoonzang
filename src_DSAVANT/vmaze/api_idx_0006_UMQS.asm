@@ -6,7 +6,7 @@ api_idx_0006_UMQS:
     push ax                          ; 0x9218
     mov ax, 0x14                     ; 0x9219
     push ax                          ; 0x921c
-    mov ax, 0x9bd2                   ; 0x921d
+    mov ax, bss_9bd2                 ; 0x921d
     push ax                          ; 0x9220
     call aztec_setmem                ; 0x9221
     add sp, byte 6                   ; 0x9224
@@ -73,7 +73,7 @@ api_idx_0006_UMQS:
     shl ax, 1                        ; 0x92c6
     shl ax, 1                        ; 0x92c8
     mov bx, ax                       ; 0x92ca
-    mov al, byte [bx - 0x7592]       ; 0x92cc
+    mov al, byte [bx + bss_8a6e]     ; 0x92cc
     sub ah, ah                       ; 0x92d0
     cmp ax, word [bp + 0x8]          ; 0x92d2
     je short @..api_idx_0006_UMQS.l6 ; 0x92d5
@@ -109,7 +109,7 @@ api_idx_0006_UMQS:
     push ax                          ; 0x9322
     mov ax, 0x40                     ; 0x9323
     push ax                          ; 0x9326
-    mov ax, 0x9c02                   ; 0x9327
+    mov ax, bss_9c02                 ; 0x9327
     push ax                          ; 0x932a
     call aztec_setmem                ; 0x932b
     add sp, byte 6                   ; 0x932e

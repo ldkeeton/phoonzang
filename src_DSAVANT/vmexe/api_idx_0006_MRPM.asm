@@ -43,11 +43,11 @@ api_idx_0006_MRPM:
 @..api_idx_0006_MRPM.l1:
     push word [bss_8462]             ; 0x90f3
     push word [bss_8464]             ; 0x90f7
-    mov ax, 0x90e6                   ; 0x90fb
+    mov ax, bss_90e6                 ; 0x90fb
     push ax                          ; 0x90fe
     call loc_HJSG                    ; 0x90ff
     add sp, byte 6                   ; 0x9102
-    mov ax, 0x9136                   ; 0x9105
+    mov ax, bss_9136                 ; 0x9105
     push ax                          ; 0x9108
     push word [bp + 0x4]             ; 0x9109
     call ds_app_mem_TIMR             ; 0x910c
@@ -55,7 +55,7 @@ api_idx_0006_MRPM:
     mov byte [bss_9186], 0           ; 0x9112
     cmp word [bp + 0x6], byte 0      ; 0x9117
     jl short @..api_idx_0006_MRPM.l2 ; 0x911b
-    mov ax, 0x9186                   ; 0x911d
+    mov ax, bss_9186                 ; 0x911d
     push ax                          ; 0x9120
     push word [bp + 0x6]             ; 0x9121
     call ds_app_mem_TIMR             ; 0x9124
@@ -69,11 +69,11 @@ api_idx_0006_MRPM:
     mov ax, 1                        ; 0x913a
 @..api_idx_0006_MRPM.l3:
     push ax                          ; 0x913d
-    mov ax, 0x9186                   ; 0x913e
+    mov ax, bss_9186                 ; 0x913e
     push ax                          ; 0x9141
-    mov ax, 0x9136                   ; 0x9142
+    mov ax, bss_9136                 ; 0x9142
     push ax                          ; 0x9145
-    mov ax, 0x90e6                   ; 0x9146
+    mov ax, bss_90e6                 ; 0x9146
     push ax                          ; 0x9149
     mov ax, 0                        ; 0x914a
     push ax                          ; 0x914d

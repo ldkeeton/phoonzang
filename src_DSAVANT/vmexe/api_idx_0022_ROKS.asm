@@ -96,7 +96,7 @@ api_idx_0022_ROKS:
     add sp, byte 4                   ; 0x231f
     push word [bp + 0x6]             ; 0x2322
     push word [bp + 0x4]             ; 0x2325
-    mov ax, 0x90e6                   ; 0x2328
+    mov ax, bss_90e6                 ; 0x2328
     push ax                          ; 0x232b
     call loc_HJSG                    ; 0x232c
     add sp, byte 6                   ; 0x232f
@@ -108,7 +108,7 @@ api_idx_0022_ROKS:
     mov ax, 1                        ; 0x233f
 @..api_idx_0022_ROKS.l10:
     push ax                          ; 0x2342
-    mov ax, 0x90e6                   ; 0x2343
+    mov ax, bss_90e6                 ; 0x2343
     push ax                          ; 0x2346
     call api_idx_0002_TMNV           ; 0x2347
     add sp, byte 6                   ; 0x234a
@@ -133,7 +133,7 @@ api_idx_0022_ROKS:
     push word [bp - 0x0002]          ; 0x2374
     call ds_app_OLKR                 ; 0x2377
     add sp, byte 4                   ; 0x237a
-    mov ax, 0x9136                   ; 0x237d
+    mov ax, bss_9136                 ; 0x237d
     push ax                          ; 0x2380
     mov ax, 0xced                    ; 0x2381
     push ax                          ; 0x2384
@@ -144,11 +144,11 @@ api_idx_0022_ROKS:
     push ax                          ; 0x2393
     push ax                          ; 0x2394
     push ax                          ; 0x2395
-    mov ax, 0x9186                   ; 0x2396
+    mov ax, bss_9186                 ; 0x2396
     push ax                          ; 0x2399
-    mov ax, 0x9136                   ; 0x239a
+    mov ax, bss_9136                 ; 0x239a
     push ax                          ; 0x239d
-    mov ax, 0x90e6                   ; 0x239e
+    mov ax, bss_90e6                 ; 0x239e
     push ax                          ; 0x23a1
     mov ax, 4                        ; 0x23a2
     push ax                          ; 0x23a5

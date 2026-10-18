@@ -415,7 +415,7 @@ jumptable_372d:
     mov ax, word [bx + bss_8490]     ; 0x3a26
     add ax, cx                       ; 0x3a2a
     push ax                          ; 0x3a2c
-    mov ax, 0x9136                   ; 0x3a2d
+    mov ax, bss_9136                 ; 0x3a2d
     push ax                          ; 0x3a30
     call aztec_strcpy                ; 0x3a31
     add sp, byte 4                   ; 0x3a34
@@ -440,11 +440,11 @@ jumptable_372d:
     push ax                          ; 0x3a60
     mov ax, 1                        ; 0x3a61
     push ax                          ; 0x3a64
-    mov ax, 0x9186                   ; 0x3a65
+    mov ax, bss_9186                 ; 0x3a65
     push ax                          ; 0x3a68
-    mov ax, 0x9136                   ; 0x3a69
+    mov ax, bss_9136                 ; 0x3a69
     push ax                          ; 0x3a6c
-    mov ax, 0x90e6                   ; 0x3a6d
+    mov ax, bss_90e6                 ; 0x3a6d
     push ax                          ; 0x3a70
     mov ax, 2                        ; 0x3a71
     push ax                          ; 0x3a74

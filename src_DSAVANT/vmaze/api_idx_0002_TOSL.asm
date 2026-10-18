@@ -79,13 +79,13 @@ jumptable_042b:
 jumptable_06b5_case_1:
     mov ax, 0                        ; 0x0497
     push ax                          ; 0x049a
-    mov ax, 0x90a0                   ; 0x049b
+    mov ax, dseg_90a0                ; 0x049b
     push ax                          ; 0x049e
     call api_idx_0002_PQLV           ; 0x049f
     add sp, byte 4                   ; 0x04a2
     mov ax, 5                        ; 0x04a5
     push ax                          ; 0x04a8
-    mov ax, 0x90ad                   ; 0x04a9
+    mov ax, dseg_90ad                ; 0x04a9
     push ax                          ; 0x04ac
     call api_idx_0002_PQLV           ; 0x04ad
     add sp, byte 4                   ; 0x04b0
@@ -118,19 +118,19 @@ jumptable_06b5_case_1:
 jumptable_06b5_case_2:
     mov ax, 1                        ; 0x04f4
     push ax                          ; 0x04f7
-    mov ax, 0x90ba                   ; 0x04f8
+    mov ax, dseg_90ba                ; 0x04f8
     push ax                          ; 0x04fb
     call api_idx_0002_PQLV           ; 0x04fc
     add sp, byte 4                   ; 0x04ff
     mov ax, 4                        ; 0x0502
     push ax                          ; 0x0505
-    mov ax, 0x90c7                   ; 0x0506
+    mov ax, dseg_90c7                ; 0x0506
     push ax                          ; 0x0509
     call api_idx_0002_PQLV           ; 0x050a
     add sp, byte 4                   ; 0x050d
     mov ax, 6                        ; 0x0510
     push ax                          ; 0x0513
-    mov ax, 0x90d4                   ; 0x0514
+    mov ax, dseg_90d4                ; 0x0514
     push ax                          ; 0x0517
     call api_idx_0002_PQLV           ; 0x0518
     add sp, byte 4                   ; 0x051b
@@ -145,25 +145,25 @@ jumptable_06b5_case_2:
 jumptable_06b5_case_3:
     mov ax, 2                        ; 0x0535
     push ax                          ; 0x0538
-    mov ax, 0x90e1                   ; 0x0539
+    mov ax, dseg_90e1                ; 0x0539
     push ax                          ; 0x053c
     call api_idx_0002_PQLV           ; 0x053d
     add sp, byte 4                   ; 0x0540
     mov ax, 4                        ; 0x0543
     push ax                          ; 0x0546
-    mov ax, 0x90ee                   ; 0x0547
+    mov ax, dseg_90ee                ; 0x0547
     push ax                          ; 0x054a
     call api_idx_0002_PQLV           ; 0x054b
     add sp, byte 4                   ; 0x054e
     mov ax, 5                        ; 0x0551
     push ax                          ; 0x0554
-    mov ax, 0x90fb                   ; 0x0555
+    mov ax, dseg_90fb                ; 0x0555
     push ax                          ; 0x0558
     call api_idx_0002_PQLV           ; 0x0559
     add sp, byte 4                   ; 0x055c
     mov ax, 6                        ; 0x055f
     push ax                          ; 0x0562
-    mov ax, 0x9108                   ; 0x0563
+    mov ax, dseg_9108                ; 0x0563
     push ax                          ; 0x0566
     call api_idx_0002_PQLV           ; 0x0567
     add sp, byte 4                   ; 0x056a
@@ -196,13 +196,13 @@ jumptable_06b5_case_3:
 jumptable_06b5_case_4:
     mov ax, 1                        ; 0x05ae
     push ax                          ; 0x05b1
-    mov ax, 0x9115                   ; 0x05b2
+    mov ax, dseg_9115                ; 0x05b2
     push ax                          ; 0x05b5
     call api_idx_0002_PQLV           ; 0x05b6
     add sp, byte 4                   ; 0x05b9
     mov ax, 4                        ; 0x05bc
     push ax                          ; 0x05bf
-    mov ax, 0x9122                   ; 0x05c0
+    mov ax, dseg_9122                ; 0x05c0
     push ax                          ; 0x05c3
     call api_idx_0002_PQLV           ; 0x05c4
     add sp, byte 4                   ; 0x05c7
@@ -217,19 +217,19 @@ jumptable_06b5_case_4:
 jumptable_06b5_case_5:
     mov ax, 2                        ; 0x05e1
     push ax                          ; 0x05e4
-    mov ax, 0x912f                   ; 0x05e5
+    mov ax, dseg_912f                ; 0x05e5
     push ax                          ; 0x05e8
     call api_idx_0002_PQLV           ; 0x05e9
     add sp, byte 4                   ; 0x05ec
     mov ax, 4                        ; 0x05ef
     push ax                          ; 0x05f2
-    mov ax, 0x913c                   ; 0x05f3
+    mov ax, dseg_913c                ; 0x05f3
     push ax                          ; 0x05f6
     call api_idx_0002_PQLV           ; 0x05f7
     add sp, byte 4                   ; 0x05fa
     mov ax, 5                        ; 0x05fd
     push ax                          ; 0x0600
-    mov ax, 0x9149                   ; 0x0601
+    mov ax, dseg_9149                ; 0x0601
     push ax                          ; 0x0604
     call api_idx_0002_PQLV           ; 0x0605
     add sp, byte 4                   ; 0x0608
@@ -268,19 +268,19 @@ jumptable_06b5_case_5:
 jumptable_06b5_case_6:
     mov ax, 1                        ; 0x0659
     push ax                          ; 0x065c
-    mov ax, 0x9156                   ; 0x065d
+    mov ax, dseg_9156                ; 0x065d
     push ax                          ; 0x0660
     call api_idx_0002_PQLV           ; 0x0661
     add sp, byte 4                   ; 0x0664
     mov ax, 4                        ; 0x0667
     push ax                          ; 0x066a
-    mov ax, 0x9163                   ; 0x066b
+    mov ax, dseg_9163                ; 0x066b
     push ax                          ; 0x066e
     call api_idx_0002_PQLV           ; 0x066f
     add sp, byte 4                   ; 0x0672
     mov ax, 5                        ; 0x0675
     push ax                          ; 0x0678
-    mov ax, 0x9170                   ; 0x0679
+    mov ax, dseg_9170                ; 0x0679
     push ax                          ; 0x067c
     call api_idx_0002_PQLV           ; 0x067d
     add sp, byte 4                   ; 0x0680

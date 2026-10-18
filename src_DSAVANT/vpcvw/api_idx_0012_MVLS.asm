@@ -211,7 +211,7 @@ api_idx_0012_MVLS:
     mov ax, word [bp - 0x0002]       ; 0x0c88
     mov word [bss_940e], ax          ; 0x0c8b
     push word [bp + 0xa]             ; 0x0c8e
-    mov ax, 0x9414                   ; 0x0c91
+    mov ax, bss_9414                 ; 0x0c91
     push ax                          ; 0x0c94
     call aztec_strcpy                ; 0x0c95
     add sp, byte 4                   ; 0x0c98

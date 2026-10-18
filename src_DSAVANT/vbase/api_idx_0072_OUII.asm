@@ -32,13 +32,13 @@ api_idx_0072_OUII:
     push ax                          ; 0x1ff3
     call ds_app_mem_TIMR             ; 0x1ff4
     add sp, byte 4                   ; 0x1ff7
-    mov ax, 0x90c2                   ; 0x1ffa
+    mov ax, dseg_90c2                ; 0x1ffa
     push ax                          ; 0x1ffd
     lea ax, word [bp - 0x0036]       ; 0x1ffe
     push ax                          ; 0x2001
     call aztec_strcpy                ; 0x2002
     add sp, byte 4                   ; 0x2005
-    mov ax, 0x593a                   ; 0x2008
+    mov ax, bss_593a                 ; 0x2008
     push ax                          ; 0x200b
     lea ax, word [bp - 0x004a]       ; 0x200c
     push ax                          ; 0x200f
@@ -81,17 +81,17 @@ api_idx_0072_OUII:
     add sp, byte 6                   ; 0x2060
     lea ax, word [bp - 0x004a]       ; 0x2063
     push ax                          ; 0x2066
-    mov ax, 0x91ee                   ; 0x2067
+    mov ax, bss_91ee                 ; 0x2067
     push ax                          ; 0x206a
     call aztec_strcpy                ; 0x206b
     add sp, byte 4                   ; 0x206e
-    mov ax, 0x91ee                   ; 0x2071
+    mov ax, bss_91ee                 ; 0x2071
     push ax                          ; 0x2074
     call aztec_strlen                ; 0x2075
     pop cx                           ; 0x2078
     cmp ax, strict word 0            ; 0x2079
     jle short @..api_idx_0072_OUII.l4 ; 0x207c
-    mov ax, 0x91ee                   ; 0x207e
+    mov ax, bss_91ee                 ; 0x207e
     push ax                          ; 0x2081
     call aztec_strlen                ; 0x2082
     pop cx                           ; 0x2085
@@ -105,15 +105,15 @@ api_idx_0072_OUII:
 @..api_idx_0072_OUII.l4:
     lea ax, word [bp - 0x0036]       ; 0x209d
     push ax                          ; 0x20a0
-    mov ax, 0x91ee                   ; 0x20a1
+    mov ax, bss_91ee                 ; 0x20a1
     push ax                          ; 0x20a4
     call aztec_strcat                ; 0x20a5
     add sp, byte 4                   ; 0x20a8
     cmp byte [bss_5987], 1           ; 0x20ab
     jne short @..api_idx_0072_OUII.l5 ; 0x20b0
-    mov ax, 0x91da                   ; 0x20b2
+    mov ax, bss_91da                 ; 0x20b2
     push ax                          ; 0x20b5
-    mov ax, 0x91c6                   ; 0x20b6
+    mov ax, bss_91c6                 ; 0x20b6
     push ax                          ; 0x20b9
     call aztec_strcmp                ; 0x20ba
     add sp, byte 4                   ; 0x20bd
@@ -121,15 +121,15 @@ api_idx_0072_OUII:
     jne short @..api_idx_0072_OUII.l5 ; 0x20c2
     jmp near @..api_idx_0072_OUII.l11 ; 0x20c4
 @..api_idx_0072_OUII.l5:
-    mov ax, 0x91da                   ; 0x20c7
+    mov ax, bss_91da                 ; 0x20c7
     push ax                          ; 0x20ca
     call aztec_strlen                ; 0x20cb
     pop cx                           ; 0x20ce
     cmp ax, strict word 0            ; 0x20cf
     jle short @..api_idx_0072_OUII.l9 ; 0x20d2
-    mov ax, 0x91da                   ; 0x20d4
+    mov ax, bss_91da                 ; 0x20d4
     push ax                          ; 0x20d7
-    mov ax, 0x91c6                   ; 0x20d8
+    mov ax, bss_91c6                 ; 0x20d8
     push ax                          ; 0x20db
     call aztec_strcmp                ; 0x20dc
     add sp, byte 4                   ; 0x20df
@@ -145,7 +145,7 @@ api_idx_0072_OUII:
     push word [bp - 0x000e]          ; 0x20f6
     mov ax, 0xffff                   ; 0x20f9
     push ax                          ; 0x20fc
-    mov ax, 0x91da                   ; 0x20fd
+    mov ax, bss_91da                 ; 0x20fd
     push ax                          ; 0x2100
     call ds_app_file_QQMM            ; 0x2101
     add sp, byte 8                   ; 0x2104
@@ -165,7 +165,7 @@ api_idx_0072_OUII:
     push word [bp - 0x000e]          ; 0x2128
     mov ax, 0xffff                   ; 0x212b
     push ax                          ; 0x212e
-    mov ax, 0x91c6                   ; 0x212f
+    mov ax, bss_91c6                 ; 0x212f
     push ax                          ; 0x2132
     call ds_app_file_QQMM            ; 0x2133
     add sp, byte 8                   ; 0x2136
@@ -203,7 +203,7 @@ api_idx_0072_OUII:
     add sp, byte 0x0e                ; 0x217a
     mov ax, 0                        ; 0x217d
     push ax                          ; 0x2180
-    mov ax, 0x91ee                   ; 0x2181
+    mov ax, bss_91ee                 ; 0x2181
     push ax                          ; 0x2184
     call aztec_open                  ; 0x2185
     add sp, byte 4                   ; 0x2188
@@ -220,7 +220,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x21a4
     push word [bp - 0x0012]          ; 0x21a5
     push word [bp - 0x0010]          ; 0x21a8
-    mov ax, 0x91c6                   ; 0x21ab
+    mov ax, bss_91c6                 ; 0x21ab
     push ax                          ; 0x21ae
     call ds_app_file_QQMM            ; 0x21af
     add sp, byte 8                   ; 0x21b2
@@ -239,7 +239,7 @@ api_idx_0072_OUII:
     add sp, byte 8                   ; 0x21cb
     mov ax, 0x19e                    ; 0x21ce
     push ax                          ; 0x21d1
-    mov ax, 0x9220                   ; 0x21d2
+    mov ax, bss_9220                 ; 0x21d2
     push ax                          ; 0x21d5
     push word [bp - 0x000a]          ; 0x21d6
     call aztec_read                  ; 0x21d9
@@ -260,7 +260,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x21ff
     push word [bp - 0x0012]          ; 0x2200
     push word [bp - 0x0010]          ; 0x2203
-    mov ax, 0x91c6                   ; 0x2206
+    mov ax, bss_91c6                 ; 0x2206
     push ax                          ; 0x2209
     call ds_app_file_QQMM            ; 0x220a
     add sp, byte 8                   ; 0x220d
@@ -307,7 +307,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x226c
     push word [bp - 0x0012]          ; 0x226d
     push word [bp - 0x0010]          ; 0x2270
-    mov ax, 0x91c6                   ; 0x2273
+    mov ax, bss_91c6                 ; 0x2273
     push ax                          ; 0x2276
     call ds_app_file_QQMM            ; 0x2277
     add sp, byte 8                   ; 0x227a
@@ -340,7 +340,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x22ba
     push word [bp - 0x0012]          ; 0x22bb
     push word [bp - 0x0010]          ; 0x22be
-    mov ax, 0x91c6                   ; 0x22c1
+    mov ax, bss_91c6                 ; 0x22c1
     push ax                          ; 0x22c4
     call ds_app_file_QQMM            ; 0x22c5
     add sp, byte 8                   ; 0x22c8
@@ -359,7 +359,7 @@ api_idx_0072_OUII:
     pop cx                           ; 0x22e4
     mov ax, 0x42                     ; 0x22e5
     push ax                          ; 0x22e8
-    mov ax, 0x93c0                   ; 0x22e9
+    mov ax, bss_93c0                 ; 0x22e9
     push ax                          ; 0x22ec
     push word [bp - 0x000a]          ; 0x22ed
     call aztec_read                  ; 0x22f0
@@ -380,7 +380,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x2316
     push word [bp - 0x0012]          ; 0x2317
     push word [bp - 0x0010]          ; 0x231a
-    mov ax, 0x91c6                   ; 0x231d
+    mov ax, bss_91c6                 ; 0x231d
     push ax                          ; 0x2320
     call ds_app_file_QQMM            ; 0x2321
     add sp, byte 8                   ; 0x2324
@@ -394,7 +394,7 @@ api_idx_0072_OUII:
 @..api_idx_0072_OUII.l25:
     mov ax, 0x1b0                    ; 0x2339
     push ax                          ; 0x233c
-    mov ax, 0x9402                   ; 0x233d
+    mov ax, bss_9402                 ; 0x233d
     push ax                          ; 0x2340
     push word [bp - 0x000a]          ; 0x2341
     call aztec_read                  ; 0x2344
@@ -415,7 +415,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x236a
     push word [bp - 0x0012]          ; 0x236b
     push word [bp - 0x0010]          ; 0x236e
-    mov ax, 0x91c6                   ; 0x2371
+    mov ax, bss_91c6                 ; 0x2371
     push ax                          ; 0x2374
     call ds_app_file_QQMM            ; 0x2375
     add sp, byte 8                   ; 0x2378
@@ -443,7 +443,7 @@ api_idx_0072_OUII:
 @..api_idx_0072_OUII.l28:
     mov bx, word [bp - 0x0014]       ; 0x23ad
     mov word [bx + 0x24], ax         ; 0x23b0
-    mov ax, 0x9402                   ; 0x23b3
+    mov ax, bss_9402                 ; 0x23b3
     push ax                          ; 0x23b6
     push word [bp - 0x0014]          ; 0x23b7
     call aztec_strcpy                ; 0x23ba

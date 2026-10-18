@@ -4,7 +4,7 @@ api_idx_0002_MIQR:
     call aztec_csav                  ; 0x8d87
     mov ax, 0                        ; 0x8d8a
     push ax                          ; 0x8d8d
-    mov ax, 0x9186                   ; 0x8d8e
+    mov ax, dseg_9186                ; 0x8d8e
     push ax                          ; 0x8d91
     call api_idx_0002_LVPS           ; 0x8d92
     add sp, byte 4                   ; 0x8d95
@@ -29,9 +29,9 @@ api_idx_0002_MIQR:
     push ax                          ; 0x8dc1
     call api_idx_0016_LTLN           ; 0x8dc2
     add sp, byte 4                   ; 0x8dc5
-    mov ax, 0x9193                   ; 0x8dc8
+    mov ax, dseg_9193                ; 0x8dc8
     push ax                          ; 0x8dcb
-    mov ax, 0xa5c6                   ; 0x8dcc
+    mov ax, bss_a5c6                 ; 0x8dcc
     push ax                          ; 0x8dcf
     call aztec_strcpy                ; 0x8dd0
     add sp, byte 4                   ; 0x8dd3

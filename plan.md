@@ -31,7 +31,8 @@ each literal operand or `dw` that should have moved and did not. Ratchet:
 | 801b643f | 130 | 982 | 16 |
 | 2d7d06c5 | 135 | 984 | 0 |
 | 734d80e1 | 51 | 1207 | 0 |
-| indexed DS bound | **51** | **545** | 0 |
+| indexed DS bound | 51 | 545 | 0 |
+| pointer arguments | **57** | **356** | 0 |
 
 The oracle is frozen. All rows were measured with its final version, in which
 a displacement counts only in the segment the edit moves and `bp` frame slots
@@ -43,6 +44,18 @@ The last row binds an indexed DS displacement (`[bx - 0x7b7e]` →
 names absolutely (the build's `ds_starts` union); a field offset such as
 `[bx + 0x19f]` stays a number. 662 of the 666 indexed findings went; the 4
 left are the C-relinked `draw_fill_action_slot_table` (§4.3 `_RAW_DATA`).
+
+The next row names a constant the program passes into an argument its
+routine reads memory through (`lib.argpointers`): the routine loads the
+argument and reads bytes through it, or hands it to one that does, or is one
+of five library routines that pass a buffer to DOS (`open`, `read`, `write`,
+`movmem`, the overlay loader). 856 constants became names; a value is never
+judged by whether it happens to land on a string (0x3e8 and 0x400 do). Left as
+numbers: `[bx + si]` reads, where either register may be the pointer
+(`ds_app_HVHT` keeps it in `bx`, `set_bitmap_bit` in `si`), calls through far
+thunks, and returned addresses. Code rose 51 → 57 only because vmnpc's newly
+named own data sits at CS 0xff7a–0xffac, which six csav frame sizes equal by
+chance.
 
 The data rise at 4a0e0cdb is visibility: 73 → 1419 named DS objects, so more
 literals match a known object. The name-independent classes held at 951–953.

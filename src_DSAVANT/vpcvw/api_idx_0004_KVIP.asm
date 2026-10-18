@@ -55,7 +55,7 @@ api_idx_0004_KVIP:
     mov ax, word [bp - 0x0002]       ; 0x0a18
     add ax, strict word 0xe          ; 0x0a1b
     push ax                          ; 0x0a1e
-    mov ax, 0x9414                   ; 0x0a1f
+    mov ax, bss_9414                 ; 0x0a1f
     push ax                          ; 0x0a22
     call api_idx_002a_STSK           ; 0x0a23
     add sp, byte 8                   ; 0x0a26

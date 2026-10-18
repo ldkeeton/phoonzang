@@ -4,11 +4,11 @@ loc_NJKR:
     call aztec_csav                  ; 0x1e38
     push word [bp + 0x6]             ; 0x1e3b
     push word [bp + 0x4]             ; 0x1e3e
-    mov ax, 0x90e6                   ; 0x1e41
+    mov ax, bss_90e6                 ; 0x1e41
     push ax                          ; 0x1e44
     call loc_HJSG                    ; 0x1e45
     add sp, byte 6                   ; 0x1e48
-    mov ax, 0x9136                   ; 0x1e4b
+    mov ax, bss_9136                 ; 0x1e4b
     push ax                          ; 0x1e4e
     push word [bp + 0x8]             ; 0x1e4f
     call ds_app_mem_TIMR             ; 0x1e52
@@ -30,7 +30,7 @@ loc_NJKR:
     mov ax, 1                        ; 0x1e7f
 @..loc_NJKR.l1:
     push ax                          ; 0x1e82
-    mov ax, 0x90e6                   ; 0x1e83
+    mov ax, bss_90e6                 ; 0x1e83
     push ax                          ; 0x1e86
     call api_idx_0002_TMNV           ; 0x1e87
     add sp, byte 6                   ; 0x1e8a
@@ -38,7 +38,7 @@ loc_NJKR:
     push ax                          ; 0x1e90
     mov ax, 0x41                     ; 0x1e91
     push ax                          ; 0x1e94
-    mov ax, 0x9136                   ; 0x1e95
+    mov ax, bss_9136                 ; 0x1e95
     push ax                          ; 0x1e98
     call api_idx_0002_TMNV           ; 0x1e99
     add sp, byte 6                   ; 0x1e9c
@@ -57,11 +57,11 @@ loc_NJKR:
     mov ax, 1                        ; 0x1eb7
 @..loc_NJKR.l3:
     push ax                          ; 0x1eba
-    mov ax, 0x9186                   ; 0x1ebb
+    mov ax, bss_9186                 ; 0x1ebb
     push ax                          ; 0x1ebe
-    mov ax, 0x9136                   ; 0x1ebf
+    mov ax, bss_9136                 ; 0x1ebf
     push ax                          ; 0x1ec2
-    mov ax, 0x90e6                   ; 0x1ec3
+    mov ax, bss_90e6                 ; 0x1ec3
     push ax                          ; 0x1ec6
     mov ax, 4                        ; 0x1ec7
     push ax                          ; 0x1eca

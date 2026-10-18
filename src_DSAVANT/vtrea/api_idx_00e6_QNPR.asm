@@ -98,7 +98,7 @@ api_idx_00e6_QNPR:
     mov word [bp - 0x000a], ax       ; 0x749e
     cmp word [bp - 0x001a], byte 0   ; 0x74a1
     jne short @..api_idx_00e6_QNPR.l2 ; 0x74a5
-    mov ax, 0x9128                   ; 0x74a7
+    mov ax, bss_9128                 ; 0x74a7
     push ax                          ; 0x74aa
     push word [bp - 0x000a]          ; 0x74ab
     call ds_app_mem_TIMR             ; 0x74ae

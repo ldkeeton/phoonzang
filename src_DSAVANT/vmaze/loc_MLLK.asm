@@ -40,7 +40,7 @@ loc_MLLK:
     je short @..loc_MLLK.l1          ; 0x6f7e
     cmp byte [bss_9b50], 0           ; 0x6f80
     je short @..loc_MLLK.l4          ; 0x6f85
-    mov ax, 0x9b50                   ; 0x6f87
+    mov ax, bss_9b50                 ; 0x6f87
     push ax                          ; 0x6f8a
     call api_idx_0004_JGSH           ; 0x6f8b
     pop cx                           ; 0x6f8e

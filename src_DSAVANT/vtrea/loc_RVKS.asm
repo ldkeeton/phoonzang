@@ -5,7 +5,7 @@ loc_RVKS:
     mov ax, word [bss_82ee]          ; 0x6f47
     shl ax, 1                        ; 0x6f4a
     mov bx, ax                       ; 0x6f4c
-    mov word [bx - 0x7302], 0        ; 0x6f4e
+    mov word [bx + bss_8cfe], 0      ; 0x6f4e
     push ax                          ; 0x6f54
     mov cx, word [bp + 0x4]          ; 0x6f55
     shl cx, 1                        ; 0x6f58

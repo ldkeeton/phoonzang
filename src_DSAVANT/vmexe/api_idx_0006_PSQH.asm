@@ -87,11 +87,11 @@ api_idx_0006_PSQH:
 @..api_idx_0006_PSQH.l7:
     push word [bss_8462]             ; 0x9966
     push word [bss_8464]             ; 0x996a
-    mov ax, 0x90e6                   ; 0x996e
+    mov ax, bss_90e6                 ; 0x996e
     push ax                          ; 0x9971
     call loc_HJSG                    ; 0x9972
     add sp, byte 6                   ; 0x9975
-    mov ax, 0x9136                   ; 0x9978
+    mov ax, bss_9136                 ; 0x9978
     push ax                          ; 0x997b
     mov ax, 0xdbb                    ; 0x997c
     push ax                          ; 0x997f
@@ -106,11 +106,11 @@ api_idx_0006_PSQH:
     mov ax, 1                        ; 0x9997
 @..api_idx_0006_PSQH.l8:
     push ax                          ; 0x999a
-    mov ax, 0x9186                   ; 0x999b
+    mov ax, bss_9186                 ; 0x999b
     push ax                          ; 0x999e
-    mov ax, 0x9136                   ; 0x999f
+    mov ax, bss_9136                 ; 0x999f
     push ax                          ; 0x99a2
-    mov ax, 0x90e6                   ; 0x99a3
+    mov ax, bss_90e6                 ; 0x99a3
     push ax                          ; 0x99a6
     mov ax, 0                        ; 0x99a7
     push ax                          ; 0x99aa

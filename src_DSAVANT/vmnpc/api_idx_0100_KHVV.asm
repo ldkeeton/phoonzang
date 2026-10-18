@@ -16,7 +16,7 @@ api_idx_0100_KHVV:
     mov bx, ax                       ; 0x976b
     cmp byte [bx - 0x6e34], 0        ; 0x976d
     je short @..api_idx_0100_KHVV.l2 ; 0x9772
-    mov ax, 0x90f2                   ; 0x9774
+    mov ax, dseg_90f2                ; 0x9774
     push ax                          ; 0x9777
     add bx, strict word 0x91cc       ; 0x9778
     mov ax, bx                       ; 0x977c

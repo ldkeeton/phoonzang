@@ -26,8 +26,14 @@ _TREE = shift_oracle.TREE
 # ``bp`` frame slot); every tree was re-measured then and data did not move.
 # Data fell 1207 -> 545 when indexed DS displacements were bound to the named
 # object they start (``[bx + bss_8482]``, ``symbols._resolve_indexed_symbols``).
+# Data fell 545 -> 356 when a constant passed into an argument its routine
+# reads memory through became a name (``lib.argpointers``; 856 sites, most of
+# which the oracle had no evidence for).  Code rose 51 -> 57 from visibility:
+# vmnpc's own data, now named, sits after its code at CS 0xff7a-0xffac, and six
+# ``mov ax, 0xffac; call aztec_csav`` frame sizes equal those labels by chance
+# (the oracle's constant-equals-a-label case, like ega's ``0x4000``).
 # A rise from new visibility is re-measured and explained here, not hidden.
-BASELINE = {'code': 51, 'data': 545, 'branch': 0}
+BASELINE = {'code': 57, 'data': 356, 'branch': 0}
 
 
 def _sites(result):
@@ -72,6 +78,12 @@ class ShiftOracleSanityTests(unittest.TestCase):
         # ``mov bx, word [bx + bss_8482]`` was ``[bx - 0x7b7e]``.
         r = shift_oracle.run('vmexe', 'data')
         self.assertNotIn(('shared/api_idx_000e_VRIR.asm', 10), _sites(r))
+
+    def test_a_constant_passed_as_a_pointer_moves(self):
+        # ``mov ax, 0xb74; push ax; call ...`` into an argument the callee
+        # reads through: the string's address is now a name.
+        r = shift_oracle.run('ds', 'data')
+        self.assertNotIn(('ds/ds_app_file_QQMM.asm', 51), _sites(r))
 
 
 @slow

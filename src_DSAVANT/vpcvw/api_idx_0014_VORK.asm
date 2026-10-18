@@ -77,7 +77,7 @@ api_idx_0014_VORK:
     mov word [bp - 0x0014], ax       ; 0x6220
     mov ax, 0                        ; 0x6223
     push ax                          ; 0x6226
-    mov ax, 0x90b3                   ; 0x6227
+    mov ax, dseg_90b3                ; 0x6227
     push ax                          ; 0x622a
     call api_idx_0002_OOKN           ; 0x622b
     add sp, byte 4                   ; 0x622e

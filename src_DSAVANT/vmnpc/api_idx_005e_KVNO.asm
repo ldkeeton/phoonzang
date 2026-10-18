@@ -252,13 +252,13 @@ api_idx_005e_KVNO:
     mov ax, 0                        ; 0x59fa
     ret                              ; 0x59fd
 @..api_idx_005e_KVNO.l15:
-    mov ax, 0x95a8                   ; 0x59fe
+    mov ax, bss_95a8                 ; 0x59fe
     push ax                          ; 0x5a01
     mov ax, 0x633                    ; 0x5a02
     push ax                          ; 0x5a05
     call ds_app_mem_TIMR             ; 0x5a06
     add sp, byte 4                   ; 0x5a09
-    mov ax, 0x95fa                   ; 0x5a0c
+    mov ax, bss_95fa                 ; 0x5a0c
     push ax                          ; 0x5a0f
     push word [bp - 0x003c]          ; 0x5a10
     push word [bp - 0x003e]          ; 0x5a13
@@ -268,11 +268,11 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5a1f
     mov ax, 0x95fa                   ; 0x5a20
     push ax                          ; 0x5a23
-    mov ax, 0x95a8                   ; 0x5a24
+    mov ax, bss_95a8                 ; 0x5a24
     push ax                          ; 0x5a27
     call ds_app_string_HHIL          ; 0x5a28
     add sp, byte 6                   ; 0x5a2b
-    mov ax, 0x95fa                   ; 0x5a2e
+    mov ax, bss_95fa                 ; 0x5a2e
     push ax                          ; 0x5a31
     mov ax, 0x634                    ; 0x5a32
     push ax                          ; 0x5a35
@@ -282,7 +282,7 @@ api_idx_005e_KVNO:
     imul word [bp + 0x6]             ; 0x5a3f
     add ax, 0x96a2                   ; 0x5a42
     push ax                          ; 0x5a45
-    mov ax, 0x9d10                   ; 0x5a46
+    mov ax, bss_9d10                 ; 0x5a46
     push ax                          ; 0x5a49
     call aztec_strcpy                ; 0x5a4a
     add sp, byte 4                   ; 0x5a4d
@@ -294,7 +294,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5a5b
     mov ax, 0x9d10                   ; 0x5a5c
     push ax                          ; 0x5a5f
-    mov ax, 0x95fa                   ; 0x5a60
+    mov ax, bss_95fa                 ; 0x5a60
     push ax                          ; 0x5a63
     call ds_app_string_HHIL          ; 0x5a64
     add sp, byte 6                   ; 0x5a67
@@ -334,9 +334,9 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5ab8
     mov ax, 0x635                    ; 0x5ab9
     push ax                          ; 0x5abc
-    mov ax, 0x95fa                   ; 0x5abd
+    mov ax, bss_95fa                 ; 0x5abd
     push ax                          ; 0x5ac0
-    mov ax, 0x95a8                   ; 0x5ac1
+    mov ax, bss_95a8                 ; 0x5ac1
     push ax                          ; 0x5ac4
     call loc_MOVJ                    ; 0x5ac5
     add sp, byte 0x1c                ; 0x5ac8

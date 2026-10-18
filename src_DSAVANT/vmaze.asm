@@ -51,7 +51,24 @@ bss_919e equ __zdseg_end + (__zobss_919e - __zdata_start)
 
 %include "vmaze/loc_VRKM.asm"              ; 0x0344
 
-bss_91a6 equ __zdseg_end + (__zobss_91a6 - __zdata_start)
+dseg_90a0 equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
+dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
+dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
+dseg_90c7 equ __zdseg_end + (__zdseg_90c7 - __zdata_start)
+dseg_90d4 equ __zdseg_end + (__zdseg_90d4 - __zdata_start)
+dseg_90e1 equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
+dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
+dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
+dseg_9108 equ __zdseg_end + (__zdseg_9108 - __zdata_start)
+dseg_9115 equ __zdseg_end + (__zdseg_9115 - __zdata_start)
+dseg_9122 equ __zdseg_end + (__zdseg_9122 - __zdata_start)
+dseg_912f equ __zdseg_end + (__zdseg_912f - __zdata_start)
+dseg_913c equ __zdseg_end + (__zdseg_913c - __zdata_start)
+dseg_9149 equ __zdseg_end + (__zdseg_9149 - __zdata_start)
+dseg_9156 equ __zdseg_end + (__zdseg_9156 - __zdata_start)
+dseg_9163 equ __zdseg_end + (__zdseg_9163 - __zdata_start)
+dseg_9170 equ __zdseg_end + (__zdseg_9170 - __zdata_start)
+bss_91a6  equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 %include "vmaze/api_idx_0002_TOSL.asm"     ; 0x03ea
 
 %include "vmaze/api_idx_0014_LHRI.asm"     ; 0x06da
@@ -208,9 +225,20 @@ bss_9b18 equ __zdseg_end + (__zobss_9b18 - __zdata_start)
 ; bss_91d2 equ __zdseg_end + (__zobss_91d2 - __zdata_start)
 ; bss_91d4 equ __zdseg_end + (__zobss_91d4 - __zdata_start)
 ; bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
+bss_91d8 equ __zdseg_end + (__zobss_91d8 - __zdata_start)
 bss_91e4 equ __zdseg_end + (__zobss_91e4 - __zdata_start)
+bss_91f1 equ __zdseg_end + (__zobss_91f1 - __zdata_start)
+bss_920a equ __zdseg_end + (__zobss_920a - __zdata_start)
+bss_9223 equ __zdseg_end + (__zobss_9223 - __zdata_start)
+bss_923c equ __zdseg_end + (__zobss_923c - __zdata_start)
+bss_926e equ __zdseg_end + (__zobss_926e - __zdata_start)
+bss_92a0 equ __zdseg_end + (__zobss_92a0 - __zdata_start)
+bss_92ba equ __zdseg_end + (__zobss_92ba - __zdata_start)
+bss_92ec equ __zdseg_end + (__zobss_92ec - __zdata_start)
 ; bss_931e equ __zdseg_end + (__zobss_931e - __zdata_start)
+bss_9320 equ __zdseg_end + (__zobss_9320 - __zdata_start)
 ; bss_9b18 equ __zdseg_end + (__zobss_9b18 - __zdata_start)
+bss_9b1a equ __zdseg_end + (__zobss_9b1a - __zdata_start)
 bss_9b34 equ __zdseg_end + (__zobss_9b34 - __zdata_start)
 bss_9b36 equ __zdseg_end + (__zobss_9b36 - __zdata_start)
 bss_9b38 equ __zdseg_end + (__zobss_9b38 - __zdata_start)
@@ -256,10 +284,11 @@ api_idx_0004_JGSH.loc1 equ loc_MVHP
 api_idx_0004_JGSH.bss2 equ bss_9b4e
 %include "shared/api_idx_0004_JGSH.asm"     ; 0x6c0a
 
-; bss_9b48 equ __zdseg_end + (__zobss_9b48 - __zdata_start)
-; bss_9b4a equ __zdseg_end + (__zobss_9b4a - __zdata_start)
-; bss_9b4c equ __zdseg_end + (__zobss_9b4c - __zdata_start)
-bss_9b50 equ __zdseg_end + (__zobss_9b50 - __zdata_start)
+dseg_9186 equ __zdseg_end + (__zdseg_9186 - __zdata_start)
+; bss_9b48  equ __zdseg_end + (__zobss_9b48 - __zdata_start)
+; bss_9b4a  equ __zdseg_end + (__zobss_9b4a - __zdata_start)
+; bss_9b4c  equ __zdseg_end + (__zobss_9b4c - __zdata_start)
+bss_9b50  equ __zdseg_end + (__zobss_9b50 - __zdata_start)
 %include "vmaze/api_idx_0090_PNOU.asm"     ; 0x6cc9
 
 %include "vmaze/api_idx_0004_JQTM.asm"     ; 0x6eb1
@@ -360,12 +389,15 @@ bss_9be6 equ __zdseg_end + (__zobss_9be6 - __zdata_start)
 
 ; bss_9be6 equ __zdseg_end + (__zobss_9be6 - __zdata_start)
 bss_9c00 equ __zdseg_end + (__zobss_9c00 - __zdata_start)
+bss_9c02 equ __zdseg_end + (__zobss_9c02 - __zdata_start)
 %include "vmaze/api_idx_0048_OSRI.asm"     ; 0x9029
 
+bss_9bd2 equ __zdseg_end + (__zobss_9bd2 - __zdata_start)
 bss_9bdc equ __zdseg_end + (__zobss_9bdc - __zdata_start)
 bss_9bde equ __zdseg_end + (__zobss_9bde - __zdata_start)
 ; bss_9be6 equ __zdseg_end + (__zobss_9be6 - __zdata_start)
 ; bss_9c00 equ __zdseg_end + (__zobss_9c00 - __zdata_start)
+; bss_9c02 equ __zdseg_end + (__zobss_9c02 - __zdata_start)
 %include "vmaze/api_idx_0006_UMQS.asm"     ; 0x920f
 
 %include "vmaze/api_idx_0002_JLVK.asm"     ; 0x93ab
@@ -406,6 +438,7 @@ bss_9bde equ __zdseg_end + (__zobss_9bde - __zdata_start)
 
 %include "vmaze/loc_SNPU.asm"              ; 0xaad3
 
+bss_9c42 equ __zdseg_end + (__zobss_9c42 - __zdata_start)
 %include "vmaze/api_idx_0032_RMHI.asm"     ; 0xab9b
 
 dseg_9188 equ __zdseg_end + (__zdseg_9188 - __zdata_start)
@@ -417,29 +450,47 @@ dseg_9190 equ __zdseg_end + (__zdseg_9190 - __zdata_start)
 %include "vmaze/asm_only/loc_TKPQ.asm"              ; 0xac30
 
 __zdata_start:
-
     db 'VM1.$$$', 0
+__zdseg_90a0:
     db 'MAZEDATA.VGA', 0
+__zdseg_90ad:
     db 'WATRDATA.VGA', 0
+__zdseg_90ba:
     db 'TREEDATA.VGA', 0
+__zdseg_90c7:
     db 'OTWNDATA.VGA', 0
+__zdseg_90d4:
     db 'TILEDATA.VGA', 0
+__zdseg_90e1:
     db 'TOWNDATA.VGA', 0
+__zdseg_90ee:
     db 'OTWNDATA.VGA', 0
+__zdseg_90fb:
     db 'WATRDATA.VGA', 0
+__zdseg_9108:
     db 'TILEDATA.VGA', 0
+__zdseg_9115:
     db 'TREEDATA.VGA', 0
+__zdseg_9122:
     db 'OCAVDATA.VGA', 0
+__zdseg_912f:
     db 'CAVEDATA.VGA', 0
+__zdseg_913c:
     db 'OCAVDATA.VGA', 0
+__zdseg_9149:
     db 'WATRDATA.VGA', 0
+__zdseg_9156:
     db 'TREEDATA.VGA', 0
+__zdseg_9163:
     db 'OTWNDATA.VGA', 0
+__zdseg_9170:
+
     db 'WATRDATA.VGA', 0
     db 0x00
     db '!%&]@#~', 0
-    db 0x20, 0x00
 
+__zdseg_9186:
+    db 0x20, 0x00
 __zdseg_9188:
     db 0x00, 0x00
 __zdseg_918a:
@@ -490,13 +541,35 @@ __zobss_91d2:
 __zobss_91d4:
     resb 0x0002
 __zobss_91d6:
-    resb 0x000e
+    resb 0x0002
+__zobss_91d8:
+    resb 0x000c
 __zobss_91e4:
-    resb 0x013a
+    resb 0x000d
+__zobss_91f1:
+    resb 0x0019
+__zobss_920a:
+    resb 0x0019
+__zobss_9223:
+    resb 0x0019
+__zobss_923c:
+    resb 0x0032
+__zobss_926e:
+    resb 0x0032
+__zobss_92a0:
+    resb 0x001a
+__zobss_92ba:
+    resb 0x0032
+__zobss_92ec:
+    resb 0x0032
 __zobss_931e:
-    resb 0x07fa
+    resb 0x0002
+__zobss_9320:
+    resb 0x07f8
 __zobss_9b18:
-    resb 0x001c
+    resb 0x0002
+__zobss_9b1a:
+    resb 0x001a
 __zobss_9b34:
     resb 0x0002
 __zobss_9b36:
@@ -528,7 +601,9 @@ __zobss_9b4e:
 __zobss_9b50:
     resb 0x0080
 __zobss_9bd0:
-    resb 0x000c
+    resb 0x0002
+__zobss_9bd2:
+    resb 0x000a
 __zobss_9bdc:
     resb 0x0002
 __zobss_9bde:
@@ -536,5 +611,9 @@ __zobss_9bde:
 __zobss_9be6:
     resb 0x001a
 __zobss_9c00:
-    resb 0x0226
+    resb 0x0002
+__zobss_9c02:
+    resb 0x0040
+__zobss_9c42:
+    resb 0x01e4
 __zobss_end:

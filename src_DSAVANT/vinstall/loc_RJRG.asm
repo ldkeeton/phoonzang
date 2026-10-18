@@ -57,7 +57,7 @@ loc_HSPL:
     mov word [bp - 0x0002], ax       ; 0x11c7
     cmp ax, strict word 0xffff       ; 0x11ca
     jne short @..loc_HSPL.l1         ; 0x11cd
-    mov ax, 0x1689                   ; 0x11cf
+    mov ax, dseg_1689                ; 0x11cf
     push ax                          ; 0x11d2
     lea ax, word [bp - 0x0052]       ; 0x11d3
     push ax                          ; 0x11d6
@@ -68,7 +68,7 @@ loc_HSPL:
     push ax                          ; 0x11e3
     call aztec_strcat                ; 0x11e4
     add sp, byte 4                   ; 0x11e7
-    mov ax, 0x16af                   ; 0x11ea
+    mov ax, dseg_16af                ; 0x11ea
     push ax                          ; 0x11ed
     lea ax, word [bp - 0x0052]       ; 0x11ee
     push ax                          ; 0x11f1
@@ -99,7 +99,7 @@ loc_HSPL:
     mov word [bp - 0x0002], ax       ; 0x1227
     cmp ax, strict word 0xffff       ; 0x122a
     jne short @..loc_HSPL.l3         ; 0x122d
-    mov ax, 0x16c2                   ; 0x122f
+    mov ax, dseg_16c2                ; 0x122f
     push ax                          ; 0x1232
     lea ax, word [bp - 0x0052]       ; 0x1233
     push ax                          ; 0x1236
@@ -110,7 +110,7 @@ loc_HSPL:
     push ax                          ; 0x1243
     call aztec_strcat                ; 0x1244
     add sp, byte 4                   ; 0x1247
-    mov ax, 0x16e8                   ; 0x124a
+    mov ax, dseg_16e8                ; 0x124a
     push ax                          ; 0x124d
     lea ax, word [bp - 0x0052]       ; 0x124e
     push ax                          ; 0x1251
@@ -132,7 +132,7 @@ loc_HSPL:
 @..loc_HSPL.l4:
     cmp word [bp - 0x0002], byte 0xff ; 0x1272
     jne short @..loc_HSPL.l5         ; 0x1276
-    mov ax, 0x16fa                   ; 0x1278
+    mov ax, dseg_16fa                ; 0x1278
     push ax                          ; 0x127b
     lea ax, word [bp - 0x0052]       ; 0x127c
     push ax                          ; 0x127f
@@ -143,7 +143,7 @@ loc_HSPL:
     push ax                          ; 0x128c
     call aztec_strcat                ; 0x128d
     add sp, byte 4                   ; 0x1290
-    mov ax, 0x1720                   ; 0x1293
+    mov ax, dseg_1720                ; 0x1293
     push ax                          ; 0x1296
     lea ax, word [bp - 0x0052]       ; 0x1297
     push ax                          ; 0x129a

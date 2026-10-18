@@ -10,7 +10,7 @@ api_idx_0002_SJMT:
     push ax
     mov ax, 0
     push ax
-    mov ax, 0x9098
+    mov ax, dseg_9098
     push ax
     call ds_app_UUHT
     add sp, byte 4

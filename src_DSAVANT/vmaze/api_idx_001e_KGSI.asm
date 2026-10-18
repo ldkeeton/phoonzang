@@ -177,11 +177,11 @@ api_idx_001e_KGSI:
 @..api_idx_001e_KGSI.l13:
     push word [bss_8f44]             ; 0x71e4
     push word [bss_8f46]             ; 0x71e8
-    mov ax, 0x8f3e                   ; 0x71ec
+    mov ax, bss_8f3e                 ; 0x71ec
     push ax                          ; 0x71ef
-    mov ax, 0x8f40                   ; 0x71f0
+    mov ax, bss_8f40                 ; 0x71f0
     push ax                          ; 0x71f3
-    mov ax, 0x8f42                   ; 0x71f4
+    mov ax, bss_8f42                 ; 0x71f4
     push ax                          ; 0x71f7
     call api_idx_0004_QVPP           ; 0x71f8
     add sp, byte 0x0a                ; 0x71fb

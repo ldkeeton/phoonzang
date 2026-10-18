@@ -51,11 +51,11 @@ api_idx_000c_RMGQ:
     add sp, byte 4                   ; 0x0a36
     push word [bss_8f44]             ; 0x0a39
     push word [bss_8f46]             ; 0x0a3d
-    mov ax, 0x8f3e                   ; 0x0a41
+    mov ax, bss_8f3e                 ; 0x0a41
     push ax                          ; 0x0a44
-    mov ax, 0x8f40                   ; 0x0a45
+    mov ax, bss_8f40                 ; 0x0a45
     push ax                          ; 0x0a48
-    mov ax, 0x8f42                   ; 0x0a49
+    mov ax, bss_8f42                 ; 0x0a49
     push ax                          ; 0x0a4c
     call api_idx_0004_QVPP           ; 0x0a4d
     add sp, byte 0x0a                ; 0x0a50

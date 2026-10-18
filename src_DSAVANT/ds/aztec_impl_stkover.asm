@@ -2,7 +2,7 @@
 aztec_impl_stkover:
     mov ax, 0x24                     ; 0x4f87
     push ax                          ; 0x4f8a
-    mov ax, 0xcae                    ; 0x4f8b
+    mov ax, dseg_0cae                ; 0x4f8b
     push ax                          ; 0x4f8e
     mov ax, 2                        ; 0x4f8f
     push ax                          ; 0x4f92

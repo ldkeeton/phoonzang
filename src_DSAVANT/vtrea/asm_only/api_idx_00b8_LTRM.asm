@@ -253,9 +253,9 @@ jumptable_1fa3_case_4:
     push ax                          ; 0x170f
     mov ax, 1                        ; 0x1710
     push ax                          ; 0x1713
-    mov ax, 0x90b5                   ; 0x1714
+    mov ax, dseg_90b5                ; 0x1714
     push ax                          ; 0x1717
-    mov ax, 0x90b4                   ; 0x1718
+    mov ax, dseg_90b4                ; 0x1718
     push ax                          ; 0x171b
     lea ax, word [bp - 0x0068]       ; 0x171c
     push ax                          ; 0x171f
@@ -306,9 +306,9 @@ jumptable_1fa3_case_4:
     push ax                          ; 0x1781
     mov ax, 1                        ; 0x1782
     push ax                          ; 0x1785
-    mov ax, 0x90b7                   ; 0x1786
+    mov ax, dseg_90b7                ; 0x1786
     push ax                          ; 0x1789
-    mov ax, 0x90b6                   ; 0x178a
+    mov ax, dseg_90b6                ; 0x178a
     push ax                          ; 0x178d
     lea ax, word [bp - 0x0068]       ; 0x178e
     push ax                          ; 0x1791
@@ -1033,7 +1033,7 @@ jumptable_1fa3_case_12:
     push ax                          ; 0x1d9f
     mov ax, 1                        ; 0x1da0
     push ax                          ; 0x1da3
-    mov ax, 0x90b8                   ; 0x1da4
+    mov ax, dseg_90b8                ; 0x1da4
     push ax                          ; 0x1da7
     lea ax, word [bp - 0x00b8]       ; 0x1da8
     push ax                          ; 0x1dac
@@ -1140,7 +1140,7 @@ jumptable_1fa3_case_15:
     push ax                          ; 0x1e92
     mov ax, 1                        ; 0x1e93
     push ax                          ; 0x1e96
-    mov ax, 0x90b9                   ; 0x1e97
+    mov ax, dseg_90b9                ; 0x1e97
     push ax                          ; 0x1e9a
     lea ax, word [bp - 0x00b8]       ; 0x1e9b
     push ax                          ; 0x1e9f
@@ -1190,7 +1190,7 @@ jumptable_1fa3_case_15:
     push ax                          ; 0x1f08
     mov ax, 1                        ; 0x1f09
     push ax                          ; 0x1f0c
-    mov ax, 0x90ba                   ; 0x1f0d
+    mov ax, dseg_90ba                ; 0x1f0d
     push ax                          ; 0x1f10
     lea ax, word [bp - 0x00b8]       ; 0x1f11
     push ax                          ; 0x1f15

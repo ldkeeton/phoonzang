@@ -56,7 +56,7 @@ loc_IPHP:
     add sp, byte 4                   ; 0x9609
     cmp byte [bp - 0x0088], 0        ; 0x960c
     je short @..loc_IPHP.l4          ; 0x9611
-    mov ax, 0x90ee                   ; 0x9613
+    mov ax, dseg_90ee                ; 0x9613
     push ax                          ; 0x9616
     lea ax, word [bp - 0x0108]       ; 0x9617
     push ax                          ; 0x961b

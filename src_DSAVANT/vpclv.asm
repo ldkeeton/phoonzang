@@ -132,6 +132,7 @@ bss_9492 equ __zdseg_end + (__zobss_9492 - __zdata_start)
 %include "vpclv/api_idx_0004_GRGJ.asm"     ; 0x34cd
 
 bss_95d0 equ __zdseg_end + (__zobss_95d0 - __zdata_start)
+bss_95dc equ __zdseg_end + (__zobss_95dc - __zdata_start)
 %include "vpclv/api_idx_0004_LOLJ.asm"     ; 0x35fc
 
 ; bss_941e equ __zdseg_end + (__zobss_941e - __zdata_start)
@@ -153,12 +154,18 @@ bss_95f4 equ __zdseg_end + (__zobss_95f4 - __zdata_start)
 
 %include "vpclv/loc_KPKJ.asm"              ; 0x4310
 
+dseg_93e5 equ __zdseg_end + (__zdseg_93e5 - __zdata_start)
+dseg_93e9 equ __zdseg_end + (__zdseg_93e9 - __zdata_start)
+dseg_93eb equ __zdseg_end + (__zdseg_93eb - __zdata_start)
+dseg_93ed equ __zdseg_end + (__zdseg_93ed - __zdata_start)
 %include "vpclv/api_idx_00ac_MSQO.asm"     ; 0x45e0
 
 %include "vpclv/api_idx_0004_KJII.asm"     ; 0x4884
 
 %include "vpclv/api_idx_0018_IKVK.asm"     ; 0x4955
 
+dseg_93ee equ __zdseg_end + (__zdseg_93ee - __zdata_start)
+dseg_93ef equ __zdseg_end + (__zdseg_93ef - __zdata_start)
 %include "vpclv/api_idx_00b4_QLQS.asm"     ; 0x4cc5
 
 %include "vpclv/api_idx_0006_ILTI.asm"     ; 0x4e03
@@ -170,27 +177,28 @@ bss_95f4 equ __zdseg_end + (__zobss_95f4 - __zdata_start)
 
 %include "shared/api_idx_000e_TIOP.asm"     ; 0x50a1
 
-; bss_9416 equ __zdseg_end + (__zobss_9416 - __zdata_start)
-; bss_9418 equ __zdseg_end + (__zobss_9418 - __zdata_start)
-; bss_941a equ __zdseg_end + (__zobss_941a - __zdata_start)
-; bss_941c equ __zdseg_end + (__zobss_941c - __zdata_start)
-; bss_941e equ __zdseg_end + (__zobss_941e - __zdata_start)
-; bss_9420 equ __zdseg_end + (__zobss_9420 - __zdata_start)
-; bss_9422 equ __zdseg_end + (__zobss_9422 - __zdata_start)
-; bss_9424 equ __zdseg_end + (__zobss_9424 - __zdata_start)
-; bss_9426 equ __zdseg_end + (__zobss_9426 - __zdata_start)
-; bss_9428 equ __zdseg_end + (__zobss_9428 - __zdata_start)
-; bss_942a equ __zdseg_end + (__zobss_942a - __zdata_start)
-; bss_942c equ __zdseg_end + (__zobss_942c - __zdata_start)
-; bss_9432 equ __zdseg_end + (__zobss_9432 - __zdata_start)
-; bss_9434 equ __zdseg_end + (__zobss_9434 - __zdata_start)
-; bss_9436 equ __zdseg_end + (__zobss_9436 - __zdata_start)
-; bss_9438 equ __zdseg_end + (__zobss_9438 - __zdata_start)
-; bss_943a equ __zdseg_end + (__zobss_943a - __zdata_start)
-; bss_948e equ __zdseg_end + (__zobss_948e - __zdata_start)
-; bss_9490 equ __zdseg_end + (__zobss_9490 - __zdata_start)
-; bss_9492 equ __zdseg_end + (__zobss_9492 - __zdata_start)
-bss_9704 equ __zdseg_end + (__zobss_9704 - __zdata_start)
+dseg_93f0 equ __zdseg_end + (__zdseg_93f0 - __zdata_start)
+; bss_9416  equ __zdseg_end + (__zobss_9416 - __zdata_start)
+; bss_9418  equ __zdseg_end + (__zobss_9418 - __zdata_start)
+; bss_941a  equ __zdseg_end + (__zobss_941a - __zdata_start)
+; bss_941c  equ __zdseg_end + (__zobss_941c - __zdata_start)
+; bss_941e  equ __zdseg_end + (__zobss_941e - __zdata_start)
+; bss_9420  equ __zdseg_end + (__zobss_9420 - __zdata_start)
+; bss_9422  equ __zdseg_end + (__zobss_9422 - __zdata_start)
+; bss_9424  equ __zdseg_end + (__zobss_9424 - __zdata_start)
+; bss_9426  equ __zdseg_end + (__zobss_9426 - __zdata_start)
+; bss_9428  equ __zdseg_end + (__zobss_9428 - __zdata_start)
+; bss_942a  equ __zdseg_end + (__zobss_942a - __zdata_start)
+; bss_942c  equ __zdseg_end + (__zobss_942c - __zdata_start)
+; bss_9432  equ __zdseg_end + (__zobss_9432 - __zdata_start)
+; bss_9434  equ __zdseg_end + (__zobss_9434 - __zdata_start)
+; bss_9436  equ __zdseg_end + (__zobss_9436 - __zdata_start)
+; bss_9438  equ __zdseg_end + (__zobss_9438 - __zdata_start)
+; bss_943a  equ __zdseg_end + (__zobss_943a - __zdata_start)
+; bss_948e  equ __zdseg_end + (__zobss_948e - __zdata_start)
+; bss_9490  equ __zdseg_end + (__zobss_9490 - __zdata_start)
+; bss_9492  equ __zdseg_end + (__zobss_9492 - __zdata_start)
+bss_9704  equ __zdseg_end + (__zobss_9704 - __zdata_start)
 %include "vpclv/api_idx_000c_RMOO.asm"     ; 0x5161
 
 dseg_93fe equ __zdseg_end + (__zdseg_93fe - __zdata_start)
@@ -281,11 +289,22 @@ __zdata_start:
     db '11100111', 0
     db '000000', 0
     db '1111010001', 0
-    db 0x25, 0x20, 0x28, 0x00, 0x29, 0x00, 0x2f
-    times 4 db 0
+
+__zdseg_93e5:
+    db 0x25, 0x20, 0x28, 0x00
+__zdseg_93e9:
+    db 0x29, 0x00
+__zdseg_93eb:
+    db 0x2f, 0x00
+__zdseg_93ed:
+    db 0x00
+__zdseg_93ee:
+    db 0x00
+__zdseg_93ef:
+    db 0x00
+__zdseg_93f0:
     db 'PCVWSCRN.VGA', 0
     db 0x00
-
 __zdseg_93fe:
     db 0x00, 0x00
 __zdseg_9400:
@@ -344,7 +363,9 @@ __zobss_9490:
 __zobss_9492:
     resb 0x013e
 __zobss_95d0:
-    resb 0x0024
+    resb 0x000c
+__zobss_95dc:
+    resb 0x0018
 __zobss_95f4:
     resb 0x0110
 __zobss_9704:

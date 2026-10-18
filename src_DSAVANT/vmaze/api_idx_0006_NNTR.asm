@@ -15,7 +15,7 @@ api_idx_0006_NNTR:
     mov bx, ax                       ; 0x99ff
     cmp byte [bx - 0x7b59], 0        ; 0x9a01
     jbe short @..api_idx_0006_NNTR.l3 ; 0x9a06
-    mov al, byte [bx - 0x7b5a]       ; 0x9a08
+    mov al, byte [bx + bss_84a6]     ; 0x9a08
     sub ah, ah                       ; 0x9a0c
     cmp ax, word [bp - 0x0006]       ; 0x9a0e
     jne short @..api_idx_0006_NNTR.l3 ; 0x9a11

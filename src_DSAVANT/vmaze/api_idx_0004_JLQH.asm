@@ -51,11 +51,11 @@ api_idx_0004_JLQH:
     mov word [bss_8f44], ax          ; 0x138f
     push ax                          ; 0x1392
     push word [bss_8f46]             ; 0x1393
-    mov ax, 0x8f3e                   ; 0x1397
+    mov ax, bss_8f3e                 ; 0x1397
     push ax                          ; 0x139a
-    mov ax, 0x8f40                   ; 0x139b
+    mov ax, bss_8f40                 ; 0x139b
     push ax                          ; 0x139e
-    mov ax, 0x8f42                   ; 0x139f
+    mov ax, bss_8f42                 ; 0x139f
     push ax                          ; 0x13a2
     call api_idx_0004_QVPP           ; 0x13a3
     add sp, byte 0x0a                ; 0x13a6

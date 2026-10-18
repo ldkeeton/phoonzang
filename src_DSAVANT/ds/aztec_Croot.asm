@@ -59,7 +59,7 @@ aztec_Croot:
     jne short @..aztec_Croot.l4      ; 0x4f1d
     mov ax, 0xe                      ; 0x4f1f
     push ax                          ; 0x4f22
-    mov ax, 0xc9f                    ; 0x4f23
+    mov ax, dseg_0c9f                ; 0x4f23
     push ax                          ; 0x4f26
     mov ax, 2                        ; 0x4f27
     push ax                          ; 0x4f2a

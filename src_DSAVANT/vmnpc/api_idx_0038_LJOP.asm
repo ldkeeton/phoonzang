@@ -2,7 +2,7 @@
 api_idx_0038_LJOP:
     mov ax, 0xffc8                   ; 0x47d9
     call aztec_csav                  ; 0x47dc
-    mov ax, 0x99ae                   ; 0x47df
+    mov ax, bss_99ae                 ; 0x47df
     push ax                          ; 0x47e2
     mov ax, 0x5e4                    ; 0x47e3
     push ax                          ; 0x47e6

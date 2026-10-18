@@ -9,7 +9,7 @@ api_idx_006a_QKPT:
     push ax                          ; 0xaba2
     mov ax, 0x42                     ; 0xaba3
     push ax                          ; 0xaba6
-    mov ax, 0x9e42                   ; 0xaba7
+    mov ax, bss_9e42                 ; 0xaba7
     push ax                          ; 0xabaa
     call aztec_setmem                ; 0xabab
     add sp, byte 6                   ; 0xabae
@@ -91,7 +91,7 @@ api_idx_006a_QKPT:
     mov byte [bx - 0x0055], 0        ; 0xac7c
     mov ax, 9                        ; 0xac80
     push ax                          ; 0xac83
-    mov ax, 0x9120                   ; 0xac84
+    mov ax, dseg_9120                ; 0xac84
     push ax                          ; 0xac87
     lea ax, word [bp - 0x0056]       ; 0xac88
     push ax                          ; 0xac8b

@@ -10,7 +10,7 @@ aztec_impl_ovld:
     push ax                          ; 0x4395
     call aztec_strcpy                ; 0x4396
     add sp, byte 4                   ; 0x4399
-    mov ax, 0xc48                    ; 0x439c
+    mov ax, dseg_0c48                ; 0x439c
     push ax                          ; 0x439f
     lea ax, word [bp - 0x0052]       ; 0x43a0
     push ax                          ; 0x43a3

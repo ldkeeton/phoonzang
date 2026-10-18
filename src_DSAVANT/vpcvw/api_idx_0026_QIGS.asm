@@ -139,7 +139,7 @@ api_idx_0026_QIGS:
     call ds_string_loc_QRJV          ; 0x8bad
     add sp, byte 4                   ; 0x8bb0
     push word [bp + 0xc]             ; 0x8bb3
-    mov ax, 0xe38                    ; 0x8bb6
+    mov ax, bss_0e38                 ; 0x8bb6
     push ax                          ; 0x8bb9
     call aztec_strcpy                ; 0x8bba
     add sp, byte 4                   ; 0x8bbd
@@ -280,11 +280,11 @@ api_idx_0026_QIGS:
     mov ax, word [bp - 0x0002]       ; 0x8ce4
     add ax, strict word 0x5f         ; 0x8ce7
     push ax                          ; 0x8cea
-    mov ax, 0xe38                    ; 0x8ceb
+    mov ax, bss_0e38                 ; 0x8ceb
     push ax                          ; 0x8cee
     call api_idx_0008_LLVT           ; 0x8cef
     add sp, byte 0x0e                ; 0x8cf2
-    mov ax, 0xe38                    ; 0x8cf5
+    mov ax, bss_0e38                 ; 0x8cf5
     push ax                          ; 0x8cf8
     push word [bp + 0xc]             ; 0x8cf9
     call aztec_strcpy                ; 0x8cfc
@@ -381,11 +381,11 @@ api_idx_0026_QIGS:
     mov ax, word [bp - 0x0002]       ; 0x8dcb
     add ax, strict word 0x5f         ; 0x8dce
     push ax                          ; 0x8dd1
-    mov ax, 0xe38                    ; 0x8dd2
+    mov ax, bss_0e38                 ; 0x8dd2
     push ax                          ; 0x8dd5
     call api_idx_0008_LLVT           ; 0x8dd6
     add sp, byte 0x0e                ; 0x8dd9
-    mov ax, 0xe38                    ; 0x8ddc
+    mov ax, bss_0e38                 ; 0x8ddc
     push ax                          ; 0x8ddf
     push word [bp + 0xc]             ; 0x8de0
     call aztec_strcpy                ; 0x8de3

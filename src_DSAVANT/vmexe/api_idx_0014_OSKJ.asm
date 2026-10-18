@@ -141,11 +141,11 @@ api_idx_0014_OSKJ:
     pop cx                           ; 0x65eb
     push word [bss_8462]             ; 0x65ec
     push word [bss_8464]             ; 0x65f0
-    mov ax, 0x90e6                   ; 0x65f4
+    mov ax, bss_90e6                 ; 0x65f4
     push ax                          ; 0x65f7
     call loc_HJSG                    ; 0x65f8
     add sp, byte 6                   ; 0x65fb
-    mov ax, 0x9136                   ; 0x65fe
+    mov ax, bss_9136                 ; 0x65fe
     push ax                          ; 0x6601
     push word [bp - 0x0004]          ; 0x6602
     call ds_app_mem_TIMR             ; 0x6605
@@ -160,11 +160,11 @@ api_idx_0014_OSKJ:
     mov ax, 1                        ; 0x661f
 @..api_idx_0014_OSKJ.l9:
     push ax                          ; 0x6622
-    mov ax, 0x9186                   ; 0x6623
+    mov ax, bss_9186                 ; 0x6623
     push ax                          ; 0x6626
-    mov ax, 0x9136                   ; 0x6627
+    mov ax, bss_9136                 ; 0x6627
     push ax                          ; 0x662a
-    mov ax, 0x90e6                   ; 0x662b
+    mov ax, bss_90e6                 ; 0x662b
     push ax                          ; 0x662e
     mov ax, 0                        ; 0x662f
     push ax                          ; 0x6632
@@ -406,11 +406,11 @@ api_idx_0014_OSKJ:
     pop cx                           ; 0x68b8
     push word [bss_8462]             ; 0x68b9
     push word [bss_8464]             ; 0x68bd
-    mov ax, 0x90e6                   ; 0x68c1
+    mov ax, bss_90e6                 ; 0x68c1
     push ax                          ; 0x68c4
     call loc_HJSG                    ; 0x68c5
     add sp, byte 6                   ; 0x68c8
-    mov ax, 0x9136                   ; 0x68cb
+    mov ax, bss_9136                 ; 0x68cb
     push ax                          ; 0x68ce
     mov ax, 0xc8b                    ; 0x68cf
     push ax                          ; 0x68d2
@@ -426,11 +426,11 @@ api_idx_0014_OSKJ:
     mov ax, 1                        ; 0x68ed
 @..api_idx_0014_OSKJ.l26:
     push ax                          ; 0x68f0
-    mov ax, 0x9186                   ; 0x68f1
+    mov ax, bss_9186                 ; 0x68f1
     push ax                          ; 0x68f4
-    mov ax, 0x9136                   ; 0x68f5
+    mov ax, bss_9136                 ; 0x68f5
     push ax                          ; 0x68f8
-    mov ax, 0x90e6                   ; 0x68f9
+    mov ax, bss_90e6                 ; 0x68f9
     push ax                          ; 0x68fc
     mov ax, 0                        ; 0x68fd
     push ax                          ; 0x6900

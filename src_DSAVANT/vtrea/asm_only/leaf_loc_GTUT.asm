@@ -16,20 +16,57 @@ leaf_loc_GTUT:
     pop di                           ; 0x9a18
     jmp cx                           ; 0x9a19
 __zdata_start:
-
     db '!%&]@#~', 0
+__zdseg_90a0:
+
     db 0x20, 0x00
     db 'V1.$$$', 0
     db 'V2.$$$', 0
-    times 11 db 0
+
+__zdseg_90b0:
+    db 0x00
+__zdseg_90b1:
+    db 0x00
+__zdseg_90b2:
+    db 0x00
+__zdseg_90b3:
+    db 0x00
+__zdseg_90b4:
+    db 0x00
+__zdseg_90b5:
+    db 0x00
+__zdseg_90b6:
+    db 0x00
+__zdseg_90b7:
+    db 0x00
+__zdseg_90b8:
+    db 0x00
+__zdseg_90b9:
+    db 0x00
+__zdseg_90ba:
+    db 0x00
+__zdseg_90bb:
     db '--------', 0
+__zdseg_90c4:
     db '????????', 0
     db 'V.$$$', 0
-    db 0x28, 0x00, 0x25, 0x29, 0x00, 0x28, 0x00, 0x29, 0x00
+__zdseg_90d3:
+    db 0x28, 0x00
+__zdseg_90d5:
+    db 0x25, 0x29, 0x00
+__zdseg_90d8:
+    db 0x28, 0x00
+__zdseg_90da:
+    db 0x29, 0x00
     db 'V.$$$', 0
+__zdseg_90e2:
     db 0x00
     db 'V.$$$', 0
-    db 0x28, 0x00, 0x25, 0x29, 0x00
+__zdseg_90e9:
+    db 0x28, 0x00
+__zdseg_90eb:
+
+    db 0x25, 0x29, 0x00
     db 'V.$$$', 0
     db 'V.$$$', 0
     db 'V.$$$', 0

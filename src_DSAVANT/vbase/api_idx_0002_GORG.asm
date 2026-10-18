@@ -4,7 +4,7 @@ api_idx_0002_GORG:
     call aztec_csav                  ; 0x8b6c
     mov ax, 0                        ; 0x8b6f
     push ax                          ; 0x8b72
-    mov ax, 0x9165                   ; 0x8b73
+    mov ax, dseg_9165                ; 0x8b73
     push ax                          ; 0x8b76
     call api_idx_0002_LVPS           ; 0x8b77
     add sp, byte 4                   ; 0x8b7a

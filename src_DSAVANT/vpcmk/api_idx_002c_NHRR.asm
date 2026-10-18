@@ -31,7 +31,7 @@ api_idx_002c_NHRR:
     mov word [bp - 0x000e], ax       ; 0x6a7f
     mov ax, 0                        ; 0x6a82
     push ax                          ; 0x6a85
-    mov ax, 0x950c                   ; 0x6a86
+    mov ax, dseg_950c                ; 0x6a86
     push ax                          ; 0x6a89
     call api_idx_0002_OOKN           ; 0x6a8a
     add sp, byte 4                   ; 0x6a8d
@@ -207,7 +207,7 @@ api_idx_002c_NHRR:
     mov ax, word [bp - 0x0002]       ; 0x6c27
     cmp ax, strict word 8            ; 0x6c2a
     jl short @..api_idx_002c_NHRR.l2 ; 0x6c2d
-    mov ax, 0x9596                   ; 0x6c2f
+    mov ax, bss_9596                 ; 0x6c2f
     push ax                          ; 0x6c32
     mov ax, 0x453                    ; 0x6c33
     push ax                          ; 0x6c36

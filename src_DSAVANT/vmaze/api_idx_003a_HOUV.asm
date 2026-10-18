@@ -85,7 +85,7 @@ api_idx_003a_HOUV:
     shl ax, 1                        ; 0x95c2
     shl ax, 1                        ; 0x95c4
     mov bx, ax                       ; 0x95c6
-    mov al, byte [bx - 0x768a]       ; 0x95c8
+    mov al, byte [bx + bss_8976]     ; 0x95c8
     sub ah, ah                       ; 0x95cc
     mov word [bp - 0x0004], ax       ; 0x95ce
     mov ax, 0                        ; 0x95d1
@@ -94,13 +94,13 @@ api_idx_003a_HOUV:
     mov ax, 0x26                     ; 0x95da
     imul word [bp + 0x4]             ; 0x95dd
     mov bx, ax                       ; 0x95e0
-    mov al, byte [bx - 0x7b18]       ; 0x95e2
+    mov al, byte [bx + bss_84e8]     ; 0x95e2
     sub ah, ah                       ; 0x95e6
     mov cx, 0xc                      ; 0x95e8
     imul cx                          ; 0x95eb
     add ax, word [bp - 0x0004]       ; 0x95ed
     mov bx, ax                       ; 0x95f0
-    mov al, byte [bx - 0x7622]       ; 0x95f2
+    mov al, byte [bx + bss_89de]     ; 0x95f2
     cbw                              ; 0x95f6
 @..api_idx_003a_HOUV.l7:
     mov word [bp - 0x0006], ax       ; 0x95f7

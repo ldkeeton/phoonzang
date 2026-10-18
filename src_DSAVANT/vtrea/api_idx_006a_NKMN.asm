@@ -103,7 +103,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x60eb
     call ds_string_loc_QRJV          ; 0x60ec
     add sp, byte 4                   ; 0x60ef
-    mov ax, 0x90e9                   ; 0x60f2
+    mov ax, dseg_90e9                ; 0x60f2
     push ax                          ; 0x60f5
     lea ax, word [bp - 0x006a]       ; 0x60f6
     push ax                          ; 0x60f9
@@ -119,7 +119,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x6112
     call ds_app_OLKR                 ; 0x6113
     add sp, byte 4                   ; 0x6116
-    mov ax, 0x90eb                   ; 0x6119
+    mov ax, dseg_90eb                ; 0x6119
     push ax                          ; 0x611c
     lea ax, word [bp - 0x006a]       ; 0x611d
     push ax                          ; 0x6120

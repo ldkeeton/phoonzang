@@ -21,7 +21,7 @@ api_idx_00ac_OJJU:
     mov word [bss_91d6], 4           ; 0x79aa
     push word [bss_8462]             ; 0x79b0
     push word [bss_8464]             ; 0x79b4
-    mov ax, 0x90e6                   ; 0x79b8
+    mov ax, bss_90e6                 ; 0x79b8
     push ax                          ; 0x79bb
     call loc_HJSG                    ; 0x79bc
     add sp, byte 6                   ; 0x79bf
@@ -32,7 +32,7 @@ api_idx_00ac_OJJU:
     je short @..api_idx_00ac_OJJU.l1 ; 0x79d7
     jmp near @..api_idx_00ac_OJJU.l15 ; 0x79d9
 @..api_idx_00ac_OJJU.l1:
-    mov ax, 0x9136                   ; 0x79dc
+    mov ax, bss_9136                 ; 0x79dc
     push ax                          ; 0x79df
     mov ax, word [bp + 0x8]          ; 0x79e0
     add ax, 0xd16                    ; 0x79e3
@@ -124,13 +124,13 @@ api_idx_00ac_OJJU:
     je short @..api_idx_00ac_OJJU.l5 ; 0x7abe
     lea ax, word [bp - 0x004a]       ; 0x7ac0
     push ax                          ; 0x7ac3
-    mov ax, 0x9186                   ; 0x7ac4
+    mov ax, bss_9186                 ; 0x7ac4
     push ax                          ; 0x7ac7
     call aztec_strcpy                ; 0x7ac8
     add sp, byte 4                   ; 0x7acb
     jmp short @..api_idx_00ac_OJJU.l6 ; 0x7ace
 @..api_idx_00ac_OJJU.l5:
-    mov ax, 0x9186                   ; 0x7ad0
+    mov ax, bss_9186                 ; 0x7ad0
     push ax                          ; 0x7ad3
     mov al, byte [bp - 0x0011]       ; 0x7ad4
     sub ah, ah                       ; 0x7ad7
@@ -155,7 +155,7 @@ api_idx_00ac_OJJU:
     je short @..api_idx_00ac_OJJU.l8 ; 0x7b04
     mov ax, word [bp - 0x0028]       ; 0x7b06
     mov word [bp - 0x0094], ax       ; 0x7b09
-    mov ax, 0x9136                   ; 0x7b0d
+    mov ax, bss_9136                 ; 0x7b0d
     push ax                          ; 0x7b10
     mov ax, 0xd38                    ; 0x7b11
     push ax                          ; 0x7b14
@@ -222,7 +222,7 @@ jumptable_7c0e_case_28:
 @..api_idx_00ac_OJJU.l9:
     mov word [bp - 0x00a4], 1        ; 0x7bb2
 @..api_idx_00ac_OJJU.l10:
-    mov ax, 0x9136                   ; 0x7bb8
+    mov ax, bss_9136                 ; 0x7bb8
     push ax                          ; 0x7bbb
     mov ax, 0xd1f                    ; 0x7bbc
     push ax                          ; 0x7bbf
@@ -247,7 +247,7 @@ jumptable_7c0e_case_31:
 @..api_idx_00ac_OJJU.l11:
     mov word [bp - 0x00a4], 1        ; 0x7bf2
 @..api_idx_00ac_OJJU.l12:
-    mov ax, 0x9136                   ; 0x7bf8
+    mov ax, bss_9136                 ; 0x7bf8
     push ax                          ; 0x7bfb
     mov ax, 0xd1f                    ; 0x7bfc
     push ax                          ; 0x7bff
@@ -304,7 +304,7 @@ jumptable_7c0e_case_32:
     jbe short @..api_idx_00ac_OJJU.l16 ; 0x7c66
     jmp near @..api_idx_00ac_OJJU.l23 ; 0x7c68
 @..api_idx_00ac_OJJU.l16:
-    mov ax, 0x9136                   ; 0x7c6b
+    mov ax, bss_9136                 ; 0x7c6b
     push ax                          ; 0x7c6e
     mov ax, word [bp + 0x8]          ; 0x7c6f
     add ax, 0xd16                    ; 0x7c72
@@ -358,7 +358,7 @@ jumptable_7e61_case_49:
     mov word [bp - 0x0094], 0x714    ; 0x7cea
     mov word [bp - 0x0076], 0xa      ; 0x7cf0
     mov word [bss_90de], 0xb         ; 0x7cf5
-    mov ax, 0x9136                   ; 0x7cfb
+    mov ax, bss_9136                 ; 0x7cfb
     push ax                          ; 0x7cfe
     mov ax, 0xd1f                    ; 0x7cff
     push ax                          ; 0x7d02
@@ -370,7 +370,7 @@ jumptable_7e61_case_50:
     mov word [bp - 0x0094], 0x506    ; 0x7d12
     mov word [bp - 0x0076], 8        ; 0x7d18
     mov word [bss_90de], 0xb         ; 0x7d1d
-    mov ax, 0x9136                   ; 0x7d23
+    mov ax, bss_9136                 ; 0x7d23
     push ax                          ; 0x7d26
     mov ax, 0xd1f                    ; 0x7d27
     push ax                          ; 0x7d2a
@@ -381,7 +381,7 @@ jumptable_7e61_case_50:
 jumptable_7e61_case_7:
     mov word [bp - 0x0076], 8        ; 0x7d3a
     mov word [bss_90de], 5           ; 0x7d3f
-    mov ax, 0x9136                   ; 0x7d45
+    mov ax, bss_9136                 ; 0x7d45
     push ax                          ; 0x7d48
     mov ax, 0xd1f                    ; 0x7d49
     push ax                          ; 0x7d4c
@@ -403,7 +403,7 @@ jumptable_7e61_case_13:
 @..api_idx_00ac_OJJU.l19:
     mov word [bp - 0x0076], 0xf      ; 0x7d7d
     mov word [bss_90de], 0xc         ; 0x7d82
-    mov ax, 0x9136                   ; 0x7d88
+    mov ax, bss_9136                 ; 0x7d88
     push ax                          ; 0x7d8b
     mov ax, 0xd1f                    ; 0x7d8c
     push ax                          ; 0x7d8f
@@ -434,7 +434,7 @@ jumptable_7e61_case_52:
     mov word [bp - 0x0094], 0x643    ; 0x7dd5
     mov word [bp - 0x0076], 0x16     ; 0x7ddb
     mov word [bss_90de], 0xa         ; 0x7de0
-    mov ax, 0x9136                   ; 0x7de6
+    mov ax, bss_9136                 ; 0x7de6
     push ax                          ; 0x7de9
     mov ax, 0xd1f                    ; 0x7dea
     push ax                          ; 0x7ded
@@ -446,7 +446,7 @@ jumptable_7e61_case_56:
     mov word [bp - 0x0094], 0x702    ; 0x7dfd
     mov word [bp - 0x0076], 0xc      ; 0x7e03
     mov word [bss_90de], 0xc         ; 0x7e08
-    mov ax, 0x9136                   ; 0x7e0e
+    mov ax, bss_9136                 ; 0x7e0e
     push ax                          ; 0x7e11
     mov ax, 0xd1f                    ; 0x7e12
     push ax                          ; 0x7e15
@@ -464,7 +464,7 @@ jumptable_7e61_case_60:
     pop cx                           ; 0x7e3d
     mov word [bp - 0x00a8], 0x2c     ; 0x7e3e
     mov word [bss_90de], 0x10        ; 0x7e44
-    mov ax, 0x9136                   ; 0x7e4a
+    mov ax, bss_9136                 ; 0x7e4a
     push ax                          ; 0x7e4d
     mov ax, 0xd3c                    ; 0x7e4e
     push ax                          ; 0x7e51
@@ -549,7 +549,7 @@ jumptable_7e61_case_0:
     mov si, word [bp + 0x6]          ; 0x7ef3
     cmp byte [bx + si + 0x89], 0     ; 0x7ef6
     jbe short @..api_idx_00ac_OJJU.l22 ; 0x7efb
-    mov ax, 0x9186                   ; 0x7efd
+    mov ax, bss_9186                 ; 0x7efd
     push ax                          ; 0x7f00
     mov al, byte [bx + si + 0x89]    ; 0x7f01
     sub ah, ah                       ; 0x7f05
@@ -560,7 +560,7 @@ jumptable_7e61_case_0:
 @..api_idx_00ac_OJJU.l22:
     jmp short @..api_idx_00ac_OJJU.l24 ; 0x7f11
 @..api_idx_00ac_OJJU.l23:
-    mov ax, 0x9136                   ; 0x7f13
+    mov ax, bss_9136                 ; 0x7f13
     push ax                          ; 0x7f16
     mov ax, word [bss_8464]          ; 0x7f17
     shl ax, 1                        ; 0x7f1a
@@ -615,11 +615,11 @@ jumptable_7e61_case_0:
     mov ax, 1                        ; 0x7f99
 @..api_idx_00ac_OJJU.l26:
     push ax                          ; 0x7f9c
-    mov ax, 0x9186                   ; 0x7f9d
+    mov ax, bss_9186                 ; 0x7f9d
     push ax                          ; 0x7fa0
-    mov ax, 0x9136                   ; 0x7fa1
+    mov ax, bss_9136                 ; 0x7fa1
     push ax                          ; 0x7fa4
-    mov ax, 0x90e6                   ; 0x7fa5
+    mov ax, bss_90e6                 ; 0x7fa5
     push ax                          ; 0x7fa8
     mov ax, 0                        ; 0x7fa9
     push ax                          ; 0x7fac
@@ -631,7 +631,7 @@ jumptable_7e61_case_0:
     jne short @..api_idx_00ac_OJJU.l28 ; 0x7fbf
     push word [bp - 0x0050]          ; 0x7fc1
     push word [bp - 0x004e]          ; 0x7fc4
-    mov ax, 0x90e6                   ; 0x7fc7
+    mov ax, bss_90e6                 ; 0x7fc7
     push ax                          ; 0x7fca
     call loc_HJSG                    ; 0x7fcb
     add sp, byte 6                   ; 0x7fce
@@ -643,7 +643,7 @@ jumptable_7e61_case_0:
     mov ax, 1                        ; 0x7fde
 @..api_idx_00ac_OJJU.l27:
     push ax                          ; 0x7fe1
-    mov ax, 0x90e6                   ; 0x7fe2
+    mov ax, bss_90e6                 ; 0x7fe2
     push ax                          ; 0x7fe5
     call api_idx_0002_TMNV           ; 0x7fe6
     add sp, byte 6                   ; 0x7fe9
@@ -2069,7 +2069,7 @@ jumptable_883a:
     cmp word [bp - 0x006c], byte 6   ; 0x8d83
     jne short @..api_idx_00ac_OJJU.l126 ; 0x8d87
 @..api_idx_00ac_OJJU.l125:
-    mov ax, 0x90e6                   ; 0x8d89
+    mov ax, bss_90e6                 ; 0x8d89
     push ax                          ; 0x8d8c
     mov ax, word [bp - 0x006c]       ; 0x8d8d
     add ax, 0xd02                    ; 0x8d90
@@ -2084,7 +2084,7 @@ jumptable_883a:
     mov bx, word [bx + bss_8490]     ; 0x8da3
     cmp byte [bx + 0xd6], 0x1a       ; 0x8da7
     jne short @..api_idx_00ac_OJJU.l127 ; 0x8dac
-    mov ax, 0x90e6                   ; 0x8dae
+    mov ax, bss_90e6                 ; 0x8dae
     push ax                          ; 0x8db1
     mov ax, word [bp - 0x006c]       ; 0x8db2
     add ax, 0xd3e                    ; 0x8db5
@@ -2093,7 +2093,7 @@ jumptable_883a:
     add sp, byte 4                   ; 0x8dbc
     jmp short @..api_idx_00ac_OJJU.l128 ; 0x8dbf
 @..api_idx_00ac_OJJU.l127:
-    mov ax, 0x90e6                   ; 0x8dc1
+    mov ax, bss_90e6                 ; 0x8dc1
     push ax                          ; 0x8dc4
     mov ax, word [bp - 0x006c]       ; 0x8dc5
     add ax, 0xcf8                    ; 0x8dc8
@@ -2143,7 +2143,7 @@ jumptable_883a:
     push word [bp - 0x006a]          ; 0x8e39
     call ds_app_OLKR                 ; 0x8e3c
     add sp, byte 4                   ; 0x8e3f
-    mov ax, 0x9186                   ; 0x8e42
+    mov ax, bss_9186                 ; 0x8e42
     push ax                          ; 0x8e45
     mov ax, 0xcea                    ; 0x8e46
     push ax                          ; 0x8e49
@@ -2155,11 +2155,11 @@ jumptable_883a:
     push ax                          ; 0x8e57
     mov ax, 0x43                     ; 0x8e58
     push ax                          ; 0x8e5b
-    mov ax, 0x9186                   ; 0x8e5c
+    mov ax, bss_9186                 ; 0x8e5c
     push ax                          ; 0x8e5f
-    mov ax, 0x9136                   ; 0x8e60
+    mov ax, bss_9136                 ; 0x8e60
     push ax                          ; 0x8e63
-    mov ax, 0x90e6                   ; 0x8e64
+    mov ax, bss_90e6                 ; 0x8e64
     push ax                          ; 0x8e67
     mov ax, 4                        ; 0x8e68
     push ax                          ; 0x8e6b
@@ -2323,7 +2323,7 @@ jumptable_883a:
 @..api_idx_00ac_OJJU.l138:
     jmp short @..api_idx_00ac_OJJU.l140 ; 0x8fe3
 @..api_idx_00ac_OJJU.l139:
-    mov ax, 0x9136                   ; 0x8fe5
+    mov ax, bss_9136                 ; 0x8fe5
     push ax                          ; 0x8fe8
     mov ax, 0xce7                    ; 0x8fe9
     push ax                          ; 0x8fec
@@ -2334,11 +2334,11 @@ jumptable_883a:
     push ax                          ; 0x8ffb
     push ax                          ; 0x8ffc
     push ax                          ; 0x8ffd
-    mov ax, 0x9186                   ; 0x8ffe
+    mov ax, bss_9186                 ; 0x8ffe
     push ax                          ; 0x9001
-    mov ax, 0x9136                   ; 0x9002
+    mov ax, bss_9136                 ; 0x9002
     push ax                          ; 0x9005
-    mov ax, 0x90e6                   ; 0x9006
+    mov ax, bss_90e6                 ; 0x9006
     push ax                          ; 0x9009
     mov ax, 4                        ; 0x900a
     push ax                          ; 0x900d

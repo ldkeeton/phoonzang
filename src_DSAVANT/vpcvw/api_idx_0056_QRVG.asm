@@ -30,7 +30,7 @@ api_idx_0056_QRVG:
     je short @..api_idx_0056_QRVG.l1 ; 0x3cc9
     cmp byte [bss_956a], 0           ; 0x3ccb
     je short @..api_idx_0056_QRVG.l3 ; 0x3cd0
-    mov ax, 0x956a                   ; 0x3cd2
+    mov ax, bss_956a                 ; 0x3cd2
     push ax                          ; 0x3cd5
     call api_idx_0004_UQRV           ; 0x3cd6
     pop cx                           ; 0x3cd9

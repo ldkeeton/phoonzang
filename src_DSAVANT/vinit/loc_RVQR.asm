@@ -11,7 +11,7 @@ loc_RVQR:
     mov word [bss_0e26], 0           ; 0x03d2
     mov ax, 0                        ; 0x03d8
     push ax                          ; 0x03db
-    mov ax, 0x9098                   ; 0x03dc
+    mov ax, dseg_9098                ; 0x03dc
     push ax                          ; 0x03df
     call aztec_open                  ; 0x03e0
     add sp, byte 4                   ; 0x03e3
@@ -25,7 +25,7 @@ loc_RVQR:
 @..loc_RVQR.l1:
     mov ax, 0x34c                    ; 0x03f6
     push ax                          ; 0x03f9
-    mov ax, 0x5642                   ; 0x03fa
+    mov ax, bss_5642                 ; 0x03fa
     push ax                          ; 0x03fd
     push word [bss_9088]             ; 0x03fe
     call aztec_read                  ; 0x0402
@@ -137,66 +137,66 @@ loc_RVQR:
 @..loc_RVQR.l16:
     mov ax, 0                        ; 0x04fc
     push ax                          ; 0x04ff
-    mov ax, 0x90a5                   ; 0x0500
+    mov ax, dseg_90a5                ; 0x0500
     push ax                          ; 0x0503
     call api_idx_0002_JOSN           ; 0x0504
     add sp, byte 4                   ; 0x0507
     mov ax, 1                        ; 0x050a
     push ax                          ; 0x050d
-    mov ax, 0x90b1                   ; 0x050e
+    mov ax, dseg_90b1                ; 0x050e
     push ax                          ; 0x0511
     call api_idx_0002_JOSN           ; 0x0512
     add sp, byte 4                   ; 0x0515
     mov ax, 2                        ; 0x0518
     push ax                          ; 0x051b
-    mov ax, 0x90bd                   ; 0x051c
+    mov ax, dseg_90bd                ; 0x051c
     push ax                          ; 0x051f
     call api_idx_0002_JOSN           ; 0x0520
     add sp, byte 4                   ; 0x0523
     mov ax, 3                        ; 0x0526
     push ax                          ; 0x0529
-    mov ax, 0x90c9                   ; 0x052a
+    mov ax, dseg_90c9                ; 0x052a
     push ax                          ; 0x052d
     call api_idx_0002_JOSN           ; 0x052e
     add sp, byte 4                   ; 0x0531
     mov ax, 4                        ; 0x0534
     push ax                          ; 0x0537
-    mov ax, 0x90d5                   ; 0x0538
+    mov ax, dseg_90d5                ; 0x0538
     push ax                          ; 0x053b
     call api_idx_0002_JOSN           ; 0x053c
     add sp, byte 4                   ; 0x053f
     mov ax, 5                        ; 0x0542
     push ax                          ; 0x0545
-    mov ax, 0x90e1                   ; 0x0546
+    mov ax, dseg_90e1                ; 0x0546
     push ax                          ; 0x0549
     call api_idx_0002_JOSN           ; 0x054a
     add sp, byte 4                   ; 0x054d
     mov ax, 6                        ; 0x0550
     push ax                          ; 0x0553
-    mov ax, 0x90ed                   ; 0x0554
+    mov ax, dseg_90ed                ; 0x0554
     push ax                          ; 0x0557
     call api_idx_0002_JOSN           ; 0x0558
     add sp, byte 4                   ; 0x055b
     mov ax, 7                        ; 0x055e
     push ax                          ; 0x0561
-    mov ax, 0x90f9                   ; 0x0562
+    mov ax, dseg_90f9                ; 0x0562
     push ax                          ; 0x0565
     call api_idx_0002_JOSN           ; 0x0566
     add sp, byte 4                   ; 0x0569
     call ds_app_OOHU                 ; 0x056c
-    mov ax, 0x9105                   ; 0x056f
+    mov ax, dseg_9105                ; 0x056f
     push ax                          ; 0x0572
     call api_idx_000c_QTSG           ; 0x0573
     pop cx                           ; 0x0576
     mov word [bss_0e30], dx          ; 0x0577
     mov word [bss_0e2e], ax          ; 0x057b
-    mov ax, 0x9111                   ; 0x057e
+    mov ax, dseg_9111                ; 0x057e
     push ax                          ; 0x0581
     call api_idx_000c_QTSG           ; 0x0582
     pop cx                           ; 0x0585
     mov word [bss_0e2c], dx          ; 0x0586
     mov word [bss_0e2a], ax          ; 0x058a
-    mov ax, 0x911d                   ; 0x058d
+    mov ax, dseg_911d                ; 0x058d
     push ax                          ; 0x0590
     call api_idx_000c_QTSG           ; 0x0591
     pop cx                           ; 0x0594
@@ -204,51 +204,51 @@ loc_RVQR:
     mov word [bss_0e26], ax          ; 0x0599
     mov ax, 3                        ; 0x059c
     push ax                          ; 0x059f
-    mov ax, 0x9129                   ; 0x05a0
+    mov ax, dseg_9129                ; 0x05a0
     push ax                          ; 0x05a3
     call api_idx_0002_OGHR           ; 0x05a4
     add sp, byte 4                   ; 0x05a7
     mov word [bss_1008], 0x905c      ; 0x05aa
     mov ax, 0x52                     ; 0x05b0
     push ax                          ; 0x05b3
-    mov ax, 0x5524                   ; 0x05b4
+    mov ax, bss_5524                 ; 0x05b4
     push ax                          ; 0x05b7
-    mov ax, 0x9136                   ; 0x05b8
+    mov ax, dseg_9136                ; 0x05b8
     push ax                          ; 0x05bb
     call api_idx_0002_GHOH           ; 0x05bc
     add sp, byte 6                   ; 0x05bf
     mov ax, 0x30c                    ; 0x05c2
     push ax                          ; 0x05c5
-    mov ax, 0x5218                   ; 0x05c6
+    mov ax, bss_5218                 ; 0x05c6
     push ax                          ; 0x05c9
-    mov ax, 0x9141                   ; 0x05ca
+    mov ax, dseg_9141                ; 0x05ca
     push ax                          ; 0x05cd
     call api_idx_0002_GHOH           ; 0x05ce
     add sp, byte 6                   ; 0x05d1
     mov ax, 0x2dfe                   ; 0x05d4
     push ax                          ; 0x05d7
-    mov ax, 0x100c                   ; 0x05d8
+    mov ax, bss_100c                 ; 0x05d8
     push ax                          ; 0x05db
-    mov ax, 0x914a                   ; 0x05dc
+    mov ax, dseg_914a                ; 0x05dc
     push ax                          ; 0x05df
     call api_idx_0002_GHOH           ; 0x05e0
     add sp, byte 6                   ; 0x05e3
     mov ax, 0x18                     ; 0x05e6
     push ax                          ; 0x05e9
-    mov ax, 0x906e                   ; 0x05ea
+    mov ax, bss_906e                 ; 0x05ea
     push ax                          ; 0x05ed
-    mov ax, 0x9152                   ; 0x05ee
+    mov ax, dseg_9152                ; 0x05ee
     push ax                          ; 0x05f1
     call api_idx_0002_GHOH           ; 0x05f2
     add sp, byte 6                   ; 0x05f5
-    mov ax, 0x915d                   ; 0x05f8
+    mov ax, dseg_915d                ; 0x05f8
     push ax                          ; 0x05fb
     call api_idx_0002_TJHL           ; 0x05fc
     pop cx                           ; 0x05ff
     mov ax, 0                        ; 0x0600
     push ax                          ; 0x0603
     push ax                          ; 0x0604
-    mov ax, 0x9166                   ; 0x0605
+    mov ax, dseg_9166                ; 0x0605
     push ax                          ; 0x0608
     call ds_app_UUHT                 ; 0x0609
     add sp, byte 4                   ; 0x060c
@@ -298,7 +298,7 @@ loc_RVQR:
     mov ax, 0                        ; 0x0690
     push ax                          ; 0x0693
     push ax                          ; 0x0694
-    mov ax, 0x916e                   ; 0x0695
+    mov ax, dseg_916e                ; 0x0695
     push ax                          ; 0x0698
     call ds_app_UUHT                 ; 0x0699
     add sp, byte 4                   ; 0x069c
@@ -479,7 +479,7 @@ loc_RVQR:
     mov ax, 0                        ; 0x085c
     push ax                          ; 0x085f
     push ax                          ; 0x0860
-    mov ax, 0x917b                   ; 0x0861
+    mov ax, dseg_917b                ; 0x0861
     push ax                          ; 0x0864
     call ds_app_UUHT                 ; 0x0865
     add sp, byte 4                   ; 0x0868

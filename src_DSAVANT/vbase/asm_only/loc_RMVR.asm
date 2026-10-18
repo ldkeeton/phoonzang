@@ -12,7 +12,7 @@ loc_RMVR:
     mov ax, 0                        ; 0x4d24
     push ax                          ; 0x4d27
     push ax                          ; 0x4d28
-    mov ax, 0x90fb                   ; 0x4d29
+    mov ax, dseg_90fb                ; 0x4d29
     push ax                          ; 0x4d2c
     call ds_app_UUHT                 ; 0x4d2d
     add sp, byte 4                   ; 0x4d30
@@ -29,7 +29,7 @@ loc_RMVR:
 @..loc_RMVR.l1:
     mov ax, 0x300                    ; 0x4d4a
     push ax                          ; 0x4d4d
-    mov ax, 0x9c94                   ; 0x4d4e
+    mov ax, bss_9c94                 ; 0x4d4e
     push ax                          ; 0x4d51
     push word [bp - 0x0006]          ; 0x4d52
     call aztec_read                  ; 0x4d55
@@ -1400,7 +1400,7 @@ jumptable_5e7f_case_3:
     mov ax, word [bp - 0x0008]       ; 0x597c
     add ax, strict word 0x29         ; 0x597f
     push ax                          ; 0x5982
-    mov ax, 0x593a                   ; 0x5983
+    mov ax, bss_593a                 ; 0x5983
     push ax                          ; 0x5986
     call api_idx_0008_LLVT           ; 0x5987
     add sp, byte 0x0e                ; 0x598a
@@ -1439,7 +1439,7 @@ jumptable_5e7f_case_4:
     mov ax, word [bp - 0x0008]       ; 0x59d6
     add ax, strict word 0x29         ; 0x59d9
     push ax                          ; 0x59dc
-    mov ax, 0x594e                   ; 0x59dd
+    mov ax, bss_594e                 ; 0x59dd
     push ax                          ; 0x59e0
     call api_idx_0008_LLVT           ; 0x59e1
     add sp, byte 0x0e                ; 0x59e4
@@ -1725,7 +1725,7 @@ jumptable_5e7f_case_18:
     je short @..loc_RMVR.l46         ; 0x5c72
     cmp byte [bss_5963], 1           ; 0x5c74
     jne short @..loc_RMVR.l47        ; 0x5c79
-    mov ax, 0x5964                   ; 0x5c7b
+    mov ax, bss_5964                 ; 0x5c7b
     push ax                          ; 0x5c7e
     call aztec_strlen                ; 0x5c7f
     pop cx                           ; 0x5c82
@@ -1759,7 +1759,7 @@ jumptable_5e7f_case_18:
     mov ax, word [bp - 0x0008]       ; 0x5cbd
     add ax, 0xd7                     ; 0x5cc0
     push ax                          ; 0x5cc3
-    mov ax, 0x5964                   ; 0x5cc4
+    mov ax, bss_5964                 ; 0x5cc4
     push ax                          ; 0x5cc7
     call api_idx_0008_LLVT           ; 0x5cc8
     add sp, byte 0x0e                ; 0x5ccb

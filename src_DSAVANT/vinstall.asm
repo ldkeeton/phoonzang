@@ -70,12 +70,14 @@ __zbss_size equ __zbss_end - __zimage_end
 
 %include "vinstall/loc_STSN_040f.asm"      ; 0x040f
 
+dseg_1444 equ __zdseg_1444 - __zdseg_start
 %include "vinstall/loc_STSN_0429.asm"      ; 0x0429
 
 %include "vinstall/loc_NPPN.asm"           ; 0x06f1
 
 %include "vinstall/loc_JJNP_0815.asm"      ; 0x0815
 
+dseg_144b equ __zdseg_144b - __zdseg_start
 %include "vinstall/loc_NOVO.asm"           ; 0x0823
 
 bss_2644 equ __zbss_2644 - __zdseg_start
@@ -86,26 +88,41 @@ bss_2647 equ __zbss_2647 - __zdseg_start
 
 %include "vinstall/aztec_vfprintf.asm"     ; 0x0944
 
+dseg_144f equ __zdseg_144f - __zdseg_start
+dseg_149f equ __zdseg_149f - __zdseg_start
+bss_2648  equ __zbss_2648 - __zdseg_start
 %include "vinstall/loc_NNGU.asm"           ; 0x0992
 
-bss_2698 equ __zbss_2698 - __zdseg_start
-bss_29ba equ __zbss_29ba - __zdseg_start
-bss_29bb equ __zbss_29bb - __zdseg_start
-bss_29d0 equ __zbss_29d0 - __zdseg_start
-bss_29d1 equ __zbss_29d1 - __zdseg_start
-bss_29d2 equ __zbss_29d2 - __zdseg_start
-bss_29d4 equ __zbss_29d4 - __zdseg_start
-bss_29d5 equ __zbss_29d5 - __zdseg_start
-bss_29d6 equ __zbss_29d6 - __zdseg_start
-bss_29d7 equ __zbss_29d7 - __zdseg_start
-bss_29d8 equ __zbss_29d8 - __zdseg_start
-bss_29da equ __zbss_29da - __zdseg_start
-bss_29dc equ __zbss_29dc - __zdseg_start
-bss_29dd equ __zbss_29dd - __zdseg_start
-bss_29df equ __zbss_29df - __zdseg_start
-bss_29e1 equ __zbss_29e1 - __zdseg_start
-bss_29e2 equ __zbss_29e2 - __zdseg_start
-bss_29e3 equ __zbss_29e3 - __zdseg_start
+dseg_14ef equ __zdseg_14ef - __zdseg_start
+dseg_14fc equ __zdseg_14fc - __zdseg_start
+dseg_151a equ __zdseg_151a - __zdseg_start
+dseg_152c equ __zdseg_152c - __zdseg_start
+dseg_155e equ __zdseg_155e - __zdseg_start
+dseg_1560 equ __zdseg_1560 - __zdseg_start
+bss_2698  equ __zbss_2698 - __zdseg_start
+bss_269a  equ __zbss_269a - __zdseg_start
+bss_296a  equ __zbss_296a - __zdseg_start
+bss_297e  equ __zbss_297e - __zdseg_start
+bss_2992  equ __zbss_2992 - __zdseg_start
+bss_29a6  equ __zbss_29a6 - __zdseg_start
+bss_29ba  equ __zbss_29ba - __zdseg_start
+bss_29bb  equ __zbss_29bb - __zdseg_start
+bss_29bc  equ __zbss_29bc - __zdseg_start
+bss_29d0  equ __zbss_29d0 - __zdseg_start
+bss_29d1  equ __zbss_29d1 - __zdseg_start
+bss_29d2  equ __zbss_29d2 - __zdseg_start
+bss_29d4  equ __zbss_29d4 - __zdseg_start
+bss_29d5  equ __zbss_29d5 - __zdseg_start
+bss_29d6  equ __zbss_29d6 - __zdseg_start
+bss_29d7  equ __zbss_29d7 - __zdseg_start
+bss_29d8  equ __zbss_29d8 - __zdseg_start
+bss_29da  equ __zbss_29da - __zdseg_start
+bss_29dc  equ __zbss_29dc - __zdseg_start
+bss_29dd  equ __zbss_29dd - __zdseg_start
+bss_29df  equ __zbss_29df - __zdseg_start
+bss_29e1  equ __zbss_29e1 - __zdseg_start
+bss_29e2  equ __zbss_29e2 - __zdseg_start
+bss_29e3  equ __zbss_29e3 - __zdseg_start
 %include "vinstall/aztec_impl_scan.asm"    ; 0x0a0f
 
 bss_29e6 equ __zbss_29e6 - __zdseg_start
@@ -118,23 +135,184 @@ bss_29ec equ __zbss_29ec - __zdseg_start
 
 %include "vinstall/loc_TUNS.asm"           ; 0x0d12
 
+dseg_156d equ __zdseg_156d - __zdseg_start
 %include "vinstall/loc_PQHH.asm"           ; 0x0d3f
 
+dseg_15bd equ __zdseg_15bd - __zdseg_start
+dseg_15cc equ __zdseg_15cc - __zdseg_start
+dseg_15d8 equ __zdseg_15d8 - __zdseg_start
+dseg_15e1 equ __zdseg_15e1 - __zdseg_start
+dseg_15e9 equ __zdseg_15e9 - __zdseg_start
+dseg_15f7 equ __zdseg_15f7 - __zdseg_start
 %include "vinstall/loc_ONOP.asm"           ; 0x0dda
 
-bss_29ee equ __zbss_29ee - __zdseg_start
+dseg_1609 equ __zdseg_1609 - __zdseg_start
+dseg_1615 equ __zdseg_1615 - __zdseg_start
+dseg_1621 equ __zdseg_1621 - __zdseg_start
+dseg_162e equ __zdseg_162e - __zdseg_start
+dseg_1630 equ __zdseg_1630 - __zdseg_start
+dseg_1634 equ __zdseg_1634 - __zdseg_start
+dseg_1636 equ __zdseg_1636 - __zdseg_start
+dseg_163a equ __zdseg_163a - __zdseg_start
+dseg_163c equ __zdseg_163c - __zdseg_start
+dseg_1657 equ __zdseg_1657 - __zdseg_start
+dseg_2357 equ __zdseg_2357 - __zdseg_start
+bss_29ee  equ __zbss_29ee - __zdseg_start
 %include "vinstall/loc_TSLJ.asm"           ; 0x0ed8
 
+dseg_166c equ __zdseg_166c - __zdseg_start
+dseg_166f equ __zdseg_166f - __zdseg_start
+dseg_1672 equ __zdseg_1672 - __zdseg_start
+dseg_1675 equ __zdseg_1675 - __zdseg_start
+dseg_1676 equ __zdseg_1676 - __zdseg_start
+dseg_1679 equ __zdseg_1679 - __zdseg_start
+dseg_167a equ __zdseg_167a - __zdseg_start
+dseg_167d equ __zdseg_167d - __zdseg_start
+dseg_167e equ __zdseg_167e - __zdseg_start
+dseg_1681 equ __zdseg_1681 - __zdseg_start
 %include "vinstall/leaf_loc_UVRI.asm"      ; 0x10a4
 
+dseg_1689 equ __zdseg_1689 - __zdseg_start
+dseg_16af equ __zdseg_16af - __zdseg_start
+dseg_16c2 equ __zdseg_16c2 - __zdseg_start
+dseg_16e8 equ __zdseg_16e8 - __zdseg_start
+dseg_16fa equ __zdseg_16fa - __zdseg_start
+dseg_1720 equ __zdseg_1720 - __zdseg_start
 %include "vinstall/loc_RJRG.asm"           ; 0x1155
 
 dseg_0004 equ __zdseg_0004 - __zdseg_start
 dseg_0006 equ __zdseg_0006 - __zdseg_start
+dseg_1732 equ __zdseg_1732 - __zdseg_start
+dseg_1767 equ __zdseg_1767 - __zdseg_start
+dseg_179c equ __zdseg_179c - __zdseg_start
+dseg_17d1 equ __zdseg_17d1 - __zdseg_start
+dseg_1806 equ __zdseg_1806 - __zdseg_start
+dseg_183b equ __zdseg_183b - __zdseg_start
+dseg_183d equ __zdseg_183d - __zdseg_start
+dseg_1882 equ __zdseg_1882 - __zdseg_start
+dseg_18b2 equ __zdseg_18b2 - __zdseg_start
+dseg_18f6 equ __zdseg_18f6 - __zdseg_start
+dseg_1911 equ __zdseg_1911 - __zdseg_start
+dseg_1957 equ __zdseg_1957 - __zdseg_start
+dseg_199e equ __zdseg_199e - __zdseg_start
+dseg_19e4 equ __zdseg_19e4 - __zdseg_start
+dseg_1a2b equ __zdseg_1a2b - __zdseg_start
+dseg_1a72 equ __zdseg_1a72 - __zdseg_start
+dseg_1a91 equ __zdseg_1a91 - __zdseg_start
+dseg_1a92 equ __zdseg_1a92 - __zdseg_start
+dseg_1ac1 equ __zdseg_1ac1 - __zdseg_start
+dseg_1af6 equ __zdseg_1af6 - __zdseg_start
+dseg_1b2b equ __zdseg_1b2b - __zdseg_start
+dseg_1b60 equ __zdseg_1b60 - __zdseg_start
+dseg_1b95 equ __zdseg_1b95 - __zdseg_start
+dseg_1bca equ __zdseg_1bca - __zdseg_start
+dseg_1bcd equ __zdseg_1bcd - __zdseg_start
+dseg_1bce equ __zdseg_1bce - __zdseg_start
+dseg_1c1b equ __zdseg_1c1b - __zdseg_start
+dseg_1c68 equ __zdseg_1c68 - __zdseg_start
+dseg_1c7b equ __zdseg_1c7b - __zdseg_start
+dseg_1c8e equ __zdseg_1c8e - __zdseg_start
+dseg_1cc7 equ __zdseg_1cc7 - __zdseg_start
+dseg_1d0a equ __zdseg_1d0a - __zdseg_start
+dseg_1d4d equ __zdseg_1d4d - __zdseg_start
+dseg_1d58 equ __zdseg_1d58 - __zdseg_start
+dseg_1d63 equ __zdseg_1d63 - __zdseg_start
+dseg_1d6b equ __zdseg_1d6b - __zdseg_start
+dseg_1d73 equ __zdseg_1d73 - __zdseg_start
+dseg_1d9f equ __zdseg_1d9f - __zdseg_start
+dseg_1dc7 equ __zdseg_1dc7 - __zdseg_start
+dseg_1df7 equ __zdseg_1df7 - __zdseg_start
+dseg_1e28 equ __zdseg_1e28 - __zdseg_start
+dseg_1e50 equ __zdseg_1e50 - __zdseg_start
+dseg_1e5d equ __zdseg_1e5d - __zdseg_start
+dseg_1e69 equ __zdseg_1e69 - __zdseg_start
+dseg_1e77 equ __zdseg_1e77 - __zdseg_start
+dseg_1e84 equ __zdseg_1e84 - __zdseg_start
+dseg_1e90 equ __zdseg_1e90 - __zdseg_start
+dseg_1ea4 equ __zdseg_1ea4 - __zdseg_start
+dseg_1ecd equ __zdseg_1ecd - __zdseg_start
+dseg_1efc equ __zdseg_1efc - __zdseg_start
+dseg_1f1e equ __zdseg_1f1e - __zdseg_start
+dseg_1f47 equ __zdseg_1f47 - __zdseg_start
+dseg_1f7c equ __zdseg_1f7c - __zdseg_start
+dseg_1fa5 equ __zdseg_1fa5 - __zdseg_start
+dseg_1fce equ __zdseg_1fce - __zdseg_start
+dseg_200a equ __zdseg_200a - __zdseg_start
+dseg_204c equ __zdseg_204c - __zdseg_start
+dseg_2062 equ __zdseg_2062 - __zdseg_start
+dseg_207b equ __zdseg_207b - __zdseg_start
+dseg_208f equ __zdseg_208f - __zdseg_start
+dseg_20a8 equ __zdseg_20a8 - __zdseg_start
+dseg_20a9 equ __zdseg_20a9 - __zdseg_start
+dseg_20c0 equ __zdseg_20c0 - __zdseg_start
+dseg_20d2 equ __zdseg_20d2 - __zdseg_start
+dseg_2112 equ __zdseg_2112 - __zdseg_start
+dseg_2113 equ __zdseg_2113 - __zdseg_start
+dseg_2114 equ __zdseg_2114 - __zdseg_start
+dseg_2116 equ __zdseg_2116 - __zdseg_start
+dseg_2118 equ __zdseg_2118 - __zdseg_start
+dseg_211a equ __zdseg_211a - __zdseg_start
+dseg_211c equ __zdseg_211c - __zdseg_start
+dseg_2127 equ __zdseg_2127 - __zdseg_start
+dseg_2132 equ __zdseg_2132 - __zdseg_start
+dseg_2133 equ __zdseg_2133 - __zdseg_start
+dseg_213e equ __zdseg_213e - __zdseg_start
+dseg_213f equ __zdseg_213f - __zdseg_start
+dseg_214a equ __zdseg_214a - __zdseg_start
+dseg_214b equ __zdseg_214b - __zdseg_start
+dseg_2156 equ __zdseg_2156 - __zdseg_start
+dseg_2157 equ __zdseg_2157 - __zdseg_start
+dseg_2162 equ __zdseg_2162 - __zdseg_start
+dseg_216d equ __zdseg_216d - __zdseg_start
+dseg_216e equ __zdseg_216e - __zdseg_start
+dseg_2179 equ __zdseg_2179 - __zdseg_start
+dseg_217a equ __zdseg_217a - __zdseg_start
+dseg_2185 equ __zdseg_2185 - __zdseg_start
+dseg_2186 equ __zdseg_2186 - __zdseg_start
+dseg_2191 equ __zdseg_2191 - __zdseg_start
+dseg_2192 equ __zdseg_2192 - __zdseg_start
+dseg_219d equ __zdseg_219d - __zdseg_start
+dseg_219e equ __zdseg_219e - __zdseg_start
+dseg_21a9 equ __zdseg_21a9 - __zdseg_start
+dseg_21b4 equ __zdseg_21b4 - __zdseg_start
+dseg_21b5 equ __zdseg_21b5 - __zdseg_start
+dseg_21c0 equ __zdseg_21c0 - __zdseg_start
+dseg_21c1 equ __zdseg_21c1 - __zdseg_start
+dseg_21cc equ __zdseg_21cc - __zdseg_start
+dseg_21cd equ __zdseg_21cd - __zdseg_start
+dseg_21d8 equ __zdseg_21d8 - __zdseg_start
+dseg_21e3 equ __zdseg_21e3 - __zdseg_start
+dseg_21e4 equ __zdseg_21e4 - __zdseg_start
+dseg_21ef equ __zdseg_21ef - __zdseg_start
+dseg_21f0 equ __zdseg_21f0 - __zdseg_start
+dseg_21fb equ __zdseg_21fb - __zdseg_start
+dseg_2206 equ __zdseg_2206 - __zdseg_start
+dseg_2207 equ __zdseg_2207 - __zdseg_start
+dseg_2212 equ __zdseg_2212 - __zdseg_start
+dseg_2213 equ __zdseg_2213 - __zdseg_start
+dseg_221e equ __zdseg_221e - __zdseg_start
+dseg_221f equ __zdseg_221f - __zdseg_start
+dseg_222a equ __zdseg_222a - __zdseg_start
+dseg_2235 equ __zdseg_2235 - __zdseg_start
+dseg_2236 equ __zdseg_2236 - __zdseg_start
+dseg_2241 equ __zdseg_2241 - __zdseg_start
+dseg_2242 equ __zdseg_2242 - __zdseg_start
+dseg_224d equ __zdseg_224d - __zdseg_start
+dseg_224e equ __zdseg_224e - __zdseg_start
+dseg_2259 equ __zdseg_2259 - __zdseg_start
+dseg_225a equ __zdseg_225a - __zdseg_start
+dseg_2265 equ __zdseg_2265 - __zdseg_start
+dseg_2270 equ __zdseg_2270 - __zdseg_start
+dseg_2271 equ __zdseg_2271 - __zdseg_start
+dseg_227e equ __zdseg_227e - __zdseg_start
+dseg_22af equ __zdseg_22af - __zdseg_start
+dseg_22e3 equ __zdseg_22e3 - __zdseg_start
+; bss_2648  equ __zbss_2648 - __zdseg_start
 ; bss_29e6  equ __zbss_29e6 - __zdseg_start
 ; bss_29e8  equ __zbss_29e8 - __zdseg_start
 ; bss_29ea  equ __zbss_29ea - __zdseg_start
 ; bss_29ec  equ __zbss_29ec - __zdseg_start
+bss_29f0  equ __zbss_29f0 - __zdseg_start
 bss_2af0  equ __zbss_2af0 - __zdseg_start
 bss_2af2  equ __zbss_2af2 - __zdseg_start
 bss_2af4  equ __zbss_2af4 - __zdseg_start
@@ -344,9 +522,10 @@ __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 
 __zcp_373b:
     db 0xb8, 0x00, 0x00, 0xc3
-; _ioflg   equ __z_ioflg - __zdseg_start
-bss_253a equ __zbss_253a - __zdseg_start
-bss_253c equ __zbss_253c - __zdseg_start
+dseg_2503 equ __zdseg_2503 - __zdseg_start
+; _ioflg    equ __z_ioflg - __zdseg_start
+bss_253a  equ __zbss_253a - __zdseg_start
+bss_253c  equ __zbss_253c - __zdseg_start
 %include "vinstall/aztec_Croot.asm"        ; 0x373f
 
 ; dseg_2500 equ __zdseg_2500 - __zdseg_start
@@ -2585,158 +2764,480 @@ __zdseg_1441:
 __zdseg_1442:
     db 0x00
 __zdseg_1443:
-
-    db 0x00, 0x25, 0x63, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x20, 0x20, 0x00
-    db '                                                                               ', 0
-    db '                                                                               ', 0
-    db 'SCENARIO.HDR', 0
-    db 'SYSTEM ERROR: UNABLE TO OPEN ', 0
-    db ' - Press <RETURN>', 0
-    db '*ERROR* INSTALL VERSION MISMATCH - Press <RETURN>', 0
-    db 0x5c, 0x00
-    db 'SAVEGAME.DBS', 0
-    db '                                                                               ', 0
-    db 'Please Insert ', 0
-    db 'DESTINATION', 0
-    db '*SOURCE*', 0
-    db ' Disk (', 0
-    db ') Into Drive ', 0
-    db ' - Press <RETURN>', 0
-    db 'pkunzip.exe', 0
-    db 'pkunzip.exe', 0
-    db 'pkunzip.exe ', 0
-    db 0x20, 0x00, 0x6e, 0x75, 0x6c, 0x00, 0x61, 0x00, 0x63, 0x6f, 0x6e, 0x00, 0x61, 0x00
-    db 'ERROR: UNABLE TO UNZIP -> ', 0
-    db ' - Press <RETURN>', 0
-    db 0x00, 0x20, 0x00, 0x41, 0x3a, 0x00, 0x42, 0x3a, 0x00, 0x41, 0x3a, 0x00, 0x00, 0x41, 0x3a, 0x00
-    db 0x00, 0x41, 0x3a, 0x00, 0x00, 0x43, 0x3a, 0x00
-    db 'DSAVANT', 0
-    db 'ERROR: INVALID DESTINATION DRIVE -> (', 0
-    db ') - Press <RETURN>', 0
-    db 'ERROR: UNABLE TO CREATE DIRECTORY -> ', 0
-    db ' - Press <RETURN>', 0
-    db 'ERROR: UNABLE TO LOCATE DIRECTORY -> ', 0
-    db ' - Press <RETURN>', 0
-    db '****************************************************', 0
-    db '*                 W I Z A R D R Y                  *', 0
-    db '*           CRUSADERS OF THE DARK SAVANT           *', 0
-    db '*               INSTALLATION PROGRAM    Ver#       *', 0
-    db '****************************************************', 0
-    db 0x2e, 0x00
-    db 'Crusaders of the Dark Savant Application Software Copyright (C) 1992', 0
-    db 'by David W. Bradley and Sir-Tech Software, Inc.', 0
-    db 'All Logos, Printed Materials and Graphic Designs Copyright (C) 1992', 0
-    db 'by Sir-Tech Software, Inc.', 0
-    db 'All Rights Reserved. No part of this software or printed material may', 0
-    db 'be reproduced in any way, or transmitted, in any form or by any means,', 0
-    db 'electronic, mechanical, photocopying, recording, or otherwise without', 0
-    db 'prior permission in writing  from the publisher,  except by reviewers,', 0
-    db 'who may quote brief written passages and/or screen images to be print-', 0
-    db 'ed in a magazine or newspaper.', 0
     db 0x00
-    db 'Press <RETURN> to begin INSTALLATION PROCEDURE', 0
+__zdseg_1444:
+    db 0x25, 0x63, 0x00, 0x20, 0x00, 0x20, 0x00
+__zdseg_144b:
+    db 0x20, 0x20, 0x20, 0x00
+__zdseg_144f:
+
+    db '                                                                               ', 0
+
+__zdseg_149f:
+
+    db '                                                                               ', 0
+
+__zdseg_14ef:
+    db 'SCENARIO.HDR', 0
+__zdseg_14fc:
+
+    db 'SYSTEM ERROR: UNABLE TO OPEN ', 0
+
+__zdseg_151a:
+
+    db ' - Press <RETURN>', 0
+
+__zdseg_152c:
+
+    db '*ERROR* INSTALL VERSION MISMATCH - Press <RETURN>', 0
+
+__zdseg_155e:
+    db 0x5c, 0x00
+__zdseg_1560:
+    db 'SAVEGAME.DBS', 0
+__zdseg_156d:
+
+    db '                                                                               ', 0
+
+__zdseg_15bd:
+    db 'Please Insert ', 0
+__zdseg_15cc:
+    db 'DESTINATION', 0
+__zdseg_15d8:
+    db '*SOURCE*', 0
+__zdseg_15e1:
+    db ' Disk (', 0
+__zdseg_15e9:
+    db ') Into Drive ', 0
+__zdseg_15f7:
+
+    db ' - Press <RETURN>', 0
+
+__zdseg_1609:
+    db 'pkunzip.exe', 0
+__zdseg_1615:
+    db 'pkunzip.exe', 0
+__zdseg_1621:
+    db 'pkunzip.exe ', 0
+__zdseg_162e:
+    db 0x20, 0x00
+__zdseg_1630:
+    db 0x6e, 0x75, 0x6c, 0x00
+__zdseg_1634:
+    db 0x61, 0x00
+__zdseg_1636:
+    db 0x63, 0x6f, 0x6e, 0x00
+__zdseg_163a:
+    db 0x61, 0x00
+__zdseg_163c:
+
+    db 'ERROR: UNABLE TO UNZIP -> ', 0
+
+__zdseg_1657:
+
+    db ' - Press <RETURN>', 0
+    db 0x00, 0x20, 0x00
+
+__zdseg_166c:
+    db 0x41, 0x3a, 0x00
+__zdseg_166f:
+    db 0x42, 0x3a, 0x00
+__zdseg_1672:
+    db 0x41, 0x3a, 0x00
+__zdseg_1675:
+    db 0x00
+__zdseg_1676:
+    db 0x41, 0x3a, 0x00
+__zdseg_1679:
+    db 0x00
+__zdseg_167a:
+    db 0x41, 0x3a, 0x00
+__zdseg_167d:
+    db 0x00
+__zdseg_167e:
+    db 0x43, 0x3a, 0x00
+__zdseg_1681:
+    db 'DSAVANT', 0
+__zdseg_1689:
+
+    db 'ERROR: INVALID DESTINATION DRIVE -> (', 0
+
+__zdseg_16af:
+
+    db ') - Press <RETURN>', 0
+
+__zdseg_16c2:
+
+    db 'ERROR: UNABLE TO CREATE DIRECTORY -> ', 0
+
+__zdseg_16e8:
+
+    db ' - Press <RETURN>', 0
+
+__zdseg_16fa:
+
+    db 'ERROR: UNABLE TO LOCATE DIRECTORY -> ', 0
+
+__zdseg_1720:
+
+    db ' - Press <RETURN>', 0
+
+__zdseg_1732:
+
     db '****************************************************', 0
+
+__zdseg_1767:
+
     db '*                 W I Z A R D R Y                  *', 0
+
+__zdseg_179c:
+
     db '*           CRUSADERS OF THE DARK SAVANT           *', 0
-    db '*               INSTALLATION PROGRAM               *', 0
+
+__zdseg_17d1:
+
+    db '*               INSTALLATION PROGRAM    Ver#       *', 0
+
+__zdseg_1806:
+
     db '****************************************************', 0
-    db 0x41, 0x3a, 0x00, 0x00
+
+__zdseg_183b:
+    db 0x2e, 0x00
+__zdseg_183d:
+
+    db 'Crusaders of the Dark Savant Application Software Copyright (C) 1992', 0
+
+__zdseg_1882:
+
+    db 'by David W. Bradley and Sir-Tech Software, Inc.', 0
+
+__zdseg_18b2:
+
+    db 'All Logos, Printed Materials and Graphic Designs Copyright (C) 1992', 0
+
+__zdseg_18f6:
+
+    db 'by Sir-Tech Software, Inc.', 0
+
+__zdseg_1911:
+
+    db 'All Rights Reserved. No part of this software or printed material may', 0
+
+__zdseg_1957:
+
+    db 'be reproduced in any way, or transmitted, in any form or by any means,', 0
+
+__zdseg_199e:
+
+    db 'electronic, mechanical, photocopying, recording, or otherwise without', 0
+
+__zdseg_19e4:
+
+    db 'prior permission in writing  from the publisher,  except by reviewers,', 0
+
+__zdseg_1a2b:
+
+    db 'who may quote brief written passages and/or screen images to be print-', 0
+
+__zdseg_1a72:
+
+    db 'ed in a magazine or newspaper.', 0
+
+__zdseg_1a91:
+    db 0x00
+__zdseg_1a92:
+
+    db 'Press <RETURN> to begin INSTALLATION PROCEDURE', 0
+
+__zdseg_1ac1:
+
+    db '****************************************************', 0
+
+__zdseg_1af6:
+
+    db '*                 W I Z A R D R Y                  *', 0
+
+__zdseg_1b2b:
+
+    db '*           CRUSADERS OF THE DARK SAVANT           *', 0
+
+__zdseg_1b60:
+
+    db '*               INSTALLATION PROGRAM               *', 0
+
+__zdseg_1b95:
+
+    db '****************************************************', 0
+
+__zdseg_1bca:
+    db 0x41, 0x3a, 0x00
+__zdseg_1bcd:
+    db 0x00
+__zdseg_1bce:
+
     db '                       Disk Drive Type      Drive Name  Path or Drive #2    ', 0
+
+__zdseg_1c1b:
+
     db '                    ----------------------  ----------  --------------------', 0
+
+__zdseg_1c68:
+
     db '     SOURCE DRIVE:', 0
+
+__zdseg_1c7b:
+
     db 'DESTINATION DRIVE:', 0
+
+__zdseg_1c8e:
+
     db ' MEMORY EXPANSION>  EMS:      RamDisk:        RAM Name: ', 0
+
+__zdseg_1cc7:
+
     db 'GRAPHIC MODE:                                     VIDEO ADJUSTMENT', 0
+
+__zdseg_1d0a:
+
     db '                                                  ================', 0
+
+__zdseg_1d4d:
     db '  Bright: ', 0
+__zdseg_1d58:
     db 'Contrast: ', 0
+__zdseg_1d63:
     db 'MOUSE: ', 0
+__zdseg_1d6b:
     db 'SOUND: ', 0
+__zdseg_1d73:
+
     db 'FULL INSTALL   CONFIG ONLY    ABORT INSTALL', 0
+
+__zdseg_1d9f:
+
     db 'ARROW KEY TO FIELD - <RETURN> TO CHANGE', 0
+
+__zdseg_1dc7:
+
     db '*ERROR* NO VIDEO CARD DETECTED - Press <RETURN>', 0
+
+__zdseg_1df7:
+
     db 'UNABLE TO COMPLETE INSTALLATION - Press <RETURN>', 0
+
+__zdseg_1e28:
+
     db 'ARROW KEY TO FIELD - <RETURN> TO CHANGE', 0
+
+__zdseg_1e50:
     db 'FULL INSTALL', 0
+__zdseg_1e5d:
     db 'CONFIG ONLY', 0
+__zdseg_1e69:
     db 'ABORT INSTALL', 0
+__zdseg_1e77:
     db 'FULL INSTALL', 0
+__zdseg_1e84:
     db 'CONFIG ONLY', 0
+__zdseg_1e90:
+
     db 'ABORT INSTALL', 0
     db '01110', 0
+
+__zdseg_1ea4:
+
     db 'BAD DRIVE SPECIFICATION - Press <RETURN>', 0
+
+__zdseg_1ecd:
+
     db 'SOURCE PATH NOT ALLOWED - Press <RETURN>', 0
     db '00001', 0
+
+__zdseg_1efc:
+
     db '                                 ', 0
+
+__zdseg_1f1e:
+
     db 'BAD DRIVE SPECIFICATION - Press <RETURN>', 0
+
+__zdseg_1f47:
+
     db 'WARNING! DRIVE CONFLICT WITH SOURCE - Press <RETURN>', 0
+
+__zdseg_1f7c:
+
     db 'BAD DRIVE SPECIFICATION - Press <RETURN>', 0
+
+__zdseg_1fa5:
+
     db 'BAD DRIVE SPECIFICATION - Press <RETURN>', 0
+
+__zdseg_1fce:
+
     db 'SOURCE AND DESTINATION DRIVE <MUST> DIFFER - Press <RETURN>', 0
+
+__zdseg_200a:
+
     db 'Please specify a new SOURCE or DESTINATION Drive - Press <RETURN>', 0
+
+__zdseg_204c:
+
     db '11 disks (5.25 @360k)', 0
+
+__zdseg_2062:
+
     db '3 disks (5.25HD @1.2meg)', 0
+
+__zdseg_207b:
+
     db '9 disks (3.5 @720k)', 0
+
+__zdseg_208f:
+
     db '3 disks (3.5HD @1.44meg)', 0
+
+__zdseg_20a8:
     db 0x00
+__zdseg_20a9:
+
     db 'This Install requires ', 0
+
+__zdseg_20c0:
+
     db ' - Press <RETURN>', 0
+
+__zdseg_20d2:
+
     db 'Make sure you have NEWLY FORMATTED disks ready - Press <RETURN>', 0
-    db 0x00, 0x00, 0x5c, 0x00, 0x5c, 0x00, 0x5c, 0x00, 0x5c, 0x00
+
+__zdseg_2112:
+    db 0x00
+__zdseg_2113:
+    db 0x00
+__zdseg_2114:
+    db 0x5c, 0x00
+__zdseg_2116:
+    db 0x5c, 0x00
+__zdseg_2118:
+    db 0x5c, 0x00
+__zdseg_211a:
+    db 0x5c, 0x00
+__zdseg_211c:
     db 'CRUS01.ZIP', 0
+__zdseg_2127:
     db 'CRUS01.ZIP', 0
+__zdseg_2132:
     db 0x00
+__zdseg_2133:
     db 'CRUS02.ZIP', 0
+__zdseg_213e:
     db 0x00
+__zdseg_213f:
     db 'CRUS04.ZIP', 0
+__zdseg_214a:
     db 0x00
+__zdseg_214b:
     db 'CRUS06.ZIP', 0
+__zdseg_2156:
     db 0x00
+__zdseg_2157:
     db 'CRUS03.ZIP', 0
+__zdseg_2162:
     db 'CRUS03.ZIP', 0
+__zdseg_216d:
     db 0x00
+__zdseg_216e:
     db 'CRUS05.ZIP', 0
+__zdseg_2179:
     db 0x00
+__zdseg_217a:
     db 'CRUS07.ZIP', 0
+__zdseg_2185:
     db 0x00
+__zdseg_2186:
     db 'CRUS08.ZIP', 0
+__zdseg_2191:
     db 0x00
+__zdseg_2192:
     db 'CRUS07.ZIP', 0
+__zdseg_219d:
     db 0x00
+__zdseg_219e:
     db 'CRUS02.ZIP', 0
+__zdseg_21a9:
     db 'CRUS02.ZIP', 0
+__zdseg_21b4:
     db 0x00
+__zdseg_21b5:
     db 'CRUS04.ZIP', 0
+__zdseg_21c0:
     db 0x00
+__zdseg_21c1:
     db 'CRUS06.ZIP', 0
+__zdseg_21cc:
     db 0x00
+__zdseg_21cd:
     db 'CRUS03.ZIP', 0
+__zdseg_21d8:
     db 'CRUS03.ZIP', 0
+__zdseg_21e3:
     db 0x00
+__zdseg_21e4:
     db 'CRUS08.ZIP', 0
+__zdseg_21ef:
     db 0x00
+__zdseg_21f0:
     db 'CRUS05.ZIP', 0
+__zdseg_21fb:
     db 'CRUS05.ZIP', 0
+__zdseg_2206:
     db 0x00
+__zdseg_2207:
     db 'CRUS02.ZIP', 0
+__zdseg_2212:
     db 0x00
+__zdseg_2213:
     db 'CRUS06.ZIP', 0
+__zdseg_221e:
     db 0x00
+__zdseg_221f:
     db 'CRUS03.ZIP', 0
+__zdseg_222a:
     db 'CRUS03.ZIP', 0
+__zdseg_2235:
     db 0x00
+__zdseg_2236:
     db 'CRUS04.ZIP', 0
+__zdseg_2241:
     db 0x00
+__zdseg_2242:
     db 'CRUS07.ZIP', 0
+__zdseg_224d:
     db 0x00
+__zdseg_224e:
     db 'CRUS08.ZIP', 0
+__zdseg_2259:
     db 0x00
+__zdseg_225a:
     db 'CRUS05.ZIP', 0
+__zdseg_2265:
     db 'CRUS05.ZIP', 0
+__zdseg_2270:
     db 0x00
+__zdseg_2271:
     db 'SCENARIO.HDR', 0
+__zdseg_227e:
+
     db 'UNABLE TO COMPLETE INSTALLATION - Press <RETURN>', 0
+
+__zdseg_22af:
+
     db 'CRUSADERS OF THE DARK SAVANT INSTALLATION COMPLETE!', 0
+
+__zdseg_22e3:
+
     db 'To Play The Game, Type: WIZARDRY <cr>', 0
     db 0x00, 0x2e, 0x00, 0x2e, 0x00
 
@@ -2764,10 +3265,11 @@ __zdseg_231c:
     times 6 db 0
 
 __zdseg_234a:
+    times 6 db 0
+    db 0x01, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00
+__zdseg_2357:
 
     times 6 db 0
-    db 0x01, 0x00, 0x00, 0x01
-    times 9 db 0
     db 0x01, 0x01, 0x00, 0x01
     times 9 db 0
     db 0x01, 0x02, 0x00, 0x01
@@ -2814,10 +3316,9 @@ __z_PSP:
 
 __zdseg_2500:
     dw __zcp_373b - IMAGE_BASE                 ; 0x5fe0
-
     db 0x00
+__zdseg_2503:
     db 'Too many args.', 0
-
 __zdseg_2512:
     db 0x00, 0x01
 __z_STKRED:
@@ -2862,13 +3363,27 @@ __zbss_2645:
 __zbss_2646:
     resb 0x0001
 __zbss_2647:
-    resb 0x0051
+    resb 0x0001
+__zbss_2648:
+    resb 0x0050
 __zbss_2698:
-    resb 0x0322
+    resb 0x0002
+__zbss_269a:
+    resb 0x02d0
+__zbss_296a:
+    resb 0x0014
+__zbss_297e:
+    resb 0x0014
+__zbss_2992:
+    resb 0x0014
+__zbss_29a6:
+    resb 0x0014
 __zbss_29ba:
     resb 0x0001
 __zbss_29bb:
-    resb 0x0015
+    resb 0x0001
+__zbss_29bc:
+    resb 0x0014
 __zbss_29d0:
     resb 0x0001
 __zbss_29d1:
@@ -2908,7 +3423,9 @@ __zbss_29ea:
 __zbss_29ec:
     resb 0x0002
 __zbss_29ee:
-    resb 0x0102
+    resb 0x0002
+__zbss_29f0:
+    resb 0x0100
 __zbss_2af0:
     resb 0x0002
 __zbss_2af2:

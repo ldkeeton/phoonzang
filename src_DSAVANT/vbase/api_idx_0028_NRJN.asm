@@ -137,7 +137,7 @@ api_idx_0028_NRJN:
     call ds_string_loc_QRJV          ; 0x1038
     add sp, byte 4                   ; 0x103b
     push word [bp + 0xc]             ; 0x103e
-    mov ax, 0xe38                    ; 0x1041
+    mov ax, bss_0e38                 ; 0x1041
     push ax                          ; 0x1044
     call aztec_strcpy                ; 0x1045
     add sp, byte 4                   ; 0x1048
@@ -220,7 +220,7 @@ api_idx_0028_NRJN:
     call ds_string_loc_QRJV          ; 0x10f5
     add sp, byte 4                   ; 0x10f8
     push word [bp + 0xe]             ; 0x10fb
-    mov ax, 0xe4c                    ; 0x10fe
+    mov ax, bss_0e4c                 ; 0x10fe
     push ax                          ; 0x1101
     call aztec_strcpy                ; 0x1102
     add sp, byte 4                   ; 0x1105
@@ -419,11 +419,11 @@ jumptable_14d6_case_0:
     mov ax, word [bp - 0x0002]       ; 0x12b7
     add ax, strict word 0x5f         ; 0x12ba
     push ax                          ; 0x12bd
-    mov ax, 0xe38                    ; 0x12be
+    mov ax, bss_0e38                 ; 0x12be
     push ax                          ; 0x12c1
     call api_idx_0008_LLVT           ; 0x12c2
     add sp, byte 0x0e                ; 0x12c5
-    mov ax, 0xe38                    ; 0x12c8
+    mov ax, bss_0e38                 ; 0x12c8
     push ax                          ; 0x12cb
     push word [bp + 0xc]             ; 0x12cc
     call aztec_strcpy                ; 0x12cf
@@ -506,11 +506,11 @@ jumptable_14d6_case_1:
     mov ax, word [bp - 0x0002]       ; 0x137d
     add ax, strict word 0x5f         ; 0x1380
     push ax                          ; 0x1383
-    mov ax, 0xe4c                    ; 0x1384
+    mov ax, bss_0e4c                 ; 0x1384
     push ax                          ; 0x1387
     call api_idx_0008_LLVT           ; 0x1388
     add sp, byte 0x0e                ; 0x138b
-    mov ax, 0xe4c                    ; 0x138e
+    mov ax, bss_0e4c                 ; 0x138e
     push ax                          ; 0x1391
     push word [bp + 0xe]             ; 0x1392
     call aztec_strcpy                ; 0x1395

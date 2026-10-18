@@ -57,7 +57,7 @@ api_idx_000c_RMOO:
     mov word [bp - 0x000c], ax       ; 0x51f7
     mov ax, 0                        ; 0x51fa
     push ax                          ; 0x51fd
-    mov ax, 0x93f0                   ; 0x51fe
+    mov ax, dseg_93f0                ; 0x51fe
     push ax                          ; 0x5201
     call api_idx_0002_OOKN           ; 0x5202
     add sp, byte 4                   ; 0x5205

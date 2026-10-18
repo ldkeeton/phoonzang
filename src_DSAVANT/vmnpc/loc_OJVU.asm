@@ -2,12 +2,12 @@
 loc_OJVU:
     mov ax, 0                        ; 0x9c7a
     call aztec_csav                  ; 0x9c7d
-    mov ax, 0x95fa                   ; 0x9c80
+    mov ax, bss_95fa                 ; 0x9c80
     push ax                          ; 0x9c83
     push word [bp + 0x4]             ; 0x9c84
     call ds_app_mem_TIMR             ; 0x9c87
     add sp, byte 4                   ; 0x9c8a
-    mov ax, 0x9d10                   ; 0x9c8d
+    mov ax, bss_9d10                 ; 0x9c8d
     push ax                          ; 0x9c90
     push word [bp + 0x6]             ; 0x9c91
     call ds_app_mem_TIMR             ; 0x9c94

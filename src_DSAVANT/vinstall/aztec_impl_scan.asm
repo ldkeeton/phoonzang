@@ -8,7 +8,7 @@ aztec_impl_scan:
     push ax                          ; 0x0a1c
     call aztec_strcpy                ; 0x0a1d
     add sp, byte 4                   ; 0x0a20
-    mov ax, 0x14ef                   ; 0x0a23
+    mov ax, dseg_14ef                ; 0x0a23
     push ax                          ; 0x0a26
     lea ax, word [bp - 0x0050]       ; 0x0a27
     push ax                          ; 0x0a2a
@@ -23,7 +23,7 @@ aztec_impl_scan:
     mov word [bss_2698], ax          ; 0x0a3f
     cmp ax, strict word 0xffff       ; 0x0a42
     jne short @..aztec_impl_scan.l2  ; 0x0a45
-    mov ax, 0x14fc                   ; 0x0a47
+    mov ax, dseg_14fc                ; 0x0a47
     push ax                          ; 0x0a4a
     lea ax, word [bp - 0x00a0]       ; 0x0a4b
     push ax                          ; 0x0a4f
@@ -35,7 +35,7 @@ aztec_impl_scan:
     push ax                          ; 0x0a5e
     call aztec_strcat                ; 0x0a5f
     add sp, byte 4                   ; 0x0a62
-    mov ax, 0x151a                   ; 0x0a65
+    mov ax, dseg_151a                ; 0x0a65
     push ax                          ; 0x0a68
     lea ax, word [bp - 0x00a0]       ; 0x0a69
     push ax                          ; 0x0a6d
@@ -62,7 +62,7 @@ aztec_impl_scan:
     add sp, byte 8                   ; 0x0a97
     mov ax, 0x34c                    ; 0x0a9a
     push ax                          ; 0x0a9d
-    mov ax, 0x269a                   ; 0x0a9e
+    mov ax, bss_269a                 ; 0x0a9e
     push ax                          ; 0x0aa1
     push word [bss_2698]             ; 0x0aa2
     call aztec_read                  ; 0x0aa6
@@ -70,7 +70,7 @@ aztec_impl_scan:
     mov ax, word [bp + 0x1c]         ; 0x0aac
     cmp ax, word [bss_29d2]          ; 0x0aaf
     je short @..aztec_impl_scan.l3   ; 0x0ab3
-    mov ax, 0x152c                   ; 0x0ab5
+    mov ax, dseg_152c                ; 0x0ab5
     push ax                          ; 0x0ab8
     call loc_NNGU                    ; 0x0ab9
     pop cx                           ; 0x0abc
@@ -89,7 +89,7 @@ aztec_impl_scan:
     mov al, byte [bp + 0x14]         ; 0x0adc
     mov byte [bss_29bb], al          ; 0x0adf
     push word [bp + 0x16]            ; 0x0ae2
-    mov ax, 0x29bc                   ; 0x0ae5
+    mov ax, bss_29bc                 ; 0x0ae5
     push ax                          ; 0x0ae8
     call aztec_strcpy                ; 0x0ae9
     add sp, byte 4                   ; 0x0aec
@@ -157,33 +157,33 @@ aztec_impl_scan:
     mov al, byte [bp + 0xa]          ; 0x0b97
     mov byte [bss_29df], al          ; 0x0b9a
     push word [bp + 0x6]             ; 0x0b9d
-    mov ax, 0x296a                   ; 0x0ba0
+    mov ax, bss_296a                 ; 0x0ba0
     push ax                          ; 0x0ba3
     call aztec_strcpy                ; 0x0ba4
     add sp, byte 4                   ; 0x0ba7
     push word [bp + 0x6]             ; 0x0baa
-    mov ax, 0x2992                   ; 0x0bad
+    mov ax, bss_2992                 ; 0x0bad
     push ax                          ; 0x0bb0
     call aztec_strcpy                ; 0x0bb1
     add sp, byte 4                   ; 0x0bb4
     cmp word [bp + 0xa], byte 5      ; 0x0bb7
     jne short @..aztec_impl_scan.l13 ; 0x0bbb
     push word [bp + 0x8]             ; 0x0bbd
-    mov ax, 0x297e                   ; 0x0bc0
+    mov ax, bss_297e                 ; 0x0bc0
     push ax                          ; 0x0bc3
     call aztec_strcpy                ; 0x0bc4
     add sp, byte 4                   ; 0x0bc7
-    mov ax, 0x155e                   ; 0x0bca
+    mov ax, dseg_155e                ; 0x0bca
     push ax                          ; 0x0bcd
-    mov ax, 0x297e                   ; 0x0bce
+    mov ax, bss_297e                 ; 0x0bce
     push ax                          ; 0x0bd1
     call aztec_strcat                ; 0x0bd2
     add sp, byte 4                   ; 0x0bd5
     mov byte [bss_29e3], 1           ; 0x0bd8
 @..aztec_impl_scan.l13:
-    mov ax, 0x1560                   ; 0x0bdd
+    mov ax, dseg_1560                ; 0x0bdd
     push ax                          ; 0x0be0
-    mov ax, 0x29a6                   ; 0x0be1
+    mov ax, bss_29a6                 ; 0x0be1
     push ax                          ; 0x0be4
     call aztec_strcpy                ; 0x0be5
     add sp, byte 4                   ; 0x0be8
@@ -198,7 +198,7 @@ aztec_impl_scan:
     add sp, byte 8                   ; 0x0bfe
     mov ax, 0x34c                    ; 0x0c01
     push ax                          ; 0x0c04
-    mov ax, 0x269a                   ; 0x0c05
+    mov ax, bss_269a                 ; 0x0c05
     push ax                          ; 0x0c08
     push word [bss_2698]             ; 0x0c09
     call aztec_write                 ; 0x0c0d

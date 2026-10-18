@@ -146,7 +146,7 @@ api_idx_0010_LPLH:
     add sp, byte 4                   ; 0x27b3
     push word [bp - 0x0002]          ; 0x27b6
     push word [bp + 0x4]             ; 0x27b9
-    mov ax, 0x90e6                   ; 0x27bc
+    mov ax, bss_90e6                 ; 0x27bc
     push ax                          ; 0x27bf
     call loc_HJSG                    ; 0x27c0
     add sp, byte 6                   ; 0x27c3
@@ -158,7 +158,7 @@ api_idx_0010_LPLH:
     mov ax, 1                        ; 0x27d3
 @..api_idx_0010_LPLH.l17:
     push ax                          ; 0x27d6
-    mov ax, 0x90e6                   ; 0x27d7
+    mov ax, bss_90e6                 ; 0x27d7
     push ax                          ; 0x27da
     call api_idx_0002_TMNV           ; 0x27db
     add sp, byte 6                   ; 0x27de
@@ -183,7 +183,7 @@ api_idx_0010_LPLH:
     push word [bp - 0x000c]          ; 0x2808
     call ds_app_OLKR                 ; 0x280b
     add sp, byte 4                   ; 0x280e
-    mov ax, 0x90e6                   ; 0x2811
+    mov ax, bss_90e6                 ; 0x2811
     push ax                          ; 0x2814
     mov ax, 0xea7                    ; 0x2815
     push ax                          ; 0x2818
@@ -193,7 +193,7 @@ api_idx_0010_LPLH:
     push ax                          ; 0x2822
     mov ax, 0x9136                   ; 0x2823
     push ax                          ; 0x2826
-    mov ax, 0x90e6                   ; 0x2827
+    mov ax, bss_90e6                 ; 0x2827
     push ax                          ; 0x282a
     call ds_app_string_HHIL          ; 0x282b
     add sp, byte 6                   ; 0x282e
@@ -203,11 +203,11 @@ api_idx_0010_LPLH:
     push ax                          ; 0x283e
     push ax                          ; 0x283f
     push ax                          ; 0x2840
-    mov ax, 0x9186                   ; 0x2841
+    mov ax, bss_9186                 ; 0x2841
     push ax                          ; 0x2844
-    mov ax, 0x9136                   ; 0x2845
+    mov ax, bss_9136                 ; 0x2845
     push ax                          ; 0x2848
-    mov ax, 0x90e6                   ; 0x2849
+    mov ax, bss_90e6                 ; 0x2849
     push ax                          ; 0x284c
     mov ax, 4                        ; 0x284d
     push ax                          ; 0x2850

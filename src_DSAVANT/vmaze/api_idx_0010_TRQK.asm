@@ -43,7 +43,7 @@ api_idx_0010_TRQK:
     shl ax, 1                        ; 0xa342
     shl ax, 1                        ; 0xa344
     mov bx, ax                       ; 0xa346
-    mov al, byte [bx - 0x768a]       ; 0xa348
+    mov al, byte [bx + bss_8976]     ; 0xa348
     sub ah, ah                       ; 0xa34c
     mov word [bp - 0x0008], ax       ; 0xa34e
     cmp ax, strict word 0            ; 0xa351
@@ -57,13 +57,13 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa362
     imul word [bp + 0x4]             ; 0xa365
     mov bx, ax                       ; 0xa368
-    mov al, byte [bx - 0x7b18]       ; 0xa36a
+    mov al, byte [bx + bss_84e8]     ; 0xa36a
     sub ah, ah                       ; 0xa36e
     mov cx, 0xc                      ; 0xa370
     imul cx                          ; 0xa373
     add ax, word [bp - 0x0008]       ; 0xa375
     mov bx, ax                       ; 0xa378
-    mov al, byte [bx - 0x7622]       ; 0xa37a
+    mov al, byte [bx + bss_89de]     ; 0xa37a
     cbw                              ; 0xa37e
     mov word [bp - 0x000a], ax       ; 0xa37f
     mov ax, 0x64                     ; 0xa382
@@ -141,7 +141,7 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa42a
     imul word [bp + 0x4]             ; 0xa42d
     mov bx, ax                       ; 0xa430
-    mov al, byte [bx - 0x7b18]       ; 0xa432
+    mov al, byte [bx + bss_84e8]     ; 0xa432
     sub ah, ah                       ; 0xa436
     mov cx, 0xc                      ; 0xa438
     imul cx                          ; 0xa43b
@@ -149,13 +149,13 @@ api_idx_0010_TRQK:
     mov ax, 0x26                     ; 0xa43e
     imul word [bp - 0x000c]          ; 0xa441
     mov bx, ax                       ; 0xa444
-    mov al, byte [bx - 0x7b18]       ; 0xa446
+    mov al, byte [bx + bss_84e8]     ; 0xa446
     sub ah, ah                       ; 0xa44a
     mov cx, ax                       ; 0xa44c
     pop ax                           ; 0xa44e
     add ax, cx                       ; 0xa44f
     mov bx, ax                       ; 0xa451
-    mov al, byte [bx - 0x7622]       ; 0xa453
+    mov al, byte [bx + bss_89de]     ; 0xa453
     cbw                              ; 0xa457
     mov word [bp - 0x000e], ax       ; 0xa458
     mov ax, 0xa                      ; 0xa45b

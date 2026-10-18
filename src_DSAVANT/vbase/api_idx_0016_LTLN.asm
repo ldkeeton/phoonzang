@@ -6,7 +6,7 @@ api_idx_0016_LTLN:
     push ax                          ; 0x72d9
     call thunk_17                    ; 0x72da
     pop cx                           ; 0x72dd
-    mov ax, 0x9138                   ; 0x72de
+    mov ax, dseg_9138                ; 0x72de
     push ax                          ; 0x72e1
     lea ax, word [bp - 0x0016]       ; 0x72e2
     push ax                          ; 0x72e5

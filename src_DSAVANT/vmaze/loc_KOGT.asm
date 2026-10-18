@@ -7,7 +7,7 @@ loc_KOGT:
     push ax                          ; 0x124f
     mov ax, 8                        ; 0x1250
     push ax                          ; 0x1253
-    mov ax, 0x8cfe                   ; 0x1254
+    mov ax, bss_8cfe                 ; 0x1254
     push ax                          ; 0x1257
     call aztec_setmem                ; 0x1258
     add sp, byte 6                   ; 0x125b
