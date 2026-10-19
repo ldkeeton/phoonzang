@@ -141,6 +141,47 @@ class ImmediatePointerTest(unittest.TestCase):
         self.assertEqual(self._proven('bb3a1a' 'e80100' 'c3' '2ed7' 'c3'),
                          {(0x200, 1): LOAD})
 
+    def test_a_pointer_stepped_before_its_use(self):
+        # mov ax, cs; mov es, ax; mov di, 0x1a3a; mov cx, 8;
+        # l: add di, 2; stosw; loop l  (ds NKUS: segments into a far table)
+        self.assertEqual(
+            self._proven('8cc8' '8ec0' 'bf3a1a' 'b90800' '83c702' 'ab' 'e2fa'),
+            {(0x204, 1): LOAD})
+
+    def test_a_stepped_data_pointer_is_left_alone(self):
+        # mov di, 0x1a3a; inc di; stosb -- ES is DATA: only code tables.
+        self.assertEqual(self._proven('bf3a1a' '47' 'aa'), {})
+
+    def test_a_dos_ds_dx_service(self):
+        # mov ax, cs; mov ds, ax; mov dx, 0x1a3a; mov ah, 9; int 21h
+        self.assertEqual(self._proven('8cc8' '8ed8' 'ba3a1a' 'b409' 'cd21'),
+                         {(0x204, 1): LOAD})
+
+    def test_a_dos_service_without_an_address_proves_nothing(self):
+        # mov ax, cs; mov ds, ax; mov dx, 0x1a3a; mov ah, 2; int 21h (putc)
+        self.assertEqual(self._proven('8cc8' '8ed8' 'ba3a1a' 'b402' 'cd21'),
+                         {})
+
+    def test_a_table_start_taken_back_off_a_scan(self):
+        # mov ax, cs; mov es, ax; mov di, 0x1a3a; mov cx, 0x15;
+        # repne scasb; sub di, 0x1a3b  (aztec_format's switch index)
+        self.assertEqual(
+            self._proven('8cc8' '8ec0' 'bf3a1a' 'b91500' 'f2ae' '81ef3b1a'),
+            {(0x204, 1): LOAD, (0x20c, 1): LOAD})
+
+    def test_a_table_end_less_its_start_is_a_length(self):
+        # mov ax, cs; mov ds, ax; mov si, 0x1a3a; mov cx, 0x1a52;
+        # sub cx, si; rep movsb  (ds SJIH: copy a CS table)
+        self.assertEqual(
+            self._proven('8cc8' '8ed8' 'be3a1a' 'b9521a' '29f1' 'f3a4'),
+            {(0x204, 1): LOAD, (0x207, 1): LOAD})
+
+    def test_a_difference_far_from_the_table_proves_nothing(self):
+        # ... repne scasb; sub di, 0x2000 -- not within the table's span.
+        self.assertEqual(
+            self._proven('8cc8' '8ec0' 'bf3a1a' 'b91500' 'f2ae' '81ef0020'),
+            {(0x204, 1): LOAD})
+
 
 class CallerStateTest(unittest.TestCase):
     """A root reached only by direct calls starts in its callers' state."""

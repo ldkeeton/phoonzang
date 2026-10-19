@@ -100,10 +100,45 @@ start:                                  ; launcher entry point
     jmp far [cs:exec_params+18]         ; transfer to DOS-provided initial CS:IP
 
 child_exit:                             ; target termination callback in its PSP
+    push cs                              ; DOS enters with the target's DS
+    pop ds                               ; DS = launcher segment for its data
+    mov ah, 0x4D                         ; DOS get-child-return-code service
+    int 0x21                             ; AL = exit code, AH = termination type
+    mov [child_code], ax                 ; keep both for the message and GDB
+    mov di, msg_code                     ; DI = exit-code digits in message
+    call hex_byte                        ; write AL as two hex digits
+    mov al, ah                           ; AL = 0 normal, 1 Ctrl-C, 2 crit-err, 3 TSR
+    mov di, msg_type                     ; DI = termination-type digit in message
+    call hex_byte                        ; write AH as two hex digits
+    mov dx, msg_exit                     ; DS:DX = exit report left on screen
+    mov ah, 9                            ; DOS print-$-terminated-string service
+    int 0x21                             ; show how the target ended
+    mov bx, [child_code]                 ; BL = exit code GDBSRV reports to GDB
     mov ax, 0xCF04                       ; tell GDBSRV the debugged program exited
     int 0x2F                             ; TSR sends remote exit status to GDB
-    mov ax, 0x4C00                       ; DOS terminate-process service, status 0
+    mov al, [child_code]                 ; AL = target's exit code
+    mov ah, 0x4C                         ; DOS terminate-process service
     int 0x21                             ; return from target to launcher's parent
+
+; Write AL as two uppercase hex digits to DS:DI.
+hex_byte:
+    push ax                              ; preserve caller's AX
+    mov ah, al                           ; AH = copy for the low nibble
+    shr al, 4                            ; AL = high nibble
+    call .nib                            ; write high digit
+    mov al, ah                           ; AL = original byte
+    call .nib                            ; write low digit
+    pop ax                               ; restore caller's AX
+    ret                                  ; DI now follows both digits
+.nib:
+    and al, 0x0F                         ; keep one nibble
+    add al, '0'                          ; map 0..9 to ASCII digits
+    cmp al, '9'                          ; above '9' needs A..F
+    jbe .nd                              ; decimal digit is ready
+    add al, 7                            ; map 10..15 to 'A'..'F'
+.nd:mov [di], al                         ; store digit
+    inc di                               ; advance output pointer
+    ret                                  ; return to hex_byte
 
 parse_command_line:
     mov si, 0x81                         ; SI = first byte of DOS command tail
@@ -195,6 +230,10 @@ msg_usage:  db 'Usage: GDBEXEC.COM program [arguments]', 13, 10, '$' ; syntax sh
 msg_memory: db 'GDBEXEC: cannot resize launcher memory', 13, 10, '$' ; resize error
 msg_exec:   db 'GDBEXEC: DOS could not load target', 13, 10, '$' ; target-load error
 msg_stub:   db 'GDBEXEC: GDBSRV is not installed', 13, 10, '$' ; missing TSR error
+; Type: 00 normal, 01 Ctrl-C, 02 critical error, 03 TSR (INT 21h AH=4Dh).
+msg_exit:   db 13, 10, 'GDBEXEC: target exited, code '
+msg_code:   db '00h, type '
+msg_type:   db '00h', 13, 10, '$'       ; digits patched in by child_exit
 
 target_name: times 64 db 0              ; NUL-terminated path copied from command line
 target_name_end:
@@ -210,6 +249,7 @@ child_psp: dw 0                         ; target's process segment
 child_ax: dw 0                          ; target's saved startup AX value
 child_sp: dw 0                          ; reconstructed target startup SP
 child_memsize: dw 0                     ; DOS-provided target memory-size value
+child_code: dw 0                        ; target's return code (AL) and type (AH)
 align 2                                  ; keep following word variables word-aligned
 runner_stack: times 512 db 0            ; private stack used while preparing child
 runner_stack_top:

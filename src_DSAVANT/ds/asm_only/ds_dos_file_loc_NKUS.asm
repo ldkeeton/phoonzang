@@ -7,7 +7,7 @@ ds_dos_file_loc_NKUS:
     mov al, 0                        ; 0x35f9
     mov bx, cs                       ; 0x35fb
     mov ds, bx                       ; 0x35fd
-    mov dx, 0x33ec                   ; 0x35ff
+    mov dx, cseg_35ec - IMAGE_BASE   ; 0x35ff
     int 0x21 ; DOS open file handle
     jb short @..ds_dos_file_loc_NKUS.l2 ; 0x3604
     mov word [cs:cseg_3532 - IMAGE_BASE], ax ; 0x3606
@@ -23,7 +23,7 @@ ds_dos_file_loc_NKUS:
     int 0x21 ; DOS close file handle
     mov ax, cs                       ; 0x3626
     mov es, ax                       ; 0x3628
-    mov di, 0x2d67                   ; 0x362a
+    mov di, cseg_2f67 - IMAGE_BASE   ; 0x362a
     mov ax, word [cs:cseg_2f56 - IMAGE_BASE] ; 0x362d
     mov cx, 8                        ; 0x3631
 @..ds_dos_file_loc_NKUS.l1:

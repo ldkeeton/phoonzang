@@ -162,4 +162,4 @@ cache_maze:
 @..cache_maze.l9:
     mov ax, cs                       ; 0x47a8
     mov ds, ax                       ; 0x47aa
-    mov dx, 0x48b8                   ; 0x47ac
+    mov dx, dseg_48b8                ; 0x47ac

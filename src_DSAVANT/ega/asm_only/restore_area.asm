@@ -45,11 +45,12 @@ restore_area:
 @..restore_area.l2:
     mov ax, cs                       ; 0x0db0
     mov ds, ax                       ; 0x0db2
-    mov dx, 0xec0                    ; 0x0db4
+    mov dx, cseg_0dc0 - IMAGE_BASE   ; 0x0db4
     mov ah, 9                        ; 0x0db7
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x0dbb
     int 0x21 ; DOS function dispatcher
+cseg_0dc0:
 
     db 0x0d, 0x0a, 0x07
     db 'RESTOREAREA called with NULL pointer.', 0

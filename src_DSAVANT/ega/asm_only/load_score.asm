@@ -121,11 +121,12 @@ load_score:
 @..load_score.l5:
     mov ax, cs                       ; 0x4fc4
     mov ds, ax                       ; 0x4fc6
-    mov dx, 0x50d4                   ; 0x4fc8
+    mov dx, cseg_4fd4 - IMAGE_BASE   ; 0x4fc8
     mov ah, 9                        ; 0x4fcb
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x4fcf
     int 0x21 ; DOS function dispatcher
+cseg_4fd4:
 
     db 0x0d, 0x0a, 0x07
     db 'In LOAD_SCORE() ... slot already used.', 0
@@ -134,11 +135,12 @@ load_score:
 @..load_score.l6:
     mov ax, cs                       ; 0x5000
     mov ds, ax                       ; 0x5002
-    mov dx, 0x5110                   ; 0x5004
+    mov dx, cseg_5010 - IMAGE_BASE   ; 0x5004
     mov ah, 9                        ; 0x5007
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x500b
     int 0x21 ; DOS function dispatcher
+cseg_5010:
 
     db 0x0d, 0x0a, 0x07
     db 'In LOAD_SCORE() ... not enough memory.', 0

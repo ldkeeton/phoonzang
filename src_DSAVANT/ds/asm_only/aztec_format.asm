@@ -79,7 +79,7 @@ jumptable_4822_case_20:
     mov di, cseg_480d - IMAGE_BASE   ; 0x48fc
     mov cx, 0x15                     ; 0x48ff
     repne scasb                      ; 0x4902
-    sub di, strict word 0x460e       ; 0x4904
+    sub di, cseg_480e - IMAGE_BASE   ; 0x4904
     shl di, 1                        ; 0x4908
     jmp [cs:di + jumptable_4822 - IMAGE_BASE] ; 0x490a
 jumptable_4822_case_0:

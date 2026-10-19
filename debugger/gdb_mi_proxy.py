@@ -20,6 +20,7 @@ _ADDR_RE = re.compile(rb'addr="([^"]+)"')
 _FINISH_RE = re.compile(rb"^(\d+)-exec-finish(?:\s|$)")
 _EXIT_RE = re.compile(rb"^\d*-(?:gdb-exit|target-detach)(?:\s|$)")
 _TOKEN_RE = re.compile(rb"^(\d+)")
+_EXITED_RE = re.compile(rb'^\*stopped,reason="exited')
 
 
 class StopReasonFix:
@@ -143,8 +144,13 @@ def main():
     fix = StopReasonFix()
     input_lock = threading.Lock()
     dosbox_stop_lock = threading.RLock()
+    # Set once the target exits by itself: DOSBox is then left open so its
+    # screen (the program's last message, GDBEXEC's exit code) can be read.
+    target_exited = threading.Event()
 
     def stop_owned_dosbox():
+        if target_exited.is_set():
+            return
         with dosbox_stop_lock:
             stop_dosbox(owned_dosbox_pid)
 
@@ -199,6 +205,8 @@ def main():
     signal.signal(signal.SIGINT, handle_termination)
     try:
         for line in iter(process.stdout.readline, b""):
+            if _EXITED_RE.match(line):
+                target_exited.set()
             sys.stdout.buffer.write(fix.observe_output(line))
             sys.stdout.buffer.flush()
         return process.wait()

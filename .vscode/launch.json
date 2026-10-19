@@ -134,6 +134,11 @@
                     "text": "source ${workspaceFolder}/debugger/gdb_enable_phys.py",
                     "description": "Physical EIP mode",
                     "ignoreFailures": true
+                },
+                {
+                    "text": "source ${workspaceFolder}/debugger/gdb_mz_check.py",
+                    "description": "Warn when an MZ relocation patches an opcode",
+                    "ignoreFailures": true
                 }
             ],
             "logging": {

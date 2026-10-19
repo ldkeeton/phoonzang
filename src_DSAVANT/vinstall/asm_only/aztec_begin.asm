@@ -1,5 +1,6 @@
 ; auto-generated
 ; asm only
+__zinsn_35d2:
 aztec_begin:
     mov bp, 0x38e                    ; 0x35d2
     test bp, bp                      ; 0x35d5
@@ -139,7 +140,7 @@ aztec_begin:
     jmp short @..aztec_impl_exit.exit ; 0x3709
 @..aztec_begin.no_8087:
     mov ah, 9 ; dos print message ; 0x370b
-    mov dx, 0x24e6                   ; 0x370d
+    mov dx, dseg_24e6                ; 0x370d
     int 0x21 ; DOS string output
     mov al, 0xfd                     ; 0x3712
     jmp short @..aztec_impl_exit.exit ; 0x3714

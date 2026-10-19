@@ -99,4 +99,4 @@ dos_alloc_mem:
 @..dos_alloc_mem.l5:
     mov ax, cs                       ; 0x392f
     mov ds, ax                       ; 0x3931
-    mov dx, 0x373f                   ; 0x3933
+    mov dx, bss_373f                 ; 0x3933

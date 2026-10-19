@@ -233,6 +233,76 @@ def _resolve_imm_symbols(insns, segment_flow, segments, label_map, mem_equ,
     return result
 
 
+#: Bytes a code-segment string may hold, and the bytes that end one.
+_PRINTABLE = range(0x20, 0x7F)
+_STRING_ENDS = (0x00, 0x24)
+#: How many instructions on a ``mov reg, string`` may look for its escape.
+_ESCAPE_SCAN = 8
+
+
+def code_string_immediates(insns, binary_data, segments, start_offset):
+    """Prove ``mov reg16, imm16`` loads of code-segment string addresses.
+
+    ``mov bx, 0x3307; mov [bp - 4], bx`` hands a file name (``"vga.drv"``)
+    to a routine that opens it through ``DS=CS``: no use in sight proves the
+    pointer, but the value starts a string in this image's own data (bytes no
+    instruction covers, at least three printable then NUL or ``$``, not inside
+    a longer run) and the register escapes unread -- stored to memory or
+    pushed -- as a pointer does.  Returns ``{(address, 1): LOAD}``.  An
+    overlay is skipped: its CS values are ``o_corg``-based.
+    """
+    from bisect import bisect_right
+    from capstone import CS_OP_IMM, CS_OP_REG
+    from lib.segdataflow import LOAD
+
+    if segments is None or getattr(segments, 'overlay', None):
+        return {}
+    order = sorted(insns, key=lambda i: i.address)
+    starts = [i.address for i in order]
+
+    def covered(off):
+        k = bisect_right(starts, off) - 1
+        return k >= 0 and off < starts[k] + order[k].size
+
+    def string_start(off):
+        if not start_offset <= off < len(binary_data) or covered(off):
+            return False
+        if off > start_offset and not covered(off - 1) \
+                and binary_data[off - 1] in _PRINTABLE:
+            return False   # the middle of a longer string
+        end = off
+        while end < len(binary_data) and binary_data[end] in _PRINTABLE:
+            end += 1
+        return (end - off >= 3 and end < len(binary_data)
+                and binary_data[end] in _STRING_ENDS)
+
+    load_offset = _load_offset(segments)
+    result = {}
+    for k, insn in enumerate(order):
+        ops = insn.operands
+        if (insn.mnemonic != 'mov' or len(ops) != 2
+                or ops[0].type != CS_OP_REG or ops[1].type != CS_OP_IMM
+                or ops[0].size != 2 or ops[1].imm & 0xFFFF < 0x100):
+            continue
+        reg = ops[0].reg
+        if not string_start((ops[1].imm & 0xFFFF) + start_offset - load_offset):
+            continue
+        for nxt in order[k + 1:k + 1 + _ESCAPE_SCAN]:
+            nops = nxt.operands
+            if (nxt.mnemonic == 'push' and nops and nops[0].type == CS_OP_REG
+                    and nops[0].reg == reg) or (
+                    nxt.mnemonic == 'mov' and len(nops) == 2
+                    and nops[0].type == CS_OP_MEM
+                    and nops[1].type == CS_OP_REG and nops[1].reg == reg):
+                result[(insn.address, 1)] = LOAD
+                break
+            if reg in nxt.regs_access()[0] or reg in nxt.regs_access()[1] \
+                    or nxt.mnemonic in ('jmp', 'call', 'ret', 'retf', 'int') \
+                    or nxt.mnemonic.startswith('j'):
+                break
+    return result
+
+
 #: Instructions whose immediate a sidecar ``immediate_pointers`` entry may name.
 _DECLARABLE = ('mov', 'add', 'sub', 'cmp')
 

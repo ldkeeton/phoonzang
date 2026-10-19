@@ -15,7 +15,7 @@ dos_con_loc_GJMS:
     push dx                          ; 0x4d26
     mov ax, cs                       ; 0x4d27
     mov ds, ax                       ; 0x4d29
-    mov dx, 0x4e3e                   ; 0x4d2b
+    mov dx, cseg_4d3e - IMAGE_BASE   ; 0x4d2b
     mov ah, 9                        ; 0x4d2e
     int 0x21 ; DOS string output
     pop dx                           ; 0x4d32
@@ -28,6 +28,7 @@ dos_con_loc_GJMS:
     loop @..dos_con_loc_GJMS.l1      ; 0x4d3a
     pop ax                           ; 0x4d3c
     ret                              ; 0x4d3d
+cseg_4d3e:
 
     db 0x0d, 0x0a, 0x07
     db 'Score slot moved.', 0

@@ -106,4 +106,4 @@ load_picture:
     or byte [cs:cseg_3197 - IMAGE_BASE], dl ; 0x3171
     mov ax, cs                       ; 0x3176
     mov ds, ax                       ; 0x3178
-    mov dx, 0x3286                   ; 0x317a
+    mov dx, dseg_3286                ; 0x317a

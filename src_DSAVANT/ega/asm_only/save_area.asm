@@ -64,11 +64,12 @@ save_area:
 @..save_area.l3:
     mov ax, cs                       ; 0x0d1e
     mov ds, ax                       ; 0x0d20
-    mov dx, 0xe2e                    ; 0x0d22
+    mov dx, cseg_0d2e - IMAGE_BASE   ; 0x0d22
     mov ah, 9                        ; 0x0d25
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x0d29
     int 0x21 ; DOS function dispatcher
+cseg_0d2e:
 
     db 0x0d, 0x0a, 0x07
     db 'SAVEAREA out of memory.', 0

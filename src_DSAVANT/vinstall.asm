@@ -32,8 +32,8 @@ IMAGE_BASE equ 0x0200 + VBASE
     dw 0x0000                                     ; e_ovno: overlay number (0 for main executable)
 
     times 4 db 0
-    db 0xd3, 0x33
-    times 478 db 0
+    dw __zinsn_35d2 + 0x1 - IMAGE_BASE, 0x0000 ; 0x33d3 ; relocation: segment word DOS patches
+    times 476 db 0
 %endif
 
 dseg_000e equ __zdseg_000e - __zdseg_start
@@ -453,8 +453,10 @@ first     equ __zbss_2538 - __zdseg_start
 %include "shared/aztec_free.asm"         ; 0x3019
 
 cseg_303e:
+    db 0x4c
+cseg_303f:
 
-    db 'LlhFNoxXudiscpneEfgG%'
+    db 'lhFNoxXudiscpneEfgG%'
 
 jumptable_3053:
     dw jumptable_3053_case_0 - IMAGE_BASE      ; 0x3053
@@ -524,6 +526,7 @@ _mbot             equ __z_mbot - __zdseg_start
 _sbot             equ __z_sbot - __zdseg_start
 _mtop             equ __z_mtop - __zdseg_start
 _PSP              equ __z_PSP - __zdseg_start
+dseg_24e6         equ __zdseg_24e6 - __zdseg_start
 dseg_2512         equ __zdseg_2512 - __zdseg_start
 _STKRED           equ __z_STKRED - __zdseg_start
 dseg_2516         equ __zdseg_2516 - __zdseg_start
@@ -3321,8 +3324,9 @@ __z_sbot:
 __z_mtop:
     db 0x00, 0x00, 0xff, 0xff
 __z_PSP:
-
     db 0x00, 0x00
+__zdseg_24e6:
+
     db '8087/80287 is required!'
     db 0x0d, 0x0a, 0x24
 

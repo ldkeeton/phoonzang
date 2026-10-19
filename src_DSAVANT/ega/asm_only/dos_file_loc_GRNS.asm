@@ -115,4 +115,4 @@ dos_file_loc_GRNS:
 @..dos_file_loc_GRNS.l9:
     mov ax, cs                       ; 0x4933
     mov ds, ax                       ; 0x4935
-    mov dx, 0x4a43                   ; 0x4937
+    mov dx, dseg_4a43                ; 0x4937

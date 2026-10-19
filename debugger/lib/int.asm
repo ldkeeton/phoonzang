@@ -57,6 +57,14 @@ int3:                                     ; CPU breakpoint/trap handler entry
     mov [hk_ss], ss                       ; save interrupted program's stack segment
     mov [hk_sp], sp                       ; save handler stack pointer for eventual IRET
 
+    ; A CPU fault (int0/int6 below) enters here too. Its frame IP already
+    ; points at the faulting instruction, and it is no breakpoint of ours.
+    cmp byte [fault_sig], 0               ; did a CPU fault bring us here?
+    je .not_fault                         ; no -> ordinary INT 3 handling
+    mov word [bp_cur], -1                 ; no breakpoint slot is involved
+    mov byte [st_run], 1                  ; always report the fault asynchronously
+    jmp .nb                               ; stop at the faulting instruction
+.not_fault:
     mov ax, [sreg+R_CS]                   ; AX = code segment from saved trap context
     mov dx, 16                            ; multiply segment by sixteen for linear base
     mul dx                                ; DX:AX = CS * 16
@@ -154,6 +162,20 @@ int3:                                     ; CPU breakpoint/trap handler entry
     call pkt_send                         ; give GDB the cause needed for a breakpoint stop event
     jmp .wait                             ; continue servicing the stopped target
 .plain_trap:
+    mov al, [fault_sig]                   ; AL = fault signal number, or 0
+    or al, al                             ; is this stop a CPU fault?
+    jz .send_trap                         ; no -> ordinary S05 stop
+    mov byte [fault_sig], 0               ; consume fault marker
+    mov di, s_fault+1                     ; DI = two signal digits after 'S'
+    push ax                               ; keep low nibble for second digit
+    shr al, 4                             ; AL = high nibble
+    call pnib_buf                         ; write high signal digit
+    pop ax                                ; AL = signal again
+    call pnib_buf                         ; write low signal digit
+    mov si, s_fault                       ; SI = SIGFPE/SIGILL stop reply
+    call pkt_send                         ; tell GDB the target faulted here
+    jmp .wait                             ; serve GDB at the faulting instruction
+.send_trap:
     call pkt_send_trap                    ; send asynchronous S05 stop notification
 .wait:
     push .rt                              ; push return point for command-loop's RET
@@ -477,6 +499,17 @@ int4:                                     ; COM1 receive IRQ; permits GDB reques
 
 
 
+; ─── INT 0 / INT 6 (CPU faults) ────────────────────
+; Divide error and invalid opcode stop in GDB (SIGFPE / SIGILL) at the faulting
+; instruction instead of running off into DOS's default handlers.  Both share
+; INT 3's register capture; a resume re-executes the instruction.
+int0:                                     ; divide error (DIV/IDIV overflow or /0)
+    mov byte [cs:fault_sig], 8            ; GDB signal 8 = SIGFPE
+    jmp int3                              ; capture registers and stop
+int6:                                     ; invalid opcode
+    mov byte [cs:fault_sig], 4            ; GDB signal 4 = SIGILL
+    jmp int3                              ; capture registers and stop
+
 ; ─── INT 2Fh (multiplex — detect resident / arm entry trap) ─
 int2f:
     cmp ax, 0xCF00                        ; is caller probing whether GDBSRV is installed?
@@ -504,7 +537,14 @@ int2f:
     mov ss, ax                            ; SS = debugger stack segment
     mov sp, stk_t                         ; SP = top of debugger's private stack
     sti                                   ; allow UART while sending exit notification
-    mov si, s_exit                        ; SI = RSP W00 exit-status reply
+    mov al, bl                            ; AL = target exit code from GDBEXEC
+    mov di, s_exit+1                      ; DI = two status digits after 'W'
+    push ax                               ; keep low nibble for second digit
+    shr al, 4                             ; AL = high nibble
+    call pnib_buf                         ; write high status digit
+    pop ax                                ; AL = exit code again
+    call pnib_buf                         ; write low status digit
+    mov si, s_exit                        ; SI = RSP Wxx exit-status reply
     call pkt_send                         ; notify GDB that debugged child exited
     cli                                   ; protect restore of DOS caller stack
     mov ss, [hk_ss]                       ; restore DOS caller's stack segment

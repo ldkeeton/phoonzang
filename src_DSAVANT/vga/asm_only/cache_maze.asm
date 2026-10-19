@@ -162,11 +162,12 @@ cache_maze:
 @..cache_maze.l9:
     mov ax, cs                       ; 0x3ef6
     mov ds, ax                       ; 0x3ef8
-    mov dx, 0x4006                   ; 0x3efa
+    mov dx, cseg_3f06 - IMAGE_BASE   ; 0x3efa
     mov ah, 9                        ; 0x3efd
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x3f01
     int 0x21 ; DOS function dispatcher
+cseg_3f06:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEMAZE().  Requested slot already in use.', 0
@@ -175,4 +176,4 @@ cache_maze:
 @..cache_maze.l10:
     mov ax, cs                       ; 0x3f3e
     mov ds, ax                       ; 0x3f40
-    mov dx, 0x404e                   ; 0x3f42
+    mov dx, dseg_404e                ; 0x3f42

@@ -115,4 +115,4 @@ dos_file_loc_JRGK:
 @..dos_file_loc_JRGK.l9:
     mov ax, cs                       ; 0x4081
     mov ds, ax                       ; 0x4083
-    mov dx, 0x4191                   ; 0x4085
+    mov dx, dseg_4191                ; 0x4085

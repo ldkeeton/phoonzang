@@ -562,9 +562,14 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
             labels=label_map or ())
         pointer_params = {str(label_map[e]): sorted(p)
                           for e, p in params.items() if e in (label_map or {})}
+    # A code-segment string's address stored or pushed for another routine
+    # (``mov bx, 0x3307; mov [bp - 4], bx``: ``"vga.drv"``).
+    from lib.compare.symbols import code_string_immediates
+    string_pointers = code_string_immediates(insns, binary_data, segments,
+                                             start_offset)
     mem_symbols.update(_resolve_imm_symbols(
         insns, segment_flow, segments, label_map, mem_equ, start_offset,
-        extra_proven=arg_pointers))
+        extra_proven={**string_pointers, **arg_pointers}))
     declared = _resolve_declared_immediates(
         insns, immediate_pointers, segments, label_map, mem_equ,
         start_offset, owner=name)

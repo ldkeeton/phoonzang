@@ -12,7 +12,7 @@ string_loc_ROMP:
     cs xlatb                         ; 0x0d5e
     mov byte [cs:cseg_0d3d - IMAGE_BASE], al ; 0x0d60
     mov byte [cs:cseg_0d47 - IMAGE_BASE], 0xff ; 0x0d64
-    mov bx, 0xdfe                    ; 0x0d6a
+    mov bx, cseg_0cfe - IMAGE_BASE   ; 0x0d6a
 @..string_loc_ROMP.l1:
     inc bx                           ; 0x0d6d
     cmp word [cs:bx], strict word 0xff ; 0x0d6e

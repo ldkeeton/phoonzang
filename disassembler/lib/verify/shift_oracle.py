@@ -30,7 +30,10 @@ only to fix a defect, and then re-measure every tree in that table.
 
 Variants: ``code`` inserts before the middle routine ``%include`` of the
 master; ``data`` inserts at the start of the DS (``__zdseg_start:``) of an MZ
-host, or, for an overlay, of the host it includes.
+host, or, for an overlay, of the host it includes; ``host`` (overlays only)
+inserts before the host's first routine ``%include``, which moves the host's
+resident-code end and so the overlay's load origin ``o_corg``: every code
+address in the overlay must move.
 
 Run from ``disassembler/``::
 
@@ -226,6 +229,14 @@ def _code_anchor(src):
     return incs[len(incs) // 2]
 
 
+def _host_code_anchor(src):
+    lines = src.split('\n')
+    for i, l in enumerate(lines):
+        if _ROUTINE_INCLUDE_RE.match(l):
+            return i
+    raise RuntimeError('no routine %include to insert before')
+
+
 def _data_anchor(src):
     lines = src.split('\n')
     for i, l in enumerate(lines):
@@ -248,6 +259,13 @@ def run(binary, variant, n=16, floor=0x100, tree=TREE):
         if variant == 'code':
             edit_path, edit_src = master, src
             anchor = _code_anchor(src)
+        elif variant == 'host':
+            if kind != 'overlay':
+                return {'binary': binary, 'variant': variant, 'skip':
+                        'only an overlay loads at the host\'s code end'}
+            edit_path = os.path.join(root, 'ds.asm')
+            edit_src = (tree / 'ds.asm').read_text()
+            anchor = _host_code_anchor(edit_src)
         elif variant == 'data':
             if kind == 'driver':
                 return {'binary': binary, 'variant': variant, 'skip':
@@ -304,6 +322,11 @@ def run(binary, variant, n=16, floor=0x100, tree=TREE):
         if kind == 'mz' and ds_start:
             for s in _strings(bin0[ds_start[0]:]):
                 candidates.setdefault(s, 'string')
+    elif variant == 'host':
+        # The whole overlay moves with ``o_corg``: each of its code labels.
+        for name, (real, virt, host) in text_labels.items():
+            if not host and not name.startswith('__zinsn_'):
+                candidates.setdefault(virt & 0xffff, 'label')
     elif ins_real is not None:
         code_end = labels0.get('__zdseg_start', labels0.get('__zdata_start'))
         for name, (real, virt, host) in text_labels.items():
@@ -317,7 +340,7 @@ def run(binary, variant, n=16, floor=0x100, tree=TREE):
     # overlay's CS and DS offsets overlap, so a DS displacement can equal a
     # code label by chance; it is not evidence for a code insert.
     moving = ({'cs', 'ds'} if kind == 'driver' else {'cs'}) \
-        if variant == 'code' else {'ds'}
+        if variant in ('code', 'host') else {'ds'}
 
     md = Cs(CS_ARCH_X86, CS_MODE_16)
     md.detail = True
@@ -405,7 +428,8 @@ def _fmt(f):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     ap.add_argument('binaries', nargs='*')
-    ap.add_argument('--variant', choices=('code', 'data', 'both'), default='both')
+    ap.add_argument('--variant', choices=('code', 'data', 'host', 'both'),
+                    default='both')
     ap.add_argument('-n', type=int, default=16, help='bytes to insert')
     ap.add_argument('--floor', type=lambda s: int(s, 0), default=0x100)
     ap.add_argument('--list', action='store_true', help='print every finding')

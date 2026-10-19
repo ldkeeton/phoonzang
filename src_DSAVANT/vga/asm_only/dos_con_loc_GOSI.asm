@@ -15,7 +15,7 @@ dos_con_loc_GOSI:
     push dx                          ; 0x4474
     mov ax, cs                       ; 0x4475
     mov ds, ax                       ; 0x4477
-    mov dx, 0x458c                   ; 0x4479
+    mov dx, cseg_448c - IMAGE_BASE   ; 0x4479
     mov ah, 9                        ; 0x447c
     int 0x21 ; DOS string output
     pop dx                           ; 0x4480
@@ -28,6 +28,7 @@ dos_con_loc_GOSI:
     loop @..dos_con_loc_GOSI.l1      ; 0x4488
     pop ax                           ; 0x448a
     ret                              ; 0x448b
+cseg_448c:
 
     db 0x0d, 0x0a, 0x07
     db 'Score slot moved.', 0

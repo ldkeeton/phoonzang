@@ -121,4 +121,4 @@ load_score:
 @..load_score.l5:
     mov ax, cs                       ; 0x4712
     mov ds, ax                       ; 0x4714
-    mov dx, 0x4822                   ; 0x4716
+    mov dx, dseg_4822                ; 0x4716

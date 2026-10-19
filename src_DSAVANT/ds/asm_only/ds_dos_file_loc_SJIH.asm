@@ -23,7 +23,7 @@ ds_dos_file_loc_SJIH:
     int 0x21 ; DOS close file handle
     mov ax, cs                       ; 0x3565
     mov es, ax                       ; 0x3567
-    mov di, 0x2d87                   ; 0x3569
+    mov di, cseg_2f87 - IMAGE_BASE   ; 0x3569
     mov ax, word [cs:cseg_2f52 - IMAGE_BASE] ; 0x356c
     mov cx, 0x37                     ; 0x3570
 @..ds_dos_file_loc_SJIH.l1:
@@ -36,7 +36,7 @@ ds_dos_file_loc_SJIH:
     mov ax, cs                       ; 0x3584
     mov ds, ax                       ; 0x3586
     mov si, cseg_2f40 - IMAGE_BASE   ; 0x3588
-    mov cx, 0x2d58                   ; 0x358b
+    mov cx, cseg_2f58 - IMAGE_BASE   ; 0x358b
     sub cx, si                       ; 0x358e
     rep movsb                        ; 0x3590
     add si, byte 4                   ; 0x3592

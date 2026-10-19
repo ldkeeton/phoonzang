@@ -27,7 +27,7 @@ load_maze:
 @..load_maze.l2:
     mov ax, cs                       ; 0x0bde
     mov ds, ax                       ; 0x0be0
-    mov dx, 0xe3c                    ; 0x0be2
+    mov dx, cseg_0d3c - IMAGE_BASE   ; 0x0be2
     mov ah, 9                        ; 0x0be5
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x0be9
@@ -145,7 +145,7 @@ load_maze:
 @..load_maze.l8:
     mov ax, cs                       ; 0x0cf0
     mov ds, ax                       ; 0x0cf2
-    mov dx, 0xe10                    ; 0x0cf4
+    mov dx, cseg_0d10 - IMAGE_BASE   ; 0x0cf4
     mov ah, 9                        ; 0x0cf7
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x0cfb
@@ -153,17 +153,26 @@ load_maze:
 @..load_maze.l9:
     mov ax, cs                       ; 0x0d00
     mov ds, ax                       ; 0x0d02
-    mov dx, 0xe6b                    ; 0x0d04
+    mov dx, cseg_0d6b - IMAGE_BASE   ; 0x0d04
     mov ah, 9                        ; 0x0d07
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x0d0b
     int 0x21 ; DOS function dispatcher
+cseg_0d10:
 
     db 0x0d, 0x0a, 0x07
     db 'LOAD_MAZE called with bad slot number.', 0
-    db 0x0a, 0x24, 0x0d, 0x0a, 0x07
+    db 0x0a, 0x24
+
+cseg_0d3c:
+
+    db 0x0d, 0x0a, 0x07
     db 'LOAD_MAZE called with filled slot number.', 0
-    db 0x0a, 0x24, 0x0d, 0x0a, 0x07
+    db 0x0a, 0x24
+
+cseg_0d6b:
+
+    db 0x0d, 0x0a, 0x07
     db 'oops... LOAD_MAZE filled its memory area.', 0
     db 0x0a, 0x24
 

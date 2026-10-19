@@ -15,11 +15,12 @@ dos_con_loc_PILL:
     or byte [cs:cseg_3183 - IMAGE_BASE], dl ; 0x3151
     mov bx, cs                       ; 0x3156
     mov ds, bx                       ; 0x3158
-    mov dx, 0x3266                   ; 0x315a
+    mov dx, cseg_3166 - IMAGE_BASE   ; 0x315a
     mov ah, 9                        ; 0x315d
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x3161
     int 0x21 ; DOS function dispatcher
+cseg_3166:
     db 0x0d, 0x0a, 0x07
     db 'Frame '
 cseg_316f:

@@ -608,6 +608,42 @@ def _instruction_anchor(records, binary_data, addr, name):
     return f'{anchor} + 0x{addr - start:x}'
 
 
+def _render_mz_header_tail(hdr, records, binary_data, start_offset):
+    """The MZ header past its fixed fields, relocation entries as expressions.
+
+    Each ``e_crlc`` entry at ``e_lfarlc`` is the ``offset, segment`` of a word
+    DOS adds the load segment to.  Its offset is spelled from the site it
+    patches -- the instruction's ``__zinsn_<start> + k`` anchor, or a label on
+    a data word -- so the entry follows an edit above the site instead of
+    patching whatever byte now sits at the old offset.  An entry whose site
+    cannot be named keeps its bytes.
+    """
+    crlc, lfarlc = (struct.unpack_from('<H', hdr, off)[0] for off in (6, 24))
+    table_end = lfarlc + 4 * crlc
+    if not crlc or lfarlc < 28 or table_end > len(hdr):
+        return _render_data_block(hdr[28:])
+    lines = _render_data_block(hdr[28:lfarlc]) if lfarlc > 28 else []
+    for k in range(crlc):
+        off, seg = struct.unpack_from('<HH', hdr, lfarlc + 4 * k)
+        site = start_offset + seg * 16 + off
+        name = _instruction_anchor(records, binary_data, site, None)
+        if name is None:
+            from lib.compare.jumptables import _ensure_global_label
+            anchor = Symbol.anchor(f'{ANCHOR_PREFIX}reloc_{site:04x}', site)
+            if _ensure_global_label(records, binary_data, site, anchor):
+                name = str(anchor)
+        if name is None:
+            lines.extend(_render_data_block(hdr[lfarlc + 4 * k:
+                                                lfarlc + 4 * k + 4]))
+            continue
+        base = f' - 0x{seg * 16:x}' if seg else ''
+        lines.append(f'    dw {name} - IMAGE_BASE{base}, 0x{seg:04x}'
+                     f' ; 0x{off:04x} ; relocation: segment word DOS patches')
+    if table_end < len(hdr):
+        lines.extend(_render_data_block(hdr[table_end:]))
+    return lines
+
+
 def mz_data_gap(records, binary_data, start_offset):
     """Locate the MZ code->data gap, or return ``None``.
 
@@ -891,7 +927,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
                                      stack_top=stack_reserve is not None,
                                      derived_minalloc=derived_minalloc))
         out.append('')
-        out.extend(_render_data_block(hdr[28:]))
+        out.extend(_render_mz_header_tail(hdr, records, binary_data,
+                                          start_offset))
         out.append('%endif')
         out.append('')
     elif (start_offset >= 14 and len(binary_data) >= 14

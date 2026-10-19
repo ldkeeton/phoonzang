@@ -3,11 +3,12 @@
 dos_con_loc_UHSU:
     mov ax, cs                       ; 0x3b5c
     mov ds, ax                       ; 0x3b5e
-    mov dx, 0x3c6c                   ; 0x3b60
+    mov dx, cseg_3b6c - IMAGE_BASE   ; 0x3b60
     mov ah, 9                        ; 0x3b63
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x3b67
     int 0x21 ; DOS function dispatcher
+cseg_3b6c:
 
     db 0x0d, 0x0a, 0x07
     db 'CACHEAREA out of MAZE slots.', 0

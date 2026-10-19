@@ -340,6 +340,7 @@ bios_mouse_loc_JGGM.cseg3 equ cseg_1dd1
 %include "shared/bios_mouse_loc_NPNG.asm"     ; 0x139a
 
 data_1e5c equ __zdata_1e5c - IMAGE_BASE
+dseg_1586 equ 0x1586
 %include "vga/asm_only/set_mouse_pointer.asm"       ; 0x13c9
 
 %include "vga/asm_only/dos_con_loc_TUKI.asm"        ; 0x147d
@@ -560,6 +561,7 @@ data_381b equ __zdata_381b - IMAGE_BASE
 ; data_381b equ __zdata_381b - IMAGE_BASE
 %include "vga/loc_35d8.asm"                ; 0x35d8
 
+dseg_392b equ 0x392b
 %include "vga/asm_only/loc_381b.asm"                ; 0x381b
 
 %include "shared/dos_con_loc_KIIN.asm"        ; 0x3822
@@ -594,15 +596,18 @@ cseg_3b8e:
 
 %include "vga/loc_3d6d.asm"                ; 0x3d6d
 
+dseg_404e equ 0x404e
 %include "vga/asm_only/cache_maze.asm"              ; 0x3d72
 
 %include "shared/dos_con_loc_URMP.asm"        ; 0x3f45
 
 ; data_02d7 equ __zdata_02d7 - IMAGE_BASE
+dseg_4191 equ 0x4191
 %include "vga/asm_only/dos_file_loc_JRGK.asm"       ; 0x3f73
 
 %include "vga/asm_only/dos_con_loc_GQSQ.asm"        ; 0x4088
 
+dseg_41db equ 0x41db
 %include "vga/asm_only/loc_40cb.asm"                ; 0x40cb
 
 %include "shared/dos_con_loc_MQTN.asm"        ; 0x40d2
@@ -614,10 +619,12 @@ cseg_4102:
 
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 data_4202 equ __zdata_4202 - IMAGE_BASE
+dseg_4338 equ 0x4338
 %include "vga/asm_only/load_sound.asm"              ; 0x4156
 
 %include "vga/asm_only/dos_con_loc_VTSU.asm"        ; 0x422f
 
+dseg_4374 equ 0x4374
 %include "vga/asm_only/loc_4264.asm"                ; 0x4264
 
 %include "shared/dos_con_loc_KPVH.asm"        ; 0x426b
@@ -672,10 +679,12 @@ cseg_45f1:
 ; data_0bda equ __zdata_0bda - IMAGE_BASE
 ; data_46d9 equ __zdata_46d9 - IMAGE_BASE
 data_46f1 equ __zdata_46f1 - IMAGE_BASE
+dseg_4822 equ 0x4822
 %include "vga/asm_only/load_score.asm"              ; 0x45fb
 
 %include "vga/asm_only/dos_con_loc_HNTO.asm"        ; 0x4719
 
+dseg_485e equ 0x485e
 %include "vga/asm_only/loc_474e.asm"                ; 0x474e
 
 %include "vga/asm_only/dos_con_loc_PJJM.asm"        ; 0x4755

@@ -205,7 +205,18 @@ def immediate_pointer_spaces(instructions, flow, limit=64):
       zero-extended value): a table's start plus an element offset;
     * ``mov reg, imm16`` then ``add reg, other`` where *other* holds an index;
     * a near call to a routine that reads *reg* as a pointer before writing it
-      (a register parameter: ``mov bx, table; call f`` / ``f: cs xlatb``).
+      (a register parameter: ``mov bx, table; call f`` / ``f: cs xlatb``);
+    * *reg* stepped by a small constant before its use (``mov di, table``,
+      ``add di, 2``, ``stosw``): it still points into the table;
+    * ``sub``/``cmp reg, imm16`` within a table of a proven ``mov reg, table``
+      that only string operations and small steps moved since (``repne
+      scasb; sub di, table + 1``: the start taken back off the pointer);
+    * ``mov reg, imm16; sub reg, ptr`` where *ptr* holds such a table start
+      and *imm16* lies within it (``mov si, table; mov cx, end; sub cx, si;
+      rep movsb``: the table's end, for a length).
+
+    ``mov dx, imm16`` read by a DOS service that takes a ``DS:DX`` address
+    (``mov ah, 9; int 21h``) is proven in whatever space ``DS`` holds.
     """
     insns = sorted(instructions, key=lambda i: i.address)
     index_of = {insn.address: k for k, insn in enumerate(insns)}
@@ -221,7 +232,150 @@ def immediate_pointer_spaces(instructions, flow, limit=64):
         if space is None or ((code_only or extended) and space != LOAD):
             continue
         result[(insn.address, 1)] = space
+    for k, insn in enumerate(insns):
+        if (_pointer_difference(insns, k, joins, result)
+                or _table_end(insns, k, joins, result)):
+            result[(insn.address, 1)] = LOAD
     return result
+
+
+#: How far past a table's start a ``sub``/``cmp`` bound may lie.
+_DIFFERENCE_SPAN = 0x100
+
+
+def _pointer_difference(insns, k, joins, proven):
+    """True when ``insns[k]`` is ``sub``/``cmp reg16, imm16`` against a table.
+
+    The register's definition in the same straight-line run must be a ``mov
+    reg, base`` already proven a code-segment pointer, moved since only by
+    string operations and small steps, with ``base <= imm <= base + span``.
+    """
+    from capstone import CS_OP_REG, CS_OP_IMM
+
+    insn = insns[k]
+    ops = insn.operands
+    if (insn.mnemonic not in ('sub', 'cmp') or len(ops) != 2
+            or ops[0].type != CS_OP_REG or ops[1].type != CS_OP_IMM
+            or ops[0].size != 2):
+        return False
+    value = ops[1].imm & 0xFFFF
+    if value < 0x100:
+        return False
+    parent = _R8_PARENT.get(insn.reg_name(ops[0].reg).lower(), '')
+    base = _proven_base(insns, k, joins, proven, parent)
+    return base is not None and base <= value <= base + _DIFFERENCE_SPAN
+
+
+def _table_end(insns, k, joins, proven):
+    """True when ``insns[k]`` is ``mov reg16, end`` then ``sub reg, ptr``.
+
+    *ptr* must hold a proven code-segment table start (see
+    :func:`_pointer_difference`) with ``start <= end <= start + span``.
+    """
+    from capstone import CS_OP_REG, CS_OP_IMM
+
+    insn = insns[k]
+    ops = insn.operands
+    if (insn.mnemonic != 'mov' or len(ops) != 2 or ops[0].type != CS_OP_REG
+            or ops[1].type != CS_OP_IMM or ops[0].size != 2
+            or k + 1 >= len(insns) or insns[k + 1].address in joins):
+        return False
+    nxt = insns[k + 1]
+    nops = nxt.operands
+    if (nxt.mnemonic != 'sub' or len(nops) != 2 or nops[0].type != CS_OP_REG
+            or nops[1].type != CS_OP_REG or nops[0].reg != ops[0].reg):
+        return False
+    value = ops[1].imm & 0xFFFF
+    ptr = _R8_PARENT.get(nxt.reg_name(nops[1].reg).lower(), '')
+    base = _proven_base(insns, k, joins, proven, ptr)
+    return base is not None and base <= value <= base + _DIFFERENCE_SPAN
+
+
+def _proven_base(insns, k, joins, proven, parent):
+    """The proven table start *parent* holds on entry to ``insns[k]``.
+
+    Only string operations and small steps may have moved it since its
+    ``mov parent, start`` in the same straight-line run.
+    """
+    from capstone import CS_OP_IMM
+
+    if not parent or parent in _SEG_REGS:
+        return None
+    for j in range(k - 1, max(k - 1 - _INDEX_BACK, -1), -1):
+        if insns[j + 1].address in joins:
+            return None
+        prev = insns[j]
+        mnem = prev.mnemonic
+        if mnem in _TERMINATORS or mnem in ('jmp', 'call', 'ljmp', 'lcall',
+                                            'int'):
+            return None
+        written = {_R8_PARENT.get(prev.reg_name(r).lower(), '')
+                   for r in prev.regs_access()[1]}
+        if parent not in written:
+            continue
+        use = _STRING_USES.get(_base_mnemonic(prev))
+        if (use and use[0] == parent) or _steps_pointer(prev, parent):
+            continue
+        if (mnem == 'mov' and proven.get((prev.address, 1)) == LOAD
+                and prev.operands[1].type == CS_OP_IMM):
+            return prev.operands[1].imm & 0xFFFF
+        return None
+    return None
+
+
+def _steps_pointer(insn, parent):
+    """True when *insn* moves *parent* by a small constant (``add di, 2``)."""
+    from capstone import CS_OP_REG, CS_OP_IMM
+
+    ops = insn.operands
+    if not ops or ops[0].type != CS_OP_REG or ops[0].size != 2:
+        return False
+    if _R8_PARENT.get(insn.reg_name(ops[0].reg).lower(), '') != parent:
+        return False
+    if insn.mnemonic in ('inc', 'dec'):
+        return True
+    if insn.mnemonic in ('add', 'sub') and len(ops) == 2 \
+            and ops[1].type == CS_OP_IMM:
+        step = ops[1].imm & 0xFFFF
+        return step < 0x100 or step > 0xFF00
+    return False
+
+
+#: DOS ``int 21h`` services (``AH``) that take an address in ``DS:DX``:
+#: print string, set vector, mkdir/rmdir/chdir, create/open, read/write
+#: buffer, delete, attributes, exec, find first, rename, temp/new file.
+_DOS_DS_DX = {0x09, 0x0A, 0x1A, 0x25, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3F,
+              0x40, 0x41, 0x43, 0x4B, 0x4E, 0x56, 0x5A, 0x5B}
+
+
+def _dos_function(insns, k, joins):
+    """``AH`` on entry to the ``int 21h`` at ``insns[k]``, or None.
+
+    Only an ``AH``/``AX`` immediate in the same straight-line run counts.
+    """
+    from capstone import CS_OP_REG, CS_OP_IMM
+
+    for j in range(k - 1, max(k - 1 - _INDEX_BACK, -1), -1):
+        if insns[j + 1].address in joins:
+            return None
+        insn = insns[j]
+        if insn.mnemonic in _TERMINATORS or insn.mnemonic in (
+                'jmp', 'call', 'ljmp', 'lcall', 'int'):
+            return None
+        names = {insn.reg_name(r).lower() for r in insn.regs_access()[1]}
+        if not names & {'ah', 'ax'}:
+            continue
+        ops = insn.operands
+        if (insn.mnemonic != 'mov' or len(ops) != 2
+                or ops[0].type != CS_OP_REG or ops[1].type != CS_OP_IMM):
+            return None
+        dest = insn.reg_name(ops[0].reg).lower()
+        if dest == 'ah':
+            return ops[1].imm & 0xFF
+        if dest == 'ax':
+            return (ops[1].imm >> 8) & 0xFF
+        return None
+    return None
 
 
 def index_offset_immediates(instructions, flow, limit=64):
@@ -300,11 +454,23 @@ def _pointer_use(insns, index_of, joins, k, parent, flow, limit,
             extended = True
             j += 1
             continue
+        if _steps_pointer(nxt, parent):
+            # A pointer moved by a small constant still points into the
+            # same object (``add di, 2`` before each ``stosw``).
+            extended = True
+            j += 1
+            continue
         if _writes_register(nxt, parent):
             break
         space = _use_space(nxt, parent, flow)
         if space is not None:
             return space, extended
+        if (parent == 'dx' and nxt.mnemonic == 'int' and ops
+                and ops[0].imm == 0x21
+                and _dos_function(insns, j, joins) in _DOS_DS_DX):
+            space = flow.space_of(nxt.address, 'ds')
+            if space in (LOAD, DATA, PSP):
+                return space, extended
         if follow_calls and nxt.mnemonic == 'call' and nxt.bytes[0] == 0xE8:
             target = index_of.get(_direct_target(nxt))
             if target is not None:

@@ -36,8 +36,8 @@ IMAGE_BASE equ 0x0200 + VBASE
     dw 0x0000                                     ; e_ovno: overlay number (0 for main executable)
 
     times 4 db 0
-    db 0x3b, 0x4b
-    times 478 db 0
+    dw __zinsn_4d3a + 0x1 - IMAGE_BASE, 0x0000 ; 0x4b3b ; relocation: segment word DOS patches
+    times 476 db 0
 %endif
 
 dseg_001e equ __zdseg_001e - __zdseg_start
@@ -65,6 +65,7 @@ dseg_0cde equ __zdseg_0cde - __zdseg_start
 bss_0e36 equ __zbss_0e36 - __zdseg_start
 bss_0e4c equ __zbss_0e4c - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
+bss_2d58 equ __zbss_2d58 - __zdseg_start
 bss_5528 equ __zbss_5528 - __zdseg_start
 bss_552a equ __zbss_552a - __zdseg_start
 bss_5642 equ __zbss_5642 - __zdseg_start
@@ -557,7 +558,9 @@ cseg_2f4e:
 cseg_2f52:
     db 0x00, 0x00, 0xd0, 0x01
 cseg_2f56:
-    times 6 db 0
+    db 0x00, 0x00
+cseg_2f58:
+    times 4 db 0
     db 0x3e, 0x2f, 0xbc, 0x34
 cseg_2f60:
     db 0x00, 0x00
@@ -566,9 +569,11 @@ cseg_2f62:
 cseg_2f64:
     db 0x00, 0x00
 cseg_2f66:
+    db 0x00
+cseg_2f67:
 
-    db 0x00, 0x03, 0x01, 0x00, 0x00, 0x07, 0x01, 0x00, 0x00, 0x0b, 0x01, 0x00, 0x00, 0x0f, 0x01, 0x00
-    db 0x00, 0x13, 0x01, 0x00, 0x00
+    db 0x03, 0x01, 0x00, 0x00, 0x07, 0x01, 0x00, 0x00, 0x0b, 0x01, 0x00, 0x00, 0x0f, 0x01, 0x00, 0x00
+    db 0x13, 0x01, 0x00, 0x00
 
 cseg_2f7b:
     db 0x17, 0x01, 0x00, 0x00, 0x1b, 0x01, 0x00, 0x00
@@ -706,6 +711,8 @@ cseg_3532:
 
 %include "ds/asm_only/ds_dos_con_loc_OQQL.asm"      ; 0x35b8
 
+cseg_35ec:
+    db 'play.drv', 0
 %include "ds/asm_only/ds_dos_file_loc_NKUS.asm"     ; 0x35f5
 
 %include "ds/asm_only/ds_dos_con_loc_GOVO.asm"      ; 0x3640
@@ -730,7 +737,6 @@ cseg_36ce:
 
 %include "ds/asm_only/ds_dos_mem_loc_GMLT.asm"      ; 0x377b
 
-bss_2d58 equ __zbss_2d58 - __zdseg_start
 %include "ds/ds_loc_RMTO.asm"              ; 0x3796
 
 %include "ds/asm_only/ds_bios_mouse_loc_RUQG.asm"   ; 0x37a5
@@ -749,10 +755,12 @@ cseg_384a:
     db 0xff, 0xff
 
 dseg_0110 equ __zdseg_0110 - __zdseg_start
+bss_373f  equ __zbss_373f - __zdseg_start
 %include "ds/asm_only/dos_alloc_mem.asm"            ; 0x3860
 
 %include "ds/asm_only/ds_dos_con_loc_RKPT.asm"      ; 0x3936
 
+bss_376b equ __zbss_376b - __zdseg_start
 %include "ds/asm_only/ds_loc_395b.asm"              ; 0x395b
 
 %include "ds/asm_only/ds_dos_con_loc_RGGK.asm"      ; 0x3962
@@ -819,6 +827,7 @@ cseg_3c7f:
 
 %include "ds/asm_only/ds_dos_con_loc_QJHU.asm"      ; 0x3f81
 
+bss_3dde equ __zbss_3dde - __zdseg_start
 %include "ds/asm_only/dos_read_file_2.asm"          ; 0x3fa9
 
 %include "ds/asm_only/ds_dos_con_loc_NHHR.asm"      ; 0x3fd5
@@ -973,8 +982,10 @@ first     equ __zbss_0d02 - __zdseg_start
 %include "shared/aztec_free.asm"               ; 0x47e8
 
 cseg_480d:
+    db 0x4c
+cseg_480e:
 
-    db 'LlhFNoxXudiscpneEfgG%'
+    db 'lhFNoxXudiscpneEfgG%'
 
 jumptable_4822:
     dw jumptable_4822_case_0 - IMAGE_BASE      ; 0x4822
@@ -1039,6 +1050,7 @@ dseg_0c76         equ __zdseg_0c76 - __zdseg_start
 ; _sbot             equ __z_sbot - __zdseg_start
 _mtop             equ __z_mtop - __zdseg_start
 _PSP              equ __z_PSP - __zdseg_start
+dseg_0c82         equ __zdseg_0c82 - __zdseg_start
 dseg_0cd4         equ __zdseg_0cd4 - __zdseg_start
 _STKRED           equ __z_STKRED - __zdseg_start
 dseg_0cd8         equ __zdseg_0cd8 - __zdseg_start
@@ -1475,8 +1487,9 @@ __z_mtop:
 __z_lowwater:
     db 0xff, 0xff
 __z_PSP:
-
     db 0x00, 0x00
+__zdseg_0c82:
+
     db '8087/80287 is required!'
     db 0x0d, 0x0a, 0x24
 
@@ -1599,7 +1612,13 @@ __zbss_100c:
 __zbss_2d40:
     resb 0x0018
 __zbss_2d58:
-    resb 0x10ba
+    resb 0x09e7
+__zbss_373f:
+    resb 0x002c
+__zbss_376b:
+    resb 0x0673
+__zbss_3dde:
+    resb 0x0034
 __zbss_3e12:
     resb 0x1400
 __zbss_5212:

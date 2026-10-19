@@ -21,11 +21,12 @@ draw_maze_piece:
     jne short @..draw_maze_piece.l1  ; 0x14f9
     mov ax, cs                       ; 0x14fb
     mov ds, ax                       ; 0x14fd
-    mov dx, 0x160b                   ; 0x14ff
+    mov dx, cseg_150b - IMAGE_BASE   ; 0x14ff
     mov ah, 9                        ; 0x1502
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x1506
     int 0x21 ; DOS function dispatcher
+cseg_150b:
 
     db 0x0d, 0x0a, 0x07
     db 'MAZE SET ERROR.', 0

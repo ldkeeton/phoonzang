@@ -3,7 +3,7 @@
 dos_con_loc_GRVO:
     mov ax, cs                       ; 0x10ff
     mov ds, ax                       ; 0x1101
-    mov dx, 0x135d                   ; 0x1103
+    mov dx, cseg_125d - IMAGE_BASE   ; 0x1103
     mov ah, 9                        ; 0x1106
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x110a

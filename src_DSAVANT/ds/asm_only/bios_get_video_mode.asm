@@ -113,7 +113,7 @@ ds_loc_GVHR:
     mov ax, 0x1012                   ; 0x347f
     int 0x10 ; BIOS video
     mov word [bp - 0x0002], 1        ; 0x3484
-    mov bx, 0x3307                   ; 0x3489
+    mov bx, cseg_3507 - IMAGE_BASE   ; 0x3489
     mov word [bp - 0x0004], bx       ; 0x348c
     ret                              ; 0x348f
 ds_loc_QOUG:
@@ -150,13 +150,17 @@ ds_loc_QOUG:
     mov ax, 0x1002                   ; 0x34e5
     int 0x10 ; BIOS video
     mov word [bp - 0x0002], 2        ; 0x34ea
-    mov bx, 0x330f                   ; 0x34ef
+    mov bx, cseg_350f - IMAGE_BASE   ; 0x34ef
     mov word [bp - 0x0004], bx       ; 0x34f2
     ret                              ; 0x34f5
 
     db 0x00, 0x17, 0x11, 0x15, 0x14, 0x16, 0x12, 0x13, 0x10, 0x07, 0x01, 0x05, 0x04, 0x06, 0x02, 0x03
     db 0x00
+
+cseg_3507:
     db 'vga.drv', 0
+cseg_350f:
+
     db 'ega.drv', 0
     db 'cga.drv', 0
     db 'herc.drv', 0

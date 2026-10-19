@@ -248,4 +248,4 @@ cache_area:
 @..cache_area.l17:
     mov ax, cs                       ; 0x4369
     mov ds, ax                       ; 0x436b
-    mov dx, 0x4479                   ; 0x436d
+    mov dx, dseg_4479                ; 0x436d

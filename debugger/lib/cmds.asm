@@ -641,6 +641,14 @@ restore_vecs:
     mov dx, [ov4]                         ; DX = original COM1 IRQ handler offset
     mov ax, 0x250C                        ; DOS set-vector service for interrupt 0Ch
     int 0x21                              ; restore original serial interrupt handler
+    mov ds, [cs:ov0+2]                    ; DS = original INT 0 handler segment
+    mov dx, [cs:ov0]                      ; DX = original INT 0 handler offset
+    mov ax, 0x2500                        ; DOS set-vector service for INT 0
+    int 0x21                              ; restore original divide-error handler
+    mov ds, [cs:ov6+2]                    ; DS = original INT 6 handler segment
+    mov dx, [cs:ov6]                      ; DX = original INT 6 handler offset
+    mov ax, 0x2506                        ; DOS set-vector service for INT 6
+    int 0x21                              ; restore original invalid-opcode handler
 .mask:
     mov al, [cs:pic_mask]                 ; AL = original master PIC interrupt mask
     out 0x21, al                          ; restore IRQ masking exactly as before TSR

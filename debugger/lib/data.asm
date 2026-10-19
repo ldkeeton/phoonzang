@@ -4,6 +4,9 @@ ov3:  dd 0                               ; original INT 3 vector (offset:segment
 ov1:  dd 0                               ; original single-step INT 1 vector
 ov2f: dd 0                               ; original DOS multiplex INT 2Fh vector
 ov4:  dd 0                               ; original COM1 receive IRQ4 vector
+ov0:  dd 0                               ; original divide-error INT 0 vector
+ov6:  dd 0                               ; original invalid-opcode INT 6 vector
+fault_sig: db 0                          ; GDB signal of a pending CPU fault, or 0
 com:  dw COM1                            ; UART I/O base, normally COM1 at 03F8h
 
 bp_n: db 0                               ; number of currently allocated breakpoint slots
@@ -47,7 +50,8 @@ stk_t:                                    ; top of shared scratch/debugger stack
 
 s_trap: db "S05",0                      ; RSP stop reply for trap or single-step
 s_intr: db "S02",0                      ; RSP stop reply for user interrupt (Ctrl-C)
-s_exit: db "W00",0                      ; RSP process-exit reply with status zero
+s_exit: db "W00",0                      ; RSP process-exit reply; digits patched per exit
+s_fault: db "S00",0                     ; RSP fault stop reply; signal digits patched
 s_ok:   db "OK",0                       ; RSP acknowledgement for successful requests
 s_emp:  db 0                             ; empty RSP response for unsupported queries
 s_err:  db "E22",0                      ; RSP error response for failed breakpoint request

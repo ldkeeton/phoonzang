@@ -22,11 +22,12 @@ draw_maze_piece:
 dos_con_loc_0fda:
     mov ax, cs                       ; 0x0fda
     mov ds, ax                       ; 0x0fdc
-    mov dx, 0x10ea                   ; 0x0fde
+    mov dx, cseg_0fea - IMAGE_BASE   ; 0x0fde
     mov ah, 9                        ; 0x0fe1
     int 0x21 ; DOS string output
     mov ax, 0x4c01                   ; 0x0fe5
     int 0x21 ; DOS function dispatcher
+cseg_0fea:
 
     db 0x0d, 0x0a, 0x07
     db 'MAZE SET ERROR.', 0

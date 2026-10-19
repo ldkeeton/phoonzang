@@ -31,6 +31,14 @@ init:
     int 0x21                              ; ES:BX = current serial interrupt handler
     mov [ov4], bx                         ; save original IRQ4 handler offset
     mov [ov4+2], es                       ; save original IRQ4 handler segment
+    mov ax, 0x3500                        ; DOS get-vector service for INT 0
+    int 0x21                              ; ES:BX = current divide-error handler
+    mov [ov0], bx                         ; save original INT 0 offset
+    mov [ov0+2], es                       ; save original INT 0 segment
+    mov ax, 0x3506                        ; DOS get-vector service for INT 6
+    int 0x21                              ; ES:BX = current invalid-opcode handler
+    mov [ov6], bx                         ; save original INT 6 offset
+    mov [ov6+2], es                       ; save original INT 6 segment
     ; install our vectors
     push ds                               ; preserve caller's data segment
     mov ax, cs                            ; AX = TSR's resident code/data segment
@@ -47,6 +55,12 @@ init:
     mov dx, int4                          ; DX = our COM1 receive IRQ4 handler offset
     mov ax, 0x250C                        ; DOS set-vector service for interrupt 0Ch
     int 0x21                              ; route serial receive interrupts to GDBSRV
+    mov dx, int0                          ; DX = our divide-error handler offset
+    mov ax, 0x2500                        ; DOS set-vector service for INT 0
+    int 0x21                              ; stop in GDB on divide errors
+    mov dx, int6                          ; DX = our invalid-opcode handler offset
+    mov ax, 0x2506                        ; DOS set-vector service for INT 6
+    int 0x21                              ; stop in GDB on invalid opcodes
     pop ds                                ; restore caller's data segment
 
     ; Unmask COM1's IRQ4, preserving the prior PIC mask for detach.
