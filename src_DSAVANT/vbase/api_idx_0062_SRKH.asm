@@ -158,6 +158,6 @@ api_idx_0062_SRKH:
     mov ax, 1                        ; 0x4d00
     push ax                          ; 0x4d03
     push word [bp - 0x0060]          ; 0x4d04
-    call ds_app_file_HMNO            ; 0x4d07
+    call draw_restore_saved_screen   ; 0x4d07
     add sp, byte 4                   ; 0x4d0a
     ret                              ; 0x4d0d

@@ -280,17 +280,17 @@ loc_RVQR:
     mov ax, word [bp - 0x0006]       ; 0x0656
     shl ax, 1                        ; 0x0659
     mov bx, ax                       ; 0x065b
-    mov word [bx + 0x5b72], 0xffff   ; 0x065d
+    mov word [bx + bss_5b72], 0xffff ; 0x065d
     mov ax, 0x14                     ; 0x0663
     imul word [bp - 0x0006]          ; 0x0666
     mov bx, ax                       ; 0x0669
-    mov byte [bx + 0x5b7c], 0        ; 0x066b
+    mov byte [bx + bss_5b7c], 0      ; 0x066b
     mov ax, word [bp - 0x0006]       ; 0x0670
     shl ax, 1                        ; 0x0673
     shl ax, 1                        ; 0x0675
     mov bx, ax                       ; 0x0677
     mov word [bx + 0x5be2], 0        ; 0x0679
-    mov word [bx + 0x5be0], 0        ; 0x067f
+    mov word [bx + bss_5be0], 0      ; 0x067f
     inc word [bp - 0x0006]           ; 0x0685
     mov ax, word [bp - 0x0006]       ; 0x0688
     cmp ax, strict word 5            ; 0x068b

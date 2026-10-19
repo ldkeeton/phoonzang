@@ -363,7 +363,7 @@ api_idx_00aa_SLMI:
     mov ax, 1                        ; 0x662e
     push ax                          ; 0x6631
     push word [bp - 0x00aa]          ; 0x6632
-    call ds_app_file_HMNO            ; 0x6636
+    call draw_restore_saved_screen   ; 0x6636
     add sp, byte 4                   ; 0x6639
     mov ax, word [bp - 0x0008]       ; 0x663c
     inc ax                           ; 0x663f

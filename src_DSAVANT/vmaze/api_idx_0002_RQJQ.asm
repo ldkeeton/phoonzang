@@ -24,7 +24,7 @@ api_idx_0002_RQJQ:
     mov ax, 1                        ; 0x0062
     push ax                          ; 0x0065
     push word [bss_9068]             ; 0x0066
-    call ds_app_file_HMNO            ; 0x006a
+    call draw_restore_saved_screen   ; 0x006a
     add sp, byte 4                   ; 0x006d
     mov word [bss_906a], 0           ; 0x0070
 @..api_idx_0002_RQJQ.l1:

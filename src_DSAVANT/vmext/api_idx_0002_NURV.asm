@@ -24,7 +24,7 @@ api_idx_0002_NURV:
     mov ax, 1                        ; 0x0056
     push ax                          ; 0x0059
     push word [bss_9068]             ; 0x005a
-    call ds_app_file_HMNO            ; 0x005e
+    call draw_restore_saved_screen   ; 0x005e
     add sp, byte 4                   ; 0x0061
     mov word [bss_906a], 0           ; 0x0064
 @..api_idx_0002_NURV.l2:

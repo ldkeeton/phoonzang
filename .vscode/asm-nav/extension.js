@@ -353,14 +353,46 @@ async function makeC(uri) {
         if (pick !== 'Redo') return;
     }
     const rel = (f) => path.relative(root(), f);
-    const prompt = `Convert ${rel(asmFile)} to K&R syntax C, writing ${rel(cFile)}. ` +
-        `It must compile to byte-exact matching asm; do not modify the asm. ` +
-        `The only build/check command is \`make rebuild\` (run from the repo root); its result is the sole pass/fail gate. ` +
-        `Do not look for, read, or run any other build commands, Makefiles, or scripts. ` +
-        `Your final message: only a recommended lowercase_underscore name for this routine.`;
+
+    // Renaming goes through the sidecar, as nameRoutine does; the key is resolved here
+    // so Claude never has to work it out.
+    const shared = where.binary === SHARED_DIR;
+    let key;
+    if (shared) {
+        key = routineKey(where);
+    } else {
+        const asmText = fs.readFileSync(asmFile, 'utf8');
+        const row = asmText.split('\n').findIndex((l) => l.startsWith(`${where.label}:`));
+        const addr = row < 0 ? null : routineStart(asmText, row);
+        key = addr === null ? null : sidecarName(where, addr).key;
+    }
+    if (!key) return vscode.window.showErrorMessage(`no sidecar key for ${where.label}`);
+    const build = shared ? `make build ${where.project}` : `make build`;
+    const table = shared ? 'the top-level `routines` object' : `\`binaries.${where.binary}.function_names\``;
+
+    const flags = (readJson(sidecarPath(where.project)) || {}).compiler_flags || {};
+    const flagList = [`default \`${(flags.default || []).join(' ')}\``].concat(
+        Object.entries(flags.prefixes || {}).map(([p, f]) => `\`${p}\` → \`${f.join(' ')}\``)).join('; ');
+
+    const prompt = [
+        `Convert ${rel(asmFile)} to K&R syntax C, writing ${rel(cFile)}. ` +
+            `It must compile to byte-exact matching asm; never hand-edit the asm.`,
+        `Build commands: \`make rebuild\` (repo root) is the sole pass/fail gate; the only other is ` +
+            `\`${build}\`, for renaming. Do not look for, read, or run any other build commands, Makefiles, or scripts.`,
+        `Compiler flags come from the routine name's longest matching prefix: ${flagList}. ` +
+            `If a mismatch is flag-shaped (e.g. an \`imul\` encoding, which needs \`+m\`), the routine probably ` +
+            `needs a \`draw_\` name: rename it as below and rebuild.`,
+        `To rename to NAME: (1) in ${rel(sidecarPath(where.project))}, set \`"${key}": {"name": "NAME"}\` under ` +
+            `${table} (keep any "note", keep keys sorted); (2) run \`${build}\`, which regenerates the asm as ` +
+            `NAME.asm; (3) rename the C file to NAME.c and the function in it (and any C callers) to NAME; ` +
+            `(4) run \`make rebuild\`.`,
+        `Once it matches, give the routine a descriptive lowercase_underscore name this way, keeping any prefix ` +
+            `its flags need. Your final message: only the name.`,
+    ].join('\n\n');
     // --allowedTools is variadic: a trailing prompt would be swallowed as another tool name
     // (the session then starts empty), so the prompt goes first and the value is attached.
-    const args = [prompt, '--permission-mode', 'auto', '--allowedTools=Read,Write,Edit,Bash(make rebuild)'];
+    const args = [prompt, '--permission-mode', 'auto',
+        `--allowedTools=Read,Write,Edit,Bash(make rebuild),Bash(${build})`];
     const model = cfg().get('claudeModel');
     if (model) args.push('--model', model);
 

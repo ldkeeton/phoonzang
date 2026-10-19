@@ -1339,7 +1339,7 @@ jumptable_28e9:
     mov ax, 1                        ; 0x290c
     push ax                          ; 0x290f
     push word [bp - 0x003a]          ; 0x2910
-    call ds_app_file_HMNO            ; 0x2913
+    call draw_restore_saved_screen   ; 0x2913
     add sp, byte 4                   ; 0x2916
     mov ax, word [bp - 0x000a]       ; 0x2919
     inc ax                           ; 0x291c

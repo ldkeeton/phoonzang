@@ -113,7 +113,7 @@ loc_RLUJ:
     mov ax, 1                        ; 0x34db
     push ax                          ; 0x34de
     push word [bss_9068]             ; 0x34df
-    call ds_app_file_HMNO            ; 0x34e3
+    call draw_restore_saved_screen   ; 0x34e3
     add sp, byte 4                   ; 0x34e6
     mov word [bss_906a], 0           ; 0x34e9
 @..loc_RLUJ.l4:

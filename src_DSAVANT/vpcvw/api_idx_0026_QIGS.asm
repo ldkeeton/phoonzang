@@ -548,7 +548,7 @@ api_idx_0026_QIGS:
     mov ax, 1                        ; 0x8f4d
     push ax                          ; 0x8f50
     push word [bp - 0x0026]          ; 0x8f51
-    call ds_app_file_HMNO            ; 0x8f54
+    call draw_restore_saved_screen   ; 0x8f54
     add sp, byte 4                   ; 0x8f57
     mov word [bss_904e], 0xffff      ; 0x8f5a
     mov ax, word [bss_9050]          ; 0x8f60

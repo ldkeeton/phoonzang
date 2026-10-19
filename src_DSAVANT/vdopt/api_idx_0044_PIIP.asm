@@ -1341,7 +1341,7 @@ jumptable_35d1:
     mov ax, 1                        ; 0x35f4
     push ax                          ; 0x35f7
     push word [bp - 0x003a]          ; 0x35f8
-    call ds_app_file_HMNO            ; 0x35fb
+    call draw_restore_saved_screen   ; 0x35fb
     add sp, byte 4                   ; 0x35fe
     mov ax, word [bp - 0x000a]       ; 0x3601
     inc ax                           ; 0x3604

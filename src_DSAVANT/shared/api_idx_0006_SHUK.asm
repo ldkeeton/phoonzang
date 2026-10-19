@@ -25,7 +25,7 @@ api_idx_0006_SHUK:
     mov ax, 1
     push ax
     push word [bp - 0x0002]
-    call ds_app_file_HMNO
+    call draw_restore_saved_screen
     add sp, byte 4
     jmp near @..api_idx_0006_SHUK.l8
 @..api_idx_0006_SHUK.l2:
@@ -75,17 +75,17 @@ api_idx_0006_SHUK:
     mov ax, 1
     push ax
     push word [bp - 0x0006]
-    call ds_app_file_HMNO
+    call draw_restore_saved_screen
     add sp, byte 4
     mov ax, 1
     push ax
     push word [bp - 0x0004]
-    call ds_app_file_HMNO
+    call draw_restore_saved_screen
     add sp, byte 4
     mov ax, 1
     push ax
     push word [bp - 0x0002]
-    call ds_app_file_HMNO
+    call draw_restore_saved_screen
     add sp, byte 4
     jmp short @..api_idx_0006_SHUK.l8
 @..api_idx_0006_SHUK.l3:
@@ -109,7 +109,7 @@ api_idx_0006_SHUK:
     mov ax, 1
     push ax
     push word [bp - 0x0002]
-    call ds_app_file_HMNO
+    call draw_restore_saved_screen
     add sp, byte 4
     jmp short @..api_idx_0006_SHUK.l8
 @..api_idx_0006_SHUK.l4:

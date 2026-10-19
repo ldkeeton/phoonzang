@@ -516,7 +516,7 @@ loc_UGOG:
     mov ax, 1                        ; 0x2128
     push ax                          ; 0x212b
     push word [bp - 0x01a8]          ; 0x212c
-    call ds_app_file_HMNO            ; 0x2130
+    call draw_restore_saved_screen   ; 0x2130
     add sp, byte 4                   ; 0x2133
     cmp word [bp + 0x1a], byte 0     ; 0x2136
     je short @..loc_UGOG.l27         ; 0x213a

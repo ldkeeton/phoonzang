@@ -153,6 +153,9 @@
         "0a09": {
           "name": "clamp_between"
         },
+        "16a0": {
+          "name": "draw_restore_saved_screen"
+        },
         "2b62": {
           "name": "animate_sprite_up"
         },

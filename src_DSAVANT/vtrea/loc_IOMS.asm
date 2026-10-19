@@ -521,7 +521,7 @@ loc_IOMS:
     mov ax, 1                        ; 0x88d6
     push ax                          ; 0x88d9
     push word [bp - 0x01a8]          ; 0x88da
-    call ds_app_file_HMNO            ; 0x88de
+    call draw_restore_saved_screen   ; 0x88de
     add sp, byte 4                   ; 0x88e1
     cmp word [bp + 0x1a], byte 0     ; 0x88e4
     je short @..loc_IOMS.l28         ; 0x88e8

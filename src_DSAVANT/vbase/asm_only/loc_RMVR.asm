@@ -2020,7 +2020,7 @@ jumptable_5e7f:
     mov ax, 1                        ; 0x5efd
     push ax                          ; 0x5f00
     push word [bp - 0x006a]          ; 0x5f01
-    call ds_app_file_HMNO            ; 0x5f04
+    call draw_restore_saved_screen   ; 0x5f04
     add sp, byte 4                   ; 0x5f07
     mov ax, word [bp - 0x000e]       ; 0x5f0a
     inc ax                           ; 0x5f0d

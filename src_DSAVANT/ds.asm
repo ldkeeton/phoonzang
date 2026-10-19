@@ -395,9 +395,15 @@ bss_5b70 equ __zbss_5b70 - __zdseg_start
 bss_5962 equ __zbss_5962 - __zdseg_start
 bss_5963 equ __zbss_5963 - __zdseg_start
 bss_5964 equ __zbss_5964 - __zdseg_start
+bss_5b72 equ __zbss_5b72 - __zdseg_start
+bss_5b7c equ __zbss_5b7c - __zdseg_start
+bss_5be0 equ __zbss_5be0 - __zdseg_start
 %include "ds/ds_app_file_LMRK.asm"         ; 0x14ca
 
-%include "ds/ds_app_file_HMNO.asm"         ; 0x16a0
+; bss_5b72 equ __zbss_5b72 - __zdseg_start
+; bss_5b7c equ __zbss_5b7c - __zdseg_start
+; bss_5be0 equ __zbss_5be0 - __zdseg_start
+%include "ds/draw_restore_saved_screen.asm" ; 0x16a0
 
 %include "ds/ds_app_VOML.asm"              ; 0x1741
 
@@ -1697,7 +1703,13 @@ __zbss_5b6c:
 __zbss_5b6e:
     resb 0x0002
 __zbss_5b70:
-    resb 0x0084
+    resb 0x0002
+__zbss_5b72:
+    resb 0x000a
+__zbss_5b7c:
+    resb 0x0064
+__zbss_5be0:
+    resb 0x0014
 __zbss_5bf4:
     resb 0x0014
 __zbss_5c08:

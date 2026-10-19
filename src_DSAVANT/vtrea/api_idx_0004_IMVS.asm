@@ -49,7 +49,7 @@ api_idx_0004_IMVS:
     mov ax, 1                        ; 0x0e73
     push ax                          ; 0x0e76
     push word [bp - 0x0004]          ; 0x0e77
-    call ds_app_file_HMNO            ; 0x0e7a
+    call draw_restore_saved_screen   ; 0x0e7a
     add sp, byte 4                   ; 0x0e7d
 @..api_idx_0004_IMVS.l3:
     cmp word [bp - 0x0002], byte 0   ; 0x0e80
@@ -57,7 +57,7 @@ api_idx_0004_IMVS:
     mov ax, 1                        ; 0x0e86
     push ax                          ; 0x0e89
     push word [bp - 0x0002]          ; 0x0e8a
-    call ds_app_file_HMNO            ; 0x0e8d
+    call draw_restore_saved_screen   ; 0x0e8d
     add sp, byte 4                   ; 0x0e90
 @..api_idx_0004_IMVS.l4:
     mov ax, 0xc2                     ; 0x0e93

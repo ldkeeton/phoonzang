@@ -43,7 +43,7 @@ loc_SNOI:
     mov ax, 1                        ; 0x7df9
     push ax                          ; 0x7dfc
     push word [bss_9068]             ; 0x7dfd
-    call ds_app_file_HMNO            ; 0x7e01
+    call draw_restore_saved_screen   ; 0x7e01
     add sp, byte 4                   ; 0x7e04
     mov word [bss_906a], 0           ; 0x7e07
 @..loc_SNOI.l1:

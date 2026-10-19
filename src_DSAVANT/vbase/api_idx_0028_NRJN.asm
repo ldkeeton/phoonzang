@@ -669,7 +669,7 @@ jumptable_14d6:
     mov ax, 1                        ; 0x14f6
     push ax                          ; 0x14f9
     push word [bp - 0x0026]          ; 0x14fa
-    call ds_app_file_HMNO            ; 0x14fd
+    call draw_restore_saved_screen   ; 0x14fd
     add sp, byte 4                   ; 0x1500
     mov word [bss_904e], 0xffff      ; 0x1503
     mov ax, word [bss_9050]          ; 0x1509
