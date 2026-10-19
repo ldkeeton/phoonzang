@@ -572,7 +572,7 @@ jumptable_3cc2_case_0:
     add cx, byte 0x2a                ; 0x35c1
     sub ax, cx                       ; 0x35c4
     push ax                          ; 0x35c6
-    call clamp                       ; 0x35c7
+    call clamp_between               ; 0x35c7
     add sp, byte 6                   ; 0x35ca
     mov word [bp - 0x0016], ax       ; 0x35cd
 @..api_idx_0050_NHHL.l14:
@@ -592,7 +592,7 @@ jumptable_3cc2_case_0:
     sub ax, cx                       ; 0x35f1
     sub ax, word [bp - 0x0016]       ; 0x35f3
     push ax                          ; 0x35f6
-    call clamp                       ; 0x35f7
+    call clamp_between               ; 0x35f7
     add sp, byte 6                   ; 0x35fa
     mov word [bp - 0x0012], ax       ; 0x35fd
     cmp word [bp - 0x0044], byte 7   ; 0x3600
@@ -745,7 +745,7 @@ jumptable_3cc2_case_1:
     cwd                              ; 0x3759
     idiv cx                          ; 0x375a
     push ax                          ; 0x375c
-    call clamp                       ; 0x375d
+    call clamp_between               ; 0x375d
     add sp, byte 6                   ; 0x3760
     mov word [bp - 0x0012], ax       ; 0x3763
 @..api_idx_0050_NHHL.l20:
@@ -976,7 +976,7 @@ jumptable_3cc2_case_4:
     pop ax                           ; 0x3977
     sub ax, cx                       ; 0x3978
     push ax                          ; 0x397a
-    call clamp                       ; 0x397b
+    call clamp_between               ; 0x397b
     add sp, byte 6                   ; 0x397e
     mov word [bp - 0x0040], ax       ; 0x3981
     mov ax, 6                        ; 0x3984
@@ -1245,7 +1245,7 @@ jumptable_3cc2_case_4:
     pop ax                           ; 0x3c01
     sub ax, cx                       ; 0x3c02
     push ax                          ; 0x3c04
-    call clamp                       ; 0x3c05
+    call clamp_between               ; 0x3c05
     add sp, byte 6                   ; 0x3c08
     mov word [bp - 0x0040], ax       ; 0x3c0b
     mov ax, 6                        ; 0x3c0e

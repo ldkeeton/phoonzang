@@ -238,7 +238,7 @@ api_idx_0038_LJOP:
     cwd                              ; 0x4a17
     idiv cx                          ; 0x4a18
     push ax                          ; 0x4a1a
-    call clamp                       ; 0x4a1b
+    call clamp_between               ; 0x4a1b
     add sp, byte 6                   ; 0x4a1e
     mov word [bp - 0x0010], ax       ; 0x4a21
 @..api_idx_0038_LJOP.l4:
@@ -482,7 +482,7 @@ jumptable_4fa9_case_0:
     add cx, byte 0x0e                ; 0x4c4d
     sub ax, cx                       ; 0x4c50
     push ax                          ; 0x4c52
-    call clamp                       ; 0x4c53
+    call clamp_between               ; 0x4c53
     add sp, byte 6                   ; 0x4c56
     mov word [bp - 0x0014], ax       ; 0x4c59
 @..api_idx_0038_LJOP.l11:
@@ -502,7 +502,7 @@ jumptable_4fa9_case_0:
     sub ax, cx                       ; 0x4c7d
     sub ax, word [bp - 0x0014]       ; 0x4c7f
     push ax                          ; 0x4c82
-    call clamp                       ; 0x4c83
+    call clamp_between               ; 0x4c83
     add sp, byte 6                   ; 0x4c86
     mov word [bp - 0x0010], ax       ; 0x4c89
     cmp word [bp + 0xc], byte 3      ; 0x4c8c
@@ -670,7 +670,7 @@ jumptable_4fa9_case_1:
     cwd                              ; 0x4dfa
     idiv cx                          ; 0x4dfb
     push ax                          ; 0x4dfd
-    call clamp                       ; 0x4dfe
+    call clamp_between               ; 0x4dfe
     add sp, byte 6                   ; 0x4e01
     mov word [bp - 0x0010], ax       ; 0x4e04
 @..api_idx_0038_LJOP.l17:

@@ -397,7 +397,7 @@ api_idx_0074_SGUS:
     mov ax, word [bx + 0x5c10]       ; 0x7c93
     sub ax, cx                       ; 0x7c97
     push ax                          ; 0x7c99
-    call clamp                       ; 0x7c9a
+    call clamp_between               ; 0x7c9a
     add sp, byte 6                   ; 0x7c9d
     push ax                          ; 0x7ca0
     mov ax, 0x248                    ; 0x7ca1

@@ -363,7 +363,7 @@ api_idx_006a_NKMN:
     mov ax, 2                        ; 0x634f
     push ax                          ; 0x6352
     push word [bp - 0x001a]          ; 0x6353
-    call clamp                       ; 0x6356
+    call clamp_between               ; 0x6356
     add sp, byte 6                   ; 0x6359
     mov word [bp - 0x001a], ax       ; 0x635c
     mov ax, word [bp + 0xa]          ; 0x635f

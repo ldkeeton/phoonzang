@@ -310,7 +310,7 @@ api_idx_0010_IOJT:
     cbw                              ; 0x9d6b
     add ax, word [bp - 0x000e]       ; 0x9d6c
     push ax                          ; 0x9d6f
-    call clamp                       ; 0x9d70
+    call clamp_between               ; 0x9d70
     add sp, byte 6                   ; 0x9d73
     push ax                          ; 0x9d76
     mov ax, 0x26                     ; 0x9d77
@@ -329,7 +329,7 @@ api_idx_0010_IOJT:
     cbw                              ; 0x9d98
     sub ax, word [bp - 0x000e]       ; 0x9d99
     push ax                          ; 0x9d9c
-    call clamp                       ; 0x9d9d
+    call clamp_between               ; 0x9d9d
     add sp, byte 6                   ; 0x9da0
     push ax                          ; 0x9da3
     mov ax, 0x26                     ; 0x9da4
@@ -382,7 +382,7 @@ api_idx_0010_IOJT:
     cbw                              ; 0x9e10
     add ax, word [bp - 0x0010]       ; 0x9e11
     push ax                          ; 0x9e14
-    call clamp                       ; 0x9e15
+    call clamp_between               ; 0x9e15
     add sp, byte 6                   ; 0x9e18
     push ax                          ; 0x9e1b
     mov ax, 0x26                     ; 0x9e1c
@@ -401,7 +401,7 @@ api_idx_0010_IOJT:
     cbw                              ; 0x9e3d
     sub ax, word [bp - 0x0010]       ; 0x9e3e
     push ax                          ; 0x9e41
-    call clamp                       ; 0x9e42
+    call clamp_between               ; 0x9e42
     add sp, byte 6                   ; 0x9e45
     push ax                          ; 0x9e48
     mov ax, 0x26                     ; 0x9e49

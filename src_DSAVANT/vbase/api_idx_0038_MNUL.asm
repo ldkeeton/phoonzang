@@ -379,7 +379,7 @@ jumptable_0d04_case_0:
     add cx, byte 0x0e                ; 0x0980
     sub ax, cx                       ; 0x0983
     push ax                          ; 0x0985
-    call clamp                       ; 0x0986
+    call clamp_between               ; 0x0986
     add sp, byte 6                   ; 0x0989
     mov word [bp - 0x0014], ax       ; 0x098c
 @..api_idx_0038_MNUL.l11:
@@ -399,7 +399,7 @@ jumptable_0d04_case_0:
     sub ax, cx                       ; 0x09b0
     sub ax, word [bp - 0x0014]       ; 0x09b2
     push ax                          ; 0x09b5
-    call clamp                       ; 0x09b6
+    call clamp_between               ; 0x09b6
     add sp, byte 6                   ; 0x09b9
     mov word [bp - 0x0010], ax       ; 0x09bc
     cmp word [bp + 0xc], byte 7      ; 0x09bf
@@ -552,7 +552,7 @@ jumptable_0d04_case_1:
     cwd                              ; 0x0b18
     idiv cx                          ; 0x0b19
     push ax                          ; 0x0b1b
-    call clamp                       ; 0x0b1c
+    call clamp_between               ; 0x0b1c
     add sp, byte 6                   ; 0x0b1f
     mov word [bp - 0x0010], ax       ; 0x0b22
 @..api_idx_0038_MNUL.l17:

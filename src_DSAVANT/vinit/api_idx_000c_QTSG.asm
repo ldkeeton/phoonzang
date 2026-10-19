@@ -105,7 +105,7 @@ loc_PNTM:
     sub ah, ah                       ; 0x0239
     add ax, word [bp + 0x4]          ; 0x023b
     push ax                          ; 0x023e
-    call clamp                       ; 0x023f
+    call clamp_between               ; 0x023f
     add sp, byte 6                   ; 0x0242
     push ax                          ; 0x0245
     mov ax, 3                        ; 0x0246
@@ -133,7 +133,7 @@ loc_PNTM:
     sub ah, ah                       ; 0x027b
     add ax, word [bp - 0x0006]       ; 0x027d
     push ax                          ; 0x0280
-    call clamp                       ; 0x0281
+    call clamp_between               ; 0x0281
     add sp, byte 6                   ; 0x0284
     push ax                          ; 0x0287
     mov ax, 3                        ; 0x0288
@@ -171,7 +171,7 @@ loc_PNTM:
     sub ah, ah                       ; 0x02d7
     sub ax, word [bp - 0x0006]       ; 0x02d9
     push ax                          ; 0x02dc
-    call clamp                       ; 0x02dd
+    call clamp_between               ; 0x02dd
     add sp, byte 6                   ; 0x02e0
     push ax                          ; 0x02e3
     mov ax, 3                        ; 0x02e4

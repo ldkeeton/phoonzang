@@ -17,7 +17,7 @@ animate_sprite_up: ; Aztec csav frame=0x0000
     mov ax, word [bp + 0x6]          ; 0x2b83
     add ax, strict word 0xfff6       ; 0x2b86
     push ax                          ; 0x2b89
-    call clamp                       ; 0x2b8a
+    call clamp_between               ; 0x2b8a
     add sp, byte 6                   ; 0x2b8d
     mov word [bp + 0x6], ax          ; 0x2b90
     push ax                          ; 0x2b93

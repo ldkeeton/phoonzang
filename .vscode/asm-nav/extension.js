@@ -355,16 +355,20 @@ async function makeC(uri) {
     const rel = (f) => path.relative(root(), f);
     const prompt = `Convert ${rel(asmFile)} to K&R syntax C, writing ${rel(cFile)}. ` +
         `It must compile to byte-exact matching asm; do not modify the asm. ` +
-        `Check with \`make rebuild\`. ` +
+        `The only build/check command is \`make rebuild\` (run from the repo root); its result is the sole pass/fail gate. ` +
+        `Do not look for, read, or run any other build commands, Makefiles, or scripts. ` +
         `Your final message: only a recommended lowercase_underscore name for this routine.`;
     // --allowedTools is variadic: a trailing prompt would be swallowed as another tool name
     // (the session then starts empty), so the prompt goes first and the value is attached.
-    const args = [prompt, '--permission-mode', 'acceptEdits', '--allowedTools=Read,Write,Edit,Bash(make:*)'];
+    const args = [prompt, '--permission-mode', 'auto', '--allowedTools=Read,Write,Edit,Bash(make rebuild)'];
     const model = cfg().get('claudeModel');
     if (model) args.push('--model', model);
 
+    // No IDE integration: don't auto-connect, and drop the port the Claude VS Code
+    // extension injects into integrated terminals.
     const term = vscode.window.createTerminal({
         name: `Claude: ${where.label}`, cwd: root(), shellPath: cfg().get('claude'), shellArgs: args,
+        env: { CLAUDE_CODE_AUTO_CONNECT_IDE: 'false', CLAUDE_CODE_SSE_PORT: null },
         location: vscode.TerminalLocation.Editor,
     });
     converting.set(asmFile, term);

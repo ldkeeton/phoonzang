@@ -233,7 +233,7 @@ api_idx_007c_OKMO:
     mov ax, 0                        ; 0x1267
     push ax                          ; 0x126a
     push word [bss_942e]             ; 0x126b
-    call clamp                       ; 0x126f
+    call clamp_between               ; 0x126f
     add sp, byte 6                   ; 0x1272
     mov word [bss_942e], ax          ; 0x1275
     mov ax, 0x248                    ; 0x1278

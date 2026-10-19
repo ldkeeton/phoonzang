@@ -213,7 +213,7 @@ jumptable_3f96_case_6:
     sub ah, ah                       ; 0x3ee4
     add ax, 0xc8                     ; 0x3ee6
     push ax                          ; 0x3ee9
-    call clamp                       ; 0x3eea
+    call clamp_between               ; 0x3eea
     add sp, byte 6                   ; 0x3eed
     push ax                          ; 0x3ef0
     mov ax, 0x248                    ; 0x3ef1
@@ -229,7 +229,7 @@ jumptable_3f96_case_6:
     sub ah, ah                       ; 0x3f0a
     add ax, 0xc8                     ; 0x3f0c
     push ax                          ; 0x3f0f
-    call clamp                       ; 0x3f10
+    call clamp_between               ; 0x3f10
     add sp, byte 6                   ; 0x3f13
     push ax                          ; 0x3f16
     mov ax, 0x248                    ; 0x3f17

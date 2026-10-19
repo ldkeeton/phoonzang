@@ -14,7 +14,7 @@ loc_HOSN:
     cbw                              ; 0x8617
     add ax, word [bp + 0x6]          ; 0x8618
     push ax                          ; 0x861b
-    call clamp                       ; 0x861c
+    call clamp_between               ; 0x861c
     add sp, byte 6                   ; 0x861f
     push ax                          ; 0x8622
     mov ax, 0x248                    ; 0x8623
@@ -35,7 +35,7 @@ loc_HOSN:
     cbw                              ; 0x8649
     add ax, word [bp + 0x8]          ; 0x864a
     push ax                          ; 0x864d
-    call clamp                       ; 0x864e
+    call clamp_between               ; 0x864e
     add sp, byte 6                   ; 0x8651
     push ax                          ; 0x8654
     mov al, byte [bss_91c7]          ; 0x8655

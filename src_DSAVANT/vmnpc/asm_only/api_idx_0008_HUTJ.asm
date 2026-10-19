@@ -24,7 +24,7 @@ api_idx_0008_HUTJ:
     idiv cx                          ; 0x392e
     add ax, word [bp + 0x8]          ; 0x3930
     push ax                          ; 0x3933
-    call clamp                       ; 0x3934
+    call clamp_between               ; 0x3934
     add sp, byte 6                   ; 0x3937
     mov word [bp + 0x8], ax          ; 0x393a
     mov al, byte [bss_91cb]          ; 0x393d

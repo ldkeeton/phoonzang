@@ -146,7 +146,7 @@ jumptable_1aff:
     sub ah, ah                       ; 0x1b89
     add ax, word [bp - 0x0008]       ; 0x1b8b
     push ax                          ; 0x1b8e
-    call clamp                       ; 0x1b8f
+    call clamp_between               ; 0x1b8f
     add sp, byte 6                   ; 0x1b92
     push ax                          ; 0x1b95
     mov ax, 0x248                    ; 0x1b96

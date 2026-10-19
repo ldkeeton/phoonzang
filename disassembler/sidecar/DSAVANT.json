@@ -151,7 +151,7 @@
       ],
       "function_names": {
         "0a09": {
-          "name": "clamp"
+          "name": "clamp_between"
         },
         "2b62": {
           "name": "animate_sprite_up"

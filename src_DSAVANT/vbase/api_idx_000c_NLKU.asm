@@ -18,7 +18,7 @@ api_idx_000c_NLKU:
     sub ah, ah                       ; 0x4087
     add ax, word [bp + 0x4]          ; 0x4089
     push ax                          ; 0x408c
-    call clamp                       ; 0x408d
+    call clamp_between               ; 0x408d
     add sp, byte 6                   ; 0x4090
     push ax                          ; 0x4093
     mov ax, 3                        ; 0x4094
@@ -45,7 +45,7 @@ api_idx_000c_NLKU:
     sub ah, ah                       ; 0x40c7
     add ax, word [bp - 0x0006]       ; 0x40c9
     push ax                          ; 0x40cc
-    call clamp                       ; 0x40cd
+    call clamp_between               ; 0x40cd
     add sp, byte 6                   ; 0x40d0
     push ax                          ; 0x40d3
     mov ax, 3                        ; 0x40d4
@@ -81,7 +81,7 @@ api_idx_000c_NLKU:
     sub ah, ah                       ; 0x411f
     sub ax, word [bp - 0x0006]       ; 0x4121
     push ax                          ; 0x4124
-    call clamp                       ; 0x4125
+    call clamp_between               ; 0x4125
     add sp, byte 6                   ; 0x4128
     push ax                          ; 0x412b
     mov ax, 3                        ; 0x412c

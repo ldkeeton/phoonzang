@@ -122,7 +122,7 @@ api_idx_00a8_KNHJ:
     mov ax, word [bp - 0x0002]       ; 0x05c6
     dec ax                           ; 0x05c9
     push ax                          ; 0x05ca
-    call clamp                       ; 0x05cb
+    call clamp_between               ; 0x05cb
     add sp, byte 6                   ; 0x05ce
     mov word [bp - 0x0008], ax       ; 0x05d1
     mov word [bp - 0x0006], 0        ; 0x05d4

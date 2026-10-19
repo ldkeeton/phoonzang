@@ -548,7 +548,7 @@ api_idx_0072_IPMP:
     sub ah, ah                       ; 0x4f5b
     add ax, word [bp - 0x0014]       ; 0x4f5d
     push ax                          ; 0x4f60
-    call clamp                       ; 0x4f61
+    call clamp_between               ; 0x4f61
     add sp, byte 6                   ; 0x4f64
     push ax                          ; 0x4f67
     mov ax, 0x248                    ; 0x4f68

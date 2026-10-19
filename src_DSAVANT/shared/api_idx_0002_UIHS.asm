@@ -23,6 +23,6 @@ api_idx_0002_UIHS:
     mov ax, word [bp + 0x4]
     add ax, word [bp + 0x6]
     push ax
-    call clamp
+    call clamp_between
     add sp, byte 6
     ret

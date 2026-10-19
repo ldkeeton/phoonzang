@@ -564,7 +564,7 @@ jumptable_28e9_case_0:
     add cx, byte 0x2a                ; 0x21e8
     sub ax, cx                       ; 0x21eb
     push ax                          ; 0x21ed
-    call clamp                       ; 0x21ee
+    call clamp_between               ; 0x21ee
     add sp, byte 6                   ; 0x21f1
     mov word [bp - 0x0016], ax       ; 0x21f4
 @..api_idx_0044_NJNI.l14:
@@ -584,7 +584,7 @@ jumptable_28e9_case_0:
     sub ax, cx                       ; 0x2218
     sub ax, word [bp - 0x0016]       ; 0x221a
     push ax                          ; 0x221d
-    call clamp                       ; 0x221e
+    call clamp_between               ; 0x221e
     add sp, byte 6                   ; 0x2221
     mov word [bp - 0x0012], ax       ; 0x2224
     cmp word [bp - 0x0044], byte 7   ; 0x2227
@@ -737,7 +737,7 @@ jumptable_28e9_case_1:
     cwd                              ; 0x2380
     idiv cx                          ; 0x2381
     push ax                          ; 0x2383
-    call clamp                       ; 0x2384
+    call clamp_between               ; 0x2384
     add sp, byte 6                   ; 0x2387
     mov word [bp - 0x0012], ax       ; 0x238a
 @..api_idx_0044_NJNI.l20:
@@ -968,7 +968,7 @@ jumptable_28e9_case_4:
     pop ax                           ; 0x259e
     sub ax, cx                       ; 0x259f
     push ax                          ; 0x25a1
-    call clamp                       ; 0x25a2
+    call clamp_between               ; 0x25a2
     add sp, byte 6                   ; 0x25a5
     mov word [bp - 0x0040], ax       ; 0x25a8
     mov ax, 6                        ; 0x25ab
@@ -1237,7 +1237,7 @@ jumptable_28e9_case_4:
     pop ax                           ; 0x2828
     sub ax, cx                       ; 0x2829
     push ax                          ; 0x282b
-    call clamp                       ; 0x282c
+    call clamp_between               ; 0x282c
     add sp, byte 6                   ; 0x282f
     mov word [bp - 0x0040], ax       ; 0x2832
     mov ax, 6                        ; 0x2835

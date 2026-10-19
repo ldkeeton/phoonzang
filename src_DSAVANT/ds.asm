@@ -318,7 +318,7 @@ dseg_0002 equ __zdseg_0002 - __zdseg_start
 
 %include "ds/ds_app_PUNN.asm"              ; 0x09f0
 
-%include "ds/clamp.asm"                    ; 0x0a09
+%include "ds/clamp_between.asm"            ; 0x0a09
 
 bss_597c equ __zbss_597c - __zdseg_start
 bss_5984 equ __zbss_5984 - __zdseg_start

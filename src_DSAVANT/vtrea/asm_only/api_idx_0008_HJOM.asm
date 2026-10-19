@@ -211,7 +211,7 @@ jumptable_4a7d_case_22:
     pop ax                           ; 0x4558
     add ax, word [bx + 0x5c10]       ; 0x4559
     push ax                          ; 0x455d
-    call clamp                       ; 0x455e
+    call clamp_between               ; 0x455e
     add sp, byte 6                   ; 0x4561
     push ax                          ; 0x4564
     mov ax, 0x248                    ; 0x4565
@@ -544,7 +544,7 @@ jumptable_4a7d_case_37:
     pop ax                           ; 0x4881
     add ax, word [bx + 0x5c0c]       ; 0x4882
     push ax                          ; 0x4886
-    call clamp                       ; 0x4887
+    call clamp_between               ; 0x4887
     add sp, byte 6                   ; 0x488a
     push ax                          ; 0x488d
     mov ax, 0x248                    ; 0x488e
@@ -594,7 +594,7 @@ jumptable_4a7d_case_41:
     cwd                              ; 0x4903
     idiv cx                          ; 0x4904
     push ax                          ; 0x4906
-    call clamp                       ; 0x4907
+    call clamp_between               ; 0x4907
     add sp, byte 6                   ; 0x490a
     push ax                          ; 0x490d
     mov ax, 0x248                    ; 0x490e

@@ -2926,7 +2926,7 @@ jumptable_5eb8_case_94:
     cwd                              ; 0x554a
     idiv cx                          ; 0x554b
     push ax                          ; 0x554d
-    call clamp                       ; 0x554e
+    call clamp_between               ; 0x554e
     add sp, byte 6                   ; 0x5551
     push ax                          ; 0x5554
     mov ax, 0x2c                     ; 0x5555
@@ -3057,7 +3057,7 @@ jumptable_5eb8_case_12:
     pop ax                           ; 0x567f
     add ax, word [bx + si + 0x6]     ; 0x5680
     push ax                          ; 0x5683
-    call clamp                       ; 0x5684
+    call clamp_between               ; 0x5684
     add sp, byte 6                   ; 0x5687
     push ax                          ; 0x568a
     mov ax, 0x2c                     ; 0x568b
@@ -3485,7 +3485,7 @@ jumptable_5eb8_case_78:
     pop ax                           ; 0x5a7f
     add ax, word [bx + si + 0x2]     ; 0x5a80
     push ax                          ; 0x5a83
-    call clamp                       ; 0x5a84
+    call clamp_between               ; 0x5a84
     add sp, byte 6                   ; 0x5a87
     push ax                          ; 0x5a8a
     mov ax, 0x2c                     ; 0x5a8b
@@ -3568,7 +3568,7 @@ jumptable_5eb8_case_97:
     pop ax                           ; 0x5b49
     add ax, word [bx + si + 0x6]     ; 0x5b4a
     push ax                          ; 0x5b4d
-    call clamp                       ; 0x5b4e
+    call clamp_between               ; 0x5b4e
     add sp, byte 6                   ; 0x5b51
     push ax                          ; 0x5b54
     mov ax, 0x2c                     ; 0x5b55
@@ -3618,7 +3618,7 @@ jumptable_5eb8_case_97:
     pop ax                           ; 0x5bc2
     add ax, word [bx + si + 0x2]     ; 0x5bc3
     push ax                          ; 0x5bc6
-    call clamp                       ; 0x5bc7
+    call clamp_between               ; 0x5bc7
     add sp, byte 6                   ; 0x5bca
     push ax                          ; 0x5bcd
     mov ax, 0x2c                     ; 0x5bce

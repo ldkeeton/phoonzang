@@ -34,7 +34,7 @@ api_idx_0002_KQIK:
     mov ax, 1
     push ax
     push word [bp + 0x6]
-    call clamp
+    call clamp_between
     add sp, byte 6
     mov word [bp + 0x6], ax
     mov ax, 0x248
@@ -62,7 +62,7 @@ api_idx_0002_KQIK:
     mov al, byte [bx + 0x5e37]
     sub ah, ah
     push ax
-    call clamp
+    call clamp_between
     add sp, byte 6
     push ax
     mov ax, 0x248
@@ -92,7 +92,7 @@ api_idx_0002_KQIK:
     mov al, byte [bx + 0x5e38]
     sub ah, ah
     push ax
-    call clamp
+    call clamp_between
     add sp, byte 6
     push ax
     mov ax, 0x248

@@ -20,7 +20,7 @@ loc_NJOH:
     sub ah, ah
     add ax, word [bp + 0xa]
     push ax
-    call clamp
+    call clamp_between
     add sp, byte 6
     push ax
     mov ax, 0x248

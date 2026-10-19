@@ -995,7 +995,7 @@ jumptable_1fa3_case_12:
     mov ax, word [bx + 0x5c1c]       ; 0x1d46
     sub ax, cx                       ; 0x1d4a
     push ax                          ; 0x1d4c
-    call clamp                       ; 0x1d4d
+    call clamp_between               ; 0x1d4d
     add sp, byte 6                   ; 0x1d50
     push ax                          ; 0x1d53
     mov ax, 0x248                    ; 0x1d54
@@ -1109,7 +1109,7 @@ jumptable_1fa3_case_15:
     sub ax, cx                       ; 0x1e4b
     inc ax                           ; 0x1e4d
     push ax                          ; 0x1e4e
-    call clamp                       ; 0x1e4f
+    call clamp_between               ; 0x1e4f
     add sp, byte 6                   ; 0x1e52
     push ax                          ; 0x1e55
     mov ax, 0x248                    ; 0x1e56

@@ -101,7 +101,7 @@ api_idx_001c_VLRT:
     mov ax, word [bp - 0x000c]
     sub ax, cx
     push ax
-    call clamp
+    call clamp_between
     add sp, byte 6
     mov word [bp - 0x000c], ax
 @..api_idx_001c_VLRT.l8:
@@ -139,7 +139,7 @@ api_idx_001c_VLRT:
     pop ax
     add ax, cx
     push ax
-    call clamp
+    call clamp_between
     add sp, byte 6
     mov word [bp - 0x000e], ax
     mov ax, 0x15e
@@ -218,7 +218,7 @@ api_idx_001c_VLRT:
     mov ax, word [bp - 0x000e]
     add ax, word [bp + 0x8]
     push ax
-    call clamp
+    call clamp_between
     add sp, byte 6
     mov word [bp - 0x000e], ax
     mov ax, 0x3d
