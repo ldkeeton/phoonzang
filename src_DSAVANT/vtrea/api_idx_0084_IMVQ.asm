@@ -7,7 +7,7 @@ api_idx_0084_IMVQ:
 @..api_idx_0084_IMVQ.l1:
     mov ax, 0x14                     ; 0x25b8
     imul word [bp - 0x0002]          ; 0x25bb
-    add ax, 0xe38                    ; 0x25be
+    add ax, bss_0e38                 ; 0x25be
     push ax                          ; 0x25c1
     mov ax, word [bp - 0x0002]       ; 0x25c2
     shl ax, 1                        ; 0x25c5
@@ -82,7 +82,7 @@ api_idx_0084_IMVQ:
     push ax                          ; 0x2685
     mov ax, 0x248                    ; 0x2686
     imul word [bp + 0x4]             ; 0x2689
-    add ax, 0x5bf4                   ; 0x268c
+    add ax, bss_5bf4                 ; 0x268c
     push ax                          ; 0x268f
     call aztec_strlen                ; 0x2690
     pop cx                           ; 0x2693
@@ -102,7 +102,7 @@ api_idx_0084_IMVQ:
     push ax                          ; 0x26b3
     mov ax, 0x248                    ; 0x26b4
     imul word [bp + 0x4]             ; 0x26b7
-    add ax, 0x5bf4                   ; 0x26ba
+    add ax, bss_5bf4                 ; 0x26ba
     push ax                          ; 0x26bd
     call ds_string_loc_QRJV          ; 0x26be
     add sp, byte 4                   ; 0x26c1
@@ -232,7 +232,7 @@ api_idx_0084_IMVQ:
     mov ax, word [bp - 0x0002]       ; 0x27e5
     shl ax, 1                        ; 0x27e8
     mov bx, ax                       ; 0x27ea
-    push word [bx - 0x6dd0]          ; 0x27ec
+    push word [bx + bss_9230]        ; 0x27ec
     mov ax, word [bp - 0x0002]       ; 0x27f0
     mov cx, 4                        ; 0x27f3
     cwd                              ; 0x27f6
@@ -1319,7 +1319,7 @@ jumptable_34f1_case_5:
     mov word [bp - 0x0002], ax       ; 0x31db
     shl ax, 1                        ; 0x31de
     mov bx, ax                       ; 0x31e0
-    cmp word [bx - 0x6dd0], byte 0   ; 0x31e2
+    cmp word [bx + bss_9230], byte 0 ; 0x31e2
     je short @..api_idx_0084_IMVQ.l35 ; 0x31e7
     jmp near @..api_idx_0084_IMVQ.l44 ; 0x31e9
 @..api_idx_0084_IMVQ.l35:
@@ -1329,7 +1329,7 @@ jumptable_34f1_case_5:
     mov ax, word [bp - 0x0004]       ; 0x31f6
     shl ax, 1                        ; 0x31f9
     mov bx, ax                       ; 0x31fb
-    cmp word [bx - 0x6dd0], byte 0   ; 0x31fd
+    cmp word [bx + bss_9230], byte 0 ; 0x31fd
     je short @..api_idx_0084_IMVQ.l37 ; 0x3202
     inc word [bp - 0x007a]           ; 0x3204
 @..api_idx_0084_IMVQ.l37:
@@ -1340,8 +1340,8 @@ jumptable_34f1_case_5:
     mov ax, word [bp - 0x0002]       ; 0x3212
     shl ax, 1                        ; 0x3215
     mov bx, ax                       ; 0x3217
-    mov word [bx - 0x6dd0], 1        ; 0x3219
-    push word [bx - 0x6dd0]          ; 0x321f
+    mov word [bx + bss_9230], 1      ; 0x3219
+    push word [bx + bss_9230]        ; 0x321f
     mov ax, word [bp - 0x0002]       ; 0x3223
     mov cx, 4                        ; 0x3226
     cwd                              ; 0x3229
@@ -1497,8 +1497,8 @@ jumptable_34f1_case_5:
     mov ax, word [bp - 0x0002]       ; 0x3396
     shl ax, 1                        ; 0x3399
     mov bx, ax                       ; 0x339b
-    mov word [bx - 0x6dd0], 0        ; 0x339d
-    push word [bx - 0x6dd0]          ; 0x33a3
+    mov word [bx + bss_9230], 0      ; 0x339d
+    push word [bx + bss_9230]        ; 0x33a3
     mov ax, word [bp - 0x0002]       ; 0x33a7
     mov cx, 4                        ; 0x33aa
     cwd                              ; 0x33ad

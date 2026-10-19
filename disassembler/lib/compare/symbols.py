@@ -47,7 +47,7 @@ def _host_space_limit(segments):
 
 
 def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
-                         ds_starts=frozenset()):
+                         ds_starts=frozenset(), indexed=True):
     """Choose a segment-correct symbol for every absolute memory operand.
 
     Returns ``(mem_symbols, mem_equ)`` where ``mem_symbols`` maps
@@ -69,7 +69,9 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
     displacement is the start of a named object: one this binary addresses
     absolutely, a known data name, or a host-space start another binary names
     (*ds_starts*, the build's union).  A displacement in the DS range is not
-    enough: record field offsets (``[si + 0x1a1]``) live there too.
+    enough: record field offsets (``[si + 0x1a1]``) live there too.  With
+    *indexed* false that pass is left to the caller, which runs
+    :func:`_resolve_indexed_symbols` once the immediates have been named too.
     """
     if segment_flow is None:
         return {}, {}
@@ -109,8 +111,9 @@ def _resolve_mem_symbols(insns, segment_flow, segments, label_map, start_offset,
                 equ.setdefault(name, addr)
                 symbols[(insn.address, idx)] = name
                 named.add(addr)
-    symbols.update(_resolve_indexed_symbols(
-        insns, segment_flow, segments, named, ds_starts, equ))
+    if indexed:
+        symbols.update(_resolve_indexed_symbols(
+            insns, segment_flow, segments, named, ds_starts, equ))
     return symbols, equ
 
 
@@ -127,9 +130,7 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
     from lib.segdataflow import DATA
     from lib.compare.records import DS_INDEX_MIN
 
-    limit = _host_space_limit(segments)
-    starts = (set(named) | set(getattr(segments, 'data_names', {}))
-              | {a for a in ds_starts if limit is None or a < limit})
+    starts = _object_starts(segments, named, ds_starts)
     symbols = {}
     for insn in insns:
         for idx, op in enumerate(insn.operands):
@@ -145,6 +146,42 @@ def _resolve_indexed_symbols(insns, segment_flow, segments, named, ds_starts,
             name = data_symbol(segments, addr)
             equ.setdefault(name, addr)
             symbols[(insn.address, idx)] = name
+    return symbols
+
+
+def _object_starts(segments, named, ds_starts):
+    """DS offsets known to start an object: *named* here, a data name, or a
+    host-space start another binary names (*ds_starts*)."""
+    limit = _host_space_limit(segments)
+    return (set(named) | set(getattr(segments, 'data_names', {}))
+            | {a for a in ds_starts if limit is None or a < limit})
+
+
+def _resolve_index_offset_symbols(insns, segment_flow, segments, named,
+                                  ds_starts, equ, resolved):
+    """Symbols for a DS table start added to an index.
+
+    ``imul word [bp + 4]; add ax, 0x5bf4`` is the immediate spelling of
+    ``[bx + 0x5bf4]``, so it binds under the same proof as
+    :func:`_resolve_indexed_symbols`: the constant starts a named object.  A
+    sum used through another segment, or a site already in *resolved*, is
+    left alone.
+    """
+    from lib.segdataflow import index_offset_immediates, DATA
+    from lib.compare.records import DS_INDEX_MIN
+
+    starts = _object_starts(segments, named, ds_starts)
+    by_addr = {insn.address: insn for insn in insns}
+    symbols = {}
+    for key, space in index_offset_immediates(insns, segment_flow).items():
+        if key in resolved or space not in (None, DATA):
+            continue
+        value = by_addr[key[0]].operands[1].imm & 0xFFFF
+        if value < DS_INDEX_MIN or value not in starts:
+            continue
+        name = data_symbol(segments, value)
+        equ.setdefault(name, value)
+        symbols[key] = str(name)
     return symbols
 
 

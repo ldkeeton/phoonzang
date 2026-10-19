@@ -98,7 +98,7 @@ api_idx_0072_OUII:
     dec ax                           ; 0x2086
     mov word [bp - 0x0002], ax       ; 0x2087
     mov bx, ax                       ; 0x208a
-    cmp byte [bx - 0x6e12], 0x5c     ; 0x208c
+    cmp byte [bx + bss_91ee], 0x5c   ; 0x208c
     je short @..api_idx_0072_OUII.l4 ; 0x2091
     mov byte [bx - 0x6e11], 0x5c     ; 0x2093
     mov byte [bx - 0x6e10], 0        ; 0x2098
@@ -432,7 +432,7 @@ api_idx_0072_OUII:
     mov word [bx + 0x69bc], ax       ; 0x238f
     mov ax, 0x248                    ; 0x2393
     imul word [bss_69c8]             ; 0x2396
-    add ax, 0x5bf4                   ; 0x239a
+    add ax, bss_5bf4                 ; 0x239a
     mov word [bp - 0x0014], ax       ; 0x239d
     mov ax, word [bss_9426]          ; 0x23a0
     push ax                          ; 0x23a3
@@ -1630,7 +1630,7 @@ jumptable_2af5:
     mov ax, word [bss_830c]          ; 0x2f95
     mov cx, 4                        ; 0x2f98
     shl ax, cl                       ; 0x2f9b
-    add ax, 0x5642                   ; 0x2f9d
+    add ax, bss_5642                 ; 0x2f9d
     push ax                          ; 0x2fa0
     call set_bitmap_bit              ; 0x2fa1
     add sp, byte 6                   ; 0x2fa4
@@ -1641,7 +1641,7 @@ jumptable_2af5:
     mov ax, word [bss_830c]          ; 0x2faf
     mov cx, 4                        ; 0x2fb2
     shl ax, cl                       ; 0x2fb5
-    add ax, 0x5642                   ; 0x2fb7
+    add ax, bss_5642                 ; 0x2fb7
     push ax                          ; 0x2fba
     call set_bitmap_bit              ; 0x2fbb
     add sp, byte 6                   ; 0x2fbe

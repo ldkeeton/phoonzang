@@ -33,7 +33,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x05bd
     mov ax, 0x248                    ; 0x05be
     imul word [bp + 0x4]             ; 0x05c1
-    add ax, 0x5bf4                   ; 0x05c4
+    add ax, bss_5bf4                 ; 0x05c4
     push ax                          ; 0x05c7
     call aztec_strlen                ; 0x05c8
     pop cx                           ; 0x05cb
@@ -52,7 +52,7 @@ api_idx_007c_MOJH:
     push ax                          ; 0x05e8
     mov ax, 0x248                    ; 0x05e9
     imul word [bp + 0x4]             ; 0x05ec
-    add ax, 0x5bf4                   ; 0x05ef
+    add ax, bss_5bf4                 ; 0x05ef
     push ax                          ; 0x05f2
     call ds_string_loc_QRJV          ; 0x05f3
     add sp, byte 4                   ; 0x05f6

@@ -32,7 +32,7 @@ api_idx_0002_OGRO:
     push ax
     mov ax, 0x14
     imul word [bp - 0x0002]
-    add ax, 0xe38
+    add ax, bss_0e38
     push ax
     call ds_string_loc_QRJV
     add sp, byte 4

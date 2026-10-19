@@ -61,7 +61,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     push ax                          ; 0x1e13
     mov ax, 0x248                    ; 0x1e14
     imul word [bp + 0x4]             ; 0x1e17
-    add ax, 0x5bf4                   ; 0x1e1a
+    add ax, bss_5bf4                 ; 0x1e1a
     push ax                          ; 0x1e1d
     call ds_string_loc_QRJV          ; 0x1e1e
     add sp, byte 4                   ; 0x1e21

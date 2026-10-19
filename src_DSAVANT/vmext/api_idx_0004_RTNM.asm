@@ -65,7 +65,7 @@ api_idx_0004_RTNM:
     mov cx, ax                       ; 0x20ba
     mov ax, word [bp + 0x6]          ; 0x20bc
     sub ax, cx                       ; 0x20bf
-    mov word [bx - 0x6d0c], ax       ; 0x20c1
+    mov word [bx + bss_92f4], ax     ; 0x20c1
     cmp word [bp + 0x1a], byte 0     ; 0x20c5
     je short @..api_idx_0004_RTNM.l5 ; 0x20c9
     mov ax, 0x15e                    ; 0x20cb
@@ -93,7 +93,7 @@ api_idx_0004_RTNM:
     mov cx, 0x64                     ; 0x2101
     cwd                              ; 0x2104
     idiv cx                          ; 0x2105
-    sub word [bx - 0x6d0c], ax       ; 0x2107
+    sub word [bx + bss_92f4], ax     ; 0x2107
 @..api_idx_0004_RTNM.l5:
     mov ax, word [dseg_03dc]         ; 0x210b
     sub ax, word [bp - 0x0004]       ; 0x210e
@@ -130,7 +130,7 @@ api_idx_0004_RTNM:
     idiv cx                          ; 0x215a
     add ax, word [bp - 0x0002]       ; 0x215c
     add ax, word [bp + 0x6]          ; 0x215f
-    mov word [bx - 0x6d0c], ax       ; 0x2162
+    mov word [bx + bss_92f4], ax     ; 0x2162
     cmp word [bp + 0x1a], byte 0     ; 0x2166
     je short @..api_idx_0004_RTNM.l8 ; 0x216a
     mov ax, 0x15e                    ; 0x216c
@@ -158,7 +158,7 @@ api_idx_0004_RTNM:
     mov cx, 0x64                     ; 0x21a2
     cwd                              ; 0x21a5
     idiv cx                          ; 0x21a6
-    sub word [bx - 0x6d0c], ax       ; 0x21a8
+    sub word [bx + bss_92f4], ax     ; 0x21a8
 @..api_idx_0004_RTNM.l8:
     mov ax, 0x11                     ; 0x21ac
     imul word [bss_92f2]             ; 0x21af
@@ -184,7 +184,7 @@ api_idx_0004_RTNM:
     imul word [bss_92f2]             ; 0x21e2
     mov bx, ax                       ; 0x21e6
     pop ax                           ; 0x21e8
-    mov word [bx - 0x6d0c], ax       ; 0x21e9
+    mov word [bx + bss_92f4], ax     ; 0x21e9
     mov ax, word [bp + 0x8]          ; 0x21ed
     mov word [bx - 0x6d0a], ax       ; 0x21f0
 @..api_idx_0004_RTNM.l10:
@@ -197,7 +197,7 @@ api_idx_0004_RTNM:
     imul word [bss_92f2]             ; 0x2200
     mov bx, ax                       ; 0x2204
     pop ax                           ; 0x2206
-    mov word [bx - 0x6d0c], ax       ; 0x2207
+    mov word [bx + bss_92f4], ax     ; 0x2207
     mov ax, word [bp - 0x0004]       ; 0x220b
     add ax, word [bp + 0x8]          ; 0x220e
     mov word [bx - 0x6d0a], ax       ; 0x2211
@@ -210,7 +210,7 @@ api_idx_0004_RTNM:
     imul word [bss_92f2]             ; 0x221e
     mov bx, ax                       ; 0x2222
     pop ax                           ; 0x2224
-    mov word [bx - 0x6d0c], ax       ; 0x2225
+    mov word [bx + bss_92f4], ax     ; 0x2225
     mov ax, word [bp + 0x8]          ; 0x2229
     mov word [bx - 0x6d0a], ax       ; 0x222c
 @..api_idx_0004_RTNM.l14:

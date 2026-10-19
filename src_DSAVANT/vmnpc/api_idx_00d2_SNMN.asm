@@ -4,7 +4,7 @@ api_idx_00d2_SNMN:
     call aztec_csav                  ; 0x6321
     mov ax, 0x248                    ; 0x6324
     imul word [bp + 0x4]             ; 0x6327
-    add ax, 0x5bf4                   ; 0x632a
+    add ax, bss_5bf4                 ; 0x632a
     push ax                          ; 0x632d
     lea ax, word [bp - 0x00c4]       ; 0x632e
     push ax                          ; 0x6332
@@ -339,7 +339,7 @@ jumptable_6599:
     push ax                          ; 0x6652
     mov ax, 0x248                    ; 0x6653
     imul word [bp + 0x4]             ; 0x6656
-    add ax, 0x5bf4                   ; 0x6659
+    add ax, bss_5bf4                 ; 0x6659
     push ax                          ; 0x665c
     lea ax, word [bp - 0x005a]       ; 0x665d
     push ax                          ; 0x6660

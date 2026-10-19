@@ -59,7 +59,7 @@ loc_RVKS:
     mov ax, word [bss_830c]          ; 0x6fcd
     mov cx, 4                        ; 0x6fd0
     shl ax, cl                       ; 0x6fd3
-    add ax, 0x5642                   ; 0x6fd5
+    add ax, bss_5642                 ; 0x6fd5
     push ax                          ; 0x6fd8
     call set_bitmap_bit              ; 0x6fd9
     add sp, byte 6                   ; 0x6fdc

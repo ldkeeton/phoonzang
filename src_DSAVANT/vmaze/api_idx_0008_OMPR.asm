@@ -20,7 +20,7 @@ api_idx_0008_OMPR:
     imul word [bp + 0x4]             ; 0xa5e4
     add ax, word [bp - 0x0006]       ; 0xa5e7
     mov bx, ax                       ; 0xa5ea
-    cmp byte [bx - 0x63be], 0        ; 0xa5ec
+    cmp byte [bx + bss_9c42], 0      ; 0xa5ec
     je short @..api_idx_0008_OMPR.l4 ; 0xa5f1
     jmp near @..api_idx_0008_OMPR.l16 ; 0xa5f3
 @..api_idx_0008_OMPR.l4:

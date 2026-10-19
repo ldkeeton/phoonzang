@@ -37,7 +37,7 @@ ds_loc_UQOV:
     xor bx, bx                       ; 0x3a3c
     mov cx, word [bx + 0xa]          ; 0x3a3e
     mul cx                           ; 0x3a41
-    add ax, 0x110                    ; 0x3a43
+    add ax, dseg_0110                ; 0x3a43
     mov dx, ds                       ; 0x3a46
     pop es                           ; 0x3a48
     pop ds                           ; 0x3a49

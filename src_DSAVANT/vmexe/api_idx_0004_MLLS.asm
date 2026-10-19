@@ -82,7 +82,7 @@ api_idx_0004_MLLS:
     push ax                          ; 0x03d6
     mov ax, 0x248                    ; 0x03d7
     imul word [bp + 0x4]             ; 0x03da
-    add ax, 0x5bf4                   ; 0x03dd
+    add ax, bss_5bf4                 ; 0x03dd
     push ax                          ; 0x03e0
     call aztec_strlen                ; 0x03e1
     pop cx                           ; 0x03e4
@@ -121,7 +121,7 @@ api_idx_0004_MLLS:
     push ax                          ; 0x042a
     mov ax, 0x248                    ; 0x042b
     imul word [bp + 0x4]             ; 0x042e
-    add ax, 0x5bf4                   ; 0x0431
+    add ax, bss_5bf4                 ; 0x0431
     push ax                          ; 0x0434
     call ds_string_loc_QRJV          ; 0x0435
     add sp, byte 4                   ; 0x0438

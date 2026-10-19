@@ -22,13 +22,13 @@ loc_PVJJ:
     push ax                          ; 0x692e
     mov ax, 0x14                     ; 0x692f
     imul word [bp - 0x0008]          ; 0x6932
-    add ax, 0xe38                    ; 0x6935
+    add ax, bss_0e38                 ; 0x6935
     push ax                          ; 0x6938
     call aztec_strcpy                ; 0x6939
     add sp, byte 4                   ; 0x693c
     mov ax, 0x14                     ; 0x693f
     imul word [bp - 0x0008]          ; 0x6942
-    add ax, 0xe38                    ; 0x6945
+    add ax, bss_0e38                 ; 0x6945
     push ax                          ; 0x6948
     call aztec_strlen                ; 0x6949
     pop cx                           ; 0x694c

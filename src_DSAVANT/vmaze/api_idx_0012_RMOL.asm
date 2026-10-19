@@ -24,9 +24,9 @@ api_idx_0012_RMOL:
     shl cx, 1                        ; 0x469a
     add ax, cx                       ; 0x469c
     mov bx, ax                       ; 0x469e
-    cmp word [bx - 0x6d92], byte 0   ; 0x46a0
+    cmp word [bx + bss_926e], byte 0 ; 0x46a0
     jne short @..api_idx_0012_RMOL.l4 ; 0x46a5
-    cmp word [bx - 0x6d14], byte 0   ; 0x46a7
+    cmp word [bx + bss_92ec], byte 0 ; 0x46a7
     jne short @..api_idx_0012_RMOL.l4 ; 0x46ac
     jmp near @..api_idx_0012_RMOL.l20 ; 0x46ae
 @..api_idx_0012_RMOL.l4:
@@ -116,11 +116,11 @@ api_idx_0012_RMOL:
     shl cx, 1                        ; 0x475d
     add ax, cx                       ; 0x475f
     mov bx, ax                       ; 0x4761
-    cmp word [bx - 0x6d92], byte 0   ; 0x4763
+    cmp word [bx + bss_926e], byte 0 ; 0x4763
     jne short @..api_idx_0012_RMOL.l10 ; 0x4768
     jmp near @..api_idx_0012_RMOL.l20 ; 0x476a
 @..api_idx_0012_RMOL.l10:
-    mov cx, word [bx - 0x6d92]       ; 0x476d
+    mov cx, word [bx + bss_926e]     ; 0x476d
     dec cx                           ; 0x4771
     mov ax, word [bss_82ee]          ; 0x4772
     sub ax, cx                       ; 0x4775
@@ -217,7 +217,7 @@ api_idx_0012_RMOL:
     imul word [bp + 0x4]             ; 0x483f
     add ax, word [bp + 0x6]          ; 0x4842
     mov bx, ax                       ; 0x4845
-    mov al, byte [bx - 0x6e0f]       ; 0x4847
+    mov al, byte [bx + bss_91f1]     ; 0x4847
     sub ah, ah                       ; 0x484b
     jmp near @..api_idx_0012_RMOL.l36 ; 0x484d
 @..api_idx_0012_RMOL.l21:
@@ -497,7 +497,7 @@ api_idx_0012_RMOL:
     imul word [bp + 0x4]             ; 0x4aa5
     add ax, word [bp + 0x6]          ; 0x4aa8
     mov bx, ax                       ; 0x4aab
-    mov al, byte [bx - 0x6e28]       ; 0x4aad
+    mov al, byte [bx + bss_91d8]     ; 0x4aad
     sub ah, ah                       ; 0x4ab1
     jmp near @..api_idx_0012_RMOL.l45 ; 0x4ab3
 jumptable_4b6b_case_1:
@@ -611,9 +611,9 @@ jumptable_4b6b:
     shl cx, 1                        ; 0x4b94
     add ax, cx                       ; 0x4b96
     mov bx, ax                       ; 0x4b98
-    cmp word [bx - 0x6dc4], byte 0   ; 0x4b9a
+    cmp word [bx + bss_923c], byte 0 ; 0x4b9a
     jne short @..api_idx_0012_RMOL.l48 ; 0x4b9f
-    cmp word [bx - 0x6d46], byte 0   ; 0x4ba1
+    cmp word [bx + bss_92ba], byte 0 ; 0x4ba1
     jne short @..api_idx_0012_RMOL.l48 ; 0x4ba6
     jmp near @..api_idx_0012_RMOL.l60 ; 0x4ba8
 @..api_idx_0012_RMOL.l48:
@@ -674,11 +674,11 @@ jumptable_4b6b:
     shl cx, 1                        ; 0x4c24
     add ax, cx                       ; 0x4c26
     mov bx, ax                       ; 0x4c28
-    cmp word [bx - 0x6dc4], byte 0   ; 0x4c2a
+    cmp word [bx + bss_923c], byte 0 ; 0x4c2a
     jne short @..api_idx_0012_RMOL.l54 ; 0x4c2f
     jmp near @..api_idx_0012_RMOL.l60 ; 0x4c31
 @..api_idx_0012_RMOL.l54:
-    mov cx, word [bx - 0x6dc4]       ; 0x4c34
+    mov cx, word [bx + bss_923c]     ; 0x4c34
     dec cx                           ; 0x4c38
     mov ax, word [bss_82ee]          ; 0x4c39
     sub ax, cx                       ; 0x4c3c
@@ -759,7 +759,7 @@ jumptable_4b6b:
     imul word [bp + 0x4]             ; 0x4ce7
     add ax, word [bp + 0x6]          ; 0x4cea
     mov bx, ax                       ; 0x4ced
-    cmp byte [bx - 0x6d60], 3        ; 0x4cef
+    cmp byte [bx + bss_92a0], 3      ; 0x4cef
     je short @..api_idx_0012_RMOL.l62 ; 0x4cf4
     jmp near @..api_idx_0012_RMOL.l68 ; 0x4cf6
 @..api_idx_0012_RMOL.l62:
@@ -833,9 +833,9 @@ jumptable_4b6b:
     imul word [bp + 0x4]             ; 0x4d99
     add ax, word [bp + 0x6]          ; 0x4d9c
     mov bx, ax                       ; 0x4d9f
-    cmp byte [bx - 0x6d60], 1        ; 0x4da1
+    cmp byte [bx + bss_92a0], 1      ; 0x4da1
     je short @..api_idx_0012_RMOL.l69 ; 0x4da6
-    cmp byte [bx - 0x6d60], 2        ; 0x4da8
+    cmp byte [bx + bss_92a0], 2      ; 0x4da8
     jne short @..api_idx_0012_RMOL.l71 ; 0x4dad
 @..api_idx_0012_RMOL.l69:
     mov ax, word [bp + 0x4]          ; 0x4daf
@@ -867,7 +867,7 @@ jumptable_4b6b:
     imul word [bp + 0x4]             ; 0x4de7
     add ax, word [bp + 0x6]          ; 0x4dea
     mov bx, ax                       ; 0x4ded
-    mov al, byte [bx - 0x6d60]       ; 0x4def
+    mov al, byte [bx + bss_92a0]     ; 0x4def
     sub ah, ah                       ; 0x4df3
     push ax                          ; 0x4df5
     mov ax, word [bp + 0x4]          ; 0x4df6
@@ -890,7 +890,7 @@ jumptable_4b6b:
     imul word [bp + 0x4]             ; 0x4e21
     add ax, word [bp + 0x6]          ; 0x4e24
     mov bx, ax                       ; 0x4e27
-    cmp byte [bx - 0x6ddd], 0        ; 0x4e29
+    cmp byte [bx + bss_9223], 0      ; 0x4e29
     jne short @..api_idx_0012_RMOL.l72 ; 0x4e2e
     jmp near @..api_idx_0012_RMOL.l82 ; 0x4e30
 @..api_idx_0012_RMOL.l72:
@@ -901,7 +901,7 @@ jumptable_4b6b:
     jne short @..api_idx_0012_RMOL.l73 ; 0x4e3f
     cmp word [bss_8f22], byte 0      ; 0x4e41
     je short @..api_idx_0012_RMOL.l73 ; 0x4e46
-    mov al, byte [bx - 0x6ddd]       ; 0x4e48
+    mov al, byte [bx + bss_9223]     ; 0x4e48
     sub ah, ah                       ; 0x4e4c
     mov word [bss_8f20], ax          ; 0x4e4e
     jmp near @..api_idx_0012_RMOL.l82 ; 0x4e51
@@ -914,7 +914,7 @@ jumptable_4b6b:
     je short @..api_idx_0012_RMOL.l74 ; 0x4e62
     jmp near @..api_idx_0012_RMOL.l82 ; 0x4e64
 @..api_idx_0012_RMOL.l74:
-    mov al, byte [bx - 0x6ddd]       ; 0x4e67
+    mov al, byte [bx + bss_9223]     ; 0x4e67
     sub ah, ah                       ; 0x4e6b
     mov cx, ax                       ; 0x4e6d
     dec ax                           ; 0x4e6f

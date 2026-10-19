@@ -34,14 +34,28 @@ each literal operand or `dw` that should have moved and did not. Ratchet:
 | indexed DS bound | 51 | 545 | 0 |
 | pointer arguments | 57 | 356 | 0 |
 | driver tables | 29 | 356 | 0 |
-| C data names | **29** | **358** | 0 |
+| C data names | 29 | 358 | 0 |
+| bc4e46ac (names cleanup) | 26 | 364 | 0 |
+| indexed after immediates | 26 | 262 | 0 |
+| index + DS table start | **26** | **151** | 0 |
 
 The oracle is frozen. All rows were measured with its final version, in which
 a displacement counts only in the segment the edit moves and `bp` frame slots
 never count; that change cut 14–16 false code findings per tree and left data
 unchanged.
 
-The last row binds an indexed DS displacement (`[bx - 0x7b7e]` →
+The last row binds a DS table start added to an index: `mov ax, 0x248;
+imul word [bp + 4]; add ax, 0x5bf4` is the immediate spelling of
+`[bx + 0x5bf4]`, so it binds under the indexed rule's proof, that the constant
+starts a named object (`symbols._resolve_index_offset_symbols`, over
+`segdataflow.index_offset_immediates`). The row before it runs the indexed
+pass after the immediates are named, so a start this binary names only
+through an immediate (`mov ax, bss_91ee`) binds `[bx - 0x6e12]` too. The 26
+code findings are all constants equal to a label by chance: ega's `0x4000`/
+`0x3a00`, vmnpc's csav frame sizes, vmaze `0x7fb`, and six overlay-own DS
+string arguments in vpclv/vpcmk/vpops (real F9, counted again on the data side).
+
+The indexed DS bound row binds an indexed DS displacement (`[bx - 0x7b7e]` →
 `[bx + bss_8482]`) when it starts an object some binary of the host family
 names absolutely (the build's `ds_starts` union); a field offset such as
 `[bx + 0x19f]` stays a number. 662 of the 666 indexed findings went; the 4
@@ -96,10 +110,10 @@ Auxiliary counters (all in `BASELINE_TOTALS`, all ratchets that only fall):
 
 - `names_used` **7** / `names_inert` **0**: named frozen addresses the tree
   refers to / does not.
-- `hidden_flow` **150**: near call/jmp sites emitted as bytes whose target the
+- `hidden_flow` **134**: near call/jmp sites emitted as bytes whose target the
   source shows as code (a lower bound; it rises mechanically as fragments move
   into `shared/` and lose their `; 0x` anchors).
-- `str_imm` **746** / `ds_index` **2178**: DS addresses that code spells as
+- `str_imm` **406** / `ds_index` **2048**: DS addresses that code spells as
   numbers (Section 4). Not in `total`: each is a shape test on the binary's data
   segment, so a few hits are numbers.
 
@@ -117,7 +131,7 @@ Auxiliary counters (all in `BASELINE_TOTALS`, all ratchets that only fall):
 | F6 | numeric `dw` in a `; literal` table | done: 223 switch keys, each compared by the recognized helper |
 | F7 | pointer word in data | done: scorer + corpus + `pointer_arrays` |
 | F8 | MZ relocation-table offset word | in scope |
-| F9 | immediates and displacements that are addresses | **open**: `str_imm` 746, `ds_index` 2178 |
+| F9 | immediates and displacements that are addresses | **open**: `str_imm` 406, `ds_index` 2048 |
 | F10 | `; 0x<F>` offset comments | comments, assemble to nothing |
 
 A literal table word and an unresolved pointer render alike (`dw 0x…. ; 0x<slot>`);
@@ -194,17 +208,22 @@ and supply the "inside a string" refusal.
    `count_string_immediates` / `count_ds_index`, with each binary's own DS (an MZ
    image's; an overlay's is the host's plus its data at `o_dorg`; a driver's is
    its image at `CS:0x100`):
-   - `str_imm` **746**: a `mov` immediate that is a string's address. vinstall's
+   - `str_imm` **406**: a `mov` immediate that is a string's address. vinstall's
      `mov ax, 0x1630; push ax` passes `"nul"`, vmaze loads `'OTWNDATA.VGA'`, a
      driver's `mov dx, 0x10ea` names a `$`-terminated console message. Values
-     under 0x100 are left out. By binary: vinstall 144, vpcmk 123, vpcvw 108,
-     vpclv 84, ega 49, vbase 45, ds 40, …
-   - `ds_index` **2178**: a `[bx/si/di + disp]` (no override) whose displacement
+     under 0x100 are left out.
+   - `ds_index` **2048**: a `[bx/si/di + disp]` (no override) whose displacement
      is a DS address, almost all overlays indexing host arrays (`mov word
      [bx + 0x5c0c], ax`). Values under 0x100 are taken as struct fields, so a low
      table such as vinstall's `[bx + 0xa4]` is missed.
 
-   Binding either needs an **immediate-address rule**, the immediate analogue of
+   What the oracle's 151 data findings are now: ~148 `mov reg, D` (mostly
+   pushed to a callee `lib.argpointers` cannot prove reads through it), 29
+   `dw`, 8 `add` whose index is not provable (`add ax, 0x3e12` in ds
+   `TIMR`), a few interior offsets of a named object (`[bx - 0x7cdd]` =
+   `bss_8322 + 1` in `shared/api_idx_000e_VRIR.asm`), and 3 `cmp` loop bounds.
+
+   Binding the rest needs an **immediate-address rule**, the immediate analogue of
    the pointer scorer, with a consumer as the proof (a `push` to a callee that
    takes a `char *`, a `[reg + disp]` read). Drivers also have non-string cases,
    e.g. `ega`'s `add si, strict word 0x2602` rebasing onto a CS buffer.

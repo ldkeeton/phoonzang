@@ -45,7 +45,6 @@ dseg_0042 equ __zdseg_0042 - __zdseg_start
 dseg_0044 equ __zdseg_0044 - __zdseg_start
 dseg_010c equ __zdseg_010c - __zdseg_start
 dseg_010e equ __zdseg_010e - __zdseg_start
-dseg_0110 equ __zdseg_0110 - __zdseg_start
 dseg_0112 equ __zdseg_0112 - __zdseg_start
 dseg_0114 equ __zdseg_0114 - __zdseg_start
 dseg_0116 equ __zdseg_0116 - __zdseg_start
@@ -58,7 +57,6 @@ dseg_0c9f equ __zdseg_0c9f - __zdseg_start
 dseg_0cdd equ __zdseg_0cdd - __zdseg_start
 dseg_0cde equ __zdseg_0cde - __zdseg_start
 bss_0e36 equ __zbss_0e36 - __zdseg_start
-bss_0e38 equ __zbss_0e38 - __zdseg_start
 bss_0e4c equ __zbss_0e4c - __zdseg_start
 bss_2d40 equ __zbss_2d40 - __zdseg_start
 bss_5528 equ __zbss_5528 - __zdseg_start
@@ -81,7 +79,6 @@ bss_5989 equ __zbss_5989 - __zdseg_start
 bss_598a equ __zbss_598a - __zdseg_start
 bss_598b equ __zbss_598b - __zdseg_start
 bss_5b55 equ __zbss_5b55 - __zdseg_start
-bss_5bf4 equ __zbss_5bf4 - __zdseg_start
 bss_5c08 equ __zbss_5c08 - __zdseg_start
 bss_5c0a equ __zbss_5c0a - __zdseg_start
 bss_6a1e equ __zbss_6a1e - __zdseg_start
@@ -368,6 +365,7 @@ bss_598c equ __zbss_598c - __zdseg_start
 
 %include "ds/ds_app_QOOL.asm"              ; 0x10ff
 
+bss_0e38 equ __zbss_0e38 - __zdseg_start
 %include "ds/ds_app_UNSL.asm"              ; 0x1138
 
 %include "ds/ds_app_HTKI.asm"              ; 0x11de
@@ -411,6 +409,7 @@ bss_5964 equ __zbss_5964 - __zdseg_start
 
 %include "ds/ds_app_TRNH.asm"              ; 0x1cf8
 
+bss_5bf4 equ __zbss_5bf4 - __zdseg_start
 bss_5e2a equ __zbss_5e2a - __zdseg_start
 %include "ds/ds_app_LUOV.asm"              ; 0x1d81
 
@@ -728,6 +727,7 @@ cseg_384a:
     times 20 db 0
     db 0xff, 0xff
 
+dseg_0110 equ __zdseg_0110 - __zdseg_start
 %include "ds/asm_only/dos_alloc_mem.asm"            ; 0x3860
 
 %include "ds/asm_only/ds_dos_con_loc_RKPT.asm"      ; 0x3936
@@ -736,8 +736,10 @@ cseg_384a:
 
 %include "ds/asm_only/ds_dos_con_loc_RGGK.asm"      ; 0x3962
 
+; dseg_0110 equ __zdseg_0110 - __zdseg_start
 %include "ds/asm_only/dos_read_file.asm"            ; 0x398a
 
+; dseg_0110 equ __zdseg_0110 - __zdseg_start
 %include "ds/asm_only/ds_loc_UQOV.asm"              ; 0x39f6
 
 %include "ds/asm_only/gfx_entry_13.asm"             ; 0x3a50

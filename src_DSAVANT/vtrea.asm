@@ -138,6 +138,7 @@ dseg_90d5 equ __zdseg_end + (__zdseg_90d5 - __zdata_start)
 dseg_90d8 equ __zdseg_end + (__zdseg_90d8 - __zdata_start)
 dseg_90da equ __zdseg_end + (__zdseg_90da - __zdata_start)
 ; bss_911c  equ __zdseg_end + (__zobss_911c - __zdata_start)
+; bss_9230  equ __zdseg_end + (__zobss_9230 - __zdata_start)
 ; bss_9250  equ __zdseg_end + (__zobss_9250 - __zdata_start)
 %include "vtrea/api_idx_0084_IMVQ.asm"     ; 0x25ab
 

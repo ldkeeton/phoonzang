@@ -212,7 +212,9 @@ BASELINE_TOTALS = {
     # sites at offsets whose anchor moved into ``shared/`` (9 sites went).
     # Step 4 (the 24 F3 ``equ``s minted upstream) left no inert frozen name:
     # ``names_inert`` 24 -> **0**, ``total`` 26 -> **0** (both ratcheted here).
-    'names_used': 7, 'names_inert': 0, 'hidden_flow': 150,
+    # ``hidden_flow`` 150 -> **134** re-measured 2026-10-18 (the tree at
+    # bc4e46ac plus the index-start binding below).
+    'names_used': 7, 'names_inert': 0, 'hidden_flow': 134,
     'total': 0,
     # Two classes the per-file census cannot see, because telling an address
     # from a number needs the binary's data segment (plan.md section 5, "DS
@@ -227,7 +229,11 @@ BASELINE_TOTALS = {
     # that made up most of the shift oracle's drop never counted here.
     # ``str_imm`` 746 -> 408 when a constant passed into an argument its
     # routine reads memory through became a name (``lib.argpointers``).
-    'str_imm': 408, 'ds_index': 2084,
+    # ``ds_index`` 2084 -> 2048, ``str_imm`` 408 -> 406: an indexed operand
+    # binds to a start this binary names through an immediate too, and a DS
+    # table start added to an index (``imul; add ax, 0x5bf4``) binds like
+    # ``[bx + 0x5bf4]`` (``symbols._resolve_index_offset_symbols``).
+    'str_imm': 406, 'ds_index': 2048,
     # D8 (inline switch tables): ``mov cx, N; call <switch helper>`` never
     # returns; the call is followed by N-1 keys and N case targets.  The decoder
     # used to fall through the call and decode the target words as ``jcc``s,
@@ -2116,7 +2122,7 @@ class InsertBytePropertyTests(unittest.TestCase):
             self.assertEqual(original[0x8ff:0x902], b'\xbb\xda\x0b')
             self.assertEqual(original[0x456e:0x4571], b'\xbb\xda\x0b')
 
-            frag = os.path.join(d, 'vga', 'asm_only', 'dos_file_loc_HNUT.asm')
+            frag = os.path.join(d, 'vga', 'asm_only', 'load_screen.asm')
             with open(frag) as f:
                 text = f.read()
             needle = '    mov bx, data_0bda                ; 0x08ff\n'

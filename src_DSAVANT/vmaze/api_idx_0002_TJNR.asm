@@ -14,7 +14,7 @@ api_idx_0002_TJNR:
     cbw                              ; 0x8fb3
     shl ax, 1                        ; 0x8fb4
     mov bx, ax                       ; 0x8fb6
-    cmp word [bx - 0x642e], byte 0   ; 0x8fb8
+    cmp word [bx + bss_9bd2], byte 0 ; 0x8fb8
     je short @..api_idx_0002_TJNR.l6 ; 0x8fbd
 @..api_idx_0002_TJNR.l2:
     mov ax, word [bp - 0x0002]       ; 0x8fbf

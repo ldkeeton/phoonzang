@@ -43,7 +43,7 @@ api_idx_006a_QKPT:
     push ax                          ; 0xac0e
     mov ax, 0x248                    ; 0xac0f
     imul word [bp + 0x4]             ; 0xac12
-    add ax, 0x5bf4                   ; 0xac15
+    add ax, bss_5bf4                 ; 0xac15
     push ax                          ; 0xac18
     lea ax, word [bp - 0x006a]       ; 0xac19
     push ax                          ; 0xac1c

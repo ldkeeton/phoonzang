@@ -9,6 +9,8 @@ from lib.segdataflow import LOAD, DATA, PSP, UNKNOWN
 from lib.compare.symbols import (
     _resolve_declared_immediates,
     _resolve_mem_symbols,
+    _resolve_indexed_symbols,
+    _resolve_index_offset_symbols,
     _resolve_imm_symbols,
 )
 from lib.format import format_instruction
@@ -106,6 +108,20 @@ class ResolveIndexedSymbolsTest(unittest.TestCase):
         self.assertEqual(symbols[(0x200, 1)], 'bss_0500')
         self.assertEqual(equ['bss_0500'], 0x500)
 
+    def test_deferred_pass_binds_a_start_an_immediate_named(self):
+        # mov ax, [bx + 0x400]: no absolute operand names 0x400 here, so the
+        # first pass leaves it; ``mov ax, bss_0400`` elsewhere does, and the
+        # caller hands that start to the deferred pass.
+        insns = _disasm('8b870004', 0x200)
+        symbols, equ = _resolve_mem_symbols(insns, self._FLOW, _model(), {},
+                                            0x200, indexed=False)
+        self.assertEqual(symbols, {})
+        self.assertEqual(_resolve_indexed_symbols(
+            insns, self._FLOW, _model(), set(), frozenset(), equ), {})
+        symbols = _resolve_indexed_symbols(
+            insns, self._FLOW, _model(), {0x400}, frozenset(), equ)
+        self.assertEqual(symbols[(0x200, 1)], 'bss_0400')
+
     def test_overlay_ignores_union_starts_in_its_own_data(self):
         # Past ``o_dorg`` the offset names a different object in each overlay.
         class _Overlay:
@@ -118,6 +134,37 @@ class ResolveIndexedSymbolsTest(unittest.TestCase):
         symbols, _ = self._resolve('8b870004' '8b870005', segments=_Overlay(),
                                    ds_starts={0x400, 0x500})
         self.assertEqual(set(symbols), {(0x200, 1)})
+
+
+class ResolveIndexOffsetSymbolsTest(unittest.TestCase):
+    """A DS table start added to an index binds like ``[bx + start]``."""
+
+    # imul word [bp + 4] | add ax, 0x400 | push ax
+    _CODE = 'f76e04' '050004' '50'
+
+    def _resolve(self, named, resolved=None):
+        from lib.segdataflow import analyze
+        insns = _disasm(self._CODE, 0x200)
+        flow = analyze(insns, _model(), binary_data=bytes(0x3000))
+        equ = {}
+        return _resolve_index_offset_symbols(
+            insns, flow, _model(), named, frozenset(), equ,
+            resolved or {}), equ
+
+    def test_binds_a_named_start(self):
+        symbols, equ = self._resolve({0x400})
+        self.assertEqual(symbols, {(0x203, 1): 'bss_0400'})
+        self.assertEqual(equ, {'bss_0400': 0x400})
+
+    def test_a_field_offset_stays_a_number(self):
+        # No object starts at 0x400: an index plus a field offset.
+        symbols, equ = self._resolve(set())
+        self.assertEqual(symbols, {})
+        self.assertEqual(equ, {})
+
+    def test_an_operand_already_resolved_is_kept(self):
+        symbols, _ = self._resolve({0x400}, resolved={(0x203, 1): 'x'})
+        self.assertEqual(symbols, {})
 
 
 class ResolveImmSymbolsTest(unittest.TestCase):

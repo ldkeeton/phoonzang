@@ -79,7 +79,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x60b3
     mov ax, 0x248                    ; 0x60b4
     imul word [bp + 0x4]             ; 0x60b7
-    add ax, 0x5bf4                   ; 0x60ba
+    add ax, bss_5bf4                 ; 0x60ba
     push ax                          ; 0x60bd
     call aztec_strlen                ; 0x60be
     pop cx                           ; 0x60c1
@@ -99,7 +99,7 @@ api_idx_006a_NKMN:
     push ax                          ; 0x60e1
     mov ax, 0x248                    ; 0x60e2
     imul word [bp + 0x4]             ; 0x60e5
-    add ax, 0x5bf4                   ; 0x60e8
+    add ax, bss_5bf4                 ; 0x60e8
     push ax                          ; 0x60eb
     call ds_string_loc_QRJV          ; 0x60ec
     add sp, byte 4                   ; 0x60ef

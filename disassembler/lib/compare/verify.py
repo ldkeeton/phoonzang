@@ -84,6 +84,8 @@ from lib.compare.splitting import (
 )
 from lib.compare.symbols import (
     _resolve_mem_symbols,
+    _resolve_indexed_symbols,
+    _resolve_index_offset_symbols,
     _resolve_declared_immediates,
     _resolve_imm_symbols,
     _build_address_records,
@@ -545,7 +547,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
     # from the generic ``data_`` fallback below.
     mem_symbols, mem_equ = _resolve_mem_symbols(
         insns, segment_flow, segments, label_map, start_offset,
-        ds_starts=ds_starts)
+        ds_starts=ds_starts, indexed=False)
     # A constant pushed into an argument its routine reads memory through is
     # a DS address (``lib.argpointers``).
     pointer_params = {}
@@ -568,6 +570,18 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         insns, immediate_pointers, segments, label_map, mem_equ,
         start_offset, owner=name)
     mem_symbols.update(declared)
+    # An indexed operand binds to any object this binary names, however it
+    # was proven: an absolute operand, an immediate, a declared pointer
+    # (``mov ax, bss_91ee`` lets ``[bx + bss_91ee]`` bind).  The same starts
+    # bind a table start added to an index (``add ax, bss_5bf4``).
+    named = {value for sym, value in mem_equ.items()
+             if data_space(sym) in (Space.DS, Space.BSS)}
+    if segment_flow is not None:
+        mem_symbols.update(_resolve_indexed_symbols(
+            insns, segment_flow, segments, named, ds_starts, mem_equ))
+        mem_symbols.update(_resolve_index_offset_symbols(
+            insns, segment_flow, segments, named, ds_starts, mem_equ,
+            mem_symbols))
     if sidecar_use is not None:
         _note_declared_immediates(sidecar_use, immediate_pointers, declared,
                                   insn_by_addr, immediate_labels)

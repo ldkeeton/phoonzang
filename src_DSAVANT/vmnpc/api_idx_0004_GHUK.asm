@@ -8,15 +8,15 @@ api_idx_0004_GHUK:
     mov ax, word [bp - 0x0002]       ; 0x5382
     shl ax, 1                        ; 0x5385
     mov bx, ax                       ; 0x5387
-    cmp word [bx - 0x632c], byte 0   ; 0x5389
+    cmp word [bx + bss_9cd4], byte 0 ; 0x5389
     jg short @..api_idx_0004_GHUK.l2 ; 0x538e
     jmp near @..api_idx_0004_GHUK.l4 ; 0x5390
 @..api_idx_0004_GHUK.l2:
-    mov ax, word [bx - 0x632c]       ; 0x5393
+    mov ax, word [bx + bss_9cd4]     ; 0x5393
     mov cx, word [bss_9cd2]          ; 0x5397
     shl cx, 1                        ; 0x539b
     mov bx, cx                       ; 0x539d
-    mov word [bx - 0x632c], ax       ; 0x539f
+    mov word [bx + bss_9cd4], ax     ; 0x539f
     mov ax, 0x16                     ; 0x53a3
     imul word [bp - 0x0002]          ; 0x53a6
     add ax, 0x99d6                   ; 0x53a9
@@ -97,7 +97,7 @@ api_idx_0004_GHUK:
     mov ax, word [bp - 0x0002]       ; 0x5480
     shl ax, 1                        ; 0x5483
     mov bx, ax                       ; 0x5485
-    mov word [bx - 0x632c], 0        ; 0x5487
+    mov word [bx + bss_9cd4], 0      ; 0x5487
     inc word [bp - 0x0002]           ; 0x548d
 @..api_idx_0004_GHUK.l7:
     cmp word [bp - 0x0002], byte 0x1e ; 0x5490

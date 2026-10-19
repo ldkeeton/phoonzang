@@ -65,7 +65,7 @@ api_idx_0004_OVUO:
     mov cx, ax                       ; 0x362b
     mov ax, word [bp + 0x6]          ; 0x362d
     sub ax, cx                       ; 0x3630
-    mov word [bx - 0x6ce0], ax       ; 0x3632
+    mov word [bx + bss_9320], ax     ; 0x3632
     cmp word [bp + 0x1a], byte 0     ; 0x3636
     je short @..api_idx_0004_OVUO.l5 ; 0x363a
     mov ax, 0x15e                    ; 0x363c
@@ -93,7 +93,7 @@ api_idx_0004_OVUO:
     mov cx, 0x64                     ; 0x3672
     cwd                              ; 0x3675
     idiv cx                          ; 0x3676
-    sub word [bx - 0x6ce0], ax       ; 0x3678
+    sub word [bx + bss_9320], ax     ; 0x3678
 @..api_idx_0004_OVUO.l5:
     mov ax, word [dseg_03dc]         ; 0x367c
     sub ax, word [bp - 0x0004]       ; 0x367f
@@ -130,7 +130,7 @@ api_idx_0004_OVUO:
     idiv cx                          ; 0x36cb
     add ax, word [bp - 0x0002]       ; 0x36cd
     add ax, word [bp + 0x6]          ; 0x36d0
-    mov word [bx - 0x6ce0], ax       ; 0x36d3
+    mov word [bx + bss_9320], ax     ; 0x36d3
     cmp word [bp + 0x1a], byte 0     ; 0x36d7
     je short @..api_idx_0004_OVUO.l8 ; 0x36db
     mov ax, 0x15e                    ; 0x36dd
@@ -158,7 +158,7 @@ api_idx_0004_OVUO:
     mov cx, 0x64                     ; 0x3713
     cwd                              ; 0x3716
     idiv cx                          ; 0x3717
-    sub word [bx - 0x6ce0], ax       ; 0x3719
+    sub word [bx + bss_9320], ax     ; 0x3719
 @..api_idx_0004_OVUO.l8:
     mov ax, 0x11                     ; 0x371d
     imul word [bss_931e]             ; 0x3720
@@ -184,7 +184,7 @@ api_idx_0004_OVUO:
     imul word [bss_931e]             ; 0x3753
     mov bx, ax                       ; 0x3757
     pop ax                           ; 0x3759
-    mov word [bx - 0x6ce0], ax       ; 0x375a
+    mov word [bx + bss_9320], ax     ; 0x375a
     mov ax, word [bp + 0x8]          ; 0x375e
     mov word [bx - 0x6cde], ax       ; 0x3761
 @..api_idx_0004_OVUO.l10:
@@ -197,7 +197,7 @@ api_idx_0004_OVUO:
     imul word [bss_931e]             ; 0x3771
     mov bx, ax                       ; 0x3775
     pop ax                           ; 0x3777
-    mov word [bx - 0x6ce0], ax       ; 0x3778
+    mov word [bx + bss_9320], ax     ; 0x3778
     mov ax, word [bp - 0x0004]       ; 0x377c
     add ax, word [bp + 0x8]          ; 0x377f
     mov word [bx - 0x6cde], ax       ; 0x3782
@@ -210,7 +210,7 @@ api_idx_0004_OVUO:
     imul word [bss_931e]             ; 0x378f
     mov bx, ax                       ; 0x3793
     pop ax                           ; 0x3795
-    mov word [bx - 0x6ce0], ax       ; 0x3796
+    mov word [bx + bss_9320], ax     ; 0x3796
     mov ax, word [bp + 0x8]          ; 0x379a
     mov word [bx - 0x6cde], ax       ; 0x379d
 @..api_idx_0004_OVUO.l14:

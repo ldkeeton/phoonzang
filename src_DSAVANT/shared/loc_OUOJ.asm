@@ -32,7 +32,7 @@ loc_OUOJ:
     mov ax, word [bss_830c]
     mov cx, 4
     shl ax, cl
-    add ax, 0x5642
+    add ax, bss_5642
     push ax
     call set_bitmap_bit
     add sp, byte 6

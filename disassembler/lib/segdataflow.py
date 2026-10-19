@@ -224,6 +224,30 @@ def immediate_pointer_spaces(instructions, flow, limit=64):
     return result
 
 
+def index_offset_immediates(instructions, flow, limit=64):
+    """``add reg16, imm16`` sites that add a constant to an index.
+
+    Returns ``{(insn.address, 1): space}``, *space* being the segment the sum
+    is next used through, or None when no use proves one (it is pushed, say).
+    The constant is a table's start or a field offset; which, the caller
+    decides (:func:`immediate_pointer_spaces` takes a LOAD one as proven).
+    """
+    insns = sorted(instructions, key=lambda i: i.address)
+    index_of = {insn.address: k for k, insn in enumerate(insns)}
+    joins = _join_points(insns)
+    result = {}
+    for k, insn in enumerate(insns):
+        if insn.mnemonic != 'add':
+            continue
+        defined = _immediate_definition(insns, k, joins)
+        if defined is None:
+            continue
+        space, _ = _pointer_use(insns, index_of, joins, k, defined[0], flow,
+                                limit, follow_calls=True)
+        result[(insn.address, 1)] = space
+    return result
+
+
 def _immediate_definition(insns, k, joins):
     """``(register, code_only)`` when ``insns[k]`` loads an address, else None."""
     from capstone import CS_OP_REG, CS_OP_IMM, CS_OP_MEM

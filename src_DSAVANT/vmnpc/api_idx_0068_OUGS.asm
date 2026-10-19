@@ -16,7 +16,7 @@ api_idx_0068_OUGS:
     call loc_UTQS                    ; 0x51d8
     mov ax, 0x248                    ; 0x51db
     imul word [bp + 0x4]             ; 0x51de
-    add ax, 0x5bf4                   ; 0x51e1
+    add ax, bss_5bf4                 ; 0x51e1
     push ax                          ; 0x51e4
     push word [bss_9ca8]             ; 0x51e5
     mov ax, 1                        ; 0x51e9

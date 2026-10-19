@@ -33,7 +33,7 @@ api_idx_000c_RNQS:
     push ax                          ; 0x0d0a
     mov ax, word [bss_830c]          ; 0x0d0b
     shl ax, cl                       ; 0x0d0e
-    add ax, 0x5642                   ; 0x0d10
+    add ax, bss_5642                 ; 0x0d10
     push ax                          ; 0x0d13
     call aztec_movmem                ; 0x0d14
     add sp, byte 6                   ; 0x0d17

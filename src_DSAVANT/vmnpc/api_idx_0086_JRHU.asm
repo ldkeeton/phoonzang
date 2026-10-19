@@ -31,7 +31,7 @@ api_idx_0086_JRHU:
     mov cx, word [bss_9cd2]          ; 0x6e59
     shl cx, 1                        ; 0x6e5d
     mov bx, cx                       ; 0x6e5f
-    mov word [bx - 0x632c], ax       ; 0x6e61
+    mov word [bx + bss_9cd4], ax     ; 0x6e61
     inc word [bss_9cd2]              ; 0x6e65
 @..api_idx_0086_JRHU.l2:
     inc word [bp - 0x0002]           ; 0x6e69
@@ -126,7 +126,7 @@ api_idx_0086_JRHU:
     mov cx, word [bss_9cd2]          ; 0x6f45
     shl cx, 1                        ; 0x6f49
     mov bx, cx                       ; 0x6f4b
-    mov word [bx - 0x632c], ax       ; 0x6f4d
+    mov word [bx + bss_9cd4], ax     ; 0x6f4d
     inc word [bss_9cd2]              ; 0x6f51
 @..api_idx_0086_JRHU.l11:
     mov ax, word [bp - 0x0006]       ; 0x6f55
@@ -157,7 +157,7 @@ api_idx_0086_JRHU:
     mov ax, word [bp - 0x0002]       ; 0x6f8e
     shl ax, 1                        ; 0x6f91
     mov bx, ax                       ; 0x6f93
-    push word [bx - 0x632c]          ; 0x6f95
+    push word [bx + bss_9cd4]        ; 0x6f95
     lea ax, word [bp - 0x0086]       ; 0x6f99
     push ax                          ; 0x6f9d
     mov ax, 1                        ; 0x6f9e
@@ -212,7 +212,7 @@ api_idx_0086_JRHU:
     mov ax, word [bp - 0x0002]       ; 0x7013
     shl ax, 1                        ; 0x7016
     mov bx, ax                       ; 0x7018
-    push word [bx - 0x632c]          ; 0x701a
+    push word [bx + bss_9cd4]        ; 0x701a
     call loc_GMVH                    ; 0x701e
     pop cx                           ; 0x7021
     test ax, ax                      ; 0x7022

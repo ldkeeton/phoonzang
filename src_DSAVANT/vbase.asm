@@ -175,6 +175,7 @@ dseg_90db equ __zdseg_end + (__zdseg_90db - __zdata_start)
 dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
 %include "vbase/api_idx_0002_QRVU.asm"     ; 0x3fac
 
+bss_9c94 equ __zdseg_end + (__zobss_9c94 - __zdata_start)
 bss_a294 equ __zdseg_end + (__zobss_a294 - __zdata_start)
 %include "vbase/api_idx_000c_NLKU.asm"     ; 0x4060
 
@@ -203,7 +204,7 @@ bss_a294 equ __zdseg_end + (__zobss_a294 - __zdata_start)
 %include "vbase/api_idx_0062_SRKH.asm"     ; 0x4b95
 
 dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
-bss_9c94  equ __zdseg_end + (__zobss_9c94 - __zdata_start)
+; bss_9c94  equ __zdseg_end + (__zobss_9c94 - __zdata_start)
 %include "vbase/asm_only/loc_RMVR.asm"              ; 0x4d0e
 
 %include "vbase/asm_only/loc_LQIO.asm"              ; 0x606d
@@ -290,6 +291,7 @@ bss_a5b8 equ __zdseg_end + (__zobss_a5b8 - __zdata_start)
 bss_a5ba equ __zdseg_end + (__zobss_a5ba - __zdata_start)
 bss_a5bc equ __zdseg_end + (__zobss_a5bc - __zdata_start)
 bss_a5be equ __zdseg_end + (__zobss_a5be - __zdata_start)
+bss_a5c6 equ __zdseg_end + (__zobss_a5c6 - __zdata_start)
 bss_a5ce equ __zdseg_end + (__zobss_a5ce - __zdata_start)
 bss_a5d0 equ __zdseg_end + (__zobss_a5d0 - __zdata_start)
 bss_a5d2 equ __zdseg_end + (__zobss_a5d2 - __zdata_start)
@@ -317,7 +319,7 @@ dseg_9151 equ __zdseg_end + (__zdseg_9151 - __zdata_start)
 ; bss_a5b8  equ __zdseg_end + (__zobss_a5b8 - __zdata_start)
 ; bss_a5ba  equ __zdseg_end + (__zobss_a5ba - __zdata_start)
 ; bss_a5bc  equ __zdseg_end + (__zobss_a5bc - __zdata_start)
-bss_a5c6  equ __zdseg_end + (__zobss_a5c6 - __zdata_start)
+; bss_a5c6  equ __zdseg_end + (__zobss_a5c6 - __zdata_start)
 ; bss_a5ce  equ __zdseg_end + (__zobss_a5ce - __zdata_start)
 %include "vbase/loc_TQHJ.asm"              ; 0x8634
 

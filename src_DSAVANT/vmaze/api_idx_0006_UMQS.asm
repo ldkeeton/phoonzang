@@ -35,7 +35,7 @@ api_idx_0006_UMQS:
     cbw                              ; 0x9262
     shl ax, 1                        ; 0x9263
     mov bx, ax                       ; 0x9265
-    mov word [bx - 0x642e], 1        ; 0x9267
+    mov word [bx + bss_9bd2], 1      ; 0x9267
 @..api_idx_0006_UMQS.l2:
     inc word [bp - 0x0002]           ; 0x926d
     mov ax, word [bp - 0x0002]       ; 0x9270
@@ -88,7 +88,7 @@ api_idx_0006_UMQS:
     cbw                              ; 0x92ed
     shl ax, 1                        ; 0x92ee
     mov bx, ax                       ; 0x92f0
-    cmp word [bx - 0x642e], byte 1   ; 0x92f2
+    cmp word [bx + bss_9bd2], byte 1 ; 0x92f2
     jne short @..api_idx_0006_UMQS.l8 ; 0x92f7
 @..api_idx_0006_UMQS.l7:
     mov word [bp - 0x0006], 0        ; 0x92f9

@@ -90,7 +90,7 @@ loc_QLKH:
     push ax                          ; 0x200d
     mov ax, 0x248                    ; 0x200e
     imul word [bp - 0x0002]          ; 0x2011
-    add ax, 0x5bf4                   ; 0x2014
+    add ax, bss_5bf4                 ; 0x2014
     push ax                          ; 0x2017
     call string_loc_SJPQ             ; 0x2018
     add sp, byte 6                   ; 0x201b

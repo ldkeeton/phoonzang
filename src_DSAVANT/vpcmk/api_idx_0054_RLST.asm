@@ -25,7 +25,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1b7a
     mov ax, 0x248                    ; 0x1b7b
     imul word [bp + 0x4]             ; 0x1b7e
-    add ax, 0x5bf4                   ; 0x1b81
+    add ax, bss_5bf4                 ; 0x1b81
     push ax                          ; 0x1b84
     call aztec_strlen                ; 0x1b85
     pop cx                           ; 0x1b88
@@ -44,7 +44,7 @@ api_idx_0054_RLST:
     push ax                          ; 0x1ba5
     mov ax, 0x248                    ; 0x1ba6
     imul word [bp + 0x4]             ; 0x1ba9
-    add ax, 0x5bf4                   ; 0x1bac
+    add ax, bss_5bf4                 ; 0x1bac
     push ax                          ; 0x1baf
     call ds_string_loc_QRJV          ; 0x1bb0
     add sp, byte 4                   ; 0x1bb3

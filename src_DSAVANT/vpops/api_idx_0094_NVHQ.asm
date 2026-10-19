@@ -177,7 +177,7 @@ api_idx_0094_NVHQ:
     call loc_UTQS                    ; 0x3571
     mov ax, 0x248                    ; 0x3574
     imul word [bp + 0x4]             ; 0x3577
-    add ax, 0x5bf4                   ; 0x357a
+    add ax, bss_5bf4                 ; 0x357a
     push ax                          ; 0x357d
     push word [bp - 0x006a]          ; 0x357e
     mov ax, 1                        ; 0x3581

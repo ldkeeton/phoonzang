@@ -27,7 +27,7 @@ loc_HTTH:
     push ax                          ; 0x15ec
     mov ax, 0x248                    ; 0x15ed
     imul word [bp + 0x4]             ; 0x15f0
-    add ax, 0x5bf4                   ; 0x15f3
+    add ax, bss_5bf4                 ; 0x15f3
     push ax                          ; 0x15f6
     call aztec_strlen                ; 0x15f7
     pop cx                           ; 0x15fa
@@ -66,7 +66,7 @@ loc_HTTH:
     push ax                          ; 0x1645
     mov ax, 0x248                    ; 0x1646
     imul word [bp + 0x4]             ; 0x1649
-    add ax, 0x5bf4                   ; 0x164c
+    add ax, bss_5bf4                 ; 0x164c
     push ax                          ; 0x164f
     call ds_string_loc_QRJV          ; 0x1650
     add sp, byte 4                   ; 0x1653
@@ -103,7 +103,7 @@ loc_HTTH:
     mov ax, 0x248                    ; 0x169a
     imul word [bp + 0x4]             ; 0x169d
     mov si, ax                       ; 0x16a0
-    add ax, 0x5bf4                   ; 0x16a2
+    add ax, bss_5bf4                 ; 0x16a2
     mov si, ax                       ; 0x16a5
     lea di, word [bp - 0x024a]       ; 0x16a7
     mov cx, ds                       ; 0x16ab
@@ -120,12 +120,12 @@ loc_HTTH:
     mov ax, 0x248                    ; 0x16cb
     imul word [bp - 0x0002]          ; 0x16ce
     mov si, ax                       ; 0x16d1
-    add ax, 0x5bf4                   ; 0x16d3
+    add ax, bss_5bf4                 ; 0x16d3
     mov si, ax                       ; 0x16d6
     mov ax, 0x248                    ; 0x16d8
     imul word [bp + 0x4]             ; 0x16db
     mov di, ax                       ; 0x16de
-    add ax, 0x5bf4                   ; 0x16e0
+    add ax, bss_5bf4                 ; 0x16e0
     mov di, ax                       ; 0x16e3
     mov cx, ds                       ; 0x16e5
     mov es, cx                       ; 0x16e7
@@ -149,7 +149,7 @@ loc_HTTH:
     mov ax, 0x248                    ; 0x1719
     imul word [bp - 0x0002]          ; 0x171c
     mov di, ax                       ; 0x171f
-    add ax, 0x5bf4                   ; 0x1721
+    add ax, bss_5bf4                 ; 0x1721
     mov di, ax                       ; 0x1724
     mov cx, ds                       ; 0x1726
     mov es, cx                       ; 0x1728

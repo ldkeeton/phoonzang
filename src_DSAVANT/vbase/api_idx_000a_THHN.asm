@@ -61,7 +61,7 @@ jumptable_85d0_case_1:
     cwd                              ; 0x7499
     idiv cx                          ; 0x749a
     mov bx, dx                       ; 0x749c
-    mov al, byte [bx - 0x5a3a]       ; 0x749e
+    mov al, byte [bx + bss_a5c6]     ; 0x749e
     sub ah, ah                       ; 0x74a2
     add ax, strict word 0xffcf       ; 0x74a4
     mov word [bp - 0x0006], ax       ; 0x74a7
@@ -81,7 +81,7 @@ jumptable_85d0_case_1:
     cwd                              ; 0x74c7
     idiv cx                          ; 0x74c8
     mov bx, dx                       ; 0x74ca
-    mov al, byte [bx - 0x5a3a]       ; 0x74cc
+    mov al, byte [bx + bss_a5c6]     ; 0x74cc
     sub ah, ah                       ; 0x74d0
     add ax, strict word 0xffcf       ; 0x74d2
     mov word [bp - 0x0006], ax       ; 0x74d5
@@ -103,7 +103,7 @@ jumptable_85d0_case_1:
     cwd                              ; 0x74f9
     idiv cx                          ; 0x74fa
     mov bx, dx                       ; 0x74fc
-    mov al, byte [bx - 0x5a3a]       ; 0x74fe
+    mov al, byte [bx + bss_a5c6]     ; 0x74fe
     sub ah, ah                       ; 0x7502
     add ax, strict word 0xffcf       ; 0x7504
     mov word [bp - 0x0006], ax       ; 0x7507
@@ -1296,7 +1296,7 @@ jumptable_85d0_case_6:
     cwd                              ; 0x803c
     idiv cx                          ; 0x803d
     mov bx, dx                       ; 0x803f
-    mov al, byte [bx - 0x5a3a]       ; 0x8041
+    mov al, byte [bx + bss_a5c6]     ; 0x8041
     sub ah, ah                       ; 0x8045
     add ax, strict word 0xffcf       ; 0x8047
     mov word [bp - 0x0006], ax       ; 0x804a
@@ -1482,7 +1482,7 @@ jumptable_85d0_case_7:
     cwd                              ; 0x81d9
     idiv cx                          ; 0x81da
     mov bx, dx                       ; 0x81dc
-    mov al, byte [bx - 0x5a3a]       ; 0x81de
+    mov al, byte [bx + bss_a5c6]     ; 0x81de
     sub ah, ah                       ; 0x81e2
     add ax, strict word 0xffcf       ; 0x81e4
     mov word [bp - 0x0006], ax       ; 0x81e7
@@ -1532,7 +1532,7 @@ jumptable_85d0_case_7:
     cwd                              ; 0x824d
     idiv cx                          ; 0x824e
     mov bx, dx                       ; 0x8250
-    mov al, byte [bx - 0x5a3a]       ; 0x8252
+    mov al, byte [bx + bss_a5c6]     ; 0x8252
     sub ah, ah                       ; 0x8256
     add ax, strict word 0xffcf       ; 0x8258
     mov word [bp - 0x0006], ax       ; 0x825b
@@ -1624,7 +1624,7 @@ jumptable_85d0_case_7:
     cwd                              ; 0x8317
     idiv cx                          ; 0x8318
     mov bx, dx                       ; 0x831a
-    mov al, byte [bx - 0x5a3a]       ; 0x831c
+    mov al, byte [bx + bss_a5c6]     ; 0x831c
     sub ah, ah                       ; 0x8320
     add ax, strict word 0xffcf       ; 0x8322
     mov word [bp - 0x0006], ax       ; 0x8325

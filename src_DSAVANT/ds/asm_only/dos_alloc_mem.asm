@@ -27,7 +27,7 @@ dos_alloc_mem:
     mov cl, byte [bx + 0x5]          ; 0x388e
     mul cx                           ; 0x3891
     mov word [bp - 0x0008], ax       ; 0x3893
-    add ax, 0x110                    ; 0x3896
+    add ax, dseg_0110                ; 0x3896
     mov word [bp - 0x0002], ax       ; 0x3899
     mov word [bp - 0x0004], ax       ; 0x389c
     mov al, byte [bx + 0x2]          ; 0x389f

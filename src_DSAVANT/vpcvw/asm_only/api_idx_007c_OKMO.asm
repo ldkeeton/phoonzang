@@ -33,7 +33,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x1091
     mov ax, 0x248                    ; 0x1092
     imul word [bp + 0x4]             ; 0x1095
-    add ax, 0x5bf4                   ; 0x1098
+    add ax, bss_5bf4                 ; 0x1098
     push ax                          ; 0x109b
     call aztec_strlen                ; 0x109c
     pop cx                           ; 0x109f
@@ -52,7 +52,7 @@ api_idx_007c_OKMO:
     push ax                          ; 0x10bc
     mov ax, 0x248                    ; 0x10bd
     imul word [bp + 0x4]             ; 0x10c0
-    add ax, 0x5bf4                   ; 0x10c3
+    add ax, bss_5bf4                 ; 0x10c3
     push ax                          ; 0x10c6
     call ds_string_loc_QRJV          ; 0x10c7
     add sp, byte 4                   ; 0x10ca

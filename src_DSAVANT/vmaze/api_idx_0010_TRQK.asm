@@ -109,7 +109,7 @@ api_idx_0010_TRQK:
     imul word [bp + 0x4]             ; 0xa3dd
     add ax, word [bp - 0x000c]       ; 0xa3e0
     mov bx, ax                       ; 0xa3e3
-    cmp byte [bx - 0x63be], 0        ; 0xa3e5
+    cmp byte [bx + bss_9c42], 0      ; 0xa3e5
     je short @..api_idx_0010_TRQK.l7 ; 0xa3ea
     jmp near @..api_idx_0010_TRQK.l17 ; 0xa3ec
 @..api_idx_0010_TRQK.l7:

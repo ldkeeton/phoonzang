@@ -38,7 +38,7 @@ api_idx_0002_RJQH:
     push ax                          ; 0x0fe1
     mov ax, 0x248                    ; 0x0fe2
     imul word [bp + 0x4]             ; 0x0fe5
-    add ax, 0x5bf4                   ; 0x0fe8
+    add ax, bss_5bf4                 ; 0x0fe8
     push ax                          ; 0x0feb
     call aztec_strlen                ; 0x0fec
     pop cx                           ; 0x0fef
@@ -84,7 +84,7 @@ api_idx_0002_RJQH:
     push ax                          ; 0x1043
     mov ax, 0x248                    ; 0x1044
     imul word [bp + 0x4]             ; 0x1047
-    add ax, 0x5bf4                   ; 0x104a
+    add ax, bss_5bf4                 ; 0x104a
     push ax                          ; 0x104d
     call ds_string_loc_QRJV          ; 0x104e
     add sp, byte 4                   ; 0x1051

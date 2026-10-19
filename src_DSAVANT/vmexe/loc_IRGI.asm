@@ -6,11 +6,11 @@ loc_IRGI:
     push ax                          ; 0x9d96
     mov ax, 0x248                    ; 0x9d97
     imul word [bp + 0x4]             ; 0x9d9a
-    add ax, 0x5bf4                   ; 0x9d9d
+    add ax, bss_5bf4                 ; 0x9d9d
     push ax                          ; 0x9da0
     mov ax, 0x248                    ; 0x9da1
     imul word [bp + 0x6]             ; 0x9da4
-    add ax, 0x5bf4                   ; 0x9da7
+    add ax, bss_5bf4                 ; 0x9da7
     push ax                          ; 0x9daa
     call string_loc_QJPU             ; 0x9dab
     add sp, byte 6                   ; 0x9dae

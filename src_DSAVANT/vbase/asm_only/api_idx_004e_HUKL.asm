@@ -114,7 +114,7 @@ api_idx_004e_HUKL:
     dec ax                           ; 0x3988
     mov word [bp - 0x0002], ax       ; 0x3989
     mov bx, ax                       ; 0x398c
-    cmp byte [bx - 0x6e12], 0x5c     ; 0x398e
+    cmp byte [bx + bss_91ee], 0x5c   ; 0x398e
     je short @..api_idx_004e_HUKL.l7 ; 0x3993
     mov byte [bx - 0x6e11], 0x5c     ; 0x3995
     mov byte [bx - 0x6e10], 0        ; 0x399a
@@ -285,7 +285,7 @@ api_idx_004e_HUKL:
     mov ax, word [bss_830c]          ; 0x3b11
     mov cx, 4                        ; 0x3b14
     shl ax, cl                       ; 0x3b17
-    add ax, 0x5642                   ; 0x3b19
+    add ax, bss_5642                 ; 0x3b19
     push ax                          ; 0x3b1c
     mov ax, word [bss_830c]          ; 0x3b1d
     shl ax, cl                       ; 0x3b20
@@ -711,7 +711,7 @@ api_idx_004e_HUKL:
     mov ax, 0x248                    ; 0x3f1c
     imul word [bp - 0x0002]          ; 0x3f1f
     mov si, ax                       ; 0x3f22
-    add ax, 0x5bf4                   ; 0x3f24
+    add ax, bss_5bf4                 ; 0x3f24
     mov si, ax                       ; 0x3f27
     mov di, bss_9a4c                 ; 0x3f29
     mov cx, ds                       ; 0x3f2c

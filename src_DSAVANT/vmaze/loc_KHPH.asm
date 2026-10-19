@@ -41,10 +41,10 @@ loc_KHPH:
     imul word [bp + 0x4]             ; 0xa26e
     add ax, word [bp + 0x6]          ; 0xa271
     mov bx, ax                       ; 0xa274
-    mov byte [bx - 0x63be], 1        ; 0xa276
+    mov byte [bx + bss_9c42], 1      ; 0xa276
     mov ax, 0x16                     ; 0xa27b
     imul word [bp + 0x6]             ; 0xa27e
     add ax, word [bp + 0x4]          ; 0xa281
     mov bx, ax                       ; 0xa284
-    mov byte [bx - 0x63be], 1        ; 0xa286
+    mov byte [bx + bss_9c42], 1      ; 0xa286
     ret                              ; 0xa28b

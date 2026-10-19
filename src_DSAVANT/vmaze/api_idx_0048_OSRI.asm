@@ -44,20 +44,20 @@ api_idx_0048_OSRI:
     cbw                              ; 0x908e
     shl ax, 1                        ; 0x908f
     mov bx, ax                       ; 0x9091
-    cmp word [bx - 0x642e], byte 0   ; 0x9093
+    cmp word [bx + bss_9bd2], byte 0 ; 0x9093
     jne short @..api_idx_0048_OSRI.l7 ; 0x9098
     jmp near @..api_idx_0048_OSRI.l12 ; 0x909a
 @..api_idx_0048_OSRI.l7:
     mov ax, word [bp - 0x0002]       ; 0x909d
     shl ax, 1                        ; 0x90a0
     mov bx, ax                       ; 0x90a2
-    cmp word [bx - 0x63fe], byte 0   ; 0x90a4
+    cmp word [bx + bss_9c02], byte 0 ; 0x90a4
     je short @..api_idx_0048_OSRI.l8 ; 0x90a9
     jmp near @..api_idx_0048_OSRI.l11 ; 0x90ab
 @..api_idx_0048_OSRI.l8:
     cmp word [bp - 0x0004], byte 0   ; 0x90ae
     je short @..api_idx_0048_OSRI.l9 ; 0x90b2
-    mov word [bx - 0x63fe], 1        ; 0x90b4
+    mov word [bx + bss_9c02], 1      ; 0x90b4
 @..api_idx_0048_OSRI.l9:
     mov ax, word [bss_9be6]          ; 0x90ba
     mov word [bp - 0x0006], ax       ; 0x90bd
@@ -127,20 +127,20 @@ api_idx_0048_OSRI:
     cbw                              ; 0x9151
     shl ax, 1                        ; 0x9152
     mov bx, ax                       ; 0x9154
-    cmp word [bx - 0x642e], byte 0   ; 0x9156
+    cmp word [bx + bss_9bd2], byte 0 ; 0x9156
     jne short @..api_idx_0048_OSRI.l14 ; 0x915b
     jmp near @..api_idx_0048_OSRI.l18 ; 0x915d
 @..api_idx_0048_OSRI.l14:
     mov ax, word [bp - 0x0002]       ; 0x9160
     shl ax, 1                        ; 0x9163
     mov bx, ax                       ; 0x9165
-    cmp word [bx - 0x63fe], byte 0   ; 0x9167
+    cmp word [bx + bss_9c02], byte 0 ; 0x9167
     je short @..api_idx_0048_OSRI.l15 ; 0x916c
     jmp near @..api_idx_0048_OSRI.l18 ; 0x916e
 @..api_idx_0048_OSRI.l15:
     cmp word [bp - 0x0004], byte 0   ; 0x9171
     je short @..api_idx_0048_OSRI.l16 ; 0x9175
-    mov word [bx - 0x63fe], 1        ; 0x9177
+    mov word [bx + bss_9c02], 1      ; 0x9177
 @..api_idx_0048_OSRI.l16:
     mov ax, word [bss_9be6]          ; 0x917d
     mov word [bp - 0x0006], ax       ; 0x9180

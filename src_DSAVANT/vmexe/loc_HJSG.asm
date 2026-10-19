@@ -6,7 +6,7 @@ loc_HJSG:
     jne short @..loc_HJSG.l1         ; 0x15b5
     mov ax, 0x248                    ; 0x15b7
     imul word [bp + 0x8]             ; 0x15ba
-    add ax, 0x5bf4                   ; 0x15bd
+    add ax, bss_5bf4                 ; 0x15bd
     push ax                          ; 0x15c0
     push word [bp + 0x4]             ; 0x15c1
     call aztec_strcpy                ; 0x15c4

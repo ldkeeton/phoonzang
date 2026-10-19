@@ -23,7 +23,7 @@ api_idx_0072_KTMQ:
     mov word [bp - 0x000e], 0xffff   ; 0x5ece
     mov ax, 0x248                    ; 0x5ed3
     imul word [bp + 0x4]             ; 0x5ed6
-    add ax, 0x5bf4                   ; 0x5ed9
+    add ax, bss_5bf4                 ; 0x5ed9
     push ax                          ; 0x5edc
     lea ax, word [bp - 0x0068]       ; 0x5edd
     push ax                          ; 0x5ee0

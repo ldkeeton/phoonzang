@@ -21,7 +21,7 @@ api_idx_0006_MROT:
     mov ax, 0x248                    ; 0x620a
     imul word [bp - 0x0002]          ; 0x620d
     mov di, ax                       ; 0x6210
-    add ax, 0x5bf4                   ; 0x6212
+    add ax, bss_5bf4                 ; 0x6212
     mov di, ax                       ; 0x6215
     mov cx, ds                       ; 0x6217
     mov es, cx                       ; 0x6219

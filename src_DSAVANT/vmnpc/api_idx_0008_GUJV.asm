@@ -5,7 +5,7 @@ api_idx_0008_GUJV:
     mov ax, word [bp + 0x6]          ; 0x5577
     shl ax, 1                        ; 0x557a
     mov bx, ax                       ; 0x557c
-    mov ax, word [bx - 0x632c]       ; 0x557e
+    mov ax, word [bx + bss_9cd4]     ; 0x557e
     mov word [bp - 0x0004], ax       ; 0x5582
     mov ax, 0x248                    ; 0x5585
     imul word [bp + 0x4]             ; 0x5588
@@ -186,7 +186,7 @@ api_idx_0008_GUJV:
     mov ax, word [bp + 0x6]          ; 0x5718
     shl ax, 1                        ; 0x571b
     mov bx, ax                       ; 0x571d
-    mov word [bx - 0x632c], 0        ; 0x571f
+    mov word [bx + bss_9cd4], 0      ; 0x571f
     call api_idx_0004_GHUK           ; 0x5725
     mov ax, 0                        ; 0x5728
     push ax                          ; 0x572b

@@ -564,7 +564,7 @@ jumptable_36f8_case_15:
     mov ax, word [bss_830c]          ; 0x30e1
     mov cx, 4                        ; 0x30e4
     shl ax, cl                       ; 0x30e7
-    add ax, 0x5642                   ; 0x30e9
+    add ax, bss_5642                 ; 0x30e9
     push ax                          ; 0x30ec
     call set_bitmap_bit              ; 0x30ed
     add sp, byte 6                   ; 0x30f0
@@ -909,7 +909,7 @@ jumptable_36f8_case_32:
     push ax                          ; 0x33f5
     mov ax, 0x248                    ; 0x33f6
     imul word [bp - 0x002c]          ; 0x33f9
-    add ax, 0x5bf4                   ; 0x33fc
+    add ax, bss_5bf4                 ; 0x33fc
     push ax                          ; 0x33ff
     mov ax, bss_95a8                 ; 0x3400
     push ax                          ; 0x3403

@@ -42,7 +42,7 @@ api_idx_000c_JRTV:
     push ax                          ; 0x03dd
     mov ax, 0x248                    ; 0x03de
     imul word [bp + 0x4]             ; 0x03e1
-    add ax, 0x5bf4                   ; 0x03e4
+    add ax, bss_5bf4                 ; 0x03e4
     push ax                          ; 0x03e7
     call aztec_strlen                ; 0x03e8
     pop cx                           ; 0x03eb
@@ -79,7 +79,7 @@ api_idx_000c_JRTV:
     push ax                          ; 0x0430
     mov ax, 0x248                    ; 0x0431
     imul word [bp + 0x4]             ; 0x0434
-    add ax, 0x5bf4                   ; 0x0437
+    add ax, bss_5bf4                 ; 0x0437
     push ax                          ; 0x043a
     call ds_string_loc_QRJV          ; 0x043b
     add sp, byte 4                   ; 0x043e

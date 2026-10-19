@@ -123,7 +123,7 @@ api_idx_0012_JIRG:
     mov ax, word [bss_830c]          ; 0x868f
     mov cx, 4                        ; 0x8692
     shl ax, cl                       ; 0x8695
-    add ax, 0x5642                   ; 0x8697
+    add ax, bss_5642                 ; 0x8697
     push ax                          ; 0x869a
     call set_bitmap_bit              ; 0x869b
     add sp, byte 6                   ; 0x869e

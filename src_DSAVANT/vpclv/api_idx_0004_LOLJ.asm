@@ -237,7 +237,7 @@ jumptable_3797:
     jne short @..api_idx_0004_LOLJ.l5 ; 0x37ff
     mov ax, 0x14                     ; 0x3801
     imul word [bp - 0x0004]          ; 0x3804
-    add ax, 0xe38                    ; 0x3807
+    add ax, bss_0e38                 ; 0x3807
     push ax                          ; 0x380a
     mov ax, word [bp - 0x0002]       ; 0x380b
     add ax, 0x157c                   ; 0x380e

@@ -59,7 +59,7 @@ loc_HHMH:
     mov ax, word [bss_830c]          ; 0x0543
     mov cx, 4                        ; 0x0546
     shl ax, cl                       ; 0x0549
-    add ax, 0x5642                   ; 0x054b
+    add ax, bss_5642                 ; 0x054b
     push ax                          ; 0x054e
     call set_bitmap_bit              ; 0x054f
     add sp, byte 6                   ; 0x0552

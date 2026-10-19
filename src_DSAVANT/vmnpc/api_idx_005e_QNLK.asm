@@ -99,7 +99,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x60b8
     mov ax, 0x248                    ; 0x60b9
     imul word [bp + 0x4]             ; 0x60bc
-    add ax, 0x5bf4                   ; 0x60bf
+    add ax, bss_5bf4                 ; 0x60bf
     push ax                          ; 0x60c2
     lea ax, word [bp - 0x005e]       ; 0x60c3
     push ax                          ; 0x60c6
@@ -179,7 +179,7 @@ api_idx_005e_QNLK:
     mov ax, word [bp - 0x000a]       ; 0x616c
     shl ax, 1                        ; 0x616f
     mov bx, ax                       ; 0x6171
-    push word [bx - 0x632c]          ; 0x6173
+    push word [bx + bss_9cd4]        ; 0x6173
     call loc_GMVH                    ; 0x6177
     pop cx                           ; 0x617a
     test ax, ax                      ; 0x617b
@@ -253,7 +253,7 @@ api_idx_005e_QNLK:
     add ax, cx                       ; 0x6210
     add ax, 0x5c34                   ; 0x6212
     push ax                          ; 0x6215
-    push word [bx - 0x632c]          ; 0x6216
+    push word [bx + bss_9cd4]        ; 0x6216
     push word [bp + 0x4]             ; 0x621a
     call api_idx_004c_RQSO           ; 0x621d
     add sp, byte 0x0a                ; 0x6220
@@ -266,7 +266,7 @@ api_idx_005e_QNLK:
     mov ax, word [bp - 0x000a]       ; 0x6231
     shl ax, 1                        ; 0x6234
     mov bx, ax                       ; 0x6236
-    mov word [bx - 0x632c], 0        ; 0x6238
+    mov word [bx + bss_9cd4], 0      ; 0x6238
     call api_idx_0004_GHUK           ; 0x623e
 @..api_idx_005e_QNLK.l17:
     jmp near @..api_idx_005e_QNLK.l22 ; 0x6241
@@ -289,7 +289,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x6268
     mov ax, 0x248                    ; 0x6269
     imul word [bp + 0x4]             ; 0x626c
-    add ax, 0x5bf4                   ; 0x626f
+    add ax, bss_5bf4                 ; 0x626f
     push ax                          ; 0x6272
     lea ax, word [bp - 0x005e]       ; 0x6273
     push ax                          ; 0x6276
@@ -353,7 +353,7 @@ api_idx_005e_QNLK:
     push ax                          ; 0x62f2
     mov ax, 0x248                    ; 0x62f3
     imul word [bp + 0x4]             ; 0x62f6
-    add ax, 0x5bf4                   ; 0x62f9
+    add ax, bss_5bf4                 ; 0x62f9
     push ax                          ; 0x62fc
     lea ax, word [bp - 0x005e]       ; 0x62fd
     push ax                          ; 0x6300

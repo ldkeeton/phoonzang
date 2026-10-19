@@ -89,7 +89,7 @@ api_idx_0038_POGI:
     imul word [bp - 0x0002]          ; 0x258b
     add ax, word [bp - 0x0006]       ; 0x258e
     mov bx, ax                       ; 0x2591
-    cmp byte [bx - 0x6b10], 0        ; 0x2593
+    cmp byte [bx + bss_94f0], 0      ; 0x2593
     jne short @..api_idx_0038_POGI.l8 ; 0x2598
     mov ax, 0xf                      ; 0x259a
     imul word [bp - 0x0002]          ; 0x259d
@@ -131,11 +131,11 @@ api_idx_0038_POGI:
     imul word [bp - 0x0002]          ; 0x25ee
     add ax, word [bp - 0x0006]       ; 0x25f1
     mov bx, ax                       ; 0x25f4
-    cmp byte [bx - 0x6b10], 0        ; 0x25f6
+    cmp byte [bx + bss_94f0], 0      ; 0x25f6
     je short @..api_idx_0038_POGI.l11 ; 0x25fb
     jmp near @..api_idx_0038_POGI.l16 ; 0x25fd
 @..api_idx_0038_POGI.l11:
-    mov byte [bx - 0x6b10], 1        ; 0x2600
+    mov byte [bx + bss_94f0], 1      ; 0x2600
     mov ax, bss_93f0                 ; 0x2605
     push ax                          ; 0x2608
     mov ax, 0xf                      ; 0x2609

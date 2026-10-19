@@ -14,7 +14,7 @@ api_idx_000c_NLKU:
     imul word [bp - 0x0002]          ; 0x407b
     add ax, word [bp - 0x0004]       ; 0x407e
     mov bx, ax                       ; 0x4081
-    mov al, byte [bx - 0x636c]       ; 0x4083
+    mov al, byte [bx + bss_9c94]     ; 0x4083
     sub ah, ah                       ; 0x4087
     add ax, word [bp + 0x4]          ; 0x4089
     push ax                          ; 0x408c
@@ -145,7 +145,7 @@ api_idx_000c_NLKU:
     add cx, dx                       ; 0x41b6
     add cx, word [bp - 0x000c]       ; 0x41b8
     mov bx, cx                       ; 0x41bb
-    mov byte [bx - 0x5d6c], al       ; 0x41bd
+    mov byte [bx + bss_a294], al     ; 0x41bd
     inc word [bp - 0x0002]           ; 0x41c1
     mov ax, word [bp - 0x0002]       ; 0x41c4
     cmp ax, 0x100                    ; 0x41c7

@@ -134,7 +134,7 @@ api_idx_000a_SRNS:
     mov ax, word [bp - 0x0008]       ; 0x798b
     mov cx, 4                        ; 0x798e
     shl ax, cl                       ; 0x7991
-    add ax, 0x5642                   ; 0x7993
+    add ax, bss_5642                 ; 0x7993
     push ax                          ; 0x7996
     call set_bitmap_bit              ; 0x7997
     add sp, byte 6                   ; 0x799a

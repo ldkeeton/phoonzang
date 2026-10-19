@@ -23,7 +23,7 @@ api_idx_0004_MNVO:
     je short @..api_idx_0004_MNVO.l2 ; 0x26ba
     mov ax, 0x14                     ; 0x26bc
     imul word [bp - 0x0004]          ; 0x26bf
-    add ax, 0xe38                    ; 0x26c2
+    add ax, bss_0e38                 ; 0x26c2
     push ax                          ; 0x26c5
     mov ax, word [bp - 0x0002]       ; 0x26c6
     add ax, 0xfa0                    ; 0x26c9

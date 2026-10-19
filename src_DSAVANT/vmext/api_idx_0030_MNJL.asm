@@ -1752,7 +1752,7 @@ jumptable_4471_case_0:
 @..api_idx_0030_MNJL.l42:
     mov ax, 0x11                     ; 0x4d84
     imul word [bp - 0x0002]          ; 0x4d87
-    add ax, 0x92f4                   ; 0x4d8a
+    add ax, bss_92f4                 ; 0x4d8a
     mov word [bp - 0x0026], ax       ; 0x4d8d
     mov bx, ax                       ; 0x4d90
     mov al, byte [bx + 0xd]          ; 0x4d92
@@ -1814,7 +1814,7 @@ jumptable_4471_case_0:
 @..api_idx_0030_MNJL.l48:
     mov ax, 0x11                     ; 0x4e19
     imul word [bp - 0x0002]          ; 0x4e1c
-    add ax, 0x92f4                   ; 0x4e1f
+    add ax, bss_92f4                 ; 0x4e1f
     mov word [bp - 0x0026], ax       ; 0x4e22
     mov bx, ax                       ; 0x4e25
     mov al, byte [bx + 0xd]          ; 0x4e27
@@ -2096,7 +2096,7 @@ jumptable_4471_case_0:
     mov ax, word [bp - 0x0002]       ; 0x50ac
     add cx, ax                       ; 0x50af
     mov bx, cx                       ; 0x50b1
-    mov al, byte [bx - 0x6e22]       ; 0x50b3
+    mov al, byte [bx + bss_91de]     ; 0x50b3
     sub ah, ah                       ; 0x50b7
     mov word [bp - 0x001a], ax       ; 0x50b9
     test ax, ax                      ; 0x50bc

@@ -9,14 +9,14 @@ loc_MIPR:
     push ax                          ; 0x630d
     mov ax, 0x248                    ; 0x630e
     imul word [bp - 0x0006]          ; 0x6311
-    add ax, 0x5bf4                   ; 0x6314
+    add ax, bss_5bf4                 ; 0x6314
     push ax                          ; 0x6317
     call aztec_setmem                ; 0x6318
     add sp, byte 6                   ; 0x631b
     push word [bp + 0x4]             ; 0x631e
     mov ax, 0x248                    ; 0x6321
     imul word [bp - 0x0006]          ; 0x6324
-    add ax, 0x5bf4                   ; 0x6327
+    add ax, bss_5bf4                 ; 0x6327
     push ax                          ; 0x632a
     call aztec_strcpy                ; 0x632b
     add sp, byte 4                   ; 0x632e
@@ -29,7 +29,7 @@ loc_MIPR:
     push ax                          ; 0x633f
     mov ax, 0x248                    ; 0x6340
     imul word [bp - 0x0006]          ; 0x6343
-    add ax, 0x5bf4                   ; 0x6346
+    add ax, bss_5bf4                 ; 0x6346
     push ax                          ; 0x6349
     call aztec_strlen                ; 0x634a
     pop cx                           ; 0x634d
@@ -48,7 +48,7 @@ loc_MIPR:
     push ax                          ; 0x636a
     mov ax, 0x248                    ; 0x636b
     imul word [bp - 0x0006]          ; 0x636e
-    add ax, 0x5bf4                   ; 0x6371
+    add ax, bss_5bf4                 ; 0x6371
     push ax                          ; 0x6374
     call ds_string_loc_QRJV          ; 0x6375
     add sp, byte 4                   ; 0x6378
@@ -277,7 +277,7 @@ loc_MIPR:
     push word [bp + 0x6]             ; 0x65a4
     mov ax, 0x248                    ; 0x65a7
     imul word [bp - 0x0006]          ; 0x65aa
-    add ax, 0x5bf4                   ; 0x65ad
+    add ax, bss_5bf4                 ; 0x65ad
     push ax                          ; 0x65b0
     call api_idx_0002_SJMT           ; 0x65b1
     add sp, byte 6                   ; 0x65b4

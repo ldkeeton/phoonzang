@@ -24,9 +24,9 @@ api_idx_0012_STJU:
     shl cx, 1                        ; 0x3129
     add ax, cx                       ; 0x312b
     mov bx, ax                       ; 0x312d
-    cmp word [bx - 0x6dbe], byte 0   ; 0x312f
+    cmp word [bx + bss_9242], byte 0 ; 0x312f
     jne short @..api_idx_0012_STJU.l4 ; 0x3134
-    cmp word [bx - 0x6d40], byte 0   ; 0x3136
+    cmp word [bx + bss_92c0], byte 0 ; 0x3136
     jne short @..api_idx_0012_STJU.l4 ; 0x313b
     jmp near @..api_idx_0012_STJU.l20 ; 0x313d
 @..api_idx_0012_STJU.l4:
@@ -116,11 +116,11 @@ api_idx_0012_STJU:
     shl cx, 1                        ; 0x31ec
     add ax, cx                       ; 0x31ee
     mov bx, ax                       ; 0x31f0
-    cmp word [bx - 0x6dbe], byte 0   ; 0x31f2
+    cmp word [bx + bss_9242], byte 0 ; 0x31f2
     jne short @..api_idx_0012_STJU.l10 ; 0x31f7
     jmp near @..api_idx_0012_STJU.l20 ; 0x31f9
 @..api_idx_0012_STJU.l10:
-    mov cx, word [bx - 0x6dbe]       ; 0x31fc
+    mov cx, word [bx + bss_9242]     ; 0x31fc
     dec cx                           ; 0x3200
     mov ax, word [bss_82ee]          ; 0x3201
     sub ax, cx                       ; 0x3204
@@ -217,7 +217,7 @@ api_idx_0012_STJU:
     imul word [bp + 0x4]             ; 0x32ce
     add ax, word [bp + 0x6]          ; 0x32d1
     mov bx, ax                       ; 0x32d4
-    mov al, byte [bx - 0x6e3b]       ; 0x32d6
+    mov al, byte [bx + bss_91c5]     ; 0x32d6
     sub ah, ah                       ; 0x32da
     jmp near @..api_idx_0012_STJU.l36 ; 0x32dc
 @..api_idx_0012_STJU.l21:
@@ -497,7 +497,7 @@ api_idx_0012_STJU:
     imul word [bp + 0x4]             ; 0x3534
     add ax, word [bp + 0x6]          ; 0x3537
     mov bx, ax                       ; 0x353a
-    mov al, byte [bx - 0x6e54]       ; 0x353c
+    mov al, byte [bx + bss_91ac]     ; 0x353c
     sub ah, ah                       ; 0x3540
     jmp near @..api_idx_0012_STJU.l45 ; 0x3542
 jumptable_35fa_case_1:
@@ -611,9 +611,9 @@ jumptable_35fa:
     shl cx, 1                        ; 0x3623
     add ax, cx                       ; 0x3625
     mov bx, ax                       ; 0x3627
-    cmp word [bx - 0x6df0], byte 0   ; 0x3629
+    cmp word [bx + bss_9210], byte 0 ; 0x3629
     jne short @..api_idx_0012_STJU.l48 ; 0x362e
-    cmp word [bx - 0x6d72], byte 0   ; 0x3630
+    cmp word [bx + bss_928e], byte 0 ; 0x3630
     jne short @..api_idx_0012_STJU.l48 ; 0x3635
     jmp near @..api_idx_0012_STJU.l60 ; 0x3637
 @..api_idx_0012_STJU.l48:
@@ -674,11 +674,11 @@ jumptable_35fa:
     shl cx, 1                        ; 0x36b3
     add ax, cx                       ; 0x36b5
     mov bx, ax                       ; 0x36b7
-    cmp word [bx - 0x6df0], byte 0   ; 0x36b9
+    cmp word [bx + bss_9210], byte 0 ; 0x36b9
     jne short @..api_idx_0012_STJU.l54 ; 0x36be
     jmp near @..api_idx_0012_STJU.l60 ; 0x36c0
 @..api_idx_0012_STJU.l54:
-    mov cx, word [bx - 0x6df0]       ; 0x36c3
+    mov cx, word [bx + bss_9210]     ; 0x36c3
     dec cx                           ; 0x36c7
     mov ax, word [bss_82ee]          ; 0x36c8
     sub ax, cx                       ; 0x36cb
@@ -759,7 +759,7 @@ jumptable_35fa:
     imul word [bp + 0x4]             ; 0x3776
     add ax, word [bp + 0x6]          ; 0x3779
     mov bx, ax                       ; 0x377c
-    cmp byte [bx - 0x6d8c], 3        ; 0x377e
+    cmp byte [bx + bss_9274], 3      ; 0x377e
     je short @..api_idx_0012_STJU.l62 ; 0x3783
     jmp near @..api_idx_0012_STJU.l68 ; 0x3785
 @..api_idx_0012_STJU.l62:
@@ -833,9 +833,9 @@ jumptable_35fa:
     imul word [bp + 0x4]             ; 0x3828
     add ax, word [bp + 0x6]          ; 0x382b
     mov bx, ax                       ; 0x382e
-    cmp byte [bx - 0x6d8c], 1        ; 0x3830
+    cmp byte [bx + bss_9274], 1      ; 0x3830
     je short @..api_idx_0012_STJU.l69 ; 0x3835
-    cmp byte [bx - 0x6d8c], 2        ; 0x3837
+    cmp byte [bx + bss_9274], 2      ; 0x3837
     jne short @..api_idx_0012_STJU.l71 ; 0x383c
 @..api_idx_0012_STJU.l69:
     mov ax, word [bp + 0x4]          ; 0x383e
@@ -867,7 +867,7 @@ jumptable_35fa:
     imul word [bp + 0x4]             ; 0x3876
     add ax, word [bp + 0x6]          ; 0x3879
     mov bx, ax                       ; 0x387c
-    mov al, byte [bx - 0x6d8c]       ; 0x387e
+    mov al, byte [bx + bss_9274]     ; 0x387e
     sub ah, ah                       ; 0x3882
     push ax                          ; 0x3884
     mov ax, word [bp + 0x4]          ; 0x3885
@@ -890,7 +890,7 @@ jumptable_35fa:
     imul word [bp + 0x4]             ; 0x38b0
     add ax, word [bp + 0x6]          ; 0x38b3
     mov bx, ax                       ; 0x38b6
-    cmp byte [bx - 0x6e09], 0        ; 0x38b8
+    cmp byte [bx + bss_91f7], 0      ; 0x38b8
     jne short @..api_idx_0012_STJU.l72 ; 0x38bd
     jmp near @..api_idx_0012_STJU.l82 ; 0x38bf
 @..api_idx_0012_STJU.l72:
@@ -901,7 +901,7 @@ jumptable_35fa:
     jne short @..api_idx_0012_STJU.l73 ; 0x38ce
     cmp word [bss_8f22], byte 0      ; 0x38d0
     je short @..api_idx_0012_STJU.l73 ; 0x38d5
-    mov al, byte [bx - 0x6e09]       ; 0x38d7
+    mov al, byte [bx + bss_91f7]     ; 0x38d7
     sub ah, ah                       ; 0x38db
     mov word [bss_8f20], ax          ; 0x38dd
     jmp near @..api_idx_0012_STJU.l82 ; 0x38e0
@@ -914,7 +914,7 @@ jumptable_35fa:
     je short @..api_idx_0012_STJU.l74 ; 0x38f1
     jmp near @..api_idx_0012_STJU.l82 ; 0x38f3
 @..api_idx_0012_STJU.l74:
-    mov al, byte [bx - 0x6e09]       ; 0x38f6
+    mov al, byte [bx + bss_91f7]     ; 0x38f6
     sub ah, ah                       ; 0x38fa
     mov cx, ax                       ; 0x38fc
     dec ax                           ; 0x38fe

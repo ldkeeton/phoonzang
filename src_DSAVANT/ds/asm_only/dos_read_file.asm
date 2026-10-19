@@ -41,7 +41,7 @@ dos_read_file:
     xor bx, bx                       ; 0x39d6
     mov cx, word [bx + 0xa]          ; 0x39d8
     mul cx                           ; 0x39db
-    add ax, 0x110                    ; 0x39dd
+    add ax, dseg_0110                ; 0x39dd
     mov dx, ax                       ; 0x39e0
     mov cx, word [bx + 0xa]          ; 0x39e2
     mov bx, word [bp + 0x4]          ; 0x39e5

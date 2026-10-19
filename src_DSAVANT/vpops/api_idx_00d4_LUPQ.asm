@@ -472,7 +472,7 @@ api_idx_00d4_LUPQ:
     push ax                          ; 0x3bcb
     mov ax, 0x248                    ; 0x3bcc
     imul word [bp - 0x0006]          ; 0x3bcf
-    add ax, 0x5bf4                   ; 0x3bd2
+    add ax, bss_5bf4                 ; 0x3bd2
     push ax                          ; 0x3bd5
     call loc_VNIO                    ; 0x3bd6
     add sp, byte 8                   ; 0x3bd9
@@ -551,7 +551,7 @@ jumptable_4058_case_0:
     push ax                          ; 0x3c7e
     mov ax, 0x248                    ; 0x3c7f
     imul word [bp - 0x0006]          ; 0x3c82
-    add ax, 0x5bf4                   ; 0x3c85
+    add ax, bss_5bf4                 ; 0x3c85
     push ax                          ; 0x3c88
     call loc_VNIO                    ; 0x3c89
     add sp, byte 8                   ; 0x3c8c
@@ -740,7 +740,7 @@ jumptable_4058_case_1:
     push ax                          ; 0x3e61
     mov ax, 0x248                    ; 0x3e62
     imul word [bp - 0x0006]          ; 0x3e65
-    add ax, 0x5bf4                   ; 0x3e68
+    add ax, bss_5bf4                 ; 0x3e68
     push ax                          ; 0x3e6b
     call loc_VNIO                    ; 0x3e6c
     add sp, byte 8                   ; 0x3e6f
@@ -908,7 +908,7 @@ jumptable_4058_case_9:
     pop ax                           ; 0x3ff9
     add ax, cx                       ; 0x3ffa
     mov bx, ax                       ; 0x3ffc
-    mov byte [bx - 0x6f28], 1        ; 0x3ffe
+    mov byte [bx + bss_90d8], 1      ; 0x3ffe
 @..api_idx_00d4_LUPQ.l64:
     inc word [bp - 0x009a]           ; 0x4003
 @..api_idx_00d4_LUPQ.l65:
@@ -1338,7 +1338,7 @@ jumptable_4058:
     pop ax                           ; 0x442b
     add ax, cx                       ; 0x442c
     mov bx, ax                       ; 0x442e
-    mov byte [bx - 0x6f28], 1        ; 0x4430
+    mov byte [bx + bss_90d8], 1      ; 0x4430
 @..api_idx_00d4_LUPQ.l93:
     inc word [bp - 0x009a]           ; 0x4435
 @..api_idx_00d4_LUPQ.l94:

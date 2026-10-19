@@ -108,7 +108,7 @@ api_idx_0038_HNUN:
     dec ax                           ; 0x30e0
     mov word [bp - 0x0002], ax       ; 0x30e1
     mov bx, ax                       ; 0x30e4
-    cmp byte [bx - 0x6e12], 0x5c     ; 0x30e6
+    cmp byte [bx + bss_91ee], 0x5c   ; 0x30e6
     je short @..api_idx_0038_HNUN.l6 ; 0x30eb
     mov byte [bx - 0x6e11], 0x5c     ; 0x30ed
     mov byte [bx - 0x6e10], 0        ; 0x30f2
@@ -823,7 +823,7 @@ api_idx_0038_HNUN:
     mov ax, 0x248                    ; 0x37aa
     imul word [bss_69c8]             ; 0x37ad
     mov di, ax                       ; 0x37b1
-    add ax, 0x5bf4                   ; 0x37b3
+    add ax, bss_5bf4                 ; 0x37b3
     mov di, ax                       ; 0x37b6
     mov cx, ds                       ; 0x37b8
     mov es, cx                       ; 0x37ba
@@ -861,7 +861,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x3807
     mov ax, 0x248                    ; 0x3808
     imul word [bp - 0x0002]          ; 0x380b
-    add ax, 0x5bf4                   ; 0x380e
+    add ax, bss_5bf4                 ; 0x380e
     push ax                          ; 0x3811
     call aztec_setmem                ; 0x3812
     add sp, byte 6                   ; 0x3815

@@ -171,7 +171,7 @@ api_idx_000e_RTSO:
     mov ax, word [bss_830c]          ; 0x81e2
     mov cx, 4                        ; 0x81e5
     shl ax, cl                       ; 0x81e8
-    add ax, 0x5642                   ; 0x81ea
+    add ax, bss_5642                 ; 0x81ea
     push ax                          ; 0x81ed
     call set_bitmap_bit              ; 0x81ee
     add sp, byte 6                   ; 0x81f1

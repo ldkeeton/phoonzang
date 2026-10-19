@@ -7,7 +7,7 @@ loc_TUUJ:
     push word [bp + 0x6]             ; 0x66cd
     mov ax, 0x248                    ; 0x66d0
     imul word [bp + 0x4]             ; 0x66d3
-    add ax, 0x5bf4                   ; 0x66d6
+    add ax, bss_5bf4                 ; 0x66d6
     push ax                          ; 0x66d9
     call api_idx_0002_SJMT           ; 0x66da
     add sp, byte 6                   ; 0x66dd

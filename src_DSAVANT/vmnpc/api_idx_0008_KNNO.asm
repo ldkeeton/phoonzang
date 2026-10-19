@@ -135,7 +135,7 @@ api_idx_0008_KNNO:
     push ax                          ; 0x2af2
     mov ax, 0x248                    ; 0x2af3
     imul word [bp - 0x0008]          ; 0x2af6
-    add ax, 0x5bf4                   ; 0x2af9
+    add ax, bss_5bf4                 ; 0x2af9
     push ax                          ; 0x2afc
     mov ax, bss_95a8                 ; 0x2afd
     push ax                          ; 0x2b00

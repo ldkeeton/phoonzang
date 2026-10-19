@@ -84,7 +84,7 @@ api_idx_0056_KOPT:
     jl short @..api_idx_0056_KOPT.l10 ; 0x327a
     mov ax, 0x248                    ; 0x327c
     imul word [bp - 0x0002]          ; 0x327f
-    add ax, 0x5bf4                   ; 0x3282
+    add ax, bss_5bf4                 ; 0x3282
     push ax                          ; 0x3285
     lea ax, word [bp - 0x0056]       ; 0x3286
     push ax                          ; 0x3289

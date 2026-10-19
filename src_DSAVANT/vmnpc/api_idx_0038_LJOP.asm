@@ -55,7 +55,7 @@ api_idx_0038_LJOP:
     push ax                          ; 0x4868
     mov ax, 0x248                    ; 0x4869
     imul word [bp + 0x4]             ; 0x486c
-    add ax, 0x5bf4                   ; 0x486f
+    add ax, bss_5bf4                 ; 0x486f
     push ax                          ; 0x4872
     call aztec_strlen                ; 0x4873
     pop cx                           ; 0x4876
@@ -75,7 +75,7 @@ api_idx_0038_LJOP:
     push ax                          ; 0x4896
     mov ax, 0x248                    ; 0x4897
     imul word [bp + 0x4]             ; 0x489a
-    add ax, 0x5bf4                   ; 0x489d
+    add ax, bss_5bf4                 ; 0x489d
     push ax                          ; 0x48a0
     call ds_string_loc_QRJV          ; 0x48a1
     add sp, byte 4                   ; 0x48a4

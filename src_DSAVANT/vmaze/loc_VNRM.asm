@@ -7,7 +7,7 @@ loc_VNRM:
     mov ax, word [bss_830c]          ; 0x68fc
     mov cx, 4                        ; 0x68ff
     shl ax, cl                       ; 0x6902
-    add ax, 0x5642                   ; 0x6904
+    add ax, bss_5642                 ; 0x6904
     push ax                          ; 0x6907
     mov ax, word [bss_830c]          ; 0x6908
     shl ax, cl                       ; 0x690b

@@ -50,7 +50,15 @@ _TREE = shift_oracle.TREE
 # sibling ``shared/api_idx_000e_VRIR.asm`` (counted in vmexe and vpops: 10),
 # and ``dseg_0cf5`` (tty_wr's ``crbuf``) exposes vmexe's message number 0xcf5
 # passed to ``ds_app_mem_TIMR``.
-BASELINE = {'code': 28, 'data': 369, 'branch': 0}
+# Code 28 -> 26, data 369 -> 364 re-measured at bc4e46ac (names cleanup).
+# Data 364 -> 262: the indexed pass runs after the immediates are named, so
+# ``mov ax, bss_91ee`` elsewhere lets ``[bx - 0x6e12]`` read ``[bx + bss_91ee]``
+# (any start this binary names, however proven).  Data 262 -> 151: a DS table
+# start added to an index (``imul word [bp + 4]; add ax, 0x5bf4``) is the
+# immediate spelling of ``[bx + 0x5bf4]`` and binds under the same proof
+# (``symbols._resolve_index_offset_symbols``); ds's ``add ax, 0x110`` after a
+# ``mul`` is its read buffer's end and now reads ``dseg_0110``.
+BASELINE = {'code': 26, 'data': 151, 'branch': 0}
 
 
 def _sites(result):
@@ -65,22 +73,20 @@ class ShiftOracleSanityTests(unittest.TestCase):
     def test_a_known_frozen_ds_address_is_reported(self):
         # ``mov si, 0x110`` names ``dseg_0110`` (ds.asm) as a number.
         r = shift_oracle.run('ds', 'data')
-        self.assertIn(('ds/asm_only/ds_dos_mem_loc_JGSR.asm', 88), _sites(r))
+        self.assertIn(('ds/asm_only/dos_alloc_mem.asm', 88), _sites(r))
 
     def test_binding_the_address_clears_the_report(self):
         with tempfile.TemporaryDirectory() as d:
             tree = Path(d) / 'src_DSAVANT'
             shutil.copytree(_TREE, tree, ignore=shutil.ignore_patterns(
                 'build_out', '*.c', '*.o', '*.bin'))
-            frag = tree / 'ds/asm_only/ds_dos_mem_loc_JGSR.asm'
+            frag = tree / 'ds/asm_only/dos_alloc_mem.asm'
             text = frag.read_text()
             self.assertIn('mov si, 0x110 ', text)
             frag.write_text(text.replace('mov si, 0x110 ',
                                          'mov si, dseg_0110 ', 1))
             r = shift_oracle.run('ds', 'data', tree=tree)
-        self.assertNotIn(('ds/asm_only/ds_dos_mem_loc_JGSR.asm', 88), _sites(r))
-        # The other ``0x110`` literal in the file (``add ax, 0x110``) is untouched.
-        self.assertIn(('ds/asm_only/ds_dos_mem_loc_JGSR.asm', 30), _sites(r))
+        self.assertNotIn(('ds/asm_only/dos_alloc_mem.asm', 88), _sites(r))
 
     def test_a_displacement_counts_only_in_its_segment(self):
         # ``lea cx, [bp - 0x156]`` is a frame slot that equals a code label.

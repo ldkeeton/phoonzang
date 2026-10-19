@@ -17,7 +17,7 @@ api_idx_00ba_TUGQ:
     push ax                          ; 0xaab8
     mov ax, 0x248                    ; 0xaab9
     imul word [bp + 0x4]             ; 0xaabc
-    add ax, 0x5bf4                   ; 0xaabf
+    add ax, bss_5bf4                 ; 0xaabf
     push ax                          ; 0xaac2
     lea ax, word [bp - 0x0066]       ; 0xaac3
     push ax                          ; 0xaac6

@@ -225,12 +225,12 @@ api_idx_0010_IOJT:
     imul word [bp + 0x4]             ; 0x9c9c
     add ax, word [bp + 0x6]          ; 0x9c9f
     mov bx, ax                       ; 0x9ca2
-    mov byte [bx - 0x63be], 1        ; 0x9ca4
+    mov byte [bx + bss_9c42], 1      ; 0x9ca4
     mov ax, 0x16                     ; 0x9ca9
     imul word [bp + 0x6]             ; 0x9cac
     add ax, word [bp + 0x4]          ; 0x9caf
     mov bx, ax                       ; 0x9cb2
-    mov byte [bx - 0x63be], 1        ; 0x9cb4
+    mov byte [bx + bss_9c42], 1      ; 0x9cb4
     mov ax, 0x26                     ; 0x9cb9
     imul word [bp + 0x4]             ; 0x9cbc
     mov bx, ax                       ; 0x9cbf

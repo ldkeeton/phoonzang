@@ -46,7 +46,7 @@ loc_LQIO:
     mov ax, 0x248                    ; 0x60d9
     imul word [bss_69c8]             ; 0x60dc
     mov di, ax                       ; 0x60e0
-    add ax, 0x5bf4                   ; 0x60e2
+    add ax, bss_5bf4                 ; 0x60e2
     mov di, ax                       ; 0x60e5
     mov cx, ds                       ; 0x60e7
     mov es, cx                       ; 0x60e9

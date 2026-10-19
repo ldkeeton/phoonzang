@@ -30,7 +30,7 @@ api_idx_00a4_PTJS:
     push ax                          ; 0x4ee6
     mov ax, 0x248                    ; 0x4ee7
     imul word [bp + 0x4]             ; 0x4eea
-    add ax, 0x5bf4                   ; 0x4eed
+    add ax, bss_5bf4                 ; 0x4eed
     push ax                          ; 0x4ef0
     lea ax, word [bp - 0x0054]       ; 0x4ef1
     push ax                          ; 0x4ef4

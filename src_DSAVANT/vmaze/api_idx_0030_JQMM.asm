@@ -1752,7 +1752,7 @@ jumptable_59e2_case_0:
 @..api_idx_0030_JQMM.l42:
     mov ax, 0x11                     ; 0x62f5
     imul word [bp - 0x0002]          ; 0x62f8
-    add ax, 0x9320                   ; 0x62fb
+    add ax, bss_9320                 ; 0x62fb
     mov word [bp - 0x0026], ax       ; 0x62fe
     mov bx, ax                       ; 0x6301
     mov al, byte [bx + 0xd]          ; 0x6303
@@ -1814,7 +1814,7 @@ jumptable_59e2_case_0:
 @..api_idx_0030_JQMM.l48:
     mov ax, 0x11                     ; 0x638a
     imul word [bp - 0x0002]          ; 0x638d
-    add ax, 0x9320                   ; 0x6390
+    add ax, bss_9320                 ; 0x6390
     mov word [bp - 0x0026], ax       ; 0x6393
     mov bx, ax                       ; 0x6396
     mov al, byte [bx + 0xd]          ; 0x6398
@@ -2096,7 +2096,7 @@ jumptable_59e2_case_0:
     mov ax, word [bp - 0x0002]       ; 0x661d
     add cx, ax                       ; 0x6620
     mov bx, cx                       ; 0x6622
-    mov al, byte [bx - 0x6df6]       ; 0x6624
+    mov al, byte [bx + bss_920a]     ; 0x6624
     sub ah, ah                       ; 0x6628
     mov word [bp - 0x001a], ax       ; 0x662a
     test ax, ax                      ; 0x662d
