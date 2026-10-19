@@ -3,13 +3,18 @@
 %include "inc/structs/vinstall.inc"
 bits 16
 %ifndef VBASE
+%ifdef ELF_BUILD
+VBASE equ 0
+%else
 VBASE equ -0x0200
+%endif
 %endif
 section .text vstart=VBASE
 %ifndef IMAGE_BASE
 IMAGE_BASE equ 0x0200 + VBASE
 %endif
 
+%ifndef ELF_BUILD
     ; DOS MZ executable header (512 bytes)
     db "MZ"                                       ; e_magic: DOS MZ signature
     dw (__zimage_end - $$) % 512                  ; 0x0014 ; e_cblp: bytes in final 512-byte page (0 means full)
@@ -29,6 +34,7 @@ IMAGE_BASE equ 0x0200 + VBASE
     times 4 db 0
     db 0xd3, 0x33
     times 478 db 0
+%endif
 
 dseg_000e equ __zdseg_000e - __zdseg_start
 dseg_0025 equ __zdseg_0025 - __zdseg_start

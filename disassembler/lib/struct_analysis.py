@@ -8,9 +8,7 @@ No project-specific knowledge — everything is derived from the code itself.
 """
 
 import json
-import os
 
-from lib.autogen import write_text
 from collections import defaultdict
 from capstone import CS_OP_MEM
 from capstone.x86 import X86_REG_BP, X86_REG_SP, X86_REG_BX, X86_REG_SI
@@ -279,16 +277,21 @@ def format_types_json(structs, binary_path, overlay_name):
     return json.dumps(doc, indent=2)
 
 
-def write_struct_inc_files(structs, name, structs_dir):
-    """Write auto-discovered struct definitions to disassembler/inc/structs/<name>.inc
-    and disassembler/inc/structs/structs.inc (shared primitives).
+#: Where the struct includes live, relative to the source tree.
+STRUCTS_DIR = 'inc/structs'
 
-    Returns the %include directive string, or None if no structs.
+
+def struct_inc_files(structs, name):
+    """The struct include files for one binary, and the line that includes them.
+
+    Returns ``({relative path: text}, include line)``: the auto-discovered
+    struct definitions (``inc/structs/<name>.inc``) and the shared primitives
+    (``inc/structs/structs.inc``, the same for every binary), or ``({}, None)``
+    when there are no structs.  The caller writes them with the binary's other
+    files.
     """
-    os.makedirs(structs_dir, exist_ok=True)
-
-    # Write shared primitives
-    prim_path = os.path.join(structs_dir, 'structs.inc')
+    if not structs:
+        return {}, None
     primitives = '\n'.join([
         '; ── shared data layout primitives ───────────────────────────────',
         '',
@@ -321,18 +324,13 @@ def write_struct_inc_files(structs, name, structs_dir):
         'endstruc',
         '',
     ])
-    write_text(prim_path, primitives)
-
-    if not structs:
-        return None
-
-    inc_path = os.path.join(structs_dir, f'{name}.inc')
     struct_text = format_nasm_structs(structs)
-
-    write_text(inc_path, struct_text if struct_text.endswith('\n')
-               else struct_text + '\n')
-
-    return f'%include "inc/structs/{name}.inc"'
+    files = {
+        f'{STRUCTS_DIR}/structs.inc': primitives,
+        f'{STRUCTS_DIR}/{name}.inc': (struct_text if struct_text.endswith('\n')
+                                      else struct_text + '\n'),
+    }
+    return files, f'%include "{STRUCTS_DIR}/{name}.inc"'
 
 
 def format_nasm_structs(structs):

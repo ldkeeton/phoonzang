@@ -299,7 +299,7 @@ def _note_immediate_labels(use, immediate_labels, text):
 
 def verify(binary_data, start_offset, instructions, name='', label_map=None,
            bitmap=None, code_targets=None, exact_bytes=False, show_offsets=True,
-           structs=None, asm_dir=None, cascade_promoted=None,
+           structs=None, cascade_promoted=None,
            carve_1=None, trace=None,
            foreign_label_map=None,
            immediate_labels=None, split_functions=None, hard_data=None,
@@ -335,7 +335,6 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         naming fixed external-segment fields (e.g. the BIOS Data Area).  A
         field is named only when the operand's segment matches the entry's.
     structs : list | None
-    asm_dir : str | None
     cascade_promoted : set | None
 
     Returns (asm_text, stats, emit_bytes, label_positions, split_sources).
@@ -1301,12 +1300,10 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 code_loss += 1
 
     struct_count = 0
+    struct_files = {}
     if structs:
-        from lib.struct_analysis import write_struct_inc_files
-        if asm_dir is None:
-            asm_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        structs_dir = os.path.join(asm_dir, 'inc', 'structs')
-        inc_line = write_struct_inc_files(structs, name, structs_dir)
+        from lib.struct_analysis import struct_inc_files
+        struct_files, inc_line = struct_inc_files(structs, name)
         if inc_line:
             includes = '%include "inc/structs/structs.inc"\n' + inc_line + '\n'
             if generic_prefix():
@@ -1323,6 +1320,7 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
         'data_blocks': data_blocks,
         'labels': label_count,
         'structs': struct_count,
+        'struct_files': struct_files,
         'bare_mem': bare_mem,
         'bare_call': bare_call,
         'bare_dbc': bare_dbc,

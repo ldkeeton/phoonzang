@@ -6,6 +6,7 @@ deleting the marker line) or added is never touched.
 """
 
 import os
+from contextlib import contextmanager
 
 MARKER_ASM = '; auto-generated'
 MARKER_C = '/* auto-generated */'
@@ -40,8 +41,32 @@ def is_generated(path):
     return line in (MARKER_ASM, MARKER_C)
 
 
+#: The paths written inside :func:`write_once`, or ``None`` outside it.
+_written = None
+
+
+@contextmanager
+def write_once():
+    """A build: inside it, :func:`write_text` writing one path twice is an error.
+
+    The build lays every file out before writing any (:mod:`main.build`), so a
+    second write means some step rewrites another's output.
+    """
+    global _written
+    previous, _written = _written, set()
+    try:
+        yield
+    finally:
+        _written = previous
+
+
 def write_text(path, text):
     """Write *text* to *path* with the marker as its first line."""
+    if _written is not None:
+        key = os.path.abspath(path)
+        if key in _written:
+            raise RuntimeError(f'{path}: written twice in one build')
+        _written.add(key)
     with open(path, 'w') as f:
         f.write(stamp(text, path))
 

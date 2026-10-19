@@ -31,5 +31,16 @@ class AutogenTest(unittest.TestCase):
             self.assertTrue(os.path.exists(os.path.join(root, 'ds', 'blob.bin')))
 
 
+class WriteOnceTest(unittest.TestCase):
+    def test_a_build_writing_one_path_twice_is_an_error(self):
+        with tempfile.TemporaryDirectory() as root:
+            path = os.path.join(root, 'a.asm')
+            with autogen.write_once():
+                autogen.write_text(path, 'nop\n')
+                with self.assertRaises(RuntimeError):
+                    autogen.write_text(path, 'nop\n')
+            autogen.write_text(path, 'nop\n')   # outside a build: allowed
+
+
 if __name__ == '__main__':
     unittest.main()

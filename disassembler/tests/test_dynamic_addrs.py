@@ -29,7 +29,6 @@ from lib.sidecar.loader import load as load_sidecar
 from lib.symtab import Space, Symbol
 from tests.syms import bss, cseg, data, dseg, loc, psp, routine
 from lib.sidecar.binary import per_binary
-from make.elf import _force_origin_zero
 
 
 _ASM_DIR = pathlib.Path(__file__).resolve().parents[1]
@@ -1278,25 +1277,17 @@ class HostIncludeTests(unittest.TestCase):
         _TREE.is_dir() and (_TREE / 'vbase.asm').exists(),
         'generated src_DSAVANT tree not present',
     )
-    def test_overlay_origin_is_what_the_elf_prep_zeroes(self):
-        """The emitted origin is the form ``make elf-rebuild`` rewrites.
+    def test_overlay_origin_is_zero_in_the_elf_build(self):
+        """``make elf-rebuild``'s ``ELF_BUILD`` zeroes the overlay's own origin.
 
-        The ELF build has no ``vstart``, so the origin must be 0 there; the prep
-        zeroes the image's own ``VBASE equ`` line in the prepared source rather
-        than passing ``-DVBASE=0``, because an overlay's host include defines
-        ``VBASE`` for its own frame and clears it, so a command-line definition
-        never reaches the overlay's own line.
+        The host's frame definition is not in the master (E2 moved it to the
+        shared include), so the overlay's own origin is the only ``VBASE`` here.
         """
-        lines = (_TREE / 'vbase.asm').read_text().splitlines()
-        rewritten = _force_origin_zero(lines)
-        self.assertEqual(len(rewritten), len(lines))
-        self.assertIn('VBASE equ 0', rewritten)
-        self.assertNotIn('VBASE equ __zresident_end - 0x000e', rewritten)
-        # The host's own frame definition is no longer in the master at all (E2
-        # moved it to the shared include, which the ELF prep leaves alone), so
-        # the overlay's own origin is the only ``VBASE`` left to rewrite.
-        self.assertNotIn('%define VBASE', rewritten)
-        self.assertIn(f'%include "{HOST_SYMBOLS_INC}"', rewritten)
+        text = (_TREE / 'vbase.asm').read_text()
+        self.assertIn('%ifdef ELF_BUILD\nVBASE equ 0\n%else\n'
+                      'VBASE equ __zres_end - 0x000e\n%endif', text)
+        self.assertNotIn('%define VBASE', text)
+        self.assertIn(f'%include "{HOST_SYMBOLS_INC}"', text)
 
     @slow
     @unittest.skipUnless(

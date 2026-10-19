@@ -9,7 +9,6 @@ import subprocess
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ELF = ROOT / "src_DSAVANT" / "build_out" / "DS.elf"
-DWARF_SOURCE = ROOT / "src_DSAVANT" / "build_out" / ".elf-rebuild" / "ds.asm"
 INCLUDE_SOURCE = ROOT / "src_DSAVANT" / "ds" / "asm_only" / "bios_get_video_mode.asm"
 MASTER_SOURCE = ROOT / "src_DSAVANT" / "ds.asm"
 FLOW_ADDRESS = re.compile(
@@ -71,15 +70,11 @@ def main():
         ["make", "-C", str(ROOT), "elf-rebuild", "DSAVANT", "ds"],
         check=True,
     )
-    if not DWARF_SOURCE.is_file():
-        raise AssertionError(
-            f"ELF source file was not retained at its DWARF path: {DWARF_SOURCE}"
-        )
     if not INCLUDE_SOURCE.is_file():
         raise AssertionError(f"generated source include is missing: {INCLUDE_SOURCE}")
 
     breakpoints = (
-        ("4", DWARF_SOURCE, "ds.asm", first_mapped_line("ds.asm")),
+        ("4", MASTER_SOURCE, "ds.asm", first_mapped_line("ds.asm")),
         ("5", INCLUDE_SOURCE, INCLUDE_SOURCE.name,
          first_mapped_line(INCLUDE_SOURCE.name)),
     )

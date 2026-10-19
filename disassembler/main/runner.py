@@ -560,7 +560,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     # slow) DOSBox work is reported separately instead of inflating it.
     out_dir = output_dir or ASM_DIR
     t_aztec = time.perf_counter()
-    c_overrides, _entries = _aztec_c_overrides(
+    c_overrides, _entries, header_files = _aztec_c_overrides(
         project, name, data, ctx.label_map, out_dir, function_roots,
         start_offset)
     asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map)
@@ -635,6 +635,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         foreign_prefix=foreign_prefix, structs=structs, carve_1=carve_1, immediate_labels=immediate_labels,
         label_comments=label_comments, split_functions=split_functions,
         out_dir=out_dir, c_overrides=c_overrides, entries=_entries,
+        header_files=header_files,
         asm_annotations=asm_annotations, classify_timing=classify_timing,
         code_bytes=code_bytes, data_bytes=data_bytes, pct=pct,
         t_total=t_total, t_classify=t_classify, t_classify_end=t_classify_end,
@@ -670,35 +671,34 @@ def _data_names(project, name, data, label_map, segments, host, entries):
             return {}
         from lib.cachedirs import labels_dir
         from lib.cross_ref import read_label_json
-        path = os.path.join(labels_dir(project), f'{host}_datanames.json')
-        return read_label_json(path) if os.path.exists(path) else {}
+        return read_label_json(os.path.join(labels_dir(project),
+                                            f'{host}_datanames.json'))
     from lib.aztec import libnames
     return libnames.data_symbols(project, name, data, label_map, segments,
                                  entries)
 
 
 def _foreign_pointer_params(project, host):
-    """The host's pointer arguments, ``{routine: [argument, ...]}`` (or ``{}``).
+    """The host's pointer arguments, ``{routine: [argument, ...]}``.
 
     Written by the host's labels-only pass, which runs before any consumer.
     """
     if not project or not host:
         return {}
     from lib.cachedirs import labels_dir
+    from lib.link import read_export
     path = os.path.join(labels_dir(project), f'{host}_ptrparams.json')
-    if not os.path.exists(path):
-        return {}
-    with open(path) as f:
-        return {name: frozenset(args) for name, args in json.load(f).items()}
+    return {name: frozenset(args) for name, args in read_export(path).items()}
 
 
 def _render(a, exact_bytes, show_offsets, host_data_offsets,
-            ds_starts=frozenset()):
+            ds_starts=frozenset(), final=True):
     """Render an analysed binary to assembly text; still writes no sources.
 
     The host's DS declarations depend on ``host_data_offsets``, which exist only
     once its consumers are built.  The labels the consumers need do not, which
-    is why rendering is a separate step from analysing.
+    is why rendering is a separate step from analysing.  *final* is the render
+    that will be emitted (not a labels-only one).
     """
     (name, project, data, start_offset, ctx, instructions, label_map,
      function_roots, extra_flow_edges, foreign_label_map, entry_symbol,
@@ -714,7 +714,6 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
         bitmap=ctx.bitmap, code_targets=ctx.code_target_set,
         exact_bytes=exact_bytes, show_offsets=show_offsets,
         structs=structs,
-        asm_dir=out_dir,
         carve_1=carve_1,
         trace=ctx.trace,
         foreign_label_map=foreign_label_map,
@@ -749,24 +748,20 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
     # D7.1: export the host-owned DS names this overlay references so the make
     # layer can hand the union to the host (which declares one recipe per
     # offset).  This is the data analogue of ``--export-labels``.
-    if project and stats.get('host_data_refs'):
-        from lib.cachedirs import labels_dir
-        target_dir = labels_dir(project)
-        os.makedirs(target_dir, exist_ok=True)
-        with open(os.path.join(target_dir, f'{name}_hostdata.json'), 'w') as f:
-            json.dump({str(sym): symtab.encode(sym)
-                       for sym in stats['host_data_refs']},
-                      f, indent=1, sort_keys=True)
+    # The emitting render's refs are the ones the host's union is drawn from.
+    if project and final:
+        from lib.link import write_host_data_export
+        write_host_data_export(project, name, {
+            str(sym): symtab.encode(sym)
+            for sym in stats.get('host_data_refs') or ()})
     # The arguments this binary's routines read memory through, by name: the
     # overlays call the host's routines, so they read the host's file
     # (``lib.argpointers``).
     if project:
         from lib.cachedirs import labels_dir
-        target_dir = labels_dir(project)
-        os.makedirs(target_dir, exist_ok=True)
-        with open(os.path.join(target_dir, f'{name}_ptrparams.json'), 'w') as f:
-            json.dump(stats.get('pointer_params', {}), f, indent=1,
-                      sort_keys=True)
+        from lib.link import write_export
+        write_export(os.path.join(labels_dir(project), f'{name}_ptrparams.json'),
+                     stats.get('pointer_params', {}))
     # The host-space DS starts this binary names; the build unites the host
     # family's exports so each binary can bind an indexed operand to an object
     # another binary names (``symbols._resolve_indexed_symbols``).
@@ -806,7 +801,13 @@ def _render(a, exact_bytes, show_offsets, host_data_offsets,
 
 
 def _emit(a, r, exact_bytes):
-    """Write the rendered sources and report; the only step that touches ``src_<project>/``."""
+    """Lay out the rendered sources and report them.
+
+    Returns the binary's files under ``src_<project>/`` as ``{relative path:
+    text}``, each stamped as generated.  Nothing is written there here: the
+    build places the routines every binary shares (:mod:`lib.shared`) and then
+    writes each file once (:func:`write_files`).
+    """
     (name, project, ctx, instructions, label_map, out_dir, entries,
      immediate_labels, classify_timing, code_bytes, data_bytes, pct,
      t_total, t_flow_disasm_start, t_disasm, t_aztec, t_aztec_end,
@@ -816,9 +817,13 @@ def _emit(a, r, exact_bytes):
         a.data_bytes, a.pct, a.t_total, a.t_flow_disasm_start, a.t_disasm,
         a.t_aztec, a.t_aztec_end, a.t_classify, a.t_classify_end,
         a.asm_annotations)
-    asm_text, stats, split_sources = r.asm_text, r.stats, r.split_sources
+    asm_text, stats = r.asm_text, r.stats
+    split_sources = dict(r.split_sources)
     _entries = entries
-    os.makedirs(out_dir, exist_ok=True)
+    # The new C seeds (main.aztec) are this binary's files too, with the text
+    # the render left them (a pristine seed is relabelled there).
+    seeds = {os.path.relpath(ov['path'], out_dir): ov['text']
+             for ov in (a.c_overrides or {}).values() if ov.get('generated')}
     # Asm-only routines (lib.asm_only) live in an ``asm_only`` subfolder so they
     # are not mixed with the routines that can become C.  A routine with a
     # hand-written .c stays where its .c is.
@@ -836,28 +841,21 @@ def _emit(a, r, exact_bytes):
         folder, filename = os.path.split(include_path)
         text = asm_only.stamp(stamp(split_sources[include_path], include_path),
                               force=filename[:-4] in vendor_asm)
-        has_c = os.path.exists(os.path.join(
-            out_dir, folder, filename[:-4] + '.c'))
-        target = include_path
+        c_rel = os.path.join(folder, filename[:-4] + '.c')
+        has_c = c_rel in seeds or os.path.exists(os.path.join(out_dir, c_rel))
         if text.split('\n', 2)[1:2] == [asm_only.MARKER] and not has_c:
-            target = f'{folder}/{asm_only.FOLDER}/{filename}'
-            moved[include_path] = target
+            moved[include_path] = f'{folder}/{asm_only.FOLDER}/{filename}'
         split_sources[include_path] = text
-        # Drop a stale generated copy from the other location.
-        other = (include_path if target != include_path else
-                 f'{folder}/{asm_only.FOLDER}/{filename}')
-        if other != target and is_generated(os.path.join(out_dir, other)):
-            os.unlink(os.path.join(out_dir, other))
     for old_path, new_path in moved.items():
         split_sources[new_path] = split_sources.pop(old_path)
         old_inc, new_inc = f'%include "{old_path}"', f'%include "{new_path}"'
         asm_text = asm_text.replace(old_inc, new_inc)
         for key in split_sources:
             split_sources[key] = split_sources[key].replace(old_inc, new_inc)
-    for include_path, include_text in split_sources.items():
-        path = os.path.join(out_dir, include_path)
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        write_text(path, include_text)
+    files = {**a.header_files, **stats.get('struct_files', {}), **seeds,
+             **split_sources}
+    asm_path = os.path.join(out_dir, f'{name}.asm')
+    files[f'{name}.asm'] = asm_text
     spans = stats.get('aztec_spans') or {}
     if spans and project:
         from lib.cachedirs import spans_dir
@@ -865,8 +863,6 @@ def _emit(a, r, exact_bytes):
         os.makedirs(target_dir, exist_ok=True)
         with open(os.path.join(target_dir, f'{name}_aztec_spans.json'), 'w') as f:
             json.dump(spans, f, indent=1, sort_keys=True)
-    asm_path = os.path.join(out_dir, f'{name}.asm')
-    write_text(asm_path, asm_text)
     t_end = time.perf_counter()
 
     if immediate_labels:
@@ -964,9 +960,18 @@ def _emit(a, r, exact_bytes):
     if _DECOMPILE:
         from lib.decompile.driver import decompile
         c_text = decompile(instructions, label_map, ctx.code_target_set, name)
-        c_path = os.path.join(out_dir, f'{name}.c')
-        write_text(c_path, c_text)
-        print(f'  decompile: {len(instructions)} insns -> {c_path}')
+        files[f'{name}.c'] = c_text
+        print(f'  decompile: {len(instructions)} insns -> '
+              f'{os.path.join(out_dir, name)}.c')
+    return {rel: stamp(text, rel) for rel, text in files.items()}
+
+
+def write_files(out_dir, files):
+    """Write a build's ``{relative path: text}`` under *out_dir*, each once."""
+    for rel, text in sorted(files.items()):
+        path = os.path.join(out_dir, rel)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        write_text(path, text)
 
 
 def _export_labels(a):
@@ -988,10 +993,8 @@ def _export_labels(a):
             why='labels vendored into a C routine are not exported',
             metrics={'renamed': len(renamed), 'exported': len(exported)})
         write_label_json(exported, json_path)
-        data_names = getattr(a.ctx.segments, 'data_names', None)
-        if data_names:
-            write_label_json(data_names, os.path.join(
-                target_dir, f'{name}_datanames.json'))
+        write_label_json(getattr(a.ctx.segments, 'data_names', None) or {},
+                         os.path.join(target_dir, f'{name}_datanames.json'))
 
 
 def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
@@ -1006,12 +1009,11 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
     written and no status is printed.  The build uses it for the host, whose
     emitted source must wait for its consumers' DS offsets.
     """
-    set_generic_prefix('')
-    a = _analyze(name, orig_dir, rel_path, start_offset, output_dir=output_dir,
-                 project=project, sidecar_entry=sidecar_entry,
-                 foreign_label_map=foreign_label_map,
-                 export_labels=export_labels, host_model=host_model,
-                 foreign_prefix=foreign_prefix)
+    a = analyze(name, orig_dir, rel_path, start_offset, output_dir=output_dir,
+                project=project, sidecar_entry=sidecar_entry,
+                foreign_label_map=foreign_label_map,
+                export_labels=export_labels, host_model=host_model,
+                foreign_prefix=foreign_prefix)
     if a is None:
         return None
     if a.prebuild_only:
@@ -1019,16 +1021,46 @@ def _process(name, orig_dir, rel_path, start_offset, exact_bytes=False,
         # this point (emit/NASM/build_out) belongs to a prebuild.
         return a.ctx.bitmap, a.label_map
     try:
-        r = _render(a, exact_bytes, show_offsets, host_data_offsets,
-                    ds_starts)
+        files = step(a, exact_bytes, show_offsets, host_data_offsets,
+                     ds_starts, emit)
     finally:
-        if a.trace_writer:
-            a.trace_writer.close()
-    _export_labels(a)
-    if emit:
-        _check_sidecar_use(a, project, name)
-        _emit(a, r, exact_bytes)
+        finish(a)
+    if files:
+        write_files(a.out_dir, files)
     return a.ctx.bitmap, a.label_map
+
+
+def analyze(name, *args, export_labels=False, **kwargs):
+    """:func:`_analyze`, from a clean generic prefix; keep it for :func:`step`."""
+    set_generic_prefix('')
+    a = _analyze(name, *args, export_labels=export_labels, **kwargs)
+    if a is not None:
+        a.generic_prefix = f'{name}_' if export_labels else ''
+    return a
+
+
+def step(a, exact_bytes, show_offsets, host_data_offsets, ds_starts, emit):
+    """One build step of an analysed binary: render, export, maybe emit.
+
+    The build runs a binary's steps against one analysis (its labels-only
+    render, then the emitting one), so nothing here changes *a*'s analysis.
+    Returns the emitted files (:func:`_emit`), or ``None`` for a labels-only
+    step.
+    """
+    set_generic_prefix(a.generic_prefix)
+    r = _render(a, exact_bytes, show_offsets, host_data_offsets, ds_starts,
+                final=emit)
+    _export_labels(a)
+    if not emit:
+        return None
+    _check_sidecar_use(a, a.project, a.name)
+    return _emit(a, r, exact_bytes)
+
+
+def finish(a):
+    """Release what an analysis holds open once its last step has run."""
+    if a.trace_writer:
+        a.trace_writer.close()
 
 
 def _check_sidecar_use(a, project, name):
@@ -1038,15 +1070,17 @@ def _check_sidecar_use(a, project, name):
     analysis.  The build-wide keys (one entry covers every binary) are
     exported for ``main.build`` to check across all of them.
     """
+    from lib.link import write_sidecar_use_export
     sidecar = a.ctx.sidecar_entry or {}
     use = sidecar.get('use')
     if use is None:
+        if project:
+            write_sidecar_use_export(project, name, {})
         return
     use.check_names(a.label_map)
     use.check()
     if not project:
         return
-    from lib.link import write_sidecar_use_export
     from lib.sidecar.compiler import matching_prefix
     names = {str(label) for label in a.label_map.values()}
     routines = sidecar.get('routines') or {}

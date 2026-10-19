@@ -70,6 +70,19 @@ def _walk_asm(out_dir):
                 yield os.path.join(folder, filename)
 
 
+def generated_asm(out_dir):
+    """``{relative path: text}`` of the generated ``.asm`` files at *out_dir*."""
+    return {os.path.relpath(path, out_dir): _read(path)
+            for path in _walk_asm(out_dir) if is_generated(path)}
+
+
+def _asm(files):
+    """*files*' ``.asm`` outside ``inc``/``build_out``, in path order."""
+    return [(rel, files[rel]) for rel in sorted(files)
+            if rel.endswith('.asm')
+            and not _SKIP_DIRS & set(rel.split('/')[:-1])]
+
+
 def _defined_labels(text, symbols):
     """Label names defined in *text*, excluding locals and anchors.
 
@@ -88,35 +101,26 @@ def _defined_labels(text, symbols):
     return out
 
 
-def fragments(out_dir):
+def fragments(files):
     """``{relative path: text}`` for the per-binary generated fragments.
 
-    A fragment lives under a binary's own directory; the shared ``shared/`` and the
-    top-level masters are not fragments.
+    *files* is the tree's generated ``.asm`` (:func:`generated_asm`).  A
+    fragment lives under a binary's own directory; the shared ``shared/`` and
+    the top-level masters are not fragments.
     """
-    out = {}
-    for binary in sorted(os.listdir(out_dir)):
-        top = os.path.join(out_dir, binary)
-        if binary == FOLDER or binary in _SKIP_DIRS or not os.path.isdir(top):
-            continue
-        for path in _walk_asm(top):
-            if is_generated(path):
-                out[os.path.relpath(path, out_dir)] = _read(path)
-    return out
+    return {rel: text for rel, text in _asm(files)
+            if '/' in rel and rel.split('/', 1)[0] != FOLDER}
 
 
-def _defined(out_dir, symbols):
+def _defined(files, symbols):
     """``{label: [relative files]}`` for labels defined anywhere in the tree.
 
     One name can be defined by several binaries: a content tag names the code,
     so identical code in two binaries carries the same name.
     """
     where = defaultdict(list)
-    for path in _walk_asm(out_dir):
-        if not is_generated(path):
-            continue
-        rel = os.path.relpath(path, out_dir)
-        for name in _defined_labels(_read(path), symbols):
+    for rel, text in _asm(files):
+        for name in _defined_labels(text, symbols):
             where[name].append(rel)
     return where
 
@@ -144,18 +148,15 @@ def resolve(name, referrer, defined, host='ds'):
     return set(where)
 
 
-def _references(out_dir, known):
+def _references(files, known):
     """``{label: set(relative files)}`` that name *label* in code.
 
     Comments are stripped; a label's own definition line is not a reference.
     Only names in *known* are kept.
     """
     refs = defaultdict(set)
-    for path in _walk_asm(out_dir):
-        if not is_generated(path):
-            continue
-        rel = os.path.relpath(path, out_dir)
-        for line in _read(path).split('\n'):
+    for rel, text in _asm(files):
+        for line in text.split('\n'):
             code = line.split(';', 1)[0]
             if not code.strip():
                 continue
@@ -167,11 +168,13 @@ def _references(out_dir, known):
     return refs
 
 
-def scan(out_dir, symbols=None):
+def scan(out_dir, symbols=None, files=None):
     """Measure co-tenancy over the generated tree at *out_dir*.
 
     *symbols* is ``{text: Symbol}``; by default the tables of the project the
-    tree belongs to (:func:`symbol_tables`).
+    tree belongs to (:func:`symbol_tables`).  *files* is the tree's generated
+    files (``{relative path: text}``) when the build has them before writing
+    them; by default they are read from *out_dir*.
 
     Returns ``{'files', 'glued_files', 'co_tenants', 'code', 'data', 'entries'}``
     where ``code``/``data`` are ``{'outside', 'inside', 'dead'}`` counts and
@@ -179,9 +182,11 @@ def scan(out_dir, symbols=None):
     """
     if symbols is None:
         symbols = symbol_tables(project_of_src_dir(out_dir))
-    frags = fragments(out_dir)
-    defined = _defined(out_dir, symbols)
-    refs = _references(out_dir, set(defined))
+    if files is None:
+        files = generated_asm(out_dir)
+    frags = fragments(files)
+    defined = _defined(files, symbols)
+    refs = _references(files, set(defined))
 
     code = {'outside': 0, 'inside': 0, 'dead': 0}
     data = {'outside': 0, 'inside': 0, 'dead': 0}

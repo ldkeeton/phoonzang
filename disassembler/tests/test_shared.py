@@ -141,3 +141,49 @@ class SharedCTest(unittest.TestCase):
             with open(os.path.join(root, 'a', 'f.c'), 'w') as f:
                 f.write('int f;\n')
             self.assertEqual(shared.share_identical(root), {})
+
+
+class ShareFilesTest(unittest.TestCase):
+    """The build shares on its files as data, before writing any."""
+
+    def _files(self):
+        from lib.autogen import stamp
+        files = {
+            'a/f.asm': BODY.format(name='f', a='0100', b='0101', c='0103'),
+            'b/f.asm': BODY.format(name='f', a='0900', b='0901', c='0903'),
+            'a.asm': '%include "a/f.asm"   ; 0x0100\n',
+            'b.asm': '%include "b/f.asm"   ; 0x0900\n',
+        }
+        return {rel: stamp(text, rel) for rel, text in files.items()}
+
+    def test_members_are_never_laid_out_and_nothing_is_written(self):
+        with tempfile.TemporaryDirectory() as root:
+            files, result = shared.share_files(self._files(), root, {})
+            self.assertEqual(os.listdir(root), [])
+        self.assertEqual(result, {'shared/f.asm': ['a/f.asm', 'b/f.asm']})
+        self.assertEqual(sorted(files), ['a.asm', 'b.asm', 'shared/f.asm'])
+        self.assertIn('%include "shared/f.asm"', files['a.asm'])
+
+    def test_a_hand_owned_c_on_disk_keeps_its_fragment(self):
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(os.path.join(root, 'b'))
+            with open(os.path.join(root, 'b', 'f.c'), 'w') as f:
+                f.write('int f;\n')
+            files, result = shared.share_files(self._files(), root, {})
+        self.assertEqual(result, {})
+        self.assertIn('b/f.asm', files)
+
+
+class MergeFilesTest(unittest.TestCase):
+    def test_one_copy_of_a_file_binaries_lay_out_alike(self):
+        from main.build import merge_files
+        self.assertEqual(
+            merge_files({'a': {'inc/s.inc': 'x', 'a.asm': '1'},
+                         'b': {'inc/s.inc': 'x', 'b.asm': '2'}}),
+            {'inc/s.inc': 'x', 'a.asm': '1', 'b.asm': '2'})
+
+    def test_two_layouts_of_one_path_are_an_error(self):
+        from lib.link import LinkError
+        from main.build import merge_files
+        with self.assertRaises(LinkError):
+            merge_files({'a': {'inc/s.inc': 'x'}, 'b': {'inc/s.inc': 'y'}})

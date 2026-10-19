@@ -4,7 +4,11 @@
 bits 16
 %include "inc/host_symbols.inc"
 %ifndef VBASE
+%ifdef ELF_BUILD
+VBASE equ 0
+%else
 VBASE equ __zres_end - 0x000e
+%endif
 %endif
 section .text vstart=VBASE
 %ifndef IMAGE_BASE

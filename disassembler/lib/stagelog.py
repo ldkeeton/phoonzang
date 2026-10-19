@@ -142,6 +142,26 @@ def end(ledger, path=None):
     return ledger
 
 
+def fork(ledger):
+    """Open a copy of *ledger* (closed or not) that continues after its last step.
+
+    A binary's build steps each render one analysis: each step's ledger is the
+    analysis's plus that render's, as when every step analysed afresh.  Its
+    clocks start now, so the wait between steps is not counted.
+    """
+    if ledger is None:
+        return None
+    copy = Ledger(ledger.scope)
+    copy.stages = list(ledger.stages)
+    copy._snap = dict(ledger._snap)
+    copy._owner = dict(ledger._owner)
+    now = time.perf_counter()
+    copy._clock = {level: now for level in ledger._clock}
+    copy._born = now
+    _stack.append(copy)
+    return copy
+
+
 def current():
     if not _stack:
         _stack.append(Ledger('anonymous'))

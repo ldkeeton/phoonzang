@@ -669,8 +669,8 @@ def host_symbols_inc_lines(master, host_vbase):
     include exactly like ``IMAGE_BASE``: defined here for the host's frame,
     consumed by the host, then cleared, so the overlay's own origin takes effect
     after it.  Nothing outside needs to be saved and restored: ``make
-    elf-rebuild`` no longer passes ``-DVBASE=0``, it rewrites the origin in the
-    prepared source instead (``make/elf.py``, ``_force_origin_zero``).
+    elf-rebuild`` defines ``ELF_BUILD``, which the image's own origin line
+    reads, not ``VBASE``.
 
     ``%include "{master}"`` resolves through the ``-I`` of the generated tree
     (``lib.link.include_args``), so this file may sit at any depth.
@@ -785,7 +785,9 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
         # The image is assembled at the address it runs at (``vstart``), so a
         # label's value is its real CS offset and a host/overlay call needs no
         # coordinate shift.  ``VBASE`` is the virtual address of file offset 0;
-        # ``make elf-rebuild`` redefines it as 0 because ELF has no ``vstart``.
+        # ``make elf-rebuild`` (``-DELF_BUILD``) makes it 0 because ELF has no
+        # ``vstart``.  This is the image's own definition, after any host
+        # include has defined and cleared the host's frame.
         vbase_text = (f'{corg_symbol} - 0x{start_offset:04x}' if corg_symbol
                       else _signed_hex(vbase))
         out = ['bits 16']
@@ -795,7 +797,8 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             # needs that value already known (plan.md D7.2).  The block itself is
             # shared by every overlay (plan.md E2), so this is one include line.
             out.extend(_host_include_lines())
-        out += ['%ifndef VBASE', f'VBASE equ {vbase_text}', '%endif']
+        out += ['%ifndef VBASE', '%ifdef ELF_BUILD', 'VBASE equ 0', '%else',
+                f'VBASE equ {vbase_text}', '%endif', '%endif']
         if generic_prefix():
             # The exported host is also included by overlays purely for its
             # symbols (``HOST_SYMS_ONLY``); its own section line must not run.
@@ -880,12 +883,16 @@ def _build_source(records, start_offset, binary_data, label_map=None, show_offse
             derived_minalloc = (e_sp - bss_boundary + 15) // 16 == e_minalloc
     ovr_bss = False
     if is_mz:
+        # ``make elf-rebuild``'s ELF describes the load image, which starts
+        # after the MZ header.
+        out.append('%ifndef ELF_BUILD')
         out.extend(_render_mz_header(hdr, label_map, base, entry_symbol,
                                      dynamic_e_ss=gap is not None,
                                      stack_top=stack_reserve is not None,
                                      derived_minalloc=derived_minalloc))
         out.append('')
         out.extend(_render_data_block(hdr[28:]))
+        out.append('%endif')
         out.append('')
     elif (start_offset >= 14 and len(binary_data) >= 14
             and binary_data[:2] == b'\xf2\x00'):

@@ -212,8 +212,10 @@ def _link_override(label, start, override, records, binary_data, index,
     # so cap it to this routine's fragment again: a trailing static neighbour
     # (``putc``/``closall``) must stay in its own fragment.
     func = func.truncate(length)
-    with open(override['path'], 'w') as f:
-        f.write(text)
+    if not override.get('generated'):
+        # A seed kept on disk is rewritten; a new one is written once, at emit.
+        with open(override['path'], 'w') as f:
+            f.write(text)
     override.update(text=text, func=func, pristine=False)
     print(f'  aztec relabel: {label}.c now names asm labels')
     return relink.link(label, start, func, index, binary_data, labels_in)

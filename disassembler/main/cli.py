@@ -41,6 +41,10 @@ def main():
         return
 
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    if '--worker' in sys.argv:
+        from .worker import serve
+        serve(args[0], args[1])
+        return
     projects = get_projects()
 
     if len(args) >= 2:

@@ -1,8 +1,6 @@
 NASM   := nasm -w-number-overflow
 BUILD  := build
 ELFASM := nasm -w-number-overflow
-# NASM records absolute paths in DWARF; rewrite the checkout root to /PHOONZANG/.
-REMAP  := python3 ../disassembler/lib/dwarf_paths.py
 
 MODULES := lib/equ.asm lib/data.asm lib/serial.asm lib/hex.asm lib/proto.asm lib/bp.asm lib/cmds.asm lib/int.asm lib/init.asm
 GDB_HIDDEN_MARKERS := date_int time_int bios_int bios_dos_int loop loop_int loop_next
@@ -30,7 +28,6 @@ $(BUILD)/gdbexec.com: gdbexec.asm | $(BUILD)
 # elf (symbols for GDB)
 $(BUILD)/testcom.elf: test/testcom.asm | $(BUILD)
 	$(ELFASM) -O0 -f elf32 -F dwarf -o $@.tmp $<
-	$(REMAP) $@.tmp
 	objcopy --adjust-vma=0x100 $@.tmp $@
 	rm -f $@.tmp
 
@@ -45,14 +42,12 @@ $(BUILD)/testexe.exe: test/testexe.asm | $(BUILD)
 # function boundaries. This is the sole GDB ELF for the EXE fixture.
 $(BUILD)/testexe.elf: test/testexe.asm Makefile | $(BUILD)
 	$(ELFASM) -O0 --lprefix .L -f elf32 -F dwarf -o $@.raw $<
-	$(REMAP) $@.raw
 	objcopy $(GDB_MARKER_RENAMES) --redefine-sym=.Lformat_2=format_2 --redefine-sym=.Lformat_year=format_year $@.raw $@.renamed
 	objcopy $(GDB_MARKER_LOCALIZATIONS) $(GDB_FUNCTION_EXPORTS) --adjust-vma=0x0 $@.renamed $@
 	rm -f $@.raw $@.renamed
 
 $(BUILD)/gdbsrv.elf: gdbsrv.asm $(MODULES) | $(BUILD)
 	$(ELFASM) -O0 -f elf32 -F dwarf -o $@.tmp $<
-	$(REMAP) $@.tmp
 	objcopy --adjust-vma=0x100 $@.tmp $@
 	rm -f $@.tmp
 

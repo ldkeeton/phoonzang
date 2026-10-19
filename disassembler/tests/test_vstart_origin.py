@@ -10,7 +10,6 @@ from lib.compare.render import (
 )
 from lib.verify.assemble import _equ_hex
 from tests.syms import bss, data, dseg, loc, psp
-from make.elf import _elf_source_text, _force_origin_zero
 
 
 def _overlay(o_corg=0x5055):
@@ -81,55 +80,31 @@ class EquHexTest(unittest.TestCase):
         self.assertEqual(_equ_hex(-0x100), '-0x0100')
 
 
-class ElfSourceTest(unittest.TestCase):
-    def test_vstart_line_is_blanked_for_elf(self):
-        text = '\n'.join([
-            'bits 16',
-            '%ifndef VBASE',
-            'VBASE equ -0x0200',
-            '%endif',
-            'section .text vstart=VBASE',
-            '    ; DOS MZ executable header (512 bytes)',
-            '    db "MZ"',
-            'foo equ 0x1',
-            'bar:',
-        ]) + '\n'
-        with tempfile.TemporaryDirectory() as d:
-            path = os.path.join(d, 'x.asm')
-            with open(path, 'w') as f:
-                f.write(text)
-            out = _elf_source_text(path).splitlines()
-        self.assertNotIn('section .text vstart=VBASE', out)
-        self.assertEqual(len(out), len(text.splitlines()))
-        joined = '\n'.join(out)
-        self.assertIn('global foo', joined)
-        self.assertNotIn('VBASE,', joined)
-        self.assertNotIn('global VBASE', joined)
-        # The origin is zeroed in place: ELF has no ``vstart``, so the section is
-        # laid out from 0 and the ``+ VBASE`` equ values must agree with it.
-        self.assertIn('VBASE equ 0', out)
-        self.assertNotIn('VBASE equ -0x0200', out)
+class ElfBuildTest(unittest.TestCase):
+    """``make elf-rebuild`` assembles the generated master with ``ELF_BUILD``.
 
-    def test_origin_rewrite_leaves_the_host_includes_definition_alone(self):
-        """An overlay's derived origin is zeroed; the host include's is not.
+    ELF has no ``vstart``, so the section is laid out from 0: the origin is 0
+    and the MZ header is left out, so the labels are in the load image's frame.
+    """
 
-        The include defines ``VBASE`` for the *host's* frame while the host
-        source is assembled and clears it again, so a command-line ``-DVBASE=0``
-        could never reach the overlay's own definition afterwards -- which is
-        why the rewrite happens in the prepared source instead.
-        """
-        lines = [
-            '%ifndef VBASE',
-            'VBASE equ __zres_end - 0x000e',
-            '%endif',
-            'section .text vstart=VBASE',
-            '%define VBASE (-0x0200)',
-        ]
-        self.assertEqual(
-            _force_origin_zero(lines),
-            ['%ifndef VBASE', 'VBASE equ 0', '%endif',
-             'section .text vstart=VBASE', '%define VBASE (-0x0200)'],
-        )
+    def test_mz_master_drops_its_header_and_origin_for_elf(self):
+        src, _ = _build_source([], 0x200, b'MZ' + bytes(0x1fe) + b'\x90',
+                               label_map={})
+        self.assertIn('%ifndef VBASE\n%ifdef ELF_BUILD\nVBASE equ 0\n%else\n'
+                      'VBASE equ -0x0200\n%endif\n%endif', src)
+        guard = src.index('%ifndef ELF_BUILD')
+        self.assertLess(guard, src.index('; DOS MZ executable header'))
+        self.assertIn('    times 484 db 0\n%endif', src[guard:])
+
+    def test_overlay_origin_follows_its_host_include(self):
+        """The host include defines and clears the host's ``VBASE``; the
+        overlay's own origin line comes after it and reads ``ELF_BUILD``."""
+        records = [{'type': 'mnem', 'text': 'nop', 'offset': 14, 'size': 1}]
+        src, _ = _build_source(records, 14, _overlay(), label_map={},
+                               host_symbols=('ds.asm', -0x200))
+        self.assertLess(src.index('%include'), src.index('%ifdef ELF_BUILD'))
+        self.assertIn('%ifdef ELF_BUILD\nVBASE equ 0\n%else\n'
+                      'VBASE equ __zres_end - 0x000e\n%endif', src)
 
 
 if __name__ == '__main__':

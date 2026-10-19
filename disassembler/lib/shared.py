@@ -5,8 +5,10 @@ emitted once per binary that contains it.  Where the instructions are identical
 (comments and the routine's own address annotations aside) the copies collapse
 into one file in ``shared/`` that every binary's master ``%include``s.
 
-Only generated files are touched (see :mod:`lib.autogen`).  A routine with C
-shares its ``.c`` too, when every copy is generated and identical:
+Only generated files are touched (see :mod:`lib.autogen`).  The placement is
+decided on the build's files as data (:func:`share_files`), before any is
+written, so a routine shared is written once, to ``shared/``, and its masters
+already include it there.  A routine with C shares its ``.c`` too, when every copy is generated and identical:
 ``shared/<label>.c`` is then the one source the C gate checks against each
 binary's bytes (``main.aztec`` and ``make.elf`` look there).
 
@@ -162,45 +164,52 @@ def _read(path):
         return f.read()
 
 
-def _fragments(out_dir):
+def _on_disk(out_dir, rel):
+    return os.path.exists(os.path.join(out_dir, rel))
+
+
+def _fragments(files, out_dir):
     """``{relative path: (asm text, C text or None)}`` of generated fragments.
 
-    The C text is the ``.c`` beside the fragment, else ``shared/<label>.c`` (a
-    shared or hand-owned copy).  A fragment whose own ``.c`` was taken over by
-    hand (no auto-generated marker) is left out: it is not ours to move.
+    *files* are the generated files (``{relative path: text}``); anything else
+    under *out_dir* is a human's.  The C text is the ``.c`` beside the
+    fragment, else ``shared/<label>.c`` (a shared or hand-owned copy).  A
+    fragment whose own ``.c`` was taken over by hand is left out: it is not
+    ours to move.
     """
     found = {}
-    for binary in sorted(os.listdir(out_dir)):
-        top = os.path.join(out_dir, binary)
-        if binary in _SKIP_DIRS or not os.path.isdir(top):
+    for rel in sorted(files):
+        top, sep, _ = rel.partition('/')
+        if not sep or top in _SKIP_DIRS or not rel.endswith('.asm'):
             continue
-        for folder, _, files in os.walk(top):
-            for filename in sorted(files):
-                path = os.path.join(folder, filename)
-                if not filename.endswith('.asm') or not is_generated(path):
-                    continue
-                own_c, shared_c = path[:-4] + '.c', os.path.join(
-                    out_dir, FOLDER, filename[:-4] + '.c')
-                ctext = None
-                if os.path.exists(own_c):
-                    if not is_generated(own_c):
-                        continue
-                    ctext = _read(own_c)
-                elif os.path.exists(shared_c):
-                    ctext = _read(shared_c)
-                found[os.path.relpath(path, out_dir)] = (_read(path), ctext)
+        own_c = rel[:-4] + '.c'
+        shared_c = f'{FOLDER}/{os.path.basename(rel)[:-4]}.c'
+        if own_c in files:
+            ctext = files[own_c]
+        elif _on_disk(out_dir, own_c):
+            continue
+        elif shared_c in files:
+            ctext = files[shared_c]
+        elif _on_disk(out_dir, shared_c):
+            ctext = _read(os.path.join(out_dir, shared_c))
+        else:
+            ctext = None
+        found[rel] = (files[rel], ctext)
     return found
 
 
-def share_identical(out_dir):
+def share_files(files, out_dir, tables):
     """Collapse identical fragments of different binaries into ``shared/``.
 
-    A routine with generated C moves its ``.c`` along (``shared/<label>.c``).
-    Returns ``{shared relative path: [replaced relative paths]}``.
+    *files* is ``{relative path: text}``, every generated file of the tree at
+    *out_dir* (which holds only the hand-owned ones); *tables* is the binaries'
+    symbol tables (:func:`lib.symtab.project_tables`).  A routine with
+    generated C moves its ``.c`` along (``shared/<label>.c``).  Returns
+    ``(files, shared)``: the tree's files after sharing, and ``{shared relative
+    path: [replaced relative paths]}``.
     """
-    fragments = _fragments(out_dir)
-    project = project_of_src_dir(out_dir)
-    tables = project_tables(project) if project else {}
+    files = dict(files)
+    fragments = _fragments(files, out_dir)
     groups = defaultdict(list)
     for rel, (text, ctext) in fragments.items():
         stem = os.path.basename(rel)[:-4]
@@ -214,7 +223,7 @@ def share_identical(out_dir):
     for key in sorted(groups, key=repr):
         for members, binds in _clusters(fragments, groups[key], key[2],
                                         tables):
-            if len({p.split(os.sep)[0] for p in members}) < 2:
+            if len({p.split('/')[0] for p in members}) < 2:
                 continue
             stem = key[0]
             if stem not in best or len(members) > len(best[stem][0]):
@@ -224,8 +233,6 @@ def share_identical(out_dir):
     for stem, (members, binds, ctext) in best.items():
         members = sorted(members)
         shared_rel = f'{FOLDER}/{stem}.asm'
-        shared_path = os.path.join(out_dir, shared_rel)
-        os.makedirs(os.path.dirname(shared_path), exist_ok=True)
         text = _text_for(fragments, members)
         if binds:
             text = _common_names(neutral(fragments[members[0]][0]),
@@ -233,33 +240,55 @@ def share_identical(out_dir):
             defined = set(re.findall(r'^([\w.]+):', text, re.M))
             for rel, pairs in binds.items():
                 bindings[rel] = [(p, n, p in defined) for p, n in pairs]
-        with open(shared_path, 'w', encoding='utf-8',
-                  errors='surrogateescape') as f:
-            f.write(text)
-        if ctext is not None:
-            c_path = shared_path[:-4] + '.c'
-            if not os.path.exists(c_path):
-                with open(c_path, 'w', encoding='utf-8',
-                          errors='surrogateescape') as f:
-                    f.write(ctext)
+        files[shared_rel] = text
+        c_rel = shared_rel[:-4] + '.c'
+        if ctext is not None and c_rel not in files \
+                and not _on_disk(out_dir, c_rel):
+            files[c_rel] = ctext
         shared[shared_rel] = members
 
-    _place_equs(out_dir)
-    _rewrite_includes(out_dir, shared, bindings)
+    _place_equs(files, out_dir)
+    _rewrite_includes(files, shared, bindings)
     for members in shared.values():
         for rel in members:
-            for old in (rel, rel[:-4] + '.c'):
-                path = os.path.join(out_dir, old)
-                if os.path.exists(path):
-                    os.unlink(path)
-            folder = os.path.dirname(os.path.join(out_dir, rel))
-            while folder != out_dir and not os.listdir(folder):
-                os.rmdir(folder)
-                folder = os.path.dirname(folder)
+            files.pop(rel, None)
+            files.pop(rel[:-4] + '.c', None)
+    return files, shared
+
+
+def share_identical(out_dir):
+    """:func:`share_files` over the generated files already written at *out_dir*.
+
+    Returns ``{shared relative path: [replaced relative paths]}``.
+    """
+    before = {}
+    for folder, dirs, names in os.walk(out_dir):
+        dirs[:] = [d for d in dirs if d != 'build_out']
+        for filename in names:
+            path = os.path.join(folder, filename)
+            if filename.endswith(('.asm', '.c')) and is_generated(path):
+                before[os.path.relpath(path, out_dir)] = _read(path)
+    project = project_of_src_dir(out_dir)
+    tables = project_tables(project) if project else {}
+    after, shared = share_files(before, out_dir, tables)
+    for rel, text in after.items():
+        if before.get(rel) != text:
+            path = os.path.join(out_dir, rel)
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, 'w', encoding='utf-8',
+                      errors='surrogateescape') as f:
+                f.write(text)
+    for rel in set(before) - set(after):
+        path = os.path.join(out_dir, rel)
+        os.unlink(path)
+        folder = os.path.dirname(path)
+        while folder != out_dir and not os.listdir(folder):
+            os.rmdir(folder)
+            folder = os.path.dirname(folder)
     return shared
 
 
-def _rewrite_includes(out_dir, shared, bindings):
+def _rewrite_includes(files, shared, bindings):
     """Point each master's (and fragment's) ``%include`` at the shared copy.
 
     A copy with *bindings* (``{rel: [(common, own, defined)]}``) gets its
@@ -275,26 +304,18 @@ def _rewrite_includes(out_dir, shared, bindings):
         return (_aliases(bindings.get(rel, ()), indent) + indent + m.group(2)
                 + moved.get(rel, rel) + m.group(4))
 
-    for folder, dirs, files in os.walk(out_dir):
-        dirs[:] = [d for d in dirs if d not in ('build_out', 'inc')]
-        for filename in files:
-            path = os.path.join(folder, filename)
-            if not filename.endswith('.asm') or not is_generated(path):
-                continue
-            with open(path, encoding='utf-8', errors='surrogateescape') as f:
-                text = f.read()
-            new = pattern.sub(swap, text)
-            if new != text:
-                with open(path, 'w', encoding='utf-8',
-                          errors='surrogateescape') as f:
-                    f.write(new)
+    for rel, text in list(files.items()):
+        if not rel.endswith('.asm') or {'build_out', 'inc'} & set(
+                rel.split('/')[:-1]):
+            continue
+        files[rel] = pattern.sub(swap, text)
 
 
 _EQU = re.compile(r'^([A-Za-z_][\w.]*)[ \t]+equ[ \t]+(.*?)[ \t]*$')
 _INCLUDE = re.compile(r'^[ \t]*%include\s+"([^"]+)"')
 
 
-def _place_equs(out_dir):
+def _place_equs(files, out_dir):
     """Move each master's header ``equ``s down to the includes that use them.
 
     Every ``%include`` gets the header names its file uses: live above the
@@ -302,12 +323,23 @@ def _place_equs(out_dir):
     include shows what it depends on.  A name no include uses (the master's
     own lines, or the overlays through ``host_symbols.inc``) stays on top.
     """
-    for binary in sorted(os.listdir(out_dir)):
-        path = os.path.join(out_dir, f'{binary}.asm')
-        if (binary in _SKIP_DIRS or not os.path.isdir(os.path.join(out_dir, binary))
-                or not os.path.exists(path) or not is_generated(path)):
+    tops = {rel.split('/', 1)[0] for rel in files if '/' in rel}
+
+    def text_of(rel):
+        if rel in files:
+            return files[rel]
+        if _on_disk(out_dir, rel):
+            return _read(os.path.join(out_dir, rel))
+        return None
+
+    for master in sorted(files):
+        binary = master[:-4]
+        if ('/' in master or not master.endswith('.asm')
+                or binary in _SKIP_DIRS
+                or not (binary in tops
+                        or os.path.isdir(os.path.join(out_dir, binary)))):
             continue
-        lines = _read(path).split('\n')
+        lines = files[master].split('\n')
         header, depth = {}, 0
         for i, line in enumerate(lines):
             include = _INCLUDE.match(line)
@@ -324,11 +356,12 @@ def _place_equs(out_dir):
         uses, seen = {}, set()
         for i, line in enumerate(lines):
             include = _INCLUDE.match(line)
-            target = include and os.path.join(out_dir, include.group(1))
-            if not target or include.group(1).startswith('inc/') \
-                    or not os.path.exists(target):
+            if not include or include.group(1).startswith('inc/'):
                 continue
-            names = set(_SYMBOL.findall(_code_key(_read(target)))) & header.keys()
+            target = text_of(include.group(1))
+            if target is None:
+                continue
+            names = set(_SYMBOL.findall(_code_key(target))) & header.keys()
             if names:
                 uses[i] = [(n, n in seen) for n in
                            sorted(names, key=lambda n: header[n][0])]
@@ -345,8 +378,7 @@ def _place_equs(out_dir):
                 out += [f'{"; " if done else ""}{n:<{width}} equ {header[n][1]}'
                         for n, done in uses[i]]
             out.append(line)
-        with open(path, 'w', encoding='utf-8', errors='surrogateescape') as f:
-            f.write('\n'.join(out))
+        files[master] = '\n'.join(out)
 
 
 def _aliases(pairs, indent=''):

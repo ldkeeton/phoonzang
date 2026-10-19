@@ -8,8 +8,9 @@ load-bearing:
    generate with ``--export-labels``, which writes their label map into
    ``.cache/<project>/labels/``.  The host's source cannot be final yet (it
    needs step 4), so it runs with ``--labels-only``: labels, no source;
-2. the previous build's per-consumer DS exports are dropped, so the union built
-   below is exactly *this* build's references;
+2. (every export is stamped with this build's run, :func:`lib.link.begin_run`,
+   and read back only from it, so nothing an earlier build left is cleared or
+   can be read);
 3. the consumers generate, each with ``--foreign-labels=<path>`` for the source
    labels it references.  The host's family (the host and the consumers of its
    labels, which share its data segment) first runs a ``--labels-only`` pass
@@ -21,57 +22,42 @@ load-bearing:
    generated -- the one time its source is written -- with
    ``--host-data-offsets=<path>`` (and ``--ds-starts``), so it declares one recipe per offset.  Its
    code labels do not change, so the consumers' foreign maps stay valid;
-5. the byte-identical routines collapse into ``shared/`` (:mod:`lib.shared`);
+5. the byte-identical routines collapse into ``shared/`` (:mod:`lib.shared`)
+   -- on the files the steps above laid out, which only now are written, each
+   once;
 6. the assets are copied and every binary is assembled.
 
 The caller supplies two batch runners -- *run_batch* and *nasm_batch* -- so
 ``make`` can run each step as a thread pool of subprocesses while ``python -m
-main`` runs it in process.  A partial build (``make build PROJECT BINARY``)
+main`` runs it in process.  An emitting step hands back its binary's files
+(:func:`main.runner._emit`) rather than writing them.  A partial build (``make build PROJECT BINARY``)
 stops after step 3: the host-data union and the ``shared/`` placement are
-whole-project decisions.
+whole-project decisions.  A family binary's partial build still runs the
+family's labels-only pass: its ``ds_starts`` union is this build's too.
 """
 
-import json
 import os
 import subprocess
 
 from lib import stagelog
+from lib.autogen import write_once
 from lib.cachedirs import labels_dir, src_dir
 from lib.cross_ref import detect as detect_cross_refs, read_label_json
 from lib.link import (
-    DS_STARTS_NAME, LinkError, collect_ds_starts, collect_host_data,
-    collect_sidecar_use,
-    ds_starts_export_name, host_name, read_ds_starts, read_host_data_offsets,
+    LinkError, begin_run, collect_ds_starts, collect_host_data,
+    collect_sidecar_use, end_run,
+    host_name, read_ds_starts, read_host_data_offsets,
     write_ds_starts, write_host_data_offsets,
     include_args,
 )
 from lib.sidecar.loader import load as load_sidecar
 from lib.sidecar.errors import SidecarError
-from lib.sidecar.binary import per_binary as sidecar_per_binary
-from lib.shared import share_identical
+from lib.shared import share_files
+from lib.symtab import project_tables
 
-from .options import APPS_DIR, EXACT_BYTES, PROJECT_ROOT, _SHOW_OFFSETS
-from .projects import _build_host_model, copy_assets, discover_binaries
-
-
-def clear_host_data_exports(project):
-    """Drop the previous build's per-consumer DS export files (D7.1)."""
-    target = labels_dir(project)
-    if not os.path.isdir(target):
-        return
-    for entry in os.listdir(target):
-        if entry.endswith('_hostdata.json'):
-            os.remove(os.path.join(target, entry))
-
-
-def clear_sidecar_use_exports(project):
-    """Drop the previous build's per-binary sidecar-use exports."""
-    target = labels_dir(project)
-    if not os.path.isdir(target):
-        return
-    for entry in os.listdir(target):
-        if entry.endswith('_sidecaruse.json'):
-            os.remove(os.path.join(target, entry))
+from .options import APPS_DIR, PROJECT_ROOT
+from .projects import copy_assets, discover_binaries
+from .runner import write_files
 
 
 def check_build_sidecar_use(project, bins):
@@ -103,51 +89,29 @@ def check_build_sidecar_use(project, bins):
             f'not applied:\n  ' + '\n  '.join(problems))
 
 
-def clear_ds_starts_exports(project):
-    """Drop the previous build's per-binary ``ds_starts`` exports and union."""
-    target = labels_dir(project)
-    if not os.path.isdir(target):
-        return
-    for entry in os.listdir(target):
-        if entry.endswith(ds_starts_export_name('')) or entry == DS_STARTS_NAME:
-            os.remove(os.path.join(target, entry))
-
-
-def remove_foreign_label_copies(project):
-    """Delete stale per-consumer ``*_foreign_labels.inc`` copies (D7.0e)."""
-    target = labels_dir(project)
-    if not os.path.isdir(target):
-        return
-    for entry in os.listdir(target):
-        if entry.endswith('_foreign_labels.inc'):
-            os.remove(os.path.join(target, entry))
-
-
-def aggregate_host_data(project):
-    """Merge the consumers' exported DS refs into the host's union (D7.1).
+def aggregate_host_data(project, consumers):
+    """Merge the *consumers*' exported DS refs into the host's union (D7.1).
 
     Returns the path of the written union, or ``None`` when nothing references
-    host data.  A name whose value disagrees across consumers is reported and
-    skipped rather than guessed.
+    host data.  Two consumers that disagree on a name are a
+    :class:`~lib.link.LinkError`.
     """
-    try:
-        union = collect_host_data(labels_dir(project))
-    except LinkError as exc:
-        print(f'  LINK WARN: {exc}')
-        return None
+    union = collect_host_data(labels_dir(project), consumers)
     if not union:
         return None
     return write_host_data_offsets(project, union)
 
 
 def foreign_args(project, name, cross_refs):
-    """The source-label flags for one consumer, or ``None`` when it has none."""
+    """The source-label flags for one consumer, or ``None`` when it has none.
+
+    The labels file is the source's export from this build; the consumer
+    fails if it is missing rather than run without it.
+    """
     if name not in cross_refs:
         return None
     prefix = next(iter({src for _, src in cross_refs[name]}), '')
     json_path = os.path.join(labels_dir(project), f'{prefix}_labels.json')
-    if not os.path.exists(json_path):
-        return None
     return [f'--foreign-labels={json_path}', f'--foreign-prefix={prefix}']
 
 
@@ -173,13 +137,40 @@ def _batch(batch, items):
     return sorted(set(batch(items) or ()))
 
 
+def _generate(run_batch, items, emitted):
+    """:func:`_batch` for a *run_batch*, keeping its emitted files in *emitted*."""
+    failed, files = run_batch(items)
+    emitted.update(files)
+    return sorted(set(failed or ()))
+
+
+def merge_files(emitted):
+    """One tree's ``{relative path: text}`` from each binary's emitted files.
+
+    Binaries lay out some files alike (``inc/structs/structs.inc``, a vendor
+    header): one copy is kept.  Two binaries writing one path differently is
+    an error, not a file one of them silently loses.
+    """
+    files, owner = {}, {}
+    for name in sorted(emitted):
+        for rel, text in emitted[name].items():
+            if rel in files and files[rel] != text:
+                raise LinkError(f'{rel}: {owner[rel]} and {name} lay it out '
+                                f'differently')
+            files[rel], owner[rel] = text, owner.get(rel, name)
+    return files
+
+
 def build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     """Run the whole project build, recording its level-0 stage ledger."""
     ledger = stagelog.begin(f'{project}/<project>')
+    previous_run = begin_run()
     try:
-        failed = _build_project(project, run_batch, nasm_batch,
-                                only=only, report=report)
+        with write_once():
+            failed = _build_project(project, run_batch, nasm_batch,
+                                    only=only, report=report)
     finally:
+        end_run(previous_run)
         from lib.cachedirs import stages_dir
         stagelog.end(ledger, os.path.join(stages_dir(project),
                                           f'{project}__project.jsonl'))
@@ -210,6 +201,7 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
 
     report(f'\n=== {project} ({len(bins)} binaries) ===')
 
+    emitted = {}    # {binary: its files}, written once the layout is final
     cross_refs = detect_cross_refs(app_dir, bins)
     stagelog.step('project.cross_refs', 0, metrics={'consumers': len(cross_refs)})
     source_names = {src for refs in cross_refs.values() for _, src in refs}
@@ -219,12 +211,6 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     # union (``ds_starts``) is drawn from and handed to these only.
     family = {host} | {n for n, refs in cross_refs.items()
                        if any(src == host for _, src in refs)}
-    if only is None:
-        clear_sidecar_use_exports(project)
-        clear_ds_starts_exports(project)
-        stagelog.step('project.clear_ds_starts', 0, 'cleanup',
-            repairs='project.ds_starts',
-            why='the ds_starts union must see this build\'s names only')
 
     # 1. the sources, so each consumer below can be handed their labels
     needed = source_names
@@ -235,34 +221,28 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
     items = [(name, ['--export-labels']
               + (['--labels-only'] if name == host and only is None else []))
              for name in sorted(source_names & set(bins) & needed)]
-    failed = _batch(run_batch, items)
+    failed = _generate(run_batch, items, emitted)
     stagelog.step('project.export_sources', 0, metrics={'sources': len(items)})
-    remove_foreign_label_copies(project)
-    stagelog.step('project.remove_foreign_copies', 0, 'cleanup', repairs='project.export_sources',
-        why='a source binary must not keep its own foreign-label copy')
     if failed:
         report(f'{project}: source binary(ies) failed: '
                f'{", ".join(sorted(set(failed)))}')
         return failed
 
-    # 2. so the union step below sees this build's references only
-    clear_host_data_exports(project)
-    stagelog.step('project.clear_host_data', 0, 'cleanup', repairs='project.export_sources',
-        why='the union step must see this build\'s references only')
-
     # 3. the consumers
-    targets = [n for n in sorted(bins) if n not in source_names]
+    consumers = [n for n in sorted(bins) if n not in source_names]
+    targets = consumers
     if only is not None:
         targets = [only] if only in targets else []
-    starts = os.path.join(labels_dir(project), DS_STARTS_NAME)
-    if only is None:
+    starts = None
+    if any(n in family for n in targets):
         # 3a. a labels-only pass exports the DS starts each family binary
         #     names absolutely; their union lets every one of them bind an
-        #     indexed operand to an object another binary names.
-        first = [n for n in targets if n in family]
-        failed = _batch(run_batch, [
+        #     indexed operand to an object another binary names.  The union
+        #     needs the whole family, even for one binary's partial build.
+        first = [n for n in consumers if n in family]
+        failed = _generate(run_batch, [
             (n, (foreign_args(project, n, cross_refs) or []) + ['--labels-only'])
-            for n in first])
+            for n in first], emitted)
         if failed:
             report(f'{project}: ds_starts pass failed: '
                    f'{", ".join(sorted(set(failed)))}')
@@ -276,33 +256,36 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
 
     def consumer_flags(n):
         flags = foreign_args(project, n, cross_refs)
-        if n in family and os.path.exists(starts):
+        if n in family and starts:
             flags = (flags or []) + [f'--ds-starts={starts}']
         return flags
 
-    failed = _batch(run_batch, [(n, consumer_flags(n)) for n in targets])
+    failed = _generate(run_batch, [(n, consumer_flags(n)) for n in targets],
+                       emitted)
     if failed:
         report(f'{project}: asm generation failed: '
                f'{", ".join(sorted(set(failed)))}')
         return failed
 
     stagelog.step('project.consumers', 0, metrics={'consumers': len(targets)})
-    copy_assets(app_dir, os.path.join(out_dir, 'build_out'), set())
 
     if only is not None:
         # A partial build makes no whole-project decision, and assembling it
         # alone must not leave the others' stale artifacts in build_out.
+        write_files(out_dir, merge_files(emitted))
+        copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
+                    {bins[only][0]})
         return _batch(nasm_batch, [(only, bins[only][0])])
 
     # 4. the host declares the union of the DS offsets its consumers reference
-    offsets = aggregate_host_data(project)
+    offsets = aggregate_host_data(project, targets)
     if host in source_names:
         flags = ['--export-labels']
         if offsets:
             flags.append(f'--host-data-offsets={offsets}')
-        if os.path.exists(starts):
+        if starts:
             flags.append(f'--ds-starts={starts}')
-        failed = _batch(run_batch, [(host, flags)])
+        failed = _generate(run_batch, [(host, flags)], emitted)
         if failed:
             report(f'{project}: generating {host} with the DS union failed')
             return failed
@@ -314,7 +297,8 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
         why='a build-wide sidecar entry is applied by some binary or is stale')
 
     # 5. one copy of every byte-identical routine, in shared/
-    shared = share_identical(out_dir)
+    files, shared = share_files(merge_files(emitted), out_dir,
+                                project_tables(project))
     if shared:
         report(f'  Shared: {sum(len(v) for v in shared.values())} '
                f'fragments -> {len(shared)} files in shared/')
@@ -325,11 +309,15 @@ def _build_project(project, run_batch, nasm_batch, *, only=None, report=print):
 
     # 5b. structure report: objects glued onto a routine's file (plan.md §7)
     from lib.compare.cotenancy import scan as scan_cotenancy, summarize
-    cotenancy = scan_cotenancy(out_dir)
+    cotenancy = scan_cotenancy(out_dir, files=files)
     #report('  ' + summarize(cotenancy))
     stagelog.step('project.cotenancy', 0, 'measure',
         metrics={k: cotenancy[k] for k in ('files', 'glued_files', 'co_tenants',
                                             'code', 'data')})
+
+    write_files(out_dir, files)
+    copy_assets(app_dir, os.path.join(out_dir, 'build_out'),
+                {rel for rel, _s in bins.values()})
 
     # 6. assemble
     stagelog.step('project.assemble', 0)
@@ -358,32 +346,34 @@ def _worker_kwargs(flags):
 
 
 def inprocess_runners(project):
-    """``(run_batch, nasm_batch)`` for the in-process ``python -m main`` path.
+    """``(run_batch, nasm_batch, close)`` for the in-process ``python -m main`` path.
 
     The same sequence, with each worker step run in this process instead of as
-    ``python -m main <project> <binary>``.  A failure raises (the CLI turns the
-    pipeline's own errors into an exit status).
+    a ``python -m main --worker`` process; each binary keeps its analysis for
+    its later steps (:class:`main.worker.BinaryRun`) until *close()*.  A
+    failure raises (the CLI turns the pipeline's own errors into an exit
+    status).
     """
-    from .runner import process
+    from .worker import BinaryRun, Project
 
-    app_dir = os.path.join(APPS_DIR, project)
-    out_dir = src_dir(project, PROJECT_ROOT)
-    bins = discover_binaries(app_dir)
-    sidecar = load_sidecar(project)
-    host_model = _build_host_model(app_dir, bins, sidecar)
+    p = Project(project)
+    runs = {}
 
     def run_batch(items):
+        emitted = {}
         for name, flags in items:
-            process(name, app_dir, bins[name][0], bins[name][1],
-                    exact_bytes=EXACT_BYTES, show_offsets=_SHOW_OFFSETS,
-                    output_dir=out_dir, project=project,
-                    sidecar_entry=(sidecar_per_binary(sidecar, name)
-                                   if sidecar else None),
-                    host_model=host_model, **_worker_kwargs(flags))
-        return []
+            files = runs.setdefault(name, BinaryRun(p, name)).step(flags)
+            if files is not None:
+                emitted[name] = files
+        return [], emitted
 
     def nasm_batch(items):
         return [name for name, rel in items
-                if nasm_binary(out_dir, name, rel) != 0]
+                if nasm_binary(p.out_dir, name, rel) != 0]
 
-    return run_batch, nasm_batch
+    def close():
+        for run in runs.values():
+            run.close()
+        runs.clear()
+
+    return run_batch, nasm_batch, close

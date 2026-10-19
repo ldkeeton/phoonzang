@@ -19,18 +19,20 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                        function_roots=None, start_offset=0):
     """Resolve Aztec runtime routines to C and compile the current seeds.
 
-    Returns ``(overrides, entries)`` where *overrides* feeds the byte-preserving
-    splice in :func:`lib.compare.verify` and *entries* records the
-    winning provenance.
+    Returns ``(overrides, entries, files)`` where *overrides* feeds the
+    byte-preserving splice in :func:`lib.compare.verify`, *entries* records the
+    winning provenance and *files* are the vendor headers the C includes
+    (``{relative path: text}``), for the build to write with the sources.
 
     ``ASM_AZTEC_PREBUILD=1`` runs the DOSBox search and writes
     ``.cache/<project>/prebuild/``; otherwise the prebuilt manifest is read and a
     missing prebuild is a hard error.  The seed ``.c`` files live in
-    ``<out_dir>/<binary>/`` and are written only when absent, so a no-clean
-    debug rebuild respects hand edits.
+    ``<out_dir>/<binary>/``; a routine with no file there gets a seed
+    (``generated``, written with the binary's sources), so a no-clean debug
+    rebuild respects hand edits.
     """
     if not project or AZTEC_MUX_DISABLED:
-        return {}, {}
+        return {}, {}, {}
     labels = [(addr, nm) for addr, nm in label_map.items()
               if getattr(nm, 'role', None) == 'aztec']
     dest = os.path.join(out_dir, name)
@@ -44,7 +46,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
                                        if os.path.isdir(shared_dir) else ())
                       if f.endswith('.c') and f[:-2] in known)
     if not labels and not hand_c and not shared_c:
-        return {}, {}
+        return {}, {}, {}
     from lib.aztec import cache
     from lib.aztec.objread import fixup_width
     entries = {}
@@ -76,7 +78,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         tried.update(str(nm) for _, nm in labels)
         more = True
     if AZTEC_PREBUILD_ONLY:
-        return {}, entries
+        return {}, entries, {}
     known = {nm for nm in label_map.values() if isinstance(nm, str)}
     shared_c = sorted(f[:-2] for f in (os.listdir(shared_dir)
                                        if os.path.isdir(shared_dir) else ())
@@ -107,7 +109,8 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
     for label, entry in entries.items():
         if cache.is_asm_entry(entry):
             continue  # hand-written: annotated, never recompiled (see below)
-        text = _seed_aztec_c(cache, project, name, label, entry, dest)
+        text, generated = _seed_aztec_c(cache, project, name, label, entry,
+                                        dest)
         try:
             func = cache.compile_source(project, label, entry, text)
         except Exception as exc:
@@ -118,7 +121,7 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
         overrides[label] = {
             # The linker resolves the routine's relocations against the build's
             # label maps once those exist (lib.compare.coverrides).
-            'func': func, 'text': text, 'path': path,
+            'func': func, 'text': text, 'path': path, 'generated': generated,
             'own_key': cache.own_key(label, entry),
             'pristine': text == cache.seed_source_text(
                 project, name, label, entry),
@@ -162,9 +165,9 @@ def _aztec_c_overrides(project, name, data, label_map, out_dir,
             'file': entry['file'], 'compiler': entry['compiler'],
             'includes': entry['includes'],
         }
-    _write_headers(out_dir, [(ov['text'], ov['includes'])
-                             for ov in overrides.values()])
-    return overrides, entries
+    headers = _headers(out_dir, [(ov['text'], ov['includes'])
+                                 for ov in overrides.values()])
+    return overrides, entries, headers
 
 
 def _vendor_defines(key):
@@ -298,32 +301,35 @@ def _name_c_callees(project, binary, data, entries, label_map,
         taken.add(new)
 
 
-def _write_headers(out_dir, sources_in):
-    """Copy the vendor headers the C includes to ``<out_dir>/include/``.
+def _headers(out_dir, sources_in):
+    """The vendor headers the C includes, for ``<out_dir>/include/``.
 
-    *sources_in* is ``[(text, includes version)]``.  The copy is what the C
-    reads; the compile still reads the vendor's own directory, so a copy that
-    differs from it (an edit, or two versions wanting one name) is an error
-    rather than a header the build silently ignores.
+    *sources_in* is ``[(text, includes version)]``; returns ``{relative path:
+    text}`` of the headers not already there.  The copy is what the C reads;
+    the compile still reads the vendor's own directory, so a copy that differs
+    from it (an edit, or two versions wanting one name) is an error rather
+    than a header the build silently ignores.
     """
     from lib.autogen import stamp
     from lib.aztec import sources
-    dest = os.path.join(out_dir, INCLUDE_FOLDER)
+    files = {}
     for text, version in sources_in:
         for name, header in sources.headers(version, text).items():
-            path = os.path.join(dest, name)
+            rel = f'{INCLUDE_FOLDER}/{name}'
+            path = os.path.join(out_dir, rel)
             want = stamp(header, path)
             if os.path.exists(path):
                 with open(path) as f:
                     if f.read() == want:
                         continue
-                raise SystemExit(
-                    f'error: {path} differs from the {version} header the C '
-                    f'compiles with; the compile reads the vendor copy, so '
-                    f'this one must match it (make clean regenerates it)')
-            os.makedirs(dest, exist_ok=True)
-            with open(path, 'w') as f:
-                f.write(want)
+            elif files.get(rel, want) == want:
+                files[rel] = want
+                continue
+            raise SystemExit(
+                f'error: {path} differs from the {version} header the C '
+                f'compiles with; the compile reads the vendor copy, so '
+                f'this one must match it (make clean regenerates it)')
+    return files
 
 
 def c_path(dest, label):
@@ -333,16 +339,16 @@ def c_path(dest, label):
 
 
 def _seed_aztec_c(cache, project, binary, label, entry, dest):
-    """Return the routine's C text, writing a seed only when it is absent."""
-    os.makedirs(dest, exist_ok=True)
+    """``(text, generated)``: the routine's C, and whether it is a new seed.
+
+    A file already there (hand-written, or kept by a no-clean rebuild) is
+    read; otherwise the seed is returned for the build to write.
+    """
     path = c_path(dest, label)
     if os.path.exists(path):
         with open(path) as f:
-            return f.read()
-    text = cache.seed_source_text(project, binary, label, entry)
-    with open(path, 'w') as f:
-        f.write(text)
-    return text
+            return f.read(), False
+    return cache.seed_source_text(project, binary, label, entry), True
 
 
 def _aztec_asm_annotations(entries, label_map):

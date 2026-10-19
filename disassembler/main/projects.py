@@ -36,13 +36,18 @@ def discover_binaries(directory):
     return bins
 
 
-def copy_assets(orig_dir, output_dir, processed_names):
+def copy_assets(orig_dir, output_dir, built=()):
+    """Copy the app's files to *output_dir*, except the *built* ones.
+
+    *built* names the files NASM assembles there (case-insensitive), which a
+    copy of the original would only be overwritten by.
+    """
     os.makedirs(output_dir, exist_ok=True)
+    built = {name.lower() for name in built}
     for entry in os.listdir(orig_dir):
         src = os.path.join(orig_dir, entry)
         dst = os.path.join(output_dir, entry)
-        name_only, _ = os.path.splitext(entry.lower())
-        if name_only in processed_names:
+        if entry.lower() in built:
             continue
         if os.path.isfile(src):
             shutil.copy2(src, dst)
@@ -89,8 +94,11 @@ def process_project(project_name):
     if not os.path.isdir(project_dir):
         print(f'{project_name}: SKIP (not found in apps/)')
         return
-    run_batch, nasm_batch = inprocess_runners(project_name)
-    build_project(project_name, run_batch, nasm_batch)
+    run_batch, nasm_batch, close = inprocess_runners(project_name)
+    try:
+        build_project(project_name, run_batch, nasm_batch)
+    finally:
+        close()
 
 
 def load_whitelist():

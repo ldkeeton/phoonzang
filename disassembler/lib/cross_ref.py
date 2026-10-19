@@ -6,12 +6,12 @@ binary's label map is then exported as JSON (Python data exchange)
 and NASM ``.inc`` (assembler resolution).
 """
 
-import json
 import os
 
 from capstone import Cs, CS_ARCH_X86, CS_MODE_16
 
 from lib import symtab
+from lib.link import read_export, write_export
 
 _FLOW_OPS = frozenset((
     'jmp', 'call', 'je', 'jne', 'jl', 'jle', 'jg', 'jge',
@@ -128,14 +128,12 @@ def write_label_inc(label_map, path):
 
 
 def write_label_json(label_map, path):
-    """Write a label map: ``{offset: {name, ...symbol fields}}``."""
-    with open(path, 'w') as f:
-        json.dump({str(k): symtab.to_record(v)
-                   for k, v in label_map.items()}, f)
+    """Export a label map: ``{offset: {name, ...symbol fields}}``."""
+    write_export(path, {str(k): symtab.to_record(v)
+                        for k, v in label_map.items()})
 
 
 def read_label_json(path):
     """Read a :func:`write_label_json` map back to ``{int: Symbol}``."""
-    with open(path) as f:
-        raw = json.load(f)
-    return {int(k): symtab.from_record(record) for k, record in raw.items()}
+    return {int(k): symtab.from_record(record)
+            for k, record in read_export(path).items()}
