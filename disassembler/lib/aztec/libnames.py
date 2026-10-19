@@ -21,6 +21,7 @@ from . import omflib
 from .build_db import LIB_DIRS, normalize
 from .compile import aztec_name, routine_label
 from .objread import external_label, fixup_width
+from .relink import LINKER_SYMBOLS
 
 _DATA_LOCATIONS = (omflib.LOC_OFFSET, omflib.LOC_LOADER_OFFSET)
 
@@ -162,22 +163,43 @@ def _library_routines(lib, image, label_map):
                     yield start, code.part(offset, end)
 
 
-def _compiled_routines(lib, project, binary, label_map, entries):
-    """``(start, _Code)`` for each mux-recovered C routine's pristine seed."""
+def _compiled_routines(lib, project, binary, image, label_map, entries,
+                       cs_origin=None):
+    """``(start, _Code)`` for each mux-recovered C routine's pristine seed.
+
+    Every data object the vendor C names is read, not only the library's
+    publics: a ``static`` (``Argv`` in ``croot.c``) or a name only a header
+    spells (``ctp_`` in ``isdigit``) is that object's name too.  An address
+    taken of code (``cls_ = closall``) is not data: its word is a CS offset,
+    and a routine starts there (*cs_origin* is the file offset of CS:0).
+    """
     from . import cache
     starts = {str(sym): start for start, sym in label_map.items()}
     for label, entry in (entries or {}).items():
         if cache.is_asm_entry(entry) or label not in starts:
             continue
         try:
-            func = cache.compile_source(
+            module, func = cache.compile_source_module(
                 project, label, entry,
                 cache.seed_source_text(project, binary, label, entry))
         except Exception:
             continue
+        functions = {f.cname + '_' for f in module.functions.values()}
+        functions |= {name + '_' for name in LINKER_SYMBOLS}
+        start = starts[label]
+
+        def code_address(fx):
+            if cs_origin is None:
+                return False
+            site = start + fx.offset
+            word = int.from_bytes(image[site:site + 2], 'little')
+            return label_map.get(((word - fx.addend) & 0xFFFF)
+                                 + cs_origin) is not None
+
         refs = [(fx.offset, fx.symbol, fx.addend) for fx in func.fixups
                 if fx.symbol_kind == 'GBLSYM' and fx.kind == 'WABS'
-                and fx.symbol in lib.data_publics]
+                and fx.symbol not in functions
+                and (fx.symbol in lib.data_publics or not code_address(fx))]
         length = entry.get('original_length') or len(func.code)
         yield starts[label], _Code(
             func.code[:length],
@@ -272,7 +294,8 @@ def sibling_symbols(project, image, label_map, entries, start_offset=0):
             if len(names) == 1 and name not in taken}
 
 
-def data_names(project, binary, image, label_map, entries=None):
+def data_names(project, binary, image, label_map, entries=None,
+               cs_origin=None):
     """``{data-segment offset: (name, public)}`` the library names in *image*.
 
     Only code that matches the image exactly (sites aside) is read.  A public
@@ -282,7 +305,8 @@ def data_names(project, binary, image, label_map, entries=None):
     lib = _library(project)
     found = {}
     routines = list(_library_routines(lib, image, label_map))
-    routines += _compiled_routines(lib, project, binary, label_map, entries)
+    routines += _compiled_routines(lib, project, binary, image, label_map,
+                                   entries, cs_origin)
     for start, code in routines:
         if not code.refs or not code.matches(image, start):
             continue
@@ -308,4 +332,5 @@ def data_symbols(project, binary, image, label_map, segments, entries=None):
                            offset=offset, space=_data_space(segments, offset),
                            role='aztec', library=public)
             for offset, (name, public) in data_names(
-                project, binary, image, label_map, entries).items()}
+                project, binary, image, label_map, entries,
+                getattr(segments, 'cs_origin', None)).items()}

@@ -305,7 +305,7 @@ class RelabelTest(unittest.TestCase):
         self.assertIn('/* open is documented */', out)
         self.assertIn('aztec_open("open", 0)', out)
 
-    def test_learn_names_reads_the_original_image(self):
+    def _errno_func(self, data_name):
         func = Func('_f', 'f', 0, b'\xe8\x00\x00\xa1\x00\x00',
                     [Fixup(1, 'WREL', 'GBLSYM', 0, 'open_'),
                      Fixup(4, 'WABS', 'GBLSYM', 0, 'errno_')])
@@ -315,20 +315,19 @@ class RelabelTest(unittest.TestCase):
         image[start + 1:start + 3] = (0x180 - (start + 3)).to_bytes(2, 'little')
         image[start + 4:start + 6] = (0xc72).to_bytes(2, 'little')
         index = relink.SymbolIndex({0x180: 'aztec_open'}, None, None,
-                                   {'dseg_0c72': 0xc72})
-        names = relabel.learn_names('aztec_f', start, func, bytes(image), index,
-                                    relabel.data_names(None, {'dseg_0c72': 0xc72}))
-        self.assertEqual(names, {'open': 'aztec_open', 'errno': 'dseg_0c72'})
+                                   {data_name: 0xc72})
+        return lambda: relabel.learn_names(
+            'aztec_f', start, func, bytes(image), index,
+            relabel.data_names(None, {data_name: 0xc72}))
 
-    def test_ambiguous_target_is_an_error(self):
-        func = Func('_f', 'f', 0, b'\xa1\x00\x00',
-                    [Fixup(1, 'WABS', 'GBLSYM', 0, 'x_')])
-        image = b'\x00\x34\x12'
-        index = relink.SymbolIndex()
-        with self.assertRaisesRegex(relink.RelinkError, 'asm labels there'):
-            relabel.learn_names('aztec_f', 0, func, image, index,
-                                {0x1234: ['a', 'b']})
+    def test_learn_names_renames_routines_to_the_aztec_spelling(self):
+        self.assertEqual(self._errno_func('errno')(), {'open': 'aztec_open'})
 
+    def test_a_data_name_the_build_spells_otherwise_is_an_error(self):
+        with self.assertRaisesRegex(relink.RelinkError,
+                                    r"names DS:0x0c72 'errno', the build "
+                                    r"calls it \['dseg_0c72'\]"):
+            self._errno_func('dseg_0c72')()
 
 if __name__ == '__main__':
     unittest.main()

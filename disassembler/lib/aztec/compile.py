@@ -349,7 +349,7 @@ def compile_module(source_text, name, *, compiler='v52a', includes=None,
             raise err
 
         dump = attach_locals(parse_obd(_read(obd_path)), _read_bytes(obj_path))
-        result = _build_module(module, omf_path, dump, compiler)
+        result = _build_module(module, omf_path, dump, compiler, kind)
         result.listing = _read(os.path.join(work, f'{module}.LST'))
         result.log = log + cc_log
         result.cc_log = cc_log
@@ -488,7 +488,8 @@ def _compile_group(compiler, inc_version, flags, members, *, verbose,
                 obd_path = os.path.join(work, f'{dos}.OBD')
                 dump = attach_locals(parse_obd(_read(obd_path)),
                                      _read_bytes(obj_path))
-                results[key] = _build_module(dos, omf_path, dump, compiler)
+                results[key] = _build_module(dos, omf_path, dump, compiler,
+                                             kind)
                 results[key].listing = _read(os.path.join(work, f'{dos}.LST'))
             elif os.path.exists(cc_path) and os.path.getsize(cc_path) > 0:
                 results[key] = AztecCompileError(
@@ -524,14 +525,26 @@ def _local_data(dump, name):
     return bytes(out)
 
 
-def _build_module(module, omf_path, dump, compiler):
+def _build_module(module, omf_path, dump, compiler, kind='c'):
     result = CompiledModule()
+    if kind != 'c':
+        dump.statics = {}   # an assembler's symbols are its labels
     if not os.path.exists(omf_path):
         return result
     with open(omf_path, 'rb') as f:
         data = f.read()
 
     code_len = len(dump.code)
+    # PUBDEF has no ``static`` routine, so a public's extent runs on over the
+    # static after it (``putc`` swallowed ``closall``).  The ``.O`` has every
+    # routine: each one ends where the next begins.
+    starts = sorted({pf['offset'] for pf in public_functions(data)}
+                    | set(dump.statics.values()))
+
+    def until_next(off, end):
+        later = [s for s in starts if off < s < end]
+        return later[0] if later else end
+
     for pf in public_functions(data):
         off = pf['offset']
         # A function's length is declared by its own object: the distance to
@@ -545,23 +558,31 @@ def _build_module(module, omf_path, dump, compiler):
         end = (off + length) if length else code_len
         if end > len(dump.code):
             dump.code.extend(b'\x00' * (end - len(dump.code)))
-        seg = bytes(dump.code[off:end])
-        if not seg:
-            continue
-        fixups = []
-        for fx in dump.fixups:
-            if off <= fx.offset < end:
-                from .objread import Fixup
-                fixups.append(Fixup(fx.offset - off, fx.kind, fx.symbol_kind,
-                                    fx.symbol_index, fx.symbol, fx.addend,
-                                    fx.expr))
-        # A local label belongs to the function whose body contains it.
-        local_names = {fx.symbol for fx in fixups if fx.symbol_kind == 'LCLSYM'}
-        locals_ = {name: dump.locals[name] - off for name in local_names
-                   if name in dump.locals}
-        data_locals = {name: _local_data(dump, name) for name in local_names
-                       if name in dump.data_locals}
-        func = Func(pf['name'], pf['module'] or module, off, seg, fixups,
-                    locals_, omf_name(pf['name'], compiler), data_locals)
-        result.functions[func.key] = func
+        func = _func(dump, pf['name'], omf_name(pf['name'], compiler),
+                     pf['module'] or module, off, until_next(off, end))
+        if func is not None:
+            result.functions[func.key] = func
+    for name, off in dump.statics.items():
+        func = _func(dump, name, name, module, off,
+                     until_next(off, code_len))
+        if func is not None:
+            result.functions[func.key] = func
     return result
+
+
+def _func(dump, name, cname, owner, off, end):
+    """The :class:`Func` for module bytes ``[off, end)``, or None if empty."""
+    from .objread import Fixup
+    seg = bytes(dump.code[off:end])
+    if not seg:
+        return None
+    fixups = [Fixup(fx.offset - off, fx.kind, fx.symbol_kind, fx.symbol_index,
+                    fx.symbol, fx.addend, fx.expr)
+              for fx in dump.fixups if off <= fx.offset < end]
+    # A local label belongs to the function whose body contains it.
+    local_names = {fx.symbol for fx in fixups if fx.symbol_kind == 'LCLSYM'}
+    locals_ = {n: dump.locals[n] - off for n in local_names
+               if n in dump.locals}
+    data_locals = {n: _local_data(dump, n) for n in local_names
+                   if n in dump.data_locals}
+    return Func(name, owner, off, seg, fixups, locals_, cname, data_locals)

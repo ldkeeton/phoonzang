@@ -74,5 +74,16 @@ class BuildWideUseTest(unittest.TestCase):
                 build.check_build_sidecar_use('P', {'ds': None})
 
 
+class RoutineEntryTest(unittest.TestCase):
+    def test_a_library_routine_takes_a_string_role_and_library(self):
+        from lib.sidecar.routines import _validate_routines
+        _validate_routines({'loc_KSUH': {'name': 'aztec_printf',
+                                         'role': 'aztec', 'library': 'printf'}})
+        with self.assertRaisesRegex(SidecarError,
+                                    r'routines\.loc_KSUH\.library'):
+            _validate_routines({'loc_KSUH': {'name': 'aztec_printf',
+                                             'library': ['printf']}})
+
+
 if __name__ == '__main__':
     unittest.main()

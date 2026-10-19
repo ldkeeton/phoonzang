@@ -13,14 +13,14 @@ struct ovrheader {			/* overlay header header */
 	unsigned short o_entry;
 };
 
-static char *bss_0cfa;
+static char *ovname;
 
 #asm
 	public	ovloader_
 ovloader_ proc near
 	mov	bx,sp
 	mov	ax,word ptr 2[bx]
-	mov	bss_0cfa_,ax
+	mov	ovname_,ax
 	call	aztec_impl_ovld_
 	jmp	ax
 ovloader_ endp
@@ -33,20 +33,20 @@ aztec_impl_ovld()
 	register char *cp, *xp;
 	auto struct ovrheader hdr;
 	char *getenv(), path[64];
-	extern char *_mbot, __zres_end[], __zdseg_end[];
+	extern char *_mbot, _Cend[], _Uend[];
 
 #ifdef DOS20
 	if ((cp = getenv("PATH")) == 0)
 		cp = "";
 	xp = path;
 	for (;;) {
-		aztec_strcpy(xp, bss_0cfa);
-		aztec_strcat(path, ".ovr");
-		if ((fd = aztec_open(path, 0)) != -1)
+		strcpy(xp, ovname);
+		strcat(path, ".ovr");
+		if ((fd = open(path, 0)) != -1)
 			break;
 		do {
 			if (*cp == 0)
-				aztec_loadabort(10);
+				loadabort(10);
 			xp = path;
 			while (*cp) {
 				if (*cp == ';') {
@@ -60,36 +60,36 @@ aztec_impl_ovld()
 	}
 
 #else
-	aztec_strcpy(path, bss_0cfa);
-	aztec_strcat(path, ".ovr");
-	if ((fd = aztec_open(path, 0)) == -1)
-		aztec_loadabort(10);
+	strcpy(path, ovname);
+	strcat(path, ".ovr");
+	if ((fd = open(path, 0)) == -1)
+		loadabort(10);
 #endif
 
-	if (aztec_read(fd, &hdr, sizeof hdr) != sizeof hdr)
-		aztec_loadabort(20);
+	if (read(fd, &hdr, sizeof hdr) != sizeof hdr)
+		loadabort(20);
 
 	/* safety check overlay header */
 	if (hdr.o_magic != OV_MAGIC)
-		aztec_loadabort(30);
+		loadabort(30);
 	if (_mbot < hdr.o_dorg+hdr.o_dsize+hdr.o_bss)
-		aztec_loadabort(40);
-	if (__zres_end > hdr.o_corg || __zdseg_end > hdr.o_dorg)
-		aztec_loadabort(60);
+		loadabort(40);
+	if (_Cend > hdr.o_corg || _Uend > hdr.o_dorg)
+		loadabort(60);
 
-	if (aztec_impl_csread(fd, hdr.o_corg, hdr.o_csize) < hdr.o_csize
-			|| aztec_read(fd, hdr.o_dorg, hdr.o_dsize) < hdr.o_dsize)
-		aztec_loadabort(50);
-	aztec_close(fd);
+	if (_csread(fd, hdr.o_corg, hdr.o_csize) < hdr.o_csize
+			|| read(fd, hdr.o_dorg, hdr.o_dsize) < hdr.o_dsize)
+		loadabort(50);
+	close(fd);
 	return hdr.o_entry;
 }
 
 static
-aztec_loadabort(code)
+loadabort(code)
 {
 	char buffer[80];
 
-	ds_loc_LHHJ(buffer, "Error %d loading overlay: %s$", code, bss_0cfa);
-	aztec_bdos(9, buffer);
-	aztec_exit(100);
+	sprintf(buffer, "Error %d loading overlay: %s$", code, ovname);
+	bdos(9, buffer);
+	exit(100);
 }

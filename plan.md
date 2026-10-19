@@ -240,6 +240,13 @@ and supply the "inside a string" refusal.
    mapping and a per-type load base (`EXE → 0`, `OVR → o_corg`, `DRV → 0x100`).
 7. **Final gate:** a shuffle build (reorder fragments, rebuild) and a DOSBox-X
    boot of the result.
+8. **Vendor data as C.** The library's data is still `db` blocks: `ctp_` (Manx
+   `ctype.c` in `SRC/MISC.ARC`, `char ctp_[129] = {...}`), `Cbuffs` and the
+   like. It needs a data-recovery path: compile the vendor definition and accept
+   it only where its bytes equal the exe's at the name's address. The remaining
+   code misses (`format`, `calloc`, `fputs`, `gmtime`, `utime`, `raise`,
+   `vfprintf`, `_scan`, `strcmp`/`strncmp`) match neither v3.40a nor v5.2a
+   sources, so they likely come from a library release we do not have.
 
 ---
 

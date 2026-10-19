@@ -16,7 +16,7 @@ typedef unsigned size_t;
 typedef struct list {
 	struct list *next;
 } l_t;
-static l_t first, *bss_0d00;
+static l_t first, *current;
 static l_t *endmarker = &first, *restart = &first;
 static size_t keep;
 
@@ -28,15 +28,25 @@ static size_t keep;
 
 #define BLOCK	(512*sizeof(l_t))	/* # of bytes to ask sbrk for */
 
-aztec_free(p)
-char *p;
+char *
+aztec_realloc(area, size)
+register char *area; unsigned size;
 {
-	register l_t *ptr;
+	register char *cp, *end;
+	size_t osize;
+	char *aztec_malloc();
 
-	ptr = (l_t *)p - 1;
-	if (!inuse(ptr))
-		return -1;
-	unmark(ptr);
-	bss_0d00 = ptr;
-	return 0;
+	end = (char *)chain((l_t *)area-1);
+	if ((osize = ptrdiff(end, area)) > size) {
+		osize = size;
+		end = (char *)bump(area, osize);
+	}
+	aztec_free(area);
+	if ((cp = aztec_malloc(size)) != 0 && cp != area) {
+		aztec_movmem(area, cp, osize);
+		if ((char *)current >= area && (char *)current < end)
+			*(size_t *)bump(cp, ptrdiff(current,area)) = keep;
+	}
+	return cp;
 }
+

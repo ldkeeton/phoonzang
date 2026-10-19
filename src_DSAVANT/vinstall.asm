@@ -173,13 +173,15 @@ dseg_167e equ __zdseg_167e - __zdseg_start
 dseg_1681 equ __zdseg_1681 - __zdseg_start
 %include "vinstall/leaf_loc_UVRI.asm"      ; 0x10a4
 
+%include "vinstall/loc_RJRG.asm"           ; 0x1155
+
 dseg_1689 equ __zdseg_1689 - __zdseg_start
 dseg_16af equ __zdseg_16af - __zdseg_start
 dseg_16c2 equ __zdseg_16c2 - __zdseg_start
 dseg_16e8 equ __zdseg_16e8 - __zdseg_start
 dseg_16fa equ __zdseg_16fa - __zdseg_start
 dseg_1720 equ __zdseg_1720 - __zdseg_start
-%include "vinstall/loc_RJRG.asm"           ; 0x1155
+%include "vinstall/loc_HSPL.asm"           ; 0x11ba
 
 dseg_0004 equ __zdseg_0004 - __zdseg_start
 dseg_0006 equ __zdseg_0006 - __zdseg_start
@@ -320,7 +322,7 @@ bss_2af4  equ __zbss_2af4 - __zdseg_start
 bss_2af6  equ __zbss_2af6 - __zdseg_start
 bss_2af8  equ __zbss_2af8 - __zdseg_start
 bss_2afa  equ __zbss_2afa - __zdseg_start
-%include "vinstall/loc_SGVI.asm"           ; 0x12b5
+%include "vinstall/main.asm"               ; 0x12b5
 
 cseg_2479:
     db 0x00
@@ -349,10 +351,10 @@ cseg_2479:
 
 %include "vinstall/asm_only/bios_video_loc_IVQL.asm" ; 0x2733
 
-dseg_2452 equ __zdseg_2452 - __zdseg_start
+ctp_ equ __zctp_ - __zdseg_start
 %include "vinstall/aztec_atoi.asm"         ; 0x2806
 
-; dseg_2452 equ __zdseg_2452 - __zdseg_start
+; ctp_ equ __zctp_ - __zdseg_start
 %include "vinstall/aztec_atol.asm"         ; 0x2877
 
 %include "vinstall/loc_NJNG.asm"           ; 0x2908
@@ -365,9 +367,9 @@ dseg_230a equ __zdseg_230a - __zdseg_start
 errno equ __zerrno - __zdseg_start
 %include "vinstall/asm_only/aztec_mkdir.asm"        ; 0x29fe
 
-%include "vinstall/aztec_rmdir.asm"        ; 0x2a15
+%include "vinstall/asm_only/aztec_rmdir.asm"        ; 0x2a15
 
-%include "vinstall/aztec_chdir.asm"        ; 0x2a1c
+%include "vinstall/asm_only/aztec_chdir.asm"        ; 0x2a1c
 
 cseg_2a23:
     db 0x00, 0x00
@@ -407,40 +409,42 @@ dseg_231c equ __zdseg_231c - __zdseg_start
 ; errno     equ __zerrno - __zdseg_start
 %include "vinstall/aztec_utime.asm"        ; 0x2bfe
 
-%include "vinstall/loc_KSUH.asm"           ; 0x2c62
+%include "vinstall/aztec_printf.asm"       ; 0x2c62
 
-%include "vinstall/loc_GGGN.asm"           ; 0x2c7a
+Cbuffs equ __zCbuffs - __zdseg_start
+%include "vinstall/aztec_putchar.asm"      ; 0x2c7a
 
-%include "vinstall/aztec_fputs.asm"        ; 0x2c8e
+%include "vinstall/aztec_aputc.asm"        ; 0x2c8e
 
 %include "vinstall/aztec_putc.asm"         ; 0x2cc1
 
+; Cbuffs equ __zCbuffs - __zdseg_start
 %include "vinstall/aztec_closall.asm"      ; 0x2cf5
 
 %include "vinstall/aztec_fclose.asm"       ; 0x2d0b
 
-dseg_2500 equ __zdseg_2500 - __zdseg_start
+cls_ equ __zcls_ - __zdseg_start
 %include "vinstall/aztec_flsh_.asm"        ; 0x2d86
 
-dseg_234a equ __zdseg_234a - __zdseg_start
-%include "vinstall/leaf_loc_TRGR.asm"      ; 0x2e45
+; Cbuffs equ __zCbuffs - __zdseg_start
+%include "vinstall/aztec_newstream.asm"    ; 0x2e45
 
-%include "vinstall/loc_PHKM.asm"           ; 0x2e63
+%include "vinstall/aztec_getbuff.asm"      ; 0x2e63
 
-bss_2534 equ __zbss_2534 - __zdseg_start
-bss_2536 equ __zbss_2536 - __zdseg_start
-%include "vinstall/aztec_realloc.asm"      ; 0x2eac
+keep    equ __zbss_2534 - __zdseg_start
+current equ __zbss_2536 - __zdseg_start
+%include "shared/aztec_realloc.asm"      ; 0x2eac
 
-dseg_244e equ __zdseg_244e - __zdseg_start
-; bss_2534  equ __zbss_2534 - __zdseg_start
-; bss_2536  equ __zbss_2536 - __zdseg_start
-bss_2538  equ __zbss_2538 - __zdseg_start
+endmarker equ __zendmarker - __zdseg_start
+; keep      equ __zbss_2534 - __zdseg_start
+; current   equ __zbss_2536 - __zdseg_start
+first     equ __zbss_2538 - __zdseg_start
 %include "vinstall/aztec_malloc.asm"       ; 0x2f1b
 
 %include "vinstall/leaf_loc_LPSH.asm"      ; 0x3016
 
-; bss_2536 equ __zbss_2536 - __zdseg_start
-%include "vinstall/aztec_free.asm"         ; 0x3019
+; current equ __zbss_2536 - __zdseg_start
+%include "shared/aztec_free.asm"         ; 0x3019
 
 cseg_303e:
 
@@ -472,7 +476,7 @@ cseg_307d:
 
     db '0123456789abcdef -lm first', 0
 
-%include "vinstall/asm_only/sprintf.asm"            ; 0x3098
+%include "vinstall/asm_only/aztec_format.asm"       ; 0x3098
 
 %include "vinstall/leaf_loc_GSJQ.asm"      ; 0x331e
 
@@ -518,7 +522,7 @@ dseg_2512         equ __zdseg_2512 - __zdseg_start
 _STKRED           equ __z_STKRED - __zdseg_start
 dseg_2516         equ __zdseg_2516 - __zdseg_start
 _STKLOW           equ __z_STKLOW - __zdseg_start
-; bss_2534          equ __zbss_2534 - __zdseg_start
+; keep              equ __zbss_2534 - __zdseg_start
 __zdseg_end       equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "vinstall/asm_only/aztec_begin.asm"        ; 0x35d2
 
@@ -528,35 +532,27 @@ __zcp_373b:
     db 0xb8, 0x00, 0x00, 0xc3
 dseg_2502 equ __zdseg_2502 - __zdseg_start
 ; _ioflg    equ __z_ioflg - __zdseg_start
-bss_253a  equ __zbss_253a - __zdseg_start
-bss_253c  equ __zbss_253c - __zdseg_start
+Argc      equ __zbss_253a - __zdseg_start
+Argv      equ __zbss_253c - __zdseg_start
 %include "vinstall/aztec_Croot.asm"        ; 0x373f
 
-; dseg_2500 equ __zdseg_2500 - __zdseg_start
-aztec_exit.dseg1 equ dseg_2500
+; cls_ equ __zcls_ - __zdseg_start
 %include "shared/aztec_exit.asm"         ; 0x380b
 
 %include "vinstall/leaf_loc_UTMK.asm"      ; 0x381d
 
-aztec_impl_read.loc1 equ loc_IGMS
 %include "shared/aztec_impl_read.asm"    ; 0x381f
 
-aztec_impl_write.loc1 equ loc_IGMS
 %include "shared/aztec_impl_write.asm"   ; 0x3829
 
-aztec_read.loc1 equ loc_ILUN
 %include "shared/aztec_read.asm"         ; 0x3833
 
 ; errno     equ __zerrno - __zdseg_start
 ; _ioflg    equ __z_ioflg - __zdseg_start
 dseg_252e equ __zdseg_252e - __zdseg_start
 dseg_2530 equ __zdseg_2530 - __zdseg_start
-loc_ILUN          equ aztec_write.loc1
-loc_IGMS          equ aztec_write.loc2
-loc_SROM          equ aztec_write.loc3
 aztec_write.dseg1 equ dseg_2530
 aztec_write.dseg2 equ dseg_252e
-loc_USUN_3867     equ aztec_write.loc4
 %include "shared/aztec_write.asm"        ; 0x383a
 
 ; errno equ __zerrno - __zdseg_start
@@ -3272,7 +3268,7 @@ __zdseg_231c:
     db 0x00, 0x02, 0x05
     times 6 db 0
 
-__zdseg_234a:
+__zCbuffs:
     times 6 db 0
     db 0x01, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00
 __zdseg_2357:
@@ -3287,9 +3283,9 @@ __zdseg_2357:
     db 0x01, 0x04, 0x00, 0x01
     times 198 db 0
 
-__zdseg_244e:
+__zendmarker:
     db 0x38, 0x25, 0x38, 0x25
-__zdseg_2452:
+__zctp_:
 
     db 0x00
     db '         00000                  '
@@ -3324,7 +3320,7 @@ __z_PSP:
     db '8087/80287 is required!'
     db 0x0d, 0x0a, 0x24
 
-__zdseg_2500:
+__zcls_:
     dw __zcp_373b - IMAGE_BASE                 ; 0x5fe0
 __zdseg_2502:
     db 0x00

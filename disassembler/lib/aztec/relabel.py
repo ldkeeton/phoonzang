@@ -1,20 +1,22 @@
 """Rewrite a recovered C seed to name asm labels instead of Manx identifiers.
 
-A seed recovered from the Manx runtime sources calls ``open(...)`` and reads
-``errno``; the asm calls the same things ``aztec_open`` and ``dseg_0c72``.  The
-C linker (:mod:`lib.aztec.relink`) takes the C identifier *as* the asm label, so
-the seed's identifiers are rewritten once, here, using the one place the two
-namespaces are known to agree: the original image.  At each relocation the
-original bytes hold the real target, and the build's label maps name it.
+A seed recovered from the Manx runtime sources calls ``open(...)``; the asm
+calls the same routine ``aztec_open``.  The C linker (:mod:`lib.aztec.relink`)
+takes the C identifier *as* the asm label, so the seed's routine names are
+rewritten once, here, to the library's ``aztec_`` spelling -- the only change
+made to vendor C.  Data keeps the vendor's names (``errno``, ``Argv``,
+``ctp_``): the build names those objects as the C does
+(:mod:`lib.aztec.libnames`).  The original image is the check: at each
+relocation its bytes hold the real target, and the build's label maps must
+name it with the C's name or its ``aztec_`` spelling.
 
 Only a *pristine* seed is rewritten.  Hand-edited C already says what it means.
 """
 
 import re
 
-from .compile import AztecCompileError
 from .objread import external_label
-from .relink import RelinkError
+from .relink import RelinkError, linked_name
 
 # Comments, string/char literals (copied through) and identifiers (renamed).
 _TOKEN = re.compile(
@@ -55,16 +57,18 @@ def rewrite_identifiers(text, mapping):
 
 
 def learn_names(label, start, func, original, index, names_at, image_base=0):
-    """Map each C external of *func* to the asm label the original used.
+    """Map each C routine external of *func* to the asm label the original used.
 
     ``index`` is a :class:`lib.aztec.relink.SymbolIndex`; ``names_at`` maps a
-    data-segment offset to the names defined there.  An absolute address with
-    no data name may be a code pointer (``cls_ = closall``): code labels sit at
-    file offsets, so it is looked up at ``target + image_base``; failing
-    both, a data address takes the build's canonical name for it.  An
-    external whose target has more than one name is an error rather than a
-    guess.
+    data-segment offset to the names defined there.  Only routine names are
+    renamed, and only to the library's ``aztec_`` spelling of the same name
+    (:func:`lib.aztec.compile.routine_label`): that is the one change made to
+    vendor C.  A data object keeps the vendor's name, which the build gives the
+    object (:mod:`lib.aztec.libnames`); the original image checks both.  A code
+    address taken as a value (``cls_ = closall``) is a routine: code labels sit
+    at file offsets, so it is looked up at ``target + image_base``.
     """
+    from .compile import aztec_name, routine_label
     code_at = {}
     for name, addr in index.code.items():
         code_at.setdefault(addr, []).append(name)
@@ -72,36 +76,38 @@ def learn_names(label, start, func, original, index, names_at, image_base=0):
     for fx in func.fixups:
         if fx.symbol_kind != 'GBLSYM':
             continue
-        c_name = external_label(fx.symbol)
+        c_name = linked_name(external_label(fx.symbol))
+        spelled = routine_label(aztec_name(fx.symbol))
         site = start + fx.offset
         raw = int.from_bytes(original[site:site + 2], 'little')
         if fx.kind == 'WREL':
             target = (site + 2 + raw) & 0xFFFF
-            candidates = code_at.get(target, [])
-            what = f'call target 0x{target:04x}'
+            what = f'calls 0x{target:04x}'
         elif fx.kind == 'WABS':
             target = (raw - fx.addend) & 0xFFFF
-            candidates = names_at.get(target, [])
-            what = f'data address 0x{target:04x}'
-            if not candidates:
-                candidates = code_at.get(target + image_base, [])
-                what = (f'data or code address 0x{target:04x} '
-                        f'(file 0x{target + image_base:04x})')
-            if not candidates and index.data_symbol:
-                # A DS object no asm operand names yet: its canonical
-                # spelling, which the linker defines (``relink``).
-                candidates = [str(index.data_symbol(target))]
+            names = names_at.get(target, [])
+            code = code_at.get(target + image_base, [])
+            if not {c_name, spelled} & set(code):
+                if c_name in names:
+                    continue
+                raise RelinkError(
+                    f'{label}: the C names DS:0x{target:04x} {c_name!r}, the '
+                    f'build calls it {sorted(names) or "nothing"}')
+            target += image_base
+            what = f'takes the address of 0x{target:04x}'
         else:
             continue
-        if len(candidates) != 1:
+        here = code_at.get(target, [])
+        if c_name in here:
+            continue
+        if spelled not in here:
             raise RelinkError(
-                f'{label}: cannot name C identifier {c_name!r} '
-                f'({what}): {len(candidates)} asm labels there '
-                f'{sorted(candidates)}')
-        if mapping.setdefault(c_name, candidates[0]) != candidates[0]:
+                f'{label}: the C {what} as {c_name!r}, the build calls it '
+                f'{sorted(here) or "nothing"}')
+        if mapping.setdefault(c_name, spelled) != spelled:
             raise RelinkError(
                 f'{label}: C identifier {c_name!r} maps to both '
-                f'{mapping[c_name]!r} and {candidates[0]!r}')
+                f'{mapping[c_name]!r} and {spelled!r}')
     return mapping
 
 
@@ -129,27 +135,6 @@ def _own_names(text, label, own_key):
                             symbol_key(aztec_name(m.group(0))))}
 
 
-def _with_defines(text, defines):
-    """Insert ``#define old new`` lines ahead of the first ``#include``.
-
-    A header-declared name (``Cbuffs`` in ``stdio.h``) cannot be renamed in the
-    C text: its declaration lives in the header.  Defining it first makes the
-    header declare the asm label instead.
-    """
-    if not defines:
-        return text
-    block = ''.join(f'#define {old} {new}\n'
-                    for old, new in sorted(defines.items()))
-    block = ('/* asm label names for identifiers the headers declare */\n'
-             + block)
-    pos = text.find('#include')
-    if pos < 0:
-        end = text.find('*/')
-        pos = end + 2 if end >= 0 else 0
-        block = '\n' + block
-    return text[:pos] + block + text[pos:]
-
-
 def upgrade(label, own_key, start, text, original, index, names_at, compile_,
             image_base=0):
     """Return ``(new_text, new_func)`` with asm names in place of Manx ones.
@@ -163,26 +148,8 @@ def upgrade(label, own_key, start, text, original, index, names_at, compile_,
     mapping = learn_names(label, start, func, original, index, names_at,
                           image_base)
     mapping.update(_own_names(text, label, own_key))
-    # A name only a header macro spells (``ctp_`` in ``isdigit``) is not in
-    # the text to rename: define it.
-    tokens = {m.group(0) for m in _TOKEN.finditer(text)}
-    macros = {k: v for k, v in mapping.items() if k not in tokens}
-    for _attempt in range(4):
-        direct = {k: v for k, v in mapping.items() if k not in macros}
-        new_text = _with_defines(rewrite_identifiers(text, direct),
-                                 {k: mapping[k] for k in macros})
-        try:
-            new_func = compile_(new_text)
-            break
-        except AztecCompileError as exc:
-            undefined = set(re.findall(r'undefined symbol: (\w+)', str(exc)))
-            fresh = {k for k, v in mapping.items()
-                     if v in undefined and k not in macros}
-            if not fresh:
-                raise
-            macros.update({k: mapping[k] for k in fresh})
-    else:
-        raise RelinkError(f'{label}: could not rename {sorted(mapping)}')
+    new_text = rewrite_identifiers(text, mapping)
+    new_func = compile_(new_text)
     if new_func.code != func.code or len(new_func.fixups) != len(func.fixups):
         raise RelinkError(
             f'{label}: renaming {sorted(mapping)} changed the compiled code')

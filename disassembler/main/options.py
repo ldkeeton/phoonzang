@@ -10,7 +10,6 @@ import sys
 ASM_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(ASM_DIR)
 APPS_DIR = os.path.join(PROJECT_ROOT, 'apps')
-KNOWN_FUNCS_PATH = os.path.join(ASM_DIR, 'lib', 'known_funcs.json')
 AZTEC_MUX_DISABLED = bool(os.environ.get('ASM_NO_C'))
 AZTEC_MUX_REFRESH = bool(os.environ.get('ASM_AZTEC_REFRESH'))
 AZTEC_PREBUILD = bool(os.environ.get('ASM_AZTEC_PREBUILD'))

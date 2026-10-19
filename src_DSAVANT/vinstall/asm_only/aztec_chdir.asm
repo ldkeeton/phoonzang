@@ -1,4 +1,5 @@
 ; auto-generated
+; asm only
 aztec_chdir:
     push bp                          ; 0x2a1c
     mov bp, sp                       ; 0x2a1d

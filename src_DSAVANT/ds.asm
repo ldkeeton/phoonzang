@@ -888,17 +888,17 @@ cseg_3c7f:
 
 %include "ds/asm_only/thunk_51.asm"                 ; 0x436c
 
-bss_0cfa equ __zbss_0cfa - __zdseg_start
+ovname equ __zbss_0cfa - __zdseg_start
 %include "ds/aztec_ovloader.asm"           ; 0x4379
 
 dseg_0c48   equ __zdseg_0c48 - __zdseg_start
 _mbot       equ __z_mbot - __zdseg_start
-; bss_0cfa    equ __zbss_0cfa - __zdseg_start
+; ovname      equ __zbss_0cfa - __zdseg_start
 __zdseg_end equ (__zimage_end - __zdseg_start) + __zbss_size
 %include "ds/aztec_impl_ovld.asm"          ; 0x4386
 
 dseg_0c4d equ __zdseg_0c4d - __zdseg_start
-; bss_0cfa  equ __zbss_0cfa - __zdseg_start
+; ovname    equ __zbss_0cfa - __zdseg_start
 %include "ds/aztec_loadabort.asm"          ; 0x4462
 
 %include "ds/asm_only/aztec_bdos.asm"               ; 0x4497
@@ -906,11 +906,11 @@ dseg_0c4d equ __zdseg_0c4d - __zdseg_start
 errno equ __zerrno - __zdseg_start
 %include "ds/asm_only/aztec_impl_csread.asm"        ; 0x44b4
 
-bss_0cfc equ __zbss_0cfc - __zdseg_start
-%include "ds/ds_loc_LHHJ.asm"              ; 0x44d4
+buff equ __zbss_0cfc - __zdseg_start
+%include "ds/aztec_sprintf.asm"            ; 0x44d4
 
-; bss_0cfc equ __zbss_0cfc - __zdseg_start
-%include "ds/ds_string_loc_RNGG.asm"       ; 0x44ff
+; buff equ __zbss_0cfc - __zdseg_start
+%include "ds/aztec_spsub.asm"              ; 0x44ff
 
 %include "ds/asm_only/aztec_movblock.asm"           ; 0x4517
 
@@ -934,20 +934,20 @@ _lowwater equ __z_lowwater - __zdseg_start
 
 %include "ds/asm_only/aztec_cret.asm"               ; 0x4670
 
-bss_0cfe equ __zbss_0cfe - __zdseg_start
-bss_0d00 equ __zbss_0d00 - __zdseg_start
-%include "ds/aztec_realloc.asm"            ; 0x467b
+keep    equ __zbss_0cfe - __zdseg_start
+current equ __zbss_0d00 - __zdseg_start
+%include "shared/aztec_realloc.asm"            ; 0x467b
 
-dseg_0c6c equ __zdseg_0c6c - __zdseg_start
-; bss_0cfe  equ __zbss_0cfe - __zdseg_start
-; bss_0d00  equ __zbss_0d00 - __zdseg_start
-bss_0d02  equ __zbss_0d02 - __zdseg_start
+endmarker equ __zendmarker - __zdseg_start
+; keep      equ __zbss_0cfe - __zdseg_start
+; current   equ __zbss_0d00 - __zdseg_start
+first     equ __zbss_0d02 - __zdseg_start
 %include "ds/aztec_malloc.asm"             ; 0x46ea
 
 %include "ds/ds_leaf_loc_LPSH.asm"         ; 0x47e5
 
-; bss_0d00 equ __zbss_0d00 - __zdseg_start
-%include "ds/aztec_free.asm"               ; 0x47e8
+; current equ __zbss_0d00 - __zdseg_start
+%include "shared/aztec_free.asm"               ; 0x47e8
 
 cseg_480d:
 
@@ -979,7 +979,7 @@ cseg_484c:
 
     db '0123456789abcdef -lm first', 0
 
-%include "ds/asm_only/sprintf.asm"                  ; 0x4867
+%include "ds/asm_only/aztec_format.asm"             ; 0x4867
 
 %include "ds/ds_leaf_loc_GSJQ.asm"         ; 0x4aed
 
@@ -1030,12 +1030,11 @@ __zcp_4ea3:
     db 0xb8, 0x00, 0x00, 0xc3
 dseg_0c9e equ __zdseg_0c9e - __zdseg_start
 ; _ioflg    equ __z_ioflg - __zdseg_start
-bss_0d04  equ __zbss_0d04 - __zdseg_start
-bss_0d06  equ __zbss_0d06 - __zdseg_start
+Argc      equ __zbss_0d04 - __zdseg_start
+Argv      equ __zbss_0d06 - __zdseg_start
 %include "ds/aztec_Croot.asm"              ; 0x4ea7
 
-dseg_0c9c equ __zdseg_0c9c - __zdseg_start
-aztec_exit.dseg1 equ dseg_0c9c
+cls_ equ __zcls_ - __zdseg_start
 %include "shared/aztec_exit.asm"               ; 0x4f73
 
 %include "ds/ds_leaf_loc_UTMK.asm"         ; 0x4f85
@@ -1043,25 +1042,18 @@ aztec_exit.dseg1 equ dseg_0c9c
 dseg_0cae equ __zdseg_0cae - __zdseg_start
 %include "ds/aztec_impl_stkover.asm"       ; 0x4f87
 
-aztec_impl_read.loc1 equ ds_loc_IGMS
 %include "shared/aztec_impl_read.asm"          ; 0x4fa2
 
-aztec_impl_write.loc1 equ ds_loc_IGMS
 %include "shared/aztec_impl_write.asm"         ; 0x4fac
 
-aztec_read.loc1 equ ds_loc_NOQM
 %include "shared/aztec_read.asm"               ; 0x4fb6
 
 ; errno     equ __zerrno - __zdseg_start
 ; _ioflg    equ __z_ioflg - __zdseg_start
 dseg_0cf0 equ __zdseg_0cf0 - __zdseg_start
 dseg_0cf2 equ __zdseg_0cf2 - __zdseg_start
-ds_loc_NOQM       equ aztec_write.loc1
-ds_loc_IGMS       equ aztec_write.loc2
-ds_loc_SROM       equ aztec_write.loc3
 aztec_write.dseg1 equ dseg_0cf2
 aztec_write.dseg2 equ dseg_0cf0
-ds_loc_USUN       equ aztec_write.loc4
 %include "shared/aztec_write.asm"              ; 0x4fbd
 
 ; errno equ __zerrno - __zdseg_start
@@ -1441,7 +1433,7 @@ __zdseg_0c4d:
     db 'Error %d loading overlay: %s$', 0
     db 0x00
 
-__zdseg_0c6c:
+__zendmarker:
     db 0x02, 0x0d, 0x02, 0x0d
 __zaztec_MEMRY:
     dw bss_b198                                ; 0x10dd0
@@ -1465,7 +1457,7 @@ __z_PSP:
     db '8087/80287 is required!'
     db 0x0d, 0x0a, 0x24
 
-__zdseg_0c9c:
+__zcls_:
     dw __zcp_4ea3 - IMAGE_BASE                 ; 0x10dfc
 __zdseg_0c9e:
     db 0x00

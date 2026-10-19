@@ -5,4 +5,4 @@ aztec_impl_read:
     mov bp, sp
     mov ah, 0x3f
     mov bx, word [bp + 0x4]
-    jmp short aztec_impl_read.loc1
+    jmp short @..aztec_write.use_dos

@@ -3,13 +3,13 @@ aztec_loadabort:
     push bp                          ; 0x4462
     mov bp, sp                       ; 0x4463
     add sp, byte 0xb0                ; 0x4465
-    push word [bss_0cfa]             ; 0x4468
+    push word [ovname]               ; 0x4468
     push word [bp + 0x4]             ; 0x446c
     mov ax, dseg_0c4d                ; 0x446f
     push ax                          ; 0x4472
     lea ax, word [bp - 0x0050]       ; 0x4473
     push ax                          ; 0x4476
-    call ds_loc_LHHJ                 ; 0x4477
+    call aztec_sprintf               ; 0x4477
     add sp, byte 8                   ; 0x447a
     lea ax, word [bp - 0x0050]       ; 0x447d
     push ax                          ; 0x4480

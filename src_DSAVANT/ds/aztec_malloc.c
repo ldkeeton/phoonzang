@@ -16,9 +16,9 @@ typedef unsigned size_t;
 typedef struct list {
 	struct list *next;
 } l_t;
-static l_t bss_0d02, *bss_0d00;
-static l_t *dseg_0c6c = &bss_0d02, *restart = &bss_0d02;
-static size_t bss_0cfe;
+static l_t first, *current;
+static l_t *endmarker = &first, *restart = &first;
+static size_t keep;
 
 #define INUSE	1
 #define inuse(p) (*(size_t *)(p)&INUSE)
@@ -38,13 +38,13 @@ unsigned size;
 	char *aztec_sbrk();
 
 	size = ((size+sizeof(l_t)*2-1)/sizeof(l_t))*sizeof(l_t);
-	if (bss_0d00 == 0) {
-		bss_0d02.next = &bss_0d02;
-		markblk(&bss_0d02);
-		bss_0d00 = &bss_0d02;
+	if (current == 0) {
+		first.next = &first;
+		markblk(&first);
+		current = &first;
 	}
-	for (times = 0, lastfree = ptr = bss_0d00 ; ; ptr = chain(ptr)) {
-		if (ptr == dseg_0c6c) {
+	for (times = 0, lastfree = ptr = current ; ; ptr = chain(ptr)) {
+		if (ptr == endmarker) {
 			if (++times > 1) {
 				len = BLOCK;
 				if ((temp = (l_t *)aztec_sbrk((int)len)) == (l_t *)-1)
@@ -58,9 +58,9 @@ unsigned size;
 				}
 				temp = bump(ptr, len);
 				ptr->next = temp;
-				temp->next = &bss_0d02;	/* new end marker */
+				temp->next = &first;	/* new end marker */
 				markblk(temp);
-				dseg_0c6c = temp;
+				endmarker = temp;
 				if (chain(lastfree) == ptr)
 					ptr = lastfree;
 			}
@@ -74,10 +74,10 @@ unsigned size;
 		if (len >= size) {
 			if (len > size) {
 				ptr->next = bump(ptr, size);
-				bss_0cfe = *(size_t *)ptr->next;
+				keep = *(size_t *)ptr->next;
 				ptr->next->next = temp;
 			}
-			bss_0d00 = ptr->next;
+			current = ptr->next;
 			markblk(ptr);
 			return (char *)(ptr+1);
 		}

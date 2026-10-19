@@ -1378,6 +1378,9 @@ def verify(binary_data, start_offset, instructions, name='', label_map=None,
                 getattr(segments, 'ds_size', None)),
             'label_records': [(rec['offset'], rec['name'], rec['text'])
                               for rec in records if rec['type'] == 'label'],
+            # The DS names the pipeline learned, which resplice's rebuilt
+            # segment model cannot.
+            'data_names': dict(getattr(segments, 'data_names', None) or {}),
         },
         'status': 'OK',
         'timing_func_boundaries': t1 - t0,

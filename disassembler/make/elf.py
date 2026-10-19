@@ -401,6 +401,28 @@ def _load_render_context(app, binary):
         return decode(json.load(context_file))
 
 
+def _segment_model(app, bins, binary, data, data_names):
+    """*binary*'s segment model as the build makes it, or None.
+
+    The data segment's canonical names and bytes come from it; the DS names
+    the pipeline learned (``data_names``) come from the build's render context.
+    """
+    from lib.segments import SegmentError, from_binary
+    from lib.sidecar.binary import per_binary
+    from lib.sidecar.loader import load as load_sidecar
+    from main.projects import _build_host_model
+    sidecar = load_sidecar(app)
+    binary_type = (per_binary(sidecar, binary) if sidecar else {}).get('type')
+    host = (_build_host_model(os.path.join(APPS, app), bins, sidecar)
+            if binary_type == 'aztec_overlay' else None)
+    try:
+        model = from_binary(data, binary_type, bins[binary][1], host=host)
+    except SegmentError:
+        return None
+    model.data_names = dict(data_names or {})
+    return model
+
+
 def _fragment_labels(label_records, start, end):
     """Select the build's label lines owned by a fragment span."""
     return [{'type': 'label', 'text': text, 'name': name, 'offset': offset}
@@ -415,11 +437,6 @@ def _report_linked(app, binary, label, linked):
               f'compiled bytes are {want}')
     for site in linked.unmatched:
         print(f'  {where}: relocation at +0x{site:x} matched no operand')
-    if linked.legacy:
-        kinds = ', '.join(sorted({f'{fx.kind} {fx.symbol_kind}'
-                                  for fx in linked.legacy}))
-        print(f'  {where}: {len(linked.legacy)} relocation(s) copied from the '
-              f'original image ({kinds})')
 
 
 def resplice_c(app, binary):
@@ -452,6 +469,7 @@ def resplice_c(app, binary):
     from lib.compare.coverrides import (
         _c_bytes_to_records,
         _merge_label_records,
+        symbol_index,
     )
     from lib.compare.records import _label_record
     from lib.compare.render import _render_records
@@ -476,13 +494,19 @@ def resplice_c(app, binary):
     from lib.cross_ref import read_label_json
     label_map = read_label_json(labels_path)
     context = _load_render_context(app, binary)
-    index = (relink.SymbolIndex(label_map, context['foreign_label_map'],
-                                context['data_labels'],
-                                {**context['mem_equ'], **context['geometry']})
-             if context is not None else None)
     bins = discover_binaries(os.path.join(APPS, app))
     with open(os.path.join(APPS, app, bins[binary][0]), 'rb') as f:
         data = f.read()
+    index = image_base = None
+    if context is not None:
+        segments = _segment_model(app, bins, binary, data,
+                                  context['data_names'])
+        image_base = (bins[binary][1]
+                      - (getattr(segments, 'load_offset', 0) or 0))
+        index = symbol_index(
+            label_map, context['foreign_label_map'], context['data_labels'],
+            {**context['mem_equ'], **context['geometry']}, data, segments,
+            image_base)
 
     c_labels = {name[:-2] for name in os.listdir(dest)
                 if name.endswith('.c')} if os.path.isdir(dest) else set()
@@ -666,7 +690,8 @@ def resplice_c(app, binary):
         records = _c_bytes_to_records(
             bytes(final), start, label_map, local_labels, foreign_label_map,
             immediate_labels, exact_bytes=exact_bytes, data_labels=data_labels,
-            mem_symbols=mem_symbols, mem_equ=mem_equ, linked=linked)
+            mem_symbols=mem_symbols, mem_equ=mem_equ, image_base=image_base,
+            linked=linked)
         if linked is not None:
             _report_linked(app, binary, label, linked)
         records = _merge_label_records(records, label_records)

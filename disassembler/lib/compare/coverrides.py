@@ -252,6 +252,26 @@ def _data_bytes(segments, binary_data, offset, n):
     return bytes(binary_data[where[1]:where[1] + n])
 
 
+def symbol_index(label_map, foreign_label_map, data_labels, sym_equ,
+                 binary_data, segments, image_base):
+    """The :class:`lib.aztec.relink.SymbolIndex` a C routine links against.
+
+    *segments* gives the data segment its canonical names and bytes; an
+    overlay's code addresses do not follow the image-base convention.
+    """
+    canonical = None
+    if segments is not None and segments.data_space(0) is not None:
+        def canonical(offset):
+            return data_symbol(segments, offset)
+    return relink.SymbolIndex(
+        label_map, foreign_label_map, data_labels, sym_equ,
+        data_symbol=canonical,
+        data_bytes=lambda off, n: _data_bytes(segments, binary_data, off, n),
+        image_base=(None if getattr(segments, 'kind', None) == 'overlay'
+                    else image_base),
+        data_names=getattr(segments, 'data_names', None))
+
+
 def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                        local_labels, foreign_label_map, immediate_labels,
                        exact_bytes=False, data_labels=None,
@@ -282,19 +302,12 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                 # image-size symbols the renderer defines; a C external such
                 # as ``_Cend``/``_Uend`` names them.
                 sym_equ = {**(mem_equ or {}), **(geometry or {})}
-                canonical = None
-                if (segments is not None
-                        and segments.data_space(0) is not None):
-                    def canonical(offset):
-                        return data_symbol(segments, offset)
-                sym_index = relink.SymbolIndex(
+                sym_index = symbol_index(
                     label_map, foreign_label_map, data_labels, sym_equ,
-                    data_symbol=canonical,
-                    data_bytes=lambda off, n: _data_bytes(segments,
-                                                          binary_data, off, n),
-                    image_base=(None if getattr(segments, 'kind', None)
-                                == 'overlay' else image_base))
-                names_at = relabel.data_names(data_labels, sym_equ)
+                    binary_data, segments, image_base)
+                names_at = relabel.data_names(
+                    {**getattr(segments, 'data_names', {}),
+                     **(data_labels or {})}, sym_equ)
             linked = _link_override(label, start, override, records,
                                     binary_data, sym_index, names_at,
                                     image_base)

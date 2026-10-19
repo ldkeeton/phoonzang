@@ -41,9 +41,9 @@ aztec_flsh_(ptr,data)
 register FILE *ptr;
 {
 	register int size;
-	extern int (*dseg_2500)();
+	extern int (*cls_)();
 
-	dseg_2500 = aztec_closall;
+	cls_ = aztec_closall;
 	if (ptr->_flags & _IOERR)
 		return EOF;
 	if (ptr->_flags & _DIRTY) {
@@ -61,7 +61,7 @@ ioerr:
 		return 0;
 	}
 	if (ptr->_buff == NULL)
-		loc_PHKM(ptr);
+		aztec_getbuff(ptr);
 	if (ptr->_buflen == 1) {	/* unbuffered I/O */
 		if (aztec_write(ptr->_unit, &data, 1) != 1)
 			goto ioerr;

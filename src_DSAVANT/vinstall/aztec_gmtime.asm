@@ -3,7 +3,7 @@ aztec_gmtime:
     push bp                          ; 0x2bda
     mov bp, sp                       ; 0x2bdb
     push si                          ; 0x2bdd
-    call leaf_loc_TRGR               ; 0x2bde
+    call aztec_newstream             ; 0x2bde
     mov si, ax                       ; 0x2be1
     test si, si                      ; 0x2be3
     jne short @..aztec_gmtime.l2     ; 0x2be5

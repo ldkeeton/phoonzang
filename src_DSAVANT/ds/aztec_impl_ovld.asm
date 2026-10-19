@@ -5,7 +5,7 @@ aztec_impl_ovld:
     add sp, byte 0xae                ; 0x4389
     push di                          ; 0x438c
     push si                          ; 0x438d
-    push word [bss_0cfa]             ; 0x438e
+    push word [ovname]               ; 0x438e
     lea ax, word [bp - 0x0052]       ; 0x4392
     push ax                          ; 0x4395
     call aztec_strcpy                ; 0x4396

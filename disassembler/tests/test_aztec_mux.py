@@ -129,6 +129,31 @@ class ObdParseTest(unittest.TestCase):
         self.assertEqual(bytes(dump.code), b'\x90\x90\xc3')
 
 
+class StaticRoutineTest(unittest.TestCase):
+    """A ``static`` routine is only in the ``.O``'s symbol table: defined in
+    code but not global, so the OMF's PUBDEF leaves it out."""
+
+    def _blob(self):
+        # putc.c's table: the header's bytes 16-19 give its offset and length.
+        table = (b'\x02\x48\x00\x00putc_\x00'       # public code at 0
+                 b'\x07\x4a\x00\x00Cbuffs_\x00'     # external data
+                 b'\x02\x40\x34\x00closall_\x00'    # static code at 0x34
+                 b'\x07\x48\x00\x00write_\x00')     # external code
+        header = bytearray(20)
+        header[16:18] = (20).to_bytes(2, 'little')
+        header[18:20] = (4).to_bytes(2, 'little')
+        return bytes(header) + table
+
+    def test_the_symbol_table_is_read_from_the_header(self):
+        from lib.aztec.objread import o_symbols
+        self.assertEqual([name for *_, name in o_symbols(self._blob())],
+                         ['putc_', 'Cbuffs_', 'closall_', 'write_'])
+
+    def test_only_a_defined_non_global_code_symbol_is_a_static(self):
+        from lib.aztec.objread import o_static_routines
+        self.assertEqual(o_static_routines(self._blob()), {'closall': 0x34})
+
+
 class FuncTruncateTest(unittest.TestCase):
     """A routine owns its fragment span, not its object's public extent.
 

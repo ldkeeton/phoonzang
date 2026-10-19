@@ -134,6 +134,7 @@ class ObjDump:
         self.locals = {}
         self.data_locals = {}
         self.bss_locals = set()
+        self.statics = {}           # static routine C name -> code offset
         # The module's initialized data, ``{data offset: byte}`` (uninitialized
         # storage has no entry).
         self.data = {}
@@ -377,4 +378,40 @@ def attach_locals(dump, blob):
                         if seg == _SEG_DATA}
     dump.bss_locals = {f'.{n}' for n, (kind, seg, _) in enumerate(typed)
                        if seg == _SEG_DATA and kind == _TYPE_BSS}
+    dump.statics = o_static_routines(blob)
     return dump
+
+
+# A ``.O`` symbol: ``type flags value:2 name NUL``.  The header holds the
+# table's offset (bytes 16-17) and its length (18-19).
+_SYM_DEFINED_CODE = 0x02
+_SYM_GLOBAL = 0x08
+
+
+def o_symbols(blob):
+    """``[(type, flags, value, name), ...]``: the ``.O``'s symbol table."""
+    if len(blob) < 20:
+        return []
+    pos = int.from_bytes(blob[16:18], 'little')
+    out = []
+    for _ in range(int.from_bytes(blob[18:20], 'little')):
+        end = blob.find(b'\x00', pos + 4)
+        if end < 0:
+            break
+        out.append((blob[pos], blob[pos + 1],
+                    int.from_bytes(blob[pos + 2:pos + 4], 'little'),
+                    blob[pos + 4:end].decode('latin1')))
+        pos = end + 1
+    return out
+
+
+def o_static_routines(blob):
+    """``{C name: code offset}`` of the module's ``static`` routines.
+
+    A static is defined in the code segment but not global, so the OMF
+    conversion leaves it out of PUBDEF (``closall`` in ``putc.c``,
+    ``_ovld`` and ``loadabort`` in ``ovloader.c``); only the ``.O`` has it.
+    """
+    return {name[:-1] if name.endswith('_') else name: value
+            for kind, flags, value, name in o_symbols(blob)
+            if kind == _SYM_DEFINED_CODE and not flags & _SYM_GLOBAL}

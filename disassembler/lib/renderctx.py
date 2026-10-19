@@ -62,6 +62,7 @@ def encode(context):
         'label_records': [[offset, to_record(name), text]
                           for offset, name, text
                           in context.get('label_records', ())],
+        'data_names': _encode_addr_map(context.get('data_names')),
     }
 
 
@@ -83,4 +84,5 @@ def decode(raw):
         'label_records': [(int(offset), from_record(name), text)
                           for offset, name, text
                           in raw.get('label_records', ())],
+        'data_names': _decode_addr_map(raw.get('data_names', {})),
     }

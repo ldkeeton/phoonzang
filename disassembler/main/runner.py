@@ -81,7 +81,7 @@ from .options import (
 from .phases import _build_classify_phases, _build_refine_phases
 from .seeding import (
     _label_app_functions,
-    _load_known_funcs,
+    _load_signatures,
     _seed_aztec_stubs,
     _seed_csav_functions,
 )
@@ -158,7 +158,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
 
     # orig_dir is apps/<project>, so the signature DB resolves even when the
     # caller did not name the project.
-    known_db = _load_known_funcs(project or os.path.basename(os.path.normpath(orig_dir)))
+    known_db = _load_signatures(project or os.path.basename(os.path.normpath(orig_dir)))
     if sidecar_entry and sidecar_entry.get('api_dispatch'):
         known_db = dict(known_db)
         known_db.setdefault('api_dispatch', {}).update(sidecar_entry['api_dispatch'])
@@ -462,12 +462,15 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
         why='address-derived names become content tags',
         track={'label_map': label_map, 'function_roots': function_roots})
     # A sidecar ``routines`` entry names code by its content tag, so one entry
-    # covers every binary that carries that routine.
+    # covers every binary that carries that routine.  One with a ``role`` and
+    # ``library`` points at a library routine, which the vendor compile proves.
     routines = (sidecar_entry or {}).get('routines') or {}
     for off, label in list(label_map.items()):
         if isinstance(label, str) and 'name' in routines.get(label, {}):
-            label_map[off] = label.renamed(routines[label]['name'],
-                                           Source.SIDECAR)
+            entry = routines[label]
+            label_map[off] = label.renamed(
+                entry['name'], Source.SIDECAR,
+                **{k: entry[k] for k in ('role', 'library') if k in entry})
             if function_roots.get(off) == label:
                 function_roots[off] = label_map[off]
     stagelog.step('names.sidecar_routines', 1, 'repair', repairs='names.tag_generics',
@@ -527,18 +530,13 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
     out_dir = output_dir or ASM_DIR
     t_aztec = time.perf_counter()
     c_overrides, _entries = _aztec_c_overrides(
-        project, name, data, ctx.label_map, out_dir, function_roots)
+        project, name, data, ctx.label_map, out_dir, function_roots,
+        start_offset)
     asm_annotations = _aztec_asm_annotations(_entries, ctx.label_map)
     stagelog.step('aztec.overrides', 1, metrics={'c': len(c_overrides),
                                          'asm': len(asm_annotations)})
     if project:
-        from lib.aztec import libnames
-        for off, sym in libnames.sibling_symbols(
-                project, data, ctx.label_map, _entries,
-                start_offset).items():
-            if function_roots.get(off) == ctx.label_map[off]:
-                function_roots[off] = sym
-            ctx.label_map[off] = sym
+        # Named inside _aztec_c_overrides, with the callees, until stable.
         stagelog.step('aztec.siblings', 1, 'repair', repairs='names.tag_generics',
                       why='a matched vendor module names the publics beside '
                           'the routine the signatures found',

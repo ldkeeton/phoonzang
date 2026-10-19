@@ -1,10 +1,8 @@
 /* auto-generated */
 /* Copyright (C) 1981,1982 by Manx Software Systems */
-/* asm label names for identifiers the headers declare */
-#define ctp_ dseg_2452
 #include <ctype.h>
 
-aztec_atoi(cp)
+atoi(cp)
 register char *cp;
 {
 	register unsigned i;

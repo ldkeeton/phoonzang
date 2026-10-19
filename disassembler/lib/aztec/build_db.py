@@ -15,7 +15,7 @@ Each signature records ``entry_offset``, the distance from the function entry
 to the matched window.  The matcher computes ``entry = match - entry_offset``,
 which lets leaf routines without a ``push bp`` prologue anchor correctly.
 
-Output: .cache/<project>/aztec_funcs.json (signatures compatible with known_funcs.json).
+Output: .cache/<project>/aztec_funcs.json (signatures for ``lib.match.pattern``).
 
 ``make prebuild PROJECT`` runs this.  Standalone, from ``disassembler/``:
 ``python3 -m lib.aztec.build_db PROJECT`` (the library OMF under

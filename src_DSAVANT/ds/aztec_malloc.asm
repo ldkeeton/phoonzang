@@ -12,17 +12,17 @@ aztec_malloc:
     shr ax, 1                        ; 0x46f8
     shl ax, 1                        ; 0x46fa
     mov word [bp + 0x4], ax          ; 0x46fc
-    cmp word [bss_0d00], byte 0      ; 0x46ff
+    cmp word [current], byte 0       ; 0x46ff
     jne short @..aztec_malloc.l1     ; 0x4704
-    mov word [bss_0d02], bss_0d02    ; 0x4706
-    or word [bss_0d02], 1            ; 0x470c
-    mov word [bss_0d00], bss_0d02    ; 0x4712
+    mov word [first], first          ; 0x4706
+    or word [first], 1               ; 0x470c
+    mov word [current], first        ; 0x4712
 @..aztec_malloc.l1:
     mov word [bp - 0x0006], 0        ; 0x4718
-    mov si, word [bss_0d00]          ; 0x471d
+    mov si, word [current]           ; 0x471d
     mov word [bp - 0x0002], si       ; 0x4721
 @..aztec_malloc.l2:
-    cmp si, word [dseg_0c6c]         ; 0x4724
+    cmp si, word [endmarker]         ; 0x4724
     jne short @..aztec_malloc.l5     ; 0x4728
     inc word [bp - 0x0006]           ; 0x472a
     mov ax, word [bp - 0x0006]       ; 0x472d
@@ -57,9 +57,9 @@ ds_loc_QQHT:
     mov di, si                       ; 0x476a
     add di, word [bp - 0x0004]       ; 0x476c
     mov word [si], di                ; 0x476f
-    mov word [di], bss_0d02          ; 0x4771
+    mov word [di], first             ; 0x4771
     or word [di], 1                  ; 0x4775
-    mov word [dseg_0c6c], di         ; 0x4779
+    mov word [endmarker], di         ; 0x4779
     mov bx, word [bp - 0x0002]       ; 0x477d
     mov ax, word [bx]                ; 0x4780
     and ax, strict word 0xfffe       ; 0x4782
@@ -92,12 +92,12 @@ ds_loc_QQHT:
     mov word [si], ax                ; 0x47bd
     mov bx, ax                       ; 0x47bf
     mov ax, word [bx]                ; 0x47c1
-    mov word [bss_0cfe], ax          ; 0x47c3
+    mov word [keep], ax              ; 0x47c3
     mov bx, word [si]                ; 0x47c6
     mov word [bx], di                ; 0x47c8
 @..aztec_malloc.l8:
     mov ax, word [si]                ; 0x47ca
-    mov word [bss_0d00], ax          ; 0x47cc
+    mov word [current], ax           ; 0x47cc
     or word [si], 1                  ; 0x47cf
     mov ax, si                       ; 0x47d3
     add ax, strict word 2            ; 0x47d5

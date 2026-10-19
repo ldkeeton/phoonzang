@@ -1,4 +1,5 @@
 ; auto-generated
+; asm only
 aztec_rmdir:
     push bp                          ; 0x2a15
     mov bp, sp                       ; 0x2a16

@@ -118,18 +118,22 @@ def to_override(entry):
 
 
 def load_or_build(project, binary, data, aztec_labels, *, mode='build',
-                  verbose=True):
+                  verbose=True, more=False, present=None):
     """Return the manifest's ``{label: entry}`` for every recovered routine.
 
     ``aztec_labels`` is an iterable of ``(address, label_name)``.
 
     ``mode='prebuild'`` runs the DOSBox search and writes the prebuild tree
     (manifest + per-routine ``src/`` seeds); ``mode='build'`` reads it and
-    raises :class:`PrebuildMissing` if it is absent.
+    raises :class:`PrebuildMissing` if it is absent.  ``more`` adds
+    *aztec_labels* -- routines named after the first search -- to the
+    manifest the first search wrote; a miss whose label is no longer among
+    the *present* names (proof renamed it since) is dropped.
     """
     path = manifest_path(project, binary)
     if mode == 'prebuild':
-        return _prebuild(project, binary, data, aztec_labels, path, verbose)
+        return _prebuild(project, binary, data, aztec_labels, path, verbose,
+                         more, present)
     functions = _load(path)
     if functions is None:
         raise PrebuildMissing(
@@ -139,7 +143,8 @@ def load_or_build(project, binary, data, aztec_labels, *, mode='build',
     return functions
 
 
-def _prebuild(project, binary, data, aztec_labels, path, verbose):
+def _prebuild(project, binary, data, aztec_labels, path, verbose,
+              more=False, present=None):
     from . import compile as azc
     objcache_dir = os.path.join(prebuild_dir(project), 'objs')
     os.makedirs(objcache_dir, exist_ok=True)
@@ -212,6 +217,15 @@ def _prebuild(project, binary, data, aztec_labels, path, verbose):
                   f'via {m.compiler}')
     _seed_sources(project, binary, functions, data, addr_by_label,
                   objcache_dir, verbose)
+    if more:
+        with open(path) as f:
+            before = json.load(f)
+        functions = {**functions, **before['functions']}
+        misses = {**before['misses'], **{str(label): why for label, why
+                                         in misses.items()}}
+        if present is not None:
+            misses = {label: why for label, why in misses.items()
+                      if label in present}
     _save(path, binary, functions, misses)
     if verbose:
         extracted = sum(1 for e in functions.values() if e.get('extracted'))
@@ -393,6 +407,11 @@ def compile_source(project, label, entry, source_text):
     The prebuild ``objs`` cache is consulted first (no DOSBox on a hit);
     otherwise the routine is compiled in a fresh DOSBox session.
     """
+    return compile_source_module(project, label, entry, source_text)[1]
+
+
+def compile_source_module(project, label, entry, source_text):
+    """``(module, func)``: the whole compiled module and the routine in it."""
     from . import compile as azc
     from .mux import normalize
 
@@ -415,5 +434,5 @@ def compile_source(project, label, entry, source_text):
     if func is None:
         raise RuntimeError(
             f'{label}: compiled {entry["file"]} defines no such function')
-    return func
+    return module, func
 

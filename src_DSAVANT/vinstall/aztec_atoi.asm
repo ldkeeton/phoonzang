@@ -49,7 +49,7 @@ aztec_atoi:
     mov al, byte [si]                ; 0x2858
     cbw                              ; 0x285a
     mov bx, ax                       ; 0x285b
-    mov al, byte [bx + dseg_2452 + 0x1] ; 0x285d
+    mov al, byte [bx + ctp_ + 0x1]   ; 0x285d
     cbw                              ; 0x2861
     test ax, 4                       ; 0x2862
     jne short @..aztec_atoi.l6       ; 0x2865

@@ -3,8 +3,8 @@
 #include "errno.h"
 #include "fcntl.h"
 
-static char **bss_253c;
-static int bss_253a;
+static char **Argv;
+static int Argc;
 
 noper()
 {
@@ -28,9 +28,9 @@ register char *cp;
 	_ioflg[1] = aztec_isatty(1);	/* set flag for i/o routines */
 	_ioflg[2] = aztec_isatty(2);	/* set flag for i/o routines */
 
-	bss_253c = (char **)aztec_sbrk((first+1)*sizeof(char *));
-	bss_253c[0] = "";
-	cpp = &bss_253c[bss_253a = first];
+	Argv = (char **)aztec_sbrk((first+1)*sizeof(char *));
+	Argv[0] = "";
+	cpp = &Argv[Argc = first];
 	for (;;) {
 		while (*cp == ' ' || *cp == '\t')
 			++cp;
@@ -62,7 +62,7 @@ redirect:
 #endif
 		{
 			*cpp++ = cp;
-			bss_253a++;
+			Argc++;
 			if (aztec_sbrk(sizeof(char *)) == (char *)-1) {
 				aztec_write(2, "Too many args.", 14);
 				aztec_impl_exit(200);
@@ -75,7 +75,7 @@ redirect:
 		}
 	}
 	*cpp = 0;
-	loc_SGVI(bss_253a,bss_253c);
+	main(Argc,Argv);
 	aztec_exit(0);
 }
 

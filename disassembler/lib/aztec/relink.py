@@ -35,6 +35,16 @@ from .objread import external_label
 _DATA_BY_ADDRESS = re.compile(r'(?:dseg|bss)_([0-9a-f]{4})')
 
 
+#: Symbols the Aztec linker itself defines (no C module does), by the name the
+#: renderer gives the same value (``lib.compare.render.image_geometry``).
+LINKER_SYMBOLS = {'_Cend': '__zres_end', '_Uend': '__zdseg_end'}
+
+
+def linked_name(c_name):
+    """The asm name of C external *c_name*: itself, or the linker symbol's."""
+    return LINKER_SYMBOLS.get(c_name, c_name)
+
+
 class RelinkError(ValueError):
     """A relocation could not be resolved against the asm namespace."""
 
@@ -50,13 +60,17 @@ class SymbolIndex:
     the exe's initialized data there (None for uninitialized storage).
     *image_base* is where CS offset 0 sits in the file, which a code label's
     address as a value (``cls_ = closall``) needs; None where code addresses
-    do not follow that convention.
+    do not follow that convention.  *data_names* are the image's known DS
+    names (``{offset: Symbol}``, ``SegmentModel.data_names``).
     """
 
     def __init__(self, label_map=None, foreign_label_map=None,
                  data_labels=None, mem_equ=None, data_symbol=None,
-                 data_bytes=None, image_base=None):
+                 data_bytes=None, image_base=None, data_names=None):
         self.data_symbol = data_symbol
+        # The image's known DS names (the vendor C's, the library's) by name,
+        # whether or not an asm operand uses them yet.
+        self.named_data = {str(sym): sym for sym in (data_names or {}).values()}
         self.data_bytes = data_bytes
         self.image_base = image_base
         self.code = {}
@@ -192,7 +206,7 @@ def link(label, start, func, index, original, labels_in=()):
             _put(code, site, 2, target - (start + site + 2))
             out.refs[site] = Ref(site, 2, name, True, {name: target})
         elif fx.symbol_kind == 'GBLSYM' and fx.kind == 'WABS':
-            name = external_label(fx.symbol)
+            name = linked_name(external_label(fx.symbol))
             if name in index.data:
                 put_data(fx, name, index.data[name])
             elif name in index.code:
@@ -206,6 +220,12 @@ def link(label, start, func, index, original, labels_in=()):
                 out.refs[site] = Ref(
                     site, 2, f'{name} - IMAGE_BASE' + _addend_text(fx.addend),
                     False, {name: target})
+            elif name in index.named_data:
+                # A known DS name (``ctp_``) no asm operand uses yet: the C
+                # is the first, so it defines it.
+                sym = index.named_data[name]
+                put_data(fx, sym, sym.offset)
+                out.minted[sym] = sym.offset
             elif _DATA_BY_ADDRESS.fullmatch(name):
                 # ``dseg_6a1a``: a DS object no asm operand names (an
                 # overlay's reach into the host's data).  It becomes a build

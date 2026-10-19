@@ -52,6 +52,34 @@ def include_dir(version):
     return INCLUDE_DIRS.get(version)
 
 
+_INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]*[<"]([^>"]+)[>"]', re.M)
+
+
+def headers(version, text):
+    """``{lower-case name: text}``: the headers *text* includes from
+    *version*'s include directory, and the ones those include.
+
+    The directory's names are upper case (``CTYPE.H``) while the C asks for
+    ``ctype.h``; DOS does not care, so neither does this.  A name the
+    directory does not have is left out.
+    """
+    root = include_dir(version)
+    on_disk = {fn.lower(): os.path.join(root, fn)
+               for fn in (os.listdir(root) if root and os.path.isdir(root)
+                          else ())}
+    out = {}
+    pending = [text]
+    while pending:
+        for name in _INCLUDE.findall(pending.pop()):
+            name = name.lower()
+            if name in out or name not in on_disk:
+                continue
+            with open(on_disk[name], errors='replace') as f:
+                out[name] = f.read()
+            pending.append(out[name])
+    return out
+
+
 def _parse_arc(text):
     """Yield ``(name, body)`` pairs from a concatenated ``\\f`` dump."""
     for part in text.split(b'\x0c')[1:]:

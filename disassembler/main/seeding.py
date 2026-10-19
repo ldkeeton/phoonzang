@@ -13,26 +13,21 @@ from lib.symtab import Kind, Source, Symbol
 
 from lib.cachedirs import aztec_funcs_path
 
-from .options import KNOWN_FUNCS_PATH
 
-
-def _load_known_funcs(project=None):
-    import json
+def _load_signatures(project=None):
+    """The byte signatures that name routines: first the compiler-runtime ones
+    (Manx Aztec C86 v5.2a) ``make prebuild`` builds per project
+    (.cache/<project>/aztec_funcs.json), then the sidecar's ``signatures``.
+    The program's own routines are named by the sidecar's ``routines``, by
+    content tag."""
+    from lib.sidecar.loader import load as load_sidecar
     db = {'signatures': []}
-    if os.path.exists(KNOWN_FUNCS_PATH):
-        with open(KNOWN_FUNCS_PATH) as f:
-            db = json.load(f)
-    # Exact compiler-runtime signatures (Manx Aztec C86 v5.2a) take precedence
-    # over the generic heuristic signatures in known_funcs.json.  The DB is
-    # built per project by ``make prebuild`` (.cache/<project>/aztec_funcs.json).
     funcs_path = aztec_funcs_path(project) if project else None
     if funcs_path and os.path.exists(funcs_path):
         with open(funcs_path) as f:
-            aztec = json.load(f)
-        db['signatures'] = (
-            list(aztec.get('signatures', []))
-            + list(db.get('signatures', []))
-        )
+            db['signatures'] = list(json.load(f).get('signatures', []))
+    sidecar = load_sidecar(project) if project else None
+    db['signatures'] += list((sidecar or {}).get('signatures', []))
     return db
 
 

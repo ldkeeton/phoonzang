@@ -9,7 +9,7 @@ from .constants import SIDECAR_DIR
 from .errors import SidecarError
 from .pointers import _validate_corpus
 from .ranges import _reject_range_conflicts, _validate_ranges
-from .routines import _validate_routines
+from .routines import _validate_routines, _validate_signatures
 from .vendor import _validate_vendor_patches
 
 
@@ -61,6 +61,7 @@ def _validate(data):
     _validate_compiler_flags(data.get('compiler_flags'))
     _validate_vendor_patches(data.get('vendor_patches'))
     _validate_routines(data.get('routines'))
+    _validate_signatures(data.get('signatures'))
 
     if 'binaries' in data:
         if not isinstance(data['binaries'], dict):

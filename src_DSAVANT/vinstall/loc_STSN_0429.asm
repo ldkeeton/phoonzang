@@ -30,7 +30,7 @@ loc_NJKV:
     push ax                          ; 0x0461
     mov ax, dseg_1444                ; 0x0462
     push ax                          ; 0x0465
-    call loc_KSUH                    ; 0x0466
+    call aztec_printf                ; 0x0466
     add sp, byte 4                   ; 0x0469
     push word [bp - 0x0002]          ; 0x046c
     call bios_video_loc_IVQL         ; 0x046f

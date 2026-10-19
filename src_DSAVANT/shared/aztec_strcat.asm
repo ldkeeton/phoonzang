@@ -1,4 +1,5 @@
 ; auto-generated
+; asm only
 aztec_strcat:
     push bp
     mov bp, sp
