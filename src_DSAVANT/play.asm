@@ -10,7 +10,7 @@ IMAGE_BASE equ -0x0100
 
 %include "play/asm_only/thunk_loc_TMGR.asm"         ; 0x0000
 
-loc_JTQK_0007.mouse_init_21 equ leaf_loc_UMNS
+loc_JTQK_0007.mouse_off1 equ leaf_loc_UMNS
 %include "shared/loc_JTQK_0007.asm"          ; 0x0007
 
 loc_JTQK_000b.bios_mouse_loc1 equ leaf_loc_GJRP
@@ -22,13 +22,13 @@ loc_JTQK_000f.leaf_loc1 equ loc_TJIS
 loc_JTQK_0013.bios_mouse_loc1 equ io_loc_QVTL
 %include "shared/loc_JTQK_0013.asm"          ; 0x0013
 
-loc_JTQK_0017.dos_read_file_31 equ bios_disk_loc_VOLH
+loc_JTQK_0017.load_picture1 equ bios_disk_loc_VOLH
 %include "shared/loc_JTQK_0017.asm"          ; 0x0017
 
-loc_JTQK_001b.graphics_loc1 equ leaf_loc_IQNG
+loc_JTQK_001b.draw_text1 equ leaf_loc_IQNG
 %include "shared/loc_JTQK_001b.asm"          ; 0x001b
 
-loc_JTQK_001f.dos_read_file1 equ leaf_loc_IUKK
+loc_JTQK_001f.load_screen1 equ leaf_loc_IUKK
 %include "shared/loc_JTQK_001f.asm"          ; 0x001f
 
 %include "play/loc_MMRI.asm"               ; 0x0023

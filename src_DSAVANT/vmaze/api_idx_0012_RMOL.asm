@@ -444,7 +444,7 @@ api_idx_0012_RMOL:
     add sp, byte 4                   ; 0x4a34
     push ax                          ; 0x4a37
     push word [bp + 0x10]            ; 0x4a38
-    call thunk_34                    ; 0x4a3b
+    call gfx_draw_maze_piece         ; 0x4a3b
     add sp, byte 8                   ; 0x4a3e
     mov ax, word [bp + 0x4]          ; 0x4a41
     cmp ax, strict word 2            ; 0x4a44
@@ -521,7 +521,7 @@ jumptable_4b6b_case_1:
     add sp, byte 4                   ; 0x4add
     push ax                          ; 0x4ae0
     push word [bp + 0xa]             ; 0x4ae1
-    call thunk_34                    ; 0x4ae4
+    call gfx_draw_maze_piece         ; 0x4ae4
     add sp, byte 8                   ; 0x4ae7
 @..api_idx_0012_RMOL.l38:
     jmp near @..api_idx_0012_RMOL.l46 ; 0x4aea
@@ -546,7 +546,7 @@ jumptable_4b6b_case_2:
     add sp, byte 4                   ; 0x4b14
     push ax                          ; 0x4b17
     push word [bp + 0x16]            ; 0x4b18
-    call thunk_34                    ; 0x4b1b
+    call gfx_draw_maze_piece         ; 0x4b1b
     add sp, byte 8                   ; 0x4b1e
 @..api_idx_0012_RMOL.l39:
     jmp short @..api_idx_0012_RMOL.l46 ; 0x4b21
@@ -580,7 +580,7 @@ jumptable_4b6b_case_3:
 @..api_idx_0012_RMOL.l43:
     push ax                          ; 0x4b5b
     push word [bp + 0x14]            ; 0x4b5c
-    call thunk_34                    ; 0x4b5f
+    call gfx_draw_maze_piece         ; 0x4b5f
     add sp, byte 8                   ; 0x4b62
 @..api_idx_0012_RMOL.l44:
     jmp short @..api_idx_0012_RMOL.l46 ; 0x4b65
@@ -638,7 +638,7 @@ jumptable_4b6b:
     push ax                          ; 0x4bd5
     mov ax, 3                        ; 0x4bd6
     push ax                          ; 0x4bd9
-    call thunk_34                    ; 0x4bda
+    call gfx_draw_maze_piece         ; 0x4bda
     add sp, byte 8                   ; 0x4bdd
     jmp short @..api_idx_0012_RMOL.l53 ; 0x4be0
 @..api_idx_0012_RMOL.l49:
@@ -665,7 +665,7 @@ jumptable_4b6b:
     push ax                          ; 0x4c10
     mov ax, 3                        ; 0x4c11
     push ax                          ; 0x4c14
-    call thunk_34                    ; 0x4c15
+    call gfx_draw_maze_piece         ; 0x4c15
     add sp, byte 8                   ; 0x4c18
 @..api_idx_0012_RMOL.l53:
     mov ax, 0xa                      ; 0x4c1b

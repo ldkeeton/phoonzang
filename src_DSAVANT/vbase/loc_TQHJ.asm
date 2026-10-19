@@ -19,7 +19,7 @@ loc_TQHJ:
     mov ax, 0                        ; 0x8658
     push ax                          ; 0x865b
     push ax                          ; 0x865c
-    call thunk_11                    ; 0x865d
+    call gfx_cache_area              ; 0x865d
     add sp, byte 0x0c                ; 0x8660
     mov word [bss_a5b4], dx          ; 0x8663
     mov word [bss_a5b2], ax          ; 0x8667
@@ -74,7 +74,7 @@ loc_TQHJ:
     push ax                          ; 0x86f3
     push ax                          ; 0x86f4
     push ax                          ; 0x86f5
-    call thunk_45                    ; 0x86f6
+    call gfx_reset_rgb               ; 0x86f6
     add sp, byte 6                   ; 0x86f9
     mov ax, 0xc7                     ; 0x86fc
     push ax                          ; 0x86ff
@@ -83,11 +83,11 @@ loc_TQHJ:
     mov ax, 0                        ; 0x8704
     push ax                          ; 0x8707
     push ax                          ; 0x8708
-    call thunk_4                     ; 0x8709
+    call gfx_entry_16                ; 0x8709
     add sp, byte 8                   ; 0x870c
     mov ax, 0                        ; 0x870f
     push ax                          ; 0x8712
-    call thunk_43                    ; 0x8713
+    call gfx_fade_in                 ; 0x8713
     pop cx                           ; 0x8716
     mov ax, 0                        ; 0x8717
     push ax                          ; 0x871a
@@ -112,7 +112,7 @@ loc_TQHJ:
     push ax                          ; 0x8743
     push word [bss_a5b4]             ; 0x8744
     push word [bss_a5b2]             ; 0x8748
-    call thunk_12                    ; 0x874c
+    call gfx_restore_screen          ; 0x874c
     add sp, byte 8                   ; 0x874f
     call loc_QSVI                    ; 0x8752
     ret                              ; 0x8755

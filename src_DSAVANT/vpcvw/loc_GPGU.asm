@@ -25,7 +25,7 @@ loc_GPGU:
     push ax                          ; 0x2af3
     push word [bp + 0x6]             ; 0x2af4
     push word [bp + 0x4]             ; 0x2af7
-    call thunk_7                     ; 0x2afa
+    call gfx_entry_18                ; 0x2afa
     add sp, byte 0x0a                ; 0x2afd
     mov ax, word [bp + 0x6]          ; 0x2b00
     inc ax                           ; 0x2b03
@@ -34,7 +34,7 @@ loc_GPGU:
     inc ax                           ; 0x2b08
     inc ax                           ; 0x2b09
     push ax                          ; 0x2b0a
-    call thunk                       ; 0x2b0b
+    call gfx_entry_13                ; 0x2b0b
     add sp, byte 4                   ; 0x2b0e
     cmp word [bp + 0xa], byte 0      ; 0x2b11
     jle short @..loc_GPGU.l1         ; 0x2b15
@@ -45,7 +45,7 @@ loc_GPGU:
     push ax                          ; 0x2b22
     mov ax, 1                        ; 0x2b23
     push ax                          ; 0x2b26
-    call thunk_3                     ; 0x2b27
+    call gfx_entry_12                ; 0x2b27
     add sp, byte 4                   ; 0x2b2a
     mov ax, 0                        ; 0x2b2d
     push ax                          ; 0x2b30
@@ -59,7 +59,7 @@ loc_GPGU:
     mov ax, 0                        ; 0x2b40
     push ax                          ; 0x2b43
     push ax                          ; 0x2b44
-    call thunk_3                     ; 0x2b45
+    call gfx_entry_12                ; 0x2b45
     add sp, byte 4                   ; 0x2b48
     mov ax, 0                        ; 0x2b4b
     push ax                          ; 0x2b4e

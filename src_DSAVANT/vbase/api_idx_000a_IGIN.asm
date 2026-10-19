@@ -23,6 +23,6 @@ api_idx_000a_IGIN:
     push word [bp + 0xa]             ; 0x73ac
     push word [bp + 0x8]             ; 0x73af
     push word [bp + 0x4]             ; 0x73b2
-    call thunk_28                    ; 0x73b5
+    call gfx_draw_text               ; 0x73b5
     add sp, byte 0x16                ; 0x73b8
     ret                              ; 0x73bb

@@ -25,6 +25,6 @@ api_idx_000a_PJMQ:
     push ax                          ; 0x2725
     mov ax, 1                        ; 0x2726
     push ax                          ; 0x2729
-    call thunk_28                    ; 0x272a
+    call gfx_draw_text               ; 0x272a
     add sp, byte 0x16                ; 0x272d
     ret                              ; 0x2730

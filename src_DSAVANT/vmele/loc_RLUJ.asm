@@ -15,28 +15,28 @@ loc_RLUJ:
     cmp word [bss_82b6], byte 0xff   ; 0x3406
     je short @..loc_RLUJ.l3          ; 0x340b
 @..loc_RLUJ.l1:
-    call thunk_22                    ; 0x340d
+    call gfx_entry_52                ; 0x340d
     test ax, ax                      ; 0x3410
     je short @..loc_RLUJ.l2          ; 0x3412
     jmp short @..loc_RLUJ.l1         ; 0x3414
 @..loc_RLUJ.l2:
     mov ax, 0                        ; 0x3416
     push ax                          ; 0x3419
-    call ds_app_thunk_21_VGJR        ; 0x341a
+    call ds_app_gfx_entry_51_VGJR    ; 0x341a
     pop cx                           ; 0x341d
 @..loc_RLUJ.l3:
     call ds_app_VKRR                 ; 0x341e
     mov ax, 0                        ; 0x3421
     push ax                          ; 0x3424
-    call ds_app_thunk_26_VNHP        ; 0x3425
+    call ds_app_gfx_entry_22_VNHP    ; 0x3425
     pop cx                           ; 0x3428
     mov ax, 4                        ; 0x3429
     push ax                          ; 0x342c
-    call ds_app_thunk_26_VNHP        ; 0x342d
+    call ds_app_gfx_entry_22_VNHP    ; 0x342d
     pop cx                           ; 0x3430
     mov ax, 6                        ; 0x3431
     push ax                          ; 0x3434
-    call ds_app_thunk_26_VNHP        ; 0x3435
+    call ds_app_gfx_entry_22_VNHP    ; 0x3435
     pop cx                           ; 0x3438
     mov ax, 1                        ; 0x3439
     push ax                          ; 0x343c
@@ -104,7 +104,7 @@ loc_RLUJ:
     push ax                          ; 0x34c2
     mov ax, 0x48                     ; 0x34c3
     push ax                          ; 0x34c6
-    call thunk_11                    ; 0x34c7
+    call gfx_cache_area              ; 0x34c7
     add sp, byte 0x0c                ; 0x34ca
     mov word [bss_9062], dx          ; 0x34cd
     mov word [bss_9060], ax          ; 0x34d1
@@ -129,7 +129,7 @@ loc_RLUJ:
     push ax                          ; 0x3502
     mov ax, 0x48                     ; 0x3503
     push ax                          ; 0x3506
-    call thunk_11                    ; 0x3507
+    call gfx_cache_area              ; 0x3507
     add sp, byte 0x0c                ; 0x350a
     mov word [bss_9066], dx          ; 0x350d
     mov word [bss_9064], ax          ; 0x3511
@@ -208,7 +208,7 @@ loc_RLUJ:
     push ax                          ; 0x35c9
     mov ax, 8                        ; 0x35ca
     push ax                          ; 0x35cd
-    call thunk_10                    ; 0x35ce
+    call gfx_save_area               ; 0x35ce
     add sp, byte 8                   ; 0x35d1
     mov word [bss_8d10], dx          ; 0x35d4
     mov word [bss_8d0e], ax          ; 0x35d8
@@ -220,7 +220,7 @@ loc_RLUJ:
     push ax                          ; 0x35e6
     mov ax, 0x41                     ; 0x35e7
     push ax                          ; 0x35ea
-    call thunk_10                    ; 0x35eb
+    call gfx_save_area               ; 0x35eb
     add sp, byte 8                   ; 0x35ee
     mov word [bss_8d0c], dx          ; 0x35f1
     mov word [bss_8d0a], ax          ; 0x35f5

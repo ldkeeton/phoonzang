@@ -149,6 +149,6 @@ api_idx_001e_IGLM:
     push ax
     mov ax, 6
     push ax
-    call thunk_28
+    call gfx_draw_text
     add sp, byte 0x16
     ret

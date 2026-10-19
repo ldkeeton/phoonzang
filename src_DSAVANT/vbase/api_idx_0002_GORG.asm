@@ -19,7 +19,7 @@ api_idx_0002_GORG:
     mov ax, 0                        ; 0x8b8d
     push ax                          ; 0x8b90
     push ax                          ; 0x8b91
-    call thunk_11                    ; 0x8b92
+    call gfx_cache_area              ; 0x8b92
     add sp, byte 0x0c                ; 0x8b95
     mov word [bss_a5b4], dx          ; 0x8b98
     mov word [bss_a5b2], ax          ; 0x8b9c
@@ -76,7 +76,7 @@ api_idx_0002_GORG:
     push ax                          ; 0x8c48
     push ax                          ; 0x8c49
     push ax                          ; 0x8c4a
-    call thunk_45                    ; 0x8c4b
+    call gfx_reset_rgb               ; 0x8c4b
     add sp, byte 6                   ; 0x8c4e
     mov ax, 0xc7                     ; 0x8c51
     push ax                          ; 0x8c54
@@ -85,11 +85,11 @@ api_idx_0002_GORG:
     mov ax, 0                        ; 0x8c59
     push ax                          ; 0x8c5c
     push ax                          ; 0x8c5d
-    call thunk_4                     ; 0x8c5e
+    call gfx_entry_16                ; 0x8c5e
     add sp, byte 8                   ; 0x8c61
     mov ax, 0                        ; 0x8c64
     push ax                          ; 0x8c67
-    call thunk_43                    ; 0x8c68
+    call gfx_fade_in                 ; 0x8c68
     pop cx                           ; 0x8c6b
     mov ax, 0                        ; 0x8c6c
     push ax                          ; 0x8c6f
@@ -110,7 +110,7 @@ api_idx_0002_GORG:
     push ax                          ; 0x8c90
     push word [bss_a5b4]             ; 0x8c91
     push word [bss_a5b2]             ; 0x8c95
-    call thunk_12                    ; 0x8c99
+    call gfx_restore_screen          ; 0x8c99
     add sp, byte 8                   ; 0x8c9c
     call loc_QSVI                    ; 0x8c9f
     ret                              ; 0x8ca2

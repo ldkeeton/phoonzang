@@ -24,7 +24,7 @@ api_idx_0002_PQLV:
     push ax                          ; 0x032f
     push word [bp + 0x6]             ; 0x0330
     push word [bp - 0x0002]          ; 0x0333
-    call thunk_33                    ; 0x0336
+    call gfx_load_maze               ; 0x0336
     add sp, byte 6                   ; 0x0339
     push word [bp - 0x0002]          ; 0x033c
     call aztec_close                 ; 0x033f

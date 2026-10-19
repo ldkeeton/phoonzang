@@ -31,7 +31,7 @@ api_idx_0008_VRRI:
     add ax, word [bp - 0x0002]       ; 0x0301
     dec ax                           ; 0x0304
     push ax                          ; 0x0305
-    call thunk_10                    ; 0x0306
+    call gfx_save_area               ; 0x0306
     add sp, byte 8                   ; 0x0309
     mov word [bp - 0x0006], dx       ; 0x030c
     mov word [bp - 0x0008], ax       ; 0x030f
@@ -57,7 +57,7 @@ api_idx_0008_VRRI:
     mov ax, 0xc0                     ; 0x0341
     push ax                          ; 0x0344
     push word [bp + 0x14]            ; 0x0345
-    call thunk_3                     ; 0x0348
+    call gfx_entry_12                ; 0x0348
     add sp, byte 4                   ; 0x034b
     mov ax, word [bp + 0xa]          ; 0x034e
     add ax, word [bp - 0x0004]       ; 0x0351
@@ -79,7 +79,7 @@ api_idx_0008_VRRI:
     add ax, word [bp - 0x0002]       ; 0x0373
     inc ax                           ; 0x0376
     push ax                          ; 0x0377
-    call thunk                       ; 0x0378
+    call gfx_entry_13                ; 0x0378
     add sp, byte 4                   ; 0x037b
     mov ax, 0                        ; 0x037e
     push ax                          ; 0x0381
@@ -104,13 +104,13 @@ api_idx_0008_VRRI:
     add ax, word [bp - 0x0002]       ; 0x03ae
     dec ax                           ; 0x03b1
     push ax                          ; 0x03b2
-    call thunk_4                     ; 0x03b3
+    call gfx_entry_16                ; 0x03b3
     add sp, byte 8                   ; 0x03b6
     mov ax, 1                        ; 0x03b9
     push ax                          ; 0x03bc
     push word [bp - 0x0006]          ; 0x03bd
     push word [bp - 0x0008]          ; 0x03c0
-    call thunk_13                    ; 0x03c3
+    call gfx_restore_area            ; 0x03c3
     add sp, byte 6                   ; 0x03c6
     ret                              ; 0x03c9
 loc_MNNG:
@@ -129,7 +129,7 @@ loc_MNNG:
     mov ax, word [bp + 0x4]          ; 0x03e2
     dec ax                           ; 0x03e5
     push ax                          ; 0x03e6
-    call thunk_7                     ; 0x03e7
+    call gfx_entry_18                ; 0x03e7
     add sp, byte 0x0a                ; 0x03ea
     push word [bp + 0xc]             ; 0x03ed
     mov ax, word [bp + 0xa]          ; 0x03f0
@@ -144,7 +144,7 @@ loc_MNNG:
     mov ax, word [bp + 0x8]          ; 0x03ff
     inc ax                           ; 0x0402
     push ax                          ; 0x0403
-    call thunk_7                     ; 0x0404
+    call gfx_entry_18                ; 0x0404
     add sp, byte 0x0a                ; 0x0407
     push word [bp + 0xc]             ; 0x040a
     mov ax, word [bp + 0xa]          ; 0x040d
@@ -159,7 +159,7 @@ loc_MNNG:
     mov ax, word [bp + 0x4]          ; 0x041c
     dec ax                           ; 0x041f
     push ax                          ; 0x0420
-    call thunk_7                     ; 0x0421
+    call gfx_entry_18                ; 0x0421
     add sp, byte 0x0a                ; 0x0424
     push word [bp + 0xc]             ; 0x0427
     mov ax, word [bp + 0xa]          ; 0x042a
@@ -174,6 +174,6 @@ loc_MNNG:
     mov ax, word [bp + 0x4]          ; 0x0439
     dec ax                           ; 0x043c
     push ax                          ; 0x043d
-    call thunk_7                     ; 0x043e
+    call gfx_entry_18                ; 0x043e
     add sp, byte 0x0a                ; 0x0441
     ret                              ; 0x0444

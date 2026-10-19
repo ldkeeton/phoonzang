@@ -63,7 +63,7 @@ api_idx_0100_KHVV:
     push ax                          ; 0x97da
     mov ax, 0x12e                    ; 0x97db
     push ax                          ; 0x97de
-    call thunk_47                    ; 0x97df
+    call gfx_entry_34                ; 0x97df
     add sp, byte 6                   ; 0x97e2
     mov ax, 0                        ; 0x97e5
     mov dx, 0                        ; 0x97e8
@@ -88,7 +88,7 @@ api_idx_0100_KHVV:
     push ax                          ; 0x9814
     mov ax, 0x12e                    ; 0x9815
     push ax                          ; 0x9818
-    call thunk_46                    ; 0x9819
+    call gfx_entry_33                ; 0x9819
     add sp, byte 6                   ; 0x981c
     jmp short @..api_idx_0100_KHVV.l10 ; 0x981f
 @..api_idx_0100_KHVV.l8:

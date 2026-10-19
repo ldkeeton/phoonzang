@@ -10,7 +10,7 @@ IMAGE_BASE equ -0x0100
 
 %include "shared/loc_LPSH.asm"                ; 0x0000
 
-loc_JTQK_0007.mouse_init_21 equ mouse_init_2
+loc_JTQK_0007.mouse_off1 equ mouse_off
 %include "shared/loc_JTQK_0007.asm"           ; 0x0007
 
 loc_JTQK_000b.bios_mouse_loc1 equ bios_mouse_loc_JGGM
@@ -22,13 +22,13 @@ loc_JTQK_000f.leaf_loc1 equ leaf_loc_LMQV
 loc_JTQK_0013.bios_mouse_loc1 equ bios_mouse_loc_PTIM
 %include "shared/loc_JTQK_0013.asm"           ; 0x0013
 
-loc_JTQK_0017.dos_read_file_31 equ dos_read_file_3
+loc_JTQK_0017.load_picture1 equ load_picture
 %include "shared/loc_JTQK_0017.asm"           ; 0x0017
 
-loc_JTQK_001b.graphics_loc1 equ graphics_loc_KJMH
+loc_JTQK_001b.draw_text1 equ draw_text
 %include "shared/loc_JTQK_001b.asm"           ; 0x001b
 
-loc_JTQK_001f.dos_read_file1 equ dos_read_file
+loc_JTQK_001f.load_screen1 equ load_screen
 %include "shared/loc_JTQK_001f.asm"           ; 0x001f
 
 %include "shared/loc_JTQK_0023.asm"           ; 0x0023
@@ -84,13 +84,10 @@ loc_JTQK_0073.leaf_loc1 equ leaf_loc_SVVM
 loc_JTQK_0077.leaf_loc1 equ leaf_loc_PLIR_3240
 %include "shared/loc_JTQK_0077.asm"           ; 0x0077
 
-loc_JTQK_007b.leaf_loc1 equ leaf_loc_PLIR_3241
 %include "shared/loc_JTQK_007b.asm"           ; 0x007b
 
-loc_JTQK_007f.leaf_loc1 equ leaf_loc_PLIR_3242
 %include "shared/loc_JTQK_007f.asm"           ; 0x007f
 
-loc_JTQK_0083.leaf_loc1 equ leaf_loc_PLIR_3243
 %include "shared/loc_JTQK_0083.asm"           ; 0x0083
 
 %include "shared/loc_JTQK_0087.asm"           ; 0x0087
@@ -255,13 +252,13 @@ cseg_0948:
 
 %include "ega/asm_only/string_loc_SSTM.asm"         ; 0x0c45
 
-%include "ega/asm_only/dos_alloc_mem.asm"           ; 0x0c9b
+%include "ega/asm_only/save_area.asm"               ; 0x0c9b
 
-%include "ega/asm_only/dos_free_mem.asm"            ; 0x0d57
+%include "ega/asm_only/restore_area.asm"            ; 0x0d57
 
-%include "ega/asm_only/dos_read_file.asm"           ; 0x0df3
+%include "ega/asm_only/load_screen.asm"             ; 0x0df3
 
-%include "ega/asm_only/dos_write_file.asm"          ; 0x0ebd
+%include "ega/asm_only/save_screen.asm"             ; 0x0ebd
 
 %include "ega/asm_only/dos_con_loc_KOIJ.asm"        ; 0x0f70
 
@@ -279,7 +276,7 @@ cseg_10cb:
     db 0x00, 0x00
 cseg_10cd:
     db 0x00, 0x00
-%include "ega/asm_only/dos_read_file_2.asm"         ; 0x10cf
+%include "ega/asm_only/load_maze.asm"               ; 0x10cf
 
 %include "ega/asm_only/dos_con_loc_GRVO.asm"        ; 0x10ff
 
@@ -304,13 +301,13 @@ loc_KLNH.leaf_loc1 equ leaf_loc_QTJL
 
 %include "ega/asm_only/loc_HMVQ.asm"                ; 0x1490
 
-%include "ega/asm_only/dos_print_str.asm"           ; 0x14d8
+%include "ega/asm_only/draw_maze_piece.asm"         ; 0x14d8
 
 %include "ega/asm_only/mouse_init.asm"              ; 0x1719
 
 %include "ega/asm_only/string_loc_RHHH.asm"         ; 0x17a1
 
-%include "ega/asm_only/mouse_init_2.asm"            ; 0x1810
+%include "ega/asm_only/mouse_off.asm"               ; 0x1810
 
 %include "ega/asm_only/leaf_loc_PUST.asm"           ; 0x189f
 
@@ -327,7 +324,7 @@ bios_mouse_loc_JGGM.cseg3 equ cseg_2a06
 
 %include "shared/bios_mouse_loc_NPNG.asm"     ; 0x1992
 
-%include "ega/asm_only/dos_print_str_2.asm"         ; 0x19c1
+%include "ega/asm_only/set_mouse_pointer.asm"       ; 0x19c1
 
 %include "ega/asm_only/dos_con_loc_NUII.asm"        ; 0x1a9f
 
@@ -457,7 +454,7 @@ leaf_loc_UQHV.cseg1 equ cseg_2a02
 
 %include "ega/asm_only/loc_QNIQ.asm"                ; 0x303d
 
-%include "ega/asm_only/dos_read_file_3.asm"         ; 0x3085
+%include "ega/asm_only/load_picture.asm"            ; 0x3085
 
 %include "ega/asm_only/dos_con_loc_GQSN.asm"        ; 0x317d
 
@@ -481,11 +478,11 @@ cseg_31e2:
 
 %include "ega/leaf_loc_PLIR_3240.asm"      ; 0x3240
 
-%include "ega/leaf_loc_PLIR_3241.asm"      ; 0x3241
+%include "ega/fade_in.asm"                 ; 0x3241
 
-%include "ega/leaf_loc_PLIR_3242.asm"      ; 0x3242
+%include "ega/fade_out.asm"                ; 0x3242
 
-%include "ega/leaf_loc_PLIR_3243.asm"      ; 0x3243
+%include "ega/reset_rgb.asm"               ; 0x3243
 
 %include "ega/leaf_loc_PLIR_3244.asm"      ; 0x3244
 
@@ -539,7 +536,7 @@ cseg_3605:
 
     times 25 db 0
 
-%include "ega/asm_only/graphics_loc_KJMH.asm"       ; 0x361e
+%include "ega/asm_only/draw_text.asm"               ; 0x361e
 
 %include "ega/asm_only/leaf_loc_TVGR.asm"           ; 0x39e3
 
@@ -575,7 +572,7 @@ cseg_3a35:
 
 %include "shared/dos_con_loc_KIIN.asm"        ; 0x40d4
 
-%include "ega/asm_only/dos_write_file_2.asm"        ; 0x4111
+%include "ega/asm_only/cache_area.asm"              ; 0x4111
 
 %include "ega/asm_only/dos_con_loc_GKKQ.asm"        ; 0x4370
 
@@ -595,7 +592,7 @@ cseg_4440:
     db 0x00, 0x00
 %include "shared/leaf_loc_HLGJ.asm"           ; 0x4442
 
-%include "ega/asm_only/dos_read_file_4.asm"         ; 0x4457
+%include "ega/asm_only/restore_screen.asm"          ; 0x4457
 
 %include "ega/asm_only/dos_file_loc_RQKL.asm"       ; 0x45bd
 
@@ -603,7 +600,7 @@ cseg_4440:
 
 %include "ega/loc_461f.asm"                ; 0x461f
 
-%include "ega/asm_only/dos_read_file_5.asm"         ; 0x4624
+%include "ega/asm_only/cache_maze.asm"              ; 0x4624
 
 %include "ega/asm_only/dos_con_loc_HJHM.asm"        ; 0x47af
 
@@ -623,7 +620,7 @@ cseg_49b4:
 
     times 84 db 0
 
-%include "ega/asm_only/dos_read_file_6.asm"         ; 0x4a08
+%include "ega/asm_only/load_sound.asm"              ; 0x4a08
 
 %include "ega/asm_only/dos_con_loc_MSRN.asm"        ; 0x4ae1
 
@@ -666,7 +663,7 @@ cseg_4e8b:
 
 cseg_4ea3:
     times 10 db 0
-%include "ega/asm_only/dos_read_file_7.asm"         ; 0x4ead
+%include "ega/asm_only/load_score.asm"              ; 0x4ead
 
 %include "ega/asm_only/loc_SLKJ.asm"                ; 0x503c
 

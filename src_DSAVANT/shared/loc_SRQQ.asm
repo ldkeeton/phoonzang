@@ -54,7 +54,7 @@ loc_SRQQ:
     push ax
     mov ax, 0x32
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
 @..loc_SRQQ.l3:
     ret

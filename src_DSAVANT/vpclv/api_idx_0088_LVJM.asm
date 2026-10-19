@@ -161,6 +161,6 @@ api_idx_0088_LVJM:
     push ax                          ; 0x4134
     mov ax, 1                        ; 0x4135
     push ax                          ; 0x4138
-    call thunk_4                     ; 0x4139
+    call gfx_entry_16                ; 0x4139
     add sp, byte 8                   ; 0x413c
     ret                              ; 0x413f

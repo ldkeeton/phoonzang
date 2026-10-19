@@ -185,7 +185,7 @@ api_idx_005a_STLR:
     push ax                          ; 0x2eb2
     mov ax, 0x37                     ; 0x2eb3
     push ax                          ; 0x2eb6
-    call thunk_4                     ; 0x2eb7
+    call gfx_entry_16                ; 0x2eb7
     add sp, byte 8                   ; 0x2eba
     mov word [bss_90b8], 0           ; 0x2ebd
 @..api_idx_005a_STLR.l19:

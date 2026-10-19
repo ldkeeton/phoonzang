@@ -18,13 +18,13 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     mov ax, word [bp - 0x00b0]       ; 0x241f
     dec ax                           ; 0x2423
     push ax                          ; 0x2424
-    call thunk_10                    ; 0x2425
+    call gfx_save_area               ; 0x2425
     add sp, byte 8                   ; 0x2428
     mov word [bp - 0x00b8], dx       ; 0x242b
     mov word [bp - 0x00ba], ax       ; 0x242f
     mov ax, 0                        ; 0x2433
     push ax                          ; 0x2436
-    call thunk_17                    ; 0x2437
+    call gfx_entry_47                ; 0x2437
     pop cx                           ; 0x243a
     mov ax, word [bp + 0x6]          ; 0x243b
     mov word [bp - 0x00ae], ax       ; 0x243e
@@ -85,7 +85,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x24d0
     mov ax, 1                        ; 0x24d1
     push ax                          ; 0x24d4
-    call thunk_3                     ; 0x24d5
+    call gfx_entry_12                ; 0x24d5
     add sp, byte 4                   ; 0x24d8
     mov ax, word [bp - 0x00b2]       ; 0x24db
     add ax, strict word 0xc          ; 0x24df
@@ -106,7 +106,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     idiv cx                          ; 0x2501
     add ax, word [bp - 0x00b0]       ; 0x2503
     push ax                          ; 0x2507
-    call thunk                       ; 0x2508
+    call gfx_entry_13                ; 0x2508
     add sp, byte 4                   ; 0x250b
     mov ax, 0                        ; 0x250e
     push ax                          ; 0x2511
@@ -147,7 +147,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     idiv cx                          ; 0x2562
     add ax, word [bp - 0x00b0]       ; 0x2564
     push ax                          ; 0x2568
-    call thunk                       ; 0x2569
+    call gfx_entry_13                ; 0x2569
     add sp, byte 4                   ; 0x256c
     mov ax, 0                        ; 0x256f
     push ax                          ; 0x2572
@@ -214,7 +214,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     mov ax, word [bp - 0x00b0]       ; 0x25fa
     dec ax                           ; 0x25fe
     push ax                          ; 0x25ff
-    call thunk_4                     ; 0x2600
+    call gfx_entry_16                ; 0x2600
     add sp, byte 8                   ; 0x2603
     mov word [bp - 0x00a4], 1        ; 0x2606
 @..ds_app_file_QQMM.l6:
@@ -260,7 +260,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x266f
     push word [bp - 0x00b8]          ; 0x2670
     push word [bp - 0x00ba]          ; 0x2674
-    call thunk_13                    ; 0x2678
+    call gfx_restore_area            ; 0x2678
     add sp, byte 6                   ; 0x267b
     mov ax, word [bp - 0x00b6]       ; 0x267e
     inc ax                           ; 0x2682
@@ -274,7 +274,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     mov ax, word [bp - 0x00b0]       ; 0x2690
     dec ax                           ; 0x2694
     push ax                          ; 0x2695
-    call thunk_4                     ; 0x2696
+    call gfx_entry_16                ; 0x2696
     add sp, byte 8                   ; 0x2699
     lea ax, word [bp - 0x0078]       ; 0x269c
     push ax                          ; 0x269f
@@ -364,7 +364,7 @@ ds_app_file_QQMM: ; Aztec csav frame=0x00ba
     push ax                          ; 0x2777
     push word [bp - 0x00b8]          ; 0x2778
     push word [bp - 0x00ba]          ; 0x277c
-    call thunk_13                    ; 0x2780
+    call gfx_restore_area            ; 0x2780
     add sp, byte 6                   ; 0x2783
     call bios_kbd_check              ; 0x2786
     cmp word [bp + 0xa], byte 0      ; 0x2789

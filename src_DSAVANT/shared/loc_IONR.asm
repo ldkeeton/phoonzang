@@ -11,6 +11,6 @@ loc_IONR:
     push ax
     mov ax, 0x48
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
     ret

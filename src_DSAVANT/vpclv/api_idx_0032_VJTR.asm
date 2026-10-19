@@ -17,7 +17,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3aa3
     mov ax, 3                        ; 0x3aa4
     push ax                          ; 0x3aa7
-    call thunk_10                    ; 0x3aa8
+    call gfx_save_area               ; 0x3aa8
     add sp, byte 8                   ; 0x3aab
     mov word [bp - 0x002c], dx       ; 0x3aae
     mov word [bp - 0x002e], ax       ; 0x3ab1
@@ -36,7 +36,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3ad5
     mov ax, 1                        ; 0x3ad6
     push ax                          ; 0x3ad9
-    call thunk_3                     ; 0x3ada
+    call gfx_entry_12                ; 0x3ada
     add sp, byte 4                   ; 0x3add
     mov ax, 6                        ; 0x3ae0
     imul word [bp - 0x000a]          ; 0x3ae3
@@ -44,7 +44,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3ae9
     mov ax, 0x7f                     ; 0x3aea
     push ax                          ; 0x3aed
-    call thunk                       ; 0x3aee
+    call gfx_entry_13                ; 0x3aee
     add sp, byte 4                   ; 0x3af1
     mov ax, 0                        ; 0x3af4
     push ax                          ; 0x3af7
@@ -58,7 +58,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3b0b
     mov ax, 0x97                     ; 0x3b0c
     push ax                          ; 0x3b0f
-    call thunk                       ; 0x3b10
+    call gfx_entry_13                ; 0x3b10
     add sp, byte 4                   ; 0x3b13
     mov ax, 0                        ; 0x3b16
     push ax                          ; 0x3b19
@@ -155,7 +155,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3be1
     push word [bp - 0x002c]          ; 0x3be2
     push word [bp - 0x002e]          ; 0x3be5
-    call thunk_13                    ; 0x3be8
+    call gfx_restore_area            ; 0x3be8
     add sp, byte 6                   ; 0x3beb
     mov ax, word [bp - 0x000c]       ; 0x3bee
     mov word [bp - 0x0004], ax       ; 0x3bf1
@@ -216,7 +216,7 @@ api_idx_0032_VJTR:
     mov ax, 0x1a                     ; 0x3c7c
 @..api_idx_0032_VJTR.l14:
     push ax                          ; 0x3c7f
-    call thunk_3                     ; 0x3c80
+    call gfx_entry_12                ; 0x3c80
     add sp, byte 4                   ; 0x3c83
     mov ax, 0xbe                     ; 0x3c86
     push ax                          ; 0x3c89
@@ -237,7 +237,7 @@ api_idx_0032_VJTR:
     add ax, word [bp - 0x0006]       ; 0x3caa
     inc ax                           ; 0x3cad
     push ax                          ; 0x3cae
-    call thunk                       ; 0x3caf
+    call gfx_entry_13                ; 0x3caf
     add sp, byte 4                   ; 0x3cb2
     mov ax, 0                        ; 0x3cb5
     push ax                          ; 0x3cb8
@@ -319,7 +319,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3d61
     mov ax, 1                        ; 0x3d62
     push ax                          ; 0x3d65
-    call thunk_4                     ; 0x3d66
+    call gfx_entry_16                ; 0x3d66
     add sp, byte 8                   ; 0x3d69
     cmp word [bss_0e32], byte 0      ; 0x3d6c
     je short @..api_idx_0032_VJTR.l19 ; 0x3d71
@@ -362,7 +362,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3dc7
     mov ax, 3                        ; 0x3dc8
     push ax                          ; 0x3dcb
-    call thunk_4                     ; 0x3dcc
+    call gfx_entry_16                ; 0x3dcc
     add sp, byte 8                   ; 0x3dcf
     mov ax, 0                        ; 0x3dd2
     push ax                          ; 0x3dd5
@@ -569,7 +569,7 @@ api_idx_0032_VJTR:
     push ax                          ; 0x3f8d
     push word [bp - 0x002c]          ; 0x3f8e
     push word [bp - 0x002e]          ; 0x3f91
-    call thunk_13                    ; 0x3f94
+    call gfx_restore_area            ; 0x3f94
     add sp, byte 6                   ; 0x3f97
     mov ax, word [bp - 0x002a]       ; 0x3f9a
     ret                              ; 0x3f9d

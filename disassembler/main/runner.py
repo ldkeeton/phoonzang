@@ -28,6 +28,8 @@ from lib.verify.assemble import assemble_stats, reset_assemble_stats
 from lib.struct_analysis import build_structs
 from lib.match.pattern import match_patterns
 from lib.match.trampoline import match_trampolines
+from lib.match.driver_slots import (driver_thunk_entries, entry_handlers,
+                                    thunk_name)
 from lib.match.categorize import categorize_call_targets
 from lib.phases.settle import SettlePhase
 from lib.phases.forcecode import ForceCodePhase
@@ -80,8 +82,9 @@ from .options import (
 )
 from .phases import _build_classify_phases, _build_refine_phases
 from .seeding import (
+    _retag_app_functions,
     _label_app_functions,
-    _load_signatures,
+    _load_aztec_signatures,
     _seed_aztec_stubs,
     _seed_csav_functions,
 )
@@ -158,7 +161,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
 
     # orig_dir is apps/<project>, so the signature DB resolves even when the
     # caller did not name the project.
-    known_db = _load_signatures(project or os.path.basename(os.path.normpath(orig_dir)))
+    known_db = _load_aztec_signatures(project or os.path.basename(os.path.normpath(orig_dir)))
     if sidecar_entry and sidecar_entry.get('api_dispatch'):
         known_db = dict(known_db)
         known_db.setdefault('api_dispatch', {}).update(sidecar_entry['api_dispatch'])
@@ -236,6 +239,33 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
                 use.skipped('function_names', hex_off,
                             f'file offset 0x{off:04x} is not a code target')
     stagelog.step('label.sidecar_names', 1, track={'label_map': label_map})
+
+    # A driver names its jump-table entries' handlers (``dispatch_table``
+    # ``names``), and a thunk that calls a driver's API through a declared slot
+    # table is named by the entry its slot points at.
+    table = (sidecar_entry or {}).get('dispatch_table') or {}
+    handlers = entry_handlers(data, table) if table.get('names') else {}
+    for key, entry_name in (table.get('names') or {}).items():
+        off = handlers.get(int(key))
+        if off is None or off not in ctx.code_targets:
+            use.skipped('dispatch_table.names', key, 'no handler for the entry')
+            continue
+        label_map[off] = _sidecar_routine(entry_name, off)
+        use.final_names[('dispatch_table.names', key)] = (off, entry_name)
+    for slots in (sidecar_entry or {}).get('driver_slots') or ():
+        entries = driver_thunk_entries(data, label_targets, slots, start_offset)
+        for off, n in entries.items():
+            label_map[off] = _sidecar_routine(
+                thunk_name(n, slots), off)
+            use.expect('driver_slots', f"{slots['offset']}[{n}]")
+            use.final_names[('driver_slots', f"{slots['offset']}[{n}]")] = (
+                off, str(label_map[off]))
+        if entries:
+            use.applied('driver_slots', slots['offset'])
+        else:
+            use.skipped('driver_slots', slots['offset'],
+                        'no thunk calls through it')
+    stagelog.step('label.driver_thunks', 1, track={'label_map': label_map})
 
     # The MZ header determines the executable entry point. Prefer a name
     # discovered by pattern matching or the sidecar; otherwise fall back to
@@ -473,6 +503,7 @@ def _analyze(name, orig_dir, rel_path, start_offset, output_dir=None,
                 **{k: entry[k] for k in ('role', 'library') if k in entry})
             if function_roots.get(off) == label:
                 function_roots[off] = label_map[off]
+    _retag_app_functions(label_map, ctx, function_roots)
     stagelog.step('names.sidecar_routines', 1, 'repair', repairs='names.tag_generics',
         why='sidecar routines rename content tags',
         track={'label_map': label_map, 'function_roots': function_roots})

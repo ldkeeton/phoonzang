@@ -10,7 +10,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov bx, ax                       ; 0x1d92
     push word [bx + 0x69a6]          ; 0x1d94
     push word [bx + 0x69a4]          ; 0x1d98
-    call thunk_13                    ; 0x1d9c
+    call gfx_restore_area            ; 0x1d9c
     add sp, byte 6                   ; 0x1d9f
     mov ax, word [bp + 0x4]          ; 0x1da2
     mov cx, 2                        ; 0x1da5
@@ -31,7 +31,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov word [bp - 0x000c], ax       ; 0x1dc9
     push ax                          ; 0x1dcc
     push word [bp - 0x000a]          ; 0x1dcd
-    call thunk                       ; 0x1dd0
+    call gfx_entry_13                ; 0x1dd0
     add sp, byte 4                   ; 0x1dd3
     mov ax, 5                        ; 0x1dd6
     push ax                          ; 0x1dd9
@@ -47,7 +47,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     push ax                          ; 0x1df1
     mov ax, 1                        ; 0x1df2
     push ax                          ; 0x1df5
-    call thunk_3                     ; 0x1df6
+    call gfx_entry_12                ; 0x1df6
     add sp, byte 4                   ; 0x1df9
     mov ax, word [bp - 0x000c]       ; 0x1dfc
     add ax, strict word 0x20         ; 0x1dff
@@ -55,7 +55,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, word [bp - 0x000a]       ; 0x1e03
     add ax, strict word 4            ; 0x1e06
     push ax                          ; 0x1e09
-    call thunk                       ; 0x1e0a
+    call gfx_entry_13                ; 0x1e0a
     add sp, byte 4                   ; 0x1e0d
     mov ax, 0                        ; 0x1e10
     push ax                          ; 0x1e13
@@ -69,7 +69,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     push ax                          ; 0x1e27
     mov ax, 0x84                     ; 0x1e28
     push ax                          ; 0x1e2b
-    call thunk_3                     ; 0x1e2c
+    call gfx_entry_12                ; 0x1e2c
     add sp, byte 4                   ; 0x1e2f
     mov ax, word [bp - 0x000c]       ; 0x1e32
     add ax, strict word 0x26         ; 0x1e35
@@ -77,7 +77,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, word [bp - 0x000a]       ; 0x1e39
     add ax, strict word 4            ; 0x1e3c
     push ax                          ; 0x1e3f
-    call thunk                       ; 0x1e40
+    call gfx_entry_13                ; 0x1e40
     add sp, byte 4                   ; 0x1e43
     lea ax, word [bp - 0x0038]       ; 0x1e46
     push ax                          ; 0x1e49
@@ -140,7 +140,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, word [bp - 0x000a]       ; 0x1ed7
     add ax, strict word 0x1c         ; 0x1eda
     push ax                          ; 0x1edd
-    call thunk                       ; 0x1ede
+    call gfx_entry_13                ; 0x1ede
     add sp, byte 4                   ; 0x1ee1
     mov ax, 6                        ; 0x1ee4
     push ax                          ; 0x1ee7
@@ -183,7 +183,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     mov ax, word [bp - 0x000a]       ; 0x1f4b
     add ax, strict word 0x26         ; 0x1f4e
     push ax                          ; 0x1f51
-    call thunk                       ; 0x1f52
+    call gfx_entry_13                ; 0x1f52
     add sp, byte 4                   ; 0x1f55
     mov ax, 6                        ; 0x1f58
     push ax                          ; 0x1f5b
@@ -221,7 +221,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     add ax, word [bp - 0x000a]       ; 0x1fa6
     add ax, strict word 0x1e         ; 0x1fa9
     push ax                          ; 0x1fac
-    call thunk                       ; 0x1fad
+    call gfx_entry_13                ; 0x1fad
     add sp, byte 4                   ; 0x1fb0
     mov ax, 0x248                    ; 0x1fb3
     imul word [bp + 0x4]             ; 0x1fb6
@@ -348,7 +348,7 @@ ds_app_LUOV: ; Aztec csav frame=0x003a
     push ax                          ; 0x20ea
     push word [bp - 0x000c]          ; 0x20eb
     push word [bp - 0x000a]          ; 0x20ee
-    call thunk_4                     ; 0x20f1
+    call gfx_entry_16                ; 0x20f1
     add sp, byte 8                   ; 0x20f4
 @..ds_app_LUOV.l16:
     ret                              ; 0x20f7

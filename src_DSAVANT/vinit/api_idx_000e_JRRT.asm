@@ -50,6 +50,6 @@ api_idx_000e_JRRT:
     push word [bp - 0x0002]          ; 0x0a48
     mov ax, 0xf                      ; 0x0a4b
     push ax                          ; 0x0a4e
-    call thunk_28                    ; 0x0a4f
+    call gfx_draw_text               ; 0x0a4f
     add sp, byte 0x16                ; 0x0a52
     ret                              ; 0x0a55

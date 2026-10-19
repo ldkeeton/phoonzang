@@ -36,7 +36,7 @@ loc_SSIO:
     mov al, byte [bx + 0x15]
     sub ah, ah
     push ax
-    call thunk_28
+    call gfx_draw_text
     add sp, byte 0x16
 @..loc_SSIO.l1:
     ret

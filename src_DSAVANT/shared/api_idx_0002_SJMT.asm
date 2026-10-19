@@ -4,7 +4,7 @@ api_idx_0002_SJMT:
     call aztec_csav
     mov ax, 0
     push ax
-    call thunk_17
+    call gfx_entry_47
     pop cx
     mov ax, 2
     push ax

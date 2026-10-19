@@ -10,7 +10,7 @@ api_idx_0016_JNJG:
     add sp, byte 4                   ; 0x6094
     mov ax, 0                        ; 0x6097
     push ax                          ; 0x609a
-    call thunk_17                    ; 0x609b
+    call gfx_entry_47                ; 0x609b
     pop cx                           ; 0x609e
     mov ax, 0                        ; 0x609f
     push ax                          ; 0x60a2

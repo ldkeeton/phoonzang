@@ -10,7 +10,7 @@ api_idx_0004_PMIU:
     push ax
     mov ax, 0
     push ax
-    call thunk_10
+    call gfx_save_area
     add sp, byte 8
     mov word [bp - 0x0002], dx
     mov word [bp - 0x0004], ax
@@ -28,13 +28,13 @@ api_idx_0004_PMIU:
     mov ax, 0xa0
     sub ax, cx
     push ax
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0x55
     push ax
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, 0
     push ax
@@ -49,7 +49,7 @@ api_idx_0004_PMIU:
     push ax
     mov ax, 0
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
     cmp word [bp + 0x6], byte 0
     jle short @..api_idx_0004_PMIU.l1
@@ -65,7 +65,7 @@ api_idx_0004_PMIU:
     push ax
     push word [bp - 0x0002]
     push word [bp - 0x0004]
-    call thunk_13
+    call gfx_restore_area
     add sp, byte 6
     mov ax, 0xc2
     push ax
@@ -75,6 +75,6 @@ api_idx_0004_PMIU:
     push ax
     mov ax, 0
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
     ret

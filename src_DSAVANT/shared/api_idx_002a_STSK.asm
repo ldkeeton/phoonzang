@@ -41,11 +41,11 @@ api_idx_002a_STSK:
     mov ax, 0
     push ax
     push word [bp + 0xa]
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     push word [bp + 0x8]
     push word [bp + 0x6]
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax
@@ -57,7 +57,7 @@ api_idx_002a_STSK:
     add ax, strict word 6
     push ax
     push word [bp + 0x6]
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax

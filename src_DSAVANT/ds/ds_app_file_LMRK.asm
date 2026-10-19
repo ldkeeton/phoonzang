@@ -50,7 +50,7 @@ ds_app_file_LMRK: ; Aztec csav frame=0x000c
     push ax                          ; 0x1549
     mov ax, 1                        ; 0x154a
     push ax                          ; 0x154d
-    call thunk_9                     ; 0x154e
+    call gfx_entry_40                ; 0x154e
     add sp, byte 4                   ; 0x1551
     mov cx, ax                       ; 0x1554
     mov bx, dx                       ; 0x1556
@@ -74,7 +74,7 @@ ds_app_file_LMRK: ; Aztec csav frame=0x000c
     push ax                          ; 0x157d
     mov ax, 2                        ; 0x157e
     push ax                          ; 0x1581
-    call thunk_9                     ; 0x1582
+    call gfx_entry_40                ; 0x1582
     add sp, byte 4                   ; 0x1585
     cmp dx, word [bp - 0x0008]       ; 0x1588
     jl short @..ds_app_file_LMRK.l7  ; 0x158b
@@ -103,7 +103,7 @@ ds_app_file_LMRK: ; Aztec csav frame=0x000c
     push ax                          ; 0x15c1
     mov ax, 3                        ; 0x15c2
     push ax                          ; 0x15c5
-    call thunk_9                     ; 0x15c6
+    call gfx_entry_40                ; 0x15c6
     add sp, byte 4                   ; 0x15c9
     cmp dx, word [bp - 0x0008]       ; 0x15cc
     jl short @..ds_app_file_LMRK.l10 ; 0x15cf
@@ -170,7 +170,7 @@ ds_app_file_LMRK: ; Aztec csav frame=0x000c
     push word [bp + 0x8]             ; 0x1667
     push word [bp + 0x6]             ; 0x166a
     push word [bp + 0x4]             ; 0x166d
-    call thunk_11                    ; 0x1670
+    call gfx_cache_area              ; 0x1670
     add sp, byte 0x0c                ; 0x1673
     mov cx, word [bp - 0x0004]       ; 0x1676
     shl cx, 1                        ; 0x1679

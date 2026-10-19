@@ -7,7 +7,7 @@ api_idx_0056_QRVG:
     push ax                          ; 0x3c85
     push word [bss_93f8]             ; 0x3c86
     push word [bss_93f6]             ; 0x3c8a
-    call thunk_12                    ; 0x3c8e
+    call gfx_restore_screen          ; 0x3c8e
     add sp, byte 8                   ; 0x3c91
     mov word [bss_9568], 4           ; 0x3c94
     mov word [bss_9566], 0           ; 0x3c9a

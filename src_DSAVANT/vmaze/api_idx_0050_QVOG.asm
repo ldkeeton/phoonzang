@@ -39,6 +39,6 @@ api_idx_0050_QVOG:
     push ax                          ; 0x7536
     mov ax, 0                        ; 0x7537
     push ax                          ; 0x753a
-    call thunk_4                     ; 0x753b
+    call gfx_entry_16                ; 0x753b
     add sp, byte 8                   ; 0x753e
     ret                              ; 0x7541

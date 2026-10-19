@@ -327,7 +327,7 @@ api_idx_0038_QQIU:
     mov ax, word [bp - 0x0004]       ; 0x3d2a
     dec ax                           ; 0x3d2d
     push ax                          ; 0x3d2e
-    call thunk_4                     ; 0x3d2f
+    call gfx_entry_16                ; 0x3d2f
     add sp, byte 8                   ; 0x3d32
     mov word [bp - 0x001a], 1        ; 0x3d35
 @..api_idx_0038_QQIU.l7:
@@ -378,7 +378,7 @@ jumptable_4141_case_0:
     push ax                          ; 0x3da2
     lea ax, word [bp - 0x000c]       ; 0x3da3
     push ax                          ; 0x3da6
-    call thunk_38                    ; 0x3da7
+    call gfx_entry_23                ; 0x3da7
     add sp, byte 4                   ; 0x3daa
     mov ax, 4                        ; 0x3dad
     push ax                          ; 0x3db0
@@ -398,7 +398,7 @@ jumptable_4141_case_0:
     push ax                          ; 0x3dd0
     lea ax, word [bp - 0x000c]       ; 0x3dd1
     push ax                          ; 0x3dd4
-    call thunk_38                    ; 0x3dd5
+    call gfx_entry_23                ; 0x3dd5
     add sp, byte 4                   ; 0x3dd8
     mov word [bp - 0x001c], ax       ; 0x3ddb
     push word [bp - 0x0012]          ; 0x3dde
@@ -493,7 +493,7 @@ jumptable_4141_case_0:
     mov ax, word [bp - 0x0004]       ; 0x3eac
     add ax, strict word 0x5d         ; 0x3eaf
     push ax                          ; 0x3eb2
-    call thunk_4                     ; 0x3eb3
+    call gfx_entry_16                ; 0x3eb3
     add sp, byte 8                   ; 0x3eb6
     cmp word [bp - 0x001c], byte 0   ; 0x3eb9
     je short @..api_idx_0038_QQIU.l15 ; 0x3ebd
@@ -633,7 +633,7 @@ jumptable_4141_case_1:
     mov ax, word [bp - 0x0004]       ; 0x3fec
     add ax, strict word 0x5d         ; 0x3fef
     push ax                          ; 0x3ff2
-    call thunk_4                     ; 0x3ff3
+    call gfx_entry_16                ; 0x3ff3
     add sp, byte 8                   ; 0x3ff6
     jmp near @..api_idx_0038_QQIU.l26 ; 0x3ff9
 jumptable_4141_case_3:
@@ -770,7 +770,7 @@ jumptable_4141_case_5:
     mov ax, word [bp - 0x0004]       ; 0x4132
     add ax, strict word 0x5d         ; 0x4135
     push ax                          ; 0x4138
-    call thunk_4                     ; 0x4139
+    call gfx_entry_16                ; 0x4139
     add sp, byte 8                   ; 0x413c
     jmp short @..api_idx_0038_QQIU.l26 ; 0x413f
 jumptable_4141:

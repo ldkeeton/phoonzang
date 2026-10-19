@@ -151,7 +151,7 @@ api_idx_0072_IPMP:
     push ax                          ; 0x4ba2
     mov ax, 3                        ; 0x4ba3
     push ax                          ; 0x4ba6
-    call thunk_4                     ; 0x4ba7
+    call gfx_entry_16                ; 0x4ba7
     add sp, byte 8                   ; 0x4baa
     mov word [bp - 0x001e], 1        ; 0x4bad
     mov word [bp - 0x001c], 1        ; 0x4bb2

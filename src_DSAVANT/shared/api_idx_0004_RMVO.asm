@@ -7,7 +7,7 @@ api_idx_0004_RMVO:
     push ax
     push word [api_idx_0004_RMVO.bss1]
     push word [api_idx_0004_RMVO.bss2]
-    call thunk_12
+    call gfx_restore_screen
     add sp, byte 8
     mov word [bp - 0x0002], 0
 @..api_idx_0004_RMVO.l1:
@@ -23,7 +23,7 @@ api_idx_0004_RMVO:
     add ax, cx
     mov bx, ax
     push word [word bx + 0x6]
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, word [bp - 0x0002]
     shl ax, 1
@@ -36,7 +36,7 @@ api_idx_0004_RMVO:
     mov bx, ax
     push word [bx + 0x15e]
     push word [bx + 0x15c]
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 3
     push ax

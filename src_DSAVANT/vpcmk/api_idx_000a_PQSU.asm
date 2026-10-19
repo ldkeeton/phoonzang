@@ -25,6 +25,6 @@ api_idx_000a_PQSU:
     push ax                          ; 0x2e06
     mov ax, 1                        ; 0x2e07
     push ax                          ; 0x2e0a
-    call thunk_28                    ; 0x2e0b
+    call gfx_draw_text               ; 0x2e0b
     add sp, byte 0x16                ; 0x2e0e
     ret                              ; 0x2e11

@@ -12,7 +12,7 @@ int x, y, row;
 	for (i = 0; i < 6; ++i) {
 		buf[0] = dseg_01d4[20 * i + bss_830e[i] * 2];
 		buf[1] = 0;
-		thunk_28(2, dseg_01a4[row][i] + x,
+		gfx_draw_text(2, dseg_01a4[row][i] + x,
 			dseg_01bc[row][i] + y,
 			0, 0x13f, 0, 0xc7, 0, buf, 0, 0);
 	}

@@ -186,7 +186,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4334
     mov ax, 0x36                     ; 0x4335
     push ax                          ; 0x4338
-    call thunk_4                     ; 0x4339
+    call gfx_entry_16                ; 0x4339
     add sp, byte 8                   ; 0x433c
     ret                              ; 0x433f
 @..api_idx_0094_LUVH.l13:
@@ -291,7 +291,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x4430
     mov ax, 0x36                     ; 0x4431
     push ax                          ; 0x4434
-    call thunk_4                     ; 0x4435
+    call gfx_entry_16                ; 0x4435
     add sp, byte 8                   ; 0x4438
 @..api_idx_0094_LUVH.l18:
     push word [bss_9d90]             ; 0x443b
@@ -463,7 +463,7 @@ api_idx_0094_LUVH:
     push ax                          ; 0x45c2
     mov ax, 0x36                     ; 0x45c3
     push ax                          ; 0x45c6
-    call thunk_4                     ; 0x45c7
+    call gfx_entry_16                ; 0x45c7
     add sp, byte 8                   ; 0x45ca
     cmp word [bss_90b6], byte 0      ; 0x45cd
     jle short @..api_idx_0094_LUVH.l34 ; 0x45d2

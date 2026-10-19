@@ -13,17 +13,17 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa562
     push word [bp + 0x8]             ; 0xa563
     push word [bp + 0x6]             ; 0xa566
-    call thunk_10                    ; 0xa569
+    call gfx_save_area               ; 0xa569
     add sp, byte 8                   ; 0xa56c
     mov word [bp - 0x0010], dx       ; 0xa56f
     mov word [bp - 0x0012], ax       ; 0xa572
     push word [bp + 0xe]             ; 0xa575
     push word [bp + 0xc]             ; 0xa578
-    call thunk_3                     ; 0xa57b
+    call gfx_entry_12                ; 0xa57b
     add sp, byte 4                   ; 0xa57e
     push word [bp + 0x8]             ; 0xa581
     push word [bp + 0x6]             ; 0xa584
-    call thunk                       ; 0xa587
+    call gfx_entry_13                ; 0xa587
     add sp, byte 4                   ; 0xa58a
     mov ax, 0                        ; 0xa58d
     push ax                          ; 0xa590
@@ -39,7 +39,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa5aa
     push word [bp + 0x8]             ; 0xa5ab
     push word [bp + 0x6]             ; 0xa5ae
-    call thunk_4                     ; 0xa5b1
+    call gfx_entry_16                ; 0xa5b1
     add sp, byte 8                   ; 0xa5b4
     push word [bp + 0x4]             ; 0xa5b7
     call aztec_strlen                ; 0xa5ba
@@ -59,7 +59,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa5e0
     push word [bp + 0x8]             ; 0xa5e1
     push word [bp + 0x6]             ; 0xa5e4
-    call thunk_10                    ; 0xa5e7
+    call gfx_save_area               ; 0xa5e7
     add sp, byte 8                   ; 0xa5ea
     mov word [bp - 0x0014], dx       ; 0xa5ed
     mov word [bp - 0x0016], ax       ; 0xa5f0
@@ -77,13 +77,13 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa60b
     push word [bp - 0x0014]          ; 0xa60c
     push word [bp - 0x0016]          ; 0xa60f
-    call thunk_13                    ; 0xa612
+    call gfx_restore_area            ; 0xa612
     add sp, byte 6                   ; 0xa615
     cmp word [bp - 0x0008], byte 0   ; 0xa618
     je short @..api_idx_0016_TOUQ.l3 ; 0xa61c
     push word [bp + 0x8]             ; 0xa61e
     push word [bp + 0x6]             ; 0xa621
-    call thunk                       ; 0xa624
+    call gfx_entry_13                ; 0xa624
     add sp, byte 4                   ; 0xa627
     mov ax, 0                        ; 0xa62a
     push ax                          ; 0xa62d
@@ -100,7 +100,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa645
     push word [bp + 0x8]             ; 0xa646
     push word [bp + 0x6]             ; 0xa649
-    call thunk_4                     ; 0xa64c
+    call gfx_entry_16                ; 0xa64c
     add sp, byte 8                   ; 0xa64f
     mov ax, word [bp - 0x0008]       ; 0xa652
     inc ax                           ; 0xa655
@@ -123,7 +123,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa676
     push word [bp - 0x0014]          ; 0xa677
     push word [bp - 0x0016]          ; 0xa67a
-    call thunk_13                    ; 0xa67d
+    call gfx_restore_area            ; 0xa67d
     add sp, byte 6                   ; 0xa680
     mov ax, word [bp + 0x8]          ; 0xa683
     add ax, strict word 5            ; 0xa686
@@ -133,7 +133,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa690
     push word [bp + 0x8]             ; 0xa691
     push word [bp + 0x6]             ; 0xa694
-    call thunk_4                     ; 0xa697
+    call gfx_entry_16                ; 0xa697
     add sp, byte 8                   ; 0xa69a
     mov ax, 1                        ; 0xa69d
     push ax                          ; 0xa6a0
@@ -151,7 +151,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa6be
     push word [bp - 0x0010]          ; 0xa6bf
     push word [bp - 0x0012]          ; 0xa6c2
-    call thunk_13                    ; 0xa6c5
+    call gfx_restore_area            ; 0xa6c5
     add sp, byte 6                   ; 0xa6c8
     mov ax, 0                        ; 0xa6cb
     ret                              ; 0xa6ce
@@ -168,11 +168,11 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa6e8
     push word [bp - 0x0010]          ; 0xa6e9
     push word [bp - 0x0012]          ; 0xa6ec
-    call thunk_13                    ; 0xa6ef
+    call gfx_restore_area            ; 0xa6ef
     add sp, byte 6                   ; 0xa6f2
     push word [bp + 0x8]             ; 0xa6f5
     push word [bp - 0x0004]          ; 0xa6f8
-    call thunk                       ; 0xa6fb
+    call gfx_entry_13                ; 0xa6fb
     add sp, byte 4                   ; 0xa6fe
     mov bx, word [bp + 0x4]          ; 0xa701
     mov si, word [bp - 0x0006]       ; 0xa704
@@ -191,7 +191,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa727
     push word [bp + 0x8]             ; 0xa728
     push word [bp - 0x0004]          ; 0xa72b
-    call thunk_4                     ; 0xa72e
+    call gfx_entry_16                ; 0xa72e
     add sp, byte 8                   ; 0xa731
     jmp short @..api_idx_0016_TOUQ.l11 ; 0xa734
 @..api_idx_0016_TOUQ.l9:
@@ -203,7 +203,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa745
     push word [bp - 0x0010]          ; 0xa746
     push word [bp - 0x0012]          ; 0xa749
-    call thunk_13                    ; 0xa74c
+    call gfx_restore_area            ; 0xa74c
     add sp, byte 6                   ; 0xa74f
     mov ax, 0xffff                   ; 0xa752
     ret                              ; 0xa755
@@ -251,7 +251,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa7b1
     push word [bp - 0x0010]          ; 0xa7b2
     push word [bp - 0x0012]          ; 0xa7b5
-    call thunk_13                    ; 0xa7b8
+    call gfx_restore_area            ; 0xa7b8
     add sp, byte 6                   ; 0xa7bb
     mov ax, 1                        ; 0xa7be
     ret                              ; 0xa7c1
@@ -281,7 +281,7 @@ api_idx_0016_TOUQ:
     inc word [bp - 0x0006]           ; 0xa7f6
     push word [bp + 0x8]             ; 0xa7f9
     push word [bp + 0x6]             ; 0xa7fc
-    call thunk                       ; 0xa7ff
+    call gfx_entry_13                ; 0xa7ff
     add sp, byte 4                   ; 0xa802
     mov ax, 0                        ; 0xa805
     push ax                          ; 0xa808
@@ -298,7 +298,7 @@ api_idx_0016_TOUQ:
     push ax                          ; 0xa822
     push word [bp + 0x8]             ; 0xa823
     push word [bp + 0x6]             ; 0xa826
-    call thunk_4                     ; 0xa829
+    call gfx_entry_16                ; 0xa829
     add sp, byte 8                   ; 0xa82c
     add word [bp + 0x6], byte 6      ; 0xa82f
 @..api_idx_0016_TOUQ.l20:

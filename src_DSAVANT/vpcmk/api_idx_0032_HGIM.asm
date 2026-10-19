@@ -17,7 +17,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x271a
     mov ax, 3                        ; 0x271b
     push ax                          ; 0x271e
-    call thunk_10                    ; 0x271f
+    call gfx_save_area               ; 0x271f
     add sp, byte 8                   ; 0x2722
     mov word [bp - 0x002c], dx       ; 0x2725
     mov word [bp - 0x002e], ax       ; 0x2728
@@ -36,7 +36,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x274c
     mov ax, 1                        ; 0x274d
     push ax                          ; 0x2750
-    call thunk_3                     ; 0x2751
+    call gfx_entry_12                ; 0x2751
     add sp, byte 4                   ; 0x2754
     mov ax, 6                        ; 0x2757
     imul word [bp - 0x000a]          ; 0x275a
@@ -44,7 +44,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x2760
     mov ax, 0x7f                     ; 0x2761
     push ax                          ; 0x2764
-    call thunk                       ; 0x2765
+    call gfx_entry_13                ; 0x2765
     add sp, byte 4                   ; 0x2768
     mov ax, 0                        ; 0x276b
     push ax                          ; 0x276e
@@ -58,7 +58,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x2782
     mov ax, 0x97                     ; 0x2783
     push ax                          ; 0x2786
-    call thunk                       ; 0x2787
+    call gfx_entry_13                ; 0x2787
     add sp, byte 4                   ; 0x278a
     mov ax, 0                        ; 0x278d
     push ax                          ; 0x2790
@@ -155,7 +155,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x2858
     push word [bp - 0x002c]          ; 0x2859
     push word [bp - 0x002e]          ; 0x285c
-    call thunk_13                    ; 0x285f
+    call gfx_restore_area            ; 0x285f
     add sp, byte 6                   ; 0x2862
     mov ax, word [bp - 0x000c]       ; 0x2865
     mov word [bp - 0x0004], ax       ; 0x2868
@@ -216,7 +216,7 @@ api_idx_0032_HGIM:
     mov ax, 0x1a                     ; 0x28f3
 @..api_idx_0032_HGIM.l14:
     push ax                          ; 0x28f6
-    call thunk_3                     ; 0x28f7
+    call gfx_entry_12                ; 0x28f7
     add sp, byte 4                   ; 0x28fa
     mov ax, 0xbe                     ; 0x28fd
     push ax                          ; 0x2900
@@ -237,7 +237,7 @@ api_idx_0032_HGIM:
     add ax, word [bp - 0x0006]       ; 0x2921
     inc ax                           ; 0x2924
     push ax                          ; 0x2925
-    call thunk                       ; 0x2926
+    call gfx_entry_13                ; 0x2926
     add sp, byte 4                   ; 0x2929
     mov ax, 0                        ; 0x292c
     push ax                          ; 0x292f
@@ -319,7 +319,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x29d8
     mov ax, 1                        ; 0x29d9
     push ax                          ; 0x29dc
-    call thunk_4                     ; 0x29dd
+    call gfx_entry_16                ; 0x29dd
     add sp, byte 8                   ; 0x29e0
     cmp word [bss_0e32], byte 0      ; 0x29e3
     je short @..api_idx_0032_HGIM.l19 ; 0x29e8
@@ -362,7 +362,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x2a3e
     mov ax, 3                        ; 0x2a3f
     push ax                          ; 0x2a42
-    call thunk_4                     ; 0x2a43
+    call gfx_entry_16                ; 0x2a43
     add sp, byte 8                   ; 0x2a46
     mov ax, 0                        ; 0x2a49
     push ax                          ; 0x2a4c
@@ -569,7 +569,7 @@ api_idx_0032_HGIM:
     push ax                          ; 0x2c04
     push word [bp - 0x002c]          ; 0x2c05
     push word [bp - 0x002e]          ; 0x2c08
-    call thunk_13                    ; 0x2c0b
+    call gfx_restore_area            ; 0x2c0b
     add sp, byte 6                   ; 0x2c0e
     mov ax, word [bp - 0x002a]       ; 0x2c11
     ret                              ; 0x2c14

@@ -35,4 +35,4 @@ loc_4b9c:
     mov es, ax                       ; 0x4ba8
     call string_loc_RQON             ; 0x4baa
     xor ax, ax                       ; 0x4bad
-    jmp near @..dos_read_file_6.l3   ; 0x4baf
+    jmp near @..load_sound.l3        ; 0x4baf

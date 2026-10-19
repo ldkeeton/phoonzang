@@ -7,7 +7,7 @@ api_idx_004c_UMGL:
     push ax                          ; 0x27ed
     push word [bss_9420]             ; 0x27ee
     push word [bss_941e]             ; 0x27f2
-    call thunk_12                    ; 0x27f6
+    call gfx_restore_screen          ; 0x27f6
     add sp, byte 8                   ; 0x27f9
     cmp word [bss_948e], byte 0      ; 0x27fc
     je short @..api_idx_004c_UMGL.l1 ; 0x2801
@@ -15,7 +15,7 @@ api_idx_004c_UMGL:
     push ax                          ; 0x2806
     mov ax, 0xa0                     ; 0x2807
     push ax                          ; 0x280a
-    call thunk                       ; 0x280b
+    call gfx_entry_13                ; 0x280b
     add sp, byte 4                   ; 0x280e
     mov ax, 4                        ; 0x2811
     push ax                          ; 0x2814
@@ -45,7 +45,7 @@ api_idx_004c_UMGL:
     push ax                          ; 0x284d
     mov ax, 1                        ; 0x284e
     push ax                          ; 0x2851
-    call thunk_7                     ; 0x2852
+    call gfx_entry_18                ; 0x2852
     add sp, byte 0x0a                ; 0x2855
     inc word [bp - 0x0002]           ; 0x2858
     mov ax, word [bp - 0x0002]       ; 0x285b
@@ -67,7 +67,7 @@ api_idx_004c_UMGL:
     imul word [bp - 0x0002]          ; 0x287f
     inc ax                           ; 0x2882
     push ax                          ; 0x2883
-    call thunk_7                     ; 0x2884
+    call gfx_entry_18                ; 0x2884
     add sp, byte 0x0a                ; 0x2887
     inc word [bp - 0x0002]           ; 0x288a
     mov ax, word [bp - 0x0002]       ; 0x288d

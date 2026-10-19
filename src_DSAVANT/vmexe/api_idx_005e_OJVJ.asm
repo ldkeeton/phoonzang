@@ -68,7 +68,7 @@ api_idx_005e_OJVJ:
     push ax                          ; 0x355d
     mov ax, 2                        ; 0x355e
     push ax                          ; 0x3561
-    call thunk_9                     ; 0x3562
+    call gfx_entry_40                ; 0x3562
     add sp, byte 4                   ; 0x3565
     mov cx, word [bp - 0x0008]       ; 0x3568
     mov bx, word [bp - 0x0006]       ; 0x356b
@@ -91,7 +91,7 @@ api_idx_005e_OJVJ:
     push ax                          ; 0x358e
     mov ax, 1                        ; 0x358f
     push ax                          ; 0x3592
-    call thunk_9                     ; 0x3593
+    call gfx_entry_40                ; 0x3593
     add sp, byte 4                   ; 0x3596
     cmp dx, word [bp - 0x000a]       ; 0x3599
     jl short @..api_idx_005e_OJVJ.l7 ; 0x359c
@@ -118,7 +118,7 @@ api_idx_005e_OJVJ:
     push ax                          ; 0x35cf
     mov ax, 3                        ; 0x35d0
     push ax                          ; 0x35d3
-    call thunk_9                     ; 0x35d4
+    call gfx_entry_40                ; 0x35d4
     add sp, byte 4                   ; 0x35d7
     cmp dx, word [bp - 0x000a]       ; 0x35da
     jl short @..api_idx_005e_OJVJ.l10 ; 0x35dd
@@ -135,7 +135,7 @@ api_idx_005e_OJVJ:
     push ax                          ; 0x35f5
     mov ax, 2                        ; 0x35f6
     push ax                          ; 0x35f9
-    call thunk_9                     ; 0x35fa
+    call gfx_entry_40                ; 0x35fa
     add sp, byte 4                   ; 0x35fd
     mov cx, word [bp - 0x0008]       ; 0x3600
     mov bx, word [bp - 0x0006]       ; 0x3603

@@ -7,7 +7,7 @@ api_idx_000a_TITQ:
     push ax
     push word [api_idx_000a_TITQ.bss1]
     push word [api_idx_000a_TITQ.bss2]
-    call thunk_12
+    call gfx_restore_screen
     add sp, byte 8
     cmp word [api_idx_000a_TITQ.bss3], byte 0
     jle short @..api_idx_000a_TITQ.l1
@@ -35,7 +35,7 @@ api_idx_000a_TITQ:
     push ax
     mov ax, 0xf
     push ax
-    call thunk_28
+    call gfx_draw_text
     add sp, byte 0x16
 @..api_idx_000a_TITQ.l1:
     mov ax, 5
@@ -70,6 +70,6 @@ api_idx_000a_TITQ:
     push ax
     mov ax, 0xf
     push ax
-    call thunk_28
+    call gfx_draw_text
     add sp, byte 0x16
     ret

@@ -23,7 +23,7 @@ api_idx_000c_JQMN:
     shl ax, 1
     mov bx, ax
     push word [word bx + 0x6]
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, word [bp - 0x0002]
     shl ax, 1
@@ -48,7 +48,7 @@ api_idx_000c_JQMN:
     add ax, strict word 9
     sub ax, cx
     push ax
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax

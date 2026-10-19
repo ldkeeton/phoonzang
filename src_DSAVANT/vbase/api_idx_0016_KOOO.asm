@@ -10,7 +10,7 @@ api_idx_0016_KOOO:
     add sp, byte 4                   ; 0x056a
     mov ax, 0                        ; 0x056d
     push ax                          ; 0x0570
-    call thunk_17                    ; 0x0571
+    call gfx_entry_47                ; 0x0571
     pop cx                           ; 0x0574
     mov ax, 0                        ; 0x0575
     push ax                          ; 0x0578

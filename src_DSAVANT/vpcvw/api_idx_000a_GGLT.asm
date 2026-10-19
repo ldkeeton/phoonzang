@@ -25,6 +25,6 @@ api_idx_000a_GGLT:
     push ax                          ; 0x2a21
     mov ax, 1                        ; 0x2a22
     push ax                          ; 0x2a25
-    call thunk_28                    ; 0x2a26
+    call gfx_draw_text               ; 0x2a26
     add sp, byte 0x16                ; 0x2a29
     ret                              ; 0x2a2c

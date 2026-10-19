@@ -109,13 +109,13 @@ api_idx_0044_PIIP:
     mov ax, word [bp - 0x000c]       ; 0x2a98
     add ax, strict word 0x48         ; 0x2a9b
     push ax                          ; 0x2a9e
-    call thunk                       ; 0x2a9f
+    call gfx_entry_13                ; 0x2a9f
     add sp, byte 4                   ; 0x2aa2
     mov ax, 0                        ; 0x2aa5
     push ax                          ; 0x2aa8
     mov ax, 0xcd                     ; 0x2aa9
     push ax                          ; 0x2aac
-    call thunk_3                     ; 0x2aad
+    call gfx_entry_12                ; 0x2aad
     add sp, byte 4                   ; 0x2ab0
     mov ax, 2                        ; 0x2ab3
     push ax                          ; 0x2ab6
@@ -493,7 +493,7 @@ api_idx_0044_PIIP:
     mov ax, word [bp - 0x0004]       ; 0x2e18
     dec ax                           ; 0x2e1b
     push ax                          ; 0x2e1c
-    call thunk_4                     ; 0x2e1d
+    call gfx_entry_16                ; 0x2e1d
     add sp, byte 8                   ; 0x2e20
     mov word [bss_9b5e], 5           ; 0x2e23
     les bx, word [dseg_0002]         ; 0x2e29
@@ -554,7 +554,7 @@ jumptable_35d1_case_0:
     push ax                          ; 0x2eb4
     lea ax, word [bp - 0x000e]       ; 0x2eb5
     push ax                          ; 0x2eb8
-    call thunk_38                    ; 0x2eb9
+    call gfx_entry_23                ; 0x2eb9
     add sp, byte 4                   ; 0x2ebc
     mov ax, 4                        ; 0x2ebf
     push ax                          ; 0x2ec2
@@ -574,7 +574,7 @@ jumptable_35d1_case_0:
     push ax                          ; 0x2ee2
     lea ax, word [bp - 0x000e]       ; 0x2ee3
     push ax                          ; 0x2ee6
-    call thunk_38                    ; 0x2ee7
+    call gfx_entry_23                ; 0x2ee7
     add sp, byte 4                   ; 0x2eea
     mov word [bp - 0x001e], ax       ; 0x2eed
     push word [bp - 0x0014]          ; 0x2ef0
@@ -668,7 +668,7 @@ jumptable_35d1_case_0:
     mov ax, word [bp - 0x000c]       ; 0x2fbf
     add ax, strict word 6            ; 0x2fc2
     push ax                          ; 0x2fc5
-    call thunk_4                     ; 0x2fc6
+    call gfx_entry_16                ; 0x2fc6
     add sp, byte 8                   ; 0x2fc9
     cmp word [bp - 0x001e], byte 0   ; 0x2fcc
     je short @..api_idx_0044_PIIP.l16 ; 0x2fd0
@@ -804,7 +804,7 @@ jumptable_35d1_case_1:
     mov ax, word [bp - 0x000c]       ; 0x30ff
     add ax, strict word 6            ; 0x3102
     push ax                          ; 0x3105
-    call thunk_4                     ; 0x3106
+    call gfx_entry_16                ; 0x3106
     add sp, byte 8                   ; 0x3109
     jmp near @..api_idx_0044_PIIP.l50 ; 0x310c
 jumptable_35d1_case_3:
@@ -1047,7 +1047,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3334
     add ax, strict word 0xb          ; 0x3337
     push ax                          ; 0x333a
-    call thunk_4                     ; 0x333b
+    call gfx_entry_16                ; 0x333b
     add sp, byte 8                   ; 0x333e
     mov ax, word [bp - 0x0006]       ; 0x3341
     add ax, strict word 0x1b         ; 0x3344
@@ -1061,7 +1061,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3356
     add ax, strict word 0x5e         ; 0x3359
     push ax                          ; 0x335c
-    call thunk_4                     ; 0x335d
+    call gfx_entry_16                ; 0x335d
     add sp, byte 8                   ; 0x3360
     jmp near @..api_idx_0044_PIIP.l47 ; 0x3363
 @..api_idx_0044_PIIP.l36:
@@ -1170,7 +1170,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3466
     add ax, strict word 6            ; 0x3469
     push ax                          ; 0x346c
-    call thunk_4                     ; 0x346d
+    call gfx_entry_16                ; 0x346d
     add sp, byte 8                   ; 0x3470
     mov ax, word [bp - 0x0006]       ; 0x3473
     add ax, strict word 0x1b         ; 0x3476
@@ -1184,7 +1184,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x3488
     add ax, strict word 0x5e         ; 0x348b
     push ax                          ; 0x348e
-    call thunk_4                     ; 0x348f
+    call gfx_entry_16                ; 0x348f
     add sp, byte 8                   ; 0x3492
     jmp near @..api_idx_0044_PIIP.l47 ; 0x3495
 @..api_idx_0044_PIIP.l41:
@@ -1301,7 +1301,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x35a0
     add ax, strict word 6            ; 0x35a3
     push ax                          ; 0x35a6
-    call thunk_4                     ; 0x35a7
+    call gfx_entry_16                ; 0x35a7
     add sp, byte 8                   ; 0x35aa
     mov ax, word [bp - 0x0006]       ; 0x35ad
     add ax, strict word 0x1b         ; 0x35b0
@@ -1315,7 +1315,7 @@ jumptable_35d1_case_4:
     mov ax, word [bp - 0x000c]       ; 0x35c2
     add ax, strict word 0x5e         ; 0x35c5
     push ax                          ; 0x35c8
-    call thunk_4                     ; 0x35c9
+    call gfx_entry_16                ; 0x35c9
     add sp, byte 8                   ; 0x35cc
 @..api_idx_0044_PIIP.l47:
     jmp short @..api_idx_0044_PIIP.l50 ; 0x35cf
@@ -1355,7 +1355,7 @@ jumptable_35d1:
     mov ax, word [bp - 0x0004]       ; 0x3610
     dec ax                           ; 0x3613
     push ax                          ; 0x3614
-    call thunk_4                     ; 0x3615
+    call gfx_entry_16                ; 0x3615
     add sp, byte 8                   ; 0x3618
     mov ax, word [bp - 0x003e]       ; 0x361b
     xchg al, ah                      ; 0x361e

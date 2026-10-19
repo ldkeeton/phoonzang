@@ -103,12 +103,12 @@ jumptable_0363_case_4:
     mov word [bp - 0x0002], 1        ; 0x0347
     mov ax, 1                        ; 0x034c
     push ax                          ; 0x034f
-    call thunk_17                    ; 0x0350
+    call gfx_entry_47                ; 0x0350
     pop cx                           ; 0x0353
-    call thunk_18                    ; 0x0354
+    call gfx_entry_48                ; 0x0354
     cmp word [bss_0e32], byte 0      ; 0x0357
     je short @..ds_app_file_RKTP.l17 ; 0x035c
-    call thunk_36                    ; 0x035e
+    call gfx_mouse_off               ; 0x035e
 jumptable_0363_case_1:
 @..ds_app_file_RKTP.l17:
     jmp short @..ds_app_file_RKTP.l19 ; 0x0361

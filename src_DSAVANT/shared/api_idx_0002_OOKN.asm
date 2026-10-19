@@ -4,7 +4,7 @@ api_idx_0002_OOKN:
     call aztec_csav
     mov ax, 0
     push ax
-    call thunk_17
+    call gfx_entry_47
     pop cx
     mov ax, 0
     push ax
@@ -27,7 +27,7 @@ api_idx_0002_OOKN:
     mov ax, 0
     push ax
     push word [bp - 0x0002]
-    call thunk_29
+    call gfx_load_screen
     add sp, byte 4
     push word [bp - 0x0002]
     call aztec_close
@@ -41,7 +41,7 @@ api_idx_0002_OOKN:
     mov ax, 0
     push ax
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
 @..api_idx_0002_OOKN.l2:
     ret

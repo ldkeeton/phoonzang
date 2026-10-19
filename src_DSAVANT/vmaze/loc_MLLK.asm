@@ -11,7 +11,7 @@ loc_MLLK:
     push ax                          ; 0x6f2b
     mov ax, 0x37                     ; 0x6f2c
     push ax                          ; 0x6f2f
-    call thunk_10                    ; 0x6f30
+    call gfx_save_area               ; 0x6f30
     add sp, byte 8                   ; 0x6f33
     mov word [bss_8d10], dx          ; 0x6f36
     mov word [bss_8d0e], ax          ; 0x6f3a
@@ -52,7 +52,7 @@ loc_MLLK:
     push ax                          ; 0x6f99
     push word [bss_8d10]             ; 0x6f9a
     push word [bss_8d0e]             ; 0x6f9e
-    call thunk_13                    ; 0x6fa2
+    call gfx_restore_area            ; 0x6fa2
     add sp, byte 6                   ; 0x6fa5
     mov ax, 0xc6                     ; 0x6fa8
     push ax                          ; 0x6fab

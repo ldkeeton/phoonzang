@@ -84,7 +84,7 @@ loc_LQIO:
     push ax                          ; 0x6138
     push word [bp - 0x0006]          ; 0x6139
     push word [bp - 0x0004]          ; 0x613c
-    call thunk_4                     ; 0x613f
+    call gfx_entry_16                ; 0x613f
     add sp, byte 8                   ; 0x6142
     mov ax, word [bp - 0x0006]       ; 0x6145
     add ax, strict word 0x2b         ; 0x6148
@@ -93,7 +93,7 @@ loc_LQIO:
     push ax                          ; 0x614f
     push word [bp - 0x0006]          ; 0x6150
     push word [bp - 0x0004]          ; 0x6153
-    call thunk_4                     ; 0x6156
+    call gfx_entry_16                ; 0x6156
     add sp, byte 8                   ; 0x6159
     jmp short @..loc_LQIO.l9         ; 0x615c
 @..loc_LQIO.l5:
@@ -104,7 +104,7 @@ loc_LQIO:
     push ax                          ; 0x6168
     push word [bp - 0x0006]          ; 0x6169
     push word [bp - 0x0004]          ; 0x616c
-    call thunk_4                     ; 0x616f
+    call gfx_entry_16                ; 0x616f
     add sp, byte 8                   ; 0x6172
     mov ax, word [bp - 0x0006]       ; 0x6175
     add ax, strict word 0x2b         ; 0x6178
@@ -115,7 +115,7 @@ loc_LQIO:
     push word [bp - 0x0006]          ; 0x6183
     mov ax, 0x10a                    ; 0x6186
     push ax                          ; 0x6189
-    call thunk_4                     ; 0x618a
+    call gfx_entry_16                ; 0x618a
     add sp, byte 8                   ; 0x618d
     jmp short @..loc_LQIO.l9         ; 0x6190
 @..loc_LQIO.l6:
@@ -127,7 +127,7 @@ loc_LQIO:
     push ax                          ; 0x619f
     push word [bp - 0x0006]          ; 0x61a0
     push word [bp - 0x0004]          ; 0x61a3
-    call thunk_4                     ; 0x61a6
+    call gfx_entry_16                ; 0x61a6
     add sp, byte 8                   ; 0x61a9
     jmp short @..loc_LQIO.l9         ; 0x61ac
 @..loc_LQIO.l7:
@@ -150,6 +150,6 @@ loc_LQIO:
     push ax                          ; 0x61cf
     mov ax, 0x36                     ; 0x61d0
     push ax                          ; 0x61d3
-    call thunk_4                     ; 0x61d4
+    call gfx_entry_16                ; 0x61d4
     add sp, byte 8                   ; 0x61d7
     ret                              ; 0x61da

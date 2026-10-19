@@ -123,7 +123,7 @@ api_idx_00b4_QLQS:
     mov ax, 6                        ; 0x4de8
     push ax                          ; 0x4deb
     push ax                          ; 0x4dec
-    call thunk_4                     ; 0x4ded
+    call gfx_entry_16                ; 0x4ded
     add sp, byte 8                   ; 0x4df0
 @..api_idx_00b4_QLQS.l8:
     mov ax, 2                        ; 0x4df3

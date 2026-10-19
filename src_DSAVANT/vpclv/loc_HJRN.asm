@@ -20,7 +20,7 @@ loc_HJRN:
     mov ax, 0                        ; 0x21b2
     push ax                          ; 0x21b5
     push ax                          ; 0x21b6
-    call thunk_4                     ; 0x21b7
+    call gfx_entry_16                ; 0x21b7
     add sp, byte 8                   ; 0x21ba
 @..loc_HJRN.l1:
     ret                              ; 0x21bd

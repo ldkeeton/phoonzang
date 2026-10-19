@@ -46,13 +46,13 @@ loc_HTTH:
     inc ax                           ; 0x1615
     inc ax                           ; 0x1616
     push ax                          ; 0x1617
-    call thunk_7                     ; 0x1618
+    call gfx_entry_18                ; 0x1618
     add sp, byte 0x0a                ; 0x161b
     mov ax, 0x17                     ; 0x161e
     push ax                          ; 0x1621
     mov ax, 1                        ; 0x1622
     push ax                          ; 0x1625
-    call thunk_3                     ; 0x1626
+    call gfx_entry_12                ; 0x1626
     add sp, byte 4                   ; 0x1629
     mov ax, word [bp - 0x0252]       ; 0x162c
     add ax, strict word 0x20         ; 0x1630
@@ -60,7 +60,7 @@ loc_HTTH:
     mov ax, word [bp - 0x0250]       ; 0x1634
     add ax, strict word 4            ; 0x1638
     push ax                          ; 0x163b
-    call thunk                       ; 0x163c
+    call gfx_entry_13                ; 0x163c
     add sp, byte 4                   ; 0x163f
     mov ax, 0                        ; 0x1642
     push ax                          ; 0x1645
@@ -84,7 +84,7 @@ loc_HTTH:
     inc ax                           ; 0x1673
     inc ax                           ; 0x1674
     push ax                          ; 0x1675
-    call thunk_4                     ; 0x1676
+    call gfx_entry_16                ; 0x1676
     add sp, byte 8                   ; 0x1679
     call ds_app_io_VGOM              ; 0x167c
     mov word [bp - 0x0002], ax       ; 0x167f
@@ -170,7 +170,7 @@ loc_HTTH:
     mov bx, ax                       ; 0x1751
     push word [bx + 0x69a6]          ; 0x1753
     push word [bx + 0x69a4]          ; 0x1757
-    call thunk_13                    ; 0x175b
+    call gfx_restore_area            ; 0x175b
     add sp, byte 6                   ; 0x175e
     mov ax, word [bp + 0x4]          ; 0x1761
     mov cx, 2                        ; 0x1764
@@ -196,7 +196,7 @@ loc_HTTH:
     push ax                          ; 0x1798
     push word [bp - 0x0252]          ; 0x1799
     push word [bp - 0x0250]          ; 0x179d
-    call thunk_4                     ; 0x17a1
+    call gfx_entry_16                ; 0x17a1
     add sp, byte 8                   ; 0x17a4
     mov ax, 0                        ; 0x17a7
     push ax                          ; 0x17aa
@@ -206,7 +206,7 @@ loc_HTTH:
     mov bx, ax                       ; 0x17b2
     push word [bx + 0x69a6]          ; 0x17b4
     push word [bx + 0x69a4]          ; 0x17b8
-    call thunk_13                    ; 0x17bc
+    call gfx_restore_area            ; 0x17bc
     add sp, byte 6                   ; 0x17bf
     mov ax, word [bp - 0x0002]       ; 0x17c2
     mov cx, 2                        ; 0x17c5
@@ -232,7 +232,7 @@ loc_HTTH:
     push ax                          ; 0x17f9
     push word [bp - 0x0252]          ; 0x17fa
     push word [bp - 0x0250]          ; 0x17fe
-    call thunk_4                     ; 0x1802
+    call gfx_entry_16                ; 0x1802
     add sp, byte 8                   ; 0x1805
     mov ax, 1                        ; 0x1808
     push ax                          ; 0x180b

@@ -25,7 +25,7 @@ loc_HOII:
     push ax                          ; 0x8b8d
     push word [bp + 0x6]             ; 0x8b8e
     push word [bp + 0x4]             ; 0x8b91
-    call thunk_7                     ; 0x8b94
+    call gfx_entry_18                ; 0x8b94
     add sp, byte 0x0a                ; 0x8b97
     mov ax, word [bp + 0x6]          ; 0x8b9a
     inc ax                           ; 0x8b9d
@@ -34,7 +34,7 @@ loc_HOII:
     inc ax                           ; 0x8ba2
     inc ax                           ; 0x8ba3
     push ax                          ; 0x8ba4
-    call thunk                       ; 0x8ba5
+    call gfx_entry_13                ; 0x8ba5
     add sp, byte 4                   ; 0x8ba8
     cmp word [bp + 0xa], byte 0      ; 0x8bab
     jle short @..loc_HOII.l1         ; 0x8baf
@@ -45,7 +45,7 @@ loc_HOII:
     push ax                          ; 0x8bbc
     mov ax, 1                        ; 0x8bbd
     push ax                          ; 0x8bc0
-    call thunk_3                     ; 0x8bc1
+    call gfx_entry_12                ; 0x8bc1
     add sp, byte 4                   ; 0x8bc4
     mov ax, 0                        ; 0x8bc7
     push ax                          ; 0x8bca
@@ -59,7 +59,7 @@ loc_HOII:
     mov ax, 0                        ; 0x8bda
     push ax                          ; 0x8bdd
     push ax                          ; 0x8bde
-    call thunk_3                     ; 0x8bdf
+    call gfx_entry_12                ; 0x8bdf
     add sp, byte 4                   ; 0x8be2
     mov ax, 0                        ; 0x8be5
     push ax                          ; 0x8be8

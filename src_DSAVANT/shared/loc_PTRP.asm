@@ -8,7 +8,7 @@ loc_PTRP:
     add ax, word [bp + 0x4]
     dec ax
     push ax
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 7
     push ax
@@ -27,12 +27,12 @@ loc_PTRP:
     imul word [bp + 0x8]
     add ax, word [bp + 0x4]
     push ax
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax
     push ax
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, 2
     push ax
@@ -56,7 +56,7 @@ loc_PTRP:
     push ax
     push word [bp + 0x6]
     push ax
-    call thunk_7
+    call gfx_entry_18
     add sp, byte 0x0a
 @..loc_PTRP.l2:
     ret

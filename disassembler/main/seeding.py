@@ -14,20 +14,15 @@ from lib.symtab import Kind, Source, Symbol
 from lib.cachedirs import aztec_funcs_path
 
 
-def _load_signatures(project=None):
-    """The byte signatures that name routines: first the compiler-runtime ones
-    (Manx Aztec C86 v5.2a) ``make prebuild`` builds per project
-    (.cache/<project>/aztec_funcs.json), then the sidecar's ``signatures``.
-    The program's own routines are named by the sidecar's ``routines``, by
-    content tag."""
-    from lib.sidecar.loader import load as load_sidecar
+def _load_aztec_signatures(project=None):
+    """The compiler-runtime signatures (Manx Aztec C86 v5.2a) ``make prebuild``
+    builds per project (.cache/<project>/aztec_funcs.json).  The program's own
+    routines are named by the sidecar's ``routines``, by content tag."""
     db = {'signatures': []}
     funcs_path = aztec_funcs_path(project) if project else None
     if funcs_path and os.path.exists(funcs_path):
         with open(funcs_path) as f:
             db['signatures'] = list(json.load(f).get('signatures', []))
-    sidecar = load_sidecar(project) if project else None
-    db['signatures'] += list((sidecar or {}).get('signatures', []))
     return db
 
 
@@ -153,6 +148,7 @@ def _label_app_functions(label_map, ctx, instructions):
     ``app_<addr>`` when there is no clear affinity).
     """
     csav_types = getattr(ctx, 'csav_functions', None)
+    ctx.app_callees = {}
     if not csav_types:
         return
     by_addr = {ins.address: ins for ins in instructions}
@@ -168,13 +164,13 @@ def _label_app_functions(label_map, ctx, instructions):
                     else len(ctx.binary_data))
         span = [(a, ins) for a, ins in by_addr.items()
                 if entry <= a < boundary]
+        targets = [ins.operands[0].imm for _, ins in span
+                   if ins.mnemonic in ('call', 'lcall') and ins.operands
+                   and ins.operands[0].imm not in csav_types]
+        ctx.app_callees[entry] = targets
         callees = list(dict.fromkeys(
-            label_map.get(ins.operands[0].imm)
-            for _, ins in span
-            if ins.mnemonic in ('call', 'lcall') and ins.operands
-            and label_map.get(ins.operands[0].imm) not in (
-                None, 'aztec_csav')
-            and ins.operands[0].imm not in csav_types
+            label_map.get(t) for t in targets
+            if label_map.get(t) not in (None, 'aztec_csav')
         ))
 
         if len(callees) == 1 and len(span) <= _APP_WRAPPER_MAX_INSNS:
@@ -194,3 +190,26 @@ def _label_app_functions(label_map, ctx, instructions):
         tag = _app_affinity_tag(callees)
         label_map[entry] = Symbol.generated(
             f'app_{tag}' if tag else 'app', entry, Kind.ROUTINE, role='app')
+
+
+def _retag_app_functions(label_map, ctx, function_roots):
+    """Tag an untagged application function by the names the sidecar's
+    ``routines`` gave its callees since it was named.
+
+    Those names key on content tags, so they arrive after
+    :func:`_label_app_functions` ran; the callees it saw then were unnamed.
+    """
+    for entry, targets in (getattr(ctx, 'app_callees', None) or {}).items():
+        sym = label_map.get(entry)
+        if sym is None or sym.role != 'app' or sym.base != 'app':
+            continue
+        tag = _app_affinity_tag(
+            label_map[t] for t in targets
+            if t in label_map and label_map[t].source is Source.SIDECAR)
+        if not tag:
+            continue
+        label_map[entry] = sym.renamed(
+            str(sym).replace('app', f'app_{tag}', 1), sym.source,
+            base=f'app_{tag}')
+        if function_roots.get(entry) == sym:
+            function_roots[entry] = label_map[entry]

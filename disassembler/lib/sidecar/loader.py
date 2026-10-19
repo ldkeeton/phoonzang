@@ -9,7 +9,7 @@ from .constants import SIDECAR_DIR
 from .errors import SidecarError
 from .pointers import _validate_corpus
 from .ranges import _reject_range_conflicts, _validate_ranges
-from .routines import _validate_routines, _validate_signatures
+from .routines import _validate_routines
 from .vendor import _validate_vendor_patches
 
 
@@ -61,13 +61,30 @@ def _validate(data):
     _validate_compiler_flags(data.get('compiler_flags'))
     _validate_vendor_patches(data.get('vendor_patches'))
     _validate_routines(data.get('routines'))
-    _validate_signatures(data.get('signatures'))
 
     if 'binaries' in data:
         if not isinstance(data['binaries'], dict):
             raise SidecarError('"binaries" must be an object')
         for b_name, b_info in data['binaries'].items():
             _validate_binary(b_name, b_info)
+        geometry = ('base_offset', 'entry_size', 'count', 'format')
+        for b_name, b_info in data['binaries'].items():
+            table = b_info.get('dispatch_table') or {}
+            if 'api' in table:
+                shared = (data['binaries'].get(table['api']) or {}).get(
+                    'dispatch_table') or {}
+                if 'api' in shared or any(
+                        shared.get(k) != table.get(k) for k in geometry):
+                    raise SidecarError(
+                        f'binaries.{b_name}.dispatch_table.api: '
+                        f'{table["api"]!r} has no table of the same shape '
+                        'with its own names')
+            for index, slots in enumerate(b_info.get('driver_slots', [])):
+                driver = slots['driver']
+                if not (data['binaries'].get(driver) or {}).get('dispatch_table'):
+                    raise SidecarError(
+                        f'binaries.{b_name}.driver_slots[{index}].driver: '
+                        f'{driver!r} is not a binary with a "dispatch_table"')
 
     for key in ('force_data', 'force_code'):
         if key in data:

@@ -69,7 +69,7 @@ loc_TRPK:
     push ax                          ; 0x04e8
     mov ax, 1                        ; 0x04e9
     push ax                          ; 0x04ec
-    call thunk_3                     ; 0x04ed
+    call gfx_entry_12                ; 0x04ed
     add sp, byte 4                   ; 0x04f0
     mov ax, word [bp + 0xa]          ; 0x04f3
     add ax, strict word 0xfff3       ; 0x04f6
@@ -87,7 +87,7 @@ loc_TRPK:
     mov ax, 0xa0                     ; 0x0510
     sub ax, cx                       ; 0x0513
     push ax                          ; 0x0515
-    call thunk                       ; 0x0516
+    call gfx_entry_13                ; 0x0516
     add sp, byte 4                   ; 0x0519
     mov ax, 0                        ; 0x051c
     push ax                          ; 0x051f
@@ -179,7 +179,7 @@ loc_TRPK:
     mov ax, 0x1a                     ; 0x05e7
 @..loc_TRPK.l7:
     push ax                          ; 0x05ea
-    call thunk_3                     ; 0x05eb
+    call gfx_entry_12                ; 0x05eb
     add sp, byte 4                   ; 0x05ee
     mov ax, word [bp + 0xa]          ; 0x05f1
     add ax, word [bp - 0x000c]       ; 0x05f4
@@ -205,7 +205,7 @@ loc_TRPK:
     add ax, word [bp - 0x000a]       ; 0x0620
     inc ax                           ; 0x0623
     push ax                          ; 0x0624
-    call thunk                       ; 0x0625
+    call gfx_entry_13                ; 0x0625
     add sp, byte 4                   ; 0x0628
     mov ax, 0                        ; 0x062b
     push ax                          ; 0x062e
@@ -266,7 +266,7 @@ loc_TRPK:
     mov ax, 0                        ; 0x06aa
     push ax                          ; 0x06ad
     push ax                          ; 0x06ae
-    call thunk_4                     ; 0x06af
+    call gfx_entry_16                ; 0x06af
     add sp, byte 8                   ; 0x06b2
     cmp word [bss_0e32], byte 0      ; 0x06b5
     je short @..loc_TRPK.l11         ; 0x06ba
@@ -324,7 +324,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x0730
     dec ax                           ; 0x0733
     push ax                          ; 0x0734
-    call thunk_4                     ; 0x0735
+    call gfx_entry_16                ; 0x0735
     add sp, byte 8                   ; 0x0738
     mov ax, 0                        ; 0x073b
     push ax                          ; 0x073e
@@ -473,7 +473,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x0868
     dec ax                           ; 0x086b
     push ax                          ; 0x086c
-    call thunk_4                     ; 0x086d
+    call gfx_entry_16                ; 0x086d
     add sp, byte 8                   ; 0x0870
 @..loc_TRPK.l25:
     dec word [bp - 0x0004]           ; 0x0873
@@ -534,7 +534,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x08fc
     add ax, strict word 0xfffa       ; 0x08ff
     push ax                          ; 0x0902
-    call thunk_4                     ; 0x0903
+    call gfx_entry_16                ; 0x0903
     add sp, byte 8                   ; 0x0906
     jmp short @..loc_TRPK.l27        ; 0x0909
 @..loc_TRPK.l26:
@@ -550,7 +550,7 @@ loc_TRPK:
     mov ax, word [bp + 0x8]          ; 0x091a
     dec ax                           ; 0x091d
     push ax                          ; 0x091e
-    call thunk_4                     ; 0x091f
+    call gfx_entry_16                ; 0x091f
     add sp, byte 8                   ; 0x0922
 @..loc_TRPK.l27:
     mov ax, word [bp - 0x0004]       ; 0x0925

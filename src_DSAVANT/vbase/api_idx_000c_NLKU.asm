@@ -154,12 +154,12 @@ api_idx_000c_NLKU:
     push ax                          ; 0x41cf
     mov ax, 0x9f94                   ; 0x41d0
     push ax                          ; 0x41d3
-    call thunk_49                    ; 0x41d4
+    call gfx_entry_38                ; 0x41d4
     add sp, byte 4                   ; 0x41d7
     mov ax, 0xffff                   ; 0x41da
     push ax                          ; 0x41dd
     push ax                          ; 0x41de
     push ax                          ; 0x41df
-    call thunk_45                    ; 0x41e0
+    call gfx_reset_rgb               ; 0x41e0
     add sp, byte 6                   ; 0x41e3
     ret                              ; 0x41e6

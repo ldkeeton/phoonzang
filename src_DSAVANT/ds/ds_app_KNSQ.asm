@@ -8,7 +8,7 @@ ds_app_KNSQ: ; Aztec csav frame=0x0000
     push word [bp + 0x8]             ; 0x0eee
     push word [bp + 0x6]             ; 0x0ef1
     push word [bp + 0x4]             ; 0x0ef4
-    call thunk_7                     ; 0x0ef7
+    call gfx_entry_18                ; 0x0ef7
     add sp, byte 0x0a                ; 0x0efa
     push word [bp + 0xa]             ; 0x0efd
     push word [bp + 0x8]             ; 0x0f00

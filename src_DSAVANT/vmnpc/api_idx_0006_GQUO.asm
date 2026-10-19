@@ -48,7 +48,7 @@ api_idx_0006_GQUO:
     push ax                          ; 0x5d84
     mov ax, 0x36                     ; 0x5d85
     push ax                          ; 0x5d88
-    call thunk_4                     ; 0x5d89
+    call gfx_entry_16                ; 0x5d89
     add sp, byte 8                   ; 0x5d8c
     mov ax, word [bp - 0x0004]       ; 0x5d8f
     ret                              ; 0x5d92

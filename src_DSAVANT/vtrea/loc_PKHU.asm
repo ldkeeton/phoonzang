@@ -43,7 +43,7 @@ loc_PKHU:
     add sp, byte 4                   ; 0x810c
     mov ax, 1                        ; 0x810f
     push ax                          ; 0x8112
-    call ds_app_thunk_21_VGJR        ; 0x8113
+    call ds_app_gfx_entry_51_VGJR    ; 0x8113
     pop cx                           ; 0x8116
 @..loc_PKHU.l2:
     inc word [bss_8d12]              ; 0x8117

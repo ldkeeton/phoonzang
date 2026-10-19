@@ -13,7 +13,7 @@ api_idx_0006_IRNH:
     push ax                          ; 0x2b8f
     mov ax, 0x48                     ; 0x2b90
     push ax                          ; 0x2b93
-    call thunk_4                     ; 0x2b94
+    call gfx_entry_16                ; 0x2b94
     add sp, byte 8                   ; 0x2b97
     jmp near @..api_idx_0006_IRNH.l16 ; 0x2b9a
 @..api_idx_0006_IRNH.l2:
@@ -54,7 +54,7 @@ api_idx_0006_IRNH:
     mov bx, ax                       ; 0x2be2
     push word [bx + bss_9062]        ; 0x2be4
     push word [bx + bss_9060]        ; 0x2be8
-    call thunk_12                    ; 0x2bec
+    call gfx_restore_screen          ; 0x2bec
     add sp, byte 8                   ; 0x2bef
     mov word [bp - 0x0002], 0        ; 0x2bf2
 @..api_idx_0006_IRNH.l6:

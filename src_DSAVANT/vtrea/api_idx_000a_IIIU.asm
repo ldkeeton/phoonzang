@@ -25,6 +25,6 @@ api_idx_000a_IIIU:
     push ax                          ; 0x8abb
     mov ax, 1                        ; 0x8abc
     push ax                          ; 0x8abf
-    call thunk_28                    ; 0x8ac0
+    call gfx_draw_text               ; 0x8ac0
     add sp, byte 0x16                ; 0x8ac3
     ret                              ; 0x8ac6

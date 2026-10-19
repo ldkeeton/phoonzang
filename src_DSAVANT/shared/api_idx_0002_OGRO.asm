@@ -7,7 +7,7 @@ api_idx_0002_OGRO:
     push ax
     push word [api_idx_0002_OGRO.bss1]
     push word [api_idx_0002_OGRO.bss2]
-    call thunk_12
+    call gfx_restore_screen
     add sp, byte 8
     mov word [bp - 0x0002], 0
     jmp near @..api_idx_0002_OGRO.l2
@@ -18,7 +18,7 @@ api_idx_0002_OGRO:
     shl ax, 1
     mov bx, ax
     push word [word bx + 0x30]
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, 6
     imul word [bp - 0x0002]
@@ -26,7 +26,7 @@ api_idx_0002_OGRO:
     push ax
     mov ax, 6
     push ax
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax
@@ -42,13 +42,13 @@ api_idx_0002_OGRO:
     push ax
     mov ax, 0x85
     push ax
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 1
     push ax
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, 0
     push ax

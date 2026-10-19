@@ -376,7 +376,7 @@ bss_598c equ __zbss_598c - __zdseg_start
 
 %include "ds/ds_app_string_IIIR.asm"       ; 0x1308
 
-%include "ds/ds_app_thunk_26_VNHP.asm"     ; 0x1371
+%include "ds/ds_app_gfx_entry_22_VNHP.asm" ; 0x1371
 
 bss_5b6c equ __zbss_5b6c - __zdseg_start
 bss_5b6e equ __zbss_5b6e - __zdseg_start
@@ -474,7 +474,7 @@ bss_82b6  equ __zbss_82b6 - __zdseg_start
 %include "ds/ds_app_file_KRUQ.asm"         ; 0x2a2e
 
 ; bss_82b6 equ __zbss_82b6 - __zdseg_start
-%include "ds/ds_app_thunk_21_VGJR.asm"     ; 0x2b4e
+%include "ds/ds_app_gfx_entry_51_VGJR.asm" ; 0x2b4e
 
 %include "ds/animate_sprite_up.asm"        ; 0x2b62
 
@@ -740,11 +740,11 @@ cseg_384a:
 
 %include "ds/asm_only/ds_loc_UQOV.asm"              ; 0x39f6
 
-%include "ds/asm_only/thunk.asm"                    ; 0x3a50
+%include "ds/asm_only/gfx_entry_13.asm"             ; 0x3a50
 
-%include "ds/asm_only/thunk_2.asm"                  ; 0x3a5d
+%include "ds/asm_only/gfx_entry_14.asm"             ; 0x3a5d
 
-%include "ds/asm_only/thunk_3.asm"                  ; 0x3a6a
+%include "ds/asm_only/gfx_entry_12.asm"             ; 0x3a6a
 
 %include "ds/asm_only/ds_loc_TJTV.asm"              ; 0x3a77
 
@@ -752,25 +752,25 @@ cseg_384a:
 
 %include "ds/asm_only/ds_loc_JJGM.asm"              ; 0x3aca
 
-%include "ds/asm_only/thunk_4.asm"                  ; 0x3b21
+%include "ds/asm_only/gfx_entry_16.asm"             ; 0x3b21
 
-%include "ds/asm_only/thunk_5.asm"                  ; 0x3b2e
+%include "ds/asm_only/gfx_entry_15.asm"             ; 0x3b2e
 
-%include "ds/asm_only/thunk_6.asm"                  ; 0x3b3b
+%include "ds/asm_only/gfx_entry_17.asm"             ; 0x3b3b
 
-%include "ds/asm_only/thunk_7.asm"                  ; 0x3b48
+%include "ds/asm_only/gfx_entry_18.asm"             ; 0x3b48
 
-%include "ds/asm_only/thunk_8.asm"                  ; 0x3b55
+%include "ds/asm_only/gfx_entry_19.asm"             ; 0x3b55
 
-%include "ds/asm_only/thunk_9.asm"                  ; 0x3b62
+%include "ds/asm_only/gfx_entry_40.asm"             ; 0x3b62
 
-%include "ds/asm_only/thunk_10.asm"                 ; 0x3b6f
+%include "ds/asm_only/gfx_save_area.asm"            ; 0x3b6f
 
-%include "ds/asm_only/thunk_11.asm"                 ; 0x3b7c
+%include "ds/asm_only/gfx_cache_area.asm"           ; 0x3b7c
 
-%include "ds/asm_only/thunk_12.asm"                 ; 0x3b89
+%include "ds/asm_only/gfx_restore_screen.asm"       ; 0x3b89
 
-%include "ds/asm_only/thunk_13.asm"                 ; 0x3b96
+%include "ds/asm_only/gfx_restore_area.asm"         ; 0x3b96
 
 %include "ds/asm_only/ds_loc_JRJK.asm"              ; 0x3ba3
 
@@ -808,85 +808,85 @@ cseg_3c7f:
 
 %include "ds/asm_only/strstr.asm"                   ; 0x40ca
 
-%include "ds/asm_only/thunk_14.asm"                 ; 0x4134
+%include "ds/asm_only/gfx_entry_45.asm"             ; 0x4134
 
-%include "ds/asm_only/thunk_15.asm"                 ; 0x4141
+%include "ds/asm_only/gfx_load_sound.asm"           ; 0x4141
 
-%include "ds/asm_only/thunk_16.asm"                 ; 0x414e
+%include "ds/asm_only/gfx_entry_46.asm"             ; 0x414e
 
-%include "ds/asm_only/thunk_17.asm"                 ; 0x415b
+%include "ds/asm_only/gfx_entry_47.asm"             ; 0x415b
 
-%include "ds/asm_only/thunk_18.asm"                 ; 0x4168
+%include "ds/asm_only/gfx_entry_48.asm"             ; 0x4168
 
 %include "ds/asm_only/ds_loc_QURR.asm"              ; 0x4175
 
-%include "ds/asm_only/thunk_19.asm"                 ; 0x41a3
+%include "ds/asm_only/gfx_load_score.asm"           ; 0x41a3
 
-%include "ds/asm_only/thunk_20.asm"                 ; 0x41b0
+%include "ds/asm_only/gfx_entry_50.asm"             ; 0x41b0
 
-%include "ds/asm_only/thunk_21.asm"                 ; 0x41bd
+%include "ds/asm_only/gfx_entry_51.asm"             ; 0x41bd
 
-%include "ds/asm_only/thunk_22.asm"                 ; 0x41ca
+%include "ds/asm_only/gfx_entry_52.asm"             ; 0x41ca
 
-%include "ds/asm_only/thunk_23.asm"                 ; 0x41d7
+%include "ds/asm_only/gfx_entry_53.asm"             ; 0x41d7
 
-%include "ds/asm_only/thunk_24.asm"                 ; 0x41e4
+%include "ds/asm_only/gfx_entry_54.asm"             ; 0x41e4
 
-%include "ds/asm_only/thunk_25.asm"                 ; 0x41f1
+%include "ds/asm_only/gfx_load_picture.asm"         ; 0x41f1
 
-%include "ds/asm_only/thunk_26.asm"                 ; 0x41fe
+%include "ds/asm_only/gfx_entry_22.asm"             ; 0x41fe
 
-%include "ds/asm_only/thunk_27.asm"                 ; 0x420b
+%include "ds/asm_only/gfx_entry_35.asm"             ; 0x420b
 
-%include "ds/asm_only/thunk_28.asm"                 ; 0x4218
+%include "ds/asm_only/gfx_draw_text.asm"            ; 0x4218
 
-%include "ds/asm_only/thunk_29.asm"                 ; 0x4225
+%include "ds/asm_only/gfx_load_screen.asm"          ; 0x4225
 
-%include "ds/asm_only/thunk_30.asm"                 ; 0x4232
+%include "ds/asm_only/gfx_entry_36.asm"             ; 0x4232
 
-%include "ds/asm_only/thunk_31.asm"                 ; 0x423f
+%include "ds/asm_only/gfx_save_screen.asm"          ; 0x423f
 
-%include "ds/asm_only/thunk_32.asm"                 ; 0x424c
+%include "ds/asm_only/gfx_entry_27.asm"             ; 0x424c
 
-%include "ds/asm_only/thunk_33.asm"                 ; 0x4259
+%include "ds/asm_only/gfx_load_maze.asm"            ; 0x4259
 
-%include "ds/asm_only/thunk_34.asm"                 ; 0x4266
+%include "ds/asm_only/gfx_draw_maze_piece.asm"      ; 0x4266
 
-%include "ds/asm_only/thunk_35.asm"                 ; 0x4273
+%include "ds/asm_only/gfx_entry_00.asm"             ; 0x4273
 
-%include "ds/asm_only/thunk_36.asm"                 ; 0x4280
+%include "ds/asm_only/gfx_mouse_off.asm"            ; 0x4280
 
-%include "ds/asm_only/thunk_37.asm"                 ; 0x428d
+%include "ds/asm_only/gfx_entry_02.asm"             ; 0x428d
 
-%include "ds/asm_only/thunk_38.asm"                 ; 0x429a
+%include "ds/asm_only/gfx_entry_23.asm"             ; 0x429a
 
-%include "ds/asm_only/thunk_39.asm"                 ; 0x42a7
+%include "ds/asm_only/gfx_set_mouse_pointer.asm"    ; 0x42a7
 
 %include "ds/asm_only/mouse_set_pos.asm"            ; 0x42b4
 
-%include "ds/asm_only/thunk_40.asm"                 ; 0x42dd
+%include "ds/asm_only/gfx_entry_25.asm"             ; 0x42dd
 
-%include "ds/asm_only/thunk_41.asm"                 ; 0x42ea
+%include "ds/asm_only/gfx_entry_28.asm"             ; 0x42ea
 
-%include "ds/asm_only/thunk_42.asm"                 ; 0x42f7
+%include "ds/asm_only/gfx_entry_29.asm"             ; 0x42f7
 
-%include "ds/asm_only/thunk_43.asm"                 ; 0x4304
+%include "ds/asm_only/gfx_fade_in.asm"              ; 0x4304
 
-%include "ds/asm_only/thunk_44.asm"                 ; 0x4311
+%include "ds/asm_only/gfx_fade_out.asm"             ; 0x4311
 
-%include "ds/asm_only/thunk_45.asm"                 ; 0x431e
+%include "ds/asm_only/gfx_reset_rgb.asm"            ; 0x431e
 
-%include "ds/asm_only/thunk_46.asm"                 ; 0x432b
+%include "ds/asm_only/gfx_entry_33.asm"             ; 0x432b
 
-%include "ds/asm_only/thunk_47.asm"                 ; 0x4338
+%include "ds/asm_only/gfx_entry_34.asm"             ; 0x4338
 
-%include "ds/asm_only/thunk_48.asm"                 ; 0x4345
+%include "ds/asm_only/gfx_entry_37.asm"             ; 0x4345
 
-%include "ds/asm_only/thunk_49.asm"                 ; 0x4352
+%include "ds/asm_only/gfx_entry_38.asm"             ; 0x4352
 
-%include "ds/asm_only/thunk_50.asm"                 ; 0x435f
+%include "ds/asm_only/gfx_cache_maze.asm"           ; 0x435f
 
-%include "ds/asm_only/thunk_51.asm"                 ; 0x436c
+%include "ds/asm_only/gfx_entry_43.asm"             ; 0x436c
 
 ovname equ __zbss_0cfa - __zdseg_start
 %include "ds/aztec_ovloader.asm"           ; 0x4379

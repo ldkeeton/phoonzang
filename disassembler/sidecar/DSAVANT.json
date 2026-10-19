@@ -47,47 +47,63 @@
       ]
     }
   },
-  "signatures": [
-    {"name": "dos_resize_mem", "notes": "INT 21h AH=0x4A resize memory block", "entries": [], "patterns": ["B4 4A CD 21"]},
-    {"name": "dos_alloc_mem", "notes": "INT 21h AH=0x48 allocate memory block", "entries": [], "patterns": ["B4 48 CD 21"]},
-    {"name": "dos_free_mem", "notes": "INT 21h AH=0x49 free memory block", "entries": [], "patterns": ["B4 49 CD 21"]},
-    {"name": "dos_open_file", "notes": "INT 21h AH=0x3D open file", "entries": [], "patterns": ["B4 3D CD 21"]},
-    {"name": "dos_close_file", "notes": "INT 21h AH=0x3E close file", "entries": [], "patterns": ["B4 3E CD 21"]},
-    {"name": "dos_read_file", "notes": "INT 21h AH=0x3F read file", "entries": [], "patterns": ["B4 3F CD 21"]},
-    {"name": "dos_write_file", "notes": "INT 21h AH=0x40 write file", "entries": [], "patterns": ["B4 40 CD 21"]},
-    {"name": "dos_seek_file", "notes": "INT 21h AH=0x42 seek file", "entries": [], "patterns": ["B4 42 CD 21"]},
-    {"name": "dos_get_intvec", "notes": "INT 21h AH=0x35 get interrupt vector", "entries": [], "patterns": ["B4 35 CD 21"]},
-    {"name": "dos_set_intvec", "notes": "INT 21h AH=0x25 set interrupt vector", "entries": [], "patterns": ["B4 25 CD 21"]},
-    {"name": "dos_print_str", "notes": "INT 21h AH=0x09 print string", "entries": [], "patterns": ["B4 09 CD 21"]},
-    {"name": "strpos", "notes": "char index in string; 0xFFFF if absent; repne scasb", "entries": [], "patterns": ["55 8B EC FC 06 57"]},
-    {"name": "strstr", "notes": "substring offset; 0xFFFF if absent; repne scasb", "entries": [], "patterns": ["55 8B EC FC 83 EC 06 1E"]},
-    {"name": "sprintf", "notes": "printf-family formatter; scans format for '%'", "entries": [], "patterns": ["55 8B EC 81 EC 54 01"]},
-    {"name": "thunk", "note": "push bp; mov bp,sp; cld; call far [cs:slot]: a far call through a driver jump-table slot", "patterns": ["55 8B EC FC 2E FF 1E"]},
-    {"name": "strcmp", "notes": "16-bit strcmp (repe cmpsb)", "entries": [], "patterns": ["F3 A6"]},
-    {"name": "memcpy", "notes": "16-bit memcpy (rep movsb, cld)", "entries": [], "patterns": ["FC F3 A4"]},
-    {"name": "memset", "notes": "16-bit memset (rep stosb, cld)", "entries": [], "patterns": ["FC F3 AA"]},
-    {"name": "abs", "notes": "16-bit abs (cwd, xor, sub)", "entries": [], "patterns": ["99 31 D0 29 D0"]},
-    {"name": "stack_alloc_check", "notes": "Stack allocation guard (add sp, ax; cmp sp, bp)", "entries": [], "patterns": ["03 E0 3B E5"]},
-    {"name": "dos_delete_file", "notes": "INT 21h AH=0x41 delete file", "entries": [], "patterns": ["B4 41 CD 21"]},
-    {"name": "dos_rename_file", "notes": "INT 21h AH=0x56 rename file", "entries": [], "patterns": ["B4 56 CD 21"]},
-    {"name": "dos_con_in", "notes": "INT 21h AH=0x01 console input with echo", "entries": [], "patterns": ["B4 01 CD 21"]},
-    {"name": "dos_con_in_noecho", "notes": "INT 21h AH=0x07 console input without echo", "entries": [], "patterns": ["B4 07 CD 21"]},
-    {"name": "bios_get_video_mode", "notes": "INT 10h AH=0x0F get current video mode", "entries": [], "patterns": ["B4 0F CD 10"]},
-    {"name": "bios_kbd_check", "notes": "INT 16h AH=0x01 check keyboard buffer", "entries": [], "patterns": ["B4 01 CD 16"]},
-    {"name": "ems_get_handle_pages", "notes": "INT 67h AH=0x41 get EMS handle page count", "entries": [], "patterns": ["B4 41 CD 67"]},
-    {"name": "ems_map_memory", "notes": "INT 67h AH=0x42 map EMS memory page", "entries": [], "patterns": ["B4 42 CD 67"]},
-    {"name": "ems_get_page_frame", "notes": "INT 67h AH=0x45 get EMS page frame segment", "entries": [], "patterns": ["B4 45 CD 67"]},
-    {"name": "bios_kbd_read", "notes": "INT 16h AH=0x00 read keyboard character", "entries": [], "patterns": ["B4 00 CD 16"]},
-    {"name": "ems_get_handle_name", "notes": "INT 67h AH=0x43 get EMS handle name", "entries": [], "patterns": ["B4 43 CD 67"]},
-    {"name": "dos_exit", "notes": "INT 21h AH=0x4C exit with return code", "entries": [], "patterns": ["B8 01 4C CD 21"]},
-    {"name": "dos_ioctl", "notes": "INT 21h AH=0x44 IOCTL", "entries": [], "patterns": ["B8 00 44 CD 21"]},
-    {"name": "bios_set_video_mode", "notes": "INT 10h AH=0x00 set video mode (any AL)", "entries": [], "patterns": ["B8 13 00 CD 10", "B8 0E 00 CD 10"]},
-    {"name": "bios_set_palette", "notes": "INT 10h AH=0x10 set palette register", "entries": [], "patterns": ["B8 02 10 CD 10"]},
-    {"name": "mouse_init", "notes": "INT 33h AX=0x0000 mouse init/reset", "entries": [], "patterns": ["B8 00 00 CD 33"]},
-    {"name": "mouse_set_pos", "notes": "INT 33h AX=0x0004 set mouse cursor position", "entries": [], "entry_offset": 28, "has_prologue": true, "patterns": ["B8 04 00 CD 33"]},
-    {"name": "aztec_begin", "notes": "Aztec C86 small-model startup ($begin, SBEGIN.ASM) as linked here; the C.LIB sbegin.o is patched with an extra CS:PSP save, so the library bytes differ; the sidecar's vendor_patches.aztec_begin records the edits that make SBEGIN.ASM match", "entries": [], "entry_offset": 0, "patterns": ["BD F6 0F 85 ED 75 02 8C DD 2E 8C 1E 38 4B 8B 1E 02 00 2B DD 81 FB 00 10"]}
-  ],
   "routines": {
+    "bios_mouse_loc_JUMM": {
+      "name": "mouse_init",
+      "note": "ega: resets the mouse (INT 33h AX=0) and sets its range and pointer"
+    },
+    "bios_mouse_loc_KLNH": {
+      "name": "mouse_init",
+      "note": "vga: resets the mouse (INT 33h AX=0) and sets its range and pointer"
+    },
+    "bios_video_loc_TLVT": {
+      "name": "bios_get_video_mode",
+      "note": "ds: reads the video mode (INT 10h AH=0Fh) and probes for VGA (AX=1A00h)"
+    },
+    "dos_mem_loc_JGSR": {
+      "name": "dos_alloc_mem",
+      "note": "ds: reads a 16-byte header, allocates the block (INT 21h AH=48h), reads the body"
+    },
+    "dos_file_loc_IRLV": {
+      "name": "dos_read_file",
+      "note": "ds: seeks to index x record size, then reads one record (INT 21h AH=3Fh)"
+    },
+    "bios_kbd_loc_UHUN": {
+      "name": "dos_con_in_noecho",
+      "note": "ds: keyboard input; reads keys with INT 21h AH=7"
+    },
+    "dos_con_loc_NPLP": {
+      "name": "dos_con_in_noecho_2",
+      "note": "ds: keyboard input; reads keys with INT 21h AH=7"
+    },
+    "bios_kbd_loc_TNOP": {
+      "name": "bios_kbd_check",
+      "note": "ds: drains the keyboard (INT 16h AH=1/AH=0), then a driver call"
+    },
+    "dos_con_loc_RMQM": {
+      "name": "dos_read_file_2",
+      "note": "ds: reads 0x400 bytes into a fixed buffer (INT 21h AH=3Fh)"
+    },
+    "leaf_loc_MIUQ": {
+      "name": "strpos",
+      "note": "ds: index of a char in a string, 0xFFFF if absent (repne scasb)"
+    },
+    "loc_LIPQ": {
+      "name": "strstr",
+      "note": "ds: offset of a substring, 0xFFFF if absent"
+    },
+    "bios_mouse_loc_OJJH": {
+      "name": "mouse_set_pos",
+      "note": "ds: INT 33h AX=4 when a mouse is present"
+    },
+    "dos_con_loc_KQTJ": {
+      "name": "dos_con_in_noecho",
+      "note": "vinstall: INT 21h AH=7, returns the key"
+    },
+    "bios_video_loc_SKHM": {
+      "name": "bios_kbd_check",
+      "note": "vinstall: INT 16h AH=1; 1 when a key waits"
+    },
     "api_idx_000a_IQHO": {
       "name": "draw_fill_action_slot_table"
     },
@@ -166,6 +182,15 @@
         {"start": "343e", "end": "348f", "note": "Code resumes immediately after the data table"},
         {"start": "3490", "end": "34f5", "note": "Code entries immediately following the return at 0x348f"},
         {"start": "457c", "end": "45aa", "note": "Alternate strlen_3 entry with BP-frame prologue"}
+      ],
+      "driver_slots": [
+        {
+          "offset": "2f87",
+          "count": 55,
+          "driver": "ega",
+          "prefix": "gfx",
+          "note": "far pointers to the graphics driver's jump-table entries (EGA.DRV or VGA.DRV, same table); slot n holds 0x0103+4n until the loader sets the segment"
+        }
       ],
       "jump_tables": [
         {"table": "0363", "jmp": "03a9", "entry_size": 2, "count": 31, "note": "Switch table for the 0x03a9 cs:[bx+0x163] indirect jump; six distinct targets, some entries repeat"},
@@ -387,7 +412,8 @@
         "base_offset": 3,
         "entry_size": 4,
         "count": 55,
-        "format": "e8_rel16_cb"
+        "format": "e8_rel16_cb",
+        "api": "ega"
       },
       "force_data": [
         {"start": "00df", "end": "0292", "note": "(value,size) pairs + the 8-entry host callback ladder up to the first routine at 0x0293 -- not code"}
@@ -421,7 +447,27 @@
         "base_offset": 3,
         "entry_size": 4,
         "count": 55,
-        "format": "e8_rel16_cb"
+        "format": "e8_rel16_cb",
+        "names": {
+          "1": "mouse_off",
+          "5": "load_picture",
+          "6": "draw_text",
+          "7": "load_screen",
+          "8": "load_maze",
+          "9": "draw_maze_piece",
+          "20": "save_area",
+          "21": "restore_area",
+          "24": "set_mouse_pointer",
+          "26": "save_screen",
+          "30": "fade_in",
+          "31": "fade_out",
+          "32": "reset_rgb",
+          "39": "cache_area",
+          "41": "restore_screen",
+          "42": "cache_maze",
+          "44": "load_sound",
+          "49": "load_score"
+        }
       },
       "force_data": [
         {"start": "00df", "end": "0292", "note": "(value,size) pairs + the 8-entry host callback ladder up to the first routine at 0x0293 -- not code"}

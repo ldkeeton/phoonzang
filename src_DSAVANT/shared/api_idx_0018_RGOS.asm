@@ -20,7 +20,7 @@ api_idx_0018_RGOS:
     mov ax, word [bp + 0x8]
     dec ax
     push ax
-    call thunk_10
+    call gfx_save_area
     add sp, byte 8
     mov word [bp - 0x0016], dx
     mov word [bp - 0x0018], ax
@@ -68,13 +68,13 @@ api_idx_0018_RGOS:
     add ax, word [bp + 0x8]
     inc ax
     push ax
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0xc0
     push ax
     mov ax, 0x1a
     push ax
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, 0
     push ax
@@ -96,12 +96,12 @@ api_idx_0018_RGOS:
     add ax, word [bp + 0xa]
     push ax
     push word [bp + 0x8]
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
     mov ax, 1
     push ax
     push word [bp - 0x0016]
     push word [bp - 0x0018]
-    call thunk_13
+    call gfx_restore_area
     add sp, byte 6
     ret

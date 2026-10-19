@@ -8,14 +8,14 @@ api_idx_0080_MHMQ:
     push ax
     push word [api_idx_0080_MHMQ.bss1]
     push word [api_idx_0080_MHMQ.bss2]
-    call thunk_12
+    call gfx_restore_screen
     add sp, byte 8
     mov ax, 0
     push ax
     push ax
     push word [api_idx_0080_MHMQ.bss3]
     push word [api_idx_0080_MHMQ.bss4]
-    call thunk_12
+    call gfx_restore_screen
     add sp, byte 8
     push word [bp + 0x4]
     call api_idx_0080_MHMQ.api_idx1
@@ -115,7 +115,7 @@ api_idx_0080_MHMQ:
     push ax
     mov ax, 0xeb
     push ax
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, 0x1e
     push ax
@@ -132,7 +132,7 @@ api_idx_0080_MHMQ:
     mov ax, 0x10e
     sub ax, cx
     push ax
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax
@@ -160,7 +160,7 @@ api_idx_0080_MHMQ:
     mov bx, ax
     add bx, bp
     push word [bx - 0x0074]
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax
@@ -178,7 +178,7 @@ api_idx_0080_MHMQ:
     mov ax, 0xeb
 @..api_idx_0080_MHMQ.l5:
     push ax
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, 0x248
     imul word [bp + 0x4]

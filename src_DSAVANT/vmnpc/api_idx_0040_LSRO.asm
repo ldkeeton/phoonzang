@@ -111,10 +111,10 @@ jumptable_36f8_case_4:
     je short @..api_idx_0040_LSRO.l8 ; 0x2c96
     mov ax, 1                        ; 0x2c98
     push ax                          ; 0x2c9b
-    call thunk_17                    ; 0x2c9c
+    call gfx_entry_47                ; 0x2c9c
     pop cx                           ; 0x2c9f
     push word [bp - 0x002c]          ; 0x2ca0
-    call ds_app_thunk_26_VNHP        ; 0x2ca3
+    call ds_app_gfx_entry_22_VNHP    ; 0x2ca3
     pop cx                           ; 0x2ca6
 @..api_idx_0040_LSRO.l8:
     push word [bp - 0x002c]          ; 0x2ca7

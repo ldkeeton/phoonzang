@@ -25,7 +25,7 @@ loc_HRLN:
     push ax                          ; 0x2ed8
     push word [bp + 0x6]             ; 0x2ed9
     push word [bp + 0x4]             ; 0x2edc
-    call thunk_7                     ; 0x2edf
+    call gfx_entry_18                ; 0x2edf
     add sp, byte 0x0a                ; 0x2ee2
     mov ax, word [bp + 0x6]          ; 0x2ee5
     inc ax                           ; 0x2ee8
@@ -34,7 +34,7 @@ loc_HRLN:
     inc ax                           ; 0x2eed
     inc ax                           ; 0x2eee
     push ax                          ; 0x2eef
-    call thunk                       ; 0x2ef0
+    call gfx_entry_13                ; 0x2ef0
     add sp, byte 4                   ; 0x2ef3
     cmp word [bp + 0xa], byte 0      ; 0x2ef6
     jle short @..loc_HRLN.l1         ; 0x2efa
@@ -45,7 +45,7 @@ loc_HRLN:
     push ax                          ; 0x2f07
     mov ax, 1                        ; 0x2f08
     push ax                          ; 0x2f0b
-    call thunk_3                     ; 0x2f0c
+    call gfx_entry_12                ; 0x2f0c
     add sp, byte 4                   ; 0x2f0f
     mov ax, 0                        ; 0x2f12
     push ax                          ; 0x2f15
@@ -59,7 +59,7 @@ loc_HRLN:
     mov ax, 0                        ; 0x2f25
     push ax                          ; 0x2f28
     push ax                          ; 0x2f29
-    call thunk_3                     ; 0x2f2a
+    call gfx_entry_12                ; 0x2f2a
     add sp, byte 4                   ; 0x2f2d
     mov ax, 0                        ; 0x2f30
     push ax                          ; 0x2f33

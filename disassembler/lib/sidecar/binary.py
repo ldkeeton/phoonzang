@@ -3,6 +3,7 @@
 from .constants import _BINARY_TYPES, _IDENTIFIER
 from .errors import SidecarError
 from .external_data import _external_data_map, _validate_external_data
+from .offsets import _parse_offset
 from .jump_tables import _validate_jump_tables, _validate_code_tables
 from .pointers import (_expand_pointer_arrays, _pointer_assertions,
                        _validate_corpus)
@@ -38,11 +39,67 @@ def _validate_binary(name, info):
     if 'code_tables' in info:
         _validate_code_tables(info['code_tables'], f'binaries.{name}.code_tables')
 
+    if 'driver_slots' in info:
+        _validate_driver_slots(info['driver_slots'], f'binaries.{name}.driver_slots')
+
+    if 'dispatch_table' in info:
+        _validate_entry_names(info['dispatch_table'],
+                              f'binaries.{name}.dispatch_table')
+
     if 'external_data' in info:
         _validate_external_data(info['external_data'],
                                 f'binaries.{name}.external_data')
 
     _validate_corpus(info, f'binaries.{name}')
+
+
+def _validate_entry_names(table, where):
+    """A ``dispatch_table``'s ``names`` (``{entry number: name}``), or its
+    ``api``: the binary whose table it shares names with."""
+    names = table.get('names')
+    if names is not None:
+        if 'api' in table:
+            raise SidecarError(f'{where}: "names" and "api" exclude each other')
+        if not isinstance(names, dict):
+            raise SidecarError(f'{where}.names must be an object')
+        for key, entry_name in names.items():
+            if not (key.isdigit() and int(key) < table.get('count', 0)):
+                raise SidecarError(f'{where}.names[{key}]: not an entry number')
+            if not (isinstance(entry_name, str) and _IDENTIFIER.match(entry_name)):
+                raise SidecarError(f'{where}.names[{key}] must be an identifier')
+    if 'api' in table and not isinstance(table['api'], str):
+        raise SidecarError(f'{where}.api must be a binary name')
+
+
+def _entry_names(sidecar, table):
+    """*table* with the ``names`` it has or shares through ``api``."""
+    if not table or 'api' not in table:
+        return table
+    shared = sidecar['binaries'][table['api']]['dispatch_table']
+    return dict(table, names=shared.get('names', {}))
+
+
+def _validate_driver_slots(tables, where):
+    """``driver_slots``: the far-pointer tables a program calls a driver's API
+    through (``offset``/``count``), each with the binary whose
+    ``dispatch_table`` it points into (``driver``) and the ``prefix`` its
+    thunks are named with."""
+    if not isinstance(tables, list):
+        raise SidecarError(f'{where} must be a list')
+    for index, slots in enumerate(tables):
+        at = f'{where}[{index}]'
+        if not isinstance(slots, dict):
+            raise SidecarError(f'{at} must be an object')
+        _parse_offset(slots.get('offset'), f'{at}.offset')
+        count = slots.get('count')
+        if isinstance(count, bool) or not isinstance(count, int) or count <= 0:
+            raise SidecarError(f'{at}.count must be a positive integer')
+        if not isinstance(slots.get('driver'), str):
+            raise SidecarError(f'{at}.driver must be a binary name')
+        if not (isinstance(slots.get('prefix'), str)
+                and _IDENTIFIER.match(slots['prefix'])):
+            raise SidecarError(f'{at}.prefix must be an identifier: the '
+                               'thunks are named <prefix>_<entry name>')
 
 
 def per_binary(sidecar, short_name):
@@ -65,6 +122,7 @@ def per_binary(sidecar, short_name):
         'routines': sidecar.get('routines', {}),
         'vendor_patches': sidecar.get('vendor_patches', {}),
         'dispatch_table': None,
+        'driver_slots': [],
         'immediate_labels': {},
         'external_data': {},
         'jump_tables': [],
@@ -88,7 +146,12 @@ def per_binary(sidecar, short_name):
             result['start_offset'] = b.get('start_offset')
             result['entry_symbol'] = b.get('entry_symbol')
             result['function_names'] = b.get('function_names', {})
-            result['dispatch_table'] = b.get('dispatch_table')
+            result['dispatch_table'] = _entry_names(
+                sidecar, b.get('dispatch_table'))
+            result['driver_slots'] = [
+                dict(slots, dispatch_table=_entry_names(
+                    sidecar, sidecar['binaries'][slots['driver']]['dispatch_table']))
+                for slots in b.get('driver_slots', [])]
             result['immediate_labels'] = b.get('immediate_labels', {})
             result['external_data'] = _external_data_map(b.get('external_data', {}))
             result['jump_tables'] = b.get('jump_tables', [])
@@ -127,6 +190,10 @@ def _expected_use(result, short_name):
             use.expect(key, t['table'])
     if result['dispatch_table']:
         use.expect('dispatch_table', 'table')
+        for n in result['dispatch_table'].get('names') or {}:
+            use.expect('dispatch_table.names', n)
+    for slots in result['driver_slots']:
+        use.expect('driver_slots', slots['offset'])
     for hex_off in result['function_names']:
         use.expect('function_names', hex_off)
     if result['entry_symbol']:

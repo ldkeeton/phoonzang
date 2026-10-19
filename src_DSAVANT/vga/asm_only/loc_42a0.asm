@@ -35,4 +35,4 @@ loc_42ea:
     mov es, ax                       ; 0x42f6
     call string_loc_RQON             ; 0x42f8
     xor ax, ax                       ; 0x42fb
-    jmp near @..dos_read_file_6.l3   ; 0x42fd
+    jmp near @..load_sound.l3        ; 0x42fd

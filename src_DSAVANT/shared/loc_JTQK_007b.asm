@@ -1,5 +1,5 @@
 ; auto-generated
 ; asm only
 loc_JTQK_007b:
-    call loc_JTQK_007b.leaf_loc1
-    retf
+    call fade_in                     ; 0x007b
+    retf                             ; 0x007e

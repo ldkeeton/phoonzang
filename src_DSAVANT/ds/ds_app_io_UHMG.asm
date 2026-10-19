@@ -57,7 +57,7 @@ ds_app_io_UHMG: ; Aztec csav frame=0x0004
     cmp word [bss_0e32], byte 0      ; 0x0bde
     je short @..ds_app_io_UHMG.l7    ; 0x0be3
     push word [bp + 0x4]             ; 0x0be5
-    call thunk_37                    ; 0x0be8
+    call gfx_entry_02                ; 0x0be8
     pop cx                           ; 0x0beb
     mov word [bp - 0x0002], ax       ; 0x0bec
 @..ds_app_io_UHMG.l7:

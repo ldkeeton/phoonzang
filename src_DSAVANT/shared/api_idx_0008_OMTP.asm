@@ -10,7 +10,7 @@ api_idx_0008_OMTP:
     push ax
     mov ax, 0
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
     push word [bp + 0x4]
     call aztec_strlen
@@ -39,7 +39,7 @@ api_idx_0008_OMTP:
     mov ax, 0x92
     push ax
     push word [bp - 0x0002]
-    call thunk_10
+    call gfx_save_area
     add sp, byte 8
     mov word [bp - 0x0006], dx
     mov word [bp - 0x0008], ax
@@ -47,12 +47,12 @@ api_idx_0008_OMTP:
     push ax
     mov ax, 0x16
     push ax
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, 0x92
     push ax
     push word [bp - 0x0002]
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax
@@ -65,13 +65,13 @@ api_idx_0008_OMTP:
     mov ax, 0x92
     push ax
     push word [bp - 0x0002]
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
     mov ax, 1
     push ax
     push word [bp - 0x0006]
     push word [bp - 0x0008]
-    call thunk_13
+    call gfx_restore_area
     add sp, byte 6
     call bios_kbd_check
     ret

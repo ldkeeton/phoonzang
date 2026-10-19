@@ -85,5 +85,38 @@ class RoutineEntryTest(unittest.TestCase):
                                              'library': ['printf']}})
 
 
+class DriverSlotsTest(unittest.TestCase):
+    def test_a_slot_table_names_a_binary_with_a_dispatch_table(self):
+        from lib.sidecar.loader import _validate
+        slots = {'offset': '2f87', 'count': 55, 'driver': 'ega',
+                 'prefix': 'gfx'}
+        table = {'base_offset': 3, 'entry_size': 4, 'count': 55,
+                 'format': 'e8_rel16_cb'}
+        _validate({'app': 'P', 'binaries': {
+            'ds': {'driver_slots': [slots]},
+            'ega': {'dispatch_table': table}}})
+        with self.assertRaisesRegex(SidecarError, 'driver_slots\\[0\\]'
+                                                  '.driver'):
+            _validate({'app': 'P', 'binaries': {
+                'ds': {'driver_slots': [slots]}, 'ega': {}}})
+
+
+    def test_a_driver_shares_its_entry_names_through_api(self):
+        from lib.sidecar.loader import _validate
+        table = {'base_offset': 3, 'entry_size': 4, 'count': 55,
+                 'format': 'e8_rel16_cb'}
+        named = dict(table, names={'8': 'load_maze'})
+        _validate({'app': 'P', 'binaries': {
+            'ega': {'dispatch_table': named},
+            'vga': {'dispatch_table': dict(table, api='ega')}}})
+        with self.assertRaisesRegex(SidecarError, r'names\[55\]'):
+            _validate({'app': 'P', 'binaries': {
+                'ega': {'dispatch_table': dict(table, names={'55': 'x'})}}})
+        with self.assertRaisesRegex(SidecarError, 'dispatch_table.api'):
+            _validate({'app': 'P', 'binaries': {
+                'ega': {'dispatch_table': named},
+                'vga': {'dispatch_table': dict(table, count=8, api='ega')}}})
+
+
 if __name__ == '__main__':
     unittest.main()

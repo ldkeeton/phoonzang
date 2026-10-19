@@ -68,7 +68,7 @@ api_idx_0004_IMVS:
     push ax                          ; 0x0e9e
     mov ax, 0x19                     ; 0x0e9f
     push ax                          ; 0x0ea2
-    call thunk_4                     ; 0x0ea3
+    call gfx_entry_16                ; 0x0ea3
     add sp, byte 8                   ; 0x0ea6
     mov ax, 1                        ; 0x0ea9
     push ax                          ; 0x0eac

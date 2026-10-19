@@ -25,6 +25,6 @@ api_idx_000a_UMQI:
     push ax                          ; 0x1a3f
     mov ax, 1                        ; 0x1a40
     push ax                          ; 0x1a43
-    call thunk_28                    ; 0x1a44
+    call gfx_draw_text               ; 0x1a44
     add sp, byte 0x16                ; 0x1a47
     ret                              ; 0x1a4a

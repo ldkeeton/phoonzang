@@ -59,13 +59,13 @@ api_idx_0004_UQRV:
     add ax, strict word 0x70         ; 0x3b2d
     push ax                          ; 0x3b30
     push word [bp - 0x0002]          ; 0x3b31
-    call thunk                       ; 0x3b34
+    call gfx_entry_13                ; 0x3b34
     add sp, byte 4                   ; 0x3b37
     mov ax, 0                        ; 0x3b3a
     push ax                          ; 0x3b3d
     mov ax, 0x55                     ; 0x3b3e
     push ax                          ; 0x3b41
-    call thunk_3                     ; 0x3b42
+    call gfx_entry_12                ; 0x3b42
     add sp, byte 4                   ; 0x3b45
     mov ax, 2                        ; 0x3b48
     push ax                          ; 0x3b4b

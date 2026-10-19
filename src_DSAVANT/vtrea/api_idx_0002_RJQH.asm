@@ -73,12 +73,12 @@ api_idx_0002_RJQH:
     mov ax, 0xa0                     ; 0x1027
     sub ax, cx                       ; 0x102a
     push ax                          ; 0x102c
-    call thunk                       ; 0x102d
+    call gfx_entry_13                ; 0x102d
     add sp, byte 4                   ; 0x1030
     mov ax, 0                        ; 0x1033
     push ax                          ; 0x1036
     push word [bp + 0xc]             ; 0x1037
-    call thunk_3                     ; 0x103a
+    call gfx_entry_12                ; 0x103a
     add sp, byte 4                   ; 0x103d
     mov ax, 0                        ; 0x1040
     push ax                          ; 0x1043
@@ -100,7 +100,7 @@ api_idx_0002_RJQH:
     mov ax, 0                        ; 0x106a
     push ax                          ; 0x106d
     push word [bp + 0xe]             ; 0x106e
-    call thunk_3                     ; 0x1071
+    call gfx_entry_12                ; 0x1071
     add sp, byte 4                   ; 0x1074
     mov ax, 0                        ; 0x1077
     push ax                          ; 0x107a
@@ -120,7 +120,7 @@ api_idx_0002_RJQH:
     mov ax, 0                        ; 0x109a
     push ax                          ; 0x109d
     push word [bp + 0x10]            ; 0x109e
-    call thunk_3                     ; 0x10a1
+    call gfx_entry_12                ; 0x10a1
     add sp, byte 4                   ; 0x10a4
     mov ax, 0                        ; 0x10a7
     push ax                          ; 0x10aa
@@ -140,7 +140,7 @@ api_idx_0002_RJQH:
     mov ax, 0                        ; 0x10ca
     push ax                          ; 0x10cd
     push word [bp + 0x12]            ; 0x10ce
-    call thunk_3                     ; 0x10d1
+    call gfx_entry_12                ; 0x10d1
     add sp, byte 4                   ; 0x10d4
     mov ax, 0                        ; 0x10d7
     push ax                          ; 0x10da
@@ -156,6 +156,6 @@ api_idx_0002_RJQH:
     push ax                          ; 0x10ef
     mov ax, 0x19                     ; 0x10f0
     push ax                          ; 0x10f3
-    call thunk_4                     ; 0x10f4
+    call gfx_entry_16                ; 0x10f4
     add sp, byte 8                   ; 0x10f7
     ret                              ; 0x10fa

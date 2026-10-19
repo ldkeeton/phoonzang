@@ -34,7 +34,7 @@ loc_SNOI:
     push ax                          ; 0x7de0
     mov ax, 0x48                     ; 0x7de1
     push ax                          ; 0x7de4
-    call thunk_11                    ; 0x7de5
+    call gfx_cache_area              ; 0x7de5
     add sp, byte 0x0c                ; 0x7de8
     mov word [bss_9062], dx          ; 0x7deb
     mov word [bss_9060], ax          ; 0x7def
@@ -59,7 +59,7 @@ loc_SNOI:
     push ax                          ; 0x7e20
     mov ax, 0x48                     ; 0x7e21
     push ax                          ; 0x7e24
-    call thunk_11                    ; 0x7e25
+    call gfx_cache_area              ; 0x7e25
     add sp, byte 0x0c                ; 0x7e28
     mov word [bss_9066], dx          ; 0x7e2b
     mov word [bss_9064], ax          ; 0x7e2f
@@ -72,7 +72,7 @@ loc_SNOI:
     push ax                          ; 0x7e40
     mov ax, 0x19                     ; 0x7e41
     push ax                          ; 0x7e44
-    call thunk_10                    ; 0x7e45
+    call gfx_save_area               ; 0x7e45
     add sp, byte 8                   ; 0x7e48
     mov word [bss_8d10], dx          ; 0x7e4b
     mov word [bss_8d0e], ax          ; 0x7e4f
@@ -84,7 +84,7 @@ loc_SNOI:
     push ax                          ; 0x7e5d
     mov ax, 0x41                     ; 0x7e5e
     push ax                          ; 0x7e61
-    call thunk_10                    ; 0x7e62
+    call gfx_save_area               ; 0x7e62
     add sp, byte 8                   ; 0x7e65
     mov word [bss_8d0c], dx          ; 0x7e68
     mov word [bss_8d0a], ax          ; 0x7e6c

@@ -444,7 +444,7 @@ api_idx_0012_STJU:
     add sp, byte 4                   ; 0x34c3
     push ax                          ; 0x34c6
     push word [bp + 0x10]            ; 0x34c7
-    call thunk_34                    ; 0x34ca
+    call gfx_draw_maze_piece         ; 0x34ca
     add sp, byte 8                   ; 0x34cd
     mov ax, word [bp + 0x4]          ; 0x34d0
     cmp ax, strict word 2            ; 0x34d3
@@ -521,7 +521,7 @@ jumptable_35fa_case_1:
     add sp, byte 4                   ; 0x356c
     push ax                          ; 0x356f
     push word [bp + 0xa]             ; 0x3570
-    call thunk_34                    ; 0x3573
+    call gfx_draw_maze_piece         ; 0x3573
     add sp, byte 8                   ; 0x3576
 @..api_idx_0012_STJU.l38:
     jmp near @..api_idx_0012_STJU.l46 ; 0x3579
@@ -546,7 +546,7 @@ jumptable_35fa_case_2:
     add sp, byte 4                   ; 0x35a3
     push ax                          ; 0x35a6
     push word [bp + 0x16]            ; 0x35a7
-    call thunk_34                    ; 0x35aa
+    call gfx_draw_maze_piece         ; 0x35aa
     add sp, byte 8                   ; 0x35ad
 @..api_idx_0012_STJU.l39:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35b0
@@ -580,7 +580,7 @@ jumptable_35fa_case_3:
 @..api_idx_0012_STJU.l43:
     push ax                          ; 0x35ea
     push word [bp + 0x14]            ; 0x35eb
-    call thunk_34                    ; 0x35ee
+    call gfx_draw_maze_piece         ; 0x35ee
     add sp, byte 8                   ; 0x35f1
 @..api_idx_0012_STJU.l44:
     jmp short @..api_idx_0012_STJU.l46 ; 0x35f4
@@ -638,7 +638,7 @@ jumptable_35fa:
     push ax                          ; 0x3664
     mov ax, 3                        ; 0x3665
     push ax                          ; 0x3668
-    call thunk_34                    ; 0x3669
+    call gfx_draw_maze_piece         ; 0x3669
     add sp, byte 8                   ; 0x366c
     jmp short @..api_idx_0012_STJU.l53 ; 0x366f
 @..api_idx_0012_STJU.l49:
@@ -665,7 +665,7 @@ jumptable_35fa:
     push ax                          ; 0x369f
     mov ax, 3                        ; 0x36a0
     push ax                          ; 0x36a3
-    call thunk_34                    ; 0x36a4
+    call gfx_draw_maze_piece         ; 0x36a4
     add sp, byte 8                   ; 0x36a7
 @..api_idx_0012_STJU.l53:
     mov ax, 0xa                      ; 0x36aa

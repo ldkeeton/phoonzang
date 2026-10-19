@@ -111,11 +111,11 @@ jumptable_0c85_case_5:
     push ax                          ; 0x0c17
     mov ax, 0x10                     ; 0x0c18
     push ax                          ; 0x0c1b
-    call thunk_28                    ; 0x0c1c
+    call gfx_draw_text               ; 0x0c1c
     add sp, byte 0x16                ; 0x0c1f
     mov ax, 0x10                     ; 0x0c22
     push ax                          ; 0x0c25
-    call ds_app_thunk_26_VNHP        ; 0x0c26
+    call ds_app_gfx_entry_22_VNHP    ; 0x0c26
     pop cx                           ; 0x0c29
     jmp near @..api_idx_0090_NPLS.l8 ; 0x0c2a
 jumptable_0c85_case_6:

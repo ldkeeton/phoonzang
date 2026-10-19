@@ -24,7 +24,7 @@ api_idx_0002_OTTG:
     push ax                          ; 0x024d
     push word [bp + 0x6]             ; 0x024e
     push word [bp - 0x0002]          ; 0x0251
-    call thunk_33                    ; 0x0254
+    call gfx_load_maze               ; 0x0254
     add sp, byte 6                   ; 0x0257
     push word [bp - 0x0002]          ; 0x025a
     call aztec_close                 ; 0x025d

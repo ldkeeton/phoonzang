@@ -4,7 +4,7 @@ api_idx_0002_LVPS:
     call aztec_csav
     mov ax, 0
     push ax
-    call thunk_17
+    call gfx_entry_47
     pop cx
     mov ax, 0
     push ax
@@ -27,7 +27,7 @@ api_idx_0002_LVPS:
     mov ax, 0
     push ax
     push word [bp - 0x0002]
-    call thunk_29
+    call gfx_load_screen
     add sp, byte 4
     push word [bp - 0x0002]
     call aztec_close
@@ -41,7 +41,7 @@ api_idx_0002_LVPS:
     mov ax, 0
     push ax
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
     jmp short @..api_idx_0002_LVPS.l3
 @..api_idx_0002_LVPS.l2:
@@ -51,7 +51,7 @@ api_idx_0002_LVPS:
     push ax
     push ax
     push ax
-    call thunk_45
+    call gfx_reset_rgb
     add sp, byte 6
     mov ax, 0xc7
     push ax
@@ -60,11 +60,11 @@ api_idx_0002_LVPS:
     mov ax, 0
     push ax
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
     mov ax, 0
     push ax
-    call thunk_43
+    call gfx_fade_in
     pop cx
 @..api_idx_0002_LVPS.l3:
     ret

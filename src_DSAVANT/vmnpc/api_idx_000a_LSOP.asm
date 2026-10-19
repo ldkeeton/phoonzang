@@ -25,6 +25,6 @@ api_idx_000a_LSOP:
     push ax                          ; 0x75cf
     mov ax, 1                        ; 0x75d0
     push ax                          ; 0x75d3
-    call thunk_28                    ; 0x75d4
+    call gfx_draw_text               ; 0x75d4
     add sp, byte 0x16                ; 0x75d7
     ret                              ; 0x75da

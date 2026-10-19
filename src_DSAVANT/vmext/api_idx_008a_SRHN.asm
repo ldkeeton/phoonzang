@@ -20,7 +20,7 @@ api_idx_008a_SRHN:
     push ax                          ; 0x0c4f
     mov ax, 0                        ; 0x0c50
     push ax                          ; 0x0c53
-    call thunk_4                     ; 0x0c54
+    call gfx_entry_16                ; 0x0c54
     add sp, byte 8                   ; 0x0c57
     mov word [bp - 0x0006], 0        ; 0x0c5a
     mov ax, 1                        ; 0x0c5f
@@ -222,7 +222,7 @@ api_idx_008a_SRHN:
     push ax                          ; 0x0e12
     mov ax, 0                        ; 0x0e13
     push ax                          ; 0x0e16
-    call thunk_4                     ; 0x0e17
+    call gfx_entry_16                ; 0x0e17
     add sp, byte 8                   ; 0x0e1a
     ret                              ; 0x0e1d
 @..api_idx_008a_SRHN.l21:
@@ -270,7 +270,7 @@ api_idx_008a_SRHN:
     push ax                          ; 0x0e7d
     mov ax, 0                        ; 0x0e7e
     push ax                          ; 0x0e81
-    call thunk_4                     ; 0x0e82
+    call gfx_entry_16                ; 0x0e82
     add sp, byte 8                   ; 0x0e85
     mov ax, 2                        ; 0x0e88
     push ax                          ; 0x0e8b

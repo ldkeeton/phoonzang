@@ -12,7 +12,7 @@ ds_app_JKOJ: ; Aztec csav frame=0x0014
     mov bx, ax                       ; 0x2c7f
     push word [bx - 0x7d2e]          ; 0x2c81
     push word [bx - 0x7d30]          ; 0x2c85
-    call thunk_13                    ; 0x2c89
+    call gfx_restore_area            ; 0x2c89
     add sp, byte 6                   ; 0x2c8c
     mov ax, word [bp - 0x0002]       ; 0x2c8f
     mov cx, 3                        ; 0x2c92
@@ -138,7 +138,7 @@ jumptable_2d50:
     push word [bp - 0x0008]          ; 0x2da3
     mov ax, 8                        ; 0x2da6
     push ax                          ; 0x2da9
-    call thunk_28                    ; 0x2daa
+    call gfx_draw_text               ; 0x2daa
     add sp, byte 0x16                ; 0x2dad
 @..ds_app_JKOJ.l7:
     inc word [bp - 0x0002]           ; 0x2db0
@@ -155,6 +155,6 @@ jumptable_2d50:
     push ax                          ; 0x2dc9
     mov ax, 0x44                     ; 0x2dca
     push ax                          ; 0x2dcd
-    call thunk_4                     ; 0x2dce
+    call gfx_entry_16                ; 0x2dce
     add sp, byte 8                   ; 0x2dd1
     ret                              ; 0x2dd4

@@ -11,7 +11,7 @@ api_idx_0010_HOIJ:
     push word [bx + 0x124]           ; 0x2048
     push word [bx + 0x122]           ; 0x204c
     push word [bx + 0x120]           ; 0x2050
-    call thunk_10                    ; 0x2054
+    call gfx_save_area               ; 0x2054
     add sp, byte 8                   ; 0x2057
     mov word [bp - 0x000e], dx       ; 0x205a
     mov word [bp - 0x0010], ax       ; 0x205d
@@ -43,7 +43,7 @@ api_idx_0010_HOIJ:
     push word [bx + 0x122]           ; 0x2099
     push word [bx + 0x120]           ; 0x209d
     push word [bp - 0x0002]          ; 0x20a1
-    call thunk_28                    ; 0x20a4
+    call gfx_draw_text               ; 0x20a4
     add sp, byte 0x16                ; 0x20a7
     mov ax, word [bp + 0x4]          ; 0x20aa
     shl ax, 1                        ; 0x20ad
@@ -54,12 +54,12 @@ api_idx_0010_HOIJ:
     push word [bx + 0x124]           ; 0x20b9
     push word [bx + 0x122]           ; 0x20bd
     push word [bx + 0x120]           ; 0x20c1
-    call thunk_4                     ; 0x20c5
+    call gfx_entry_16                ; 0x20c5
     add sp, byte 8                   ; 0x20c8
     mov ax, 1                        ; 0x20cb
     push ax                          ; 0x20ce
     push word [bp - 0x000e]          ; 0x20cf
     push word [bp - 0x0010]          ; 0x20d2
-    call thunk_13                    ; 0x20d5
+    call gfx_restore_area            ; 0x20d5
     add sp, byte 6                   ; 0x20d8
     ret                              ; 0x20db

@@ -48,7 +48,7 @@ loc_TTSP:
     push ax
     mov ax, 0x5a
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
     mov ax, 0xffff
     push ax
@@ -65,7 +65,7 @@ loc_TTSP:
     push ax
     mov ax, 0xb8
     push ax
-    call thunk_4
+    call gfx_entry_16
     add sp, byte 8
 @..loc_TTSP.l3:
     ret

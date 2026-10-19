@@ -111,7 +111,7 @@ jumptable_4688_case_5:
     push ax                          ; 0x442a
     mov ax, 0xb4                     ; 0x442b
     push ax                          ; 0x442e
-    call thunk_3                     ; 0x442f
+    call gfx_entry_12                ; 0x442f
     add sp, byte 4                   ; 0x4432
     mov ax, word [bp + 0x8]          ; 0x4435
     add ax, strict word 0x63         ; 0x4438
@@ -119,7 +119,7 @@ jumptable_4688_case_5:
     mov ax, word [bp + 0x6]          ; 0x443c
     add ax, strict word 0x6b         ; 0x443f
     push ax                          ; 0x4442
-    call thunk                       ; 0x4443
+    call gfx_entry_13                ; 0x4443
     add sp, byte 4                   ; 0x4446
     mov ax, 0                        ; 0x4449
     push ax                          ; 0x444c
@@ -136,7 +136,7 @@ jumptable_4688_case_5:
     mov ax, word [bp + 0x6]          ; 0x4464
     add ax, strict word 0x6b         ; 0x4467
     push ax                          ; 0x446a
-    call thunk                       ; 0x446b
+    call gfx_entry_13                ; 0x446b
     add sp, byte 4                   ; 0x446e
     mov ax, 0                        ; 0x4471
     push ax                          ; 0x4474
@@ -153,7 +153,7 @@ jumptable_4688_case_5:
     mov ax, word [bp + 0x6]          ; 0x448c
     add ax, strict word 0x6b         ; 0x448f
     push ax                          ; 0x4492
-    call thunk                       ; 0x4493
+    call gfx_entry_13                ; 0x4493
     add sp, byte 4                   ; 0x4496
     mov ax, 0                        ; 0x4499
     push ax                          ; 0x449c
@@ -335,7 +335,7 @@ jumptable_4688_case_15:
     push ax                          ; 0x462d
     mov ax, 0xb4                     ; 0x462e
     push ax                          ; 0x4631
-    call thunk_3                     ; 0x4632
+    call gfx_entry_12                ; 0x4632
     add sp, byte 4                   ; 0x4635
     mov ax, word [bp + 0x8]          ; 0x4638
     add ax, strict word 0x63         ; 0x463b
@@ -343,7 +343,7 @@ jumptable_4688_case_15:
     mov ax, word [bp + 0x6]          ; 0x463f
     add ax, 0xe9                     ; 0x4642
     push ax                          ; 0x4645
-    call thunk                       ; 0x4646
+    call gfx_entry_13                ; 0x4646
     add sp, byte 4                   ; 0x4649
     mov ax, 0                        ; 0x464c
     push ax                          ; 0x464f
@@ -360,7 +360,7 @@ jumptable_4688_case_15:
     mov ax, word [bp + 0x6]          ; 0x4666
     add ax, 0xe9                     ; 0x4669
     push ax                          ; 0x466c
-    call thunk                       ; 0x466d
+    call gfx_entry_13                ; 0x466d
     add sp, byte 4                   ; 0x4670
     mov ax, 0                        ; 0x4673
     push ax                          ; 0x4676

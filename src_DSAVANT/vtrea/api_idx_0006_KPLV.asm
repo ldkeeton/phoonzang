@@ -10,13 +10,13 @@ api_idx_0006_KPLV:
     push ax                          ; 0x3719
     push word [bss_8d08]             ; 0x371a
     push word [bss_8d06]             ; 0x371e
-    call thunk_13                    ; 0x3722
+    call gfx_restore_area            ; 0x3722
     add sp, byte 6                   ; 0x3725
     mov ax, 0xb9                     ; 0x3728
     push ax                          ; 0x372b
     mov ax, 0x131                    ; 0x372c
     push ax                          ; 0x372f
-    call thunk                       ; 0x3730
+    call gfx_entry_13                ; 0x3730
     add sp, byte 4                   ; 0x3733
     mov ax, 4                        ; 0x3736
     push ax                          ; 0x3739
@@ -34,7 +34,7 @@ api_idx_0006_KPLV:
     push ax                          ; 0x3754
     mov ax, 0x131                    ; 0x3755
     push ax                          ; 0x3758
-    call thunk_4                     ; 0x3759
+    call gfx_entry_16                ; 0x3759
     add sp, byte 8                   ; 0x375c
     mov ax, 1                        ; 0x375f
     ret                              ; 0x3762
@@ -59,7 +59,7 @@ api_idx_0006_KPLV:
     push ax                          ; 0x378d
     push word [bss_8d08]             ; 0x378e
     push word [bss_8d06]             ; 0x3792
-    call thunk_13                    ; 0x3796
+    call gfx_restore_area            ; 0x3796
     add sp, byte 6                   ; 0x3799
     mov ax, 0xc4                     ; 0x379c
     push ax                          ; 0x379f
@@ -69,7 +69,7 @@ api_idx_0006_KPLV:
     push ax                          ; 0x37a7
     mov ax, 0x131                    ; 0x37a8
     push ax                          ; 0x37ab
-    call thunk_4                     ; 0x37ac
+    call gfx_entry_16                ; 0x37ac
     add sp, byte 8                   ; 0x37af
     mov ax, 0                        ; 0x37b2
     ret                              ; 0x37b5

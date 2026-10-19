@@ -59,7 +59,7 @@ api_idx_006a_QKPT:
     push ax                          ; 0xac38
     mov ax, 0x12e                    ; 0xac39
     push ax                          ; 0xac3c
-    call thunk_46                    ; 0xac3d
+    call gfx_entry_33                ; 0xac3d
     add sp, byte 6                   ; 0xac40
     mov ax, 3                        ; 0xac43
     push ax                          ; 0xac46
@@ -207,7 +207,7 @@ api_idx_006a_QKPT:
     push ax                          ; 0xadf0
     mov ax, 0x12e                    ; 0xadf1
     push ax                          ; 0xadf4
-    call thunk_47                    ; 0xadf5
+    call gfx_entry_34                ; 0xadf5
     add sp, byte 6                   ; 0xadf8
     mov ax, 0                        ; 0xadfb
     mov dx, 0                        ; 0xadfe

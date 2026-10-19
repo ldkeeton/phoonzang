@@ -12,7 +12,7 @@ api_idx_0006_SQTK:
     push ax                          ; 0x0f67
     mov ax, 0x48                     ; 0x0f68
     push ax                          ; 0x0f6b
-    call thunk_4                     ; 0x0f6c
+    call gfx_entry_16                ; 0x0f6c
     add sp, byte 8                   ; 0x0f6f
     jmp near @..api_idx_0006_SQTK.l16 ; 0x0f72
 @..api_idx_0006_SQTK.l2:
@@ -53,7 +53,7 @@ api_idx_0006_SQTK:
     mov bx, ax                       ; 0x0fba
     push word [bx + bss_9062]        ; 0x0fbc
     push word [bx + bss_9060]        ; 0x0fc0
-    call thunk_12                    ; 0x0fc4
+    call gfx_restore_screen          ; 0x0fc4
     add sp, byte 8                   ; 0x0fc7
     mov word [bp - 0x0002], 0        ; 0x0fca
 @..api_idx_0006_SQTK.l6:

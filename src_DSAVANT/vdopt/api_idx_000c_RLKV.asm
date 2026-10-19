@@ -111,7 +111,7 @@ api_idx_000c_RLKV:
     push ax                          ; 0x24a1
     mov ax, 0x36                     ; 0x24a2
     push ax                          ; 0x24a5
-    call thunk_4                     ; 0x24a6
+    call gfx_entry_16                ; 0x24a6
     add sp, byte 8                   ; 0x24a9
     mov bx, word [bss_0e12]          ; 0x24ac
     mov si, word [bp - 0x0008]       ; 0x24b0

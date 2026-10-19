@@ -128,6 +128,6 @@ api_idx_0088_QLNT:
     push ax                          ; 0x2d57
     mov ax, 1                        ; 0x2d58
     push ax                          ; 0x2d5b
-    call thunk_4                     ; 0x2d5c
+    call gfx_entry_16                ; 0x2d5c
     add sp, byte 8                   ; 0x2d5f
     ret                              ; 0x2d62

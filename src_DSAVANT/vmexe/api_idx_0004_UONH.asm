@@ -68,7 +68,7 @@ api_idx_0004_UONH:
     push ax                          ; 0x1be0
     mov ax, 8                        ; 0x1be1
     push ax                          ; 0x1be4
-    call thunk_4                     ; 0x1be5
+    call gfx_entry_16                ; 0x1be5
     add sp, byte 8                   ; 0x1be8
     mov ax, 2                        ; 0x1beb
     push ax                          ; 0x1bee

@@ -198,7 +198,7 @@ jumptable_4af5_case_15:
     mov ax, word [bp + 0x6]          ; 0x49db
     add ax, 0xe7                     ; 0x49de
     push ax                          ; 0x49e1
-    call thunk_7                     ; 0x49e2
+    call gfx_entry_18                ; 0x49e2
     add sp, byte 0x0a                ; 0x49e5
     mov ax, word [bp + 0x8]          ; 0x49e8
     add ax, strict word 0x63         ; 0x49eb
@@ -206,13 +206,13 @@ jumptable_4af5_case_15:
     mov ax, word [bp + 0x6]          ; 0x49ef
     add ax, 0xe9                     ; 0x49f2
     push ax                          ; 0x49f5
-    call thunk                       ; 0x49f6
+    call gfx_entry_13                ; 0x49f6
     add sp, byte 4                   ; 0x49f9
     mov ax, 1                        ; 0x49fc
     push ax                          ; 0x49ff
     mov ax, 0                        ; 0x4a00
     push ax                          ; 0x4a03
-    call thunk_3                     ; 0x4a04
+    call gfx_entry_12                ; 0x4a04
     add sp, byte 4                   ; 0x4a07
     mov ax, 0                        ; 0x4a0a
     push ax                          ; 0x4a0d
@@ -235,7 +235,7 @@ jumptable_4af5_case_15:
     mov ax, word [bp + 0x6]          ; 0x4a32
     add ax, 0xe7                     ; 0x4a35
     push ax                          ; 0x4a38
-    call thunk_4                     ; 0x4a39
+    call gfx_entry_16                ; 0x4a39
     add sp, byte 8                   ; 0x4a3c
     jmp near @..api_idx_0052_JQTP.l2 ; 0x4a3f
 jumptable_4af5_case_16:
@@ -253,7 +253,7 @@ jumptable_4af5_case_16:
     mov ax, word [bp + 0x6]          ; 0x4a5b
     add ax, 0xe7                     ; 0x4a5e
     push ax                          ; 0x4a61
-    call thunk_7                     ; 0x4a62
+    call gfx_entry_18                ; 0x4a62
     add sp, byte 0x0a                ; 0x4a65
     mov ax, word [bp + 0x8]          ; 0x4a68
     add ax, strict word 0x69         ; 0x4a6b
@@ -261,13 +261,13 @@ jumptable_4af5_case_16:
     mov ax, word [bp + 0x6]          ; 0x4a6f
     add ax, 0xe9                     ; 0x4a72
     push ax                          ; 0x4a75
-    call thunk                       ; 0x4a76
+    call gfx_entry_13                ; 0x4a76
     add sp, byte 4                   ; 0x4a79
     mov ax, 1                        ; 0x4a7c
     push ax                          ; 0x4a7f
     mov ax, 0                        ; 0x4a80
     push ax                          ; 0x4a83
-    call thunk_3                     ; 0x4a84
+    call gfx_entry_12                ; 0x4a84
     add sp, byte 4                   ; 0x4a87
     mov ax, 0                        ; 0x4a8a
     push ax                          ; 0x4a8d
@@ -290,7 +290,7 @@ jumptable_4af5_case_16:
     mov ax, word [bp + 0x6]          ; 0x4ab2
     add ax, 0xe7                     ; 0x4ab5
     push ax                          ; 0x4ab8
-    call thunk_4                     ; 0x4ab9
+    call gfx_entry_16                ; 0x4ab9
     add sp, byte 8                   ; 0x4abc
     jmp short @..api_idx_0052_JQTP.l2 ; 0x4abf
 jumptable_4af5_case_17:

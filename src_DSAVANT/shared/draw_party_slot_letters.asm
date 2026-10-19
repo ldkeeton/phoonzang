@@ -45,7 +45,7 @@ draw_party_slot_letters:
     push ax
     mov ax, 2
     push ax
-    call thunk_28
+    call gfx_draw_text
     add sp, byte 0x16
     inc word [bp - 0x0002]
     mov ax, word [bp - 0x0002]

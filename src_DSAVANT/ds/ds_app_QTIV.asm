@@ -7,7 +7,7 @@ ds_app_QTIV: ; Aztec csav frame=0x0000
     je short @..ds_app_QTIV.l2       ; 0x29fd
     mov ax, 1                        ; 0x29ff
     push ax                          ; 0x2a02
-    call thunk_17                    ; 0x2a03
+    call gfx_entry_47                ; 0x2a03
     pop cx                           ; 0x2a06
     cmp word [bss_598e], byte 0xff   ; 0x2a07
     je short @..ds_app_QTIV.l1       ; 0x2a0c

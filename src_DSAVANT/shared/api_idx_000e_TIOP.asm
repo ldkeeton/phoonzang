@@ -80,7 +80,7 @@ api_idx_000e_TIOP:
     push ax
     mov ax, 3
     push ax
-    call thunk_28
+    call gfx_draw_text
     add sp, byte 0x16
 @..api_idx_000e_TIOP.l8:
     ret

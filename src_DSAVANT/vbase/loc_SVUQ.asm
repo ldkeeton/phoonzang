@@ -12,6 +12,6 @@ loc_SVUQ:
     push ax                          ; 0x6c33
     mov ax, 0                        ; 0x6c34
     push ax                          ; 0x6c37
-    call thunk_7                     ; 0x6c38
+    call gfx_entry_18                ; 0x6c38
     add sp, byte 0x0a                ; 0x6c3b
     ret                              ; 0x6c3e

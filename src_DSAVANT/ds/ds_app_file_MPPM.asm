@@ -53,7 +53,7 @@ jumptable_08d4_case_4:
 @..ds_app_file_MPPM.l2:
     mov ax, 0                        ; 0x08f2
     push ax                          ; 0x08f5
-    call thunk_17                    ; 0x08f6
+    call gfx_entry_47                ; 0x08f6
     pop cx                           ; 0x08f9
     mov ax, 0                        ; 0x08fa
     push ax                          ; 0x08fd

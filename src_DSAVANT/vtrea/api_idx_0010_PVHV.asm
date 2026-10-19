@@ -50,7 +50,7 @@ api_idx_0010_PVHV:
     sub ah, ah                       ; 0x0101
     push ax                          ; 0x0103
     push word [bp - 0x0002]          ; 0x0104
-    call thunk_28                    ; 0x0107
+    call gfx_draw_text               ; 0x0107
     add sp, byte 0x16                ; 0x010a
     mov ax, word [bp + 0x4]          ; 0x010d
     ret                              ; 0x0110

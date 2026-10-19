@@ -28,20 +28,20 @@ api_idx_0056_KPMS:
     mov ax, 0x39                     ; 0x46c4
     push ax                          ; 0x46c7
     push word [bp - 0x0002]          ; 0x46c8
-    call thunk_10                    ; 0x46cb
+    call gfx_save_area               ; 0x46cb
     add sp, byte 8                   ; 0x46ce
     mov word [bp - 0x0004], dx       ; 0x46d1
     mov word [bp - 0x0006], ax       ; 0x46d4
     mov ax, 0x39                     ; 0x46d7
     push ax                          ; 0x46da
     push word [bp - 0x0002]          ; 0x46db
-    call thunk                       ; 0x46de
+    call gfx_entry_13                ; 0x46de
     add sp, byte 4                   ; 0x46e1
     mov ax, 0                        ; 0x46e4
     push ax                          ; 0x46e7
     mov ax, 0x55                     ; 0x46e8
     push ax                          ; 0x46eb
-    call thunk_3                     ; 0x46ec
+    call gfx_entry_12                ; 0x46ec
     add sp, byte 4                   ; 0x46ef
     mov ax, 0                        ; 0x46f2
     push ax                          ; 0x46f5
@@ -56,7 +56,7 @@ api_idx_0056_KPMS:
     mov ax, 0x39                     ; 0x4708
     push ax                          ; 0x470b
     push word [bp - 0x0002]          ; 0x470c
-    call thunk_4                     ; 0x470f
+    call gfx_entry_16                ; 0x470f
     add sp, byte 8                   ; 0x4712
     mov ax, 0                        ; 0x4715
     push ax                          ; 0x4718
@@ -69,7 +69,7 @@ api_idx_0056_KPMS:
     push ax                          ; 0x4728
     push word [bp - 0x0004]          ; 0x4729
     push word [bp - 0x0006]          ; 0x472c
-    call thunk_13                    ; 0x472f
+    call gfx_restore_area            ; 0x472f
     add sp, byte 6                   ; 0x4732
     mov ax, 0x3e                     ; 0x4735
     push ax                          ; 0x4738
@@ -78,6 +78,6 @@ api_idx_0056_KPMS:
     mov ax, 0x39                     ; 0x473d
     push ax                          ; 0x4740
     push word [bp - 0x0002]          ; 0x4741
-    call thunk_4                     ; 0x4744
+    call gfx_entry_16                ; 0x4744
     add sp, byte 8                   ; 0x4747
     ret                              ; 0x474a

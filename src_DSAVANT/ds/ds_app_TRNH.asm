@@ -57,7 +57,7 @@ ds_app_TRNH: ; Aztec csav frame=0x0002
     sub ax, word [bp - 0x0002]       ; 0x1d73
     push ax                          ; 0x1d76
     push word [bp + 0x4]             ; 0x1d77
-    call thunk_7                     ; 0x1d7a
+    call gfx_entry_18                ; 0x1d7a
     add sp, byte 0x0a                ; 0x1d7d
 @..ds_app_TRNH.l3:
     ret                              ; 0x1d80

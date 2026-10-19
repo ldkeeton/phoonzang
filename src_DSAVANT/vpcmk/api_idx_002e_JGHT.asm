@@ -6,13 +6,13 @@ api_idx_002e_JGHT:
     push ax                          ; 0x258b
     mov ax, 0x16                     ; 0x258c
     push ax                          ; 0x258f
-    call thunk_3                     ; 0x2590
+    call gfx_entry_12                ; 0x2590
     add sp, byte 4                   ; 0x2593
     mov ax, 0xae                     ; 0x2596
     push ax                          ; 0x2599
     mov ax, 6                        ; 0x259a
     push ax                          ; 0x259d
-    call thunk                       ; 0x259e
+    call gfx_entry_13                ; 0x259e
     add sp, byte 4                   ; 0x25a1
     mov ax, 0                        ; 0x25a4
     push ax                          ; 0x25a7
@@ -94,7 +94,7 @@ api_idx_002e_JGHT:
     imul cx                          ; 0x2668
     add ax, strict word 0xfffb       ; 0x266a
     push ax                          ; 0x266d
-    call thunk                       ; 0x266e
+    call gfx_entry_13                ; 0x266e
     add sp, byte 4                   ; 0x2671
     mov word [bp - 0x0006], 0        ; 0x2674
     mov word [bp - 0x0002], 0        ; 0x2679
@@ -114,7 +114,7 @@ api_idx_002e_JGHT:
     push ax                          ; 0x269c
     mov ax, 1                        ; 0x269d
     push ax                          ; 0x26a0
-    call thunk_3                     ; 0x26a1
+    call gfx_entry_12                ; 0x26a1
     add sp, byte 4                   ; 0x26a4
     mov ax, 0                        ; 0x26a7
     push ax                          ; 0x26aa
@@ -129,7 +129,7 @@ api_idx_002e_JGHT:
     shl ax, 1                        ; 0x26bc
     mov bx, ax                       ; 0x26be
     push word [word bx + 0x30]       ; 0x26c0
-    call thunk_3                     ; 0x26c4
+    call gfx_entry_12                ; 0x26c4
     add sp, byte 4                   ; 0x26c7
     mov ax, 0                        ; 0x26ca
     push ax                          ; 0x26cd

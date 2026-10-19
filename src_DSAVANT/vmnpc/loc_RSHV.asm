@@ -83,7 +83,7 @@ loc_RSHV:
     mov ax, 0                        ; 0x18ea
     push ax                          ; 0x18ed
     push word [bp + 0x18]            ; 0x18ee
-    call thunk_3                     ; 0x18f1
+    call gfx_entry_12                ; 0x18f1
     add sp, byte 4                   ; 0x18f4
     mov ax, word [bp + 0xc]          ; 0x18f7
     add ax, word [bp - 0x000c]       ; 0x18fa
@@ -108,7 +108,7 @@ loc_RSHV:
     add ax, word [bp - 0x000a]       ; 0x1925
     inc ax                           ; 0x1928
     push ax                          ; 0x1929
-    call thunk                       ; 0x192a
+    call gfx_entry_13                ; 0x192a
     add sp, byte 4                   ; 0x192d
     mov ax, 0                        ; 0x1930
     push ax                          ; 0x1933
@@ -483,7 +483,7 @@ loc_RSHV:
     mov ax, word [bp - 0x0006]       ; 0x1c93
     add ax, word [bp - 0x000a]       ; 0x1c96
     push ax                          ; 0x1c99
-    call thunk_8                     ; 0x1c9a
+    call gfx_entry_19                ; 0x1c9a
     add sp, byte 8                   ; 0x1c9d
     mov ax, word [bp - 0x000c]       ; 0x1ca0
     add ax, word [bp + 0xc]          ; 0x1ca3
@@ -500,7 +500,7 @@ loc_RSHV:
     mov ax, word [bp - 0x0006]       ; 0x1cbe
     add ax, word [bp - 0x000a]       ; 0x1cc1
     push ax                          ; 0x1cc4
-    call thunk_4                     ; 0x1cc5
+    call gfx_entry_16                ; 0x1cc5
     add sp, byte 8                   ; 0x1cc8
     mov ax, 0x19                     ; 0x1ccb
     push ax                          ; 0x1cce
@@ -521,7 +521,7 @@ loc_RSHV:
     mov ax, word [bp - 0x0006]       ; 0x1cf1
     add ax, word [bp - 0x000a]       ; 0x1cf4
     push ax                          ; 0x1cf7
-    call thunk_8                     ; 0x1cf8
+    call gfx_entry_19                ; 0x1cf8
     add sp, byte 8                   ; 0x1cfb
     mov ax, word [bp + 0xc]          ; 0x1cfe
     add ax, word [bp - 0x000c]       ; 0x1d01
@@ -538,7 +538,7 @@ loc_RSHV:
     mov ax, word [bp - 0x0006]       ; 0x1d1c
     add ax, word [bp - 0x000a]       ; 0x1d1f
     push ax                          ; 0x1d22
-    call thunk_4                     ; 0x1d23
+    call gfx_entry_16                ; 0x1d23
     add sp, byte 8                   ; 0x1d26
     mov ax, word [bp - 0x0004]       ; 0x1d29
     mov word [bss_9052], ax          ; 0x1d2c

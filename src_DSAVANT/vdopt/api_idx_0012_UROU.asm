@@ -541,7 +541,7 @@ jumptable_147e_case_0:
     push ax                          ; 0x1584
     push word [bss_9b0a]             ; 0x1585
     push word [bss_9b0c]             ; 0x1589
-    call thunk_7                     ; 0x158d
+    call gfx_entry_18                ; 0x158d
     add sp, byte 0x0a                ; 0x1590
     mov word [bp - 0x0004], 1        ; 0x1593
     jmp short @..api_idx_0012_UROU.l70 ; 0x1598
@@ -765,7 +765,7 @@ jumptable_147e_case_0:
     push ax                          ; 0x1786
     mov ax, 0x48                     ; 0x1787
     push ax                          ; 0x178a
-    call thunk_4                     ; 0x178b
+    call gfx_entry_16                ; 0x178b
     add sp, byte 8                   ; 0x178e
     call bios_kbd_check              ; 0x1791
     mov ax, word [bp - 0x0008]       ; 0x1794
@@ -802,7 +802,7 @@ jumptable_147e_case_0:
     imul cx                          ; 0x17df
     add ax, word [bss_9b0c]          ; 0x17e1
     push ax                          ; 0x17e5
-    call thunk_10                    ; 0x17e6
+    call gfx_save_area               ; 0x17e6
     add sp, byte 8                   ; 0x17e9
     mov word [bp - 0x0010], dx       ; 0x17ec
     mov word [bp - 0x0012], ax       ; 0x17ef
@@ -863,7 +863,7 @@ jumptable_147e_case_0:
     imul cx                          ; 0x186a
     add ax, word [bss_9b0c]          ; 0x186c
     push ax                          ; 0x1870
-    call thunk_4                     ; 0x1871
+    call gfx_entry_16                ; 0x1871
     add sp, byte 8                   ; 0x1874
     mov ax, 0x12c                    ; 0x1877
     push ax                          ; 0x187a
@@ -873,7 +873,7 @@ jumptable_147e_case_0:
     push ax                          ; 0x1882
     push word [bp - 0x0010]          ; 0x1883
     push word [bp - 0x0012]          ; 0x1886
-    call thunk_13                    ; 0x1889
+    call gfx_restore_area            ; 0x1889
     add sp, byte 6                   ; 0x188c
     mov ax, word [bp - 0x0008]       ; 0x188f
     mov cx, 2                        ; 0x1892
@@ -909,7 +909,7 @@ jumptable_147e_case_0:
     imul cx                          ; 0x18da
     add ax, word [bss_9b0c]          ; 0x18dc
     push ax                          ; 0x18e0
-    call thunk_4                     ; 0x18e1
+    call gfx_entry_16                ; 0x18e1
     add sp, byte 8                   ; 0x18e4
     mov ax, 0x12c                    ; 0x18e7
     push ax                          ; 0x18ea
@@ -921,10 +921,10 @@ jumptable_147e_case_0:
     push ax                          ; 0x18f5
     push word [bp - 0x0010]          ; 0x18f6
     push word [bp - 0x0012]          ; 0x18f9
-    call thunk_13                    ; 0x18fc
+    call gfx_restore_area            ; 0x18fc
     add sp, byte 6                   ; 0x18ff
     mov ax, 0xf                      ; 0x1902
     push ax                          ; 0x1905
-    call ds_app_thunk_26_VNHP        ; 0x1906
+    call ds_app_gfx_entry_22_VNHP    ; 0x1906
     pop cx                           ; 0x1909
     ret                              ; 0x190a

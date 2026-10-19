@@ -25,6 +25,6 @@ api_idx_000a_MHQT:
     push ax                          ; 0x0ede
     mov ax, 1                        ; 0x0edf
     push ax                          ; 0x0ee2
-    call thunk_28                    ; 0x0ee3
+    call gfx_draw_text               ; 0x0ee3
     add sp, byte 0x16                ; 0x0ee6
     ret                              ; 0x0ee9

@@ -185,7 +185,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4d7e
     mov ax, 0x36                     ; 0x4d7f
     push ax                          ; 0x4d82
-    call thunk_4                     ; 0x4d83
+    call gfx_entry_16                ; 0x4d83
     add sp, byte 8                   ; 0x4d86
     ret                              ; 0x4d89
 @..api_idx_0092_GSQH.l13:
@@ -268,7 +268,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4e40
     mov ax, 0x36                     ; 0x4e41
     push ax                          ; 0x4e44
-    call thunk_4                     ; 0x4e45
+    call gfx_entry_16                ; 0x4e45
     add sp, byte 8                   ; 0x4e48
     cmp word [bp - 0x0052], byte 0xff ; 0x4e4b
     je short @..api_idx_0092_GSQH.l16 ; 0x4e4f
@@ -345,7 +345,7 @@ api_idx_0092_GSQH:
     push ax                          ; 0x4ef0
     mov ax, 0x36                     ; 0x4ef1
     push ax                          ; 0x4ef4
-    call thunk_4                     ; 0x4ef5
+    call gfx_entry_16                ; 0x4ef5
     add sp, byte 8                   ; 0x4ef8
     mov ax, 1                        ; 0x4efb
     push ax                          ; 0x4efe

@@ -14,7 +14,7 @@ api_idx_0008_QLVR:
     push ax                          ; 0x0181
     mov ax, 0                        ; 0x0182
     push ax                          ; 0x0185
-    call thunk_4                     ; 0x0186
+    call gfx_entry_16                ; 0x0186
     add sp, byte 8                   ; 0x0189
     push word [bp + 0x4]             ; 0x018c
     call aztec_strlen                ; 0x018f
@@ -47,7 +47,7 @@ api_idx_0008_QLVR:
     add ax, 0x92                     ; 0x01cf
     push ax                          ; 0x01d2
     push word [bp - 0x0002]          ; 0x01d3
-    call thunk_10                    ; 0x01d6
+    call gfx_save_area               ; 0x01d6
     add sp, byte 8                   ; 0x01d9
     mov word [bp - 0x0006], dx       ; 0x01dc
     mov word [bp - 0x0008], ax       ; 0x01df
@@ -55,14 +55,14 @@ api_idx_0008_QLVR:
     push ax                          ; 0x01e5
     mov ax, 0x16                     ; 0x01e6
     push ax                          ; 0x01e9
-    call thunk_3                     ; 0x01ea
+    call gfx_entry_12                ; 0x01ea
     add sp, byte 4                   ; 0x01ed
     mov ax, 6                        ; 0x01f0
     imul word [bp + 0x6]             ; 0x01f3
     add ax, 0x92                     ; 0x01f6
     push ax                          ; 0x01f9
     push word [bp - 0x0002]          ; 0x01fa
-    call thunk                       ; 0x01fd
+    call gfx_entry_13                ; 0x01fd
     add sp, byte 4                   ; 0x0200
     mov ax, 0                        ; 0x0203
     push ax                          ; 0x0206
@@ -79,13 +79,13 @@ api_idx_0008_QLVR:
     add ax, 0x92                     ; 0x0223
     push ax                          ; 0x0226
     push word [bp - 0x0002]          ; 0x0227
-    call thunk_4                     ; 0x022a
+    call gfx_entry_16                ; 0x022a
     add sp, byte 8                   ; 0x022d
     mov ax, 1                        ; 0x0230
     push ax                          ; 0x0233
     push word [bp - 0x0006]          ; 0x0234
     push word [bp - 0x0008]          ; 0x0237
-    call thunk_13                    ; 0x023a
+    call gfx_restore_area            ; 0x023a
     add sp, byte 6                   ; 0x023d
     call bios_kbd_check              ; 0x0240
     ret                              ; 0x0243

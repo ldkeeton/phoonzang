@@ -62,13 +62,13 @@ api_idx_0004_JGSH:
     add ax, 0x92
     push ax
     push word [bp - 0x0002]
-    call thunk
+    call gfx_entry_13
     add sp, byte 4
     mov ax, 0
     push ax
     mov ax, 0x55
     push ax
-    call thunk_3
+    call gfx_entry_12
     add sp, byte 4
     mov ax, 2
     push ax

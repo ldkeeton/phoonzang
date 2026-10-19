@@ -13,7 +13,7 @@ api_idx_0006_HRUL:
     push ax                          ; 0x0f3e
     mov ax, 0x48                     ; 0x0f3f
     push ax                          ; 0x0f42
-    call thunk_4                     ; 0x0f43
+    call gfx_entry_16                ; 0x0f43
     add sp, byte 8                   ; 0x0f46
     jmp near @..api_idx_0006_HRUL.l16 ; 0x0f49
 @..api_idx_0006_HRUL.l2:
@@ -54,7 +54,7 @@ api_idx_0006_HRUL:
     mov bx, ax                       ; 0x0f91
     push word [bx + bss_9062]        ; 0x0f93
     push word [bx + bss_9060]        ; 0x0f97
-    call thunk_12                    ; 0x0f9b
+    call gfx_restore_screen          ; 0x0f9b
     add sp, byte 8                   ; 0x0f9e
     mov word [bp - 0x0002], 0        ; 0x0fa1
 @..api_idx_0006_HRUL.l6:

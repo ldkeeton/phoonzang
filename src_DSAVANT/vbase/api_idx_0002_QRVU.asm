@@ -53,7 +53,7 @@ api_idx_0002_QRVU:
     mov word [bss_9058], ax          ; 0x4020
     mov ax, 1                        ; 0x4023
     push ax                          ; 0x4026
-    call thunk_17                    ; 0x4027
+    call gfx_entry_47                ; 0x4027
     pop cx                           ; 0x402a
     test word [bss_9056], 0x1000     ; 0x402b
     je short @..api_idx_0002_QRVU.l4 ; 0x4031
@@ -61,14 +61,14 @@ api_idx_0002_QRVU:
     jne short @..api_idx_0002_QRVU.l4 ; 0x4038
     cmp word [bss_0e32], byte 0      ; 0x403a
     jne short @..api_idx_0002_QRVU.l3 ; 0x403f
-    call thunk_35                    ; 0x4041
+    call gfx_entry_00                ; 0x4041
 @..api_idx_0002_QRVU.l3:
     mov word [bss_0e32], 1           ; 0x4044
     jmp short @..api_idx_0002_QRVU.l6 ; 0x404a
 @..api_idx_0002_QRVU.l4:
     cmp word [bss_0e32], byte 1      ; 0x404c
     jne short @..api_idx_0002_QRVU.l5 ; 0x4051
-    call thunk_36                    ; 0x4053
+    call gfx_mouse_off               ; 0x4053
 @..api_idx_0002_QRVU.l5:
     mov word [bss_0e32], 0           ; 0x4056
 @..api_idx_0002_QRVU.l6:

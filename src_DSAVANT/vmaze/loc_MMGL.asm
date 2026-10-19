@@ -10,7 +10,7 @@ loc_MMGL:
     push ax                          ; 0x21f4
     mov ax, 0                        ; 0x21f5
     push ax                          ; 0x21f8
-    call thunk_4                     ; 0x21f9
+    call gfx_entry_16                ; 0x21f9
     add sp, byte 8                   ; 0x21fc
     mov ax, 0x64                     ; 0x21ff
     push ax                          ; 0x2202

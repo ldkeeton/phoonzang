@@ -20,7 +20,7 @@ api_idx_0050_MUIG:
     push ax                          ; 0x7f85
     mov ax, 0x12e                    ; 0x7f86
     push ax                          ; 0x7f89
-    call thunk_46                    ; 0x7f8a
+    call gfx_entry_33                ; 0x7f8a
     add sp, byte 6                   ; 0x7f8d
     call ds_app_NNSU                 ; 0x7f90
     mov word [bss_8450], ax          ; 0x7f93
@@ -66,7 +66,7 @@ api_idx_0050_MUIG:
     cmp word [bss_8450], byte 0      ; 0x7ff2
     je short @..api_idx_0050_MUIG.l4 ; 0x7ff7
 @..api_idx_0050_MUIG.l2:
-    call thunk_22                    ; 0x7ff9
+    call gfx_entry_52                ; 0x7ff9
     test ax, ax                      ; 0x7ffc
     je short @..api_idx_0050_MUIG.l3 ; 0x7ffe
     jmp short @..api_idx_0050_MUIG.l2 ; 0x8000
@@ -105,7 +105,7 @@ api_idx_0050_MUIG:
     push ax                          ; 0x804c
     mov ax, 0x12e                    ; 0x804d
     push ax                          ; 0x8050
-    call thunk_47                    ; 0x8051
+    call gfx_entry_34                ; 0x8051
     add sp, byte 6                   ; 0x8054
     mov ax, 0                        ; 0x8057
     mov dx, 0                        ; 0x805a
@@ -126,11 +126,11 @@ api_idx_0050_MUIG:
     add sp, byte 4                   ; 0x8087
     mov ax, 1                        ; 0x808a
     push ax                          ; 0x808d
-    call ds_app_thunk_21_VGJR        ; 0x808e
+    call ds_app_gfx_entry_51_VGJR    ; 0x808e
     pop cx                           ; 0x8091
     mov ax, 0                        ; 0x8092
     push ax                          ; 0x8095
-    call ds_app_thunk_21_VGJR        ; 0x8096
+    call ds_app_gfx_entry_51_VGJR    ; 0x8096
     pop cx                           ; 0x8099
 @..api_idx_0050_MUIG.l9:
     call loc_VSIT                    ; 0x809a

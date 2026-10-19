@@ -59,13 +59,13 @@ api_idx_0054_NQHV:
     push ax                          ; 0x03f1
     mov ax, 0x62                     ; 0x03f2
     push ax                          ; 0x03f5
-    call thunk_7                     ; 0x03f6
+    call gfx_entry_18                ; 0x03f6
     add sp, byte 0x0a                ; 0x03f9
     mov ax, 0x5f                     ; 0x03fc
     push ax                          ; 0x03ff
     mov ax, 1                        ; 0x0400
     push ax                          ; 0x0403
-    call thunk_3                     ; 0x0404
+    call gfx_entry_12                ; 0x0404
     add sp, byte 4                   ; 0x0407
     jmp short @..api_idx_0054_NQHV.l6 ; 0x040a
 @..api_idx_0054_NQHV.l5:
@@ -73,7 +73,7 @@ api_idx_0054_NQHV:
     push ax                          ; 0x040f
     mov ax, 0x5f                     ; 0x0410
     push ax                          ; 0x0413
-    call thunk_3                     ; 0x0414
+    call gfx_entry_12                ; 0x0414
     add sp, byte 4                   ; 0x0417
 @..api_idx_0054_NQHV.l6:
     mov ax, 6                        ; 0x041a
@@ -82,7 +82,7 @@ api_idx_0054_NQHV:
     push ax                          ; 0x0423
     mov ax, 0x63                     ; 0x0424
     push ax                          ; 0x0427
-    call thunk                       ; 0x0428
+    call gfx_entry_13                ; 0x0428
     add sp, byte 4                   ; 0x042b
     mov ax, 0                        ; 0x042e
     push ax                          ; 0x0431
@@ -140,7 +140,7 @@ api_idx_0054_NQHV:
     push ax                          ; 0x04ad
     mov ax, 0xce                     ; 0x04ae
     push ax                          ; 0x04b1
-    call thunk                       ; 0x04b2
+    call gfx_entry_13                ; 0x04b2
     add sp, byte 4                   ; 0x04b5
     mov ax, 0                        ; 0x04b8
     push ax                          ; 0x04bb

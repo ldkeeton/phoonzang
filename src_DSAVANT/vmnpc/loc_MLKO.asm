@@ -13,7 +13,7 @@ loc_MLKO:
     mov ax, 0                        ; 0x1321
     push ax                          ; 0x1324
     push word [bp + 0xa]             ; 0x1325
-    call thunk_3                     ; 0x1328
+    call gfx_entry_12                ; 0x1328
     add sp, byte 4                   ; 0x132b
     mov ax, 7                        ; 0x132e
     imul word [bp + 0x6]             ; 0x1331
@@ -31,7 +31,7 @@ loc_MLKO:
     mov ax, 0xa0                     ; 0x134c
     sub ax, cx                       ; 0x134f
     push ax                          ; 0x1351
-    call thunk                       ; 0x1352
+    call gfx_entry_13                ; 0x1352
     add sp, byte 4                   ; 0x1355
     mov ax, 0                        ; 0x1358
     push ax                          ; 0x135b
@@ -50,7 +50,7 @@ loc_MLKO:
     push ax                          ; 0x137c
     mov ax, 0x19                     ; 0x137d
     push ax                          ; 0x1380
-    call thunk_4                     ; 0x1381
+    call gfx_entry_16                ; 0x1381
     add sp, byte 8                   ; 0x1384
     cmp word [bp + 0x8], byte 0      ; 0x1387
     je short @..loc_MLKO.l1          ; 0x138b
