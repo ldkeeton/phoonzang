@@ -8,7 +8,7 @@ loc_SNOI:
     mov ax, 5                        ; 0x7da6
     push ax                          ; 0x7da9
     push ax                          ; 0x7daa
-    call ds_app_file_JISS            ; 0x7dab
+    call draw_load_sound_file        ; 0x7dab
     add sp, byte 6                   ; 0x7dae
     mov ax, 7                        ; 0x7db1
     push ax                          ; 0x7db4

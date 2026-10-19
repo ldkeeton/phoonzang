@@ -319,48 +319,48 @@ loc_RVQR:
     mov ax, 0                        ; 0x06bd
     push ax                          ; 0x06c0
     push ax                          ; 0x06c1
-    call ds_app_file_JISS            ; 0x06c2
+    call draw_load_sound_file        ; 0x06c2
     add sp, byte 6                   ; 0x06c5
     mov ax, 1                        ; 0x06c8
     push ax                          ; 0x06cb
     push ax                          ; 0x06cc
     push ax                          ; 0x06cd
-    call ds_app_file_JISS            ; 0x06ce
+    call draw_load_sound_file        ; 0x06ce
     add sp, byte 6                   ; 0x06d1
     mov ax, 1                        ; 0x06d4
     push ax                          ; 0x06d7
     mov ax, 2                        ; 0x06d8
     push ax                          ; 0x06db
     push ax                          ; 0x06dc
-    call ds_app_file_JISS            ; 0x06dd
+    call draw_load_sound_file        ; 0x06dd
     add sp, byte 6                   ; 0x06e0
     mov ax, 1                        ; 0x06e3
     push ax                          ; 0x06e6
     mov ax, 3                        ; 0x06e7
     push ax                          ; 0x06ea
     push ax                          ; 0x06eb
-    call ds_app_file_JISS            ; 0x06ec
+    call draw_load_sound_file        ; 0x06ec
     add sp, byte 6                   ; 0x06ef
     mov ax, 1                        ; 0x06f2
     push ax                          ; 0x06f5
     mov ax, 4                        ; 0x06f6
     push ax                          ; 0x06f9
     push ax                          ; 0x06fa
-    call ds_app_file_JISS            ; 0x06fb
+    call draw_load_sound_file        ; 0x06fb
     add sp, byte 6                   ; 0x06fe
     mov ax, 1                        ; 0x0701
     push ax                          ; 0x0704
     mov ax, 8                        ; 0x0705
     push ax                          ; 0x0708
     push ax                          ; 0x0709
-    call ds_app_file_JISS            ; 0x070a
+    call draw_load_sound_file        ; 0x070a
     add sp, byte 6                   ; 0x070d
     mov ax, 1                        ; 0x0710
     push ax                          ; 0x0713
     mov ax, 9                        ; 0x0714
     push ax                          ; 0x0717
     push ax                          ; 0x0718
-    call ds_app_file_JISS            ; 0x0719
+    call draw_load_sound_file        ; 0x0719
     add sp, byte 6                   ; 0x071c
     mov word [bss_598e], 0xffff      ; 0x071f
     mov word [bss_82b6], 0xffff      ; 0x0725

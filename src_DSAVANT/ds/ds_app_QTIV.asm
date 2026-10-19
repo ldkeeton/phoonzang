@@ -23,7 +23,7 @@ ds_app_QTIV: ; Aztec csav frame=0x0000
     mov ax, 0x10                     ; 0x2a20
     push ax                          ; 0x2a23
     push word [bp + 0x4]             ; 0x2a24
-    call ds_app_file_JISS            ; 0x2a27
+    call draw_load_sound_file        ; 0x2a27
     add sp, byte 6                   ; 0x2a2a
 @..ds_app_QTIV.l2:
     ret                              ; 0x2a2d

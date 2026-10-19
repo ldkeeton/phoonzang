@@ -14,14 +14,14 @@ from .prebuild import cmd_prebuild
 from .readme import cmd_readme
 from .run import _parse_check_args, cmd_check, cmd_run
 from .stats_diff import cmd_stats_diff
-from .testing import cmd_test
+from .testing import cmd_test, run_tests
 from .verify import cmd_verify
 
 HELP = '''Usage: make [command] [project...]
 
 Commands (space-separated):
   make init                 sparse-clone only the dos_compilers folders listed in sidecars
-  make all                  prebuild (clean + Aztec mux), build, verify all projects, then make test
+  make all                  prebuild (clean + Aztec mux), build, verify all, make test, make test slow
   make build PROJECT [BIN]  asm + nasm + assets (seeds .c; runs prebuild first if missing)
   make prebuild [PROJECT...]  clean, rebuild aztec libs + signature DB, run the Aztec C mux
   make check PROJECT [SECONDS] smoke-test game (default 5s, requires build first)
@@ -82,8 +82,9 @@ def main():
             cmd_prebuild(project)
         _build_projects(all_projects, all_projects, clean=False, prebuild=False)
         cmd_verify([])
-        cmd_test([])
-        return
+        fast_ok = run_tests([])
+        slow_ok = run_tests(['slow'])
+        sys.exit(0 if fast_ok and slow_ok else 1)
 
     if '--init' in flags:
         cmd_init()

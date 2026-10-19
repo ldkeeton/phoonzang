@@ -841,21 +841,21 @@ jumptable_67c3_case_15:
     mov ax, 0xa                      ; 0x68ee
     push ax                          ; 0x68f1
     push ax                          ; 0x68f2
-    call ds_app_file_JISS            ; 0x68f3
+    call draw_load_sound_file        ; 0x68f3
     add sp, byte 6                   ; 0x68f6
     mov ax, 1                        ; 0x68f9
     push ax                          ; 0x68fc
     mov ax, 0xb                      ; 0x68fd
     push ax                          ; 0x6900
     push ax                          ; 0x6901
-    call ds_app_file_JISS            ; 0x6902
+    call draw_load_sound_file        ; 0x6902
     add sp, byte 6                   ; 0x6905
     mov ax, 1                        ; 0x6908
     push ax                          ; 0x690b
     mov ax, 0xc                      ; 0x690c
     push ax                          ; 0x690f
     push ax                          ; 0x6910
-    call ds_app_file_JISS            ; 0x6911
+    call draw_load_sound_file        ; 0x6911
     add sp, byte 6                   ; 0x6914
     mov ax, 7                        ; 0x6917
     push ax                          ; 0x691a

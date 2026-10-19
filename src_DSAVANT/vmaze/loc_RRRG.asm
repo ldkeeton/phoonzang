@@ -10,7 +10,7 @@ loc_RRRG:
     mov ax, 0xe                      ; 0x0192
     push ax                          ; 0x0195
     push word [bp + 0x4]             ; 0x0196
-    call ds_app_file_JISS            ; 0x0199
+    call draw_load_sound_file        ; 0x0199
     add sp, byte 6                   ; 0x019c
     mov ax, word [bp + 0x4]          ; 0x019f
     mov word [bss_9194], ax          ; 0x01a2
@@ -22,7 +22,7 @@ loc_RRRG:
     mov ax, 0xf                      ; 0x01af
     push ax                          ; 0x01b2
     push word [bp + 0x6]             ; 0x01b3
-    call ds_app_file_JISS            ; 0x01b6
+    call draw_load_sound_file        ; 0x01b6
     add sp, byte 6                   ; 0x01b9
     mov ax, word [bp + 0x6]          ; 0x01bc
     mov word [bss_9196], ax          ; 0x01bf

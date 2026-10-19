@@ -320,6 +320,7 @@ dseg_0002 equ __zdseg_0002 - __zdseg_start
 
 %include "ds/clamp_between.asm"            ; 0x0a09
 
+bss_5576 equ __zbss_5576 - __zdseg_start
 bss_597c equ __zbss_597c - __zdseg_start
 bss_5984 equ __zbss_5984 - __zdseg_start
 bss_598e equ __zbss_598e - __zdseg_start
@@ -478,7 +479,8 @@ bss_6a1a  equ __zbss_6a1a - __zdseg_start
 %include "ds/ds_app_SOQK.asm"              ; 0x290d
 
 dseg_0bd7 equ __zdseg_0bd7 - __zdseg_start
-%include "ds/ds_app_file_JISS.asm"         ; 0x2923
+; bss_5576  equ __zbss_5576 - __zdseg_start
+%include "ds/draw_load_sound_file.asm"     ; 0x2923
 
 ; bss_598e equ __zbss_598e - __zdseg_start
 %include "ds/ds_app_QTIV.asm"              ; 0x29f1
@@ -1613,7 +1615,9 @@ __zbss_5524:
 __zbss_5528:
     resb 0x0002
 __zbss_552a:
-    resb 0x0118
+    resb 0x004c
+__zbss_5576:
+    resb 0x00cc
 __zbss_5642:
     resb 0x0200
 __zbss_5842:

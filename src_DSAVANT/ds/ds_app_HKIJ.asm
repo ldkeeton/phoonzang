@@ -15,7 +15,7 @@ ds_app_HKIJ: ; Aztec csav frame=0x0006
     cmp word [bx + 0x557a], byte 0   ; 0x0a4b
 @..ds_app_HKIJ.l1:
     jne short @..ds_app_HKIJ.l2      ; 0x0a50
-    mov ax, word [bx + 0x5576]       ; 0x0a52
+    mov ax, word [bx + bss_5576]     ; 0x0a52
     mov word [bp - 0x0002], ax       ; 0x0a56
 @..ds_app_HKIJ.l2:
     cmp byte [bss_5984], 0           ; 0x0a59

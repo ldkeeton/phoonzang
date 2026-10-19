@@ -114,7 +114,8 @@ class _TimedResult(unittest.TextTestResult):
         super().addSkip(test, reason)
 
 
-def cmd_test(patterns):
+def run_tests(patterns):
+    """Run the selected tests; return True if they all passed."""
     loader = unittest.TestLoader()
     if patterns == ['slow']:
         tests = [t for t in _flatten(loader.discover(
@@ -135,4 +136,8 @@ def cmd_test(patterns):
         print(f'fixture teardown (not in per-test times): '
               f'{result._teardown_ms:.0f} ms')
     print(f'sum of test times: {result._total_ms / 1000:.1f}s')
-    sys.exit(0 if result.wasSuccessful() else 1)
+    return result.wasSuccessful()
+
+
+def cmd_test(patterns):
+    sys.exit(0 if run_tests(patterns) else 1)

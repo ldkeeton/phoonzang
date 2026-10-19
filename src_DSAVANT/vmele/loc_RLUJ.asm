@@ -43,42 +43,42 @@ loc_RLUJ:
     mov ax, 5                        ; 0x343d
     push ax                          ; 0x3440
     push ax                          ; 0x3441
-    call ds_app_file_JISS            ; 0x3442
+    call draw_load_sound_file        ; 0x3442
     add sp, byte 6                   ; 0x3445
     mov ax, 1                        ; 0x3448
     push ax                          ; 0x344b
     mov ax, 6                        ; 0x344c
     push ax                          ; 0x344f
     push ax                          ; 0x3450
-    call ds_app_file_JISS            ; 0x3451
+    call draw_load_sound_file        ; 0x3451
     add sp, byte 6                   ; 0x3454
     mov ax, 1                        ; 0x3457
     push ax                          ; 0x345a
     mov ax, 7                        ; 0x345b
     push ax                          ; 0x345e
     push ax                          ; 0x345f
-    call ds_app_file_JISS            ; 0x3460
+    call draw_load_sound_file        ; 0x3460
     add sp, byte 6                   ; 0x3463
     mov ax, 1                        ; 0x3466
     push ax                          ; 0x3469
     mov ax, 0xa                      ; 0x346a
     push ax                          ; 0x346d
     push ax                          ; 0x346e
-    call ds_app_file_JISS            ; 0x346f
+    call draw_load_sound_file        ; 0x346f
     add sp, byte 6                   ; 0x3472
     mov ax, 1                        ; 0x3475
     push ax                          ; 0x3478
     mov ax, 0xb                      ; 0x3479
     push ax                          ; 0x347c
     push ax                          ; 0x347d
-    call ds_app_file_JISS            ; 0x347e
+    call draw_load_sound_file        ; 0x347e
     add sp, byte 6                   ; 0x3481
     mov ax, 1                        ; 0x3484
     push ax                          ; 0x3487
     mov ax, 0xc                      ; 0x3488
     push ax                          ; 0x348b
     push ax                          ; 0x348c
-    call ds_app_file_JISS            ; 0x348d
+    call draw_load_sound_file        ; 0x348d
     add sp, byte 6                   ; 0x3490
     mov ax, 7                        ; 0x3493
     push ax                          ; 0x3496
