@@ -75,6 +75,7 @@ def asm_app(app):
         sys.exit(1)
     if failed:
         print(f'{app}: {len(set(failed))} binary(ies) failed to build')
+        workers.print_errors()
         sys.exit(1)
     print(f'{app}: build OK')
 
@@ -103,6 +104,7 @@ def cmd_build_binary(app, binary):
         failed = build_project(app, _generate(workers), _assemble(out_dir),
                                only=binary)
     if failed:
+        workers.print_errors()
         sys.exit(1)
     print(f'build {app}/{binary} -> {bins[binary][0]}  [OK]')
 
@@ -118,7 +120,7 @@ def _rebuild_project(app, binary=None):
         print(f'Known: {", ".join(sorted(bins))}')
         sys.exit(1)
     for name in sorted(bins):
-        resplice_c(app, name)
+        resplice_c(app, name, check_only=True)
     targets = [binary] if binary else sorted(bins)
     for name in targets:
         if nasm_binary(out_dir, name, bins[name][0]) != 0:

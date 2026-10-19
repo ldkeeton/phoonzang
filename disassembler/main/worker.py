@@ -24,6 +24,7 @@ from contextlib import redirect_stderr, redirect_stdout
 from lib import stagelog
 from lib.autogen import write_once
 from lib.cachedirs import src_dir
+from lib.compare.cgate import CGateError
 from lib.compare.records import UnencodedInstructionError
 from lib.link import LinkError
 from lib.sidecar.binary import per_binary as sidecar_per_binary
@@ -137,6 +138,10 @@ def _answer(run, reply):
                 status = 2
             except (SidecarError, LinkError) as exc:
                 print(f'{type(exc).__name__}: {exc}', file=sys.stderr)
+                status = 2
+            except CGateError as exc:
+                # The gate's own report says everything; no traceback.
+                print(exc, file=sys.stderr)
                 status = 2
             except Exception:
                 traceback.print_exc()

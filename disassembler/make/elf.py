@@ -1,5 +1,6 @@
 """``make elf-rebuild`` — ELF/DWARF symbol output and C-fragment resplicing."""
 
+import difflib
 import hashlib
 import json
 import os
@@ -8,7 +9,7 @@ import subprocess
 import sys
 import tempfile
 
-from lib.autogen import write_text
+from lib.autogen import stamp, write_text
 from lib.cachedirs import src_dir
 from lib.dwarf_line import fix_elf as _fix_elf_debug_line
 from lib.link import include_args
@@ -212,7 +213,7 @@ def _report_linked(app, binary, label, linked):
         print(f'  {where}: relocation at +0x{site:x} matched no operand')
 
 
-def resplice_c(app, binary):
+def resplice_c(app, binary, check_only=False):
     """Recompile the C routine fragments of an already-built binary.
 
     Every ``<binary>/<label>.c`` is recompiled (with its recorded Aztec
@@ -227,6 +228,8 @@ def resplice_c(app, binary):
     ``--exact-bytes``, semantically equivalent.  A mismatch prints a per-byte
     report, leaves that fragment as it was and exits 1; ``--allow-diff``
     restores the old lenient splice.  A ``.c`` with no matching asm is an error.
+    With *check_only* nothing is written: a fragment on disk that differs from
+    the regenerated one prints a diff and exits 1.
 
     The sole constraint is image layout: the routine's byte span is fixed (the
     master listing addresses code absolutely), so a compile that no longer fits
@@ -314,6 +317,7 @@ def resplice_c(app, binary):
                   or bool(context and context['exact_bytes']))
     lenient = '--allow-diff' in _extra_flags()
     failures = []
+    mismatches = []
     count = 0
     picked = []
     # A routine whose inputs and output fragment are unchanged since its last
@@ -473,9 +477,27 @@ def resplice_c(app, binary):
             # Shared by several binaries: no one binary's addresses.
             from lib.shared import neutral
             fragment = neutral(fragment)
-        # Regenerated from the C, so it stays an auto-generated file
-        # (``make clean`` removes it, a human takeover would not be rewritten).
-        write_text(apath, fragment)
+        if check_only:
+            # The fragment on disk is the source of truth: it must already be
+            # exactly what the C regenerates, never rewritten to match.
+            expected = stamp(fragment, apath)
+            with open(apath) as f:
+                on_disk = f.read()
+            if on_disk != expected:
+                rel = os.path.relpath(apath, out_dir)
+                diff = list(difflib.unified_diff(
+                    on_disk.splitlines(), expected.splitlines(),
+                    f'{rel} (on disk)', f'{rel} (from {label}.c)',
+                    lineterm=''))
+                if len(diff) > 40:
+                    diff = diff[:40] + [f'... ({len(diff) - 40} more lines)']
+                mismatches.append('\n'.join(diff))
+                continue
+        else:
+            # Regenerated from the C, so it stays an auto-generated file
+            # (``make clean`` removes it, a human takeover would not be
+            # rewritten).
+            write_text(apath, fragment)
         with open(apath, 'rb') as f:
             stamps[label] = {'in': in_stamp,
                              'out': hashlib.sha1(f.read()).hexdigest()}
@@ -489,8 +511,15 @@ def resplice_c(app, binary):
               file=sys.stderr)
         print('\n'.join(failures), file=sys.stderr)
         raise SystemExit(1)
+    if mismatches:
+        print(f'resplice {app}/{binary}: asm on disk differs from what its C '
+              f'regenerates (not written; fix the .asm or the .c, or run '
+              f'"make build {app}"):', file=sys.stderr)
+        print('\n'.join(mismatches), file=sys.stderr)
+        raise SystemExit(1)
     if count:
-        print(f'  resplice {app}/{binary}: {count} C routine(s) from .c')
+        verb = 'verified against' if check_only else 'from'
+        print(f'  resplice {app}/{binary}: {count} C routine(s) {verb} .c')
         for name in picked:
             print(f'    {name}')
 
@@ -536,7 +565,7 @@ def _elf_rebuild_one(app, binary=None):
 
     # 1) Recompile the edited C seeds.  A binary with no ``.c`` is a no-op.
     for name in targets:
-        resplice_c(app, name)
+        resplice_c(app, name, check_only=True)
 
     # 2) Assemble every binary from the current sources (overlays include the
     #    host source for its symbols, so host edits reach them directly).

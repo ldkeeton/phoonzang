@@ -14,6 +14,10 @@ from lib.verify.assemble import is_semantically_equivalent
 MAX_SHOWN = 20
 
 
+class CGateError(ValueError):
+    """A hand-written C routine does not reproduce the original bytes."""
+
+
 def _disasm_at(md, data, off, base):
     insn = next(md.disasm(data[off:off + 15], base + off), None)
     return insn

@@ -68,8 +68,12 @@ def _main_cmd(app, binary, *flags):
     return cmd
 
 
-def _report(binary, returncode, stdout, stderr, sink=None):
-    """Print (or append to *sink*) what is kept of one worker run's output."""
+def _report(binary, returncode, stdout, stderr, sink=None, errors=None):
+    """Print (or append to *sink*) what is kept of one worker run's output.
+
+    A failed run's stderr is appended to *errors*, when given, for the caller
+    to print last; otherwise it is printed now.
+    """
     lines = [line for line in stdout.splitlines() if line.strip()]
     if returncode == 0 and not _verbose():
         prefix = f'{binary}: '
@@ -81,6 +85,9 @@ def _report(binary, returncode, stdout, stderr, sink=None):
         for line in lines:
             print(line)
     if returncode != 0 and stderr.strip():
+        if errors is not None:
+            errors.append((binary, stderr.strip()))
+            return
         for line in stderr.strip().split('\n'):
             print(f'  {line}', file=sys.stderr)
 
@@ -153,6 +160,9 @@ class Workers:
         self.app = app
         self._live = {}
         self._lock = threading.Lock()
+        #: ``(binary, stderr)`` of each failed step, printed by
+        #: :meth:`print_errors` after the build's own summary.
+        self.errors = []
 
     def run(self, binary, flags=None, sink=None):
         """One build step of *binary*, reported like :func:`_asm_one`.
@@ -165,8 +175,17 @@ class Workers:
             if worker is None:
                 worker = self._live[binary] = _Worker(self.app, binary)
         status, out, err, files = worker.step(flags)
-        _report(binary, status, out, err, sink)
+        _report(binary, status, out, err, sink, self.errors)
         return status, files
+
+    def print_errors(self):
+        """Print the failed steps' errors, so they are the last thing shown."""
+        sys.stdout.flush()   # stderr is unbuffered; keep the order on a pipe
+        for binary, err in self.errors:
+            print(f'\n{binary}:', file=sys.stderr)
+            for line in err.split('\n'):
+                print(f'  {line}', file=sys.stderr)
+        self.errors.clear()
 
     def close(self):
         for worker in self._live.values():
@@ -178,6 +197,8 @@ class Workers:
 
     def __exit__(self, *exc):
         self.close()
+        if exc[0] is not None:
+            self.print_errors()   # the caller never reaches its own summary
 
 
 def _main_exe(out_dir, bins):

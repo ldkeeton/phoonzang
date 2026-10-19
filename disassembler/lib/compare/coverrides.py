@@ -9,7 +9,7 @@ from lib.aztec import relabel, relink
 from lib.format import LinkedSymbol
 from lib.verify.assemble import micro_assemble, is_semantically_equivalent
 from lib.compare.interrupts import _set_insn_fields
-from lib.compare.cgate import check_against_original
+from lib.compare.cgate import CGateError, check_against_original
 from lib.compare.records import _label_record, _record_span
 from lib.compare.symbols import data_symbol
 from lib.symtab import Kind, Symbol
@@ -326,7 +326,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
         # would shift every following address, so it is a hard error.
         length = override.get('length') or len(compiled)
         if len(compiled) > length:
-            raise ValueError(
+            raise CGateError(
                 f'C override: {label!r} compiled to {len(compiled)} bytes, '
                 f'exceeds the original {length} bytes')
 
@@ -335,7 +335,7 @@ def _apply_c_overrides(records, c_overrides, binary_data, label_map,
                 label, start, binary_data[start:start + length], compiled,
                 exact=exact_bytes)
             if report:
-                raise ValueError('\n'.join(report))
+                raise CGateError('\n'.join(report))
 
         # Overlay the original relocation bytes.  A relocation may start on the
         # routine's last byte and run one byte past it; clamp to the code so the
