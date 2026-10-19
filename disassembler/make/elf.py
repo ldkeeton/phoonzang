@@ -260,13 +260,16 @@ def resplice_c(app, binary, check_only=False):
     labels_path = os.path.join(labels_dir(app),
                                f'{binary}_labels.json')
     manifest = cache.manifest_path(app, binary)
-    if not all(os.path.isfile(p) for p in
-               (spans_path, labels_path, manifest)):
+    if not all(os.path.isfile(p) for p in (spans_path, labels_path)):
         return
     with open(spans_path) as f:
         spans = json.load(f)
-    with open(manifest) as f:
-        entries = json.load(f)['functions']
+    # A binary with no recovered library routine has no manifest; its C
+    # (a shared routine's, say) all takes the default provenance.
+    entries = {}
+    if os.path.isfile(manifest):
+        with open(manifest) as f:
+            entries = json.load(f)['functions']
     from lib.cross_ref import read_label_json
     label_map = read_label_json(labels_path)
     context = _load_render_context(app, binary)
@@ -550,21 +553,20 @@ def _elf_rebuild_one(app, binary=None):
         if binary is None:
             print(f'{app}: no binary to emit ELF for')
             sys.exit(1)
-        targets = sorted(bins)
     else:
         if binary not in bins:
             print(f'Unknown binary "{binary}" in {app}')
             print(f'Known: {", ".join(sorted(bins))}')
             sys.exit(1)
-        targets = [binary]
 
     asm_path = os.path.join(out_dir, f'{binary}.asm')
     if not os.path.isfile(asm_path):
         print(f'{asm_path} not found; run "make build {app}" first')
         sys.exit(1)
 
-    # 1) Recompile the edited C seeds.  A binary with no ``.c`` is a no-op.
-    for name in targets:
+    # 1) Recompile the edited C seeds of every binary, since step 2 assembles
+    #    them all.  A binary with no ``.c`` is a no-op.
+    for name in sorted(bins):
         resplice_c(app, name, check_only=True)
 
     # 2) Assemble every binary from the current sources (overlays include the

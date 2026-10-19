@@ -123,6 +123,37 @@ def _addend_text(addend):
     return f' + 0x{addend:x}' if addend > 0 else f' - 0x{-addend:x}'
 
 
+def _resolved_branches(code, fixups):
+    """``{operand offset: (width, target offset)}`` of in-routine branches
+    the assembler resolved itself, so the object has no fixup for them.
+
+    Aztec's ``as`` turns an out-of-range conditional into a short ``jcc`` over
+    a near ``jmp``; that short ``jcc`` jumps to the code right after the
+    ``jmp`` and needs a label like any other local branch.
+    """
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+    covered = set()
+    for fx in fixups:
+        covered.update(range(fx.offset, fx.offset + fx.width))
+    out = {}
+    for insn in Cs(CS_ARCH_X86, CS_MODE_16).disasm(bytes(code), 0):
+        op = insn.bytes[0]
+        if 0x70 <= op <= 0x7f or 0xe0 <= op <= 0xe3 or op == 0xeb:
+            width = 1
+        elif op in (0xe8, 0xe9):
+            width = 2
+        else:
+            continue
+        site = insn.address + insn.size - width
+        if covered & set(range(site, site + width)):
+            continue
+        disp = int.from_bytes(code[site:site + width], 'little', signed=True)
+        target = insn.address + insn.size + disp
+        if 0 <= target < len(code):
+            out[site] = (width, target)
+    return out
+
+
 def _put(code, offset, width, value):
     value &= (1 << (8 * width)) - 1
     code[offset:offset + width] = value.to_bytes(width, 'little')
@@ -171,6 +202,8 @@ def link(label, start, func, index, original, labels_in=()):
                 f'{label}: branch at +0x{fx.offset:x} targets undefined '
                 f'local label {fx.symbol}')
         targets.add(start + func.locals[fx.symbol])
+    resolved = _resolved_branches(code, func.fixups)
+    targets.update(start + target for _width, target in resolved.values())
     fresh = sorted(t for t in targets if t not in named)
     for t in targets & set(named):
         out.local_names[t] = named[t]
@@ -179,6 +212,9 @@ def link(label, start, func, index, original, labels_in=()):
         out.local_names[t] = name
         out.local_records.append(
             {'type': 'label', 'text': f'{name}:', 'name': name, 'offset': t})
+    for site, (width, target) in resolved.items():
+        name = out.local_names[start + target]
+        out.refs[site] = Ref(site, width, name, True, {name: start + target})
 
     for fx in func.fixups:
         site = fx.offset
