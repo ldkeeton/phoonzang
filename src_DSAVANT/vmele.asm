@@ -106,6 +106,7 @@ loc_RPUI.api_idx1 equ api_idx_0006_IRNH
 ; bss_90ba equ __zdseg_end + (__zobss_90ba - __zdata_start)
 %include "vmele/api_idx_005a_STLR.asm"     ; 0x2cde
 
+dseg_90a4 equ __zdseg_end + (__zdseg_90a4 - __zdata_start)
 %include "vmele/api_idx_0004_NIHO.asm"     ; 0x2ec4
 
 %include "vmele/api_idx_0008_OUTK.asm"     ; 0x306a
@@ -140,6 +141,7 @@ __zdata_start:
     db 'MON00.PIC', 0
 __zdseg_90a2:
     db 0x20, 0x00
+__zdseg_90a4:
     db 'VM1.$$$', 0
 __zdseg_90ac:
     db 0x00, 0x00

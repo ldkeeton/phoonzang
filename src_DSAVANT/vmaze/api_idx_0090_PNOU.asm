@@ -7,7 +7,7 @@ api_idx_0090_PNOU:
     mov al, byte [bx]                ; 0x6cd2
     sub ah, ah                       ; 0x6cd4
     push ax                          ; 0x6cd6
-    mov ax, 0x917e                   ; 0x6cd7
+    mov ax, dseg_917e                ; 0x6cd7
     push ax                          ; 0x6cda
     call strpos                      ; 0x6cdb
     add sp, byte 4                   ; 0x6cde

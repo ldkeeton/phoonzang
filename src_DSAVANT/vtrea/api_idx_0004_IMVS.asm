@@ -6,7 +6,7 @@ api_idx_0004_IMVS:
     mov word [bp - 0x0004], 0        ; 0x0e0e
     cmp word [bp + 0x4], byte 0      ; 0x0e13
     jle short @..api_idx_0004_IMVS.l1 ; 0x0e17
-    mov ax, 0x90a2                   ; 0x0e19
+    mov ax, dseg_90a2                ; 0x0e19
     push ax                          ; 0x0e1c
     mov ax, 7                        ; 0x0e1d
     imul word [bp + 0x4]             ; 0x0e20
@@ -24,7 +24,7 @@ api_idx_0004_IMVS:
 @..api_idx_0004_IMVS.l1:
     cmp word [bp + 0x6], byte 4      ; 0x0e3c
     jge short @..api_idx_0004_IMVS.l2 ; 0x0e40
-    mov ax, 0x90a9                   ; 0x0e42
+    mov ax, dseg_90a9                ; 0x0e42
     push ax                          ; 0x0e45
     mov ax, 0xc4                     ; 0x0e46
     push ax                          ; 0x0e49

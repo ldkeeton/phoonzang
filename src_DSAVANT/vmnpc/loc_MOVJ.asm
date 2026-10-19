@@ -30,7 +30,7 @@ loc_MOVJ:
     jne short @..loc_MOVJ.l1         ; 0x1d7c
     jmp near @..loc_MOVJ.l2          ; 0x1d7e
 @..loc_MOVJ.l1:
-    mov ax, 0x90c4                   ; 0x1d81
+    mov ax, dseg_90c4                ; 0x1d81
     push ax                          ; 0x1d84
     mov ax, word [bp - 0x0008]       ; 0x1d85
     add ax, strict word 6            ; 0x1d88
@@ -113,7 +113,7 @@ loc_MOVJ:
     add sp, byte 4                   ; 0x1e40
     jmp short @..loc_MOVJ.l3         ; 0x1e43
 @..loc_MOVJ.l2:
-    mov ax, 0x90ca                   ; 0x1e45
+    mov ax, dseg_90ca                ; 0x1e45
     push ax                          ; 0x1e48
     mov ax, word [bp - 0x0008]       ; 0x1e49
     inc ax                           ; 0x1e4c

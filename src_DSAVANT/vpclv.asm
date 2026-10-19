@@ -53,13 +53,14 @@ api_idx_000a_TITQ.bss3 equ bss_9436
 api_idx_000a_TITQ.bss4 equ bss_9438
 %include "shared/api_idx_000a_TITQ.asm"     ; 0x04ca
 
-bss_9416 equ __zdseg_end + (__zobss_9416 - __zdata_start)
-bss_9418 equ __zdseg_end + (__zobss_9418 - __zdata_start)
-bss_941a equ __zdseg_end + (__zobss_941a - __zdata_start)
-bss_941c equ __zdseg_end + (__zobss_941c - __zdata_start)
-; bss_9436 equ __zdseg_end + (__zobss_9436 - __zdata_start)
-; bss_9438 equ __zdseg_end + (__zobss_9438 - __zdata_start)
-bss_943a equ __zdseg_end + (__zobss_943a - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+bss_9416  equ __zdseg_end + (__zobss_9416 - __zdata_start)
+bss_9418  equ __zdseg_end + (__zobss_9418 - __zdata_start)
+bss_941a  equ __zdseg_end + (__zobss_941a - __zdata_start)
+bss_941c  equ __zdseg_end + (__zobss_941c - __zdata_start)
+; bss_9436  equ __zdseg_end + (__zobss_9436 - __zdata_start)
+; bss_9438  equ __zdseg_end + (__zobss_9438 - __zdata_start)
+bss_943a  equ __zdseg_end + (__zobss_943a - __zdata_start)
 %include "vpclv/asm_only/api_idx_007c_MOJH.asm"     ; 0x0572
 
 %include "vpclv/loc_MNNG.asm"              ; 0x0dc0
@@ -70,6 +71,7 @@ bss_943a equ __zdseg_end + (__zobss_943a - __zdata_start)
 
 %include "shared/loc_PTRP.asm"              ; 0x0eea
 
+dseg_909b equ __zdseg_end + (__zdseg_909b - __zdata_start)
 %include "vpclv/loc_GPRG.asm"              ; 0x0f76
 
 %include "shared/api_idx_000c_JQMN.asm"     ; 0x1017
@@ -80,7 +82,8 @@ loc_SRQQ.api_idx1 equ api_idx_000a_MHQT
 loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
 %include "shared/loc_SRQQ.asm"              ; 0x10b0
 
-; bss_948c equ __zdseg_end + (__zobss_948c - __zdata_start)
+dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
+; bss_948c  equ __zdseg_end + (__zobss_948c - __zdata_start)
 %include "vpclv/api_idx_0050_MINM.asm"     ; 0x1141
 
 %include "vpclv/api_idx_00ca_HKHO.asm"     ; 0x1e31
@@ -123,6 +126,26 @@ bss_9492 equ __zdseg_end + (__zobss_9492 - __zdata_start)
 
 %include "shared/api_idx_0002_KQIK.asm"     ; 0x2b1a
 
+dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
+dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
+dseg_90c3 equ __zdseg_end + (__zdseg_90c3 - __zdata_start)
+dseg_90d2 equ __zdseg_end + (__zdseg_90d2 - __zdata_start)
+dseg_90e1 equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
+dseg_90f0 equ __zdseg_end + (__zdseg_90f0 - __zdata_start)
+dseg_90ff equ __zdseg_end + (__zdseg_90ff - __zdata_start)
+dseg_910e equ __zdseg_end + (__zdseg_910e - __zdata_start)
+dseg_911d equ __zdseg_end + (__zdseg_911d - __zdata_start)
+dseg_912c equ __zdseg_end + (__zdseg_912c - __zdata_start)
+dseg_913b equ __zdseg_end + (__zdseg_913b - __zdata_start)
+dseg_914a equ __zdseg_end + (__zdseg_914a - __zdata_start)
+dseg_9159 equ __zdseg_end + (__zdseg_9159 - __zdata_start)
+dseg_9168 equ __zdseg_end + (__zdseg_9168 - __zdata_start)
+dseg_9177 equ __zdseg_end + (__zdseg_9177 - __zdata_start)
+dseg_9186 equ __zdseg_end + (__zdseg_9186 - __zdata_start)
+dseg_9195 equ __zdseg_end + (__zdseg_9195 - __zdata_start)
+dseg_91a4 equ __zdseg_end + (__zdseg_91a4 - __zdata_start)
+dseg_91b3 equ __zdseg_end + (__zdseg_91b3 - __zdata_start)
+dseg_91c2 equ __zdseg_end + (__zdseg_91c2 - __zdata_start)
 %include "vpclv/api_idx_0052_LHVG.asm"     ; 0x2c0c
 
 %include "shared/api_idx_0004_PMIU.asm"     ; 0x3288
@@ -131,8 +154,64 @@ bss_9492 equ __zdseg_end + (__zobss_9492 - __zdata_start)
 
 %include "vpclv/api_idx_0004_GRGJ.asm"     ; 0x34cd
 
-bss_95d0 equ __zdseg_end + (__zobss_95d0 - __zdata_start)
-bss_95dc equ __zdseg_end + (__zobss_95dc - __zdata_start)
+dseg_91d1 equ __zdseg_end + (__zdseg_91d1 - __zdata_start)
+dseg_91dc equ __zdseg_end + (__zdseg_91dc - __zdata_start)
+dseg_91e5 equ __zdseg_end + (__zdseg_91e5 - __zdata_start)
+dseg_91ec equ __zdseg_end + (__zdseg_91ec - __zdata_start)
+dseg_91f7 equ __zdseg_end + (__zdseg_91f7 - __zdata_start)
+dseg_9202 equ __zdseg_end + (__zdseg_9202 - __zdata_start)
+dseg_920b equ __zdseg_end + (__zdseg_920b - __zdata_start)
+dseg_9212 equ __zdseg_end + (__zdseg_9212 - __zdata_start)
+dseg_921d equ __zdseg_end + (__zdseg_921d - __zdata_start)
+dseg_9228 equ __zdseg_end + (__zdseg_9228 - __zdata_start)
+dseg_9231 equ __zdseg_end + (__zdseg_9231 - __zdata_start)
+dseg_9238 equ __zdseg_end + (__zdseg_9238 - __zdata_start)
+dseg_9243 equ __zdseg_end + (__zdseg_9243 - __zdata_start)
+dseg_924e equ __zdseg_end + (__zdseg_924e - __zdata_start)
+dseg_9257 equ __zdseg_end + (__zdseg_9257 - __zdata_start)
+dseg_925e equ __zdseg_end + (__zdseg_925e - __zdata_start)
+dseg_9269 equ __zdseg_end + (__zdseg_9269 - __zdata_start)
+dseg_9274 equ __zdseg_end + (__zdseg_9274 - __zdata_start)
+dseg_927d equ __zdseg_end + (__zdseg_927d - __zdata_start)
+dseg_9284 equ __zdseg_end + (__zdseg_9284 - __zdata_start)
+dseg_928f equ __zdseg_end + (__zdseg_928f - __zdata_start)
+dseg_929a equ __zdseg_end + (__zdseg_929a - __zdata_start)
+dseg_92a3 equ __zdseg_end + (__zdseg_92a3 - __zdata_start)
+dseg_92aa equ __zdseg_end + (__zdseg_92aa - __zdata_start)
+dseg_92b5 equ __zdseg_end + (__zdseg_92b5 - __zdata_start)
+dseg_92c0 equ __zdseg_end + (__zdseg_92c0 - __zdata_start)
+dseg_92c9 equ __zdseg_end + (__zdseg_92c9 - __zdata_start)
+dseg_92d0 equ __zdseg_end + (__zdseg_92d0 - __zdata_start)
+dseg_92db equ __zdseg_end + (__zdseg_92db - __zdata_start)
+dseg_92e6 equ __zdseg_end + (__zdseg_92e6 - __zdata_start)
+dseg_92ef equ __zdseg_end + (__zdseg_92ef - __zdata_start)
+dseg_92f6 equ __zdseg_end + (__zdseg_92f6 - __zdata_start)
+dseg_9301 equ __zdseg_end + (__zdseg_9301 - __zdata_start)
+dseg_930c equ __zdseg_end + (__zdseg_930c - __zdata_start)
+dseg_9315 equ __zdseg_end + (__zdseg_9315 - __zdata_start)
+dseg_931c equ __zdseg_end + (__zdseg_931c - __zdata_start)
+dseg_9327 equ __zdseg_end + (__zdseg_9327 - __zdata_start)
+dseg_9332 equ __zdseg_end + (__zdseg_9332 - __zdata_start)
+dseg_933b equ __zdseg_end + (__zdseg_933b - __zdata_start)
+dseg_9342 equ __zdseg_end + (__zdseg_9342 - __zdata_start)
+dseg_934d equ __zdseg_end + (__zdseg_934d - __zdata_start)
+dseg_9358 equ __zdseg_end + (__zdseg_9358 - __zdata_start)
+dseg_9361 equ __zdseg_end + (__zdseg_9361 - __zdata_start)
+dseg_9368 equ __zdseg_end + (__zdseg_9368 - __zdata_start)
+dseg_9373 equ __zdseg_end + (__zdseg_9373 - __zdata_start)
+dseg_937e equ __zdseg_end + (__zdseg_937e - __zdata_start)
+dseg_9387 equ __zdseg_end + (__zdseg_9387 - __zdata_start)
+dseg_938e equ __zdseg_end + (__zdseg_938e - __zdata_start)
+dseg_9399 equ __zdseg_end + (__zdseg_9399 - __zdata_start)
+dseg_93a4 equ __zdseg_end + (__zdseg_93a4 - __zdata_start)
+dseg_93ad equ __zdseg_end + (__zdseg_93ad - __zdata_start)
+dseg_93b4 equ __zdseg_end + (__zdseg_93b4 - __zdata_start)
+dseg_93bf equ __zdseg_end + (__zdseg_93bf - __zdata_start)
+dseg_93ca equ __zdseg_end + (__zdseg_93ca - __zdata_start)
+dseg_93d3 equ __zdseg_end + (__zdseg_93d3 - __zdata_start)
+dseg_93da equ __zdseg_end + (__zdseg_93da - __zdata_start)
+bss_95d0  equ __zdseg_end + (__zobss_95d0 - __zdata_start)
+bss_95dc  equ __zdseg_end + (__zobss_95dc - __zdata_start)
 %include "vpclv/api_idx_0004_LOLJ.asm"     ; 0x35fc
 
 ; bss_941e equ __zdseg_end + (__zobss_941e - __zdata_start)
@@ -141,6 +220,7 @@ api_idx_0002_OGRO.bss1 equ bss_9420
 api_idx_0002_OGRO.bss2 equ bss_941e
 %include "shared/api_idx_0002_OGRO.asm"     ; 0x3851
 
+; bss_95dc equ __zdseg_end + (__zobss_95dc - __zdata_start)
 %include "vpclv/api_idx_002e_ILPL.asm"     ; 0x390b
 
 %include "vpclv/api_idx_0032_VJTR.asm"     ; 0x3a7a
@@ -209,87 +289,165 @@ dseg_9406 equ __zdseg_end + (__zdseg_9406 - __zdata_start)
 ; bss_9408  equ __zdseg_end + (__zobss_9408 - __zdata_start)
 %include "vpclv/asm_only/loc_HJNO.asm"              ; 0x5472
 
+__zdseg_9098:
 __zdata_start:
-
-    db 0x25, 0x20, 0x00, 0x2a, 0x2a, 0x2a, 0x00
+    db 0x25, 0x20, 0x00
+__zdseg_909b:
+    db 0x2a, 0x2a, 0x2a, 0x00
+__zdseg_909f:
     db 'V.$$$', 0
+__zdseg_90a5:
     db 'ACBCBCCCCHCHBA', 0
+__zdseg_90b4:
     db '02222232112230', 0
+__zdseg_90c3:
     db 'ACCCCDCCCHHKDA', 0
+__zdseg_90d2:
     db '02222232123230', 0
+__zdseg_90e1:
     db 'ACCCCDCCCIFKEA', 0
+__zdseg_90f0:
     db '02222232121230', 0
+__zdseg_90ff:
     db 'ACHCHDCCCHFIDA', 0
+__zdseg_910e:
     db '02323232111230', 0
+__zdseg_911d:
     db 'ACKCHHGCCIECBA', 0
+__zdseg_912c:
     db '02322322121220', 0
+__zdseg_913b:
     db 'ACBCCDECCEEEGA', 0
+__zdseg_914a:
     db '02121212111330', 0
+__zdseg_9159:
     db 'ACICIBHCCFKFFA', 0
+__zdseg_9168:
     db '02323112113330', 0
+__zdseg_9177:
     db 'ACECCEGCCIFKFA', 0
+__zdseg_9186:
     db '02222222122220', 0
+__zdseg_9195:
     db 'ACKCGDHCCFKIDA', 0
+__zdseg_91a4:
     db '02322212112320', 0
+__zdseg_91b3:
     db 'ACHCHHGCCCECHA', 0
+__zdseg_91c2:
     db '02322322112230', 0
+__zdseg_91d1:
     db '1111111110', 0
+__zdseg_91dc:
     db '11100000', 0
+__zdseg_91e5:
     db '000000', 0
+__zdseg_91ec:
     db '1111000000', 0
+__zdseg_91f7:
     db '1000111100', 0
+__zdseg_9202:
     db '11101000', 0
+__zdseg_920b:
     db '000000', 0
+__zdseg_9212:
     db '1111000010', 0
+__zdseg_921d:
     db '0001101010', 0
+__zdseg_9228:
     db '11101000', 0
+__zdseg_9231:
     db '000000', 0
+__zdseg_9238:
     db '1111101000', 0
+__zdseg_9243:
     db '1111111110', 0
+__zdseg_924e:
     db '11101111', 0
+__zdseg_9257:
     db '000000', 0
+__zdseg_925e:
     db '1111000000', 0
+__zdseg_9269:
     db '1111111110', 0
+__zdseg_9274:
     db '11100111', 0
+__zdseg_927d:
     db '000000', 0
+__zdseg_9284:
     db '1111010000', 0
+__zdseg_928f:
     db '1001110000', 0
+__zdseg_929a:
     db '11100000', 0
+__zdseg_92a3:
     db '000000', 0
+__zdseg_92aa:
     db '1111010000', 0
+__zdseg_92b5:
     db '1111111110', 0
+__zdseg_92c0:
     db '11111111', 0
+__zdseg_92c9:
     db '000000', 0
+__zdseg_92d0:
     db '1111000010', 0
+__zdseg_92db:
     db '1001111000', 0
+__zdseg_92e6:
     db '11101000', 0
+__zdseg_92ef:
     db '000000', 0
+__zdseg_92f6:
     db '1111000100', 0
+__zdseg_9301:
     db '1111111110', 0
+__zdseg_930c:
     db '11101000', 0
+__zdseg_9315:
     db '000000', 0
+__zdseg_931c:
     db '1111001000', 0
+__zdseg_9327:
     db '0001101010', 0
+__zdseg_9332:
     db '11101000', 0
+__zdseg_933b:
     db '000000', 0
+__zdseg_9342:
     db '1111101010', 0
+__zdseg_934d:
     db '1111111110', 0
+__zdseg_9358:
     db '11101000', 0
+__zdseg_9361:
     db '000000', 0
+__zdseg_9368:
     db '1111101000', 0
+__zdseg_9373:
     db '1111111110', 0
+__zdseg_937e:
     db '11101000', 0
+__zdseg_9387:
     db '000000', 0
+__zdseg_938e:
     db '1111000011', 0
+__zdseg_9399:
     db '1001111101', 0
+__zdseg_93a4:
     db '11101001', 0
+__zdseg_93ad:
     db '000000', 0
+__zdseg_93b4:
     db '1111000101', 0
+__zdseg_93bf:
     db '1111111111', 0
+__zdseg_93ca:
     db '11100111', 0
+__zdseg_93d3:
     db '000000', 0
+__zdseg_93da:
     db '1111010001', 0
-
 __zdseg_93e5:
     db 0x25, 0x20, 0x28, 0x00
 __zdseg_93e9:

@@ -101,5 +101,62 @@ class ArgumentPointerTests(unittest.TestCase):
         self.assertEqual(_proven(insns, name_of=names.get), {(0x104, 1): DATA})
 
 
+
+class FrameLocalTests(unittest.TestCase):
+    """``[bx + si]`` with a provable index, and arguments kept in locals."""
+
+    @staticmethod
+    def _arg0(body):
+        insns, at = _program(bytes.fromhex(body), lambda at: (
+            bytes.fromhex('b83016' '50') + _call(at + 4, 0x100)))
+        return _proven(insns), at
+
+    def test_an_argument_kept_in_a_local_and_stepped(self):
+        # mov si,[bp+4]; mov [bp-2],si; mov si,[bp-2]; add word [bp-2],1; lodsb
+        proven, at = self._arg0('8b7604' '8976fe' '8b76fe' '8346fe01' 'ac')
+        self.assertEqual(proven, {(at, 1): DATA})
+
+    def test_a_local_also_set_from_a_constant_is_no_alias(self):
+        # ... plus mov word [bp-2], 0x200: the local is not only the argument
+        proven, _ = self._arg0('8b7604' '8976fe' 'c746fe0002' '8b76fe' 'ac')
+        self.assertEqual(proven, {})
+
+    def test_a_loop_counter_is_the_index(self):
+        # mov word [bp-2],0; mov bx,[bp+4]; mov si,[bp-2]; cmp byte [bx+si],0;
+        # inc word [bp-2]
+        proven, at = self._arg0('c746fe0000' '8b5e04' '8b76fe' '803800'
+                                'ff46fe')
+        self.assertEqual(proven, {(at, 1): DATA})
+
+    def test_a_shifted_argument_is_the_index(self):
+        # set_bitmap_bit: mov si,[bp+4]; mov bx,[bp+6]; mov cl,3; shr bx,cl;
+        # and byte [bx+si], ah -- arg 0 is the pointer, arg 1 the bit number
+        body = bytes.fromhex('8b7604' '8b5e06' 'b103' 'd3eb' '2020')
+        insns, at = _program(body, lambda at: (
+            bytes.fromhex('b80005' '50' 'b83016' '50') + _call(at + 8, 0x100)))
+        self.assertEqual(_proven(insns), {(at + 4, 1): DATA})
+
+    def test_a_labelled_routine_nobody_here_calls_is_analysed(self):
+        # The host's set_bitmap_bit is called only by the overlays: its
+        # pointer argument is still found, for export.
+        from lib.argpointers import pointer_params
+        body = bytes.fromhex('8b7604' '8b5e06' 'b103' 'd3eb' '2020')
+        insns = _disasm(_FRAME + body + _RET)
+        self.assertEqual(pointer_params(insns, _AllData()), {})
+        self.assertEqual(pointer_params(insns, _AllData(), labels={0x100}),
+                         {0x100: frozenset((0,))})
+
+    def test_two_unknown_registers_prove_nothing(self):
+        # mov bx,[bp+4]; mov si,[bp+6]; mov al,[bx+si]
+        proven, _ = self._arg0('8b5e04' '8b7606' '8a00')
+        self.assertEqual(proven, {})
+
+    def test_a_local_whose_address_is_taken_is_no_counter(self):
+        # lea di,[bp-2] lets a write through di change the counter unseen
+        proven, _ = self._arg0('8d7efe' 'c746fe0000' '8b5e04' '8b76fe'
+                               '803800')
+        self.assertEqual(proven, {})
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -19,7 +19,7 @@ api_idx_0044_NJQJ:
     mov word [bp - 0x000a], 0xc5     ; 0x8d56
     mov word [bp - 0x000c], 0x95     ; 0x8d5b
     mov word [bp - 0x0014], 0x16     ; 0x8d60
-    mov ax, 0x9104                   ; 0x8d65
+    mov ax, dseg_9104                ; 0x8d65
     push ax                          ; 0x8d68
     mov ax, word [bp - 0x000a]       ; 0x8d69
     inc ax                           ; 0x8d6c

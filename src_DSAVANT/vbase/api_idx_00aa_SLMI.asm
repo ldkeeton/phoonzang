@@ -6,7 +6,7 @@ api_idx_00aa_SLMI:
     mov word [bp - 0x0004], 0x8f     ; 0x62f0
     mov word [bp - 0x0006], 0x108    ; 0x62f5
     mov word [bp - 0x0008], 0xc5     ; 0x62fa
-    mov ax, 0x910d                   ; 0x62ff
+    mov ax, dseg_910d                ; 0x62ff
     push ax                          ; 0x6302
     mov ax, word [bp - 0x0008]       ; 0x6303
     inc ax                           ; 0x6306

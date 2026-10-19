@@ -15,14 +15,17 @@ leaf_loc_PVVV:
     pop es                           ; 0x9840
     pop di                           ; 0x9841
     jmp cx                           ; 0x9842
+__zdseg_9098:
 __zdata_start:
-
     db 0x25, 0x20, 0x00
+__zdseg_909b:
     db 'V.$$$', 0
+__zdseg_90a1:
     db 'V.$$$', 0
+__zdseg_90a7:
     db 0x2a, 0x2a, 0x2a, 0x00
+__zdseg_90ab:
     db 'V.$$$', 0
-
 __zdseg_90b1:
     db 0x20, 0x00
 __zdseg_90b3:

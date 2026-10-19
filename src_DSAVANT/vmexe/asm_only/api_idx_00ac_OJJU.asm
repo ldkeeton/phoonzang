@@ -139,7 +139,7 @@ api_idx_00ac_OJJU:
     call ds_app_mem_TIMR             ; 0x7add
     add sp, byte 4                   ; 0x7ae0
 @..api_idx_00ac_OJJU.l6:
-    mov ax, 0x9186                   ; 0x7ae3
+    mov ax, bss_9186                 ; 0x7ae3
     push ax                          ; 0x7ae6
     call api_idx_0002_GKQL           ; 0x7ae7
     pop cx                           ; 0x7aea
@@ -2138,7 +2138,7 @@ jumptable_883a:
     jl short @..api_idx_00ac_OJJU.l133 ; 0x8e30
     jmp near @..api_idx_00ac_OJJU.l139 ; 0x8e32
 @..api_idx_00ac_OJJU.l133:
-    mov ax, 0x9136                   ; 0x8e35
+    mov ax, bss_9136                 ; 0x8e35
     push ax                          ; 0x8e38
     push word [bp - 0x006a]          ; 0x8e39
     call ds_app_OLKR                 ; 0x8e3c

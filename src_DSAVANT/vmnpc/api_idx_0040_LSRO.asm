@@ -578,7 +578,7 @@ jumptable_36f8_case_16:
     jge short @..api_idx_0040_LSRO.l45 ; 0x3101
     push word [bp - 0x0028]          ; 0x3103
     push ax                          ; 0x3106
-    mov ax, 0x95f8                   ; 0x3107
+    mov ax, bss_95f8                 ; 0x3107
     push ax                          ; 0x310a
     call set_bitmap_bit              ; 0x310b
     add sp, byte 6                   ; 0x310e
@@ -592,7 +592,7 @@ jumptable_36f8_case_17:
     jge short @..api_idx_0040_LSRO.l46 ; 0x311f
     push word [bp - 0x0028]          ; 0x3121
     push ax                          ; 0x3124
-    mov ax, 0x95f8                   ; 0x3125
+    mov ax, bss_95f8                 ; 0x3125
     push ax                          ; 0x3128
     call set_bitmap_bit              ; 0x3129
     add sp, byte 6                   ; 0x312c
@@ -638,7 +638,7 @@ jumptable_36f8_case_19:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x3185
 jumptable_36f8_case_20:
     push word [bp - 0x0026]          ; 0x3188
-    mov ax, 0x95f8                   ; 0x318b
+    mov ax, bss_95f8                 ; 0x318b
     push ax                          ; 0x318e
     call ds_leaf_loc_PRVP            ; 0x318f
     add sp, byte 4                   ; 0x3192
@@ -650,7 +650,7 @@ jumptable_36f8_case_20:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x319e
 jumptable_36f8_case_21:
     push word [bp - 0x0026]          ; 0x31a1
-    mov ax, 0x95f8                   ; 0x31a4
+    mov ax, bss_95f8                 ; 0x31a4
     push ax                          ; 0x31a7
     call ds_leaf_loc_PRVP            ; 0x31a8
     add sp, byte 4                   ; 0x31ab
@@ -761,7 +761,7 @@ jumptable_36f8_case_26:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x329b
 jumptable_36f8_case_27:
     push word [bp - 0x0026]          ; 0x329e
-    mov ax, 0x95f8                   ; 0x32a1
+    mov ax, bss_95f8                 ; 0x32a1
     push ax                          ; 0x32a4
     call ds_leaf_loc_PRVP            ; 0x32a5
     add sp, byte 4                   ; 0x32a8
@@ -779,7 +779,7 @@ jumptable_36f8_case_27:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x32c4
 jumptable_36f8_case_28:
     push word [bp - 0x0026]          ; 0x32c7
-    mov ax, 0x95f8                   ; 0x32ca
+    mov ax, bss_95f8                 ; 0x32ca
     push ax                          ; 0x32cd
     call ds_leaf_loc_PRVP            ; 0x32ce
     add sp, byte 4                   ; 0x32d1
@@ -1210,7 +1210,7 @@ jumptable_36f8_case_48:
     jmp near @..api_idx_0040_LSRO.l85 ; 0x36ca
 jumptable_36f8_case_49:
     push word [bp - 0x0026]          ; 0x36cd
-    mov ax, 0x5842                   ; 0x36d0
+    mov ax, bss_5842                 ; 0x36d0
     push ax                          ; 0x36d3
     call ds_leaf_loc_PRVP            ; 0x36d4
     add sp, byte 4                   ; 0x36d7

@@ -14,7 +14,7 @@ api_idx_0038_IJUK:
     mov ax, word [bp + 0xc]          ; 0x3e68
 @..api_idx_0038_IJUK.l1:
     mov word [bp - 0x0022], ax       ; 0x3e6b
-    mov ax, 0x90d0                   ; 0x3e6e
+    mov ax, dseg_90d0                ; 0x3e6e
     push ax                          ; 0x3e71
     mov ax, word [bp - 0x000a]       ; 0x3e72
     inc ax                           ; 0x3e75

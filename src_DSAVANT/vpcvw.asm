@@ -81,13 +81,14 @@ api_idx_000a_TITQ.bss3 equ bss_942e
 api_idx_000a_TITQ.bss4 equ bss_9430
 %include "shared/api_idx_000a_TITQ.asm"     ; 0x0f9e
 
-bss_93ee equ __zdseg_end + (__zobss_93ee - __zdata_start)
-bss_93f0 equ __zdseg_end + (__zobss_93f0 - __zdata_start)
-bss_93f2 equ __zdseg_end + (__zobss_93f2 - __zdata_start)
-bss_93f4 equ __zdseg_end + (__zobss_93f4 - __zdata_start)
-; bss_942e equ __zdseg_end + (__zobss_942e - __zdata_start)
-; bss_9430 equ __zdseg_end + (__zobss_9430 - __zdata_start)
-bss_9432 equ __zdseg_end + (__zobss_9432 - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+bss_93ee  equ __zdseg_end + (__zobss_93ee - __zdata_start)
+bss_93f0  equ __zdseg_end + (__zobss_93f0 - __zdata_start)
+bss_93f2  equ __zdseg_end + (__zobss_93f2 - __zdata_start)
+bss_93f4  equ __zdseg_end + (__zobss_93f4 - __zdata_start)
+; bss_942e  equ __zdseg_end + (__zobss_942e - __zdata_start)
+; bss_9430  equ __zdseg_end + (__zobss_9430 - __zdata_start)
+bss_9432  equ __zdseg_end + (__zobss_9432 - __zdata_start)
 %include "vpcvw/asm_only/api_idx_007c_OKMO.asm"     ; 0x1046
 
 ; bss_93ee equ __zdseg_end + (__zobss_93ee - __zdata_start)
@@ -96,6 +97,8 @@ bss_9432 equ __zdseg_end + (__zobss_9432 - __zdata_start)
 
 %include "vpcvw/api_idx_0008_SKNL.asm"     ; 0x1b17
 
+dseg_909b equ __zdseg_end + (__zdseg_909b - __zdata_start)
+dseg_90a1 equ __zdseg_end + (__zdseg_90a1 - __zdata_start)
 %include "vpcvw/loc_UGOG.asm"              ; 0x1ca0
 
 %include "vpcvw/loc_IIRG.asm"              ; 0x2190
@@ -111,6 +114,7 @@ bss_9434 equ __zdseg_end + (__zobss_9434 - __zdata_start)
 
 %include "shared/loc_PTRP.asm"              ; 0x2a2d
 
+dseg_90a7 equ __zdseg_end + (__zdseg_90a7 - __zdata_start)
 %include "vpcvw/loc_GPGU.asm"              ; 0x2ab9
 
 %include "shared/api_idx_000c_JQMN.asm"     ; 0x2b5a
@@ -121,7 +125,8 @@ loc_SRQQ.api_idx1 equ api_idx_000a_GGLT
 loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
 %include "shared/loc_SRQQ.asm"              ; 0x2bf3
 
-; bss_9562 equ __zdseg_end + (__zobss_9562 - __zdata_start)
+dseg_90ab equ __zdseg_end + (__zdseg_90ab - __zdata_start)
+; bss_9562  equ __zdseg_end + (__zobss_9562 - __zdata_start)
 %include "vpcvw/api_idx_0050_QTGU.asm"     ; 0x2c84
 
 bss_9564 equ __zdseg_end + (__zobss_9564 - __zdata_start)
@@ -336,16 +341,42 @@ api_idx_0002_OGRO.bss2 equ bss_93f6
 
 %include "shared/api_idx_0008_LLVT.asm"     ; 0x88b6
 
+dseg_92e2 equ __zdseg_end + (__zdseg_92e2 - __zdata_start)
 %include "vpcvw/api_idx_0026_QIGS.asm"     ; 0x8a6e
 
 %include "vpcvw/api_idx_0002_VLGM.asm"     ; 0x8f64
 
 %include "vpcvw/api_idx_0002_LTGI.asm"     ; 0x8fb8
 
+dseg_92e8 equ __zdseg_end + (__zdseg_92e8 - __zdata_start)
+dseg_92f1 equ __zdseg_end + (__zdseg_92f1 - __zdata_start)
+dseg_92fa equ __zdseg_end + (__zdseg_92fa - __zdata_start)
+dseg_9303 equ __zdseg_end + (__zdseg_9303 - __zdata_start)
+dseg_930c equ __zdseg_end + (__zdseg_930c - __zdata_start)
+dseg_9315 equ __zdseg_end + (__zdseg_9315 - __zdata_start)
+dseg_931e equ __zdseg_end + (__zdseg_931e - __zdata_start)
+dseg_9327 equ __zdseg_end + (__zdseg_9327 - __zdata_start)
+dseg_9330 equ __zdseg_end + (__zdseg_9330 - __zdata_start)
+dseg_9339 equ __zdseg_end + (__zdseg_9339 - __zdata_start)
+dseg_9342 equ __zdseg_end + (__zdseg_9342 - __zdata_start)
+dseg_934b equ __zdseg_end + (__zdseg_934b - __zdata_start)
+dseg_9354 equ __zdseg_end + (__zdseg_9354 - __zdata_start)
+dseg_935d equ __zdseg_end + (__zdseg_935d - __zdata_start)
 %include "vpcvw/loc_PGKG.asm"              ; 0x902e
 
 %include "vpcvw/api_idx_0002_RQOS.asm"     ; 0x91b2
 
+dseg_9366 equ __zdseg_end + (__zdseg_9366 - __zdata_start)
+dseg_936f equ __zdseg_end + (__zdseg_936f - __zdata_start)
+dseg_9378 equ __zdseg_end + (__zdseg_9378 - __zdata_start)
+dseg_9381 equ __zdseg_end + (__zdseg_9381 - __zdata_start)
+dseg_938a equ __zdseg_end + (__zdseg_938a - __zdata_start)
+dseg_9393 equ __zdseg_end + (__zdseg_9393 - __zdata_start)
+dseg_939c equ __zdseg_end + (__zdseg_939c - __zdata_start)
+dseg_93a5 equ __zdseg_end + (__zdseg_93a5 - __zdata_start)
+dseg_93ae equ __zdseg_end + (__zdseg_93ae - __zdata_start)
+dseg_93b7 equ __zdseg_end + (__zdseg_93b7 - __zdata_start)
+dseg_93c0 equ __zdseg_end + (__zdseg_93c0 - __zdata_start)
 %include "vpcvw/loc_SRNN.asm"              ; 0x91d9
 
 %include "vpcvw/api_idx_0030_TGOH.asm"     ; 0x92b3
@@ -391,35 +422,59 @@ __zdseg_92c7:
 __zdseg_92d0:
     db '000000', 0
 __zdseg_92d7:
-
     db '1111010001', 0
+__zdseg_92e2:
     db 'V.$$$', 0
+__zdseg_92e8:
     db 'MAAAAAAA', 0
+__zdseg_92f1:
     db 'AMAAAAAA', 0
+__zdseg_92fa:
     db 'AAMAAAIA', 0
+__zdseg_9303:
     db 'AAAAMIAA', 0
+__zdseg_930c:
     db 'KIILKIIA', 0
+__zdseg_9315:
     db 'ANAANAAA', 0
+__zdseg_931e:
     db 'AKAAMIMA', 0
+__zdseg_9327:
     db 'KOAOAAKA', 0
+__zdseg_9330:
     db 'KALLKLIA', 0
+__zdseg_9339:
     db 'APPAAAIA', 0
+__zdseg_9342:
     db 'MJMMJJOA', 0
+__zdseg_934b:
     db 'MLAJMOIA', 0
+__zdseg_9354:
     db 'NINAKNIA', 0
+__zdseg_935d:
     db 'MKKMMMAA', 0
+__zdseg_9366:
     db 'JIIJJIIA', 0
+__zdseg_936f:
     db 'HKKHJJIA', 0
+__zdseg_9378:
     db 'LGKMHHHA', 0
+__zdseg_9381:
     db 'KHNKIGGA', 0
+__zdseg_938a:
     db 'IHGJKHNA', 0
+__zdseg_9393:
     db 'FLGGKOMA', 0
+__zdseg_939c:
     db 'MFFOIKDA', 0
+__zdseg_93a5:
     db 'KHGMKIGA', 0
+__zdseg_93ae:
     db 'HKHHKMKA', 0
+__zdseg_93b7:
     db 'IGMKIIKA', 0
+__zdseg_93c0:
     db 'KKGKHHJA', 0
-
 __zdseg_93c9:
     db 'PORTDATA.VGA', 0
 __zdseg_93d6:

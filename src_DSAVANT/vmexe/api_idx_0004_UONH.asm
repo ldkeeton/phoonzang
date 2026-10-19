@@ -6,7 +6,7 @@ api_idx_0004_UONH:
     mov word [bp - 0x0004], 0        ; 0x1b50
     cmp word [bp + 0x4], byte 0      ; 0x1b55
     jle short @..api_idx_0004_UONH.l1 ; 0x1b59
-    mov ax, 0x9098                   ; 0x1b5b
+    mov ax, dseg_9098                ; 0x1b5b
     push ax                          ; 0x1b5e
     mov ax, 7                        ; 0x1b5f
     imul word [bp + 0x4]             ; 0x1b62
@@ -24,7 +24,7 @@ api_idx_0004_UONH:
 @..api_idx_0004_UONH.l1:
     cmp word [bp + 0x6], byte 4      ; 0x1b7e
     jge short @..api_idx_0004_UONH.l2 ; 0x1b82
-    mov ax, 0x909f                   ; 0x1b84
+    mov ax, dseg_909f                ; 0x1b84
     push ax                          ; 0x1b87
     mov ax, 0xc4                     ; 0x1b88
     push ax                          ; 0x1b8b

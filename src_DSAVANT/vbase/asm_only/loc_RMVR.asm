@@ -46,7 +46,7 @@ loc_RMVR:
     add ax, 0x93                     ; 0x4d78
     mov word [bp - 0x000e], ax       ; 0x4d7b
     mov word [bss_9050], 0xffff      ; 0x4d7e
-    mov ax, 0x9107                   ; 0x4d84
+    mov ax, dseg_9107                ; 0x4d84
     push ax                          ; 0x4d87
     mov ax, word [bp - 0x000e]       ; 0x4d88
     inc ax                           ; 0x4d8b
@@ -1382,7 +1382,7 @@ jumptable_5e7f_case_3:
     mov ax, word [bp - 0x0008]       ; 0x5954
     add ax, strict word 0x27         ; 0x5957
     push ax                          ; 0x595a
-    mov ax, 0x593a                   ; 0x595b
+    mov ax, bss_593a                 ; 0x595b
     push ax                          ; 0x595e
     call loc_IIHU                    ; 0x595f
     add sp, byte 8                   ; 0x5962
@@ -1421,7 +1421,7 @@ jumptable_5e7f_case_4:
     mov ax, word [bp - 0x0008]       ; 0x59ae
     add ax, strict word 0x27         ; 0x59b1
     push ax                          ; 0x59b4
-    mov ax, 0x594e                   ; 0x59b5
+    mov ax, bss_594e                 ; 0x59b5
     push ax                          ; 0x59b8
     call loc_IIHU                    ; 0x59b9
     add sp, byte 8                   ; 0x59bc
@@ -1741,7 +1741,7 @@ jumptable_5e7f_case_18:
     mov ax, word [bp - 0x0008]       ; 0x5c95
     add ax, 0xd5                     ; 0x5c98
     push ax                          ; 0x5c9b
-    mov ax, 0x5964                   ; 0x5c9c
+    mov ax, bss_5964                 ; 0x5c9c
     push ax                          ; 0x5c9f
     call loc_IIHU                    ; 0x5ca0
     add sp, byte 8                   ; 0x5ca3

@@ -65,9 +65,9 @@ api_idx_0072_OUII:
 @..api_idx_0072_OUII.l3:
     mov ax, 0x3a                     ; 0x203f
     push ax                          ; 0x2042
-    mov ax, 0x5912                   ; 0x2043
+    mov ax, bss_5912                 ; 0x2043
     push ax                          ; 0x2046
-    mov ax, 0x91c6                   ; 0x2047
+    mov ax, bss_91c6                 ; 0x2047
     push ax                          ; 0x204a
     call ds_app_HVHT                 ; 0x204b
     add sp, byte 6                   ; 0x204e
@@ -75,7 +75,7 @@ api_idx_0072_OUII:
     push ax                          ; 0x2054
     lea ax, word [bp - 0x004a]       ; 0x2055
     push ax                          ; 0x2058
-    mov ax, 0x91da                   ; 0x2059
+    mov ax, bss_91da                 ; 0x2059
     push ax                          ; 0x205c
     call ds_app_HVHT                 ; 0x205d
     add sp, byte 6                   ; 0x2060
@@ -811,7 +811,7 @@ jumptable_2668:
     mov word [bp - 0x0004], 0        ; 0x2755
 @..api_idx_0072_OUII.l49:
     push word [bp - 0x0004]          ; 0x275a
-    mov ax, 0x958a                   ; 0x275d
+    mov ax, bss_958a                 ; 0x275d
     push ax                          ; 0x2760
     call ds_leaf_loc_PRVP            ; 0x2761
     add sp, byte 4                   ; 0x2764
@@ -1611,7 +1611,7 @@ jumptable_2af5:
     mov ax, 1                        ; 0x2f6c
     push ax                          ; 0x2f6f
     push ax                          ; 0x2f70
-    mov ax, 0x5642                   ; 0x2f71
+    mov ax, bss_5642                 ; 0x2f71
     push ax                          ; 0x2f74
     call set_bitmap_bit              ; 0x2f75
     add sp, byte 6                   ; 0x2f78
@@ -1619,7 +1619,7 @@ jumptable_2af5:
     push ax                          ; 0x2f7e
     mov ax, 2                        ; 0x2f7f
     push ax                          ; 0x2f82
-    mov ax, 0x5642                   ; 0x2f83
+    mov ax, bss_5642                 ; 0x2f83
     push ax                          ; 0x2f86
     call set_bitmap_bit              ; 0x2f87
     add sp, byte 6                   ; 0x2f8a

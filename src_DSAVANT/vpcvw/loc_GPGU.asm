@@ -63,7 +63,7 @@ loc_GPGU:
     add sp, byte 4                   ; 0x2b48
     mov ax, 0                        ; 0x2b4b
     push ax                          ; 0x2b4e
-    mov ax, 0x90a7                   ; 0x2b4f
+    mov ax, dseg_90a7                ; 0x2b4f
     push ax                          ; 0x2b52
     call ds_string_loc_QRJV          ; 0x2b53
     add sp, byte 4                   ; 0x2b56

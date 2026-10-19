@@ -66,7 +66,7 @@ api_idx_000a_TIPG:
     add sp, byte 4                   ; 0x09ec
     mov ax, 0                        ; 0x09ef
     push ax                          ; 0x09f2
-    mov ax, 0x9128                   ; 0x09f3
+    mov ax, bss_9128                 ; 0x09f3
     push ax                          ; 0x09f6
     call ds_string_loc_QRJV          ; 0x09f7
     add sp, byte 4                   ; 0x09fa

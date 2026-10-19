@@ -102,7 +102,7 @@ loc_HUIS:
     mov ax, 1                        ; 0x588e
     push ax                          ; 0x5891
     push word [bp - 0x0002]          ; 0x5892
-    mov ax, 0x8822                   ; 0x5895
+    mov ax, bss_8822                 ; 0x5895
     push ax                          ; 0x5898
     call set_bitmap_bit              ; 0x5899
     add sp, byte 6                   ; 0x589c

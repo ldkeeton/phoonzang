@@ -574,7 +574,7 @@ api_idx_007c_MOJH:
     add sp, byte 4                   ; 0x0acf
     mov ax, 0                        ; 0x0ad2
     push ax                          ; 0x0ad5
-    mov ax, 0x9098                   ; 0x0ad6
+    mov ax, dseg_9098                ; 0x0ad6
     push ax                          ; 0x0ad9
     call ds_string_loc_QRJV          ; 0x0ada
     add sp, byte 4                   ; 0x0add

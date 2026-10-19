@@ -63,7 +63,7 @@ loc_HOII:
     add sp, byte 4                   ; 0x8be2
     mov ax, 0                        ; 0x8be5
     push ax                          ; 0x8be8
-    mov ax, 0x9100                   ; 0x8be9
+    mov ax, dseg_9100                ; 0x8be9
     push ax                          ; 0x8bec
     call ds_string_loc_QRJV          ; 0x8bed
     add sp, byte 4                   ; 0x8bf0

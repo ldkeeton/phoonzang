@@ -363,7 +363,7 @@ jumptable_6c16_case_1:
     mov word [bp - 0x0008], 0        ; 0x6afc
 @..api_idx_009c_MRKK.l32:
     push word [bp - 0x0008]          ; 0x6b01
-    mov ax, 0x8822                   ; 0x6b04
+    mov ax, bss_8822                 ; 0x6b04
     push ax                          ; 0x6b07
     call ds_leaf_loc_PRVP            ; 0x6b08
     add sp, byte 4                   ; 0x6b0b

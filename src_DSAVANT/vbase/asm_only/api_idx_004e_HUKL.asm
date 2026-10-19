@@ -81,17 +81,17 @@ api_idx_004e_HUKL:
 @..api_idx_004e_HUKL.l6:
     mov ax, 0x3a                     ; 0x3941
     push ax                          ; 0x3944
-    mov ax, 0x5912                   ; 0x3945
+    mov ax, bss_5912                 ; 0x3945
     push ax                          ; 0x3948
-    mov ax, 0x91c6                   ; 0x3949
+    mov ax, bss_91c6                 ; 0x3949
     push ax                          ; 0x394c
     call ds_app_HVHT                 ; 0x394d
     add sp, byte 6                   ; 0x3950
     mov ax, 0x3a                     ; 0x3953
     push ax                          ; 0x3956
-    mov ax, 0x593a                   ; 0x3957
+    mov ax, bss_593a                 ; 0x3957
     push ax                          ; 0x395a
-    mov ax, 0x91da                   ; 0x395b
+    mov ax, bss_91da                 ; 0x395b
     push ax                          ; 0x395e
     call ds_app_HVHT                 ; 0x395f
     add sp, byte 6                   ; 0x3962

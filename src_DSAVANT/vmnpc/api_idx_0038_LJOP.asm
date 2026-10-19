@@ -21,7 +21,7 @@ api_idx_0038_LJOP:
     mov ax, word [bp + 0xc]          ; 0x481b
 @..api_idx_0038_LJOP.l1:
     mov word [bp - 0x0022], ax       ; 0x481e
-    mov ax, 0x90d6                   ; 0x4821
+    mov ax, dseg_90d6                ; 0x4821
     push ax                          ; 0x4824
     mov ax, word [bp - 0x000a]       ; 0x4825
     inc ax                           ; 0x4828

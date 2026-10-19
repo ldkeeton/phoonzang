@@ -384,7 +384,7 @@ jumptable_372d:
     push ax                          ; 0x39dd
     call ds_app_QTIV                 ; 0x39de
     pop cx                           ; 0x39e1
-    mov ax, 0x90e6                   ; 0x39e2
+    mov ax, bss_90e6                 ; 0x39e2
     push ax                          ; 0x39e5
     mov ax, word [bp - 0x0004]       ; 0x39e6
     shl ax, 1                        ; 0x39e9

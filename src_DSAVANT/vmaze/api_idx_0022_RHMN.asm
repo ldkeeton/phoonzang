@@ -62,7 +62,7 @@ api_idx_0022_RHMN:
     add ax, word [bss_8f42]          ; 0x22d3
     mov word [bp - 0x000a], ax       ; 0x22d7
     push ax                          ; 0x22da
-    mov ax, 0x8bfe                   ; 0x22db
+    mov ax, bss_8bfe                 ; 0x22db
     push ax                          ; 0x22de
     call ds_leaf_loc_PRVP            ; 0x22df
     add sp, byte 4                   ; 0x22e2
@@ -326,7 +326,7 @@ api_idx_0022_RHMN:
     add ax, word [bss_8f42]          ; 0x2541
     mov word [bp - 0x000a], ax       ; 0x2545
     push ax                          ; 0x2548
-    mov ax, 0x8b7e                   ; 0x2549
+    mov ax, bss_8b7e                 ; 0x2549
     push ax                          ; 0x254c
     call ds_leaf_loc_PRVP            ; 0x254d
     add sp, byte 4                   ; 0x2550
@@ -351,7 +351,7 @@ api_idx_0022_RHMN:
     ret                              ; 0x257c
 @..api_idx_0022_RHMN.l34:
     push word [bp - 0x000a]          ; 0x257d
-    mov ax, 0x8c7e                   ; 0x2580
+    mov ax, bss_8c7e                 ; 0x2580
     push ax                          ; 0x2583
     call ds_leaf_loc_PRVP            ; 0x2584
     add sp, byte 4                   ; 0x2587
@@ -453,7 +453,7 @@ api_idx_0022_RHMN:
     mov ax, 1                        ; 0x2681
     push ax                          ; 0x2684
     push word [bp - 0x000a]          ; 0x2685
-    mov ax, 0x8afe                   ; 0x2688
+    mov ax, bss_8afe                 ; 0x2688
     push ax                          ; 0x268b
     call set_bitmap_bit              ; 0x268c
     add sp, byte 6                   ; 0x268f

@@ -22,12 +22,13 @@ IMAGE_BASE equ 0x000e + VBASE
 
 __zcode_start:
 
-bss_9192 equ __zdseg_end + (__zobss_9192 - __zdata_start)
-bss_9194 equ __zdseg_end + (__zobss_9194 - __zdata_start)
-bss_9196 equ __zdseg_end + (__zobss_9196 - __zdata_start)
-bss_9198 equ __zdseg_end + (__zobss_9198 - __zdata_start)
-bss_919a equ __zdseg_end + (__zobss_919a - __zdata_start)
-bss_919c equ __zdseg_end + (__zobss_919c - __zdata_start)
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+bss_9192  equ __zdseg_end + (__zobss_9192 - __zdata_start)
+bss_9194  equ __zdseg_end + (__zobss_9194 - __zdata_start)
+bss_9196  equ __zdseg_end + (__zobss_9196 - __zdata_start)
+bss_9198  equ __zdseg_end + (__zobss_9198 - __zdata_start)
+bss_919a  equ __zdseg_end + (__zobss_919a - __zdata_start)
+bss_919c  equ __zdseg_end + (__zobss_919c - __zdata_start)
 %include "vmaze/api_idx_0002_RQJQ.asm"     ; 0x000e
 
 ; bss_9194 equ __zdseg_end + (__zobss_9194 - __zdata_start)
@@ -293,6 +294,7 @@ api_idx_0004_JGSH.loc1 equ loc_MVHP
 api_idx_0004_JGSH.bss2 equ bss_9b4e
 %include "shared/api_idx_0004_JGSH.asm"     ; 0x6c0a
 
+dseg_917e equ __zdseg_end + (__zdseg_917e - __zdata_start)
 dseg_9186 equ __zdseg_end + (__zdseg_9186 - __zdata_start)
 ; bss_9b48  equ __zdseg_end + (__zobss_9b48 - __zdata_start)
 ; bss_9b4a  equ __zdseg_end + (__zobss_9b4a - __zdata_start)
@@ -464,6 +466,7 @@ dseg_9190 equ __zdseg_end + (__zdseg_9190 - __zdata_start)
 ; bss_9192  equ __zdseg_end + (__zobss_9192 - __zdata_start)
 %include "vmaze/asm_only/loc_TKPQ.asm"              ; 0xac30
 
+__zdseg_9098:
 __zdata_start:
     db 'VM1.$$$', 0
 __zdseg_90a0:
@@ -499,11 +502,10 @@ __zdseg_9156:
 __zdseg_9163:
     db 'OTWNDATA.VGA', 0
 __zdseg_9170:
-
     db 'WATRDATA.VGA', 0
     db 0x00
+__zdseg_917e:
     db '!%&]@#~', 0
-
 __zdseg_9186:
     db 0x20, 0x00
 __zdseg_9188:

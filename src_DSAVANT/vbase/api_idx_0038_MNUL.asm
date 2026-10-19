@@ -14,7 +14,7 @@ api_idx_0038_MNUL:
     mov ax, word [bp + 0xc]          ; 0x0634
 @..api_idx_0038_MNUL.l1:
     mov word [bp - 0x0022], ax       ; 0x0637
-    mov ax, 0x90b6                   ; 0x063a
+    mov ax, dseg_90b6                ; 0x063a
     push ax                          ; 0x063d
     mov ax, word [bp - 0x000a]       ; 0x063e
     inc ax                           ; 0x0641

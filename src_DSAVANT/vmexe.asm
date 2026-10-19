@@ -92,6 +92,8 @@ bss_90e4 equ __zdseg_end + (__zobss_90e4 - __zdata_start)
 
 %include "shared/api_idx_000a_UUIH.asm"     ; 0x1ac7
 
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
 %include "vmexe/api_idx_0004_UONH.asm"     ; 0x1b45
 
 %include "shared/loc_SIKN.asm"              ; 0x1bf4
@@ -272,8 +274,10 @@ dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
 
 %include "vmexe/asm_only/string_loc_QJPU.asm"       ; 0xa520
 
+__zdseg_9098:
 __zdata_start:
     db 'V1.$$$', 0
+__zdseg_909f:
     db 'V2.$$$', 0
 __zdseg_90a6:
     db 'MON00.PIC', 0

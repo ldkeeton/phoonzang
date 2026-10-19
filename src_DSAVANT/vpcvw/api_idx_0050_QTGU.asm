@@ -25,7 +25,7 @@ api_idx_0050_QTGU:
     mov word [bp - 0x000a], 0xc5     ; 0x2ccc
     mov word [bp - 0x000c], 0x95     ; 0x2cd1
     mov word [bp - 0x0014], 0x16     ; 0x2cd6
-    mov ax, 0x90ab                   ; 0x2cdb
+    mov ax, dseg_90ab                ; 0x2cdb
     push ax                          ; 0x2cde
     mov ax, word [bp - 0x000a]       ; 0x2cdf
     inc ax                           ; 0x2ce2

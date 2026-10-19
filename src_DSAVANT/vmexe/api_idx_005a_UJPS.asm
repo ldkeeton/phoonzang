@@ -92,7 +92,7 @@ api_idx_005a_UJPS:
     call ds_app_mem_TIMR             ; 0xa02b
     add sp, byte 4                   ; 0xa02e
 @..api_idx_005a_UJPS.l3:
-    mov ax, 0x9186                   ; 0xa031
+    mov ax, bss_9186                 ; 0xa031
     push ax                          ; 0xa034
     call api_idx_0002_GKQL           ; 0xa035
     pop cx                           ; 0xa038

@@ -66,7 +66,7 @@ api_idx_0002_SSJN:
     add sp, byte 4                   ; 0x1a4a
     mov ax, 0                        ; 0x1a4d
     push ax                          ; 0x1a50
-    mov ax, 0x9596                   ; 0x1a51
+    mov ax, bss_9596                 ; 0x1a51
     push ax                          ; 0x1a54
     call ds_string_loc_QRJV          ; 0x1a55
     add sp, byte 4                   ; 0x1a58

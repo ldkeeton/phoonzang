@@ -19,7 +19,7 @@ api_idx_0044_PIIP:
     mov word [bp - 0x000a], 0xc5     ; 0x29c0
     mov word [bp - 0x000c], 0x95     ; 0x29c5
     mov word [bp - 0x0014], 0x16     ; 0x29ca
-    mov ax, 0x909e                   ; 0x29cf
+    mov ax, dseg_909e                ; 0x29cf
     push ax                          ; 0x29d2
     mov ax, word [bp - 0x000a]       ; 0x29d3
     inc ax                           ; 0x29d6

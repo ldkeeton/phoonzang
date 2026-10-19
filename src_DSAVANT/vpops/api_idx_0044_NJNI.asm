@@ -19,7 +19,7 @@ api_idx_0044_NJNI:
     mov word [bp - 0x000a], 0xc5     ; 0x1cda
     mov word [bp - 0x000c], 0x95     ; 0x1cdf
     mov word [bp - 0x0014], 0x16     ; 0x1ce4
-    mov ax, 0x90bf                   ; 0x1ce9
+    mov ax, dseg_90bf                ; 0x1ce9
     push ax                          ; 0x1cec
     mov ax, word [bp - 0x000a]       ; 0x1ced
     inc ax                           ; 0x1cf0

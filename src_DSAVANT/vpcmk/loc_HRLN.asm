@@ -63,7 +63,7 @@ loc_HRLN:
     add sp, byte 4                   ; 0x2f2d
     mov ax, 0                        ; 0x2f30
     push ax                          ; 0x2f33
-    mov ax, 0x92d2                   ; 0x2f34
+    mov ax, dseg_92d2                ; 0x2f34
     push ax                          ; 0x2f37
     call ds_string_loc_QRJV          ; 0x2f38
     add sp, byte 4                   ; 0x2f3b

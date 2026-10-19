@@ -286,7 +286,7 @@ api_idx_005e_KVNO:
     push ax                          ; 0x5a49
     call aztec_strcpy                ; 0x5a4a
     add sp, byte 4                   ; 0x5a4d
-    mov ax, 0x9d10                   ; 0x5a50
+    mov ax, bss_9d10                 ; 0x5a50
     push ax                          ; 0x5a53
     call api_idx_0002_GKQL           ; 0x5a54
     pop cx                           ; 0x5a57

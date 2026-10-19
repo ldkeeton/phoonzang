@@ -19,7 +19,7 @@ api_idx_0044_NORP:
     mov word [bp - 0x000a], 0xc5     ; 0x78a4
     mov word [bp - 0x000c], 0x95     ; 0x78a9
     mov word [bp - 0x0014], 0x16     ; 0x78ae
-    mov ax, 0x90e8                   ; 0x78b3
+    mov ax, dseg_90e8                ; 0x78b3
     push ax                          ; 0x78b6
     mov ax, word [bp - 0x000a]       ; 0x78b7
     inc ax                           ; 0x78ba

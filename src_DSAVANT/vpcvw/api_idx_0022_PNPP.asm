@@ -18,7 +18,7 @@ api_idx_0022_PNPP:
     mov word [bp - 0x000e], ax       ; 0x94b5
     mov ax, 0x3a                     ; 0x94b8
     push ax                          ; 0x94bb
-    mov ax, 0x5912                   ; 0x94bc
+    mov ax, bss_5912                 ; 0x94bc
     push ax                          ; 0x94bf
     lea ax, word [bp - 0x0022]       ; 0x94c0
     push ax                          ; 0x94c3

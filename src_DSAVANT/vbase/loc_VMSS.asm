@@ -7,7 +7,7 @@ loc_VMSS:
     mov al, byte [bx]                ; 0x6de2
     sub ah, ah                       ; 0x6de4
     push ax                          ; 0x6de6
-    mov ax, 0x9114                   ; 0x6de7
+    mov ax, dseg_9114                ; 0x6de7
     push ax                          ; 0x6dea
     call strpos                      ; 0x6deb
     add sp, byte 4                   ; 0x6dee

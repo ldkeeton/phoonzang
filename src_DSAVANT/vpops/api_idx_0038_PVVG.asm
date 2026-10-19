@@ -14,7 +14,7 @@ api_idx_0038_PVVG:
     mov ax, word [bp + 0xc]          ; 0x2cc0
 @..api_idx_0038_PVVG.l1:
     mov word [bp - 0x0022], ax       ; 0x2cc3
-    mov ax, 0x90c5                   ; 0x2cc6
+    mov ax, dseg_90c5                ; 0x2cc6
     push ax                          ; 0x2cc9
     mov ax, word [bp - 0x000a]       ; 0x2cca
     inc ax                           ; 0x2ccd

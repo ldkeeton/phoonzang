@@ -51,7 +51,7 @@ jumptable_4688_case_2:
     mov ax, word [bp + 0x6]          ; 0x43a0
     add ax, strict word 0x27         ; 0x43a3
     push ax                          ; 0x43a6
-    mov ax, 0x593a                   ; 0x43a7
+    mov ax, bss_593a                 ; 0x43a7
     push ax                          ; 0x43aa
     call loc_RSMG                    ; 0x43ab
     add sp, byte 8                   ; 0x43ae
@@ -65,7 +65,7 @@ jumptable_4688_case_3:
     mov ax, word [bp + 0x6]          ; 0x43bf
     add ax, strict word 0x27         ; 0x43c2
     push ax                          ; 0x43c5
-    mov ax, 0x594e                   ; 0x43c6
+    mov ax, bss_594e                 ; 0x43c6
     push ax                          ; 0x43c9
     call loc_RSMG                    ; 0x43ca
     add sp, byte 8                   ; 0x43cd
@@ -289,7 +289,7 @@ jumptable_4688_case_13:
     mov ax, word [bp + 0x6]          ; 0x45c2
     add ax, 0xd5                     ; 0x45c5
     push ax                          ; 0x45c8
-    mov ax, 0x5964                   ; 0x45c9
+    mov ax, bss_5964                 ; 0x45c9
     push ax                          ; 0x45cc
     call loc_RSMG                    ; 0x45cd
     add sp, byte 8                   ; 0x45d0

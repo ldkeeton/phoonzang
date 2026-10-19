@@ -16,9 +16,9 @@ ds_app_UUHT: ; Aztec csav frame=0x0000
     push ax                          ; 0x23c9
     mov ax, 0x14                     ; 0x23ca
     imul word [bp + 0x6]             ; 0x23cd
-    add ax, 0x5912                   ; 0x23d0
+    add ax, bss_5912                 ; 0x23d0
     push ax                          ; 0x23d3
-    mov ax, 0x69ca                   ; 0x23d4
+    mov ax, bss_69ca                 ; 0x23d4
     push ax                          ; 0x23d7
     call ds_app_HVHT                 ; 0x23d8
     add sp, byte 6                   ; 0x23db

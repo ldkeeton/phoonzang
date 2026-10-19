@@ -92,7 +92,7 @@ api_idx_000c_RNQS:
     pop ax                           ; 0x0da7
     add ax, cx                       ; 0x0da8
     push ax                          ; 0x0daa
-    mov ax, 0x8c7e                   ; 0x0dab
+    mov ax, bss_8c7e                 ; 0x0dab
     push ax                          ; 0x0dae
     call set_bitmap_bit              ; 0x0daf
     add sp, byte 6                   ; 0x0db2
@@ -156,7 +156,7 @@ api_idx_000c_RNQS:
     add ax, cx                       ; 0x0e36
     add ax, word [bp - 0x0008]       ; 0x0e38
     push ax                          ; 0x0e3b
-    mov ax, 0x8bfe                   ; 0x0e3c
+    mov ax, bss_8bfe                 ; 0x0e3c
     push ax                          ; 0x0e3f
     call set_bitmap_bit              ; 0x0e40
     add sp, byte 6                   ; 0x0e43

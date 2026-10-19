@@ -350,7 +350,7 @@ jumptable_78e5_case_5:
     add sp, byte 4                   ; 0x7755
     cmp word [bp - 0x0008], byte 0   ; 0x7758
     jle short @..api_idx_000a_VQTM.l15 ; 0x775c
-    mov ax, 0x9136                   ; 0x775e
+    mov ax, bss_9136                 ; 0x775e
     push ax                          ; 0x7761
     push word [bp - 0x0008]          ; 0x7762
     call ds_app_OLKR                 ; 0x7765

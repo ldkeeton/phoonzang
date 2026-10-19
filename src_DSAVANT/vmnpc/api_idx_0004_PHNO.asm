@@ -6,7 +6,7 @@ api_idx_0004_PHNO:
     mov word [bp - 0x0002], 0        ; 0x28ac
 @..api_idx_0004_PHNO.l1:
     push word [bp - 0x0002]          ; 0x28b1
-    mov ax, 0x8822                   ; 0x28b4
+    mov ax, bss_8822                 ; 0x28b4
     push ax                          ; 0x28b7
     call ds_leaf_loc_PRVP            ; 0x28b8
     add sp, byte 4                   ; 0x28bb
@@ -38,7 +38,7 @@ api_idx_0004_PHNO:
     mov ax, 1                        ; 0x28f6
     push ax                          ; 0x28f9
     push word [bp - 0x0002]          ; 0x28fa
-    mov ax, 0x8822                   ; 0x28fd
+    mov ax, bss_8822                 ; 0x28fd
     push ax                          ; 0x2900
     call set_bitmap_bit              ; 0x2901
     add sp, byte 6                   ; 0x2904

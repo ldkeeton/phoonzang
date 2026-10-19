@@ -92,6 +92,90 @@ def _frame_slot(insn, op):
     return (disp - _ARG0) // 2
 
 
+def _local_slot(insn, op):
+    """Displacement of the frame-local word *op* reads (``[bp - n]``)."""
+    if (op.type != CS_OP_MEM or _parent(insn, op.mem.base) != 'bp'
+            or op.mem.index or op.mem.segment or op.size != 2
+            or op.mem.disp >= 0):
+        return None
+    return op.mem.disp
+
+
+#: Mnemonics after which a register holds an element offset, not an address.
+_INDEX_MAKERS = frozenset(('shl', 'sal', 'shr', 'sar', 'mul', 'imul'))
+#: Read-modify-write steps that keep a local's kind: a counter stays a
+#: counter, a pointer stays a pointer into the same object.
+_STEPS = frozenset(('inc', 'dec', 'add', 'sub'))
+#: Mnemonics that do not write their first operand.
+_READS_ONLY = frozenset(('cmp', 'test', 'push'))
+
+
+def _frame_locals(image, body):
+    """``(counters, aliases)`` for the frame locals of a routine body.
+
+    A **counter** is a local word only ever set to a byte-sized constant or
+    stepped by one (``mov word [bp-2], 0`` ... ``inc word [bp-2]``); a value
+    loaded from it is an index.  An **alias** of argument *n* is a local only
+    ever set from that argument (``mov si, [bp+4]; mov [bp-2], si``) or
+    stepped, so a value loaded from it is the argument moved along.  Both are
+    empty when the body takes a local's address (``lea``, ``add bx, bp``),
+    since a write through that address would not show.
+    """
+    writes = {}
+    for k in body:
+        insn = image.insns[k]
+        ops = insn.operands
+        # ``bp`` read as a value (``add bx, bp``, ``mov ax, bp``), except
+        # by the epilogue's ``mov sp, bp``, hands out a local's address.
+        if any(op.type == CS_OP_REG and _parent(insn, op.reg) == 'bp'
+               for op in ops[1:]) and not (
+                   insn.mnemonic == 'mov' and ops[0].type == CS_OP_REG
+                   and _parent(insn, ops[0].reg) == 'sp'):
+            return {}, {}
+        if (insn.mnemonic == 'lea' and len(ops) == 2
+                and _parent(insn, ops[1].mem.base) == 'bp'):
+            return {}, {}
+        if not ops or insn.mnemonic in _READS_ONLY:
+            continue
+        dest = ops[0]
+        if (dest.type != CS_OP_MEM or _parent(insn, dest.mem.base) != 'bp'
+                or dest.mem.index or dest.mem.disp >= 0):
+            continue
+        writes.setdefault(dest.mem.disp, []).append(k)
+        if dest.size != 2:
+            writes.setdefault(dest.mem.disp, []).append(None)
+        if dest.size == 1:
+            # A byte write to the high half spoils the word below it.
+            writes.setdefault(dest.mem.disp - 1, []).append(None)
+    counters, aliases = set(), {}
+    for disp, ks in writes.items():
+        if None in ks:
+            continue
+        kinds = set()
+        for k in ks:
+            insn = image.insns[k]
+            src = insn.operands[1] if len(insn.operands) == 2 else None
+            if insn.mnemonic in _STEPS and (
+                    src is None or (src.type == CS_OP_IMM
+                                    and src.imm & 0xFFFF < 0x100)):
+                continue
+            if (insn.mnemonic == 'mov' and src is not None
+                    and src.type == CS_OP_IMM and src.imm & 0xFFFF < 0x100):
+                kinds.add('counter')
+            elif (insn.mnemonic == 'mov' and src is not None
+                    and src.type == CS_OP_REG):
+                kinds.add(image.value_of(k, _parent(insn, src.reg)))
+            else:
+                kinds.add(None)
+        if kinds == {'counter'}:
+            counters.add(disp)
+        elif len(kinds) == 1:
+            (kind,) = kinds
+            if kind is not None and kind[0] == 'arg':
+                aliases[disp] = kind[1]
+    return counters, aliases
+
+
 class _Image:
     """The decoded instructions in address order, with the join points."""
 
@@ -136,8 +220,9 @@ class _Image:
         """Where *reg* got its value before instruction *k*.
 
         ``('imm', i)`` for ``mov reg, imm16`` at index *i*, ``('arg', n)`` for
-        a load of argument *n*, ``None`` otherwise or when a join point or a
-        control transfer comes first.
+        a load of argument *n*, ``('local', d)`` for a load of the frame local
+        at ``[bp + d]`` (``d < 0``), ``None`` otherwise or when a join point
+        or a control transfer comes first.
         """
         for j in range(k - 1, max(k - 1 - _BACK_LIMIT, -1), -1):
             insn = self.insns[j]
@@ -160,10 +245,49 @@ class _Image:
                         return None
                     continue
                 slot = _frame_slot(insn, src)
-                return ('arg', slot) if slot is not None else None
+                if slot is not None:
+                    return ('arg', slot)
+                local = _local_slot(insn, src)
+                return ('local', local) if local is not None else None
             if insn.address in self.joins:
                 return None
         return None
+
+    def index_register(self, k, reg, counters, depth=4):
+        """True when *reg* holds an element offset before instruction *k*.
+
+        Its definition, in the same straight-line run, is a load of a loop
+        counter (a local in *counters*), a shift or multiply, or an ``and``
+        with a byte mask: nothing an address is made from.
+        """
+        for j in range(k - 1, max(k - 1 - _BACK_LIMIT, -1), -1):
+            insn = self.insns[j]
+            if _is_flow(insn):
+                return False
+            written = _written(insn)
+            if written is None:
+                return False
+            if reg in written:
+                ops = insn.operands
+                mnem = insn.mnemonic
+                if mnem in ('mul', 'imul') and len(ops) == 1:
+                    return reg in ('ax', 'dx')
+                if mnem in _INDEX_MAKERS and ops and ops[0].type == CS_OP_REG:
+                    return True
+                if (mnem == 'and' and len(ops) == 2 and ops[1].type == CS_OP_IMM
+                        and ops[1].imm & 0xFFFF < 0x100):
+                    return True
+                if mnem != 'mov' or len(ops) != 2:
+                    return False
+                if ops[1].type == CS_OP_REG and depth:
+                    if insn.address in self.joins:
+                        return False
+                    return self.index_register(j, _parent(insn, ops[1].reg),
+                                               counters, depth - 1)
+                return _local_slot(insn, ops[1]) in counters
+            if insn.address in self.joins:
+                return False
+        return False
 
     def call_args(self, k):
         """``{argument: source}`` for the call at index *k* (see value_of)."""
@@ -216,12 +340,28 @@ def _bp_frame(image, entry, name_of):
     return False
 
 
-def _uses_as_pointer(insn, regs, flow):
-    """True when *insn* reads or writes DS memory through one of *regs*."""
+def _uses_as_pointer(insn, regs, flow, is_index=lambda reg: False):
+    """True when *insn* reads or writes DS memory through one of *regs*.
+
+    A ``[r1 + r2]`` operand counts when one of them is in *regs* and the
+    other is an element offset (*is_index*): ``[bx + si]`` with ``si`` a loop
+    counter reads through ``bx``.
+    """
     for op in insn.operands:
-        if op.type != CS_OP_MEM or op.mem.index:
+        if op.type != CS_OP_MEM:
             continue
-        if _parent(insn, op.mem.base) in regs and -_FIELD_LIMIT <= op.mem.disp < _FIELD_LIMIT:
+        base = _parent(insn, op.mem.base)
+        if op.mem.index:
+            index = _parent(insn, op.mem.index)
+            if base in regs and index not in regs and is_index(index):
+                pass
+            elif index in regs and base not in regs and is_index(base):
+                pass
+            else:
+                continue
+        elif base not in regs:
+            continue
+        if -_FIELD_LIMIT <= op.mem.disp < _FIELD_LIMIT:
             if flow.effective_segment(insn, op)[1] == DATA:
                 return True
     use = _STRING_USES.get(_base_mnemonic(insn))
@@ -231,14 +371,21 @@ def _uses_as_pointer(insn, regs, flow):
 
 
 def _direct_pointer_args(image, body, flow):
-    """Arguments the body loads into a register and reads memory through."""
+    """Arguments the body loads into a register and reads memory through.
+
+    A load of a local that aliases an argument counts as a load of it
+    (:func:`_frame_locals`).
+    """
     found = set()
+    counters, aliases = _frame_locals(image, body)
     for k in body:
         insn = image.insns[k]
         if insn.mnemonic != 'mov' or len(insn.operands) != 2:
             continue
         dest, src = insn.operands
         slot = _frame_slot(insn, src)
+        if slot is None:
+            slot = aliases.get(_local_slot(insn, src))
         if slot is None or dest.type != CS_OP_REG or slot in found:
             continue
         regs = {_parent(insn, dest.reg)}
@@ -249,7 +396,9 @@ def _direct_pointer_args(image, body, flow):
             if j >= len(image.insns):
                 break
             nxt = image.insns[j]
-            if _uses_as_pointer(nxt, regs, flow):
+            if _uses_as_pointer(
+                    nxt, regs, flow,
+                    lambda reg, j=j: image.index_register(j, reg, counters)):
                 found.add(slot)
                 break
             if _is_near_call(nxt):
@@ -305,7 +454,11 @@ def pointer_params(insns, flow, name_of=lambda t: None, foreign=None,
     """
     image = insns if isinstance(insns, _Image) else _Image(insns, labels)
     foreign = foreign or {}
+    # A labelled routine is an entry even when nothing here calls it: a
+    # host routine only the overlays call still exports its pointer
+    # arguments to them.
     entries = {_direct_target(i) for i in image.insns if _is_near_call(i)}
+    entries |= set(labels)
     entries = {e for e in entries if e in image.index
                and _bp_frame(image, e, name_of)}
     bodies = {e: image.body(e) for e in entries}
@@ -347,7 +500,7 @@ def argument_pointer_immediates(insns, flow, name_of=lambda t: None,
     proofs and the parameter map (for export to the overlays).
     """
     image = _Image(insns, labels)
-    params = pointer_params(image, flow, name_of, foreign)
+    params = pointer_params(image, flow, name_of, foreign, labels)
     foreign = foreign or {}
     proven = {}
     for k, insn in enumerate(image.insns):

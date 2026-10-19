@@ -16,7 +16,7 @@ api_idx_002e_JGHT:
     add sp, byte 4                   ; 0x25a1
     mov ax, 0                        ; 0x25a4
     push ax                          ; 0x25a7
-    mov ax, 0x95f4                   ; 0x25a8
+    mov ax, bss_95f4                 ; 0x25a8
     push ax                          ; 0x25ab
     call ds_string_loc_QRJV          ; 0x25ac
     add sp, byte 4                   ; 0x25af

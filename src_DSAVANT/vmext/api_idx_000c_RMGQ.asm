@@ -85,7 +85,7 @@ api_idx_000c_RMGQ:
     cmp ax, strict word 1            ; 0x0a8c
     je short @..api_idx_000c_RMGQ.l4 ; 0x0a8f
     push word [bp - 0x0002]          ; 0x0a91
-    mov ax, 0x8b7e                   ; 0x0a94
+    mov ax, bss_8b7e                 ; 0x0a94
     push ax                          ; 0x0a97
     call ds_leaf_loc_PRVP            ; 0x0a98
     add sp, byte 4                   ; 0x0a9b

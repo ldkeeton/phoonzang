@@ -14,7 +14,7 @@ api_idx_0038_QQIU:
     mov ax, word [bp + 0xc]          ; 0x3a5a
 @..api_idx_0038_QQIU.l1:
     mov word [bp - 0x0022], ax       ; 0x3a5d
-    mov ax, 0x90a4                   ; 0x3a60
+    mov ax, dseg_90a4                ; 0x3a60
     push ax                          ; 0x3a63
     mov ax, word [bp - 0x000a]       ; 0x3a64
     inc ax                           ; 0x3a67

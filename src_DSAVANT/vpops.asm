@@ -30,6 +30,11 @@ __zcode_start:
 
 %include "shared/loc_VNIO.asm"              ; 0x0149
 
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
+dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
+dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
+dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 %include "shared/api_idx_0006_SHUK.asm"     ; 0x018d
 
 %include "shared/loc_HTQP.asm"              ; 0x02af
@@ -75,6 +80,7 @@ loc_RPUI.api_idx1 equ api_idx_0006_HRUL
 
 %include "shared/loc_PTRP.asm"              ; 0x1a4b
 
+dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
 %include "vpops/loc_VGIT.asm"              ; 0x1ad7
 
 %include "shared/api_idx_000c_JQMN.asm"     ; 0x1b78
@@ -85,7 +91,8 @@ loc_SRQQ.api_idx1 equ api_idx_000a_UMQI
 loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
 %include "shared/loc_SRQQ.asm"              ; 0x1c11
 
-; bss_90d6 equ __zdseg_end + (__zobss_90d6 - __zdata_start)
+dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
+; bss_90d6  equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 %include "vpops/api_idx_0044_NJNI.asm"     ; 0x1ca2
 
 %include "vpops/api_idx_000a_GVNM.asm"     ; 0x2947
@@ -97,6 +104,7 @@ loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
 loc_HTKI.api_idx1 equ api_idx_0004_LUOM
 %include "shared/loc_HTKI.asm"              ; 0x2c51
 
+dseg_90c5 equ __zdseg_end + (__zdseg_90c5 - __zdata_start)
 %include "vpops/api_idx_0038_PVVG.asm"     ; 0x2c92
 
 %include "vpops/api_idx_0094_NVHQ.asm"     ; 0x33db
@@ -131,18 +139,24 @@ dseg_90d4 equ __zdseg_end + (__zdseg_90d4 - __zdata_start)
 ; bss_90d6  equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 %include "vpops/asm_only/loc_JHJT.asm"              ; 0x4e9d
 
+__zdseg_9098:
 __zdata_start:
-
     db 'V1.$$$', 0
+__zdseg_909f:
     db 'V1.$$$', 0
+__zdseg_90a6:
     db 'V2.$$$', 0
+__zdseg_90ad:
     db 'V3.$$$', 0
+__zdseg_90b4:
     db 'V1.$$$', 0
+__zdseg_90bb:
     db 0x2a, 0x2a, 0x2a, 0x00
+__zdseg_90bf:
     db 'V.$$$', 0
+__zdseg_90c5:
     db 'V.$$$', 0
     db 0x00
-
 __zdseg_90cc:
     db 0x00, 0x00
 __zdseg_90ce:

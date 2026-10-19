@@ -63,7 +63,7 @@ loc_VGIT:
     add sp, byte 4                   ; 0x1b66
     mov ax, 0                        ; 0x1b69
     push ax                          ; 0x1b6c
-    mov ax, 0x90bb                   ; 0x1b6d
+    mov ax, dseg_90bb                ; 0x1b6d
     push ax                          ; 0x1b70
     call ds_string_loc_QRJV          ; 0x1b71
     add sp, byte 4                   ; 0x1b74

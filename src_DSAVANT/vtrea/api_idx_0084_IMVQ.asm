@@ -48,7 +48,7 @@ api_idx_0084_IMVQ:
     mov word [bp - 0x000c], 0xc5     ; 0x262f
     mov word [bp - 0x0014], 0x16     ; 0x2634
     mov word [bp - 0x0024], 1        ; 0x2639
-    mov ax, 0x90cd                   ; 0x263e
+    mov ax, dseg_90cd                ; 0x263e
     push ax                          ; 0x2641
     mov ax, word [bp - 0x000c]       ; 0x2642
     inc ax                           ; 0x2645

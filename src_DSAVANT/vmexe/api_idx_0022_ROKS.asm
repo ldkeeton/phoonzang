@@ -128,7 +128,7 @@ api_idx_0022_ROKS:
     push ax                          ; 0x236b
     call api_idx_0004_QUPL           ; 0x236c
     pop cx                           ; 0x236f
-    mov ax, 0x90e6                   ; 0x2370
+    mov ax, bss_90e6                 ; 0x2370
     push ax                          ; 0x2373
     push word [bp - 0x0002]          ; 0x2374
     call ds_app_OLKR                 ; 0x2377

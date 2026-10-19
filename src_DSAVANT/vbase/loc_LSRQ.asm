@@ -12,7 +12,7 @@ loc_LSRQ:
     add ax, word [bp + 0x8]          ; 0x0255
     add ax, strict word 0x10         ; 0x0258
     mov word [bp - 0x0008], ax       ; 0x025b
-    mov ax, 0x90a3                   ; 0x025e
+    mov ax, dseg_90a3                ; 0x025e
     push ax                          ; 0x0261
     mov ax, word [bp - 0x0008]       ; 0x0262
     inc ax                           ; 0x0265

@@ -63,7 +63,7 @@ loc_TJJR:
     add sp, byte 4                   ; 0x284c
     mov ax, 0                        ; 0x284f
     push ax                          ; 0x2852
-    mov ax, 0x909a                   ; 0x2853
+    mov ax, dseg_909a                ; 0x2853
     push ax                          ; 0x2856
     call ds_string_loc_QRJV          ; 0x2857
     add sp, byte 4                   ; 0x285a

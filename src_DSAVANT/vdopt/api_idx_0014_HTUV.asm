@@ -108,7 +108,7 @@ api_idx_0014_HTUV:
     cmp word [bp + 0xc], byte 0      ; 0x0ace
     jne short @..api_idx_0014_HTUV.l10 ; 0x0ad2
     push ax                          ; 0x0ad4
-    mov ax, 0x8afe                   ; 0x0ad5
+    mov ax, bss_8afe                 ; 0x0ad5
     push ax                          ; 0x0ad8
     call ds_leaf_loc_PRVP            ; 0x0ad9
     add sp, byte 4                   ; 0x0adc

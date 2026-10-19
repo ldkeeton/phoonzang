@@ -62,6 +62,7 @@ bss_2d40 equ __zbss_2d40 - __zdseg_start
 bss_5528 equ __zbss_5528 - __zdseg_start
 bss_552a equ __zbss_552a - __zdseg_start
 bss_5642 equ __zbss_5642 - __zdseg_start
+bss_5842 equ __zbss_5842 - __zdseg_start
 bss_590e equ __zbss_590e - __zdseg_start
 bss_5910 equ __zbss_5910 - __zdseg_start
 bss_593a equ __zbss_593a - __zdseg_start
@@ -138,6 +139,7 @@ bss_84e8 equ __zbss_84e8 - __zdseg_start
 bss_86c8 equ __zbss_86c8 - __zdseg_start
 bss_8809 equ __zbss_8809 - __zdseg_start
 bss_880a equ __zbss_880a - __zdseg_start
+bss_8822 equ __zbss_8822 - __zdseg_start
 bss_882c equ __zbss_882c - __zdseg_start
 bss_8976 equ __zbss_8976 - __zdseg_start
 bss_89de equ __zbss_89de - __zdseg_start
@@ -165,6 +167,8 @@ bss_8a6e equ __zbss_8a6e - __zdseg_start
 bss_8aac equ __zbss_8aac - __zdseg_start
 bss_8aee equ __zbss_8aee - __zdseg_start
 bss_8af0 equ __zbss_8af0 - __zdseg_start
+bss_8afe equ __zbss_8afe - __zdseg_start
+bss_8b7e equ __zbss_8b7e - __zdseg_start
 bss_8bfe equ __zbss_8bfe - __zdseg_start
 bss_8c7e equ __zbss_8c7e - __zdseg_start
 bss_8cfe equ __zbss_8cfe - __zdseg_start
@@ -175,6 +179,7 @@ bss_8d0c equ __zbss_8d0c - __zdseg_start
 bss_8d0e equ __zbss_8d0e - __zdseg_start
 bss_8d10 equ __zbss_8d10 - __zdseg_start
 bss_8d12 equ __zbss_8d12 - __zdseg_start
+bss_8e64 equ __zbss_8e64 - __zdseg_start
 bss_8f14 equ __zbss_8f14 - __zdseg_start
 bss_8f16 equ __zbss_8f16 - __zdseg_start
 bss_8f18 equ __zbss_8f18 - __zdseg_start
@@ -429,6 +434,7 @@ bss_0cf8 equ __zbss_0cf8 - __zdseg_start
 
 %include "ds/ds_app_HVHT.asm"              ; 0x2359
 
+bss_5912 equ __zbss_5912 - __zdseg_start
 bss_5987 equ __zbss_5987 - __zdseg_start
 bss_69ca equ __zbss_69ca - __zdseg_start
 %include "ds/ds_app_UUHT.asm"              ; 0x23a8
@@ -449,6 +455,7 @@ bss_5926  equ __zbss_5926 - __zdseg_start
 %include "ds/ds_app_file_QQMM.asm"         ; 0x23ef
 
 ; bss_5218 equ __zbss_5218 - __zdseg_start
+; bss_5912 equ __zbss_5912 - __zdseg_start
 ; bss_5987 equ __zbss_5987 - __zdseg_start
 %include "ds/ds_app_IMTG.asm"              ; 0x27e9
 
@@ -1596,11 +1603,15 @@ __zbss_5528:
 __zbss_552a:
     resb 0x0118
 __zbss_5642:
-    resb 0x02cc
+    resb 0x0200
+__zbss_5842:
+    resb 0x00cc
 __zbss_590e:
     resb 0x0002
 __zbss_5910:
-    resb 0x0016
+    resb 0x0002
+__zbss_5912:
+    resb 0x0014
 __zbss_5926:
     resb 0x0014
 __zbss_593a:
@@ -1828,7 +1839,9 @@ __zbss_86c8:
 __zbss_8809:
     resb 0x0001
 __zbss_880a:
-    resb 0x0022
+    resb 0x0018
+__zbss_8822:
+    resb 0x000a
 __zbss_882c:
     resb 0x014a
 __zbss_8976:
@@ -1882,7 +1895,11 @@ __zbss_8aac:
 __zbss_8aee:
     resb 0x0002
 __zbss_8af0:
-    resb 0x010e
+    resb 0x000e
+__zbss_8afe:
+    resb 0x0080
+__zbss_8b7e:
+    resb 0x0080
 __zbss_8bfe:
     resb 0x0080
 __zbss_8c7e:
@@ -1902,7 +1919,9 @@ __zbss_8d0e:
 __zbss_8d10:
     resb 0x0002
 __zbss_8d12:
-    resb 0x0202
+    resb 0x0152
+__zbss_8e64:
+    resb 0x00b0
 __zbss_8f14:
     resb 0x0002
 __zbss_8f16:

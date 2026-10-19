@@ -14,7 +14,7 @@ api_idx_0038_LTUV:
     mov ax, word [bp + 0xc]          ; 0x0ae9
 @..api_idx_0038_LTUV.l1:
     mov word [bp - 0x0022], ax       ; 0x0aec
-    mov ax, 0x90af                   ; 0x0aef
+    mov ax, dseg_90af                ; 0x0aef
     push ax                          ; 0x0af2
     mov ax, word [bp - 0x000a]       ; 0x0af3
     inc ax                           ; 0x0af6

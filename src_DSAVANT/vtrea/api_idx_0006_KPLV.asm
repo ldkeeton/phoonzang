@@ -51,7 +51,7 @@ api_idx_0006_KPLV:
     add ax, cx                       ; 0x3779
     add ax, word [bss_8f42]          ; 0x377b
     push ax                          ; 0x377f
-    mov ax, 0x8bfe                   ; 0x3780
+    mov ax, bss_8bfe                 ; 0x3780
     push ax                          ; 0x3783
     call set_bitmap_bit              ; 0x3784
     add sp, byte 6                   ; 0x3787

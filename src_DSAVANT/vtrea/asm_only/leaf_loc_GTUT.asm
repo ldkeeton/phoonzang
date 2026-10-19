@@ -15,14 +15,15 @@ leaf_loc_GTUT:
     pop es                           ; 0x9a17
     pop di                           ; 0x9a18
     jmp cx                           ; 0x9a19
+__zdseg_9098:
 __zdata_start:
     db '!%&]@#~', 0
 __zdseg_90a0:
-
     db 0x20, 0x00
+__zdseg_90a2:
     db 'V1.$$$', 0
+__zdseg_90a9:
     db 'V2.$$$', 0
-
 __zdseg_90b0:
     db 0x00
 __zdseg_90b1:
@@ -49,6 +50,7 @@ __zdseg_90bb:
     db '--------', 0
 __zdseg_90c4:
     db '????????', 0
+__zdseg_90cd:
     db 'V.$$$', 0
 __zdseg_90d3:
     db 0x28, 0x00
@@ -58,21 +60,26 @@ __zdseg_90d8:
     db 0x28, 0x00
 __zdseg_90da:
     db 0x29, 0x00
+__zdseg_90dc:
     db 'V.$$$', 0
 __zdseg_90e2:
     db 0x00
+__zdseg_90e3:
     db 'V.$$$', 0
 __zdseg_90e9:
     db 0x28, 0x00
 __zdseg_90eb:
-
     db 0x25, 0x29, 0x00
+__zdseg_90ee:
     db 'V.$$$', 0
+__zdseg_90f4:
     db 'V.$$$', 0
+__zdseg_90fa:
     db 'V.$$$', 0
+__zdseg_9100:
     db 0x2a, 0x2a, 0x2a, 0x00
+__zdseg_9104:
     db 'V.$$$', 0
-
 __zdseg_910a:
     db 0x00, 0x00
 __zdseg_910c:

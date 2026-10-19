@@ -137,7 +137,7 @@ jumptable_1aa5_case_0:
     jne short @..api_idx_00fa_RIMJ.l9 ; 0x1ba7
     mov ax, 0x40                     ; 0x1ba9
     push ax                          ; 0x1bac
-    mov ax, 0x8e64                   ; 0x1bad
+    mov ax, bss_8e64                 ; 0x1bad
     push ax                          ; 0x1bb0
     call ds_leaf_loc_PRVP            ; 0x1bb1
     add sp, byte 4                   ; 0x1bb4

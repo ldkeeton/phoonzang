@@ -526,7 +526,7 @@ api_idx_0054_RLST:
     add sp, byte 4                   ; 0x2029
     mov ax, 0                        ; 0x202c
     push ax                          ; 0x202f
-    mov ax, 0x90bb                   ; 0x2030
+    mov ax, dseg_90bb                ; 0x2030
     push ax                          ; 0x2033
     call ds_string_loc_QRJV          ; 0x2034
     add sp, byte 4                   ; 0x2037

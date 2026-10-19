@@ -29,6 +29,7 @@ dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 
 %include "vbase/api_idx_0004_VUIP.asm"     ; 0x00b5
 
+dseg_90a3 equ __zdseg_end + (__zdseg_90a3 - __zdata_start)
 %include "vbase/loc_LSRQ.asm"              ; 0x023a
 
 dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
@@ -36,10 +37,12 @@ dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
 
 %include "vbase/api_idx_0006_MHOR.asm"     ; 0x05b6
 
+dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
 %include "vbase/api_idx_0038_MNUL.asm"     ; 0x0606
 
 %include "shared/api_idx_0008_LLVT.asm"     ; 0x0d3f
 
+dseg_90bc equ __zdseg_end + (__zdseg_90bc - __zdata_start)
 %include "vbase/api_idx_0028_NRJN.asm"     ; 0x0ef7
 
 %include "vbase/loc_KPLK.asm"              ; 0x150d
@@ -74,6 +77,7 @@ bss_940c  equ __zdseg_end + (__zobss_940c - __zdata_start)
 bss_941c  equ __zdseg_end + (__zobss_941c - __zdata_start)
 bss_9426  equ __zdseg_end + (__zobss_9426 - __zdata_start)
 bss_9428  equ __zdseg_end + (__zobss_9428 - __zdata_start)
+bss_958a  equ __zdseg_end + (__zobss_958a - __zdata_start)
 bss_959f  equ __zdseg_end + (__zobss_959f - __zdata_start)
 bss_95a0  equ __zdseg_end + (__zobss_95a0 - __zdata_start)
 bss_95a1  equ __zdseg_end + (__zobss_95a1 - __zdata_start)
@@ -201,9 +205,11 @@ bss_a294 equ __zdseg_end + (__zobss_a294 - __zdata_start)
 
 %include "vbase/loc_NGTJ.asm"              ; 0x4b5e
 
+dseg_90f5 equ __zdseg_end + (__zdseg_90f5 - __zdata_start)
 %include "vbase/api_idx_0062_SRKH.asm"     ; 0x4b95
 
 dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
+dseg_9107 equ __zdseg_end + (__zdseg_9107 - __zdata_start)
 ; bss_9c94  equ __zdseg_end + (__zobss_9c94 - __zdata_start)
 %include "vbase/asm_only/loc_RMVR.asm"              ; 0x4d0e
 
@@ -213,6 +219,7 @@ dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
 
 %include "vbase/loc_ROTV.asm"              ; 0x62c6
 
+dseg_910d equ __zdseg_end + (__zdseg_910d - __zdata_start)
 %include "vbase/api_idx_00aa_SLMI.asm"     ; 0x62e5
 
 ; bss_95b2 equ __zdseg_end + (__zobss_95b2 - __zdata_start)
@@ -245,6 +252,7 @@ bss_a4a6 equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
 bss_a4a8 equ __zdseg_end + (__zobss_a4a8 - __zdata_start)
 %include "vbase/api_idx_0004_RLUP.asm"     ; 0x6d1f
 
+dseg_9114 equ __zdseg_end + (__zdseg_9114 - __zdata_start)
 dseg_911c equ __zdseg_end + (__zdseg_911c - __zdata_start)
 ; bss_a4a6  equ __zdseg_end + (__zobss_a4a6 - __zdata_start)
 bss_a4aa  equ __zdseg_end + (__zobss_a4aa - __zdata_start)
@@ -454,16 +462,15 @@ loc_NQQK equ aztec_strncmp.loc1
 
 __zdseg_9098:
 __zdata_start:
-
     db 'PCFILE.DBS', 0
+__zdseg_90a3:
     db 'V.$$$', 0
-
 __zdseg_90a9:
-
     db 'PORTDATA.VGA', 0
+__zdseg_90b6:
     db 'V.$$$', 0
+__zdseg_90bc:
     db 'V.$$$', 0
-
 __zdseg_90c2:
     db 'SAVEGAME.BCF', 0
 __zdseg_90cf:
@@ -471,18 +478,18 @@ __zdseg_90cf:
 __zdseg_90db:
     db 'CRUSADER.END', 0
 __zdseg_90e8:
-
     db 'SCENARIO.HDR', 0
+__zdseg_90f5:
     db 'V.$$$', 0
-
 __zdseg_90fb:
-
     db 'PALETTE.DEF', 0
+__zdseg_9107:
     db 'V.$$$', 0
+__zdseg_910d:
     db 'V.$$$', 0
     db 0x00
+__zdseg_9114:
     db '!%&]@#|', 0
-
 __zdseg_911c:
     db 0x20, 0x00
 __zdseg_911e:
@@ -552,7 +559,9 @@ __zobss_941c:
 __zobss_9426:
     resb 0x0002
 __zobss_9428:
-    resb 0x0177
+    resb 0x0162
+__zobss_958a:
+    resb 0x0015
 __zobss_959f:
     resb 0x0001
 __zobss_95a0:

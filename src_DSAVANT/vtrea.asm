@@ -67,6 +67,7 @@ api_idx_0004_JGSH.loc1 equ loc_NQGV
 api_idx_0004_JGSH.bss2 equ bss_9152
 %include "shared/api_idx_0004_JGSH.asm"     ; 0x0a6a
 
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
 dseg_90a0 equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
 ; bss_9150  equ __zdseg_end + (__zobss_9150 - __zdata_start)
 bss_9154  equ __zdseg_end + (__zobss_9154 - __zdata_start)
@@ -79,6 +80,8 @@ bss_9154  equ __zdseg_end + (__zobss_9154 - __zdata_start)
 ; bss_9154 equ __zdseg_end + (__zobss_9154 - __zdata_start)
 %include "vtrea/loc_KIOQ.asm"              ; 0x0d87
 
+dseg_90a2 equ __zdseg_end + (__zdseg_90a2 - __zdata_start)
+dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
 %include "vtrea/api_idx_0004_IMVS.asm"     ; 0x0e03
 
 %include "vtrea/loc_OOHI.asm"              ; 0x0eb2
@@ -133,6 +136,7 @@ bss_9250  equ __zdseg_end + (__zobss_9250 - __zdata_start)
 
 %include "vtrea/api_idx_0002_PMUV.asm"     ; 0x251a
 
+dseg_90cd equ __zdseg_end + (__zdseg_90cd - __zdata_start)
 dseg_90d3 equ __zdseg_end + (__zdseg_90d3 - __zdata_start)
 dseg_90d5 equ __zdseg_end + (__zdseg_90d5 - __zdata_start)
 dseg_90d8 equ __zdseg_end + (__zdseg_90d8 - __zdata_start)
@@ -157,8 +161,9 @@ dseg_90da equ __zdseg_end + (__zdseg_90da - __zdata_start)
 loc_HTKI.api_idx1 equ api_idx_0004_SLIS
 %include "shared/loc_HTKI.asm"              ; 0x3a15
 
-; bss_911c equ __zdseg_end + (__zobss_911c - __zdata_start)
-; bss_9124 equ __zdseg_end + (__zobss_9124 - __zdata_start)
+dseg_90dc equ __zdseg_end + (__zdseg_90dc - __zdata_start)
+; bss_911c  equ __zdseg_end + (__zobss_911c - __zdata_start)
+; bss_9124  equ __zdseg_end + (__zobss_9124 - __zdata_start)
 %include "vtrea/api_idx_0038_ULQM.asm"     ; 0x3a56
 
 ; bss_9114 equ __zdseg_end + (__zobss_9114 - __zdata_start)
@@ -218,12 +223,14 @@ bss_95e4 equ __zdseg_end + (__zobss_95e4 - __zdata_start)
 
 %include "vtrea/api_idx_0004_JVLM.asm"     ; 0x5efe
 
+dseg_90e3 equ __zdseg_end + (__zdseg_90e3 - __zdata_start)
 dseg_90e9 equ __zdseg_end + (__zdseg_90e9 - __zdata_start)
 dseg_90eb equ __zdseg_end + (__zdseg_90eb - __zdata_start)
 ; bss_911c  equ __zdseg_end + (__zobss_911c - __zdata_start)
 %include "vtrea/api_idx_006a_NKMN.asm"     ; 0x5fef
 
-; bss_911c equ __zdseg_end + (__zobss_911c - __zdata_start)
+dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
+; bss_911c  equ __zdseg_end + (__zobss_911c - __zdata_start)
 %include "vtrea/api_idx_0074_MHUG.asm"     ; 0x66eb
 
 %include "shared/api_idx_0002_OVRM.asm"     ; 0x6e69
@@ -275,6 +282,8 @@ dseg_90eb equ __zdseg_end + (__zdseg_90eb - __zdata_start)
 
 %include "vtrea/api_idx_0008_JJHR.asm"     ; 0x82b8
 
+dseg_90f4 equ __zdseg_end + (__zdseg_90f4 - __zdata_start)
+dseg_90fa equ __zdseg_end + (__zdseg_90fa - __zdata_start)
 %include "vtrea/loc_IOMS.asm"              ; 0x8441
 
 %include "shared/draw_party_slot_letters.asm" ; 0x893e
@@ -287,6 +296,7 @@ dseg_90eb equ __zdseg_end + (__zdseg_90eb - __zdata_start)
 
 %include "shared/loc_PTRP.asm"              ; 0x8ac7
 
+dseg_9100 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
 %include "vtrea/loc_HOII.asm"              ; 0x8b53
 
 %include "shared/api_idx_000c_JQMN.asm"     ; 0x8bf4
@@ -297,7 +307,8 @@ loc_SRQQ.api_idx1 equ api_idx_000a_IIIU
 loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
 %include "shared/loc_SRQQ.asm"              ; 0x8c8d
 
-; bss_9124 equ __zdseg_end + (__zobss_9124 - __zdata_start)
+dseg_9104 equ __zdseg_end + (__zdseg_9104 - __zdata_start)
+; bss_9124  equ __zdseg_end + (__zobss_9124 - __zdata_start)
 %include "vtrea/api_idx_0044_NJQJ.asm"     ; 0x8d1e
 
 dseg_910a equ __zdseg_end + (__zdseg_910a - __zdata_start)

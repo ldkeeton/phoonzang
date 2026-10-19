@@ -2,7 +2,7 @@
 api_idx_0004_RPUO:
     mov ax, 0xfffc                   ; 0x114d
     call aztec_csav                  ; 0x1150
-    mov ax, 0x90c2                   ; 0x1153
+    mov ax, dseg_90c2                ; 0x1153
     push ax                          ; 0x1156
     mov ax, 1                        ; 0x1157
     push ax                          ; 0x115a

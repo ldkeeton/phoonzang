@@ -25,7 +25,7 @@ api_idx_0050_NHHL:
     mov word [bp - 0x000a], 0xc5     ; 0x30b1
     mov word [bp - 0x000c], 0x95     ; 0x30b6
     mov word [bp - 0x0014], 0x16     ; 0x30bb
-    mov ax, 0x92d6                   ; 0x30c0
+    mov ax, dseg_92d6                ; 0x30c0
     push ax                          ; 0x30c3
     mov ax, word [bp - 0x000a]       ; 0x30c4
     inc ax                           ; 0x30c7

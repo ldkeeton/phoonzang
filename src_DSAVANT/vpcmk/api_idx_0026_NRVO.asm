@@ -7,7 +7,7 @@ api_idx_0026_NRVO:
     mov word [bp - 0x0004], 0x8f     ; 0x1205
     mov word [bp - 0x0006], 0x108    ; 0x120a
     mov word [bp - 0x0008], 0xc5     ; 0x120f
-    mov ax, 0x90b5                   ; 0x1214
+    mov ax, dseg_90b5                ; 0x1214
     push ax                          ; 0x1217
     mov ax, word [bp - 0x0008]       ; 0x1218
     inc ax                           ; 0x121b

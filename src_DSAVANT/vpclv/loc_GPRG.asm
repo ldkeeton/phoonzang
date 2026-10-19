@@ -63,7 +63,7 @@ loc_GPRG:
     add sp, byte 4                   ; 0x1005
     mov ax, 0                        ; 0x1008
     push ax                          ; 0x100b
-    mov ax, 0x909b                   ; 0x100c
+    mov ax, dseg_909b                ; 0x100c
     push ax                          ; 0x100f
     call ds_string_loc_QRJV          ; 0x1010
     add sp, byte 4                   ; 0x1013

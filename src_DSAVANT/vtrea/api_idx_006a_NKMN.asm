@@ -8,7 +8,7 @@ api_idx_006a_NKMN:
     mov word [bp - 0x0008], 0x8f     ; 0x6006
     mov word [bp - 0x000a], 0x108    ; 0x600b
     mov word [bp - 0x000c], 0xc5     ; 0x6010
-    mov ax, 0x90e3                   ; 0x6015
+    mov ax, dseg_90e3                ; 0x6015
     push ax                          ; 0x6018
     mov ax, word [bp - 0x000c]       ; 0x6019
     inc ax                           ; 0x601c

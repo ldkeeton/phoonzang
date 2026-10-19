@@ -178,7 +178,7 @@ api_idx_0010_LPLH:
     push ax                          ; 0x27ff
     call api_idx_0004_QUPL           ; 0x2800
     pop cx                           ; 0x2803
-    mov ax, 0x9136                   ; 0x2804
+    mov ax, bss_9136                 ; 0x2804
     push ax                          ; 0x2807
     push word [bp - 0x000c]          ; 0x2808
     call ds_app_OLKR                 ; 0x280b

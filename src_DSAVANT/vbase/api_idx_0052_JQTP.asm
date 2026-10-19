@@ -38,7 +38,7 @@ jumptable_4af5_case_2:
     mov ax, word [bp + 0x6]          ; 0x4875
     add ax, strict word 0x27         ; 0x4878
     push ax                          ; 0x487b
-    mov ax, 0x593a                   ; 0x487c
+    mov ax, bss_593a                 ; 0x487c
     push ax                          ; 0x487f
     call loc_IIHU                    ; 0x4880
     add sp, byte 8                   ; 0x4883
@@ -52,7 +52,7 @@ jumptable_4af5_case_3:
     mov ax, word [bp + 0x6]          ; 0x4894
     add ax, strict word 0x27         ; 0x4897
     push ax                          ; 0x489a
-    mov ax, 0x594e                   ; 0x489b
+    mov ax, bss_594e                 ; 0x489b
     push ax                          ; 0x489e
     call loc_IIHU                    ; 0x489f
     add sp, byte 8                   ; 0x48a2
@@ -178,7 +178,7 @@ jumptable_4af5_case_13:
     mov ax, word [bp + 0x6]          ; 0x49ae
     add ax, 0xd5                     ; 0x49b1
     push ax                          ; 0x49b4
-    mov ax, 0x5964                   ; 0x49b5
+    mov ax, bss_5964                 ; 0x49b5
     push ax                          ; 0x49b8
     call loc_IIHU                    ; 0x49b9
     add sp, byte 8                   ; 0x49bc

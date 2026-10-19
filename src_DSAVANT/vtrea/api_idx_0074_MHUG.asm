@@ -8,7 +8,7 @@ api_idx_0074_MHUG:
     mov word [bp - 0x0008], 0x8f     ; 0x6702
     mov word [bp - 0x000a], 0x108    ; 0x6707
     mov word [bp - 0x000c], 0xc5     ; 0x670c
-    mov ax, 0x90ee                   ; 0x6711
+    mov ax, dseg_90ee                ; 0x6711
     push ax                          ; 0x6714
     mov ax, word [bp - 0x000c]       ; 0x6715
     inc ax                           ; 0x6718

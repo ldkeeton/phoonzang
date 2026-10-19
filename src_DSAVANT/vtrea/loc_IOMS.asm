@@ -29,7 +29,7 @@ loc_IOMS:
     jne short @..loc_IOMS.l1         ; 0x8482
     jmp near @..loc_IOMS.l2          ; 0x8484
 @..loc_IOMS.l1:
-    mov ax, 0x90f4                   ; 0x8487
+    mov ax, dseg_90f4                ; 0x8487
     push ax                          ; 0x848a
     mov ax, word [bp - 0x0008]       ; 0x848b
     add ax, strict word 6            ; 0x848e
@@ -97,7 +97,7 @@ loc_IOMS:
     add sp, byte 4                   ; 0x8524
     jmp short @..loc_IOMS.l3         ; 0x8527
 @..loc_IOMS.l2:
-    mov ax, 0x90fa                   ; 0x8529
+    mov ax, dseg_90fa                ; 0x8529
     push ax                          ; 0x852c
     mov ax, word [bp - 0x0008]       ; 0x852d
     inc ax                           ; 0x8530

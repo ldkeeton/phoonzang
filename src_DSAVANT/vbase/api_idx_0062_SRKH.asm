@@ -64,7 +64,7 @@ api_idx_0062_SRKH:
     add ax, word [bp - 0x0006]       ; 0x4c2c
     dec ax                           ; 0x4c2f
     mov word [bp - 0x000e], ax       ; 0x4c30
-    mov ax, 0x90f5                   ; 0x4c33
+    mov ax, dseg_90f5                ; 0x4c33
     push ax                          ; 0x4c36
     mov ax, word [bp - 0x000e]       ; 0x4c37
     inc ax                           ; 0x4c3a

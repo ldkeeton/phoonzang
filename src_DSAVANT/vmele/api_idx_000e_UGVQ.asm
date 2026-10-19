@@ -133,7 +133,7 @@ api_idx_000e_UGVQ:
     mov al, byte [bx + 0xe0]         ; 0x1400
     sub ah, ah                       ; 0x1404
     push ax                          ; 0x1406
-    mov ax, 0x5842                   ; 0x1407
+    mov ax, bss_5842                 ; 0x1407
     push ax                          ; 0x140a
     call set_bitmap_bit              ; 0x140b
     add sp, byte 6                   ; 0x140e

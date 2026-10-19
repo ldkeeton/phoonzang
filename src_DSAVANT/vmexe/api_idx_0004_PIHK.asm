@@ -32,7 +32,7 @@ api_idx_0004_PIHK:
     mov al, byte [bx + 0xe0]         ; 0x1caf
     sub ah, ah                       ; 0x1cb3
     push ax                          ; 0x1cb5
-    mov ax, 0x5842                   ; 0x1cb6
+    mov ax, bss_5842                 ; 0x1cb6
     push ax                          ; 0x1cb9
     call set_bitmap_bit              ; 0x1cba
     add sp, byte 6                   ; 0x1cbd

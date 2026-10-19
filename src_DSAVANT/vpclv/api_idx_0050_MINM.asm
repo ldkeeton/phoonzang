@@ -25,7 +25,7 @@ api_idx_0050_MINM:
     mov word [bp - 0x000a], 0xc5     ; 0x1189
     mov word [bp - 0x000c], 0x95     ; 0x118e
     mov word [bp - 0x0014], 0x16     ; 0x1193
-    mov ax, 0x909f                   ; 0x1198
+    mov ax, dseg_909f                ; 0x1198
     push ax                          ; 0x119b
     mov ax, word [bp - 0x000a]       ; 0x119c
     inc ax                           ; 0x119f

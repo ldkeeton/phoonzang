@@ -80,7 +80,7 @@ api_idx_0004_UJRL:
     add ax, cx
     add ax, word [bss_8f42]
     push ax
-    mov ax, 0x8bfe
+    mov ax, bss_8bfe
     push ax
     call set_bitmap_bit
     add sp, byte 6

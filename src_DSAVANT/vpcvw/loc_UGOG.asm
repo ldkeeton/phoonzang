@@ -29,7 +29,7 @@ loc_UGOG:
     jne short @..loc_UGOG.l1         ; 0x1ce1
     jmp near @..loc_UGOG.l2          ; 0x1ce3
 @..loc_UGOG.l1:
-    mov ax, 0x909b                   ; 0x1ce6
+    mov ax, dseg_909b                ; 0x1ce6
     push ax                          ; 0x1ce9
     mov ax, word [bp - 0x0008]       ; 0x1cea
     add ax, strict word 6            ; 0x1ced
@@ -97,7 +97,7 @@ loc_UGOG:
     add sp, byte 4                   ; 0x1d83
     jmp short @..loc_UGOG.l3         ; 0x1d86
 @..loc_UGOG.l2:
-    mov ax, 0x90a1                   ; 0x1d88
+    mov ax, dseg_90a1                ; 0x1d88
     push ax                          ; 0x1d8b
     mov ax, word [bp - 0x0008]       ; 0x1d8c
     inc ax                           ; 0x1d8f

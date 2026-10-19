@@ -31,7 +31,7 @@ ds_app_IMTG: ; Aztec csav frame=0x0018
     je short @..ds_app_IMTG.l6       ; 0x2829
     mov ax, 0x3a                     ; 0x282b
     push ax                          ; 0x282e
-    mov ax, 0x5912                   ; 0x282f
+    mov ax, bss_5912                 ; 0x282f
     push ax                          ; 0x2832
     lea ax, word [bp - 0x0014]       ; 0x2833
     push ax                          ; 0x2836

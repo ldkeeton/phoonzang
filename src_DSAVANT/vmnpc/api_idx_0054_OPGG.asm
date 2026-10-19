@@ -131,7 +131,7 @@ api_idx_0054_OPGG:
     add sp, byte 4                   ; 0x4642
     mov ax, 0                        ; 0x4645
     push ax                          ; 0x4648
-    mov ax, 0x99ae                   ; 0x4649
+    mov ax, bss_99ae                 ; 0x4649
     push ax                          ; 0x464c
     call ds_string_loc_QRJV          ; 0x464d
     add sp, byte 4                   ; 0x4650

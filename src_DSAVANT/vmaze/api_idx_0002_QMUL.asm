@@ -33,7 +33,7 @@ api_idx_0002_QMUL:
     mov al, byte [bx + si + 0xa50]   ; 0x874b
     sub ah, ah                       ; 0x874f
     push ax                          ; 0x8751
-    mov ax, 0x5842                   ; 0x8752
+    mov ax, bss_5842                 ; 0x8752
     push ax                          ; 0x8755
     call ds_leaf_loc_PRVP            ; 0x8756
     add sp, byte 4                   ; 0x8759

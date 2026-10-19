@@ -32,13 +32,13 @@ api_idx_0054_UKJH:
     add sp, byte 4                   ; 0x0d87
     mov ax, 0                        ; 0x0d8a
     push ax                          ; 0x0d8d
-    mov ax, 0x90bb                   ; 0x0d8e
+    mov ax, dseg_90bb                ; 0x0d8e
     push ax                          ; 0x0d91
     call ds_string_loc_QRJV          ; 0x0d92
     add sp, byte 4                   ; 0x0d95
     mov ax, 0                        ; 0x0d98
     push ax                          ; 0x0d9b
-    mov ax, 0x9138                   ; 0x0d9c
+    mov ax, bss_9138                 ; 0x0d9c
     push ax                          ; 0x0d9f
     call ds_string_loc_QRJV          ; 0x0da0
     add sp, byte 4                   ; 0x0da3
@@ -50,7 +50,7 @@ api_idx_0054_UKJH:
     add sp, byte 4                   ; 0x0db1
     mov ax, 0                        ; 0x0db4
     push ax                          ; 0x0db7
-    mov ax, 0x90be                   ; 0x0db8
+    mov ax, dseg_90be                ; 0x0db8
     push ax                          ; 0x0dbb
     call ds_string_loc_QRJV          ; 0x0dbc
     add sp, byte 4                   ; 0x0dbf

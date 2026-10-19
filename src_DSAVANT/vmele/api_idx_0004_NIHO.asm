@@ -14,7 +14,7 @@ api_idx_0004_NIHO:
     push word [bss_9064]             ; 0x2ede
     call gfx_restore_screen          ; 0x2ee2
     add sp, byte 8                   ; 0x2ee5
-    mov ax, 0x90a4                   ; 0x2ee8
+    mov ax, dseg_90a4                ; 0x2ee8
     push ax                          ; 0x2eeb
     mov ax, 0x8f                     ; 0x2eec
     push ax                          ; 0x2eef

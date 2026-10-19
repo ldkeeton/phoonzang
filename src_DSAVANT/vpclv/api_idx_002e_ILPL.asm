@@ -16,7 +16,7 @@ api_idx_002e_ILPL:
     add sp, byte 4                   ; 0x392a
     mov ax, 0                        ; 0x392d
     push ax                          ; 0x3930
-    mov ax, 0x95dc                   ; 0x3931
+    mov ax, bss_95dc                 ; 0x3931
     push ax                          ; 0x3934
     call ds_string_loc_QRJV          ; 0x3935
     add sp, byte 4                   ; 0x3938

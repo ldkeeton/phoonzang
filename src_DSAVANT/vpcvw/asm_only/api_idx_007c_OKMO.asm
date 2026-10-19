@@ -574,7 +574,7 @@ api_idx_007c_OKMO:
     add sp, byte 4                   ; 0x15a3
     mov ax, 0                        ; 0x15a6
     push ax                          ; 0x15a9
-    mov ax, 0x9098                   ; 0x15aa
+    mov ax, dseg_9098                ; 0x15aa
     push ax                          ; 0x15ad
     call ds_string_loc_QRJV          ; 0x15ae
     add sp, byte 4                   ; 0x15b1

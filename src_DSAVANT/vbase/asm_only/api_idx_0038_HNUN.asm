@@ -75,17 +75,17 @@ api_idx_0038_HNUN:
 @..api_idx_0038_HNUN.l5:
     mov ax, 0x3a                     ; 0x3099
     push ax                          ; 0x309c
-    mov ax, 0x5912                   ; 0x309d
+    mov ax, bss_5912                 ; 0x309d
     push ax                          ; 0x30a0
-    mov ax, 0x91c6                   ; 0x30a1
+    mov ax, bss_91c6                 ; 0x30a1
     push ax                          ; 0x30a4
     call ds_app_HVHT                 ; 0x30a5
     add sp, byte 6                   ; 0x30a8
     mov ax, 0x3a                     ; 0x30ab
     push ax                          ; 0x30ae
-    mov ax, 0x593a                   ; 0x30af
+    mov ax, bss_593a                 ; 0x30af
     push ax                          ; 0x30b2
-    mov ax, 0x91da                   ; 0x30b3
+    mov ax, bss_91da                 ; 0x30b3
     push ax                          ; 0x30b6
     call ds_app_HVHT                 ; 0x30b7
     add sp, byte 6                   ; 0x30ba
@@ -313,7 +313,7 @@ api_idx_0038_HNUN:
     push ax                          ; 0x32b4
     mov ax, 0x14                     ; 0x32b5
     imul word [bp - 0x0002]          ; 0x32b8
-    add ax, 0x5912                   ; 0x32bb
+    add ax, bss_5912                 ; 0x32bb
     push ax                          ; 0x32be
     call aztec_strcpy                ; 0x32bf
     add sp, byte 4                   ; 0x32c2

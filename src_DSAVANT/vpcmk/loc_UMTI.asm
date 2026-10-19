@@ -6,7 +6,7 @@ loc_UMTI:
     jmp near @..loc_UMTI.l4          ; 0x4110
 jumptable_4267_case_0:
     push word [bp + 0x8]             ; 0x4113
-    mov ax, 0x92dc                   ; 0x4116
+    mov ax, dseg_92dc                ; 0x4116
     push ax                          ; 0x4119
     push word [bp + 0x6]             ; 0x411a
     push word [bp + 0x4]             ; 0x411d
@@ -15,7 +15,7 @@ jumptable_4267_case_0:
     jmp near @..loc_UMTI.l5          ; 0x4126
 jumptable_4267_case_1:
     push word [bp + 0x8]             ; 0x4129
-    mov ax, 0x92e5                   ; 0x412c
+    mov ax, dseg_92e5                ; 0x412c
     push ax                          ; 0x412f
     push word [bp + 0x6]             ; 0x4130
     push word [bp + 0x4]             ; 0x4133
@@ -24,7 +24,7 @@ jumptable_4267_case_1:
     jmp near @..loc_UMTI.l5          ; 0x413c
 jumptable_4267_case_2:
     push word [bp + 0x8]             ; 0x413f
-    mov ax, 0x92ee                   ; 0x4142
+    mov ax, dseg_92ee                ; 0x4142
     push ax                          ; 0x4145
     push word [bp + 0x6]             ; 0x4146
     push word [bp + 0x4]             ; 0x4149
@@ -33,7 +33,7 @@ jumptable_4267_case_2:
     jmp near @..loc_UMTI.l5          ; 0x4152
 jumptable_4267_case_3:
     push word [bp + 0x8]             ; 0x4155
-    mov ax, 0x92f7                   ; 0x4158
+    mov ax, dseg_92f7                ; 0x4158
     push ax                          ; 0x415b
     push word [bp + 0x6]             ; 0x415c
     push word [bp + 0x4]             ; 0x415f
@@ -42,7 +42,7 @@ jumptable_4267_case_3:
     jmp near @..loc_UMTI.l5          ; 0x4168
 jumptable_4267_case_4:
     push word [bp + 0x8]             ; 0x416b
-    mov ax, 0x9300                   ; 0x416e
+    mov ax, dseg_9300                ; 0x416e
     push ax                          ; 0x4171
     push word [bp + 0x6]             ; 0x4172
     push word [bp + 0x4]             ; 0x4175
@@ -51,7 +51,7 @@ jumptable_4267_case_4:
     jmp near @..loc_UMTI.l5          ; 0x417e
 jumptable_4267_case_5:
     push word [bp + 0x8]             ; 0x4181
-    mov ax, 0x9309                   ; 0x4184
+    mov ax, dseg_9309                ; 0x4184
     push ax                          ; 0x4187
     push word [bp + 0x6]             ; 0x4188
     push word [bp + 0x4]             ; 0x418b
@@ -60,7 +60,7 @@ jumptable_4267_case_5:
     jmp near @..loc_UMTI.l5          ; 0x4194
 jumptable_4267_case_6:
     push word [bp + 0x8]             ; 0x4197
-    mov ax, 0x9312                   ; 0x419a
+    mov ax, dseg_9312                ; 0x419a
     push ax                          ; 0x419d
     push word [bp + 0x6]             ; 0x419e
     push word [bp + 0x4]             ; 0x41a1
@@ -69,7 +69,7 @@ jumptable_4267_case_6:
     jmp near @..loc_UMTI.l5          ; 0x41aa
 jumptable_4267_case_7:
     push word [bp + 0x8]             ; 0x41ad
-    mov ax, 0x931b                   ; 0x41b0
+    mov ax, dseg_931b                ; 0x41b0
     push ax                          ; 0x41b3
     push word [bp + 0x6]             ; 0x41b4
     push word [bp + 0x4]             ; 0x41b7
@@ -86,7 +86,7 @@ jumptable_4267_case_8:
     jne short @..loc_UMTI.l2         ; 0x41d6
 @..loc_UMTI.l1:
     push word [bp + 0x8]             ; 0x41d8
-    mov ax, 0x9324                   ; 0x41db
+    mov ax, dseg_9324                ; 0x41db
     push ax                          ; 0x41de
     push word [bp + 0x6]             ; 0x41df
     push word [bp + 0x4]             ; 0x41e2
@@ -102,7 +102,7 @@ jumptable_4267_case_8:
     jmp near @..loc_UMTI.l5          ; 0x41fa
 jumptable_4267_case_9:
     push word [bp + 0x8]             ; 0x41fd
-    mov ax, 0x932d                   ; 0x4200
+    mov ax, dseg_932d                ; 0x4200
     push ax                          ; 0x4203
     push word [bp + 0x6]             ; 0x4204
     push word [bp + 0x4]             ; 0x4207
@@ -111,7 +111,7 @@ jumptable_4267_case_9:
     jmp near @..loc_UMTI.l5          ; 0x4210
 jumptable_4267_case_10:
     push word [bp + 0x8]             ; 0x4213
-    mov ax, 0x9336                   ; 0x4216
+    mov ax, dseg_9336                ; 0x4216
     push ax                          ; 0x4219
     push word [bp + 0x6]             ; 0x421a
     push word [bp + 0x4]             ; 0x421d
@@ -120,7 +120,7 @@ jumptable_4267_case_10:
     jmp short @..loc_UMTI.l5         ; 0x4226
 jumptable_4267_case_11:
     push word [bp + 0x8]             ; 0x4228
-    mov ax, 0x933f                   ; 0x422b
+    mov ax, dseg_933f                ; 0x422b
     push ax                          ; 0x422e
     push word [bp + 0x6]             ; 0x422f
     push word [bp + 0x4]             ; 0x4232
@@ -129,7 +129,7 @@ jumptable_4267_case_11:
     jmp short @..loc_UMTI.l5         ; 0x423b
 jumptable_4267_case_12:
     push word [bp + 0x8]             ; 0x423d
-    mov ax, 0x9348                   ; 0x4240
+    mov ax, dseg_9348                ; 0x4240
     push ax                          ; 0x4243
     push word [bp + 0x6]             ; 0x4244
     push word [bp + 0x4]             ; 0x4247
@@ -138,7 +138,7 @@ jumptable_4267_case_12:
     jmp short @..loc_UMTI.l5         ; 0x4250
 jumptable_4267_case_13:
     push word [bp + 0x8]             ; 0x4252
-    mov ax, 0x9351                   ; 0x4255
+    mov ax, dseg_9351                ; 0x4255
     push ax                          ; 0x4258
     push word [bp + 0x6]             ; 0x4259
     push word [bp + 0x4]             ; 0x425c

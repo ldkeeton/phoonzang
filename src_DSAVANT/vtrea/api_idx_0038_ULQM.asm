@@ -15,7 +15,7 @@ api_idx_0038_ULQM:
     mov ax, word [bp + 0xc]          ; 0x3a8a
 @..api_idx_0038_ULQM.l1:
     mov word [bp - 0x0022], ax       ; 0x3a8d
-    mov ax, 0x90dc                   ; 0x3a90
+    mov ax, dseg_90dc                ; 0x3a90
     push ax                          ; 0x3a93
     mov ax, word [bp - 0x000a]       ; 0x3a94
     inc ax                           ; 0x3a97

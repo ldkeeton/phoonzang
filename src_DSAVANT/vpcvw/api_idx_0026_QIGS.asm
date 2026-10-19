@@ -7,7 +7,7 @@ api_idx_0026_QIGS:
     mov word [bp - 0x0004], 0x8f     ; 0x8a7f
     mov word [bp - 0x0006], 0x108    ; 0x8a84
     mov word [bp - 0x0008], 0xc5     ; 0x8a89
-    mov ax, 0x92e2                   ; 0x8a8e
+    mov ax, dseg_92e2                ; 0x8a8e
     push ax                          ; 0x8a91
     mov ax, word [bp - 0x0008]       ; 0x8a92
     inc ax                           ; 0x8a95

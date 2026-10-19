@@ -8,7 +8,7 @@ api_idx_0028_NRJN:
     mov word [bp - 0x0004], 0x8f     ; 0x0f0d
     mov word [bp - 0x0006], 0x108    ; 0x0f12
     mov word [bp - 0x0008], 0xc5     ; 0x0f17
-    mov ax, 0x90bc                   ; 0x0f1c
+    mov ax, dseg_90bc                ; 0x0f1c
     push ax                          ; 0x0f1f
     mov ax, word [bp - 0x0008]       ; 0x0f20
     inc ax                           ; 0x0f23

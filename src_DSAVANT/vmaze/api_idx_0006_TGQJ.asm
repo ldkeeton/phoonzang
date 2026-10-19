@@ -51,7 +51,7 @@ api_idx_0006_TGQJ:
     add ax, cx                       ; 0x21a6
     add ax, word [bss_8f42]          ; 0x21a8
     push ax                          ; 0x21ac
-    mov ax, 0x8bfe                   ; 0x21ad
+    mov ax, bss_8bfe                 ; 0x21ad
     push ax                          ; 0x21b0
     call set_bitmap_bit              ; 0x21b1
     add sp, byte 6                   ; 0x21b4

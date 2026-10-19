@@ -43,10 +43,18 @@ api_idx_000e_NKQN.api_idx1 equ api_idx_0004_SMTU
 
 %include "shared/loc_VNIO.asm"              ; 0x0b30
 
+dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
+dseg_909f equ __zdseg_end + (__zdseg_909f - __zdata_start)
+dseg_90a6 equ __zdseg_end + (__zdseg_90a6 - __zdata_start)
+dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
+dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
 %include "shared/api_idx_0006_SHUK.asm"     ; 0x0b74
 
 %include "shared/loc_HTQP.asm"              ; 0x0c96
 
+dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
+dseg_90be equ __zdseg_end + (__zdseg_90be - __zdata_start)
+bss_9138  equ __zdseg_end + (__zobss_9138 - __zdata_start)
 %include "vmnpc/api_idx_0054_UKJH.asm"     ; 0x0d46
 
 bss_934c equ __zdseg_end + (__zobss_934c - __zdata_start)
@@ -73,6 +81,7 @@ loc_UTQS.api_idx1 equ api_idx_0006_SQTK
 
 %include "vmnpc/api_idx_0004_MIJS.asm"     ; 0x10c9
 
+dseg_90c2 equ __zdseg_end + (__zdseg_90c2 - __zdata_start)
 %include "vmnpc/api_idx_0004_RPUO.asm"     ; 0x114d
 
 %include "vmnpc/api_idx_0004_GRRG.asm"     ; 0x119e
@@ -95,6 +104,8 @@ bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
 
 %include "vmnpc/loc_RSHV.asm"              ; 0x1821
 
+dseg_90c4 equ __zdseg_end + (__zdseg_90c4 - __zdata_start)
+dseg_90ca equ __zdseg_end + (__zdseg_90ca - __zdata_start)
 %include "vmnpc/loc_MOVJ.asm"              ; 0x1d39
 
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
@@ -146,6 +157,7 @@ bss_91b8 equ __zdseg_end + (__zobss_91b8 - __zdata_start)
 ; bss_93ee equ __zdseg_end + (__zobss_93ee - __zdata_start)
 ; bss_95a6 equ __zdseg_end + (__zobss_95a6 - __zdata_start)
 ; bss_95a8 equ __zdseg_end + (__zobss_95a8 - __zdata_start)
+bss_95f8 equ __zdseg_end + (__zobss_95f8 - __zdata_start)
 bss_95fa equ __zdseg_end + (__zobss_95fa - __zdata_start)
 %include "vmnpc/api_idx_0040_LSRO.asm"     ; 0x2b8e
 
@@ -173,17 +185,20 @@ bss_9650 equ __zdseg_end + (__zobss_9650 - __zdata_start)
 loc_HTKI.api_idx1 equ api_idx_0004_KHSO
 %include "shared/loc_HTKI.asm"              ; 0x3df9
 
+dseg_90d0 equ __zdseg_end + (__zdseg_90d0 - __zdata_start)
 %include "vmnpc/api_idx_0038_IJUK.asm"     ; 0x3e3a
 
+bss_99ae equ __zdseg_end + (__zobss_99ae - __zdata_start)
 %include "vmnpc/api_idx_0054_OPGG.asm"     ; 0x4514
 
 %include "vmnpc/loc_VUSH.asm"              ; 0x4775
 
 %include "vmnpc/loc_GOMR.asm"              ; 0x47b9
 
-; bss_93d8 equ __zdseg_end + (__zobss_93d8 - __zdata_start)
-bss_99ae equ __zdseg_end + (__zobss_99ae - __zdata_start)
-bss_9ca6 equ __zdseg_end + (__zobss_9ca6 - __zdata_start)
+dseg_90d6 equ __zdseg_end + (__zdseg_90d6 - __zdata_start)
+; bss_93d8  equ __zdseg_end + (__zobss_93d8 - __zdata_start)
+; bss_99ae  equ __zdseg_end + (__zobss_99ae - __zdata_start)
+bss_9ca6  equ __zdseg_end + (__zobss_9ca6 - __zdata_start)
 %include "vmnpc/api_idx_0038_LJOP.asm"     ; 0x47d9
 
 bss_9ca8 equ __zdseg_end + (__zobss_9ca8 - __zdata_start)
@@ -288,12 +303,12 @@ bss_91c9 equ __zdseg_end + (__zobss_91c9 - __zdata_start)
 
 ; bss_9134 equ __zdseg_end + (__zobss_9134 - __zdata_start)
 ; bss_9136 equ __zdseg_end + (__zobss_9136 - __zdata_start)
-bss_9138 equ __zdseg_end + (__zobss_9138 - __zdata_start)
+; bss_9138 equ __zdseg_end + (__zobss_9138 - __zdata_start)
 ; bss_93d6 equ __zdseg_end + (__zobss_93d6 - __zdata_start)
 ; bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
 ; bss_93ee equ __zdseg_end + (__zobss_93ee - __zdata_start)
 ; bss_94f0 equ __zdseg_end + (__zobss_94f0 - __zdata_start)
-bss_95f8 equ __zdseg_end + (__zobss_95f8 - __zdata_start)
+; bss_95f8 equ __zdseg_end + (__zobss_95f8 - __zdata_start)
 ; bss_964a equ __zdseg_end + (__zobss_964a - __zdata_start)
 ; bss_964c equ __zdseg_end + (__zobss_964c - __zdata_start)
 ; bss_9d66 equ __zdseg_end + (__zobss_9d66 - __zdata_start)
@@ -301,7 +316,8 @@ bss_9d68 equ __zdseg_end + (__zobss_9d68 - __zdata_start)
 bss_9d6a equ __zdseg_end + (__zobss_9d6a - __zdata_start)
 %include "vmnpc/api_idx_001e_GOQP.asm"     ; 0x70b7
 
-; bss_93dc equ __zdseg_end + (__zobss_93dc - __zdata_start)
+dseg_90dc equ __zdseg_end + (__zdseg_90dc - __zdata_start)
+; bss_93dc  equ __zdseg_end + (__zobss_93dc - __zdata_start)
 %include "vmnpc/api_idx_0006_MITV.asm"     ; 0x72bf
 
 ; bss_93d8 equ __zdseg_end + (__zobss_93d8 - __zdata_start)
@@ -322,6 +338,7 @@ bss_9d6c equ __zdseg_end + (__zobss_9d6c - __zdata_start)
 
 %include "shared/loc_PTRP.asm"              ; 0x75db
 
+dseg_90e4 equ __zdseg_end + (__zdseg_90e4 - __zdata_start)
 %include "vmnpc/loc_IMPO.asm"              ; 0x7667
 
 %include "vmnpc/api_idx_000c_GHTR.asm"     ; 0x7708
@@ -334,7 +351,8 @@ loc_SRQQ.api_idx2 equ api_idx_000c_GHTR
 
 %include "vmnpc/loc_UVUO.asm"              ; 0x7832
 
-; bss_93d6 equ __zdseg_end + (__zobss_93d6 - __zdata_start)
+dseg_90e8 equ __zdseg_end + (__zdseg_90e8 - __zdata_start)
+; bss_93d6  equ __zdseg_end + (__zobss_93d6 - __zdata_start)
 %include "vmnpc/api_idx_0044_NORP.asm"     ; 0x786c
 
 %include "vmnpc/api_idx_0006_TLLQ.asm"     ; 0x84f0
@@ -609,22 +627,37 @@ dseg_9132 equ __zdseg_end + (__zdseg_9132 - __zdata_start)
 loc_LNNU equ aztec_strncmp.loc1
 %include "shared/aztec_strncmp.asm"         ; 0xae94
 
+__zdseg_9098:
 __zdata_start:
-
     db 'V1.$$$', 0
+__zdseg_909f:
     db 'V1.$$$', 0
+__zdseg_90a6:
     db 'V2.$$$', 0
+__zdseg_90ad:
     db 'V3.$$$', 0
+__zdseg_90b4:
     db 'V1.$$$', 0
-    db 0x31, 0x20, 0x00, 0x28, 0x31, 0x29, 0x00, 0x50, 0x00
+__zdseg_90bb:
+    db 0x31, 0x20, 0x00
+__zdseg_90be:
+    db 0x28, 0x31, 0x29, 0x00
+__zdseg_90c2:
+    db 0x50, 0x00
+__zdseg_90c4:
     db 'V.$$$', 0
+__zdseg_90ca:
     db 'V.$$$', 0
+__zdseg_90d0:
     db 'V.$$$', 0
+__zdseg_90d6:
     db 'V.$$$', 0
+__zdseg_90dc:
     db 'VM1.$$$', 0
+__zdseg_90e4:
     db 0x2a, 0x2a, 0x2a, 0x00
+__zdseg_90e8:
     db 'V.$$$', 0
-
 __zdseg_90ee:
     db 0x20, 0x00
 __zdseg_90f0:

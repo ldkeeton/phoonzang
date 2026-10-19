@@ -156,6 +156,7 @@ dseg_9099 equ __zdseg_end + (__zdseg_9099 - __zdata_start)
 
 %include "shared/loc_PTRP.asm"              ; 0x2731
 
+dseg_909a equ __zdseg_end + (__zdseg_909a - __zdata_start)
 %include "vdopt/loc_TJJR.asm"              ; 0x27bd
 
 %include "shared/api_idx_000c_JQMN.asm"     ; 0x285e
@@ -166,7 +167,8 @@ loc_SRQQ.api_idx1 equ api_idx_000a_PJMQ
 loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
 %include "shared/loc_SRQQ.asm"              ; 0x28f7
 
-; bss_9b5e equ __zdseg_end + (__zobss_9b5e - __zdata_start)
+dseg_909e equ __zdseg_end + (__zdseg_909e - __zdata_start)
+; bss_9b5e  equ __zdseg_end + (__zobss_9b5e - __zdata_start)
 %include "vdopt/api_idx_0044_PIIP.asm"     ; 0x2988
 
 %include "shared/api_idx_0008_RQRL.asm"     ; 0x362f
@@ -180,6 +182,7 @@ loc_SRQQ.api_idx2 equ api_idx_000c_JQMN
 loc_HTKI.api_idx1 equ api_idx_0004_PNVH
 %include "shared/loc_HTKI.asm"              ; 0x39eb
 
+dseg_90a4 equ __zdseg_end + (__zdseg_90a4 - __zdata_start)
 %include "vdopt/api_idx_0038_QQIU.asm"     ; 0x3a2c
 
 dseg_90aa equ __zdseg_end + (__zdseg_90aa - __zdata_start)

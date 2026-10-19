@@ -29,7 +29,7 @@ loc_TRPK:
     jne short @..loc_TRPK.l1         ; 0x0486
     jmp near @..loc_TRPK.l2          ; 0x0488
 @..loc_TRPK.l1:
-    mov ax, 0x90a3                   ; 0x048b
+    mov ax, dseg_90a3                ; 0x048b
     push ax                          ; 0x048e
     mov ax, word [bp - 0x0008]       ; 0x048f
     add ax, strict word 6            ; 0x0492
@@ -97,7 +97,7 @@ loc_TRPK:
     add sp, byte 4                   ; 0x0528
     jmp short @..loc_TRPK.l3         ; 0x052b
 @..loc_TRPK.l2:
-    mov ax, 0x90a9                   ; 0x052d
+    mov ax, dseg_90a9                ; 0x052d
     push ax                          ; 0x0530
     mov ax, word [bp - 0x0008]       ; 0x0531
     inc ax                           ; 0x0534

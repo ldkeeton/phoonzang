@@ -63,7 +63,7 @@ loc_IMPO:
     add sp, byte 4                   ; 0x76f6
     mov ax, 0                        ; 0x76f9
     push ax                          ; 0x76fc
-    mov ax, 0x90e4                   ; 0x76fd
+    mov ax, dseg_90e4                ; 0x76fd
     push ax                          ; 0x7700
     call ds_string_loc_QRJV          ; 0x7701
     add sp, byte 4                   ; 0x7704

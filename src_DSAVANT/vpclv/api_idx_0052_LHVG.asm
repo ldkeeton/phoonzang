@@ -9,90 +9,90 @@ api_idx_0052_LHVG:
     sub ah, ah                       ; 0x2c1e
     jmp near @..api_idx_0052_LHVG.l1 ; 0x2c20
 jumptable_2ce6_case_0:
-    mov ax, 0x90b4                   ; 0x2c23
+    mov ax, dseg_90b4                ; 0x2c23
     push ax                          ; 0x2c26
-    mov ax, 0x90a5                   ; 0x2c27
+    mov ax, dseg_90a5                ; 0x2c27
     push ax                          ; 0x2c2a
     push word [bp + 0x4]             ; 0x2c2b
     call api_idx_0006_VJKJ           ; 0x2c2e
     add sp, byte 6                   ; 0x2c31
     jmp near @..api_idx_0052_LHVG.l2 ; 0x2c34
 jumptable_2ce6_case_4:
-    mov ax, 0x90d2                   ; 0x2c37
+    mov ax, dseg_90d2                ; 0x2c37
     push ax                          ; 0x2c3a
-    mov ax, 0x90c3                   ; 0x2c3b
+    mov ax, dseg_90c3                ; 0x2c3b
     push ax                          ; 0x2c3e
     push word [bp + 0x4]             ; 0x2c3f
     call api_idx_0006_VJKJ           ; 0x2c42
     add sp, byte 6                   ; 0x2c45
     jmp near @..api_idx_0052_LHVG.l2 ; 0x2c48
 jumptable_2ce6_case_10:
-    mov ax, 0x90f0                   ; 0x2c4b
+    mov ax, dseg_90f0                ; 0x2c4b
     push ax                          ; 0x2c4e
-    mov ax, 0x90e1                   ; 0x2c4f
+    mov ax, dseg_90e1                ; 0x2c4f
     push ax                          ; 0x2c52
     push word [bp + 0x4]             ; 0x2c53
     call api_idx_0006_VJKJ           ; 0x2c56
     add sp, byte 6                   ; 0x2c59
     jmp near @..api_idx_0052_LHVG.l2 ; 0x2c5c
 jumptable_2ce6_case_11:
-    mov ax, 0x910e                   ; 0x2c5f
+    mov ax, dseg_910e                ; 0x2c5f
     push ax                          ; 0x2c62
-    mov ax, 0x90ff                   ; 0x2c63
+    mov ax, dseg_90ff                ; 0x2c63
     push ax                          ; 0x2c66
     push word [bp + 0x4]             ; 0x2c67
     call api_idx_0006_VJKJ           ; 0x2c6a
     add sp, byte 6                   ; 0x2c6d
     jmp near @..api_idx_0052_LHVG.l2 ; 0x2c70
 jumptable_2ce6_case_13:
-    mov ax, 0x912c                   ; 0x2c73
+    mov ax, dseg_912c                ; 0x2c73
     push ax                          ; 0x2c76
-    mov ax, 0x911d                   ; 0x2c77
+    mov ax, dseg_911d                ; 0x2c77
     push ax                          ; 0x2c7a
     push word [bp + 0x4]             ; 0x2c7b
     call api_idx_0006_VJKJ           ; 0x2c7e
     add sp, byte 6                   ; 0x2c81
     jmp near @..api_idx_0052_LHVG.l2 ; 0x2c84
 jumptable_2ce6_case_1:
-    mov ax, 0x914a                   ; 0x2c87
+    mov ax, dseg_914a                ; 0x2c87
     push ax                          ; 0x2c8a
-    mov ax, 0x913b                   ; 0x2c8b
+    mov ax, dseg_913b                ; 0x2c8b
     push ax                          ; 0x2c8e
     push word [bp + 0x4]             ; 0x2c8f
     call api_idx_0006_VJKJ           ; 0x2c92
     add sp, byte 6                   ; 0x2c95
     jmp short @..api_idx_0052_LHVG.l2 ; 0x2c98
 jumptable_2ce6_case_7:
-    mov ax, 0x9168                   ; 0x2c9a
+    mov ax, dseg_9168                ; 0x2c9a
     push ax                          ; 0x2c9d
-    mov ax, 0x9159                   ; 0x2c9e
+    mov ax, dseg_9159                ; 0x2c9e
     push ax                          ; 0x2ca1
     push word [bp + 0x4]             ; 0x2ca2
     call api_idx_0006_VJKJ           ; 0x2ca5
     add sp, byte 6                   ; 0x2ca8
     jmp short @..api_idx_0052_LHVG.l2 ; 0x2cab
 jumptable_2ce6_case_2:
-    mov ax, 0x9186                   ; 0x2cad
+    mov ax, dseg_9186                ; 0x2cad
     push ax                          ; 0x2cb0
-    mov ax, 0x9177                   ; 0x2cb1
+    mov ax, dseg_9177                ; 0x2cb1
     push ax                          ; 0x2cb4
     push word [bp + 0x4]             ; 0x2cb5
     call api_idx_0006_VJKJ           ; 0x2cb8
     add sp, byte 6                   ; 0x2cbb
     jmp short @..api_idx_0052_LHVG.l2 ; 0x2cbe
 jumptable_2ce6_case_12:
-    mov ax, 0x91a4                   ; 0x2cc0
+    mov ax, dseg_91a4                ; 0x2cc0
     push ax                          ; 0x2cc3
-    mov ax, 0x9195                   ; 0x2cc4
+    mov ax, dseg_9195                ; 0x2cc4
     push ax                          ; 0x2cc7
     push word [bp + 0x4]             ; 0x2cc8
     call api_idx_0006_VJKJ           ; 0x2ccb
     add sp, byte 6                   ; 0x2cce
     jmp short @..api_idx_0052_LHVG.l2 ; 0x2cd1
 jumptable_2ce6_case_3:
-    mov ax, 0x91c2                   ; 0x2cd3
+    mov ax, dseg_91c2                ; 0x2cd3
     push ax                          ; 0x2cd6
-    mov ax, 0x91b3                   ; 0x2cd7
+    mov ax, dseg_91b3                ; 0x2cd7
     push ax                          ; 0x2cda
     push word [bp + 0x4]             ; 0x2cdb
     call api_idx_0006_VJKJ           ; 0x2cde
