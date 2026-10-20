@@ -178,6 +178,63 @@ def instruction_offsets(text):
     return offsets
 
 
+#: ``%include "shared/<name>.asm"  ; 0x<hex>``: a shared fragment and where
+#: this binary places it.
+_SHARED_INCLUDE_RE = re.compile(
+    r'^%include\s+"(shared/[^"]+)"\s*;\s*0x([0-9a-f]+)\b')
+#: ``db`` of plain numbers, the only data a shared fragment holds.
+_DB_BYTES_RE = re.compile(
+    r'^db\s+(0x[0-9a-f]+(?:\s*,\s*0x[0-9a-f]+)*)\s*(?:;.*)?$', re.I)
+
+
+def shared_includes(master_text):
+    """``[(path, base)]``: each ``shared/`` fragment *master_text* includes and
+    the file offset it starts at in this binary."""
+    return [(m.group(1), int(m.group(2), 16))
+            for m in map(_SHARED_INCLUDE_RE.match, master_text.splitlines())
+            if m]
+
+
+def fragment_instruction_offsets(text, data, base, max_insn=16):
+    """File offsets of the instruction lines of fragment *text* at *base*.
+
+    A ``shared/`` fragment carries no ``; 0x<hex>`` comment where its offset
+    differs between the binaries that include it; the include line gives
+    where it starts.  Each line then follows the last: an instruction is as
+    long as the image's instruction there (the build is byte-exact), a
+    ``db`` as its bytes.  A line the walk cannot size stops it, so the set is
+    a lower bound, like :func:`instruction_offsets`.
+    """
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_16
+    md = Cs(CS_ARCH_X86, CS_MODE_16)
+    offsets = set()
+    pos = base
+    for line in (text or '').splitlines():
+        stripped = line.strip()
+        if (not stripped or stripped[0] == ';'
+                or _LABEL_LINE_RE.match(stripped)):
+            continue
+        m = _MNEMONIC_RE.match(stripped)
+        if m is None or stripped[0] == '%':
+            break
+        if m.group(1).lower() in _DIRECTIVE_KEYWORDS:
+            db = _DB_BYTES_RE.match(stripped)
+            if db is None:
+                break
+            pos += len(db.group(1).split(','))
+            continue
+        semi = line.find(';')
+        anchor = _ANCHOR_RE.search(line, semi) if semi >= 0 else None
+        if anchor:
+            pos = int(anchor.group(1), 16)
+        insn = next(md.disasm(data[pos:pos + max_insn], pos), None)
+        if insn is None:
+            break
+        offsets.add(pos)
+        pos += insn.size
+    return offsets
+
+
 def _walk_gap(data, lo, hi, code_offsets, md, max_insn):
     """Near call/jmp sites in ``data[lo:hi]`` that target a shown code offset.
 

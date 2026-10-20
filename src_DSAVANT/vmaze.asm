@@ -55,22 +55,22 @@ bss_919e equ __zdseg_end + (__zobss_919e - __zdata_start)
 %include "vmaze/loc_VRKM.asm"              ; 0x0344
 
 dseg_90a0 equ __zdseg_end + (__zdseg_90a0 - __zdata_start)
-dseg_90ad equ __zdseg_end + 0x0015
-dseg_90ba equ __zdseg_end + 0x0022
-dseg_90c7 equ __zdseg_end + 0x002f
-dseg_90d4 equ __zdseg_end + 0x003c
-dseg_90e1 equ __zdseg_end + 0x0049
-dseg_90ee equ __zdseg_end + 0x0056
-dseg_90fb equ __zdseg_end + 0x0063
-dseg_9108 equ __zdseg_end + 0x0070
-dseg_9115 equ __zdseg_end + 0x007d
-dseg_9122 equ __zdseg_end + 0x008a
-dseg_912f equ __zdseg_end + 0x0097
-dseg_913c equ __zdseg_end + 0x00a4
-dseg_9149 equ __zdseg_end + 0x00b1
-dseg_9156 equ __zdseg_end + 0x00be
-dseg_9163 equ __zdseg_end + 0x00cb
-dseg_9170 equ __zdseg_end + 0x00d8
+dseg_90ad equ __zdseg_end + (__zdseg_90ad - __zdata_start)
+dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
+dseg_90c7 equ __zdseg_end + (__zdseg_90c7 - __zdata_start)
+dseg_90d4 equ __zdseg_end + (__zdseg_90d4 - __zdata_start)
+dseg_90e1 equ __zdseg_end + (__zdseg_90e1 - __zdata_start)
+dseg_90ee equ __zdseg_end + (__zdseg_90ee - __zdata_start)
+dseg_90fb equ __zdseg_end + (__zdseg_90fb - __zdata_start)
+dseg_9108 equ __zdseg_end + (__zdseg_9108 - __zdata_start)
+dseg_9115 equ __zdseg_end + (__zdseg_9115 - __zdata_start)
+dseg_9122 equ __zdseg_end + (__zdseg_9122 - __zdata_start)
+dseg_912f equ __zdseg_end + (__zdseg_912f - __zdata_start)
+dseg_913c equ __zdseg_end + (__zdseg_913c - __zdata_start)
+dseg_9149 equ __zdseg_end + (__zdseg_9149 - __zdata_start)
+dseg_9156 equ __zdseg_end + (__zdseg_9156 - __zdata_start)
+dseg_9163 equ __zdseg_end + (__zdseg_9163 - __zdata_start)
+dseg_9170 equ __zdseg_end + (__zdseg_9170 - __zdata_start)
 bss_91a6  equ __zdseg_end + (__zobss_91a6 - __zdata_start)
 %include "vmaze/api_idx_0002_TOSL.asm"     ; 0x03ea
 
@@ -471,200 +471,56 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 __zdseg_9098:
 __zdata_start:
-    push si                          ; 0xac6e
-    dec bp                           ; 0xac6f
-    xor word [bss_2424], bp          ; 0xac70
-    and al, 0                        ; 0xac74
+    db 'VM1.$$$', 0
 __zdseg_90a0:
-    dec bp                           ; 0xac76
-    inc cx                           ; 0xac77
-    pop dx                           ; 0xac78
-    inc bp                           ; 0xac79
-    inc sp                           ; 0xac7a
-    inc cx                           ; 0xac7b
-    push sp                          ; 0xac7c
-    inc cx                           ; 0xac7d
-    cs push si                       ; 0xac7e
-    inc di                           ; 0xac80
-    inc cx                           ; 0xac81
-    add byte [bx + 0x41], dl         ; 0xac82
-    push sp                          ; 0xac85
-    push dx                          ; 0xac86
-    inc sp                           ; 0xac87
-    inc cx                           ; 0xac88
-    push sp                          ; 0xac89
-    inc cx                           ; 0xac8a
-    cs push si                       ; 0xac8b
-    inc di                           ; 0xac8d
-    inc cx                           ; 0xac8e
-    add byte [si + 0x52], dl         ; 0xac8f
-    inc bp                           ; 0xac92
-    inc bp                           ; 0xac93
-    inc sp                           ; 0xac94
-    inc cx                           ; 0xac95
-    push sp                          ; 0xac96
-    inc cx                           ; 0xac97
-    cs push si                       ; 0xac98
-    inc di                           ; 0xac9a
-    inc cx                           ; 0xac9b
-    add byte [bx + 0x54], cl         ; 0xac9c
-    push di                          ; 0xac9f
-    dec si                           ; 0xaca0
-    inc sp                           ; 0xaca1
-    inc cx                           ; 0xaca2
-    push sp                          ; 0xaca3
-    inc cx                           ; 0xaca4
-    cs push si                       ; 0xaca5
-    inc di                           ; 0xaca7
-    inc cx                           ; 0xaca8
-    add byte [si + 0x49], dl         ; 0xaca9
-    dec sp                           ; 0xacac
-    inc bp                           ; 0xacad
-    inc sp                           ; 0xacae
-    inc cx                           ; 0xacaf
-    push sp                          ; 0xacb0
-    inc cx                           ; 0xacb1
-    cs push si                       ; 0xacb2
-    inc di                           ; 0xacb4
-    inc cx                           ; 0xacb5
-    add byte [si + 0x4f], dl         ; 0xacb6
-    push di                          ; 0xacb9
-    dec si                           ; 0xacba
-    inc sp                           ; 0xacbb
-    inc cx                           ; 0xacbc
-    push sp                          ; 0xacbd
-    inc cx                           ; 0xacbe
-    cs push si                       ; 0xacbf
-    inc di                           ; 0xacc1
-    inc cx                           ; 0xacc2
-    add byte [bx + 0x54], cl         ; 0xacc3
-    push di                          ; 0xacc6
-    dec si                           ; 0xacc7
-    inc sp                           ; 0xacc8
-    inc cx                           ; 0xacc9
-    push sp                          ; 0xacca
-    inc cx                           ; 0xaccb
-    cs push si                       ; 0xaccc
-    inc di                           ; 0xacce
-    inc cx                           ; 0xaccf
-    add byte [bx + 0x41], dl         ; 0xacd0
-    push sp                          ; 0xacd3
-    push dx                          ; 0xacd4
-    inc sp                           ; 0xacd5
-    inc cx                           ; 0xacd6
-    push sp                          ; 0xacd7
-    inc cx                           ; 0xacd8
-    cs push si                       ; 0xacd9
-    inc di                           ; 0xacdb
-    inc cx                           ; 0xacdc
-    add byte [si + 0x49], dl         ; 0xacdd
-    dec sp                           ; 0xace0
-    inc bp                           ; 0xace1
-    inc sp                           ; 0xace2
-    inc cx                           ; 0xace3
-    push sp                          ; 0xace4
-    inc cx                           ; 0xace5
-    cs push si                       ; 0xace6
-    inc di                           ; 0xace8
-    inc cx                           ; 0xace9
-    add byte [si + 0x52], dl         ; 0xacea
-    inc bp                           ; 0xaced
-    inc bp                           ; 0xacee
-    inc sp                           ; 0xacef
-    inc cx                           ; 0xacf0
-    push sp                          ; 0xacf1
-    inc cx                           ; 0xacf2
-    cs push si                       ; 0xacf3
-    inc di                           ; 0xacf5
-    inc cx                           ; 0xacf6
-    add byte [bx + 0x43], cl         ; 0xacf7
-    inc cx                           ; 0xacfa
-    push si                          ; 0xacfb
-    inc sp                           ; 0xacfc
-    inc cx                           ; 0xacfd
-    push sp                          ; 0xacfe
-    inc cx                           ; 0xacff
-    cs push si                       ; 0xad00
-    inc di                           ; 0xad02
-    inc cx                           ; 0xad03
-    add byte [bp + di + 0x41], al    ; 0xad04
-    push si                          ; 0xad07
-    inc bp                           ; 0xad08
-    inc sp                           ; 0xad09
-    inc cx                           ; 0xad0a
-    push sp                          ; 0xad0b
-    inc cx                           ; 0xad0c
-    cs push si                       ; 0xad0d
-    inc di                           ; 0xad0f
-    inc cx                           ; 0xad10
-    add byte [bx + 0x43], cl         ; 0xad11
-    inc cx                           ; 0xad14
-    push si                          ; 0xad15
-    inc sp                           ; 0xad16
-    inc cx                           ; 0xad17
-    push sp                          ; 0xad18
-    inc cx                           ; 0xad19
-    cs push si                       ; 0xad1a
-    inc di                           ; 0xad1c
-    inc cx                           ; 0xad1d
-    add byte [bx + 0x41], dl         ; 0xad1e
-    push sp                          ; 0xad21
-    push dx                          ; 0xad22
-    inc sp                           ; 0xad23
-    inc cx                           ; 0xad24
-    push sp                          ; 0xad25
-    inc cx                           ; 0xad26
-    cs push si                       ; 0xad27
-    inc di                           ; 0xad29
-    inc cx                           ; 0xad2a
-    add byte [si + 0x52], dl         ; 0xad2b
-    inc bp                           ; 0xad2e
-    inc bp                           ; 0xad2f
-    inc sp                           ; 0xad30
-    inc cx                           ; 0xad31
-    push sp                          ; 0xad32
-    inc cx                           ; 0xad33
-    cs push si                       ; 0xad34
-    inc di                           ; 0xad36
-    inc cx                           ; 0xad37
-    add byte [bx + 0x54], cl         ; 0xad38
-    push di                          ; 0xad3b
-    dec si                           ; 0xad3c
-    inc sp                           ; 0xad3d
-    inc cx                           ; 0xad3e
-    push sp                          ; 0xad3f
-    inc cx                           ; 0xad40
-    cs push si                       ; 0xad41
-    inc di                           ; 0xad43
-    inc cx                           ; 0xad44
-    add byte [bx + 0x41], dl         ; 0xad45
-    push sp                          ; 0xad48
-    push dx                          ; 0xad49
-    inc sp                           ; 0xad4a
-    inc cx                           ; 0xad4b
-    push sp                          ; 0xad4c
-    inc cx                           ; 0xad4d
-    cs push si                       ; 0xad4e
-    inc di                           ; 0xad50
-    inc cx                           ; 0xad51
-    add byte [bx + si], al           ; 0xad52
+    db 'MAZEDATA.VGA', 0
+__zdseg_90ad:
+    db 'WATRDATA.VGA', 0
+__zdseg_90ba:
+    db 'TREEDATA.VGA', 0
+__zdseg_90c7:
+    db 'OTWNDATA.VGA', 0
+__zdseg_90d4:
+    db 'TILEDATA.VGA', 0
+__zdseg_90e1:
+    db 'TOWNDATA.VGA', 0
+__zdseg_90ee:
+    db 'OTWNDATA.VGA', 0
+__zdseg_90fb:
+    db 'WATRDATA.VGA', 0
+__zdseg_9108:
+    db 'TILEDATA.VGA', 0
+__zdseg_9115:
+    db 'TREEDATA.VGA', 0
+__zdseg_9122:
+    db 'OCAVDATA.VGA', 0
+__zdseg_912f:
+    db 'CAVEDATA.VGA', 0
+__zdseg_913c:
+    db 'OCAVDATA.VGA', 0
+__zdseg_9149:
+    db 'WATRDATA.VGA', 0
+__zdseg_9156:
+    db 'TREEDATA.VGA', 0
+__zdseg_9163:
+    db 'OTWNDATA.VGA', 0
+__zdseg_9170:
+    db 'WATRDATA.VGA', 0
+    db 0x00
 __zdseg_917e:
-    and word [di], sp                ; 0xad54
-    es pop bp                        ; 0xad56
-    inc ax                           ; 0xad58
-    and di, word [bp]                ; 0xad59
+    db '!%&]@#~', 0
 __zdseg_9186:
-    and byte [bx + si], al           ; 0xad5c
+    db 0x20, 0x00
 __zsave_si:
-    add byte [bx + si], al           ; 0xad5e
+    db 0x00, 0x00
 __zsave_di:
-    add byte [bx + si], al           ; 0xad60
+    db 0x00, 0x00
 __zsave_sp:
-    add byte [bx + si], al           ; 0xad62
+    db 0x00, 0x00
 __zsave_bp:
-    add byte [bx + si], al           ; 0xad64
+    db 0x00, 0x00
 __zsave_ret:
-    add byte [bx + si], al           ; 0xad66
+    db 0x00, 0x00
 
 __zimage_end:
 absolute __zimage_end

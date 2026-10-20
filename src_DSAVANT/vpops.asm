@@ -133,53 +133,43 @@ bss_938a equ __zdseg_end + (__zobss_938a - __zdata_start)
 bss_938c equ __zdseg_end + (__zobss_938c - __zdata_start)
 %include "vpops/api_idx_0004_NRTK.asm"     ; 0x4e3b
 
-save_si  equ __zdseg_end + 0x0034
-save_di  equ __zdseg_end + 0x0036
-save_sp  equ __zdseg_end + 0x0038
-save_bp  equ __zdseg_end + 0x003a
-save_ret equ __zdseg_end + 0x003c
+save_si  equ __zdseg_end + (__zsave_si - __zdata_start)
+save_di  equ __zdseg_end + (__zsave_di - __zdata_start)
+save_sp  equ __zdseg_end + (__zsave_sp - __zdata_start)
+save_bp  equ __zdseg_end + (__zsave_bp - __zdata_start)
+save_ret equ __zdseg_end + (__zsave_ret - __zdata_start)
 _Uorg    equ __zdseg_end + (__zobss_90d6 - __zdata_start)
 _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 %include "shared/aztec_ovbgn.asm"           ; 0x4e9d
 
 __zdseg_9098:
 __zdata_start:
-    push si                          ; 0x4edb
-    xor word [bss_2424], bp          ; 0x4edc
-    and al, 0                        ; 0x4ee0
+    db 'V1.$$$', 0
 __zdseg_909f:
-    push si                          ; 0x4ee2
-    xor word [bss_2424], bp          ; 0x4ee3
-    and al, 0                        ; 0x4ee7
+    db 'V1.$$$', 0
 __zdseg_90a6:
-    push si                          ; 0x4ee9
-    xor ch, byte [bss_2424]          ; 0x4eea
-    and al, 0                        ; 0x4eee
+    db 'V2.$$$', 0
 __zdseg_90ad:
-    push si                          ; 0x4ef0
-    xor bp, word [bss_2424]          ; 0x4ef1
-    and al, 0                        ; 0x4ef5
+    db 'V3.$$$', 0
 __zdseg_90b4:
-    push si                          ; 0x4ef7
-    xor word [bss_2424], bp          ; 0x4ef8
-    and al, 0                        ; 0x4efc
+    db 'V1.$$$', 0
 __zdseg_90bb:
-    sub ch, byte [bp + si]           ; 0x4efe
-    sub al, byte [bx + si]           ; 0x4f00
+    db 0x2a, 0x2a, 0x2a, 0x00
 __zdseg_90bf:
-    push si                          ; 0x4f02
-    cs and al, 0x24                  ; 0x4f03
-    and al, 0                        ; 0x4f06
+    db 'V.$$$', 0
 __zdseg_90c5:
-    push si                          ; 0x4f08
-    cs and al, 0x24                  ; 0x4f09
-    and al, 0                        ; 0x4f0c
-    add byte [bx + si], al           ; 0x4f0e
-    add byte [bx + si], al           ; 0x4f10
-    add byte [bx + si], al           ; 0x4f12
-    add byte [bx + si], al           ; 0x4f14
-    add byte [bx + si], al           ; 0x4f16
+    db 'V.$$$', 0
     db 0x00
+__zsave_si:
+    db 0x00, 0x00
+__zsave_di:
+    db 0x00, 0x00
+__zsave_sp:
+    db 0x00, 0x00
+__zsave_bp:
+    db 0x00, 0x00
+__zsave_ret:
+    db 0x00, 0x00
 
 __zimage_end:
 absolute __zimage_end

@@ -93,13 +93,13 @@ dseg_90a9 equ __zdseg_end + (__zdseg_90a9 - __zdata_start)
 %include "vtrea/api_idx_0002_RJQH.asm"     ; 0x0f96
 
 dseg_90b0 equ __zdseg_end + (__zdseg_90b0 - __zdata_start)
-dseg_90b1 equ __zdseg_end + 0x0019
+dseg_90b1 equ __zdseg_end + (__zdseg_90b1 - __zdata_start)
 %include "vtrea/api_idx_005a_SIOK.asm"     ; 0x10fb
 
 %include "vtrea/api_idx_003e_JGVR.asm"     ; 0x11bc
 
 dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
-dseg_90b3 equ __zdseg_end + 0x001b
+dseg_90b3 equ __zdseg_end + (__zdseg_90b3 - __zdata_start)
 %include "vtrea/api_idx_0056_VTNO.asm"     ; 0x12cc
 
 ; bss_9116 equ __zdseg_end + (__zobss_9116 - __zdata_start)
@@ -116,17 +116,17 @@ bss_91d6 equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 %include "vtrea/api_idx_0006_UHJH.asm"     ; 0x148d
 
 dseg_90b4 equ __zdseg_end + (__zdseg_90b4 - __zdata_start)
-dseg_90b5 equ __zdseg_end + 0x001d
+dseg_90b5 equ __zdseg_end + (__zdseg_90b5 - __zdata_start)
 dseg_90b6 equ __zdseg_end + (__zdseg_90b6 - __zdata_start)
-dseg_90b7 equ __zdseg_end + 0x001f
+dseg_90b7 equ __zdseg_end + (__zdseg_90b7 - __zdata_start)
 dseg_90b8 equ __zdseg_end + (__zdseg_90b8 - __zdata_start)
-dseg_90b9 equ __zdseg_end + 0x0021
+dseg_90b9 equ __zdseg_end + (__zdseg_90b9 - __zdata_start)
 dseg_90ba equ __zdseg_end + (__zdseg_90ba - __zdata_start)
 ; bss_91d4  equ __zdseg_end + (__zobss_91d4 - __zdata_start)
 %include "vtrea/api_idx_00b8_LTRM.asm"     ; 0x14e7
 
-dseg_90bb equ __zdseg_end + 0x0023
-dseg_90c4 equ __zdseg_end + 0x002c
+dseg_90bb equ __zdseg_end + (__zdseg_90bb - __zdata_start)
+dseg_90c4 equ __zdseg_end + (__zdseg_90c4 - __zdata_start)
 ; bss_91d6  equ __zdseg_end + (__zobss_91d6 - __zdata_start)
 bss_91fe  equ __zdseg_end + (__zobss_91fe - __zdata_start)
 bss_9200  equ __zdseg_end + (__zobss_9200 - __zdata_start)
@@ -138,7 +138,7 @@ bss_9250  equ __zdseg_end + (__zobss_9250 - __zdata_start)
 
 %include "vtrea/api_idx_0002_PMUV.asm"     ; 0x251a
 
-dseg_90cd equ __zdseg_end + 0x0035
+dseg_90cd equ __zdseg_end + (__zdseg_90cd - __zdata_start)
 dseg_90d3 equ __zdseg_end + (__zdseg_90d3 - __zdata_start)
 dseg_90d5 equ __zdseg_end + (__zdseg_90d5 - __zdata_start)
 dseg_90d8 equ __zdseg_end + (__zdseg_90d8 - __zdata_start)
@@ -225,7 +225,7 @@ bss_95e4 equ __zdseg_end + (__zobss_95e4 - __zdata_start)
 
 %include "vtrea/api_idx_0004_JVLM.asm"     ; 0x5efe
 
-dseg_90e3 equ __zdseg_end + 0x004b
+dseg_90e3 equ __zdseg_end + (__zdseg_90e3 - __zdata_start)
 dseg_90e9 equ __zdseg_end + (__zdseg_90e9 - __zdata_start)
 dseg_90eb equ __zdseg_end + (__zdseg_90eb - __zdata_start)
 ; bss_911c  equ __zdseg_end + (__zobss_911c - __zdata_start)
@@ -326,94 +326,79 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 __zdseg_9098:
 __zdata_start:
-    and word [di], sp                ; 0x9a1b
-    es pop bp                        ; 0x9a1d
-    inc ax                           ; 0x9a1f
-    and di, word [bp]                ; 0x9a20
+    db '!%&]@#~', 0
 __zdseg_90a0:
-    and byte [bx + si], al           ; 0x9a23
+    db 0x20, 0x00
 __zdseg_90a2:
-    push si                          ; 0x9a25
-    xor word [bss_2424], bp          ; 0x9a26
-    and al, 0                        ; 0x9a2a
+    db 'V1.$$$', 0
 __zdseg_90a9:
-    push si                          ; 0x9a2c
-    xor ch, byte [bss_2424]          ; 0x9a2d
-    and al, 0                        ; 0x9a31
+    db 'V2.$$$', 0
 __zdseg_90b0:
-    add byte [bx + si], al           ; 0x9a33
+    db 0x00
+__zdseg_90b1:
+    db 0x00
 __zdseg_90b2:
-    add byte [bx + si], al           ; 0x9a35
+    db 0x00
+__zdseg_90b3:
+    db 0x00
 __zdseg_90b4:
-    add byte [bx + si], al           ; 0x9a37
+    db 0x00
+__zdseg_90b5:
+    db 0x00
 __zdseg_90b6:
-    add byte [bx + si], al           ; 0x9a39
+    db 0x00
+__zdseg_90b7:
+    db 0x00
 __zdseg_90b8:
-    add byte [bx + si], al           ; 0x9a3b
+    db 0x00
+__zdseg_90b9:
+    db 0x00
 __zdseg_90ba:
-    add byte [di], ch                ; 0x9a3d
-    sub ax, 0x2d2d                   ; 0x9a3f
-    sub ax, 0x2d2d                   ; 0x9a42
-    sub ax, 0x3f00                   ; 0x9a45
-    aas                              ; 0x9a48
-    aas                              ; 0x9a49
-    aas                              ; 0x9a4a
-    aas                              ; 0x9a4b
-    aas                              ; 0x9a4c
-    aas                              ; 0x9a4d
-    aas                              ; 0x9a4e
-    add byte [bp + 0x2e], dl         ; 0x9a4f
-    and al, 0x24                     ; 0x9a52
-    and al, 0                        ; 0x9a54
+    db 0x00
+__zdseg_90bb:
+    db '--------', 0
+__zdseg_90c4:
+    db '????????', 0
+__zdseg_90cd:
+    db 'V.$$$', 0
 __zdseg_90d3:
-    sub byte [bx + si], al           ; 0x9a56
+    db 0x28, 0x00
 __zdseg_90d5:
-    and ax, strict word 0x29         ; 0x9a58
+    db 0x25, 0x29, 0x00
 __zdseg_90d8:
-    sub byte [bx + si], al           ; 0x9a5b
+    db 0x28, 0x00
 __zdseg_90da:
-    sub word [bx + si], ax           ; 0x9a5d
+    db 0x29, 0x00
 __zdseg_90dc:
-    push si                          ; 0x9a5f
-    cs and al, 0x24                  ; 0x9a60
-    and al, 0                        ; 0x9a63
+    db 'V.$$$', 0
 __zdseg_90e2:
-    add byte [bp + 0x2e], dl         ; 0x9a65
-    and al, 0x24                     ; 0x9a68
-    and al, 0                        ; 0x9a6a
+    db 0x00
+__zdseg_90e3:
+    db 'V.$$$', 0
 __zdseg_90e9:
-    sub byte [bx + si], al           ; 0x9a6c
+    db 0x28, 0x00
 __zdseg_90eb:
-    and ax, strict word 0x29         ; 0x9a6e
+    db 0x25, 0x29, 0x00
 __zdseg_90ee:
-    push si                          ; 0x9a71
-    cs and al, 0x24                  ; 0x9a72
-    and al, 0                        ; 0x9a75
+    db 'V.$$$', 0
 __zdseg_90f4:
-    push si                          ; 0x9a77
-    cs and al, 0x24                  ; 0x9a78
-    and al, 0                        ; 0x9a7b
+    db 'V.$$$', 0
 __zdseg_90fa:
-    push si                          ; 0x9a7d
-    cs and al, 0x24                  ; 0x9a7e
-    and al, 0                        ; 0x9a81
+    db 'V.$$$', 0
 __zdseg_9100:
-    sub ch, byte [bp + si]           ; 0x9a83
-    sub al, byte [bx + si]           ; 0x9a85
+    db 0x2a, 0x2a, 0x2a, 0x00
 __zdseg_9104:
-    push si                          ; 0x9a87
-    cs and al, 0x24                  ; 0x9a88
-    and al, 0                        ; 0x9a8b
+    db 'V.$$$', 0
 __zsave_si:
-    add byte [bx + si], al           ; 0x9a8d
+    db 0x00, 0x00
 __zsave_di:
-    add byte [bx + si], al           ; 0x9a8f
+    db 0x00, 0x00
 __zsave_sp:
-    add byte [bx + si], al           ; 0x9a91
+    db 0x00, 0x00
 __zsave_bp:
-    add byte [bx + si], al           ; 0x9a93
+    db 0x00, 0x00
 __zsave_ret:
-    add byte [bx + si], al           ; 0x9a95
+    db 0x00, 0x00
 
 __zimage_end:
 absolute __zimage_end

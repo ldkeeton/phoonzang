@@ -36,22 +36,22 @@ bss_9180 equ __zdseg_end + (__zobss_9180 - __zdata_start)
 %include "vmext/api_idx_0002_OTTG.asm"     ; 0x021c
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_90a5 equ __zdseg_end + 0x000d
-dseg_90b2 equ __zdseg_end + 0x001a
-dseg_90bf equ __zdseg_end + 0x0027
-dseg_90cc equ __zdseg_end + 0x0034
-dseg_90d9 equ __zdseg_end + 0x0041
-dseg_90e6 equ __zdseg_end + 0x004e
-dseg_90f3 equ __zdseg_end + 0x005b
-dseg_9100 equ __zdseg_end + 0x0068
-dseg_910d equ __zdseg_end + 0x0075
-dseg_911a equ __zdseg_end + 0x0082
-dseg_9127 equ __zdseg_end + 0x008f
-dseg_9134 equ __zdseg_end + 0x009c
-dseg_9141 equ __zdseg_end + 0x00a9
-dseg_914e equ __zdseg_end + 0x00b6
-dseg_915b equ __zdseg_end + 0x00c3
-dseg_9168 equ __zdseg_end + 0x00d0
+dseg_90a5 equ __zdseg_end + (__zdseg_90a5 - __zdata_start)
+dseg_90b2 equ __zdseg_end + (__zdseg_90b2 - __zdata_start)
+dseg_90bf equ __zdseg_end + (__zdseg_90bf - __zdata_start)
+dseg_90cc equ __zdseg_end + (__zdseg_90cc - __zdata_start)
+dseg_90d9 equ __zdseg_end + (__zdseg_90d9 - __zdata_start)
+dseg_90e6 equ __zdseg_end + (__zdseg_90e6 - __zdata_start)
+dseg_90f3 equ __zdseg_end + (__zdseg_90f3 - __zdata_start)
+dseg_9100 equ __zdseg_end + (__zdseg_9100 - __zdata_start)
+dseg_910d equ __zdseg_end + (__zdseg_910d - __zdata_start)
+dseg_911a equ __zdseg_end + (__zdseg_911a - __zdata_start)
+dseg_9127 equ __zdseg_end + (__zdseg_9127 - __zdata_start)
+dseg_9134 equ __zdseg_end + (__zdseg_9134 - __zdata_start)
+dseg_9141 equ __zdseg_end + (__zdseg_9141 - __zdata_start)
+dseg_914e equ __zdseg_end + (__zdseg_914e - __zdata_start)
+dseg_915b equ __zdseg_end + (__zdseg_915b - __zdata_start)
+dseg_9168 equ __zdseg_end + (__zdseg_9168 - __zdata_start)
 ; bss_9180  equ __zdseg_end + (__zobss_9180 - __zdata_start)
 bss_9188  equ __zdseg_end + (__zobss_9188 - __zdata_start)
 %include "vmext/api_idx_0002_VNLG.asm"     ; 0x0262
@@ -217,188 +217,50 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 __zdseg_9098:
 __zdata_start:
-    dec bp                           ; 0x5259
-    inc cx                           ; 0x525a
-    pop dx                           ; 0x525b
-    inc bp                           ; 0x525c
-    inc sp                           ; 0x525d
-    inc cx                           ; 0x525e
-    push sp                          ; 0x525f
-    inc cx                           ; 0x5260
-    cs push si                       ; 0x5261
-    inc di                           ; 0x5263
-    inc cx                           ; 0x5264
-    add byte [bx + 0x41], dl         ; 0x5265
-    push sp                          ; 0x5268
-    push dx                          ; 0x5269
-    inc sp                           ; 0x526a
-    inc cx                           ; 0x526b
-    push sp                          ; 0x526c
-    inc cx                           ; 0x526d
-    cs push si                       ; 0x526e
-    inc di                           ; 0x5270
-    inc cx                           ; 0x5271
-    add byte [si + 0x52], dl         ; 0x5272
-    inc bp                           ; 0x5275
-    inc bp                           ; 0x5276
-    inc sp                           ; 0x5277
-    inc cx                           ; 0x5278
-    push sp                          ; 0x5279
-    inc cx                           ; 0x527a
-    cs push si                       ; 0x527b
-    inc di                           ; 0x527d
-    inc cx                           ; 0x527e
-    add byte [bx + 0x54], cl         ; 0x527f
-    push di                          ; 0x5282
-    dec si                           ; 0x5283
-    inc sp                           ; 0x5284
-    inc cx                           ; 0x5285
-    push sp                          ; 0x5286
-    inc cx                           ; 0x5287
-    cs push si                       ; 0x5288
-    inc di                           ; 0x528a
-    inc cx                           ; 0x528b
-    add byte [si + 0x49], dl         ; 0x528c
-    dec sp                           ; 0x528f
-    inc bp                           ; 0x5290
-    inc sp                           ; 0x5291
-    inc cx                           ; 0x5292
-    push sp                          ; 0x5293
-    inc cx                           ; 0x5294
-    cs push si                       ; 0x5295
-    inc di                           ; 0x5297
-    inc cx                           ; 0x5298
-    add byte [si + 0x4f], dl         ; 0x5299
-    push di                          ; 0x529c
-    dec si                           ; 0x529d
-    inc sp                           ; 0x529e
-    inc cx                           ; 0x529f
-    push sp                          ; 0x52a0
-    inc cx                           ; 0x52a1
-    cs push si                       ; 0x52a2
-    inc di                           ; 0x52a4
-    inc cx                           ; 0x52a5
-    add byte [bx + 0x54], cl         ; 0x52a6
-    push di                          ; 0x52a9
-    dec si                           ; 0x52aa
-    inc sp                           ; 0x52ab
-    inc cx                           ; 0x52ac
-    push sp                          ; 0x52ad
-    inc cx                           ; 0x52ae
-    cs push si                       ; 0x52af
-    inc di                           ; 0x52b1
-    inc cx                           ; 0x52b2
-    add byte [bx + 0x41], dl         ; 0x52b3
-    push sp                          ; 0x52b6
-    push dx                          ; 0x52b7
-    inc sp                           ; 0x52b8
-    inc cx                           ; 0x52b9
-    push sp                          ; 0x52ba
-    inc cx                           ; 0x52bb
-    cs push si                       ; 0x52bc
-    inc di                           ; 0x52be
-    inc cx                           ; 0x52bf
-    add byte [si + 0x49], dl         ; 0x52c0
-    dec sp                           ; 0x52c3
-    inc bp                           ; 0x52c4
-    inc sp                           ; 0x52c5
-    inc cx                           ; 0x52c6
-    push sp                          ; 0x52c7
-    inc cx                           ; 0x52c8
-    cs push si                       ; 0x52c9
-    inc di                           ; 0x52cb
-    inc cx                           ; 0x52cc
-    add byte [si + 0x52], dl         ; 0x52cd
-    inc bp                           ; 0x52d0
-    inc bp                           ; 0x52d1
-    inc sp                           ; 0x52d2
-    inc cx                           ; 0x52d3
-    push sp                          ; 0x52d4
-    inc cx                           ; 0x52d5
-    cs push si                       ; 0x52d6
-    inc di                           ; 0x52d8
-    inc cx                           ; 0x52d9
-    add byte [bx + 0x43], cl         ; 0x52da
-    inc cx                           ; 0x52dd
-    push si                          ; 0x52de
-    inc sp                           ; 0x52df
-    inc cx                           ; 0x52e0
-    push sp                          ; 0x52e1
-    inc cx                           ; 0x52e2
-    cs push si                       ; 0x52e3
-    inc di                           ; 0x52e5
-    inc cx                           ; 0x52e6
-    add byte [bp + di + 0x41], al    ; 0x52e7
-    push si                          ; 0x52ea
-    inc bp                           ; 0x52eb
-    inc sp                           ; 0x52ec
-    inc cx                           ; 0x52ed
-    push sp                          ; 0x52ee
-    inc cx                           ; 0x52ef
-    cs push si                       ; 0x52f0
-    inc di                           ; 0x52f2
-    inc cx                           ; 0x52f3
-    add byte [bx + 0x43], cl         ; 0x52f4
-    inc cx                           ; 0x52f7
-    push si                          ; 0x52f8
-    inc sp                           ; 0x52f9
-    inc cx                           ; 0x52fa
-    push sp                          ; 0x52fb
-    inc cx                           ; 0x52fc
-    cs push si                       ; 0x52fd
-    inc di                           ; 0x52ff
-    inc cx                           ; 0x5300
-    add byte [bx + 0x41], dl         ; 0x5301
-    push sp                          ; 0x5304
-    push dx                          ; 0x5305
-    inc sp                           ; 0x5306
-    inc cx                           ; 0x5307
-    push sp                          ; 0x5308
-    inc cx                           ; 0x5309
-    cs push si                       ; 0x530a
-    inc di                           ; 0x530c
-    inc cx                           ; 0x530d
-    add byte [si + 0x52], dl         ; 0x530e
-    inc bp                           ; 0x5311
-    inc bp                           ; 0x5312
-    inc sp                           ; 0x5313
-    inc cx                           ; 0x5314
-    push sp                          ; 0x5315
-    inc cx                           ; 0x5316
-    cs push si                       ; 0x5317
-    inc di                           ; 0x5319
-    inc cx                           ; 0x531a
-    add byte [bx + 0x54], cl         ; 0x531b
-    push di                          ; 0x531e
-    dec si                           ; 0x531f
-    inc sp                           ; 0x5320
-    inc cx                           ; 0x5321
-    push sp                          ; 0x5322
-    inc cx                           ; 0x5323
-    cs push si                       ; 0x5324
-    inc di                           ; 0x5326
-    inc cx                           ; 0x5327
-    add byte [bx + 0x41], dl         ; 0x5328
-    push sp                          ; 0x532b
-    push dx                          ; 0x532c
-    inc sp                           ; 0x532d
-    inc cx                           ; 0x532e
-    push sp                          ; 0x532f
-    inc cx                           ; 0x5330
-    cs push si                       ; 0x5331
-    inc di                           ; 0x5333
-    inc cx                           ; 0x5334
-    add byte [bx + si], al           ; 0x5335
+    db 'MAZEDATA.VGA', 0
+__zdseg_90a5:
+    db 'WATRDATA.VGA', 0
+__zdseg_90b2:
+    db 'TREEDATA.VGA', 0
+__zdseg_90bf:
+    db 'OTWNDATA.VGA', 0
+__zdseg_90cc:
+    db 'TILEDATA.VGA', 0
+__zdseg_90d9:
+    db 'TOWNDATA.VGA', 0
+__zdseg_90e6:
+    db 'OTWNDATA.VGA', 0
+__zdseg_90f3:
+    db 'WATRDATA.VGA', 0
+__zdseg_9100:
+    db 'TILEDATA.VGA', 0
+__zdseg_910d:
+    db 'TREEDATA.VGA', 0
+__zdseg_911a:
+    db 'OCAVDATA.VGA', 0
+__zdseg_9127:
+    db 'CAVEDATA.VGA', 0
+__zdseg_9134:
+    db 'OCAVDATA.VGA', 0
+__zdseg_9141:
+    db 'WATRDATA.VGA', 0
+__zdseg_914e:
+    db 'TREEDATA.VGA', 0
+__zdseg_915b:
+    db 'OTWNDATA.VGA', 0
+__zdseg_9168:
+    db 'WATRDATA.VGA', 0
+    db 0x00
 __zsave_si:
-    add byte [bx + si], al           ; 0x5337
+    db 0x00, 0x00
 __zsave_di:
-    add byte [bx + si], al           ; 0x5339
+    db 0x00, 0x00
 __zsave_sp:
-    add byte [bx + si], al           ; 0x533b
+    db 0x00, 0x00
 __zsave_bp:
-    add byte [bx + si], al           ; 0x533d
+    db 0x00, 0x00
 __zsave_ret:
-    add byte [bx + si], al           ; 0x533f
+    db 0x00, 0x00
 
 __zimage_end:
 absolute __zimage_end

@@ -23,9 +23,10 @@ manager (``ovloader_``) in the main program's segment.  In the static file
 this target always falls **outside** the file, distinguishing real entries
 from intra-module calls.
 
-The phase marks the 14-byte header as data, seeds the loader entry
-(``o_entry`` mapped into the code block), and registers every prologue
-target as a code seed for the recursive descent phase.
+The phase marks the 14-byte header and the data block after the code as
+data, seeds the loader entry (``o_entry`` mapped into the code block), and
+registers every prologue target as a code seed for the recursive descent
+phase.
 """
 
 import struct
@@ -84,9 +85,20 @@ class AztecOverlayPhase(Phase):
             ctx.code_targets.pop(ctx.start_offset, None)
             ctx.seeds = [s for s in ctx.seeds if s.address != ctx.start_offset]
 
-        # Seed the loader entry (o_entry), an offset inside the code block.
         o_corg, o_csize, o_dorg, o_dsize, o_bss, o_entry = struct.unpack_from(
             '<6H', data, 2)
+
+        # The data block follows the code block (``o_csize`` bytes) and is
+        # loaded into the host's data segment, never executed: hard data, so
+        # no descent off the last routine (``$ovbgn``) runs on into it.
+        data_start = min(_HEADER_SIZE + o_csize, n)
+        result[data_start:] = CONF_DATA
+        ctx.hard_data[data_start:] = True
+        for address in [a for a in ctx.code_targets if a >= data_start]:
+            del ctx.code_targets[address]
+        ctx.seeds = [s for s in ctx.seeds if s.address < data_start]
+
+        # Seed the loader entry (o_entry), an offset inside the code block.
         if o_corg <= o_entry < o_corg + o_csize:
             entry = _HEADER_SIZE + (o_entry - o_corg)
             if _HEADER_SIZE <= entry < n:

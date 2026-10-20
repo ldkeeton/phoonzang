@@ -22,7 +22,8 @@ from lib.compare.render import HOST_SYMBOLS_INC, _build_source
 from lib.compare.records import (
     DISPATCH_STRIDE, count_ds_index, count_frozen_addrs, count_hidden_flow,
     count_name_use, count_string_immediates, dispatch_handlers, far_entry_runs,
-    instruction_offsets, thunk_entry_count,
+    fragment_instruction_offsets, instruction_offsets, shared_includes,
+    thunk_entry_count,
 )
 from lib.compare.cotenancy import symbol_tables
 from lib.sidecar.loader import load as load_sidecar
@@ -212,8 +213,13 @@ BASELINE_TOTALS = {
     # Step 4 (the 24 F3 ``equ``s minted upstream) left no inert frozen name:
     # ``names_inert`` 24 -> **0**, ``total`` 26 -> **0** (both ratcheted here).
     # ``hidden_flow`` 150 -> **134** re-measured 2026-10-18 (the tree at
-    # bc4e46ac plus the index-start binding below).
-    'names_used': 7, 'names_inert': 0, 'hidden_flow': 134,
+    # bc4e46ac plus the index-start binding below).  ``hidden_flow`` 143 ->
+    # **56**: the scan walks each ``shared/`` fragment from the offset its
+    # include line gives (``fragment_instruction_offsets``), so a shared
+    # routine's instructions are shown code, not a gap.  The 87 sites gone
+    # were all inside shared fragments (13 of them ``$ovbgn``'s ``call ovmain``,
+    # one per overlay, since 1200eae4 shared it).
+    'names_used': 7, 'names_inert': 0, 'hidden_flow': 56,
     'total': 0,
     # Two classes the per-file census cannot see, because telling an address
     # from a number needs the binary's data segment (plan.md section 5, "DS
@@ -524,10 +530,17 @@ def _scan_hidden_flow():
         image = app_dir / per_binary(sidecar, binary)['file']
         if not image.is_file():
             continue
+        data = image.read_bytes()
         offsets = set()
         for path in _binary_sources(binary):
             offsets |= instruction_offsets(path.read_text(errors='ignore'))
-        hits += count_hidden_flow(image.read_bytes(), offsets)
+        # A shared fragment's lines sit where this binary's include puts it.
+        master = _TREE / f'{binary}.asm'
+        if master.is_file():
+            for name, base in shared_includes(master.read_text()):
+                offsets |= fragment_instruction_offsets(
+                    (_TREE / name).read_text(errors='ignore'), data, base)
+        hits += count_hidden_flow(data, offsets)
     return hits
 
 
@@ -860,6 +873,28 @@ class CensusMeaningCounterTests(unittest.TestCase):
         # instruction the source shows, so nothing is hidden here.
         data = b'\xbb\xe8\x00' + b'\x90' * 4
         self.assertEqual(count_hidden_flow(data, {0x00, 0x03}), [])
+
+    def test_a_shared_fragment_is_walked_from_its_include(self):
+        # ``shared/f.asm`` has no ``; 0x`` comments; the master places it at
+        # 0x10.  Each line follows the last: ``mov ax, 0`` is 3 bytes, the
+        # ``db`` 2, so the ``call`` sits at 0x15 and the source shows it.
+        data = bytearray(b'\x00' * 0x20)
+        data[0x10:0x13] = b'\xb8\x00\x00'
+        data[0x13:0x15] = b'\x80\x41'
+        data[0x15:0x18] = b'\xe8\x02\x00'     # call 0x1a
+        data[0x1a:0x1c] = b'\x90\xc3'
+        master = '%include "shared/f.asm"           ; 0x0010\n'
+        self.assertEqual(shared_includes(master), [('shared/f.asm', 0x10)])
+        fragment = '\n'.join(['; auto-generated', 'f:', '    mov ax, 0',
+                              '    db 0x80, 0x41', '    call g'])
+        offsets = fragment_instruction_offsets(fragment, bytes(data), 0x10)
+        self.assertEqual(offsets, {0x10, 0x15})
+        self.assertEqual(count_hidden_flow(bytes(data), offsets | {0x1a}), [])
+
+    def test_a_fragment_walk_stops_at_a_line_it_cannot_size(self):
+        data = b'\x90' * 8
+        fragment = '\n'.join(['    nop', "    db 'ab', 0", '    nop'])
+        self.assertEqual(fragment_instruction_offsets(fragment, data, 0), {0})
 
     def test_instruction_offsets_skips_data_and_directives(self):
         text = '\n'.join([

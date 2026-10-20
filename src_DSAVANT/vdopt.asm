@@ -137,7 +137,7 @@ bss_9b0c equ __zdseg_end + (__zobss_9b0c - __zdata_start)
 %include "vdopt/api_idx_0002_OHVL.asm"     ; 0x195b
 
 dseg_9098 equ __zdseg_end + (__zdseg_9098 - __zdata_start)
-dseg_9099 equ __zdseg_end + 0x0001
+dseg_9099 equ __zdseg_end + (__zdseg_9099 - __zdata_start)
 %include "vdopt/api_idx_00fa_RIMJ.asm"     ; 0x1a5d
 
 %include "shared/loc_QQUT.asm"              ; 0x1c7f
@@ -212,30 +212,27 @@ _Uend    equ __zdseg_end + (__zobss_end - __zdata_start)
 
 __zdseg_9098:
 __zdata_start:
-    add byte [bx + si], al           ; 0x472f
+    db 0x00
+__zdseg_9099:
+    db 0x00
 __zdseg_909a:
-    sub ch, byte [bp + si]           ; 0x4731
-    sub al, byte [bx + si]           ; 0x4733
+    db 0x2a, 0x2a, 0x2a, 0x00
 __zdseg_909e:
-    push si                          ; 0x4735
-    cs and al, 0x24                  ; 0x4736
-    and al, 0                        ; 0x4739
+    db 'V.$$$', 0
 __zdseg_90a4:
-    push si                          ; 0x473b
-    cs and al, 0x24                  ; 0x473c
-    and al, 0                        ; 0x473f
+    db 'V.$$$', 0
 __zdseg_90aa:
-    add byte [bx + si], al           ; 0x4741
+    db 0x00, 0x00
 __zsave_si:
-    add byte [bx + si], al           ; 0x4743
+    db 0x00, 0x00
 __zsave_di:
-    add byte [bx + si], al           ; 0x4745
+    db 0x00, 0x00
 __zsave_sp:
-    add byte [bx + si], al           ; 0x4747
+    db 0x00, 0x00
 __zsave_bp:
-    add byte [bx + si], al           ; 0x4749
+    db 0x00, 0x00
 __zsave_ret:
-    add byte [bx + si], al           ; 0x474b
+    db 0x00, 0x00
 
 __zimage_end:
 absolute __zimage_end

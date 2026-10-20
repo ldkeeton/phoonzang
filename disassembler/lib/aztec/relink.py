@@ -40,8 +40,9 @@ _DATA_BY_ADDRESS = re.compile(r'(?:dseg|bss)_([0-9a-f]{4})')
 LINKER_SYMBOLS = {'_Cend': '__zres_end', '_Uend': '__zdseg_end'}
 
 #: Linker symbols that mark a place rather than name an object: ``_Uorg`` is
-#: where uninitialized data starts, so the build names it after the object
-#: that starts there (``keep`` in vinstall, ``bss_0cf6`` in ds).
+#: where uninitialized data starts.  It keeps its own name, defined at the
+#: place the original link put it (``_Uorg equ __zbss_2534 - __zdseg_start``
+#: in vinstall), whatever object starts there.
 PLACE_SYMBOLS = frozenset({'_Uorg'})
 
 #: An overlay is linked on its own, so its ``_Uend`` is the end of its own
